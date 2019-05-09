@@ -2,66 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78210183ED
-	for <lists+freedreno@lfdr.de>; Thu,  9 May 2019 05:00:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D7CA19D5A
+	for <lists+freedreno@lfdr.de>; Fri, 10 May 2019 14:40:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B60789257;
-	Thu,  9 May 2019 03:00:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C41E389D1D;
+	Fri, 10 May 2019 12:40:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BD848926F
- for <freedreno@lists.freedesktop.org>; Thu,  9 May 2019 03:00:34 +0000 (UTC)
-Received: by mail-pf1-x442.google.com with SMTP id g9so478822pfo.11
- for <freedreno@lists.freedesktop.org>; Wed, 08 May 2019 20:00:34 -0700 (PDT)
+Received: from mail-yw1-xc33.google.com (mail-yw1-xc33.google.com
+ [IPv6:2607:f8b0:4864:20::c33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08BF489617
+ for <freedreno@lists.freedesktop.org>; Fri, 10 May 2019 01:42:14 +0000 (UTC)
+Received: by mail-yw1-xc33.google.com with SMTP id e74so3458291ywe.11
+ for <freedreno@lists.freedesktop.org>; Thu, 09 May 2019 18:42:13 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=R6mFOl4YJArdXkPl64BdobxdiCxDb1GQAsEcDCxAI1c=;
- b=o6J+NObLOldGJpy15L0nf1S1USLdy8aWOkvqRThMwOdIBwyF8gsK7OF6hpnBaE7mhN
- Bu5hmsMnWpcVyBeTe9v6ke/rouh8a8T1iw1HMH3zzeTFpBITDrrf4lelVq0e3LGO+JIc
- ta4t6Ep3gInb7gWjvQcda64SGlUS5tnxbbg4Ns6dhYF/hHWbbJwgufBGu2SbBzhvF+Ou
- kvagFGvMsNAyStHm18zAPNoWdYG2D1oDWOxYAWGVm35rbpuohoOuhqWvPP+RxQv7K731
- 4W5lyPWID+JDuibJumVScec6ucp6w+iqYbC/IBl3job9NQWCOpmyp6WV8F45myU6O+Gd
- JpiQ==
-X-Gm-Message-State: APjAAAVf+0f9NDr9Z5jNGinmGnj3YuOduMBgi9o0sC3fj+YtXj9rVzS1
- b7F1gTah3xO1AVu9MCdmWrCJhw==
-X-Google-Smtp-Source: APXvYqxgN704DpczLbGfx053xEiv41Nt6oO0nbwl2oNJfPJaAeEeqFFzx6MkSY1scvkrrW5nHXsfWA==
-X-Received: by 2002:a63:5659:: with SMTP id g25mr2416023pgm.59.1557370833308; 
- Wed, 08 May 2019 20:00:33 -0700 (PDT)
-Received: from tuxbook-pro (104-188-17-28.lightspeed.sndgca.sbcglobal.net.
- [104.188.17.28])
- by smtp.gmail.com with ESMTPSA id o5sm901426pfa.135.2019.05.08.20.00.31
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 08 May 2019 20:00:31 -0700 (PDT)
-Date: Wed, 8 May 2019 20:00:47 -0700
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20190509030047.GE2085@tuxbook-pro>
-References: <20190505130413.32253-1-masneyb@onstation.org>
- <20190505130413.32253-5-masneyb@onstation.org>
- <20190507063902.GA2085@tuxbook-pro>
- <20190509021616.GA26228@basecamp>
- <CAF6AEGsM382jB=h7oM3frhZ5fAp+qYUdgiiKSKo1RtR8+ffjrg@mail.gmail.com>
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=J4GPTB2nisjHiJ5n/CLoZ9QaKshaLR4NhNQf9B3Sktw=;
+ b=b1QQLgy+JhZ2hoPS8SWsQ4VypDVYSd2/FiILSu9Vn1Jq1jOdMNSZHChQJ27t+Fy/0e
+ 3rC5DKjEJZu0JYDyEcOmOtZekI0jOdbaLO8joktYnhXaHGIJY0P8x175fsI0uesvzcIj
+ Ckf0/gYsKhjxTHMginwqHbWZklQENUoC2UMV9YkyjYcQEjQKm8obHN5xNrg8vbwlTaVb
+ /EwkdWBvRLD0aNnKXS9a0VD7MnVlZT0Pk/LSFovbpXzaCA1avXMy1pdtezbJmtBIsBiY
+ 8+4rrti0oXke9K79L1IZHyU1PzboDf4qGINRK52l4DFitsZxcFqbHKaJ8eBEeH98nqiT
+ d6og==
+X-Gm-Message-State: APjAAAWgK5PCzruKu7hzJXWf8vXB1AYoIgvU0lBolV7Nr3c+Gf0Q2m68
+ bDw7jknd2QJKN6sO7dQCnMhrttslUPq0SZQzAIPnsfhG+RA=
+X-Google-Smtp-Source: APXvYqxeYn9Ore4BFqNT0GKDa3NvIwY0LOw7kCEXN/mEw4pXLbiuDDef+APV3bS7726XBQpgBlLYD3L9UzjQr8f+Xa0=
+X-Received: by 2002:a25:d196:: with SMTP id i144mr4008761ybg.241.1557452532946; 
+ Thu, 09 May 2019 18:42:12 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAF6AEGsM382jB=h7oM3frhZ5fAp+qYUdgiiKSKo1RtR8+ffjrg@mail.gmail.com>
-User-Agent: Mutt/1.11.4 (2019-03-13)
+From: Shubham Verma <shubhunic@gmail.com>
+Date: Thu, 9 May 2019 10:28:29 +0530
+Message-ID: <CAD=kLpt5pSiy0HBoQ61LR9BGyKUq6jJrHSFE_kp4D3W8W9XVgg@mail.gmail.com>
+To: freedreno@lists.freedesktop.org
+X-Mailman-Approved-At: Fri, 10 May 2019 12:40:15 +0000
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=R6mFOl4YJArdXkPl64BdobxdiCxDb1GQAsEcDCxAI1c=;
- b=AfK/Uume2oPASwykEbs/t9IMEMyllPOQopDa9fMIYaD+zAfbeCEUFdQuIappnyEn3z
- dXioYDA9KBXc/pOKOAihi0asuc6L5//SlvzGt4LgklZGtohHhIVNx3Fst2PBNV2u3PTj
- PiUEOpLgZNU8Jggtcbvz1aU0YT/6i8SvYYCA1qUjdlF3Ol/dGwMiw14DGpN5f5vw2ZkJ
- 1x/5fvkiDw01ozcsLF/oUJy+2+wue9QV5IIjfdiorrI2SfwTjCWItRF/gla27XbLQFuS
- kMSmjYCnOW8T8itm7LgazU11YQiaDQY2lN50WFLZ8I6Mh/r01WIW/ChsfNTLzuX6T0Oh
- yeLw==
-Subject: Re: [Freedreno] [PATCH RFC 4/6] ARM: dts: msm8974: add display
- support
+ d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=J4GPTB2nisjHiJ5n/CLoZ9QaKshaLR4NhNQf9B3Sktw=;
+ b=oYjn4eFOTZRP8NTynFe0KV78hvjHQjXhjY9nOCX4LBctKMmz1AELyduaCyRRoTttHG
+ qOM99IS45F23lY1IwBk/qfKGA7/f88ZvkhiY3P2n6+7FPeZ+DgpJmoRcW0uQ5YmaOq/e
+ Rew41U72ev/pG2eZrJBqsGYp+BOfyDr4VXGzPWIlpRVRwlvO3TVYYyM2WSZmZuaGShZs
+ JqVlgg0dRf/dACytqKOAZ6rt7wTnjKSVTGXlc320acL5v+ZlRDygsJAGjTcJ/tX9IDm3
+ 3kOtwInPobO5v/ovxiVSQpgSu6RkZ4oXbAPpIYB616SC0MSPsGA8AxbHsQWziQcyHcxI
+ 8HAw==
+Subject: [Freedreno] About EVOC 2019 project ideas
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -74,58 +59,67 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno <freedreno@lists.freedesktop.org>,
- Brian Masney <masneyb@onstation.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1616865447=="
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-T24gV2VkIDA4IE1heSAxOToyNSBQRFQgMjAxOSwgUm9iIENsYXJrIHdyb3RlOgoKPiBPbiBXZWQs
-IE1heSA4LCAyMDE5IGF0IDc6MTYgUE0gQnJpYW4gTWFzbmV5IDxtYXNuZXliQG9uc3RhdGlvbi5v
-cmc+IHdyb3RlOgo+ID4KPiA+IE9uIE1vbiwgTWF5IDA2LCAyMDE5IGF0IDExOjM5OjAyUE0gLTA3
-MDAsIEJqb3JuIEFuZGVyc3NvbiB3cm90ZToKPiA+ID4gT24gU3VuIDA1IE1heSAwNjowNCBQRFQg
-MjAxOSwgQnJpYW4gTWFzbmV5IHdyb3RlOgo+ID4gPiA+IGRpZmYgLS1naXQgYS9hcmNoL2FybS9i
-b290L2R0cy9xY29tLW1zbTg5NzQuZHRzaSBiL2FyY2gvYXJtL2Jvb3QvZHRzL3Fjb20tbXNtODk3
-NC5kdHNpCj4gPiA+IFsuLl0KPiA+ID4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgY2xv
-Y2tzID0gPCZtbWNjIE1EU1NfTURQX0NMSz4sCj4gPiA+ID4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIDwmbW1jYyBNRFNTX0FIQl9DTEs+LAo+ID4gPiA+ICsgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICA8Jm1tY2MgTURTU19BWElfQ0xLPiwKPiA+ID4gPiAr
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPCZtbWNjIE1EU1NfQllURTBfQ0xL
-PiwKPiA+ID4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPCZtbWNjIE1E
-U1NfUENMSzBfQ0xLPiwKPiA+ID4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgPCZtbWNjIE1EU1NfRVNDMF9DTEs+LAo+ID4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICA8Jm1tY2MgTU1TU19NSVNDX0FIQl9DTEs+Owo+ID4gPiA+ICsgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBjbG9jay1uYW1lcyA9ICJtZHBfY29yZSIsCj4gPiA+ID4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgImlmYWNlIiwKPiA+ID4gPiAr
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiYnVzIiwKPiA+ID4gPiAr
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiYnl0ZSIsCj4gPiA+ID4g
-KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgInBpeGVsIiwKPiA+ID4g
-PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiY29yZSIsCj4gPiA+
-ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgImNvcmVfbW1zcyI7
-Cj4gPiA+Cj4gPiA+IFVubGVzcyBJIGVuYWJsZSBNTVNTX01NU1NOT0NfQVhJX0NMSyBhbmQgTU1T
-U19TMF9BWElfQ0xLIEkgZ2V0IHNvbWUKPiA+ID4gdW5kZXJydW4gZXJyb3IgZnJvbSBEU0kuIFlv
-dSBkb24ndCBzZWUgYW55dGhpbmcgbGlrZSB0aGlzPwo+ID4gPgo+ID4gPiAoVGhlc2UgY2xvY2tz
-IGFyZSBjb250cm9sbGVkIGJ5IG1zbV9idXMgZG93bnN0cmVhbSBhbmQgc2hvdWxkIGJlIGRyaXZl
-bgo+ID4gPiBieSBpbnRlcmNvbm5lY3QgdXBzdHJlYW0pCj4gPiA+Cj4gPiA+Cj4gPiA+IEFwYXJ0
-IGZyb20gdGhpcywgSSB0aGluayB0aGlzIGxvb2tzIG5pY2UuIEhhcHB5IHRvIHNlZSB0aGUgcHJv
-Z3Jlc3MuCj4gPgo+ID4gTm8sIEknbSBub3Qgc2VlaW5nIGFuIHVuZGVycnVuIGVycm9ycyBmcm9t
-IHRoZSBEU0kuIEkgdGhpbmsgdGhlIGNsb2Nrcwo+ID4gYXJlIGZpbmUgc2luY2UgSSdtIGFibGUg
-dG8gZ2V0IHRoaXMgd29ya2luZyB3aXRoIDQuMTcgdXNpbmcgdGhlc2Ugc2FtZQo+ID4gY2xvY2tz
-LiBJIGp1c3Qgc2VudCBvdXQgdjIgYW5kIHRoZSBjb3ZlciBsZXR0ZXIgaGFzIHNvbWUgZGV0YWls
-cywgYWxvbmcKPiA+IHdpdGggdGhlIGZ1bGwgZG1lc2cuCj4gCj4gc2luY2Ugd2UgZG9uJ3QgaGF2
-ZSBpbnRlcmNvbm5lY3QgZHJpdmVyIGZvciA4OTc0LCBJIGd1ZXNzIHRoZXJlIGlzCj4gc29tZSBj
-aGFuY2UgdGhhdCB0aGluZ3Mgd29yayBvciBub3QgYmFzZWQgb24gaG93IGxrIGxlYXZlcyB0aGlu
-Z3M/Cj4gCgpSaWdodCwgSSBndWVzcyB0aGUgYm9vdGxvYWRlciBvbiBteSBkZXZpY2UgZG9lcyBu
-b3QgbGVhdmUgdGhlIGJ1c3Nlcwp0aWNraW5nIC0gcGVyaGFwcyB0aGVyZSdzIGEgYm9vdCBzcGxh
-c2ggaW52b2x2ZWQgb24gQnJpYW4ncyBkZXZpY2U/CgpSZWdhcmRsZXNzLCB0aGlzIHdvcmtzIG9u
-IE5leHVzIDUgYW5kIGFsbG93cyBCcmlhbiB0byBtYWtlIGZ1cnRoZXIKcHJvZ3Jlc3Mgc28gSSdt
-IGFsbCBmb3IgbWVyZ2luZyBpdC4KClJlZ2FyZHMsCkJqb3JuCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJlZWRy
-ZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVubw==
+--===============1616865447==
+Content-Type: multipart/alternative; boundary="000000000000fb1d7205887eac36"
+
+--000000000000fb1d7205887eac36
+Content-Type: text/plain; charset="UTF-8"
+
+Hello Dear Sir,
+
+My name is Shubham Verma. I am a B tech 2nd-year I.T. student I would like
+to look into working with X.Org for the Endless Vacation of Code program
+2019 this summer.
+
+As this is my first EVOC  I wanted to know what other things I have to do
+to be part of an organization.
+
+I mentioned my interest and project on which I want to work on below, have
+a look at that and tell me what will be good for me. I want to work on the
+project of Texture Tiling and Compressed Textures under the guidance of
+yours and I want to know which project of Freedreno in the idealist is not
+selected by any student.
+
+I would be grateful if you can tell me if there's anything else that I
+could do which would be appreciated. Any further guidance or inputs would
+certainly be of great help.
+
+
+Thank you!
+
+--000000000000fb1d7205887eac36
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div>Hello Dear Sir,</div><div><br></div>=
+<div>My name is Shubham Verma. I am a B tech 2nd-year I.T. student I would =
+like to look into working with X.Org for the Endless Vacation of Code progr=
+am 2019 this summer.</div><div><br></div><div>As this is my first EVOC=C2=
+=A0 I wanted to know what other things I have to do to be part of an organi=
+zation.</div><div><br></div><div>I mentioned my interest and project on whi=
+ch I want to work on below, have a look at that and tell me what will be go=
+od for me. I want to work on the project of Texture Tiling and Compressed T=
+extures under the guidance of yours and I want to know which project of Fre=
+edreno in the idealist is not selected by any student.</div><div><br></div>=
+<div>I would be grateful if you can tell me if there&#39;s anything else th=
+at I could do which would be appreciated. Any further guidance or inputs wo=
+uld certainly be of great help.</div><div><br></div><div><br></div><div>Tha=
+nk you!</div></div></div>
+
+--000000000000fb1d7205887eac36--
+
+--===============1616865447==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5v
+IG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
+
+--===============1616865447==--
