@@ -1,56 +1,41 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CCC22D573
-	for <lists+freedreno@lfdr.de>; Wed, 29 May 2019 08:23:34 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6790B2D944
+	for <lists+freedreno@lfdr.de>; Wed, 29 May 2019 11:41:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E146D6E0EC;
-	Wed, 29 May 2019 06:23:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3245D89F75;
+	Wed, 29 May 2019 09:41:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
- [IPv6:2a00:1450:4864:20::241])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 758B76E0EC
- for <freedreno@lists.freedesktop.org>; Wed, 29 May 2019 06:23:31 +0000 (UTC)
-Received: by mail-lj1-x241.google.com with SMTP id q16so1211062ljj.8
- for <freedreno@lists.freedesktop.org>; Tue, 28 May 2019 23:23:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Y1SBl/NhErMiMqrSROQABj44p6n5fylOaEGm2rxHFac=;
- b=lNul3TOR8XAdLdw2x7mzrfrhtzIBObTWtU1p61sCK+c7TI02MB4uRgiXA308efC298
- QjcoxTZgYR6e/T3lA4Z8mC28gVsIsnFIRwdVRbwCuucENuGhpwmXGLPN3SITFXo5bL7q
- hDgxQwwxWPMWg0dMyxkydkvViX3UvrjFop26jVRSMkzTc8YcvIhZQimpGnCi/hcJAt1S
- iYpvcEv7Uz05Ni4weDd7x0smRuLLw0k8uPplLbhlmU5MiPqniwOv1ZLceUqhTi0dXhGE
- DcOXzS4Ew+9nqXwtQkUR1GHgS8Ee6G6X63dxses+vplWJW/1+Z4O2AjDxR1BaLBgSgcr
- L+1w==
-X-Gm-Message-State: APjAAAVnalCTowL+XWy4stSgFlBwkcUwPvWlHCZ4mWxnALvWkJIr9ovi
- sLQy+mIStvdlOIB12Qfdl7OMm6dMzQSPDyzIxnXwgQ==
-X-Google-Smtp-Source: APXvYqwIsl1wSDxK9EPcOc6HNZDGzaYIXxohtHwHpz4z0RvbNyq1y2+YZmevdVoB7By354baiJgjeTvrt9wKyS/5rzA=
-X-Received: by 2002:a2e:8997:: with SMTP id c23mr1321995lji.94.1559111009909; 
- Tue, 28 May 2019 23:23:29 -0700 (PDT)
-MIME-Version: 1.0
+Received: from onstation.org (onstation.org [52.200.56.107])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D6176E03B;
+ Wed, 29 May 2019 09:41:54 +0000 (UTC)
+Received: from localhost (c-98-239-145-235.hsd1.wv.comcast.net
+ [98.239.145.235])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested) (Authenticated sender: masneyb)
+ by onstation.org (Postfix) with ESMTPSA id 9808F3E80A;
+ Wed, 29 May 2019 09:41:52 +0000 (UTC)
+Date: Wed, 29 May 2019 05:41:52 -0400
+From: Brian Masney <masneyb@onstation.org>
+To: Linus Walleij <linus.walleij@linaro.org>
+Message-ID: <20190529094152.GB13436@basecamp>
 References: <20190509020352.14282-1-masneyb@onstation.org>
  <CACRpkda-7+ggoeMD9=erPX09OWteX0bt+qP60_Yv6=4XLqNDZQ@mail.gmail.com>
  <20190529011705.GA12977@basecamp>
-In-Reply-To: <20190529011705.GA12977@basecamp>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Wed, 29 May 2019 08:23:17 +0200
-Message-ID: <CACRpkdZu5KxKTMqAM5rueWbrXbfPNorOOerezCAA3vgAR6cD5g@mail.gmail.com>
-To: Brian Masney <masneyb@onstation.org>
-X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc;
- bh=Y1SBl/NhErMiMqrSROQABj44p6n5fylOaEGm2rxHFac=;
- b=oqk/J0AF4QeADPOdicRdeDUwsHkDSXWjWx8dSgJe6kYqicSzaWT6We5F12PmUwMZ65
- LMtry+PPgl9aZ+ehVfQ3aYUPdsUA+0G/0MxVYzVP3GQ7nbyVaWAFtqS14q9Cz/sXTVWw
- WStWmxJlYuL0EZHA9ZLPC+k+8DEk47jsreW/64yj3ouY/mC8ANmDOehvx6T5ccr5eMGf
- 1WHWfK+w0dKIuRVlMUYtK5EJTnE70DhNt1doisAzvDA3kA4nYYZdqKIMaavmi3/4P3dM
- OFEXNXqpmonqPRobjHOdNVf7Lw0XFzgEPkX3HUfI1XRrIa4g+PCInqe2zu8U3pN8pT/h
- jBAg==
+ <CACRpkdZu5KxKTMqAM5rueWbrXbfPNorOOerezCAA3vgAR6cD5g@mail.gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CACRpkdZu5KxKTMqAM5rueWbrXbfPNorOOerezCAA3vgAR6cD5g@mail.gmail.com>
+X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=onstation.org; s=default; t=1559122913;
+ bh=fAIT6Gqdt//3ui/hAaGpZ95WCJf2S6gz5J7z91LX3xU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=uDwKDHPwA+58QqCzC0Rg04rxThkFy0yaNMhRG8AOoQTAMbnuw/G+EH8RYfMhlJ/Tl
+ My9ZVW4LkMPkxL0I/L8wkMl0ZHEwT6cIPFfZXuh5DfzDM+dYTmGaJ7rdL1hF+63oXo
+ XTWXWh0Z+N/0W3PuP3A7PWdxXpTsnbRpSdtZq3Xs=
 Subject: Re: [Freedreno] [PATCH RFC v2 0/6] ARM: qcom: initial Nexus 5
  display support
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -77,18 +62,34 @@ Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-T24gV2VkLCBNYXkgMjksIDIwMTkgYXQgMzoxNyBBTSBCcmlhbiBNYXNuZXkgPG1hc25leWJAb25z
-dGF0aW9uLm9yZz4gd3JvdGU6Cgo+IEl0J3MgaW4gbG93IHNwZWVkIG1vZGUgYnV0IGl0cyB1c2Fi
-bGUuCgpIb3cgbG93IHNwZWVkIGlzIHRoYXQ/Cgo+IEkgYXNzdW1lIHRoYXQgaXQncyByZWxhdGVk
-IHRvIHRoZQo+IHZibGFuayBldmVudHMgbm90IHdvcmtpbmcgcHJvcGVybHk/CgpUaGV5IGFyZSBv
-bmx5IHdhaXRpbmcgZm9yIDUwIG1zIGJlZm9yZSB0aW1pbmcgb3V0LCBJIHJhaXNlZCBpdAp0byAx
-MDBtcyBpbiB0aGUgLW5leHQga2VybmVsLiBJJ20gc3RpbGwgc3VzcGljaW91cyBhYm91dCB0aGlz
-CmV2ZW4gdGhvdWdoIEkgdGhpbmsgeW91IHNhaWQgdGhpcyB3YXMgbm90IHRoZSBwcm9ibGVtLgoK
-Rm9yIGEgY29tbWFuZCBtb2RlIHBhbmVsIGluIExQIG1vZGUgaXQgd2lsbCBuZXZlcnRoZWxlc3MK
-YmUgbW9yZSB0aGFuIDEwMG1zIGZvciBzdXJlLCB0aGUgdXBkYXRlIGlzIHZpc2libGUgdG8gdGhl
-Cm5ha2VkIGV5ZS4KClJhaXNlIGl0IHRvIDEwMDAwIG1zIG9yIHNvbWV0aGluZyBhbmQgc2VlIHdo
-YXQgaGFwcGVucy4KZHJpdmVycy9ncHUvZHJtL2RybV9hdG9taWNfaGVscGVyLmM6CiBtc2Vjc190
-b19qaWZmaWVzKDUwKQoKWW91cnMsCkxpbnVzIFdhbGxlaWoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJl
-bm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
+T24gV2VkLCBNYXkgMjksIDIwMTkgYXQgMDg6MjM6MTdBTSArMDIwMCwgTGludXMgV2FsbGVpaiB3
+cm90ZToKPiBPbiBXZWQsIE1heSAyOSwgMjAxOSBhdCAzOjE3IEFNIEJyaWFuIE1hc25leSA8bWFz
+bmV5YkBvbnN0YXRpb24ub3JnPiB3cm90ZToKPiAKPiA+IEl0J3MgaW4gbG93IHNwZWVkIG1vZGUg
+YnV0IGl0cyB1c2FibGUuCj4gCj4gSG93IGxvdyBzcGVlZCBpcyB0aGF0PwoKSSBkb24ndCBoYXZl
+IGEgbnVtYmVyIGJ1dCBteSB0ZXN0IHdpdGggNC4xNyBpcyB0byBydW4KJ2NhdCAvZXRjL3Bhc3N3
+ZCA+IC9kZXYvdHR5MScgb3ZlciBhIHNlcmlhbCBjYWJsZS4gVGhlIGZpcnN0IDItMyBjYWxscwp3
+aWxsIGZpbGwgdXAgdGhlIHNjcmVlbiBhbmQgdGhlIGZpbGUgY29udGVudHMgYXBwZWFyIHRvIHNo
+b3cgdXAgb24gdGhlCnNjcmVlbiBpbW1lZGlhdGVseSB0byB0aGUgaHVtYW4gZXllLiBUaGUgbmV4
+dCB0aW1lIHRoYXQgSSBydW4gaXQKcmVxdWlyZXMgc2Nyb2xsaW5nIHRoZSBlbnRpcmUgY29uc29s
+ZSBhbmQgdGhlcmUgaXMgYSBzbWFsbCBmcmFjdGlvbiBvZgphIHNlY29uZCB3aGVyZSBJIHNlZSB0
+aGUgZW50aXJlIGZyYW1lYnVmZmVyIGNvbnRlbnRzIHNjcm9sbCB1cC4gSQpkb24ndCBoYXZlIGEg
+Z3JhcGhpY3MgYmFja2dyb3VuZCwgYnV0IEkgYmVsaWV2ZSB0aGF0IHRoaXMgaXMgdGhlCnRlYXJp
+bmcgZWZmZWN0IHRoYXQgSSdtIHNlZWluZyBiYXNlZCBvbiB3aGF0IEkndmUgcmVhZC4gSSBiZWxp
+ZXZlIHRoYXQKZGlzcC10ZS1ncGlvcyBjYW4gYmUgdXNlZCB0byBtaXRpZ2F0ZSB0aGlzIHRlYXJp
+bmcgZWZmZWN0LiBJIGhhdmUgYSBmZXcKcXVlc3Rpb25zIGFib3V0IHRoaXMgbGF0ZXIgb25jZSB3
+ZSBnZXQgdGhlIGJhc2ljIGRpc3BsYXkgd29ya2luZy4KCj4gPiBJIGFzc3VtZSB0aGF0IGl0J3Mg
+cmVsYXRlZCB0byB0aGUKPiA+IHZibGFuayBldmVudHMgbm90IHdvcmtpbmcgcHJvcGVybHk/Cj4g
+Cj4gVGhleSBhcmUgb25seSB3YWl0aW5nIGZvciA1MCBtcyBiZWZvcmUgdGltaW5nIG91dCwgSSBy
+YWlzZWQgaXQKPiB0byAxMDBtcyBpbiB0aGUgLW5leHQga2VybmVsLiBJJ20gc3RpbGwgc3VzcGlj
+aW91cyBhYm91dCB0aGlzCj4gZXZlbiB0aG91Z2ggSSB0aGluayB5b3Ugc2FpZCB0aGlzIHdhcyBu
+b3QgdGhlIHByb2JsZW0uCj4gCj4gRm9yIGEgY29tbWFuZCBtb2RlIHBhbmVsIGluIExQIG1vZGUg
+aXQgd2lsbCBuZXZlcnRoZWxlc3MKPiBiZSBtb3JlIHRoYW4gMTAwbXMgZm9yIHN1cmUsIHRoZSB1
+cGRhdGUgaXMgdmlzaWJsZSB0byB0aGUKPiBuYWtlZCBleWUuCj4gCj4gUmFpc2UgaXQgdG8gMTAw
+MDAgbXMgb3Igc29tZXRoaW5nIGFuZCBzZWUgd2hhdCBoYXBwZW5zLgo+IGRyaXZlcnMvZ3B1L2Ry
+bS9kcm1fYXRvbWljX2hlbHBlci5jOgo+ICBtc2Vjc190b19qaWZmaWVzKDUwKQoKSSBwcmV2aW91
+c2x5IHJhaXNlZCB0aG9zZSB0aW1lb3V0cyBhcyBoaWdoIGFzIDUgc2Vjb25kcyBhbmQgaXQgc3Rp
+bGwKaGFzIHRoZSBzYW1lIGlzc3VlLiBXcml0aW5nIHRvIC9kZXYvdHR5MSBjYW4gdGFrZSBhbnl3
+aGVyZSBiZXR3ZWVuIGEgZmV3CnNlY29uZHMgdG8gMzAgc2Vjb25kcyBvciBtb3JlLgoKQnJpYW4K
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5v
+IG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
