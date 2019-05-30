@@ -1,40 +1,40 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEB702EBF5
-	for <lists+freedreno@lfdr.de>; Thu, 30 May 2019 05:17:15 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5871E2EC27
+	for <lists+freedreno@lfdr.de>; Thu, 30 May 2019 05:19:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70A7C6E2DD;
-	Thu, 30 May 2019 03:17:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4B556E30F;
+	Thu, 30 May 2019 03:19:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EAB36E2DD;
- Thu, 30 May 2019 03:17:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CECE89B98;
+ Thu, 30 May 2019 03:19:19 +0000 (UTC)
 Received: from localhost (ip67-88-213-2.z213-88-67.customer.algx.net
  [67.88.213.2])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7035124692;
- Thu, 30 May 2019 03:17:13 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id ED14F2485E;
+ Thu, 30 May 2019 03:19:18 +0000 (UTC)
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org
-Date: Wed, 29 May 2019 20:04:58 -0700
-Message-Id: <20190530030534.446007552@linuxfoundation.org>
+Date: Wed, 29 May 2019 20:05:57 -0700
+Message-Id: <20190530030503.211447709@linuxfoundation.org>
 X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20190530030523.133519668@linuxfoundation.org>
-References: <20190530030523.133519668@linuxfoundation.org>
+In-Reply-To: <20190530030446.953835040@linuxfoundation.org>
+References: <20190530030446.953835040@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=kernel.org; s=default; t=1559186233;
- bh=72OU6/E9r+R3S7kGaNCtbOCaNYutmfAb+PEzWF0SBPU=;
+ d=kernel.org; s=default; t=1559186359;
+ bh=dBdt0Mj0rKev0+tWtSjsaimFMylCqUd3zYLueb9grdo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=1lTsoB/B32VQbatIQ88quU6ft530uisTiWNcB0mjtaPYBmWzVAedfw9UE3f2CSCbo
- sVN67yJMVlWsyh5uN4sxgf5i8ZyQ0uYwmW+IESk3iJYADQPKa/SM7BCrZ4B+wO1Z73
- vQsm6OvhpsHykgKtHASvYTfF0bNlI/TY/NKPOOvY=
-Subject: [Freedreno] [PATCH 4.19 140/276] drm/msm: a5xx: fix possible object
+ b=g91ZQEXMOyXMo/Hu+g8ezBFkatSC9J/HiHh/F9g8iLA6s2qhPoCoOZe3bd+rF3Ly2
+ oIsGgCBfIxautH/ZqFx/XNPNNNmcaaMzJJnDEKo1L0wdjyH/bLM13u8Qsb7qd/+wQD
+ sRzGurLO+7LXlXT2186Z1/cIjJ4AZimmFuDL7rhU=
+Subject: [Freedreno] [PATCH 4.14 103/193] drm/msm: a5xx: fix possible object
  reference leak
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
@@ -104,22 +104,22 @@ YmRjbGFya0BjaHJvbWl1bS5vcmc+ClNpZ25lZC1vZmYtYnk6IFNhc2hhIExldmluIDxzYXNoYWxA
 a2VybmVsLm9yZz4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vbXNtL2FkcmVuby9hNXh4X2dwdS5jIHwg
 MTAgKysrKysrLS0tLQogMSBmaWxlIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlv
 bnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbXNtL2FkcmVuby9hNXh4X2dwdS5j
-IGIvZHJpdmVycy9ncHUvZHJtL21zbS9hZHJlbm8vYTV4eF9ncHUuYwppbmRleCBhYjFkOTMwOGMz
-MTE0Li5iYTZmM2MxNDQ5NWMwIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vbXNtL2FkcmVu
+IGIvZHJpdmVycy9ncHUvZHJtL21zbS9hZHJlbm8vYTV4eF9ncHUuYwppbmRleCAxN2M1OWQ4Mzll
+NmZhLi5mMWFhYTc2Y2MyZTRlIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vbXNtL2FkcmVu
 by9hNXh4X2dwdS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2E1eHhfZ3B1LmMK
-QEAgLTM1LDcgKzM1LDcgQEAgc3RhdGljIGludCB6YXBfc2hhZGVyX2xvYWRfbWR0KHN0cnVjdCBt
-c21fZ3B1ICpncHUsIGNvbnN0IGNoYXIgKmZ3bmFtZSkKIHsKIAlzdHJ1Y3QgZGV2aWNlICpkZXYg
-PSAmZ3B1LT5wZGV2LT5kZXY7CiAJY29uc3Qgc3RydWN0IGZpcm13YXJlICpmdzsKLQlzdHJ1Y3Qg
-ZGV2aWNlX25vZGUgKm5wOworCXN0cnVjdCBkZXZpY2Vfbm9kZSAqbnAsICptZW1fbnA7CiAJc3Ry
-dWN0IHJlc291cmNlIHI7CiAJcGh5c19hZGRyX3QgbWVtX3BoeXM7CiAJc3NpemVfdCBtZW1fc2l6
-ZTsKQEAgLTQ5LDExICs0OSwxMyBAQCBzdGF0aWMgaW50IHphcF9zaGFkZXJfbG9hZF9tZHQoc3Ry
-dWN0IG1zbV9ncHUgKmdwdSwgY29uc3QgY2hhciAqZnduYW1lKQogCWlmICghbnApCiAJCXJldHVy
-biAtRU5PREVWOwogCi0JbnAgPSBvZl9wYXJzZV9waGFuZGxlKG5wLCAibWVtb3J5LXJlZ2lvbiIs
-IDApOwotCWlmICghbnApCisJbWVtX25wID0gb2ZfcGFyc2VfcGhhbmRsZShucCwgIm1lbW9yeS1y
-ZWdpb24iLCAwKTsKKwlvZl9ub2RlX3B1dChucCk7CisJaWYgKCFtZW1fbnApCiAJCXJldHVybiAt
-RUlOVkFMOwogCi0JcmV0ID0gb2ZfYWRkcmVzc190b19yZXNvdXJjZShucCwgMCwgJnIpOworCXJl
-dCA9IG9mX2FkZHJlc3NfdG9fcmVzb3VyY2UobWVtX25wLCAwLCAmcik7CisJb2Zfbm9kZV9wdXQo
-bWVtX25wKTsKIAlpZiAocmV0KQogCQlyZXR1cm4gcmV0OwogCi0tIAoyLjIwLjEKCgoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5vIG1haWxp
-bmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
+QEAgLTI5LDcgKzI5LDcgQEAgc3RhdGljIHZvaWQgYTV4eF9kdW1wKHN0cnVjdCBtc21fZ3B1ICpn
+cHUpOwogc3RhdGljIGludCB6YXBfc2hhZGVyX2xvYWRfbWR0KHN0cnVjdCBkZXZpY2UgKmRldiwg
+Y29uc3QgY2hhciAqZnduYW1lKQogewogCWNvbnN0IHN0cnVjdCBmaXJtd2FyZSAqZnc7Ci0Jc3Ry
+dWN0IGRldmljZV9ub2RlICpucDsKKwlzdHJ1Y3QgZGV2aWNlX25vZGUgKm5wLCAqbWVtX25wOwog
+CXN0cnVjdCByZXNvdXJjZSByOwogCXBoeXNfYWRkcl90IG1lbV9waHlzOwogCXNzaXplX3QgbWVt
+X3NpemU7CkBAIC00MywxMSArNDMsMTMgQEAgc3RhdGljIGludCB6YXBfc2hhZGVyX2xvYWRfbWR0
+KHN0cnVjdCBkZXZpY2UgKmRldiwgY29uc3QgY2hhciAqZnduYW1lKQogCWlmICghbnApCiAJCXJl
+dHVybiAtRU5PREVWOwogCi0JbnAgPSBvZl9wYXJzZV9waGFuZGxlKG5wLCAibWVtb3J5LXJlZ2lv
+biIsIDApOwotCWlmICghbnApCisJbWVtX25wID0gb2ZfcGFyc2VfcGhhbmRsZShucCwgIm1lbW9y
+eS1yZWdpb24iLCAwKTsKKwlvZl9ub2RlX3B1dChucCk7CisJaWYgKCFtZW1fbnApCiAJCXJldHVy
+biAtRUlOVkFMOwogCi0JcmV0ID0gb2ZfYWRkcmVzc190b19yZXNvdXJjZShucCwgMCwgJnIpOwor
+CXJldCA9IG9mX2FkZHJlc3NfdG9fcmVzb3VyY2UobWVtX25wLCAwLCAmcik7CisJb2Zfbm9kZV9w
+dXQobWVtX25wKTsKIAlpZiAocmV0KQogCQlyZXR1cm4gcmV0OwogCi0tIAoyLjIwLjEKCgoKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5vIG1h
+aWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
