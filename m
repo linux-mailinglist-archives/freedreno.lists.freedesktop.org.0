@@ -1,42 +1,42 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F1FE31BCF
-	for <lists+freedreno@lfdr.de>; Sat,  1 Jun 2019 15:17:18 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6107031C2B
+	for <lists+freedreno@lfdr.de>; Sat,  1 Jun 2019 15:19:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D10A899BB;
-	Sat,  1 Jun 2019 13:17:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8C2889B97;
+	Sat,  1 Jun 2019 13:19:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C125D899B3;
- Sat,  1 Jun 2019 13:17:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDF5C899D6;
+ Sat,  1 Jun 2019 13:19:56 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8061827227;
- Sat,  1 Jun 2019 13:17:13 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id C8CFD272C0;
+ Sat,  1 Jun 2019 13:19:55 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sat,  1 Jun 2019 09:13:43 -0400
-Message-Id: <20190601131653.24205-7-sashal@kernel.org>
+Date: Sat,  1 Jun 2019 09:16:39 -0400
+Message-Id: <20190601131934.25053-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190601131653.24205-1-sashal@kernel.org>
-References: <20190601131653.24205-1-sashal@kernel.org>
+In-Reply-To: <20190601131934.25053-1-sashal@kernel.org>
+References: <20190601131934.25053-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=kernel.org; s=default; t=1559395034;
- bh=scxhZynwZodEPPgyPa4Jy0luRfXCFIG9QxNi2wfXlKY=;
+ d=kernel.org; s=default; t=1559395196;
+ bh=tbWvIJWdFYjCbnqY0TwJ2oWM5ZjnFur7mWM2r3xBZnA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MMbyILE5MCNZMfK70LuvMQvHLVF/vFCMdvbovVxzUdGbm5sBADDhGn6X+BQLb5bt5
- /TQnh0lA/NO0AoI/xkUlpOTTicgTtAnau13b6jgFZtsLOm9azsSuO6e6G8zjJ2Qh8I
- CzOyBtXErF0WVDE6C8eebLtPnYgDGJFQIRAfBv68=
-Subject: [Freedreno] [PATCH AUTOSEL 5.1 007/186] drm/msm: correct attempted
+ b=GCh77K985J18QxXO+SPKxd01jIBpO4cAWPM81NEXDTmQ09TwiJqFpEHEkeODZIhoS
+ /z8CnLyimRGH3GCmWvO51COXlq0v4arEKNpPDErcQ/UqF2DL5fYR2f8U+Q91sgbgaA
+ Wie82Lm6tl9Krs3Pphr7kpuHmEHlmNZlnHtHh7AI=
+Subject: [Freedreno] [PATCH AUTOSEL 5.0 007/173] drm/msm: correct attempted
  NULL pointer dereference in debugfs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
@@ -71,8 +71,8 @@ aWQvMjAxOTA1MTMyMzQxMDUuNzUzMS0yLW1hc25leWJAb25zdGF0aW9uLm9yZwpTaWduZWQtb2Zm
 LWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5vcmc+Ci0tLQogZHJpdmVycy9ncHUvZHJt
 L21zbS9tc21fZ2VtLmMgfCAzICsrLQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwg
 MSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2dlbS5j
-IGIvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZ2VtLmMKaW5kZXggMThjYTY1MWFiOTQyYS4uMjNk
-ZTRkMWI3YjFhYyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZ2VtLmMKKysr
+IGIvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZ2VtLmMKaW5kZXggYzg4ODZkMzA3MWZhMy4uYmRm
+MDA4OTc3MWJkZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZ2VtLmMKKysr
 IGIvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZ2VtLmMKQEAgLTgwNSw3ICs4MDUsOCBAQCB2b2lk
 IG1zbV9nZW1fZGVzY3JpYmUoc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmosIHN0cnVjdCBzZXFf
 ZmlsZSAqbSkKIAkJc2VxX3B1dHMobSwgIiAgICAgIHZtYXM6Iik7CiAKIAkJbGlzdF9mb3JfZWFj
