@@ -1,25 +1,41 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06AA232E9A
-	for <lists+freedreno@lfdr.de>; Mon,  3 Jun 2019 13:27:04 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2703A32EAE
+	for <lists+freedreno@lfdr.de>; Mon,  3 Jun 2019 13:32:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C016289012;
-	Mon,  3 Jun 2019 11:27:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D87CF89115;
+	Mon,  3 Jun 2019 11:32:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 569 seconds by postgrey-1.36 at gabe;
- Mon, 03 Jun 2019 11:27:01 UTC
-Received: from newverein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29E3289012
- for <freedreno@lists.freedesktop.org>; Mon,  3 Jun 2019 11:27:01 +0000 (UTC)
-Received: by newverein.lst.de (Postfix, from userid 2407)
- id C725068AA6; Mon,  3 Jun 2019 13:17:05 +0200 (CEST)
-Date: Mon, 3 Jun 2019 13:17:05 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Vivek Gautam <vivek.gautam@codeaurora.org>
-Message-ID: <20190603111705.GA27163@lst.de>
+Received: from smtp.codeaurora.org (smtp.codeaurora.org [198.145.29.96])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53E7589115;
+ Mon,  3 Jun 2019 11:32:17 +0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1000)
+ id 305436087A; Mon,  3 Jun 2019 11:32:17 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ pdx-caf-mail.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.7 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ DKIM_INVALID,DKIM_SIGNED,SPF_NONE autolearn=no autolearn_force=no
+ version=3.4.0
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
+ [209.85.208.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: vivek.gautam@smtp.codeaurora.org)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 4ED1960DB3;
+ Mon,  3 Jun 2019 11:32:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 4ED1960DB3
+Received: by mail-ed1-f43.google.com with SMTP id x25so14250529eds.8;
+ Mon, 03 Jun 2019 04:32:16 -0700 (PDT)
+X-Gm-Message-State: APjAAAXnqXKxs8xfgKMdutGkd9epKpt7QfBvRpvNlYvLszoexcS2+zgH
+ EoPCMrDCv98bmy2KNudBi2tIuImhaob72kbFRpo=
+X-Google-Smtp-Source: APXvYqyiIFFrNC2dS0VKPCYWX1j2jp1tB7QsnH94XhbngF15E/fbqVAiXipU+Z4bYlGRkMHto3FDPg70mdWqFQgEqKg=
+X-Received: by 2002:a50:85c1:: with SMTP id q1mr25059239edh.253.1559561535071; 
+ Mon, 03 Jun 2019 04:32:15 -0700 (PDT)
+MIME-Version: 1.0
 References: <20181201165348.24140-1-robdclark@gmail.com>
  <CAL_JsqJmPqis46Un91QyhXgdrVtfATMP_hTp6wSeSAfc8MLFfw@mail.gmail.com>
  <CAF6AEGs9Nsft8ofZkGz_yWBPBC+prh8dBSkJ4PJr8yk2c5FMdQ@mail.gmail.com>
@@ -28,10 +44,33 @@ References: <20181201165348.24140-1-robdclark@gmail.com>
  <4864dc3e-6e04-43e5-32c8-2cf5a0705fe5@codeaurora.org>
  <CAF6AEGuFyk1DJWUcQTnW=xsEUhYTYJccjzHJFxvipK4M8UdrUA@mail.gmail.com>
  <CAFp+6iGexVjbak8RQhEQNPp5cV8PK2ubTNNCMyaFPqdTGAbJ0A@mail.gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAFp+6iGexVjbak8RQhEQNPp5cV8PK2ubTNNCMyaFPqdTGAbJ0A@mail.gmail.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+ <20190603111705.GA27163@lst.de>
+In-Reply-To: <20190603111705.GA27163@lst.de>
+From: Vivek Gautam <vivek.gautam@codeaurora.org>
+Date: Mon, 3 Jun 2019 17:02:03 +0530
+X-Gmail-Original-Message-ID: <CAFp+6iEULiB74ecZQ4E+Jouj0AYZu4cDBgy3S2LuT6Ud4uf+KQ@mail.gmail.com>
+Message-ID: <CAFp+6iEULiB74ecZQ4E+Jouj0AYZu4cDBgy3S2LuT6Ud4uf+KQ@mail.gmail.com>
+To: Christoph Hellwig <hch@lst.de>
+X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=codeaurora.org; s=default; t=1559561537;
+ bh=u888gqwF5NhltRBK8QKDhfIseMU8jp8wEFqDIraWQdM=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=nMoCQMTLHHj4U+Y6FJPQlUokPulCRDfdG0mnglE0VnYreDcFAvUhXAB7ZhZ/xf2Xz
+ pouMdu8/KphryGpg1bFGyBNHNsstHJel/gO7lr5J0Qq0aMTJlUZB6ANd9dRXN6B0Vc
+ Cl59+jU74fIKLw40uoPLawLkGv6jueo9kTOf0vGI=
+X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=codeaurora.org; s=default; t=1559561536;
+ bh=u888gqwF5NhltRBK8QKDhfIseMU8jp8wEFqDIraWQdM=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=hxQLPhaQslKp9q099I3Z4uSekA0WGa7SAv077w193RpFzKvwqHaoZFDupcsWhOy3h
+ GS2T89RpACK5+kgV4Wng/QklehjK4cseEogNCONidArZowYO3qBvJZe5pMx4HynvCG
+ CZfmelntQRr2W1WyuVQK9105rGLlFYPQCojwHpoM=
+X-Mailman-Original-Authentication-Results: pdx-caf-mail.web.codeaurora.org;
+ dmarc=none (p=none dis=none)
+ header.from=codeaurora.org
+X-Mailman-Original-Authentication-Results: pdx-caf-mail.web.codeaurora.org;
+ spf=none
+ smtp.mailfrom=vivek.gautam@codeaurora.org
 Subject: Re: [Freedreno] [PATCH] of/device: add blacklist for iommu dma_ops
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
@@ -47,15 +86,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
  <devicetree@vger.kernel.org>, Archit Taneja <architt@codeaurora.org>,
- David Airlie <airlied@linux.ie>, freedreno <freedreno@lists.freedesktop.org>,
+ Frank Rowand <frowand.list@gmail.com>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  Will Deacon <will.deacon@arm.com>, Doug Anderson <dianders@chromium.org>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
- Rob Clark <robdclark@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
  Linux IOMMU <iommu@lists.linux-foundation.org>,
- Sean Paul <seanpaul@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Frank Rowand <frowand.list@gmail.com>, Christoph Hellwig <hch@lst.de>,
+ Rob Herring <robh+dt@kernel.org>, Sean Paul <seanpaul@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno <freedreno@lists.freedesktop.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
  Robin Murphy <robin.murphy@arm.com>
 Content-Type: text/plain; charset="utf-8"
@@ -63,10 +101,16 @@ Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-SWYgeW91IChhbmQgYSBmZXcgb3RoZXJzIGFjdG9ycyBpbiB0aGUgdGhyZWFkKSB3YW50IHBlb3Bs
-ZSB0byBhY3R1YWxseQpyZWFkIHdoYXQgeW91IHdyb3RlIHBsZWFzZSBmb2xsb3cgcHJvcGVyIG1h
-aWxpbmcgbGlzdCBldHRpcXVldHRlLiAgSSd2ZQpnaXZlbiB1cCBvbiByZWFkaW5nIGFsbCB0aGUg
-cmVjZW50IG1haWxzIGFmdGVyIHNjcm9sbGluZyB0aHJvdWdoIHR3bwpwYWdlcyBvZiBmdWxsIHF1
-b3Rlcy4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJl
-ZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
+T24gTW9uLCBKdW4gMywgMjAxOSBhdCA0OjQ3IFBNIENocmlzdG9waCBIZWxsd2lnIDxoY2hAbHN0
+LmRlPiB3cm90ZToKPgo+IElmIHlvdSAoYW5kIGEgZmV3IG90aGVycyBhY3RvcnMgaW4gdGhlIHRo
+cmVhZCkgd2FudCBwZW9wbGUgdG8gYWN0dWFsbHkKPiByZWFkIHdoYXQgeW91IHdyb3RlIHBsZWFz
+ZSBmb2xsb3cgcHJvcGVyIG1haWxpbmcgbGlzdCBldHRpcXVldHRlLiAgSSd2ZQo+IGdpdmVuIHVw
+IG9uIHJlYWRpbmcgYWxsIHRoZSByZWNlbnQgbWFpbHMgYWZ0ZXIgc2Nyb2xsaW5nIHRocm91Z2gg
+dHdvCj4gcGFnZXMgb2YgZnVsbCBxdW90ZXMuCgpBcG9sb2dpZXMgZm9yIG5vdCBjdXR0aW5nIGRv
+d24gdGhlIHF1b3RlZCB0ZXh0LiBJIHdpbGwgYmUgbW9yZSBjYXJlZnVsCm5leHQgdGltZSBvbndh
+cmRzLgoKUmVnYXJkcwpWaXZlawoKLS0gClFVQUxDT01NIElORElBLCBvbiBiZWhhbGYgb2YgUXVh
+bGNvbW0gSW5ub3ZhdGlvbiBDZW50ZXIsIEluYy4gaXMgYSBtZW1iZXIKb2YgQ29kZSBBdXJvcmEg
+Rm9ydW0sIGhvc3RlZCBieSBUaGUgTGludXggRm91bmRhdGlvbgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpGcmVlZHJlbm8gbWFpbGluZyBsaXN0CkZyZWVk
+cmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9mcmVlZHJlbm8=
