@@ -2,90 +2,37 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9EF835DA5
-	for <lists+freedreno@lfdr.de>; Wed,  5 Jun 2019 15:18:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50C2A35EE9
+	for <lists+freedreno@lfdr.de>; Wed,  5 Jun 2019 16:17:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D3978982C;
-	Wed,  5 Jun 2019 13:18:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03B4189B01;
+	Wed,  5 Jun 2019 14:17:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F16C38982C
- for <freedreno@lists.freedesktop.org>; Wed,  5 Jun 2019 13:18:15 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20190605131814euoutp0147cdab1c535abfb7d6bda40bc27c64ea~lT_W9jwvq2309123091euoutp01Z
- for <freedreno@lists.freedesktop.org>; Wed,  5 Jun 2019 13:18:14 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20190605131814euoutp0147cdab1c535abfb7d6bda40bc27c64ea~lT_W9jwvq2309123091euoutp01Z
-Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20190605131813eucas1p1ed5cf422671c87b4bc112e933d37ca16~lT_WCdiJ-0581705817eucas1p16;
- Wed,  5 Jun 2019 13:18:13 +0000 (GMT)
-Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
- eusmges3new.samsung.com (EUCPMTA) with SMTP id 83.B2.04325.411C7FC5; Wed,  5
- Jun 2019 14:18:12 +0100 (BST)
-Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20190605131812eucas1p1e6c2c4df2433c5c763e024f03d3a99fb~lT_VKq1yj1563815638eucas1p1C;
- Wed,  5 Jun 2019 13:18:12 +0000 (GMT)
-Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
- eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20190605131812eusmtrp1b1b9a45609459ca8f477b0a5ba7099c9~lT_VJ5_ge2668526685eusmtrp1Y;
- Wed,  5 Jun 2019 13:18:12 +0000 (GMT)
-X-AuditID: cbfec7f5-b75ff700000010e5-a9-5cf7c1148657
-Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id FA.1E.04146.411C7FC5; Wed,  5
- Jun 2019 14:18:12 +0100 (BST)
-Received: from [106.120.50.25] (unknown [106.120.50.25]) by
- eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20190605131811eusmtip2934ac5ed190b3bb1a4d529c8f9db974b~lT_UT1Xq10341403414eusmtip2F;
- Wed,  5 Jun 2019 13:18:11 +0000 (GMT)
-To: Rob Clark <robdclark@gmail.com>, Tomasz Figa <tfiga@chromium.org>
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-Message-ID: <95d6e963-7f30-1d9c-99d7-0f6cc1589997@samsung.com>
-Date: Wed, 5 Jun 2019 15:18:10 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
+Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com
+ [IPv6:2a00:1450:4864:20::541])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9457F89471;
+ Wed,  5 Jun 2019 14:17:07 +0000 (UTC)
+Received: by mail-ed1-x541.google.com with SMTP id b8so5983714edm.11;
+ Wed, 05 Jun 2019 07:17:07 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=DYFO74imdmleJLw5lYkuA6kO6lk6BDNzHYqBpZMjZ8s=;
+ b=GsPOIPjst1yjoM8Rp2N1g22ZhoWmjXvXML3OLEZln/Se8dF56jN5vL8WjkZLY9co+C
+ WCLEQjwTFpIhuuebmUNOMFRdTHSB18ZS5tn5q0NVkL4HH4UnSr4fGdtMSoomVB2FXL4D
+ XjVNDq9mhklbvln6CrT0DFN6k4AwjbUGDKXwSBUNusCrX9fYIWzOsJMgeMpX3Q9ZQzoj
+ /5U30qGXXoxALrzL6G3Vbs6rULcp1SIMnGhyjx5za6taVGkrmJJAyzavCSS4f36rCIzS
+ tW485VklnBvYkiOkFDN4HnzT9lC6FrG5ZtlLEroPwnqSsChY2F7OAH8KdZU1sf58EjM3
+ 7p6g==
+X-Gm-Message-State: APjAAAXGzxRYgocOtUqdzoUNXpkqKf5r6hYoU2H1H6q/jufs6cMJQh7V
+ Ls6oKQtBA+X7JyNQKgjz3OTEPx2LHcR7VUMaIkc=
+X-Google-Smtp-Source: APXvYqz++haK8phyFHbXw+7xx+j+S+xiNW3yfgGMolbWak16tppAeVvpIviRn0GFGAEATK3z185Rfr0/uCa7tvr7S5E=
+X-Received: by 2002:a17:906:2ada:: with SMTP id
+ m26mr8080786eje.265.1559744226214; 
+ Wed, 05 Jun 2019 07:17:06 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAF6AEGuj=QmEWZVzHMtoDgO0M0t-W9+tay5F4AKYThZqy=nkdA@mail.gmail.com>
-Content-Language: en-US
-X-Brightmail-Tracker: H4sIAAAAAAAAA01Sa0hTYRj22zk7O7MWn0fNN4uiVdLdpKSPNDEoOGY/ukCFCbbyoJKX2NKs
- iExR0rQyQ920pgWZt1YzvKdtWlNiYpmg1Uhh0IUkbV4KLHM7Vv57vvd5Hp73eflYipuR+rJx
- iWcEdaIqXsm40/UvfvZs8jJNRW7pKvIneT3dEjJTn08RfWePlFjvmxjyZuIbQ0o/WhHRfp1h
- SGX1cwkpaw8i+e1WGelrLmXIx/IfFMl82ikjplG7lNgezWodmb8Z0vWzkSKfx7roUI6vuVOD
- +JK0VzTfdy1Pwj+dLKP5Jp1Nxhurshm+YXJIyn+4apHwBQMViG8ZTGN4h3H5/gUR7sHRQnxc
- iqD2DznuHtuSZ6VO1zGpb3MNKA3ppDlIzgLeBjP36qgc5M5y+AGCaocOOQkOjyNor4sSCQeC
- +mcm9Nfx6UPHnKgCgeHWMVE0gqDkvZ5xEp44HDILymVO7IX3wHS6wxVB4Xwp9Ff+oJ0EgwMg
- ZyTHZVDgEHg/VUE5MY1Xw2CW1pXgjSNhor2fEjUe0K21u7xyfACqMsZcmMIroGGklBKxD7y1
- 6yXOMMC1LLTatJS49m6wDRXNYU/4YnkiE/EyeFmQS4uGDATDPbUy8ZGLoC+9eK50EHRYXs2e
- jJ2NWAeGZn9xvAuayu+6xoAXwcCIh7jEIrhZ78xyjhVwJYsT1X6gszz8F2vqfU3dQErdvGq6
- eXV08+ro/ueWIboK+QjJmoQYQbM1UTi7WaNK0CQnxmw+mZRgRLPf8uVvy0Qjaps+YUaYRcqF
- Cng8FclJVSmacwlmBCyl9FKo3o1Hcopo1bnzgjopSp0cL2jMaClLK30UF9yGjnE4RnVGOCUI
- pwX1X1bCyn3TEPgcpC7vxv3Nay9ef2JcFfYr+rP90BLfFvMb63ARP6zcG5W5cUOTn8XmW9RL
- WkezD3JtoQET2Hw08HC1d9zKDnvhqnAyGS5f7Pb8iFxSM46lqM1/entonH6nMBbYmGxYYji7
- L2aNVl/o1rnjdmWx8pJQHBaRamwr0H4P5j3PK2lNrCpgPaXWqP4A4XKo3ZIDAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprMKsWRmVeSWpSXmKPExsVy+t/xe7oiB7/HGNw7yG7Re+4kk8X/bROZ
- LeYfOcdqcXbZQTaLK1/fs1nMeX6W0WLmm/9sFitXH2WyWLDf2mLi/rPsFpd3zWGzeL7wB7NF
- 694j7BYHPzxhtbi7Aaj2c+s/NosTP3cwW7z8eILFQchjzbw1jB6zGy6yeFzu62Xy2PttAYvH
- zll32T02repk89j+7QGrx/3u40wek28sZ/TYfbOBzePzJrkA7ig9m6L80pJUhYz84hJbpWhD
- CyM9Q0sLPSMTSz1DY/NYKyNTJX07m5TUnMyy1CJ9uwS9jN29Z5kLNrNV3OpZz9jAOIu1i5GT
- Q0LAROLF/cOMXYxcHEICSxkl7p+fxgKRkJE4Oa0BqkhY4s+1LjaIoteMEm/XvWUHSQgLeEu0
- Tl4IZosIuEr8afrMDFLELDCZVWL2qtesEB1/WSTunLkGNopNwFCi6y3IKE4OXgE7iTvflzOD
- 2CwCKhI322YygtiiAjESfY0rWCBqBCVOznwCZnMKBEqsav4IZjMLmEnM2/yQGcKWl9j+dg6U
- LS5x68l8pgmMQrOQtM9C0jILScssJC0LGFlWMYqklhbnpucWG+oVJ+YWl+al6yXn525iBCaI
- bcd+bt7BeGlj8CFGAQ5GJR5eiY3fY4RYE8uKK3MPMUpwMCuJ8Cbe/hIjxJuSWFmVWpQfX1Sa
- k1p8iNEU6LmJzFKiyfnA5JVXEm9oamhuYWlobmxubGahJM7bIXAwRkggPbEkNTs1tSC1CKaP
- iYNTqoFRdoL225DM3ZPDwrleBonmn18YriV6ptaow9b8nV6Y/uMV8TKhjveOV3zQ3/bFecG9
- 5A02h02u39rLkfwv5ga7I3/aiccf3Mo3M15m6w/afjDI4WNqS/KG+eHHTc0aS9dmpal6l2UH
- Xddf6Fa5sCtp5sa7TsJRka5nrY/94nx7zE+FzeXpvzYlluKMREMt5qLiRABE248YJgMAAA==
-X-CMS-MailID: 20190605131812eucas1p1e6c2c4df2433c5c763e024f03d3a99fb
-X-Msg-Generator: CA
-X-RootMTR: 20190605125734epcas1p43b15cc8c556d917ca71b561791861cec
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20190605125734epcas1p43b15cc8c556d917ca71b561791861cec
 References: <20181201165348.24140-1-robdclark@gmail.com>
  <CAL_JsqJmPqis46Un91QyhXgdrVtfATMP_hTp6wSeSAfc8MLFfw@mail.gmail.com>
  <CAF6AEGs9Nsft8ofZkGz_yWBPBC+prh8dBSkJ4PJr8yk2c5FMdQ@mail.gmail.com>
@@ -95,14 +42,23 @@ References: <20181201165348.24140-1-robdclark@gmail.com>
  <CAAFQd5Dmr+xyd4dyc_44vJFpNpwK6+MgG+ensoey59HgbxXV6g@mail.gmail.com>
  <CGME20190605125734epcas1p43b15cc8c556d917ca71b561791861cec@epcas1p4.samsung.com>
  <CAF6AEGuj=QmEWZVzHMtoDgO0M0t-W9+tay5F4AKYThZqy=nkdA@mail.gmail.com>
+ <95d6e963-7f30-1d9c-99d7-0f6cc1589997@samsung.com>
+In-Reply-To: <95d6e963-7f30-1d9c-99d7-0f6cc1589997@samsung.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 5 Jun 2019 07:16:51 -0700
+Message-ID: <CAF6AEGtb1t4oRXCVvZq_cq1vZCJhgok-Ha+FXrruOOCq4APY_Q@mail.gmail.com>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=samsung.com; 
- s=mail20170921; t=1559740694;
- bh=AYgGHyFLe4+lbCQJ2TaAOGNr2vbCK28Y5rFRviVnQ8M=;
- h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
- b=uyqHfSGdFc8erg0mIwwOTF+h3YJYFD6/Z11/HBHjLeWQgRaeGa0r9A7rPUhmCuiqa
- iJX3aq2I75uuJTqcQcVoajjoh7Z+Sl+OdsfdMVACajjPMeN3rTy6kp7uRObT8YVmjX
- l6/dLvKP/mKKDxYXBCF8HISXZ2405Ewxc1bs9xvk=
+ d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc;
+ bh=DYFO74imdmleJLw5lYkuA6kO6lk6BDNzHYqBpZMjZ8s=;
+ b=kvxtMTCZdYLS36jfstozpuwwHILmf0b2bvAMNZXohkogm+c2hPkV+4Z95BmSa+Iqxh
+ ZVGQ9C767Mwx8Ubqg7OXp4cc5CZA5jSH642GgtyyWORUHyEr1yHfT+o5w1ktS+0B1E2k
+ VE4Q8MtKaqiEo8ZAclw5warQKFbLbRryMg6MMwGAZdzZ0/aXkoolO6+F5v/FVE8PgoRz
+ wjDdu3SfUhW1O6EVCML5GIKEDN1vkOd1YFIkqUl0szkdzv18oI0Pfv/hKcA64SRN4QKq
+ RO1JzS9ecXpXP+8nLy05iP+IsEluRraqXvXeKhUhfZOANq+Kntu5MISL4uAXjrVMgbTe
+ +6EQ==
 Subject: Re: [Freedreno] [PATCH] of/device: add blacklist for iommu dma_ops
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
@@ -116,35 +72,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- Vivek Gautam <vivek.gautam@codeaurora.org>, devicetree@vger.kernel.org,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+Cc: devicetree@vger.kernel.org, Vivek Gautam <vivek.gautam@codeaurora.org>,
+ David Airlie <airlied@linux.ie>, freedreno <freedreno@lists.freedesktop.org>,
  Will Deacon <will.deacon@arm.com>, Doug Anderson <dianders@chromium.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Tomasz Figa <tfiga@chromium.org>,
  Linux IOMMU <iommu@lists.linux-foundation.org>,
  Rob Herring <robh+dt@kernel.org>, Sean Paul <seanpaul@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, Frank Rowand <frowand.list@gmail.com>,
- Christoph Hellwig <hch@lst.de>, Robin Murphy <robin.murphy@arm.com>
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Frank Rowand <frowand.list@gmail.com>, Christoph Hellwig <hch@lst.de>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-SGkgUm9iLAoKT24gMjAxOS0wNi0wNSAxNDo1NywgUm9iIENsYXJrIHdyb3RlOgo+IE9uIFR1ZSwg
-SnVuIDQsIDIwMTkgYXQgMTE6NTggUE0gVG9tYXN6IEZpZ2EgPHRmaWdhQGNocm9taXVtLm9yZz4g
-d3JvdGU6Cj4+IEJ1dCBmaXJzdCBvZiBhbGwsIEkgcmVtZW1iZXIgTWFyZWsgYWxyZWFkeSBzdWJt
-aXR0ZWQgc29tZSBwYXRjaGVzIGxvbmcKPj4gYWdvIHRoYXQgZXh0ZW5kZWQgc3RydWN0IGRyaXZl
-ciB3aXRoIHNvbWUgZmxhZyB0aGF0IG1lYW5zIHRoYXQgdGhlCj4+IGRyaXZlciBkb2Vzbid0IHdh
-bnQgdGhlIElPTU1VIHRvIGJlIGF0dGFjaGVkIGJlZm9yZSBwcm9iZS4gV2h5Cj4+IHdvdWxkbid0
-IHRoYXQgd29yaz8gU291bmRzIGxpa2UgYSBwZXJmZWN0IG9wdC1vdXQgc29sdXRpb24uCj4gQWN0
-dWFsbHksIHllYWguLiB3ZSBzaG91bGQgZG8gdGhhdC4gIFRoYXQgaXMgdGhlIHNpbXBsZXN0IHNv
-bHV0aW9uLgoKVG9tYXN6IGhhcyB2ZXJ5IGdvb2QgbWVtb3J5LiBJdCB0b29rIG1lIGEgd2hpbGUg
-dG8gZmluZCB0aGF0IG9sZCBwYXRjaGVzOgoKaHR0cHM6Ly9wYXRjaHdvcmsua2VybmVsLm9yZy9w
-YXRjaC80Njc3MjUxLwpodHRwczovL3BhdGNod29yay5rZXJuZWwub3JnL3BhdGNoLzQ2Nzc5NDEv
-Cmh0dHBzOi8vcGF0Y2h3b3JrLmtlcm5lbC5vcmcvcGF0Y2gvNDY3NzQwMS8KCkl0IGxvb2tzIHRo
-YXQgbXkgaWRlYSB3YXMgYSBiaXQgYWhlYWQgb2YgaXRzIHRpbWUgOykKCkJlc3QgcmVnYXJkcwot
-LSAKTWFyZWsgU3p5cHJvd3NraSwgUGhEClNhbXN1bmcgUiZEIEluc3RpdHV0ZSBQb2xhbmQKCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBt
-YWlsaW5nIGxpc3QKRnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVubw==
+T24gV2VkLCBKdW4gNSwgMjAxOSBhdCA2OjE4IEFNIE1hcmVrIFN6eXByb3dza2kKPG0uc3p5cHJv
+d3NraUBzYW1zdW5nLmNvbT4gd3JvdGU6Cj4KPiBIaSBSb2IsCj4KPiBPbiAyMDE5LTA2LTA1IDE0
+OjU3LCBSb2IgQ2xhcmsgd3JvdGU6Cj4gPiBPbiBUdWUsIEp1biA0LCAyMDE5IGF0IDExOjU4IFBN
+IFRvbWFzeiBGaWdhIDx0ZmlnYUBjaHJvbWl1bS5vcmc+IHdyb3RlOgo+ID4+IEJ1dCBmaXJzdCBv
+ZiBhbGwsIEkgcmVtZW1iZXIgTWFyZWsgYWxyZWFkeSBzdWJtaXR0ZWQgc29tZSBwYXRjaGVzIGxv
+bmcKPiA+PiBhZ28gdGhhdCBleHRlbmRlZCBzdHJ1Y3QgZHJpdmVyIHdpdGggc29tZSBmbGFnIHRo
+YXQgbWVhbnMgdGhhdCB0aGUKPiA+PiBkcml2ZXIgZG9lc24ndCB3YW50IHRoZSBJT01NVSB0byBi
+ZSBhdHRhY2hlZCBiZWZvcmUgcHJvYmUuIFdoeQo+ID4+IHdvdWxkbid0IHRoYXQgd29yaz8gU291
+bmRzIGxpa2UgYSBwZXJmZWN0IG9wdC1vdXQgc29sdXRpb24uCj4gPiBBY3R1YWxseSwgeWVhaC4u
+IHdlIHNob3VsZCBkbyB0aGF0LiAgVGhhdCBpcyB0aGUgc2ltcGxlc3Qgc29sdXRpb24uCj4KPiBU
+b21hc3ogaGFzIHZlcnkgZ29vZCBtZW1vcnkuIEl0IHRvb2sgbWUgYSB3aGlsZSB0byBmaW5kIHRo
+YXQgb2xkIHBhdGNoZXM6Cj4KPiBodHRwczovL3BhdGNod29yay5rZXJuZWwub3JnL3BhdGNoLzQ2
+NzcyNTEvCj4gaHR0cHM6Ly9wYXRjaHdvcmsua2VybmVsLm9yZy9wYXRjaC80Njc3OTQxLwo+IGh0
+dHBzOi8vcGF0Y2h3b3JrLmtlcm5lbC5vcmcvcGF0Y2gvNDY3NzQwMS8KPgo+IEl0IGxvb2tzIHRo
+YXQgbXkgaWRlYSB3YXMgYSBiaXQgYWhlYWQgb2YgaXRzIHRpbWUgOykKPgoKaWYgSSByZS1zcGlu
+IHRoaXMsIHdhcyB0aGVpciBhIHJlYXNvbiBub3QgdG8ganVzdCB1c2UgYml0ZmllbGRzLCBpZToK
+Ci0gICAgYm9vbCBzdXBwcmVzc19iaW5kX2F0dHJzOyAgICAvKiBkaXNhYmxlcyBiaW5kL3VuYmlu
+ZCB2aWEgc3lzZnMgKi8KKyAgICBib29sIHN1cHByZXNzX2JpbmRfYXR0cnMgOiAxOyAgICAvKiBk
+aXNhYmxlcyBiaW5kL3VuYmluZCB2aWEgc3lzZnMgKi8KKyAgICBib29sIGhhc19vd25faW9tbXVf
+bWFuYWdlciA6IDE7ICAvKiBkcml2ZXIgZXhwbGljdGx5IG1hbmFnZXMgSU9NTVUgKi8KClRoYXQg
+c2VlbXMgbGlrZSBpdCB3b3VsZCBoYXZlIGJlZW4gYSBiaXQgbGVzcyBjaHVybiBhbmQgYSBiaXQg
+bmljZXIKbG9va2luZyAoSU1PIGF0IGxlYXN0KQoKQlIsCi1SCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJlZWRy
+ZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVubw==
