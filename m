@@ -1,64 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 137C665DBE
-	for <lists+freedreno@lfdr.de>; Thu, 11 Jul 2019 18:45:14 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E63365E75
+	for <lists+freedreno@lfdr.de>; Thu, 11 Jul 2019 19:26:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF5346E162;
-	Thu, 11 Jul 2019 16:45:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CE706E26C;
+	Thu, 11 Jul 2019 17:26:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
- [IPv6:2607:f8b0:4864:20::542])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97CE56E162
- for <freedreno@lists.freedesktop.org>; Thu, 11 Jul 2019 16:45:11 +0000 (UTC)
-Received: by mail-pg1-x542.google.com with SMTP id m4so3222086pgk.0
- for <freedreno@lists.freedesktop.org>; Thu, 11 Jul 2019 09:45:11 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=jwuRR8Q1l0rKbX4Ve134b1iXf6no8US/0ODaV1OtfJg=;
- b=GkTDGbykeS8T+b78AZ1isFH5HWCe+VuSVIkPDWofy3zULD9jnTnlfaWAVaGprE++oO
- iAojNnLcU8un5iTD8J0JDfDs9CSlUv+NCf10+lxucKsRWbhZAx2mMRxcOwSrOCqDiONC
- 4S1EpI6ESuOzRLJzu1Pelb+2L6hzWWTnpF41J7A2xi7fR+rdvYf68hfjo2pe1IbqRbLr
- Edj5lOryMb7SO3i3TPHoQBUPltVArR5CAH6u1ZUTooo0/5q0XxmDpgnaeV0aExENziTJ
- XI61tAvlfLG9QKAuAmN9qPcdWwmWiAZdJC8D3p/SDNCve9PIjp2NOnv9yYd2Hm+Ax92H
- X+nQ==
-X-Gm-Message-State: APjAAAWSqMHZrCAklxCU3Z9BQNdnbJIpywDKS22UFiBeDCdoGcGx7Psf
- fR4dp0qTPJiBI+yneqG61IT+NQ==
-X-Google-Smtp-Source: APXvYqy1hl1yTY2tAfPT4CfLcn/3WL5Tytxe1BBNzeHmDCMgcsWevHevzfTkFxpehMNWKiRgxKFHTg==
-X-Received: by 2002:a17:90a:2343:: with SMTP id
- f61mr6002098pje.130.1562863511049; 
- Thu, 11 Jul 2019 09:45:11 -0700 (PDT)
-Received: from tuxbook-pro (104-188-17-28.lightspeed.sndgca.sbcglobal.net.
- [104.188.17.28])
- by smtp.gmail.com with ESMTPSA id l189sm7116203pfl.7.2019.07.11.09.45.09
- (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Thu, 11 Jul 2019 09:45:10 -0700 (PDT)
-Date: Thu, 11 Jul 2019 09:46:19 -0700
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Brian Masney <masneyb@onstation.org>
-Message-ID: <20190711164619.GT7234@tuxbook-pro>
-References: <20190706111138.2238-1-masneyb@onstation.org>
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 825A96E11C;
+ Thu, 11 Jul 2019 17:26:32 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 0683BAFB7;
+ Thu, 11 Jul 2019 17:26:29 +0000 (UTC)
+To: Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+ dri-devel@lists.freedesktop.org
+References: <cover.1562843413.git.andrzej.p@collabora.com>
+ <d32a6b1f0a3b79f1fbc8d0894080908526f6e61e.1562843413.git.andrzej.p@collabora.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Openpgp: preference=signencrypt
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNKFRob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmNvbT7CwJQEEwEIAD4W
+ IQRyF/usjOnPY0ShaOVoDcEdUwt6IwUCWznTtgIbAwUJA8JnAAULCQgHAgYVCgkICwIEFgID
+ AQIeAQIXgAAKCRBoDcEdUwt6I7D7CACBK42XW+7mCiK8ioXMEy1NzGbXC51RzGea8N83oEJS
+ 1KVUtQxrkDxgrW/WLSl/TfqHFsJpdEFOv1XubWbleun3uKPy0e5vZCd5UjZPkeNjnqfCYTDy
+ hVVsdOuFbtWDppJyJrThLqr9AgSFmoCNNUt1SVpYEEOLNE6C32BhlnSq21VLC+YXTgO/ZHTa
+ YXkq54hHj63jwrcjkBSCkXLh37kHeqnl++GHpN+3R+o3w2OpwHAlvVjdKPT27v1tVkiydsFG
+ 65Vd0n3m/ft+IOrGgxQM1C20uqKvsZGB4r3OGR50ekAybO7sjEJJ1Obl4ge/6RRqcvKz4LMb
+ tGs85D6tPIeFzsBNBFs50uABCADGJj+DP1fk+UWOWrf4O61HTbC4Vr9QD2K4fUUHnzg2B6zU
+ R1BPXqLGG0+lzK8kfYU/F5RjmEcClsIkAaFkg4kzKP14tvY1J5+AV3yNqcdg018HNtiyrSwI
+ E0Yz/qm1Ot2NMZ0DdvVBg22IMsiudQ1tx9CH9mtyTbIXgACvl3PW2o9CxiHPE/bohFhwZwh/
+ kXYYAE51lhinQ3oFEeQZA3w4OTvxSEspiQR8dg8qJJb+YOAc5IKk6sJmmM7JfFMWSr22satM
+ 23oQ3WvJb4RV6HTRTAIEyyZS7g2DhiytgMG60t0qdABG5KXSQW+OKlZRpuWwKWaLh3if/p/u
+ 69dvpanbABEBAAHCwHwEGAEIACYWIQRyF/usjOnPY0ShaOVoDcEdUwt6IwUCWznS4AIbDAUJ
+ A8JnAAAKCRBoDcEdUwt6I6X3CACJ8D+TpXBCqJE5xwog08+Dp8uBpx0T9n1wE0GQisZruACW
+ NofYn8PTX9k4wmegDLwt7YQDdKxQ4+eTfZeLNQqWg6OCftH5Kx7sjWnJ09tOgniVdROzWJ7c
+ VJ/i0okazncsJ+nq48UYvRGE1Swh3A4QRIyphWX4OADOBmTFl9ZYNPnh23eaC9WrNvFr7yP7
+ iGjMlfEW8l6Lda//EC5VpXVNza0xeae0zFNst2R9pn+bLkihwDLWxOIyifGRxTqNxoS4I1aw
+ VhxPSVztPMSpIA/sOr/N/p6JrBLn+gui2K6mP7bGb8hF+szfArYqz3T1rv1VzUWAJf5Wre5U
+ iNx9uqqx
+Message-ID: <3a2bb4ef-0fd7-3076-e6c2-39f2a3454727@suse.de>
+Date: Thu, 11 Jul 2019 19:26:21 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190706111138.2238-1-masneyb@onstation.org>
-User-Agent: Mutt/1.11.4 (2019-03-13)
-X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=jwuRR8Q1l0rKbX4Ve134b1iXf6no8US/0ODaV1OtfJg=;
- b=fXMfPXQFw+BMXHj5sB7D5SZbRLL4yLO7dCFEcqra0z5M/ZOltBbf3Zj/Aao1hET4GD
- 3azphRfZ11zhgbXjs3N4nbnKMwUU7+4dw6YKKXllbd+DssNy3TxDGCgkmV1ikNcZxL7/
- 2ICwcXgXIJkPJwzLWiM4/yASDDXjIQa7HjC9IImhuA+FU4yWlR8FfIzidpqktofkWi8v
- Va0bLm/egQy7D/+XBHgq+GtkBfu9c1Y6IPWhZN8mcQmY/Fa8JG1MM4eSiK3ha3usflxA
- 5VzG7L1PfesBb/hDoETF7jtEOnM6ltMdpQbSzf5oDTXZHnTRFG58VhAlAl5/e8gh0nzi
- EL3g==
-Subject: Re: [Freedreno] [PATCH] drm/msm/phy/dsi_phy: silence -EPROBE_DEFER
- warnings
+In-Reply-To: <d32a6b1f0a3b79f1fbc8d0894080908526f6e61e.1562843413.git.andrzej.p@collabora.com>
+Subject: Re: [Freedreno] [PATCH v4 16/23] drm/mgag200: Provide ddc symlink
+ in connector sysfs directory
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -71,49 +67,199 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, robdclark@gmail.com, daniel@ffwll.ch,
- sean@poorly.run
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "Y.C. Chen" <yc_chen@aspeedtech.com>,
+ =?UTF-8?Q?Heiko_St=c3=bcbner?= <heiko@sntech.de>,
+ Sam Ravnborg <sam@ravnborg.org>, Neil Armstrong <narmstrong@baylibre.com>,
+ Maxime Ripard <maxime.ripard@bootlin.com>,
+ Ramalingam C <ramalingam.c@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Douglas Anderson <dianders@chromium.org>, Andrzej Hajda <a.hajda@samsung.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>, kernel@collabora.com,
+ Fabio Estevam <festevam@gmail.com>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
+ linux-samsung-soc@vger.kernel.org, Joonyoung Shim <jy0922.shim@samsung.com>,
+ linux-rockchip@lists.infradead.org, Vincent Abriou <vincent.abriou@st.com>,
+ Rob Clark <robdclark@gmail.com>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@linux.ie>,
+ Chen-Yu Tsai <wens@csie.org>, Kukjin Kim <kgene@kernel.org>,
+ NXP Linux Team <linux-imx@nxp.com>, CK Hu <ck.hu@mediatek.com>,
+ Dave Airlie <airlied@redhat.com>, intel-gfx@lists.freedesktop.org,
+ Shashank Sharma <shashank.sharma@intel.com>, linux-tegra@vger.kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>, Jonas Karlman <jonas@kwiboo.se>,
+ linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Inki Dae <inki.dae@samsung.com>,
+ Alexios Zavras <alexios.zavras@intel.com>,
+ Mamta Shukla <mamtashukla555@gmail.com>, linux-mediatek@lists.infradead.org,
+ Jyri Sarha <jsarha@ti.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Chris Wilson <chris@chris-wilson.co.uk>,
+ Sean Paul <sean@poorly.run>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ Tomi Valkeinen <tomi.valkeinen@ti.com>, Eric Anholt <eric@anholt.net>,
+ freedreno@lists.freedesktop.org, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Sandy Huang <hjc@rock-chips.com>, linux-kernel@vger.kernel.org,
+ Todor Tomov <todor.tomov@linaro.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>, Huang Rui <ray.huang@amd.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Alex Deucher <alexander.deucher@amd.com>, Shawn Guo <shawnguo@kernel.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Gerd Hoffmann <kraxel@redhat.com>
+Content-Type: multipart/mixed; boundary="===============0569432510=="
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-T24gU2F0IDA2IEp1bCAwNDoxMSBQRFQgMjAxOSwgQnJpYW4gTWFzbmV5IHdyb3RlOgoKPiBUaGUg
-Zm9sbG93aW5nIGVycm9ycyBzaG93IHVwIHdoZW4gYm9vdGluZyB0aGUgTmV4dXMgNToKPiAKPiBt
-c21fZHNpX3BoeSBmZDkyMmEwMC5kc2ktcGh5OiBbZHJtOmRzaV9waHlfZHJpdmVyX3Byb2JlXSAq
-RVJST1IqCj4gIGRzaV9waHlfcmVndWxhdG9yX2luaXQ6IGZhaWxlZCB0byBpbml0IHJlZ3VsYXRv
-ciwgcmV0PS01MTcKPiBtc21fZHNpX3BoeSBmZDkyMmEwMC5kc2ktcGh5OiBbZHJtOmRzaV9waHlf
-ZHJpdmVyX3Byb2JlXSAqRVJST1IqCj4gIGRzaV9waHlfZHJpdmVyX3Byb2JlOiBmYWlsZWQgdG8g
-aW5pdCByZWd1bGF0b3IKPiAKPiBkc2lfcGh5X3JlZ3VsYXRvcl9pbml0KCkgYWxyZWFkeSBsb2dz
-IHRoZSBlcnJvciwgc28gbm8gbmVlZCB0byBsb2cKPiB0aGUgc2FtZSBlcnJvciBhIHNlY29uZCB0
-aW1lIGluIGRzaV9waHlfZHJpdmVyX3Byb2JlKCkuIFRoaXMgcGF0Y2gKPiBhbHNvIGNoYW5nZXMg
-ZHNpX3BoeV9yZWd1bGF0b3JfaW5pdCgpIHRvIG5vdCBsb2cgdGhlIGVycm9yIGlmIHRoZQo+IGVy
-cm9yIGNvZGUgaXMgLUVQUk9CRV9ERUZFUiB0byByZWR1Y2Ugbm9pc2UgaW4gZG1lc2cuCj4gCj4g
-U2lnbmVkLW9mZi1ieTogQnJpYW4gTWFzbmV5IDxtYXNuZXliQG9uc3RhdGlvbi5vcmc+Cj4gLS0t
-Cj4gIGRyaXZlcnMvZ3B1L2RybS9tc20vZHNpL3BoeS9kc2lfcGh5LmMgfCAxMSArKysrKystLS0t
-LQo+ICAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQo+IAo+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbXNtL2RzaS9waHkvZHNpX3BoeS5jIGIvZHJp
-dmVycy9ncHUvZHJtL21zbS9kc2kvcGh5L2RzaV9waHkuYwo+IGluZGV4IDQwOTdlY2ExYjNlZi4u
-ZDBlMWNjNjcyOGRjIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tc20vZHNpL3BoeS9k
-c2lfcGh5LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2RzaS9waHkvZHNpX3BoeS5jCj4g
-QEAgLTM5Niw4ICszOTYsMTEgQEAgc3RhdGljIGludCBkc2lfcGh5X3JlZ3VsYXRvcl9pbml0KHN0
-cnVjdCBtc21fZHNpX3BoeSAqcGh5KQo+ICAKPiAgCXJldCA9IGRldm1fcmVndWxhdG9yX2J1bGtf
-Z2V0KGRldiwgbnVtLCBzKTsKPiAgCWlmIChyZXQgPCAwKSB7Cj4gLQkJRFJNX0RFVl9FUlJPUihk
-ZXYsICIlczogZmFpbGVkIHRvIGluaXQgcmVndWxhdG9yLCByZXQ9JWRcbiIsCj4gLQkJCQkJCV9f
-ZnVuY19fLCByZXQpOwo+ICsJCWlmIChyZXQgIT0gLUVQUk9CRV9ERUZFUikKPiArCQkJRFJNX0RF
-Vl9FUlJPUihkZXYsCj4gKwkJCQkgICAgICAiJXM6IGZhaWxlZCB0byBpbml0IHJlZ3VsYXRvciwg
-cmV0PSVkXG4iLAo+ICsJCQkJICAgICAgX19mdW5jX18sIHJldCk7CgpTb21lIHt9IHdvdWxkbid0
-IGh1cnQgaGVyZSwgYnV0IG5vdCBhIGJpZyBkZWFsLgoKUmV2aWV3ZWQtYnk6IEJqb3JuIEFuZGVy
-c3NvbiA8Ympvcm4uYW5kZXJzc29uQGxpbmFyby5vcmc+Cgo+ICsKPiAgCQlyZXR1cm4gcmV0Owo+
-ICAJfQo+ICAKPiBAQCAtNTg0LDEwICs1ODcsOCBAQCBzdGF0aWMgaW50IGRzaV9waHlfZHJpdmVy
-X3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gIAl9Cj4gIAo+ICAJcmV0ID0g
-ZHNpX3BoeV9yZWd1bGF0b3JfaW5pdChwaHkpOwo+IC0JaWYgKHJldCkgewo+IC0JCURSTV9ERVZf
-RVJST1IoZGV2LCAiJXM6IGZhaWxlZCB0byBpbml0IHJlZ3VsYXRvclxuIiwgX19mdW5jX18pOwo+
-ICsJaWYgKHJldCkKPiAgCQlnb3RvIGZhaWw7Cj4gLQl9Cj4gIAo+ICAJcGh5LT5haGJfY2xrID0g
-bXNtX2Nsa19nZXQocGRldiwgImlmYWNlIik7Cj4gIAlpZiAoSVNfRVJSKHBoeS0+YWhiX2Nsaykp
-IHsKPiAtLSAKPiAyLjIwLjEKPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-ZnJlZWRyZW5v
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0569432510==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="M6nYUrh3oEarMl1892EPEAAzHEDzD10R3"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--M6nYUrh3oEarMl1892EPEAAzHEDzD10R3
+Content-Type: multipart/mixed; boundary="8S0vaGiu1cLt80DL4dXMNOlmLb3f1te4c";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+ dri-devel@lists.freedesktop.org
+Cc: kernel@collabora.com, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "David (ChunMing) Zhou" <David1.Zhou@amd.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Dave Airlie <airlied@redhat.com>, Andrzej Hajda <a.hajda@samsung.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <maxime.ripard@bootlin.com>, Sean Paul <sean@poorly.run>,
+ Inki Dae <inki.dae@samsung.com>, Joonyoung Shim <jy0922.shim@samsung.com>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>, Kukjin Kim <kgene@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ CK Hu <ck.hu@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=c3=bcbner?= <heiko@sntech.de>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ Vincent Abriou <vincent.abriou@st.com>, Chen-Yu Tsai <wens@csie.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Jyri Sarha <jsarha@ti.com>,
+ Tomi Valkeinen <tomi.valkeinen@ti.com>, Eric Anholt <eric@anholt.net>,
+ Sam Ravnborg <sam@ravnborg.org>, Huang Rui <ray.huang@amd.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, "Y.C. Chen" <yc_chen@aspeedtech.com>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Douglas Anderson <dianders@chromium.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ Ramalingam C <ramalingam.c@intel.com>,
+ Shashank Sharma <shashank.sharma@intel.com>,
+ Alexios Zavras <alexios.zavras@intel.com>,
+ Todor Tomov <todor.tomov@linaro.org>, Mamta Shukla
+ <mamtashukla555@gmail.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-tegra@vger.kernel.org
+Message-ID: <3a2bb4ef-0fd7-3076-e6c2-39f2a3454727@suse.de>
+Subject: Re: [PATCH v4 16/23] drm/mgag200: Provide ddc symlink in connector
+ sysfs directory
+References: <cover.1562843413.git.andrzej.p@collabora.com>
+ <d32a6b1f0a3b79f1fbc8d0894080908526f6e61e.1562843413.git.andrzej.p@collabora.com>
+In-Reply-To: <d32a6b1f0a3b79f1fbc8d0894080908526f6e61e.1562843413.git.andrzej.p@collabora.com>
+
+--8S0vaGiu1cLt80DL4dXMNOlmLb3f1te4c
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+Am 11.07.19 um 13:26 schrieb Andrzej Pietrasiewicz:
+> Use the ddc pointer provided by the generic connector.
+>=20
+> Signed-off-by: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
+> ---
+>  drivers/gpu/drm/mgag200/mgag200_mode.c | 9 +++++----
+>  1 file changed, 5 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/mgag200/mgag200_mode.c b/drivers/gpu/drm/m=
+gag200/mgag200_mode.c
+> index a25054015e8c..8fb9444b2142 100644
+> --- a/drivers/gpu/drm/mgag200/mgag200_mode.c
+> +++ b/drivers/gpu/drm/mgag200/mgag200_mode.c
+> @@ -1703,6 +1703,11 @@ static struct drm_connector *mga_vga_init(struct=
+ drm_device *dev)
+>  		return NULL;
+> =20
+>  	connector =3D &mga_connector->base;
+> +	mga_connector->i2c =3D mgag200_i2c_create(dev);
+> +	if (!mga_connector->i2c)
+> +		DRM_ERROR("failed to add ddc bus\n");
+> +
+> +	connector->ddc =3D &mga_connector->i2c->adapter;
+> =20
+>  	drm_connector_init(dev, connector,
+>  			   &mga_vga_connector_funcs, DRM_MODE_CONNECTOR_VGA);
+> @@ -1711,10 +1716,6 @@ static struct drm_connector *mga_vga_init(struct=
+ drm_device *dev)
+> =20
+>  	drm_connector_register(connector);
+> =20
+> -	mga_connector->i2c =3D mgag200_i2c_create(dev);
+> -	if (!mga_connector->i2c)
+> -		DRM_ERROR("failed to add ddc bus\n");
+> -
+>  	return connector;
+>  }
+> =20
+>=20
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Linux GmbH, Maxfeldstrasse 5, 90409 Nuernberg, Germany
+GF: Felix Imend=C3=B6rffer, Mary Higgins, Sri Rasiah
+HRB 21284 (AG N=C3=BCrnberg)
+
+
+--8S0vaGiu1cLt80DL4dXMNOlmLb3f1te4c--
+
+--M6nYUrh3oEarMl1892EPEAAzHEDzD10R3
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl0ncUEACgkQaA3BHVML
+eiNDOQf/V82uMwvnLRj0DGrIvbmWkTJ1+JLlhJzekDs6PjWJPTJ9EkobcJ9GuWFV
+hE90Tt8U2u+MkrmeLbHiyVWYUAcWnb5F9ldlRKD+IXaeXnQoxMCuBLIbR/uVz6Mz
+BDUv4l0n+guDhbQZYfPhoQ3NcFnCRBshnxKq9R5F8zALotio+X7ZYvMSV+jxJhST
+6xA7pyIn6qIKcqO/1Ytunpon3rxf2xlJwWLdLhA8mKho3A2JhVmZk38zAWSBZ4FJ
+Q9ja+BhaxP1SO1iA63QqCrrGwoZVUXTdEWAB64Yw4DQyJ+cdDtIZfJDh68uYTbs+
+ggIdNPQBzpJeQHD/WpKXSKA56aYG3w==
+=ciQB
+-----END PGP SIGNATURE-----
+
+--M6nYUrh3oEarMl1892EPEAAzHEDzD10R3--
+
+--===============0569432510==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5v
+IG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
+
+--===============0569432510==--
