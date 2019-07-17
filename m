@@ -1,50 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D40966BD3E
-	for <lists+freedreno@lfdr.de>; Wed, 17 Jul 2019 15:37:59 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 691F56BF59
+	for <lists+freedreno@lfdr.de>; Wed, 17 Jul 2019 17:53:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69F456E184;
-	Wed, 17 Jul 2019 13:37:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE6E76E0BA;
+	Wed, 17 Jul 2019 15:53:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 1719 seconds by postgrey-1.36 at gabe;
- Wed, 17 Jul 2019 12:38:46 UTC
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B2046E14B
- for <freedreno@lists.freedesktop.org>; Wed, 17 Jul 2019 12:38:46 +0000 (UTC)
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hnil1-0000X0-A6; Wed, 17 Jul 2019 12:10:03 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 2DEFA2742BFD; Wed, 17 Jul 2019 13:10:02 +0100 (BST)
-Date: Wed, 17 Jul 2019 13:10:02 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Message-ID: <20190717121002.GD4459@sirena.org.uk>
-References: <5d2f063c.1c69fb81.69fe8.9d45@mx.google.com>
-MIME-Version: 1.0
-In-Reply-To: <5d2f063c.1c69fb81.69fe8.9d45@mx.google.com>
-X-Cookie: Fremen add life to spice!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Mailman-Approved-At: Wed, 17 Jul 2019 13:37:57 +0000
-X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt;
- c=relaxed/relaxed; 
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=qmxMA4RysSder1S8jth4T88OnOSpbEJIB7B7uYAKJ/k=; b=pB3L39CVsuPDMnhecIfwxK/7y
- 6zijNytb9GS/FdpG5XK1GF2d5b/FVdLzjzPEKTVLo9mHBWpKkd2gxAbl6GkE0i5qoMRJDsHedy3Wi
- FJiAbn9Zvp2HtpvyywWuITIXy2bgVP58BPUwNQwBwXBAoSZ/OIMCK5FtZeR/LsQDkoBpk=;
-Subject: Re: [Freedreno] next/master boot: 265 boots: 17 failed,
- 243 passed with 4 offline, 1 conflict (next-20190717)
+Received: from smtp.codeaurora.org (smtp.codeaurora.org [198.145.29.96])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 941AD6E0BA
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Jul 2019 15:53:18 +0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1000)
+ id 76B0D60ACF; Wed, 17 Jul 2019 15:53:18 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ pdx-caf-mail.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.7 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ DKIM_INVALID,DKIM_SIGNED,SPF_NONE autolearn=no autolearn_force=no
+ version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: jcrouse@smtp.codeaurora.org)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id CC9EE6072E;
+ Wed, 17 Jul 2019 15:53:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org CC9EE6072E
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: freedreno@lists.freedesktop.org
+Date: Wed, 17 Jul 2019 09:53:13 -0600
+Message-Id: <1563378793-22023-1-git-send-email-jcrouse@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=codeaurora.org; s=default; t=1563378798;
+ bh=neGF5FCENe6mEc6GArZIeGpuo6QccxA0L5Slvsy0ytU=;
+ h=From:To:Cc:Subject:Date:From;
+ b=M3Ni/Dqjle3iHnjI78cK4D5tQKQixrIpLLXoW3oy++K3PWkYs9dU7JsSbUX03bvzm
+ zXx0OwigUZ2lPAj3+7E5Ll6ABls0M4xcZHxgH8/fX0K9cbb8OilM0IvVqtd9Dh+ZfR
+ 62RR9eezE6iiPLtQ6fti5/Qq9jZ0oEpIJ08SpllU=
+X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=codeaurora.org; s=default; t=1563378797;
+ bh=neGF5FCENe6mEc6GArZIeGpuo6QccxA0L5Slvsy0ytU=;
+ h=From:To:Cc:Subject:Date:From;
+ b=YAO018CN2k4FCloPKulgx4Y9bWyS5Pw0CAz+cVs2F+PPTo9c/FPeSl3LG1PaumX3q
+ dRmoWnR+Imc/NjLnxV/aajAwq1WxP5VYxePipvXXicNE6+qP5azXCOREGGWWr4wH7I
+ 7L7tE4o45tx1RbDJzlhJsZ4Ip6ZDfhvYFW6Zudy4=
+X-Mailman-Original-Authentication-Results: pdx-caf-mail.web.codeaurora.org;
+ dmarc=none (p=none dis=none)
+ header.from=codeaurora.org
+X-Mailman-Original-Authentication-Results: pdx-caf-mail.web.codeaurora.org;
+ spf=none
+ smtp.mailfrom=jcrouse@codeaurora.org
+Subject: [Freedreno] [PATCH] qcom: Add BCM vote macro to TCS header
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,87 +66,68 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org,
- kernel-build-reports@lists.linaro.org
-Content-Type: multipart/mixed; boundary="===============1244250680=="
+Cc: linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, ilina@codeaurora.org, bjorn.andersson@linaro.org,
+ David Brown <david.brown@linaro.org>, Andy Gross <agross@kernel.org>,
+ "Raju P.L.S.S.S.N" <rplsssn@codeaurora.org>,
+ Georgi Djakov <georgi.djakov@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
---===============1244250680==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="g7w8+K/95kPelPD2"
-Content-Disposition: inline
-
-
---g7w8+K/95kPelPD2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Wed, Jul 17, 2019 at 04:27:56AM -0700, kernelci.org bot wrote:
-
-Today's -next fails to boot on a couple of apq8064 boards:
-
-> arm:
->     qcom_defconfig:
->         gcc-8:
->             qcom-apq8064-cm-qs600: 1 failed lab
->             qcom-apq8064-ifc6410: 1 failed lab
-
-In both cases it looks like the error handling when we fail to get the
-firmware for the GPU is broken, we get a crash in the initialization
-code shortly after failing to load some firmware:
-
-[    4.608279] msm 5100000.mdp: Direct firmware load for qcom/a300_pm4.fw failed with error -2
-[    4.614916] msm 5100000.mdp: [drm:adreno_request_fw] *ERROR* failed to load a300_pm4.fw
-[    4.623229] 8<--- cut here ---
-[    4.631111] Unable to handle kernel NULL pointer dereference at virtual address 00000088
-
-...
-
-[    4.665947] Workqueue: events deferred_probe_work_func
-[    4.670532] PC is at msm_open+0x64/0x90
-[    4.675656] LR is at _raw_write_unlock+0x20/0x4c
-
-...
-
-[    4.949553] [] (msm_open) from [] (drm_file_alloc+0x134/0x21c)
-[    4.957703] [] (drm_file_alloc) from [] (drm_client_init+0xa8/0x124)
-[    4.965162] [] (drm_client_init) from [] (drm_fb_helper_init.part.0+0x30/0x3c)
-[    4.973411] [] (drm_fb_helper_init.part.0) from [] (msm_fbdev_init+0x50/0xb4)
-[    4.982173] [] (msm_fbdev_init) from [] (msm_drm_bind+0x560/0x638)
-
-Full details (including full boot logs) at:
-
-	https://kernelci.org/boot/id/5d2ede2359b514a54b49e91b/
-	https://kernelci.org/boot/id/5d2ede2759b514a54749e91d/
-
---g7w8+K/95kPelPD2
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl0vEBkACgkQJNaLcl1U
-h9Co9gf+IDIziv1tHjw50lc9hVtreMOZovfMw97vrZm8A56pu4VqAnxQWEbrQT3N
-GIsAuEBoVxKY9QqzuncJg2s8M7eG8GKWpYAlA2xRL529zE/X0tnghCGhH+l41YJD
-k+n2FyTAuTjL9j+prJQp6Xh28oehhSInPXGQojQ9CRaADlz6/VdCEVs26gAqd5lr
-ziNZM/reduAjcGMw8V2aN1YWOTF+5BYH5C/awPogOnnMzU4ZHLzmRzNw7MwhSJ1Q
-paK64FL4syNmOOi0NSY+y0i+ttt36EpT94FTMBGdbkY7jQG7/cJlFejvdM0PJxEq
-k6/P+cMknnw/K05T+HazXJtgUdA+Dw==
-=Fsap
------END PGP SIGNATURE-----
-
---g7w8+K/95kPelPD2--
-
---===============1244250680==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5v
-IG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
-
---===============1244250680==--
+VGhlIEE2WFggZmFtaWx5IG9mIEFkcmVubyBHUFVzIHVzZSBhIG1pY3JvY29udHJvbGxlciB0byBj
+b250cm9sIHRoZQpHUFUgY2xvY2sgaW5kZXBlbmRlbnRseS4gVGhlIG1pY3JvY29udHJvbGxlciBh
+bHNvIGhhcyB0aGUgY2FwYWJpbGl0eQp0byB2b3RlIGZvciB0aGUgYnVzIGJ1dCBkb2Vzbid0IGN1
+cnJlbnRseSBkbyBzbyBleGNlcHQgZm9yIG9uZSBpbml0aWFsCnZvdGUgdGhhdCBpcyBoYXJkIGNv
+ZGVkIFsxXS4KCkN1cnJlbnRseSB0aGVyZSBpcyBubyBnb29kIHdheSB0byBjb25zdHJ1Y3QgYSB2
+YWxpZCBUQ1MgY29tbWFuZCBvdXRzaWRlCm9mIHRoZSBpbm5lciB3b3JraW5ncyBvZiB0aGUgUUNP
+TSBpbnRlcmNvbm5lY3QgZHJpdmVyIHdoaWNoIGlzIHNvbWV0aGluZwp0aGF0IHdpbGwgbmVlZCB0
+byBiZSBhZGRyZXNzZWQgZm9yIHRoZSBuZXh0IGdlbmVyYXRpb24gb2YgR1BVIGRyaXZlcnMuCgpU
+byBzdGFydCB0aGUgcHJvY2VzcywgdGhpcyBjaGFuZ2UgbW92ZXMgdGhlIFRDUyBjb21tYW5kIG1h
+Y3JvcyBmcm9tIHRoZQpzZG04NDUgaW50ZXJjb25uZWN0IGRyaXZlciBpbnRvIGEgc29jIHNwZWNp
+ZmljIGhlYWRlciB0byBtYWtlIGl0IGF2YWlsYWJsZQpmb3IgZnV0dXJlIGVmZm9ydHMgaW50byB0
+aGlzIGFyZWEuCgpbMV0gaHR0cHM6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5l
+bC9naXQvdG9ydmFsZHMvbGludXguZ2l0L3RyZWUvZHJpdmVycy9ncHUvZHJtL21zbS9hZHJlbm8v
+YTZ4eF9oZmkuYyNuMjE5CgpTaWduZWQtb2ZmLWJ5OiBKb3JkYW4gQ3JvdXNlIDxqY3JvdXNlQGNv
+ZGVhdXJvcmEub3JnPgotLS0KCiBkcml2ZXJzL2ludGVyY29ubmVjdC9xY29tL3NkbTg0NS5jIHwg
+MTcgLS0tLS0tLS0tLS0tLS0tLS0KIGluY2x1ZGUvc29jL3Fjb20vdGNzLmggICAgICAgICAgICAg
+fCAxNyArKysrKysrKysrKysrKysrKwogMiBmaWxlcyBjaGFuZ2VkLCAxNyBpbnNlcnRpb25zKCsp
+LCAxNyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2ludGVyY29ubmVjdC9xY29t
+L3NkbTg0NS5jIGIvZHJpdmVycy9pbnRlcmNvbm5lY3QvcWNvbS9zZG04NDUuYwppbmRleCA0OTE1
+Yjc4Li43OWI2ZjAxIDEwMDY0NAotLS0gYS9kcml2ZXJzL2ludGVyY29ubmVjdC9xY29tL3NkbTg0
+NS5jCisrKyBiL2RyaXZlcnMvaW50ZXJjb25uZWN0L3Fjb20vc2RtODQ1LmMKQEAgLTIwLDIzICsy
+MCw2IEBACiAjaW5jbHVkZSA8c29jL3Fjb20vcnBtaC5oPgogI2luY2x1ZGUgPHNvYy9xY29tL3Rj
+cy5oPgogCi0jZGVmaW5lIEJDTV9UQ1NfQ01EX0NPTU1JVF9TSEZUCQkzMAotI2RlZmluZSBCQ01f
+VENTX0NNRF9DT01NSVRfTUFTSwkJMHg0MDAwMDAwMAotI2RlZmluZSBCQ01fVENTX0NNRF9WQUxJ
+RF9TSEZUCQkyOQotI2RlZmluZSBCQ01fVENTX0NNRF9WQUxJRF9NQVNLCQkweDIwMDAwMDAwCi0j
+ZGVmaW5lIEJDTV9UQ1NfQ01EX1ZPVEVfWF9TSEZUCQkxNAotI2RlZmluZSBCQ01fVENTX0NNRF9W
+T1RFX01BU0sJCTB4M2ZmZgotI2RlZmluZSBCQ01fVENTX0NNRF9WT1RFX1lfU0hGVAkJMAotI2Rl
+ZmluZSBCQ01fVENTX0NNRF9WT1RFX1lfTUFTSwkJMHhmZmZjMDAwCi0KLSNkZWZpbmUgQkNNX1RD
+U19DTUQoY29tbWl0LCB2YWxpZCwgdm90ZV94LCB2b3RlX3kpCQlcCi0JKCgoY29tbWl0KSA8PCBC
+Q01fVENTX0NNRF9DT01NSVRfU0hGVCkgfAkJXAotCSgodmFsaWQpIDw8IEJDTV9UQ1NfQ01EX1ZB
+TElEX1NIRlQpIHwJCQlcCi0JKChjcHVfdG9fbGUzMih2b3RlX3gpICYJCQkJCVwKLQlCQ01fVENT
+X0NNRF9WT1RFX01BU0spIDw8IEJDTV9UQ1NfQ01EX1ZPVEVfWF9TSEZUKSB8CVwKLQkoKGNwdV90
+b19sZTMyKHZvdGVfeSkgJgkJCQkJXAotCUJDTV9UQ1NfQ01EX1ZPVEVfTUFTSykgPDwgQkNNX1RD
+U19DTURfVk9URV9ZX1NIRlQpKQotCiAjZGVmaW5lIHRvX3Fjb21fcHJvdmlkZXIoX3Byb3ZpZGVy
+KSBcCiAJY29udGFpbmVyX29mKF9wcm92aWRlciwgc3RydWN0IHFjb21faWNjX3Byb3ZpZGVyLCBw
+cm92aWRlcikKIApkaWZmIC0tZ2l0IGEvaW5jbHVkZS9zb2MvcWNvbS90Y3MuaCBiL2luY2x1ZGUv
+c29jL3Fjb20vdGNzLmgKaW5kZXggMjYyODc2YS4uNjAxMmE5ZSAxMDA2NDQKLS0tIGEvaW5jbHVk
+ZS9zb2MvcWNvbS90Y3MuaAorKysgYi9pbmNsdWRlL3NvYy9xY29tL3Rjcy5oCkBAIC01Myw0ICs1
+MywyMSBAQCBzdHJ1Y3QgdGNzX3JlcXVlc3QgewogCXN0cnVjdCB0Y3NfY21kICpjbWRzOwogfTsK
+IAorI2RlZmluZSBCQ01fVENTX0NNRF9DT01NSVRfU0hGVAkJMzAKKyNkZWZpbmUgQkNNX1RDU19D
+TURfQ09NTUlUX01BU0sJCTB4NDAwMDAwMDAKKyNkZWZpbmUgQkNNX1RDU19DTURfVkFMSURfU0hG
+VAkJMjkKKyNkZWZpbmUgQkNNX1RDU19DTURfVkFMSURfTUFTSwkJMHgyMDAwMDAwMAorI2RlZmlu
+ZSBCQ01fVENTX0NNRF9WT1RFX1hfU0hGVAkJMTQKKyNkZWZpbmUgQkNNX1RDU19DTURfVk9URV9N
+QVNLCQkweDNmZmYKKyNkZWZpbmUgQkNNX1RDU19DTURfVk9URV9ZX1NIRlQJCTAKKyNkZWZpbmUg
+QkNNX1RDU19DTURfVk9URV9ZX01BU0sJCTB4ZmZmYzAwMAorCisjZGVmaW5lIEJDTV9UQ1NfQ01E
+KGNvbW1pdCwgdmFsaWQsIHZvdGVfeCwgdm90ZV95KQkJXAorCSgoKGNvbW1pdCkgPDwgQkNNX1RD
+U19DTURfQ09NTUlUX1NIRlQpIHwJCVwKKwkoKHZhbGlkKSA8PCBCQ01fVENTX0NNRF9WQUxJRF9T
+SEZUKSB8CQkJXAorCSgoY3B1X3RvX2xlMzIodm90ZV94KSAmCQkJCQlcCisJQkNNX1RDU19DTURf
+Vk9URV9NQVNLKSA8PCBCQ01fVENTX0NNRF9WT1RFX1hfU0hGVCkgfAlcCisJKChjcHVfdG9fbGUz
+Mih2b3RlX3kpICYJCQkJCVwKKwlCQ01fVENTX0NNRF9WT1RFX01BU0spIDw8IEJDTV9UQ1NfQ01E
+X1ZPVEVfWV9TSEZUKSkKKwogI2VuZGlmIC8qIF9fU09DX1FDT01fVENTX0hfXyAqLwotLSAKMi43
+LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVk
+cmVubyBtYWlsaW5nIGxpc3QKRnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVubw==
