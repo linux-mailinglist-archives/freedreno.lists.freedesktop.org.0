@@ -2,42 +2,42 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D2726DB4A
-	for <lists+freedreno@lfdr.de>; Fri, 19 Jul 2019 06:08:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1436D6DBD5
+	for <lists+freedreno@lfdr.de>; Fri, 19 Jul 2019 06:11:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA1976E52E;
-	Fri, 19 Jul 2019 04:08:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 744716E560;
+	Fri, 19 Jul 2019 04:11:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 673476E52E;
- Fri, 19 Jul 2019 04:08:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DF316E55F;
+ Fri, 19 Jul 2019 04:11:54 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6ADB12189E;
- Fri, 19 Jul 2019 04:08:53 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 404AF2189E;
+ Fri, 19 Jul 2019 04:11:53 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri, 19 Jul 2019 00:06:30 -0400
-Message-Id: <20190719040732.17285-39-sashal@kernel.org>
+Date: Fri, 19 Jul 2019 00:10:33 -0400
+Message-Id: <20190719041109.18262-24-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190719040732.17285-1-sashal@kernel.org>
-References: <20190719040732.17285-1-sashal@kernel.org>
+In-Reply-To: <20190719041109.18262-1-sashal@kernel.org>
+References: <20190719041109.18262-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=kernel.org; s=default; t=1563509334;
- bh=bO/TrxC15UeiFxYGyuekSISHqs+qjchuEk87bhlHdHE=;
+ d=kernel.org; s=default; t=1563509514;
+ bh=jz7sHNyKe7PMf5YhqpKzdxcf8dmmt7SrhaGPJaDmwDw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lKP4chUJzsmTBTvbFiaXx1CaG5mMby7aZMn/ZjiAut9zZiwmT3aaajRrvOh+lk/+C
- xtCLJ4v9Yit2EpT/ke6LNev2HiEwRwpW9EgNJKCWRIwrZblz+1L6szSiUndnDDzURe
- Z2McfREAlk8mAus24V7VMaQTqesh0kORK1XlcFYA=
-Subject: [Freedreno] [PATCH AUTOSEL 4.19 039/101] drm/msm: Depopulate
- platform on probe failure
+ b=YKvyE5MQKrUU+jmlEidfNQzZsH5ssoSo5VBYq1E7duANfYb2RD8jMRjgwRw3zMg+P
+ TeZ124R2CH2UJgreMB5O3RqPvWfD6QFWc6uPrEqdliOcX4UH9HTGctMSszlcu9ZZvy
+ mwadB5fM6L1wNwFlTP49ec66U9bV6uBwHfEemETA=
+Subject: [Freedreno] [PATCH AUTOSEL 4.14 24/60] drm/msm: Depopulate platform
+ on probe failure
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -76,9 +76,9 @@ bgpTaWduZWQtb2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5vcmc+Ci0tLQogZHJp
 dmVycy9ncHUvZHJtL21zbS9tc21fZHJ2LmMgfCAxNCArKysrKysrKysrKy0tLQogMSBmaWxlIGNo
 YW5nZWQsIDExIGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJp
 dmVycy9ncHUvZHJtL21zbS9tc21fZHJ2LmMgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9kcnYu
-YwppbmRleCBjMWFiYWQ4YTg2MTIuLmVkOWEzYTFlNTBlZiAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
+YwppbmRleCA2MDZkZjdiZWE5N2IuLmI5NzA0MjdlNTNhNyAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
 cHUvZHJtL21zbS9tc21fZHJ2LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZHJ2LmMK
-QEAgLTEzMjEsMTYgKzEzMjEsMjQgQEAgc3RhdGljIGludCBtc21fcGRldl9wcm9iZShzdHJ1Y3Qg
+QEAgLTEwOTcsMTYgKzEwOTcsMjQgQEAgc3RhdGljIGludCBtc21fcGRldl9wcm9iZShzdHJ1Y3Qg
 cGxhdGZvcm1fZGV2aWNlICpwZGV2KQogCiAJcmV0ID0gYWRkX2dwdV9jb21wb25lbnRzKCZwZGV2
 LT5kZXYsICZtYXRjaCk7CiAJaWYgKHJldCkKLQkJcmV0dXJuIHJldDsKKwkJZ290byBmYWlsOwog
 CiAJLyogb24gYWxsIGRldmljZXMgdGhhdCBJIGFtIGF3YXJlIG9mLCBpb21tdSdzIHdoaWNoIGNh
@@ -86,8 +86,8 @@ biBtYXAKIAkgKiBhbnkgYWRkcmVzcyB0aGUgY3B1IGNhbiBzZWUgYXJlIHVzZWQ6CiAJICovCiAJ
 cmV0ID0gZG1hX3NldF9tYXNrX2FuZF9jb2hlcmVudCgmcGRldi0+ZGV2LCB+MCk7CiAJaWYgKHJl
 dCkKLQkJcmV0dXJuIHJldDsKKwkJZ290byBmYWlsOworCisJcmV0ID0gY29tcG9uZW50X21hc3Rl
 cl9hZGRfd2l0aF9tYXRjaCgmcGRldi0+ZGV2LCAmbXNtX2RybV9vcHMsIG1hdGNoKTsKKwlpZiAo
-cmV0KQorCQlnb3RvIGZhaWw7CiAKLQlyZXR1cm4gY29tcG9uZW50X21hc3Rlcl9hZGRfd2l0aF9t
-YXRjaCgmcGRldi0+ZGV2LCAmbXNtX2RybV9vcHMsIG1hdGNoKTsKKwlyZXR1cm4gMDsKKworZmFp
+cmV0KQorCQlnb3RvIGZhaWw7CisKKwlyZXR1cm4gMDsKIAotCXJldHVybiBjb21wb25lbnRfbWFz
+dGVyX2FkZF93aXRoX21hdGNoKCZwZGV2LT5kZXYsICZtc21fZHJtX29wcywgbWF0Y2gpOworZmFp
 bDoKKwlvZl9wbGF0Zm9ybV9kZXBvcHVsYXRlKCZwZGV2LT5kZXYpOworCXJldHVybiByZXQ7CiB9
 CiAKIHN0YXRpYyBpbnQgbXNtX3BkZXZfcmVtb3ZlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBk
 ZXYpCi0tIAoyLjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
