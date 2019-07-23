@@ -1,31 +1,39 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC24F71870
-	for <lists+freedreno@lfdr.de>; Tue, 23 Jul 2019 14:44:59 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id CDEFD71B6F
+	for <lists+freedreno@lfdr.de>; Tue, 23 Jul 2019 17:19:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94FDF6E1D6;
-	Tue, 23 Jul 2019 12:44:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC2F76E2E3;
+	Tue, 23 Jul 2019 15:19:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 889A26E1D6;
- Tue, 23 Jul 2019 12:44:57 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: andrzej.p) with ESMTPSA id 0B2192610F4
-To: Sam Ravnborg <sam@ravnborg.org>
+Received: from asavdk3.altibox.net (asavdk3.altibox.net [109.247.116.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3935E89C53;
+ Tue, 23 Jul 2019 15:19:48 +0000 (UTC)
+Received: from ravnborg.org (unknown [158.248.194.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by asavdk3.altibox.net (Postfix) with ESMTPS id 54655200D5;
+ Tue, 23 Jul 2019 17:19:41 +0200 (CEST)
+Date: Tue, 23 Jul 2019 17:19:39 +0200
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
+Message-ID: <20190723151939.GA13718@ravnborg.org>
 References: <cover.1562843413.git.andrzej.p@collabora.com>
  <d1d415022c598fb7acd033f0f322dd67250adaa9.1562843413.git.andrzej.p@collabora.com>
  <20190723090532.GA787@ravnborg.org>
-From: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
-Message-ID: <3ad60be5-49cf-4017-4b74-53a2d6272deb@collabora.com>
-Date: Tue, 23 Jul 2019 14:44:50 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ <3ad60be5-49cf-4017-4b74-53a2d6272deb@collabora.com>
 MIME-Version: 1.0
-In-Reply-To: <20190723090532.GA787@ravnborg.org>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <3ad60be5-49cf-4017-4b74-53a2d6272deb@collabora.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-CMAE-Score: 0
+X-CMAE-Analysis: v=2.3 cv=dqr19Wo4 c=1 sm=1 tr=0
+ a=UWs3HLbX/2nnQ3s7vZ42gw==:117 a=UWs3HLbX/2nnQ3s7vZ42gw==:17
+ a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=8nJEP1OIZ-IA:10 a=QX4gbG5DAAAA:8
+ a=6mu-9OIm9KcVJ4iDVDwA:9 a=wPNLvfGTeEIA:10 a=AbAUZ8qAyYyZVLSsDulk:22
 Subject: Re: [Freedreno] [PATCH v4 14/23] drm/tilcdc: Provide ddc symlink in
  connector sysfs directory
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -67,36 +75,44 @@ Cc: Neil Armstrong <narmstrong@baylibre.com>,
  Kyungmin Park <kyungmin.park@samsung.com>, Huang Rui <ray.huang@amd.com>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  Alex Deucher <alexander.deucher@amd.com>, Shawn Guo <shawnguo@kernel.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
  Gerd Hoffmann <kraxel@redhat.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-SGkgU2FtLAoKVyBkbml1IDIzLjA3LjIwMTkgb8KgMTE6MDUsIFNhbSBSYXZuYm9yZyBwaXN6ZToK
-PiBIaSBBbmRyemVqCj4gCj4gT24gVGh1LCBKdWwgMTEsIDIwMTkgYXQgMDE6MjY6NDFQTSArMDIw
-MCwgQW5kcnplaiBQaWV0cmFzaWV3aWN6IHdyb3RlOgo+PiBVc2UgdGhlIGRkYyBwb2ludGVyIHBy
-b3ZpZGVkIGJ5IHRoZSBnZW5lcmljIGNvbm5lY3Rvci4KPj4KPj4gU2lnbmVkLW9mZi1ieTogQW5k
-cnplaiBQaWV0cmFzaWV3aWN6IDxhbmRyemVqLnBAY29sbGFib3JhLmNvbT4KPj4gLS0tCj4+ICAg
-ZHJpdmVycy9ncHUvZHJtL3RpbGNkYy90aWxjZGNfdGZwNDEwLmMgfCAxICsKPj4gICAxIGZpbGUg
-Y2hhbmdlZCwgMSBpbnNlcnRpb24oKykKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS90aWxjZGMvdGlsY2RjX3RmcDQxMC5jIGIvZHJpdmVycy9ncHUvZHJtL3RpbGNkYy90aWxjZGNf
-dGZwNDEwLmMKPj4gaW5kZXggNjJkMDE0YzIwOTg4Li5jMzczZWRiOTU2NjYgMTAwNjQ0Cj4+IC0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS90aWxjZGMvdGlsY2RjX3RmcDQxMC5jCj4+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS90aWxjZGMvdGlsY2RjX3RmcDQxMC5jCj4+IEBAIC0yMTksNiArMjE5LDcgQEAg
-c3RhdGljIHN0cnVjdCBkcm1fY29ubmVjdG9yICp0ZnA0MTBfY29ubmVjdG9yX2NyZWF0ZShzdHJ1
-Y3QgZHJtX2RldmljZSAqZGV2LAo+PiAgIAl0ZnA0MTBfY29ubmVjdG9yLT5tb2QgPSBtb2Q7Cj4+
-ICAgCj4+ICAgCWNvbm5lY3RvciA9ICZ0ZnA0MTBfY29ubmVjdG9yLT5iYXNlOwo+PiArCWNvbm5l
-Y3Rvci0+ZGRjID0gbW9kLT5pMmM7Cj4+ICAgCj4+ICAgCWRybV9jb25uZWN0b3JfaW5pdChkZXYs
-IGNvbm5lY3RvciwgJnRmcDQxMF9jb25uZWN0b3JfZnVuY3MsCj4+ICAgCQkJRFJNX01PREVfQ09O
-TkVDVE9SX0RWSUQpOwo+IAo+IFdoZW4gcmVhZGluZyB0aGlzIGNvZGUsIGl0IGxvb2tzIHN0cmFu
-Z2UgdGhhdCB3ZSBzZXQgY29ubmVjdG9yLT5kZGMKPiAqYmVmb3JlKiB0aGUgY2FsbCB0byBpbml0
-IHRoZSBjb25uZWN0b3IuCj4gT25lIGNvdWxkIHJpc2sgdGhhdCBkcm1fY29ubmVjdG9yX2luaXQo
-KSB1c2VkIG1lbXNldCguLikgdG8gY2xlYXIgYWxsCj4gZmllbGRzIG9yIHNvLCBhbmQgaXQgd291
-bGQgYnJlYWsgdGhpcyBvcmRlci4KCkkgdmVyaWZpZWQgdGhlIGNvZGUgb2YgZHJtX2Nvbm5lY3Rv
-cl9pbml0KCkgYW5kIGNhbm5vdCBmaW5kIGFueSBtZW1zZXQoKQppbnZvY2F0aW9ucyB0aGVyZS4g
-V2hhdCBpcyB5b3VyIGFjdHVhbCBjb25jZXJuPwoKQW5kcnplagpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpGcmVlZHJlbm8gbWFpbGluZyBsaXN0CkZyZWVk
-cmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9mcmVlZHJlbm8=
+SGkgQW5kcmVqLgoKT24gVHVlLCBKdWwgMjMsIDIwMTkgYXQgMDI6NDQ6NTBQTSArMDIwMCwgQW5k
+cnplaiBQaWV0cmFzaWV3aWN6IHdyb3RlOgo+IEhpIFNhbSwKPiAKPiBXIGRuaXUgMjMuMDcuMjAx
+OSBvwqAxMTowNSwgU2FtIFJhdm5ib3JnIHBpc3plOgo+ID4gSGkgQW5kcnplago+ID4gCj4gPiBP
+biBUaHUsIEp1bCAxMSwgMjAxOSBhdCAwMToyNjo0MVBNICswMjAwLCBBbmRyemVqIFBpZXRyYXNp
+ZXdpY3ogd3JvdGU6Cj4gPiA+IFVzZSB0aGUgZGRjIHBvaW50ZXIgcHJvdmlkZWQgYnkgdGhlIGdl
+bmVyaWMgY29ubmVjdG9yLgo+ID4gPiAKPiA+ID4gU2lnbmVkLW9mZi1ieTogQW5kcnplaiBQaWV0
+cmFzaWV3aWN6IDxhbmRyemVqLnBAY29sbGFib3JhLmNvbT4KPiA+ID4gLS0tCj4gPiA+ICAgZHJp
+dmVycy9ncHUvZHJtL3RpbGNkYy90aWxjZGNfdGZwNDEwLmMgfCAxICsKPiA+ID4gICAxIGZpbGUg
+Y2hhbmdlZCwgMSBpbnNlcnRpb24oKykKPiA+ID4gCj4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vdGlsY2RjL3RpbGNkY190ZnA0MTAuYyBiL2RyaXZlcnMvZ3B1L2RybS90aWxjZGMv
+dGlsY2RjX3RmcDQxMC5jCj4gPiA+IGluZGV4IDYyZDAxNGMyMDk4OC4uYzM3M2VkYjk1NjY2IDEw
+MDY0NAo+ID4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdGlsY2RjL3RpbGNkY190ZnA0MTAuYwo+
+ID4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdGlsY2RjL3RpbGNkY190ZnA0MTAuYwo+ID4gPiBA
+QCAtMjE5LDYgKzIxOSw3IEBAIHN0YXRpYyBzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqdGZwNDEwX2Nv
+bm5lY3Rvcl9jcmVhdGUoc3RydWN0IGRybV9kZXZpY2UgKmRldiwKPiA+ID4gICAJdGZwNDEwX2Nv
+bm5lY3Rvci0+bW9kID0gbW9kOwo+ID4gPiAgIAljb25uZWN0b3IgPSAmdGZwNDEwX2Nvbm5lY3Rv
+ci0+YmFzZTsKPiA+ID4gKwljb25uZWN0b3ItPmRkYyA9IG1vZC0+aTJjOwo+ID4gPiAgIAlkcm1f
+Y29ubmVjdG9yX2luaXQoZGV2LCBjb25uZWN0b3IsICZ0ZnA0MTBfY29ubmVjdG9yX2Z1bmNzLAo+
+ID4gPiAgIAkJCURSTV9NT0RFX0NPTk5FQ1RPUl9EVklEKTsKPiA+IAo+ID4gV2hlbiByZWFkaW5n
+IHRoaXMgY29kZSwgaXQgbG9va3Mgc3RyYW5nZSB0aGF0IHdlIHNldCBjb25uZWN0b3ItPmRkYwo+
+ID4gKmJlZm9yZSogdGhlIGNhbGwgdG8gaW5pdCB0aGUgY29ubmVjdG9yLgo+ID4gT25lIGNvdWxk
+IHJpc2sgdGhhdCBkcm1fY29ubmVjdG9yX2luaXQoKSB1c2VkIG1lbXNldCguLikgdG8gY2xlYXIg
+YWxsCj4gPiBmaWVsZHMgb3Igc28sIGFuZCBpdCB3b3VsZCBicmVhayB0aGlzIG9yZGVyLgo+IAo+
+IEkgdmVyaWZpZWQgdGhlIGNvZGUgb2YgZHJtX2Nvbm5lY3Rvcl9pbml0KCkgYW5kIGNhbm5vdCBm
+aW5kIGFueSBtZW1zZXQoKQo+IGludm9jYXRpb25zIHRoZXJlLiBXaGF0IGlzIHlvdXIgYWN0dWFs
+IGNvbmNlcm4/Ck15IGNvbmNlcm4gaXMgdGhhdCBkcm1fY29ubmVjdG9yX2luaXQoKSBtYXliZSBz
+b21ldGltZSBpbiB0aGUgZnV0dXJlCndpbGwgaW5pdCBhbGwgZmlsZWRzIGluIGRybV9jb25uZWN0
+b3IsIHNvIHdlIGxvb3NlIGFueSBhc3NpbmdtZW50cwpkb25lIHRvIGRybV9jb25uZWN0b3IgZnJv
+bSAqYmVmb3JlKiB3ZSBjYWxsZWQgdGhlIGluaXQgZnVuY3Rpb24uCgpNb3ZpbmcgdGhlIGFzc2ln
+bm1lbnQgdG8gYWZ0ZXIgZHJtX2Nvbm5lY3Rvcl9pbml0KCkgd291bGQgbm90CmxldCB1cyBkZXBl
+bmQgb24gdGhlIGFjdHVhbCBpbXBsbWVudGF0aW9uIG9mIGRybV9jb25uZWN0b3JfaW5pdCgpLgoK
+CVNhbQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpGcmVl
+ZHJlbm8gbWFpbGluZyBsaXN0CkZyZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
+Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9mcmVlZHJlbm8=
