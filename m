@@ -2,105 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E925D732C3
-	for <lists+freedreno@lfdr.de>; Wed, 24 Jul 2019 17:31:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99AAC734E7
+	for <lists+freedreno@lfdr.de>; Wed, 24 Jul 2019 19:16:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D1286E5D2;
-	Wed, 24 Jul 2019 15:31:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D2856E602;
+	Wed, 24 Jul 2019 17:16:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x142.google.com (mail-lf1-x142.google.com
- [IPv6:2a00:1450:4864:20::142])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A47BC6E5D2
- for <freedreno@lists.freedesktop.org>; Wed, 24 Jul 2019 15:31:02 +0000 (UTC)
-Received: by mail-lf1-x142.google.com with SMTP id x3so32357255lfc.0
- for <freedreno@lists.freedesktop.org>; Wed, 24 Jul 2019 08:31:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
- :message-id:date:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=w04TwcBlrwE0OA2QepWCIyollMUBH4W0M6LcA4jtxc4=;
- b=FFHtaojBXusGMSu9B3PDBfHVuiD3HHfWr0fq7LYt2Uqmi+k2HYySMoj13O4E/Hm2fL
- EoejjxMyf2/hNwF5ayx7XYsT1XfvQ1EiTXi4QcyK3MMq4y2ptr+YiCF2v+9Abko0hoHl
- yZ+qnt/wWA5o67JPE405A1qAY1qakHuNoAZstAYELSG5suuj/kgL/DLmeikHf4uMqNsS
- 8s38Y2zJ09E63DSU1QMZmkKfDR0ZLpsJR6tTEQ9fsUoC+9r9lT0z7KGTf6hNZ1C8uyxe
- 3ScVM/uAPg9zy2g6uOn+J2oMMglSHyg5P0/MkeZewh4+kyJh8U2h1J2hnvd3DSq3TMni
- tamg==
-X-Gm-Message-State: APjAAAWUhR/uRXADccnrfelTNPwN02u8LK3MnZNuwFtYr/YhjgeGXxpr
- mt/sBZjBauyluzIF5Jrvvsu4kK6/c48=
-X-Google-Smtp-Source: APXvYqwZaetBqiZkU3WyKGnWXjAjS11aiAKWTs8GvtiBVKZJwmURwRiQwY55D2YKhy42HTE67eo63g==
-X-Received: by 2002:a05:6512:1d2:: with SMTP id
- f18mr37896536lfp.173.1563982260973; 
- Wed, 24 Jul 2019 08:31:00 -0700 (PDT)
-Received: from [10.44.66.8] ([212.45.67.2])
- by smtp.googlemail.com with ESMTPSA id q4sm9720175lje.99.2019.07.24.08.30.59
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 24 Jul 2019 08:31:00 -0700 (PDT)
-To: Jordan Crouse <jcrouse@codeaurora.org>, freedreno@lists.freedesktop.org
-References: <1563378793-22023-1-git-send-email-jcrouse@codeaurora.org>
-From: Georgi Djakov <georgi.djakov@linaro.org>
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C30C6E5FB;
+ Wed, 24 Jul 2019 17:16:45 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id C2476AC18;
+ Wed, 24 Jul 2019 17:16:42 +0000 (UTC)
+To: Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+ dri-devel@lists.freedesktop.org
+References: <cover.1563960855.git.andrzej.p@collabora.com>
+ <53f5ded2971235e5b63c9a3ed4ed8bccf10c78f2.1563960855.git.andrzej.p@collabora.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
 Openpgp: preference=signencrypt
-Autocrypt: addr=georgi.djakov@linaro.org; prefer-encrypt=mutual; keydata=
- mQINBFjTuRcBEACyAOVzghvyN19Sa/Nit4LPBWkICi5W20p6bwiZvdjhtuh50H5q4ktyxJtp
- 1+s8dMSa/j58hAWhrc2SNL3fttOCo+MM1bQWwe8uMBQJP4swgXf5ZUYkSssQlXxGKqBSbWLB
- uFHOOBTzaQBaNgsdXo+mQ1h8UCgM0zQOmbs2ort8aHnH2i65oLs5/Xgv/Qivde/FcFtvEFaL
- 0TZ7odM67u+M32VetH5nBVPESmnEDjRBPw/DOPhFBPXtal53ZFiiRr6Bm1qKVu3dOEYXHHDt
- nF13gB+vBZ6x5pjl02NUEucSHQiuCc2Aaavo6xnuBc3lnd4z/xk6GLBqFP3P/eJ56eJv4d0B
- 0LLgQ7c1T3fU4/5NDRRCnyk6HJ5+HSxD4KVuluj0jnXW4CKzFkKaTxOp7jE6ZD/9Sh74DM8v
- etN8uwDjtYsM07I3Szlh/I+iThxe/4zVtUQsvgXjwuoOOBWWc4m4KKg+W4zm8bSCqrd1DUgL
- f67WiEZgvN7tPXEzi84zT1PiUOM98dOnmREIamSpKOKFereIrKX2IcnZn8jyycE12zMkk+Sc
- ASMfXhfywB0tXRNmzsywdxQFcJ6jblPNxscnGMh2VlY2rezmqJdcK4G4Lprkc0jOHotV/6oJ
- mj9h95Ouvbq5TDHx+ERn8uytPygDBR67kNHs18LkvrEex/Z1cQARAQABtChHZW9yZ2kgRGph
- a292IDxnZW9yZ2kuZGpha292QGxpbmFyby5vcmc+iQI+BBMBAgAoBQJY07kXAhsDBQkHhM4A
- BgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCyi/eZcnWWUuvsD/4miikUeAO6fU2Xy3fT
- l7RUCeb2Uuh1/nxYoE1vtXcow6SyAvIVTD32kHXucJJfYy2zFzptWpvD6Sa0Sc58qe4iLY4j
- M54ugOYK7XeRKkQHFqqR2T3g/toVG1BOLS2atooXEU+8OFbpLkBXbIdItqJ1M1SEw8YgKmmr
- JlLAaKMq3hMb5bDQx9erq7PqEKOB/Va0nNu17IL58q+Q5Om7S1x54Oj6LiG/9kNOxQTklOQZ
- t61oW1Ewjbl325fW0/Lk0QzmfLCrmGXXiedFEMRLCJbVImXVKdIt/Ubk6SAAUrA5dFVNBzm2
- L8r+HxJcfDeEpdOZJzuwRyFnH96u1Xz+7X2V26zMU6Wl2+lhvr2Tj7spxjppR+nuFiybQq7k
- MIwyEF0mb75RLhW33sdGStCZ/nBsXIGAUS7OBj+a5fm47vQKv6ekg60oRTHWysFSJm1mlRyq
- exhI6GwUo5GM/vE36rIPSJFRRgkt6nynoba/1c4VXxfhok2rkP0x3CApJ5RimbvITTnINY0o
- CU6f1ng1I0A1UTi2YcLjFq/gmCdOHExT4huywfu1DDf0p1xDyPA1FJaii/gJ32bBP3zK53hM
- dj5S7miqN7F6ZpvGSGXgahQzkGyYpBR5pda0m0k8drV2IQn+0W8Qwh4XZ6/YdfI81+xyFlXc
- CJjljqsMCJW6PdgEH7kCDQRY07kXARAAvupGd4Jdd8zRRiF+jMpv6ZGz8L55Di1fl1YRth6m
- lIxYTLwGf0/p0oDLIRldKswena3fbWh5bbTMkJmRiOQ/hffhPSNSyyh+WQeLY2kzl6geiHxD
- zbw37e2hd3rWAEfVFEXOLnmenaUeJFyhA3Wd8OLdRMuoV+RaLhNfeHctiEn1YGy2gLCq4VNb
- 4Wj5hEzABGO7+LZ14hdw3hJIEGKtQC65Jh/vTayGD+qdwedhINnIqslk9tCQ33a+jPrCjXLW
- X29rcgqigzsLHH7iVHWA9R5Aq7pCy5hSFsl4NBn1uV6UHlyOBUuiHBDVwTIAUnZ4S8EQiwgv
- WQxEkXEWLM850V+G6R593yZndTr3yydPgYv0xEDACd6GcNLR/x8mawmHKzNmnRJoOh6Rkfw2
- fSiVGesGo83+iYq0NZASrXHAjWgtZXO1YwjW9gCQ2jYu9RGuQM8zIPY1VDpQ6wJtjO/KaOLm
- NehSR2R6tgBJK7XD9it79LdbPKDKoFSqxaAvXwWgXBj0Oz+Y0BqfClnAbxx3kYlSwfPHDFYc
- R/ppSgnbR5j0Rjz/N6Lua3S42MDhQGoTlVkgAi1btbdV3qpFE6jglJsJUDlqnEnwf03EgjdJ
- 6KEh0z57lyVcy5F/EUKfTAMZweBnkPo+BF2LBYn3Qd+CS6haZAWaG7vzVJu4W/mPQzsAEQEA
- AYkCJQQYAQIADwUCWNO5FwIbDAUJB4TOAAAKCRCyi/eZcnWWUhlHD/0VE/2x6lKh2FGP+QHH
- UTKmiiwtMurYKJsSJlQx0T+j/1f+zYkY3MDX+gXa0d0xb4eFv8WNlEjkcpSPFr+pQ7CiAI33
- 99kAVMQEip/MwoTYvM9NXSMTpyRJ/asnLeqa0WU6l6Z9mQ41lLzPFBAJ21/ddT4xeBDv0dxM
- GqaH2C6bSnJkhSfSja9OxBe+F6LIAZgCFzlogbmSWmUdLBg+sh3K6aiBDAdZPUMvGHzHK3fj
- gHK4GqGCFK76bFrHQYgiBOrcR4GDklj4Gk9osIfdXIAkBvRGw8zg1zzUYwMYk+A6v40gBn00
- OOB13qJe9zyKpReWMAhg7BYPBKIm/qSr82aIQc4+FlDX2Ot6T/4tGUDr9MAHaBKFtVyIqXBO
- xOf0vQEokkUGRKWBE0uA3zFVRfLiT6NUjDQ0vdphTnsdA7h01MliZLQ2lLL2Mt5lsqU+6sup
- Tfql1omgEpjnFsPsyFebzcKGbdEr6vySGa3Cof+miX06hQXKe99a5+eHNhtZJcMAIO89wZmj
- 7ayYJIXFqjl/X0KBcCbiAl4vbdBw1bqFnO4zd1lMXKVoa29UHqby4MPbQhjWNVv9kqp8A39+
- E9xw890l1xdERkjVKX6IEJu2hf7X3MMl9tOjBK6MvdOUxvh1bNNmXh7OlBL1MpJYY/ydIm3B
- KEmKjLDvB0pePJkdTw==
-Message-ID: <31e9d2c6-edcd-11b8-4c4b-d51ed2d8f7b7@linaro.org>
-Date: Wed, 24 Jul 2019 18:30:58 +0300
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNKFRob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmNvbT7CwJQEEwEIAD4W
+ IQRyF/usjOnPY0ShaOVoDcEdUwt6IwUCWznTtgIbAwUJA8JnAAULCQgHAgYVCgkICwIEFgID
+ AQIeAQIXgAAKCRBoDcEdUwt6I7D7CACBK42XW+7mCiK8ioXMEy1NzGbXC51RzGea8N83oEJS
+ 1KVUtQxrkDxgrW/WLSl/TfqHFsJpdEFOv1XubWbleun3uKPy0e5vZCd5UjZPkeNjnqfCYTDy
+ hVVsdOuFbtWDppJyJrThLqr9AgSFmoCNNUt1SVpYEEOLNE6C32BhlnSq21VLC+YXTgO/ZHTa
+ YXkq54hHj63jwrcjkBSCkXLh37kHeqnl++GHpN+3R+o3w2OpwHAlvVjdKPT27v1tVkiydsFG
+ 65Vd0n3m/ft+IOrGgxQM1C20uqKvsZGB4r3OGR50ekAybO7sjEJJ1Obl4ge/6RRqcvKz4LMb
+ tGs85D6tPIeFzsBNBFs50uABCADGJj+DP1fk+UWOWrf4O61HTbC4Vr9QD2K4fUUHnzg2B6zU
+ R1BPXqLGG0+lzK8kfYU/F5RjmEcClsIkAaFkg4kzKP14tvY1J5+AV3yNqcdg018HNtiyrSwI
+ E0Yz/qm1Ot2NMZ0DdvVBg22IMsiudQ1tx9CH9mtyTbIXgACvl3PW2o9CxiHPE/bohFhwZwh/
+ kXYYAE51lhinQ3oFEeQZA3w4OTvxSEspiQR8dg8qJJb+YOAc5IKk6sJmmM7JfFMWSr22satM
+ 23oQ3WvJb4RV6HTRTAIEyyZS7g2DhiytgMG60t0qdABG5KXSQW+OKlZRpuWwKWaLh3if/p/u
+ 69dvpanbABEBAAHCwHwEGAEIACYWIQRyF/usjOnPY0ShaOVoDcEdUwt6IwUCWznS4AIbDAUJ
+ A8JnAAAKCRBoDcEdUwt6I6X3CACJ8D+TpXBCqJE5xwog08+Dp8uBpx0T9n1wE0GQisZruACW
+ NofYn8PTX9k4wmegDLwt7YQDdKxQ4+eTfZeLNQqWg6OCftH5Kx7sjWnJ09tOgniVdROzWJ7c
+ VJ/i0okazncsJ+nq48UYvRGE1Swh3A4QRIyphWX4OADOBmTFl9ZYNPnh23eaC9WrNvFr7yP7
+ iGjMlfEW8l6Lda//EC5VpXVNza0xeae0zFNst2R9pn+bLkihwDLWxOIyifGRxTqNxoS4I1aw
+ VhxPSVztPMSpIA/sOr/N/p6JrBLn+gui2K6mP7bGb8hF+szfArYqz3T1rv1VzUWAJf5Wre5U
+ iNx9uqqx
+Message-ID: <ea96186f-8d38-a698-f29e-049987ae0163@suse.de>
+Date: Wed, 24 Jul 2019 19:16:35 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <1563378793-22023-1-git-send-email-jcrouse@codeaurora.org>
-Content-Language: en-US
-X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google;
- h=subject:to:cc:references:from:openpgp:autocrypt:message-id:date
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=w04TwcBlrwE0OA2QepWCIyollMUBH4W0M6LcA4jtxc4=;
- b=AjM19knBV84Dn1ZuV7wNvmsmmirz1UY6xC79pbJYVejpy1o6FJZS/OOfMvWLILrYRI
- KgCiUyz3E+DJLovwOe2ERKXIcw1Gf04vpzKyUS7E9m0aoUwRb8vVLufVFNZJl46ULvZG
- T9wQyXEzEETSWc+CzxB4t1aV4BBiC2S2RUl9Ie5q2Q3rawXi+CAQj9USLYUsyGCjdDkc
- 4IrpjUX5adig8IFh5u2LmPQH/M+zWLJ6T2VFuF4bXaV1XJ4ZAQetoVjtQJgmKLesbJGJ
- ql2ydeAfHrPkE7C3b51d3j8VAIlhrNQ1ymJAn1uh0WWgg9mXQXZyeG3w5mZvaDij0fIE
- Un3g==
-Subject: Re: [Freedreno] [PATCH] qcom: Add BCM vote macro to TCS header
+In-Reply-To: <53f5ded2971235e5b63c9a3ed4ed8bccf10c78f2.1563960855.git.andrzej.p@collabora.com>
+Subject: Re: [Freedreno] [PATCH v5 02/24] drm: Add drm_connector_init()
+ variant with ddc
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -113,73 +67,197 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, ilina@codeaurora.org, bjorn.andersson@linaro.org,
- David Brown <david.brown@linaro.org>, Andy Gross <agross@kernel.org>,
- "Raju P.L.S.S.S.N" <rplsssn@codeaurora.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Neil Armstrong <narmstrong@baylibre.com>,
+ Maxime Ripard <maxime.ripard@bootlin.com>, linux-kernel@vger.kernel.org,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Shawn Guo <shawnguo@kernel.org>, kernel@collabora.com,
+ Sam Ravnborg <sam@ravnborg.org>, linux-samsung-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, Sean Paul <sean@poorly.run>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ David Airlie <airlied@linux.ie>, Chen-Yu Tsai <wens@csie.org>,
+ Kukjin Kim <kgene@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
+ Dave Airlie <airlied@redhat.com>, Jonas Karlman <jonas@kwiboo.se>,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ Jyri Sarha <jsarha@ti.com>, Mamta Shukla <mamtashukla555@gmail.com>,
+ linux-mediatek@lists.infradead.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ linux-tegra@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+ Vincent Abriou <vincent.abriou@st.com>, Allison Randal <allison@lohutok.net>,
+ linux-arm-kernel@lists.infradead.org, Jernej Skrabec <jernej.skrabec@siol.net>,
+ amd-gfx@lists.freedesktop.org, Tomi Valkeinen <tomi.valkeinen@ti.com>,
+ Enrico Weigelt <info@metux.net>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Douglas Anderson <dianders@chromium.org>, Todor Tomov <todor.tomov@linaro.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>, Huang Rui <ray.huang@amd.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Gerd Hoffmann <kraxel@redhat.com>
+Content-Type: multipart/mixed; boundary="===============1652618009=="
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-SGkgSm9yZGFuLAoKT24gNy8xNy8xOSAxODo1MywgSm9yZGFuIENyb3VzZSB3cm90ZToKPiBUaGUg
-QTZYWCBmYW1pbHkgb2YgQWRyZW5vIEdQVXMgdXNlIGEgbWljcm9jb250cm9sbGVyIHRvIGNvbnRy
-b2wgdGhlCj4gR1BVIGNsb2NrIGluZGVwZW5kZW50bHkuIFRoZSBtaWNyb2NvbnRyb2xsZXIgYWxz
-byBoYXMgdGhlIGNhcGFiaWxpdHkKPiB0byB2b3RlIGZvciB0aGUgYnVzIGJ1dCBkb2Vzbid0IGN1
-cnJlbnRseSBkbyBzbyBleGNlcHQgZm9yIG9uZSBpbml0aWFsCj4gdm90ZSB0aGF0IGlzIGhhcmQg
-Y29kZWQgWzFdLgo+IAo+IEN1cnJlbnRseSB0aGVyZSBpcyBubyBnb29kIHdheSB0byBjb25zdHJ1
-Y3QgYSB2YWxpZCBUQ1MgY29tbWFuZCBvdXRzaWRlCj4gb2YgdGhlIGlubmVyIHdvcmtpbmdzIG9m
-IHRoZSBRQ09NIGludGVyY29ubmVjdCBkcml2ZXIgd2hpY2ggaXMgc29tZXRoaW5nCj4gdGhhdCB3
-aWxsIG5lZWQgdG8gYmUgYWRkcmVzc2VkIGZvciB0aGUgbmV4dCBnZW5lcmF0aW9uIG9mIEdQVSBk
-cml2ZXJzLgo+IAo+IFRvIHN0YXJ0IHRoZSBwcm9jZXNzLCB0aGlzIGNoYW5nZSBtb3ZlcyB0aGUg
-VENTIGNvbW1hbmQgbWFjcm9zIGZyb20gdGhlCj4gc2RtODQ1IGludGVyY29ubmVjdCBkcml2ZXIg
-aW50byBhIHNvYyBzcGVjaWZpYyBoZWFkZXIgdG8gbWFrZSBpdCBhdmFpbGFibGUKPiBmb3IgZnV0
-dXJlIGVmZm9ydHMgaW50byB0aGlzIGFyZWEuCgpJIGFncmVlIHRoYXQgd2Ugc2hvdWxkIG1vdmUg
-dGhlIFRDUyBtYWNyb3MgaW50byB0c2MuaC4gVGhlcmUgaXMgYWxzbyBhIHNpbWlsYXIKbWFjcm8g
-aW4gZHJpdmVycy9jbGsvcWNvbS9jbGstcnBtaC5jLiBNYXliZSB3ZSBjYW4gcmVwbGFjZSBib3Ro
-IHdpdGggYSBjb21tb24gb25lPwoKVGhhbmtzLApHZW9yZ2kKCj4gCj4gWzFdIGh0dHBzOi8vZ2l0
-Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwvZ2l0L3RvcnZhbGRzL2xpbnV4LmdpdC90
-cmVlL2RyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2E2eHhfaGZpLmMjbjIxOQo+IAo+IFNpZ25l
-ZC1vZmYtYnk6IEpvcmRhbiBDcm91c2UgPGpjcm91c2VAY29kZWF1cm9yYS5vcmc+Cj4gLS0tCj4g
-Cj4gIGRyaXZlcnMvaW50ZXJjb25uZWN0L3Fjb20vc2RtODQ1LmMgfCAxNyAtLS0tLS0tLS0tLS0t
-LS0tLQo+ICBpbmNsdWRlL3NvYy9xY29tL3Rjcy5oICAgICAgICAgICAgIHwgMTcgKysrKysrKysr
-KysrKysrKysKPiAgMiBmaWxlcyBjaGFuZ2VkLCAxNyBpbnNlcnRpb25zKCspLCAxNyBkZWxldGlv
-bnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9pbnRlcmNvbm5lY3QvcWNvbS9zZG04NDUu
-YyBiL2RyaXZlcnMvaW50ZXJjb25uZWN0L3Fjb20vc2RtODQ1LmMKPiBpbmRleCA0OTE1Yjc4Li43
-OWI2ZjAxIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvaW50ZXJjb25uZWN0L3Fjb20vc2RtODQ1LmMK
-PiArKysgYi9kcml2ZXJzL2ludGVyY29ubmVjdC9xY29tL3NkbTg0NS5jCj4gQEAgLTIwLDIzICsy
-MCw2IEBACj4gICNpbmNsdWRlIDxzb2MvcWNvbS9ycG1oLmg+Cj4gICNpbmNsdWRlIDxzb2MvcWNv
-bS90Y3MuaD4KPiAgCj4gLSNkZWZpbmUgQkNNX1RDU19DTURfQ09NTUlUX1NIRlQJCTMwCj4gLSNk
-ZWZpbmUgQkNNX1RDU19DTURfQ09NTUlUX01BU0sJCTB4NDAwMDAwMDAKPiAtI2RlZmluZSBCQ01f
-VENTX0NNRF9WQUxJRF9TSEZUCQkyOQo+IC0jZGVmaW5lIEJDTV9UQ1NfQ01EX1ZBTElEX01BU0sJ
-CTB4MjAwMDAwMDAKPiAtI2RlZmluZSBCQ01fVENTX0NNRF9WT1RFX1hfU0hGVAkJMTQKPiAtI2Rl
-ZmluZSBCQ01fVENTX0NNRF9WT1RFX01BU0sJCTB4M2ZmZgo+IC0jZGVmaW5lIEJDTV9UQ1NfQ01E
-X1ZPVEVfWV9TSEZUCQkwCj4gLSNkZWZpbmUgQkNNX1RDU19DTURfVk9URV9ZX01BU0sJCTB4ZmZm
-YzAwMAo+IC0KPiAtI2RlZmluZSBCQ01fVENTX0NNRChjb21taXQsIHZhbGlkLCB2b3RlX3gsIHZv
-dGVfeSkJCVwKPiAtCSgoKGNvbW1pdCkgPDwgQkNNX1RDU19DTURfQ09NTUlUX1NIRlQpIHwJCVwK
-PiAtCSgodmFsaWQpIDw8IEJDTV9UQ1NfQ01EX1ZBTElEX1NIRlQpIHwJCQlcCj4gLQkoKGNwdV90
-b19sZTMyKHZvdGVfeCkgJgkJCQkJXAo+IC0JQkNNX1RDU19DTURfVk9URV9NQVNLKSA8PCBCQ01f
-VENTX0NNRF9WT1RFX1hfU0hGVCkgfAlcCj4gLQkoKGNwdV90b19sZTMyKHZvdGVfeSkgJgkJCQkJ
-XAo+IC0JQkNNX1RDU19DTURfVk9URV9NQVNLKSA8PCBCQ01fVENTX0NNRF9WT1RFX1lfU0hGVCkp
-Cj4gLQo+ICAjZGVmaW5lIHRvX3Fjb21fcHJvdmlkZXIoX3Byb3ZpZGVyKSBcCj4gIAljb250YWlu
-ZXJfb2YoX3Byb3ZpZGVyLCBzdHJ1Y3QgcWNvbV9pY2NfcHJvdmlkZXIsIHByb3ZpZGVyKQo+ICAK
-PiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9zb2MvcWNvbS90Y3MuaCBiL2luY2x1ZGUvc29jL3Fjb20v
-dGNzLmgKPiBpbmRleCAyNjI4NzZhLi42MDEyYTllIDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvc29j
-L3Fjb20vdGNzLmgKPiArKysgYi9pbmNsdWRlL3NvYy9xY29tL3Rjcy5oCj4gQEAgLTUzLDQgKzUz
-LDIxIEBAIHN0cnVjdCB0Y3NfcmVxdWVzdCB7Cj4gIAlzdHJ1Y3QgdGNzX2NtZCAqY21kczsKPiAg
-fTsKPiAgCj4gKyNkZWZpbmUgQkNNX1RDU19DTURfQ09NTUlUX1NIRlQJCTMwCj4gKyNkZWZpbmUg
-QkNNX1RDU19DTURfQ09NTUlUX01BU0sJCTB4NDAwMDAwMDAKPiArI2RlZmluZSBCQ01fVENTX0NN
-RF9WQUxJRF9TSEZUCQkyOQo+ICsjZGVmaW5lIEJDTV9UQ1NfQ01EX1ZBTElEX01BU0sJCTB4MjAw
-MDAwMDAKPiArI2RlZmluZSBCQ01fVENTX0NNRF9WT1RFX1hfU0hGVAkJMTQKPiArI2RlZmluZSBC
-Q01fVENTX0NNRF9WT1RFX01BU0sJCTB4M2ZmZgo+ICsjZGVmaW5lIEJDTV9UQ1NfQ01EX1ZPVEVf
-WV9TSEZUCQkwCj4gKyNkZWZpbmUgQkNNX1RDU19DTURfVk9URV9ZX01BU0sJCTB4ZmZmYzAwMAo+
-ICsKPiArI2RlZmluZSBCQ01fVENTX0NNRChjb21taXQsIHZhbGlkLCB2b3RlX3gsIHZvdGVfeSkJ
-CVwKPiArCSgoKGNvbW1pdCkgPDwgQkNNX1RDU19DTURfQ09NTUlUX1NIRlQpIHwJCVwKPiArCSgo
-dmFsaWQpIDw8IEJDTV9UQ1NfQ01EX1ZBTElEX1NIRlQpIHwJCQlcCj4gKwkoKGNwdV90b19sZTMy
-KHZvdGVfeCkgJgkJCQkJXAo+ICsJQkNNX1RDU19DTURfVk9URV9NQVNLKSA8PCBCQ01fVENTX0NN
-RF9WT1RFX1hfU0hGVCkgfAlcCj4gKwkoKGNwdV90b19sZTMyKHZvdGVfeSkgJgkJCQkJXAo+ICsJ
-QkNNX1RDU19DTURfVk9URV9NQVNLKSA8PCBCQ01fVENTX0NNRF9WT1RFX1lfU0hGVCkpCj4gKwo+
-ICAjZW5kaWYgLyogX19TT0NfUUNPTV9UQ1NfSF9fICovCj4gCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJlZWRy
-ZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVubw==
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1652618009==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="LtNJJAmlPBJFSmTCjBWxZTnrO1jKlugWK"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--LtNJJAmlPBJFSmTCjBWxZTnrO1jKlugWK
+Content-Type: multipart/mixed; boundary="vnsNtGTawS7eHAvH285t7LPE1bVWovlWW";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+ dri-devel@lists.freedesktop.org
+Cc: Sam Ravnborg <sam@ravnborg.org>, Neil Armstrong
+ <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
+ Douglas Anderson <dianders@chromium.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, kernel@collabora.com,
+ linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ Vincent Abriou <vincent.abriou@st.com>, Krzysztof Kozlowski
+ <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Maxime Ripard <maxime.ripard@bootlin.com>, Chen-Yu Tsai <wens@csie.org>,
+ Kukjin Kim <kgene@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
+ Dave Airlie <airlied@redhat.com>, intel-gfx@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ Mamta Shukla <mamtashukla555@gmail.com>, linux-mediatek@lists.infradead.org,
+ Jyri Sarha <jsarha@ti.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Sean Paul <sean@poorly.run>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Allison Randal <allison@lohutok.net>, linux-arm-kernel@lists.infradead.org,
+ Enrico Weigelt <info@metux.net>, Jernej Skrabec <jernej.skrabec@siol.net>,
+ amd-gfx@lists.freedesktop.org, Tomi Valkeinen <tomi.valkeinen@ti.com>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>, linux-kernel@vger.kernel.org,
+ Todor Tomov <todor.tomov@linaro.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>, Huang Rui <ray.huang@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Shawn Guo <shawnguo@kernel.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Gerd Hoffmann <kraxel@redhat.com>
+Message-ID: <ea96186f-8d38-a698-f29e-049987ae0163@suse.de>
+Subject: Re: [PATCH v5 02/24] drm: Add drm_connector_init() variant with ddc
+References: <cover.1563960855.git.andrzej.p@collabora.com>
+ <53f5ded2971235e5b63c9a3ed4ed8bccf10c78f2.1563960855.git.andrzej.p@collabora.com>
+In-Reply-To: <53f5ded2971235e5b63c9a3ed4ed8bccf10c78f2.1563960855.git.andrzej.p@collabora.com>
+
+--vnsNtGTawS7eHAvH285t7LPE1bVWovlWW
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+
+Hi
+
+Am 24.07.19 um 15:59 schrieb Andrzej Pietrasiewicz:
+> Allow passing ddc adapter pointer to the init function. Even if
+> drm_connector_init() sometime in the future decides to e.g. memset() al=
+l
+> connector fields to zeros, the newly added function ensures that at its=
+
+> completion the ddc member of connector is correctly set.
+>=20
+> Signed-off-by: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
+> ---
+>  drivers/gpu/drm/drm_connector.c | 19 +++++++++++++++++++
+>  include/drm/drm_connector.h     |  5 +++++
+>  2 files changed, 24 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_conn=
+ector.c
+> index 068d4b05f1be..06fbfc44fb48 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -296,6 +296,25 @@ int drm_connector_init(struct drm_device *dev,
+>  }
+>  EXPORT_SYMBOL(drm_connector_init);
+> =20
+> +int drm_connector_init_with_ddc(struct drm_device *dev,
+> +				struct drm_connector *connector,
+> +				const struct drm_connector_funcs *funcs,
+> +				int connector_type,
+> +				struct i2c_adapter *ddc)
+> +{
+> +	int ret;
+> +
+> +	ret =3D drm_connector_init(dev, connector, funcs, connector_type);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* provide ddc symlink in sysfs */
+> +	connector->ddc =3D ddc;
+> +
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL(drm_connector_init_with_ddc);
+> +
+
+Thanks for including such a function.
+
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+>  /**
+>   * drm_connector_attach_edid_property - attach edid property.
+>   * @connector: the connector
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index 33a6fff85fdb..937fda9c1374 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -1410,6 +1410,11 @@ int drm_connector_init(struct drm_device *dev,
+>  		       struct drm_connector *connector,
+>  		       const struct drm_connector_funcs *funcs,
+>  		       int connector_type);
+> +int drm_connector_init_with_ddc(struct drm_device *dev,
+> +				struct drm_connector *connector,
+> +				const struct drm_connector_funcs *funcs,
+> +				int connector_type,
+> +				struct i2c_adapter *ddc);
+>  void drm_connector_attach_edid_property(struct drm_connector *connecto=
+r);
+>  int drm_connector_register(struct drm_connector *connector);
+>  void drm_connector_unregister(struct drm_connector *connector);
+>=20
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Linux GmbH, Maxfeldstrasse 5, 90409 Nuernberg, Germany
+GF: Felix Imend=C3=B6rffer, Mary Higgins, Sri Rasiah
+HRB 21284 (AG N=C3=BCrnberg)
+
+
+--vnsNtGTawS7eHAvH285t7LPE1bVWovlWW--
+
+--LtNJJAmlPBJFSmTCjBWxZTnrO1jKlugWK
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl04knMACgkQaA3BHVML
+eiPIEAf/SbE8+UterlzTVb4DSKX4d7+6Qm6csshf2sBPxiw6ecOqETPDYsQXsZYK
+lwqXKV0mCZ7emWWXINgeIGb27bYeXxlv/s7BpdMC/H88bZK2MqnHQdbwlXD5W+PF
+9QPMXdbn55pDDyjE/Onjmip5Ce+gkXQb2EyafrqkEuDxhCx9QCUnSwrXpV6kTmxS
+/ZCuKYDKVU89AoRunyM8VS2Uqwm9e0GZTaUHcr+3rxGUxwi99/LJu7vGLwLih7Nl
+BEJUyOIzVT9mg7dGE70z8XG/0X0bDQEQiNjKHIUdMOCKbMBZerZjPuGH2a84AS4h
+j71GFMojM8wuds7/IkMG76b5vfNGNA==
+=Nt+n
+-----END PGP SIGNATURE-----
+
+--LtNJJAmlPBJFSmTCjBWxZTnrO1jKlugWK--
+
+--===============1652618009==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5v
+IG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
+
+--===============1652618009==--
