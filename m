@@ -2,59 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A01E87350B
-	for <lists+freedreno@lfdr.de>; Wed, 24 Jul 2019 19:17:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92FBF74429
+	for <lists+freedreno@lfdr.de>; Thu, 25 Jul 2019 05:57:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B7236E604;
-	Wed, 24 Jul 2019 17:17:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C4CD6E3A6;
+	Thu, 25 Jul 2019 03:57:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C50E6E5FB;
- Wed, 24 Jul 2019 17:17:37 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id BDE9BAC18;
- Wed, 24 Jul 2019 17:17:35 +0000 (UTC)
-To: Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
- dri-devel@lists.freedesktop.org
-References: <cover.1563960855.git.andrzej.p@collabora.com>
- <0afab6e2f61907409ba13a0ba91b8ee701eb7d74.1563960855.git.andrzej.p@collabora.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Openpgp: preference=signencrypt
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNKFRob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmNvbT7CwJQEEwEIAD4W
- IQRyF/usjOnPY0ShaOVoDcEdUwt6IwUCWznTtgIbAwUJA8JnAAULCQgHAgYVCgkICwIEFgID
- AQIeAQIXgAAKCRBoDcEdUwt6I7D7CACBK42XW+7mCiK8ioXMEy1NzGbXC51RzGea8N83oEJS
- 1KVUtQxrkDxgrW/WLSl/TfqHFsJpdEFOv1XubWbleun3uKPy0e5vZCd5UjZPkeNjnqfCYTDy
- hVVsdOuFbtWDppJyJrThLqr9AgSFmoCNNUt1SVpYEEOLNE6C32BhlnSq21VLC+YXTgO/ZHTa
- YXkq54hHj63jwrcjkBSCkXLh37kHeqnl++GHpN+3R+o3w2OpwHAlvVjdKPT27v1tVkiydsFG
- 65Vd0n3m/ft+IOrGgxQM1C20uqKvsZGB4r3OGR50ekAybO7sjEJJ1Obl4ge/6RRqcvKz4LMb
- tGs85D6tPIeFzsBNBFs50uABCADGJj+DP1fk+UWOWrf4O61HTbC4Vr9QD2K4fUUHnzg2B6zU
- R1BPXqLGG0+lzK8kfYU/F5RjmEcClsIkAaFkg4kzKP14tvY1J5+AV3yNqcdg018HNtiyrSwI
- E0Yz/qm1Ot2NMZ0DdvVBg22IMsiudQ1tx9CH9mtyTbIXgACvl3PW2o9CxiHPE/bohFhwZwh/
- kXYYAE51lhinQ3oFEeQZA3w4OTvxSEspiQR8dg8qJJb+YOAc5IKk6sJmmM7JfFMWSr22satM
- 23oQ3WvJb4RV6HTRTAIEyyZS7g2DhiytgMG60t0qdABG5KXSQW+OKlZRpuWwKWaLh3if/p/u
- 69dvpanbABEBAAHCwHwEGAEIACYWIQRyF/usjOnPY0ShaOVoDcEdUwt6IwUCWznS4AIbDAUJ
- A8JnAAAKCRBoDcEdUwt6I6X3CACJ8D+TpXBCqJE5xwog08+Dp8uBpx0T9n1wE0GQisZruACW
- NofYn8PTX9k4wmegDLwt7YQDdKxQ4+eTfZeLNQqWg6OCftH5Kx7sjWnJ09tOgniVdROzWJ7c
- VJ/i0okazncsJ+nq48UYvRGE1Swh3A4QRIyphWX4OADOBmTFl9ZYNPnh23eaC9WrNvFr7yP7
- iGjMlfEW8l6Lda//EC5VpXVNza0xeae0zFNst2R9pn+bLkihwDLWxOIyifGRxTqNxoS4I1aw
- VhxPSVztPMSpIA/sOr/N/p6JrBLn+gui2K6mP7bGb8hF+szfArYqz3T1rv1VzUWAJf5Wre5U
- iNx9uqqx
-Message-ID: <f4c0432e-9223-54bc-c995-e0704555fc6e@suse.de>
-Date: Wed, 24 Jul 2019 19:17:33 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <0afab6e2f61907409ba13a0ba91b8ee701eb7d74.1563960855.git.andrzej.p@collabora.com>
-Subject: Re: [Freedreno] [PATCH v5 18/24] drm/ast: Provide ddc symlink in
- connector sysfs directory
+Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
+ [IPv6:2607:f8b0:4864:20::542])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 886FF89B03;
+ Thu, 25 Jul 2019 03:36:56 +0000 (UTC)
+Received: by mail-pg1-x542.google.com with SMTP id i18so22258290pgl.11;
+ Wed, 24 Jul 2019 20:36:56 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=y5mWEC7ogDY2PSdGXYMgqGEgddaBMGRrx0o4VSfwM/o=;
+ b=Dpc2/Gn1x9LWmKdCvXKu2r4WNI7Bh24fXIt9av0YSEvr9+KUEWGzk0Rkg2qvoC1K34
+ Xpg0rF5H9mzGiR2LqpZ16lRHcPPjzzpSEUf68+kfvj3vHKLm2vdAQSfumkeKHekx1xcw
+ mQsVB4ZQs79RPtgG/jrOR4M0OzphA9NUw81tTSGufJlwVj527hDuoCwskMLdlL7q6b7q
+ 4pKjA2Q+ArcJ/iYeL0azhlxUmnjniurkerwmtT9qfKzsNaEVF4/uK3gr9foEVsEuTuuC
+ Kmr0+/iiAeaoJTzSQRzjbuuEbieEVu4vdIn6S3oIA+jfq4349Z4ut1fTIi4QJ5Tb9IIU
+ XPzw==
+X-Gm-Message-State: APjAAAXgKpKik+UQAe0Umck/wZFS3MTKzVmh6IwBg+T3vYuw8MExMTNY
+ 6sddk9pIaC1ExiPqO9d2p+G88b9O
+X-Google-Smtp-Source: APXvYqwXGIrEshHJ/620ZjKabG/Vz5HjLWHyUhFB8umegovRT8FYTgXZAD3421HaW/F6oWwFLORuZQ==
+X-Received: by 2002:a63:520f:: with SMTP id g15mr80162152pgb.28.1564025816100; 
+ Wed, 24 Jul 2019 20:36:56 -0700 (PDT)
+Received: from huyue2.ccdomain.com ([218.189.10.173])
+ by smtp.gmail.com with ESMTPSA id a1sm2056528pgh.61.2019.07.24.20.36.52
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 24 Jul 2019 20:36:55 -0700 (PDT)
+From: Yue Hu <zbestahu@gmail.com>
+To: airlied@linux.ie, daniel@ffwll.ch, robdclark@gmail.com, sean@poorly.run,
+ robh@kernel.org, tomeu.vizoso@collabora.com
+Date: Thu, 25 Jul 2019 11:36:15 +0800
+Message-Id: <20190725033615.11388-1-zbestahu@gmail.com>
+X-Mailer: git-send-email 2.17.1.windows.2
+X-Mailman-Approved-At: Thu, 25 Jul 2019 03:57:14 +0000
+X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=y5mWEC7ogDY2PSdGXYMgqGEgddaBMGRrx0o4VSfwM/o=;
+ b=RcA73rrAO55/gHOoxqi1LmtF8yacHdzQxlT+GcVs1ZywSerBvoobvmtsYWDMQHbJg1
+ Skf0DzxVYolaM3PcWKODtiF2pShPT38EAc0cbTX/n/Xi/r3ChwvPW/RYHO4/I36MuuWJ
+ F7KJEG8l/9Sn+2txeQX6frkSvWrX/kRnqW9BdGJN0M0tRDW2CVW+KxcBzO8O69NIepCb
+ aRw4QlDfGH3z7kjFOuuNQaQVwAPyORRPJ+Pp49zt7qvIscVkTSapPOE9wL1jjXkuWSdI
+ Js48Fx9ID+B8NYSy90cPWyoUyJvkAeba+FhJZI1Zy0M3yL5/2IuINFVuYn3R56eSbtPx
+ YbfA==
+Subject: [Freedreno] [PATCH] drm: Switch to use DEVFREQ_GOV_SIMPLE_ONDEMAND
+ constant
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,177 +65,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <narmstrong@baylibre.com>,
- Maxime Ripard <maxime.ripard@bootlin.com>, linux-kernel@vger.kernel.org,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Shawn Guo <shawnguo@kernel.org>, kernel@collabora.com,
- Sam Ravnborg <sam@ravnborg.org>, linux-samsung-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, Sean Paul <sean@poorly.run>,
- Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- David Airlie <airlied@linux.ie>, Chen-Yu Tsai <wens@csie.org>,
- Kukjin Kim <kgene@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
- Dave Airlie <airlied@redhat.com>, Jonas Karlman <jonas@kwiboo.se>,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- Jyri Sarha <jsarha@ti.com>, Mamta Shukla <mamtashukla555@gmail.com>,
- linux-mediatek@lists.infradead.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- linux-tegra@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- Vincent Abriou <vincent.abriou@st.com>, Allison Randal <allison@lohutok.net>,
- linux-arm-kernel@lists.infradead.org, Jernej Skrabec <jernej.skrabec@siol.net>,
- amd-gfx@lists.freedesktop.org, Tomi Valkeinen <tomi.valkeinen@ti.com>,
- Enrico Weigelt <info@metux.net>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Douglas Anderson <dianders@chromium.org>, Todor Tomov <todor.tomov@linaro.org>,
- Kyungmin Park <kyungmin.park@samsung.com>, Huang Rui <ray.huang@amd.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Gerd Hoffmann <kraxel@redhat.com>
-Content-Type: multipart/mixed; boundary="===============0443257412=="
+Cc: linux-arm-msm@vger.kernel.org, huyue2@yulong.com,
+ freedreno@lists.freedesktop.org, zhangwen@yulong.com,
+ dri-devel@lists.freedesktop.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0443257412==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="rQW7V0pPHkAw2NNiWp7qw2pJTEuWVVZkI"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---rQW7V0pPHkAw2NNiWp7qw2pJTEuWVVZkI
-Content-Type: multipart/mixed; boundary="1nTmnYcXxxfxqvFKU3qpyJbp2Ylpbb6UI";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
- dri-devel@lists.freedesktop.org
-Cc: Sam Ravnborg <sam@ravnborg.org>, Neil Armstrong
- <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- Douglas Anderson <dianders@chromium.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, kernel@collabora.com,
- linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- Vincent Abriou <vincent.abriou@st.com>, Krzysztof Kozlowski
- <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- Maxime Ripard <maxime.ripard@bootlin.com>, Chen-Yu Tsai <wens@csie.org>,
- Kukjin Kim <kgene@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
- Dave Airlie <airlied@redhat.com>, intel-gfx@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
- Mamta Shukla <mamtashukla555@gmail.com>, linux-mediatek@lists.infradead.org,
- Jyri Sarha <jsarha@ti.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Thomas Gleixner <tglx@linutronix.de>, Sean Paul <sean@poorly.run>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Allison Randal <allison@lohutok.net>, linux-arm-kernel@lists.infradead.org,
- Enrico Weigelt <info@metux.net>, Jernej Skrabec <jernej.skrabec@siol.net>,
- amd-gfx@lists.freedesktop.org, Tomi Valkeinen <tomi.valkeinen@ti.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, linux-kernel@vger.kernel.org,
- Todor Tomov <todor.tomov@linaro.org>,
- Kyungmin Park <kyungmin.park@samsung.com>, Huang Rui <ray.huang@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Alex Deucher <alexander.deucher@amd.com>, Shawn Guo <shawnguo@kernel.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Gerd Hoffmann <kraxel@redhat.com>
-Message-ID: <f4c0432e-9223-54bc-c995-e0704555fc6e@suse.de>
-Subject: Re: [PATCH v5 18/24] drm/ast: Provide ddc symlink in connector sysfs
- directory
-References: <cover.1563960855.git.andrzej.p@collabora.com>
- <0afab6e2f61907409ba13a0ba91b8ee701eb7d74.1563960855.git.andrzej.p@collabora.com>
-In-Reply-To: <0afab6e2f61907409ba13a0ba91b8ee701eb7d74.1563960855.git.andrzej.p@collabora.com>
-
---1nTmnYcXxxfxqvFKU3qpyJbp2Ylpbb6UI
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-
-
-Am 24.07.19 um 15:59 schrieb Andrzej Pietrasiewicz:
-> Use the ddc pointer provided by the generic connector.
->=20
-> Signed-off-by: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
-> ---
->  drivers/gpu/drm/ast/ast_mode.c | 13 ++++++++-----
->  1 file changed, 8 insertions(+), 5 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/ast/ast_mode.c b/drivers/gpu/drm/ast/ast_m=
-ode.c
-> index c792362024a5..1c899a6e87b7 100644
-> --- a/drivers/gpu/drm/ast/ast_mode.c
-> +++ b/drivers/gpu/drm/ast/ast_mode.c
-> @@ -867,7 +867,14 @@ static int ast_connector_init(struct drm_device *d=
-ev)
->  		return -ENOMEM;
-> =20
->  	connector =3D &ast_connector->base;
-> -	drm_connector_init(dev, connector, &ast_connector_funcs, DRM_MODE_CON=
-NECTOR_VGA);
-> +	ast_connector->i2c =3D ast_i2c_create(dev);
-> +	if (!ast_connector->i2c)
-> +		DRM_ERROR("failed to add ddc bus for connector\n");
-> +
-> +	drm_connector_init_with_ddc(dev, connector,
-> +				    &ast_connector_funcs,
-> +				    DRM_MODE_CONNECTOR_VGA,
-> +				    &ast_connector->i2c->adapter);
-> =20
->  	drm_connector_helper_add(connector, &ast_connector_helper_funcs);
-> =20
-> @@ -881,10 +888,6 @@ static int ast_connector_init(struct drm_device *d=
-ev)
->  	encoder =3D list_first_entry(&dev->mode_config.encoder_list, struct d=
-rm_encoder, head);
->  	drm_connector_attach_encoder(connector, encoder);
-> =20
-> -	ast_connector->i2c =3D ast_i2c_create(dev);
-> -	if (!ast_connector->i2c)
-> -		DRM_ERROR("failed to add ddc bus for connector\n");
-> -
->  	return 0;
->  }
-> =20
->=20
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Linux GmbH, Maxfeldstrasse 5, 90409 Nuernberg, Germany
-GF: Felix Imend=C3=B6rffer, Mary Higgins, Sri Rasiah
-HRB 21284 (AG N=C3=BCrnberg)
-
-
---1nTmnYcXxxfxqvFKU3qpyJbp2Ylpbb6UI--
-
---rQW7V0pPHkAw2NNiWp7qw2pJTEuWVVZkI
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl04kq0ACgkQaA3BHVML
-eiOVlgf9G4jOeCy2mr53PWbrCulWova4UboUrbdUc7gRFOmPd+B+OzGYuSRcUnlg
-kOVXCeSAueui+sQ0IbNuz/aH/ObT+dZzXd5gkLN9J6jj1WoLQ8Wyn4apJy13rnsE
-mHtW7wjvJ8kq5Yool9NZApYN9aD6ZTxZQwt4YokeS7Kfryf+vQN3pweb8XGBW3d4
-FuLKHRSrgcqTY1XUMAbXlEC5A0DfBo4wfar1q7u045ggLL84yMQcw3SJ9WyiPbpf
-k2v9fkgpwy60HTlNaTBxlzm4KBoRVXfYqIynlK3QMf7GF2sz0RiBF2RmzgG96f0I
-UqpER9GagpcIV5uY52PywoarGEUWuA==
-=lXB9
------END PGP SIGNATURE-----
-
---rQW7V0pPHkAw2NNiWp7qw2pJTEuWVVZkI--
-
---===============0443257412==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5v
-IG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
-
---===============0443257412==--
+RnJvbTogWXVlIEh1IDxodXl1ZTJAeXVsb25nLmNvbT4KClNpbmNlIGdvdmVybm9yIG5hbWUgaXMg
+ZGVmaW5lZCBieSBERVZGUkVRIGZyYW1ld29yayBpbnRlcm5hbGx5LCB1c2UgdGhlCm1hY3JvIGRl
+ZmluaXRpb24gaW5zdGVhZCBvZiB1c2luZyB0aGUgbmFtZSBkaXJlY3RseS4KClNpZ25lZC1vZmYt
+Ynk6IFl1ZSBIdSA8aHV5dWUyQHl1bG9uZy5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL21zbS9t
+c21fZ3B1LmMgICAgICAgICAgICAgICB8IDMgKystCiBkcml2ZXJzL2dwdS9kcm0vcGFuZnJvc3Qv
+cGFuZnJvc3RfZGV2ZnJlcS5jIHwgMyArKy0KIDIgZmlsZXMgY2hhbmdlZCwgNCBpbnNlcnRpb25z
+KCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tc20vbXNt
+X2dwdS5jIGIvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZ3B1LmMKaW5kZXggNGVkYjg3NC4uZjcz
+MDhkNiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZ3B1LmMKKysrIGIvZHJp
+dmVycy9ncHUvZHJtL21zbS9tc21fZ3B1LmMKQEAgLTk1LDcgKzk1LDggQEAgc3RhdGljIHZvaWQg
+bXNtX2RldmZyZXFfaW5pdChzdHJ1Y3QgbXNtX2dwdSAqZ3B1KQogCSAqLwogCiAJZ3B1LT5kZXZm
+cmVxLmRldmZyZXEgPSBkZXZtX2RldmZyZXFfYWRkX2RldmljZSgmZ3B1LT5wZGV2LT5kZXYsCi0J
+CQkmbXNtX2RldmZyZXFfcHJvZmlsZSwgInNpbXBsZV9vbmRlbWFuZCIsIE5VTEwpOworCQkJJm1z
+bV9kZXZmcmVxX3Byb2ZpbGUsIERFVkZSRVFfR09WX1NJTVBMRV9PTkRFTUFORCwKKwkJCU5VTEwp
+OwogCiAJaWYgKElTX0VSUihncHUtPmRldmZyZXEuZGV2ZnJlcSkpIHsKIAkJRFJNX0RFVl9FUlJP
+UigmZ3B1LT5wZGV2LT5kZXYsICJDb3VsZG4ndCBpbml0aWFsaXplIEdQVSBkZXZmcmVxXG4iKTsK
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9wYW5mcm9zdC9wYW5mcm9zdF9kZXZmcmVxLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vcGFuZnJvc3QvcGFuZnJvc3RfZGV2ZnJlcS5jCmluZGV4IGRiNzk4
+NTMuLmE3YzE4YmMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9wYW5mcm9zdC9wYW5mcm9z
+dF9kZXZmcmVxLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL3BhbmZyb3N0L3BhbmZyb3N0X2RldmZy
+ZXEuYwpAQCAtMTU3LDcgKzE1Nyw4IEBAIGludCBwYW5mcm9zdF9kZXZmcmVxX2luaXQoc3RydWN0
+IHBhbmZyb3N0X2RldmljZSAqcGZkZXYpCiAJZGV2X3BtX29wcF9wdXQob3BwKTsKIAogCXBmZGV2
+LT5kZXZmcmVxLmRldmZyZXEgPSBkZXZtX2RldmZyZXFfYWRkX2RldmljZSgmcGZkZXYtPnBkZXYt
+PmRldiwKLQkJCSZwYW5mcm9zdF9kZXZmcmVxX3Byb2ZpbGUsICJzaW1wbGVfb25kZW1hbmQiLCBO
+VUxMKTsKKwkJCSZwYW5mcm9zdF9kZXZmcmVxX3Byb2ZpbGUsIERFVkZSRVFfR09WX1NJTVBMRV9P
+TkRFTUFORCwKKwkJCU5VTEwpOwogCWlmIChJU19FUlIocGZkZXYtPmRldmZyZXEuZGV2ZnJlcSkp
+IHsKIAkJRFJNX0RFVl9FUlJPUigmcGZkZXYtPnBkZXYtPmRldiwgIkNvdWxkbid0IGluaXRpYWxp
+emUgR1BVIGRldmZyZXFcbiIpOwogCQlyZXQgPSBQVFJfRVJSKHBmZGV2LT5kZXZmcmVxLmRldmZy
+ZXEpOwotLSAKMS45LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ZyZWVk
+cmVubw==
