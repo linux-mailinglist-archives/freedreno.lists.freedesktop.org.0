@@ -2,42 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B45DD778FA
-	for <lists+freedreno@lfdr.de>; Sat, 27 Jul 2019 15:37:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C88D77EF7
+	for <lists+freedreno@lfdr.de>; Sun, 28 Jul 2019 12:02:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B4206EEBE;
-	Sat, 27 Jul 2019 13:37:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BC7489BF4;
+	Sun, 28 Jul 2019 10:02:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC90C6EE9A;
- Sat, 27 Jul 2019 10:38:01 +0000 (UTC)
-Received: from localhost (lfbn-1-17239-195.w86-248.abo.wanadoo.fr
- [86.248.61.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 60648206BA;
- Sat, 27 Jul 2019 10:38:00 +0000 (UTC)
-Date: Sat, 27 Jul 2019 12:37:56 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
-Message-ID: <20190727103756.mow2d6mzhameue6h@flea.home>
-References: <cover.1564161140.git.andrzej.p@collabora.com>
- <b5a8881b226a9af7d31eb6a57d7fe0fccdcb3a47.1564161140.git.andrzej.p@collabora.com>
+Received: from mail-lj1-x244.google.com (mail-lj1-x244.google.com
+ [IPv6:2a00:1450:4864:20::244])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C47089BF4
+ for <freedreno@lists.freedesktop.org>; Sun, 28 Jul 2019 10:02:33 +0000 (UTC)
+Received: by mail-lj1-x244.google.com with SMTP id x25so55661010ljh.2
+ for <freedreno@lists.freedesktop.org>; Sun, 28 Jul 2019 03:02:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=dqJPOf3ole/ocwpSBgy0ZOy0oBYIEFe0Lpin0fI4i4g=;
+ b=l+BI17HKA04nDalffKEQvCFMA4/vw+d7bfu+/VRZATbHe25tLJ/fr+QcyZWxrSgwcI
+ i1cGQQQ0uZx8lqyTYXrwRo+YgQHNKwpW9+o7KOknWHvBHcxR1m7VN2WNY71OdvacK3lH
+ ykath//DMp+f82ZNeUC2qQFqN+sfXJi1qFSQeY2qzXuEA2ageLu5UFbuAhiZOYvry3Qx
+ WSSgIRYhqFtvX9tJ4icH4vo4qqKaM6b9/dB4mW1XXdvwhWEltySf7Bkpf9oBft/oMxGf
+ nCx06V/B2ztJ/9TwSnLD2Ajmf6A4A4mmpbeziZ2OHNA+J73AGSIlAp/wSkFo2HuBsGsC
+ +1mg==
+X-Gm-Message-State: APjAAAX1Q9UUWSY82OHtMtQFJl3GTX/f9am1AYEov23Wi6MjyMSDa8y7
+ sXDWT1zbqSpQ1fzx/iT8y5gM7zw5ZtWmJZkePOMJcg==
+X-Google-Smtp-Source: APXvYqz6EmJJJTKLfbfJEwbI9boVgwgnhYa+vwRfTg39dxtl7DiKAYb7s7X1xZfaTDAEq8Rul0rr79Hz1LXszhPLgOM=
+X-Received: by 2002:a2e:a0cf:: with SMTP id f15mr32928008ljm.180.1564308151456; 
+ Sun, 28 Jul 2019 03:02:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <b5a8881b226a9af7d31eb6a57d7fe0fccdcb3a47.1564161140.git.andrzej.p@collabora.com>
-User-Agent: NeoMutt/20180716
-X-Mailman-Approved-At: Sat, 27 Jul 2019 13:36:59 +0000
-X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=kernel.org; s=default; t=1564223881;
- bh=t+DnJwCqt1ztDpiPIMnsCglNhd0On0wGZoxwWTQz5WE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Btng2+AEe/mchE7b3m1ljTY+N+EV1zmusfaGd6RNcJvNmV2IB8CpAHabaSX64Vn56
- 1qcRuhIXkiM2bOR14XskOPQVpJZoC+nrAB3jyqyAFnfrayPNX9Ewq6XXlCtGe/7m8A
- KLp7GIIxa+Y4A3pTxRnw9HpT5y3Q0W2fnbxRIRwY=
-Subject: Re: [Freedreno] [PATCH v6 07/24] drm/sun4i: hdmi: Provide ddc
- symlink in sun4i hdmi connector sysfs directory
+References: <20190629125933.679-1-linus.walleij@linaro.org>
+In-Reply-To: <20190629125933.679-1-linus.walleij@linaro.org>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Sun, 28 Jul 2019 12:02:20 +0200
+Message-ID: <CACRpkdZ-6qBxzTTY4=CV+-ZmnTRPmPNAWrHMb_cMXTYdaNeYQQ@mail.gmail.com>
+To: "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <maxime.ripard@bootlin.com>, Sean Paul <sean@poorly.run>
+X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc;
+ bh=dqJPOf3ole/ocwpSBgy0ZOy0oBYIEFe0Lpin0fI4i4g=;
+ b=ATSPbECq/2Dk57WgaaHGygsRg1afRoCRLL5jv2+lMJP5BmgY/x/Y6ccmzhGFuwVKwg
+ xwU9DQbweCbPfb7SnrSXADgqPsF4lVdP9zsoQZIR9HUy2aUBe9kRKuAzeaRP8UyS5AMk
+ E/nPFTLjgD+WnqqqgS9LIlTuZACBvgBZ2mbE3kKlax864d/M+qrTAgzs2yVeVERJ2271
+ vMTx/LdiJhVtUCm8ph6Iv01CiTj42iENItK5UUp754dQfQLsmmnchn6s5PWEDbylafvu
+ tzJIvhikFsRS+4YtJONZtCO9GD/x/2XIIhvRbjYOLNtS4JRTxi3eNvr/CXHfYiaCnGXs
+ LB8g==
+Subject: Re: [Freedreno] [PATCH 1/7] drm/msm/mdp4: Drop unused GPIO include
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -50,57 +64,24 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Y.C. Chen" <yc_chen@aspeedtech.com>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Sam Ravnborg <sam@ravnborg.org>, Neil Armstrong <narmstrong@baylibre.com>,
- David Airlie <airlied@linux.ie>, Ramalingam C <ramalingam.c@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
- Andrzej Hajda <a.hajda@samsung.com>, Thierry Reding <thierry.reding@gmail.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>, kernel@collabora.com,
- Fabio Estevam <festevam@gmail.com>,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- linux-samsung-soc@vger.kernel.org, Joonyoung Shim <jy0922.shim@samsung.com>,
- Vincent Abriou <vincent.abriou@st.com>, Rob Clark <robdclark@gmail.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- linux-rockchip@lists.infradead.org, Chen-Yu Tsai <wens@csie.org>,
- Kukjin Kim <kgene@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
- CK Hu <ck.hu@mediatek.com>, Dave Airlie <airlied@redhat.com>,
- intel-gfx@lists.freedesktop.org, Shashank Sharma <shashank.sharma@intel.com>,
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- Philipp Zabel <p.zabel@pengutronix.de>, Jonas Karlman <jonas@kwiboo.se>,
- linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Inki Dae <inki.dae@samsung.com>,
- Mamta Shukla <mamtashukla555@gmail.com>, linux-mediatek@lists.infradead.org,
- Jyri Sarha <jsarha@ti.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Thomas Gleixner <tglx@linutronix.de>, Chris Wilson <chris@chris-wilson.co.uk>,
- Sean Paul <sean@poorly.run>, Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org, Enrico Weigelt <info@metux.net>,
- Jernej Skrabec <jernej.skrabec@siol.net>, amd-gfx@lists.freedesktop.org,
- Tomi Valkeinen <tomi.valkeinen@ti.com>, Eric Anholt <eric@anholt.net>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, Sandy Huang <hjc@rock-chips.com>,
- linux-kernel@vger.kernel.org, Todor Tomov <todor.tomov@linaro.org>,
- Kyungmin Park <kyungmin.park@samsung.com>, Huang Rui <ray.huang@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Shawn Guo <shawnguo@kernel.org>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Gerd Hoffmann <kraxel@redhat.com>
+Cc: MSM <linux-arm-msm@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-T24gRnJpLCBKdWwgMjYsIDIwMTkgYXQgMDc6MjM6MDFQTSArMDIwMCwgQW5kcnplaiBQaWV0cmFz
-aWV3aWN6IHdyb3RlOgo+IFVzZSB0aGUgZGRjIHBvaW50ZXIgcHJvdmlkZWQgYnkgdGhlIGdlbmVy
-aWMgY29ubmVjdG9yLgo+Cj4gU2lnbmVkLW9mZi1ieTogQW5kcnplaiBQaWV0cmFzaWV3aWN6IDxh
-bmRyemVqLnBAY29sbGFib3JhLmNvbT4KCkFja2VkLWJ5OiBNYXhpbWUgUmlwYXJkIDxtYXhpbWUu
-cmlwYXJkQGJvb3RsaW4uY29tPgoKTWF4aW1lCgotLQpNYXhpbWUgUmlwYXJkLCBCb290bGluCkVt
-YmVkZGVkIExpbnV4IGFuZCBLZXJuZWwgZW5naW5lZXJpbmcKaHR0cHM6Ly9ib290bGluLmNvbQpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpGcmVlZHJlbm8g
-bWFpbGluZyBsaXN0CkZyZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9mcmVlZHJlbm8=
+T24gU2F0LCBKdW4gMjksIDIwMTkgYXQgMzowMSBQTSBMaW51cyBXYWxsZWlqIDxsaW51cy53YWxs
+ZWlqQGxpbmFyby5vcmc+IHdyb3RlOgoKPiBUaGlzIGZpbGUgaXMgbm90IHVzaW5nIGFueSBzeW1i
+b2xzIGZyb20gPGxpbnV4L2dwaW8uaD4gc28ganVzdAo+IGRyb3AgdGhpcyBpbmNsdWRlLgo+Cj4g
+Q2M6IFJvYiBDbGFyayA8cm9iZGNsYXJrQGdtYWlsLmNvbT4KPiBDYzogU2VhbiBQYXVsIDxzZWFu
+QHBvb3JseS5ydW4+Cj4gQ2M6IGxpbnV4LWFybS1tc21Admdlci5rZXJuZWwub3JnCj4gQ2M6IGZy
+ZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBTaWduZWQtb2ZmLWJ5OiBMaW51cyBXYWxs
+ZWlqIDxsaW51cy53YWxsZWlqQGxpbmFyby5vcmc+CgpSb2IgJiBmcmllbmRzOiBjYW4gdGhpcyBi
+ZSBtZXJnZWQgdG8gd2hlcmV2ZXIgeW91IG1lcmdlCnRoZSBNU00gRFJNIHBhdGNoZXM/IElmIGl0
+IGlzIGluIGRybS1taXNjIEkgY2FuIGFwcGx5IGl0CmJ1dCBJIG5lZWQgc29tZSBBQ0tzLgoKWW91
+cnMsCkxpbnVzIFdhbGxlaWoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJl
+ZWRyZW5v
