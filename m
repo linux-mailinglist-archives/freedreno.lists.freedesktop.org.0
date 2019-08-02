@@ -2,41 +2,41 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 347247F886
-	for <lists+freedreno@lfdr.de>; Fri,  2 Aug 2019 15:21:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E27C7F8DA
+	for <lists+freedreno@lfdr.de>; Fri,  2 Aug 2019 15:23:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A6C26EE39;
-	Fri,  2 Aug 2019 13:21:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 714516EE48;
+	Fri,  2 Aug 2019 13:23:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B522D6EE39;
- Fri,  2 Aug 2019 13:21:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A7906EE46;
+ Fri,  2 Aug 2019 13:23:44 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8219E21841;
- Fri,  2 Aug 2019 13:21:20 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 4AAB021871;
+ Fri,  2 Aug 2019 13:23:43 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri,  2 Aug 2019 09:19:16 -0400
-Message-Id: <20190802131951.11600-42-sashal@kernel.org>
+Date: Fri,  2 Aug 2019 09:22:39 -0400
+Message-Id: <20190802132302.13537-19-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190802131951.11600-1-sashal@kernel.org>
-References: <20190802131951.11600-1-sashal@kernel.org>
+In-Reply-To: <20190802132302.13537-1-sashal@kernel.org>
+References: <20190802132302.13537-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=kernel.org; s=default; t=1564752081;
- bh=TZ7dI/ODz8ogsYuPTd0l2FqsIFC5E4zVICalUEyz9gg=;
+ d=kernel.org; s=default; t=1564752224;
+ bh=TFQRTj3/7D8jnoe4BJv+m0z7LgOh2e78JsSqRuTuDww=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=W0zxX8WyaeaK64a5sIoT23rlFpQCjPvvhtQEnggJ1dk+ycHIHcenr+azyDqwXSpnE
- 0OmT2YCzONrZ4jiO6qnynU4j+c6WixpAARjokrb8iUmRuzqdPv8LKWFKxCUMp0HiTa
- Z7evb+ueag/MISOGbIZ8pKV5/nTPMhX+THPIwzu8=
-Subject: [Freedreno] [PATCH AUTOSEL 5.2 42/76] drm/msm: stop abusing
+ b=hRlXPbebioBADVedI644SfVZgP4CbpUoPqpWMcf+VD3dol0nCRuoC3nRPRBMGE0aa
+ IYOLi+pWEWMrU28x3Z4h8se851GzMi8yUbsL2o9IDh0y1w9hpAB1PZ2FcQNSOhaPhn
+ 6KjeKH6I25kqRekrQPyCG5yZ0NgrDSmPK15bSvhU=
+Subject: [Freedreno] [PATCH AUTOSEL 4.19 19/42] drm/msm: stop abusing
  dma_map/unmap for cache
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
@@ -101,22 +101,22 @@ b3JnL3BhdGNoL21zZ2lkLzIwMTkwNjMwMTI0NzM1LjI3Nzg2LTEtcm9iZGNsYXJrQGdtYWlsLmNv
 bQpTaWduZWQtb2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5vcmc+Ci0tLQogZHJp
 dmVycy9ncHUvZHJtL21zbS9tc21fZ2VtLmMgfCA0ICsrLS0KIDEgZmlsZSBjaGFuZ2VkLCAyIGlu
 c2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L21zbS9tc21fZ2VtLmMgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9nZW0uYwppbmRleCA0OWEw
-MTk5MzljY2RjLi5hM2I1ZmUxYTEzOTQ0IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vbXNt
-L21zbV9nZW0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9nZW0uYwpAQCAtOTcsNyAr
-OTcsNyBAQCBzdGF0aWMgc3RydWN0IHBhZ2UgKipnZXRfcGFnZXMoc3RydWN0IGRybV9nZW1fb2Jq
-ZWN0ICpvYmopCiAJCSAqIGJlY2F1c2UgZGlzcGxheSBjb250cm9sbGVyLCBHUFUsIGV0Yy4gYXJl
-IG5vdCBjb2hlcmVudDoKIAkJICovCiAJCWlmIChtc21fb2JqLT5mbGFncyAmIChNU01fQk9fV0N8
-TVNNX0JPX1VOQ0FDSEVEKSkKLQkJCWRtYV9tYXBfc2coZGV2LT5kZXYsIG1zbV9vYmotPnNndC0+
-c2dsLAorCQkJZG1hX3N5bmNfc2dfZm9yX2RldmljZShkZXYtPmRldiwgbXNtX29iai0+c2d0LT5z
-Z2wsCiAJCQkJCW1zbV9vYmotPnNndC0+bmVudHMsIERNQV9CSURJUkVDVElPTkFMKTsKIAl9CiAK
-QEAgLTEyNyw3ICsxMjcsNyBAQCBzdGF0aWMgdm9pZCBwdXRfcGFnZXMoc3RydWN0IGRybV9nZW1f
-b2JqZWN0ICpvYmopCiAJCQkgKiBHUFUsIGV0Yy4gYXJlIG5vdCBjb2hlcmVudDoKIAkJCSAqLwog
-CQkJaWYgKG1zbV9vYmotPmZsYWdzICYgKE1TTV9CT19XQ3xNU01fQk9fVU5DQUNIRUQpKQotCQkJ
-CWRtYV91bm1hcF9zZyhvYmotPmRldi0+ZGV2LCBtc21fb2JqLT5zZ3QtPnNnbCwKKwkJCQlkbWFf
-c3luY19zZ19mb3JfY3B1KG9iai0+ZGV2LT5kZXYsIG1zbV9vYmotPnNndC0+c2dsLAogCQkJCQkg
-ICAgIG1zbV9vYmotPnNndC0+bmVudHMsCiAJCQkJCSAgICAgRE1BX0JJRElSRUNUSU9OQUwpOwog
-Ci0tIAoyLjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVu
-bw==
+L21zbS9tc21fZ2VtLmMgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9nZW0uYwppbmRleCBmNTlj
+YTI3YTRhMzU3Li45M2IyMGFkMjNjMjNmIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vbXNt
+L21zbV9nZW0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9nZW0uYwpAQCAtMTA4LDcg
+KzEwOCw3IEBAIHN0YXRpYyBzdHJ1Y3QgcGFnZSAqKmdldF9wYWdlcyhzdHJ1Y3QgZHJtX2dlbV9v
+YmplY3QgKm9iaikKIAkJICogYmVjYXVzZSBkaXNwbGF5IGNvbnRyb2xsZXIsIEdQVSwgZXRjLiBh
+cmUgbm90IGNvaGVyZW50OgogCQkgKi8KIAkJaWYgKG1zbV9vYmotPmZsYWdzICYgKE1TTV9CT19X
+Q3xNU01fQk9fVU5DQUNIRUQpKQotCQkJZG1hX21hcF9zZyhkZXYtPmRldiwgbXNtX29iai0+c2d0
+LT5zZ2wsCisJCQlkbWFfc3luY19zZ19mb3JfZGV2aWNlKGRldi0+ZGV2LCBtc21fb2JqLT5zZ3Qt
+PnNnbCwKIAkJCQkJbXNtX29iai0+c2d0LT5uZW50cywgRE1BX0JJRElSRUNUSU9OQUwpOwogCX0K
+IApAQCAtMTM4LDcgKzEzOCw3IEBAIHN0YXRpYyB2b2lkIHB1dF9wYWdlcyhzdHJ1Y3QgZHJtX2dl
+bV9vYmplY3QgKm9iaikKIAkJCSAqIEdQVSwgZXRjLiBhcmUgbm90IGNvaGVyZW50OgogCQkJICov
+CiAJCQlpZiAobXNtX29iai0+ZmxhZ3MgJiAoTVNNX0JPX1dDfE1TTV9CT19VTkNBQ0hFRCkpCi0J
+CQkJZG1hX3VubWFwX3NnKG9iai0+ZGV2LT5kZXYsIG1zbV9vYmotPnNndC0+c2dsLAorCQkJCWRt
+YV9zeW5jX3NnX2Zvcl9jcHUob2JqLT5kZXYtPmRldiwgbXNtX29iai0+c2d0LT5zZ2wsCiAJCQkJ
+CSAgICAgbXNtX29iai0+c2d0LT5uZW50cywKIAkJCQkJICAgICBETUFfQklESVJFQ1RJT05BTCk7
+CiAKLS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRy
+ZW5v
