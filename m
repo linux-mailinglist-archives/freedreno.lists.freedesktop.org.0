@@ -2,41 +2,41 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E27C7F8DA
-	for <lists+freedreno@lfdr.de>; Fri,  2 Aug 2019 15:23:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89ECB7F908
+	for <lists+freedreno@lfdr.de>; Fri,  2 Aug 2019 15:24:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 714516EE48;
-	Fri,  2 Aug 2019 13:23:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05AA86EE4D;
+	Fri,  2 Aug 2019 13:24:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A7906EE46;
- Fri,  2 Aug 2019 13:23:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAAEA6EE49;
+ Fri,  2 Aug 2019 13:24:46 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4AAB021871;
- Fri,  2 Aug 2019 13:23:43 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id B9825217D4;
+ Fri,  2 Aug 2019 13:24:45 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri,  2 Aug 2019 09:22:39 -0400
-Message-Id: <20190802132302.13537-19-sashal@kernel.org>
+Date: Fri,  2 Aug 2019 09:24:03 -0400
+Message-Id: <20190802132422.13963-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190802132302.13537-1-sashal@kernel.org>
-References: <20190802132302.13537-1-sashal@kernel.org>
+In-Reply-To: <20190802132422.13963-1-sashal@kernel.org>
+References: <20190802132422.13963-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=kernel.org; s=default; t=1564752224;
- bh=TFQRTj3/7D8jnoe4BJv+m0z7LgOh2e78JsSqRuTuDww=;
+ d=kernel.org; s=default; t=1564752286;
+ bh=D8EbAL6Vy+2xZtIg25ogcasGNd415aUaaVMafaRTSOc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=hRlXPbebioBADVedI644SfVZgP4CbpUoPqpWMcf+VD3dol0nCRuoC3nRPRBMGE0aa
- IYOLi+pWEWMrU28x3Z4h8se851GzMi8yUbsL2o9IDh0y1w9hpAB1PZ2FcQNSOhaPhn
- 6KjeKH6I25kqRekrQPyCG5yZ0NgrDSmPK15bSvhU=
-Subject: [Freedreno] [PATCH AUTOSEL 4.19 19/42] drm/msm: stop abusing
+ b=RY6pD3wY6CUHJjo9X9/Tuf8eGZSVpV+WgOSaSAQkQaB7vDmr2Pr8dhgQaOzKUnAAs
+ jEJpA6ldXXJURFmEMZ5qeBQcOdek1l70Ma1jGqNgg2PFywykwYnoMFm9PV55imZmmF
+ 6aB67fuf3mh9aS4MK1Jb1SYECJjTr4adDmyIXPQM=
+Subject: [Freedreno] [PATCH AUTOSEL 4.14 11/30] drm/msm: stop abusing
  dma_map/unmap for cache
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
@@ -101,8 +101,8 @@ b3JnL3BhdGNoL21zZ2lkLzIwMTkwNjMwMTI0NzM1LjI3Nzg2LTEtcm9iZGNsYXJrQGdtYWlsLmNv
 bQpTaWduZWQtb2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5vcmc+Ci0tLQogZHJp
 dmVycy9ncHUvZHJtL21zbS9tc21fZ2VtLmMgfCA0ICsrLS0KIDEgZmlsZSBjaGFuZ2VkLCAyIGlu
 c2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L21zbS9tc21fZ2VtLmMgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9nZW0uYwppbmRleCBmNTlj
-YTI3YTRhMzU3Li45M2IyMGFkMjNjMjNmIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vbXNt
+L21zbS9tc21fZ2VtLmMgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9nZW0uYwppbmRleCBmMmRm
+NzE4YWYzNzBkLi4zYTkxY2NkOTJjNDczIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vbXNt
 L21zbV9nZW0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9nZW0uYwpAQCAtMTA4LDcg
 KzEwOCw3IEBAIHN0YXRpYyBzdHJ1Y3QgcGFnZSAqKmdldF9wYWdlcyhzdHJ1Y3QgZHJtX2dlbV9v
 YmplY3QgKm9iaikKIAkJICogYmVjYXVzZSBkaXNwbGF5IGNvbnRyb2xsZXIsIEdQVSwgZXRjLiBh
