@@ -1,42 +1,42 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89ECB7F908
-	for <lists+freedreno@lfdr.de>; Fri,  2 Aug 2019 15:24:49 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B17557F918
+	for <lists+freedreno@lfdr.de>; Fri,  2 Aug 2019 15:26:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05AA86EE4D;
-	Fri,  2 Aug 2019 13:24:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 559756EE4C;
+	Fri,  2 Aug 2019 13:26:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAAEA6EE49;
- Fri,  2 Aug 2019 13:24:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCC0E6EE49;
+ Fri,  2 Aug 2019 13:26:05 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B9825217D4;
- Fri,  2 Aug 2019 13:24:45 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id A345421852;
+ Fri,  2 Aug 2019 13:26:04 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri,  2 Aug 2019 09:24:03 -0400
-Message-Id: <20190802132422.13963-11-sashal@kernel.org>
+Date: Fri,  2 Aug 2019 09:25:31 -0400
+Message-Id: <20190802132547.14517-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190802132422.13963-1-sashal@kernel.org>
-References: <20190802132422.13963-1-sashal@kernel.org>
+In-Reply-To: <20190802132547.14517-1-sashal@kernel.org>
+References: <20190802132547.14517-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=kernel.org; s=default; t=1564752286;
- bh=D8EbAL6Vy+2xZtIg25ogcasGNd415aUaaVMafaRTSOc=;
+ d=kernel.org; s=default; t=1564752365;
+ bh=AicnZ9XfDMx3XkBE1GCecASN86fDAtFADqghqLPnsv4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=RY6pD3wY6CUHJjo9X9/Tuf8eGZSVpV+WgOSaSAQkQaB7vDmr2Pr8dhgQaOzKUnAAs
- jEJpA6ldXXJURFmEMZ5qeBQcOdek1l70Ma1jGqNgg2PFywykwYnoMFm9PV55imZmmF
- 6aB67fuf3mh9aS4MK1Jb1SYECJjTr4adDmyIXPQM=
-Subject: [Freedreno] [PATCH AUTOSEL 4.14 11/30] drm/msm: stop abusing
+ b=GXNRXHzOl/txOc+mZfHDUoyHImCI5M3sKUZkHodhiVfAzKH5o8SNKBGufCRooOjot
+ MkatPTlcS9hxAp3gcUs6GwXUXIIrbMtIuWEFnAtt5/EtS2OF0HzHRxgcGYOg6QJtww
+ 4Ygt40iziZGwMF558YPOZf38fHSLR8aZwLtivOTk=
+Subject: [Freedreno] [PATCH AUTOSEL 4.9 07/22] drm/msm: stop abusing
  dma_map/unmap for cache
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
@@ -101,16 +101,16 @@ b3JnL3BhdGNoL21zZ2lkLzIwMTkwNjMwMTI0NzM1LjI3Nzg2LTEtcm9iZGNsYXJrQGdtYWlsLmNv
 bQpTaWduZWQtb2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5vcmc+Ci0tLQogZHJp
 dmVycy9ncHUvZHJtL21zbS9tc21fZ2VtLmMgfCA0ICsrLS0KIDEgZmlsZSBjaGFuZ2VkLCAyIGlu
 c2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L21zbS9tc21fZ2VtLmMgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9nZW0uYwppbmRleCBmMmRm
-NzE4YWYzNzBkLi4zYTkxY2NkOTJjNDczIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vbXNt
-L21zbV9nZW0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9nZW0uYwpAQCAtMTA4LDcg
-KzEwOCw3IEBAIHN0YXRpYyBzdHJ1Y3QgcGFnZSAqKmdldF9wYWdlcyhzdHJ1Y3QgZHJtX2dlbV9v
+L21zbS9tc21fZ2VtLmMgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9nZW0uYwppbmRleCA3OTU2
+NjBlMjliMmNlLi5hNDcyZDRkOTAyZGRlIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vbXNt
+L21zbV9nZW0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9nZW0uYwpAQCAtMTA2LDcg
+KzEwNiw3IEBAIHN0YXRpYyBzdHJ1Y3QgcGFnZSAqKmdldF9wYWdlcyhzdHJ1Y3QgZHJtX2dlbV9v
 YmplY3QgKm9iaikKIAkJICogYmVjYXVzZSBkaXNwbGF5IGNvbnRyb2xsZXIsIEdQVSwgZXRjLiBh
 cmUgbm90IGNvaGVyZW50OgogCQkgKi8KIAkJaWYgKG1zbV9vYmotPmZsYWdzICYgKE1TTV9CT19X
 Q3xNU01fQk9fVU5DQUNIRUQpKQotCQkJZG1hX21hcF9zZyhkZXYtPmRldiwgbXNtX29iai0+c2d0
 LT5zZ2wsCisJCQlkbWFfc3luY19zZ19mb3JfZGV2aWNlKGRldi0+ZGV2LCBtc21fb2JqLT5zZ3Qt
 PnNnbCwKIAkJCQkJbXNtX29iai0+c2d0LT5uZW50cywgRE1BX0JJRElSRUNUSU9OQUwpOwogCX0K
-IApAQCAtMTM4LDcgKzEzOCw3IEBAIHN0YXRpYyB2b2lkIHB1dF9wYWdlcyhzdHJ1Y3QgZHJtX2dl
+IApAQCAtMTI0LDcgKzEyNCw3IEBAIHN0YXRpYyB2b2lkIHB1dF9wYWdlcyhzdHJ1Y3QgZHJtX2dl
 bV9vYmplY3QgKm9iaikKIAkJCSAqIEdQVSwgZXRjLiBhcmUgbm90IGNvaGVyZW50OgogCQkJICov
 CiAJCQlpZiAobXNtX29iai0+ZmxhZ3MgJiAoTVNNX0JPX1dDfE1TTV9CT19VTkNBQ0hFRCkpCi0J
 CQkJZG1hX3VubWFwX3NnKG9iai0+ZGV2LT5kZXYsIG1zbV9vYmotPnNndC0+c2dsLAorCQkJCWRt
