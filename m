@@ -2,26 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9415A82573
-	for <lists+freedreno@lfdr.de>; Mon,  5 Aug 2019 21:18:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D9078261B
+	for <lists+freedreno@lfdr.de>; Mon,  5 Aug 2019 22:33:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53CBB6E143;
-	Mon,  5 Aug 2019 19:18:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FE3D6E14B;
+	Mon,  5 Aug 2019 20:33:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E5A66E143
- for <freedreno@lists.freedesktop.org>; Mon,  5 Aug 2019 19:18:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: mfilion) with ESMTPSA id 2888828B034
-Message-ID: <2f038cd6be518237f471ee46b6b13bf84a5e2681.camel@collabora.com>
-From: Mark Filion <mark.filion@collabora.com>
+Received: from smtp.codeaurora.org (smtp.codeaurora.org [198.145.29.96])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67F976E14B
+ for <freedreno@lists.freedesktop.org>; Mon,  5 Aug 2019 20:33:51 +0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1000)
+ id 386B26076C; Mon,  5 Aug 2019 20:33:51 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ pdx-caf-mail.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.7 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ DKIM_INVALID,DKIM_SIGNED,SPF_NONE autolearn=no autolearn_force=no
+ version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: jcrouse@smtp.codeaurora.org)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 856C76076C;
+ Mon,  5 Aug 2019 20:33:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 856C76076C
+From: Jordan Crouse <jcrouse@codeaurora.org>
 To: freedreno@lists.freedesktop.org
-Date: Mon, 05 Aug 2019 15:18:42 -0400
-Organization: Collabora Ltd.
-User-Agent: Evolution 3.32.3 (3.32.3-1.fc30) 
-MIME-Version: 1.0
-Subject: [Freedreno] XDC 2019: Schedule published & Workshops CfP reopened!
+Date: Mon,  5 Aug 2019 14:33:46 -0600
+Message-Id: <1565037226-1684-1-git-send-email-jcrouse@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=codeaurora.org; s=default; t=1565037231;
+ bh=EQpwyTaZLqo/0FlVjz7BjVXvv2QX6kRf2rU72r3sSKo=;
+ h=From:To:Cc:Subject:Date:From;
+ b=YQLqCyavrSjZaLIy9k/4zyq0wafVpMa/YcHH0w5NKJ44Ytg8bDOY58kWvRrOl8fqp
+ 76TcWcbF0zcOP7k8YXppQ3x78Rfmse0uOMIXRQVgrs5b8s49CEZotZriRtJAfl3Ckn
+ IEeCghUFOPMhOuG0cUDRlmVClqRw4+u8PrOGwQpQ=
+X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=codeaurora.org; s=default; t=1565037230;
+ bh=EQpwyTaZLqo/0FlVjz7BjVXvv2QX6kRf2rU72r3sSKo=;
+ h=From:To:Cc:Subject:Date:From;
+ b=fesrASc4hlP33n5ROrTySwgZhfsOqs1BLFm2PzqvpylY3nuXOIM4/cVG/D6UnQN4Q
+ 5+HdPtaul0xWvoIuDcQcXG0Ma6VxWlLqosZAhW/w9rM7CpS/TGltdX2bMOdDefx3HU
+ Lkai0x8Fbcr+21VATj1hmVGppBmM1sxgFKIdmS+s=
+X-Mailman-Original-Authentication-Results: pdx-caf-mail.web.codeaurora.org;
+ dmarc=none (p=none dis=none)
+ header.from=codeaurora.org
+X-Mailman-Original-Authentication-Results: pdx-caf-mail.web.codeaurora.org;
+ spf=none
+ smtp.mailfrom=jcrouse@codeaurora.org
+Subject: [Freedreno] [PATCH v2] drivers: qcom: Add BCM vote macro to header
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -34,132 +66,96 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1470969681=="
+Cc: linux-pm@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
+ linux-arm-msm@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ Andy Gross <agross@kernel.org>, Georgi Djakov <georgi.djakov@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
---===============1470969681==
-Content-Type: multipart/alternative; boundary="=-xhe0Xyz7X4OP6ZDo7Tmy"
-
-
---=-xhe0Xyz7X4OP6ZDo7Tmy
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-
-Hello,
-
-The preliminary schedule for XDC 2019 has been published!
-
-https://xdc2019.x.org/event/5/timetable/#20191002.detailed
-
-XDC 2019 will take place at the Concordia University Conference Centre
-in Montréal, Canada on October 2-4, 2019. If you haven't already done
-so, now is the time to book your travel!
-
-In addition to publishing the schedule, the CfP for workshops has been
-reopened. If you ave an idea for a workshop discussion, please sent it
-in!
-    
-https://xdc2019.x.org/event/5/abstracts/
-
-We are looking forward to seeing you (and sharing a poutine!) in
-beautiful Montréal! If you have any questions, please send me an email
-to mark.filion@collabora.com, adding on CC the X.org board (board at
-foundation.x.org).
-
-And don't forget, you can follow us on Twitter for all the latest
-updates and to stay connected:
-
-    https://twitter.com/xdc2019
-
-Best,
-
-Mark
-
---=-xhe0Xyz7X4OP6ZDo7Tmy
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-<html dir=3D"ltr"><head></head><body style=3D"text-align:left; direction:lt=
-r;"><div style=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 52, 54); fon=
-t-family: monospace; font-size: 13.333333015441895px; width: 71ch;">Hello,<=
-/div><div style=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 52, 54); fo=
-nt-family: monospace; font-size: 13.333333015441895px; width: 71ch;"><br></=
-div><div style=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 52, 54); fon=
-t-family: monospace; font-size: 13.333333015441895px; width: 71ch;">The pre=
-liminary schedule for XDC 2019 has been published!</div><div style=3D"caret=
--color: rgb(46, 52, 54); color: rgb(46, 52, 54); font-family: monospace; fo=
-nt-size: 13.333333015441895px; width: 71ch;"><br></div><div style=3D"caret-=
-color: rgb(46, 52, 54); color: rgb(46, 52, 54); font-family: monospace; fon=
-t-size: 13.333333015441895px; width: 71ch;"><a href=3D"https://xdc2019.x.or=
-g/event/5/timetable/#20191002.detailed">https://xdc2019.x.org/event/5/timet=
-able/#20191002.detailed</a></div><div style=3D"caret-color: rgb(46, 52, 54)=
-; color: rgb(46, 52, 54); font-family: monospace; font-size: 13.33333301544=
-1895px; width: 71ch;"><br></div><div style=3D"caret-color: rgb(46, 52, 54);=
- color: rgb(46, 52, 54); font-family: monospace; font-size: 13.333333015441=
-895px; width: 71ch;">XDC 2019 will&nbsp;take place at the Concordia Univers=
-ity Conference Centre<br>in Montr=C3=A9al, Canada on October 2-4, 2019. If =
-you haven't already done so, now is the time to book your travel!</div><div=
- style=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 52, 54); font-family=
-: monospace; font-size: 13.333333015441895px; width: 71ch;"><br></div><div =
-style=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 52, 54); font-family:=
- monospace; font-size: 13.333333015441895px; width: 71ch;">In addition to p=
-ublishing the schedule, the CfP for workshops has been reopened. If you ave=
- an idea for a workshop discussion, please sent it in!</div><div style=3D"c=
-aret-color: rgb(46, 52, 54); color: rgb(46, 52, 54); font-family: monospace=
-; font-size: 13.333333015441895px; width: 71ch;">&nbsp;&nbsp;&nbsp;&nbsp;</=
-div><div style=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 52, 54); fon=
-t-family: monospace; font-size: 13.333333015441895px; width: 71ch;"><a href=
-=3D"https://xdc2019.x.org/event/5/abstracts/">https://xdc2019.x.org/event/5=
-/abstracts/</a></div><div style=3D"caret-color: rgb(46, 52, 54); color: rgb=
-(46, 52, 54); font-family: monospace; font-size: 13.333333015441895px; widt=
-h: 71ch;"><br></div><div style=3D"caret-color: rgb(46, 52, 54); color: rgb(=
-46, 52, 54); font-family: monospace; font-size: 13.333333015441895px; width=
-: 71ch;">We are looking forward to seeing you (and sharing a poutine!) in</=
-div><div style=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 52, 54); fon=
-t-family: monospace; font-size: 13.333333015441895px; width: 71ch;">beautif=
-ul Montr=C3=A9al! If you have any questions, please send me an email</div><=
-div style=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 52, 54); font-fam=
-ily: monospace; font-size: 13.333333015441895px; width: 71ch;">to&nbsp;<a h=
-ref=3D"mailto:mark.filion@collabora.com">mark.filion@collabora.com</a>, add=
-ing on CC the X.org board (board at</div><div style=3D"caret-color: rgb(46,=
- 52, 54); color: rgb(46, 52, 54); font-family: monospace; font-size: 13.333=
-333015441895px; width: 71ch;">foundation.x.org).</div><div style=3D"caret-c=
-olor: rgb(46, 52, 54); color: rgb(46, 52, 54); font-family: monospace; font=
--size: 13.333333015441895px; width: 71ch;"><br></div><div style=3D"caret-co=
-lor: rgb(46, 52, 54); color: rgb(46, 52, 54); font-family: monospace; font-=
-size: 13.333333015441895px; width: 71ch;">And don't forget, you can follow =
-us on Twitter for all the latest</div><div style=3D"caret-color: rgb(46, 52=
-, 54); color: rgb(46, 52, 54); font-family: monospace; font-size: 13.333333=
-015441895px; width: 71ch;">updates and to stay connected:</div><div style=
-=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 52, 54); font-family: mono=
-space; font-size: 13.333333015441895px; width: 71ch;"><br></div><div style=
-=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 52, 54); font-family: mono=
-space; font-size: 13.333333015441895px; width: 71ch;">&nbsp;&nbsp;&nbsp;&nb=
-sp;<a href=3D"https://twitter.com/xdc2019">https://twitter.com/xdc2019</a><=
-/div><div style=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 52, 54); fo=
-nt-family: monospace; font-size: 13.333333015441895px; width: 71ch;"><br></=
-div><div style=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 52, 54); fon=
-t-family: monospace; font-size: 13.333333015441895px; width: 71ch;">Best,</=
-div><div style=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 52, 54); fon=
-t-family: monospace; font-size: 13.333333015441895px; width: 71ch;"><br></d=
-iv><div style=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 52, 54); font=
--family: monospace; font-size: 13.333333015441895px; width: 71ch;">Mark</di=
-v></body></html>
-
---=-xhe0Xyz7X4OP6ZDo7Tmy--
-
-
---===============1470969681==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5v
-IG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
-
---===============1470969681==--
-
+VGhlIG1hY3JvIHRvIGdlbmVyYXRlIGEgQnVzIENvbnRyb2xsZXIgTWFuYWdlciAoQkNNKSBUQ1Mg
+Y29tbWFuZCBpcyB1c2VkCmJ5IHRoZSBpbnRlcmNvbm5lY3QgZHJpdmVyIGJ1dCBtaWdodCBhbHNv
+IGJlIGludGVyZXN0aW5nIHRvIG90aGVyCmRyaXZlcnMgdGhhdCBuZWVkIHRvIGNvbnN0cnVjdCBU
+Q1MgY29tbWFuZHMgZm9yIHN1YiBwcm9jZXNzb3JzIHNvIG1vdmUKaXQgb3V0IG9mIHRoZSBzZG04
+NDUgc3BlY2lmaWMgZmlsZSBhbmQgaW50byB0aGUgaGVhZGVyLgoKU2lnbmVkLW9mZi1ieTogSm9y
+ZGFuIENyb3VzZSA8amNyb3VzZUBjb2RlYXVyb3JhLm9yZz4KLS0tCgpDaGFuZ2VzIGluIHYyOgot
+IFJlcGxhY2UgYSBzaW1pbGFyIEJDU19UQ1NfQ01EIG1hY3JvIGluIGNsay1ycG1oLmMgd2l0aCB0
+aGUgZ2VuZXJpYyBvbmUKCiBkcml2ZXJzL2Nsay9xY29tL2Nsay1ycG1oLmMgICAgICAgIHwgMTYg
+KysrLS0tLS0tLS0tLS0tLQogZHJpdmVycy9pbnRlcmNvbm5lY3QvcWNvbS9zZG04NDUuYyB8IDE5
+ICstLS0tLS0tLS0tLS0tLS0tLS0KIGluY2x1ZGUvc29jL3Fjb20vdGNzLmggICAgICAgICAgICAg
+fCAyMSArKysrKysrKysrKysrKysrKysrKy0KIDMgZmlsZXMgY2hhbmdlZCwgMjQgaW5zZXJ0aW9u
+cygrKSwgMzIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9jbGsvcWNvbS9jbGst
+cnBtaC5jIGIvZHJpdmVycy9jbGsvcWNvbS9jbGstcnBtaC5jCmluZGV4IGMzZmQ2MzIuLmEzMmJm
+YWUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvY2xrL3Fjb20vY2xrLXJwbWguYworKysgYi9kcml2ZXJz
+L2Nsay9xY29tL2Nsay1ycG1oLmMKQEAgLTEsNiArMSw2IEBACiAvLyBTUERYLUxpY2Vuc2UtSWRl
+bnRpZmllcjogR1BMLTIuMAogLyoKLSAqIENvcHlyaWdodCAoYykgMjAxOCwgVGhlIExpbnV4IEZv
+dW5kYXRpb24uIEFsbCByaWdodHMgcmVzZXJ2ZWQuCisgKiBDb3B5cmlnaHQgKGMpIDIwMTgtMjAx
+OSwgVGhlIExpbnV4IEZvdW5kYXRpb24uIEFsbCByaWdodHMgcmVzZXJ2ZWQuCiAgKi8KIAogI2lu
+Y2x1ZGUgPGxpbnV4L2Nsay1wcm92aWRlci5oPgpAQCAtMTIsMjMgKzEyLDEzIEBACiAjaW5jbHVk
+ZSA8bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+CiAjaW5jbHVkZSA8c29jL3Fjb20vY21kLWRiLmg+
+CiAjaW5jbHVkZSA8c29jL3Fjb20vcnBtaC5oPgorI2luY2x1ZGUgPHNvYy9xY29tL3Rjcy5oPgog
+CiAjaW5jbHVkZSA8ZHQtYmluZGluZ3MvY2xvY2svcWNvbSxycG1oLmg+CiAKICNkZWZpbmUgQ0xL
+X1JQTUhfQVJDX0VOX09GRlNFVAkJMAogI2RlZmluZSBDTEtfUlBNSF9WUk1fRU5fT0ZGU0VUCQk0
+CiAKLSNkZWZpbmUgQkNNX1RDU19DTURfQ09NTUlUX01BU0sJCTB4NDAwMDAwMDAKLSNkZWZpbmUg
+QkNNX1RDU19DTURfVkFMSURfU0hJRlQJCTI5Ci0jZGVmaW5lIEJDTV9UQ1NfQ01EX1ZPVEVfTUFT
+SwkJMHgzZmZmCi0jZGVmaW5lIEJDTV9UQ1NfQ01EX1ZPVEVfU0hJRlQJCTAKLQotI2RlZmluZSBC
+Q01fVENTX0NNRCh2YWxpZCwgdm90ZSkJCQkJXAotCShCQ01fVENTX0NNRF9DT01NSVRfTUFTSyB8
+CQkJCVwKLQkoKHZhbGlkKSA8PCBCQ01fVENTX0NNRF9WQUxJRF9TSElGVCkgfAkJCVwKLQkoKHZv
+dGUgJiBCQ01fVENTX0NNRF9WT1RFX01BU0spCQkJCVwKLQk8PCBCQ01fVENTX0NNRF9WT1RFX1NI
+SUZUKSkKLQogLyoqCiAgKiBzdHJ1Y3QgYmNtX2RiIC0gQXV4aWxpYXJ5IGRhdGEgcGVydGFpbmlu
+ZyB0byBlYWNoIEJ1cyBDbG9jayBNYW5hZ2VyKEJDTSkKICAqIEB1bml0OiBkaXZpc29yIHVzZWQg
+dG8gY29udmVydCBIeiB2YWx1ZSB0byBhbiBSUE1oIG1zZwpAQCAtMjY5LDcgKzI1OSw3IEBAIHN0
+YXRpYyBpbnQgY2xrX3JwbWhfYmNtX3NlbmRfY21kKHN0cnVjdCBjbGtfcnBtaCAqYywgYm9vbCBl
+bmFibGUpCiAJfQogCiAJY21kLmFkZHIgPSBjLT5yZXNfYWRkcjsKLQljbWQuZGF0YSA9IEJDTV9U
+Q1NfQ01EKGVuYWJsZSwgY21kX3N0YXRlKTsKKwljbWQuZGF0YSA9IEJDTV9UQ1NfQ01EKDEsIGVu
+YWJsZSwgMCwgY21kX3N0YXRlKTsKIAogCXJldCA9IHJwbWhfd3JpdGVfYXN5bmMoYy0+ZGV2LCBS
+UE1IX0FDVElWRV9PTkxZX1NUQVRFLCAmY21kLCAxKTsKIAlpZiAocmV0KSB7CmRpZmYgLS1naXQg
+YS9kcml2ZXJzL2ludGVyY29ubmVjdC9xY29tL3NkbTg0NS5jIGIvZHJpdmVycy9pbnRlcmNvbm5l
+Y3QvcWNvbS9zZG04NDUuYwppbmRleCA0OTE1Yjc4Li4yMTgxMTcwIDEwMDY0NAotLS0gYS9kcml2
+ZXJzL2ludGVyY29ubmVjdC9xY29tL3NkbTg0NS5jCisrKyBiL2RyaXZlcnMvaW50ZXJjb25uZWN0
+L3Fjb20vc2RtODQ1LmMKQEAgLTEsNiArMSw2IEBACiAvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmll
+cjogR1BMLTIuMAogLyoKLSAqIENvcHlyaWdodCAoYykgMjAxOCwgVGhlIExpbnV4IEZvdW5kYXRp
+b24uIEFsbCByaWdodHMgcmVzZXJ2ZWQuCisgKiBDb3B5cmlnaHQgKGMpIDIwMTgtMjAxOSwgVGhl
+IExpbnV4IEZvdW5kYXRpb24uIEFsbCByaWdodHMgcmVzZXJ2ZWQuCiAgKgogICovCiAKQEAgLTIw
+LDIzICsyMCw2IEBACiAjaW5jbHVkZSA8c29jL3Fjb20vcnBtaC5oPgogI2luY2x1ZGUgPHNvYy9x
+Y29tL3Rjcy5oPgogCi0jZGVmaW5lIEJDTV9UQ1NfQ01EX0NPTU1JVF9TSEZUCQkzMAotI2RlZmlu
+ZSBCQ01fVENTX0NNRF9DT01NSVRfTUFTSwkJMHg0MDAwMDAwMAotI2RlZmluZSBCQ01fVENTX0NN
+RF9WQUxJRF9TSEZUCQkyOQotI2RlZmluZSBCQ01fVENTX0NNRF9WQUxJRF9NQVNLCQkweDIwMDAw
+MDAwCi0jZGVmaW5lIEJDTV9UQ1NfQ01EX1ZPVEVfWF9TSEZUCQkxNAotI2RlZmluZSBCQ01fVENT
+X0NNRF9WT1RFX01BU0sJCTB4M2ZmZgotI2RlZmluZSBCQ01fVENTX0NNRF9WT1RFX1lfU0hGVAkJ
+MAotI2RlZmluZSBCQ01fVENTX0NNRF9WT1RFX1lfTUFTSwkJMHhmZmZjMDAwCi0KLSNkZWZpbmUg
+QkNNX1RDU19DTUQoY29tbWl0LCB2YWxpZCwgdm90ZV94LCB2b3RlX3kpCQlcCi0JKCgoY29tbWl0
+KSA8PCBCQ01fVENTX0NNRF9DT01NSVRfU0hGVCkgfAkJXAotCSgodmFsaWQpIDw8IEJDTV9UQ1Nf
+Q01EX1ZBTElEX1NIRlQpIHwJCQlcCi0JKChjcHVfdG9fbGUzMih2b3RlX3gpICYJCQkJCVwKLQlC
+Q01fVENTX0NNRF9WT1RFX01BU0spIDw8IEJDTV9UQ1NfQ01EX1ZPVEVfWF9TSEZUKSB8CVwKLQko
+KGNwdV90b19sZTMyKHZvdGVfeSkgJgkJCQkJXAotCUJDTV9UQ1NfQ01EX1ZPVEVfTUFTSykgPDwg
+QkNNX1RDU19DTURfVk9URV9ZX1NIRlQpKQotCiAjZGVmaW5lIHRvX3Fjb21fcHJvdmlkZXIoX3By
+b3ZpZGVyKSBcCiAJY29udGFpbmVyX29mKF9wcm92aWRlciwgc3RydWN0IHFjb21faWNjX3Byb3Zp
+ZGVyLCBwcm92aWRlcikKIApkaWZmIC0tZ2l0IGEvaW5jbHVkZS9zb2MvcWNvbS90Y3MuaCBiL2lu
+Y2x1ZGUvc29jL3Fjb20vdGNzLmgKaW5kZXggMjYyODc2YS4uZGJmM2M4OCAxMDA2NDQKLS0tIGEv
+aW5jbHVkZS9zb2MvcWNvbS90Y3MuaAorKysgYi9pbmNsdWRlL3NvYy9xY29tL3Rjcy5oCkBAIC0x
+LDYgKzEsNiBAQAogLyogU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAgKi8KIC8qCi0g
+KiBDb3B5cmlnaHQgKGMpIDIwMTYtMjAxOCwgVGhlIExpbnV4IEZvdW5kYXRpb24uIEFsbCByaWdo
+dHMgcmVzZXJ2ZWQuCisgKiBDb3B5cmlnaHQgKGMpIDIwMTYtMjAxOSwgVGhlIExpbnV4IEZvdW5k
+YXRpb24uIEFsbCByaWdodHMgcmVzZXJ2ZWQuCiAgKi8KIAogI2lmbmRlZiBfX1NPQ19RQ09NX1RD
+U19IX18KQEAgLTUzLDQgKzUzLDIzIEBAIHN0cnVjdCB0Y3NfcmVxdWVzdCB7CiAJc3RydWN0IHRj
+c19jbWQgKmNtZHM7CiB9OwogCisjZGVmaW5lIEJDTV9UQ1NfQ01EX0NPTU1JVF9TSEZUCQkzMAor
+I2RlZmluZSBCQ01fVENTX0NNRF9DT01NSVRfTUFTSwkJMHg0MDAwMDAwMAorI2RlZmluZSBCQ01f
+VENTX0NNRF9WQUxJRF9TSEZUCQkyOQorI2RlZmluZSBCQ01fVENTX0NNRF9WQUxJRF9NQVNLCQkw
+eDIwMDAwMDAwCisjZGVmaW5lIEJDTV9UQ1NfQ01EX1ZPVEVfWF9TSEZUCQkxNAorI2RlZmluZSBC
+Q01fVENTX0NNRF9WT1RFX01BU0sJCTB4M2ZmZgorI2RlZmluZSBCQ01fVENTX0NNRF9WT1RFX1lf
+U0hGVAkJMAorI2RlZmluZSBCQ01fVENTX0NNRF9WT1RFX1lfTUFTSwkJMHhmZmZjMDAwCisKKy8q
+IENvbnN0cnVjdCBhIEJ1cyBDbG9jayBNYW5hZ2VyIChCQ00pIHNwZWNpZmljIFRDUyBjb21tYW5k
+ICovCisjZGVmaW5lIEJDTV9UQ1NfQ01EKGNvbW1pdCwgdmFsaWQsIHZvdGVfeCwgdm90ZV95KQkJ
+XAorCSgoKGNvbW1pdCkgPDwgQkNNX1RDU19DTURfQ09NTUlUX1NIRlQpIHwJCVwKKwkoKHZhbGlk
+KSA8PCBCQ01fVENTX0NNRF9WQUxJRF9TSEZUKSB8CQkJXAorCSgoY3B1X3RvX2xlMzIodm90ZV94
+KSAmCQkJCQlcCisJQkNNX1RDU19DTURfVk9URV9NQVNLKSA8PCBCQ01fVENTX0NNRF9WT1RFX1hf
+U0hGVCkgfAlcCisJKChjcHVfdG9fbGUzMih2b3RlX3kpICYJCQkJCVwKKwlCQ01fVENTX0NNRF9W
+T1RFX01BU0spIDw8IEJDTV9UQ1NfQ01EX1ZPVEVfWV9TSEZUKSkKKworCiAjZW5kaWYgLyogX19T
+T0NfUUNPTV9UQ1NfSF9fICovCi0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vZnJlZWRyZW5v
