@@ -2,38 +2,36 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A867C8288C
-	for <lists+freedreno@lfdr.de>; Tue,  6 Aug 2019 02:23:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58C2C82E3C
+	for <lists+freedreno@lfdr.de>; Tue,  6 Aug 2019 11:00:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D4B96E2F5;
-	Tue,  6 Aug 2019 00:23:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD0496E33A;
+	Tue,  6 Aug 2019 09:00:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from onstation.org (onstation.org [52.200.56.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 919016E2E3;
- Tue,  6 Aug 2019 00:23:00 +0000 (UTC)
-Received: from localhost.localdomain (c-98-239-145-235.hsd1.wv.comcast.net
- [98.239.145.235])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested) (Authenticated sender: masneyb)
- by onstation.org (Postfix) with ESMTPSA id 839703E9AC;
- Tue,  6 Aug 2019 00:22:59 +0000 (UTC)
-From: Brian Masney <masneyb@onstation.org>
-To: agross@kernel.org, robdclark@gmail.com, sean@poorly.run,
- robh+dt@kernel.org, bjorn.andersson@linaro.org
-Date: Mon,  5 Aug 2019 20:22:29 -0400
-Message-Id: <20190806002229.8304-8-masneyb@onstation.org>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20190806002229.8304-1-masneyb@onstation.org>
-References: <20190806002229.8304-1-masneyb@onstation.org>
-X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=onstation.org; s=default; t=1565050979;
- bh=gBeC38WgB3xWQLxVHl7uyELkZ+E+b+WfCATgX0olB60=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ItEGiT10F0jY1COc8vBCK4WBjb2ClScpN83SS4EbvX+ujMeLvnHuK780kakIeZSPF
- lvkebFt4y50XIIvIvDpco+aeFtkfIe3NiOzag9YIA4edu5yWiBgrP0hzh6DhVqgwuJ
- fD3AicZ3aUAVpOjbqcX+ixWBik/vAvFDe8I0th4s=
-Subject: [Freedreno] [PATCH v5 7/7] ARM: qcom_defconfig: add ocmem support
+X-Greylist: delayed 1442 seconds by postgrey-1.36 at gabe;
+ Tue, 06 Aug 2019 09:00:32 UTC
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1071D89C51;
+ Tue,  6 Aug 2019 09:00:32 +0000 (UTC)
+Received: from wf0413.dip.tu-dresden.de ([141.76.181.157] helo=phil.localnet)
+ by gloria.sntech.de with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <heiko@sntech.de>)
+ id 1huux4-0003Qy-MP; Tue, 06 Aug 2019 10:36:14 +0200
+From: Heiko Stuebner <heiko@sntech.de>
+To: Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Sean Paul <sean@poorly.run>
+Date: Tue, 06 Aug 2019 10:36:13 +0200
+Message-ID: <5678760.RHkh9mv3Rf@phil>
+In-Reply-To: <52272b8ebf403361ff96e04bf14f5a7389116f73.1564591626.git.andrzej.p@collabora.com>
+References: <65481afa-1104-4ee9-e53d-f2732a10d4b9@baylibre.com>
+ <cover.1564591626.git.andrzej.p@collabora.com>
+ <52272b8ebf403361ff96e04bf14f5a7389116f73.1564591626.git.andrzej.p@collabora.com>
+MIME-Version: 1.0
+Subject: Re: [Freedreno] [PATCH 05/13] drm: rockchip: Provide ddc symlink in
+ inno_hdmi sysfs directory
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -46,28 +44,28 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, jonathan@marek.ca,
- airlied@linux.ie, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, jcrouse@codeaurora.org, daniel@ffwll.ch,
- freedreno@lists.freedesktop.org
-MIME-Version: 1.0
+Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
+ linux-samsung-soc@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, Leo Li <sunpeng.li@amd.com>,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, Sandy Huang <hjc@rock-chips.com>,
+ dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-mediatek@lists.infradead.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, kernel@collabora.com,
+ Harry Wentland <harry.wentland@amd.com>,
+ Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-QWRkIG9jbWVtIGRyaXZlciB0aGF0J3MgbmVlZGVkIGZvciBzb21lIGEzeHggYW5kIGE0eHggYmFz
-ZWQgc3lzdGVtcy4KClNpZ25lZC1vZmYtYnk6IEJyaWFuIE1hc25leSA8bWFzbmV5YkBvbnN0YXRp
-b24ub3JnPgotLS0KVGhpcyBpcyBhIG5ldyBwYXRjaCB0aGF0IHdhcyBpbnRyb2R1Y2VkIGluIHY1
-LgoKIGFyY2gvYXJtL2NvbmZpZ3MvcWNvbV9kZWZjb25maWcgfCAxICsKIDEgZmlsZSBjaGFuZ2Vk
-LCAxIGluc2VydGlvbigrKQoKZGlmZiAtLWdpdCBhL2FyY2gvYXJtL2NvbmZpZ3MvcWNvbV9kZWZj
-b25maWcgYi9hcmNoL2FybS9jb25maWdzL3Fjb21fZGVmY29uZmlnCmluZGV4IDM0NDMzYmY1ODg1
-ZC4uNTk1ZTE5MTBiYTc4IDEwMDY0NAotLS0gYS9hcmNoL2FybS9jb25maWdzL3Fjb21fZGVmY29u
-ZmlnCisrKyBiL2FyY2gvYXJtL2NvbmZpZ3MvcWNvbV9kZWZjb25maWcKQEAgLTIyNSw2ICsyMjUs
-NyBAQCBDT05GSUdfUUNPTV9XQ05TU19QSUw9eQogQ09ORklHX1JQTVNHX0NIQVI9eQogQ09ORklH
-X1JQTVNHX1FDT01fU01EPXkKIENPTkZJR19RQ09NX0dTQkk9eQorQ09ORklHX1FDT01fT0NNRU09
-eQogQ09ORklHX1FDT01fUE09eQogQ09ORklHX1FDT01fU01FTT15CiBDT05GSUdfUUNPTV9TTURf
-UlBNPXkKLS0gCjIuMjEuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJl
-ZWRyZW5v
+QW0gTWl0dHdvY2gsIDMxLiBKdWxpIDIwMTksIDE4OjU4OjE0IENFU1Qgc2NocmllYiBBbmRyemVq
+IFBpZXRyYXNpZXdpY3o6Cj4gVXNlIHRoZSBkZGMgcG9pbnRlciBwcm92aWRlZCBieSB0aGUgZ2Vu
+ZXJpYyBjb25uZWN0b3IuCj4gCj4gU2lnbmVkLW9mZi1ieTogQW5kcnplaiBQaWV0cmFzaWV3aWN6
+IDxhbmRyemVqLnBAY29sbGFib3JhLmNvbT4KPiBBY2tlZC1ieTogU2FtIFJhdm5ib3JnIDxzYW1A
+cmF2bmJvcmcub3JnPgo+IFJldmlld2VkLWJ5OiBFbWlsIFZlbGlrb3YgPGVtaWwudmVsaWtvdkBj
+b2xsYWJvcmEuY29tPgoKQWNrZWQtYnk6IEhlaWtvIFN0dWVibmVyIDxoZWlrb0BzbnRlY2guZGU+
+CgoKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpGcmVl
+ZHJlbm8gbWFpbGluZyBsaXN0CkZyZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
+Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9mcmVlZHJlbm8=
