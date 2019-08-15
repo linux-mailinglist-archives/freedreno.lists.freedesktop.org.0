@@ -2,41 +2,41 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 193C28E1FE
-	for <lists+freedreno@lfdr.de>; Thu, 15 Aug 2019 02:49:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 267CC8E200
+	for <lists+freedreno@lfdr.de>; Thu, 15 Aug 2019 02:49:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA68F6E886;
-	Thu, 15 Aug 2019 00:49:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD6BE6E890;
+	Thu, 15 Aug 2019 00:49:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from onstation.org (onstation.org [52.200.56.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA1B16E886;
- Thu, 15 Aug 2019 00:49:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65AA06E886;
+ Thu, 15 Aug 2019 00:49:17 +0000 (UTC)
 Received: from localhost.localdomain (c-98-239-145-235.hsd1.wv.comcast.net
  [98.239.145.235])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested) (Authenticated sender: masneyb)
- by onstation.org (Postfix) with ESMTPSA id 718363EA1E;
- Thu, 15 Aug 2019 00:49:15 +0000 (UTC)
+ by onstation.org (Postfix) with ESMTPSA id 26AB63EA22;
+ Thu, 15 Aug 2019 00:49:16 +0000 (UTC)
 From: Brian Masney <masneyb@onstation.org>
 To: bjorn.andersson@linaro.org, robh+dt@kernel.org, agross@kernel.org,
  a.hajda@samsung.com, narmstrong@baylibre.com, robdclark@gmail.com,
  sean@poorly.run
-Date: Wed, 14 Aug 2019 20:48:50 -0400
-Message-Id: <20190815004854.19860-8-masneyb@onstation.org>
+Date: Wed, 14 Aug 2019 20:48:51 -0400
+Message-Id: <20190815004854.19860-9-masneyb@onstation.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20190815004854.19860-1-masneyb@onstation.org>
 References: <20190815004854.19860-1-masneyb@onstation.org>
 MIME-Version: 1.0
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=onstation.org; s=default; t=1565830156;
- bh=RQi7NgzWoBfqg8AYplLP5izcyVgpI38ozyAN9bUXL0o=;
+ bh=d3q75pXkjIXM1QryEInKZPabWpuCo5QQR2U68bge2+A=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=EWhD6+a7wngQEzTa1GokP9KHGWvgK5XoZo2l4cdMlZVpQDtOEpWl3pik4MKSVH/9W
- QX8TFjUKALlS3Q+3aEv2im8IE1HpEngE04TtzouMNESZmwd34RuXUoKDy8ululGHJ3
- h9MqhZZoYUJIY8DJDykIjtu7akNaFybaiMmq82fc=
-Subject: [Freedreno] [PATCH 07/11] ARM: qcom_defconfig: add
- CONFIG_DRM_ANALOGIX_ANX78XX
+ b=NJdtoh3/ImfhdTmSEd85mj5KPu2ZKI0+UpUzJUTokWtV70S3liqeW3s4dbfky+wr4
+ LolisNgSRIh+ji/BEC/+LNt4IZWePqwWkQ0lf99WfPMtT+plnIZnwpj94J+7JjQ06J
+ WoLNwQj3TpHlok1OzDecQd2NzU7BUwa+XkPAjiD8=
+Subject: [Freedreno] [PATCH 08/11] drm/msm/hdmi: silence -EPROBE_DEFER
+ warning
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,18 +60,22 @@ Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-QWRkIENPTkZJR19EUk1fQU5BTE9HSVhfQU5YNzhYWCBhcyBhIG1vZHVsZSBzbyB0aGF0IHRoZSBl
-eHRlcm5hbCBkaXNwbGF5CmNhbiBiZSB1c2VkIG9uIHRoZSBOZXh1cyA1IHBob25lcy4KClNpZ25l
-ZC1vZmYtYnk6IEJyaWFuIE1hc25leSA8bWFzbmV5YkBvbnN0YXRpb24ub3JnPgotLS0KIGFyY2gv
-YXJtL2NvbmZpZ3MvcWNvbV9kZWZjb25maWcgfCAxICsKIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2Vy
-dGlvbigrKQoKZGlmZiAtLWdpdCBhL2FyY2gvYXJtL2NvbmZpZ3MvcWNvbV9kZWZjb25maWcgYi9h
-cmNoL2FybS9jb25maWdzL3Fjb21fZGVmY29uZmlnCmluZGV4IDM0NDMzYmY1ODg1ZC4uMTM5ZTY2
-MTBmMDM0IDEwMDY0NAotLS0gYS9hcmNoL2FybS9jb25maWdzL3Fjb21fZGVmY29uZmlnCisrKyBi
-L2FyY2gvYXJtL2NvbmZpZ3MvcWNvbV9kZWZjb25maWcKQEAgLTE0OCw2ICsxNDgsNyBAQCBDT05G
-SUdfUkVHVUxBVE9SX1FDT01fU1BNST15CiBDT05GSUdfTUVESUFfU1VQUE9SVD15CiBDT05GSUdf
-RFJNPXkKIENPTkZJR19EUk1fUEFORUxfU0lNUExFPXkKK0NPTkZJR19EUk1fQU5BTE9HSVhfQU5Y
-NzhYWD1tCiBDT05GSUdfRkI9eQogQ09ORklHX0ZSQU1FQlVGRkVSX0NPTlNPTEU9eQogIyBDT05G
-SUdfTENEX0NMQVNTX0RFVklDRSBpcyBub3Qgc2V0Ci0tIAoyLjIxLjAKCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QK
-RnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVubw==
+U2lsZW5jZSBhIHdhcm5pbmcgbWVzc2FnZSBkdWUgdG8gYW4gLUVQUk9CRV9ERUZFUiBlcnJvciB0
+byBoZWxwIGNsZWFudXAKdGhlIHN5c3RlbSBib290IGxvZy4KClNpZ25lZC1vZmYtYnk6IEJyaWFu
+IE1hc25leSA8bWFzbmV5YkBvbnN0YXRpb24ub3JnPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9tc20v
+aGRtaS9oZG1pX3BoeS5jIHwgOCArKysrKystLQogMSBmaWxlIGNoYW5nZWQsIDYgaW5zZXJ0aW9u
+cygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbXNtL2hk
+bWkvaGRtaV9waHkuYyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vaGRtaS9oZG1pX3BoeS5jCmluZGV4
+IDE2OTdlNjFmOWMyZi4uOGEzOGQ0Yjk1MTAyIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+bXNtL2hkbWkvaGRtaV9waHkuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2hkbWkvaGRtaV9w
+aHkuYwpAQCAtMjksOCArMjksMTIgQEAgc3RhdGljIGludCBtc21faGRtaV9waHlfcmVzb3VyY2Vf
+aW5pdChzdHJ1Y3QgaGRtaV9waHkgKnBoeSkKIAkJcmVnID0gZGV2bV9yZWd1bGF0b3JfZ2V0KGRl
+diwgY2ZnLT5yZWdfbmFtZXNbaV0pOwogCQlpZiAoSVNfRVJSKHJlZykpIHsKIAkJCXJldCA9IFBU
+Ul9FUlIocmVnKTsKLQkJCURSTV9ERVZfRVJST1IoZGV2LCAiZmFpbGVkIHRvIGdldCBwaHkgcmVn
+dWxhdG9yOiAlcyAoJWQpXG4iLAotCQkJCWNmZy0+cmVnX25hbWVzW2ldLCByZXQpOworCQkJaWYg
+KHJldCAhPSAtRVBST0JFX0RFRkVSKSB7CisJCQkJRFJNX0RFVl9FUlJPUihkZXYsCisJCQkJCSAg
+ICAgICJmYWlsZWQgdG8gZ2V0IHBoeSByZWd1bGF0b3I6ICVzICglZClcbiIsCisJCQkJCSAgICAg
+IGNmZy0+cmVnX25hbWVzW2ldLCByZXQpOworCQkJfQorCiAJCQlyZXR1cm4gcmV0OwogCQl9CiAK
+LS0gCjIuMjEuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KRnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
