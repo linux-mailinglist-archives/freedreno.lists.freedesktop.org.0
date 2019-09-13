@@ -1,112 +1,35 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BF70AF0F2
-	for <lists+freedreno@lfdr.de>; Tue, 10 Sep 2019 20:15:54 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C897B21F5
+	for <lists+freedreno@lfdr.de>; Fri, 13 Sep 2019 16:30:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65B596E94C;
-	Tue, 10 Sep 2019 18:15:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0719B6F3CF;
+	Fri, 13 Sep 2019 14:30:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com
- [IPv6:2a00:1450:4864:20::543])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89E216E94F;
- Tue, 10 Sep 2019 18:15:51 +0000 (UTC)
-Received: by mail-ed1-x543.google.com with SMTP id u6so18026508edq.6;
- Tue, 10 Sep 2019 11:15:51 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-language;
- bh=vr9wNAhM9c0yc/na27U5ugXbFrM/MxR/9UjrhSYk90Y=;
- b=XbtUIwDR86gAd8Ilu4N+oZxJAovEF0pD5OqHlA6C/b59NNiVyat8JS1fARMGAKOqmo
- J+LivSbM11uWCNmP5TflY0Fh6U12BWQUaobTFiG7cPCrFJ3ngLsEwqhCsSYQvJpzzIXa
- UPbSaeRpftZIBPsK0xVrdoRp3v85lNVbxNkaPa3Eyevi9wtPGdujVtYUmKsgMToA/Z8B
- rgB5OGUZydScV4lQX8bixO4dQVb0SGRXo4Ip4cwQgKU2BG5I5kQoHCksiao5YfNSdTRX
- cTh5Zqc/+Jk4LFsFX64BjDSvXDN0IPln+FTbLmT8teztANaQyWFq4nsETWUq2v/HBpFs
- XbwA==
-X-Gm-Message-State: APjAAAWZiPZuipC5a8rFAaHnGfBV4sGhKKltwsdVsFLHnkXQ3c9FjBAP
- HhaSDb7akHDY56AOLWF634VFzEildf/7MQ==
-X-Google-Smtp-Source: APXvYqwikUrAefuXNEtHxA9Cv3joSeqMNyDcw0gX0NulGFsx+wjagoLu7hrs9ywx1aJ22sWQnKogJQ==
-X-Received: by 2002:a05:6402:1426:: with SMTP id
- c6mr15984979edx.53.1568139350223; 
- Tue, 10 Sep 2019 11:15:50 -0700 (PDT)
-Received: from [192.168.64.105] (ip5f5bf6f8.dynamic.kabel-deutschland.de.
- [95.91.246.248])
- by smtp.gmail.com with ESMTPSA id z65sm3705137ede.86.2019.09.10.11.15.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Sep 2019 11:15:49 -0700 (PDT)
-To: Brian Masney <masneyb@onstation.org>, robdclark@gmail.com,
- sean@poorly.run, bjorn.andersson@linaro.org
-References: <20190823121637.5861-1-masneyb@onstation.org>
- <20190901214045.GA14321@onstation.org>
-From: Gabriel Francisco <frc.gabriel@gmail.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=frc.gabriel@gmail.com; keydata=
- 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
- 1elWpWNKH1LXFmGsIZn9
-Message-ID: <2dd1a9db-a321-953d-8a46-23b4a8975570@gmail.com>
-Date: Tue, 10 Sep 2019 20:15:48 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02A386EF23;
+ Fri, 13 Sep 2019 11:52:03 +0000 (UTC)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 13 Sep 2019 04:52:03 -0700
+X-IronPort-AV: E=Sophos;i="5.64,492,1559545200"; d="scan'208";a="176262198"
+Received: from jnikula-mobl3.fi.intel.com (HELO localhost) ([10.237.66.161])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 13 Sep 2019 04:51:56 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: dri-devel@lists.freedesktop.org
+Date: Fri, 13 Sep 2019 14:51:37 +0300
+Message-Id: <cover.1568375189.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <20190901214045.GA14321@onstation.org>
-Content-Language: en-US
-X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:openpgp:autocrypt:message-id:date
- :user-agent:mime-version:in-reply-to:content-language;
- bh=vr9wNAhM9c0yc/na27U5ugXbFrM/MxR/9UjrhSYk90Y=;
- b=bdi2qozviog6c9+5Ze6ug+0JxrkJRiAp7RCPkWAH3N0wVIjH3pURnX+a12cQZv57t/
- LLOWzmv8Vqvg8GeB9HGctvR/R1v9tNpb9UVQiLskEig96be+xfJoQNOXkkOuTeeqly+L
- L2HmpG+QfmRkfNneSwNj648WwscHZKV0AasDHMuviTRXHsDxqlb6YUvEEP1/rjvNm9gc
- 30Xd0BuJsmZGfosN6jTO0HJpUYHsgqc5J4Q9V7ZkzTV7veSUFGHN3HNjKbF1zoiTrGVk
- CiFRjCuzBS/RkSO8C+Ss08lQS3vuFwcF1+6q9ZGmobtdP0/B3qLQTXNAKiwFAFJUy3c7
- 8Ncw==
-Subject: Re: [Freedreno] [PATCH v7 0/7] qcom: add OCMEM support
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+X-Mailman-Approved-At: Fri, 13 Sep 2019 14:30:10 +0000
+Subject: [Freedreno] [PATCH 0/9] drm/print: add and use drm_debug_enabled()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -119,102 +42,71 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, jonathan@marek.ca,
- airlied@linux.ie, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, jcrouse@codeaurora.org, agross@kernel.org,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- freedreno@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============1346193309=="
+Cc: David Zhou <David1.Zhou@amd.com>, Francisco Jerez <currojerez@riseup.net>,
+ jani.nikula@intel.com, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, Russell King <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>, amd-gfx@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ Ben Skeggs <bskeggs@redhat.com>, linux-arm-msm@vger.kernel.org,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ Sean Paul <sean@poorly.run>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Lucas Stach <l.stach@pengutronix.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---===============1346193309==
-Content-Type: multipart/alternative;
- boundary="------------7F6CA8B8CC8B88CF290782BB"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------7F6CA8B8CC8B88CF290782BB
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-
-Tested-by: Gabriel Francisco <frc.gabriel@gmail.com>
-
-On 9/1/19 11:40 PM, Brian Masney wrote:
-> Hi Rob C / Sean P,
->
-> On Fri, Aug 23, 2019 at 05:16:30AM -0700, Brian Masney wrote:
->> This patch series adds support for Qualcomm's On Chip MEMory (OCMEM)
->> that is needed in order to support some a3xx and a4xx-based GPUs
->> upstream. This is based on Rob Clark's patch series that he submitted
->> in October 2015 and I am resubmitting updated patches with his
->> permission. See the individual patches for the changelog.
-> I talked to Bjorn in person at the Embedded Linux Conference over a
-> week ago about this series. He thinks that this series should go through
-> your tree. I assume it's too late for the upcoming merge window, which
-> is fine. I just want to make sure that this series gets picked up for
-> the following merge window.
->
-> I just sent out a fix for a compiler error on MIPS as a separate patch:
-> https://lore.kernel.org/lkml/20190901213037.25889-1-masneyb@onstation.org/
->
-> Brian
->
-
---------------7F6CA8B8CC8B88CF290782BB
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 7bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <pre class="content"><span class="tested-by">Tested-by: Gabriel Francisco <a class="moz-txt-link-rfc2396E" href="mailto:frc.gabriel@gmail.com">&lt;frc.gabriel@gmail.com&gt;</a></span></pre>
-    <div class="moz-cite-prefix">On 9/1/19 11:40 PM, Brian Masney wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:%3C20190901214045.GA14321@onstation.org%3E">
-      <pre class="moz-quote-pre" wrap="">Hi Rob C / Sean P,
-
-On Fri, Aug 23, 2019 at 05:16:30AM -0700, Brian Masney wrote:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">This patch series adds support for Qualcomm's On Chip MEMory (OCMEM)
-that is needed in order to support some a3xx and a4xx-based GPUs
-upstream. This is based on Rob Clark's patch series that he submitted
-in October 2015 and I am resubmitting updated patches with his
-permission. See the individual patches for the changelog.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-I talked to Bjorn in person at the Embedded Linux Conference over a
-week ago about this series. He thinks that this series should go through
-your tree. I assume it's too late for the upcoming merge window, which
-is fine. I just want to make sure that this series gets picked up for
-the following merge window.
-
-I just sent out a fix for a compiler error on MIPS as a separate patch:
-<a class="moz-txt-link-freetext" href="https://lore.kernel.org/lkml/20190901213037.25889-1-masneyb@onstation.org/">https://lore.kernel.org/lkml/20190901213037.25889-1-masneyb@onstation.org/</a>
-
-Brian
-
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------7F6CA8B8CC8B88CF290782BB--
-
---===============1346193309==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5v
-IG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
-
---===============1346193309==--
+SGkgYWxsLCBqdXN0IGEgbGl0dGxlIHJlZmFjdG9yaW5nIGFyb3VuZCBkcm1fZGVidWcgYWNjZXNz
+IHRvIGFic3RyYWN0IGl0CmJldHRlci4gVGhlcmUgc2hvdWxkbid0IGJlIGFueSBmdW5jdGlvbmFs
+IGNoYW5nZXMuCgpJJ2QgYXBwcmVjaWF0ZSBhY2tzIGZvciBtZXJnaW5nIHRoZSBsb3QgdmlhIGRy
+bS1taXNjLiBJZiB0aGVyZSBhcmUgYW55Cm9iamVjdGlvbnMgdG8gdGhhdCwgd2UnbGwgbmVlZCB0
+byBwb3N0cG9uZSB0aGUgbGFzdCBwYXRjaCB1bnRpbApldmVyeXRoaW5nIGhhcyBiZWVuIG1lcmdl
+ZCBhbmQgY29udmVydGVkIGluIGRybS1uZXh0LgoKQlIsCkphbmkuCgoKQ2M6IEFsZXggRGV1Y2hl
+ciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KQ2M6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlz
+dGlhbi5rb2VuaWdAYW1kLmNvbT4KQ2M6IERhdmlkIChDaHVuTWluZykgWmhvdSA8RGF2aWQxLlpo
+b3VAYW1kLmNvbT4KQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCkNjOiBCZW4gU2tl
+Z2dzIDxic2tlZ2dzQHJlZGhhdC5jb20+CkNjOiBub3V2ZWF1QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpDYzogUm9iIENsYXJrIDxyb2JkY2xhcmtAZ21haWwuY29tPgpDYzogU2VhbiBQYXVsIDxzZWFu
+QHBvb3JseS5ydW4+CkNjOiBsaW51eC1hcm0tbXNtQHZnZXIua2VybmVsLm9yZwpDYzogZnJlZWRy
+ZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpDYzogRnJhbmNpc2NvIEplcmV6IDxjdXJyb2plcmV6
+QHJpc2V1cC5uZXQ+CkNjOiBMdWNhcyBTdGFjaCA8bC5zdGFjaEBwZW5ndXRyb25peC5kZT4KQ2M6
+IFJ1c3NlbGwgS2luZyA8bGludXgrZXRuYXZpdkBhcm1saW51eC5vcmcudWs+CkNjOiBDaHJpc3Rp
+YW4gR21laW5lciA8Y2hyaXN0aWFuLmdtZWluZXJAZ21haWwuY29tPgpDYzogZXRuYXZpdkBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKCgpKYW5pIE5pa3VsYSAoOSk6CiAgZHJtL3ByaW50OiBtb3ZlIGRy
+bV9kZWJ1ZyB2YXJpYWJsZSB0byBkcm1fcHJpbnQuW2NoXQogIGRybS9wcmludDogYWRkIGRybV9k
+ZWJ1Z19lbmFibGVkKCkKICBkcm0vZXRuYXZpdjogdXNlIGRybV9kZWJ1Z19lbmFibGVkKCkgdG8g
+Y2hlY2sgZm9yIGRlYnVnIGNhdGVnb3JpZXMKICBkcm0vaTJjL3NpbDE2NDogdXNlIGRybV9kZWJ1
+Z19lbmFibGVkKCkgdG8gY2hlY2sgZm9yIGRlYnVnIGNhdGVnb3JpZXMKICBkcm0vaTkxNTogdXNl
+IGRybV9kZWJ1Z19lbmFibGVkKCkgdG8gY2hlY2sgZm9yIGRlYnVnIGNhdGVnb3JpZXMKICBkcm0v
+bXNtOiB1c2UgZHJtX2RlYnVnX2VuYWJsZWQoKSB0byBjaGVjayBmb3IgZGVidWcgY2F0ZWdvcmll
+cwogIGRybS9ub3V2ZWF1OiB1c2UgZHJtX2RlYnVnX2VuYWJsZWQoKSB0byBjaGVjayBmb3IgZGVi
+dWcgY2F0ZWdvcmllcwogIGRybS9hbWRncHU6IHVzZSBkcm1fZGVidWdfZW5hYmxlZCgpIHRvIGNo
+ZWNrIGZvciBkZWJ1ZyBjYXRlZ29yaWVzCiAgZHJtL3ByaW50OiByZW5hbWUgZHJtX2RlYnVnIHRv
+IF9fZHJtX2RlYnVnIHRvIGRpc2NvdXJhZ2UgdXNlCgogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvc211X3YxMV8wX2kyYy5jICAgfCAgNCArKy0tCiBkcml2ZXJzL2dwdS9kcm0vZHJtX2F0b21p
+Y191YXBpLmMgICAgICAgICAgICB8ICAyICstCiBkcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90
+b3BvbG9neS5jICAgICAgICB8ICA2ICsrLS0tCiBkcml2ZXJzL2dwdS9kcm0vZHJtX2Rydi5jICAg
+ICAgICAgICAgICAgICAgICB8IDE3IC0tLS0tLS0tLS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2Ry
+bV9lZGlkLmMgICAgICAgICAgICAgICAgICAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJtL2RybV9l
+ZGlkX2xvYWQuYyAgICAgICAgICAgICAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJtL2RybV9taXBp
+X2RiaS5jICAgICAgICAgICAgICAgfCAgNCArKy0tCiBkcml2ZXJzL2dwdS9kcm0vZHJtX3ByaW50
+LmMgICAgICAgICAgICAgICAgICB8IDIzICsrKysrKysrKysrKysrKysrKy0tCiBkcml2ZXJzL2dw
+dS9kcm0vZHJtX3ZibGFuay5jICAgICAgICAgICAgICAgICB8ICA2ICsrLS0tCiBkcml2ZXJzL2dw
+dS9kcm0vZXRuYXZpdi9ldG5hdml2X2J1ZmZlci5jICAgICB8ICA4ICsrKy0tLS0KIGRyaXZlcnMv
+Z3B1L2RybS9pMmMvc2lsMTY0X2Rydi5jICAgICAgICAgICAgIHwgIDIgKy0KIGRyaXZlcnMvZ3B1
+L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jIHwgIDQgKystLQogZHJpdmVycy9ncHUv
+ZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcC5jICAgICAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJt
+L2k5MTUvaTkxNV9kcnYuYyAgICAgICAgICAgICAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJtL2k5
+MTUvaTkxNV9nZW0uaCAgICAgICAgICAgICAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJtL2k5MTUv
+aTkxNV91dGlscy5jICAgICAgICAgICAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50
+ZWxfcG0uYyAgICAgICAgICAgICAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2Rw
+dTEvZHB1X2ttcy5oICAgICAgfCAgNCArKy0tCiBkcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9kaXNw
+bnY1MC9kaXNwLmggICAgICB8ICA0ICsrLS0KIGRyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L25vdXZl
+YXVfZHJ2LmggICAgICAgIHwgIDQgKystLQogaW5jbHVkZS9kcm0vZHJtX2Rydi5oICAgICAgICAg
+ICAgICAgICAgICAgICAgfCAgMiAtLQogaW5jbHVkZS9kcm0vZHJtX3ByaW50LmggICAgICAgICAg
+ICAgICAgICAgICAgfCAgOCArKysrKysrCiAyMiBmaWxlcyBjaGFuZ2VkLCA2MCBpbnNlcnRpb25z
+KCspLCA1MiBkZWxldGlvbnMoLSkKCi0tIAoyLjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJlZWRyZW5v
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2ZyZWVkcmVubw==
