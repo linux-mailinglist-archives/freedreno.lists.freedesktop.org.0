@@ -2,61 +2,116 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54A6CB71EA
-	for <lists+freedreno@lfdr.de>; Thu, 19 Sep 2019 05:30:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E57FDB7356
+	for <lists+freedreno@lfdr.de>; Thu, 19 Sep 2019 08:44:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2FA56F9A5;
-	Thu, 19 Sep 2019 03:30:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56D7D6F716;
+	Thu, 19 Sep 2019 06:44:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp.codeaurora.org (smtp.codeaurora.org [198.145.29.96])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 754D96F9A5;
- Thu, 19 Sep 2019 03:30:52 +0000 (UTC)
-Received: by smtp.codeaurora.org (Postfix, from userid 1000)
- id 32B69613A3; Thu, 19 Sep 2019 03:30:52 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- pdx-caf-mail.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- DKIM_INVALID,DKIM_SIGNED,HTML_MESSAGE,SPF_NONE autolearn=no
- autolearn_force=no version=3.4.0
-Received: from JEYKUMAR1 (cpe-70-95-204-145.san.res.rr.com [70.95.204.145])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: jsanka@smtp.codeaurora.org)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id C89ED602E1;
- Thu, 19 Sep 2019 03:30:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org C89ED602E1
-From: <jsanka@codeaurora.org>
-To: <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>
-Date: Wed, 18 Sep 2019 20:30:49 -0700
-Message-ID: <09ee01d56e9a$a2739380$e75aba80$@codeaurora.org>
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C16DF6F667
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Sep 2019 06:44:07 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id y135so6416550wmc.1
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Sep 2019 23:44:07 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
+ :organization:message-id:date:user-agent:mime-version:in-reply-to
+ :content-language:content-transfer-encoding;
+ bh=HPKpCYeZt44Wxe7+ROnpucIXUhXx7j6zkak3wJnTo8Y=;
+ b=uI7lD4xI0mgJr1DPo9WA9GBmxtZ26UJvzUOGyZux9IkMkUJPZ38fI8CmhCOeDjKKrv
+ IVdyZ7NqxYEWi/bUNfFrei6twEbMNRZOtXEEcSS6g2t+DTdmTO+AWIcQzLEDe+7sWjca
+ 3AT0+9rZwdWbWgVvw1NJxnHuIw5ZWJCj77Ro9DGWZD1KVRO4m7EtqrGbgVOAS+oMYLlV
+ 0+HFWGDon+gS6zlmzB3/8NMIonBc3jHQCIHiLsj4FFRnCu9L4iIyHoofdYDAKboxwvCq
+ MIdhha6MIEcFkm2JdbpRb1di+2eTx+5Dh4RDafvGqWhruwBErU1MuR8qEgCaDvo0LulF
+ kDhg==
+X-Gm-Message-State: APjAAAXcUv607+dXxPltFrsi25GJ296XGyb3kw/2uaOHDhvEV/GBD3Bc
+ IMD72ML7JpkxtVKbRtMxDatv6Q==
+X-Google-Smtp-Source: APXvYqwPFlMN526NVgaXJ44Kg4v+oAGNcZ10wIgEPPdv5d3XLuCwMsb6MWMCd9ueBzVpwgp142vw5w==
+X-Received: by 2002:a7b:c4c9:: with SMTP id g9mr1480935wmk.150.1568875446177; 
+ Wed, 18 Sep 2019 23:44:06 -0700 (PDT)
+Received: from [192.168.1.62] (176-150-251-154.abo.bbox.fr. [176.150.251.154])
+ by smtp.gmail.com with ESMTPSA id
+ z1sm15070167wre.40.2019.09.18.23.44.05
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 18 Sep 2019 23:44:05 -0700 (PDT)
+To: jsanka@codeaurora.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org
+References: <09ee01d56e9a$a2739380$e75aba80$@codeaurora.org>
+From: Neil Armstrong <narmstrong@baylibre.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=narmstrong@baylibre.com; prefer-encrypt=mutual; keydata=
+ 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
+ ZaTUOEkgIor5losDrePdPgE=
+Organization: Baylibre
+Message-ID: <db26145b-3f64-a334-f698-76f972332881@baylibre.com>
+Date: Thu, 19 Sep 2019 08:44:05 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AdVuic1Q68qyvJSiR/WK5DIhhjoTcw==
-Content-Language: en-us
-X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=codeaurora.org; s=default; t=1568863852;
- bh=MFSShw46IThMxlg2OAlSapOx66+ujPzhaas5GRgKZrU=;
- h=From:To:Cc:Subject:Date:From;
- b=C2Lnb47f5qTKYRLCE+otTmnfuGC8XJJh1HghpUISa40HbveazoKHo1TvFFG6Rm6wL
- iQJvH+XCC3uovMOjeydNVVfN5r1qrfBm0ewTxGFVAmQdAyQaJClTQy1CHwscBYjOA1
- 7iflwxvS1kjEMEvODFUJvT0nbE2f7IXR2lg7m8Is=
-X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=codeaurora.org; s=default; t=1568863851;
- bh=MFSShw46IThMxlg2OAlSapOx66+ujPzhaas5GRgKZrU=;
- h=From:To:Cc:Subject:Date:From;
- b=hxjcsL74YsYh9hFxCXW4j7W/IWat8R+xPWhku5o07zmZKFo6L408u10kn/4lUgLEO
- e7WY+EbteyZCs57yqX1pwstyxlSBgj1ljtw/UvVedQxsRUGOVaHKfTgyLk6lPfDEQZ
- CWzBEq3gliBYd/PGbWd1zHU/mhpbESkvEFJTgHPo=
-X-Mailman-Original-Authentication-Results: pdx-caf-mail.web.codeaurora.org;
- dmarc=none (p=none dis=none)
- header.from=codeaurora.org
-X-Mailman-Original-Authentication-Results: pdx-caf-mail.web.codeaurora.org;
- spf=none
- smtp.mailfrom=jsanka@codeaurora.org
-Subject: [Freedreno] [RFC] checking drm_framebuffer against config
+In-Reply-To: <09ee01d56e9a$a2739380$e75aba80$@codeaurora.org>
+Content-Language: en-US
+X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20150623.gappssmtp.com; s=20150623;
+ h=subject:to:cc:references:from:openpgp:autocrypt:organization
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-language:content-transfer-encoding;
+ bh=HPKpCYeZt44Wxe7+ROnpucIXUhXx7j6zkak3wJnTo8Y=;
+ b=zng02+cP5nw7zeVwoGeTAK4jvStLBmHDSAOTw24ol+HAcD/mu18jlEjITZ7GNpIBec
+ TPp85lx07+tFZrfYXvPZ3AXWtb+L9in1XLzfmLhnCL4bO4jmdIZUuyTFUDV05kaCIY/H
+ Ig/8+16xlrHJIxmDwIT5MSqPp3+a/Ps3a6MHldQrEZ62Qg0MJ78RFwLDpnPqhFrU/ZVb
+ wpL6BloXgF77S+A4I2ANGv05S8NZA0uC12GjmAQMUHGonoGZskio6Erm3B1cP0typbzT
+ 4MkITGkKE3V3mxW+nlD6/OmBg5MO+kl1Ul7FVTdYBuXz6SxGmWkv5fuHklutiuIDBgCF
+ afvQ==
+Subject: Re: [Freedreno] [RFC] checking drm_framebuffer against config
  width/height
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
@@ -70,338 +125,61 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean@poorly.run, 'Rob Clark' <robdclark@gmail.com>,
- 'Sean Paul' <seanpaul@chromium.org>
-Content-Type: multipart/mixed; boundary="===============0831474569=="
+Cc: 'Sean Paul' <seanpaul@chromium.org>, sean@poorly.run
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is a multipart message in MIME format.
-
---===============0831474569==
-Content-Type: multipart/alternative;
-	boundary="----=_NextPart_000_09EF_01D56E5F.F61816E0"
-Content-Language: en-us
-
-This is a multipart message in MIME format.
-
-------=_NextPart_000_09EF_01D56E5F.F61816E0
-Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-
-Hello All, 
-
-I bumped into the below check [1] enforced in drm_framebuffer creation which
-checks the requested framebuffer width/height parameters against the drm
-mode config width/height limits. As I understand, drm_mode_config: min/max
-width/height indicate the upper and lower bounds of the display panel
-(drm_connector) resolutions the DRM device can support. But the pixel
-processing pipeline can apply cropping/scaling transformations on much
-larger input framebuffers and flip the buffers within the display
-resolution. Such configurations are very common and the final resolution
-will be still within drm_mode_config bounds. So I believe the checks should
-be relaxed / removed from the drm_framebuffer creation api's. 
-
- 
-
-If my understanding is incorrect, could somehow explain the motivation
-behind having these checks here?
-
- 
-
-Thanks and Regards,
-
-Jeykumar S.
-
- 
-
-[1]
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/driv
-ers/gpu/drm/drm_framebuffer.c?h=v5.3#n303
-
- 
-
-struct drm_framebuffer *
-drm_internal_framebuffer_create(struct drm_device *dev,
-                               const struct drm_mode_fb_cmd2 *r,
-                               struct drm_file *file_priv)
-{
-
-                     /* snip */
-
- 
-
-        if ((config->min_width > r->width) || (r->width >
-config->max_width)) {
-
-               DRM_DEBUG_KMS("bad framebuffer width %d, should be >= %d &&
-<= %d\n",
-
-                         r->width, config->min_width, config->max_width);
-
-               return ERR_PTR(-EINVAL);
-
-        }
-
-        if ((config->min_height > r->height) || (r->height >
-config->max_height)) {
-
-               DRM_DEBUG_KMS("bad framebuffer height %d, should be >= %d &&
-<= %d\n",
-
-                         r->height, config->min_height, config->max_height);
-
-               return ERR_PTR(-EINVAL);
-
-        }
-
-        /* snip */
-
-}
-
- 
-
-
-------=_NextPart_000_09EF_01D56E5F.F61816E0
-Content-Type: text/html;
-	charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" =
-xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
-xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
-xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta =
-http-equiv=3DContent-Type content=3D"text/html; =
-charset=3Dus-ascii"><meta name=3DGenerator content=3D"Microsoft Word 15 =
-(filtered medium)"><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:Latha;
-	panose-1:2 0 4 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-pre
-	{mso-style-priority:99;
-	mso-style-link:"HTML Preformatted Char";
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:10.0pt;
-	font-family:"Courier New";}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-span.HTMLPreformattedChar
-	{mso-style-name:"HTML Preformatted Char";
-	mso-style-priority:99;
-	mso-style-link:"HTML Preformatted";
-	font-family:"Courier New";}
-span.k
-	{mso-style-name:k;}
-span.p
-	{mso-style-name:p;}
-span.n
-	{mso-style-name:n;}
-span.o
-	{mso-style-name:o;}
-span.s
-	{mso-style-name:s;}
-span.se
-	{mso-style-name:se;}
-span.nf
-	{mso-style-name:nf;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]--></head><body lang=3DEN-US =
-link=3D"#0563C1" vlink=3D"#954F72"><div class=3DWordSection1><p =
-class=3DMsoNormal>Hello All, <o:p></o:p></p><p class=3DMsoNormal =
-style=3D'text-indent:.5in'>I bumped into the below check [1] enforced in =
-drm_framebuffer creation which checks the requested framebuffer =
-width/height parameters against the drm mode config width/height limits. =
-As I understand, drm_mode_config: min/max width/height indicate the =
-upper and lower bounds of the display panel (drm_connector) resolutions =
-the DRM device can support. But the pixel processing pipeline can apply =
-cropping/scaling transformations on much larger input framebuffers and =
-flip the buffers within the display resolution. Such configurations are =
-very common and the final resolution will be still within =
-drm_mode_config bounds. So I believe the checks should be relaxed / =
-removed from the drm_framebuffer creation api&#8217;s. <o:p></o:p></p><p =
-class=3DMsoNormal style=3D'text-indent:.5in'><o:p>&nbsp;</o:p></p><p =
-class=3DMsoNormal style=3D'text-indent:.5in'>If my understanding is =
-incorrect, could somehow explain the motivation behind having these =
-checks here?<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
-class=3DMsoNormal>Thanks and Regards,<o:p></o:p></p><p =
-class=3DMsoNormal>Jeykumar S.<o:p></o:p></p><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>[1] <a =
-href=3D"https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.gi=
-t/tree/drivers/gpu/drm/drm_framebuffer.c?h=3Dv5.3#n303">https://git.kerne=
-l.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/gpu/drm/dr=
-m_framebuffer.c?h=3Dv5.3#n303</a><o:p></o:p></p><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p><pre =
-style=3D'background:white'><span class=3Dk><b><span =
-style=3D'color:#008800'>struct</span></b></span><span =
-style=3D'color:black'> <span class=3Dn>drm_framebuffer</span> <span =
-class=3Do>*</span><o:p></o:p></span></pre><pre =
-style=3D'background:white'><span class=3Dnf><b><span =
-style=3D'color:#0066BB'>drm_internal_framebuffer_create</span></b></span>=
-<span class=3Dp><span style=3D'color:black'>(</span></span><span =
-class=3Dk><b><span style=3D'color:#008800'>struct</span></b></span><span =
-style=3D'color:black'> <span class=3Dn>drm_device</span> <span =
-class=3Do>*</span><span class=3Dn>dev</span><span =
-class=3Dp>,</span><o:p></o:p></span></pre><pre =
-style=3D'background:white'><span =
-style=3D'color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span =
-class=3Dk><b><span style=3D'color:#008800'>const</span></b></span><span =
-style=3D'color:black'> </span><span class=3Dk><b><span =
-style=3D'color:#008800'>struct</span></b></span><span =
-style=3D'color:black'> <span class=3Dn>drm_mode_fb_cmd2</span> <span =
-class=3Do>*</span><span class=3Dn>r</span><span =
-class=3Dp>,</span><o:p></o:p></span></pre><pre =
-style=3D'background:white'><span =
-style=3D'color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span =
-class=3Dk><b><span style=3D'color:#008800'>struct</span></b></span><span =
-style=3D'color:black'> <span class=3Dn>drm_file</span> <span =
-class=3Do>*</span><span class=3Dn>file_priv</span><span =
-class=3Dp>)</span><o:p></o:p></span></pre><pre =
-style=3D'background:white'><span class=3Dp><span =
-style=3D'color:black'>{</span></span><span =
-style=3D'color:black'><o:p></o:p></span></pre><p =
-class=3DMsoNormal>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;/* snip =
-*/<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
-class=3DMsoNormal style=3D'background:white'><span =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
-</span><b><span style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:#008800'>if</span></b><span =
-style=3D'font-size:10.0pt;font-family:"Courier New";color:black'> =
-((config-&gt;min_width &gt; r-&gt;width) || (r-&gt;width &gt; =
-config-&gt;max_width)) {<o:p></o:p></span></p><p class=3DMsoNormal =
-style=3D'background:white'><span =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_KMS(</span><span =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:#DD2200;background:#FFF0F0'>&quot;bad framebuffer width %d, =
-should be &gt;=3D %d &amp;&amp; &lt;=3D %d</span><span =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:#0044DD;background:#FFF0F0'>\n</span><span =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:#DD2200;background:#FFF0F0'>&quot;</span><span =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>,<o:p></o:p></span></p><p class=3DMsoNormal =
-style=3D'background:white'><span =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; &nbsp; r-&gt;width, config-&gt;min_width, =
-config-&gt;max_width);<o:p></o:p></span></p><p class=3DMsoNormal =
-style=3D'background:white'><span =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><b><span =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:#008800'>return</span></b><span =
-style=3D'font-size:10.0pt;font-family:"Courier New";color:black'> =
-ERR_PTR(-EINVAL);<o:p></o:p></span></p><p class=3DMsoNormal =
-style=3D'background:white'><span =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
-}<o:p></o:p></span></p><p class=3DMsoNormal =
-style=3D'background:white'><span =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
-</span><b><span style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:#008800'>if</span></b><span =
-style=3D'font-size:10.0pt;font-family:"Courier New";color:black'> =
-((config-&gt;min_height &gt; r-&gt;height) || (r-&gt;height &gt; =
-config-&gt;max_height)) {<o:p></o:p></span></p><p class=3DMsoNormal =
-style=3D'background:white'><span =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_KMS(</span><span =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:#DD2200;background:#FFF0F0'>&quot;bad framebuffer height %d, =
-should be &gt;=3D %d &amp;&amp; &lt;=3D %d</span><span =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:#0044DD;background:#FFF0F0'>\n</span><span =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:#DD2200;background:#FFF0F0'>&quot;</span><span =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>,<o:p></o:p></span></p><p class=3DMsoNormal =
-style=3D'background:white'><span =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; &nbsp; r-&gt;height, config-&gt;min_height, =
-config-&gt;max_height);<o:p></o:p></span></p><p class=3DMsoNormal =
-style=3D'background:white'><span =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><b><span =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:#008800'>return</span></b><span =
-style=3D'font-size:10.0pt;font-family:"Courier New";color:black'> =
-ERR_PTR(-EINVAL);<o:p></o:p></span></p><p class=3DMsoNormal =
-style=3D'background:white'><span =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
-}<o:p></o:p></span></p><p class=3DMsoNormal =
-style=3D'background:white'><span =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* snip =
-*/<o:p></o:p></span></p><p class=3DMsoNormal =
-style=3D'background:white'><span =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>}<o:p></o:p></span></p><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p></div></body></html>
-------=_NextPart_000_09EF_01D56E5F.F61816E0--
-
-
---===============0831474569==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5v
-IG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
-
---===============0831474569==--
-
+SGksCgpPbiAxOS8wOS8yMDE5IDA1OjMwLCBqc2Fua2FAY29kZWF1cm9yYS5vcmcgd3JvdGU6Cj4g
+SGVsbG8gQWxsLAo+IAo+IEkgYnVtcGVkIGludG8gdGhlIGJlbG93IGNoZWNrIFsxXSBlbmZvcmNl
+ZCBpbiBkcm1fZnJhbWVidWZmZXIgY3JlYXRpb24gd2hpY2ggY2hlY2tzIHRoZSByZXF1ZXN0ZWQg
+ZnJhbWVidWZmZXIgd2lkdGgvaGVpZ2h0IHBhcmFtZXRlcnMgYWdhaW5zdCB0aGUgZHJtIG1vZGUg
+Y29uZmlnIHdpZHRoL2hlaWdodCBsaW1pdHMuIEFzIEkgdW5kZXJzdGFuZCwgZHJtX21vZGVfY29u
+ZmlnOiBtaW4vbWF4IHdpZHRoL2hlaWdodCBpbmRpY2F0ZSB0aGUgdXBwZXIgYW5kIGxvd2VyIGJv
+dW5kcyBvZiB0aGUgZGlzcGxheSBwYW5lbCAoZHJtX2Nvbm5lY3RvcikgcmVzb2x1dGlvbnMgdGhl
+IERSTSBkZXZpY2UgY2FuIHN1cHBvcnQuIEJ1dCB0aGUgcGl4ZWwgcHJvY2Vzc2luZyBwaXBlbGlu
+ZSBjYW4gYXBwbHkgY3JvcHBpbmcvc2NhbGluZyB0cmFuc2Zvcm1hdGlvbnMgb24gbXVjaCBsYXJn
+ZXIgaW5wdXQgZnJhbWVidWZmZXJzIGFuZCBmbGlwIHRoZSBidWZmZXJzIHdpdGhpbiB0aGUgZGlz
+cGxheSByZXNvbHV0aW9uLiBTdWNoIGNvbmZpZ3VyYXRpb25zIGFyZSB2ZXJ5IGNvbW1vbiBhbmQg
+dGhlIGZpbmFsIHJlc29sdXRpb24gd2lsbCBiZSBzdGlsbCB3aXRoaW4gZHJtX21vZGVfY29uZmln
+IGJvdW5kcy4gU28gSSBiZWxpZXZlIHRoZSBjaGVja3Mgc2hvdWxkIGJlIHJlbGF4ZWQgLyByZW1v
+dmVkIGZyb20gdGhlIGRybV9mcmFtZWJ1ZmZlciBjcmVhdGlvbiBhcGnigJlzLgo+IAo+IMKgCj4g
+Cj4gSWYgbXkgdW5kZXJzdGFuZGluZyBpcyBpbmNvcnJlY3QsIGNvdWxkIHNvbWVob3cgZXhwbGFp
+biB0aGUgbW90aXZhdGlvbiBiZWhpbmQgaGF2aW5nIHRoZXNlIGNoZWNrcyBoZXJlPwoKSSBhbHJl
+YWR5IHJlcG9ydGVkIHRoaXMgYSBmZXcgbW9udGhzIGFnbywgaGVyZSBpcyB0aGUgbG9nIG9mIHRo
+ZSBkaXNjdXNzaW9uIDoKaHR0cHM6Ly9wYXRjaHdvcmsua2VybmVsLm9yZy9wYXRjaC8xMDYyNTcw
+Ny8KClRMO0RSIGl0IHNob3VsZCBiZSByZW1vdmVkIGJ1dCB0aGVzZSBjaGVja3Mgc2hvdWxkIGJl
+IG1vdmVkIHRvIGNvbnRyb2wgbWF4IHNjcmVlbiBzaXplCmluIGF0b21pY19jb21taXQgcGF0aHMu
+CgpJIHBsYW5uZWQgdG8gZml4IHRoaXMsIGJ1dCBoYXZlbid0IGZvdW5kIHRpbWUgeWV0Li4uCgpO
+ZWlsCgo+IAo+IMKgCj4gCj4gVGhhbmtzIGFuZCBSZWdhcmRzLAo+IAo+IEpleWt1bWFyIFMuCj4g
+Cj4gwqAKPiAKPiBbMV0gaHR0cHM6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5l
+bC9naXQvdG9ydmFsZHMvbGludXguZ2l0L3RyZWUvZHJpdmVycy9ncHUvZHJtL2RybV9mcmFtZWJ1
+ZmZlci5jP2g9djUuMyNuMzAzCj4gCj4gwqAKPiAKPiAqc3RydWN0KmRybV9mcmFtZWJ1ZmZlciAq
+Cj4gCj4gKmRybV9pbnRlcm5hbF9mcmFtZWJ1ZmZlcl9jcmVhdGUqKCpzdHJ1Y3QqZHJtX2Rldmlj
+ZSAqZGV2LAo+IAo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCAqY29uc3QqKnN0cnVjdCpkcm1fbW9kZV9mYl9jbWQyICpyLAo+IAo+
+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCAqc3RydWN0KmRybV9maWxlICpmaWxlX3ByaXYpCj4gCj4gewo+IAo+IMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCDCoMKgwqAgwqAvKiBzbmlwICovCj4gCj4gwqAKPiAKPiDCoMKg
+wqDCoMKgwqDCoCAqaWYqKChjb25maWctPm1pbl93aWR0aCA+IHItPndpZHRoKSB8fCAoci0+d2lk
+dGggPiBjb25maWctPm1heF93aWR0aCkpIHsKPiAKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIERSTV9ERUJVR19LTVMoImJhZCBmcmFtZWJ1ZmZlciB3aWR0aCAlZCwgc2hvdWxkIGJlID49
+ICVkICYmIDw9ICVkXG4iLAo+IAo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIMKgIHItPndpZHRoLCBjb25maWctPm1pbl93aWR0aCwgY29uZmlnLT5tYXhfd2lk
+dGgpOwo+IAo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKnJldHVybipFUlJfUFRSKC1F
+SU5WQUwpOwo+IAo+IMKgwqDCoMKgwqDCoMKgIH0KPiAKPiDCoMKgwqDCoMKgwqDCoCAqaWYqKChj
+b25maWctPm1pbl9oZWlnaHQgPiByLT5oZWlnaHQpIHx8IChyLT5oZWlnaHQgPiBjb25maWctPm1h
+eF9oZWlnaHQpKSB7Cj4gCj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBEUk1fREVCVUdf
+S01TKCJiYWQgZnJhbWVidWZmZXIgaGVpZ2h0ICVkLCBzaG91bGQgYmUgPj0gJWQgJiYgPD0gJWRc
+biIsCj4gCj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgwqAg
+ci0+aGVpZ2h0LCBjb25maWctPm1pbl9oZWlnaHQsIGNvbmZpZy0+bWF4X2hlaWdodCk7Cj4gCj4g
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAqcmV0dXJuKkVSUl9QVFIoLUVJTlZBTCk7Cj4g
+Cj4gwqDCoMKgwqDCoMKgwqAgfQo+IAo+IMKgwqDCoMKgwqDCoMKgIC8qIHNuaXAgKi8KPiAKPiB9
+Cj4gCj4gwqAKPiAKPiAKPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwo+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKPiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9kcmktZGV2ZWwKPiAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ZyZWVk
+cmVubw==
