@@ -2,59 +2,32 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFCF0BD9E5
-	for <lists+freedreno@lfdr.de>; Wed, 25 Sep 2019 10:30:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57D7BBE17C
+	for <lists+freedreno@lfdr.de>; Wed, 25 Sep 2019 17:38:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 631406E81C;
-	Wed, 25 Sep 2019 08:30:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F08546EBEF;
+	Wed, 25 Sep 2019 15:38:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39D7D6E81C;
- Wed, 25 Sep 2019 08:30:40 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id q17so5508305wrx.10;
- Wed, 25 Sep 2019 01:30:40 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=twZS0noCXJU/jtGG8OwVfWmzfGZopM1ReTDLpx2DYdM=;
- b=iSFbbh7qnOXa/blN68U4cKlh2sIPusgRNIiOVysM+5TOjcIDTOT7ARJHUbDiAWegIM
- Qn4sqrvktKa8+WB5lg04Q0hgdKLHoV8Bnh6J7mD30chVxtHdXc+56A2C4SNqXTfYcOt6
- AEK16QthdTKVoGpxsVamG0r6RlSZXq/sTEhepKdJxczf9zsS7GjToxbM5C9aiSjSGZXi
- uxVrZ1Di1H8TWhVWLsumY9DLvAW+Lxzxdjo1AvI+wweUDIC8F6QbZjSP7nyXO05M7nxO
- l1Qk4W9rL4dxXw+usHGCPQxhtuErJoZn+HmFHK257SUTRT1FLSY4NTbLkK3tPog+Qmm6
- 5i9w==
-X-Gm-Message-State: APjAAAXRRDocbXaZ3eFqXuwb1F+YVbYimycxCVVkLz46aVVHALpSuBmu
- b+xUi5QLftpuM+Q9BTBcBTlmT5NrVhghWDZQaas=
-X-Google-Smtp-Source: APXvYqzLnrjLgUwao02ggausP7Tf0Q6SqdguLU2j+D6dSoyMYSajy5G7Os7zOHzDXBA5oMT6U1XIshqZ+tIrXKrRsAA=
-X-Received: by 2002:adf:f406:: with SMTP id g6mr7525024wro.325.1569400238565; 
- Wed, 25 Sep 2019 01:30:38 -0700 (PDT)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AA046EBD5;
+ Wed, 25 Sep 2019 14:53:04 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 47F59AEE1;
+ Wed, 25 Sep 2019 14:53:02 +0000 (UTC)
+Message-ID: <d1a31a2ec8eb2f226b1fb41f6c24ffb47c3bf7c7.camel@suse.de>
+From: Nicolas Saenz Julienne <nsaenzjulienne@suse.de>
+To: Rob Herring <robh+dt@kernel.org>
+Date: Wed, 25 Sep 2019 16:52:59 +0200
+In-Reply-To: <CAL_Jsq+v+svTyna7UzQdRVqfNc5Z_bgWzxNRXv7-Wqv3NwDu2g@mail.gmail.com>
+References: <20190924181244.7159-1-nsaenzjulienne@suse.de>
+ <CAL_Jsq+v+svTyna7UzQdRVqfNc5Z_bgWzxNRXv7-Wqv3NwDu2g@mail.gmail.com>
+User-Agent: Evolution 3.32.4 
 MIME-Version: 1.0
-References: <20190921100439.64402-1-kholk11@gmail.com>
- <20190921100439.64402-6-kholk11@gmail.com>
- <CAF6AEGubLrqmc5s3hYrYyygx0z2hDYrAfsqTSetmtUJy6rq-kQ@mail.gmail.com>
- <CAK7fi1ZKXz59yQgB0BxrZXhwXSsBmABWzWmi-CHvKo4B9bpS3g@mail.gmail.com>
- <CAF6AEGuC_YEBhUafJJ_qqm9bLd8z2BAAku5H-K2dQ90Yk_O3Sw@mail.gmail.com>
-In-Reply-To: <CAF6AEGuC_YEBhUafJJ_qqm9bLd8z2BAAku5H-K2dQ90Yk_O3Sw@mail.gmail.com>
-From: AngeloGioacchino Del Regno <kholk11@gmail.com>
-Date: Wed, 25 Sep 2019 10:30:27 +0200
-Message-ID: <CAK7fi1aKLo3fujY35E7bN-H_d-xyoOUXga_aifevFDA2tc34iQ@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc;
- bh=twZS0noCXJU/jtGG8OwVfWmzfGZopM1ReTDLpx2DYdM=;
- b=YHaPTd9+9jTGnbdAsEP1NzGBEJPCUmS4TBPqldlTDAQBhXWLw3emkWmToKz/qokV7r
- F8FZqTY6oId3am7iZmuS2tcPY+jJQc2im1DE4C7FRY2noKG1vQhElJ98BEoXHC4IE266
- chALASsz4xOWXSpCuzVxEixGRzwmQBlEWuI/jkYZQj1X8WWBx1Gencs1u4y0dpaaOPC4
- yRZwbrEWdjtQqmPtx540SRWBj73IP2mUdgi5K6XnAntKe+oi1f7aX51D6LTbfrF7p+LO
- bGnRmnckWc/EannEzfwZLjUcsruAeHdHlmmF3NSBtm7Tnr1V32qEwWle9t9ArTxbTAjT
- 42xQ==
-Subject: Re: [Freedreno] [PATCH 5/5] drm/msm/adreno: Add support for Adreno
- 510 GPU
+X-Mailman-Approved-At: Wed, 25 Sep 2019 15:38:38 +0000
+Subject: Re: [Freedreno] [PATCH 00/11] of: Fix DMA configuration for non-DT
+ masters
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,133 +40,172 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mark Rutland <mark.rutland@arm.com>,
- freedreno <freedreno@lists.freedesktop.org>, marijns95@gmail.com,
- Jonathan <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+Cc: freedreno <freedreno@lists.freedesktop.org>, devicetree@vger.kernel.org,
+ Matthias Brugger <mbrugger@suse.com>,
  linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, Greg KH <gregkh@linuxfoundation.org>,
- Thomas Gleixner <tglx@linutronix.de>, Sean Paul <sean@poorly.run>,
- Georgi Djakov <georgi.djakov@linaro.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ linux-wireless <linux-wireless@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, etnaviv@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, Florian Fainelli <f.fainelli@gmail.com>,
+ Stefan Wahren <wahrenst@gmx.net>, james.quinlan@broadcom.com,
+ linux-pci@vger.kernel.org, "open list:DMA GENERIC OFFLOAD ENGINE
+ SUBSYSTEM" <dmaengine@vger.kernel.org>, xen-devel@lists.xenproject.org,
+ Dan Williams <dan.j.williams@intel.com>, Robin Murphy <robin.murphy@arm.com>,
+ Frank Rowand <frowand.list@gmail.com>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>
+Content-Type: multipart/mixed; boundary="===============1386869752=="
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-SWwgZ2lvcm5vIGx1biAyMyBzZXQgMjAxOSBhbGxlIG9yZSAyMDoyMyBSb2IgQ2xhcmsKPHJvYmRj
-bGFya0BnbWFpbC5jb20+IGhhIHNjcml0dG86Cj4KPiBPbiBNb24sIFNlcCAyMywgMjAxOSBhdCAx
-MDoyNyBBTSBBbmdlbG9HaW9hY2NoaW5vIERlbCBSZWdubwo+IDxraG9sazExQGdtYWlsLmNvbT4g
-d3JvdGU6Cj4gPgo+ID4gSWwgZ2lvcm5vIGx1biAyMyBzZXQgMjAxOSBhbGxlIG9yZSAxODozNyBS
-b2IgQ2xhcmsKPiA+IDxyb2JkY2xhcmtAZ21haWwuY29tPiBoYSBzY3JpdHRvOgo+ID4gPgo+ID4g
-PiBPbiBTYXQsIFNlcCAyMSwgMjAxOSBhdCAzOjA0IEFNIDxraG9sazExQGdtYWlsLmNvbT4gd3Jv
-dGU6Cj4gPiA+ID4KPiA+ID4gPiBGcm9tOiAiQW5nZWxvIEcuIERlbCBSZWdubyIgPGtob2xrMTFA
-Z21haWwuY29tPgo+ID4gPiA+Cj4gPiA+ID4gVGhlIEFkcmVubyA1MTAgR1BVIGlzIGEgc3RyaXBw
-ZWQgdmVyc2lvbiBvZiB0aGUgQWRyZW5vIDV4eCwKPiA+ID4gPiBmb3VuZCBpbiBsb3ctZW5kIFNv
-Q3MgbGlrZSA4eDU2IGFuZCA4eDc2LCB3aGljaCBoYXMgMjU2SyBvZgo+ID4gPiA+IEdNRU0sIHdp
-dGggbm8gR1BNVSBub3IgWkFQLgo+ID4gPiA+IEFsc28sIHNpbmNlIHRoZSBBZHJlbm8gNXh4IHBh
-cnQgb2YgdGhpcyBkcml2ZXIgc2VlbXMgdG8gYmUKPiA+ID4gPiBkZXZlbG9wZWQgd2l0aCBoaWdo
-LWVuZCBBZHJlbm8gR1BVcyBpbiBtaW5kLCBhbmQgc2luY2UgdGhpcwo+ID4gPiA+IGlzIGEgbG93
-ZXIgZW5kIG9uZSwgYWRkIGEgY29tbWVudCBtYWtpbmcgY2xlYXIgd2hpY2ggR1BVcwo+ID4gPiA+
-IHdoaWNoIHN1cHBvcnQgaXMgbm90IGltcGxlbWVudGVkIHlldCBpcyBub3QgdXNpbmcgdGhlIEdQ
-TVUKPiA+ID4gPiByZWxhdGVkIGh3IGluaXQgY29kZSwgc28gdGhhdCBmdXR1cmUgZGV2ZWxvcGVy
-cyB3aWxsIG5vdCBnbwo+ID4gPiA+IGNyYXp5IHdpdGggdGhhdC4KPiA+ID4gPgo+ID4gPiA+IEJ5
-IHRoZSB3YXksIHRoZSBsb3dlciBlbmQgQWRyZW5vIEdQVXMgd2l0aCBubyBHUE1VIGFyZToKPiA+
-ID4gPiBBNTA1L0E1MDYvQTUxMCAobm8gWkFQIGZpcm13YXJlKQo+ID4gPiA+IEE1MDgvQTUwOS9B
-NTEyICh3aXRoIFpBUCBmaXJtd2FyZSkKPiA+ID4gPgo+ID4gPgo+ID4gPiBIaSwgdGhhbmtzIGZv
-ciB0aGUgcGF0Y2guLiBvbmUgY29tbWVudCBiZWxvdyBhYm91dCB6YXAgZmlybXdhcmUuLi4KPiA+
-ID4gd2hpY2ggaXMgbm90IGNvbXBsZXRlbHkgdG8gZG8gd2l0aCB0aGlzIHBhdGNoLCBidXQgaXMg
-bXkgdGhvdWdodHMgb24KPiA+ID4gaG93IHdlIHNob3VsZCBjbGVhbiB1cCB6YXAgaGFuZGxpbmcK
-PiA+ID4KPiA+ID4gPiBTaWduZWQtb2ZmLWJ5OiBBbmdlbG8gRy4gRGVsIFJlZ25vIDxraG9sazEx
-QGdtYWlsLmNvbT4KPiA+ID4KPiA+ID4gW3NuaXBdCj4gPiA+Cj4gPiA+ID4gQEAgLTY3OSw3ICs3
-MTYsOCBAQCBzdGF0aWMgaW50IGE1eHhfaHdfaW5pdChzdHJ1Y3QgbXNtX2dwdSAqZ3B1KQo+ID4g
-PiA+Cj4gPiA+ID4gICAgICAgICBhNXh4X3ByZWVtcHRfaHdfaW5pdChncHUpOwo+ID4gPiA+Cj4g
-PiA+ID4gLSAgICAgICBhNXh4X2dwbXVfdWNvZGVfaW5pdChncHUpOwo+ID4gPiA+ICsgICAgICAg
-aWYgKCFhZHJlbm9faXNfYTUxMChhZHJlbm9fZ3B1KSkKPiA+ID4gPiArICAgICAgICAgICAgICAg
-YTV4eF9ncG11X3Vjb2RlX2luaXQoZ3B1KTsKPiA+ID4gPgo+ID4gPiA+ICAgICAgICAgcmV0ID0g
-YTV4eF91Y29kZV9pbml0KGdwdSk7Cj4gPiA+ID4gICAgICAgICBpZiAocmV0KQo+ID4gPiA+IEBA
-IC03MTIsMTIgKzc1MCwxOCBAQCBzdGF0aWMgaW50IGE1eHhfaHdfaW5pdChzdHJ1Y3QgbXNtX2dw
-dSAqZ3B1KQo+ID4gPiA+ICAgICAgICAgfQo+ID4gPiA+Cj4gPiA+ID4gICAgICAgICAvKgo+ID4g
-PiA+IC0gICAgICAgICogVHJ5IHRvIGxvYWQgYSB6YXAgc2hhZGVyIGludG8gdGhlIHNlY3VyZSB3
-b3JsZC4gSWYgc3VjY2Vzc2Z1bAo+ID4gPiA+ICsgICAgICAgICogSWYgdGhlIGNoaXAgdGhhdCB3
-ZSBhcmUgdXNpbmcgZG9lcyBzdXBwb3J0IGxvYWRpbmcgb25lLCB0aGVuCj4gPiA+ID4gKyAgICAg
-ICAgKiB0cnkgdG8gbG9hZCBhIHphcCBzaGFkZXIgaW50byB0aGUgc2VjdXJlIHdvcmxkLiBJZiBz
-dWNjZXNzZnVsCj4gPiA+ID4gICAgICAgICAgKiB3ZSBjYW4gdXNlIHRoZSBDUCB0byBzd2l0Y2gg
-b3V0IG9mIHNlY3VyZSBtb2RlLiBJZiBub3QgdGhlbiB3ZQo+ID4gPiA+ICAgICAgICAgICogaGF2
-ZSBubyByZXNvdXJjZSBidXQgdG8gdHJ5IHRvIHN3aXRjaCBvdXJzZWx2ZXMgb3V0IG1hbnVhbGx5
-LiBJZiB3ZQo+ID4gPiA+ICAgICAgICAgICogZ3Vlc3NlZCB3cm9uZyB0aGVuIGFjY2VzcyB0byB0
-aGUgUkJCTV9TRUNWSURfVFJVU1RfQ05UTCByZWdpc3RlciB3aWxsCj4gPiA+ID4gICAgICAgICAg
-KiBiZSBibG9ja2VkIGFuZCBhIHBlcm1pc3Npb25zIHZpb2xhdGlvbiB3aWxsIHNvb24gZm9sbG93
-Lgo+ID4gPiA+ICAgICAgICAgICovCj4gPiA+ID4gKyAgICAgICBpZiAoYWRyZW5vX2lzX2E1MTAo
-YWRyZW5vX2dwdSkpIHsKPiA+ID4gPiArICAgICAgICAgICAgICAgZ3B1X3dyaXRlKGdwdSwgUkVH
-X0E1WFhfUkJCTV9TRUNWSURfVFJVU1RfQ05UTCwgMHgwKTsKPiA+ID4gPiArICAgICAgICAgICAg
-ICAgZ290byBza2lwX3phcDsKPiA+ID4gPiArICAgICAgIH0KPiA+ID4KPiA+ID4gVGhpcyBpcyBz
-b21ldGhpbmcgd2UgbmVlZCB0byBjbGVhbnVwIG9uIGE2eHggYXMgd2VsbC4gIEJ1dCBpdCBpcwo+
-ID4gPiBhY3R1YWxseSBwb3NzaWJsZSB0byBoYXZlIHRoZSBzYW1lIEdQVSB3aXRoIGFuZCB3aXRo
-b3V0IHphcC4gIFdlIGhhdmUKPiA+ID4gdGhpcyBzaXR1YXRpb24gdG9kYXkgd2l0aCBzZG04NDUs
-IGZvciBleGFtcGxlLgo+ID4gPgo+ID4gPiBXaGF0IEknZCBsaWtlIHRvIGRvIGlzIHJhdGhlciB0
-aGFuIGd1ZXNzIHdoZXRoZXIgd2UgY2FuIHdyaXRlCj4gPiA+IFJCQk1fU0VDVklEX1RSVVNUX0NO
-VEwgb3Igbm90IChzaW5jZSB0aGF0IGdvZXMgc3BlY3RhY3VsYXJseSB3cm9uZwo+ID4gPiB3aGVu
-IHdlIGd1ZXNzIGluY29ycmVjdGx5KSwgaXMgY2hvb3NlIGJhc2VkIG9uIHRoZSBwcmVzZW5jZSBv
-ZiB0aGUKPiA+ID4gemFwLXNoYWRlciBjaGlsZCBub2RlIGluIGR0Yi4gIChDdXJyZW50bHkgYTZ4
-eCB0cmllcyB0byBjaG9vc2UgYmFzZWQKPiA+ID4gb24gd2hldGhlciB6YXAgZmlybXdhcmUgaXMg
-cHJlc2VudC4uIHdoaWNoIHdlIG5lZWQgdG8gZml4LikKPiA+ID4KPiA+ID4gT3JpZ2luYWxseSBJ
-IHdhcyB0aGlua2luZyB3ZSBjb3VsZCBrZWVwIHRoZSB6YXAtc2hhZGVyIG5vZGUgaW4gdGhlCj4g
-PiA+IFNvQydzICJjb3JlIiBkdHNpIChpZS4gbXNtODk5Ni5kdHNpLCBzZG04NDUuZHRzaSwgZXRj
-KSBhbmQgdXNpbmcKPiA+ID4gL2RlbGV0ZS1ub2RlLyBpbiBwZXItZGV2aWNlIGR0cyBmaWxlcyBm
-b3IgZGV2aWNlcyB3aXRob3V0IHphcC4uIGJ1dAo+ID4gPiAoQUZBSVUpIHRoZSB6YXAgc2hhZGVy
-IGVuZHMgdXAgYmVpbmcgc2lnbmVkIHdpdGggYSB2ZW5kb3Iga2V5IGluIG1vc3QKPiA+ID4gY2Fz
-ZXMsIG1lYW5pbmcgdGhhdCB0byBoYXZlIGEgImdlbmVyaWMiIChub3QgZGV2aWNlLXNwZWNpZmlj
-KSBkaXN0cm8KPiA+ID4gaW1hZ2UgbmVlZCB0byBoYXZlIGRpZmZlcmVudCB6YXAgZmlsZSBuYW1l
-cy9wYXRocyBmb3IgZGV2aWNlcyBmcm9tCj4gPiA+IGRpZmZlcmVudCB2ZW5kb3JzLiAgR2l2ZW4g
-dGhpcywgSSB0aGluayBpdCBtYWtlcyBtb3JlIHNlbnNlIHRvIG1vdmUKPiA+ID4gdGhlIHphcC1z
-aGFkZXIgbm9kZSBpbnRvIGEgcGVyLWRldmljZSAob3IgYXQgbGVhc3QsIHBlci12ZW5kb3IpIGR0
-cwo+ID4gPiBmaWxlLCBpZS4gc29tZXRoaW5nIGxpa2U6Cj4gPiA+Cj4gPiA+ICAgIC8qIHNkbTg1
-MC1sZW5vdm8teW9nYS1jNjMwLmR0czogKi8KPiA+ID4gICBncHUgewo+ID4gPiAgICAgIHphcC1z
-aGFkZXIgewo+ID4gPiAgICAgICAgIG1lbW9yeS1yZWdpb24gPSA8JmdwdV9tZW0+Owo+ID4gPiAg
-ICAgICAgIHphcC1wcmVmaXggPSAiTEVOT1ZPIjsKPiA+ID4gICAgIH07Cj4gPiA+ICAgfTsKPiA+
-ID4KPiA+ID4gd2hpY2ggd291bGQgdHJpZ2dlciB0aGUgZHJpdmVyIHRvIHRyeSB0byBsb2FkCj4g
-PiA+IC9saWIvZmlybXdhcmUvcWNvbS9MRU5PVk8vYTYzMF96YXAubWJuCj4gPiA+Cj4gPiA+IChJ
-J2QgbGlrZSB0bywgYXQgbGVhc3QgZm9yIGRldmljZXMgdGhhdCBoYXZlIEFDUEkvU01CSU9TIHRh
-YmxlcywKPiA+ID4gc3RhbmRhcmRpemUgb24gdXNpbmcgdGhlIHZlbmRvciBuYW1lIGZyb20gU01C
-SU9TIHRhYmxlcyBhcyB0aGlzCj4gPiA+IHByZWZpeC4uIHNvIHdlIGhhdmUgYSB3YXkgdG8gY29u
-c3RydWN0IHRoZSBmaXJtd2FyZSBwYXRoIGlmIHdlCj4gPiA+IGV2ZW50dWFsbHkgaGF2ZSBBQ1BJ
-IGJvb3Qgc3VwcG9ydCBvbiB0aGUgYWFyY2g2NCBsYXB0b3BzLikKPiA+ID4KPiA+ID4gQlIsCj4g
-PiA+IC1SCj4gPiA+Cj4gPiA+ID4gKwo+ID4gPiA+ICAgICAgICAgcmV0ID0gYTV4eF96YXBfc2hh
-ZGVyX2luaXQoZ3B1KTsKPiA+ID4gPiAgICAgICAgIGlmICghcmV0KSB7Cj4gPiA+ID4gICAgICAg
-ICAgICAgICAgIE9VVF9QS1Q3KGdwdS0+cmJbMF0sIENQX1NFVF9TRUNVUkVfTU9ERSwgMSk7Cj4g
-PiA+ID4gQEAgLTczMyw2ICs3NzcsNyBAQCBzdGF0aWMgaW50IGE1eHhfaHdfaW5pdChzdHJ1Y3Qg
-bXNtX2dwdSAqZ3B1KQo+ID4gPiA+ICAgICAgICAgICAgICAgICBncHVfd3JpdGUoZ3B1LCBSRUdf
-QTVYWF9SQkJNX1NFQ1ZJRF9UUlVTVF9DTlRMLCAweDApOwo+ID4gPiA+ICAgICAgICAgfQo+ID4g
-PiA+Cj4gPiA+ID4gK3NraXBfemFwOgo+ID4gPiA+ICAgICAgICAgLyogTGFzdCBzdGVwIC0geWll
-bGQgdGhlIHJpbmdidWZmZXIgKi8KPiA+ID4gPiAgICAgICAgIGE1eHhfcHJlZW1wdF9zdGFydChn
-cHUpOwo+ID4gPiA+Cj4gPiA+ID4gQEAgLTEwNjYsNiArMTExMSw3IEBAIHN0YXRpYyB2b2lkIGE1
-eHhfZHVtcChzdHJ1Y3QgbXNtX2dwdSAqZ3B1KQo+ID4KPiA+IFRoYW5rcyB0byB5b3UgZm9yIHRo
-ZSByZXZpZXcuCj4gPiBXaGF0IEkndmUgZG9jdW1lbnRlZCB0aGVyZSBhYm91dCB0aGUgQTV4eCBj
-aGlwcyBoYXZpbmcgWkFQIGFuZCB0aGUgb25lcyBub3QKPiA+IGhhdmluZyBpdCwgY2FtZSBvdXQg
-YWZ0ZXIgYSByZXNlYXJjaCBpbiB0aGUgZG93bnN0cmVhbSBLR1NMIGRyaXZlciwgd2hlcmUgcWNv
-bQo+ID4gZG9lcyB0aGlzIGRpc3RpbmN0aW9uIGJhc2VkIG9uIGp1c3QgdGhlIEFkcmVubyBtb2Rl
-bCwgd2hpY2ggaXMgdGhlIG1haW4gcmVhc29uCj4gPiB3aHkgSSBkaWQgaXQgbGlrZSB0aGF0IDop
-KSkKPiA+Cj4gPiBJIGFtIHBlcnNvbmFsbHkgbm90IGF3YXJlIG9mIGFueSBBNXh4IGNoaXAgaGF2
-aW5nIHRoaXMgYmVoYXZpb3IsIHNvIHRoYXQncyB3aHkgSQo+ID4gZGlkbid0IGV2ZW4gdHJ5IHRv
-IHRoaW5rIGRpZmZlcmVudCBhYm91dCB0aGlzIHBhdGNoLiBJdCBqdXN0IHNlZW1lZCB0bwo+ID4g
-YmUgdGhlIHJpZ2h0Cj4gPiB0aGluZyB0byBkby4uLgo+Cj4gSSdtIG5vdCBhd2FyZSBvZiB0aGUg
-Y2FzZSB3aGVyZSBhIGZ3IChoeXAvdHopIGRpZmZlcmVuY2UgbWVhbnMgeW91Cj4gZG9uJ3QgaGF2
-ZSB6YXAgc2hhZGVyIG9uIGFueSBhNXh4IGRldmljZS4gIEJ1dCBzZWVpbmcgaXQgb24gYTZ4eCBt
-YWRlCj4gbWUgcmVhbGl6ZSB0aGF0IHRoaXMgaXMgcmVhbGx5IG1vcmUgYWJvdXQgdGhlIGZ3IHRo
-YW4gdGhlIGh3LiAgV2hpY2gKPiBpcyBzb21ldGhpbmcgdGhhdCBJIGRpZG4ndCByZWFsaXplIHdo
-ZW4gdGhlIGE1eHggemFwIHN1cHBvcnQgaW5pdGlhbGx5Cj4gbGFuZGVkLgo+Cj4gSSB0aGluayB3
-aGF0IEknZCBkbyBmb3Igbm93IGlzLCBpbnN0ZWFkIG9mIGlmIChhZHJlbm9faXNfWFlaKCkgfHwK
-PiBhZHJlbm9faXNfQUJDKCkgfHwgLi4uKSB7IHNraXBfemFwIH0sIEknZCBjaGFuZ2UgdGhhdCB0
-byBpZgo+ICghaGFzX3phcF9ub2RlKS4uICBhbmQgZm9yIHRoZSBkdHMgZmlsZXMgd2Ugc2hvdWxk
-IHN0YXJ0IGFkZGluZyB0aGUKPiB6YXAgbm9kZSBpbiBkZXZpY2Ugc3BlY2lmaWMgLmR0cyBmaWxl
-cy4KPgo+IEFsc28gSSBzdXBwb3NlIHdlIG1pZ2h0IG5lZWQgdG8gc2xpZ2h0bHkgY2hhbmdlIHdo
-ZXJlIHdlIGxvYWQgdGhlIHphcAo+IGZ3LCBpZS4gd2UgY2FuIHNraXAgdHJ5aW5nIHRvIGxvYWQg
-emFwIGZ3IGluIHRoZSAhaGFzX3phcF9ub2RlIGNhc2UuCj4KPiBCUiwKPiAtUgoKT2theSwgdGhl
-cmUncyBubyBwcm9ibGVtIGFuZCB5ZWFoLCBJIGFncmVlIHdpdGggeW91LCBiZXR0ZXIgYmUgc2Fm
-ZSB0aGFuIHNvcnJ5CmFuZCBiZXR0ZXIga2VlcCBpdCBjbGVhbiBmcm9tIHRoZSB2ZXJ5IGJlZ2lu
-bmluZy4KSSdsbCBzZW5kIGEgdjIgd2l0aCBhbGwgdGhlIHByb3Bvc2VkIGNoYW5nZXMgdG8gdGhp
-cyBwYXRjaCBmcm9tIHlvdQphbmQgSm9yZGFuIEFTQVAuCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJlZWRyZW5v
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2ZyZWVkcmVubw==
+
+--===============1386869752==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-5Mzcra9IsjRjM5vnaomh"
+
+
+--=-5Mzcra9IsjRjM5vnaomh
+Content-Type: multipart/mixed; boundary="=-QzsDiLgE5dpWVAyKk5Wj"
+
+
+--=-QzsDiLgE5dpWVAyKk5Wj
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, 2019-09-24 at 16:59 -0500, Rob Herring wrote:
+> On Tue, Sep 24, 2019 at 1:12 PM Nicolas Saenz Julienne
+> <nsaenzjulienne@suse.de> wrote:
+> > Hi All,
+> > this series tries to address one of the issues blocking us from
+> > upstreaming Broadcom's STB PCIe controller[1]. Namely, the fact that
+> > devices not represented in DT which sit behind a PCI bus fail to get th=
+e
+> > bus' DMA addressing constraints.
+> >=20
+> > This is due to the fact that of_dma_configure() assumes it's receiving =
+a
+> > DT node representing the device being configured, as opposed to the PCI=
+e
+> > bridge node we currently pass. This causes the code to directly jump
+> > into PCI's parent node when checking for 'dma-ranges' and misses
+> > whatever was set there.
+> >=20
+> > To address this I create a new API in OF - inspired from Robin Murphys
+> > original proposal[2] - which accepts a bus DT node as it's input in
+> > order to configure a device's DMA constraints. The changes go deep into
+> > of/address.c's implementation, as a device being having a DT node
+> > assumption was pretty strong.
+> >=20
+> > On top of this work, I also cleaned up of_dma_configure() removing its
+> > redundant arguments and creating an alternative function for the specia=
+l
+> > cases
+> > not applicable to either the above case or the default usage.
+> >=20
+> > IMO the resulting functions are more explicit. They will probably
+> > surface some hacky usages that can be properly fixed as I show with the
+> > DT fixes on the Layerscape platform.
+> >=20
+> > This was also tested on a Raspberry Pi 4 with a custom PCIe driver and
+> > on a Seattle AMD board.
+>=20
+> Humm, I've been working on this issue too. Looks similar though yours
+> has a lot more churn and there's some other bugs I've found.
+
+That's good news, and yes now that I see it, some stuff on my series is ove=
+rly
+complicated. Specially around of_translate_*().
+
+On top of that, you removed in of_dma_get_range():
+
+-	/*
+-	 * At least empty ranges has to be defined for parent node if
+-	 * DMA is supported
+-	 */
+-	if (!ranges)
+-		break;
+
+Which I assumed was bound to the standard and makes things easier.
+
+> Can you test out this branch[1]. I don't have any h/w needing this,
+> but wrote a unittest and tested with modified QEMU.
+
+I reviewed everything, I did find a minor issue, see the patch attached.
+
+Also I tested your branch both on an RPi4, with a PCI device that depends o=
+n
+these changes and by comparing the OF debugs logs on a Layerscape board whi=
+ch
+uses dma-ranges, dma-coherent and IOMMU. All works as expected.
+
+Will you send this series for v5.5? Please keep me in the loop, I'll review=
+ and
+test the final version.
+
+Regards,
+Nicolas
+
+
+--=-QzsDiLgE5dpWVAyKk5Wj
+Content-Disposition: attachment;
+	filename*0=0001-of-device-do-not-bail-of_dma_configure-when-force_dm.pat;
+	filename*1=ch
+Content-Type: text/x-patch;
+	name="0001-of-device-do-not-bail-of_dma_configure-when-force_dm.patch";
+	charset="UTF-8"
+Content-Transfer-Encoding: base64
+
+RnJvbSAyNmQ1MTg1M2MyNWMwNGMyOGRiYzA5MDYxOTUxYTkzYzEwMmRhYmNkIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBOaWNvbGFzIFNhZW56IEp1bGllbm5lIDxuc2FlbnpqdWxpZW5u
+ZUBzdXNlLmRlPgpEYXRlOiBXZWQsIDI1IFNlcCAyMDE5IDE2OjI2OjU3ICswMjAwClN1YmplY3Q6
+IFtQQVRDSF0gb2Y6IGRldmljZTogZG8gbm90IGJhaWwgb2ZfZG1hX2NvbmZpZ3VyZSgpIHdoZW4g
+Zm9yY2VfZG1hIGlzCiBzZXQKClNvbWUgWGVuIGRldmljZXMgY2FsbCBvZl9kbWFfY29uZmlndXJl
+KCkgd2l0aG91dCBhbiBhY3R1YWwgRFQgbm9kZSBpbgpvcmRlciBmb3IgaXQgdG8gc2V0IGl0cyAn
+ZG1hX29wcycuIFRoYXQncyB0aGUgb3JpZ2luYWwgaW50ZW50IG9mCidmb3JjZV9kbWEnLCBob25v
+ciB0aGF0IGJlaGF2aW91ci4KClNpZ25lZC1vZmYtYnk6IE5pY29sYXMgU2FlbnogSnVsaWVubmUg
+PG5zYWVuemp1bGllbm5lQHN1c2UuZGU+Ci0tLQogZHJpdmVycy9vZi9kZXZpY2UuYyB8IDIgLS0K
+IDEgZmlsZSBjaGFuZ2VkLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvb2Yv
+ZGV2aWNlLmMgYi9kcml2ZXJzL29mL2RldmljZS5jCmluZGV4IGE0NTI2MWUyMTE0NC4uN2JjMDBm
+NzI0NjhmIDEwMDY0NAotLS0gYS9kcml2ZXJzL29mL2RldmljZS5jCisrKyBiL2RyaXZlcnMvb2Yv
+ZGV2aWNlLmMKQEAgLTEwMCw4ICsxMDAsNiBAQCBpbnQgb2ZfZG1hX2NvbmZpZ3VyZShzdHJ1Y3Qg
+ZGV2aWNlICpkZXYsIHN0cnVjdCBkZXZpY2Vfbm9kZSAqcGFyZW50LCBib29sIGZvcmNlXwogCW5w
+ID0gZGV2LT5vZl9ub2RlOwogCWlmICghbnApCiAJCW5wID0gcGFyZW50OwotCWlmICghbnApCi0J
+CXJldHVybiAtRU5PREVWOwogCiAJcmV0ID0gb2ZfZG1hX2dldF9yYW5nZShucCwgJmRtYV9hZGRy
+LCAmcGFkZHIsICZzaXplKTsKIAlpZiAocmV0IDwgMCkgewotLSAKMi4yMy4wCgo=
+
+
+--=-QzsDiLgE5dpWVAyKk5Wj--
+
+--=-5Mzcra9IsjRjM5vnaomh
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCAAdFiEErOkkGDHCg2EbPcGjlfZmHno8x/4FAl2Lf0sACgkQlfZmHno8
+x/7mvQf6A++shc7v4vCUvlFLh6kIZ0UPBKuSnxpUpUn+R3BMoS6J5Ce/ma0SOzIJ
+MRQmawROuL2F6qf0g3ykdpnaSD14TAEB9UnJzLoTkprKRFRhdq4pQjCDGDWIpWSO
+fW6GnBbCLaTa0r38siU1DvnV3ZXCNnmN+lO5mqEp380R7cLwMj0hrH4mzkNuSUHK
+uKWLMd/ZZyDk7e2j1qZ2bXg6PRRSfXZfU7Oqtwt6k7JNoPB/HneraMxoO43EyzDA
+qt4Fxx6cDsZQAPbqJPChpSN4USdi0rN171NlKW3+PRsGfZN4LzUF3MoK2uvReV0n
+DhW7JoNOzqhh0pk2iPTRov0M+zbYEg==
+=jmQ8
+-----END PGP SIGNATURE-----
+
+--=-5Mzcra9IsjRjM5vnaomh--
+
+
+--===============1386869752==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5v
+IG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
+
+--===============1386869752==--
+
