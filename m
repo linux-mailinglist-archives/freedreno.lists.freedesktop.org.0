@@ -2,35 +2,32 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB480BE0DC
-	for <lists+freedreno@lfdr.de>; Wed, 25 Sep 2019 17:09:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F0D0BE17B
+	for <lists+freedreno@lfdr.de>; Wed, 25 Sep 2019 17:38:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A788C89F75;
-	Wed, 25 Sep 2019 15:09:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BEE96EBED;
+	Wed, 25 Sep 2019 15:38:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id C486589F75;
- Wed, 25 Sep 2019 15:09:19 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 19E381000;
- Wed, 25 Sep 2019 08:09:19 -0700 (PDT)
-Received: from [10.1.197.57] (e110467-lin.cambridge.arm.com [10.1.197.57])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3A1433F59C;
- Wed, 25 Sep 2019 08:09:14 -0700 (PDT)
-To: Nicolas Saenz Julienne <nsaenzjulienne@suse.de>,
- Rob Herring <robh+dt@kernel.org>
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 506E36EBEB;
+ Wed, 25 Sep 2019 15:30:14 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 86EB3ACA5;
+ Wed, 25 Sep 2019 15:30:12 +0000 (UTC)
+Message-ID: <43fb5fe1de317d65a4edf592f88ea150c6e3b8cc.camel@suse.de>
+From: Nicolas Saenz Julienne <nsaenzjulienne@suse.de>
+To: Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh+dt@kernel.org>
+Date: Wed, 25 Sep 2019 17:30:10 +0200
+In-Reply-To: <e404c65b-5a66-6f91-5b38-8bf89a7697b2@arm.com>
 References: <20190924181244.7159-1-nsaenzjulienne@suse.de>
  <CAL_Jsq+v+svTyna7UzQdRVqfNc5Z_bgWzxNRXv7-Wqv3NwDu2g@mail.gmail.com>
  <d1a31a2ec8eb2f226b1fb41f6c24ffb47c3bf7c7.camel@suse.de>
-From: Robin Murphy <robin.murphy@arm.com>
-Message-ID: <e404c65b-5a66-6f91-5b38-8bf89a7697b2@arm.com>
-Date: Wed, 25 Sep 2019 16:09:12 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ <e404c65b-5a66-6f91-5b38-8bf89a7697b2@arm.com>
+User-Agent: Evolution 3.32.4 
 MIME-Version: 1.0
-In-Reply-To: <d1a31a2ec8eb2f226b1fb41f6c24ffb47c3bf7c7.camel@suse.de>
-Content-Language: en-GB
+X-Mailman-Approved-At: Wed, 25 Sep 2019 15:38:38 +0000
 Subject: Re: [Freedreno] [PATCH 00/11] of: Fix DMA configuration for non-DT
  masters
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -46,74 +43,156 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: devicetree@vger.kernel.org, Matthias Brugger <mbrugger@suse.com>,
+ Frank Rowand <frowand.list@gmail.com>,
  linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  linux-wireless <linux-wireless@vger.kernel.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
  dri-devel <dri-devel@lists.freedesktop.org>, etnaviv@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, Florian Fainelli <f.fainelli@gmail.com>,
- Stefan Wahren <wahrenst@gmx.net>, james.quinlan@broadcom.com,
- linux-pci@vger.kernel.org,
  "open list:DMA GENERIC OFFLOAD ENGINE SUBSYSTEM" <dmaengine@vger.kernel.org>,
- xen-devel@lists.xenproject.org, Dan Williams <dan.j.williams@intel.com>,
+ Florian Fainelli <f.fainelli@gmail.com>, Stefan Wahren <wahrenst@gmx.net>,
+ james.quinlan@broadcom.com, linux-pci@vger.kernel.org,
+ linux-tegra@vger.kernel.org, xen-devel@lists.xenproject.org,
+ Dan Williams <dan.j.williams@intel.com>,
  freedreno <freedreno@lists.freedesktop.org>,
- Frank Rowand <frowand.list@gmail.com>,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>,
+ "moderated list:ARM/FREESCALE IMX /
+ MXC ARM ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
  Linux Media Mailing List <linux-media@vger.kernel.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============0765389048=="
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-T24gMjUvMDkvMjAxOSAxNTo1MiwgTmljb2xhcyBTYWVueiBKdWxpZW5uZSB3cm90ZToKPiBPbiBU
-dWUsIDIwMTktMDktMjQgYXQgMTY6NTkgLTA1MDAsIFJvYiBIZXJyaW5nIHdyb3RlOgo+PiBPbiBU
-dWUsIFNlcCAyNCwgMjAxOSBhdCAxOjEyIFBNIE5pY29sYXMgU2FlbnogSnVsaWVubmUKPj4gPG5z
-YWVuemp1bGllbm5lQHN1c2UuZGU+IHdyb3RlOgo+Pj4gSGkgQWxsLAo+Pj4gdGhpcyBzZXJpZXMg
-dHJpZXMgdG8gYWRkcmVzcyBvbmUgb2YgdGhlIGlzc3VlcyBibG9ja2luZyB1cyBmcm9tCj4+PiB1
-cHN0cmVhbWluZyBCcm9hZGNvbSdzIFNUQiBQQ0llIGNvbnRyb2xsZXJbMV0uIE5hbWVseSwgdGhl
-IGZhY3QgdGhhdAo+Pj4gZGV2aWNlcyBub3QgcmVwcmVzZW50ZWQgaW4gRFQgd2hpY2ggc2l0IGJl
-aGluZCBhIFBDSSBidXMgZmFpbCB0byBnZXQgdGhlCj4+PiBidXMnIERNQSBhZGRyZXNzaW5nIGNv
-bnN0cmFpbnRzLgo+Pj4KPj4+IFRoaXMgaXMgZHVlIHRvIHRoZSBmYWN0IHRoYXQgb2ZfZG1hX2Nv
-bmZpZ3VyZSgpIGFzc3VtZXMgaXQncyByZWNlaXZpbmcgYQo+Pj4gRFQgbm9kZSByZXByZXNlbnRp
-bmcgdGhlIGRldmljZSBiZWluZyBjb25maWd1cmVkLCBhcyBvcHBvc2VkIHRvIHRoZSBQQ0llCj4+
-PiBicmlkZ2Ugbm9kZSB3ZSBjdXJyZW50bHkgcGFzcy4gVGhpcyBjYXVzZXMgdGhlIGNvZGUgdG8g
-ZGlyZWN0bHkganVtcAo+Pj4gaW50byBQQ0kncyBwYXJlbnQgbm9kZSB3aGVuIGNoZWNraW5nIGZv
-ciAnZG1hLXJhbmdlcycgYW5kIG1pc3Nlcwo+Pj4gd2hhdGV2ZXIgd2FzIHNldCB0aGVyZS4KPj4+
-Cj4+PiBUbyBhZGRyZXNzIHRoaXMgSSBjcmVhdGUgYSBuZXcgQVBJIGluIE9GIC0gaW5zcGlyZWQg
-ZnJvbSBSb2JpbiBNdXJwaHlzCj4+PiBvcmlnaW5hbCBwcm9wb3NhbFsyXSAtIHdoaWNoIGFjY2Vw
-dHMgYSBidXMgRFQgbm9kZSBhcyBpdCdzIGlucHV0IGluCj4+PiBvcmRlciB0byBjb25maWd1cmUg
-YSBkZXZpY2UncyBETUEgY29uc3RyYWludHMuIFRoZSBjaGFuZ2VzIGdvIGRlZXAgaW50bwo+Pj4g
-b2YvYWRkcmVzcy5jJ3MgaW1wbGVtZW50YXRpb24sIGFzIGEgZGV2aWNlIGJlaW5nIGhhdmluZyBh
-IERUIG5vZGUKPj4+IGFzc3VtcHRpb24gd2FzIHByZXR0eSBzdHJvbmcuCj4+Pgo+Pj4gT24gdG9w
-IG9mIHRoaXMgd29yaywgSSBhbHNvIGNsZWFuZWQgdXAgb2ZfZG1hX2NvbmZpZ3VyZSgpIHJlbW92
-aW5nIGl0cwo+Pj4gcmVkdW5kYW50IGFyZ3VtZW50cyBhbmQgY3JlYXRpbmcgYW4gYWx0ZXJuYXRp
-dmUgZnVuY3Rpb24gZm9yIHRoZSBzcGVjaWFsCj4+PiBjYXNlcwo+Pj4gbm90IGFwcGxpY2FibGUg
-dG8gZWl0aGVyIHRoZSBhYm92ZSBjYXNlIG9yIHRoZSBkZWZhdWx0IHVzYWdlLgo+Pj4KPj4+IElN
-TyB0aGUgcmVzdWx0aW5nIGZ1bmN0aW9ucyBhcmUgbW9yZSBleHBsaWNpdC4gVGhleSB3aWxsIHBy
-b2JhYmx5Cj4+PiBzdXJmYWNlIHNvbWUgaGFja3kgdXNhZ2VzIHRoYXQgY2FuIGJlIHByb3Blcmx5
-IGZpeGVkIGFzIEkgc2hvdyB3aXRoIHRoZQo+Pj4gRFQgZml4ZXMgb24gdGhlIExheWVyc2NhcGUg
-cGxhdGZvcm0uCj4+Pgo+Pj4gVGhpcyB3YXMgYWxzbyB0ZXN0ZWQgb24gYSBSYXNwYmVycnkgUGkg
-NCB3aXRoIGEgY3VzdG9tIFBDSWUgZHJpdmVyIGFuZAo+Pj4gb24gYSBTZWF0dGxlIEFNRCBib2Fy
-ZC4KPj4KPj4gSHVtbSwgSSd2ZSBiZWVuIHdvcmtpbmcgb24gdGhpcyBpc3N1ZSB0b28uIExvb2tz
-IHNpbWlsYXIgdGhvdWdoIHlvdXJzCj4+IGhhcyBhIGxvdCBtb3JlIGNodXJuIGFuZCB0aGVyZSdz
-IHNvbWUgb3RoZXIgYnVncyBJJ3ZlIGZvdW5kLgo+IAo+IFRoYXQncyBnb29kIG5ld3MsIGFuZCB5
-ZXMgbm93IHRoYXQgSSBzZWUgaXQsIHNvbWUgc3R1ZmYgb24gbXkgc2VyaWVzIGlzIG92ZXJseQo+
-IGNvbXBsaWNhdGVkLiBTcGVjaWFsbHkgYXJvdW5kIG9mX3RyYW5zbGF0ZV8qKCkuCj4gCj4gT24g
-dG9wIG9mIHRoYXQsIHlvdSByZW1vdmVkIGluIG9mX2RtYV9nZXRfcmFuZ2UoKToKPiAKPiAtCS8q
-Cj4gLQkgKiBBdCBsZWFzdCBlbXB0eSByYW5nZXMgaGFzIHRvIGJlIGRlZmluZWQgZm9yIHBhcmVu
-dCBub2RlIGlmCj4gLQkgKiBETUEgaXMgc3VwcG9ydGVkCj4gLQkgKi8KPiAtCWlmICghcmFuZ2Vz
-KQo+IC0JCWJyZWFrOwo+IAo+IFdoaWNoIEkgYXNzdW1lZCB3YXMgYm91bmQgdG8gdGhlIHN0YW5k
-YXJkIGFuZCBtYWtlcyB0aGluZ3MgZWFzaWVyLgo+IAo+PiBDYW4geW91IHRlc3Qgb3V0IHRoaXMg
-YnJhbmNoWzFdLiBJIGRvbid0IGhhdmUgYW55IGgvdyBuZWVkaW5nIHRoaXMsCj4+IGJ1dCB3cm90
-ZSBhIHVuaXR0ZXN0IGFuZCB0ZXN0ZWQgd2l0aCBtb2RpZmllZCBRRU1VLgo+IAo+IEkgcmV2aWV3
-ZWQgZXZlcnl0aGluZywgSSBkaWQgZmluZCBhIG1pbm9yIGlzc3VlLCBzZWUgdGhlIHBhdGNoIGF0
-dGFjaGVkLgoKV1JUIHRoYXQgcGF0Y2gsIHRoZSBvcmlnaW5hbCBpbnRlbnQgb2YgImZvcmNlX2Rt
-YSIgd2FzIHB1cmVseSB0byAKY29uc2lkZXIgYSBkZXZpY2UgRE1BLWNhcGFibGUgcmVnYXJkbGVz
-cyBvZiB0aGUgcHJlc2VuY2Ugb2YgCiJkbWEtcmFuZ2VzIi4gRXhwZWN0aW5nIG9mX2RtYV9jb25m
-aWd1cmUoKSB0byBkbyBhbnl0aGluZyBmb3IgYSBub24tT0YgCmRldmljZSBoYXMgYWx3YXlzIGJl
-ZW4gYm9ndXMgLSBtYWdpYyBwYXJhdmlydCBkZXZpY2VzIHdoaWNoIGFwcGVhciBvdXQgCm9mIG5v
-d2hlcmUgYW5kIGV4cGVjdCB0byBiZSB0cmVhdGVkIGFzIGdlbnVpbmUgRE1BIG1hc3RlcnMgYXJl
-IGEgCnNlcGFyYXRlIHByb2JsZW0gdGhhdCB3ZSBoYXZlbid0IHJlYWxseSBhcHByb2FjaGVkIHll
-dC4KClJvYmluLgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwpGcmVlZHJlbm8gbWFpbGluZyBsaXN0CkZyZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9mcmVlZHJlbm8=
+
+--===============0765389048==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-Jc6/4bVbm9VDLL08SmH3"
+
+
+--=-Jc6/4bVbm9VDLL08SmH3
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, 2019-09-25 at 16:09 +0100, Robin Murphy wrote:
+> On 25/09/2019 15:52, Nicolas Saenz Julienne wrote:
+> > On Tue, 2019-09-24 at 16:59 -0500, Rob Herring wrote:
+> > > On Tue, Sep 24, 2019 at 1:12 PM Nicolas Saenz Julienne
+> > > <nsaenzjulienne@suse.de> wrote:
+> > > > Hi All,
+> > > > this series tries to address one of the issues blocking us from
+> > > > upstreaming Broadcom's STB PCIe controller[1]. Namely, the fact tha=
+t
+> > > > devices not represented in DT which sit behind a PCI bus fail to ge=
+t the
+> > > > bus' DMA addressing constraints.
+> > > >=20
+> > > > This is due to the fact that of_dma_configure() assumes it's receiv=
+ing a
+> > > > DT node representing the device being configured, as opposed to the=
+ PCIe
+> > > > bridge node we currently pass. This causes the code to directly jum=
+p
+> > > > into PCI's parent node when checking for 'dma-ranges' and misses
+> > > > whatever was set there.
+> > > >=20
+> > > > To address this I create a new API in OF - inspired from Robin Murp=
+hys
+> > > > original proposal[2] - which accepts a bus DT node as it's input in
+> > > > order to configure a device's DMA constraints. The changes go deep =
+into
+> > > > of/address.c's implementation, as a device being having a DT node
+> > > > assumption was pretty strong.
+> > > >=20
+> > > > On top of this work, I also cleaned up of_dma_configure() removing =
+its
+> > > > redundant arguments and creating an alternative function for the sp=
+ecial
+> > > > cases
+> > > > not applicable to either the above case or the default usage.
+> > > >=20
+> > > > IMO the resulting functions are more explicit. They will probably
+> > > > surface some hacky usages that can be properly fixed as I show with=
+ the
+> > > > DT fixes on the Layerscape platform.
+> > > >=20
+> > > > This was also tested on a Raspberry Pi 4 with a custom PCIe driver =
+and
+> > > > on a Seattle AMD board.
+> > >=20
+> > > Humm, I've been working on this issue too. Looks similar though yours
+> > > has a lot more churn and there's some other bugs I've found.
+> >=20
+> > That's good news, and yes now that I see it, some stuff on my series is
+> > overly
+> > complicated. Specially around of_translate_*().
+> >=20
+> > On top of that, you removed in of_dma_get_range():
+> >=20
+> > -	/*
+> > -	 * At least empty ranges has to be defined for parent node if
+> > -	 * DMA is supported
+> > -	 */
+> > -	if (!ranges)
+> > -		break;
+> >=20
+> > Which I assumed was bound to the standard and makes things easier.
+> >=20
+> > > Can you test out this branch[1]. I don't have any h/w needing this,
+> > > but wrote a unittest and tested with modified QEMU.
+> >=20
+> > I reviewed everything, I did find a minor issue, see the patch attached=
+.
+>=20
+> WRT that patch, the original intent of "force_dma" was purely to=20
+> consider a device DMA-capable regardless of the presence of=20
+> "dma-ranges". Expecting of_dma_configure() to do anything for a non-OF=
+=20
+> device has always been bogus - magic paravirt devices which appear out=
+=20
+> of nowhere and expect to be treated as genuine DMA masters are a=20
+> separate problem that we haven't really approached yet.
+
+I agree it's clearly abusing the function. I have no problem with the behav=
+iour
+change if it's OK with you.
+
+Robin, have you looked into supporting multiple dma-ranges? It's the next t=
+hing
+we need for BCM STB's PCIe. I'll have a go at it myself if nothing is in th=
+e
+works already.
+
+Regards,
+Nicolas
+
+
+--=-Jc6/4bVbm9VDLL08SmH3
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCAAdFiEErOkkGDHCg2EbPcGjlfZmHno8x/4FAl2LiAIACgkQlfZmHno8
+x/7J7Af+NrtcYkM0WphLDC8n2KXI1Rofej10z7b8lAcPZvn586CNcayUtga34+e3
+jMIOwHl9qzzFJrgAT9FoyDjkcJ0gfVWKSzQYB798pTOVEND7LdUsHH0ZNqNqf4YM
+yRmNNvCpZi+i83aeetAQjPoMUeDjKU0dMCX7oEzfvlrmxi4YRx59jcOfIbaqr2Hg
+SGipuOc97V/so7VcwvypG9xeYU/zTeZ0wFoQzT7X4OdEUp4uBAgHoeou4kez1gSy
+27EmZX8DU3l7YbWTM5SBP13uDcQ0I2y25cjjy55r4gBm+zQYdGCuh3oHbdOvyws/
+xjAYrC9sFk3+VCjuPTn9CTbfyDqZ8A==
+=9rW4
+-----END PGP SIGNATURE-----
+
+--=-Jc6/4bVbm9VDLL08SmH3--
+
+
+--===============0765389048==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5v
+IG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
+
+--===============0765389048==--
+
