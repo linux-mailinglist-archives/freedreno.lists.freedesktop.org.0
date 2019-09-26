@@ -2,30 +2,25 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62E69BE749
-	for <lists+freedreno@lfdr.de>; Wed, 25 Sep 2019 23:33:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D49ECBEFED
+	for <lists+freedreno@lfdr.de>; Thu, 26 Sep 2019 12:45:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D9BA7AA1C;
-	Wed, 25 Sep 2019 21:33:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BFAF6ED00;
+	Thu, 26 Sep 2019 10:45:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDD877AA66;
- Wed, 25 Sep 2019 21:33:35 +0000 (UTC)
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com
- [209.85.160.169])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A255A222C3;
- Wed, 25 Sep 2019 21:33:35 +0000 (UTC)
-Received: by mail-qt1-f169.google.com with SMTP id n7so265745qtb.6;
- Wed, 25 Sep 2019 14:33:35 -0700 (PDT)
-X-Gm-Message-State: APjAAAXGcLmhcTDH4QtbUd55Y4BB0i5w1gn38+SUNASsItso4+5/HkUg
- /W71JnNlTm1e4k0HvfG1IxlPlu4qaSOJtC7xOg==
-X-Google-Smtp-Source: APXvYqy9YJ9VRUtFzrkZ+iKb5Tx5rlamJJuwaAKBRmCflwCEbYKpuVBbZPPVrEImTOCJgn8Jl5TlEwRQfbhe0HNZXOU=
-X-Received: by 2002:a0c:8a6d:: with SMTP id 42mr1647258qvu.138.1569447214653; 
- Wed, 25 Sep 2019 14:33:34 -0700 (PDT)
-MIME-Version: 1.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12DC26ECF9;
+ Thu, 26 Sep 2019 10:44:58 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 4D89AAFA7;
+ Thu, 26 Sep 2019 10:44:56 +0000 (UTC)
+Message-ID: <307b988d0c67fb1c42166eca12742bcfda09d92d.camel@suse.de>
+From: Nicolas Saenz Julienne <nsaenzjulienne@suse.de>
+To: Rob Herring <robh+dt@kernel.org>, Robin Murphy <robin.murphy@arm.com>
+Date: Thu, 26 Sep 2019 12:44:53 +0200
+In-Reply-To: <CAL_JsqKKYcHPnA80ZwLY=Sk3e5MqrimedUhWQ5+iuPZXQxYHdA@mail.gmail.com>
 References: <20190924181244.7159-1-nsaenzjulienne@suse.de>
  <CAL_Jsq+v+svTyna7UzQdRVqfNc5Z_bgWzxNRXv7-Wqv3NwDu2g@mail.gmail.com>
  <d1a31a2ec8eb2f226b1fb41f6c24ffb47c3bf7c7.camel@suse.de>
@@ -33,19 +28,9 @@ References: <20190924181244.7159-1-nsaenzjulienne@suse.de>
  <43fb5fe1de317d65a4edf592f88ea150c6e3b8cc.camel@suse.de>
  <CAL_JsqLhx500cx3YLoC7HL1ux3bBpV+fEA2Qnk7D5RFGgiGzSw@mail.gmail.com>
  <aa4c8d62-7990-e385-2bb1-cec55148f0a8@arm.com>
-In-Reply-To: <aa4c8d62-7990-e385-2bb1-cec55148f0a8@arm.com>
-From: Rob Herring <robh+dt@kernel.org>
-Date: Wed, 25 Sep 2019 16:33:23 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqKKYcHPnA80ZwLY=Sk3e5MqrimedUhWQ5+iuPZXQxYHdA@mail.gmail.com>
-Message-ID: <CAL_JsqKKYcHPnA80ZwLY=Sk3e5MqrimedUhWQ5+iuPZXQxYHdA@mail.gmail.com>
-To: Robin Murphy <robin.murphy@arm.com>
-X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=kernel.org; s=default; t=1569447215;
- bh=TszXw7S5GIEzEo992EEMfz4W0WtzSxu1MBpaBhf4tmw=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=QlI2Sj1D5LJahPlbpQRPzC/Kfp42A3NwekR29GtyvfIPAZlvPN1zAfycydpBTfcd8
- IvT8WVCyptqcO23hrQq7/1AbSsfzPRa68TLRQRP+hrXx+5Qsz/4M4CfEt25gMVn9on
- EMq0EmayAeKNvnaIFqzE8CzGz5kGoSiMNjw4W64I=
+ <CAL_JsqKKYcHPnA80ZwLY=Sk3e5MqrimedUhWQ5+iuPZXQxYHdA@mail.gmail.com>
+User-Agent: Evolution 3.32.4 
+MIME-Version: 1.0
 Subject: Re: [Freedreno] [PATCH 00/11] of: Fix DMA configuration for non-DT
  masters
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -60,117 +45,112 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>, devicetree@vger.kernel.org,
- Matthias Brugger <mbrugger@suse.com>, Frank Rowand <frowand.list@gmail.com>,
+Cc: devicetree@vger.kernel.org, Matthias Brugger <mbrugger@suse.com>,
  linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  linux-wireless <linux-wireless@vger.kernel.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
  dri-devel <dri-devel@lists.freedesktop.org>, etnaviv@lists.freedesktop.org,
- "open list:DMA GENERIC OFFLOAD ENGINE SUBSYSTEM" <dmaengine@vger.kernel.org>,
- Florian Fainelli <f.fainelli@gmail.com>, Stefan Wahren <wahrenst@gmx.net>,
- james.quinlan@broadcom.com, linux-pci@vger.kernel.org,
- linux-tegra@vger.kernel.org, xen-devel@lists.xenproject.org,
- Dan Williams <dan.j.williams@intel.com>,
+ linux-tegra@vger.kernel.org, Florian Fainelli <f.fainelli@gmail.com>,
+ Stefan Wahren <wahrenst@gmx.net>, james.quinlan@broadcom.com,
+ linux-pci@vger.kernel.org, "open
+ list:DMA GENERIC OFFLOAD ENGINE SUBSYSTEM" <dmaengine@vger.kernel.org>,
+ xen-devel@lists.xenproject.org, Dan Williams <dan.j.williams@intel.com>,
  freedreno <freedreno@lists.freedesktop.org>,
- Nicolas Saenz Julienne <nsaenzjulienne@suse.de>,
+ Frank Rowand <frowand.list@gmail.com>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>,
  Linux Media Mailing List <linux-media@vger.kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1418888878=="
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-T24gV2VkLCBTZXAgMjUsIDIwMTkgYXQgMTE6NTIgQU0gUm9iaW4gTXVycGh5IDxyb2Jpbi5tdXJw
-aHlAYXJtLmNvbT4gd3JvdGU6Cj4KPiBPbiAyNS8wOS8yMDE5IDE3OjE2LCBSb2IgSGVycmluZyB3
-cm90ZToKPiA+IE9uIFdlZCwgU2VwIDI1LCAyMDE5IGF0IDEwOjMwIEFNIE5pY29sYXMgU2Flbnog
-SnVsaWVubmUKPiA+IDxuc2FlbnpqdWxpZW5uZUBzdXNlLmRlPiB3cm90ZToKPiA+Pgo+ID4+IE9u
-IFdlZCwgMjAxOS0wOS0yNSBhdCAxNjowOSArMDEwMCwgUm9iaW4gTXVycGh5IHdyb3RlOgo+ID4+
-PiBPbiAyNS8wOS8yMDE5IDE1OjUyLCBOaWNvbGFzIFNhZW56IEp1bGllbm5lIHdyb3RlOgo+ID4+
-Pj4gT24gVHVlLCAyMDE5LTA5LTI0IGF0IDE2OjU5IC0wNTAwLCBSb2IgSGVycmluZyB3cm90ZToK
-PiA+Pj4+PiBPbiBUdWUsIFNlcCAyNCwgMjAxOSBhdCAxOjEyIFBNIE5pY29sYXMgU2FlbnogSnVs
-aWVubmUKPiA+Pj4+PiA8bnNhZW56anVsaWVubmVAc3VzZS5kZT4gd3JvdGU6Cj4gPj4+Pj4+IEhp
-IEFsbCwKPiA+Pj4+Pj4gdGhpcyBzZXJpZXMgdHJpZXMgdG8gYWRkcmVzcyBvbmUgb2YgdGhlIGlz
-c3VlcyBibG9ja2luZyB1cyBmcm9tCj4gPj4+Pj4+IHVwc3RyZWFtaW5nIEJyb2FkY29tJ3MgU1RC
-IFBDSWUgY29udHJvbGxlclsxXS4gTmFtZWx5LCB0aGUgZmFjdCB0aGF0Cj4gPj4+Pj4+IGRldmlj
-ZXMgbm90IHJlcHJlc2VudGVkIGluIERUIHdoaWNoIHNpdCBiZWhpbmQgYSBQQ0kgYnVzIGZhaWwg
-dG8gZ2V0IHRoZQo+ID4+Pj4+PiBidXMnIERNQSBhZGRyZXNzaW5nIGNvbnN0cmFpbnRzLgo+ID4+
-Pj4+Pgo+ID4+Pj4+PiBUaGlzIGlzIGR1ZSB0byB0aGUgZmFjdCB0aGF0IG9mX2RtYV9jb25maWd1
-cmUoKSBhc3N1bWVzIGl0J3MgcmVjZWl2aW5nIGEKPiA+Pj4+Pj4gRFQgbm9kZSByZXByZXNlbnRp
-bmcgdGhlIGRldmljZSBiZWluZyBjb25maWd1cmVkLCBhcyBvcHBvc2VkIHRvIHRoZSBQQ0llCj4g
-Pj4+Pj4+IGJyaWRnZSBub2RlIHdlIGN1cnJlbnRseSBwYXNzLiBUaGlzIGNhdXNlcyB0aGUgY29k
-ZSB0byBkaXJlY3RseSBqdW1wCj4gPj4+Pj4+IGludG8gUENJJ3MgcGFyZW50IG5vZGUgd2hlbiBj
-aGVja2luZyBmb3IgJ2RtYS1yYW5nZXMnIGFuZCBtaXNzZXMKPiA+Pj4+Pj4gd2hhdGV2ZXIgd2Fz
-IHNldCB0aGVyZS4KPiA+Pj4+Pj4KPiA+Pj4+Pj4gVG8gYWRkcmVzcyB0aGlzIEkgY3JlYXRlIGEg
-bmV3IEFQSSBpbiBPRiAtIGluc3BpcmVkIGZyb20gUm9iaW4gTXVycGh5cwo+ID4+Pj4+PiBvcmln
-aW5hbCBwcm9wb3NhbFsyXSAtIHdoaWNoIGFjY2VwdHMgYSBidXMgRFQgbm9kZSBhcyBpdCdzIGlu
-cHV0IGluCj4gPj4+Pj4+IG9yZGVyIHRvIGNvbmZpZ3VyZSBhIGRldmljZSdzIERNQSBjb25zdHJh
-aW50cy4gVGhlIGNoYW5nZXMgZ28gZGVlcCBpbnRvCj4gPj4+Pj4+IG9mL2FkZHJlc3MuYydzIGlt
-cGxlbWVudGF0aW9uLCBhcyBhIGRldmljZSBiZWluZyBoYXZpbmcgYSBEVCBub2RlCj4gPj4+Pj4+
-IGFzc3VtcHRpb24gd2FzIHByZXR0eSBzdHJvbmcuCj4gPj4+Pj4+Cj4gPj4+Pj4+IE9uIHRvcCBv
-ZiB0aGlzIHdvcmssIEkgYWxzbyBjbGVhbmVkIHVwIG9mX2RtYV9jb25maWd1cmUoKSByZW1vdmlu
-ZyBpdHMKPiA+Pj4+Pj4gcmVkdW5kYW50IGFyZ3VtZW50cyBhbmQgY3JlYXRpbmcgYW4gYWx0ZXJu
-YXRpdmUgZnVuY3Rpb24gZm9yIHRoZSBzcGVjaWFsCj4gPj4+Pj4+IGNhc2VzCj4gPj4+Pj4+IG5v
-dCBhcHBsaWNhYmxlIHRvIGVpdGhlciB0aGUgYWJvdmUgY2FzZSBvciB0aGUgZGVmYXVsdCB1c2Fn
-ZS4KPiA+Pj4+Pj4KPiA+Pj4+Pj4gSU1PIHRoZSByZXN1bHRpbmcgZnVuY3Rpb25zIGFyZSBtb3Jl
-IGV4cGxpY2l0LiBUaGV5IHdpbGwgcHJvYmFibHkKPiA+Pj4+Pj4gc3VyZmFjZSBzb21lIGhhY2t5
-IHVzYWdlcyB0aGF0IGNhbiBiZSBwcm9wZXJseSBmaXhlZCBhcyBJIHNob3cgd2l0aCB0aGUKPiA+
-Pj4+Pj4gRFQgZml4ZXMgb24gdGhlIExheWVyc2NhcGUgcGxhdGZvcm0uCj4gPj4+Pj4+Cj4gPj4+
-Pj4+IFRoaXMgd2FzIGFsc28gdGVzdGVkIG9uIGEgUmFzcGJlcnJ5IFBpIDQgd2l0aCBhIGN1c3Rv
-bSBQQ0llIGRyaXZlciBhbmQKPiA+Pj4+Pj4gb24gYSBTZWF0dGxlIEFNRCBib2FyZC4KPiA+Pj4+
-Pgo+ID4+Pj4+IEh1bW0sIEkndmUgYmVlbiB3b3JraW5nIG9uIHRoaXMgaXNzdWUgdG9vLiBMb29r
-cyBzaW1pbGFyIHRob3VnaCB5b3Vycwo+ID4+Pj4+IGhhcyBhIGxvdCBtb3JlIGNodXJuIGFuZCB0
-aGVyZSdzIHNvbWUgb3RoZXIgYnVncyBJJ3ZlIGZvdW5kLgo+ID4+Pj4KPiA+Pj4+IFRoYXQncyBn
-b29kIG5ld3MsIGFuZCB5ZXMgbm93IHRoYXQgSSBzZWUgaXQsIHNvbWUgc3R1ZmYgb24gbXkgc2Vy
-aWVzIGlzCj4gPj4+PiBvdmVybHkKPiA+Pj4+IGNvbXBsaWNhdGVkLiBTcGVjaWFsbHkgYXJvdW5k
-IG9mX3RyYW5zbGF0ZV8qKCkuCj4gPj4+Pgo+ID4+Pj4gT24gdG9wIG9mIHRoYXQsIHlvdSByZW1v
-dmVkIGluIG9mX2RtYV9nZXRfcmFuZ2UoKToKPiA+Pj4+Cj4gPj4+PiAtICAgLyoKPiA+Pj4+IC0g
-ICAgKiBBdCBsZWFzdCBlbXB0eSByYW5nZXMgaGFzIHRvIGJlIGRlZmluZWQgZm9yIHBhcmVudCBu
-b2RlIGlmCj4gPj4+PiAtICAgICogRE1BIGlzIHN1cHBvcnRlZAo+ID4+Pj4gLSAgICAqLwo+ID4+
-Pj4gLSAgIGlmICghcmFuZ2VzKQo+ID4+Pj4gLSAgICAgICAgICAgYnJlYWs7Cj4gPj4+Pgo+ID4+
-Pj4gV2hpY2ggSSBhc3N1bWVkIHdhcyBib3VuZCB0byB0aGUgc3RhbmRhcmQgYW5kIG1ha2VzIHRo
-aW5ncyBlYXNpZXIuCj4gPj4+Pgo+ID4+Pj4+IENhbiB5b3UgdGVzdCBvdXQgdGhpcyBicmFuY2hb
-MV0uIEkgZG9uJ3QgaGF2ZSBhbnkgaC93IG5lZWRpbmcgdGhpcywKPiA+Pj4+PiBidXQgd3JvdGUg
-YSB1bml0dGVzdCBhbmQgdGVzdGVkIHdpdGggbW9kaWZpZWQgUUVNVS4KPiA+Pj4+Cj4gPj4+PiBJ
-IHJldmlld2VkIGV2ZXJ5dGhpbmcsIEkgZGlkIGZpbmQgYSBtaW5vciBpc3N1ZSwgc2VlIHRoZSBw
-YXRjaCBhdHRhY2hlZC4KPiA+Pj4KPiA+Pj4gV1JUIHRoYXQgcGF0Y2gsIHRoZSBvcmlnaW5hbCBp
-bnRlbnQgb2YgImZvcmNlX2RtYSIgd2FzIHB1cmVseSB0bwo+ID4+PiBjb25zaWRlciBhIGRldmlj
-ZSBETUEtY2FwYWJsZSByZWdhcmRsZXNzIG9mIHRoZSBwcmVzZW5jZSBvZgo+ID4+PiAiZG1hLXJh
-bmdlcyIuIEV4cGVjdGluZyBvZl9kbWFfY29uZmlndXJlKCkgdG8gZG8gYW55dGhpbmcgZm9yIGEg
-bm9uLU9GCj4gPj4+IGRldmljZSBoYXMgYWx3YXlzIGJlZW4gYm9ndXMgLSBtYWdpYyBwYXJhdmly
-dCBkZXZpY2VzIHdoaWNoIGFwcGVhciBvdXQKPiA+Pj4gb2Ygbm93aGVyZSBhbmQgZXhwZWN0IHRv
-IGJlIHRyZWF0ZWQgYXMgZ2VudWluZSBETUEgbWFzdGVycyBhcmUgYQo+ID4+PiBzZXBhcmF0ZSBw
-cm9ibGVtIHRoYXQgd2UgaGF2ZW4ndCByZWFsbHkgYXBwcm9hY2hlZCB5ZXQuCj4gPj4KPiA+PiBJ
-IGFncmVlIGl0J3MgY2xlYXJseSBhYnVzaW5nIHRoZSBmdW5jdGlvbi4gSSBoYXZlIG5vIHByb2Js
-ZW0gd2l0aCB0aGUgYmVoYXZpb3VyCj4gPj4gY2hhbmdlIGlmIGl0J3MgT0sgd2l0aCB5b3UuCj4K
-PiBUaGlua2luZyBhYm91dCBpdCwgeW91IGNvdWxkIHByb2JhYmx5IGp1c3QgcmVtb3ZlIHRoYXQg
-Y2FsbCBmcm9tIHRoZSBYZW4KPiBEUk0gZHJpdmVyIG5vdyBhbnl3YXkgLSBzaW5jZSB0aGUgZG1h
-LWRpcmVjdCByZXdvcmssIHdlIGxvc3QgdGhlIGFiaWxpdHkKPiB0byBzZXQgZG1hX2R1bW15X29w
-cyBieSBkZWZhdWx0LCBhbmQgTlVMTCBvcHMgbm93IHJlcHJlc2VudCB3aGF0IGl0Cj4gKHByZXN1
-bWFibHkpIHdhbnRzLgoKTm90IHhlbl9kbWFfb3BzPyBJbiBhbnkgY2FzZSwgSSdsbCBzZW5kIG91
-dCBhIHBhdGNoIGZvciB0aGUgdGhlIFhlbgpmb2xrcyB0byBjb21tZW50IG9uLgoKPiA+PiBSb2Jp
-biwgaGF2ZSB5b3UgbG9va2VkIGludG8gc3VwcG9ydGluZyBtdWx0aXBsZSBkbWEtcmFuZ2VzPyBJ
-dCdzIHRoZSBuZXh0IHRoaW5nCj4gPj4gd2UgbmVlZCBmb3IgQkNNIFNUQidzIFBDSWUuIEknbGwg
-aGF2ZSBhIGdvIGF0IGl0IG15c2VsZiBpZiBub3RoaW5nIGlzIGluIHRoZQo+ID4+IHdvcmtzIGFs
-cmVhZHkuCj4gPgo+ID4gTXVsdGlwbGUgZG1hLXJhbmdlcyBhcyBmYXIgYXMgY29uZmlndXJpbmcg
-aW5ib3VuZCB3aW5kb3dzIHNob3VsZCB3b3JrCj4gPiBhbHJlYWR5IG90aGVyIHRoYW4gdGhlIGJ1
-ZyB3aGVuIHRoZXJlJ3MgYW55IHBhcmVudCB0cmFuc2xhdGlvbi4gQnV0IGlmCj4gPiB5b3UgbWVh
-biBzdXBwb3J0aW5nIG11bHRpcGxlIERNQSBvZmZzZXRzIGFuZCBtYXNrcyBwZXIgZGV2aWNlIGlu
-IHRoZQo+ID4gRE1BIEFQSSwgdGhlcmUncyBub3RoaW5nIGluIHRoZSB3b3JrcyB5ZXQuCj4KPiBU
-aGVyZSdzIGFsc28gdGhlIGluLWJldHdlZW4gc3RlcCBvZiBtYWtpbmcgb2ZfZG1hX2dldF9yYW5n
-ZSgpIHJldHVybiBhCj4gc2l6ZSBiYXNlZCBvbiBhbGwgdGhlIGRtYS1yYW5nZXMgZW50cmllcyBy
-YXRoZXIgdGhhbiBvbmx5IHRoZSBmaXJzdCBvbmUKPiAtIG90aGVyd2lzZSwgc29tZXRoaW5nIGxp
-a2UgWzFdIGNhbiBsZWFkIHRvIHByZXR0eSB1bndvcmthYmxlIGRlZmF1bHQKPiBtYXNrcy4gV2Ug
-aW1wbGVtZW50ZWQgdGhhdCB3aGVuIGRvaW5nIGFjcGlfZG1hX2dldF9yYW5nZSgpLCBpdCdzIGp1
-c3QKPiB0aGF0IHRoZSBPRiBjb3VudGVycGFydCBuZXZlciBjYXVnaHQgdXAuCgpSaWdodC4gSSBz
-dXBwb3NlIHdlIGFzc3VtZSBhbnkgaG9sZXMgaW4gdGhlIHJhbmdlcyBhcmUgYWRkcmVzc2FibGUg
-YnkKdGhlIGRldmljZSBidXQgd29uJ3QgZ2V0IHVzZWQgZm9yIG90aGVyIHJlYXNvbnMgKHN1Y2gg
-YXMgbm8gbWVtb3J5CnRoZXJlKS4gSG93ZXZlciwgdG8gYmUgY29ycmVjdCwgdGhlIHJhbmdlIG9m
-IHRoZSBkbWEgb2Zmc2V0IHBsdXMgbWFzawp3b3VsZCBuZWVkIHRvIGJlIHdpdGhpbiB0aGUgbWlu
-IHN0YXJ0IGFuZCBtYXggZW5kIGFkZHJlc3Nlcy4gSU9XLAp3aGlsZSB3ZSBuZWVkIHRvIHJvdW5k
-IHVwICgweGFfODAwMF8wMDAwIC0gMHgyYzFjXzAwMDApIHRvIHRoZSBuZXh0CnBvd2VyIG9mIDIs
-IHRoZSAnY29ycmVjdCcgdGhpbmcgdG8gZG8gaXMgcm91bmQgZG93bi4KClJvYgoKPiBbMV0KPiBo
-dHRwOi8vbGludXgtYXJtLm9yZy9naXQ/cD1saW51eC1ybS5naXQ7YT1jb21taXRkaWZmO2g9YTI4
-MTRhZjU2YjM0ODZjMjk4NWE5NTU0MGE4OGQ4ZjlmYTNhNjk5ZgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpGcmVlZHJlbm8gbWFpbGluZyBsaXN0CkZyZWVk
-cmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9mcmVlZHJlbm8=
+
+--===============1418888878==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-spHfnjbbIi+e7UZn+wYh"
+
+
+--=-spHfnjbbIi+e7UZn+wYh
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+> > > > Robin, have you looked into supporting multiple dma-ranges? It's th=
+e
+> > > > next thing
+> > > > we need for BCM STB's PCIe. I'll have a go at it myself if nothing =
+is in
+> > > > the
+> > > > works already.
+> > >=20
+> > > Multiple dma-ranges as far as configuring inbound windows should work
+> > > already other than the bug when there's any parent translation. But i=
+f
+> > > you mean supporting multiple DMA offsets and masks per device in the
+> > > DMA API, there's nothing in the works yet.
+
+Sorry, I meant supporting multiple DMA offsets[1]. I think I could still ma=
+ke
+it with a single DMA mask though.
+
+> > There's also the in-between step of making of_dma_get_range() return a
+> > size based on all the dma-ranges entries rather than only the first one
+> > - otherwise, something like [1] can lead to pretty unworkable default
+> > masks. We implemented that when doing acpi_dma_get_range(), it's just
+> > that the OF counterpart never caught up.
+>=20
+> Right. I suppose we assume any holes in the ranges are addressable by
+> the device but won't get used for other reasons (such as no memory
+> there). However, to be correct, the range of the dma offset plus mask
+> would need to be within the min start and max end addresses. IOW,
+> while we need to round up (0xa_8000_0000 - 0x2c1c_0000) to the next
+> power of 2, the 'correct' thing to do is round down.
+
+IIUC I also have this issue on my list. The RPi4 PCIe block has an integrat=
+ion
+bug that only allows DMA to the lower 3GB. With dma-ranges of size 0xc000_0=
+000
+you get a 32bit DMA mask wich is not what you need. So far I faked it in th=
+e
+device-tree but I guess it be better to add an extra check in
+of_dma_configure(), decrease the mask and print some kind of warning statin=
+g
+that DMA addressing is suboptimal.
+
+Regards,
+Nicolas
+
+[1] https://lkml.org/lkml/2018/9/19/641
+
+
+--=-spHfnjbbIi+e7UZn+wYh
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCAAdFiEErOkkGDHCg2EbPcGjlfZmHno8x/4FAl2MlqUACgkQlfZmHno8
+x/6+gwgAlzKCB9vN8cCZUfRnnPT+EcYA2/s3oFjf1ar+/e5UsMfCNI5W7cJaKzg9
+w0PGZ5VKk5N0wpkGIpUjOYQ9J5PFZwu5bqsce0zWywlRlYCexKvzpQfkplWi0JuI
+cVAt9Sw5mle+ppW+x9T5UlBcHoCByuQDG9ga44Z7O4jrk/lIp7vK2fmSN3hIEcHV
+gUPxojWighnxCu+5COgwa182Ncfo3tTLw39oV8uiLOzxXxVkprxdxQHakXPoyg1o
+WH0OvR09u1lXZAQ1qKtOxHNgKcrNzpr69VBUL/WYvrSqKdg0EI8QRmkByk5cYgrC
+ztco//83y3fCRh8dEph0BSrKU3/vFA==
+=P2KB
+-----END PGP SIGNATURE-----
+
+--=-spHfnjbbIi+e7UZn+wYh--
+
+
+--===============1418888878==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5v
+IG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
+
+--===============1418888878==--
+
