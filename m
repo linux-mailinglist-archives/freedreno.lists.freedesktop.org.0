@@ -2,67 +2,36 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B253ACD2F7
-	for <lists+freedreno@lfdr.de>; Sun,  6 Oct 2019 17:47:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B669CD37F
+	for <lists+freedreno@lfdr.de>; Sun,  6 Oct 2019 18:31:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3644D6E0BA;
-	Sun,  6 Oct 2019 15:47:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C498E6E0BA;
+	Sun,  6 Oct 2019 16:31:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com
- [209.85.128.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61C2A6E0BA;
- Sun,  6 Oct 2019 15:47:40 +0000 (UTC)
-Received: by mail-wm1-f67.google.com with SMTP id r17so13043403wme.0;
- Sun, 06 Oct 2019 08:47:40 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=SBpRb6qd+48zQK5uPLn0YvEluIoUY9o3FhFhGA6TXtY=;
- b=hxCP0AlhsZ0Xq4/uZ3uOzVRK+z9YLkU+bBOelgxDMwryEftK5M9QPTrK2fuYK8m6K+
- z00GPlEuErUbAO/t3PXv2zC6q2CCAH3Jk4LHMwz/av4UJJwCwxT51CxVQU6l3cc/fEVr
- ns0zNNdQyofMca91m9nEgEN4DiP7Be/f6rq3GmdK2gaqBDmJ94MOzYIHhhbAgEEMD3oY
- CsoR0ibLpHf1staoVpieb4oYn5AWt/yhwuDPnrRz3+PRBkGkn8/Bqh4cF/UnKGupN/J9
- iTWYYUcTK37aPdSBF9mDqNUEUd/QqV61pa1s7f+/VrKBLE2UUPo3mjFfm2uozt5q+k50
- y4qg==
-X-Gm-Message-State: APjAAAVJxBfaalLSOIXJIRSadQTNVhzfSS4NWVQcmEsOQ6bQ58+PwKnh
- EkJyQOD1a03aUrW/RSeeY/E=
-X-Google-Smtp-Source: APXvYqwiD5w33vuIYv9624AWG0k3vsCYtE8uO59mkpTJi1G/TZQDv7OS1UJvxH3zuwZ0w6XxIwuUIQ==
-X-Received: by 2002:a1c:9988:: with SMTP id
- b130mr18139392wme.164.1570376858781; 
- Sun, 06 Oct 2019 08:47:38 -0700 (PDT)
-Received: from kozik-lap ([194.230.155.145])
- by smtp.googlemail.com with ESMTPSA id o22sm31539882wra.96.2019.10.06.08.47.36
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Sun, 06 Oct 2019 08:47:38 -0700 (PDT)
-Date: Sun, 6 Oct 2019 17:47:34 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Sudeep Holla <sudeep.holla@arm.com>, Rob Herring <robh+dt@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
- "Rafael J. Wysocki" <rjw@rjwysocki.net>,
- Ulf Hansson <ulf.hansson@linaro.org>,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-media@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-amlogic@lists.infradead.org,
- bcm-kernel-feedback-list@broadcom.com,
- linux-rpi-kernel@lists.infradead.org, linux-usb@vger.kernel.org,
- linux-mediatek@lists.infradead.org
-Message-ID: <20191006154734.GA29365@kozik-lap>
-References: <20191002160632.11140-1-krzk@kernel.org>
- <20191002160632.11140-3-krzk@kernel.org>
+Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AE486E113
+ for <freedreno@lists.freedesktop.org>; Sat,  5 Oct 2019 04:42:07 +0000 (UTC)
+Received: from DGGEMS404-HUB.china.huawei.com (unknown [172.30.72.59])
+ by Forcepoint Email with ESMTP id 2A4AB89BBE25790B73C1;
+ Sat,  5 Oct 2019 12:26:45 +0800 (CST)
+Received: from huawei.com (10.90.53.225) by DGGEMS404-HUB.china.huawei.com
+ (10.3.19.204) with Microsoft SMTP Server id 14.3.439.0; Sat, 5 Oct 2019
+ 12:26:37 +0800
+From: zhengbin <zhengbin13@huawei.com>
+To: <robdclark@gmail.com>, <sean@poorly.run>, <airlied@linux.ie>,
+ <daniel@ffwll.ch>, <jsanka@codeaurora.org>, <jcrouse@codeaurora.org>,
+ <gregkh@linuxfoundation.org>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>
+Date: Sat, 5 Oct 2019 12:33:43 +0800
+Message-ID: <1570250029-67639-1-git-send-email-zhengbin13@huawei.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191002160632.11140-3-krzk@kernel.org>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Freedreno] [PATCH v2 3/3] ARM: dts: exynos: Rename power
- domain nodes to "power-domain" in Exynos4
+X-Originating-IP: [10.90.53.225]
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Sun, 06 Oct 2019 16:31:22 +0000
+Subject: [Freedreno] [PATCH 0/6] drm/msm/dpu: Remove some set but not used
+ variables
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -75,20 +44,28 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: zhengbin13@huawei.com
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-T24gV2VkLCBPY3QgMDIsIDIwMTkgYXQgMDY6MDY6MzJQTSArMDIwMCwgS3J6eXN6dG9mIEtvemxv
-d3NraSB3cm90ZToKPiBUaGUgZGV2aWNlIG5vZGUgbmFtZSBzaG91bGQgcmVmbGVjdCBnZW5lcmlj
-IGNsYXNzIG9mIGEgZGV2aWNlIHNvIHJlbmFtZQo+IHBvd2VyIGRvbWFpbiBub2RlcyB0byAicG93
-ZXItZG9tYWluIi4gIE5vIGZ1bmN0aW9uYWwgY2hhbmdlLgo+IAo+IFNpZ25lZC1vZmYtYnk6IEty
-enlzenRvZiBLb3psb3dza2kgPGtyemtAa2VybmVsLm9yZz4KPiAtLS0KPiAgYXJjaC9hcm0vYm9v
-dC9kdHMvZXh5bm9zNC5kdHNpICAgIHwgMTQgKysrKysrKy0tLS0tLS0KPiAgYXJjaC9hcm0vYm9v
-dC9kdHMvZXh5bm9zNDIxMC5kdHNpIHwgIDIgKy0KPiAgYXJjaC9hcm0vYm9vdC9kdHMvZXh5bm9z
-NDQxMi5kdHNpIHwgIDIgKy0KPiAgMyBmaWxlcyBjaGFuZ2VkLCA5IGluc2VydGlvbnMoKyksIDkg
-ZGVsZXRpb25zKC0pCgpBcHBsaWVkLgoKQmVzdCByZWdhcmRzLApLcnp5c3p0b2YKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcg
-bGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
+emhlbmdiaW4gKDYpOgogIGRybS9tc20vZHB1OiBSZW1vdmUgc2V0IGJ1dCBub3QgdXNlZCB2YXJp
+YWJsZSAncHJpdicgaW4gZHB1X2ttcy5jCiAgZHJtL21zbS9kcHU6IFJlbW92ZSBzZXQgYnV0IG5v
+dCB1c2VkIHZhcmlhYmxlICdwcml2JyBpbgogICAgZHB1X2VuY29kZXJfcGh5c192aWQuYwogIGRy
+bS9tc20vZHB1OiBSZW1vdmUgc2V0IGJ1dCBub3QgdXNlZCB2YXJpYWJsZSAncHJpdicgaW4gZHB1
+X2NvcmVfaXJxLmMKICBkcm0vbXNtL2RwdTogUmVtb3ZlIHNldCBidXQgbm90IHVzZWQgdmFyaWFi
+bGVzICdkcHVfY3N0YXRlJywncHJpdicKICBkcm0vbXNtL2RwdTogUmVtb3ZlIHNldCBidXQgbm90
+IHVzZWQgdmFyaWFibGVzICdjbWRfZW5jJywncHJpdicKICBkcm0vbXNtL2RwdTogUmVtb3ZlIHNl
+dCBidXQgbm90IHVzZWQgdmFyaWFibGVzICdtb2RlJywnZHB1X2ttcycsJ3ByaXYnCgogZHJpdmVy
+cy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X2NvcmVfaXJxLmMgICAgICAgICB8ICA0IC0tLS0K
+IGRyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9jb3JlX3BlcmYuYyAgICAgICAgfCAg
+NCAtLS0tCiBkcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfZW5jb2Rlci5jICAgICAg
+ICAgIHwgIDcgLS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X2VuY29k
+ZXJfcGh5c19jbWQuYyB8IDExIC0tLS0tLS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3Av
+ZHB1MS9kcHVfZW5jb2Rlcl9waHlzX3ZpZC5jIHwgIDIgLS0KIGRyaXZlcnMvZ3B1L2RybS9tc20v
+ZGlzcC9kcHUxL2RwdV9rbXMuYyAgICAgICAgICAgICAgfCAgNCAtLS0tCiA2IGZpbGVzIGNoYW5n
+ZWQsIDMyIGRlbGV0aW9ucygtKQoKLS0KMi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJlZWRyZW5vQGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2ZyZWVkcmVubw==
