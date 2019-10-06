@@ -2,51 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E4D2CA4BF
-	for <lists+freedreno@lfdr.de>; Thu,  3 Oct 2019 18:34:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B253ACD2F7
+	for <lists+freedreno@lfdr.de>; Sun,  6 Oct 2019 17:47:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CE2E6E0DD;
-	Thu,  3 Oct 2019 16:34:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3644D6E0BA;
+	Sun,  6 Oct 2019 15:47:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBBE989B69;
- Thu,  3 Oct 2019 16:34:05 +0000 (UTC)
-Received: from kernel.org (unknown [104.132.0.74])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4263921783;
- Thu,  3 Oct 2019 16:34:05 +0000 (UTC)
-MIME-Version: 1.0
-In-Reply-To: <20191002160632.11140-1-krzk@kernel.org>
-References: <20191002160632.11140-1-krzk@kernel.org>
-From: Stephen Boyd <sboyd@kernel.org>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>,
- Kevin Hilman <khilman@baylibre.com>, Krzysztof Kozlowski <krzk@kernel.org>,
+Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com
+ [209.85.128.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61C2A6E0BA;
+ Sun,  6 Oct 2019 15:47:40 +0000 (UTC)
+Received: by mail-wm1-f67.google.com with SMTP id r17so13043403wme.0;
+ Sun, 06 Oct 2019 08:47:40 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=SBpRb6qd+48zQK5uPLn0YvEluIoUY9o3FhFhGA6TXtY=;
+ b=hxCP0AlhsZ0Xq4/uZ3uOzVRK+z9YLkU+bBOelgxDMwryEftK5M9QPTrK2fuYK8m6K+
+ z00GPlEuErUbAO/t3PXv2zC6q2CCAH3Jk4LHMwz/av4UJJwCwxT51CxVQU6l3cc/fEVr
+ ns0zNNdQyofMca91m9nEgEN4DiP7Be/f6rq3GmdK2gaqBDmJ94MOzYIHhhbAgEEMD3oY
+ CsoR0ibLpHf1staoVpieb4oYn5AWt/yhwuDPnrRz3+PRBkGkn8/Bqh4cF/UnKGupN/J9
+ iTWYYUcTK37aPdSBF9mDqNUEUd/QqV61pa1s7f+/VrKBLE2UUPo3mjFfm2uozt5q+k50
+ y4qg==
+X-Gm-Message-State: APjAAAVJxBfaalLSOIXJIRSadQTNVhzfSS4NWVQcmEsOQ6bQ58+PwKnh
+ EkJyQOD1a03aUrW/RSeeY/E=
+X-Google-Smtp-Source: APXvYqwiD5w33vuIYv9624AWG0k3vsCYtE8uO59mkpTJi1G/TZQDv7OS1UJvxH3zuwZ0w6XxIwuUIQ==
+X-Received: by 2002:a1c:9988:: with SMTP id
+ b130mr18139392wme.164.1570376858781; 
+ Sun, 06 Oct 2019 08:47:38 -0700 (PDT)
+Received: from kozik-lap ([194.230.155.145])
+ by smtp.googlemail.com with ESMTPSA id o22sm31539882wra.96.2019.10.06.08.47.36
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Sun, 06 Oct 2019 08:47:38 -0700 (PDT)
+Date: Sun, 6 Oct 2019 17:47:34 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Sudeep Holla <sudeep.holla@arm.com>, Rob Herring <robh+dt@kernel.org>,
  Mark Rutland <mark.rutland@arm.com>,
- Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh+dt@kernel.org>,
- Sudeep Holla <sudeep.holla@arm.com>, Ulf Hansson <ulf.hansson@linaro.org>,
- bcm-kernel-feedback-list@broadcom.com, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-pci@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org
-User-Agent: alot/0.8.1
-Date: Thu, 03 Oct 2019 09:34:04 -0700
-Message-Id: <20191003163405.4263921783@mail.kernel.org>
-X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=kernel.org; s=default; t=1570120445;
- bh=3Bz1OUoxGDjgeT98hppsGEw91e3Ye36LUrMKlBtqcSU=;
- h=In-Reply-To:References:From:To:Cc:Subject:Date:From;
- b=j/K162GHR8smbdtnU3kJ9VWiqmsrEwDD+5DiuSNo/q0iv/ITY+YoqW2+yjI1POSoX
- UhSWY7N6nAoeYF55YeI0ITa7Ya91LlcNCgn/L8LsNRbxn5mYuNKwbhWSHK+NX8cnXW
- fLO2UPAEPnRh95wTpBNoIcAzJl/2QPOMSTploa9s=
-Subject: Re: [Freedreno] [PATCH v2 1/3] dt-bindings: power: Convert Generic
- Power Domain bindings to json-schema
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>,
+ Ulf Hansson <ulf.hansson@linaro.org>,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org, etnaviv@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ bcm-kernel-feedback-list@broadcom.com,
+ linux-rpi-kernel@lists.infradead.org, linux-usb@vger.kernel.org,
+ linux-mediatek@lists.infradead.org
+Message-ID: <20191006154734.GA29365@kozik-lap>
+References: <20191002160632.11140-1-krzk@kernel.org>
+ <20191002160632.11140-3-krzk@kernel.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20191002160632.11140-3-krzk@kernel.org>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Freedreno] [PATCH v2 3/3] ARM: dts: exynos: Rename power
+ domain nodes to "power-domain" in Exynos4
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,17 +75,20 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-UXVvdGluZyBLcnp5c3p0b2YgS296bG93c2tpICgyMDE5LTEwLTAyIDA5OjA2OjMwKQo+IENvbnZl
-cnQgR2VuZXJpYyBQb3dlciBEb21haW4gYmluZGluZ3MgdG8gRFQgc2NoZW1hIGZvcm1hdCB1c2lu
-Zwo+IGpzb24tc2NoZW1hLiAgVGhlIGNvbnN1bWVyIGJpbmRpbmdzIGFyZSBzcGxpdCB0byBzZXBh
-cmF0ZSBmaWxlLgo+IAo+IFNpZ25lZC1vZmYtYnk6IEtyenlzenRvZiBLb3psb3dza2kgPGtyemtA
-a2VybmVsLm9yZz4KPiAKPiAtLS0KCkFja2VkLWJ5OiBTdGVwaGVuIEJveWQgPHNib3lkQGtlcm5l
-bC5vcmc+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpG
-cmVlZHJlbm8gbWFpbGluZyBsaXN0CkZyZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9mcmVlZHJlbm8=
+T24gV2VkLCBPY3QgMDIsIDIwMTkgYXQgMDY6MDY6MzJQTSArMDIwMCwgS3J6eXN6dG9mIEtvemxv
+d3NraSB3cm90ZToKPiBUaGUgZGV2aWNlIG5vZGUgbmFtZSBzaG91bGQgcmVmbGVjdCBnZW5lcmlj
+IGNsYXNzIG9mIGEgZGV2aWNlIHNvIHJlbmFtZQo+IHBvd2VyIGRvbWFpbiBub2RlcyB0byAicG93
+ZXItZG9tYWluIi4gIE5vIGZ1bmN0aW9uYWwgY2hhbmdlLgo+IAo+IFNpZ25lZC1vZmYtYnk6IEty
+enlzenRvZiBLb3psb3dza2kgPGtyemtAa2VybmVsLm9yZz4KPiAtLS0KPiAgYXJjaC9hcm0vYm9v
+dC9kdHMvZXh5bm9zNC5kdHNpICAgIHwgMTQgKysrKysrKy0tLS0tLS0KPiAgYXJjaC9hcm0vYm9v
+dC9kdHMvZXh5bm9zNDIxMC5kdHNpIHwgIDIgKy0KPiAgYXJjaC9hcm0vYm9vdC9kdHMvZXh5bm9z
+NDQxMi5kdHNpIHwgIDIgKy0KPiAgMyBmaWxlcyBjaGFuZ2VkLCA5IGluc2VydGlvbnMoKyksIDkg
+ZGVsZXRpb25zKC0pCgpBcHBsaWVkLgoKQmVzdCByZWdhcmRzLApLcnp5c3p0b2YKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcg
+bGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
