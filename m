@@ -2,41 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92F24D1315
-	for <lists+freedreno@lfdr.de>; Wed,  9 Oct 2019 17:39:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C58AAD132E
+	for <lists+freedreno@lfdr.de>; Wed,  9 Oct 2019 17:44:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AD126E9F3;
-	Wed,  9 Oct 2019 15:39:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7822A89CD3;
+	Wed,  9 Oct 2019 15:44:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F39B6E9F3;
- Wed,  9 Oct 2019 15:39:27 +0000 (UTC)
-Received: from kernel.org (unknown [104.132.0.74])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp.codeaurora.org (smtp.codeaurora.org [198.145.29.96])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AD8A89803;
+ Wed,  9 Oct 2019 15:44:12 +0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1000)
+ id 3F9DE602F2; Wed,  9 Oct 2019 15:44:11 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ pdx-caf-mail.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.7 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ DKIM_INVALID,DKIM_SIGNED,SPF_NONE autolearn=no autolearn_force=no
+ version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 3DC5D21848;
- Wed,  9 Oct 2019 15:39:27 +0000 (UTC)
+ (Authenticated sender: jcrouse@smtp.codeaurora.org)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id C2188602F2;
+ Wed,  9 Oct 2019 15:44:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org C2188602F2
+Date: Wed, 9 Oct 2019 09:44:06 -0600
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: Ben Dooks <ben.dooks@codethink.co.uk>
+Message-ID: <20191009154406.GB13386@jcrouse1-lnx.qualcomm.com>
+Mail-Followup-To: Ben Dooks <ben.dooks@codethink.co.uk>,
+ linux-kernel@lists.codethink.co.uk, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+References: <20191009114607.701-1-ben.dooks@codethink.co.uk>
 MIME-Version: 1.0
-In-Reply-To: <20191009060520.GA14506@onstation.org>
-References: <20191007014509.25180-1-masneyb@onstation.org>
- <20191007014509.25180-5-masneyb@onstation.org>
- <20191009022131.604B52070B@mail.kernel.org>
- <20191009060520.GA14506@onstation.org>
-From: Stephen Boyd <sboyd@kernel.org>
-To: Brian Masney <masneyb@onstation.org>
-User-Agent: alot/0.8.1
-Date: Wed, 09 Oct 2019 08:39:26 -0700
-Message-Id: <20191009153927.3DC5D21848@mail.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20191009114607.701-1-ben.dooks@codethink.co.uk>
+User-Agent: Mutt/1.5.24 (2015-08-30)
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=kernel.org; s=default; t=1570635567;
- bh=wEjkXEpo6a+ocQcIoxonVZQvVfCaphW+qJXwz5ZtMwc=;
- h=In-Reply-To:References:From:To:Cc:Subject:Date:From;
- b=LIxH5q7g63SDPlNc7o1USkQ3yX/1C539AVpTxoDWueAXD2hFiYleI+iKtZ+1+DdB6
- mllVpxnFN4LMCLsGYUvmUD4T9fAb9/oBCmILsu0KLEpK8H1C+Iv3ATiQW9k3yZ+15+
- LL21Fvyqw1ZUgC9stZitovG1640810+YZgGK8hSU=
-Subject: Re: [Freedreno] [PATCH RFC v2 4/5] ARM: dts: qcom: msm8974: add
- HDMI nodes
+ d=codeaurora.org; s=default; t=1570635852;
+ bh=H77E6QRpj902y5ZjTMISRgJie95q1ZRTaFiWuLsQ4nA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=atcYYeORRrXNix+K29y+j6BTlu+GbjSjfv9zINWQV1L43uuqLuobRXyJkBTaTaLpJ
+ noK0WLvsJHdNJhwZS4zPPb4IKJISFupDxraAeVxuMddLRE+Rf6AVlOtQNn8VqiSFxl
+ yqBg/sa0qEZdEj8C283qh8cwIRAsMhAFgBqJ/PaE=
+X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=codeaurora.org; s=default; t=1570635849;
+ bh=H77E6QRpj902y5ZjTMISRgJie95q1ZRTaFiWuLsQ4nA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=f7nmvh3GhgeBppz79Sb9yZbcgBGkjcIxha0vZ8VqEMhZW1wM8O3vRZT4AlScCRBI2
+ E2w1vLzUwLXr88DnlmYfyH1UMEE/e1Nrt13okQADr0lpZPJF20xGYiMjC7mYkrj4Q0
+ ySQ3lj4rhkVKlHNvBIkGbjjlA0d8ULpIFR7xlUeg=
+X-Mailman-Original-Authentication-Results: pdx-caf-mail.web.codeaurora.org;
+ dmarc=none (p=none dis=none)
+ header.from=codeaurora.org
+X-Mailman-Original-Authentication-Results: pdx-caf-mail.web.codeaurora.org;
+ spf=none
+ smtp.mailfrom=jcrouse@codeaurora.org
+Subject: Re: [Freedreno] [PATCH] drm/msm: make a5xx_show and
+ a5xx_gpu_state_put static
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -49,55 +76,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, jonathan@marek.ca, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- bjorn.andersson@linaro.org, a.hajda@samsung.com, robdclark@gmail.com,
- Laurent.pinchart@ideasonboard.com, daniel@ffwll.ch, sean@poorly.run
+Cc: linux-kernel@lists.codethink.co.uk, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-UXVvdGluZyBCcmlhbiBNYXNuZXkgKDIwMTktMTAtMDggMjM6MDU6MjApCj4gT24gVHVlLCBPY3Qg
-MDgsIDIwMTkgYXQgMDc6MjE6MzBQTSAtMDcwMCwgU3RlcGhlbiBCb3lkIHdyb3RlOgo+ID4gUXVv
-dGluZyBCcmlhbiBNYXNuZXkgKDIwMTktMTAtMDYgMTg6NDU6MDgpCj4gPiA+IGRpZmYgLS1naXQg
-YS9hcmNoL2FybS9ib290L2R0cy9xY29tLW1zbTg5NzQuZHRzaSBiL2FyY2gvYXJtL2Jvb3QvZHRz
-L3Fjb20tbXNtODk3NC5kdHNpCj4gPiA+IGluZGV4IDdmYzIzZTQyMmNjNS4uYWYwMmVhY2UxNGUy
-IDEwMDY0NAo+ID4gPiAtLS0gYS9hcmNoL2FybS9ib290L2R0cy9xY29tLW1zbTg5NzQuZHRzaQo+
-ID4gPiArKysgYi9hcmNoL2FybS9ib290L2R0cy9xY29tLW1zbTg5NzQuZHRzaQo+ID4gPiBAQCAt
-MTMzNSw2ICsxMzQyLDc3IEBACj4gPiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-Y2xvY2tzID0gPCZtbWNjIE1EU1NfQUhCX0NMSz47Cj4gPiA+ICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgY2xvY2stbmFtZXMgPSAiaWZhY2UiOwo+ID4gPiAgICAgICAgICAgICAgICAg
-ICAgICAgICB9Owo+ID4gPiArCj4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAgIGhkbWk6IGhk
-bWktdHhAZmQ5MjIxMDAgewo+ID4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0
-YXR1cyA9ICJkaXNhYmxlZCI7Cj4gPiA+ICsKPiA+ID4gKyAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBjb21wYXRpYmxlID0gInFjb20saGRtaS10eC04OTc0IjsKPiA+ID4gKyAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICByZWcgPSA8MHhmZDkyMjEwMCAweDM1Yz4sCj4gPiA+ICsg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPDB4ZmM0YjgwMDAgMHg2MGYwPjsK
-PiA+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZWctbmFtZXMgPSAiY29yZV9w
-aHlzaWNhbCIsCj4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgInFmcHJvbV9waHlzaWNhbCI7Cj4gPiAKPiA+IElzIHRoaXMgdGhlIHFmcHJvbSAidW5jb3Jy
-ZWN0ZWQiIHBoeXNpY2FsIGFkZHJlc3M/IElmIHNvLCB3aHkgY2FuJ3QgdGhpcwo+ID4gbm9kZSB1
-c2UgYW4gbnZtZW0gdG8gcmVhZCB3aGF0ZXZlciBpdCBuZWVkcyBvdXQgb2YgdGhlIHFmcHJvbT8K
-PiAKPiBUaGUgTVNNIEhETUkgY29kZSBpcyBjb25maWd1cmVkIHRvIGxvb2sgZm9yIHRoaXMgcmVn
-LW5hbWUgaGVyZToKPiAKPiBodHRwczovL2VsaXhpci5ib290bGluLmNvbS9saW51eC9sYXRlc3Qv
-c291cmNlL2RyaXZlcnMvZ3B1L2RybS9tc20vaGRtaS9oZG1pLmMjTDU4Mgo+IAo+IFRoZXJlIGlz
-IGEgcWNvbSxxZnByb20gY29uZmlndXJlZCBmb3IgdGhpcyBib2FyZCBpbiBEVFMsIGhvd2V2ZXIg
-aXRzIGF0Cj4gYSBkaWZmZXJlbnQgYWRkcmVzcyByYW5nZSwgc28gbWF5YmUgdGhlcmUgYXJlIG11
-bHRpcGxlIHFmcHJvbXM/Cj4gCj4gaHR0cHM6Ly9lbGl4aXIuYm9vdGxpbi5jb20vbGludXgvbGF0
-ZXN0L3NvdXJjZS9hcmNoL2FybS9ib290L2R0cy9xY29tLW1zbTg5NzQuZHRzaSNMNDI0Cj4gCj4g
-bXNtODk5Ni5kdHNpIGhhcyB0aGUgc2FtZSBzdHlsZSBvZiBjb25maWd1cmF0aW9uOgo+IAo+IGh0
-dHBzOi8vZWxpeGlyLmJvb3RsaW4uY29tL2xpbnV4L2xhdGVzdC9zb3VyY2UvYXJjaC9hcm02NC9i
-b290L2R0cy9xY29tL21zbTg5OTYuZHRzaSNMOTU2Cj4gaHR0cHM6Ly9lbGl4aXIuYm9vdGxpbi5j
-b20vbGludXgvbGF0ZXN0L3NvdXJjZS9hcmNoL2FybTY0L2Jvb3QvZHRzL3Fjb20vbXNtODk5Ni5k
-dHNpI0wxNzM2Cj4gCgpUaGVyZSdzIG9ubHkgb25lIHFmcHJvbSBhbmQgdGhlcmUncyB0aGUgYWRk
-cmVzcyBzcGFjZSB0aGF0J3MKInVuY29ycmVjdGVkIiB3aGljaCBpcyBub3Qgc3VwcG9zZWQgdG8g
-YmUgdXNlZCBhbmQgdGhlcmUncyB0aGUgc3BhY2UKdGhhdCBpcyAiY29ycmVjdGVkIiBhbmQgaXMg
-c3VwcG9zZWQgdG8gYmUgdXNlZC4gSXQgbG9va3MgbGlrZSB0aGlzIGlzCnBva2luZyB0aGUgdW5j
-b3JyZWN0ZWQgc3BhY2UgYW5kIGl0IHNob3VsZCBwcm9iYWJseSBzdG9wIGRvaW5nIHRoYXQgYW5k
-CnVzZSB0aGUgbnZtZW0gcHJvdmlkZXIgaW5zdGVhZC4gTWF5YmUgc29tZW9uZSB3aXRoIGRvY3Mg
-Zm9yIHRoaXMgY2hpcAphbmQgODk5NiBjYW4gaGVscCBjb25maXJtIHRoaXMuCgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpGcmVlZHJlbm8gbWFpbGluZyBs
-aXN0CkZyZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9mcmVlZHJlbm8=
+T24gV2VkLCBPY3QgMDksIDIwMTkgYXQgMTI6NDY6MDdQTSArMDEwMCwgQmVuIERvb2tzIHdyb3Rl
+Ogo+IFRoZSBhNXh4X3Nob3cgYW5kIGE1eHhfZ3B1X3N0YXRlX3B1dCBvYmplY3RzIGFyZSBub3Qg
+ZXhwb3J0ZWQKPiBvdXRzaWRlIG9mIHRoZSBmaWxlLCBzbyBtYWtlIHRoZW0gc3RhdGljIHRvIGF2
+b2lkIHRoZSBmb2xsb3dpbmcKPiB3YXJuaW5ncyBmcm9tIHNwYXJzZToKPiAKPiBkcml2ZXJzL2dw
+dS9kcm0vbXNtL2FkcmVuby9hNXh4X2dwdS5jOjEyOTI6NTogd2FybmluZzogc3ltYm9sICdhNXh4
+X2dwdV9zdGF0ZV9wdXQnIHdhcyBub3QgZGVjbGFyZWQuIFNob3VsZCBpdCBiZSBzdGF0aWM/Cj4g
+ZHJpdmVycy9ncHUvZHJtL21zbS9hZHJlbm8vYTV4eF9ncHUuYzoxMzAyOjY6IHdhcm5pbmc6IHN5
+bWJvbCAnYTV4eF9zaG93JyB3YXMgbm90IGRlY2xhcmVkLiBTaG91bGQgaXQgYmUgc3RhdGljPwoK
+UmV2aWV3ZWQtYnk6IEpvcmRhbiBDcm91c2UgPGpjcm91c2VAY29kZWF1cm9yYS5vcmc+Cgo+IFNp
+Z25lZC1vZmYtYnk6IEJlbiBEb29rcyA8YmVuLmRvb2tzQGNvZGV0aGluay5jby51az4KPiAtLS0K
+PiBDYzogUm9iIENsYXJrIDxyb2JkY2xhcmtAZ21haWwuY29tPgo+IENjOiBTZWFuIFBhdWwgPHNl
+YW5AcG9vcmx5LnJ1bj4KPiBDYzogRGF2aWQgQWlybGllIDxhaXJsaWVkQGxpbnV4LmllPgo+IENj
+OiBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3bGwuY2g+Cj4gQ2M6IGxpbnV4LWFybS1tc21Admdl
+ci5rZXJuZWwub3JnCj4gQ2M6IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBDYzog
+ZnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0v
+bXNtL2FkcmVuby9hNXh4X2dwdS5jIHwgNiArKystLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDMgaW5z
+ZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL21zbS9hZHJlbm8vYTV4eF9ncHUuYyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2E1
+eHhfZ3B1LmMKPiBpbmRleCBlOWM1NWQxZDZjMDQuLjdmZGM5ZTJiY2FhYyAxMDA2NDQKPiAtLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vbXNtL2FkcmVuby9hNXh4X2dwdS5jCj4gKysrIGIvZHJpdmVycy9n
+cHUvZHJtL21zbS9hZHJlbm8vYTV4eF9ncHUuYwo+IEBAIC0xMjg5LDcgKzEyODksNyBAQCBzdGF0
+aWMgdm9pZCBhNXh4X2dwdV9zdGF0ZV9kZXN0cm95KHN0cnVjdCBrcmVmICprcmVmKQo+ICAJa2Zy
+ZWUoYTV4eF9zdGF0ZSk7Cj4gIH0KPiAgCj4gLWludCBhNXh4X2dwdV9zdGF0ZV9wdXQoc3RydWN0
+IG1zbV9ncHVfc3RhdGUgKnN0YXRlKQo+ICtzdGF0aWMgaW50IGE1eHhfZ3B1X3N0YXRlX3B1dChz
+dHJ1Y3QgbXNtX2dwdV9zdGF0ZSAqc3RhdGUpCj4gIHsKPiAgCWlmIChJU19FUlJfT1JfTlVMTChz
+dGF0ZSkpCj4gIAkJcmV0dXJuIDE7Cj4gQEAgLTEyOTksOCArMTI5OSw4IEBAIGludCBhNXh4X2dw
+dV9zdGF0ZV9wdXQoc3RydWN0IG1zbV9ncHVfc3RhdGUgKnN0YXRlKQo+ICAKPiAgCj4gICNpZiBk
+ZWZpbmVkKENPTkZJR19ERUJVR19GUykgfHwgZGVmaW5lZChDT05GSUdfREVWX0NPUkVEVU1QKQo+
+IC12b2lkIGE1eHhfc2hvdyhzdHJ1Y3QgbXNtX2dwdSAqZ3B1LCBzdHJ1Y3QgbXNtX2dwdV9zdGF0
+ZSAqc3RhdGUsCj4gLQkJc3RydWN0IGRybV9wcmludGVyICpwKQo+ICtzdGF0aWMgdm9pZCBhNXh4
+X3Nob3coc3RydWN0IG1zbV9ncHUgKmdwdSwgc3RydWN0IG1zbV9ncHVfc3RhdGUgKnN0YXRlLAo+
+ICsJCSAgICAgIHN0cnVjdCBkcm1fcHJpbnRlciAqcCkKPiAgewo+ICAJaW50IGksIGo7Cj4gIAl1
+MzIgcG9zID0gMDsKPiAtLSAKPiAyLjIzLjAKPiAKCi0tIApUaGUgUXVhbGNvbW0gSW5ub3ZhdGlv
+biBDZW50ZXIsIEluYy4gaXMgYSBtZW1iZXIgb2YgQ29kZSBBdXJvcmEgRm9ydW0sCmEgTGludXgg
+Rm91bmRhdGlvbiBDb2xsYWJvcmF0aXZlIFByb2plY3QKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9A
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vZnJlZWRyZW5v
