@@ -2,41 +2,41 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02AA9E5AC3
-	for <lists+freedreno@lfdr.de>; Sat, 26 Oct 2019 15:17:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBDF0E5B19
+	for <lists+freedreno@lfdr.de>; Sat, 26 Oct 2019 15:20:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C90B6EC23;
-	Sat, 26 Oct 2019 13:17:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A25A389E1A;
+	Sat, 26 Oct 2019 13:20:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CF2A6EC20;
- Sat, 26 Oct 2019 13:17:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF47489E1A;
+ Sat, 26 Oct 2019 13:20:27 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 23A232070B;
- Sat, 26 Oct 2019 13:17:45 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 9216B206DD;
+ Sat, 26 Oct 2019 13:20:26 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sat, 26 Oct 2019 09:15:17 -0400
-Message-Id: <20191026131600.2507-56-sashal@kernel.org>
+Date: Sat, 26 Oct 2019 09:18:49 -0400
+Message-Id: <20191026131910.3435-38-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191026131600.2507-1-sashal@kernel.org>
-References: <20191026131600.2507-1-sashal@kernel.org>
+In-Reply-To: <20191026131910.3435-1-sashal@kernel.org>
+References: <20191026131910.3435-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=kernel.org; s=default; t=1572095866;
- bh=4Q6Ko7KzkA22US3mKOU7UVZSyYqiqehg/AE2ijSjXi8=;
+ d=kernel.org; s=default; t=1572096027;
+ bh=WuRajSslgg9FwxSUgUQ7vxI+yxTOYwbR9hLen+p2fYo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WWkraSSqYjzH88aBDmKSY1+kxVgPUEB32pQiftel9VCQN0bNaTQ8rMBPGqbir9VQm
- llWBX3E4r7fEy5A+PtYTpJVcjBPyuhMm6gAEbw1ZUKM7569am24mEv03PmPzYONyeh
- 0rZLZQCUwsoh5BQ7an8kKAumjl3WxyJqHbaqtC8U=
-Subject: [Freedreno] [PATCH AUTOSEL 5.3 56/99] drm/msm/dsi: Implement reset
+ b=NfGfrEbIdy2lyslzfgGSkit19MtbDTQnrGViywK8HQJ6dEl97E1gl6tuYABFgMokM
+ xqUxCwRNLLadtwWo6ZIaHcX0E+tbOA1LlM2/ECSXCzkQM1MlZiUElIb15pg7kJunUG
+ PXLzLQ+Q3UiXZevuCfUaRfYhexj6RtMJt50PVlw0=
+Subject: [Freedreno] [PATCH AUTOSEL 4.19 38/59] drm/msm/dsi: Implement reset
  correctly
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
@@ -88,19 +88,19 @@ LTEtamVmZnJleS5sLmh1Z29AZ21haWwuY29tClNpZ25lZC1vZmYtYnk6IFNhc2hhIExldmluIDxz
 YXNoYWxAa2VybmVsLm9yZz4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vbXNtL2RzaS9kc2lfaG9zdC5j
 IHwgNiArKysrLS0KIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25z
 KC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL21zbS9kc2kvZHNpX2hvc3QuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9tc20vZHNpL2RzaV9ob3N0LmMKaW5kZXggMDJhY2I0MzM4NzIxYS4uYTUz
-NjMyZTZjODUwMCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL21zbS9kc2kvZHNpX2hvc3Qu
-YworKysgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2RzaS9kc2lfaG9zdC5jCkBAIC0yNiw2ICsyNiw4
+aXZlcnMvZ3B1L2RybS9tc20vZHNpL2RzaV9ob3N0LmMKaW5kZXggY2M0ZWE1NTAyZDZjMy4uM2I3
+OGJjYTBiYjRkNCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL21zbS9kc2kvZHNpX2hvc3Qu
+YworKysgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2RzaS9kc2lfaG9zdC5jCkBAIC0zNCw2ICszNCw4
 IEBACiAjaW5jbHVkZSAiZHNpX2NmZy5oIgogI2luY2x1ZGUgIm1zbV9rbXMuaCIKIAorI2RlZmlu
 ZSBEU0lfUkVTRVRfVE9HR0xFX0RFTEFZX01TIDIwCisKIHN0YXRpYyBpbnQgZHNpX2dldF92ZXJz
 aW9uKGNvbnN0IHZvaWQgX19pb21lbSAqYmFzZSwgdTMyICptYWpvciwgdTMyICptaW5vcikKIHsK
-IAl1MzIgdmVyOwpAQCAtOTg2LDcgKzk4OCw3IEBAIHN0YXRpYyB2b2lkIGRzaV9zd19yZXNldChz
+IAl1MzIgdmVyOwpAQCAtOTk0LDcgKzk5Niw3IEBAIHN0YXRpYyB2b2lkIGRzaV9zd19yZXNldChz
 dHJ1Y3QgbXNtX2RzaV9ob3N0ICptc21faG9zdCkKIAl3bWIoKTsgLyogY2xvY2tzIG5lZWQgdG8g
 YmUgZW5hYmxlZCBiZWZvcmUgcmVzZXQgKi8KIAogCWRzaV93cml0ZShtc21faG9zdCwgUkVHX0RT
 SV9SRVNFVCwgMSk7Ci0Jd21iKCk7IC8qIG1ha2Ugc3VyZSByZXNldCBoYXBwZW4gKi8KKwltc2xl
 ZXAoRFNJX1JFU0VUX1RPR0dMRV9ERUxBWV9NUyk7IC8qIG1ha2Ugc3VyZSByZXNldCBoYXBwZW4g
-Ki8KIAlkc2lfd3JpdGUobXNtX2hvc3QsIFJFR19EU0lfUkVTRVQsIDApOwogfQogCkBAIC0xMzk2
-LDcgKzEzOTgsNyBAQCBzdGF0aWMgdm9pZCBkc2lfc3dfcmVzZXRfcmVzdG9yZShzdHJ1Y3QgbXNt
+Ki8KIAlkc2lfd3JpdGUobXNtX2hvc3QsIFJFR19EU0lfUkVTRVQsIDApOwogfQogCkBAIC0xNDAy
+LDcgKzE0MDQsNyBAQCBzdGF0aWMgdm9pZCBkc2lfc3dfcmVzZXRfcmVzdG9yZShzdHJ1Y3QgbXNt
 X2RzaV9ob3N0ICptc21faG9zdCkKIAogCS8qIGRzaSBjb250cm9sbGVyIGNhbiBvbmx5IGJlIHJl
 c2V0IHdoaWxlIGNsb2NrcyBhcmUgcnVubmluZyAqLwogCWRzaV93cml0ZShtc21faG9zdCwgUkVH
 X0RTSV9SRVNFVCwgMSk7Ci0Jd21iKCk7CS8qIG1ha2Ugc3VyZSByZXNldCBoYXBwZW4gKi8KKwlt
