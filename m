@@ -2,37 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8934EF196
-	for <lists+freedreno@lfdr.de>; Tue,  5 Nov 2019 01:01:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0322EF1DC
+	for <lists+freedreno@lfdr.de>; Tue,  5 Nov 2019 01:19:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CF606E8BC;
-	Tue,  5 Nov 2019 00:01:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D7F66E8C1;
+	Tue,  5 Nov 2019 00:19:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from onstation.org (onstation.org [52.200.56.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B3CA6E8BC;
- Tue,  5 Nov 2019 00:01:34 +0000 (UTC)
-Received: from localhost (c-98-239-145-235.hsd1.wv.comcast.net
- [98.239.145.235])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested) (Authenticated sender: masneyb)
- by onstation.org (Postfix) with ESMTPSA id 465E43E88C;
- Tue,  5 Nov 2019 00:01:30 +0000 (UTC)
-Date: Mon, 4 Nov 2019 19:01:29 -0500
-From: Brian Masney <masneyb@onstation.org>
-To: Rob Clark <robdclark@chromium.org>
-Message-ID: <20191105000129.GA6536@onstation.org>
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [IPv6:2a00:1450:4864:20::52a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 600646E8BF;
+ Tue,  5 Nov 2019 00:19:19 +0000 (UTC)
+Received: by mail-ed1-x52a.google.com with SMTP id w3so12331228edt.2;
+ Mon, 04 Nov 2019 16:19:19 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=bPI3xRQSihbuAop68QULfROzLi2EqQlmJiEdDSx7yKE=;
+ b=nfxrsfnIgz785qeHTPj2XuxuK/txDzxAkGDvMDP/pmXlgB3xM1Dac9ls9VfTgAQAE0
+ +fqyLLSg2opajbQqI45sTMFlhQ1AlsntKLW98RDrG2o+CJ1M47ijU90bYGbYAjBZ5Irj
+ i2D97W4UR5OyAgkq/KPcrHPkx+hT2M4R1FN0u9Rc5HEmPwr0uQd8M2xcLjLOVq4NiIZZ
+ B0kvxvQI4jsDc1t+P0Od3indOVbfZQd2o1bdziwcuWlKLad+dLyjIAsa1qkDSykJFAUD
+ QrbfNwMs8YCZTm48Bb/Lq3ifLGQtJm/y+WXfaOSj/PL7mt/GmAeO9MJj9fNKUmgYU8I6
+ JSgA==
+X-Gm-Message-State: APjAAAW9cImBWLc8YJI28jtlXFqLEo2EE/mLvXYj4mXAWpiV+XK4CywC
+ MWYWTJ5SpWUOWYoJ5dnc+3Yn2CSKvDQ/A1epClk=
+X-Google-Smtp-Source: APXvYqy0DLKlSOyi6a3ePnMUiv4rqcXhQw7mqHXXcfvNI578kX1CkWDeon4zEoAY8/o1xG3l5IN+7seHEEwOZvA/oFA=
+X-Received: by 2002:a17:906:594f:: with SMTP id
+ g15mr11991768ejr.197.1572913157903; 
+ Mon, 04 Nov 2019 16:19:17 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=onstation.org; s=default; t=1572912090;
- bh=taJalr9ULaeTpvFha/eSrqk1aU8+Dlc81UWCxgyIWYM=;
- h=Date:From:To:Cc:Subject:From;
- b=MAzUzpIp+9/lO1CVwmOHkttx44ezWf0vlhhd+EiWAdxYkKJN0LKriYHULJF2Xswes
- SnWdiEs2nA59BagwT9FdQesRgU8/yzg7VEkNyuMSzz/g1HeyU8aJ+Gjk7XuoasehQE
- 7gBj3ClZMgqzBzP3sK24IWK4MFXGY4Gg9Ihb1SFE=
-Subject: [Freedreno] drm/msm: 'pp done time out' errors after async commit
- changes
+References: <20191105000129.GA6536@onstation.org>
+In-Reply-To: <20191105000129.GA6536@onstation.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 4 Nov 2019 16:19:07 -0800
+Message-ID: <CAF6AEGv3gs+LFOP3AGthXd4niFb_XYOuwLfEa2G9eb27b1wMMA@mail.gmail.com>
+To: Brian Masney <masneyb@onstation.org>
+X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc;
+ bh=bPI3xRQSihbuAop68QULfROzLi2EqQlmJiEdDSx7yKE=;
+ b=gXZl+zKzALBpq+fDhPXT21QE8iwzlELC/ZV+jVycXbP2eTy3Uwu9Cl3W7EKqz9kL72
+ YUWbOyXIruonjwN/tA2FbXO4O4iTbnWLeeyj+9/WVfHDaQkkoLOadJFaLuRnHSxQXFaR
+ jLG6VbxTh7Uc5dbQA9qs2YcOtqg1h4fPLHgg+5uAHe+t2WNBW6cyaEzvneiH5mqw+pmp
+ ditee/TqiVtr16jPDzKVLW+eQEFv9i3j1ukyHUKu/w8hW3R9ygtcLrLM1gm9aps7Nbg/
+ Xju7iGRjtuXhln40aqbLE71aZBeZYkQ4+h2IxGaqHYzSUfbpUJieafDv/Tcg7EJcdcRO
+ GKKA==
+Subject: Re: [Freedreno] drm/msm: 'pp done time out' errors after async
+ commit changes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -45,24 +64,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-SGV5IFJvYiwKClNpbmNlIGNvbW1pdCAyZDk5Y2VkNzg3ZTMgKCJkcm0vbXNtOiBhc3luYyBjb21t
-aXQgc3VwcG9ydCIpLCB0aGUgZnJhbWUKYnVmZmVyIGNvbnNvbGUgb24gbXkgTmV4dXMgNSBiZWdh
-biB0aHJvd2luZyB0aGVzZSBlcnJvcnM6Cgptc20gZmQ5MDAwMDAubWRzczogcHAgZG9uZSB0aW1l
-IG91dCwgbG09MAoKVGhlIGRpc3BsYXkgc3RpbGwgd29ya3MuCgpJIHNlZSB0aGF0IG1kcDVfZmx1
-c2hfY29tbWl0KCkgd2FzIGludHJvZHVjZWQgaW4gY29tbWl0IDlmNmI2NTY0MmJkMgooImRybS9t
-c206IGFkZCBrbXMtPmZsdXNoX2NvbW1pdCgpIikgd2l0aCBhIFRPRE8gY29tbWVudCBhbmQgdGhl
-IGNvbW1pdApkZXNjcmlwdGlvbiBtZW50aW9ucyBmbHVzaGluZyByZWdpc3RlcnMuIEkgYXNzdW1l
-IHRoYXQgdGhpcyBpcyB0aGUKcHJvcGVyIGZpeC4gSWYgc28sIGNhbiB5b3UgcG9pbnQgbWUgdG8g
-d2hlcmUgdGhlc2UgcmVnaXN0ZXJzIGFyZQpkZWZpbmVkIGFuZCBJIGNhbiB3b3JrIG9uIHRoZSBt
-ZHA1IGltcGxlbWVudGF0aW9uLgoKVGhhbmtzLAoKQnJpYW4KX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJl
-bm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
+T24gTW9uLCBOb3YgNCwgMjAxOSBhdCA0OjAxIFBNIEJyaWFuIE1hc25leSA8bWFzbmV5YkBvbnN0
+YXRpb24ub3JnPiB3cm90ZToKPgo+IEhleSBSb2IsCj4KPiBTaW5jZSBjb21taXQgMmQ5OWNlZDc4
+N2UzICgiZHJtL21zbTogYXN5bmMgY29tbWl0IHN1cHBvcnQiKSwgdGhlIGZyYW1lCj4gYnVmZmVy
+IGNvbnNvbGUgb24gbXkgTmV4dXMgNSBiZWdhbiB0aHJvd2luZyB0aGVzZSBlcnJvcnM6Cj4KPiBt
+c20gZmQ5MDAwMDAubWRzczogcHAgZG9uZSB0aW1lIG91dCwgbG09MAo+Cj4gVGhlIGRpc3BsYXkg
+c3RpbGwgd29ya3MuCj4KPiBJIHNlZSB0aGF0IG1kcDVfZmx1c2hfY29tbWl0KCkgd2FzIGludHJv
+ZHVjZWQgaW4gY29tbWl0IDlmNmI2NTY0MmJkMgo+ICgiZHJtL21zbTogYWRkIGttcy0+Zmx1c2hf
+Y29tbWl0KCkiKSB3aXRoIGEgVE9ETyBjb21tZW50IGFuZCB0aGUgY29tbWl0Cj4gZGVzY3JpcHRp
+b24gbWVudGlvbnMgZmx1c2hpbmcgcmVnaXN0ZXJzLiBJIGFzc3VtZSB0aGF0IHRoaXMgaXMgdGhl
+Cj4gcHJvcGVyIGZpeC4gSWYgc28sIGNhbiB5b3UgcG9pbnQgbWUgdG8gd2hlcmUgdGhlc2UgcmVn
+aXN0ZXJzIGFyZQo+IGRlZmluZWQgYW5kIEkgY2FuIHdvcmsgb24gdGhlIG1kcDUgaW1wbGVtZW50
+YXRpb24uCgpTZWUgbWRwNV9jdGxfY29tbWl0KCksIHdoaWNoIHdyaXRlcyB0aGUgQ1RMX0ZMVVNI
+IHJlZ2lzdGVycy4uIHRoZSBpZGVhCndvdWxkIGJlIHRvIGRlZmVyIHdyaXRpbmcgQ1RMX0ZMVVNI
+W2N0bF9pZF0gPSBmbHVzaF9tYXNrIHVudGlsCmttcy0+Zmx1c2goKSAod2hpY2ggaGFwcGVucyBm
+cm9tIGEgdGltZXIgc2hvcnRseSBiZWZvcmUgdmJsYW5rKS4KCkJ1dCBJIHRoaW5rIHRoZSBhc3lu
+YyBmbHVzaCBjYXNlIHNob3VsZCBub3QgY29tZSB1cCB3aXRoIGZiY29uPyAgSXQKd2FzIHJlYWxs
+eSBhZGRlZCB0byBjb3BlIHdpdGggaHdjdXJzb3IgdXBkYXRlcyAoYW5kIHVzZXJzcGFjZSB0aGF0
+CmFzc3VtZXMgaXQgY2FuIGRvIGFuIHVubGltaXRlZCAjIG9mIGN1cnNvciB1cGRhdGVzIHBlciBm
+cmFtZSkuLiB0aGUKaW50ZW50aW9uIHdhcyB0aGF0IG5vdGhpbmcgc2hvdWxkIGNoYW5nZSBpbiB0
+aGUgc2VxdWVuY2UgZm9yIG1kcDUgKGJ1dApJIGd1ZXNzIHRoYXQgd2FzIG5vdCB0aGUgY2FzZSku
+CgpCUiwKLVIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+RnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
