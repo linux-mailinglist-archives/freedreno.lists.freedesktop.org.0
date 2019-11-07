@@ -1,54 +1,38 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43209F34A3
-	for <lists+freedreno@lfdr.de>; Thu,  7 Nov 2019 17:30:15 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 476B4F35B8
+	for <lists+freedreno@lfdr.de>; Thu,  7 Nov 2019 18:30:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA6F26F746;
-	Thu,  7 Nov 2019 16:30:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A90B86F759;
+	Thu,  7 Nov 2019 17:30:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com
- [IPv6:2a00:1450:4864:20::541])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F9C66F745;
- Thu,  7 Nov 2019 16:30:11 +0000 (UTC)
-Received: by mail-ed1-x541.google.com with SMTP id b5so2370647eds.12;
- Thu, 07 Nov 2019 08:30:11 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=C0moOTP/dTLJl+UGwCydN3eAk50x1pnImwPvsWucqYQ=;
- b=Uee8k6E263FVX9pm0GcI0zPp/cd6+X9bMtQH4NBiar/c/+Bj477qdBuSEwYWg8AY00
- obvDOhQ6Qw4lYCzyK/jv1mXo6sPrQZg3FjByMXYBXiUA/b5cjNWzcPF14mU5F+tjnkQg
- B8aIe2i6SEJGLRtOM+HXc/947xJXG+VJUh7TOG/im3y6upuxgYHNTzod4Gwly57765+L
- US6cn6TJApud/1RRZmzjkK93YZTwyG2FhJrkHxoZFci5p283DBidsDr7mrAnF4Ly0VNp
- sHHtPWizkLaqbiq2SfWqZQ29xMcMS1/iTV2dvQaQTtV/Aaw7u+GOhez0/BxW3GTYmXRs
- rhRg==
-X-Gm-Message-State: APjAAAXp2krPqhlQGrkx57AwfU25cd14NbLriziZsDhimlrsY57dV8Vd
- uufqCOtiQaAQue4YtIgrKEt38o+MlaKdTLNBoLY=
-X-Google-Smtp-Source: APXvYqzjxayiMa9on5bajzeLOCAch20QLpYMVqHEUQovVn0+Dmb26F6FbYYJf5JUnkP1urCTFCj9evmwtATPuED+d5A=
-X-Received: by 2002:a50:9fcb:: with SMTP id c69mr4508631edf.163.1573144209948; 
- Thu, 07 Nov 2019 08:30:09 -0800 (PST)
-MIME-Version: 1.0
+Received: from anholt.net (anholt.net [50.246.234.109])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 988486F755;
+ Thu,  7 Nov 2019 17:30:35 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by anholt.net (Postfix) with ESMTP id 6B2FA10017F9;
+ Thu,  7 Nov 2019 09:30:35 -0800 (PST)
+Received: from anholt.net ([127.0.0.1])
+ by localhost (wales.anholt.net [127.0.0.1]) (amavisd-new, port 10024)
+ with LMTP id HoZuJZOcm_Oi; Thu,  7 Nov 2019 09:30:35 -0800 (PST)
+Received: from eliezer.anholt.net (localhost [127.0.0.1])
+ by anholt.net (Postfix) with ESMTP id 5B22010010D4;
+ Thu,  7 Nov 2019 09:30:35 -0800 (PST)
+Received: by eliezer.anholt.net (Postfix, from userid 1000)
+ id 2C06A2FE2F98; Thu,  7 Nov 2019 09:30:53 -0800 (PST)
+From: Eric Anholt <eric@anholt.net>
+To: Rob Clark <robdclark@gmail.com>, Fritz Koenig <frkoenig@google.com>
+In-Reply-To: <CAF6AEGuXv+ePcGtuN2XTFazrMrtyCYMjZOvYn5CZ3bKE2UhVQg@mail.gmail.com>
 References: <20191106232553.76553-1-frkoenig@google.com>
-In-Reply-To: <20191106232553.76553-1-frkoenig@google.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 7 Nov 2019 08:29:59 -0800
-Message-ID: <CAF6AEGuXv+ePcGtuN2XTFazrMrtyCYMjZOvYn5CZ3bKE2UhVQg@mail.gmail.com>
-To: Fritz Koenig <frkoenig@google.com>
-X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc;
- bh=C0moOTP/dTLJl+UGwCydN3eAk50x1pnImwPvsWucqYQ=;
- b=hTGwNOVN5twQ8B5yx2itJ0Vqcm9LY+Tt8/WPbad4rGuMuel4z7OxNSAVB/XGDh5/+K
- 6g4XENKOgPTY59OGdbRT0ZuldwOUV7+UfY4SJvqyLxwb4VG3AXm/KTipU8NZowYBSGkA
- 9RPn9cQ5rwAw3fU00CQuEgkmeqxCMr6SQHFIbi5oQp32kO+Sjwzqgzpx//vlQmZM0Gd8
- 1aY0+MXvJFh2FI+M4pA5mCbVSY9rYzyWuH/918/i3H/KqmLyOZBRuYTCZ9kxyfc52Q8s
- Dr0o1u8bvszIawW18ZpLrGC43zNqDdKkTz5/jWmCw/hgCukLAJtsGFmduf5GPiZ/mRjX
- Doqw==
+ <CAF6AEGuXv+ePcGtuN2XTFazrMrtyCYMjZOvYn5CZ3bKE2UhVQg@mail.gmail.com>
+User-Agent: Notmuch/0.22.2+1~gb0bcfaa (http://notmuchmail.org) Emacs/26.3
+ (x86_64-pc-linux-gnu)
+Date: Thu, 07 Nov 2019 09:30:50 -0800
+Message-ID: <87wocbiofp.fsf@anholt.net>
+MIME-Version: 1.0
 Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Add UBWC support for RGB8888
  formats
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -63,83 +47,76 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>, Sean Paul <sean@poorly.run>,
+Cc: Sean Paul <sean@poorly.run>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
  dri-devel <dri-devel@lists.freedesktop.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0196738916=="
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-T24gV2VkLCBOb3YgNiwgMjAxOSBhdCAzOjI2IFBNIEZyaXR6IEtvZW5pZyA8ZnJrb2VuaWdAZ29v
-Z2xlLmNvbT4gd3JvdGU6Cj4KPiBIYXJkd2FyZSBvbmx5IG5hdGl2ZWx5IHN1cHBvcnRzIEJHUjg4
-ODggVUJXQy4KPiBVQldDIHN1cHBvcnQgZm9yIFJHQjg4ODggY2FuIGJlIGhhZCBieSBwcmV0ZW5k
-aW5nCj4gdGhhdCB0aGUgYnVmZmVyIGlzIEJHUi4KCkp1c3QgdG8gZXhwYW5kLCB0aGlzIGFsaWdu
-cyB3aXRoIGhvdyB3ZSBoYW5kbGUgUkdCIGNvbXBvbmVudCBvcmRlciBpbgptZXNhIGZvciB0aWxl
-ZCBvciB0aWxlZCt1YndjLiAgSWYgdW5jb21wcmVzc2VkIHRvIGxpbmVhciB0aGUgY29tcG9uZW50
-Cm9yZGVyIGlzIFJHQiwgYnV0IGluIHRpbGVkIG9yIHRpbGVkK3Vid2MsIHRoZSBjb21wb25lbnQg
-b3JkZXIgaXMKYWx3YXlzIHRoZSBodyAibmF0aXZlIiBvcmRlciAoQkdSKSByZWdhcmRsZXNzIG9m
-IHdoYXQgdGhlIG91dHNpZGUKd29ybGQgdGhpbmtzLiAgQnV0IHRoYXQgZGV0YWlsIGtpbmRhIGRv
-ZXNuJ3QgbWF0dGVyLCBpdCdzIG5vdCBsaWtlCmdlbmVyaWMgY29kZSBpcyBnb2luZyB0byB1bmRl
-cnN0YW5kIHRoZSB0aWxlZCBvciB0aWxlZCt1YndjIGZvcm1hdCBpbgp0aGUgZmlyc3QgcGxhY2Uu
-LiBhbmQgY29kZSB0aGF0IGRvZXMgdW5kZXJzdGFuZCBpdCwga25vd3MgZW5vdWdoIHRvCmtub3cg
-dGhhdCB0aWxlZC90aWxlZCt1YndjIGlzIGFsd2F5cyBpbiB0aGUgbmF0aXZlIGNvbXBvbmVudCBv
-cmRlci4KCj4gU2lnbmVkLW9mZi1ieTogRnJpdHogS29lbmlnIDxmcmtvZW5pZ0Bnb29nbGUuY29t
-PgoKUmV2aWV3ZWQtYnk6IFJvYiBDbGFyayA8cm9iZGNsYXJrQGdtYWlsLmNvbT4KCj4gLS0tCj4g
-IGRyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9mb3JtYXRzLmMgICAgfCAxOCArKysr
-KysrKysrKysrKysrKysKPiAgLi4uL2RybS9tc20vZGlzcC9kcHUxL2RwdV9od19jYXRhbG9nX2Zv
-cm1hdC5oICB8ICAyICsrCj4gIDIgZmlsZXMgY2hhbmdlZCwgMjAgaW5zZXJ0aW9ucygrKQo+Cj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9mb3JtYXRzLmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfZm9ybWF0cy5jCj4gaW5kZXggMjRh
-YjYyNDkwODNhLi41Mjg2MzI2OTBmMWUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL21z
-bS9kaXNwL2RwdTEvZHB1X2Zvcm1hdHMuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlz
-cC9kcHUxL2RwdV9mb3JtYXRzLmMKPiBAQCAtNDg5LDEyICs0ODksMjggQEAgc3RhdGljIGNvbnN0
-IHN0cnVjdCBkcHVfZm9ybWF0IGRwdV9mb3JtYXRfbWFwX3Vid2NbXSA9IHsKPiAgICAgICAgICAg
-ICAgICAgdHJ1ZSwgNCwgRFBVX0ZPUk1BVF9GTEFHX0NPTVBSRVNTRUQsCj4gICAgICAgICAgICAg
-ICAgIERQVV9GRVRDSF9VQldDLCAyLCBEUFVfVElMRV9IRUlHSFRfVUJXQyksCj4KPiArICAgICAg
-IC8qIEFSR0I4ODg4IGFuZCBBQkdSODg4OCBwdXJwb3NlbHkgaGF2ZSB0aGUgc2FtZSBjb2xvcgo+
-ICsgICAgICAgICogb3JkZXJpbmcuICBUaGUgaGFyZHdhcmUgb25seSBzdXBwb3J0cyBBQkdSODg4
-OCBVQldDCj4gKyAgICAgICAgKiBuYXRpdmVseS4KPiArICAgICAgICAqLwo+ICsgICAgICAgSU5U
-RVJMRUFWRURfUkdCX0ZNVF9USUxFRChBUkdCODg4OCwKPiArICAgICAgICAgICAgICAgQ09MT1Jf
-OEJJVCwgQ09MT1JfOEJJVCwgQ09MT1JfOEJJVCwgQ09MT1JfOEJJVCwKPiArICAgICAgICAgICAg
-ICAgQzJfUl9DciwgQzBfR19ZLCBDMV9CX0NiLCBDM19BTFBIQSwgNCwKPiArICAgICAgICAgICAg
-ICAgdHJ1ZSwgNCwgRFBVX0ZPUk1BVF9GTEFHX0NPTVBSRVNTRUQsCj4gKyAgICAgICAgICAgICAg
-IERQVV9GRVRDSF9VQldDLCAyLCBEUFVfVElMRV9IRUlHSFRfVUJXQyksCj4gKwo+ICAgICAgICAg
-SU5URVJMRUFWRURfUkdCX0ZNVF9USUxFRChYQkdSODg4OCwKPiAgICAgICAgICAgICAgICAgQ09M
-T1JfOEJJVCwgQ09MT1JfOEJJVCwgQ09MT1JfOEJJVCwgQ09MT1JfOEJJVCwKPiAgICAgICAgICAg
-ICAgICAgQzJfUl9DciwgQzBfR19ZLCBDMV9CX0NiLCBDM19BTFBIQSwgNCwKPiAgICAgICAgICAg
-ICAgICAgZmFsc2UsIDQsIERQVV9GT1JNQVRfRkxBR19DT01QUkVTU0VELAo+ICAgICAgICAgICAg
-ICAgICBEUFVfRkVUQ0hfVUJXQywgMiwgRFBVX1RJTEVfSEVJR0hUX1VCV0MpLAo+Cj4gKyAgICAg
-ICBJTlRFUkxFQVZFRF9SR0JfRk1UX1RJTEVEKFhSR0I4ODg4LAo+ICsgICAgICAgICAgICAgICBD
-T0xPUl84QklULCBDT0xPUl84QklULCBDT0xPUl84QklULCBDT0xPUl84QklULAo+ICsgICAgICAg
-ICAgICAgICBDMl9SX0NyLCBDMF9HX1ksIEMxX0JfQ2IsIEMzX0FMUEhBLCA0LAo+ICsgICAgICAg
-ICAgICAgICBmYWxzZSwgNCwgRFBVX0ZPUk1BVF9GTEFHX0NPTVBSRVNTRUQsCj4gKyAgICAgICAg
-ICAgICAgIERQVV9GRVRDSF9VQldDLCAyLCBEUFVfVElMRV9IRUlHSFRfVUJXQyksCj4gKwo+ICAg
-ICAgICAgSU5URVJMRUFWRURfUkdCX0ZNVF9USUxFRChBQkdSMjEwMTAxMCwKPiAgICAgICAgICAg
-ICAgICAgQ09MT1JfOEJJVCwgQ09MT1JfOEJJVCwgQ09MT1JfOEJJVCwgQ09MT1JfOEJJVCwKPiAg
-ICAgICAgICAgICAgICAgQzJfUl9DciwgQzBfR19ZLCBDMV9CX0NiLCBDM19BTFBIQSwgNCwKPiBA
-QCAtNTUwLDcgKzU2Niw5IEBAIHN0YXRpYyBpbnQgX2RwdV9mb3JtYXRfZ2V0X21lZGlhX2NvbG9y
-X3Vid2MoY29uc3Qgc3RydWN0IGRwdV9mb3JtYXQgKmZtdCkKPiAgewo+ICAgICAgICAgc3RhdGlj
-IGNvbnN0IHN0cnVjdCBkcHVfbWVkaWFfY29sb3JfbWFwIGRwdV9tZWRpYV91YndjX21hcFtdID0g
-ewo+ICAgICAgICAgICAgICAgICB7RFJNX0ZPUk1BVF9BQkdSODg4OCwgQ09MT1JfRk1UX1JHQkE4
-ODg4X1VCV0N9LAo+ICsgICAgICAgICAgICAgICB7RFJNX0ZPUk1BVF9BUkdCODg4OCwgQ09MT1Jf
-Rk1UX1JHQkE4ODg4X1VCV0N9LAo+ICAgICAgICAgICAgICAgICB7RFJNX0ZPUk1BVF9YQkdSODg4
-OCwgQ09MT1JfRk1UX1JHQkE4ODg4X1VCV0N9LAo+ICsgICAgICAgICAgICAgICB7RFJNX0ZPUk1B
-VF9YUkdCODg4OCwgQ09MT1JfRk1UX1JHQkE4ODg4X1VCV0N9LAo+ICAgICAgICAgICAgICAgICB7
-RFJNX0ZPUk1BVF9BQkdSMjEwMTAxMCwgQ09MT1JfRk1UX1JHQkExMDEwMTAyX1VCV0N9LAo+ICAg
-ICAgICAgICAgICAgICB7RFJNX0ZPUk1BVF9YQkdSMjEwMTAxMCwgQ09MT1JfRk1UX1JHQkExMDEw
-MTAyX1VCV0N9LAo+ICAgICAgICAgICAgICAgICB7RFJNX0ZPUk1BVF9CR1I1NjUsIENPTE9SX0ZN
-VF9SR0I1NjVfVUJXQ30sCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9k
-cHUxL2RwdV9od19jYXRhbG9nX2Zvcm1hdC5oIGIvZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2Rw
-dTEvZHB1X2h3X2NhdGFsb2dfZm9ybWF0LmgKPiBpbmRleCBiYjYxMTJjOTQ5YWUuLmZiY2IzYzRi
-YmZlZSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfaHdf
-Y2F0YWxvZ19mb3JtYXQuaAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2Rw
-dV9od19jYXRhbG9nX2Zvcm1hdC5oCj4gQEAgLTYsNyArNiw5IEBACj4KPiAgc3RhdGljIGNvbnN0
-IHVpbnQzMl90IHFjb21fY29tcHJlc3NlZF9zdXBwb3J0ZWRfZm9ybWF0c1tdID0gewo+ICAgICAg
-ICAgRFJNX0ZPUk1BVF9BQkdSODg4OCwKPiArICAgICAgIERSTV9GT1JNQVRfQVJHQjg4ODgsCj4g
-ICAgICAgICBEUk1fRk9STUFUX1hCR1I4ODg4LAo+ICsgICAgICAgRFJNX0ZPUk1BVF9YUkdCODg4
-OCwKPiAgICAgICAgIERSTV9GT1JNQVRfQkdSNTY1LAo+ICB9Owo+Cj4gLS0KPiAyLjI0LjAuNDMy
-Lmc5ZDNmNWY1YjYzLWdvb2cKPgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwpGcmVlZHJlbm8gbWFpbGluZyBsaXN0CkZyZWVkcmVub0BsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9m
-cmVlZHJlbm8=
+--===============0196738916==
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha512; protocol="application/pgp-signature"
+
+--=-=-=
+Content-Type: text/plain
+
+Rob Clark <robdclark@gmail.com> writes:
+
+> On Wed, Nov 6, 2019 at 3:26 PM Fritz Koenig <frkoenig@google.com> wrote:
+>>
+>> Hardware only natively supports BGR8888 UBWC.
+>> UBWC support for RGB8888 can be had by pretending
+>> that the buffer is BGR.
+>
+> Just to expand, this aligns with how we handle RGB component order in
+> mesa for tiled or tiled+ubwc.  If uncompressed to linear the component
+> order is RGB, but in tiled or tiled+ubwc, the component order is
+> always the hw "native" order (BGR) regardless of what the outside
+> world thinks.  But that detail kinda doesn't matter, it's not like
+> generic code is going to understand the tiled or tiled+ubwc format in
+> the first place.. and code that does understand it, knows enough to
+> know that tiled/tiled+ubwc is always in the native component order.
+>
+>> Signed-off-by: Fritz Koenig <frkoenig@google.com>
+>
+> Reviewed-by: Rob Clark <robdclark@gmail.com>
+
+Seems like a reasonable workaround to me, and permissible by our fourcc
+modifier rules ("you just have to have one way to address the pixels
+given a fourcc and a modifier").
+
+Reviewed-by: Eric Anholt <eric@anholt.net>
+
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE/JuuFDWp9/ZkuCBXtdYpNtH8nugFAl3EVMoACgkQtdYpNtH8
+nuizTw/9FlTG19QgaCUdQ4TnHR4KS0aHUTewrapoe5LZ96DKl4JAKdkzdT7oGaWq
+jIX26+6DpG6WF3VWqYBG1j9or0m+lZZGxAb548KpcDlW3N7HJh226acI12AGV1M4
+GbiJKlsSosYtn1+OsvaXHQILN1+kBgoXbGrYq5FBIakAJ/E/lSp4r89U0mPAQu5H
+OBooVqdOZTzE6wf2VAuxW/Wi7PUuHQ5ba1CkUJYj3/3uyyy+X7dKAhKuknTksnMQ
+35PpPXB9qyt5DIC0j2DG4htxzvAIMzhy/WYw6KWqFKFkCqHCn9JfZQokob+VK2az
+JXBosScS1tfx7+Rzdjk3ACzJXgjqRSPSKHkfclDRujXL0K2bDEdCl4Os68RyaFtn
+0aiSpcdhTEMdxmP8vm3gUHrQSokHU1ZMGot6BvwSZO3WqT7BM3vGCIriWbGmvdbu
+zGWuCxSE8LqTnDNBGAgvI8tNfYw0dO/E73J+ARCrq5dniqHrNAahXquZKQQSVKbX
+zGIIpXamrlp6EXyeDu4ljxqKMo6FQFJUSMc9tKY9Us4KOAB2lgoSDwf9F5GYZk7+
+113gqrWzUFEV1oQZnuHnYTF24J784uzoEwxjAD11C0+JQ1s9PTpe44As0iJiUiq7
+D7e1pPWOBmpd1Ej5YrOalr7Qn7IUyPTVrahc9GPZ5377VYEoZdo=
+=0F+3
+-----END PGP SIGNATURE-----
+--=-=-=--
+
+--===============0196738916==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5v
+IG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
+
+--===============0196738916==--
