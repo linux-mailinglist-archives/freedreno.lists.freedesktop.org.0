@@ -1,60 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F8F9F95CE
-	for <lists+freedreno@lfdr.de>; Tue, 12 Nov 2019 17:40:38 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C981F9607
+	for <lists+freedreno@lfdr.de>; Tue, 12 Nov 2019 17:52:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7AE86E7A0;
-	Tue, 12 Nov 2019 16:40:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BA646EB7E;
+	Tue, 12 Nov 2019 16:52:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x244.google.com (mail-lj1-x244.google.com
- [IPv6:2a00:1450:4864:20::244])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B35816E7A0;
- Tue, 12 Nov 2019 16:40:35 +0000 (UTC)
-Received: by mail-lj1-x244.google.com with SMTP id t5so18577053ljk.0;
- Tue, 12 Nov 2019 08:40:35 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=mWVrCYmejhKGmzIIEDPgBnwgNyRnKaMZUgPiu5/d9v4=;
- b=pPhFCKwg+02kTdfF9/UuW1+UodiAJYz85YmGH9D/LuWBHVB4X5TVgIXez2erBIBfGc
- GrlG+sIXUSY6NpRjDSXU5o6R9SU8gnpI59MNLtjUoyuaddCdEZQdmwh7dbu5NdLH28zM
- vDxzh1HpbgVGaQK6FveVaNrUaY3lDXv6uEv/v5LMrlZjRnHB2Ym0MsWvsjMCzFCX9zOj
- 7HCLx8cwR8W5BKLXRLBOU/wBdqq8E+dzkHPM5q6tTAqJH26luhIM1J/DHWVcQKrzt0xT
- npwINDbCCPfX5ri48fkZH4ddhpB+DPcaRXkIli34Mi7GHt1GEaZxXmsLdAsICC4O5MaP
- Tt+A==
-X-Gm-Message-State: APjAAAVoKBqdTn4oVyN55mxt41k4oePT4CMNLnSyy54nzsOex50Y6wrv
- KlGqVEB3rN4wN/ihq+ohkc6wGcM9V9axOqRmfunOb9m9
-X-Google-Smtp-Source: APXvYqwGOAyQYyc+eRSdNINGCv/uWJ7yTf9nqDn9F3cglME2ClIXK1ZBV5Gr7ob+J6hAyyebEbhdqt83uuXr/OQU0Pg=
-X-Received: by 2002:a2e:6e15:: with SMTP id j21mr20900560ljc.17.1573576833954; 
- Tue, 12 Nov 2019 08:40:33 -0800 (PST)
-MIME-Version: 1.0
+Received: from smtp.codeaurora.org (smtp.codeaurora.org [198.145.29.96])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E0246EB83;
+ Tue, 12 Nov 2019 16:52:22 +0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1000)
+ id C891F60850; Tue, 12 Nov 2019 16:52:21 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ pdx-caf-mail.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.7 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ DKIM_INVALID,DKIM_SIGNED,SPF_NONE autolearn=no autolearn_force=no
+ version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: jcrouse@smtp.codeaurora.org)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 60E3C6053B;
+ Tue, 12 Nov 2019 16:52:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 60E3C6053B
+Date: Tue, 12 Nov 2019 09:52:18 -0700
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: Fabio Estevam <festevam@gmail.com>
+Message-ID: <20191112165218.GA14014@jcrouse1-lnx.qualcomm.com>
+Mail-Followup-To: Fabio Estevam <festevam@gmail.com>,
+ Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, Jonathan Marek <jonathan@marek.ca>,
+ Sean Paul <sean@poorly.run>,
+ "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Chris Healy <cphealy@gmail.com>
 References: <20191015134012.15165-1-festevam@gmail.com>
  <CAOCk7NpoGA8VmTXSk96VxVtGU2yFs0+n8wyBeQkvwR8HZSOCRQ@mail.gmail.com>
  <CAOMZO5AnZ2dhgxsLVUSDqSGcPH8T1yOABWrqEniKotONTR29fw@mail.gmail.com>
  <20191101145209.GA16446@jcrouse1-lnx.qualcomm.com>
-In-Reply-To: <20191101145209.GA16446@jcrouse1-lnx.qualcomm.com>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Tue, 12 Nov 2019 13:40:22 -0300
-Message-ID: <CAOMZO5ADoav=-6ZMn-C=7UA0Fz96BVyitSYeAsn+kxf8HBzZ2g@mail.gmail.com>
-To: Fabio Estevam <festevam@gmail.com>, Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Jonathan Marek <jonathan@marek.ca>,
- Sean Paul <sean@poorly.run>, 
- "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>, 
- freedreno <freedreno@lists.freedesktop.org>, Chris Healy <cphealy@gmail.com>
-X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=mWVrCYmejhKGmzIIEDPgBnwgNyRnKaMZUgPiu5/d9v4=;
- b=lSJCXWj2qpsEYAMgRhqnyjOsNxKjB63rFMKifZMlUNZmu14pNKwBUtD/kkNtMpf9R+
- SEgLRObhUYLioMS0bJpVML5ysZSipyDf8eZZMEjmeUbZAFGUus4IInSSJSpcLL7UzQKU
- 7EY8+dSvlxJ2twMH85JfGiTvUeOiCNoYwB26qzlmBRSNNo9o0mLes6q1yByVIDiCa4RJ
- rBSfv63wANY4Kk8HYYLpbgVQ6TDBEDNt7xfp1er8WVV27SUPEi0GnYs5oOQqzu2sWMYT
- ldLqhfz32bLYf6D2X/1lcUwbXxI5fE4X3CVU8tMIwaGHqAT4BWx0g/rrU0z4/B5lvYiE
- 6r4A==
+ <CAOMZO5ADoav=-6ZMn-C=7UA0Fz96BVyitSYeAsn+kxf8HBzZ2g@mail.gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CAOMZO5ADoav=-6ZMn-C=7UA0Fz96BVyitSYeAsn+kxf8HBzZ2g@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=codeaurora.org; s=default; t=1573577541;
+ bh=Len64tbx0Cw9kAJN3Nrjvke2HLMhkWH1LU65XB4hhL4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=WoAXmDocN6yiW89OMmckHpuHecY4jxoJoAdbWo6viyUARqFm15ZamojtOb5+nAIhM
+ /U4ttrnC385zlmhVvkpvhwo/SYOon/5asJoBKwfcZIbW0M91n67Tq6YjjEAQJji8q3
+ UXbhlTJAoUW7ICOWuiPBtEDxkLPNhrQnCtBvMlF4=
+X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=codeaurora.org; s=default; t=1573577541;
+ bh=Len64tbx0Cw9kAJN3Nrjvke2HLMhkWH1LU65XB4hhL4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=WoAXmDocN6yiW89OMmckHpuHecY4jxoJoAdbWo6viyUARqFm15ZamojtOb5+nAIhM
+ /U4ttrnC385zlmhVvkpvhwo/SYOon/5asJoBKwfcZIbW0M91n67Tq6YjjEAQJji8q3
+ UXbhlTJAoUW7ICOWuiPBtEDxkLPNhrQnCtBvMlF4=
+X-Mailman-Original-Authentication-Results: pdx-caf-mail.web.codeaurora.org;
+ dmarc=none (p=none dis=none)
+ header.from=codeaurora.org
+X-Mailman-Original-Authentication-Results: pdx-caf-mail.web.codeaurora.org;
+ spf=none
+ smtp.mailfrom=jcrouse@codeaurora.org
 Subject: Re: [Freedreno] [PATCH RESEND] drm/msm/adreno: Do not print error
  on "qcom, gpu-pwrlevels" absence
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -69,16 +82,25 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: Jonathan Marek <jonathan@marek.ca>, Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
+ Sean Paul <sean@poorly.run>,
+ "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
+ Rob Clark <robdclark@gmail.com>, freedreno <freedreno@lists.freedesktop.org>,
+ Chris Healy <cphealy@gmail.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-SGkgSm9yZGFuLAoKT24gRnJpLCBOb3YgMSwgMjAxOSBhdCAxMTo1MiBBTSBKb3JkYW4gQ3JvdXNl
-IDxqY3JvdXNlQGNvZGVhdXJvcmEub3JnPiB3cm90ZToKCj4gSSdtIGdvb2Qgd2l0aCB0aGlzLiBU
-aGlzIHJlYWxseSBzaG91bGQgb25seSBiZSBhcm91bmQgZm9yCj4gY29tcGF0aWJpbGl0eSB3aXRo
-IGRvd25zdHJlYW0gZGV2aWNlIHRyZWUgZmlsZXMgd2hpY2ggc2hvdWxkIG1lYW4gbm90aGluZyBm
-b3IKPiBJLk1YNS4KCk1heSBJIHJlc2VuZCBpdCB3aXRoIHlvdXIgUmV2aWV3ZWQtYnkgdGFnPwoK
-VGhhbmtzCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkZy
-ZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVubw==
+T24gVHVlLCBOb3YgMTIsIDIwMTkgYXQgMDE6NDA6MjJQTSAtMDMwMCwgRmFiaW8gRXN0ZXZhbSB3
+cm90ZToKPiBIaSBKb3JkYW4sCj4gCj4gT24gRnJpLCBOb3YgMSwgMjAxOSBhdCAxMTo1MiBBTSBK
+b3JkYW4gQ3JvdXNlIDxqY3JvdXNlQGNvZGVhdXJvcmEub3JnPiB3cm90ZToKPiAKPiA+IEknbSBn
+b29kIHdpdGggdGhpcy4gVGhpcyByZWFsbHkgc2hvdWxkIG9ubHkgYmUgYXJvdW5kIGZvcgo+ID4g
+Y29tcGF0aWJpbGl0eSB3aXRoIGRvd25zdHJlYW0gZGV2aWNlIHRyZWUgZmlsZXMgd2hpY2ggc2hv
+dWxkIG1lYW4gbm90aGluZyBmb3IKPiA+IEkuTVg1Lgo+IAo+IE1heSBJIHJlc2VuZCBpdCB3aXRo
+IHlvdXIgUmV2aWV3ZWQtYnkgdGFnPwoKT2YgY291cnNlLgoKSm9yZGFuCi0tIApUaGUgUXVhbGNv
+bW0gSW5ub3ZhdGlvbiBDZW50ZXIsIEluYy4gaXMgYSBtZW1iZXIgb2YgQ29kZSBBdXJvcmEgRm9y
+dW0sCmEgTGludXggRm91bmRhdGlvbiBDb2xsYWJvcmF0aXZlIFByb2plY3QKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlz
+dApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
