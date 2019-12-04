@@ -2,58 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B99C511306A
-	for <lists+freedreno@lfdr.de>; Wed,  4 Dec 2019 18:03:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A90D1135C9
+	for <lists+freedreno@lfdr.de>; Wed,  4 Dec 2019 20:36:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F2FC6E89B;
-	Wed,  4 Dec 2019 17:03:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F2706EA39;
+	Wed,  4 Dec 2019 19:36:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sonic302-3.consmr.mail.bf2.yahoo.com
- (sonic302-3.consmr.mail.bf2.yahoo.com [74.6.135.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 058836E89B
- for <freedreno@lists.freedesktop.org>; Wed,  4 Dec 2019 17:03:46 +0000 (UTC)
-X-YMail-OSG: Lv9t3zkVM1nXP5zjiRci70NKU7KCyCrx9AOewYjggqK.04IdWgqYIdSZeWZpMmC
- t_i8slS7CVqXjpHfR1KwC5.UWyHWUbkwXIgqKqV.n0wZAWM21YvcV6YC0mm5MlJ3p4g.2LLdqtUG
- 57AnaQ.rX2r5FNPY2EpT0lE2MliztBz30aPs6ei7jUiyD_byzrqTxgWY77Q50zcIIKV6MeDeGj0X
- kS48JZ3jYZOqlCyhAAGjmSKyWZ8AYyqCX8I9sTM2uDJ_XfBI0ZcK8J0mBCIumiKf3kWAqC0c798p
- S5wofn_vJNhreNstkrd3wkOSSvLDtncORUSUhPrJI1GOZoL2FUlgioF0NlDDHTmkhy7X5_ggW.FG
- 9.XXb9UPmRoGkSRv0xxoQMA50n_JZ0xt4tT5Pk4gz.0zzjrX8iAYkPwEWdxW7eI4MX4hR6COhGXv
- 4YoA_H_Hwv2BAW_UnMHFZ9i_PZ1n6xBPKyh0sXNqB9BWJcsMdiY4h5Lm.hnYOs9U9vaftoe5JX56
- Wy45.M6LYm32aNZJVq5z.vlq9Ss7yiNLie_TzslEk59UwhgkXy8NwuQFJEyBC67KH5Z6bocK5hY1
- cFzycrP_42BZ2f1aQB3wNCO6bjnvr0hMBcMODvE8EbU9IgrcIVRcG2GCEoO3.4yYS67Clr6E3MOp
- UXbNSklmIjMnLbLTU6TWCn5tHpKK9mZb4IKEwmzmZlbru3bTPmUfL2UkyQGE_Q4WWuwrHDOdzflj
- 7uv0Wthyyx.CgL4_9bR6n4zw83eJrakTt_j7LwJBtqpQUv0EsrKFJQh6fym2t0OgvUM4SD9osVDB
- FCwYKl_7JqCAFfpbeh6P6i1LZQRMLdm4zDafTm.akIBlS6.ujJ7mK5WmOTuAcqxaIllkzQXbhSmJ
- Bpub9UVadBaJywIX2o0dNRYfiCpdxIiQC1jFPZlmcdBbm7DI_9VIv89KPjfz.7eCzUi2W1SFMYp9
- grAdRMeZLZy.BXt2VYC9L17tyUHfXm42KnS0SPGk_qRPc2JkceaksDT_REMbc59sS32VYceVT4wa
- 6rfMEbHUf27nhL4vKt0P1plI.J4_afvNX6yQlgVR_wPwX6teJkH0p1IKAEgNs9Tn9kdUkTKSJ.iy
- sNOaNHDGnKOCVKtMf2ByoSUinEz0dnWB7_5ZXxMPDrdk638JHC1dVmG2yfAiY7CfFXnsZYq9e0_2
- uRt9SSehlZmyG6d7WSlUrh5Umm8_XOMTbRIQkDTtYe8daraD68UroQhVaAMkyYUxDcBO2qzEHYX5
- cRedInt44VoMv.RZc.c23ynaUqkoyFmG_ADHoMjQVZ6MNH7c_yRqhLMyGW2EYqLDP9h3ZbeAU4Yf
- qpFQAhYy5AkPmqtCMTRHgxpXcdoH7myN2rUYaC0TdoBzM5dTp0g--
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic302.consmr.mail.bf2.yahoo.com with HTTP; Wed, 4 Dec 2019 17:03:46 +0000
-Received: by smtp403.mail.ir2.yahoo.com (Oath Hermes SMTP Server) with ESMTPA
- ID afd050c9143b7f719d0e0ea8cbffc9b9; 
- Wed, 04 Dec 2019 17:03:42 +0000 (UTC)
-From: fantoblackmassy <fantoblackmassy13@aol.com>
-To: freedreno@lists.freedesktop.org
-Message-ID: <4773dc26-d6d6-997a-a52f-a21946b9ce42@aol.com>
-Date: Wed, 4 Dec 2019 19:03:40 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.1
+Received: from mail-oi1-f195.google.com (mail-oi1-f195.google.com
+ [209.85.167.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99DA36EA32;
+ Wed,  4 Dec 2019 19:36:17 +0000 (UTC)
+Received: by mail-oi1-f195.google.com with SMTP id v140so398388oie.0;
+ Wed, 04 Dec 2019 11:36:17 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=4l/JtwjXT1qBF416IXv0Ieqm2uxNXQ8tl4ay1L+NPDw=;
+ b=mn5Pvt6SqB3Bt4I4i/Ut8n1FGmtQSjaJClvhSvW+SD7ZQMc+jc2B643m4GfMVPgCzm
+ FUyeu5zfnw3oQq79OAKkfemQMiGP8qRBTzZiDFPd45vSh5E6XMTKGBgJtD4fzjxuiIIk
+ jYaobEMTtC5Ri6lD/ZyN9kL5+gKlLPXnfT849fd0DlXaBeanuI5ITyoW2r0jnYCUtrOM
+ yJ6Ge84+rC7ticDTiEhXtBR/sbPP63WRaE15YTbwW520941P68QN8kupgDJkBOFQl14r
+ BbuukYkGsnhh6XXuDk/P2/Su3DLSdlT6N19NOn7rAQGabRtbvnaLkO9HEsvnh3Z2DiSz
+ vsag==
+X-Gm-Message-State: APjAAAXTgxBkUPH7dclalLF8i/EqRxTwDQPn5UTj2/m7b5w6dEP79CqM
+ AVXd+NWEcQReMUZnMeWh0oz07Q8=
+X-Google-Smtp-Source: APXvYqwbYbRZksHTtKqsDfJTwU2S/KsK6vdSez9yw9Sp1yFW45VcbvaETJUBHHTwFZidWzmuVFrCmg==
+X-Received: by 2002:a05:6808:b26:: with SMTP id
+ t6mr3792135oij.123.1575488176840; 
+ Wed, 04 Dec 2019 11:36:16 -0800 (PST)
+Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id m68sm2634826oig.50.2019.12.04.11.36.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 Dec 2019 11:36:16 -0800 (PST)
+Date: Wed, 4 Dec 2019 13:36:15 -0600
+From: Rob Herring <robh@kernel.org>
+To: Brian Masney <masneyb@onstation.org>
+Message-ID: <20191204193615.GA20880@bogus>
+References: <20191122012645.7430-1-masneyb@onstation.org>
+ <20191122012645.7430-2-masneyb@onstation.org>
 MIME-Version: 1.0
-Content-Language: en-US
-References: <4773dc26-d6d6-997a-a52f-a21946b9ce42.ref@aol.com>
-X-Mailer: WebService/1.1.14728 hermes Apache-HttpAsyncClient/4.1.4
- (Java/1.8.0_181)
-X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=aol.com; s=a2048; t=1575479026;
- bh=Is2up31XLncr+SsoyDvZn8jlBpZq6GGz84ppPVvIQSs=;
- h=From:Subject:To:Date:References:From:Subject;
- b=YOVMmWHXA/d5lXH3GPcCni00YVd4QyCgIDaeIeWxZDwMiT2w/aMM0XyY8IjlkoCCaz00jzCs/+iri6NGyOpCUXYeGXsOu9N+hfKk48gRmACfr9sQnz31MB5TvbwnrmQ7SNbjqfDWUX5kL18849E3T54KU53LJR8p6mWGnttrFmRxI9zIQM381yV3+J8RaafL+buryJzikOzeHOAFGYU5zfCStuk6W3m/dGGy5G+2WAEJH350Ue+G61z7rxauIOAwwkae3c57Hgeq2TEINlA1OdEqibVZMgJibIsNPy7XcGc6A29Y6Kp81S5aieNyeQzGkBafV67sPM/0QrFKJqvHcA==
-Subject: [Freedreno] Forum for discussion & issue tracker
+Content-Disposition: inline
+In-Reply-To: <20191122012645.7430-2-masneyb@onstation.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Freedreno] [PATCH v2 1/4] dt-bindings: drm/msm/gpu: document
+ second interconnect
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -66,16 +61,28 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: mark.rutland@arm.com, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+ jcrouse@codeaurora.org, dri-devel@lists.freedesktop.org, dianders@chromium.org,
+ robdclark@gmail.com, robh+dt@kernel.org, daniel@ffwll.ch, sean@poorly.run,
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-SGVsbG8hCgpJIGZvdW5kIEZyZWVkcmVubydzIHdpa2kgb24gR2l0aHViIGFuZCB0aGlzIGVtYWls
-IGFkZHJlc3MgaW4gdGhlIGNvbnRhY3QgCnNlY3Rpb24uCgpJcyB0aGlzIG1haWxpbmcgbGlzdCBh
-bmQgSVJDIHRoZSBvbmx5IHdheSBmb3IgZGlzY3Vzc2lvbiBhbmQgcG9zdGluZyAKaXNzdWVzPyBI
-YXZlIHlvdSBjb25zaWRlcmVkIHNldHRpbmcgdXAgYSBpc3N1ZSB0cmFja2VyIGFuZCBhIGRpc2N1
-c3Npb24gCmZvcnVtPwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwpGcmVlZHJlbm8gbWFpbGluZyBsaXN0CkZyZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9mcmVlZHJl
-bm8=
+T24gVGh1LCAyMSBOb3YgMjAxOSAyMDoyNjo0MiAtMDUwMCwgQnJpYW4gTWFzbmV5IHdyb3RlOgo+
+IFNvbWUgQTN4eCBhbmQgYWxsIEE0eHggQWRyZW5vIEdQVXMgZG8gbm90IGhhdmUgR01FTSBpbnNp
+ZGUgdGhlIEdQVSBjb3JlCj4gYW5kIG11c3QgdXNlIHRoZSBPbiBDaGlwIE1FTW9yeSAoT0NNRU0p
+IGluIG9yZGVyIHRvIGJlIGZ1bmN0aW9uYWwuCj4gVGhlcmUncyBhIHNlcGFyYXRlIGludGVyY29u
+bmVjdCBwYXRoIHRoYXQgbmVlZHMgdG8gYmUgc2V0dXAgdG8gT0NNRU0uCj4gTGV0J3MgZG9jdW1l
+bnQgdGhpcyBzZWNvbmQgaW50ZXJjb25uZWN0IHBhdGggdGhhdCdzIGF2YWlsYWJsZS4gU2luY2UK
+PiB0aGVyZSdzIG5vdyB0d28gYXZhaWxhYmxlIGludGVyY29ubmVjdHMsIGxldCdzIGFkZCB0aGUK
+PiBpbnRlcmNvbm5lY3QtbmFtZXMgcHJvcGVydHkuCj4gCj4gU2lnbmVkLW9mZi1ieTogQnJpYW4g
+TWFzbmV5IDxtYXNuZXliQG9uc3RhdGlvbi5vcmc+Cj4gLS0tCj4gIERvY3VtZW50YXRpb24vZGV2
+aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5L21zbS9ncHUudHh0IHwgNiArKysrKy0KPiAgMSBmaWxl
+IGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQo+IAoKQWNrZWQtYnk6IFJv
+YiBIZXJyaW5nIDxyb2JoQGtlcm5lbC5vcmc+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJlZWRyZW5vQGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2ZyZWVkcmVubw==
