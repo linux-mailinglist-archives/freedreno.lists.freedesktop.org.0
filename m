@@ -2,44 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29004119495
-	for <lists+freedreno@lfdr.de>; Tue, 10 Dec 2019 22:17:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12DA0119F1D
+	for <lists+freedreno@lfdr.de>; Wed, 11 Dec 2019 00:12:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 764CF6E962;
-	Tue, 10 Dec 2019 21:17:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 993376EA18;
+	Tue, 10 Dec 2019 23:12:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 372 seconds by postgrey-1.36 at gabe;
- Tue, 10 Dec 2019 21:17:23 UTC
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77DC16E97A
- for <freedreno@lists.freedesktop.org>; Tue, 10 Dec 2019 21:17:23 +0000 (UTC)
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
- [73.47.72.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 83AE5246A4;
- Tue, 10 Dec 2019 21:11:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1576012271;
- bh=oxzgVn+qO7Gepr5CTlyp82xwEAlkCGtf+u+GmhSRmhw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=nI+YMaq28yeXdd9fPKYczo/xchlC/LOwlgFa85LOGD5ymAasMlJ+UkiyqA+BEolZN
- tRV8OOsRHlYH7DLpg1z/mQwksCYNrx9Sn7GomBIGAdaDCWr4kJWw78bFpTwdVHSCXA
- mpUauBVVbHO7K0XWoV5lFGLozbUoTx2ra8wCwrWI=
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Tue, 10 Dec 2019 16:05:21 -0500
-Message-Id: <20191210210735.9077-177-sashal@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191210210735.9077-1-sashal@kernel.org>
-References: <20191210210735.9077-1-sashal@kernel.org>
-MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Subject: [Freedreno] [PATCH AUTOSEL 5.4 216/350] drm: msm: a6xx: fix debug
- bus register configuration
+Received: from mail-vs1-xe41.google.com (mail-vs1-xe41.google.com
+ [IPv6:2607:f8b0:4864:20::e41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71DB76E15C;
+ Tue, 10 Dec 2019 23:12:02 +0000 (UTC)
+Received: by mail-vs1-xe41.google.com with SMTP id b79so9347108vsd.9;
+ Tue, 10 Dec 2019 15:12:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=gaG7NzmAUWMeK+pPbhmsiioZEJ7ynwhRDyo6afhSaL0=;
+ b=SXY0dPujgj/4oXoCSUm/ID+Rm0gNCbCmkX47U2Z65Bz8dF6iFHcYFMflsfqy9/XMCa
+ VPF0nCN6m/sJNpM6Nm8T4dOWQPHdqCj9c225PTl7tRbA0gBTxP3xDnwnFmQqqBK4nLos
+ rgbJgnSgrL6nxNQi2cgjX4RUKGcCMkpPtcJOg0TBSN+C2A1zllRdg5GNot690AOYpk+Z
+ 3Hgi3wzctjryWa71MH5UOBc2SqBJqh+wHJodxDeton9gHw65+t84JTA1/7wy21UkmUf6
+ CAmH3rcDLMUtqVBVx0QpVA0hVPTq6x6KASKA5FHWdqir1vW7T5pKVHlyVsptvRLIMfbS
+ FZCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=gaG7NzmAUWMeK+pPbhmsiioZEJ7ynwhRDyo6afhSaL0=;
+ b=p00Tz+xptVIwWGcLmLflb41EGnchi9heL0UG6kBWyC+FTL95XtqoN9qSISwGS+bzst
+ D+aVITqHXgUARLNQ7MWSFdEW9B8IebDCFPcUbxT0+7+PBpwfCqEEioS/EAssc2ba3U0O
+ +WCfjOH/qjEASREzTNtKoX23hZPlQRLL2YLxu4CE/pZP3XPsM0pKEeXgNYXOXQR3lx9o
+ or6AzEYmA3kiU3zlKvYs51dOyls24gYtfqOG8iWqLK4m14wiBAXiDITXryxxqhcdXa8B
+ JBqJQldMrbjrJmsr/Pzqa3Oy7E82v+neqWAowmrKeqx0yEV9/poejpYLelOiLgzVoz17
+ FTrg==
+X-Gm-Message-State: APjAAAWd+ZfConEVKPuN9VR87TuWrWknZkPNcES6/Qn57vqi9Ypeckmr
+ eYCyAaRUTwkoW8Lw+sfXmEM=
+X-Google-Smtp-Source: APXvYqySIhE1d01pjdaN+sP20E10EZaXTP2I3SUSuAL1Tot/xLHhDni6mv7dS0dxnpAhWUQJXjCdtA==
+X-Received: by 2002:a05:6102:3d5:: with SMTP id
+ n21mr151558vsq.26.1576019521116; 
+ Tue, 10 Dec 2019 15:12:01 -0800 (PST)
+Received: from fabio-Latitude-E5450.nxp.com ([2804:14c:482:5bb::1])
+ by smtp.gmail.com with ESMTPSA id 41sm171892uaf.8.2019.12.10.15.11.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 Dec 2019 15:12:00 -0800 (PST)
+From: Fabio Estevam <festevam@gmail.com>
+To: robdclark@gmail.com
+Date: Tue, 10 Dec 2019 20:11:45 -0300
+Message-Id: <20191210231145.24838-1-festevam@gmail.com>
+X-Mailer: git-send-email 2.17.1
+Subject: [Freedreno] [PATCH RESEND] drm/msm/adreno: Do not print error on
+ "qcom, gpu-pwrlevels" absence
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,78 +63,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, linux-arm-msm@vger.kernel.org,
- Sharat Masetty <smasetty@codeaurora.org>, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Sean Paul <seanpaul@chromium.org>,
- freedreno@lists.freedesktop.org
+Cc: Fabio Estevam <festevam@gmail.com>, jonathan@marek.ca,
+ jeffrey.l.hugo@gmail.com, airlied@linux.ie, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, jcrouse@codeaurora.org, daniel@ffwll.ch,
+ sean@poorly.run
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Sharat Masetty <smasetty@codeaurora.org>
+Booting the adreno driver on a imx53 board leads to the following
+error message:
 
-[ Upstream commit 7f4009c4bbea4438b50f3b12d1c57da3f5cd8db3 ]
+adreno 30000000.gpu: [drm:adreno_gpu_init] *ERROR* Could not find the GPU powerlevels
 
-Fix the cx debugbus related register configuration, to collect accurate
-bus data during gpu snapshot. This helps with complete snapshot dump
-and also complete proper GPU recovery.
+As the "qcom,gpu-pwrlevels" property is optional and never present on
+i.MX5, turn the message into debug level instead.
 
-Fixes: 1707add81551 ("drm/msm/a6xx: Add a6xx gpu state")
-Reviewed-by: Rob Clark <robdclark@gmail.com>
-Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
-Signed-off-by: Sean Paul <seanpaul@chromium.org>
-Link: https://patchwork.freedesktop.org/patch/339165
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Fabio Estevam <festevam@gmail.com>
+Reviewed-by: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
+Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 24 ++++++++++-----------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+Trying once again :-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-index e686331fa0898..691c1a277d91b 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-@@ -352,26 +352,26 @@ static void a6xx_get_debugbus(struct msm_gpu *gpu,
- 		cxdbg = ioremap(res->start, resource_size(res));
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index 0783e4b5486a..5d7bdb4c83cc 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -826,7 +826,7 @@ static int adreno_get_legacy_pwrlevels(struct device *dev)
  
- 	if (cxdbg) {
--		cxdbg_write(cxdbg, REG_A6XX_DBGC_CFG_DBGBUS_CNTLT,
-+		cxdbg_write(cxdbg, REG_A6XX_CX_DBGC_CFG_DBGBUS_CNTLT,
- 			A6XX_DBGC_CFG_DBGBUS_CNTLT_SEGT(0xf));
- 
--		cxdbg_write(cxdbg, REG_A6XX_DBGC_CFG_DBGBUS_CNTLM,
-+		cxdbg_write(cxdbg, REG_A6XX_CX_DBGC_CFG_DBGBUS_CNTLM,
- 			A6XX_DBGC_CFG_DBGBUS_CNTLM_ENABLE(0xf));
- 
--		cxdbg_write(cxdbg, REG_A6XX_DBGC_CFG_DBGBUS_IVTL_0, 0);
--		cxdbg_write(cxdbg, REG_A6XX_DBGC_CFG_DBGBUS_IVTL_1, 0);
--		cxdbg_write(cxdbg, REG_A6XX_DBGC_CFG_DBGBUS_IVTL_2, 0);
--		cxdbg_write(cxdbg, REG_A6XX_DBGC_CFG_DBGBUS_IVTL_3, 0);
-+		cxdbg_write(cxdbg, REG_A6XX_CX_DBGC_CFG_DBGBUS_IVTL_0, 0);
-+		cxdbg_write(cxdbg, REG_A6XX_CX_DBGC_CFG_DBGBUS_IVTL_1, 0);
-+		cxdbg_write(cxdbg, REG_A6XX_CX_DBGC_CFG_DBGBUS_IVTL_2, 0);
-+		cxdbg_write(cxdbg, REG_A6XX_CX_DBGC_CFG_DBGBUS_IVTL_3, 0);
- 
--		cxdbg_write(cxdbg, REG_A6XX_DBGC_CFG_DBGBUS_BYTEL_0,
-+		cxdbg_write(cxdbg, REG_A6XX_CX_DBGC_CFG_DBGBUS_BYTEL_0,
- 			0x76543210);
--		cxdbg_write(cxdbg, REG_A6XX_DBGC_CFG_DBGBUS_BYTEL_1,
-+		cxdbg_write(cxdbg, REG_A6XX_CX_DBGC_CFG_DBGBUS_BYTEL_1,
- 			0xFEDCBA98);
- 
--		cxdbg_write(cxdbg, REG_A6XX_DBGC_CFG_DBGBUS_MASKL_0, 0);
--		cxdbg_write(cxdbg, REG_A6XX_DBGC_CFG_DBGBUS_MASKL_1, 0);
--		cxdbg_write(cxdbg, REG_A6XX_DBGC_CFG_DBGBUS_MASKL_2, 0);
--		cxdbg_write(cxdbg, REG_A6XX_DBGC_CFG_DBGBUS_MASKL_3, 0);
-+		cxdbg_write(cxdbg, REG_A6XX_CX_DBGC_CFG_DBGBUS_MASKL_0, 0);
-+		cxdbg_write(cxdbg, REG_A6XX_CX_DBGC_CFG_DBGBUS_MASKL_1, 0);
-+		cxdbg_write(cxdbg, REG_A6XX_CX_DBGC_CFG_DBGBUS_MASKL_2, 0);
-+		cxdbg_write(cxdbg, REG_A6XX_CX_DBGC_CFG_DBGBUS_MASKL_3, 0);
+ 	node = of_get_compatible_child(dev->of_node, "qcom,gpu-pwrlevels");
+ 	if (!node) {
+-		DRM_DEV_ERROR(dev, "Could not find the GPU powerlevels\n");
++		DRM_DEV_DEBUG(dev, "Could not find the GPU powerlevels\n");
+ 		return -ENXIO;
  	}
  
- 	a6xx_state->debugbus = state_kcalloc(a6xx_state,
 -- 
-2.20.1
+2.17.1
 
 _______________________________________________
 Freedreno mailing list
