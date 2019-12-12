@@ -2,62 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB5FB11C638
-	for <lists+freedreno@lfdr.de>; Thu, 12 Dec 2019 08:14:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EECF11C642
+	for <lists+freedreno@lfdr.de>; Thu, 12 Dec 2019 08:17:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 667F86EC63;
-	Thu, 12 Dec 2019 07:14:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F6DC6EC63;
+	Thu, 12 Dec 2019 07:17:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FEDD6EC67
- for <freedreno@lists.freedesktop.org>; Thu, 12 Dec 2019 07:14:26 +0000 (UTC)
-Received: by mail-pg1-x544.google.com with SMTP id l24so679952pgk.2
- for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2019 23:14:26 -0800 (PST)
+Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
+ [IPv6:2607:f8b0:4864:20::641])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE7296EC67
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Dec 2019 07:17:56 +0000 (UTC)
+Received: by mail-pl1-x641.google.com with SMTP id x17so206556pln.1
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2019 23:17:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=UM9s++t70j7Y7bhdUOf1V6X/EWBiJPENZLLU9vngZ8U=;
- b=mUXcCxZaCrXhrYZXOXSZZrz7FP6QAzw5h1YlXmxZgFNrPPX6ifBFB07Eyy6fIybNX1
- CeDq2DJ4HAlO/RVBkGXKtEMgXT6k+uRJAbpcUU+RZU/jh36ORpWFS88Eqkw9K2HuijkA
- /kpbPwjWFg/u4OIag4yFbjtlqtgnxzVkqoNPR2NK1AltoT/KlFwoP8lm9VQG3gA9Nz5w
- nfibCRxZh5t846fyCKB2pH6ShdttgGKekh/9YynSpZuftZs+KearB+jZEL/Vb0VStYp8
- aZmUHH9ggbinBZ+OOG1sZYXdSVspE50Fyu77e7HPIs9FZf0CEXAIgaB5lZjtw8eHdetz
- jsJw==
+ bh=czAcFnKFTBHTdpHr0rMVUpWL5U0hh4o4DwfN6VFyqJ4=;
+ b=ke8JfGsjS8dennR/6UzeEv5Ky07nDlsuqnCves+J9l/A8SzfCw3dDbm0FvPU7zeE50
+ ibnlarpnP7Yk4PTd0n4/8GZ74y6D48nJT91NgaMECN+XbmSNrNwEoRSl6HZgnzDzcQRL
+ ipJ8Ef0T5FoYcwzftdVlZMGiG42o1E14UYmrbm50oi+iTzX9uxmsBEFhCo3LF4cBfBqx
+ 3u+f0oMVVUW2KVL3wIGrSyehKcqtuIbtyJ9apC7tbS+JWiTclmjPmXD6pTWEB4h1IHvR
+ gZLxZFomGlGjEDyVa+sL3U2kOBEx13fy5vri9rxTKzipfaYXUOTpS6rtwqxDYZ5bEwIP
+ uEPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=UM9s++t70j7Y7bhdUOf1V6X/EWBiJPENZLLU9vngZ8U=;
- b=djfgq+TplQGzq11OmilNPd4qduwUUnI3IjVZi2f4VVzCr/DueGR+UaDnSmO4kmu7EN
- jISuBUHbTtezgOi8aupkoIwHKttjq79DYfygA0RaTOpTpvSnCkwYr+Xe1JnnK8Cqdnz+
- hfFOEPVFEq2ToPl5L9IUos3biPkjH/9L7zO+ZERbfOyuHYXNEcyvwmPWwNoZa2I0yEUH
- 2g/NFJTfYhQmyEGyjrSmj++FYoc3P3UuZmvoaOWFC7a8gidnSkWUpNFaHjmgggiv7yGg
- /8Q7TCXJ3+b6zbCrS66q8Y5Ua2bEybW5sqlxAcFj6vjsQFZ2GL5tLg7rMgfuf7eWj4VM
- T3lw==
-X-Gm-Message-State: APjAAAW3IXsu/f14VUFP06nvC2KRzUvO4N/TF48HXLQusYfah7DKHDZQ
- MZINFr12dVH7xRNWrbmeIpNLZw==
-X-Google-Smtp-Source: APXvYqxEhDt6TR1zRqNDj0IsSQyAd5Pugqzryb7zLf+dCbFy9ycoYI7ZMOwvSQuHBNF1O0ExRGyhkg==
-X-Received: by 2002:a63:6e0e:: with SMTP id j14mr8713365pgc.361.1576134865659; 
- Wed, 11 Dec 2019 23:14:25 -0800 (PST)
+ bh=czAcFnKFTBHTdpHr0rMVUpWL5U0hh4o4DwfN6VFyqJ4=;
+ b=XAi+qvtL4h0SNMx+Il7uSHUr+JuN6mn2TnyvAjgS6pbX3PI8ohO/aR0bnUgL/ivxRt
+ OSD4z+3aGrcB/+nEazGSyk7CMnD2moAWjvTAleEPek/r5iYgn1Cfsc3YNmUHzDUv3/Od
+ /kFuBawWBgylpQ0kzzl4K6ejTCKwn25Vl7dnppoA8DZJrszuBMMIoorQ9qVqhYLKcri0
+ YgZkigz9W/tuuAfwlSulCdL5G+XOi10xaiHX7JodJlSykBm1n/mIKcJxhptenpnlZFqr
+ eqa9fX42IGUbbXqLh5+BtW1X+Z2NRTqCYLiUfz7MHXHEosADhjSLkOwfsg6p1SWq3HnV
+ rB7g==
+X-Gm-Message-State: APjAAAUgnvSJdnYaa9IGh7WaBxcHaYjoy9bVp5GmnxOr19BbepliQfoG
+ 76VJHjc/SbbSjHr1rU9Cy+nxYQ==
+X-Google-Smtp-Source: APXvYqwOlaHdCHfmxqXXIW1guuaCYDo5sz2f3PSVcR4quawA6l9h8sh7Xe4VvLvAmPVdP0SZ9CBzsw==
+X-Received: by 2002:a17:902:104:: with SMTP id 4mr8270089plb.130.1576135076097; 
+ Wed, 11 Dec 2019 23:17:56 -0800 (PST)
 Received: from builder (104-188-17-28.lightspeed.sndgca.sbcglobal.net.
  [104.188.17.28])
- by smtp.gmail.com with ESMTPSA id bo9sm4620133pjb.21.2019.12.11.23.14.24
+ by smtp.gmail.com with ESMTPSA id z4sm5681018pfn.42.2019.12.11.23.17.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Dec 2019 23:14:24 -0800 (PST)
-Date: Wed, 11 Dec 2019 23:14:22 -0800
+ Wed, 11 Dec 2019 23:17:55 -0800 (PST)
+Date: Wed, 11 Dec 2019 23:17:53 -0800
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
 To: Brian Masney <masneyb@onstation.org>
-Message-ID: <20191212071422.GL3143381@builder>
+Message-ID: <20191212071753.GM3143381@builder>
 References: <20191122012645.7430-1-masneyb@onstation.org>
- <20191122012645.7430-2-masneyb@onstation.org>
+ <20191122012645.7430-4-masneyb@onstation.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20191122012645.7430-2-masneyb@onstation.org>
+In-Reply-To: <20191122012645.7430-4-masneyb@onstation.org>
 User-Agent: Mutt/1.12.2 (2019-09-21)
-Subject: Re: [Freedreno] [PATCH v2 1/4] dt-bindings: drm/msm/gpu: document
- second interconnect
+Subject: Re: [Freedreno] [PATCH v2 3/4] drm/msm/a3xx: set interconnect
+ bandwidth vote
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,45 +82,44 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Thu 21 Nov 17:26 PST 2019, Brian Masney wrote:
 
-> Some A3xx and all A4xx Adreno GPUs do not have GMEM inside the GPU core
-> and must use the On Chip MEMory (OCMEM) in order to be functional.
-> There's a separate interconnect path that needs to be setup to OCMEM.
-> Let's document this second interconnect path that's available. Since
-> there's now two available interconnects, let's add the
-> interconnect-names property.
+> Set the two interconnect paths for the GPU to maximum speed for now to
+> work towards getting the GPU working upstream. We can revisit a later
+> time to optimize this for battery life.
 > 
 > Signed-off-by: Brian Masney <masneyb@onstation.org>
 
 Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 
 > ---
->  Documentation/devicetree/bindings/display/msm/gpu.txt | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/msm/adreno/a3xx_gpu.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/display/msm/gpu.txt b/Documentation/devicetree/bindings/display/msm/gpu.txt
-> index 2b8fd26c43b0..3e6cd3f64a78 100644
-> --- a/Documentation/devicetree/bindings/display/msm/gpu.txt
-> +++ b/Documentation/devicetree/bindings/display/msm/gpu.txt
-> @@ -23,7 +23,10 @@ Required properties:
->  - iommus: optional phandle to an adreno iommu instance
->  - operating-points-v2: optional phandle to the OPP operating points
->  - interconnects: optional phandle to an interconnect provider.  See
-> -  ../interconnect/interconnect.txt for details.
-> +  ../interconnect/interconnect.txt for details. Some A3xx and all A4xx platforms
-> +  will have two paths; all others will have one path.
-> +- interconnect-names: The names of the interconnect paths that correspond to the
-> +  interconnects property. Values must be gfx-mem and ocmem.
->  - qcom,gmu: For GMU attached devices a phandle to the GMU device that will
->    control the power for the GPU. Applicable targets:
->      - qcom,adreno-630.2
-> @@ -76,6 +79,7 @@ Example a6xx (with GMU):
->  		operating-points-v2 = <&gpu_opp_table>;
+> diff --git a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+> index 07ddcc529573..eff0ecd4e81a 100644
+> --- a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+> @@ -504,6 +504,14 @@ struct msm_gpu *a3xx_gpu_init(struct drm_device *dev)
+>  		DRM_DEV_ERROR(dev->dev, "No memory protection without IOMMU\n");
+>  	}
 >  
->  		interconnects = <&rsc_hlos MASTER_GFX3D &rsc_hlos SLAVE_EBI1>;
-> +		interconnect-names = "gfx-mem";
+> +	/*
+> +	 * Set the ICC path to maximum speed for now by multiplying the fastest
+> +	 * frequency by the bus width (8). We'll want to scale this later on to
+> +	 * improve battery life.
+
+I would expect that you have to worry about temperature before battery
+life...
+
+Regards,
+Bjorn
+
+> +	 */
+> +	icc_set_bw(gpu->icc_path, 0, Bps_to_icc(gpu->fast_rate) * 8);
+> +	icc_set_bw(gpu->ocmem_icc_path, 0, Bps_to_icc(gpu->fast_rate) * 8);
+> +
+>  	return gpu;
 >  
->  		qcom,gmu = <&gmu>;
->  
+>  fail:
 > -- 
 > 2.21.0
 > 
