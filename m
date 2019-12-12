@@ -2,61 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EECF11C642
-	for <lists+freedreno@lfdr.de>; Thu, 12 Dec 2019 08:17:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF3A111C643
+	for <lists+freedreno@lfdr.de>; Thu, 12 Dec 2019 08:18:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F6DC6EC63;
-	Thu, 12 Dec 2019 07:17:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69D5A6EC63;
+	Thu, 12 Dec 2019 07:18:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
  [IPv6:2607:f8b0:4864:20::641])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE7296EC67
- for <freedreno@lists.freedesktop.org>; Thu, 12 Dec 2019 07:17:56 +0000 (UTC)
-Received: by mail-pl1-x641.google.com with SMTP id x17so206556pln.1
- for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2019 23:17:56 -0800 (PST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03C806EC68
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Dec 2019 07:18:15 +0000 (UTC)
+Received: by mail-pl1-x641.google.com with SMTP id c23so201944plz.4
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2019 23:18:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=czAcFnKFTBHTdpHr0rMVUpWL5U0hh4o4DwfN6VFyqJ4=;
- b=ke8JfGsjS8dennR/6UzeEv5Ky07nDlsuqnCves+J9l/A8SzfCw3dDbm0FvPU7zeE50
- ibnlarpnP7Yk4PTd0n4/8GZ74y6D48nJT91NgaMECN+XbmSNrNwEoRSl6HZgnzDzcQRL
- ipJ8Ef0T5FoYcwzftdVlZMGiG42o1E14UYmrbm50oi+iTzX9uxmsBEFhCo3LF4cBfBqx
- 3u+f0oMVVUW2KVL3wIGrSyehKcqtuIbtyJ9apC7tbS+JWiTclmjPmXD6pTWEB4h1IHvR
- gZLxZFomGlGjEDyVa+sL3U2kOBEx13fy5vri9rxTKzipfaYXUOTpS6rtwqxDYZ5bEwIP
- uEPw==
+ bh=JgfDuTWeBak9bVM7ZWNPsBAm3+sYB1fLtoFMjb0Fxdw=;
+ b=RxxXcjFLgonLF4fmVQ9Uh8NGPA48JCLXcBG419PPiBNe6e/fN4bT3KGOPvAsCdib1s
+ CV7whYpnFFggopMXHXah8xrpY8aY0pwmZyDzR08smFDcAuwxKR2Sa4xjVGgiJxBQSm6Z
+ 5i9ViaE59/8nrQrcp9mRVH41oPVaQcU8Qr9ZPo2HUPw7SVcP/osuBNIHgu/RtPlKNbX/
+ 6yxBEheHDeIB/oaTQP6sATllHhzDBVffb30K27VGcaJsenKqYw9gcYYxM41KUnIxeoaZ
+ V2bCnEheP3IyYIt7YqG/Z8nuhlfHRZ1oqmKawJHvW0upRhf0JvSBVVrFJPefVm2vbB3O
+ 4qFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=czAcFnKFTBHTdpHr0rMVUpWL5U0hh4o4DwfN6VFyqJ4=;
- b=XAi+qvtL4h0SNMx+Il7uSHUr+JuN6mn2TnyvAjgS6pbX3PI8ohO/aR0bnUgL/ivxRt
- OSD4z+3aGrcB/+nEazGSyk7CMnD2moAWjvTAleEPek/r5iYgn1Cfsc3YNmUHzDUv3/Od
- /kFuBawWBgylpQ0kzzl4K6ejTCKwn25Vl7dnppoA8DZJrszuBMMIoorQ9qVqhYLKcri0
- YgZkigz9W/tuuAfwlSulCdL5G+XOi10xaiHX7JodJlSykBm1n/mIKcJxhptenpnlZFqr
- eqa9fX42IGUbbXqLh5+BtW1X+Z2NRTqCYLiUfz7MHXHEosADhjSLkOwfsg6p1SWq3HnV
- rB7g==
-X-Gm-Message-State: APjAAAUgnvSJdnYaa9IGh7WaBxcHaYjoy9bVp5GmnxOr19BbepliQfoG
- 76VJHjc/SbbSjHr1rU9Cy+nxYQ==
-X-Google-Smtp-Source: APXvYqwOlaHdCHfmxqXXIW1guuaCYDo5sz2f3PSVcR4quawA6l9h8sh7Xe4VvLvAmPVdP0SZ9CBzsw==
-X-Received: by 2002:a17:902:104:: with SMTP id 4mr8270089plb.130.1576135076097; 
- Wed, 11 Dec 2019 23:17:56 -0800 (PST)
+ bh=JgfDuTWeBak9bVM7ZWNPsBAm3+sYB1fLtoFMjb0Fxdw=;
+ b=V409CAOn1CEG5wSA1J729GkZb/BF4999yXuMNM6f1uA7z6U0xW4qAe9ueGvBC6PIcn
+ VoqNdbDVTlHCPt3aYVKVIaVEFZVwWdrIH98Sl5RZHCbbqM0faplCKwbTZsgO2B67Buaz
+ p6zyFTnjgIFOFC7Ud9g+yphhIokJabFou3OQBzSdkW2YZTrdR5SlYO8yEhlE/qrgMCGH
+ qtIymK2MgxjCLLVXwsXRQrX1Gfo7nSoKTsyi2xNtuISz02O35wBxt/tiudm3UytXvVtX
+ 9Q9Un6Xu8tJlmVJN7NrH/N3wwB01nTcmyWLbIez/Ar5NRTqFOJWExzrpTA+mbqy4C2Sw
+ XzCw==
+X-Gm-Message-State: APjAAAW76UuifvhbVTs405eH8oJyXt84RxG74lsW6UV4ywNF1DNAIhKo
+ QIrOCwkNKPQ/SB3hZ44WfUTmNg==
+X-Google-Smtp-Source: APXvYqy+m0lCq/UpeupyAuDYMkcEh9rkfCM4GG+6qHKYU/CjEuXA+ig6axKgP0DJrVQrHbcsf678BA==
+X-Received: by 2002:a17:90a:2808:: with SMTP id
+ e8mr8279272pjd.63.1576135094383; 
+ Wed, 11 Dec 2019 23:18:14 -0800 (PST)
 Received: from builder (104-188-17-28.lightspeed.sndgca.sbcglobal.net.
  [104.188.17.28])
- by smtp.gmail.com with ESMTPSA id z4sm5681018pfn.42.2019.12.11.23.17.54
+ by smtp.gmail.com with ESMTPSA id i127sm5601071pfc.55.2019.12.11.23.18.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Dec 2019 23:17:55 -0800 (PST)
-Date: Wed, 11 Dec 2019 23:17:53 -0800
+ Wed, 11 Dec 2019 23:18:13 -0800 (PST)
+Date: Wed, 11 Dec 2019 23:18:11 -0800
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
 To: Brian Masney <masneyb@onstation.org>
-Message-ID: <20191212071753.GM3143381@builder>
+Message-ID: <20191212071811.GN3143381@builder>
 References: <20191122012645.7430-1-masneyb@onstation.org>
- <20191122012645.7430-4-masneyb@onstation.org>
+ <20191122012645.7430-5-masneyb@onstation.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20191122012645.7430-4-masneyb@onstation.org>
+In-Reply-To: <20191122012645.7430-5-masneyb@onstation.org>
 User-Agent: Mutt/1.12.2 (2019-09-21)
-Subject: Re: [Freedreno] [PATCH v2 3/4] drm/msm/a3xx: set interconnect
+Subject: Re: [Freedreno] [PATCH v2 4/4] drm/msm/a4xx: set interconnect
  bandwidth vote
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,28 +92,21 @@ On Thu 21 Nov 17:26 PST 2019, Brian Masney wrote:
 Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 
 > ---
->  drivers/gpu/drm/msm/adreno/a3xx_gpu.c | 8 ++++++++
+>  drivers/gpu/drm/msm/adreno/a4xx_gpu.c | 8 ++++++++
 >  1 file changed, 8 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
-> index 07ddcc529573..eff0ecd4e81a 100644
-> --- a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
-> @@ -504,6 +504,14 @@ struct msm_gpu *a3xx_gpu_init(struct drm_device *dev)
->  		DRM_DEV_ERROR(dev->dev, "No memory protection without IOMMU\n");
+> diff --git a/drivers/gpu/drm/msm/adreno/a4xx_gpu.c b/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
+> index b01388a9e89e..253d8d85daad 100644
+> --- a/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
+> @@ -591,6 +591,14 @@ struct msm_gpu *a4xx_gpu_init(struct drm_device *dev)
+>  		goto fail;
 >  	}
 >  
 > +	/*
 > +	 * Set the ICC path to maximum speed for now by multiplying the fastest
 > +	 * frequency by the bus width (8). We'll want to scale this later on to
 > +	 * improve battery life.
-
-I would expect that you have to worry about temperature before battery
-life...
-
-Regards,
-Bjorn
-
 > +	 */
 > +	icc_set_bw(gpu->icc_path, 0, Bps_to_icc(gpu->fast_rate) * 8);
 > +	icc_set_bw(gpu->ocmem_icc_path, 0, Bps_to_icc(gpu->fast_rate) * 8);
