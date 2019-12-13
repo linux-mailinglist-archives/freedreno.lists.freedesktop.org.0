@@ -2,42 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83D0C11DC30
-	for <lists+freedreno@lfdr.de>; Fri, 13 Dec 2019 03:40:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61E2611EB8C
+	for <lists+freedreno@lfdr.de>; Fri, 13 Dec 2019 21:08:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61BBB6E129;
-	Fri, 13 Dec 2019 02:40:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B9106ECFA;
+	Fri, 13 Dec 2019 20:08:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from onstation.org (onstation.org [52.200.56.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85FA56E129;
- Fri, 13 Dec 2019 02:40:08 +0000 (UTC)
-Received: from localhost (c-98-239-145-235.hsd1.wv.comcast.net
- [98.239.145.235])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested) (Authenticated sender: masneyb)
- by onstation.org (Postfix) with ESMTPSA id 9AFC43E95E;
- Fri, 13 Dec 2019 02:40:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=onstation.org;
- s=default; t=1576204807;
- bh=sQr9GFcK/nXtEu1pTSwoNpOzLvi72nuH1eZFD30g5xY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Efh644ubspToVFQDygdNpLLalZ9nLPWRZy+7F4VX3puMxXr/PAEgXpq3DChGFb3/0
- 4k90xVBx3FlLBRb9k8z25jFhhTsn+ymuFeym5VYMb2hCt0Qu9F6YJk2fMPEyDpHcmt
- buLBa+s6cOzZQ6nONtHjXCi5mutK0LUjJk/gcpD0=
-Date: Thu, 12 Dec 2019 21:40:07 -0500
-From: Brian Masney <masneyb@onstation.org>
-To: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
-Message-ID: <20191213024007.GA23636@onstation.org>
-References: <20191112104854.20850-1-masneyb@onstation.org>
- <CAOCk7NosRhRp3vZxg2Nx8106PQ0ryo5b68cUv605XUzCm6gYPA@mail.gmail.com>
- <20191113112334.GA18702@onstation.org>
- <20191203014006.GA7756@onstation.org>
- <CAOCk7NpHE7kPX5tc=qUJo9qM-7Qzg2E+zmmmhBdnnVwJ+i5XLg@mail.gmail.com>
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CA256ECF0
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2019 20:08:52 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id p9so61806wmc.2
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2019 12:08:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=H4QwAX578NY4fhI+sexkPafex0WzGNL1MXJ3Dsnaavg=;
+ b=ClR4vATi0lm/uR4AjmPvrLE1sJpqCemORzYcQ1ZyCMyMDz9nHE7MjkPPAbq2CwQUh4
+ oCFzPzHDk+crtp1Wxw0tE8XY30FJKStbV5hn/qEcio8bHD8pIbcEYMlxJwKeeleN9dY2
+ TdkBmKhNDVwIPzaUbzRIdJqvttbpH6SBk6j+s=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=H4QwAX578NY4fhI+sexkPafex0WzGNL1MXJ3Dsnaavg=;
+ b=RVEm+P/afBQtSvmYT0q2/FYcJZCIAaR1iXI/tfVAFA3/f9CQh9h0fXrzyCslcK6xPI
+ gvGxmzkdfGS01cbQWQjpx5mj+8f8qoChp6guyUpSpiWLFOppT8sA0TB1yljrntzwcM58
+ 5JDgelbh8WmY+CzmnWwFW5O7WACdjEh7nZqpSKrxluFGUA9KwH3BfZdPZzKYlaNQqmNK
+ AMzHVZiDbXPYJR5c7j7vUt4T54nyfiqt2ic+d/1dYhp6sa1BdBjPArwepDyiG4P4NSX4
+ yeNUd6nv3dOwEYywPinGWSkYWe9va0AmIZARk+PdksRaLdI+xbeSyymkcE1CwW9qk4kN
+ lzRQ==
+X-Gm-Message-State: APjAAAXTCt0QMcPBB4lBnei7jYLcu4dLryc1ihGPGryu1Hr4U6GwhX14
+ 9te1y29G8AOjE6b3r4LS2cMvfw==
+X-Google-Smtp-Source: APXvYqzX6tiAiCD80RNWHMwm27uqrP0XdXvT5VcypsRlEX/9sHkfmDkuq4dAFfmPiG9IIWxysxsJ7A==
+X-Received: by 2002:a05:600c:388:: with SMTP id
+ w8mr15123380wmd.177.1576267730921; 
+ Fri, 13 Dec 2019 12:08:50 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:564b:0:7567:bb67:3d7f:f863])
+ by smtp.gmail.com with ESMTPSA id f1sm11018229wru.6.2019.12.13.12.08.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Dec 2019 12:08:50 -0800 (PST)
+Date: Fri, 13 Dec 2019 21:08:48 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: DRI Development <dri-devel@lists.freedesktop.org>
+Message-ID: <20191213200848.GL624164@phenom.ffwll.local>
+References: <20191125094356.161941-1-daniel.vetter@ffwll.ch>
+ <20191125094356.161941-4-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAOCk7NpHE7kPX5tc=qUJo9qM-7Qzg2E+zmmmhBdnnVwJ+i5XLg@mail.gmail.com>
-Subject: Re: [Freedreno] [PATCH] drm/msm/mdp5: enable autocommit
+In-Reply-To: <20191125094356.161941-4-daniel.vetter@ffwll.ch>
+X-Operating-System: Linux phenom 5.3.0-2-amd64 
+User-Agent: Mutt/1.12.2 (2019-09-21)
+Subject: Re: [Freedreno] [PATCH 3/4] drm/msm: Use dma_resv locking wrappers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,190 +67,78 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, MSM <linux-arm-msm@vger.kernel.org>,
- lkml <linux-kernel@vger.kernel.org>,
- "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
- Sean Paul <sean@poorly.run>, Rob Clark <robdclark@gmail.com>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: freedreno@lists.freedesktop.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Rob Clark <robdclark@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Daniel Vetter <daniel.vetter@intel.com>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Jeffrey,
-
-On Tue, Dec 03, 2019 at 07:18:31AM -0700, Jeffrey Hugo wrote:
-> On Mon, Dec 2, 2019 at 6:40 PM Brian Masney <masneyb@onstation.org> wrote:
-> > On Wed, Nov 13, 2019 at 06:23:34AM -0500, Brian Masney wrote:
-> > > On Tue, Nov 12, 2019 at 08:38:27AM -0700, Jeffrey Hugo wrote:
-> > > > On Tue, Nov 12, 2019 at 3:49 AM Brian Masney <masneyb@onstation.org> wrote:
-> > > > >
-> > > > > Since the introduction of commit 2d99ced787e3 ("drm/msm: async commit
-> > > > > support"), command-mode panels began throwing the following errors:
-> > > > >
-> > > > >     msm fd900000.mdss: pp done time out, lm=0
-> > > > >
-> > > > > Let's fix this by enabling the autorefresh feature that's available in
-> > > > > the MDP starting at version 1.0. This will cause the MDP to
-> > > > > automatically send a frame to the panel every time the panel invokes
-> > > > > the TE signal, which will trigger the PP_DONE IRQ. This requires not
-> > > > > sending a START signal for command-mode panels.
-> > > > >
-> > > > > This fixes the error and gives us a counter for command-mode panels that
-> > > > > we can use to implement async commit support for the MDP5 in a follow up
-> > > > > patch.
-> > > > >
-> > > > > Signed-off-by: Brian Masney <masneyb@onstation.org>
-> > > > > Suggested-by: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
-> > > > > ---
-> > > > >  drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c | 15 ++++++++++++++-
-> > > > >  drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c  |  9 +--------
-> > > > >  2 files changed, 15 insertions(+), 9 deletions(-)
-> > > > >
-> > > > > diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
-> > > > > index 05cc04f729d6..539348cb6331 100644
-> > > > > --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
-> > > > > +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
-> > > > > @@ -456,6 +456,7 @@ static void mdp5_crtc_atomic_enable(struct drm_crtc *crtc,
-> > > > >  {
-> > > > >         struct mdp5_crtc *mdp5_crtc = to_mdp5_crtc(crtc);
-> > > > >         struct mdp5_crtc_state *mdp5_cstate = to_mdp5_crtc_state(crtc->state);
-> > > > > +       struct mdp5_pipeline *pipeline = &mdp5_cstate->pipeline;
-> > > > >         struct mdp5_kms *mdp5_kms = get_kms(crtc);
-> > > > >         struct device *dev = &mdp5_kms->pdev->dev;
-> > > > >
-> > > > > @@ -493,9 +494,21 @@ static void mdp5_crtc_atomic_enable(struct drm_crtc *crtc,
-> > > > >
-> > > > >         mdp_irq_register(&mdp5_kms->base, &mdp5_crtc->err);
-> > > > >
-> > > > > -       if (mdp5_cstate->cmd_mode)
-> > > > > +       if (mdp5_cstate->cmd_mode) {
-> > > > >                 mdp_irq_register(&mdp5_kms->base, &mdp5_crtc->pp_done);
-> > > > >
-> > > > > +               /*
-> > > > > +                * Enable autorefresh so we get regular ping/pong IRQs.
-> > > > > +                * - Bit 31 is the enable bit
-> > > > > +                * - Bits 0-15 represent the frame count, specifically how many
-> > > > > +                *   TE events before the MDP sends a frame.
-> > > > > +                */
-> > > > > +               mdp5_write(mdp5_kms,
-> > > > > +                          REG_MDP5_PP_AUTOREFRESH_CONFIG(pipeline->mixer->pp),
-> > > > > +                          BIT(31) | BIT(0));
-> > > > > +               crtc_flush_all(crtc);
-> > > > > +       }
-> > > > > +
-> > > > >         mdp5_crtc->enabled = true;
-> > > > >  }
-> > > > >
-> > > > > diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c
-> > > > > index 030279d7b64b..aee295abada3 100644
-> > > > > --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c
-> > > > > +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c
-> > > > > @@ -187,14 +187,7 @@ static bool start_signal_needed(struct mdp5_ctl *ctl,
-> > > > >         if (!ctl->encoder_enabled)
-> > > > >                 return false;
-> > > > >
-> > > > > -       switch (intf->type) {
-> > > > > -       case INTF_WB:
-> > > > > -               return true;
-> > > > > -       case INTF_DSI:
-> > > > > -               return intf->mode == MDP5_INTF_DSI_MODE_COMMAND;
-> > > > > -       default:
-> > > > > -               return false;
-> > > > > -       }
-> > > > > +       return intf->type == INTF_WB;
-> > > > >  }
-> > > >
-> > > > I don't think this fully works.
-> > > >
-> > > > The whole "flush" thing exists because the configuration is double
-> > > > buffered.  You write to the flush register to tell the hardware to
-> > > > pickup the new configuration, but it doesn't do that automatically.
-> > > > It only picks up the new config on the next "vsync".  When you have a
-> > > > video mode panel, you have the timing engine running, which drives
-> > > > that.  With a command mode panel, you have either the start signal, or
-> > > > the auto refresh to do the same, but you have a bit of a chicken and
-> > > > egg situation where if you are programming the hardware from scratch,
-> > > > autorefresh isn't already enabled to then pickup the config to enable
-> > > > autorefresh. In this case, you'll need a single start to kick
-> > > > everything off.  However, if say the bootloader already configured
-> > > > things and has autorefresh running, then you need to not do that start
-> > > > because you'll overload the DSI like you saw.
-> > >
-> > > As part of my testing for this work, I added a log statement to
-> > > mdp5_crtc_pp_done_irq() and it shows that a PP_IRQ comes in consistently
-> > > every ~0.0166 seconds, which is about 60 HZ. Without this change, plus
-> > > the 3 commits I mentioned in an earlier email related to the async
-> > > commit support, the PP IRQs come in at a variety of times: between every
-> > > ~0.0140 and ~0.2224 seconds. That's why I assumed that this was working.
-> > >
-> > > If I call send_start_signal() inside mdp5_crtc_atomic_enable(), then the
-> > > display does not work properly.
-> >
-> > I'd like to get the 'pp done time out' errors that are now occurring
-> > upstream for command-mode panels fixed. As I mentioned above, this patch
-> > fixes the problem on the Nexus 5 and the pp done interrupts are
-> > delivered at approximately 60 HZ. I don't have any other command-mode
-> > panels to test.
-> >
-> > I'm not sure how to proceed here since sending the start command breaks
-> > the display. I'm likely putting that command in the wrong spot.
+On Mon, Nov 25, 2019 at 10:43:55AM +0100, Daniel Vetter wrote:
+> I'll add more fancy logic to them soon, so everyone really has to use
+> them. Plus they already provide some nice additional debug
+> infrastructure on top of direct ww_mutex usage for the fences tracked
+> by dma_resv.
 > 
-> Sorry, I didn't realize you were waiting on me,
+> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Sean Paul <sean@poorly.run>
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: freedreno@lists.freedesktop.org
+
+Ping for some review/acks.
+
+Thanks, Daniel
+
+> ---
+>  drivers/gpu/drm/msm/msm_gem_submit.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
 > 
-> I'm traveling currently, so this is more off the top of my head than
-> looking at the code/docs.  What I'm thinking is that we want to get
-> autorefresh enabled, which would be simple except that the bootloader
-> may have already enabled it for us.  Perhaps we have a state flag that
-> indicates if autorefresh is enabled, and if so, it skips the start
-> command (where the start command is normally in the code).  When we
-> boot up, we check the hardware and set the flag if its already enabled
-> (note I just realized the flag is per ping pong, so we need multiple
-> flags I guess).  If the flag is not enabled when we go to use the
-> start command, we issue the start, then set the flag.  The only catch
-> is I don't know recall the exact sequence of when we configure the
-> ping pong in the entire initialization sequence.  We may configure a
-> bunch of stuff, but not the ping pong, flush the config (which issues
-> a start) and then get stuck because we didn't set the autorefresh.
+> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+> index 7d04c47d0023..385d4965a8d0 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+> @@ -157,7 +157,7 @@ static void submit_unlock_unpin_bo(struct msm_gem_submit *submit,
+>  		msm_gem_unpin_iova(&msm_obj->base, submit->aspace);
+>  
+>  	if (submit->bos[i].flags & BO_LOCKED)
+> -		ww_mutex_unlock(&msm_obj->base.resv->lock);
+> +		dma_resv_unlock(msm_obj->base.resv);
+>  
+>  	if (backoff && !(submit->bos[i].flags & BO_VALID))
+>  		submit->bos[i].iova = 0;
+> @@ -180,8 +180,8 @@ static int submit_lock_objects(struct msm_gem_submit *submit)
+>  		contended = i;
+>  
+>  		if (!(submit->bos[i].flags & BO_LOCKED)) {
+> -			ret = ww_mutex_lock_interruptible(&msm_obj->base.resv->lock,
+> -					&submit->ticket);
+> +			ret = dma_resv_lock_interruptible(msm_obj->base.resv,
+> +							  &submit->ticket);
+>  			if (ret)
+>  				goto fail;
+>  			submit->bos[i].flags |= BO_LOCKED;
+> @@ -202,8 +202,8 @@ static int submit_lock_objects(struct msm_gem_submit *submit)
+>  	if (ret == -EDEADLK) {
+>  		struct msm_gem_object *msm_obj = submit->bos[contended].obj;
+>  		/* we lost out in a seqno race, lock and retry.. */
+> -		ret = ww_mutex_lock_slow_interruptible(&msm_obj->base.resv->lock,
+> -				&submit->ticket);
+> +		ret = dma_resv_lock_slow_interruptible(msm_obj->base.resv,
+> +						       &submit->ticket);
+>  		if (!ret) {
+>  			submit->bos[contended].flags |= BO_LOCKED;
+>  			slow_locked = contended;
+> -- 
+> 2.24.0
+> 
 
-I finally had a chance look into this tonight. This makes sense to me:
-the double buffering of the configuration, the start signal, and a
-separate flag for each of the 4 ping pongs on the MDP5.
-
-The part that I'm still unsure about is querying the initial state from
-the boot loader to see if autorefresh is already enabled and whether or
-not a single START command is needed. Here's a slightly modified snippet
-from mdp5_crtc_atomic_enable() in my patch above:
-
-  if (mdp5_cstate->cmd_mode) {
-     /* mdp5_read() returns 0 */
-     val = mdp5_read(mdp5_kms,
-                     REG_MDP5_PP_AUTOREFRESH_CONFIG(pipeline->mixer->pp));
-
-     mdp5_write(mdp5_kms,
-                REG_MDP5_PP_AUTOREFRESH_CONFIG(pipeline->mixer->pp),
-                BIT(31) | BIT(0));
-
-     crtc_flush_all(crtc);
-
-     /* mdp5_read() now returns 0x80000001 */
-     val = mdp5_read(mdp5_kms,
-                     REG_MDP5_PP_AUTOREFRESH_CONFIG(pipeline->mixer->pp));
-  }
-
-So I assume that the boot loader is not enabling autorefresh on this
-board since the value from the first read is zero? Or more likely, that
-since this is double buffered that the first mdp5_read() is reading from
-the configuration buffer that's not active yet and it defaults to 0? Is
-there a way to query the other configuration buffer that's currently
-active?
-
-Why do I see the ping pong IRQs delivered consistently around 60 HZ once
-I enable autorefresh with the patch that started this thread?
-
-Sorry if I'm being dense here.
-
-Brian
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
