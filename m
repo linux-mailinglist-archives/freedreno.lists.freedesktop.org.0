@@ -1,54 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF6D4124937
-	for <lists+freedreno@lfdr.de>; Wed, 18 Dec 2019 15:15:58 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id AA1C2126321
+	for <lists+freedreno@lfdr.de>; Thu, 19 Dec 2019 14:15:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51DD96E038;
-	Wed, 18 Dec 2019 14:15:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3618F6EB68;
+	Thu, 19 Dec 2019 13:15:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x244.google.com (mail-lj1-x244.google.com
- [IPv6:2a00:1450:4864:20::244])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77E316E038;
- Wed, 18 Dec 2019 14:15:56 +0000 (UTC)
-Received: by mail-lj1-x244.google.com with SMTP id p8so2346772ljg.0;
- Wed, 18 Dec 2019 06:15:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=vElzyrLLbOAfEd/SjURJfSBcOl1qaMizRDyquQbiEIU=;
- b=EY1p3Ms7ACguK+t+9jszqcFTKZPHbemKLA/TTrXYUM24Z6U+NLLtuaF2o5Hzju0HdK
- LThLApU05fbPDXfRZUsdf69Eptkel6kv/mDd5vWxF1x1GP3Jz2g57ymUxeekZne+now0
- ru/NH3JzwXnrManDiZnBKEwdg/rkJ3+KwY2kAgHJBB9pfS0k25gBktP5BXAUJuQzwoDi
- boRyQKsj4fL96/dxt8TZSYQboz8UUBIR1gFK84y9DT8XGL+iZS839EMN2WpJtvjpEKYB
- CwJelRrYIW3DupulMju3bNix+GYawNd/NyHUhEfNWxnKCcbkP3nk748R3xaxx/vRlzjH
- jVZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=vElzyrLLbOAfEd/SjURJfSBcOl1qaMizRDyquQbiEIU=;
- b=YRcFRwPbZLrCBwm2dwp/KkFJkz14X2afQrGpk4NT0Ur5968A20UHz6g64GZACzRUdZ
- jq/PfhpqYjad+NKaUevq3OXZhQJ0hwOfr6wj4hIl+b46E5E60vmXXMLbOxC7XV3WkZsS
- YCKYtQR2Ll5VgPRyMXcYWmVuqA6I9s5qs49qb6PWX+ydglVf5dbQMxtR/nrDw7Pk9MCi
- RlKvw4bWVHlFbaRCsPWlkL/MqthZ4HW9vm+qUMY+rfe/au7SxsPRezTGRNQf/wHcbszM
- 5+6900Rk/CX5NigVzvSC7soFXBwvNP/f5vVGL/nhsjToRH2l5Vbg8FCuWECAhRYjv5wR
- oaPw==
-X-Gm-Message-State: APjAAAW1UXUMzhLS55OmcASZ4nyzP0vLZNFiXNfwtUq8lzb4rWn/3m0z
- Iu35S2QJ3fQdeJ+kVV4Khi4Qag0brSOBT0lkAUo=
-X-Google-Smtp-Source: APXvYqxQaMetKsP7tlWdjAWGP6YEt/iylWCstVvZdqsFmGbCXQZiIpZEDdGWngizWZdz7PQlMwgSzUKMbgDyy6pS8UA=
-X-Received: by 2002:a2e:814e:: with SMTP id t14mr1878668ljg.149.1576678554801; 
- Wed, 18 Dec 2019 06:15:54 -0800 (PST)
-MIME-Version: 1.0
-References: <20191210231145.24838-1-festevam@gmail.com>
-In-Reply-To: <20191210231145.24838-1-festevam@gmail.com>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Wed, 18 Dec 2019 11:15:50 -0300
-Message-ID: <CAOMZO5CHZF99cMUMfOpdJ2i94k2TGie7ctZqZMeev97hMd1MfA@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Subject: Re: [Freedreno] [PATCH RESEND] drm/msm/adreno: Do not print error
- on "qcom, gpu-pwrlevels" absence
+Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
+ [104.130.122.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FE086EB65
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Dec 2019 13:15:36 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1576761337; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=MatkvjJ++f5xYHSRzGDp53AIHwv/yYm+qCfukmt6X8c=;
+ b=HovgAIzp92B5/UPzJtXIfuNOqPqboX5U5xW+PQj8/rPRjAQJxA+Peh6s5X3xn8gtjZ73SdyU
+ ath9j/NUDk3DbD872tUMMOjehwA5+NvwBpw+MKInKKSGjiZFMFzI47ZNwzTHvCdPhrbSZUIm
+ PCc1i178CEteFcfTZUD7Ho1n6Sk=
+X-Mailgun-Sending-Ip: 104.130.122.26
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5dfb77f3.7f2e0865c960-smtp-out-n03;
+ Thu, 19 Dec 2019 13:15:31 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 1546FC447A9; Thu, 19 Dec 2019 13:15:30 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from smasetty-linux.qualcomm.com
+ (blr-c-bdr-fw-01_globalnat_allzones-outside.qualcomm.com [103.229.19.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: smasetty)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 15F0AC447A3;
+ Thu, 19 Dec 2019 13:15:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 15F0AC447A3
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=smasetty@codeaurora.org
+From: Sharat Masetty <smasetty@codeaurora.org>
+To: freedreno@lists.freedesktop.org
+Date: Thu, 19 Dec 2019 18:44:41 +0530
+Message-Id: <1576761286-20451-1-git-send-email-smasetty@codeaurora.org>
+X-Mailer: git-send-email 1.9.1
+Subject: [Freedreno] [PATCH 0/5] drm/msm/a6xx: System Cache Support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,50 +62,67 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Marek <jonathan@marek.ca>, Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
- David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- DRI mailing list <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+Cc: saiprakash.ranjan@codeaurora.org, jcrouse@codeaurora.org, will@kernel.org,
+ linux-arm-msm@vger.kernel.org, joro@8bytes.org, linux-kernel@vger.kernel.org,
+ iommu@lists.linux-foundation.org, dri-devel@freedesktop.org,
+ robin.murphy@arm.com, Sharat Masetty <smasetty@codeaurora.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Rob,
+Some hardware variants contain a system level cache or the last level
+cache(llc). This cache is typically a large block which is shared by multiple
+clients on the SOC. GPU uses the system cache to cache both the GPU data
+buffers(like textures) as well the SMMU pagetables. This helps with
+improved render performance as well as lower power consumption by reducing
+the bus traffic to the system memory.
 
-On Tue, Dec 10, 2019 at 8:12 PM Fabio Estevam <festevam@gmail.com> wrote:
->
-> Booting the adreno driver on a imx53 board leads to the following
-> error message:
->
-> adreno 30000000.gpu: [drm:adreno_gpu_init] *ERROR* Could not find the GPU powerlevels
->
-> As the "qcom,gpu-pwrlevels" property is optional and never present on
-> i.MX5, turn the message into debug level instead.
->
-> Signed-off-by: Fabio Estevam <festevam@gmail.com>
-> Reviewed-by: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
-> Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
-> ---
-> Trying once again :-)
->
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> index 0783e4b5486a..5d7bdb4c83cc 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -826,7 +826,7 @@ static int adreno_get_legacy_pwrlevels(struct device *dev)
->
->         node = of_get_compatible_child(dev->of_node, "qcom,gpu-pwrlevels");
->         if (!node) {
-> -               DRM_DEV_ERROR(dev, "Could not find the GPU powerlevels\n");
-> +               DRM_DEV_DEBUG(dev, "Could not find the GPU powerlevels\n");
+The system cache architecture allows the cache to be split into slices which
+then be used by multiple SOC clients. This patch series is an effort to enable
+and use two of those slices perallocated for the GPU, one for the GPU data
+buffers and another for the GPU SMMU hardware pagetables.
 
-A gentle ping...
+To enable the system cache driver, add [1] to your stack if not already
+present. Please review.
+
+[1] https://lore.kernel.org/patchwork/patch/1165298/
+
+Jordan Crouse (1):
+  iommu/arm-smmu: Pass io_pgtable_cfg to impl specific init_context
+
+Sharat Masetty (3):
+  drm/msm: rearrange the gpu_rmw() function
+  drm/msm: Pass mmu features to generic layers
+  drm/msm/a6xx: Add support for using system cache(LLC)
+
+Vivek Gautam (1):
+  iommu/arm-smmu: Add domain attribute for QCOM system cache
+
+ drivers/gpu/drm/msm/adreno/a2xx_gpu.c   |   2 +-
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c   |   2 +-
+ drivers/gpu/drm/msm/adreno/a4xx_gpu.c   |   2 +-
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c   |   2 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 122 +++++++++++++++++++++++++++++++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h   |   9 +++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c |   4 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h |   2 +-
+ drivers/gpu/drm/msm/msm_drv.c           |   8 +++
+ drivers/gpu/drm/msm/msm_drv.h           |   1 +
+ drivers/gpu/drm/msm/msm_gpu.c           |   6 +-
+ drivers/gpu/drm/msm/msm_gpu.h           |   6 +-
+ drivers/gpu/drm/msm/msm_iommu.c         |  13 ++++
+ drivers/gpu/drm/msm/msm_mmu.h           |  14 ++++
+ drivers/iommu/arm-smmu-impl.c           |   3 +-
+ drivers/iommu/arm-smmu-qcom.c           |  10 +++
+ drivers/iommu/arm-smmu.c                |  25 +++++--
+ drivers/iommu/arm-smmu.h                |   4 +-
+ include/linux/iommu.h                   |   1 +
+ 19 files changed, 216 insertions(+), 20 deletions(-)
+
+--
+1.9.1
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
