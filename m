@@ -2,53 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2447C1296B3
-	for <lists+freedreno@lfdr.de>; Mon, 23 Dec 2019 14:58:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90B19129CF4
+	for <lists+freedreno@lfdr.de>; Tue, 24 Dec 2019 03:57:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B940389FEC;
-	Mon, 23 Dec 2019 13:58:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3A356E055;
+	Tue, 24 Dec 2019 02:57:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-xd41.google.com (mail-io1-xd41.google.com
- [IPv6:2607:f8b0:4864:20::d41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FB616E02A;
- Mon, 23 Dec 2019 13:58:43 +0000 (UTC)
-Received: by mail-io1-xd41.google.com with SMTP id c16so12645706ioo.8;
- Mon, 23 Dec 2019 05:58:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=3PKfJo7e/F8iYmHNlUC4kcHL5CKe5kHebcIO1c7mfek=;
- b=dDAyIimizk4oR9NYXHcsKtFz27JZds8feHchTbuhSFGETI/pNbAsciKDI4kkOO1IfW
- nd1fJJu8DGsZTzaO48gK39ip/2Y7RXR64/zH5QtItx5EMlpR/syeXSe2R4uiULrRrwOF
- DGIaEEckCcWI0jeY0KKBgvwVAilBeRgkNhrBI9GEFTr+z77vSDBRAysEiLX9O5JQ+sl8
- 89Bv2ne5VAOHZasFhbr5n/1sqBzJ+m2+PDv7/foH36JVYk+2N6zc0oY2wVDAx/ELxRVJ
- 9/Hjh8GLcGbiqL84jnvkKy46ND/X9Enf9+4wn4alAT5qQoGvuaru7lZB96gaBN10o4jB
- T7/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=3PKfJo7e/F8iYmHNlUC4kcHL5CKe5kHebcIO1c7mfek=;
- b=APgjbPDWmlMh7IeJLEeRDam6nF+83r8rvBjrzcx3bYWg4+fi/H9c+WlY369YsmorXi
- oWm4su1qWnAptCzL0FPor8ixofttXBLcvMOtUNZMSEjnJlZp2Bj9PmYby2SVT8kw+nJ+
- pFT+wMxKpwjOF0FsOiPyUgUIuZHVoCazXCzUnsPOqAqPlImmlpUYZIJ7LBfKrA/hMRnY
- jZ6Q9nOeUz+laUCqTN4w3tffA6qFjKhBL6N0ExmJU2Qp9QpwMCydeoS1UOhKMyexWjUt
- SGnC4aXgz7mPZ3t4zmcqEbG3MSj64GbekjY+/7jh3Fi3WB1sDoiV+pGAUiFhE2dOv/sB
- bwCQ==
-X-Gm-Message-State: APjAAAXfCkjkhrZr1sPI79h1HpRcOMbfK8QQmrpx1u7XGO4utZ80PmOW
- vgWL/QssDAxo9N80rSQl1rlyVcEhZsQxUkHpD5E=
-X-Google-Smtp-Source: APXvYqzUM8YJ6tRj448hYxFlxEOEtyUsp/J3wkALdJo8nymUv20lta/KuUBHcl5Mm/Nxt1SgHLy1Br5zccJrGGPCy8E=
-X-Received: by 2002:a02:ca56:: with SMTP id i22mr22510644jal.140.1577109523001; 
- Mon, 23 Dec 2019 05:58:43 -0800 (PST)
+Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
+ [104.130.122.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 316576E055
+ for <freedreno@lists.freedesktop.org>; Tue, 24 Dec 2019 02:57:32 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1577156252; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=mF5Yk5W/LFHhcmsl8A7AIYFZxAxJ+b22oU+U2E97r6g=;
+ b=fyUPyHHmBvx/agVGAUfT4mVUQdJEIMIsPHnBBB/PqZnAmAaWwOwqoxvF+QAzk94xoRxCrPF2
+ RqbIImfncF+QMyqlScrMm0AQ4M9+bNRkLWxcYEyWlLH2Tv7hOPYXn0gJjZusxXs33sQt4vxM
+ 0YpPKCGN5Yk1YycluRvBQE0q/e4=
+X-Mailgun-Sending-Ip: 104.130.122.26
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5e017e9a.7f9f668cb148-smtp-out-n03;
+ Tue, 24 Dec 2019 02:57:30 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 8D0A0C4479C; Tue, 24 Dec 2019 02:57:29 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,URIBL_BLOCKED
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: smasetty)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id C5E8DC43383;
+ Tue, 24 Dec 2019 02:57:28 +0000 (UTC)
 MIME-Version: 1.0
-References: <1577096361-8381-1-git-send-email-harigovi@codeaurora.org>
-In-Reply-To: <1577096361-8381-1-git-send-email-harigovi@codeaurora.org>
-From: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
-Date: Mon, 23 Dec 2019 06:58:32 -0700
-Message-ID: <CAOCk7NoDsjGWV=ddZO2yVG_n2N-mhdhfeaNML=kTTr2Mg88q0Q@mail.gmail.com>
-To: Harigovindan P <harigovi@codeaurora.org>
-Subject: Re: [Freedreno] [v1] drm/msm: update LANE_CTRL register value from
- default value
+Date: Tue, 24 Dec 2019 08:27:28 +0530
+From: smasetty@codeaurora.org
+To: Jordan Crouse <jcrouse@codeaurora.org>
+In-Reply-To: <1576514271-15687-6-git-send-email-jcrouse@codeaurora.org>
+References: <1576514271-15687-1-git-send-email-jcrouse@codeaurora.org>
+ <1576514271-15687-6-git-send-email-jcrouse@codeaurora.org>
+Message-ID: <8aec2a4f74fede1cf616b9e2eece3e8e@codeaurora.org>
+X-Sender: smasetty@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v3 5/5] drm/msm/a6xx: Support split
+ pagetables
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,72 +63,107 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: DTML <devicetree@vger.kernel.org>, MSM <linux-arm-msm@vger.kernel.org>,
- lkml <linux-kernel@vger.kernel.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
- Rob Clark <robdclark@gmail.com>, nganji@codeaurora.org,
- Sean Paul <seanpaul@chromium.org>,
- "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
- "Kristian H. Kristensen" <hoegsberg@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Jeykumar Sankaran <jsanka@codeaurora.org>,
- Chandan Uddaraju <chandanu@codeaurora.org>
-Content-Type: text/plain; charset="us-ascii"
+Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ freedreno@lists.freedesktop.org, robin.murphy@arm.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ iommu@lists.linux-foundation.org, linux-arm-msm@vger.kernel.org,
+ will@kernel.org, linux-arm-kernel@lists.infradead.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Dec 23, 2019 at 3:19 AM Harigovindan P <harigovi@codeaurora.org> wrote:
->
-> Updating REG_DSI_LANE_CTRL register value by reading default
-> register value and writing it back using bitwise OR with
-> DSI_LANE_CTRL_CLKLN_HS_FORCE_REQUEST. This works for all panels.
-
-Why?
-You explain what the code does, which I can tell from reading the
-code.  The commit text should tell me why this change is necessary.
-Why would I care if this change is in my tree or not?  What feature
-does it provide or what issue does it fix?
-
->
-> Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
+On 2019-12-16 22:07, Jordan Crouse wrote:
+> Attempt to enable split pagetables if the arm-smmu driver supports it.
+> This will move the default address space from the default region to
+> the address range assigned to TTBR1. The behavior should be transparent
+> to the driver for now but it gets the default buffers out of the way
+> when we want to start swapping TTBR0 for context-specific pagetables.
+> 
+> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
 > ---
->  drivers/gpu/drm/msm/dsi/dsi_host.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index e6289a3..d3c5233 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -816,7 +816,7 @@ static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool enable,
->         u32 flags = msm_host->mode_flags;
->         enum mipi_dsi_pixel_format mipi_fmt = msm_host->format;
->         const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
-> -       u32 data = 0;
-> +       u32 data = 0, lane_ctrl = 0;
->
->         if (!enable) {
->                 dsi_write(msm_host, REG_DSI_CTRL, 0);
-> @@ -904,9 +904,11 @@ static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool enable,
->         dsi_write(msm_host, REG_DSI_LANE_SWAP_CTRL,
->                   DSI_LANE_SWAP_CTRL_DLN_SWAP_SEL(msm_host->dlane_swap));
->
-> -       if (!(flags & MIPI_DSI_CLOCK_NON_CONTINUOUS))
-> +       if (!(flags & MIPI_DSI_CLOCK_NON_CONTINUOUS)) {
-> +               lane_ctrl = dsi_read(msm_host, REG_DSI_LANE_CTRL);
->                 dsi_write(msm_host, REG_DSI_LANE_CTRL,
-> -                       DSI_LANE_CTRL_CLKLN_HS_FORCE_REQUEST);
-> +                       lane_ctrl | DSI_LANE_CTRL_CLKLN_HS_FORCE_REQUEST);
-> +       }
->
->         data |= DSI_CTRL_ENABLE;
->
-> --
-> 2.7.4
->
-> _______________________________________________
-> Freedreno mailing list
-> Freedreno@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/freedreno
+> 
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 52 
+> ++++++++++++++++++++++++++++++++++-
+>  1 file changed, 51 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index 5dc0b2c..1c6da93 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -811,6 +811,56 @@ static unsigned long a6xx_gpu_busy(struct msm_gpu 
+> *gpu)
+>  	return (unsigned long)busy_time;
+>  }
+> 
+> +static struct msm_gem_address_space *
+> +a6xx_create_address_space(struct msm_gpu *gpu, struct platform_device 
+> *pdev)
+> +{
+> +	struct iommu_domain *iommu = iommu_domain_alloc(&platform_bus_type);
+> +	struct msm_gem_address_space *aspace;
+> +	struct msm_mmu *mmu;
+> +	u64 start, size;
+> +	u32 val = 1;
+> +	int ret;
+> +
+> +	if (!iommu)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	/*
+> +	 * Try to request split pagetables - the request has to be made 
+> before
+> +	 * the domian is attached
+> +	 */
+> +	iommu_domain_set_attr(iommu, DOMAIN_ATTR_SPLIT_TABLES, &val);
+> +
+> +	mmu = msm_iommu_new(&pdev->dev, iommu);
+> +	if (IS_ERR(mmu)) {
+> +		iommu_domain_free(iommu);
+> +		return ERR_CAST(mmu);
+> +	}
+> +
+> +	/*
+> +	 * After the domain is attached, see if the split tables were 
+> actually
+> +	 * successful.
+> +	 */
+> +	ret = iommu_domain_get_attr(iommu, DOMAIN_ATTR_SPLIT_TABLES, &val);
+> +	if (!ret && val) {
+> +		/*
+> +		 * The aperture start will be at the beginning of the TTBR1
+> +		 * space so use that as a base
+> +		 */
+> +		start = iommu->geometry.aperture_start;
+> +		size = 0xffffffff;
+This should be the va_end and not the size
+> +	} else {
+> +		/* Otherwise use the legacy 32 bit region */
+> +		start = SZ_16M;
+> +		size = 0xffffffff - SZ_16M;
+same as above
+> +	}
+> +
+> +	aspace = msm_gem_address_space_create(mmu, "gpu", start, size);
+> +	if (IS_ERR(aspace))
+> +		iommu_domain_free(iommu);
+> +
+> +	return aspace;
+> +}
+> +
+>  static const struct adreno_gpu_funcs funcs = {
+>  	.base = {
+>  		.get_param = adreno_get_param,
+> @@ -832,7 +882,7 @@ static const struct adreno_gpu_funcs funcs = {
+>  #if defined(CONFIG_DRM_MSM_GPU_STATE)
+>  		.gpu_state_get = a6xx_gpu_state_get,
+>  		.gpu_state_put = a6xx_gpu_state_put,
+> -		.create_address_space = adreno_iommu_create_address_space,
+> +		.create_address_space = a6xx_create_address_space,
+>  #endif
+>  	},
+>  	.get_timestamp = a6xx_get_timestamp,
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
