@@ -1,62 +1,38 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BC9712C0EC
-	for <lists+freedreno@lfdr.de>; Sun, 29 Dec 2019 07:33:31 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id EF05812CBCA
+	for <lists+freedreno@lfdr.de>; Mon, 30 Dec 2019 03:01:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D44C289E3B;
-	Sun, 29 Dec 2019 06:33:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54AA289AB6;
+	Mon, 30 Dec 2019 02:01:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
- [IPv6:2607:f8b0:4864:20::1044])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26ED689E3B
- for <freedreno@lists.freedesktop.org>; Sun, 29 Dec 2019 06:33:29 +0000 (UTC)
-Received: by mail-pj1-x1044.google.com with SMTP id n96so6576499pjc.3
- for <freedreno@lists.freedesktop.org>; Sat, 28 Dec 2019 22:33:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=nqGIhwYTh0DiBSLBMDh1uZ5wGRcp0IHXwUhJAqa821o=;
- b=USXZNxmckjGT1gFkzviu7A1+ak1urciIU+1xtmdBGP0ny/2qFn4lPJ7F+3P+KjkWz9
- mypGG4CSY3rUakmiDqZvF0lYdz/8UogjLVzK0d5SGnOcNcwePrBRI7Z791bQXc0ZjUty
- y+Oa8LZmZW7sWHiej6XI9Yj7NxFkJJhH4/DmZH37fZzH+TH0MVbJaBcwf+UKlBbSDaeu
- HEEOzeXblFJOTV/smOAttBNrSAHmfbef47opWMEoQl8mvAC1F7cj+KNj0VLhQhXHon5T
- UWPnhJwG8lS2wST10uBq4bDGhFXdvlZKVQG7v2oFVVnNpTsNd3o09aBt5IR/hl83eBx+
- ZDPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=nqGIhwYTh0DiBSLBMDh1uZ5wGRcp0IHXwUhJAqa821o=;
- b=HnNAJMP6E/kmx7v6dBMS5UpAGRMDlOtQz6pmnx2sgmfgGK1vzKOV3wezGSDuO/cU9f
- ++oX175hScWsWEpDakhCeaF8L2e7+DVZl05Hi6E4PF3veXX24jA135WdyzWh0f/N0got
- 0QxmNfmroc0W0pnj+JCCMXag7nacNYRLz5zhXgSN2XJ3Kw43qZqlfkskSFz5EV+AOc3v
- NSdToKYIo2v8JjYURBjcLnDOl/2usEuY75dFUtXm5yJqm8IDoKx3ekajHZFoPHNPJPdH
- DoLxJNACZtHRm4i+P3bafbOwjRtkL3xA/Zr9vvIvsn3tCHL/p9U4MvRsdf8ZPB+CuPlu
- gaGw==
-X-Gm-Message-State: APjAAAX4aJkg/j+uZ5FIr6WcgRCos81C/UI1aoCiBjG8gm1QrErYl6zS
- AFLViHwx0BpQI6qq/sLfbzciew==
-X-Google-Smtp-Source: APXvYqwxEV0O6vRqHXU4ePHQt8ChvcTTjo2G9Do4DVPv3Y1n/SAqrvUsgBmIZ4Je3/ZERvOyxrHdjA==
-X-Received: by 2002:a17:902:b18e:: with SMTP id
- s14mr63595046plr.261.1577601208519; 
- Sat, 28 Dec 2019 22:33:28 -0800 (PST)
-Received: from builder (104-188-17-28.lightspeed.sndgca.sbcglobal.net.
- [104.188.17.28])
- by smtp.gmail.com with ESMTPSA id i9sm45974852pfk.24.2019.12.28.22.33.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 28 Dec 2019 22:33:27 -0800 (PST)
-Date: Sat, 28 Dec 2019 22:33:25 -0800
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Sharat Masetty <smasetty@codeaurora.org>
-Message-ID: <20191229063325.GP3755841@builder>
-References: <0101016ecc56c5c5-ab66c0ce-da45-4d8e-9cac-8f6be69001d3-000000@us-west-2.amazonses.com>
+Received: from onstation.org (onstation.org [52.200.56.107])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF6A989AB6;
+ Mon, 30 Dec 2019 02:01:07 +0000 (UTC)
+Received: from localhost.localdomain (c-98-239-145-235.hsd1.wv.comcast.net
+ [98.239.145.235])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested) (Authenticated sender: masneyb)
+ by onstation.org (Postfix) with ESMTPSA id 80B7B3EE7A;
+ Mon, 30 Dec 2019 02:01:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=onstation.org;
+ s=default; t=1577671266;
+ bh=t0PObDLzsPhcqnRoun2t4cn7CK8IaaEUsOLL32hsp+A=;
+ h=From:To:Cc:Subject:Date:From;
+ b=hAmoq4Npmz3/1IQcX+qOctett7tt7TPaPFnCTIYg2L4+yaM0wk7VV2rrH85EtNsy/
+ AlF/nGb/YkJxqKzRKxv+x14HYwOwENwdBDvGfrnT/xnO1FVuXzO3tNN8BoUvAFh83T
+ 6pTNrklhEV5bUK409DI2L7LOlxWMvPDu18MuWTfU=
+From: Brian Masney <masneyb@onstation.org>
+To: jeffrey.l.hugo@gmail.com,
+	robdclark@gmail.com
+Date: Sun, 29 Dec 2019 21:00:52 -0500
+Message-Id: <20191230020053.26016-1-masneyb@onstation.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <0101016ecc56c5c5-ab66c0ce-da45-4d8e-9cac-8f6be69001d3-000000@us-west-2.amazonses.com>
-User-Agent: Mutt/1.12.2 (2019-09-21)
-Subject: Re: [Freedreno] [PATCH] arm: dts: sc7180: Add A618 gpu dt blob
+Subject: [Freedreno] [PATCH RFC v2] drm/msm/mdp5: enable autorefresh
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,192 +45,187 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, freedreno@lists.freedesktop.org,
- dri-devel@freedesktop.org, linux-arm-msm@vger.kernel.org
+Cc: sean@poorly.run, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue 03 Dec 07:17 PST 2019, Sharat Masetty wrote:
+Since the introduction of commit 2d99ced787e3 ("drm/msm: async commit
+support"), command-mode panels began throwing the following errors:
 
-Please update subject to "arm64: dts: qcom: sc7180: Add A618 GPU nodes"
+    msm fd900000.mdss: pp done time out, lm=0
 
-> This patch adds the required dt nodes and properties
-> to enabled A618 GPU.
-> 
-> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
-> ---
->  arch/arm64/boot/dts/qcom/sc7180.dtsi | 116 +++++++++++++++++++++++++++++++++++
->  1 file changed, 116 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> index c3db2e5..31223d0 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> @@ -18,6 +18,8 @@
->  #include <dt-bindings/reset/qcom,sdm845-pdc.h>
->  #include <dt-bindings/soc/qcom,rpmh-rsc.h>
->  #include <dt-bindings/phy/phy-qcom-qusb2.h>
-> +#include <dt-bindings/clock/qcom,gpucc-sc7180.h>
-> +#include <dt-bindings/power/qcom-rpmpd.h>
+Let's fix this by enabling the autorefresh feature that's available in
+the MDP starting at version 1.0. This will cause the MDP to
+automatically send a frame to the panel every time the panel invokes the
+TE signal, which will trigger the PP_DONE IRQ. This requires only
+sending a single START signal for command-mode panels.
 
-Please maintain sort order of includes.
+This gives us a counter for command-mode panels that we can use to
+implement async commit support for the MDP5 in a follow up patch.
 
-> 
->  / {
->  	interrupt-parent = <&intc>;
-> @@ -733,6 +735,120 @@
->  			#power-domain-cells = <1>;
->  		};
-> 
-> +		gpu: gpu@5000000 {
+Signed-off-by: Brian Masney <masneyb@onstation.org>
+Suggested-by: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
+Fixes: 2d99ced787e3 ("drm/msm: async commit support")
+---
+Changes since v1:
+- Send a single start command to kick off the pipeline.
 
-Please rebase this on linux-next and ensure to maintain the sort order.
+The reason I marked this patch as a RFC is that the display during some
+small percentage of boots will stop updating after a minute or so, and
+the ping pong IRQs stop. Most of the time it works with no issues and I
+haven't been able to find a way to reproduce the issue. I tried
+suspending the phone by toggling /sys/power/state since I thought that
+the issue could potentially be related to power management.
 
-> +			compatible = "qcom,adreno-618.0", "qcom,adreno";
-> +			#stream-id-cells = <16>;
-> +			reg = <0 0x5000000 0 0x40000>, <0 0x509e000 0 0x1000>,
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c | 17 ++++++++++++-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c  | 31 ++++++++++++++++++++---
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.h  |  3 +--
+ 3 files changed, 44 insertions(+), 7 deletions(-)
 
-Please pad addresses to 8 digits.
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
+index 05cc04f729d6..39dd144295b3 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
+@@ -436,6 +436,8 @@ static void mdp5_crtc_atomic_disable(struct drm_crtc *crtc,
+ 		spin_unlock_irqrestore(&mdp5_kms->dev->event_lock, flags);
+ 	}
+ 
++	mdp5_ctl_disable(mdp5_cstate->ctl, &mdp5_cstate->pipeline);
++
+ 	mdp5_crtc->enabled = false;
+ }
+ 
+@@ -456,6 +458,7 @@ static void mdp5_crtc_atomic_enable(struct drm_crtc *crtc,
+ {
+ 	struct mdp5_crtc *mdp5_crtc = to_mdp5_crtc(crtc);
+ 	struct mdp5_crtc_state *mdp5_cstate = to_mdp5_crtc_state(crtc->state);
++	struct mdp5_pipeline *pipeline = &mdp5_cstate->pipeline;
+ 	struct mdp5_kms *mdp5_kms = get_kms(crtc);
+ 	struct device *dev = &mdp5_kms->pdev->dev;
+ 
+@@ -493,9 +496,21 @@ static void mdp5_crtc_atomic_enable(struct drm_crtc *crtc,
+ 
+ 	mdp_irq_register(&mdp5_kms->base, &mdp5_crtc->err);
+ 
+-	if (mdp5_cstate->cmd_mode)
++	if (mdp5_cstate->cmd_mode) {
+ 		mdp_irq_register(&mdp5_kms->base, &mdp5_crtc->pp_done);
+ 
++		/*
++		 * Enable autorefresh so we get regular ping/pong IRQs.
++		 * - Bit 31 is the enable bit
++		 * - Bits 0-15 represent the frame count, specifically how many
++		 *   TE events before the MDP sends a frame.
++		 */
++		mdp5_write(mdp5_kms,
++			   REG_MDP5_PP_AUTOREFRESH_CONFIG(pipeline->mixer->pp),
++			   BIT(31) | BIT(0));
++		crtc_flush_all(crtc);
++	}
++
+ 	mdp5_crtc->enabled = true;
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c
+index 030279d7b64b..965757d4f356 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c
+@@ -50,6 +50,13 @@ struct mdp5_ctl {
+ 	bool flush_pending;
+ 
+ 	struct mdp5_ctl *pair; /* Paired CTL to be flushed together */
++
++	/*
++	 * The command mode panels are ran with autorefresh enabled. Only a
++	 * single START command can be sent so keep track on a per ping pong
++	 * basis.
++	 */
++	bool start_sent_by_pp[4];
+ };
+ 
+ struct mdp5_ctl_manager {
+@@ -191,7 +198,8 @@ static bool start_signal_needed(struct mdp5_ctl *ctl,
+ 	case INTF_WB:
+ 		return true;
+ 	case INTF_DSI:
+-		return intf->mode == MDP5_INTF_DSI_MODE_COMMAND;
++		return intf->mode == MDP5_INTF_DSI_MODE_COMMAND &&
++			!ctl->start_sent_by_pp[pipeline->mixer->pp];
+ 	default:
+ 		return false;
+ 	}
+@@ -204,13 +212,17 @@ static bool start_signal_needed(struct mdp5_ctl *ctl,
+  * executed in order to kick off operation and activate all layers.
+  * e.g.: DSI command mode, Writeback
+  */
+-static void send_start_signal(struct mdp5_ctl *ctl)
++static void send_start_signal(struct mdp5_ctl *ctl,
++			      struct mdp5_pipeline *pipeline)
+ {
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&ctl->hw_lock, flags);
+ 	ctl_write(ctl, REG_MDP5_CTL_START(ctl->id), 1);
+ 	spin_unlock_irqrestore(&ctl->hw_lock, flags);
++
++	if (pipeline->intf->mode == MDP5_INTF_DSI_MODE_COMMAND)
++		ctl->start_sent_by_pp[pipeline->mixer->pp] = true;
+ }
+ 
+ /**
+@@ -234,7 +246,7 @@ int mdp5_ctl_set_encoder_state(struct mdp5_ctl *ctl,
+ 	DBG("intf_%d: %s", intf->num, enabled ? "on" : "off");
+ 
+ 	if (start_signal_needed(ctl, pipeline)) {
+-		send_start_signal(ctl);
++		send_start_signal(ctl, pipeline);
+ 	}
+ 
+ 	return 0;
+@@ -562,7 +574,7 @@ u32 mdp5_ctl_commit(struct mdp5_ctl *ctl,
+ 	}
+ 
+ 	if (start_signal_needed(ctl, pipeline)) {
+-		send_start_signal(ctl);
++		send_start_signal(ctl, pipeline);
+ 	}
+ 
+ 	return curr_ctl_flush_mask;
+@@ -753,3 +765,14 @@ struct mdp5_ctl_manager *mdp5_ctlm_init(struct drm_device *dev,
+ 
+ 	return ERR_PTR(ret);
+ }
++
++void mdp5_ctl_disable(struct mdp5_ctl *ctl, struct mdp5_pipeline *pipeline)
++{
++	int i;
++
++	if (pipeline->intf->mode != MDP5_INTF_DSI_MODE_COMMAND)
++		return;
++
++	for (i = 0; i < ARRAY_SIZE(ctl->start_sent_by_pp); i++)
++		ctl->start_sent_by_pp[i] = false;
++}
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.h b/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.h
+index c2af68aa77ae..f9bbf1295669 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.h
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.h
+@@ -72,7 +72,6 @@ u32 mdp_ctl_flush_mask_encoder(struct mdp5_interface *intf);
+ u32 mdp5_ctl_commit(struct mdp5_ctl *ctl, struct mdp5_pipeline *pipeline,
+ 		    u32 flush_mask, bool start);
+ u32 mdp5_ctl_get_commit_status(struct mdp5_ctl *ctl);
+-
+-
++void mdp5_ctl_disable(struct mdp5_ctl *ctl, struct mdp5_pipeline *pipeline);
+ 
+ #endif /* __MDP5_CTL_H__ */
+-- 
+2.21.0
 
-> +				<0 0x5061000 0 0x800>;
-> +			reg-names = "kgsl_3d0_reg_memory", "cx_mem", "cx_dbgc";
-> +
-> +			interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
-> +
-> +			iommus = <&adreno_smmu 0>;
-> +
-> +			operating-points-v2 = <&gpu_opp_table>;
-> +
-> +			interconnects = <&gem_noc 35 &mc_virt 512>;
-
-Please use the defines for these ports.
-
-> +
-> +			qcom,gmu = <&gmu>;
-
-You can reduce the number of empty lines above.
-
-> +
-> +			gpu_opp_table: opp-table {
-> +				compatible = "operating-points-v2";
-> +
-> +				opp-800000000 {
-> +					opp-hz = /bits/ 64 <800000000>;
-> +					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
-> +				};
-> +
-> +				opp-650000000 {
-> +					opp-hz = /bits/ 64 <650000000>;
-> +					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
-> +				};
-> +
-> +				opp-565000000 {
-> +					opp-hz = /bits/ 64 <565000000>;
-> +					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
-> +				};
-> +
-> +				opp-430000000 {
-> +					opp-hz = /bits/ 64 <430000000>;
-> +					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-> +				};
-> +
-> +                                opp-355000000 {
-
-The indentation is off here.
-
-> +					opp-hz = /bits/ 64 <355000000>;
-> +					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
-> +				};
-> +
-> +                                opp-267000000 {
-
-And here.
-
-> +					opp-hz = /bits/ 64 <267000000>;
-> +					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-> +				};
-> +
-> +				opp-180000000 {
-> +					opp-hz = /bits/ 64 <180000000>;
-> +					opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
-> +				};
-> +			};
-> +		};
-> +
-> +		adreno_smmu: iommu@5040000 {
-> +			compatible = "qcom,sc7180-smmu-v2", "qcom,smmu-v2";
-> +			reg = <0 0x5040000 0 0x10000>;
-> +			#iommu-cells = <1>;
-> +			#global-interrupts = <2>;
-> +			interrupts = <GIC_SPI 229 IRQ_TYPE_LEVEL_HIGH>,
-> +					<GIC_SPI 231 IRQ_TYPE_LEVEL_HIGH>,
-> +					<GIC_SPI 364 IRQ_TYPE_EDGE_RISING>,
-> +					<GIC_SPI 365 IRQ_TYPE_EDGE_RISING>,
-> +					<GIC_SPI 366 IRQ_TYPE_EDGE_RISING>,
-> +					<GIC_SPI 367 IRQ_TYPE_EDGE_RISING>,
-> +					<GIC_SPI 368 IRQ_TYPE_EDGE_RISING>,
-> +					<GIC_SPI 369 IRQ_TYPE_EDGE_RISING>,
-> +					<GIC_SPI 370 IRQ_TYPE_EDGE_RISING>,
-> +					<GIC_SPI 371 IRQ_TYPE_EDGE_RISING>;
-> +			clocks = <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
-> +				<&gcc GCC_GPU_CFG_AHB_CLK>,
-> +				<&gcc GCC_DDRSS_GPU_AXI_CLK>;
-> +
-> +			clock-names = "bus", "iface", "mem_iface_clk";
-> +			power-domains = <&gpucc CX_GDSC>;
-> +		};
-> +
-> +		gmu: gmu@506a000 {
-> +			compatible="qcom,adreno-gmu-618", "qcom,adreno-gmu";
-> +
-> +			reg = 	<0 0x506a000 0 0x31000>,
-
-Extra spaces after =
-
-> +				<0 0xb290000 0 0x10000>,
-> +				<0 0xb490000 0 0x10000>;
-> +			reg-names = "gmu", "gmu_pdc", "gmu_pdc_seq";
-> +
-> +			interrupts = <GIC_SPI 304 IRQ_TYPE_LEVEL_HIGH>,
-> +				   <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-names = "hfi", "gmu";
-> +
-> +			clocks = <&gpucc GPU_CC_CX_GMU_CLK>,
-> +			       <&gpucc GPU_CC_CXO_CLK>,
-> +			       <&gcc GCC_DDRSS_GPU_AXI_CLK>,
-> +			       <&gcc GCC_GPU_MEMNOC_GFX_CLK>;
-> +			clock-names = "gmu", "cxo", "axi", "memnoc";
-> +
-> +			power-domains = <&gpucc CX_GDSC>;
-> +
-> +			iommus = <&adreno_smmu 5>;
-> +
-> +			operating-points-v2 = <&gmu_opp_table>;
-
-As above, please drop a few of these empty lines.
-
-Regards,
-Bjorn
-
-> +
-> +			gmu_opp_table: opp-table {
-> +				compatible = "operating-points-v2";
-> +
-> +				opp-200000000 {
-> +					opp-hz = /bits/ 64 <200000000>;
-> +					opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
-> +				};
-> +			};
-> +		};
-> +
->  		apps_smmu: iommu@15000000 {
->  			compatible = "qcom,sc7180-smmu-500", "arm,mmu-500";
->  			reg = <0 0x15000000 0 0x100000>;
-> --
-> 1.9.1
-> 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
