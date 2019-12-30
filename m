@@ -1,40 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2D9212CBCB
-	for <lists+freedreno@lfdr.de>; Mon, 30 Dec 2019 03:01:10 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 080B612D49E
+	for <lists+freedreno@lfdr.de>; Mon, 30 Dec 2019 22:07:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45E928987A;
-	Mon, 30 Dec 2019 02:01:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC20D6E07B;
+	Mon, 30 Dec 2019 21:07:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from onstation.org (onstation.org [52.200.56.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6F2B8987A;
- Mon, 30 Dec 2019 02:01:07 +0000 (UTC)
-Received: from localhost.localdomain (c-98-239-145-235.hsd1.wv.comcast.net
- [98.239.145.235])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested) (Authenticated sender: masneyb)
- by onstation.org (Postfix) with ESMTPSA id E0EE13F262;
- Mon, 30 Dec 2019 02:01:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=onstation.org;
- s=default; t=1577671267;
- bh=t0PObDLzsPhcqnRoun2t4cn7CK8IaaEUsOLL32hsp+A=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=kZENiB83tEIEqiyvYfxpIm/AUe9rYXindPV5Wc6UPLe9ALgOWZg6dxrxcj10b/Mak
- eUtBxlHssLnK5FzNqOCzVypYY11Ut1p0uiiTWL1rxxle/dCfv0tHipu1/ikpdbaqMz
- NZJxJji08Tv2ZcOLQEp33HWAX9RDYlF5m3OousJA=
-From: Brian Masney <masneyb@onstation.org>
-To: jeffrey.l.hugo@gmail.com,
-	robdclark@gmail.com
-Date: Sun, 29 Dec 2019 21:00:53 -0500
-Message-Id: <20191230020053.26016-2-masneyb@onstation.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20191230020053.26016-1-masneyb@onstation.org>
-References: <20191230020053.26016-1-masneyb@onstation.org>
-MIME-Version: 1.0
-Subject: [Freedreno] [PATCH RFC v2] drm/msm/mdp5: enable autorefresh
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D262E6E072;
+ Mon, 30 Dec 2019 19:41:10 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id y17so33617845wrh.5;
+ Mon, 30 Dec 2019 11:41:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=dXg8oFzBEXS5AG929jnjM1jsF6o4ohe+Wl9/z4Sa0Kk=;
+ b=N3Il+Igx/93EmUIkp4Qn7D4C0qYnr0Zm38eM/RyUnHj3fIu88+MfVRzvu05TtNB1RI
+ owSAEZX27S/3Sj7lup7vXTu9Dz6tr899n2q4V0yVA1XcFvP6PR8doKKHN8OMVPnd0A/9
+ yqiZg1nBjCA7I1vsVt/EINDdHNUXMdQz03cxDmS7nfsJc2I58cMJM38EminOTwOvxV9T
+ kM0yNNarkUhD1T6B0xCVk4Uq6VOVjH30XqIiSw8Ddxhillis6CRNlYSemQ3F8/nr5nKK
+ TMn8U9HLeSXsHPc0N73KXCm+ao9zPZrRviqRUQPXO11ky4G6LnJEyKH7SBP4JDipEcDX
+ LG7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=dXg8oFzBEXS5AG929jnjM1jsF6o4ohe+Wl9/z4Sa0Kk=;
+ b=hLhb4kikeG1Ddt5x9YuhVDc5kPrd8CHE5xW+r+oZfoKUD8IFJhXuQr+Toi0QPMvjqB
+ mnro+UjQiLInVPuAQjTJml3hZXY0E9lsvyda+xT7LeLKSyHXFuKFWbVseP2yLcmGJA2F
+ eeCTIZMq4Gi93XJ1x5Y8XkjA5fk7KXOH128iFeMePgdToyGaxiNLRSGYhGiOEKyZuxwD
+ mbaWTtGme4bQJaOw33bRIzVAK4HXDzomhd0vr1N0LVwijBhve90Lfh3trZVbvwEr6Xa0
+ bOFZ/h8ogITENTPYC+HL/e1IisihQpq4C8plFjSUTwdSoEN5opQkI3+wTOKx3qmLcRjF
+ sTaQ==
+X-Gm-Message-State: APjAAAVHDPElIL+7i9e3c7GiBC3krFJ1I3GAqggRn1yiV9KZRgU8bNfo
+ Ja+UgF8ClfsgMvnVFkXjpcw=
+X-Google-Smtp-Source: APXvYqyvzye3Ooh54UXS218+xZWxHTIG40U09D7tH9MsS86sPq32CvZylveADRnLKxa3J7IKokgM2Q==
+X-Received: by 2002:a5d:4d06:: with SMTP id z6mr67047992wrt.339.1577734868421; 
+ Mon, 30 Dec 2019 11:41:08 -0800 (PST)
+Received: from localhost.localdomain ([197.254.95.38])
+ by smtp.googlemail.com with ESMTPSA id p17sm47239785wrx.20.2019.12.30.11.41.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Dec 2019 11:41:07 -0800 (PST)
+From: Wambui Karuga <wambui.karugax@gmail.com>
+To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch
+Date: Mon, 30 Dec 2019 22:41:02 +0300
+Message-Id: <20191230194102.2843-1-wambui.karugax@gmail.com>
+X-Mailer: git-send-email 2.17.1
+X-Mailman-Approved-At: Mon, 30 Dec 2019 21:07:49 +0000
+Subject: [Freedreno] [PATCH] drm/msm: use BUG_ON macro for debugging.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,186 +62,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean@poorly.run, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Since the introduction of commit 2d99ced787e3 ("drm/msm: async commit
-support"), command-mode panels began throwing the following errors:
+As the if statement only checks for the value of the offset_name
+variable, it can be replaced by the more conscise BUG_ON macro for error
+reporting.
 
-    msm fd900000.mdss: pp done time out, lm=0
-
-Let's fix this by enabling the autorefresh feature that's available in
-the MDP starting at version 1.0. This will cause the MDP to
-automatically send a frame to the panel every time the panel invokes the
-TE signal, which will trigger the PP_DONE IRQ. This requires only
-sending a single START signal for command-mode panels.
-
-This gives us a counter for command-mode panels that we can use to
-implement async commit support for the MDP5 in a follow up patch.
-
-Signed-off-by: Brian Masney <masneyb@onstation.org>
-Suggested-by: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
-Fixes: 2d99ced787e3 ("drm/msm: async commit support")
+Signed-off-by: Wambui Karuga <wambui.karugax@gmail.com>
 ---
-Changes since v1:
-- Send a single start command to kick off the pipeline.
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-The reason I marked this patch as a RFC is that the display during some
-small percentage of boots will stop updating after a minute or so, and
-the ping pong IRQs stop. Most of the time it works with no issues and I
-haven't been able to find a way to reproduce the issue. I tried
-suspending the phone by toggling /sys/power/state since I thought that
-the issue could potentially be related to power management.
-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c | 17 ++++++++++++-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c  | 31 ++++++++++++++++++++---
- drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.h  |  3 +--
- 3 files changed, 44 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
-index 05cc04f729d6..39dd144295b3 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
-@@ -436,6 +436,8 @@ static void mdp5_crtc_atomic_disable(struct drm_crtc *crtc,
- 		spin_unlock_irqrestore(&mdp5_kms->dev->event_lock, flags);
- 	}
- 
-+	mdp5_ctl_disable(mdp5_cstate->ctl, &mdp5_cstate->pipeline);
-+
- 	mdp5_crtc->enabled = false;
- }
- 
-@@ -456,6 +458,7 @@ static void mdp5_crtc_atomic_enable(struct drm_crtc *crtc,
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index c7441fb8313e..0fe7907f5a7d 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -315,10 +315,7 @@ OUT_PKT7(struct msm_ringbuffer *ring, uint8_t opcode, uint16_t cnt)
+ static inline bool adreno_reg_check(struct adreno_gpu *gpu,
+ 		enum adreno_regs offset_name)
  {
- 	struct mdp5_crtc *mdp5_crtc = to_mdp5_crtc(crtc);
- 	struct mdp5_crtc_state *mdp5_cstate = to_mdp5_crtc_state(crtc->state);
-+	struct mdp5_pipeline *pipeline = &mdp5_cstate->pipeline;
- 	struct mdp5_kms *mdp5_kms = get_kms(crtc);
- 	struct device *dev = &mdp5_kms->pdev->dev;
+-	if (offset_name >= REG_ADRENO_REGISTER_MAX ||
+-			!gpu->reg_offsets[offset_name]) {
+-		BUG();
+-	}
++	BUG_ON(offset_name >= REG_ADRENO_REGISTER_MAX || !gpu->reg_offsets[offset_name]);
  
-@@ -493,9 +496,21 @@ static void mdp5_crtc_atomic_enable(struct drm_crtc *crtc,
- 
- 	mdp_irq_register(&mdp5_kms->base, &mdp5_crtc->err);
- 
--	if (mdp5_cstate->cmd_mode)
-+	if (mdp5_cstate->cmd_mode) {
- 		mdp_irq_register(&mdp5_kms->base, &mdp5_crtc->pp_done);
- 
-+		/*
-+		 * Enable autorefresh so we get regular ping/pong IRQs.
-+		 * - Bit 31 is the enable bit
-+		 * - Bits 0-15 represent the frame count, specifically how many
-+		 *   TE events before the MDP sends a frame.
-+		 */
-+		mdp5_write(mdp5_kms,
-+			   REG_MDP5_PP_AUTOREFRESH_CONFIG(pipeline->mixer->pp),
-+			   BIT(31) | BIT(0));
-+		crtc_flush_all(crtc);
-+	}
-+
- 	mdp5_crtc->enabled = true;
- }
- 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c
-index 030279d7b64b..965757d4f356 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c
-@@ -50,6 +50,13 @@ struct mdp5_ctl {
- 	bool flush_pending;
- 
- 	struct mdp5_ctl *pair; /* Paired CTL to be flushed together */
-+
-+	/*
-+	 * The command mode panels are ran with autorefresh enabled. Only a
-+	 * single START command can be sent so keep track on a per ping pong
-+	 * basis.
-+	 */
-+	bool start_sent_by_pp[4];
- };
- 
- struct mdp5_ctl_manager {
-@@ -191,7 +198,8 @@ static bool start_signal_needed(struct mdp5_ctl *ctl,
- 	case INTF_WB:
- 		return true;
- 	case INTF_DSI:
--		return intf->mode == MDP5_INTF_DSI_MODE_COMMAND;
-+		return intf->mode == MDP5_INTF_DSI_MODE_COMMAND &&
-+			!ctl->start_sent_by_pp[pipeline->mixer->pp];
- 	default:
- 		return false;
- 	}
-@@ -204,13 +212,17 @@ static bool start_signal_needed(struct mdp5_ctl *ctl,
-  * executed in order to kick off operation and activate all layers.
-  * e.g.: DSI command mode, Writeback
-  */
--static void send_start_signal(struct mdp5_ctl *ctl)
-+static void send_start_signal(struct mdp5_ctl *ctl,
-+			      struct mdp5_pipeline *pipeline)
- {
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&ctl->hw_lock, flags);
- 	ctl_write(ctl, REG_MDP5_CTL_START(ctl->id), 1);
- 	spin_unlock_irqrestore(&ctl->hw_lock, flags);
-+
-+	if (pipeline->intf->mode == MDP5_INTF_DSI_MODE_COMMAND)
-+		ctl->start_sent_by_pp[pipeline->mixer->pp] = true;
- }
- 
- /**
-@@ -234,7 +246,7 @@ int mdp5_ctl_set_encoder_state(struct mdp5_ctl *ctl,
- 	DBG("intf_%d: %s", intf->num, enabled ? "on" : "off");
- 
- 	if (start_signal_needed(ctl, pipeline)) {
--		send_start_signal(ctl);
-+		send_start_signal(ctl, pipeline);
- 	}
- 
- 	return 0;
-@@ -562,7 +574,7 @@ u32 mdp5_ctl_commit(struct mdp5_ctl *ctl,
- 	}
- 
- 	if (start_signal_needed(ctl, pipeline)) {
--		send_start_signal(ctl);
-+		send_start_signal(ctl, pipeline);
- 	}
- 
- 	return curr_ctl_flush_mask;
-@@ -753,3 +765,14 @@ struct mdp5_ctl_manager *mdp5_ctlm_init(struct drm_device *dev,
- 
- 	return ERR_PTR(ret);
- }
-+
-+void mdp5_ctl_disable(struct mdp5_ctl *ctl, struct mdp5_pipeline *pipeline)
-+{
-+	int i;
-+
-+	if (pipeline->intf->mode != MDP5_INTF_DSI_MODE_COMMAND)
-+		return;
-+
-+	for (i = 0; i < ARRAY_SIZE(ctl->start_sent_by_pp); i++)
-+		ctl->start_sent_by_pp[i] = false;
-+}
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.h b/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.h
-index c2af68aa77ae..f9bbf1295669 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.h
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.h
-@@ -72,7 +72,6 @@ u32 mdp_ctl_flush_mask_encoder(struct mdp5_interface *intf);
- u32 mdp5_ctl_commit(struct mdp5_ctl *ctl, struct mdp5_pipeline *pipeline,
- 		    u32 flush_mask, bool start);
- u32 mdp5_ctl_get_commit_status(struct mdp5_ctl *ctl);
--
--
-+void mdp5_ctl_disable(struct mdp5_ctl *ctl, struct mdp5_pipeline *pipeline);
- 
- #endif /* __MDP5_CTL_H__ */
+ 	/*
+ 	 * REG_SKIP is a special value that tell us that the register in
 -- 
-2.21.0
+2.17.1
 
 _______________________________________________
 Freedreno mailing list
