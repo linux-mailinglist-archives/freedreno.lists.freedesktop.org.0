@@ -1,55 +1,53 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 080B612D49E
-	for <lists+freedreno@lfdr.de>; Mon, 30 Dec 2019 22:07:52 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A222212D9B9
+	for <lists+freedreno@lfdr.de>; Tue, 31 Dec 2019 16:21:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC20D6E07B;
-	Mon, 30 Dec 2019 21:07:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A010C6E241;
+	Tue, 31 Dec 2019 15:21:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D262E6E072;
- Mon, 30 Dec 2019 19:41:10 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id y17so33617845wrh.5;
- Mon, 30 Dec 2019 11:41:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=dXg8oFzBEXS5AG929jnjM1jsF6o4ohe+Wl9/z4Sa0Kk=;
- b=N3Il+Igx/93EmUIkp4Qn7D4C0qYnr0Zm38eM/RyUnHj3fIu88+MfVRzvu05TtNB1RI
- owSAEZX27S/3Sj7lup7vXTu9Dz6tr899n2q4V0yVA1XcFvP6PR8doKKHN8OMVPnd0A/9
- yqiZg1nBjCA7I1vsVt/EINDdHNUXMdQz03cxDmS7nfsJc2I58cMJM38EminOTwOvxV9T
- kM0yNNarkUhD1T6B0xCVk4Uq6VOVjH30XqIiSw8Ddxhillis6CRNlYSemQ3F8/nr5nKK
- TMn8U9HLeSXsHPc0N73KXCm+ao9zPZrRviqRUQPXO11ky4G6LnJEyKH7SBP4JDipEcDX
- LG7g==
+Received: from mail-il1-x143.google.com (mail-il1-x143.google.com
+ [IPv6:2607:f8b0:4864:20::143])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C20486E23F
+ for <freedreno@lists.freedesktop.org>; Tue, 31 Dec 2019 15:21:11 +0000 (UTC)
+Received: by mail-il1-x143.google.com with SMTP id f10so30368591ils.8
+ for <freedreno@lists.freedesktop.org>; Tue, 31 Dec 2019 07:21:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poorly.run; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=M7wDnYJLkdZ3OOSrLZqOeBqYHWkaMb/EXIdOIWi2ux8=;
+ b=cbmWvu809wZwdtci+lKYzW4AhYVpnBdlWm0HloHr3t0MlPEoqkF+d3fd81CayHS+fh
+ /A5cRX5GGeuxhJP503RVB9OZnzNuQCi33fmHjYSpw4ibMEb507/yR94QpjQCbTtvR4lI
+ 2ZR1pqe2d7rGSsTnq5T/ocPoKQjPUSsxO9bUua5KZW1NXDr+JCaOVDiiXIwU1Itc9Zu1
+ A0XVdMFQvblvWdVT8PcxSdFkKxJ41sNrAYO4zptbeglWbEsFKtccfsBEa3PuoXrSgQEc
+ 96nk7odHY5j7Ts6/fRh/1njXnhM1uuPGX/TTkcTq0TmGb9jMorJph/R6weDxi8hEbJKL
+ KKEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=dXg8oFzBEXS5AG929jnjM1jsF6o4ohe+Wl9/z4Sa0Kk=;
- b=hLhb4kikeG1Ddt5x9YuhVDc5kPrd8CHE5xW+r+oZfoKUD8IFJhXuQr+Toi0QPMvjqB
- mnro+UjQiLInVPuAQjTJml3hZXY0E9lsvyda+xT7LeLKSyHXFuKFWbVseP2yLcmGJA2F
- eeCTIZMq4Gi93XJ1x5Y8XkjA5fk7KXOH128iFeMePgdToyGaxiNLRSGYhGiOEKyZuxwD
- mbaWTtGme4bQJaOw33bRIzVAK4HXDzomhd0vr1N0LVwijBhve90Lfh3trZVbvwEr6Xa0
- bOFZ/h8ogITENTPYC+HL/e1IisihQpq4C8plFjSUTwdSoEN5opQkI3+wTOKx3qmLcRjF
- sTaQ==
-X-Gm-Message-State: APjAAAVHDPElIL+7i9e3c7GiBC3krFJ1I3GAqggRn1yiV9KZRgU8bNfo
- Ja+UgF8ClfsgMvnVFkXjpcw=
-X-Google-Smtp-Source: APXvYqyvzye3Ooh54UXS218+xZWxHTIG40U09D7tH9MsS86sPq32CvZylveADRnLKxa3J7IKokgM2Q==
-X-Received: by 2002:a5d:4d06:: with SMTP id z6mr67047992wrt.339.1577734868421; 
- Mon, 30 Dec 2019 11:41:08 -0800 (PST)
-Received: from localhost.localdomain ([197.254.95.38])
- by smtp.googlemail.com with ESMTPSA id p17sm47239785wrx.20.2019.12.30.11.41.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Dec 2019 11:41:07 -0800 (PST)
-From: Wambui Karuga <wambui.karugax@gmail.com>
-To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch
-Date: Mon, 30 Dec 2019 22:41:02 +0300
-Message-Id: <20191230194102.2843-1-wambui.karugax@gmail.com>
-X-Mailer: git-send-email 2.17.1
-X-Mailman-Approved-At: Mon, 30 Dec 2019 21:07:49 +0000
-Subject: [Freedreno] [PATCH] drm/msm: use BUG_ON macro for debugging.
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=M7wDnYJLkdZ3OOSrLZqOeBqYHWkaMb/EXIdOIWi2ux8=;
+ b=czsLIr2ahogzkzOKNzQYxnZjE+bJjugb35U4WA2VkIb4OXd8CZlhj1SHBd/5udiWeK
+ x6Fwtiq9R+bVMHgfjggVrFSiptorgZLdwdrGv5QpJobHNFJqCuoYAfgtnYvhbVzB+Hj6
+ F5nB8UiFaKSThMzL5dUjD+F6hEbjg/To7tb46pE3VfZQI4tUJUdwJ3TZi4Ogst7jrowE
+ mHDIcrVMBnMf2AGD+bWzQdxBjiELImzLHSaLrcDIndLuVWTrX67fv7enpw+oR7Wphqr7
+ fiYBGc4AZK1/7jMOpDJfXnvfZ7CV4iwdPxH0hvnK86ETFvfFMFIqsjH1O+fe7ArCEBTJ
+ Ed/g==
+X-Gm-Message-State: APjAAAUh2L4UOwY+83rg8dFzp9jKt7xAPr32G/FmfQwlTPgtAJN6+p77
+ 0PSiCMUGtZwEQHVe/A7xnXoiD1juLYwYrUdJEYhetQ==
+X-Google-Smtp-Source: APXvYqy3MQrOnoaWbnV7vTPuZtjUUgc057hivbXdtKRtupkYm0cWiXJtUpFsHUEFrTtUPNyNYDJrHT3Sn1/xfTDTMZ0=
+X-Received: by 2002:a92:5d92:: with SMTP id e18mr60949654ilg.75.1577805671148; 
+ Tue, 31 Dec 2019 07:21:11 -0800 (PST)
+MIME-Version: 1.0
+References: <20191230194102.2843-1-wambui.karugax@gmail.com>
+In-Reply-To: <20191230194102.2843-1-wambui.karugax@gmail.com>
+From: Sean Paul <sean@poorly.run>
+Date: Tue, 31 Dec 2019 10:20:35 -0500
+Message-ID: <CAMavQKLzkP6WKkxkNRYmvo7uhJFuvXjs_ryasFEMi3MeGMhaGQ@mail.gmail.com>
+To: Wambui Karuga <wambui.karugax@gmail.com>
+Subject: Re: [Freedreno] [PATCH] drm/msm: use BUG_ON macro for debugging.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,42 +60,53 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-MIME-Version: 1.0
+Cc: Dave Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-As the if statement only checks for the value of the offset_name
-variable, it can be replaced by the more conscise BUG_ON macro for error
-reporting.
+On Mon, Dec 30, 2019 at 2:41 PM Wambui Karuga <wambui.karugax@gmail.com> wrote:
+>
+> As the if statement only checks for the value of the offset_name
+> variable, it can be replaced by the more conscise BUG_ON macro for error
+> reporting.
+>
+> Signed-off-by: Wambui Karuga <wambui.karugax@gmail.com>
+> ---
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h | 5 +----
+>  1 file changed, 1 insertion(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> index c7441fb8313e..0fe7907f5a7d 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> @@ -315,10 +315,7 @@ OUT_PKT7(struct msm_ringbuffer *ring, uint8_t opcode, uint16_t cnt)
+>  static inline bool adreno_reg_check(struct adreno_gpu *gpu,
+>                 enum adreno_regs offset_name)
+>  {
+> -       if (offset_name >= REG_ADRENO_REGISTER_MAX ||
+> -                       !gpu->reg_offsets[offset_name]) {
+> -               BUG();
+> -       }
+> +       BUG_ON(offset_name >= REG_ADRENO_REGISTER_MAX || !gpu->reg_offsets[offset_name]);
+>
 
-Signed-off-by: Wambui Karuga <wambui.karugax@gmail.com>
----
- drivers/gpu/drm/msm/adreno/adreno_gpu.h | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+Minor nit: This line is longer than 80 chars
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index c7441fb8313e..0fe7907f5a7d 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -315,10 +315,7 @@ OUT_PKT7(struct msm_ringbuffer *ring, uint8_t opcode, uint16_t cnt)
- static inline bool adreno_reg_check(struct adreno_gpu *gpu,
- 		enum adreno_regs offset_name)
- {
--	if (offset_name >= REG_ADRENO_REGISTER_MAX ||
--			!gpu->reg_offsets[offset_name]) {
--		BUG();
--	}
-+	BUG_ON(offset_name >= REG_ADRENO_REGISTER_MAX || !gpu->reg_offsets[offset_name]);
- 
- 	/*
- 	 * REG_SKIP is a special value that tell us that the register in
--- 
-2.17.1
+Other than that,
 
+Reviewed-by: Sean Paul <sean@poorly.run>
+
+>         /*
+>          * REG_SKIP is a special value that tell us that the register in
+> --
+> 2.17.1
+>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
