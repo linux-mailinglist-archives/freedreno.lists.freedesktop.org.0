@@ -1,40 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AF2512DD8E
-	for <lists+freedreno@lfdr.de>; Wed,  1 Jan 2020 04:50:32 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A48512E552
+	for <lists+freedreno@lfdr.de>; Thu,  2 Jan 2020 12:02:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9335689612;
-	Wed,  1 Jan 2020 03:50:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0730E6E054;
+	Thu,  2 Jan 2020 11:02:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from onstation.org (onstation.org [52.200.56.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EE8189612;
- Wed,  1 Jan 2020 03:50:29 +0000 (UTC)
-Received: from localhost (c-98-239-145-235.hsd1.wv.comcast.net
- [98.239.145.235])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested) (Authenticated sender: masneyb)
- by onstation.org (Postfix) with ESMTPSA id 3B7503E9DC;
- Wed,  1 Jan 2020 03:50:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=onstation.org;
- s=default; t=1577850628;
- bh=YdZrENY31tFEvhQW8UhSRWsAzqFtpPEHXpQaoGS21rM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=EkG4ibOllK0kgywN0n/8NaH6a8BDheubrNOhq/75whH1IHzJY54Mw5SHk82evG11l
- aTVH9I4eKcYDROT7ci7UgbQdW+C9SVCZ+cXhGskbp/VJHYRyLLXLbZzaOYym6HmiB+
- JSjANMJ2bp2zluxMATBljglC2M8N0PB9/68nGWdI=
-Date: Tue, 31 Dec 2019 22:50:27 -0500
-From: Brian Masney <masneyb@onstation.org>
-To: jeffrey.l.hugo@gmail.com, robdclark@gmail.com
-Message-ID: <20200101035027.GA9348@onstation.org>
-References: <20191230020053.26016-1-masneyb@onstation.org>
- <20191230020053.26016-2-masneyb@onstation.org>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191230020053.26016-2-masneyb@onstation.org>
-Subject: Re: [Freedreno] [PATCH RFC v2] drm/msm/mdp5: enable autorefresh
+Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
+ [104.130.122.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BDE26E0AB
+ for <freedreno@lists.freedesktop.org>; Thu,  2 Jan 2020 11:02:29 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1577962951; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=tkKCPLe79npIk6waelmBeTcR6XDop2zkLNOKqt/0Dq0=;
+ b=wIb/iaSLeFkZn1XkHuxp4/4AzletGCoBflaHSCevT9kbm1JhVR/mRw/+QueUwelrGMqNa/C4
+ +h1HdavHxUzk131EAEYPevN4ajZEOs8/27XeU09MKT0NywVEmc86j5E5T201C60fD8ITe4j9
+ DM5MZ5UzM75kfv9Sb+W1oOACuq0=
+X-Mailgun-Sending-Ip: 104.130.122.26
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5e0dcdc3.7fc02d10c308-smtp-out-n01;
+ Thu, 02 Jan 2020 11:02:27 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id F155EC433A2; Thu,  2 Jan 2020 11:02:26 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from smasetty-linux.qualcomm.com
+ (blr-c-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.19.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: smasetty)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id C9813C43383;
+ Thu,  2 Jan 2020 11:02:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org C9813C43383
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=smasetty@codeaurora.org
+From: Sharat Masetty <smasetty@codeaurora.org>
+To: freedreno@lists.freedesktop.org
+Date: Thu,  2 Jan 2020 16:32:06 +0530
+Message-Id: <1577962933-13577-1-git-send-email-smasetty@codeaurora.org>
+X-Mailer: git-send-email 1.9.1
+Subject: [Freedreno] [PATCH v2 0/7] drm/msm/a6xx: System Cache Support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,61 +62,77 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean@poorly.run, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+Cc: saiprakash.ranjan@codeaurora.org, jcrouse@codeaurora.org, will@kernel.org,
+ linux-arm-msm@vger.kernel.org, joro@8bytes.org, linux-kernel@vger.kernel.org,
+ iommu@lists.linux-foundation.org, dri-devel@freedesktop.org,
+ robin.murphy@arm.com, Sharat Masetty <smasetty@codeaurora.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Dec 29, 2019 at 09:00:53PM -0500, Brian Masney wrote:
-> Since the introduction of commit 2d99ced787e3 ("drm/msm: async commit
-> support"), command-mode panels began throwing the following errors:
-> 
->     msm fd900000.mdss: pp done time out, lm=0
-> 
-> Let's fix this by enabling the autorefresh feature that's available in
-> the MDP starting at version 1.0. This will cause the MDP to
-> automatically send a frame to the panel every time the panel invokes the
-> TE signal, which will trigger the PP_DONE IRQ. This requires only
-> sending a single START signal for command-mode panels.
-> 
-> This gives us a counter for command-mode panels that we can use to
-> implement async commit support for the MDP5 in a follow up patch.
-> 
-> Signed-off-by: Brian Masney <masneyb@onstation.org>
-> Suggested-by: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
-> Fixes: 2d99ced787e3 ("drm/msm: async commit support")
-> ---
-> Changes since v1:
-> - Send a single start command to kick off the pipeline.
-> 
-> The reason I marked this patch as a RFC is that the display during some
-> small percentage of boots will stop updating after a minute or so, and
-> the ping pong IRQs stop. Most of the time it works with no issues and I
-> haven't been able to find a way to reproduce the issue. I tried
-> suspending the phone by toggling /sys/power/state since I thought that
-> the issue could potentially be related to power management.
+Some hardware variants contain a system level cache or the last level
+cache(llc). This cache is typically a large block which is shared by multiple
+clients on the SOC. GPU uses the system cache to cache both the GPU data
+buffers(like textures) as well the SMMU pagetables. This helps with
+improved render performance as well as lower power consumption by reducing
+the bus traffic to the system memory.
 
-After working to get the IOMMU up on msm8974, I suspect that the issue
-that I describe above is caused by a device probe deferral, which
-explains the intermittent nature of what I'm seeing. First driver load
-sets up the autorefresh registers, sends a single START signal, then a
--EPROBE_DEFER is thrown later on. Second driver load lost the state, and
-sends a second START signal and overloads the DSI.
+The system cache architecture allows the cache to be split into slices which
+then be used by multiple SOC clients. This patch series is an effort to enable
+and use two of those slices perallocated for the GPU, one for the GPU data
+buffers and another for the GPU SMMU hardware pagetables.
 
-If that's the case, then potentially the solution may be to do
-both of the following:
+v2: Code reviews and rebased code on top of Jordan's split pagetables series
 
-1) Disable autorefresh when the driver is unloaded.
-2) Before sending the START signal, check to make sure that autorefresh
-   is actually disabled.
+To enable the system cache driver, add [1] to your stack if not already
+present. Please review.
 
-I likely won't be able to work on any this until Sunday evening.
+[1] https://lore.kernel.org/patchwork/patch/1165298/
 
-Brian
+Jordan Crouse (3):
+  iommu/arm-smmu: Pass io_pgtable_cfg to impl specific init_context
+  drm/msm: Attach the IOMMU device during initialization
+  drm/msm: Refactor address space initialization
 
+Sharat Masetty (3):
+  drm: msm: a6xx: Properly free up the iommu objects
+  drm/msm: rearrange the gpu_rmw() function
+  drm/msm/a6xx: Add support for using system cache(LLC)
+
+Vivek Gautam (1):
+  iommu/arm-smmu: Add domain attribute for QCOM system cache
+
+ drivers/gpu/drm/msm/adreno/a2xx_gpu.c    |  16 ++++
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c    |   1 +
+ drivers/gpu/drm/msm/adreno/a4xx_gpu.c    |   1 +
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c    |   1 +
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c    | 124 +++++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h    |   3 +
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c  |  23 ++++--
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h  |   8 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  |  19 ++---
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c |  19 ++---
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c |   4 -
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c |  19 +++--
+ drivers/gpu/drm/msm/msm_drv.c            |   8 ++
+ drivers/gpu/drm/msm/msm_drv.h            |   9 +--
+ drivers/gpu/drm/msm/msm_gem_vma.c        |  37 ++-------
+ drivers/gpu/drm/msm/msm_gpu.c            |  49 +-----------
+ drivers/gpu/drm/msm/msm_gpu.h            |   9 +--
+ drivers/gpu/drm/msm/msm_gpummu.c         |   7 --
+ drivers/gpu/drm/msm/msm_iommu.c          |  22 +++---
+ drivers/gpu/drm/msm/msm_mmu.h            |   5 +-
+ drivers/iommu/arm-smmu-impl.c            |   3 +-
+ drivers/iommu/arm-smmu-qcom.c            |  10 +++
+ drivers/iommu/arm-smmu.c                 |  25 +++++--
+ drivers/iommu/arm-smmu.h                 |   4 +-
+ include/linux/iommu.h                    |   1 +
+ 25 files changed, 269 insertions(+), 158 deletions(-)
+
+--
+1.9.1
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
