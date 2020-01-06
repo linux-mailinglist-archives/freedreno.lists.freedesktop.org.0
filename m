@@ -2,32 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDC47130CE9
-	for <lists+freedreno@lfdr.de>; Mon,  6 Jan 2020 06:14:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9145D131AD8
+	for <lists+freedreno@lfdr.de>; Mon,  6 Jan 2020 22:57:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2D856E204;
-	Mon,  6 Jan 2020 05:14:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A3E46E558;
+	Mon,  6 Jan 2020 21:57:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-blr-01.qualcomm.com (alexa-out-blr-01.qualcomm.com
- [103.229.18.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6214F6E204;
- Mon,  6 Jan 2020 05:14:34 +0000 (UTC)
-Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
- by alexa-out-blr-01.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 06 Jan 2020 10:44:28 +0530
-Received: from harigovi-linux.qualcomm.com ([10.204.66.157])
- by ironmsg02-blr.qualcomm.com with ESMTP; 06 Jan 2020 10:44:04 +0530
-Received: by harigovi-linux.qualcomm.com (Postfix, from userid 2332695)
- id AEB2827C8; Mon,  6 Jan 2020 10:44:03 +0530 (IST)
-From: Harigovindan P <harigovi@codeaurora.org>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Date: Mon,  6 Jan 2020 10:43:49 +0530
-Message-Id: <1578287629-26709-1-git-send-email-harigovi@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-Subject: [Freedreno] [v2] drm/msm: add support for 2.4.1 DSI version for
- sc7180 soc
+Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
+ [104.130.122.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 432D36E554
+ for <freedreno@lists.freedesktop.org>; Mon,  6 Jan 2020 21:57:56 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1578347876; h=In-Reply-To: Content-Type: MIME-Version:
+ References: Message-ID: Subject: Cc: To: From: Date: Sender;
+ bh=Dh6uBBQOO4o59nsJrAsOkHICiEkRHSqYa9UZMQn8AGc=;
+ b=Qs08K3nxggj3VQcwRFI8UriNrJXpvjdeCxgdi1Nrla28KM9Hr1i1oBeqFaD7NSzHqO4ncqyG
+ kkszK4sHnmaO3DBTei1bdSlkMvl4X+irqmYZf1AF++m+ft17qmXNaroUky96J3938/sk+IRW
+ Jxmy7uESRv00w1E1qEbsFjpQIS8=
+X-Mailgun-Sending-Ip: 104.130.122.26
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5e13ad62.7f4940b9ac38-smtp-out-n02;
+ Mon, 06 Jan 2020 21:57:54 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 6CEEBC447A2; Mon,  6 Jan 2020 21:57:54 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id BEF3EC43383;
+ Mon,  6 Jan 2020 21:57:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org BEF3EC43383
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=jcrouse@codeaurora.org
+Date: Mon, 6 Jan 2020 14:57:51 -0700
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: smasetty@codeaurora.org
+Message-ID: <20200106215750.GA4341@jcrouse1-lnx.qualcomm.com>
+Mail-Followup-To: smasetty@codeaurora.org, iommu@lists.linux-foundation.org,
+ freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ will@kernel.org, robin.murphy@arm.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ linux-arm-kernel@lists.infradead.org
+References: <1576514271-15687-1-git-send-email-jcrouse@codeaurora.org>
+ <1576514271-15687-6-git-send-email-jcrouse@codeaurora.org>
+ <8aec2a4f74fede1cf616b9e2eece3e8e@codeaurora.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <8aec2a4f74fede1cf616b9e2eece3e8e@codeaurora.org>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Freedreno] [PATCH v3 5/5] drm/msm/a6xx: Support split
+ pagetables
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,93 +76,89 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Harigovindan P <harigovi@codeaurora.org>, abhinavk@codeaurora.org,
- linux-kernel@vger.kernel.org, robdclark@gmail.com, nganji@codeaurora.org,
- seanpaul@chromium.org, hoegsberg@chromium.org, jsanka@codeaurora.org,
- chandanu@codeaurora.org
-MIME-Version: 1.0
+Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ freedreno@lists.freedesktop.org, robin.murphy@arm.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ iommu@lists.linux-foundation.org, linux-arm-msm@vger.kernel.org,
+ will@kernel.org, linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Modify commit text to indicate DSI version and SOC detail
+On Tue, Dec 24, 2019 at 08:27:28AM +0530, smasetty@codeaurora.org wrote:
+> On 2019-12-16 22:07, Jordan Crouse wrote:
+> >Attempt to enable split pagetables if the arm-smmu driver supports it.
+> >This will move the default address space from the default region to
+> >the address range assigned to TTBR1. The behavior should be transparent
+> >to the driver for now but it gets the default buffers out of the way
+> >when we want to start swapping TTBR0 for context-specific pagetables.
+> >
+> >Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
+> >---
+> >
+> > drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 52
+> >++++++++++++++++++++++++++++++++++-
+> > 1 file changed, 51 insertions(+), 1 deletion(-)
+> >
+> >diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> >b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> >index 5dc0b2c..1c6da93 100644
+> >--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> >+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> >@@ -811,6 +811,56 @@ static unsigned long a6xx_gpu_busy(struct msm_gpu
+> >*gpu)
+> > 	return (unsigned long)busy_time;
+> > }
+> >
+> >+static struct msm_gem_address_space *
+> >+a6xx_create_address_space(struct msm_gpu *gpu, struct platform_device
+> >*pdev)
+> >+{
+> >+	struct iommu_domain *iommu = iommu_domain_alloc(&platform_bus_type);
+> >+	struct msm_gem_address_space *aspace;
+> >+	struct msm_mmu *mmu;
+> >+	u64 start, size;
+> >+	u32 val = 1;
+> >+	int ret;
+> >+
+> >+	if (!iommu)
+> >+		return ERR_PTR(-ENOMEM);
+> >+
+> >+	/*
+> >+	 * Try to request split pagetables - the request has to be made before
+> >+	 * the domian is attached
+> >+	 */
+> >+	iommu_domain_set_attr(iommu, DOMAIN_ATTR_SPLIT_TABLES, &val);
+> >+
+> >+	mmu = msm_iommu_new(&pdev->dev, iommu);
+> >+	if (IS_ERR(mmu)) {
+> >+		iommu_domain_free(iommu);
+> >+		return ERR_CAST(mmu);
+> >+	}
+> >+
+> >+	/*
+> >+	 * After the domain is attached, see if the split tables were actually
+> >+	 * successful.
+> >+	 */
+> >+	ret = iommu_domain_get_attr(iommu, DOMAIN_ATTR_SPLIT_TABLES, &val);
+> >+	if (!ret && val) {
+> >+		/*
+> >+		 * The aperture start will be at the beginning of the TTBR1
+> >+		 * space so use that as a base
+> >+		 */
+> >+		start = iommu->geometry.aperture_start;
+> >+		size = 0xffffffff;
+> This should be the va_end and not the size
 
-Changes in v1:
-	-Modify commit text to indicate DSI version and SOC detail(Jeffrey Hugo).
-	-Splitting visionox panel driver code out into a
-	 different patch(set), since panel drivers are merged into
-	 drm-next via a different tree(Rob Clark).
-Changes in v2:
-	-Update commit text accordingly(Matthias Kaehlcke).
+This is a bug in msm_gem_address_space_create - I intended the parameter to be
+the size.
 
-Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
----
- drivers/gpu/drm/msm/dsi/dsi_cfg.c | 21 +++++++++++++++++++++
- drivers/gpu/drm/msm/dsi/dsi_cfg.h |  1 +
- 2 files changed, 22 insertions(+)
+Jordan
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-index b7b7c1a..7b967dd 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-@@ -133,6 +133,10 @@ static const char * const dsi_sdm845_bus_clk_names[] = {
- 	"iface", "bus",
- };
- 
-+static const char * const dsi_sc7180_bus_clk_names[] = {
-+	"iface", "bus",
-+};
-+
- static const struct msm_dsi_config sdm845_dsi_cfg = {
- 	.io_offset = DSI_6G_REG_SHIFT,
- 	.reg_cfg = {
-@@ -147,6 +151,20 @@ static const struct msm_dsi_config sdm845_dsi_cfg = {
- 	.num_dsi = 2,
- };
- 
-+static const struct msm_dsi_config sc7180_dsi_cfg = {
-+	.io_offset = DSI_6G_REG_SHIFT,
-+	.reg_cfg = {
-+		.num = 1,
-+		.regs = {
-+			{"vdda", 21800, 4 },	/* 1.2 V */
-+		},
-+	},
-+	.bus_clk_names = dsi_sc7180_bus_clk_names,
-+	.num_bus_clks = ARRAY_SIZE(dsi_sc7180_bus_clk_names),
-+	.io_start = { 0xae94000 },
-+	.num_dsi = 1,
-+};
-+
- const static struct msm_dsi_host_cfg_ops msm_dsi_v2_host_ops = {
- 	.link_clk_enable = dsi_link_clk_enable_v2,
- 	.link_clk_disable = dsi_link_clk_disable_v2,
-@@ -201,6 +219,9 @@ static const struct msm_dsi_cfg_handler dsi_cfg_handlers[] = {
- 		&msm8998_dsi_cfg, &msm_dsi_6g_v2_host_ops},
- 	{MSM_DSI_VER_MAJOR_6G, MSM_DSI_6G_VER_MINOR_V2_2_1,
- 		&sdm845_dsi_cfg, &msm_dsi_6g_v2_host_ops},
-+	{MSM_DSI_VER_MAJOR_6G, MSM_DSI_6G_VER_MINOR_V2_4_1,
-+		&sc7180_dsi_cfg, &msm_dsi_6g_v2_host_ops},
-+
- };
- 
- const struct msm_dsi_cfg_handler *msm_dsi_cfg_get(u32 major, u32 minor)
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-index e2b7a7d..9919536 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-+++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-@@ -19,6 +19,7 @@
- #define MSM_DSI_6G_VER_MINOR_V1_4_1	0x10040001
- #define MSM_DSI_6G_VER_MINOR_V2_2_0	0x20000000
- #define MSM_DSI_6G_VER_MINOR_V2_2_1	0x20020001
-+#define MSM_DSI_6G_VER_MINOR_V2_4_1	0x20040001
- 
- #define MSM_DSI_V2_VER_MINOR_8064	0x0
- 
 -- 
-2.7.4
-
+The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+a Linux Foundation Collaborative Project
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
