@@ -1,57 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B1B31337B2
-	for <lists+freedreno@lfdr.de>; Wed,  8 Jan 2020 00:47:04 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id D1778133886
+	for <lists+freedreno@lfdr.de>; Wed,  8 Jan 2020 02:39:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C09B06E0AD;
-	Tue,  7 Jan 2020 23:47:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C3766E160;
+	Wed,  8 Jan 2020 01:39:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 026E96E137
- for <freedreno@lists.freedesktop.org>; Tue,  7 Jan 2020 20:28:58 +0000 (UTC)
-Received: by mail-pf1-x442.google.com with SMTP id 195so409424pfw.11
- for <freedreno@lists.freedesktop.org>; Tue, 07 Jan 2020 12:28:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id;
- bh=sjJ0uVz+2aygb69iiy5pJizL3B57FBYYiTtW4flheNU=;
- b=oSmeJOVJtz+EN6rqqOaJkUZ6gXxhmTzLCY2aUIKhBsSgNpwJVw3T17si3KBwsGUWso
- jduwUbPhlRdH93NKbsPt3m0n5uT9BgVgz0I9O7TA33v0XLrkjAoR5QBtuvXC9Z4hGFDb
- XIElsFMjIKYeRMLv21bbkDk6PWmurzzZhAe+C2y6v8ULniYclzNRCGr+s0RZbB69y3Ev
- 9uFAHX6S0dYygPC2dKO4JjI7jFrdOA5D0P2lJxRD9lkD7S0i9dh5rkI6sL7iel/TkGN4
- /CpemFgsdssmvGCV+lGYsqrmVs9W5VRhC0IyWfniZztDESth4f02zvtRhsJqHNx0YhD2
- m+RA==
+Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
+ [IPv6:2607:f8b0:4864:20::541])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A690D6E11E;
+ Wed,  8 Jan 2020 01:39:03 +0000 (UTC)
+Received: by mail-pg1-x541.google.com with SMTP id k25so734044pgt.7;
+ Tue, 07 Jan 2020 17:39:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=qrBHJRFSRA4AlmSOTlxgOJ04a73uvSIbhRd+GAk2pRE=;
+ b=ejeetgrcvv9LsANDxK4s91NGCUtBlKd9sKWqIIK30ge81Kr3B8uhtVoCvfC+V8RuZo
+ k3tsAtYkYe+3Kj9IzIcdhnuZpq6JQKfNqfS+pPtEXTjMDRTixQSCX1D/GUUY/qg23W2N
+ YzM9zAOOlCEBSqx4grMnk0Z24bb7ilMh17h4wjC4MqvnSpejwCKLFk2XvVbFcbVB35tp
+ 41feryqS09briYf4eGcDGNuUU4XLmSVnU+X9EMbw1C2Gi0MUp7iCiq39bRvvhzBEC1we
+ WNT8TtlhktCHnPYfsp+GAIdGW2wHPu8p/3DVaAlxLAoasAomod10GTlOiuqQdCtG6UPU
+ 9YHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=sjJ0uVz+2aygb69iiy5pJizL3B57FBYYiTtW4flheNU=;
- b=trgOi9xSnTEijEy43HRjsQD2elbXXsGSFtlqzonSonx7/NR3q8WT+ZrKLo/4cRdEcr
- WqGOGh+21q+IRRuuhaK9VsleoG5mde807tUY6h2gKc0175eYrVR4bF6FWKRRkeOSH27v
- fKIPb+F8bbLEUy5IoV+AJ1GwEUfxy2eP+7/S1kQ6Nua4Bt4h8gtgGBOfYIL/TRoHJ+6H
- UduUPEWgvRDws6B9AkwWL6OdON4wPrdQMRibWQmhk7/NwCp4ldzfY9KecXqifzr5Byqs
- 7nQtOBijDSBxs5kJi95SdpMRjcILZlkYOxkCgSdT3RuXmO5l49U3GuTFn0Kc4nB1hegF
- +Riw==
-X-Gm-Message-State: APjAAAXm0i+o0oYVE26XciSq7kgh+f7nsYV0V7l9K3g2B3aIudYTcwSW
- E3iOZyi3Tjj1hVMK04QCoDXYGQ==
-X-Google-Smtp-Source: APXvYqwEAN+GHayhfNfvNeQhmIvj2S/s9WBDSVe1DPPR2BH02UA4TWxlx+H1YxvcBlhuAl1xBjBL/g==
-X-Received: by 2002:a62:b418:: with SMTP id h24mr1178771pfn.192.1578428938618; 
- Tue, 07 Jan 2020 12:28:58 -0800 (PST)
-Received: from localhost.localdomain ([2601:1c2:680:1319:692:26ff:feda:3a81])
- by smtp.gmail.com with ESMTPSA id
- x33sm578934pga.86.2020.01.07.12.28.57
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=qrBHJRFSRA4AlmSOTlxgOJ04a73uvSIbhRd+GAk2pRE=;
+ b=tvBqQJhz3cyS226DRaDMKbPlBdHpJqB0xcZG3SF+6AOItNRcHdbbHS1k0lXJ9ZlEtK
+ 0GneUfFRV4TrjOHE9KsekoaCa6h0QPlnOrYm9SLkObrMXJet8Jj1L7OxlR69W2AfsNYg
+ TOziCbkRk6SC1VBcuLsmGUTIwF3G0JK7K9M+Jje/CVYnorF0HA+cCoKRVUYCfjIgQLSP
+ uKOkqIkBpU9Y90gH7a2jnNAu3LpqvobdywoKPkHx6E10Qd6goU9tuO1YQ4mPQyPKC7XD
+ Pj5gOmiFzdJk6c7Fd0/dnLT9CHKMKwAr77eWCN9c1c7ch39su28CZ1G9BBNoIr/lOfrI
+ Cv+g==
+X-Gm-Message-State: APjAAAUcGmzMFxAgv+zWGppCaJqFhECnVGDWAs4WMJ4581eyWTBBME4q
+ 9h/8ORnZQt6s0aVdpVG1Xwbuh8HNf3o=
+X-Google-Smtp-Source: APXvYqx/RXCffdkJxN9926F2ZtBJ7RCAjEZ+yRHzVoEMHDlC2SG4j9p18uaRcrabtEj3ZNUIWgSNsQ==
+X-Received: by 2002:aa7:8007:: with SMTP id j7mr2431615pfi.71.1578447542963;
+ Tue, 07 Jan 2020 17:39:02 -0800 (PST)
+Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
+ by smtp.gmail.com with ESMTPSA id 73sm1032858pgc.13.2020.01.07.17.39.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jan 2020 12:28:57 -0800 (PST)
-From: John Stultz <john.stultz@linaro.org>
-To: lkml <linux-kernel@vger.kernel.org>
-Date: Tue,  7 Jan 2020 20:28:52 +0000
-Message-Id: <20200107202852.55819-1-john.stultz@linaro.org>
-X-Mailer: git-send-email 2.17.1
-X-Mailman-Approved-At: Tue, 07 Jan 2020 23:47:01 +0000
-Subject: [Freedreno] [PATCH] drm: msm: Quiet down plane errors in
- atomic_check
+ Tue, 07 Jan 2020 17:39:02 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue,  7 Jan 2020 17:38:41 -0800
+Message-Id: <20200108013847.899170-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.24.1
+MIME-Version: 1.0
+Subject: [Freedreno] [PATCH 0/3] drm/msm: use firmware-name to find zap fw
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,98 +64,52 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alistair Delva <adelva@google.com>, Amit Pundir <amit.pundir@linaro.org>,
- David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- John Stultz <john.stultz@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>, Todd Kjos <tkjos@google.com>
-MIME-Version: 1.0
+Cc: Rob Clark <robdclark@chromium.org>, devicetree@vger.kernel.org,
+ Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>, Fabio Estevam <festevam@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, freedreno@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>, Brian Masney <masneyb@onstation.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-With the db845c running AOSP, I see the following error on every
-frame on the home screen:
-  [drm:dpu_plane_atomic_check:915] [dpu error]plane33 invalid src 2880x1620+0+470 line:2560
+From: Rob Clark <robdclark@chromium.org>
 
-This is due to the error paths in atomic_check using
-DPU_ERROR_PLANE(), and the drm_hwcomposer using atomic_check
-to decide how to composite the frame (thus it expects to see
-atomic_check to fail).
+For devices which use zap fw to take the GPU out of secure mode on
+reset, the firmware is likely to be signed with a device specific key.
+Meaning that we can't have a single filesystem (or /lib/firmware) that
+works on multiple devices.
 
-In order to avoid spamming the logs, this patch converts the
-DPU_ERROR_PLANE() calls to DPU_DEBUG_PLANE() calls in
-atomic_check.
+So allow a firmware-name to be specified in the zap-shader node in dt.
+This moves the zap-shader node out of the core sdm845.dtsi and into per-
+device dts files.  Which also removes the need for /delete-node/ in
+sdm845-cheza.dtsi (as cheza devices do not use zap).
 
-Cc: Todd Kjos <tkjos@google.com>
-Cc: Alistair Delva <adelva@google.com>
-Cc: Amit Pundir <amit.pundir@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>
-Cc: Sean Paul <sean@poorly.run>
-Cc: David Airlie <airlied@linux.ie>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org
-Signed-off-by: John Stultz <john.stultz@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+This aligns with how Bjorn has been handling the similar situation with
+adsp/cdsp/mpss fw:
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index 58d5acbcfc5c..d19ae0b51d1c 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -858,7 +858,7 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
- 					  pdpu->pipe_sblk->maxupscale << 16,
- 					  true, true);
- 	if (ret) {
--		DPU_ERROR_PLANE(pdpu, "Check plane state failed (%d)\n", ret);
-+		DPU_DEBUG_PLANE(pdpu, "Check plane state failed (%d)\n", ret);
- 		return ret;
- 	}
- 	if (!state->visible)
-@@ -884,13 +884,13 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
- 		(!(pdpu->features & DPU_SSPP_SCALER) ||
- 		 !(pdpu->features & (BIT(DPU_SSPP_CSC)
- 		 | BIT(DPU_SSPP_CSC_10BIT))))) {
--		DPU_ERROR_PLANE(pdpu,
-+		DPU_DEBUG_PLANE(pdpu,
- 				"plane doesn't have scaler/csc for yuv\n");
- 		return -EINVAL;
- 
- 	/* check src bounds */
- 	} else if (!dpu_plane_validate_src(&src, &fb_rect, min_src_size)) {
--		DPU_ERROR_PLANE(pdpu, "invalid source " DRM_RECT_FMT "\n",
-+		DPU_DEBUG_PLANE(pdpu, "invalid source " DRM_RECT_FMT "\n",
- 				DRM_RECT_ARG(&src));
- 		return -E2BIG;
- 
-@@ -899,19 +899,19 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
- 		   (src.x1 & 0x1 || src.y1 & 0x1 ||
- 		    drm_rect_width(&src) & 0x1 ||
- 		    drm_rect_height(&src) & 0x1)) {
--		DPU_ERROR_PLANE(pdpu, "invalid yuv source " DRM_RECT_FMT "\n",
-+		DPU_DEBUG_PLANE(pdpu, "invalid yuv source " DRM_RECT_FMT "\n",
- 				DRM_RECT_ARG(&src));
- 		return -EINVAL;
- 
- 	/* min dst support */
- 	} else if (drm_rect_width(&dst) < 0x1 || drm_rect_height(&dst) < 0x1) {
--		DPU_ERROR_PLANE(pdpu, "invalid dest rect " DRM_RECT_FMT "\n",
-+		DPU_DEBUG_PLANE(pdpu, "invalid dest rect " DRM_RECT_FMT "\n",
- 				DRM_RECT_ARG(&dst));
- 		return -EINVAL;
- 
- 	/* check decimated source width */
- 	} else if (drm_rect_width(&src) > max_linewidth) {
--		DPU_ERROR_PLANE(pdpu, "invalid src " DRM_RECT_FMT " line:%u\n",
-+		DPU_DEBUG_PLANE(pdpu, "invalid src " DRM_RECT_FMT " line:%u\n",
- 				DRM_RECT_ARG(&src), max_linewidth);
- 		return -E2BIG;
- 	}
+   https://patchwork.kernel.org/patch/11160089/
+
+Rob Clark (3):
+  drm/msm: support firmware-name for zap fw
+  dt-bindings: drm/msm/gpu: Document firmware-name
+  arm64: dts: sdm845: move gpu zap nodes to per-device dts
+
+ .../devicetree/bindings/display/msm/gpu.txt   |  3 ++
+ arch/arm64/boot/dts/qcom/sdm845-cheza.dtsi    |  1 -
+ arch/arm64/boot/dts/qcom/sdm845-db845c.dts    |  7 ++++
+ arch/arm64/boot/dts/qcom/sdm845-mtp.dts       |  8 +++++
+ arch/arm64/boot/dts/qcom/sdm845.dtsi          |  6 +---
+ .../boot/dts/qcom/sdm850-lenovo-yoga-c630.dts |  7 ++++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c       | 32 +++++++++++++++++--
+ 7 files changed, 55 insertions(+), 9 deletions(-)
+
 -- 
-2.17.1
+2.24.1
 
 _______________________________________________
 Freedreno mailing list
