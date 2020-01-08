@@ -1,74 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FE98134B37
-	for <lists+freedreno@lfdr.de>; Wed,  8 Jan 2020 20:04:56 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 82ECF134E4D
+	for <lists+freedreno@lfdr.de>; Wed,  8 Jan 2020 22:01:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7451F89CBE;
-	Wed,  8 Jan 2020 19:04:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4BBC6E342;
+	Wed,  8 Jan 2020 21:01:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
- [IPv6:2607:f8b0:4864:20::641])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8660D89CBE
- for <freedreno@lists.freedesktop.org>; Wed,  8 Jan 2020 19:04:52 +0000 (UTC)
-Received: by mail-pl1-x641.google.com with SMTP id f20so1494237plj.5
- for <freedreno@lists.freedesktop.org>; Wed, 08 Jan 2020 11:04:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=WuNXLxL+1sMtBQwv2K4eumVoHhxOxma8tmqoVufR3Bo=;
- b=DXG1ZtsIcjDxidZu/VinHygy2TnOOMWJCkW68fgKSoLzbNQuosPVTfeFICr2WeZO/o
- jEz4NM8gdLtyyjADFqAgi02ttsRMWhyxHSbz5o4LuO+7Qy+BKExbX7qFidFEVzrX+vZK
- KCmZzBTJoCG6A7mi/a10GpnVfSa38TbwRFAE5dP+gHSQ8rrsUTznxoim7ZKKbcFH5jgf
- EpOSKff4YTs5tRjobJ+zZoXvlf/3o0g9v6X+GCj1MkzoIb8HMcjcLlj7XGqVNh8GXcsC
- LANolYpfTQ6cB62xGw/ttyTOV93kTgQ0xpDe0xCWHoFl4YEWonrWZ0wIMwCzLzJBXHUe
- FtpQ==
+Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com
+ [209.85.210.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7291B896F7
+ for <freedreno@lists.freedesktop.org>; Wed,  8 Jan 2020 21:01:31 +0000 (UTC)
+Received: by mail-ot1-f66.google.com with SMTP id h9so4950137otj.11
+ for <freedreno@lists.freedesktop.org>; Wed, 08 Jan 2020 13:01:31 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:subject:message-id:references
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=WuNXLxL+1sMtBQwv2K4eumVoHhxOxma8tmqoVufR3Bo=;
- b=ZD30+fkKi6YLgLiO/AoNDGwNOQUM1/9EW74btIQnF5q+zQPkv/y6DxIrUOoGzJYZ16
- MgiOxurHcs8N3jchoMt5g+k/X41DTsMCkYjapehC949uefIIBfC1EnxmM4utKUgToLez
- fXkf99rJklKsRxtm6kXlwwSgWqXOd6Xy0kYvstP2qLSJFMxx5TOsjC1bkESJVCeNKuYf
- KYqRCaZK3slPDMXmfRxJNOmjMJOSNd0ZyTafEUZYfei5jTdtkSbxgvjBqzCRDm1xilWM
- QlZwDk9PPSQRr/7VvJzfRC3ubimKe8fJcuwMfBjlZQyGRRAOQBHvqTaXbX+1ZKckRg+K
- fAPA==
-X-Gm-Message-State: APjAAAXhHC/JsqlQm5zuuxcW1oxu1jKciJppkJV6mqXC7+j6E6BRCl+y
- t5iHMWEUbv2Y5XfqP6cLpolXBQ==
-X-Google-Smtp-Source: APXvYqzdDG6/dcVOe88U3YPEnVAhW9Km4txL2BJeQX8JE8h8UKIkAzsn0ducTYHl8ZhNVbgcVE0nwg==
-X-Received: by 2002:a17:902:b701:: with SMTP id
- d1mr5876172pls.280.1578510291991; 
- Wed, 08 Jan 2020 11:04:51 -0800 (PST)
-Received: from minitux (104-188-17-28.lightspeed.sndgca.sbcglobal.net.
- [104.188.17.28])
- by smtp.gmail.com with ESMTPSA id u127sm4731367pfc.95.2020.01.08.11.04.50
+ bh=cfgEMc+35hwGrpRDO6jOoEHppPRh3rhAd34tDj1m5RU=;
+ b=ItPZFjfE7dWIT0P1RNwhoXed+w8fN5GlsT+gVMv9yP4zdWzF0yuIBXV/2dsu/DcHhY
+ UFf8oTKFdste6GtsW3xOxQHGZPLVHR+I0JvESSL52vawEY2x/G3GFobHwyzYuynDF0rz
+ m/XnosSmYO3Xt0UL0pu1vH5M9MRW70+iyOuhAD80baQ7k9VO9W3Ns66c8JIy3l4KUn0I
+ /MVYMSVu1Kw7kK0vh7mmR1s7883W0Yumlj5rVRjqoaCGtWNv7tRqNI7IPuQ2aXL89Wif
+ Gvmgax/F9n5U0HnRVzTX1XKnFN6wa9aXh7FzD355Rx8dAqPHCOg0GdryhsbpNd6QxEoC
+ 1KnA==
+X-Gm-Message-State: APjAAAV3E9dvmGIOKZZVKzLgjFt3w5ly5DGi0vq5X1A6X9cYl1TSVvZn
+ BzKw78UuFfdcFNRCMQnEOn9Y6qw=
+X-Google-Smtp-Source: APXvYqz1y4Ujj0aafpjbQDOhH7SSgjPZS08lbrZl3R/g61/vBD9g0RGKvtzf0Ccp1ctv8XrjXtBqLw==
+X-Received: by 2002:a9d:7ccc:: with SMTP id r12mr5976623otn.22.1578517290056; 
+ Wed, 08 Jan 2020 13:01:30 -0800 (PST)
+Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id i2sm1500478oth.39.2020.01.08.13.01.28
+ for <freedreno@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jan 2020 11:04:51 -0800 (PST)
-Date: Wed, 8 Jan 2020 11:04:48 -0800
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, Sharat Masetty <smasetty@codeaurora.org>,
- Rob Clark <robdclark@chromium.org>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Douglas Anderson <dianders@chromium.org>,
- Brian Masney <masneyb@onstation.org>, Fabio Estevam <festevam@gmail.com>,
- Thomas Gleixner <tglx@linutronix.de>,
- open list <linux-kernel@vger.kernel.org>
-Message-ID: <20200108190448.GI1214176@minitux>
-References: <20200108013847.899170-1-robdclark@gmail.com>
- <20200108013847.899170-2-robdclark@gmail.com>
- <20200108184850.GA13260@jcrouse1-lnx.qualcomm.com>
+ Wed, 08 Jan 2020 13:01:28 -0800 (PST)
+Received: from rob (uid 1000) (envelope-from rob@rob-hp-laptop) id 220333
+ by rob-hp-laptop (DragonFly Mail Agent v0.11);
+ Wed, 08 Jan 2020 15:01:27 -0600
+Date: Wed, 8 Jan 2020 15:01:27 -0600
+From: Rob Herring <robh@kernel.org>
+To: Harigovindan P <harigovi@codeaurora.org>
+Message-ID: <20200108210127.GA17138@bogus>
+References: <1578396597-18324-1-git-send-email-harigovi@codeaurora.org>
+ <1578396597-18324-2-git-send-email-harigovi@codeaurora.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200108184850.GA13260@jcrouse1-lnx.qualcomm.com>
-User-Agent: Mutt/1.12.2 (2019-09-21)
-Subject: Re: [Freedreno] [PATCH 1/3] drm/msm: support firmware-name for zap
- fw
+In-Reply-To: <1578396597-18324-2-git-send-email-harigovi@codeaurora.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Freedreno] [PATCH v2 1/2] dt-bindings: display: add sc7180
+ panel variant
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,83 +64,33 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: sean@poorly.run, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, robdclark@gmail.com, seanpaul@chromium.org,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed 08 Jan 10:48 PST 2020, Jordan Crouse wrote:
-
-> On Tue, Jan 07, 2020 at 05:38:42PM -0800, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
-> > 
-> > Since zap firmware can be device specific, allow for a firmware-name
-> > property in the zap node to specify which firmware to load, similarly to
-> > the scheme used for dsp/wifi/etc.
-> > 
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > ---
-> >  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 32 ++++++++++++++++++++++---
-> >  1 file changed, 29 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > index 112e8b8a261e..aa8737bd58db 100644
-> > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > @@ -26,6 +26,7 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu, const char *fwname,
-> >  {
-> >  	struct device *dev = &gpu->pdev->dev;
-> >  	const struct firmware *fw;
-> > +	const char *signed_fwname = NULL;
-> >  	struct device_node *np, *mem_np;
-> >  	struct resource r;
-> >  	phys_addr_t mem_phys;
-> > @@ -58,8 +59,33 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu, const char *fwname,
-> >  
-> >  	mem_phys = r.start;
-> >  
-> > -	/* Request the MDT file for the firmware */
-> > -	fw = adreno_request_fw(to_adreno_gpu(gpu), fwname);
-> > +	/*
-> > +	 * Check for a firmware-name property.  This is the new scheme
-> > +	 * to handle firmware that may be signed with device specific
-> > +	 * keys, allowing us to have a different zap fw path for different
-> > +	 * devices.
-> > +	 *
-> > +	 * If the firmware-name property is found, we bypass the
-> > +	 * adreno_request_fw() mechanism, because we don't need to handle
-> > +	 * the /lib/firmware/qcom/* vs /lib/firmware/* case.
-> > +	 *
-> > +	 * If the firmware-name property is not found, for backwards
-> > +	 * compatibility we fall back to the fwname from the gpulist
-> > +	 * table.
-> > +	 */
-> > +	of_property_read_string_index(np, "firmware-name", 0, &signed_fwname);
-> > +	if (signed_fwname) {
-> > +		fwname = signed_fwname;
-> > +		ret = request_firmware_direct(&fw, signed_fwname, gpu->dev->dev);
-> > +		if (ret) {
-> > +			DRM_DEV_ERROR(dev, "could not load signed zap firmware: %d\n", ret);
-> > +			fw = ERR_PTR(ret);
-> > +		}
-> > +	} else {
-> > +		/* Request the MDT file for the firmware */
-> > +		fw = adreno_request_fw(to_adreno_gpu(gpu), fwname);
-> > +	}
-> > +
+On Tue, Jan 07, 2020 at 04:59:56PM +0530, Harigovindan P wrote:
+> Add a compatible string to support sc7180 panel version.
 > 
-> Since DT seems to be the trend for target specific firmware names I think we
-> should plan to quickly deprecate the legacy name and not require new targets to
-> set it. If a zap node is going to be opt in then it isn't onerous to ask
-> the developer to set the additional property for each target platform.
+> Changes in v1:
+> 	-Added a compatible string to support sc7180 panel version.
+> Changes in v2:
+> 	-Removed unwanted properties from description.
+> 	-Creating source files without execute permissions(Rob Herring).
 > 
+> Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
+> ---
+>  .../bindings/display/visionox,rm69299.txt          | 48 ++++++++++++++++++++++
+>  1 file changed, 48 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/visionox,rm69299.txt
 
-For the zap specifically I agree that it would be nice to require this
-property, but for non-zap firmware it seems reasonable to continue with
-the existing scheme.
+As I send in v1, please make this a DT schema. See 
+Documentation/devicetree/writing-schema.rst.
 
-Regards,
-Bjorn
+Rob
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
