@@ -2,38 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B10AB135065
-	for <lists+freedreno@lfdr.de>; Thu,  9 Jan 2020 01:26:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A36311355FE
+	for <lists+freedreno@lfdr.de>; Thu,  9 Jan 2020 10:42:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A4996E362;
-	Thu,  9 Jan 2020 00:26:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E14A6E8EE;
+	Thu,  9 Jan 2020 09:42:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from onstation.org (onstation.org [52.200.56.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55C3C6E362;
- Thu,  9 Jan 2020 00:26:25 +0000 (UTC)
-Received: from localhost.localdomain (c-98-239-145-235.hsd1.wv.comcast.net
- [98.239.145.235])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested) (Authenticated sender: masneyb)
- by onstation.org (Postfix) with ESMTPSA id 0E27B3EE6F;
- Thu,  9 Jan 2020 00:26:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=onstation.org;
- s=default; t=1578529584;
- bh=bSP4GLHNIkw9HeeIY0NybAJJvEgnnxZaLRa3yG6+E1Q=;
- h=From:To:Cc:Subject:Date:From;
- b=TK7LNbfLzwC1F6wyfJLhAZh/bLnMAMGWyPQ+53Ef9F9qfGO8LdHQdNxZzdN/ApgLQ
- spnXD0HCF2D5BgqAqnzHtGmbgkilGBxb8HwbfZjcP8Jtx2F3pGL+IMEfcms3ov2jp4
- CwsIsk1ZiP73Lrd5/c1t4wIJrKy7VCeU3zbrKz+U=
-From: Brian Masney <masneyb@onstation.org>
-To: robdclark@gmail.com,
-	bjorn.andersson@linaro.org
-Date: Wed,  8 Jan 2020 19:26:06 -0500
-Message-Id: <20200109002606.35653-1-masneyb@onstation.org>
-X-Mailer: git-send-email 2.24.1
-MIME-Version: 1.0
-Subject: [Freedreno] [PATCH RFC] ARM: dts: qcom: msm8974: add mdp5 iommu
- support
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFE726E8EE;
+ Thu,  9 Jan 2020 09:42:34 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id t14so2025727wmi.5;
+ Thu, 09 Jan 2020 01:42:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=x/rJsrzAFN1SHOY1ywcZnWjYD9yWmdldMlh5f03XRYg=;
+ b=l7n3Me2CEVGR8p5a6YW0NNtdcTDn9ZDVgj4YDu6Cl4Kif/Plbh9xiOT5YRyZ7xRTe1
+ E5H3y4vlS/PAPJvfMTXpBk7W1aX0vf/JSBniLv5yMnE9WtvQAA5zv0ZjGsDZQO8ZOXs1
+ xmDE5aMNv6e/0tWG4RgYVIqEUor25w0M+2Pch+0E8c45C3X/HU5G+To1CTwW5J3cLYA/
+ SjHjxo84gnQgT16WkbPApY15KlgcBvYHOCTq/SggQUSf2/b9jhpcyvU5VQINfyabWHfH
+ 5bJkNepes33nKKUn5T5Ifoke5iVS9EI7IQZKz+z2uv9Js1rr8hlL0ALfEMeOzCIDvr7L
+ pYmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=x/rJsrzAFN1SHOY1ywcZnWjYD9yWmdldMlh5f03XRYg=;
+ b=gEcOIOHhbLNsPKg246B6hEqlXuHDM6Vp3BLDsbSV6JobWAF651LsDn00Pe61mhUYLk
+ UBc2XZiVjTcK9RvxRp1bXaUIgR2EpHgRQiKWnLLv2fiEtQXCpXjGYGw8ygv3LAwdWPgR
+ ilQWPuVajMyZWWKb0S4GoUqLUZAlQOL4WwglKrkWJQ0WfQQIrVHHdt6RfmSPdQ5QnOgi
+ TcfBCum+cwBxKm/tsw8e0sFxsDG/8Zr/1mLOhL9XEGGxavpJPUDxX3lKoGDW/vxQdpJj
+ 0rTZnFDN61a8UucGnfCbjYYqV7IKgOAuy+n9RIIJbiE1rSnfSFGVEAebuyq77eHFqcm4
+ 4drA==
+X-Gm-Message-State: APjAAAWhsVC4MJDjEM/RA/SCxjbtrGMlL30GDCoEoUCKou2H7fmJIt7u
+ Xpnnmp3Bgfjmvu5srm6pv1c=
+X-Google-Smtp-Source: APXvYqzutBXNb9l/OLivyPXT06DnycTvFXLnYG/Z5uxCovB+J7j2p4azD6X6kG/WwBfIrjj1YXBhog==
+X-Received: by 2002:a1c:ddd7:: with SMTP id u206mr3920334wmg.159.1578562953501; 
+ Thu, 09 Jan 2020 01:42:33 -0800 (PST)
+Received: from localhost.localdomain ([197.254.95.38])
+ by smtp.googlemail.com with ESMTPSA id y7sm3219435wmd.1.2020.01.09.01.42.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Jan 2020 01:42:33 -0800 (PST)
+From: Wambui Karuga <wambui.karugax@gmail.com>
+To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch
+Date: Thu,  9 Jan 2020 12:42:26 +0300
+Message-Id: <20200109094226.4967-1-wambui.karugax@gmail.com>
+X-Mailer: git-send-email 2.17.1
+Subject: [Freedreno] [PATCH v2] drm/msm: use BUG_ON macro for debugging.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,131 +61,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, joro@8bytes.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- iommu@lists.linux-foundation.org, agross@kernel.org,
- freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This adds preliminary IOMMU support for the MDP5 on msm8974. It appears
-that the qcom-iommu driver in upstream can be used on this SoC. I marked
-this patch as a RFC since the frame buffer becomes corrupted when I boot
-the Nexus 5 phone with this patch:
+As the if statement only checks for the value of the offset_name
+variable, it can be replaced by the more conscise BUG_ON macro for error
+reporting.
 
-https://raw.githubusercontent.com/masneyb/nexus-5-upstream/master/images/broken-mdp5-iommu.jpg
+v2: format expression to less than 80 characters for each line.
 
-A quick note about the ranges of the context banks below: Based on the
-downstream sources, I believe that the memory addresses should be mapped
-out like this:
-
-	mdp_iommu: iommu@fd928000 {
-		reg = <0xfd928000 0x8000>;
-		ranges = <0 0xfd930000 0x8000>;
-		...
-
-		iommu-ctx@0 {
-			reg = <0x0 0x1000>;
-			...
-		};
-
-		iommu-ctx@1000 {
-			reg = <0x1000 0x1000>;
-			...
-		};
-
-		iommu-ctx@2000 {
-			reg = <0x2000 0x1000>;
-			...
-		};
-	};
-
-However, the qcom-iommu driver in upstream expects the first context
-bank to exist at address 0x1000, and the address space identifier
-(asid) to be greater than 0. See get_asid() and qcom_iommu_of_xlate()
-in the upstream qcom-iommu.c driver. I put in the patch below what the
-driver expects. I modified the driver in my local tree to allow the
-mapping that I have above so that the extra 0x1000 of memory is mapped
-into the global address space and still experience the same screen
-corruption issue.
-
-Downstream MSM 3.4 IOMMU dts snippet for reference:
-https://github.com/AICP/kernel_lge_hammerhead/blob/n7.1/arch/arm/boot/dts/msm-iommu-v1.dtsi#L110
-
-I'm hoping that someone that's more familiar with this hardware has a
-suggestion for something to try.
-
-Signed-off-by: Brian Masney <masneyb@onstation.org>
+Signed-off-by: Wambui Karuga <wambui.karugax@gmail.com>
 ---
- arch/arm/boot/dts/qcom-msm8974.dtsi | 44 +++++++++++++++++++++++++++++
- 1 file changed, 44 insertions(+)
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm/boot/dts/qcom-msm8974.dtsi b/arch/arm/boot/dts/qcom-msm8974.dtsi
-index 4b161b809dd5..2515a3bd4aa7 100644
---- a/arch/arm/boot/dts/qcom-msm8974.dtsi
-+++ b/arch/arm/boot/dts/qcom-msm8974.dtsi
-@@ -1305,6 +1305,46 @@ etm3_out: endpoint {
- 			};
- 		};
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index c7441fb8313e..d1843abc3ac7 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -315,10 +315,8 @@ OUT_PKT7(struct msm_ringbuffer *ring, uint8_t opcode, uint16_t cnt)
+ static inline bool adreno_reg_check(struct adreno_gpu *gpu,
+ 		enum adreno_regs offset_name)
+ {
+-	if (offset_name >= REG_ADRENO_REGISTER_MAX ||
+-			!gpu->reg_offsets[offset_name]) {
+-		BUG();
+-	}
++	BUG_ON(offset_name >= REG_ADRENO_REGISTER_MAX ||
++	       !gpu->reg_offsets[offset_name]);
  
-+		mdp_iommu: iommu@fd928000 {
-+			compatible = "qcom,msm8974-iommu",
-+			             "qcom,msm-iommu-v1";
-+			reg = <0xfd928000 0x7000>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			#iommu-cells = <1>;
-+			ranges = <0 0xfd92f000 0x9000>;
-+
-+			clocks = <&mmcc MDSS_AHB_CLK>,
-+			         <&mmcc MDSS_AXI_CLK>;
-+			clock-names = "iface",
-+			              "bus";
-+
-+			qcom,iommu-secure-id = <1>;
-+
-+			// mdp_0
-+			iommu-ctx@1000 {
-+				compatible = "qcom,msm-iommu-v1-ns";
-+				reg = <0x1000 0x1000>;
-+				interrupts = <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>;
-+			};
-+
-+			// mdp_1
-+			iommu-ctx@2000 {
-+				compatible = "qcom,msm-iommu-v1-sec";
-+				reg = <0x2000 0x1000>;
-+				interrupts = <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>,
-+				             <GIC_SPI 46 IRQ_TYPE_LEVEL_HIGH>;
-+			};
-+
-+			// mdp_2
-+			iommu-ctx@3000 {
-+				compatible = "qcom,msm-iommu-v1-sec";
-+				reg = <0x3000 0x1000>;
-+				interrupts = <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>,
-+				             <GIC_SPI 46 IRQ_TYPE_LEVEL_HIGH>;
-+			};
-+                };
-+
- 		ocmem@fdd00000 {
- 			compatible = "qcom,msm8974-ocmem";
- 			reg = <0xfdd00000 0x2000>,
-@@ -1427,6 +1467,10 @@ mdp: mdp@fd900000 {
- 				interconnects = <&mmssnoc MNOC_MAS_MDP_PORT0 &bimc BIMC_SLV_EBI_CH0>;
- 				interconnect-names = "mdp0-mem";
- 
-+				iommus = <&mdp_iommu 1
-+				          &mdp_iommu 2
-+				          &mdp_iommu 3>;
-+
- 				ports {
- 					#address-cells = <1>;
- 					#size-cells = <0>;
+ 	/*
+ 	 * REG_SKIP is a special value that tell us that the register in
 -- 
-2.24.1
+2.17.1
 
 _______________________________________________
 Freedreno mailing list
