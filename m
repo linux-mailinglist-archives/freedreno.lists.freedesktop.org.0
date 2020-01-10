@@ -1,45 +1,51 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F10B13711D
-	for <lists+freedreno@lfdr.de>; Fri, 10 Jan 2020 16:26:09 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D43C4137892
+	for <lists+freedreno@lfdr.de>; Fri, 10 Jan 2020 22:36:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06F476EA37;
-	Fri, 10 Jan 2020 15:26:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CCB36EAA1;
+	Fri, 10 Jan 2020 21:36:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D74206EA34;
- Fri, 10 Jan 2020 15:26:05 +0000 (UTC)
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2020 07:26:05 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,417,1571727600"; d="scan'208";a="216694447"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
- by orsmga008.jf.intel.com with SMTP; 10 Jan 2020 07:25:56 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 10 Jan 2020 17:25:56 +0200
-Date: Fri, 10 Jan 2020 17:25:56 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Message-ID: <20200110152556.GK13686@intel.com>
-References: <20200110092127.27847-1-tzimmermann@suse.de>
- <20200110092127.27847-4-tzimmermann@suse.de>
- <87eew7o73u.fsf@intel.com>
- <761ae94c-aaf1-9167-9c44-06824304fdfd@suse.de>
- <875zhjo1op.fsf@intel.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <875zhjo1op.fsf@intel.com>
-X-Patchwork-Hint: comment
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH 03/23] drm/i915: Don't use struct
- drm_driver.get_scanout_position()
+Received: from mail-pl1-x649.google.com (mail-pl1-x649.google.com
+ [IPv6:2607:f8b0:4864:20::649])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 763446E0D4
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Jan 2020 21:36:15 +0000 (UTC)
+Received: by mail-pl1-x649.google.com with SMTP id c11so1804247plz.8
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Jan 2020 13:36:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=date:message-id:mime-version:subject:from:to:cc;
+ bh=lklv8FQRp8rzT0qNRNej2/Ey5tQkK5RdPZ9PPNXjJ/o=;
+ b=tVwGZYrLHNECzGDBzzpsfHd1j99ze2fBx7zZNOtyFK2nFw6cKUh4LRyrx0Hz6aEnHj
+ xjL8M5eiKT9bQ5Svg8gNtSTB7J+J509NP+v5mrcq0KuPW/GxKpcJzMDrDMGzv2fVngew
+ KIrgphdjT6oefZw6kPFNWrut2XNbjHeI+h5kmXdl4N8z9UGGhxTmUEWUm3GvWhY6hI9A
+ 5cOEumsNpnAKH4tPnsHuCbTqBWIN77f3lNkCuLqAiEy1Jcemr/F04p8QldizUhpcs4ji
+ b/PdhclpGbYxhLnY0y+jjoHZw0e3Rknli3V6Wi1wWlTmEw8gw/tS0qhSXltohRcpI6CH
+ DE1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
+ bh=lklv8FQRp8rzT0qNRNej2/Ey5tQkK5RdPZ9PPNXjJ/o=;
+ b=UFTRCGe68YkE/dEuuC61m0i7oaXW/v6XTrnuAVZFaGY6pTA/YGemmWN49jrdDC58vs
+ YNmUjZwMNIXei16cosh44tO98CFHhlMbhwyYyNm826ufaM9HGBqMlCI1F8vu1KxNGVAm
+ a4NDzjbywOmx7WqeGVlThlop74JmPBEYBDJohmOLqCTL0lPAFEg/cT3F7PFThI0OJ14w
+ vaQvNRyNdr0QE8pz/k6DucwWMR5YdC5KEBMZZLm4kBqiifnm2DqHnTVm/+fM4ZfHNXB+
+ 2D33P40yT+WTwpLdVpHMlxrOIi95s/FS2w24x8IILwsFjTZ08ElabUyeO/VJaEpRKlam
+ r9Ww==
+X-Gm-Message-State: APjAAAXY6ZlAtjZIme0bG0ElXYbxrSCRVr1Z5v26j7wK8vOEh78qkF4J
+ 3qe/DshnIMXvhh7BXGPIM8TfNtelSXg1sQ==
+X-Google-Smtp-Source: APXvYqz6h9roepz92B1ZH3Sq2/HDz04zhQSLuowxmrGyRazGZhV9zcZ4LdZ5NtGc06jMSBOCB2z0oD/pajdeYg==
+X-Received: by 2002:a63:3d8e:: with SMTP id k136mr6811902pga.4.1578692174830; 
+ Fri, 10 Jan 2020 13:36:14 -0800 (PST)
+Date: Fri, 10 Jan 2020 13:35:51 -0800
+Message-Id: <20200110213551.59826-1-frkoenig@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.25.0.rc1.283.g88dfdc4193-goog
+From: Fritz Koenig <frkoenig@google.com>
+To: robdclark@gmail.com
+Subject: [Freedreno] [PATCH] drm/msm/dpu: Allow UBWC on NV12
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,75 +58,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: hamohammed.sa@gmail.com, airlied@linux.ie, nouveau@lists.freedesktop.org,
- joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org,
- eric@anholt.net, amd-gfx@lists.freedesktop.org, benjamin.gaignard@linaro.org,
- alexandre.torgue@st.com, David1.Zhou@amd.com, thellstrom@vmware.com,
- sean@poorly.run, patrik.r.jakobsson@gmail.com,
- linux-graphics-maintainer@vmware.com, bskeggs@redhat.com,
- harry.wentland@amd.com, daniel@ffwll.ch, sunpeng.li@amd.com,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- maarten.lankhorst@linux.intel.com, rodrigo.vivi@intel.com,
- vincent.abriou@st.com, mcoquelin.stm32@gmail.com,
- rodrigosiqueiramelo@gmail.com, philippe.cornu@st.com, yannick.fertre@st.com,
- robdclark@gmail.com, Thomas Zimmermann <tzimmermann@suse.de>,
- alexander.deucher@amd.com, freedreno@lists.freedesktop.org,
- christian.koenig@amd.com
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: linux-arm-msm@vger.kernel.org, Fritz Koenig <frkoenig@google.com>,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Jan 10, 2020 at 03:56:06PM +0200, Jani Nikula wrote:
-> On Fri, 10 Jan 2020, Thomas Zimmermann <tzimmermann@suse.de> wrote:
-> > Hi
-> >
-> > Am 10.01.20 um 12:59 schrieb Jani Nikula:
-> >> On Fri, 10 Jan 2020, Thomas Zimmermann <tzimmermann@suse.de> wrote:
-> >>> The callback struct drm_driver.get_scanout_position() is deprecated in
-> >>> favor of struct drm_crtc_helper_funcs.get_scanout_position().
-> >>>
-> >>> i915 doesn't use CRTC helpers. The patch duplicates the caller
-> >>> drm_calc_vbltimestamp_from_scanoutpos() for i915, such that the callb=
-ack
-> >>> function is not needed.
-> >>>
-> >>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> >>> ---
-> >>>  drivers/gpu/drm/i915/i915_drv.c |   3 +-
-> >>>  drivers/gpu/drm/i915/i915_irq.c | 117 ++++++++++++++++++++++++++++++=
---
-> >>>  drivers/gpu/drm/i915/i915_irq.h |   9 +--
-> >>>  3 files changed, 119 insertions(+), 10 deletions(-)
-> >> =
+NV12 is a valid format for UBWC
 
-> >> Not really enthusiastic about the diffstat in a "cleanup" series.
-> >
-> > Well, the cleanup is about the content of drm_driver :)
-> >
-> >> =
+Signed-off-by: Fritz Koenig <frkoenig@google.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog_format.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> >> I wonder if you could add a generic helper version of
-> >> drm_calc_vbltimestamp_from_scanoutpos where you pass the
-> >> get_scanout_position function as a parameter. Both
-> >> drm_calc_vbltimestamp_from_scanoutpos and the new
-> >> i915_calc_vbltimestamp_from_scanoutpos would then be fairly thin
-> >> wrappers passing in the relevant get_scanout_position function.
-> >
-> > Of course. Will be in v2 of the series.
-> =
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog_format.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog_format.h
+index fbcb3c4bbfee..3766f0fd0bf0 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog_format.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog_format.h
+@@ -10,6 +10,8 @@ static const uint32_t qcom_compressed_supported_formats[] = {
+ 	DRM_FORMAT_XBGR8888,
+ 	DRM_FORMAT_XRGB8888,
+ 	DRM_FORMAT_BGR565,
++
++	DRM_FORMAT_NV12,
+ };
+ 
+ static const uint32_t plane_formats[] = {
+-- 
+2.25.0.rc1.283.g88dfdc4193-goog
 
-> Please give Ville (Cc'd) a moment before sending v2 in case he wants to
-> chime in on this.
-
-Passing the function pointer was one option I considered for this a while
-back. Can't remeber what other solutions I condsidered. But I guess I
-didn't like any of them enough to make an actual patch.
-
--- =
-
-Ville Syrj=E4l=E4
-Intel
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
