@@ -2,53 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED0FA139D28
-	for <lists+freedreno@lfdr.de>; Tue, 14 Jan 2020 00:17:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 401F2139D87
+	for <lists+freedreno@lfdr.de>; Tue, 14 Jan 2020 00:41:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DE0E6E197;
-	Mon, 13 Jan 2020 23:17:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5E956E1A2;
+	Mon, 13 Jan 2020 23:41:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com
- [IPv6:2607:f8b0:4864:20::d43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 502C16E197
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2020 23:17:50 +0000 (UTC)
-Received: by mail-io1-xd43.google.com with SMTP id n21so11721762ioo.10
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2020 15:17:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=EXOu/caAZRciktEkgyw6xoSeqpqaI1k2OfdaSvt8Cjc=;
- b=Zvmte5iLPvXTifgdJIuhrIYLGG6C726zCT+WMy2ttqR14OxeHiIGzMp59OnCNsMbIS
- xtLNhzNmS0pDiDmjUdQtFVKqvmo+KigdvY+HGyUg3BEYDVUuqnm4D5hhb0bW/I4aEWMp
- uXZM1k24grl4F3dcbp9a+kQlzSBPrkj9niY0U=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=EXOu/caAZRciktEkgyw6xoSeqpqaI1k2OfdaSvt8Cjc=;
- b=LlmOXKxZxGkbHkXCTHzcMusgKTcX6MFFboAm2+CHFZqvjxxwd52gfSaXmHY0DsGLmS
- A96vsGKziNrvO/O4jwpcKvWSm6OhgwZj1AfVtqweaXZN10jtSZGFBlVPItlSaCoqNa5d
- 5fXXCCzojGimliTQP10zGTHBmnnu8xijKfwvF59MXhJMEFllomo/TY8hBDLnuqRRJrD8
- wryAKC9RTZjF61bQ314YxyN1d8zyTHhGXLVvl++la2nn7WtUkRZibgjp3VQCTgw5L+Oq
- gEWqEd/7/4FnpHDfkd0UN/c1n72+FcL2Ep0VcgjSSE26Gll1ve3o2M9tUYTrdb0ABjpp
- nkRQ==
-X-Gm-Message-State: APjAAAUCDoDcNPPkaYtd2WQYq6oa6yDqzkLB2NTS9APG+RMYaoXQUKbQ
- Y38aYlSR4OB4ivo3RbpSNI8jPNGE2KgnEPwFbDozUw==
-X-Google-Smtp-Source: APXvYqxATCkSfssIoBD+2KxwvGRYJPy/Np1oMu5a4p45ZIAdrL8OhFq0IL0M28jvlOUoW/jJBk5On8fgGv7SbwGGipc=
-X-Received: by 2002:a5e:940e:: with SMTP id q14mr13567994ioj.247.1578957469619; 
- Mon, 13 Jan 2020 15:17:49 -0800 (PST)
+Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
+ [104.130.122.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89DC36E1A2
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2020 23:41:21 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1578958882; h=In-Reply-To: Content-Type: MIME-Version:
+ References: Message-ID: Subject: Cc: To: From: Date: Sender;
+ bh=sVNd3drz68zOJH/B6rbCVYqvirgc5j67XFPFikKsziA=;
+ b=K7vOM/pFnXbJZAFigH0N7XSlokla3n4MBgQ195w685wMEc1kxb0ceaoJoTizBJ5YlmIEVI12
+ T50NzySZ51vxD2q9Lfj9RKyGdu9Y2Qml5LIgJxg8uK01UAZjeIg4ZVKfnumsRnnO8rzTa4dY
+ nfyZnzwzHfZD7Na1Ps9Q5sFn7Mo=
+X-Mailgun-Sending-Ip: 104.130.122.26
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5e1d001c.7f9d94d9af80-smtp-out-n03;
+ Mon, 13 Jan 2020 23:41:16 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 669C9C433A2; Mon, 13 Jan 2020 23:41:16 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 10A47C433CB;
+ Mon, 13 Jan 2020 23:41:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 10A47C433CB
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=jcrouse@codeaurora.org
+Date: Mon, 13 Jan 2020 16:41:13 -0700
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Message-ID: <20200113234113.GE26711@jcrouse1-lnx.qualcomm.com>
+Mail-Followup-To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ freedreno@lists.freedesktop.org, robdclark@chromium.org,
+ dri-devel@lists.freedesktop.org
+References: <20200113202557.110095-1-bas@basnieuwenhuizen.nl>
 MIME-Version: 1.0
-References: <20200113153605.52350-1-brian@brkho.com>
- <20200113153605.52350-3-brian@brkho.com>
- <CAJs_Fx48B-C8GEeAmPaqGAqAOTR2dT0csg8W=TRyULOfy=1=VQ@mail.gmail.com>
- <CAOPc6Tn8CWVzcLoJOGmn3CW6B9FMKf_-NzE8TpwDHsPfoQDaQQ@mail.gmail.com>
- <20200113225516.GA157345@google.com>
-In-Reply-To: <20200113225516.GA157345@google.com>
-From: Rob Clark <robdclark@chromium.org>
-Date: Mon, 13 Jan 2020 15:17:38 -0800
-Message-ID: <CAJs_Fx5i-cZ0qXk_jNo=JGfZRc7uuvUcTZ2TE1ppuYUfNLymKQ@mail.gmail.com>
-To: Brian Ho <brian@brkho.com>
-Subject: Re: [Freedreno] [PATCH 2/2] drm/msm: Add MSM_WAIT_IOVA ioctl
+Content-Disposition: inline
+In-Reply-To: <20200113202557.110095-1-bas@basnieuwenhuizen.nl>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Freedreno] [PATCH] drm/msm: Add syncobj support.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,250 +70,483 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- freedreno <freedreno@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Rob Clark <robdclark@gmail.com>, Kristian Kristensen <hoegsberg@google.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- hoegsberg <hoegsberg@chromium.org>, Sean Paul <sean@poorly.run>
+Cc: robdclark@chromium.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jan 13, 2020 at 2:55 PM Brian Ho <brian@brkho.com> wrote:
->
-> On Mon, Jan 13, 2020 at 09:57:43AM -0800, Kristian Kristensen wrote:
-> > On Mon, Jan 13, 2020 at 8:25 AM Rob Clark <robdclark@chromium.org> wrote:
-> >
-> > > On Mon, Jan 13, 2020 at 7:37 AM Brian Ho <brian@brkho.com> wrote:
-> > > >
-> > > > Implements an ioctl to wait until a value at a given iova is greater
-> > > > than or equal to a supplied value.
-> > > >
-> > > > This will initially be used by turnip (open-source Vulkan driver for
-> > > > QC in mesa) for occlusion queries where the userspace driver can
-> > > > block on a query becoming available before continuing via
-> > > > vkGetQueryPoolResults.
-> > > >
-> > > > Signed-off-by: Brian Ho <brian@brkho.com>
-> > > > ---
-> > > >  drivers/gpu/drm/msm/msm_drv.c | 63 +++++++++++++++++++++++++++++++++--
-> > > >  include/uapi/drm/msm_drm.h    | 13 ++++++++
-> > > >  2 files changed, 74 insertions(+), 2 deletions(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/msm/msm_drv.c
-> > > b/drivers/gpu/drm/msm/msm_drv.c
-> > > > index c84f0a8b3f2c..dcc46874a5a2 100644
-> > > > --- a/drivers/gpu/drm/msm/msm_drv.c
-> > > > +++ b/drivers/gpu/drm/msm/msm_drv.c
-> > > > @@ -36,10 +36,11 @@
-> > > >   *           MSM_GEM_INFO ioctl.
-> > > >   * - 1.4.0 - softpin, MSM_RELOC_BO_DUMP, and GEM_INFO support to set/get
-> > > >   *           GEM object's debug name
-> > > > - * - 1.5.0 - Add SUBMITQUERY_QUERY ioctl
-> > > > + * - 1.5.0 - Add SUBMITQUEUE_QUERY ioctl
-> > > > + * - 1.6.0 - Add WAIT_IOVA ioctl
-> > > >   */
-> > > >  #define MSM_VERSION_MAJOR      1
-> > > > -#define MSM_VERSION_MINOR      5
-> > > > +#define MSM_VERSION_MINOR      6
-> > > >  #define MSM_VERSION_PATCHLEVEL 0
-> > > >
-> > > >  static const struct drm_mode_config_funcs mode_config_funcs = {
-> > > > @@ -952,6 +953,63 @@ static int msm_ioctl_submitqueue_close(struct
-> > > drm_device *dev, void *data,
-> > > >         return msm_submitqueue_remove(file->driver_priv, id);
-> > > >  }
-> > > >
-> > > > +static int msm_ioctl_wait_iova(struct drm_device *dev, void *data,
-> > > > +               struct drm_file *file)
-> > > > +{
-> > > > +       struct msm_drm_private *priv = dev->dev_private;
-> > > > +       struct drm_gem_object *obj;
-> > > > +       struct drm_msm_wait_iova *args = data;
-> > > > +       ktime_t timeout = to_ktime(args->timeout);
-> > > > +       unsigned long remaining_jiffies = timeout_to_jiffies(&timeout);
-> > > > +       struct msm_gpu *gpu = priv->gpu;
-> > > > +       void *base_vaddr;
-> > > > +       uint64_t *vaddr;
-> > > > +       int ret;
-> > > > +
-> > > > +       if (args->pad)
-> > > > +               return -EINVAL;
-> > > > +
-> > > > +       if (!gpu)
-> > > > +               return 0;
-> > >
-> > > hmm, I'm not sure we should return zero in this case.. maybe -ENODEV?
-> > >
-> > > > +
-> > > > +       obj = drm_gem_object_lookup(file, args->handle);
-> > > > +       if (!obj)
-> > > > +               return -ENOENT;
-> > > > +
-> > > > +       base_vaddr = msm_gem_get_vaddr(obj);
-> > > > +       if (IS_ERR(base_vaddr)) {
-> > > > +               ret = PTR_ERR(base_vaddr);
-> > > > +               goto err_put_gem_object;
-> > > > +       }
-> > > > +       if (args->offset + sizeof(*vaddr) > obj->size) {
-> > > > +               ret = -EINVAL;
-> > > > +               goto err_put_vaddr;
-> > > > +       }
-> > > > +
-> > > > +       vaddr = base_vaddr + args->offset;
-> > > > +
-> > > > +       /* Assumes WC mapping */
-> > > > +       ret = wait_event_interruptible_timeout(
-> > > > +                       gpu->event, *vaddr >= args->value,
-> > > remaining_jiffies);
-> > >
-> >
-> > This needs to do the awkward looking
-> >
-> >   (int64_t)(*data - value) >= 0
-> >
-> > to properly handle the wraparound case.
-> >
->
-> I think this comparison will run into issues if we allow for 64-bit
-> reference values. For example, if value is ULLONG_MAX, and *data
-> starts at 0 on the first comparison, we'll immediately return.
->
-> It's not too much of an issue in fence_completed (msm_fence.c), but
-> in this ioctl, *data can grow at an arbitrary rate. Are we concerned
-> about this?
->
-> > > +
-> > > > +       if (ret == 0) {
-> > > > +               ret = -ETIMEDOUT;
-> > > > +               goto err_put_vaddr;
-> > > > +       } else if (ret == -ERESTARTSYS) {
-> > > > +               goto err_put_vaddr;
-> > > > +       }
-> > >
-> > > maybe:
-> > >
-> > >  } else {
-> > >    ret = 0;
-> > >  }
-> > >
-> > > and then drop the next three lines?
-> > >
-> > > > +
-> > > > +       msm_gem_put_vaddr(obj);
-> > > > +       drm_gem_object_put_unlocked(obj);
-> > > > +       return 0;
-> > > > +
-> > > > +err_put_vaddr:
-> > > > +       msm_gem_put_vaddr(obj);
-> > > > +err_put_gem_object:
-> > > > +       drm_gem_object_put_unlocked(obj);
-> > > > +       return ret;
-> > > > +}
-> > > > +
-> > > >  static const struct drm_ioctl_desc msm_ioctls[] = {
-> > > >         DRM_IOCTL_DEF_DRV(MSM_GET_PARAM,    msm_ioctl_get_param,
-> > > DRM_RENDER_ALLOW),
-> > > >         DRM_IOCTL_DEF_DRV(MSM_GEM_NEW,      msm_ioctl_gem_new,
-> > > DRM_RENDER_ALLOW),
-> > > > @@ -964,6 +1022,7 @@ static const struct drm_ioctl_desc msm_ioctls[] = {
-> > > >         DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_NEW,
-> > >  msm_ioctl_submitqueue_new,   DRM_RENDER_ALLOW),
-> > > >         DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_CLOSE,
-> > > msm_ioctl_submitqueue_close, DRM_RENDER_ALLOW),
-> > > >         DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_QUERY,
-> > > msm_ioctl_submitqueue_query, DRM_RENDER_ALLOW),
-> > > > +       DRM_IOCTL_DEF_DRV(MSM_WAIT_IOVA, msm_ioctl_wait_iova,
-> > > DRM_RENDER_ALLOW),
-> > > >  };
-> > > >
-> > > >  static const struct vm_operations_struct vm_ops = {
-> > > > diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
-> > > > index 0b85ed6a3710..8477f28a4ee1 100644
-> > > > --- a/include/uapi/drm/msm_drm.h
-> > > > +++ b/include/uapi/drm/msm_drm.h
-> > > > @@ -298,6 +298,17 @@ struct drm_msm_submitqueue_query {
-> > > >         __u32 pad;
-> > > >  };
-> > > >
-> > > > +/* This ioctl blocks until the u64 value at bo + offset is greater than
-> > > or
-> > > > + * equal to the reference value.
-> > > > + */
-> > > > +struct drm_msm_wait_iova {
-> > > > +       __u32 handle;          /* in, GEM handle */
-> > > > +       __u32 pad;
-> > > > +       struct drm_msm_timespec timeout;   /* in */
-> > > > +       __u64 offset;          /* offset into bo */
-> > > > +       __u64 value;           /* reference value */
-> > >
-> > > Maybe we should go ahead and add a __u64 mask;
-> > >
-> > > that would let us wait for 32b values as well, and wait for bits in a
-> > > bitmask
-> > >
-> >
-> > I think we'd be OK to just default to 32 bit values instead, since most of
-> > the CP commands that this is intended to work with (CP_EVENT_WRITE,
-> > CP_WAIT_MEM_GTE etc) operate on 32 bit values. We could move 'value' to the
-> > slot right after 'handle' but then we'd not have any pad/reserved fields.
-> > Maybe we keep 'value' 64 bit but restrict it to 32 bits, with an option to
-> > add a 64 bit flag in 'pad' later on?
-> >
->
-> FWIW, the current usage of this in my mesa MR uses a 64 bit value.
-> There's no super great reason that the available bit is 64 bits and
-> not 32 bits (I think it made the addressing math a bit simpler), but
-> I'm fine with whatever you all decide on here.
->
+On Mon, Jan 13, 2020 at 09:25:57PM +0100, Bas Nieuwenhuizen wrote:
+> This
+> 
+> 1) Enables core DRM syncobj support.
+> 2) Adds options to the submission ioctl to wait/signal syncobjs.
+> 
+> Just like the wait fence fd, this does inline waits. Using the
+> scheduler would be nice but I believe it is out of scope for
+> this work.
+> 
+> Support for timeline syncobjs is implemented and the interface
+> is ready for it, but I'm not enabling it yet until there is
+> some code for turnip to use it.
+> 
+> The reset is mostly in there because in the presence of waiting
+> and signalling the same semaphores, resetting them after
+> signalling can become very annoying.
+> 
+> Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+> ---
+> 
+> Userspace code in 
+> 
+> https://gitlab.freedesktop.org/mesa/mesa/merge_requests/2769
+> 
+>  drivers/gpu/drm/msm/msm_drv.c        |   6 +-
+>  drivers/gpu/drm/msm/msm_gem_submit.c | 241 ++++++++++++++++++++++++++-
+>  include/uapi/drm/msm_drm.h           |  22 ++-
+>  3 files changed, 265 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index c84f0a8b3f2c..ca36d6b21d8f 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -37,9 +37,10 @@
+>   * - 1.4.0 - softpin, MSM_RELOC_BO_DUMP, and GEM_INFO support to set/get
+>   *           GEM object's debug name
+>   * - 1.5.0 - Add SUBMITQUERY_QUERY ioctl
+> + * - 1.6.0 - Syncobj support
+>   */
+>  #define MSM_VERSION_MAJOR	1
+> -#define MSM_VERSION_MINOR	5
+> +#define MSM_VERSION_MINOR	6
+>  #define MSM_VERSION_PATCHLEVEL	0
+>  
+>  static const struct drm_mode_config_funcs mode_config_funcs = {
+> @@ -988,7 +989,8 @@ static struct drm_driver msm_driver = {
+>  	.driver_features    = DRIVER_GEM |
+>  				DRIVER_RENDER |
+>  				DRIVER_ATOMIC |
+> -				DRIVER_MODESET,
+> +				DRIVER_MODESET|
 
-I assume you are waiting for a fence value written w/ CP_EVENT_WRITE?
-Or at least that is what I'd recommend.  That would be 32b
+A space before the | would be preferred.
 
-BR,
--R
+> +				DRIVER_SYNCOBJ,
+>  	.open               = msm_open,
+>  	.postclose           = msm_postclose,
+>  	.lastclose          = drm_fb_helper_lastclose,
+> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+> index be5327af16fa..9085229f88e0 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+> @@ -8,7 +8,9 @@
+>  #include <linux/sync_file.h>
+>  #include <linux/uaccess.h>
+>  
+> +#include <drm/drm_drv.h>
+>  #include <drm/drm_file.h>
+> +#include <drm/drm_syncobj.h>
+>  
+>  #include "msm_drv.h"
+>  #include "msm_gpu.h"
+> @@ -394,6 +396,196 @@ static void submit_cleanup(struct msm_gem_submit *submit)
+>  	ww_acquire_fini(&submit->ticket);
+>  }
+>  
+> +
+> +struct msm_submit_post_dep {
+> +	struct drm_syncobj *syncobj;
+> +	uint64_t point;
+> +	struct dma_fence_chain *chain;
+> +};
+> +
+> +static int msm_wait_deps(struct drm_device *dev,
+> +                         struct drm_file *file,
+> +                         uint64_t in_syncobjs_addr,
+> +                         uint32_t nr_in_syncobjs,
+> +                         struct msm_ringbuffer *ring,
+> +                         struct drm_syncobj ***syncobjs)
+> +{
+> +	struct drm_msm_gem_submit_syncobj *syncobj_descs;
+> +	int ret = 0;
+> +	uint32_t i, j;
+> +
+> +	syncobj_descs = kmalloc_array(nr_in_syncobjs, sizeof(*syncobj_descs),
+> +	                              GFP_KERNEL);
+> +	if (!syncobj_descs)
+> +		return -ENOMEM;
+> +
+We would want to watch out here for fuzzers and malicious actors that try to
+force an enormous memory allocation. It seems like we should be able to
+iteratively read each fences in the loop and skip this memory allocation.
 
-> > >
-> > > Other than those minor comments, it looks pretty good to me
-> > >
-> > > BR,
-> > > -R
-> > >
-> > > > +};
-> > > > +
-> > > >  #define DRM_MSM_GET_PARAM              0x00
-> > > >  /* placeholder:
-> > > >  #define DRM_MSM_SET_PARAM              0x01
-> > > > @@ -315,6 +326,7 @@ struct drm_msm_submitqueue_query {
-> > > >  #define DRM_MSM_SUBMITQUEUE_NEW        0x0A
-> > > >  #define DRM_MSM_SUBMITQUEUE_CLOSE      0x0B
-> > > >  #define DRM_MSM_SUBMITQUEUE_QUERY      0x0C
-> > > > +#define DRM_MSM_WAIT_IOVA      0x0D
-> > > >
-> > > >  #define DRM_IOCTL_MSM_GET_PARAM        DRM_IOWR(DRM_COMMAND_BASE +
-> > > DRM_MSM_GET_PARAM, struct drm_msm_param)
-> > > >  #define DRM_IOCTL_MSM_GEM_NEW          DRM_IOWR(DRM_COMMAND_BASE +
-> > > DRM_MSM_GEM_NEW, struct drm_msm_gem_new)
-> > > > @@ -327,6 +339,7 @@ struct drm_msm_submitqueue_query {
-> > > >  #define DRM_IOCTL_MSM_SUBMITQUEUE_NEW    DRM_IOWR(DRM_COMMAND_BASE +
-> > > DRM_MSM_SUBMITQUEUE_NEW, struct drm_msm_submitqueue)
-> > > >  #define DRM_IOCTL_MSM_SUBMITQUEUE_CLOSE  DRM_IOW (DRM_COMMAND_BASE +
-> > > DRM_MSM_SUBMITQUEUE_CLOSE, __u32)
-> > > >  #define DRM_IOCTL_MSM_SUBMITQUEUE_QUERY  DRM_IOW (DRM_COMMAND_BASE +
-> > > DRM_MSM_SUBMITQUEUE_QUERY, struct drm_msm_submitqueue_query)
-> > > > +#define DRM_IOCTL_MSM_WAIT_IOVA        DRM_IOW (DRM_COMMAND_BASE +
-> > > DRM_MSM_WAIT_IOVA, struct drm_msm_wait_iova)
-> > > >
-> > > >  #if defined(__cplusplus)
-> > > >  }
-> > > > --
-> > > > 2.25.0.rc1.283.g88dfdc4193-goog
-> > > >
-> > >
+> +	*syncobjs = kcalloc(nr_in_syncobjs, sizeof(**syncobjs), GFP_KERNEL);
+> +	if (!syncobjs) {
+> +		ret = -ENOMEM;
+> +		goto out_syncobjs;
+> +	}
+
+Alas no good way to skip this one. But it seems that syncobjs should only
+contain descriptors with MSM_SUBMIT_SYNCOBJ_RESET set. I'm not very familiar
+with how fences work so I'm not sure how common this path is. Would the same
+fuzzer or malicious actor be able to double the destruction by forcing a large
+allocation that doesn't even end up getting used?
+
+> +	if (copy_from_user(syncobj_descs, u64_to_user_ptr(in_syncobjs_addr),
+> +	                   nr_in_syncobjs * sizeof(*syncobj_descs))) {
+> +		ret = -EFAULT;
+> +		goto out_syncobjs;
+> +	}
+> +
+
+> +	for (i = 0; i < nr_in_syncobjs; ++i) {
+> +		struct dma_fence *fence;
+> +
+> +		if (syncobj_descs[i].point &&
+> +		    !drm_core_check_feature(dev, DRIVER_SYNCOBJ_TIMELINE)) {
+> +			ret = -EOPNOTSUPP;
+
+You should be able to just break; here.
+
+> +			goto out_syncobjs;
+> +		}
+> +
+> +		if (syncobj_descs[i].flags & ~MSM_SUBMIT_SYNCOBJ_FLAGS) {
+> +			ret = -EINVAL;
+
+and here.
+
+> +			goto out_syncobjs;
+> +		}
+> +
+> +		ret = drm_syncobj_find_fence(file, syncobj_descs[i].handle,
+> +		                             syncobj_descs[i].point, 0, &fence);
+> +		if (ret)
+> +			goto out_syncobjs;
+
+and here.
+
+> +
+> +		if (!dma_fence_match_context(fence, ring->fctx->context))
+> +			ret = dma_fence_wait(fence, true);
+> +
+> +		dma_fence_put(fence);
+> +		if (ret)
+> +			goto out_syncobjs;
+
+and here.
+
+> +
+> +		if (syncobj_descs[i].flags & MSM_SUBMIT_SYNCOBJ_RESET) {
+> +			(*syncobjs)[i] =
+> +				drm_syncobj_find(file, syncobj_descs[i].handle);
+
+As I mentioned, I'm not sure how common this path is, but if it is relatively
+rare, perhaps a krealloc() would be a more memory friendly way to get the list
+you need.
+
+> +			if (!(*syncobjs)[i]) {
+> +				ret = -EINVAL;
+> +				goto out_syncobjs;
+
+You can use a break here too.
+> +			}
+> +		}
+> +	}
+> +
+> +out_syncobjs:
+> +	if (ret && *syncobjs) {
+> +		for (j = 0; j < i; ++j) {
+> +			if ((*syncobjs)[j])
+> +				drm_syncobj_put((*syncobjs)[j]);
+
+drm_synobj_put isn't NULL aware. Sad face.
+
+> +		}
+> +		kfree(*syncobjs);
+> +		*syncobjs = NULL;
+> +	}
+> +	kfree(syncobj_descs);
+> +	return ret;
+> +}
+> +
+> +static void msm_reset_syncobjs(struct drm_syncobj **syncobjs,
+> +                               uint32_t nr_syncobjs)
+> +{
+> +	uint32_t i;
+> +
+> +	for (i = 0; i < nr_syncobjs; ++i) {
+
+if you made this for(i = 0; syncobjs && i < nr_syncobjs; i++) then you could
+avoid the NULL check in the submit function.
+
+> +		if (syncobjs[i])
+> +			drm_syncobj_replace_fence(syncobjs[i], NULL);
+
+drm_syncobj_replace_fence isn't NULL aware for syncobj either. Double sad face.
+
+> +	}
+> +}
+> +
+> +static int msm_parse_post_deps(struct drm_device *dev,
+> +                               struct drm_file *file,
+> +                               uint64_t out_syncobjs_addr,
+> +                               uint32_t nr_out_syncobjs,
+> +                               struct msm_submit_post_dep **post_deps)
+> +{
+> +	struct drm_msm_gem_submit_syncobj *syncobjs;
+> +	int ret = 0;
+> +	uint32_t i, j;
+> +
+> +	syncobjs = kmalloc_array(nr_out_syncobjs,
+> +	                         sizeof(*syncobjs), GFP_KERNEL);
+> +	if (!syncobjs) {
+> +		return -ENOMEM;
+> +	}
+
+You don't need the brackets here.
+
+> +	if (copy_from_user(syncobjs, u64_to_user_ptr(out_syncobjs_addr),
+> +	                   nr_out_syncobjs * sizeof(*syncobjs))) {
+> +		ret = -EFAULT;
+> +		goto out_syncobjs;
+> +	}
+
+Same concern as above - could we end up with a silly number of nr_out_syncobjs
+here?
+
+> +	*post_deps = kmalloc_array(nr_out_syncobjs, sizeof(**post_deps),
+> +	                           GFP_KERNEL);
+> +	if (!*post_deps) {
+> +		ret = -ENOMEM;
+> +		goto out_syncobjs;
+> +	}
+> +
+> +	for (i = 0; i < nr_out_syncobjs; ++i) {
+> +		(*post_deps)[i].point = syncobjs[i].point;
+> +		(*post_deps)[i].chain = NULL;
+> +
+> +		(*post_deps)[i].syncobj =
+> +			drm_syncobj_find(file, syncobjs[i].handle);
+> +		if (!(*post_deps)[i].syncobj) {
+> +			ret = -EINVAL;
+> +			break;
+> +		}
+> +
+> +		if (syncobjs[i].flags) {
+> +			ret = -EINVAL;
+> +			break;
+> +		}
+
+There might be some
+> +
+> +		if (syncobjs[i].point) {
+> +			if (!drm_core_check_feature(dev,
+> +			                            DRIVER_SYNCOBJ_TIMELINE)) {
+> +				ret = -EOPNOTSUPP;
+> +				break;
+> +			}
+
+Could you check this before doing the drm_syncobj_find() call and save a bit of
+rewinding, or is it not worth it?
+
+> +
+> +			(*post_deps)[i].chain =
+> +				kmalloc(sizeof(*(*post_deps)[i].chain),
+> +				        GFP_KERNEL);
+> +			if (!(*post_deps)[i].chain) {
+> +				ret = -ENOMEM;
+> +				break;
+> +			}
+> +		}
+> +	}
+> +
+> +	if (ret) {
+> +		for (j = 0; j < i; ++j) {
+> +			kfree((*post_deps)[j].chain);
+> +			drm_syncobj_put((*post_deps)[j].syncobj);
+
+As I pointed out above, drm_syncobj_put is sadly not NULL aware, so you could
+get yourself into trouble if you break out of the loop when the drm_syncobj_find
+fails. You'll need to check for NULL here.
+
+> +		}
+> +
+> +		kfree(*post_deps);
+> +		*post_deps = NULL;
+> +	}
+> +
+> +out_syncobjs:
+> +	kfree(syncobjs);
+> +	return ret;
+> +}
+> +
+> +static void msm_process_post_deps(struct msm_submit_post_dep *post_deps,
+> +                                  uint32_t count, struct dma_fence *fence)
+> +{
+> +	uint32_t i;
+> +
+> +	for (i = 0; i < count; ++i) {
+> +		if (post_deps[i].chain) {
+> +			drm_syncobj_add_point(post_deps[i].syncobj,
+> +			                      post_deps[i].chain,
+> +			                      fence, post_deps[i].point);
+> +			post_deps[i].chain = NULL;
+> +		} else {
+> +			drm_syncobj_replace_fence(post_deps[i].syncobj,
+> +			                          fence);
+> +		}
+> +	}
+> +}
+> +
+>  int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+>  		struct drm_file *file)
+>  {
+> @@ -406,6 +598,8 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+>  	struct sync_file *sync_file = NULL;
+>  	struct msm_gpu_submitqueue *queue;
+>  	struct msm_ringbuffer *ring;
+> +	struct msm_submit_post_dep *post_deps = NULL;
+> +	struct drm_syncobj **syncobjs_to_reset = NULL;
+>  	int out_fence_fd = -1;
+>  	struct pid *pid = get_pid(task_pid(current));
+>  	unsigned i;
+> @@ -460,9 +654,26 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+>  			return ret;
+>  	}
+>  
+> +	if (args->flags & MSM_SUBMIT_SYNCOBJ_IN) {
+> +		ret = msm_wait_deps(dev, file,
+> +		                    args->in_syncobjs, args->nr_in_syncobjs,
+> +		                    ring, &syncobjs_to_reset);
+> +		if (ret)
+> +			goto out_post_unlock;
+> +	}
+> +
+> +	if (args->flags & MSM_SUBMIT_SYNCOBJ_OUT) {
+> +		ret = msm_parse_post_deps(dev, file,
+> +		                          args->out_syncobjs,
+> +		                          args->nr_out_syncobjs,
+> +		                          &post_deps);
+> +		if (ret)
+> +			goto out_post_unlock;
+> +	}
+> +
+>  	ret = mutex_lock_interruptible(&dev->struct_mutex);
+>  	if (ret)
+> -		return ret;
+> +		goto out_post_unlock;
+>  
+>  	if (args->flags & MSM_SUBMIT_FENCE_FD_OUT) {
+>  		out_fence_fd = get_unused_fd_flags(O_CLOEXEC);
+> @@ -586,6 +797,16 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+>  		args->fence_fd = out_fence_fd;
+>  	}
+>  
+> +	if (syncobjs_to_reset) {
+
+You could move this check to msm_reset_syncobjs if you wish.
+
+> +		msm_reset_syncobjs(syncobjs_to_reset, args->nr_in_syncobjs);
+> +	}
+
+You don't need the brackets here.
+
+> +
+> +	if (post_deps) {
+
+You could also push this check to msm_process_post_deps if you wished.
+
+> +		msm_process_post_deps(post_deps, args->nr_out_syncobjs,
+> +		                      submit->fence);
+> +	}
+> +
+> +
+>  out:
+>  	submit_cleanup(submit);
+>  	if (ret)
+> @@ -594,5 +815,23 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+>  	if (ret && (out_fence_fd >= 0))
+>  		put_unused_fd(out_fence_fd);
+>  	mutex_unlock(&dev->struct_mutex);
+> +
+> +out_post_unlock:
+> +	if (post_deps) {
+> +		for (i = 0; i < args->nr_out_syncobjs; ++i) {
+> +			kfree(post_deps[i].chain);
+> +			drm_syncobj_put(post_deps[i].syncobj);
+> +		}
+> +		kfree(post_deps);
+> +	}
+> +
+> +	if (syncobjs_to_reset) {
+> +		for (i = 0; i < args->nr_in_syncobjs; ++i) {
+> +			if (syncobjs_to_reset[i])
+> +				drm_syncobj_put(syncobjs_to_reset[i]);
+> +		}
+> +		kfree(syncobjs_to_reset);
+> +	}
+> +
+>  	return ret;
+>  }
+> diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
+> index 0b85ed6a3710..ba9bdcc0016a 100644
+> --- a/include/uapi/drm/msm_drm.h
+> +++ b/include/uapi/drm/msm_drm.h
+> @@ -217,13 +217,28 @@ struct drm_msm_gem_submit_bo {
+>  #define MSM_SUBMIT_FENCE_FD_IN   0x40000000 /* enable input fence_fd */
+>  #define MSM_SUBMIT_FENCE_FD_OUT  0x20000000 /* enable output fence_fd */
+>  #define MSM_SUBMIT_SUDO          0x10000000 /* run submitted cmds from RB */
+> +#define MSM_SUBMIT_SYNCOBJ_IN    0x08000000 /* enable input syncobj */
+> +#define MSM_SUBMIT_SYNCOBJ_OUT   0x04000000 /* enable output syncobj */
+>  #define MSM_SUBMIT_FLAGS                ( \
+>  		MSM_SUBMIT_NO_IMPLICIT   | \
+>  		MSM_SUBMIT_FENCE_FD_IN   | \
+>  		MSM_SUBMIT_FENCE_FD_OUT  | \
+>  		MSM_SUBMIT_SUDO          | \
+> +		MSM_SUBMIT_SYNCOBJ_IN    | \
+> +		MSM_SUBMIT_SYNCOBJ_OUT   | \
+>  		0)
+>  
+> +#define MSM_SUBMIT_SYNCOBJ_RESET 0x00000001 /* Reset syncobj after wait. */
+> +#define MSM_SUBMIT_SYNCOBJ_FLAGS        ( \
+> +		MSM_SUBMIT_SYNCOBJ_RESET | \
+> +		0)
+> +
+> +struct drm_msm_gem_submit_syncobj {
+> +	__u32 handle;     /* in, syncobj handle. */
+> +	__u32 flags;      /* in, from MSM_SUBMIT_SYNCOBJ_FLAGS */
+> +	__u64 point;      /* in, timepoint for timeline syncobjs. */
+> +};
+> +
+>  /* Each cmdstream submit consists of a table of buffers involved, and
+>   * one or more cmdstream buffers.  This allows for conditional execution
+>   * (context-restore), and IB buffers needed for per tile/bin draw cmds.
+> @@ -236,7 +251,12 @@ struct drm_msm_gem_submit {
+>  	__u64 bos;            /* in, ptr to array of submit_bo's */
+>  	__u64 cmds;           /* in, ptr to array of submit_cmd's */
+>  	__s32 fence_fd;       /* in/out fence fd (see MSM_SUBMIT_FENCE_FD_IN/OUT) */
+> -	__u32 queueid;         /* in, submitqueue id */
+> +	__u32 queueid;        /* in, submitqueue id */
+> +	__u64 in_syncobjs;    /* in, ptr to to array of drm_msm_gem_submit_syncobj */
+> +	__u64 out_syncobjs;   /* in, ptr to to array of drm_msm_gem_submit_syncobj */
+> +	__u32 nr_in_syncobjs; /* in, number of entries in in_syncobj */
+> +	__u32 nr_out_syncobjs; /* in, number of entries in out_syncobj. */
+
+We might want a  sizeof field for drm_msm_gem_submit_syncobj for future
+proofing.
+
+Jordan
+
+> _______________________________________________
+> Freedreno mailing list
+> Freedreno@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/freedreno
+
+-- 
+The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+a Linux Foundation Collaborative Project
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
