@@ -1,34 +1,34 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F2D61397A4
-	for <lists+freedreno@lfdr.de>; Mon, 13 Jan 2020 18:28:39 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 38B821397CF
+	for <lists+freedreno@lfdr.de>; Mon, 13 Jan 2020 18:33:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2942D6E116;
-	Mon, 13 Jan 2020 17:28:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B91AE6E120;
+	Mon, 13 Jan 2020 17:33:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
- [104.130.122.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 142826E114
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2020 17:28:35 +0000 (UTC)
+Received: from mail25.static.mailgun.info (mail25.static.mailgun.info
+ [104.130.122.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D3A16E120
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2020 17:33:55 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1578936516; h=In-Reply-To: Content-Type: MIME-Version:
+ s=smtp; t=1578936835; h=In-Reply-To: Content-Type: MIME-Version:
  References: Message-ID: Subject: Cc: To: From: Date: Sender;
- bh=ZkDkwamCH7sXxqcGCpxSETq5EQUN29cHRpXs6HQiclE=;
- b=Fnrd7svpdcoJ+fCpqqKSkWGWFp7WpPSnkIuVPXJ9tIUdSasgEA86wUb/aFnwj5n3Sl0Pb6AK
- bToceKWaDg9Jz6LlJCKCFoH50NYSqEh5FsQmmQJUhMMrVPWBBvL01DCiUIdVMaVhbztTLEay
- aAwtmkKNMWVthwcVM1GoKCkyXVQ=
-X-Mailgun-Sending-Ip: 104.130.122.26
+ bh=w+XPcExk+Qre2Gbc4AQCx9OnrvzBE4v0GR5D1rNcKaY=;
+ b=fYJU0xvAACTCYjMcq8Fs116Y1KNLukmv2alvnWQT8miF1EL8Nz5OpnuMsTJ8o8ulOVIQ63Be
+ yaEc/M2rsCw+7quPmplJB9Q3WdtOnk6UIdkrs5SV5lmaP9chidk5FrWev1ux0RAtV9lu2GVU
+ TK+IkjI0f0BJ/FZt+h3Pzn6m+Z4=
+X-Mailgun-Sending-Ip: 104.130.122.25
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5e1ca8c2.7f45e8ed73b0-smtp-out-n03;
- Mon, 13 Jan 2020 17:28:34 -0000 (UTC)
+ by mxa.mailgun.org with ESMTP id 5e1caa02.7f0c8c354538-smtp-out-n01;
+ Mon, 13 Jan 2020 17:33:54 -0000 (UTC)
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id C2F45C447A4; Mon, 13 Jan 2020 17:28:32 +0000 (UTC)
+ id 0D92BC447A5; Mon, 13 Jan 2020 17:33:53 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -38,17 +38,17 @@ Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id AAEE1C43383;
- Mon, 13 Jan 2020 17:28:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org AAEE1C43383
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id BE2EFC433CB;
+ Mon, 13 Jan 2020 17:33:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org BE2EFC433CB
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  spf=none smtp.mailfrom=jcrouse@codeaurora.org
-Date: Mon, 13 Jan 2020 10:28:24 -0700
+Date: Mon, 13 Jan 2020 10:33:50 -0700
 From: Jordan Crouse <jcrouse@codeaurora.org>
 To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20200113172824.GA26711@jcrouse1-lnx.qualcomm.com>
+Message-ID: <20200113173349.GB26711@jcrouse1-lnx.qualcomm.com>
 Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-arm-msm@vger.kernel.org,
@@ -56,19 +56,20 @@ Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@chromium.org>, Sean Paul <sean@poorly.run>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
  Brian Masney <masneyb@onstation.org>,
- Douglas Anderson <dianders@chromium.org>,
- Fabio Estevam <festevam@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Thomas Gleixner <tglx@linutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
  open list <linux-kernel@vger.kernel.org>
 References: <20200112195405.1132288-1-robdclark@gmail.com>
- <20200112195405.1132288-2-robdclark@gmail.com>
+ <20200112195405.1132288-3-robdclark@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200112195405.1132288-2-robdclark@gmail.com>
+In-Reply-To: <20200112195405.1132288-3-robdclark@gmail.com>
 User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Freedreno] [PATCH v2 1/4] drm/msm: support firmware-name for
- zap fw (v2)
+Subject: Re: [Freedreno] [PATCH v2 2/4] drm/msm: allow zapfw to not be
+ specified in gpulist
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,90 +83,79 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>, Fabio Estevam <festevam@gmail.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Sharat Masetty <smasetty@codeaurora.org>,
- Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Sharat Masetty <smasetty@codeaurora.org>,
+ open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
  Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
- Daniel Vetter <daniel@ffwll.ch>, Thomas Gleixner <tglx@linutronix.de>,
- freedreno@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Thomas Gleixner <tglx@linutronix.de>, freedreno@lists.freedesktop.org,
  Brian Masney <masneyb@onstation.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Jan 12, 2020 at 11:53:57AM -0800, Rob Clark wrote:
+On Sun, Jan 12, 2020 at 11:53:58AM -0800, Rob Clark wrote:
 > From: Rob Clark <robdclark@chromium.org>
 > 
-> Since zap firmware can be device specific, allow for a firmware-name
-> property in the zap node to specify which firmware to load, similarly to
-> the scheme used for dsp/wifi/etc.
-> 
-> v2: only need a single error msg when we can't load from firmware-name
->     specified path, and fix comment [Bjorn A.]
+> For newer devices we want to require the path to come from the
+> firmware-name property in the zap-shader dt node.
 
 Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
 
 > Signed-off-by: Rob Clark <robdclark@chromium.org>
 > ---
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 30 ++++++++++++++++++++++---
->  1 file changed, 27 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 22 +++++++++++++---------
+>  1 file changed, 13 insertions(+), 9 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> index 112e8b8a261e..456bb5af1717 100644
+> index 456bb5af1717..c146c3b8f52b 100644
 > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
 > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -26,6 +26,7 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu, const char *fwname,
->  {
->  	struct device *dev = &gpu->pdev->dev;
->  	const struct firmware *fw;
-> +	const char *signed_fwname = NULL;
->  	struct device_node *np, *mem_np;
->  	struct resource r;
->  	phys_addr_t mem_phys;
-> @@ -58,8 +59,31 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu, const char *fwname,
->  
->  	mem_phys = r.start;
->  
-> -	/* Request the MDT file for the firmware */
-> -	fw = adreno_request_fw(to_adreno_gpu(gpu), fwname);
-> +	/*
-> +	 * Check for a firmware-name property.  This is the new scheme
-> +	 * to handle firmware that may be signed with device specific
-> +	 * keys, allowing us to have a different zap fw path for different
-> +	 * devices.
-> +	 *
-> +	 * If the firmware-name property is found, we bypass the
-> +	 * adreno_request_fw() mechanism, because we don't need to handle
-> +	 * the /lib/firmware/qcom/* vs /lib/firmware/* case.
-> +	 *
-> +	 * If the firmware-name property is not found, for backwards
-> +	 * compatibility we fall back to the fwname from the gpulist
-> +	 * table.
-> +	 */
-> +	of_property_read_string_index(np, "firmware-name", 0, &signed_fwname);
-> +	if (signed_fwname) {
-> +		fwname = signed_fwname;
-> +		ret = request_firmware_direct(&fw, fwname, gpu->dev->dev);
-> +		if (ret)
-> +			fw = ERR_PTR(ret);
+> @@ -79,9 +79,21 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu, const char *fwname,
+>  		ret = request_firmware_direct(&fw, fwname, gpu->dev->dev);
+>  		if (ret)
+>  			fw = ERR_PTR(ret);
+> -	} else {
+> +	} else if (fwname) {
+>  		/* Request the MDT file from the default location: */
+>  		fw = adreno_request_fw(to_adreno_gpu(gpu), fwname);
 > +	} else {
-> +		/* Request the MDT file from the default location: */
-> +		fw = adreno_request_fw(to_adreno_gpu(gpu), fwname);
-> +	}
-> +
+> +		/*
+> +		 * For new targets, we require the firmware-name property,
+> +		 * if a zap-shader is required, rather than falling back
+> +		 * to a firmware name specified in gpulist.
+> +		 *
+> +		 * Because the firmware is signed with a (potentially)
+> +		 * device specific key, having the name come from gpulist
+> +		 * was a bad idea, and is only provided for backwards
+> +		 * compatibility for older targets.
+> +		 */
+> +		return -ENODEV;
+>  	}
+
+A possible future optimization would be to move a lot of this to the target
+specific code but we can do that once we're sure that all the rest of the
+fallout has bee militated.
+
+>  
 >  	if (IS_ERR(fw)) {
->  		DRM_DEV_ERROR(dev, "Unable to load %s\n", fwname);
->  		return PTR_ERR(fw);
-> @@ -95,7 +119,7 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu, const char *fwname,
->  	 * not.  But since we've already gotten through adreno_request_fw()
->  	 * we know which of the two cases it is:
->  	 */
-> -	if (to_adreno_gpu(gpu)->fwloc == FW_LOCATION_LEGACY) {
-> +	if (signed_fwname || (to_adreno_gpu(gpu)->fwloc == FW_LOCATION_LEGACY)) {
->  		ret = qcom_mdt_load(dev, fw, fwname, pasid,
->  				mem_region, mem_phys, mem_size, NULL);
->  	} else {
+> @@ -170,14 +182,6 @@ int adreno_zap_shader_load(struct msm_gpu *gpu, u32 pasid)
+>  		return -EPROBE_DEFER;
+>  	}
+>  
+> -	/* Each GPU has a target specific zap shader firmware name to use */
+> -	if (!adreno_gpu->info->zapfw) {
+> -		zap_available = false;
+> -		DRM_DEV_ERROR(&pdev->dev,
+> -			"Zap shader firmware file not specified for this target\n");
+> -		return -ENODEV;
+> -	}
+> -
+>  	return zap_shader_load_mdt(gpu, adreno_gpu->info->zapfw, pasid);
+>  }
+>  
 > -- 
 > 2.24.1
 > 
