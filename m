@@ -2,61 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4CCA1388A1
-	for <lists+freedreno@lfdr.de>; Sun, 12 Jan 2020 23:54:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 936B91394EA
+	for <lists+freedreno@lfdr.de>; Mon, 13 Jan 2020 16:36:51 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93AFA6E054;
-	Sun, 12 Jan 2020 22:54:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D73989F6F;
+	Mon, 13 Jan 2020 15:36:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
- [IPv6:2607:f8b0:4864:20::644])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE20589FF7
- for <freedreno@lists.freedesktop.org>; Sun, 12 Jan 2020 22:54:35 +0000 (UTC)
-Received: by mail-pl1-x644.google.com with SMTP id ay11so3089487plb.0
- for <freedreno@lists.freedesktop.org>; Sun, 12 Jan 2020 14:54:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=E8mO1B5j6mzKAR0DdEHxInx788qZQtO7FxX79mesKmw=;
- b=Nez+9afsB/N5CINq5KjzF4TygYJm13ll+kghYAglZ2rNzuxPuKvbX0lgNaHWMyAyeQ
- d5NDaSAPchb1TjCu0MY2iKCwkiPJ+rIM1fumisSDe7oO05BhSA7RrzpBA60sKf/NNjjR
- rGIuiZvV5cpGgc2BuJz8eJaIss932+ujLrkAc=
+Received: from mail-yw1-xc62.google.com (mail-yw1-xc62.google.com
+ [IPv6:2607:f8b0:4864:20::c62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DACD89F6F
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2020 15:36:49 +0000 (UTC)
+Received: by mail-yw1-xc62.google.com with SMTP id l14so6321566ywj.9
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2020 07:36:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=brkho-com.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=XJFdDikfbN+KalEJTdnTdl6gsZ3fW2Tc7ZjkvYTvyD0=;
+ b=Ra1HwBngnQsFsdibS3erX1ro72SPNFOPBuna6fAXIQWG17KVuwQqD9gMrdmCX7ki+B
+ EfZnaFMA5gKVT3d2qJucInxK1XRuJFIQjhpLG292NZcU6B2kEOsnvEAtLvx58jiTXMJk
+ R3JhbyxnKu264DFtvTI48xgHQS4fvpOzUpteR3OrVr78AnbU2zIkVDSvrN5ZD8cvjeee
+ JFM3IRmFzWideOV8V9KEow0sfm4l9HLJVDVYnrOiZTg2y3gnmUrcDev8aU5KY5uD5KlR
+ ZI8urhn7LhvdDYHsVAv38s1cdzYy0VpHd73CuBsHJdDdJIh3/5QdZn3CfaseC0z8UOlv
+ K8pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=E8mO1B5j6mzKAR0DdEHxInx788qZQtO7FxX79mesKmw=;
- b=LedQCNg2Qd2XSsXN+f3bPa1RCMGEnzVrrhcOfgfGcVXNMYtdzKvhEKBo5abV3LMlnF
- 7q2NM+n80tKdNFxyIVV20vf6riY4pdQ76DVdKuh/vEZYG23M46WWuLs6NHXQXpPvuSzR
- mxHGSBMPxzh9C5K6OSS48gsISs3iYMHEYmYsrMdebe3Enh3nFh1QtXN7KNtxleLgrDn1
- b8p3kJ4seWjxujoQakV+fCkH8bc5k4oNejfdsJeZSUD2AQt5pYhFiBlOPrRFiVA5jOxP
- fR9ypA1AV2o+x+jTvEujIfVlTycAPWFX7PVBdIv2VduY1HW1F6mZ0MvhH6aRpF+3PQxV
- Yb7w==
-X-Gm-Message-State: APjAAAXJMOlzywpNTL3+sljfHIQqI4s/yKv9QpiahC6HX4tWlmelAGBh
- TE8tVd+JS0TmqBBTnw33U+ug9w==
-X-Google-Smtp-Source: APXvYqzunwx+H/9dNjIeZUqcVKdATd8JGNjjxSsMtcwlIXIy4LuXX9vwxBGVKmdCQxT+f609mxMCFQ==
-X-Received: by 2002:a17:90a:c706:: with SMTP id
- o6mr18336357pjt.82.1578869675220; 
- Sun, 12 Jan 2020 14:54:35 -0800 (PST)
-Received: from dvetter-linux.ger.corp.intel.com ([138.44.248.126])
- by smtp.gmail.com with ESMTPSA id z26sm10444138pgu.80.2020.01.12.14.54.25
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=XJFdDikfbN+KalEJTdnTdl6gsZ3fW2Tc7ZjkvYTvyD0=;
+ b=VJ5CuwnSk570qSyB9HOlO3SyjHIKKYsSbybabz5yXxJy7ELpZfyzuCXmI8JO8jZ0K8
+ iyXJAFMLOoIpsu4GtsKS6dp8dmVqN2ynDrPwtd6C5GWvVXT5BdQRIvhA+tBJfiHXI9Nb
+ kROo2BUk47c+sgA2uv+c34drShO0CMfQociEBW/sD0xXEahlnj+Mte9KgM/5USnwzB5Q
+ uUuox1c6zMmBi0+QJWBeTXKjXauRLwUk0CabHPDVZFVBGAAwt0X5sp49XLojHQ4ig4eK
+ DJr0q9V2NyZC7xFF++qCmCduWgSycs3d4wZKV4uPsfdMOY9WxhX1AY5ktljiO81Infle
+ G7aw==
+X-Gm-Message-State: APjAAAWsISwjhxENyZCtuUUS+NImYFujzkmO3H75QfZJyVPLMnNH1vxi
+ 3XL7pRYVXMnzxKbrhNNlBX+vD34qxBdFB38ikZmLHS8EyizrkA==
+X-Google-Smtp-Source: APXvYqze74w6U50gaTJnAzutIy9P9BFgvcZsIGa2e6zF7CwAW4jN8VuBPit1CodjbUXUBdLxFIXm1nt6Mg+C
+X-Received: by 2002:a25:2c9:: with SMTP id 192mr12441529ybc.48.1578929808492; 
+ Mon, 13 Jan 2020 07:36:48 -0800 (PST)
+Received: from hob1.nyc.corp.google.com ([100.118.32.120])
+ by smtp-relay.gmail.com with ESMTPS id m193sm1672393ywd.0.2020.01.13.07.36.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 12 Jan 2020 14:54:34 -0800 (PST)
-Date: Sun, 12 Jan 2020 23:54:21 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <20200112225421.GD5340@dvetter-linux.ger.corp.intel.com>
-References: <20200110092127.27847-1-tzimmermann@suse.de>
- <20200110092127.27847-24-tzimmermann@suse.de>
- <20200112225312.GC5340@dvetter-linux.ger.corp.intel.com>
+ Mon, 13 Jan 2020 07:36:48 -0800 (PST)
+X-Relaying-Domain: brkho.com
+From: Brian Ho <brian@brkho.com>
+To: freedreno@lists.freedesktop.org
+Date: Mon, 13 Jan 2020 10:36:03 -0500
+Message-Id: <20200113153605.52350-1-brian@brkho.com>
+X-Mailer: git-send-email 2.25.0.rc1.283.g88dfdc4193-goog
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200112225312.GC5340@dvetter-linux.ger.corp.intel.com>
-X-Operating-System: Linux dvetter-linux.ger.corp.intel.com
- 5.2.11-200.fc30.x86_64 
-Subject: Re: [Freedreno] [PATCH 23/23] drm: Cleanup VBLANK callbacks in
- struct drm_driver
+Subject: [Freedreno] [PATCH 0/2] drm/msm: Add the MSM_WAIT_IOVA ioctl
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,289 +66,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: hamohammed.sa@gmail.com, airlied@linux.ie, nouveau@lists.freedesktop.org,
- joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org,
- eric@anholt.net, amd-gfx@lists.freedesktop.org, benjamin.gaignard@linaro.org,
- alexandre.torgue@st.com, David1.Zhou@amd.com, thellstrom@vmware.com,
- sean@poorly.run, patrik.r.jakobsson@gmail.com,
- linux-graphics-maintainer@vmware.com, bskeggs@redhat.com,
- harry.wentland@amd.com, mcoquelin.stm32@gmail.com, sunpeng.li@amd.com,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- maarten.lankhorst@linux.intel.com, jani.nikula@linux.intel.com,
- rodrigo.vivi@intel.com, vincent.abriou@st.com, rodrigosiqueiramelo@gmail.com,
- philippe.cornu@st.com, yannick.fertre@st.com, robdclark@gmail.com,
- daniel@ffwll.ch, alexander.deucher@amd.com, freedreno@lists.freedesktop.org,
- christian.koenig@amd.com
+Cc: robdclark@chromium.org, Brian Ho <brian@brkho.com>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ hoegsberg@chromium.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Jan 12, 2020 at 11:53:12PM +0100, Daniel Vetter wrote:
-> On Fri, Jan 10, 2020 at 10:21:27AM +0100, Thomas Zimmermann wrote:
-> > All non-legacy users of VBLANK functions in struct drm_driver have been
-> > converted to use the respective interfaces in struct drm_crtc_funcs. The
-> > remaining users of VBLANK callbacks in struct drm_driver are legacy drivers
-> > with userspace modesetting.
-> > 
-> > There are no users left of get_vblank_timestamp(), so the callback is
-> > being removed. The other VBLANK callbacks are being moved to the legacy
-> > section at the end of struct drm_driver.
-> > 
-> > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> 
-> I think sprinkling some WARN_ON (in drm_dev_register or wherever) if new
-> drivers try to use the legacy hooks would be really nice. Experience says
-> someone is going to copypaste this stuff around forever otherwise.
+This patch set implements the MSM_WAIT_IOVA ioctl which lets
+userspace sleep until the value at a given iova reaches a certain
+condition. This is needed in turnip to implement the
+VK_QUERY_RESULT_WAIT_BIT flag for vkGetQueryPoolResults.
 
-I meant to add: As a follow-up patch.
--Daniel
+First, we add a GPU-wide wait queue that is signaled on all IRQs.
+We can then wait on this wait queue inside MSM_WAIT_IOVA until the
+condition is met.
 
-> 
-> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> 
-> > ---
-> >  drivers/gpu/drm/drm_vblank.c |  39 +++++---------
-> >  include/drm/drm_drv.h        | 101 ++---------------------------------
-> >  2 files changed, 17 insertions(+), 123 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
-> > index 7cf436a4b908..ceff68474d4d 100644
-> > --- a/drivers/gpu/drm/drm_vblank.c
-> > +++ b/drivers/gpu/drm/drm_vblank.c
-> > @@ -138,10 +138,9 @@ static u32 __get_vblank_counter(struct drm_device *dev, unsigned int pipe)
-> >  
-> >  		if (crtc->funcs->get_vblank_counter)
-> >  			return crtc->funcs->get_vblank_counter(crtc);
-> > -	}
-> > -
-> > -	if (dev->driver->get_vblank_counter)
-> > +	} else if (dev->driver->get_vblank_counter) {
-> >  		return dev->driver->get_vblank_counter(dev, pipe);
-> > +	}
-> >  
-> >  	return drm_vblank_no_hw_counter(dev, pipe);
-> >  }
-> > @@ -334,8 +333,7 @@ u64 drm_crtc_accurate_vblank_count(struct drm_crtc *crtc)
-> >  	unsigned long flags;
-> >  
-> >  	WARN_ONCE(drm_debug_enabled(DRM_UT_VBL) &&
-> > -		  !crtc->funcs->get_vblank_timestamp &&
-> > -		  !dev->driver->get_vblank_timestamp,
-> > +		  !crtc->funcs->get_vblank_timestamp,
-> >  		  "This function requires support for accurate vblank timestamps.");
-> >  
-> >  	spin_lock_irqsave(&dev->vblank_time_lock, flags);
-> > @@ -357,13 +355,11 @@ static void __disable_vblank(struct drm_device *dev, unsigned int pipe)
-> >  		if (WARN_ON(!crtc))
-> >  			return;
-> >  
-> > -		if (crtc->funcs->disable_vblank) {
-> > +		if (crtc->funcs->disable_vblank)
-> >  			crtc->funcs->disable_vblank(crtc);
-> > -			return;
-> > -		}
-> > +	} else {
-> > +		dev->driver->disable_vblank(dev, pipe);
-> >  	}
-> > -
-> > -	dev->driver->disable_vblank(dev, pipe);
-> >  }
-> >  
-> >  /*
-> > @@ -791,9 +787,6 @@ drm_get_last_vbltimestamp(struct drm_device *dev, unsigned int pipe,
-> >  
-> >  		ret = crtc->funcs->get_vblank_timestamp(crtc, &max_error,
-> >  							tvblank, in_vblank_irq);
-> > -	} else if (dev->driver->get_vblank_timestamp && (max_error > 0)) {
-> > -		ret = dev->driver->get_vblank_timestamp(dev, pipe, &max_error,
-> > -							tvblank, in_vblank_irq);
-> >  	}
-> >  
-> >  	/* GPU high precision timestamp query unsupported or failed.
-> > @@ -1016,9 +1009,11 @@ static int __enable_vblank(struct drm_device *dev, unsigned int pipe)
-> >  
-> >  		if (crtc->funcs->enable_vblank)
-> >  			return crtc->funcs->enable_vblank(crtc);
-> > +	} else if (dev->driver->enable_vblank) {
-> > +		return dev->driver->enable_vblank(dev, pipe);
-> >  	}
-> >  
-> > -	return dev->driver->enable_vblank(dev, pipe);
-> > +	return -EINVAL;
-> >  }
-> >  
-> >  static int drm_vblank_enable(struct drm_device *dev, unsigned int pipe)
-> > @@ -1109,13 +1104,10 @@ static bool __vblank_disable_immediate(struct drm_device *dev, unsigned int pipe
-> >  		return false;
-> >  
-> >  	crtc = drm_crtc_from_index(dev, pipe);
-> > -	if (crtc && crtc->funcs->get_vblank_timestamp)
-> > -		return true;
-> > -
-> > -	if (dev->driver->get_vblank_timestamp)
-> > -		return true;
-> > +	if (!crtc || !crtc->funcs->get_vblank_timestamp)
-> > +		return false;
-> >  
-> > -	return false;
-> > +	return true;
-> >  }
-> >  
-> >  static void drm_vblank_put(struct drm_device *dev, unsigned int pipe)
-> > @@ -1798,7 +1790,6 @@ static void drm_handle_vblank_events(struct drm_device *dev, unsigned int pipe)
-> >  	struct drm_pending_vblank_event *e, *t;
-> >  	ktime_t now;
-> >  	u64 seq;
-> > -	bool high_prec;
-> >  
-> >  	assert_spin_locked(&dev->event_lock);
-> >  
-> > @@ -1818,10 +1809,8 @@ static void drm_handle_vblank_events(struct drm_device *dev, unsigned int pipe)
-> >  		send_vblank_event(dev, e, seq, now);
-> >  	}
-> >  
-> > -	high_prec = crtc->funcs->get_vblank_timestamp ||
-> > -		    dev->driver->get_vblank_timestamp;
-> > -
-> > -	trace_drm_vblank_event(pipe, seq, now, high_prec);
-> > +	trace_drm_vblank_event(pipe, seq, now,
-> > +			       crtc->funcs->get_vblank_timestamp != NULL);
-> >  }
-> >  
-> >  /**
-> > diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-> > index b704e252f3b2..e290b3aca6eb 100644
-> > --- a/include/drm/drm_drv.h
-> > +++ b/include/drm/drm_drv.h
-> > @@ -268,104 +268,6 @@ struct drm_driver {
-> >  	 */
-> >  	void (*release) (struct drm_device *);
-> >  
-> > -	/**
-> > -	 * @get_vblank_counter:
-> > -	 *
-> > -	 * Driver callback for fetching a raw hardware vblank counter for the
-> > -	 * CRTC specified with the pipe argument.  If a device doesn't have a
-> > -	 * hardware counter, the driver can simply leave the hook as NULL.
-> > -	 * The DRM core will account for missed vblank events while interrupts
-> > -	 * where disabled based on system timestamps.
-> > -	 *
-> > -	 * Wraparound handling and loss of events due to modesetting is dealt
-> > -	 * with in the DRM core code, as long as drivers call
-> > -	 * drm_crtc_vblank_off() and drm_crtc_vblank_on() when disabling or
-> > -	 * enabling a CRTC.
-> > -	 *
-> > -	 * This is deprecated and should not be used by new drivers.
-> > -	 * Use &drm_crtc_funcs.get_vblank_counter instead.
-> > -	 *
-> > -	 * Returns:
-> > -	 *
-> > -	 * Raw vblank counter value.
-> > -	 */
-> > -	u32 (*get_vblank_counter) (struct drm_device *dev, unsigned int pipe);
-> > -
-> > -	/**
-> > -	 * @enable_vblank:
-> > -	 *
-> > -	 * Enable vblank interrupts for the CRTC specified with the pipe
-> > -	 * argument.
-> > -	 *
-> > -	 * This is deprecated and should not be used by new drivers.
-> > -	 * Use &drm_crtc_funcs.enable_vblank instead.
-> > -	 *
-> > -	 * Returns:
-> > -	 *
-> > -	 * Zero on success, appropriate errno if the given @crtc's vblank
-> > -	 * interrupt cannot be enabled.
-> > -	 */
-> > -	int (*enable_vblank) (struct drm_device *dev, unsigned int pipe);
-> > -
-> > -	/**
-> > -	 * @disable_vblank:
-> > -	 *
-> > -	 * Disable vblank interrupts for the CRTC specified with the pipe
-> > -	 * argument.
-> > -	 *
-> > -	 * This is deprecated and should not be used by new drivers.
-> > -	 * Use &drm_crtc_funcs.disable_vblank instead.
-> > -	 */
-> > -	void (*disable_vblank) (struct drm_device *dev, unsigned int pipe);
-> > -
-> > -	/**
-> > -	 * @get_vblank_timestamp:
-> > -	 *
-> > -	 * Called by drm_get_last_vbltimestamp(). Should return a precise
-> > -	 * timestamp when the most recent VBLANK interval ended or will end.
-> > -	 *
-> > -	 * Specifically, the timestamp in @vblank_time should correspond as
-> > -	 * closely as possible to the time when the first video scanline of
-> > -	 * the video frame after the end of VBLANK will start scanning out,
-> > -	 * the time immediately after end of the VBLANK interval. If the
-> > -	 * @crtc is currently inside VBLANK, this will be a time in the future.
-> > -	 * If the @crtc is currently scanning out a frame, this will be the
-> > -	 * past start time of the current scanout. This is meant to adhere
-> > -	 * to the OpenML OML_sync_control extension specification.
-> > -	 *
-> > -	 * Paramters:
-> > -	 *
-> > -	 * dev:
-> > -	 *     dev DRM device handle.
-> > -	 * pipe:
-> > -	 *     crtc for which timestamp should be returned.
-> > -	 * max_error:
-> > -	 *     Maximum allowable timestamp error in nanoseconds.
-> > -	 *     Implementation should strive to provide timestamp
-> > -	 *     with an error of at most max_error nanoseconds.
-> > -	 *     Returns true upper bound on error for timestamp.
-> > -	 * vblank_time:
-> > -	 *     Target location for returned vblank timestamp.
-> > -	 * in_vblank_irq:
-> > -	 *     True when called from drm_crtc_handle_vblank().  Some drivers
-> > -	 *     need to apply some workarounds for gpu-specific vblank irq quirks
-> > -	 *     if flag is set.
-> > -	 *
-> > -	 * Returns:
-> > -	 *
-> > -	 * True on success, false on failure, which means the core should
-> > -	 * fallback to a simple timestamp taken in drm_crtc_handle_vblank().
-> > -	 *
-> > -	 * FIXME:
-> > -	 *
-> > -	 * We should move this hook to &struct drm_crtc_funcs like all the other
-> > -	 * vblank hooks.
-> > -	 */
-> > -	bool (*get_vblank_timestamp) (struct drm_device *dev, unsigned int pipe,
-> > -				     int *max_error,
-> > -				     ktime_t *vblank_time,
-> > -				     bool in_vblank_irq);
-> > -
-> >  	/**
-> >  	 * @irq_handler:
-> >  	 *
-> > @@ -720,6 +622,9 @@ struct drm_driver {
-> >  	int (*dma_ioctl) (struct drm_device *dev, void *data, struct drm_file *file_priv);
-> >  	int (*dma_quiescent) (struct drm_device *);
-> >  	int (*context_dtor) (struct drm_device *dev, int context);
-> > +	u32 (*get_vblank_counter)(struct drm_device *dev, unsigned int pipe);
-> > +	int (*enable_vblank)(struct drm_device *dev, unsigned int pipe);
-> > +	void (*disable_vblank)(struct drm_device *dev, unsigned int pipe);
-> >  	int dev_priv_size;
-> >  };
-> >  
-> > -- 
-> > 2.24.1
-> > 
-> 
-> -- 
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+The corresponding merge request in mesa can be found at:
+https://gitlab.freedesktop.org/mesa/mesa/merge_requests/3279
+
+Brian Ho (2):
+  drm/msm: Add a GPU-wide wait queue
+  drm/msm: Add MSM_WAIT_IOVA ioctl
+
+ drivers/gpu/drm/msm/msm_drv.c | 63 +++++++++++++++++++++++++++++++++--
+ drivers/gpu/drm/msm/msm_gpu.c |  4 +++
+ drivers/gpu/drm/msm/msm_gpu.h |  3 ++
+ include/uapi/drm/msm_drm.h    | 13 ++++++++
+ 4 files changed, 81 insertions(+), 2 deletions(-)
 
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.25.0.rc1.283.g88dfdc4193-goog
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
