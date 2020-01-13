@@ -1,59 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17367139C08
-	for <lists+freedreno@lfdr.de>; Mon, 13 Jan 2020 23:00:09 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 60502139C22
+	for <lists+freedreno@lfdr.de>; Mon, 13 Jan 2020 23:05:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52A3D6E174;
-	Mon, 13 Jan 2020 22:00:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1555989B57;
+	Mon, 13 Jan 2020 22:05:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
- [IPv6:2607:f8b0:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 523166E172
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2020 22:00:00 +0000 (UTC)
-Received: by mail-pf1-x441.google.com with SMTP id i23so5528809pfo.2
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2020 14:00:00 -0800 (PST)
+Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
+ [IPv6:2607:f8b0:4864:20::644])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28BD989B57
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2020 22:05:08 +0000 (UTC)
+Received: by mail-pl1-x644.google.com with SMTP id c23so4366141plz.4
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2020 14:05:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=FDBSCFeDWTbY58059YufZG1qGkZAqqtwHIzXdBIurps=;
- b=V41NXNx92G9QE82/gdHR924ckvA7zTp+qtJThQsSIz9mtMXQqqw6+f4jyoq1JY4idd
- WTmT6EDp+PIaUeLZT7swCYSXt+vED8KssypVQpDcsnUkUaQLW8DP8hfOYGewdCQ7XJom
- 8c3LBlb80ztpXppjm8NPjK4cbCIMK1A5IbLsQ=
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=zd/53b/YzvxFSSJluHpg2s36yjG1ma0E/zaQrjFe9bI=;
+ b=COPCLdzLquZ+pTd+qUGkNUztKc9ghw2B0XavyRbkLgcM3Elx5pxsZzkioDeo5ITOFL
+ VGVFmmv/j0NnW8j/7RWd/2S05ILFq+ZdcFS5DzhnkEwCUtnEGMTWz6KQB0UkJDZB3DgO
+ nUcESk3UDAcutgobfQAP0KuOYM3n+b0NpLSNc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=FDBSCFeDWTbY58059YufZG1qGkZAqqtwHIzXdBIurps=;
- b=h+p9VWNmRoMkICIOsLcHLB7vTlaeWTi18xE6OZN670dWkX2ceLYElipzxI0T4uqTNG
- umsLYriZgPJmx+WTKY58JIj5aNTcqR+w4yDVNPqWRrkZNZcuzIK3BuOyLJFI7aBz7iYF
- Z//sRL5ScGhSsUx6pw6NcuLrllWAoRLpxB2csgkrO3MmCfzfg7Ju0WZBpPLcEgLljYKR
- s9YANI5qk5VDNTPsxboYj0TG21bMn8KDWJUphKugaBob4MMf9wO/TC2jVJ1F7rdoY6nw
- 9Jfbq+MtxoKugc74AKMtz9L2Xu/OF3+cwb31lROiRIU2L1nKIi/yz9xUOyY4ysp0ypaW
- Qevg==
-X-Gm-Message-State: APjAAAVJAIymiReyx/vZj9aG21hbWNEoDt80d9CV8lHU0BOJSVt9RTyB
- LfFZYsh4XfTDKgGVhJeEW3VQ6g==
-X-Google-Smtp-Source: APXvYqwBTZWU7x3UKOtRpFfBMLgYzxZkpEU97jGquP31XxAuDz7Rtm2g44M1sjVBdEr3X+k+2XymsQ==
-X-Received: by 2002:a62:f94d:: with SMTP id g13mr21459678pfm.60.1578952799897; 
- Mon, 13 Jan 2020 13:59:59 -0800 (PST)
-Received: from localhost ([2620:15c:202:1:4fff:7a6b:a335:8fde])
- by smtp.gmail.com with ESMTPSA id x11sm14772117pfn.53.2020.01.13.13.59.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Jan 2020 13:59:59 -0800 (PST)
-Date: Mon, 13 Jan 2020 13:59:58 -0800
-From: Matthias Kaehlcke <mka@chromium.org>
-To: Harigovindan P <harigovi@codeaurora.org>
-Message-ID: <20200113215958.GI89495@google.com>
-References: <1578396597-18324-1-git-send-email-harigovi@codeaurora.org>
- <1578396597-18324-2-git-send-email-harigovi@codeaurora.org>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=zd/53b/YzvxFSSJluHpg2s36yjG1ma0E/zaQrjFe9bI=;
+ b=HBD2Hv2k6KQKkJbfJ+fHKSlFoxnvLaI9MpqAIJA7tPuFwtxgJdbY1xgIf+y+7Dul6Q
+ qyKbUDJqHttLl0MomjxgPUan1sDYvroFY2oKJ1DPUc3btXrNhs41ZZ0fvWooZ/SNGsBV
+ aepnacVpJi0OuTzBEXHfqKEFLHl3ltpVe3kcD8KBrwOPACTnJD5OShiTEoYBTCO+PUZD
+ m4hcsKUkh10AJAlpz/7sLimQJTSIjDv+dj630oeU42p3Fiy1T+MPyFmqyfkPounViJq2
+ NOTHIrcZqUrWJb3yhjbWujUEMPpIA/WZcHzyC3bvBvehuvbR5vgcpY5HSEpd0PhxARQr
+ qysw==
+X-Gm-Message-State: APjAAAWvm7xC9dMLq337otr4XlC7/p+cqEQIa5nAxOW7JUfIqLSAnBmc
+ TrVyFWca1825CYsGoZnofCvY0A==
+X-Google-Smtp-Source: APXvYqwSgta6aJy/jOmbS+805x0Xsc71s56AGXM8UF7sEDgc66R/QG09EQD8z34BuJIgVvxxx8lXQw==
+X-Received: by 2002:a17:90a:2351:: with SMTP id
+ f75mr24735687pje.133.1578953107752; 
+ Mon, 13 Jan 2020 14:05:07 -0800 (PST)
+Received: from tictac2.mtv.corp.google.com
+ ([2620:15c:202:1:24fa:e766:52c9:e3b2])
+ by smtp.gmail.com with ESMTPSA id v9sm14682621pja.26.2020.01.13.14.05.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 Jan 2020 14:05:07 -0800 (PST)
+From: Douglas Anderson <dianders@chromium.org>
+To: Rob Clark <robdclark@chromium.org>
+Date: Mon, 13 Jan 2020 14:04:46 -0800
+Message-Id: <20200113140427.1.I5e35e29bebe575e091177c4f82606c15370b71d7@changeid>
+X-Mailer: git-send-email 2.25.0.rc1.283.g88dfdc4193-goog
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1578396597-18324-2-git-send-email-harigovi@codeaurora.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH v2 1/2] dt-bindings: display: add sc7180
- panel variant
+Subject: [Freedreno] [PATCH] drm/msm: Fix error about comments within a
+ comment block
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,101 +64,46 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean@poorly.run, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, robdclark@gmail.com, seanpaul@chromium.org,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Douglas Anderson <dianders@chromium.org>,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Thomas Gleixner <tglx@linutronix.de>, Sean Paul <sean@poorly.run>,
+ linux-kernel@vger.kernel.org, Brian Masney <masneyb@onstation.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+My compiler yells:
+  .../drivers/gpu/drm/msm/adreno/adreno_gpu.c:69:27:
+  error: '/*' within block comment [-Werror,-Wcomment]
 
-On Tue, Jan 07, 2020 at 04:59:56PM +0530, Harigovindan P wrote:
-> Subject: dt-bindings: display: add sc7180 panel variant
->
-> Add a compatible string to support sc7180 panel version.
+Let's fix.
 
-The sc7180 is a SoC, I suppose you are referring to the sc7180-idp, a
-board based on this SoC. But even with the correct board name, this
-isn't a good commit message. The board is irrelevant here, the display
-could be used on dozens of other boards.
+Fixes: 6a0dea02c2c4 ("drm/msm: support firmware-name for zap fw (v2)")
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+---
 
-Apparently the panel is the Visionix RM69299, please use this instead
-of 'sc7180'.
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index c146c3b8f52b..7fd29829b2fa 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -67,7 +67,7 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu, const char *fwname,
+ 	 *
+ 	 * If the firmware-name property is found, we bypass the
+ 	 * adreno_request_fw() mechanism, because we don't need to handle
+-	 * the /lib/firmware/qcom/* vs /lib/firmware/* case.
++	 * the /lib/firmware/qcom/... vs /lib/firmware/... case.
+ 	 *
+ 	 * If the firmware-name property is not found, for backwards
+ 	 * compatibility we fall back to the fwname from the gpulist
+-- 
+2.25.0.rc1.283.g88dfdc4193-goog
 
-Matthias
-
-> Changes in v1:
-> 	-Added a compatible string to support sc7180 panel version.
-> Changes in v2:
-> 	-Removed unwanted properties from description.
-> 	-Creating source files without execute permissions(Rob Herring).
-> 
-> Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
-> ---
->  .../bindings/display/visionox,rm69299.txt          | 48 ++++++++++++++++++++++
->  1 file changed, 48 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/visionox,rm69299.txt
-> 
-> diff --git a/Documentation/devicetree/bindings/display/visionox,rm69299.txt b/Documentation/devicetree/bindings/display/visionox,rm69299.txt
-> new file mode 100644
-> index 0000000..d7bbd5f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/visionox,rm69299.txt
-> @@ -0,0 +1,48 @@
-> +Visionox model RM69299 DSI display driver
-> +
-> +The Visionox RM69299 is a generic display driver, currently only configured
-> +for use in the 1080p display on the Qualcomm SC7180 MTP board.
-> +
-> +Required properties:
-> +- compatible: should be "visionox,rm69299-1080p-display"
-> +- vdda-supply: phandle of the regulator that provides the supply voltage
-> +  Power IC supply
-> +- vdd3p3-supply: phandle of the regulator that provides the supply voltage
-> +  Power IC supply
-> +- reset-gpios: phandle of gpio for reset line
-> +  This should be 8mA, gpio can be configured using mux, pinctrl, pinctrl-names
-> +  (active low)
-> +- ports: This device has one video port driven by one DSI. Their connections
-> +  are modeled using the OF graph bindings specified in
-> +  Documentation/devicetree/bindings/graph.txt.
-> +  - port@0: DSI input port driven by master DSI
-> +
-> +Example:
-> +
-> +	dsi@ae94000 {
-> +		panel@0 {
-> +			compatible = "visionox,rm69299-1080p-display";
-> +			reg = <0>;
-> +
-> +			vdda-supply = <&src_pp1800_l8c>;
-> +			vdd3p3-supply = <&src_pp2800_l18a>;
-> +
-> +			pinctrl-names = "default", "suspend";
-> +			pinctrl-0 = <&disp_pins_default>;
-> +			pinctrl-1 = <&disp_pins_default>;
-> +
-> +			reset-gpios = <&pm6150l_gpios 3 0>;
-> +
-> +			ports {
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +				port@0 {
-> +					reg = <0>;
-> +					panel0_in: endpoint {
-> +						remote-endpoint = <&dsi0_out>;
-> +					};
-> +				};
-> +			};
-> +		};
-> +	};
-> -- 
-> 2.7.4
-> 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
