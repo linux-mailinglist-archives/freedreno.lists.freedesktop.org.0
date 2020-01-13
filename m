@@ -2,51 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF6BA13961C
-	for <lists+freedreno@lfdr.de>; Mon, 13 Jan 2020 17:25:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F2D61397A4
+	for <lists+freedreno@lfdr.de>; Mon, 13 Jan 2020 18:28:39 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 560B16E103;
-	Mon, 13 Jan 2020 16:25:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2942D6E116;
+	Mon, 13 Jan 2020 17:28:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com
- [IPv6:2607:f8b0:4864:20::d43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 702766E103
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2020 16:25:33 +0000 (UTC)
-Received: by mail-io1-xd43.google.com with SMTP id t26so10403576ioi.13
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2020 08:25:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=3UKPRjuLVC7RO4AknJBGHEyZav1jTqAsHZbWbB3QaM8=;
- b=Mv+nXZxf2F7xE+wuPTov+5KoY4ixZ6no2YUOcBoz/RDoP7uuU4g041P+xKxpcK2T2b
- mqWwneKicqkxX2VDYaNE1lawqVrL8YFzifprEFFHEhlJnUWQI+5VPqx+BFPRF/IALbS7
- AmcNEYJwh05KKFtlPP8r1AHvUcD7O0fld9+4k=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=3UKPRjuLVC7RO4AknJBGHEyZav1jTqAsHZbWbB3QaM8=;
- b=scXX80MmejV/PrnlblhNbigA7Qv+ZnXZrUmdMIt4pNHPXp0vif3sWJphRKq10uDGtX
- unH8Qbpd6ShBklPzMJ9yEyKaRfWMJboKN8IVaGMbBlBG1e2nsSnkkcc8OyIAC8iWuaZK
- +iyyKe6O9DDc/+ciSP505+p4+A+elSkq+JcdOqfd8kR57hazgMQ+rpmzx7K78mC7aa17
- VMdKYaD+gqJHiIcyr1z9tzssJ9wbnlbgRYmNKUHrf14srOt+hx5Zl2yBD53u78HL58tP
- HwkODm0Cj+3EmGE+7oWv3p8sY7FCxPUX0hDtHmqCldrOXbpotzJ5ukRMqQSOO0pFAHJ5
- 08+g==
-X-Gm-Message-State: APjAAAUnZ9RiVUQN1pARYy5/GAIegwwG90e2pujc1EBMoL/pz/aZyPhF
- enGhvfH2Hd3SwPbYV0NoHKndtVVpaULuUZN1PI1Aag==
-X-Google-Smtp-Source: APXvYqyLDLAoShN0kNLQeelFvPXh19MZYXF+kvpTMezYlJSyzsMMSzCxmmBx48UJ+c45QjVTifzbEDrRErpdc9L7aRA=
-X-Received: by 2002:a05:6638:5b6:: with SMTP id
- b22mr15275153jar.6.1578932732634; 
- Mon, 13 Jan 2020 08:25:32 -0800 (PST)
+Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
+ [104.130.122.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 142826E114
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2020 17:28:35 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1578936516; h=In-Reply-To: Content-Type: MIME-Version:
+ References: Message-ID: Subject: Cc: To: From: Date: Sender;
+ bh=ZkDkwamCH7sXxqcGCpxSETq5EQUN29cHRpXs6HQiclE=;
+ b=Fnrd7svpdcoJ+fCpqqKSkWGWFp7WpPSnkIuVPXJ9tIUdSasgEA86wUb/aFnwj5n3Sl0Pb6AK
+ bToceKWaDg9Jz6LlJCKCFoH50NYSqEh5FsQmmQJUhMMrVPWBBvL01DCiUIdVMaVhbztTLEay
+ aAwtmkKNMWVthwcVM1GoKCkyXVQ=
+X-Mailgun-Sending-Ip: 104.130.122.26
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5e1ca8c2.7f45e8ed73b0-smtp-out-n03;
+ Mon, 13 Jan 2020 17:28:34 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id C2F45C447A4; Mon, 13 Jan 2020 17:28:32 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id AAEE1C43383;
+ Mon, 13 Jan 2020 17:28:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org AAEE1C43383
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=jcrouse@codeaurora.org
+Date: Mon, 13 Jan 2020 10:28:24 -0700
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <20200113172824.GA26711@jcrouse1-lnx.qualcomm.com>
+Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@chromium.org>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Brian Masney <masneyb@onstation.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ Fabio Estevam <festevam@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20200112195405.1132288-1-robdclark@gmail.com>
+ <20200112195405.1132288-2-robdclark@gmail.com>
 MIME-Version: 1.0
-References: <20200113153605.52350-1-brian@brkho.com>
- <20200113153605.52350-3-brian@brkho.com>
-In-Reply-To: <20200113153605.52350-3-brian@brkho.com>
-From: Rob Clark <robdclark@chromium.org>
-Date: Mon, 13 Jan 2020 08:25:21 -0800
-Message-ID: <CAJs_Fx48B-C8GEeAmPaqGAqAOTR2dT0csg8W=TRyULOfy=1=VQ@mail.gmail.com>
-To: Brian Ho <brian@brkho.com>
-Subject: Re: [Freedreno] [PATCH 2/2] drm/msm: Add MSM_WAIT_IOVA ioctl
+Content-Disposition: inline
+In-Reply-To: <20200112195405.1132288-2-robdclark@gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Freedreno] [PATCH v2 1/4] drm/msm: support firmware-name for
+ zap fw (v2)
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,187 +81,98 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- freedreno <freedreno@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- hoegsberg@chromium.org, Sean Paul <sean@poorly.run>
+Cc: Rob Clark <robdclark@chromium.org>, Fabio Estevam <festevam@gmail.com>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
+ Daniel Vetter <daniel@ffwll.ch>, Thomas Gleixner <tglx@linutronix.de>,
+ freedreno@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
+ Brian Masney <masneyb@onstation.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jan 13, 2020 at 7:37 AM Brian Ho <brian@brkho.com> wrote:
->
-> Implements an ioctl to wait until a value at a given iova is greater
-> than or equal to a supplied value.
->
-> This will initially be used by turnip (open-source Vulkan driver for
-> QC in mesa) for occlusion queries where the userspace driver can
-> block on a query becoming available before continuing via
-> vkGetQueryPoolResults.
->
-> Signed-off-by: Brian Ho <brian@brkho.com>
+On Sun, Jan 12, 2020 at 11:53:57AM -0800, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> Since zap firmware can be device specific, allow for a firmware-name
+> property in the zap node to specify which firmware to load, similarly to
+> the scheme used for dsp/wifi/etc.
+> 
+> v2: only need a single error msg when we can't load from firmware-name
+>     specified path, and fix comment [Bjorn A.]
+
+Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
+
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
 > ---
->  drivers/gpu/drm/msm/msm_drv.c | 63 +++++++++++++++++++++++++++++++++--
->  include/uapi/drm/msm_drm.h    | 13 ++++++++
->  2 files changed, 74 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index c84f0a8b3f2c..dcc46874a5a2 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -36,10 +36,11 @@
->   *           MSM_GEM_INFO ioctl.
->   * - 1.4.0 - softpin, MSM_RELOC_BO_DUMP, and GEM_INFO support to set/get
->   *           GEM object's debug name
-> - * - 1.5.0 - Add SUBMITQUERY_QUERY ioctl
-> + * - 1.5.0 - Add SUBMITQUEUE_QUERY ioctl
-> + * - 1.6.0 - Add WAIT_IOVA ioctl
->   */
->  #define MSM_VERSION_MAJOR      1
-> -#define MSM_VERSION_MINOR      5
-> +#define MSM_VERSION_MINOR      6
->  #define MSM_VERSION_PATCHLEVEL 0
->
->  static const struct drm_mode_config_funcs mode_config_funcs = {
-> @@ -952,6 +953,63 @@ static int msm_ioctl_submitqueue_close(struct drm_device *dev, void *data,
->         return msm_submitqueue_remove(file->driver_priv, id);
->  }
->
-> +static int msm_ioctl_wait_iova(struct drm_device *dev, void *data,
-> +               struct drm_file *file)
-> +{
-> +       struct msm_drm_private *priv = dev->dev_private;
-> +       struct drm_gem_object *obj;
-> +       struct drm_msm_wait_iova *args = data;
-> +       ktime_t timeout = to_ktime(args->timeout);
-> +       unsigned long remaining_jiffies = timeout_to_jiffies(&timeout);
-> +       struct msm_gpu *gpu = priv->gpu;
-> +       void *base_vaddr;
-> +       uint64_t *vaddr;
-> +       int ret;
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 30 ++++++++++++++++++++++---
+>  1 file changed, 27 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> index 112e8b8a261e..456bb5af1717 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -26,6 +26,7 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu, const char *fwname,
+>  {
+>  	struct device *dev = &gpu->pdev->dev;
+>  	const struct firmware *fw;
+> +	const char *signed_fwname = NULL;
+>  	struct device_node *np, *mem_np;
+>  	struct resource r;
+>  	phys_addr_t mem_phys;
+> @@ -58,8 +59,31 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu, const char *fwname,
+>  
+>  	mem_phys = r.start;
+>  
+> -	/* Request the MDT file for the firmware */
+> -	fw = adreno_request_fw(to_adreno_gpu(gpu), fwname);
+> +	/*
+> +	 * Check for a firmware-name property.  This is the new scheme
+> +	 * to handle firmware that may be signed with device specific
+> +	 * keys, allowing us to have a different zap fw path for different
+> +	 * devices.
+> +	 *
+> +	 * If the firmware-name property is found, we bypass the
+> +	 * adreno_request_fw() mechanism, because we don't need to handle
+> +	 * the /lib/firmware/qcom/* vs /lib/firmware/* case.
+> +	 *
+> +	 * If the firmware-name property is not found, for backwards
+> +	 * compatibility we fall back to the fwname from the gpulist
+> +	 * table.
+> +	 */
+> +	of_property_read_string_index(np, "firmware-name", 0, &signed_fwname);
+> +	if (signed_fwname) {
+> +		fwname = signed_fwname;
+> +		ret = request_firmware_direct(&fw, fwname, gpu->dev->dev);
+> +		if (ret)
+> +			fw = ERR_PTR(ret);
+> +	} else {
+> +		/* Request the MDT file from the default location: */
+> +		fw = adreno_request_fw(to_adreno_gpu(gpu), fwname);
+> +	}
 > +
-> +       if (args->pad)
-> +               return -EINVAL;
-> +
-> +       if (!gpu)
-> +               return 0;
+>  	if (IS_ERR(fw)) {
+>  		DRM_DEV_ERROR(dev, "Unable to load %s\n", fwname);
+>  		return PTR_ERR(fw);
+> @@ -95,7 +119,7 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu, const char *fwname,
+>  	 * not.  But since we've already gotten through adreno_request_fw()
+>  	 * we know which of the two cases it is:
+>  	 */
+> -	if (to_adreno_gpu(gpu)->fwloc == FW_LOCATION_LEGACY) {
+> +	if (signed_fwname || (to_adreno_gpu(gpu)->fwloc == FW_LOCATION_LEGACY)) {
+>  		ret = qcom_mdt_load(dev, fw, fwname, pasid,
+>  				mem_region, mem_phys, mem_size, NULL);
+>  	} else {
+> -- 
+> 2.24.1
+> 
 
-hmm, I'm not sure we should return zero in this case.. maybe -ENODEV?
-
-> +
-> +       obj = drm_gem_object_lookup(file, args->handle);
-> +       if (!obj)
-> +               return -ENOENT;
-> +
-> +       base_vaddr = msm_gem_get_vaddr(obj);
-> +       if (IS_ERR(base_vaddr)) {
-> +               ret = PTR_ERR(base_vaddr);
-> +               goto err_put_gem_object;
-> +       }
-> +       if (args->offset + sizeof(*vaddr) > obj->size) {
-> +               ret = -EINVAL;
-> +               goto err_put_vaddr;
-> +       }
-> +
-> +       vaddr = base_vaddr + args->offset;
-> +
-> +       /* Assumes WC mapping */
-> +       ret = wait_event_interruptible_timeout(
-> +                       gpu->event, *vaddr >= args->value, remaining_jiffies);
-> +
-> +       if (ret == 0) {
-> +               ret = -ETIMEDOUT;
-> +               goto err_put_vaddr;
-> +       } else if (ret == -ERESTARTSYS) {
-> +               goto err_put_vaddr;
-> +       }
-
-maybe:
-
- } else {
-   ret = 0;
- }
-
-and then drop the next three lines?
-
-> +
-> +       msm_gem_put_vaddr(obj);
-> +       drm_gem_object_put_unlocked(obj);
-> +       return 0;
-> +
-> +err_put_vaddr:
-> +       msm_gem_put_vaddr(obj);
-> +err_put_gem_object:
-> +       drm_gem_object_put_unlocked(obj);
-> +       return ret;
-> +}
-> +
->  static const struct drm_ioctl_desc msm_ioctls[] = {
->         DRM_IOCTL_DEF_DRV(MSM_GET_PARAM,    msm_ioctl_get_param,    DRM_RENDER_ALLOW),
->         DRM_IOCTL_DEF_DRV(MSM_GEM_NEW,      msm_ioctl_gem_new,      DRM_RENDER_ALLOW),
-> @@ -964,6 +1022,7 @@ static const struct drm_ioctl_desc msm_ioctls[] = {
->         DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_NEW,   msm_ioctl_submitqueue_new,   DRM_RENDER_ALLOW),
->         DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_CLOSE, msm_ioctl_submitqueue_close, DRM_RENDER_ALLOW),
->         DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_QUERY, msm_ioctl_submitqueue_query, DRM_RENDER_ALLOW),
-> +       DRM_IOCTL_DEF_DRV(MSM_WAIT_IOVA, msm_ioctl_wait_iova, DRM_RENDER_ALLOW),
->  };
->
->  static const struct vm_operations_struct vm_ops = {
-> diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
-> index 0b85ed6a3710..8477f28a4ee1 100644
-> --- a/include/uapi/drm/msm_drm.h
-> +++ b/include/uapi/drm/msm_drm.h
-> @@ -298,6 +298,17 @@ struct drm_msm_submitqueue_query {
->         __u32 pad;
->  };
->
-> +/* This ioctl blocks until the u64 value at bo + offset is greater than or
-> + * equal to the reference value.
-> + */
-> +struct drm_msm_wait_iova {
-> +       __u32 handle;          /* in, GEM handle */
-> +       __u32 pad;
-> +       struct drm_msm_timespec timeout;   /* in */
-> +       __u64 offset;          /* offset into bo */
-> +       __u64 value;           /* reference value */
-
-Maybe we should go ahead and add a __u64 mask;
-
-that would let us wait for 32b values as well, and wait for bits in a bitmask
-
-Other than those minor comments, it looks pretty good to me
-
-BR,
--R
-
-> +};
-> +
->  #define DRM_MSM_GET_PARAM              0x00
->  /* placeholder:
->  #define DRM_MSM_SET_PARAM              0x01
-> @@ -315,6 +326,7 @@ struct drm_msm_submitqueue_query {
->  #define DRM_MSM_SUBMITQUEUE_NEW        0x0A
->  #define DRM_MSM_SUBMITQUEUE_CLOSE      0x0B
->  #define DRM_MSM_SUBMITQUEUE_QUERY      0x0C
-> +#define DRM_MSM_WAIT_IOVA      0x0D
->
->  #define DRM_IOCTL_MSM_GET_PARAM        DRM_IOWR(DRM_COMMAND_BASE + DRM_MSM_GET_PARAM, struct drm_msm_param)
->  #define DRM_IOCTL_MSM_GEM_NEW          DRM_IOWR(DRM_COMMAND_BASE + DRM_MSM_GEM_NEW, struct drm_msm_gem_new)
-> @@ -327,6 +339,7 @@ struct drm_msm_submitqueue_query {
->  #define DRM_IOCTL_MSM_SUBMITQUEUE_NEW    DRM_IOWR(DRM_COMMAND_BASE + DRM_MSM_SUBMITQUEUE_NEW, struct drm_msm_submitqueue)
->  #define DRM_IOCTL_MSM_SUBMITQUEUE_CLOSE  DRM_IOW (DRM_COMMAND_BASE + DRM_MSM_SUBMITQUEUE_CLOSE, __u32)
->  #define DRM_IOCTL_MSM_SUBMITQUEUE_QUERY  DRM_IOW (DRM_COMMAND_BASE + DRM_MSM_SUBMITQUEUE_QUERY, struct drm_msm_submitqueue_query)
-> +#define DRM_IOCTL_MSM_WAIT_IOVA        DRM_IOW (DRM_COMMAND_BASE + DRM_MSM_WAIT_IOVA, struct drm_msm_wait_iova)
->
->  #if defined(__cplusplus)
->  }
-> --
-> 2.25.0.rc1.283.g88dfdc4193-goog
->
+-- 
+The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+a Linux Foundation Collaborative Project
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
