@@ -1,59 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 936B91394EA
-	for <lists+freedreno@lfdr.de>; Mon, 13 Jan 2020 16:36:51 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 331EE1394ED
+	for <lists+freedreno@lfdr.de>; Mon, 13 Jan 2020 16:37:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D73989F6F;
-	Mon, 13 Jan 2020 15:36:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C86F96E0CC;
+	Mon, 13 Jan 2020 15:37:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-xc62.google.com (mail-yw1-xc62.google.com
- [IPv6:2607:f8b0:4864:20::c62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DACD89F6F
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2020 15:36:49 +0000 (UTC)
-Received: by mail-yw1-xc62.google.com with SMTP id l14so6321566ywj.9
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2020 07:36:49 -0800 (PST)
+Received: from mail-yw1-xc64.google.com (mail-yw1-xc64.google.com
+ [IPv6:2607:f8b0:4864:20::c64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61F136E0E3
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2020 15:37:21 +0000 (UTC)
+Received: by mail-yw1-xc64.google.com with SMTP id h126so6329050ywc.6
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2020 07:37:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=brkho-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=XJFdDikfbN+KalEJTdnTdl6gsZ3fW2Tc7ZjkvYTvyD0=;
- b=Ra1HwBngnQsFsdibS3erX1ro72SPNFOPBuna6fAXIQWG17KVuwQqD9gMrdmCX7ki+B
- EfZnaFMA5gKVT3d2qJucInxK1XRuJFIQjhpLG292NZcU6B2kEOsnvEAtLvx58jiTXMJk
- R3JhbyxnKu264DFtvTI48xgHQS4fvpOzUpteR3OrVr78AnbU2zIkVDSvrN5ZD8cvjeee
- JFM3IRmFzWideOV8V9KEow0sfm4l9HLJVDVYnrOiZTg2y3gnmUrcDev8aU5KY5uD5KlR
- ZI8urhn7LhvdDYHsVAv38s1cdzYy0VpHd73CuBsHJdDdJIh3/5QdZn3CfaseC0z8UOlv
- K8pw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=WAq6TrEVx22C9NeXV+u5E8p8eBKHJtE8qNPoQl4adsE=;
+ b=Qlt2JrtxXffRVq9WBDU89WEUScfSt5bAr4nawTezguWtOz2UrnbkFTnmJhBhndv75o
+ MUYHSbpZPlkXQgjoxuAJTTfbyZVac1cyRTtpQEgrXqmzbYFtHxAlVax6ogB1d9En28jq
+ a1oKICSwZpEwqXmwcsuSIQE44bZHgkNz4twckgnGcC3f9xh68blQ51sGaNJr2Lfhqw7L
+ zc73yl6oiVrpCpkUbSl9kzL/gxijXiFYWfGOKnGoAhcRxbsXoJVsar924b9aBb5qK0x1
+ uST7IMadkwfISnpzlEPxYX4R4I8pHIEPe2lVcnxD+wy68F8pMI/icsLsFBgHsdwm4p57
+ ESrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=XJFdDikfbN+KalEJTdnTdl6gsZ3fW2Tc7ZjkvYTvyD0=;
- b=VJ5CuwnSk570qSyB9HOlO3SyjHIKKYsSbybabz5yXxJy7ELpZfyzuCXmI8JO8jZ0K8
- iyXJAFMLOoIpsu4GtsKS6dp8dmVqN2ynDrPwtd6C5GWvVXT5BdQRIvhA+tBJfiHXI9Nb
- kROo2BUk47c+sgA2uv+c34drShO0CMfQociEBW/sD0xXEahlnj+Mte9KgM/5USnwzB5Q
- uUuox1c6zMmBi0+QJWBeTXKjXauRLwUk0CabHPDVZFVBGAAwt0X5sp49XLojHQ4ig4eK
- DJr0q9V2NyZC7xFF++qCmCduWgSycs3d4wZKV4uPsfdMOY9WxhX1AY5ktljiO81Infle
- G7aw==
-X-Gm-Message-State: APjAAAWsISwjhxENyZCtuUUS+NImYFujzkmO3H75QfZJyVPLMnNH1vxi
- 3XL7pRYVXMnzxKbrhNNlBX+vD34qxBdFB38ikZmLHS8EyizrkA==
-X-Google-Smtp-Source: APXvYqze74w6U50gaTJnAzutIy9P9BFgvcZsIGa2e6zF7CwAW4jN8VuBPit1CodjbUXUBdLxFIXm1nt6Mg+C
-X-Received: by 2002:a25:2c9:: with SMTP id 192mr12441529ybc.48.1578929808492; 
- Mon, 13 Jan 2020 07:36:48 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=WAq6TrEVx22C9NeXV+u5E8p8eBKHJtE8qNPoQl4adsE=;
+ b=p2yE3HA7lm4Ar5rbcGzDQNFGnOcwchN9a1gxx/gp131tu4py4rf9q+clHLJT3v5CeW
+ PrQHBwqnFzEFMLx4mT4k751eZ4SraOWKasz79IHYj5DPWrTmwHwjWuqt0G7njvYY3Mj1
+ GBllSMdBeM+okLd1SAzNeg2sUXNALJv93o4S9PU8HUVWLfyaw10dCI422h0occ4zwubH
+ H5oU9YnFmDITTUSVC/l92nGR9ObabBlEvu12bCqWqQseSHGPwryVMtyKZLLAaYjXwVch
+ BmXSX0qXq4f+bHeUtmcX6zV/uRtQRvPF+pU2S7IjPUpkrmgi7krYYRfjcGPQCV4YRiEU
+ Tmyg==
+X-Gm-Message-State: APjAAAVRTTV2ibZZsKqJV1HqTmpwdapgzDOpUZ02LyQcbyFZeYnOe7vu
+ X5KgFsLGEgwv+EJVKfxfoJbQuhXrolDU47hBSXKykNf3LEQHYg==
+X-Google-Smtp-Source: APXvYqzQmLBNNT0a1aEnDqzSaVursng0om65Vx4mgRanu6nthloLlNoHL5C/UNEtGCLK6Btwv8oweeewjFGS
+X-Received: by 2002:a81:980e:: with SMTP id p14mr14497442ywg.24.1578929840530; 
+ Mon, 13 Jan 2020 07:37:20 -0800 (PST)
 Received: from hob1.nyc.corp.google.com ([100.118.32.120])
- by smtp-relay.gmail.com with ESMTPS id m193sm1672393ywd.0.2020.01.13.07.36.47
+ by smtp-relay.gmail.com with ESMTPS id m193sm1672393ywd.0.2020.01.13.07.37.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jan 2020 07:36:48 -0800 (PST)
+ Mon, 13 Jan 2020 07:37:20 -0800 (PST)
 X-Relaying-Domain: brkho.com
 From: Brian Ho <brian@brkho.com>
 To: freedreno@lists.freedesktop.org
-Date: Mon, 13 Jan 2020 10:36:03 -0500
-Message-Id: <20200113153605.52350-1-brian@brkho.com>
+Date: Mon, 13 Jan 2020 10:36:04 -0500
+Message-Id: <20200113153605.52350-2-brian@brkho.com>
 X-Mailer: git-send-email 2.25.0.rc1.283.g88dfdc4193-goog
+In-Reply-To: <20200113153605.52350-1-brian@brkho.com>
+References: <20200113153605.52350-1-brian@brkho.com>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 0/2] drm/msm: Add the MSM_WAIT_IOVA ioctl
+Subject: [Freedreno] [PATCH 1/2] drm/msm: Add a GPU-wide wait queue
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,37 +69,63 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: robdclark@chromium.org, Brian Ho <brian@brkho.com>,
+ David Airlie <airlied@linux.ie>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
  open list <linux-kernel@vger.kernel.org>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- hoegsberg@chromium.org
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ hoegsberg@chromium.org, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This patch set implements the MSM_WAIT_IOVA ioctl which lets
-userspace sleep until the value at a given iova reaches a certain
-condition. This is needed in turnip to implement the
-VK_QUERY_RESULT_WAIT_BIT flag for vkGetQueryPoolResults.
+This wait queue is signaled on all IRQs for a given GPU and will be
+used as part of the new MSM_WAIT_IOVA ioctl so userspace can sleep
+until the value at a given iova reaches a certain condition.
 
-First, we add a GPU-wide wait queue that is signaled on all IRQs.
-We can then wait on this wait queue inside MSM_WAIT_IOVA until the
-condition is met.
+Signed-off-by: Brian Ho <brian@brkho.com>
+---
+ drivers/gpu/drm/msm/msm_gpu.c | 4 ++++
+ drivers/gpu/drm/msm/msm_gpu.h | 3 +++
+ 2 files changed, 7 insertions(+)
 
-The corresponding merge request in mesa can be found at:
-https://gitlab.freedesktop.org/mesa/mesa/merge_requests/3279
-
-Brian Ho (2):
-  drm/msm: Add a GPU-wide wait queue
-  drm/msm: Add MSM_WAIT_IOVA ioctl
-
- drivers/gpu/drm/msm/msm_drv.c | 63 +++++++++++++++++++++++++++++++++--
- drivers/gpu/drm/msm/msm_gpu.c |  4 +++
- drivers/gpu/drm/msm/msm_gpu.h |  3 ++
- include/uapi/drm/msm_drm.h    | 13 ++++++++
- 4 files changed, 81 insertions(+), 2 deletions(-)
-
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index a052364a5d74..d7310c1336e5 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -779,6 +779,8 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit,
+ static irqreturn_t irq_handler(int irq, void *data)
+ {
+ 	struct msm_gpu *gpu = data;
++	wake_up_all(&gpu->event);
++
+ 	return gpu->funcs->irq(gpu);
+ }
+ 
+@@ -871,6 +873,8 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 
+ 	spin_lock_init(&gpu->perf_lock);
+ 
++	init_waitqueue_head(&gpu->event);
++
+ 
+ 	/* Map registers: */
+ 	gpu->mmio = msm_ioremap(pdev, config->ioname, name);
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index ab8f0f9c9dc8..60562f065dbc 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -104,6 +104,9 @@ struct msm_gpu {
+ 
+ 	struct msm_gem_address_space *aspace;
+ 
++	/* GPU-wide wait queue that is signaled on all IRQs */
++	wait_queue_head_t event;
++
+ 	/* Power Control: */
+ 	struct regulator *gpu_reg, *gpu_cx;
+ 	struct clk_bulk_data *grp_clks;
 -- 
 2.25.0.rc1.283.g88dfdc4193-goog
 
