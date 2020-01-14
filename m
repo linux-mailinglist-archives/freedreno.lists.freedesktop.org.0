@@ -2,58 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DAFF13AB65
-	for <lists+freedreno@lfdr.de>; Tue, 14 Jan 2020 14:48:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5929A13AE28
+	for <lists+freedreno@lfdr.de>; Tue, 14 Jan 2020 16:58:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F30FB6E3CB;
-	Tue, 14 Jan 2020 13:48:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 892ED6E423;
+	Tue, 14 Jan 2020 15:58:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20D0D6E3C6;
- Tue, 14 Jan 2020 13:48:20 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 35C6CAD0F;
- Tue, 14 Jan 2020 13:48:18 +0000 (UTC)
-To: Daniel Vetter <daniel@ffwll.ch>
-References: <20200110092127.27847-1-tzimmermann@suse.de>
- <20200110092127.27847-24-tzimmermann@suse.de>
- <20200112225312.GC5340@dvetter-linux.ger.corp.intel.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- mQENBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAG0J1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPokBVAQTAQgAPhYh
- BHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsDBQkDwmcABQsJCAcCBhUKCQgLAgQWAgMB
- Ah4BAheAAAoJEGgNwR1TC3ojR80H/jH+vYavwQ+TvO8ksXL9JQWc3IFSiGpuSVXLCdg62AmR
- irxW+qCwNncNQyb9rd30gzdectSkPWL3KSqEResBe24IbA5/jSkPweJasgXtfhuyoeCJ6PXo
- clQQGKIoFIAEv1s8l0ggPZswvCinegl1diyJXUXmdEJRTWYAtxn/atut1o6Giv6D2qmYbXN7
- mneMC5MzlLaJKUtoH7U/IjVw1sx2qtxAZGKVm4RZxPnMCp9E1MAr5t4dP5gJCIiqsdrVqI6i
- KupZstMxstPU//azmz7ZWWxT0JzgJqZSvPYx/SATeexTYBP47YFyri4jnsty2ErS91E6H8os
- Bv6pnSn7eAq5AQ0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRH
- UE9eosYbT6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgT
- RjP+qbU63Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+R
- dhgATnWWGKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zb
- ehDda8lvhFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r
- 12+lqdsAEQEAAYkBPAQYAQgAJhYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsMBQkD
- wmcAAAoJEGgNwR1TC3ojpfcIAInwP5OlcEKokTnHCiDTz4Ony4GnHRP2fXATQZCKxmu4AJY2
- h9ifw9Nf2TjCZ6AMvC3thAN0rFDj55N9l4s1CpaDo4J+0fkrHuyNacnT206CeJV1E7NYntxU
- n+LSiRrOdywn6erjxRi9EYTVLCHcDhBEjKmFZfg4AM4GZMWX1lg0+eHbd5oL1as28WvvI/uI
- aMyV8RbyXot1r/8QLlWldU3NrTF5p7TMU2y3ZH2mf5suSKHAMtbE4jKJ8ZHFOo3GhLgjVrBW
- HE9JXO08xKkgD+w6v83+nomsEuf6C6LYrqY/tsZvyEX6zN8CtirPdPWu/VXNRYAl/lat7lSI
- 3H26qrE=
-Message-ID: <b5f6ac70-0bbe-18d5-f944-3ebba3237a9d@suse.de>
-Date: Tue, 14 Jan 2020 14:48:13 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.1
+Received: from mail25.static.mailgun.info (mail25.static.mailgun.info
+ [104.130.122.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 200936E425
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Jan 2020 15:58:25 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1579017506; h=In-Reply-To: Content-Type: MIME-Version:
+ References: Message-ID: Subject: Cc: To: From: Date: Sender;
+ bh=VMagF4LcGQkJNfL950u2geM+oxL0ow5Cc+uBaQLFF7I=;
+ b=Ju/HyTeic78hYaFgFc+0MkfA4qkwWmqgbCP6wh++PQCsAuzHXQl2IlKYm8GJHRzOX+Gzowlc
+ XZhVnNkOiFNhap1RrlYKfALDyRGbls0bkxn0W8RFaGEBCo562ltHTg7OIcc3WbzPaTF7VFbi
+ wTcUvq3gkcvgphJxGsx7+BwMuUk=
+X-Mailgun-Sending-Ip: 104.130.122.25
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5e1de51d.7fcc545b4c70-smtp-out-n02;
+ Tue, 14 Jan 2020 15:58:21 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id AB112C433A2; Tue, 14 Jan 2020 15:58:20 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 2544EC43383;
+ Tue, 14 Jan 2020 15:58:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 2544EC43383
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=jcrouse@codeaurora.org
+Date: Tue, 14 Jan 2020 08:58:17 -0700
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Message-ID: <20200114155817.GA22648@jcrouse1-lnx.qualcomm.com>
+Mail-Followup-To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ freedreno@lists.freedesktop.org, robdclark@chromium.org,
+ ML dri-devel <dri-devel@lists.freedesktop.org>
+References: <20200113202557.110095-1-bas@basnieuwenhuizen.nl>
+ <20200113234113.GE26711@jcrouse1-lnx.qualcomm.com>
+ <CAP+8YyFV4DU-FJEy9oRHnkhPhRaXNb_F+3R9J1RO+bORpqxdcg@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20200112225312.GC5340@dvetter-linux.ger.corp.intel.com>
-Subject: Re: [Freedreno] [PATCH 23/23] drm: Cleanup VBLANK callbacks in
- struct drm_driver
+Content-Disposition: inline
+In-Reply-To: <CAP+8YyFV4DU-FJEy9oRHnkhPhRaXNb_F+3R9J1RO+bORpqxdcg@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Freedreno] [PATCH] drm/msm: Add syncobj support.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,389 +72,186 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: hamohammed.sa@gmail.com, airlied@linux.ie, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, thellstrom@vmware.com, sean@poorly.run,
- amd-gfx@lists.freedesktop.org, linux-graphics-maintainer@vmware.com,
- bskeggs@redhat.com, alexandre.torgue@st.com, sunpeng.li@amd.com,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- rodrigo.vivi@intel.com, vincent.abriou@st.com, rodrigosiqueiramelo@gmail.com,
- philippe.cornu@st.com, yannick.fertre@st.com, mcoquelin.stm32@gmail.com,
- alexander.deucher@amd.com, freedreno@lists.freedesktop.org,
- christian.koenig@amd.com
-Content-Type: multipart/mixed; boundary="===============0082255568=="
+Cc: robdclark@chromium.org, freedreno@lists.freedesktop.org,
+ ML dri-devel <dri-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0082255568==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="hnX2ORJn5vRIQccq9Tfc7COteUkRxx61k"
+On Tue, Jan 14, 2020 at 01:40:11AM +0100, Bas Nieuwenhuizen wrote:
+> On Tue, Jan 14, 2020 at 12:41 AM Jordan Crouse <jcrouse@codeaurora.org> wrote:
+> >
+> > On Mon, Jan 13, 2020 at 09:25:57PM +0100, Bas Nieuwenhuizen wrote:
+> > > This
+> > >
+> > > 1) Enables core DRM syncobj support.
+> > > 2) Adds options to the submission ioctl to wait/signal syncobjs.
+> > >
+> > > Just like the wait fence fd, this does inline waits. Using the
+> > > scheduler would be nice but I believe it is out of scope for
+> > > this work.
+> > >
+> > > Support for timeline syncobjs is implemented and the interface
+> > > is ready for it, but I'm not enabling it yet until there is
+> > > some code for turnip to use it.
+> > >
+> > > The reset is mostly in there because in the presence of waiting
+> > > and signalling the same semaphores, resetting them after
+> > > signalling can become very annoying.
+> > >
+> > > Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+> > > ---
+> > >
+> > > Userspace code in
+> > >
+> > > https://gitlab.freedesktop.org/mesa/mesa/merge_requests/2769
+> > >
+> > >  drivers/gpu/drm/msm/msm_drv.c        |   6 +-
+> > >  drivers/gpu/drm/msm/msm_gem_submit.c | 241 ++++++++++++++++++++++++++-
+> > >  include/uapi/drm/msm_drm.h           |  22 ++-
+> > >  3 files changed, 265 insertions(+), 4 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> > > index c84f0a8b3f2c..ca36d6b21d8f 100644
+> > > --- a/drivers/gpu/drm/msm/msm_drv.c
+> > > +++ b/drivers/gpu/drm/msm/msm_drv.c
+> > > @@ -37,9 +37,10 @@
+> > >   * - 1.4.0 - softpin, MSM_RELOC_BO_DUMP, and GEM_INFO support to set/get
+> > >   *           GEM object's debug name
+> > >   * - 1.5.0 - Add SUBMITQUERY_QUERY ioctl
+> > > + * - 1.6.0 - Syncobj support
+> > >   */
+> > >  #define MSM_VERSION_MAJOR    1
+> > > -#define MSM_VERSION_MINOR    5
+> > > +#define MSM_VERSION_MINOR    6
+> > >  #define MSM_VERSION_PATCHLEVEL       0
+> > >
+> > >  static const struct drm_mode_config_funcs mode_config_funcs = {
+> > > @@ -988,7 +989,8 @@ static struct drm_driver msm_driver = {
+> > >       .driver_features    = DRIVER_GEM |
+> > >                               DRIVER_RENDER |
+> > >                               DRIVER_ATOMIC |
+> > > -                             DRIVER_MODESET,
+> > > +                             DRIVER_MODESET|
+> >
+> > A space before the | would be preferred.
+> 
+> Done.
+> >
+> > > +                             DRIVER_SYNCOBJ,
+> > >       .open               = msm_open,
+> > >       .postclose           = msm_postclose,
+> > >       .lastclose          = drm_fb_helper_lastclose,
+> > > diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+> > > index be5327af16fa..9085229f88e0 100644
+> > > --- a/drivers/gpu/drm/msm/msm_gem_submit.c
+> > > +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+> > > @@ -8,7 +8,9 @@
+> > >  #include <linux/sync_file.h>
+> > >  #include <linux/uaccess.h>
+> > >
+> > > +#include <drm/drm_drv.h>
+> > >  #include <drm/drm_file.h>
+> > > +#include <drm/drm_syncobj.h>
+> > >
+> > >  #include "msm_drv.h"
+> > >  #include "msm_gpu.h"
+> > > @@ -394,6 +396,196 @@ static void submit_cleanup(struct msm_gem_submit *submit)
+> > >       ww_acquire_fini(&submit->ticket);
+> > >  }
+> > >
+> > > +
+> > > +struct msm_submit_post_dep {
+> > > +     struct drm_syncobj *syncobj;
+> > > +     uint64_t point;
+> > > +     struct dma_fence_chain *chain;
+> > > +};
+> > > +
+> > > +static int msm_wait_deps(struct drm_device *dev,
+> > > +                         struct drm_file *file,
+> > > +                         uint64_t in_syncobjs_addr,
+> > > +                         uint32_t nr_in_syncobjs,
+> > > +                         struct msm_ringbuffer *ring,
+> > > +                         struct drm_syncobj ***syncobjs)
+> > > +{
+> > > +     struct drm_msm_gem_submit_syncobj *syncobj_descs;
+> > > +     int ret = 0;
+> > > +     uint32_t i, j;
+> > > +
+> > > +     syncobj_descs = kmalloc_array(nr_in_syncobjs, sizeof(*syncobj_descs),
+> > > +                                   GFP_KERNEL);
+> > > +     if (!syncobj_descs)
+> > > +             return -ENOMEM;
+> > > +
+> > We would want to watch out here for fuzzers and malicious actors that try to
+> > force an enormous memory allocation. It seems like we should be able to
+> > iteratively read each fences in the loop and skip this memory allocation.
+> >
+> > > +     *syncobjs = kcalloc(nr_in_syncobjs, sizeof(**syncobjs), GFP_KERNEL);
+> > > +     if (!syncobjs) {
+> > > +             ret = -ENOMEM;
+> > > +             goto out_syncobjs;
+> > > +     }
+> >
+> > Alas no good way to skip this one. But it seems that syncobjs should only
+> > contain descriptors with MSM_SUBMIT_SYNCOBJ_RESET set. I'm not very familiar
+> > with how fences work so I'm not sure how common this path is. Would the same
+> > fuzzer or malicious actor be able to double the destruction by forcing a large
+> > allocation that doesn't even end up getting used?
+> 
+> In real usecases I expect MSM_SUBMIT_SYNCOBJ_RESET to be set for 50%+
+> of the entries and the number of entries to be < 10.
+> 
+> I can certainly start doing a copy_from_user per entry and save one of
+> the array. (I was under the impression that copy_from_user was
+> expensive but if it is not, okay)
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---hnX2ORJn5vRIQccq9Tfc7COteUkRxx61k
-Content-Type: multipart/mixed; boundary="RAgxvS6j00AOrEMVpsfV7vPGxWhMlDzKn";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Daniel Vetter <daniel@ffwll.ch>
-Cc: hamohammed.sa@gmail.com, airlied@linux.ie, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- alexandre.torgue@st.com, thellstrom@vmware.com, sean@poorly.run,
- linux-graphics-maintainer@vmware.com, bskeggs@redhat.com,
- mcoquelin.stm32@gmail.com, sunpeng.li@amd.com,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- rodrigo.vivi@intel.com, vincent.abriou@st.com,
- rodrigosiqueiramelo@gmail.com, philippe.cornu@st.com, yannick.fertre@st.com,
- alexander.deucher@amd.com, freedreno@lists.freedesktop.org,
- christian.koenig@amd.com
-Message-ID: <b5f6ac70-0bbe-18d5-f944-3ebba3237a9d@suse.de>
-Subject: Re: [PATCH 23/23] drm: Cleanup VBLANK callbacks in struct drm_driver
-References: <20200110092127.27847-1-tzimmermann@suse.de>
- <20200110092127.27847-24-tzimmermann@suse.de>
- <20200112225312.GC5340@dvetter-linux.ger.corp.intel.com>
-In-Reply-To: <20200112225312.GC5340@dvetter-linux.ger.corp.intel.com>
+I guess with recent exploit mitigations it is more expensive, but it shouldn't
+be too bad if your nominal use cases are somewhere in the area of 10. That
+said...
 
---RAgxvS6j00AOrEMVpsfV7vPGxWhMlDzKn
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
+> Overall though, there is a real issue of wanting to delay all write
+> actions until we are sure the ioctl will succeed. That will mean we
+> need to have arrays that are on the order of a UINT32_MAX elements if
+> we assume full range on the inputs. How much is it worth trying to
+> squeeze the syncobjs_to_reset, given that a malicious caller could
+> just set all the reset flags? Especially since a malicious actor would
+> instead just cause large allocations in the post_deps instead which we
+> always need to allocate.
+> 
+> What is the thread model here and what significant improvements can be
+> made to avoid issues?
 
-Hi
+I'm mostly worried about dealing with fuzzers who will throw you the full u32
+range and I'm always worried about providing easy ways for non-trusted users to
+exert memory pressure.
 
-Am 12.01.20 um 23:53 schrieb Daniel Vetter:
-> On Fri, Jan 10, 2020 at 10:21:27AM +0100, Thomas Zimmermann wrote:
->> All non-legacy users of VBLANK functions in struct drm_driver have bee=
-n
->> converted to use the respective interfaces in struct drm_crtc_funcs. T=
-he
->> remaining users of VBLANK callbacks in struct drm_driver are legacy dr=
-ivers
->> with userspace modesetting.
->>
->> There are no users left of get_vblank_timestamp(), so the callback is
->> being removed. The other VBLANK callbacks are being moved to the legac=
-y
->> section at the end of struct drm_driver.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->=20
-> I think sprinkling some WARN_ON (in drm_dev_register or wherever) if ne=
-w
-> drivers try to use the legacy hooks would be really nice. Experience sa=
-ys
-> someone is going to copypaste this stuff around forever otherwise.
+> The only thing I could think of is that by doing krealloc we require
+> the user to commit to using similar amount of memory in userspace.
+> However, that comes at the significant complexity cost of handling
+> reallocing and handling the failures of that.
 
-I've been thinking about moving these fields to separate structures, say
-struct drm_legacy_device and struct drm_legacy_driver. Those would be
-allocated for legacy drivers and KMS drivers would never see them
-(except for their forward declaration).
+If there needs to be a 1:1 relationship between the user and the kernel then
+I agree krealloc isn't a great idea.
 
-Best regards
-Thomas
+> Thoughts?
 
->=20
-> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
->=20
->> ---
->>  drivers/gpu/drm/drm_vblank.c |  39 +++++---------
->>  include/drm/drm_drv.h        | 101 ++--------------------------------=
--
->>  2 files changed, 17 insertions(+), 123 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank=
-=2Ec
->> index 7cf436a4b908..ceff68474d4d 100644
->> --- a/drivers/gpu/drm/drm_vblank.c
->> +++ b/drivers/gpu/drm/drm_vblank.c
->> @@ -138,10 +138,9 @@ static u32 __get_vblank_counter(struct drm_device=
- *dev, unsigned int pipe)
->> =20
->>  		if (crtc->funcs->get_vblank_counter)
->>  			return crtc->funcs->get_vblank_counter(crtc);
->> -	}
->> -
->> -	if (dev->driver->get_vblank_counter)
->> +	} else if (dev->driver->get_vblank_counter) {
->>  		return dev->driver->get_vblank_counter(dev, pipe);
->> +	}
->> =20
->>  	return drm_vblank_no_hw_counter(dev, pipe);
->>  }
->> @@ -334,8 +333,7 @@ u64 drm_crtc_accurate_vblank_count(struct drm_crtc=
- *crtc)
->>  	unsigned long flags;
->> =20
->>  	WARN_ONCE(drm_debug_enabled(DRM_UT_VBL) &&
->> -		  !crtc->funcs->get_vblank_timestamp &&
->> -		  !dev->driver->get_vblank_timestamp,
->> +		  !crtc->funcs->get_vblank_timestamp,
->>  		  "This function requires support for accurate vblank timestamps.")=
-;
->> =20
->>  	spin_lock_irqsave(&dev->vblank_time_lock, flags);
->> @@ -357,13 +355,11 @@ static void __disable_vblank(struct drm_device *=
-dev, unsigned int pipe)
->>  		if (WARN_ON(!crtc))
->>  			return;
->> =20
->> -		if (crtc->funcs->disable_vblank) {
->> +		if (crtc->funcs->disable_vblank)
->>  			crtc->funcs->disable_vblank(crtc);
->> -			return;
->> -		}
->> +	} else {
->> +		dev->driver->disable_vblank(dev, pipe);
->>  	}
->> -
->> -	dev->driver->disable_vblank(dev, pipe);
->>  }
->> =20
->>  /*
->> @@ -791,9 +787,6 @@ drm_get_last_vbltimestamp(struct drm_device *dev, =
-unsigned int pipe,
->> =20
->>  		ret =3D crtc->funcs->get_vblank_timestamp(crtc, &max_error,
->>  							tvblank, in_vblank_irq);
->> -	} else if (dev->driver->get_vblank_timestamp && (max_error > 0)) {
->> -		ret =3D dev->driver->get_vblank_timestamp(dev, pipe, &max_error,
->> -							tvblank, in_vblank_irq);
->>  	}
->> =20
->>  	/* GPU high precision timestamp query unsupported or failed.
->> @@ -1016,9 +1009,11 @@ static int __enable_vblank(struct drm_device *d=
-ev, unsigned int pipe)
->> =20
->>  		if (crtc->funcs->enable_vblank)
->>  			return crtc->funcs->enable_vblank(crtc);
->> +	} else if (dev->driver->enable_vblank) {
->> +		return dev->driver->enable_vblank(dev, pipe);
->>  	}
->> =20
->> -	return dev->driver->enable_vblank(dev, pipe);
->> +	return -EINVAL;
->>  }
->> =20
->>  static int drm_vblank_enable(struct drm_device *dev, unsigned int pip=
-e)
->> @@ -1109,13 +1104,10 @@ static bool __vblank_disable_immediate(struct =
-drm_device *dev, unsigned int pipe
->>  		return false;
->> =20
->>  	crtc =3D drm_crtc_from_index(dev, pipe);
->> -	if (crtc && crtc->funcs->get_vblank_timestamp)
->> -		return true;
->> -
->> -	if (dev->driver->get_vblank_timestamp)
->> -		return true;
->> +	if (!crtc || !crtc->funcs->get_vblank_timestamp)
->> +		return false;
->> =20
->> -	return false;
->> +	return true;
->>  }
->> =20
->>  static void drm_vblank_put(struct drm_device *dev, unsigned int pipe)=
+Should we just stick with the classics and restrict the maximum number of fences
+to a fixed number? 50?  128? You would want the synobjs allocation to fit within
+a page anyway so 4096 / sizeof(struct drm_syncobj) might be a good start.
+Assuming we don't run up against any angry tests that try to allocate hundreds
+of fences this should do and you don't have to worry about the copy_to_user cost
+you mention above.
 
->> @@ -1798,7 +1790,6 @@ static void drm_handle_vblank_events(struct drm_=
-device *dev, unsigned int pipe)
->>  	struct drm_pending_vblank_event *e, *t;
->>  	ktime_t now;
->>  	u64 seq;
->> -	bool high_prec;
->> =20
->>  	assert_spin_locked(&dev->event_lock);
->> =20
->> @@ -1818,10 +1809,8 @@ static void drm_handle_vblank_events(struct drm=
-_device *dev, unsigned int pipe)
->>  		send_vblank_event(dev, e, seq, now);
->>  	}
->> =20
->> -	high_prec =3D crtc->funcs->get_vblank_timestamp ||
->> -		    dev->driver->get_vblank_timestamp;
->> -
->> -	trace_drm_vblank_event(pipe, seq, now, high_prec);
->> +	trace_drm_vblank_event(pipe, seq, now,
->> +			       crtc->funcs->get_vblank_timestamp !=3D NULL);
->>  }
->> =20
->>  /**
->> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
->> index b704e252f3b2..e290b3aca6eb 100644
->> --- a/include/drm/drm_drv.h
->> +++ b/include/drm/drm_drv.h
->> @@ -268,104 +268,6 @@ struct drm_driver {
->>  	 */
->>  	void (*release) (struct drm_device *);
->> =20
->> -	/**
->> -	 * @get_vblank_counter:
->> -	 *
->> -	 * Driver callback for fetching a raw hardware vblank counter for th=
-e
->> -	 * CRTC specified with the pipe argument.  If a device doesn't have =
-a
->> -	 * hardware counter, the driver can simply leave the hook as NULL.
->> -	 * The DRM core will account for missed vblank events while interrup=
-ts
->> -	 * where disabled based on system timestamps.
->> -	 *
->> -	 * Wraparound handling and loss of events due to modesetting is deal=
-t
->> -	 * with in the DRM core code, as long as drivers call
->> -	 * drm_crtc_vblank_off() and drm_crtc_vblank_on() when disabling or
->> -	 * enabling a CRTC.
->> -	 *
->> -	 * This is deprecated and should not be used by new drivers.
->> -	 * Use &drm_crtc_funcs.get_vblank_counter instead.
->> -	 *
->> -	 * Returns:
->> -	 *
->> -	 * Raw vblank counter value.
->> -	 */
->> -	u32 (*get_vblank_counter) (struct drm_device *dev, unsigned int pipe=
-);
->> -
->> -	/**
->> -	 * @enable_vblank:
->> -	 *
->> -	 * Enable vblank interrupts for the CRTC specified with the pipe
->> -	 * argument.
->> -	 *
->> -	 * This is deprecated and should not be used by new drivers.
->> -	 * Use &drm_crtc_funcs.enable_vblank instead.
->> -	 *
->> -	 * Returns:
->> -	 *
->> -	 * Zero on success, appropriate errno if the given @crtc's vblank
->> -	 * interrupt cannot be enabled.
->> -	 */
->> -	int (*enable_vblank) (struct drm_device *dev, unsigned int pipe);
->> -
->> -	/**
->> -	 * @disable_vblank:
->> -	 *
->> -	 * Disable vblank interrupts for the CRTC specified with the pipe
->> -	 * argument.
->> -	 *
->> -	 * This is deprecated and should not be used by new drivers.
->> -	 * Use &drm_crtc_funcs.disable_vblank instead.
->> -	 */
->> -	void (*disable_vblank) (struct drm_device *dev, unsigned int pipe);
->> -
->> -	/**
->> -	 * @get_vblank_timestamp:
->> -	 *
->> -	 * Called by drm_get_last_vbltimestamp(). Should return a precise
->> -	 * timestamp when the most recent VBLANK interval ended or will end.=
+<snip>
 
->> -	 *
->> -	 * Specifically, the timestamp in @vblank_time should correspond as
->> -	 * closely as possible to the time when the first video scanline of
->> -	 * the video frame after the end of VBLANK will start scanning out,
->> -	 * the time immediately after end of the VBLANK interval. If the
->> -	 * @crtc is currently inside VBLANK, this will be a time in the futu=
-re.
->> -	 * If the @crtc is currently scanning out a frame, this will be the
->> -	 * past start time of the current scanout. This is meant to adhere
->> -	 * to the OpenML OML_sync_control extension specification.
->> -	 *
->> -	 * Paramters:
->> -	 *
->> -	 * dev:
->> -	 *     dev DRM device handle.
->> -	 * pipe:
->> -	 *     crtc for which timestamp should be returned.
->> -	 * max_error:
->> -	 *     Maximum allowable timestamp error in nanoseconds.
->> -	 *     Implementation should strive to provide timestamp
->> -	 *     with an error of at most max_error nanoseconds.
->> -	 *     Returns true upper bound on error for timestamp.
->> -	 * vblank_time:
->> -	 *     Target location for returned vblank timestamp.
->> -	 * in_vblank_irq:
->> -	 *     True when called from drm_crtc_handle_vblank().  Some drivers=
+Jordan
 
->> -	 *     need to apply some workarounds for gpu-specific vblank irq qu=
-irks
->> -	 *     if flag is set.
->> -	 *
->> -	 * Returns:
->> -	 *
->> -	 * True on success, false on failure, which means the core should
->> -	 * fallback to a simple timestamp taken in drm_crtc_handle_vblank().=
-
->> -	 *
->> -	 * FIXME:
->> -	 *
->> -	 * We should move this hook to &struct drm_crtc_funcs like all the o=
-ther
->> -	 * vblank hooks.
->> -	 */
->> -	bool (*get_vblank_timestamp) (struct drm_device *dev, unsigned int p=
-ipe,
->> -				     int *max_error,
->> -				     ktime_t *vblank_time,
->> -				     bool in_vblank_irq);
->> -
->>  	/**
->>  	 * @irq_handler:
->>  	 *
->> @@ -720,6 +622,9 @@ struct drm_driver {
->>  	int (*dma_ioctl) (struct drm_device *dev, void *data, struct drm_fil=
-e *file_priv);
->>  	int (*dma_quiescent) (struct drm_device *);
->>  	int (*context_dtor) (struct drm_device *dev, int context);
->> +	u32 (*get_vblank_counter)(struct drm_device *dev, unsigned int pipe)=
-;
->> +	int (*enable_vblank)(struct drm_device *dev, unsigned int pipe);
->> +	void (*disable_vblank)(struct drm_device *dev, unsigned int pipe);
->>  	int dev_priv_size;
->>  };
->> =20
->> --=20
->> 2.24.1
->>
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---RAgxvS6j00AOrEMVpsfV7vPGxWhMlDzKn--
-
---hnX2ORJn5vRIQccq9Tfc7COteUkRxx61k
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl4dxp0ACgkQaA3BHVML
-eiM2LAf+N0P4K1WKEoBwNNQG29y3+S5aPjHn2Z//V9UoNisKLZHcvcqsUvwN1Tev
-N+DXjGdRzpgPCMu8IOfQBi+fob8CKgS5i+Y1t21sqJo1YqLGdeECeVvwofurAjEp
-gNL6hGEG+TnzuuSQdn9JyAzLvwMHS9GR5aBXM3D3v8hBI5VDl3kP7RsvU6Cra2j+
-iT+fKiSwpLbjeRK/tvquY5YD2IHGhThx0foDhYHtNM+Wtp8xuVjd/fkAa8087bfY
-tbIkX44AnNJnkaSwic7tsl9YBKNnXaRDciqcblXWF8FHDpoUocuGJf9NUePvx8XU
-wL9DGhUIxUSIeSr++09yBzi5jXc6vA==
-=2kyn
------END PGP SIGNATURE-----
-
---hnX2ORJn5vRIQccq9Tfc7COteUkRxx61k--
-
---===============0082255568==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+a Linux Foundation Collaborative Project
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
-
---===============0082255568==--
