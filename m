@@ -1,61 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4A9F13CE67
-	for <lists+freedreno@lfdr.de>; Wed, 15 Jan 2020 21:57:40 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id E3AC213D09B
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jan 2020 00:18:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 890286EA9E;
-	Wed, 15 Jan 2020 20:57:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C6026EB7F;
+	Wed, 15 Jan 2020 23:18:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-vs1-xe64.google.com (mail-vs1-xe64.google.com
- [IPv6:2607:f8b0:4864:20::e64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D89116EA9F
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jan 2020 20:57:37 +0000 (UTC)
-Received: by mail-vs1-xe64.google.com with SMTP id b4so11304135vsa.12
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jan 2020 12:57:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=brkho-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=MoaLqRsXbsF8WWfj7JkWTIfWhuB0czfd/jbk7/+hexM=;
- b=ksKqKO6Uhobvq/K9pBY4ix3j3Vkphyaa/mEZ535OVhGl9gLs0a7c8MJ5OmR87Vf+10
- 5mEsnaytE8agpwaKvl+1JEpKFyCVqGXGk86ZEtZDhZl64V1b7FlM27TjWUdL+TViZxBr
- roDScgykIksCyMPlsZf2jsPV2NY9Y3e/rhuaNaqSrYV1O65LVpJ2eBs1boUQZfSdB88/
- FS2am7QPK8rOs/bSwXlNR0jhR4M4myAQGPv8450qrCSUmpsW6VzDcm5oAIwLOsYH31rw
- Cuu/fvR7S3p40ad5eRyeky7sPs/tRlm3g9z2FKx2uIfPngHMJLMwqXmStnxes1H731++
- kwVw==
+Received: from mail-qv1-xf42.google.com (mail-qv1-xf42.google.com
+ [IPv6:2607:f8b0:4864:20::f42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67F476EB7F;
+ Wed, 15 Jan 2020 23:18:30 +0000 (UTC)
+Received: by mail-qv1-xf42.google.com with SMTP id m14so8236140qvl.3;
+ Wed, 15 Jan 2020 15:18:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=UpvlowCsrupkOKWs9KxGBnIKBt8PC3L4e1k91b9xY8g=;
+ b=ggiCur99WNdd3h4Jf4LjYSQuVDYl4E6Qhn75niLIA1NPB53AMADsLKzA2B0KWaFAgK
+ WFdXvlt8+DPByk1ih4xrHxBRcbkgz8qO9bswwNFGfsUZbRPo6b31am0pz1xefAjLntlP
+ uS2VLS0/f9yaf0r1KeNFzFOIWhIAWTtphEDLkK0QbnbDqESvryo3WHfDJWJp/YgjeMX8
+ G4rJ5JOftvLz/NJO6YhYNgP5TPucnRvGTEhwzgTGl3mcbiN7czbucknxIere/2OP3t5W
+ X7kxJchchRsKbf3x3F4QS9BWapPAyaftRs+PH7uwnZWV5h0kpf6jYwM0+M6v3GOQosJF
+ H8Hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=MoaLqRsXbsF8WWfj7JkWTIfWhuB0czfd/jbk7/+hexM=;
- b=DFCNVriXIbyMhPI/4VL91A9LOiW1lx4+dgn+O2vXeeWCFcYi2XO8IHlHa3qM4E+Rmn
- UHLQ3WSnpSa9LcV7m6SZvhJKXJFRfQgIhAb1LrhJ4KU4qhF5wfMkuBIRdivm+GJfDXfJ
- Y3LRJeT6T1Gpi2cxnmS8HADm5mNa/eIbJGWRsbaxbDguqCVPSlsO+9UAzrv93ojik02J
- Ve5bGQa86VXeOB4E/M3WNBB+C5dyc5txkkX9/UlGoTHYMnr4Ascdeh1ndncTc5jzfZQZ
- adxAYiYYYFOk+XteRIptggA8MfT1+L6Wcp3t5zeXDNuYuqEBfLj9cg1bu+W6uaMr4dm/
- ShzQ==
-X-Gm-Message-State: APjAAAUAbsLcMKBz53adVTMaEwoITlLdOS50vukjrV9Ly8WWDI9qZZaa
- xAcEdYOJ88U7jcK4iVKRIpaeDIRAIdWqi0aJgp2GyQte7pF2nQ==
-X-Google-Smtp-Source: APXvYqx5I5VrFSVu9xq8Xm4JtWThqjJdeqMg8fv8mfJ+xc7a8lZAi7mI+C25Nup37fai/gBlYNHBcUaY6hQs
-X-Received: by 2002:a67:6746:: with SMTP id b67mr5544300vsc.193.1579121856991; 
- Wed, 15 Jan 2020 12:57:36 -0800 (PST)
-Received: from hob1.nyc.corp.google.com ([100.118.32.120])
- by smtp-relay.gmail.com with ESMTPS id j26sm1472756uak.1.2020.01.15.12.57.36
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=UpvlowCsrupkOKWs9KxGBnIKBt8PC3L4e1k91b9xY8g=;
+ b=JKobmHMnMysWe2kZJv2U6WikAAmvcwPrK34tRCswY+NEgjo5r8oBt4TN+l8tKuE04B
+ iWxLlh73RzhbKzXpS8RatsaUhuvBvXr3TM01K5m7phbZNKOxgT246qo+K6v1VwS6d8z9
+ LvK1zu8/86pK/oT/TdnkiOzH4VH6lUSdjHSerKfWq6Zvap0JnPtc6+RkqCJSg4qJUsCg
+ O793kFZyTejP0uIcRlPcH/E1HJTRJ5EvdGVT++CLzYHaw3VRMvTcSuVfgaRysOmyeF7v
+ 18SMUWgw4dNxcVocu7nRPQ+Sl0+j0knaYKCIN54jUBbmujpOqqVEp9WeCARnz5XBOf4A
+ h3xg==
+X-Gm-Message-State: APjAAAU7jaT2RAYnU4RRmTV7KBclimNTxyPkvIF4caEhYHiYVpjBua0C
+ qIBbBY4ZkuhGLNx27zrBzUs=
+X-Google-Smtp-Source: APXvYqx/GPl8/eYOnPUqiqDbqgb1g3EZTxvoIVWy4jSW/CyzNiZv5vi33T3StFjkwqyaO4BHiF+Vxw==
+X-Received: by 2002:a05:6214:20c:: with SMTP id
+ i12mr28835407qvt.48.1579130309513; 
+ Wed, 15 Jan 2020 15:18:29 -0800 (PST)
+Received: from smtp.gmail.com ([165.204.55.250])
+ by smtp.gmail.com with ESMTPSA id d5sm10518385qtk.96.2020.01.15.15.18.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Jan 2020 12:57:36 -0800 (PST)
-X-Relaying-Domain: brkho.com
-From: Brian Ho <brian@brkho.com>
-To: freedreno@lists.freedesktop.org
-Date: Wed, 15 Jan 2020 15:56:49 -0500
-Message-Id: <20200115205649.12971-3-brian@brkho.com>
-X-Mailer: git-send-email 2.25.0.rc1.283.g88dfdc4193-goog
-In-Reply-To: <20200115205649.12971-1-brian@brkho.com>
-References: <20200115205649.12971-1-brian@brkho.com>
+ Wed, 15 Jan 2020 15:18:28 -0800 (PST)
+Date: Wed, 15 Jan 2020 18:18:23 -0500
+From: Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <20200115231823.v6uyxtgxnfgwmsqq@smtp.gmail.com>
+References: <20200115121652.7050-1-tzimmermann@suse.de>
+ <20200115121652.7050-20-tzimmermann@suse.de>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v2 2/2] drm/msm: Add MSM_WAIT_IOVA ioctl
+In-Reply-To: <20200115121652.7050-20-tzimmermann@suse.de>
+Subject: Re: [Freedreno] [PATCH v2 19/21] drm/vkms: Convert to CRTC VBLANK
+ callbacks
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,164 +68,153 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robdclark@chromium.org, Brian Ho <brian@brkho.com>,
- David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- jcrouse@codeaurora.org,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, hoegsberg@chromium.org,
- Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: hamohammed.sa@gmail.com, airlied@linux.ie, nouveau@lists.freedesktop.org,
+ joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org,
+ eric@anholt.net, amd-gfx@lists.freedesktop.org, benjamin.gaignard@linaro.org,
+ alexandre.torgue@st.com, David1.Zhou@amd.com, thellstrom@vmware.com,
+ sean@poorly.run, patrik.r.jakobsson@gmail.com,
+ linux-graphics-maintainer@vmware.com, bskeggs@redhat.com,
+ harry.wentland@amd.com, mcoquelin.stm32@gmail.com, sunpeng.li@amd.com,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ maarten.lankhorst@linux.intel.com, jani.nikula@linux.intel.com,
+ rodrigo.vivi@intel.com, vincent.abriou@st.com, philippe.cornu@st.com,
+ yannick.fertre@st.com, robdclark@gmail.com, daniel@ffwll.ch,
+ alexander.deucher@amd.com, freedreno@lists.freedesktop.org,
+ christian.koenig@amd.com
+Content-Type: multipart/mixed; boundary="===============1706688585=="
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Implements an ioctl to wait until a value at a given iova is greater
-than or equal to a supplied value.
 
-This will initially be used by turnip (open-source Vulkan driver for
-QC in mesa) for occlusion queries where the userspace driver can
-block on a query becoming available before continuing via
-vkGetQueryPoolResults.
+--===============1706688585==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mkcm5mxh5ewyz3eu"
+Content-Disposition: inline
 
-Signed-off-by: Brian Ho <brian@brkho.com>
----
- drivers/gpu/drm/msm/msm_drv.c | 61 +++++++++++++++++++++++++++++++++--
- include/uapi/drm/msm_drm.h    | 14 ++++++++
- 2 files changed, 73 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index c84f0a8b3f2c..92853c795c5c 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -36,10 +36,11 @@
-  *           MSM_GEM_INFO ioctl.
-  * - 1.4.0 - softpin, MSM_RELOC_BO_DUMP, and GEM_INFO support to set/get
-  *           GEM object's debug name
-- * - 1.5.0 - Add SUBMITQUERY_QUERY ioctl
-+ * - 1.5.0 - Add SUBMITQUEUE_QUERY ioctl
-+ * - 1.6.0 - Add WAIT_IOVA ioctl
-  */
- #define MSM_VERSION_MAJOR	1
--#define MSM_VERSION_MINOR	5
-+#define MSM_VERSION_MINOR	6
- #define MSM_VERSION_PATCHLEVEL	0
- 
- static const struct drm_mode_config_funcs mode_config_funcs = {
-@@ -952,6 +953,61 @@ static int msm_ioctl_submitqueue_close(struct drm_device *dev, void *data,
- 	return msm_submitqueue_remove(file->driver_priv, id);
- }
- 
-+static int msm_ioctl_wait_iova(struct drm_device *dev, void *data,
-+		struct drm_file *file)
-+{
-+	struct msm_drm_private *priv = dev->dev_private;
-+	struct drm_gem_object *obj;
-+	struct drm_msm_wait_iova *args = data;
-+	ktime_t timeout = to_ktime(args->timeout);
-+	unsigned long remaining_jiffies = timeout_to_jiffies(&timeout);
-+	struct msm_gpu *gpu = priv->gpu;
-+	void *base_vaddr;
-+	uint64_t ref_value = args->value & args->mask;
-+	uint64_t *vaddr;
-+	int ret;
-+
-+	if (args->pad)
-+		return -EINVAL;
-+
-+	if (!gpu)
-+		return -ENODEV;
-+
-+	obj = drm_gem_object_lookup(file, args->handle);
-+	if (!obj)
-+		return -ENOENT;
-+
-+	if (args->offset + sizeof(*vaddr) < args->offset ||
-+		args->offset + sizeof(*vaddr) > obj->size) {
-+		ret = -EINVAL;
-+		goto err_put_gem_object;
-+	}
-+
-+	base_vaddr = msm_gem_get_vaddr(obj);
-+	if (IS_ERR(base_vaddr)) {
-+		ret = PTR_ERR(base_vaddr);
-+		goto err_put_gem_object;
-+	}
-+
-+	vaddr = base_vaddr + args->offset;
-+
-+	/* TODO: Support 64 bit reference values with a flag. */
-+	ret = wait_event_interruptible_timeout(gpu->event,
-+			(int32_t)((uint32_t)*vaddr - (uint32_t)ref_value) >= 0,
-+			remaining_jiffies);
-+
-+	if (ret == 0)
-+		ret = -ETIMEDOUT;
-+	else if (ret > 0)
-+		ret = 0;
-+
-+    msm_gem_put_vaddr(obj);
-+
-+err_put_gem_object:
-+	drm_gem_object_put_unlocked(obj);
-+	return ret;
-+}
-+
- static const struct drm_ioctl_desc msm_ioctls[] = {
- 	DRM_IOCTL_DEF_DRV(MSM_GET_PARAM,    msm_ioctl_get_param,    DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(MSM_GEM_NEW,      msm_ioctl_gem_new,      DRM_RENDER_ALLOW),
-@@ -964,6 +1020,7 @@ static const struct drm_ioctl_desc msm_ioctls[] = {
- 	DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_NEW,   msm_ioctl_submitqueue_new,   DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_CLOSE, msm_ioctl_submitqueue_close, DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_QUERY, msm_ioctl_submitqueue_query, DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF_DRV(MSM_WAIT_IOVA, msm_ioctl_wait_iova, DRM_RENDER_ALLOW),
- };
- 
- static const struct vm_operations_struct vm_ops = {
-diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
-index 0b85ed6a3710..d4eac312f56e 100644
---- a/include/uapi/drm/msm_drm.h
-+++ b/include/uapi/drm/msm_drm.h
-@@ -298,6 +298,18 @@ struct drm_msm_submitqueue_query {
- 	__u32 pad;
- };
- 
-+/* This ioctl blocks until the value at bo + offset is greater than or equal
-+ * to the reference value.
-+ */
-+struct drm_msm_wait_iova {
-+	__u32 handle;          /* in, GEM handle */
-+	__u32 pad;
-+	struct drm_msm_timespec timeout;   /* in */
-+	__u64 offset;          /* in, offset into bo */
-+	__u64 mask;            /* in, mask of the value at bo + offset */
-+	__u64 value;           /* in, reference value, 32 bits */
-+};
-+
- #define DRM_MSM_GET_PARAM              0x00
- /* placeholder:
- #define DRM_MSM_SET_PARAM              0x01
-@@ -315,6 +327,7 @@ struct drm_msm_submitqueue_query {
- #define DRM_MSM_SUBMITQUEUE_NEW        0x0A
- #define DRM_MSM_SUBMITQUEUE_CLOSE      0x0B
- #define DRM_MSM_SUBMITQUEUE_QUERY      0x0C
-+#define DRM_MSM_WAIT_IOVA      0x0D
- 
- #define DRM_IOCTL_MSM_GET_PARAM        DRM_IOWR(DRM_COMMAND_BASE + DRM_MSM_GET_PARAM, struct drm_msm_param)
- #define DRM_IOCTL_MSM_GEM_NEW          DRM_IOWR(DRM_COMMAND_BASE + DRM_MSM_GEM_NEW, struct drm_msm_gem_new)
-@@ -327,6 +340,7 @@ struct drm_msm_submitqueue_query {
- #define DRM_IOCTL_MSM_SUBMITQUEUE_NEW    DRM_IOWR(DRM_COMMAND_BASE + DRM_MSM_SUBMITQUEUE_NEW, struct drm_msm_submitqueue)
- #define DRM_IOCTL_MSM_SUBMITQUEUE_CLOSE  DRM_IOW (DRM_COMMAND_BASE + DRM_MSM_SUBMITQUEUE_CLOSE, __u32)
- #define DRM_IOCTL_MSM_SUBMITQUEUE_QUERY  DRM_IOW (DRM_COMMAND_BASE + DRM_MSM_SUBMITQUEUE_QUERY, struct drm_msm_submitqueue_query)
-+#define DRM_IOCTL_MSM_WAIT_IOVA        DRM_IOW (DRM_COMMAND_BASE + DRM_MSM_WAIT_IOVA, struct drm_msm_wait_iova)
- 
- #if defined(__cplusplus)
- }
--- 
-2.25.0.rc1.283.g88dfdc4193-goog
+--mkcm5mxh5ewyz3eu
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+Thanks for the patch, I reviewed and tested it. Everything looks fine
+for VKMS.
+
+Reviewed-by: Rodrigo Siqueira <rodrigosiqueira@gmail.com>
+Tested-by: Rodrigo Siqueira <rodrigosiqueira@gmail.com>
+
+On 01/15, Thomas Zimmermann wrote:
+> VBLANK callbacks in struct drm_driver are deprecated in favor of
+> their equivalents in struct drm_crtc_funcs. Convert vkms over.
+>=20
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>  drivers/gpu/drm/vkms/vkms_crtc.c | 9 ++++++---
+>  drivers/gpu/drm/vkms/vkms_drv.c  | 1 -
+>  drivers/gpu/drm/vkms/vkms_drv.h  | 4 ----
+>  3 files changed, 6 insertions(+), 8 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/vkms/vkms_crtc.c b/drivers/gpu/drm/vkms/vkms=
+_crtc.c
+> index 74f703b8d22a..ac85e17428f8 100644
+> --- a/drivers/gpu/drm/vkms/vkms_crtc.c
+> +++ b/drivers/gpu/drm/vkms/vkms_crtc.c
+> @@ -76,10 +76,12 @@ static void vkms_disable_vblank(struct drm_crtc *crtc)
+>  	hrtimer_cancel(&out->vblank_hrtimer);
+>  }
+> =20
+> -bool vkms_get_vblank_timestamp(struct drm_device *dev, unsigned int pipe,
+> -			       int *max_error, ktime_t *vblank_time,
+> -			       bool in_vblank_irq)
+> +static bool vkms_get_vblank_timestamp(struct drm_crtc *crtc,
+> +				      int *max_error, ktime_t *vblank_time,
+> +				      bool in_vblank_irq)
+>  {
+> +	struct drm_device *dev =3D crtc->dev;
+> +	unsigned int pipe =3D crtc->index;
+>  	struct vkms_device *vkmsdev =3D drm_device_to_vkms_device(dev);
+>  	struct vkms_output *output =3D &vkmsdev->output;
+>  	struct drm_vblank_crtc *vblank =3D &dev->vblank[pipe];
+> @@ -154,6 +156,7 @@ static const struct drm_crtc_funcs vkms_crtc_funcs =
+=3D {
+>  	.atomic_destroy_state   =3D vkms_atomic_crtc_destroy_state,
+>  	.enable_vblank		=3D vkms_enable_vblank,
+>  	.disable_vblank		=3D vkms_disable_vblank,
+> +	.get_vblank_timestamp	=3D vkms_get_vblank_timestamp,
+>  	.get_crc_sources	=3D vkms_get_crc_sources,
+>  	.set_crc_source		=3D vkms_set_crc_source,
+>  	.verify_crc_source	=3D vkms_verify_crc_source,
+> diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_=
+drv.c
+> index 25bd7519295f..860de052e820 100644
+> --- a/drivers/gpu/drm/vkms/vkms_drv.c
+> +++ b/drivers/gpu/drm/vkms/vkms_drv.c
+> @@ -103,7 +103,6 @@ static struct drm_driver vkms_driver =3D {
+>  	.dumb_create		=3D vkms_dumb_create,
+>  	.gem_vm_ops		=3D &vkms_gem_vm_ops,
+>  	.gem_free_object_unlocked =3D vkms_gem_free_object,
+> -	.get_vblank_timestamp	=3D vkms_get_vblank_timestamp,
+>  	.prime_fd_to_handle	=3D drm_gem_prime_fd_to_handle,
+>  	.gem_prime_import_sg_table =3D vkms_prime_import_sg_table,
+> =20
+> diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_=
+drv.h
+> index 7d52e24564db..eda04ffba7b1 100644
+> --- a/drivers/gpu/drm/vkms/vkms_drv.h
+> +++ b/drivers/gpu/drm/vkms/vkms_drv.h
+> @@ -111,10 +111,6 @@ struct vkms_gem_object {
+>  int vkms_crtc_init(struct drm_device *dev, struct drm_crtc *crtc,
+>  		   struct drm_plane *primary, struct drm_plane *cursor);
+> =20
+> -bool vkms_get_vblank_timestamp(struct drm_device *dev, unsigned int pipe,
+> -			       int *max_error, ktime_t *vblank_time,
+> -			       bool in_vblank_irq);
+> -
+>  int vkms_output_init(struct vkms_device *vkmsdev, int index);
+> =20
+>  struct drm_plane *vkms_plane_init(struct vkms_device *vkmsdev,
+> --=20
+> 2.24.1
+>=20
+
+--=20
+Rodrigo Siqueira
+Software Engineer, Advanced Micro Devices (AMD)
+https://siqueira.tech
+
+--mkcm5mxh5ewyz3eu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE4tZ+ii1mjMCMQbfkWJzP/comvP8FAl4fnb8ACgkQWJzP/com
+vP/gKw/+MnM27NT0QpqQpa6WMwn9PCq/07UFLOG7BuTGP2CvZOJv8Tma7U6bu9Sf
+Z3IwiMYNJV8FJtwdRd+BTThIYGPTtofxsJ2R3ybhUj/VEeUaEhC2ifzwVrphEePR
+3/b4QFlf/vrMfsdJSOSam6vvaiI+jE4X1ZASrUKbcl5w9KeBhs2VmcwVKmtqQgaD
+YHWIWUwiwsd544GltP+mx7qxZ5+ZHVC+OuJq/GNzhwD9MyXTliBcM6nov+FPV/HE
+aT4WrhBCiDHhISO9sTYPqiV6Vo7XV6sPzDMFncNqueMwP4qQr/mFebxPtlUtPYOO
+jwg0ZTq/6KL+QeJM55Ygg0cvVUvG14G8ZSktb4s7rPRWE4k7/DZWP2w/xP1xVsoP
+H+Q2jvjTV1qu+G2A7vtP2gYBsCx7WoYfIoR045pAIEKEz5FLF38GFY04uS/T0M3u
+eez0yNDC1EojMWeTTPM5Lm7MCUPx7sR6V14gGDDVs/QBmZpgyJkWj4unYBCwk9Ge
+oMSZkUhnnJT4FutLRaJk0awg7iMw7yj4XNJgKB1vEVwS2/RkJ6jrgw/PoihwOBLZ
+Gmm6Ys+btER/e9zHA+u8Z5z0guAkI8r9H8ikMtqSza6RipedsEIrncLV8U2l+hwT
+ooPnCySDn8Xkw985ZR+/UW0I+FjjWDVdn3jmwcyRZ99fksmbvkY=
+=KRlQ
+-----END PGP SIGNATURE-----
+
+--mkcm5mxh5ewyz3eu--
+
+--===============1706688585==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
+
+--===============1706688585==--
