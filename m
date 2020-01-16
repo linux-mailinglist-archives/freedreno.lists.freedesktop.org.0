@@ -2,42 +2,42 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6BEE13E9EB
-	for <lists+freedreno@lfdr.de>; Thu, 16 Jan 2020 18:41:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE3F413EA95
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jan 2020 18:45:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B1226EE5C;
-	Thu, 16 Jan 2020 17:41:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 929076EE73;
+	Thu, 16 Jan 2020 17:45:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 634D06EE5C;
- Thu, 16 Jan 2020 17:41:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D62AC6EE72;
+ Thu, 16 Jan 2020 17:45:11 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 23EA42467C;
- Thu, 16 Jan 2020 17:41:03 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7DB6C24773;
+ Thu, 16 Jan 2020 17:45:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1579196464;
- bh=mlxYd5cszeChQ7P+G40T2hUzaO7kh5hQ4w884GddtDQ=;
+ s=default; t=1579196711;
+ bh=toTgmiI4hSwzDMFAAKNj0Km93inH4SEVtN/A21b5UVU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dlQzgEDzAxErlmX5rckjbCh1oqCCO6TtwIutbt5BH72z1FN8HlXQzl4GZiCf2kLEY
- pgSVD79NwHBIYBbRa975zQUoi7VPFWwBW19lJt5Q/YFqOdzoeqxHeT0ZzTJ6mPhH/2
- oHpYPE2d/IJXMl5LyqKBgBLTPnBJlQRh7H95E1sE=
+ b=Dj7NjDNhhBzxkapd1vEa4/kBqKanPLCfhJTkZiEJNHWDB+aUQXtrT9NaTfHwluGUn
+ cwKJkFJLXGg1AgPxiIN4JHF45pwBZn1N4w+TWdyHAP6VDnS94lwbWhWCnv1rk1eJJj
+ Gh8fxugwm39BVd30IGJQ/eM/bsE4la9rjGpmM6Us=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu, 16 Jan 2020 12:36:06 -0500
-Message-Id: <20200116173641.22137-177-sashal@kernel.org>
+Date: Thu, 16 Jan 2020 12:41:38 -0500
+Message-Id: <20200116174251.24326-101-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200116173641.22137-1-sashal@kernel.org>
-References: <20200116173641.22137-1-sashal@kernel.org>
+In-Reply-To: <20200116174251.24326-1-sashal@kernel.org>
+References: <20200116174251.24326-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Subject: [Freedreno] [PATCH AUTOSEL 4.9 217/251] drm/msm/dsi: Implement
- reset correctly
+Subject: [Freedreno] [PATCH AUTOSEL 4.4 101/174] drm/msm/mdp5: Fix
+ mdp5_cfg_init error return
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,11 +50,10 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, freedreno@lists.freedesktop.org,
- Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, Hai Li <hali@codeaurora.org>,
- dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- Sean Paul <seanpaul@chromium.org>, linux-arm-msm@vger.kernel.org,
- Sean Paul <sean@poorly.run>
+Cc: Rob Clark <robdclark@chromium.org>, Sasha Levin <sashal@kernel.org>,
+ Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
@@ -62,69 +61,35 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
 
-[ Upstream commit 78e31c42261779a01bc73472d0f65f15378e9de3 ]
+[ Upstream commit fc19cbb785d7bbd1a1af26229b5240a3ab332744 ]
 
-On msm8998, vblank timeouts are observed because the DSI controller is not
-reset properly, which ends up stalling the MDP.  This is because the reset
-logic is not correct per the hardware documentation.
+If mdp5_cfg_init fails because of an unknown major version, a null pointer
+dereference occurs.  This is because the caller of init expects error
+pointers, but init returns NULL on error.  Fix this by returning the
+expected values on error.
 
-The documentation states that after asserting reset, software should wait
-some time (no indication of how long), or poll the status register until it
-returns 0 before deasserting reset.
-
-wmb() is insufficient for this purpose since it just ensures ordering, not
-timing between writes.  Since asserting and deasserting reset occurs on the
-same register, ordering is already guaranteed by the architecture, making
-the wmb extraneous.
-
-Since we would define a timeout for polling the status register to avoid a
-possible infinite loop, lets just use a static delay of 20 ms, since 16.666
-ms is the time available to process one frame at 60 fps.
-
-Fixes: a689554ba6ed ("drm/msm: Initial add DSI connector support")
-Cc: Hai Li <hali@codeaurora.org>
-Cc: Rob Clark <robdclark@gmail.com>
+Fixes: 2e362e1772b8 (drm/msm/mdp5: introduce mdp5_cfg module)
 Signed-off-by: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
-Reviewed-by: Sean Paul <sean@poorly.run>
-[seanpaul renamed RESET_DELAY to DSI_RESET_TOGGLE_DELAY_MS]
-Signed-off-by: Sean Paul <seanpaul@chromium.org>
-Link: https://patchwork.freedesktop.org/patch/msgid/20191011133939.16551-1-jeffrey.l.hugo@gmail.com
+Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+Signed-off-by: Rob Clark <robdclark@chromium.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/msm/dsi/dsi_host.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/mdp/mdp5/mdp5_cfg.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 6f240021705b..e49b414c012c 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -33,6 +33,8 @@
- #include "sfpb.xml.h"
- #include "dsi_cfg.h"
+diff --git a/drivers/gpu/drm/msm/mdp/mdp5/mdp5_cfg.c b/drivers/gpu/drm/msm/mdp/mdp5/mdp5_cfg.c
+index bb1225aa2f75..89305ad3cde2 100644
+--- a/drivers/gpu/drm/msm/mdp/mdp5/mdp5_cfg.c
++++ b/drivers/gpu/drm/msm/mdp/mdp5/mdp5_cfg.c
+@@ -547,7 +547,7 @@ struct mdp5_cfg_handler *mdp5_cfg_init(struct mdp5_kms *mdp5_kms,
+ 	if (cfg_handler)
+ 		mdp5_cfg_destroy(cfg_handler);
  
-+#define DSI_RESET_TOGGLE_DELAY_MS 20
-+
- static int dsi_get_version(const void __iomem *base, u32 *major, u32 *minor)
- {
- 	u32 ver;
-@@ -909,7 +911,7 @@ static void dsi_sw_reset(struct msm_dsi_host *msm_host)
- 	wmb(); /* clocks need to be enabled before reset */
- 
- 	dsi_write(msm_host, REG_DSI_RESET, 1);
--	wmb(); /* make sure reset happen */
-+	msleep(DSI_RESET_TOGGLE_DELAY_MS); /* make sure reset happen */
- 	dsi_write(msm_host, REG_DSI_RESET, 0);
+-	return NULL;
++	return ERR_PTR(ret);
  }
  
-@@ -1288,7 +1290,7 @@ static void dsi_sw_reset_restore(struct msm_dsi_host *msm_host)
- 
- 	/* dsi controller can only be reset while clocks are running */
- 	dsi_write(msm_host, REG_DSI_RESET, 1);
--	wmb();	/* make sure reset happen */
-+	msleep(DSI_RESET_TOGGLE_DELAY_MS); /* make sure reset happen */
- 	dsi_write(msm_host, REG_DSI_RESET, 0);
- 	wmb();	/* controller out of reset */
- 	dsi_write(msm_host, REG_DSI_CTRL, data0);
+ static struct mdp5_cfg_platform *mdp5_get_config(struct platform_device *dev)
 -- 
 2.20.1
 
