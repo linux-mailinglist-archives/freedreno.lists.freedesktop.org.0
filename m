@@ -1,59 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47D5A140AA3
-	for <lists+freedreno@lfdr.de>; Fri, 17 Jan 2020 14:23:11 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E238141099
+	for <lists+freedreno@lfdr.de>; Fri, 17 Jan 2020 19:17:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB3D26F55F;
-	Fri, 17 Jan 2020 13:23:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 829036F893;
+	Fri, 17 Jan 2020 18:17:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 253366E54C;
- Fri, 17 Jan 2020 13:23:07 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id D96C4B116;
- Fri, 17 Jan 2020 13:23:04 +0000 (UTC)
-To: Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>
-References: <20200115121652.7050-1-tzimmermann@suse.de>
- <20200115121652.7050-20-tzimmermann@suse.de>
- <20200115231823.v6uyxtgxnfgwmsqq@smtp.gmail.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- mQENBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAG0J1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPokBVAQTAQgAPhYh
- BHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsDBQkDwmcABQsJCAcCBhUKCQgLAgQWAgMB
- Ah4BAheAAAoJEGgNwR1TC3ojR80H/jH+vYavwQ+TvO8ksXL9JQWc3IFSiGpuSVXLCdg62AmR
- irxW+qCwNncNQyb9rd30gzdectSkPWL3KSqEResBe24IbA5/jSkPweJasgXtfhuyoeCJ6PXo
- clQQGKIoFIAEv1s8l0ggPZswvCinegl1diyJXUXmdEJRTWYAtxn/atut1o6Giv6D2qmYbXN7
- mneMC5MzlLaJKUtoH7U/IjVw1sx2qtxAZGKVm4RZxPnMCp9E1MAr5t4dP5gJCIiqsdrVqI6i
- KupZstMxstPU//azmz7ZWWxT0JzgJqZSvPYx/SATeexTYBP47YFyri4jnsty2ErS91E6H8os
- Bv6pnSn7eAq5AQ0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRH
- UE9eosYbT6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgT
- RjP+qbU63Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+R
- dhgATnWWGKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zb
- ehDda8lvhFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r
- 12+lqdsAEQEAAYkBPAQYAQgAJhYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsMBQkD
- wmcAAAoJEGgNwR1TC3ojpfcIAInwP5OlcEKokTnHCiDTz4Ony4GnHRP2fXATQZCKxmu4AJY2
- h9ifw9Nf2TjCZ6AMvC3thAN0rFDj55N9l4s1CpaDo4J+0fkrHuyNacnT206CeJV1E7NYntxU
- n+LSiRrOdywn6erjxRi9EYTVLCHcDhBEjKmFZfg4AM4GZMWX1lg0+eHbd5oL1as28WvvI/uI
- aMyV8RbyXot1r/8QLlWldU3NrTF5p7TMU2y3ZH2mf5suSKHAMtbE4jKJ8ZHFOo3GhLgjVrBW
- HE9JXO08xKkgD+w6v83+nomsEuf6C6LYrqY/tsZvyEX6zN8CtirPdPWu/VXNRYAl/lat7lSI
- 3H26qrE=
-Message-ID: <a8e631e0-5fe5-c53d-e632-0acd90254857@suse.de>
-Date: Fri, 17 Jan 2020 14:22:59 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.1
+Received: from mail25.static.mailgun.info (mail25.static.mailgun.info
+ [104.130.122.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38AD36F894
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Jan 2020 18:17:33 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1579285053; h=In-Reply-To: Content-Type: MIME-Version:
+ References: Message-ID: Subject: Cc: To: From: Date: Sender;
+ bh=Y7i+iwiStORqYT8jinrsaLQ4ejhy6S3t6gSg50SBLXY=;
+ b=qqATKcrZ97Trfd3sWMAxZizp/kIWN1uaQFKSOG33GYNR4nKBhxnc1LHfw+1+M6DBriCyt4vo
+ OzbrtsYCSe1xHqGraBBRvbfxzQCtm3Tochvpf5L6DPyN8nBdEddkj9A1YUrJnVAVfia9BVWA
+ LisV1Mn/W+iAozTLVbANFtCMZBU=
+X-Mailgun-Sending-Ip: 104.130.122.25
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5e21fa3b.7f0ae20e85a8-smtp-out-n01;
+ Fri, 17 Jan 2020 18:17:31 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 03543C43383; Fri, 17 Jan 2020 18:17:31 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id BA5DFC433CB;
+ Fri, 17 Jan 2020 18:17:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org BA5DFC433CB
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=jcrouse@codeaurora.org
+Date: Fri, 17 Jan 2020 11:17:27 -0700
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Message-ID: <20200117181726.GA19854@jcrouse1-lnx.qualcomm.com>
+Mail-Followup-To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20200116230417.12076-1-bas@basnieuwenhuizen.nl>
 MIME-Version: 1.0
-In-Reply-To: <20200115231823.v6uyxtgxnfgwmsqq@smtp.gmail.com>
-Subject: Re: [Freedreno] [PATCH v2 19/21] drm/vkms: Convert to CRTC VBLANK
- callbacks
+Content-Disposition: inline
+In-Reply-To: <20200116230417.12076-1-bas@basnieuwenhuizen.nl>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Freedreno] [PATCH v2] drm/msm: Add syncobj support.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,192 +69,462 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: hamohammed.sa@gmail.com, thellstrom@vmware.com, alexandre.torgue@st.com,
- airlied@linux.ie, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, rodrigo.vivi@intel.com, philippe.cornu@st.com,
- amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, vincent.abriou@st.com,
- sunpeng.li@amd.com, linux-graphics-maintainer@vmware.com,
- dri-devel@lists.freedesktop.org, mcoquelin.stm32@gmail.com,
- linux-arm-msm@vger.kernel.org, alexander.deucher@amd.com,
- freedreno@lists.freedesktop.org, sean@poorly.run, yannick.fertre@st.com,
- bskeggs@redhat.com
-Content-Type: multipart/mixed; boundary="===============1838027573=="
+Cc: freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1838027573==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="PtT6FIrvfqvheyQ046zVtJTcbNj3F21o5"
+On Fri, Jan 17, 2020 at 12:04:17AM +0100, Bas Nieuwenhuizen wrote:
+> This
+> 
+> 1) Enables core DRM syncobj support.
+> 2) Adds options to the submission ioctl to wait/signal syncobjs.
+> 
+> Just like the wait fence fd, this does inline waits. Using the
+> scheduler would be nice but I believe it is out of scope for
+> this work.
+> 
+> Support for timeline syncobjs is implemented and the interface
+> is ready for it, but I'm not enabling it yet until there is
+> some code for turnip to use it.
+> 
+> The reset is mostly in there because in the presence of waiting
+> and signalling the same semaphores, resetting them after
+> signalling can become very annoying.
+> 
+> v2:
+>   - Fixed style issues
+>   - Removed a cleanup issue in a failure case
+>   - Moved to a copy_from_user per syncobj
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---PtT6FIrvfqvheyQ046zVtJTcbNj3F21o5
-Content-Type: multipart/mixed; boundary="KDSDKULOECmLQ3OZULODBEBQGxSjeELHt";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>
-Cc: hamohammed.sa@gmail.com, airlied@linux.ie, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- alexandre.torgue@st.com, thellstrom@vmware.com, sean@poorly.run,
- linux-graphics-maintainer@vmware.com, bskeggs@redhat.com,
- mcoquelin.stm32@gmail.com, sunpeng.li@amd.com,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- rodrigo.vivi@intel.com, vincent.abriou@st.com, philippe.cornu@st.com,
- yannick.fertre@st.com, alexander.deucher@amd.com,
- freedreno@lists.freedesktop.org, christian.koenig@amd.com
-Message-ID: <a8e631e0-5fe5-c53d-e632-0acd90254857@suse.de>
-Subject: Re: [PATCH v2 19/21] drm/vkms: Convert to CRTC VBLANK callbacks
-References: <20200115121652.7050-1-tzimmermann@suse.de>
- <20200115121652.7050-20-tzimmermann@suse.de>
- <20200115231823.v6uyxtgxnfgwmsqq@smtp.gmail.com>
-In-Reply-To: <20200115231823.v6uyxtgxnfgwmsqq@smtp.gmail.com>
+A few nits, but nothing serious.  This is looking good, thanks for the quick
+turn around.
 
---KDSDKULOECmLQ3OZULODBEBQGxSjeELHt
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
+> Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+> ---
+>  drivers/gpu/drm/msm/msm_drv.c        |   6 +-
+>  drivers/gpu/drm/msm/msm_gem_submit.c | 236 ++++++++++++++++++++++++++-
+>  include/uapi/drm/msm_drm.h           |  24 ++-
+>  3 files changed, 262 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index c84f0a8b3f2c..5246b41798df 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -37,9 +37,10 @@
+>   * - 1.4.0 - softpin, MSM_RELOC_BO_DUMP, and GEM_INFO support to set/get
+>   *           GEM object's debug name
+>   * - 1.5.0 - Add SUBMITQUERY_QUERY ioctl
+> + * - 1.6.0 - Syncobj support
+>   */
+>  #define MSM_VERSION_MAJOR	1
+> -#define MSM_VERSION_MINOR	5
+> +#define MSM_VERSION_MINOR	6
+>  #define MSM_VERSION_PATCHLEVEL	0
+>  
+>  static const struct drm_mode_config_funcs mode_config_funcs = {
+> @@ -988,7 +989,8 @@ static struct drm_driver msm_driver = {
+>  	.driver_features    = DRIVER_GEM |
+>  				DRIVER_RENDER |
+>  				DRIVER_ATOMIC |
+> -				DRIVER_MODESET,
+> +				DRIVER_MODESET |
+> +				DRIVER_SYNCOBJ,
+>  	.open               = msm_open,
+>  	.postclose           = msm_postclose,
+>  	.lastclose          = drm_fb_helper_lastclose,
+> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+> index be5327af16fa..6c7f95fc5cfd 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+> @@ -8,7 +8,9 @@
+>  #include <linux/sync_file.h>
+>  #include <linux/uaccess.h>
+>  
+> +#include <drm/drm_drv.h>
+>  #include <drm/drm_file.h>
+> +#include <drm/drm_syncobj.h>
+>  
+>  #include "msm_drv.h"
+>  #include "msm_gpu.h"
+> @@ -394,6 +396,191 @@ static void submit_cleanup(struct msm_gem_submit *submit)
+>  	ww_acquire_fini(&submit->ticket);
+>  }
+>  
+> +
+> +struct msm_submit_post_dep {
+> +	struct drm_syncobj *syncobj;
+> +	uint64_t point;
+> +	struct dma_fence_chain *chain;
+> +};
+> +
+> +static int msm_wait_deps(struct drm_device *dev,
+> +                         struct drm_file *file,
+> +                         uint64_t in_syncobjs_addr,
+> +                         uint32_t nr_in_syncobjs,
+> +                         uint32_t syncobj_stride,
+> +                         struct msm_ringbuffer *ring,
+> +                         struct drm_syncobj ***syncobjs)
+> +{
+> +	struct drm_msm_gem_submit_syncobj syncobj_desc = {0};
+> +	int ret = 0;
+> +	uint32_t i, j;
+> +
+> +	*syncobjs = kcalloc(nr_in_syncobjs, sizeof(**syncobjs),
+> +	                    GFP_KERNEL | __GFP_NOWARN | __GFP_NORETRY);
 
-Hi
+Perfect - I think this will do everything we want - protect us against OOM death
+but also not introduce artificial constraints on object counts.
 
-Am 16.01.20 um 00:18 schrieb Rodrigo Siqueira:
-> Hi,
->=20
-> Thanks for the patch, I reviewed and tested it. Everything looks fine
-> for VKMS.
->=20
-> Reviewed-by: Rodrigo Siqueira <rodrigosiqueira@gmail.com>
-> Tested-by: Rodrigo Siqueira <rodrigosiqueira@gmail.com>
+> +	if (!syncobjs) {
 
-Thanks a lot.
+You should be able to just return -ENOMEM here.
 
-Best regards
-Thomas
+> +		ret = -ENOMEM;
+> +		goto out_syncobjs;
+> +	}
 
->=20
-> On 01/15, Thomas Zimmermann wrote:
->> VBLANK callbacks in struct drm_driver are deprecated in favor of
->> their equivalents in struct drm_crtc_funcs. Convert vkms over.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> ---
->>  drivers/gpu/drm/vkms/vkms_crtc.c | 9 ++++++---
->>  drivers/gpu/drm/vkms/vkms_drv.c  | 1 -
->>  drivers/gpu/drm/vkms/vkms_drv.h  | 4 ----
->>  3 files changed, 6 insertions(+), 8 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/vkms/vkms_crtc.c b/drivers/gpu/drm/vkms/v=
-kms_crtc.c
->> index 74f703b8d22a..ac85e17428f8 100644
->> --- a/drivers/gpu/drm/vkms/vkms_crtc.c
->> +++ b/drivers/gpu/drm/vkms/vkms_crtc.c
->> @@ -76,10 +76,12 @@ static void vkms_disable_vblank(struct drm_crtc *c=
-rtc)
->>  	hrtimer_cancel(&out->vblank_hrtimer);
->>  }
->> =20
->> -bool vkms_get_vblank_timestamp(struct drm_device *dev, unsigned int p=
-ipe,
->> -			       int *max_error, ktime_t *vblank_time,
->> -			       bool in_vblank_irq)
->> +static bool vkms_get_vblank_timestamp(struct drm_crtc *crtc,
->> +				      int *max_error, ktime_t *vblank_time,
->> +				      bool in_vblank_irq)
->>  {
->> +	struct drm_device *dev =3D crtc->dev;
->> +	unsigned int pipe =3D crtc->index;
->>  	struct vkms_device *vkmsdev =3D drm_device_to_vkms_device(dev);
->>  	struct vkms_output *output =3D &vkmsdev->output;
->>  	struct drm_vblank_crtc *vblank =3D &dev->vblank[pipe];
->> @@ -154,6 +156,7 @@ static const struct drm_crtc_funcs vkms_crtc_funcs=
- =3D {
->>  	.atomic_destroy_state   =3D vkms_atomic_crtc_destroy_state,
->>  	.enable_vblank		=3D vkms_enable_vblank,
->>  	.disable_vblank		=3D vkms_disable_vblank,
->> +	.get_vblank_timestamp	=3D vkms_get_vblank_timestamp,
->>  	.get_crc_sources	=3D vkms_get_crc_sources,
->>  	.set_crc_source		=3D vkms_set_crc_source,
->>  	.verify_crc_source	=3D vkms_verify_crc_source,
->> diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vk=
-ms_drv.c
->> index 25bd7519295f..860de052e820 100644
->> --- a/drivers/gpu/drm/vkms/vkms_drv.c
->> +++ b/drivers/gpu/drm/vkms/vkms_drv.c
->> @@ -103,7 +103,6 @@ static struct drm_driver vkms_driver =3D {
->>  	.dumb_create		=3D vkms_dumb_create,
->>  	.gem_vm_ops		=3D &vkms_gem_vm_ops,
->>  	.gem_free_object_unlocked =3D vkms_gem_free_object,
->> -	.get_vblank_timestamp	=3D vkms_get_vblank_timestamp,
->>  	.prime_fd_to_handle	=3D drm_gem_prime_fd_to_handle,
->>  	.gem_prime_import_sg_table =3D vkms_prime_import_sg_table,
->> =20
->> diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vk=
-ms_drv.h
->> index 7d52e24564db..eda04ffba7b1 100644
->> --- a/drivers/gpu/drm/vkms/vkms_drv.h
->> +++ b/drivers/gpu/drm/vkms/vkms_drv.h
->> @@ -111,10 +111,6 @@ struct vkms_gem_object {
->>  int vkms_crtc_init(struct drm_device *dev, struct drm_crtc *crtc,
->>  		   struct drm_plane *primary, struct drm_plane *cursor);
->> =20
->> -bool vkms_get_vblank_timestamp(struct drm_device *dev, unsigned int p=
-ipe,
->> -			       int *max_error, ktime_t *vblank_time,
->> -			       bool in_vblank_irq);
->> -
->>  int vkms_output_init(struct vkms_device *vkmsdev, int index);
->> =20
->>  struct drm_plane *vkms_plane_init(struct vkms_device *vkmsdev,
->> --=20
->> 2.24.1
->>
->=20
->=20
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
->=20
+> +
+> +	for (i = 0; i < nr_in_syncobjs; ++i) {
+> +		uint64_t address = in_syncobjs_addr + i * syncobj_stride;
+> +		struct dma_fence *fence;
+> +
+> +		if (copy_from_user(&syncobj_desc,
+> +			           u64_to_user_ptr(address),
+> +			           min(syncobj_stride, sizeof(syncobj_desc)))) {
+> +			ret = -EFAULT;
+> +			goto out_syncobjs;
 
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=FCrnberg, Germany
-(HRB 36809, AG N=FCrnberg)
-Gesch=E4ftsf=FChrer: Felix Imend=F6rffer
+You can just use break here.
 
+> +		}
+> +
+> +		if (syncobj_desc.point &&
+> +		    !drm_core_check_feature(dev, DRIVER_SYNCOBJ_TIMELINE)) {
+> +			ret = -EOPNOTSUPP;
+> +			break;
+> +		}
+> +
+> +		if (syncobj_desc.flags & ~MSM_SUBMIT_SYNCOBJ_FLAGS) {
+> +			ret = -EINVAL;
+> +			break;
+> +		}
+> +
+> +		ret = drm_syncobj_find_fence(file, syncobj_desc.handle,
+> +		                             syncobj_desc.point, 0, &fence);
+> +		if (ret)
+> +			break;
+> +
+> +		if (!dma_fence_match_context(fence, ring->fctx->context))
+> +			ret = dma_fence_wait(fence, true);
+> +
+> +		dma_fence_put(fence);
+> +		if (ret)
+> +			break;
+> +
+> +		if (syncobj_desc.flags & MSM_SUBMIT_SYNCOBJ_RESET) {
+> +			(*syncobjs)[i] =
+> +				drm_syncobj_find(file, syncobj_desc.handle);
+> +			if (!(*syncobjs)[i]) {
+> +				ret = -EINVAL;
+> +				break;
+> +			}
+> +		}
+> +	}
+> +
+> +out_syncobjs:
+> +	if (ret && *syncobjs) {
+> +		for (j = 0; j < i; ++j) {
 
---KDSDKULOECmLQ3OZULODBEBQGxSjeELHt--
+You could also walk backwards from i and save having another iterator:
 
---PtT6FIrvfqvheyQ046zVtJTcbNj3F21o5
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
+for( ; i >=0; i--)
 
------BEGIN PGP SIGNATURE-----
+> +			if ((*syncobjs)[j])
+> +				drm_syncobj_put((*syncobjs)[j]);
+> +		}
+> +		kfree(*syncobjs);
+> +		*syncobjs = NULL;
+> +	}
+> +	return ret;
 
-iQEzBAEBCAAdFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl4htTQACgkQaA3BHVML
-eiPLAwf+JjgGRNTYrmdmAmA3EU3onlZux1nMm1pdgZqFF5d8itMQowodmRWMHIPi
-k49/4rvgoVfuTqV1nCh/wjsP9KoRHJaIl3key62QawhwTtK79pCP8kr8b1tzUKOB
-KUxvaW+Up8asniyW7mYnn8/AWMWisJdvLFVj/909mcupxoMnxJ2xmPl5Qnm8IDVP
-pYVKyTVn0J9E8HHaVG9q48exdS25CJuFwarEAuUH3VVFz1feCT60rNKqhlsXbJTI
-U9s4qLlwocOoAgJmemGKdumG+bSt0Phpy4X3Xam790wcfFJ1NLeoek1HRg/cGaUy
-xsUdfCiljCuC+gkRNtDf8aDKaQ4aNw==
-=wEkd
------END PGP SIGNATURE-----
+if you wanted to you could return syncobjs or ERR_PTR instead of passing it by
+reference. I would probably chose that option personally but it is up to you.
 
---PtT6FIrvfqvheyQ046zVtJTcbNj3F21o5--
+> +}
+> +
+> +static void msm_reset_syncobjs(struct drm_syncobj **syncobjs,
+> +                               uint32_t nr_syncobjs)
+> +{
+> +	uint32_t i;
+> +
+> +	for (i = 0; syncobjs && i < nr_syncobjs; ++i) {
+> +		if (syncobjs[i])
+> +			drm_syncobj_replace_fence(syncobjs[i], NULL);
+> +	}
+> +}
+> +
+> +static int msm_parse_post_deps(struct drm_device *dev,
+> +                               struct drm_file *file,
+> +                               uint64_t out_syncobjs_addr,
+> +                               uint32_t nr_out_syncobjs,
+> +			       uint32_t syncobj_stride,
+> +                               struct msm_submit_post_dep **post_deps)
+> +{
+> +	int ret = 0;
+> +	uint32_t i, j;
+> +
+> +	*post_deps = kmalloc_array(nr_out_syncobjs, sizeof(**post_deps),
+> +	                           GFP_KERNEL | __GFP_NOWARN | __GFP_NORETRY);
+> +	if (!*post_deps) {
+> +		ret = -ENOMEM;
+> +		goto out_syncobjs;
 
---===============1838027573==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+return -ENOMEM works fine.
 
+> +	}
+> +
+> +	for (i = 0; i < nr_out_syncobjs; ++i) {
+> +		uint64_t address = out_syncobjs_addr + i * syncobj_stride;
+> +
+> +		if (copy_from_user(&syncobj_desc,
+> +			           u64_to_user_ptr(address),
+> +			           min(syncobj_stride, sizeof(syncobj_desc)))) {
+> +			ret = -EFAULT;
+> +			goto out_syncobjs;
+
+You can break here.
+
+> +		}
+> +
+> +		(*post_deps)[i].point = syncobj_desc.point;
+> +		(*post_deps)[i].chain = NULL;
+> +
+> +		if (syncobj_desc.flags) {
+> +			ret = -EINVAL;
+> +			break;
+> +		}
+> +
+> +		if (syncobj_desc.point) {
+> +			if (!drm_core_check_feature(dev,
+> +			                            DRIVER_SYNCOBJ_TIMELINE)) {
+> +				ret = -EOPNOTSUPP;
+> +				break;
+> +			}
+> +
+> +			(*post_deps)[i].chain =
+> +				kmalloc(sizeof(*(*post_deps)[i].chain),
+> +				        GFP_KERNEL);
+> +			if (!(*post_deps)[i].chain) {
+> +				ret = -ENOMEM;
+> +				break;
+> +			}
+> +		}
+> +
+> +		(*post_deps)[i].syncobj =
+> +			drm_syncobj_find(file, syncobj_desc.handle);
+> +		if (!(*post_deps)[i].syncobj) {
+> +			ret = -EINVAL;
+> +			break;
+> +		}
+> +	}
+> +
+> +	if (ret) {
+> +		for (j = 0; j <= i; ++j) {
+
+Same suggest as above, if you would prefer.
+
+> +			kfree((*post_deps)[j].chain);
+> +			if ((*post_deps)[j].syncobj)
+> +				drm_syncobj_put((*post_deps)[j].syncobj);
+> +		}
+> +
+> +		kfree(*post_deps);
+> +		*post_deps = NULL;
+> +	}
+> +
+> +out_syncobjs:
+> +	return ret;
+
+This might also be a good spot to return post_deps / ERR_PTR.
+
+> +}
+> +
+> +static void msm_process_post_deps(struct msm_submit_post_dep *post_deps,
+> +                                  uint32_t count, struct dma_fence *fence)
+> +{
+> +	uint32_t i;
+> +
+> +	for (i = 0; post_deps && i < count; ++i) {
+> +		if (post_deps[i].chain) {
+> +			drm_syncobj_add_point(post_deps[i].syncobj,
+> +			                      post_deps[i].chain,
+> +			                      fence, post_deps[i].point);
+> +			post_deps[i].chain = NULL;
+> +		} else {
+> +			drm_syncobj_replace_fence(post_deps[i].syncobj,
+> +			                          fence);
+> +		}
+> +	}
+> +}
+> +
+>  int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+>  		struct drm_file *file)
+>  {
+> @@ -406,6 +593,8 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+>  	struct sync_file *sync_file = NULL;
+>  	struct msm_gpu_submitqueue *queue;
+>  	struct msm_ringbuffer *ring;
+> +	struct msm_submit_post_dep *post_deps = NULL;
+> +	struct drm_syncobj **syncobjs_to_reset = NULL;
+>  	int out_fence_fd = -1;
+>  	struct pid *pid = get_pid(task_pid(current));
+>  	unsigned i;
+> @@ -413,6 +602,9 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+>  	if (!gpu)
+>  		return -ENXIO;
+>  
+> +	if (args->pad)
+> +		return -EINVAL;
+> +
+
+>  	/* for now, we just have 3d pipe.. eventually this would need to
+>  	 * be more clever to dispatch to appropriate gpu module:
+>  	 */
+> @@ -460,9 +652,28 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+>  			return ret;
+>  	}
+>  
+> +	if (args->flags & MSM_SUBMIT_SYNCOBJ_IN) {
+> +		ret = msm_wait_deps(dev, file,
+> +		                    args->in_syncobjs, args->nr_in_syncobjs,
+> +		                    args->syncobj_stride, ring,
+
+If you wanted to, you could just pass args directly to the function so you
+didn't have to take it apart.
+
+Also, Rob - do we want to do the trick where we return
+sizeof(drm_msm_gem_submit_syncobj) if the input stride is zero?
+
+> +		                    &syncobjs_to_reset);
+> +		if (ret)
+> +			goto out_post_unlock;
+> +	}
+> +
+> +	if (args->flags & MSM_SUBMIT_SYNCOBJ_OUT) {
+> +		ret = msm_parse_post_deps(dev, file,
+> +		                          args->out_syncobjs,
+> +		                          args->nr_out_syncobjs,
+> +		                          args->syncobj_stride,
+
+And same.
+
+> +		                          &post_deps);
+> +		if (ret)
+> +			goto out_post_unlock;
+> +	}
+> +
+>  	ret = mutex_lock_interruptible(&dev->struct_mutex);
+>  	if (ret)
+> -		return ret;
+> +		goto out_post_unlock;
+>  
+>  	if (args->flags & MSM_SUBMIT_FENCE_FD_OUT) {
+>  		out_fence_fd = get_unused_fd_flags(O_CLOEXEC);
+> @@ -586,6 +797,11 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+>  		args->fence_fd = out_fence_fd;
+>  	}
+>  
+> +	msm_reset_syncobjs(syncobjs_to_reset, args->nr_in_syncobjs);
+> +	msm_process_post_deps(post_deps, args->nr_out_syncobjs,
+> +	                      submit->fence);
+> +
+> +
+>  out:
+>  	submit_cleanup(submit);
+>  	if (ret)
+> @@ -594,5 +810,23 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+>  	if (ret && (out_fence_fd >= 0))
+>  		put_unused_fd(out_fence_fd);
+>  	mutex_unlock(&dev->struct_mutex);
+> +
+> +out_post_unlock:
+> +	if (post_deps) {
+> +		for (i = 0; i < args->nr_out_syncobjs; ++i) {
+> +			kfree(post_deps[i].chain);
+> +			drm_syncobj_put(post_deps[i].syncobj);
+> +		}
+> +		kfree(post_deps);
+> +	}
+> +
+> +	if (syncobjs_to_reset) {
+> +		for (i = 0; i < args->nr_in_syncobjs; ++i) {
+> +			if (syncobjs_to_reset[i])
+> +				drm_syncobj_put(syncobjs_to_reset[i]);
+> +		}
+> +		kfree(syncobjs_to_reset);
+> +	}
+> +
+>  	return ret;
+>  }
+> diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
+> index 0b85ed6a3710..19806eb3a8e8 100644
+> --- a/include/uapi/drm/msm_drm.h
+> +++ b/include/uapi/drm/msm_drm.h
+> @@ -217,13 +217,28 @@ struct drm_msm_gem_submit_bo {
+>  #define MSM_SUBMIT_FENCE_FD_IN   0x40000000 /* enable input fence_fd */
+>  #define MSM_SUBMIT_FENCE_FD_OUT  0x20000000 /* enable output fence_fd */
+>  #define MSM_SUBMIT_SUDO          0x10000000 /* run submitted cmds from RB */
+> +#define MSM_SUBMIT_SYNCOBJ_IN    0x08000000 /* enable input syncobj */
+> +#define MSM_SUBMIT_SYNCOBJ_OUT   0x04000000 /* enable output syncobj */
+>  #define MSM_SUBMIT_FLAGS                ( \
+>  		MSM_SUBMIT_NO_IMPLICIT   | \
+>  		MSM_SUBMIT_FENCE_FD_IN   | \
+>  		MSM_SUBMIT_FENCE_FD_OUT  | \
+>  		MSM_SUBMIT_SUDO          | \
+> +		MSM_SUBMIT_SYNCOBJ_IN    | \
+> +		MSM_SUBMIT_SYNCOBJ_OUT   | \
+>  		0)
+>  
+> +#define MSM_SUBMIT_SYNCOBJ_RESET 0x00000001 /* Reset syncobj after wait. */
+> +#define MSM_SUBMIT_SYNCOBJ_FLAGS        ( \
+> +		MSM_SUBMIT_SYNCOBJ_RESET | \
+> +		0)
+> +
+> +struct drm_msm_gem_submit_syncobj {
+> +	__u32 handle;     /* in, syncobj handle. */
+> +	__u32 flags;      /* in, from MSM_SUBMIT_SYNCOBJ_FLAGS */
+> +	__u64 point;      /* in, timepoint for timeline syncobjs. */
+> +};
+> +
+>  /* Each cmdstream submit consists of a table of buffers involved, and
+>   * one or more cmdstream buffers.  This allows for conditional execution
+>   * (context-restore), and IB buffers needed for per tile/bin draw cmds.
+> @@ -236,7 +251,14 @@ struct drm_msm_gem_submit {
+>  	__u64 bos;            /* in, ptr to array of submit_bo's */
+>  	__u64 cmds;           /* in, ptr to array of submit_cmd's */
+>  	__s32 fence_fd;       /* in/out fence fd (see MSM_SUBMIT_FENCE_FD_IN/OUT) */
+> -	__u32 queueid;         /* in, submitqueue id */
+> +	__u32 queueid;        /* in, submitqueue id */
+> +	__u64 in_syncobjs;    /* in, ptr to to array of drm_msm_gem_submit_syncobj */
+> +	__u64 out_syncobjs;   /* in, ptr to to array of drm_msm_gem_submit_syncobj */
+> +	__u32 nr_in_syncobjs; /* in, number of entries in in_syncobj */
+> +	__u32 nr_out_syncobjs; /* in, number of entries in out_syncobj. */
+> +	__u32 syncobj_stride; /* in, stride of syncobj arrays. */
+> +	__u32 pad;            /*in, reserved for future use, always 0. */
+> +
+>  };
+>  
+>  /* The normal way to synchronize with the GPU is just to CPU_PREP on
+> -- 
+> 2.24.1
+> 
+
+-- 
+The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+a Linux Foundation Collaborative Project
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
-
---===============1838027573==--
