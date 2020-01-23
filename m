@@ -2,40 +2,31 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACAD4146A8A
-	for <lists+freedreno@lfdr.de>; Thu, 23 Jan 2020 15:01:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F279146A9A
+	for <lists+freedreno@lfdr.de>; Thu, 23 Jan 2020 15:02:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17425895F5;
-	Thu, 23 Jan 2020 14:00:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE3A46FCEA;
+	Thu, 23 Jan 2020 14:02:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 200B06FD35;
- Thu, 23 Jan 2020 14:00:08 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id BA1C0B283;
- Thu, 23 Jan 2020 14:00:06 +0000 (UTC)
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com,
- christian.koenig@amd.com, David1.Zhou@amd.com,
- maarten.lankhorst@linux.intel.com, patrik.r.jakobsson@gmail.com,
- robdclark@gmail.com, sean@poorly.run, benjamin.gaignard@linaro.org,
- vincent.abriou@st.com, yannick.fertre@st.com, philippe.cornu@st.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@st.com, eric@anholt.net,
- rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
- linux-graphics-maintainer@vmware.com, thellstrom@vmware.com,
- bskeggs@redhat.com, harry.wentland@amd.com, sunpeng.li@amd.com,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com
-Date: Thu, 23 Jan 2020 14:59:43 +0100
-Message-Id: <20200123135943.24140-23-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.24.1
-In-Reply-To: <20200123135943.24140-1-tzimmermann@suse.de>
-References: <20200123135943.24140-1-tzimmermann@suse.de>
-MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v4 22/22] drm: Remove legacy version of
- get_scanout_position()
+Received: from alexa-out-blr-02.qualcomm.com (alexa-out-blr-02.qualcomm.com
+ [103.229.18.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3A756FCEA;
+ Thu, 23 Jan 2020 14:02:03 +0000 (UTC)
+Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
+ by alexa-out-blr-02.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 23 Jan 2020 19:32:01 +0530
+Received: from harigovi-linux.qualcomm.com ([10.204.66.157])
+ by ironmsg01-blr.qualcomm.com with ESMTP; 23 Jan 2020 19:31:41 +0530
+Received: by harigovi-linux.qualcomm.com (Postfix, from userid 2332695)
+ id 1332A286A; Thu, 23 Jan 2020 19:31:39 +0530 (IST)
+From: Harigovindan P <harigovi@codeaurora.org>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Thu, 23 Jan 2020 19:31:38 +0530
+Message-Id: <1579788098-22565-1-git-send-email-harigovi@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [v2] arm64: dts: sc7180: add display dt nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,101 +39,247 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, nouveau@lists.freedesktop.org,
- freedreno@lists.freedesktop.org,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Harigovindan P <harigovi@codeaurora.org>, linux-kernel@vger.kernel.org,
+ robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
+ kalyan_t@codeaurora.org, hoegsberg@chromium.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-VGhlIGxlZ2FjeSB2ZXJzaW9uIG9mIGdldF9zY2Fub3V0X3Bvc2l0aW9uKCkgd2FzIG9ubHkgdXNl
-ZnVsIHdoaWxlCmRyaXZlcnMgc3RpbGwgdXNlZCBkcm1fZHJpdmVyLmdldF9zY2Fub3V0X3Bvc2l0
-aW9uKCkuIFdpdGggbm8gc3VjaApkcml2ZXJzIGxlZnQsIHRoZSByZWxhdGVkIHR5cGVkZWYgYW5k
-IGNvZGUgY2FuIGJlIHJlbW92ZWQKClNpZ25lZC1vZmYtYnk6IFRob21hcyBaaW1tZXJtYW5uIDx0
-emltbWVybWFubkBzdXNlLmRlPgpSZXZpZXdlZC1ieTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5z
-eXJqYWxhQGxpbnV4LmludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vZHJtX3ZibGFuay5j
-ICAgIHwgMjcgKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkx
-NS9pOTE1X2lycS5jIHwgIDIgKy0KIGluY2x1ZGUvZHJtL2RybV92YmxhbmsuaCAgICAgICAgfCAx
-MiArLS0tLS0tLS0tLS0KIDMgZmlsZXMgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspLCAzMiBkZWxl
-dGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZHJtX3ZibGFuay5jIGIvZHJp
-dmVycy9ncHUvZHJtL2RybV92YmxhbmsuYwppbmRleCA5MGQ2MjQzMGE2YWUuLmFiMGEwZmNhNTg5
-YSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV92YmxhbmsuYworKysgYi9kcml2ZXJz
-L2dwdS9kcm0vZHJtX3ZibGFuay5jCkBAIC01NzYsOSArNTc2LDYgQEAgRVhQT1JUX1NZTUJPTChk
-cm1fY2FsY190aW1lc3RhbXBpbmdfY29uc3RhbnRzKTsKICAqIEBnZXRfc2Nhbm91dF9wb3NpdGlv
-bjoKICAqICAgICBDYWxsYmFjayBmdW5jdGlvbiB0byByZXRyaWV2ZSB0aGUgc2Nhbm91dCBwb3Np
-dGlvbi4gU2VlCiAgKiAgICAgQHN0cnVjdCBkcm1fY3J0Y19oZWxwZXJfZnVuY3MuZ2V0X3NjYW5v
-dXRfcG9zaXRpb24uCi0gKiBAZ2V0X3NjYW5vdXRfcG9zaXRpb25fbGVnYWN5OgotICogICAgIENh
-bGxiYWNrIGZ1bmN0aW9uIHRvIHJldHJpZXZlIHRoZSBzY2Fub3V0IHBvc2l0aW9uLiBTZWUKLSAq
-ICAgICBAc3RydWN0IGRybV9kcml2ZXIuZ2V0X3NjYW5vdXRfcG9zaXRpb24uCiAgKgogICogSW1w
-bGVtZW50cyBjYWxjdWxhdGlvbiBvZiBleGFjdCB2YmxhbmsgdGltZXN0YW1wcyBmcm9tIGdpdmVu
-IGRybV9kaXNwbGF5X21vZGUKICAqIHRpbWluZ3MgYW5kIGN1cnJlbnQgdmlkZW8gc2Nhbm91dCBw
-b3NpdGlvbiBvZiBhIENSVEMuCkBAIC02MDEsOCArNTk4LDcgQEAgYm9vbAogZHJtX2NydGNfdmJs
-YW5rX2hlbHBlcl9nZXRfdmJsYW5rX3RpbWVzdGFtcF9pbnRlcm5hbCgKIAlzdHJ1Y3QgZHJtX2Ny
-dGMgKmNydGMsIGludCAqbWF4X2Vycm9yLCBrdGltZV90ICp2YmxhbmtfdGltZSwKIAlib29sIGlu
-X3ZibGFua19pcnEsCi0JZHJtX3ZibGFua19nZXRfc2Nhbm91dF9wb3NpdGlvbl9mdW5jIGdldF9z
-Y2Fub3V0X3Bvc2l0aW9uLAotCWRybV92YmxhbmtfZ2V0X3NjYW5vdXRfcG9zaXRpb25fbGVnYWN5
-X2Z1bmMgZ2V0X3NjYW5vdXRfcG9zaXRpb25fbGVnYWN5KQorCWRybV92YmxhbmtfZ2V0X3NjYW5v
-dXRfcG9zaXRpb25fZnVuYyBnZXRfc2Nhbm91dF9wb3NpdGlvbikKIHsKIAlzdHJ1Y3QgZHJtX2Rl
-dmljZSAqZGV2ID0gY3J0Yy0+ZGV2OwogCXVuc2lnbmVkIGludCBwaXBlID0gY3J0Yy0+aW5kZXg7
-CkBAIC02MjAsNyArNjE2LDcgQEAgZHJtX2NydGNfdmJsYW5rX2hlbHBlcl9nZXRfdmJsYW5rX3Rp
-bWVzdGFtcF9pbnRlcm5hbCgKIAl9CiAKIAkvKiBTY2Fub3V0IHBvc2l0aW9uIHF1ZXJ5IG5vdCBz
-dXBwb3J0ZWQ/IFNob3VsZCBub3QgaGFwcGVuLiAqLwotCWlmICghZ2V0X3NjYW5vdXRfcG9zaXRp
-b24gJiYgIWdldF9zY2Fub3V0X3Bvc2l0aW9uX2xlZ2FjeSkgeworCWlmICghZ2V0X3NjYW5vdXRf
-cG9zaXRpb24pIHsKIAkJRFJNX0VSUk9SKCJDYWxsZWQgZnJvbSBDUlRDIHcvbyBnZXRfc2Nhbm91
-dF9wb3NpdGlvbigpIT9cbiIpOwogCQlyZXR1cm4gZmFsc2U7CiAJfQpAQCAtNjUxLDE5ICs2NDcs
-MTAgQEAgZHJtX2NydGNfdmJsYW5rX2hlbHBlcl9nZXRfdmJsYW5rX3RpbWVzdGFtcF9pbnRlcm5h
-bCgKIAkJICogR2V0IHZlcnRpY2FsIGFuZCBob3Jpem9udGFsIHNjYW5vdXQgcG9zaXRpb24gdnBv
-cywgaHBvcywKIAkJICogYW5kIGJvdW5kaW5nIHRpbWVzdGFtcHMgc3RpbWUsIGV0aW1lLCBwcmUv
-cG9zdCBxdWVyeS4KIAkJICovCi0JCWlmIChnZXRfc2Nhbm91dF9wb3NpdGlvbikgewotCQkJdmJs
-X3N0YXR1cyA9IGdldF9zY2Fub3V0X3Bvc2l0aW9uKGNydGMsCi0JCQkJCQkJICBpbl92Ymxhbmtf
-aXJxLAotCQkJCQkJCSAgJnZwb3MsICZocG9zLAotCQkJCQkJCSAgJnN0aW1lLCAmZXRpbWUsCi0J
-CQkJCQkJICBtb2RlKTsKLQkJfSBlbHNlIHsKLQkJCXZibF9zdGF0dXMgPSBnZXRfc2Nhbm91dF9w
-b3NpdGlvbl9sZWdhY3koZGV2LCBwaXBlLAotCQkJCQkJCQkgaW5fdmJsYW5rX2lycSwKLQkJCQkJ
-CQkJICZ2cG9zLCAmaHBvcywKLQkJCQkJCQkJICZzdGltZSwgJmV0aW1lLAotCQkJCQkJCQkgbW9k
-ZSk7Ci0JCX0KKwkJdmJsX3N0YXR1cyA9IGdldF9zY2Fub3V0X3Bvc2l0aW9uKGNydGMsIGluX3Zi
-bGFua19pcnEsCisJCQkJCQkgICZ2cG9zLCAmaHBvcywKKwkJCQkJCSAgJnN0aW1lLCAmZXRpbWUs
-CisJCQkJCQkgIG1vZGUpOwogCiAJCS8qIFJldHVybiBhcyBuby1vcCBpZiBzY2Fub3V0IHF1ZXJ5
-IHVuc3VwcG9ydGVkIG9yIGZhaWxlZC4gKi8KIAkJaWYgKCF2Ymxfc3RhdHVzKSB7CkBAIC03NTUs
-NyArNzQyLDcgQEAgYm9vbCBkcm1fY3J0Y192YmxhbmtfaGVscGVyX2dldF92YmxhbmtfdGltZXN0
-YW1wKHN0cnVjdCBkcm1fY3J0YyAqY3J0YywKIHsKIAlyZXR1cm4gZHJtX2NydGNfdmJsYW5rX2hl
-bHBlcl9nZXRfdmJsYW5rX3RpbWVzdGFtcF9pbnRlcm5hbCgKIAkJY3J0YywgbWF4X2Vycm9yLCB2
-YmxhbmtfdGltZSwgaW5fdmJsYW5rX2lycSwKLQkJY3J0Yy0+aGVscGVyX3ByaXZhdGUtPmdldF9z
-Y2Fub3V0X3Bvc2l0aW9uLCBOVUxMKTsKKwkJY3J0Yy0+aGVscGVyX3ByaXZhdGUtPmdldF9zY2Fu
-b3V0X3Bvc2l0aW9uKTsKIH0KIEVYUE9SVF9TWU1CT0woZHJtX2NydGNfdmJsYW5rX2hlbHBlcl9n
-ZXRfdmJsYW5rX3RpbWVzdGFtcCk7CiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1
-L2k5MTVfaXJxLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2lycS5jCmluZGV4IDI5YmY4
-NDc5OTlmNS4uMzI0NWY3YzVjODRmIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9p
-OTE1X2lycS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfaXJxLmMKQEAgLTg4Niw3
-ICs4ODYsNyBAQCBib29sIGludGVsX2NydGNfZ2V0X3ZibGFua190aW1lc3RhbXAoc3RydWN0IGRy
-bV9jcnRjICpjcnRjLCBpbnQgKm1heF9lcnJvciwKIHsKIAlyZXR1cm4gZHJtX2NydGNfdmJsYW5r
-X2hlbHBlcl9nZXRfdmJsYW5rX3RpbWVzdGFtcF9pbnRlcm5hbCgKIAkJY3J0YywgbWF4X2Vycm9y
-LCB2YmxhbmtfdGltZSwgaW5fdmJsYW5rX2lycSwKLQkJaTkxNV9nZXRfY3J0Y19zY2Fub3V0cG9z
-LCBOVUxMKTsKKwkJaTkxNV9nZXRfY3J0Y19zY2Fub3V0cG9zKTsKIH0KIAogaW50IGludGVsX2dl
-dF9jcnRjX3NjYW5saW5lKHN0cnVjdCBpbnRlbF9jcnRjICpjcnRjKQpkaWZmIC0tZ2l0IGEvaW5j
-bHVkZS9kcm0vZHJtX3ZibGFuay5oIGIvaW5jbHVkZS9kcm0vZHJtX3ZibGFuay5oCmluZGV4IDg3
-ZmNmNDAzNGQxZi4uNWVmOTQxMzdmZTc1IDEwMDY0NAotLS0gYS9pbmNsdWRlL2RybS9kcm1fdmJs
-YW5rLmgKKysrIGIvaW5jbHVkZS9kcm0vZHJtX3ZibGFuay5oCkBAIC0yNDYsMjIgKzI0NiwxMiBA
-QCB0eXBlZGVmIGJvb2wgKCpkcm1fdmJsYW5rX2dldF9zY2Fub3V0X3Bvc2l0aW9uX2Z1bmMpKHN0
-cnVjdCBkcm1fY3J0YyAqY3J0YywKIAkJCQkJCSAgICAga3RpbWVfdCAqZXRpbWUsCiAJCQkJCQkg
-ICAgIGNvbnN0IHN0cnVjdCBkcm1fZGlzcGxheV9tb2RlICptb2RlKTsKIAotdHlwZWRlZiBib29s
-ICgqZHJtX3ZibGFua19nZXRfc2Nhbm91dF9wb3NpdGlvbl9sZWdhY3lfZnVuYykoc3RydWN0IGRy
-bV9kZXZpY2UgKmRldiwKLQkJCQkJCQkgICAgdW5zaWduZWQgaW50IHBpcGUsCi0JCQkJCQkJICAg
-IGJvb2wgaW5fdmJsYW5rX2lycSwKLQkJCQkJCQkgICAgaW50ICp2cG9zLAotCQkJCQkJCSAgICBp
-bnQgKmhwb3MsCi0JCQkJCQkJICAgIGt0aW1lX3QgKnN0aW1lLAotCQkJCQkJCSAgICBrdGltZV90
-ICpldGltZSwKLQkJCQkJCQkgICAgY29uc3Qgc3RydWN0IGRybV9kaXNwbGF5X21vZGUgKm1vZGUp
-OwotCiBib29sCiBkcm1fY3J0Y192YmxhbmtfaGVscGVyX2dldF92YmxhbmtfdGltZXN0YW1wX2lu
-dGVybmFsKHN0cnVjdCBkcm1fY3J0YyAqY3J0YywKIAkJCQkJCSAgICAgaW50ICptYXhfZXJyb3Is
-CiAJCQkJCQkgICAgIGt0aW1lX3QgKnZibGFua190aW1lLAogCQkJCQkJICAgICBib29sIGluX3Zi
-bGFua19pcnEsCi0JCQkJCQkgICAgIGRybV92YmxhbmtfZ2V0X3NjYW5vdXRfcG9zaXRpb25fZnVu
-YyBnZXRfc2Nhbm91dF9wb3NpdGlvbiwKLQkJCQkJCSAgICAgZHJtX3ZibGFua19nZXRfc2Nhbm91
-dF9wb3NpdGlvbl9sZWdhY3lfZnVuYyBnZXRfc2Nhbm91dF9wb3NpdGlvbl9sZWdhY3kpOworCQkJ
-CQkJICAgICBkcm1fdmJsYW5rX2dldF9zY2Fub3V0X3Bvc2l0aW9uX2Z1bmMgZ2V0X3NjYW5vdXRf
-cG9zaXRpb24pOwogYm9vbCBkcm1fY3J0Y192YmxhbmtfaGVscGVyX2dldF92YmxhbmtfdGltZXN0
-YW1wKHN0cnVjdCBkcm1fY3J0YyAqY3J0YywKIAkJCQkJCSBpbnQgKm1heF9lcnJvciwKIAkJCQkJ
-CSBrdGltZV90ICp2YmxhbmtfdGltZSwKLS0gCjIuMjQuMQoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJl
-bm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vZnJlZWRyZW5vCg==
+Add display, DSI hardware DT nodes for sc7180.
+
+Changes in v1:
+	-Added display DT nodes for sc7180
+Changes in v2:
+	-Renamed node names
+	-Corrected code alignments
+	-Removed extra new line
+	-Added DISP AHB clock for register access
+	under display_subsystem node for global settings
+
+Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
+---
+ arch/arm64/boot/dts/qcom/sc7180-idp.dts |  57 +++++++++++++++
+ arch/arm64/boot/dts/qcom/sc7180.dtsi    | 125 ++++++++++++++++++++++++++++++++
+ 2 files changed, 182 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sc7180-idp.dts b/arch/arm64/boot/dts/qcom/sc7180-idp.dts
+index 388f50a..f410614 100644
+--- a/arch/arm64/boot/dts/qcom/sc7180-idp.dts
++++ b/arch/arm64/boot/dts/qcom/sc7180-idp.dts
+@@ -232,6 +232,50 @@
+ 	};
+ };
+ 
++&dsi_controller {
++	status = "okay";
++
++	vdda-supply = <&vreg_l3c_1p2>;
++
++	panel@0 {
++		compatible = "visionox,rm69299-1080p-display";
++		reg = <0>;
++
++		vdda-supply = <&vreg_l8c_1p8>;
++		vdd3p3-supply = <&vreg_l18a_2p8>;
++
++		pinctrl-names = "default", "suspend";
++		pinctrl-0 = <&disp_pins_default>;
++		pinctrl-1 = <&disp_pins_default>;
++
++		reset-gpios = <&pm6150l_gpio 3 0>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			port@0 {
++				reg = <0>;
++				panel0_in: endpoint {
++					remote-endpoint = <&dsi0_out>;
++				};
++			};
++		};
++	};
++
++	ports {
++		port@1 {
++			endpoint {
++				remote-endpoint = <&panel0_in>;
++				data-lanes = <0 1 2 3>;
++			};
++		};
++	};
++};
++
++&dsi_phy {
++	status = "okay";
++};
++
+ &qspi {
+ 	status = "okay";
+ 	pinctrl-names = "default";
+@@ -289,6 +333,19 @@
+ 
+ /* PINCTRL - additions to nodes defined in sc7180.dtsi */
+ 
++&pm6150l_gpio {
++	disp_pins {
++		disp_pins_default: disp_pins_default{
++			pins = "gpio3";
++			function = "func1";
++			qcom,drive-strength = <2>;
++			power-source = <0>;
++			bias-disable;
++			output-low;
++		};
++	};
++};
++
+ &qspi_clk {
+ 	pinconf {
+ 		pins = "gpio63";
+diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+index 3bc3f64..81c3aab 100644
+--- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+@@ -1184,6 +1184,131 @@
+ 			#power-domain-cells = <1>;
+ 		};
+ 
++		display_subsystem: mdss@ae00000 {
++			compatible = "qcom,sc7180-mdss";
++			reg = <0 0x0ae00000 0 0x1000>;
++			reg-names = "mdss";
++
++			power-domains = <&dispcc MDSS_GDSC>;
++
++			clocks = <&gcc GCC_DISP_AHB_CLK>,
++				 <&gcc GCC_DISP_HF_AXI_CLK>,
++				 <&dispcc DISP_CC_MDSS_AHB_CLK>,
++				 <&dispcc DISP_CC_MDSS_MDP_CLK>;
++			clock-names = "iface", "gcc_bus", "ahb", "core";
++
++			assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>;
++			assigned-clock-rates = <300000000>;
++
++			interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-controller;
++			#interrupt-cells = <1>;
++
++			iommus = <&apps_smmu 0x800 0x2>;
++
++			#address-cells = <2>;
++			#size-cells = <2>;
++			ranges;
++
++			display_controller: mdp@ae00000 {
++				compatible = "qcom,sc7180-dpu";
++				reg = <0 0x0ae00000 0 0x1000>,
++				      <0 0x0ae01000 0 0x8f000>,
++				      <0 0x0aeb0000 0 0x2008>,
++				      <0 0x0af03000 0 0x16>;
++				reg-names = "mdss", "mdp", "vbif", "disp_cc";
++
++				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
++					 <&dispcc DISP_CC_MDSS_ROT_CLK>,
++					 <&dispcc DISP_CC_MDSS_MDP_LUT_CLK>,
++					 <&dispcc DISP_CC_MDSS_MDP_CLK>,
++					 <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
++				clock-names = "iface", "rot", "lut", "core",
++					      "vsync";
++				assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>,
++						  <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
++				assigned-clock-rates = <300000000>,
++						       <19200000>;
++
++				interrupt-parent = <&display_subsystem>;
++				interrupts = <0 IRQ_TYPE_LEVEL_HIGH>;
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++						dpu_intf1_out: endpoint {
++							remote-endpoint = <&dsi0_in>;
++						};
++					};
++				};
++			};
++
++			dsi_controller: qcom,mdss_dsi_ctrl0@ae94000 {
++				compatible = "qcom,mdss-dsi-ctrl";
++				reg = <0 0x0ae94000 0 0x400>;
++				reg-names = "dsi_ctrl";
++
++				interrupt-parent = <&display_subsystem>;
++				interrupts = <4 IRQ_TYPE_LEVEL_HIGH>;
++
++				clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
++					 <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
++					 <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
++					 <&dispcc DISP_CC_MDSS_ESC0_CLK>,
++					 <&dispcc DISP_CC_MDSS_AHB_CLK>,
++					 <&gcc GCC_DISP_HF_AXI_CLK>;
++				clock-names = "byte",
++					      "byte_intf",
++					      "pixel",
++					      "core",
++					      "iface",
++					      "bus";
++
++				phys = <&dsi_phy>;
++				phy-names = "dsi";
++
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++						dsi0_in: endpoint {
++							remote-endpoint = <&dpu_intf1_out>;
++						};
++					};
++
++					port@1 {
++						reg = <1>;
++						dsi0_out: endpoint {
++						};
++					};
++				};
++			};
++
++			dsi_phy: dsi-phy0@ae94400 {
++				compatible = "qcom,dsi-phy-10nm";
++				reg = <0 0x0ae94400 0 0x200>,
++				      <0 0x0ae94600 0 0x280>,
++				      <0 0x0ae94a00 0 0x1e0>;
++				reg-names = "dsi_phy",
++					    "dsi_phy_lane",
++					    "dsi_pll";
++
++				#clock-cells = <1>;
++				#phy-cells = <0>;
++
++				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>;
++				clock-names = "iface";
++			};
++		};
++
+ 		pdc: interrupt-controller@b220000 {
+ 			compatible = "qcom,sc7180-pdc", "qcom,pdc";
+ 			reg = <0 0x0b220000 0 0x30000>;
+-- 
+2.7.4
+
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
