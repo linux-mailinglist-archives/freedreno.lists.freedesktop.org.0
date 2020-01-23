@@ -2,54 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCBFE146E9B
-	for <lists+freedreno@lfdr.de>; Thu, 23 Jan 2020 17:42:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18C8F1470F2
+	for <lists+freedreno@lfdr.de>; Thu, 23 Jan 2020 19:41:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DEC36E0EF;
-	Thu, 23 Jan 2020 16:42:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDB956E116;
+	Thu, 23 Jan 2020 18:41:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
- [104.130.122.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 232186E0EB
- for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2020 16:42:48 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1579797769; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=ptRas4jwa9ygjLeLDjT7j5xI302MWi2R8Z9TLbhwROw=;
- b=rLBBEItokXKEJbnoKTsiXFVFUuaK4sg43ubI7m3UhbnG9ibe6TLMdjZvvbWIybSPYOJ4EhLn
- eoEBjSYRc+zf2EpXdhq0B3gZh2HBGxsAAHURcZCpZOmzmUR+A+OYP5Z0DXItQLaAEwULVI5L
- 1V3BwSHiQ3UGW8LbrPtfaMkR6z8=
-X-Mailgun-Sending-Ip: 104.130.122.26
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5e29cd02.7fdff335f180-smtp-out-n03;
- Thu, 23 Jan 2020 16:42:42 -0000 (UTC)
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 49C73C4479F; Thu, 23 Jan 2020 16:42:42 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 73D4BC43383;
- Thu, 23 Jan 2020 16:42:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 73D4BC43383
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=jcrouse@codeaurora.org
-From: Jordan Crouse <jcrouse@codeaurora.org>
-To: linux-arm-msm@vger.kernel.org
-Date: Thu, 23 Jan 2020 09:42:36 -0700
-Message-Id: <1579797756-10292-1-git-send-email-jcrouse@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-Subject: [Freedreno] [PATCH] drm/msm: Fix a6xx GMU shutdown sequence
+Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
+ [IPv6:2607:f8b0:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E520F6E116
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2020 18:41:32 +0000 (UTC)
+Received: by mail-pf1-x442.google.com with SMTP id w2so1946524pfd.3
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2020 10:41:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=j0uL3hKYvtloUNrrY22cT3PaCoUxzpbH8NZr/Q8o0KA=;
+ b=CXNEFTP2R4F8SHBCz2/5Zzdx0sFdYTih2TDfK4G9t9F6FHZEmAQKe0jRZsvWKlCcZm
+ GsCdp4VMOvYqWBylaMYFz3jK3aq5yW7KLIk9EOW1a+lhEGwwJc5UTxUJw4vSEFwE3swT
+ 5fpKlAPcs1LsnegZtNxXem+dbUFnvIaJ2Yw4bNrTE5ryTxqMyHEiBhBrmnGjzJulXbM4
+ pU2tl6X779VkXBEvQvwcJO9VT38bD2quKReEXD+esMMg1qNlTCjuwBlnXoboXpi5UAJd
+ 1Sp1m/j9HlOv1HBL4587gw6zAFpwao4JsPMNwWlunVSVhcrE8gzHY1z0Q8W5h1bl5RYV
+ Av7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=j0uL3hKYvtloUNrrY22cT3PaCoUxzpbH8NZr/Q8o0KA=;
+ b=cMnxQprLWew13xemMvKR/yS2KZvblFDIQXZ+qoTQu7rmE+E132TbB/fhaW3UJBFuMF
+ XArfBgG0G+s5kBFVcc2UqqwiDZRX3eWuOTQyJRu8l7ZVruwQ/3eYTr/u5GFWB8Yzy8fn
+ Qj15r6xKcB8nB7lCRu+k/2xjkOv6K7HihXR9zabDIDoLZtlPzC2OrYbFSn9ceQUgHx+Z
+ PgsK4AirccpmHoop2U508/xUvaT6zPNlol/bVN9Gjj7/csmUHF3IwYJnQp4/4qbmzNdc
+ TCYwS7vGINISQr32/LMaB8zmrLXwQ8+wcFojbK2GsS+L2iq0sC9/EcilhOhKWRSAzkL7
+ ZO1A==
+X-Gm-Message-State: APjAAAX+X06i/15+P/YFVtrPv/ep2UESyqr8DkurB+nAZSALRmm14cRv
+ YxEE/q8GL9JGlSr8H3eI4xaibQ==
+X-Google-Smtp-Source: APXvYqx+qa1v2W0iU2GnJArGqft14UWP8j2yatf2YzptCIB13C6YZQGrwUgPc9NPu/VFtVapmAU0PA==
+X-Received: by 2002:a63:1807:: with SMTP id y7mr182102pgl.94.1579804892350;
+ Thu, 23 Jan 2020 10:41:32 -0800 (PST)
+Received: from yoga (104-188-17-28.lightspeed.sndgca.sbcglobal.net.
+ [104.188.17.28])
+ by smtp.gmail.com with ESMTPSA id g24sm3547441pfk.92.2020.01.23.10.41.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Jan 2020 10:41:31 -0800 (PST)
+Date: Thu, 23 Jan 2020 10:41:29 -0800
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Harigovindan P <harigovi@codeaurora.org>
+Message-ID: <20200123184129.GW1511@yoga>
+References: <1579781700-7253-1-git-send-email-harigovi@codeaurora.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <1579781700-7253-1-git-send-email-harigovi@codeaurora.org>
+User-Agent: Mutt/1.12.2 (2019-09-21)
+Subject: Re: [Freedreno] [v2] arm64: dts: sc7180: add display dt nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,150 +68,113 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
- Sharat Masetty <smasetty@codeaurora.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>, Georgi Djakov <georgi.djakov@linaro.org>
-MIME-Version: 1.0
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
+ kalyan_t@codeaurora.org, hoegsberg@chromium.org,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Commit e812744c5f95 ("drm: msm: a6xx: Add support for A618") missed
-updating the VBIF flush in a6xx_gmu_shutdown and instead
-inserted the new sequence into a6xx_pm_suspend along with a redundant
-GMU idle.
+On Thu 23 Jan 04:15 PST 2020, Harigovindan P wrote:
 
-Move a6xx_bus_clear_pending_transactions to a6xx_gmu.c and use it in
-the appropriate place in the shutdown routine and remove the redundant
-idle call.
+> Add display, DSI hardware DT nodes for sc7180.
+> 
+> Changes in v1:
+> 	-Added display DT nodes for sc7180
+> Changes in v2:
+> 	-Renamed node names
+> 	-Corrected code alignments
+> 	-Removed extra new line
 
-Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
----
+Please keep the changelist after the '---' for the dts patches.
 
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 36 +++++++++++++++++++++++++----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 43 -----------------------------------
- 2 files changed, 31 insertions(+), 48 deletions(-)
+> 
+> Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
+> ---
+>  arch/arm64/boot/dts/qcom/sc7180-idp.dts |  57 +++++++++++++++
+>  arch/arm64/boot/dts/qcom/sc7180.dtsi    | 125 ++++++++++++++++++++++++++++++++
+>  2 files changed, 182 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sc7180-idp.dts b/arch/arm64/boot/dts/qcom/sc7180-idp.dts
+> index 388f50a..f410614 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7180-idp.dts
+> +++ b/arch/arm64/boot/dts/qcom/sc7180-idp.dts
+> @@ -232,6 +232,50 @@
+>  	};
+>  };
+>  
+> +&dsi_controller {
+> +	status = "okay";
+> +
+> +	vdda-supply = <&vreg_l3c_1p2>;
+> +
+> +	panel@0 {
+> +		compatible = "visionox,rm69299-1080p-display";
+> +		reg = <0>;
+> +
+> +		vdda-supply = <&vreg_l8c_1p8>;
+> +		vdd3p3-supply = <&vreg_l18a_2p8>;
+> +
+> +		pinctrl-names = "default", "suspend";
+> +		pinctrl-0 = <&disp_pins_default>;
+> +		pinctrl-1 = <&disp_pins_default>;
+> +
+> +		reset-gpios = <&pm6150l_gpio 3 0>;
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 983afea..f371227 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -796,6 +796,36 @@ bool a6xx_gmu_isidle(struct a6xx_gmu *gmu)
- 	return true;
- }
- 
-+#define GBIF_CLIENT_HALT_MASK             BIT(0)
-+#define GBIF_ARB_HALT_MASK                BIT(1)
-+
-+static void a6xx_bus_clear_pending_transactions(struct adreno_gpu *adreno_gpu)
-+{
-+	struct msm_gpu *gpu = &adreno_gpu->base;
-+
-+	if (!a6xx_has_gbif(adreno_gpu)) {
-+		gpu_write(gpu, REG_A6XX_VBIF_XIN_HALT_CTRL0, 0xf);
-+		spin_until((gpu_read(gpu, REG_A6XX_VBIF_XIN_HALT_CTRL1) &
-+								0xf) == 0xf);
-+		gpu_write(gpu, REG_A6XX_VBIF_XIN_HALT_CTRL0, 0);
-+
-+		return;
-+	}
-+
-+	/* Halt new client requests on GBIF */
-+	gpu_write(gpu, REG_A6XX_GBIF_HALT, GBIF_CLIENT_HALT_MASK);
-+	spin_until((gpu_read(gpu, REG_A6XX_GBIF_HALT_ACK) &
-+			(GBIF_CLIENT_HALT_MASK)) == GBIF_CLIENT_HALT_MASK);
-+
-+	/* Halt all AXI requests on GBIF */
-+	gpu_write(gpu, REG_A6XX_GBIF_HALT, GBIF_ARB_HALT_MASK);
-+	spin_until((gpu_read(gpu,  REG_A6XX_GBIF_HALT_ACK) &
-+			(GBIF_ARB_HALT_MASK)) == GBIF_ARB_HALT_MASK);
-+
-+	/* The GBIF halt needs to be explicitly cleared */
-+	gpu_write(gpu, REG_A6XX_GBIF_HALT, 0x0);
-+}
-+
- /* Gracefully try to shut down the GMU and by extension the GPU */
- static void a6xx_gmu_shutdown(struct a6xx_gmu *gmu)
- {
-@@ -819,11 +849,7 @@ static void a6xx_gmu_shutdown(struct a6xx_gmu *gmu)
- 			return;
- 		}
- 
--		/* Clear the VBIF pipe before shutting down */
--		gpu_write(gpu, REG_A6XX_VBIF_XIN_HALT_CTRL0, 0xf);
--		spin_until((gpu_read(gpu, REG_A6XX_VBIF_XIN_HALT_CTRL1) & 0xf)
--			== 0xf);
--		gpu_write(gpu, REG_A6XX_VBIF_XIN_HALT_CTRL0, 0);
-+		a6xx_bus_clear_pending_transactions(adreno_gpu);
- 
- 		/* tell the GMU we want to slumber */
- 		a6xx_gmu_notify_slumber(gmu);
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index daf0780..b580e47 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -748,39 +748,6 @@ static const u32 a6xx_register_offsets[REG_ADRENO_REGISTER_MAX] = {
- 	REG_ADRENO_DEFINE(REG_ADRENO_CP_RB_CNTL, REG_A6XX_CP_RB_CNTL),
- };
- 
--#define GBIF_CLIENT_HALT_MASK             BIT(0)
--#define GBIF_ARB_HALT_MASK                BIT(1)
--
--static void a6xx_bus_clear_pending_transactions(struct adreno_gpu *adreno_gpu)
--{
--	struct msm_gpu *gpu = &adreno_gpu->base;
--
--	if(!a6xx_has_gbif(adreno_gpu)){
--		gpu_write(gpu, REG_A6XX_VBIF_XIN_HALT_CTRL0, 0xf);
--		spin_until((gpu_read(gpu, REG_A6XX_VBIF_XIN_HALT_CTRL1) &
--								0xf) == 0xf);
--		gpu_write(gpu, REG_A6XX_VBIF_XIN_HALT_CTRL0, 0);
--
--		return;
--	}
--
--	/* Halt new client requests on GBIF */
--	gpu_write(gpu, REG_A6XX_GBIF_HALT, GBIF_CLIENT_HALT_MASK);
--	spin_until((gpu_read(gpu, REG_A6XX_GBIF_HALT_ACK) &
--			(GBIF_CLIENT_HALT_MASK)) == GBIF_CLIENT_HALT_MASK);
--
--	/* Halt all AXI requests on GBIF */
--	gpu_write(gpu, REG_A6XX_GBIF_HALT, GBIF_ARB_HALT_MASK);
--	spin_until((gpu_read(gpu,  REG_A6XX_GBIF_HALT_ACK) &
--			(GBIF_ARB_HALT_MASK)) == GBIF_ARB_HALT_MASK);
--
--	/*
--	 * GMU needs DDR access in slumber path. Deassert GBIF halt now
--	 * to allow for GMU to access system memory.
--	 */
--	gpu_write(gpu, REG_A6XX_GBIF_HALT, 0x0);
--}
--
- static int a6xx_pm_resume(struct msm_gpu *gpu)
- {
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-@@ -805,16 +772,6 @@ static int a6xx_pm_suspend(struct msm_gpu *gpu)
- 
- 	devfreq_suspend_device(gpu->devfreq.devfreq);
- 
--	/*
--	 * Make sure the GMU is idle before continuing (because some transitions
--	 * may use VBIF
--	 */
--	a6xx_gmu_wait_for_idle(&a6xx_gpu->gmu);
--
--	/* Clear the VBIF pipe before shutting down */
--	/* FIXME: This accesses the GPU - do we need to make sure it is on? */
--	a6xx_bus_clear_pending_transactions(adreno_gpu);
--
- 	return a6xx_gmu_stop(a6xx_gpu);
- }
- 
--- 
-2.7.4
+Please replace the 0 here with GPIO_ACTIVE_HIGH
+
+> +
+> +		ports {
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +			port@0 {
+> +				reg = <0>;
+> +				panel0_in: endpoint {
+> +					remote-endpoint = <&dsi0_out>;
+> +				};
+> +			};
+> +		};
+> +	};
+[..]
+> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> index 3bc3f64..81c3aab 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> @@ -1184,6 +1184,131 @@
+>  			#power-domain-cells = <1>;
+>  		};
+>  
+> +		display_subsystem: mdss@ae00000 {
+
+It was the name, not the label, that Stephen asked you to make generic.
+
+> +			compatible = "qcom,sc7180-mdss";
+> +			reg = <0 0x0ae00000 0 0x1000>;
+> +			reg-names = "mdss";
+> +
+[..]
+> +			display_controller: mdp@ae00000 {
+
+mdp: display-controller@ae00000 {
+
+[..]
+> +			};
+> +
+> +			dsi_controller: qcom,mdss_dsi_ctrl0@ae94000 {
+
+In particular you shouldn't have qcom, in the node name.
+
+[..]
+> +
+> +			dsi_phy: dsi-phy0@ae94400 {
+
+phy@ae94400
+
+Regards,
+Bjorn
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
