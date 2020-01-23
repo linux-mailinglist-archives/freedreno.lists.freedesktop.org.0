@@ -1,37 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20E76146106
-	for <lists+freedreno@lfdr.de>; Thu, 23 Jan 2020 04:49:25 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BAB314626C
+	for <lists+freedreno@lfdr.de>; Thu, 23 Jan 2020 08:19:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7F1E6F978;
-	Thu, 23 Jan 2020 03:49:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E6946F9B6;
+	Thu, 23 Jan 2020 07:19:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F5506F97B
- for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2020 03:49:22 +0000 (UTC)
-Received: from DGGEMS412-HUB.china.huawei.com (unknown [172.30.72.59])
- by Forcepoint Email with ESMTP id EC2F540BAF322F4BD86D;
- Thu, 23 Jan 2020 11:33:34 +0800 (CST)
-Received: from huawei.com (10.90.53.225) by DGGEMS412-HUB.china.huawei.com
- (10.3.19.212) with Microsoft SMTP Server id 14.3.439.0; Thu, 23 Jan 2020
- 11:33:26 +0800
-From: Zheng Bin <zhengbin13@huawei.com>
-To: <robdclark@gmail.com>, <sean@poorly.run>, <airlied@linux.ie>,
- <daniel@ffwll.ch>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>
-Date: Thu, 23 Jan 2020 11:40:43 +0800
-Message-ID: <1579750843-5315-5-git-send-email-zhengbin13@huawei.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1579750843-5315-1-git-send-email-zhengbin13@huawei.com>
-References: <1579750843-5315-1-git-send-email-zhengbin13@huawei.com>
-MIME-Version: 1.0
-X-Originating-IP: [10.90.53.225]
-X-CFilter-Loop: Reflected
-Subject: [Freedreno] [PATCH 4/4] drm/msm/dpu: fix comparing pointer to 0 in
- dpu_encoder.c
+Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
+ [104.130.122.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 739986F9B6
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2020 07:19:20 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1579763962; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=GEgbDb1BS32ifGcjv9cWytEuOjIKz9pOs581KwKPxxI=;
+ b=qR0crKU8FekWiTzcDIIQxvi8Vygd22XbVABe1a29/KOLkr8yzpCFpwyYsY9l2Vizi8kZqia5
+ l9p3iJQUwhHgW5Yh3BGSIQrdLMCeuv2Nmq50s63D+86Q2Bh10FMRD7srNQjBeCSueYbGcuNt
+ aLBviqw01XLXSjRAa0hiGkyN1FU=
+X-Mailgun-Sending-Ip: 104.130.122.26
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5e2948f3.7f82d9f8ab58-smtp-out-n01;
+ Thu, 23 Jan 2020 07:19:15 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id A57B1C4479C; Thu, 23 Jan 2020 07:19:15 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from smasetty-linux.qualcomm.com
+ (blr-c-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.19.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: smasetty)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 2622CC43383;
+ Thu, 23 Jan 2020 07:19:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 2622CC43383
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=smasetty@codeaurora.org
+From: Sharat Masetty <smasetty@codeaurora.org>
+To: freedreno@lists.freedesktop.org
+Date: Thu, 23 Jan 2020 12:49:03 +0530
+Message-Id: <1579763945-10478-1-git-send-email-smasetty@codeaurora.org>
+X-Mailer: git-send-email 1.9.1
+Subject: [Freedreno] [PATCH v2 1/3] drm: msm: Add 618 gpu to the adreno gpu
+ list
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,80 +63,47 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: zhengbin13@huawei.com
+Cc: Sharat Masetty <smasetty@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ jcrouse@codeaurora.org, dri-devel@freedesktop.org,
+ linux-kernel@vger.kernel.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Fixes coccicheck warning:
+This patch adds Adreno 618 entry and its associated properties
+to the gpulist entries.
 
-drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:464:56-57: WARNING comparing pointer to 0
-drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:571:15-16: WARNING comparing pointer to 0
-drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:571:32-33: WARNING comparing pointer to 0
-drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:571:49-50: WARNING comparing pointer to 0
-drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:1968:17-18: WARNING comparing pointer to 0
-drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:1981:17-18: WARNING comparing pointer to 0
-drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:2012:51-52: WARNING comparing pointer to 0
-
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: Zheng Bin <zhengbin13@huawei.com>
+Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/msm/adreno/adreno_device.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index f8ac3bf..26d3b8f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -461,7 +461,7 @@ void dpu_encoder_helper_split_config(
- 	struct msm_display_info *disp_info;
-
- 	if (!phys_enc->hw_mdptop || !phys_enc->parent) {
--		DPU_ERROR("invalid arg(s), encoder %d\n", phys_enc != 0);
-+		DPU_ERROR("invalid arg(s), encoder %d\n", phys_enc != NULL);
- 		return;
- 	}
-
-@@ -568,7 +568,7 @@ static int dpu_encoder_virt_atomic_check(
-
- 	if (!drm_enc || !crtc_state || !conn_state) {
- 		DPU_ERROR("invalid arg(s), drm_enc %d, crtc/conn state %d/%d\n",
--				drm_enc != 0, crtc_state != 0, conn_state != 0);
-+				drm_enc != NULL, crtc_state != NULL, conn_state != NULL);
- 		return -EINVAL;
- 	}
-
-@@ -1965,7 +1965,7 @@ static int dpu_encoder_virt_add_phys_encs(
- 		if (IS_ERR_OR_NULL(enc)) {
- 			DPU_ERROR_ENC(dpu_enc, "failed to init vid enc: %ld\n",
- 				PTR_ERR(enc));
--			return enc == 0 ? -EINVAL : PTR_ERR(enc);
-+			return enc == NULL ? -EINVAL : PTR_ERR(enc);
- 		}
-
- 		dpu_enc->phys_encs[dpu_enc->num_phys_encs] = enc;
-@@ -1978,7 +1978,7 @@ static int dpu_encoder_virt_add_phys_encs(
- 		if (IS_ERR_OR_NULL(enc)) {
- 			DPU_ERROR_ENC(dpu_enc, "failed to init cmd enc: %ld\n",
- 				PTR_ERR(enc));
--			return enc == 0 ? -EINVAL : PTR_ERR(enc);
-+			return enc == NULL ? -EINVAL : PTR_ERR(enc);
- 		}
-
- 		dpu_enc->phys_encs[dpu_enc->num_phys_encs] = enc;
-@@ -2009,7 +2009,7 @@ static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
- 	struct dpu_enc_phys_init_params phys_params;
-
- 	if (!dpu_enc) {
--		DPU_ERROR("invalid arg(s), enc %d\n", dpu_enc != 0);
-+		DPU_ERROR("invalid arg(s), enc %d\n", dpu_enc != NULL);
- 		return -EINVAL;
- 	}
-
---
-2.7.4
-
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index fbbdf86..cb3a6e5 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -167,6 +167,17 @@
+ 		.init = a5xx_gpu_init,
+ 		.zapfw = "a540_zap.mdt",
+ 	}, {
++		.rev = ADRENO_REV(6, 1, 8, ANY_ID),
++		.revn = 618,
++		.name = "A618",
++		.fw = {
++			[ADRENO_FW_SQE] = "a630_sqe.fw",
++			[ADRENO_FW_GMU] = "a630_gmu.bin",
++		},
++		.gmem = SZ_512K,
++		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.init = a6xx_gpu_init,
++	}, {
+ 		.rev = ADRENO_REV(6, 3, 0, ANY_ID),
+ 		.revn = 630,
+ 		.name = "A630",
+-- 
+1.9.1
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
