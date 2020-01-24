@@ -1,60 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BF29148D06
-	for <lists+freedreno@lfdr.de>; Fri, 24 Jan 2020 18:32:15 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3954D148DBE
+	for <lists+freedreno@lfdr.de>; Fri, 24 Jan 2020 19:27:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E205D6E416;
-	Fri, 24 Jan 2020 17:32:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E37C872B50;
+	Fri, 24 Jan 2020 18:27:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 692566E420
- for <freedreno@lists.freedesktop.org>; Fri, 24 Jan 2020 17:32:12 +0000 (UTC)
-Received: by mail-pf1-x442.google.com with SMTP id q10so1450363pfs.6
- for <freedreno@lists.freedesktop.org>; Fri, 24 Jan 2020 09:32:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=CxnFfi1OVtcvBCqSwcv0ZRctexZ9zrixK0G0Fd+YL9M=;
- b=uAQTbihJp9Y377xep7kVEyC+tfqQ1RNOMgHCu+FmUGNTld/PKnP5PmFCvPZfXYtMb+
- ujFDt5FsY2Su1FkuDyta3kmF08yhl6zQ3U1Cenpy7YkzAKaXGmP3idWcYd4JDxr6/Gh+
- aZsV1pyVwEBaDAjUOzQSlMRawIPJEDasbggi4218ieg1f/MvrxWgGrRDnLcc1kM1Vxz+
- ma2FUf0Nn6jga+b3Jr6v8Jw0z9JLIJFCjU5dex7gP1+xG4WrEJb2K8ZkPGTKarCVKMEq
- 928fsSwlHio6XGBCtu8zSV9k/W7e+lYeZKi3z0j5TrE2dE2dNYZoo6tOllJf2qbOu+Ft
- KSqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=CxnFfi1OVtcvBCqSwcv0ZRctexZ9zrixK0G0Fd+YL9M=;
- b=JXnFD6cFlwX3bEh1qo0XNSXSmcAIyI3f+RZ3ePogqH7a3LXIn0muGzxK/xxn2w+x8Q
- 4SVY/Zt86dxofIku6fXFkcDsFaOIgTf01En/j4ChahyVlL8aNSNw61UGTNkUxIxaRjcR
- MFRD/lYE7YkoUQP4fSvdJRaM7fIgUgrFDXUeNneOmD064OYv538IQRPPIeLnmz2AuEBV
- dZsQFxwaG22jYdGvPBSg1HD0fUDHxY9vCMUigwwS2SU1YJZX3/h2JOrfh2YQeP37YPwn
- sQIx+VgdrdgMTfVyszZLoZvTe5EbByyxC+YJDDGgi5UVk2xN56TtsxT2mvFVg9ecKt4C
- yL1Q==
-X-Gm-Message-State: APjAAAWOVX7kMXipjUUtYpoytak42Vok5z0e97tvEzhh/1PR6C6QFVZT
- NFIktA/HG2YYhAI/h+M+gH3o+w==
-X-Google-Smtp-Source: APXvYqwDf89NqtAzeKmdxMJBFd8Gev2DtVh0Oryoa24PJycUxhDvWQcSvp/ck/kZ74zux/rtOiZz+A==
-X-Received: by 2002:a62:b418:: with SMTP id h24mr4455754pfn.192.1579887131841; 
- Fri, 24 Jan 2020 09:32:11 -0800 (PST)
-Received: from yoga (pat_11.qualcomm.com. [192.35.156.11])
- by smtp.gmail.com with ESMTPSA id d2sm7245833pjv.18.2020.01.24.09.32.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jan 2020 09:32:11 -0800 (PST)
-Date: Fri, 24 Jan 2020 09:32:08 -0800
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Harigovindan P <harigovi@codeaurora.org>
-Message-ID: <20200124173208.GZ1511@yoga>
-References: <1579867572-17188-1-git-send-email-harigovi@codeaurora.org>
+Received: from mail25.static.mailgun.info (mail25.static.mailgun.info
+ [104.130.122.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83DAF72B50
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Jan 2020 18:27:00 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1579890420; h=In-Reply-To: Content-Type: MIME-Version:
+ References: Message-ID: Subject: Cc: To: From: Date: Sender;
+ bh=vIZY+m9EMe+TETKYgTmMIG1//fE/Z8Pwfi9rqiJvXtM=;
+ b=uM72f9EFom+TUwmryq/EP7teLWyuw2myf0x0EATRYIxoMRaa1Q7goiNaKy4hzXBQdIdqK/4C
+ /pzUq2wGBUTDSa3jqf2tIxdodazjatPSqlmH7T3CR026yBhPYZGm0BrHhZeTJ2+LXz3zEeh0
+ 1FSqZ29kYqq9RN20UQzxPebsVHc=
+X-Mailgun-Sending-Ip: 104.130.122.25
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5e2b36f2.7f10607a5d50-smtp-out-n01;
+ Fri, 24 Jan 2020 18:26:58 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 5533DC433A2; Fri, 24 Jan 2020 18:26:57 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 54D3AC433CB;
+ Fri, 24 Jan 2020 18:26:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 54D3AC433CB
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=jcrouse@codeaurora.org
+Date: Fri, 24 Jan 2020 11:26:54 -0700
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: Akhil P Oommen <akhilpo@codeaurora.org>
+Message-ID: <20200124182654.GA17149@jcrouse1-lnx.qualcomm.com>
+Mail-Followup-To: Akhil P Oommen <akhilpo@codeaurora.org>,
+ freedreno@lists.freedesktop.org, dri-devel@freedesktop.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ smasetty@codeaurora.org
+References: <1579868411-20837-1-git-send-email-akhilpo@codeaurora.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1579867572-17188-1-git-send-email-harigovi@codeaurora.org>
-User-Agent: Mutt/1.12.2 (2019-09-21)
-Subject: Re: [Freedreno] [v3] arm64: dts: sc7180: add display dt nodes
+In-Reply-To: <1579868411-20837-1-git-send-email-akhilpo@codeaurora.org>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: Correct the highestbank
+ configuration
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,63 +72,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
- kalyan_t@codeaurora.org, hoegsberg@chromium.org,
- freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, smasetty@codeaurora.org,
+ freedreno@lists.freedesktop.org, dri-devel@freedesktop.org,
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri 24 Jan 04:06 PST 2020, Harigovindan P wrote:
-
-> Add display, DSI hardware DT nodes for sc7180.
+On Fri, Jan 24, 2020 at 05:50:11PM +0530, Akhil P Oommen wrote:
+> Highest bank bit configuration is different for a618 gpu. Update
+> it with the correct configuration which is the reset value incidentally.
 > 
-> Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
-
-Thanks for respinning this Harigovindan, just a few more small things
-below.
-
-Are the drivers ready for me to merge this?
-
-> diff --git a/arch/arm64/boot/dts/qcom/sc7180-idp.dts b/arch/arm64/boot/dts/qcom/sc7180-idp.dts
-[..]
-> +&pm6150l_gpio {
-> +	disp_pins {
-
-You can omit this subnode level, i.e. just put disp_pins_default
-directly in &pm6150l_gpio.
-
-> +		disp_pins_default: disp_pins_default{
-> +			pins = "gpio3";
-> +			function = "func1";
-> +			qcom,drive-strength = <2>;
-> +			power-source = <0>;
-> +			bias-disable;
-> +			output-low;
-> +		};
-> +	};
-> +};
-> +
->  &qspi_clk {
->  	pinconf {
->  		pins = "gpio63";
-> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> index 3bc3f64..3ebc45b 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> @@ -1184,6 +1184,130 @@
->  			#power-domain-cells = <1>;
->  		};
+> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index daf0780..536d196 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -470,10 +470,12 @@ static int a6xx_hw_init(struct msm_gpu *gpu)
+>  	/* Select CP0 to always count cycles */
+>  	gpu_write(gpu, REG_A6XX_CP_PERFCTR_CP_SEL_0, PERF_CP_ALWAYS_COUNT);
 >  
-> +		mdss: display_subsystem@ae00000 {
+> -	gpu_write(gpu, REG_A6XX_RB_NC_MODE_CNTL, 2 << 1);
+> -	gpu_write(gpu, REG_A6XX_TPL1_NC_MODE_CNTL, 2 << 1);
+> -	gpu_write(gpu, REG_A6XX_SP_NC_MODE_CNTL, 2 << 1);
+> -	gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL, 2 << 21);
+> +	if (adreno_is_a630(adreno_gpu)) {
+> +		gpu_write(gpu, REG_A6XX_RB_NC_MODE_CNTL, 2 << 1);
+> +		gpu_write(gpu, REG_A6XX_TPL1_NC_MODE_CNTL, 2 << 1);
+> +		gpu_write(gpu, REG_A6XX_SP_NC_MODE_CNTL, 2 << 1);
+> +		gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL, 2 << 21);
+> +	}
 
-Whenever possible, use - and not _ in node names.
+it shouldn't come as a surprise that everything in the a6xx family is going to
+have a highest bank bit setting. Even though the a618 uses the reset value, I
+think it would be less confusing to future folks if we explicitly program it:
 
-Regards,
-Bjorn
+if (adreno_is_a630(adreno_dev))
+  hbb = 2;
+else
+  hbb = 0;
+
+....
+
+Jordan
+
+-- 
+The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+a Linux Foundation Collaborative Project
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
