@@ -1,61 +1,32 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D68314752C
-	for <lists+freedreno@lfdr.de>; Fri, 24 Jan 2020 00:59:54 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 97DCC1484EE
+	for <lists+freedreno@lfdr.de>; Fri, 24 Jan 2020 13:07:14 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 332B86E195;
-	Thu, 23 Jan 2020 23:59:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4038C6E357;
+	Fri, 24 Jan 2020 12:07:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-xc61.google.com (mail-yw1-xc61.google.com
- [IPv6:2607:f8b0:4864:20::c61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B61976E195
- for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2020 23:59:51 +0000 (UTC)
-Received: by mail-yw1-xc61.google.com with SMTP id t141so50552ywc.11
- for <freedreno@lists.freedesktop.org>; Thu, 23 Jan 2020 15:59:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=brkho-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=XkieX+lARW7jwwokHZn19MDXFxT+kUy0zHmwNjMdulo=;
- b=TG08TXKztCGbirXV6G1fy/G5h2JPYKTRpwTr5NDhYAC9FlbjFTEysoVWk63mFgSC2p
- 0si89LjNS/Kj+XvzCqDXcVCySiuwSO9REulyHuxCZBYcaACRk0R1OOwrVrhmsVvQfShP
- HBB2c2+4cFmq9+zEe6wQvnNZXzDStJIlwZwhpZ3z2Dk7EAQ/J7odBM4G98Kgm2qrPmYf
- Pa2VynKmTPsfuLsoxeOxVh7eVdFp/Jt+EBdSboipvjHonh9hQbmpnLCmYaiyQenVe4nF
- kmF7FEvPJJzpJ6L5U4Lcc1KoGguFl2APFAkEQC2Z48TFXN4okshC9KGGPJJ6zzuB8fKZ
- 0MCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=XkieX+lARW7jwwokHZn19MDXFxT+kUy0zHmwNjMdulo=;
- b=eC5Iyy9cqJ0LiYBgpc/Gdqj2I4D5j+BR/i9dM5KHTvnLrzuktNCs2nYiVhKC0maoMV
- wbljVoIbNE2wRJaLFPiUQHYVt5Pl+IGJyDub6e/Oaj1VUpXtzqgxLoXoJSGX1WTzaRfX
- zRD05oiiyYXiSAO8MeaG9IbiGDRuABxKFLnxSGWvJbbrwJaW6H6wHtJbp2Dvrn+O1r6j
- QbGEXHTYRFTVBz/PGWFTuZiXUepftR9N7O/syZD7cyTIyWNpb4W1lGxVa2P1BxKY4Pc+
- jHoNYVGQtgxP8fPQ1tCSEENOUM1bnUTH3/BCoXuQHPqxza4jpiO62ybCR1K851oQ+1yR
- 8uhQ==
-X-Gm-Message-State: APjAAAWoNlySQpgDZNetskEx9snIwiprv1/kKiyqvRolBmlxbL7kWDdD
- bT5/ZI2Tq9oFjjap7FrRr7hhNnS+cd2vZunmNpl8NUNJ5AwYJg==
-X-Google-Smtp-Source: APXvYqyNb7l2M3Y21n67mPcv2NN0GqSRUmdlYWCjqiOEL6AOYJWcIF95BSaX2iBxD91TZWVYUcAS56Ea7say
-X-Received: by 2002:a0d:c5c2:: with SMTP id h185mr157830ywd.287.1579823990901; 
- Thu, 23 Jan 2020 15:59:50 -0800 (PST)
-Received: from hob1.nyc.corp.google.com ([100.118.32.120])
- by smtp-relay.gmail.com with ESMTPS id i82sm591239ywg.11.2020.01.23.15.59.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Jan 2020 15:59:50 -0800 (PST)
-X-Relaying-Domain: brkho.com
-From: Brian Ho <brian@brkho.com>
-To: freedreno@lists.freedesktop.org
-Date: Thu, 23 Jan 2020 18:57:38 -0500
-Message-Id: <20200123235738.48182-3-brian@brkho.com>
-X-Mailer: git-send-email 2.25.0.341.g760bfbb309-goog
-In-Reply-To: <20200123235738.48182-1-brian@brkho.com>
-References: <20200123235738.48182-1-brian@brkho.com>
-MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v3 2/2] drm/msm: Add MSM_WAIT_IOVA ioctl
+Received: from alexa-out-blr-01.qualcomm.com (alexa-out-blr-01.qualcomm.com
+ [103.229.18.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C22B6E357;
+ Fri, 24 Jan 2020 12:07:10 +0000 (UTC)
+Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
+ by alexa-out-blr-01.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 24 Jan 2020 17:36:36 +0530
+Received: from harigovi-linux.qualcomm.com ([10.204.66.157])
+ by ironmsg02-blr.qualcomm.com with ESMTP; 24 Jan 2020 17:36:16 +0530
+Received: by harigovi-linux.qualcomm.com (Postfix, from userid 2332695)
+ id 512901E24; Fri, 24 Jan 2020 17:36:15 +0530 (IST)
+From: Harigovindan P <harigovi@codeaurora.org>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Fri, 24 Jan 2020 17:36:12 +0530
+Message-Id: <1579867572-17188-1-git-send-email-harigovi@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [v3] arm64: dts: sc7180: add display dt nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,162 +39,257 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robdclark@chromium.org, Brian Ho <brian@brkho.com>,
- David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- hoegsberg@chromium.org, Sean Paul <sean@poorly.run>
+Cc: Harigovindan P <harigovi@codeaurora.org>, linux-kernel@vger.kernel.org,
+ robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
+ kalyan_t@codeaurora.org, hoegsberg@chromium.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Implements an ioctl to wait until a value at a given iova is greater
-than or equal to a supplied value.
+Add display, DSI hardware DT nodes for sc7180.
 
-This will initially be used by turnip (open-source Vulkan driver for
-QC in mesa) for occlusion queries where the userspace driver can
-block on a query becoming available before continuing via
-vkGetQueryPoolResults.
-
-Change-Id: I1413fc34b7eb8ba569c765ad65126e9024341730
-Signed-off-by: Brian Ho <brian@brkho.com>
+Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
 ---
- drivers/gpu/drm/msm/msm_drv.c | 61 +++++++++++++++++++++++++++++++++--
- include/uapi/drm/msm_drm.h    | 14 ++++++++
- 2 files changed, 73 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index c84f0a8b3f2c..f746ac86bca3 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -36,10 +36,11 @@
-  *           MSM_GEM_INFO ioctl.
-  * - 1.4.0 - softpin, MSM_RELOC_BO_DUMP, and GEM_INFO support to set/get
-  *           GEM object's debug name
-- * - 1.5.0 - Add SUBMITQUERY_QUERY ioctl
-+ * - 1.5.0 - Add SUBMITQUEUE_QUERY ioctl
-+ * - 1.6.0 - Add WAIT_IOVA ioctl
-  */
- #define MSM_VERSION_MAJOR	1
--#define MSM_VERSION_MINOR	5
-+#define MSM_VERSION_MINOR	6
- #define MSM_VERSION_PATCHLEVEL	0
+Changes in v1:
+	-Added display DT nodes for sc7180
+Changes in v2:
+	-Renamed node names
+	-Corrected code alignments
+	-Removed extra new line
+	-Added DISP AHB clock for register access
+	under display_subsystem node for global settings
+Changes in v3:
+	-Modified node names
+	-Modified hard coded values
+	-Removed mdss reg entry
+
+ arch/arm64/boot/dts/qcom/sc7180-idp.dts |  58 +++++++++++++++
+ arch/arm64/boot/dts/qcom/sc7180.dtsi    | 124 ++++++++++++++++++++++++++++++++
+ 2 files changed, 182 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sc7180-idp.dts b/arch/arm64/boot/dts/qcom/sc7180-idp.dts
+index 388f50a..c77aab7 100644
+--- a/arch/arm64/boot/dts/qcom/sc7180-idp.dts
++++ b/arch/arm64/boot/dts/qcom/sc7180-idp.dts
+@@ -7,6 +7,7 @@
  
- static const struct drm_mode_config_funcs mode_config_funcs = {
-@@ -952,6 +953,61 @@ static int msm_ioctl_submitqueue_close(struct drm_device *dev, void *data,
- 	return msm_submitqueue_remove(file->driver_priv, id);
- }
+ /dts-v1/;
  
-+static int msm_ioctl_wait_iova(struct drm_device *dev, void *data,
-+		struct drm_file *file)
-+{
-+	struct msm_drm_private *priv = dev->dev_private;
-+	struct drm_gem_object *obj;
-+	struct drm_msm_wait_iova *args = data;
-+	ktime_t timeout = to_ktime(args->timeout);
-+	unsigned long remaining_jiffies = timeout_to_jiffies(&timeout);
-+	struct msm_gpu *gpu = priv->gpu;
-+	void *base_vaddr;
-+	uint64_t *vaddr;
-+	int ret;
-+
-+	if (args->pad)
-+		return -EINVAL;
-+
-+	if (!gpu)
-+		return -ENODEV;
-+
-+	obj = drm_gem_object_lookup(file, args->handle);
-+	if (!obj)
-+		return -ENOENT;
-+
-+	if (args->offset + sizeof(*vaddr) < args->offset ||
-+		args->offset + sizeof(*vaddr) > obj->size) {
-+		ret = -EINVAL;
-+		goto err_put_gem_object;
-+	}
-+
-+	base_vaddr = msm_gem_get_vaddr(obj);
-+	if (IS_ERR(base_vaddr)) {
-+		ret = PTR_ERR(base_vaddr);
-+		goto err_put_gem_object;
-+	}
-+
-+	vaddr = base_vaddr + args->offset;
-+
-+	/* TODO: Support 64 bit reference values with a flag. */
-+	ret = wait_event_interruptible_timeout(gpu->event,
-+			(int32_t)((uint32_t)(*vaddr & args->mask) -
-+					  (uint32_t)args->value) >= 0,
-+			remaining_jiffies);
-+
-+	if (ret == 0)
-+		ret = -ETIMEDOUT;
-+	else if (ret > 0)
-+		ret = 0;
-+
-+    msm_gem_put_vaddr(obj);
-+
-+err_put_gem_object:
-+	drm_gem_object_put_unlocked(obj);
-+	return ret;
-+}
-+
- static const struct drm_ioctl_desc msm_ioctls[] = {
- 	DRM_IOCTL_DEF_DRV(MSM_GET_PARAM,    msm_ioctl_get_param,    DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(MSM_GEM_NEW,      msm_ioctl_gem_new,      DRM_RENDER_ALLOW),
-@@ -964,6 +1020,7 @@ static const struct drm_ioctl_desc msm_ioctls[] = {
- 	DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_NEW,   msm_ioctl_submitqueue_new,   DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_CLOSE, msm_ioctl_submitqueue_close, DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_QUERY, msm_ioctl_submitqueue_query, DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF_DRV(MSM_WAIT_IOVA, msm_ioctl_wait_iova, DRM_RENDER_ALLOW),
++#include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ #include "sc7180.dtsi"
+ #include "pm6150.dtsi"
+@@ -232,6 +233,50 @@
+ 	};
  };
  
- static const struct vm_operations_struct vm_ops = {
-diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
-index 0b85ed6a3710..d4eac312f56e 100644
---- a/include/uapi/drm/msm_drm.h
-+++ b/include/uapi/drm/msm_drm.h
-@@ -298,6 +298,18 @@ struct drm_msm_submitqueue_query {
- 	__u32 pad;
- };
- 
-+/* This ioctl blocks until the value at bo + offset is greater than or equal
-+ * to the reference value.
-+ */
-+struct drm_msm_wait_iova {
-+	__u32 handle;          /* in, GEM handle */
-+	__u32 pad;
-+	struct drm_msm_timespec timeout;   /* in */
-+	__u64 offset;          /* in, offset into bo */
-+	__u64 mask;            /* in, mask of the value at bo + offset */
-+	__u64 value;           /* in, reference value, 32 bits */
++&dsi_controller {
++	status = "okay";
++
++	vdda-supply = <&vreg_l3c_1p2>;
++
++	panel@0 {
++		compatible = "visionox,rm69299-1080p-display";
++		reg = <0>;
++
++		vdda-supply = <&vreg_l8c_1p8>;
++		vdd3p3-supply = <&vreg_l18a_2p8>;
++
++		pinctrl-names = "default", "suspend";
++		pinctrl-0 = <&disp_pins_default>;
++		pinctrl-1 = <&disp_pins_default>;
++
++		reset-gpios = <&pm6150l_gpio 3 GPIO_ACTIVE_HIGH>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			port@0 {
++				reg = <0>;
++				panel0_in: endpoint {
++					remote-endpoint = <&dsi0_out>;
++				};
++			};
++		};
++	};
++
++	ports {
++		port@1 {
++			endpoint {
++				remote-endpoint = <&panel0_in>;
++				data-lanes = <0 1 2 3>;
++			};
++		};
++	};
 +};
 +
- #define DRM_MSM_GET_PARAM              0x00
- /* placeholder:
- #define DRM_MSM_SET_PARAM              0x01
-@@ -315,6 +327,7 @@ struct drm_msm_submitqueue_query {
- #define DRM_MSM_SUBMITQUEUE_NEW        0x0A
- #define DRM_MSM_SUBMITQUEUE_CLOSE      0x0B
- #define DRM_MSM_SUBMITQUEUE_QUERY      0x0C
-+#define DRM_MSM_WAIT_IOVA      0x0D
++&dsi_phy {
++	status = "okay";
++};
++
+ &qspi {
+ 	status = "okay";
+ 	pinctrl-names = "default";
+@@ -289,6 +334,19 @@
  
- #define DRM_IOCTL_MSM_GET_PARAM        DRM_IOWR(DRM_COMMAND_BASE + DRM_MSM_GET_PARAM, struct drm_msm_param)
- #define DRM_IOCTL_MSM_GEM_NEW          DRM_IOWR(DRM_COMMAND_BASE + DRM_MSM_GEM_NEW, struct drm_msm_gem_new)
-@@ -327,6 +340,7 @@ struct drm_msm_submitqueue_query {
- #define DRM_IOCTL_MSM_SUBMITQUEUE_NEW    DRM_IOWR(DRM_COMMAND_BASE + DRM_MSM_SUBMITQUEUE_NEW, struct drm_msm_submitqueue)
- #define DRM_IOCTL_MSM_SUBMITQUEUE_CLOSE  DRM_IOW (DRM_COMMAND_BASE + DRM_MSM_SUBMITQUEUE_CLOSE, __u32)
- #define DRM_IOCTL_MSM_SUBMITQUEUE_QUERY  DRM_IOW (DRM_COMMAND_BASE + DRM_MSM_SUBMITQUEUE_QUERY, struct drm_msm_submitqueue_query)
-+#define DRM_IOCTL_MSM_WAIT_IOVA        DRM_IOW (DRM_COMMAND_BASE + DRM_MSM_WAIT_IOVA, struct drm_msm_wait_iova)
+ /* PINCTRL - additions to nodes defined in sc7180.dtsi */
  
- #if defined(__cplusplus)
- }
++&pm6150l_gpio {
++	disp_pins {
++		disp_pins_default: disp_pins_default{
++			pins = "gpio3";
++			function = "func1";
++			qcom,drive-strength = <2>;
++			power-source = <0>;
++			bias-disable;
++			output-low;
++		};
++	};
++};
++
+ &qspi_clk {
+ 	pinconf {
+ 		pins = "gpio63";
+diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+index 3bc3f64..3ebc45b 100644
+--- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+@@ -1184,6 +1184,130 @@
+ 			#power-domain-cells = <1>;
+ 		};
+ 
++		mdss: display_subsystem@ae00000 {
++			compatible = "qcom,sc7180-mdss";
++			reg = <0 0x0ae00000 0 0x1000>;
++			reg-names = "mdss";
++
++			power-domains = <&dispcc MDSS_GDSC>;
++
++			clocks = <&gcc GCC_DISP_AHB_CLK>,
++				 <&gcc GCC_DISP_HF_AXI_CLK>,
++				 <&dispcc DISP_CC_MDSS_AHB_CLK>,
++				 <&dispcc DISP_CC_MDSS_MDP_CLK>;
++			clock-names = "iface", "gcc_bus", "ahb", "core";
++
++			assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>;
++			assigned-clock-rates = <300000000>;
++
++			interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-controller;
++			#interrupt-cells = <1>;
++
++			iommus = <&apps_smmu 0x800 0x2>;
++
++			#address-cells = <2>;
++			#size-cells = <2>;
++			ranges;
++
++			mdp: display_controller@ae01000 {
++				compatible = "qcom,sc7180-dpu";
++				reg = <0 0x0ae01000 0 0x8f000>,
++				      <0 0x0aeb0000 0 0x2008>,
++				      <0 0x0af03000 0 0x16>;
++				reg-names = "mdp", "vbif", "disp_cc";
++
++				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
++					 <&dispcc DISP_CC_MDSS_ROT_CLK>,
++					 <&dispcc DISP_CC_MDSS_MDP_LUT_CLK>,
++					 <&dispcc DISP_CC_MDSS_MDP_CLK>,
++					 <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
++				clock-names = "iface", "rot", "lut", "core",
++					      "vsync";
++				assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>,
++						  <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
++				assigned-clock-rates = <300000000>,
++						       <19200000>;
++
++				interrupt-parent = <&mdss>;
++				interrupts = <0 IRQ_TYPE_LEVEL_HIGH>;
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++						dpu_intf1_out: endpoint {
++							remote-endpoint = <&dsi0_in>;
++						};
++					};
++				};
++			};
++
++			dsi_controller: dsi_controller@ae94000 {
++				compatible = "qcom,mdss-dsi-ctrl";
++				reg = <0 0x0ae94000 0 0x400>;
++				reg-names = "dsi_ctrl";
++
++				interrupt-parent = <&mdss>;
++				interrupts = <4 IRQ_TYPE_LEVEL_HIGH>;
++
++				clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
++					 <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
++					 <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
++					 <&dispcc DISP_CC_MDSS_ESC0_CLK>,
++					 <&dispcc DISP_CC_MDSS_AHB_CLK>,
++					 <&gcc GCC_DISP_HF_AXI_CLK>;
++				clock-names = "byte",
++					      "byte_intf",
++					      "pixel",
++					      "core",
++					      "iface",
++					      "bus";
++
++				phys = <&dsi_phy>;
++				phy-names = "dsi";
++
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++						dsi0_in: endpoint {
++							remote-endpoint = <&dpu_intf1_out>;
++						};
++					};
++
++					port@1 {
++						reg = <1>;
++						dsi0_out: endpoint {
++						};
++					};
++				};
++			};
++
++			dsi_phy: dsi_phy@ae94400 {
++				compatible = "qcom,dsi-phy-10nm";
++				reg = <0 0x0ae94400 0 0x200>,
++				      <0 0x0ae94600 0 0x280>,
++				      <0 0x0ae94a00 0 0x1e0>;
++				reg-names = "dsi_phy",
++					    "dsi_phy_lane",
++					    "dsi_pll";
++
++				#clock-cells = <1>;
++				#phy-cells = <0>;
++
++				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>;
++				clock-names = "iface";
++			};
++		};
++
+ 		pdc: interrupt-controller@b220000 {
+ 			compatible = "qcom,sc7180-pdc", "qcom,pdc";
+ 			reg = <0 0x0b220000 0 0x30000>;
 -- 
-2.25.0.341.g760bfbb309-goog
+2.7.4
 
 _______________________________________________
 Freedreno mailing list
