@@ -2,32 +2,33 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57ECC14EC32
-	for <lists+freedreno@lfdr.de>; Fri, 31 Jan 2020 13:03:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 723DE14EC35
+	for <lists+freedreno@lfdr.de>; Fri, 31 Jan 2020 13:04:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 098476FB21;
-	Fri, 31 Jan 2020 12:03:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05E3D6FB23;
+	Fri, 31 Jan 2020 12:04:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
- [104.130.122.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D61126FB20
- for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2020 12:03:53 +0000 (UTC)
+Received: from mail25.static.mailgun.info (mail25.static.mailgun.info
+ [104.130.122.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B49966FB28
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2020 12:04:00 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1580472233; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=DATLwmm6gFXl+yI0FvjPg5/iHOuhkrdRvmV/WIqzDAQ=;
- b=fehplev67gTr4GkTF50DronaXQ1unqq/uamLM2JfRFnDEbXO8aIpL9Tx6G/JRmLyphAvx5F8
- 5S0vtf6LSf437AcLsIyWv6t3KV/myKJ0BCZM2ckBTtfFOjX4l6e+WOe5HGICjmFsXDP/ZGVZ
- dmAbzr5CP51HkBo6lhdDwGpiyPQ=
-X-Mailgun-Sending-Ip: 104.130.122.26
+ s=smtp; t=1580472241; h=References: In-Reply-To: Message-Id: Date:
+ Subject: Cc: To: From: Sender;
+ bh=I92bl8ZKG2nZdZmbCbJPAjn04+f1sLHcfUWZZEp+SNc=;
+ b=idolAR3TEFPN5YFKpTgr7GxdfIu1Vpv8XA/Mid9kPrJnBgcBwAOAbUkmhm5t7Ki4qUg4lyo8
+ gsGn5YH6wat7A/5uw4vdDCt2kvCxLMkX1Sj2M/4/4NwIZugaMQAfjiLXID9Oea8O+xB4uB8L
+ 0QLH11otkiCkKczsbsqvmfX/k0Y=
+X-Mailgun-Sending-Ip: 104.130.122.25
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5e3417a8.7f86efcfe9d0-smtp-out-n02;
- Fri, 31 Jan 2020 12:03:52 -0000 (UTC)
+ by mxa.mailgun.org with ESMTP id 5e3417ad.7f52d1af3fb8-smtp-out-n01;
+ Fri, 31 Jan 2020 12:03:57 -0000 (UTC)
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 5B0CCC433A2; Fri, 31 Jan 2020 12:03:52 +0000 (UTC)
+ id C279CC4479F; Fri, 31 Jan 2020 12:03:57 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -37,9 +38,9 @@ Received: from smasetty-linux.qualcomm.com
  (blr-c-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.19.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: smasetty)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id ACF31C433CB;
- Fri, 31 Jan 2020 12:03:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org ACF31C433CB
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 9A098C433A2;
+ Fri, 31 Jan 2020 12:03:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 9A098C433A2
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
@@ -47,10 +48,13 @@ Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
 From: Sharat Masetty <smasetty@codeaurora.org>
 To: freedreno@lists.freedesktop.org,
 	devicetree@vger.kernel.org
-Date: Fri, 31 Jan 2020 17:33:39 +0530
-Message-Id: <1580472220-3453-1-git-send-email-smasetty@codeaurora.org>
+Date: Fri, 31 Jan 2020 17:33:40 +0530
+Message-Id: <1580472220-3453-2-git-send-email-smasetty@codeaurora.org>
 X-Mailer: git-send-email 1.9.1
-Subject: [Freedreno] [PATCH v3] Add A618 GPU nodes
+In-Reply-To: <1580472220-3453-1-git-send-email-smasetty@codeaurora.org>
+References: <1580472220-3453-1-git-send-email-smasetty@codeaurora.org>
+Subject: [Freedreno] [PATCH v3] arm64: dts: qcom: sc7180: Add A618 gpu dt
+ blob
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,28 +77,128 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-I used this branch qcom/arm64-for-5.6-to-be-rebased as suggested by Matthias.
-This patch needs the clock patches and the clock patches have not yet landed, so
-please apply the following series and patches in order
+This patch adds the required dt nodes and properties
+to enabled A618 GPU.
 
-a) All patches from https://patchwork.kernel.org/project/linux-clk/list/?series=203517&state=%2a&archive=both
-b) Patches 1 and 2 from https://patchwork.kernel.org/project/linux-clk/list/?series=203527&archive=both&state=%2a
-c) All patches from https://patchwork.kernel.org/project/linux-clk/list/?series=221739&archive=both&state=%2a
-d) https://lore.kernel.org/linux-arm-msm/20200124144154.v2.10.I1a4b93fb005791e29a9dcf288fc8bd459a555a59%40changeid/raw
-e) This patch "arm64: dts: qcom: sc7180: Add A618 gpu dt blob"
-
-v3: Addressed review comments from previous submits. Also removed the
-interconnect bindings from this patch and I will submit as a new patch with its
-dependencies listed. Also I will be sending a new patch for updating the
-bindings documentation.
-
-Sharat Masetty (1):
-  arm64: dts: qcom: sc7180: Add A618 gpu dt blob
-
+Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
+---
  arch/arm64/boot/dts/qcom/sc7180.dtsi | 102 +++++++++++++++++++++++++++++++++++
  1 file changed, 102 insertions(+)
 
---
+diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+index f3fcc5c..b39461c 100644
+--- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+@@ -1043,6 +1043,108 @@
+ 			};
+ 		};
+ 
++		gpu: gpu@5000000 {
++			compatible = "qcom,adreno-618.0", "qcom,adreno";
++			#stream-id-cells = <16>;
++			reg = <0 0x05000000 0 0x40000>, <0 0x0509e000 0 0x1000>,
++				<0 0x05061000 0 0x800>;
++			reg-names = "kgsl_3d0_reg_memory", "cx_mem", "cx_dbgc";
++			interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
++			iommus = <&adreno_smmu 0>;
++			operating-points-v2 = <&gpu_opp_table>;
++			qcom,gmu = <&gmu>;
++
++			gpu_opp_table: opp-table {
++				compatible = "operating-points-v2";
++
++				opp-800000000 {
++					opp-hz = /bits/ 64 <800000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
++				};
++
++				opp-650000000 {
++					opp-hz = /bits/ 64 <650000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
++				};
++
++				opp-565000000 {
++					opp-hz = /bits/ 64 <565000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
++				};
++
++				opp-430000000 {
++					opp-hz = /bits/ 64 <430000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
++				};
++
++				opp-355000000 {
++					opp-hz = /bits/ 64 <355000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
++				};
++
++				opp-267000000 {
++					opp-hz = /bits/ 64 <267000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
++				};
++
++				opp-180000000 {
++					opp-hz = /bits/ 64 <180000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
++				};
++			};
++		};
++
++		adreno_smmu: iommu@5040000 {
++			compatible = "qcom,sc7180-smmu-v2", "qcom,smmu-v2";
++			reg = <0 0x05040000 0 0x10000>;
++			#iommu-cells = <1>;
++			#global-interrupts = <2>;
++			interrupts = <GIC_SPI 229 IRQ_TYPE_LEVEL_HIGH>,
++					<GIC_SPI 231 IRQ_TYPE_LEVEL_HIGH>,
++					<GIC_SPI 364 IRQ_TYPE_EDGE_RISING>,
++					<GIC_SPI 365 IRQ_TYPE_EDGE_RISING>,
++					<GIC_SPI 366 IRQ_TYPE_EDGE_RISING>,
++					<GIC_SPI 367 IRQ_TYPE_EDGE_RISING>,
++					<GIC_SPI 368 IRQ_TYPE_EDGE_RISING>,
++					<GIC_SPI 369 IRQ_TYPE_EDGE_RISING>,
++					<GIC_SPI 370 IRQ_TYPE_EDGE_RISING>,
++					<GIC_SPI 371 IRQ_TYPE_EDGE_RISING>;
++			clocks = <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
++				<&gcc GCC_GPU_CFG_AHB_CLK>,
++				<&gcc GCC_DDRSS_GPU_AXI_CLK>;
++
++			clock-names = "bus", "iface", "mem_iface_clk";
++			power-domains = <&gpucc CX_GDSC>;
++		};
++
++		gmu: gmu@506a000 {
++			compatible="qcom,adreno-gmu-618.0", "qcom,adreno-gmu";
++			reg = <0 0x0506a000 0 0x31000>, <0 0x0b290000 0 0x10000>,
++				<0 0x0b490000 0 0x10000>;
++			reg-names = "gmu", "gmu_pdc", "gmu_pdc_seq";
++			interrupts = <GIC_SPI 304 IRQ_TYPE_LEVEL_HIGH>,
++				   <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "hfi", "gmu";
++			clocks = <&gpucc GPU_CC_CX_GMU_CLK>,
++			       <&gpucc GPU_CC_CXO_CLK>,
++			       <&gcc GCC_DDRSS_GPU_AXI_CLK>,
++			       <&gcc GCC_GPU_MEMNOC_GFX_CLK>;
++			clock-names = "gmu", "cxo", "axi", "memnoc";
++			power-domains = <&gpucc CX_GDSC>;
++			power-domain-names = "cx";
++			iommus = <&adreno_smmu 5>;
++			operating-points-v2 = <&gmu_opp_table>;
++
++			gmu_opp_table: opp-table {
++				compatible = "operating-points-v2";
++
++				opp-200000000 {
++					opp-hz = /bits/ 64 <200000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
++				};
++			};
++		};
++
+ 		gpucc: clock-controller@5090000 {
+ 			compatible = "qcom,sc7180-gpucc";
+ 			reg = <0 0x05090000 0 0x9000>;
+-- 
 1.9.1
 _______________________________________________
 Freedreno mailing list
