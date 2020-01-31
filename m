@@ -1,54 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C3B614D2AE
-	for <lists+freedreno@lfdr.de>; Wed, 29 Jan 2020 22:45:37 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B117214E94A
+	for <lists+freedreno@lfdr.de>; Fri, 31 Jan 2020 09:00:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BA356E04A;
-	Wed, 29 Jan 2020 21:45:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EA5E6FAB1;
+	Fri, 31 Jan 2020 08:00:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
- [IPv6:2607:f8b0:4864:20::541])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A6C66E04A
- for <freedreno@lists.freedesktop.org>; Wed, 29 Jan 2020 21:45:35 +0000 (UTC)
-Received: by mail-pg1-x541.google.com with SMTP id k25so480223pgt.7
- for <freedreno@lists.freedesktop.org>; Wed, 29 Jan 2020 13:45:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=nclDQAc57fGVBDFTZcvntg/YEiVwsYbbmEE1VCKKHLg=;
- b=ZwMaTKzujzRvsoOYh4RoVaxZqJcaDKslwpdjnDms9u/KmNgAXwun1IqcFfAiO+gq1i
- mX9dIMgPRPLi/SsGh4rboYXE+P83RWPLszMjStuactkkeBOxADTViB237qKrw+zH1LqX
- ZwMJmGfgoTt1OXiQeWv1VcSSYlMYwCe9Ds5Un6Bl1gJzcZtXxnSR6twaVUzw9PBYsjKR
- J0Ptii7KP0h/aELgFOoCRE2Q/JOsK/obCwC3hOMvL7yGNDRrJKqSN4V2JaTAENG4/XKM
- jCta6txXwdOK1SaPsone8HpNOVpOj3cEL9sOPK7fXVejm+MnK1sACZmkS7sIDqOAR3O5
- Ec5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=nclDQAc57fGVBDFTZcvntg/YEiVwsYbbmEE1VCKKHLg=;
- b=Gz/YOSJwZyWPzJXCFSrFTiF0XXnFpHyjZwqFDC2+KZ2LZEePSRk/u2KN05gJxJtlyL
- h3q2rlA0wswwPQEbLmV7hhQ96aK6t+olYtcX1FaBT4l/DlfF5Gmg+OUEgjxHzFH686ON
- fLzuUMy4fi76xhUyDpGhXAgtwrIlJt6jojrg46f/lX3OP3QqSIgz5QUSiugKYJ5V716J
- 70F/eD2KFlWZvlgVAHCsBob+DAyYX9No0oCc3hMZGQVESnZnL9K1FrZyRqKKiZQp066s
- nTEWdOf4WxW7jzLxGr4m9oJpESaIDekn9RHAhssN6ZzUs0lR8PJXfApuPciGQT5ObJQD
- Tz2g==
-X-Gm-Message-State: APjAAAXgbh5cBTAuDSzk7rEJHGbkossgYnCq/9KKu5HhL94cu/eUwg1B
- X11X/71CNAi8cDFJI45vc86dWfywM7MfdydGDAmrGA==
-X-Google-Smtp-Source: APXvYqzIW92YmXpOGHWgyhnVOCnqTnMqWsQFTenOWcSvmwUlWqxTwRcCT7ZYdui69Mp9XEVYFxK5oXQGEWYB53kahxk=
-X-Received: by 2002:a62:38c9:: with SMTP id f192mr1625175pfa.165.1580334334643; 
- Wed, 29 Jan 2020 13:45:34 -0800 (PST)
+Received: from mail25.static.mailgun.info (mail25.static.mailgun.info
+ [104.130.122.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CE326FAB9
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2020 08:00:03 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1580457606; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: To:
+ Subject: Sender; bh=vDYKPZDva0OYUuiv6T+bASw/nbPttMElOslv2zckmr0=;
+ b=tBZNVRRpY9IjtnRUW4gJS0vvKzN/XfU41k6SRa/KbH5ZlppZxAT7HlWrKa40mH4PCQoyQGTj
+ iNiAPzXkiuJsP8m98zji13VUgPqPppnKApvrmACppJbQqV0PsLJ98HJTebPuGggVuvxlq61L
+ q2agLyAj4nvzhkc69lHSWYPmDgs=
+X-Mailgun-Sending-Ip: 104.130.122.25
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5e33de7f.7f255a2dbb90-smtp-out-n02;
+ Fri, 31 Jan 2020 07:59:59 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 5CA6DC433CB; Fri, 31 Jan 2020 07:59:59 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from [10.204.67.239]
+ (blr-c-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.19.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 291A5C43383;
+ Fri, 31 Jan 2020 07:59:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 291A5C43383
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=akhilpo@codeaurora.org
+To: freedreno@lists.freedesktop.org, dri-devel@freedesktop.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ smasetty@codeaurora.org
+References: <1579868411-20837-1-git-send-email-akhilpo@codeaurora.org>
+ <20200124182654.GA17149@jcrouse1-lnx.qualcomm.com>
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+Message-ID: <9a9ec81d-f963-8d71-d6aa-d32956788d94@codeaurora.org>
+Date: Fri, 31 Jan 2020 13:29:54 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.1
 MIME-Version: 1.0
-References: <20200129201244.65261-1-john.stultz@linaro.org>
-In-Reply-To: <20200129201244.65261-1-john.stultz@linaro.org>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Wed, 29 Jan 2020 13:45:23 -0800
-Message-ID: <CAKwvOd=EvaSJFcpjh6gSRMrb=D5hwJHNR3wz6uEg3fmqmoGqfg@mail.gmail.com>
-To: John Stultz <john.stultz@linaro.org>
-Subject: Re: [Freedreno] [PATCH] drm: msm: Fix return type of
- dsi_mgr_connector_mode_valid for kCFI
+In-Reply-To: <20200124182654.GA17149@jcrouse1-lnx.qualcomm.com>
+Content-Language: en-US
+Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: Correct the highestbank
+ configuration
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,73 +72,68 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alistair Delva <adelva@google.com>, Amit Pundir <amit.pundir@linaro.org>,
- freedreno@lists.freedesktop.org, lkml <linux-kernel@vger.kernel.org>,
- clang-built-linux <clang-built-linux@googlegroups.com>,
- Rob Clark <robdclark@gmail.com>, Sami Tolvanen <samitolvanen@google.com>,
- Sean Paul <sean@poorly.run>, Sumit Semwal <sumit.semwal@linaro.org>,
- Todd Kjos <tkjos@google.com>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jan 29, 2020 at 12:12 PM John Stultz <john.stultz@linaro.org> wrote:
+On 1/24/2020 11:56 PM, Jordan Crouse wrote:
+> On Fri, Jan 24, 2020 at 05:50:11PM +0530, Akhil P Oommen wrote:
+>> Highest bank bit configuration is different for a618 gpu. Update
+>> it with the correct configuration which is the reset value incidentally.
+>>
+>> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+>> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
+>> ---
+>>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 10 ++++++----
+>>   1 file changed, 6 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> index daf0780..536d196 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> @@ -470,10 +470,12 @@ static int a6xx_hw_init(struct msm_gpu *gpu)
+>>   	/* Select CP0 to always count cycles */
+>>   	gpu_write(gpu, REG_A6XX_CP_PERFCTR_CP_SEL_0, PERF_CP_ALWAYS_COUNT);
+>>   
+>> -	gpu_write(gpu, REG_A6XX_RB_NC_MODE_CNTL, 2 << 1);
+>> -	gpu_write(gpu, REG_A6XX_TPL1_NC_MODE_CNTL, 2 << 1);
+>> -	gpu_write(gpu, REG_A6XX_SP_NC_MODE_CNTL, 2 << 1);
+>> -	gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL, 2 << 21);
+>> +	if (adreno_is_a630(adreno_gpu)) {
+>> +		gpu_write(gpu, REG_A6XX_RB_NC_MODE_CNTL, 2 << 1);
+>> +		gpu_write(gpu, REG_A6XX_TPL1_NC_MODE_CNTL, 2 << 1);
+>> +		gpu_write(gpu, REG_A6XX_SP_NC_MODE_CNTL, 2 << 1);
+>> +		gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL, 2 << 21);
+>> +	}
+> it shouldn't come as a surprise that everything in the a6xx family is going to
+> have a highest bank bit setting. Even though the a618 uses the reset value, I
+> think it would be less confusing to future folks if we explicitly program it:
 >
-> I was hitting kCFI crashes when building with clang, and after
-> some digging finally narrowed it down to the
-> dsi_mgr_connector_mode_valid() function being implemented as
-> returning an int, instead of an enum drm_mode_status.
->
-> This patch fixes it, and appeases the opaque word of the kCFI
-> gods (seriously, clang inlining everything makes the kCFI
-> backtraces only really rough estimates of where things went
-> wrong).
->
-> Thanks as always to Sami for his help narrowing this down.
->
-> Cc: Rob Clark <robdclark@gmail.com>
-> Cc: Sean Paul <sean@poorly.run>
-> Cc: Sami Tolvanen <samitolvanen@google.com>
-> Cc: Todd Kjos <tkjos@google.com>
-> Cc: Alistair Delva <adelva@google.com>
-> Cc: Amit Pundir <amit.pundir@linaro.org>
-> Cc: Sumit Semwal <sumit.semwal@linaro.org>
-> Cc: freedreno@lists.freedesktop.org
-> Cc: clang-built-linux@googlegroups.com
-> Signed-off-by: John Stultz <john.stultz@linaro.org>
+> if (adreno_is_a630(adreno_dev))
+>    hbb = 2;
+> else
+>    hbb = 0;
 
-John, thanks for fixing this. Our inliner is a point of pride
-(inlining indirect function calls; you're welcome). ;)
-Indeed, the function pointer member `mode_valid` in `struct
-drm_connector_helper_funcs` in
-include/drm/drm_modeset_helper_vtables.h returns an `enum
-drm_mode_status`.
+I think it would be better if we keep this in the adreno_info. Yes, this 
+would waste a tiny bit of space for other gpu
+entries in the gpulist. It is also possible to move this to a separate 
+struct and keep a pointer to it in the adreno_info.
+But that is something we should try when there are more a6xx specific 
+configurations in future.
 
-Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
+I have a new patch, but testing it is taking longer that I expected. I 
+will share it as soon as possible.
 
-> ---
->  drivers/gpu/drm/msm/dsi/dsi_manager.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> ....
 >
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> index 271aa7bbca925..355a60b4a536f 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> @@ -336,7 +336,7 @@ static int dsi_mgr_connector_get_modes(struct drm_connector *connector)
->         return num;
->  }
+> Jordan
 >
-> -static int dsi_mgr_connector_mode_valid(struct drm_connector *connector,
-> +static enum drm_mode_status dsi_mgr_connector_mode_valid(struct drm_connector *connector,
->                                 struct drm_display_mode *mode)
->  {
->         int id = dsi_mgr_connector_get_id(connector);
-> --
+Akhil
 
 -- 
-Thanks,
-~Nick Desaulniers
+The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+a Linux Foundation Collaborative Project
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
