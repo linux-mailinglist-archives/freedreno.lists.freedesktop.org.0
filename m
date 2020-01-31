@@ -1,64 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 898F714F3EA
-	for <lists+freedreno@lfdr.de>; Fri, 31 Jan 2020 22:43:22 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id BE26414F43A
+	for <lists+freedreno@lfdr.de>; Fri, 31 Jan 2020 23:00:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAED26FBFC;
-	Fri, 31 Jan 2020 21:43:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 682DF6E260;
+	Fri, 31 Jan 2020 22:00:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-vs1-xe43.google.com (mail-vs1-xe43.google.com
- [IPv6:2607:f8b0:4864:20::e43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8F656FBFC
- for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2020 21:43:19 +0000 (UTC)
-Received: by mail-vs1-xe43.google.com with SMTP id b79so5307851vsd.9
- for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2020 13:43:19 -0800 (PST)
+Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
+ [IPv6:2607:f8b0:4864:20::644])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1AD06E260
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2020 22:00:45 +0000 (UTC)
+Received: by mail-pl1-x644.google.com with SMTP id e8so664834plt.9
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2020 14:00:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=77iC328Ix55f8VFyzEfO2GMt08mqvFscC4bjbzzCOZU=;
- b=EAnJcYHOR3ksx1xu/pw65w6JGYMh2xej0Mc4zDb3jtP78rR15ykv/sZtF0FkjJbSak
- b37qkQE2D14Y3z8vOROlg2MYyd005jIT3q29AlSTbjIBx/pCRxYehOaJ/wQjimcgSSxe
- 6M65uD4rgYGAFuPGbXKpa7AjCV3oL5q6ZOezM=
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=b82MM5TsQ8A9XNdp0Y7iZIjPTfIvG0TXd9OXwa8Voa4=;
+ b=ln975L+nUDW8vHW1M3ExHfHLl4zJ6xQ7xAqDPH8kgpaC2M25g/M0mpJXtoR9nZ8+zX
+ fCKziGOUYvBuahWMFfMcvJFOCeQJEiH1U3THEAK/GpEkWuPqWgoraNYhdLCyxaDPJZk7
+ 8hf9/Az5nYC2xFao/C79k4QgNJRVjrt4tf2rc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=77iC328Ix55f8VFyzEfO2GMt08mqvFscC4bjbzzCOZU=;
- b=lU4q+4flIwayFSJg4BV0CnBrSsNyCV+1FuxAeLKGiSfrzT2nAMOO/2VtXiiZsNCrkj
- iIn8N4kVP0xpoyJRUP7FFTb07IFvxvJs4RmHVLh2dnv24HYfUttDDonG+hQm9yqrFeF/
- gc7iUtYxfRrdmpoBhnbhCPnVybaSgqrUDmgwzo6t5JfXORp/e5MCWh86Q62cqSIaDTsx
- QZxOw+tp8x8ZkB+4SE886zM+iEK1HWKaBQW9++QHJxgOq+FvfvZ5hr+04gcoPtv61pLp
- k/6WbV79KQQEsMA+Mdo5J9KdDv6q7eMK1C2bw2TxBKlbNWKZxN5En1M8XTnc0GtfMzW+
- dtyQ==
-X-Gm-Message-State: APjAAAWHwPdT8ImWa1nffB7IUpqtcRvuY0cA4SbmwWKC2/NSPTdF0zXC
- J4BCx79v4sUpHCtcJ4OWH1kyfcKDH8g=
-X-Google-Smtp-Source: APXvYqxy143Dst0Et0aQMY62vOqI/N55pcRQOloSdW743ffqSxDNNnidG6+0sBW3vffG1oFIC6OYLQ==
-X-Received: by 2002:a05:6102:224f:: with SMTP id
- e15mr8014286vsb.2.1580506998603; 
- Fri, 31 Jan 2020 13:43:18 -0800 (PST)
-Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com.
- [209.85.222.51])
- by smtp.gmail.com with ESMTPSA id c197sm2988262vkc.33.2020.01.31.13.43.17
- for <freedreno@lists.freedesktop.org>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=b82MM5TsQ8A9XNdp0Y7iZIjPTfIvG0TXd9OXwa8Voa4=;
+ b=G1ygk3dyqjP8xFORvmkg/Sb6ZEXZIr7h2PYMcLq7jCXelB5BQPk5eZaIDJjouqar/x
+ WlkpD4L+4dIfiameeaDcwibgM065F/O7sfI3RtUzidU4G2zqfwsH1Dff51PH1naToX09
+ 0RKw1a437cMCK7ME9XimgMu7IXL3cK4hkEoiH53Whwcw2keBgmV3IGhG6S7bM1jll7c1
+ muyI9vQt2Y25U2CoQSbfx9BK0jCYqf4UhyZ3pKz7JTCuywHJnJqXpc2uJ13bcXk55y4h
+ +VD83mhJZ4Z7XGsKAbM507NNHJv9ajyOBbQ4x0y8sTVkKvJyusjnd+baaspBh4QvjDMh
+ IzNQ==
+X-Gm-Message-State: APjAAAV4XDSGXHvQPSnb3OZlX+OjpIPTPWFyjW5xCciKwbsLzykx7ZH0
+ 9RBI9nu35asaq5R1rG+NfdyutA==
+X-Google-Smtp-Source: APXvYqxJ4dABMrxvg8Mkn8WWBjXAgyn0FUDu4pBM/f8rqnl3BFmy/f1OIqxj6WnyNvD4RpAWCJnROA==
+X-Received: by 2002:a17:90a:36af:: with SMTP id
+ t44mr14554287pjb.25.1580508045310; 
+ Fri, 31 Jan 2020 14:00:45 -0800 (PST)
+Received: from localhost ([2620:15c:202:1:4fff:7a6b:a335:8fde])
+ by smtp.gmail.com with ESMTPSA id g2sm11436046pgn.59.2020.01.31.14.00.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 31 Jan 2020 13:43:17 -0800 (PST)
-Received: by mail-ua1-f51.google.com with SMTP id 1so3152345uao.1
- for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2020 13:43:17 -0800 (PST)
-X-Received: by 2002:ab0:724c:: with SMTP id d12mr7797680uap.0.1580506997224;
- Fri, 31 Jan 2020 13:43:17 -0800 (PST)
-MIME-Version: 1.0
-References: <1580472220-3453-1-git-send-email-smasetty@codeaurora.org>
- <1580472220-3453-2-git-send-email-smasetty@codeaurora.org>
-In-Reply-To: <1580472220-3453-2-git-send-email-smasetty@codeaurora.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 31 Jan 2020 13:43:06 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=XJF4KworkHFLoNtxB7d+VyGqZSZkDUdie+09ur1g5thw@mail.gmail.com>
-Message-ID: <CAD=FV=XJF4KworkHFLoNtxB7d+VyGqZSZkDUdie+09ur1g5thw@mail.gmail.com>
+ Fri, 31 Jan 2020 14:00:44 -0800 (PST)
+Date: Fri, 31 Jan 2020 14:00:43 -0800
+From: Matthias Kaehlcke <mka@chromium.org>
 To: Sharat Masetty <smasetty@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v3] arm64: dts: qcom: sc7180: Add A618 gpu
- dt blob
+Message-ID: <20200131220043.GN71044@google.com>
+References: <1577962933-13577-1-git-send-email-smasetty@codeaurora.org>
+ <1577962933-13577-2-git-send-email-smasetty@codeaurora.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <1577962933-13577-2-git-send-email-smasetty@codeaurora.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Freedreno] [PATCH v2 1/7] iommu/arm-smmu: Pass io_pgtable_cfg
+ to impl specific init_context
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,12 +67,11 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, Matthias Kaehlcke <mka@chromium.org>,
- dri-devel@freedesktop.org, freedreno <freedreno@lists.freedesktop.org>
+Cc: freedreno@lists.freedesktop.org, saiprakash.ranjan@codeaurora.org,
+ jcrouse@codeaurora.org, will@kernel.org, linux-arm-msm@vger.kernel.org,
+ joro@8bytes.org, linux-kernel@vger.kernel.org,
+ iommu@lists.linux-foundation.org, dri-devel@freedesktop.org,
+ robin.murphy@arm.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
@@ -84,68 +79,60 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 Hi,
 
-On Fri, Jan 31, 2020 at 4:04 AM Sharat Masetty <smasetty@codeaurora.org> wrote:
->
-> +               adreno_smmu: iommu@5040000 {
-> +                       compatible = "qcom,sc7180-smmu-v2", "qcom,smmu-v2";
-> +                       reg = <0 0x05040000 0 0x10000>;
-> +                       #iommu-cells = <1>;
-> +                       #global-interrupts = <2>;
-> +                       interrupts = <GIC_SPI 229 IRQ_TYPE_LEVEL_HIGH>,
-> +                                       <GIC_SPI 231 IRQ_TYPE_LEVEL_HIGH>,
-> +                                       <GIC_SPI 364 IRQ_TYPE_EDGE_RISING>,
-> +                                       <GIC_SPI 365 IRQ_TYPE_EDGE_RISING>,
-> +                                       <GIC_SPI 366 IRQ_TYPE_EDGE_RISING>,
-> +                                       <GIC_SPI 367 IRQ_TYPE_EDGE_RISING>,
-> +                                       <GIC_SPI 368 IRQ_TYPE_EDGE_RISING>,
-> +                                       <GIC_SPI 369 IRQ_TYPE_EDGE_RISING>,
-> +                                       <GIC_SPI 370 IRQ_TYPE_EDGE_RISING>,
-> +                                       <GIC_SPI 371 IRQ_TYPE_EDGE_RISING>;
-> +                       clocks = <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
-> +                               <&gcc GCC_GPU_CFG_AHB_CLK>,
-> +                               <&gcc GCC_DDRSS_GPU_AXI_CLK>;
-> +
-> +                       clock-names = "bus", "iface", "mem_iface_clk";
+On Thu, Jan 02, 2020 at 04:32:07PM +0530, Sharat Masetty wrote:
+> From: Jordan Crouse <jcrouse@codeaurora.org>
+> 
+> Pass the propposed io_pgtable_cfg to the implementation specific
+> init_context() function to give the implementation an opportunity to
+> to modify it before it gets passed to io-pgtable.
+> 
+> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
+> Signed-off-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+> ---
+>  drivers/iommu/arm-smmu-impl.c |  3 ++-
+>  drivers/iommu/arm-smmu.c      | 11 ++++++-----
+>  drivers/iommu/arm-smmu.h      |  3 ++-
+>  3 files changed, 10 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/iommu/arm-smmu-impl.c b/drivers/iommu/arm-smmu-impl.c
+> index b2fe72a..33ed682 100644
+> --- a/drivers/iommu/arm-smmu-impl.c
+> +++ b/drivers/iommu/arm-smmu-impl.c
+> @@ -68,7 +68,8 @@ static int cavium_cfg_probe(struct arm_smmu_device *smmu)
+>  	return 0;
+>  }
+> 
+> -static int cavium_init_context(struct arm_smmu_domain *smmu_domain)
+> +static int cavium_init_context(struct arm_smmu_domain *smmu_domain,
+> +		struct io_pgtable_cfg *pgtbl_cfg)
+>  {
+>  	struct cavium_smmu *cs = container_of(smmu_domain->smmu,
+>  					      struct cavium_smmu, smmu);
+> diff --git a/drivers/iommu/arm-smmu.c b/drivers/iommu/arm-smmu.c
+> index eee48f9..4f7e0c0 100644
+> --- a/drivers/iommu/arm-smmu.c
+> +++ b/drivers/iommu/arm-smmu.c
+> @@ -758,11 +758,6 @@ static int arm_smmu_init_domain_context(struct iommu_domain *domain,
+>  		cfg->asid = cfg->cbndx;
+> 
+>  	smmu_domain->smmu = smmu;
+> -	if (smmu->impl && smmu->impl->init_context) {
+> -		ret = smmu->impl->init_context(smmu_domain);
+> -		if (ret)
+> -			goto out_unlock;
+> -	}
+> 
+>  	smmu_domain->pgtbl_cfg = (struct io_pgtable_cfg) {
+>  		.pgsize_bitmap	= smmu->pgsize_bitmap,
+> @@ -773,6 +768,12 @@ static int arm_smmu_init_domain_context(struct iommu_domain *domain,
+>  		.iommu_dev	= smmu->dev,
+>  	};
+> 
+> +	if (smmu->impl && smmu->impl->init_context) {
+> +		ret = smmu->impl->init_context(smmu_domain, &smmu_domain->pgtbl_cfg);
 
-Repeated comment from v2 feedback:
-
-Please send a patch to:
-
-Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-
-...adding 'qcom,sc7180-smmu-v2'.  If you do this it will point out
-that you've added a new clock: "mem_iface_clk".  Is this truly a new
-clock in sc7180 compared to previous IOMMUs?  ...or is it not really
-needed?
-
-
-> +               gmu: gmu@506a000 {
-> +                       compatible="qcom,adreno-gmu-618.0", "qcom,adreno-gmu";
-> +                       reg = <0 0x0506a000 0 0x31000>, <0 0x0b290000 0 0x10000>,
-> +                               <0 0x0b490000 0 0x10000>;
-> +                       reg-names = "gmu", "gmu_pdc", "gmu_pdc_seq";
-> +                       interrupts = <GIC_SPI 304 IRQ_TYPE_LEVEL_HIGH>,
-> +                                  <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH>;
-> +                       interrupt-names = "hfi", "gmu";
-> +                       clocks = <&gpucc GPU_CC_CX_GMU_CLK>,
-> +                              <&gpucc GPU_CC_CXO_CLK>,
-> +                              <&gcc GCC_DDRSS_GPU_AXI_CLK>,
-> +                              <&gcc GCC_GPU_MEMNOC_GFX_CLK>;
-> +                       clock-names = "gmu", "cxo", "axi", "memnoc";
-> +                       power-domains = <&gpucc CX_GDSC>;
-> +                       power-domain-names = "cx";
-
-As per continued comments on v2, please see if this works for you:
-
-  power-domains = <&gpucc CX_GDSC>, <0>;
-  power-domain-names = "cx", "gx";
-
-...and work to get something more real for "gx" ASAP.  It did seem to
-boot for me and (unless someone disagrees) it seems better than
-totally leaving it out / violating the bindings?
-
-
--Doug
+Which patch adds 'pgtbl_cfg' to struct arm_smmu_domain? The field does
+not exist in iommu/next.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
