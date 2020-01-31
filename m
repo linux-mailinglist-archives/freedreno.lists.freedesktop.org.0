@@ -2,72 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FB2514F3A3
-	for <lists+freedreno@lfdr.de>; Fri, 31 Jan 2020 22:18:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CACA014F3AC
+	for <lists+freedreno@lfdr.de>; Fri, 31 Jan 2020 22:21:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2029B6FBE8;
-	Fri, 31 Jan 2020 21:18:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66A1C6E25C;
+	Fri, 31 Jan 2020 21:21:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
- [104.130.122.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA1B76FBE8
- for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2020 21:18:22 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1580505504; h=In-Reply-To: Content-Type: MIME-Version:
- References: Message-ID: Subject: Cc: To: From: Date: Sender;
- bh=c5POQGsK03IMyYhyXfqfpslU7IQ1EXdg2hdGsgrQr9c=;
- b=N18fVbf/0nbPQ30ArkWoXHlW2NEKJeY9Bt7ZXJOINjDsUgdvsYNUgfO2M/qnYLUPVGgZgBPe
- iWAwQy/TRpbViJUqqwjFYLXMLeyxojNThShqV9Qh8DJrl/sOev4EA6auXIkembNBqNd/qmOk
- TvRUFlSPO1s3ls4TEyE0XzmKhI0=
-X-Mailgun-Sending-Ip: 104.130.122.26
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5e349999.7fb1f2802618-smtp-out-n03;
- Fri, 31 Jan 2020 21:18:17 -0000 (UTC)
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 33CC7C447A9; Fri, 31 Jan 2020 21:18:17 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 94395C447A4;
- Fri, 31 Jan 2020 21:18:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 94395C447A4
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=jcrouse@codeaurora.org
-Date: Fri, 31 Jan 2020 14:18:13 -0700
-From: Jordan Crouse <jcrouse@codeaurora.org>
-To: Doug Anderson <dianders@chromium.org>
-Message-ID: <20200131211813.GA16531@jcrouse1-lnx.qualcomm.com>
-Mail-Followup-To: Doug Anderson <dianders@chromium.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, dri-devel@freedesktop.org,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Matthias Kaehlcke <mka@chromium.org>,
- Rob Clark <robdclark@chromium.org>,
- linux-arm-msm-owner@vger.kernel.org
+Received: from mail-vk1-xa43.google.com (mail-vk1-xa43.google.com
+ [IPv6:2607:f8b0:4864:20::a43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EC9E6E25C
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2020 21:21:21 +0000 (UTC)
+Received: by mail-vk1-xa43.google.com with SMTP id b69so2221837vke.9
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2020 13:21:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
+ bh=HUmCvJ9CZbdv53S+5E2jaUgTCUMelwKvc+ZJXLHusD8=;
+ b=Nnl0+Bo1hXc3/nI2eC7rLC5xKh8kpmJHLW6gmtYzPVgWfPAswoamHz4LnJ49Haf71s
+ aQM53390WwHBbtRhrCen4hqzlvS6qbIjTuOdQAKFJAU4KIHhCvqHg5tw10c0RoeObmy9
+ hCO8Lf/TOgG+r5lp5d3nsuYJqnBaLe6oG/xBM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to;
+ bh=HUmCvJ9CZbdv53S+5E2jaUgTCUMelwKvc+ZJXLHusD8=;
+ b=iOOXc3ekAaRPrfD1oBYEjDBHsZyAf7aHDqGgJ0OdR9y3dDUUHmOq562a0q6JpiqLCM
+ zwrJKT5/sDlKdlw1Qfe44rN0m0NUzehlaJFs1JXMNfPlk/v9WXcqjBChrilq9FhmKovv
+ vkmCDGENQRat8SA5FH+FvWTI/ZIwTJCluvK8nXQOtoE650+DgX/OJoL+aEBiScD0NKDi
+ ptRzJkU+Tb2Yx/usmLpoBcsutCB3U7KQkbb3IayoRt6ZPc+k2srhl/M1Q+OIC1Dj+FpL
+ gd5MPZv3TBB1E0FgEXQWzph7I6RR29+uIYc7xhvgFEAGeij9LwvFlhfMYx9lIbD/E/Ay
+ 4k7w==
+X-Gm-Message-State: APjAAAWhIPvEDlPg7SZGdxjgancUwKtRdGLOP+yysvR5oDSaR3zTqJ+7
+ +pwFeTSWeVh061GvIKH/zqnYysLSoIU=
+X-Google-Smtp-Source: APXvYqzRo9Moa++ZzUzxh3sdqfY7lC3dNiSk0xV9XqmAaPfE0jR/uWDY8AaFjoTXM1+5iwpsmNVn/Q==
+X-Received: by 2002:a1f:5fc1:: with SMTP id t184mr7641870vkb.57.1580505680465; 
+ Fri, 31 Jan 2020 13:21:20 -0800 (PST)
+Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com.
+ [209.85.217.54])
+ by smtp.gmail.com with ESMTPSA id n10sm646238vsm.0.2020.01.31.13.21.19
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 31 Jan 2020 13:21:19 -0800 (PST)
+Received: by mail-vs1-f54.google.com with SMTP id g23so5277378vsr.7
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2020 13:21:19 -0800 (PST)
+X-Received: by 2002:a67:8704:: with SMTP id j4mr8789829vsd.106.1580505679208; 
+ Fri, 31 Jan 2020 13:21:19 -0800 (PST)
+MIME-Version: 1.0
 References: <1580117390-6057-1-git-send-email-smasetty@codeaurora.org>
  <CAD=FV=VFVC6XJ=OXJCSd2_oij5vggKnTedGP0Gj4KHC50QH0SQ@mail.gmail.com>
  <4bd79f53cab95db9286067836722dd4b@codeaurora.org>
  <CAD=FV=X7pUvab1FXkPbxio_0hW0mvAguFbPAcfQ1=K9HD9bMug@mail.gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAD=FV=X7pUvab1FXkPbxio_0hW0mvAguFbPAcfQ1=K9HD9bMug@mail.gmail.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+ <20200131211813.GA16531@jcrouse1-lnx.qualcomm.com>
+In-Reply-To: <20200131211813.GA16531@jcrouse1-lnx.qualcomm.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 31 Jan 2020 13:21:07 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=VLGPd4jiq8ELqaaC68S6-Fs=FXov1VOMQtAtfzOR+w5A@mail.gmail.com>
+Message-ID: <CAD=FV=VLGPd4jiq8ELqaaC68S6-Fs=FXov1VOMQtAtfzOR+w5A@mail.gmail.com>
+To: Doug Anderson <dianders@chromium.org>,
+ Sharat Masetty <smasetty@codeaurora.org>, 
+ freedreno <freedreno@lists.freedesktop.org>, 
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, dri-devel@freedesktop.org, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>, 
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Matthias Kaehlcke <mka@chromium.org>, 
+ Rob Clark <robdclark@chromium.org>, linux-arm-msm-owner@vger.kernel.org
 Subject: Re: [Freedreno] [PATCH v2] arm64: dts: qcom: sc7180: Add A618 gpu
  dt blob
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -82,60 +82,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>, LKML <linux-kernel@vger.kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Matthias Kaehlcke <mka@chromium.org>, dri-devel@freedesktop.org,
- freedreno <freedreno@lists.freedesktop.org>,
- linux-arm-msm-owner@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Jan 31, 2020 at 08:08:09AM -0800, Doug Anderson wrote:
-> Hi,
-> 
-> On Fri, Jan 31, 2020 at 4:16 AM <smasetty@codeaurora.org> wrote:
+Hi,
+
+On Fri, Jan 31, 2020 at 1:18 PM Jordan Crouse <jcrouse@codeaurora.org> wrote:
+>
+> On Fri, Jan 31, 2020 at 08:08:09AM -0800, Doug Anderson wrote:
+> > Hi,
 > >
-> > >> +                       reg = <0 0x0506a000 0 0x31000>, <0 0x0b290000
-> > >> 0 0x10000>,
-> > >> +                               <0 0x0b490000 0 0x10000>;
-> > >> +                       reg-names = "gmu", "gmu_pdc", "gmu_pdc_seq";
-> > >> +                       interrupts = <GIC_SPI 304
-> > >> IRQ_TYPE_LEVEL_HIGH>,
-> > >> +                                  <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH>;
-> > >> +                       interrupt-names = "hfi", "gmu";
-> > >> +                       clocks = <&gpucc GPU_CC_CX_GMU_CLK>,
-> > >> +                              <&gpucc GPU_CC_CXO_CLK>,
-> > >> +                              <&gcc GCC_DDRSS_GPU_AXI_CLK>,
-> > >> +                              <&gcc GCC_GPU_MEMNOC_GFX_CLK>;
-> > >> +                       clock-names = "gmu", "cxo", "axi", "memnoc";
-> > >> +                       power-domains = <&gpucc CX_GDSC>;
+> > On Fri, Jan 31, 2020 at 4:16 AM <smasetty@codeaurora.org> wrote:
 > > >
-> > > Bindings claim that you need both CX and GC.  Is sc7180 somehow
-> > > different?  Bindings also claim that you should be providing
-> > > power-domain-names.
-> > No this is still needed, We need the GX power domain for GPU recovery
-> > use cases where the shutdown was not successful.
-> 
-> This almost sounds as if the bindings should mark the GX power domain
-> as optional?  The driver can function without it but doesn't get all
-> the features?  As the binding is written right now I think it is
-> "invalid" to not specify a a GX power domain and once the yaml
-> conversion is done then it will even be flagged as an error.  That's
-> going to make it harder to land the your patch...
+> > > >> +                       reg = <0 0x0506a000 0 0x31000>, <0 0x0b290000
+> > > >> 0 0x10000>,
+> > > >> +                               <0 0x0b490000 0 0x10000>;
+> > > >> +                       reg-names = "gmu", "gmu_pdc", "gmu_pdc_seq";
+> > > >> +                       interrupts = <GIC_SPI 304
+> > > >> IRQ_TYPE_LEVEL_HIGH>,
+> > > >> +                                  <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH>;
+> > > >> +                       interrupt-names = "hfi", "gmu";
+> > > >> +                       clocks = <&gpucc GPU_CC_CX_GMU_CLK>,
+> > > >> +                              <&gpucc GPU_CC_CXO_CLK>,
+> > > >> +                              <&gcc GCC_DDRSS_GPU_AXI_CLK>,
+> > > >> +                              <&gcc GCC_GPU_MEMNOC_GFX_CLK>;
+> > > >> +                       clock-names = "gmu", "cxo", "axi", "memnoc";
+> > > >> +                       power-domains = <&gpucc CX_GDSC>;
+> > > >
+> > > > Bindings claim that you need both CX and GC.  Is sc7180 somehow
+> > > > different?  Bindings also claim that you should be providing
+> > > > power-domain-names.
+> > > No this is still needed, We need the GX power domain for GPU recovery
+> > > use cases where the shutdown was not successful.
+> >
+> > This almost sounds as if the bindings should mark the GX power domain
+> > as optional?  The driver can function without it but doesn't get all
+> > the features?  As the binding is written right now I think it is
+> > "invalid" to not specify a a GX power domain and once the yaml
+> > conversion is done then it will even be flagged as an error.  That's
+> > going to make it harder to land the your patch...
+>
+> For GMU attached targets the GX power domain is mandatory assuming you want to
+> recover successfully from a hard GMU hang, that is.
 
-For GMU attached targets the GX power domain is mandatory assuming you want to
-recover successfully from a hard GMU hang, that is.
+Sure.  I guess we can quibble about whether this means optional or
+mandatory, but it won't gain much.  ;-)
 
-Jordan
+...seems like for now (assuming it works) we should at least specify
+it and put a <0>.  Then we should make it a relatively high priority
+to get it hooked up more properly.
 
--- 
-The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
-a Linux Foundation Collaborative Project
+-Doug
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
