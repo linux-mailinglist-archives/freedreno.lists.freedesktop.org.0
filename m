@@ -1,54 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C1A814EC56
-	for <lists+freedreno@lfdr.de>; Fri, 31 Jan 2020 13:16:35 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6ECAC14F067
+	for <lists+freedreno@lfdr.de>; Fri, 31 Jan 2020 17:08:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EED2F6E97D;
-	Fri, 31 Jan 2020 12:16:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15A546FB96;
+	Fri, 31 Jan 2020 16:08:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
- [104.130.122.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44CFD6E97D
- for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2020 12:16:31 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1580472993; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=R3jRwCfJjAdUbnAQqydyJIJ45POV4lPhRB6DAiYzw4I=;
- b=YUHP1BGPE8wMs8/CYTt1iOi5MCvomthhmQf6AO4tgFDM23VYZ+X9XiKdFfZByDDxBUdygLBc
- 4vYrxD9BBj97CA2OpaGkk2Fpkzpuc550LWGjWSiWNPgh4LhFruV/uBS41Ru6sVxekD5BShC8
- Eon8Ak71iaKxlmOo8J4eEvZsbuk=
-X-Mailgun-Sending-Ip: 104.130.122.26
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5e341a99.7f4e4d40f9d0-smtp-out-n02;
- Fri, 31 Jan 2020 12:16:25 -0000 (UTC)
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id D5D22C4479C; Fri, 31 Jan 2020 12:16:24 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: smasetty)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id B86A1C43383;
- Fri, 31 Jan 2020 12:16:23 +0000 (UTC)
+Received: from mail-vk1-xa41.google.com (mail-vk1-xa41.google.com
+ [IPv6:2607:f8b0:4864:20::a41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DE6E6FB96
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2020 16:08:27 +0000 (UTC)
+Received: by mail-vk1-xa41.google.com with SMTP id c129so2209637vkh.7
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2020 08:08:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=4xPLoiaUgyd94a+bWIqEdjSO+/pm7JzzixTlR76nC4k=;
+ b=cCCXrbR60CBlDAGSpmvFYrjjyE1DVVDlZhNhjXqkIlKpR2BcoPRCHGrUSSTCDfRqDk
+ 72D2LUsRS4KoF3mrsLr5JyigXGZ9EsF0j5WPA+OZLvWstHHFS/ADUWF2H+JRsfTpY1YT
+ ZYDGjjQ7IrKGRYG64lWiFl0zCmZnBnqC4m0/4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=4xPLoiaUgyd94a+bWIqEdjSO+/pm7JzzixTlR76nC4k=;
+ b=GNHXg7hioQ3ZxafH0G0MhkolaMlhdavwRldkO6Rmh13f9UpjaweCIHZSyoPCDITf0Y
+ Q39/JG62giO1rytLt/aogon3JwffzLYXcPCKDQPUR519PZkAm5ONiY3vYBdJuiwL7Zif
+ QoaJFoUwMeAypAFvDmoPh/7pKvu4Aqjl2Moa5QJemQeaVwWCOn2xDlj78HGudW02boqv
+ GEOxQpbzPm9AXb3SlAluwh8AaHzsTQZrJ54NwYFqPSLXXocV5HLtx7Y3xWokLSBotKU0
+ 8gUGIKYZGs0gcb/0IZFF70DxelzMxu0QaZIV/8wjpCWIQtvmZwDERGKorEQlCe86VwJk
+ kJiw==
+X-Gm-Message-State: APjAAAXl4Wtdmcbfwg3UOd9PgPZffwR4RTBogBeQYEGjsoWnv1+0cXpv
+ Xcm5rpvb0kHnPJ21fESvEb2KwFjPIdQ=
+X-Google-Smtp-Source: APXvYqyYeXpXGJabcZB+KWkx/wQ7NOds8SQd2jtbonwXTdSJZwRNQQyR6NuW4eaG9MUZluCGStV6Mg==
+X-Received: by 2002:a05:6122:48c:: with SMTP id
+ o12mr6792118vkn.35.1580486905677; 
+ Fri, 31 Jan 2020 08:08:25 -0800 (PST)
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com.
+ [209.85.221.181])
+ by smtp.gmail.com with ESMTPSA id w187sm2723625vkb.8.2020.01.31.08.08.24
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 31 Jan 2020 08:08:24 -0800 (PST)
+Received: by mail-vk1-f181.google.com with SMTP id o187so2215602vka.2
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2020 08:08:24 -0800 (PST)
+X-Received: by 2002:a1f:a9d0:: with SMTP id s199mr6709266vke.40.1580486903706; 
+ Fri, 31 Jan 2020 08:08:23 -0800 (PST)
 MIME-Version: 1.0
-Date: Fri, 31 Jan 2020 17:46:23 +0530
-From: smasetty@codeaurora.org
-To: Doug Anderson <dianders@chromium.org>
-In-Reply-To: <CAD=FV=VFVC6XJ=OXJCSd2_oij5vggKnTedGP0Gj4KHC50QH0SQ@mail.gmail.com>
 References: <1580117390-6057-1-git-send-email-smasetty@codeaurora.org>
  <CAD=FV=VFVC6XJ=OXJCSd2_oij5vggKnTedGP0Gj4KHC50QH0SQ@mail.gmail.com>
-Message-ID: <4bd79f53cab95db9286067836722dd4b@codeaurora.org>
-X-Sender: smasetty@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
+ <4bd79f53cab95db9286067836722dd4b@codeaurora.org>
+In-Reply-To: <4bd79f53cab95db9286067836722dd4b@codeaurora.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 31 Jan 2020 08:08:09 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=X7pUvab1FXkPbxio_0hW0mvAguFbPAcfQ1=K9HD9bMug@mail.gmail.com>
+Message-ID: <CAD=FV=X7pUvab1FXkPbxio_0hW0mvAguFbPAcfQ1=K9HD9bMug@mail.gmail.com>
+To: Sharat Masetty <smasetty@codeaurora.org>
 Subject: Re: [Freedreno] [PATCH v2] arm64: dts: qcom: sc7180: Add A618 gpu
  dt blob
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -63,279 +72,68 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, "open list:OPEN FIRMWARE
- AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  LKML <linux-kernel@vger.kernel.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
  Jordan Crouse <jcrouse@codeaurora.org>, Matthias Kaehlcke <mka@chromium.org>,
  dri-devel@freedesktop.org, freedreno <freedreno@lists.freedesktop.org>,
  linux-arm-msm-owner@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-01-28 03:59, Doug Anderson wrote:
-> Hi,
-> 
-> On Mon, Jan 27, 2020 at 1:30 AM Sharat Masetty 
-> <smasetty@codeaurora.org> wrote:
->> 
->> This patch adds the required dt nodes and properties
->> to enabled A618 GPU.
->> 
->> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
->> ---
->>  arch/arm64/boot/dts/qcom/sc7180.dtsi | 103 
->> +++++++++++++++++++++++++++++++++++
->>  1 file changed, 103 insertions(+)
-> 
-> Note that +Matthias Kaehlcke commented on v1 your patch:
-> 
-> https://lore.kernel.org/r/20191204220033.GH228856@google.com/
-> 
-> ...so he should have been CCed on v2.  I would also note that some of
-> the comments below are echos of what Matthias already said in the
-> previous version but just weren't addressed.
-> 
-> 
->> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi 
->> b/arch/arm64/boot/dts/qcom/sc7180.dtsi
->> index b859431..277d84d 100644
->> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
->> @@ -7,6 +7,7 @@
->> 
->>  #include <dt-bindings/clock/qcom,gcc-sc7180.h>
->>  #include <dt-bindings/clock/qcom,rpmh.h>
->> +#include <dt-bindings/clock/qcom,gpucc-sc7180.h>
-> 
-> Header files should be sorted alphabetically.  ...or, even better,
-> base your patch atop mine:
-> 
-> https://lore.kernel.org/r/20200124144154.v2.10.I1a4b93fb005791e29a9dcf288fc8bd459a555a59@changeid/
-> 
-> ...which adds the gpucc header file so you don't have to.  ...and when
-> you do so, email out a Reviewed-by and/or Tested-by for my patch.  ;-)
-> 
-> 
->>  #include <dt-bindings/interrupt-controller/arm-gic.h>
->>  #include <dt-bindings/interconnect/qcom,sc7180.h>
->>  #include <dt-bindings/phy/phy-qcom-qusb2.h>
->> @@ -1619,6 +1620,108 @@
->>                         #interconnect-cells = <1>;
->>                         qcom,bcm-voters = <&apps_bcm_voter>;
->>                 };
->> +
->> +               gpu: gpu@5000000 {
->> +                       compatible = "qcom,adreno-618.0", 
->> "qcom,adreno";
-> 
-> Though it's not controversial, please send a patch to:
-> 
-> Documentation/devicetree/bindings/display/msm/gmu.txt
-> 
-> ...to add 'qcom,adreno-618.0', like:
-> 
->     for example:
->       "qcom,adreno-gmu-618.0", "qcom,adreno-gmu"
->       "qcom,adreno-gmu-630.2", "qcom,adreno-gmu"
-> 
-> Probably as part of this you will be asked to convert this file to
-> yaml.  IMO we don't need to block landing this patch on the effort to
-> convert it to yaml, but you should still work on it.  ...or maybe
-> Jordan wants to work on it?
-> 
-> 
->> +                       #stream-id-cells = <16>;
->> +                       reg = <0 0x05000000 0 0x40000>, <0 0x0509e000 
->> 0 0x1000>,
->> +                               <0 0x05061000 0 0x800>;
->> +                       reg-names = "kgsl_3d0_reg_memory", "cx_mem", 
->> "cx_dbgc";
->> +                       interrupts = <GIC_SPI 300 
->> IRQ_TYPE_LEVEL_HIGH>;
->> +                       iommus = <&adreno_smmu 0>;
->> +                       operating-points-v2 = <&gpu_opp_table>;
->> +                       interconnects = <&gem_noc MASTER_GFX3D 
->> &mc_virt SLAVE_EBI1>;
-> 
-> Running:
-> $ git fetch 
-> git://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git
-> for-next
-> $ git grep gem_noc FETCH_HEAD
-> $ git fetch 
-> git://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git
-> arm64-for-5.7-to-be-rebased
-> $ git grep gem_noc FETCH_HEAD
-> 
-> ...shows no hits.  That's because the interconnect patches haven't
-> landed in the tree that you're targeting.  In the very least you
-> should mention somewhere in your email that your patch depends on the
-> interconnect patches landing, perhaps pointing at:
-> 
-> https://lore.kernel.org/r/1577782737-32068-4-git-send-email-okukatla@codeaurora.org
-> 
-> ...but even better would be to split your patch into two parts.  The
-> first patch would be exactly like your patch except without the
-> "interconnects" line.  The 2nd patch would add the interconnects line.
-> This would allow Bjorn/Andy to land the first patch now and then land
-> the second patch when the interconnect series is ready.  I can confirm
-> that you can still get basic GPU functionality even without the
-> interconnects bit so it would be worth landing earlier.
-> 
-> 
-> I will also note that by basing on a tree that has private patches to
-> the same file you're touching you make it very hard for a maintainer
-> to apply.  When I try this:
-> 
-> $ curl https://patchwork.kernel.org/patch/11352261/mbox/ | git am -3
-> 
-> I get:
-> 
-> error: sha1 information is lacking or useless
-> (arch/arm64/boot/dts/qcom/sc7180.dtsi).
-> error: could not build fake ancestor
-> Patch failed at 0001 arm64: dts: qcom: sc7180: Add A618 gpu dt blob
-> 
-> ...yes, I can apply it with 'git am --show-current-patch | patch -p1'
-> but it's ugly (and it ends up making things sort in the wrong order).
-> 
-> 
->> +               adreno_smmu: iommu@5040000 {
->> +                       compatible = "qcom,sc7180-smmu-v2", 
->> "qcom,smmu-v2";
-> 
-> Please send a patch to:
-> 
-> Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-> 
-> ...adding 'qcom,sc7180-smmu-v2'.  If you do this it will point out
-> that you've added a new clock: "mem_iface_clk".  Is this truly a new
-> clock in sc7180 compared to previous IOMMUs?  ...or is it not really
-> needed?
-> 
-> 
->> +                       reg = <0 0x05040000 0 0x10000>;
->> +                       #iommu-cells = <1>;
->> +                       #global-interrupts = <2>;
->> +                       interrupts = <GIC_SPI 229 
->> IRQ_TYPE_LEVEL_HIGH>,
->> +                                       <GIC_SPI 231 
->> IRQ_TYPE_LEVEL_HIGH>,
->> +                                       <GIC_SPI 364 
->> IRQ_TYPE_EDGE_RISING>,
->> +                                       <GIC_SPI 365 
->> IRQ_TYPE_EDGE_RISING>,
->> +                                       <GIC_SPI 366 
->> IRQ_TYPE_EDGE_RISING>,
->> +                                       <GIC_SPI 367 
->> IRQ_TYPE_EDGE_RISING>,
->> +                                       <GIC_SPI 368 
->> IRQ_TYPE_EDGE_RISING>,
->> +                                       <GIC_SPI 369 
->> IRQ_TYPE_EDGE_RISING>,
->> +                                       <GIC_SPI 370 
->> IRQ_TYPE_EDGE_RISING>,
->> +                                       <GIC_SPI 371 
->> IRQ_TYPE_EDGE_RISING>;
->> +                       clocks = <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
->> +                               <&gcc GCC_GPU_CFG_AHB_CLK>,
->> +                               <&gcc GCC_DDRSS_GPU_AXI_CLK>;
->> +
->> +                       clock-names = "bus", "iface", "mem_iface_clk";
-> 
-> nit: keep clocks and clock-names next to each other (no blank line).
-> If you really feel like it needs more space add it between the
-> clock-names and power-domains.
-> 
->> +                       power-domains = <&gpucc CX_GDSC>;
-> 
-> Similar to interconnects, gpucc hasn't landed yet.  Somewhere you
-> should point out this fact and ideally point to:
-> 
-> https://lore.kernel.org/r/20200124144154.v2.10.I1a4b93fb005791e29a9dcf288fc8bd459a555a59@changeid/
-> 
-> ...unlike interconnects, your patch can't land without gpucc, so you
-> should point this out as a hard dependency.
-> 
-> 
->> +               };
->> +
->> +               gmu: gmu@506a000 {
->> +                       compatible="qcom,adreno-gmu-618", 
->> "qcom,adreno-gmu";
-> 
-> As per the bindings, "qcom,adreno-gmu-618" should be
-> "qcom,adreno-gmu-618.0", right?
-> 
-> ...and I bet you'd never have guessed that I'll request that you add
-> "qcom,adreno-gmu-618" to:
-> 
-> Documentation/devicetree/bindings/display/msm/gmu.txt
-> 
-> ...and that you'll probably be asked to convert to yaml.  Again, maybe
-> Jordan wants to attempt this?
-> 
-> 
->> +                       reg = <0 0x0506a000 0 0x31000>, <0 0x0b290000 
->> 0 0x10000>,
->> +                               <0 0x0b490000 0 0x10000>;
->> +                       reg-names = "gmu", "gmu_pdc", "gmu_pdc_seq";
->> +                       interrupts = <GIC_SPI 304 
->> IRQ_TYPE_LEVEL_HIGH>,
->> +                                  <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH>;
->> +                       interrupt-names = "hfi", "gmu";
->> +                       clocks = <&gpucc GPU_CC_CX_GMU_CLK>,
->> +                              <&gpucc GPU_CC_CXO_CLK>,
->> +                              <&gcc GCC_DDRSS_GPU_AXI_CLK>,
->> +                              <&gcc GCC_GPU_MEMNOC_GFX_CLK>;
->> +                       clock-names = "gmu", "cxo", "axi", "memnoc";
->> +                       power-domains = <&gpucc CX_GDSC>;
-> 
-> Bindings claim that you need both CX and GC.  Is sc7180 somehow
-> different?  Bindings also claim that you should be providing
-> power-domain-names.
-No this is still needed, We need the GX power domain for GPU recovery
-use cases where the shutdown was not successful. I am working the Taniya
-to get the dependencies sorted out to bring this change in. This should 
-be
-okay for the time being.
-> 
-> 
-> 
->> +                       iommus = <&adreno_smmu 5>;
->> +                       operating-points-v2 = <&gmu_opp_table>;
->> +
->> +                       gmu_opp_table: opp-table {
->> +                               compatible = "operating-points-v2";
->> +
->> +                               opp-200000000 {
->> +                                       opp-hz = /bits/ 64 
->> <200000000>;
->> +                                       opp-level = 
->> <RPMH_REGULATOR_LEVEL_MIN_SVS>;
->> +                               };
->> +                       };
->> +               };
->>         };
->> 
->>         thermal-zones {
-> 
-> Using the "thermal-zones" as context, it looks as if you're asserting
-> that your new nodes belong at the very end of the pile of nodes with
-> addresses.  This is not true.  Looking at the branch
-> 'arm64-for-5.7-to-be-rebased' on the Qualcomm tree, I see:
-> 
-> cpufreq_hw: cpufreq@18323000
-> 
-> ...which has a larger address than your 0x0506a000.  Please sort your
-> nodes numerically.
-> 
-> 
-> -Doug
+Hi,
+
+On Fri, Jan 31, 2020 at 4:16 AM <smasetty@codeaurora.org> wrote:
+>
+> >> +                       reg = <0 0x0506a000 0 0x31000>, <0 0x0b290000
+> >> 0 0x10000>,
+> >> +                               <0 0x0b490000 0 0x10000>;
+> >> +                       reg-names = "gmu", "gmu_pdc", "gmu_pdc_seq";
+> >> +                       interrupts = <GIC_SPI 304
+> >> IRQ_TYPE_LEVEL_HIGH>,
+> >> +                                  <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH>;
+> >> +                       interrupt-names = "hfi", "gmu";
+> >> +                       clocks = <&gpucc GPU_CC_CX_GMU_CLK>,
+> >> +                              <&gpucc GPU_CC_CXO_CLK>,
+> >> +                              <&gcc GCC_DDRSS_GPU_AXI_CLK>,
+> >> +                              <&gcc GCC_GPU_MEMNOC_GFX_CLK>;
+> >> +                       clock-names = "gmu", "cxo", "axi", "memnoc";
+> >> +                       power-domains = <&gpucc CX_GDSC>;
+> >
+> > Bindings claim that you need both CX and GC.  Is sc7180 somehow
+> > different?  Bindings also claim that you should be providing
+> > power-domain-names.
+> No this is still needed, We need the GX power domain for GPU recovery
+> use cases where the shutdown was not successful.
+
+This almost sounds as if the bindings should mark the GX power domain
+as optional?  The driver can function without it but doesn't get all
+the features?  As the binding is written right now I think it is
+"invalid" to not specify a a GX power domain and once the yaml
+conversion is done then it will even be flagged as an error.  That's
+going to make it harder to land the your patch...
+
+> I am working the Taniya
+> to get the dependencies sorted out to bring this change in. This should
+> be
+> okay for the time being.
+
+What breaks today if you add in the GX power domain here?
+
+Oh, I see.  It's not even provided by the 'gpucc-sc7180.c' file.  What
+happens if you do this for now:
+
+  power-domains = <&gpucc CX_GDSC>, <0>;
+  power-domain-names = "cx", "gx";
+
+That seems to be the trendy thing to do if a phandle to something is
+"required" but the code isn't ready for it.
+
+-Doug
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
