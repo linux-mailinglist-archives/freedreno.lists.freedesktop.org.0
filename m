@@ -2,61 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C18F14F4E6
-	for <lists+freedreno@lfdr.de>; Fri, 31 Jan 2020 23:38:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94BA315111F
+	for <lists+freedreno@lfdr.de>; Mon,  3 Feb 2020 21:39:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB96E6FC52;
-	Fri, 31 Jan 2020 22:38:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14ACB6ECF8;
+	Mon,  3 Feb 2020 20:39:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ua1-x943.google.com (mail-ua1-x943.google.com
- [IPv6:2607:f8b0:4864:20::943])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C917C6FC52
- for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2020 22:38:28 +0000 (UTC)
-Received: by mail-ua1-x943.google.com with SMTP id 73so3186202uac.6
- for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2020 14:38:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7A226ECF6;
+ Mon,  3 Feb 2020 20:39:54 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id a9so906670wmj.3;
+ Mon, 03 Feb 2020 12:39:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=A/QwXMv8QAmipbLMot4MaxUhNNvwb0UK1sNHG1c0AVY=;
- b=n+bPBIjWQxxmXcyNtF2EyFmopFozDQdpVp68Vj3mgGrFckg86ApNTNEWR0uFO0/7DG
- vyaxvdDQ9kAE++SLmKRA5v1t6u/ZjszK4NJAbdXgkmSgqli8p4OjpqQKtuJ6Scaf7brq
- ZmpnT/9SmPlPX8EFH7dJW+bzBbfm/BGo+QXbg=
+ :cc; bh=mOB+jXb70psFwK6ilNyJvCjU6t2LYt+4h3WNAoOnGBQ=;
+ b=oRxezjuqZkM1EZRn8OD6Aazas+pCiWl2XxZnL3WkFkHfKAX0y8nlbb7X5wixjp47Hz
+ f0hlar9LplYIlfF7bRpfEST4n6OULQzG0vEOnZjvfmbzuk4REE0qOFBmFTySB6eFfkDv
+ 5XAyI2omeCL4fS7Au6HVxVGngPBiI9Yq4UyPdof5w70BhNN2fPyhegfB//s+zYh/XZhX
+ +1zgb8oIX2RdlnQa46Q4QzdBQQE1zA9YqVUdVFNTbJkk3lcNh7fQovkchaQsQprzEqIB
+ wCqcU9fvHjbnrCD8A+kk7KJ56HqeQjmw41+dhOQHErvOtoFXcV9ijhNdeq3mOpWPRqLB
+ IL7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=A/QwXMv8QAmipbLMot4MaxUhNNvwb0UK1sNHG1c0AVY=;
- b=FgriCu3YdxYFqMj2XfG69Tr6AcFtxDTKU2AumTz2z/QdEKPq99q+0AMafJrHbm8p8U
- qLh3xNB0D29pwt6vRQcOcyhiQ7ecOATgEBu2YWs/YYX9th3gsRSN72chawa/4BcpRQrm
- MivVLF+nwJi5Rd7S8PuVOi9lubFCZhGpMUcuWDuBInl/j9TsJe52MhUJgzazOY8y8CIZ
- PKPsKQ8ZtISmMYfYuwqXer5r4hfnIr2nHIFT4/JZrE3zuPFy0vm+5W+RcSiUyzgixm2d
- bUjqU6YUsDHheNBn1cgPpI5OdrM8VuR8ewbZnvgyPZ7tiKe8LOhg9Q0AxL+ZKR/ZLdvT
- cLgg==
-X-Gm-Message-State: APjAAAV5ZU2ryfEPGDlNRrJefGORYsoM56Xtp4QlLO1fLn6oSKKEVbuX
- D2+rRB4dAFQKeRJgGt1059Zwt/VCJE4=
-X-Google-Smtp-Source: APXvYqxotvTIQ5W6kSGI3dxa+MKfgSXsuBMWEDYYBa7nWB4gxhqCtNGLCruquOuw5Cz+iVBf+oe6Kw==
-X-Received: by 2002:ab0:2745:: with SMTP id c5mr7858600uap.65.1580510307455;
- Fri, 31 Jan 2020 14:38:27 -0800 (PST)
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com.
- [209.85.221.180])
- by smtp.gmail.com with ESMTPSA id d3sm3067223vkf.2.2020.01.31.14.38.25
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 31 Jan 2020 14:38:26 -0800 (PST)
-Received: by mail-vk1-f180.google.com with SMTP id p191so2539952vkf.8
- for <freedreno@lists.freedesktop.org>; Fri, 31 Jan 2020 14:38:25 -0800 (PST)
-X-Received: by 2002:a1f:a9d0:: with SMTP id s199mr7858217vke.40.1580510305500; 
- Fri, 31 Jan 2020 14:38:25 -0800 (PST)
+ bh=mOB+jXb70psFwK6ilNyJvCjU6t2LYt+4h3WNAoOnGBQ=;
+ b=V/veBa1UqHleNPdXRFrCa1R/nv9FHDRAVppNlKkskxvR34QmEU9Q7GUxLMbiB/h/VE
+ 1oskjFh5mzsCB10N268z77LSypvKocxHjzjR+73V78V+wIal1NUz7SdXENnfX3mv6pFz
+ CCO7cyTMipQhQsTHoRrh9Hr4MDvo+YW/7eie5fuWjITDdCtiyYyoiWiLWmfh5glS/utM
+ jYxzLa8xFzgGmw++NBhnWVdsUO54h9YJ6E7JvdSWV9Pa80XhFJem2ZI5in6wqVaZw86Q
+ 39U/MmE5fv3xRgHJkZj8zZAKCbCt3geYwaPWnN9wQfO8Vjg2zPOdWzZR5eZ6bW5cNzel
+ 3TZg==
+X-Gm-Message-State: APjAAAXe5S2KHHk7aFak641NSWIf1gefhOcp6Sxj7Vrhib6r8HDSQmXo
+ XuYGMvsjV7BQ/gxIySQnBiDNxZGMvxB7au615Mw=
+X-Google-Smtp-Source: APXvYqxvTdOavw69tuuAGfm7oJ9JVYTNTSKrsIsXBFt/8TWLfz8KY2AQETn8wjig5LG4ek97Cl+wnCAPHFTSB+EGzRg=
+X-Received: by 2002:a1c:f009:: with SMTP id a9mr806440wmb.73.1580762393328;
+ Mon, 03 Feb 2020 12:39:53 -0800 (PST)
 MIME-Version: 1.0
-References: <1579774675-20235-1-git-send-email-kalyan_t@codeaurora.org>
-In-Reply-To: <1579774675-20235-1-git-send-email-kalyan_t@codeaurora.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 31 Jan 2020 14:38:14 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=XnS893yXNcm6RKV_3Do5b8hR2=nj=Y03Ymw7fbU+Zwng@mail.gmail.com>
-Message-ID: <CAD=FV=XnS893yXNcm6RKV_3Do5b8hR2=nj=Y03Ymw7fbU+Zwng@mail.gmail.com>
-To: Kalyan Thota <kalyan_t@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH] msm:disp:dpu1: add UBWC support for display
- on SC7180
+References: <20200123135943.24140-1-tzimmermann@suse.de>
+ <20200123135943.24140-11-tzimmermann@suse.de>
+In-Reply-To: <20200123135943.24140-11-tzimmermann@suse.de>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 3 Feb 2020 15:39:42 -0500
+Message-ID: <CADnq5_M89Hmx-5n+sJgWvMAwcwtvtF31kfjEfui1hUukxaFrvg@mail.gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [Freedreno] [PATCH v4 10/22] drm/radeon: Convert to struct
+ drm_crtc_helper_funcs.get_scanout_position()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,46 +62,153 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, travitej@codeaurora.org,
+Cc: hamohammed.sa@gmail.com, Dave Airlie <airlied@linux.ie>,
+ nouveau <nouveau@lists.freedesktop.org>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Eric Anholt <eric@anholt.net>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>, alexandre.torgue@st.com,
+ Chunming Zhou <David1.Zhou@amd.com>, Thomas Hellstrom <thellstrom@vmware.com>,
+ Sean Paul <sean@poorly.run>, Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ VMware Graphics <linux-graphics-maintainer@vmware.com>,
+ Ben Skeggs <bskeggs@redhat.com>, "Wentland, Harry" <harry.wentland@amd.com>,
+ mcoquelin.stm32@gmail.com, "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
  linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Harigovindan P <harigovi@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
- nganji@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
- "Kristian H. Kristensen" <hoegsberg@chromium.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Vincent Abriou <vincent.abriou@st.com>,
+ rodrigosiqueiramelo@gmail.com, philippe.cornu@st.com, yannick.fertre@st.com,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>,
  freedreno <freedreno@lists.freedesktop.org>,
- Jeykumar Sankaran <jsanka@codeaurora.org>
+ Christian Koenig <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+On Thu, Jan 23, 2020 at 9:00 AM Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>
+> The callback struct drm_driver.get_scanout_position() is deprecated in
+> favor of struct drm_crtc_helper_funcs.get_scanout_position(). Convert
+> radeon over.
+>
+> v4:
+>         * 80-character line fixes
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-On Thu, Jan 23, 2020 at 2:19 AM Kalyan Thota <kalyan_t@codeaurora.org> wrote:
->
-> Add UBWC global configuration for display on
-> SC7180 target.
->
-> Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c | 58 +++++++++++++++++++++++++++++++-
->  1 file changed, 57 insertions(+), 1 deletion(-)
-
-I didn't do any sort of review of this patch, but I can say that
-without it the screen on my sc7180-based device is super glitchy and
-when I add this patch in the glitchies are gone.  Thus:
-
-Tested-by: Douglas Anderson <dianders@chromium.org>
-
-...one note is that the subject of this patch seems a bit
-non-standard.  I would have expected a tag more like "drm/msm/dpu:"
-instead of "msm:disp:dpu1:".  Presumably if the maintainer cares when
-landing he/she could fix that up, but something to think about for
-future patches.
-
--Doug
+>  drivers/gpu/drm/radeon/atombios_crtc.c      |  1 +
+>  drivers/gpu/drm/radeon/radeon_display.c     | 13 +++++++++++++
+>  drivers/gpu/drm/radeon/radeon_drv.c         | 11 -----------
+>  drivers/gpu/drm/radeon/radeon_legacy_crtc.c |  3 ++-
+>  drivers/gpu/drm/radeon/radeon_mode.h        |  6 ++++++
+>  5 files changed, 22 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/atombios_crtc.c b/drivers/gpu/drm/radeon/atombios_crtc.c
+> index be583695427a..91811757104c 100644
+> --- a/drivers/gpu/drm/radeon/atombios_crtc.c
+> +++ b/drivers/gpu/drm/radeon/atombios_crtc.c
+> @@ -2231,6 +2231,7 @@ static const struct drm_crtc_helper_funcs atombios_helper_funcs = {
+>         .prepare = atombios_crtc_prepare,
+>         .commit = atombios_crtc_commit,
+>         .disable = atombios_crtc_disable,
+> +       .get_scanout_position = radeon_get_crtc_scanout_position,
+>  };
+>
+>  void radeon_atombios_init_crtc(struct drm_device *dev,
+> diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
+> index 856526cb2caf..2f641f3b39e7 100644
+> --- a/drivers/gpu/drm/radeon/radeon_display.c
+> +++ b/drivers/gpu/drm/radeon/radeon_display.c
+> @@ -1978,3 +1978,16 @@ int radeon_get_crtc_scanoutpos(struct drm_device *dev, unsigned int pipe,
+>
+>         return ret;
+>  }
+> +
+> +bool
+> +radeon_get_crtc_scanout_position(struct drm_crtc *crtc,
+> +                                bool in_vblank_irq, int *vpos, int *hpos,
+> +                                ktime_t *stime, ktime_t *etime,
+> +                                const struct drm_display_mode *mode)
+> +{
+> +       struct drm_device *dev = crtc->dev;
+> +       unsigned int pipe = crtc->index;
+> +
+> +       return radeon_get_crtc_scanoutpos(dev, pipe, 0, vpos, hpos,
+> +                                         stime, etime, mode);
+> +}
+> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
+> index fd74e2611185..1f597f166bff 100644
+> --- a/drivers/gpu/drm/radeon/radeon_drv.c
+> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
+> @@ -563,16 +563,6 @@ static const struct file_operations radeon_driver_kms_fops = {
+>  #endif
+>  };
+>
+> -static bool
+> -radeon_get_crtc_scanout_position(struct drm_device *dev, unsigned int pipe,
+> -                                bool in_vblank_irq, int *vpos, int *hpos,
+> -                                ktime_t *stime, ktime_t *etime,
+> -                                const struct drm_display_mode *mode)
+> -{
+> -       return radeon_get_crtc_scanoutpos(dev, pipe, 0, vpos, hpos,
+> -                                         stime, etime, mode);
+> -}
+> -
+>  static struct drm_driver kms_driver = {
+>         .driver_features =
+>             DRIVER_USE_AGP | DRIVER_GEM | DRIVER_RENDER,
+> @@ -585,7 +575,6 @@ static struct drm_driver kms_driver = {
+>         .enable_vblank = radeon_enable_vblank_kms,
+>         .disable_vblank = radeon_disable_vblank_kms,
+>         .get_vblank_timestamp = drm_calc_vbltimestamp_from_scanoutpos,
+> -       .get_scanout_position = radeon_get_crtc_scanout_position,
+>         .irq_preinstall = radeon_driver_irq_preinstall_kms,
+>         .irq_postinstall = radeon_driver_irq_postinstall_kms,
+>         .irq_uninstall = radeon_driver_irq_uninstall_kms,
+> diff --git a/drivers/gpu/drm/radeon/radeon_legacy_crtc.c b/drivers/gpu/drm/radeon/radeon_legacy_crtc.c
+> index a1985a552794..8817fd033cd0 100644
+> --- a/drivers/gpu/drm/radeon/radeon_legacy_crtc.c
+> +++ b/drivers/gpu/drm/radeon/radeon_legacy_crtc.c
+> @@ -1111,7 +1111,8 @@ static const struct drm_crtc_helper_funcs legacy_helper_funcs = {
+>         .mode_set_base_atomic = radeon_crtc_set_base_atomic,
+>         .prepare = radeon_crtc_prepare,
+>         .commit = radeon_crtc_commit,
+> -       .disable = radeon_crtc_disable
+> +       .disable = radeon_crtc_disable,
+> +       .get_scanout_position = radeon_get_crtc_scanout_position,
+>  };
+>
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeon/radeon_mode.h
+> index fd470d6bf3f4..3a61530c1398 100644
+> --- a/drivers/gpu/drm/radeon/radeon_mode.h
+> +++ b/drivers/gpu/drm/radeon/radeon_mode.h
+> @@ -881,6 +881,12 @@ extern int radeon_get_crtc_scanoutpos(struct drm_device *dev, unsigned int pipe,
+>                                       ktime_t *stime, ktime_t *etime,
+>                                       const struct drm_display_mode *mode);
+>
+> +extern bool
+> +radeon_get_crtc_scanout_position(struct drm_crtc *crtc, bool in_vblank_irq,
+> +                                int *vpos, int *hpos,
+> +                                ktime_t *stime, ktime_t *etime,
+> +                                const struct drm_display_mode *mode);
+> +
+>  extern bool radeon_combios_check_hardcoded_edid(struct radeon_device *rdev);
+>  extern struct edid *
+>  radeon_bios_get_hardcoded_edid(struct radeon_device *rdev);
+> --
+> 2.24.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
