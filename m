@@ -1,54 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 670AF151C79
-	for <lists+freedreno@lfdr.de>; Tue,  4 Feb 2020 15:44:29 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id E2543151E59
+	for <lists+freedreno@lfdr.de>; Tue,  4 Feb 2020 17:35:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B79C6F374;
-	Tue,  4 Feb 2020 14:44:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FBE06E87B;
+	Tue,  4 Feb 2020 16:35:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-x141.google.com (mail-il1-x141.google.com
- [IPv6:2607:f8b0:4864:20::141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C22156F374;
- Tue,  4 Feb 2020 14:44:26 +0000 (UTC)
-Received: by mail-il1-x141.google.com with SMTP id s85so12626611ill.11;
- Tue, 04 Feb 2020 06:44:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=pBPgZrCmoCK+adPpBYU1UgcBrMjDVFByBZS7ldjpSQg=;
- b=E4Xyb8LiS6clI+5dqopwS6OxlDQ+b2NTz73F0W4FBbpOs3EEVtrxId487UD5r2m8PL
- HI1VKjnvEvRLgZHOARQnfMSd/8EYJBGf4HCw7TL3k5RWfK7MXwYBuwxzq5oPF2t+Rlj9
- cUlguf56kwFgdu16U9HCo7Ywnsgeo7Xa2Q1TAIEEfAB1KOl0uPL6ce+TmnvfJ75C01BO
- RchsaGygoM1zofuLrx75cI9PGtpn83vxqyx0smAb8D/AtI1SrGB5Pqmu2TmrDqxnnizT
- dI4bdSBfpQFHNjxcIIqJ3ELyp8k9XQolPw6DnXnPyk1BG6S3YqzNa0SvghlBrEvh2FXT
- sJEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=pBPgZrCmoCK+adPpBYU1UgcBrMjDVFByBZS7ldjpSQg=;
- b=YWkKVtD+s74n8vJ51izsKZM2FrMLAr4UTAKJRFcW7OpJtj2SvTasUC2sroWxW+LW9L
- Hirc38ljTw85ANg4RLFpQ9DJNlx7WKrN8cMsYnmpBEfAKKYCejNbhIXS4qNKrglm0c2n
- jsiajbHLo3/a+mIQQDS8A2uXEaymHLR4CTb+jzrROTF82gQzWyYyN6XAovTXOQVKoQjJ
- 0tJtQqQXj5e1qWR1Yi3kOImVSPQmVEoWFxcV/R5jczxNQLteZW5Ve18FzFKlx/WU8qIq
- CESY7JkDM1qJ9saYToaH5sX7DiNhHnz9sN+XAzHMxo6WAMD8WWWMHBnIZajk0nBLkG/j
- vmTw==
-X-Gm-Message-State: APjAAAUunS6N9Favj6S3k340YHgwfVEm7GP+0iJNxqJjUXKXmE7gTqU9
- onH6tJt+YZgMIyeWsS6bzMuprdx3HrtvOqZsSmk=
-X-Google-Smtp-Source: APXvYqwK9TpjhX0h1rx34qAMHunSgEc+MuYa+gdNBn5BAmQldz1Y+KTnEKcwvvlYqWn8uE+Twe4govU8jiD5qoDHMWo=
-X-Received: by 2002:a92:5e8b:: with SMTP id f11mr27598714ilg.178.1580827466019; 
- Tue, 04 Feb 2020 06:44:26 -0800 (PST)
+Received: from mail25.static.mailgun.info (mail25.static.mailgun.info
+ [104.130.122.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 492F26E87B
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Feb 2020 16:34:59 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1580834099; h=In-Reply-To: Content-Type: MIME-Version:
+ References: Message-ID: Subject: Cc: To: From: Date: Sender;
+ bh=7F4mpaGJXV854XleOqax1nGTOQoZmnCONXLBD4S1uf4=;
+ b=juamryasnWGmhUvwSeNML1UHZngot6AnRCZ3HBh6GW20qhNKnmWaIB5dBkH6jAq/pZ+jt34i
+ NHFPmFpq/cHyWwx+luJvgT0+bh7dgtxvvjM9H8Lo6bOKTzFtQ/Ez5hHOVxs/BEtfNPPdZc8r
+ uKgDjpkP3bjHYtC/9Red/EoX/xw=
+X-Mailgun-Sending-Ip: 104.130.122.25
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5e399d2f.7f5080a98618-smtp-out-n03;
+ Tue, 04 Feb 2020 16:34:55 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 4A9B2C447A0; Tue,  4 Feb 2020 16:34:55 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id A7310C433CB;
+ Tue,  4 Feb 2020 16:34:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org A7310C433CB
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=jcrouse@codeaurora.org
+Date: Tue, 4 Feb 2020 09:34:51 -0700
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <20200204163451.GA14568@jcrouse1-lnx.qualcomm.com>
+Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
+ John Stultz <john.stultz@linaro.org>,
+ Amit Pundir <amit.pundir@linaro.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ lkml <linux-kernel@vger.kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ dri-devel@freedesktop.org,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+References: <1579763945-10478-1-git-send-email-smasetty@codeaurora.org>
+ <1579763945-10478-2-git-send-email-smasetty@codeaurora.org>
+ <CALAqxLU9-4YEF8mTjuPF+LBJH8fFw_OfrdT7JtTqib127RRaEA@mail.gmail.com>
+ <CAF6AEGtxtJU5dJxd4idQgPL2HYgiLm2vJejjK-gzDXqtoaTr9w@mail.gmail.com>
 MIME-Version: 1.0
-References: <1580825737-27189-1-git-send-email-harigovi@codeaurora.org>
-In-Reply-To: <1580825737-27189-1-git-send-email-harigovi@codeaurora.org>
-From: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
-Date: Tue, 4 Feb 2020 07:44:14 -0700
-Message-ID: <CAOCk7NoAY7QaoBufG=JOR54PocdtrMsxUh9HmdWEwQ4zSG5MDg@mail.gmail.com>
-To: Harigovindan P <harigovi@codeaurora.org>
-Subject: Re: [Freedreno] [v1] dt-bindings: msm:disp: update dsi and dpu
- bindings
+Content-Disposition: inline
+In-Reply-To: <CAF6AEGtxtJU5dJxd4idQgPL2HYgiLm2vJejjK-gzDXqtoaTr9w@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Freedreno] [PATCH v2 2/3] drm: msm: a6xx: Add support for A618
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,82 +80,101 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: DTML <devicetree@vger.kernel.org>, MSM <linux-arm-msm@vger.kernel.org>,
- lkml <linux-kernel@vger.kernel.org>,
- "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
- Rob Clark <robdclark@gmail.com>, nganji@codeaurora.org,
- Sean Paul <seanpaul@chromium.org>, kalyan_t@codeaurora.org,
- "Kristian H. Kristensen" <hoegsberg@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: Amit Pundir <amit.pundir@linaro.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>, lkml <linux-kernel@vger.kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ John Stultz <john.stultz@linaro.org>, dri-devel@freedesktop.org,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Feb 4, 2020 at 7:15 AM Harigovindan P <harigovi@codeaurora.org> wrote:
->
-> Updating bindings of dsi and dpu by adding and removing certain
-> properties.
->
-> Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
-> ---
->
-> Changes in v1:
->         - Adding "ahb" clock as a required property.
->         - Adding "bus", "rot", "lut" as optional properties for sc7180 device.
->         - Removing properties from dsi bindings that are unused.
->         - Removing power-domain property since DSI is the child node of MDSS
->           and it will inherit supply from its parent.
->
->  Documentation/devicetree/bindings/display/msm/dpu.txt | 7 +++++++
->  Documentation/devicetree/bindings/display/msm/dsi.txt | 5 -----
->  2 files changed, 7 insertions(+), 5 deletions(-)
-> diff --git a/Documentation/devicetree/bindings/display/msm/dsi.txt b/Documentation/devicetree/bindings/display/msm/dsi.txt
-> index af95586..61d659a 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dsi.txt
-> +++ b/Documentation/devicetree/bindings/display/msm/dsi.txt
-> @@ -8,13 +8,10 @@ Required properties:
->  - reg-names: The names of register regions. The following regions are required:
->    * "dsi_ctrl"
->  - interrupts: The interrupt signal from the DSI block.
-> -- power-domains: Should be <&mmcc MDSS_GDSC>.
->  - clocks: Phandles to device clocks.
->  - clock-names: the following clocks are required:
-> -  * "mdp_core"
->    * "iface"
->    * "bus"
-> -  * "core_mmss"
+On Mon, Feb 03, 2020 at 04:40:40PM -0800, Rob Clark wrote:
+> On Mon, Feb 3, 2020 at 4:21 PM John Stultz <john.stultz@linaro.org> wrote:
+> >
+> > On Wed, Jan 22, 2020 at 11:19 PM Sharat Masetty <smasetty@codeaurora.org> wrote:
+> > >
+> > > This patch adds support for enabling Graphics Bus Interface(GBIF)
+> > > used in multiple A6xx series chipets. Also makes changes to the
+> > > PDC/RSC sequencing specifically required for A618. This is needed
+> > > for proper interfacing with RPMH.
+> > >
+> > > Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
+> > > ---
+> > > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > > index dc8ec2c..2ac9a51 100644
+> > > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > > @@ -378,6 +378,18 @@ static int a6xx_hw_init(struct msm_gpu *gpu)
+> > >         struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+> > >         int ret;
+> > >
+> > > +       /*
+> > > +        * During a previous slumber, GBIF halt is asserted to ensure
+> > > +        * no further transaction can go through GPU before GPU
+> > > +        * headswitch is turned off.
+> > > +        *
+> > > +        * This halt is deasserted once headswitch goes off but
+> > > +        * incase headswitch doesn't goes off clear GBIF halt
+> > > +        * here to ensure GPU wake-up doesn't fail because of
+> > > +        * halted GPU transactions.
+> > > +        */
+> > > +       gpu_write(gpu, REG_A6XX_GBIF_HALT, 0x0);
+> > > +
+> > >         /* Make sure the GMU keeps the GPU on while we set it up */
+> > >         a6xx_gmu_set_oob(&a6xx_gpu->gmu, GMU_OOB_GPU_SET);
+> > >
+> >
+> > So I already brought this up on #freedreno but figured I'd follow up
+> > on the list.
+> >
+> > With linus/master, I'm seeing hard crashes (into usb crash mode) with
+> > the db845c, which I isolated down to this patch, and then to the chunk
+> > above.
+> 
+> (repeating my speculation from #freedreno for benefit of those not on IRC)
+> 
+> I'm suspecting, that like the registers to take the GPU out of secure
+> mode, this register is being blocked on LA devices (like db845c),
+> which is why we didn't see this on cheza.
+> 
+> Maybe we can make this write conditional on whether we have a zap shader?
 
-Why do you think these are unused?  I see them used in the driver, and
-as far as I can tell these get routed to the hardware, therefore they
-should be described in DT.
+Sorry, I was WFH yesterday and didn't have IRC on.
 
->    * "byte"
->    * "pixel"
->    * "core"
-> @@ -156,7 +153,6 @@ Example:
->                         "core",
->                         "core_mmss",
->                         "iface",
-> -                       "mdp_core",
->                         "pixel";
->                 clocks =
->                         <&mmcc MDSS_AXI_CLK>,
-> @@ -164,7 +160,6 @@ Example:
->                         <&mmcc MDSS_ESC0_CLK>,
->                         <&mmcc MMSS_MISC_AHB_CLK>,
->                         <&mmcc MDSS_AHB_CLK>,
-> -                       <&mmcc MDSS_MDP_CLK>,
->                         <&mmcc MDSS_PCLK0_CLK>;
->
->                 assigned-clocks =
-> --
-> 2.7.4
->
+The 845 doesn't have GBIF (it still uses VBIF) and on a AC enabled target large
+chunks of unused register space would be blocked by default so Rob's hypothesis
+is correct. Since the 845 is the only a6xx target that still has a VBIF a
+!adreno_is_a630() check would do here, but I'm not 100% convinced we need this
+code at all. We explicitly clear the GBIF halt in the stop function before the
+headswitch is turned off so I think this is mostly unneeded paranoia.
+
+I need to get a tree with the 618 code in it and I'll try to get a fix out
+shortly.
+
+Jordan
+
+> > Dropping the gpu_write line above gets things booting again for me.
+> >
+> > Let me know if there are any follow on patches I can help validate.
+> >
+> > thanks
+> > -john
+> > _______________________________________________
+> > Freedreno mailing list
+> > Freedreno@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/freedreno
 > _______________________________________________
 > Freedreno mailing list
 > Freedreno@lists.freedesktop.org
 > https://lists.freedesktop.org/mailman/listinfo/freedreno
+
+-- 
+The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+a Linux Foundation Collaborative Project
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
