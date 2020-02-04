@@ -1,32 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D579A151BFA
-	for <lists+freedreno@lfdr.de>; Tue,  4 Feb 2020 15:15:47 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 670AF151C79
+	for <lists+freedreno@lfdr.de>; Tue,  4 Feb 2020 15:44:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86FD46E843;
-	Tue,  4 Feb 2020 14:15:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B79C6F374;
+	Tue,  4 Feb 2020 14:44:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-blr-02.qualcomm.com (alexa-out-blr-02.qualcomm.com
- [103.229.18.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA5616E843;
- Tue,  4 Feb 2020 14:15:43 +0000 (UTC)
-Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
- by alexa-out-blr-02.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 04 Feb 2020 19:45:39 +0530
-Received: from harigovi-linux.qualcomm.com ([10.204.66.157])
- by ironmsg02-blr.qualcomm.com with ESMTP; 04 Feb 2020 19:45:39 +0530
-Received: by harigovi-linux.qualcomm.com (Postfix, from userid 2332695)
- id B45A528BA; Tue,  4 Feb 2020 19:45:38 +0530 (IST)
-From: Harigovindan P <harigovi@codeaurora.org>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Date: Tue,  4 Feb 2020 19:45:37 +0530
-Message-Id: <1580825737-27189-1-git-send-email-harigovi@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-Subject: [Freedreno] [v1] dt-bindings: msm:disp: update dsi and dpu bindings
+Received: from mail-il1-x141.google.com (mail-il1-x141.google.com
+ [IPv6:2607:f8b0:4864:20::141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C22156F374;
+ Tue,  4 Feb 2020 14:44:26 +0000 (UTC)
+Received: by mail-il1-x141.google.com with SMTP id s85so12626611ill.11;
+ Tue, 04 Feb 2020 06:44:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=pBPgZrCmoCK+adPpBYU1UgcBrMjDVFByBZS7ldjpSQg=;
+ b=E4Xyb8LiS6clI+5dqopwS6OxlDQ+b2NTz73F0W4FBbpOs3EEVtrxId487UD5r2m8PL
+ HI1VKjnvEvRLgZHOARQnfMSd/8EYJBGf4HCw7TL3k5RWfK7MXwYBuwxzq5oPF2t+Rlj9
+ cUlguf56kwFgdu16U9HCo7Ywnsgeo7Xa2Q1TAIEEfAB1KOl0uPL6ce+TmnvfJ75C01BO
+ RchsaGygoM1zofuLrx75cI9PGtpn83vxqyx0smAb8D/AtI1SrGB5Pqmu2TmrDqxnnizT
+ dI4bdSBfpQFHNjxcIIqJ3ELyp8k9XQolPw6DnXnPyk1BG6S3YqzNa0SvghlBrEvh2FXT
+ sJEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=pBPgZrCmoCK+adPpBYU1UgcBrMjDVFByBZS7ldjpSQg=;
+ b=YWkKVtD+s74n8vJ51izsKZM2FrMLAr4UTAKJRFcW7OpJtj2SvTasUC2sroWxW+LW9L
+ Hirc38ljTw85ANg4RLFpQ9DJNlx7WKrN8cMsYnmpBEfAKKYCejNbhIXS4qNKrglm0c2n
+ jsiajbHLo3/a+mIQQDS8A2uXEaymHLR4CTb+jzrROTF82gQzWyYyN6XAovTXOQVKoQjJ
+ 0tJtQqQXj5e1qWR1Yi3kOImVSPQmVEoWFxcV/R5jczxNQLteZW5Ve18FzFKlx/WU8qIq
+ CESY7JkDM1qJ9saYToaH5sX7DiNhHnz9sN+XAzHMxo6WAMD8WWWMHBnIZajk0nBLkG/j
+ vmTw==
+X-Gm-Message-State: APjAAAUunS6N9Favj6S3k340YHgwfVEm7GP+0iJNxqJjUXKXmE7gTqU9
+ onH6tJt+YZgMIyeWsS6bzMuprdx3HrtvOqZsSmk=
+X-Google-Smtp-Source: APXvYqwK9TpjhX0h1rx34qAMHunSgEc+MuYa+gdNBn5BAmQldz1Y+KTnEKcwvvlYqWn8uE+Twe4govU8jiD5qoDHMWo=
+X-Received: by 2002:a92:5e8b:: with SMTP id f11mr27598714ilg.178.1580827466019; 
+ Tue, 04 Feb 2020 06:44:26 -0800 (PST)
+MIME-Version: 1.0
+References: <1580825737-27189-1-git-send-email-harigovi@codeaurora.org>
+In-Reply-To: <1580825737-27189-1-git-send-email-harigovi@codeaurora.org>
+From: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
+Date: Tue, 4 Feb 2020 07:44:14 -0700
+Message-ID: <CAOCk7NoAY7QaoBufG=JOR54PocdtrMsxUh9HmdWEwQ4zSG5MDg@mail.gmail.com>
+To: Harigovindan P <harigovi@codeaurora.org>
+Subject: Re: [Freedreno] [v1] dt-bindings: msm:disp: update dsi and dpu
+ bindings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -39,101 +61,82 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Harigovindan P <harigovi@codeaurora.org>, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
- kalyan_t@codeaurora.org, hoegsberg@chromium.org
-MIME-Version: 1.0
+Cc: DTML <devicetree@vger.kernel.org>, MSM <linux-arm-msm@vger.kernel.org>,
+ lkml <linux-kernel@vger.kernel.org>,
+ "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
+ Rob Clark <robdclark@gmail.com>, nganji@codeaurora.org,
+ Sean Paul <seanpaul@chromium.org>, kalyan_t@codeaurora.org,
+ "Kristian H. Kristensen" <hoegsberg@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Updating bindings of dsi and dpu by adding and removing certain
-properties.
+On Tue, Feb 4, 2020 at 7:15 AM Harigovindan P <harigovi@codeaurora.org> wrote:
+>
+> Updating bindings of dsi and dpu by adding and removing certain
+> properties.
+>
+> Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
+> ---
+>
+> Changes in v1:
+>         - Adding "ahb" clock as a required property.
+>         - Adding "bus", "rot", "lut" as optional properties for sc7180 device.
+>         - Removing properties from dsi bindings that are unused.
+>         - Removing power-domain property since DSI is the child node of MDSS
+>           and it will inherit supply from its parent.
+>
+>  Documentation/devicetree/bindings/display/msm/dpu.txt | 7 +++++++
+>  Documentation/devicetree/bindings/display/msm/dsi.txt | 5 -----
+>  2 files changed, 7 insertions(+), 5 deletions(-)
+> diff --git a/Documentation/devicetree/bindings/display/msm/dsi.txt b/Documentation/devicetree/bindings/display/msm/dsi.txt
+> index af95586..61d659a 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dsi.txt
+> +++ b/Documentation/devicetree/bindings/display/msm/dsi.txt
+> @@ -8,13 +8,10 @@ Required properties:
+>  - reg-names: The names of register regions. The following regions are required:
+>    * "dsi_ctrl"
+>  - interrupts: The interrupt signal from the DSI block.
+> -- power-domains: Should be <&mmcc MDSS_GDSC>.
+>  - clocks: Phandles to device clocks.
+>  - clock-names: the following clocks are required:
+> -  * "mdp_core"
+>    * "iface"
+>    * "bus"
+> -  * "core_mmss"
 
-Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
----
+Why do you think these are unused?  I see them used in the driver, and
+as far as I can tell these get routed to the hardware, therefore they
+should be described in DT.
 
-Changes in v1:
-        - Adding "ahb" clock as a required property.
-        - Adding "bus", "rot", "lut" as optional properties for sc7180 device.
-        - Removing properties from dsi bindings that are unused.
-	- Removing power-domain property since DSI is the child node of MDSS
-	  and it will inherit supply from its parent.
-
- Documentation/devicetree/bindings/display/msm/dpu.txt | 7 +++++++
- Documentation/devicetree/bindings/display/msm/dsi.txt | 5 -----
- 2 files changed, 7 insertions(+), 5 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/display/msm/dpu.txt b/Documentation/devicetree/bindings/display/msm/dpu.txt
-index 551ae26..dd58472a 100644
---- a/Documentation/devicetree/bindings/display/msm/dpu.txt
-+++ b/Documentation/devicetree/bindings/display/msm/dpu.txt
-@@ -19,6 +19,7 @@ Required properties:
-   The following clocks are required:
-   * "iface"
-   * "bus"
-+  * "ahb"
-   * "core"
- - interrupts: interrupt signal from MDSS.
- - interrupt-controller: identifies the node as an interrupt controller.
-@@ -50,6 +51,8 @@ Required properties:
- - clock-names: device clock names, must be in same order as clocks property.
-   The following clocks are required.
-   * "bus"
-+  For the device "qcom,sc7180-dpu":
-+  * "bus" - is an optional property due to architecture change.
-   * "iface"
-   * "core"
-   * "vsync"
-@@ -70,6 +73,10 @@ Optional properties:
- - assigned-clocks: list of clock specifiers for clocks needing rate assignment
- - assigned-clock-rates: list of clock frequencies sorted in the same order as
-   the assigned-clocks property.
-+- For the device "qcom,sc7180-dpu":
-+  clock-names: optional device clocks, needed for accessing LUT blocks.
-+  * "rot"
-+  * "lut"
- 
- Example:
- 
-diff --git a/Documentation/devicetree/bindings/display/msm/dsi.txt b/Documentation/devicetree/bindings/display/msm/dsi.txt
-index af95586..61d659a 100644
---- a/Documentation/devicetree/bindings/display/msm/dsi.txt
-+++ b/Documentation/devicetree/bindings/display/msm/dsi.txt
-@@ -8,13 +8,10 @@ Required properties:
- - reg-names: The names of register regions. The following regions are required:
-   * "dsi_ctrl"
- - interrupts: The interrupt signal from the DSI block.
--- power-domains: Should be <&mmcc MDSS_GDSC>.
- - clocks: Phandles to device clocks.
- - clock-names: the following clocks are required:
--  * "mdp_core"
-   * "iface"
-   * "bus"
--  * "core_mmss"
-   * "byte"
-   * "pixel"
-   * "core"
-@@ -156,7 +153,6 @@ Example:
- 			"core",
- 			"core_mmss",
- 			"iface",
--			"mdp_core",
- 			"pixel";
- 		clocks =
- 			<&mmcc MDSS_AXI_CLK>,
-@@ -164,7 +160,6 @@ Example:
- 			<&mmcc MDSS_ESC0_CLK>,
- 			<&mmcc MMSS_MISC_AHB_CLK>,
- 			<&mmcc MDSS_AHB_CLK>,
--			<&mmcc MDSS_MDP_CLK>,
- 			<&mmcc MDSS_PCLK0_CLK>;
- 
- 		assigned-clocks =
--- 
-2.7.4
-
+>    * "byte"
+>    * "pixel"
+>    * "core"
+> @@ -156,7 +153,6 @@ Example:
+>                         "core",
+>                         "core_mmss",
+>                         "iface",
+> -                       "mdp_core",
+>                         "pixel";
+>                 clocks =
+>                         <&mmcc MDSS_AXI_CLK>,
+> @@ -164,7 +160,6 @@ Example:
+>                         <&mmcc MDSS_ESC0_CLK>,
+>                         <&mmcc MMSS_MISC_AHB_CLK>,
+>                         <&mmcc MDSS_AHB_CLK>,
+> -                       <&mmcc MDSS_MDP_CLK>,
+>                         <&mmcc MDSS_PCLK0_CLK>;
+>
+>                 assigned-clocks =
+> --
+> 2.7.4
+>
+> _______________________________________________
+> Freedreno mailing list
+> Freedreno@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/freedreno
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
