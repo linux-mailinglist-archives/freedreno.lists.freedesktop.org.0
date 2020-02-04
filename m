@@ -1,63 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D10AE152063
-	for <lists+freedreno@lfdr.de>; Tue,  4 Feb 2020 19:22:26 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 150941520E0
+	for <lists+freedreno@lfdr.de>; Tue,  4 Feb 2020 20:14:14 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BF106E8A7;
-	Tue,  4 Feb 2020 18:22:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26AFE6E8C9;
+	Tue,  4 Feb 2020 19:14:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-vs1-xe43.google.com (mail-vs1-xe43.google.com
- [IPv6:2607:f8b0:4864:20::e43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6825B6E8A7
- for <freedreno@lists.freedesktop.org>; Tue,  4 Feb 2020 18:22:24 +0000 (UTC)
-Received: by mail-vs1-xe43.google.com with SMTP id g15so12032983vsf.1
- for <freedreno@lists.freedesktop.org>; Tue, 04 Feb 2020 10:22:24 -0800 (PST)
+Received: from mail-vk1-xa41.google.com (mail-vk1-xa41.google.com
+ [IPv6:2607:f8b0:4864:20::a41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 151C66E8C8
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Feb 2020 19:14:11 +0000 (UTC)
+Received: by mail-vk1-xa41.google.com with SMTP id p191so5502222vkf.8
+ for <freedreno@lists.freedesktop.org>; Tue, 04 Feb 2020 11:14:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=cype+1HdLaYeGzPg6QLAFeuguxQu4poaB2OEsU3y04s=;
- b=IUlAuvrBfjzl5pITuJlx+XC7sqgnBZqUwLmF9uQn/eUBKie2QtVpwI2xPwyf+a/syV
- OXaRJG/EOJB0KrDkMikM6npajjVQ8ecz9K2nJbZhUH8PLIkih+o8CsokUdnJCJGnn+ZP
- U2WqwmKL8+8A6UKrfacQQUvqu+UoXenC43pCo=
+ :cc; bh=c05eGhfP62oyJ4uJzi+JFgkkWqqqI9hWVBoKeCjxm4w=;
+ b=AZCPqV89v+hOzNtfW2saXZP0Q0an/t7IFjgge833KWWdrveSw7azdc6LDMxtiZJlJl
+ e8z5D6BlfIf8VfNzB2FQSUlkfkMVb6p3A2wpczyjxmVzvbV84dk2tbFhyF/lLh+K21yA
+ Uz0UcBE3wLwBuTZqVZiA41SK93XAiADvPM6X0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=cype+1HdLaYeGzPg6QLAFeuguxQu4poaB2OEsU3y04s=;
- b=poTXZL20fvg8edJo2eG7el4WoEc5ZKmBBrH3RMB5wL/q09kmh5AZT55IChvzcklmCU
- OikMfx2YegUI+7cf6ffnlLrOyk9SAoWao1RfvOvgc2GbP3hTFHjR56hx5FPVWSrUkv6b
- 0PdyQFuaqZtowMMBxN6jEa7CwFQ5u21jd1wsL5vqXOlyyDdzDDcjQV5LED5szg2xZT5S
- Pgi8AnufUDHXevnMDJFpYaU1dl3k5sd1XjqV605dtxEQRIDK3hChSI1QogB1UDAyB0Xo
- 57aauCpwkAeU++lEjx93Y9IUOjejFuvWBrB6tT6MCEtNo5kJeB1TeSp83lpgkRBkgmj4
- u+uw==
-X-Gm-Message-State: APjAAAUpuL/XQhCaO+Z9OgSOtx6ZjtOVt/40p4ioJ5xAsFNDrXMI0BKe
- jRtjVNl5j2ydw3upIQEfqsh/W11GfZk=
-X-Google-Smtp-Source: APXvYqybNEkUqvGZ08SQ5GFaaLMr0gER/wMlTymmweaR/F44YcVv6fXtkn7fr5EmrMp4xyNM6uxdCg==
-X-Received: by 2002:a05:6102:8f:: with SMTP id
- t15mr19403517vsp.77.1580840542837; 
- Tue, 04 Feb 2020 10:22:22 -0800 (PST)
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com.
- [209.85.221.169])
- by smtp.gmail.com with ESMTPSA id v65sm7368057vke.13.2020.02.04.10.22.21
+ bh=c05eGhfP62oyJ4uJzi+JFgkkWqqqI9hWVBoKeCjxm4w=;
+ b=PInRjgb40Vkg3pvZHFpmheKmV8sV2yFtJjosELPPJFP87OLl8c0/ADHZGubJvtgXj/
+ oZZnjszlsRWUSRxvoPQgvyIh0A02XUbRO8CIJ0h/xh3LtxfhmYKQxKc7mO2RSD/1Ze3/
+ ItnzRQAOsY0IXIb6P52Dua1C5oxpxlEEGWWsZjIMT7OddR2PKkR1IlsYIEvxYMtrvWAX
+ IBkUiTt5ZHjArttLsVykUAElOyawWHBvySbex9J7OaAbdQ5t+4+qySADTRHADLgAfULF
+ FAbUCCPtDPgW+cf7UcqiZoA6lXWdXscy2yvnHFfHJCrx6sTcJxV2B9mhTcSNzVMYyMsW
+ dAJw==
+X-Gm-Message-State: APjAAAX7qKyLRDdSzOzwp0MpiJbK9nfFM/TR9Ed95ERsJRgU6+NGvOAf
+ LceCfPf1UvhUVV+9gXWv7HqsNVDb7Qs=
+X-Google-Smtp-Source: APXvYqyqoR2XuenRe4TYoFZVlWXrSj8P3EKIgK7ePkt5XwvcNk8nqmiQ6Jf2iiXu5UymSn2PAYX0Cg==
+X-Received: by 2002:ac5:c64c:: with SMTP id j12mr19409417vkl.11.1580843648403; 
+ Tue, 04 Feb 2020 11:14:08 -0800 (PST)
+Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com.
+ [209.85.217.46])
+ by smtp.gmail.com with ESMTPSA id l3sm6804757vsr.30.2020.02.04.11.14.07
  for <freedreno@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 04 Feb 2020 10:22:21 -0800 (PST)
-Received: by mail-vk1-f169.google.com with SMTP id w67so5458790vkf.1
- for <freedreno@lists.freedesktop.org>; Tue, 04 Feb 2020 10:22:21 -0800 (PST)
-X-Received: by 2002:a1f:a9d0:: with SMTP id s199mr17919151vke.40.1580840540768; 
- Tue, 04 Feb 2020 10:22:20 -0800 (PST)
+ Tue, 04 Feb 2020 11:14:07 -0800 (PST)
+Received: by mail-vs1-f46.google.com with SMTP id v141so12080565vsv.12
+ for <freedreno@lists.freedesktop.org>; Tue, 04 Feb 2020 11:14:07 -0800 (PST)
+X-Received: by 2002:ab0:30c2:: with SMTP id c2mr18396778uam.8.1580843646821;
+ Tue, 04 Feb 2020 11:14:06 -0800 (PST)
 MIME-Version: 1.0
-References: <1580825737-27189-1-git-send-email-harigovi@codeaurora.org>
-In-Reply-To: <1580825737-27189-1-git-send-email-harigovi@codeaurora.org>
+References: <1580825707-27115-1-git-send-email-harigovi@codeaurora.org>
+In-Reply-To: <1580825707-27115-1-git-send-email-harigovi@codeaurora.org>
 From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 4 Feb 2020 10:22:09 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=XXyYTqVV4=e8Kz0tYQ=5TWjZi2QETNL_0BaFqKi5o0Cg@mail.gmail.com>
-Message-ID: <CAD=FV=XXyYTqVV4=e8Kz0tYQ=5TWjZi2QETNL_0BaFqKi5o0Cg@mail.gmail.com>
+Date: Tue, 4 Feb 2020 11:13:54 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=U5DPxR54YM38w4_QVp24VorQ2eYDGq2GXScAs9APTygA@mail.gmail.com>
+Message-ID: <CAD=FV=U5DPxR54YM38w4_QVp24VorQ2eYDGq2GXScAs9APTygA@mail.gmail.com>
 To: Harigovindan P <harigovi@codeaurora.org>
-Subject: Re: [Freedreno] [v1] dt-bindings: msm:disp: update dsi and dpu
- bindings
+Subject: Re: [Freedreno] [v5] arm64: dts: sc7180: add display dt nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,7 +68,8 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+Cc: Taniya Das <tdas@codeaurora.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
  <devicetree@vger.kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  LKML <linux-kernel@vger.kernel.org>,
  dri-devel <dri-devel@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
@@ -87,110 +86,230 @@ Hi,
 
 On Tue, Feb 4, 2020 at 6:15 AM Harigovindan P <harigovi@codeaurora.org> wrote:
 >
-> Updating bindings of dsi and dpu by adding and removing certain
-> properties.
+> Add display, DSI hardware DT nodes for sc7180.
 >
+> Co-developed-by: Kalyan Thota <kalyan_t@codeaurora.org>
+> Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
 > Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
 > ---
 >
 > Changes in v1:
->         - Adding "ahb" clock as a required property.
->         - Adding "bus", "rot", "lut" as optional properties for sc7180 device.
->         - Removing properties from dsi bindings that are unused.
->         - Removing power-domain property since DSI is the child node of MDSS
->           and it will inherit supply from its parent.
+>         - Added display DT nodes for sc7180
+> Changes in v2:
+>         - Renamed node names
+>         - Corrected code alignments
+>         - Removed extra new line
+>         - Added DISP AHB clock for register access
+>           under display_subsystem node for global settings
+> Changes in v3:
+>         - Modified node names
+>         - Modified hard coded values
+>         - Removed mdss reg entry
+> Changes in v4:
+>         - Reverting mdp node name
+>         - Setting status to disabled in main SOC dtsi file
+>         - Replacing _ to - for node names
+>         - Adding clock dependency patch link
+>         - Splitting idp dt file to a separate patch
+> Changes in v5:
+>         - Renaming "gcc_bus" to "bus" as per bindings (Doug Anderson)
+>         - Making status as disabled for mdss and mdss_mdp by default (Doug Anderson)
+>         - Removing "disp_cc" register space (Doug Anderson)
+>         - Renaming "dsi_controller" to "dsi" as per bindings (Doug Anderson)
+>         - Providing "ref" clk for dsi_phy (Doug Anderson)
+>         - Sorting mdss node before dispcc (Doug Anderson)
 >
->  Documentation/devicetree/bindings/display/msm/dpu.txt | 7 +++++++
->  Documentation/devicetree/bindings/display/msm/dsi.txt | 5 -----
->  2 files changed, 7 insertions(+), 5 deletions(-)
+> This patch has dependency on the below series
+> https://lkml.org/lkml/2019/12/27/73
+
+You should have probably pointed to [1] which is a much newer version.
+
+
+>  arch/arm64/boot/dts/qcom/sc7180.dtsi | 136 ++++++++++++++++++++++++++++++++++-
+>  1 file changed, 134 insertions(+), 2 deletions(-)
 >
-> diff --git a/Documentation/devicetree/bindings/display/msm/dpu.txt b/Documentation/devicetree/bindings/display/msm/dpu.txt
-> index 551ae26..dd58472a 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dpu.txt
-> +++ b/Documentation/devicetree/bindings/display/msm/dpu.txt
-> @@ -19,6 +19,7 @@ Required properties:
->    The following clocks are required:
->    * "iface"
->    * "bus"
-> +  * "ahb"
-
-This is only required for sc7180?  ...or old SoCs should have had it
-all along too?
-
-
->    * "core"
->  - interrupts: interrupt signal from MDSS.
->  - interrupt-controller: identifies the node as an interrupt controller.
-> @@ -50,6 +51,8 @@ Required properties:
->  - clock-names: device clock names, must be in same order as clocks property.
->    The following clocks are required.
->    * "bus"
-> +  For the device "qcom,sc7180-dpu":
-> +  * "bus" - is an optional property due to architecture change.
-
-This is a really odd way to write it for two reasons:
-* You're breaking up the flow of the list.
-* This shouldn't be listed as "optional" in sc7180 but unless there is
-some reason to ever provide it on sc7180.  It should simply be
-disallowed.
-
-Maybe instead just:
-
-   The following clocks are required.
--  * "bus"
-+  * "bus" (anything other than qcom,sc7180-dpu)
-
-We really need to get this into yaml ASAP but that'd probably be OK to
-tide us over.
-
-NOTE: when converting to yaml, ideally we'll have a separate file per
-SoC to avoid crazy spaghetti, see commit 2a8aa18c1131 ("dt-bindings:
-clk: qcom: Fix self-validation, split, and clean cruft") in clk-next
-for an example of starting the transition to one yaml per SoC (at
-least for anything majorly different).
-
-
->    * "iface"
->    * "core"
->    * "vsync"
-> @@ -70,6 +73,10 @@ Optional properties:
->  - assigned-clocks: list of clock specifiers for clocks needing rate assignment
->  - assigned-clock-rates: list of clock frequencies sorted in the same order as
->    the assigned-clocks property.
-> +- For the device "qcom,sc7180-dpu":
-> +  clock-names: optional device clocks, needed for accessing LUT blocks.
-> +  * "rot"
-> +  * "lut"
+> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> index bd2584d..3ac1b87 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> @@ -1173,13 +1173,145 @@
+>                         #power-domain-cells = <1>;
+>                 };
 >
->  Example:
->
-> diff --git a/Documentation/devicetree/bindings/display/msm/dsi.txt b/Documentation/devicetree/bindings/display/msm/dsi.txt
-> index af95586..61d659a 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dsi.txt
-> +++ b/Documentation/devicetree/bindings/display/msm/dsi.txt
-> @@ -8,13 +8,10 @@ Required properties:
->  - reg-names: The names of register regions. The following regions are required:
->    * "dsi_ctrl"
->  - interrupts: The interrupt signal from the DSI block.
-> -- power-domains: Should be <&mmcc MDSS_GDSC>.
+> +               mdss: mdss@ae00000 {
+> +                       compatible = "qcom,sc7180-mdss";
+> +                       reg = <0 0x0ae00000 0 0x1000>;
+> +                       reg-names = "mdss";
+> +
+> +                       power-domains = <&dispcc MDSS_GDSC>;
+> +
+> +                       clocks = <&gcc GCC_DISP_AHB_CLK>,
+> +                                <&gcc GCC_DISP_HF_AXI_CLK>,
+> +                                <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +                                <&dispcc DISP_CC_MDSS_MDP_CLK>;
+> +                       clock-names = "iface", "bus", "ahb", "core";
+> +
+> +                       assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>;
+> +                       assigned-clock-rates = <300000000>;
+> +
+> +                       interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
+> +                       interrupt-controller;
+> +                       #interrupt-cells = <1>;
+> +
+> +                       iommus = <&apps_smmu 0x800 0x2>;
+> +
+> +                       #address-cells = <2>;
+> +                       #size-cells = <2>;
+> +                       ranges;
+> +
+> +                       status = "disabled";
+> +
+> +                       mdp: mdp@ae01000 {
+> +                               compatible = "qcom,sc7180-dpu";
+> +                               reg = <0 0x0ae01000 0 0x8f000>,
+> +                                     <0 0x0aeb0000 0 0x2008>;
+> +                               reg-names = "mdp", "vbif";
+> +
+> +                               clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +                                        <&dispcc DISP_CC_MDSS_ROT_CLK>,
+> +                                        <&dispcc DISP_CC_MDSS_MDP_LUT_CLK>,
+> +                                        <&dispcc DISP_CC_MDSS_MDP_CLK>,
+> +                                        <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
+> +                               clock-names = "iface", "rot", "lut", "core",
+> +                                             "vsync";
+> +                               assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>,
+> +                                                 <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
+> +                               assigned-clock-rates = <300000000>,
+> +                                                      <19200000>;
+> +
+> +                               interrupt-parent = <&mdss>;
+> +                               interrupts = <0 IRQ_TYPE_LEVEL_HIGH>;
+> +
+> +                               status = "disabled";
+> +
+> +                               ports {
+> +                                       #address-cells = <1>;
+> +                                       #size-cells = <0>;
+> +
+> +                                       port@0 {
+> +                                               reg = <0>;
+> +                                               dpu_intf1_out: endpoint {
+> +                                                       remote-endpoint = <&dsi0_in>;
+> +                                               };
+> +                                       };
+> +                               };
+> +                       };
+> +
+> +                       dsi0: dsi@ae94000 {
+> +                               compatible = "qcom,mdss-dsi-ctrl";
+> +                               reg = <0 0x0ae94000 0 0x400>;
+> +                               reg-names = "dsi_ctrl";
+> +
+> +                               interrupt-parent = <&mdss>;
+> +                               interrupts = <4 IRQ_TYPE_LEVEL_HIGH>;
+> +
+> +                               clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
+> +                                        <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
+> +                                        <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
+> +                                        <&dispcc DISP_CC_MDSS_ESC0_CLK>,
+> +                                        <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +                                        <&gcc GCC_DISP_HF_AXI_CLK>;
+> +                               clock-names = "byte",
+> +                                             "byte_intf",
+> +                                             "pixel",
+> +                                             "core",
+> +                                             "iface",
+> +                                             "bus";
+> +
+> +                               phys = <&dsi_phy>;
+> +                               phy-names = "dsi";
+> +
+> +                               #address-cells = <1>;
+> +                               #size-cells = <0>;
+> +
+> +                               status = "disabled";
+> +
+> +                               ports {
+> +                                       #address-cells = <1>;
+> +                                       #size-cells = <0>;
+> +
+> +                                       port@0 {
+> +                                               reg = <0>;
+> +                                               dsi0_in: endpoint {
+> +                                                       remote-endpoint = <&dpu_intf1_out>;
+> +                                               };
+> +                                       };
+> +
+> +                                       port@1 {
+> +                                               reg = <1>;
+> +                                               dsi0_out: endpoint {
+> +                                               };
+> +                                       };
+> +                               };
+> +                       };
+> +
+> +                       dsi_phy: dsi-phy@ae94400 {
+> +                               compatible = "qcom,dsi-phy-10nm";
+> +                               reg = <0 0x0ae94400 0 0x200>,
+> +                                     <0 0x0ae94600 0 0x280>,
+> +                                     <0 0x0ae94a00 0 0x1e0>;
+> +                               reg-names = "dsi_phy",
+> +                                           "dsi_phy_lane",
+> +                                           "dsi_pll";
+> +
+> +                               #clock-cells = <1>;
+> +                               #phy-cells = <0>;
+> +
+> +                               clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +                                        <&rpmhcc RPMH_CXO_CLK>;
+> +                               clock-names = "iface", "ref";
+> +
+> +                               status = "disabled";
+> +                       };
+> +               };
+> +
+>                 dispcc: clock-controller@af00000 {
+>                         compatible = "qcom,sc7180-dispcc";
+>                         reg = <0 0x0af00000 0 0x200000>;
+>                         clocks = <&rpmhcc RPMH_CXO_CLK>,
+>                                  <&gcc GCC_DISP_GPLL0_CLK_SRC>,
+> -                                <0>,
+> -                                <1>,
+> +                                <&dsi_phy 0>,
+> +                                <&dsi_phy 1>,
+>                                  <0>,
+>                                  <0>;
+>                         clock-names = "xo", "gpll0",
 
-Is this supposed to be removed from all SoCs using this bindings, or
-just yours?
+Thanks for adding this bit in v5.  What you end up with is good, but
+I'm slightly confused by your baseline and that makes it hard for git
+to automatically apply your patch.  Specifically:
 
-I'll also note that you left it in the "Example:" below.
+* I don't think I ever sent out a patch where "<1>" was a
+bogus/placeholder phandle.  Where did you get that from?
+* On the newest version of my patch [1] the clock names were
+"bi_tcxo", "gcc_disp_gpll0_clk_src", etc.  Not "xo", "gpll0", ....
+Presumably you're applying atop an older version?
+
+NOTE: it's not actually that hard to resolve this manually, so unless
+Bjorn / Andy requests it you probably don't need a v6.  How I applied
+it if it's helpful [2].
 
 
->  - clocks: Phandles to device clocks.
->  - clock-names: the following clocks are required:
-> -  * "mdp_core"
->    * "iface"
->    * "bus"
-> -  * "core_mmss"
+I see that you're working to fix the bindings [3].  Seems like that
+still needs to be spun a bit more, but I think in general I'm
+convinced that what you're got in the dts is OK for sc7180 while that
+spins.  It's not like the bindings were in amazing shape to start
+with.  Thus:
 
-As Jeffrey pointed out, you shouldn't be removing these from old SoCs.
-In "drivers/gpu/drm/msm/dsi/dsi_cfg.c" you can clearly see them used.
-Maybe it's time for you to do the yaml conversion and handle this
-correctly per-SoC.
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
+Tested-by: Douglas Anderson <dianders@chromium.org>
+
+[1] https://lore.kernel.org/r/20200203103049.v4.15.I1a4b93fb005791e29a9dcf288fc8bd459a555a59@changeid
+[2] https://crrev.com/c/2020394/4
+[3] https://lore.kernel.org/r/1580825737-27189-1-git-send-email-harigovi@codeaurora.org
+
+
 
 -Doug
 _______________________________________________
