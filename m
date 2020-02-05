@@ -1,54 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 013191539D1
-	for <lists+freedreno@lfdr.de>; Wed,  5 Feb 2020 22:00:11 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C8319153A00
+	for <lists+freedreno@lfdr.de>; Wed,  5 Feb 2020 22:18:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 654AE6E9F8;
-	Wed,  5 Feb 2020 21:00:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E7936EA06;
+	Wed,  5 Feb 2020 21:18:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com
- [IPv6:2a00:1450:4864:20::541])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1FC76E9F8;
- Wed,  5 Feb 2020 21:00:02 +0000 (UTC)
-Received: by mail-ed1-x541.google.com with SMTP id c26so3570024eds.8;
- Wed, 05 Feb 2020 13:00:02 -0800 (PST)
+Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
+ [IPv6:2a00:1450:4864:20::542])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B1F26EA01;
+ Wed,  5 Feb 2020 21:18:45 +0000 (UTC)
+Received: by mail-ed1-x542.google.com with SMTP id e10so3612789edv.9;
+ Wed, 05 Feb 2020 13:18:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=QafzbCfeHnYtXe2+wnlYbUjzoLaATFtLI4O/t7cFl+Q=;
- b=LLzqOyPgxOYxX2fFIZXbsrOnO82CGToxLSKJphbGKsqy7jnlCooFy6MJczAqo/EXur
- 55P20+vFkQoPMccuFsAxmtoa2yhFIvMbrfqgkCRJR1owQXd2gVUildcoaos3GRwLUaGL
- L57KXeAoHd1C4uKFyP0AxqtTwbzRgAGKUR9qi9Gm4O+Dj076hTIb6Q//1PBXzr01kWr3
- WG1M53aL46oCcDHx/S22c+JjxJCq6E9afR+6PjaqC3KEzXpSV8lCSjvZeJU1euvWLHIK
- CZ/9psDHd+gGs7F6fW/jLre0cKE8h3rl4yd3GW6XVPvhtNFDO4uRqi2WUgzHhhya0o7S
- GlXA==
+ :cc; bh=HwPPuPnmVEwZ6aDLR6Qux/8T5vpoODzKg3MxR8eUbtI=;
+ b=uaLEGuO51KXNG6vo70c0VJas4nlwIgWh3AIlvLVPa+k6MIC61WrmeJiOV6irU8bBJn
+ FMojQR6awRUvBofxnnvbPG5tfA21oxc2TXBUJ6n97ia0GLOM200Yns8ZkWjGba70+vuv
+ 40g2Fi6yHD3PGwqGCFSiSc7GhCMS0Bp0kFyKhiuzt0QVh19vfF1LH05eaUVyEEd+9TNj
+ w7XFGFlfMhgupGDb8bUcmBivE1qoji1UkhO01xM5OVTHZz/g2INx308WQLwgj+MqbUW0
+ jDvMaRlP6xbYqTj5hNszoUaUC7Lu5NbGwyvL1WFgkCkxLcfkmJDdUeaAzOrY04InCdIb
+ hkcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=QafzbCfeHnYtXe2+wnlYbUjzoLaATFtLI4O/t7cFl+Q=;
- b=c8IF1qCocfXtxZ4SkWRWNLmY8pzZPAkK6ziGv4ZXgiGsBaqXfbL23qwJSTYwmN8nuT
- H492smTVnq9d/aN9IfuP53TAxhq30sVIKYVrObpW2+9ha13ckA+Ms0aZTlcmvUeHWsJG
- mqVZtiIPNtLd8LIUiG/n2zV5Z2LlG34g5k3w+JmuOIJt+l5/n5sujlJ6TrlIyU48YBJ1
- EXRW+TOlHpYjUUc1SekssNRoeMzVWdvo8BRDEjt5H42Mb6wCDPLKhQDRI+r6+dpka66t
- 1qFLJz5lFyg1PxzUgkkecQNFNOuzeBr5EN2Xka62BZ5vSdhlQds1AJqR28F7V2/owg50
- WiRA==
-X-Gm-Message-State: APjAAAWNXcIOQweA5Epx5a8MSaDfCSyEu6lV6gQm85H3rBseuOp4IfW0
- RY890Iv/JhvKIkingIs5B+WqGMiRQjNXS7OoTik=
-X-Google-Smtp-Source: APXvYqzJzAjae+HUS9sVrAOjE8CO08MVfB1MqrAfFev2UPGSewtP0Vpp1kdw0wYbnvLZ9/+mFWRyadg3lVl4W+pI7kc=
-X-Received: by 2002:a17:906:af99:: with SMTP id
- mj25mr31219735ejb.293.1580936401142; 
- Wed, 05 Feb 2020 13:00:01 -0800 (PST)
+ bh=HwPPuPnmVEwZ6aDLR6Qux/8T5vpoODzKg3MxR8eUbtI=;
+ b=KC25EyrBTUcZqj3S5DzWBCeEPjXuGfQlh8R/hN6Sj5BgUz2ad3a0SdhRjaVsSQwjWT
+ c3qnwUrqKP/EqgkmU2mf3D09M+Ng3+t+jiwH3+tgJiIj9+dG+aNKyF9bb5r9t4x9Y0dD
+ 94Nx6V28xyy+WQcOPPN+lZ3OCGmqZb5/uMbaCMGtGB13VoA3mPiM0G2l8LQb1Lnw2vFU
+ q7YTygh/fybfxe4B8bdUmvGnNL4HiHgmDxCCvtiyfyh7zw6yrAKXBMFxgVhWTnfOlZ20
+ RBJT/Ay2+M+6OYy6Vl2mcLaJNkWuOPJxdU3ozb/5AKlDN9kpTrh9Pds59wN1PqsqyuNB
+ oSZQ==
+X-Gm-Message-State: APjAAAULEX1qsQkdk8Pfi4Yu2Tsabcs/U1dJPY5mbFvO6XpaUIxIZhOg
+ j+rl5LrmWAa0J8HSpffz7aVexnLCJjHK/kY0ESc=
+X-Google-Smtp-Source: APXvYqwwgRaj4ECfGfJoTZ8YyHexZeS1MvdlVz7PnDwj0THon8h0EODB3kHzoiQQoG1OEnlQsrBRRd2OhNZ8owrKaT8=
+X-Received: by 2002:a17:906:6d03:: with SMTP id m3mr18262ejr.39.1580937524119; 
+ Wed, 05 Feb 2020 13:18:44 -0800 (PST)
 MIME-Version: 1.0
-References: <1580935697-28195-1-git-send-email-jcrouse@codeaurora.org>
-In-Reply-To: <1580935697-28195-1-git-send-email-jcrouse@codeaurora.org>
+References: <1580922081-25177-1-git-send-email-jcrouse@codeaurora.org>
+In-Reply-To: <1580922081-25177-1-git-send-email-jcrouse@codeaurora.org>
 From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 5 Feb 2020 12:59:49 -0800
-Message-ID: <CAF6AEGv9jVEO=QDY3DWts3w9aPxQ6fSBt2nydoqWdf5JenK=jA@mail.gmail.com>
+Date: Wed, 5 Feb 2020 13:18:33 -0800
+Message-ID: <CAF6AEGv4z=XBuiNdnga2LofubRLjZ40O6chpjGorqeZJz2YQXw@mail.gmail.com>
 To: Jordan Crouse <jcrouse@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v2] drm/msm: Fix a6xx GMU shutdown sequence
+Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: Update the GMU bus tables for
+ sc7180
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,157 +67,153 @@ Cc: freedreno <freedreno@lists.freedesktop.org>,
  Douglas Anderson <dianders@chromium.org>,
  dri-devel <dri-devel@lists.freedesktop.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Matthias Kaehlcke <mka@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Sean Paul <sean@poorly.run>
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Feb 5, 2020 at 12:48 PM Jordan Crouse <jcrouse@codeaurora.org> wrote:
+On Wed, Feb 5, 2020 at 9:01 AM Jordan Crouse <jcrouse@codeaurora.org> wrote:
 >
-> Commit e812744c5f95 ("drm: msm: a6xx: Add support for A618") missed
-> updating the VBIF flush in a6xx_gmu_shutdown and instead
-> inserted the new sequence into a6xx_pm_suspend along with a redundant
-> GMU idle.
->
-> Move a6xx_bus_clear_pending_transactions to a6xx_gmu.c and use it in
-> the appropriate place in the shutdown routine and remove the redundant
-> idle call.
->
-> v2: Remove newly unused variable that was triggering a warning
+> Fixup the GMU bus table values for the sc7180 target.
 >
 > Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
 
+I suspect that we'll need to figure out a better way to get these
+values from the interconnect driver in the long run, esp. since there
+are several different SoCs with a618.. but for now, this looks
+reasonable
+
 Reviewed-by: Rob Clark <robdclark@gmail.com>
+Fixes: e812744c5f95 ("drm: msm: a6xx: Add support for A618")
+
 
 > ---
 >
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 37 +++++++++++++++++++++++++-----
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 43 -----------------------------------
->  2 files changed, 31 insertions(+), 49 deletions(-)
+>  drivers/gpu/drm/msm/adreno/a6xx_hfi.c | 85 ++++++++++++++++++++++++-----------
+>  1 file changed, 60 insertions(+), 25 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> index 983afea..748cd37 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> @@ -796,12 +796,41 @@ bool a6xx_gmu_isidle(struct a6xx_gmu *gmu)
->         return true;
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+> index eda11ab..e450e0b 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+> @@ -7,6 +7,7 @@
+>
+>  #include "a6xx_gmu.h"
+>  #include "a6xx_gmu.xml.h"
+> +#include "a6xx_gpu.h"
+>
+>  #define HFI_MSG_ID(val) [val] = #val
+>
+> @@ -216,48 +217,82 @@ static int a6xx_hfi_send_perf_table(struct a6xx_gmu *gmu)
+>                 NULL, 0);
 >  }
 >
-> +#define GBIF_CLIENT_HALT_MASK             BIT(0)
-> +#define GBIF_ARB_HALT_MASK                BIT(1)
-> +
-> +static void a6xx_bus_clear_pending_transactions(struct adreno_gpu *adreno_gpu)
-> +{
-> +       struct msm_gpu *gpu = &adreno_gpu->base;
-> +
-> +       if (!a6xx_has_gbif(adreno_gpu)) {
-> +               gpu_write(gpu, REG_A6XX_VBIF_XIN_HALT_CTRL0, 0xf);
-> +               spin_until((gpu_read(gpu, REG_A6XX_VBIF_XIN_HALT_CTRL1) &
-> +                                                               0xf) == 0xf);
-> +               gpu_write(gpu, REG_A6XX_VBIF_XIN_HALT_CTRL0, 0);
-> +
-> +               return;
-> +       }
-> +
-> +       /* Halt new client requests on GBIF */
-> +       gpu_write(gpu, REG_A6XX_GBIF_HALT, GBIF_CLIENT_HALT_MASK);
-> +       spin_until((gpu_read(gpu, REG_A6XX_GBIF_HALT_ACK) &
-> +                       (GBIF_CLIENT_HALT_MASK)) == GBIF_CLIENT_HALT_MASK);
-> +
-> +       /* Halt all AXI requests on GBIF */
-> +       gpu_write(gpu, REG_A6XX_GBIF_HALT, GBIF_ARB_HALT_MASK);
-> +       spin_until((gpu_read(gpu,  REG_A6XX_GBIF_HALT_ACK) &
-> +                       (GBIF_ARB_HALT_MASK)) == GBIF_ARB_HALT_MASK);
-> +
-> +       /* The GBIF halt needs to be explicitly cleared */
-> +       gpu_write(gpu, REG_A6XX_GBIF_HALT, 0x0);
-> +}
-> +
->  /* Gracefully try to shut down the GMU and by extension the GPU */
->  static void a6xx_gmu_shutdown(struct a6xx_gmu *gmu)
+> -static int a6xx_hfi_send_bw_table(struct a6xx_gmu *gmu)
+> +static void a618_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
 >  {
->         struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
->         struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
-> -       struct msm_gpu *gpu = &adreno_gpu->base;
->         u32 val;
+> -       struct a6xx_hfi_msg_bw_table msg = { 0 };
+> +       /* Send a single "off" entry since the 618 GMU doesn't do bus scaling */
+> +       msg->bw_level_num = 1;
+> +
+> +       msg->ddr_cmds_num = 3;
+> +       msg->ddr_wait_bitmask = 0x01;
+> +
+> +       msg->ddr_cmds_addrs[0] = 0x50000;
+> +       msg->ddr_cmds_addrs[1] = 0x5003c;
+> +       msg->ddr_cmds_addrs[2] = 0x5000c;
+> +
+> +       msg->ddr_cmds_data[0][0] =  0x40000000;
+> +       msg->ddr_cmds_data[0][1] =  0x40000000;
+> +       msg->ddr_cmds_data[0][2] =  0x40000000;
 >
 >         /*
-> @@ -819,11 +848,7 @@ static void a6xx_gmu_shutdown(struct a6xx_gmu *gmu)
->                         return;
->                 }
+> -        * The sdm845 GMU doesn't do bus frequency scaling on its own but it
+> -        * does need at least one entry in the list because it might be accessed
+> -        * when the GMU is shutting down. Send a single "off" entry.
+> +        * These are the CX (CNOC) votes - these are used by the GMU but the
+> +        * votes are known and fixed for the target
+>          */
+> +       msg->cnoc_cmds_num = 1;
+> +       msg->cnoc_wait_bitmask = 0x01;
+> +
+> +       msg->cnoc_cmds_addrs[0] = 0x5007c;
+> +       msg->cnoc_cmds_data[0][0] =  0x40000000;
+> +       msg->cnoc_cmds_data[1][0] =  0x60000001;
+> +}
 >
-> -               /* Clear the VBIF pipe before shutting down */
-> -               gpu_write(gpu, REG_A6XX_VBIF_XIN_HALT_CTRL0, 0xf);
-> -               spin_until((gpu_read(gpu, REG_A6XX_VBIF_XIN_HALT_CTRL1) & 0xf)
-> -                       == 0xf);
-> -               gpu_write(gpu, REG_A6XX_VBIF_XIN_HALT_CTRL0, 0);
-> +               a6xx_bus_clear_pending_transactions(adreno_gpu);
+> -       msg.bw_level_num = 1;
+> +static void a6xx_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
+> +{
+> +       /* Send a single "off" entry since the 630 GMU doesn't do bus scaling */
+> +       msg->bw_level_num = 1;
 >
->                 /* tell the GMU we want to slumber */
->                 a6xx_gmu_notify_slumber(gmu);
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index daf0780..b580e47 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -748,39 +748,6 @@ static const u32 a6xx_register_offsets[REG_ADRENO_REGISTER_MAX] = {
->         REG_ADRENO_DEFINE(REG_ADRENO_CP_RB_CNTL, REG_A6XX_CP_RB_CNTL),
->  };
+> -       msg.ddr_cmds_num = 3;
+> -       msg.ddr_wait_bitmask = 0x07;
+> +       msg->ddr_cmds_num = 3;
+> +       msg->ddr_wait_bitmask = 0x07;
 >
-> -#define GBIF_CLIENT_HALT_MASK             BIT(0)
-> -#define GBIF_ARB_HALT_MASK                BIT(1)
-> -
-> -static void a6xx_bus_clear_pending_transactions(struct adreno_gpu *adreno_gpu)
-> -{
-> -       struct msm_gpu *gpu = &adreno_gpu->base;
-> -
-> -       if(!a6xx_has_gbif(adreno_gpu)){
-> -               gpu_write(gpu, REG_A6XX_VBIF_XIN_HALT_CTRL0, 0xf);
-> -               spin_until((gpu_read(gpu, REG_A6XX_VBIF_XIN_HALT_CTRL1) &
-> -                                                               0xf) == 0xf);
-> -               gpu_write(gpu, REG_A6XX_VBIF_XIN_HALT_CTRL0, 0);
-> -
-> -               return;
-> -       }
-> -
-> -       /* Halt new client requests on GBIF */
-> -       gpu_write(gpu, REG_A6XX_GBIF_HALT, GBIF_CLIENT_HALT_MASK);
-> -       spin_until((gpu_read(gpu, REG_A6XX_GBIF_HALT_ACK) &
-> -                       (GBIF_CLIENT_HALT_MASK)) == GBIF_CLIENT_HALT_MASK);
-> -
-> -       /* Halt all AXI requests on GBIF */
-> -       gpu_write(gpu, REG_A6XX_GBIF_HALT, GBIF_ARB_HALT_MASK);
-> -       spin_until((gpu_read(gpu,  REG_A6XX_GBIF_HALT_ACK) &
-> -                       (GBIF_ARB_HALT_MASK)) == GBIF_ARB_HALT_MASK);
-> -
-> -       /*
-> -        * GMU needs DDR access in slumber path. Deassert GBIF halt now
-> -        * to allow for GMU to access system memory.
-> -        */
-> -       gpu_write(gpu, REG_A6XX_GBIF_HALT, 0x0);
-> -}
-> -
->  static int a6xx_pm_resume(struct msm_gpu *gpu)
->  {
->         struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-> @@ -805,16 +772,6 @@ static int a6xx_pm_suspend(struct msm_gpu *gpu)
+> -       msg.ddr_cmds_addrs[0] = 0x50000;
+> -       msg.ddr_cmds_addrs[1] = 0x5005c;
+> -       msg.ddr_cmds_addrs[2] = 0x5000c;
+> +       msg->ddr_cmds_addrs[0] = 0x50000;
+> +       msg->ddr_cmds_addrs[1] = 0x5005c;
+> +       msg->ddr_cmds_addrs[2] = 0x5000c;
 >
->         devfreq_suspend_device(gpu->devfreq.devfreq);
+> -       msg.ddr_cmds_data[0][0] =  0x40000000;
+> -       msg.ddr_cmds_data[0][1] =  0x40000000;
+> -       msg.ddr_cmds_data[0][2] =  0x40000000;
+> +       msg->ddr_cmds_data[0][0] =  0x40000000;
+> +       msg->ddr_cmds_data[0][1] =  0x40000000;
+> +       msg->ddr_cmds_data[0][2] =  0x40000000;
 >
-> -       /*
-> -        * Make sure the GMU is idle before continuing (because some transitions
-> -        * may use VBIF
-> -        */
-> -       a6xx_gmu_wait_for_idle(&a6xx_gpu->gmu);
-> -
-> -       /* Clear the VBIF pipe before shutting down */
-> -       /* FIXME: This accesses the GPU - do we need to make sure it is on? */
-> -       a6xx_bus_clear_pending_transactions(adreno_gpu);
-> -
->         return a6xx_gmu_stop(a6xx_gpu);
->  }
+>         /*
+>          * These are the CX (CNOC) votes.  This is used but the values for the
+>          * sdm845 GMU are known and fixed so we can hard code them.
+>          */
 >
+> -       msg.cnoc_cmds_num = 3;
+> -       msg.cnoc_wait_bitmask = 0x05;
+> +       msg->cnoc_cmds_num = 3;
+> +       msg->cnoc_wait_bitmask = 0x05;
+>
+> -       msg.cnoc_cmds_addrs[0] = 0x50034;
+> -       msg.cnoc_cmds_addrs[1] = 0x5007c;
+> -       msg.cnoc_cmds_addrs[2] = 0x5004c;
+> +       msg->cnoc_cmds_addrs[0] = 0x50034;
+> +       msg->cnoc_cmds_addrs[1] = 0x5007c;
+> +       msg->cnoc_cmds_addrs[2] = 0x5004c;
+>
+> -       msg.cnoc_cmds_data[0][0] =  0x40000000;
+> -       msg.cnoc_cmds_data[0][1] =  0x00000000;
+> -       msg.cnoc_cmds_data[0][2] =  0x40000000;
+> +       msg->cnoc_cmds_data[0][0] =  0x40000000;
+> +       msg->cnoc_cmds_data[0][1] =  0x00000000;
+> +       msg->cnoc_cmds_data[0][2] =  0x40000000;
+> +
+> +       msg->cnoc_cmds_data[1][0] =  0x60000001;
+> +       msg->cnoc_cmds_data[1][1] =  0x20000001;
+> +       msg->cnoc_cmds_data[1][2] =  0x60000001;
+> +}
+> +
+> +
+> +static int a6xx_hfi_send_bw_table(struct a6xx_gmu *gmu)
+> +{
+> +       struct a6xx_hfi_msg_bw_table msg = { 0 };
+> +       struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
+> +       struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+>
+> -       msg.cnoc_cmds_data[1][0] =  0x60000001;
+> -       msg.cnoc_cmds_data[1][1] =  0x20000001;
+> -       msg.cnoc_cmds_data[1][2] =  0x60000001;
+> +       if (adreno_is_a618(adreno_gpu))
+> +               a618_build_bw_table(&msg);
+> +       else
+> +               a6xx_build_bw_table(&msg);
+>
+>         return a6xx_hfi_send_msg(gmu, HFI_H2F_MSG_BW_TABLE, &msg, sizeof(msg),
+>                 NULL, 0);
 > --
 > 2.7.4
 _______________________________________________
