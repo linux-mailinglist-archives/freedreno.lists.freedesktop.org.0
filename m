@@ -1,54 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91AB4153567
-	for <lists+freedreno@lfdr.de>; Wed,  5 Feb 2020 17:40:53 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9144E1535CD
+	for <lists+freedreno@lfdr.de>; Wed,  5 Feb 2020 18:01:46 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 326066E9C8;
-	Wed,  5 Feb 2020 16:40:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3328E6F8CA;
+	Wed,  5 Feb 2020 17:01:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
- [209.85.128.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C24B96E9C8;
- Wed,  5 Feb 2020 16:40:50 +0000 (UTC)
-Received: by mail-wm1-f68.google.com with SMTP id a5so3217770wmb.0;
- Wed, 05 Feb 2020 08:40:50 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=YRyho1A5PtF4sCFUVKeESMDn8UQwlv3lsWB4C+ixlEY=;
- b=C318bGkrRneTlTCDTausmrcMq8nqHocj4opfQx0etZqIsLgoXJ1cy34ah/a4foGE+Y
- JjvNFx8hoSuTX6j1H1BZH8Jr6KiaJkaMkZlzxT66Y06vR6fA2Ndz32ckVP0P+0HSA0i/
- vL+JQi1GAnQBz0yRYDhfBF0n/IwyMmGaB3dcvaXG460psW6iEFK3qO5kEjWTc3ROxFEj
- Z1ElkVFm68v0Z4bmCfsqzH4evvIxUvAb2oqjvc9BYZa4YLe5bM5O5ZrVUo+FJRUuHLUR
- GbV5Kvj6PosadUdzPKmPDLR/w9akt9WGR01PosiztBjjeuR6BHnC3/cBwY51amVGbXyW
- jQUw==
-X-Gm-Message-State: APjAAAX6PNwidyZI3ft63deTfVzsLlENQE1AowZyxo46LnSOrN1Fxy4Q
- QB2xZTBFAgSUGghQniHC/g==
-X-Google-Smtp-Source: APXvYqwgSBNbRA19+O3qYDxG+xq/bkC9e2Rnn786m+qvq+3WemWWG3Fq4I2R9vkXdBpW7/tUBRMRSg==
-X-Received: by 2002:a7b:cbd6:: with SMTP id n22mr6942375wmi.118.1580920849090; 
- Wed, 05 Feb 2020 08:40:49 -0800 (PST)
-Received: from rob-hp-laptop ([212.187.182.166])
- by smtp.gmail.com with ESMTPSA id g15sm469526wro.65.2020.02.05.08.40.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Feb 2020 08:40:48 -0800 (PST)
-Received: (nullmailer pid 3886 invoked by uid 1000);
- Wed, 05 Feb 2020 16:40:48 -0000
-Date: Wed, 5 Feb 2020 16:40:48 +0000
-From: Rob Herring <robh@kernel.org>
-To: Harigovindan P <harigovi@codeaurora.org>
-Message-ID: <20200205164048.GA3452@bogus>
-References: <1580907990-32108-1-git-send-email-harigovi@codeaurora.org>
- <1580907990-32108-2-git-send-email-harigovi@codeaurora.org>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1580907990-32108-2-git-send-email-harigovi@codeaurora.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCHv3 1/2] dt-bindings: display: add visionox
- rm69299 panel variant
+Received: from mail25.static.mailgun.info (mail25.static.mailgun.info
+ [104.130.122.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C97E36F8BA
+ for <freedreno@lists.freedesktop.org>; Wed,  5 Feb 2020 17:01:36 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1580922098; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=7DUhFiRSM+eRxfIS8UQQZG95uYXWL3eYV9xeTSLQqKg=;
+ b=PTz0lOqHWNJsbrvzANXCuJidZ9X4rCIL2M290EhJjLqg4/QzCnGMVmK8vq/ERtwgqZ1nc5fh
+ RoZBtIn6J/Ce7OSUfLfIYT00DcwH3Ncm/5lRx2KraJLUpJbzacVM0MFLJaFvoj0Ti+rUZPqs
+ JcjE1bRc70PR3w1uiAWFDdbqGwU=
+X-Mailgun-Sending-Ip: 104.130.122.25
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5e3af4eb.7f79dcaa2f48-smtp-out-n02;
+ Wed, 05 Feb 2020 17:01:31 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id F1467C433A2; Wed,  5 Feb 2020 17:01:29 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id EF247C43383;
+ Wed,  5 Feb 2020 17:01:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org EF247C43383
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=jcrouse@codeaurora.org
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: linux-arm-msm@vger.kernel.org
+Date: Wed,  5 Feb 2020 10:01:21 -0700
+Message-Id: <1580922081-25177-1-git-send-email-jcrouse@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH] drm/msm/a6xx: Update the GMU bus tables for
+ sc7180
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,45 +63,147 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean@poorly.run, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Harigovindan P <harigovi@codeaurora.org>, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, seanpaul@chromium.org, freedreno@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
+ Sharat Masetty <smasetty@codeaurora.org>, dianders@chromium.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed,  5 Feb 2020 18:36:29 +0530, Harigovindan P wrote:
-> Add bindings for visionox rm69299 panel.
-> 
-> Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
-> ---
-> 
-> Changes in v1:
-> 	- Added a compatible string to support sc7180 panel version.
-> Changes in v2:
-> 	- Removed unwanted properties from description.
-> 	- Creating source files without execute permissions(Rob Herring).
-> Changes in v3:
-> 	- Changing txt file into yaml
-> 
->  .../bindings/display/visionox,rm69299.yaml         | 109 +++++++++++++++++++++
->  1 file changed, 109 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/visionox,rm69299.yaml
-> 
+Fixup the GMU bus table values for the sc7180 target.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
+---
 
-Documentation/devicetree/bindings/display/visionox,rm69299.yaml:  while scanning for the next token
-found character that cannot start any token
-  in "<unicode string>", line 83, column 1
-Documentation/devicetree/bindings/Makefile:12: recipe for target 'Documentation/devicetree/bindings/display/visionox,rm69299.example.dts' failed
-make[1]: *** [Documentation/devicetree/bindings/display/visionox,rm69299.example.dts] Error 1
-Makefile:1263: recipe for target 'dt_binding_check' failed
-make: *** [dt_binding_check] Error 2
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.c | 85 ++++++++++++++++++++++++-----------
+ 1 file changed, 60 insertions(+), 25 deletions(-)
 
-See https://patchwork.ozlabs.org/patch/1233831
-Please check and re-submit.
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+index eda11ab..e450e0b 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+@@ -7,6 +7,7 @@
+ 
+ #include "a6xx_gmu.h"
+ #include "a6xx_gmu.xml.h"
++#include "a6xx_gpu.h"
+ 
+ #define HFI_MSG_ID(val) [val] = #val
+ 
+@@ -216,48 +217,82 @@ static int a6xx_hfi_send_perf_table(struct a6xx_gmu *gmu)
+ 		NULL, 0);
+ }
+ 
+-static int a6xx_hfi_send_bw_table(struct a6xx_gmu *gmu)
++static void a618_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
+ {
+-	struct a6xx_hfi_msg_bw_table msg = { 0 };
++	/* Send a single "off" entry since the 618 GMU doesn't do bus scaling */
++	msg->bw_level_num = 1;
++
++	msg->ddr_cmds_num = 3;
++	msg->ddr_wait_bitmask = 0x01;
++
++	msg->ddr_cmds_addrs[0] = 0x50000;
++	msg->ddr_cmds_addrs[1] = 0x5003c;
++	msg->ddr_cmds_addrs[2] = 0x5000c;
++
++	msg->ddr_cmds_data[0][0] =  0x40000000;
++	msg->ddr_cmds_data[0][1] =  0x40000000;
++	msg->ddr_cmds_data[0][2] =  0x40000000;
+ 
+ 	/*
+-	 * The sdm845 GMU doesn't do bus frequency scaling on its own but it
+-	 * does need at least one entry in the list because it might be accessed
+-	 * when the GMU is shutting down. Send a single "off" entry.
++	 * These are the CX (CNOC) votes - these are used by the GMU but the
++	 * votes are known and fixed for the target
+ 	 */
++	msg->cnoc_cmds_num = 1;
++	msg->cnoc_wait_bitmask = 0x01;
++
++	msg->cnoc_cmds_addrs[0] = 0x5007c;
++	msg->cnoc_cmds_data[0][0] =  0x40000000;
++	msg->cnoc_cmds_data[1][0] =  0x60000001;
++}
+ 
+-	msg.bw_level_num = 1;
++static void a6xx_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
++{
++	/* Send a single "off" entry since the 630 GMU doesn't do bus scaling */
++	msg->bw_level_num = 1;
+ 
+-	msg.ddr_cmds_num = 3;
+-	msg.ddr_wait_bitmask = 0x07;
++	msg->ddr_cmds_num = 3;
++	msg->ddr_wait_bitmask = 0x07;
+ 
+-	msg.ddr_cmds_addrs[0] = 0x50000;
+-	msg.ddr_cmds_addrs[1] = 0x5005c;
+-	msg.ddr_cmds_addrs[2] = 0x5000c;
++	msg->ddr_cmds_addrs[0] = 0x50000;
++	msg->ddr_cmds_addrs[1] = 0x5005c;
++	msg->ddr_cmds_addrs[2] = 0x5000c;
+ 
+-	msg.ddr_cmds_data[0][0] =  0x40000000;
+-	msg.ddr_cmds_data[0][1] =  0x40000000;
+-	msg.ddr_cmds_data[0][2] =  0x40000000;
++	msg->ddr_cmds_data[0][0] =  0x40000000;
++	msg->ddr_cmds_data[0][1] =  0x40000000;
++	msg->ddr_cmds_data[0][2] =  0x40000000;
+ 
+ 	/*
+ 	 * These are the CX (CNOC) votes.  This is used but the values for the
+ 	 * sdm845 GMU are known and fixed so we can hard code them.
+ 	 */
+ 
+-	msg.cnoc_cmds_num = 3;
+-	msg.cnoc_wait_bitmask = 0x05;
++	msg->cnoc_cmds_num = 3;
++	msg->cnoc_wait_bitmask = 0x05;
+ 
+-	msg.cnoc_cmds_addrs[0] = 0x50034;
+-	msg.cnoc_cmds_addrs[1] = 0x5007c;
+-	msg.cnoc_cmds_addrs[2] = 0x5004c;
++	msg->cnoc_cmds_addrs[0] = 0x50034;
++	msg->cnoc_cmds_addrs[1] = 0x5007c;
++	msg->cnoc_cmds_addrs[2] = 0x5004c;
+ 
+-	msg.cnoc_cmds_data[0][0] =  0x40000000;
+-	msg.cnoc_cmds_data[0][1] =  0x00000000;
+-	msg.cnoc_cmds_data[0][2] =  0x40000000;
++	msg->cnoc_cmds_data[0][0] =  0x40000000;
++	msg->cnoc_cmds_data[0][1] =  0x00000000;
++	msg->cnoc_cmds_data[0][2] =  0x40000000;
++
++	msg->cnoc_cmds_data[1][0] =  0x60000001;
++	msg->cnoc_cmds_data[1][1] =  0x20000001;
++	msg->cnoc_cmds_data[1][2] =  0x60000001;
++}
++
++
++static int a6xx_hfi_send_bw_table(struct a6xx_gmu *gmu)
++{
++	struct a6xx_hfi_msg_bw_table msg = { 0 };
++	struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
++	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+ 
+-	msg.cnoc_cmds_data[1][0] =  0x60000001;
+-	msg.cnoc_cmds_data[1][1] =  0x20000001;
+-	msg.cnoc_cmds_data[1][2] =  0x60000001;
++	if (adreno_is_a618(adreno_gpu))
++		a618_build_bw_table(&msg);
++	else
++		a6xx_build_bw_table(&msg);
+ 
+ 	return a6xx_hfi_send_msg(gmu, HFI_H2F_MSG_BW_TABLE, &msg, sizeof(msg),
+ 		NULL, 0);
+-- 
+2.7.4
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
