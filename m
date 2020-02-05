@@ -1,57 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01B3215266D
-	for <lists+freedreno@lfdr.de>; Wed,  5 Feb 2020 07:51:45 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id ED6C115268A
+	for <lists+freedreno@lfdr.de>; Wed,  5 Feb 2020 08:01:51 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 912E16E946;
-	Wed,  5 Feb 2020 06:51:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F30D6E949;
+	Wed,  5 Feb 2020 07:01:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
- [104.130.122.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19AEA6E946
- for <freedreno@lists.freedesktop.org>; Wed,  5 Feb 2020 06:51:42 +0000 (UTC)
+Received: from mail25.static.mailgun.info (mail25.static.mailgun.info
+ [104.130.122.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C1FA6E949
+ for <freedreno@lists.freedesktop.org>; Wed,  5 Feb 2020 07:01:49 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1580885502; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=FEUHkLBJ+nAGJuyoz3LEU26JARROyquI5FGuyUlZs9g=;
- b=GqBuJIaK3GimX2V0KWcyxIrIKHNZ64qMlBUcTfwqTG7J2kkj7DggRzX35P16pl2ChPEF7r7G
- LeooPOz+LnHQn7takhpE8YL28zyoqrJtJpbNRyzlplv9Jres9pE5WzibGc0VKmoUomef6UHh
- r9zPOZ3xb9lVXOy/DA4Y5kPQpDU=
-X-Mailgun-Sending-Ip: 104.130.122.26
+ s=smtp; t=1580886109; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=KBgrq18X/unHwzcEQjxUJ1qgq9OWyPupMMdfoEVNsSA=;
+ b=pClP77MfOlhP1D05aCppGGFYZk3eNkHVC9afuXgSe1BM9ygezojaH042PLxyKTlidFMm10Az
+ zAHfbSpyN3eZ8xOOOcOu/5c6Oe2mzEx2zVwIrtF6Jp/bwoWTC57Mi6UE1EmBLF2Y5LoU5Ysi
+ bfNzpquVin49koyzIbM5+TYGuwI=
+X-Mailgun-Sending-Ip: 104.130.122.25
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5e3a65fb.7f12d3244340-smtp-out-n01;
- Wed, 05 Feb 2020 06:51:39 -0000 (UTC)
+ by mxa.mailgun.org with ESMTP id 5e3a685c.7ff3c7a17650-smtp-out-n03;
+ Wed, 05 Feb 2020 07:01:48 -0000 (UTC)
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 3576AC447A0; Wed,  5 Feb 2020 06:51:39 +0000 (UTC)
+ id 37570C4479C; Wed,  5 Feb 2020 07:01:48 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,URIBL_BLOCKED
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
  autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Received: from smasetty-linux.qualcomm.com
+ (blr-c-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.19.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: smasetty)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 8AF06C43383;
- Wed,  5 Feb 2020 06:51:38 +0000 (UTC)
-MIME-Version: 1.0
-Date: Wed, 05 Feb 2020 12:21:38 +0530
-From: smasetty@codeaurora.org
-To: Doug Anderson <dianders@chromium.org>
-In-Reply-To: <CAD=FV=XJF4KworkHFLoNtxB7d+VyGqZSZkDUdie+09ur1g5thw@mail.gmail.com>
-References: <1580472220-3453-1-git-send-email-smasetty@codeaurora.org>
- <1580472220-3453-2-git-send-email-smasetty@codeaurora.org>
- <CAD=FV=XJF4KworkHFLoNtxB7d+VyGqZSZkDUdie+09ur1g5thw@mail.gmail.com>
-Message-ID: <1e29097cc1cdf18671379f6420f872b0@codeaurora.org>
-X-Sender: smasetty@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH v3] arm64: dts: qcom: sc7180: Add A618 gpu
- dt blob
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 853D1C433CB;
+ Wed,  5 Feb 2020 07:01:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 853D1C433CB
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=smasetty@codeaurora.org
+From: Sharat Masetty <smasetty@codeaurora.org>
+To: freedreno@lists.freedesktop.org,
+	devicetree@vger.kernel.org
+Date: Wed,  5 Feb 2020 12:31:34 +0530
+Message-Id: <1580886097-6312-1-git-send-email-smasetty@codeaurora.org>
+X-Mailer: git-send-email 1.9.1
+Subject: [Freedreno] [PATCH v4 0/3] sc7180: Add A618 GPU bindings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,102 +63,47 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE
- AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, Matthias Kaehlcke <mka@chromium.org>,
- dri-devel@freedesktop.org, freedreno <freedreno@lists.freedesktop.org>,
- linux-arm-msm-owner@vger.kernel.org
+Cc: dianders@chromium.org, linux-arm-msm@vger.kernel.org,
+ Sharat Masetty <smasetty@codeaurora.org>, linux-kernel@vger.kernel.org,
+ bjorn.andersson@linaro.org, jcrouse@codeaurora.org, mka@chromium.org,
+ dri-devel@freedesktop.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-02-01 03:13, Doug Anderson wrote:
-> Hi,
-> 
-> On Fri, Jan 31, 2020 at 4:04 AM Sharat Masetty 
-> <smasetty@codeaurora.org> wrote:
->> 
->> +               adreno_smmu: iommu@5040000 {
->> +                       compatible = "qcom,sc7180-smmu-v2", 
->> "qcom,smmu-v2";
->> +                       reg = <0 0x05040000 0 0x10000>;
->> +                       #iommu-cells = <1>;
->> +                       #global-interrupts = <2>;
->> +                       interrupts = <GIC_SPI 229 
->> IRQ_TYPE_LEVEL_HIGH>,
->> +                                       <GIC_SPI 231 
->> IRQ_TYPE_LEVEL_HIGH>,
->> +                                       <GIC_SPI 364 
->> IRQ_TYPE_EDGE_RISING>,
->> +                                       <GIC_SPI 365 
->> IRQ_TYPE_EDGE_RISING>,
->> +                                       <GIC_SPI 366 
->> IRQ_TYPE_EDGE_RISING>,
->> +                                       <GIC_SPI 367 
->> IRQ_TYPE_EDGE_RISING>,
->> +                                       <GIC_SPI 368 
->> IRQ_TYPE_EDGE_RISING>,
->> +                                       <GIC_SPI 369 
->> IRQ_TYPE_EDGE_RISING>,
->> +                                       <GIC_SPI 370 
->> IRQ_TYPE_EDGE_RISING>,
->> +                                       <GIC_SPI 371 
->> IRQ_TYPE_EDGE_RISING>;
->> +                       clocks = <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
->> +                               <&gcc GCC_GPU_CFG_AHB_CLK>,
->> +                               <&gcc GCC_DDRSS_GPU_AXI_CLK>;
->> +
->> +                       clock-names = "bus", "iface", "mem_iface_clk";
-> 
-> Repeated comment from v2 feedback:
-> 
-> Please send a patch to:
-> 
-> Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-> 
-> ...adding 'qcom,sc7180-smmu-v2'.  If you do this it will point out
-> that you've added a new clock: "mem_iface_clk".  Is this truly a new
-> clock in sc7180 compared to previous IOMMUs?  ...or is it not really
-> needed?
-I can confirm that this clock is needed for SC7180. I will send out a 
-new patch
-to update the documentation this week.
-> 
-> 
->> +               gmu: gmu@506a000 {
->> +                       compatible="qcom,adreno-gmu-618.0", 
->> "qcom,adreno-gmu";
->> +                       reg = <0 0x0506a000 0 0x31000>, <0 0x0b290000 
->> 0 0x10000>,
->> +                               <0 0x0b490000 0 0x10000>;
->> +                       reg-names = "gmu", "gmu_pdc", "gmu_pdc_seq";
->> +                       interrupts = <GIC_SPI 304 
->> IRQ_TYPE_LEVEL_HIGH>,
->> +                                  <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH>;
->> +                       interrupt-names = "hfi", "gmu";
->> +                       clocks = <&gpucc GPU_CC_CX_GMU_CLK>,
->> +                              <&gpucc GPU_CC_CXO_CLK>,
->> +                              <&gcc GCC_DDRSS_GPU_AXI_CLK>,
->> +                              <&gcc GCC_GPU_MEMNOC_GFX_CLK>;
->> +                       clock-names = "gmu", "cxo", "axi", "memnoc";
->> +                       power-domains = <&gpucc CX_GDSC>;
->> +                       power-domain-names = "cx";
-> 
-> As per continued comments on v2, please see if this works for you:
-> 
->   power-domains = <&gpucc CX_GDSC>, <0>;
->   power-domain-names = "cx", "gx";
-> 
-> ...and work to get something more real for "gx" ASAP.  It did seem to
-> boot for me and (unless someone disagrees) it seems better than
-> totally leaving it out / violating the bindings?
-> 
-> 
-> -Doug
+I used this branch qcom/arm64-for-5.6-to-be-rebased as suggested by Matthias.
+This patch needs the clock patches and the clock patches have not yet landed, so
+
+please apply the following series and patches in order
+a) All patches from https://patchwork.kernel.org/project/linux-clk/list/?series=203517&state=%2a&archive=both
+b) Patches 1 and 2 from https://patchwork.kernel.org/project/linux-clk/list/?series=203527&archive=both&state=%2a
+c) All patches from https://patchwork.kernel.org/project/linux-clk/list/?series=221739&archive=both&state=%2a
+d) https://lore.kernel.org/linux-arm-msm/20200124144154.v2.10.I1a4b93fb005791e29a9dcf288fc8bd459a555a59%40changeid/raw
+e) This patch "arm64: dts: qcom: sc7180: Add A618 gpu dt blob"
+
+v3: Addressed review comments from previous submits. Also removed the
+interconnect bindings from this patch and I will submit as a new patch with its
+dependencies listed. Also I will be sending a new patch for updating the
+bindings documentation.
+
+v4: Add GX_GDSC power domain binding for GMU
+
+Sharat Masetty (1):
+  arm64: dts: qcom: sc7180: Add A618 gpu dt blob
+
+Taniya Das (2):
+  dt-bindings: clk: qcom: Add support for GPU GX GDSCR
+  clk: qcom: gpucc: Add support for GX GDSC for SC7180
+
+ arch/arm64/boot/dts/qcom/sc7180.dtsi          | 102 ++++++++++++++++++++++++++
+ drivers/clk/qcom/gpucc-sc7180.c               |  37 ++++++++++
+ include/dt-bindings/clock/qcom,gpucc-sc7180.h |   3 +-
+ 3 files changed, 141 insertions(+), 1 deletion(-)
+
+--
+1.9.1
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
