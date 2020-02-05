@@ -1,56 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9144E1535CD
-	for <lists+freedreno@lfdr.de>; Wed,  5 Feb 2020 18:01:46 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id E0FB21538E1
+	for <lists+freedreno@lfdr.de>; Wed,  5 Feb 2020 20:19:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3328E6F8CA;
-	Wed,  5 Feb 2020 17:01:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59A658813A;
+	Wed,  5 Feb 2020 19:19:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail25.static.mailgun.info (mail25.static.mailgun.info
- [104.130.122.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C97E36F8BA
- for <freedreno@lists.freedesktop.org>; Wed,  5 Feb 2020 17:01:36 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1580922098; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=7DUhFiRSM+eRxfIS8UQQZG95uYXWL3eYV9xeTSLQqKg=;
- b=PTz0lOqHWNJsbrvzANXCuJidZ9X4rCIL2M290EhJjLqg4/QzCnGMVmK8vq/ERtwgqZ1nc5fh
- RoZBtIn6J/Ce7OSUfLfIYT00DcwH3Ncm/5lRx2KraJLUpJbzacVM0MFLJaFvoj0Ti+rUZPqs
- JcjE1bRc70PR3w1uiAWFDdbqGwU=
-X-Mailgun-Sending-Ip: 104.130.122.25
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5e3af4eb.7f79dcaa2f48-smtp-out-n02;
- Wed, 05 Feb 2020 17:01:31 -0000 (UTC)
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id F1467C433A2; Wed,  5 Feb 2020 17:01:29 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id EF247C43383;
- Wed,  5 Feb 2020 17:01:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org EF247C43383
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=jcrouse@codeaurora.org
-From: Jordan Crouse <jcrouse@codeaurora.org>
-To: linux-arm-msm@vger.kernel.org
-Date: Wed,  5 Feb 2020 10:01:21 -0700
-Message-Id: <1580922081-25177-1-git-send-email-jcrouse@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-Subject: [Freedreno] [PATCH] drm/msm/a6xx: Update the GMU bus tables for
- sc7180
+Received: from mail-vk1-xa42.google.com (mail-vk1-xa42.google.com
+ [IPv6:2607:f8b0:4864:20::a42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 299E16E9DE
+ for <freedreno@lists.freedesktop.org>; Wed,  5 Feb 2020 19:19:47 +0000 (UTC)
+Received: by mail-vk1-xa42.google.com with SMTP id i78so901109vke.0
+ for <freedreno@lists.freedesktop.org>; Wed, 05 Feb 2020 11:19:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=mevmQ6k3Ihmv8r7EI3IwBN79KI6v2gp2UE5ATwyofr0=;
+ b=BuyExxOHNOnGw0g31bLqy0gVGWAXxG3djserMGkbzccG82zvt+a2/8Sqzj9jTg+Asa
+ 2upuVHfTuyxd4DU4e3VS+64pnwjwhNe/J8UtYPtwP/hwbQ2Of2yNZIjQyTe42b6laPAb
+ Oa7DZNT5TuIoIpdt1rU89W3v4zmQUoQWR0r1E=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=mevmQ6k3Ihmv8r7EI3IwBN79KI6v2gp2UE5ATwyofr0=;
+ b=DllleC+YNTKLgD7Bemx52WfLhgzsek9Rr9S9wR71zr4NKyJkJzwmgX+yb1pRZaEXcF
+ CKBMFVNf7Q/SzaRxLFSnqhO1jlugjBtbycI1GtxJ0H0QxHSJYo6bbx6qzigzPHrECCwX
+ 1hH5UCOvANFJv2aE4NiRlGfo1qVb5eJvxNXZiJ/m1YeEpUFL0t27lQyX9WPXeoWYSKBt
+ y+lA7EhINnAYQV+L5soRiMefxzKmUf+ReK5mNRMkq7pFJamNie2eEuvPAeiin7nDS4sv
+ X/OjDkFFr0WmSSFuGe+HkR2l1UjN/ZqzQReLpFRvc+HS64l11+7Nl47XX3DrcfIwUgG9
+ QWTw==
+X-Gm-Message-State: APjAAAUmWgjcGqOkqh9UzBTCSNXeT2AxiAgTc2tsuPZrxzPxDsy6LRRZ
+ Dz1U4TLF4Rtz1OzN0rhBlyKnq/31uwc=
+X-Google-Smtp-Source: APXvYqxGzF0mGeqY0xEHHRv3kwhtX/WvpFRahF3ilUe2O3FAw6hw/WNsznHo87V0+naDzud5X5mhDQ==
+X-Received: by 2002:ac5:c7a9:: with SMTP id d9mr2608276vkn.79.1580930385920;
+ Wed, 05 Feb 2020 11:19:45 -0800 (PST)
+Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com.
+ [209.85.222.54])
+ by smtp.gmail.com with ESMTPSA id g26sm246187vkl.16.2020.02.05.11.19.45
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 05 Feb 2020 11:19:45 -0800 (PST)
+Received: by mail-ua1-f54.google.com with SMTP id 80so1285906uah.9
+ for <freedreno@lists.freedesktop.org>; Wed, 05 Feb 2020 11:19:45 -0800 (PST)
+X-Received: by 2002:a9f:300a:: with SMTP id h10mr14335806uab.91.1580930384495; 
+ Wed, 05 Feb 2020 11:19:44 -0800 (PST)
+MIME-Version: 1.0
+References: <1580886097-6312-1-git-send-email-smasetty@codeaurora.org>
+ <1580886097-6312-4-git-send-email-smasetty@codeaurora.org>
+In-Reply-To: <1580886097-6312-4-git-send-email-smasetty@codeaurora.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 5 Feb 2020 11:19:33 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=UEQ0mOXuDrSZrcJ8g6jb0eLf1Ttn+Mn7T6d2TpCMUcuA@mail.gmail.com>
+Message-ID: <CAD=FV=UEQ0mOXuDrSZrcJ8g6jb0eLf1Ttn+Mn7T6d2TpCMUcuA@mail.gmail.com>
+To: Sharat Masetty <smasetty@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH v4 3/3] arm64: dts: qcom: sc7180: Add A618
+ gpu dt blob
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,147 +70,127 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
- Sharat Masetty <smasetty@codeaurora.org>, dianders@chromium.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
-MIME-Version: 1.0
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>, Matthias Kaehlcke <mka@chromium.org>,
+ dri-devel@freedesktop.org, freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Fixup the GMU bus table values for the sc7180 target.
+Hi,
 
-Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
----
+On Tue, Feb 4, 2020 at 11:02 PM Sharat Masetty <smasetty@codeaurora.org> wrote:
+>
+> This patch adds the required dt nodes and properties
+> to enabled A618 GPU.
+>
+> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
+> ---
+>  arch/arm64/boot/dts/qcom/sc7180.dtsi | 102 +++++++++++++++++++++++++++++++++++
+>  1 file changed, 102 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> index f3fcc5c..63fff15 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> @@ -1043,6 +1043,108 @@
+>                         };
+>                 };
+>
+> +               gpu: gpu@5000000 {
+> +                       compatible = "qcom,adreno-618.0", "qcom,adreno";
+> +                       #stream-id-cells = <16>;
+> +                       reg = <0 0x05000000 0 0x40000>, <0 0x0509e000 0 0x1000>,
+> +                               <0 0x05061000 0 0x800>;
+> +                       reg-names = "kgsl_3d0_reg_memory", "cx_mem", "cx_dbgc";
+> +                       interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
+> +                       iommus = <&adreno_smmu 0>;
+> +                       operating-points-v2 = <&gpu_opp_table>;
+> +                       qcom,gmu = <&gmu>;
+> +
+> +                       gpu_opp_table: opp-table {
+> +                               compatible = "operating-points-v2";
+> +
+> +                               opp-800000000 {
+> +                                       opp-hz = /bits/ 64 <800000000>;
+> +                                       opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
+> +                               };
+> +
+> +                               opp-650000000 {
+> +                                       opp-hz = /bits/ 64 <650000000>;
+> +                                       opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
+> +                               };
+> +
+> +                               opp-565000000 {
+> +                                       opp-hz = /bits/ 64 <565000000>;
+> +                                       opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
+> +                               };
+> +
+> +                               opp-430000000 {
+> +                                       opp-hz = /bits/ 64 <430000000>;
+> +                                       opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
+> +                               };
+> +
+> +                               opp-355000000 {
+> +                                       opp-hz = /bits/ 64 <355000000>;
+> +                                       opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
+> +                               };
+> +
+> +                               opp-267000000 {
+> +                                       opp-hz = /bits/ 64 <267000000>;
+> +                                       opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
+> +                               };
+> +
+> +                               opp-180000000 {
+> +                                       opp-hz = /bits/ 64 <180000000>;
+> +                                       opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
+> +                               };
+> +                       };
+> +               };
+> +
+> +               adreno_smmu: iommu@5040000 {
+> +                       compatible = "qcom,sc7180-smmu-v2", "qcom,smmu-v2";
 
- drivers/gpu/drm/msm/adreno/a6xx_hfi.c | 85 ++++++++++++++++++++++++-----------
- 1 file changed, 60 insertions(+), 25 deletions(-)
+As per prior discussion "qcom,sc7180-smmu-v2" needs to be added to the bindings.
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-index eda11ab..e450e0b 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-@@ -7,6 +7,7 @@
- 
- #include "a6xx_gmu.h"
- #include "a6xx_gmu.xml.h"
-+#include "a6xx_gpu.h"
- 
- #define HFI_MSG_ID(val) [val] = #val
- 
-@@ -216,48 +217,82 @@ static int a6xx_hfi_send_perf_table(struct a6xx_gmu *gmu)
- 		NULL, 0);
- }
- 
--static int a6xx_hfi_send_bw_table(struct a6xx_gmu *gmu)
-+static void a618_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
- {
--	struct a6xx_hfi_msg_bw_table msg = { 0 };
-+	/* Send a single "off" entry since the 618 GMU doesn't do bus scaling */
-+	msg->bw_level_num = 1;
-+
-+	msg->ddr_cmds_num = 3;
-+	msg->ddr_wait_bitmask = 0x01;
-+
-+	msg->ddr_cmds_addrs[0] = 0x50000;
-+	msg->ddr_cmds_addrs[1] = 0x5003c;
-+	msg->ddr_cmds_addrs[2] = 0x5000c;
-+
-+	msg->ddr_cmds_data[0][0] =  0x40000000;
-+	msg->ddr_cmds_data[0][1] =  0x40000000;
-+	msg->ddr_cmds_data[0][2] =  0x40000000;
- 
- 	/*
--	 * The sdm845 GMU doesn't do bus frequency scaling on its own but it
--	 * does need at least one entry in the list because it might be accessed
--	 * when the GMU is shutting down. Send a single "off" entry.
-+	 * These are the CX (CNOC) votes - these are used by the GMU but the
-+	 * votes are known and fixed for the target
- 	 */
-+	msg->cnoc_cmds_num = 1;
-+	msg->cnoc_wait_bitmask = 0x01;
-+
-+	msg->cnoc_cmds_addrs[0] = 0x5007c;
-+	msg->cnoc_cmds_data[0][0] =  0x40000000;
-+	msg->cnoc_cmds_data[1][0] =  0x60000001;
-+}
- 
--	msg.bw_level_num = 1;
-+static void a6xx_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
-+{
-+	/* Send a single "off" entry since the 630 GMU doesn't do bus scaling */
-+	msg->bw_level_num = 1;
- 
--	msg.ddr_cmds_num = 3;
--	msg.ddr_wait_bitmask = 0x07;
-+	msg->ddr_cmds_num = 3;
-+	msg->ddr_wait_bitmask = 0x07;
- 
--	msg.ddr_cmds_addrs[0] = 0x50000;
--	msg.ddr_cmds_addrs[1] = 0x5005c;
--	msg.ddr_cmds_addrs[2] = 0x5000c;
-+	msg->ddr_cmds_addrs[0] = 0x50000;
-+	msg->ddr_cmds_addrs[1] = 0x5005c;
-+	msg->ddr_cmds_addrs[2] = 0x5000c;
- 
--	msg.ddr_cmds_data[0][0] =  0x40000000;
--	msg.ddr_cmds_data[0][1] =  0x40000000;
--	msg.ddr_cmds_data[0][2] =  0x40000000;
-+	msg->ddr_cmds_data[0][0] =  0x40000000;
-+	msg->ddr_cmds_data[0][1] =  0x40000000;
-+	msg->ddr_cmds_data[0][2] =  0x40000000;
- 
- 	/*
- 	 * These are the CX (CNOC) votes.  This is used but the values for the
- 	 * sdm845 GMU are known and fixed so we can hard code them.
- 	 */
- 
--	msg.cnoc_cmds_num = 3;
--	msg.cnoc_wait_bitmask = 0x05;
-+	msg->cnoc_cmds_num = 3;
-+	msg->cnoc_wait_bitmask = 0x05;
- 
--	msg.cnoc_cmds_addrs[0] = 0x50034;
--	msg.cnoc_cmds_addrs[1] = 0x5007c;
--	msg.cnoc_cmds_addrs[2] = 0x5004c;
-+	msg->cnoc_cmds_addrs[0] = 0x50034;
-+	msg->cnoc_cmds_addrs[1] = 0x5007c;
-+	msg->cnoc_cmds_addrs[2] = 0x5004c;
- 
--	msg.cnoc_cmds_data[0][0] =  0x40000000;
--	msg.cnoc_cmds_data[0][1] =  0x00000000;
--	msg.cnoc_cmds_data[0][2] =  0x40000000;
-+	msg->cnoc_cmds_data[0][0] =  0x40000000;
-+	msg->cnoc_cmds_data[0][1] =  0x00000000;
-+	msg->cnoc_cmds_data[0][2] =  0x40000000;
-+
-+	msg->cnoc_cmds_data[1][0] =  0x60000001;
-+	msg->cnoc_cmds_data[1][1] =  0x20000001;
-+	msg->cnoc_cmds_data[1][2] =  0x60000001;
-+}
-+
-+
-+static int a6xx_hfi_send_bw_table(struct a6xx_gmu *gmu)
-+{
-+	struct a6xx_hfi_msg_bw_table msg = { 0 };
-+	struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
-+	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
- 
--	msg.cnoc_cmds_data[1][0] =  0x60000001;
--	msg.cnoc_cmds_data[1][1] =  0x20000001;
--	msg.cnoc_cmds_data[1][2] =  0x60000001;
-+	if (adreno_is_a618(adreno_gpu))
-+		a618_build_bw_table(&msg);
-+	else
-+		a6xx_build_bw_table(&msg);
- 
- 	return a6xx_hfi_send_msg(gmu, HFI_H2F_MSG_BW_TABLE, &msg, sizeof(msg),
- 		NULL, 0);
--- 
-2.7.4
+
+> +                       reg = <0 0x05040000 0 0x10000>;
+> +                       #iommu-cells = <1>;
+> +                       #global-interrupts = <2>;
+> +                       interrupts = <GIC_SPI 229 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 231 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 364 IRQ_TYPE_EDGE_RISING>,
+> +                                       <GIC_SPI 365 IRQ_TYPE_EDGE_RISING>,
+> +                                       <GIC_SPI 366 IRQ_TYPE_EDGE_RISING>,
+> +                                       <GIC_SPI 367 IRQ_TYPE_EDGE_RISING>,
+> +                                       <GIC_SPI 368 IRQ_TYPE_EDGE_RISING>,
+> +                                       <GIC_SPI 369 IRQ_TYPE_EDGE_RISING>,
+> +                                       <GIC_SPI 370 IRQ_TYPE_EDGE_RISING>,
+> +                                       <GIC_SPI 371 IRQ_TYPE_EDGE_RISING>;
+> +                       clocks = <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
+> +                               <&gcc GCC_GPU_CFG_AHB_CLK>,
+> +                               <&gcc GCC_DDRSS_GPU_AXI_CLK>;
+> +
+> +                       clock-names = "bus", "iface", "mem_iface_clk";
+
+As per discussion in v3 [1], "mem_iface_clk" is new and needs to be
+added to the bindings. Presumably that patch should be posted / Acked
+by Rob before we land this dts.
+
+Other than relying on un-posted bindings, this looks sane to me and
+this patch lets me bring the GPU up on my sc7180-based board.
+
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
+Tested-by: Douglas Anderson <dianders@chromium.org>
+
+
+-Doug
+
+[1] https://lore.kernel.org/r/1e29097cc1cdf18671379f6420f872b0@codeaurora.org
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
