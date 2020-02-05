@@ -2,62 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0FB21538E1
-	for <lists+freedreno@lfdr.de>; Wed,  5 Feb 2020 20:19:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A24791538E8
+	for <lists+freedreno@lfdr.de>; Wed,  5 Feb 2020 20:20:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59A658813A;
-	Wed,  5 Feb 2020 19:19:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C1546F943;
+	Wed,  5 Feb 2020 19:20:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-vk1-xa42.google.com (mail-vk1-xa42.google.com
- [IPv6:2607:f8b0:4864:20::a42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 299E16E9DE
- for <freedreno@lists.freedesktop.org>; Wed,  5 Feb 2020 19:19:47 +0000 (UTC)
-Received: by mail-vk1-xa42.google.com with SMTP id i78so901109vke.0
- for <freedreno@lists.freedesktop.org>; Wed, 05 Feb 2020 11:19:47 -0800 (PST)
+Received: from mail-vs1-xe44.google.com (mail-vs1-xe44.google.com
+ [IPv6:2607:f8b0:4864:20::e44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 924526F93E
+ for <freedreno@lists.freedesktop.org>; Wed,  5 Feb 2020 19:20:36 +0000 (UTC)
+Received: by mail-vs1-xe44.google.com with SMTP id v141so2081626vsv.12
+ for <freedreno@lists.freedesktop.org>; Wed, 05 Feb 2020 11:20:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=mevmQ6k3Ihmv8r7EI3IwBN79KI6v2gp2UE5ATwyofr0=;
- b=BuyExxOHNOnGw0g31bLqy0gVGWAXxG3djserMGkbzccG82zvt+a2/8Sqzj9jTg+Asa
- 2upuVHfTuyxd4DU4e3VS+64pnwjwhNe/J8UtYPtwP/hwbQ2Of2yNZIjQyTe42b6laPAb
- Oa7DZNT5TuIoIpdt1rU89W3v4zmQUoQWR0r1E=
+ :cc; bh=5YaLuYG6Iy8QwcRaBytxQgkWb5GSrDhgxvX793l25Mo=;
+ b=GuNlVw9BGjVfmhTOpV2VTeLQx5fb7PKdprf2XR10o8G5FgixUq0JmY+Z6cyD+kx95/
+ 5YEYPMNOQ2HaOFmXohheuf6yU7ENKL+x9hT+6uAnCPS2kPLJN5v1nYtcuPh1UbkNEo++
+ J8++OrPT4HiHnTqOvvoifx1YVBfMdbqv1HAW8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=mevmQ6k3Ihmv8r7EI3IwBN79KI6v2gp2UE5ATwyofr0=;
- b=DllleC+YNTKLgD7Bemx52WfLhgzsek9Rr9S9wR71zr4NKyJkJzwmgX+yb1pRZaEXcF
- CKBMFVNf7Q/SzaRxLFSnqhO1jlugjBtbycI1GtxJ0H0QxHSJYo6bbx6qzigzPHrECCwX
- 1hH5UCOvANFJv2aE4NiRlGfo1qVb5eJvxNXZiJ/m1YeEpUFL0t27lQyX9WPXeoWYSKBt
- y+lA7EhINnAYQV+L5soRiMefxzKmUf+ReK5mNRMkq7pFJamNie2eEuvPAeiin7nDS4sv
- X/OjDkFFr0WmSSFuGe+HkR2l1UjN/ZqzQReLpFRvc+HS64l11+7Nl47XX3DrcfIwUgG9
- QWTw==
-X-Gm-Message-State: APjAAAUmWgjcGqOkqh9UzBTCSNXeT2AxiAgTc2tsuPZrxzPxDsy6LRRZ
- Dz1U4TLF4Rtz1OzN0rhBlyKnq/31uwc=
-X-Google-Smtp-Source: APXvYqxGzF0mGeqY0xEHHRv3kwhtX/WvpFRahF3ilUe2O3FAw6hw/WNsznHo87V0+naDzud5X5mhDQ==
-X-Received: by 2002:ac5:c7a9:: with SMTP id d9mr2608276vkn.79.1580930385920;
- Wed, 05 Feb 2020 11:19:45 -0800 (PST)
+ bh=5YaLuYG6Iy8QwcRaBytxQgkWb5GSrDhgxvX793l25Mo=;
+ b=qBgP4VMJp5FFhnNTk+tXfVpLDyz1PJCJPFQEc6zFhy97/TR7k5s9HO9yD19N7E0M6J
+ bTlFiBtgv8tWXjdG6t1E+w3kYMic8NjYOUUsBf/3Swbe9cjKQKEWLiZeOYZuw/M1vZDe
+ xn5CbzA+6TLs5UV3hZZzSTLORwqhVe2GgSLGzrBmDHI2GU5TIm70C0o+bened+SqI9gb
+ KJIbKCxBVfNmCjuFq8dvOblUrO5NsGRhVndVi7wITBs+O1XZ91SzenyeEbUt0pX/GY+J
+ BQdoJpip6JzqfkD6LiXdQlUyBYQ/V+4nRDqMn7yPRatfbqduBQBCkf3HEH29ZRQzZZeP
+ D3QA==
+X-Gm-Message-State: APjAAAXkMPRQmCcBYM3jGWlmyZA+kX3I6LGEsGgzxWeKIprX3oCg0dBP
+ vE55MbBSzMjfL9GqIu3sK5NNGsp+sWY=
+X-Google-Smtp-Source: APXvYqyDhJZLxdizSVaLF/VVCX+dUWXzJaMJFJTLZ+kD/tcYM8l/xUwcS4k1tgb/Hna2sQ+cIx6/Ig==
+X-Received: by 2002:a67:fd63:: with SMTP id h3mr25890684vsa.221.1580930434659; 
+ Wed, 05 Feb 2020 11:20:34 -0800 (PST)
 Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com.
  [209.85.222.54])
- by smtp.gmail.com with ESMTPSA id g26sm246187vkl.16.2020.02.05.11.19.45
+ by smtp.gmail.com with ESMTPSA id b20sm254650vsq.20.2020.02.05.11.20.33
  for <freedreno@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Feb 2020 11:19:45 -0800 (PST)
-Received: by mail-ua1-f54.google.com with SMTP id 80so1285906uah.9
- for <freedreno@lists.freedesktop.org>; Wed, 05 Feb 2020 11:19:45 -0800 (PST)
-X-Received: by 2002:a9f:300a:: with SMTP id h10mr14335806uab.91.1580930384495; 
- Wed, 05 Feb 2020 11:19:44 -0800 (PST)
+ Wed, 05 Feb 2020 11:20:33 -0800 (PST)
+Received: by mail-ua1-f54.google.com with SMTP id o42so1281341uad.10
+ for <freedreno@lists.freedesktop.org>; Wed, 05 Feb 2020 11:20:33 -0800 (PST)
+X-Received: by 2002:ab0:2006:: with SMTP id v6mr20493719uak.22.1580930433242; 
+ Wed, 05 Feb 2020 11:20:33 -0800 (PST)
 MIME-Version: 1.0
 References: <1580886097-6312-1-git-send-email-smasetty@codeaurora.org>
- <1580886097-6312-4-git-send-email-smasetty@codeaurora.org>
-In-Reply-To: <1580886097-6312-4-git-send-email-smasetty@codeaurora.org>
+ <1580886097-6312-3-git-send-email-smasetty@codeaurora.org>
+In-Reply-To: <1580886097-6312-3-git-send-email-smasetty@codeaurora.org>
 From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 5 Feb 2020 11:19:33 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=UEQ0mOXuDrSZrcJ8g6jb0eLf1Ttn+Mn7T6d2TpCMUcuA@mail.gmail.com>
-Message-ID: <CAD=FV=UEQ0mOXuDrSZrcJ8g6jb0eLf1Ttn+Mn7T6d2TpCMUcuA@mail.gmail.com>
+Date: Wed, 5 Feb 2020 11:20:22 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=V6yM7UJwu0ZLPCqmDgV9FS4=g+wcLg0TV51b72zvWT9Q@mail.gmail.com>
+Message-ID: <CAD=FV=V6yM7UJwu0ZLPCqmDgV9FS4=g+wcLg0TV51b72zvWT9Q@mail.gmail.com>
 To: Sharat Masetty <smasetty@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v4 3/3] arm64: dts: qcom: sc7180: Add A618
- gpu dt blob
+Subject: Re: [Freedreno] [PATCH v4 2/3] clk: qcom: gpucc: Add support for GX
+ GDSC for SC7180
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,7 +70,8 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+Cc: Taniya Das <tdas@codeaurora.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
  <devicetree@vger.kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  LKML <linux-kernel@vger.kernel.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
@@ -85,112 +86,116 @@ Hi,
 
 On Tue, Feb 4, 2020 at 11:02 PM Sharat Masetty <smasetty@codeaurora.org> wrote:
 >
-> This patch adds the required dt nodes and properties
-> to enabled A618 GPU.
+> From: Taniya Das <tdas@codeaurora.org>
 >
-> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
+>  Most of the time the CPU should not be touching the GX domain on the
+>  GPU
+>  except for a very special use case when the CPU needs to force the GX
+
+Really weird word-wrapping?  You've also indented your whole commit message?
+
+
+>  headswitch off. Add a dummy enable function for the GX gdsc to simulate
+>  success so that the pm_runtime reference counting is correct.
+
+Overall the commit message sounds a lot like the message in commit
+85a3d920d30a ("clk: qcom: Add a dummy enable function for GX gdsc").
+That's fine for the most part, but it makes it sound like you're
+_only_ adding the dummy enable.  In this case you're adding support
+for the GX domain and _also_ adding a dummy enable.  Maybe try:
+
+Most of the time the CPU should not be touching the GX domain on the
+GPU except for a very special use case when the CPU needs to force the
+GX headswitch off. Add the GX domain for that use case.  As part of
+this add a dummy enable function for the GX gdsc to simulate success
+so that the pm_runtime reference counting is correct.  This matches
+what was done in sdm845 in commit 85a3d920d30a ("clk: qcom: Add a
+dummy enable function for GX gdsc").
+
+
+> Signed-off-by: Taniya Das <tdas@codeaurora.org>
+
+Since you are re-posting Taniya's patch you need to add your own
+Signed-off-by as per kernel policy.
+
+
 > ---
->  arch/arm64/boot/dts/qcom/sc7180.dtsi | 102 +++++++++++++++++++++++++++++++++++
->  1 file changed, 102 insertions(+)
+>  drivers/clk/qcom/gpucc-sc7180.c | 37 +++++++++++++++++++++++++++++++++++++
+>  1 file changed, 37 insertions(+)
 >
-> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> index f3fcc5c..63fff15 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> @@ -1043,6 +1043,108 @@
->                         };
->                 };
+> diff --git a/drivers/clk/qcom/gpucc-sc7180.c b/drivers/clk/qcom/gpucc-sc7180.c
+> index ec61194..3b29f19 100644
+> --- a/drivers/clk/qcom/gpucc-sc7180.c
+> +++ b/drivers/clk/qcom/gpucc-sc7180.c
+> @@ -172,8 +172,45 @@ enum {
+>         .flags = VOTABLE,
+>  };
 >
-> +               gpu: gpu@5000000 {
-> +                       compatible = "qcom,adreno-618.0", "qcom,adreno";
-> +                       #stream-id-cells = <16>;
-> +                       reg = <0 0x05000000 0 0x40000>, <0 0x0509e000 0 0x1000>,
-> +                               <0 0x05061000 0 0x800>;
-> +                       reg-names = "kgsl_3d0_reg_memory", "cx_mem", "cx_dbgc";
-> +                       interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
-> +                       iommus = <&adreno_smmu 0>;
-> +                       operating-points-v2 = <&gpu_opp_table>;
-> +                       qcom,gmu = <&gmu>;
+> +/*
+> + * On SC7180 the GPU GX domain is *almost* entirely controlled by the GMU
+> + * running in the CX domain so the CPU doesn't need to know anything about the
+> + * GX domain EXCEPT....
+> + *
+> + * Hardware constraints dictate that the GX be powered down before the CX. If
+> + * the GMU crashes it could leave the GX on. In order to successfully bring back
+> + * the device the CPU needs to disable the GX headswitch. There being no sane
+> + * way to reach in and touch that register from deep inside the GPU driver we
+> + * need to set up the infrastructure to be able to ensure that the GPU can
+> + * ensure that the GX is off during this super special case. We do this by
+> + * defining a GX gdsc with a dummy enable function and a "default" disable
+> + * function.
+> + *
+> + * This allows us to attach with genpd_dev_pm_attach_by_name() in the GPU
+> + * driver. During power up, nothing will happen from the CPU (and the GMU will
+> + * power up normally but during power down this will ensure that the GX domain
+> + * is *really* off - this gives us a semi standard way of doing what we need.
+> + */
+> +static int gx_gdsc_enable(struct generic_pm_domain *domain)
+> +{
+> +       /* Do nothing but give genpd the impression that we were successful */
+> +       return 0;
+> +}
 > +
-> +                       gpu_opp_table: opp-table {
-> +                               compatible = "operating-points-v2";
-> +
-> +                               opp-800000000 {
-> +                                       opp-hz = /bits/ 64 <800000000>;
-> +                                       opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
-> +                               };
-> +
-> +                               opp-650000000 {
-> +                                       opp-hz = /bits/ 64 <650000000>;
-> +                                       opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
-> +                               };
-> +
-> +                               opp-565000000 {
-> +                                       opp-hz = /bits/ 64 <565000000>;
-> +                                       opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
-> +                               };
-> +
-> +                               opp-430000000 {
-> +                                       opp-hz = /bits/ 64 <430000000>;
-> +                                       opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-> +                               };
-> +
-> +                               opp-355000000 {
-> +                                       opp-hz = /bits/ 64 <355000000>;
-> +                                       opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
-> +                               };
-> +
-> +                               opp-267000000 {
-> +                                       opp-hz = /bits/ 64 <267000000>;
-> +                                       opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-> +                               };
-> +
-> +                               opp-180000000 {
-> +                                       opp-hz = /bits/ 64 <180000000>;
-> +                                       opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
-> +                               };
-> +                       };
-> +               };
-> +
-> +               adreno_smmu: iommu@5040000 {
-> +                       compatible = "qcom,sc7180-smmu-v2", "qcom,smmu-v2";
+> +static struct gdsc gx_gdsc = {
+> +       .gdscr = 0x100c,
+> +       .clamp_io_ctrl = 0x1508,
+> +       .pd = {
+> +               .name = "gpu_gx_gdsc",
 
-As per prior discussion "qcom,sc7180-smmu-v2" needs to be added to the bindings.
+nit: technically name could be "gx_gdsc" to match the name of the
+struct and #define.  Your name is copied from sdm845 and matches the
+name of the struct and #define from there.
 
 
-> +                       reg = <0 0x05040000 0 0x10000>;
-> +                       #iommu-cells = <1>;
-> +                       #global-interrupts = <2>;
-> +                       interrupts = <GIC_SPI 229 IRQ_TYPE_LEVEL_HIGH>,
-> +                                       <GIC_SPI 231 IRQ_TYPE_LEVEL_HIGH>,
-> +                                       <GIC_SPI 364 IRQ_TYPE_EDGE_RISING>,
-> +                                       <GIC_SPI 365 IRQ_TYPE_EDGE_RISING>,
-> +                                       <GIC_SPI 366 IRQ_TYPE_EDGE_RISING>,
-> +                                       <GIC_SPI 367 IRQ_TYPE_EDGE_RISING>,
-> +                                       <GIC_SPI 368 IRQ_TYPE_EDGE_RISING>,
-> +                                       <GIC_SPI 369 IRQ_TYPE_EDGE_RISING>,
-> +                                       <GIC_SPI 370 IRQ_TYPE_EDGE_RISING>,
-> +                                       <GIC_SPI 371 IRQ_TYPE_EDGE_RISING>;
-> +                       clocks = <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
-> +                               <&gcc GCC_GPU_CFG_AHB_CLK>,
-> +                               <&gcc GCC_DDRSS_GPU_AXI_CLK>;
+> +               .power_on = gx_gdsc_enable,
+> +       },
+> +       .pwrsts = PWRSTS_OFF_ON,
+> +       .flags = CLAMP_IO,
+
+Compared to sdm845, you have different flags.  There we have:
+
+.flags = CLAMP_IO | AON_RESET | POLL_CFG_GDSCR,
+
+I'm not sure I have enough background knowledge about the hardare to
+figure this out.  Can you confirm that you're different than sdm845 on
+purpose?  Bonus points if you can confirm whether sdm845 is also
+correct as it is today or should be changed to match what you have?
+
+
+> +};
 > +
-> +                       clock-names = "bus", "iface", "mem_iface_clk";
+>  static struct gdsc *gpu_cc_sc7180_gdscs[] = {
+>         [CX_GDSC] = &cx_gdsc,
+> +       [GX_GDSC] = &gx_gdsc,
+>  };
 
-As per discussion in v3 [1], "mem_iface_clk" is new and needs to be
-added to the bindings. Presumably that patch should be posted / Acked
-by Rob before we land this dts.
+Assuming that the question on flags is resolved and the commit message
+updated, feel free to add my Reviewed-by tag.
 
-Other than relying on un-posted bindings, this looks sane to me and
-this patch lets me bring the GPU up on my sc7180-based board.
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-Tested-by: Douglas Anderson <dianders@chromium.org>
 
 
 -Doug
-
-[1] https://lore.kernel.org/r/1e29097cc1cdf18671379f6420f872b0@codeaurora.org
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
