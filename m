@@ -1,61 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 150941520E0
-	for <lists+freedreno@lfdr.de>; Tue,  4 Feb 2020 20:14:14 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 01B3215266D
+	for <lists+freedreno@lfdr.de>; Wed,  5 Feb 2020 07:51:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26AFE6E8C9;
-	Tue,  4 Feb 2020 19:14:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 912E16E946;
+	Wed,  5 Feb 2020 06:51:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-vk1-xa41.google.com (mail-vk1-xa41.google.com
- [IPv6:2607:f8b0:4864:20::a41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 151C66E8C8
- for <freedreno@lists.freedesktop.org>; Tue,  4 Feb 2020 19:14:11 +0000 (UTC)
-Received: by mail-vk1-xa41.google.com with SMTP id p191so5502222vkf.8
- for <freedreno@lists.freedesktop.org>; Tue, 04 Feb 2020 11:14:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=c05eGhfP62oyJ4uJzi+JFgkkWqqqI9hWVBoKeCjxm4w=;
- b=AZCPqV89v+hOzNtfW2saXZP0Q0an/t7IFjgge833KWWdrveSw7azdc6LDMxtiZJlJl
- e8z5D6BlfIf8VfNzB2FQSUlkfkMVb6p3A2wpczyjxmVzvbV84dk2tbFhyF/lLh+K21yA
- Uz0UcBE3wLwBuTZqVZiA41SK93XAiADvPM6X0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=c05eGhfP62oyJ4uJzi+JFgkkWqqqI9hWVBoKeCjxm4w=;
- b=PInRjgb40Vkg3pvZHFpmheKmV8sV2yFtJjosELPPJFP87OLl8c0/ADHZGubJvtgXj/
- oZZnjszlsRWUSRxvoPQgvyIh0A02XUbRO8CIJ0h/xh3LtxfhmYKQxKc7mO2RSD/1Ze3/
- ItnzRQAOsY0IXIb6P52Dua1C5oxpxlEEGWWsZjIMT7OddR2PKkR1IlsYIEvxYMtrvWAX
- IBkUiTt5ZHjArttLsVykUAElOyawWHBvySbex9J7OaAbdQ5t+4+qySADTRHADLgAfULF
- FAbUCCPtDPgW+cf7UcqiZoA6lXWdXscy2yvnHFfHJCrx6sTcJxV2B9mhTcSNzVMYyMsW
- dAJw==
-X-Gm-Message-State: APjAAAX7qKyLRDdSzOzwp0MpiJbK9nfFM/TR9Ed95ERsJRgU6+NGvOAf
- LceCfPf1UvhUVV+9gXWv7HqsNVDb7Qs=
-X-Google-Smtp-Source: APXvYqyqoR2XuenRe4TYoFZVlWXrSj8P3EKIgK7ePkt5XwvcNk8nqmiQ6Jf2iiXu5UymSn2PAYX0Cg==
-X-Received: by 2002:ac5:c64c:: with SMTP id j12mr19409417vkl.11.1580843648403; 
- Tue, 04 Feb 2020 11:14:08 -0800 (PST)
-Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com.
- [209.85.217.46])
- by smtp.gmail.com with ESMTPSA id l3sm6804757vsr.30.2020.02.04.11.14.07
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 04 Feb 2020 11:14:07 -0800 (PST)
-Received: by mail-vs1-f46.google.com with SMTP id v141so12080565vsv.12
- for <freedreno@lists.freedesktop.org>; Tue, 04 Feb 2020 11:14:07 -0800 (PST)
-X-Received: by 2002:ab0:30c2:: with SMTP id c2mr18396778uam.8.1580843646821;
- Tue, 04 Feb 2020 11:14:06 -0800 (PST)
+Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
+ [104.130.122.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19AEA6E946
+ for <freedreno@lists.freedesktop.org>; Wed,  5 Feb 2020 06:51:42 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1580885502; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=FEUHkLBJ+nAGJuyoz3LEU26JARROyquI5FGuyUlZs9g=;
+ b=GqBuJIaK3GimX2V0KWcyxIrIKHNZ64qMlBUcTfwqTG7J2kkj7DggRzX35P16pl2ChPEF7r7G
+ LeooPOz+LnHQn7takhpE8YL28zyoqrJtJpbNRyzlplv9Jres9pE5WzibGc0VKmoUomef6UHh
+ r9zPOZ3xb9lVXOy/DA4Y5kPQpDU=
+X-Mailgun-Sending-Ip: 104.130.122.26
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5e3a65fb.7f12d3244340-smtp-out-n01;
+ Wed, 05 Feb 2020 06:51:39 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 3576AC447A0; Wed,  5 Feb 2020 06:51:39 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,URIBL_BLOCKED
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: smasetty)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 8AF06C43383;
+ Wed,  5 Feb 2020 06:51:38 +0000 (UTC)
 MIME-Version: 1.0
-References: <1580825707-27115-1-git-send-email-harigovi@codeaurora.org>
-In-Reply-To: <1580825707-27115-1-git-send-email-harigovi@codeaurora.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 4 Feb 2020 11:13:54 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=U5DPxR54YM38w4_QVp24VorQ2eYDGq2GXScAs9APTygA@mail.gmail.com>
-Message-ID: <CAD=FV=U5DPxR54YM38w4_QVp24VorQ2eYDGq2GXScAs9APTygA@mail.gmail.com>
-To: Harigovindan P <harigovi@codeaurora.org>
-Subject: Re: [Freedreno] [v5] arm64: dts: sc7180: add display dt nodes
+Date: Wed, 05 Feb 2020 12:21:38 +0530
+From: smasetty@codeaurora.org
+To: Doug Anderson <dianders@chromium.org>
+In-Reply-To: <CAD=FV=XJF4KworkHFLoNtxB7d+VyGqZSZkDUdie+09ur1g5thw@mail.gmail.com>
+References: <1580472220-3453-1-git-send-email-smasetty@codeaurora.org>
+ <1580472220-3453-2-git-send-email-smasetty@codeaurora.org>
+ <CAD=FV=XJF4KworkHFLoNtxB7d+VyGqZSZkDUdie+09ur1g5thw@mail.gmail.com>
+Message-ID: <1e29097cc1cdf18671379f6420f872b0@codeaurora.org>
+X-Sender: smasetty@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v3] arm64: dts: qcom: sc7180: Add A618 gpu
+ dt blob
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,250 +64,102 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Taniya Das <tdas@codeaurora.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+Cc: "open list:OPEN FIRMWARE
+ AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
- nganji@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
- Kalyan Thota <kalyan_t@codeaurora.org>,
- "Kristian H. Kristensen" <hoegsberg@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>, Matthias Kaehlcke <mka@chromium.org>,
+ dri-devel@freedesktop.org, freedreno <freedreno@lists.freedesktop.org>,
+ linux-arm-msm-owner@vger.kernel.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-
-On Tue, Feb 4, 2020 at 6:15 AM Harigovindan P <harigovi@codeaurora.org> wrote:
->
-> Add display, DSI hardware DT nodes for sc7180.
->
-> Co-developed-by: Kalyan Thota <kalyan_t@codeaurora.org>
-> Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
-> Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
-> ---
->
-> Changes in v1:
->         - Added display DT nodes for sc7180
-> Changes in v2:
->         - Renamed node names
->         - Corrected code alignments
->         - Removed extra new line
->         - Added DISP AHB clock for register access
->           under display_subsystem node for global settings
-> Changes in v3:
->         - Modified node names
->         - Modified hard coded values
->         - Removed mdss reg entry
-> Changes in v4:
->         - Reverting mdp node name
->         - Setting status to disabled in main SOC dtsi file
->         - Replacing _ to - for node names
->         - Adding clock dependency patch link
->         - Splitting idp dt file to a separate patch
-> Changes in v5:
->         - Renaming "gcc_bus" to "bus" as per bindings (Doug Anderson)
->         - Making status as disabled for mdss and mdss_mdp by default (Doug Anderson)
->         - Removing "disp_cc" register space (Doug Anderson)
->         - Renaming "dsi_controller" to "dsi" as per bindings (Doug Anderson)
->         - Providing "ref" clk for dsi_phy (Doug Anderson)
->         - Sorting mdss node before dispcc (Doug Anderson)
->
-> This patch has dependency on the below series
-> https://lkml.org/lkml/2019/12/27/73
-
-You should have probably pointed to [1] which is a much newer version.
-
-
->  arch/arm64/boot/dts/qcom/sc7180.dtsi | 136 ++++++++++++++++++++++++++++++++++-
->  1 file changed, 134 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> index bd2584d..3ac1b87 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> @@ -1173,13 +1173,145 @@
->                         #power-domain-cells = <1>;
->                 };
->
-> +               mdss: mdss@ae00000 {
-> +                       compatible = "qcom,sc7180-mdss";
-> +                       reg = <0 0x0ae00000 0 0x1000>;
-> +                       reg-names = "mdss";
-> +
-> +                       power-domains = <&dispcc MDSS_GDSC>;
-> +
-> +                       clocks = <&gcc GCC_DISP_AHB_CLK>,
-> +                                <&gcc GCC_DISP_HF_AXI_CLK>,
-> +                                <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +                                <&dispcc DISP_CC_MDSS_MDP_CLK>;
-> +                       clock-names = "iface", "bus", "ahb", "core";
-> +
-> +                       assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>;
-> +                       assigned-clock-rates = <300000000>;
-> +
-> +                       interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
-> +                       interrupt-controller;
-> +                       #interrupt-cells = <1>;
-> +
-> +                       iommus = <&apps_smmu 0x800 0x2>;
-> +
-> +                       #address-cells = <2>;
-> +                       #size-cells = <2>;
-> +                       ranges;
-> +
-> +                       status = "disabled";
-> +
-> +                       mdp: mdp@ae01000 {
-> +                               compatible = "qcom,sc7180-dpu";
-> +                               reg = <0 0x0ae01000 0 0x8f000>,
-> +                                     <0 0x0aeb0000 0 0x2008>;
-> +                               reg-names = "mdp", "vbif";
-> +
-> +                               clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +                                        <&dispcc DISP_CC_MDSS_ROT_CLK>,
-> +                                        <&dispcc DISP_CC_MDSS_MDP_LUT_CLK>,
-> +                                        <&dispcc DISP_CC_MDSS_MDP_CLK>,
-> +                                        <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
-> +                               clock-names = "iface", "rot", "lut", "core",
-> +                                             "vsync";
-> +                               assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>,
-> +                                                 <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
-> +                               assigned-clock-rates = <300000000>,
-> +                                                      <19200000>;
-> +
-> +                               interrupt-parent = <&mdss>;
-> +                               interrupts = <0 IRQ_TYPE_LEVEL_HIGH>;
-> +
-> +                               status = "disabled";
-> +
-> +                               ports {
-> +                                       #address-cells = <1>;
-> +                                       #size-cells = <0>;
-> +
-> +                                       port@0 {
-> +                                               reg = <0>;
-> +                                               dpu_intf1_out: endpoint {
-> +                                                       remote-endpoint = <&dsi0_in>;
-> +                                               };
-> +                                       };
-> +                               };
-> +                       };
-> +
-> +                       dsi0: dsi@ae94000 {
-> +                               compatible = "qcom,mdss-dsi-ctrl";
-> +                               reg = <0 0x0ae94000 0 0x400>;
-> +                               reg-names = "dsi_ctrl";
-> +
-> +                               interrupt-parent = <&mdss>;
-> +                               interrupts = <4 IRQ_TYPE_LEVEL_HIGH>;
-> +
-> +                               clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
-> +                                        <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
-> +                                        <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
-> +                                        <&dispcc DISP_CC_MDSS_ESC0_CLK>,
-> +                                        <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +                                        <&gcc GCC_DISP_HF_AXI_CLK>;
-> +                               clock-names = "byte",
-> +                                             "byte_intf",
-> +                                             "pixel",
-> +                                             "core",
-> +                                             "iface",
-> +                                             "bus";
-> +
-> +                               phys = <&dsi_phy>;
-> +                               phy-names = "dsi";
-> +
-> +                               #address-cells = <1>;
-> +                               #size-cells = <0>;
-> +
-> +                               status = "disabled";
-> +
-> +                               ports {
-> +                                       #address-cells = <1>;
-> +                                       #size-cells = <0>;
-> +
-> +                                       port@0 {
-> +                                               reg = <0>;
-> +                                               dsi0_in: endpoint {
-> +                                                       remote-endpoint = <&dpu_intf1_out>;
-> +                                               };
-> +                                       };
-> +
-> +                                       port@1 {
-> +                                               reg = <1>;
-> +                                               dsi0_out: endpoint {
-> +                                               };
-> +                                       };
-> +                               };
-> +                       };
-> +
-> +                       dsi_phy: dsi-phy@ae94400 {
-> +                               compatible = "qcom,dsi-phy-10nm";
-> +                               reg = <0 0x0ae94400 0 0x200>,
-> +                                     <0 0x0ae94600 0 0x280>,
-> +                                     <0 0x0ae94a00 0 0x1e0>;
-> +                               reg-names = "dsi_phy",
-> +                                           "dsi_phy_lane",
-> +                                           "dsi_pll";
-> +
-> +                               #clock-cells = <1>;
-> +                               #phy-cells = <0>;
-> +
-> +                               clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +                                        <&rpmhcc RPMH_CXO_CLK>;
-> +                               clock-names = "iface", "ref";
-> +
-> +                               status = "disabled";
-> +                       };
-> +               };
-> +
->                 dispcc: clock-controller@af00000 {
->                         compatible = "qcom,sc7180-dispcc";
->                         reg = <0 0x0af00000 0 0x200000>;
->                         clocks = <&rpmhcc RPMH_CXO_CLK>,
->                                  <&gcc GCC_DISP_GPLL0_CLK_SRC>,
-> -                                <0>,
-> -                                <1>,
-> +                                <&dsi_phy 0>,
-> +                                <&dsi_phy 1>,
->                                  <0>,
->                                  <0>;
->                         clock-names = "xo", "gpll0",
-
-Thanks for adding this bit in v5.  What you end up with is good, but
-I'm slightly confused by your baseline and that makes it hard for git
-to automatically apply your patch.  Specifically:
-
-* I don't think I ever sent out a patch where "<1>" was a
-bogus/placeholder phandle.  Where did you get that from?
-* On the newest version of my patch [1] the clock names were
-"bi_tcxo", "gcc_disp_gpll0_clk_src", etc.  Not "xo", "gpll0", ....
-Presumably you're applying atop an older version?
-
-NOTE: it's not actually that hard to resolve this manually, so unless
-Bjorn / Andy requests it you probably don't need a v6.  How I applied
-it if it's helpful [2].
-
-
-I see that you're working to fix the bindings [3].  Seems like that
-still needs to be spun a bit more, but I think in general I'm
-convinced that what you're got in the dts is OK for sc7180 while that
-spins.  It's not like the bindings were in amazing shape to start
-with.  Thus:
-
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-Tested-by: Douglas Anderson <dianders@chromium.org>
-
-[1] https://lore.kernel.org/r/20200203103049.v4.15.I1a4b93fb005791e29a9dcf288fc8bd459a555a59@changeid
-[2] https://crrev.com/c/2020394/4
-[3] https://lore.kernel.org/r/1580825737-27189-1-git-send-email-harigovi@codeaurora.org
-
-
-
--Doug
+On 2020-02-01 03:13, Doug Anderson wrote:
+> Hi,
+> 
+> On Fri, Jan 31, 2020 at 4:04 AM Sharat Masetty 
+> <smasetty@codeaurora.org> wrote:
+>> 
+>> +               adreno_smmu: iommu@5040000 {
+>> +                       compatible = "qcom,sc7180-smmu-v2", 
+>> "qcom,smmu-v2";
+>> +                       reg = <0 0x05040000 0 0x10000>;
+>> +                       #iommu-cells = <1>;
+>> +                       #global-interrupts = <2>;
+>> +                       interrupts = <GIC_SPI 229 
+>> IRQ_TYPE_LEVEL_HIGH>,
+>> +                                       <GIC_SPI 231 
+>> IRQ_TYPE_LEVEL_HIGH>,
+>> +                                       <GIC_SPI 364 
+>> IRQ_TYPE_EDGE_RISING>,
+>> +                                       <GIC_SPI 365 
+>> IRQ_TYPE_EDGE_RISING>,
+>> +                                       <GIC_SPI 366 
+>> IRQ_TYPE_EDGE_RISING>,
+>> +                                       <GIC_SPI 367 
+>> IRQ_TYPE_EDGE_RISING>,
+>> +                                       <GIC_SPI 368 
+>> IRQ_TYPE_EDGE_RISING>,
+>> +                                       <GIC_SPI 369 
+>> IRQ_TYPE_EDGE_RISING>,
+>> +                                       <GIC_SPI 370 
+>> IRQ_TYPE_EDGE_RISING>,
+>> +                                       <GIC_SPI 371 
+>> IRQ_TYPE_EDGE_RISING>;
+>> +                       clocks = <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
+>> +                               <&gcc GCC_GPU_CFG_AHB_CLK>,
+>> +                               <&gcc GCC_DDRSS_GPU_AXI_CLK>;
+>> +
+>> +                       clock-names = "bus", "iface", "mem_iface_clk";
+> 
+> Repeated comment from v2 feedback:
+> 
+> Please send a patch to:
+> 
+> Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+> 
+> ...adding 'qcom,sc7180-smmu-v2'.  If you do this it will point out
+> that you've added a new clock: "mem_iface_clk".  Is this truly a new
+> clock in sc7180 compared to previous IOMMUs?  ...or is it not really
+> needed?
+I can confirm that this clock is needed for SC7180. I will send out a 
+new patch
+to update the documentation this week.
+> 
+> 
+>> +               gmu: gmu@506a000 {
+>> +                       compatible="qcom,adreno-gmu-618.0", 
+>> "qcom,adreno-gmu";
+>> +                       reg = <0 0x0506a000 0 0x31000>, <0 0x0b290000 
+>> 0 0x10000>,
+>> +                               <0 0x0b490000 0 0x10000>;
+>> +                       reg-names = "gmu", "gmu_pdc", "gmu_pdc_seq";
+>> +                       interrupts = <GIC_SPI 304 
+>> IRQ_TYPE_LEVEL_HIGH>,
+>> +                                  <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH>;
+>> +                       interrupt-names = "hfi", "gmu";
+>> +                       clocks = <&gpucc GPU_CC_CX_GMU_CLK>,
+>> +                              <&gpucc GPU_CC_CXO_CLK>,
+>> +                              <&gcc GCC_DDRSS_GPU_AXI_CLK>,
+>> +                              <&gcc GCC_GPU_MEMNOC_GFX_CLK>;
+>> +                       clock-names = "gmu", "cxo", "axi", "memnoc";
+>> +                       power-domains = <&gpucc CX_GDSC>;
+>> +                       power-domain-names = "cx";
+> 
+> As per continued comments on v2, please see if this works for you:
+> 
+>   power-domains = <&gpucc CX_GDSC>, <0>;
+>   power-domain-names = "cx", "gx";
+> 
+> ...and work to get something more real for "gx" ASAP.  It did seem to
+> boot for me and (unless someone disagrees) it seems better than
+> totally leaving it out / violating the bindings?
+> 
+> 
+> -Doug
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
