@@ -2,61 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EFB7154BB1
-	for <lists+freedreno@lfdr.de>; Thu,  6 Feb 2020 20:12:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6916F154D3A
+	for <lists+freedreno@lfdr.de>; Thu,  6 Feb 2020 21:46:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B60B66FB17;
-	Thu,  6 Feb 2020 19:12:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A6926E3D8;
+	Thu,  6 Feb 2020 20:46:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com
- [IPv6:2607:f8b0:4864:20::d42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 635336FB17
- for <freedreno@lists.freedesktop.org>; Thu,  6 Feb 2020 19:12:38 +0000 (UTC)
-Received: by mail-io1-xd42.google.com with SMTP id n21so7446049ioo.10
- for <freedreno@lists.freedesktop.org>; Thu, 06 Feb 2020 11:12:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ru+inu1PmEIJ9vDnJLv1Qr4gQtvZqrjXnMpeSc0T07w=;
- b=dOu8k7co1W3I1l1ud/O4tNq6yrR8hg9NmPtIwy/s1Z6lQY342ZljFEmid3M8nHnKoE
- o6EgzYmkeJe2Zuz2J3Vz99vNyFGmG5pEZQddN+ZtJBEGBSrIGW1REL64YKWw0eC4HOF2
- 8IkPafFKv5Gs9Dp6vgisxTnweTLTpT+i5SCPo=
+Received: from mail-pj1-f68.google.com (mail-pj1-f68.google.com
+ [209.85.216.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 495F96FB47;
+ Thu,  6 Feb 2020 20:46:28 +0000 (UTC)
+Received: by mail-pj1-f68.google.com with SMTP id gv17so499749pjb.1;
+ Thu, 06 Feb 2020 12:46:28 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ru+inu1PmEIJ9vDnJLv1Qr4gQtvZqrjXnMpeSc0T07w=;
- b=V2w9SC5UrXTvMHUECf7+lkTGJt6zykpcOc0e0zKgpPtxZGomSN0+v+Nq+3bU7xhtAj
- J3+Ram1X//ECstpZPd2rlea4j4ngpCJra8GJhOyaV+dZJZ0sbWUmdx0Yq9BHPW6dX6Nw
- XBGRJx61J/BTVQrwPTYeL9EkC9zCeKWxTQDW9i3Nc5WfyetSxQWKVHIfk1ruB1zezSkd
- boSaFYYKWdaRCuh0+6NjUTjeTG+EBlDsyNa5TiS3ZqAz1agMlca8oAPG0xMOiLFxp5Dm
- r06elMsQhaWTe8K8CCAUUsUPRrRCUidzKPjV9gILUL1/yIoNtOU71FVlD7KtBE9PzVTW
- V9IQ==
-X-Gm-Message-State: APjAAAXrE4Hn5GyAfC+GZ965/5tdXEOhIds7j8i9tqg/3+j3b0eP2Nyo
- /katvgWkXsbr6omDNyRkp8XqoSkeZZ4=
-X-Google-Smtp-Source: APXvYqxnEuclFIeLdTpoa6CZ2gVY2MROe9cCI7pHteg8xnX0sALe9c7tt5bGBuTX8hn+FQddPenDUg==
-X-Received: by 2002:a6b:db12:: with SMTP id t18mr32302268ioc.11.1581016357225; 
- Thu, 06 Feb 2020 11:12:37 -0800 (PST)
-Received: from mail-il1-f171.google.com (mail-il1-f171.google.com.
- [209.85.166.171])
- by smtp.gmail.com with ESMTPSA id r20sm120622ioc.35.2020.02.06.11.12.35
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Feb 2020 11:12:36 -0800 (PST)
-Received: by mail-il1-f171.google.com with SMTP id i7so6141630ilr.7
- for <freedreno@lists.freedesktop.org>; Thu, 06 Feb 2020 11:12:35 -0800 (PST)
-X-Received: by 2002:a92:508:: with SMTP id q8mr5345001ile.187.1581016355450;
- Thu, 06 Feb 2020 11:12:35 -0800 (PST)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=2NBFgKyFN0dyFl8VDFki9+LYpwoMV3nlGwylBI5zhTc=;
+ b=is09vlFbX5CfRaTg+sqc26R1aYBp0ivQ+owR5pYoJT/WPd6KZxLokdZTWxwoZf+UBS
+ jphcpWzdM8350QI2rGfbRtlHuRqUlopchBtsEA2kSlbuI028TEgQr5gEd9n6Z6YFBNLC
+ xforcLnQdcHaIvRO2mOw66UpzzQzaVbbTjTMBg8uLw+guRJt0d99DaBM3DZNtpNGDlN/
+ cZUfAkC+OEc3X03cF7jKajGaUIh0BAPasUQ20Rkm6icayayra87gOVOcmG9sZYhmBso4
+ UEwAh1ml0R/Uo6Fs9IjjzBSm2BmXS3hPPkeuyYjZtCP8Pq6jFWjj7/Dw6+9yrCIxydVj
+ evDw==
+X-Gm-Message-State: APjAAAVg2RkUv1yjwMjK65SHh8f5/bnruVGMe+zVYY5UvCIozC6thh0j
+ ZBRzJ2AWgOTEDxAQII6CWA==
+X-Google-Smtp-Source: APXvYqyNEAAyTPvXxo1+qNGiJAaKLAML/OFDLMtfR2Y+1qUW/cvHgBNZYIkLTG9VLfLbpd3NqAC9UA==
+X-Received: by 2002:a17:90a:c390:: with SMTP id
+ h16mr6846851pjt.131.1581021987274; 
+ Thu, 06 Feb 2020 12:46:27 -0800 (PST)
+Received: from rob-hp-laptop (63-158-47-182.dia.static.qwest.net.
+ [63.158.47.182])
+ by smtp.gmail.com with ESMTPSA id e38sm268368pgm.82.2020.02.06.12.46.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 06 Feb 2020 12:46:26 -0800 (PST)
+Received: (nullmailer pid 23987 invoked by uid 1000);
+ Thu, 06 Feb 2020 19:13:14 -0000
+Date: Thu, 6 Feb 2020 19:13:14 +0000
+From: Rob Herring <robh@kernel.org>
+To: Harigovindan P <harigovi@codeaurora.org>
+Message-ID: <20200206191314.GA19759@bogus>
+References: <1580825737-27189-1-git-send-email-harigovi@codeaurora.org>
 MIME-Version: 1.0
-References: <1580935697-28195-1-git-send-email-jcrouse@codeaurora.org>
- <CAF6AEGv9jVEO=QDY3DWts3w9aPxQ6fSBt2nydoqWdf5JenK=jA@mail.gmail.com>
-In-Reply-To: <CAF6AEGv9jVEO=QDY3DWts3w9aPxQ6fSBt2nydoqWdf5JenK=jA@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 6 Feb 2020 11:12:23 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=U7iWY1z5mwS0FyHyAA5EoFkAYzL-HKRaFMbRkMu6ffkg@mail.gmail.com>
-Message-ID: <CAD=FV=U7iWY1z5mwS0FyHyAA5EoFkAYzL-HKRaFMbRkMu6ffkg@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Subject: Re: [Freedreno] [PATCH v2] drm/msm: Fix a6xx GMU shutdown sequence
+Content-Disposition: inline
+In-Reply-To: <1580825737-27189-1-git-send-email-harigovi@codeaurora.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Freedreno] [v1] dt-bindings: msm:disp: update dsi and dpu
+ bindings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,48 +62,111 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, Matthias Kaehlcke <mka@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Sean Paul <sean@poorly.run>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
+ kalyan_t@codeaurora.org, hoegsberg@chromium.org,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+On Tue, Feb 04, 2020 at 07:45:37PM +0530, Harigovindan P wrote:
+> Updating bindings of dsi and dpu by adding and removing certain
+> properties.
 
-On Wed, Feb 5, 2020 at 1:00 PM Rob Clark <robdclark@gmail.com> wrote:
->
-> On Wed, Feb 5, 2020 at 12:48 PM Jordan Crouse <jcrouse@codeaurora.org> wrote:
-> >
-> > Commit e812744c5f95 ("drm: msm: a6xx: Add support for A618") missed
-> > updating the VBIF flush in a6xx_gmu_shutdown and instead
-> > inserted the new sequence into a6xx_pm_suspend along with a redundant
-> > GMU idle.
-> >
-> > Move a6xx_bus_clear_pending_transactions to a6xx_gmu.c and use it in
-> > the appropriate place in the shutdown routine and remove the redundant
-> > idle call.
-> >
-> > v2: Remove newly unused variable that was triggering a warning
-> >
-> > Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
->
-> Reviewed-by: Rob Clark <robdclark@gmail.com>
+Yes, the diff tells me that. The commit message should say why.
 
-Without this patch I'm seeing some really bad behavior where the whole
-system will pause for a bit, especially if it has been idle.  After
-this patch things are much better.  Thus:
+This change breaks compatibility as well.
 
-Fixes: e812744c5f95 ("drm: msm: a6xx: Add support for A618")
-Tested-by: Douglas Anderson <dianders@chromium.org>
+> 
+> Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
+> ---
+> 
+> Changes in v1:
+>         - Adding "ahb" clock as a required property.
+>         - Adding "bus", "rot", "lut" as optional properties for sc7180 device.
+>         - Removing properties from dsi bindings that are unused.
+> 	- Removing power-domain property since DSI is the child node of MDSS
+> 	  and it will inherit supply from its parent.
+> 
+>  Documentation/devicetree/bindings/display/msm/dpu.txt | 7 +++++++
+>  Documentation/devicetree/bindings/display/msm/dsi.txt | 5 -----
+>  2 files changed, 7 insertions(+), 5 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/dpu.txt b/Documentation/devicetree/bindings/display/msm/dpu.txt
+> index 551ae26..dd58472a 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dpu.txt
+> +++ b/Documentation/devicetree/bindings/display/msm/dpu.txt
+> @@ -19,6 +19,7 @@ Required properties:
+>    The following clocks are required:
+>    * "iface"
+>    * "bus"
+> +  * "ahb"
 
--Doug
+You can't just add new clocks...
+
+>    * "core"
+>  - interrupts: interrupt signal from MDSS.
+>  - interrupt-controller: identifies the node as an interrupt controller.
+> @@ -50,6 +51,8 @@ Required properties:
+>  - clock-names: device clock names, must be in same order as clocks property.
+>    The following clocks are required.
+>    * "bus"
+> +  For the device "qcom,sc7180-dpu":
+> +  * "bus" - is an optional property due to architecture change.
+>    * "iface"
+>    * "core"
+>    * "vsync"
+> @@ -70,6 +73,10 @@ Optional properties:
+>  - assigned-clocks: list of clock specifiers for clocks needing rate assignment
+>  - assigned-clock-rates: list of clock frequencies sorted in the same order as
+>    the assigned-clocks property.
+> +- For the device "qcom,sc7180-dpu":
+> +  clock-names: optional device clocks, needed for accessing LUT blocks.
+> +  * "rot"
+> +  * "lut"
+>  
+>  Example:
+>  
+> diff --git a/Documentation/devicetree/bindings/display/msm/dsi.txt b/Documentation/devicetree/bindings/display/msm/dsi.txt
+> index af95586..61d659a 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dsi.txt
+> +++ b/Documentation/devicetree/bindings/display/msm/dsi.txt
+> @@ -8,13 +8,10 @@ Required properties:
+>  - reg-names: The names of register regions. The following regions are required:
+>    * "dsi_ctrl"
+>  - interrupts: The interrupt signal from the DSI block.
+> -- power-domains: Should be <&mmcc MDSS_GDSC>.
+>  - clocks: Phandles to device clocks.
+>  - clock-names: the following clocks are required:
+> -  * "mdp_core"
+>    * "iface"
+>    * "bus"
+> -  * "core_mmss"
+>    * "byte"
+>    * "pixel"
+>    * "core"
+> @@ -156,7 +153,6 @@ Example:
+>  			"core",
+>  			"core_mmss",
+>  			"iface",
+> -			"mdp_core",
+>  			"pixel";
+>  		clocks =
+>  			<&mmcc MDSS_AXI_CLK>,
+> @@ -164,7 +160,6 @@ Example:
+>  			<&mmcc MDSS_ESC0_CLK>,
+>  			<&mmcc MMSS_MISC_AHB_CLK>,
+>  			<&mmcc MDSS_AHB_CLK>,
+> -			<&mmcc MDSS_MDP_CLK>,
+>  			<&mmcc MDSS_PCLK0_CLK>;
+>  
+>  		assigned-clocks =
+> -- 
+> 2.7.4
+> 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
