@@ -1,32 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4A031540F6
-	for <lists+freedreno@lfdr.de>; Thu,  6 Feb 2020 10:13:18 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CC331546C3
+	for <lists+freedreno@lfdr.de>; Thu,  6 Feb 2020 15:51:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 452566E4B0;
-	Thu,  6 Feb 2020 09:13:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25E006E530;
+	Thu,  6 Feb 2020 14:51:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-blr-02.qualcomm.com (alexa-out-blr-02.qualcomm.com
- [103.229.18.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 406DB6FA05;
- Thu,  6 Feb 2020 09:13:13 +0000 (UTC)
-Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
- by alexa-out-blr-02.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 06 Feb 2020 14:42:24 +0530
-Received: from harigovi-linux.qualcomm.com ([10.204.66.157])
- by ironmsg02-blr.qualcomm.com with ESMTP; 06 Feb 2020 14:42:04 +0530
-Received: by harigovi-linux.qualcomm.com (Postfix, from userid 2332695)
- id 54F7C28E6; Thu,  6 Feb 2020 14:42:03 +0530 (IST)
-From: Harigovindan P <harigovi@codeaurora.org>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Date: Thu,  6 Feb 2020 14:42:01 +0530
-Message-Id: <1580980321-19256-1-git-send-email-harigovi@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-Subject: [Freedreno] [v1] drm/msm/dsi/pll: call vco set rate explicitly
+Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
+ [IPv6:2607:f8b0:4864:20::d44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 305936E530;
+ Thu,  6 Feb 2020 14:51:56 +0000 (UTC)
+Received: by mail-io1-xd44.google.com with SMTP id n21so6574940ioo.10;
+ Thu, 06 Feb 2020 06:51:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=TqCXQKOBDXFQJVKGddlbc8pIiQ4q9FZiH/HTbC2xQy4=;
+ b=Ew8kBRM3/hL/4Kf0D2cwaTyLQ6Ds0xowkyP1rL4Mhrj2e8N3BvOyoJpmVJRJuDzbxE
+ s+hwyF6pkxXoHwciWNdtQEFg1Zt6H4WfNMD4RB/uxNxeFhiufi7/2w1e7V0qqw3p0xex
+ mU0w7qRdmzggpIIt9oPTIhmRIoobsnW6ubrnRSZQm4kKc3dNcSUdKfT5634rn5Nj4iMr
+ aD/4ESSeySiZl6MAyZEGer5u6rpziqyIDXkamz3sYoJB0FYdmeMv196F+IKFFWGFkWm1
+ ALPxipRfzvs+MoPHrnnLO2hry7+sVUdWldEZ1kjYadAWKbvVNhV/XGtjkB0mMCWp8ENA
+ jVkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=TqCXQKOBDXFQJVKGddlbc8pIiQ4q9FZiH/HTbC2xQy4=;
+ b=Ba3B7OIYnMmD4JY1bAma9hgnHnBXmpwLyf3EFO0jyPOPI53eYR/QwWMNuZonD6gJnh
+ JjPIJSzPI/+ltfIfsDJyZqJZtdOS8cUSGG+AFxIuXhx9gIscdIPP60ic7038wGpjIz99
+ CkLKGsLLnWkIDRoOAMI5iTGY+TO/hwepVj2oAY4R6PrOMoaLIktQ+WY0ZykpftmzBW8P
+ TMmRFfZugTxyZkCrATKx/cZu1BVfsyrn05xe2g+xX87nTMX9rQlIQ0vnzTV6+NtIp2fQ
+ hJWgYj7md5tRdVwKakvWX8Knuwny5gU36yXM3WEFwXmfgXEHJyOr4waRMyQV82HE2jW4
+ Rzig==
+X-Gm-Message-State: APjAAAV00BoIJ2M3j7Np7EYtODgyus/S20R1ucq+aQAFHkwuLLzEzj7H
+ Hw8N0KgvBhUKU005Hsf3laz5lCm7XlgAXUVMQN4=
+X-Google-Smtp-Source: APXvYqwZYxfalpMvjr4USAwpdtFeqzts07iNxgJWdvTv/0SPzfTizDCBhbfM18KUA+AWxFcUyEZ7fepmukSqkbODuyE=
+X-Received: by 2002:a02:a50f:: with SMTP id e15mr35226468jam.48.1581000715561; 
+ Thu, 06 Feb 2020 06:51:55 -0800 (PST)
+MIME-Version: 1.0
+References: <1580979114-16447-1-git-send-email-harigovi@codeaurora.org>
+In-Reply-To: <1580979114-16447-1-git-send-email-harigovi@codeaurora.org>
+From: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
+Date: Thu, 6 Feb 2020 07:51:44 -0700
+Message-ID: <CAOCk7NqEaJsbTwWgieXbGNN-eGFH3X0i=umMpLaLrPcB4GQzEw@mail.gmail.com>
+To: Harigovindan P <harigovi@codeaurora.org>
+Subject: Re: [Freedreno] [v1] drm/msm/dsi: save pll state before dsi host is
+ powered off
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -39,50 +61,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Harigovindan P <harigovi@codeaurora.org>, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
- kalyan_t@codeaurora.org, hoegsberg@chromium.org
-MIME-Version: 1.0
+Cc: DTML <devicetree@vger.kernel.org>, MSM <linux-arm-msm@vger.kernel.org>,
+ lkml <linux-kernel@vger.kernel.org>,
+ "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
+ Rob Clark <robdclark@gmail.com>, nganji@codeaurora.org,
+ Sean Paul <seanpaul@chromium.org>, kalyan_t@codeaurora.org,
+ "Kristian H. Kristensen" <hoegsberg@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-For a given byte clock, if VCO recalc value is exactly same as
-vco set rate value, vco_set_rate does not get called assuming
-VCO is already set to required value. But Due to GDSC toggle,
-VCO values are erased in the HW. To make sure VCO is programmed
-correctly, we forcefully call set_rate from vco_prepare.
+On Thu, Feb 6, 2020 at 1:52 AM Harigovindan P <harigovi@codeaurora.org> wrote:
+>
+> Save pll state before dsi host is powered off. Without this change
+> some register values gets resetted.
 
-Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
----
+The phy driver already does this.  Why is the current implementation
+insufficient?
 
-Changes in v1:
-	- Calling set rate from vco_prepare
+>
+> Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
+> ---
+>
+> Changes in v1:
+>         - Saving pll state before dsi host is powered off.
+>         - Removed calling of save state in post_disable since everything
+>         would be resetted and it would save only resetted values.
 
- drivers/gpu/drm/msm/dsi/pll/dsi_pll_10nm.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/dsi/pll/dsi_pll_10nm.c b/drivers/gpu/drm/msm/dsi/pll/dsi_pll_10nm.c
-index 1c89454..6ac04fc 100644
---- a/drivers/gpu/drm/msm/dsi/pll/dsi_pll_10nm.c
-+++ b/drivers/gpu/drm/msm/dsi/pll/dsi_pll_10nm.c
-@@ -411,6 +411,12 @@ static int dsi_pll_10nm_vco_prepare(struct clk_hw *hw)
- 	if (pll_10nm->slave)
- 		dsi_pll_enable_pll_bias(pll_10nm->slave);
- 
-+	rc = dsi_pll_10nm_vco_set_rate(hw,pll_10nm->vco_current_rate, 0);
-+	if (rc) {
-+		pr_err("vco_set_rate failed, rc=%d\n", rc);
-+		return rc;
-+	}
-+
- 	/* Start PLL */
- 	pll_write(pll_10nm->phy_cmn_mmio + REG_DSI_10nm_PHY_CMN_PLL_CNTRL,
- 		  0x01);
--- 
-2.7.4
-
+Removed from post_disable?  Thats not what I see in the change since
+you are adding code to dsi_mgr_bridge_post_disable()
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
