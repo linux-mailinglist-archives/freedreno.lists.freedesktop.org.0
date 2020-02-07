@@ -2,54 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6916F154D3A
-	for <lists+freedreno@lfdr.de>; Thu,  6 Feb 2020 21:46:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADC2F1557E0
+	for <lists+freedreno@lfdr.de>; Fri,  7 Feb 2020 13:38:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A6926E3D8;
-	Thu,  6 Feb 2020 20:46:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D0D96FC6A;
+	Fri,  7 Feb 2020 12:38:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-f68.google.com (mail-pj1-f68.google.com
- [209.85.216.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 495F96FB47;
- Thu,  6 Feb 2020 20:46:28 +0000 (UTC)
-Received: by mail-pj1-f68.google.com with SMTP id gv17so499749pjb.1;
- Thu, 06 Feb 2020 12:46:28 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=2NBFgKyFN0dyFl8VDFki9+LYpwoMV3nlGwylBI5zhTc=;
- b=is09vlFbX5CfRaTg+sqc26R1aYBp0ivQ+owR5pYoJT/WPd6KZxLokdZTWxwoZf+UBS
- jphcpWzdM8350QI2rGfbRtlHuRqUlopchBtsEA2kSlbuI028TEgQr5gEd9n6Z6YFBNLC
- xforcLnQdcHaIvRO2mOw66UpzzQzaVbbTjTMBg8uLw+guRJt0d99DaBM3DZNtpNGDlN/
- cZUfAkC+OEc3X03cF7jKajGaUIh0BAPasUQ20Rkm6icayayra87gOVOcmG9sZYhmBso4
- UEwAh1ml0R/Uo6Fs9IjjzBSm2BmXS3hPPkeuyYjZtCP8Pq6jFWjj7/Dw6+9yrCIxydVj
- evDw==
-X-Gm-Message-State: APjAAAVg2RkUv1yjwMjK65SHh8f5/bnruVGMe+zVYY5UvCIozC6thh0j
- ZBRzJ2AWgOTEDxAQII6CWA==
-X-Google-Smtp-Source: APXvYqyNEAAyTPvXxo1+qNGiJAaKLAML/OFDLMtfR2Y+1qUW/cvHgBNZYIkLTG9VLfLbpd3NqAC9UA==
-X-Received: by 2002:a17:90a:c390:: with SMTP id
- h16mr6846851pjt.131.1581021987274; 
- Thu, 06 Feb 2020 12:46:27 -0800 (PST)
-Received: from rob-hp-laptop (63-158-47-182.dia.static.qwest.net.
- [63.158.47.182])
- by smtp.gmail.com with ESMTPSA id e38sm268368pgm.82.2020.02.06.12.46.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Feb 2020 12:46:26 -0800 (PST)
-Received: (nullmailer pid 23987 invoked by uid 1000);
- Thu, 06 Feb 2020 19:13:14 -0000
-Date: Thu, 6 Feb 2020 19:13:14 +0000
-From: Rob Herring <robh@kernel.org>
-To: Harigovindan P <harigovi@codeaurora.org>
-Message-ID: <20200206191314.GA19759@bogus>
-References: <1580825737-27189-1-git-send-email-harigovi@codeaurora.org>
+Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
+ [104.130.122.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BE296FC6C
+ for <freedreno@lists.freedesktop.org>; Fri,  7 Feb 2020 12:38:46 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1581079127; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=qzairh/+yw4wEAbV6wFRDDG7JyWfCMeJmBCkct0T2fc=;
+ b=NuQrFZpGIKOuQmEoftcoyryS4+SijH9xufSEDft/iRkKx4hyAzEIxmtOvJo3R2qS/zWyLjoa
+ ZRMCV7e/SZCA+7wj8IKYw862XlexJWfPNyy94+G7FrKcasVoMgI2kMrso6Psz7On7a2wwZBh
+ zD82bJfj99flF00FTExlWeBzCN0=
+X-Mailgun-Sending-Ip: 104.130.122.26
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5e3d5a51.7fb1f267c570-smtp-out-n03;
+ Fri, 07 Feb 2020 12:38:41 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 84753C433CB; Fri,  7 Feb 2020 12:38:41 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,URIBL_BLOCKED
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: harigovi)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id E5976C43383;
+ Fri,  7 Feb 2020 12:38:39 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1580825737-27189-1-git-send-email-harigovi@codeaurora.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [v1] dt-bindings: msm:disp: update dsi and dpu
- bindings
+Date: Fri, 07 Feb 2020 18:08:39 +0530
+From: harigovi@codeaurora.org
+To: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
+In-Reply-To: <CAOCk7Nr9n-xLtWq=LEM-QFhJcY+QOuzazsoi-yjErA9od2Jwmw@mail.gmail.com>
+References: <1580980321-19256-1-git-send-email-harigovi@codeaurora.org>
+ <CAOCk7Nr9n-xLtWq=LEM-QFhJcY+QOuzazsoi-yjErA9od2Jwmw@mail.gmail.com>
+Message-ID: <2f5abc857910f70faa119fea5bda81d7@codeaurora.org>
+X-Sender: harigovi@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [v1] drm/msm/dsi/pll: call vco set rate explicitly
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,111 +62,35 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
- kalyan_t@codeaurora.org, hoegsberg@chromium.org,
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: DTML <devicetree@vger.kernel.org>, MSM <linux-arm-msm@vger.kernel.org>,
+ lkml <linux-kernel@vger.kernel.org>,
+ "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
+ Rob Clark <robdclark@gmail.com>, nganji@codeaurora.org,
+ Sean Paul <seanpaul@chromium.org>, kalyan_t@codeaurora.org,
+ "Kristian H. Kristensen" <hoegsberg@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Feb 04, 2020 at 07:45:37PM +0530, Harigovindan P wrote:
-> Updating bindings of dsi and dpu by adding and removing certain
-> properties.
-
-Yes, the diff tells me that. The commit message should say why.
-
-This change breaks compatibility as well.
-
+On 2020-02-06 20:29, Jeffrey Hugo wrote:
+> On Thu, Feb 6, 2020 at 2:13 AM Harigovindan P <harigovi@codeaurora.org> 
+> wrote:
+>> 
+>> For a given byte clock, if VCO recalc value is exactly same as
+>> vco set rate value, vco_set_rate does not get called assuming
+>> VCO is already set to required value. But Due to GDSC toggle,
+>> VCO values are erased in the HW. To make sure VCO is programmed
+>> correctly, we forcefully call set_rate from vco_prepare.
 > 
-> Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
-> ---
-> 
-> Changes in v1:
->         - Adding "ahb" clock as a required property.
->         - Adding "bus", "rot", "lut" as optional properties for sc7180 device.
->         - Removing properties from dsi bindings that are unused.
-> 	- Removing power-domain property since DSI is the child node of MDSS
-> 	  and it will inherit supply from its parent.
-> 
->  Documentation/devicetree/bindings/display/msm/dpu.txt | 7 +++++++
->  Documentation/devicetree/bindings/display/msm/dsi.txt | 5 -----
->  2 files changed, 7 insertions(+), 5 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dpu.txt b/Documentation/devicetree/bindings/display/msm/dpu.txt
-> index 551ae26..dd58472a 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dpu.txt
-> +++ b/Documentation/devicetree/bindings/display/msm/dpu.txt
-> @@ -19,6 +19,7 @@ Required properties:
->    The following clocks are required:
->    * "iface"
->    * "bus"
-> +  * "ahb"
+> Is this specific to certain SoCs? I don't think I've observed this.
 
-You can't just add new clocks...
-
->    * "core"
->  - interrupts: interrupt signal from MDSS.
->  - interrupt-controller: identifies the node as an interrupt controller.
-> @@ -50,6 +51,8 @@ Required properties:
->  - clock-names: device clock names, must be in same order as clocks property.
->    The following clocks are required.
->    * "bus"
-> +  For the device "qcom,sc7180-dpu":
-> +  * "bus" - is an optional property due to architecture change.
->    * "iface"
->    * "core"
->    * "vsync"
-> @@ -70,6 +73,10 @@ Optional properties:
->  - assigned-clocks: list of clock specifiers for clocks needing rate assignment
->  - assigned-clock-rates: list of clock frequencies sorted in the same order as
->    the assigned-clocks property.
-> +- For the device "qcom,sc7180-dpu":
-> +  clock-names: optional device clocks, needed for accessing LUT blocks.
-> +  * "rot"
-> +  * "lut"
->  
->  Example:
->  
-> diff --git a/Documentation/devicetree/bindings/display/msm/dsi.txt b/Documentation/devicetree/bindings/display/msm/dsi.txt
-> index af95586..61d659a 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dsi.txt
-> +++ b/Documentation/devicetree/bindings/display/msm/dsi.txt
-> @@ -8,13 +8,10 @@ Required properties:
->  - reg-names: The names of register regions. The following regions are required:
->    * "dsi_ctrl"
->  - interrupts: The interrupt signal from the DSI block.
-> -- power-domains: Should be <&mmcc MDSS_GDSC>.
->  - clocks: Phandles to device clocks.
->  - clock-names: the following clocks are required:
-> -  * "mdp_core"
->    * "iface"
->    * "bus"
-> -  * "core_mmss"
->    * "byte"
->    * "pixel"
->    * "core"
-> @@ -156,7 +153,6 @@ Example:
->  			"core",
->  			"core_mmss",
->  			"iface",
-> -			"mdp_core",
->  			"pixel";
->  		clocks =
->  			<&mmcc MDSS_AXI_CLK>,
-> @@ -164,7 +160,6 @@ Example:
->  			<&mmcc MDSS_ESC0_CLK>,
->  			<&mmcc MMSS_MISC_AHB_CLK>,
->  			<&mmcc MDSS_AHB_CLK>,
-> -			<&mmcc MDSS_MDP_CLK>,
->  			<&mmcc MDSS_PCLK0_CLK>;
->  
->  		assigned-clocks =
-> -- 
-> 2.7.4
-> 
+As far as Qualcomm SOCs are concerned, since pll is analog and the value 
+is directly read from hardware if we get recalc value same as set rate 
+value, the vco_set_rate will not be invoked. We checked in our idp 
+device which has the same SOC but it works there since the rates are 
+different.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
