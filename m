@@ -2,56 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AC5915934F
-	for <lists+freedreno@lfdr.de>; Tue, 11 Feb 2020 16:39:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85AF515937E
+	for <lists+freedreno@lfdr.de>; Tue, 11 Feb 2020 16:44:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 405856EE8B;
-	Tue, 11 Feb 2020 15:39:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 183FA6EE97;
+	Tue, 11 Feb 2020 15:44:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com
- [IPv6:2a00:1450:4864:20::543])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6D486EE90
- for <freedreno@lists.freedesktop.org>; Tue, 11 Feb 2020 15:39:00 +0000 (UTC)
-Received: by mail-ed1-x543.google.com with SMTP id v28so5122807edw.12
- for <freedreno@lists.freedesktop.org>; Tue, 11 Feb 2020 07:39:00 -0800 (PST)
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [IPv6:2a00:1450:4864:20::530])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E78D16EE95;
+ Tue, 11 Feb 2020 15:44:21 +0000 (UTC)
+Received: by mail-ed1-x530.google.com with SMTP id r21so5213973edq.0;
+ Tue, 11 Feb 2020 07:44:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=CNtQvmrBREea9Fl7G/3MlJk6sbdKLk9I8E30fCKcW9E=;
- b=NqOrIcn7ZyJR+lqAv/YIVy9x21yiVOoENdZzILnUjw7Ymti9bxM9vSGPtKxg21JQrf
- auGZDdjLkDb9ZPrzTMXu39ZxQPHSdpM3ty6CE72NteZHjWMUp2mdvXRi0j5qqO+/+jKF
- sOTAEVRYDEncWJNt3YEmL+MKSD8nNfEIawRL7RfEnkD2m5LxY0Cq33tBPq4oJtw1UljK
- 4rGYlJqCczX3M+LvUWcsD4Q3nSbBK0QBrSrSAYQfljR2PtjoWL6bM+JY3CJbfIqK1jMz
- r58ew3i7nIlbKvPEIfb7UFwiww0gvU4eDwsSuJh8j+g44YF70tIwFUXfWeEXQgNqi4/J
- dRcg==
+ :cc; bh=xlR00ADJradjotkCl4UlmMojkVu0xcxZBqzsuQumm74=;
+ b=NvQExPCB8DI0IP1gFi+4sXuJgnDnc+3sGrABcCQBUhEtdW8umNWi+t6DLqUPNGUeCK
+ +2Fo1BxAKf9Ge7XhKz0zsotmk3csdx0+aPVkukynRe0EUzkmvsRViU4D71ZYDFtnj86Q
+ g3jqxsr8lTzrutSK3BNOyGpevnnnWU+qUZuxplWXAkvlgvm+mGS2e6uoZzslvqJ86mTS
+ to4PLxgKuZS5+2D7SttIzvMzyl8v9YPdyNeLJdICpVJ2t36bCNV6O4Nkf29KFl9yrt4P
+ VdHGJUulikhpW5WwkpQF3vYcZROgf72tQ09vs5ydiDKiMjgq0Cq9GM5CFHRHF8wzzW5F
+ as6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=CNtQvmrBREea9Fl7G/3MlJk6sbdKLk9I8E30fCKcW9E=;
- b=PUVG7hBIsMXUXbyrRsdNlaxhsjGLqMRTQyEYx0gNS1FqK56s6w2f7PLFQlcz0rt3Q8
- dEOnGfJUxNoBs7AyXh6UHDd2Qu7hvSco7kCMFYDpKhEn5eCIopw5hHKFpN6WU35q6phm
- qDtKLrYVDWlw0sAqMCYR4Z5W26c1ax8pJg99xThUiJyl1Tg4fEOHKgrr9mWv2oRkTqMp
- 1bYYUHXdsDsegoag7LwG74kAzr3cdzgOuOxkUMytuubRKX993+0QEs78XEYipwII0SF+
- IHDLn4N3Ze50Xv0imSKq55LPzihteZ/knZHcRB9Y4QCyY1R4FodyPsLsQhzO2PmVLu5M
- BKeg==
-X-Gm-Message-State: APjAAAXGdBZOmSrdjdvIJV7r18S+Oshc0Wxql+Kgco7WF/8ar84+OCDH
- +BkAZEwTlvyNLo4IxZmKTuyAJdwMwoGdjBdR3VU=
-X-Google-Smtp-Source: APXvYqwItQoYQSVcmwx9Ampy++4WJ+oHbL0RoUbskyAJSfcKVYY+fp30cb8KuY/v+oZod3elLZE+SS8Sm89ASpzUN/Y=
-X-Received: by 2002:a17:906:a44d:: with SMTP id
- cb13mr6685070ejb.258.1581435538265; 
- Tue, 11 Feb 2020 07:38:58 -0800 (PST)
+ bh=xlR00ADJradjotkCl4UlmMojkVu0xcxZBqzsuQumm74=;
+ b=HNZL/olRKvphTHXZyVKjBTOz4BkuUXzZGHRwxkt5dnuP5l+x+XAkA7UR2Zj6dpJbds
+ xpvXrmatIE/5W3ZPoFNhaSOTsmleiZOp0VF04w4MgTa404Bkk8/VhDgXeaPjbP1ZQVo2
+ zQojOy9oyMErdma7r2DrIOXfk6SbztcX/sReNpT/Dd76R925aGQSI7wFWrFVx8JFmqUA
+ xEyfnvN5mLc1DOgzEnr4WHfSNlUNbFU7RFhNkeGBqHlX0uOIG6qEnq91GCmv3H+qC/0o
+ VwfGfHFMrxAPUliJxyAlxI1WBqVvt0ebVMwV6lx+gd5u3OojIDYHYgdXfslIRVDo7rdA
+ sXjw==
+X-Gm-Message-State: APjAAAVJP0+AYe5vMP8hdV36jDI3WEWq/qemwFceaqIbQpFOqP0NUcDi
+ 9zb0YkkDjS6cX2PvNhtPTMyW40KA44gBz5trJcbSbA==
+X-Google-Smtp-Source: APXvYqyCzdecpsQM0lw4triJNxJwSEFMbxi4XZz3qtjCH0Quta/P/aV1VGix4DQ+ffz64Nm+arwNBPjkvBa9ztigP+U=
+X-Received: by 2002:aa7:c6c5:: with SMTP id b5mr6258346eds.281.1581435860509; 
+ Tue, 11 Feb 2020 07:44:20 -0800 (PST)
 MIME-Version: 1.0
-References: <1579868411-20837-1-git-send-email-akhilpo@codeaurora.org>
- <20200124182654.GA17149@jcrouse1-lnx.qualcomm.com>
- <9a9ec81d-f963-8d71-d6aa-d32956788d94@codeaurora.org>
-In-Reply-To: <9a9ec81d-f963-8d71-d6aa-d32956788d94@codeaurora.org>
+References: <1580980321-19256-1-git-send-email-harigovi@codeaurora.org>
+ <CAOCk7Nr9n-xLtWq=LEM-QFhJcY+QOuzazsoi-yjErA9od2Jwmw@mail.gmail.com>
+ <2f5abc857910f70faa119fea5bda81d7@codeaurora.org>
+ <CAOCk7NoCH9p9gOd7as=ty-EMeerAAhQtKZa8f2wZrDeV2LtGrw@mail.gmail.com>
+ <1d201377996e16ce25acb640867e1214@codeaurora.org>
+In-Reply-To: <1d201377996e16ce25acb640867e1214@codeaurora.org>
 From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 11 Feb 2020 07:38:47 -0800
-Message-ID: <CAF6AEGuAsN0QDULRHrvtAnVANNqRv4aZWof0YKZ+yNahwSXu9A@mail.gmail.com>
-To: Akhil P Oommen <akhilpo@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: Correct the highestbank
- configuration
+Date: Tue, 11 Feb 2020 07:44:09 -0800
+Message-ID: <CAF6AEGu8265DWN-XABwR1N-124m1j=EkgeNDEWZ16TVpSCZSZw@mail.gmail.com>
+To: Harigovindan P <harigovi@codeaurora.org>
+Subject: Re: [Freedreno] [v1] drm/msm/dsi/pll: call vco set rate explicitly
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,69 +64,80 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- freedreno <freedreno@lists.freedesktop.org>, dri-devel@freedesktop.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Cc: DTML <devicetree@vger.kernel.org>, Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
+ MSM <linux-arm-msm@vger.kernel.org>, lkml <linux-kernel@vger.kernel.org>,
+ "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
+ nganji@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
+ Kalyan Thota <kalyan_t@codeaurora.org>,
+ "Kristian H. Kristensen" <hoegsberg@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Jan 31, 2020 at 12:00 AM Akhil P Oommen <akhilpo@codeaurora.org> wrote:
+On Mon, Feb 10, 2020 at 9:58 PM <harigovi@codeaurora.org> wrote:
 >
-> On 1/24/2020 11:56 PM, Jordan Crouse wrote:
-> > On Fri, Jan 24, 2020 at 05:50:11PM +0530, Akhil P Oommen wrote:
-> >> Highest bank bit configuration is different for a618 gpu. Update
-> >> it with the correct configuration which is the reset value incidentally.
+> On 2020-02-07 19:40, Jeffrey Hugo wrote:
+> > On Fri, Feb 7, 2020 at 5:38 AM <harigovi@codeaurora.org> wrote:
 > >>
-> >> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
-> >> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
-> >> ---
-> >>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 10 ++++++----
-> >>   1 file changed, 6 insertions(+), 4 deletions(-)
+> >> On 2020-02-06 20:29, Jeffrey Hugo wrote:
+> >> > On Thu, Feb 6, 2020 at 2:13 AM Harigovindan P <harigovi@codeaurora.org>
+> >> > wrote:
+> >> >>
+> >> >> For a given byte clock, if VCO recalc value is exactly same as
+> >> >> vco set rate value, vco_set_rate does not get called assuming
+> >> >> VCO is already set to required value. But Due to GDSC toggle,
+> >> >> VCO values are erased in the HW. To make sure VCO is programmed
+> >> >> correctly, we forcefully call set_rate from vco_prepare.
+> >> >
+> >> > Is this specific to certain SoCs? I don't think I've observed this.
 > >>
-> >> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >> index daf0780..536d196 100644
-> >> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >> @@ -470,10 +470,12 @@ static int a6xx_hw_init(struct msm_gpu *gpu)
-> >>      /* Select CP0 to always count cycles */
-> >>      gpu_write(gpu, REG_A6XX_CP_PERFCTR_CP_SEL_0, PERF_CP_ALWAYS_COUNT);
-> >>
-> >> -    gpu_write(gpu, REG_A6XX_RB_NC_MODE_CNTL, 2 << 1);
-> >> -    gpu_write(gpu, REG_A6XX_TPL1_NC_MODE_CNTL, 2 << 1);
-> >> -    gpu_write(gpu, REG_A6XX_SP_NC_MODE_CNTL, 2 << 1);
-> >> -    gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL, 2 << 21);
-> >> +    if (adreno_is_a630(adreno_gpu)) {
-> >> +            gpu_write(gpu, REG_A6XX_RB_NC_MODE_CNTL, 2 << 1);
-> >> +            gpu_write(gpu, REG_A6XX_TPL1_NC_MODE_CNTL, 2 << 1);
-> >> +            gpu_write(gpu, REG_A6XX_SP_NC_MODE_CNTL, 2 << 1);
-> >> +            gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL, 2 << 21);
-> >> +    }
-> > it shouldn't come as a surprise that everything in the a6xx family is going to
-> > have a highest bank bit setting. Even though the a618 uses the reset value, I
-> > think it would be less confusing to future folks if we explicitly program it:
+> >> As far as Qualcomm SOCs are concerned, since pll is analog and the
+> >> value
+> >> is directly read from hardware if we get recalc value same as set rate
+> >> value, the vco_set_rate will not be invoked. We checked in our idp
+> >> device which has the same SOC but it works there since the rates are
+> >> different.
 > >
-> > if (adreno_is_a630(adreno_dev))
-> >    hbb = 2;
-> > else
-> >    hbb = 0;
+> > This doesn't seem to be an answer to my question.  What Qualcomm SoCs
+> > does this issue apply to?  Everything implementing the 10nm pll?  One
+> > specific SoC?  I don't believe I've seen this on MSM8998, nor SDM845,
+> > so I'm interested to know what is the actual impact here.  I don't see
+> > an "IDP" SoC in the IP catalog, so I really have no idea what you are
+> > referring to.
 >
-> I think it would be better if we keep this in the adreno_info. Yes, this
-> would waste a tiny bit of space for other gpu
-> entries in the gpulist. It is also possible to move this to a separate
-> struct and keep a pointer to it in the adreno_info.
-> But that is something we should try when there are more a6xx specific
-> configurations in future.
 >
-> I have a new patch, but testing it is taking longer that I expected. I
-> will share it as soon as possible.
+> This is not 10nm specific. It is applicable for other nms also.
+> Its specific to the frequency being set. If vco_recalc returns the same
+> value as being set by vco_set_rate,
+> vco_set_rate will not be invoked second time onwards.
 >
+> For example: Lets take below devices:
+>
+> Cheza is based on SDM845 which is 10nm only.
+> Clk frequency:206016
+> dsi_pll_10nm_vco_set_rate - DSI PLL0 rate=1236096000
+> dsi_pll_10nm_vco_recalc_rate - DSI PLL0 returning vco rate = 1236095947
+>
+> Trogdor is based on sc7180 which is also 10nm.
+> Clk frequency:69300
+> dsi_pll_10nm_vco_set_rate - DSI PLL0 rate=1663200000
+> dsi_pll_10nm_vco_recalc_rate - DSI PLL0 returning vco rate = 1663200000
+>
+> In same trogdor device, we slightly changed the clock frequency and the
+> values actually differ which will not cause any issue.
+> Clk frequency:69310
+> dsi_pll_10nm_vco_set_rate - DSI PLL0 rate=1663440000
+> dsi_pll_10nm_vco_recalc_rate - DSI PLL0 returning vco rate = 1663439941
 
-I'm going to pull this in as-is for msm-fixes.  Please rebase the
-change that you haven't posted yet on top of this patch, and send it
-as a cleanup for the next cycle.  Thanks
+
+tbh, loosing state when power is off is kind of the behavior that I'd
+expect.  It kinda makes me wonder if things are not getting powered
+off all the way on some SoCs?
+
+jhugo, are you worried that this patch will cause problems on other
+users of the 10nm pll?
 
 BR,
 -R
