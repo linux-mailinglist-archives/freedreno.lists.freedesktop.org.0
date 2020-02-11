@@ -2,56 +2,33 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 042EF1589D8
-	for <lists+freedreno@lfdr.de>; Tue, 11 Feb 2020 06:58:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B83B158D9A
+	for <lists+freedreno@lfdr.de>; Tue, 11 Feb 2020 12:38:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43BCC6EDAD;
-	Tue, 11 Feb 2020 05:58:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09D026EA37;
+	Tue, 11 Feb 2020 11:38:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
- [104.130.122.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E62866EDAD
- for <freedreno@lists.freedesktop.org>; Tue, 11 Feb 2020 05:58:16 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1581400698; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=90LwSLciKSX0tDR6UyVjm6zI/ZPE7pQez+xZZMUCPQw=;
- b=Phsl4ZEz0dXv8d53Cvs1v7fCUnqL/PM9b0gs1SuY+8Iblm/ZrliQNVZ4pycf5BuZw6b0SelT
- mlpIfm9GrOLNaX6mkbUiG6ncLujS4h6UoGl+1hsdaAHDqwP20tDcvOnvam9OyT+DL/WmWfoG
- hMmv2IBa1GIii+Bca5xmi2G/xNU=
-X-Mailgun-Sending-Ip: 104.130.122.26
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5e424274.7ff3c8d0cca8-smtp-out-n03;
- Tue, 11 Feb 2020 05:58:12 -0000 (UTC)
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id CD2E6C4479D; Tue, 11 Feb 2020 05:58:12 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,URIBL_BLOCKED
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: harigovi)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 29BE2C43383;
- Tue, 11 Feb 2020 05:58:12 +0000 (UTC)
+Received: from alexa-out-blr-02.qualcomm.com (alexa-out-blr-02.qualcomm.com
+ [103.229.18.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E27EE6EE3B;
+ Tue, 11 Feb 2020 11:38:02 +0000 (UTC)
+Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
+ by alexa-out-blr-02.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 11 Feb 2020 17:07:58 +0530
+Received: from harigovi-linux.qualcomm.com ([10.204.66.157])
+ by ironmsg01-blr.qualcomm.com with ESMTP; 11 Feb 2020 17:07:38 +0530
+Received: by harigovi-linux.qualcomm.com (Postfix, from userid 2332695)
+ id 5290D1CC5; Tue, 11 Feb 2020 17:07:37 +0530 (IST)
+From: Harigovindan P <harigovi@codeaurora.org>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Tue, 11 Feb 2020 17:07:35 +0530
+Message-Id: <20200211113735.6840-1-harigovi@codeaurora.org>
+X-Mailer: git-send-email 2.25.0
 MIME-Version: 1.0
-Date: Tue, 11 Feb 2020 11:28:12 +0530
-From: harigovi@codeaurora.org
-To: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
-In-Reply-To: <CAOCk7NoCH9p9gOd7as=ty-EMeerAAhQtKZa8f2wZrDeV2LtGrw@mail.gmail.com>
-References: <1580980321-19256-1-git-send-email-harigovi@codeaurora.org>
- <CAOCk7Nr9n-xLtWq=LEM-QFhJcY+QOuzazsoi-yjErA9od2Jwmw@mail.gmail.com>
- <2f5abc857910f70faa119fea5bda81d7@codeaurora.org>
- <CAOCk7NoCH9p9gOd7as=ty-EMeerAAhQtKZa8f2wZrDeV2LtGrw@mail.gmail.com>
-Message-ID: <1d201377996e16ce25acb640867e1214@codeaurora.org>
-X-Sender: harigovi@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [v1] drm/msm/dsi/pll: call vco set rate explicitly
+Subject: [Freedreno] [v2] arm64: dts: sc7180: add dsi controller and phy
+ entries for idp dts
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,70 +41,118 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: DTML <devicetree@vger.kernel.org>, MSM <linux-arm-msm@vger.kernel.org>,
- lkml <linux-kernel@vger.kernel.org>,
- "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
- Rob Clark <robdclark@gmail.com>, nganji@codeaurora.org,
- Sean Paul <seanpaul@chromium.org>, kalyan_t@codeaurora.org,
- "Kristian H. Kristensen" <hoegsberg@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: Harigovindan P <harigovi@codeaurora.org>, linux-kernel@vger.kernel.org,
+ robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
+ kalyan_t@codeaurora.org, hoegsberg@chromium.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-02-07 19:40, Jeffrey Hugo wrote:
-> On Fri, Feb 7, 2020 at 5:38 AM <harigovi@codeaurora.org> wrote:
->> 
->> On 2020-02-06 20:29, Jeffrey Hugo wrote:
->> > On Thu, Feb 6, 2020 at 2:13 AM Harigovindan P <harigovi@codeaurora.org>
->> > wrote:
->> >>
->> >> For a given byte clock, if VCO recalc value is exactly same as
->> >> vco set rate value, vco_set_rate does not get called assuming
->> >> VCO is already set to required value. But Due to GDSC toggle,
->> >> VCO values are erased in the HW. To make sure VCO is programmed
->> >> correctly, we forcefully call set_rate from vco_prepare.
->> >
->> > Is this specific to certain SoCs? I don't think I've observed this.
->> 
->> As far as Qualcomm SOCs are concerned, since pll is analog and the 
->> value
->> is directly read from hardware if we get recalc value same as set rate
->> value, the vco_set_rate will not be invoked. We checked in our idp
->> device which has the same SOC but it works there since the rates are
->> different.
-> 
-> This doesn't seem to be an answer to my question.  What Qualcomm SoCs
-> does this issue apply to?  Everything implementing the 10nm pll?  One
-> specific SoC?  I don't believe I've seen this on MSM8998, nor SDM845,
-> so I'm interested to know what is the actual impact here.  I don't see
-> an "IDP" SoC in the IP catalog, so I really have no idea what you are
-> referring to.
+Adding dsi controller and phy entries for idp dt.
 
+Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
+---
 
-This is not 10nm specific. It is applicable for other nms also.
-Its specific to the frequency being set. If vco_recalc returns the same 
-value as being set by vco_set_rate,
-vco_set_rate will not be invoked second time onwards.
+Changes in v1:
+	- Added dsi controller and dsi phy entries for idp dts
 
-For example: Lets take below devices:
+Changes in v2:
+	- Adding dependency patchwork series
+	- Removing suspend configuration
+	- Adding blank before curly brace
 
-Cheza is based on SDM845 which is 10nm only.
-Clk frequency:206016
-dsi_pll_10nm_vco_set_rate - DSI PLL0 rate=1236096000
-dsi_pll_10nm_vco_recalc_rate - DSI PLL0 returning vco rate = 1236095947
+This patch depends on following patchwork series:
 
-Trogdor is based on sc7180 which is also 10nm.
-Clk frequency:69300
-dsi_pll_10nm_vco_set_rate - DSI PLL0 rate=1663200000
-dsi_pll_10nm_vco_recalc_rate - DSI PLL0 returning vco rate = 1663200000
+https://patchwork.kernel.org/patch/11364687/
+https://patchwork.kernel.org/patch/11366303/
 
-In same trogdor device, we slightly changed the clock frequency and the 
-values actually differ which will not cause any issue.
-Clk frequency:69310
-dsi_pll_10nm_vco_set_rate - DSI PLL0 rate=1663440000
-dsi_pll_10nm_vco_recalc_rate - DSI PLL0 returning vco rate = 1663439941
+ arch/arm64/boot/dts/qcom/sc7180-idp.dts | 55 +++++++++++++++++++++++++
+ 1 file changed, 55 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sc7180-idp.dts b/arch/arm64/boot/dts/qcom/sc7180-idp.dts
+index 388f50ad4fde..6ccf8c3603ab 100644
+--- a/arch/arm64/boot/dts/qcom/sc7180-idp.dts
++++ b/arch/arm64/boot/dts/qcom/sc7180-idp.dts
+@@ -7,6 +7,7 @@
+ 
+ /dts-v1/;
+ 
++#include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ #include "sc7180.dtsi"
+ #include "pm6150.dtsi"
+@@ -232,6 +233,49 @@ vreg_bob: bob {
+ 	};
+ };
+ 
++&dsi0 {
++	status = "okay";
++
++	vdda-supply = <&vreg_l3c_1p2>;
++
++	panel@0 {
++		compatible = "visionox,rm69299-1080p-display";
++		reg = <0>;
++
++		vdda-supply = <&vreg_l8c_1p8>;
++		vdd3p3-supply = <&vreg_l18a_2p8>;
++
++		pinctrl-names = "default";
++		pinctrl-0 = <&disp_pins>;
++
++		reset-gpios = <&pm6150l_gpio 3 GPIO_ACTIVE_HIGH>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			port@0 {
++				reg = <0>;
++				panel0_in: endpoint {
++					remote-endpoint = <&dsi0_out>;
++				};
++			};
++		};
++	};
++
++	ports {
++		port@1 {
++			endpoint {
++				remote-endpoint = <&panel0_in>;
++				data-lanes = <0 1 2 3>;
++			};
++		};
++	};
++};
++
++&dsi_phy {
++	status = "okay";
++};
++
+ &qspi {
+ 	status = "okay";
+ 	pinctrl-names = "default";
+@@ -289,6 +333,17 @@ &usb_1_qmpphy {
+ 
+ /* PINCTRL - additions to nodes defined in sc7180.dtsi */
+ 
++&pm6150l_gpio {
++	disp_pins: disp-pins {
++		pins = "gpio3";
++		function = "func1";
++		qcom,drive-strength = <2>;
++		power-source = <0>;
++		bias-disable;
++		output-low;
++	};
++};
++
+ &qspi_clk {
+ 	pinconf {
+ 		pins = "gpio63";
+-- 
+2.25.0
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
