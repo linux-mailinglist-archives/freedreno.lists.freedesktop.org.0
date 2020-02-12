@@ -2,45 +2,44 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 720AF159DF0
-	for <lists+freedreno@lfdr.de>; Wed, 12 Feb 2020 01:29:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52D34159FC2
+	for <lists+freedreno@lfdr.de>; Wed, 12 Feb 2020 05:05:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F5246E479;
-	Wed, 12 Feb 2020 00:29:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9045C6E5B6;
+	Wed, 12 Feb 2020 04:05:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
- [IPv6:2a00:1450:4864:20::542])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAF1D6E479;
- Wed, 12 Feb 2020 00:28:57 +0000 (UTC)
-Received: by mail-ed1-x542.google.com with SMTP id m13so308564edb.6;
- Tue, 11 Feb 2020 16:28:57 -0800 (PST)
+Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
+ [IPv6:2607:f8b0:4864:20::d44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 576A16E5B6;
+ Wed, 12 Feb 2020 04:05:24 +0000 (UTC)
+Received: by mail-io1-xd44.google.com with SMTP id z193so680314iof.1;
+ Tue, 11 Feb 2020 20:05:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=5ZyotboeQnfX3ApYlhv3hcCNZzz6LIMW24tRirhDBC0=;
- b=d3m3P7+n6hZ/F+wWRU4iSoQ7U+slq7kc2DjtKnBbPjHXqtqpexttbO+qNbBGXcYIqS
- Lt7V8pxV3Xsyuaaze8GFVU58KSHkywNs1GKN/xfeNAaTypvB1U7PPkeajJVbJTGKCfkQ
- vs3KvfwFFqQPJfZvaUVlZxj5iP5cVAbOVazipcWALqEjyUWXRwaTgGqqsFnJtQdnvdzQ
- OFYfs5A/tkmNCNDu0jgqIjJXdcgxOrDGoycIUjfvKUUZ9d9g0mnP2qbol2Cd6PJEG4hC
- W729TZPC1+czKg4orgiGtcGmf0+t9+Vfvl0ZJa244PgEdEVXwmK15lVg2S8NnqtLXe6H
- Ms8w==
+ :cc; bh=Y56nAJIiZ+uAireBhRTGWvQxGWmhvKQLDXIXjtVT5qc=;
+ b=btedfg0CVADkEXOTQtcBBZceMQ0wFLGxJgZBVU5li97qjEePaciiefJvdqULLnA/49
+ zMpC5uAhdfTlJiSaJN66mnx2yTr/SbCO7ZB+gGOfzgw3TWrS3DIYJ914YDeNLbBE4nml
+ tP8/CmLp6BEGTQfO7tpkVVdTnx8LPJdfKtrsss8NR5NBcbtjZOd8MGySAcH9R7N/DemB
+ uRsmHktaR+dJEhnLRRYEv1wzCEC1OhvlxLsCqESF4fXDlRALAngz/mXIn1WIWn8YfPYB
+ TE2QfHeZSmVbFlJDvb6ayDhyvHSDsewScBKLd18k1Ow2sYeSwDq3w8sBQSZXtqG0+Fsl
+ rNKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=5ZyotboeQnfX3ApYlhv3hcCNZzz6LIMW24tRirhDBC0=;
- b=Gc4Shv+z222MgHw1hpF2E3g53yn1rnQYEPQjTNH58mq5rhlAik8lXM0y0gZASKhtiu
- 9pPqmKJ0zRV1o7EwwpCe3wchCAtuiHNPwfPGaw7QvU8e6vZFsiWVDkBh2vumhfvO8z+H
- R76qrnomlxCBVxT2rvaHTI165MKf0Wh2dkZA83WmLuhIuJRTAjNOEUu/N4s9CzqEIpxK
- 5CmwZ9EKHq0NLm5R5ecFonkbaicUJAhT8FBqbdC9tSleA1qsHnN02K50CQ4oJHCn/gvc
- Bq4IvsqI2f4rKM09W69EVxZuyMO91jMCZ+Z5jaSnb9Pijl6/LL3DmIBa9sYA7yXRzZLp
- vXwg==
-X-Gm-Message-State: APjAAAX9XIQXxFNJ2b8W+iJacOcr3/+WAOZLOebYzqzAtQoMYSbQAvBK
- V5VHQWzCrD8sDIvVrLp4nJkfJEq8zlU953OKjG8=
-X-Google-Smtp-Source: APXvYqw4KdNzAga+QI5x4feq8a96q/btCz8UFtzDxNFineH4PDvzVI6XTkyhJS3cLENwNxpu8RtGsiznYmoCFsb05Ks=
-X-Received: by 2002:a05:6402:298:: with SMTP id
- l24mr8284606edv.70.1581467336302; 
- Tue, 11 Feb 2020 16:28:56 -0800 (PST)
+ bh=Y56nAJIiZ+uAireBhRTGWvQxGWmhvKQLDXIXjtVT5qc=;
+ b=gpfKvBMN3c4IkoDTvTiG3h9rXs07XUA/SjNslypo67XZpiEb/W/kmBDeFUKYIqMbYu
+ 4Onwa4Idx9YN1zYEaiTNDiPMf5z5GjwbLxLzpA8J5escO2gCiAZJDEklY1IZzo1/ofkp
+ MWlqHPXxxbXQX5qDLwAO0prkcEtRE14GjacMZ+mRl5KdtP9iPwiU5GkuXlSxXeTrj+fu
+ G+Qx6zxL/sJEtHyPsF1nKTuhNEurAjj5RXhfbyfWRYXmdm4p7AG5uFCUVQAoPZyt1X+B
+ wlih4VuMHzbV3yK8dWnNirvkxwto4fkRiJpmQsNF2/pf2JNiWpTyA0SM3bVe7HYduyU3
+ Dk7w==
+X-Gm-Message-State: APjAAAWg9oeKscPjcQAdPdRyHYcS2sf9uk/dO3oAz6WxJtJK9RdJXLBw
+ 8WT6lfpvhEZrp6Za9mbK/nIi2r7XJBsPtW2jDI4=
+X-Google-Smtp-Source: APXvYqxQ0rPC9j2U/jPbaaP/bDv1y9+TQflRxmG+XDXwohv+nLmHusAQF2PA7ecGEs6d59JFIScunvpyDxS2IxIWxPA=
+X-Received: by 2002:a5d:8c89:: with SMTP id g9mr16096170ion.178.1581480323635; 
+ Tue, 11 Feb 2020 20:05:23 -0800 (PST)
 MIME-Version: 1.0
 References: <1580980321-19256-1-git-send-email-harigovi@codeaurora.org>
  <CAOCk7Nr9n-xLtWq=LEM-QFhJcY+QOuzazsoi-yjErA9od2Jwmw@mail.gmail.com>
@@ -49,11 +48,12 @@ References: <1580980321-19256-1-git-send-email-harigovi@codeaurora.org>
  <1d201377996e16ce25acb640867e1214@codeaurora.org>
  <CAF6AEGu8265DWN-XABwR1N-124m1j=EkgeNDEWZ16TVpSCZSZw@mail.gmail.com>
  <CAOCk7NrH6hWiHL29_DozXcXrXhkCaZ6LTCtJUrvqtXc=nQuLrg@mail.gmail.com>
-In-Reply-To: <CAOCk7NrH6hWiHL29_DozXcXrXhkCaZ6LTCtJUrvqtXc=nQuLrg@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 11 Feb 2020 16:28:45 -0800
-Message-ID: <CAF6AEGvLOWKVCjjmqranEi9TKOpMM+BPK199wQ7f=Ez491uhcA@mail.gmail.com>
-To: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
+ <CAF6AEGvLOWKVCjjmqranEi9TKOpMM+BPK199wQ7f=Ez491uhcA@mail.gmail.com>
+In-Reply-To: <CAF6AEGvLOWKVCjjmqranEi9TKOpMM+BPK199wQ7f=Ez491uhcA@mail.gmail.com>
+From: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
+Date: Tue, 11 Feb 2020 21:05:12 -0700
+Message-ID: <CAOCk7NrifMkwartV4rj_v_V4=EHeSkmb28tdBUrxoPHVSX5G5Q@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>
 Subject: Re: [Freedreno] [v1] drm/msm/dsi/pll: call vco set rate explicitly
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,111 +79,140 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Feb 11, 2020 at 7:59 AM Jeffrey Hugo <jeffrey.l.hugo@gmail.com> wrote:
+On Tue, Feb 11, 2020 at 5:28 PM Rob Clark <robdclark@gmail.com> wrote:
 >
-> On Tue, Feb 11, 2020 at 8:44 AM Rob Clark <robdclark@gmail.com> wrote:
+> On Tue, Feb 11, 2020 at 7:59 AM Jeffrey Hugo <jeffrey.l.hugo@gmail.com> wrote:
 > >
-> > On Mon, Feb 10, 2020 at 9:58 PM <harigovi@codeaurora.org> wrote:
+> > On Tue, Feb 11, 2020 at 8:44 AM Rob Clark <robdclark@gmail.com> wrote:
 > > >
-> > > On 2020-02-07 19:40, Jeffrey Hugo wrote:
-> > > > On Fri, Feb 7, 2020 at 5:38 AM <harigovi@codeaurora.org> wrote:
-> > > >>
-> > > >> On 2020-02-06 20:29, Jeffrey Hugo wrote:
-> > > >> > On Thu, Feb 6, 2020 at 2:13 AM Harigovindan P <harigovi@codeaurora.org>
-> > > >> > wrote:
-> > > >> >>
-> > > >> >> For a given byte clock, if VCO recalc value is exactly same as
-> > > >> >> vco set rate value, vco_set_rate does not get called assuming
-> > > >> >> VCO is already set to required value. But Due to GDSC toggle,
-> > > >> >> VCO values are erased in the HW. To make sure VCO is programmed
-> > > >> >> correctly, we forcefully call set_rate from vco_prepare.
-> > > >> >
-> > > >> > Is this specific to certain SoCs? I don't think I've observed this.
-> > > >>
-> > > >> As far as Qualcomm SOCs are concerned, since pll is analog and the
-> > > >> value
-> > > >> is directly read from hardware if we get recalc value same as set rate
-> > > >> value, the vco_set_rate will not be invoked. We checked in our idp
-> > > >> device which has the same SOC but it works there since the rates are
-> > > >> different.
+> > > On Mon, Feb 10, 2020 at 9:58 PM <harigovi@codeaurora.org> wrote:
 > > > >
-> > > > This doesn't seem to be an answer to my question.  What Qualcomm SoCs
-> > > > does this issue apply to?  Everything implementing the 10nm pll?  One
-> > > > specific SoC?  I don't believe I've seen this on MSM8998, nor SDM845,
-> > > > so I'm interested to know what is the actual impact here.  I don't see
-> > > > an "IDP" SoC in the IP catalog, so I really have no idea what you are
-> > > > referring to.
+> > > > On 2020-02-07 19:40, Jeffrey Hugo wrote:
+> > > > > On Fri, Feb 7, 2020 at 5:38 AM <harigovi@codeaurora.org> wrote:
+> > > > >>
+> > > > >> On 2020-02-06 20:29, Jeffrey Hugo wrote:
+> > > > >> > On Thu, Feb 6, 2020 at 2:13 AM Harigovindan P <harigovi@codeaurora.org>
+> > > > >> > wrote:
+> > > > >> >>
+> > > > >> >> For a given byte clock, if VCO recalc value is exactly same as
+> > > > >> >> vco set rate value, vco_set_rate does not get called assuming
+> > > > >> >> VCO is already set to required value. But Due to GDSC toggle,
+> > > > >> >> VCO values are erased in the HW. To make sure VCO is programmed
+> > > > >> >> correctly, we forcefully call set_rate from vco_prepare.
+> > > > >> >
+> > > > >> > Is this specific to certain SoCs? I don't think I've observed this.
+> > > > >>
+> > > > >> As far as Qualcomm SOCs are concerned, since pll is analog and the
+> > > > >> value
+> > > > >> is directly read from hardware if we get recalc value same as set rate
+> > > > >> value, the vco_set_rate will not be invoked. We checked in our idp
+> > > > >> device which has the same SOC but it works there since the rates are
+> > > > >> different.
+> > > > >
+> > > > > This doesn't seem to be an answer to my question.  What Qualcomm SoCs
+> > > > > does this issue apply to?  Everything implementing the 10nm pll?  One
+> > > > > specific SoC?  I don't believe I've seen this on MSM8998, nor SDM845,
+> > > > > so I'm interested to know what is the actual impact here.  I don't see
+> > > > > an "IDP" SoC in the IP catalog, so I really have no idea what you are
+> > > > > referring to.
+> > > >
+> > > >
+> > > > This is not 10nm specific. It is applicable for other nms also.
+> > > > Its specific to the frequency being set. If vco_recalc returns the same
+> > > > value as being set by vco_set_rate,
+> > > > vco_set_rate will not be invoked second time onwards.
+> > > >
+> > > > For example: Lets take below devices:
+> > > >
+> > > > Cheza is based on SDM845 which is 10nm only.
+> > > > Clk frequency:206016
+> > > > dsi_pll_10nm_vco_set_rate - DSI PLL0 rate=1236096000
+> > > > dsi_pll_10nm_vco_recalc_rate - DSI PLL0 returning vco rate = 1236095947
+> > > >
+> > > > Trogdor is based on sc7180 which is also 10nm.
+> > > > Clk frequency:69300
+> > > > dsi_pll_10nm_vco_set_rate - DSI PLL0 rate=1663200000
+> > > > dsi_pll_10nm_vco_recalc_rate - DSI PLL0 returning vco rate = 1663200000
+> > > >
+> > > > In same trogdor device, we slightly changed the clock frequency and the
+> > > > values actually differ which will not cause any issue.
+> > > > Clk frequency:69310
+> > > > dsi_pll_10nm_vco_set_rate - DSI PLL0 rate=1663440000
+> > > > dsi_pll_10nm_vco_recalc_rate - DSI PLL0 returning vco rate = 1663439941
 > > >
 > > >
-> > > This is not 10nm specific. It is applicable for other nms also.
-> > > Its specific to the frequency being set. If vco_recalc returns the same
-> > > value as being set by vco_set_rate,
-> > > vco_set_rate will not be invoked second time onwards.
+> > > tbh, loosing state when power is off is kind of the behavior that I'd
+> > > expect.  It kinda makes me wonder if things are not getting powered
+> > > off all the way on some SoCs?
 > > >
-> > > For example: Lets take below devices:
-> > >
-> > > Cheza is based on SDM845 which is 10nm only.
-> > > Clk frequency:206016
-> > > dsi_pll_10nm_vco_set_rate - DSI PLL0 rate=1236096000
-> > > dsi_pll_10nm_vco_recalc_rate - DSI PLL0 returning vco rate = 1236095947
-> > >
-> > > Trogdor is based on sc7180 which is also 10nm.
-> > > Clk frequency:69300
-> > > dsi_pll_10nm_vco_set_rate - DSI PLL0 rate=1663200000
-> > > dsi_pll_10nm_vco_recalc_rate - DSI PLL0 returning vco rate = 1663200000
-> > >
-> > > In same trogdor device, we slightly changed the clock frequency and the
-> > > values actually differ which will not cause any issue.
-> > > Clk frequency:69310
-> > > dsi_pll_10nm_vco_set_rate - DSI PLL0 rate=1663440000
-> > > dsi_pll_10nm_vco_recalc_rate - DSI PLL0 returning vco rate = 1663439941
+> > > jhugo, are you worried that this patch will cause problems on other
+> > > users of the 10nm pll?
 > >
+> > Essentially yes.  Conceptually it doesn't seem like this change should
+> > cause any harm, however -
 > >
-> > tbh, loosing state when power is off is kind of the behavior that I'd
-> > expect.  It kinda makes me wonder if things are not getting powered
-> > off all the way on some SoCs?
+> > This sounds like we are trying to work around the clk framework, which
+> > seems wrong.  It feels like we should be able to set a clk flag for
+> > this and make the framework deal with it.
 > >
-> > jhugo, are you worried that this patch will cause problems on other
-> > users of the 10nm pll?
+> > Also, this fix is 10nm specific, yet this issue affects all
+> > implementations?  Seems like this should perhaps be in common code so
+> > that we don't need to play whack-a-mole by fixing every implementation
+> > piecemeal.
+> >
+> > Finally, the PLLs are notorious for not taking a configuration unless
+> > they are running.  I admit, I haven't looked at this patch in detail
+> > to determine if that is the case here, but there doesn't seem to be
+> > any indication from the commit test or a comment that doing so is
+> > actually valid in all cases.
 >
-> Essentially yes.  Conceptually it doesn't seem like this change should
-> cause any harm, however -
+> I'm not obviously seeing a clk-provider flag for this.. although I
+> won't claim to be a clk expert so maybe I'm looking for the wrong
+> thing..
 >
-> This sounds like we are trying to work around the clk framework, which
-> seems wrong.  It feels like we should be able to set a clk flag for
-> this and make the framework deal with it.
+> On a more practical level, I'd kinda like to get some sort of fix for
+> v5.6, as currently suspend/resume doesn't work (or at least the
+> display does not survive) on trogdor, which is a bit annoying.  It
+> sounds a bit like cheza was just getting lucky (because of rate
+> rounding?)  I'm not sure if it is the same situation on other sdm850
+> devices (yoga c630) or sdm835 devices (are they using the 10mm pll as
+> well?).
+
+sdm835 is the first implementation of the 10nm PLL.  Pretty much
+everything after (including sdm845/850) also uses the 10nm PLL.
+
+>  I will confess to not really testing s/r on the yoga c630,
+> although maybe someone else has (Bjorn?).
 >
-> Also, this fix is 10nm specific, yet this issue affects all
-> implementations?  Seems like this should perhaps be in common code so
-> that we don't need to play whack-a-mole by fixing every implementation
-> piecemeal.
->
-> Finally, the PLLs are notorious for not taking a configuration unless
-> they are running.  I admit, I haven't looked at this patch in detail
-> to determine if that is the case here, but there doesn't seem to be
-> any indication from the commit test or a comment that doing so is
-> actually valid in all cases.
+> Possibly this should be pushed up to the clk framework, although not
+> sure if it has a good way to realize the clk provider has lost power?
+> But that sounds like a better thing for v5.7 than v5.6-rc fixes.. ofc
+> if there is a better way that I'm not seeing, I'm all ears.
 
-I'm not obviously seeing a clk-provider flag for this.. although I
-won't claim to be a clk expert so maybe I'm looking for the wrong
-thing..
+There is a suspend/resume sequence in the HPG where VCO isn't lost,
+but that assumes the GDSC isn't turned off.  If GDSC is turned off,
+then we need to go through the entire power-up sequence again.  Feels
+like this should be plumbed into runtime PM based on the
+suspend/resume usecase, but that's probably more complicated then this
+change.
 
-On a more practical level, I'd kinda like to get some sort of fix for
-v5.6, as currently suspend/resume doesn't work (or at least the
-display does not survive) on trogdor, which is a bit annoying.  It
-sounds a bit like cheza was just getting lucky (because of rate
-rounding?)  I'm not sure if it is the same situation on other sdm850
-devices (yoga c630) or sdm835 devices (are they using the 10mm pll as
-well?).  I will confess to not really testing s/r on the yoga c630,
-although maybe someone else has (Bjorn?).
+Looking at the HPG for the power up sequence, it seems like we should
+be setting the bias in the middle of the dsi_pll_commit(), so the
+order of operations is slight off, however I somewhat doubt that will
+have a meaningful impact and it does seem like this change is in line
+with the spirit of the HPG.
 
-Possibly this should be pushed up to the clk framework, although not
-sure if it has a good way to realize the clk provider has lost power?
-But that sounds like a better thing for v5.7 than v5.6-rc fixes.. ofc
-if there is a better way that I'm not seeing, I'm all ears.
+It wasn't clear to me from the commit message what usecase triggered
+this.  You've made it clear that its suspend/resume (it would be good
+if that was mentioned) and that its impacting an actual target.  To
+me, the current description seemed more theoretical and didn't
+describe the impact that was being addressed.  Overall, it really
+didn't answer the "why should I care if I have this change" question.
 
-BR,
--R
+Right now, I think my concerns are cosmetic, therefore I don't have
+reservations about it being picked up.  If you like:
+
+Reviewed-by: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
