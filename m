@@ -1,58 +1,53 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B537B15CBA4
-	for <lists+freedreno@lfdr.de>; Thu, 13 Feb 2020 21:03:59 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 207FD15CD21
+	for <lists+freedreno@lfdr.de>; Thu, 13 Feb 2020 22:20:14 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 582996E3EB;
-	Thu, 13 Feb 2020 20:03:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0BDF6F87F;
+	Thu, 13 Feb 2020 21:20:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com
- [IPv6:2607:f8b0:4864:20::1042])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E61C6E3E3;
- Thu, 13 Feb 2020 20:03:57 +0000 (UTC)
-Received: by mail-pj1-x1042.google.com with SMTP id m13so2899405pjb.2;
- Thu, 13 Feb 2020 12:03:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=UQjjHQDgj0q56YxtAxLxiwd0e2dsyqGtwVu7Hq/6ZWw=;
- b=N/k7RAPUDfZEcoyOkB0wvxfvhSGMwEJU6wxiChP5OO/yVwjVpZSN4JI1eSaUSVN8tm
- YWl7fRqn0MB9brNk7Q8MrlT3MuSh0O5S2tMwW1GuWZwUX7bLucomFKem3FwgSSZVxSUM
- 3El9OGIyK8kX91tlZixUZ644/ZIACx51O1h+vgyCKLQEvDPLFbI1o8TI6mRiLIq/ghOS
- cPkbQzKAqvAv68Ca21w/lSp3RuPJiuDzIydBeXAUD8I9EaeqO+cINsvI0ZnCC1j3wbuM
- 0b5jUyJ3Z0Kgx9pTtQVVTCJeUVhzy9Rd8AHueHSUlND7MsdoNAkvK+xuNeDdiqONsk3s
- L4GA==
+Received: from mail-io1-xd41.google.com (mail-io1-xd41.google.com
+ [IPv6:2607:f8b0:4864:20::d41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77FFA6F881
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2020 21:20:11 +0000 (UTC)
+Received: by mail-io1-xd41.google.com with SMTP id d15so8202794iog.3
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Feb 2020 13:20:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poorly.run; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=XdJ6+t4v4gVXqPsGTcbuSZf1Op16CguWcTM5QAh4j/U=;
+ b=G8gmToLcQ2GFr3Y2iihCmtCqN880870+huCEXmbYkzc4kqMgx0DFgLVf5owrVKSJdq
+ T3sspw4dUH7dRtfq9qK3Qtdzlr+Nb0VYW7gEpcEfpIt8Gd+hdNvImZiiLO8JBTuO5YSL
+ sreEu0f5mc5VYvgSHI+8Ev87E0/UEmAAPbAkPYxidgPRv004E2tMNAjyhda7MAgYCXT1
+ 2aZVYqkV9bX95wSXGhBaPQGklVhYvTs8xDjAQysaq2BiTprcXDrAzcZRPNAfTdznNcUL
+ 4fMWBQSb7pJOAG/mGsA1C0PCEItW30l/7m6RmU9E6fipvpS1pL2Aq2QkeWwu939nvHov
+ LDdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=UQjjHQDgj0q56YxtAxLxiwd0e2dsyqGtwVu7Hq/6ZWw=;
- b=Uo/rexlbyQVh7Ld5iOz2o0QQT6/OP97Y6Nl34rxaXVhYKdLO1heJjj1XwxkpVdXb8J
- cpxNRXdbjpT98MQbnQq5SrUJLUHG7gFko1ychfTpY9twdyg2vGKxLN0i0h9ZRd85+XJy
- 7hP+XBsn1eLBNU0WDKKFIrgjWi/b/T/7AmbjWxIo33ZhefzADGmYVc7J82nIye+wE+eC
- mBlNkNf7jBQc6WaAP8Fq4CiIhSa0N749KGXjcRGUbag/5VEaokpekffuy0+Ia8IUwwWf
- orHFVP7aeiaDHPIW3z5UCnUNuWqAwWgLWlB2HA4lFsc77x/Em0ldlF1F/kGNMMC/LPUj
- qxuQ==
-X-Gm-Message-State: APjAAAWetfyXWcMOoQ8LBSKzFvHOuenj1gErcF9M2wA0fWSvkt+S5cQq
- sNNoJa/qa2mLpYFZD0yn9xFNzdwF
-X-Google-Smtp-Source: APXvYqxK3k8dw4bEbots2NbHpnsfrrHqX2qUwnysFEa+wzONL/xB3/2+U19TyNmfD+4AoiDn7+9nGA==
-X-Received: by 2002:a17:90a:a88d:: with SMTP id
- h13mr6597270pjq.55.1581624236430; 
- Thu, 13 Feb 2020 12:03:56 -0800 (PST)
-Received: from localhost ([100.118.89.211])
- by smtp.gmail.com with ESMTPSA id w25sm4126396pfi.106.2020.02.13.12.03.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Feb 2020 12:03:55 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Thu, 13 Feb 2020 12:01:35 -0800
-Message-Id: <20200213200137.745029-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.24.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=XdJ6+t4v4gVXqPsGTcbuSZf1Op16CguWcTM5QAh4j/U=;
+ b=fr+fPNgo5ryixLUzH+oxODCEf2ND4ZUXBVPpkurL3Emlgr1BURBJCqCwZgINgT3xDd
+ La9pF3bnOlBnvRoUDqJC1bWLK3KiuIoDDpCbDiyL4KxysPK5rkFkwC392wkmo6W/Hv7J
+ zISw3sXDzINqPsfnxDZNMwuOGOjdcklRWiUS6zFJo3n20xH3DUSWIJ6OksVKYSAiaMKq
+ idGLRduzhKDpyc0GL8jutkgVCPZzBB0RKXA8q2xRGSUcX9sbUraYnZAMDvoSVTc4eDD3
+ wEWMiHK5IC8qIE+evTPFQMi0voPIY8CjAaJ9h24ayNzGz2E7kp/iIwfkNV+42R6KsLp8
+ VNyQ==
+X-Gm-Message-State: APjAAAWCp1sZgP0lRCJ/TywmpfbcZ925e24UV7N2SRBANuUzyupUx2Yd
+ PSbo26NX6LkgacEHimHFmGAIT0bSnnqZX4tVZhxUSg==
+X-Google-Smtp-Source: APXvYqyAYEUq6eh8DqbFibK/wL7zPASyagcfAHQ0v8tMT+756eMpAPKA3VbtFHzpcWobjF8F0ZqDqoo+BtMlz0XOUZk=
+X-Received: by 2002:a5d:8cc4:: with SMTP id k4mr21678723iot.2.1581628810752;
+ Thu, 13 Feb 2020 13:20:10 -0800 (PST)
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm/dpu: fix BGR565 vs RGB565 confusion
+References: <20200213200137.745029-1-robdclark@gmail.com>
+In-Reply-To: <20200213200137.745029-1-robdclark@gmail.com>
+From: Sean Paul <sean@poorly.run>
+Date: Thu, 13 Feb 2020 16:19:35 -0500
+Message-ID: <CAMavQK+8un0eD1X2n+ej3oViqCP1q0bLPAV=B9XqNd906MXkSA@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: fix BGR565 vs RGB565 confusion
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,57 +60,63 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, Fritz Koenig <frkoenig@google.com>,
+Cc: Rob Clark <robdclark@chromium.org>, Fritz Koenig <frkoenig@google.com>,
  David Airlie <airlied@linux.ie>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
  Nathan Huckleberry <nhuck@google.com>,
- Alexios Zavras <alexios.zavras@intel.com>, Rob Clark <robdclark@gmail.com>,
- Matthias Kaehlcke <mka@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Alexios Zavras <alexios.zavras@intel.com>,
+ Matthias Kaehlcke <mka@chromium.org>, Maxime Ripard <mripard@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Sean Paul <sean@poorly.run>
+ Thomas Gleixner <tglx@linutronix.de>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On Thu, Feb 13, 2020 at 3:03 PM Rob Clark <robdclark@gmail.com> wrote:
+>
+> From: Rob Clark <robdclark@chromium.org>
+>
+> The component order between the two was swapped, resulting in incorrect
+> color when games with 565 visual hit the overlay path instead of GPU
+> composition.
+>
+> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
 
-The component order between the two was swapped, resulting in incorrect
-color when games with 565 visual hit the overlay path instead of GPU
-composition.
+Reviewed-by: Sean Paul <seanpaul@chromium.org>
 
-Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-index 24ab6249083a..6f420cc73dbd 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-@@ -255,13 +255,13 @@ static const struct dpu_format dpu_format_map[] = {
- 
- 	INTERLEAVED_RGB_FMT(RGB565,
- 		0, COLOR_5BIT, COLOR_6BIT, COLOR_5BIT,
--		C2_R_Cr, C0_G_Y, C1_B_Cb, 0, 3,
-+		C1_B_Cb, C0_G_Y, C2_R_Cr, 0, 3,
- 		false, 2, 0,
- 		DPU_FETCH_LINEAR, 1),
- 
- 	INTERLEAVED_RGB_FMT(BGR565,
- 		0, COLOR_5BIT, COLOR_6BIT, COLOR_5BIT,
--		C1_B_Cb, C0_G_Y, C2_R_Cr, 0, 3,
-+		C2_R_Cr, C0_G_Y, C1_B_Cb, 0, 3,
- 		false, 2, 0,
- 		DPU_FETCH_LINEAR, 1),
- 
--- 
-2.24.1
-
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
+> index 24ab6249083a..6f420cc73dbd 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
+> @@ -255,13 +255,13 @@ static const struct dpu_format dpu_format_map[] = {
+>
+>         INTERLEAVED_RGB_FMT(RGB565,
+>                 0, COLOR_5BIT, COLOR_6BIT, COLOR_5BIT,
+> -               C2_R_Cr, C0_G_Y, C1_B_Cb, 0, 3,
+> +               C1_B_Cb, C0_G_Y, C2_R_Cr, 0, 3,
+>                 false, 2, 0,
+>                 DPU_FETCH_LINEAR, 1),
+>
+>         INTERLEAVED_RGB_FMT(BGR565,
+>                 0, COLOR_5BIT, COLOR_6BIT, COLOR_5BIT,
+> -               C1_B_Cb, C0_G_Y, C2_R_Cr, 0, 3,
+> +               C2_R_Cr, C0_G_Y, C1_B_Cb, 0, 3,
+>                 false, 2, 0,
+>                 DPU_FETCH_LINEAR, 1),
+>
+> --
+> 2.24.1
+>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
