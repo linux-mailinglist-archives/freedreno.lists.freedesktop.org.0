@@ -1,43 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9106615DE05
-	for <lists+freedreno@lfdr.de>; Fri, 14 Feb 2020 17:02:36 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DC1F15F519
+	for <lists+freedreno@lfdr.de>; Fri, 14 Feb 2020 19:37:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3559A6FA1F;
-	Fri, 14 Feb 2020 16:02:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BC286FB88;
+	Fri, 14 Feb 2020 18:37:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 327406FA1D;
- Fri, 14 Feb 2020 16:02:33 +0000 (UTC)
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
- [73.47.72.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 44D9A2082F;
- Fri, 14 Feb 2020 16:02:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581696153;
- bh=di8khRlYDSskFUMn8Lp9Smww22MVmawjUEsgEdLehbA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=jdX3dxc89NrVwkfbaLvBMU6bGI5/v/p/PGRMQeS/QzwDDaS/av8oCW7b/BAvYHQMR
- zJCYKxG/SnO3JvpwGEcvtG8Zfxe6wbnxGZAGdajvypcFaVFxAW3wR74u6tY80rY4VZ
- LrGEHSKGP2Bfs6UQ/KQLiI4tM/kkoVTb2l5sHvLA=
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Fri, 14 Feb 2020 10:54:42 -0500
-Message-Id: <20200214160149.11681-32-sashal@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200214160149.11681-1-sashal@kernel.org>
-References: <20200214160149.11681-1-sashal@kernel.org>
-MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Subject: [Freedreno] [PATCH AUTOSEL 5.4 032/459] drm/msm/adreno: fix zap vs
- no-zap handling
+Received: from mail27.static.mailgun.info (mail27.static.mailgun.info
+ [104.130.122.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 102B76FB85
+ for <freedreno@lists.freedesktop.org>; Fri, 14 Feb 2020 18:36:59 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1581705421; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=Lve/8NkQ1+pW/USqTTKmFAidSUSOjj1HUCuP/rW4dNg=;
+ b=ppVgsScurk+wKIFhV6qqP5d4rx6+xxAEwAqT2eync5a+RqK7hCtYVl5Orp8TM/mu1w/mZId8
+ wLkgATbmR1nFLiuZrSEjVtMs0/NBkadarj5b1R6e2PtvJb5rA7Web7YSnE49l+QE7dCflKJy
+ YKugiP37f/qq9oO21TQnnvhba7c=
+X-Mailgun-Sending-Ip: 104.130.122.27
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5e46e8c6.7f0c65b508f0-smtp-out-n01;
+ Fri, 14 Feb 2020 18:36:54 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id EC391C447A4; Fri, 14 Feb 2020 18:36:53 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id D597FC4479C;
+ Fri, 14 Feb 2020 18:36:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org D597FC4479C
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=jcrouse@codeaurora.org
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: linux-arm-msm@vger.kernel.org
+Date: Fri, 14 Feb 2020 11:36:44 -0700
+Message-Id: <1581705404-5124-1-git-send-email-jcrouse@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH] drm/msm/a5xx: Always set an OPP supported
+ hardware value
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,95 +63,78 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Sasha Levin <sashal@kernel.org>,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org
+Cc: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, David Airlie <airlied@linux.ie>,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Eric Anholt <eric@anholt.net>,
+ Rob Clark <robdclark@gmail.com>, Ben Dooks <ben.dooks@codethink.co.uk>,
+ Daniel Vetter <daniel@ffwll.ch>, Thomas Gleixner <tglx@linutronix.de>,
+ AngeloGioacchino Del Regno <kholk11@gmail.com>, Sean Paul <sean@poorly.run>,
+ Wen Yang <wen.yang99@zte.com.cn>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+If the opp table specifies opp-supported-hw as a property but the driver
+has not set a supported hardware value the OPP subsystem will reject
+all the table entries.
 
-[ Upstream commit 15ab987c423df561e0949d77fb5043921ae59956 ]
+Set a "default" value that will match the default table entries but not
+conflict with any possible real bin values. Also fix a small memory leak
+and free the buffer allocated by nvmem_cell_read().
 
-We can have two cases, when it comes to "zap" fw.  Either the fw
-requires zap fw to take the GPU out of secure mode at boot, or it does
-not and we can write RBBM_SECVID_TRUST_CNTL directly.  Previously we
-decided based on whether zap fw load succeeded, but this is not a great
-plan because:
-
-1) we could have zap fw in the filesystem on a device where it is not
-   required
-2) we could have the inverse case
-
-Instead, shift to deciding based on whether we have a 'zap-shader' node
-in dt.  In practice, there is only one device (currently) with upstream
-dt that does not use zap (cheza), and it already has a /delete-node/ for
-the zap-shader node.
-
-Fixes: abccb9fe3267 ("drm/msm/a6xx: Add zap shader load")
-Signed-off-by: Rob Clark <robdclark@chromium.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
 ---
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c | 11 +++++++++--
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 11 +++++++++--
- 2 files changed, 18 insertions(+), 4 deletions(-)
+
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c | 27 ++++++++++++++++++++-------
+ 1 file changed, 20 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index e9c55d1d6c044..99cd6e62a9715 100644
+index 7d9e63e..724024a 100644
 --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -726,11 +726,18 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
- 		gpu->funcs->flush(gpu, gpu->rb[0]);
- 		if (!a5xx_idle(gpu, gpu->rb[0]))
- 			return -EINVAL;
--	} else {
--		/* Print a warning so if we die, we know why */
-+	} else if (ret == -ENODEV) {
-+		/*
-+		 * This device does not use zap shader (but print a warning
-+		 * just in case someone got their dt wrong.. hopefully they
-+		 * have a debug UART to realize the error of their ways...
-+		 * if you mess this up you are about to crash horribly)
-+		 */
- 		dev_warn_once(gpu->dev->dev,
- 			"Zap shader not enabled - using SECVID_TRUST_CNTL instead\n");
- 		gpu_write(gpu, REG_A5XX_RBBM_SECVID_TRUST_CNTL, 0x0);
-+	} else {
-+		return ret;
- 	}
+@@ -1446,18 +1446,31 @@ static const struct adreno_gpu_funcs funcs = {
+ static void check_speed_bin(struct device *dev)
+ {
+ 	struct nvmem_cell *cell;
+-	u32 bin, val;
++	u32 val;
++
++	/*
++	 * If the OPP table specifies a opp-supported-hw property then we have
++	 * to set something with dev_pm_opp_set_supported_hw() or the table
++	 * doesn't get populated so pick an arbitrary value that should
++	 * ensure the default frequencies are selected but not conflict with any
++	 * actual bins
++	 */
++	val = 0x80;
  
- 	/* Last step - yield the ringbuffer */
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index dc8ec2c94301b..686c34d706b0d 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -537,12 +537,19 @@ static int a6xx_hw_init(struct msm_gpu *gpu)
- 		a6xx_flush(gpu, gpu->rb[0]);
- 		if (!a6xx_idle(gpu, gpu->rb[0]))
- 			return -EINVAL;
--	} else {
--		/* Print a warning so if we die, we know why */
-+	} else if (ret == -ENODEV) {
-+		/*
-+		 * This device does not use zap shader (but print a warning
-+		 * just in case someone got their dt wrong.. hopefully they
-+		 * have a debug UART to realize the error of their ways...
-+		 * if you mess this up you are about to crash horribly)
-+		 */
- 		dev_warn_once(gpu->dev->dev,
- 			"Zap shader not enabled - using SECVID_TRUST_CNTL instead\n");
- 		gpu_write(gpu, REG_A6XX_RBBM_SECVID_TRUST_CNTL, 0x0);
- 		ret = 0;
-+	} else {
-+		return ret;
- 	}
+ 	cell = nvmem_cell_get(dev, "speed_bin");
  
- out:
+-	/* If a nvmem cell isn't defined, nothing to do */
+-	if (IS_ERR(cell))
+-		return;
++	if (!IS_ERR(cell)) {
++		void *buf = nvmem_cell_read(cell, NULL);
++
++		if (!IS_ERR(buf)) {
++			u8 bin = *((u8 *) buf);
+ 
+-	bin = *((u32 *) nvmem_cell_read(cell, NULL));
+-	nvmem_cell_put(cell);
++			val = (1 << bin);
++			kfree(buf);
++		}
+ 
+-	val = (1 << bin);
++		nvmem_cell_put(cell);
++	}
+ 
+ 	dev_pm_opp_set_supported_hw(dev, &val, 1);
+ }
 -- 
-2.20.1
-
+2.7.4
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
