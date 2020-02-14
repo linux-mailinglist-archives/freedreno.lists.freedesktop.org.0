@@ -2,41 +2,41 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02A1715DB8C
-	for <lists+freedreno@lfdr.de>; Fri, 14 Feb 2020 16:49:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9106615DE05
+	for <lists+freedreno@lfdr.de>; Fri, 14 Feb 2020 17:02:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CA216F97E;
-	Fri, 14 Feb 2020 15:49:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3559A6FA1F;
+	Fri, 14 Feb 2020 16:02:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C097D6F974;
- Fri, 14 Feb 2020 15:49:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 327406FA1D;
+ Fri, 14 Feb 2020 16:02:33 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D3EC4217F4;
- Fri, 14 Feb 2020 15:49:42 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 44D9A2082F;
+ Fri, 14 Feb 2020 16:02:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581695383;
- bh=gqwbBlP1p3HZ52B2xdObmey5c3N+SJaIq90toCEc2bU=;
+ s=default; t=1581696153;
+ bh=di8khRlYDSskFUMn8Lp9Smww22MVmawjUEsgEdLehbA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=tQL//zh0odw0nxd5sz9jATzNV8UuB9b1INxlYJOmk2Dd02JaajR6ymGPdQkBCNWkX
- NcG3XwrgwqLgi6t6rKlRmxVW7cX5jEg0x+Y+p2vQt+P0Rq3QOcUEy2YVsCURrWpLHi
- fEUkH/qV8XriUfqSSy16HpjIsbE3u5HON6fdZwk8=
+ b=jdX3dxc89NrVwkfbaLvBMU6bGI5/v/p/PGRMQeS/QzwDDaS/av8oCW7b/BAvYHQMR
+ zJCYKxG/SnO3JvpwGEcvtG8Zfxe6wbnxGZAGdajvypcFaVFxAW3wR74u6tY80rY4VZ
+ LrGEHSKGP2Bfs6UQ/KQLiI4tM/kkoVTb2l5sHvLA=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri, 14 Feb 2020 10:40:30 -0500
-Message-Id: <20200214154854.6746-38-sashal@kernel.org>
+Date: Fri, 14 Feb 2020 10:54:42 -0500
+Message-Id: <20200214160149.11681-32-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200214154854.6746-1-sashal@kernel.org>
-References: <20200214154854.6746-1-sashal@kernel.org>
+In-Reply-To: <20200214160149.11681-1-sashal@kernel.org>
+References: <20200214160149.11681-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Subject: [Freedreno] [PATCH AUTOSEL 5.5 038/542] drm/msm/adreno: fix zap vs
+Subject: [Freedreno] [PATCH AUTOSEL 5.4 032/459] drm/msm/adreno: fix zap vs
  no-zap handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,10 +86,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  2 files changed, 18 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index b02e2042547f6..7d9e63e20dedd 100644
+index e9c55d1d6c044..99cd6e62a9715 100644
 --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -753,11 +753,18 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
+@@ -726,11 +726,18 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
  		gpu->funcs->flush(gpu, gpu->rb[0]);
  		if (!a5xx_idle(gpu, gpu->rb[0]))
  			return -EINVAL;
