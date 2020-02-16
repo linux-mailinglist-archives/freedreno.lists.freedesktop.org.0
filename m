@@ -1,59 +1,51 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7D0915F617
-	for <lists+freedreno@lfdr.de>; Fri, 14 Feb 2020 19:49:42 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C42F1605A6
+	for <lists+freedreno@lfdr.de>; Sun, 16 Feb 2020 19:59:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 383AD6FB89;
-	Fri, 14 Feb 2020 18:49:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D2206E064;
+	Sun, 16 Feb 2020 18:59:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com
- [IPv6:2607:f8b0:4864:20::1042])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 133E06FB90
- for <freedreno@lists.freedesktop.org>; Fri, 14 Feb 2020 18:49:40 +0000 (UTC)
-Received: by mail-pj1-x1042.google.com with SMTP id j17so4287129pjz.3
- for <freedreno@lists.freedesktop.org>; Fri, 14 Feb 2020 10:49:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=Z9X+mnbPdiAT3gi0kBtvocX45hqfGLXwGRWm7XiWrUQ=;
- b=fiI9CoPovHs74fmaFmlOCZw+PBp/qyX6P9JdrzpnP5akcLRhqwvvQHZCkXeNg27/P9
- B0OGzoMmcNxWD9DcINrkF7JnQM4nNUjE/5vVWFOQskW4tj4YgXhlcvetn50Uw0hx+GBL
- mdFjE0+85VM45BpsczLNE11gS4Gl5UCjOmCAY=
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E68406E064;
+ Sun, 16 Feb 2020 18:58:59 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id j17so18003751edp.3;
+ Sun, 16 Feb 2020 10:58:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=TpSnAm25wPH3VK0kJpyji9KLpcsDX0bDNOrEow0wYDU=;
+ b=XnZuw9VL9yN1jLsAx6YdGK2KohRde5WRWCFPYbCRcnpz3Hax8NrMNebQ0lYwn9E+7z
+ rsiNm3xPCjqwZWDDWetG/IFB1MWkU6CZWvwb4S3RzYfHCcBS5K8bB5+MmMSkpBQ13AsL
+ wssgh9SbwPNL/dC0KgAo7cEOWFq2GKMlqJCcfuEqCcs3DWKa/3dWbPZl5GNoUANh97cN
+ 0z6t1wZYjV/lRRDvF05arfMlwc74YZPvukdLtdNL80ISzFyxvWMfSlwn9yl1nwx4zBmv
+ e54ow2c8uLDPXu/wTd62NO6fCJJ0l+SbgL8HNMLUEI14g2urF3Vz0AMgtwvicHQy26j+
+ L/NA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=Z9X+mnbPdiAT3gi0kBtvocX45hqfGLXwGRWm7XiWrUQ=;
- b=AHAWVUW6+5AslaGJ03PaozyPSxoyObaIbkIEDgYySQVPT9J/P1WxXh98IgXcPZYrRu
- Gcu3/6HVIa+MlIIRU0jxTRhQae1kNo4rbOpU5sS3DL8xnql/0UkgdoM2+JJJcqqUw2hK
- WguCcjwaP0vUq0jVjSCU3lNcyXAnm74lX+RPzVRRwHvTcEi/z+Ekks3L2k2MChp1gXjt
- lWBlorfl+S/tOPxQF498uTG8g3q7lO4n+2raXznsovHzE16AkCBHQikSIaUMdDOXGNtd
- vj72TFRVr00k+rhv235f5oz2mSMBwFG2+WDmJ7wE69Ec3G9NiJmxdAvVSb0dxBSrJTcJ
- J0JQ==
-X-Gm-Message-State: APjAAAX3I0FOCMH7HNnOfrzpdgC3Hw12KDL2BPvemry636rR3hnY0EW+
- hT0TCJCR8ifeZ86xyTHFvsWE+g==
-X-Google-Smtp-Source: APXvYqynq99jlrl1qDm8z7d+FI9VC6ZSrWYeVFxihmLzWem1+jdU3ObIhzmt20oiM2H6je9jvHluKg==
-X-Received: by 2002:a17:902:6ac2:: with SMTP id
- i2mr4611111plt.221.1581706179645; 
- Fri, 14 Feb 2020 10:49:39 -0800 (PST)
-Received: from localhost ([2620:15c:202:1:4fff:7a6b:a335:8fde])
- by smtp.gmail.com with ESMTPSA id h3sm7530961pfo.102.2020.02.14.10.49.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Feb 2020 10:49:38 -0800 (PST)
-Date: Fri, 14 Feb 2020 10:49:37 -0800
-From: Matthias Kaehlcke <mka@chromium.org>
-To: Harigovindan P <harigovi@codeaurora.org>
-Message-ID: <20200214184937.GA15781@google.com>
-References: <20200211113735.6840-1-harigovi@codeaurora.org>
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=TpSnAm25wPH3VK0kJpyji9KLpcsDX0bDNOrEow0wYDU=;
+ b=i6bCIb6SmYPl0Q0asSWA1y5ZVxSyMxYNqhOk5PUjT+xjj7ZLXF/shSdItUMrVqKh8F
+ jqZmCAYGr2meT4yFuRZLL8mllVk3I0Q3DKD2qTsz/6ssTgf1u4sOEtwtDk9n8VWd822P
+ hNQQtlXNp8Bxnp6Ig0GOwuimxf4u9OSJhXnA68snEssdUyHvTcgIJGmNbvz+okPi5lzI
+ geELfi08bUNQIx/ZR6JNHmycT9Qr09iDe78aRgmV7A3Gqyz76mNih6cc54uXSpoPPjVk
+ UfFd/sp+uIxr7eCasn3xwkGIn8U274dkofGIUMHp1HTcJ0zfMG4hJdYCCsKQiSz+Blgt
+ Sxkw==
+X-Gm-Message-State: APjAAAU6E0nbhPRWZnq59cE3vScErD9dx3QawuczkVPi3mJmwB6BKEJX
+ iZN12pwMZUbEJwAapKR7QLSAbdkeVxAHe3b0hIk=
+X-Google-Smtp-Source: APXvYqz4RNqAGJljIzya51CavkeE9kiK2ePBXoWIbclr9Eu1ewnwe7TGrR0E86C6CgQXn1SdrKQdTCu70fouurNH4lY=
+X-Received: by 2002:a17:906:19d8:: with SMTP id
+ h24mr11500861ejd.166.1581879538251; 
+ Sun, 16 Feb 2020 10:58:58 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200211113735.6840-1-harigovi@codeaurora.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [v2] arm64: dts: sc7180: add dsi controller and phy
- entries for idp dts
+From: Rob Clark <robdclark@gmail.com>
+Date: Sun, 16 Feb 2020 10:58:48 -0800
+Message-ID: <CAF6AEGshz5K3tJd=NsBSHq6HGT-ZRa67qt+iN=U2ZFO2oD8kuw@mail.gmail.com>
+To: Dave Airlie <airlied@gmail.com>
+Subject: [Freedreno] [pull] drm/msm: msm-fixes-v5.6-rc2
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,156 +58,77 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
- kalyan_t@codeaurora.org, hoegsberg@chromium.org,
- freedreno@lists.freedesktop.org
+Cc: Sean Paul <sean@poorly.run>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Feb 11, 2020 at 05:07:35PM +0530, Harigovindan P wrote:
+Hi Dave,
 
-> subject: arm64: dts: sc7180: add dsi controller and phy entries for idp dts
+Got a few more fixes this time around, so decided to send a dedicated
+-fixes PR rather than try to route these all through -misc like we do
+when there are only a couple misc fixes.  It mostly boils down to
+fixing fallout from new hw enablement (sc7180):
 
-nit: 'dts' at the end is redundant, the prefixes make it clear that this
-is about DT entries.
++ fix UBWC on GPU and display side for sc7180
++ fix DSI suspend/resume issue encountered on sc7180
++ fix some breakage on so called "linux-android" devices
+  (fallout from sc7180/a618 support, not seen earlier
+  due to bootloader/firmware differences)
++ couple other misc fixes
 
-Also the message isn't really concise. The main entries for the DSI
-controller and the PHY are in sc7180.dtsi. I would suggest to drop
-any mentions of DSI controller and PHYs, and just say something like
-'Add nodes for IDP display'. In the body you could mention that the
-display is the Visionox RM69299.
 
-> Adding dsi controller and phy entries for idp dt.
-> 
-> Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
-> ---
-> 
-> Changes in v1:
-> 	- Added dsi controller and dsi phy entries for idp dts
+The following changes since commit bb6d3fb354c5ee8d6bde2d576eb7220ea09862b9:
 
-Changes in v1 is pointless, it's the first patch
+  Linux 5.6-rc1 (2020-02-09 16:08:48 -0800)
 
-> Changes in v2:
-> 	- Adding dependency patchwork series
-> 	- Removing suspend configuration
-> 	- Adding blank before curly brace
-> 
-> This patch depends on following patchwork series:
-> 
-> https://patchwork.kernel.org/patch/11364687/
-> https://patchwork.kernel.org/patch/11366303/
-> 
->  arch/arm64/boot/dts/qcom/sc7180-idp.dts | 55 +++++++++++++++++++++++++
->  1 file changed, 55 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sc7180-idp.dts b/arch/arm64/boot/dts/qcom/sc7180-idp.dts
-> index 388f50ad4fde..6ccf8c3603ab 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7180-idp.dts
-> +++ b/arch/arm64/boot/dts/qcom/sc7180-idp.dts
-> @@ -7,6 +7,7 @@
->  
->  /dts-v1/;
->  
-> +#include <dt-bindings/gpio/gpio.h>
->  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
->  #include "sc7180.dtsi"
->  #include "pm6150.dtsi"
-> @@ -232,6 +233,49 @@ vreg_bob: bob {
->  	};
->  };
->  
-> +&dsi0 {
-> +	status = "okay";
-> +
-> +	vdda-supply = <&vreg_l3c_1p2>;
-> +
-> +	panel@0 {
-> +		compatible = "visionox,rm69299-1080p-display";
-> +		reg = <0>;
-> +
-> +		vdda-supply = <&vreg_l8c_1p8>;
-> +		vdd3p3-supply = <&vreg_l18a_2p8>;
-> +
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&disp_pins>;
-> +
-> +		reset-gpios = <&pm6150l_gpio 3 GPIO_ACTIVE_HIGH>;
-> +
-> +		ports {
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +			port@0 {
-> +				reg = <0>;
-> +				panel0_in: endpoint {
-> +					remote-endpoint = <&dsi0_out>;
-> +				};
-> +			};
-> +		};
-> +	};
-> +
-> +	ports {
-> +		port@1 {
-> +			endpoint {
-> +				remote-endpoint = <&panel0_in>;
-> +				data-lanes = <0 1 2 3>;
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&dsi_phy {
-> +	status = "okay";
-> +};
-> +
->  &qspi {
->  	status = "okay";
->  	pinctrl-names = "default";
-> @@ -289,6 +333,17 @@ &usb_1_qmpphy {
->  
->  /* PINCTRL - additions to nodes defined in sc7180.dtsi */
->  
-> +&pm6150l_gpio {
-> +	disp_pins: disp-pins {
-> +		pins = "gpio3";
-> +		function = "func1";
-> +		qcom,drive-strength = <2>;
-> +		power-source = <0>;
-> +		bias-disable;
-> +		output-low;
-> +	};
-> +};
-> +
->  &qspi_clk {
->  	pinconf {
->  		pins = "gpio63";
+are available in the Git repository at:
 
-To get the display actually to work you also need this:
+  https://gitlab.freedesktop.org/drm/msm.git drm-msm-fixes-2020-02-16
 
-diff --git a/arch/arm64/boot/dts/qcom/sc7180-idp.dts b/arch/arm64/boot/dts/qcom/sc7180-idp.dts
-index 88919da1510b03..fdbcb56dfa81f9 100644
---- a/arch/arm64/boot/dts/qcom/sc7180-idp.dts
-+++ b/arch/arm64/boot/dts/qcom/sc7180-idp.dts
-@@ -276,6 +276,14 @@
-        status = "okay";
- };
+for you to fetch changes up to 8fc7036ee652207ca992fbb9abb64090c355a9e0:
 
-+&mdp {
-+       status = "okay";
-+};
-+
-+&mdss {
-+       status = "okay";
-+};
-+
- &qspi {
-        status = "okay";
-        pinctrl-names = "default";
+  drm/msm/dpu: fix BGR565 vs RGB565 confusion (2020-02-13 13:54:12 -0800)
 
-Maybe just add this to this patch?
+----------------------------------------------------------------
+Akhil P Oommen (1):
+      drm/msm/a6xx: Correct the highestbank configuration
+
+Brian Masney (1):
+      drm/msm/mdp5: rate limit pp done timeout warnings
+
+Harigovindan P (2):
+      drm/msm/dsi: save pll state before dsi host is powered off
+      drm/msm/dsi/pll: call vco set rate explicitly
+
+John Stultz (1):
+      drm: msm: Fix return type of dsi_mgr_connector_mode_valid for kCFI
+
+Jordan Crouse (3):
+      drm/msm/a6xx: Remove unneeded GBIF unhalt
+      drm/msm/a6xx: Update the GMU bus tables for sc7180
+      drm/msm: Fix a6xx GMU shutdown sequence
+
+Kalyan Thota (1):
+      msm:disp:dpu1: add UBWC support for display on SC7180
+
+Rob Clark (1):
+      drm/msm/dpu: fix BGR565 vs RGB565 confusion
+
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c       | 37 +++++++++++--
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c       | 65 ++--------------------
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.c       | 85 ++++++++++++++++++++---------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c |  4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c    | 58 +++++++++++++++++++-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c   |  4 +-
+ drivers/gpu/drm/msm/dsi/dsi_manager.c       |  7 ++-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c       |  4 --
+ drivers/gpu/drm/msm/dsi/pll/dsi_pll_10nm.c  |  6 ++
+ 9 files changed, 170 insertions(+), 100 deletions(-)
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
