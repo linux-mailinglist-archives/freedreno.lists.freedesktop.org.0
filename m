@@ -1,58 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C4761633B6
-	for <lists+freedreno@lfdr.de>; Tue, 18 Feb 2020 22:02:50 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D11E1634C0
+	for <lists+freedreno@lfdr.de>; Tue, 18 Feb 2020 22:22:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B25796EA86;
-	Tue, 18 Feb 2020 21:02:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 615F36EA91;
+	Tue, 18 Feb 2020 21:22:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
- [IPv6:2607:f8b0:4864:20::642])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1354A6EA86;
- Tue, 18 Feb 2020 21:02:47 +0000 (UTC)
-Received: by mail-pl1-x642.google.com with SMTP id d9so8564700plo.11;
- Tue, 18 Feb 2020 13:02:46 -0800 (PST)
+Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
+ [IPv6:2607:f8b0:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74FD96E400;
+ Tue, 18 Feb 2020 21:22:26 +0000 (UTC)
+Received: by mail-pf1-x444.google.com with SMTP id i6so11312464pfc.1;
+ Tue, 18 Feb 2020 13:22:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=DX0d2fwy150Oxn2ueh8crPmbORULTUPrpK6kQzqonD4=;
- b=IqW2leGHHi3LHUpLpxvIlPeA+jlREzFt6Lxa/7yLlAeviAl+ufoEQmcpu6LDBSE70A
- TaVP5DNUawV0W7v8nUuGPMiBfQ/pOoHzOrsG1fzPAQ89YGINUO9069cKpuOM6wljAMfl
- CGknWlktXpy+R3AqaUQuvcOLVaB9dxfWIsdBCqltxhQDggFLotDpA9jYDTOhK09cL1TN
- ldqho9+4XLsPa0xbFHt0+Wsw3VCtRzfW0v+5G08sfB2Hl4v4RvxX2SZc5edQ3HYSDakO
- 5byJgwku+2riUAzcXKo12lL9ED/DWStdv+S7p6pMNAgtFZSmTXYYJ0nYCqDZOZcvNRsw
- Kl6w==
+ bh=1yORocRN6bN/DWLSCc3LMaJhbwacp2HLNmosyK8PhXY=;
+ b=RDJ1RD/xDrXbznWXW43BryMq6Jz3QBb4fUTMsoLkBcTVJ6bh10hb5sTHYyI+zplASW
+ 82HKX1xkUVNQrjo72x4Bzq5+KEcwcxIWOzUZ9GFTFp/xG4LkBT4lns9Vl5sE+bz9syny
+ 9hCkQHsF8CaXVktqS7qz56ZDsZ0U5wpGq/jAFoTeBpZQIq0bNn3JXEIydvuOrNKWOtXe
+ nTs7JMSJGU22cVYQcFvUDFeQwPOGT304v37TSyyzKKx4tX8nCDY+Pg6+571zBZlof9M2
+ muX7Uz4vvVbovnYY6oDkycCZ92CCDxqCXf9Ekv+pGG2qfdtr7jqjpoGrGqwU/EosZHCX
+ ju1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=DX0d2fwy150Oxn2ueh8crPmbORULTUPrpK6kQzqonD4=;
- b=hlASVHc+SoUQDw14ZGMZeNpYMswJKrSSdgNLPUn+y5gmYLUQxAZYrDNgLquU26tYr+
- KEeTizPSFmOb9wYMBWdVCP55uiCzKAng22cfOAYj5no64RU3Dd+bBuVumgQffbJU77s1
- ftNatKVW4BBZz83HHvxMp3GOf2QDqXqyO7fhiVVMSP9a2rXPQf29kMqik24a1ru8zhnd
- T+mEQNQfElejQvRz856PfailivTvQA0mdKFlyKSOZKSiAY7n2bJsA2w1xcncUG7/fYhp
- wlGGDPejE+KKkvnn0do4EH+aOSAFacE1ZlDUhVgAGbi1lR2uj3dhR1KviwkhmHrfLeeH
- FCyw==
-X-Gm-Message-State: APjAAAX0tb63Y3FFTIEC5aBWsElLbNrsyouvxnW4TEp9ATHH1UaXJuY5
- NsvGMcqADumXTVH4jPqRtRv2Cpv8
-X-Google-Smtp-Source: APXvYqwue7exCr+5C0zzAWXFn99tXZVUV+OlMvWLfTE4f5M3BY4CD19tzbkBbBy8OO5MYaKzHi8F3A==
-X-Received: by 2002:a17:90a:c705:: with SMTP id
- o5mr4833444pjt.67.1582059766099; 
- Tue, 18 Feb 2020 13:02:46 -0800 (PST)
+ bh=1yORocRN6bN/DWLSCc3LMaJhbwacp2HLNmosyK8PhXY=;
+ b=LGqvVy+PYt8Cg1xLz7aGMcS0hUKZ0zgT4dJs/6Y9DSNVLPpRYTs2F4QoW8JhhiUqTj
+ tBhf+tDBwGLeiqjGj+XDh65WeX3lhpBCCwwxqnNQB8lpzzLuUs5LojMp/rO72EBWDdrN
+ 7NZuybiY7ADJtMELEJRj56S2go3vRgzcenTZVzZVuOV58gzin2GKOt7dc0s6f74s5kJk
+ u3wW6JwMih7Q96LOtcTH0rIuhAvPJDuYnuLCbhUtvr1jFCyQf+rS8KUH336IieGMCKDI
+ Tv0uqlD0EVSWpWSE7J+N6TCPx5vE3j/I2Y6m+fDVIdALACgEAU/DgnOkm2Q52lHGYG3l
+ 3KVg==
+X-Gm-Message-State: APjAAAX+lvzgGBJXYp0ml5ayE9+oP1rl8zLJBn6eyhVinF3AqM8Ef4De
+ 2xW4lGe5nAalHKdQgCbl1szhCOJA
+X-Google-Smtp-Source: APXvYqwMxph8WfZwy4jJ8Hm+oyFMnedPlyeKBoA1heO5RDIjj7W+U0YW42+WmDKbc9ER8CnrdZtVtg==
+X-Received: by 2002:a63:e509:: with SMTP id r9mr26127011pgh.274.1582060945518; 
+ Tue, 18 Feb 2020 13:22:25 -0800 (PST)
 Received: from localhost ([100.118.89.211])
- by smtp.gmail.com with ESMTPSA id u12sm5431970pgr.3.2020.02.18.13.02.45
+ by smtp.gmail.com with ESMTPSA id c19sm5356081pfc.144.2020.02.18.13.22.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Feb 2020 13:02:45 -0800 (PST)
+ Tue, 18 Feb 2020 13:22:24 -0800 (PST)
 From: Rob Clark <robdclark@gmail.com>
 To: dri-devel@lists.freedesktop.org
-Date: Tue, 18 Feb 2020 13:00:21 -0800
-Message-Id: <20200218210021.1066100-1-robdclark@gmail.com>
+Date: Tue, 18 Feb 2020 13:20:12 -0800
+Message-Id: <20200218212012.1067236-1-robdclark@gmail.com>
 X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm: devcoredump should dump
+Subject: [Freedreno] [PATCH v2] drm/msm: devcoredump should dump
  MSM_SUBMIT_BO_DUMP buffers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,6 +84,8 @@ cmdstream in crashdump state with modern mesa.
 Otherwise we miss out on the contents of "state object" cmdstream
 buffers.
 
+v2: add missing 'inline'
+
 Signed-off-by: Rob Clark <robdclark@chromium.org>
 ---
  drivers/gpu/drm/msm/msm_gem.h | 10 ++++++++++
@@ -93,7 +94,7 @@ Signed-off-by: Rob Clark <robdclark@chromium.org>
  3 files changed, 34 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-index 9e0953c2b7ce..22b4ccd7bb28 100644
+index 9e0953c2b7ce..dcee0e223ed8 100644
 --- a/drivers/gpu/drm/msm/msm_gem.h
 +++ b/drivers/gpu/drm/msm/msm_gem.h
 @@ -160,4 +160,14 @@ struct msm_gem_submit {
@@ -103,7 +104,7 @@ index 9e0953c2b7ce..22b4ccd7bb28 100644
 +/* helper to determine of a buffer in submit should be dumped, used for both
 + * devcoredump and debugfs cmdstream dumping:
 + */
-+static bool
++static inline bool
 +should_dump(struct msm_gem_submit *submit, int idx)
 +{
 +	extern bool rd_full;
