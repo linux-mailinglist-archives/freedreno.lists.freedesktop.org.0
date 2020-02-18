@@ -1,63 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 744E2161044
-	for <lists+freedreno@lfdr.de>; Mon, 17 Feb 2020 11:42:11 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C4761633B6
+	for <lists+freedreno@lfdr.de>; Tue, 18 Feb 2020 22:02:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 210B16E912;
-	Mon, 17 Feb 2020 10:42:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B25796EA86;
+	Tue, 18 Feb 2020 21:02:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
- [104.130.122.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46A5F6E912
- for <freedreno@lists.freedesktop.org>; Mon, 17 Feb 2020 10:42:08 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1581936129; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=9eyK9s5QcOQNlzTcBcw9+PasjfwqMuF96kLGC5PXg0c=;
- b=imgfZACxpKJdyz8rBMG7NfbUjWYWvHeXfU/TB8Jd+JEKuC4XaRQkYMftpq56JnQ0NnSTI8+L
- PQ+aIjgIbMMVoFMJ6zT9tU9PuTbhetqlWZULIi22Nq8M2JNNNDgHh1/RSgCGTaK27oJPXjfP
- AEVdO2wCnAT7DEtNho0KRSm68b0=
-X-Mailgun-Sending-Ip: 104.130.122.26
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5e4a6dfe.7f2d697a9928-smtp-out-n03;
- Mon, 17 Feb 2020 10:42:06 -0000 (UTC)
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 183CDC4479D; Mon, 17 Feb 2020 10:42:05 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: harigovi)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id D7EABC43383;
- Mon, 17 Feb 2020 10:42:03 +0000 (UTC)
+Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
+ [IPv6:2607:f8b0:4864:20::642])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1354A6EA86;
+ Tue, 18 Feb 2020 21:02:47 +0000 (UTC)
+Received: by mail-pl1-x642.google.com with SMTP id d9so8564700plo.11;
+ Tue, 18 Feb 2020 13:02:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=DX0d2fwy150Oxn2ueh8crPmbORULTUPrpK6kQzqonD4=;
+ b=IqW2leGHHi3LHUpLpxvIlPeA+jlREzFt6Lxa/7yLlAeviAl+ufoEQmcpu6LDBSE70A
+ TaVP5DNUawV0W7v8nUuGPMiBfQ/pOoHzOrsG1fzPAQ89YGINUO9069cKpuOM6wljAMfl
+ CGknWlktXpy+R3AqaUQuvcOLVaB9dxfWIsdBCqltxhQDggFLotDpA9jYDTOhK09cL1TN
+ ldqho9+4XLsPa0xbFHt0+Wsw3VCtRzfW0v+5G08sfB2Hl4v4RvxX2SZc5edQ3HYSDakO
+ 5byJgwku+2riUAzcXKo12lL9ED/DWStdv+S7p6pMNAgtFZSmTXYYJ0nYCqDZOZcvNRsw
+ Kl6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=DX0d2fwy150Oxn2ueh8crPmbORULTUPrpK6kQzqonD4=;
+ b=hlASVHc+SoUQDw14ZGMZeNpYMswJKrSSdgNLPUn+y5gmYLUQxAZYrDNgLquU26tYr+
+ KEeTizPSFmOb9wYMBWdVCP55uiCzKAng22cfOAYj5no64RU3Dd+bBuVumgQffbJU77s1
+ ftNatKVW4BBZz83HHvxMp3GOf2QDqXqyO7fhiVVMSP9a2rXPQf29kMqik24a1ru8zhnd
+ T+mEQNQfElejQvRz856PfailivTvQA0mdKFlyKSOZKSiAY7n2bJsA2w1xcncUG7/fYhp
+ wlGGDPejE+KKkvnn0do4EH+aOSAFacE1ZlDUhVgAGbi1lR2uj3dhR1KviwkhmHrfLeeH
+ FCyw==
+X-Gm-Message-State: APjAAAX0tb63Y3FFTIEC5aBWsElLbNrsyouvxnW4TEp9ATHH1UaXJuY5
+ NsvGMcqADumXTVH4jPqRtRv2Cpv8
+X-Google-Smtp-Source: APXvYqwue7exCr+5C0zzAWXFn99tXZVUV+OlMvWLfTE4f5M3BY4CD19tzbkBbBy8OO5MYaKzHi8F3A==
+X-Received: by 2002:a17:90a:c705:: with SMTP id
+ o5mr4833444pjt.67.1582059766099; 
+ Tue, 18 Feb 2020 13:02:46 -0800 (PST)
+Received: from localhost ([100.118.89.211])
+ by smtp.gmail.com with ESMTPSA id u12sm5431970pgr.3.2020.02.18.13.02.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 18 Feb 2020 13:02:45 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue, 18 Feb 2020 13:00:21 -0800
+Message-Id: <20200218210021.1066100-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
-Date: Mon, 17 Feb 2020 16:12:03 +0530
-From: harigovi@codeaurora.org
-To: Rob Clark <robdclark@gmail.com>
-In-Reply-To: <CAF6AEGv2Ymn+4uDXsO2-P+HR9dpOotB=NRMSEsBu8_uOCJ2vBQ@mail.gmail.com>
-References: <1580980321-19256-1-git-send-email-harigovi@codeaurora.org>
- <CAOCk7Nr9n-xLtWq=LEM-QFhJcY+QOuzazsoi-yjErA9od2Jwmw@mail.gmail.com>
- <2f5abc857910f70faa119fea5bda81d7@codeaurora.org>
- <CAOCk7NoCH9p9gOd7as=ty-EMeerAAhQtKZa8f2wZrDeV2LtGrw@mail.gmail.com>
- <1d201377996e16ce25acb640867e1214@codeaurora.org>
- <CAF6AEGu8265DWN-XABwR1N-124m1j=EkgeNDEWZ16TVpSCZSZw@mail.gmail.com>
- <CAOCk7NrH6hWiHL29_DozXcXrXhkCaZ6LTCtJUrvqtXc=nQuLrg@mail.gmail.com>
- <CAF6AEGvLOWKVCjjmqranEi9TKOpMM+BPK199wQ7f=Ez491uhcA@mail.gmail.com>
- <CAOCk7NrifMkwartV4rj_v_V4=EHeSkmb28tdBUrxoPHVSX5G5Q@mail.gmail.com>
- <CAF6AEGv2Ymn+4uDXsO2-P+HR9dpOotB=NRMSEsBu8_uOCJ2vBQ@mail.gmail.com>
-Message-ID: <500fec9adf6c8f8102d0e92535166007@codeaurora.org>
-X-Sender: harigovi@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [v1] drm/msm/dsi/pll: call vco set rate explicitly
+Subject: [Freedreno] [PATCH] drm/msm: devcoredump should dump
+ MSM_SUBMIT_BO_DUMP buffers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,182 +66,123 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: DTML <devicetree@vger.kernel.org>, Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
- MSM <linux-arm-msm@vger.kernel.org>, lkml <linux-kernel@vger.kernel.org>,
- "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
- nganji@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
- Kalyan Thota <kalyan_t@codeaurora.org>, "Kristian
- H. Kristensen" <hoegsberg@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-02-12 10:40, Rob Clark wrote:
-> On Tue, Feb 11, 2020 at 8:05 PM Jeffrey Hugo <jeffrey.l.hugo@gmail.com> 
-> wrote:
->> 
->> On Tue, Feb 11, 2020 at 5:28 PM Rob Clark <robdclark@gmail.com> wrote:
->> >
->> > On Tue, Feb 11, 2020 at 7:59 AM Jeffrey Hugo <jeffrey.l.hugo@gmail.com> wrote:
->> > >
->> > > On Tue, Feb 11, 2020 at 8:44 AM Rob Clark <robdclark@gmail.com> wrote:
->> > > >
->> > > > On Mon, Feb 10, 2020 at 9:58 PM <harigovi@codeaurora.org> wrote:
->> > > > >
->> > > > > On 2020-02-07 19:40, Jeffrey Hugo wrote:
->> > > > > > On Fri, Feb 7, 2020 at 5:38 AM <harigovi@codeaurora.org> wrote:
->> > > > > >>
->> > > > > >> On 2020-02-06 20:29, Jeffrey Hugo wrote:
->> > > > > >> > On Thu, Feb 6, 2020 at 2:13 AM Harigovindan P <harigovi@codeaurora.org>
->> > > > > >> > wrote:
->> > > > > >> >>
->> > > > > >> >> For a given byte clock, if VCO recalc value is exactly same as
->> > > > > >> >> vco set rate value, vco_set_rate does not get called assuming
->> > > > > >> >> VCO is already set to required value. But Due to GDSC toggle,
->> > > > > >> >> VCO values are erased in the HW. To make sure VCO is programmed
->> > > > > >> >> correctly, we forcefully call set_rate from vco_prepare.
->> > > > > >> >
->> > > > > >> > Is this specific to certain SoCs? I don't think I've observed this.
->> > > > > >>
->> > > > > >> As far as Qualcomm SOCs are concerned, since pll is analog and the
->> > > > > >> value
->> > > > > >> is directly read from hardware if we get recalc value same as set rate
->> > > > > >> value, the vco_set_rate will not be invoked. We checked in our idp
->> > > > > >> device which has the same SOC but it works there since the rates are
->> > > > > >> different.
->> > > > > >
->> > > > > > This doesn't seem to be an answer to my question.  What Qualcomm SoCs
->> > > > > > does this issue apply to?  Everything implementing the 10nm pll?  One
->> > > > > > specific SoC?  I don't believe I've seen this on MSM8998, nor SDM845,
->> > > > > > so I'm interested to know what is the actual impact here.  I don't see
->> > > > > > an "IDP" SoC in the IP catalog, so I really have no idea what you are
->> > > > > > referring to.
->> > > > >
->> > > > >
->> > > > > This is not 10nm specific. It is applicable for other nms also.
->> > > > > Its specific to the frequency being set. If vco_recalc returns the same
->> > > > > value as being set by vco_set_rate,
->> > > > > vco_set_rate will not be invoked second time onwards.
->> > > > >
->> > > > > For example: Lets take below devices:
->> > > > >
->> > > > > Cheza is based on SDM845 which is 10nm only.
->> > > > > Clk frequency:206016
->> > > > > dsi_pll_10nm_vco_set_rate - DSI PLL0 rate=1236096000
->> > > > > dsi_pll_10nm_vco_recalc_rate - DSI PLL0 returning vco rate = 1236095947
->> > > > >
->> > > > > Trogdor is based on sc7180 which is also 10nm.
->> > > > > Clk frequency:69300
->> > > > > dsi_pll_10nm_vco_set_rate - DSI PLL0 rate=1663200000
->> > > > > dsi_pll_10nm_vco_recalc_rate - DSI PLL0 returning vco rate = 1663200000
->> > > > >
->> > > > > In same trogdor device, we slightly changed the clock frequency and the
->> > > > > values actually differ which will not cause any issue.
->> > > > > Clk frequency:69310
->> > > > > dsi_pll_10nm_vco_set_rate - DSI PLL0 rate=1663440000
->> > > > > dsi_pll_10nm_vco_recalc_rate - DSI PLL0 returning vco rate = 1663439941
->> > > >
->> > > >
->> > > > tbh, loosing state when power is off is kind of the behavior that I'd
->> > > > expect.  It kinda makes me wonder if things are not getting powered
->> > > > off all the way on some SoCs?
->> > > >
->> > > > jhugo, are you worried that this patch will cause problems on other
->> > > > users of the 10nm pll?
->> > >
->> > > Essentially yes.  Conceptually it doesn't seem like this change should
->> > > cause any harm, however -
->> > >
->> > > This sounds like we are trying to work around the clk framework, which
->> > > seems wrong.  It feels like we should be able to set a clk flag for
->> > > this and make the framework deal with it.
->> > >
->> > > Also, this fix is 10nm specific, yet this issue affects all
->> > > implementations?  Seems like this should perhaps be in common code so
->> > > that we don't need to play whack-a-mole by fixing every implementation
->> > > piecemeal.
->> > >
->> > > Finally, the PLLs are notorious for not taking a configuration unless
->> > > they are running.  I admit, I haven't looked at this patch in detail
->> > > to determine if that is the case here, but there doesn't seem to be
->> > > any indication from the commit test or a comment that doing so is
->> > > actually valid in all cases.
->> >
->> > I'm not obviously seeing a clk-provider flag for this.. although I
->> > won't claim to be a clk expert so maybe I'm looking for the wrong
->> > thing..
->> >
->> > On a more practical level, I'd kinda like to get some sort of fix for
->> > v5.6, as currently suspend/resume doesn't work (or at least the
->> > display does not survive) on trogdor, which is a bit annoying.  It
->> > sounds a bit like cheza was just getting lucky (because of rate
->> > rounding?)  I'm not sure if it is the same situation on other sdm850
->> > devices (yoga c630) or sdm835 devices (are they using the 10mm pll as
->> > well?).
->> 
->> sdm835 is the first implementation of the 10nm PLL.  Pretty much
->> everything after (including sdm845/850) also uses the 10nm PLL.
->> 
->> >  I will confess to not really testing s/r on the yoga c630,
->> > although maybe someone else has (Bjorn?).
->> >
->> > Possibly this should be pushed up to the clk framework, although not
->> > sure if it has a good way to realize the clk provider has lost power?
->> > But that sounds like a better thing for v5.7 than v5.6-rc fixes.. ofc
->> > if there is a better way that I'm not seeing, I'm all ears.
->> 
->> There is a suspend/resume sequence in the HPG where VCO isn't lost,
->> but that assumes the GDSC isn't turned off.  If GDSC is turned off,
->> then we need to go through the entire power-up sequence again.  Feels
->> like this should be plumbed into runtime PM based on the
->> suspend/resume usecase, but that's probably more complicated then this
->> change.
-> 
-> since gdsc is modelled as genpd, that seems to (afaict) happen all
-> outside the scope of what the driver knows about.. (but I may be
-> overlooking something)
-> 
->> Looking at the HPG for the power up sequence, it seems like we should
->> be setting the bias in the middle of the dsi_pll_commit(), so the
->> order of operations is slight off, however I somewhat doubt that will
->> have a meaningful impact and it does seem like this change is in line
->> with the spirit of the HPG.
->> 
->> It wasn't clear to me from the commit message what usecase triggered
->> this.  You've made it clear that its suspend/resume (it would be good
->> if that was mentioned) and that its impacting an actual target.  To
->> me, the current description seemed more theoretical and didn't
->> describe the impact that was being addressed.  Overall, it really
->> didn't answer the "why should I care if I have this change" question.
->> 
->> Right now, I think my concerns are cosmetic, therefore I don't have
->> reservations about it being picked up.  If you like:
->> 
->> Reviewed-by: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
-> 
-> 
-> hmm, yeah, I guess the commit msg didn't really make that clear.. at
-> any rate, I want to see a clean solution pursued in the long run, but
-> in the short term I also want to get things working (at least if it
-> doesn't break any other users).  So I don't want to land this patch at
-> the expense of follow-up for a cleaner solution.. but like I said, I
-> would like to get s/r working for now.  So I guess I'd like to see
-> some commitment from the display team to follow-up to improve this in
-> the next cycle.  And suggestions welcome about how the clk framework
-> could make this easier.
-> 
-> BR,
-> -R
+From: Rob Clark <robdclark@chromium.org>
 
-we had an initial discussion with the clock team, currently there is no 
-ready made clock provider flag to help in the above scenario.
-however we are planning to have further discussions for a cleaner fix, 
-can we open a new issue to track the discussions and design and close 
-the current one ?
+Also log buffers with the DUMP flag set, to ensure we capture all useful
+cmdstream in crashdump state with modern mesa.
 
+Otherwise we miss out on the contents of "state object" cmdstream
+buffers.
 
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/msm_gem.h | 10 ++++++++++
+ drivers/gpu/drm/msm/msm_gpu.c | 28 +++++++++++++++++++++++-----
+ drivers/gpu/drm/msm/msm_rd.c  |  8 +-------
+ 3 files changed, 34 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
+index 9e0953c2b7ce..22b4ccd7bb28 100644
+--- a/drivers/gpu/drm/msm/msm_gem.h
++++ b/drivers/gpu/drm/msm/msm_gem.h
+@@ -160,4 +160,14 @@ struct msm_gem_submit {
+ 	} bos[0];
+ };
+ 
++/* helper to determine of a buffer in submit should be dumped, used for both
++ * devcoredump and debugfs cmdstream dumping:
++ */
++static bool
++should_dump(struct msm_gem_submit *submit, int idx)
++{
++	extern bool rd_full;
++	return rd_full || (submit->bos[idx].flags & MSM_SUBMIT_BO_DUMP);
++}
++
+ #endif /* __MSM_GEM_H__ */
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index 18f3a5c53ffb..615c5cda5389 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -355,16 +355,34 @@ static void msm_gpu_crashstate_capture(struct msm_gpu *gpu,
+ 	state->cmd = kstrdup(cmd, GFP_KERNEL);
+ 
+ 	if (submit) {
+-		int i;
+-
+-		state->bos = kcalloc(submit->nr_cmds,
++		int i, nr = 0;
++
++		/* count # of buffers to dump: */
++		for (i = 0; i < submit->nr_bos; i++)
++			if (should_dump(submit, i))
++				nr++;
++		/* always dump cmd bo's, but don't double count them: */
++		for (i = 0; i < submit->nr_cmds; i++)
++			if (!should_dump(submit, submit->cmd[i].idx))
++				nr++;
++
++		state->bos = kcalloc(nr,
+ 			sizeof(struct msm_gpu_state_bo), GFP_KERNEL);
+ 
++		for (i = 0; i < submit->nr_bos; i++) {
++			if (should_dump(submit, i)) {
++				msm_gpu_crashstate_get_bo(state, submit->bos[i].obj,
++					submit->bos[i].iova, submit->bos[i].flags);
++			}
++		}
++
+ 		for (i = 0; state->bos && i < submit->nr_cmds; i++) {
+ 			int idx = submit->cmd[i].idx;
+ 
+-			msm_gpu_crashstate_get_bo(state, submit->bos[idx].obj,
+-				submit->bos[idx].iova, submit->bos[idx].flags);
++			if (!should_dump(submit, submit->cmd[i].idx)) {
++				msm_gpu_crashstate_get_bo(state, submit->bos[idx].obj,
++					submit->bos[idx].iova, submit->bos[idx].flags);
++			}
+ 		}
+ 	}
+ 
+diff --git a/drivers/gpu/drm/msm/msm_rd.c b/drivers/gpu/drm/msm/msm_rd.c
+index af7ceb246c7c..732f65df5c4f 100644
+--- a/drivers/gpu/drm/msm/msm_rd.c
++++ b/drivers/gpu/drm/msm/msm_rd.c
+@@ -43,7 +43,7 @@
+ #include "msm_gpu.h"
+ #include "msm_gem.h"
+ 
+-static bool rd_full = false;
++bool rd_full = false;
+ MODULE_PARM_DESC(rd_full, "If true, $debugfs/.../rd will snapshot all buffer contents");
+ module_param_named(rd_full, rd_full, bool, 0600);
+ 
+@@ -336,12 +336,6 @@ static void snapshot_buf(struct msm_rd_state *rd,
+ 	msm_gem_put_vaddr(&obj->base);
+ }
+ 
+-static bool
+-should_dump(struct msm_gem_submit *submit, int idx)
+-{
+-	return rd_full || (submit->bos[idx].flags & MSM_SUBMIT_BO_DUMP);
+-}
+-
+ /* called under struct_mutex */
+ void msm_rd_dump_submit(struct msm_rd_state *rd, struct msm_gem_submit *submit,
+ 		const char *fmt, ...)
+-- 
+2.24.1
 
 _______________________________________________
 Freedreno mailing list
