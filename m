@@ -2,57 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D11E1634C0
-	for <lists+freedreno@lfdr.de>; Tue, 18 Feb 2020 22:22:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0EE7163598
+	for <lists+freedreno@lfdr.de>; Tue, 18 Feb 2020 22:58:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 615F36EA91;
-	Tue, 18 Feb 2020 21:22:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 749B16E408;
+	Tue, 18 Feb 2020 21:58:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74FD96E400;
- Tue, 18 Feb 2020 21:22:26 +0000 (UTC)
-Received: by mail-pf1-x444.google.com with SMTP id i6so11312464pfc.1;
- Tue, 18 Feb 2020 13:22:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=1yORocRN6bN/DWLSCc3LMaJhbwacp2HLNmosyK8PhXY=;
- b=RDJ1RD/xDrXbznWXW43BryMq6Jz3QBb4fUTMsoLkBcTVJ6bh10hb5sTHYyI+zplASW
- 82HKX1xkUVNQrjo72x4Bzq5+KEcwcxIWOzUZ9GFTFp/xG4LkBT4lns9Vl5sE+bz9syny
- 9hCkQHsF8CaXVktqS7qz56ZDsZ0U5wpGq/jAFoTeBpZQIq0bNn3JXEIydvuOrNKWOtXe
- nTs7JMSJGU22cVYQcFvUDFeQwPOGT304v37TSyyzKKx4tX8nCDY+Pg6+571zBZlof9M2
- muX7Uz4vvVbovnYY6oDkycCZ92CCDxqCXf9Ekv+pGG2qfdtr7jqjpoGrGqwU/EosZHCX
- ju1g==
+Received: from mail-lf1-x144.google.com (mail-lf1-x144.google.com
+ [IPv6:2a00:1450:4864:20::144])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD6C36E408
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Feb 2020 21:58:52 +0000 (UTC)
+Received: by mail-lf1-x144.google.com with SMTP id z5so628219lfd.12
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Feb 2020 13:58:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=anholt-net.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ahpk/GappiCcM5wW00z5eRTm7XSNbwAT9p1AedeyQaE=;
+ b=kdpjP80seFPRBqxhxIpalWncJhJycuWAQPQT0uf/BhAioMxpA/HQSrB4FFdQP+vo/L
+ KzZMVoRXpw4PUTQavb0o6cZHHaGKHSVcOUgix+7f/NfUfAl9aCz7L0/IbtVECP3Hmx5k
+ uQFJiRqinUNrrBdMEj/yIhEp3RBT2Uxd72BlqR4nMUwzHAyMKM7YPchqExAMmNWGqoBi
+ Ph19zMTGlFHeCAUda62180ibnNyy2wl7eOxbVuLhU6Jsy9cLpevU3SYjCp9Zrk7UP43A
+ VMce/XyzyXhUBuaWX2tdTaeUxZdF5O1Zs8APWnkdHzTNx1e2XTvdK45WjNKQLPXeMS0F
+ 1T4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=1yORocRN6bN/DWLSCc3LMaJhbwacp2HLNmosyK8PhXY=;
- b=LGqvVy+PYt8Cg1xLz7aGMcS0hUKZ0zgT4dJs/6Y9DSNVLPpRYTs2F4QoW8JhhiUqTj
- tBhf+tDBwGLeiqjGj+XDh65WeX3lhpBCCwwxqnNQB8lpzzLuUs5LojMp/rO72EBWDdrN
- 7NZuybiY7ADJtMELEJRj56S2go3vRgzcenTZVzZVuOV58gzin2GKOt7dc0s6f74s5kJk
- u3wW6JwMih7Q96LOtcTH0rIuhAvPJDuYnuLCbhUtvr1jFCyQf+rS8KUH336IieGMCKDI
- Tv0uqlD0EVSWpWSE7J+N6TCPx5vE3j/I2Y6m+fDVIdALACgEAU/DgnOkm2Q52lHGYG3l
- 3KVg==
-X-Gm-Message-State: APjAAAX+lvzgGBJXYp0ml5ayE9+oP1rl8zLJBn6eyhVinF3AqM8Ef4De
- 2xW4lGe5nAalHKdQgCbl1szhCOJA
-X-Google-Smtp-Source: APXvYqwMxph8WfZwy4jJ8Hm+oyFMnedPlyeKBoA1heO5RDIjj7W+U0YW42+WmDKbc9ER8CnrdZtVtg==
-X-Received: by 2002:a63:e509:: with SMTP id r9mr26127011pgh.274.1582060945518; 
- Tue, 18 Feb 2020 13:22:25 -0800 (PST)
-Received: from localhost ([100.118.89.211])
- by smtp.gmail.com with ESMTPSA id c19sm5356081pfc.144.2020.02.18.13.22.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Feb 2020 13:22:24 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Tue, 18 Feb 2020 13:20:12 -0800
-Message-Id: <20200218212012.1067236-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.24.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ahpk/GappiCcM5wW00z5eRTm7XSNbwAT9p1AedeyQaE=;
+ b=ENGefEaqbP6Xj7qmHGy6MR1PRPTCGvs8AgsZftpDwCXyydBDCGzfBsFR73Bcf0uyNw
+ r08fxFyJwHtK5R+jIhso+alyhfHFbEqyVXEv1fXzwdMiJpBaZz0pZy4hU5M9pzoBCHHP
+ nvHvw0WUsNToBOis9XFD8/jPSafnK6VfRVVtmQWeuIFVV4jhcQiTa1qYY1EgOo9PZ6XR
+ TQYoOnkrJjlD15+uZVA20Sve2Ro9Dn1EFEFHswrTrjhdcNwhZqc4R1IRrum0IzZX+zTU
+ X29gvbLBj2nP3c09+K1OxF/6Rabq0BNdXz+MPY4Jqd1qR5HRA6d0jhef7ll0h9wsYYpt
+ zarA==
+X-Gm-Message-State: APjAAAUi2SR41cWfwHw+9lsfjUDPAyB7b1EcxY444l49VjslQOg0/J3s
+ 7uQRjj/du3fNjWTBlMLcswFa07DlV607wflE8LLJ9g==
+X-Google-Smtp-Source: APXvYqwfJ/KjDHUqMyRYTcya4wxUGjDyhjQGBQJimj1/3xX/vD0XeMTB9CXlS07iJHjcgr5dOlc5NuiOgM8QWSquNew=
+X-Received: by 2002:ac2:4214:: with SMTP id y20mr11460778lfh.212.1582063131075; 
+ Tue, 18 Feb 2020 13:58:51 -0800 (PST)
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v2] drm/msm: devcoredump should dump
- MSM_SUBMIT_BO_DUMP buffers
+References: <1581705404-5124-1-git-send-email-jcrouse@codeaurora.org>
+In-Reply-To: <1581705404-5124-1-git-send-email-jcrouse@codeaurora.org>
+From: Eric Anholt <eric@anholt.net>
+Date: Tue, 18 Feb 2020 13:58:39 -0800
+Message-ID: <CADaigPXdn84cR0Pu-uLnCwOVHNUiOi_t6u7OYYDU6tkSvdWp6A@mail.gmail.com>
+To: Jordan Crouse <jcrouse@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH] drm/msm/a5xx: Always set an OPP supported
+ hardware value
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,126 +62,34 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Rob Clark <robdclark@gmail.com>, Ben Dooks <ben.dooks@codethink.co.uk>,
+ Daniel Vetter <daniel@ffwll.ch>, Thomas Gleixner <tglx@linutronix.de>,
+ AngeloGioacchino Del Regno <kholk11@gmail.com>, Sean Paul <sean@poorly.run>,
+ Wen Yang <wen.yang99@zte.com.cn>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On Fri, Feb 14, 2020 at 10:36 AM Jordan Crouse <jcrouse@codeaurora.org> wrote:
+>
+> If the opp table specifies opp-supported-hw as a property but the driver
+> has not set a supported hardware value the OPP subsystem will reject
+> all the table entries.
+>
+> Set a "default" value that will match the default table entries but not
+> conflict with any possible real bin values. Also fix a small memory leak
+> and free the buffer allocated by nvmem_cell_read().
+>
+> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
 
-Also log buffers with the DUMP flag set, to ensure we capture all useful
-cmdstream in crashdump state with modern mesa.
+This does fix my warn at boot on db820c.
 
-Otherwise we miss out on the contents of "state object" cmdstream
-buffers.
-
-v2: add missing 'inline'
-
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/msm_gem.h | 10 ++++++++++
- drivers/gpu/drm/msm/msm_gpu.c | 28 +++++++++++++++++++++++-----
- drivers/gpu/drm/msm/msm_rd.c  |  8 +-------
- 3 files changed, 34 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-index 9e0953c2b7ce..dcee0e223ed8 100644
---- a/drivers/gpu/drm/msm/msm_gem.h
-+++ b/drivers/gpu/drm/msm/msm_gem.h
-@@ -160,4 +160,14 @@ struct msm_gem_submit {
- 	} bos[0];
- };
- 
-+/* helper to determine of a buffer in submit should be dumped, used for both
-+ * devcoredump and debugfs cmdstream dumping:
-+ */
-+static inline bool
-+should_dump(struct msm_gem_submit *submit, int idx)
-+{
-+	extern bool rd_full;
-+	return rd_full || (submit->bos[idx].flags & MSM_SUBMIT_BO_DUMP);
-+}
-+
- #endif /* __MSM_GEM_H__ */
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 18f3a5c53ffb..615c5cda5389 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -355,16 +355,34 @@ static void msm_gpu_crashstate_capture(struct msm_gpu *gpu,
- 	state->cmd = kstrdup(cmd, GFP_KERNEL);
- 
- 	if (submit) {
--		int i;
--
--		state->bos = kcalloc(submit->nr_cmds,
-+		int i, nr = 0;
-+
-+		/* count # of buffers to dump: */
-+		for (i = 0; i < submit->nr_bos; i++)
-+			if (should_dump(submit, i))
-+				nr++;
-+		/* always dump cmd bo's, but don't double count them: */
-+		for (i = 0; i < submit->nr_cmds; i++)
-+			if (!should_dump(submit, submit->cmd[i].idx))
-+				nr++;
-+
-+		state->bos = kcalloc(nr,
- 			sizeof(struct msm_gpu_state_bo), GFP_KERNEL);
- 
-+		for (i = 0; i < submit->nr_bos; i++) {
-+			if (should_dump(submit, i)) {
-+				msm_gpu_crashstate_get_bo(state, submit->bos[i].obj,
-+					submit->bos[i].iova, submit->bos[i].flags);
-+			}
-+		}
-+
- 		for (i = 0; state->bos && i < submit->nr_cmds; i++) {
- 			int idx = submit->cmd[i].idx;
- 
--			msm_gpu_crashstate_get_bo(state, submit->bos[idx].obj,
--				submit->bos[idx].iova, submit->bos[idx].flags);
-+			if (!should_dump(submit, submit->cmd[i].idx)) {
-+				msm_gpu_crashstate_get_bo(state, submit->bos[idx].obj,
-+					submit->bos[idx].iova, submit->bos[idx].flags);
-+			}
- 		}
- 	}
- 
-diff --git a/drivers/gpu/drm/msm/msm_rd.c b/drivers/gpu/drm/msm/msm_rd.c
-index af7ceb246c7c..732f65df5c4f 100644
---- a/drivers/gpu/drm/msm/msm_rd.c
-+++ b/drivers/gpu/drm/msm/msm_rd.c
-@@ -43,7 +43,7 @@
- #include "msm_gpu.h"
- #include "msm_gem.h"
- 
--static bool rd_full = false;
-+bool rd_full = false;
- MODULE_PARM_DESC(rd_full, "If true, $debugfs/.../rd will snapshot all buffer contents");
- module_param_named(rd_full, rd_full, bool, 0600);
- 
-@@ -336,12 +336,6 @@ static void snapshot_buf(struct msm_rd_state *rd,
- 	msm_gem_put_vaddr(&obj->base);
- }
- 
--static bool
--should_dump(struct msm_gem_submit *submit, int idx)
--{
--	return rd_full || (submit->bos[idx].flags & MSM_SUBMIT_BO_DUMP);
--}
--
- /* called under struct_mutex */
- void msm_rd_dump_submit(struct msm_rd_state *rd, struct msm_gem_submit *submit,
- 		const char *fmt, ...)
--- 
-2.24.1
-
+Reviewed-by: Eric Anholt <eric@anholt.net>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
