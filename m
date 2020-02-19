@@ -1,38 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B797416500C
-	for <lists+freedreno@lfdr.de>; Wed, 19 Feb 2020 21:36:15 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id EAA8F1651A1
+	for <lists+freedreno@lfdr.de>; Wed, 19 Feb 2020 22:33:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EEF86ECAC;
-	Wed, 19 Feb 2020 20:36:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 754716E87B;
+	Wed, 19 Feb 2020 21:33:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84A796ECA4;
- Wed, 19 Feb 2020 20:36:10 +0000 (UTC)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 19 Feb 2020 12:36:10 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,461,1574150400"; d="scan'208";a="228709281"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
- by fmsmga007.fm.intel.com with SMTP; 19 Feb 2020 12:36:07 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 19 Feb 2020 22:36:06 +0200
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Date: Wed, 19 Feb 2020 22:35:37 +0200
-Message-Id: <20200219203544.31013-6-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.24.1
-In-Reply-To: <20200219203544.31013-1-ville.syrjala@linux.intel.com>
-References: <20200219203544.31013-1-ville.syrjala@linux.intel.com>
-MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 05/12] drm/msm/dpu: Stop copying around
- mode->private_flags
+Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
+ [104.130.122.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC6146E87A
+ for <freedreno@lists.freedesktop.org>; Wed, 19 Feb 2020 21:33:09 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1582147992; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=0JN/ehYDL0O2oEeVVUyuLdKga5FoJgnDhpfMUdo+78Q=;
+ b=o1ykw9D8rOavuQ/NGY9AU5AGs/4PSkM6hx/62w1z+5njgSjKxUbxZFVIK+IKfQ2P+jXgWmXJ
+ JIZPUyMfal2jVt7RykVDytJhQHGs0NtECd2N8bD7je+CY3iJA8dvFWvmTIr2lCi2ybklz9rO
+ Ey52qb3UzNUgqkmENQDav8upoL4=
+X-Mailgun-Sending-Ip: 104.130.122.26
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5e4da990.7fabc2c17c00-smtp-out-n01;
+ Wed, 19 Feb 2020 21:33:04 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 0C83BC447A2; Wed, 19 Feb 2020 21:33:04 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id EC98DC43383;
+ Wed, 19 Feb 2020 21:33:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org EC98DC43383
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=jcrouse@codeaurora.org
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: linux-arm-msm@vger.kernel.org
+Date: Wed, 19 Feb 2020 14:32:54 -0700
+Message-Id: <1582147978-31475-1-git-send-email-jcrouse@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH v1 0/4] msm/gpu/a6xx: use the DMA-API for GMU
+ memory allocations
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,77 +63,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
+ Sharat Masetty <smasetty@codeaurora.org>, freedreno@lists.freedesktop.org,
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, John Stultz <john.stultz@linaro.org>,
+ Andy Gross <agross@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-RnJvbTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KClRo
-ZSBkcml2ZXIgbmV2ZXIgc2V0cyBtb2RlLT5wcml2YXRlX2ZsYWdzIHNvIGNvcHlpbmcKaXQgYmFj
-ayBhbmQgZm9ydGggaXMgZW50aXJlbHkgcG9pbnRsZXNzLiBTdG9wIGRvaW5nIGl0LgoKQWxzbyBk
-cm9wIHByaXZhdGVfZmxhZ3MgZnJvbSB0aGUgdHJhY2Vwb2ludC4KCkNjOiBSb2IgQ2xhcmsgPHJv
-YmRjbGFya0BnbWFpbC5jb20+CkNjOiBTZWFuIFBhdWwgPHNlYW5AcG9vcmx5LnJ1bj4KQ2M6IGxp
-bnV4LWFybS1tc21Admdlci5rZXJuZWwub3JnCkNjOiBmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnClNpZ25lZC1vZmYtYnk6IFZpbGxlIFN5cmrDpGzDpCA8dmlsbGUuc3lyamFsYUBsaW51
-eC5pbnRlbC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X2VuY29k
-ZXIuYyB8IDI5ICstLS0tLS0tLS0tLS0tLS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL21zbS9kaXNw
-L2RwdTEvZHB1X3RyYWNlLmggICB8IDEwICsrKy0tLS0KIDIgZmlsZXMgY2hhbmdlZCwgNSBpbnNl
-cnRpb25zKCspLCAzNCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-bXNtL2Rpc3AvZHB1MS9kcHVfZW5jb2Rlci5jIGIvZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2Rw
-dTEvZHB1X2VuY29kZXIuYwppbmRleCA1OGQzNDAwNjY4ZjUuLjQ1MTFlMmJhMzY4MCAxMDA2NDQK
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X2VuY29kZXIuYworKysgYi9k
-cml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfZW5jb2Rlci5jCkBAIC01MDAsMjMgKzUw
-MCw2IEBAIHZvaWQgZHB1X2VuY29kZXJfaGVscGVyX3NwbGl0X2NvbmZpZygKIAl9CiB9CiAKLXN0
-YXRpYyB2b2lkIF9kcHVfZW5jb2Rlcl9hZGp1c3RfbW9kZShzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAq
-Y29ubmVjdG9yLAotCQlzdHJ1Y3QgZHJtX2Rpc3BsYXlfbW9kZSAqYWRqX21vZGUpCi17Ci0Jc3Ry
-dWN0IGRybV9kaXNwbGF5X21vZGUgKmN1cl9tb2RlOwotCi0JaWYgKCFjb25uZWN0b3IgfHwgIWFk
-al9tb2RlKQotCQlyZXR1cm47Ci0KLQlsaXN0X2Zvcl9lYWNoX2VudHJ5KGN1cl9tb2RlLCAmY29u
-bmVjdG9yLT5tb2RlcywgaGVhZCkgewotCQlpZiAoY3VyX21vZGUtPnZkaXNwbGF5ID09IGFkal9t
-b2RlLT52ZGlzcGxheSAmJgotCQkgICAgY3VyX21vZGUtPmhkaXNwbGF5ID09IGFkal9tb2RlLT5o
-ZGlzcGxheSAmJgotCQkgICAgZHJtX21vZGVfdnJlZnJlc2goY3VyX21vZGUpID09IGRybV9tb2Rl
-X3ZyZWZyZXNoKGFkal9tb2RlKSkgewotCQkJYWRqX21vZGUtPnByaXZhdGVfZmxhZ3MgfD0gY3Vy
-X21vZGUtPnByaXZhdGVfZmxhZ3M7Ci0JCX0KLQl9Ci19Ci0KIHN0YXRpYyBzdHJ1Y3QgbXNtX2Rp
-c3BsYXlfdG9wb2xvZ3kgZHB1X2VuY29kZXJfZ2V0X3RvcG9sb2d5KAogCQkJc3RydWN0IGRwdV9l
-bmNvZGVyX3ZpcnQgKmRwdV9lbmMsCiAJCQlzdHJ1Y3QgZHB1X2ttcyAqZHB1X2ttcywKQEAgLTU4
-MCwxNSArNTYzLDYgQEAgc3RhdGljIGludCBkcHVfZW5jb2Rlcl92aXJ0X2F0b21pY19jaGVjaygK
-IAlhZGpfbW9kZSA9ICZjcnRjX3N0YXRlLT5hZGp1c3RlZF9tb2RlOwogCXRyYWNlX2RwdV9lbmNf
-YXRvbWljX2NoZWNrKERSTUlEKGRybV9lbmMpKTsKIAotCS8qCi0JICogZGlzcGxheSBkcml2ZXJz
-IG1heSBwb3B1bGF0ZSBwcml2YXRlIGZpZWxkcyBvZiB0aGUgZHJtIGRpc3BsYXkgbW9kZQotCSAq
-IHN0cnVjdHVyZSB3aGlsZSByZWdpc3RlcmluZyBwb3NzaWJsZSBtb2RlcyBvZiBhIGNvbm5lY3Rv
-ciB3aXRoIERSTS4KLQkgKiBUaGVzZSBwcml2YXRlIGZpZWxkcyBhcmUgbm90IHBvcHVsYXRlZCBi
-YWNrIHdoaWxlIERSTSBpbnZva2VzCi0JICogdGhlIG1vZGVfc2V0IGNhbGxiYWNrcy4gVGhpcyBt
-b2R1bGUgcmV0cmlldmVzIGFuZCBwb3B1bGF0ZXMgdGhlCi0JICogcHJpdmF0ZSBmaWVsZHMgb2Yg
-dGhlIGdpdmVuIG1vZGUuCi0JICovCi0JX2RwdV9lbmNvZGVyX2FkanVzdF9tb2RlKGNvbm5fc3Rh
-dGUtPmNvbm5lY3RvciwgYWRqX21vZGUpOwotCiAJLyogcGVyZm9ybSBhdG9taWMgY2hlY2sgb24g
-dGhlIGZpcnN0IHBoeXNpY2FsIGVuY29kZXIgKG1hc3RlcikgKi8KIAlmb3IgKGkgPSAwOyBpIDwg
-ZHB1X2VuYy0+bnVtX3BoeXNfZW5jczsgaSsrKSB7CiAJCXN0cnVjdCBkcHVfZW5jb2Rlcl9waHlz
-ICpwaHlzID0gZHB1X2VuYy0+cGh5c19lbmNzW2ldOwpAQCAtNjIzLDggKzU5Nyw3IEBAIHN0YXRp
-YyBpbnQgZHB1X2VuY29kZXJfdmlydF9hdG9taWNfY2hlY2soCiAJCX0KIAl9CiAKLQl0cmFjZV9k
-cHVfZW5jX2F0b21pY19jaGVja19mbGFncyhEUk1JRChkcm1fZW5jKSwgYWRqX21vZGUtPmZsYWdz
-LAotCQkJYWRqX21vZGUtPnByaXZhdGVfZmxhZ3MpOworCXRyYWNlX2RwdV9lbmNfYXRvbWljX2No
-ZWNrX2ZsYWdzKERSTUlEKGRybV9lbmMpLCBhZGpfbW9kZS0+ZmxhZ3MpOwogCiAJcmV0dXJuIHJl
-dDsKIH0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV90cmFj
-ZS5oIGIvZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X3RyYWNlLmgKaW5kZXggZWVj
-ZmU5YjMxOTllLi42NzE0YjA4ODk3MGYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tc20v
-ZGlzcC9kcHUxL2RwdV90cmFjZS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUx
-L2RwdV90cmFjZS5oCkBAIC0zMjcsMjAgKzMyNywxOCBAQCBERUZJTkVfRVZFTlQoZHB1X2VuY19r
-ZXl2YWxfdGVtcGxhdGUsIGRwdV9lbmNfdHJpZ2dlcl9zdGFydCwKICk7CiAKIFRSQUNFX0VWRU5U
-KGRwdV9lbmNfYXRvbWljX2NoZWNrX2ZsYWdzLAotCVRQX1BST1RPKHVpbnQzMl90IGRybV9pZCwg
-dW5zaWduZWQgaW50IGZsYWdzLCBpbnQgcHJpdmF0ZV9mbGFncyksCi0JVFBfQVJHUyhkcm1faWQs
-IGZsYWdzLCBwcml2YXRlX2ZsYWdzKSwKKwlUUF9QUk9UTyh1aW50MzJfdCBkcm1faWQsIHVuc2ln
-bmVkIGludCBmbGFncyksCisJVFBfQVJHUyhkcm1faWQsIGZsYWdzKSwKIAlUUF9TVFJVQ1RfX2Vu
-dHJ5KAogCQlfX2ZpZWxkKAl1aW50MzJfdCwJCWRybV9pZAkJKQogCQlfX2ZpZWxkKAl1bnNpZ25l
-ZCBpbnQsCQlmbGFncwkJKQotCQlfX2ZpZWxkKAlpbnQsCQkJcHJpdmF0ZV9mbGFncwkpCiAJKSwK
-IAlUUF9mYXN0X2Fzc2lnbigKIAkJX19lbnRyeS0+ZHJtX2lkID0gZHJtX2lkOwogCQlfX2VudHJ5
-LT5mbGFncyA9IGZsYWdzOwotCQlfX2VudHJ5LT5wcml2YXRlX2ZsYWdzID0gcHJpdmF0ZV9mbGFn
-czsKIAkpLAotCVRQX3ByaW50aygiaWQ9JXUsIGZsYWdzPSV1LCBwcml2YXRlX2ZsYWdzPSVkIiwK
-LQkJICBfX2VudHJ5LT5kcm1faWQsIF9fZW50cnktPmZsYWdzLCBfX2VudHJ5LT5wcml2YXRlX2Zs
-YWdzKQorCVRQX3ByaW50aygiaWQ9JXUsIGZsYWdzPSV1IiwKKwkJICBfX2VudHJ5LT5kcm1faWQs
-IF9fZW50cnktPmZsYWdzKQogKTsKIAogREVDTEFSRV9FVkVOVF9DTEFTUyhkcHVfZW5jX2lkX2Vu
-YWJsZV90ZW1wbGF0ZSwKLS0gCjIuMjQuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vZnJlZWRyZW5vCg==
+When CONFIG_INIT_ON_ALLOC_DEFAULT_ON the GMU memory allocator runs afoul of
+cache coherency issues because it is mapped as write-combine without clearing
+the cache after it was zeroed.
+
+Rather than duplicate the hacky workaround we use in the GEM allocator for the
+same reason it turns out that we don't need to have a bespoke memory allocator
+for the GMU anyway. It uses a flat, global address space and there are only
+two relatively minor allocations anyway. In short, this is essentially what the
+DMA API was created for so replace a bunch of memory management code with two
+calls to allocate and free DMA memory and we're fine.
+
+The only wrinkle is that the memory allocations need to be in a very specific
+location in the GMU virtual address space so in order to get the iova allocator
+to do the right thing we need to specify the dma-ranges property in the device
+tree for the GMU node. Since we've not yet converted the GMU bindings over to
+YAML two patches quickly turn into four but at the end of it we have at least
+one bindings file converted to YAML and 99 less lines of code to worry about.
+
+Jordan Crouse (4):
+  dt-bindings: display: msm: Convert GMU bindings to YAML
+  dt-bindings: display: msm: Add required dma-range property
+  arm64: dts: sdm845: Set the virtual address range for GMU allocations
+  drm/msm/a6xx: Use the DMA API for GMU memory objects
+
+ .../devicetree/bindings/display/msm/gmu.txt        | 116 -----------------
+ .../devicetree/bindings/display/msm/gmu.yaml       | 140 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sdm845.dtsi               |   2 +
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              | 107 +---------------
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h              |   5 +-
+ 5 files changed, 149 insertions(+), 221 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/display/msm/gmu.txt
+ create mode 100644 Documentation/devicetree/bindings/display/msm/gmu.yaml
+
+-- 
+2.7.4
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
