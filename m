@@ -2,57 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E7971665BC
-	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2020 19:02:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D10FA1665FA
+	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2020 19:14:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C62AD6EE29;
-	Thu, 20 Feb 2020 18:02:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82DBF6EE2F;
+	Thu, 20 Feb 2020 18:14:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com
- [IPv6:2607:f8b0:4864:20::1042])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40B5D6EE24;
- Thu, 20 Feb 2020 18:02:30 +0000 (UTC)
-Received: by mail-pj1-x1042.google.com with SMTP id dw13so1194933pjb.4;
- Thu, 20 Feb 2020 10:02:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=ftBWuGNfX8JZVFhSKwA+KUVSKGZwfK/v4xpQCMt5JjU=;
- b=Z7GTb5OmY58dJNwVcxhr2Zj89JXbSLjrDt4/98xY5f4eLOjssVN04Amn+cXaYaGh5l
- DqGzKkLXy6FQdjPU5cvEewJ6TExOsg4coQmE8aLyUVNiZJeKgREQ+EioOVrzQafZWyNX
- wNvlAJ5Fb9NdNKVQ2I3U1JQne5b6IWABjyuRdWxbKtJQ4G74F9KFxf5vOCsvr/b0qplb
- +hwhkPo4ggypZi/5u5PXoEK2bsl6sK5/+2swDHR2TOMLOfl4pp+W/C1jTXyYfH5WCyBb
- NIlAzn4HpQm5ASJ6q5OHtRY32pO3LRQSAlUXhWyTEECClcAPOwqaIqQ4Ktfhudf/VTO2
- S/dA==
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 033E76EE2F
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2020 18:14:45 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id t14so3084669wmi.5
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2020 10:14:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=gznl4640Pmjty68zKptsYkWkjNeUmDBlZFmAL3gSFPE=;
+ b=YbsgFHprAZngpJ64emSEHbG/VsiZpyqbsgRuOHCXapQk3shJhhfNfjXpx0xrWdI1qt
+ TInKZ6bAFGf/E6AENPaHYpSbVNWGhcsIFaUvfjpGJcABfkb49W5N+AxmkDR6BWI21DFn
+ avUc4a4TTWJunNOed0cmyQwM+/q6KqPcoNFwI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=ftBWuGNfX8JZVFhSKwA+KUVSKGZwfK/v4xpQCMt5JjU=;
- b=OfOcf1OPdISS4wPTm2Wx3Xujb7gNhC1m+sAtBnKY494NRLvUKrRbj+HFs+w7dodF3Y
- EkpXgdkqaRSUqJ7ZZU+lCPjtZ0vDwStXYalJsrSCRFvgMwXGOoUA3X5IUnwSxtZZxMHL
- SAGAzoJnAsmCMxR+ycDbLfTDUW6uiaUYU5PZlzk+x3uV3e5XiOfYxFjD7smt1yeJ0RWZ
- 0wfSYWMgfkgv+7/7BERHKLvj2tg5zBD8wrZLvtfQ6iGARdXrdH402W6g73sDhpeCgodC
- DtvMin7/aQjAf0UP/qDOqoa4//3sPTpk1zsQZZ1gxRj8TzXsO4jlV7a7zZuNQ6eIYBiT
- UiAw==
-X-Gm-Message-State: APjAAAVI/af2zRpJ0AC8vWW0pd/KXrvdxUTer/nC46Y22fFxX2AtBWfV
- R0Pm7TYc1une08NBUT35cbOfd0o7
-X-Google-Smtp-Source: APXvYqyP5wnC/UIA6uYZG1iIuCpdhd4BbS2S2UPeJf7Xo5CCRsLnOqSay/+AmWkBoDqxi6cI3omECg==
-X-Received: by 2002:a17:90a:8001:: with SMTP id
- b1mr4948972pjn.39.1582221749423; 
- Thu, 20 Feb 2020 10:02:29 -0800 (PST)
-Received: from localhost ([100.118.89.211])
- by smtp.gmail.com with ESMTPSA id l69sm2019pgd.1.2020.02.20.10.02.28
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=gznl4640Pmjty68zKptsYkWkjNeUmDBlZFmAL3gSFPE=;
+ b=uKaXuJSpGDOq8qsnC7Bi6OIPnx8nmBk85hfssyT8ve4cjP4uF61hkZQ3HMveVyNlJI
+ rS49YqJh5Y+C4+2FM4ZnnNuZJJSDD09y4lVab/Q4LYGscO+y/ovXW/037UxhvE4oFyVo
+ zStCM7LTJ1uwTCSIFvD1HsveCFQ/f5Z3xNrePDsBJEOMbaUPpzXLlhXbkrboa5HlvQng
+ AK0FzWvG1XQdVteZoN/1peYvet7QxPfxWqe7WKwXereMeW0BWFTOhzq7mzy5YmQFbJ6e
+ m0SWIROFY9vno0qQVvUxzDdHjJBDcrYEcl53jiCAbnBYvMS3OmXaxapOnLQnXRBqrmXy
+ IH2g==
+X-Gm-Message-State: APjAAAVCBi3DqWMeeDQ3LPpROOLmEdUr5TxoAHAuUMQAXOt0lF9hgv/j
+ 2RsNdwF1UikfjjhwrLxGLZDA+A==
+X-Google-Smtp-Source: APXvYqzTWpnmL8Z8rp8OENnYGEbj5HolTszXBtFYgJQK5//Eu/POgaU/ZY2vHhLmewsS8dUgPRJZkA==
+X-Received: by 2002:a1c:990b:: with SMTP id b11mr5769459wme.15.1582222484712; 
+ Thu, 20 Feb 2020 10:14:44 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id c141sm98136wme.41.2020.02.20.10.14.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Feb 2020 10:02:28 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Thu, 20 Feb 2020 10:00:09 -0800
-Message-Id: <20200220180013.1120750-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.24.1
+ Thu, 20 Feb 2020 10:14:44 -0800 (PST)
+Date: Thu, 20 Feb 2020 19:14:42 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Message-ID: <20200220181442.GV2363188@phenom.ffwll.local>
+References: <20200219203544.31013-1-ville.syrjala@linux.intel.com>
+ <20200219203544.31013-6-ville.syrjala@linux.intel.com>
+ <CACvgo50oWkF8vjpGmOYSwaK+khZuAE0yW_npf2UEMQoRTokLBA@mail.gmail.com>
+ <20200220153309.GB13686@intel.com>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm/a6xx: Fix CP_MEMPOOL state name
+Content-Disposition: inline
+In-Reply-To: <20200220153309.GB13686@intel.com>
+X-Operating-System: Linux phenom 5.3.0-3-amd64 
+Subject: Re: [Freedreno] [PATCH 05/12] drm/msm/dpu: Stop copying around
+ mode->private_flags
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,40 +69,54 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: freedreno@lists.freedesktop.org,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Emil Velikov <emil.l.velikov@gmail.com>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On Thu, Feb 20, 2020 at 05:33:09PM +0200, Ville Syrj=E4l=E4 wrote:
+> On Thu, Feb 20, 2020 at 11:24:20AM +0000, Emil Velikov wrote:
+> > On Wed, 19 Feb 2020 at 20:36, Ville Syrjala
+> > <ville.syrjala@linux.intel.com> wrote:
+> > >
+> > > From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> > >
+> > > The driver never sets mode->private_flags so copying
+> > > it back and forth is entirely pointless. Stop doing it.
+> > >
+> > > Also drop private_flags from the tracepoint.
+> > >
+> > > Cc: Rob Clark <robdclark@gmail.com>
+> > > Cc: Sean Paul <sean@poorly.run>
+> > > Cc: linux-arm-msm@vger.kernel.org
+> > > Cc: freedreno@lists.freedesktop.org
+> > > Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> > =
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> > Perhaps the msm team has a WIP which makes use of it ?
+> =
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
-index 68cccfa2870a..bbbec8d26870 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
-@@ -370,7 +370,7 @@ static const struct a6xx_indexed_registers {
- };
- 
- static const struct a6xx_indexed_registers a6xx_cp_mempool_indexed = {
--	"CP_MEMPOOOL", REG_A6XX_CP_MEM_POOL_DBG_ADDR,
-+	"CP_MEMPOOL", REG_A6XX_CP_MEM_POOL_DBG_ADDR,
- 		REG_A6XX_CP_MEM_POOL_DBG_DATA, 0x2060,
- };
- 
--- 
-2.24.1
+> Maybe if it's one of them five year projects. But anyways, =
 
+> with an atomic driver there are certainly better ways to
+> handle this.
+
+Yeah with atomic you have your display mode in drm_crtc_state, which
+you're subposed to subclass so that you can have terabytes of private
+state. At least in theory :-)
+
+->private_flags was really only useful in pre-atomic drivers.
+-Daniel
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
