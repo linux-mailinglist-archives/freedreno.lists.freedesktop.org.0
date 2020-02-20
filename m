@@ -2,54 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5C3F16622A
-	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2020 17:19:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E7971665BC
+	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2020 19:02:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 329406EDD9;
-	Thu, 20 Feb 2020 16:19:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C62AD6EE29;
+	Thu, 20 Feb 2020 18:02:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
- [IPv6:2a00:1450:4864:20::542])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FCC86EDD7
- for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2020 16:19:33 +0000 (UTC)
-Received: by mail-ed1-x542.google.com with SMTP id t7so22777617edr.4
- for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2020 08:19:33 -0800 (PST)
+Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com
+ [IPv6:2607:f8b0:4864:20::1042])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40B5D6EE24;
+ Thu, 20 Feb 2020 18:02:30 +0000 (UTC)
+Received: by mail-pj1-x1042.google.com with SMTP id dw13so1194933pjb.4;
+ Thu, 20 Feb 2020 10:02:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=h15SKSbIsbjB9/+rbkPhsWvg29qqUxsuiy1c0M5WxNg=;
- b=Nic5/cyKp1b1XxJNEvBgkFqaN7LM0wddKUE77hjob4fU8WKIz8tPUFwQ4u7UOwS9Re
- tVN0roIgDQekB9ofDVreQvDb20+SywQhCow6FyIhzwIbqmau9An/HU2XLgw+bBPx7LDl
- rM9N/b17oySYinhSW+9b/l84CZsazTncb7bW/h/3Kl4KGmxL+Br93UEfVdLq23v4G8RZ
- DbYInA2uY7d9dtRyvyarikR8Rl/IzhYqwvjuNErKH8hMS/I3xznl3X5PwBflv1nflmMF
- BhK3JXvVws38El52R147rwLZ2/G73XCeek8ipCDJ4HC5LYSvk3UdNbnXYPXm+822/tO/
- pX4A==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=ftBWuGNfX8JZVFhSKwA+KUVSKGZwfK/v4xpQCMt5JjU=;
+ b=Z7GTb5OmY58dJNwVcxhr2Zj89JXbSLjrDt4/98xY5f4eLOjssVN04Amn+cXaYaGh5l
+ DqGzKkLXy6FQdjPU5cvEewJ6TExOsg4coQmE8aLyUVNiZJeKgREQ+EioOVrzQafZWyNX
+ wNvlAJ5Fb9NdNKVQ2I3U1JQne5b6IWABjyuRdWxbKtJQ4G74F9KFxf5vOCsvr/b0qplb
+ +hwhkPo4ggypZi/5u5PXoEK2bsl6sK5/+2swDHR2TOMLOfl4pp+W/C1jTXyYfH5WCyBb
+ NIlAzn4HpQm5ASJ6q5OHtRY32pO3LRQSAlUXhWyTEECClcAPOwqaIqQ4Ktfhudf/VTO2
+ S/dA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=h15SKSbIsbjB9/+rbkPhsWvg29qqUxsuiy1c0M5WxNg=;
- b=NAM3TCaKiPGztKTS4Tvj6DGPzGDbNmi2PEAvnAdVeWAHKorKzkR6oO8JBpnVVGNdZ3
- QgQVPjHgLu7Hk5sr7zTla1bPWKFA0salRlOOKjgMTKtEniVRjXYh1ypUhiXMru/nRcQb
- D/V/SgCscmPRwWF467rMPC7J5ZAhCorWUIdw3s4hoK8P/REHYlF24vgfacklt+qL/NBU
- PPPDA/WM7q06NtMtIAy7YASbqeLZYfluKSfwSqK91QfY+StS/RFrw7lk7Eus5vBfCR3V
- YfRzDx3d0oE8cdmxmefSjMZZrZXpaGJd0ocvhbjCpGhtv82HsNE/NDgc/SXEQ8ABks/N
- 8YPg==
-X-Gm-Message-State: APjAAAXHO+5ipioWE5W5TwhIgGz62p9B6VIaRb4B0VDD8mAZIaIwG/df
- 6I2ArdpraN7iS5hiSCskJut22qCMrDYd4gArzQw=
-X-Google-Smtp-Source: APXvYqxBAaxRpzlIKrAK5EdDxMJ1r8wwi7LbaTLd+YpFxqS25/jNQQiIOgWDcPzaaKhVVzk937JXQff1zHby0XwpTM4=
-X-Received: by 2002:aa7:c349:: with SMTP id j9mr25435820edr.151.1582215571944; 
- Thu, 20 Feb 2020 08:19:31 -0800 (PST)
-MIME-Version: 1.0
-References: <1581320465-15854-1-git-send-email-smasetty@codeaurora.org>
- <1581320465-15854-2-git-send-email-smasetty@codeaurora.org>
-In-Reply-To: <1581320465-15854-2-git-send-email-smasetty@codeaurora.org>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=ftBWuGNfX8JZVFhSKwA+KUVSKGZwfK/v4xpQCMt5JjU=;
+ b=OfOcf1OPdISS4wPTm2Wx3Xujb7gNhC1m+sAtBnKY494NRLvUKrRbj+HFs+w7dodF3Y
+ EkpXgdkqaRSUqJ7ZZU+lCPjtZ0vDwStXYalJsrSCRFvgMwXGOoUA3X5IUnwSxtZZxMHL
+ SAGAzoJnAsmCMxR+ycDbLfTDUW6uiaUYU5PZlzk+x3uV3e5XiOfYxFjD7smt1yeJ0RWZ
+ 0wfSYWMgfkgv+7/7BERHKLvj2tg5zBD8wrZLvtfQ6iGARdXrdH402W6g73sDhpeCgodC
+ DtvMin7/aQjAf0UP/qDOqoa4//3sPTpk1zsQZZ1gxRj8TzXsO4jlV7a7zZuNQ6eIYBiT
+ UiAw==
+X-Gm-Message-State: APjAAAVI/af2zRpJ0AC8vWW0pd/KXrvdxUTer/nC46Y22fFxX2AtBWfV
+ R0Pm7TYc1une08NBUT35cbOfd0o7
+X-Google-Smtp-Source: APXvYqyP5wnC/UIA6uYZG1iIuCpdhd4BbS2S2UPeJf7Xo5CCRsLnOqSay/+AmWkBoDqxi6cI3omECg==
+X-Received: by 2002:a17:90a:8001:: with SMTP id
+ b1mr4948972pjn.39.1582221749423; 
+ Thu, 20 Feb 2020 10:02:29 -0800 (PST)
+Received: from localhost ([100.118.89.211])
+ by smtp.gmail.com with ESMTPSA id l69sm2019pgd.1.2020.02.20.10.02.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 Feb 2020 10:02:28 -0800 (PST)
 From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 20 Feb 2020 08:19:20 -0800
-Message-ID: <CAF6AEGuFfaYuYoXkGJHit4X0Hp2-i0yMkWCfoKtLwPyGkjpkVA@mail.gmail.com>
-To: Sharat Masetty <smasetty@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v6] arm64: dts: qcom: sc7180: Add A618 gpu
- dt blob
+To: dri-devel@lists.freedesktop.org
+Date: Thu, 20 Feb 2020 10:00:09 -0800
+Message-Id: <20200220180013.1120750-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.24.1
+MIME-Version: 1.0
+Subject: [Freedreno] [PATCH] drm/msm/a6xx: Fix CP_MEMPOOL state name
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,159 +65,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Douglas Anderson <dianders@chromium.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, Matthias Kaehlcke <mka@chromium.org>,
- dri-devel@freedesktop.org, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Feb 9, 2020 at 11:41 PM Sharat Masetty <smasetty@codeaurora.org> wrote:
->
-> This patch adds the required dt nodes and properties
-> to enabled A618 GPU.
->
-> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
-> ---
->  arch/arm64/boot/dts/qcom/sc7180.dtsi | 102 +++++++++++++++++++++++++++++++++++
->  1 file changed, 102 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> index f3fcc5c..63fff15 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> @@ -1043,6 +1043,108 @@
->                         };
->                 };
->
-> +               gpu: gpu@5000000 {
-> +                       compatible = "qcom,adreno-618.0", "qcom,adreno";
-> +                       #stream-id-cells = <16>;
-> +                       reg = <0 0x05000000 0 0x40000>, <0 0x0509e000 0 0x1000>,
-> +                               <0 0x05061000 0 0x800>;
-> +                       reg-names = "kgsl_3d0_reg_memory", "cx_mem", "cx_dbgc";
-> +                       interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
-> +                       iommus = <&adreno_smmu 0>;
-> +                       operating-points-v2 = <&gpu_opp_table>;
-> +                       qcom,gmu = <&gmu>;
-> +
-> +                       gpu_opp_table: opp-table {
-> +                               compatible = "operating-points-v2";
-> +
-> +                               opp-800000000 {
-> +                                       opp-hz = /bits/ 64 <800000000>;
-> +                                       opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
-> +                               };
-> +
-> +                               opp-650000000 {
-> +                                       opp-hz = /bits/ 64 <650000000>;
-> +                                       opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
-> +                               };
-> +
-> +                               opp-565000000 {
-> +                                       opp-hz = /bits/ 64 <565000000>;
-> +                                       opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
-> +                               };
-> +
-> +                               opp-430000000 {
-> +                                       opp-hz = /bits/ 64 <430000000>;
-> +                                       opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-> +                               };
-> +
-> +                               opp-355000000 {
-> +                                       opp-hz = /bits/ 64 <355000000>;
-> +                                       opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
-> +                               };
-> +
-> +                               opp-267000000 {
-> +                                       opp-hz = /bits/ 64 <267000000>;
-> +                                       opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-> +                               };
-> +
-> +                               opp-180000000 {
-> +                                       opp-hz = /bits/ 64 <180000000>;
-> +                                       opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
-> +                               };
-> +                       };
-> +               };
-> +
-> +               adreno_smmu: iommu@5040000 {
-> +                       compatible = "qcom,sc7180-smmu-v2", "qcom,smmu-v2";
-> +                       reg = <0 0x05040000 0 0x10000>;
-> +                       #iommu-cells = <1>;
-> +                       #global-interrupts = <2>;
-> +                       interrupts = <GIC_SPI 229 IRQ_TYPE_LEVEL_HIGH>,
-> +                                       <GIC_SPI 231 IRQ_TYPE_LEVEL_HIGH>,
-> +                                       <GIC_SPI 364 IRQ_TYPE_EDGE_RISING>,
-> +                                       <GIC_SPI 365 IRQ_TYPE_EDGE_RISING>,
-> +                                       <GIC_SPI 366 IRQ_TYPE_EDGE_RISING>,
-> +                                       <GIC_SPI 367 IRQ_TYPE_EDGE_RISING>,
-> +                                       <GIC_SPI 368 IRQ_TYPE_EDGE_RISING>,
-> +                                       <GIC_SPI 369 IRQ_TYPE_EDGE_RISING>,
-> +                                       <GIC_SPI 370 IRQ_TYPE_EDGE_RISING>,
-> +                                       <GIC_SPI 371 IRQ_TYPE_EDGE_RISING>;
-> +                       clocks = <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
-> +                               <&gcc GCC_GPU_CFG_AHB_CLK>,
-> +                               <&gcc GCC_DDRSS_GPU_AXI_CLK>;
-> +
-> +                       clock-names = "bus", "iface", "mem_iface_clk";
-> +                       power-domains = <&gpucc CX_GDSC>;
-> +               };
-> +
-> +               gmu: gmu@506a000 {
-> +                       compatible="qcom,adreno-gmu-618.0", "qcom,adreno-gmu";
-> +                       reg = <0 0x0506a000 0 0x31000>, <0 0x0b290000 0 0x10000>,
-> +                               <0 0x0b490000 0 0x10000>;
-> +                       reg-names = "gmu", "gmu_pdc", "gmu_pdc_seq";
-> +                       interrupts = <GIC_SPI 304 IRQ_TYPE_LEVEL_HIGH>,
-> +                                  <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH>;
-> +                       interrupt-names = "hfi", "gmu";
-> +                       clocks = <&gpucc GPU_CC_CX_GMU_CLK>,
-> +                              <&gpucc GPU_CC_CXO_CLK>,
-> +                              <&gcc GCC_DDRSS_GPU_AXI_CLK>,
-> +                              <&gcc GCC_GPU_MEMNOC_GFX_CLK>;
-> +                       clock-names = "gmu", "cxo", "axi", "memnoc";
-> +                       power-domains = <&gpucc CX_GDSC>, <&gpucc GX_GDSC>;
-> +                       power-domain-names = "cx", "gx";
-> +                       iommus = <&adreno_smmu 5>;
-> +                       operating-points-v2 = <&gmu_opp_table>;
+From: Rob Clark <robdclark@chromium.org>
 
-jfyi, this will shortly require a dma-ranges property[1].. it might
-simplify things, wrt. to which order patches land (this vs dma-ranges)
-to go ahead and add the dma-ranges property now
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-BR,
--R
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
+index 68cccfa2870a..bbbec8d26870 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
+@@ -370,7 +370,7 @@ static const struct a6xx_indexed_registers {
+ };
+ 
+ static const struct a6xx_indexed_registers a6xx_cp_mempool_indexed = {
+-	"CP_MEMPOOOL", REG_A6XX_CP_MEM_POOL_DBG_ADDR,
++	"CP_MEMPOOL", REG_A6XX_CP_MEM_POOL_DBG_ADDR,
+ 		REG_A6XX_CP_MEM_POOL_DBG_DATA, 0x2060,
+ };
+ 
+-- 
+2.24.1
 
-
-[1] https://lists.freedesktop.org/archives/freedreno/2020-February/006903.html
-
-> +
-> +                       gmu_opp_table: opp-table {
-> +                               compatible = "operating-points-v2";
-> +
-> +                               opp-200000000 {
-> +                                       opp-hz = /bits/ 64 <200000000>;
-> +                                       opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
-> +                               };
-> +                       };
-> +               };
-> +
->                 gpucc: clock-controller@5090000 {
->                         compatible = "qcom,sc7180-gpucc";
->                         reg = <0 0x05090000 0 0x9000>;
-> --
-> 1.9.1
-> _______________________________________________
-> Freedreno mailing list
-> Freedreno@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/freedreno
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
