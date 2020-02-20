@@ -2,61 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D10FA1665FA
-	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2020 19:14:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 691ED16662C
+	for <lists+freedreno@lfdr.de>; Thu, 20 Feb 2020 19:27:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82DBF6EE2F;
-	Thu, 20 Feb 2020 18:14:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 149866EE3C;
+	Thu, 20 Feb 2020 18:27:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 033E76EE2F
- for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2020 18:14:45 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id t14so3084669wmi.5
- for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2020 10:14:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=gznl4640Pmjty68zKptsYkWkjNeUmDBlZFmAL3gSFPE=;
- b=YbsgFHprAZngpJ64emSEHbG/VsiZpyqbsgRuOHCXapQk3shJhhfNfjXpx0xrWdI1qt
- TInKZ6bAFGf/E6AENPaHYpSbVNWGhcsIFaUvfjpGJcABfkb49W5N+AxmkDR6BWI21DFn
- avUc4a4TTWJunNOed0cmyQwM+/q6KqPcoNFwI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=gznl4640Pmjty68zKptsYkWkjNeUmDBlZFmAL3gSFPE=;
- b=uKaXuJSpGDOq8qsnC7Bi6OIPnx8nmBk85hfssyT8ve4cjP4uF61hkZQ3HMveVyNlJI
- rS49YqJh5Y+C4+2FM4ZnnNuZJJSDD09y4lVab/Q4LYGscO+y/ovXW/037UxhvE4oFyVo
- zStCM7LTJ1uwTCSIFvD1HsveCFQ/f5Z3xNrePDsBJEOMbaUPpzXLlhXbkrboa5HlvQng
- AK0FzWvG1XQdVteZoN/1peYvet7QxPfxWqe7WKwXereMeW0BWFTOhzq7mzy5YmQFbJ6e
- m0SWIROFY9vno0qQVvUxzDdHjJBDcrYEcl53jiCAbnBYvMS3OmXaxapOnLQnXRBqrmXy
- IH2g==
-X-Gm-Message-State: APjAAAVCBi3DqWMeeDQ3LPpROOLmEdUr5TxoAHAuUMQAXOt0lF9hgv/j
- 2RsNdwF1UikfjjhwrLxGLZDA+A==
-X-Google-Smtp-Source: APXvYqzTWpnmL8Z8rp8OENnYGEbj5HolTszXBtFYgJQK5//Eu/POgaU/ZY2vHhLmewsS8dUgPRJZkA==
-X-Received: by 2002:a1c:990b:: with SMTP id b11mr5769459wme.15.1582222484712; 
- Thu, 20 Feb 2020 10:14:44 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id c141sm98136wme.41.2020.02.20.10.14.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Feb 2020 10:14:44 -0800 (PST)
-Date: Thu, 20 Feb 2020 19:14:42 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Message-ID: <20200220181442.GV2363188@phenom.ffwll.local>
-References: <20200219203544.31013-1-ville.syrjala@linux.intel.com>
- <20200219203544.31013-6-ville.syrjala@linux.intel.com>
- <CACvgo50oWkF8vjpGmOYSwaK+khZuAE0yW_npf2UEMQoRTokLBA@mail.gmail.com>
- <20200220153309.GB13686@intel.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200220153309.GB13686@intel.com>
-X-Operating-System: Linux phenom 5.3.0-3-amd64 
-Subject: Re: [Freedreno] [PATCH 05/12] drm/msm/dpu: Stop copying around
- mode->private_flags
+Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
+ [104.130.122.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D529B6EE3C
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2020 18:27:03 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1582223223; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=1b9L0w3z5bVHdWtnw5ZOrRJfst0EtjPxWLBYnnXzM2M=;
+ b=bALKywLtWQgBn3COdpxPUQn2NM3FgOigs+CLxnbJC80QcvuttXLZgN9ZKZjSbOMpcwuGY11v
+ Tfl1ijl+xDJ+ryXvcdsTH/HbjAykEvl3BWoxtTw3nhRYLZS28mSjadQ7XateEO1A8CF8nhhC
+ jRW370kHB74SpQeZP9Saw/5w8g8=
+X-Mailgun-Sending-Ip: 104.130.122.26
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5e4ecf76.7efb895fd2d0-smtp-out-n02;
+ Thu, 20 Feb 2020 18:27:02 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 8F1FCC447A3; Thu, 20 Feb 2020 18:27:02 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 97EF5C43383;
+ Thu, 20 Feb 2020 18:27:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 97EF5C43383
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=jcrouse@codeaurora.org
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: linux-arm-msm@vger.kernel.org
+Date: Thu, 20 Feb 2020 11:26:52 -0700
+Message-Id: <1582223216-23459-1-git-send-email-jcrouse@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH v2 0/4] msm/gpu/a6xx: use the DMA-API for GMU
+ memory allocations
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,54 +63,60 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Emil Velikov <emil.l.velikov@gmail.com>,
- ML dri-devel <dri-devel@lists.freedesktop.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
+ smasetty@codeaurora.org, freedreno@lists.freedesktop.org,
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, John Stultz <john.stultz@linaro.org>,
+ Andy Gross <agross@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Feb 20, 2020 at 05:33:09PM +0200, Ville Syrj=E4l=E4 wrote:
-> On Thu, Feb 20, 2020 at 11:24:20AM +0000, Emil Velikov wrote:
-> > On Wed, 19 Feb 2020 at 20:36, Ville Syrjala
-> > <ville.syrjala@linux.intel.com> wrote:
-> > >
-> > > From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> > >
-> > > The driver never sets mode->private_flags so copying
-> > > it back and forth is entirely pointless. Stop doing it.
-> > >
-> > > Also drop private_flags from the tracepoint.
-> > >
-> > > Cc: Rob Clark <robdclark@gmail.com>
-> > > Cc: Sean Paul <sean@poorly.run>
-> > > Cc: linux-arm-msm@vger.kernel.org
-> > > Cc: freedreno@lists.freedesktop.org
-> > > Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> > =
 
-> > Perhaps the msm team has a WIP which makes use of it ?
-> =
+When CONFIG_INIT_ON_ALLOC_DEFAULT_ON the GMU memory allocator runs afoul of
+cache coherency issues because it is mapped as write-combine without clearing
+the cache after it was zeroed.
 
-> Maybe if it's one of them five year projects. But anyways, =
+Rather than duplicate the hacky workaround we use in the GEM allocator for the
+same reason it turns out that we don't need to have a bespoke memory allocator
+for the GMU anyway. It uses a flat, global address space and there are only
+two relatively minor allocations anyway. In short, this is essentially what the
+DMA API was created for so replace a bunch of memory management code with two
+calls to allocate and free DMA memory and we're fine.
 
-> with an atomic driver there are certainly better ways to
-> handle this.
+The only wrinkle is that the memory allocations need to be in a very specific
+location in the GMU virtual address space so in order to get the iova allocator
+to do the right thing we need to specify the dma-ranges property in the device
+tree for the GMU node. Since we've not yet converted the GMU bindings over to
+YAML two patches quickly turn into four but at the end of it we have at least
+one bindings file converted to YAML and 99 less lines of code to worry about.
 
-Yeah with atomic you have your display mode in drm_crtc_state, which
-you're subposed to subclass so that you can have terabytes of private
-state. At least in theory :-)
+v2: Fix the example bindings for dma-ranges - the third item is the size
+Pass false to of_dma_configure so that it fails probe if the DMA region is not
+set up.
 
-->private_flags was really only useful in pre-atomic drivers.
--Daniel
--- =
+Jordan Crouse (4):
+  dt-bindings: display: msm: Convert GMU bindings to YAML
+  dt-bindings: display: msm: Add required dma-range property
+  arm64: dts: sdm845: Set the virtual address range for GMU allocations
+  drm/msm/a6xx: Use the DMA API for GMU memory objects
 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+ .../devicetree/bindings/display/msm/gmu.txt        | 116 -----------------
+ .../devicetree/bindings/display/msm/gmu.yaml       | 140 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sdm845.dtsi               |   2 +
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              | 112 ++---------------
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h              |   5 +-
+ 5 files changed, 153 insertions(+), 222 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/display/msm/gmu.txt
+ create mode 100644 Documentation/devicetree/bindings/display/msm/gmu.yaml
+
+-- 
+2.7.4
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
