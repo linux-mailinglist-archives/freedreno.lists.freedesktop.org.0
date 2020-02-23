@@ -1,42 +1,42 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2950169357
-	for <lists+freedreno@lfdr.de>; Sun, 23 Feb 2020 03:22:41 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id EC34A169382
+	for <lists+freedreno@lfdr.de>; Sun, 23 Feb 2020 03:23:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 612276E9A7;
-	Sun, 23 Feb 2020 02:22:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53AFA6E9AB;
+	Sun, 23 Feb 2020 02:23:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B2786E99E;
- Sun, 23 Feb 2020 02:22:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC14E6E9A7;
+ Sun, 23 Feb 2020 02:23:42 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id EB51822525;
- Sun, 23 Feb 2020 02:22:37 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id B570422464;
+ Sun, 23 Feb 2020 02:23:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1582424559;
- bh=jgup64UFrKiSacTUai/nnQoGjwFMsP91KXVuOUvxR9Y=;
+ s=default; t=1582424622;
+ bh=cYSfgZd9T+dzm+OcBHz1MeNEfhjfIMoU3/02Frk8i3Y=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=OmGkbQ2y9TWq03qLjmP4zrBPPwY3BTjCuEb3ZxargYLs3tVhoSIv4KWXW0xQr+nW2
- DWcnz7yMww+i8G/JtqS3F2KRSCnjyxa9PRR/JN3qA5sTDVIZ2Lgr+u0IrAD7nx07BC
- DwVyPaBdR4dSwbcCw5lztUj5FLDs657VSxCDQYDk=
+ b=fRCd9AINmbPIz3gfcLNUTra3NacPtOWSQkKXbB2E5oU6kD4teDc1c3zvQSItt5F/Q
+ vtVfmbSY0ccOnNAAtQzzHcXvjXNFT7HWVJVNeAQxvkJBwRoC1YxYYhcsfVIXFjltZ5
+ XHZAR023va9h0CDVM3mtWUpnyDDxM+is10i6psXA=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sat, 22 Feb 2020 21:21:47 -0500
-Message-Id: <20200223022235.1404-2-sashal@kernel.org>
+Date: Sat, 22 Feb 2020 21:23:16 -0500
+Message-Id: <20200223022339.1885-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200223022235.1404-1-sashal@kernel.org>
-References: <20200223022235.1404-1-sashal@kernel.org>
+In-Reply-To: <20200223022339.1885-1-sashal@kernel.org>
+References: <20200223022339.1885-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Subject: [Freedreno] [PATCH AUTOSEL 5.4 02/50] drm/msm: Set dma maximum
+Subject: [Freedreno] [PATCH AUTOSEL 4.19 02/25] drm/msm: Set dma maximum
  segment size for mdss
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -130,10 +130,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 8 insertions(+)
 
 diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index c84f0a8b3f2ce..b73fbb65e14b2 100644
+index dbfd2c006f740..6f81de85fb860 100644
 --- a/drivers/gpu/drm/msm/msm_drv.c
 +++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -441,6 +441,14 @@ static int msm_drm_init(struct device *dev, struct drm_driver *drv)
+@@ -492,6 +492,14 @@ static int msm_drm_init(struct device *dev, struct drm_driver *drv)
  	if (ret)
  		goto err_msm_uninit;
  
