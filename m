@@ -2,53 +2,42 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0E96166B74
-	for <lists+freedreno@lfdr.de>; Fri, 21 Feb 2020 01:20:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A86BB16931F
+	for <lists+freedreno@lfdr.de>; Sun, 23 Feb 2020 03:21:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DC466E1A8;
-	Fri, 21 Feb 2020 00:20:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A00C66E99E;
+	Sun, 23 Feb 2020 02:21:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x241.google.com (mail-oi1-x241.google.com
- [IPv6:2607:f8b0:4864:20::241])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89D256EE88
- for <freedreno@lists.freedesktop.org>; Fri, 21 Feb 2020 00:19:59 +0000 (UTC)
-Received: by mail-oi1-x241.google.com with SMTP id p125so263694oif.10
- for <freedreno@lists.freedesktop.org>; Thu, 20 Feb 2020 16:19:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=IHr5qo3B7v5uxs0wZA0fZW6J9zqGy3IdsKd+NBLqxdQ=;
- b=Hz3Wvel0TrnLWu2KOGBLM37xIzOel8u9Z3LL3LKWhQ5uDvm2hmCI+8lAaq9dDcnzK0
- mmF29yC6bk6kCEp7Rp8Xphv7SaNuWSCpytm5t0gbTsUTgWYqT1kGf0Uk4snguMx7ktEB
- CUaU4UXvlG8DiQPZ0fLoxZ7q8pzZGa6twCkjkNgfUTBep5MTIzKNPNNZmjXvVmIuajDT
- x1oGn/KBMPVd010kg/4IBE9Z7pYnop4ImXcsjGIsjF1rqOEZh0XzY3XCKZGRIyEUPwgM
- dnOCLimGwLQYnIXwqYXRG3zAdpZoXpkT5LDSWOlqz/mbvst5M1heaxiNSpmi3QJ6N3pL
- qeqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=IHr5qo3B7v5uxs0wZA0fZW6J9zqGy3IdsKd+NBLqxdQ=;
- b=LjHdInRbXBVcFZXIlA8B5QAt3GVr4VWu27zt4raqlv1TlL6rTDldCdRjGX4nhFpqCK
- I7PB2KCbjlMQjmbk4x3MmJOoEf6O11kNSYCA8frQ2EaKX/Uk0l+IavCtTuW3fI41k0Ko
- ziXner5SUMrO6GUJQWDsoUN9BFv/h+hlsT8ME7Hp28Kcb1CmJeS6egBuAchrdXCB5xtH
- dt8/wfUwIyYLMaur8kPeDGmuTOZ7AtaI5dtPkypZo/l9MQ/4lw0Jz8mMNkjcMMoy3dfm
- 0UDzNJszXWvBPbHbpbczNr8djtr/4htJtCKn0Lh5Hr+zk2863rYuXQQ1xqfKnLGgTLGY
- rZow==
-X-Gm-Message-State: APjAAAUkrcd4oPN6Fq9jW+dIDx4GkHxWr7iHR+hIPGnupmXSf9trXPO+
- /6zIQpbpG5F+JiYGhjEfex472IKIXzLdGX8pTEniGw==
-X-Google-Smtp-Source: APXvYqxyLS/9yBWFyxJu7nngbozjCnxStnGWdAIgQ8O7CZoqSKHHSFq255QaoTFU0a3hJMPv5SrYAZQF8EZ/aFXEwgA=
-X-Received: by 2002:aca:c0c5:: with SMTP id q188mr3935454oif.169.1582244398771; 
- Thu, 20 Feb 2020 16:19:58 -0800 (PST)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EBB26E11A;
+ Sun, 23 Feb 2020 02:21:23 +0000 (UTC)
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+ [73.47.72.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id E16BF20707;
+ Sun, 23 Feb 2020 02:21:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1582424483;
+ bh=jgup64UFrKiSacTUai/nnQoGjwFMsP91KXVuOUvxR9Y=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=mKEPZg9XNxYb3l081cV1rCPx3z1PqyKWt6WIlfMJW+GNYrMKspmHD21OErUSN0z3p
+ 7kpdF8sP1SdPIy5hl7zWt4aGgQ2FGsv8I+XfVwbOI96IjFFb71CPyyKDLUvd2AbH94
+ GkZWZuRnKCWCAosN/YcyBo5kvhRK6p66WZ2wF3pY=
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Sat, 22 Feb 2020 21:20:23 -0500
+Message-Id: <20200223022119.707-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200223022119.707-1-sashal@kernel.org>
+References: <20200223022119.707-1-sashal@kernel.org>
 MIME-Version: 1.0
-References: <1582223216-23459-1-git-send-email-jcrouse@codeaurora.org>
-In-Reply-To: <1582223216-23459-1-git-send-email-jcrouse@codeaurora.org>
-From: John Stultz <john.stultz@linaro.org>
-Date: Thu, 20 Feb 2020 16:19:46 -0800
-Message-ID: <CALAqxLW3PHtdFY20AStETme7sp-YLMLXBhqRyjOeLkQDSFOeVQ@mail.gmail.com>
-To: Jordan Crouse <jcrouse@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v2 0/4] msm/gpu/a6xx: use the DMA-API for
- GMU memory allocations
+X-stable: review
+X-Patchwork-Hint: Ignore
+Subject: [Freedreno] [PATCH AUTOSEL 5.5 02/58] drm/msm: Set dma maximum
+ segment size for mdss
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,49 +50,107 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mark Rutland <mark.rutland@arm.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Sharat Masetty <smasetty@codeaurora.org>,
- freedreno@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Andy Gross <agross@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Sean Paul <sean@poorly.run>, lkml <linux-kernel@vger.kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ linux-arm-msm@vger.kernel.org, Douglas Anderson <dianders@chromium.org>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <seanpaul@chromium.org>,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Feb 20, 2020 at 10:27 AM Jordan Crouse <jcrouse@codeaurora.org> wrote:
-> When CONFIG_INIT_ON_ALLOC_DEFAULT_ON the GMU memory allocator runs afoul of
-> cache coherency issues because it is mapped as write-combine without clearing
-> the cache after it was zeroed.
->
-> Rather than duplicate the hacky workaround we use in the GEM allocator for the
-> same reason it turns out that we don't need to have a bespoke memory allocator
-> for the GMU anyway. It uses a flat, global address space and there are only
-> two relatively minor allocations anyway. In short, this is essentially what the
-> DMA API was created for so replace a bunch of memory management code with two
-> calls to allocate and free DMA memory and we're fine.
->
-> The only wrinkle is that the memory allocations need to be in a very specific
-> location in the GMU virtual address space so in order to get the iova allocator
-> to do the right thing we need to specify the dma-ranges property in the device
-> tree for the GMU node. Since we've not yet converted the GMU bindings over to
-> YAML two patches quickly turn into four but at the end of it we have at least
-> one bindings file converted to YAML and 99 less lines of code to worry about.
->
-> v2: Fix the example bindings for dma-ranges - the third item is the size
-> Pass false to of_dma_configure so that it fails probe if the DMA region is not
-> set up.
+From: Sean Paul <seanpaul@chromium.org>
 
-This set still works for me as well. Thanks so much!
-Tested-by: John Stultz <john.stultz@linaro.org>
+[ Upstream commit db735fc4036bbe1fbe606819b5f0ff26cc76cdff ]
 
-thanks
--john
+Turning on CONFIG_DMA_API_DEBUG_SG results in the following error:
+
+[   12.078665] msm ae00000.mdss: DMA-API: mapping sg segment longer than device claims to support [len=3526656] [max=65536]
+[   12.089870] WARNING: CPU: 6 PID: 334 at /mnt/host/source/src/third_party/kernel/v4.19/kernel/dma/debug.c:1301 debug_dma_map_sg+0x1dc/0x318
+[   12.102655] Modules linked in: joydev
+[   12.106442] CPU: 6 PID: 334 Comm: frecon Not tainted 4.19.0 #2
+[   12.112450] Hardware name: Google Cheza (rev3+) (DT)
+[   12.117566] pstate: 60400009 (nZCv daif +PAN -UAO)
+[   12.122506] pc : debug_dma_map_sg+0x1dc/0x318
+[   12.126995] lr : debug_dma_map_sg+0x1dc/0x318
+[   12.131487] sp : ffffff800cc3ba80
+[   12.134913] x29: ffffff800cc3ba80 x28: 0000000000000000
+[   12.140395] x27: 0000000000000004 x26: 0000000000000004
+[   12.145868] x25: ffffff8008e55b18 x24: 0000000000000000
+[   12.151337] x23: 00000000ffffffff x22: ffffff800921c000
+[   12.156809] x21: ffffffc0fa75b080 x20: ffffffc0f7195090
+[   12.162280] x19: ffffffc0f1c53280 x18: 0000000000000000
+[   12.167749] x17: 0000000000000000 x16: 0000000000000000
+[   12.173218] x15: 0000000000000000 x14: 0720072007200720
+[   12.178689] x13: 0720072007200720 x12: 0720072007200720
+[   12.184161] x11: 0720072007200720 x10: 0720072007200720
+[   12.189641] x9 : ffffffc0f1fc6b60 x8 : 0000000000000000
+[   12.195110] x7 : ffffff8008132ce0 x6 : 0000000000000000
+[   12.200585] x5 : 0000000000000000 x4 : ffffff8008134734
+[   12.206058] x3 : ffffff800cc3b830 x2 : ffffffc0f1fc6240
+[   12.211532] x1 : 25045a74f48a7400 x0 : 25045a74f48a7400
+[   12.217006] Call trace:
+[   12.219535]  debug_dma_map_sg+0x1dc/0x318
+[   12.223671]  get_pages+0x19c/0x20c
+[   12.227177]  msm_gem_fault+0x64/0xfc
+[   12.230874]  __do_fault+0x3c/0x140
+[   12.234383]  __handle_mm_fault+0x70c/0xdb8
+[   12.238603]  handle_mm_fault+0xac/0xc4
+[   12.242473]  do_page_fault+0x1bc/0x3d4
+[   12.246342]  do_translation_fault+0x54/0x88
+[   12.250652]  do_mem_abort+0x60/0xf0
+[   12.254250]  el0_da+0x20/0x24
+[   12.257317] irq event stamp: 67260
+[   12.260828] hardirqs last  enabled at (67259): [<ffffff8008132d0c>] console_unlock+0x214/0x608
+[   12.269693] hardirqs last disabled at (67260): [<ffffff8008080e0c>] do_debug_exception+0x5c/0x178
+[   12.278820] softirqs last  enabled at (67256): [<ffffff8008081664>] __do_softirq+0x4d4/0x520
+[   12.287510] softirqs last disabled at (67249): [<ffffff80080be574>] irq_exit+0xa8/0x100
+[   12.295742] ---[ end trace e63cfc40c313ffab ]---
+
+The root of the problem is that the default segment size for sgt is
+(UINT_MAX & PAGE_MASK), and the default segment size for device dma is
+64K. As such, if you compare the 2, you would deduce that the sg segment
+will overflow the device's capacity. In reality, the hardware can
+accommodate the larger sg segments, it's just not initializing its max
+segment properly. This patch initializes the max segment size for the
+mdss device, which gets rid of that pesky warning.
+
+Reported-by: Stephen Boyd <swboyd@chromium.org>
+Tested-by: Stephen Boyd <swboyd@chromium.org>
+Tested-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+Reviewed-by: Rob Clark <robdclark@gmail.com>
+Signed-off-by: Sean Paul <seanpaul@chromium.org>
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+Link: https://patchwork.freedesktop.org/patch/msgid/20200121111813.REPOST.1.I92c66a35fb13f368095b05287bdabdbe88ca6922@changeid
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/msm/msm_drv.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index c84f0a8b3f2ce..b73fbb65e14b2 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -441,6 +441,14 @@ static int msm_drm_init(struct device *dev, struct drm_driver *drv)
+ 	if (ret)
+ 		goto err_msm_uninit;
+ 
++	if (!dev->dma_parms) {
++		dev->dma_parms = devm_kzalloc(dev, sizeof(*dev->dma_parms),
++					      GFP_KERNEL);
++		if (!dev->dma_parms)
++			return -ENOMEM;
++	}
++	dma_set_max_seg_size(dev, DMA_BIT_MASK(32));
++
+ 	msm_gem_shrinker_init(ddev);
+ 
+ 	switch (get_mdp_ver(pdev)) {
+-- 
+2.20.1
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
