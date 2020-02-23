@@ -2,41 +2,41 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A86BB16931F
-	for <lists+freedreno@lfdr.de>; Sun, 23 Feb 2020 03:21:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2950169357
+	for <lists+freedreno@lfdr.de>; Sun, 23 Feb 2020 03:22:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A00C66E99E;
-	Sun, 23 Feb 2020 02:21:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 612276E9A7;
+	Sun, 23 Feb 2020 02:22:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EBB26E11A;
- Sun, 23 Feb 2020 02:21:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B2786E99E;
+ Sun, 23 Feb 2020 02:22:39 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E16BF20707;
- Sun, 23 Feb 2020 02:21:21 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id EB51822525;
+ Sun, 23 Feb 2020 02:22:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1582424483;
+ s=default; t=1582424559;
  bh=jgup64UFrKiSacTUai/nnQoGjwFMsP91KXVuOUvxR9Y=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=mKEPZg9XNxYb3l081cV1rCPx3z1PqyKWt6WIlfMJW+GNYrMKspmHD21OErUSN0z3p
- 7kpdF8sP1SdPIy5hl7zWt4aGgQ2FGsv8I+XfVwbOI96IjFFb71CPyyKDLUvd2AbH94
- GkZWZuRnKCWCAosN/YcyBo5kvhRK6p66WZ2wF3pY=
+ b=OmGkbQ2y9TWq03qLjmP4zrBPPwY3BTjCuEb3ZxargYLs3tVhoSIv4KWXW0xQr+nW2
+ DWcnz7yMww+i8G/JtqS3F2KRSCnjyxa9PRR/JN3qA5sTDVIZ2Lgr+u0IrAD7nx07BC
+ DwVyPaBdR4dSwbcCw5lztUj5FLDs657VSxCDQYDk=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sat, 22 Feb 2020 21:20:23 -0500
-Message-Id: <20200223022119.707-2-sashal@kernel.org>
+Date: Sat, 22 Feb 2020 21:21:47 -0500
+Message-Id: <20200223022235.1404-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200223022119.707-1-sashal@kernel.org>
-References: <20200223022119.707-1-sashal@kernel.org>
+In-Reply-To: <20200223022235.1404-1-sashal@kernel.org>
+References: <20200223022235.1404-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Subject: [Freedreno] [PATCH AUTOSEL 5.5 02/58] drm/msm: Set dma maximum
+Subject: [Freedreno] [PATCH AUTOSEL 5.4 02/50] drm/msm: Set dma maximum
  segment size for mdss
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
