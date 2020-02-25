@@ -2,62 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C19DF16B929
-	for <lists+freedreno@lfdr.de>; Tue, 25 Feb 2020 06:38:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2514516C3CD
+	for <lists+freedreno@lfdr.de>; Tue, 25 Feb 2020 15:26:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 305CD6E0E4;
-	Tue, 25 Feb 2020 05:38:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5CF76EAEE;
+	Tue, 25 Feb 2020 14:26:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com
- [IPv6:2607:f8b0:4864:20::1042])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 171C26E0E5
- for <freedreno@lists.freedesktop.org>; Tue, 25 Feb 2020 05:38:30 +0000 (UTC)
-Received: by mail-pj1-x1042.google.com with SMTP id e9so778764pjr.4
- for <freedreno@lists.freedesktop.org>; Mon, 24 Feb 2020 21:38:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=mfqZGXgqcPFcLTJKiGeAyv3Q4QoPEUtHeOmm57Pq0Bg=;
- b=LcO6iKTpqfabTXwgfFeBl/Y6LYETyCNilbjx+m8rEe0L0O9Bog/7KxqhnOR8C5ALRz
- qX5DJ44C+w8rGQWutRXsklT/1VEsh5jwZvRLfDwrprD4vEpyISLLRTUHvwX8Kurhg9u2
- p0v++ust9yWPvqiELyLkPpIrze3mUFXsXraAGM8a7vc02DEWt5jHZFakl1gyfl2Umj8t
- EHxUwK/iIZQd7JYp+d6fGs8P5xOOJhzXMVgFxsnEjsqenMR989IbAaGhgroLxj9HyAir
- aRooPcuFDs8/EIA/aPhxkBVGLKUNwWJYe/jMtCzgKovfh0fEM7CNx6YCuzWbEDD7+tSH
- 889w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=mfqZGXgqcPFcLTJKiGeAyv3Q4QoPEUtHeOmm57Pq0Bg=;
- b=ig3qmm+M5qsNx0cevpwElE4Z9Zs3F5Cj86rkAYYc0IsAROGJ5jF+ldchkC21OpIrvJ
- 41UNZXAOBK6dstgKJF2TvAg1g83mo94yYIqXUGYmT+8gvOLKOAe9rtSpTzFZDrMXnkoO
- aBXhp4++4yFFe07BeZxZlJHz+g+2IdbsTp0pUd+mtLRSItj+fI4fZSPr0nkSvtyFeEA7
- 8X5+MGyneKTlZzNYNsWPPP82lgwnHTLElSj6r7lijPYI8OtoqGFaQ8OSs8hEywt5XkH7
- I0s3S9j+h+qmLeiomGXegsCOL0tH9kkwDo15tG2T5NYHXrwPssDRlFuWNPqMm44yWxRP
- HGhA==
-X-Gm-Message-State: APjAAAUdRrjSv24EpGux1N2k4H03SS8SeWOVqCsqtgpIWu0j3CtxxVJj
- 5ByzF8ZgSNmDq/Iz+/CjJlOsDA==
-X-Google-Smtp-Source: APXvYqwkscLdmw1pP0ddtOkJWsdMUNpLzaX/fR+sjE3SUT1Fbfb+/os/yj982Eu8VpCm/AlKEWhQbw==
-X-Received: by 2002:a17:90a:de05:: with SMTP id
- m5mr3252574pjv.10.1582609109254; 
- Mon, 24 Feb 2020 21:38:29 -0800 (PST)
-Received: from yoga (104-188-17-28.lightspeed.sndgca.sbcglobal.net.
- [104.188.17.28])
- by smtp.gmail.com with ESMTPSA id w18sm15374736pfq.167.2020.02.24.21.38.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Feb 2020 21:38:28 -0800 (PST)
-Date: Mon, 24 Feb 2020 21:38:25 -0800
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Harigovindan P <harigovi@codeaurora.org>
-Message-ID: <20200225053825.GI99370@yoga>
-References: <1580907990-32108-1-git-send-email-harigovi@codeaurora.org>
- <1580907990-32108-3-git-send-email-harigovi@codeaurora.org>
+X-Greylist: delayed 1487 seconds by postgrey-1.36 at gabe;
+ Tue, 25 Feb 2020 14:26:00 UTC
+Received: from gateway24.websitewelcome.com (gateway24.websitewelcome.com
+ [192.185.51.202])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C5DE6EAEE
+ for <freedreno@lists.freedesktop.org>; Tue, 25 Feb 2020 14:26:00 +0000 (UTC)
+Received: from cm16.websitewelcome.com (cm16.websitewelcome.com [100.42.49.19])
+ by gateway24.websitewelcome.com (Postfix) with ESMTP id 4C21A820A3
+ for <freedreno@lists.freedesktop.org>; Tue, 25 Feb 2020 08:01:11 -0600 (CST)
+Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with SMTP
+ id 6alqjq81L8vkB6alqjlUQ9; Tue, 25 Feb 2020 08:01:11 -0600
+X-Authority-Reason: nr=8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=embeddedor.com; s=default; h=Content-Type:MIME-Version:Message-ID:Subject:
+ Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=RUoiJPKbXOORUMcByfg3y59aLbGOyCajhNRZHKwxYdM=; b=K2TmY80nKM6JNCRMaqOjv6Y2II
+ XFqNYwg3sy7pV8Klv6Z2CYpDDYYf3KFpYCENAtHow/6zmfi1f5q6y9f2zAkS9jI/oYF4JoAq+wcST
+ AJvHG3FrQ7FB4RDL0KCggXRvfAB9mLOHtLxM4N9XJxuGDQXCDr09AhZkPVaQ9WHITZXV0N+oC/5vX
+ i4tsYSH5RXHtjYhQ+ymmn1vXlNxuQXTnaGZlVoSlMissVsAOwJ5GiFCvfz9gDgQb3M4rd1vkhzFdL
+ wjuWLRYQKT5yXwh7t7fk5QpAOoAYW2enhrqXF1i/udxOwjZOK/vU2qCxp0TyiL/cLLfqcR1NIu8T8
+ 5HxBx97Q==;
+Received: from [201.162.241.105] (port=19602 helo=embeddedor)
+ by gator4166.hostgator.com with esmtpa (Exim 4.92)
+ (envelope-from <gustavo@embeddedor.com>)
+ id 1j6alo-001QK9-7P; Tue, 25 Feb 2020 08:01:08 -0600
+Date: Tue, 25 Feb 2020 08:03:47 -0600
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+To: Lucas Stach <l.stach@pengutronix.de>,
+ Russell King <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Hans de Goede <hdegoede@redhat.com>, Eric Anholt <eric@anholt.net>,
+ VMware Graphics <linux-graphics-maintainer@vmware.com>,
+ Thomas Hellstrom <thellstrom@vmware.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <20200225140347.GA22864@embeddedor>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1580907990-32108-3-git-send-email-harigovi@codeaurora.org>
-Subject: Re: [Freedreno] [PATCHv3 2/2] drm/panel: add support for rm69299
- visionox panel driver
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - embeddedor.com
+X-BWhitelist: no
+X-Source-IP: 201.162.241.105
+X-Source-L: No
+X-Exim-ID: 1j6alo-001QK9-7P
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: (embeddedor) [201.162.241.105]:19602
+X-Source-Auth: gustavo@embeddedor.com
+X-Email-Count: 26
+X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
+X-Local-Domain: yes
+Subject: [Freedreno] [PATCH][next] drm: Replace zero-length array with
+ flexible-array member
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,527 +90,272 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean@poorly.run, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, robdclark@gmail.com, seanpaul@chromium.org,
- freedreno@lists.freedesktop.org
+Cc: "Gustavo A. R. Silva" <gustavo@embeddedor.com>,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, spice-devel@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed 05 Feb 05:06 PST 2020, Harigovindan P wrote:
+The current codebase makes use of the zero-length array language
+extension to the C90 standard, but the preferred mechanism to declare
+variable-length types such as these ones is a flexible array member[1][2],
+introduced in C99:
 
-> Add support for Visionox panel driver.
-> 
-> Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
-> ---
-> 
-> Changes in v1:
-> 	- Split out panel driver patch from dsi config changes(Rob Clark).
-> 	- Remove unrelated code(Stephen Boyd).
-> 	- Remove static arrays to make regulator setup open coded
-> 	in probe(Stephen Boyd).
-> 	- Remove pre-assigning variables(Stephen Boyd).
-> 	- Inline panel_add function into probe(Stephen Boyd).
-> 	- Use mipi_dsi_dcs_write directly(Rob Clark).
-> 	- Remove qcom_rm69299_1080p_panel_magic_cmds array(Rob Clark).
-> Changes in v2:
-> 	- Dropping redundant space in Kconfig(Sam Ravnborg).
-> 	- Changing structure for include files(Sam Ravnborg).
-> 	- Removing backlight related code and functions(Sam Ravnborg).
-> 	- Removing repeated printing of error message(Sam Ravnborg).
-> 	- Adding drm_connector as an argument for get_modes function.
-> Changes in v3:
-> 	- Adding arguments for drm_panel_init to support against mainline.
-> 
->  drivers/gpu/drm/panel/Kconfig                  |   8 +
->  drivers/gpu/drm/panel/Makefile                 |   1 +
->  drivers/gpu/drm/panel/panel-visionox-rm69299.c | 371 +++++++++++++++++++++++++
->  3 files changed, 380 insertions(+)
->  create mode 100644 drivers/gpu/drm/panel/panel-visionox-rm69299.c
-> 
-> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-> index 04225a8..354a3a5 100644
-> --- a/drivers/gpu/drm/panel/Kconfig
-> +++ b/drivers/gpu/drm/panel/Kconfig
-> @@ -407,6 +407,14 @@ config DRM_PANEL_TRULY_NT35597_WQXGA
->  	  Say Y here if you want to enable support for Truly NT35597 WQXGA Dual DSI
->  	  Video Mode panel
->  
-> +config DRM_PANEL_VISIONOX_RM69299
-> +	tristate "Visionox RM69299"
-> +	depends on OF
-> +	depends on DRM_MIPI_DSI
-> +	help
-> +	  Say Y here if you want to enable support for Visionox
-> +	  RM69299  DSI Video Mode panel.
-> +
->  config DRM_PANEL_XINPENG_XPP055C272
->  	tristate "Xinpeng XPP055C272 panel driver"
->  	depends on OF
-> diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-> index 801f9f6..eeeeb7ae 100644
-> --- a/drivers/gpu/drm/panel/Makefile
-> +++ b/drivers/gpu/drm/panel/Makefile
-> @@ -43,4 +43,5 @@ obj-$(CONFIG_DRM_PANEL_TPO_TD028TTEC1) += panel-tpo-td028ttec1.o
->  obj-$(CONFIG_DRM_PANEL_TPO_TD043MTEA1) += panel-tpo-td043mtea1.o
->  obj-$(CONFIG_DRM_PANEL_TPO_TPG110) += panel-tpo-tpg110.o
->  obj-$(CONFIG_DRM_PANEL_TRULY_NT35597_WQXGA) += panel-truly-nt35597.o
-> +obj-$(CONFIG_DRM_PANEL_VISIONOX_RM69299) += panel-visionox-rm69299.o
->  obj-$(CONFIG_DRM_PANEL_XINPENG_XPP055C272) += panel-xinpeng-xpp055c272.o
-> diff --git a/drivers/gpu/drm/panel/panel-visionox-rm69299.c b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
-> new file mode 100644
-> index 0000000..7195ab0
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
-> @@ -0,0 +1,371 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (c) 2019, The Linux Foundation. All rights reserved.
-> + */
-> +
-> +#include <linux/delay.h>
-> +#include <linux/module.h>
-> +#include <linux/of_device.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/regulator/consumer.h>
-> +
-> +#include <video/mipi_display.h>
-> +
-> +#include <drm/drm_mipi_dsi.h>
-> +#include <drm/drm_modes.h>
-> +#include <drm/drm_panel.h>
-> +#include <drm/drm_print.h>
-> +
-> +struct rm69299_config {
-> +	unsigned long width_mm;
-> +	unsigned long height_mm;
-> +	const char *panel_name;
-> +	u32 num_on_cmds;
-> +	const struct drm_display_mode *dm;
-> +};
-> +
-> +struct visionox_rm69299 {
-> +	struct device *dev;
+struct foo {
+        int stuff;
+        struct boo array[];
+};
 
-You also store dev in panel.dev, why not just use that?
+By making use of the mechanism above, we will get a compiler warning
+in case the flexible array does not occur last in the structure, which
+will help us prevent some kind of undefined behavior bugs from being
+inadvertently introduced[3] to the codebase from now on.
 
-> +	struct drm_panel panel;
-> +
-> +	struct regulator_bulk_data supplies[2];
-> +
-> +	struct gpio_desc *reset_gpio;
-> +
-> +	struct mipi_dsi_device *dsi;
-> +	const struct rm69299_config *config;
-> +	bool prepared;
-> +	bool enabled;
-> +};
-> +
-> +static inline struct visionox_rm69299 *panel_to_ctx(struct drm_panel *panel)
-> +{
-> +	return container_of(panel, struct visionox_rm69299, panel);
-> +}
-> +
-> +static int visionox_35597_power_on(struct visionox_rm69299 *ctx)
-> +{
-> +	int ret;
-> +
-> +	ret = regulator_set_load(ctx->supplies[0].consumer, 32000);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regulator_set_load(ctx->supplies[1].consumer, 13200);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regulator_bulk_enable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	/*
-> +	 * Reset sequence of visionox panel requires the panel to be
-> +	 * out of reset for 10ms, followed by being held in reset
-> +	 * for 10ms and then out again
-> +	 */
-> +	gpiod_set_value(ctx->reset_gpio, 1);
-> +	usleep_range(10000, 20000);
-> +	gpiod_set_value(ctx->reset_gpio, 0);
-> +	usleep_range(10000, 20000);
-> +	gpiod_set_value(ctx->reset_gpio, 1);
-> +	usleep_range(10000, 20000);
-> +
-> +	return 0;
-> +}
-> +
-> +static int visionox_rm69299_power_off(struct visionox_rm69299 *ctx)
-> +{
-> +	int ret;
-> +
-> +	gpiod_set_value(ctx->reset_gpio, 0);
-> +
-> +	ret = regulator_set_load(ctx->supplies[0].consumer, 80);
-> +
+Also, notice that, dynamic memory allocations won't be affected by
+this change:
 
-So the panel will leak 80uA when disabled? Does this actually matter, or
-can you approximate it with 0uA and by that rely on the fact that
-regulator_enable/disable will control if this regulator consumers' load
-is considered (i.e. you can set it to 32mA and 13.2mA in probe and then
-just call enable/disable after that).
+"Flexible array members have incomplete type, and so the sizeof operator
+may not be applied. As a quirk of the original implementation of
+zero-length arrays, sizeof evaluates to zero."[1]
 
-> +	if (ret) {
-> +		DRM_DEV_ERROR(ctx->dev,
-> +			"regulator_set_load failed %d\n", ret);
+This issue was found with the help of Coccinelle.
 
-regulator_set_load() will provide more a more detailed error message in
-the log when failing, so you don't have to.
+[1] https://gcc.gnu.org/onlinedocs/gcc/Zero-Length.html
+[2] https://github.com/KSPP/linux/issues/21
+[3] commit 76497732932f ("cxgb3/l2t: Fix undefined behaviour")
 
-> +		return ret;
-> +	}
-> +
-> +	ret = regulator_set_load(ctx->supplies[1].consumer, 80);
-> +
+Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
+---
+ drivers/gpu/drm/etnaviv/etnaviv_gem.h         | 2 +-
+ drivers/gpu/drm/gma500/intel_bios.h           | 2 +-
+ drivers/gpu/drm/i915/display/intel_vbt_defs.h | 4 ++--
+ drivers/gpu/drm/i915/gt/intel_lrc.c           | 2 +-
+ drivers/gpu/drm/i915/i915_gpu_error.h         | 2 +-
+ drivers/gpu/drm/msm/msm_gem.h                 | 2 +-
+ drivers/gpu/drm/qxl/qxl_cmd.c                 | 2 +-
+ drivers/gpu/drm/vboxvideo/vboxvideo.h         | 2 +-
+ drivers/gpu/drm/vc4/vc4_drv.h                 | 2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c    | 2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_surface.c       | 2 +-
+ include/drm/bridge/mhl.h                      | 4 ++--
+ include/drm/drm_displayid.h                   | 2 +-
+ include/uapi/drm/i915_drm.h                   | 4 ++--
+ 14 files changed, 17 insertions(+), 17 deletions(-)
 
-Please omit the empty line between assignment and checking reg,
-throughout the patch.
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem.h b/drivers/gpu/drm/etnaviv/etnaviv_gem.h
+index 6b68fe16041b..98e60df882b6 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_gem.h
++++ b/drivers/gpu/drm/etnaviv/etnaviv_gem.h
+@@ -105,7 +105,7 @@ struct etnaviv_gem_submit {
+ 	unsigned int nr_pmrs;
+ 	struct etnaviv_perfmon_request *pmrs;
+ 	unsigned int nr_bos;
+-	struct etnaviv_gem_submit_bo bos[0];
++	struct etnaviv_gem_submit_bo bos[];
+ 	/* No new members here, the previous one is variable-length! */
+ };
+ 
+diff --git a/drivers/gpu/drm/gma500/intel_bios.h b/drivers/gpu/drm/gma500/intel_bios.h
+index a1f9ce9465a5..0e6facf21e33 100644
+--- a/drivers/gpu/drm/gma500/intel_bios.h
++++ b/drivers/gpu/drm/gma500/intel_bios.h
+@@ -227,7 +227,7 @@ struct bdb_general_definitions {
+ 	 * number = (block_size - sizeof(bdb_general_definitions))/
+ 	 *	     sizeof(child_device_config);
+ 	 */
+-	struct child_device_config devices[0];
++	struct child_device_config devices[];
+ };
+ 
+ struct bdb_lvds_options {
+diff --git a/drivers/gpu/drm/i915/display/intel_vbt_defs.h b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
+index 05c7cbe32eb4..aef7fe932d1a 100644
+--- a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
++++ b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
+@@ -462,7 +462,7 @@ struct bdb_general_definitions {
+ 	 * number = (block_size - sizeof(bdb_general_definitions))/
+ 	 *	     defs->child_dev_size;
+ 	 */
+-	u8 devices[0];
++	u8 devices[];
+ } __packed;
+ 
+ /*
+@@ -839,7 +839,7 @@ struct bdb_mipi_config {
+ 
+ struct bdb_mipi_sequence {
+ 	u8 version;
+-	u8 data[0]; /* up to 6 variable length blocks */
++	u8 data[]; /* up to 6 variable length blocks */
+ } __packed;
+ 
+ /*
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 47561dc29304..5cec79152f17 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -216,7 +216,7 @@ struct virtual_engine {
+ 
+ 	/* And finally, which physical engines this virtual engine maps onto. */
+ 	unsigned int num_siblings;
+-	struct intel_engine_cs *siblings[0];
++	struct intel_engine_cs *siblings[];
+ };
+ 
+ static struct virtual_engine *to_virtual_engine(struct intel_engine_cs *engine)
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.h b/drivers/gpu/drm/i915/i915_gpu_error.h
+index 0d1f6c8ff355..5a6561f7a210 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.h
++++ b/drivers/gpu/drm/i915/i915_gpu_error.h
+@@ -42,7 +42,7 @@ struct i915_vma_coredump {
+ 	int num_pages;
+ 	int page_count;
+ 	int unused;
+-	u32 *pages[0];
++	u32 *pages[];
+ };
+ 
+ struct i915_request_coredump {
+diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
+index 9e0953c2b7ce..37aa556c5f92 100644
+--- a/drivers/gpu/drm/msm/msm_gem.h
++++ b/drivers/gpu/drm/msm/msm_gem.h
+@@ -157,7 +157,7 @@ struct msm_gem_submit {
+ 			uint32_t handle;
+ 		};
+ 		uint64_t iova;
+-	} bos[0];
++	} bos[];
+ };
+ 
+ #endif /* __MSM_GEM_H__ */
+diff --git a/drivers/gpu/drm/qxl/qxl_cmd.c b/drivers/gpu/drm/qxl/qxl_cmd.c
+index ef09dc6bc635..d1086b2a6892 100644
+--- a/drivers/gpu/drm/qxl/qxl_cmd.c
++++ b/drivers/gpu/drm/qxl/qxl_cmd.c
+@@ -36,7 +36,7 @@ static int qxl_reap_surface_id(struct qxl_device *qdev, int max_to_reap);
+ 
+ struct ring {
+ 	struct qxl_ring_header      header;
+-	uint8_t                     elements[0];
++	uint8_t                     elements[];
+ };
+ 
+ struct qxl_ring {
+diff --git a/drivers/gpu/drm/vboxvideo/vboxvideo.h b/drivers/gpu/drm/vboxvideo/vboxvideo.h
+index 0592004f71aa..a5de40fe1a76 100644
+--- a/drivers/gpu/drm/vboxvideo/vboxvideo.h
++++ b/drivers/gpu/drm/vboxvideo/vboxvideo.h
+@@ -138,7 +138,7 @@ struct vbva_buffer {
+ 
+ 	u32 data_len;
+ 	/* variable size for the rest of the vbva_buffer area in VRAM. */
+-	u8 data[0];
++	u8 data[];
+ } __packed;
+ 
+ #define VBVA_MAX_RECORD_SIZE (128 * 1024 * 1024)
+diff --git a/drivers/gpu/drm/vc4/vc4_drv.h b/drivers/gpu/drm/vc4/vc4_drv.h
+index 6627b20c99e9..282293e6f751 100644
+--- a/drivers/gpu/drm/vc4/vc4_drv.h
++++ b/drivers/gpu/drm/vc4/vc4_drv.h
+@@ -65,7 +65,7 @@ struct vc4_perfmon {
+ 	 * Note that counter values can't be reset, but you can fake a reset by
+ 	 * destroying the perfmon and creating a new one.
+ 	 */
+-	u64 counters[0];
++	u64 counters[];
+ };
+ 
+ struct vc4_dev {
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c b/drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c
+index f07aa857587c..60cfbfadd3f2 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c
+@@ -69,7 +69,7 @@ struct vmw_bo_dirty {
+ 	unsigned int ref_count;
+ 	unsigned long bitmap_size;
+ 	size_t size;
+-	unsigned long bitmap[0];
++	unsigned long bitmap[];
+ };
+ 
+ /**
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+index 3ce630aa4fde..ec893cd17b50 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+@@ -79,7 +79,7 @@ struct vmw_surface_dirty {
+ 	struct svga3dsurface_cache cache;
+ 	size_t size;
+ 	u32 num_subres;
+-	SVGA3dBox boxes[0];
++	SVGA3dBox boxes[];
+ };
+ 
+ static void vmw_user_surface_free(struct vmw_resource *res);
+diff --git a/include/drm/bridge/mhl.h b/include/drm/bridge/mhl.h
+index 1cc77bf38324..d96626a0e3fa 100644
+--- a/include/drm/bridge/mhl.h
++++ b/include/drm/bridge/mhl.h
+@@ -327,13 +327,13 @@ struct mhl_burst_bits_per_pixel_fmt {
+ 	struct {
+ 		u8 stream_id;
+ 		u8 pixel_format;
+-	} __packed desc[0];
++	} __packed desc[];
+ } __packed;
+ 
+ struct mhl_burst_emsc_support {
+ 	struct mhl3_burst_header hdr;
+ 	u8 num_entries;
+-	__be16 burst_id[0];
++	__be16 burst_id[];
+ } __packed;
+ 
+ struct mhl_burst_audio_descr {
+diff --git a/include/drm/drm_displayid.h b/include/drm/drm_displayid.h
+index 9d3b745c3107..94b4390bf990 100644
+--- a/include/drm/drm_displayid.h
++++ b/include/drm/drm_displayid.h
+@@ -89,7 +89,7 @@ struct displayid_detailed_timings_1 {
+ 
+ struct displayid_detailed_timing_block {
+ 	struct displayid_block base;
+-	struct displayid_detailed_timings_1 timings[0];
++	struct displayid_detailed_timings_1 timings[];
+ };
+ 
+ #define for_each_displayid_db(displayid, block, idx, length) \
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 829c0a48577f..33de5dfadaf5 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -1708,7 +1708,7 @@ struct i915_context_engines_load_balance {
+ 
+ 	__u64 mbz64; /* reserved for future use; must be zero */
+ 
+-	struct i915_engine_class_instance engines[0];
++	struct i915_engine_class_instance engines[];
+ } __attribute__((packed));
+ 
+ #define I915_DEFINE_CONTEXT_ENGINES_LOAD_BALANCE(name__, N__) struct { \
+@@ -1746,7 +1746,7 @@ struct i915_context_engines_bond {
+ 	__u64 flags; /* all undefined flags must be zero */
+ 	__u64 mbz64[4]; /* reserved for future use; must be zero */
+ 
+-	struct i915_engine_class_instance engines[0];
++	struct i915_engine_class_instance engines[];
+ } __attribute__((packed));
+ 
+ #define I915_DEFINE_CONTEXT_ENGINES_BOND(name__, N__) struct { \
+-- 
+2.25.0
 
-> +	if (ret) {
-> +		DRM_DEV_ERROR(ctx->dev,
-> +			"regulator_set_load failed %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
-> +	if (ret) {
-> +		DRM_DEV_ERROR(ctx->dev,
-> +			"regulator_bulk_disable failed %d\n", ret);
-
-There's no need to print here, the regulator framework will already have
-printed an error specifying which of the regulators in the bulk that
-failed.
-
-And hence, you can simply end the function with a:
-
-	return regulator_bulk_disable(...);
-
-> +	}
-> +	return ret;
-> +}
-> +
-> +static int visionox_rm69299_unprepare(struct drm_panel *panel)
-> +{
-> +	struct visionox_rm69299 *ctx = panel_to_ctx(panel);
-> +	int ret;
-> +
-> +	if (!ctx->prepared)
-
-Is it really necessary for the panel drivers to keep track of it already
-being prepared or not? Will the framework invoke prepare (on unprepare)
-for an already prepared panel?
-
-> +		return 0;
-> +
-> +	ctx->dsi->mode_flags = 0;
-> +
-> +	ret = mipi_dsi_dcs_write(ctx->dsi, MIPI_DCS_SET_DISPLAY_OFF, NULL, 0);
-> +	if (ret < 0) {
-> +		DRM_DEV_ERROR(ctx->dev,
-> +			"set_display_off cmd failed ret = %d\n",
-> +			ret);
-
-Please align broken lines to the char after (
-
-> +	}
-> +
-> +	/* 120ms delay required here as per DCS spec */
-> +	msleep(120);
-> +
-> +	ret = mipi_dsi_dcs_write(ctx->dsi, MIPI_DCS_ENTER_SLEEP_MODE, NULL, 0);
-> +	if (ret < 0) {
-> +		DRM_DEV_ERROR(ctx->dev,
-> +			"enter_sleep cmd failed ret = %d\n", ret);
-> +	}
-> +
-> +	ret = visionox_rm69299_power_off(ctx);
-> +
-> +	ctx->prepared = false;
-
-Given that you clear prepared regardless of "ret", just set it before
-and do:
-	return visionox_rm69299_power_off(ctx);
-
-> +	return ret;
-> +}
-> +
-> +static int visionox_rm69299_prepare(struct drm_panel *panel)
-> +{
-> +	struct visionox_rm69299 *ctx = panel_to_ctx(panel);
-> +	int ret;
-> +	const struct rm69299_config *config;
-> +
-> +	if (ctx->prepared)
-> +		return 0;
-> +
-> +	ret = visionox_35597_power_on(ctx);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-> +
-> +	config = ctx->config;
-> +
-> +	ret = mipi_dsi_dcs_write_buffer(ctx->dsi, (u8[]){ 0xfe, 0x00 }, 2);
-> +	if (ret < 0) {
-> +		DRM_DEV_ERROR(ctx->dev,
-> +		"cmd set tx 0 failed, ret = %d\n",
-> +		ret);
-> +		goto power_off;
-> +	}
-> +
-> +	ret = mipi_dsi_dcs_write_buffer(ctx->dsi, (u8[]){ 0xc2, 0x08 }, 2);
-> +	if (ret < 0) {
-> +		DRM_DEV_ERROR(ctx->dev,
-> +		"cmd set tx 1 failed, ret = %d\n",
-> +		ret);
-> +		goto power_off;
-> +	}
-> +
-> +	ret = mipi_dsi_dcs_write_buffer(ctx->dsi, (u8[]){ 0x35, 0x00 }, 2);
-> +	if (ret < 0) {
-> +		DRM_DEV_ERROR(ctx->dev,
-> +		"cmd set tx 2 failed, ret = %d\n",
-> +		ret);
-> +		goto power_off;
-> +	}
-> +
-> +	ret = mipi_dsi_dcs_write_buffer(ctx->dsi, (u8[]){ 0x51, 0xff }, 2);
-> +	if (ret < 0) {
-> +		DRM_DEV_ERROR(ctx->dev,
-> +		"cmd set tx 3 failed, ret = %d\n",
-> +		ret);
-> +		goto power_off;
-> +	}
-> +
-> +	ret = mipi_dsi_dcs_write(ctx->dsi, MIPI_DCS_EXIT_SLEEP_MODE, NULL, 0);
-> +	if (ret < 0) {
-> +		DRM_DEV_ERROR(ctx->dev,
-> +			"exit_sleep_mode cmd failed ret = %d\n",
-> +			ret);
-> +		goto power_off;
-> +	}
-> +
-> +	/* Per DSI spec wait 120ms after sending exit sleep DCS command */
-> +	msleep(120);
-> +
-> +	ret = mipi_dsi_dcs_write(ctx->dsi, MIPI_DCS_SET_DISPLAY_ON, NULL, 0);
-> +	if (ret < 0) {
-> +		DRM_DEV_ERROR(ctx->dev,
-> +			"set_display_on cmd failed ret = %d\n", ret);
-> +		goto power_off;
-> +	}
-> +
-> +	/* Per DSI spec wait 120ms after sending set_display_on DCS command */
-> +	msleep(120);
-> +
-> +	ctx->prepared = true;
-> +
-> +	return 0;
-> +
-> +power_off:
-> +	ret = visionox_rm69299_power_off(ctx);
-> +	return ret;
-
-	return visionox_rm69299_power_off();
-
-> +}
-> +
-> +static int visionox_rm69299_get_modes(struct drm_panel *panel,
-> +				       struct drm_connector *connector)
-> +{
-> +	struct visionox_rm69299 *ctx = panel_to_ctx(panel);
-> +	struct drm_display_mode *mode;
-> +	const struct rm69299_config *config;
-> +
-> +	config = ctx->config;
-> +	mode = drm_mode_create(connector->dev);
-> +	if (!mode) {
-> +		DRM_DEV_ERROR(ctx->dev,
-> +			"failed to create a new display mode\n");
-> +		return 0;
-> +	}
-> +
-> +	connector->display_info.width_mm = config->width_mm;
-> +	connector->display_info.height_mm = config->height_mm;
-> +	drm_mode_copy(mode, config->dm);
-> +	mode->type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED;
-> +	drm_mode_probed_add(connector, mode);
-> +
-> +	return 1;
-> +}
-> +
-> +static const struct drm_panel_funcs visionox_rm69299_drm_funcs = {
-> +	.unprepare = visionox_rm69299_unprepare,
-> +	.prepare = visionox_rm69299_prepare,
-> +	.get_modes = visionox_rm69299_get_modes,
-> +};
-> +
-> +static const struct drm_display_mode qcom_sc7180_mtp_1080p_mode = {
-> +	.name = "1080x2248",
-> +	.clock = 158695,
-> +	.hdisplay = 1080,
-> +	.hsync_start = 1080 + 26,
-> +	.hsync_end = 1080 + 26 + 2,
-> +	.htotal = 1080 + 26 + 2 + 36,
-> +	.vdisplay = 2248,
-> +	.vsync_start = 2248 + 56,
-> +	.vsync_end = 2248 + 56 + 4,
-> +	.vtotal = 2248 + 56 + 4 + 4,
-> +	.vrefresh = 60,
-> +	.flags = 0,
-> +};
-> +
-> +static const struct rm69299_config rm69299_dir = {
-> +	.width_mm = 74,
-> +	.height_mm = 131,
-> +	.panel_name = "qcom_sc7180_mtp_1080p_panel",
-> +	.dm = &qcom_sc7180_mtp_1080p_mode,
-> +};
-> +
-> +static int visionox_rm69299_probe(struct mipi_dsi_device *dsi)
-> +{
-> +	struct device *dev = &dsi->dev;
-> +	struct device *device;
-
-Below I see:
-
-ctx->dev = dev;
-device = ctx->dev;
-
-A few uses of device and some of dev.
-
-ctx->panel.dev = device;
-
-Presumably you can drop the "device"?
-
-
-> +	struct visionox_rm69299 *ctx;
-> +	const struct rm69299_config *config;
-
-"config" is assigned below, but never used.
-
-> +	int ret;
-> +
-> +	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
-> +
-> +	if (!ctx)
-> +		return -ENOMEM;
-> +
-> +	ctx->config = device_get_match_data(dev);
-> +
-> +	if (!ctx->config) {
-
-This won't happen.
-
-> +		dev_err(dev, "missing device configuration\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	mipi_dsi_set_drvdata(dsi, ctx);
-> +
-> +	ctx->dev = dev;
-> +	ctx->dsi = dsi;
-> +
-> +	device = ctx->dev;
-> +
-> +	config = ctx->config;
-> +	ctx->supplies[0].supply = "vdda";
-> +	ctx->supplies[1].supply = "vdd3p3";
-> +
-> +	ret = devm_regulator_bulk_get(device, ARRAY_SIZE(ctx->supplies),
-> +								ctx->supplies);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ctx->reset_gpio = devm_gpiod_get(device, "reset", GPIOD_OUT_LOW);
-> +	if (IS_ERR(ctx->reset_gpio)) {
-> +		DRM_DEV_ERROR(dev, "cannot get reset gpio %ld\n",
-> +					PTR_ERR(ctx->reset_gpio));
-> +		return PTR_ERR(ctx->reset_gpio);
-> +	}
-> +
-> +	drm_panel_init(&ctx->panel, dev, &visionox_rm69299_drm_funcs, 
-> +		       DRM_MODE_CONNECTOR_DSI);
-> +	ctx->panel.dev = device;
-> +	ctx->panel.funcs = &visionox_rm69299_drm_funcs;
-> +	drm_panel_add(&ctx->panel);
-> +
-> +	dsi->lanes = 4;
-> +	dsi->format = MIPI_DSI_FMT_RGB888;
-> +	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_LPM |
-> +		MIPI_DSI_CLOCK_NON_CONTINUOUS;
-> +	ret = mipi_dsi_attach(dsi);
-> +	if (ret < 0) {
-> +		DRM_DEV_ERROR(dev,
-> +			"dsi attach failed ret = %d\n", ret);
-> +		goto err_dsi_attach;
-> +	}
-> +
-> +	return 0;
-> +
-> +err_dsi_attach:
-> +	drm_panel_remove(&ctx->panel);
-> +	return ret;
-> +}
-> +
-> +static int visionox_rm69299_remove(struct mipi_dsi_device *dsi)
-> +{
-> +	struct visionox_rm69299 *ctx = mipi_dsi_get_drvdata(dsi);
-> +
-> +	if (ctx->dsi) {
-
-If visionox_rm69299_probe() doesn't reach the point where it assigns
-ctx->dsi the remove function will not be called. So I don't see how this
-could be NULL, please remove the check.
-
-> +		mipi_dsi_detach(ctx->dsi);
-> +		mipi_dsi_device_unregister(ctx->dsi);
-> +	}
-> +
-> +	drm_panel_remove(&ctx->panel);
-> +	return 0;
-> +}
-> +
-> +static const struct of_device_id visionox_rm69299_of_match[] = {
-> +	{
-> +		.compatible = "visionox,rm69299-1080p-display",
-> +		.data = &rm69299_dir,
-> +	},
-> +	{ /* */ }
-
-Please drop the empty comment thing.
-
-Regards,
-Bjorn
-
-> +};
-> +MODULE_DEVICE_TABLE(of, visionox_rm69299_of_match);
-> +
-> +static struct mipi_dsi_driver visionox_rm69299_driver = {
-> +	.driver = {
-> +		.name = "panel-visionox-rm69299",
-> +		.of_match_table = visionox_rm69299_of_match,
-> +	},
-> +	.probe = visionox_rm69299_probe,
-> +	.remove = visionox_rm69299_remove,
-> +};
-> +module_mipi_dsi_driver(visionox_rm69299_driver);
-> +
-> +MODULE_DESCRIPTION("VISIONOX RM69299 DSI Panel Driver");
-> +MODULE_LICENSE("GPL v2");
-> +
-> -- 
-> 2.7.4
-> 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
