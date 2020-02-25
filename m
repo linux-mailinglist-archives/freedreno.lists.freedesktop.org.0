@@ -2,47 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8C1416EE70
-	for <lists+freedreno@lfdr.de>; Tue, 25 Feb 2020 19:55:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 890A016EEF6
+	for <lists+freedreno@lfdr.de>; Tue, 25 Feb 2020 20:28:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 289476EB93;
-	Tue, 25 Feb 2020 18:55:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3726B6E8FD;
+	Tue, 25 Feb 2020 19:28:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95D926EB92;
- Tue, 25 Feb 2020 18:55:20 +0000 (UTC)
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com
- [209.85.222.181])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4BDF72465D;
- Tue, 25 Feb 2020 18:55:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1582656920;
- bh=GcAOngsNc42gcovvY3uUGpbwLfTEWg8qiIiv3HckXOU=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=wiHIZtal8u4HE4RLq3R2aMVKuvHeuLy4NZ5EfCWymWev2oUMeVYxCmBgnf5YhVchV
- iTaVNzQtwydoDEuJtvEdXGE6BqmJ2X7hEZnl8t+p/3unNU3UkiSxruywLdcUoSaDeX
- SAM2LR6raG9nKiUpALVKgYocAemKbkqQWtJ4ONWo=
-Received: by mail-qk1-f181.google.com with SMTP id e16so201748qkl.6;
- Tue, 25 Feb 2020 10:55:20 -0800 (PST)
-X-Gm-Message-State: APjAAAXsIvcPNTpBYSa7aq957WVjY4WX6y3BzTSApjo0t4gF+1xgkfGz
- u9hNGQpDDkDmjCiCtdHkTwSiGJgkiSbFOS6yOQ==
-X-Google-Smtp-Source: APXvYqwNHK4+Y1yIBWKMojOKtY7ghpPbDHqnF8yS97h6Zmcgig7EivjliFmXOITvj7XfHi/v0Mg41/i8G2/gEn8VQok=
-X-Received: by 2002:ae9:f205:: with SMTP id m5mr322658qkg.152.1582656919408;
- Tue, 25 Feb 2020 10:55:19 -0800 (PST)
+Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
+ [IPv6:2607:f8b0:4864:20::542])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C63ED6EBA6
+ for <freedreno@lists.freedesktop.org>; Tue, 25 Feb 2020 19:28:00 +0000 (UTC)
+Received: by mail-pg1-x542.google.com with SMTP id 6so46631pgk.0
+ for <freedreno@lists.freedesktop.org>; Tue, 25 Feb 2020 11:28:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:content-transfer-encoding:in-reply-to:references
+ :subject:from:cc:to:date:message-id:user-agent;
+ bh=4tK5dhNanRBX4RJaY81MXL5uMw9VPzyZ3UaipGWjTeA=;
+ b=ER4Hn5y39DsTdFq4OIFR/dyYBA/md+YMiH6Vlftw5sX/8I8svVtJwDWrl+hIbHDMI+
+ 9DIcp5qY/z7utP3Wlsfmi7SD9FiFgaz3JqHR/5d8KjPWEgJS68eSS/70DaFi0VVUDqjx
+ qsRNASKUBSfoa6zYDICVI1jWv5RUSbtgDxLeA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:content-transfer-encoding
+ :in-reply-to:references:subject:from:cc:to:date:message-id
+ :user-agent;
+ bh=4tK5dhNanRBX4RJaY81MXL5uMw9VPzyZ3UaipGWjTeA=;
+ b=EYWxiXho+5gbkS3mcu9J6nOa3BE8ynbZ+nkWkVFMNSXVA2ecuPiTQlrEEOKlJbST4a
+ HnmTd8OOfK+MnjexNBdiT7aZCiWWoU2kjqMaAC6+9AwT54E17hTIYeFvI53qEXhXnwd+
+ hIu0YF1ixfAuSCMpKYU0MJFJz8UhdJdjeUw9/u8uyZ7R3HD2Yx1OoFTUX5gAFW+BMMav
+ rbHpDuF4MZ2KPiosjXTcDCh9Wbz7bBrH7E6NAAf6VN1N6OlgO4jwKeWQh4V30i/8xC9M
+ OKyI3VlDIiCfDufaR2mk8POIDZy3VJh3PTWeQ6mZ1NNpMNwnCfcqRQvVm4a+c+vxoi7q
+ iykA==
+X-Gm-Message-State: APjAAAVC1oL6E45TzYPsx+bq7H6tYsRQHCFHPsLArnfJfJtz3Z7gYkEi
+ 7SD5csnYxYSMI/s2VmHvvyl3oA==
+X-Google-Smtp-Source: APXvYqx/CuR9tWXGTo9ivBHMqDj/j7Gy5ChN3CDCAyQZMV9kpz8TazoKp8muVVv6CLf1YgtUt+g7UA==
+X-Received: by 2002:aa7:9808:: with SMTP id e8mr299103pfl.32.1582658880299;
+ Tue, 25 Feb 2020 11:28:00 -0800 (PST)
+Received: from chromium.org ([2620:15c:202:1:fa53:7765:582b:82b9])
+ by smtp.gmail.com with ESMTPSA id c26sm18406262pfj.8.2020.02.25.11.27.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 25 Feb 2020 11:27:59 -0800 (PST)
 MIME-Version: 1.0
-References: <1582223216-23459-1-git-send-email-jcrouse@codeaurora.org>
- <1582223216-23459-3-git-send-email-jcrouse@codeaurora.org>
-In-Reply-To: <1582223216-23459-3-git-send-email-jcrouse@codeaurora.org>
-From: Rob Herring <robh+dt@kernel.org>
-Date: Tue, 25 Feb 2020 12:55:08 -0600
-X-Gmail-Original-Message-ID: <CAL_Jsq+NLhw4mfNd7=4ADz63G15WATPpGbz3HxxV1QJqPVQwjw@mail.gmail.com>
-Message-ID: <CAL_Jsq+NLhw4mfNd7=4ADz63G15WATPpGbz3HxxV1QJqPVQwjw@mail.gmail.com>
-To: Jordan Crouse <jcrouse@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v2 2/4] dt-bindings: display: msm: Add
- required dma-range property
+In-Reply-To: <20200219104148.1.I0183a464f2788d41e6902f3535941f69c594b4c1@changeid>
+References: <20200219104148.1.I0183a464f2788d41e6902f3535941f69c594b4c1@changeid>
+From: Stephen Boyd <swboyd@chromium.org>
+To: Drew Davenport <ddavenport@chromium.org>, dri-devel@lists.freedesktop.org
+Date: Tue, 25 Feb 2020 11:27:58 -0800
+Message-ID: <158265887882.177367.3011043098001339741@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9
+Subject: Re: [Freedreno] [PATCH 1/4] drm/msm/dpu: Remove unused function
+ arguments
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,86 +65,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
- John Stultz <john.stultz@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno <freedreno@lists.freedesktop.org>, Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ Alexios Zavras <alexios.zavras@intel.com>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Drew Davenport <ddavenport@chromium.org>, Thomas Gleixner <tglx@linutronix.de>,
+ Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Feb 20, 2020 at 12:27 PM Jordan Crouse <jcrouse@codeaurora.org> wrote:
->
-> The GMU node now requires a specific dma-range property so that the driver
-
-s/dma-range/dma-ranges/ here and the subject.
-
-> can use the DMA API to do the few memory allocations required by the GMU.
-> This sets the IOMMU iova allocator to match the 'uncached' part of the
-> GMU virtual address space.
-
-Sounds like a bunch of kernel things and this is a binding.
-
->
-> v2: Fix the dma-ranges tag. The third pair should be the size.
->
-> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
+Quoting Drew Davenport (2020-02-19 09:42:24)
+> Several functions arguments in the resource manager are unused, so
+> remove them.
+> 
+> Signed-off-by: Drew Davenport <ddavenport@chromium.org>
 > ---
->
->  Documentation/devicetree/bindings/display/msm/gmu.yaml | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/display/msm/gmu.yaml b/Documentation/devicetree/bindings/display/msm/gmu.yaml
-> index 776ff92..d11a073 100644
-> --- a/Documentation/devicetree/bindings/display/msm/gmu.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/gmu.yaml
-> @@ -83,6 +83,13 @@ properties:
->        Phandle to the OPP table for the available GMU frequencies. Refer to
->        ../../opp/opp.txt for more information.
->
-> +  dma-ranges:
 
-dma-ranges is a bus property and doesn't go in device nodes (that
-don't implement a bus like PCI host for example). This would not have
-even worked a few kernel versions back because the kernel would only
-start looking for dma-ranges in a parent node.
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    description:
-> +      Describe the dma-address range for the device. This should always
-> +      describe the range between 0x60000000 and 0x80000000 which represents
+> 
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 37 ++++++++++----------------
+>  1 file changed, 14 insertions(+), 23 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> index 23f5b1433b357..dea1dba441fe7 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> @@ -144,8 +144,7 @@ static int _dpu_rm_hw_blk_create(
+>                 const struct dpu_mdss_cfg *cat,
+>                 void __iomem *mmio,
+>                 enum dpu_hw_blk_type type,
+> -               uint32_t id,
+> -               const void *hw_catalog_info)
+> +               uint32_t id)
 
-If this is always the region, then why does it need to be in DT? Just
-set your dma_mask which drivers should be doing if they want anything
-other than (2^32 - 1). dma-ranges sets the bus_dma_mask.
-
-> +      the uncached region of the GMU address space.
-> +
->  required:
->    - compatible
->    - reg
-> @@ -95,6 +102,7 @@ required:
->    - power-domain-names
->    - iommus
->    - operating-points-v2
-> +  - dma-ranges
->
->  examples:
->   - |
-> @@ -127,4 +135,6 @@ examples:
->
->          iommus = <&adreno_smmu 5>;
->          operating-points-v2 = <&gmu_opp_table>;
-> +
-> +        dma-ranges = <0 0x60000000 0 0x60000000 0 0x20000000>;
->     };
-> --
-> 2.7.4
->
+It would be good to use u32 instead of uint32_t in this code too. The
+kernel style is to use the shorter name for that type.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
