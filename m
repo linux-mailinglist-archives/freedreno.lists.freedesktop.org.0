@@ -2,56 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89A4B16F49B
-	for <lists+freedreno@lfdr.de>; Wed, 26 Feb 2020 01:59:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5871416FD44
+	for <lists+freedreno@lfdr.de>; Wed, 26 Feb 2020 12:17:28 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C1326E060;
-	Wed, 26 Feb 2020 00:59:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 096F76E270;
+	Wed, 26 Feb 2020 11:17:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com
- [IPv6:2a00:1450:4864:20::541])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E3F36E060;
- Wed, 26 Feb 2020 00:59:16 +0000 (UTC)
-Received: by mail-ed1-x541.google.com with SMTP id j17so1651790edp.3;
- Tue, 25 Feb 2020 16:59:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=41dIRKzCHut5g8ULikn2zx6erU7p8Xh0VLc4jTiVCc4=;
- b=O+TIDjLetEnT2gz+kRGSEfKzJ3gZm54fhVuuw2o9NH/TCdmpc530coe/gSUyy6JkVV
- hp4I4Tt0D4oO6Jq7z3rPlT5qjP0pC2eAqX3fHvscjkk/rSoLXphauA4TQi5N8rUG2RJn
- H9cMp9gTpeGK3EGLpkW15/eCBTfdTp+f7sNiP/2mCMQLmxywtMHas0sD8mQYeCOVCpLg
- MykJsWuqmKNLL23XnKMoLa7+H92C1e7lF0KmHN9ZRr+9Seofo3+cczjalXrRV5jUQLc0
- JQtvE6GOsgSni/HKHXgosx1LXU72/dYi2ptrteciLbu787zgnCQVsatna7aUZhM5ZPcA
- njZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=41dIRKzCHut5g8ULikn2zx6erU7p8Xh0VLc4jTiVCc4=;
- b=j0D1Rqf7pw7qNhr39GWCSeie8u5M0Rg+y9AES5Jw47kxdNSuUJ0mahFiY6YbMJ1SCC
- 02XiB2eK7VmYboYBH3Io0LZkbkWia4l1Y5z4rJoW5Sxj9D6CY4I1SBk1XV+5ofMP+knx
- ZuLC7LaP65idm9zk2HAzS99hyEJYV2ypl6YOtLBSplasRVk/cOlElqDfpI6nxHQS2FI2
- AkwmOxXJ+nUeK+hhweGFYcRLbITOwgWMhqJ/gLi0AAQjg/wOqIrVE+ZZkIPKIMMWECAt
- IfWNJmx3RbWlEG6bEV3ApPT6Z2h0eg6UUfeQzTy25SuMNsfr4EGdzgYqWxSNzbWn9tiX
- oMAQ==
-X-Gm-Message-State: APjAAAWmJnhkU//jjmHGcTZbMiNrAJE/xiVaK9HZkC4IuKGGDlPPu1x4
- 4tXxaj2prd6Jsaj0o1FHCG2G4bG+6vU9wGI61lcs0Q==
-X-Google-Smtp-Source: APXvYqy+o+spYlkpd4xZ2v0xZdO4bB5nJGwJneHFcbDWmY6rMi3XrscjFYSA8O3XYDcxOfzTeyUYrAaPUgr+F/SUKz4=
-X-Received: by 2002:a17:906:5f89:: with SMTP id
- a9mr1635153eju.267.1582678754601; 
- Tue, 25 Feb 2020 16:59:14 -0800 (PST)
+Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
+ [104.130.122.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CF926E270
+ for <freedreno@lists.freedesktop.org>; Wed, 26 Feb 2020 11:17:23 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1582715845; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
+ Subject: Sender; bh=JeLBIZJhvP42B2sTx6JhqGirHZU0I0l6TtJa1fPw4Ic=;
+ b=KtYqGZ7TYDFP6eMl+K4LgEkytwfV123Ff/CMzugxjS3ZS2n+nURlJ43iABENLH4XgOw/w1Ly
+ FOL1gZNqGJ8LyKI8wRp8KKqyx2UcxEkKo2TpM33RRYVEFptsnTc67y8RKKX+RibfcH2O3csQ
+ TzThfZ4/UBkywWRfDO/788e8Yis=
+X-Mailgun-Sending-Ip: 104.130.122.26
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5e5653ba.7f950ca76228-smtp-out-n01;
+ Wed, 26 Feb 2020 11:17:14 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 1307EC447A0; Wed, 26 Feb 2020 11:17:14 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from [10.204.67.17]
+ (blr-c-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.19.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: smasetty)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 4C585C43383;
+ Wed, 26 Feb 2020 11:17:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 4C585C43383
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=smasetty@codeaurora.org
+To: Rob Herring <robh@kernel.org>
+References: <1582186342-3484-1-git-send-email-smasetty@codeaurora.org>
+ <1582186342-3484-2-git-send-email-smasetty@codeaurora.org>
+ <20200220203509.GA14697@bogus>
+From: Sharat Masetty <smasetty@codeaurora.org>
+Message-ID: <6a7c1f39-a85f-4a99-fed3-71001bdb6128@codeaurora.org>
+Date: Wed, 26 Feb 2020 16:47:07 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-References: <1582223216-23459-1-git-send-email-jcrouse@codeaurora.org>
- <1582223216-23459-5-git-send-email-jcrouse@codeaurora.org>
- <CALAqxLWc4QQPyh=R6=0uFnLLicTYJ3NMO6QSc_yF31bJ2Z_rkQ@mail.gmail.com>
-In-Reply-To: <CALAqxLWc4QQPyh=R6=0uFnLLicTYJ3NMO6QSc_yF31bJ2Z_rkQ@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 25 Feb 2020 16:59:02 -0800
-Message-ID: <CAF6AEGtYvjgoYxsxyu2-juuTsp9mBJUdRRUWAT3doLtpju4UmQ@mail.gmail.com>
-To: John Stultz <john.stultz@linaro.org>
-Subject: Re: [Freedreno] [PATCH v2 4/4] drm/msm/a6xx: Use the DMA API for
- GMU memory objects
+In-Reply-To: <20200220203509.GA14697@bogus>
+Content-Language: en-US
+Subject: Re: [Freedreno] [PATCH] dt-bindings: arm-smmu: update the list of
+ clocks
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,71 +71,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- Douglas Anderson <dianders@chromium.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>, lkml <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Jordan Crouse <jcrouse@codeaurora.org>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
- Todd Kjos <tkjos@google.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dianders@chromium.org, bjorn.andersson@linaro.org, mka@chromium.org,
+ dri-devel@freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Feb 25, 2020 at 3:54 PM John Stultz <john.stultz@linaro.org> wrote:
->
-> On Thu, Feb 20, 2020 at 10:27 AM Jordan Crouse <jcrouse@codeaurora.org> wrote:
-> >
-> > The GMU has very few memory allocations and uses a flat memory space so
-> > there is no good reason to go out of our way to bypass the DMA APIs which
-> > were basically designed for this exact scenario.
-> >
-> > v2: Pass force_dma false to of_dma_configure to require that the DMA
-> > region be set up and return error from of_dma_configure to fail probe.
-> >
-> > Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
-> > ---
-> >
-> >  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 112 +++-------------------------------
-> >  drivers/gpu/drm/msm/adreno/a6xx_gmu.h |   5 +-
-> >  2 files changed, 11 insertions(+), 106 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> > index 983afea..c36b38b 100644
-> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> ...
-> > -       count = bo->size >> PAGE_SHIFT;
-> > +       bo->virt = dma_alloc_attrs(gmu->dev, bo->size, &bo->iova, GFP_KERNEL,
-> > +               bo->attrs);
-> >
-> ...
-> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-> > index 2af91ed..31bd1987 100644
-> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-> > @@ -13,7 +13,7 @@ struct a6xx_gmu_bo {
-> >         void *virt;
-> >         size_t size;
-> >         u64 iova;
-> > -       struct page **pages;
-> > +       unsigned long attrs;
-> >  };
->
-> As a head up, Todd reported that this patch is causing build trouble
-> w/ arm32, as the iova needs to be a dma_attr_t.
->
-> I've got a patch for the android-mainline tree to fix this, but you
-> might want to spin a v3 to address this.
->   https://android-review.googlesource.com/c/kernel/common/+/1243928
->
 
-I guess based on robher's comments on the bindings, there will be a v3..
-
-BR,
--R
+On 2/21/2020 2:05 AM, Rob Herring wrote:
+> On Thu, 20 Feb 2020 13:42:22 +0530, Sharat Masetty wrote:
+>> This patch adds a clock definition needed for powering on the GPU TBUs
+>> and the GPU TCU.
+>>
+>> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
+>> ---
+>>   Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 3 +++
+>>   1 file changed, 3 insertions(+)
+>>
+> My bot found errors running 'make dt_binding_check' on your patch:
+>
+> Documentation/devicetree/bindings/display/simple-framebuffer.example.dts:21.16-37.11: Warning (chosen_node_is_root): /example-0/chosen: chosen node must be at root node
+> /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/iommu/arm,smmu.example.dt.yaml: iommu@d00000: clock-names: ['bus', 'iface'] is too short
+> /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/iommu/arm,smmu.example.dt.yaml: iommu@d00000: clocks: [[4294967295, 123], [4294967295, 124]] is too short
+>
+> See https://patchwork.ozlabs.org/patch/1241297
+> Please check and re-submit.
+Hi Rob, These issues seem to be from the original code and not related 
+to my patch. Are these going to be blocking errors?
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
