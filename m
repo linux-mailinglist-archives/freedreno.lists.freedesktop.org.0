@@ -1,54 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E2E216F3F4
-	for <lists+freedreno@lfdr.de>; Wed, 26 Feb 2020 00:54:33 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 89A4B16F49B
+	for <lists+freedreno@lfdr.de>; Wed, 26 Feb 2020 01:59:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91BC38932E;
-	Tue, 25 Feb 2020 23:54:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C1326E060;
+	Wed, 26 Feb 2020 00:59:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com
- [IPv6:2607:f8b0:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2EAA892D6
- for <freedreno@lists.freedesktop.org>; Tue, 25 Feb 2020 23:54:30 +0000 (UTC)
-Received: by mail-ot1-x343.google.com with SMTP id 77so1272553oty.6
- for <freedreno@lists.freedesktop.org>; Tue, 25 Feb 2020 15:54:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com
+ [IPv6:2a00:1450:4864:20::541])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E3F36E060;
+ Wed, 26 Feb 2020 00:59:16 +0000 (UTC)
+Received: by mail-ed1-x541.google.com with SMTP id j17so1651790edp.3;
+ Tue, 25 Feb 2020 16:59:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=oAqDSepBGZ4n0kSIgLmpw4sGTwUtrjb0cUzefUU3KuM=;
- b=MbmqYJ3bTxMe7ILHkl8V1BpKi1o65X47MQwpIZFrKvtnxk5Ia7N4Yxh5jXyzl2UHvg
- LFq79hPlxXf+vrVpK/EaB0+1KrISSykbDer85dM71TmGGfWgEsppOzZcSB5V83fUgmF7
- aDssLGD4jKvmaA4YHFtgPZ5gPfHlhFTuFPJtyqzseOdWael2CHhcynNMr4O0jrAt3Evz
- LEAQjMvnMx0lLTC2hu5KJWQmalT4BxaNRZmUwh14P5YNkQW2oUMFpeOtu9xr1IoumhII
- 5nQzlJtlv4Itjcmv5ROdVTh+fM0ynFs6JeOFmnDPyps9PFIgACjP8ZuyJySV304cOToe
- mK2Q==
+ :cc; bh=41dIRKzCHut5g8ULikn2zx6erU7p8Xh0VLc4jTiVCc4=;
+ b=O+TIDjLetEnT2gz+kRGSEfKzJ3gZm54fhVuuw2o9NH/TCdmpc530coe/gSUyy6JkVV
+ hp4I4Tt0D4oO6Jq7z3rPlT5qjP0pC2eAqX3fHvscjkk/rSoLXphauA4TQi5N8rUG2RJn
+ H9cMp9gTpeGK3EGLpkW15/eCBTfdTp+f7sNiP/2mCMQLmxywtMHas0sD8mQYeCOVCpLg
+ MykJsWuqmKNLL23XnKMoLa7+H92C1e7lF0KmHN9ZRr+9Seofo3+cczjalXrRV5jUQLc0
+ JQtvE6GOsgSni/HKHXgosx1LXU72/dYi2ptrteciLbu787zgnCQVsatna7aUZhM5ZPcA
+ njZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=oAqDSepBGZ4n0kSIgLmpw4sGTwUtrjb0cUzefUU3KuM=;
- b=P/wqkBf3xdLZfj7OgrrNLGgaSBwAUaOWO7/soOu6TXmoDu40XH4hXj/6kt4+GQCbVk
- O+rdBZSfWEptHmirUVrHla8NXS1J/9h4u4jt+5C/P6B9Yy98vcVlwINE/2OHkf/B6XLC
- KYHBY2yF4bziyHbIKsqHpQpKUEcpWYzo8qHQnDR3I8Dlw2xs+X4oiojoVdQeCAR905Sz
- I5kWapAezmwmZ+s8hj77ins9ircJVHW4o6AvgPzxg1lylOhWcDzBALWxz6EObYz7Dt2y
- L6BciMPhhGdvbmc4DadcbWk8K4DFh1HUzL03JNW35DN/AVINaIw34ZsjWNh4yyqhBv3K
- BM3Q==
-X-Gm-Message-State: APjAAAXvaxHGPZY/Zz6OzgRwHhw+rZ7BPTLMpdf87XHHL4ul2nfCdsqp
- jDG/xs3m9MjkobmmabqCl4fjeA8bId5H9wKb5Rctiw==
-X-Google-Smtp-Source: APXvYqxHExvDxP3YDUCsYTbRz8HnGzFZhKBTxskzmLJjMa5mreChK7b0tovjYeFp4V6uvGP5Rvmqe9fzCWzwee3BXhU=
-X-Received: by 2002:a05:6830:1184:: with SMTP id
- u4mr791163otq.221.1582674870075; 
- Tue, 25 Feb 2020 15:54:30 -0800 (PST)
+ bh=41dIRKzCHut5g8ULikn2zx6erU7p8Xh0VLc4jTiVCc4=;
+ b=j0D1Rqf7pw7qNhr39GWCSeie8u5M0Rg+y9AES5Jw47kxdNSuUJ0mahFiY6YbMJ1SCC
+ 02XiB2eK7VmYboYBH3Io0LZkbkWia4l1Y5z4rJoW5Sxj9D6CY4I1SBk1XV+5ofMP+knx
+ ZuLC7LaP65idm9zk2HAzS99hyEJYV2ypl6YOtLBSplasRVk/cOlElqDfpI6nxHQS2FI2
+ AkwmOxXJ+nUeK+hhweGFYcRLbITOwgWMhqJ/gLi0AAQjg/wOqIrVE+ZZkIPKIMMWECAt
+ IfWNJmx3RbWlEG6bEV3ApPT6Z2h0eg6UUfeQzTy25SuMNsfr4EGdzgYqWxSNzbWn9tiX
+ oMAQ==
+X-Gm-Message-State: APjAAAWmJnhkU//jjmHGcTZbMiNrAJE/xiVaK9HZkC4IuKGGDlPPu1x4
+ 4tXxaj2prd6Jsaj0o1FHCG2G4bG+6vU9wGI61lcs0Q==
+X-Google-Smtp-Source: APXvYqy+o+spYlkpd4xZ2v0xZdO4bB5nJGwJneHFcbDWmY6rMi3XrscjFYSA8O3XYDcxOfzTeyUYrAaPUgr+F/SUKz4=
+X-Received: by 2002:a17:906:5f89:: with SMTP id
+ a9mr1635153eju.267.1582678754601; 
+ Tue, 25 Feb 2020 16:59:14 -0800 (PST)
 MIME-Version: 1.0
 References: <1582223216-23459-1-git-send-email-jcrouse@codeaurora.org>
  <1582223216-23459-5-git-send-email-jcrouse@codeaurora.org>
-In-Reply-To: <1582223216-23459-5-git-send-email-jcrouse@codeaurora.org>
-From: John Stultz <john.stultz@linaro.org>
-Date: Tue, 25 Feb 2020 15:54:19 -0800
-Message-ID: <CALAqxLWc4QQPyh=R6=0uFnLLicTYJ3NMO6QSc_yF31bJ2Z_rkQ@mail.gmail.com>
-To: Jordan Crouse <jcrouse@codeaurora.org>
+ <CALAqxLWc4QQPyh=R6=0uFnLLicTYJ3NMO6QSc_yF31bJ2Z_rkQ@mail.gmail.com>
+In-Reply-To: <CALAqxLWc4QQPyh=R6=0uFnLLicTYJ3NMO6QSc_yF31bJ2Z_rkQ@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 25 Feb 2020 16:59:02 -0800
+Message-ID: <CAF6AEGtYvjgoYxsxyu2-juuTsp9mBJUdRRUWAT3doLtpju4UmQ@mail.gmail.com>
+To: John Stultz <john.stultz@linaro.org>
 Subject: Re: [Freedreno] [PATCH v2 4/4] drm/msm/a6xx: Use the DMA API for
  GMU memory objects
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -63,11 +64,12 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ Douglas Anderson <dianders@chromium.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  Sharat Masetty <smasetty@codeaurora.org>, lkml <linux-kernel@vger.kernel.org>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Stephen Boyd <swboyd@chromium.org>, Jordan Crouse <jcrouse@codeaurora.org>,
  Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
  Todd Kjos <tkjos@google.com>
 Content-Type: text/plain; charset="us-ascii"
@@ -75,53 +77,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Feb 20, 2020 at 10:27 AM Jordan Crouse <jcrouse@codeaurora.org> wrote:
+On Tue, Feb 25, 2020 at 3:54 PM John Stultz <john.stultz@linaro.org> wrote:
 >
-> The GMU has very few memory allocations and uses a flat memory space so
-> there is no good reason to go out of our way to bypass the DMA APIs which
-> were basically designed for this exact scenario.
+> On Thu, Feb 20, 2020 at 10:27 AM Jordan Crouse <jcrouse@codeaurora.org> wrote:
+> >
+> > The GMU has very few memory allocations and uses a flat memory space so
+> > there is no good reason to go out of our way to bypass the DMA APIs which
+> > were basically designed for this exact scenario.
+> >
+> > v2: Pass force_dma false to of_dma_configure to require that the DMA
+> > region be set up and return error from of_dma_configure to fail probe.
+> >
+> > Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
+> > ---
+> >
+> >  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 112 +++-------------------------------
+> >  drivers/gpu/drm/msm/adreno/a6xx_gmu.h |   5 +-
+> >  2 files changed, 11 insertions(+), 106 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> > index 983afea..c36b38b 100644
+> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> ...
+> > -       count = bo->size >> PAGE_SHIFT;
+> > +       bo->virt = dma_alloc_attrs(gmu->dev, bo->size, &bo->iova, GFP_KERNEL,
+> > +               bo->attrs);
+> >
+> ...
+> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+> > index 2af91ed..31bd1987 100644
+> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+> > @@ -13,7 +13,7 @@ struct a6xx_gmu_bo {
+> >         void *virt;
+> >         size_t size;
+> >         u64 iova;
+> > -       struct page **pages;
+> > +       unsigned long attrs;
+> >  };
 >
-> v2: Pass force_dma false to of_dma_configure to require that the DMA
-> region be set up and return error from of_dma_configure to fail probe.
+> As a head up, Todd reported that this patch is causing build trouble
+> w/ arm32, as the iova needs to be a dma_attr_t.
 >
-> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
-> ---
+> I've got a patch for the android-mainline tree to fix this, but you
+> might want to spin a v3 to address this.
+>   https://android-review.googlesource.com/c/kernel/common/+/1243928
 >
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 112 +++-------------------------------
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.h |   5 +-
->  2 files changed, 11 insertions(+), 106 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> index 983afea..c36b38b 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-...
-> -       count = bo->size >> PAGE_SHIFT;
-> +       bo->virt = dma_alloc_attrs(gmu->dev, bo->size, &bo->iova, GFP_KERNEL,
-> +               bo->attrs);
->
-...
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-> index 2af91ed..31bd1987 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-> @@ -13,7 +13,7 @@ struct a6xx_gmu_bo {
->         void *virt;
->         size_t size;
->         u64 iova;
-> -       struct page **pages;
-> +       unsigned long attrs;
->  };
 
-As a head up, Todd reported that this patch is causing build trouble
-w/ arm32, as the iova needs to be a dma_attr_t.
+I guess based on robher's comments on the bindings, there will be a v3..
 
-I've got a patch for the android-mainline tree to fix this, but you
-might want to spin a v3 to address this.
-  https://android-review.googlesource.com/c/kernel/common/+/1243928
-
-thanks
--john
+BR,
+-R
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
