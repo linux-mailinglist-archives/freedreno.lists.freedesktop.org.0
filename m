@@ -1,55 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1603B170475
-	for <lists+freedreno@lfdr.de>; Wed, 26 Feb 2020 17:33:46 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 04D491716B3
+	for <lists+freedreno@lfdr.de>; Thu, 27 Feb 2020 13:03:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9F966E406;
-	Wed, 26 Feb 2020 16:33:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A37AA6E86D;
+	Thu, 27 Feb 2020 12:03:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com
- [209.85.210.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56BD06E406;
- Wed, 26 Feb 2020 16:33:44 +0000 (UTC)
-Received: by mail-ot1-f66.google.com with SMTP id i6so3512986otr.7;
- Wed, 26 Feb 2020 08:33:44 -0800 (PST)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 978496EC96;
+ Thu, 27 Feb 2020 12:03:32 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id m16so2958358wrx.11;
+ Thu, 27 Feb 2020 04:03:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=0cvkhpWMFxiLIeolS0V7/Qo+W3ZK761sN/9Z7LM3iPc=;
+ b=Kfug0CJRpde9XowA2nK2NNaW5lx1rUpjSYu8G4JseK84jXXjX6+qOHMxwTsPAlpXXd
+ 1Z4SYEhLlLyqt+Nn6ZaWsF8Kb+ZX5KnEUIbWJzQF9FAQdruIwhXjli6XAnBUcdvu3hK9
+ 9EMW5/fZUMYYsUrh8VHokFrfHPL0QDk+t9MNpfp4yBwu2nRwjIT5vdrcXIHhLi898GF3
+ u91OBgKR5jGTktue2OzE7RKHow6L0Y4iv6waxFzz1iDCkWLchsuRsVqHzC9hPmg0u3ay
+ nHyKdEPcSSCB7CbUgIQHIfQo1SJH5RLwr2SKi7FuTqNwGa5ao7H+MstVcCiJk/GtKmVw
+ 4Bkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=lbFvo5HuT3obVT0xk8fNIbu0p3dI4t+br6icB8M92zo=;
- b=QS3xA37vp+lavZ3vht6pr6uxXsbhmJQenBcHmbzpaMIpsmTTM4MvzZ2lpFuwl9ZXEd
- uRKdkaU8oBalZT0pKX7arH1uXoFIHhtE1Sn0wO+3OdB/5o92p1FM9dK2b2ZLmSsfODct
- ipYDzbonuyQMnHRCE7eyWk8lRkEExaNa03lGV9jXQjmeWFZyez0XvPP9wmChhxp4LvQG
- hjx10JV9t8BA+wqhO8VUekVNaFgqmFJ6FdQrcRw1iwLn7JO7/SsBuYgX0HnfLApaPysN
- PjACURkUKXtuH4HIC6JHyJBukjqBRd1xhx/1v+xoRkjI7fw4LVvEHPjrHUcslmAgZ4Ci
- DJgg==
-X-Gm-Message-State: APjAAAVyX7fRoLAjkWlHG+2sxwBOnzw+qZqdv2pCIIqmLVJwxeVZFmNw
- Odm09HJMGjZYmxNTbPxDcA==
-X-Google-Smtp-Source: APXvYqxAh2WjxmOlqFeKqAx/quOrMLgdoA8tQvbTL8tmC9NEpFZlnmrg8hnVq+U0peeFAT+su5Ug4A==
-X-Received: by 2002:a9d:7c95:: with SMTP id q21mr1668568otn.278.1582734823559; 
- Wed, 26 Feb 2020 08:33:43 -0800 (PST)
-Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id i7sm970117oib.42.2020.02.26.08.33.42
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=0cvkhpWMFxiLIeolS0V7/Qo+W3ZK761sN/9Z7LM3iPc=;
+ b=AIo4ZyZRvx8lXChsWLfwzke5p0FGzCUUVUJ6pK5gIkevwGKq6pVrKNafL6RF+74a1F
+ LHqCMrAd6lqDb8mPNaQvcsrH6K8ezFacVkltugTA1XOtEwpl/Ttx5RbIsbhrftgf2mZq
+ 1ANXyWuXsC7mshpK+Byr9Drdv+Y9ojrutym1n5HK1lPYev1J9sKpFEoK++Lct8wiQLuS
+ RlUty2elyCuFa6JPbwcsvm8qcd5R7WDHLiTaphGkHj1cq+uU6IjINJdiXskMOfT/vx9U
+ SntHctYgY0HUNRL3F/6HHZ7aQWsbbopi/qJNpd6XnnphnQyCRGCx/wMhji17559BE6se
+ wf8Q==
+X-Gm-Message-State: APjAAAXU8ivNbA1sc97ZGn71KG+RisAAzbUhAA6fsT8+qDheKx6vWOUr
+ r59UP9/NUy4i9gHYWhHkQMU=
+X-Google-Smtp-Source: APXvYqzcuxChGggWOSGvgfmoFNlVgp9QCuNqVaQ/y8Pchnv7mZ3b6MlfEcjxIgveqSKd5RdWwh0h1Q==
+X-Received: by 2002:a05:6000:12d1:: with SMTP id
+ l17mr4335111wrx.327.1582805011298; 
+ Thu, 27 Feb 2020 04:03:31 -0800 (PST)
+Received: from wambui.zuku.co.ke ([197.237.61.225])
+ by smtp.googlemail.com with ESMTPSA id t10sm7655017wru.59.2020.02.27.04.03.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Feb 2020 08:33:42 -0800 (PST)
-Received: (nullmailer pid 30554 invoked by uid 1000);
- Wed, 26 Feb 2020 16:33:42 -0000
-Date: Wed, 26 Feb 2020 10:33:42 -0600
-From: Rob Herring <robh@kernel.org>
-To: Jordan Crouse <jcrouse@codeaurora.org>
-Message-ID: <20200226163342.GA26694@bogus>
-References: <1582223216-23459-1-git-send-email-jcrouse@codeaurora.org>
- <1582223216-23459-2-git-send-email-jcrouse@codeaurora.org>
+ Thu, 27 Feb 2020 04:03:30 -0800 (PST)
+From: Wambui Karuga <wambui.karugax@gmail.com>
+To: daniel@ffwll.ch, airlied@linux.ie, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>
+Date: Thu, 27 Feb 2020 15:02:23 +0300
+Message-Id: <20200227120232.19413-13-wambui.karugax@gmail.com>
+X-Mailer: git-send-email 2.25.0
+In-Reply-To: <20200227120232.19413-1-wambui.karugax@gmail.com>
+References: <20200227120232.19413-1-wambui.karugax@gmail.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1582223216-23459-2-git-send-email-jcrouse@codeaurora.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH v2 1/4] dt-bindings: display: msm: Convert
- GMU bindings to YAML
+Subject: [Freedreno] [PATCH 12/21] drm/msm: remove checks for return value
+ of drm_debugfs functions.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,179 +69,164 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- smasetty@codeaurora.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- John Stultz <john.stultz@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
+Cc: gregkh@linuxfoundation.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Feb 20, 2020 at 11:26:53AM -0700, Jordan Crouse wrote:
-> Convert display/msm/gmu.txt to display/msm/gmu.yaml and remove the old
-> text bindings.
-> 
-> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
-> ---
-> 
->  .../devicetree/bindings/display/msm/gmu.txt        | 116 ------------------
->  .../devicetree/bindings/display/msm/gmu.yaml       | 130 +++++++++++++++++++++
->  2 files changed, 130 insertions(+), 116 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/display/msm/gmu.txt
->  create mode 100644 Documentation/devicetree/bindings/display/msm/gmu.yaml
+Since commit 987d65d01356 (drm: debugfs: make
+drm_debugfs_create_files() never fail), drm_debugfs_create_files() does
+not fail, and should return void. This change therefore removes the
+checks of its return value in drm/msm and subsequent error handling.
 
+These changes also enable the changing of various debugfs_init()
+functions to return void.
 
-> diff --git a/Documentation/devicetree/bindings/display/msm/gmu.yaml b/Documentation/devicetree/bindings/display/msm/gmu.yaml
-> new file mode 100644
-> index 0000000..776ff92
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/msm/gmu.yaml
-> @@ -0,0 +1,130 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +# Copyright 2019-2020, The Linux Foundation, All Rights Reserved
-> +%YAML 1.2
-> +---
-> +
-> +$id: "http://devicetree.org/schemas/display/msm/gmu.yaml#"
-> +$schema: "http://devicetree.org/meta-schemas/core.yaml#"
-> +
-> +title: Devicetree bindings for the GMU attached to certain Adreno GPUs
-> +
-> +maintainers:
-> +  - Rob Clark <robdclark@gmail.com>
-> +
-> +description: |
-> +  These bindings describe the Graphics Management Unit (GMU) that is attached
-> +  to members of the Adreno A6xx GPU family. The GMU provides on-device power
-> +  management and support to improve power efficiency and reduce the load on
-> +  the CPU.
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - enum:
-> +          - qcom,adreno-gmu-630.2
-> +      - const: qcom,adreno-gmu
-> +
-> +  reg:
-> +    items:
-> +      - description: Core GMU registers
-> +      - description: GMU PDC registers
-> +      - description: GMU PDC sequence registers
-> +
-> +  reg-names:
-> +    items:
-> +      - const: gmu
-> +      - const: gmu_pdc
-> +      - const: gmu_pdc_seq
-> +
-> +  clocks:
-> +    items:
-> +     - description: GMU clock
-> +     - description: GPU CX clock
-> +     - description: GPU AXI clock
-> +     - description: GPU MEMNOC clock
-> +
-> +  clock-names:
-> +    items:
-> +      - const: gmu
-> +      - const: cxo
-> +      - const: axi
-> +      - const: memnoc
-> +
-> +  interrupts:
-> +    items:
-> +     - description: GMU HFI interrupt
-> +     - description: GMU interrupt
-> +
-> +
-> +  interrupt-names:
-> +    items:
-> +      - const: hfi
-> +      - const: gmu
-> +
-> +  power-domains:
-> +     items:
-> +       - description: CX power domain
-> +       - description: GX power domain
-> +
-> +  power-domain-names:
-> +     items:
-> +       - const: cx
-> +       - const: gx
-> +
-> +  iommus:
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+Signed-off-by: Wambui Karuga <wambui.karugax@gmail.com>
+---
+ drivers/gpu/drm/msm/adreno/a5xx_debugfs.c | 18 +++++-------------
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c  | 14 +++-----------
+ drivers/gpu/drm/msm/msm_debugfs.c         | 21 ++++++---------------
+ drivers/gpu/drm/msm/msm_debugfs.h         |  2 +-
+ drivers/gpu/drm/msm/msm_gpu.h             |  2 +-
+ 5 files changed, 16 insertions(+), 41 deletions(-)
 
-Already has a type. Just need to define how many entries (maxItems).
+diff --git a/drivers/gpu/drm/msm/adreno/a5xx_debugfs.c b/drivers/gpu/drm/msm/adreno/a5xx_debugfs.c
+index 075ecce4b5e0..8cae2ca4af6b 100644
+--- a/drivers/gpu/drm/msm/adreno/a5xx_debugfs.c
++++ b/drivers/gpu/drm/msm/adreno/a5xx_debugfs.c
+@@ -148,27 +148,19 @@ reset_set(void *data, u64 val)
+ DEFINE_SIMPLE_ATTRIBUTE(reset_fops, NULL, reset_set, "%llx\n");
+ 
+ 
+-int a5xx_debugfs_init(struct msm_gpu *gpu, struct drm_minor *minor)
++void a5xx_debugfs_init(struct msm_gpu *gpu, struct drm_minor *minor)
+ {
+ 	struct drm_device *dev;
+-	int ret;
+ 
+ 	if (!minor)
+-		return 0;
++		return;
+ 
+ 	dev = minor->dev;
+ 
+-	ret = drm_debugfs_create_files(a5xx_debugfs_list,
+-			ARRAY_SIZE(a5xx_debugfs_list),
+-			minor->debugfs_root, minor);
+-
+-	if (ret) {
+-		DRM_DEV_ERROR(dev->dev, "could not install a5xx_debugfs_list\n");
+-		return ret;
+-	}
++	drm_debugfs_create_files(a5xx_debugfs_list,
++				 ARRAY_SIZE(a5xx_debugfs_list),
++				 minor->debugfs_root, minor);
+ 
+ 	debugfs_create_file("reset", S_IWUGO, minor->debugfs_root, dev,
+ 			    &reset_fops);
+-
+-	return 0;
+ }
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+index 6650f478b226..41b461128bbc 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+@@ -259,17 +259,9 @@ static struct drm_info_list mdp5_debugfs_list[] = {
+ 
+ static int mdp5_kms_debugfs_init(struct msm_kms *kms, struct drm_minor *minor)
+ {
+-	struct drm_device *dev = minor->dev;
+-	int ret;
+-
+-	ret = drm_debugfs_create_files(mdp5_debugfs_list,
+-			ARRAY_SIZE(mdp5_debugfs_list),
+-			minor->debugfs_root, minor);
+-
+-	if (ret) {
+-		DRM_DEV_ERROR(dev->dev, "could not install mdp5_debugfs_list\n");
+-		return ret;
+-	}
++	drm_debugfs_create_files(mdp5_debugfs_list,
++				 ARRAY_SIZE(mdp5_debugfs_list),
++				 minor->debugfs_root, minor);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/msm/msm_debugfs.c b/drivers/gpu/drm/msm/msm_debugfs.c
+index 1c74381a4fc9..3c958f311bbc 100644
+--- a/drivers/gpu/drm/msm/msm_debugfs.c
++++ b/drivers/gpu/drm/msm/msm_debugfs.c
+@@ -214,31 +214,22 @@ int msm_debugfs_late_init(struct drm_device *dev)
+ 	return ret;
+ }
+ 
+-int msm_debugfs_init(struct drm_minor *minor)
++void msm_debugfs_init(struct drm_minor *minor)
+ {
+ 	struct drm_device *dev = minor->dev;
+ 	struct msm_drm_private *priv = dev->dev_private;
+-	int ret;
++	int ret = 0;
+ 
+-	ret = drm_debugfs_create_files(msm_debugfs_list,
+-			ARRAY_SIZE(msm_debugfs_list),
+-			minor->debugfs_root, minor);
+-
+-	if (ret) {
+-		DRM_DEV_ERROR(dev->dev, "could not install msm_debugfs_list\n");
+-		return ret;
+-	}
++	drm_debugfs_create_files(msm_debugfs_list,
++				 ARRAY_SIZE(msm_debugfs_list),
++				 minor->debugfs_root, minor);
+ 
+ 	debugfs_create_file("gpu", S_IRUSR, minor->debugfs_root,
+ 		dev, &msm_gpu_fops);
+ 
+ 	if (priv->kms && priv->kms->funcs->debugfs_init) {
+-		ret = priv->kms->funcs->debugfs_init(priv->kms, minor);
+-		if (ret)
+-			return ret;
++		priv->kms->funcs->debugfs_init(priv->kms, minor);
+ 	}
+-
+-	return ret;
+ }
+ #endif
+ 
+diff --git a/drivers/gpu/drm/msm/msm_debugfs.h b/drivers/gpu/drm/msm/msm_debugfs.h
+index 2b91f8c178ad..ef58f66abbb3 100644
+--- a/drivers/gpu/drm/msm/msm_debugfs.h
++++ b/drivers/gpu/drm/msm/msm_debugfs.h
+@@ -8,7 +8,7 @@
+ #define __MSM_DEBUGFS_H__
+ 
+ #ifdef CONFIG_DEBUG_FS
+-int msm_debugfs_init(struct drm_minor *minor);
++void msm_debugfs_init(struct drm_minor *minor);
+ #endif
+ 
+ #endif /* __MSM_DEBUGFS_H__ */
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index be5bc2e8425c..6ccae4ba905c 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -57,7 +57,7 @@ struct msm_gpu_funcs {
+ 	void (*show)(struct msm_gpu *gpu, struct msm_gpu_state *state,
+ 			struct drm_printer *p);
+ 	/* for generation specific debugfs: */
+-	int (*debugfs_init)(struct msm_gpu *gpu, struct drm_minor *minor);
++	void (*debugfs_init)(struct msm_gpu *gpu, struct drm_minor *minor);
+ #endif
+ 	unsigned long (*gpu_busy)(struct msm_gpu *gpu);
+ 	struct msm_gpu_state *(*gpu_state_get)(struct msm_gpu *gpu);
+-- 
+2.25.0
 
-> +    description:
-> +       Phandle to a IOMMU device and stream ID. Refer to ../../iommu/iommu.txt
-> +       for more information.
-
-Drop. That's all iommus entries.
-
-> +
-> +  operating-points-v2:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description:
-> +      Phandle to the OPP table for the available GMU frequencies. Refer to
-> +      ../../opp/opp.txt for more information.
-
-Just 'true' is enough here.
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - clocks
-> +  - clock-names
-> +  - interrupts
-> +  - interrupt-names
-> +  - power-domains
-> +  - power-domain-names
-> +  - iommus
-> +  - operating-points-v2
-> +
-> +examples:
-> + - |
-> +   #include <dt-bindings/clock/qcom,gpucc-sdm845.h>
-> +   #include <dt-bindings/clock/qcom,gcc-sdm845.h>
-> +   #include <dt-bindings/interrupt-controller/irq.h>
-> +   #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +   gmu: gmu@506a000 {
-> +        compatible="qcom,adreno-gmu-630.2", "qcom,adreno-gmu";
-> +
-> +        reg = <0x506a000 0x30000>,
-> +              <0xb280000 0x10000>,
-> +              <0xb480000 0x10000>;
-> +        reg-names = "gmu", "gmu_pdc", "gmu_pdc_seq";
-> +
-> +        clocks = <&gpucc GPU_CC_CX_GMU_CLK>,
-> +                 <&gpucc GPU_CC_CXO_CLK>,
-> +                 <&gcc GCC_DDRSS_GPU_AXI_CLK>,
-> +                 <&gcc GCC_GPU_MEMNOC_GFX_CLK>;
-> +        clock-names = "gmu", "cxo", "axi", "memnoc";
-> +
-> +        interrupts = <GIC_SPI 304 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH>;
-> +        interrupt-names = "hfi", "gmu";
-> +
-> +        power-domains = <&gpucc GPU_CX_GDSC>,
-> +                        <&gpucc GPU_GX_GDSC>;
-> +        power-domain-names = "cx", "gx";
-> +
-> +        iommus = <&adreno_smmu 5>;
-> +        operating-points-v2 = <&gmu_opp_table>;
-> +   };
-> -- 
-> 2.7.4
-> 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
