@@ -2,42 +2,42 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB66217687C
-	for <lists+freedreno@lfdr.de>; Tue,  3 Mar 2020 00:53:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69C52176880
+	for <lists+freedreno@lfdr.de>; Tue,  3 Mar 2020 00:53:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64A306E1F6;
-	Mon,  2 Mar 2020 23:53:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13F3D6E4BB;
+	Mon,  2 Mar 2020 23:53:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 681FD6E43A;
- Mon,  2 Mar 2020 18:56:49 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C63EC6E843;
+ Mon,  2 Mar 2020 20:58:49 +0000 (UTC)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 02 Mar 2020 10:56:48 -0800
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 02 Mar 2020 12:58:49 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,507,1574150400"; d="scan'208";a="286705378"
-Received: from fmsmsx108.amr.corp.intel.com ([10.18.124.206])
- by FMSMGA003.fm.intel.com with ESMTP; 02 Mar 2020 10:56:48 -0800
-Received: from fmsmsx157.amr.corp.intel.com (10.18.116.73) by
- FMSMSX108.amr.corp.intel.com (10.18.124.206) with Microsoft SMTP Server (TLS)
- id 14.3.439.0; Mon, 2 Mar 2020 10:56:48 -0800
+X-IronPort-AV: E=Sophos;i="5.70,508,1574150400"; d="scan'208";a="262915303"
+Received: from fmsmsx103.amr.corp.intel.com ([10.18.124.201])
+ by fmsmga004.fm.intel.com with ESMTP; 02 Mar 2020 12:58:49 -0800
+Received: from fmsmsx115.amr.corp.intel.com (10.18.116.19) by
+ FMSMSX103.amr.corp.intel.com (10.18.124.201) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Mon, 2 Mar 2020 12:58:49 -0800
 Received: from fmsmsx108.amr.corp.intel.com ([169.254.9.2]) by
- FMSMSX157.amr.corp.intel.com ([169.254.14.139]) with mapi id 14.03.0439.000;
- Mon, 2 Mar 2020 10:56:47 -0800
+ fmsmsx115.amr.corp.intel.com ([169.254.4.81]) with mapi id 14.03.0439.000;
+ Mon, 2 Mar 2020 12:58:49 -0800
 From: "Ruhl, Michael J" <michael.j.ruhl@intel.com>
 To: Jordan Crouse <jcrouse@codeaurora.org>, "linux-arm-msm@vger.kernel.org"
  <linux-arm-msm@vger.kernel.org>
-Thread-Topic: [PATCH v3 2/2] drm/msm/a6xx: Use the DMA API for GMU memory
+Thread-Topic: [PATCH v4 2/2] drm/msm/a6xx: Use the DMA API for GMU memory
  objects
-Thread-Index: AQHV8L/ED54fmQjYgEe0TQLqR/VKMKg1piEA
-Date: Mon, 2 Mar 2020 18:56:47 +0000
-Message-ID: <14063C7AD467DE4B82DEDB5C278E8663F4FDDC3B@FMSMSX108.amr.corp.intel.com>
-References: <1583173424-21832-1-git-send-email-jcrouse@codeaurora.org>
- <1583173424-21832-3-git-send-email-jcrouse@codeaurora.org>
-In-Reply-To: <1583173424-21832-3-git-send-email-jcrouse@codeaurora.org>
+Thread-Index: AQHV8NPlMBHxtuqcFk6x//p6aZDLUag1x50A
+Date: Mon, 2 Mar 2020 20:58:48 +0000
+Message-ID: <14063C7AD467DE4B82DEDB5C278E8663F4FDE244@FMSMSX108.amr.corp.intel.com>
+References: <1583182067-16530-1-git-send-email-jcrouse@codeaurora.org>
+ <1583182067-16530-3-git-send-email-jcrouse@codeaurora.org>
+In-Reply-To: <1583182067-16530-3-git-send-email-jcrouse@codeaurora.org>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -48,7 +48,7 @@ dlp-reaction: no-action
 x-originating-ip: [10.1.200.106]
 MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 02 Mar 2020 23:53:12 +0000
-Subject: Re: [Freedreno] [PATCH v3 2/2] drm/msm/a6xx: Use the DMA API for
+Subject: Re: [Freedreno] [PATCH v4 2/2] drm/msm/a6xx: Use the DMA API for
  GMU memory objects
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,9 +64,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: David Airlie <airlied@linux.ie>, Sean Paul <sean@poorly.run>,
  "smasetty@codeaurora.org" <smasetty@codeaurora.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
  Douglas Anderson <dianders@chromium.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Stephen Boyd <swboyd@chromium.org>,
  "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
@@ -76,35 +77,43 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 >-----Original Message-----
 >From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On Behalf Of
 >Jordan Crouse
->Sent: Monday, March 2, 2020 1:24 PM
+>Sent: Monday, March 2, 2020 3:48 PM
 >To: linux-arm-msm@vger.kernel.org
->Cc: David Airlie <airlied@linux.ie>; freedreno@lists.freedesktop.org;
+>Cc: Douglas Anderson <dianders@chromium.org>; David Airlie
+><airlied@linux.ie>; freedreno@lists.freedesktop.org;
 >smasetty@codeaurora.org; linux-kernel@vger.kernel.org; dri-
->devel@lists.freedesktop.org; Douglas Anderson <dianders@chromium.org>;
->Sean Paul <sean@poorly.run>
->Subject: [PATCH v3 2/2] drm/msm/a6xx: Use the DMA API for GMU memory
+>devel@lists.freedesktop.org; Stephen Boyd <swboyd@chromium.org>; Ruhl,
+>Michael J <michael.j.ruhl@intel.com>; Sean Paul <sean@poorly.run>
+>Subject: [PATCH v4 2/2] drm/msm/a6xx: Use the DMA API for GMU memory
 >objects
 >
 >The GMU has very few memory allocations and uses a flat memory space so
 >there is no good reason to go out of our way to bypass the DMA APIs which
 >were basically designed for this exact scenario.
 >
+>v4: Use dma_alloc_wc()
+
+The patch and the update look good to me.
+
+Reviewed-by: Michael J. Ruhl <michael.j.ruhl@intel.com>
+
+Mike
+
 >v3: Set the dma mask correctly and use dma_addr_t for the iova type
->
 >v2: Pass force_dma false to of_dma_configure to require that the DMA
 >region be set up and return error from of_dma_configure to fail probe.
 >
 >Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
 >---
 >
-> drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 115 ++++---------------------------
+> drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 113 ++++---------------------------
 >---
-> drivers/gpu/drm/msm/adreno/a6xx_gmu.h |   7 +--
-> 2 files changed, 15 insertions(+), 107 deletions(-)
+> drivers/gpu/drm/msm/adreno/a6xx_gmu.h |   6 +-
+> 2 files changed, 12 insertions(+), 107 deletions(-)
 >
 >diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
 >b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->index 748cd37..854ba30 100644
+>index 748cd37..dd51dd0 100644
 >--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
 >+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
 >@@ -2,6 +2,7 @@
@@ -135,11 +144,11 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 >-	}
 >-
 >-	kfree(bo->pages);
->+	dma_free_attrs(gmu->dev, bo->size, bo->virt, bo->iova, bo->attrs);
+>+	dma_free_wc(gmu->dev, bo->size, bo->virt, bo->iova);
 > 	kfree(bo);
 > }
 >
->@@ -942,94 +932,23 @@ static struct a6xx_gmu_bo
+>@@ -942,7 +932,6 @@ static struct a6xx_gmu_bo
 >*a6xx_gmu_memory_alloc(struct a6xx_gmu *gmu,
 > 		size_t size)
 > {
@@ -148,24 +157,15 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 >
 > 	bo = kzalloc(sizeof(*bo), GFP_KERNEL);
 > 	if (!bo)
-> 		return ERR_PTR(-ENOMEM);
+>@@ -950,86 +939,14 @@ static struct a6xx_gmu_bo
+>*a6xx_gmu_memory_alloc(struct a6xx_gmu *gmu,
 >
 > 	bo->size = PAGE_ALIGN(size);
->+	bo->attrs = DMA_ATTR_WRITE_COMBINE;
 >
 >-	count = bo->size >> PAGE_SHIFT;
->+	bo->virt = dma_alloc_attrs(gmu->dev, bo->size, &bo->iova,
->GFP_KERNEL,
->+		bo->attrs);
-
-I see that there is a dma_alloc_wc()/dma_free_wc() which appears to do the
-same set up that you are using here.
-
-Could you use those wrappers, or do you need to keep track of the bo->attrs
-elsewhere?
- 
-Mike
-
+>+	bo->virt = dma_alloc_wc(gmu->dev, bo->size, &bo->iova,
+>GFP_KERNEL);
+>
 >-	bo->pages = kcalloc(count, sizeof(struct page *), GFP_KERNEL);
 >-	if (!bo->pages) {
 >+	if (!bo->virt) {
@@ -249,7 +249,7 @@ Mike
 > }
 >
 > /* Return the 'arc-level' for the given frequency */
->@@ -1289,10 +1208,6 @@ void a6xx_gmu_remove(struct a6xx_gpu
+>@@ -1289,10 +1206,6 @@ void a6xx_gmu_remove(struct a6xx_gpu
 >*a6xx_gpu)
 >
 > 	a6xx_gmu_memory_free(gmu, gmu->hfi);
@@ -261,7 +261,7 @@ Mike
 > 	free_irq(gmu->gmu_irq, gmu);
 > 	free_irq(gmu->hfi_irq, gmu);
 >
->@@ -1313,7 +1228,13 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu,
+>@@ -1313,7 +1226,13 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu,
 >struct device_node *node)
 >
 > 	gmu->dev = &pdev->dev;
@@ -277,7 +277,7 @@ Mike
 >
 > 	/* Fow now, don't do anything fancy until we get our feet under us */
 > 	gmu->idle_level = GMU_IDLE_STATE_ACTIVE;
->@@ -1325,11 +1246,6 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu,
+>@@ -1325,11 +1244,6 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu,
 >struct device_node *node)
 > 	if (ret)
 > 		goto err_put_device;
@@ -290,7 +290,7 @@ Mike
 > 	/* Allocate memory for for the HFI queues */
 > 	gmu->hfi = a6xx_gmu_memory_alloc(gmu, SZ_16K);
 > 	if (IS_ERR(gmu->hfi))
->@@ -1375,11 +1291,6 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu,
+>@@ -1375,11 +1289,6 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu,
 >struct device_node *node)
 > err_memory:
 > 	a6xx_gmu_memory_free(gmu, gmu->hfi);
@@ -305,21 +305,20 @@ Mike
 > err_put_device:
 >diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
 >b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
->index 2af91ed..d10cddd 100644
+>index 2af91ed..4af65a3 100644
 >--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
 >+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
->@@ -12,8 +12,8 @@
+>@@ -12,8 +12,7 @@
 > struct a6xx_gmu_bo {
 > 	void *virt;
 > 	size_t size;
 >-	u64 iova;
 >-	struct page **pages;
 >+	dma_addr_t iova;
->+	unsigned long attrs;
 > };
 >
 > /*
->@@ -49,9 +49,6 @@ struct a6xx_gmu {
+>@@ -49,9 +48,6 @@ struct a6xx_gmu {
 > 	int hfi_irq;
 > 	int gmu_irq;
 >
