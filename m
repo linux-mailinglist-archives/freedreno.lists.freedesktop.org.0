@@ -1,66 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9A881753D4
-	for <lists+freedreno@lfdr.de>; Mon,  2 Mar 2020 07:36:13 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 13A78175642
+	for <lists+freedreno@lfdr.de>; Mon,  2 Mar 2020 09:47:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B87D6E072;
-	Mon,  2 Mar 2020 06:36:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7306A6E141;
+	Mon,  2 Mar 2020 08:47:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
- [104.130.122.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 243DE6E072
- for <freedreno@lists.freedesktop.org>; Mon,  2 Mar 2020 06:36:07 +0000 (UTC)
+Received: from mail27.static.mailgun.info (mail27.static.mailgun.info
+ [104.130.122.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5743D6E141
+ for <freedreno@lists.freedesktop.org>; Mon,  2 Mar 2020 08:47:32 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1583130970; h=Content-Transfer-Encoding: Content-Type:
- In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
- Subject: Sender; bh=YYalt6l/N7I/mSLT1TfY3UB/16G6fmRPNEGmAhNeO4I=;
- b=NM2T/Z5LY0ywMyVRefIiL4O4eOFRT672OtZtav7tuJK7AD33ejDZlUaKr4UeSTv6cVPOZxon
- gMU5A5HwjpjvGHs6kxXZT5jcd6PR5zlR7F/txCM9H3NE8mhCylH3IOzTR0iWhaP7NU2ozodg
- +W7W+7xpmiMY9fI2xxitgM7hlLQ=
-X-Mailgun-Sending-Ip: 104.130.122.26
+ s=smtp; t=1583138852; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=wmVI700tbQq6+iaWrtHBd6KzHd/LvL94inrgBbMCajQ=;
+ b=GlGHJsE8PY/HbkQR3sqj70D4VKBh1nlF0a8Eorlb0GiXZCwgkRNJUsJEynTk3OGOco22QySs
+ dZghCrmPnrtZNTCqCRmeKobwZJpnFQAZFyBLAZl4sLFU9VMDsM6aiIJdMsuRLTafYnr5FgCM
+ qujKaahMLmtSSp7y4axNsKUTNCI=
+X-Mailgun-Sending-Ip: 104.130.122.27
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5e5ca950.7f8aa7fa1e30-smtp-out-n02;
- Mon, 02 Mar 2020 06:36:00 -0000 (UTC)
+ by mxa.mailgun.org with ESMTP id 5e5cc823.7fc9b8cf5f10-smtp-out-n02;
+ Mon, 02 Mar 2020 08:47:31 -0000 (UTC)
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 79E98C4479C; Mon,  2 Mar 2020 06:35:59 +0000 (UTC)
+ id 8053BC4479D; Mon,  2 Mar 2020 08:47:30 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE,
  URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from [10.204.67.17]
+Received: from smasetty-linux.qualcomm.com
  (blr-c-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.19.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: smasetty)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id C6A9CC43383;
- Mon,  2 Mar 2020 06:35:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org C6A9CC43383
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id F1A02C43383;
+ Mon,  2 Mar 2020 08:47:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org F1A02C43383
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  spf=none smtp.mailfrom=smasetty@codeaurora.org
-To: Rob Herring <robh@kernel.org>
-References: <1582186342-3484-1-git-send-email-smasetty@codeaurora.org>
- <1582186342-3484-2-git-send-email-smasetty@codeaurora.org>
- <20200220203509.GA14697@bogus>
- <6a7c1f39-a85f-4a99-fed3-71001bdb6128@codeaurora.org>
- <CAL_JsqKVNENPZKbCy4FrGRO=D79hBL3keuE-U2tTwDVViCrdPQ@mail.gmail.com>
 From: Sharat Masetty <smasetty@codeaurora.org>
-Message-ID: <3f9ae835-5146-d5db-1caf-01ede5bc9a1f@codeaurora.org>
-Date: Mon, 2 Mar 2020 12:05:53 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
-MIME-Version: 1.0
-In-Reply-To: <CAL_JsqKVNENPZKbCy4FrGRO=D79hBL3keuE-U2tTwDVViCrdPQ@mail.gmail.com>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH] dt-bindings: arm-smmu: update the list of
- clocks
+To: freedreno@lists.freedesktop.org
+Date: Mon,  2 Mar 2020 14:17:16 +0530
+Message-Id: <1583138836-20807-1-git-send-email-smasetty@codeaurora.org>
+X-Mailer: git-send-email 1.9.1
+Subject: [Freedreno] [PATCH] drm: msm: a6x: Disable interrupts before
+ recovery
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,60 +63,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, saiprakash.ranjan@codeaurora.org,
- Doug Anderson <dianders@chromium.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Matthias Kaehlcke <mka@chromium.org>, dri-devel@freedesktop.org,
- freedreno <freedreno@lists.freedesktop.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Sharat Masetty <smasetty@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ jcrouse@codeaurora.org, dri-devel@freedesktop.org,
+ linux-kernel@vger.kernel.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Ck9uIDIvMjYvMjAyMCA4OjAzIFBNLCBSb2IgSGVycmluZyB3cm90ZToKPiBPbiBXZWQsIEZlYiAy
-NiwgMjAyMCBhdCA1OjE3IEFNIFNoYXJhdCBNYXNldHR5IDxzbWFzZXR0eUBjb2RlYXVyb3JhLm9y
-Zz4gd3JvdGU6Cj4+Cj4+IE9uIDIvMjEvMjAyMCAyOjA1IEFNLCBSb2IgSGVycmluZyB3cm90ZToK
-Pj4+IE9uIFRodSwgMjAgRmViIDIwMjAgMTM6NDI6MjIgKzA1MzAsIFNoYXJhdCBNYXNldHR5IHdy
-b3RlOgo+Pj4+IFRoaXMgcGF0Y2ggYWRkcyBhIGNsb2NrIGRlZmluaXRpb24gbmVlZGVkIGZvciBw
-b3dlcmluZyBvbiB0aGUgR1BVIFRCVXMKPj4+PiBhbmQgdGhlIEdQVSBUQ1UuCj4+Pj4KPj4+PiBT
-aWduZWQtb2ZmLWJ5OiBTaGFyYXQgTWFzZXR0eSA8c21hc2V0dHlAY29kZWF1cm9yYS5vcmc+Cj4+
-Pj4gLS0tCj4+Pj4gICAgRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2lvbW11L2Fy
-bSxzbW11LnlhbWwgfCAzICsrKwo+Pj4+ICAgIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMo
-KykKPj4+Pgo+Pj4gTXkgYm90IGZvdW5kIGVycm9ycyBydW5uaW5nICdtYWtlIGR0X2JpbmRpbmdf
-Y2hlY2snIG9uIHlvdXIgcGF0Y2g6Cj4+Pgo+Pj4gRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2Jp
-bmRpbmdzL2Rpc3BsYXkvc2ltcGxlLWZyYW1lYnVmZmVyLmV4YW1wbGUuZHRzOjIxLjE2LTM3LjEx
-OiBXYXJuaW5nIChjaG9zZW5fbm9kZV9pc19yb290KTogL2V4YW1wbGUtMC9jaG9zZW46IGNob3Nl
-biBub2RlIG11c3QgYmUgYXQgcm9vdCBub2RlCj4+PiAvYnVpbGRzL3JvYmhlcnJpbmcvbGludXgt
-ZHQtcmV2aWV3L0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9pb21tdS9hcm0sc21t
-dS5leGFtcGxlLmR0LnlhbWw6IGlvbW11QGQwMDAwMDogY2xvY2stbmFtZXM6IFsnYnVzJywgJ2lm
-YWNlJ10gaXMgdG9vIHNob3J0Cj4+PiAvYnVpbGRzL3JvYmhlcnJpbmcvbGludXgtZHQtcmV2aWV3
-L0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9pb21tdS9hcm0sc21tdS5leGFtcGxl
-LmR0LnlhbWw6IGlvbW11QGQwMDAwMDogY2xvY2tzOiBbWzQyOTQ5NjcyOTUsIDEyM10sIFs0Mjk0
-OTY3Mjk1LCAxMjRdXSBpcyB0b28gc2hvcnQKPj4+Cj4+PiBTZWUgaHR0cHM6Ly9wYXRjaHdvcmsu
-b3psYWJzLm9yZy9wYXRjaC8xMjQxMjk3Cj4+PiBQbGVhc2UgY2hlY2sgYW5kIHJlLXN1Ym1pdC4K
-Pj4gSGkgUm9iLCBUaGVzZSBpc3N1ZXMgc2VlbSB0byBiZSBmcm9tIHRoZSBvcmlnaW5hbCBjb2Rl
-IGFuZCBub3QgcmVsYXRlZAo+PiB0byBteSBwYXRjaC4gQXJlIHRoZXNlIGdvaW5nIHRvIGJlIGJs
-b2NraW5nIGVycm9ycz8KPiBUaGVyZSBhcmUgbm8gZXJyb3JzIGluIHRoaXMgYmluZGluZyBpbiBt
-YWlubGluZS4gWW91J3ZlIGFkZGVkIGEgM3JkCj4gY2xvY2sgd2hlbiBhbGwgdGhlIGV4aXN0aW5n
-IHVzZXJzIGhhdmUgZXhhY3RseSAyIGNsb2Nrcy4KClJvYiwKCkFkZGluZyBzb21ldGhpbmcgbGlr
-ZSB0aGUgZm9sbG93aW5nIHNlZW1zIHRvIGJlIHNvbHZpbmcgdGhlIGJvdCBlcnJvcnMsIApidXQg
-SSBhbSBub3QgY2VydGFpbiBpZiB0aGlzIGlzIHRoZSByaWdodCB3YXkgdG8gYWRkcmVzcyB0aGlz
-IGlzc3VlLiBDYW4gCnlvdSBwbGVhc2UgY29tbWVudD8KCiDCoMKgIGNsb2NrLW5hbWVzOgorwqDC
-oMKgIG1pbkl0ZW1zOiAyCivCoMKgwqAgbWF4SXRlbXM6IDMKIMKgwqDCoMKgIGl0ZW1zOgogwqDC
-oMKgwqDCoMKgIC0gY29uc3Q6IGJ1cwogwqDCoMKgwqDCoMKgIC0gY29uc3Q6IGlmYWNlCivCoMKg
-wqDCoMKgIC0gY29uc3Q6IG1lbV9pZmFjZV9jbGsKCiDCoMKgIGNsb2NrczoKK8KgwqDCoCBtaW5J
-dGVtczogMgorwqDCoMKgIG1heEl0ZW1zOiAzCiDCoMKgwqDCoCBpdGVtczoKIMKgwqDCoMKgwqDC
-oCAtIGRlc2NyaXB0aW9uOiBidXMgY2xvY2sgcmVxdWlyZWQgZm9yIGRvd25zdHJlYW0gYnVzIGFj
-Y2VzcyBhbmQgCmZvciB0aGUKIMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNtbXUgcHR3CiDCoMKgwqDC
-oMKgwqAgLSBkZXNjcmlwdGlvbjogaW50ZXJmYWNlIGNsb2NrIHJlcXVpcmVkIHRvIGFjY2VzcyBz
-bW11J3MgcmVnaXN0ZXJzCiDCoMKgwqDCoMKgwqDCoMKgwqDCoCB0aHJvdWdoIHRoZSBUQ1UncyBw
-cm9ncmFtbWluZyBpbnRlcmZhY2UuCivCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IGNvcmUgY2xv
-Y2sgcmVxdWlyZWQgZm9yIHRoZSBHUFUgU01NVSBUQlVzIGFuZCB0aGUgCkdQVSBUQ1UuCgo+Cj4g
-Um9iCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBk
-cmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+
-IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVu
-byBtYWlsaW5nIGxpc3QKRnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVubwo=
+This patch disables interrupts in the GPU RBBM hang detect fault handler
+before going to recovery.
+
+Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index dc8ec2c..4dd0f62 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -676,6 +676,9 @@ static void a6xx_fault_detect_irq(struct msm_gpu *gpu)
+ 		gpu_read64(gpu, REG_A6XX_CP_IB2_BASE, REG_A6XX_CP_IB2_BASE_HI),
+ 		gpu_read(gpu, REG_A6XX_CP_IB2_REM_SIZE));
+ 
++	/* Disable interrupts before going for a recovery*/
++	gpu_write(gpu, REG_A6XX_RBBM_INT_0_MASK, 0);
++
+ 	/* Turn off the hangcheck timer to keep it from bothering us */
+ 	del_timer(&gpu->hangcheck_timer);
+ 
+-- 
+1.9.1
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
