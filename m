@@ -1,64 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2399D17603B
-	for <lists+freedreno@lfdr.de>; Mon,  2 Mar 2020 17:43:47 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C21A517627E
+	for <lists+freedreno@lfdr.de>; Mon,  2 Mar 2020 19:23:56 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0BB36E5B6;
-	Mon,  2 Mar 2020 16:43:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BE326E7DA;
+	Mon,  2 Mar 2020 18:23:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
- [104.130.122.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E28696E5B6
- for <freedreno@lists.freedesktop.org>; Mon,  2 Mar 2020 16:43:41 +0000 (UTC)
+Received: from mail27.static.mailgun.info (mail27.static.mailgun.info
+ [104.130.122.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF7A56E7D3
+ for <freedreno@lists.freedesktop.org>; Mon,  2 Mar 2020 18:23:52 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1583167425; h=In-Reply-To: Content-Type: MIME-Version:
- References: Message-ID: Subject: Cc: To: From: Date: Sender;
- bh=TbW7v6ETMwAyeMysipwO8G4evsiI1GMTYBqpmkfIiUg=;
- b=fmNu5w3OAN95rtE37dcM865jMSlISp1XMfG+0VoASeSWyrJzcxcAwIVl0GjdWWNyU7a7Y7Cc
- Qfsmkxm3XIFKpPp1rCideZdPk8AO3InoTTcMt9mzTM9Q0Z/IxZ6IdUnsaVXXPkcjIK6uTVsQ
- LImSIzvfo7uWJd9/Y35L2yUEQHU=
-X-Mailgun-Sending-Ip: 104.130.122.26
+ s=smtp; t=1583173434; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=edcFSYSexIsmSnWikdqjkm9DxkW7RoVnWKJulqkV/Sg=;
+ b=trqeAaKeCvc7ikP52eq9mlwOiamNYt0tBgpZYWVbAxUTdRbmgQhLmLR3xI+w/DLod49BV5lM
+ P/Q5F1gRNM64wK/NjKZoRQtWIbOVdGA2GjbEQqs7QfhhGYDH5kIeuq/mshJEP+LDWlzdEvdz
+ SoJz9uzYZPM1525MRlPEJiVC10A=
+X-Mailgun-Sending-Ip: 104.130.122.27
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5e5d37af.7f08f67b21b8-smtp-out-n01;
- Mon, 02 Mar 2020 16:43:27 -0000 (UTC)
+ by mxa.mailgun.org with ESMTP id 5e5d4f35.7faad88ba7a0-smtp-out-n01;
+ Mon, 02 Mar 2020 18:23:49 -0000 (UTC)
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 72BBEC4479D; Mon,  2 Mar 2020 16:43:27 +0000 (UTC)
+ id 6C372C4479D; Mon,  2 Mar 2020 18:23:49 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 6A1AAC43383;
- Mon,  2 Mar 2020 16:43:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 6A1AAC43383
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id BDA6DC43383;
+ Mon,  2 Mar 2020 18:23:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org BDA6DC43383
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  spf=none smtp.mailfrom=jcrouse@codeaurora.org
-Date: Mon, 2 Mar 2020 09:43:24 -0700
 From: Jordan Crouse <jcrouse@codeaurora.org>
-To: Sharat Masetty <smasetty@codeaurora.org>
-Message-ID: <20200302164324.GA708@jcrouse1-lnx.qualcomm.com>
-Mail-Followup-To: Sharat Masetty <smasetty@codeaurora.org>,
- freedreno@lists.freedesktop.org, dri-devel@freedesktop.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <1583138836-20807-1-git-send-email-smasetty@codeaurora.org>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1583138836-20807-1-git-send-email-smasetty@codeaurora.org>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Freedreno] [PATCH] drm: msm: a6x: Disable interrupts before
- recovery
+To: linux-arm-msm@vger.kernel.org
+Date: Mon,  2 Mar 2020 11:23:42 -0700
+Message-Id: <1583173424-21832-1-git-send-email-jcrouse@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH v3 0/2] msm/gpu/a6xx: use the DMA-API for GMU
+ memory allocations
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,55 +63,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- dri-devel@freedesktop.org, linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ freedreno@lists.freedesktop.org, smasetty@codeaurora.org,
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, John Stultz <john.stultz@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Mar 02, 2020 at 02:17:16PM +0530, Sharat Masetty wrote:
-> This patch disables interrupts in the GPU RBBM hang detect fault handler
-> before going to recovery.
+When CONFIG_INIT_ON_ALLOC_DEFAULT_ON the GMU memory allocator runs afoul of
+cache coherency issues because it is mapped as write-combine without clearing
+the cache after it was zeroed.
 
-Okay, but why?  What were you seeing?  A little bit of extra description would
-make it easier to understand this change in the future.
+Rather than duplicate the hacky workaround we use in the GEM allocator for the
+same reason it turns out that we don't need to have a bespoke memory allocator
+for the GMU anyway. It uses a flat, global address space and there are only
+two relatively minor allocations anyway. In short, this is essentially what the
+DMA API was created for so replace a bunch of memory management code with two
+calls to allocate and free DMA memory and we're fine.
 
-> 
-> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index dc8ec2c..4dd0f62 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -676,6 +676,9 @@ static void a6xx_fault_detect_irq(struct msm_gpu *gpu)
->  		gpu_read64(gpu, REG_A6XX_CP_IB2_BASE, REG_A6XX_CP_IB2_BASE_HI),
->  		gpu_read(gpu, REG_A6XX_CP_IB2_REM_SIZE));
->  
-> +	/* Disable interrupts before going for a recovery*/
-> +	gpu_write(gpu, REG_A6XX_RBBM_INT_0_MASK, 0);
-> +
+In a previous version of this series I added the dma-ranges property to the
+device tree file for the GMU and updated the bindings to YAML. Rob correctly
+pointed out that we should set the dma mask instead of using dma-ranges so I
+removed that bit, but I'm still pushing the YAML conversion because it is good
+and we'll eventually need it anyway.
 
-And this is turning off all the interrupts, but the commit log only mentions the
-hang detect. In my experience, the hang detect usually only fires once until
-after reset, but if there are other interrupts that are bothering you then it
-makes sense to disable them but, again, this is good information for the commit
-log and or a code comment.
+v3: Fix YAML description per RobH and remove dma-ranges and replace it with the
+correct DMA mask in the GMU device. Convert the iova type to a dma_attr_t to
+make it 32 bit friendly.
 
-Jordan
+v2: Fix the example bindings for dma-ranges - the third item is the size
+Pass false to of_dma_configure so that it fails probe if the DMA region is not
+set up.
 
->  	/* Turn off the hangcheck timer to keep it from bothering us */
->  	del_timer(&gpu->hangcheck_timer);
->  
-> -- 
-> 1.9.1
-> 
+Jordan Crouse (2):
+  dt-bindings: display: msm: Convert GMU bindings to YAML
+  drm/msm/a6xx: Use the DMA API for GMU memory objects
+
+ .../devicetree/bindings/display/msm/gmu.txt        | 116 -------------------
+ .../devicetree/bindings/display/msm/gmu.yaml       | 123 +++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              | 115 +++----------------
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h              |   7 +-
+ 4 files changed, 138 insertions(+), 223 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/display/msm/gmu.txt
+ create mode 100644 Documentation/devicetree/bindings/display/msm/gmu.yaml
+
 -- 
-The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
-a Linux Foundation Collaborative Project
+2.7.4
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
