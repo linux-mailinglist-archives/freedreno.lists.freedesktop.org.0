@@ -1,54 +1,130 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA076177D28
-	for <lists+freedreno@lfdr.de>; Tue,  3 Mar 2020 18:16:23 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 55EE41782ED
+	for <lists+freedreno@lfdr.de>; Tue,  3 Mar 2020 20:12:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 409616E921;
-	Tue,  3 Mar 2020 17:16:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBE43893CD;
+	Tue,  3 Mar 2020 19:12:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from onstation.org (onstation.org [52.200.56.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 025696EA89;
- Tue,  3 Mar 2020 17:16:20 +0000 (UTC)
-Received: from localhost (c-98-239-145-235.hsd1.wv.comcast.net
- [98.239.145.235])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested) (Authenticated sender: masneyb)
- by onstation.org (Postfix) with ESMTPSA id DA9123E8F4;
- Tue,  3 Mar 2020 17:16:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=onstation.org;
- s=default; t=1583255780;
- bh=29MHpfV8HM+m/8mEKfdKSt2XIMIPWgMiQS70SJOaT7c=;
- h=Date:From:To:Subject:References:In-Reply-To:From;
- b=eTrzME+buJDC+JQ2iOWHK8a21j41LZUAzuAoD6PU+ExzLiLW0D02gLFI+rEugFT5d
- qLtSTAP3J8bZ05tZbtTjIix7XtqpPn8DcnG7WEpi9HA0bgAIilMhxpW/g18txdK9Pg
- oSk6hHunH/xQXWS3OpHcF+4kXqceEaQ3dhsS2yPo=
-Date: Tue, 3 Mar 2020 12:16:19 -0500
-From: Brian Masney <masneyb@onstation.org>
-To: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
- Sam Ravnborg <sam@ravnborg.org>, Sean Paul <sean@poorly.run>,
- DTML <devicetree@vger.kernel.org>, David Airlie <airlied@linux.ie>,
- MSM <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- lkml <linux-kernel@vger.kernel.org>,
- "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
- Rob Herring <robh+dt@kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>
-Message-ID: <20200303171619.GB11841@onstation.org>
-References: <1583173424-21832-1-git-send-email-jcrouse@codeaurora.org>
- <1583173424-21832-2-git-send-email-jcrouse@codeaurora.org>
- <20200302204906.GA32123@ravnborg.org>
- <20200303154321.GA24212@jcrouse1-lnx.qualcomm.com>
- <CAOCk7NpP8chviZ0eM_4Fm3b2Jn+ngtVq=EYB=7yMK0H7rnfWMg@mail.gmail.com>
- <20200303155405.GA11841@onstation.org>
- <20200303170159.GA13109@jcrouse1-lnx.qualcomm.com>
+X-Greylist: delayed 1735 seconds by postgrey-1.36 at gabe;
+ Tue, 03 Mar 2020 19:12:33 UTC
+Received: from gateway20.websitewelcome.com (gateway20.websitewelcome.com
+ [192.185.64.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF289893CD
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Mar 2020 19:12:33 +0000 (UTC)
+Received: from cm17.websitewelcome.com (cm17.websitewelcome.com [100.42.49.20])
+ by gateway20.websitewelcome.com (Postfix) with ESMTP id 1B85B40124B9A
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Mar 2020 11:02:42 -0600 (CST)
+Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with SMTP
+ id 9C6ajAH3oAGTX9C6ajISIv; Tue, 03 Mar 2020 12:17:20 -0600
+X-Authority-Reason: nr=8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Ey4WjzYgUg1JN9sD4FRXGAPjCfky/AZd9UOFQ0HJlG0=; b=gXQ7WZT5wyzzwtk51w//ezXOQ8
+ gC7Xv5gLPMT52rB6ZShyv2XBfyXvkKC22rA4sefKUXYJtEPtjQanAdIW5ApewUNP3CX/mhPBprm45
+ BeWO/ZHdHnorUuYp+eccBBbasG7pPPd/v1lwgL0MM2AXtR63jMYZGO1zMe+vpwbqejcYVgXE2yaMb
+ dxPdjy/x4fTSVDKTE5kYps/Sv76UiHOG7U+R4E4guIisKNXW5Jm9nqRepRbxb+xWxqzVKKePuThfq
+ p7h1t2bLdOIdMX1Kb0C/lTE+96qhgc8pKd6f6bPyE6qrtPIyEU1g+RUeuktwmT9FjFtdoa7BZujT6
+ ohN4jStg==;
+Received: from [201.162.240.41] (port=17449 helo=[192.168.43.132])
+ by gator4166.hostgator.com with esmtpsa
+ (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128) (Exim 4.92)
+ (envelope-from <gustavo@embeddedor.com>)
+ id 1j9C6Y-003H1B-IC; Tue, 03 Mar 2020 12:17:19 -0600
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Russell King <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Dave Airlie <airlied@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, Hans de Goede <hdegoede@redhat.com>,
+ Eric Anholt <eric@anholt.net>,
+ VMware Graphics <linux-graphics-maintainer@vmware.com>,
+ Thomas Hellstrom <thellstrom@vmware.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+References: <20200225140347.GA22864@embeddedor> <87a756sqdc.fsf@intel.com>
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Autocrypt: addr=gustavo@embeddedor.com; keydata=
+ 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
+ VtSixD1uOgytAP7RWS474w==
+Message-ID: <138ff691-94b3-1ce5-e7fa-e6d7c436bf8e@embeddedor.com>
+Date: Tue, 3 Mar 2020 12:20:16 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200303170159.GA13109@jcrouse1-lnx.qualcomm.com>
-Subject: Re: [Freedreno] [PATCH v3 1/2] dt-bindings: display: msm: Convert
- GMU bindings to YAML
+In-Reply-To: <87a756sqdc.fsf@intel.com>
+Content-Language: en-US
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - embeddedor.com
+X-BWhitelist: no
+X-Source-IP: 201.162.240.41
+X-Source-L: No
+X-Exim-ID: 1j9C6Y-003H1B-IC
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: ([192.168.43.132]) [201.162.240.41]:17449
+X-Source-Auth: gustavo@embeddedor.com
+X-Email-Count: 26
+X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
+X-Local-Domain: yes
+Subject: Re: [Freedreno] [PATCH][next] drm: Replace zero-length array with
+ flexible-array member
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,80 +137,82 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, spice-devel@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Mar 03, 2020 at 10:01:59AM -0700, Jordan Crouse wrote:
-> On Tue, Mar 03, 2020 at 10:54:05AM -0500, Brian Masney wrote:
-> > On Tue, Mar 03, 2020 at 08:50:28AM -0700, Jeffrey Hugo wrote:
-> > > On Tue, Mar 3, 2020 at 8:43 AM Jordan Crouse <jcrouse@codeaurora.org> wrote:
-> > > >
-> > > > On Mon, Mar 02, 2020 at 09:49:06PM +0100, Sam Ravnborg wrote:
-> > > > > Hi Jordan.
-> > > > >
-> > > > > On Mon, Mar 02, 2020 at 11:23:43AM -0700, Jordan Crouse wrote:
-> > > > > > Convert display/msm/gmu.txt to display/msm/gmu.yaml and remove the old
-> > > > > > text bindings.
-> > > > > >
-> > > > > > Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
-> > > > > > ---
-> > > > > >
-> > > > > >  .../devicetree/bindings/display/msm/gmu.txt        | 116 -------------------
-> > > > > > -
-> > > > > > -Required properties:
-> > > > > > -- compatible: "qcom,adreno-gmu-XYZ.W", "qcom,adreno-gmu"
-> > > > > > -    for example: "qcom,adreno-gmu-630.2", "qcom,adreno-gmu"
-> > > > > > -  Note that you need to list the less specific "qcom,adreno-gmu"
-> > > > > > -  for generic matches and the more specific identifier to identify
-> > > > > > -  the specific device.
-> > > > > > -- reg: Physical base address and length of the GMU registers.
-> > > > > > -- reg-names: Matching names for the register regions
-> > > > > > -  * "gmu"
-> > > > > > -  * "gmu_pdc"
-> > > > > > -  * "gmu_pdc_seg"
-> > > > > > -- interrupts: The interrupt signals from the GMU.
-> > > > > > -- interrupt-names: Matching names for the interrupts
-> > > > > > -  * "hfi"
-> > > > > > -  * "gmu"
-> > > > > > -- clocks: phandles to the device clocks
-> > > > > > -- clock-names: Matching names for the clocks
-> > > > > > -   * "gmu"
-> > > > > > -   * "cxo"
-> > > > > > -   * "axi"
-> > > > > > -   * "mnoc"
-> > > > > The new binding - and arch/arm64/boot/dts/qcom/sdm845.dtsi agrees that
-> > > > > "mnoc" is wrong.
-> > > > >
-> > > > > > -- power-domains: should be:
-> > > > > > -   <&clock_gpucc GPU_CX_GDSC>
-> > > > > > -   <&clock_gpucc GPU_GX_GDSC>
-> > > > > > -- power-domain-names: Matching names for the power domains
-> > > > > > -- iommus: phandle to the adreno iommu
-> > > > > > -- operating-points-v2: phandle to the OPP operating points
-> > > > > > -
-> > > > > > -Optional properties:
-> > > > > > -- sram: phandle to the On Chip Memory (OCMEM) that's present on some Snapdragon
-> > > > > > -        SoCs. See Documentation/devicetree/bindings/sram/qcom,ocmem.yaml.
-> > > > > This property is not included in the new binding.
-> > > >
-> > > > Yeah, that guy shouldn't be here. I'm not sure how it got there in the first
-> > > > place but I'll update the commit log. Thanks for the poke.
-> > > 
-> > > I thought this was something Brian M added for older targets (A4XX?).
-> > > Perhaps he should chime in?
-> > 
-> > Yes, this is needed for older systems with a3xx and a4xx GPUs.
+
+
+On 2/25/20 08:17, Jani Nikula wrote:
+> On Tue, 25 Feb 2020, "Gustavo A. R. Silva" <gustavo@embeddedor.com> wrote:
+>> The current codebase makes use of the zero-length array language
+>> extension to the C90 standard, but the preferred mechanism to declare
+>> variable-length types such as these ones is a flexible array member[1][2],
+>> introduced in C99:
+>>
+>> struct foo {
+>>         int stuff;
+>>         struct boo array[];
+>> };
+>>
+>> By making use of the mechanism above, we will get a compiler warning
+>> in case the flexible array does not occur last in the structure, which
+>> will help us prevent some kind of undefined behavior bugs from being
+>> inadvertently introduced[3] to the codebase from now on.
+>>
+>> Also, notice that, dynamic memory allocations won't be affected by
+>> this change:
+>>
+>> "Flexible array members have incomplete type, and so the sizeof operator
+>> may not be applied. As a quirk of the original implementation of
+>> zero-length arrays, sizeof evaluates to zero."[1]
+>>
+>> This issue was found with the help of Coccinelle.
+>>
+>> [1] https://gcc.gnu.org/onlinedocs/gcc/Zero-Length.html
+>> [2] https://github.com/KSPP/linux/issues/21
+>> [3] commit 76497732932f ("cxgb3/l2t: Fix undefined behaviour")
+>>
+>> Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
+>> ---
+>>  drivers/gpu/drm/etnaviv/etnaviv_gem.h         | 2 +-
+>>  drivers/gpu/drm/gma500/intel_bios.h           | 2 +-
+>>  drivers/gpu/drm/i915/display/intel_vbt_defs.h | 4 ++--
+>>  drivers/gpu/drm/i915/gt/intel_lrc.c           | 2 +-
+>>  drivers/gpu/drm/i915/i915_gpu_error.h         | 2 +-
 > 
-> Okay, this got added to the wrong place.  The GMU is a specific entity only
-> valid for a6xx targets. From the looks of the example the sram should be in the
-> GPU definition. Do you want to submit a patch to move it or should I (and lets
-> hope Rob doesn't insist on converting GPU to YAML).
+> Please split out the i915 changes to a separate patch.
+> 
 
-I can take care of cleaning this up. I'll do that in a few days.
+Sure thing. I can do that.
 
-Brian
+>>  drivers/gpu/drm/msm/msm_gem.h                 | 2 +-
+>>  drivers/gpu/drm/qxl/qxl_cmd.c                 | 2 +-
+>>  drivers/gpu/drm/vboxvideo/vboxvideo.h         | 2 +-
+>>  drivers/gpu/drm/vc4/vc4_drv.h                 | 2 +-
+>>  drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c    | 2 +-
+>>  drivers/gpu/drm/vmwgfx/vmwgfx_surface.c       | 2 +-
+>>  include/drm/bridge/mhl.h                      | 4 ++--
+>>  include/drm/drm_displayid.h                   | 2 +-
+>>  include/uapi/drm/i915_drm.h                   | 4 ++--
+> 
+> Not sure it's worth touching uapi headers. They're full of both [0] and
+> []. Again, please at least split it to a separate patch to be decided
+> separately.
+> 
+
+Yeah, it's worth it; the purpose of these patches is to replace [0] with [] across
+the whole tree.
+
+Thanks
+--
+Gustavo
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
