@@ -1,60 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17213179CAC
-	for <lists+freedreno@lfdr.de>; Thu,  5 Mar 2020 01:11:51 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8178117A3C8
+	for <lists+freedreno@lfdr.de>; Thu,  5 Mar 2020 12:12:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B72D36EB7C;
-	Thu,  5 Mar 2020 00:11:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C6E76E1D3;
+	Thu,  5 Mar 2020 11:12:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
- [104.130.122.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3B856EB7C
- for <freedreno@lists.freedesktop.org>; Thu,  5 Mar 2020 00:11:45 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1583367108; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=60GY4LcYmcTFYPq9bYJ8yYXyuMgUxQzHcHWRRrqPOew=;
- b=l+x4wJ4OH2PXjY35c/oLGAp4sU8cFdLFIc3cnWKAWp4yL9ch8kylJkVwf8iF7399BQC51bMY
- jEPpZa2F/02hgUFNy6vwVgs2e14u1/1gkN6zIneEMxbweObq85Ji2SQk6p0eWACg1DLWQ6wQ
- nSb3YzctxgEHY6H8BDoZ2PXpgZw=
-X-Mailgun-Sending-Ip: 104.130.122.26
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5e6043b6.7fe9ba61ff80-smtp-out-n02;
- Thu, 05 Mar 2020 00:11:34 -0000 (UTC)
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 322E0C447A6; Thu,  5 Mar 2020 00:11:34 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from displaysanity13-linux.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: varar)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 0DBEEC4479F;
- Thu,  5 Mar 2020 00:11:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 0DBEEC4479F
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=varar@codeaurora.org
-From: Vara Reddy <varar@codeaurora.org>
-To: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, seanpaul@chromium.org
-Date: Wed,  4 Mar 2020 16:10:28 -0800
-Message-Id: <1583367028-19979-6-git-send-email-varar@codeaurora.org>
-X-Mailer: git-send-email 1.9.1
-In-Reply-To: <1583367028-19979-1-git-send-email-varar@codeaurora.org>
-References: <1583367028-19979-1-git-send-email-varar@codeaurora.org>
-Subject: [Freedreno] [DPU PATCH v4 5/5] drm/msm/dpu: add display port
- support in DPU
+X-Greylist: delayed 1234 seconds by postgrey-1.36 at gabe;
+ Thu, 05 Mar 2020 11:12:22 UTC
+Received: from gateway23.websitewelcome.com (gateway23.websitewelcome.com
+ [192.185.49.218])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCDA16E1D3
+ for <freedreno@lists.freedesktop.org>; Thu,  5 Mar 2020 11:12:22 +0000 (UTC)
+Received: from cm10.websitewelcome.com (cm10.websitewelcome.com [100.42.49.4])
+ by gateway23.websitewelcome.com (Postfix) with ESMTP id D2DA1A6C4
+ for <freedreno@lists.freedesktop.org>; Thu,  5 Mar 2020 04:51:47 -0600 (CST)
+Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with SMTP
+ id 9o6VjLAb5Efyq9o6VjOzh7; Thu, 05 Mar 2020 04:51:47 -0600
+X-Authority-Reason: nr=8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=embeddedor.com; s=default; h=Content-Type:MIME-Version:Message-ID:Subject:
+ Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=i+ZHZ2JVyHEj+om0jPMA5888/g8cqPU9hC9wyCq65OM=; b=q4Ud1DSux3DfZClKV3HOrVqd3o
+ 7fIsWjoE+UIanmYTWP+vhoG7Y1vRXw+5v7Un6Z45Z2pV5ItrrPkeHerZFTUE3kHTGyIp32VRAJAwE
+ U7zMXvGDENe9DBeMzngD0w895DKZSn2nSIQn4s9U/BvejcWNA5wb9QMz1dnkG36MSSi8PD3wVW95J
+ CYkf9r3cWwcLdlPaQPfvnrZFttGXgcxJI7me072Wqg7Iu5k6A69CgRiiLojtQbq4/Qkz9PYLAGjRP
+ riAoVrbFxFtyXioh2AOUWQxA60baNAcHGkeeP7sMh3ZM7ycI7rJs7+rQTliXk/vW4lfcENiDOD8tB
+ epRM69+g==;
+Received: from [201.166.169.220] (port=3124 helo=embeddedor)
+ by gator4166.hostgator.com with esmtpa (Exim 4.92)
+ (envelope-from <gustavo@embeddedor.com>)
+ id 1j9o6T-003f7Y-TU; Thu, 05 Mar 2020 04:51:46 -0600
+Date: Thu, 5 Mar 2020 04:54:51 -0600
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Message-ID: <20200305105451.GA18973@embeddedor>
+MIME-Version: 1.0
+Content-Disposition: inline
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - embeddedor.com
+X-BWhitelist: no
+X-Source-IP: 201.166.169.220
+X-Source-L: No
+X-Exim-ID: 1j9o6T-003f7Y-TU
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: (embeddedor) [201.166.169.220]:3124
+X-Source-Auth: gustavo@embeddedor.com
+X-Email-Count: 20
+X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
+X-Local-Domain: yes
+Subject: [Freedreno] [PATCH][next] drm/msm/msm_gem.h: Replace zero-length
+ array with flexible-array member
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,166 +77,63 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: abhinavk@codeaurora.org, robdclark@gmail.com, nganji@codeaurora.org,
- hoegsberg@google.com, dri-devel@lists.freedesktop.org,
- Vara Reddy <varar@codeaurora.org>, Jeykumar Sankaran <jsanka@codeaurora.org>,
- aravindh@codeaurora.org, chandanu@codeaurora.org
-MIME-Version: 1.0
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ "Gustavo A. R. Silva" <gustavo@embeddedor.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Jeykumar Sankaran <jsanka@codeaurora.org>
+The current codebase makes use of the zero-length array language
+extension to the C90 standard, but the preferred mechanism to declare
+variable-length types such as these ones is a flexible array member[1][2],
+introduced in C99:
 
-Add display port support in DPU by creating hooks
-for DP encoder enumeration and encoder mode
-initialization.
+struct foo {
+        int stuff;
+        struct boo array[];
+};
 
-This change is based on the Snapdragon Display port
-driver changes[1].
+By making use of the mechanism above, we will get a compiler warning
+in case the flexible array does not occur last in the structure, which
+will help us prevent some kind of undefined behavior bugs from being
+inadvertently introduced[3] to the codebase from now on.
 
-changes in v2:
-	- rebase on [2] (Sean Paul)
-	- remove unwanted error checks and
-	  switch cases (Jordan Crouse)
+Also, notice that, dynamic memory allocations won't be affected by
+this change:
 
-[1] https://lwn.net/Articles/768265/
-[2] https://lkml.org/lkml/2018/11/17/87
+"Flexible array members have incomplete type, and so the sizeof operator
+may not be applied. As a quirk of the original implementation of
+zero-length arrays, sizeof evaluates to zero."[1]
 
-changes in V3:
--- Moved this change as part of the DP driver changes.
--- Addressed compilation issues on the latest code base.
+This issue was found with the help of Coccinelle.
 
-Signed-off-by: Jeykumar Sankaran <jsanka@codeaurora.org>
-Signed-off-by: Chandan Uddaraju <chandanu@codeaurora.org>
-Signed-off-by: Vara Reddy <varar@codeaurora.org>
+[1] https://gcc.gnu.org/onlinedocs/gcc/Zero-Length.html
+[2] https://github.com/KSPP/linux/issues/21
+[3] commit 76497732932f ("cxgb3/l2t: Fix undefined behaviour")
+
+Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  8 ++--
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 65 ++++++++++++++++++++++++-----
- 2 files changed, 58 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/msm/msm_gem.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index b063243..7c95f72 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -2025,7 +2025,7 @@ static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
- {
- 	int ret = 0;
- 	int i = 0;
--	enum dpu_intf_type intf_type;
-+	enum dpu_intf_type intf_type = INTF_NONE;
- 	struct dpu_enc_phys_init_params phys_params;
+diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
+index 9e0953c2b7ce..37aa556c5f92 100644
+--- a/drivers/gpu/drm/msm/msm_gem.h
++++ b/drivers/gpu/drm/msm/msm_gem.h
+@@ -157,7 +157,7 @@ struct msm_gem_submit {
+ 			uint32_t handle;
+ 		};
+ 		uint64_t iova;
+-	} bos[0];
++	} bos[];
+ };
  
- 	if (!dpu_enc) {
-@@ -2047,9 +2047,9 @@ static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
- 	case DRM_MODE_ENCODER_DSI:
- 		intf_type = INTF_DSI;
- 		break;
--	default:
--		DPU_ERROR_ENC(dpu_enc, "unsupported display interface type\n");
--		return -EINVAL;
-+	case DRM_MODE_ENCODER_TMDS:
-+		intf_type = INTF_DP;
-+		break;
- 	}
- 
- 	WARN_ON(disp_info->num_of_h_tiles < 1);
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index cb08faf..4568706 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -421,6 +421,33 @@ static int _dpu_kms_initialize_dsi(struct drm_device *dev,
- 	return rc;
- }
- 
-+static int _dpu_kms_initialize_displayport(struct drm_device *dev,
-+					    struct msm_drm_private *priv,
-+					    struct dpu_kms *dpu_kms)
-+{
-+	struct drm_encoder *encoder = NULL;
-+	int rc = 0;
-+
-+	if (!priv->dp)
-+		return rc;
-+
-+	encoder = dpu_encoder_init(dev, DRM_MODE_ENCODER_TMDS);
-+	if (IS_ERR(encoder)) {
-+		DPU_ERROR("encoder init failed for dsi display\n");
-+		return PTR_ERR(encoder);
-+	}
-+
-+	rc = msm_dp_modeset_init(priv->dp, dev, encoder);
-+	if (rc) {
-+		DPU_ERROR("modeset_init failed for DP, rc = %d\n", rc);
-+		drm_encoder_cleanup(encoder);
-+		return rc;
-+	}
-+
-+	priv->encoders[priv->num_encoders++] = encoder;
-+	return rc;
-+}
-+
- /**
-  * _dpu_kms_setup_displays - create encoders, bridges and connectors
-  *                           for underlying displays
-@@ -433,12 +460,21 @@ static int _dpu_kms_setup_displays(struct drm_device *dev,
- 				    struct msm_drm_private *priv,
- 				    struct dpu_kms *dpu_kms)
- {
--	/**
--	 * Extend this function to initialize other
--	 * types of displays
--	 */
-+	int rc = 0;
-+
-+	rc = _dpu_kms_initialize_dsi(dev, priv, dpu_kms);
-+	if (rc) {
-+		DPU_ERROR("initialize_dsi failed, rc = %d\n", rc);
-+		return rc;
-+	}
- 
--	return _dpu_kms_initialize_dsi(dev, priv, dpu_kms);
-+	rc = _dpu_kms_initialize_displayport(dev, priv, dpu_kms);
-+	if (rc) {
-+		DPU_ERROR("initialize_DP failed, rc = %d\n", rc);
-+		return rc;
-+	}
-+
-+	return rc;
- }
- 
- static void _dpu_kms_drm_obj_destroy(struct dpu_kms *dpu_kms)
-@@ -626,13 +662,20 @@ static void _dpu_kms_set_encoder_mode(struct msm_kms *kms,
- 	info.capabilities = cmd_mode ? MSM_DISPLAY_CAP_CMD_MODE :
- 			MSM_DISPLAY_CAP_VID_MODE;
- 
--	/* TODO: No support for DSI swap */
--	for (i = 0; i < ARRAY_SIZE(priv->dsi); i++) {
--		if (priv->dsi[i]) {
--			info.h_tile_instance[info.num_of_h_tiles] = i;
--			info.num_of_h_tiles++;
-+	switch (info.intf_type) {
-+	case DRM_MODE_ENCODER_DSI:
-+		/* TODO: No support for DSI swap */
-+		for (i = 0; i < ARRAY_SIZE(priv->dsi); i++) {
-+			if (priv->dsi[i]) {
-+				info.h_tile_instance[info.num_of_h_tiles] = i;
-+				info.num_of_h_tiles++;
-+			}
- 		}
--	}
-+		break;
-+	case DRM_MODE_ENCODER_TMDS:
-+		info.num_of_h_tiles = 1;
-+		break;
-+	};
- 
- 	rc = dpu_encoder_setup(encoder->dev, encoder, &info);
- 	if (rc)
+ #endif /* __MSM_GEM_H__ */
 -- 
-$(echo -e 'The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project')
+2.25.0
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
