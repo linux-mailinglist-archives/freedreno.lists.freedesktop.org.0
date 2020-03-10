@@ -1,40 +1,40 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE4B817F967
-	for <lists+freedreno@lfdr.de>; Tue, 10 Mar 2020 13:56:34 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D19E17F884
+	for <lists+freedreno@lfdr.de>; Tue, 10 Mar 2020 13:48:46 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E9F16E0AA;
-	Tue, 10 Mar 2020 12:56:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D3B66E277;
+	Tue, 10 Mar 2020 12:48:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A11DE6E0AA
- for <freedreno@lists.freedesktop.org>; Tue, 10 Mar 2020 12:56:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E652B6E277
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Mar 2020 12:48:43 +0000 (UTC)
 Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
  [83.86.89.107])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0D69D20674;
- Tue, 10 Mar 2020 12:56:32 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 4D8AA2468D;
+ Tue, 10 Mar 2020 12:48:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1583844992;
+ s=default; t=1583844523;
  bh=8NYG1n3xKdhO8T2dlTDUokQeG2/YXy4P9DT44E3uIK8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=wFgEGdxgoJAnA8Un1j1JvI9b4+veToeLq8B8DuzR+XO6vwyD1O7LjH9GADnoZh160
- YE0LefKxO/7Ph4VZiMz3QSICHRXV230piZZW4wYeqY7XcXHaU3i55vNXAvLT9tHqdj
- gRd4p01Alk2D+mWjXrLFT81fTgB61Ztk/Dt+EXWU=
+ b=t+lSk7r33AOuqJcuQlX8ESk6z/vxT1vq7Q8IOQB/0/zSZRw8TfibIiR0kGqJs0jUC
+ nzd/1y1bAFXsvKFW05AtWCeZRjiWgs6+QDw1vb0fvsASfMU3NndGg80AfQgQvKZqP4
+ NRYLZynAS+yvpiwCIde58J74IKCVpUcCukX9h2Q0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org
-Date: Tue, 10 Mar 2020 13:37:40 +0100
-Message-Id: <20200310123641.816284321@linuxfoundation.org>
+Date: Tue, 10 Mar 2020 13:37:49 +0100
+Message-Id: <20200310123637.984749460@linuxfoundation.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200310123639.608886314@linuxfoundation.org>
-References: <20200310123639.608886314@linuxfoundation.org>
+In-Reply-To: <20200310123635.322799692@linuxfoundation.org>
+References: <20200310123635.322799692@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 5.5 023/189] drm: msm: Fix return type of
+Subject: [Freedreno] [PATCH 5.4 023/168] drm: msm: Fix return type of
  dsi_mgr_connector_mode_valid for kCFI
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
