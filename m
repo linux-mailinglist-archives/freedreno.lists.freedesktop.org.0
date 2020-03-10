@@ -1,61 +1,41 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9268417FDFB
-	for <lists+freedreno@lfdr.de>; Tue, 10 Mar 2020 14:31:52 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id DF56D18058A
+	for <lists+freedreno@lfdr.de>; Tue, 10 Mar 2020 18:54:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4295A6E2E1;
-	Tue, 10 Mar 2020 13:31:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7629D6E8BF;
+	Tue, 10 Mar 2020 17:54:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A48F16E2E1;
- Tue, 10 Mar 2020 13:31:49 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id 6so1410644wmi.5;
- Tue, 10 Mar 2020 06:31:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=So9oahFlaIrjXJ1ThfWP2juPDd9ojTlsnsFX+n5YzPw=;
- b=ZR5XmKWXAiVhg6VG1/Vmtep0lZbswooyXZZekEskl/4hMs8H8hmu8TQmapw4thSe9S
- 1PqqwAiuPIiw0yz9cD015t9Ym7CrspB440ZxA2kESP3VYUQx0kf5uopRY68k8TV+Zrft
- IPNglbS1TWYH53kveAVrvIPdZUWfEWBTcstVw+AvPzbio5SwEOWhbUZ5chS55ITYLbvm
- pAMhSf8O+pAOLEva3PqR2JHLUJou92a4sWk2nELeI/xddBDC9wDzGRyrsqo75pQxRi2/
- Mv05poS1mbraXU5Ot+kce1QiRcMywfEHOJg1D1FpfKuD9l3q4IiWs7mZseZiLpp84V3g
- etuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=So9oahFlaIrjXJ1ThfWP2juPDd9ojTlsnsFX+n5YzPw=;
- b=Y55C0E8ZyUs0iCXVHhAYR2WRcCztfaDlVz9Z7IRnu4Uyr3+4Qn1LJInVfMzatVkoR2
- nwCe3rfrgD7vWgtl53fkBW4sIh8qHTP0t5DivBY9v4lN+MAURfVaW+M1Hx9LoUg2ypmw
- 5tv4r4eakwEb/AVDi6oPW9H52iuFJv1HIt/1KHUiQHIIvUo2ZedpudZ31/MOy43GQazv
- TRf0BxkXlPylNntos25jNayifffkJ4OORO/6PBzrvgeQzA4hByJ+C4C5ZQF6xsFYWYD0
- 1Zp1jEkE+VY0F9jwyJRLruhOx+zjP9cEBApw29JWSBU2Kr+uLdMF19QtHtKHfcwaJeWZ
- IT6w==
-X-Gm-Message-State: ANhLgQ2ADNNNjMo3QHphsODIJNrGm1n1wM3jIg110Qba2m1QSMgGfTo4
- t63VMi0ZN4umOR6m6KNAcNsKPgl6frY=
-X-Google-Smtp-Source: ADFU+vtja3eYb7rLsUWgA36oh7IksgzfIab6tcOPnIf1FXzQ1UNtr9SvKt/Yjk3hcvSpuXQV4ezoTw==
-X-Received: by 2002:a1c:f009:: with SMTP id a9mr2200685wmb.73.1583847108295;
- Tue, 10 Mar 2020 06:31:48 -0700 (PDT)
-Received: from localhost.localdomain ([197.248.222.210])
- by smtp.googlemail.com with ESMTPSA id o7sm14047141wrx.60.2020.03.10.06.31.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Mar 2020 06:31:47 -0700 (PDT)
-From: Wambui Karuga <wambui.karugax@gmail.com>
-To: airlied@linux.ie, daniel@ffwll.ch, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
-Date: Tue, 10 Mar 2020 16:31:12 +0300
-Message-Id: <20200310133121.27913-9-wambui.karugax@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200310133121.27913-1-wambui.karugax@gmail.com>
-References: <20200310133121.27913-1-wambui.karugax@gmail.com>
+Received: from asavdk4.altibox.net (asavdk4.altibox.net [109.247.116.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B81E6E8BF;
+ Tue, 10 Mar 2020 17:54:04 +0000 (UTC)
+Received: from ravnborg.org (unknown [158.248.194.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by asavdk4.altibox.net (Postfix) with ESMTPS id 4ACE0804CE;
+ Tue, 10 Mar 2020 18:54:01 +0100 (CET)
+Date: Tue, 10 Mar 2020 18:53:59 +0100
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Harigovindan P <harigovi@codeaurora.org>
+Message-ID: <20200310175359.GD3785@ravnborg.org>
+References: <20200306103628.8998-1-harigovi@codeaurora.org>
+ <20200306103628.8998-2-harigovi@codeaurora.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v2 08/17] drm/msm: remove checks for return
- value of drm_debugfs_create_files()
+Content-Disposition: inline
+In-Reply-To: <20200306103628.8998-2-harigovi@codeaurora.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-CMAE-Score: 0
+X-CMAE-Analysis: v=2.3 cv=XpTUx2N9 c=1 sm=1 tr=0
+ a=UWs3HLbX/2nnQ3s7vZ42gw==:117 a=UWs3HLbX/2nnQ3s7vZ42gw==:17
+ a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=kj9zAlcOel0A:10 a=LpQP-O61AAAA:8
+ a=gEfo2CItAAAA:8 a=e5mUnYsNAAAA:8 a=qHcGuR0XRKw0n3oAY_QA:9
+ a=CjuIK1q_8ugA:10 a=pioyyrs4ZptJ924tMmac:22 a=sptkURWiP4Gy88Gu7hUp:22
+ a=Vxmtnl_E_bksehYqCbjh:22
+Subject: Re: [Freedreno] [PATCH v4 1/2] dt-bindings: display: add visionox
+ rm69299 panel variant
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,119 +48,172 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: gregkh@linuxfoundation.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ seanpaul@chromium.org, sean@poorly.run
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Since commit 987d65d01356 (drm: debugfs: make
-drm_debugfs_create_files() never fail), drm_debugfs_create_files never
-fails and only returns 0. Therefore, the unnecessary checks for its
-return value and error handling in various debugfs_init() functions in
-drm/msm and have the functions return 0 directly.
+Hi Harigovindan
 
-v2: have debug functions return 0 instead of void to avoid build
-breakage and ensure standalone compilation.
+Thanks for the follow-up. There are still a few things to improve.
+See below.
 
-References: https://lists.freedesktop.org/archives/dri-devel/2020-February/257183.html
-Signed-off-by: Wambui Karuga <wambui.karugax@gmail.com>
----
- drivers/gpu/drm/msm/adreno/a5xx_debugfs.c | 12 +++---------
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c  | 14 +++-----------
- drivers/gpu/drm/msm/msm_debugfs.c         | 13 ++++---------
- 3 files changed, 10 insertions(+), 29 deletions(-)
+	Sam
 
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_debugfs.c b/drivers/gpu/drm/msm/adreno/a5xx_debugfs.c
-index 075ecce4b5e0..011ab6353dbb 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_debugfs.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_debugfs.c
-@@ -151,21 +151,15 @@ DEFINE_SIMPLE_ATTRIBUTE(reset_fops, NULL, reset_set, "%llx\n");
- int a5xx_debugfs_init(struct msm_gpu *gpu, struct drm_minor *minor)
- {
- 	struct drm_device *dev;
--	int ret;
- 
- 	if (!minor)
- 		return 0;
- 
- 	dev = minor->dev;
- 
--	ret = drm_debugfs_create_files(a5xx_debugfs_list,
--			ARRAY_SIZE(a5xx_debugfs_list),
--			minor->debugfs_root, minor);
--
--	if (ret) {
--		DRM_DEV_ERROR(dev->dev, "could not install a5xx_debugfs_list\n");
--		return ret;
--	}
-+	drm_debugfs_create_files(a5xx_debugfs_list,
-+				 ARRAY_SIZE(a5xx_debugfs_list),
-+				 minor->debugfs_root, minor);
- 
- 	debugfs_create_file("reset", S_IWUGO, minor->debugfs_root, dev,
- 			    &reset_fops);
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-index 6650f478b226..41b461128bbc 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-@@ -259,17 +259,9 @@ static struct drm_info_list mdp5_debugfs_list[] = {
- 
- static int mdp5_kms_debugfs_init(struct msm_kms *kms, struct drm_minor *minor)
- {
--	struct drm_device *dev = minor->dev;
--	int ret;
--
--	ret = drm_debugfs_create_files(mdp5_debugfs_list,
--			ARRAY_SIZE(mdp5_debugfs_list),
--			minor->debugfs_root, minor);
--
--	if (ret) {
--		DRM_DEV_ERROR(dev->dev, "could not install mdp5_debugfs_list\n");
--		return ret;
--	}
-+	drm_debugfs_create_files(mdp5_debugfs_list,
-+				 ARRAY_SIZE(mdp5_debugfs_list),
-+				 minor->debugfs_root, minor);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/msm/msm_debugfs.c b/drivers/gpu/drm/msm/msm_debugfs.c
-index 1c74381a4fc9..6378157e1fff 100644
---- a/drivers/gpu/drm/msm/msm_debugfs.c
-+++ b/drivers/gpu/drm/msm/msm_debugfs.c
-@@ -220,14 +220,9 @@ int msm_debugfs_init(struct drm_minor *minor)
- 	struct msm_drm_private *priv = dev->dev_private;
- 	int ret;
- 
--	ret = drm_debugfs_create_files(msm_debugfs_list,
--			ARRAY_SIZE(msm_debugfs_list),
--			minor->debugfs_root, minor);
--
--	if (ret) {
--		DRM_DEV_ERROR(dev->dev, "could not install msm_debugfs_list\n");
--		return ret;
--	}
-+	drm_debugfs_create_files(msm_debugfs_list,
-+				 ARRAY_SIZE(msm_debugfs_list),
-+				 minor->debugfs_root, minor);
- 
- 	debugfs_create_file("gpu", S_IRUSR, minor->debugfs_root,
- 		dev, &msm_gpu_fops);
-@@ -238,7 +233,7 @@ int msm_debugfs_init(struct drm_minor *minor)
- 			return ret;
- 	}
- 
--	return ret;
-+	return 0;
- }
- #endif
- 
--- 
-2.25.1
+On Fri, Mar 06, 2020 at 04:06:27PM +0530, Harigovindan P wrote:
+> Add bindings for visionox rm69299 panel.
+> 
+> Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
+> ---
+> 
+> Changes in v2:
+> 	- Removed unwanted properties from description.
+> 	- Creating source files without execute permissions(Rob Herring).
+> Changes in v3:
+> 	- Changing txt file into yaml
+> Changes in v4:
+> 	- Updating license identifier.
+> 	- Moving yaml file inside panel directory.
+> 	- Removing pinctrl entries.
+> 	- Adding documentation for reset-gpios.
+> 
+>  .../display/panel/visionox,rm69299.yaml       | 85 +++++++++++++++++++
+>  1 file changed, 85 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/panel/visionox,rm69299.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/display/panel/visionox,rm69299.yaml b/Documentation/devicetree/bindings/display/panel/visionox,rm69299.yaml
+> new file mode 100644
+> index 000000000000..93cae431207c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/panel/visionox,rm69299.yaml
+> @@ -0,0 +1,85 @@
+> +# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/panel/visionox,rm69299.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Visionox model RM69299 Panels Device Tree Bindings.
+> +
+> +maintainers:
+> + - Harigovindan P <harigovi@codeaurora.org>
+> +
+> +description: |
+> + This binding is for display panels using a Visionox RM692999 panel.
+> +
+> +allOf:
+> + - $ref: panel-common.yaml#
+> +
+> +patternProperties:
+> +  "^(panel|panel-dsi)@[0-9]$":
+> +    type: object
 
+This looks wrong. None of the other panels needs to specify
+a patternProperties, and neither do we need to do so for this panel.
+
+
+> +    properties:
+> +      compatible:
+> +        const: visionox,rm69299-1080p-display
+The compatible is what we use to match this binding.
+
+
+> +
+> +      reg:
+> +        maxItems: 1
+> +
+> +      vdda-supply:
+> +        description:
+> +          Phandle of the regulator that provides the vdda supply voltage.
+> +
+> +      vdd3p3-supply:
+> +        description:
+> +          Phandle of the regulator that provides the vdd3p3 supply voltage.
+> +
+> +      ports:
+> +        type: object
+> +        description:
+> +          A node containing DSI input & output port nodes with endpoint
+> +          definitions as documented in
+> +          Documentation/devicetree/bindings/media/video-interfaces.txt
+> +          Documentation/devicetree/bindings/graph.txt
+
+I think you miss as " |" after "description:"
+Again, see other panel bindings.
+
+
+> +        properties:
+> +          port@0:
+
+Please just use
+            port: true
+
+port is already documented in panel-common.yaml.
+
+> +            type: object
+> +            description:
+> +              DSI input port node.
+> +
+> +      reset-gpios:
+reset-gpios is part of panel-common.
+So specify only:
+         reset-gpios: true
+
+No description, as it is in panel-common.
+
+
+> +        description:
+> +          a GPIO spec for the reset pin.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - vdda-supply
+> +  - vdd3p3-supply
+> +  - reset-gpios
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +- |
+> +    dsi@ae94000 {
+No @ae94000 - this will warn with upcoming dt_binding_check
+improvements.
+
+> +        panel@0 {
+> +            compatible = "visionox,rm69299-1080p-display";
+> +
+> +            vdda-supply = <&src_pp1800_l8c>;
+> +            vdd3p3-supply = <&src_pp2800_l18a>;
+> +
+> +            reset-gpios = <&pm6150l_gpio 3 0>;
+reg property is required, but missing in the example.
+
+
+> +            ports {
+> +                    #address-cells = <1>;
+> +                    #size-cells = <0>;
+> +                    port@0 {
+> +                            reg = <0>;
+> +                            panel0_in: endpoint {
+> +                                remote-endpoint = <&dsi0_out>;
+> +                            };
+> +                    };
+> +            };
+> +        };
+> +    };
+> +...
+> +
+> -- 
+> 2.25.1
+> 
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
