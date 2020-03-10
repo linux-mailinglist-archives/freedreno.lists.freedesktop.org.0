@@ -2,39 +2,39 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A955517FADE
-	for <lists+freedreno@lfdr.de>; Tue, 10 Mar 2020 14:08:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB91017FB2C
+	for <lists+freedreno@lfdr.de>; Tue, 10 Mar 2020 14:11:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5224B6E25B;
-	Tue, 10 Mar 2020 13:08:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AD686E25B;
+	Tue, 10 Mar 2020 13:11:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0102D6E25B
- for <freedreno@lists.freedesktop.org>; Tue, 10 Mar 2020 13:08:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A46E6E25B
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Mar 2020 13:11:38 +0000 (UTC)
 Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
  [83.86.89.107])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1F65C20409;
- Tue, 10 Mar 2020 13:08:55 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 97B08208E4;
+ Tue, 10 Mar 2020 13:11:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1583845735;
- bh=0/L3Ec0PvbWetvEkiOjdj/BX4SUZAWQOKoRqJXQY2lQ=;
+ s=default; t=1583845898;
+ bh=i2EE9TBKzEVYuVVycK2c5NdXSr9SD58Kva8fe9XBTLA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=wRIM90pRr/3LxnemzKj9JikUJgxA3RGB0vuf2+ddAJ6qzzcVnIUDOkPKlbsUrQKLK
- 46lH/J6sPBoVzM7PwLG7VYxV32ckJ8OqixV/qoie+Rw7K5uIS3fz7/pxdg22IB6vQr
- ItitfoONwN/0t8Shs2gUyM1c7NjAXDz32Gegnl58=
+ b=xJMJmdsHzcLZycrhRsMsONAKfZn1n7pN7fzpXTm045/eVFkAr/uRtizMN4dQac/3g
+ yxpFSNwLR+NY1Hw+DkJVk3sIstk3AIozzYQmn6/kQOJmiB2kvJJTXVlsupGi6XJQwP
+ qWVeFwvh/7FhtlIxP1yzq85b3wvy/sLcucYNplKI=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org
-Date: Tue, 10 Mar 2020 13:41:41 +0100
-Message-Id: <20200310124209.027712466@linuxfoundation.org>
+Date: Tue, 10 Mar 2020 13:44:38 +0100
+Message-Id: <20200310124531.562308450@linuxfoundation.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200310124203.704193207@linuxfoundation.org>
-References: <20200310124203.704193207@linuxfoundation.org>
+In-Reply-To: <20200310124530.808338541@linuxfoundation.org>
+References: <20200310124530.808338541@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 4.14 080/126] drm: msm: Fix return type of
+Subject: [Freedreno] [PATCH 4.19 14/86] drm: msm: Fix return type of
  dsi_mgr_connector_mode_valid for kCFI
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,10 +96,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-index 855248132b2bd..7d46399a39b4d 100644
+index 5224010d90e4a..bd66d2aac41f7 100644
 --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
 +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-@@ -400,7 +400,7 @@ static int dsi_mgr_connector_get_modes(struct drm_connector *connector)
+@@ -328,7 +328,7 @@ static int dsi_mgr_connector_get_modes(struct drm_connector *connector)
  	return num;
  }
  
