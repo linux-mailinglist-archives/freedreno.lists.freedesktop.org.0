@@ -2,54 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDCB5183448
-	for <lists+freedreno@lfdr.de>; Thu, 12 Mar 2020 16:17:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E489183602
+	for <lists+freedreno@lfdr.de>; Thu, 12 Mar 2020 17:20:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 648746EAE5;
-	Thu, 12 Mar 2020 15:17:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10C796E241;
+	Thu, 12 Mar 2020 16:20:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-f193.google.com (mail-oi1-f193.google.com
- [209.85.167.193])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8900B6EAE5;
- Thu, 12 Mar 2020 15:17:18 +0000 (UTC)
-Received: by mail-oi1-f193.google.com with SMTP id p125so5795465oif.10;
- Thu, 12 Mar 2020 08:17:18 -0700 (PDT)
+Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com
+ [IPv6:2a00:1450:4864:20::544])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23D2C6E241;
+ Thu, 12 Mar 2020 16:20:11 +0000 (UTC)
+Received: by mail-ed1-x544.google.com with SMTP id g19so8151234eds.11;
+ Thu, 12 Mar 2020 09:20:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=4Ri6Zo06xUqVBLdkBsBEWcTBkjmCotOOr1BUmTAsg3I=;
+ b=BnsaaGEZXZQ+MIghPu9pi3JdQ7NsQ/HWjMR2ykY98+99wV3F7uFg51Pe0wEK7yJpz/
+ 2R6hfPm3zcBUhSTeaiYda1p9Tth8EuR53Kzi9+jyWG/UXP7aviVhd2a7Q6jsXd+JzjCO
+ AJR+nDOLTxf8X/q7fYHJePc6p60btksElmRuimChlmeYMKS0OckSwuqvU4N1PDBtj38k
+ TP0FMELPixK4VwxSfbQ/ab91pCmOGKFn49lX7VIBWYkUG+ukHmrQnaQP2AvsmD4txPZ4
+ et1GOipZRQVjfu+f7p9vuSIrYCkf0J8/eFofNs9vZIQ6Mme/IQ79C3Nl1TWDKiCWSKL2
+ Vh8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=Jzpwe77Abgtv1XYYx0fhdTAjqfD6Awmd08c56L163dU=;
- b=RcpIQdjr9RrDalFY55suHIkVeaxcyfauDBfOnCLLNH2PxRRhcIkrd4SwscJT+JZkIr
- mOSUrCSe2AXuCF//mqfbS/HoFxC3CxfmHKM+fk2HiaE2oF58dWPSLmbRR8UykWvW8fSQ
- gejPAvBeHZtNV5zMwH2QaaukxOORlU+TtzkCHspJstMarikNEJMvlRI+jnKD+OuBbcoS
- TMd0w8+6bfYyz8hPj95WRzdUAmkFW00LqMbNvXrcfw0tNda7uc4y7Sn3yNp1zMQyvdyK
- c0bBJYSLkm/TNJIjH8fCkoo0YSnkc0dqFGSsTLgXL06AnIaQSc4Vf1IB4d+H9ewFqLly
- UFKg==
-X-Gm-Message-State: ANhLgQ3hq1MArcxSKwIW8xj14QPyv354ZXeDYMm51bKtpf/DNrK/AThB
- 4tkhwqjmRuu/Wi1i5O814Q==
-X-Google-Smtp-Source: ADFU+vsdmoOYjMIj0gWOrimsXEvO/w7aUb1U+jTQ6bLux3L7/gaZQojIdHDA7NxmCJ5EzsCb3gNUbQ==
-X-Received: by 2002:aca:5c46:: with SMTP id q67mr3034917oib.75.1584026237750; 
- Thu, 12 Mar 2020 08:17:17 -0700 (PDT)
-Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id j5sm18380490otl.71.2020.03.12.08.17.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Mar 2020 08:17:17 -0700 (PDT)
-Received: (nullmailer pid 7330 invoked by uid 1000);
- Thu, 12 Mar 2020 15:17:16 -0000
-Date: Thu, 12 Mar 2020 10:17:16 -0500
-From: Rob Herring <robh@kernel.org>
-To: Harigovindan P <harigovi@codeaurora.org>
-Message-ID: <20200312151716.GA7045@bogus>
-References: <20200311085807.21984-1-harigovi@codeaurora.org>
- <20200311085807.21984-2-harigovi@codeaurora.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=4Ri6Zo06xUqVBLdkBsBEWcTBkjmCotOOr1BUmTAsg3I=;
+ b=mjJuR9LidMjj0NlVJx4WbM8AkeK1MbsA2wie5NAyDSc3YVLESEkEOOQeqVA1E0+dWo
+ XKjydDACLvIa3ovmei76phdAjJQsWNNA5TydnGkYpMKdjkgtIdQ4JrlxypKlknJdGzun
+ 1A2beQBtK+keG1GWa6GhjQi8AA9xP/s6PV1FmcjMFOiFKb+XTlmabxYFNBAESxL6pKCH
+ ybTMVJP3ffCs3ybc5Kjrf30BQoGfjTmkFpFrsJfklbXjLdXB6/tJRvCwiq1q8tDhamAW
+ gssyfxBt0EEx/NfR1ikcpVRPNMSYmzyZH//gKqR2Mt3bgwgEJZzkfH1KEBTbKLFV3MmX
+ ugJw==
+X-Gm-Message-State: ANhLgQ2xGEQnjmPBgQeLmXTfcb94xfKjFSgmu7qnZHWqRFwYUY7d4JCr
+ 3hBYw9Z6iE4JcrWi32S1jzcHWBF4G4zmKEBZesk=
+X-Google-Smtp-Source: ADFU+vuqPsB7DZGHkjoMD0pTX3OqBychAWWvqgB5t0ZT5bpa1RnqPfQCbA+j1Rn0HkU6vrLllgNLtBCFlaO66DHsWj8=
+X-Received: by 2002:a17:906:f1c4:: with SMTP id
+ gx4mr5558031ejb.267.1584030009727; 
+ Thu, 12 Mar 2020 09:20:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200311085807.21984-2-harigovi@codeaurora.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH v6 1/2] dt-bindings: display: add visionox
- rm69299 panel variant
+References: <20200312035154.1621-1-imirkin@alum.mit.edu>
+In-Reply-To: <20200312035154.1621-1-imirkin@alum.mit.edu>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 12 Mar 2020 09:19:58 -0700
+Message-ID: <CAF6AEGt4hnMJE=DSAx1754DTV4TJG5L8YocqMjAE1NpNJZaJMg@mail.gmail.com>
+To: Ilia Mirkin <imirkin@alum.mit.edu>
+Subject: Re: [Freedreno] [PATCH] drm/msm: avoid double-attaching hdmi/edp
+ bridges
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,49 +62,69 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean@poorly.run, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Harigovindan P <harigovi@codeaurora.org>, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, seanpaul@chromium.org, freedreno@lists.freedesktop.org
+Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 11 Mar 2020 14:28:06 +0530, Harigovindan P wrote:
-> Add bindings for visionox rm69299 panel.
-> 
-> Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
+On Wed, Mar 11, 2020 at 8:52 PM Ilia Mirkin <imirkin@alum.mit.edu> wrote:
+>
+> Each of hdmi and edp are already attached in msm_*_bridge_init. A second
+> attachment returns -EBUSY, failing the driver load.
+>
+> Tested with HDMI on IFC6410 (APQ8064 / MDP4), but eDP case should be
+> analogous.
+>
+> Fixes: 3ef2f119bd3ed (drm/msm: Use drm_attach_bridge() to attach a bridge to an encoder)
+> Cc: Boris Brezillon <boris.brezillon@collabora.com>
+> Signed-off-by: Ilia Mirkin <imirkin@alum.mit.edu>
+
+Thanks
+
+Reviewed-by: Rob Clark <robdclark@gmail.com>
+
 > ---
-> 
-> Changes in v2:
-> 	- Removed unwanted properties from description.
-> 	- Creating source files without execute permissions(Rob Herring).
-> Changes in v3:
-> 	- Changing txt file into yaml
-> Changes in v4:
-> 	- Updating license identifier.
-> 	- Moving yaml file inside panel directory.
-> 	- Removing pinctrl entries.
-> 	- Adding documentation for reset-gpios.
-> Changes in v5:
-> 	- No changes. Updated 2/2 Patch.
-> Changes in v6:
-> 	- Removing patternProperties.
-> 	- Added " |" after description.
-> 	- Setting port and reset-gpios to true.
-> 	- Removing @ae94000 for dsi node.
-> 
->  .../display/panel/visionox,rm69299.yaml       | 77 +++++++++++++++++++
->  1 file changed, 77 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/panel/visionox,rm69299.yaml
-> 
-
-My bot found errors running 'make dt_binding_check' on your patch:
-
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/display/panel/visionox,rm69299.example.dt.yaml: panel@0: 'reg' is a required property
-
-See https://patchwork.ozlabs.org/patch/1252722
-Please check and re-submit.
+>  drivers/gpu/drm/msm/edp/edp.c   | 4 ----
+>  drivers/gpu/drm/msm/hdmi/hdmi.c | 4 ----
+>  2 files changed, 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/edp/edp.c b/drivers/gpu/drm/msm/edp/edp.c
+> index ad4e963ccd9b..106a67473af5 100644
+> --- a/drivers/gpu/drm/msm/edp/edp.c
+> +++ b/drivers/gpu/drm/msm/edp/edp.c
+> @@ -178,10 +178,6 @@ int msm_edp_modeset_init(struct msm_edp *edp, struct drm_device *dev,
+>                 goto fail;
+>         }
+>
+> -       ret = drm_bridge_attach(encoder, edp->bridge, NULL);
+> -       if (ret)
+> -               goto fail;
+> -
+>         priv->bridges[priv->num_bridges++]       = edp->bridge;
+>         priv->connectors[priv->num_connectors++] = edp->connector;
+>
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
+> index 1a9b6289637d..737453b6e596 100644
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi.c
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
+> @@ -327,10 +327,6 @@ int msm_hdmi_modeset_init(struct hdmi *hdmi,
+>                 goto fail;
+>         }
+>
+> -       ret = drm_bridge_attach(encoder, hdmi->bridge, NULL);
+> -       if (ret)
+> -               goto fail;
+> -
+>         priv->bridges[priv->num_bridges++]       = hdmi->bridge;
+>         priv->connectors[priv->num_connectors++] = hdmi->connector;
+>
+> --
+> 2.24.1
+>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
