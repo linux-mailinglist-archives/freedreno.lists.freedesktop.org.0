@@ -2,36 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 345D518271E
-	for <lists+freedreno@lfdr.de>; Thu, 12 Mar 2020 03:48:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3066182786
+	for <lists+freedreno@lfdr.de>; Thu, 12 Mar 2020 04:52:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 759CF6E040;
-	Thu, 12 Mar 2020 02:48:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8211D6EA1C;
+	Thu, 12 Mar 2020 03:52:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 961446E040;
- Thu, 12 Mar 2020 02:42:52 +0000 (UTC)
-Received: from DGGEMS414-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 964B35ED28EA7C162979;
- Thu, 12 Mar 2020 10:42:48 +0800 (CST)
-Received: from ubuntu.huawei.com (10.175.104.215) by
- DGGEMS414-HUB.china.huawei.com (10.3.19.214) with Microsoft SMTP Server id
- 14.3.487.0; Thu, 12 Mar 2020 10:42:40 +0800
-From: tongtiangen <tongtiangen@huawei.com>
-To: <robdclark@gmail.com>, <sean@poorly.run>, <airlied@linux.ie>,
- <daniel@ffwll.ch>, <ddavenport@chromium.org>, <gregkh@linuxfoundation.org>,
- <abhinavk@codeaurora.org>, <jcrouse@codeaurora.org>, <tglx@linutronix.de>,
- <tongtiangen@huawei.com>
-Date: Thu, 12 Mar 2020 08:25:59 +0800
-Message-ID: <20200312002559.20738-1-tongtiangen@huawei.com>
-X-Mailer: git-send-email 2.17.1
+Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
+ [IPv6:2607:f8b0:4864:20::844])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2A5A6E239;
+ Thu, 12 Mar 2020 03:52:21 +0000 (UTC)
+Received: by mail-qt1-x844.google.com with SMTP id m33so3324208qtb.3;
+ Wed, 11 Mar 2020 20:52:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=KQg257bFU/54D8sZD22vQvVkmqU+8hmHZdOg7G3dJQ4=;
+ b=TcIxJvpOUP/f+7MPbEGA4d+S0Zxx5fuLASCk1047vjuKQBiyWaRR7fJmmW637eBk5P
+ DIi6ZuWmL6nfYbHDTybLBkrk9tEfPWYuonggc6wFzSEhPzNeh7PpC8OY8CshPSbQENl0
+ ubbOVZ6pk39VI/sk6bwZXFCOq0nmi23wi1R4kODWy7JY8gwjyOiLyfPETafK/MxiRajH
+ 8IhtMhmffv1RXh3LysaVC4+PD1P8vMOuCBv9/vcRraqaJg4Chg0VeqX/MqtZ8/14yEgY
+ i1dAcPpR326qbjxajTL33jt22gojvFa7P0rDJzjrHxSKePi3sNb0RsFiYRmdrxqgFkmB
+ E24Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+ :mime-version:content-transfer-encoding;
+ bh=KQg257bFU/54D8sZD22vQvVkmqU+8hmHZdOg7G3dJQ4=;
+ b=UXOylac6JKON7doo/QNiTje08DCRgK9zRLGwgEagKtvIGo8OB+BlMNbyflyI23DLyZ
+ bWYads/8HDDJVplAz+Sf6uVtkw5UoF7GMsuDubsL19oI2KFLuw+AAHoYTJj3mqYDT5cW
+ dJRMKjylt4QsCaJHDQ4l7xO39vBiOKEAqCNZtB/ipk1G62XBKBvwrYZ4VgMSZ2aW35Q4
+ nvBhZxKnVFTEIbgpCAhXs7xBBToalnY6C51kTVaT6a0zgmMRTHZl9XicnIftoZDvE00P
+ kbSZTSYgqoiHBLsBL7jRNPcxmqgwUpc0nBURt0Ox5Dh7Kxx8j+5kC0c5TZ66aDhx5w4i
+ N5ug==
+X-Gm-Message-State: ANhLgQ126jUE4CunqnB/5XNOZ7157IyWBfsZXQrY5qGS0hj8TzRrUaSB
+ Ts9IeItfbOHBe9xVgWodektrJodz7LE=
+X-Google-Smtp-Source: ADFU+vtj53M9tfsuivBLtWhYCrZBup+7hHZahjU3LIYwZDJagukCdl1qw81rCRN0nwK8SPWKPjAi3Q==
+X-Received: by 2002:ac8:6708:: with SMTP id e8mr5484258qtp.229.1583985140745; 
+ Wed, 11 Mar 2020 20:52:20 -0700 (PDT)
+Received: from athos.hellosponsor.com
+ (pool-173-68-201-69.nycmny.fios.verizon.net. [173.68.201.69])
+ by smtp.gmail.com with ESMTPSA id x1sm7836250qkl.128.2020.03.11.20.52.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Mar 2020 20:52:20 -0700 (PDT)
+From: Ilia Mirkin <imirkin@alum.mit.edu>
+To: freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@gmail.com>
+Date: Wed, 11 Mar 2020 23:51:54 -0400
+Message-Id: <20200312035154.1621-1-imirkin@alum.mit.edu>
+X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
-X-Originating-IP: [10.175.104.215]
-X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Thu, 12 Mar 2020 02:48:34 +0000
-Subject: [Freedreno] [PATCH -next] drm/msm/dpu: Remove some set but not used
- variables
+Subject: [Freedreno] [PATCH] drm/msm: avoid double-attaching hdmi/edp bridges
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,112 +66,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Ilia Mirkin <imirkin@alum.mit.edu>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Fixes gcc '-Wunused-but-set-variable' warning:
+Each of hdmi and edp are already attached in msm_*_bridge_init. A second
+attachment returns -EBUSY, failing the driver load.
 
-drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c: In function _dpu_debugfs_show_regset32:
-drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c:142:26: warning: variable priv set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c: In function dpu_kms_prepare_commit:
-drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c:271:21: warning: variable dev set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c: In function _dpu_kms_hw_destroy:
-drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c:555:21: warning: variable dev set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c: In function dpu_kms_hw_init:
-drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c:763:26: warning: variable priv set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c: In function dpu_runtime_suspend:
-drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c:1021:21: warning: variable ddev set but not used [-Wunused-but-set-variable]
+Tested with HDMI on IFC6410 (APQ8064 / MDP4), but eDP case should be
+analogous.
 
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: tongtiangen <tongtiangen@huawei.com>
+Fixes: 3ef2f119bd3ed (drm/msm: Use drm_attach_bridge() to attach a bridge to an encoder)
+Cc: Boris Brezillon <boris.brezillon@collabora.com>
+Signed-off-by: Ilia Mirkin <imirkin@alum.mit.edu>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 15 ---------------
- 1 file changed, 15 deletions(-)
+ drivers/gpu/drm/msm/edp/edp.c   | 4 ----
+ drivers/gpu/drm/msm/hdmi/hdmi.c | 4 ----
+ 2 files changed, 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index cb08fafb1dc1..089d1cde39da 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -138,16 +138,12 @@ static int _dpu_debugfs_show_regset32(struct seq_file *s, void *data)
- {
- 	struct dpu_debugfs_regset32 *regset = s->private;
- 	struct dpu_kms *dpu_kms = regset->dpu_kms;
--	struct drm_device *dev;
--	struct msm_drm_private *priv;
- 	void __iomem *base;
- 	uint32_t i, addr;
+diff --git a/drivers/gpu/drm/msm/edp/edp.c b/drivers/gpu/drm/msm/edp/edp.c
+index ad4e963ccd9b..106a67473af5 100644
+--- a/drivers/gpu/drm/msm/edp/edp.c
++++ b/drivers/gpu/drm/msm/edp/edp.c
+@@ -178,10 +178,6 @@ int msm_edp_modeset_init(struct msm_edp *edp, struct drm_device *dev,
+ 		goto fail;
+ 	}
  
- 	if (!dpu_kms->mmio)
- 		return 0;
- 
--	dev = dpu_kms->dev;
--	priv = dev->dev_private;
- 	base = dpu_kms->mmio + regset->offset;
- 
- 	/* insert padding spaces, if needed */
-@@ -267,8 +263,6 @@ static ktime_t dpu_kms_vsync_time(struct msm_kms *kms, struct drm_crtc *crtc)
- static void dpu_kms_prepare_commit(struct msm_kms *kms,
- 		struct drm_atomic_state *state)
- {
--	struct dpu_kms *dpu_kms;
--	struct drm_device *dev;
- 	struct drm_crtc *crtc;
- 	struct drm_crtc_state *crtc_state;
- 	struct drm_encoder *encoder;
-@@ -276,8 +270,6 @@ static void dpu_kms_prepare_commit(struct msm_kms *kms,
- 
- 	if (!kms)
- 		return;
--	dpu_kms = to_dpu_kms(kms);
--	dev = dpu_kms->dev;
- 
- 	/* Call prepare_commit for all affected encoders */
- 	for_each_new_crtc_in_state(state, crtc, crtc_state, i) {
-@@ -552,11 +544,8 @@ static long dpu_kms_round_pixclk(struct msm_kms *kms, unsigned long rate,
- 
- static void _dpu_kms_hw_destroy(struct dpu_kms *dpu_kms)
- {
--	struct drm_device *dev;
- 	int i;
- 
--	dev = dpu_kms->dev;
+-	ret = drm_bridge_attach(encoder, edp->bridge, NULL);
+-	if (ret)
+-		goto fail;
 -
- 	if (dpu_kms->hw_intr)
- 		dpu_hw_intr_destroy(dpu_kms->hw_intr);
- 	dpu_kms->hw_intr = NULL;
-@@ -760,7 +749,6 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
- {
- 	struct dpu_kms *dpu_kms;
- 	struct drm_device *dev;
--	struct msm_drm_private *priv;
- 	int i, rc = -EINVAL;
+ 	priv->bridges[priv->num_bridges++]       = edp->bridge;
+ 	priv->connectors[priv->num_connectors++] = edp->connector;
  
- 	if (!kms) {
-@@ -770,7 +758,6 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
+index 1a9b6289637d..737453b6e596 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
+@@ -327,10 +327,6 @@ int msm_hdmi_modeset_init(struct hdmi *hdmi,
+ 		goto fail;
+ 	}
  
- 	dpu_kms = to_dpu_kms(kms);
- 	dev = dpu_kms->dev;
--	priv = dev->dev_private;
+-	ret = drm_bridge_attach(encoder, hdmi->bridge, NULL);
+-	if (ret)
+-		goto fail;
+-
+ 	priv->bridges[priv->num_bridges++]       = hdmi->bridge;
+ 	priv->connectors[priv->num_connectors++] = hdmi->connector;
  
- 	atomic_set(&dpu_kms->bandwidth_ref, 0);
- 
-@@ -1018,10 +1005,8 @@ static int __maybe_unused dpu_runtime_suspend(struct device *dev)
- 	int rc = -1;
- 	struct platform_device *pdev = to_platform_device(dev);
- 	struct dpu_kms *dpu_kms = platform_get_drvdata(pdev);
--	struct drm_device *ddev;
- 	struct dss_module_power *mp = &dpu_kms->mp;
- 
--	ddev = dpu_kms->dev;
- 	rc = msm_dss_enable_clk(mp->clk_config, mp->num_clk, false);
- 	if (rc)
- 		DPU_ERROR("clock disable failed rc:%d\n", rc);
 -- 
-2.17.1
+2.24.1
 
 _______________________________________________
 Freedreno mailing list
