@@ -1,59 +1,43 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A31291870C1
-	for <lists+freedreno@lfdr.de>; Mon, 16 Mar 2020 18:00:26 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D5B7F188535
+	for <lists+freedreno@lfdr.de>; Tue, 17 Mar 2020 14:20:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12F566E489;
-	Mon, 16 Mar 2020 17:00:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8747B6E116;
+	Tue, 17 Mar 2020 13:20:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
- [IPv6:2607:f8b0:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 309F16E489
- for <freedreno@lists.freedesktop.org>; Mon, 16 Mar 2020 17:00:23 +0000 (UTC)
-Received: by mail-pf1-x443.google.com with SMTP id z65so10266605pfz.8
- for <freedreno@lists.freedesktop.org>; Mon, 16 Mar 2020 10:00:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=YjH5MjgZiWD2AsCPzj7RL36rRlVP+ZNEC4uN51b8qdI=;
- b=K7kVjtB+7y4URjn4G1hvdMzn78WcrIP9Oz7RSUfwUDvU/XnO2byPqav/Is3jiUWUkB
- W86Xg8p06VavshPMBHqPziU3vXTiy7N48VTAL2j/s2lTWb9lq92j1IU/quTDDTv6S2fu
- DEgpMw1cMNqIxgev0hk/hR3tQhU9JDTDTTbyA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=YjH5MjgZiWD2AsCPzj7RL36rRlVP+ZNEC4uN51b8qdI=;
- b=QtTtVJWWQ3577J5oPxyyy5yarkgBS87h7tOV7eDrRyZudXBhTIpGg27t1MIQCz9w7I
- qrCuOOXQJdscPid4qWHXwoDKyNhy9iCfYujhgQ+707oqn8Cq7dnsdafywKsVDDiNWj5c
- 5WeEgvnvSgHxbEBz3GLXLuac53gjKTfBv6LO2H/WFMxFG0tJ+i23mmn8CKREyJHvGQ5I
- hR22EkQjtu8JkG6jvwIh70BLgC3Dr/KyW4gjdwJ9gE1XHN7vDBNlMAebegQ7VNEzFtio
- EVA4kEcpo47Tmmn0tBn9ECv4d1EBoe2xf6CO1aHmWMga8ORqIFEpMM2WkNsFCuEJeLf8
- ELVw==
-X-Gm-Message-State: ANhLgQ3s7LT/uIwMSfVOwH5jJ+rr2lFwnBUOLT67fZa+6ADrgwTQkCY3
- FexdnnwHTS71bsOIMYzrxSCemQ==
-X-Google-Smtp-Source: ADFU+vv9s0qOxourNNI2GtsjQWv3rsuzY2mQKW8R2dZ8kWjwvGLWsHZAnNuynD6l0oAx3VizaNsAAA==
-X-Received: by 2002:a65:678e:: with SMTP id e14mr669453pgr.299.1584378022722; 
- Mon, 16 Mar 2020 10:00:22 -0700 (PDT)
-Received: from localhost ([2620:15c:202:1:4fff:7a6b:a335:8fde])
- by smtp.gmail.com with ESMTPSA id u126sm407308pfu.182.2020.03.16.10.00.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Mar 2020 10:00:22 -0700 (PDT)
-Date: Mon, 16 Mar 2020 10:00:20 -0700
-From: Matthias Kaehlcke <mka@chromium.org>
-To: Harigovindan P <harigovi@codeaurora.org>
-Message-ID: <20200316170020.GO144492@google.com>
-References: <20200316041647.27953-1-harigovi@codeaurora.org>
- <20200316041647.27953-3-harigovi@codeaurora.org>
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:e::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A45AA6E116;
+ Tue, 17 Mar 2020 13:20:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20170209; h=In-Reply-To:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=XvzyhaFk/wu7skK/5j6uwYlT+ZJkYaLS7Iej2CpX2yI=; b=QW2VmaGzcPNbAM0cpTRfclXlIy
+ dOyw2GWUIcqv9bO9vI+4WYLEeyBx0PY04xYG+ZM6PmYLvMPWOIhPPcqp2kqFUT5JssJxyZ5id7qgn
+ EYdU43apJV2k/VVcfrVd4Drha7iaa0Q1/Ig9V51k0XqeXgBx9lH8mgYkOgR8DQfPikCgKLT2UDluT
+ uCAm47h316v3IXPEQ33SkyWLSbKeR68GYo3fJG7Ng3cmwqSIAKGS5TAUMza4aMWHF9G2wvSTySgso
+ Pdnt/J5kJIpFdJE681LWl67wzH4aSzCsTOX1pgB0X9R6sh+tLQqUfkkAN1l8uKyGQHcg3Nk/5OM9W
+ Q+CZKxYw==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.92.3 #3 (Red
+ Hat Linux)) id 1jEC91-00080e-P0; Tue, 17 Mar 2020 13:20:31 +0000
+Date: Tue, 17 Mar 2020 06:20:31 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Jordan Crouse <jcrouse@codeaurora.org>
+Message-ID: <20200317132031.GA8125@infradead.org>
+References: <1583767066-1555-1-git-send-email-jcrouse@codeaurora.org>
+ <1583767066-1555-3-git-send-email-jcrouse@codeaurora.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200316041647.27953-3-harigovi@codeaurora.org>
-User-Agent: Mutt/1.12.2 (2019-09-21)
-Subject: Re: [Freedreno] [PATCH v7 2/2] drm/panel: add support for rm69299
- visionox panel driver
+In-Reply-To: <1583767066-1555-3-git-send-email-jcrouse@codeaurora.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
+Subject: Re: [Freedreno] [PATCH v5 2/2] drm/msm/a6xx: Use the DMA API for
+ GMU memory objects
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,20 +50,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean@poorly.run, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, robdclark@gmail.com, seanpaul@chromium.org,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ smasetty@codeaurora.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ "Michael J. Ruhl" <michael.j.ruhl@intel.com>, Rob Clark <robdclark@gmail.com>,
+ John Stultz <john.stultz@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Mar 16, 2020 at 09:46:47AM +0530, Harigovindan P wrote:
-> Add support for Visionox panel driver.
-> 
-> Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
+> @@ -942,7 +932,6 @@ static struct a6xx_gmu_bo *a6xx_gmu_memory_alloc(struct a6xx_gmu *gmu,
+>  		size_t size)
+>  {
+>  	struct a6xx_gmu_bo *bo;
+> -	int ret, count, i;
+>  
+>  	bo = kzalloc(sizeof(*bo), GFP_KERNEL);
+>  	if (!bo)
+> @@ -950,86 +939,14 @@ static struct a6xx_gmu_bo *a6xx_gmu_memory_alloc(struct a6xx_gmu *gmu,
+>  
+>  	bo->size = PAGE_ALIGN(size);
+>  
+> -	count = bo->size >> PAGE_SHIFT;
+> +	bo->virt = dma_alloc_wc(gmu->dev, bo->size, &bo->iova, GFP_KERNEL);
 
-Reviewed-by: Matthias Kaehlcke <mka@chromium.org>
+No really new in this patch, but why do you need the a6xx_gmu_bo,
+and even more so, why does it need to be allocated dynamically?
+
+Also please check for errors when setting the dma mask
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
