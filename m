@@ -1,57 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2D6C18BDCE
-	for <lists+freedreno@lfdr.de>; Thu, 19 Mar 2020 18:17:14 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id DFCBB18BEB1
+	for <lists+freedreno@lfdr.de>; Thu, 19 Mar 2020 18:48:14 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F9A86EA3D;
-	Thu, 19 Mar 2020 17:17:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 906086EA45;
+	Thu, 19 Mar 2020 17:48:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-x144.google.com (mail-il1-x144.google.com
- [IPv6:2607:f8b0:4864:20::144])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89E956EA3D
- for <freedreno@lists.freedesktop.org>; Thu, 19 Mar 2020 17:17:11 +0000 (UTC)
-Received: by mail-il1-x144.google.com with SMTP id k29so3005696ilg.0
- for <freedreno@lists.freedesktop.org>; Thu, 19 Mar 2020 10:17:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=g2puVLEy6afSLzUcb87vcVA5fc3TX3nJUf9e0Okyxfw=;
- b=INK5FY4JU9WZQN7v0WeMyVSF0VrQk4T1gnKH7Z7eZE/CF5pIMmhnuF5ojjvw0l/4DI
- /sE+czy0eVQGHT4WtOqHFcQkqMevU0FM5PUQitLidNvtV6KAnM9NiWKLo010JYNQU5Qh
- epaszkvezxUIi/XfSxWz0hyv40PCy/UNB4hPTLNLFVSqSLU7K65FLrU68coL0Mno9Srn
- 79hv5y77/B0YdwIuxFdTZk8/OwkjTI8EfFwPl4ErBh9rY9C34BuyXgq77K79d+Lszgtb
- LWg0NM/Q2iz0yTSCpn7zo8VNiAJ7HNPuz/CXSzK+9b70ExbetZWf+JWrzYfJKgYjFFmq
- Y5aw==
+Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
+ [IPv6:2607:f8b0:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7967F89EB4
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Mar 2020 17:48:12 +0000 (UTC)
+Received: by mail-pf1-x444.google.com with SMTP id j10so1793683pfi.12
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Mar 2020 10:48:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:content-transfer-encoding:in-reply-to:references
+ :subject:from:cc:to:date:message-id:user-agent;
+ bh=iWUSd6tNelA3B2gV8L14dd3S0Goj3iWlFgAqgwk5kPw=;
+ b=T5wSGnt2PrWmaej5pxTQjA5iZ75Iq5B8ryc8SsC0GZUqDnlwetsWMpCtffoLmhaty7
+ MEpRGQOi8ly0/vnWHX7gn8Je3y5VDnIUpNcgALh6uSrWPV9q0Ly1fiQ5RC4Xi02iZE6W
+ JyMt029uRbZPrTBbpHeGtn40yI63DT1zUUIhk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=g2puVLEy6afSLzUcb87vcVA5fc3TX3nJUf9e0Okyxfw=;
- b=Bhx7tEc5qtXcfTYdHMRqiKDbpn5QYFYLF8gioKuhjoZ8YWdjiBW1iVZsnBGbF7za1U
- 52mYfxBr7UCdq+aTK/WXRNiJGlxjK5bjSQdIYW96+tjCtWTPTDE1AG8BmPTzUXdS+X2l
- /r2og9n5KZx4lm6rfFdaJBhaIf/H3AkI0JfCnIAUVRM3Cfxi6zW9UlVQYX+/uAGgRVzD
- N3lhPXtMjqHbKhLU2w6jbQmxRO2Tnys7UKnMFO7y8mHoi8AMCARkdF/W+7eAt8JLeojr
- aUGxPRwPpKvkfo0wZTyhgJhx37DYZmXgI/P2qB7CTXxJMpsduiSKhb2cAS5wY0kdi9mN
- Tvsw==
-X-Gm-Message-State: ANhLgQ3PfdWAxzJAyj5gL0AFYWVlXA7PS2FsxIEra9336D/lK9XcBHPx
- uE6R1m6yp7aAJXbqEuKIALrHwigVYJsOsc+SOak=
-X-Google-Smtp-Source: ADFU+vsFrtCl3nw/cH8PE23Zz0zaNQwxsOKGrtz5qBN+qCE1goDUCx0XmoX0cDrtI52kS3KiPy/h3nANlAzO8mJsV0s=
-X-Received: by 2002:a92:8f53:: with SMTP id j80mr4322003ild.171.1584638230705; 
- Thu, 19 Mar 2020 10:17:10 -0700 (PDT)
+ h=x-gm-message-state:mime-version:content-transfer-encoding
+ :in-reply-to:references:subject:from:cc:to:date:message-id
+ :user-agent;
+ bh=iWUSd6tNelA3B2gV8L14dd3S0Goj3iWlFgAqgwk5kPw=;
+ b=juH6eDQ0EDeFrTeL2/dx6lRPg/4U318pFbHltTA9Bklv1Rsl9OH0uz18NI+Lq2JUxk
+ Hdsn4jn6RMHcfmRWQlOVf1xcxaKSrD7KqIU1vrjtsVFRe1O6P8mDgVTD788Dx6RPHauf
+ 5Us5vTcBUvMYga107ZK3GhlQj38qjdj9XfmrlK1tgHtKZ+9gPtdrKZbvH2wv+YUjiTBn
+ Lz+AcyS1dUdQQ/cMfTM/ER5gWfAAeSzS+B/NooEWdn6YivZbQRriA2aGIaoZ439Au7Py
+ EOxcyFGAY/lQgBeU6c69dlYW3XfZcGuvLG5+2v8dxB8wheS1kMg5TKT/DUfzoWd2v+fH
+ RfOQ==
+X-Gm-Message-State: ANhLgQ0ayGGlxPRP4b1rqFk9sccMDu9LHaYnrluBXhv/JqwaDAOZETkk
+ c0hA5GaL94x2ccaxDXmCkaKQcw==
+X-Google-Smtp-Source: ADFU+vut6Lso223EbxYK+y4BZyU7C3AfV3mD375ioWsMfGKfgEhQlPlHMn0XJNEJoyfTIpfVnP8PYA==
+X-Received: by 2002:a63:c811:: with SMTP id z17mr4386751pgg.41.1584640092091; 
+ Thu, 19 Mar 2020 10:48:12 -0700 (PDT)
+Received: from chromium.org ([2620:15c:202:1:fa53:7765:582b:82b9])
+ by smtp.gmail.com with ESMTPSA id h11sm2990799pfq.56.2020.03.19.10.48.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 19 Mar 2020 10:48:11 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAGWqDJ7AccvoxjKfQJ3GytJ-+u56Bk3rEn0sSYv-zCuBe1brAg@mail.gmail.com>
- <CAL_JsqLz-0myc-PSSaCQWDFXQx+=X9nBSXWsJaGCVqTFn0d5kw@mail.gmail.com>
- <CAGWqDJ4yA4ikz5MwQQwW8CAvE_dt16iuvN6cKRL2DdAuw8QWww@mail.gmail.com>
- <CAL_JsqLU4kEmRnXhQ5+gP-ZisS2Za+s6mNFg4RnMdpDtDRQB3g@mail.gmail.com>
-In-Reply-To: <CAL_JsqLU4kEmRnXhQ5+gP-ZisS2Za+s6mNFg4RnMdpDtDRQB3g@mail.gmail.com>
-From: Vinay Simha B N <simhavcs@gmail.com>
-Date: Thu, 19 Mar 2020 22:46:59 +0530
-Message-ID: <CAGWqDJ5O2Lw-=5gHMja0SWVG1ttc_+7ieo-aEf7BRq+W8DGOnA@mail.gmail.com>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [Freedreno] graph connection to node is not bidirectional
- kernel-5.6.0-rc6
+In-Reply-To: <1584356562-13181-1-git-send-email-mkrishn@codeaurora.org>
+References: <1584356562-13181-1-git-send-email-mkrishn@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+To: Krishna Manikandan <mkrishn@codeaurora.org>, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org
+Date: Thu, 19 Mar 2020 10:48:10 -0700
+Message-ID: <158464009041.152100.18425074316530931981@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9
+Subject: Re: [Freedreno] [v2] arm64: dts: sc7180: modify assigned clocks for
+ sc7180 target
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,74 +67,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <a.hajda@samsung.com>
+Cc: Krishna Manikandan <mkrishn@codeaurora.org>, linux-kernel@vger.kernel.org,
+ robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
+ kalyan_t@codeaurora.org, hoegsberg@chromium.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Mar 19, 2020 at 10:36 PM Rob Herring <robh@kernel.org> wrote:
->
-> On Thu, Mar 19, 2020 at 9:56 AM Vinay Simha B N <simhavcs@gmail.com> wrote:
-> >
-> > On Thu, Mar 19, 2020 at 9:16 PM Rob Herring <robh@kernel.org> wrote:
-> > >
-> > > On Thu, Mar 19, 2020 at 1:31 AM Vinay Simha B N <simhavcs@gmail.com> wrote:
-> > > >
-> > > > hi,
-> > > >
-> > > > I am getting the endpoint' is not bidirectional(d2l_in, dsi0_out)
-> > > > warning in compilation, built boot image works on qcom apq8016-ifc6309
-> > > > board with the dsi->bridge->lvds panel.
-> > > > Because of this warning i cannot create a .yaml documentation examples.
-> > > > Please suggest.
-> > > >
-> > > > tc_bridge: bridge@f {
-> > >
-> > >              ^^^^^^^^
-> > >
-> > > > arch/arm64/boot/dts/qcom/apq8016-sbc.dtsi:253.28-255.9: Warning
-> > > > (graph_endpoint): /soc/i2c@78b8000/bridge@39/ports/port@0/endpoint:
-> > >
-> > >                                      ^^^^^^^^^
-> > >
-> > > Looks like you have 2 different bridges.
-> > >
-> > i had two bridges, if we disable one bridge also we get the warning
-> >
-> > arch/arm64/boot/dts/qcom/apq8016-sbc.dtsi:333.53-335.35: Warning
-> > (graph_endpoint): /soc/auo,b101xtn01/port/endpoint: graph connection
-> > to node '/soc/i2c@78b8000/bridge@f/ports/port@1/endpoint' is not
-> > bidirectional
->
-> You can't just disable nodes. To switch which bridge is enabled, you
-> already have to modify remote-endpoint at the other end. So the
-> requirement is you have to modify both 'remote-endpoint' properties
-> (or really all 3).
->
-> The other options is if you want both connections described, then you
-> need 2 'endpoint' nodes to connect both bridges.
-even after removing one bridge(dsi2hdmi) in the device tree, currently
-using only one bridge(dsi2lvds), i do still get the compilation warning.
+Subject could be "sc7180: update DPU assigned clocks"
 
- graph connection
- to node '/soc/i2c@78b8000/bridge@f/ports/port@1/endpoint' is not
-bidirectional
+Quoting Krishna Manikandan (2020-03-16 04:02:42)
+> Add DISP_CC_MDSS_ROT_CLK and DISP_CC_MDSS_AHB_CLK
+> in the assigned clocks list for sc7180 target.
 
-This compilation warning does not cause any problem with the boot image created
-dsi -> dsi2lvds bridge-> lvds panel . Able to get the display properly.
+Why?
 
-https://github.com/vinaysimhabn/kernel-msm/blob/08e4821646b5c128559c506a5777d8782f1ff79e/Documentation/devicetree/bindings/display/bridge/toshiba%2Ctc358775.yaml
+> 
+> Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
 
-But while creating documentation yaml, it is not allowing to add this examples.
--- 
-regards,
-vinaysimha
+Does this need a Fixes: tag?
+
+> ---
+>  arch/arm64/boot/dts/qcom/sc7180.dtsi | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> index 998f101..e3b60f1 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> @@ -1544,8 +1544,12 @@
+>                                 clock-names = "iface", "rot", "lut", "core",
+>                                               "vsync";
+>                                 assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>,
+> -                                                 <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
+> +                                                 <&dispcc DISP_CC_MDSS_VSYNC_CLK>,
+> +                                                 <&dispcc DISP_CC_MDSS_ROT_CLK>,
+> +                                                 <&dispcc DISP_CC_MDSS_AHB_CLK>;
+>                                 assigned-clock-rates = <300000000>,
+> +                                                      <19200000>,
+> +                                                      <19200000>,
+>                                                        <19200000>;
+>  
+>                                 interrupt-parent = <&mdss>;
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
