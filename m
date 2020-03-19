@@ -2,59 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFCBB18BEB1
-	for <lists+freedreno@lfdr.de>; Thu, 19 Mar 2020 18:48:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E6E918BF37
+	for <lists+freedreno@lfdr.de>; Thu, 19 Mar 2020 19:19:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 906086EA45;
-	Thu, 19 Mar 2020 17:48:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 986186EA59;
+	Thu, 19 Mar 2020 18:19:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7967F89EB4
- for <freedreno@lists.freedesktop.org>; Thu, 19 Mar 2020 17:48:12 +0000 (UTC)
-Received: by mail-pf1-x444.google.com with SMTP id j10so1793683pfi.12
- for <freedreno@lists.freedesktop.org>; Thu, 19 Mar 2020 10:48:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:content-transfer-encoding:in-reply-to:references
- :subject:from:cc:to:date:message-id:user-agent;
- bh=iWUSd6tNelA3B2gV8L14dd3S0Goj3iWlFgAqgwk5kPw=;
- b=T5wSGnt2PrWmaej5pxTQjA5iZ75Iq5B8ryc8SsC0GZUqDnlwetsWMpCtffoLmhaty7
- MEpRGQOi8ly0/vnWHX7gn8Je3y5VDnIUpNcgALh6uSrWPV9q0Ly1fiQ5RC4Xi02iZE6W
- JyMt029uRbZPrTBbpHeGtn40yI63DT1zUUIhk=
+Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com
+ [IPv6:2a00:1450:4864:20::543])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC1736EA4F;
+ Thu, 19 Mar 2020 18:19:26 +0000 (UTC)
+Received: by mail-ed1-x543.google.com with SMTP id b23so3954947edx.4;
+ Thu, 19 Mar 2020 11:19:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=VUnLPRFaXYEyBMAu2KerTyrQvIYIc8Adcw0gQEvJv1g=;
+ b=lgXZcIvA+kWlIoPJziys10SY+bpa92mglfzT+MBUMHhjvOu9zbr2UUe9GFdhoqCKEx
+ B2NIDVBcMACw4/h86uBHZHdkFxDKlqEO3RbQHlJdpwsvDLoLyM8g0h35hwOW0kHwRTZb
+ b+b40DXCqdQgTO6FtOInYhhcpCumJvr6veMoQTtS6fqGKXuIECoUzAGrPeZPke+MO8mp
+ dWjl5fe5YasL/G+bdIQlOTbWyUCjDY1j2AUthyCd7vClmH+ulbx8MjbtSHCV73KXo+FK
+ 46rgB5WN9EfrklB/kJOGc+zwo6/WKRKM7nyRAOVOIWkNQd8JsfRECJmTIBfutDRonDsD
+ aIsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:content-transfer-encoding
- :in-reply-to:references:subject:from:cc:to:date:message-id
- :user-agent;
- bh=iWUSd6tNelA3B2gV8L14dd3S0Goj3iWlFgAqgwk5kPw=;
- b=juH6eDQ0EDeFrTeL2/dx6lRPg/4U318pFbHltTA9Bklv1Rsl9OH0uz18NI+Lq2JUxk
- Hdsn4jn6RMHcfmRWQlOVf1xcxaKSrD7KqIU1vrjtsVFRe1O6P8mDgVTD788Dx6RPHauf
- 5Us5vTcBUvMYga107ZK3GhlQj38qjdj9XfmrlK1tgHtKZ+9gPtdrKZbvH2wv+YUjiTBn
- Lz+AcyS1dUdQQ/cMfTM/ER5gWfAAeSzS+B/NooEWdn6YivZbQRriA2aGIaoZ439Au7Py
- EOxcyFGAY/lQgBeU6c69dlYW3XfZcGuvLG5+2v8dxB8wheS1kMg5TKT/DUfzoWd2v+fH
- RfOQ==
-X-Gm-Message-State: ANhLgQ0ayGGlxPRP4b1rqFk9sccMDu9LHaYnrluBXhv/JqwaDAOZETkk
- c0hA5GaL94x2ccaxDXmCkaKQcw==
-X-Google-Smtp-Source: ADFU+vut6Lso223EbxYK+y4BZyU7C3AfV3mD375ioWsMfGKfgEhQlPlHMn0XJNEJoyfTIpfVnP8PYA==
-X-Received: by 2002:a63:c811:: with SMTP id z17mr4386751pgg.41.1584640092091; 
- Thu, 19 Mar 2020 10:48:12 -0700 (PDT)
-Received: from chromium.org ([2620:15c:202:1:fa53:7765:582b:82b9])
- by smtp.gmail.com with ESMTPSA id h11sm2990799pfq.56.2020.03.19.10.48.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Mar 2020 10:48:11 -0700 (PDT)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=VUnLPRFaXYEyBMAu2KerTyrQvIYIc8Adcw0gQEvJv1g=;
+ b=dUFc4Z/1bJmoW1NCMx6PgrpAiPYfd37ai0RmBrs/BzpnUVlGcBVXbW9LQAQ8C+OEXE
+ hWTPGImmbu0j8zQRW0JPGCAd3BBQyM+IbcYxJXWLEfUbTfOn2SSezzQhQqIBLzKhQczy
+ FTAhOU0s1E0dfTcjvIpcABDiOFn5+2YjHxHHxr1+PIpv28YCytZr0GJxqJpGVzJfexvs
+ 3i5wqmso6XjsrM/IOqwRSi2TkZCmPKlozavmMKCpJbuFExFvauldjK7e9HT1B+k0UTO/
+ 49xEhpzWCY6F876WLd53fovYFhd6oWLIcrKMtmTg9FxihfHvBXi9c9j1iV7OyH0nh8jj
+ y9+A==
+X-Gm-Message-State: ANhLgQ1vVYYOwcw/bKtcwKKZD3JKost6t0Ra+JmOeafU1ejLdjJaxEse
+ aqThq4m9x5UDH9wQrxvFGGDFDIRwj+XXJFGAn6w4ZY5bjpY=
+X-Google-Smtp-Source: ADFU+vud33ZNOWzEZL7qH7qtQzJyc7BdVgN4hxJA6xo79YTL1rHt/UMu58hsnUr03cPz9Jge8sTfUNaovlby3KRdpbE=
+X-Received: by 2002:a05:6402:8ca:: with SMTP id
+ d10mr4157650edz.362.1584641965480; 
+ Thu, 19 Mar 2020 11:19:25 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1584356562-13181-1-git-send-email-mkrishn@codeaurora.org>
-References: <1584356562-13181-1-git-send-email-mkrishn@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-To: Krishna Manikandan <mkrishn@codeaurora.org>, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org
-Date: Thu, 19 Mar 2020 10:48:10 -0700
-Message-ID: <158464009041.152100.18425074316530931981@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.9
-Subject: Re: [Freedreno] [v2] arm64: dts: sc7180: modify assigned clocks for
- sc7180 target
+References: <20200319043741.3338842-1-bjorn.andersson@linaro.org>
+In-Reply-To: <20200319043741.3338842-1-bjorn.andersson@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 19 Mar 2020 11:19:15 -0700
+Message-ID: <CAF6AEGtvSZOp48hyrBUzqQLV6+twtuy6k6MLimz6fhC-dqWEVA@mail.gmail.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+Subject: Re: [Freedreno] [PATCH] drm/msm: Don't attempt to attach HDMI
+ bridge twice
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,49 +62,87 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Krishna Manikandan <mkrishn@codeaurora.org>, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
- kalyan_t@codeaurora.org, hoegsberg@chromium.org
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Subject could be "sc7180: update DPU assigned clocks"
+On Wed, Mar 18, 2020 at 9:39 PM Bjorn Andersson
+<bjorn.andersson@linaro.org> wrote:
+>
+> With the introduction of '3ef2f119bd3e ("drm/msm: Use
+> drm_attach_bridge() to attach a bridge to an encoder")' the HDMI bridge
+> is attached both in msm_hdmi_bridge_init() and later in
+> msm_hdmi_modeset_init().
+>
+> The second attempt fails as the bridge is already attached to the
+> encoder and the whole process is aborted.
+>
+> So instead make msm_hdmi_bridge_init() just initialize the hdmi_bridge
+> object and let msm_hdmi_modeset_init() attach it later.
+>
+> Fixes: 3ef2f119bd3e ("drm/msm: Use drm_attach_bridge() to attach a bridge to an encoder")
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 
-Quoting Krishna Manikandan (2020-03-16 04:02:42)
-> Add DISP_CC_MDSS_ROT_CLK and DISP_CC_MDSS_AHB_CLK
-> in the assigned clocks list for sc7180 target.
+Thanks, I think this should also be solved by:
 
-Why?
+https://patchwork.freedesktop.org/patch/357331/?series=74611&rev=1
 
-> 
-> Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
-
-Does this need a Fixes: tag?
+BR,
+-R
 
 > ---
->  arch/arm64/boot/dts/qcom/sc7180.dtsi | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> index 998f101..e3b60f1 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> @@ -1544,8 +1544,12 @@
->                                 clock-names = "iface", "rot", "lut", "core",
->                                               "vsync";
->                                 assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>,
-> -                                                 <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
-> +                                                 <&dispcc DISP_CC_MDSS_VSYNC_CLK>,
-> +                                                 <&dispcc DISP_CC_MDSS_ROT_CLK>,
-> +                                                 <&dispcc DISP_CC_MDSS_AHB_CLK>;
->                                 assigned-clock-rates = <300000000>,
-> +                                                      <19200000>,
-> +                                                      <19200000>,
->                                                        <19200000>;
->  
->                                 interrupt-parent = <&mdss>;
+>  drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 19 +++----------------
+>  1 file changed, 3 insertions(+), 16 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+> index 6e380db9287b..0e103ee1b730 100644
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+> @@ -271,31 +271,18 @@ static const struct drm_bridge_funcs msm_hdmi_bridge_funcs = {
+>  /* initialize bridge */
+>  struct drm_bridge *msm_hdmi_bridge_init(struct hdmi *hdmi)
+>  {
+> -       struct drm_bridge *bridge = NULL;
+>         struct hdmi_bridge *hdmi_bridge;
+> -       int ret;
+> +       struct drm_bridge *bridge;
+>
+>         hdmi_bridge = devm_kzalloc(hdmi->dev->dev,
+>                         sizeof(*hdmi_bridge), GFP_KERNEL);
+> -       if (!hdmi_bridge) {
+> -               ret = -ENOMEM;
+> -               goto fail;
+> -       }
+> +       if (!hdmi_bridge)
+> +               return ERR_PTR(-ENOMEM);
+>
+>         hdmi_bridge->hdmi = hdmi;
+>
+>         bridge = &hdmi_bridge->base;
+>         bridge->funcs = &msm_hdmi_bridge_funcs;
+>
+> -       ret = drm_bridge_attach(hdmi->encoder, bridge, NULL, 0);
+> -       if (ret)
+> -               goto fail;
+> -
+>         return bridge;
+> -
+> -fail:
+> -       if (bridge)
+> -               msm_hdmi_bridge_destroy(bridge);
+> -
+> -       return ERR_PTR(ret);
+>  }
+> --
+> 2.24.0
+>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
