@@ -2,32 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43B8E18CE78
-	for <lists+freedreno@lfdr.de>; Fri, 20 Mar 2020 14:11:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBF5118D58A
+	for <lists+freedreno@lfdr.de>; Fri, 20 Mar 2020 18:17:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC04189DB2;
-	Fri, 20 Mar 2020 13:11:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FE746E1B6;
+	Fri, 20 Mar 2020 17:17:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-blr-02.qualcomm.com (alexa-out-blr-02.qualcomm.com
- [103.229.18.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DDEA89DB2;
- Fri, 20 Mar 2020 13:11:28 +0000 (UTC)
-Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
- by alexa-out-blr-02.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 20 Mar 2020 18:41:26 +0530
-Received: from mkrishn-linux.qualcomm.com ([10.204.66.35])
- by ironmsg02-blr.qualcomm.com with ESMTP; 20 Mar 2020 18:41:07 +0530
-Received: by mkrishn-linux.qualcomm.com (Postfix, from userid 438394)
- id C1C1A4509; Fri, 20 Mar 2020 18:41:06 +0530 (IST)
-From: Krishna Manikandan <mkrishn@codeaurora.org>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Date: Fri, 20 Mar 2020 18:41:04 +0530
-Message-Id: <1584709864-5587-1-git-send-email-mkrishn@codeaurora.org>
-X-Mailer: git-send-email 1.9.1
-Subject: [Freedreno] [v3] arm64: dts: sc7180: modify assigned clocks for
- sc7180 target
+Received: from mail-il1-f193.google.com (mail-il1-f193.google.com
+ [209.85.166.193])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F8586E0CE;
+ Fri, 20 Mar 2020 17:17:09 +0000 (UTC)
+Received: by mail-il1-f193.google.com with SMTP id m9so6270419ilq.12;
+ Fri, 20 Mar 2020 10:17:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=9OK3///UPiMOnkmWOFd8fgSlK68ma0DB6jw3LiUD5r8=;
+ b=E6KuG3uKQxOr8/TAAxUjeV7Y4SekJb5A/hE+kp0XmXWQ40HoBj/xOJJPpqvxIpMy5G
+ Rc0LKBqp3pPOpqf9iMSUVFJXIygzTOPlR4dvq3CgetiliSXfqOWY1NEDDG+HhE5jVRZN
+ ItijOlKsA2ywclRenTIkmiu6PJcwNwweYbUkPtY5nGzGoZGc+AzHZVp4BfTjtg3Xg9bK
+ f5KWm968AomfKRJqsoG2+9Pv4jL1lSdB2kW1lX2YwPWU+W3wigvK0hL5mFAOTL8iak7I
+ MjGI1nkSRmAjkMeLU5BsHI/mmIYZ7sV5Jr6eUEagT4vxjR3nxn8VAsUm0dX5yhYB6Z6u
+ cbwQ==
+X-Gm-Message-State: ANhLgQ0fcBJlrQd8eON9GZNxLoB5CVcRKV4EpfJs2fDHeSapp2hg9dlm
+ PWAAa7mw9DafITP/t43W2g==
+X-Google-Smtp-Source: ADFU+vvZUodp/Fin0OQjreZzAxRNuiORq055kbbShVYM1dF8DDhPkidm1KJGDzgmqULC2WS38SU3/A==
+X-Received: by 2002:a92:608:: with SMTP id x8mr8994332ilg.120.1584724628885;
+ Fri, 20 Mar 2020 10:17:08 -0700 (PDT)
+Received: from rob-hp-laptop ([64.188.179.250])
+ by smtp.gmail.com with ESMTPSA id r9sm1933289ioa.44.2020.03.20.10.17.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 20 Mar 2020 10:17:08 -0700 (PDT)
+Received: (nullmailer pid 15045 invoked by uid 1000);
+ Fri, 20 Mar 2020 17:17:06 -0000
+Date: Fri, 20 Mar 2020 11:17:06 -0600
+From: Rob Herring <robh@kernel.org>
+To: Harigovindan P <harigovi@codeaurora.org>
+Message-ID: <20200320171706.GA15934@bogus>
+References: <20200320054409.32509-1-harigovi@codeaurora.org>
+ <20200320054409.32509-2-harigovi@codeaurora.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20200320054409.32509-2-harigovi@codeaurora.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Freedreno] [PATCH v8 1/2] dt-bindings: display: add visionox
+ rm69299 panel variant
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,50 +61,142 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Krishna Manikandan <mkrishn@codeaurora.org>, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
- kalyan_t@codeaurora.org, hoegsberg@chromium.org
-MIME-Version: 1.0
+Cc: sean@poorly.run, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, robdclark@gmail.com, seanpaul@chromium.org,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add DISP_CC_MDSS_ROT_CLK and DISP_CC_MDSS_AHB_CLK
-in the assigned clocks list as these are display
-specific clocks and needs to be initialized from
-the client side. Adding the default rate of
-19.2 mhz for these clocks for sc7180 target.
+On Fri, Mar 20, 2020 at 11:14:08AM +0530, Harigovindan P wrote:
+> Add bindings for visionox rm69299 panel.
+> 
+> Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
+> ---
+> 
+> Changes in v2:
+>     - Removed unwanted properties from description.
+>     - Creating source files without execute permissions(Rob Herring).
+> Changes in v3:
+>     - Changing txt file into yaml
+> Changes in v4:
+>     - Updating license identifier.
+>     - Moving yaml file inside panel directory.
+>     - Removing pinctrl entries.
+>     - Adding documentation for reset-gpios.
+> Changes in v5:
+>     - No changes. Updated 2/2 Patch.
+> Changes in v6:
+>     - Removing patternProperties.
+>     - Added " |" after description.
+>     - Setting port and reset-gpios to true.
+>     - Removing @ae94000 for dsi node.
+> Changes in v7:
+>     - Added reg property.
+> Changes in v8:
+>     - Rearranged additionalProperties.
 
-Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
+Still not right...
 
-Changes in v3:
-	- Change in commit message
----
- arch/arm64/boot/dts/qcom/sc7180.dtsi | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+>     - Dropping improper reg property.
+> 
+>  .../display/panel/visionox,rm69299.yaml       | 73 +++++++++++++++++++
+>  1 file changed, 73 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/panel/visionox,rm69299.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/display/panel/visionox,rm69299.yaml b/Documentation/devicetree/bindings/display/panel/visionox,rm69299.yaml
+> new file mode 100644
+> index 000000000000..5fd277602a66
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/panel/visionox,rm69299.yaml
+> @@ -0,0 +1,73 @@
+> +# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/panel/visionox,rm69299.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Visionox model RM69299 Panels Device Tree Bindings.
+> +
+> +maintainers:
+> + - Harigovindan P <harigovi@codeaurora.org>
+> +
+> +description: |
+> + This binding is for display panels using a Visionox RM692999 panel.
+> +
+> +allOf:
+> + - $ref: panel-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: visionox,rm69299-1080p-display
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  vdda-supply:
+> +    description: |
+> +      Phandle of the regulator that provides the vdda supply voltage.
+> +
+> +  vdd3p3-supply:
+> +    description: |
+> +      Phandle of the regulator that provides the vdd3p3 supply voltage.
+> +
+> +  ports:
+> +    type: object
+> +    description: |
+> +      A node containing DSI input & output port nodes with endpoint
+> +      definitions as documented in
+> +      Documentation/devicetree/bindings/media/video-interfaces.txt
+> +      Documentation/devicetree/bindings/graph.txt
+> +      properties:
+> +        port: true
 
-diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-index 998f101..e3b60f1 100644
---- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-@@ -1544,8 +1544,12 @@
- 				clock-names = "iface", "rot", "lut", "core",
- 					      "vsync";
- 				assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>,
--						  <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
-+						  <&dispcc DISP_CC_MDSS_VSYNC_CLK>,
-+						  <&dispcc DISP_CC_MDSS_ROT_CLK>,
-+						  <&dispcc DISP_CC_MDSS_AHB_CLK>;
- 				assigned-clock-rates = <300000000>,
-+						       <19200000>,
-+						       <19200000>,
- 						       <19200000>;
- 
- 				interrupt-parent = <&mdss>;
--- 
-1.9.1
+This is not taking effect because it's just description. You need to 
+indent 2 fewer spaces.
 
+'port' is not equal to 'port@0' which the example has. So fix the 
+example.
+
+And you need to add 'additionalProperties: false' here at the same level 
+as 'properties'.
+
+> +
+> +  reset-gpios: true
+> +
+> +additionalProperties: false
+> +
+> +required:
+> +  - compatible
+> +  - vdda-supply
+> +  - vdd3p3-supply
+> +  - reset-gpios
+> +
+> +examples:
+> +  - |
+> +    panel {
+> +        compatible = "visionox,rm69299-1080p-display";
+> +
+> +        vdda-supply = <&src_pp1800_l8c>;
+> +        vdd3p3-supply = <&src_pp2800_l18a>;
+> +
+> +        reset-gpios = <&pm6150l_gpio 3 0>;
+> +        ports {
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +            port@0 {
+> +                reg = <0>;
+> +                panel0_in: endpoint {
+> +                    remote-endpoint = <&dsi0_out>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +...
+> -- 
+> 2.25.1
+> 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
