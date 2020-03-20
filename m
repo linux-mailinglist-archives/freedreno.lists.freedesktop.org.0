@@ -1,54 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38DE918C474
-	for <lists+freedreno@lfdr.de>; Fri, 20 Mar 2020 02:01:35 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EBB118C5DB
+	for <lists+freedreno@lfdr.de>; Fri, 20 Mar 2020 04:36:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D644E6EAB0;
-	Fri, 20 Mar 2020 01:01:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA5816EABB;
+	Fri, 20 Mar 2020 03:36:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-f66.google.com (mail-io1-f66.google.com
- [209.85.166.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A6936E0F8;
- Fri, 20 Mar 2020 01:01:32 +0000 (UTC)
-Received: by mail-io1-f66.google.com with SMTP id q9so4373650iod.4;
- Thu, 19 Mar 2020 18:01:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=Ot6m4hY0BwqCmo0YvvIottBecwmdUoxIdqh0iIdJLaE=;
- b=Kw4c5tQUHzcd/e1ybN654QCz1VfoF9hneaQkj8iLFKRFZeSFK2HZHmvKmLJhKN89NB
- qNGP+eoq/fvcdMCYCi8EptCp26MuR0UxUYFHmA7hFVD+MolZZrE9qjoFEfk9URQnoHMN
- sqtKiXpxNBUNHZ2fWjO2hmuFlLQzQgX7vR/La9W4s+Sprgjwsj1wEDYlz+2TBiKBm96I
- 3zgIFkbLrYEq7ylhAiM7eGPq5s6r/2XeC4o09stUk9lNwfzsKakemMaACujoO0NfVL8w
- aALvHhynRqO1we16KjCQz8U+T4dkYsMTQmz2AqxkoruHzpOadrEclBn9yVCeX/RishDY
- qW4Q==
-X-Gm-Message-State: ANhLgQ3HzYX7byLwPZ30USlo1n+jQADFFl0BScqENLKVBD/LFL16MlP/
- ZsVa6Ll1ZNLEd0A/EX93AQ==
-X-Google-Smtp-Source: ADFU+vveriY9yvP9Jzlx6UROYD7yZzJxkqX2tb0ZEVFvDtSMM5LsoOiJpdoQMBneWm4Sh8Le1oz4Cg==
-X-Received: by 2002:a5e:9b09:: with SMTP id j9mr5198775iok.114.1584666091207; 
- Thu, 19 Mar 2020 18:01:31 -0700 (PDT)
-Received: from rob-hp-laptop ([64.188.179.250])
- by smtp.gmail.com with ESMTPSA id s18sm1290993ioc.0.2020.03.19.18.01.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Mar 2020 18:01:30 -0700 (PDT)
-Received: (nullmailer pid 17809 invoked by uid 1000);
- Fri, 20 Mar 2020 01:01:27 -0000
-Date: Thu, 19 Mar 2020 19:01:27 -0600
-From: Rob Herring <robh@kernel.org>
-To: Harigovindan P <harigovi@codeaurora.org>
-Message-ID: <20200320010127.GA8379@bogus>
-References: <20200316041647.27953-1-harigovi@codeaurora.org>
- <20200316041647.27953-2-harigovi@codeaurora.org>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200316041647.27953-2-harigovi@codeaurora.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH v7 1/2] dt-bindings: display: add visionox
- rm69299 panel variant
+Received: from mail27.static.mailgun.info (mail27.static.mailgun.info
+ [104.130.122.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FE856E0FF
+ for <freedreno@lists.freedesktop.org>; Fri, 20 Mar 2020 03:36:36 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1584675400; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=znBJGhFi3/HMKJ6NsPkvkKTgdVlBcafwD2Un8aWndTg=;
+ b=wX3eXeSNJhOjckI1aDEC1L4UdwskQps2pTteMaJeegi/tp2UAxnW3eJTO4aPtCwTyI/5LPH8
+ QjO7ScoayTyKkNUYIjPFkweddd0sbzGxVTDoLNwe/jnB/W9hjaF/Oqb1qK/z5ptE+FnaZ9Eq
+ HlV8FKMd/9VWys2sR+0Et1ZZ/pI=
+X-Mailgun-Sending-Ip: 104.130.122.27
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5e743a3c.7f5cc37128b8-smtp-out-n01;
+ Fri, 20 Mar 2020 03:36:28 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id B95DFC44793; Fri, 20 Mar 2020 03:36:26 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from jordan-laptop.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 1DC4CC433D2;
+ Fri, 20 Mar 2020 03:36:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 1DC4CC433D2
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=jcrouse@codeaurora.org
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: linux-arm-msm@vger.kernel.org
+Date: Thu, 19 Mar 2020 21:36:09 -0600
+Message-Id: <20200320033611.7623-1-jcrouse@codeaurora.org>
+X-Mailer: git-send-email 2.17.1
+Subject: [Freedreno] [PATCH v6 0/2] msm/gpu/a6xx: use the DMA-API for GMU
+ memory allocations
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,149 +63,68 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean@poorly.run, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, robdclark@gmail.com, seanpaul@chromium.org,
- freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ freedreno@lists.freedesktop.org, smasetty@codeaurora.org,
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Christoph Hellwig <hch@infradead.org>,
+ "Michael J. Ruhl" <michael.j.ruhl@intel.com>, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, John Stultz <john.stultz@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
+ linux-kernel@vger.kernel.org, Brian Masney <masneyb@onstation.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Mar 16, 2020 at 09:46:46AM +0530, Harigovindan P wrote:
-> Add bindings for visionox rm69299 panel.
-> 
-> Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
-> ---
-> 
-> Changes in v2:
-> 	- Removed unwanted properties from description.
-> 	- Creating source files without execute permissions(Rob Herring).
-> Changes in v3:
-> 	- Changing txt file into yaml
-> Changes in v4:
-> 	- Updating license identifier.
-> 	- Moving yaml file inside panel directory.
-> 	- Removing pinctrl entries.
-> 	- Adding documentation for reset-gpios.
-> Changes in v5:
-> 	- No changes. Updated 2/2 Patch.
-> Changes in v6:
-> 	- Removing patternProperties.
-> 	- Added " |" after description.
-> 	- Setting port and reset-gpios to true.
-> 	- Removing @ae94000 for dsi node.
-> Changes in v7:
-> 	- Added reg property.
-> 
->  .../display/panel/visionox,rm69299.yaml       | 81 +++++++++++++++++++
->  1 file changed, 81 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/panel/visionox,rm69299.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/display/panel/visionox,rm69299.yaml b/Documentation/devicetree/bindings/display/panel/visionox,rm69299.yaml
-> new file mode 100644
-> index 000000000000..6ea1a7be3787
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/panel/visionox,rm69299.yaml
-> @@ -0,0 +1,81 @@
-> +# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/panel/visionox,rm69299.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Visionox model RM69299 Panels Device Tree Bindings.
-> +
-> +maintainers:
-> + - Harigovindan P <harigovi@codeaurora.org>
-> +
-> +description: |
-> + This binding is for display panels using a Visionox RM692999 panel.
-> +
-> +allOf:
-> + - $ref: panel-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: visionox,rm69299-1080p-display
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  vdda-supply:
-> +    description: |
-> +      Phandle of the regulator that provides the vdda supply voltage.
-> +
-> +  vdd3p3-supply:
-> +    description: |
-> +      Phandle of the regulator that provides the vdd3p3 supply voltage.
-> +
-> +  ports:
-> +    type: object
-> +    description: |
-> +      A node containing DSI input & output port nodes with endpoint
-> +      definitions as documented in
-> +      Documentation/devicetree/bindings/media/video-interfaces.txt
-> +      Documentation/devicetree/bindings/graph.txt
-> +      properties:
-> +        port: true
 
-Need:
+When CONFIG_INIT_ON_ALLOC_DEFAULT_ON the GMU memory allocator runs afoul of
+cache coherency issues because it is mapped as write-combine without clearing
+the cache after it was zeroed.
 
-       additionalProperties: false
+Rather than duplicate the hacky workaround we use in the GEM allocator for the
+same reason it turns out that we don't need to have a bespoke memory allocator
+for the GMU anyway. It uses a flat, global address space and there are only
+two relatively minor allocations anyway. In short this is essentially what the
+DMA API was created for so replace a bunch of memory management code with two
+calls to allocate and free DMA memory and we're fine.
 
+In a previous version of this series I added the dma-ranges property to the
+device tree file for the GMU and updated the bindings to YAML. Rob correctly
+pointed out that we didn't need dma-ranges any more but I'm still pushing the
+YAML conversion because it is good and we'll eventually need it anyway so why
+not.
 
-> +
-> +  reset-gpios: true
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vdda-supply
-> +  - vdd3p3-supply
-> +  - reset-gpios
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    dsi {
-> +        reg = <0x0ae94000 0x400>;
+v6: Check return value of dma_set_mask_and_coherent per Christoph Hellwig
 
-Either drop 'reg' or add a unit-address.
+v5: Refresh on Brian Masney's patch that removes sram from gmu.txt [1]
 
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +        panel@0 {
-> +            compatible = "visionox,rm69299-1080p-display";
-> +            reg = <0x0ae94000 0x400>;
+v4: Use dma_alloc_wc() wrappers per Michael Ruhl.
 
-Wrong address.
+v3: Fix YAML description per RobH and remove dma-ranges and replace it with the
+correct DMA mask in the GMU device. Convert the iova type to a dma_attr_t to
+make it 32 bit friendly.
 
-> +
-> +            vdda-supply = <&src_pp1800_l8c>;
-> +            vdd3p3-supply = <&src_pp2800_l18a>;
-> +
-> +            reset-gpios = <&pm6150l_gpio 3 0>;
-> +            ports {
-> +                    #address-cells = <1>;
-> +                    #size-cells = <0>;
-> +                    port@0 {
+v2: Fix the example bindings for dma-ranges - the third item is the size
+Pass false to of_dma_configure so that it fails probe if the DMA region is not
+set up.
 
-This will fail with the above change.
+[1] https://patchwork.freedesktop.org/patch/356869/?series=74446&rev=1
 
-> +                            reg = <0>;
-> +                            panel0_in: endpoint {
-> +                                remote-endpoint = <&dsi0_out>;
-> +                            };
-> +                    };
-> +            };
-> +        };
-> +    };
-> +
-> +...
-> -- 
-> 2.25.1
-> 
+Jordan Crouse (2):
+  dt-bindings: display: msm: Convert GMU bindings to YAML
+  drm/msm/a6xx: Use the DMA API for GMU memory objects
+
+ .../devicetree/bindings/display/msm/gmu.txt   |  65 ---------
+ .../devicetree/bindings/display/msm/gmu.yaml  | 123 ++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c         | 115 ++--------------
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h         |   6 +-
+ 4 files changed, 137 insertions(+), 172 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/display/msm/gmu.txt
+ create mode 100644 Documentation/devicetree/bindings/display/msm/gmu.yaml
+
+-- 
+2.17.1
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
