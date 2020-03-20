@@ -1,59 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD46918C5E7
-	for <lists+freedreno@lfdr.de>; Fri, 20 Mar 2020 04:37:05 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C7BAF18C684
+	for <lists+freedreno@lfdr.de>; Fri, 20 Mar 2020 05:33:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 301926EABE;
-	Fri, 20 Mar 2020 03:37:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 781876EA2F;
+	Fri, 20 Mar 2020 04:33:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
- [104.130.122.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 597226EABE
- for <freedreno@lists.freedesktop.org>; Fri, 20 Mar 2020 03:36:59 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1584675422; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=bHi4Sc34QW/G95KnOpUXH1TWCOCGaj9ss3+FUT+cEOg=;
- b=jJJRva5FS27N6ZdtF7Y01trZCwtl2njU0SmirfRCpx8jkY22m7lbxM7lt6LcuyeGPU000UZs
- ZYnKgTXbFmbrZfn2Pkp5LQMxWNjVWRijXyDa1+PgXemOf/HChHKCVxjPiM+KwenRFLBdaGGQ
- r/T+OV0HQjoxOApnxH3peZwxO0o=
-X-Mailgun-Sending-Ip: 104.130.122.26
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5e743a48.7f8b4802f570-smtp-out-n01;
- Fri, 20 Mar 2020 03:36:40 -0000 (UTC)
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 49160C4478C; Fri, 20 Mar 2020 03:36:38 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from jordan-laptop.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 9BC2FC433CB;
- Fri, 20 Mar 2020 03:36:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 9BC2FC433CB
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=jcrouse@codeaurora.org
-From: Jordan Crouse <jcrouse@codeaurora.org>
-To: linux-arm-msm@vger.kernel.org
-Date: Thu, 19 Mar 2020 21:36:11 -0600
-Message-Id: <20200320033611.7623-3-jcrouse@codeaurora.org>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200320033611.7623-1-jcrouse@codeaurora.org>
-References: <20200320033611.7623-1-jcrouse@codeaurora.org>
-Subject: [Freedreno] [PATCH v6 2/2] drm/msm/a6xx: Use the DMA API for GMU
- memory objects
+Received: from mail-il1-x141.google.com (mail-il1-x141.google.com
+ [IPv6:2607:f8b0:4864:20::141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77E8C6EA2F
+ for <freedreno@lists.freedesktop.org>; Fri, 20 Mar 2020 04:33:06 +0000 (UTC)
+Received: by mail-il1-x141.google.com with SMTP id o16so1825623ilm.2
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Mar 2020 21:33:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Ro5OadTTl3oAqQ/6no0uJfVHWvcAkSf0Yfq3aWJWa6g=;
+ b=fXOUpHvBPwDbnC68taQsc1k3pAGc2pwxjBqO/zc0oYzSgAmhaulpGsGTwsbBjWIFS/
+ SOyDc1vQ9hmjGCa/uiMZubIdICOei4he1mcycDYXSsTNGnw9F/yc70+pF6njq0cF7MZW
+ fMxe5L41GdcDzxqPoVJK4W9YOnfMUpN4XXA95sVo1KDYrHU5w5FeIGfbpUjhc5/f0HDl
+ 9f0GpD/+Scynia4pKTyOuqYi+hPQw4KG3XKl5aWKab6SzNzYEpa+rkVV42c1HrVgEQBJ
+ H1eYxTubgoYzDmhbDyKVs2HOnUl9nyECytr1jkLscawh5SRjgvgvLNPfqI2G4ps3DhCo
+ 2njA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Ro5OadTTl3oAqQ/6no0uJfVHWvcAkSf0Yfq3aWJWa6g=;
+ b=RAJ5KtDqZORSSGIcFk0PB23Fn58bnTMU9fGmn9RCHqE+RZSyCZSyKqgoPCE0PvHxYo
+ IQyJtxpVkVm6bqKBHtQ5HcqjUgFfzxK2kimp9ZZNt8F+QHcZ8t03xOQfk/W9yThIP7m5
+ s8/+ttxVvdMQIK3tSel+zz1OgQ5J8D9qu5lHmn67Rpqm3SU2INZiTlp4uSiLzLocqTTk
+ AwxLYObGmZbp7sES0Df8+qfu5IDMeFGmhsQ9mVYLkGRJ+qM3MjNdegBcReflCebP7NLT
+ 1zJr9FKHoqj3Tmw8v7cjaRuibBnunlWvxEYk95aJo4UwStYeDzD8AxFWL3wlYKKDtfun
+ XajQ==
+X-Gm-Message-State: ANhLgQ2A6Jha5M854mHUr6Tq2sXogd97vnHH8N0cDrt7ruIBbH1fjkDu
+ /CLpsaStPxUjHKMoLfVOR6k/OFSkNOoJ2VKI2FKJBQgK
+X-Google-Smtp-Source: ADFU+vtbcC/xcbQhZMdEZ8Lc2LQUNOxiprDZuV7nqcfWnoZVxekI/Le/jXYa4uUo/aA2/Cnk3NEIJhDfMdgceFlmw+c=
+X-Received: by 2002:a92:ba01:: with SMTP id o1mr6142269ili.217.1584678785668; 
+ Thu, 19 Mar 2020 21:33:05 -0700 (PDT)
+MIME-Version: 1.0
+References: <CAGWqDJ7AccvoxjKfQJ3GytJ-+u56Bk3rEn0sSYv-zCuBe1brAg@mail.gmail.com>
+ <CAL_JsqLz-0myc-PSSaCQWDFXQx+=X9nBSXWsJaGCVqTFn0d5kw@mail.gmail.com>
+ <CAGWqDJ4yA4ikz5MwQQwW8CAvE_dt16iuvN6cKRL2DdAuw8QWww@mail.gmail.com>
+ <CAL_JsqLU4kEmRnXhQ5+gP-ZisS2Za+s6mNFg4RnMdpDtDRQB3g@mail.gmail.com>
+ <CAGWqDJ5O2Lw-=5gHMja0SWVG1ttc_+7ieo-aEf7BRq+W8DGOnA@mail.gmail.com>
+In-Reply-To: <CAGWqDJ5O2Lw-=5gHMja0SWVG1ttc_+7ieo-aEf7BRq+W8DGOnA@mail.gmail.com>
+From: Vinay Simha B N <simhavcs@gmail.com>
+Date: Fri, 20 Mar 2020 10:02:54 +0530
+Message-ID: <CAGWqDJ6MyLVVqfZvO4VY5NQ9ESz8vL1BE7j_pHrpe4X_LLwMJQ@mail.gmail.com>
+To: Rob Herring <robh@kernel.org>
+Subject: Re: [Freedreno] graph connection to node is not bidirectional
+ kernel-5.6.0-rc6
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,247 +65,93 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
- smasetty@codeaurora.org, Douglas Anderson <dianders@chromium.org>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Christoph Hellwig <hch@infradead.org>,
- "Michael J. Ruhl" <michael.j.ruhl@intel.com>, Rob Clark <robdclark@gmail.com>,
- John Stultz <john.stultz@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
-MIME-Version: 1.0
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <a.hajda@samsung.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The GMU has very few memory allocations and uses a flat memory space so
-there is no good reason to go out of our way to bypass the DMA APIs which
-were basically designed for this exact scenario.
+rob,
 
-v7: Check return value of dma_set_mask_and_coherent
-v4: Use dma_alloc_wc()
-v3: Set the dma mask correctly and use dma_addr_t for the iova type
-v2: Pass force_dma false to of_dma_configure to require that the DMA
-region be set up and return error from of_dma_configure to fail probe.
+issue got resolved. the problem was end node of the panel had the label.
 
-Reviewed-by: Michael J. Ruhl <michael.j.ruhl@intel.com>
-Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
----
+- panel2: eppendorf {
++ lvds-out {
 
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 115 +++-----------------------
- drivers/gpu/drm/msm/adreno/a6xx_gmu.h |   6 +-
- 2 files changed, 14 insertions(+), 107 deletions(-)
+https://github.com/vinaysimhabn/kernel-msm/commit/a7bf9ccd0b61cb355fe7fa768e65b6f04cfa686f
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 748cd379065f..c4e71abbdd53 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -2,6 +2,7 @@
- /* Copyright (c) 2017-2019 The Linux Foundation. All rights reserved. */
- 
- #include <linux/clk.h>
-+#include <linux/dma-mapping.h>
- #include <linux/interconnect.h>
- #include <linux/pm_domain.h>
- #include <linux/pm_opp.h>
-@@ -920,21 +921,10 @@ int a6xx_gmu_stop(struct a6xx_gpu *a6xx_gpu)
- 
- static void a6xx_gmu_memory_free(struct a6xx_gmu *gmu, struct a6xx_gmu_bo *bo)
- {
--	int count, i;
--	u64 iova;
--
- 	if (IS_ERR_OR_NULL(bo))
- 		return;
- 
--	count = bo->size >> PAGE_SHIFT;
--	iova = bo->iova;
--
--	for (i = 0; i < count; i++, iova += PAGE_SIZE) {
--		iommu_unmap(gmu->domain, iova, PAGE_SIZE);
--		__free_pages(bo->pages[i], 0);
--	}
--
--	kfree(bo->pages);
-+	dma_free_wc(gmu->dev, bo->size, bo->virt, bo->iova);
- 	kfree(bo);
- }
- 
-@@ -942,7 +932,6 @@ static struct a6xx_gmu_bo *a6xx_gmu_memory_alloc(struct a6xx_gmu *gmu,
- 		size_t size)
- {
- 	struct a6xx_gmu_bo *bo;
--	int ret, count, i;
- 
- 	bo = kzalloc(sizeof(*bo), GFP_KERNEL);
- 	if (!bo)
-@@ -950,86 +939,14 @@ static struct a6xx_gmu_bo *a6xx_gmu_memory_alloc(struct a6xx_gmu *gmu,
- 
- 	bo->size = PAGE_ALIGN(size);
- 
--	count = bo->size >> PAGE_SHIFT;
-+	bo->virt = dma_alloc_wc(gmu->dev, bo->size, &bo->iova, GFP_KERNEL);
- 
--	bo->pages = kcalloc(count, sizeof(struct page *), GFP_KERNEL);
--	if (!bo->pages) {
-+	if (!bo->virt) {
- 		kfree(bo);
- 		return ERR_PTR(-ENOMEM);
- 	}
- 
--	for (i = 0; i < count; i++) {
--		bo->pages[i] = alloc_page(GFP_KERNEL);
--		if (!bo->pages[i])
--			goto err;
--	}
--
--	bo->iova = gmu->uncached_iova_base;
--
--	for (i = 0; i < count; i++) {
--		ret = iommu_map(gmu->domain,
--			bo->iova + (PAGE_SIZE * i),
--			page_to_phys(bo->pages[i]), PAGE_SIZE,
--			IOMMU_READ | IOMMU_WRITE);
--
--		if (ret) {
--			DRM_DEV_ERROR(gmu->dev, "Unable to map GMU buffer object\n");
--
--			for (i = i - 1 ; i >= 0; i--)
--				iommu_unmap(gmu->domain,
--					bo->iova + (PAGE_SIZE * i),
--					PAGE_SIZE);
--
--			goto err;
--		}
--	}
--
--	bo->virt = vmap(bo->pages, count, VM_IOREMAP,
--		pgprot_writecombine(PAGE_KERNEL));
--	if (!bo->virt)
--		goto err;
--
--	/* Align future IOVA addresses on 1MB boundaries */
--	gmu->uncached_iova_base += ALIGN(size, SZ_1M);
--
- 	return bo;
--
--err:
--	for (i = 0; i < count; i++) {
--		if (bo->pages[i])
--			__free_pages(bo->pages[i], 0);
--	}
--
--	kfree(bo->pages);
--	kfree(bo);
--
--	return ERR_PTR(-ENOMEM);
--}
--
--static int a6xx_gmu_memory_probe(struct a6xx_gmu *gmu)
--{
--	int ret;
--
--	/*
--	 * The GMU address space is hardcoded to treat the range
--	 * 0x60000000 - 0x80000000 as un-cached memory. All buffers shared
--	 * between the GMU and the CPU will live in this space
--	 */
--	gmu->uncached_iova_base = 0x60000000;
--
--
--	gmu->domain = iommu_domain_alloc(&platform_bus_type);
--	if (!gmu->domain)
--		return -ENODEV;
--
--	ret = iommu_attach_device(gmu->domain, gmu->dev);
--
--	if (ret) {
--		iommu_domain_free(gmu->domain);
--		gmu->domain = NULL;
--	}
--
--	return ret;
- }
- 
- /* Return the 'arc-level' for the given frequency */
-@@ -1289,10 +1206,6 @@ void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu)
- 
- 	a6xx_gmu_memory_free(gmu, gmu->hfi);
- 
--	iommu_detach_device(gmu->domain, gmu->dev);
--
--	iommu_domain_free(gmu->domain);
--
- 	free_irq(gmu->gmu_irq, gmu);
- 	free_irq(gmu->hfi_irq, gmu);
- 
-@@ -1313,7 +1226,15 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
- 
- 	gmu->dev = &pdev->dev;
- 
--	of_dma_configure(gmu->dev, node, true);
-+	/* Pass force_dma false to require the DT to set the dma region */
-+	ret = of_dma_configure(gmu->dev, node, false);
-+	if (ret)
-+		return ret;
-+
-+	/* Set the mask after the of_dma_configure() */
-+	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(31));
-+	if (ret)
-+		return ret;
- 
- 	/* Fow now, don't do anything fancy until we get our feet under us */
- 	gmu->idle_level = GMU_IDLE_STATE_ACTIVE;
-@@ -1325,11 +1246,6 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
- 	if (ret)
- 		goto err_put_device;
- 
--	/* Set up the IOMMU context bank */
--	ret = a6xx_gmu_memory_probe(gmu);
--	if (ret)
--		goto err_put_device;
--
- 	/* Allocate memory for for the HFI queues */
- 	gmu->hfi = a6xx_gmu_memory_alloc(gmu, SZ_16K);
- 	if (IS_ERR(gmu->hfi))
-@@ -1375,11 +1291,6 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
- err_memory:
- 	a6xx_gmu_memory_free(gmu, gmu->hfi);
- 
--	if (gmu->domain) {
--		iommu_detach_device(gmu->domain, gmu->dev);
--
--		iommu_domain_free(gmu->domain);
--	}
- 	ret = -ENODEV;
- 
- err_put_device:
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-index 2af91ed7ed0c..4af65a36d5ca 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-@@ -12,8 +12,7 @@
- struct a6xx_gmu_bo {
- 	void *virt;
- 	size_t size;
--	u64 iova;
--	struct page **pages;
-+	dma_addr_t iova;
- };
- 
- /*
-@@ -49,9 +48,6 @@ struct a6xx_gmu {
- 	int hfi_irq;
- 	int gmu_irq;
- 
--	struct iommu_domain *domain;
--	u64 uncached_iova_base;
--
- 	struct device *gxpd;
- 
- 	int idle_level;
+thanks.
+
+On Thu, Mar 19, 2020 at 10:46 PM Vinay Simha B N <simhavcs@gmail.com> wrote:
+>
+> On Thu, Mar 19, 2020 at 10:36 PM Rob Herring <robh@kernel.org> wrote:
+> >
+> > On Thu, Mar 19, 2020 at 9:56 AM Vinay Simha B N <simhavcs@gmail.com> wrote:
+> > >
+> > > On Thu, Mar 19, 2020 at 9:16 PM Rob Herring <robh@kernel.org> wrote:
+> > > >
+> > > > On Thu, Mar 19, 2020 at 1:31 AM Vinay Simha B N <simhavcs@gmail.com> wrote:
+> > > > >
+> > > > > hi,
+> > > > >
+> > > > > I am getting the endpoint' is not bidirectional(d2l_in, dsi0_out)
+> > > > > warning in compilation, built boot image works on qcom apq8016-ifc6309
+> > > > > board with the dsi->bridge->lvds panel.
+> > > > > Because of this warning i cannot create a .yaml documentation examples.
+> > > > > Please suggest.
+> > > > >
+> > > > > tc_bridge: bridge@f {
+> > > >
+> > > >              ^^^^^^^^
+> > > >
+> > > > > arch/arm64/boot/dts/qcom/apq8016-sbc.dtsi:253.28-255.9: Warning
+> > > > > (graph_endpoint): /soc/i2c@78b8000/bridge@39/ports/port@0/endpoint:
+> > > >
+> > > >                                      ^^^^^^^^^
+> > > >
+> > > > Looks like you have 2 different bridges.
+> > > >
+> > > i had two bridges, if we disable one bridge also we get the warning
+> > >
+> > > arch/arm64/boot/dts/qcom/apq8016-sbc.dtsi:333.53-335.35: Warning
+> > > (graph_endpoint): /soc/auo,b101xtn01/port/endpoint: graph connection
+> > > to node '/soc/i2c@78b8000/bridge@f/ports/port@1/endpoint' is not
+> > > bidirectional
+> >
+> > You can't just disable nodes. To switch which bridge is enabled, you
+> > already have to modify remote-endpoint at the other end. So the
+> > requirement is you have to modify both 'remote-endpoint' properties
+> > (or really all 3).
+> >
+> > The other options is if you want both connections described, then you
+> > need 2 'endpoint' nodes to connect both bridges.
+> even after removing one bridge(dsi2hdmi) in the device tree, currently
+> using only one bridge(dsi2lvds), i do still get the compilation warning.
+>
+>  graph connection
+>  to node '/soc/i2c@78b8000/bridge@f/ports/port@1/endpoint' is not
+> bidirectional
+>
+> This compilation warning does not cause any problem with the boot image created
+> dsi -> dsi2lvds bridge-> lvds panel . Able to get the display properly.
+>
+> https://github.com/vinaysimhabn/kernel-msm/blob/08e4821646b5c128559c506a5777d8782f1ff79e/Documentation/devicetree/bindings/display/bridge/toshiba%2Ctc358775.yaml
+>
+> But while creating documentation yaml, it is not allowing to add this examples.
+> --
+> regards,
+> vinaysimha
+
+
+
 -- 
-2.17.1
+regards,
+vinaysimha
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
