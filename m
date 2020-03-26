@@ -1,58 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BFE6193195
-	for <lists+freedreno@lfdr.de>; Wed, 25 Mar 2020 21:04:13 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 07D681946EF
+	for <lists+freedreno@lfdr.de>; Thu, 26 Mar 2020 20:02:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB0C96E1E0;
-	Wed, 25 Mar 2020 20:04:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A14496E90F;
+	Thu, 26 Mar 2020 19:02:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
- [104.130.122.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C4206E1F8
- for <freedreno@lists.freedesktop.org>; Wed, 25 Mar 2020 20:04:07 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1585166650; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=3D6rKVomxFnkyZEpJNCASMp1XYz2rOhrRpdYgZA8Qqg=;
- b=TS4B7mDvYjrmYK7Yn1WfWjaKbmuzj7bONKMoIC/0gp/Nzq/TaRNghG3tu6swVqplY9MKC5+P
- Pin5wL5tt6ZwzEF1UbaUH70si/4PSmG+4dzBVRWgl4md4XtgPv5HNTkC8gEbOuAiJVjsqy8n
- jfRvB9QnUeUUw/6TuABZqQu9Mec=
-X-Mailgun-Sending-Ip: 104.130.122.26
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5e7bb92b.7f3a67c4e730-smtp-out-n03;
- Wed, 25 Mar 2020 20:03:55 -0000 (UTC)
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 8D3E1C433F2; Wed, 25 Mar 2020 20:03:54 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: kalyan_t)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id B0F70C433D2;
- Wed, 25 Mar 2020 20:03:53 +0000 (UTC)
+Received: from mail-io1-f67.google.com (mail-io1-f67.google.com
+ [209.85.166.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A73A56E90F;
+ Thu, 26 Mar 2020 19:02:55 +0000 (UTC)
+Received: by mail-io1-f67.google.com with SMTP id y24so7232908ioa.8;
+ Thu, 26 Mar 2020 12:02:55 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=913nXdxioKFyBXx/HO1CiaF3q6eac3NnTWagXaXe9gM=;
+ b=QxVD2otBlXH39dEa8t/xho182EAy9209Nuc4JN9dpYvPCNO2/UeGmJWUxeGJSJ7p1K
+ lDZl0sW/xvL1zOtJpn0BDxoPCEFidspJLO0+2KDtNXgP0CX2CV5ji8kcT+qm2FR7DWzD
+ FGl/j6fj82tH6boUMYM0dI4C8Z+GVu5EIVB21RGfSBj24P+I8EFPF+lZQVXViGDlMmhh
+ QUqABdVz3Yx2ql5whwAeJ3vj4G/Vv5LWiVMx7fGk/vzyuEpJk1oLt0eOkKwYj44C5L3c
+ Y1TK1EXjLzhO0w3L7mJ5Nsz7jfClNIrJBhHzZ7MSKyxG0Qf1dVPZmtqHWQt3XtpZg1d2
+ QTUA==
+X-Gm-Message-State: ANhLgQ1uTVoXOWdaH8xujpr1QXBgv4TsNPCS/okqre0z9lk2V9QvIOF5
+ vXkky6CESci+l9V53Of85A==
+X-Google-Smtp-Source: ADFU+vtcHtx/pWLZ5r+4OrJlDvMhktQM3VWwN1mtU/cnSTzgT5KMfVdBgp6bEq0yg6SjHaY9I5/E8g==
+X-Received: by 2002:a6b:e316:: with SMTP id u22mr9211014ioc.1.1585249374945;
+ Thu, 26 Mar 2020 12:02:54 -0700 (PDT)
+Received: from rob-hp-laptop ([64.188.179.250])
+ by smtp.gmail.com with ESMTPSA id c88sm1079423ill.15.2020.03.26.12.02.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Mar 2020 12:02:54 -0700 (PDT)
+Received: (nullmailer pid 15089 invoked by uid 1000);
+ Thu, 26 Mar 2020 19:02:53 -0000
+Date: Thu, 26 Mar 2020 13:02:53 -0600
+From: Rob Herring <robh@kernel.org>
+To: Harigovindan P <harigovi@codeaurora.org>
+Message-ID: <20200326190253.GA5029@bogus>
+References: <20200323050316.32108-1-harigovi@codeaurora.org>
+ <20200323050316.32108-2-harigovi@codeaurora.org>
 MIME-Version: 1.0
-Date: Thu, 26 Mar 2020 01:33:53 +0530
-From: kalyan_t@codeaurora.org
-To: Doug Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>
-In-Reply-To: <CAD=FV=VxeCUEEFi9T0Jand3EWkaQTLnQkT3v5yjyjLi4yDeQ-w@mail.gmail.com>
-References: <1584944027-1730-1-git-send-email-kalyan_t@codeaurora.org>
- <CAD=FV=VX+Lj=NeZnYxDv9gLYUiwUO6brwvDSL8dbs1MTF4ieuA@mail.gmail.com>
- <CAF6AEGs5saoU3FeO++S+YD=Js499HB2CjK8neYCXAZmCjgy2nQ@mail.gmail.com>
- <CAD=FV=VxeCUEEFi9T0Jand3EWkaQTLnQkT3v5yjyjLi4yDeQ-w@mail.gmail.com>
-Message-ID: <114130f68c494f83303c51157e2c5bfa@codeaurora.org>
-X-Sender: kalyan_t@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: ensure device suspend happens
- during PM sleep
+Content-Disposition: inline
+In-Reply-To: <20200323050316.32108-2-harigovi@codeaurora.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Freedreno] [PATCH v9 1/2] dt-bindings: display: add visionox
+ rm69299 panel variant
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,114 +61,161 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED
- DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, mkrishn@codeaurora.org,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, travitej@codeaurora.org,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, nganji@codeaurora.org,
- Sean Paul <seanpaul@chromium.org>, "Kristian
- H. Kristensen" <hoegsberg@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Jeykumar Sankaran <jsanka@codeaurora.org>
+Cc: sean@poorly.run, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, robdclark@gmail.com, seanpaul@chromium.org,
+ freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-03-25 21:20, Doug Anderson wrote:
-> Hi,
+On Mon, Mar 23, 2020 at 10:33:15AM +0530, Harigovindan P wrote:
+> Add bindings for visionox rm69299 panel.
 > 
-> On Wed, Mar 25, 2020 at 8:40 AM Rob Clark <robdclark@gmail.com> wrote:
->> 
->> On Tue, Mar 24, 2020 at 7:35 AM Doug Anderson <dianders@chromium.org> 
->> wrote:
->> >
->> > Hi,
->> >
->> > On Sun, Mar 22, 2020 at 11:14 PM Kalyan Thota <kalyan_t@codeaurora.org> wrote:
->> > >
->> > > "The PM core always increments the runtime usage counter
->> > > before calling the ->suspend() callback and decrements it
->> > > after calling the ->resume() callback"
->> > >
->> > > DPU and DSI are managed as runtime devices. When
->> > > suspend is triggered, PM core adds a refcount on all the
->> > > devices and calls device suspend, since usage count is
->> > > already incremented, runtime suspend was not getting called
->> > > and it kept the clocks on which resulted in target not
->> > > entering into XO shutdown.
->> > >
->> > > Add changes to manage runtime devices during pm sleep.
->> > >
->> > > Changes in v1:
->> > >  - Remove unnecessary checks in the function
->> > >      _dpu_kms_disable_dpu (Rob Clark).
->> >
->> > I'm wondering what happened with my feedback on v1, AKA:
->> >
->> > https://lore.kernel.org/r/CAD=FV=VxzEV40g+ieuEN+7o=34+wM8MHO8o7T5zA1Yosx7SVWg@mail.gmail.com
->> >
->> > Maybe you didn't see it?  ...or if you or Rob think I'm way off base
->> > (always possible) then please tell me so.
->> >
--- I didn't notice your comments earlier. Apologies !!
-
->> 
->> At least w/ the current patch, disable_dpu should not be called for
->> screen-off (although I'd hope if all the screens are off the device
->> would suspend).
+> Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
+> ---
 > 
-> OK, that's good.
-
--- Rob has answered it, with current change disable_dpu will only be 
-called during pm_suspend.
+> Changes in v2:
+>     - Removed unwanted properties from description.
+>     - Creating source files without execute permissions(Rob Herring).
+> Changes in v3:
+>     - Changing txt file into yaml
+> Changes in v4:
+>     - Updating license identifier.
+>     - Moving yaml file inside panel directory.
+>     - Removing pinctrl entries.
+>     - Adding documentation for reset-gpios.
+> Changes in v5:
+>     - No changes. Updated 2/2 Patch.
+> Changes in v6:
+>     - Removing patternProperties.
+>     - Added " |" after description.
+>     - Setting port and reset-gpios to true.
+>     - Removing @ae94000 for dsi node.
+> Changes in v7:
+>     - Added reg property.
+> Changes in v8:
+>     - Rearranged additionalProperties.
+>     - Dropping improper reg property.
+> Changes in v9:
+>     - Adding additionalProperties at the same level as
+>       'properties'
+>     - Adding properties for "ports" which includes:
+>       -> #address-cells
+>       -> #size-cells
+>       -> port@0
 > 
->> But I won't claim to be a pm expert.. so not really
->> sure if this is the best approach or not.  I don't think our
->> arrangement of sub-devices under a parent is completely abnormal, so
->> it does feel like there should be a simpler solution..
-> 
-> I think the other arguments about asymmetry are still valid and I've
-> fixed bugs around this type of thing in the past.  For instance, see
-> commit f7ccbed656f7 ("drm/rockchip: Suspend DP late").
-> 
+>  .../display/panel/visionox,rm69299.yaml       | 82 +++++++++++++++++++
+>  1 file changed, 82 insertions(+)
+>  create mode 100755 Documentation/devicetree/bindings/display/panel/visionox,rm69299.yaml
 
-* What happens if suspend is aborted partway through (by getting a
-wakeup even as you're suspending, for instance)?  In such a case some
-of the normal suspend calls will be called but "suspend_late" won't be
-called.  Does that mess up your counting?
-
--- I understand this concern, i'll explore a bit more on how to handle 
-"failed to suspend","early awake"
-cases (to restore the usage_count) since suspend_late wont be called.
-
-*From your description, it sure seems like this part of the
-runtime_pm.rst doc is relevant to you:
-
-Did I misunderstand and this isn't what you want?  Looking a bit
-further, maybe the right thing is to use the "SMART_SUSPEND" flag?
-
--- if you notice in the device_prepare 
-(https://elixir.bootlin.com/linux/latest/source/drivers/base/power/main.c#L1913)
-there is a pm_runtime_get_noresume at L1931, which will increment the 
-usagecount before triggering client prepare call, hence implementing 
-prepare wont fetch us much.
-
-This appears to be more for the cases when device is runtime suspended 
-and suspend followed later
-"one example usecase that i can think of, is screen timeout after that 
-suspend is triggered"
-
-currently the problem i am looking at is that
-	PM Core does +1 in device prepare
-		DPU driver does -1 in suspend
-		DPU driver does +1 in suspend late  ( look for right place )
-	PM core does -1 in device complete
-
-i'll get back after exploring a bit.
+Wrong file mode.
 
 > 
-> -Doug
+> diff --git a/Documentation/devicetree/bindings/display/panel/visionox,rm69299.yaml b/Documentation/devicetree/bindings/display/panel/visionox,rm69299.yaml
+> new file mode 100755
+> index 000000000000..2dd4d9471fa8
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/panel/visionox,rm69299.yaml
+> @@ -0,0 +1,82 @@
+> +# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/panel/visionox,rm69299.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Visionox model RM69299 Panels Device Tree Bindings.
+> +
+> +maintainers:
+> + - Harigovindan P <harigovi@codeaurora.org>
+> +
+> +description: |
+> + This binding is for display panels using a Visionox RM692999 panel.
+> +
+> +allOf:
+> + - $ref: panel-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: visionox,rm69299-1080p-display
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  vdda-supply:
+> +    description: |
+> +      Phandle of the regulator that provides the vdda supply voltage.
+> +
+> +  vdd3p3-supply:
+> +    description: |
+> +      Phandle of the regulator that provides the vdd3p3 supply voltage.
+> +
+> +  ports:
+> +    type: object
+> +    description: |
+> +      A ports node with endpoint definitions as defined in
+> +      Documentation/devicetree/bindings/media/video-interfaces.txt.
+> +
+> +    properties:
+> +      "#address-cells":
+> +        const: 1
+> +
+> +      "#size-cells":
+> +        const: 0
+> +
+> +      port@0:
+
+As I said before, fix the example. You don't need 'ports' nor a unit 
+address as there is only 1 port.
+
+All you need instead of 'ports' is 'port: true' because 
+panel-common.yaml defines it.
+
+And 'port' should be required.
+
+> +        type: object
+> +        description: |
+> +          Input endpoints of the controller.
+> +
+> +  reset-gpios: true
+> +
+> +  additionalProperties: false
+
+You are defining a property called 'additionalProperties'. Remove the 
+indentation.
+
+> +
+> +required:
+> +  - compatible
+> +  - vdda-supply
+> +  - vdd3p3-supply
+> +  - reset-gpios
+> +
+> +examples:
+> +  - |
+> +    panel {
+> +        compatible = "visionox,rm69299-1080p-display";
+> +
+> +        vdda-supply = <&src_pp1800_l8c>;
+> +        vdd3p3-supply = <&src_pp2800_l18a>;
+> +
+> +        reset-gpios = <&pm6150l_gpio 3 0>;
+> +        ports {
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +            port@0 {
+> +                reg = <0>;
+> +                panel0_in: endpoint {
+> +                    remote-endpoint = <&dsi0_out>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +...
+> +
+> -- 
+> 2.25.1
+> 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
