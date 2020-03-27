@@ -1,67 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E303A195221
-	for <lists+freedreno@lfdr.de>; Fri, 27 Mar 2020 08:37:45 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 95A29195F7C
+	for <lists+freedreno@lfdr.de>; Fri, 27 Mar 2020 21:18:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E6BA6E9BC;
-	Fri, 27 Mar 2020 07:37:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1F976EA73;
+	Fri, 27 Mar 2020 20:18:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-blr-01.qualcomm.com (alexa-out-blr-01.qualcomm.com
- [103.229.18.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85DCE6E9BA;
- Fri, 27 Mar 2020 07:37:42 +0000 (UTC)
-Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
- by alexa-out-blr-01.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 27 Mar 2020 13:06:52 +0530
-Received: from harigovi-linux.qualcomm.com ([10.204.66.157])
- by ironmsg01-blr.qualcomm.com with ESMTP; 27 Mar 2020 13:06:41 +0530
-Received: by harigovi-linux.qualcomm.com (Postfix, from userid 2332695)
- id 8352D2973; Fri, 27 Mar 2020 13:06:40 +0530 (IST)
-From: Harigovindan P <harigovi@codeaurora.org>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Date: Fri, 27 Mar 2020 13:06:36 +0530
-Message-Id: <20200316041647.27953-3-harigovi@codeaurora.org>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200316041647.27953-1-harigovi@codeaurora.org>
-References: <20200316041647.27953-1-harigovi@codeaurora.org>
+Received: from mail27.static.mailgun.info (mail27.static.mailgun.info
+ [104.130.122.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67DBF6EA73
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Mar 2020 20:18:28 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1585340310; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=uAOgskxYnwiD6TaplG8K0yCf9Xpdo+8+3cZf8varXRY=;
+ b=l24zE1f39n2W0Pc041MVEGKfA+f46tVC3zXBlQTjbfQt4RSr7TvyBy9XSCNNulPkfYkKt//H
+ Jb+8Q4qjUU4YUrtveXkcGXYdA0JhQ7yrwPh6iiaJHKgRcZxDtjgks6WVVNWeRuOAJtFPompt
+ zATy9f3dWA0cCAWbRxWyQaMdXG0=
+X-Mailgun-Sending-Ip: 104.130.122.27
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5e7e5f88.7fa6fe716998-smtp-out-n04;
+ Fri, 27 Mar 2020 20:18:16 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 68FA4C44788; Fri, 27 Mar 2020 20:18:15 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: varar)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 43C23C433D2;
+ Fri, 27 Mar 2020 20:18:13 +0000 (UTC)
 MIME-Version: 1.0
-X-Patchwork-Submitter: Harigovindan P <harigovi@codeaurora.org>
-X-Patchwork-Id: 11439689
-Received: from mail.kernel.org (pdx-korg-mail-1.web.codeaurora.org
- [172.30.200.123]) by pdx-korg-patchwork-2.web.codeaurora.org (Postfix) with
- ESMTP id 3E5B06CA for <patchwork-linux-arm-msm@patchwork.kernel.org>;
- Mon, 16 Mar 2020 04:16:56 +0000 (UTC)
-Received: from vger.kernel.org (vger.kernel.org [209.132.180.67]) by
- mail.kernel.org (Postfix) with ESMTP id 136E320722 for
- <patchwork-linux-arm-msm@patchwork.kernel.org>;
- Mon, 16 Mar 2020 04:16:56 +0000 (UTC)
-Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand id
- S1728964AbgCPEQz (ORCPT <rfc822;
- patchwork-linux-arm-msm@patchwork.kernel.org>);
- Mon, 16 Mar 2020 00:16:55 -0400
-Received: from alexa-out-blr-01.qualcomm.com ([103.229.18.197]:23551 "EHLO
- alexa-out-blr-01.qualcomm.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
- with ESMTP id S1725790AbgCPEQz (ORCPT <rfc822; linux-arm-msm@vger.kernel.org>);
- Mon, 16 Mar 2020 00:16:55 -0400
-Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131]) by
- alexa-out-blr-01.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 16 Mar 2020 09:46:51 +0530
-Received: from harigovi-linux.qualcomm.com ([10.204.66.157]) by
- ironmsg02-blr.qualcomm.com with ESMTP; 16 Mar 2020 09:46:50 +0530
-Received: by harigovi-linux.qualcomm.com (Postfix, from userid 2332695) id
- EEE0C284A; Mon, 16 Mar 2020 09:46:49 +0530 (IST)
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Precedence: bulk
-X-Mailing-List: linux-arm-msm@vger.kernel.org
-Subject: [Freedreno] [PATCH v7 2/2] drm/panel: add support for rm69299
- visionox panel driver
+Date: Fri, 27 Mar 2020 13:18:13 -0700
+From: varar@codeaurora.org
+To: Stephen Boyd <swboyd@chromium.org>
+In-Reply-To: <158457890765.152100.17742965907717707149@swboyd.mtv.corp.google.com>
+References: <1583367028-19979-1-git-send-email-varar@codeaurora.org>
+ <1583367028-19979-2-git-send-email-varar@codeaurora.org>
+ <158457890765.152100.17742965907717707149@swboyd.mtv.corp.google.com>
+Message-ID: <4e2674445955bf49f552a680d8e01e46@codeaurora.org>
+X-Sender: varar@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [DPU PATCH v4 1/5] dt-bindings: msm/dp: add
+ bindings of DP/DP-PLL driver for Snapdragon
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
+Precedence: list
 List-Id: Freedreno graphics driver community testing & development
  <freedreno.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/freedreno>,
@@ -71,383 +64,538 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean@poorly.run, robdclark@gmail.com, Matthias Kaehlcke <mka@chromium.org>,
- seanpaul@chromium.org, Harigovindan P <harigovi@codeaurora.org>
-Content-Type: text/plain; charset="us-ascii"
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ abhinavk@codeaurora.org, robdclark@gmail.com, nganji@codeaurora.org,
+ seanpaul@chromium.org, dri-devel@lists.freedesktop.org, hoegsberg@google.com,
+ jsanka@codeaurora.org, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org, Chandan Uddaraju <chandanu@codeaurora.org>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add support for Visionox panel driver.
+Hi Stephen Boyd,
 
-Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
-Reviewed-by: Matthias Kaehlcke <mka@chromium.org>
----
+Thanks for reviewing the change.
+I have updated my comments inline for some comments, please check and 
+let us know your views.
+Rest of the comments are addressed, will try to post a new patchset in 
+couple of days.
 
-Changes in v2:
-	- Dropping redundant space in Kconfig(Sam Ravnborg).
-	- Changing structure for include files(Sam Ravnborg).
-	- Removing backlight related code and functions(Sam Ravnborg).
-	- Removing repeated printing of error message(Sam Ravnborg).
-	- Adding drm_connector as an argument for get_modes function.
-Changes in v3:
-	- Adding arguments for drm_panel_init to support against mainline.
-Changes in v4:
-	- Removing error messages from regulator_set_load.
-	- Removing dev struct entry.
-	- Removing checks.
-	- Dropping empty comment lines.
-Changes in v5:
-	- Removing unused struct member variables.
-	- Removing blank lines.
-	- Fixed indentation.
-	- Invoking dsi_detach and panel_remove while early exiting from probe.
-Changes in v6:
-	- Changed "35597" to "rm69299" for power_on function.
-	- Removing rm69299_config since it supports single type of panel for now.
-	- Fixed alignment.
-	- Using goto statements when regulator_set_load fails.
-Changes in v7:
-	- Added new goto statement when regulator_set_load fails.
+Thanks,
+--Vara
 
- drivers/gpu/drm/panel/Kconfig                 |   8 +
- drivers/gpu/drm/panel/Makefile                |   1 +
- .../gpu/drm/panel/panel-visionox-rm69299.c    | 295 ++++++++++++++++++
- 3 files changed, 304 insertions(+)
- create mode 100644 drivers/gpu/drm/panel/panel-visionox-rm69299.c
+On 2020-03-18 17:48, Stephen Boyd wrote:
+> Quoting Vara Reddy (2020-03-04 16:10:24)
+>> From: Chandan Uddaraju <chandanu@codeaurora.org>
+>> 
+>> Add bindings for Snapdragon DisplayPort and
+>> display-port PLL driver.
+>> 
+>> Changes in V2:
+>> Provide details about sel-gpio
+>> 
+>> Changes in V4:
+>> Provide details about max dp lanes
+>> Change the commit text
+>> 
+>> Signed-off-by: Chandan Uddaraju <chandanu@codeaurora.org>
+>> Signed-off-by: Vara Reddy <varar@codeaurora.org>
+>> ---
+>>  .../devicetree/bindings/display/msm/dp.txt         | 252 
+>> +++++++++++++++++++++
+>>  .../devicetree/bindings/display/msm/dpu.txt        |  16 +-
+>>  2 files changed, 264 insertions(+), 4 deletions(-)
+>>  create mode 100644 
+>> Documentation/devicetree/bindings/display/msm/dp.txt
+> 
+> Having this in YAML will certainly make it easier to review. Please do
+> that as Rob H has asked.
+> 
+>> 
+>> diff --git a/Documentation/devicetree/bindings/display/msm/dp.txt 
+>> b/Documentation/devicetree/bindings/display/msm/dp.txt
+>> new file mode 100644
+>> index 0000000..1a4e17f
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/display/msm/dp.txt
+>> @@ -0,0 +1,252 @@
+>> +Qualcomm Technologies, Inc.
+>> +DP is the master Display Port device which supports DP host 
+>> controllers that are compatible with VESA Display Port interface 
+>> specification.
+>> +DP Controller: Required properties:
+>> +- compatible:           Should be "qcom,dp-display".
+>> +- reg:                  Base address and length of DP hardware's 
+>> memory mapped regions.
+>> +- cell-index:           Specifies the controller instance.
+>> +- reg-names:            A list of strings that name the list of regs.
+>> +                       "dp_ahb" - DP controller memory region.
+>> +                       "dp_aux" - DP AUX memory region.
+>> +                       "dp_link" - DP link layer memory region.
+>> +                       "dp_p0" - DP pixel clock domain memory region.
+>> +                       "dp_phy" - DP PHY memory region.
+>> +                       "dp_ln_tx0" - USB3 DP PHY combo TX-0 lane 
+>> memory region.
+>> +                       "dp_ln_tx1" - USB3 DP PHY combo TX-1 lane 
+>> memory region.
+>> +                       "dp_mmss_cc" - Display Clock Control memory 
+>> region.
+>> +                       "qfprom_physical" - QFPROM Phys memory region.
+>> +                       "dp_pll" - USB3 DP combo PLL memory region.
+>> +                       "usb3_dp_com" - USB3 DP PHY combo memory 
+>> region.
+>> +                       "hdcp_physical" - DP HDCP memory region.
+> 
+> A handful of these register properties overlap with the USB PHY region.
+> I suspect the existing qcom,sc7180-qmp-usb3-phy USB PHY binding that we
+> have is wrong. It should describe both the USB part and the DP part of
+> the combo PHY. Probably the DP part can be a subnode like how the
+> superspeed PHY is a child node of the wrapper node. Then we'll have to
+> figure out how to coordinate the access to usb3_dp_com (which I presume
+> corresponds to the dp_com region in the usb3-phy binding) so that the
+> USB and DP PHY drivers can figure out how to configure the "type-c" 
+> pins
+> on the SoC to be 2 lanes DP and 2 lanes USB or 4 lanes USB or 4 lanes 
+> DP.
 
-+MODULE_LICENSE("GPL v2");
+msm usb3_dp_com region has two separate software interface to combo phy 
+used by DP and USB.
+We are trying to map DP specific address space for configuration.
+I am not sure if USB can figure out dynamically a 2 lane DP and 2 lane 
+USB case
+as i think we need to feed this information based on our hardware design 
+through dtsi.
 
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index ae44ac2ec106..7b696f304a99 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -389,6 +389,14 @@ config DRM_PANEL_TRULY_NT35597_WQXGA
- 	  Say Y here if you want to enable support for Truly NT35597 WQXGA Dual DSI
- 	  Video Mode panel
- 
-+config DRM_PANEL_VISIONOX_RM69299
-+	tristate "Visionox RM69299"
-+	depends on OF
-+	depends on DRM_MIPI_DSI
-+	help
-+	  Say Y here if you want to enable support for Visionox
-+	  RM69299  DSI Video Mode panel.
-+
- config DRM_PANEL_XINPENG_XPP055C272
- 	tristate "Xinpeng XPP055C272 panel driver"
- 	depends on OF
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index 7c4d3c581fd4..9f11d067a6b2 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -41,4 +41,5 @@ obj-$(CONFIG_DRM_PANEL_TPO_TD028TTEC1) += panel-tpo-td028ttec1.o
- obj-$(CONFIG_DRM_PANEL_TPO_TD043MTEA1) += panel-tpo-td043mtea1.o
- obj-$(CONFIG_DRM_PANEL_TPO_TPG110) += panel-tpo-tpg110.o
- obj-$(CONFIG_DRM_PANEL_TRULY_NT35597_WQXGA) += panel-truly-nt35597.o
-+obj-$(CONFIG_DRM_PANEL_VISIONOX_RM69299) += panel-visionox-rm69299.o
- obj-$(CONFIG_DRM_PANEL_XINPENG_XPP055C272) += panel-xinpeng-xpp055c272.o
-diff --git a/drivers/gpu/drm/panel/panel-visionox-rm69299.c b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
-new file mode 100644
-index 000000000000..0f877d21fdf2
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
-@@ -0,0 +1,295 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2019, The Linux Foundation. All rights reserved.
-+ */
-+
-+#include <linux/delay.h>
-+#include <linux/module.h>
-+#include <linux/of_device.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <video/mipi_display.h>
-+
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_print.h>
-+
-+struct visionox_rm69299 {
-+	struct drm_panel panel;
-+	struct regulator_bulk_data supplies[2];
-+	struct gpio_desc *reset_gpio;
-+	struct mipi_dsi_device *dsi;
-+	bool prepared;
-+	bool enabled;
-+};
-+
-+static inline struct visionox_rm69299 *panel_to_ctx(struct drm_panel *panel)
-+{
-+	return container_of(panel, struct visionox_rm69299, panel);
-+}
-+
-+static int visionox_rm69299_power_on(struct visionox_rm69299 *ctx)
-+{
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	/*
-+	 * Reset sequence of visionox panel requires the panel to be
-+	 * out of reset for 10ms, followed by being held in reset
-+	 * for 10ms and then out again
-+	 */
-+	gpiod_set_value(ctx->reset_gpio, 1);
-+	usleep_range(10000, 20000);
-+	gpiod_set_value(ctx->reset_gpio, 0);
-+	usleep_range(10000, 20000);
-+	gpiod_set_value(ctx->reset_gpio, 1);
-+	usleep_range(10000, 20000);
-+
-+	return 0;
-+}
-+
-+static int visionox_rm69299_power_off(struct visionox_rm69299 *ctx)
-+{
-+	gpiod_set_value(ctx->reset_gpio, 0);
-+
-+	return regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
-+}
-+
-+static int visionox_rm69299_unprepare(struct drm_panel *panel)
-+{
-+	struct visionox_rm69299 *ctx = panel_to_ctx(panel);
-+	int ret;
-+
-+	ctx->dsi->mode_flags = 0;
-+
-+	ret = mipi_dsi_dcs_write(ctx->dsi, MIPI_DCS_SET_DISPLAY_OFF, NULL, 0);
-+	if (ret < 0)
-+		DRM_DEV_ERROR(ctx->panel.dev,
-+			"set_display_off cmd failed ret = %d\n", ret);
-+
-+	/* 120ms delay required here as per DCS spec */
-+	msleep(120);
-+
-+	ret = mipi_dsi_dcs_write(ctx->dsi, MIPI_DCS_ENTER_SLEEP_MODE, NULL, 0);
-+	if (ret < 0) {
-+		DRM_DEV_ERROR(ctx->panel.dev,
-+			"enter_sleep cmd failed ret = %d\n", ret);
-+	}
-+
-+	ret = visionox_rm69299_power_off(ctx);
-+
-+	ctx->prepared = false;
-+	return ret;
-+}
-+
-+static int visionox_rm69299_prepare(struct drm_panel *panel)
-+{
-+	struct visionox_rm69299 *ctx = panel_to_ctx(panel);
-+	int ret;
-+
-+	if (ctx->prepared)
-+		return 0;
-+
-+	ret = visionox_rm69299_power_on(ctx);
-+	if (ret < 0)
-+		return ret;
-+
-+	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-+
-+	ret = mipi_dsi_dcs_write_buffer(ctx->dsi, (u8[]){ 0xfe, 0x00 }, 2);
-+	if (ret < 0) {
-+		DRM_DEV_ERROR(ctx->panel.dev,
-+			"cmd set tx 0 failed, ret = %d\n", ret);
-+		goto power_off;
-+	}
-+
-+	ret = mipi_dsi_dcs_write_buffer(ctx->dsi, (u8[]){ 0xc2, 0x08 }, 2);
-+	if (ret < 0) {
-+		DRM_DEV_ERROR(ctx->panel.dev,
-+			"cmd set tx 1 failed, ret = %d\n", ret);
-+		goto power_off;
-+	}
-+
-+	ret = mipi_dsi_dcs_write_buffer(ctx->dsi, (u8[]){ 0x35, 0x00 }, 2);
-+	if (ret < 0) {
-+		DRM_DEV_ERROR(ctx->panel.dev,
-+			"cmd set tx 2 failed, ret = %d\n", ret);
-+		goto power_off;
-+	}
-+
-+	ret = mipi_dsi_dcs_write_buffer(ctx->dsi, (u8[]){ 0x51, 0xff }, 2);
-+	if (ret < 0) {
-+		DRM_DEV_ERROR(ctx->panel.dev,
-+			"cmd set tx 3 failed, ret = %d\n", ret);
-+		goto power_off;
-+	}
-+
-+	ret = mipi_dsi_dcs_write(ctx->dsi, MIPI_DCS_EXIT_SLEEP_MODE, NULL, 0);
-+	if (ret < 0) {
-+		DRM_DEV_ERROR(ctx->panel.dev,
-+			"exit_sleep_mode cmd failed ret = %d\n", ret);
-+		goto power_off;
-+	}
-+
-+	/* Per DSI spec wait 120ms after sending exit sleep DCS command */
-+	msleep(120);
-+
-+	ret = mipi_dsi_dcs_write(ctx->dsi, MIPI_DCS_SET_DISPLAY_ON, NULL, 0);
-+	if (ret < 0) {
-+		DRM_DEV_ERROR(ctx->panel.dev,
-+			"set_display_on cmd failed ret = %d\n", ret);
-+		goto power_off;
-+	}
-+
-+	/* Per DSI spec wait 120ms after sending set_display_on DCS command */
-+	msleep(120);
-+
-+	ctx->prepared = true;
-+
-+	return 0;
-+
-+power_off:
-+	return ret;
-+}
-+
-+static const struct drm_display_mode visionox_rm69299_1080x2248_60hz = {
-+        .name = "1080x2248",
-+        .clock = 158695,
-+        .hdisplay = 1080,
-+        .hsync_start = 1080 + 26,
-+        .hsync_end = 1080 + 26 + 2,
-+        .htotal = 1080 + 26 + 2 + 36,
-+        .vdisplay = 2248,
-+        .vsync_start = 2248 + 56,
-+        .vsync_end = 2248 + 56 + 4,
-+        .vtotal = 2248 + 56 + 4 + 4,
-+        .vrefresh = 60,
-+        .flags = 0,
-+};
-+
-+static int visionox_rm69299_get_modes(struct drm_panel *panel,
-+				       struct drm_connector *connector)
-+{
-+	struct visionox_rm69299 *ctx = panel_to_ctx(panel);
-+	struct drm_display_mode *mode;
-+
-+	mode = drm_mode_create(connector->dev);
-+	if (!mode) {
-+		DRM_DEV_ERROR(ctx->dev,
-+			"failed to create a new display mode\n");
-+		return 0;
-+	}
-+
-+	connector->display_info.width_mm = 74;
-+	connector->display_info.height_mm = 131;
-+	drm_mode_copy(mode, &visionox_rm69299_1080x2248_60hz);
-+	mode->type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED;
-+	drm_mode_probed_add(connector, mode);
-+
-+	return 1;
-+}
-+
-+static const struct drm_panel_funcs visionox_rm69299_drm_funcs = {
-+	.unprepare = visionox_rm69299_unprepare,
-+	.prepare = visionox_rm69299_prepare,
-+	.get_modes = visionox_rm69299_get_modes,
-+};
-+
-+static int visionox_rm69299_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	struct visionox_rm69299 *ctx;
-+	int ret;
-+
-+	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
-+	if (!ctx)
-+		return -ENOMEM;
-+
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+
-+	ctx->supplies[0].supply = "vdda";
-+	ctx->supplies[1].supply = "vdd3p3";
-+
-+	ret = devm_regulator_bulk_get(ctx->panel.dev, ARRAY_SIZE(ctx->supplies),
-+				      ctx->supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	ctx->reset_gpio = devm_gpiod_get(ctx->panel.dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(ctx->reset_gpio)) {
-+		DRM_DEV_ERROR(dev, "cannot get reset gpio %ld\n",
-+			PTR_ERR(ctx->reset_gpio));
-+		return PTR_ERR(ctx->reset_gpio);
-+	}
-+
-+	drm_panel_init(&ctx->panel, dev, &visionox_rm69299_drm_funcs,
-+		       DRM_MODE_CONNECTOR_DSI);
-+	ctx->panel.dev = dev;
-+	ctx->panel.funcs = &visionox_rm69299_drm_funcs;
-+	drm_panel_add(&ctx->panel);
-+
-+	dsi->lanes = 4;
-+	dsi->format = MIPI_DSI_FMT_RGB888;
-+	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_LPM |
-+		MIPI_DSI_CLOCK_NON_CONTINUOUS;
-+	ret = mipi_dsi_attach(dsi);
-+	if (ret < 0) {
-+		DRM_DEV_ERROR(dev, "dsi attach failed ret = %d\n", ret);
-+		goto err_dsi_attach;
-+	}
-+
-+	ret = regulator_set_load(ctx->supplies[0].consumer, 32000);
-+	if (ret) {
-+               DRM_DEV_ERROR(dev, "regulator set load failed for vdda supply ret = %d\n", ret);
-+		goto err_set_load;
-+	}
-+
-+	ret = regulator_set_load(ctx->supplies[1].consumer, 13200);
-+	if (ret) {
-+               DRM_DEV_ERROR(dev, "regulator set load failed for vdd3p3 supply ret = %d\n", ret);
-+		goto err_set_load;
-+	}
-+
-+	return 0;
-+
-+err_set_load:
-+	mipi_dsi_detach(dsi);
-+err_dsi_attach:
-+	drm_panel_remove(&ctx->panel);
-+	return ret;
-+}
-+
-+static int visionox_rm69299_remove(struct mipi_dsi_device *dsi)
-+{
-+	struct visionox_rm69299 *ctx = mipi_dsi_get_drvdata(dsi);
-+
-+	mipi_dsi_detach(ctx->dsi);
-+	mipi_dsi_device_unregister(ctx->dsi);
-+
-+	drm_panel_remove(&ctx->panel);
-+	return 0;
-+}
-+
-+static const struct of_device_id visionox_rm69299_of_match[] = {
-+	{
-+		.compatible = "visionox,rm69299-1080p-display",
-+	},
-+};
-+MODULE_DEVICE_TABLE(of, visionox_rm69299_of_match);
-+
-+static struct mipi_dsi_driver visionox_rm69299_driver = {
-+	.driver = {
-+		.name = "panel-visionox-rm69299",
-+		.of_match_table = visionox_rm69299_of_match,
-+	},
-+	.probe = visionox_rm69299_probe,
-+	.remove = visionox_rm69299_remove,
-+};
-+module_mipi_dsi_driver(visionox_rm69299_driver);
-+
-+MODULE_DESCRIPTION("Visionox RM69299 DSI Panel Driver");
+> 
+>> +- interrupt-parent     phandle to the interrupt parent device node.
+>> +- interrupts:          The interrupt signal from the DP block.
+>> +- clocks:               Clocks required for Display Port operation. 
+>> See [1] for details on clock bindings.
+>> +- clock-names:          Names of the clocks corresponding to handles. 
+>> Following clocks are required:
+>> +                       "core_aux_clk", 
+>> "core_usb_ref_clk_src","core_usb_ref_clk", "core_usb_cfg_ahb_clk",
+>> +                       "core_usb_pipe_clk", "ctrl_link_clk", 
+>> "ctrl_link_iface_clk", "ctrl_crypto_clk",
+>> +                       "ctrl_pixel_clk", "pixel_clk_rcg", 
+>> "pixel_parent".
+> 
+> Please remove _clk suffix on all clock names. It's redundant.
+> 
+>> +- pll-node:            phandle to DP PLL node.
+>> +- vdda-1p2-supply:             phandle to vdda 1.2V regulator node.
+>> +- vdda-0p9-supply:             phandle to vdda 0.9V regulator node.
+>> +- qcom,aux-cfg0-settings:              Specifies the DP AUX 
+>> configuration 0 settings. The first
+>> +                                       entry in this array 
+>> corresponds to the register offset
+>> +                                       within DP AUX, while the 
+>> remaining entries indicate the
+>> +                                       programmable values.
+>> +- qcom,aux-cfg1-settings:              Specifies the DP AUX 
+>> configuration 1 settings. The first
+>> +                                       entry in this array 
+>> corresponds to the register offset
+>> +                                       within DP AUX, while the 
+>> remaining entries indicate the
+>> +                                       programmable values.
+>> +- qcom,aux-cfg2-settings:              Specifies the DP AUX 
+>> configuration 2 settings. The first
+>> +                                       entry in this array 
+>> corresponds to the register offset
+>> +                                       within DP AUX, while the 
+>> remaining entries indicate the
+>> +                                       programmable values.
+>> +- qcom,aux-cfg3-settings:              Specifies the DP AUX 
+>> configuration 3 settings. The first
+>> +                                       entry in this array 
+>> corresponds to the register offset
+>> +                                       within DP AUX, while the 
+>> remaining entries indicate the
+>> +                                       programmable values.
+>> +- qcom,aux-cfg4-settings:              Specifies the DP AUX 
+>> configuration 4 settings. The first
+>> +                                       entry in this array 
+>> corresponds to the register offset
+>> +                                       within DP AUX, while the 
+>> remaining entries indicate the
+>> +                                       programmable values.
+>> +- qcom,aux-cfg5-settings:              Specifies the DP AUX 
+>> configuration 5 settings. The first
+>> +                                       entry in this array 
+>> corresponds to the register offset
+>> +                                       within DP AUX, while the 
+>> remaining entries indicate the
+>> +                                       programmable values.
+>> +- qcom,aux-cfg6-settings:              Specifies the DP AUX 
+>> configuration 6 settings. The first
+>> +                                       entry in this array 
+>> corresponds to the register offset
+>> +                                       within DP AUX, while the 
+>> remaining entries indicate the
+>> +                                       programmable values.
+>> +- qcom,aux-cfg7-settings:              Specifies the DP AUX 
+>> configuration 7 settings. The first
+>> +                                       entry in this array 
+>> corresponds to the register offset
+>> +                                       within DP AUX, while the 
+>> remaining entries indicate the
+>> +                                       programmable values.
+>> +- qcom,aux-cfg8-settings:              Specifies the DP AUX 
+>> configuration 8 settings. The first
+>> +                                       entry in this array 
+>> corresponds to the register offset
+>> +                                       within DP AUX, while the 
+>> remaining entries indicate the
+>> +                                       programmable values.
+>> +- qcom,aux-cfg9-settings:              Specifies the DP AUX 
+>> configuration 9 settings. The first
+>> +                                       entry in this array 
+>> corresponds to the register offset
+>> +                                       within DP AUX, while the 
+>> remaining entries indicate the
+>> +                                       programmable values.
+> 
+> It would be better if these properties were understandable by us mere
+> kernel developers out there. Is it possible to make them into 
+> standalone
+> properties that control certain configuration tunings? Are any of these
+> not variable per-board and can be hardcoded based on the SoC into the
+> driver?
+> 
+
+These properties are used to tune the aux configurations and these vary 
+per board and
+some customers need to tune these settings to get through dp phy 
+compliance.
+I will move these settings to the driver code, if it is preferred.
+
+>> +- qcom,max-pclk-frequency-khz:         An integer specifying the 
+>> maximum. pixel clock in KHz supported by Display Port.
+> 
+> This can't be detected at runtime?
+
+Some variants of DP controllers has a cap on the max-pclk frequency from 
+DP controller side or from whole system bandwidth.
+To maintain same driver code across chipsets, we are trying to use this 
+to cap the max frequency through dtsi.
+
+> 
+>> +- qcom,max-lanes-for-dp:               Maximum number of lanes that 
+>> can be used for Display port.
+> 
+> This can come from an of graph walk to figure out how many possible
+> lanes are connected? Or some more standard property that describes
+> logical to physical lane mapping, like data-lanes?
+> 
+>> +- qcom,<type>-supply-entries:          A node that lists the elements 
+>> of the supply used by the a particular "type" of DP module. The module 
+>> "types"
+>> +                                       can be "core", "ctrl", and 
+>> "phy". Within the same type,
+>> +                                       there can be more than one 
+>> instance of this binding,
+>> +                                       in which case the entry would 
+>> be appended with the
+>> +                                       supply entry index.
+>> +                                       e.g. qcom,ctrl-supply-entry@0
+>> +                                       -- qcom,supply-name: name of 
+>> the supply (vdd/vdda/vddio)
+>> +                                       -- qcom,supply-min-voltage: 
+>> minimum voltage level (uV)
+>> +                                       -- qcom,supply-max-voltage: 
+>> maximum voltage level (uV)
+>> +                                       -- qcom,supply-enable-load: 
+>> load drawn (uA) from enabled supply
+>> +                                       -- qcom,supply-disable-load: 
+>> load drawn (uA) from disabled supply
+>> +                                       -- qcom,supply-pre-on-sleep: 
+>> time to sleep (ms) before turning on
+>> +                                       -- qcom,supply-post-on-sleep: 
+>> time to sleep (ms) after turning on
+>> +                                       -- qcom,supply-pre-off-sleep: 
+>> time to sleep (ms) before turning off
+>> +                                       -- qcom,supply-post-off-sleep: 
+>> time to sleep (ms) after turning off
+> 
+> All these regulator properties look like things that should be handled
+> by board constraints on certain supplies, not by this binding or the
+> driver that matches this binding.
+> 
+>> +- pinctrl-names:       List of names to assign mdss pin states 
+>> defined in pinctrl device node
+>> +                                       Refer to pinctrl-bindings.txt
+>> +- pinctrl-<0..n>:      Lists phandles each pointing to the pin 
+>> configuration node within a pin
+>> +                                       controller. These pin 
+>> configurations are installed in the pinctrl
+>> +                                       device node. Refer to 
+>> pinctrl-bindings.txt
+> 
+> These two properties aren't needed.
+> 
+>> +DP Endpoint properties:
+>> +  - remote-endpoint: For port@0, set to phandle of the connected 
+>> panel/bridge's
+>> +    input endpoint. For port@1, set to the DPU interface output. See 
+>> [2] for
+>> +    device graph info.
+>> +
+>> +Optional properties:
+>> +- qcom,aux-en-gpio:            Specifies the aux-channel enable gpio.
+>> +- qcom,aux-sel-gpio:           Specifies the mux-selection that might 
+>> be needed for aux interface.
+> 
+> Please use the normal '<your name here>-gpios' property for gpios.
+>> +
+>> +
+>> +DP PLL: Required properties:
+>> +- compatible:           Should be "qcom,dp-pll-10nm".
+>> +- reg:                  Base address and length of DP hardware's 
+>> memory mapped regions.
+>> +- cell-index:           Specifies the PLL instance.
+>> +- reg-names:            A list of strings that name the list of regs.
+>> +                       "pll_base" - DP PLL memory region.
+>> +                       "phy_base" - DP PHY memory region.
+>> +                       "ln_tx0_base" - USB3 DP PHY combo TX-0 lane 
+>> memory region.
+>> +                       "ln_tx1_base" - USB3 DP PHY combo TX-1 lane 
+>> memory region.
+> 
+> This was in the other node binding. Probably the only reg property
+> required here is pll_base?
+
+Unfortunately msm DP controller PHY and PLL modules are tightly coupled 
+in hardware.
+DP phy hardware programming sequence has lot of register programming 
+sequence interleaved
+between PLL and PHY address space.
+Our design has different DP PLL and DP PHY drivers, we need to map the 
+needed address space.
+
+> 
+>> +                       "gdsc_base" - gdsc memory region.
+>> +- interrupt-parent     phandle to the interrupt parent device node.
+>> +- interrupts:          The interrupt signal from the DP block.
+>> +- clocks:               Clocks required for Display Port operation. 
+>> See [1] for details on clock bindings.
+>> +- clock-names:          Names of the clocks corresponding to handles. 
+>> Following clocks are required:
+>> +                       "iface_clk", "ref_clk", cfg_ahb_clk", 
+>> "pipe_clk".
+>> +- clock-rate:           Initial clock rate to be configured. For the 
+>> shared clocks, the default value                       is set to zero 
+>> so that minimum clock value is configured. Non-zero clock
+> 
+> We have assigned-clock-rates for this.
+> 
+>> +                       value can be used to configure DP pixel clock.
+>> +
+>> +
+>> +[1] Documentation/devicetree/bindings/clock/clock-bindings.txt
+>> +[2] Documentation/devicetree/bindings/graph.txt
+>> +
+>> +Example:
+>> +       msm_dp: dp_display@ae90000{
+> 
+> No underscores in node names. It should also be somewhat generic like
+> 'display-controller' or 'displayport-controller' and the first reg
+> property should match the unit address after the at sign (@).
+> 
+>> +               cell-index = <0>;
+>> +               compatible = "qcom,dp-display";
+>> +
+>> +               reg =   <0 0x90000 0x0dc>,
+>> +                       <0 0x90200 0x0c0>,
+>> +                       <0 0x90400 0x508>,
+>> +                       <0 0x90a00 0x094>,
+>> +                       <1 0xeaa00 0x200>,
+>> +                       <1 0xea200 0x200>,
+>> +                       <1 0xea600 0x200>,
+>> +                       <2 0x02000 0x1a0>,
+>> +                       <3 0x00000 0x621c>,
+>> +                       <1 0xea000 0x180>,
+>> +                       <1 0xe8000 0x20>,
+>> +                       <4 0xe1000 0x034>;
+>> +               reg-names = "dp_ahb", "dp_aux", "dp_link",
+>> +                       "dp_p0", "dp_phy", "dp_ln_tx0", "dp_ln_tx1",
+>> +                       "dp_mmss_cc", "qfprom_physical", "dp_pll",
+>> +                       "usb3_dp_com", "hdcp_physical";
+>> +
+>> +               interrupt-parent = <&display_subsystem>;
+>> +               interrupts = <12 0>;
+>> +
+>> +               extcon = <&usb_1_ssphy>;
+> 
+> Please no extcon
+> 
+>> +               clocks =  <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
+>> +                       <&rpmhcc RPMH_CXO_CLK>,
+>> +                       <&gcc GCC_USB3_PRIM_CLKREF_CLK>,
+>> +                       <&gcc GCC_USB_PHY_CFG_AHB2PHY_CLK>,
+>> +                       <&gcc GCC_USB3_PRIM_PHY_PIPE_CLK>,
+>> +                       <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
+>> +                       <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
+>> +                       <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>,
+>> +                       <&dispcc DISP_CC_MDSS_DP_CRYPTO_CLK>,
+>> +                       <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
+>> +               clock-names = "core_aux_clk", "core_ref_clk_src",
+>> +                       "core_usb_ref_clk", "core_usb_cfg_ahb_clk",
+>> +                       "core_usb_pipe_clk", "ctrl_link_clk",
+>> +                       "ctrl_link_iface_clk", "ctrl_pixel_clk",
+>> +                       "crypto_clk", "pixel_clk_rcg";
+>> +
+>> +               pll-node = <&dp_pll>;
+>> +               vdda-1p2-supply = <&vreg_l3c_1p2>;
+>> +               vdda-0p9-supply = <&vreg_l4a_0p8>;
+>> +               qcom,aux-cfg0-settings = [20 00];
+>> +               qcom,aux-cfg1-settings = [24 13 23 1d];
+>> +               qcom,aux-cfg2-settings = [28 24];
+>> +               qcom,aux-cfg3-settings = [2c 00];
+>> +               qcom,aux-cfg4-settings = [30 0a];
+>> +               qcom,aux-cfg5-settings = [34 26];
+>> +               qcom,aux-cfg6-settings = [38 0a];
+>> +               qcom,aux-cfg7-settings = [3c 03];
+>> +               qcom,aux-cfg8-settings = [40 bb];
+>> +               qcom,aux-cfg9-settings = [44 03];
+>> +
+>> +               qcom,max-pclk-frequency-khz = <675000>;
+>> +               qcom,max-lanes-for-dp = <2>;
+>> +
+>> +               qcom,ctrl-supply-entries {
+>> +                       #address-cells = <1>;
+>> +                       #size-cells = <0>;
+>> +
+>> +                       qcom,ctrl-supply-entry@0 {
+>> +                               reg = <0>;
+>> +                               qcom,supply-name = "vdda-1p2";
+>> +                               qcom,supply-min-voltage = <1200000>;
+>> +                               qcom,supply-max-voltage = <1200000>;
+>> +                               qcom,supply-enable-load = <21800>;
+>> +                               qcom,supply-disable-load = <4>;
+>> +                       };
+>> +               };
+>> +
+>> +               qcom,phy-supply-entries {
+>> +                       #address-cells = <1>;
+>> +                       #size-cells = <0>;
+>> +
+>> +                       qcom,phy-supply-entry@0 {
+>> +                               reg = <0>;
+>> +                               qcom,supply-name = "vdda-0p9";
+>> +                               qcom,supply-min-voltage = <880000>;
+>> +                               qcom,supply-max-voltage = <880000>;
+>> +                               qcom,supply-enable-load = <36000>;
+>> +                               qcom,supply-disable-load = <32>;
+>> +                       };
+>> +               };
+>> +
+>> +               ports {
+>> +                       #address-cells = <1>;
+>> +                       #size-cells = <0>;
+>> +
+>> +                       port@0 {
+>> +                               reg = <0>;
+>> +                               dp_in: endpoint {
+>> +                                       remote-endpoint = 
+>> <&dpu_intf0_out>;
+>> +                               };
+>> +                       };
+>> +
+>> +                       port@1 {
+>> +                               reg = <1>;
+>> +                               dp_out: endpoint {
+>> +                               };
+>> +                       };
+>> +               };
+>> +       };
+>> +
+>> +       dp_pll: dp-pll@c011000 {
+>> +               compatible = "qcom,dp-pll-10nm";
+>> +               label = "DP PLL";
+>> +               cell-index = <0>;
+>> +               #clock-cells = <1>;
+>> +
+>> +               reg = <1 0xea000 0x200>,
+>> +                     <1 0xeaa00 0x200>,
+>> +                     <1 0xea200 0x200>,
+>> +                     <1 0xea600 0x200>,
+>> +                     <2 0x03000 0x8>;
+>> +               reg-names = "pll_base", "phy_base", "ln_tx0_base",
+>> +                       "ln_tx1_base", "gdsc_base";
+>> +
+>> +               clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
+>> +                        <&gcc GCC_USB3_PRIM_CLKREF_CLK>,
+>> +                        <&gcc GCC_USB_PHY_CFG_AHB2PHY_CLK>,
+>> +                        <&gcc GCC_USB3_PRIM_PHY_PIPE_CLK>;
+>> +               clock-names = "iface_clk", "ref_clk",
+>> +                       "cfg_ahb_clk", "pipe_clk";
+>> +               clock-rate = <0>;
+>> +
+> 
+> Remove this extra newline.
+> 
+>> +       };
+>> diff --git a/Documentation/devicetree/bindings/display/msm/dpu.txt 
+>> b/Documentation/devicetree/bindings/display/msm/dpu.txt
+>> index 551ae26..7e99e45 100644
+>> --- a/Documentation/devicetree/bindings/display/msm/dpu.txt
+>> +++ b/Documentation/devicetree/bindings/display/msm/dpu.txt
+>> @@ -63,8 +63,9 @@ Required properties:
+>>         Documentation/devicetree/bindings/graph.txt
+>>         Documentation/devicetree/bindings/media/video-interfaces.txt
+>> 
+>> -       Port 0 -> DPU_INTF1 (DSI1)
+>> -       Port 1 -> DPU_INTF2 (DSI2)
+>> +       Port 0 -> DPU_INTF0 (DP)
+> 
+> Why is port 0 changed to be DP? Can't we add DP to the end so that 
+> older
+> DTs remain compatible?
+
+Interface 0 block of msm hardware is always connected to Displayport.
+We are trying to retain the ports as per the hardware layed-out.
+
+> 
+>> +       Port 1 -> DPU_INTF1 (DSI1)
+>> +       Port 2 -> DPU_INTF2 (DSI2)
+>> 
+>>  Optional properties:
+>>  - assigned-clocks: list of clock specifiers for clocks needing rate 
+>> assignment
+>> @@ -125,13 +126,20 @@ Example:
+>> 
+>>                                 port@0 {
+>>                                         reg = <0>;
+>> -                                       dpu_intf1_out: endpoint {
+>> -                                               remote-endpoint = 
+>> <&dsi0_in>;
+>> +                                       dpu_intf0_out: endpoint {
+>> +                                               remote-endpoint = 
+>> <&dp_in>;
+>>                                         };
+>>                                 };
+>> 
+>>                                 port@1 {
+>>                                         reg = <1>;
+>> +                                       dpu_intf1_out: endpoint {
+>> +                                               remote-endpoint = 
+>> <&dsi0_in>;
+>> +                                       };
+>> +                               };
+>> +
+>> +                               port@2 {
+>> +                                       reg = <2>;
+>>                                         dpu_intf2_out: endpoint {
+>>                                                 remote-endpoint = 
+>> <&dsi1_in>;
+>>                                         };
+>> --
+>> $(echo -e 'The Qualcomm Innovation Center, Inc. is a member of the 
+>> Code Aurora Forum,
+> 
+> You should fix your signature :)
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
