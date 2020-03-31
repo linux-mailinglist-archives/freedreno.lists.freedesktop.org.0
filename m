@@ -2,33 +2,33 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6512B198DBB
-	for <lists+freedreno@lfdr.de>; Tue, 31 Mar 2020 09:56:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DF17198DBC
+	for <lists+freedreno@lfdr.de>; Tue, 31 Mar 2020 09:56:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10EF86E5BB;
-	Tue, 31 Mar 2020 07:56:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 421676E5BE;
+	Tue, 31 Mar 2020 07:56:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
  [104.130.122.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50EB16E5AB
- for <freedreno@lists.freedesktop.org>; Tue, 31 Mar 2020 07:56:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 210E26E5B9
+ for <freedreno@lists.freedesktop.org>; Tue, 31 Mar 2020 07:56:54 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1585641413; h=References: In-Reply-To: Message-Id: Date:
+ s=smtp; t=1585641415; h=References: In-Reply-To: Message-Id: Date:
  Subject: Cc: To: From: Sender;
- bh=nthYnpwagHT230rYskRhSng5IhNPXUQv68G+VcY197o=;
- b=ZsHH7k0quLp2hYwFjYvDMT/ujcIhlgqU5sUNqO5hEsVXQO0OGYpvX+AnIVG4nUotAJyQeHf1
- mNVfJcaZxc9R5S/Xh3Jli9ye282zrOf3h9o0vK7LRcjs1nUUzfSBA0FikbhYWMXb+B94mq9n
- IRWm4glFu/LD3VvQov6u72NjLVw=
+ bh=jgvxUaNnnaWHqq0izF2zyxOsOupTAxhxGBrh7lVSzvQ=;
+ b=U5BOexfGAQ9l5Vhdh4IHN+inWLYB+U2+U79IZQsQneQGTvUrq+O1oNdeLrF/P+PjjrVuQmTq
+ ui3kttrZHPB2CV3ph9NqwriSK/kwK5JcOC9MUQNAP0NwsdQwcSS37mqqCsV9QGtWmQ/GqkFx
+ yYyF7LwOuSQ3SUF30iZGAhWpmpg=
 X-Mailgun-Sending-Ip: 104.130.122.26
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5e82f7b4.7fb9d3b53030-smtp-out-n02;
- Tue, 31 Mar 2020 07:56:36 -0000 (UTC)
+ by mxa.mailgun.org with ESMTP id 5e82f7b8.7f47ffa03b90-smtp-out-n05;
+ Tue, 31 Mar 2020 07:56:40 -0000 (UTC)
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 4CDB3C43636; Tue, 31 Mar 2020 07:56:36 +0000 (UTC)
+ id 972B4C00A3E; Tue, 31 Mar 2020 07:56:40 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -38,9 +38,9 @@ Received: from hyd-lnxbld559.qualcomm.com
  (blr-c-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.19.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: smasetty)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 4CB05C433BA;
- Tue, 31 Mar 2020 07:56:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 4CB05C433BA
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 5862FC4478C;
+ Tue, 31 Mar 2020 07:56:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 5862FC4478C
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
@@ -48,13 +48,13 @@ Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
 From: Sharat Masetty <smasetty@codeaurora.org>
 To: freedreno@lists.freedesktop.org,
 	devicetree@vger.kernel.org
-Date: Tue, 31 Mar 2020 13:25:49 +0530
-Message-Id: <1585641353-23229-2-git-send-email-smasetty@codeaurora.org>
+Date: Tue, 31 Mar 2020 13:25:50 +0530
+Message-Id: <1585641353-23229-3-git-send-email-smasetty@codeaurora.org>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1585641353-23229-1-git-send-email-smasetty@codeaurora.org>
 References: <1585641353-23229-1-git-send-email-smasetty@codeaurora.org>
-Subject: [Freedreno] [PATCH 1/5] arm64: dts: qcom: sc7180: Add interconnect
- bindings for GPU
+Subject: [Freedreno] [PATCH 2/5] arm64: dts: qcom: sc7180: Add GPU DDR BW
+ opp table
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,27 +77,119 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This patch adds the interconnect bindings to the GPU node. This enables
-the GPU->DDR path bandwidth voting.
+This patch adds a new opp table listing the GPU DDR bandwidth opps. Also
+adds a required_opp binding to the GPUs main OPP table which holds a
+phandle to a bandwidth opp in the new table. This enables linking the
+GPU power level opp to the DDR bandwidth opp and helps with scaling
+DDR along with GPU frequency.
 
 Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
 ---
- arch/arm64/boot/dts/qcom/sc7180.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+ arch/arm64/boot/dts/qcom/sc7180.dtsi | 50 +++++++++++++++++++++++++++++++++++-
+ 1 file changed, 49 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-index 1097e8b..51630dd 100644
+index 51630dd..74b023b 100644
 --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-@@ -1718,6 +1718,8 @@
- 			operating-points-v2 = <&gpu_opp_table>;
+@@ -1715,7 +1715,8 @@
+ 			reg-names = "kgsl_3d0_reg_memory", "cx_mem", "cx_dbgc";
+ 			interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
+ 			iommus = <&adreno_smmu 0>;
+-			operating-points-v2 = <&gpu_opp_table>;
++			operating-points-v2 = <&gpu_opp_table>,
++						<&gpu_ddr_bw_opp_table>;
  			qcom,gmu = <&gmu>;
 
-+			interconnects = <&gem_noc MASTER_GFX3D &mc_virt SLAVE_EBI1>;
-+
- 			gpu_opp_table: opp-table {
- 				compatible = "operating-points-v2";
+ 			interconnects = <&gem_noc MASTER_GFX3D &mc_virt SLAVE_EBI1>;
+@@ -1726,40 +1727,87 @@
+ 				opp-800000000 {
+ 					opp-hz = /bits/ 64 <800000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
++					required-opps = <&gpu_ddr_bw_opp9>;
+ 				};
 
+ 				opp-650000000 {
+ 					opp-hz = /bits/ 64 <650000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
++					required-opps = <&gpu_ddr_bw_opp8>;
+ 				};
+
+ 				opp-565000000 {
+ 					opp-hz = /bits/ 64 <565000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
++					required-opps = <&gpu_ddr_bw_opp6>;
+ 				};
+
+ 				opp-430000000 {
+ 					opp-hz = /bits/ 64 <430000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
++					required-opps = <&gpu_ddr_bw_opp6>;
+ 				};
+
+ 				opp-355000000 {
+ 					opp-hz = /bits/ 64 <355000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
++					required-opps = <&gpu_ddr_bw_opp4>;
+ 				};
+
+ 				opp-267000000 {
+ 					opp-hz = /bits/ 64 <267000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
++					required-opps = <&gpu_ddr_bw_opp4>;
+ 				};
+
+ 				opp-180000000 {
+ 					opp-hz = /bits/ 64 <180000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
++					required-opps = <&gpu_ddr_bw_opp2>;
+ 				};
+ 			};
+ 		};
+
++		gpu_ddr_bw_opp_table: gpu-ddr-bw-opp-table {
++			compatible = "operating-points-v2";
++
++			gpu_ddr_bw_opp1: opp-300000000  {
++				opp-peak-kBps =/bits/ 32 <1200000>;
++			};
++
++			gpu_ddr_bw_opp2: opp-451000000  {
++				opp-peak-kBps =/bits/ 32 <1804000>;
++			};
++
++			gpu_ddr_bw_opp3: opp-547000000  {
++				opp-peak-kBps =/bits/ 32 <2188000>;
++			};
++
++			gpu_ddr_bw_opp4: opp-768000000  {
++				opp-peak-kBps =/bits/ 32 <3072000>;
++			};
++
++			gpu_ddr_bw_opp5: opp-1017000000  {
++				opp-peak-kBps =/bits/ 32 <4068000>;
++			};
++
++			gpu_ddr_bw_opp6: opp-1353000000  {
++				opp-peak-kBps =/bits/ 32 <5412000>;
++			};
++
++			gpu_ddr_bw_opp7: opp-1555000000  {
++				opp-peak-kBps =/bits/ 32 <6220000>;
++			};
++
++			gpu_ddr_bw_opp8: opp-1804000000  {
++				opp-peak-kBps =/bits/ 32 <7216000>;
++			};
++
++			gpu_ddr_bw_opp9: opp-2133000000  {
++				opp-peak-kBps =/bits/ 32 <8532000>;
++			};
++		};
++
+ 		adreno_smmu: iommu@5040000 {
+ 			compatible = "qcom,sc7180-smmu-v2", "qcom,smmu-v2";
+ 			reg = <0 0x05040000 0 0x10000>;
 --
 2.7.4
 _______________________________________________
