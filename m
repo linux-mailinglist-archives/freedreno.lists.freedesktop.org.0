@@ -2,65 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4237B19ABB0
-	for <lists+freedreno@lfdr.de>; Wed,  1 Apr 2020 14:30:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6B9519B5D4
+	for <lists+freedreno@lfdr.de>; Wed,  1 Apr 2020 20:42:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D00176E93E;
-	Wed,  1 Apr 2020 12:30:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98F296E983;
+	Wed,  1 Apr 2020 18:42:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail27.static.mailgun.info (mail27.static.mailgun.info
- [104.130.122.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BDB66E072
- for <freedreno@lists.freedesktop.org>; Wed,  1 Apr 2020 12:30:16 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1585744218; h=Content-Transfer-Encoding: Content-Type:
- In-Reply-To: MIME-Version: Date: Message-ID: From: References: To:
- Subject: Sender; bh=Z0Xp87Y05y0UuIbXR2bnYutLCxiJ/10ostDEHWR1uEI=;
- b=SCk2wPc0rqO2XW5xJlQwps9jTYATLLgTMINXIqBsTSv97sry+JEteD53JS2ARP5QBT5x01bl
- /c+Il3lzUHXlJyIaoP033O/PUupnakBKM0Nb4F0piGK438pEmt1Y9ZjnOCanXyqUxekSeB+W
- rvJOZiQjhiya+0LOIDr0CQw+VYU=
-X-Mailgun-Sending-Ip: 104.130.122.27
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5e848951.7f3da7acf1f0-smtp-out-n03;
- Wed, 01 Apr 2020 12:30:09 -0000 (UTC)
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 6222EC433F2; Wed,  1 Apr 2020 12:30:08 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
- autolearn=ham autolearn_force=no version=3.4.0
-Received: from [192.168.1.227] (unknown [49.204.179.182])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: smasetty)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id C624AC433BA;
- Wed,  1 Apr 2020 12:30:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org C624AC433BA
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=smasetty@codeaurora.org
-To: freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- dri-devel@freedesktop.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, mka@chromium.org, sibis@codeaurora.org,
- saravanak@google.com, viresh.kumar@linaro.org
-References: <1585641353-23229-1-git-send-email-smasetty@codeaurora.org>
- <1585641353-23229-4-git-send-email-smasetty@codeaurora.org>
- <20200331172600.GB11573@jcrouse1-lnx.qualcomm.com>
-From: Sharat Masetty <smasetty@codeaurora.org>
-Message-ID: <929d84c4-bbb8-0c3f-52c0-c82c2055da46@codeaurora.org>
-Date: Wed, 1 Apr 2020 18:00:01 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+Received: from mail-lj1-x244.google.com (mail-lj1-x244.google.com
+ [IPv6:2a00:1450:4864:20::244])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02E4C6E983;
+ Wed,  1 Apr 2020 18:42:35 +0000 (UTC)
+Received: by mail-lj1-x244.google.com with SMTP id t17so521022ljc.12;
+ Wed, 01 Apr 2020 11:42:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=IrrldTgAN7hTfBxih+s1Nww8MyB4MUn1MXU0pAaOgKQ=;
+ b=dxgLbEc28YpYyaU/j3FsFhXcNLqv3nYdw7RQrUl7uJ+mvBqE7U8IIW4YLfwyxx2XdK
+ vK7NRcwbd6v0DUDLBwJLfqe5Ol9FZ5kA4/tIo8RuLju3UBXFXyngW7Wg8Ze5uB2qldGL
+ pbjSwavROa8Es8Q75coGgcdi9j5xJ05UOyQNQ8R+rGsaD4q/iywU3kS9sALenyC3k5Zd
+ HsnhcWGxSXKbgnpAtGt6vARV7hlPw1DdjR1pDlfsL6jrSQnd97Qs5QiKgH30zNqndtV3
+ y/3McEz31pH6tRpOj91gc9pEIf3SjCqFUekY6XVwbxUU0bYXwW/tlzaQMZe5WufHYtNd
+ bAvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=IrrldTgAN7hTfBxih+s1Nww8MyB4MUn1MXU0pAaOgKQ=;
+ b=j/QT+JMRhO3W4ODTA0qZYufE0r8l+vgPZzqs7VUX2lvax9cYVvnimffUXNFS53XvuA
+ PK4yATwpllL8OqHxZH2RmpbVfeZaBP1CcFDB8/XGkbze056Hr0P56US/DyxP/gHgHZuZ
+ +VGw6fbsvIrgBw9pfnRpq/b8C3jNOypWlVbrZnecZ9ofZvGkr9AytuwCC3m9Zr/9se23
+ HqHoZQmekjM/CK2O0D1wWRfxBXtF9bec3DrWdUtxPEtcUR5u22TXiNWiV0EGZ+zJ8IxD
+ N7BPfOuYv01rCXhJSkl5S4LP5m0IgcZJosVHLR5+56lX35JOSfzj+sN7J0R2jlE8zpaN
+ isMQ==
+X-Gm-Message-State: AGi0Pua5G9PPAESfx4BlTYG7Z+Loirq7EP5vW/+B+NbN/HVOTsjY5cfu
+ cONYcZcj1ahNEuh+c64BP1QXbtQdXPRxRFDXK1k=
+X-Google-Smtp-Source: APiQypINhs3c3OXYf+uTLmRtByz48UJcG+m1SnlDQU0z4kHCJ/dUDgk88oXaDrvmhYj01dL8RfxuM9eeYUghLE3LLBg=
+X-Received: by 2002:a2e:b4d1:: with SMTP id r17mr2922655ljm.117.1585766554155; 
+ Wed, 01 Apr 2020 11:42:34 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200331172600.GB11573@jcrouse1-lnx.qualcomm.com>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH 3/5] drm: msm: scale DDR BW along with GPU
- frequency
+From: Fabio Estevam <festevam@gmail.com>
+Date: Wed, 1 Apr 2020 15:42:23 -0300
+Message-ID: <CAOMZO5BL58oJH6EwYQ3wnzCrKpeadte6NLSRXM=qY0PCAiqkOA@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Jordan Crouse <jcrouse@codeaurora.org>
+Subject: [Freedreno] gpu: msm: possible circular locking dependency detected
+ on 5.5
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,134 +59,135 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Jonathan Marek <jonathan@marek.ca>,
+ DRI mailing list <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
+ Chris Healy <cphealy@gmail.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Ck9uIDMvMzEvMjAyMCAxMDo1NiBQTSwgSm9yZGFuIENyb3VzZSB3cm90ZToKPiBPbiBUdWUsIE1h
-ciAzMSwgMjAyMCBhdCAwMToyNTo1MVBNICswNTMwLCBTaGFyYXQgTWFzZXR0eSB3cm90ZToKPj4g
-VGhpcyBwYXRjaCBhZGRzIHN1cHBvcnQgdG8gcGFyc2UgdGhlIE9QUCB0YWJsZXMgYXR0YWNoZWQg
-dGhlIEdQVSBkZXZpY2UsCj4+IHRoZSBtYWluIG9wcCB0YWJsZSBhbmQgdGhlIEREUiBiYW5kd2lk
-dGggb3BwIHRhYmxlLiBBZGRpdGlvbmFsbHksIHZvdGUKPj4gZm9yIHRoZSBHUFUtPkREUiBiYW5k
-d2lkdGggd2hlbiBzZXR0aW5nIHRoZSBHUFUgZnJlcXVlbmN5IGJ5IHF1ZXJ5aW5nCj4+IHRoZSBs
-aW5rZWQgRERSIEJXIG9wcCB0byB0aGUgR1BVIG9wcC4KPj4KPj4gU2lnbmVkLW9mZi1ieTogU2hh
-cmF0IE1hc2V0dHkgPHNtYXNldHR5QGNvZGVhdXJvcmEub3JnPgo+PiAtLS0KPj4gICBkcml2ZXJz
-L2dwdS9kcm0vbXNtL2FkcmVuby9hNnh4X2dtdS5jICAgfCA0MSArKysrKysrKysrKysrKysrKysr
-KysrKysrKy0tLS0KPj4gICBkcml2ZXJzL2dwdS9kcm0vbXNtL2FkcmVuby9hZHJlbm9fZ3B1LmMg
-fCA0NCArKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0KPj4gICBkcml2ZXJzL2dwdS9k
-cm0vbXNtL21zbV9ncHUuaCAgICAgICAgICAgfCAgOSArKysrKysrCj4+ICAgMyBmaWxlcyBjaGFu
-Z2VkLCA4NCBpbnNlcnRpb25zKCspLCAxMCBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2E2eHhfZ211LmMgYi9kcml2ZXJzL2dwdS9kcm0v
-bXNtL2FkcmVuby9hNnh4X2dtdS5jCj4+IGluZGV4IDc0OGNkMzcuLjQ4OWQ5YjYgMTAwNjQ0Cj4+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2E2eHhfZ211LmMKPj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL21zbS9hZHJlbm8vYTZ4eF9nbXUuYwo+PiBAQCAtMTAwLDYgKzEwMCw0MCBA
-QCBib29sIGE2eHhfZ211X2d4X2lzX29uKHN0cnVjdCBhNnh4X2dtdSAqZ211KQo+PiAgIAkJQTZY
-WF9HTVVfU1BUUFJBQ19QV1JfQ0xLX1NUQVRVU19HWF9ITV9DTEtfT0ZGKSk7Cj4+ICAgfQo+Pgo+
-PiArdm9pZCBhNnh4X2dtdV9zZXRfaWNjX3ZvdGUoc3RydWN0IG1zbV9ncHUgKmdwdSwgdW5zaWdu
-ZWQgbG9uZyBncHVfZnJlcSkKPj4gK3sKPj4gKwlzdHJ1Y3QgZGV2X3BtX29wcCAqZ3B1X29wcCwg
-KmRkcl9vcHA7Cj4+ICsJc3RydWN0IG9wcF90YWJsZSAqKnRhYmxlcyA9IGdwdS0+b3BwX3RhYmxl
-czsKPj4gKwl1bnNpZ25lZCBsb25nIHBlYWtfYnc7Cj4+ICsKPj4gKwlpZiAoIWdwdS0+b3BwX3Rh
-Ymxlc1tHUFVfRERSX09QUF9UQUJMRV9JTkRFWF0pCj4+ICsJCWdvdG8gZG9uZTsKPj4gKwo+PiAr
-CWdwdV9vcHAgPSBkZXZfcG1fb3BwX2ZpbmRfZnJlcV9leGFjdCgmZ3B1LT5wZGV2LT5kZXYsIGdw
-dV9mcmVxLCB0cnVlKTsKPj4gKwlpZiAoSVNfRVJSX09SX05VTEwoZ3B1X29wcCkpCj4+ICsJCWdv
-dG8gZG9uZTsKPj4gKwo+PiArCWRkcl9vcHAgPSBkZXZfcG1fb3BwX3hsYXRlX3JlcXVpcmVkX29w
-cCh0YWJsZXNbR1BVX09QUF9UQUJMRV9JTkRFWF0sCj4+ICsJCQkJCSAgICB0YWJsZXNbR1BVX0RE
-Ul9PUFBfVEFCTEVfSU5ERVhdLAo+PiArCQkJCQkgICAgZ3B1X29wcCk7Cj4+ICsJZGV2X3BtX29w
-cF9wdXQoZ3B1X29wcCk7Cj4+ICsKPj4gKwlpZiAoSVNfRVJSX09SX05VTEwoZGRyX29wcCkpCj4+
-ICsJCWdvdG8gZG9uZTsKPiBJIHRoaW5rIHRoYXQgdGhlIGZpbmFsIGFwcHJvYWNoIGlzIHN0aWxs
-IHVwIGluIHRoZSBhaXIgYnV0IGVpdGhlciB3YXkgd2UncmUKPiBnb2luZyB0byBwdWxsIHRoZSBi
-YW5kd2lkdGggZnJvbSBhbiBPUFAsIGl0cyBqdXN0IGEgcXVlc3Rpb24gb2Ygd2hpY2ggT1BQLgo+
-Cj4+ICsJcGVha19idyA9IGRldl9wbV9vcHBfZ2V0X2J3KGRkcl9vcHAsIE5VTEwpOwo+PiArCWRl
-dl9wbV9vcHBfcHV0KGRkcl9vcHApOwo+PiArCj4+ICsJaWNjX3NldF9idyhncHUtPmljY19wYXRo
-LCAwLCBwZWFrX2J3KTsKPj4gKwlyZXR1cm47Cj4+ICtkb25lOgo+PiArCS8qCj4+ICsJICogSWYg
-dGhlcmUgaXMgYSBwcm9ibGVtLCBmb3Igbm93IGxlYXZlIGl0IGF0IG1heCBzbyB0aGF0IHRoZQo+
-PiArCSAqIHBlcmZvcm1hbmNlIGlzIG5vbWluYWwuCj4+ICsJICovCj4+ICsJaWNjX3NldF9idyhn
-cHUtPmljY19wYXRoLCAwLCBNQnBzX3RvX2ljYyg3MjE2KSk7Cj4+ICt9Cj4+ICsKPj4gICBzdGF0
-aWMgdm9pZCBfX2E2eHhfZ211X3NldF9mcmVxKHN0cnVjdCBhNnh4X2dtdSAqZ211LCBpbnQgaW5k
-ZXgpCj4+ICAgewo+PiAgIAlzdHJ1Y3QgYTZ4eF9ncHUgKmE2eHhfZ3B1ID0gY29udGFpbmVyX29m
-KGdtdSwgc3RydWN0IGE2eHhfZ3B1LCBnbXUpOwo+PiBAQCAtMTI4LDExICsxNjIsOCBAQCBzdGF0
-aWMgdm9pZCBfX2E2eHhfZ211X3NldF9mcmVxKHN0cnVjdCBhNnh4X2dtdSAqZ211LCBpbnQgaW5k
-ZXgpCj4+Cj4+ICAgCWdtdS0+ZnJlcSA9IGdtdS0+Z3B1X2ZyZXFzW2luZGV4XTsKPj4KPj4gLQkv
-Kgo+PiAtCSAqIEV2ZW50dWFsbHkgd2Ugd2lsbCB3YW50IHRvIHNjYWxlIHRoZSBwYXRoIHZvdGUg
-d2l0aCB0aGUgZnJlcXVlbmN5IGJ1dAo+PiAtCSAqIGZvciBub3cgbGVhdmUgaXQgYXQgbWF4IHNv
-IHRoYXQgdGhlIHBlcmZvcm1hbmNlIGlzIG5vbWluYWwuCj4+IC0JICovCj4+IC0JaWNjX3NldF9i
-dyhncHUtPmljY19wYXRoLCAwLCBNQnBzX3RvX2ljYyg3MjE2KSk7Cj4+ICsJaWYgKGdwdS0+aWNj
-X3BhdGgpCj4+ICsJCWE2eHhfZ211X3NldF9pY2Nfdm90ZShncHUsIGdtdS0+ZnJlcSk7Cj4gVGhp
-cyBmdW5jdGlvbiBpcyBhbm5veWluZyBiZWNhdXNlIHdlIGNhbGwgaXQgZnJvbSB0d28gZGlmZmVy
-ZW50IHNwb3RzLCBidXQgaXQKPiBmZWVscyB3YXN0ZWZ1bCB0aGF0IGRldmZyZXEgZ2l2ZXMgdXMg
-YW4gT1BQIHBvaW50ZXIgYW5kIHdlIGdvIG91dCBvZiBvdXIgd2F5IHRvCj4gbm90IHVzZSBpdCBv
-bmx5IHRvIHNlYXJjaCBmb3IgaXQgYWdhaW4gaW4gdGhlIHNldF9pY2Nfdm90ZSBmdW5jdGlvbi4g
-SSB0aGluawo+IG1heWJlIHdlIHNob3VsZCBwYXNzIHRoZSBPUFAgdGhyb3VnaCBmcm9tIG1zbV9n
-cHUuYy4gIFdlIGNvdWxkIGhhdmUgYSBoZWxwZXIKPiBmdW5jdGlvbiB0byBwdWxsIHRoZSBpbml0
-aWFsIG9wcCBpbiBhNnh4X2dtdV9yZXN1bWUgdG8gbWFrZSBpdCBjbGVhbi4KClllcyBKb3JkYW4s
-IGl0IG1ha2VzIHNlbnNlLiBJIGRpZCB0aGluayBhYm91dCB0aGlzIHRvbywgYnV0IG1heSBiZSBJ
-IAp3YXPCoCBhIGJpdCB0b28gbGF6eSB0byBjaGFuZ2UgdGhlIGV4aXN0aW5nIHBsdW1iaW5nIDop
-CgpJIHdpbGwgdGFrZSBjYXJlIG9mIHRoaXMgaW4gdGhlIG5leHQgaXRlcmF0aW9uLgoKPgo+PiAg
-IH0KPj4KPj4gICB2b2lkIGE2eHhfZ211X3NldF9mcmVxKHN0cnVjdCBtc21fZ3B1ICpncHUsIHVu
-c2lnbmVkIGxvbmcgZnJlcSkKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tc20vYWRy
-ZW5vL2FkcmVub19ncHUuYyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2FkcmVub19ncHUu
-Ywo+PiBpbmRleCAyZDEzNjk0Li5iYmJjYzdhIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vbXNtL2FkcmVuby9hZHJlbm9fZ3B1LmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL21zbS9h
-ZHJlbm8vYWRyZW5vX2dwdS5jCj4+IEBAIC04ODIsNyArODgyLDcgQEAgc3RhdGljIGludCBhZHJl
-bm9fZ2V0X3B3cmxldmVscyhzdHJ1Y3QgZGV2aWNlICpkZXYsCj4+ICAgewo+PiAgIAl1bnNpZ25l
-ZCBsb25nIGZyZXEgPSBVTE9OR19NQVg7Cj4+ICAgCXN0cnVjdCBkZXZfcG1fb3BwICpvcHA7Cj4+
-IC0JaW50IHJldDsKPj4gKwlpbnQgcmV0LCBpOwo+Pgo+PiAgIAlncHUtPmZhc3RfcmF0ZSA9IDA7
-Cj4+Cj4+IEBAIC04OTAsOSArODkwLDI5IEBAIHN0YXRpYyBpbnQgYWRyZW5vX2dldF9wd3JsZXZl
-bHMoc3RydWN0IGRldmljZSAqZGV2LAo+PiAgIAlpZiAoIW9mX2ZpbmRfcHJvcGVydHkoZGV2LT5v
-Zl9ub2RlLCAib3BlcmF0aW5nLXBvaW50cy12MiIsIE5VTEwpKQo+PiAgIAkJcmV0ID0gYWRyZW5v
-X2dldF9sZWdhY3lfcHdybGV2ZWxzKGRldik7Cj4+ICAgCWVsc2Ugewo+PiAtCQlyZXQgPSBkZXZf
-cG1fb3BwX29mX2FkZF90YWJsZShkZXYpOwo+PiAtCQlpZiAocmV0KQo+PiAtCQkJRFJNX0RFVl9F
-UlJPUihkZXYsICJVbmFibGUgdG8gc2V0IHRoZSBPUFAgdGFibGVcbiIpOwo+PiArCQlpbnQgY291
-bnQgPSBvZl9jb3VudF9waGFuZGxlX3dpdGhfYXJncyhkZXYtPm9mX25vZGUsCj4+ICsJCQkJIm9w
-ZXJhdGluZy1wb2ludHMtdjIiLCBOVUxMKTsKPj4gKwo+PiArCQljb3VudCA9IG1pbihjb3VudCwg
-R1BVX0REUl9PUFBfVEFCTEVfSU5ERVggKyAxKTsKPj4gKwkJY291bnQgPSBtYXgoY291bnQsIDEp
-Owo+PiArCj4+ICsJCWZvciAoaSA9IDA7IGkgPCBjb3VudDsgaSsrKSB7Cj4+ICsJCQlyZXQgPSBk
-ZXZfcG1fb3BwX29mX2FkZF90YWJsZV9pbmRleGVkKGRldiwgaSk7Cj4+ICsJCQlpZiAocmV0KSB7
-Cj4+ICsJCQkJRFJNX0RFVl9FUlJPUihkZXYsICJBZGQgT1BQIHRhYmxlICVkOiBmYWlsZWQgJWRc
-biIsCj4+ICsJCQkJCQlpLCByZXQpOwo+PiArCQkJCWdvdG8gZXJyOwo+PiArCQkJfQo+PiArCj4+
-ICsJCQlncHUtPm9wcF90YWJsZXNbaV0gPQo+PiArCQkJCWRldl9wbV9vcHBfZ2V0X29wcF90YWJs
-ZV9pbmRleGVkKGRldiwgaSk7Cj4+ICsJCQlpZiAoIWdwdS0+b3BwX3RhYmxlc1tpXSkgewo+PiAr
-CQkJCURSTV9ERVZfRVJST1IoZGV2LCAiR2V0IE9QUCB0YWJsZSBmYWlsZWQgaW5kZXggJWRcbiIs
-Cj4+ICsJCQkJCQlpKTsKPj4gKwkJCQlyZXQgPSAtRUlOVkFMOwo+PiArCQkJCWdvdG8gZXJyOwo+
-PiArCQkJfQo+PiArCQl9Cj4+ICAgCX0KPj4KPj4gICAJaWYgKCFyZXQpIHsKPj4gQEAgLTkxOSwx
-MiArOTM5LDI0IEBAIHN0YXRpYyBpbnQgYWRyZW5vX2dldF9wd3JsZXZlbHMoc3RydWN0IGRldmlj
-ZSAqZGV2LAo+PiAgIAkJZ3B1LT5pY2NfcGF0aCA9IE5VTEw7Cj4+Cj4+ICAgCXJldHVybiAwOwo+
-PiArZXJyOgo+PiArCWZvciAoOyBpID49IDA7IGktLSkgewo+PiArCQlpZiAoZ3B1LT5vcHBfdGFi
-bGVzW2ldKSB7Cj4+ICsJCQlkZXZfcG1fb3BwX3B1dF9vcHBfdGFibGUoZ3B1LT5vcHBfdGFibGVz
-W2ldKTsKPj4gKwkJCWdwdS0+b3BwX3RhYmxlc1tpXSA9IE5VTEw7Cj4+ICsJCX0KPj4gKwl9Cj4+
-ICsKPj4gKwlkZXZfcG1fb3BwX3JlbW92ZV90YWJsZShkZXYpOwo+PiArCXJldHVybiByZXQ7Cj4+
-ICAgfQo+Pgo+PiAgIGludCBhZHJlbm9fZ3B1X2luaXQoc3RydWN0IGRybV9kZXZpY2UgKmRybSwg
-c3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldiwKPj4gICAJCXN0cnVjdCBhZHJlbm9fZ3B1ICph
-ZHJlbm9fZ3B1LAo+PiAgIAkJY29uc3Qgc3RydWN0IGFkcmVub19ncHVfZnVuY3MgKmZ1bmNzLCBp
-bnQgbnJfcmluZ3MpCj4+ICAgewo+PiArCWludCByZXQgPSAwOwo+PiArCj4+ICAgCXN0cnVjdCBh
-ZHJlbm9fcGxhdGZvcm1fY29uZmlnICpjb25maWcgPSBwZGV2LT5kZXYucGxhdGZvcm1fZGF0YTsK
-Pj4gICAJc3RydWN0IG1zbV9ncHVfY29uZmlnIGFkcmVub19ncHVfY29uZmlnICA9IHsgMCB9Owo+
-PiAgIAlzdHJ1Y3QgbXNtX2dwdSAqZ3B1ID0gJmFkcmVub19ncHUtPmJhc2U7Cj4+IEBAIC05NDUs
-NyArOTc3LDkgQEAgaW50IGFkcmVub19ncHVfaW5pdChzdHJ1Y3QgZHJtX2RldmljZSAqZHJtLCBz
-dHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2LAo+Pgo+PiAgIAlhZHJlbm9fZ3B1X2NvbmZpZy5u
-cl9yaW5ncyA9IG5yX3JpbmdzOwo+Pgo+PiAtCWFkcmVub19nZXRfcHdybGV2ZWxzKCZwZGV2LT5k
-ZXYsIGdwdSk7Cj4+ICsJcmV0ID0gYWRyZW5vX2dldF9wd3JsZXZlbHMoJnBkZXYtPmRldiwgZ3B1
-KTsKPj4gKwlpZiAocmV0KQo+PiArCQlyZXR1cm4gcmV0Owo+Pgo+PiAgIAlwbV9ydW50aW1lX3Nl
-dF9hdXRvc3VzcGVuZF9kZWxheSgmcGRldi0+ZGV2LAo+PiAgIAkJYWRyZW5vX2dwdS0+aW5mby0+
-aW5hY3RpdmVfcGVyaW9kKTsKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tc20vbXNt
-X2dwdS5oIGIvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZ3B1LmgKPj4gaW5kZXggYWI4ZjBmOWMu
-LjViOThiNDggMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2dwdS5oCj4+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2dwdS5oCj4+IEBAIC02Niw2ICs2NiwxMiBA
-QCBzdHJ1Y3QgbXNtX2dwdV9mdW5jcyB7Cj4+ICAgCXZvaWQgKCpncHVfc2V0X2ZyZXEpKHN0cnVj
-dCBtc21fZ3B1ICpncHUsIHVuc2lnbmVkIGxvbmcgZnJlcSk7Cj4+ICAgfTsKPj4KPj4gKy8qIG9w
-cCB0YWJsZSBpbmRpY2VzICovCj4+ICtlbnVtIHsKPj4gKwlHUFVfT1BQX1RBQkxFX0lOREVYLAo+
-PiArCUdQVV9ERFJfT1BQX1RBQkxFX0lOREVYLAo+PiArfTsKPj4gKwo+PiAgIHN0cnVjdCBtc21f
-Z3B1IHsKPj4gICAJY29uc3QgY2hhciAqbmFtZTsKPj4gICAJc3RydWN0IGRybV9kZXZpY2UgKmRl
-djsKPj4gQEAgLTExMyw2ICsxMTksOSBAQCBzdHJ1Y3QgbXNtX2dwdSB7Cj4+Cj4+ICAgCXN0cnVj
-dCBpY2NfcGF0aCAqaWNjX3BhdGg7Cj4+Cj4+ICsJLyogZ3B1L2RkciBvcHAgdGFibGVzICovCj4+
-ICsJc3RydWN0IG9wcF90YWJsZSAqb3BwX3RhYmxlc1syXTsKPiBZb3UgZG9uJ3QgbmVlZCBhbiBh
-cnJheSBoZXJlLiBXZSdyZSBub3QgZ29pbmcgdG8gaGF2ZSB0aGF0IG1hbnkgdGFibGVzLgo+Cj4g
-c3RydWN0IG9wcF90YWJsZSAqZ3B1X29wcF90YWJsZTsKPiBzdHJ1Y3Qgb3BwX3RhYmxlICpid19v
-cHBfdGFibGU7Cj4KPiBJcyBzdWZmaWNpZW50IGFuZCB3ZSBkb24ndCBuZWVkIGFuIGVudW0uCj4K
-Pj4gKwo+PiAgIAkvKiBIYW5nIGFuZCBJbmFjdGl2aXR5IERldGVjdGlvbjoKPj4gICAJICovCj4+
-ICAgI2RlZmluZSBEUk1fTVNNX0lOQUNUSVZFX1BFUklPRCAgIDY2IC8qIGluIG1zIChyb3VnaGx5
-IGZvdXIgZnJhbWVzKSAqLwo+PiAtLQo+PiAyLjcuNAo+Pgo+IEpvcmRhbgo+Cl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxp
-c3QKRnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVubwo=
+Hi,
+
+Here is an adreno regression I noticed on imx53 running 5.5.13:
+
+[   21.283902] ======================================================
+[   21.290148] WARNING: possible circular locking dependency detected
+[   21.296409] 5.5.13 #1 Not tainted
+[   21.299785] ------------------------------------------------------
+[   21.306030] kworker/u2:1/19 is trying to acquire lock:
+[   21.311236] dc888ae8 (reservation_ww_class_mutex){+.+.}, at:
+dma_buf_detach+0x78/0x1e0
+[   21.319341]
+[   21.319341] but task is already holding lock:
+[   21.325232] dc88838c (&msm_obj->lock){+.+.}, at:
+msm_gem_free_work+0x100/0x188
+[   21.332587]
+[   21.33258[   32.525073] evbug: Event. Dev: input1, Type: 3, Code:
+1, Value: 41
+[   32.531942] evbug: Event. Dev: input1, Type: 0, Code: 0, Value: 0
+7] which lock already depends on the new lock.
+[   21.332587]
+[   21.340823]
+[   21.340823] the existing dependency chain (in reverse order) is:
+[   21.348362]
+[   21.348362] -> #1 (&msm_obj->lock){+.+.}:
+[   21.353989]        mutex_lock_nested+0x1c/0x24
+[   21.358514]        msm_gem_get_and_pin_iova+0x30/0x158
+[   21.363733]        msm_ioctl_gem_submit+0xa90/0x1148
+[   21.368775]        drm_ioctl_kernel+0xa4/0xec
+[   21.373203]        drm_ioctl+0x1e0/0x3c8
+[   21.377215]        do_vfs_ioctl+0x9c/0xa68
+[   21.381388]        ksys_ioctl+0x34/0x60
+[   21.385304]        ret_fast_syscall+0x0/0x28
+[   21.389646]        0xbea6f8d8
+[   21.392670]
+[   21.392670] -> #0 (reservation_ww_class_mutex){+.+.}:
+[   21.399333]        lock_acquire+0xcc/0x1ec
+[   21.403516]        __ww_mutex_lock.constprop.8+0x94/0x10a4
+[   21.409080]        ww_mutex_lock+0x78/0xb0
+[   21.413261]        dma_buf_detach+0x78/0x1e0
+[   21.417637]        drm_prime_gem_destroy+0x2c/0x38
+[   21.422505]        msm_gem_free_work+0x88/0x188
+[   21.427133]        process_one_work+0x2c4/0x754
+[   21.431744]        worker_thread+0x2c/0x590
+[   21.436015]        kthread+0x134/0x148
+[   21.439838]        ret_from_fork+0x14/0x20
+[   21.444000]        0x0
+[   21.446418]
+[   21.446418] other info that might help us debug this:
+[   21.446418]
+[   21.454483]  Possible unsafe locking scenario:
+[   21.454483]
+[   21.460460]        CPU0                    CPU1
+[   21.465044]        ----                    ----
+[   21.469627]   lock(&msm_obj->lock);
+[   21.473190]                                lock(reservation_ww_class_mutex);
+[   21.480314]                                lock(&msm_obj->lock);
+[   21.486392]   lock(reservation_ww_class_mutex);
+[   21.490996]
+[   21.490996]  *** DEADLOCK ***
+[   21.490996]
+[   21.496985] 4 locks held by kworker/u2:1/19:
+[   21.501311]  #0: dc43a6a0 ((wq_completion)msm){+.+.}, at:
+process_one_work+0x210/0x754
+[   21.509358]  #1: dc207f1c
+((work_completion)(&priv->free_work)){+.+.}, at:
+process_one_work+0x210/0x754
+[   21.518876]  #2: dc3a7070 (&dev->struct_mutex){+.+.}, at:
+msm_gem_free_work+0x4c/0x188
+[   21.526915]  #3: dc88838c (&msm_obj->lock){+.+.}, at:
+msm_gem_free_work+0x100/0x188
+[   21.534692]
+[   21.534692] stack backtrace:
+[   21.539136] CPU: 0 PID: 19 Comm: kworker/u2:1 Not tainted 5.5.13 #1
+[   21.545470] Hardware name: Freescale i.MX53 (Device Tree Support)
+[   21.551667] Workqueue: msm msm_gem_free_work
+[   21.556087] [<c0112e18>] (unwind_backtrace) from [<c010cda0>]
+(show_stack+0x10/0x14)
+[   21.563950] [<c010cda0>] (show_stack) from [<c0c9989c>]
+(dump_stack+0xe4/0x11c)
+[   21.571372] [<c0c9989c>] (dump_stack) from [<c0180334>]
+(check_noncircular+0x130/0x1e4)
+[   21.579486] [<c0180334>] (check_noncircular) from [<c0182450>]
+(__lock_acquire+0xf58/0x2458)
+[   21.588030] [<c0182450>] (__lock_acquire) from [<c01841bc>]
+(lock_acquire+0xcc/0x1ec)
+[   21.595976] [<c01841bc>] (lock_acquire) from [<c0cb887c>]
+(__ww_mutex_lock.constprop.8+0x94/0x10a4)
+[   21.605134] [<c0cb887c>] (__ww_mutex_lock.constprop.8) from
+[<c0cb99b4>] (ww_mutex_lock+0x78/0xb0)
+[   21.614207] [<c0cb99b4>] (ww_mutex_lock) from [<c070c078>]
+(dma_buf_detach+0x78/0x1e0)
+[   21.622239] [<c070c078>] (dma_buf_detach) from [<c06276e8>]
+(drm_prime_gem_destroy+0x2c/0x38)
+[   21.630874] [<c06276e8>] (drm_prime_gem_destroy) from [<c0696b48>]
+(msm_gem_free_work+0x88/0x188)
+[   21.639854] [<c0696b48>] (msm_gem_free_work) from [<c0148228>]
+(process_one_work+0x2c4/0x754)
+[   21.648487] [<c0148228>] (process_one_work) from [<c01486e4>]
+(worker_thread+0x2c/0x590)
+[   21.656681] [<c01486e4>] (worker_thread) from [<c01505f0>]
+(kthread+0x134/0x148)
+[   21.664176] [<c01505f0>] (kthread) from [<c01010b4>]
+(ret_from_fork+0x14/0x20)
+[   21.671470] Exception stack(0xdc207fb0 to 0xdc207ff8)
+
+In order to reproduce it, I just launch kmscube and it starts running normally.
+
+Then I do a "CTRL + C" and the message below appears.
+
+Testing on 5.4.x I don't see this problem.
+
+I haven't started bisecting this yet, but just checking if anyone has
+any ideas first.
+
+Thanks,
+
+Fabio Estevam
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
