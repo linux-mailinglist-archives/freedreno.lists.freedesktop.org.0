@@ -1,56 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A02419A8AC
-	for <lists+freedreno@lfdr.de>; Wed,  1 Apr 2020 11:32:33 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4237B19ABB0
+	for <lists+freedreno@lfdr.de>; Wed,  1 Apr 2020 14:30:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CDDE6E90B;
-	Wed,  1 Apr 2020 09:32:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D00176E93E;
+	Wed,  1 Apr 2020 12:30:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
- [104.130.122.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 964E16E90A
- for <freedreno@lists.freedesktop.org>; Wed,  1 Apr 2020 09:32:28 +0000 (UTC)
+Received: from mail27.static.mailgun.info (mail27.static.mailgun.info
+ [104.130.122.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BDB66E072
+ for <freedreno@lists.freedesktop.org>; Wed,  1 Apr 2020 12:30:16 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1585733550; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=O4mfO68j0oUFthZ8BDymyBRZQeDPJ5DqwOJdqb9xXjc=;
- b=REC6ewzdQ+lioINZISvKvcXrblJFbUF8/aD56UKqVCfTTt1b6ppsuwcEvYkbYZRuAKSWqxo3
- OABiVYTs6Vv4GDzv0Nli+uCzHPrxJshaBpMU6oGXeOJQCtaYlfUma30dSqoGY8lvAxGGF9Yb
- +fs5BFjuD1T/7xfy2YS67eYfRao=
-X-Mailgun-Sending-Ip: 104.130.122.26
+ s=smtp; t=1585744218; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: To:
+ Subject: Sender; bh=Z0Xp87Y05y0UuIbXR2bnYutLCxiJ/10ostDEHWR1uEI=;
+ b=SCk2wPc0rqO2XW5xJlQwps9jTYATLLgTMINXIqBsTSv97sry+JEteD53JS2ARP5QBT5x01bl
+ /c+Il3lzUHXlJyIaoP033O/PUupnakBKM0Nb4F0piGK438pEmt1Y9ZjnOCanXyqUxekSeB+W
+ rvJOZiQjhiya+0LOIDr0CQw+VYU=
+X-Mailgun-Sending-Ip: 104.130.122.27
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5e845fa5.7ff7beefeed8-smtp-out-n05;
- Wed, 01 Apr 2020 09:32:21 -0000 (UTC)
+ by mxa.mailgun.org with ESMTP id 5e848951.7f3da7acf1f0-smtp-out-n03;
+ Wed, 01 Apr 2020 12:30:09 -0000 (UTC)
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id C2A60C433F2; Wed,  1 Apr 2020 09:32:21 +0000 (UTC)
+ id 6222EC433F2; Wed,  1 Apr 2020 12:30:08 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: kalyan_t)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 16FF4C433D2;
- Wed,  1 Apr 2020 09:32:21 +0000 (UTC)
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=ham autolearn_force=no version=3.4.0
+Received: from [192.168.1.227] (unknown [49.204.179.182])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: smasetty)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id C624AC433BA;
+ Wed,  1 Apr 2020 12:30:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org C624AC433BA
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=smasetty@codeaurora.org
+To: freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ dri-devel@freedesktop.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mka@chromium.org, sibis@codeaurora.org,
+ saravanak@google.com, viresh.kumar@linaro.org
+References: <1585641353-23229-1-git-send-email-smasetty@codeaurora.org>
+ <1585641353-23229-4-git-send-email-smasetty@codeaurora.org>
+ <20200331172600.GB11573@jcrouse1-lnx.qualcomm.com>
+From: Sharat Masetty <smasetty@codeaurora.org>
+Message-ID: <929d84c4-bbb8-0c3f-52c0-c82c2055da46@codeaurora.org>
+Date: Wed, 1 Apr 2020 18:00:01 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-Date: Wed, 01 Apr 2020 15:02:21 +0530
-From: kalyan_t@codeaurora.org
-To: Doug Anderson <dianders@chromium.org>
-In-Reply-To: <CAD=FV=Up4y6GUkJc8NNJBdC28L+6LvUs7pCUg4pyMCgHMGEkug@mail.gmail.com>
-References: <1585663107-12406-1-git-send-email-kalyan_t@codeaurora.org>
- <CAD=FV=Up4y6GUkJc8NNJBdC28L+6LvUs7pCUg4pyMCgHMGEkug@mail.gmail.com>
-Message-ID: <2922a0c64ec61c3d74d516e44dca2d71@codeaurora.org>
-X-Sender: kalyan_t@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: ensure device suspend happens
- during PM sleep
+In-Reply-To: <20200331172600.GB11573@jcrouse1-lnx.qualcomm.com>
+Content-Language: en-US
+Subject: Re: [Freedreno] [PATCH 3/5] drm: msm: scale DDR BW along with GPU
+ frequency
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,129 +73,134 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED
- DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, mkrishn@codeaurora.org,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, travitej@codeaurora.org,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
- nganji@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
- "Kristian H. Kristensen" <hoegsberg@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Jeykumar Sankaran <jsanka@codeaurora.org>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-03-31 21:30, Doug Anderson wrote:
-> Hi,
-> 
-> On Tue, Mar 31, 2020 at 6:58 AM Kalyan Thota <kalyan_t@codeaurora.org> 
-> wrote:
->> 
->> "The PM core always increments the runtime usage counter
->> before calling the ->suspend() callback and decrements it
->> after calling the ->resume() callback"
->> 
->> DPU and DSI are managed as runtime devices. When
->> suspend is triggered, PM core adds a refcount on all the
->> devices and calls device suspend, since usage count is
->> already incremented, runtime suspend was not getting called
->> and it kept the clocks on which resulted in target not
->> entering into XO shutdown.
->> 
->> Add changes to force suspend on runtime devices during pm sleep.
->> 
->> Changes in v1:
->>  - Remove unnecessary checks in the function
->>     _dpu_kms_disable_dpu (Rob Clark).
->> 
->> Changes in v2:
->>  - Avoid using suspend_late to reset the usagecount
->>    as suspend_late might not be called during suspend
->>    call failures (Doug).
->> 
->> Changes in v3:
->>  - Use force suspend instead of managing device usage_count
->>    via runtime put and get API's to trigger callbacks (Doug).
->> 
->> Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
->> ---
->>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 2 ++
->>  drivers/gpu/drm/msm/dsi/dsi.c           | 2 ++
->>  drivers/gpu/drm/msm/msm_drv.c           | 4 ++++
->>  3 files changed, 8 insertions(+)
-> 
-> This looks much saner to me.  Thanks!  I assume it still works fine
-> for you?  I'm still no expert on how all the pieces of DRM drivers
-> work together, but at least there's not a bunch of strange fiddling
-> with pm_runtime state and hopefully it will avoid weird corner
-> cases...
-> 
---- Yes, verified the change on trogdor device, and display can suspend 
-with the change.
-> 
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c 
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->> index ce19f1d..b886d9d 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->> @@ -1123,6 +1123,8 @@ static int __maybe_unused 
->> dpu_runtime_resume(struct device *dev)
->> 
->>  static const struct dev_pm_ops dpu_pm_ops = {
->>         SET_RUNTIME_PM_OPS(dpu_runtime_suspend, dpu_runtime_resume, 
->> NULL)
->> +       SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
->> +                               pm_runtime_force_resume)
->>  };
->> 
->>  static const struct of_device_id dpu_dt_match[] = {
->> diff --git a/drivers/gpu/drm/msm/dsi/dsi.c 
->> b/drivers/gpu/drm/msm/dsi/dsi.c
->> index 55ea4bc2..62704885 100644
->> --- a/drivers/gpu/drm/msm/dsi/dsi.c
->> +++ b/drivers/gpu/drm/msm/dsi/dsi.c
->> @@ -161,6 +161,8 @@ static int dsi_dev_remove(struct platform_device 
->> *pdev)
->> 
->>  static const struct dev_pm_ops dsi_pm_ops = {
->>         SET_RUNTIME_PM_OPS(msm_dsi_runtime_suspend, 
->> msm_dsi_runtime_resume, NULL)
->> +       SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
->> +                               pm_runtime_force_resume)
->>  };
->> 
->>  static struct platform_driver dsi_driver = {
->> diff --git a/drivers/gpu/drm/msm/msm_drv.c 
->> b/drivers/gpu/drm/msm/msm_drv.c
->> index 7d985f8..2b8c99c 100644
->> --- a/drivers/gpu/drm/msm/msm_drv.c
->> +++ b/drivers/gpu/drm/msm/msm_drv.c
->> @@ -1051,6 +1051,8 @@ static int msm_pm_suspend(struct device *dev)
->>                 return ret;
->>         }
->> 
->> +       pm_runtime_force_suspend(dev);
-> 
-> nit: check return value of pm_runtime_force_suspend()?
-> 
-> 
->> +
->>         return 0;
->>  }
->> 
->> @@ -1063,6 +1065,8 @@ static int msm_pm_resume(struct device *dev)
->>         if (WARN_ON(!priv->pm_state))
->>                 return -ENOENT;
->> 
->> +       pm_runtime_force_resume(dev);
-> 
-> nit: check return value of pm_runtime_force_resume()?
-> 
-> 
-> -Doug
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+Ck9uIDMvMzEvMjAyMCAxMDo1NiBQTSwgSm9yZGFuIENyb3VzZSB3cm90ZToKPiBPbiBUdWUsIE1h
+ciAzMSwgMjAyMCBhdCAwMToyNTo1MVBNICswNTMwLCBTaGFyYXQgTWFzZXR0eSB3cm90ZToKPj4g
+VGhpcyBwYXRjaCBhZGRzIHN1cHBvcnQgdG8gcGFyc2UgdGhlIE9QUCB0YWJsZXMgYXR0YWNoZWQg
+dGhlIEdQVSBkZXZpY2UsCj4+IHRoZSBtYWluIG9wcCB0YWJsZSBhbmQgdGhlIEREUiBiYW5kd2lk
+dGggb3BwIHRhYmxlLiBBZGRpdGlvbmFsbHksIHZvdGUKPj4gZm9yIHRoZSBHUFUtPkREUiBiYW5k
+d2lkdGggd2hlbiBzZXR0aW5nIHRoZSBHUFUgZnJlcXVlbmN5IGJ5IHF1ZXJ5aW5nCj4+IHRoZSBs
+aW5rZWQgRERSIEJXIG9wcCB0byB0aGUgR1BVIG9wcC4KPj4KPj4gU2lnbmVkLW9mZi1ieTogU2hh
+cmF0IE1hc2V0dHkgPHNtYXNldHR5QGNvZGVhdXJvcmEub3JnPgo+PiAtLS0KPj4gICBkcml2ZXJz
+L2dwdS9kcm0vbXNtL2FkcmVuby9hNnh4X2dtdS5jICAgfCA0MSArKysrKysrKysrKysrKysrKysr
+KysrKysrKy0tLS0KPj4gICBkcml2ZXJzL2dwdS9kcm0vbXNtL2FkcmVuby9hZHJlbm9fZ3B1LmMg
+fCA0NCArKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0KPj4gICBkcml2ZXJzL2dwdS9k
+cm0vbXNtL21zbV9ncHUuaCAgICAgICAgICAgfCAgOSArKysrKysrCj4+ICAgMyBmaWxlcyBjaGFu
+Z2VkLCA4NCBpbnNlcnRpb25zKCspLCAxMCBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2E2eHhfZ211LmMgYi9kcml2ZXJzL2dwdS9kcm0v
+bXNtL2FkcmVuby9hNnh4X2dtdS5jCj4+IGluZGV4IDc0OGNkMzcuLjQ4OWQ5YjYgMTAwNjQ0Cj4+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2E2eHhfZ211LmMKPj4gKysrIGIvZHJp
+dmVycy9ncHUvZHJtL21zbS9hZHJlbm8vYTZ4eF9nbXUuYwo+PiBAQCAtMTAwLDYgKzEwMCw0MCBA
+QCBib29sIGE2eHhfZ211X2d4X2lzX29uKHN0cnVjdCBhNnh4X2dtdSAqZ211KQo+PiAgIAkJQTZY
+WF9HTVVfU1BUUFJBQ19QV1JfQ0xLX1NUQVRVU19HWF9ITV9DTEtfT0ZGKSk7Cj4+ICAgfQo+Pgo+
+PiArdm9pZCBhNnh4X2dtdV9zZXRfaWNjX3ZvdGUoc3RydWN0IG1zbV9ncHUgKmdwdSwgdW5zaWdu
+ZWQgbG9uZyBncHVfZnJlcSkKPj4gK3sKPj4gKwlzdHJ1Y3QgZGV2X3BtX29wcCAqZ3B1X29wcCwg
+KmRkcl9vcHA7Cj4+ICsJc3RydWN0IG9wcF90YWJsZSAqKnRhYmxlcyA9IGdwdS0+b3BwX3RhYmxl
+czsKPj4gKwl1bnNpZ25lZCBsb25nIHBlYWtfYnc7Cj4+ICsKPj4gKwlpZiAoIWdwdS0+b3BwX3Rh
+Ymxlc1tHUFVfRERSX09QUF9UQUJMRV9JTkRFWF0pCj4+ICsJCWdvdG8gZG9uZTsKPj4gKwo+PiAr
+CWdwdV9vcHAgPSBkZXZfcG1fb3BwX2ZpbmRfZnJlcV9leGFjdCgmZ3B1LT5wZGV2LT5kZXYsIGdw
+dV9mcmVxLCB0cnVlKTsKPj4gKwlpZiAoSVNfRVJSX09SX05VTEwoZ3B1X29wcCkpCj4+ICsJCWdv
+dG8gZG9uZTsKPj4gKwo+PiArCWRkcl9vcHAgPSBkZXZfcG1fb3BwX3hsYXRlX3JlcXVpcmVkX29w
+cCh0YWJsZXNbR1BVX09QUF9UQUJMRV9JTkRFWF0sCj4+ICsJCQkJCSAgICB0YWJsZXNbR1BVX0RE
+Ul9PUFBfVEFCTEVfSU5ERVhdLAo+PiArCQkJCQkgICAgZ3B1X29wcCk7Cj4+ICsJZGV2X3BtX29w
+cF9wdXQoZ3B1X29wcCk7Cj4+ICsKPj4gKwlpZiAoSVNfRVJSX09SX05VTEwoZGRyX29wcCkpCj4+
+ICsJCWdvdG8gZG9uZTsKPiBJIHRoaW5rIHRoYXQgdGhlIGZpbmFsIGFwcHJvYWNoIGlzIHN0aWxs
+IHVwIGluIHRoZSBhaXIgYnV0IGVpdGhlciB3YXkgd2UncmUKPiBnb2luZyB0byBwdWxsIHRoZSBi
+YW5kd2lkdGggZnJvbSBhbiBPUFAsIGl0cyBqdXN0IGEgcXVlc3Rpb24gb2Ygd2hpY2ggT1BQLgo+
+Cj4+ICsJcGVha19idyA9IGRldl9wbV9vcHBfZ2V0X2J3KGRkcl9vcHAsIE5VTEwpOwo+PiArCWRl
+dl9wbV9vcHBfcHV0KGRkcl9vcHApOwo+PiArCj4+ICsJaWNjX3NldF9idyhncHUtPmljY19wYXRo
+LCAwLCBwZWFrX2J3KTsKPj4gKwlyZXR1cm47Cj4+ICtkb25lOgo+PiArCS8qCj4+ICsJICogSWYg
+dGhlcmUgaXMgYSBwcm9ibGVtLCBmb3Igbm93IGxlYXZlIGl0IGF0IG1heCBzbyB0aGF0IHRoZQo+
+PiArCSAqIHBlcmZvcm1hbmNlIGlzIG5vbWluYWwuCj4+ICsJICovCj4+ICsJaWNjX3NldF9idyhn
+cHUtPmljY19wYXRoLCAwLCBNQnBzX3RvX2ljYyg3MjE2KSk7Cj4+ICt9Cj4+ICsKPj4gICBzdGF0
+aWMgdm9pZCBfX2E2eHhfZ211X3NldF9mcmVxKHN0cnVjdCBhNnh4X2dtdSAqZ211LCBpbnQgaW5k
+ZXgpCj4+ICAgewo+PiAgIAlzdHJ1Y3QgYTZ4eF9ncHUgKmE2eHhfZ3B1ID0gY29udGFpbmVyX29m
+KGdtdSwgc3RydWN0IGE2eHhfZ3B1LCBnbXUpOwo+PiBAQCAtMTI4LDExICsxNjIsOCBAQCBzdGF0
+aWMgdm9pZCBfX2E2eHhfZ211X3NldF9mcmVxKHN0cnVjdCBhNnh4X2dtdSAqZ211LCBpbnQgaW5k
+ZXgpCj4+Cj4+ICAgCWdtdS0+ZnJlcSA9IGdtdS0+Z3B1X2ZyZXFzW2luZGV4XTsKPj4KPj4gLQkv
+Kgo+PiAtCSAqIEV2ZW50dWFsbHkgd2Ugd2lsbCB3YW50IHRvIHNjYWxlIHRoZSBwYXRoIHZvdGUg
+d2l0aCB0aGUgZnJlcXVlbmN5IGJ1dAo+PiAtCSAqIGZvciBub3cgbGVhdmUgaXQgYXQgbWF4IHNv
+IHRoYXQgdGhlIHBlcmZvcm1hbmNlIGlzIG5vbWluYWwuCj4+IC0JICovCj4+IC0JaWNjX3NldF9i
+dyhncHUtPmljY19wYXRoLCAwLCBNQnBzX3RvX2ljYyg3MjE2KSk7Cj4+ICsJaWYgKGdwdS0+aWNj
+X3BhdGgpCj4+ICsJCWE2eHhfZ211X3NldF9pY2Nfdm90ZShncHUsIGdtdS0+ZnJlcSk7Cj4gVGhp
+cyBmdW5jdGlvbiBpcyBhbm5veWluZyBiZWNhdXNlIHdlIGNhbGwgaXQgZnJvbSB0d28gZGlmZmVy
+ZW50IHNwb3RzLCBidXQgaXQKPiBmZWVscyB3YXN0ZWZ1bCB0aGF0IGRldmZyZXEgZ2l2ZXMgdXMg
+YW4gT1BQIHBvaW50ZXIgYW5kIHdlIGdvIG91dCBvZiBvdXIgd2F5IHRvCj4gbm90IHVzZSBpdCBv
+bmx5IHRvIHNlYXJjaCBmb3IgaXQgYWdhaW4gaW4gdGhlIHNldF9pY2Nfdm90ZSBmdW5jdGlvbi4g
+SSB0aGluawo+IG1heWJlIHdlIHNob3VsZCBwYXNzIHRoZSBPUFAgdGhyb3VnaCBmcm9tIG1zbV9n
+cHUuYy4gIFdlIGNvdWxkIGhhdmUgYSBoZWxwZXIKPiBmdW5jdGlvbiB0byBwdWxsIHRoZSBpbml0
+aWFsIG9wcCBpbiBhNnh4X2dtdV9yZXN1bWUgdG8gbWFrZSBpdCBjbGVhbi4KClllcyBKb3JkYW4s
+IGl0IG1ha2VzIHNlbnNlLiBJIGRpZCB0aGluayBhYm91dCB0aGlzIHRvbywgYnV0IG1heSBiZSBJ
+IAp3YXPCoCBhIGJpdCB0b28gbGF6eSB0byBjaGFuZ2UgdGhlIGV4aXN0aW5nIHBsdW1iaW5nIDop
+CgpJIHdpbGwgdGFrZSBjYXJlIG9mIHRoaXMgaW4gdGhlIG5leHQgaXRlcmF0aW9uLgoKPgo+PiAg
+IH0KPj4KPj4gICB2b2lkIGE2eHhfZ211X3NldF9mcmVxKHN0cnVjdCBtc21fZ3B1ICpncHUsIHVu
+c2lnbmVkIGxvbmcgZnJlcSkKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tc20vYWRy
+ZW5vL2FkcmVub19ncHUuYyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2FkcmVub19ncHUu
+Ywo+PiBpbmRleCAyZDEzNjk0Li5iYmJjYzdhIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vbXNtL2FkcmVuby9hZHJlbm9fZ3B1LmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL21zbS9h
+ZHJlbm8vYWRyZW5vX2dwdS5jCj4+IEBAIC04ODIsNyArODgyLDcgQEAgc3RhdGljIGludCBhZHJl
+bm9fZ2V0X3B3cmxldmVscyhzdHJ1Y3QgZGV2aWNlICpkZXYsCj4+ICAgewo+PiAgIAl1bnNpZ25l
+ZCBsb25nIGZyZXEgPSBVTE9OR19NQVg7Cj4+ICAgCXN0cnVjdCBkZXZfcG1fb3BwICpvcHA7Cj4+
+IC0JaW50IHJldDsKPj4gKwlpbnQgcmV0LCBpOwo+Pgo+PiAgIAlncHUtPmZhc3RfcmF0ZSA9IDA7
+Cj4+Cj4+IEBAIC04OTAsOSArODkwLDI5IEBAIHN0YXRpYyBpbnQgYWRyZW5vX2dldF9wd3JsZXZl
+bHMoc3RydWN0IGRldmljZSAqZGV2LAo+PiAgIAlpZiAoIW9mX2ZpbmRfcHJvcGVydHkoZGV2LT5v
+Zl9ub2RlLCAib3BlcmF0aW5nLXBvaW50cy12MiIsIE5VTEwpKQo+PiAgIAkJcmV0ID0gYWRyZW5v
+X2dldF9sZWdhY3lfcHdybGV2ZWxzKGRldik7Cj4+ICAgCWVsc2Ugewo+PiAtCQlyZXQgPSBkZXZf
+cG1fb3BwX29mX2FkZF90YWJsZShkZXYpOwo+PiAtCQlpZiAocmV0KQo+PiAtCQkJRFJNX0RFVl9F
+UlJPUihkZXYsICJVbmFibGUgdG8gc2V0IHRoZSBPUFAgdGFibGVcbiIpOwo+PiArCQlpbnQgY291
+bnQgPSBvZl9jb3VudF9waGFuZGxlX3dpdGhfYXJncyhkZXYtPm9mX25vZGUsCj4+ICsJCQkJIm9w
+ZXJhdGluZy1wb2ludHMtdjIiLCBOVUxMKTsKPj4gKwo+PiArCQljb3VudCA9IG1pbihjb3VudCwg
+R1BVX0REUl9PUFBfVEFCTEVfSU5ERVggKyAxKTsKPj4gKwkJY291bnQgPSBtYXgoY291bnQsIDEp
+Owo+PiArCj4+ICsJCWZvciAoaSA9IDA7IGkgPCBjb3VudDsgaSsrKSB7Cj4+ICsJCQlyZXQgPSBk
+ZXZfcG1fb3BwX29mX2FkZF90YWJsZV9pbmRleGVkKGRldiwgaSk7Cj4+ICsJCQlpZiAocmV0KSB7
+Cj4+ICsJCQkJRFJNX0RFVl9FUlJPUihkZXYsICJBZGQgT1BQIHRhYmxlICVkOiBmYWlsZWQgJWRc
+biIsCj4+ICsJCQkJCQlpLCByZXQpOwo+PiArCQkJCWdvdG8gZXJyOwo+PiArCQkJfQo+PiArCj4+
+ICsJCQlncHUtPm9wcF90YWJsZXNbaV0gPQo+PiArCQkJCWRldl9wbV9vcHBfZ2V0X29wcF90YWJs
+ZV9pbmRleGVkKGRldiwgaSk7Cj4+ICsJCQlpZiAoIWdwdS0+b3BwX3RhYmxlc1tpXSkgewo+PiAr
+CQkJCURSTV9ERVZfRVJST1IoZGV2LCAiR2V0IE9QUCB0YWJsZSBmYWlsZWQgaW5kZXggJWRcbiIs
+Cj4+ICsJCQkJCQlpKTsKPj4gKwkJCQlyZXQgPSAtRUlOVkFMOwo+PiArCQkJCWdvdG8gZXJyOwo+
+PiArCQkJfQo+PiArCQl9Cj4+ICAgCX0KPj4KPj4gICAJaWYgKCFyZXQpIHsKPj4gQEAgLTkxOSwx
+MiArOTM5LDI0IEBAIHN0YXRpYyBpbnQgYWRyZW5vX2dldF9wd3JsZXZlbHMoc3RydWN0IGRldmlj
+ZSAqZGV2LAo+PiAgIAkJZ3B1LT5pY2NfcGF0aCA9IE5VTEw7Cj4+Cj4+ICAgCXJldHVybiAwOwo+
+PiArZXJyOgo+PiArCWZvciAoOyBpID49IDA7IGktLSkgewo+PiArCQlpZiAoZ3B1LT5vcHBfdGFi
+bGVzW2ldKSB7Cj4+ICsJCQlkZXZfcG1fb3BwX3B1dF9vcHBfdGFibGUoZ3B1LT5vcHBfdGFibGVz
+W2ldKTsKPj4gKwkJCWdwdS0+b3BwX3RhYmxlc1tpXSA9IE5VTEw7Cj4+ICsJCX0KPj4gKwl9Cj4+
+ICsKPj4gKwlkZXZfcG1fb3BwX3JlbW92ZV90YWJsZShkZXYpOwo+PiArCXJldHVybiByZXQ7Cj4+
+ICAgfQo+Pgo+PiAgIGludCBhZHJlbm9fZ3B1X2luaXQoc3RydWN0IGRybV9kZXZpY2UgKmRybSwg
+c3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldiwKPj4gICAJCXN0cnVjdCBhZHJlbm9fZ3B1ICph
+ZHJlbm9fZ3B1LAo+PiAgIAkJY29uc3Qgc3RydWN0IGFkcmVub19ncHVfZnVuY3MgKmZ1bmNzLCBp
+bnQgbnJfcmluZ3MpCj4+ICAgewo+PiArCWludCByZXQgPSAwOwo+PiArCj4+ICAgCXN0cnVjdCBh
+ZHJlbm9fcGxhdGZvcm1fY29uZmlnICpjb25maWcgPSBwZGV2LT5kZXYucGxhdGZvcm1fZGF0YTsK
+Pj4gICAJc3RydWN0IG1zbV9ncHVfY29uZmlnIGFkcmVub19ncHVfY29uZmlnICA9IHsgMCB9Owo+
+PiAgIAlzdHJ1Y3QgbXNtX2dwdSAqZ3B1ID0gJmFkcmVub19ncHUtPmJhc2U7Cj4+IEBAIC05NDUs
+NyArOTc3LDkgQEAgaW50IGFkcmVub19ncHVfaW5pdChzdHJ1Y3QgZHJtX2RldmljZSAqZHJtLCBz
+dHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2LAo+Pgo+PiAgIAlhZHJlbm9fZ3B1X2NvbmZpZy5u
+cl9yaW5ncyA9IG5yX3JpbmdzOwo+Pgo+PiAtCWFkcmVub19nZXRfcHdybGV2ZWxzKCZwZGV2LT5k
+ZXYsIGdwdSk7Cj4+ICsJcmV0ID0gYWRyZW5vX2dldF9wd3JsZXZlbHMoJnBkZXYtPmRldiwgZ3B1
+KTsKPj4gKwlpZiAocmV0KQo+PiArCQlyZXR1cm4gcmV0Owo+Pgo+PiAgIAlwbV9ydW50aW1lX3Nl
+dF9hdXRvc3VzcGVuZF9kZWxheSgmcGRldi0+ZGV2LAo+PiAgIAkJYWRyZW5vX2dwdS0+aW5mby0+
+aW5hY3RpdmVfcGVyaW9kKTsKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tc20vbXNt
+X2dwdS5oIGIvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZ3B1LmgKPj4gaW5kZXggYWI4ZjBmOWMu
+LjViOThiNDggMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2dwdS5oCj4+
+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2dwdS5oCj4+IEBAIC02Niw2ICs2NiwxMiBA
+QCBzdHJ1Y3QgbXNtX2dwdV9mdW5jcyB7Cj4+ICAgCXZvaWQgKCpncHVfc2V0X2ZyZXEpKHN0cnVj
+dCBtc21fZ3B1ICpncHUsIHVuc2lnbmVkIGxvbmcgZnJlcSk7Cj4+ICAgfTsKPj4KPj4gKy8qIG9w
+cCB0YWJsZSBpbmRpY2VzICovCj4+ICtlbnVtIHsKPj4gKwlHUFVfT1BQX1RBQkxFX0lOREVYLAo+
+PiArCUdQVV9ERFJfT1BQX1RBQkxFX0lOREVYLAo+PiArfTsKPj4gKwo+PiAgIHN0cnVjdCBtc21f
+Z3B1IHsKPj4gICAJY29uc3QgY2hhciAqbmFtZTsKPj4gICAJc3RydWN0IGRybV9kZXZpY2UgKmRl
+djsKPj4gQEAgLTExMyw2ICsxMTksOSBAQCBzdHJ1Y3QgbXNtX2dwdSB7Cj4+Cj4+ICAgCXN0cnVj
+dCBpY2NfcGF0aCAqaWNjX3BhdGg7Cj4+Cj4+ICsJLyogZ3B1L2RkciBvcHAgdGFibGVzICovCj4+
+ICsJc3RydWN0IG9wcF90YWJsZSAqb3BwX3RhYmxlc1syXTsKPiBZb3UgZG9uJ3QgbmVlZCBhbiBh
+cnJheSBoZXJlLiBXZSdyZSBub3QgZ29pbmcgdG8gaGF2ZSB0aGF0IG1hbnkgdGFibGVzLgo+Cj4g
+c3RydWN0IG9wcF90YWJsZSAqZ3B1X29wcF90YWJsZTsKPiBzdHJ1Y3Qgb3BwX3RhYmxlICpid19v
+cHBfdGFibGU7Cj4KPiBJcyBzdWZmaWNpZW50IGFuZCB3ZSBkb24ndCBuZWVkIGFuIGVudW0uCj4K
+Pj4gKwo+PiAgIAkvKiBIYW5nIGFuZCBJbmFjdGl2aXR5IERldGVjdGlvbjoKPj4gICAJICovCj4+
+ICAgI2RlZmluZSBEUk1fTVNNX0lOQUNUSVZFX1BFUklPRCAgIDY2IC8qIGluIG1zIChyb3VnaGx5
+IGZvdXIgZnJhbWVzKSAqLwo+PiAtLQo+PiAyLjcuNAo+Pgo+IEpvcmRhbgo+Cl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxp
+c3QKRnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVubwo=
