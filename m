@@ -2,42 +2,32 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3E6F19A4EC
-	for <lists+freedreno@lfdr.de>; Wed,  1 Apr 2020 07:49:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A97A019A7B1
+	for <lists+freedreno@lfdr.de>; Wed,  1 Apr 2020 10:48:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB7A26E038;
-	Wed,  1 Apr 2020 05:49:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59CE76E3F5;
+	Wed,  1 Apr 2020 08:48:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from asavdk3.altibox.net (asavdk3.altibox.net [109.247.116.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BC9C6E038;
- Wed,  1 Apr 2020 05:49:54 +0000 (UTC)
-Received: from ravnborg.org (unknown [158.248.194.18])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by asavdk3.altibox.net (Postfix) with ESMTPS id 3DB7920058;
- Wed,  1 Apr 2020 07:49:51 +0200 (CEST)
-Date: Wed, 1 Apr 2020 07:49:49 +0200
-From: Sam Ravnborg <sam@ravnborg.org>
-To: Tanmay Shah <tanmay@codeaurora.org>
-Message-ID: <20200401054949.GA10028@ravnborg.org>
-References: <1585701031-28871-1-git-send-email-tanmay@codeaurora.org>
- <1585701031-28871-2-git-send-email-tanmay@codeaurora.org>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1585701031-28871-2-git-send-email-tanmay@codeaurora.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-CMAE-Score: 0
-X-CMAE-Analysis: v=2.3 cv=eMA9ckh1 c=1 sm=1 tr=0
- a=UWs3HLbX/2nnQ3s7vZ42gw==:117 a=UWs3HLbX/2nnQ3s7vZ42gw==:17
- a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=kj9zAlcOel0A:10 a=LpQP-O61AAAA:8
- a=gEfo2CItAAAA:8 a=e5mUnYsNAAAA:8 a=z87zoDYpRdyyHcnY0C0A:9
- a=Y-KobsgeiHWwR8oq:21 a=TLXQFu7vHWGnHqWM:21 a=CjuIK1q_8ugA:10
- a=pioyyrs4ZptJ924tMmac:22 a=sptkURWiP4Gy88Gu7hUp:22
- a=Vxmtnl_E_bksehYqCbjh:22 a=pHzHmUro8NiASowvMSCR:22
- a=nt3jZW36AmriUCFCBwmW:22
-Subject: Re: [Freedreno] [DPU PATCH v5 1/5] dt-bindings: msm/dp: add
- bindings of DP/DP-PLL driver for Snapdragon
+Received: from alexa-out-blr-01.qualcomm.com (alexa-out-blr-01.qualcomm.com
+ [103.229.18.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CB776E397;
+ Wed,  1 Apr 2020 08:48:47 +0000 (UTC)
+Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
+ by alexa-out-blr-01.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 01 Apr 2020 14:18:44 +0530
+Received: from kalyant-linux.qualcomm.com ([10.204.66.210])
+ by ironmsg01-blr.qualcomm.com with ESMTP; 01 Apr 2020 14:18:21 +0530
+Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
+ id 1266946EA; Wed,  1 Apr 2020 14:18:21 +0530 (IST)
+From: Kalyan Thota <kalyan_t@codeaurora.org>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Wed,  1 Apr 2020 14:18:18 +0530
+Message-Id: <1585730898-16641-1-git-send-email-kalyan_t@codeaurora.org>
+X-Mailer: git-send-email 1.9.1
+Subject: [Freedreno] [PATCH] drm/msm/dpu: add support for clk and bw scaling
+ for display
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,493 +40,492 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- abhinavk@codeaurora.org, swboyd@chromium.org, seanpaul@chromium.org,
- dri-devel@lists.freedesktop.org, Vara Reddy <varar@codeaurora.org>,
- hoegsberg@google.com, aravindh@codeaurora.org, freedreno@lists.freedesktop.org,
- linux-clk@vger.kernel.org, Chandan Uddaraju <chandanu@codeaurora.org>
+Cc: mkrishn@codeaurora.org, travitej@codeaurora.org, dianders@chromium.org,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com, nganji@codeaurora.org,
+ seanpaul@chromium.org, Kalyan Thota <kalyan_t@codeaurora.org>,
+ hoegsberg@chromium.org, jsanka@codeaurora.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Tanmay
+This change adds support to scale src clk and bandwidth as
+per composition requirements.
 
+Interconnect registration for bw has been moved to mdp
+device node from mdss to facilitate the scaling.
 
-Reviewing the yaml bindings triggered a few comments. See below.
+Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c  | 106 +++++++++++++++++++++----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |   5 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |   4 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c        |  37 ++++++++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h        |   4 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c       |   9 ++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c      |  82 +++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h      |   4 +
+ 8 files changed, 228 insertions(+), 23 deletions(-)
 
-	Sam
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+index 11f2beb..24874f6 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+@@ -29,6 +29,73 @@ enum dpu_perf_mode {
+ 	DPU_PERF_MODE_MAX
+ };
+ 
++/**
++ * @_dpu_core_perf_calc_bw() - to calculate BW per crtc
++ * @kms -  pointer to the dpu_kms
++ * @crtc - pointer to a crtc
++ * Return: returns aggregated BW for all planes in crtc.
++ */
++static u64 _dpu_core_perf_calc_bw(struct dpu_kms *kms,
++		struct drm_crtc *crtc)
++{
++	struct drm_plane *plane;
++	struct dpu_plane_state *pstate;
++	u64 crtc_plane_bw = 0;
++	u32 bw_factor;
++
++	drm_atomic_crtc_for_each_plane(plane, crtc) {
++		pstate = to_dpu_plane_state(plane->state);
++
++		if (!pstate)
++			continue;
++
++		crtc_plane_bw += pstate->plane_fetch_bw;
++	}
++
++	bw_factor = kms->catalog->perf.bw_inefficiency_factor;
++	if (bw_factor)
++		crtc_plane_bw = mult_frac(crtc_plane_bw, bw_factor, 100);
++
++	return crtc_plane_bw;
++}
++
++/**
++ * _dpu_core_perf_calc_clk() - to calculate clock per crtc
++ * @kms -  pointer to the dpu_kms
++ * @crtc - pointer to a crtc
++ * @state - pointer to a crtc state
++ * Return: returns max clk for all planes in crtc.
++ */
++static u64 _dpu_core_perf_calc_clk(struct dpu_kms *kms,
++		struct drm_crtc *crtc, struct drm_crtc_state *state)
++{
++	struct drm_plane *plane;
++	struct dpu_plane_state *pstate;
++	struct drm_display_mode *mode;
++	u64 crtc_clk;
++	u32 clk_factor;
++
++	mode = &state->adjusted_mode;
++
++	crtc_clk = mode->vtotal * mode->hdisplay * drm_mode_vrefresh(mode);
++
++	drm_atomic_crtc_for_each_plane(plane, crtc) {
++		pstate = to_dpu_plane_state(plane->state);
++
++		if (!pstate)
++			continue;
++
++		crtc_clk = max(pstate->plane_clk, crtc_clk);
++	}
++
++	clk_factor = kms->catalog->perf.clk_inefficiency_factor;
++	if (clk_factor)
++		crtc_clk = mult_frac(crtc_clk, clk_factor, 100);
++
++	return crtc_clk;
++}
++
++
+ static struct dpu_kms *_dpu_crtc_get_kms(struct drm_crtc *crtc)
+ {
+ 	struct msm_drm_private *priv;
+@@ -67,12 +134,7 @@ static void _dpu_core_perf_calc_crtc(struct dpu_kms *kms,
+ 	dpu_cstate = to_dpu_crtc_state(state);
+ 	memset(perf, 0, sizeof(struct dpu_core_perf_params));
+ 
+-	if (!dpu_cstate->bw_control) {
+-		perf->bw_ctl = kms->catalog->perf.max_bw_high *
+-					1000ULL;
+-		perf->max_per_pipe_ib = perf->bw_ctl;
+-		perf->core_clk_rate = kms->perf.max_core_clk_rate;
+-	} else if (kms->perf.perf_tune.mode == DPU_PERF_MODE_MINIMUM) {
++	if (kms->perf.perf_tune.mode == DPU_PERF_MODE_MINIMUM) {
+ 		perf->bw_ctl = 0;
+ 		perf->max_per_pipe_ib = 0;
+ 		perf->core_clk_rate = 0;
+@@ -80,6 +142,10 @@ static void _dpu_core_perf_calc_crtc(struct dpu_kms *kms,
+ 		perf->bw_ctl = kms->perf.fix_core_ab_vote;
+ 		perf->max_per_pipe_ib = kms->perf.fix_core_ib_vote;
+ 		perf->core_clk_rate = kms->perf.fix_core_clk_rate;
++	} else {
++		perf->bw_ctl = _dpu_core_perf_calc_bw(kms, crtc);
++		perf->max_per_pipe_ib = kms->catalog->perf.min_dram_ib;
++		perf->core_clk_rate = _dpu_core_perf_calc_clk(kms, crtc, state);
+ 	}
+ 
+ 	DPU_DEBUG(
+@@ -132,11 +198,7 @@ int dpu_core_perf_crtc_check(struct drm_crtc *crtc,
+ 			DPU_DEBUG("crtc:%d bw:%llu ctrl:%d\n",
+ 				tmp_crtc->base.id, tmp_cstate->new_perf.bw_ctl,
+ 				tmp_cstate->bw_control);
+-			/*
+-			 * For bw check only use the bw if the
+-			 * atomic property has been already set
+-			 */
+-			if (tmp_cstate->bw_control)
++
+ 				bw_sum_of_intfs += tmp_cstate->new_perf.bw_ctl;
+ 		}
+ 
+@@ -152,9 +214,7 @@ int dpu_core_perf_crtc_check(struct drm_crtc *crtc,
+ 
+ 		DPU_DEBUG("final threshold bw limit = %d\n", threshold);
+ 
+-		if (!dpu_cstate->bw_control) {
+-			DPU_DEBUG("bypass bandwidth check\n");
+-		} else if (!threshold) {
++		if (!threshold) {
+ 			DPU_ERROR("no bandwidth limits specified\n");
+ 			return -E2BIG;
+ 		} else if (bw > threshold) {
+@@ -175,7 +235,8 @@ static int _dpu_core_perf_crtc_update_bus(struct dpu_kms *kms,
+ 					= dpu_crtc_get_client_type(crtc);
+ 	struct drm_crtc *tmp_crtc;
+ 	struct dpu_crtc_state *dpu_cstate;
+-	int ret = 0;
++	int i, ret = 0;
++	u64 avg_bw;
+ 
+ 	drm_for_each_crtc(tmp_crtc, crtc->dev) {
+ 		if (tmp_crtc->enabled &&
+@@ -186,10 +247,21 @@ static int _dpu_core_perf_crtc_update_bus(struct dpu_kms *kms,
+ 			perf.max_per_pipe_ib = max(perf.max_per_pipe_ib,
+ 					dpu_cstate->new_perf.max_per_pipe_ib);
+ 
+-			DPU_DEBUG("crtc=%d bw=%llu\n", tmp_crtc->base.id,
+-					dpu_cstate->new_perf.bw_ctl);
++			perf.bw_ctl += dpu_cstate->new_perf.bw_ctl;
++
++			DPU_DEBUG("crtc=%d bw=%llu paths:%d\n",
++				  tmp_crtc->base.id,
++				  dpu_cstate->new_perf.bw_ctl, kms->num_paths);
+ 		}
+ 	}
++
++	avg_bw = kms->num_paths ?
++			perf.bw_ctl / kms->num_paths : 0;
++
++	for (i = 0; i < kms->num_paths; i++)
++		icc_set_bw(kms->path[i],
++			Bps_to_icc(avg_bw), (perf.max_per_pipe_ib));
++
+ 	return ret;
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index 731b4fb..cc8bf06 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -541,7 +541,8 @@
+ 	.max_bw_high = 5500000,
+ 	.min_core_ib = 2400000,
+ 	.min_llcc_ib = 800000,
+-	.min_dram_ib = 800000,
++	.min_dram_ib = 1600000,
++	.min_prefill_lines = 24,
+ 	.danger_lut_tbl = {0xff, 0xffff, 0x0},
+ 	.qos_lut_tbl = {
+ 		{.nentry = ARRAY_SIZE(sc7180_qos_linear),
+@@ -558,6 +559,8 @@
+ 		{.rd_enable = 1, .wr_enable = 1},
+ 		{.rd_enable = 1, .wr_enable = 0}
+ 	},
++	.clk_inefficiency_factor = 105,
++	.bw_inefficiency_factor = 120,
+ };
+ 
+ /*************************************************************
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+index f7de438..f2a5fe2 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+@@ -651,6 +651,8 @@ struct dpu_perf_cdp_cfg {
+  * @downscaling_prefill_lines  downscaling latency in lines
+  * @amortizable_theshold minimum y position for traffic shaping prefill
+  * @min_prefill_lines  minimum pipeline latency in lines
++ * @clk_inefficiency_factor DPU src clock inefficiency factor
++ * @bw_inefficiency_factor DPU axi bus bw inefficiency factor
+  * @safe_lut_tbl: LUT tables for safe signals
+  * @danger_lut_tbl: LUT tables for danger signals
+  * @qos_lut_tbl: LUT tables for QoS signals
+@@ -675,6 +677,8 @@ struct dpu_perf_cfg {
+ 	u32 downscaling_prefill_lines;
+ 	u32 amortizable_threshold;
+ 	u32 min_prefill_lines;
++	u32 clk_inefficiency_factor;
++	u32 bw_inefficiency_factor;
+ 	u32 safe_lut_tbl[DPU_QOS_LUT_USAGE_MAX];
+ 	u32 danger_lut_tbl[DPU_QOS_LUT_USAGE_MAX];
+ 	struct dpu_qos_lut_tbl qos_lut_tbl[DPU_QOS_LUT_USAGE_MAX];
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index b886d9d..554c40f 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -303,6 +303,28 @@ static int dpu_kms_global_obj_init(struct dpu_kms *dpu_kms)
+ 	return 0;
+ }
+ 
++static int dpu_kms_parse_data_bus_icc_path(struct dpu_kms *dpu_kms)
++{
++	struct icc_path *path0;
++	struct icc_path *path1;
++	struct drm_device *dev = dpu_kms->dev;
++
++	path0 = of_icc_get(dev->dev, "mdp0-mem");
++	path1 = of_icc_get(dev->dev, "mdp1-mem");
++
++	if (IS_ERR_OR_NULL(path0))
++		return PTR_ERR_OR_ZERO(path0);
++
++	dpu_kms->path[0] = path0;
++	dpu_kms->num_paths = 1;
++
++	if (!IS_ERR_OR_NULL(path1)) {
++		dpu_kms->path[1] = path1;
++		dpu_kms->num_paths++;
++	}
++	return 0;
++}
++
+ static int dpu_kms_enable_vblank(struct msm_kms *kms, struct drm_crtc *crtc)
+ {
+ 	return dpu_crtc_vblank(crtc, true);
+@@ -980,6 +1002,9 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+ 
+ 	dpu_vbif_init_memtypes(dpu_kms);
+ 
++	if (of_device_is_compatible(dev->dev->of_node, "qcom,sc7180-mdss"))
++		dpu_kms_parse_data_bus_icc_path(dpu_kms);
++
+ 	pm_runtime_put_sync(&dpu_kms->pdev->dev);
+ 
+ 	return 0;
+@@ -1085,7 +1110,7 @@ static int dpu_dev_remove(struct platform_device *pdev)
+ 
+ static int __maybe_unused dpu_runtime_suspend(struct device *dev)
+ {
+-	int rc = -1;
++	int i, rc = -1;
+ 	struct platform_device *pdev = to_platform_device(dev);
+ 	struct dpu_kms *dpu_kms = platform_get_drvdata(pdev);
+ 	struct dss_module_power *mp = &dpu_kms->mp;
+@@ -1094,6 +1119,9 @@ static int __maybe_unused dpu_runtime_suspend(struct device *dev)
+ 	if (rc)
+ 		DPU_ERROR("clock disable failed rc:%d\n", rc);
+ 
++	for (i = 0; i < dpu_kms->num_paths; i++)
++		icc_set_bw(dpu_kms->path[i], 0, 0);
++
+ 	return rc;
+ }
+ 
+@@ -1105,8 +1133,15 @@ static int __maybe_unused dpu_runtime_resume(struct device *dev)
+ 	struct drm_encoder *encoder;
+ 	struct drm_device *ddev;
+ 	struct dss_module_power *mp = &dpu_kms->mp;
++	int i;
+ 
+ 	ddev = dpu_kms->dev;
++
++	/* Min vote of BW is required before turning on AXI clk */
++	for (i = 0; i < dpu_kms->num_paths; i++)
++		icc_set_bw(dpu_kms->path[i], 0,
++			dpu_kms->catalog->perf.min_dram_ib);
++
+ 	rc = msm_dss_enable_clk(mp->clk_config, mp->num_clk, true);
+ 	if (rc) {
+ 		DPU_ERROR("clock enable failed rc:%d\n", rc);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+index 4e32d04..94410ca 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+@@ -8,6 +8,8 @@
+ #ifndef __DPU_KMS_H__
+ #define __DPU_KMS_H__
+ 
++#include <linux/interconnect.h>
++
+ #include <drm/drm_drv.h>
+ 
+ #include "msm_drv.h"
+@@ -137,6 +139,8 @@ struct dpu_kms {
+ 	 * when disabled.
+ 	 */
+ 	atomic_t bandwidth_ref;
++	struct icc_path *path[2];
++	u32 num_paths;
+ };
+ 
+ struct vsync_info {
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
+index 80d3cfc..df0a983 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
+@@ -8,7 +8,6 @@
+ #include <linux/irqdesc.h>
+ #include <linux/irqchip/chained_irq.h>
+ #include "dpu_kms.h"
+-#include <linux/interconnect.h>
+ 
+ #define to_dpu_mdss(x) container_of(x, struct dpu_mdss, base)
+ 
+@@ -315,9 +314,11 @@ int dpu_mdss_init(struct drm_device *dev)
+ 	}
+ 	dpu_mdss->mmio_len = resource_size(res);
+ 
+-	ret = dpu_mdss_parse_data_bus_icc_path(dev, dpu_mdss);
+-	if (ret)
+-		return ret;
++	if (!of_device_is_compatible(dev->dev->of_node, "qcom,sc7180-mdss")) {
++		ret = dpu_mdss_parse_data_bus_icc_path(dev, dpu_mdss);
++		if (ret)
++			return ret;
++	}
+ 
+ 	mp = &dpu_mdss->mp;
+ 	ret = msm_dss_parse_clock(pdev, mp);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+index 3b9c33e..c2a6e3d 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+@@ -132,6 +132,84 @@ static struct dpu_kms *_dpu_plane_get_kms(struct drm_plane *plane)
+ }
+ 
+ /**
++ * _dpu_plane_calc_bw - calculate bandwidth required for a plane
++ * @Plane: Pointer to drm plane.
++ * Result: Updates calculated bandwidth in the plane state.
++ * BW Equation: src_w * src_h * bpp * fps * (v_total / v_dest)
++ * Prefill BW Equation: line src bytes * line_time
++ */
++static void _dpu_plane_calc_bw(struct drm_plane *plane,
++	struct drm_framebuffer *fb)
++{
++	struct dpu_plane *pdpu = to_dpu_plane(plane);
++	struct dpu_plane_state *pstate;
++	struct drm_display_mode *mode;
++	const struct dpu_format *fmt = NULL;
++	struct dpu_kms *dpu_kms = _dpu_plane_get_kms(plane);
++	int src_width, src_height, dst_height, fps;
++	u64 plane_prefill_bw;
++	u64 plane_bw;
++	u32 hw_latency_lines;
++	u32 scale_factor;
++	int vbp, vpw;
++
++	pstate = to_dpu_plane_state(plane->state);
++	mode = &plane->state->crtc->mode;
++
++	fmt = dpu_get_dpu_format_ext(fb->format->format, fb->modifier);
++
++	src_width = drm_rect_width(&pdpu->pipe_cfg.src_rect);
++	src_height = drm_rect_height(&pdpu->pipe_cfg.src_rect);
++	dst_height = drm_rect_height(&pdpu->pipe_cfg.dst_rect);
++	fps = drm_mode_vrefresh(mode);
++	vbp = mode->vtotal - mode->vsync_end;
++	vpw = mode->vsync_end - mode->vsync_start;
++	hw_latency_lines =  dpu_kms->catalog->perf.min_prefill_lines;
++	scale_factor = src_height > dst_height ?
++		mult_frac(src_height, 1, dst_height) : 1;
++
++	plane_bw =
++		src_width * mode->vtotal * fps * fmt->bpp * scale_factor;
++
++	plane_prefill_bw =
++		src_width * hw_latency_lines * fps * fmt->bpp * scale_factor;
++
++	plane_prefill_bw = mult_frac(plane_prefill_bw, mode->vtotal, (vbp+vpw));
++
++	pstate->plane_fetch_bw = max(plane_bw, plane_prefill_bw);
++}
++
++
++/**
++ * _dpu_plane_calc_clk - calculate clock required for a plane
++ * @Plane: Pointer to drm plane.
++ * Result: Updates calculated clock in the plane state.
++ * Clock equation: dst_w * v_total * fps * (src_h / dst_h)
++ */
++static void _dpu_plane_calc_clk(struct drm_plane *plane)
++{
++	struct dpu_plane *pdpu = to_dpu_plane(plane);
++	struct dpu_plane_state *pstate;
++	struct drm_display_mode *mode;
++	int dst_width, src_height, dst_height, fps;
++
++	pstate = to_dpu_plane_state(plane->state);
++	mode = &plane->state->crtc->mode;
++
++	src_height = drm_rect_height(&pdpu->pipe_cfg.src_rect);
++	dst_width = drm_rect_width(&pdpu->pipe_cfg.dst_rect);
++	dst_height = drm_rect_height(&pdpu->pipe_cfg.dst_rect);
++	fps = drm_mode_vrefresh(mode);
++
++	pstate->plane_clk =
++		dst_width * mode->vtotal * fps;
++
++	if (src_height > dst_height)
++		pstate->plane_clk = mult_frac(pstate->plane_clk,
++					src_height, dst_height);
++}
++
++/**
+  * _dpu_plane_calc_fill_level - calculate fill level of the given source format
+  * @plane:		Pointer to drm plane
+  * @fmt:		Pointer to source buffer format
+@@ -1102,6 +1180,10 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
+ 	}
+ 
+ 	_dpu_plane_set_qos_remap(plane);
++
++	_dpu_plane_calc_bw(plane, fb);
++
++	_dpu_plane_calc_clk(plane);
+ }
+ 
+ static void _dpu_plane_atomic_disable(struct drm_plane *plane)
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+index 4569497..ca83b87 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+@@ -25,6 +25,8 @@
+  * @scaler3_cfg: configuration data for scaler3
+  * @pixel_ext: configuration data for pixel extensions
+  * @cdp_cfg:	CDP configuration
++ * @plane_fetch_bw: calculated BW per plane
++ * @plane_clk: calculated clk per plane
+  */
+ struct dpu_plane_state {
+ 	struct drm_plane_state base;
+@@ -39,6 +41,8 @@ struct dpu_plane_state {
+ 	struct dpu_hw_pixel_ext pixel_ext;
+ 
+ 	struct dpu_hw_pipe_cdp_cfg cdp_cfg;
++	u64 plane_fetch_bw;
++	u64 plane_clk;
+ };
+ 
+ /**
+-- 
+1.9.1
 
-On Tue, Mar 31, 2020 at 05:30:27PM -0700, Tanmay Shah wrote:
-> From: Chandan Uddaraju <chandanu@codeaurora.org>
-> 
-> Add bindings for Snapdragon DisplayPort and
-> display-port PLL driver.
-> 
-> Changes in V2:
-> Provide details about sel-gpio
-> 
-> Changes in V4:
-> Provide details about max dp lanes
-> Change the commit text
-> 
-> Changes in V5:
-> Moved dp.txt to yaml file.
-> 
-> Signed-off-by: Chandan Uddaraju <chandanu@codeaurora.org>
-> Signed-off-by: Vara Reddy <varar@codeaurora.org>
-
-As you handle the patch, thus the patch passed throgh you, you are
-supposed to sign-off the patch.
-
-
-The changes to dpu.txt is not explained in the changelog.
-
-
-> ---
->  .../devicetree/bindings/display/msm/dp-sc7180.yaml | 325 +++++++++++++++++++++
->  .../devicetree/bindings/display/msm/dpu.txt        |  16 +-
->  2 files changed, 337 insertions(+), 4 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/display/msm/dp-sc7180.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dp-sc7180.yaml b/Documentation/devicetree/bindings/display/msm/dp-sc7180.yaml
-> new file mode 100644
-> index 0000000..761a01d
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/msm/dp-sc7180.yaml
-> @@ -0,0 +1,325 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-For new bindings please use: (GPL-2.0-only OR BSD-2-Clause)
-
-
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/msm/dp-sc7180.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Description of Qualcomm Display Port dt properties.
-> +
-> +maintainers:
-> +  - Chandan Uddaraju <chandanu@codeaurora.org>
-> +  - Vara Reddy <varar@codeaurora.org>
-> +
-> +description: |
-> +  Device tree bindings for MSM Display Port which supports DP host controllers
-> +  that are compatible with VESA Display Port interface specification.
-> +
-> +properties:
-> +  "msm_dp":
-The quotes seems not necessary.
-This describes the name of the node.
-The typical way to identify a node is using a compatible.
-
-So I think that the right solution here is to drop "msm_dp".
-
-> +    type: object
-> +    description: |
-> +      Node containing Display port register address bases, clocks, power supplies.
-> +
-
-And start here.
-> +    properties:
-> +     compatible:
-> +       items:
-> +         - const: qcom,dp-display
-> +
-> +     cell-index:
-> +       description: Specifies the controller instance.
-> +
-> +     reg:
-> +       description: Physical base address and length of controller's registers.
-This description is generic and can be omitted.
-But it would be good with a descrition of the individual registers like
-this:
-
-    reg:
-      items:
-        - description: AHB bla bla
-	- description: aux bla bla
-
-> +
-> +     reg-names:
-> +       description: |
-> +         Names for different register regions defined above. The required region
-> +         is mentioned below.
-> +       items:
-> +         - const: dp_ahb
-> +         - const: dp_aux
-> +         - const: dp_link
-> +         - const: dp_p0
-> +         - const: dp_phy
-> +         - const: dp_ln_tx0
-> +         - const: dp_ln_tx1
-> +         - const: afprom_physical
-> +         - const: dp_pll
-> +         - const: usb3_dp_com
-> +         - const: hdcp_physical
-> +
-> +     interrupts:
-> +       description: The interrupt signal from the DP block.
-> +
-> +     clocks:
-> +       description: List of clock specifiers for clocks needed by the device.
-          items:
-	    - description: aux clock bla bla
-	    - description: ref clock bla bla
-
-
-> +
-> +     clock-names:
-> +       description: |
-> +         Device clock names in the same order as mentioned in clocks property.
-> +         The required clocks are mentioned below.
-> +       items:
-> +         - const: core_aux_clk
-> +         - const: core_ref_clk_src
-> +         - const: core_usb_ref_clk
-> +         - const: core_usb_cfg_ahb_clk
-> +         - const: core_usb_pipe_clk
-> +         - const: ctrl_link_clk
-> +         - const: ctrl_link_iface_clk
-> +         - const: ctrl_pixel_clk
-> +         - const: crypto_clk
-> +         - const: pixel_clk_rcg
-> +
-> +     pll-node:
-> +       description: phandle to DP PLL node.
-Add type (phandle)
-
-> +
-> +     vdda-1p2-supply:
-> +       description: phandle to vdda 1.2V regulator node.
-> +
-> +     vdda-0p9-supply:
-> +       description: phandle to vdda 0.9V regulator node.
-> +
-> +     aux-cfg0-settings:
-> +       description: |
-> +         Specifies the DP AUX configuration 0 settings.
-> +         The first entry in this array corresponds to the register offset
-> +         within DP AUX, while the remaining entries indicate the
-> +         programmable values.
-Add type, goes for all *-settings
-
-
-> +
-> +     aux-cfg1-settings:
-> +       description: |
-> +         Specifies the DP AUX configuration 1 settings.
-> +         The first entry in this array corresponds to the register offset
-> +         within DP AUX, while the remaining entries indicate the
-> +         programmable values.
-> +
-> +     aux-cfg2-settings:
-> +       description: |
-> +         Specifies the DP AUX configuration 2 settings.
-> +         The first entry in this array corresponds to the register offset
-> +         within DP AUX, while the remaining entries indicate the
-> +         programmable values.
-> +
-> +     aux-cfg3-settings:
-> +       description: |
-> +         Specifies the DP AUX configuration 3 settings.
-> +         The first entry in this array corresponds to the register offset
-> +         within DP AUX, while the remaining entries indicate the
-> +         programmable values.
-> +
-> +     aux-cfg4-settings:
-> +       description: |
-> +         Specifies the DP AUX configuration 4 settings.
-> +         The first entry in this array corresponds to the register offset
-> +         within DP AUX, while the remaining entries indicate the
-> +         programmable values.
-> +
-> +     aux-cfg5-settings:
-> +       description: |
-> +         Specifies the DP AUX configuration 5 settings.
-> +         The first entry in this array corresponds to the register offset
-> +         within DP AUX, while the remaining entries indicate the
-> +         programmable values.
-> +
-> +     aux-cfg6-settings:
-> +       description: |
-> +         Specifies the DP AUX configuration 6 settings.
-> +         The first entry in this array corresponds to the register offset
-> +         within DP AUX, while the remaining entries indicate the
-> +         programmable values.
-> +
-> +     aux-cfg7-settings:
-> +       description: |
-> +         Specifies the DP AUX configuration 7 settings.
-> +         The first entry in this array corresponds to the register offset
-> +         within DP AUX, while the remaining entries indicate the
-> +         programmable values.
-> +
-> +     aux-cfg8-settings:
-> +       description: |
-> +         Specifies the DP AUX configuration 8 settings.
-> +         The first entry in this array corresponds to the register offset
-> +         within DP AUX, while the remaining entries indicate the
-> +         programmable values.
-> +
-> +     aux-cfg9-settings:
-> +       description: |
-> +         Specifies the DP AUX configuration 9 settings.
-> +         The first entry in this array corresponds to the register offset
-> +         within DP AUX, while the remaining entries indicate the
-> +         programmable values.
-> +
-> +     max-pclk-frequency-khz:
-> +       description: Maximum displayport pixel clock supported for the chipset.
-> +
-> +     data-lanes:
-> +       description: Maximum number of lanes that can be used for Display port.
-> +
-> +     usbplug-cc-gpio:
-> +       maxItems: 1
-> +       description: Specifies the usbplug orientation gpio.
-Shall be named -gpios. Goes for all -gpio properties.
-maxItems: 1 is good. Keep it.
-
-> +
-> +     aux-en-gpio:
-> +       maxItems: 1
-> +       description: Specifies the aux-channel enable gpio.
-> +
-> +     aux-sel-gpio:
-> +       maxItems: 1
-> +       description: Specifies the sux-channel select gpio.
-> +
-> +     ports:
-> +       description: |
-> +         Contains display port controller endpoint subnode.
-> +         remote-endpoint: |
-> +           For port@0, set to phandle of the connected panel/bridge's
-> +           input endpoint. For port@1, set to the DPU interface output.
-> +           Documentation/devicetree/bindings/graph.txt and
-> +           Documentation/devicetree/bindings/media/video-interfaces.txt.
-> +
-> +  "dp_pll":
-quotes should not be required here.
-
-I looks like yo try to describe two differents nodes in the same file.
-Consider to split in two files.
-
-Some of the comments from above applies here too.
-
-> +     type: object
-> +     description: Node contains properties of Display port pll and phy driver.
-> +
-> +     properties:
-> +       compatible:
-> +         items:
-> +           - const: qcom,dp-pll-10nm
-> +
-> +       cell-index:
-> +         description: Specifies the controller instance.
-> +
-> +       reg:
-> +         description: Physical base address and length of DP phy and pll registers.
-> +
-> +       reg-names:
-> +         description: |
-> +           Names for different register regions defined above. The required region
-> +           is mentioned below.
-> +         items:
-> +           - const: pll_base
-> +           - const: phy_base
-> +           - const: ln_tx0_base
-> +           - const: ln_tx1_base
-> +           - const: gdsc_base
-> +
-> +       clocks:
-> +         description: List of clock specifiers for clocks needed by the device.
-> +
-> +       clock-names:
-> +         description: |
-> +           Device clock names in the same order as mentioned in clocks property.
-> +           The required clocks are mentioned below.
-> +         items:
-> +           - const: iface
-> +           - const: ref
-> +           - const: cfg_ahb
-> +           - const: pipe
-> +
-> +examples:
-
-4 spaces as indent - good.
-You have include files - good.
-
-
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/qcom,dispcc-sdm845.h>
-> +    #include <dt-bindings/clock/qcom,gcc-sdm845.h>
-> +    #include <dt-bindings/clock/qcom,rpmh.h>
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    msm_dp: displayport-controller@ae90000{
-> +                cell-index = <0>;
-indent only four spaces
-
-> +        compatible = "qcom,dp-display";
-> +        reg =   <0 0xae90000 0 0x200>,
-Only one space after '=' - rememebr to adjust indent in following lines.
-> +                <0 0xae90200 0 0x200>,
-> +                <0 0xae90400 0 0xc00>,
-> +                <0 0xae91000 0 0x400>,
-> +                <0 0x88eaa00 0 0x200>,
-> +                <0 0x88ea200 0 0x200>,
-> +                <0 0x88ea600 0 0x200>,
-> +                <0 0x780000 0 0x6228>,
-> +                <0 0x088ea000 0 0x40>,
-> +                <0 0x88e8000 0 0x20>,
-> +                <0 0x0aee1000 0 0x034>;
-> +        reg-names = "dp_ahb", "dp_aux", "dp_link",
-> +            "dp_p0", "dp_phy", "dp_ln_tx0", "dp_ln_tx1",
-> +            "qfprom_physical", "dp_pll",
-> +            "usb3_dp_com", "hdcp_physical";
-
-Indent so names in following lines starts where names in previous lines
-starts.
-Like this:
-        reg-names = "dp_ahb", "dp_aux", "dp_link",
-                    "dp_p0", "dp_phy", "dp_ln_tx0", "dp_ln_tx1",
-                    "qfprom_physical", "dp_pll",
-                    "usb3_dp_com", "hdcp_physical";
-
-
-> +
-> +        interrupt-parent = <&display_subsystem>;
-> +        interrupts = <12 0>;
-> +
-> +        clocks = <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
-> +            <&rpmhcc RPMH_CXO_CLK>,
-Indent so '<' are aligned under each other. Like done above for reg =
-
-> +            <&gcc GCC_USB3_PRIM_CLKREF_CLK>,
-> +            <&gcc GCC_USB_PHY_CFG_AHB2PHY_CLK>,
-> +            <&gcc GCC_USB3_PRIM_PHY_PIPE_CLK>,
-> +            <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
-> +            <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
-> +            <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>,
-> +            <&dispcc DISP_CC_MDSS_DP_CRYPTO_CLK>,
-> +            <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
-> +        clock-names = "core_aux_clk", "core_ref_clk_src",
-> +            "core_usb_ref_clk", "core_usb_cfg_ahb_clk",
-> +            "core_usb_pipe_clk", "ctrl_link_clk",
-> +            "ctrl_link_iface_clk", "ctrl_pixel_clk",
-> +            "crypto_clk", "pixel_clk_rcg";
-Fix indent
-
-> +
-> +        pll-node = <&dp_pll>;
-> +        vdda-1p2-supply = <&vreg_l3c_1p2>;
-> +        vdda-0p9-supply = <&vreg_l4a_0p8>;
-> +
-> +        aux-cfg0-settings = [20 00];
-> +        aux-cfg1-settings = [24 13 23 1d];
-> +        aux-cfg2-settings = [28 24];
-> +        aux-cfg3-settings = [2c 00];
-> +        aux-cfg4-settings = [30 0a];
-> +        aux-cfg5-settings = [34 26];
-> +        aux-cfg6-settings = [38 0a];
-> +        aux-cfg7-settings = [3c 03];
-> +        aux-cfg8-settings = [40 bb];
-> +        aux-cfg9-settings = [44 03];
-> +
-> +        max-pclk-frequency-khz = <67500>;
-> +        data-lanes = <2>;
-> +
-> +        aux-en-gpio = <&msmgpio 55 1>;
-> +        aux-sel-gpio = <&msmgpio 110 1>;
-> +        usbplug-cc-gpio = <&msmgpio 90 1>;
-> +
-> +        ports {
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +
-> +            port@0 {
-> +                reg = <0>;
-> +                dp_in: endpoint {
-> +                    remote-endpoint = <&dpu_intf0_out>;
-> +                };
-> +            };
-> +
-> +            port@1 {
-> +                reg = <1>;
-> +                dp_out: endpoint {
-> +                };
-> +            };
-> +        };
-> +    };
-> +
-> +    dp_pll: dp-pll@088ea000 {
-> +        compatible = "qcom,dp-pll-10nm";
-> +        label = "DP PLL";
-> +        cell-index = <0>;
-> +        #clock-cells = <1>;
-> +
-> +        reg = <0 0x088ea000 0 0x200>,
-> +              <0 0x088eaa00 0 0x200>,
-> +              <0 0x088ea200 0 0x200>,
-> +              <0 0x088ea600 0 0x200>,
-> +              <0 0x08803000 0 0x8>;
-> +        reg-names = "pll_base", "phy_base", "ln_tx0_base",
-> +            "ln_tx1_base", "gdsc_base";
-> +
-> +        clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +             <&gcc GCC_USB3_PRIM_CLKREF_CLK>,
-> +             <&gcc GCC_USB_PHY_CFG_AHB2PHY_CLK>,
-> +             <&gcc GCC_USB3_PRIM_PHY_PIPE_CLK>;
-> +        clock-names = "iface_clk", "ref_clk",
-> +            "cfg_ahb_clk", "pipe_clk";
-> +    };
-> +
-> diff --git a/Documentation/devicetree/bindings/display/msm/dpu.txt b/Documentation/devicetree/bindings/display/msm/dpu.txt
-> index 551ae26..7e99e45 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dpu.txt
-> +++ b/Documentation/devicetree/bindings/display/msm/dpu.txt
-> @@ -63,8 +63,9 @@ Required properties:
->  	Documentation/devicetree/bindings/graph.txt
->  	Documentation/devicetree/bindings/media/video-interfaces.txt
->  
-> -	Port 0 -> DPU_INTF1 (DSI1)
-> -	Port 1 -> DPU_INTF2 (DSI2)
-> +	Port 0 -> DPU_INTF0 (DP)
-> +	Port 1 -> DPU_INTF1 (DSI1)
-> +	Port 2 -> DPU_INTF2 (DSI2)
->  
->  Optional properties:
->  - assigned-clocks: list of clock specifiers for clocks needing rate assignment
-> @@ -125,13 +126,20 @@ Example:
->  
->  				port@0 {
->  					reg = <0>;
-> -					dpu_intf1_out: endpoint {
-> -						remote-endpoint = <&dsi0_in>;
-> +					dpu_intf0_out: endpoint {
-> +						remote-endpoint = <&dp_in>;
->  					};
->  				};
->  
->  				port@1 {
->  					reg = <1>;
-> +					dpu_intf1_out: endpoint {
-> +						remote-endpoint = <&dsi0_in>;
-> +					};
-> +				};
-> +
-> +				port@2 {
-> +					reg = <2>;
->  					dpu_intf2_out: endpoint {
->  						remote-endpoint = <&dsi1_in>;
->  					};
-> -- 
-> 1.9.1
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
