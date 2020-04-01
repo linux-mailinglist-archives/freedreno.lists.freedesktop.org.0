@@ -2,34 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABC7519A87C
-	for <lists+freedreno@lfdr.de>; Wed,  1 Apr 2020 11:19:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A02419A8AC
+	for <lists+freedreno@lfdr.de>; Wed,  1 Apr 2020 11:32:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50D586E906;
-	Wed,  1 Apr 2020 09:19:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CDDE6E90B;
+	Wed,  1 Apr 2020 09:32:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-blr-02.qualcomm.com (alexa-out-blr-02.qualcomm.com
- [103.229.18.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 126E26E906;
- Wed,  1 Apr 2020 09:18:57 +0000 (UTC)
-Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
- by alexa-out-blr-02.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 01 Apr 2020 14:48:07 +0530
-Received: from mkrishn-linux.qualcomm.com ([10.204.66.35])
- by ironmsg01-blr.qualcomm.com with ESMTP; 01 Apr 2020 14:47:52 +0530
-Received: by mkrishn-linux.qualcomm.com (Postfix, from userid 438394)
- id 3118145C0; Wed,  1 Apr 2020 14:47:51 +0530 (IST)
-From: Krishna Manikandan <mkrishn@codeaurora.org>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Date: Wed,  1 Apr 2020 14:47:45 +0530
-Message-Id: <1585732665-29492-2-git-send-email-mkrishn@codeaurora.org>
-X-Mailer: git-send-email 1.9.1
-In-Reply-To: <1585732665-29492-1-git-send-email-mkrishn@codeaurora.org>
-References: <1585732665-29492-1-git-send-email-mkrishn@codeaurora.org>
-Subject: [Freedreno] [v1 3/3] arm64: dts: sc7180: define interconnects for
- sc7180 target
+Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
+ [104.130.122.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 964E16E90A
+ for <freedreno@lists.freedesktop.org>; Wed,  1 Apr 2020 09:32:28 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1585733550; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=O4mfO68j0oUFthZ8BDymyBRZQeDPJ5DqwOJdqb9xXjc=;
+ b=REC6ewzdQ+lioINZISvKvcXrblJFbUF8/aD56UKqVCfTTt1b6ppsuwcEvYkbYZRuAKSWqxo3
+ OABiVYTs6Vv4GDzv0Nli+uCzHPrxJshaBpMU6oGXeOJQCtaYlfUma30dSqoGY8lvAxGGF9Yb
+ +fs5BFjuD1T/7xfy2YS67eYfRao=
+X-Mailgun-Sending-Ip: 104.130.122.26
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5e845fa5.7ff7beefeed8-smtp-out-n05;
+ Wed, 01 Apr 2020 09:32:21 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id C2A60C433F2; Wed,  1 Apr 2020 09:32:21 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: kalyan_t)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 16FF4C433D2;
+ Wed,  1 Apr 2020 09:32:21 +0000 (UTC)
+MIME-Version: 1.0
+Date: Wed, 01 Apr 2020 15:02:21 +0530
+From: kalyan_t@codeaurora.org
+To: Doug Anderson <dianders@chromium.org>
+In-Reply-To: <CAD=FV=Up4y6GUkJc8NNJBdC28L+6LvUs7pCUg4pyMCgHMGEkug@mail.gmail.com>
+References: <1585663107-12406-1-git-send-email-kalyan_t@codeaurora.org>
+ <CAD=FV=Up4y6GUkJc8NNJBdC28L+6LvUs7pCUg4pyMCgHMGEkug@mail.gmail.com>
+Message-ID: <2922a0c64ec61c3d74d516e44dca2d71@codeaurora.org>
+X-Sender: kalyan_t@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: ensure device suspend happens
+ during PM sleep
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,40 +63,128 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Krishna Manikandan <mkrishn@codeaurora.org>, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
- kalyan_t@codeaurora.org, hoegsberg@chromium.org
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Cc: "open list:OPEN FIRMWARE AND FLATTENED
+ DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, mkrishn@codeaurora.org,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, travitej@codeaurora.org,
+ LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
+ nganji@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
+ "Kristian H. Kristensen" <hoegsberg@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Jeykumar Sankaran <jsanka@codeaurora.org>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Define interconnects for display driver for
-sc7180 target.
-
-Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
----
- arch/arm64/boot/dts/qcom/sc7180.dtsi | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-index ea1b0cd..31fed6d 100644
---- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-@@ -1521,6 +1521,9 @@
- 			interrupt-controller;
- 			#interrupt-cells = <1>;
- 
-+			interconnects = <&mmss_noc MASTER_MDP0 &mc_virt SLAVE_EBI1>;
-+			interconnect-names = "mdp0-mem";
-+
- 			iommus = <&apps_smmu 0x800 0x2>;
- 
- 			#address-cells = <2>;
--- 
-1.9.1
-
+On 2020-03-31 21:30, Doug Anderson wrote:
+> Hi,
+> 
+> On Tue, Mar 31, 2020 at 6:58 AM Kalyan Thota <kalyan_t@codeaurora.org> 
+> wrote:
+>> 
+>> "The PM core always increments the runtime usage counter
+>> before calling the ->suspend() callback and decrements it
+>> after calling the ->resume() callback"
+>> 
+>> DPU and DSI are managed as runtime devices. When
+>> suspend is triggered, PM core adds a refcount on all the
+>> devices and calls device suspend, since usage count is
+>> already incremented, runtime suspend was not getting called
+>> and it kept the clocks on which resulted in target not
+>> entering into XO shutdown.
+>> 
+>> Add changes to force suspend on runtime devices during pm sleep.
+>> 
+>> Changes in v1:
+>>  - Remove unnecessary checks in the function
+>>     _dpu_kms_disable_dpu (Rob Clark).
+>> 
+>> Changes in v2:
+>>  - Avoid using suspend_late to reset the usagecount
+>>    as suspend_late might not be called during suspend
+>>    call failures (Doug).
+>> 
+>> Changes in v3:
+>>  - Use force suspend instead of managing device usage_count
+>>    via runtime put and get API's to trigger callbacks (Doug).
+>> 
+>> Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
+>> ---
+>>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 2 ++
+>>  drivers/gpu/drm/msm/dsi/dsi.c           | 2 ++
+>>  drivers/gpu/drm/msm/msm_drv.c           | 4 ++++
+>>  3 files changed, 8 insertions(+)
+> 
+> This looks much saner to me.  Thanks!  I assume it still works fine
+> for you?  I'm still no expert on how all the pieces of DRM drivers
+> work together, but at least there's not a bunch of strange fiddling
+> with pm_runtime state and hopefully it will avoid weird corner
+> cases...
+> 
+--- Yes, verified the change on trogdor device, and display can suspend 
+with the change.
+> 
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>> index ce19f1d..b886d9d 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>> @@ -1123,6 +1123,8 @@ static int __maybe_unused 
+>> dpu_runtime_resume(struct device *dev)
+>> 
+>>  static const struct dev_pm_ops dpu_pm_ops = {
+>>         SET_RUNTIME_PM_OPS(dpu_runtime_suspend, dpu_runtime_resume, 
+>> NULL)
+>> +       SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
+>> +                               pm_runtime_force_resume)
+>>  };
+>> 
+>>  static const struct of_device_id dpu_dt_match[] = {
+>> diff --git a/drivers/gpu/drm/msm/dsi/dsi.c 
+>> b/drivers/gpu/drm/msm/dsi/dsi.c
+>> index 55ea4bc2..62704885 100644
+>> --- a/drivers/gpu/drm/msm/dsi/dsi.c
+>> +++ b/drivers/gpu/drm/msm/dsi/dsi.c
+>> @@ -161,6 +161,8 @@ static int dsi_dev_remove(struct platform_device 
+>> *pdev)
+>> 
+>>  static const struct dev_pm_ops dsi_pm_ops = {
+>>         SET_RUNTIME_PM_OPS(msm_dsi_runtime_suspend, 
+>> msm_dsi_runtime_resume, NULL)
+>> +       SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
+>> +                               pm_runtime_force_resume)
+>>  };
+>> 
+>>  static struct platform_driver dsi_driver = {
+>> diff --git a/drivers/gpu/drm/msm/msm_drv.c 
+>> b/drivers/gpu/drm/msm/msm_drv.c
+>> index 7d985f8..2b8c99c 100644
+>> --- a/drivers/gpu/drm/msm/msm_drv.c
+>> +++ b/drivers/gpu/drm/msm/msm_drv.c
+>> @@ -1051,6 +1051,8 @@ static int msm_pm_suspend(struct device *dev)
+>>                 return ret;
+>>         }
+>> 
+>> +       pm_runtime_force_suspend(dev);
+> 
+> nit: check return value of pm_runtime_force_suspend()?
+> 
+> 
+>> +
+>>         return 0;
+>>  }
+>> 
+>> @@ -1063,6 +1065,8 @@ static int msm_pm_resume(struct device *dev)
+>>         if (WARN_ON(!priv->pm_state))
+>>                 return -ENOENT;
+>> 
+>> +       pm_runtime_force_resume(dev);
+> 
+> nit: check return value of pm_runtime_force_resume()?
+> 
+> 
+> -Doug
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
