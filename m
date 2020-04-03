@@ -2,34 +2,41 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5027A19C2AB
-	for <lists+freedreno@lfdr.de>; Thu,  2 Apr 2020 15:32:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 930A219DF88
+	for <lists+freedreno@lfdr.de>; Fri,  3 Apr 2020 22:40:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E52D36EA90;
-	Thu,  2 Apr 2020 13:32:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33E1D6EC7F;
+	Fri,  3 Apr 2020 20:40:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-blr-01.qualcomm.com (alexa-out-blr-01.qualcomm.com
- [103.229.18.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 603E16EA8F;
- Thu,  2 Apr 2020 13:31:59 +0000 (UTC)
-Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
- by alexa-out-blr-01.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 02 Apr 2020 19:01:00 +0530
-Received: from mkrishn-linux.qualcomm.com ([10.204.66.35])
- by ironmsg01-blr.qualcomm.com with ESMTP; 02 Apr 2020 19:00:44 +0530
-Received: by mkrishn-linux.qualcomm.com (Postfix, from userid 438394)
- id 1D7A845BF; Thu,  2 Apr 2020 19:00:43 +0530 (IST)
-From: Krishna Manikandan <mkrishn@codeaurora.org>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Date: Thu,  2 Apr 2020 19:00:39 +0530
-Message-Id: <1585834239-8895-3-git-send-email-mkrishn@codeaurora.org>
-X-Mailer: git-send-email 1.9.1
-In-Reply-To: <1585834239-8895-1-git-send-email-mkrishn@codeaurora.org>
-References: <1585834239-8895-1-git-send-email-mkrishn@codeaurora.org>
-Subject: [Freedreno] [v3 3/3] arm64: dts: sc7180: add interconnect bindings
- for display
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E3A96EC7F;
+ Fri,  3 Apr 2020 20:40:31 +0000 (UTC)
+IronPort-SDR: gK2Pa2QnMB9gsIK9nzgLtx4zbIJ9PCDsB2ZJ8OrwWko5YMP9pZFPvO3dNyW7AcV2GDw6piQZT8
+ WChHXIhXP1Sg==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Apr 2020 13:40:30 -0700
+IronPort-SDR: tEY2l0UdswtpS77IjyF5EmAjKFmjxuSQwvuk3b+AA5RfJRxtva8gvJF6KXjfhKiieXKhLReGuJ
+ KciplXrjnhaw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,341,1580803200"; d="scan'208";a="329275250"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
+ by orsmga001.jf.intel.com with SMTP; 03 Apr 2020 13:40:27 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 03 Apr 2020 23:40:26 +0300
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: dri-devel@lists.freedesktop.org
+Date: Fri,  3 Apr 2020 23:39:55 +0300
+Message-Id: <20200403204008.14864-5-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.24.1
+In-Reply-To: <20200403204008.14864-1-ville.syrjala@linux.intel.com>
+References: <20200403204008.14864-1-ville.syrjala@linux.intel.com>
+MIME-Version: 1.0
+Subject: [Freedreno] [PATCH v2 04/17] drm/msm/dpu: Stop copying around
+ mode->private_flags
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,49 +49,78 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Krishna Manikandan <mkrishn@codeaurora.org>, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
- kalyan_t@codeaurora.org, hoegsberg@chromium.org
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ freedreno@lists.freedesktop.org, Emil Velikov <emil.velikov@collabora.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This change adds the interconnect bindings to the
-MDSS node. This will establish Display to DDR path
-for bus bandwidth voting.
-
-Changes in v2:
-	- Change in commit message(Matthias Kaehlcke)
-
-Changes in v3:
-	- Updated commit message to include
-	  reviewer's name in v2
-
-Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
----
- arch/arm64/boot/dts/qcom/sc7180.dtsi | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-index ea1b0cd..31fed6d 100644
---- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-@@ -1521,6 +1521,9 @@
- 			interrupt-controller;
- 			#interrupt-cells = <1>;
- 
-+			interconnects = <&mmss_noc MASTER_MDP0 &mc_virt SLAVE_EBI1>;
-+			interconnect-names = "mdp0-mem";
-+
- 			iommus = <&apps_smmu 0x800 0x2>;
- 
- 			#address-cells = <2>;
--- 
-1.9.1
-
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+RnJvbTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KClRo
+ZSBkcml2ZXIgbmV2ZXIgc2V0cyBtb2RlLT5wcml2YXRlX2ZsYWdzIHNvIGNvcHlpbmcKaXQgYmFj
+ayBhbmQgZm9ydGggaXMgZW50aXJlbHkgcG9pbnRsZXNzLiBTdG9wIGRvaW5nIGl0LgoKQWxzbyBk
+cm9wIHByaXZhdGVfZmxhZ3MgZnJvbSB0aGUgdHJhY2Vwb2ludC4KCkNjOiBSb2IgQ2xhcmsgPHJv
+YmRjbGFya0BnbWFpbC5jb20+CkNjOiBTZWFuIFBhdWwgPHNlYW5AcG9vcmx5LnJ1bj4KQ2M6IGxp
+bnV4LWFybS1tc21Admdlci5rZXJuZWwub3JnCkNjOiBmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnClJldmlld2VkLWJ5OiBFbWlsIFZlbGlrb3YgPGVtaWwudmVsaWtvdkBjb2xsYWJvcmEu
+Y29tPgpTaWduZWQtb2ZmLWJ5OiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXgu
+aW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9lbmNvZGVy
+LmMgfCAyOSArLS0tLS0tLS0tLS0tLS0tLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9k
+cHUxL2RwdV90cmFjZS5oICAgfCAxMCArKystLS0tCiAyIGZpbGVzIGNoYW5nZWQsIDUgaW5zZXJ0
+aW9ucygrKSwgMzQgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL21z
+bS9kaXNwL2RwdTEvZHB1X2VuY29kZXIuYyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUx
+L2RwdV9lbmNvZGVyLmMKaW5kZXggYTFiNzllZTJiZDlkLi5kMjJlY2FiZWJiMDggMTAwNjQ0Ci0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9lbmNvZGVyLmMKKysrIGIvZHJp
+dmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X2VuY29kZXIuYwpAQCAtNDk4LDIzICs0OTgs
+NiBAQCB2b2lkIGRwdV9lbmNvZGVyX2hlbHBlcl9zcGxpdF9jb25maWcoCiAJfQogfQogCi1zdGF0
+aWMgdm9pZCBfZHB1X2VuY29kZXJfYWRqdXN0X21vZGUoc3RydWN0IGRybV9jb25uZWN0b3IgKmNv
+bm5lY3RvciwKLQkJc3RydWN0IGRybV9kaXNwbGF5X21vZGUgKmFkal9tb2RlKQotewotCXN0cnVj
+dCBkcm1fZGlzcGxheV9tb2RlICpjdXJfbW9kZTsKLQotCWlmICghY29ubmVjdG9yIHx8ICFhZGpf
+bW9kZSkKLQkJcmV0dXJuOwotCi0JbGlzdF9mb3JfZWFjaF9lbnRyeShjdXJfbW9kZSwgJmNvbm5l
+Y3Rvci0+bW9kZXMsIGhlYWQpIHsKLQkJaWYgKGN1cl9tb2RlLT52ZGlzcGxheSA9PSBhZGpfbW9k
+ZS0+dmRpc3BsYXkgJiYKLQkJICAgIGN1cl9tb2RlLT5oZGlzcGxheSA9PSBhZGpfbW9kZS0+aGRp
+c3BsYXkgJiYKLQkJICAgIGRybV9tb2RlX3ZyZWZyZXNoKGN1cl9tb2RlKSA9PSBkcm1fbW9kZV92
+cmVmcmVzaChhZGpfbW9kZSkpIHsKLQkJCWFkal9tb2RlLT5wcml2YXRlX2ZsYWdzIHw9IGN1cl9t
+b2RlLT5wcml2YXRlX2ZsYWdzOwotCQl9Ci0JfQotfQotCiBzdGF0aWMgc3RydWN0IG1zbV9kaXNw
+bGF5X3RvcG9sb2d5IGRwdV9lbmNvZGVyX2dldF90b3BvbG9neSgKIAkJCXN0cnVjdCBkcHVfZW5j
+b2Rlcl92aXJ0ICpkcHVfZW5jLAogCQkJc3RydWN0IGRwdV9rbXMgKmRwdV9rbXMsCkBAIC01ODAs
+MTUgKzU2Myw2IEBAIHN0YXRpYyBpbnQgZHB1X2VuY29kZXJfdmlydF9hdG9taWNfY2hlY2soCiAJ
+Z2xvYmFsX3N0YXRlID0gZHB1X2ttc19nZXRfZXhpc3RpbmdfZ2xvYmFsX3N0YXRlKGRwdV9rbXMp
+OwogCXRyYWNlX2RwdV9lbmNfYXRvbWljX2NoZWNrKERSTUlEKGRybV9lbmMpKTsKIAotCS8qCi0J
+ICogZGlzcGxheSBkcml2ZXJzIG1heSBwb3B1bGF0ZSBwcml2YXRlIGZpZWxkcyBvZiB0aGUgZHJt
+IGRpc3BsYXkgbW9kZQotCSAqIHN0cnVjdHVyZSB3aGlsZSByZWdpc3RlcmluZyBwb3NzaWJsZSBt
+b2RlcyBvZiBhIGNvbm5lY3RvciB3aXRoIERSTS4KLQkgKiBUaGVzZSBwcml2YXRlIGZpZWxkcyBh
+cmUgbm90IHBvcHVsYXRlZCBiYWNrIHdoaWxlIERSTSBpbnZva2VzCi0JICogdGhlIG1vZGVfc2V0
+IGNhbGxiYWNrcy4gVGhpcyBtb2R1bGUgcmV0cmlldmVzIGFuZCBwb3B1bGF0ZXMgdGhlCi0JICog
+cHJpdmF0ZSBmaWVsZHMgb2YgdGhlIGdpdmVuIG1vZGUuCi0JICovCi0JX2RwdV9lbmNvZGVyX2Fk
+anVzdF9tb2RlKGNvbm5fc3RhdGUtPmNvbm5lY3RvciwgYWRqX21vZGUpOwotCiAJLyogcGVyZm9y
+bSBhdG9taWMgY2hlY2sgb24gdGhlIGZpcnN0IHBoeXNpY2FsIGVuY29kZXIgKG1hc3RlcikgKi8K
+IAlmb3IgKGkgPSAwOyBpIDwgZHB1X2VuYy0+bnVtX3BoeXNfZW5jczsgaSsrKSB7CiAJCXN0cnVj
+dCBkcHVfZW5jb2Rlcl9waHlzICpwaHlzID0gZHB1X2VuYy0+cGh5c19lbmNzW2ldOwpAQCAtNjIx
+LDggKzU5NSw3IEBAIHN0YXRpYyBpbnQgZHB1X2VuY29kZXJfdmlydF9hdG9taWNfY2hlY2soCiAJ
+CX0KIAl9CiAKLQl0cmFjZV9kcHVfZW5jX2F0b21pY19jaGVja19mbGFncyhEUk1JRChkcm1fZW5j
+KSwgYWRqX21vZGUtPmZsYWdzLAotCQkJYWRqX21vZGUtPnByaXZhdGVfZmxhZ3MpOworCXRyYWNl
+X2RwdV9lbmNfYXRvbWljX2NoZWNrX2ZsYWdzKERSTUlEKGRybV9lbmMpLCBhZGpfbW9kZS0+Zmxh
+Z3MpOwogCiAJcmV0dXJuIHJldDsKIH0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tc20v
+ZGlzcC9kcHUxL2RwdV90cmFjZS5oIGIvZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1
+X3RyYWNlLmgKaW5kZXggZWVjZmU5YjMxOTllLi42NzE0YjA4ODk3MGYgMTAwNjQ0Ci0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV90cmFjZS5oCisrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9tc20vZGlzcC9kcHUxL2RwdV90cmFjZS5oCkBAIC0zMjcsMjAgKzMyNywxOCBAQCBERUZJ
+TkVfRVZFTlQoZHB1X2VuY19rZXl2YWxfdGVtcGxhdGUsIGRwdV9lbmNfdHJpZ2dlcl9zdGFydCwK
+ICk7CiAKIFRSQUNFX0VWRU5UKGRwdV9lbmNfYXRvbWljX2NoZWNrX2ZsYWdzLAotCVRQX1BST1RP
+KHVpbnQzMl90IGRybV9pZCwgdW5zaWduZWQgaW50IGZsYWdzLCBpbnQgcHJpdmF0ZV9mbGFncyks
+Ci0JVFBfQVJHUyhkcm1faWQsIGZsYWdzLCBwcml2YXRlX2ZsYWdzKSwKKwlUUF9QUk9UTyh1aW50
+MzJfdCBkcm1faWQsIHVuc2lnbmVkIGludCBmbGFncyksCisJVFBfQVJHUyhkcm1faWQsIGZsYWdz
+KSwKIAlUUF9TVFJVQ1RfX2VudHJ5KAogCQlfX2ZpZWxkKAl1aW50MzJfdCwJCWRybV9pZAkJKQog
+CQlfX2ZpZWxkKAl1bnNpZ25lZCBpbnQsCQlmbGFncwkJKQotCQlfX2ZpZWxkKAlpbnQsCQkJcHJp
+dmF0ZV9mbGFncwkpCiAJKSwKIAlUUF9mYXN0X2Fzc2lnbigKIAkJX19lbnRyeS0+ZHJtX2lkID0g
+ZHJtX2lkOwogCQlfX2VudHJ5LT5mbGFncyA9IGZsYWdzOwotCQlfX2VudHJ5LT5wcml2YXRlX2Zs
+YWdzID0gcHJpdmF0ZV9mbGFnczsKIAkpLAotCVRQX3ByaW50aygiaWQ9JXUsIGZsYWdzPSV1LCBw
+cml2YXRlX2ZsYWdzPSVkIiwKLQkJICBfX2VudHJ5LT5kcm1faWQsIF9fZW50cnktPmZsYWdzLCBf
+X2VudHJ5LT5wcml2YXRlX2ZsYWdzKQorCVRQX3ByaW50aygiaWQ9JXUsIGZsYWdzPSV1IiwKKwkJ
+ICBfX2VudHJ5LT5kcm1faWQsIF9fZW50cnktPmZsYWdzKQogKTsKIAogREVDTEFSRV9FVkVOVF9D
+TEFTUyhkcHVfZW5jX2lkX2VuYWJsZV90ZW1wbGF0ZSwKLS0gCjIuMjQuMQoKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlz
+dApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5vCg==
