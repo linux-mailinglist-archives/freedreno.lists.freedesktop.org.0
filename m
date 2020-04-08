@@ -1,67 +1,49 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 211181A2676
-	for <lists+freedreno@lfdr.de>; Wed,  8 Apr 2020 17:55:50 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 79C0D1A294A
+	for <lists+freedreno@lfdr.de>; Wed,  8 Apr 2020 21:20:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62FF7899D4;
-	Wed,  8 Apr 2020 15:55:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 279676EABF;
+	Wed,  8 Apr 2020 19:20:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C2C7899D4;
- Wed,  8 Apr 2020 15:51:57 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id D9CC7AF6E;
- Wed,  8 Apr 2020 15:51:51 +0000 (UTC)
-Received: by ds.suse.cz (Postfix, from userid 10065)
- id 0B140DA730; Wed,  8 Apr 2020 17:51:10 +0200 (CEST)
-Date: Wed, 8 Apr 2020 17:51:10 +0200
-From: David Sterba <dsterba@suse.cz>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Message-ID: <20200408155110.GW5920@suse.cz>
-Mail-Followup-To: dsterba@suse.cz,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>,
- linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
- Jan Kara <jack@suse.cz>, Amir Goldstein <amir73il@gmail.com>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Paul Mackerras <paulus@samba.org>,
- Federico Vaga <federico.vaga@vaga.pv.it>,
- Harry Wei <harryxiyou@gmail.com>,
- Alex Shi <alex.shi@linux.alibaba.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+X-Greylist: delayed 314 seconds by postgrey-1.36 at gabe;
+ Wed, 08 Apr 2020 19:20:25 UTC
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 879FB6EABF
+ for <freedreno@lists.freedesktop.org>; Wed,  8 Apr 2020 19:20:25 +0000 (UTC)
+Received: from threadripper.lan ([149.172.19.189]) by mrelayeu.kundenserver.de
+ (mreue108 [212.227.15.145]) with ESMTPA (Nemesis) id
+ 1MG9Xu-1jW9e42yUO-00GXX9; Wed, 08 Apr 2020 21:15:00 +0200
+From: Arnd Bergmann <arnd@arndb.de>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- David Sterba <dsterba@suse.com>,
- David Howells <dhowells@redhat.com>,
- "Tigran A. Aivazian" <aivazian.tigran@gmail.com>,
- Nicolas Pitre <nico@fluxnic.net>, Tyler Hicks <code@tyhicks.com>,
- Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>,
- Anton Altaparmakov <anton@tuxera.com>,
- Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
- Joseph Qi <joseph.qi@linux.alibaba.com>,
- Alexey Dobriyan <adobriyan@gmail.com>,
- Christoph Hellwig <hch@infradead.org>,
- linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-afs@lists.infradead.org,
- ecryptfs@vger.kernel.org, linux-ntfs-dev@lists.sourceforge.net,
- ocfs2-devel@oss.oracle.com
-References: <cover.1586359676.git.mchehab+huawei@kernel.org>
- <bcfddf36f60d928c78473af4e6a0b29904213c44.1586359676.git.mchehab+huawei@kernel.org>
+ Jordan Crouse <jcrouse@codeaurora.org>
+Date: Wed,  8 Apr 2020 21:14:22 +0200
+Message-Id: <20200408191458.1260397-1-arnd@arndb.de>
+X-Mailer: git-send-email 2.26.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <bcfddf36f60d928c78473af4e6a0b29904213c44.1586359676.git.mchehab+huawei@kernel.org>
-User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
-X-Mailman-Approved-At: Wed, 08 Apr 2020 15:55:46 +0000
-Subject: Re: [Freedreno] [PATCH 05/35] docs: filesystems: fix renamed
- references
+X-Provags-ID: V03:K1:fdpx1d/DLJfitrFpYrv8Gkkt6VAi33wDZasxO8tqJ48cXnNukcc
+ VB/q8aFUWkBATecQB02IKtYojv/7l+Y0/mI+xOkGkohuj0ZY4xA6z2cp4m13/z+BJ0uyHvn
+ yA6d6TySZK/ah969Kwpn8hB3N5sX/O/4aiSFnMFZXs2FeFCV0pXCA3Gg2HWS8es86yMdTJp
+ UwUjR8Rc/Y7boiWmcahiA==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:qfMbjEOsqiA=:eH48gEWoJ/cN0yJ4E60/A+
+ bZ+5H2Esp41EI5xmiDa62cBmhm1MIn5oJvZlRvkQ8wmrxaW3guC1jTZF1ZOIMw6c0yTdeM8m9
+ dFG4kfvv0mgqkuJvlFCIwmNdGI58PCG24wg+17f+Gte9DUbxCHkQxv5xReMJRRsT5+vwhw4cO
+ JIZ43kW/za3oJj6wl1+B6jA7FDRH4CncsC79W7d2ucsZ7l+S8Gf4bVTTvctl+8zRtxhvezktV
+ W4QpueRjVGRKBE/jRFQtZ8rIH+Gswu70wWvdKz5Haq+Fp8lhjsdt7EHcEhQo02q6Xc/k7F3vn
+ Y28BaO8c7YYh+3lJkgOwis+31WCPy/PoDyZBaKnJ2qciDCoAjaXEtKNYbtBDw6MrxlrT0M4wW
+ mUAvHaZ6ruuJZ1lsNBoJdWu/qndVM0MPrah+k62BNrkioGlyAcWqqyNeCpPlWIX4PDauhaiSP
+ sphPze+joTn+PUCJfgHe0iJ3IVS02HDl7Z5zVJPE77aqW9OlR2f5FWH4XiGLeK2IfxzlfA8fB
+ 6pJfDq72w8kPxi/hVkdLb17ncyL1trSSlGI52HYHnerWfH4MCV/6qHAUy5R3afO3TrRQwKlbL
+ zDYgSSlgyInW3bSgIbMPsDfog/N8dj3tuKrAADBe64+LfwxenV66AV21mUxINRANpKTzeIHH2
+ g05WrO4o13OsmXXLI1RIHMN0uZ0j2CnjTKTrqANOv9DfVgbK724qePyv45N5MKgQqXsmTvOm8
+ fnDTkOsTgjJ0Zopz8W0UC8dJ2GgSqGS1Q8oShL1jzBmoRCZIU5d6W+b5NUSR5+wIFDAktqdHv
+ F7Q1a+1btD/f4xNPkwvusn/oqVV7w/SWCpDPO4ePlRXSFX+xQQ=
+Subject: [Freedreno] [PATCH] drm/msm: fix link error without CONFIG_DEBUG_FS
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,46 +56,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: dsterba@suse.cz
-Cc: Jan Kara <jack@suse.cz>, Linux Doc Mailing List <linux-doc@vger.kernel.org>,
- David Airlie <airlied@linux.ie>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Amir Goldstein <amir73il@gmail.com>, dri-devel@lists.freedesktop.org,
- David Howells <dhowells@redhat.com>, Joseph Qi <joseph.qi@linux.alibaba.com>,
- Harry Wei <harryxiyou@gmail.com>, Paul Mackerras <paulus@samba.org>,
- Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>,
- Alex Shi <alex.shi@linux.alibaba.com>, linux-afs@lists.infradead.org,
- Jonathan Corbet <corbet@lwn.net>, Michael Ellerman <mpe@ellerman.id.au>,
- Mark Fasheh <mark@fasheh.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Tyler Hicks <code@tyhicks.com>, Christoph Hellwig <hch@infradead.org>,
- Federico Vaga <federico.vaga@vaga.pv.it>,
- Alexey Dobriyan <adobriyan@gmail.com>, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, ecryptfs@vger.kernel.org,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- "Tigran A. Aivazian" <aivazian.tigran@gmail.com>,
- David Sterba <dsterba@suse.com>, Sean Paul <sean@poorly.run>,
- Anton Altaparmakov <anton@tuxera.com>, Nicolas Pitre <nico@fluxnic.net>,
- linux-ntfs-dev@lists.sourceforge.net,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- ocfs2-devel@oss.oracle.com, Joel Becker <jlbec@evilplan.org>
+Cc: Rob Clark <robdclark@chromium.org>, Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-msm@vger.kernel.org, "Kristian H. Kristensen" <hoegsberg@gmail.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, freedreno@lists.freedesktop.org,
+ Allison Randal <allison@lohutok.net>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Apr 08, 2020 at 05:45:57PM +0200, Mauro Carvalho Chehab wrote:
-> Some filesystem references got broken by a previous patch
-> series I submitted. Address those.
-> 
-> Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+I ran into a randconfig link error with debugfs disabled:
 
-For
+arm-linux-gnueabi-ld:
+drivers/gpu/drm/msm/msm_gpu.o: in function `should_dump': msm_gpu.c:(.text+0x1cc): undefined reference to `rd_full'
 
->  fs/affs/Kconfig                                             | 2 +-
+Change the helper to only look at this variable if debugfs is present.
 
-Acked-by: David Sterba <dsterba@suse.com>
+Fixes: e515af8d4a6f ("drm/msm: devcoredump should dump MSM_SUBMIT_BO_DUMP buffers")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ drivers/gpu/drm/msm/msm_gem.h | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
+index 30584eaf8cc8..eb4aeaf291ea 100644
+--- a/drivers/gpu/drm/msm/msm_gem.h
++++ b/drivers/gpu/drm/msm/msm_gem.h
+@@ -167,7 +167,10 @@ static inline bool
+ should_dump(struct msm_gem_submit *submit, int idx)
+ {
+ 	extern bool rd_full;
+-	return rd_full || (submit->bos[idx].flags & MSM_SUBMIT_BO_DUMP);
++	if (IS_ENABLED(CONFIG_DEBUG_FS) && rd_full)
++		return true;
++
++	return submit->bos[idx].flags & MSM_SUBMIT_BO_DUMP;
+ }
+ 
+ #endif /* __MSM_GEM_H__ */
+-- 
+2.26.0
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
