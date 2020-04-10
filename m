@@ -2,57 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87A1A1A3CF1
-	for <lists+freedreno@lfdr.de>; Fri, 10 Apr 2020 01:34:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6280D1A4985
+	for <lists+freedreno@lfdr.de>; Fri, 10 Apr 2020 19:49:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F85E6EC39;
-	Thu,  9 Apr 2020 23:34:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA9C36ED32;
+	Fri, 10 Apr 2020 17:48:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
- [104.130.122.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF3AD6EC37
- for <freedreno@lists.freedesktop.org>; Thu,  9 Apr 2020 23:34:09 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1586475249; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=JX36OsMOhg3j8cE6jmtJp/2wzT5Rnaj1Sk4+vnaS0Bs=;
- b=QpYLJvZy2ruR7bbWwcyuTfJXWDkWkkfxXcji2+KtzgOITTBtlGR3WBVR16XySQqgs+XoY5E1
- PFdgBgpzFK+CBBApj6V5ur23HCjf741JJ/0yzU5tUd1+/zmSd0jzF+11f0Y9znosY7LDiSJ6
- ci9OHC3EB7rrgvtSXW1lnIcbcOM=
-X-Mailgun-Sending-Ip: 104.130.122.26
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5e8fb0f1.7f0039f853b0-smtp-out-n01;
- Thu, 09 Apr 2020 23:34:09 -0000 (UTC)
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id D4665C19432; Thu,  9 Apr 2020 23:34:08 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from localhost.localdomain (c-71-237-101-98.hsd1.co.comcast.net
- [71.237.101.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 05AA8C58A03;
- Thu,  9 Apr 2020 23:34:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 05AA8C58A03
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=jcrouse@codeaurora.org
-From: Jordan Crouse <jcrouse@codeaurora.org>
-To: iommu@lists.linux-foundation.org
-Date: Thu,  9 Apr 2020 17:33:50 -0600
-Message-Id: <20200409233350.6343-6-jcrouse@codeaurora.org>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200409233350.6343-1-jcrouse@codeaurora.org>
-References: <20200409233350.6343-1-jcrouse@codeaurora.org>
-Subject: [Freedreno] [PATCH v6 5/5] drm/msm/a6xx: Support split pagetables
+Received: from mail-oi1-f193.google.com (mail-oi1-f193.google.com
+ [209.85.167.193])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D5576ED2E
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Apr 2020 17:48:57 +0000 (UTC)
+Received: by mail-oi1-f193.google.com with SMTP id d63so1994280oig.6
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Apr 2020 10:48:57 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=+zNuF3LiP7kvgVV1lvcUDcmbeJ3DBvPeuSAiKMFaGnc=;
+ b=Bj2Hy0OC00lIU4y0np73kMzTKObrFq0RRTd+mFPP6eL7VqOtATnvryLyXao+CZhq3V
+ q42tGgRcLrefnPwyTo9jVNkSLDYY0c4xh+s1lHjz42DqugicUH4htvlW0as+0yjOHZFk
+ OtekRmEROLqpLa9+qBlUjVeOA8Xjj3fEaH54SEGK2QvLfKw338v5gKxUPDoHLDwWWxt8
+ PGNRWIGYoQaHrlYSEcPzAhbdyXsi3al+8h/YVEw+UAltgk9nEEa44WvLAqNZddzRBdmQ
+ 8bB1vaq/GKbHONlZ7vEnvpN6h3u2OmrPAkEnQ7Cby6Fe1IHfm4M8Js0+L4AxSBYmB7X8
+ /9Zw==
+X-Gm-Message-State: AGi0PubvlxsX7arO9NoupB8xb1X+aJtK8IYTIHqQFMUJ8Dt0pQoJE01P
+ p5jQ7fjsOrR402gX3nfejw==
+X-Google-Smtp-Source: APiQypIt0cEpMExqzLdxjcdCSCFkFwJgM3Jj7xITc2xbl8Ot3NQLeW5lxcuMi7lDACDtIRWU3GO5eQ==
+X-Received: by 2002:aca:3745:: with SMTP id e66mr3965165oia.153.1586540936614; 
+ Fri, 10 Apr 2020 10:48:56 -0700 (PDT)
+Received: from rob-hp-laptop (ip-173-126-55-226.ftwttx.spcsdns.net.
+ [173.126.55.226])
+ by smtp.gmail.com with ESMTPSA id u17sm1523713oiv.21.2020.04.10.10.48.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Apr 2020 10:48:56 -0700 (PDT)
+Received: (nullmailer pid 28391 invoked by uid 1000);
+ Fri, 10 Apr 2020 17:48:53 -0000
+Date: Fri, 10 Apr 2020 11:48:53 -0600
+From: Rob Herring <robh@kernel.org>
+To: Sharat Masetty <smasetty@codeaurora.org>
+Message-ID: <20200410174853.GA28335@bogus>
+References: <1585641353-23229-1-git-send-email-smasetty@codeaurora.org>
+ <1585641353-23229-6-git-send-email-smasetty@codeaurora.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <1585641353-23229-6-git-send-email-smasetty@codeaurora.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Freedreno] [PATCH 5/5] dt-bindings: drm/msm/gpu: Document OPP
+ phandle list for the GPU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,103 +62,27 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, freedreno@lists.freedesktop.org,
- will@kernel.org, David Airlie <airlied@linux.ie>,
+Cc: devicetree@vger.kernel.org, saravanak@google.com,
  linux-arm-msm@vger.kernel.org, Sharat Masetty <smasetty@codeaurora.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, robin.murphy@arm.com,
- linux-arm-kernel@lists.infradead.org
-MIME-Version: 1.0
+ linux-kernel@vger.kernel.org, jcrouse@codeaurora.org, mka@chromium.org,
+ dri-devel@freedesktop.org, viresh.kumar@linaro.org,
+ freedreno@lists.freedesktop.org, sibis@codeaurora.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Attempt to enable split pagetables if the arm-smmu driver supports it.
-This will move the default address space from the default region to
-the address range assigned to TTBR1. The behavior should be transparent
-to the driver for now but it gets the default buffers out of the way
-when we want to start swapping TTBR0 for context-specific pagetables.
+On Tue, 31 Mar 2020 13:25:53 +0530, Sharat Masetty wrote:
+> Update the documentation for listing the multiple optional GPU and the
+> DDR OPP tables to help enable DDR scaling.
+> 
+> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
+> ---
+>  .../devicetree/bindings/display/msm/gpu.txt        | 63 +++++++++++++++++++++-
+>  1 file changed, 61 insertions(+), 2 deletions(-)
+> 
 
-Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
----
-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 52 ++++++++++++++++++++++++++-
- 1 file changed, 51 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 02ade43d6335..b27daa77723c 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -825,6 +825,56 @@ static unsigned long a6xx_gpu_busy(struct msm_gpu *gpu)
- 	return (unsigned long)busy_time;
- }
- 
-+static struct msm_gem_address_space *
-+a6xx_create_address_space(struct msm_gpu *gpu, struct platform_device *pdev)
-+{
-+	struct iommu_domain *iommu = iommu_domain_alloc(&platform_bus_type);
-+	struct msm_gem_address_space *aspace;
-+	struct msm_mmu *mmu;
-+	u64 start, size;
-+	u32 val = 1;
-+	int ret;
-+
-+	if (!iommu)
-+		return ERR_PTR(-ENOMEM);
-+
-+	/*
-+	 * Try to request split pagetables - the request has to be made before
-+	 * the domian is attached
-+	 */
-+	iommu_domain_set_attr(iommu, DOMAIN_ATTR_SPLIT_TABLES, &val);
-+
-+	mmu = msm_iommu_new(&pdev->dev, iommu);
-+	if (IS_ERR(mmu)) {
-+		iommu_domain_free(iommu);
-+		return ERR_CAST(mmu);
-+	}
-+
-+	/*
-+	 * After the domain is attached, see if the split tables were actually
-+	 * successful.
-+	 */
-+	ret = iommu_domain_get_attr(iommu, DOMAIN_ATTR_SPLIT_TABLES, &val);
-+	if (!ret && val) {
-+		/*
-+		 * The aperture start will be at the beginning of the TTBR1
-+		 * space so use that as a base
-+		 */
-+		start = iommu->geometry.aperture_start;
-+		size = 0xffffffff;
-+	} else {
-+		/* Otherwise use the legacy 32 bit region */
-+		start = SZ_16M;
-+		size = 0xffffffff - SZ_16M;
-+	}
-+
-+	aspace = msm_gem_address_space_create(mmu, "gpu", start, size);
-+	if (IS_ERR(aspace))
-+		iommu_domain_free(iommu);
-+
-+	return aspace;
-+}
-+
- static const struct adreno_gpu_funcs funcs = {
- 	.base = {
- 		.get_param = adreno_get_param,
-@@ -847,7 +897,7 @@ static const struct adreno_gpu_funcs funcs = {
- 		.gpu_state_get = a6xx_gpu_state_get,
- 		.gpu_state_put = a6xx_gpu_state_put,
- #endif
--		.create_address_space = adreno_iommu_create_address_space,
-+		.create_address_space = a6xx_create_address_space,
- 	},
- 	.get_timestamp = a6xx_get_timestamp,
- };
--- 
-2.17.1
+Reviewed-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
