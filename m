@@ -1,43 +1,43 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74DE21A5563
-	for <lists+freedreno@lfdr.de>; Sun, 12 Apr 2020 01:11:19 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id AE4771A55B0
+	for <lists+freedreno@lfdr.de>; Sun, 12 Apr 2020 01:13:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F30266E3B7;
-	Sat, 11 Apr 2020 23:11:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DC5B6E3CB;
+	Sat, 11 Apr 2020 23:13:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1E556E3B0;
- Sat, 11 Apr 2020 23:11:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC6A96E3CB;
+ Sat, 11 Apr 2020 23:13:01 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id F01A620CC7;
- Sat, 11 Apr 2020 23:11:15 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id BBEFB21835;
+ Sat, 11 Apr 2020 23:13:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586646676;
- bh=wS3jFTMM2C4qr3WLroCLDV8LJ8TkwN/96ofrMrcEvqQ=;
+ s=default; t=1586646781;
+ bh=k+HtzTIFd+fXXiVKekcLzGuQPzWQbVWRP6oOPwdIAbQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PShKxyJuqDRFJ9sSUQ1buuW7vNtLlL9XO8ENozNo7g7wruWwR2D6V9foICHzmclLm
- bxjyHE00x7pR84Lzk7P77Tf4Txij98TEv5mOi1eb6//1El9arLvZ+/+i/XODo/1RSA
- +eTLi8MviqPIhtOHlgVXpgvXoJARzCws4IBTEWQk=
+ b=BgfqJaGO0yLAy0xanJPbZ4R74e97JrdCnDRpPgZmNvNg0ODMQ6T4jflDrkkzuUEsx
+ REcMJjswK1s3RaGeV9qCGY18Kcf8CmlY/pcq7+qNHOAccX7oVp/eeKJJi9EqADwqNO
+ ISX7q3o+3vwpNnxKSgIRZQ6vMqn/0LYAb1YqVYIw=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sat, 11 Apr 2020 19:09:09 -0400
-Message-Id: <20200411230943.24951-74-sashal@kernel.org>
+Date: Sat, 11 Apr 2020 19:11:44 -0400
+Message-Id: <20200411231203.25933-47-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200411230943.24951-1-sashal@kernel.org>
-References: <20200411230943.24951-1-sashal@kernel.org>
+In-Reply-To: <20200411231203.25933-1-sashal@kernel.org>
+References: <20200411231203.25933-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Subject: [Freedreno] [PATCH AUTOSEL 5.4 074/108] drm/msm: devcoredump should
- dump MSM_SUBMIT_BO_DUMP buffers
+Subject: [Freedreno] [PATCH AUTOSEL 4.19 47/66] drm/msm: fix leaks if
+ initialization fails
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,123 +51,43 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>, Sasha Levin <sashal@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Jordan Crouse <jcrouse@codeaurora.org>, freedreno@lists.freedesktop.org
+ Pavel Machek <pavel@denx.de>, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+From: Pavel Machek <pavel@denx.de>
 
-[ Upstream commit e515af8d4a6f18f96c360724568a7497868101a8 ]
+[ Upstream commit 66be340f827554cb1c8a1ed7dea97920b4085af2 ]
 
-Also log buffers with the DUMP flag set, to ensure we capture all useful
-cmdstream in crashdump state with modern mesa.
+We should free resources in unlikely case of allocation failure.
 
-Otherwise we miss out on the contents of "state object" cmdstream
-buffers.
-
-v2: add missing 'inline'
-
+Signed-off-by: Pavel Machek <pavel@denx.de>
 Signed-off-by: Rob Clark <robdclark@chromium.org>
-Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/msm/msm_gem.h | 10 ++++++++++
- drivers/gpu/drm/msm/msm_gpu.c | 28 +++++++++++++++++++++++-----
- drivers/gpu/drm/msm/msm_rd.c  |  8 +-------
- 3 files changed, 34 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/msm/msm_drv.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-index 9e0953c2b7cea..dcee0e223ed86 100644
---- a/drivers/gpu/drm/msm/msm_gem.h
-+++ b/drivers/gpu/drm/msm/msm_gem.h
-@@ -160,4 +160,14 @@ struct msm_gem_submit {
- 	} bos[0];
- };
- 
-+/* helper to determine of a buffer in submit should be dumped, used for both
-+ * devcoredump and debugfs cmdstream dumping:
-+ */
-+static inline bool
-+should_dump(struct msm_gem_submit *submit, int idx)
-+{
-+	extern bool rd_full;
-+	return rd_full || (submit->bos[idx].flags & MSM_SUBMIT_BO_DUMP);
-+}
-+
- #endif /* __MSM_GEM_H__ */
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index edd45f434ccd6..aea93e5035758 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -355,16 +355,34 @@ static void msm_gpu_crashstate_capture(struct msm_gpu *gpu,
- 	state->cmd = kstrdup(cmd, GFP_KERNEL);
- 
- 	if (submit) {
--		int i;
--
--		state->bos = kcalloc(submit->nr_cmds,
-+		int i, nr = 0;
-+
-+		/* count # of buffers to dump: */
-+		for (i = 0; i < submit->nr_bos; i++)
-+			if (should_dump(submit, i))
-+				nr++;
-+		/* always dump cmd bo's, but don't double count them: */
-+		for (i = 0; i < submit->nr_cmds; i++)
-+			if (!should_dump(submit, submit->cmd[i].idx))
-+				nr++;
-+
-+		state->bos = kcalloc(nr,
- 			sizeof(struct msm_gpu_state_bo), GFP_KERNEL);
- 
-+		for (i = 0; i < submit->nr_bos; i++) {
-+			if (should_dump(submit, i)) {
-+				msm_gpu_crashstate_get_bo(state, submit->bos[i].obj,
-+					submit->bos[i].iova, submit->bos[i].flags);
-+			}
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 6f81de85fb860..01524009dede8 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -495,8 +495,10 @@ static int msm_drm_init(struct device *dev, struct drm_driver *drv)
+ 	if (!dev->dma_parms) {
+ 		dev->dma_parms = devm_kzalloc(dev, sizeof(*dev->dma_parms),
+ 					      GFP_KERNEL);
+-		if (!dev->dma_parms)
+-			return -ENOMEM;
++		if (!dev->dma_parms) {
++			ret = -ENOMEM;
++			goto err_msm_uninit;
 +		}
-+
- 		for (i = 0; state->bos && i < submit->nr_cmds; i++) {
- 			int idx = submit->cmd[i].idx;
- 
--			msm_gpu_crashstate_get_bo(state, submit->bos[idx].obj,
--				submit->bos[idx].iova, submit->bos[idx].flags);
-+			if (!should_dump(submit, submit->cmd[i].idx)) {
-+				msm_gpu_crashstate_get_bo(state, submit->bos[idx].obj,
-+					submit->bos[idx].iova, submit->bos[idx].flags);
-+			}
- 		}
  	}
+ 	dma_set_max_seg_size(dev, DMA_BIT_MASK(32));
  
-diff --git a/drivers/gpu/drm/msm/msm_rd.c b/drivers/gpu/drm/msm/msm_rd.c
-index c7832a951039f..4acebaefaed74 100644
---- a/drivers/gpu/drm/msm/msm_rd.c
-+++ b/drivers/gpu/drm/msm/msm_rd.c
-@@ -43,7 +43,7 @@
- #include "msm_gpu.h"
- #include "msm_gem.h"
- 
--static bool rd_full = false;
-+bool rd_full = false;
- MODULE_PARM_DESC(rd_full, "If true, $debugfs/.../rd will snapshot all buffer contents");
- module_param_named(rd_full, rd_full, bool, 0600);
- 
-@@ -333,12 +333,6 @@ static void snapshot_buf(struct msm_rd_state *rd,
- 	msm_gem_put_vaddr(&obj->base);
- }
- 
--static bool
--should_dump(struct msm_gem_submit *submit, int idx)
--{
--	return rd_full || (submit->bos[idx].flags & MSM_SUBMIT_BO_DUMP);
--}
--
- /* called under struct_mutex */
- void msm_rd_dump_submit(struct msm_rd_state *rd, struct msm_gem_submit *submit,
- 		const char *fmt, ...)
 -- 
 2.20.1
 
