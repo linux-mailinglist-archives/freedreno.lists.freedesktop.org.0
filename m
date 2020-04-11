@@ -2,54 +2,42 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6280D1A4985
-	for <lists+freedreno@lfdr.de>; Fri, 10 Apr 2020 19:49:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29CD81A5467
+	for <lists+freedreno@lfdr.de>; Sun, 12 Apr 2020 01:06:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA9C36ED32;
-	Fri, 10 Apr 2020 17:48:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC2E46E353;
+	Sat, 11 Apr 2020 23:06:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-f193.google.com (mail-oi1-f193.google.com
- [209.85.167.193])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D5576ED2E
- for <freedreno@lists.freedesktop.org>; Fri, 10 Apr 2020 17:48:57 +0000 (UTC)
-Received: by mail-oi1-f193.google.com with SMTP id d63so1994280oig.6
- for <freedreno@lists.freedesktop.org>; Fri, 10 Apr 2020 10:48:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=+zNuF3LiP7kvgVV1lvcUDcmbeJ3DBvPeuSAiKMFaGnc=;
- b=Bj2Hy0OC00lIU4y0np73kMzTKObrFq0RRTd+mFPP6eL7VqOtATnvryLyXao+CZhq3V
- q42tGgRcLrefnPwyTo9jVNkSLDYY0c4xh+s1lHjz42DqugicUH4htvlW0as+0yjOHZFk
- OtekRmEROLqpLa9+qBlUjVeOA8Xjj3fEaH54SEGK2QvLfKw338v5gKxUPDoHLDwWWxt8
- PGNRWIGYoQaHrlYSEcPzAhbdyXsi3al+8h/YVEw+UAltgk9nEEa44WvLAqNZddzRBdmQ
- 8bB1vaq/GKbHONlZ7vEnvpN6h3u2OmrPAkEnQ7Cby6Fe1IHfm4M8Js0+L4AxSBYmB7X8
- /9Zw==
-X-Gm-Message-State: AGi0PubvlxsX7arO9NoupB8xb1X+aJtK8IYTIHqQFMUJ8Dt0pQoJE01P
- p5jQ7fjsOrR402gX3nfejw==
-X-Google-Smtp-Source: APiQypIt0cEpMExqzLdxjcdCSCFkFwJgM3Jj7xITc2xbl8Ot3NQLeW5lxcuMi7lDACDtIRWU3GO5eQ==
-X-Received: by 2002:aca:3745:: with SMTP id e66mr3965165oia.153.1586540936614; 
- Fri, 10 Apr 2020 10:48:56 -0700 (PDT)
-Received: from rob-hp-laptop (ip-173-126-55-226.ftwttx.spcsdns.net.
- [173.126.55.226])
- by smtp.gmail.com with ESMTPSA id u17sm1523713oiv.21.2020.04.10.10.48.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Apr 2020 10:48:56 -0700 (PDT)
-Received: (nullmailer pid 28391 invoked by uid 1000);
- Fri, 10 Apr 2020 17:48:53 -0000
-Date: Fri, 10 Apr 2020 11:48:53 -0600
-From: Rob Herring <robh@kernel.org>
-To: Sharat Masetty <smasetty@codeaurora.org>
-Message-ID: <20200410174853.GA28335@bogus>
-References: <1585641353-23229-1-git-send-email-smasetty@codeaurora.org>
- <1585641353-23229-6-git-send-email-smasetty@codeaurora.org>
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B46386E34D;
+ Sat, 11 Apr 2020 23:05:59 +0000 (UTC)
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+ [73.47.72.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id BEEEB215A4;
+ Sat, 11 Apr 2020 23:05:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1586646359;
+ bh=q2qqNMSeIsDYPPv4a+c6GwdkoZeZjwHQHCscdU8oKUY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=bgPRGAfCEUi4HTTb4cHmm63qdODuoLqLy5RMgmDTKOsZYHItnfc1PX0WbeW5MlReJ
+ xGI5q/14AaW4vSf65HrMarIGgLGFG8SDJdZ8z7fe8w8hLezGGCti/eHX9czRBp1IbJ
+ RQOHI4vSCvtlnW4cxfltZfvNrtUQw3OYnA4NNdkA=
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Sat, 11 Apr 2020 19:03:02 -0400
+Message-Id: <20200411230347.22371-105-sashal@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200411230347.22371-1-sashal@kernel.org>
+References: <20200411230347.22371-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1585641353-23229-6-git-send-email-smasetty@codeaurora.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH 5/5] dt-bindings: drm/msm/gpu: Document OPP
- phandle list for the GPU
+X-stable: review
+X-Patchwork-Hint: Ignore
+Subject: [Freedreno] [PATCH AUTOSEL 5.6 105/149] drm/msm: fix leaks if
+ initialization fails
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,27 +50,47 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, saravanak@google.com,
- linux-arm-msm@vger.kernel.org, Sharat Masetty <smasetty@codeaurora.org>,
- linux-kernel@vger.kernel.org, jcrouse@codeaurora.org, mka@chromium.org,
- dri-devel@freedesktop.org, viresh.kumar@linaro.org,
- freedreno@lists.freedesktop.org, sibis@codeaurora.org
+Cc: Rob Clark <robdclark@chromium.org>, Sasha Levin <sashal@kernel.org>,
+ Pavel Machek <pavel@denx.de>, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 31 Mar 2020 13:25:53 +0530, Sharat Masetty wrote:
-> Update the documentation for listing the multiple optional GPU and the
-> DDR OPP tables to help enable DDR scaling.
-> 
-> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
-> ---
->  .../devicetree/bindings/display/msm/gpu.txt        | 63 +++++++++++++++++++++-
->  1 file changed, 61 insertions(+), 2 deletions(-)
-> 
+From: Pavel Machek <pavel@denx.de>
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+[ Upstream commit 66be340f827554cb1c8a1ed7dea97920b4085af2 ]
+
+We should free resources in unlikely case of allocation failure.
+
+Signed-off-by: Pavel Machek <pavel@denx.de>
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/msm/msm_drv.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index e4b750b0c2d3f..7d985f8865bef 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -444,8 +444,10 @@ static int msm_drm_init(struct device *dev, struct drm_driver *drv)
+ 	if (!dev->dma_parms) {
+ 		dev->dma_parms = devm_kzalloc(dev, sizeof(*dev->dma_parms),
+ 					      GFP_KERNEL);
+-		if (!dev->dma_parms)
+-			return -ENOMEM;
++		if (!dev->dma_parms) {
++			ret = -ENOMEM;
++			goto err_msm_uninit;
++		}
+ 	}
+ 	dma_set_max_seg_size(dev, DMA_BIT_MASK(32));
+ 
+-- 
+2.20.1
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
