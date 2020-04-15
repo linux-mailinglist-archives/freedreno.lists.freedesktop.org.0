@@ -2,104 +2,40 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE85F1AA937
-	for <lists+freedreno@lfdr.de>; Wed, 15 Apr 2020 15:59:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 550E31AA9FB
+	for <lists+freedreno@lfdr.de>; Wed, 15 Apr 2020 16:32:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72BAC6E905;
-	Wed, 15 Apr 2020 13:59:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E04F989933;
+	Wed, 15 Apr 2020 14:32:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2838A6E9E5
- for <freedreno@lists.freedesktop.org>; Wed, 15 Apr 2020 13:59:04 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id k11so18673747wrp.5
- for <freedreno@lists.freedesktop.org>; Wed, 15 Apr 2020 06:59:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:openpgp:autocrypt:message-id:date
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=EBkkrpN1JldiWzSdxdAKYWJCIXmqL3+YV8OzsPNmat0=;
- b=uhm/3Ie067i5hmZbiX2s7iEa4gWmMkn8zbCB4zZaAW2ORNX91MNCZ1jjcIP2/VorVP
- 0BWzv5pngsWGFBCw4zaa6/QCszdSQZGd3p+/AnYWU6bqiJY3RbF2suB+Zb8cejKklafp
- 8eyfo1ph5zmV+bu0Jbls5JAQZhsmFXvyZvh9+V5ftlg+tmYah8xsHbYaBSAoiCOLpxJY
- q+MNSbvB0FOwAW98wNf4CSSU9Ke2DINk2cT382hefJv/wgdBUdDR2FJ1sVh7oa9dhY/r
- 9UATB1+AKF/8/EpWd4/LTrDOGuzpUj2QFx29lwSJU5NQTCnhlAs0w0aEs09AmRlicHrB
- iIjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
- :message-id:date:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=EBkkrpN1JldiWzSdxdAKYWJCIXmqL3+YV8OzsPNmat0=;
- b=hXX8TWSXM5G1b2MUzMJsaCNhngG7olo57gv5UvMHoRKaznCue32cKMEcNr86kBJ8qp
- 1NrlGIdvGGc4sRrlzvU9AwMXVP1wjO+Vw94NpI810Ec/eSdsGx9RITeg0SDKsYw4Lysf
- 4B739RAf6W7YSuDX34D0oKyXGTMEkF9cT4+9os/wootzfYEgwfiXP164KcSC6BaVQ+b3
- 0hzweqWBCl4SWhNVEGUQ+XhKfN//dSGgJrnJPTrGNnB7TwnQvMoML3rEC+XCMTQmnECq
- TkE/m/juoEGP9hgz8aU6uLx2wp+4Qt3CK1Bd+lbFdhAgGodpMrWSG77tMpEJns4W9BvT
- 87xQ==
-X-Gm-Message-State: AGi0PubnXy2+ZRRrtJVfX0XeTGOZeLsyMvCap3rsYdm9N7FyN7ykTjIc
- XJTubnpNWKQm/25ZDUev9BbVbw==
-X-Google-Smtp-Source: APiQypJ0Sml9Mx5kPP3Urh14rrw/Ewpj/dAuPK1uPUm+XmXE7vf4+a6LRdBe8N24mjTc8FePKZI03w==
-X-Received: by 2002:a5d:4d8f:: with SMTP id b15mr8157211wru.107.1586959142726; 
- Wed, 15 Apr 2020 06:59:02 -0700 (PDT)
-Received: from [192.168.0.136] ([87.120.218.65])
- by smtp.googlemail.com with ESMTPSA id n6sm22158491wmc.28.2020.04.15.06.59.01
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 15 Apr 2020 06:59:01 -0700 (PDT)
-To: Krishna Manikandan <mkrishn@codeaurora.org>
-References: <1585810370-6099-1-git-send-email-mkrishn@codeaurora.org>
-From: Georgi Djakov <georgi.djakov@linaro.org>
-Openpgp: preference=signencrypt
-Autocrypt: addr=georgi.djakov@linaro.org; prefer-encrypt=mutual; keydata=
- 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
- KEmKjLDvB0pePJkdTw==
-Message-ID: <80ce1cfd-59ac-6565-bcbd-a6816592e586@linaro.org>
-Date: Wed, 15 Apr 2020 16:59:00 +0300
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3A23891FB;
+ Wed, 15 Apr 2020 14:32:50 +0000 (UTC)
+Received: from mail.kernel.org (ip5f5ad4d8.dynamic.kabel-deutschland.de
+ [95.90.212.216])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id AE72520857;
+ Wed, 15 Apr 2020 14:32:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1586961170;
+ bh=KiqG+YaH9TfLHMU7kAk5iZVq2iZm2vOE/nCgWZIaKyc=;
+ h=From:To:Cc:Subject:Date:From;
+ b=zmtkQ2yvb4lMCW7VyZbrY08AHuA6jaNelMxk+XjbrMt6hLetgzFtmSoM/epsya/Qn
+ SEsnxu9G/tLR8lcHUuNuNcTbKgVyOplhVgI6xMcESplhJZCdGjqpBiZ/9grkpTlftr
+ a1iGFMi+kSC7G4SOvfHDNZD5/3QnrIy5wZXFM5Y4=
+Received: from mchehab by mail.kernel.org with local (Exim 4.92.3)
+ (envelope-from <mchehab@kernel.org>)
+ id 1jOj5s-006kNi-SJ; Wed, 15 Apr 2020 16:32:48 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Linux Doc Mailing List <linux-doc@vger.kernel.org>
+Date: Wed, 15 Apr 2020 16:32:13 +0200
+Message-Id: <cover.1586960617.git.mchehab+huawei@kernel.org>
+X-Mailer: git-send-email 2.25.2
 MIME-Version: 1.0
-In-Reply-To: <1585810370-6099-1-git-send-email-mkrishn@codeaurora.org>
-Content-Language: en-US
-Subject: Re: [Freedreno] [v2 1/3] drm/msm/dpu: add support for clk and bw
- scaling for display
+Subject: [Freedreno] [PATCH 00/34] fs: convert remaining docs to ReST file
+ format
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,90 +48,216 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
- kalyan_t@codeaurora.org, hoegsberg@chromium.org,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-usb@vger.kernel.org,
+ linux-xfs@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-ext4@vger.kernel.org,
+ ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-unionfs@vger.kernel.org,
+ cluster-devel@redhat.com, linux-ntfs-dev@lists.sourceforge.net,
+ linux-cachefs@redhat.com, Alexander Viro <viro@zeniv.linux.org.uk>,
+ linux-fsdevel@vger.kernel.org, codalist@coda.cs.cmu.edu,
+ linuxppc-dev@lists.ozlabs.org, linux-afs@lists.infradead.org,
+ ocfs2-devel@oss.oracle.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Krishna,
+This patch series convert the remaining files under Documentation/filesystems
+to the ReST file format. It is based on linux-next (next-20200414).
 
-Thanks for the patch!
+PS.: I opted to add mainly ML from the output of get_maintainers.pl to the c/c
+list of patch 00/34, because  otherwise the number of c/c would be too many,
+with would very likely cause ML servers to reject it.
 
-On 4/2/20 09:52, Krishna Manikandan wrote:
-> This change adds support to scale src clk and bandwidth as
-> per composition requirements.
-> 
-> Interconnect registration for bw has been moved to mdp
-> device node from mdss to facilitate the scaling.
+The results of those changes (together with other changes from my pending
+doc patches) are available at:
 
-No Signed-off-by ?
+   https://www.infradead.org/~mchehab/kernel_docs/filesystems/index.html
 
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c  | 106 +++++++++++++++++++++----
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |   5 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |   4 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c        |  37 ++++++++-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h        |   4 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c       |   9 ++-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c      |  82 +++++++++++++++++++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h      |   4 +
->  8 files changed, 228 insertions(+), 23 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+Mauro Carvalho Chehab (34):
+  docs: filesystems: fix references for doc files there
+  docs: filesystems: convert caching/object.txt to ReST
+  docs: filesystems: convert caching/fscache.txt to ReST format
+  docs: filesystems: caching/netfs-api.txt: convert it to ReST
+  docs: filesystems: caching/operations.txt: convert it to ReST
+  docs: filesystems: caching/cachefiles.txt: convert to ReST
+  docs: filesystems: caching/backend-api.txt: convert it to ReST
+  docs: filesystems: convert cifs/cifsroot.rst to ReST
+  docs: filesystems: convert configfs.txt to ReST
+  docs: filesystems: convert automount-support.txt to ReST
+  docs: filesystems: convert coda.txt to ReST
+  docs: filesystems: convert dax.txt to ReST
+  docs: filesystems: convert devpts.txt to ReST
+  docs: filesystems: convert dnotify.txt to ReST
+  docs: filesystems: convert fiemap.txt to ReST
+  docs: filesystems: convert files.txt to ReST
+  docs: filesystems: convert fuse-io.txt to ReST
+  docs: filesystems: convert gfs2-glocks.txt to ReST
+  docs: filesystems: convert locks.txt to ReST
+  docs: filesystems: convert mandatory-locking.txt to ReST
+  docs: filesystems: convert mount_api.txt to ReST
+  docs: filesystems: rename path-lookup.txt file
+  docs: filesystems: convert path-walking.txt to ReST
+  docs: filesystems: convert quota.txt to ReST
+  docs: filesystems: convert seq_file.txt to ReST
+  docs: filesystems: convert sharedsubtree.txt to ReST
+  docs: filesystems: split spufs.txt into 3 separate files
+  docs: filesystems: convert spufs/spu_create.txt to ReST
+  docs: filesystems: convert spufs/spufs.txt to ReST
+  docs: filesystems: convert spufs/spu_run.txt to ReST
+  docs: filesystems: convert sysfs-pci.txt to ReST
+  docs: filesystems: convert sysfs-tagging.txt to ReST
+  docs: filesystems: convert xfs-delayed-logging-design.txt to ReST
+  docs: filesystems: convert xfs-self-describing-metadata.txt to ReST
 
-[..]
-> @@ -186,10 +247,21 @@ static int _dpu_core_perf_crtc_update_bus(struct dpu_kms *kms,
->  			perf.max_per_pipe_ib = max(perf.max_per_pipe_ib,
->  					dpu_cstate->new_perf.max_per_pipe_ib);
->  
-> -			DPU_DEBUG("crtc=%d bw=%llu\n", tmp_crtc->base.id,
-> -					dpu_cstate->new_perf.bw_ctl);
-> +			perf.bw_ctl += dpu_cstate->new_perf.bw_ctl;
-> +
-> +			DPU_DEBUG("crtc=%d bw=%llu paths:%d\n",
-> +				  tmp_crtc->base.id,
-> +				  dpu_cstate->new_perf.bw_ctl, kms->num_paths);
->  		}
->  	}
-> +
-> +	avg_bw = kms->num_paths ?
-> +			perf.bw_ctl / kms->num_paths : 0;
-> +
-> +	for (i = 0; i < kms->num_paths; i++)
-> +		icc_set_bw(kms->path[i],
-> +			Bps_to_icc(avg_bw), (perf.max_per_pipe_ib));
+ Documentation/ABI/stable/sysfs-devices-node   |    2 +-
+ Documentation/ABI/testing/procfs-smaps_rollup |    2 +-
+ Documentation/admin-guide/cpu-load.rst        |    2 +-
+ Documentation/admin-guide/ext4.rst            |    2 +-
+ Documentation/admin-guide/nfs/nfsroot.rst     |    2 +-
+ Documentation/admin-guide/sysctl/kernel.rst   |    2 +-
+ .../driver-api/driver-model/device.rst        |    2 +-
+ .../driver-api/driver-model/overview.rst      |    2 +-
+ ...ount-support.txt => automount-support.rst} |   23 +-
+ .../{backend-api.txt => backend-api.rst}      |  165 +-
+ .../{cachefiles.txt => cachefiles.rst}        |  139 +-
+ Documentation/filesystems/caching/fscache.rst |  565 ++++++
+ Documentation/filesystems/caching/fscache.txt |  448 -----
+ Documentation/filesystems/caching/index.rst   |   14 +
+ .../caching/{netfs-api.txt => netfs-api.rst}  |  172 +-
+ .../caching/{object.txt => object.rst}        |   43 +-
+ .../{operations.txt => operations.rst}        |   45 +-
+ .../cifs/{cifsroot.txt => cifsroot.rst}       |   56 +-
+ Documentation/filesystems/coda.rst            | 1670 ++++++++++++++++
+ Documentation/filesystems/coda.txt            | 1676 -----------------
+ .../{configfs/configfs.txt => configfs.rst}   |  129 +-
+ .../filesystems/{dax.txt => dax.rst}          |   11 +-
+ Documentation/filesystems/devpts.rst          |   36 +
+ Documentation/filesystems/devpts.txt          |   26 -
+ .../filesystems/{dnotify.txt => dnotify.rst}  |   13 +-
+ Documentation/filesystems/ext2.rst            |    2 +-
+ .../filesystems/{fiemap.txt => fiemap.rst}    |  133 +-
+ .../filesystems/{files.txt => files.rst}      |   15 +-
+ .../filesystems/{fuse-io.txt => fuse-io.rst}  |    6 +
+ .../{gfs2-glocks.txt => gfs2-glocks.rst}      |  147 +-
+ Documentation/filesystems/index.rst           |   26 +
+ .../filesystems/{locks.txt => locks.rst}      |   14 +-
+ ...tory-locking.txt => mandatory-locking.rst} |   25 +-
+ .../{mount_api.txt => mount_api.rst}          |  329 ++--
+ .../{path-lookup.txt => path-walking.rst}     |   88 +-
+ Documentation/filesystems/porting.rst         |    2 +-
+ Documentation/filesystems/proc.rst            |    2 +-
+ .../filesystems/{quota.txt => quota.rst}      |   41 +-
+ .../filesystems/ramfs-rootfs-initramfs.rst    |    2 +-
+ .../{seq_file.txt => seq_file.rst}            |   61 +-
+ .../{sharedsubtree.txt => sharedsubtree.rst}  |  394 ++--
+ Documentation/filesystems/spufs/index.rst     |   13 +
+ .../filesystems/spufs/spu_create.rst          |  131 ++
+ Documentation/filesystems/spufs/spu_run.rst   |  138 ++
+ .../{spufs.txt => spufs/spufs.rst}            |  304 +--
+ .../{sysfs-pci.txt => sysfs-pci.rst}          |   23 +-
+ .../{sysfs-tagging.txt => sysfs-tagging.rst}  |   22 +-
+ ...ign.txt => xfs-delayed-logging-design.rst} |   65 +-
+ ...a.txt => xfs-self-describing-metadata.rst} |  182 +-
+ Documentation/iio/iio_configfs.rst            |    2 +-
+ .../powerpc/firmware-assisted-dump.rst        |    2 +-
+ Documentation/process/adding-syscalls.rst     |    2 +-
+ .../it_IT/process/adding-syscalls.rst         |    2 +-
+ .../translations/zh_CN/filesystems/sysfs.txt  |    6 +-
+ Documentation/usb/gadget_configfs.rst         |    4 +-
+ MAINTAINERS                                   |   16 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |    2 +-
+ fs/Kconfig                                    |    2 +-
+ fs/Kconfig.binfmt                             |    2 +-
+ fs/adfs/Kconfig                               |    2 +-
+ fs/affs/Kconfig                               |    2 +-
+ fs/afs/Kconfig                                |    6 +-
+ fs/bfs/Kconfig                                |    2 +-
+ fs/cachefiles/Kconfig                         |    4 +-
+ fs/coda/Kconfig                               |    2 +-
+ fs/configfs/inode.c                           |    2 +-
+ fs/configfs/item.c                            |    2 +-
+ fs/cramfs/Kconfig                             |    2 +-
+ fs/dcache.c                                   |    6 +-
+ fs/ecryptfs/Kconfig                           |    2 +-
+ fs/fat/Kconfig                                |    8 +-
+ fs/fscache/Kconfig                            |    8 +-
+ fs/fscache/cache.c                            |    8 +-
+ fs/fscache/cookie.c                           |    2 +-
+ fs/fscache/object.c                           |    4 +-
+ fs/fscache/operation.c                        |    2 +-
+ fs/fuse/Kconfig                               |    2 +-
+ fs/fuse/dev.c                                 |    2 +-
+ fs/hfs/Kconfig                                |    2 +-
+ fs/hpfs/Kconfig                               |    2 +-
+ fs/isofs/Kconfig                              |    2 +-
+ fs/locks.c                                    |    2 +-
+ fs/namei.c                                    |    2 +-
+ fs/namespace.c                                |    2 +-
+ fs/notify/inotify/Kconfig                     |    2 +-
+ fs/ntfs/Kconfig                               |    2 +-
+ fs/ocfs2/Kconfig                              |    2 +-
+ fs/overlayfs/Kconfig                          |    6 +-
+ fs/proc/Kconfig                               |    4 +-
+ fs/romfs/Kconfig                              |    2 +-
+ fs/sysfs/dir.c                                |    2 +-
+ fs/sysfs/file.c                               |    2 +-
+ fs/sysfs/mount.c                              |    2 +-
+ fs/sysfs/symlink.c                            |    2 +-
+ fs/sysv/Kconfig                               |    2 +-
+ fs/udf/Kconfig                                |    2 +-
+ include/linux/configfs.h                      |    2 +-
+ include/linux/fs_context.h                    |    2 +-
+ include/linux/fscache-cache.h                 |    4 +-
+ include/linux/fscache.h                       |   42 +-
+ include/linux/lsm_hooks.h                     |    2 +-
+ include/linux/relay.h                         |    2 +-
+ include/linux/sysfs.h                         |    2 +-
+ kernel/relay.c                                |    2 +-
+ 104 files changed, 4048 insertions(+), 3572 deletions(-)
+ rename Documentation/filesystems/{automount-support.txt => automount-support.rst} (92%)
+ rename Documentation/filesystems/caching/{backend-api.txt => backend-api.rst} (87%)
+ rename Documentation/filesystems/caching/{cachefiles.txt => cachefiles.rst} (90%)
+ create mode 100644 Documentation/filesystems/caching/fscache.rst
+ delete mode 100644 Documentation/filesystems/caching/fscache.txt
+ create mode 100644 Documentation/filesystems/caching/index.rst
+ rename Documentation/filesystems/caching/{netfs-api.txt => netfs-api.rst} (91%)
+ rename Documentation/filesystems/caching/{object.txt => object.rst} (95%)
+ rename Documentation/filesystems/caching/{operations.txt => operations.rst} (90%)
+ rename Documentation/filesystems/cifs/{cifsroot.txt => cifsroot.rst} (72%)
+ create mode 100644 Documentation/filesystems/coda.rst
+ delete mode 100644 Documentation/filesystems/coda.txt
+ rename Documentation/filesystems/{configfs/configfs.txt => configfs.rst} (87%)
+ rename Documentation/filesystems/{dax.txt => dax.rst} (96%)
+ create mode 100644 Documentation/filesystems/devpts.rst
+ delete mode 100644 Documentation/filesystems/devpts.txt
+ rename Documentation/filesystems/{dnotify.txt => dnotify.rst} (88%)
+ rename Documentation/filesystems/{fiemap.txt => fiemap.rst} (70%)
+ rename Documentation/filesystems/{files.txt => files.rst} (95%)
+ rename Documentation/filesystems/{fuse-io.txt => fuse-io.rst} (95%)
+ rename Documentation/filesystems/{gfs2-glocks.txt => gfs2-glocks.rst} (63%)
+ rename Documentation/filesystems/{locks.txt => locks.rst} (91%)
+ rename Documentation/filesystems/{mandatory-locking.txt => mandatory-locking.rst} (91%)
+ rename Documentation/filesystems/{mount_api.txt => mount_api.rst} (79%)
+ rename Documentation/filesystems/{path-lookup.txt => path-walking.rst} (91%)
+ rename Documentation/filesystems/{quota.txt => quota.rst} (81%)
+ rename Documentation/filesystems/{seq_file.txt => seq_file.rst} (92%)
+ rename Documentation/filesystems/{sharedsubtree.txt => sharedsubtree.rst} (72%)
+ create mode 100644 Documentation/filesystems/spufs/index.rst
+ create mode 100644 Documentation/filesystems/spufs/spu_create.rst
+ create mode 100644 Documentation/filesystems/spufs/spu_run.rst
+ rename Documentation/filesystems/{spufs.txt => spufs/spufs.rst} (57%)
+ rename Documentation/filesystems/{sysfs-pci.txt => sysfs-pci.rst} (92%)
+ rename Documentation/filesystems/{sysfs-tagging.txt => sysfs-tagging.rst} (72%)
+ rename Documentation/filesystems/{xfs-delayed-logging-design.txt => xfs-delayed-logging-design.rst} (97%)
+ rename Documentation/filesystems/{xfs-self-describing-metadata.txt => xfs-self-describing-metadata.rst} (83%)
 
-In what units is max_per_pipe_ib? Can you use Bps_to_icc() or KBps_to_icc()?
+-- 
+2.25.2
 
-> +
->  	return ret;
->  }
->
 
-[..]
-
-> @@ -1037,8 +1065,15 @@ static int __maybe_unused dpu_runtime_resume(struct device *dev)
->  	struct drm_encoder *encoder;
->  	struct drm_device *ddev;
->  	struct dss_module_power *mp = &dpu_kms->mp;
-> +	int i;
->  
->  	ddev = dpu_kms->dev;
-> +
-> +	/* Min vote of BW is required before turning on AXI clk */
-> +	for (i = 0; i < dpu_kms->num_paths; i++)
-> +		icc_set_bw(dpu_kms->path[i], 0,
-> +			dpu_kms->catalog->perf.min_dram_ib);
-
-Bps_to_icc() ?
-
-Thanks,
-Georgi
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
