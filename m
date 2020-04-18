@@ -1,62 +1,41 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB99F1AE704
-	for <lists+freedreno@lfdr.de>; Fri, 17 Apr 2020 22:56:51 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E74E1AF227
+	for <lists+freedreno@lfdr.de>; Sat, 18 Apr 2020 18:06:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5E6E6EB08;
-	Fri, 17 Apr 2020 20:56:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 579B06ECAF;
+	Sat, 18 Apr 2020 16:06:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ua1-x941.google.com (mail-ua1-x941.google.com
- [IPv6:2607:f8b0:4864:20::941])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C0C96EB08
- for <freedreno@lists.freedesktop.org>; Fri, 17 Apr 2020 20:56:49 +0000 (UTC)
-Received: by mail-ua1-x941.google.com with SMTP id t8so1167355uap.3
- for <freedreno@lists.freedesktop.org>; Fri, 17 Apr 2020 13:56:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=nTPDJ1FZx21ZUdm/rZe6vuNjgKbQ4V6e3Md/8z5QSYQ=;
- b=NTiOrafaduGKDmVfB6vAvc2mWdTspMay2fHcWX+kFb/9rqtwB1ixoAxjzkdoDWotNU
- cJPXhjrUZPXQpMjnVmPFTyNGXTFPAxaFIEJ+J06zvtyOEqhWnIlMm7m494gCUii9ggCA
- 1t8AcHugDOTujupYSZCzSQt7zsOSByyoz29Tw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=nTPDJ1FZx21ZUdm/rZe6vuNjgKbQ4V6e3Md/8z5QSYQ=;
- b=EQHQnPU4yCld9sL1WvD7T9WLy+gKxVWqgNkHOkOJfkSwEJxe8R4RkW1/miQE5S+CV6
- s3Kd8ZiZIJTqV7K3HqqnEoVIcTLzZM4kPB+bl7eq3g7s9qynvloa7dNyvVKNusCUFqqw
- u4k8V13owSg8xqfN7cNwateoLRFgsnuJWxt96+FJCa0x7clDve+3QS6/4+wUsjIP6Drc
- kIUf159Ww6um61+tSRuIBYKEfVnYo7F/b67aymkkjtz0IojINW6sbM3KE5nfB15kBPZ3
- JaWA6ci+7ke5SxYMicqPMiuCnlFt19NDDxrI/h1ZbLNLcK8VRYlvQVy3xQhklnj1tJLd
- GeQg==
-X-Gm-Message-State: AGi0PuaItJezv9Lj03eTHn51Pf+Sf1Kwyd2CxJhCVWHktMRN6ywrn1Ng
- hyzQblc84a6JZWrBXnb1eemF5+nJusM=
-X-Google-Smtp-Source: APiQypJc0spzm8y14aO0PjJFCZiQQZwCVc+QuUxZKu59lWQaOmNAFmHaPdKUoQqawNkLNTt3hkSjMw==
-X-Received: by 2002:ab0:117:: with SMTP id 23mr710996uak.67.1587157008188;
- Fri, 17 Apr 2020 13:56:48 -0700 (PDT)
-Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com.
- [209.85.217.49])
- by smtp.gmail.com with ESMTPSA id s3sm567717uao.0.2020.04.17.13.56.46
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 Apr 2020 13:56:47 -0700 (PDT)
-Received: by mail-vs1-f49.google.com with SMTP id 1so2041520vsl.9
- for <freedreno@lists.freedesktop.org>; Fri, 17 Apr 2020 13:56:46 -0700 (PDT)
-X-Received: by 2002:a67:1e46:: with SMTP id e67mr4201742vse.106.1587157005954; 
- Fri, 17 Apr 2020 13:56:45 -0700 (PDT)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3881F6ECA9;
+ Sat, 18 Apr 2020 15:35:10 +0000 (UTC)
+Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
+ [82.4.196.95])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 300D4206D6;
+ Sat, 18 Apr 2020 15:34:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1587224109;
+ bh=7FSVvEdwrwTbkIg9sAJryZ/mW5a3iveGq9GZOCEI/Lg=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=FI4KFkG9fsbS07+Uxu3p7PEbbX4lnyvpRM8XLY77qRkle+5Jtgzrr2TvDTkxSwjTN
+ 6SaEyFtxknhkzzC2COmpv+Tv87c4GYpXv0JZNU9q+nWHyOdU5DM2lgk0FzA8ReI16g
+ uKZ3FOpPpZhd0GRB9Zz1sDDCQG4vmJY8qaudEQLc=
+Date: Sat, 18 Apr 2020 16:34:56 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Hadar Gat <hadar.gat@arm.com>
+Message-ID: <20200418163456.7c82d087@archlinux>
+In-Reply-To: <1587030553-5990-1-git-send-email-hadar.gat@arm.com>
+References: <1587030553-5990-1-git-send-email-hadar.gat@arm.com>
+X-Mailer: Claws Mail 3.17.5 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-References: <1587107546-7379-1-git-send-email-kalyan_t@codeaurora.org>
-In-Reply-To: <1587107546-7379-1-git-send-email-kalyan_t@codeaurora.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 17 Apr 2020 13:56:34 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=WmiXRJF77Nd0JEr-6WDGpJvxt4as6YJJUZdKo6c0NuvQ@mail.gmail.com>
-Message-ID: <CAD=FV=WmiXRJF77Nd0JEr-6WDGpJvxt4as6YJJUZdKo6c0NuvQ@mail.gmail.com>
-To: Kalyan Thota <kalyan_t@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: ensure device suspend happens
- during PM sleep
+X-Mailman-Approved-At: Sat, 18 Apr 2020 16:06:08 +0000
+Subject: Re: [Freedreno] [PATCH v2] of_device: removed #include that caused
+ a recursion in included headers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,67 +48,477 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, mkrishn@codeaurora.org,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, travitej@codeaurora.org,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
- nganji@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
- "Kristian H. Kristensen" <hoegsberg@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Jeykumar Sankaran <jsanka@codeaurora.org>
+Cc: Jose Abreu <joabreu@synopsys.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Heiko =?UTF-8?B?U3Q=?= =?UTF-8?B?w7xibmVy?= <heiko@sntech.de>,
+ devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ Michael Turquette <mturquette@baylibre.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Stefan Agner <stefan@agner.ch>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ linux-tegra@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>,
+ linux-mtd@lists.infradead.org, Miquel Raynal <miquel.raynal@bootlin.com>,
+ sparclinux@vger.kernel.org, netdev@vger.kernel.org,
+ Kishon Vijay Abraham I <kishon@ti.com>, Lee Jones <lee.jones@linaro.org>,
+ linux-clk@vger.kernel.org, Vignesh Raghavendra <vigneshr@ti.com>,
+ linux-samsung-soc@vger.kernel.org,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Frank Rowand <frowand.list@gmail.com>, linux-rockchip@lists.infradead.org,
+ Richard Weinberger <richard@nod.at>, Joerg Roedel <joro@8bytes.org>,
+ Vinod Koul <vkoul@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Tony Lindgren <tony@atomide.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Andy Gross <agross@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
+ freedreno@lists.freedesktop.org, Alexandre Torgue <alexandre.torgue@st.com>,
+ linux-omap@vger.kernel.org, iommu@lists.linux-foundation.org,
+ linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
+ Maxime Ripard <mripard@kernel.org>, Gilad Ben-Yossef <gilad@benyossef.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, Fabio Estevam <festevam@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Chen-Yu Tsai <wens@csie.org>, Sean Paul <sean@poorly.run>,
+ linux-arm-kernel@lists.infradead.org, Ofir Drang <ofir.drang@arm.com>,
+ Dong Aisheng <aisheng.dong@nxp.com>, linux-gpio@vger.kernel.org,
+ Stephen Boyd <sboyd@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Sandy Huang <hjc@rock-chips.com>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ JC Kuo <jckuo@nvidia.com>, Rob Clark <robdclark@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Kukjin Kim <kgene@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, dmaengine@vger.kernel.org,
+ Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+On Thu, 16 Apr 2020 12:49:03 +0300
+Hadar Gat <hadar.gat@arm.com> wrote:
 
-On Fri, Apr 17, 2020 at 12:13 AM Kalyan Thota <kalyan_t@codeaurora.org> wrote:
->
-> "The PM core always increments the runtime usage counter
-> before calling the ->suspend() callback and decrements it
-> after calling the ->resume() callback"
->
-> DPU and DSI are managed as runtime devices. When
-> suspend is triggered, PM core adds a refcount on all the
-> devices and calls device suspend, since usage count is
-> already incremented, runtime suspend was not getting called
-> and it kept the clocks on which resulted in target not
-> entering into XO shutdown.
->
-> Add changes to force suspend on runtime devices during pm sleep.
->
-> Changes in v1:
->  - Remove unnecessary checks in the function
->     _dpu_kms_disable_dpu (Rob Clark).
->
-> Changes in v2:
->  - Avoid using suspend_late to reset the usagecount
->    as suspend_late might not be called during suspend
->    call failures (Doug).
->
-> Changes in v3:
->  - Use force suspend instead of managing device usage_count
->    via runtime put and get API's to trigger callbacks (Doug).
->
-> Changes in v4:
->  - Check the return values of pm_runtime_force_suspend and
->    pm_runtime_force_resume API's and pass appropriately (Doug).
->
-> Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
+> Both of_platform.h and of_device.h were included each other.
+> In of_device.h, removed unneeded #include to of_platform.h
+> and added include to of_platform.h in the files that needs it.
+> 
+> Signed-off-by: Hadar Gat <hadar.gat@arm.com>
+
+Hmm.  I guess the chances of this causing merge problems are fairly low so
+perhaps not worth doing additions of headers via individual subsystems and
+actually dropping the header include after another cycle.
+
+So on that basis
+
+Acked-by: Jonathan Cameron <Jonathan.Cameron@huawei.com> #for-iio
+
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c |  2 ++
->  drivers/gpu/drm/msm/dsi/dsi.c           |  2 ++
->  drivers/gpu/drm/msm/msm_drv.c           | 14 +++++++++++++-
->  3 files changed, 17 insertions(+), 1 deletion(-)
+> v2: add include to of_platform.h in more files. (reported due other builds)
+> 
+>  arch/sparc/mm/io-unit.c                           | 1 +
+>  arch/sparc/mm/iommu.c                             | 1 +
+>  drivers/base/platform.c                           | 1 +
+>  drivers/bus/imx-weim.c                            | 1 +
+>  drivers/bus/vexpress-config.c                     | 1 +
+>  drivers/clk/mediatek/clk-mt7622-aud.c             | 1 +
+>  drivers/dma/at_hdmac.c                            | 1 +
+>  drivers/dma/stm32-dmamux.c                        | 1 +
+>  drivers/dma/ti/dma-crossbar.c                     | 1 +
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c             | 1 +
+>  drivers/gpu/drm/msm/hdmi/hdmi.c                   | 1 +
+>  drivers/gpu/drm/msm/msm_drv.c                     | 1 +
+>  drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c   | 1 +
+>  drivers/gpu/drm/sun4i/sun4i_tcon.c                | 1 +
+>  drivers/iio/adc/stm32-adc-core.c                  | 1 +
+>  drivers/iio/adc/stm32-dfsdm-adc.c                 | 1 +
+>  drivers/iio/adc/stm32-dfsdm-core.c                | 1 +
+>  drivers/iommu/tegra-smmu.c                        | 1 +
+>  drivers/memory/atmel-ebi.c                        | 1 +
+>  drivers/mfd/palmas.c                              | 1 +
+>  drivers/mfd/ssbi.c                                | 1 +
+>  drivers/mtd/nand/raw/omap2.c                      | 1 +
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 1 +
+>  drivers/net/ethernet/ti/cpsw.c                    | 1 +
+>  drivers/phy/tegra/xusb.c                          | 1 +
+>  drivers/pinctrl/freescale/pinctrl-imx1-core.c     | 1 +
+>  drivers/pinctrl/nomadik/pinctrl-nomadik.c         | 1 +
+>  drivers/soc/samsung/exynos-pmu.c                  | 1 +
+>  drivers/soc/sunxi/sunxi_sram.c                    | 1 +
+>  include/linux/of_device.h                         | 2 --
+>  lib/genalloc.c                                    | 1 +
+>  31 files changed, 30 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/sparc/mm/io-unit.c b/arch/sparc/mm/io-unit.c
+> index 289276b..5638399 100644
+> --- a/arch/sparc/mm/io-unit.c
+> +++ b/arch/sparc/mm/io-unit.c
+> @@ -15,6 +15,7 @@
+>  #include <linux/dma-mapping.h>
+>  #include <linux/of.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  
+>  #include <asm/pgalloc.h>
+>  #include <asm/pgtable.h>
+> diff --git a/arch/sparc/mm/iommu.c b/arch/sparc/mm/iommu.c
+> index b00dde1..9cbb2e7 100644
+> --- a/arch/sparc/mm/iommu.c
+> +++ b/arch/sparc/mm/iommu.c
+> @@ -16,6 +16,7 @@
+>  #include <linux/dma-mapping.h>
+>  #include <linux/of.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  
+>  #include <asm/pgalloc.h>
+>  #include <asm/pgtable.h>
+> diff --git a/drivers/base/platform.c b/drivers/base/platform.c
+> index 5255550..f549274b 100644
+> --- a/drivers/base/platform.c
+> +++ b/drivers/base/platform.c
+> @@ -12,6 +12,7 @@
+>  #include <linux/string.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/of_irq.h>
+>  #include <linux/module.h>
+>  #include <linux/init.h>
+> diff --git a/drivers/bus/imx-weim.c b/drivers/bus/imx-weim.c
+> index 28bb65a..8c786da 100644
+> --- a/drivers/bus/imx-weim.c
+> +++ b/drivers/bus/imx-weim.c
+> @@ -11,6 +11,7 @@
+>  #include <linux/clk.h>
+>  #include <linux/io.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/mfd/syscon.h>
+>  #include <linux/mfd/syscon/imx6q-iomuxc-gpr.h>
+>  #include <linux/regmap.h>
+> diff --git a/drivers/bus/vexpress-config.c b/drivers/bus/vexpress-config.c
+> index ff70575..12b8b0b 100644
+> --- a/drivers/bus/vexpress-config.c
+> +++ b/drivers/bus/vexpress-config.c
+> @@ -8,6 +8,7 @@
+>  #include <linux/init.h>
+>  #include <linux/of.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/vexpress.h>
+>  
+>  
+> diff --git a/drivers/clk/mediatek/clk-mt7622-aud.c b/drivers/clk/mediatek/clk-mt7622-aud.c
+> index 2bd4295..8cbb68f 100644
+> --- a/drivers/clk/mediatek/clk-mt7622-aud.c
+> +++ b/drivers/clk/mediatek/clk-mt7622-aud.c
+> @@ -9,6 +9,7 @@
+>  #include <linux/of.h>
+>  #include <linux/of_address.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/platform_device.h>
+>  
+>  #include "clk-mtk.h"
+> diff --git a/drivers/dma/at_hdmac.c b/drivers/dma/at_hdmac.c
+> index 73a2078..388f8e10 100644
+> --- a/drivers/dma/at_hdmac.c
+> +++ b/drivers/dma/at_hdmac.c
+> @@ -20,6 +20,7 @@
+>  #include <linux/slab.h>
+>  #include <linux/of.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/of_dma.h>
+>  
+>  #include "at_hdmac_regs.h"
+> diff --git a/drivers/dma/stm32-dmamux.c b/drivers/dma/stm32-dmamux.c
+> index 12f7637..b704896 100644
+> --- a/drivers/dma/stm32-dmamux.c
+> +++ b/drivers/dma/stm32-dmamux.c
+> @@ -16,6 +16,7 @@
+>  #include <linux/init.h>
+>  #include <linux/module.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/of_dma.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/reset.h>
+> diff --git a/drivers/dma/ti/dma-crossbar.c b/drivers/dma/ti/dma-crossbar.c
+> index 4ba8fa5..2c0fd44 100644
+> --- a/drivers/dma/ti/dma-crossbar.c
+> +++ b/drivers/dma/ti/dma-crossbar.c
+> @@ -10,6 +10,7 @@
+>  #include <linux/io.h>
+>  #include <linux/of_address.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/of_dma.h>
+>  
+>  #define TI_XBAR_DRA7		0
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> index c4e71ab..f523254 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> @@ -6,6 +6,7 @@
+>  #include <linux/interconnect.h>
+>  #include <linux/pm_domain.h>
+>  #include <linux/pm_opp.h>
+> +#include <linux/of_platform.h>
+>  #include <soc/qcom/cmd-db.h>
+>  
+>  #include "a6xx_gpu.h"
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
+> index 737453b..5034d40 100644
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi.c
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
+> @@ -7,6 +7,7 @@
+>  
+>  #include <linux/of_irq.h>
+>  #include <linux/of_gpio.h>
+> +#include <linux/of_platform.h>
+>  
+>  #include <sound/hdmi-codec.h>
+>  #include "hdmi.h"
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index 29295de..ddc9e85 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -8,6 +8,7 @@
+>  #include <linux/dma-mapping.h>
+>  #include <linux/kthread.h>
+>  #include <linux/uaccess.h>
+> +#include <linux/of_platform.h>
+>  #include <uapi/linux/sched/types.h>
+>  
+>  #include <drm/drm_drv.h>
+> diff --git a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
+> index 6e1270e..d038bae 100644
+> --- a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
+> @@ -12,6 +12,7 @@
+>  #include <linux/mfd/syscon.h>
+>  #include <linux/module.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/phy/phy.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/regmap.h>
+> diff --git a/drivers/gpu/drm/sun4i/sun4i_tcon.c b/drivers/gpu/drm/sun4i/sun4i_tcon.c
+> index 624437b..aa35757 100644
+> --- a/drivers/gpu/drm/sun4i/sun4i_tcon.c
+> +++ b/drivers/gpu/drm/sun4i/sun4i_tcon.c
+> @@ -11,6 +11,7 @@
+>  #include <linux/module.h>
+>  #include <linux/of_address.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/of_irq.h>
+>  #include <linux/regmap.h>
+>  #include <linux/reset.h>
+> diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
+> index 2df88d2..3dc3453 100644
+> --- a/drivers/iio/adc/stm32-adc-core.c
+> +++ b/drivers/iio/adc/stm32-adc-core.c
+> @@ -17,6 +17,7 @@
+>  #include <linux/mfd/syscon.h>
+>  #include <linux/module.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/regmap.h>
+>  #include <linux/regulator/consumer.h>
+> diff --git a/drivers/iio/adc/stm32-dfsdm-adc.c b/drivers/iio/adc/stm32-dfsdm-adc.c
+> index 76a60d9..e83848cb 100644
+> --- a/drivers/iio/adc/stm32-dfsdm-adc.c
+> +++ b/drivers/iio/adc/stm32-dfsdm-adc.c
+> @@ -20,6 +20,7 @@
+>  #include <linux/interrupt.h>
+>  #include <linux/module.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/regmap.h>
+>  #include <linux/slab.h>
+> diff --git a/drivers/iio/adc/stm32-dfsdm-core.c b/drivers/iio/adc/stm32-dfsdm-core.c
+> index 26e2011..f6a53ab 100644
+> --- a/drivers/iio/adc/stm32-dfsdm-core.c
+> +++ b/drivers/iio/adc/stm32-dfsdm-core.c
+> @@ -12,6 +12,7 @@
+>  #include <linux/interrupt.h>
+>  #include <linux/module.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/pinctrl/consumer.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/regmap.h>
+> diff --git a/drivers/iommu/tegra-smmu.c b/drivers/iommu/tegra-smmu.c
+> index 63a147b..3797caa 100644
+> --- a/drivers/iommu/tegra-smmu.c
+> +++ b/drivers/iommu/tegra-smmu.c
+> @@ -10,6 +10,7 @@
+>  #include <linux/kernel.h>
+>  #include <linux/of.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/slab.h>
+>  #include <linux/dma-mapping.h>
+> diff --git a/drivers/memory/atmel-ebi.c b/drivers/memory/atmel-ebi.c
+> index 14386d0..272b1a8 100644
+> --- a/drivers/memory/atmel-ebi.c
+> +++ b/drivers/memory/atmel-ebi.c
+> @@ -13,6 +13,7 @@
+>  #include <linux/mfd/syscon/atmel-smc.h>
+>  #include <linux/init.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/regmap.h>
+>  #include <soc/at91/atmel-sfr.h>
+>  
+> diff --git a/drivers/mfd/palmas.c b/drivers/mfd/palmas.c
+> index f5b3fa9..cca44bc 100644
+> --- a/drivers/mfd/palmas.c
+> +++ b/drivers/mfd/palmas.c
+> @@ -19,6 +19,7 @@
+>  #include <linux/mfd/core.h>
+>  #include <linux/mfd/palmas.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  
+>  static const struct regmap_config palmas_regmap_config[PALMAS_NUM_CLIENTS] = {
+>  	{
+> diff --git a/drivers/mfd/ssbi.c b/drivers/mfd/ssbi.c
+> index 94f60df..72cd45a 100644
+> --- a/drivers/mfd/ssbi.c
+> +++ b/drivers/mfd/ssbi.c
+> @@ -20,6 +20,7 @@
+>  #include <linux/module.h>
+>  #include <linux/of.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  
+>  /* SSBI 2.0 controller registers */
+>  #define SSBI2_CMD			0x0008
+> diff --git a/drivers/mtd/nand/raw/omap2.c b/drivers/mtd/nand/raw/omap2.c
+> index ad77c11..d851ec7 100644
+> --- a/drivers/mtd/nand/raw/omap2.c
+> +++ b/drivers/mtd/nand/raw/omap2.c
+> @@ -22,6 +22,7 @@
+>  #include <linux/slab.h>
+>  #include <linux/of.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  
+>  #include <linux/mtd/nand_bch.h>
+>  #include <linux/platform_data/elm.h>
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> index 58e0511..d704d57 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> @@ -12,6 +12,7 @@
+>  #include <linux/mfd/syscon.h>
+>  #include <linux/module.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/of_mdio.h>
+>  #include <linux/of_net.h>
+>  #include <linux/phy.h>
+> diff --git a/drivers/net/ethernet/ti/cpsw.c b/drivers/net/ethernet/ti/cpsw.c
+> index c2c5bf8..6932945 100644
+> --- a/drivers/net/ethernet/ti/cpsw.c
+> +++ b/drivers/net/ethernet/ti/cpsw.c
+> @@ -28,6 +28,7 @@
+>  #include <linux/of_mdio.h>
+>  #include <linux/of_net.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/if_vlan.h>
+>  #include <linux/kmemleak.h>
+>  #include <linux/sys_soc.h>
+> diff --git a/drivers/phy/tegra/xusb.c b/drivers/phy/tegra/xusb.c
+> index de4a46f..0eac1b8 100644
+> --- a/drivers/phy/tegra/xusb.c
+> +++ b/drivers/phy/tegra/xusb.c
+> @@ -9,6 +9,7 @@
+>  #include <linux/module.h>
+>  #include <linux/of.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/phy/phy.h>
+>  #include <linux/phy/tegra/xusb.h>
+>  #include <linux/platform_device.h>
+> diff --git a/drivers/pinctrl/freescale/pinctrl-imx1-core.c b/drivers/pinctrl/freescale/pinctrl-imx1-core.c
+> index c00d002..d1c171e 100644
+> --- a/drivers/pinctrl/freescale/pinctrl-imx1-core.c
+> +++ b/drivers/pinctrl/freescale/pinctrl-imx1-core.c
+> @@ -16,6 +16,7 @@
+>  #include <linux/io.h>
+>  #include <linux/of.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/pinctrl/machine.h>
+>  #include <linux/pinctrl/pinconf.h>
+>  #include <linux/pinctrl/pinctrl.h>
+> diff --git a/drivers/pinctrl/nomadik/pinctrl-nomadik.c b/drivers/pinctrl/nomadik/pinctrl-nomadik.c
+> index ca7bbe4..44974ac 100644
+> --- a/drivers/pinctrl/nomadik/pinctrl-nomadik.c
+> +++ b/drivers/pinctrl/nomadik/pinctrl-nomadik.c
+> @@ -19,6 +19,7 @@
+>  #include <linux/interrupt.h>
+>  #include <linux/slab.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/of_address.h>
+>  #include <linux/bitops.h>
+>  #include <linux/pinctrl/machine.h>
+> diff --git a/drivers/soc/samsung/exynos-pmu.c b/drivers/soc/samsung/exynos-pmu.c
+> index 17304fa..25129b0 100644
+> --- a/drivers/soc/samsung/exynos-pmu.c
+> +++ b/drivers/soc/samsung/exynos-pmu.c
+> @@ -8,6 +8,7 @@
+>  #include <linux/of.h>
+>  #include <linux/of_address.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/mfd/syscon.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/delay.h>
+> diff --git a/drivers/soc/sunxi/sunxi_sram.c b/drivers/soc/sunxi/sunxi_sram.c
+> index 1b0d50f..423cec3 100644
+> --- a/drivers/soc/sunxi/sunxi_sram.c
+> +++ b/drivers/soc/sunxi/sunxi_sram.c
+> @@ -16,6 +16,7 @@
+>  #include <linux/of.h>
+>  #include <linux/of_address.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/regmap.h>
+>  
+> diff --git a/include/linux/of_device.h b/include/linux/of_device.h
+> index 8d31e39..752999b 100644
+> --- a/include/linux/of_device.h
+> +++ b/include/linux/of_device.h
+> @@ -4,8 +4,6 @@
+>  
+>  #include <linux/cpu.h>
+>  #include <linux/platform_device.h>
+> -#include <linux/of_platform.h> /* temporary until merge */
+> -
+>  #include <linux/of.h>
+>  #include <linux/mod_devicetable.h>
+>  
+> diff --git a/lib/genalloc.c b/lib/genalloc.c
+> index 7f1244b..08e21eeb 100644
+> --- a/lib/genalloc.c
+> +++ b/lib/genalloc.c
+> @@ -33,6 +33,7 @@
+>  #include <linux/interrupt.h>
+>  #include <linux/genalloc.h>
+>  #include <linux/of_device.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/vmalloc.h>
+>  
+>  static inline size_t chunk_size(const struct gen_pool_chunk *chunk)
 
-I am most certainly not an expert in this code, but as far as I can
-tell it looks sane.  Thus:
-
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-
--Doug
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
