@@ -2,60 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3AB31B0DB5
-	for <lists+freedreno@lfdr.de>; Mon, 20 Apr 2020 16:03:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 700431B0DB7
+	for <lists+freedreno@lfdr.de>; Mon, 20 Apr 2020 16:03:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99EE36E595;
-	Mon, 20 Apr 2020 14:03:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 738086E59D;
+	Mon, 20 Apr 2020 14:03:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
- [IPv6:2607:f8b0:4864:20::843])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 217456E595
- for <freedreno@lists.freedesktop.org>; Mon, 20 Apr 2020 14:03:42 +0000 (UTC)
-Received: by mail-qt1-x843.google.com with SMTP id 71so8430339qtc.12
- for <freedreno@lists.freedesktop.org>; Mon, 20 Apr 2020 07:03:42 -0700 (PDT)
+Received: from mail-qv1-xf44.google.com (mail-qv1-xf44.google.com
+ [IPv6:2607:f8b0:4864:20::f44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 600576E59D
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Apr 2020 14:03:47 +0000 (UTC)
+Received: by mail-qv1-xf44.google.com with SMTP id fb4so4666299qvb.7
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Apr 2020 07:03:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=marek-ca.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=mWUiiER6P7gOnYmdlQPJIJLHrN3gxXy6MD3oYjvgtIk=;
- b=JCcGMx5PM9IMPPLnBdILAo6pxf7H7wj++Q32wch4GB8+nRofxBPXeBaDcsg9Kjwctu
- c0M9sePsS5SEQ/ZT/nFBheJOlthnxN7Jcm69L4GJZdsDti/cbeX7oYesf6mvcu4WlvIn
- b3s+3pdM0SHhHNN0VM3UCqcNa0fGguTKWBYCFOeABHCtrqRsN5GOS4YS9f9DL6lyrj5j
- XbQH4TdDGidSOrLR2CAakfYveEv74w3oPEw44/dyf5tnt9iYa69aY1kTeYqzIrApDagH
- FFCfN3lOhdwPPB1G0t67dclAT2qijMrHBoHv+gOx/sXv93IpWiGAJFmEcTZD36UnCyB2
- rhNA==
+ bh=AL7hXb8H/qoBJbDBZohhbHzSXTKh5iAM3hIyFPRwuxM=;
+ b=VbG3OkuzryiADo+SuBJMbjRhDLggqq8Z1nhcUstkpW0HmJY80ivSzoVD2bIoL6+c7I
+ Uuz2QniB7Z5CqT94K3NPuYYbVgEk167cNocTu/UlsjOALbqUng7Q1NVdJibuQAanmatL
+ DduIC6hLlqo28IdSPd0YwUcYBhPtHmyeb29iL7yLS77UHGjIR2tuLHes5h98hsDaEwQS
+ /oKP9LDWnrAJD5oEEpwSKM6ofmER19wQeJE8eZQ42tTaJJFNsy4QFfd4A0MmR+8EvgXc
+ 1y9+4KleZ3lbmFCkeUINytrZV/azWgy2U9PJ4oZlHOt3Yae9ET3/FjlGOZJty3tL+svC
+ NeJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=mWUiiER6P7gOnYmdlQPJIJLHrN3gxXy6MD3oYjvgtIk=;
- b=NTCvvctfTBXZ5gJ7UCy8JxOv6NUdFQlBLw6v9kHpzI6jL/fIrsVprbMZMH4/CqJ4Lt
- MDeYJIy0TmPUeGtwTdV8iySMC46cytl/+6aLkM13aLAMY26QpjkN/u13GWULC9b/p7UB
- 5j6P5udOJZRJGWl5ziQaM1SoYsuILy4xmq39eay25WOT/Vb3TBF/h7jxs4Pwlea6uGHP
- mpVMQCOi1Z6mbww6AJlb37fWITgiTRrWgEtN1jxHO4DiRnirdW26bN/pVC4DlEflebCp
- YjisJfNX8mgDS12P4wxr5hqV+fBjpIpeozszlfNQ5x6MgjuoAql6OYxAbzDs/MJ/iaCv
- MG9Q==
-X-Gm-Message-State: AGi0PuY2mF12M1Ec5uvSKXMbYEd6PLijeBMjkafq+/7jIttyDdZaXBZm
- Zm0Xz13v1MEWNW0sJR6wSUoNO5ARul1dPA==
-X-Google-Smtp-Source: APiQypJgAoMSMQG2O6ntkjnSC5Iz0O6n44rFFOknLX9+QA6UJAUiZbe8VY5B4CQvfTmyByAxwv2zsw==
-X-Received: by 2002:ac8:36ab:: with SMTP id a40mr15954602qtc.309.1587391420817; 
- Mon, 20 Apr 2020 07:03:40 -0700 (PDT)
+ bh=AL7hXb8H/qoBJbDBZohhbHzSXTKh5iAM3hIyFPRwuxM=;
+ b=bMC8ZTMvc/Zl0VQWFXdyPlfxukHqLoa20aNtSO1Sisrwtw8cUsT2ES7mieCi7e3PK0
+ Dslx8EPKfRMZDCxv92g6zQN5m8MG+pIvb1w7OW4/pghKBVRAtvl4rGTFOiGxIEuZmTbF
+ zEB9IdA/obQji/1gkrwrbGfhSwlNu7PE7ADfg23kLYiChqoIxLvwS77+EqWfAJOk9XQm
+ /mfidZYdtaGpSlXEzHAFrQOUqb8VFK8UzZu9GLGWezz/yXKiRY+2bMOGoMxcNVMxiu+Y
+ 7og4y0F4kwK31YGUMl9nEfJx3H8EhreCFXsIMET0pjdp5OW4kqc/ExEIWgRH+SSljmKr
+ Uixw==
+X-Gm-Message-State: AGi0PubqKZwhwPYFVoh/ArFK86JAshlw5rTPIhbPcqaZpxsl24EPMUwV
+ H0msQte+PqlPHDXvQ5qVd3VeABO+5pMoRQ==
+X-Google-Smtp-Source: APiQypJbBE+wFH9zAewo04smsE28aAKfYYfnbIhgn83376FC45tY9AalDkIrTnMLrKQ/dym8U3JM0Q==
+X-Received: by 2002:a0c:f38d:: with SMTP id i13mr15276070qvk.187.1587391423430; 
+ Mon, 20 Apr 2020 07:03:43 -0700 (PDT)
 Received: from localhost.localdomain ([147.253.86.153])
- by smtp.gmail.com with ESMTPSA id t75sm609424qke.127.2020.04.20.07.03.39
+ by smtp.gmail.com with ESMTPSA id t75sm609424qke.127.2020.04.20.07.03.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Apr 2020 07:03:40 -0700 (PDT)
+ Mon, 20 Apr 2020 07:03:42 -0700 (PDT)
 From: Jonathan Marek <jonathan@marek.ca>
 To: freedreno@lists.freedesktop.org
-Date: Mon, 20 Apr 2020 10:03:06 -0400
-Message-Id: <20200420140313.7263-3-jonathan@marek.ca>
+Date: Mon, 20 Apr 2020 10:03:07 -0400
+Message-Id: <20200420140313.7263-4-jonathan@marek.ca>
 X-Mailer: git-send-email 2.26.1
 In-Reply-To: <20200420140313.7263-1-jonathan@marek.ca>
 References: <20200420140313.7263-1-jonathan@marek.ca>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 2/9] Revert "drm/msm/a6xx: Use the DMA API for
- GMU memory objects"
+Subject: [Freedreno] [PATCH 3/9] drm/msm/a6xx: allow allocating GMU memory
+ with a fixed address
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,229 +73,75 @@ Cc: David Airlie <airlied@linux.ie>,
  Sharat Masetty <smasetty@codeaurora.org>,
  Jordan Crouse <jcrouse@codeaurora.org>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>,
+ open list <linux-kernel@vger.kernel.org>,
  "Michael J. Ruhl" <michael.j.ruhl@intel.com>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
- open list <linux-kernel@vger.kernel.org>
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This reverts commit a5fb8b918920c6f7706a8b5b8ea535a7f077a7f6.
+Signed-off-by: Jonathan Marek <jonathan@marek.ca>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 115 +++++++++++++++++++++++---
- drivers/gpu/drm/msm/adreno/a6xx_gmu.h |   6 +-
- 2 files changed, 107 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index c4e71abbdd53..748cd379065f 100644
+index 748cd379065f..c6ecb3189ec5 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -2,7 +2,6 @@
- /* Copyright (c) 2017-2019 The Linux Foundation. All rights reserved. */
- 
- #include <linux/clk.h>
--#include <linux/dma-mapping.h>
- #include <linux/interconnect.h>
- #include <linux/pm_domain.h>
- #include <linux/pm_opp.h>
-@@ -921,10 +920,21 @@ int a6xx_gmu_stop(struct a6xx_gpu *a6xx_gpu)
- 
- static void a6xx_gmu_memory_free(struct a6xx_gmu *gmu, struct a6xx_gmu_bo *bo)
- {
-+	int count, i;
-+	u64 iova;
-+
- 	if (IS_ERR_OR_NULL(bo))
- 		return;
- 
--	dma_free_wc(gmu->dev, bo->size, bo->virt, bo->iova);
-+	count = bo->size >> PAGE_SHIFT;
-+	iova = bo->iova;
-+
-+	for (i = 0; i < count; i++, iova += PAGE_SIZE) {
-+		iommu_unmap(gmu->domain, iova, PAGE_SIZE);
-+		__free_pages(bo->pages[i], 0);
-+	}
-+
-+	kfree(bo->pages);
+@@ -938,8 +938,8 @@ static void a6xx_gmu_memory_free(struct a6xx_gmu *gmu, struct a6xx_gmu_bo *bo)
  	kfree(bo);
  }
  
-@@ -932,6 +942,7 @@ static struct a6xx_gmu_bo *a6xx_gmu_memory_alloc(struct a6xx_gmu *gmu,
- 		size_t size)
+-static struct a6xx_gmu_bo *a6xx_gmu_memory_alloc(struct a6xx_gmu *gmu,
+-		size_t size)
++static struct a6xx_gmu_bo *
++a6xx_gmu_memory_alloc(struct a6xx_gmu *gmu, size_t size, uint64_t iova)
  {
  	struct a6xx_gmu_bo *bo;
-+	int ret, count, i;
- 
- 	bo = kzalloc(sizeof(*bo), GFP_KERNEL);
- 	if (!bo)
-@@ -939,14 +950,86 @@ static struct a6xx_gmu_bo *a6xx_gmu_memory_alloc(struct a6xx_gmu *gmu,
- 
- 	bo->size = PAGE_ALIGN(size);
- 
--	bo->virt = dma_alloc_wc(gmu->dev, bo->size, &bo->iova, GFP_KERNEL);
-+	count = bo->size >> PAGE_SHIFT;
- 
--	if (!bo->virt) {
-+	bo->pages = kcalloc(count, sizeof(struct page *), GFP_KERNEL);
-+	if (!bo->pages) {
- 		kfree(bo);
- 		return ERR_PTR(-ENOMEM);
+ 	int ret, count, i;
+@@ -964,13 +964,13 @@ static struct a6xx_gmu_bo *a6xx_gmu_memory_alloc(struct a6xx_gmu *gmu,
+ 			goto err;
  	}
  
-+	for (i = 0; i < count; i++) {
-+		bo->pages[i] = alloc_page(GFP_KERNEL);
-+		if (!bo->pages[i])
-+			goto err;
-+	}
-+
-+	bo->iova = gmu->uncached_iova_base;
-+
-+	for (i = 0; i < count; i++) {
-+		ret = iommu_map(gmu->domain,
-+			bo->iova + (PAGE_SIZE * i),
-+			page_to_phys(bo->pages[i]), PAGE_SIZE,
-+			IOMMU_READ | IOMMU_WRITE);
-+
-+		if (ret) {
-+			DRM_DEV_ERROR(gmu->dev, "Unable to map GMU buffer object\n");
-+
-+			for (i = i - 1 ; i >= 0; i--)
-+				iommu_unmap(gmu->domain,
-+					bo->iova + (PAGE_SIZE * i),
-+					PAGE_SIZE);
-+
-+			goto err;
-+		}
-+	}
-+
-+	bo->virt = vmap(bo->pages, count, VM_IOREMAP,
-+		pgprot_writecombine(PAGE_KERNEL));
-+	if (!bo->virt)
-+		goto err;
-+
-+	/* Align future IOVA addresses on 1MB boundaries */
-+	gmu->uncached_iova_base += ALIGN(size, SZ_1M);
-+
+-	bo->iova = gmu->uncached_iova_base;
++	bo->iova = iova ?: gmu->uncached_iova_base;
+ 
+ 	for (i = 0; i < count; i++) {
+ 		ret = iommu_map(gmu->domain,
+ 			bo->iova + (PAGE_SIZE * i),
+ 			page_to_phys(bo->pages[i]), PAGE_SIZE,
+-			IOMMU_READ | IOMMU_WRITE);
++			IOMMU_READ | IOMMU_WRITE | IOMMU_PRIV);
+ 
+ 		if (ret) {
+ 			DRM_DEV_ERROR(gmu->dev, "Unable to map GMU buffer object\n");
+@@ -990,7 +990,8 @@ static struct a6xx_gmu_bo *a6xx_gmu_memory_alloc(struct a6xx_gmu *gmu,
+ 		goto err;
+ 
+ 	/* Align future IOVA addresses on 1MB boundaries */
+-	gmu->uncached_iova_base += ALIGN(size, SZ_1M);
++	if (!iova)
++		gmu->uncached_iova_base += ALIGN(size, SZ_1M);
+ 
  	return bo;
-+
-+err:
-+	for (i = 0; i < count; i++) {
-+		if (bo->pages[i])
-+			__free_pages(bo->pages[i], 0);
-+	}
-+
-+	kfree(bo->pages);
-+	kfree(bo);
-+
-+	return ERR_PTR(-ENOMEM);
-+}
-+
-+static int a6xx_gmu_memory_probe(struct a6xx_gmu *gmu)
-+{
-+	int ret;
-+
-+	/*
-+	 * The GMU address space is hardcoded to treat the range
-+	 * 0x60000000 - 0x80000000 as un-cached memory. All buffers shared
-+	 * between the GMU and the CPU will live in this space
-+	 */
-+	gmu->uncached_iova_base = 0x60000000;
-+
-+
-+	gmu->domain = iommu_domain_alloc(&platform_bus_type);
-+	if (!gmu->domain)
-+		return -ENODEV;
-+
-+	ret = iommu_attach_device(gmu->domain, gmu->dev);
-+
-+	if (ret) {
-+		iommu_domain_free(gmu->domain);
-+		gmu->domain = NULL;
-+	}
-+
-+	return ret;
- }
  
- /* Return the 'arc-level' for the given frequency */
-@@ -1206,6 +1289,10 @@ void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu)
- 
- 	a6xx_gmu_memory_free(gmu, gmu->hfi);
- 
-+	iommu_detach_device(gmu->domain, gmu->dev);
-+
-+	iommu_domain_free(gmu->domain);
-+
- 	free_irq(gmu->gmu_irq, gmu);
- 	free_irq(gmu->hfi_irq, gmu);
- 
-@@ -1226,15 +1313,7 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
- 
- 	gmu->dev = &pdev->dev;
- 
--	/* Pass force_dma false to require the DT to set the dma region */
--	ret = of_dma_configure(gmu->dev, node, false);
--	if (ret)
--		return ret;
--
--	/* Set the mask after the of_dma_configure() */
--	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(31));
--	if (ret)
--		return ret;
-+	of_dma_configure(gmu->dev, node, true);
- 
- 	/* Fow now, don't do anything fancy until we get our feet under us */
- 	gmu->idle_level = GMU_IDLE_STATE_ACTIVE;
-@@ -1246,6 +1325,11 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
- 	if (ret)
+@@ -1331,12 +1332,12 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
  		goto err_put_device;
  
-+	/* Set up the IOMMU context bank */
-+	ret = a6xx_gmu_memory_probe(gmu);
-+	if (ret)
-+		goto err_put_device;
-+
  	/* Allocate memory for for the HFI queues */
- 	gmu->hfi = a6xx_gmu_memory_alloc(gmu, SZ_16K);
+-	gmu->hfi = a6xx_gmu_memory_alloc(gmu, SZ_16K);
++	gmu->hfi = a6xx_gmu_memory_alloc(gmu, SZ_16K, 0);
  	if (IS_ERR(gmu->hfi))
-@@ -1291,6 +1375,11 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
- err_memory:
- 	a6xx_gmu_memory_free(gmu, gmu->hfi);
+ 		goto err_memory;
  
-+	if (gmu->domain) {
-+		iommu_detach_device(gmu->domain, gmu->dev);
-+
-+		iommu_domain_free(gmu->domain);
-+	}
- 	ret = -ENODEV;
+ 	/* Allocate memory for the GMU debug region */
+-	gmu->debug = a6xx_gmu_memory_alloc(gmu, SZ_16K);
++	gmu->debug = a6xx_gmu_memory_alloc(gmu, SZ_16K, 0);
+ 	if (IS_ERR(gmu->debug))
+ 		goto err_memory;
  
- err_put_device:
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-index 4af65a36d5ca..2af91ed7ed0c 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-@@ -12,7 +12,8 @@
- struct a6xx_gmu_bo {
- 	void *virt;
- 	size_t size;
--	dma_addr_t iova;
-+	u64 iova;
-+	struct page **pages;
- };
- 
- /*
-@@ -48,6 +49,9 @@ struct a6xx_gmu {
- 	int hfi_irq;
- 	int gmu_irq;
- 
-+	struct iommu_domain *domain;
-+	u64 uncached_iova_base;
-+
- 	struct device *gxpd;
- 
- 	int idle_level;
 -- 
 2.26.1
 
