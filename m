@@ -2,60 +2,39 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 791991B0DCE
-	for <lists+freedreno@lfdr.de>; Mon, 20 Apr 2020 16:04:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 670BE1B0E69
+	for <lists+freedreno@lfdr.de>; Mon, 20 Apr 2020 16:31:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 296B56E5A3;
-	Mon, 20 Apr 2020 14:04:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0B1D6E5A3;
+	Mon, 20 Apr 2020 14:30:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
- [IPv6:2607:f8b0:4864:20::843])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FA716E5A0
- for <freedreno@lists.freedesktop.org>; Mon, 20 Apr 2020 14:04:12 +0000 (UTC)
-Received: by mail-qt1-x843.google.com with SMTP id c16so8505958qtv.1
- for <freedreno@lists.freedesktop.org>; Mon, 20 Apr 2020 07:04:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=marek-ca.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=19iG/yACSonzsO8vO7FObgRGDUOJ9AtxmYB1RErPuPs=;
- b=V0CHeAcblkoxsNZlcLugfNlyjTr+UnWk431ep8VpgvVY/GPtWORg5yJbjNibxa0cnJ
- 7JCY7SKuS1qCFqEBHY3xeWbwI+9W9Db7hzB2jqXFlysuzzCAXWAROwBK6V0W/6LsgMpo
- mnCHjhUmAQbUyPnyRSlmVC/GkqCoHr1+SXnrydAHfv7MwncD/e+TzqCPQ2nHC4jWMQv+
- UPOwnAugt7wsmTxhHt/QVRiZOhSLrUVAlGBeJo8briBj6AMivSi78xKMvz0vAIN1CVMA
- sPmHe5ik/IDHVPYX6GQTfJr98hyD+tTCFvaUdkWXt80zQf9OT+qeXy1BTmreuiIkZgfM
- YdLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=19iG/yACSonzsO8vO7FObgRGDUOJ9AtxmYB1RErPuPs=;
- b=nZsJ0ESFKCoxXb6KjaHec0kn3g6sEDJsvw8bkGbKRoetEjF4ZgMF0wORf7U0Y6ze15
- kj4WNLDjtp6iLlbZ5w0QuUOYUc0j7Uznm71PgLmiQCFrXsY1QaoLw3ruPqBDd5maySCc
- UegtS5ysy4zGSA4HhInJymlWVbP11eQf6mTHP886cOyqeQEmDnkw829EW+lzYpuhIPL+
- L7db+amlBVOYX4ZEldYZh7f9mEhsw/xfpS+zc9icYyfuNQMSaWG2hLeRZRQ7KE30Q1fA
- Lvsk5kEyQhsN6Qay/cipBUZB/As4IqZHtcNDZ2fr+pQjFy599q3siZ6lPvoQRR5basuF
- 3F/A==
-X-Gm-Message-State: AGi0PuYnqUN7tRB2ltIIDxXfRp4f1vjSlhNapeXE9cYWBpWI2j6pJWm1
- Ztp1Sv7BwhZ3lE/EjlBGyxWMUC2kkbFyHQ==
-X-Google-Smtp-Source: APiQypJzX5iggTdUCC7BVdyDcUZ8ng4HAs6wGL1czn9J5/2tSYuOX4vyD0ndCWr9ALBFV26b/CYMxQ==
-X-Received: by 2002:ac8:180f:: with SMTP id q15mr15962384qtj.42.1587391450999; 
- Mon, 20 Apr 2020 07:04:10 -0700 (PDT)
-Received: from localhost.localdomain ([147.253.86.153])
- by smtp.gmail.com with ESMTPSA id t75sm609424qke.127.2020.04.20.07.04.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Apr 2020 07:04:10 -0700 (PDT)
-From: Jonathan Marek <jonathan@marek.ca>
-To: freedreno@lists.freedesktop.org
-Date: Mon, 20 Apr 2020 10:03:13 -0400
-Message-Id: <20200420140313.7263-10-jonathan@marek.ca>
-X-Mailer: git-send-email 2.26.1
-In-Reply-To: <20200420140313.7263-1-jonathan@marek.ca>
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE3936E5A2;
+ Mon, 20 Apr 2020 14:30:57 +0000 (UTC)
+Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
+ [83.86.89.107])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 630E320B1F;
+ Mon, 20 Apr 2020 14:30:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1587393057;
+ bh=1MM2YWhi3e2vrsxEwFMk4HeCduw6RjfxTXdbMfd5/ds=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=mTh3SsZYt3dXwIf7fFg8vwSyGeIguoE1VxBW0XkQPhS2I+MYgjRNEwFga2HEcPiXC
+ Nby/pIucs017PdWVF6b8BB/ayosJVPfsmyNeWQnjdEvYSQAFVca3S+4S3ojLXhw3sK
+ 4voasffhwOkHLE2CssNPWqoqyDQc9Z3HMyP+pOAw=
+Date: Mon, 20 Apr 2020 16:30:55 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jonathan Marek <jonathan@marek.ca>
+Message-ID: <20200420143055.GC4125486@kroah.com>
 References: <20200420140313.7263-1-jonathan@marek.ca>
+ <20200420140313.7263-2-jonathan@marek.ca>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 9/9] drm/msm/a6xx: update a6xx_hw_init for A640
- and A650
+Content-Disposition: inline
+In-Reply-To: <20200420140313.7263-2-jonathan@marek.ca>
+Subject: Re: [Freedreno] [PATCH 1/9] drm/msm/adreno: add A640/A650 to gpulist
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,168 +47,34 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
+Cc: Wambui Karuga <wambui.karugax@gmail.com>,
+ Douglas Anderson <dianders@chromium.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, David Airlie <airlied@linux.ie>,
+ freedreno@lists.freedesktop.org, Sharat Masetty <smasetty@codeaurora.org>,
  Jordan Crouse <jcrouse@codeaurora.org>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
- open list <linux-kernel@vger.kernel.org>
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ AngeloGioacchino Del Regno <kholk11@gmail.com>, Sean Paul <sean@poorly.run>,
+ Allison Randal <allison@lohutok.net>, Brian Masney <masneyb@onstation.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Adreno 640 and 650 GPUs need some registers set differently.
+On Mon, Apr 20, 2020 at 10:03:05AM -0400, Jonathan Marek wrote:
+> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+> ---
+>  drivers/gpu/drm/msm/adreno/adreno_device.c | 24 ++++++++++++++++++++++
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c    |  2 +-
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h    | 10 +++++++++
+>  3 files changed, 35 insertions(+), 1 deletion(-)
 
-Signed-off-by: Jonathan Marek <jonathan@marek.ca>
----
- drivers/gpu/drm/msm/adreno/a6xx.xml.h | 14 +++++++
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 56 ++++++++++++++++++++++-----
- 2 files changed, 61 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx.xml.h b/drivers/gpu/drm/msm/adreno/a6xx.xml.h
-index ed78fee2a262..47840b73cdda 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx.xml.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx.xml.h
-@@ -1047,6 +1047,8 @@ enum a6xx_tex_type {
- 
- #define REG_A6XX_CP_MISC_CNTL					0x00000840
- 
-+#define REG_A6XX_CP_APRIV_CNTL					0x00000844
-+
- #define REG_A6XX_CP_ROQ_THRESHOLDS_1				0x000008c1
- 
- #define REG_A6XX_CP_ROQ_THRESHOLDS_2				0x000008c2
-@@ -1764,6 +1766,8 @@ static inline uint32_t A6XX_CP_PROTECT_REG_MASK_LEN(uint32_t val)
- 
- #define REG_A6XX_RBBM_VBIF_CLIENT_QOS_CNTL			0x00000010
- 
-+#define REG_A6XX_RBBM_GBIF_CLIENT_QOS_CNTL			0x00000011
-+
- #define REG_A6XX_RBBM_INTERFACE_HANG_INT_CNTL			0x0000001f
- 
- #define REG_A6XX_RBBM_INT_CLEAR_CMD				0x00000037
-@@ -2418,6 +2422,16 @@ static inline uint32_t A6XX_UCHE_CLIENT_PF_PERFSEL(uint32_t val)
- 
- #define REG_A6XX_TPL1_NC_MODE_CNTL				0x0000b604
- 
-+#define REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_0			0x0000b608
-+
-+#define REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_1			0x0000b609
-+
-+#define REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_2			0x0000b60a
-+
-+#define REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_3			0x0000b60b
-+
-+#define REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_4			0x0000b60c
-+
- #define REG_A6XX_TPL1_PERFCTR_TP_SEL_0				0x0000b610
- 
- #define REG_A6XX_TPL1_PERFCTR_TP_SEL_1				0x0000b611
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index a860d4970e10..e1eb34fa3a99 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -414,7 +414,17 @@ static int a6xx_hw_init(struct msm_gpu *gpu)
- 		a6xx_set_hwcg(gpu, true);
- 
- 	/* VBIF/GBIF start*/
--	gpu_write(gpu, REG_A6XX_RBBM_VBIF_CLIENT_QOS_CNTL, 0x3);
-+	if (adreno_is_a640(adreno_gpu) || adreno_is_a650(adreno_gpu)) {
-+		gpu_write(gpu, REG_A6XX_GBIF_QSB_SIDE0, 0x00071620);
-+		gpu_write(gpu, REG_A6XX_GBIF_QSB_SIDE1, 0x00071620);
-+		gpu_write(gpu, REG_A6XX_GBIF_QSB_SIDE2, 0x00071620);
-+		gpu_write(gpu, REG_A6XX_GBIF_QSB_SIDE3, 0x00071620);
-+		gpu_write(gpu, REG_A6XX_GBIF_QSB_SIDE3, 0x00071620);
-+		gpu_write(gpu, REG_A6XX_RBBM_GBIF_CLIENT_QOS_CNTL, 0x3);
-+	} else {
-+		gpu_write(gpu, REG_A6XX_RBBM_VBIF_CLIENT_QOS_CNTL, 0x3);
-+	}
-+
- 	if (adreno_is_a630(adreno_gpu))
- 		gpu_write(gpu, REG_A6XX_VBIF_GATE_OFF_WRREQ_EN, 0x00000009);
- 
-@@ -429,25 +439,35 @@ static int a6xx_hw_init(struct msm_gpu *gpu)
- 	gpu_write(gpu, REG_A6XX_UCHE_WRITE_THRU_BASE_LO, 0xfffff000);
- 	gpu_write(gpu, REG_A6XX_UCHE_WRITE_THRU_BASE_HI, 0x0001ffff);
- 
--	/* Set the GMEM VA range [0x100000:0x100000 + gpu->gmem - 1] */
--	gpu_write64(gpu, REG_A6XX_UCHE_GMEM_RANGE_MIN_LO,
--		REG_A6XX_UCHE_GMEM_RANGE_MIN_HI, 0x00100000);
-+	if (!adreno_is_a650(adreno_gpu)) {
-+		/* Set the GMEM VA range [0x100000:0x100000 + gpu->gmem - 1] */
-+		gpu_write64(gpu, REG_A6XX_UCHE_GMEM_RANGE_MIN_LO,
-+			REG_A6XX_UCHE_GMEM_RANGE_MIN_HI, 0x00100000);
- 
--	gpu_write64(gpu, REG_A6XX_UCHE_GMEM_RANGE_MAX_LO,
--		REG_A6XX_UCHE_GMEM_RANGE_MAX_HI,
--		0x00100000 + adreno_gpu->gmem - 1);
-+		gpu_write64(gpu, REG_A6XX_UCHE_GMEM_RANGE_MAX_LO,
-+			REG_A6XX_UCHE_GMEM_RANGE_MAX_HI,
-+			0x00100000 + adreno_gpu->gmem - 1);
-+	}
- 
- 	gpu_write(gpu, REG_A6XX_UCHE_FILTER_CNTL, 0x804);
- 	gpu_write(gpu, REG_A6XX_UCHE_CACHE_WAYS, 0x4);
- 
--	gpu_write(gpu, REG_A6XX_CP_ROQ_THRESHOLDS_2, 0x010000c0);
-+	if (adreno_is_a640(adreno_gpu) || adreno_is_a650(adreno_gpu))
-+		gpu_write(gpu, REG_A6XX_CP_ROQ_THRESHOLDS_2, 0x02000140);
-+	else
-+		gpu_write(gpu, REG_A6XX_CP_ROQ_THRESHOLDS_2, 0x010000c0);
- 	gpu_write(gpu, REG_A6XX_CP_ROQ_THRESHOLDS_1, 0x8040362c);
- 
- 	/* Setting the mem pool size */
- 	gpu_write(gpu, REG_A6XX_CP_MEM_POOL_SIZE, 128);
- 
- 	/* Setting the primFifo thresholds default values */
--	gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, (0x300 << 11));
-+	if (adreno_is_a650(adreno_gpu))
-+		gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00300000);
-+	else if (adreno_is_a640(adreno_gpu))
-+		gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00200000);
-+	else
-+		gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, (0x300 << 11));
- 
- 	/* Set the AHB default slave response to "ERROR" */
- 	gpu_write(gpu, REG_A6XX_CP_AHB_CNTL, 0x1);
-@@ -471,6 +491,19 @@ static int a6xx_hw_init(struct msm_gpu *gpu)
- 
- 	gpu_write(gpu, REG_A6XX_UCHE_CLIENT_PF, 1);
- 
-+	/* Set weights for bicubic filtering */
-+	if (adreno_is_a650(adreno_gpu)) {
-+		gpu_write(gpu, REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_0, 0);
-+		gpu_write(gpu, REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_1,
-+			0x3fe05ff4);
-+		gpu_write(gpu, REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_2,
-+			0x3fa0ebee);
-+		gpu_write(gpu, REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_3,
-+			0x3f5193ed);
-+		gpu_write(gpu, REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE_4,
-+			0x3f0243f0);
-+	}
-+
- 	/* Protect registers from the CP */
- 	gpu_write(gpu, REG_A6XX_CP_PROTECT_CNTL, 0x00000003);
- 
-@@ -508,6 +541,11 @@ static int a6xx_hw_init(struct msm_gpu *gpu)
- 			A6XX_PROTECT_RDONLY(0x980, 0x4));
- 	gpu_write(gpu, REG_A6XX_CP_PROTECT(25), A6XX_PROTECT_RW(0xa630, 0x0));
- 
-+	if (adreno_is_a650(adreno_gpu)) {
-+		gpu_write(gpu, REG_A6XX_CP_APRIV_CNTL,
-+			(1 << 6) | (1 << 5) | (1 << 3) | (1 << 2) | (1 << 1));
-+	}
-+
- 	/* Enable interrupts */
- 	gpu_write(gpu, REG_A6XX_RBBM_INT_0_MASK, A6XX_INT_MASK);
- 
--- 
-2.26.1
-
+I know I don't accept patches without any changelog text, maybe other
+subsystem maintainers are more lax...
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
