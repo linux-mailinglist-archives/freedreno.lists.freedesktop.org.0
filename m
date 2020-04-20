@@ -2,66 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68C961B166C
-	for <lists+freedreno@lfdr.de>; Mon, 20 Apr 2020 21:59:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46AF31B1736
+	for <lists+freedreno@lfdr.de>; Mon, 20 Apr 2020 22:36:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80B046E854;
-	Mon, 20 Apr 2020 19:59:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D67D36E0B8;
+	Mon, 20 Apr 2020 20:36:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
- [IPv6:2607:f8b0:4864:20::743])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 376046E252
- for <freedreno@lists.freedesktop.org>; Mon, 20 Apr 2020 19:59:36 +0000 (UTC)
-Received: by mail-qk1-x743.google.com with SMTP id 20so12090263qkl.10
- for <freedreno@lists.freedesktop.org>; Mon, 20 Apr 2020 12:59:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=marek-ca.20150623.gappssmtp.com; s=20150623;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=wDbOdnPkTFiz/IFCjyzw9rN9Jlw3Sm8s2+B+3TdHooU=;
- b=i51gQKiaZnJpsenlRNe1Sgox7u8qCm1LzUxGxp23jk6CvAm+nbRLP40dXwLdPffD0+
- zjz7EYRzxKmkP65WwXchoFB4LZd2M2gLkbImWk1Wj4p93b19tPbj2Iv8crle5SZwiY+v
- A45Y99wQd9DAF4dc5n+fbeZWNjcO3HsOnsN6BwY8RT/LXoBCabca3xHITqavvd15Pkka
- QspJ0UOQ3NTK98qcdvRz92JbJEL2JHxiJW6NNKY0roEk3KHdsRAKFQ+LGnXAn/u8iMg/
- J7YhssCH+lsGIahBVdurk2euotpigQJHzq8+z6rgqhkYLfIwwUk5RU4gKCbBH1dPYQhX
- 5fmw==
+Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com
+ [209.85.210.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EE676E0B8;
+ Mon, 20 Apr 2020 20:36:52 +0000 (UTC)
+Received: by mail-ot1-f66.google.com with SMTP id i22so9339443otp.12;
+ Mon, 20 Apr 2020 13:36:52 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=wDbOdnPkTFiz/IFCjyzw9rN9Jlw3Sm8s2+B+3TdHooU=;
- b=heFz3wHRoQhlNOtP/HYVuR+JdNFs9nprvRQGHpo2Ypfs2cqwwH+eUc4pYiKGoO8Vvc
- ebxb/jHLUH1GealqvR5yigF8ypzv+AOPiFOic19aAqbD4JXJ8UF93HCQdi4mmwgHNWYy
- OUXkUCocpivdcwHB18c7MgEjwmw799h0TWrwNKeRKzi7pVQgOpsoEE5x8KgmbOJ6eBS7
- 8V2G75uWOasjFHne00uncRJAMGlLH7SUqeo3bjCrfIUWDtNxzXUDM1UNxH5YAtSsJQBX
- 3g+rIAaGqAsa2iSUwbnjrlXuOvy0X5g0jHeHKvIETLJXY44yVJh90+rNcOlPU7LPpJrZ
- /N0w==
-X-Gm-Message-State: AGi0PuZGGS3redRecJRV7HxTTbATLBzwppkUBXuP2yp3ZAc8QD7rYfl8
- 49Pd53y5MqODm8AMdlM9kSDY5Q==
-X-Google-Smtp-Source: APiQypJQw+nd7r2y1WCXpbPbbW0vXMy3SNxHYtZN51ZoK9P8P4hbVQ0+oeqITaaAyWV4/Q7/NmoEoA==
-X-Received: by 2002:a05:620a:13eb:: with SMTP id
- h11mr16572342qkl.404.1587412775202; 
- Mon, 20 Apr 2020 12:59:35 -0700 (PDT)
-Received: from [192.168.0.189] ([147.253.86.153])
- by smtp.gmail.com with ESMTPSA id x43sm224332qtj.65.2020.04.20.12.59.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Apr 2020 12:59:34 -0700 (PDT)
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-References: <20200420140313.7263-1-jonathan@marek.ca>
- <20200420140313.7263-3-jonathan@marek.ca>
- <20200420195130.GQ576963@builder.lan>
-From: Jonathan Marek <jonathan@marek.ca>
-Message-ID: <46fe8a96-c54e-2362-9a60-c27f7042089b@marek.ca>
-Date: Mon, 20 Apr 2020 15:59:26 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=0kqh5Q9Co3AbSPBrTmVcdN3oyZQj3KIAbrC9Aw9Jey8=;
+ b=VK4fiOcXattty9tENMM9I5FKFp+BZGcaiAob+fTcLqN2WTD9ozSi1se7909H7Ezg+S
+ 8TJ5e37yp2Wb7Aht/EtE7MKSgIjXXzBcNkPRWD/TK5WsQQyHA0fV6kQG6F4CkBqDjOSn
+ zzQpugZJ8wuDK2prtJNLr84qv8pLifq3TiBFlADRfm370LUzu17vQbtTZq5d0AtMzCcf
+ RABNZJ9w6LGK9CLGckXO61ksr4mfJrXPldwZa2/w4Pqwv5uWIiiSgnImWxHdHAQZqyMd
+ PTOhiEC+Z1ukBwuCnv68f2I5XdAz9raDESxTTzvCgpC6252Ufb6TwSZ0cLf6xI+ZLL4w
+ YbWQ==
+X-Gm-Message-State: AGi0PubuUz9yG+PiXMN/O9D4aStQ1loa1obXASRZ9QzurZRIgsDRYXHf
+ Zsh7bRGFg2gYmGDEwcBOOQ==
+X-Google-Smtp-Source: APiQypIKf0vB7yfwu8rT/KxQM+HvZK1R4I7Apur0UzYjSjNLrYCJKeDB/Ne3EnK+UZ4pWSPP25JeDQ==
+X-Received: by 2002:a9d:6a02:: with SMTP id g2mr11554009otn.196.1587415011744; 
+ Mon, 20 Apr 2020 13:36:51 -0700 (PDT)
+Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id r21sm190334otg.67.2020.04.20.13.36.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Apr 2020 13:36:50 -0700 (PDT)
+Received: (nullmailer pid 18971 invoked by uid 1000);
+ Mon, 20 Apr 2020 20:36:47 -0000
+Date: Mon, 20 Apr 2020 15:36:47 -0500
+From: Rob Herring <robh@kernel.org>
+To: Hadar Gat <hadar.gat@arm.com>
+Message-ID: <20200420203647.GA23189@bogus>
+References: <1586784960-22692-1-git-send-email-hadar.gat@arm.com>
 MIME-Version: 1.0
-In-Reply-To: <20200420195130.GQ576963@builder.lan>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH 2/9] Revert "drm/msm/a6xx: Use the DMA API
- for GMU memory objects"
+Content-Disposition: inline
+In-Reply-To: <1586784960-22692-1-git-send-email-hadar.gat@arm.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Freedreno] [PATCH] of_device: removed #include that caused a
+ recursion in included headers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,248 +61,98 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
- Sharat Masetty <smasetty@codeaurora.org>,
- Jordan Crouse <jcrouse@codeaurora.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>,
- "Michael J. Ruhl" <michael.j.ruhl@intel.com>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sean Paul <sean@poorly.run>, open list <linux-kernel@vger.kernel.org>
+Cc: Jose Abreu <joabreu@synopsys.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ David Airlie <airlied@linux.ie>, Linus Walleij <linus.walleij@linaro.org>,
+ Liviu Dudau <liviu.dudau@arm.com>, dri-devel@lists.freedesktop.org,
+ Sandy Huang <hjc@rock-chips.com>, Thierry Reding <thierry.reding@gmail.com>,
+ linux-mtd@lists.infradead.org, Miquel Raynal <miquel.raynal@bootlin.com>,
+ netdev@vger.kernel.org, Kishon Vijay Abraham I <kishon@ti.com>,
+ Lee Jones <lee.jones@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Vignesh Raghavendra <vigneshr@ti.com>, linux-samsung-soc@vger.kernel.org,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Frank Rowand <frowand.list@gmail.com>, linux-rockchip@lists.infradead.org,
+ Richard Weinberger <richard@nod.at>, Joerg Roedel <joro@8bytes.org>,
+ Vinod Koul <vkoul@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Tony Lindgren <tony@atomide.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Andy Gross <agross@kernel.org>, devicetree@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@st.com>, linux-omap@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ Gilad Ben-Yossef <gilad@benyossef.com>, iommu@lists.linux-foundation.org,
+ linux-tegra@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ Chen-Yu Tsai <wens@csie.org>, Sean Paul <sean@poorly.run>,
+ linux-arm-kernel@lists.infradead.org, Ofir Drang <ofir.drang@arm.com>,
+ linux-gpio@vger.kernel.org, JC Kuo <jckuo@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Kukjin Kim <kgene@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, dmaengine@vger.kernel.org,
+ freedreno@lists.freedesktop.org, "David S. Miller" <davem@davemloft.net>,
+ Jonathan Cameron <jic23@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 4/20/20 3:51 PM, Bjorn Andersson wrote:
-> On Mon 20 Apr 07:03 PDT 2020, Jonathan Marek wrote:
-> 
->> This reverts commit a5fb8b918920c6f7706a8b5b8ea535a7f077a7f6.
-> 
-> Why?
-> 
+On Mon, Apr 13, 2020 at 04:35:53PM +0300, Hadar Gat wrote:
+> Both of_platform.h and of_device.h were included each other.
+> In of_device.h, removed unneeded #include to of_platform.h
+> and added include to of_platform.h in the files that needs it.
 
-It removes something I need for the next patches in the series, however 
-I'm open to suggestions on a better solution (Jordan said he would check 
-it out)
+Guess we forgot about that temporary comment!
 
->> ---
->>   drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 115 +++++++++++++++++++++++---
->>   drivers/gpu/drm/msm/adreno/a6xx_gmu.h |   6 +-
->>   2 files changed, 107 insertions(+), 14 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->> index c4e71abbdd53..748cd379065f 100644
->> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->> @@ -2,7 +2,6 @@
->>   /* Copyright (c) 2017-2019 The Linux Foundation. All rights reserved. */
->>   
->>   #include <linux/clk.h>
->> -#include <linux/dma-mapping.h>
->>   #include <linux/interconnect.h>
->>   #include <linux/pm_domain.h>
->>   #include <linux/pm_opp.h>
->> @@ -921,10 +920,21 @@ int a6xx_gmu_stop(struct a6xx_gpu *a6xx_gpu)
->>   
->>   static void a6xx_gmu_memory_free(struct a6xx_gmu *gmu, struct a6xx_gmu_bo *bo)
->>   {
->> +	int count, i;
->> +	u64 iova;
->> +
->>   	if (IS_ERR_OR_NULL(bo))
->>   		return;
->>   
->> -	dma_free_wc(gmu->dev, bo->size, bo->virt, bo->iova);
->> +	count = bo->size >> PAGE_SHIFT;
->> +	iova = bo->iova;
->> +
->> +	for (i = 0; i < count; i++, iova += PAGE_SIZE) {
->> +		iommu_unmap(gmu->domain, iova, PAGE_SIZE);
->> +		__free_pages(bo->pages[i], 0);
->> +	}
->> +
->> +	kfree(bo->pages);
->>   	kfree(bo);
->>   }
->>   
->> @@ -932,6 +942,7 @@ static struct a6xx_gmu_bo *a6xx_gmu_memory_alloc(struct a6xx_gmu *gmu,
->>   		size_t size)
->>   {
->>   	struct a6xx_gmu_bo *bo;
->> +	int ret, count, i;
->>   
->>   	bo = kzalloc(sizeof(*bo), GFP_KERNEL);
->>   	if (!bo)
->> @@ -939,14 +950,86 @@ static struct a6xx_gmu_bo *a6xx_gmu_memory_alloc(struct a6xx_gmu *gmu,
->>   
->>   	bo->size = PAGE_ALIGN(size);
->>   
->> -	bo->virt = dma_alloc_wc(gmu->dev, bo->size, &bo->iova, GFP_KERNEL);
->> +	count = bo->size >> PAGE_SHIFT;
->>   
->> -	if (!bo->virt) {
->> +	bo->pages = kcalloc(count, sizeof(struct page *), GFP_KERNEL);
->> +	if (!bo->pages) {
->>   		kfree(bo);
->>   		return ERR_PTR(-ENOMEM);
->>   	}
->>   
->> +	for (i = 0; i < count; i++) {
->> +		bo->pages[i] = alloc_page(GFP_KERNEL);
->> +		if (!bo->pages[i])
->> +			goto err;
->> +	}
->> +
->> +	bo->iova = gmu->uncached_iova_base;
->> +
->> +	for (i = 0; i < count; i++) {
->> +		ret = iommu_map(gmu->domain,
->> +			bo->iova + (PAGE_SIZE * i),
->> +			page_to_phys(bo->pages[i]), PAGE_SIZE,
->> +			IOMMU_READ | IOMMU_WRITE);
->> +
->> +		if (ret) {
->> +			DRM_DEV_ERROR(gmu->dev, "Unable to map GMU buffer object\n");
->> +
->> +			for (i = i - 1 ; i >= 0; i--)
->> +				iommu_unmap(gmu->domain,
->> +					bo->iova + (PAGE_SIZE * i),
->> +					PAGE_SIZE);
->> +
->> +			goto err;
->> +		}
->> +	}
->> +
->> +	bo->virt = vmap(bo->pages, count, VM_IOREMAP,
->> +		pgprot_writecombine(PAGE_KERNEL));
->> +	if (!bo->virt)
->> +		goto err;
->> +
->> +	/* Align future IOVA addresses on 1MB boundaries */
->> +	gmu->uncached_iova_base += ALIGN(size, SZ_1M);
->> +
->>   	return bo;
->> +
->> +err:
->> +	for (i = 0; i < count; i++) {
->> +		if (bo->pages[i])
->> +			__free_pages(bo->pages[i], 0);
->> +	}
->> +
->> +	kfree(bo->pages);
->> +	kfree(bo);
->> +
->> +	return ERR_PTR(-ENOMEM);
->> +}
->> +
->> +static int a6xx_gmu_memory_probe(struct a6xx_gmu *gmu)
->> +{
->> +	int ret;
->> +
->> +	/*
->> +	 * The GMU address space is hardcoded to treat the range
->> +	 * 0x60000000 - 0x80000000 as un-cached memory. All buffers shared
->> +	 * between the GMU and the CPU will live in this space
->> +	 */
->> +	gmu->uncached_iova_base = 0x60000000;
->> +
->> +
->> +	gmu->domain = iommu_domain_alloc(&platform_bus_type);
->> +	if (!gmu->domain)
->> +		return -ENODEV;
->> +
->> +	ret = iommu_attach_device(gmu->domain, gmu->dev);
->> +
->> +	if (ret) {
->> +		iommu_domain_free(gmu->domain);
->> +		gmu->domain = NULL;
->> +	}
->> +
->> +	return ret;
->>   }
->>   
->>   /* Return the 'arc-level' for the given frequency */
->> @@ -1206,6 +1289,10 @@ void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu)
->>   
->>   	a6xx_gmu_memory_free(gmu, gmu->hfi);
->>   
->> +	iommu_detach_device(gmu->domain, gmu->dev);
->> +
->> +	iommu_domain_free(gmu->domain);
->> +
->>   	free_irq(gmu->gmu_irq, gmu);
->>   	free_irq(gmu->hfi_irq, gmu);
->>   
->> @@ -1226,15 +1313,7 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
->>   
->>   	gmu->dev = &pdev->dev;
->>   
->> -	/* Pass force_dma false to require the DT to set the dma region */
->> -	ret = of_dma_configure(gmu->dev, node, false);
->> -	if (ret)
->> -		return ret;
->> -
->> -	/* Set the mask after the of_dma_configure() */
->> -	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(31));
->> -	if (ret)
->> -		return ret;
->> +	of_dma_configure(gmu->dev, node, true);
->>   
->>   	/* Fow now, don't do anything fancy until we get our feet under us */
->>   	gmu->idle_level = GMU_IDLE_STATE_ACTIVE;
->> @@ -1246,6 +1325,11 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
->>   	if (ret)
->>   		goto err_put_device;
->>   
->> +	/* Set up the IOMMU context bank */
->> +	ret = a6xx_gmu_memory_probe(gmu);
->> +	if (ret)
->> +		goto err_put_device;
->> +
->>   	/* Allocate memory for for the HFI queues */
->>   	gmu->hfi = a6xx_gmu_memory_alloc(gmu, SZ_16K);
->>   	if (IS_ERR(gmu->hfi))
->> @@ -1291,6 +1375,11 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
->>   err_memory:
->>   	a6xx_gmu_memory_free(gmu, gmu->hfi);
->>   
->> +	if (gmu->domain) {
->> +		iommu_detach_device(gmu->domain, gmu->dev);
->> +
->> +		iommu_domain_free(gmu->domain);
->> +	}
->>   	ret = -ENODEV;
->>   
->>   err_put_device:
->> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
->> index 4af65a36d5ca..2af91ed7ed0c 100644
->> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
->> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
->> @@ -12,7 +12,8 @@
->>   struct a6xx_gmu_bo {
->>   	void *virt;
->>   	size_t size;
->> -	dma_addr_t iova;
->> +	u64 iova;
->> +	struct page **pages;
->>   };
->>   
->>   /*
->> @@ -48,6 +49,9 @@ struct a6xx_gmu {
->>   	int hfi_irq;
->>   	int gmu_irq;
->>   
->> +	struct iommu_domain *domain;
->> +	u64 uncached_iova_base;
->> +
->>   	struct device *gxpd;
->>   
->>   	int idle_level;
->> -- 
->> 2.26.1
->>
+Both of these headers have a lot of things we don't want 'normal' 
+drivers calling. The most common thing needed from of_device.h is 
+of_match_device/of_device_get_match_data. A good number are only for 
+ibmebus. Maybe the header should be split or the former just moved 
+to of.h.
+
+For of_platform.h, it seems we have a bunch of unneeded includes:
+
+$ git grep 'of_platform\.h' drivers/ | wc
+    560    1120   36049
+$ git grep -E 'of_(platform_(pop|def)|find_device)' drivers/ | wc
+    248    1215   20630
+
+Would nice to drop those (or switch to of_device.h?) too.
+
+Be sure to build on Sparc. It's the oddball.
+
+> 
+> Signed-off-by: Hadar Gat <hadar.gat@arm.com>
+> ---
+>  drivers/base/platform.c                           | 1 +
+>  drivers/bus/vexpress-config.c                     | 1 +
+>  drivers/dma/at_hdmac.c                            | 1 +
+>  drivers/dma/stm32-dmamux.c                        | 1 +
+>  drivers/dma/ti/dma-crossbar.c                     | 1 +
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c             | 1 +
+>  drivers/gpu/drm/msm/hdmi/hdmi.c                   | 1 +
+>  drivers/gpu/drm/msm/msm_drv.c                     | 1 +
+>  drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c   | 1 +
+>  drivers/gpu/drm/sun4i/sun4i_tcon.c                | 1 +
+>  drivers/iio/adc/stm32-adc-core.c                  | 1 +
+>  drivers/iio/adc/stm32-dfsdm-adc.c                 | 1 +
+>  drivers/iio/adc/stm32-dfsdm-core.c                | 1 +
+>  drivers/iommu/tegra-smmu.c                        | 1 +
+>  drivers/memory/atmel-ebi.c                        | 1 +
+>  drivers/mfd/palmas.c                              | 1 +
+>  drivers/mfd/ssbi.c                                | 1 +
+>  drivers/mtd/nand/raw/omap2.c                      | 1 +
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 1 +
+>  drivers/net/ethernet/ti/cpsw.c                    | 1 +
+>  drivers/phy/tegra/xusb.c                          | 1 +
+>  drivers/pinctrl/nomadik/pinctrl-nomadik.c         | 1 +
+>  drivers/soc/samsung/exynos-pmu.c                  | 1 +
+>  drivers/soc/sunxi/sunxi_sram.c                    | 1 +
+>  include/linux/of_device.h                         | 2 --
+>  lib/genalloc.c                                    | 1 +
+>  26 files changed, 25 insertions(+), 2 deletions(-)
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
