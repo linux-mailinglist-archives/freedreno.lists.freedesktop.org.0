@@ -2,31 +2,33 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED6241B1A2E
-	for <lists+freedreno@lfdr.de>; Tue, 21 Apr 2020 01:34:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEE2A1B1DB5
+	for <lists+freedreno@lfdr.de>; Tue, 21 Apr 2020 06:52:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A1D36E20F;
-	Mon, 20 Apr 2020 23:34:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 930C089F27;
+	Tue, 21 Apr 2020 04:52:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ms.lwn.net (ms.lwn.net [IPv6:2600:3c01:e000:3a1::42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E8476E0E3;
- Mon, 20 Apr 2020 21:43:20 +0000 (UTC)
-Received: from lwn.net (localhost [127.0.0.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ms.lwn.net (Postfix) with ESMTPSA id 632E4823;
- Mon, 20 Apr 2020 21:43:17 +0000 (UTC)
-Date: Mon, 20 Apr 2020 15:43:16 -0600
-From: Jonathan Corbet <corbet@lwn.net>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Message-ID: <20200420154316.28e42905@lwn.net>
-In-Reply-To: <cover.1586881715.git.mchehab+huawei@kernel.org>
-References: <cover.1586881715.git.mchehab+huawei@kernel.org>
-Organization: LWN.net
+Received: from alexa-out-blr-02.qualcomm.com (alexa-out-blr-02.qualcomm.com
+ [103.229.18.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 930CA89F27;
+ Tue, 21 Apr 2020 04:52:16 +0000 (UTC)
+Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
+ by alexa-out-blr-02.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 21 Apr 2020 10:22:10 +0530
+Received: from harigovi-linux.qualcomm.com ([10.204.66.157])
+ by ironmsg01-blr.qualcomm.com with ESMTP; 21 Apr 2020 10:21:57 +0530
+Received: by harigovi-linux.qualcomm.com (Postfix, from userid 2332695)
+ id 723052A55; Tue, 21 Apr 2020 10:21:56 +0530 (IST)
+From: Harigovindan P <harigovi@codeaurora.org>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Tue, 21 Apr 2020 10:21:52 +0530
+Message-Id: <20200421045154.20744-1-harigovi@codeaurora.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 20 Apr 2020 23:34:09 +0000
-Subject: Re: [Freedreno] [PATCH v2 00/33] Documentation fixes for Kernel 5.8
+Subject: [Freedreno] [PATCH v11 0/2] Add support for rm69299 Visionox panel
+ driver and add devicetree bindings for visionox panel
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -39,63 +41,30 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: kvm@vger.kernel.org, Linux Doc Mailing List <linux-doc@vger.kernel.org>,
- linux-pci@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
- dri-devel@lists.freedesktop.org, linux-unionfs@vger.kernel.org,
- linux-mm@kvack.org, netdev@vger.kernel.org, linux-i2c@vger.kernel.org,
- linux1394-devel@lists.sourceforge.net, kvmarm@lists.cs.columbia.edu,
- linux-arch@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>, linux-rdma@vger.kernel.org,
- Kishon Vijay Abraham I <kishon@ti.com>, linux-rockchip@lists.infradead.org,
- Matthias Kaehlcke <mka@chromium.org>, Sandeep Maheswaram <sanm@codeaurora.org>,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-afs@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- ecryptfs@vger.kernel.org, kvm-ppc@vger.kernel.org,
- Stephen Boyd <swboyd@chromium.org>, Maxime Ripard <maxime@cerno.tech>,
- linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org,
- Matthias Brugger <mbrugger@suse.com>, Yuti Amonkar <yamonkar@cadence.com>,
- linux-ide@vger.kernel.org, linux-ntfs-dev@lists.sourceforge.net,
- freedreno@lists.freedesktop.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- linux-crypto@vger.kernel.org, Sudeep Holla <sudeep.holla@arm.com>,
- linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- ocfs2-devel@oss.oracle.com
+Cc: sean@poorly.run, robdclark@gmail.com, seanpaul@chromium.org,
+ Harigovindan P <harigovi@codeaurora.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 14 Apr 2020 18:48:26 +0200
-Mauro Carvalho Chehab <mchehab+huawei@kernel.org> wrote:
+Adding support for visionox rm69299 panel driver and adding bindings for the same panel.
+https://patchwork.kernel.org/patch/11461943/ has already been added to drm-misc-next.
 
-> Patches 1 to 5 contain changes to the documentation toolset:
-> 
-> - The first 3 patches help to reduce a lot the number of reported
->   kernel-doc issues, by making the tool more smart.
-> 
-> - Patches 4 and 5 are meant to partially address the PDF
->   build, with now requires Sphinx version 2.4 or upper.
-> 
-> The remaining patches fix broken references detected by
-> this tool:
-> 
->         ./scripts/documentation-file-ref-check
-> 
-> and address other random errors due to tags being mis-interpreted
-> or mis-used.
-> 
-> They are independent each other, but some may depend on
-> the kernel-doc improvements.
-> 
-> PS.: Due to the large number of C/C, I opted to keep a smaller
-> set of C/C at this first e-mail (only e-mails with "L:" tag from
-> MAINTAINERS file).
+Harigovindan P (2):
+  drm/panel: add support for rm69299 visionox panel driver
+  dt-bindings: documenting compatible string vendor "visionox"
 
-OK, I've applied this set, minus #17 which was applied elsewhere.
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ drivers/gpu/drm/panel/Kconfig                 |   8 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ .../gpu/drm/panel/panel-visionox-rm69299.c    | 304 ++++++++++++++++++
+ 4 files changed, 315 insertions(+)
+ create mode 100644 drivers/gpu/drm/panel/panel-visionox-rm69299.c
 
-Thanks,
+-- 
+2.25.1
 
-jon
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
