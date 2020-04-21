@@ -1,30 +1,30 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7D3A1B1DC0
-	for <lists+freedreno@lfdr.de>; Tue, 21 Apr 2020 06:55:10 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DB0D1B1DC2
+	for <lists+freedreno@lfdr.de>; Tue, 21 Apr 2020 06:55:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77C716E876;
-	Tue, 21 Apr 2020 04:55:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FD406E87A;
+	Tue, 21 Apr 2020 04:55:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from alexa-out-blr-02.qualcomm.com (alexa-out-blr-02.qualcomm.com
  [103.229.18.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC0376E876;
- Tue, 21 Apr 2020 04:55:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E3786E878;
+ Tue, 21 Apr 2020 04:55:11 +0000 (UTC)
 Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
  by alexa-out-blr-02.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 21 Apr 2020 10:25:04 +0530
+ 21 Apr 2020 10:25:11 +0530
 Received: from harigovi-linux.qualcomm.com ([10.204.66.157])
- by ironmsg01-blr.qualcomm.com with ESMTP; 21 Apr 2020 10:25:04 +0530
+ by ironmsg01-blr.qualcomm.com with ESMTP; 21 Apr 2020 10:25:10 +0530
 Received: by harigovi-linux.qualcomm.com (Postfix, from userid 2332695)
- id 461C82A55; Tue, 21 Apr 2020 10:25:03 +0530 (IST)
+ id D706A2A55; Tue, 21 Apr 2020 10:25:09 +0530 (IST)
 From: Harigovindan P <harigovi@codeaurora.org>
 To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Date: Tue, 21 Apr 2020 10:24:59 +0530
-Message-Id: <20200421045501.21080-1-harigovi@codeaurora.org>
+Date: Tue, 21 Apr 2020 10:25:06 +0530
+Message-Id: <20200421045508.21137-1-harigovi@codeaurora.org>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Subject: [Freedreno] [PATCH v11 0/2] Add support for rm69299 Visionox panel
