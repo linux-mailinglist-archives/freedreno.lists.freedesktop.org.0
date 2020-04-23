@@ -1,53 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C1841B5A45
-	for <lists+freedreno@lfdr.de>; Thu, 23 Apr 2020 13:17:27 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id F1C8C1B5F1C
+	for <lists+freedreno@lfdr.de>; Thu, 23 Apr 2020 17:26:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CECDB6E417;
-	Thu, 23 Apr 2020 11:17:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F1276E8D7;
+	Thu, 23 Apr 2020 15:26:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA8866E41B
- for <freedreno@lists.freedesktop.org>; Thu, 23 Apr 2020 11:17:24 +0000 (UTC)
-Received: by mail-lj1-x22b.google.com with SMTP id a21so2901463ljj.11
- for <freedreno@lists.freedesktop.org>; Thu, 23 Apr 2020 04:17:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=oAZ3axSS566ERI69yTRudA5pk37T198UyezMCJFyqg0=;
- b=KSgfMoObN3NHkidu9iYPdBnmPp3engyij0Ehfav1N/WhjTgeC0WAEqV4PiK/2se+vh
- 02HoWakOzVncGdusZNQ8ZY+F4fGiQeQp11DgqhFA6LRJS/KpLsNb/rZLlt7C9BbjD2TH
- yoXItbqJBSgTggjo6BLsrgNnlCAbD96MbZpV9SlalV5NLuUMbH7QF8llxpE4PTExVmbw
- d5LdA6pZenEYzRWH599sjZKGNxJ9Yx61SR1VALDpJCDfcBh55QcXhxJE1GvV7OKHQjyy
- aghumRr0w+KpFu9by9ZQSRdUYR2Hxj4B30onoIvzgWmUdZgQn0CuWqW0NiJ9Mre70Wyh
- JqXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=oAZ3axSS566ERI69yTRudA5pk37T198UyezMCJFyqg0=;
- b=JLDfn6TkDwjQIGfHBBK0yGMQJYESWrXc3Csfp3eNGOValOS5CVCxC4NEC5sxAJwmzG
- tF0T1/C44jxVdfIHkR0x3CiT2t3FhI93vLaz0IRlWra5V52gKnC5Sg+9jqKlo8KjcyPC
- fVLyA+1Ucndor6yZMSMNI0f2u+Evqq2uLxlHsmalpI4k4W1cnJ/3TGMHiMhWvwc7xTAz
- YuxrHog/OwwZOR2+NrzntI6CkvOnlHzNJZfHOj3Teb7A3kCzkt0SaPCSsgsNtqT1cABU
- kz+hL/jd1U71s6Aizqp1Rmlzue6SLX/isM7DFIsVAJrEbecWZQ8dshG5bw0MJvq0h8VC
- plsQ==
-X-Gm-Message-State: AGi0PuZ0sELfHR+whCr9ZZ9oW+NP1rB0nwkwvhuAL1OW+E31jNkLu7yY
- kXLYw14T1I2QEix85kDZh0vdyKJFwkAZc3geEU59SA==
-X-Google-Smtp-Source: APiQypK0Re1sUKs5qj9tLUP4qPP1QkFHT2aHcKdugHwEJw1KaZvbC8SiMNOvF4Qprdlmol4eRp7pXa/xXuHF+2LAOi8=
-X-Received: by 2002:a2e:9496:: with SMTP id c22mr1938373ljh.165.1587640642860; 
- Thu, 23 Apr 2020 04:17:22 -0700 (PDT)
+Received: from mail27.static.mailgun.info (mail27.static.mailgun.info
+ [104.130.122.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B93006E8D6
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Apr 2020 15:26:12 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1587655574; h=In-Reply-To: Content-Type: MIME-Version:
+ References: Message-ID: Subject: Cc: To: From: Date: Sender;
+ bh=9wQ2DyfHn0zQSPKWH0MRTyykuPGkgNXnO6TKfK9XPEc=;
+ b=U8H1PRidACnRzdCp293EUATumday7GyZNzyn3WRY11XoMWgAFfKTXnSfOoB9g18796SqYm6+
+ i3iQ9ULCDHZOg2zx85XhoIWM7GkiObEiWVyU8cEw94PffUhKuc3DMMM4+XMrXPpiHh0RTUYo
+ hBFXUxWIyhE3D0Z0YAFjbAcmzMo=
+X-Mailgun-Sending-Ip: 104.130.122.27
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5ea1b387.7fe426464b58-smtp-out-n01;
+ Thu, 23 Apr 2020 15:25:59 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 81425C433D2; Thu, 23 Apr 2020 15:25:58 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 04D96C433F2;
+ Thu, 23 Apr 2020 15:25:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 04D96C433F2
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=jcrouse@codeaurora.org
+Date: Thu, 23 Apr 2020 09:25:55 -0600
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: Jonathan Marek <jonathan@marek.ca>
+Message-ID: <20200423152555.GA32401@jcrouse1-lnx.qualcomm.com>
+Mail-Followup-To: Jonathan Marek <jonathan@marek.ca>,
+ freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
+References: <20200421234127.27965-1-jonathan@marek.ca>
+ <20200421234127.27965-3-jonathan@marek.ca>
 MIME-Version: 1.0
-From: Naresh Kamboju <naresh.kamboju@linaro.org>
-Date: Thu, 23 Apr 2020 16:47:11 +0530
-Message-ID: <CA+G9fYtoYzRbrUVhboUgOOqEC2xt_i4ZmYb9yq33fRmf653_pQ@mail.gmail.com>
-To: linux- stable <stable@vger.kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Sasha Levin <sashal@kernel.org>
-Subject: [Freedreno] stable-rc 4.14: Internal error: Oops: 96000004 - pc :
- __pi_strcmp+0x18/0x154
+Content-Disposition: inline
+In-Reply-To: <20200421234127.27965-3-jonathan@marek.ca>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Freedreno] [PATCH v2 2/9] drm/msm: add internal
+ MSM_BO_MAP_PRIV flag
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,89 +76,70 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: John Stultz <john.stultz@linaro.org>, Arnd Bergmann <arnd@arndb.de>,
- Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, "rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
- open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, robdclark@gmail.com,
- Hans Verkuil <hans.verkuil@cisco.com>, lkft-triage@lists.linaro.org,
- colin.king@canonical.com, freedreno@lists.freedesktop.org,
- Brian Masney <masneyb@onstation.org>
+Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-We still notice kernel warnings while booting stable rc 4.14.177-rc1 kernel
-on qualcomm dragonboard 410c development board.
+On Tue, Apr 21, 2020 at 07:41:20PM -0400, Jonathan Marek wrote:
+> This flag sets IOMMU_PRIV, which is required for some a6xx GMU objects.
 
-[    7.760140] msm_dsi_host_set_src_pll: can't set parent to
-byte_clk_src. ret=-22
-[    7.763963] msm_dsi_manager_register: failed to register mipi dsi
-host for DSI 0
-[    7.772434]   EA = 0, S1PTW = 0
-[    7.774344] msm 1a00000.mdss: failed to bind 1a98000.dsi (ops
-dsi_ops [msm]): -22
-[    7.779241] Data abort info:
-[    7.789056] msm 1a00000.mdss: master bind failed: -22
-[    7.792091] msm_dsi: probe of 1a98000.dsi failed with error -22
-[    7.794132]   ISV = 0, ISS = 0x00000004
-[    7.802783]   CM = 0, WnR = 0
-[    7.809436] user pgtable: 4k pages, 48-bit VAs, pgd = ffff80003b1d7000
-[    7.809660] [0000000000000000] *pgd=0000000000000000
-[    7.825466] Internal error: Oops: 96000004 [#1] PREEMPT SMP
-[    7.825498] Modules linked in: rfkill crc32_ce adv7511 msm(+)
-msm_rng mdt_loader drm_kms_helper rng_core drm fuse
-[    7.829847] Process systemd-udevd (pid: 2635, stack limit =
-0xffff00000f3c0000)
-[    7.840261] CPU: 1 PID: 2635 Comm: systemd-udevd Not tainted 4.14.177-rc1 #1
-[    7.847391] Hardware name: Qualcomm Technologies, Inc. APQ 8016 SBC (DT)
-[    7.847397] task: ffff80003b279780 task.stack: ffff00000f3c0000
-[    7.847410] pc : __pi_strcmp+0x18/0x154
-[    7.866993] lr : platform_match+0xc8/0xe8
-[    7.870809] sp : ffff00000f3c3b10 pstate : 40000145
-[    7.874975] x29: ffff00000f3c3b10 x28: ffff80003a56a000
-[    7.879663] x27: ffff0000081a0578 x26: ffff000000ef98d0
-[    7.885219] x25: ffff00000f3c3e50 x24: ffff00000f515000
-[    7.890514] x23: ffff0000095c8000 x22: 0000000000000000
-[    7.895809] x21: 0000000000000000 x20: ffff000000ef8648
-[    7.901104] x19: ffff80003d1998d0 x18: 0000ffff9a0bf0b0
-[    7.906398] x17: 0000ffff9a06b6d0 x16: ffff000008160330
-[    7.911694] x15: 000000002810bf43 x14: 0000000000000043
-[    7.916990] x13: 3a6c6c7030697364 x12: 00000000bcc77e12
-[    7.922283] x11: ffff80003b279fb8 x10: 0101010101010101
-[    7.927581] x9 : 8efefeff06fefeff x8 : 0000000000000000
-[    7.932874] x7 : 0000000000000000 x6 : 0000000000000000
-[    7.938172] x5 : 0000000000000100 x4 : 0000000000000000
-[    7.943466] x3 : 0000000000000000 x2 : ffff0000087be348
-[    7.948761] x1 : ffff000000eed688 x0 : 0000000000000000
-[    7.954056] Call trace:
-[    7.959354]  __pi_strcmp+0x18/0x154
-[    7.970033]  bus_for_each_dev+0x5c/0xa8
-[    7.970056]  driver_attach+0x30/0x
-[    7.972665]  bus_add_driver+0x1d0/0x240
-[    7.976484]  driver_register+0x6c/0x118
-[    7.980044]  __platform_driver_register+0x54/0x60
-[    7.984103]  msm_drm_register+0x48/0x80 [msm]
-[    7.988728]  do_one_initcall+0x44/0x138
-[    7.993065]  do_init_module+0x64/0x1d0
-[    7.996710]  load_module+0x1d48/0x2518
-[    8.000530]  SyS_finit_module+0xb0/0xc8
-[    8.004263]  __sys_trace_return+0x0/0x4
-[    8.007998] Code: f24008ff 540002e1 f2400807 54000141 (f8408402)
-[    8.011820] ---[ end trace 7d6fc616cc3d45e7 ]---
+The GMU doesn't _need_  privileged surfaces, but it sure is a good idea.
+As a bonus with the APRIV bit on some a6xx targets we can set all of the
+global buffers as privileged so people can't go out and overwrite the memstore
+any more.
 
-full test log,
-https://qa-reports.linaro.org/lkft/linux-stable-rc-4.14-oe/build/v4.14.176-200-gcebd79de8787/testrun/1389032/log
-https://qa-reports.linaro.org/lkft/linux-stable-rc-4.14-oe/build/v4.14.176-200-gcebd79de8787/testrun/1389032/
-https://lkft.validation.linaro.org/scheduler/job/1389032#L3519
+Reviewed-by: Jordan Crouse <jcrouse@codeauorora.org>
 
-Kernel config:
-http://snapshots.linaro.org/openembedded/lkft/lkft/sumo/dragonboard-410c/lkft/linux-stable-rc-4.14/817/config
+> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+> ---
+>  drivers/gpu/drm/msm/msm_gem.c | 3 +++
+>  drivers/gpu/drm/msm/msm_gem.h | 1 +
+>  2 files changed, 4 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+> index d8f56a34c117..6277fde13df9 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.c
+> +++ b/drivers/gpu/drm/msm/msm_gem.c
+> @@ -428,6 +428,9 @@ static int msm_gem_pin_iova(struct drm_gem_object *obj,
+>  	if (!(msm_obj->flags & MSM_BO_GPU_READONLY))
+>  		prot |= IOMMU_WRITE;
+>  
+> +	if (msm_obj->flags & MSM_BO_MAP_PRIV)
+> +		prot |= IOMMU_PRIV;
+> +
+>  	WARN_ON(!mutex_is_locked(&msm_obj->lock));
+>  
+>  	if (WARN_ON(msm_obj->madv != MSM_MADV_WILLNEED))
+> diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
+> index 30584eaf8cc8..972490b14ba5 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.h
+> +++ b/drivers/gpu/drm/msm/msm_gem.h
+> @@ -13,6 +13,7 @@
+>  
+>  /* Additional internal-use only BO flags: */
+>  #define MSM_BO_STOLEN        0x10000000    /* try to use stolen/splash memory */
+> +#define MSM_BO_MAP_PRIV      0x20000000    /* use IOMMU_PRIV when mapping */
+>  
+>  struct msm_gem_address_space {
+>  	const char *name;
+> -- 
+> 2.26.1
+> 
+> _______________________________________________
+> Freedreno mailing list
+> Freedreno@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/freedreno
 
 -- 
-Linaro LKFT
-https://lkft.linaro.org
+The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+a Linux Foundation Collaborative Project
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
