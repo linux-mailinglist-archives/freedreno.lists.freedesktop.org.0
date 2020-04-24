@@ -1,42 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57ADC1B6A45
-	for <lists+freedreno@lfdr.de>; Fri, 24 Apr 2020 02:26:36 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 792BB1B7B9C
+	for <lists+freedreno@lfdr.de>; Fri, 24 Apr 2020 18:30:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E70EF89F43;
-	Fri, 24 Apr 2020 00:26:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2155B6E0D5;
+	Fri, 24 Apr 2020 16:30:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A42566E14F;
- Fri, 24 Apr 2020 00:26:33 +0000 (UTC)
-Received: from kernel.org (unknown [104.132.0.74])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6325C2071E;
- Fri, 24 Apr 2020 00:26:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587687993;
- bh=NxMTrUOdvV7ZvTYEex9pK6ErvaWkea7ib48OAgesRuA=;
- h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
- b=x0NYW9jEt3g4C1uG3LIO3OrkmklNXAf1co2XxoHUhe2Jv4OngttmxuUsVuloNSi0M
- wnqo3yjfuh0q62d8PdyRqKrEeYDw/5B8Z6Wvh876Yyp5M6Lm0hQt+GOSc29atTzXDY
- PLYuedekuD9DZyQBpUjBRlpjrBzrusb6XBVvCtfA=
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 431A46E450
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Apr 2020 10:05:32 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id e26so9792777wmk.5
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Apr 2020 03:05:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=9sjFX/xOuzJ1ma+dRdm2U+QjBqHkdZ65sP7ssS65XRA=;
+ b=xAChQZOcypsVjlU+KN7lBfFG4SyTb5KqpLWyOQk/HBgA4pxxYLt4W8HT40QHNHXuND
+ SswVB8FxgipX++pkVkNaR8M0DfByM4uDfkV53KNc4F5e6gJFsB9XHfb1TFm/2mDjj8Uc
+ uHh8BI5lk8qcPlr5pEMiFvBX+jXNaT02cBtzNzPBJPh69OEV+jpcyTHpr4SdOghEoZIU
+ v1OlHZN+G+JW/diBuCUtuB14n/P3lLlrOBJwuE9o3XWMMpSmq0ECmhNQ7aW/nWTD5grS
+ DligmM3LZkudrG+F/7/ksSB/84dWjDY/jqXCwlo/6VXVr/o9HaXAqcqRhGuBlatN+3ph
+ 7fIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=9sjFX/xOuzJ1ma+dRdm2U+QjBqHkdZ65sP7ssS65XRA=;
+ b=Jt2mLDF9G42ts5O8NCXH4lXaz0P/XuDzffmrKB05CKBTKCS0pa6jOsi/H86icK95DB
+ gK8W/UYgkSRUZ4ywXzjTCUyTCQrretqMHi54Do24mWyD0ALq058GN5Lu/JFkQx5g5Y/J
+ nCE+T23w4/3WO7ARclaIFa2MMvbREX0YaBc97SStXNGXtMamkHi5SdWXrCMj1depgB86
+ uZGI2xn9IPxtpDZp/e8Wy8wuYrIgjb5swvKDUaTxikXeJ/wT/LtR/oO/FQC4X/FwCnRs
+ xhY5zUAclsMq5XbN0rD1c9rm47TgxJQH5xQT3kIRHdD4gkHVrrXrB4p9EN3kCueQfOP0
+ BUOw==
+X-Gm-Message-State: AGi0Pub5SYQ4IKdlEqOAvnzBNcZ4jFZQyhhlE7JIcAK/4fHh12+ju3y5
+ sh8NdC29NFpKWGpJssI28YK3MA==
+X-Google-Smtp-Source: APiQypJHsUUKYVh/i2dCkEYnnU0IrFg+4nLc/ppXSv5rQqfX7rU+7H/vSQrP81Cv7/oKIMPtXmJABQ==
+X-Received: by 2002:a1c:9a81:: with SMTP id c123mr8759385wme.115.1587722730639; 
+ Fri, 24 Apr 2020 03:05:30 -0700 (PDT)
+Received: from dell ([2.31.163.63])
+ by smtp.gmail.com with ESMTPSA id o129sm2310857wme.16.2020.04.24.03.05.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Apr 2020 03:05:29 -0700 (PDT)
+Date: Fri, 24 Apr 2020 11:05:26 +0100
+From: Lee Jones <lee.jones@linaro.org>
+To: Hadar Gat <hadar.gat@arm.com>
+Message-ID: <20200424100526.GA8414@dell>
+References: <1587395080-15722-1-git-send-email-hadar.gat@arm.com>
 MIME-Version: 1.0
-In-Reply-To: <1585701031-28871-5-git-send-email-tanmay@codeaurora.org>
-References: <1585701031-28871-1-git-send-email-tanmay@codeaurora.org>
- <1585701031-28871-5-git-send-email-tanmay@codeaurora.org>
-From: Stephen Boyd <sboyd@kernel.org>
-To: Tanmay Shah <tanmay@codeaurora.org>, devicetree@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- seanpaul@chromium.org
-Date: Thu, 23 Apr 2020 17:26:32 -0700
-Message-ID: <158768799258.135303.4148133179625718198@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.9
-Subject: Re: [Freedreno] [DPU PATCH v5 4/5] drm/msm/dp: add support for DP
- PLL driver
+Content-Disposition: inline
+In-Reply-To: <1587395080-15722-1-git-send-email-hadar.gat@arm.com>
+X-Mailman-Approved-At: Fri, 24 Apr 2020 16:30:13 +0000
+Subject: Re: [Freedreno] [PATCH v3] of_device: removed #include that caused
+ a recursion in included headers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,180 +69,104 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: abhinavk@codeaurora.org, swboyd@chromium.org, robdclark@gmail.com,
- nganji@codeaurora.org, hoegsberg@google.com, dri-devel@lists.freedesktop.org,
- Vara Reddy <varar@codeaurora.org>, jsanka@codeaurora.org,
- aravindh@codeaurora.org, linux-clk@vger.kernel.org,
- Chandan Uddaraju <chandanu@codeaurora.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Jose Abreu <joabreu@synopsys.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>, devicetree@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, Michael Turquette <mturquette@baylibre.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Stefan Agner <stefan@agner.ch>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, linux-tegra@vger.kernel.org,
+ Thierry Reding <thierry.reding@gmail.com>, linux-mtd@lists.infradead.org,
+ Miquel Raynal <miquel.raynal@bootlin.com>, sparclinux@vger.kernel.org,
+ netdev@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, linux-clk@vger.kernel.org,
+ Vignesh Raghavendra <vigneshr@ti.com>, linux-samsung-soc@vger.kernel.org,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Frank Rowand <frowand.list@gmail.com>, linux-rockchip@lists.infradead.org,
+ Richard Weinberger <richard@nod.at>, Joerg Roedel <joro@8bytes.org>,
+ Vinod Koul <vkoul@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Tony Lindgren <tony@atomide.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Andy Gross <agross@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-media@vger.kernel.org,
+ Kishon Vijay Abraham I <kishon@ti.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>, linux-omap@vger.kernel.org,
+ iommu@lists.linux-foundation.org, linux-arm-msm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>, freedreno@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, Gilad Ben-Yossef <gilad@benyossef.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, Matthias Brugger <matthias.bgg@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Chen-Yu Tsai <wens@csie.org>,
+ Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
+ Ofir Drang <ofir.drang@arm.com>, Dong Aisheng <aisheng.dong@nxp.com>,
+ linux-gpio@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Sandy Huang <hjc@rock-chips.com>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ JC Kuo <jckuo@nvidia.com>, Rob Clark <robdclark@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Kukjin Kim <kgene@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, dmaengine@vger.kernel.org,
+ Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Jonathan Cameron <jic23@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Tanmay Shah (2020-03-31 17:30:30)
-> diff --git a/drivers/gpu/drm/msm/dp/pll/dp_pll_10nm.c b/drivers/gpu/drm/msm/dp/pll/dp_pll_10nm.c
-> new file mode 100644
-> index 0000000..aa845d0
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dp/pll/dp_pll_10nm.c
-> @@ -0,0 +1,401 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) 2016-2020, The Linux Foundation. All rights reserved.
-> + */
-> +
-> +/*
-> + * Display Port PLL driver block diagram for branch clocks
-> + *
-> + *              +------------------------------+
-> + *              |         DP_VCO_CLK           |
-> + *              |                              |
-> + *              |    +-------------------+     |
-> + *              |    |   (DP PLL/VCO)    |     |
-> + *              |    +---------+---------+     |
-> + *              |              v               |
-> + *              |   +----------+-----------+   |
-> + *              |   | hsclk_divsel_clk_src |   |
-> + *              |   +----------+-----------+   |
-> + *              +------------------------------+
-> + *                              |
-> + *          +---------<---------v------------>----------+
-> + *          |                                           |
-> + * +--------v---------+                                 |
-> + * |    dp_phy_pll    |                                 |
-> + * |     link_clk     |                                 |
-> + * +--------+---------+                                 |
-> + *          |                                           |
-> + *          |                                           |
-> + *          v                                           v
-> + * Input to DISPCC block                                |
-> + * for link clk, crypto clk                             |
-> + * and interface clock                                  |
-> + *                                                      |
-> + *                                                      |
-> + *      +--------<------------+-----------------+---<---+
-> + *      |                     |                 |
-> + * +----v---------+  +--------v-----+  +--------v------+
-> + * | vco_divided  |  | vco_divided  |  | vco_divided   |
-> + * |    _clk_src  |  |    _clk_src  |  |    _clk_src   |
-> + * |              |  |              |  |               |
-> + * |divsel_six    |  |  divsel_two  |  |  divsel_four  |
-> + * +-------+------+  +-----+--------+  +--------+------+
-> + *         |                 |                  |
-> + *         v---->----------v-------------<------v
-> + *                         |
-> + *              +----------+---------+
-> + *              |   dp_phy_pll_vco   |
-> + *              |       div_clk      |
-> + *              +---------+----------+
-> + *                        |
-> + *                        v
-> + *              Input to DISPCC block
-> + *              for DP pixel clock
-
-I suspect this shouldn't be a complicated clk provider at all. Take a
-look at commit 42d068472ddf ("phy: Add DisplayPort configuration
-options") for how the phy should manage the link rate, etc. If the
-dispcc pixel clock needs to know what rate is coming in, then a single
-clk_hw can be implemented here that tells the consumer (i.e. dispcc) the
-rate that it will see at the output of this node. Otherwise, modeling
-the clk tree inside this PLL block like this is super overly complicated
-and wasteful. Don't do it.
-
-> + *
-> + */
-> +
-> +#include <linux/clk.h>
-> +#include <linux/delay.h>
-> +#include <linux/err.h>
-> +#include <linux/kernel.h>
-> +#include <linux/regmap.h>
-> +
-> +#include "dp_pll_10nm.h"
-> +
-> +#define NUM_PROVIDED_CLKS              2
-> +
-> +#define DP_LINK_CLK_SRC                        0
-> +#define DP_PIXEL_CLK_SRC               1
-> +
-[...]
-> diff --git a/drivers/gpu/drm/msm/dp/pll/dp_pll_10nm_util.c b/drivers/gpu/drm/msm/dp/pll/dp_pll_10nm_util.c
-> new file mode 100644
-> index 0000000..fff2e8d
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dp/pll/dp_pll_10nm_util.c
-> @@ -0,0 +1,524 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) 2016-2020, The Linux Foundation. All rights reserved.
-> + */
-> +
-> +#define pr_fmt(fmt)    "%s: " fmt, __func__
-> +
-> +#include <linux/delay.h>
-> +#include <linux/err.h>
-> +#include <linux/iopoll.h>
-> +#include <linux/kernel.h>
-> +
-> +#include "dp_hpd.h"
-> +#include "dp_pll.h"
-> +#include "dp_pll_10nm.h"
-> +
-[...]
-> +
-> +static int dp_config_vco_rate_10nm(struct msm_dp_pll *pll,
-> +               unsigned long rate)
-> +{
-> +       u32 res = 0;
-> +       struct dp_pll_10nm *dp_res = to_dp_pll_10nm(pll);
-> +
-> +       res = dp_vco_pll_init_db_10nm(pll, rate);
-> +       if (res) {
-> +               DRM_ERROR("VCO Init DB failed\n");
-> +               return res;
-> +       }
-> +
-> +       if (dp_res->lane_cnt != 4) {
-> +               if (dp_res->orientation == ORIENTATION_CC2)
-> +                       PLL_REG_W(dp_res->phy_base, REG_DP_PHY_PD_CTL, 0x6d);
-> +               else
-> +                       PLL_REG_W(dp_res->phy_base, REG_DP_PHY_PD_CTL, 0x75);
-> +       } else {
-> +               PLL_REG_W(dp_res->phy_base, REG_DP_PHY_PD_CTL, 0x7d);
-> +       }
-
-For example, this part here can be done through the phy configuration
-ops. A lane count check in the set rate clk op is quite odd!
-
-> +
-> +long dp_vco_round_rate_10nm(struct clk_hw *hw, unsigned long rate,
-> +                       unsigned long *parent_rate)
-> +{
-> +       unsigned long rrate = rate;
-> +       struct msm_dp_pll *pll = to_msm_dp_pll(hw);
-> +
-> +       if (rate <= pll->min_rate)
-> +               rrate = pll->min_rate;
-> +       else if (rate <= DP_VCO_HSCLK_RATE_2700MHZDIV1000)
-> +               rrate = DP_VCO_HSCLK_RATE_2700MHZDIV1000;
-> +       else if (rate <= DP_VCO_HSCLK_RATE_5400MHZDIV1000)
-> +               rrate = DP_VCO_HSCLK_RATE_5400MHZDIV1000;
-> +       else
-> +               rrate = pll->max_rate;
-
-This is basically link rate setting through the clk framework. Calling
-clk_set_rate() on the pixel clk is complicated and opaque. I'd expect to
-see the DP controller driver set the link rate on the phy with
-phy_configure(), and then that can change the rate that is seen
-downstream at the pixel clk. Does the pixel clk need to do anything with
-the rate? Probably not? I suspect it can just enable the pixel clk when
-it needs to and disable it when it doesn't need it.
-
-> +
-> +       DRM_DEBUG_DP("%s: rrate=%ld\n", __func__, rrate);
-> +
-> +       *parent_rate = rrate;
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+T24gTW9uLCAyMCBBcHIgMjAyMCwgSGFkYXIgR2F0IHdyb3RlOgoKPiBCb3RoIG9mX3BsYXRmb3Jt
+LmggYW5kIG9mX2RldmljZS5oIHdlcmUgaW5jbHVkZWQgZWFjaCBvdGhlci4KPiBJbiBvZl9kZXZp
+Y2UuaCwgcmVtb3ZlZCB1bm5lZWRlZCAjaW5jbHVkZSB0byBvZl9wbGF0Zm9ybS5oCj4gYW5kIGFk
+ZGVkIGluY2x1ZGUgdG8gb2ZfcGxhdGZvcm0uaCBpbiB0aGUgZmlsZXMgdGhhdCBuZWVkcyBpdC4K
+PiAKPiBTaWduZWQtb2ZmLWJ5OiBIYWRhciBHYXQgPGhhZGFyLmdhdEBhcm0uY29tPgo+IFJlcG9y
+dGVkLWJ5OiBrYnVpbGQgdGVzdCByb2JvdCA8bGtwQGludGVsLmNvbT4KPiBBY2tlZC1ieTogSm9u
+YXRoYW4gQ2FtZXJvbiA8Sm9uYXRoYW4uQ2FtZXJvbkBodWF3ZWkuY29tPiAjZm9yLWlpbwo+IEFj
+a2VkLWJ5OiBTdGVwaGVuIEJveWQgPHNib3lkQGtlcm5lbC5vcmc+ICMgY2xrCj4gLS0tCj4gdjM6
+IGFkZCBpbmNsdWRlIHRvIG9mX3BsYXRmb3JtLmggaW4gbW9yZSBmaWxlcy4gKHJlcG9ydGVkIGR1
+ZSBvdGhlciBidWlsZHMpCj4gdjI6IGFkZCBpbmNsdWRlIHRvIG9mX3BsYXRmb3JtLmggaW4gbW9y
+ZSBmaWxlcy4gKHJlcG9ydGVkIGR1ZSBvdGhlciBidWlsZHMpCj4gCj4gIGFyY2gvc3BhcmMva2Vy
+bmVsL3BjaS5jICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAxICsKPiAgYXJjaC9zcGFyYy9r
+ZXJuZWwvcGNpX3NhYnJlLmMgICAgICAgICAgICAgICAgICAgICB8IDEgKwo+ICBhcmNoL3NwYXJj
+L2tlcm5lbC9wY2lfc2NoaXpvLmMgICAgICAgICAgICAgICAgICAgIHwgMSArCj4gIGFyY2gvc3Bh
+cmMva2VybmVsL3NidXMuYyAgICAgICAgICAgICAgICAgICAgICAgICAgfCAxICsKPiAgYXJjaC9z
+cGFyYy9tbS9pby11bml0LmMgICAgICAgICAgICAgICAgICAgICAgICAgICB8IDEgKwo+ICBhcmNo
+L3NwYXJjL21tL2lvbW11LmMgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgMSArCj4gIGRy
+aXZlcnMvYmFzZS9wbGF0Zm9ybS5jICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAxICsKPiAg
+ZHJpdmVycy9idXMvaW14LXdlaW0uYyAgICAgICAgICAgICAgICAgICAgICAgICAgICB8IDEgKwo+
+ICBkcml2ZXJzL2J1cy92ZXhwcmVzcy1jb25maWcuYyAgICAgICAgICAgICAgICAgICAgIHwgMSAr
+Cj4gIGRyaXZlcnMvY2xrL21lZGlhdGVrL2Nsay1tdDc2MjItYXVkLmMgICAgICAgICAgICAgfCAx
+ICsKPiAgZHJpdmVycy9kbWEvYXRfaGRtYWMuYyAgICAgICAgICAgICAgICAgICAgICAgICAgICB8
+IDEgKwo+ICBkcml2ZXJzL2RtYS9zdG0zMi1kbWFtdXguYyAgICAgICAgICAgICAgICAgICAgICAg
+IHwgMSArCj4gIGRyaXZlcnMvZG1hL3RpL2RtYS1jcm9zc2Jhci5jICAgICAgICAgICAgICAgICAg
+ICAgfCAxICsKPiAgZHJpdmVycy9ncHUvZHJtL21zbS9hZHJlbm8vYTZ4eF9nbXUuYyAgICAgICAg
+ICAgICB8IDEgKwo+ICBkcml2ZXJzL2dwdS9kcm0vbXNtL2hkbWkvaGRtaS5jICAgICAgICAgICAg
+ICAgICAgIHwgMSArCj4gIGRyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2Rydi5jICAgICAgICAgICAg
+ICAgICAgICAgfCAxICsKPiAgZHJpdmVycy9ncHUvZHJtL3JvY2tjaGlwL2R3LW1pcGktZHNpLXJv
+Y2tjaGlwLmMgICB8IDEgKwo+ICBkcml2ZXJzL2dwdS9kcm0vc3VuNGkvc3VuNGlfdGNvbi5jICAg
+ICAgICAgICAgICAgIHwgMSArCj4gIGRyaXZlcnMvaWlvL2FkYy9zdG0zMi1hZGMtY29yZS5jICAg
+ICAgICAgICAgICAgICAgfCAxICsKPiAgZHJpdmVycy9paW8vYWRjL3N0bTMyLWRmc2RtLWFkYy5j
+ICAgICAgICAgICAgICAgICB8IDEgKwo+ICBkcml2ZXJzL2lpby9hZGMvc3RtMzItZGZzZG0tY29y
+ZS5jICAgICAgICAgICAgICAgIHwgMSArCj4gIGRyaXZlcnMvaW9tbXUvdGVncmEtc21tdS5jICAg
+ICAgICAgICAgICAgICAgICAgICAgfCAxICsKPiAgZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9jb2Rh
+L2NvZGEtY29tbW9uLmMgICAgICAgICB8IDEgKwo+ICBkcml2ZXJzL21lbW9yeS9hdG1lbC1lYmku
+YyAgICAgICAgICAgICAgICAgICAgICAgIHwgMSArCgo+ICBkcml2ZXJzL21mZC9wYWxtYXMuYyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgMSArCj4gIGRyaXZlcnMvbWZkL3NzYmkuYyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAxICsKCkFja2VkLWJ5OiBMZWUgSm9uZXMg
+PGxlZS5qb25lc0BsaW5hcm8ub3JnPgoKPiAgZHJpdmVycy9tdGQvbmFuZC9yYXcvb21hcDIuYyAg
+ICAgICAgICAgICAgICAgICAgICB8IDEgKwo+ICBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3Jv
+L3N0bW1hYy9kd21hYy1zdW44aS5jIHwgMSArCj4gIGRyaXZlcnMvbmV0L2V0aGVybmV0L3RpL2Nw
+c3cuYyAgICAgICAgICAgICAgICAgICAgfCAxICsKPiAgZHJpdmVycy9waHkvdGVncmEveHVzYi5j
+ICAgICAgICAgICAgICAgICAgICAgICAgICB8IDEgKwo+ICBkcml2ZXJzL3BpbmN0cmwvZnJlZXNj
+YWxlL3BpbmN0cmwtaW14MS1jb3JlLmMgICAgIHwgMSArCj4gIGRyaXZlcnMvcGluY3RybC9ub21h
+ZGlrL3BpbmN0cmwtbm9tYWRpay5jICAgICAgICAgfCAxICsKPiAgZHJpdmVycy9zb2Mvc2Ftc3Vu
+Zy9leHlub3MtcG11LmMgICAgICAgICAgICAgICAgICB8IDEgKwo+ICBkcml2ZXJzL3NvYy9zdW54
+aS9zdW54aV9zcmFtLmMgICAgICAgICAgICAgICAgICAgIHwgMSArCj4gIGluY2x1ZGUvbGludXgv
+b2ZfZGV2aWNlLmggICAgICAgICAgICAgICAgICAgICAgICAgfCAyIC0tCj4gIGxpYi9nZW5hbGxv
+Yy5jICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAxICsKPiAgMzYgZmlsZXMg
+Y2hhbmdlZCwgMzUgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCi0tIApMZWUgSm9uZXMg
+W+adjueQvOaWr10KTGluYXJvIFNlcnZpY2VzIFRlY2huaWNhbCBMZWFkCkxpbmFyby5vcmcg4pSC
+IE9wZW4gc291cmNlIHNvZnR3YXJlIGZvciBBUk0gU29DcwpGb2xsb3cgTGluYXJvOiBGYWNlYm9v
+ayB8IFR3aXR0ZXIgfCBCbG9nCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Zy
+ZWVkcmVubwo=
