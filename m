@@ -1,62 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 792BB1B7B9C
-	for <lists+freedreno@lfdr.de>; Fri, 24 Apr 2020 18:30:15 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id D961E1B7C80
+	for <lists+freedreno@lfdr.de>; Fri, 24 Apr 2020 19:14:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2155B6E0D5;
-	Fri, 24 Apr 2020 16:30:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 849286EADD;
+	Fri, 24 Apr 2020 17:14:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 431A46E450
- for <freedreno@lists.freedesktop.org>; Fri, 24 Apr 2020 10:05:32 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id e26so9792777wmk.5
- for <freedreno@lists.freedesktop.org>; Fri, 24 Apr 2020 03:05:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=9sjFX/xOuzJ1ma+dRdm2U+QjBqHkdZ65sP7ssS65XRA=;
- b=xAChQZOcypsVjlU+KN7lBfFG4SyTb5KqpLWyOQk/HBgA4pxxYLt4W8HT40QHNHXuND
- SswVB8FxgipX++pkVkNaR8M0DfByM4uDfkV53KNc4F5e6gJFsB9XHfb1TFm/2mDjj8Uc
- uHh8BI5lk8qcPlr5pEMiFvBX+jXNaT02cBtzNzPBJPh69OEV+jpcyTHpr4SdOghEoZIU
- v1OlHZN+G+JW/diBuCUtuB14n/P3lLlrOBJwuE9o3XWMMpSmq0ECmhNQ7aW/nWTD5grS
- DligmM3LZkudrG+F/7/ksSB/84dWjDY/jqXCwlo/6VXVr/o9HaXAqcqRhGuBlatN+3ph
- 7fIw==
+Received: from mail-io1-xd41.google.com (mail-io1-xd41.google.com
+ [IPv6:2607:f8b0:4864:20::d41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0341F6EADD
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Apr 2020 17:14:20 +0000 (UTC)
+Received: by mail-io1-xd41.google.com with SMTP id p10so11128716ioh.7
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Apr 2020 10:14:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=RYByyO3QIEU47gTN7mqAa4K1vs54y8GQ0x5KuvlJFVY=;
+ b=crFmzsS8lWUOAAgiwUHxODA0VdX/NmN1uriNwtVUUxeQaK6UjeTU8g+fpOFh5DHg5Z
+ ywSPkI7dTX4Q+k1xGvY8RE+c1imAur9njIPVgQGFLJrrJWol7k8ymDw011RnY4NCmTRD
+ J8cDVFeHjut2K/RXWWmDzhYA0uh2wEb/vXvkY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=9sjFX/xOuzJ1ma+dRdm2U+QjBqHkdZ65sP7ssS65XRA=;
- b=Jt2mLDF9G42ts5O8NCXH4lXaz0P/XuDzffmrKB05CKBTKCS0pa6jOsi/H86icK95DB
- gK8W/UYgkSRUZ4ywXzjTCUyTCQrretqMHi54Do24mWyD0ALq058GN5Lu/JFkQx5g5Y/J
- nCE+T23w4/3WO7ARclaIFa2MMvbREX0YaBc97SStXNGXtMamkHi5SdWXrCMj1depgB86
- uZGI2xn9IPxtpDZp/e8Wy8wuYrIgjb5swvKDUaTxikXeJ/wT/LtR/oO/FQC4X/FwCnRs
- xhY5zUAclsMq5XbN0rD1c9rm47TgxJQH5xQT3kIRHdD4gkHVrrXrB4p9EN3kCueQfOP0
- BUOw==
-X-Gm-Message-State: AGi0Pub5SYQ4IKdlEqOAvnzBNcZ4jFZQyhhlE7JIcAK/4fHh12+ju3y5
- sh8NdC29NFpKWGpJssI28YK3MA==
-X-Google-Smtp-Source: APiQypJHsUUKYVh/i2dCkEYnnU0IrFg+4nLc/ppXSv5rQqfX7rU+7H/vSQrP81Cv7/oKIMPtXmJABQ==
-X-Received: by 2002:a1c:9a81:: with SMTP id c123mr8759385wme.115.1587722730639; 
- Fri, 24 Apr 2020 03:05:30 -0700 (PDT)
-Received: from dell ([2.31.163.63])
- by smtp.gmail.com with ESMTPSA id o129sm2310857wme.16.2020.04.24.03.05.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Apr 2020 03:05:29 -0700 (PDT)
-Date: Fri, 24 Apr 2020 11:05:26 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: Hadar Gat <hadar.gat@arm.com>
-Message-ID: <20200424100526.GA8414@dell>
-References: <1587395080-15722-1-git-send-email-hadar.gat@arm.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=RYByyO3QIEU47gTN7mqAa4K1vs54y8GQ0x5KuvlJFVY=;
+ b=FNBRKcQqAZeq0FpGQx1Ryxy9rFcElAsCdQyl0S4ybGBu3cRJyq2PjHDKe/C771G3kB
+ FiHe+efkeaH8jliwOxLw9m56MNW08rMO5fSzKS4f87S+9z7M/OGQhvhWqoegcZeaarN3
+ 3ctxSD9LmW9h/RTKHicYR92Ii0PEy71ybCCAc12s+ugOYO4sRPeWSknHrx1JDzMVpaBZ
+ jFaByxhdIhzruKk7u2WZ9BIICBufOJH6InopdiIAWaEnjI0o1JXcy5t7+/Te+hzzMvS3
+ dSqItSIMHRUbPOA7brK+d6/4SKmhSrlQCUSSownS49ZiWHbk6fmB/M21r0KFaxkILHTl
+ qhnw==
+X-Gm-Message-State: AGi0PuZe6+FInAxe9IVhPHt3fTmPp2fSaVwIfrIzweGZnnqIbZpRKIRw
+ f3czuqUgxv5tNd+X9ssdhAp0285acRe7Uw==
+X-Google-Smtp-Source: APiQypJZzYWj8YdB17NzNHzrncd3vPf31+4cUXkBj65xqNkXzxZ49mf6s3/xxcZqTT8knoK1BRKZeQ==
+X-Received: by 2002:a6b:7843:: with SMTP id h3mr9605377iop.202.1587748459824; 
+ Fri, 24 Apr 2020 10:14:19 -0700 (PDT)
+Received: from mail-io1-f52.google.com (mail-io1-f52.google.com.
+ [209.85.166.52])
+ by smtp.gmail.com with ESMTPSA id n23sm2021960ioh.6.2020.04.24.10.14.12
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 24 Apr 2020 10:14:13 -0700 (PDT)
+Received: by mail-io1-f52.google.com with SMTP id f19so11140175iog.5
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Apr 2020 10:14:12 -0700 (PDT)
+X-Received: by 2002:a5d:8615:: with SMTP id f21mr9473817iol.155.1587748451793; 
+ Fri, 24 Apr 2020 10:14:11 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1587395080-15722-1-git-send-email-hadar.gat@arm.com>
-X-Mailman-Approved-At: Fri, 24 Apr 2020 16:30:13 +0000
-Subject: Re: [Freedreno] [PATCH v3] of_device: removed #include that caused
- a recursion in included headers
+References: <1585701031-28871-1-git-send-email-tanmay@codeaurora.org>
+In-Reply-To: <1585701031-28871-1-git-send-email-tanmay@codeaurora.org>
+From: Sean Paul <seanpaul@chromium.org>
+Date: Fri, 24 Apr 2020 13:13:34 -0400
+X-Gmail-Original-Message-ID: <CAOw6vbKus8S-ZWjuozKQ8Ft4s-8dPsihrNoZf-GjcToR466RZA@mail.gmail.com>
+Message-ID: <CAOw6vbKus8S-ZWjuozKQ8Ft4s-8dPsihrNoZf-GjcToR466RZA@mail.gmail.com>
+To: Tanmay Shah <tanmay@codeaurora.org>
+Subject: Re: [Freedreno] [DPU PATCH v5 0/5] Add support for DisplayPort
+ driver on SnapDragon.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,104 +69,160 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jose Abreu <joabreu@synopsys.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>, devicetree@vger.kernel.org,
- David Airlie <airlied@linux.ie>, Michael Turquette <mturquette@baylibre.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Stefan Agner <stefan@agner.ch>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, linux-tegra@vger.kernel.org,
- Thierry Reding <thierry.reding@gmail.com>, linux-mtd@lists.infradead.org,
- Miquel Raynal <miquel.raynal@bootlin.com>, sparclinux@vger.kernel.org,
- netdev@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Fabio Estevam <festevam@gmail.com>, linux-clk@vger.kernel.org,
- Vignesh Raghavendra <vigneshr@ti.com>, linux-samsung-soc@vger.kernel.org,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Frank Rowand <frowand.list@gmail.com>, linux-rockchip@lists.infradead.org,
- Richard Weinberger <richard@nod.at>, Joerg Roedel <joro@8bytes.org>,
- Vinod Koul <vkoul@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, Tony Lindgren <tony@atomide.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Andy Gross <agross@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Linus Walleij <linus.walleij@linaro.org>, linux-media@vger.kernel.org,
- Kishon Vijay Abraham I <kishon@ti.com>,
- Alexandre Torgue <alexandre.torgue@st.com>, linux-omap@vger.kernel.org,
- iommu@lists.linux-foundation.org, linux-arm-msm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, freedreno@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, Gilad Ben-Yossef <gilad@benyossef.com>,
- Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
- dri-devel@lists.freedesktop.org, Matthias Brugger <matthias.bgg@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Chen-Yu Tsai <wens@csie.org>,
- Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
- Ofir Drang <ofir.drang@arm.com>, Dong Aisheng <aisheng.dong@nxp.com>,
- linux-gpio@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, Sandy Huang <hjc@rock-chips.com>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- JC Kuo <jckuo@nvidia.com>, Rob Clark <robdclark@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Kukjin Kim <kgene@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sudeep Holla <sudeep.holla@arm.com>, dmaengine@vger.kernel.org,
- Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- Jonathan Cameron <jic23@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: devicetree@vger.kernel.org, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ abhinavk@codeaurora.org, swboyd@chromium.org, Rob Clark <robdclark@gmail.com>,
+ nganji@codeaurora.org, Kristian Kristensen <hoegsberg@google.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Jeykumar Sankaran <jsanka@codeaurora.org>, aravindh@codeaurora.org,
+ freedreno <freedreno@lists.freedesktop.org>, linux-clk@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-T24gTW9uLCAyMCBBcHIgMjAyMCwgSGFkYXIgR2F0IHdyb3RlOgoKPiBCb3RoIG9mX3BsYXRmb3Jt
-LmggYW5kIG9mX2RldmljZS5oIHdlcmUgaW5jbHVkZWQgZWFjaCBvdGhlci4KPiBJbiBvZl9kZXZp
-Y2UuaCwgcmVtb3ZlZCB1bm5lZWRlZCAjaW5jbHVkZSB0byBvZl9wbGF0Zm9ybS5oCj4gYW5kIGFk
-ZGVkIGluY2x1ZGUgdG8gb2ZfcGxhdGZvcm0uaCBpbiB0aGUgZmlsZXMgdGhhdCBuZWVkcyBpdC4K
-PiAKPiBTaWduZWQtb2ZmLWJ5OiBIYWRhciBHYXQgPGhhZGFyLmdhdEBhcm0uY29tPgo+IFJlcG9y
-dGVkLWJ5OiBrYnVpbGQgdGVzdCByb2JvdCA8bGtwQGludGVsLmNvbT4KPiBBY2tlZC1ieTogSm9u
-YXRoYW4gQ2FtZXJvbiA8Sm9uYXRoYW4uQ2FtZXJvbkBodWF3ZWkuY29tPiAjZm9yLWlpbwo+IEFj
-a2VkLWJ5OiBTdGVwaGVuIEJveWQgPHNib3lkQGtlcm5lbC5vcmc+ICMgY2xrCj4gLS0tCj4gdjM6
-IGFkZCBpbmNsdWRlIHRvIG9mX3BsYXRmb3JtLmggaW4gbW9yZSBmaWxlcy4gKHJlcG9ydGVkIGR1
-ZSBvdGhlciBidWlsZHMpCj4gdjI6IGFkZCBpbmNsdWRlIHRvIG9mX3BsYXRmb3JtLmggaW4gbW9y
-ZSBmaWxlcy4gKHJlcG9ydGVkIGR1ZSBvdGhlciBidWlsZHMpCj4gCj4gIGFyY2gvc3BhcmMva2Vy
-bmVsL3BjaS5jICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAxICsKPiAgYXJjaC9zcGFyYy9r
-ZXJuZWwvcGNpX3NhYnJlLmMgICAgICAgICAgICAgICAgICAgICB8IDEgKwo+ICBhcmNoL3NwYXJj
-L2tlcm5lbC9wY2lfc2NoaXpvLmMgICAgICAgICAgICAgICAgICAgIHwgMSArCj4gIGFyY2gvc3Bh
-cmMva2VybmVsL3NidXMuYyAgICAgICAgICAgICAgICAgICAgICAgICAgfCAxICsKPiAgYXJjaC9z
-cGFyYy9tbS9pby11bml0LmMgICAgICAgICAgICAgICAgICAgICAgICAgICB8IDEgKwo+ICBhcmNo
-L3NwYXJjL21tL2lvbW11LmMgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgMSArCj4gIGRy
-aXZlcnMvYmFzZS9wbGF0Zm9ybS5jICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAxICsKPiAg
-ZHJpdmVycy9idXMvaW14LXdlaW0uYyAgICAgICAgICAgICAgICAgICAgICAgICAgICB8IDEgKwo+
-ICBkcml2ZXJzL2J1cy92ZXhwcmVzcy1jb25maWcuYyAgICAgICAgICAgICAgICAgICAgIHwgMSAr
-Cj4gIGRyaXZlcnMvY2xrL21lZGlhdGVrL2Nsay1tdDc2MjItYXVkLmMgICAgICAgICAgICAgfCAx
-ICsKPiAgZHJpdmVycy9kbWEvYXRfaGRtYWMuYyAgICAgICAgICAgICAgICAgICAgICAgICAgICB8
-IDEgKwo+ICBkcml2ZXJzL2RtYS9zdG0zMi1kbWFtdXguYyAgICAgICAgICAgICAgICAgICAgICAg
-IHwgMSArCj4gIGRyaXZlcnMvZG1hL3RpL2RtYS1jcm9zc2Jhci5jICAgICAgICAgICAgICAgICAg
-ICAgfCAxICsKPiAgZHJpdmVycy9ncHUvZHJtL21zbS9hZHJlbm8vYTZ4eF9nbXUuYyAgICAgICAg
-ICAgICB8IDEgKwo+ICBkcml2ZXJzL2dwdS9kcm0vbXNtL2hkbWkvaGRtaS5jICAgICAgICAgICAg
-ICAgICAgIHwgMSArCj4gIGRyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2Rydi5jICAgICAgICAgICAg
-ICAgICAgICAgfCAxICsKPiAgZHJpdmVycy9ncHUvZHJtL3JvY2tjaGlwL2R3LW1pcGktZHNpLXJv
-Y2tjaGlwLmMgICB8IDEgKwo+ICBkcml2ZXJzL2dwdS9kcm0vc3VuNGkvc3VuNGlfdGNvbi5jICAg
-ICAgICAgICAgICAgIHwgMSArCj4gIGRyaXZlcnMvaWlvL2FkYy9zdG0zMi1hZGMtY29yZS5jICAg
-ICAgICAgICAgICAgICAgfCAxICsKPiAgZHJpdmVycy9paW8vYWRjL3N0bTMyLWRmc2RtLWFkYy5j
-ICAgICAgICAgICAgICAgICB8IDEgKwo+ICBkcml2ZXJzL2lpby9hZGMvc3RtMzItZGZzZG0tY29y
-ZS5jICAgICAgICAgICAgICAgIHwgMSArCj4gIGRyaXZlcnMvaW9tbXUvdGVncmEtc21tdS5jICAg
-ICAgICAgICAgICAgICAgICAgICAgfCAxICsKPiAgZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9jb2Rh
-L2NvZGEtY29tbW9uLmMgICAgICAgICB8IDEgKwo+ICBkcml2ZXJzL21lbW9yeS9hdG1lbC1lYmku
-YyAgICAgICAgICAgICAgICAgICAgICAgIHwgMSArCgo+ICBkcml2ZXJzL21mZC9wYWxtYXMuYyAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgMSArCj4gIGRyaXZlcnMvbWZkL3NzYmkuYyAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAxICsKCkFja2VkLWJ5OiBMZWUgSm9uZXMg
-PGxlZS5qb25lc0BsaW5hcm8ub3JnPgoKPiAgZHJpdmVycy9tdGQvbmFuZC9yYXcvb21hcDIuYyAg
-ICAgICAgICAgICAgICAgICAgICB8IDEgKwo+ICBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3Jv
-L3N0bW1hYy9kd21hYy1zdW44aS5jIHwgMSArCj4gIGRyaXZlcnMvbmV0L2V0aGVybmV0L3RpL2Nw
-c3cuYyAgICAgICAgICAgICAgICAgICAgfCAxICsKPiAgZHJpdmVycy9waHkvdGVncmEveHVzYi5j
-ICAgICAgICAgICAgICAgICAgICAgICAgICB8IDEgKwo+ICBkcml2ZXJzL3BpbmN0cmwvZnJlZXNj
-YWxlL3BpbmN0cmwtaW14MS1jb3JlLmMgICAgIHwgMSArCj4gIGRyaXZlcnMvcGluY3RybC9ub21h
-ZGlrL3BpbmN0cmwtbm9tYWRpay5jICAgICAgICAgfCAxICsKPiAgZHJpdmVycy9zb2Mvc2Ftc3Vu
-Zy9leHlub3MtcG11LmMgICAgICAgICAgICAgICAgICB8IDEgKwo+ICBkcml2ZXJzL3NvYy9zdW54
-aS9zdW54aV9zcmFtLmMgICAgICAgICAgICAgICAgICAgIHwgMSArCj4gIGluY2x1ZGUvbGludXgv
-b2ZfZGV2aWNlLmggICAgICAgICAgICAgICAgICAgICAgICAgfCAyIC0tCj4gIGxpYi9nZW5hbGxv
-Yy5jICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAxICsKPiAgMzYgZmlsZXMg
-Y2hhbmdlZCwgMzUgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCi0tIApMZWUgSm9uZXMg
-W+adjueQvOaWr10KTGluYXJvIFNlcnZpY2VzIFRlY2huaWNhbCBMZWFkCkxpbmFyby5vcmcg4pSC
-IE9wZW4gc291cmNlIHNvZnR3YXJlIGZvciBBUk0gU29DcwpGb2xsb3cgTGluYXJvOiBGYWNlYm9v
-ayB8IFR3aXR0ZXIgfCBCbG9nCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Zy
-ZWVkcmVubwo=
+On Tue, Mar 31, 2020 at 8:31 PM Tanmay Shah <tanmay@codeaurora.org> wrote:
+>
+> These patches add support for Display-Port driver on SnapDragon 845 hardware. It adds
+> DP driver and DP PLL driver files along with the needed device-tree bindings.
+>
+
+I focused on patches 2, 3 & 5, seems like you have good feedback on
+the others by more qualified folks than me.
+
+At a high level I don't have any major issues with the set. There are
+some rough edges that I noticed as I was reading it (as would any
+patch of this size), but I think it's probably not a good use of
+either of our time for me to nitpick 10k lines of code over multiple
+iterations.
+
+So in the interest of not letting the perfect get in the way of the
+good, I suggest we apply the set and fix up as time and necessity
+allow.
+
+Patches 2/3/5 are:
+
+Acked-by: Sean Paul <seanpaul@chromium.org>
+
+Sean
+
+
+> The block diagram of DP driver is shown below:
+>
+>
+>                  +-------------+
+>                  |DRM FRAMEWORK|
+>                  +------+------+
+>                         |
+>                    +----v----+
+>                    | DP DRM  |
+>                    +----+----+
+>                         |
+>                    +----v----+
+>      +------------+|   DP    +----------++------+
+>      +             | DISPLAY |+---+      |      |
+>      |             +-+-----+-+    |      |      |
+>      |               |     |      |      |      |
+>      |               |     |      |      |      |
+>      |               |     |      |      |      |
+>      v               v     v      v      v      v
+>  +------+          +---+ +----+ +----+ +---+ +-----+
+>  |  DP  |          |DP | | DP | | DP | |DP | | DP  |
+>  |PARSER|          |AUX| |LINK| |CTRL| |PHY| |POWER|
+>  +--+---+          +---+ +----+ +--+-+ +-+-+ +-----+
+>     |                              |     |
+>  +--v---+                         +v-----v+
+>  |DEVICE|                         |  DP   |
+>  | TREE |                         |CATALOG|
+>  +------+                         +---+---+
+>                                       |
+>                                   +---v----+
+>                                   |CTRL/PHY|
+>                                   |   HW   |
+>                                   +--------+
+>
+>
+> These patches have dependency on clock driver changes mentioned below:
+> https://patchwork.kernel.org/patch/10632753/
+> https://patchwork.kernel.org/patch/10632757/
+>
+> Chandan Uddaraju (4):
+>   dt-bindings: msm/dp: add bindings of DP/DP-PLL driver for Snapdragon
+>   drm: add constant N value in helper file
+>   drm/msm/dp: add displayPort driver support
+>   drm/msm/dp: add support for DP PLL driver
+>
+> Jeykumar Sankaran (1):
+>   drm/msm/dpu: add display port support in DPU
+>
+>  .../devicetree/bindings/display/msm/dp-sc7180.yaml |  325 ++++
+>  .../devicetree/bindings/display/msm/dpu.txt        |   16 +-
+>  drivers/gpu/drm/i915/display/intel_display.c       |    2 +-
+>  drivers/gpu/drm/msm/Kconfig                        |   21 +
+>  drivers/gpu/drm/msm/Makefile                       |   16 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |   28 +-
+>  .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |    8 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   65 +-
+>  drivers/gpu/drm/msm/dp/dp_aux.c                    |  531 ++++++
+>  drivers/gpu/drm/msm/dp/dp_aux.h                    |   35 +
+>  drivers/gpu/drm/msm/dp/dp_catalog.c                |  988 +++++++++++
+>  drivers/gpu/drm/msm/dp/dp_catalog.h                |   86 +
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c                   | 1707 ++++++++++++++++++++
+>  drivers/gpu/drm/msm/dp/dp_ctrl.h                   |   35 +
+>  drivers/gpu/drm/msm/dp/dp_display.c                |  943 +++++++++++
+>  drivers/gpu/drm/msm/dp/dp_display.h                |   31 +
+>  drivers/gpu/drm/msm/dp/dp_drm.c                    |  170 ++
+>  drivers/gpu/drm/msm/dp/dp_drm.h                    |   19 +
+>  drivers/gpu/drm/msm/dp/dp_hpd.c                    |   69 +
+>  drivers/gpu/drm/msm/dp/dp_hpd.h                    |   79 +
+>  drivers/gpu/drm/msm/dp/dp_link.c                   | 1216 ++++++++++++++
+>  drivers/gpu/drm/msm/dp/dp_link.h                   |  132 ++
+>  drivers/gpu/drm/msm/dp/dp_panel.c                  |  490 ++++++
+>  drivers/gpu/drm/msm/dp/dp_panel.h                  |   95 ++
+>  drivers/gpu/drm/msm/dp/dp_parser.c                 |  473 ++++++
+>  drivers/gpu/drm/msm/dp/dp_parser.h                 |  220 +++
+>  drivers/gpu/drm/msm/dp/dp_power.c                  |  545 +++++++
+>  drivers/gpu/drm/msm/dp/dp_power.h                  |  115 ++
+>  drivers/gpu/drm/msm/dp/dp_reg.h                    |  489 ++++++
+>  drivers/gpu/drm/msm/dp/pll/dp_pll.c                |  127 ++
+>  drivers/gpu/drm/msm/dp/pll/dp_pll.h                |   57 +
+>  drivers/gpu/drm/msm/dp/pll/dp_pll_10nm.c           |  401 +++++
+>  drivers/gpu/drm/msm/dp/pll/dp_pll_10nm.h           |   86 +
+>  drivers/gpu/drm/msm/dp/pll/dp_pll_10nm_util.c      |  524 ++++++
+>  drivers/gpu/drm/msm/msm_drv.c                      |    2 +
+>  drivers/gpu/drm/msm/msm_drv.h                      |   53 +-
+>  include/drm/drm_dp_helper.h                        |    2 +
+>  37 files changed, 10178 insertions(+), 23 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/dp-sc7180.yaml
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_aux.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_aux.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_catalog.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_catalog.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_ctrl.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_ctrl.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_display.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_display.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_drm.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_drm.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_hpd.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_hpd.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_link.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_link.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_panel.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_panel.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_parser.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_parser.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_power.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_power.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_reg.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/pll/dp_pll.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/pll/dp_pll.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/pll/dp_pll_10nm.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/pll/dp_pll_10nm.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/pll/dp_pll_10nm_util.c
+>
+> --
+> 1.9.1
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
