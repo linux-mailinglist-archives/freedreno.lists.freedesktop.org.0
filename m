@@ -1,36 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86A2B1B9117
-	for <lists+freedreno@lfdr.de>; Sun, 26 Apr 2020 17:06:16 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 92BCE1BB1D6
+	for <lists+freedreno@lfdr.de>; Tue, 28 Apr 2020 01:09:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3D8A6E049;
-	Sun, 26 Apr 2020 15:06:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E6B289FFD;
+	Mon, 27 Apr 2020 23:09:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B48CB6E233;
- Sun, 26 Apr 2020 09:44:12 +0000 (UTC)
-Received: from DGGEMS410-HUB.china.huawei.com (unknown [172.30.72.59])
- by Forcepoint Email with ESMTP id 4BD7DA9657B9E3F3B1E8;
- Sun, 26 Apr 2020 17:44:08 +0800 (CST)
-Received: from huawei.com (10.175.124.28) by DGGEMS410-HUB.china.huawei.com
- (10.3.19.210) with Microsoft SMTP Server id 14.3.487.0; Sun, 26 Apr 2020
- 17:43:58 +0800
-From: Jason Yan <yanaijie@huawei.com>
-To: <robdclark@gmail.com>, <sean@poorly.run>, <airlied@linux.ie>,
- <daniel@ffwll.ch>, <ddavenport@chromium.org>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Date: Sun, 26 Apr 2020 17:43:25 +0800
-Message-ID: <20200426094325.24265-1-yanaijie@huawei.com>
-X-Mailer: git-send-email 2.21.1
+Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
+ [104.130.122.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A1AC89FFD
+ for <freedreno@lists.freedesktop.org>; Mon, 27 Apr 2020 23:09:19 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1588028963; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=oMxZb5I+GDPuJhllgcs2iwGmqgsZIZTUBZ0afvMS0fU=;
+ b=siYBhbDNMTeX8kvQy1lrwq3cqLl2BOUICa7jbGlbaAaeZ/nmKEHWAT56en6HlJfd6ecQlk6Z
+ h2rM+uv/CboSVzPGIXGeVXg0WX1zyR2XYQFWvkGCkSbMyLSmy/0A9bQKFTuwmZIul32XNkqw
+ 8uzM2DR+r+Nax3su1xe2nG4zg7Q=
+X-Mailgun-Sending-Ip: 104.130.122.26
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5ea76613.7fa3db461650-smtp-out-n05;
+ Mon, 27 Apr 2020 23:09:07 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 0961FC433F2; Mon, 27 Apr 2020 23:09:07 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,URIBL_BLOCKED
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: tanmay)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 6377CC433CB;
+ Mon, 27 Apr 2020 23:09:06 +0000 (UTC)
 MIME-Version: 1.0
-X-Originating-IP: [10.175.124.28]
-X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Sun, 26 Apr 2020 15:06:13 +0000
-Subject: [Freedreno] [PATCH] drm/msm/dpu: remove set but not used 'topology'
+Date: Mon, 27 Apr 2020 16:09:06 -0700
+From: tanmay@codeaurora.org
+To: Rob Herring <robh@kernel.org>
+In-Reply-To: <20200415152439.GA9882@bogus>
+References: <1586299709-14222-1-git-send-email-tanmay@codeaurora.org>
+ <20200415152439.GA9882@bogus>
+Message-ID: <7fb3a6c19c244c4a37bded7cd249a1f8@codeaurora.org>
+X-Sender: tanmay@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH 1/2] dt-bindings: msm: disp: Add Display
+ Port HPD GPIO bindings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,38 +63,89 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Hulk Robot <hulkci@huawei.com>, Jason Yan <yanaijie@huawei.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: devicetree@vger.kernel.org,
+ dri-devel <dri-devel-bounces@lists.freedesktop.org>,
+ linux-arm-msm@vger.kernel.org, abhinavk@codeaurora.org, swboyd@chromium.org,
+ seanpaul@chromium.org, dri-devel@lists.freedesktop.org, varar@codeaurora.org,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Rml4IHRoZSBmb2xsb3dpbmcgZ2NjIHdhcm5pbmc6Cgpkcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3Av
-ZHB1MS9kcHVfZW5jb2Rlci5jOjk1ODozMDogd2FybmluZzogdmFyaWFibGUK4oCYdG9wb2xvZ3ni
-gJkgc2V0IGJ1dCBub3QgdXNlZCBbLVd1bnVzZWQtYnV0LXNldC12YXJpYWJsZV0KICBzdHJ1Y3Qg
-bXNtX2Rpc3BsYXlfdG9wb2xvZ3kgdG9wb2xvZ3k7CiAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIF5+fn5+fn5+CgpSZXBvcnRlZC1ieTogSHVsayBSb2JvdCA8aHVsa2NpQGh1YXdlaS5jb20+
-ClNpZ25lZC1vZmYtYnk6IEphc29uIFlhbiA8eWFuYWlqaWVAaHVhd2VpLmNvbT4KLS0tCiBkcml2
-ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfZW5jb2Rlci5jIHwgMyAtLS0KIDEgZmlsZSBj
-aGFuZ2VkLCAzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tc20v
-ZGlzcC9kcHUxL2RwdV9lbmNvZGVyLmMgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9k
-cHVfZW5jb2Rlci5jCmluZGV4IGExYjc5ZWUyYmQ5ZC4uOWQ1NzdjZTlkNThkIDEwMDY0NAotLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfZW5jb2Rlci5jCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9lbmNvZGVyLmMKQEAgLTk1NSw3ICs5NTUsNiBA
-QCBzdGF0aWMgdm9pZCBkcHVfZW5jb2Rlcl92aXJ0X21vZGVfc2V0KHN0cnVjdCBkcm1fZW5jb2Rl
-ciAqZHJtX2VuYywKIAlzdHJ1Y3QgZHJtX2NydGMgKmRybV9jcnRjOwogCXN0cnVjdCBkcHVfY3J0
-Y19zdGF0ZSAqY3N0YXRlOwogCXN0cnVjdCBkcHVfZ2xvYmFsX3N0YXRlICpnbG9iYWxfc3RhdGU7
-Ci0Jc3RydWN0IG1zbV9kaXNwbGF5X3RvcG9sb2d5IHRvcG9sb2d5OwogCXN0cnVjdCBkcHVfaHdf
-YmxrICpod19wcFtNQVhfQ0hBTk5FTFNfUEVSX0VOQ107CiAJc3RydWN0IGRwdV9od19ibGsgKmh3
-X2N0bFtNQVhfQ0hBTk5FTFNfUEVSX0VOQ107CiAJc3RydWN0IGRwdV9od19ibGsgKmh3X2xtW01B
-WF9DSEFOTkVMU19QRVJfRU5DXTsKQEAgLTk5OCw4ICs5OTcsNiBAQCBzdGF0aWMgdm9pZCBkcHVf
-ZW5jb2Rlcl92aXJ0X21vZGVfc2V0KHN0cnVjdCBkcm1fZW5jb2RlciAqZHJtX2VuYywKIAkJaWYg
-KGRybV9jcnRjLT5zdGF0ZS0+ZW5jb2Rlcl9tYXNrICYgZHJtX2VuY29kZXJfbWFzayhkcm1fZW5j
-KSkKIAkJCWJyZWFrOwogCi0JdG9wb2xvZ3kgPSBkcHVfZW5jb2Rlcl9nZXRfdG9wb2xvZ3koZHB1
-X2VuYywgZHB1X2ttcywgYWRqX21vZGUpOwotCiAJLyogUXVlcnkgcmVzb3VyY2UgdGhhdCBoYXZl
-IGJlZW4gcmVzZXJ2ZWQgaW4gYXRvbWljIGNoZWNrIHN0ZXAuICovCiAJbnVtX3BwID0gZHB1X3Jt
-X2dldF9hc3NpZ25lZF9yZXNvdXJjZXMoJmRwdV9rbXMtPnJtLCBnbG9iYWxfc3RhdGUsCiAJCWRy
-bV9lbmMtPmJhc2UuaWQsIERQVV9IV19CTEtfUElOR1BPTkcsIGh3X3BwLAotLSAKMi4yMS4xCgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpGcmVlZHJlbm8g
-bWFpbGluZyBsaXN0CkZyZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9mcmVlZHJlbm8K
+Thanks Rob for reviews.
+
+We are using Display Port Controller block to detect hot plug.
+So we won't be using that pin as GPIO.
+
+I found now that we don't need any bindings for that pin in such case.
+So I am abandoning this patch series and upload new patch.
+
+Thanks.
+
+On 2020-04-15 08:24, Rob Herring wrote:
+> On Tue, Apr 07, 2020 at 03:48:28PM -0700, Tanmay Shah wrote:
+>> Add Display Port HPD GPIO description in bindings
+>> 
+>> This Patch depends on:
+>> 	https://patchwork.kernel.org/patch/11468505/
+> 
+> This belongs below the '---' and probably means you should send all 
+> this
+> as one series.
+> 
+>> 
+>> Signed-off-by: Tanmay Shah <tanmay@codeaurora.org>
+>> ---
+>>  Documentation/devicetree/bindings/display/msm/dp-sc7180.yaml | 7
+> +++++++
+>>  1 file changed, 7 insertions(+)
+>> 
+>> diff --git
+> a/Documentation/devicetree/bindings/display/msm/dp-sc7180.yaml
+> b/Documentation/devicetree/bindings/display/msm/dp-sc7180.yaml
+>> index 761a01d..003f5f7 100644
+>> --- a/Documentation/devicetree/bindings/display/msm/dp-sc7180.yaml
+>> +++ b/Documentation/devicetree/bindings/display/msm/dp-sc7180.yaml
+>> @@ -155,6 +155,11 @@ properties:
+>>       data-lanes:
+>>         description: Maximum number of lanes that can be used for
+> Display port.
+>> 
+>> +     dp-hpd-gpio:
+> 
+> We already have a standard property for this. Use it.
+> 
+> It belongs in the connector node as HPD is part of the connector.
+> 
+>> +       maxItems: 1
+>> +       description: Specifies HPD gpio for DP connector without
+>> +                    USB PHY or AUX switch.
+>> +
+>>       usbplug-cc-gpio:
+> 
+> Note that this too should be in a connector node.
+> 
+>>         maxItems: 1
+>>         description: Specifies the usbplug orientation gpio.
+>> @@ -282,6 +287,8 @@ examples:
+>>          aux-sel-gpio = <&msmgpio 110 1>;
+>>          usbplug-cc-gpio = <&msmgpio 90 1>;
+>> 
+>> +        dp-hpd-gpio = <&msmgpio 117 0>;
+>> +
+>>          ports {
+>>              #address-cells = <1>;
+>>              #size-cells = <0>;
+>> --
+>> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora
+> Forum,
+>> a Linux Foundation Collaborative Project
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
