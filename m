@@ -2,56 +2,41 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D5431BBC8C
-	for <lists+freedreno@lfdr.de>; Tue, 28 Apr 2020 13:39:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7C401BC65D
+	for <lists+freedreno@lfdr.de>; Tue, 28 Apr 2020 19:20:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DC4B6E19A;
-	Tue, 28 Apr 2020 11:39:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D78D16E877;
+	Tue, 28 Apr 2020 17:20:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail27.static.mailgun.info (mail27.static.mailgun.info
- [104.130.122.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD2A06E19A
- for <freedreno@lists.freedesktop.org>; Tue, 28 Apr 2020 11:39:04 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1588073949; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=POwfgFIOxtbPju7wD7/s3JdH07w592RY3CAWHfQJRRs=;
- b=kNNG729wwkyPW5iCHOPqaZme4q6xCqmCDuvY6SYpRttA99dFmZ+ci49h7BHXjIwAV7o3wnGj
- 6BT9nDxqxE8b0hK61cOxr4rlvNxvwf9fCXvlge1HyCtgXV9GhNtpqnJjBMlj822+jAE6kaMB
- SqxY0/7LCL0h8u5FssZR0xv3INc=
-X-Mailgun-Sending-Ip: 104.130.122.27
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5ea815c5.7f058d27abc8-smtp-out-n01;
- Tue, 28 Apr 2020 11:38:45 -0000 (UTC)
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id BE8FBC432C2; Tue, 28 Apr 2020 11:38:45 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from smasetty-linux.qualcomm.com
- (blr-c-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.19.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: smasetty)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id BFEC2C433D2;
- Tue, 28 Apr 2020 11:38:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org BFEC2C433D2
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=smasetty@codeaurora.org
-From: Sharat Masetty <smasetty@codeaurora.org>
-To: freedreno@lists.freedesktop.org,
-	devicetree@vger.kernel.org
-Date: Tue, 28 Apr 2020 17:08:34 +0530
-Message-Id: <1588073914-15712-1-git-send-email-smasetty@codeaurora.org>
-X-Mailer: git-send-email 1.9.1
-Subject: [Freedreno] [PATCH] dt-bindings: arm-smmu: Add a new compatible
- string and a clock
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDE116E86C;
+ Tue, 28 Apr 2020 17:20:05 +0000 (UTC)
+IronPort-SDR: /f4NpG6IPmkB4xQVORTfiBNwpaHViXVE9YKW+XnwOoenrE4ILlq8oD5LYMmxA82V7ruoGh3fHX
+ dF2dz7S7pdYw==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Apr 2020 10:20:04 -0700
+IronPort-SDR: Ka1XB5hXBW1DcB/aEa69JvL9ri1NN27x/pH27p4XJutnQZ9+7VJ6jPimUmYuooZ+V1v7f8n6uV
+ +zmziYzOrqPA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,328,1583222400"; d="scan'208";a="292922406"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
+ by fmsmga002.fm.intel.com with SMTP; 28 Apr 2020 10:20:01 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Tue, 28 Apr 2020 20:20:00 +0300
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue, 28 Apr 2020 20:19:28 +0300
+Message-Id: <20200428171940.19552-5-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.24.1
+In-Reply-To: <20200428171940.19552-1-ville.syrjala@linux.intel.com>
+References: <20200428171940.19552-1-ville.syrjala@linux.intel.com>
+MIME-Version: 1.0
+Subject: [Freedreno] [PATCH v3 04/16] drm/msm/dpu: Stop copying around
+ mode->private_flags
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,62 +49,78 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robh@kernel.org, saiprakash.ranjan@codeaurora.org,
- linux-arm-msm@vger.kernel.org, Sharat Masetty <smasetty@codeaurora.org>,
- dianders@chromium.org, linux-kernel@vger.kernel.org, mka@chromium.org,
- dri-devel@freedesktop.org, robin.murphy@arm.com
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ freedreno@lists.freedesktop.org, Emil Velikov <emil.velikov@collabora.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This patch adds a new compatible string for sc7180 and also an
-additional clock listing needed to power the TBUs and the TCU.
-
-Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
----
- Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-index 6515dbe..15946ac 100644
---- a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-+++ b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-@@ -28,6 +28,7 @@ properties:
-           - enum:
-               - qcom,msm8996-smmu-v2
-               - qcom,msm8998-smmu-v2
-+              - qcom,sc7180-smmu-v2
-               - qcom,sdm845-smmu-v2
-           - const: qcom,smmu-v2
- 
-@@ -113,16 +114,22 @@ properties:
-       present in such cases.
- 
-   clock-names:
-+    minItems: 2
-+    maxItems: 3
-     items:
-       - const: bus
-       - const: iface
-+      - const: mem_iface_clk
- 
-   clocks:
-+    minItems: 2
-+    maxItems: 3
-     items:
-       - description: bus clock required for downstream bus access and for the
-           smmu ptw
-       - description: interface clock required to access smmu's registers
-           through the TCU's programming interface.
-+      - description: clock required for the SMMU TBUs and the TCU
- 
-   power-domains:
-     maxItems: 1
--- 
-1.9.1
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+RnJvbTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KClRo
+ZSBkcml2ZXIgbmV2ZXIgc2V0cyBtb2RlLT5wcml2YXRlX2ZsYWdzIHNvIGNvcHlpbmcKaXQgYmFj
+ayBhbmQgZm9ydGggaXMgZW50aXJlbHkgcG9pbnRsZXNzLiBTdG9wIGRvaW5nIGl0LgoKQWxzbyBk
+cm9wIHByaXZhdGVfZmxhZ3MgZnJvbSB0aGUgdHJhY2Vwb2ludC4KCkNjOiBSb2IgQ2xhcmsgPHJv
+YmRjbGFya0BnbWFpbC5jb20+CkNjOiBTZWFuIFBhdWwgPHNlYW5AcG9vcmx5LnJ1bj4KQ2M6IGxp
+bnV4LWFybS1tc21Admdlci5rZXJuZWwub3JnCkNjOiBmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnClJldmlld2VkLWJ5OiBFbWlsIFZlbGlrb3YgPGVtaWwudmVsaWtvdkBjb2xsYWJvcmEu
+Y29tPgpTaWduZWQtb2ZmLWJ5OiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXgu
+aW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9lbmNvZGVy
+LmMgfCAyOSArLS0tLS0tLS0tLS0tLS0tLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9k
+cHUxL2RwdV90cmFjZS5oICAgfCAxMCArKystLS0tCiAyIGZpbGVzIGNoYW5nZWQsIDUgaW5zZXJ0
+aW9ucygrKSwgMzQgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL21z
+bS9kaXNwL2RwdTEvZHB1X2VuY29kZXIuYyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUx
+L2RwdV9lbmNvZGVyLmMKaW5kZXggYTFiNzllZTJiZDlkLi5kMjJlY2FiZWJiMDggMTAwNjQ0Ci0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9lbmNvZGVyLmMKKysrIGIvZHJp
+dmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X2VuY29kZXIuYwpAQCAtNDk4LDIzICs0OTgs
+NiBAQCB2b2lkIGRwdV9lbmNvZGVyX2hlbHBlcl9zcGxpdF9jb25maWcoCiAJfQogfQogCi1zdGF0
+aWMgdm9pZCBfZHB1X2VuY29kZXJfYWRqdXN0X21vZGUoc3RydWN0IGRybV9jb25uZWN0b3IgKmNv
+bm5lY3RvciwKLQkJc3RydWN0IGRybV9kaXNwbGF5X21vZGUgKmFkal9tb2RlKQotewotCXN0cnVj
+dCBkcm1fZGlzcGxheV9tb2RlICpjdXJfbW9kZTsKLQotCWlmICghY29ubmVjdG9yIHx8ICFhZGpf
+bW9kZSkKLQkJcmV0dXJuOwotCi0JbGlzdF9mb3JfZWFjaF9lbnRyeShjdXJfbW9kZSwgJmNvbm5l
+Y3Rvci0+bW9kZXMsIGhlYWQpIHsKLQkJaWYgKGN1cl9tb2RlLT52ZGlzcGxheSA9PSBhZGpfbW9k
+ZS0+dmRpc3BsYXkgJiYKLQkJICAgIGN1cl9tb2RlLT5oZGlzcGxheSA9PSBhZGpfbW9kZS0+aGRp
+c3BsYXkgJiYKLQkJICAgIGRybV9tb2RlX3ZyZWZyZXNoKGN1cl9tb2RlKSA9PSBkcm1fbW9kZV92
+cmVmcmVzaChhZGpfbW9kZSkpIHsKLQkJCWFkal9tb2RlLT5wcml2YXRlX2ZsYWdzIHw9IGN1cl9t
+b2RlLT5wcml2YXRlX2ZsYWdzOwotCQl9Ci0JfQotfQotCiBzdGF0aWMgc3RydWN0IG1zbV9kaXNw
+bGF5X3RvcG9sb2d5IGRwdV9lbmNvZGVyX2dldF90b3BvbG9neSgKIAkJCXN0cnVjdCBkcHVfZW5j
+b2Rlcl92aXJ0ICpkcHVfZW5jLAogCQkJc3RydWN0IGRwdV9rbXMgKmRwdV9rbXMsCkBAIC01ODAs
+MTUgKzU2Myw2IEBAIHN0YXRpYyBpbnQgZHB1X2VuY29kZXJfdmlydF9hdG9taWNfY2hlY2soCiAJ
+Z2xvYmFsX3N0YXRlID0gZHB1X2ttc19nZXRfZXhpc3RpbmdfZ2xvYmFsX3N0YXRlKGRwdV9rbXMp
+OwogCXRyYWNlX2RwdV9lbmNfYXRvbWljX2NoZWNrKERSTUlEKGRybV9lbmMpKTsKIAotCS8qCi0J
+ICogZGlzcGxheSBkcml2ZXJzIG1heSBwb3B1bGF0ZSBwcml2YXRlIGZpZWxkcyBvZiB0aGUgZHJt
+IGRpc3BsYXkgbW9kZQotCSAqIHN0cnVjdHVyZSB3aGlsZSByZWdpc3RlcmluZyBwb3NzaWJsZSBt
+b2RlcyBvZiBhIGNvbm5lY3RvciB3aXRoIERSTS4KLQkgKiBUaGVzZSBwcml2YXRlIGZpZWxkcyBh
+cmUgbm90IHBvcHVsYXRlZCBiYWNrIHdoaWxlIERSTSBpbnZva2VzCi0JICogdGhlIG1vZGVfc2V0
+IGNhbGxiYWNrcy4gVGhpcyBtb2R1bGUgcmV0cmlldmVzIGFuZCBwb3B1bGF0ZXMgdGhlCi0JICog
+cHJpdmF0ZSBmaWVsZHMgb2YgdGhlIGdpdmVuIG1vZGUuCi0JICovCi0JX2RwdV9lbmNvZGVyX2Fk
+anVzdF9tb2RlKGNvbm5fc3RhdGUtPmNvbm5lY3RvciwgYWRqX21vZGUpOwotCiAJLyogcGVyZm9y
+bSBhdG9taWMgY2hlY2sgb24gdGhlIGZpcnN0IHBoeXNpY2FsIGVuY29kZXIgKG1hc3RlcikgKi8K
+IAlmb3IgKGkgPSAwOyBpIDwgZHB1X2VuYy0+bnVtX3BoeXNfZW5jczsgaSsrKSB7CiAJCXN0cnVj
+dCBkcHVfZW5jb2Rlcl9waHlzICpwaHlzID0gZHB1X2VuYy0+cGh5c19lbmNzW2ldOwpAQCAtNjIx
+LDggKzU5NSw3IEBAIHN0YXRpYyBpbnQgZHB1X2VuY29kZXJfdmlydF9hdG9taWNfY2hlY2soCiAJ
+CX0KIAl9CiAKLQl0cmFjZV9kcHVfZW5jX2F0b21pY19jaGVja19mbGFncyhEUk1JRChkcm1fZW5j
+KSwgYWRqX21vZGUtPmZsYWdzLAotCQkJYWRqX21vZGUtPnByaXZhdGVfZmxhZ3MpOworCXRyYWNl
+X2RwdV9lbmNfYXRvbWljX2NoZWNrX2ZsYWdzKERSTUlEKGRybV9lbmMpLCBhZGpfbW9kZS0+Zmxh
+Z3MpOwogCiAJcmV0dXJuIHJldDsKIH0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tc20v
+ZGlzcC9kcHUxL2RwdV90cmFjZS5oIGIvZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1
+X3RyYWNlLmgKaW5kZXggZWVjZmU5YjMxOTllLi42NzE0YjA4ODk3MGYgMTAwNjQ0Ci0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV90cmFjZS5oCisrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9tc20vZGlzcC9kcHUxL2RwdV90cmFjZS5oCkBAIC0zMjcsMjAgKzMyNywxOCBAQCBERUZJ
+TkVfRVZFTlQoZHB1X2VuY19rZXl2YWxfdGVtcGxhdGUsIGRwdV9lbmNfdHJpZ2dlcl9zdGFydCwK
+ICk7CiAKIFRSQUNFX0VWRU5UKGRwdV9lbmNfYXRvbWljX2NoZWNrX2ZsYWdzLAotCVRQX1BST1RP
+KHVpbnQzMl90IGRybV9pZCwgdW5zaWduZWQgaW50IGZsYWdzLCBpbnQgcHJpdmF0ZV9mbGFncyks
+Ci0JVFBfQVJHUyhkcm1faWQsIGZsYWdzLCBwcml2YXRlX2ZsYWdzKSwKKwlUUF9QUk9UTyh1aW50
+MzJfdCBkcm1faWQsIHVuc2lnbmVkIGludCBmbGFncyksCisJVFBfQVJHUyhkcm1faWQsIGZsYWdz
+KSwKIAlUUF9TVFJVQ1RfX2VudHJ5KAogCQlfX2ZpZWxkKAl1aW50MzJfdCwJCWRybV9pZAkJKQog
+CQlfX2ZpZWxkKAl1bnNpZ25lZCBpbnQsCQlmbGFncwkJKQotCQlfX2ZpZWxkKAlpbnQsCQkJcHJp
+dmF0ZV9mbGFncwkpCiAJKSwKIAlUUF9mYXN0X2Fzc2lnbigKIAkJX19lbnRyeS0+ZHJtX2lkID0g
+ZHJtX2lkOwogCQlfX2VudHJ5LT5mbGFncyA9IGZsYWdzOwotCQlfX2VudHJ5LT5wcml2YXRlX2Zs
+YWdzID0gcHJpdmF0ZV9mbGFnczsKIAkpLAotCVRQX3ByaW50aygiaWQ9JXUsIGZsYWdzPSV1LCBw
+cml2YXRlX2ZsYWdzPSVkIiwKLQkJICBfX2VudHJ5LT5kcm1faWQsIF9fZW50cnktPmZsYWdzLCBf
+X2VudHJ5LT5wcml2YXRlX2ZsYWdzKQorCVRQX3ByaW50aygiaWQ9JXUsIGZsYWdzPSV1IiwKKwkJ
+ICBfX2VudHJ5LT5kcm1faWQsIF9fZW50cnktPmZsYWdzKQogKTsKIAogREVDTEFSRV9FVkVOVF9D
+TEFTUyhkcHVfZW5jX2lkX2VuYWJsZV90ZW1wbGF0ZSwKLS0gCjIuMjQuMQoKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlz
+dApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5vCg==
