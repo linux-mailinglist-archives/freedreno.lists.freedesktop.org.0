@@ -1,62 +1,34 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C3EC1BCFE7
-	for <lists+freedreno@lfdr.de>; Wed, 29 Apr 2020 00:27:27 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 604EC1BD427
+	for <lists+freedreno@lfdr.de>; Wed, 29 Apr 2020 07:45:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36ABF6E9BF;
-	Tue, 28 Apr 2020 22:27:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 164E96E9E4;
+	Wed, 29 Apr 2020 05:45:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-vs1-xe41.google.com (mail-vs1-xe41.google.com
- [IPv6:2607:f8b0:4864:20::e41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC8C16E904
- for <freedreno@lists.freedesktop.org>; Tue, 28 Apr 2020 22:27:24 +0000 (UTC)
-Received: by mail-vs1-xe41.google.com with SMTP id g184so44535vsc.0
- for <freedreno@lists.freedesktop.org>; Tue, 28 Apr 2020 15:27:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=MneTeEsl9HAajGzseS68PtFpQqpR7WXRnzKFmK+XRpk=;
- b=HYO8E/N+MMu6+8V05SjealqWlT/rFE3JYskdr3qTSPz02pknp0CcrhldrgkWJ1cVim
- j5eXn6RdtT3vlvnGs1toIFmKpvlBcvau1rE3BkF1izMMBMb+rvJ3u+zJrD4+/X7Uw+2B
- NKsPeC6OehmoRRTMka8FVUXHf0DP2shJ97Org=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=MneTeEsl9HAajGzseS68PtFpQqpR7WXRnzKFmK+XRpk=;
- b=dL+O3ZnAkQ+XzkYGx8G+ERoZcCc3owSRmk/JSyT6Y0ArCfbNR2KJNe3di0v/v/2CaP
- TjzxKBRzp7fyYqumtJiXY0p8WfAnm4O6tDzfD7ybpOekV3ovP9Qo1FLF2WQ4EgUX46XC
- ScT+0x8uFf2XTuapcKuW5M8g4caAVaY0r0ARu4WXEg0LISGy4JYrT9sK9w3pRTnH5NsI
- tvL5GyFZpTKLqTKDIOanZxx2B4sj7Du6jLWDZxNesc+AhZLBC+TTRFATqWlyD9WN2jso
- KoNbRnvruCP+q6cayTNbmUHLbCLqyYUo5PVubPossquhYdeIfpj45oSnyH6Y+oZNo5uw
- k5ng==
-X-Gm-Message-State: AGi0PuZ8MJVUM8jvR6+SYtuMooT1CDw5m8klGW8rw0SZP8RwBXkVGF3G
- aFTIS2LdaHYQu4cWovEjg1n3SaLbWjc=
-X-Google-Smtp-Source: APiQypJZiUP5LnvHZGpiCghtIl3wcsRLTD9YsEFhq2YdVjAUEjnIZS1MAt8g7XHWUUqhI9D2WxgBOA==
-X-Received: by 2002:a67:ff8d:: with SMTP id v13mr23737514vsq.71.1588112843488; 
- Tue, 28 Apr 2020 15:27:23 -0700 (PDT)
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com.
- [209.85.221.178])
- by smtp.gmail.com with ESMTPSA id t141sm5282471vke.26.2020.04.28.15.27.22
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Apr 2020 15:27:22 -0700 (PDT)
-Received: by mail-vk1-f178.google.com with SMTP id w68so143802vke.5
- for <freedreno@lists.freedesktop.org>; Tue, 28 Apr 2020 15:27:22 -0700 (PDT)
-X-Received: by 2002:a1f:9605:: with SMTP id y5mr22452968vkd.75.1588112842024; 
- Tue, 28 Apr 2020 15:27:22 -0700 (PDT)
+Received: from alexa-out-blr-01.qualcomm.com (alexa-out-blr-01.qualcomm.com
+ [103.229.18.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5B426E9C3;
+ Wed, 29 Apr 2020 05:45:37 +0000 (UTC)
+Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
+ by alexa-out-blr-01.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 29 Apr 2020 11:15:32 +0530
+Received: from harigovi-linux.qualcomm.com ([10.204.66.157])
+ by ironmsg02-blr.qualcomm.com with ESMTP; 29 Apr 2020 11:15:18 +0530
+Received: by harigovi-linux.qualcomm.com (Postfix, from userid 2332695)
+ id 8F41E29E2; Wed, 29 Apr 2020 11:15:17 +0530 (IST)
+From: Harigovindan P <harigovi@codeaurora.org>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Wed, 29 Apr 2020 11:15:13 +0530
+Message-Id: <20200429054515.4976-1-harigovi@codeaurora.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <1588073914-15712-1-git-send-email-smasetty@codeaurora.org>
-In-Reply-To: <1588073914-15712-1-git-send-email-smasetty@codeaurora.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 28 Apr 2020 15:27:09 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=WPG4x+TTu5-169EPObhvtPEpodzjnk2WSBCQgR434xdA@mail.gmail.com>
-Message-ID: <CAD=FV=WPG4x+TTu5-169EPObhvtPEpodzjnk2WSBCQgR434xdA@mail.gmail.com>
-To: Sharat Masetty <smasetty@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH] dt-bindings: arm-smmu: Add a new compatible
- string and a clock
+Subject: [Freedreno] [PATCH v12 0/2] Add support for rm69299 Visionox panel
+ driver and add devicetree bindings for visionox panel
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,90 +41,30 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Rob Herring <robh@kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>, Matthias Kaehlcke <mka@chromium.org>,
- dri-devel@freedesktop.org, freedreno <freedreno@lists.freedesktop.org>,
- Robin Murphy <robin.murphy@arm.com>
+Cc: sean@poorly.run, robdclark@gmail.com, seanpaul@chromium.org,
+ Harigovindan P <harigovi@codeaurora.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+Adding support for visionox rm69299 panel driver and adding bindings for the same panel.
+https://patchwork.kernel.org/patch/11461943/ has already been added to drm-misc-next.
 
-On Tue, Apr 28, 2020 at 4:39 AM Sharat Masetty <smasetty@codeaurora.org> wrote:
->
-> This patch adds a new compatible string for sc7180 and also an
-> additional clock listing needed to power the TBUs and the TCU.
->
-> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
-> ---
->  Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 7 +++++++
->  1 file changed, 7 insertions(+)
+Harigovindan P (2):
+  drm/panel: add support for rm69299 visionox panel driver
+  dt-bindings: documenting compatible string vendor "visionox"
 
-nit: mention sc7180 in subject, like:
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ drivers/gpu/drm/panel/Kconfig                 |   8 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ .../gpu/drm/panel/panel-visionox-rm69299.c    | 304 ++++++++++++++++++
+ 4 files changed, 315 insertions(+)
+ create mode 100644 drivers/gpu/drm/panel/panel-visionox-rm69299.c
 
-dt-bindings: arm-smmu: Add sc7180 compatible string and mem_iface clock
+-- 
+2.25.1
 
-
-> diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-> index 6515dbe..15946ac 100644
-> --- a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-> +++ b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-> @@ -28,6 +28,7 @@ properties:
->            - enum:
->                - qcom,msm8996-smmu-v2
->                - qcom,msm8998-smmu-v2
-> +              - qcom,sc7180-smmu-v2
->                - qcom,sdm845-smmu-v2
->            - const: qcom,smmu-v2
->
-> @@ -113,16 +114,22 @@ properties:
->        present in such cases.
->
->    clock-names:
-> +    minItems: 2
-> +    maxItems: 3
->      items:
->        - const: bus
->        - const: iface
-> +      - const: mem_iface_clk
-
-People usually frown on clock-names ending in "_clk".  Just name it "mem_iface".
-
-
->    clocks:
-> +    minItems: 2
-> +    maxItems: 3
->      items:
->        - description: bus clock required for downstream bus access and for the
->            smmu ptw
->        - description: interface clock required to access smmu's registers
->            through the TCU's programming interface.
-> +      - description: clock required for the SMMU TBUs and the TCU
-
-Is this clock only needed for sc7180, or would it be useful if we
-enabled certain features on existing devices?  Please document exactly
-when someone would provide this clock and when they'd leave it off.
-
-...also: maybe it's obvious to those that understand IOMMUs in depth,
-but to me I have no idea what your description means and why it's
-different from the other two clocks.  Any way you could punch up your
-description a little bit?
-
-Looking at sdm845 I see that this clock seems to exist but wasn't
-listed in the IOMMU device tree node.  Is that a mistake on sdm845?
-...or is it just fine because the GPU holds the clock?  Is there a
-reason the sdm845 solution and the sc7180 solution shouldn't be the
-same (AKA we should either add this clock to the sdm845 device tree
-file or remove it from sc7180)?
-
-Thanks!
-
--Doug
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
