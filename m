@@ -2,70 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C98F21C0495
-	for <lists+freedreno@lfdr.de>; Thu, 30 Apr 2020 20:21:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26F261C0644
+	for <lists+freedreno@lfdr.de>; Thu, 30 Apr 2020 21:25:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 673DD6E09F;
-	Thu, 30 Apr 2020 18:21:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1F746E940;
+	Thu, 30 Apr 2020 19:25:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-vk1-xa44.google.com (mail-vk1-xa44.google.com
- [IPv6:2607:f8b0:4864:20::a44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFE146E09F
- for <freedreno@lists.freedesktop.org>; Thu, 30 Apr 2020 18:21:36 +0000 (UTC)
-Received: by mail-vk1-xa44.google.com with SMTP id w68so2057130vke.5
- for <freedreno@lists.freedesktop.org>; Thu, 30 Apr 2020 11:21:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=SR5cmb+TdKfA9P9unlHlcoWqQ+iFT2b4XsANwGqxz5Y=;
- b=Kt9s26Qov6Qn68/Pe3SRmeowZf7qJWgEO/1aiZYlcrWn/63/H0Mxf0JJVVMFh+pL7n
- K4YQd/0YimnlqtXjKhoN+B+6gQ/2W073uz2X5RxT5/69tfGQIiW/gnVrr3EHLGpP1Q86
- 2T/hEImFFlMGoRGn2f5o5tH6Ov3xB60rvdHTo=
+Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
+ [IPv6:2607:f8b0:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC58F6E47E
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Apr 2020 19:25:04 +0000 (UTC)
+Received: by mail-pf1-x443.google.com with SMTP id d184so339187pfd.4
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Apr 2020 12:25:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=LWzoBfWYBplb188JYPfec8yiO1FAiglsQQs7ha7y6zc=;
+ b=zvIhEeo6o5Oci/1eDGxIxa70cqZyoYJPXylX1Jz8dm4uPN+VdUMi5dd63F1duzrKjf
+ RbDbL4orJsgYwq7Nj0UTh3yQbN4K0xHm3MIzvy5ZD3vZU2dEZ4WTK5ZSvBz/KhNhDNRi
+ iq4ZR0E2/FCU5UX9o2YRqOluF3k9408xQAXoHNf8e9LxoECnH5HXqwOJ0rv7LjXnhyyW
+ yS/J0pcItyBpgwidW4/F9usyFm2BZPVgghgNjxRdQThOIQoH0bSYmBNCHOuxLIXuzZaE
+ 8kNRwr8BxYU8I87WPqhv6VIAhcrOvoocf9qPGC8gtHNJf58mlCE62qWRAmVLrpUHxnod
+ A6ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=SR5cmb+TdKfA9P9unlHlcoWqQ+iFT2b4XsANwGqxz5Y=;
- b=gfDqc3IbfJTxULOF6uAO4Vr/2/l5lzfLtGM4cqvGJG40F9WE1NRQVbtsruUYRIA6tK
- k4SHWlXW6mXuRmGm+1N10CzxNOq20mIMmfJ8zV7NNUo8BjCyP+iXpPkyvffDbXEy/Jp6
- M5MsexBLSR2rJlIKI0fCGMrfDh8Dd/S8WPSjFFFlkNV99w+FHBi6s49+wvbwcbAJbJfY
- iMCauMYqRENFGWrKik/nCLkqx0OSYLXtPFvP+0fng34ud0edBvilx6N3glViWDS2PMP4
- 31gZO6XrvN3xR4WgPwfAt1l85YFWoN8jJ/x2VhKz3Lt2jwEDigD3KO0QeQ2vTfgv4FA7
- CW2A==
-X-Gm-Message-State: AGi0PuZ9JmWu5cFm0KBGaXDy5LQQ8dIE9pPInPtSWg8hHRwovbtly4Il
- 2rtDM3SmqdPVGSXTgWm2RxGnej/Siv8=
-X-Google-Smtp-Source: APiQypI3kcCmfQ6lwX2uKjIYkDkbOjIb8Br7tc5GP6/K/VQbClk9dvHLF2fulixKYEYoAo2de0OHvA==
-X-Received: by 2002:a1f:a2d0:: with SMTP id l199mr3815067vke.77.1588270895347; 
- Thu, 30 Apr 2020 11:21:35 -0700 (PDT)
-Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com.
- [209.85.217.52])
- by smtp.gmail.com with ESMTPSA id n123sm150457vke.21.2020.04.30.11.21.33
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Apr 2020 11:21:33 -0700 (PDT)
-Received: by mail-vs1-f52.google.com with SMTP id h30so4695179vsr.5
- for <freedreno@lists.freedesktop.org>; Thu, 30 Apr 2020 11:21:33 -0700 (PDT)
-X-Received: by 2002:a67:bd07:: with SMTP id y7mr112084vsq.109.1588270892989;
- Thu, 30 Apr 2020 11:21:32 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=LWzoBfWYBplb188JYPfec8yiO1FAiglsQQs7ha7y6zc=;
+ b=TDUYMaodbr8IKMXsD7IDiWTs4wrG9Ct4RrnJhKtPIri91hgxT2rJcj3mm3siBaFMr2
+ pdWDZPEnL9opLPR6LLH2Ggv4ASLqAzs9LMfsHD3DU97xvr7D7yi2SmSyIIQeWU0fpQjM
+ nCAhie6RheAgM+LutGGcZFRgR59bRLPFVtig5n/17ywhcnVNYVdbXmN94Suptf5nZpL4
+ OuRuXPi+ozjvA8wN/FxkRVaR8+UJz8DA41c+UufKl55xm6PddkG41kKT1z3P1ePIF4E5
+ e0nknPj+38AW2pjc29I99W2n7aXXIOwBDrJeGOjQDk4PoHpELi9eOl5NFFKRf5go6RFr
+ 9tlQ==
+X-Gm-Message-State: AGi0PuaeoZbOfzf6bIUwtnig/zjj4JDo80xvVNay9yau12HAndHQ+5Ml
+ VDXMvzvNfSX9BN1c8mC+s5FKJg==
+X-Google-Smtp-Source: APiQypLCsVX9Nh3B0wNo8iNCW3Dh7d+/91P/QFHKJM1aSTI3VdeXI7wM5INe9jYGfLmdFCvuIRM2Ow==
+X-Received: by 2002:aa7:8b12:: with SMTP id f18mr271949pfd.81.1588274704103;
+ Thu, 30 Apr 2020 12:25:04 -0700 (PDT)
+Received: from localhost.localdomain
+ (104-188-17-28.lightspeed.sndgca.sbcglobal.net. [104.188.17.28])
+ by smtp.gmail.com with ESMTPSA id v26sm463594pfe.121.2020.04.30.12.25.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Apr 2020 12:25:03 -0700 (PDT)
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Jordan Crouse <jcrouse@codeaurora.org>
+Date: Thu, 30 Apr 2020 12:24:27 -0700
+Message-Id: <20200430192427.4104899-1-bjorn.andersson@linaro.org>
+X-Mailer: git-send-email 2.24.0
 MIME-Version: 1.0
-References: <1588219187-19295-1-git-send-email-smasetty@codeaurora.org>
- <20200430181233.GA21991@jcrouse1-lnx.qualcomm.com>
-In-Reply-To: <20200430181233.GA21991@jcrouse1-lnx.qualcomm.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 30 Apr 2020 11:21:21 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=Usp5RxgXtjtgBe6jR3o=-+EXkYZuVzx_AF3=BsVu+OeA@mail.gmail.com>
-Message-ID: <CAD=FV=Usp5RxgXtjtgBe6jR3o=-+EXkYZuVzx_AF3=BsVu+OeA@mail.gmail.com>
-To: Sharat Masetty <smasetty@codeaurora.org>,
- freedreno <freedreno@lists.freedesktop.org>, 
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, dri-devel@freedesktop.org, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>, 
- Matthias Kaehlcke <mka@chromium.org>, Doug Anderson <dianders@chromium.org>,
- Rob Herring <robh@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v2] dt-bindings: arm-smmu: Add sc7180
- compatible string and mem_iface clock
+Subject: [Freedreno] [PATCH] drm/msm: Fix undefined "rd_full" link error
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,80 +67,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Rothwell <sfr@canb.auug.org.au>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+rd_full should be defined outside the CONFIG_DEBUG_FS region, in order
+to be able to link the msm driver even when CONFIG_DEBUG_FS is disabled.
 
-On Thu, Apr 30, 2020 at 11:12 AM Jordan Crouse <jcrouse@codeaurora.org> wrote:
->
-> On Thu, Apr 30, 2020 at 09:29:47AM +0530, Sharat Masetty wrote:
-> > This patch adds a new compatible string for sc7180 and also an
-> > additional clock listing needed to power the TBUs and the TCU.
-> >
-> > Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
-> > ---
-> > v2: Addressed review comments from Doug
-> >
-> >  Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 8 ++++++++
-> >  1 file changed, 8 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-> > index 6515dbe..ba5dba4 100644
-> > --- a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-> > +++ b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-> > @@ -28,6 +28,7 @@ properties:
-> >            - enum:
-> >                - qcom,msm8996-smmu-v2
-> >                - qcom,msm8998-smmu-v2
-> > +              - qcom,sc7180-smmu-v2
-> >                - qcom,sdm845-smmu-v2
-> >            - const: qcom,smmu-v2
-> >
-> > @@ -113,16 +114,23 @@ properties:
-> >        present in such cases.
-> >
-> >    clock-names:
-> > +    minItems: 2
-> > +    maxItems: 3
-> >      items:
-> >        - const: bus
-> >        - const: iface
-> > +      - const: mem_iface
->
-> Hi Sharat -
->
-> I think there was a bit of confusion due to renaming between downstream and
-> upstream.  Currently for the sdm845 and friends we have:
->
->   clocks = <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
->      <&gcc GCC_GPU_CFG_AHB_CLK>;
->   clock-names = "bus", "iface";
->
-> Confusingly these same clocks downstream are "mem_iface_clk" and "iface_clk"
-> respectively.
->
-> It looks like you are trying to add GCC_DDRSS_GPU_AXI_CLK as "mem_iface" which
-> was formerly "mem_clk" downstream. I'm not sure if the naming change is
-> intentional or you were trying to make upstream and downstream match and didn't
-> realize that they were renamed.
->
-> I'm not sure if we need DDRSS_GPU_AXI_CLK or not. Empirically it works without
-> it for sdm845 (I don't have a sc7180 to test) but we should probably loop back
-> with either the clock team or the hardware designers to be sure there isn't a
-> corner case that is missing. I agree with Doug that its always best if we don't
-> need to add a clock.
+Fixes: e515af8d4a6f ("drm/msm: devcoredump should dump MSM_SUBMIT_BO_DUMP buffers")
+Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
+Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+---
+ drivers/gpu/drm/msm/msm_rd.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-I can confirm that on sc7180 the GPU seems to come up just fine
-without the clock being specified in the iommu node.  Definitely would
-be good to know what's broken and if nothing is broken maybe we can
-change this patch to just add the sc7180 compatible string and drop
-the clock.  I do note that the GMU already has a reference to the same
-"GCC_DDRSS_GPU_AXI_CLK" clock.
+diff --git a/drivers/gpu/drm/msm/msm_rd.c b/drivers/gpu/drm/msm/msm_rd.c
+index 732f65df5c4f..fea30e7aa9e8 100644
+--- a/drivers/gpu/drm/msm/msm_rd.c
++++ b/drivers/gpu/drm/msm/msm_rd.c
+@@ -29,8 +29,6 @@
+  * or shader programs (if not emitted inline in cmdstream).
+  */
+ 
+-#ifdef CONFIG_DEBUG_FS
+-
+ #include <linux/circ_buf.h>
+ #include <linux/debugfs.h>
+ #include <linux/kfifo.h>
+@@ -47,6 +45,8 @@ bool rd_full = false;
+ MODULE_PARM_DESC(rd_full, "If true, $debugfs/.../rd will snapshot all buffer contents");
+ module_param_named(rd_full, rd_full, bool, 0600);
+ 
++#ifdef CONFIG_DEBUG_FS
++
+ enum rd_sect_type {
+ 	RD_NONE,
+ 	RD_TEST,       /* ascii text */
+-- 
+2.24.0
 
--Doug
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
