@@ -2,55 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71EDC1C1E03
-	for <lists+freedreno@lfdr.de>; Fri,  1 May 2020 21:43:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28B541C1F38
+	for <lists+freedreno@lfdr.de>; Fri,  1 May 2020 23:06:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69C5B6ED41;
-	Fri,  1 May 2020 19:43:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1D476ED4C;
+	Fri,  1 May 2020 21:06:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
- [104.130.122.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F15126ED3D
- for <freedreno@lists.freedesktop.org>; Fri,  1 May 2020 19:43:40 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1588362226; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=8MTWVNBp7jmyXYFX7PHfvSnL9tpX1AfSD1FL7Ijrg/8=;
- b=pjn+eRwQLYUMtlcbZ7cTMBv+a7UuqAA99Nmcr/Whb7Uik9OaSsvh5OpcKCl2MbHEyik8/2x/
- 214CaZYw+Yz72dRZNKhRRcS0lhvPsovM3buQzW56JDLUsWwvvjZ4rldVGfIk0uktJ+QO1sB2
- IF37cfzFbB9k18fIkvfAydSi5e0=
-X-Mailgun-Sending-Ip: 104.130.122.26
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5eac7be6.7f3533487298-smtp-out-n01;
- Fri, 01 May 2020 19:43:34 -0000 (UTC)
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 57C7AC44788; Fri,  1 May 2020 19:43:32 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from jordan-laptop.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 639C4C433CB;
- Fri,  1 May 2020 19:43:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 639C4C433CB
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=jcrouse@codeaurora.org
-From: Jordan Crouse <jcrouse@codeaurora.org>
-To: linux-arm-msm@vger.kernel.org
-Date: Fri,  1 May 2020 13:43:26 -0600
-Message-Id: <20200501194326.14593-1-jcrouse@codeaurora.org>
-X-Mailer: git-send-email 2.17.1
-Subject: [Freedreno] [PATCH v3] drm/msm: Check for powered down HW in the
- devfreq callbacks
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E8626E060;
+ Fri,  1 May 2020 20:52:10 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id h9so2638323wrt.0;
+ Fri, 01 May 2020 13:52:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=12JtCUsbZ+yUp2HpWHpScZpztaTEOKrSxTmHGBuq0XI=;
+ b=XMuJ3VRSMmnxdQVoGSNb165xKuSdEDNoIVP8pSrhPxgU2KM3Bda13/Sw7sYV3xvxol
+ xhWfZoSmsGD3+sG/0sETAj0feAM8YqB+NP/hvL7PatsMIuAmmu8gyBoKZT946NpmQqyO
+ oiEiV6WVC3feL2jw7/xo5YyCKM1CbmUr5y+QMOuciVsv5ii/5xjw0C6v9KcK+eMJY3Hd
+ x+fecNm5e74MZsAzGrQbokYAxVsZFwrC9l70JSrXs1+0lH9+RM6pMWBx6LrUv3oi9Y/U
+ p4h0wYYQDpGZBzDaEEX8cqWYiXYN41kcZwGgz1UIhghAfi9PIF6TxUesOfwjV4C14MiX
+ IzMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=12JtCUsbZ+yUp2HpWHpScZpztaTEOKrSxTmHGBuq0XI=;
+ b=oUwH3t9gHb8xuTAbf+2/qYoxNgB4P2o1s2rjTHtsxjstDF+PQruzUuz6aDNLuc/UTv
+ KVPVS0Pyum+8/Jhp0ZvQ1E8/yub1naqY7bvQhv/BV0RKAnzLA4lK/v2QOZ4al5rrjIPr
+ r+fCVAJXyuH5mkHWUitnC2gyoXvsg0qFeBMyWEqiM5sOA6dSbWtN614uEWpa28Au2KqO
+ ZRuF2/ROFHVWWpVIeZl1S90ccs14MBAEliWuhkfMujZyYwVG9OVS2JTf2YM0S+Y07KoJ
+ FvIhH73rCOrdUR5Cxkjdc8j0Cn6sAoujzrtwgRpPJU+QzhkhMMsd//FPxaom0D7MJ52B
+ +gew==
+X-Gm-Message-State: AGi0PuajRl1c8XohFcgvhM5Vf/hkTf1Ez5JmAL/KocS5Wrs3dIK+yE52
+ EU0PaL5yPwq6ilSgtE1zKq8=
+X-Google-Smtp-Source: APiQypLaF6TJ5hD+rLSGyVSptxrYBa9qeOx0rfL//IoFc6ei2aWIAaO6eINfl9t4+h1vHw3nSOB9YQ==
+X-Received: by 2002:a5d:4248:: with SMTP id s8mr5841751wrr.216.1588366329072; 
+ Fri, 01 May 2020 13:52:09 -0700 (PDT)
+Received: from localhost.localdomain (abag125.neoplus.adsl.tpnet.pl.
+ [83.6.170.125])
+ by smtp.googlemail.com with ESMTPSA id d143sm1065098wmd.16.2020.05.01.13.52.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 01 May 2020 13:52:08 -0700 (PDT)
+From: Konrad Dybcio <konradybcio@gmail.com>
+To: skrzynka@konradybcio.pl
+Date: Fri,  1 May 2020 22:51:59 +0200
+Message-Id: <20200501205201.149804-1-konradybcio@gmail.com>
+X-Mailer: git-send-email 2.26.1
+MIME-Version: 1.0
+X-Mailman-Approved-At: Fri, 01 May 2020 21:06:44 +0000
+Subject: [Freedreno] [PATCH] drivers: gpu: drm: Add MDP5 configuration for
+ MSM8x36 and its derivatives, such as MSM8939.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,126 +67,116 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, David Airlie <airlied@linux.ie>,
- freedreno@lists.freedesktop.org, Sharat Masetty <smasetty@codeaurora.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>, stable@vger.kernel.org,
- Stephen Boyd <swboyd@chromium.org>, Eric Anholt <eric@anholt.net>,
- Rob Clark <robdclark@gmail.com>, Ben Dooks <ben.dooks@codethink.co.uk>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+Cc: freedreno@lists.freedesktop.org, Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Konrad Dybcio <konradybcio@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, zhengbin <zhengbin13@huawei.com>,
+ Alexios Zavras <alexios.zavras@intel.com>, Rob Clark <robdclark@gmail.com>,
+ Ben Dooks <ben.dooks@codethink.co.uk>, Daniel Vetter <daniel@ffwll.ch>,
  Thomas Gleixner <tglx@linutronix.de>,
  AngeloGioacchino Del Regno <kholk11@gmail.com>, Sean Paul <sean@poorly.run>,
- linux-kernel@vger.kernel.org
-MIME-Version: 1.0
+ Allison Randal <allison@lohutok.net>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Writing to the devfreq sysfs nodes while the GPU is powered down can
-result in a system crash (on a5xx) or a nasty GMU error (on a6xx):
-
- $ /sys/class/devfreq/5000000.gpu# echo 500000000 > min_freq
-  [  104.841625] platform 506a000.gmu: [drm:a6xx_gmu_set_oob]
-	*ERROR* Timeout waiting for GMU OOB set GPU_DCVS: 0x0
-
-Despite the fact that we carefully try to suspend the devfreq device when
-the hardware is powered down there are lots of holes in the governors that
-don't check for the suspend state and blindly call into the devfreq
-callbacks that end up triggering hardware reads in the GPU driver.
-
-Call pm_runtime_get_if_in_use() in the gpu_busy() and gpu_set_freq()
-callbacks to skip the hardware access if it isn't active.
-
-v3: Only check pm_runtime_get_if_in_use() for == 0 per Eric Anholt
-v2: Use pm_runtime_get_if_in_use() per Eric Anholt
-
-Cc: stable@vger.kernel.org
-Reviewed-by: Eric Anholt <eric@anholt.net>
-Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
+Signed-off-by: Konrad Dybcio <konradybcio@gmail.com>
 ---
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c | 70 ++++++++++++++++++++++++
+ 1 file changed, 70 insertions(+)
 
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c | 6 ++++++
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 8 ++++++++
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 7 +++++++
- 3 files changed, 21 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index 724024a2243a..662d02289533 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -1404,6 +1404,10 @@ static unsigned long a5xx_gpu_busy(struct msm_gpu *gpu)
- {
- 	u64 busy_cycles, busy_time;
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
+index e3c4c250238b7..1c7de7d6870cf 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
+@@ -342,6 +342,75 @@ static const struct mdp5_cfg_hw msm8x16_config = {
+ 	.max_clk = 320000000,
+ };
  
-+	/* Only read the gpu busy if the hardware is already active */
-+	if (pm_runtime_get_if_in_use(&gpu->pdev->dev) == 0)
-+		return 0;
++static const struct mdp5_cfg_hw msm8x36_config = {
++	.name = "msm8x36",
++	.mdp = {
++		.count = 1,
++		.base = { 0x0 },
++		.caps = MDP_CAP_SMP |
++			0,
++	},
++	.smp = {
++		.mmb_count = 8,
++		.mmb_size = 10240,
++		.clients = {
++			[SSPP_VIG0] = 1, [SSPP_DMA0] = 4,
++			[SSPP_RGB0] = 7, [SSPP_RGB1] = 8,
++		},
++	},
++	.ctl = {
++		.count = 3,
++		.base = { 0x01000, 0x01200, 0x01400 },
++		.flush_hw_mask = 0x4003ffff,
++	},
++	.pipe_vig = {
++		.count = 1,
++		.base = { 0x04000 },
++		.caps = MDP_PIPE_CAP_HFLIP | MDP_PIPE_CAP_VFLIP |
++				MDP_PIPE_CAP_SCALE | MDP_PIPE_CAP_CSC |
++				MDP_PIPE_CAP_DECIMATION,
++	},
++	.pipe_rgb = {
++		.count = 2,
++		.base = { 0x14000, 0x16000 },
++		.caps = MDP_PIPE_CAP_HFLIP | MDP_PIPE_CAP_VFLIP |
++				MDP_PIPE_CAP_DECIMATION,
++	},
++	.pipe_dma = {
++		.count = 1,
++		.base = { 0x24000 },
++		.caps = MDP_PIPE_CAP_HFLIP | MDP_PIPE_CAP_VFLIP,
++	},
++	.lm = {
++		.count = 1,
++		.base = { 0x44000 },
++		.instances = {
++				{ .id = 0, .pp = 0, .dspp = 0,
++				  .caps = MDP_LM_CAP_DISPLAY, },
++				},
++		.nb_stages = 8,
++		.max_width = 2048,
++		.max_height = 0xFFFF,
++	},
++	.pp = {
++		.count = 1,
++		.base = { 0x70000 },
++	},
 +
- 	busy_cycles = gpu_read64(gpu, REG_A5XX_RBBM_PERFCTR_RBBM_0_LO,
- 			REG_A5XX_RBBM_PERFCTR_RBBM_0_HI);
- 
-@@ -1412,6 +1416,8 @@ static unsigned long a5xx_gpu_busy(struct msm_gpu *gpu)
- 
- 	gpu->devfreq.busy_cycles = busy_cycles;
- 
-+	pm_runtime_put(&gpu->pdev->dev);
-+
- 	if (WARN_ON(busy_time > ~0LU))
- 		return ~0LU;
- 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index c4e71abbdd53..34607a98cc7c 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -108,6 +108,13 @@ static void __a6xx_gmu_set_freq(struct a6xx_gmu *gmu, int index)
- 	struct msm_gpu *gpu = &adreno_gpu->base;
- 	int ret;
- 
-+	/*
-+	 * This can get called from devfreq while the hardware is idle. Don't
-+	 * bring up the power if it isn't already active
-+	 */
-+	if (pm_runtime_get_if_in_use(gmu->dev) == 0)
-+		return;
-+
- 	gmu_write(gmu, REG_A6XX_GMU_DCVS_ACK_OPTION, 0);
- 
- 	gmu_write(gmu, REG_A6XX_GMU_DCVS_PERF_SETTING,
-@@ -134,6 +141,7 @@ static void __a6xx_gmu_set_freq(struct a6xx_gmu *gmu, int index)
- 	 * for now leave it at max so that the performance is nominal.
- 	 */
- 	icc_set_bw(gpu->icc_path, 0, MBps_to_icc(7216));
-+	pm_runtime_put(gmu->dev);
- }
- 
- void a6xx_gmu_set_freq(struct msm_gpu *gpu, unsigned long freq)
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 68af24150de5..2c09d2c21773 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -810,6 +810,11 @@ static unsigned long a6xx_gpu_busy(struct msm_gpu *gpu)
- 	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
- 	u64 busy_cycles, busy_time;
- 
-+
-+	/* Only read the gpu busy if the hardware is already active */
-+	if (pm_runtime_get_if_in_use(a6xx_gpu->gmu.dev) == 0)
-+		return 0;
-+
- 	busy_cycles = gmu_read64(&a6xx_gpu->gmu,
- 			REG_A6XX_GMU_CX_GMU_POWER_COUNTER_XOCLK_0_L,
- 			REG_A6XX_GMU_CX_GMU_POWER_COUNTER_XOCLK_0_H);
-@@ -819,6 +824,8 @@ static unsigned long a6xx_gpu_busy(struct msm_gpu *gpu)
- 
- 	gpu->devfreq.busy_cycles = busy_cycles;
- 
-+	pm_runtime_put(a6xx_gpu->gmu.dev);
-+
- 	if (WARN_ON(busy_time > ~0LU))
- 		return ~0LU;
- 
++	.dspp = {
++		.count = 1,
++		.base = { 0x54000 },
++	},
++	.intf = {
++		.base = { 0x00000, 0x6a800, 0x6b000 },
++		.connect = {
++			[0] = INTF_DISABLED,
++			[1] = INTF_DSI,
++			[2] = INTF_DSI,
++		},
++	},
++	.max_clk = 366670000,
++};
+ static const struct mdp5_cfg_hw msm8x94_config = {
+ 	.name = "msm8x94",
+ 	.mdp = {
+@@ -840,6 +909,7 @@ static const struct mdp5_cfg_handler cfg_handlers_v1[] = {
+ 	{ .revision = 2, .config = { .hw = &msm8x74v2_config } },
+ 	{ .revision = 3, .config = { .hw = &apq8084_config } },
+ 	{ .revision = 6, .config = { .hw = &msm8x16_config } },
++	{ .revision = 8, .config = { .hw = &msm8x36_config } },
+ 	{ .revision = 9, .config = { .hw = &msm8x94_config } },
+ 	{ .revision = 7, .config = { .hw = &msm8x96_config } },
+ 	{ .revision = 11, .config = { .hw = &msm8x76_config } },
 -- 
-2.17.1
+2.26.1
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
