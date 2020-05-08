@@ -2,57 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B7CA1C7A3C
-	for <lists+freedreno@lfdr.de>; Wed,  6 May 2020 21:25:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 013CA1CB240
+	for <lists+freedreno@lfdr.de>; Fri,  8 May 2020 16:48:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D05536E8CE;
-	Wed,  6 May 2020 19:25:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C5176EB18;
+	Fri,  8 May 2020 14:48:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
- [IPv6:2607:f8b0:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E512C6E8CE
- for <freedreno@lists.freedesktop.org>; Wed,  6 May 2020 19:25:49 +0000 (UTC)
-Received: by mail-pf1-x443.google.com with SMTP id z1so1538048pfn.3
- for <freedreno@lists.freedesktop.org>; Wed, 06 May 2020 12:25:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
+ [IPv6:2607:f8b0:4864:20::642])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A31886E18E
+ for <freedreno@lists.freedesktop.org>; Fri,  8 May 2020 13:52:11 +0000 (UTC)
+Received: by mail-pl1-x642.google.com with SMTP id f8so761894plt.2
+ for <freedreno@lists.freedesktop.org>; Fri, 08 May 2020 06:52:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=CwlP6EYHN6g+DNT34PQdILeoztGCENWoPR/CrDmj7cM=;
- b=Oy6t/RM9X407g9VMd/oZUFCv1R2vqkGVDxiJqcLgBRjg6gGsAhHbK5XNjSaZDrGR6i
- hcvJ0DAA6cLxzphFrdMOSLz1Thq0IJ6BUo4ADyQqma2/3XAmeQfPKXE3JtmPTSVbT1tC
- c0QAA53U7nJEzR6q/TNrMoYN80r0hy3OKaacY=
+ :content-disposition:in-reply-to:user-agent;
+ bh=0jCsV9kMCvKoLy/+F2UgXK4X/51ktfa1OAMmkbW9Vos=;
+ b=ghHY8m6xtX8A574McPTJ+47EkLLBC4yXXpjqq5KpkaG44TQALnL8DTje3tAxiPinzi
+ fXfnByOXmrNQArBPy2GqK++mVUdsKUcHeqINCPGHjg0HmnstTAdBq8Pyj7wtwj10gsva
+ Ng92GCFDKcfcF2puH7AWmOgxKZpLDKE3bLs5G8mZ3jKLRq3w/W7V7+zgryKhtPTTzN8e
+ 91HI2CD9MSokbfuol3Yjg42Vw4RjQj9xnuO0Zsa5XrKwjIl71sN1hHhARQvfttm0rsdb
+ cUxf7iSBcs+dVFb2zTcuhMUUygVCggJQqUrtkYkKIBCSbkBYzLbUNk9W7+KI303KiSEk
+ EbKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=CwlP6EYHN6g+DNT34PQdILeoztGCENWoPR/CrDmj7cM=;
- b=QymSOif7dfFS+f+ZyWVOgCvbVTW03jWhigD3lWWrvEwpzqwDaQJAK/jhlIqfKRb/jB
- uPa8yfbTxr8sHzfddWzQEYZBx+/gP0xBxrav0ubz4f1ZFUw/nGxrt6INdV3eJylIY6/I
- 0TNWy2cfEImu/VohHx5wCmE+C8Hv5jprEGLioDgfpL7SzFwu6meS15OejYWQjvTMYjl9
- 6pUXSSONN3PFdoXbFw17Dg/kYhDY7UNKAyoEuQ23hwBZU85SLreVPtQBNgD7Z0jN9ewI
- bOWnEB2ca/Bu5LlP2F3/5I/5R3hLfVZSRfJ37LWxMrMB8ZqwW26PchSt8mQUxHWUcQHC
- mkHw==
-X-Gm-Message-State: AGi0PuacDlNtOyJ1UqxuwgD/UQpqsWL3k5Q7/fJWGKWdac6mADZnYxZU
- OlMJXLQCnVBvoUNN3wjpSWSEgQ==
-X-Google-Smtp-Source: APiQypLUKuBtus1IitoTsBLnaDmsbHfvQH+D98llQB+TKmq2UsX5RoGXA/K8c4olMhXO8vUm9fsIvw==
-X-Received: by 2002:a63:3d43:: with SMTP id k64mr8230250pga.150.1588793149484; 
- Wed, 06 May 2020 12:25:49 -0700 (PDT)
-Received: from localhost ([2620:15c:202:1:4fff:7a6b:a335:8fde])
- by smtp.gmail.com with ESMTPSA id l6sm2597373pfl.128.2020.05.06.12.25.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 May 2020 12:25:48 -0700 (PDT)
-Date: Wed, 6 May 2020 12:25:47 -0700
-From: Matthias Kaehlcke <mka@chromium.org>
-To: Harigovindan P <harigovi@codeaurora.org>
-Message-ID: <20200506192547.GY4525@google.com>
-References: <20200211113735.6840-1-harigovi@codeaurora.org>
- <20200214184937.GA15781@google.com>
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=0jCsV9kMCvKoLy/+F2UgXK4X/51ktfa1OAMmkbW9Vos=;
+ b=eXsJoFoT1GLXbBerq1wjMnRXYu+Y6fJoj3PuNsg7vmSIndbZx+5AW42cCNQpQts4EL
+ d9iAdut6zywFntp/MyoulUJtMNMiNSesHIRtZjGof6nmaXAyd9v0xjFn9QMU4TEwsxJ9
+ 5K/ehebE/0mGZgsoH71AgaIrYPvc9s7wb1jLJFOhfmd8J74tjSeo/PNIac+Caa5mPWPj
+ oJQRKw7R4yG5ZfPzU/kMoietfd7Gn4Xn26THbHDLSfF3kQ1M+lTMnqagrhUHy/cyqH+l
+ JjQaOqu+oxJCAx6mNty3NZ8etSAGGiL2R24in0eMMe+clAVfz0KIpgVCtBh0Ms3gRHBJ
+ CfDA==
+X-Gm-Message-State: AGi0PubxoPEAy57XH7Fm1x3soejdf1EaC60Qatwh/JStd8rRvPzegd/A
+ c9pD+w39hBdUgrHdcCWxypHNSg==
+X-Google-Smtp-Source: APiQypI9Qdzl3FHEOWr4U3hPDPJFhtn4Y3+xwR+HhV6XqnRiET+VZg6Rk0X/IKLivbJ7mZtbbldAEQ==
+X-Received: by 2002:a17:90a:e013:: with SMTP id
+ u19mr5644114pjy.16.1588945931131; 
+ Fri, 08 May 2020 06:52:11 -0700 (PDT)
+Received: from dragon ([80.251.214.228])
+ by smtp.gmail.com with ESMTPSA id o6sm1845540pfp.172.2020.05.08.06.52.05
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Fri, 08 May 2020 06:52:10 -0700 (PDT)
+Date: Fri, 8 May 2020 21:51:59 +0800
+From: Shawn Guo <shawn.guo@linaro.org>
+To: Konrad Dybcio <konradybcio@gmail.com>
+Message-ID: <20200508135157.GD30486@dragon>
+References: <20200501205201.149804-1-konradybcio@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200214184937.GA15781@google.com>
-Subject: Re: [Freedreno] [v2] arm64: dts: sc7180: add dsi controller and phy
- entries for idp dts
+In-Reply-To: <20200501205201.149804-1-konradybcio@gmail.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Mailman-Approved-At: Fri, 08 May 2020 14:48:49 +0000
+Subject: Re: [Freedreno] [PATCH] drivers: gpu: drm: Add MDP5 configuration
+ for MSM8x36 and its derivatives, such as MSM8939.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,162 +70,146 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
- kalyan_t@codeaurora.org, hoegsberg@chromium.org,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, skrzynka@konradybcio.pl,
+ Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, zhengbin <zhengbin13@huawei.com>,
+ Alexios Zavras <alexios.zavras@intel.com>, Rob Clark <robdclark@gmail.com>,
+ Ben Dooks <ben.dooks@codethink.co.uk>, Daniel Vetter <daniel@ffwll.ch>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ AngeloGioacchino Del Regno <kholk11@gmail.com>, Sean Paul <sean@poorly.run>,
+ Allison Randal <allison@lohutok.net>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Feb 14, 2020 at 10:49:37AM -0800, Matthias Kaehlcke wrote:
-> On Tue, Feb 11, 2020 at 05:07:35PM +0530, Harigovindan P wrote:
+Hi Konrad,
+
+On Fri, May 01, 2020 at 10:51:59PM +0200, Konrad Dybcio wrote:
+> Signed-off-by: Konrad Dybcio <konradybcio@gmail.com>
+
+Please write up some commit log.  Since this is based on msm8x16_config,
+maybe document the differences from it in commit log?
+
+> ---
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c | 70 ++++++++++++++++++++++++
+>  1 file changed, 70 insertions(+)
 > 
-> > subject: arm64: dts: sc7180: add dsi controller and phy entries for idp dts
-> 
-> nit: 'dts' at the end is redundant, the prefixes make it clear that this
-> is about DT entries.
-> 
-> Also the message isn't really concise. The main entries for the DSI
-> controller and the PHY are in sc7180.dtsi. I would suggest to drop
-> any mentions of DSI controller and PHYs, and just say something like
-> 'Add nodes for IDP display'. In the body you could mention that the
-> display is the Visionox RM69299.
-> 
-> > Adding dsi controller and phy entries for idp dt.
-> > 
-> > Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
-> > ---
-> > 
-> > Changes in v1:
-> > 	- Added dsi controller and dsi phy entries for idp dts
-> 
-> Changes in v1 is pointless, it's the first patch
-> 
-> > Changes in v2:
-> > 	- Adding dependency patchwork series
-> > 	- Removing suspend configuration
-> > 	- Adding blank before curly brace
-> > 
-> > This patch depends on following patchwork series:
-> > 
-> > https://patchwork.kernel.org/patch/11364687/
-> > https://patchwork.kernel.org/patch/11366303/
-> > 
-> >  arch/arm64/boot/dts/qcom/sc7180-idp.dts | 55 +++++++++++++++++++++++++
-> >  1 file changed, 55 insertions(+)
-> > 
-> > diff --git a/arch/arm64/boot/dts/qcom/sc7180-idp.dts b/arch/arm64/boot/dts/qcom/sc7180-idp.dts
-> > index 388f50ad4fde..6ccf8c3603ab 100644
-> > --- a/arch/arm64/boot/dts/qcom/sc7180-idp.dts
-> > +++ b/arch/arm64/boot/dts/qcom/sc7180-idp.dts
-> > @@ -7,6 +7,7 @@
-> >  
-> >  /dts-v1/;
-> >  
-> > +#include <dt-bindings/gpio/gpio.h>
-> >  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-> >  #include "sc7180.dtsi"
-> >  #include "pm6150.dtsi"
-> > @@ -232,6 +233,49 @@ vreg_bob: bob {
-> >  	};
-> >  };
-> >  
-> > +&dsi0 {
-> > +	status = "okay";
-> > +
-> > +	vdda-supply = <&vreg_l3c_1p2>;
-> > +
-> > +	panel@0 {
-> > +		compatible = "visionox,rm69299-1080p-display";
-> > +		reg = <0>;
-> > +
-> > +		vdda-supply = <&vreg_l8c_1p8>;
-> > +		vdd3p3-supply = <&vreg_l18a_2p8>;
-> > +
-> > +		pinctrl-names = "default";
-> > +		pinctrl-0 = <&disp_pins>;
-> > +
-> > +		reset-gpios = <&pm6150l_gpio 3 GPIO_ACTIVE_HIGH>;
-> > +
-> > +		ports {
-> > +			#address-cells = <1>;
-> > +			#size-cells = <0>;
-> > +			port@0 {
-> > +				reg = <0>;
-> > +				panel0_in: endpoint {
-> > +					remote-endpoint = <&dsi0_out>;
-> > +				};
-> > +			};
-> > +		};
-> > +	};
-> > +
-> > +	ports {
-> > +		port@1 {
-> > +			endpoint {
-> > +				remote-endpoint = <&panel0_in>;
-> > +				data-lanes = <0 1 2 3>;
-> > +			};
-> > +		};
-> > +	};
-> > +};
-> > +
-> > +&dsi_phy {
-> > +	status = "okay";
-> > +};
-> > +
-> >  &qspi {
-> >  	status = "okay";
-> >  	pinctrl-names = "default";
-> > @@ -289,6 +333,17 @@ &usb_1_qmpphy {
-> >  
-> >  /* PINCTRL - additions to nodes defined in sc7180.dtsi */
-> >  
-> > +&pm6150l_gpio {
-> > +	disp_pins: disp-pins {
-> > +		pins = "gpio3";
-> > +		function = "func1";
-> > +		qcom,drive-strength = <2>;
-> > +		power-source = <0>;
-> > +		bias-disable;
-> > +		output-low;
-> > +	};
-> > +};
-> > +
-> >  &qspi_clk {
-> >  	pinconf {
-> >  		pins = "gpio63";
-> 
-> To get the display actually to work you also need this:
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sc7180-idp.dts b/arch/arm64/boot/dts/qcom/sc7180-idp.dts
-> index 88919da1510b03..fdbcb56dfa81f9 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7180-idp.dts
-> +++ b/arch/arm64/boot/dts/qcom/sc7180-idp.dts
-> @@ -276,6 +276,14 @@
->         status = "okay";
+> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
+> index e3c4c250238b7..1c7de7d6870cf 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
+> @@ -342,6 +342,75 @@ static const struct mdp5_cfg_hw msm8x16_config = {
+>  	.max_clk = 320000000,
 >  };
-> 
-> +&mdp {
-> +       status = "okay";
-> +};
-> +
-> +&mdss {
-> +       status = "okay";
-> +};
-> +
->  &qspi {
->         status = "okay";
->         pinctrl-names = "default";
-> 
-> Maybe just add this to this patch?
+>  
+> +static const struct mdp5_cfg_hw msm8x36_config = {
+> +	.name = "msm8x36",
+> +	.mdp = {
+> +		.count = 1,
+> +		.base = { 0x0 },
+> +		.caps = MDP_CAP_SMP |
+> +			0,
+> +	},
+> +	.smp = {
+> +		.mmb_count = 8,
+> +		.mmb_size = 10240,
+> +		.clients = {
+> +			[SSPP_VIG0] = 1, [SSPP_DMA0] = 4,
+> +			[SSPP_RGB0] = 7, [SSPP_RGB1] = 8,
+> +		},
+> +	},
+> +	.ctl = {
+> +		.count = 3,
+> +		.base = { 0x01000, 0x01200, 0x01400 },
+> +		.flush_hw_mask = 0x4003ffff,
+> +	},
+> +	.pipe_vig = {
+> +		.count = 1,
+> +		.base = { 0x04000 },
+> +		.caps = MDP_PIPE_CAP_HFLIP | MDP_PIPE_CAP_VFLIP |
+> +				MDP_PIPE_CAP_SCALE | MDP_PIPE_CAP_CSC |
+> +				MDP_PIPE_CAP_DECIMATION,
+> +	},
+> +	.pipe_rgb = {
+> +		.count = 2,
+> +		.base = { 0x14000, 0x16000 },
+> +		.caps = MDP_PIPE_CAP_HFLIP | MDP_PIPE_CAP_VFLIP |
+> +				MDP_PIPE_CAP_DECIMATION,
+> +	},
+> +	.pipe_dma = {
+> +		.count = 1,
+> +		.base = { 0x24000 },
+> +		.caps = MDP_PIPE_CAP_HFLIP | MDP_PIPE_CAP_VFLIP,
+> +	},
+> +	.lm = {
+> +		.count = 1,
 
-ping
+From what I read on downstream 3.10 kernel, there should be two mixers
+just like msm8x16.
 
-the display driver landed in drm-misc, but this patch still needs a
-respin.
+	qcom,mdss-mixer-intf-off = <0x00045000>;
+	qcom,mdss-mixer-wb-off = <0x00048000>;
+
+> +		.base = { 0x44000 },
+> +		.instances = {
+> +				{ .id = 0, .pp = 0, .dspp = 0,
+> +				  .caps = MDP_LM_CAP_DISPLAY, },
+> +				},
+> +		.nb_stages = 8,
+> +		.max_width = 2048,
+
+It should probably be 2560 from downstream below.
+
+	qcom,max-mixer-width = <2560>;
+
+> +		.max_height = 0xFFFF,
+> +	},
+> +	.pp = {
+> +		.count = 1,
+> +		.base = { 0x70000 },
+> +	},
+> +
+
+For consistency, we may want to drop this newline.  And it looks like
+there is a .ad block on msm8x36.
+
+	qcom,mdss-ad-off = <0x0079000>;
+
+> +	.dspp = {
+> +		.count = 1,
+> +		.base = { 0x54000 },
+> +	},
+> +	.intf = {
+> +		.base = { 0x00000, 0x6a800, 0x6b000 },
+> +		.connect = {
+> +			[0] = INTF_DISABLED,
+> +			[1] = INTF_DSI,
+> +			[2] = INTF_DSI,
+> +		},
+> +	},
+> +	.max_clk = 366670000,
+> +};
+
+Need a newline here.
+
+Shawn
+
+>  static const struct mdp5_cfg_hw msm8x94_config = {
+>  	.name = "msm8x94",
+>  	.mdp = {
+> @@ -840,6 +909,7 @@ static const struct mdp5_cfg_handler cfg_handlers_v1[] = {
+>  	{ .revision = 2, .config = { .hw = &msm8x74v2_config } },
+>  	{ .revision = 3, .config = { .hw = &apq8084_config } },
+>  	{ .revision = 6, .config = { .hw = &msm8x16_config } },
+> +	{ .revision = 8, .config = { .hw = &msm8x36_config } },
+>  	{ .revision = 9, .config = { .hw = &msm8x94_config } },
+>  	{ .revision = 7, .config = { .hw = &msm8x96_config } },
+>  	{ .revision = 11, .config = { .hw = &msm8x76_config } },
+> -- 
+> 2.26.1
+> 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
