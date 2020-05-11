@@ -2,31 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA7B71D54E8
-	for <lists+freedreno@lfdr.de>; Fri, 15 May 2020 17:42:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA1AB1CD547
+	for <lists+freedreno@lfdr.de>; Mon, 11 May 2020 11:36:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72CA16ECC3;
-	Fri, 15 May 2020 15:42:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9E5D6E3FE;
+	Mon, 11 May 2020 09:36:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 308 seconds by postgrey-1.36 at gabe;
- Sun, 10 May 2020 12:13:57 UTC
-Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F2206E15C
- for <freedreno@lists.freedesktop.org>; Sun, 10 May 2020 12:13:57 +0000 (UTC)
-Received: from hopp.molgen.mpg.de (hopp.molgen.mpg.de [141.14.25.186])
- by mx.molgen.mpg.de (Postfix) with ESMTP id BFC4C2002EE02;
- Sun, 10 May 2020 14:08:47 +0200 (CEST)
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-To: dri-devel@lists.freedesktop.org
-Date: Sun, 10 May 2020 14:08:34 +0200
-Message-Id: <20200510120835.32054-2-pmenzel@molgen.mpg.de>
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C6546E3FE
+ for <freedreno@lists.freedesktop.org>; Mon, 11 May 2020 09:36:02 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id y24so18416263wma.4
+ for <freedreno@lists.freedesktop.org>; Mon, 11 May 2020 02:36:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=GPf4uEQTc/afTL7c/d2cSeqRiW2RQV3fjrBit70wmW4=;
+ b=WOk5qAdJnGfzedSYVjf9nBySpoGM+n2oOhUsj1JX9TIbBH8jTCWX2rsyBduOMQCSc7
+ neKaN8es7sL9BwmHgzRQCqOJyE9qnPM80O5sRkjxPrHc9R6U3W/hmK9HzJHex4UHmHjX
+ jK07NS0y3glRT5GD/LViGMTUeQNL/dzkeL3Ho=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=GPf4uEQTc/afTL7c/d2cSeqRiW2RQV3fjrBit70wmW4=;
+ b=VCCgwVrkzpR3qOMQ7bG80ETwyof7GRTx0gBKFgoixCKxmkVNqi99I+hHefAlUTOBTW
+ 2v7wfApO+RfQ3h3HSc1GXzTtlqfEiuDrtk1JlURvI3oTYITQ54b7M4CWbAsMaAdsS8P+
+ 1HvpoLrbwEA6APKdhfwipcsqGsbrLS3Uri8zxXUy3S7mnhxmbMaukRD1498KDR0WbPR7
+ 2sLMpqNHl12HoxRNfJ9V18kSEgISoH//NTNL6uEyiudT+3CZ+8KanIpTXkyQlKipoO0J
+ WDswzWgYOAByIEnaqvzSyh97qX5xHVct6cGA8OvQOAnhSUC+2MrfOu6Hshjo3eXZF2GJ
+ HCvw==
+X-Gm-Message-State: AGi0PuaMmbSFLfystyueAfnNyCNDgBBtf0xDkblURkc4kzBeaU9g7rbw
+ Rtq+UJoqpKci8iuoKNzjCn2/uA==
+X-Google-Smtp-Source: APiQypLI5J/YwNBWeinmIVZanIUCMAm2cxmh3WAHdA3Qh3SfT+IosHz9CBc6cX7rogzLt2gPdQQ8nQ==
+X-Received: by 2002:a1c:a102:: with SMTP id k2mr9162940wme.39.1589189760853;
+ Mon, 11 May 2020 02:36:00 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id q17sm9013945wmk.36.2020.05.11.02.35.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 11 May 2020 02:36:00 -0700 (PDT)
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: DRI Development <dri-devel@lists.freedesktop.org>
+Date: Mon, 11 May 2020 11:35:46 +0200
+Message-Id: <20200511093554.211493-2-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200510120835.32054-1-pmenzel@molgen.mpg.de>
-References: <20200510120835.32054-1-pmenzel@molgen.mpg.de>
+In-Reply-To: <20200511093554.211493-1-daniel.vetter@ffwll.ch>
+References: <20200511093554.211493-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Fri, 15 May 2020 15:42:01 +0000
-Subject: [Freedreno] [PATCH 2/3] gpu/drm: Fix spelling of *frequency*
+Subject: [Freedreno] [PATCH 1/9] drm/msm: Don't call dma_buf_vunmap without
+ _vmap
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -39,95 +64,64 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Paul Menzel <pmenzel@molgen.mpg.de>, David Zhou <David1.Zhou@amd.com>,
- Sean Paul <sean@poorly.run>, amd-gfx@lists.freedesktop.org,
+Cc: freedreno@lists.freedesktop.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
  Rob Clark <robdclark@gmail.com>, linux-arm-msm@vger.kernel.org,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ Daniel Vetter <daniel.vetter@intel.com>, Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Rml4IGFsbCBvY2N1cnJlbmNlcyB3aXRoIHRoZSBjb21tYW5kIGJlbG93LgoKICAgIGdpdCBncmVw
-IC1sIGZyZXF1ZW5jZXkgfCB4YXJncyBzZWQgLWkgJ3MvZnJlcXVlbmNleS9mcmVxdWVuY3kvZycK
-CkNjOiBSb2IgQ2xhcmsgPHJvYmRjbGFya0BnbWFpbC5jb20+CkNjOiBTZWFuIFBhdWwgPHNlYW5A
-cG9vcmx5LnJ1bj4KQ2M6IGxpbnV4LWFybS1tc21Admdlci5rZXJuZWwub3JnCkNjOiBmcmVlZHJl
-bm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCkNjOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVj
-aGVyQGFtZC5jb20+CkNjOiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5j
-b20+CkNjOiBEYXZpZCAoQ2h1bk1pbmcpIFpob3UgPERhdmlkMS5aaG91QGFtZC5jb20+CkNjOiBh
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpTaWduZWQtb2ZmLWJ5OiBQYXVsIE1lbnplbCA8
-cG1lbnplbEBtb2xnZW4ubXBnLmRlPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9h
-dG9tYmlvcy5oIHwgNCArKy0tCiBkcml2ZXJzL2dwdS9kcm0vbXNtL2RzaS9kc2lfaG9zdC5jICAg
-ICB8IDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vYXRvbWJpb3MuaCAgICAgIHwgNCArKy0t
-CiAzIGZpbGVzIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkKCmRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXRvbWJpb3MuaCBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvaW5jbHVkZS9hdG9tYmlvcy5oCmluZGV4IGFmZWY1NzRjM2I4OGIuLjdmZTFk
-MGQ2NjcwMWMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hdG9tYmlv
-cy5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hdG9tYmlvcy5oCkBAIC02MTM4
-LDcgKzYxMzgsNyBAQCB1Y0xWRFNPZmZUb09uRGVsYXlfaW40TXM6ICAgICAgICAgTFZEUyBwb3dl
-ciBkb3duIHNlcXVlbmNlIHRpbWUgaW4gdW5pdCBvZiA0bXMuCiAKIHVjTWluQWxsb3dlZEJMX0xl
-dmVsOiAgICAgICAgICAgICBMb3dlc3QgTENEIGJhY2tsaWdodCBQV00gbGV2ZWwuIFRoaXMgaXMg
-Y3VzdG9tZXIgcGxhdGZvcm0gc3BlY2lmaWMgcGFyYW1ldGVycy4gQnkgZGVmYXVsdCBpdCBpcyAw
-LgogCi11bE5icFN0YXRlTWVtY2xrRnJlcVs0XTogICAgICAgICAgc3lzdGVtIG1lbW9yeSBjbG9j
-ayBmcmVxdWVuY2V5IGluIHVuaXQgb2YgMTBLaHogaW4gZGlmZmVyZW50IE5CIHBzdGF0ZS4KK3Vs
-TmJwU3RhdGVNZW1jbGtGcmVxWzRdOiAgICAgICAgICBzeXN0ZW0gbWVtb3J5IGNsb2NrIGZyZXF1
-ZW5jeSBpbiB1bml0IG9mIDEwS2h6IGluIGRpZmZlcmVudCBOQiBwc3RhdGUuCiAKICoqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKiovCiAK
-QEAgLTYzNDYsNyArNjM0Niw3IEBAIHVjTWluQWxsb3dlZEJMX0xldmVsOiAgICAgICAgICAgICBM
-b3dlc3QgTENEIGJhY2tsaWdodCBQV00gbGV2ZWwuIFRoaXMgaXMgY3VzdG9tCiAKIHVsTENEQml0
-RGVwdGhDb250cm9sVmFsOiAgICAgICAgICBHUFUgZGlzcGxheSBjb250cm9sIGVuY29kZXIgYml0
-IGRpdGhlciBjb250cm9sIHNldHRpbmcsIHVzZWQgdG8gcHJvZ3JhbSByZWdpc3RlciBtbUZNVF9C
-SVRfREVQVEhfQ09OVFJPTAogCi11bE5icFN0YXRlTWVtY2xrRnJlcVs0XTogICAgICAgICAgc3lz
-dGVtIG1lbW9yeSBjbG9jayBmcmVxdWVuY2V5IGluIHVuaXQgb2YgMTBLaHogaW4gZGlmZmVyZW50
-IE5CIFAtU3RhdGUoUDAsIFAxLCBQMiAmIFAzKS4KK3VsTmJwU3RhdGVNZW1jbGtGcmVxWzRdOiAg
-ICAgICAgICBzeXN0ZW0gbWVtb3J5IGNsb2NrIGZyZXF1ZW5jeSBpbiB1bml0IG9mIDEwS2h6IGlu
-IGRpZmZlcmVudCBOQiBQLVN0YXRlKFAwLCBQMSwgUDIgJiBQMykuCiB1bE5icFN0YXRlTkNsa0Zy
-ZXFbNF06ICAgICAgICAgICAgTkIgUC1TdGF0ZSBOQ2xrIGZyZXF1ZW5jeSBpbiBkaWZmZXJlbnQg
-TkIgUC1TdGF0ZQogdXNOQlBTdGF0ZVZvbHRhZ2VbNF06ICAgICAgICAgICAgIE5CIFAtU3RhdGUg
-KFAwL1AxICYgUDIvUDMpIHZvbHRhZ2U7IE5CUDMgcmVmZXJzIHRvIGxvd2VzIHZvbHRhZ2UKIHVz
-Qm9vdFVwTkJWb2x0YWdlOiAgICAgICAgICAgICAgICBOQiBQLVN0YXRlIHZvbHRhZ2UgZHVyaW5n
-IGJvb3QgdXAgYmVmb3JlIGRyaXZlciBsb2FkZWQKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9tc20vZHNpL2RzaV9ob3N0LmMgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2RzaS9kc2lfaG9zdC5j
-CmluZGV4IDExYWU1Yjg0NDRjMzIuLjdiNTBjMmI3YWY3NGYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9tc20vZHNpL2RzaV9ob3N0LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL21zbS9kc2kv
-ZHNpX2hvc3QuYwpAQCAtNzQzLDcgKzc0Myw3IEBAIGludCBkc2lfY2FsY19jbGtfcmF0ZV92Mihz
-dHJ1Y3QgbXNtX2RzaV9ob3N0ICptc21faG9zdCwgYm9vbCBpc19kdWFsX2RzaSkKIAkgKiBlc2Mg
-Y2xvY2sgaXMgYnl0ZSBjbG9jayBmb2xsb3dlZCBieSBhIDQgYml0IGRpdmlkZXIsCiAJICogd2Ug
-bmVlZCB0byBmaW5kIGFuIGVzY2FwZSBjbG9jayBmcmVxdWVuY3kgd2l0aGluIHRoZQogCSAqIG1p
-cGkgRFNJIHNwZWMgcmFuZ2Ugd2l0aGluIHRoZSBtYXhpbXVtIGRpdmlkZXIgbGltaXQKLQkgKiBX
-ZSBpdGVyYXRlIGhlcmUgYmV0d2VlbiBhbiBlc2NhcGUgY2xvY2sgZnJlcXVlbmNleQorCSAqIFdl
-IGl0ZXJhdGUgaGVyZSBiZXR3ZWVuIGFuIGVzY2FwZSBjbG9jayBmcmVxdWVuY3kKIAkgKiBiZXR3
-ZWVuIDIwIE1oeiB0byA1IE1oeiBhbmQgcGljayB1cCB0aGUgZmlyc3Qgb25lCiAJICogdGhhdCBj
-YW4gYmUgc3VwcG9ydGVkIGJ5IG91ciBkaXZpZGVyCiAJICovCmRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vcmFkZW9uL2F0b21iaW9zLmggYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL2F0b21i
-aW9zLmgKaW5kZXggNGQwZjZkZTMyOTU3Zi4uYjlkN2Q1NGU1MzdjZiAxMDA2NDQKLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL3JhZGVvbi9hdG9tYmlvcy5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRl
-b24vYXRvbWJpb3MuaApAQCAtNTIwNiw3ICs1MjA2LDcgQEAgdWNMVkRTT2ZmVG9PbkRlbGF5X2lu
-NE1zOiAgICAgICAgIExWRFMgcG93ZXIgZG93biBzZXF1ZW5jZSB0aW1lIGluIHVuaXQgb2YgNG1z
-LgogCiB1Y01pbkFsbG93ZWRCTF9MZXZlbDogICAgICAgICAgICAgTG93ZXN0IExDRCBiYWNrbGln
-aHQgUFdNIGxldmVsLiBUaGlzIGlzIGN1c3RvbWVyIHBsYXRmb3JtIHNwZWNpZmljIHBhcmFtZXRl
-cnMuIEJ5IGRlZmF1bHQgaXQgaXMgMC4gCiAKLXVsTmJwU3RhdGVNZW1jbGtGcmVxWzRdOiAgICAg
-ICAgICBzeXN0ZW0gbWVtb3J5IGNsb2NrIGZyZXF1ZW5jZXkgaW4gdW5pdCBvZiAxMEtoeiBpbiBk
-aWZmZXJlbnQgTkIgcHN0YXRlLiAKK3VsTmJwU3RhdGVNZW1jbGtGcmVxWzRdOiAgICAgICAgICBz
-eXN0ZW0gbWVtb3J5IGNsb2NrIGZyZXF1ZW5jeSBpbiB1bml0IG9mIDEwS2h6IGluIGRpZmZlcmVu
-dCBOQiBwc3RhdGUuIAogCiAqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqLwogCkBAIC01NDEzLDcgKzU0MTMsNyBAQCB1Y01pbkFsbG93
-ZWRCTF9MZXZlbDogICAgICAgICAgICAgTG93ZXN0IExDRCBiYWNrbGlnaHQgUFdNIGxldmVsLiBU
-aGlzIGlzIGN1c3RvbQogCiB1bExDREJpdERlcHRoQ29udHJvbFZhbDogICAgICAgICAgR1BVIGRp
-c3BsYXkgY29udHJvbCBlbmNvZGVyIGJpdCBkaXRoZXIgY29udHJvbCBzZXR0aW5nLCB1c2VkIHRv
-IHByb2dyYW0gcmVnaXN0ZXIgbW1GTVRfQklUX0RFUFRIX0NPTlRST0wKIAotdWxOYnBTdGF0ZU1l
-bWNsa0ZyZXFbNF06ICAgICAgICAgIHN5c3RlbSBtZW1vcnkgY2xvY2sgZnJlcXVlbmNleSBpbiB1
-bml0IG9mIDEwS2h6IGluIGRpZmZlcmVudCBOQiBQLVN0YXRlKFAwLCBQMSwgUDIgJiBQMykuCit1
-bE5icFN0YXRlTWVtY2xrRnJlcVs0XTogICAgICAgICAgc3lzdGVtIG1lbW9yeSBjbG9jayBmcmVx
-dWVuY3kgaW4gdW5pdCBvZiAxMEtoeiBpbiBkaWZmZXJlbnQgTkIgUC1TdGF0ZShQMCwgUDEsIFAy
-ICYgUDMpLgogdWxOYnBTdGF0ZU5DbGtGcmVxWzRdOiAgICAgICAgICAgIE5CIFAtU3RhdGUgTkNs
-ayBmcmVxdWVuY3kgaW4gZGlmZmVyZW50IE5CIFAtU3RhdGUKIHVzTkJQU3RhdGVWb2x0YWdlWzRd
-OiAgICAgICAgICAgICBOQiBQLVN0YXRlIChQMC9QMSAmIFAyL1AzKSB2b2x0YWdlOyBOQlAzIHJl
-ZmVycyB0byBsb3dlcyB2b2x0YWdlCiB1c0Jvb3RVcE5CVm9sdGFnZTogICAgICAgICAgICAgICAg
-TkIgUC1TdGF0ZSB2b2x0YWdlIGR1cmluZyBib290IHVwIGJlZm9yZSBkcml2ZXIgbG9hZGVkIAot
-LSAKMi4yNi4yCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwpGcmVlZHJlbm8gbWFpbGluZyBsaXN0CkZyZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9mcmVlZHJlbm8K
+I honestly don't exactly understand what's going on here, but the
+current code is wrong for sure: It calls dma_buf_vunmap without ever
+calling dma_buf_vmap.
+
+What I'm not sure about is whether the WARN_ON is correct:
+- msm imports dma-buf using drm_prime_sg_to_page_addr_arrays. Which is
+  a pretty neat layering violation of how you shouldn't peek behind
+  the curtain of the dma-buf exporter, but par for course. Note that
+  all the nice new helpers don't (and we should probably have a bit a
+  warning about this in the kerneldoc).
+
+- but then in the get_vaddr() in msm_gem.c, and that seems to happily
+  wrap a vmap() around any object with ->pages set (so including
+  imported dma-buf)
+
+- I'm not seeing any guarantees that userspace can't use an imported
+  dma-buf for e.g. MSM_SUBMIT_CMD_BUF in a5xx_submit_in_rb, so no
+  guarantees that an imported dma-buf won't end up with a ->vaddr set.
+
+But even if that WARN_ON is wrong, cleaning up a vmap() done by msm by
+calling dma_buf_vmap is the wrong thing to do.
+
+Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+Cc: Rob Clark <robdclark@gmail.com>
+Cc: Sean Paul <sean@poorly.run>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org
+---
+ drivers/gpu/drm/msm/msm_gem.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index 5a6a79fbc9d6..3305a457960e 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -907,8 +907,7 @@ static void free_object(struct msm_gem_object *msm_obj)
+ 	put_iova(obj);
+ 
+ 	if (obj->import_attach) {
+-		if (msm_obj->vaddr)
+-			dma_buf_vunmap(obj->import_attach->dmabuf, msm_obj->vaddr);
++		WARN_ON(msm_obj->vaddr);
+ 
+ 		/* Don't drop the pages for imported dmabuf, as they are not
+ 		 * ours, just free the array we allocated:
+-- 
+2.26.2
+
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
