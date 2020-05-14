@@ -2,55 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BD4C1D3EB9
-	for <lists+freedreno@lfdr.de>; Thu, 14 May 2020 22:11:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 446071D41BB
+	for <lists+freedreno@lfdr.de>; Fri, 15 May 2020 01:38:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED3CA6EBA2;
-	Thu, 14 May 2020 20:11:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6CCC6E0C4;
+	Thu, 14 May 2020 23:38:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33EB26EBA2
- for <freedreno@lists.freedesktop.org>; Thu, 14 May 2020 20:11:24 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id e16so297036wra.7
- for <freedreno@lists.freedesktop.org>; Thu, 14 May 2020 13:11:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=u5+ZIsepmANUb25rp8z2+IfwFZccCxjdXSGCg+HwNG8=;
- b=inEPheZK6U783qRJhkzWRpmM2fI++8ygHH4D+jRYdwfk13oSlcSH5TIdtyUS3a9T8+
- ygc6H70ykiMA4j5aqpKMv7VgZHV6lFT7H28kRXzI3dlqaZB8DWa+oEyaGv3U26Da8UHS
- +sjzVxs+fGPUwbt7WH+FD4J5d19UwkMzQiY7U=
+Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
+ [IPv6:2607:f8b0:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D7E06E0C4
+ for <freedreno@lists.freedesktop.org>; Thu, 14 May 2020 23:38:01 +0000 (UTC)
+Received: by mail-pf1-x443.google.com with SMTP id w65so72186pfc.12
+ for <freedreno@lists.freedesktop.org>; Thu, 14 May 2020 16:38:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=QK2T0t/Jj0JFQe8jONLMLZrHIHWtDY8wi6hh+6HVsZc=;
+ b=mYnOUX8GzYHSabSOa5Twez7NHxPD2GmAYqgM4bH8a0VNgWLtlOkVTW5tuAvMEvimR7
+ Etu0z5LT+oPBLhSpHfTCojRjVsrV0q4wrwVu37uzHLuWl78dm4a7u8QwE6iJ/SwN/uBR
+ hs/g4khJraR7/bYg5/+yRId7SUocqo1MZCIUc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=u5+ZIsepmANUb25rp8z2+IfwFZccCxjdXSGCg+HwNG8=;
- b=agn7+l4YrU/57wxP+3GNTdDc2m9v4xiVef7RuQosgc1NIJvhMiyRSuCpUcfvOpF1sJ
- LTueJeEHP32XXed5inWSn56XxMDt2qbj8H0rHjPmeF6+DA5FRRZinyR20EEIcgRCMFTs
- LgKbxEVn5mOKZClgheDqduYZQe7dKqNScrEYhACzvzQjUACmBAoUCnHJFvvhZ5KpsKHM
- x+fzVPqUHtMLKLyZUp3IoiYaJtV1oHyY7y5cPgb9ENwZm48M8yYutoL9fBXQcI/Boyjl
- 13HYK1CZ8ZnWrxr9as0BB4i7946YVUEGp0YQTOYRzs/Hg1iwnLHKbKGE7Mxo/H7938HP
- CVQw==
-X-Gm-Message-State: AOAM533UBRxkgONzz5KTyBf0bBdGfHJEhliaCWyVGjmdHNZ/HB8LTcMH
- Ykmj1OuMBVlEbAgl8ECVNVhf3Q==
-X-Google-Smtp-Source: ABdhPJysl6I2xvCb7jPdlVQDQlxQlPIyMi7UVtnoTkHcbr+49z0N4ds2zUKEDu32/GtpZz8jBcnZ4A==
-X-Received: by 2002:adf:df12:: with SMTP id y18mr173997wrl.94.1589487082845;
- Thu, 14 May 2020 13:11:22 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id q74sm248655wme.14.2020.05.14.13.11.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 May 2020 13:11:22 -0700 (PDT)
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Thu, 14 May 2020 22:11:17 +0200
-Message-Id: <20200514201117.465146-1-daniel.vetter@ffwll.ch>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200511093554.211493-2-daniel.vetter@ffwll.ch>
-References: <20200511093554.211493-2-daniel.vetter@ffwll.ch>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=QK2T0t/Jj0JFQe8jONLMLZrHIHWtDY8wi6hh+6HVsZc=;
+ b=OTIWvmiEwi/9UzSt4eKhAUHudnKN0wiHBocA8734fsKK6IJWvcJlOeTbMojBEwd2ex
+ QE2Ce9amwICvWLUYuJ4WAq6s1vOp7n6UBeGqPiUXi+usxqie0JTF3KkmIC3r67zX4OrA
+ 6hqKxOl5YXfFja/3GFvb6LyVrl0Zc4djhOtml8oWA6JM3C7qT1X0eZRRon+eMjn+M+OQ
+ Ht6IgaCbh0TiNYR+lZ4KpRszYleg/JW4aVkHQMKDDmPuPlK2tkMNWfVEuKKd/QDM5bGc
+ noZM1828EdWfhvtS/sW7cHccT+izeP1XFNxgzuFAWXbMneFtCfIbRfa0ws2feDh0mhHi
+ HE7w==
+X-Gm-Message-State: AOAM531cC+sSz/Dw8yim+otUmFxZ/7id88ueYlGgc1UGsm54klyZNKMN
+ UGi7TxSleVreWpZOZz1AXHtDLeLLZFE=
+X-Google-Smtp-Source: ABdhPJzr+P5MYAMvALz8QCCQYXEbupCUs1nuQKmzDf3JHLzo0/rZUuIfcPI9IrPK0NfSNUeQxUHy5g==
+X-Received: by 2002:a63:4c5b:: with SMTP id m27mr502104pgl.198.1589499481632; 
+ Thu, 14 May 2020 16:38:01 -0700 (PDT)
+Received: from localhost ([2620:15c:202:1:4fff:7a6b:a335:8fde])
+ by smtp.gmail.com with ESMTPSA id 14sm276163pfy.38.2020.05.14.16.38.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 May 2020 16:38:00 -0700 (PDT)
+Date: Thu, 14 May 2020 16:37:59 -0700
+From: Matthias Kaehlcke <mka@chromium.org>
+To: Sharat Masetty <smasetty@codeaurora.org>
+Message-ID: <20200514233759.GR4525@google.com>
+References: <1589453659-27581-1-git-send-email-smasetty@codeaurora.org>
+ <1589453659-27581-2-git-send-email-smasetty@codeaurora.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm: Don't call dma_buf_vunmap without _vmap
+Content-Disposition: inline
+In-Reply-To: <1589453659-27581-2-git-send-email-smasetty@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH 1/6] arm64: dts: qcom: sc7180: Add
+ interconnect bindings for GPU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,76 +65,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Rob Clark <robdclark@gmail.com>, linux-arm-msm@vger.kernel.org,
- Daniel Vetter <daniel.vetter@intel.com>, freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, jcrouse@codeaurora.org,
+ dri-devel@freedesktop.org, freedreno@lists.freedesktop.org,
+ georgi.djakov@linaro.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-I honestly don't exactly understand what's going on here, but the
-current code is wrong for sure: It calls dma_buf_vunmap without ever
-calling dma_buf_vmap.
+Hi Sharat,
 
-What I'm not sure about is whether the WARN_ON is correct:
-- msm imports dma-buf using drm_prime_sg_to_page_addr_arrays. Which is
-  a pretty neat layering violation of how you shouldn't peek behind
-  the curtain of the dma-buf exporter, but par for course. Note that
-  all the nice new helpers don't (and we should probably have a bit a
-  warning about this in the kerneldoc).
+On Thu, May 14, 2020 at 04:24:14PM +0530, Sharat Masetty wrote:
 
-- but then in the get_vaddr() in msm_gem.c, we seems to happily wrap a
-  vmap() around any object with ->pages set (so including imported
-  dma-buf).
+> Subject: arm64: dts: qcom: sc7180: Add interconnect bindings for GPU
+>
+> This patch adds the interconnect bindings to the GPU node. This enables
+> the GPU->DDR path bandwidth voting.
 
-- I'm not seeing any guarantees that userspace can't use an imported
-  dma-buf for e.g. MSM_SUBMIT_CMD_BUF in a5xx_submit_in_rb, so no
-  guarantees that an imported dma-buf won't end up with a ->vaddr set.
+This patch doesn't add any bindings, it adds the interconnects/interconnect
+configuration for the GPU
 
-But even if that WARN_ON is wrong, cleaning up a vmap() done by msm by
-calling dma_buf_vunmap is the wrong thing to do.
+The order of the patches in this series is a bit odd. Typically you would
+start with the binding changes ("dt-bindings: drm/msm/gpu: Document gpu
+opp table" in this case), then the code needed to support these changes,
+and finally the DT bits for the specific devices/platforms making use
+of the new 'feature'.
 
-v2: Rob said in review that we do indeed have a gap in get_vaddr() that
-needs to be plugged. But the users I've found aren't legit users on
-imported dma-buf, so we can just reject that.
-
-Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-Cc: Rob Clark <robdclark@gmail.com>
-Cc: Sean Paul <sean@poorly.run>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: freedreno@lists.freedesktop.org
----
- drivers/gpu/drm/msm/msm_gem.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index 5a6a79fbc9d6..e70abd1cde43 100644
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -554,6 +554,9 @@ static void *get_vaddr(struct drm_gem_object *obj, unsigned madv)
- 	struct msm_gem_object *msm_obj = to_msm_bo(obj);
- 	int ret = 0;
- 
-+	if (obj->import_attach)
-+		return ERR_PTR(-ENODEV);
-+
- 	mutex_lock(&msm_obj->lock);
- 
- 	if (WARN_ON(msm_obj->madv > madv)) {
-@@ -907,8 +910,7 @@ static void free_object(struct msm_gem_object *msm_obj)
- 	put_iova(obj);
- 
- 	if (obj->import_attach) {
--		if (msm_obj->vaddr)
--			dma_buf_vunmap(obj->import_attach->dmabuf, msm_obj->vaddr);
-+		WARN_ON(msm_obj->vaddr);
- 
- 		/* Don't drop the pages for imported dmabuf, as they are not
- 		 * ours, just free the array we allocated:
--- 
-2.26.2
-
+It doesn't really matter once the series has landed since the end result
+is exactly the same, however it's the logical order in which most
+reviewers read your patches, and typically also the order in which the
+patches land (especially when multiple trees are involved).
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
