@@ -1,60 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B8421D2DA1
-	for <lists+freedreno@lfdr.de>; Thu, 14 May 2020 12:55:01 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 831C51D3664
+	for <lists+freedreno@lfdr.de>; Thu, 14 May 2020 18:23:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 099DF6E31A;
-	Thu, 14 May 2020 10:55:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33EA16EB80;
+	Thu, 14 May 2020 16:23:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail27.static.mailgun.info (mail27.static.mailgun.info
- [104.130.122.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A3D56EB29
- for <freedreno@lists.freedesktop.org>; Thu, 14 May 2020 10:54:56 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1589453698; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=IFw+MdK9cB0nOb0XyjKcs2qAJSm5K1ae8zeof47RqpI=;
- b=af73DzJLl4eXrMRSb3Z2rF3iThEo21Q/vkX7s5hG5hinyI0bX1E9l5AdnYr3A95wlzjT84cV
- ZPdUw5i8SLf48Mab1b7h9RIdXaPeT3Cle/GYrFxUpMNIv08XHouHqnljSmGKB6nEpVP3Ck/j
- zyI4SrPYPUDC+PuHfCcbzcWiop8=
-X-Mailgun-Sending-Ip: 104.130.122.27
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5ebd237d.7fdc4ede8538-smtp-out-n05;
- Thu, 14 May 2020 10:54:53 -0000 (UTC)
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 360C6C44793; Thu, 14 May 2020 10:54:53 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from hyd-lnxbld559.qualcomm.com
- (blr-c-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.19.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: smasetty)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 2D4B6C44791;
- Thu, 14 May 2020 10:54:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 2D4B6C44791
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=smasetty@codeaurora.org
-From: Sharat Masetty <smasetty@codeaurora.org>
-To: freedreno@lists.freedesktop.org,
-	devicetree@vger.kernel.org
-Date: Thu, 14 May 2020 16:24:19 +0530
-Message-Id: <1589453659-27581-7-git-send-email-smasetty@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1589453659-27581-1-git-send-email-smasetty@codeaurora.org>
-References: <1589453659-27581-1-git-send-email-smasetty@codeaurora.org>
-Subject: [Freedreno] [PATCH 6/6] dt-bindings: drm/msm/gpu: Document gpu opp
- table
+Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
+ [IPv6:2607:f8b0:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC4B46EB80
+ for <freedreno@lists.freedesktop.org>; Thu, 14 May 2020 16:23:44 +0000 (UTC)
+Received: by mail-pf1-x443.google.com with SMTP id y25so1523569pfn.5
+ for <freedreno@lists.freedesktop.org>; Thu, 14 May 2020 09:23:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=OqjZEsENiuJ7Z2+zCW9pzRm/SY0vcINZf6TSPb9wFL8=;
+ b=T5HS0B1fvJofutv3NJqUrbAvHVxEP8Z/4pbg8rWnyUbriguTHHrLowQ8XSkvu1D4nb
+ CKxxadhSnrOhka8fhDtg4GRuLt/M9djey/HD7gL8AniRdx98Ev//amZicIk25BLCfDDp
+ gSMyC2uil/ZYl+myPhupP0IWuS1OqIEI9X8ZY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=OqjZEsENiuJ7Z2+zCW9pzRm/SY0vcINZf6TSPb9wFL8=;
+ b=pv5Pf6896mmOQ4hDQUDejgQ3ZdaWMnv0IgqjfQhdeOg5y7TZm1uQNf7obMS9mJVbXp
+ FEJhqoXd5dPRn8NZo5U0imbz91qX9vgMo9qYwScyCp5tZXGwtpJVIisA0mVWA2UqqUtM
+ BWJef6UKwWJw+bWBV22026doISK3xKHiSu3ZkzHr3arwGypP8indbbOUTAAGtOdlLY0b
+ qt6IsrG2086vbVt+zAK7IOkPZI0WK8pppw5j+ayoyzoxkwCeV+bXgnPZvFUv9Y6nZ7ZF
+ yluKBDKOy1eeyqzxibkV7egBRxszQpV23P7qoYeNsBGAjgkuI1xATH6mf1eCbIDG/NF5
+ iv/g==
+X-Gm-Message-State: AOAM530r5s7OhAVNf10SSnkKYNfqIjtaJAqOCOWQ1L5U9GSuLo/muNy/
+ ywY00eaSF/JAEtS3w2lDBvAREjCEBW4=
+X-Google-Smtp-Source: ABdhPJysjpvk8SRgXPN3af+hoWivDIc3Agm3oBmqtGiUkwazqOM1+oqxybfGRDPx8oiAWLLHhjJk4w==
+X-Received: by 2002:a65:5781:: with SMTP id b1mr2170241pgr.388.1589473423954; 
+ Thu, 14 May 2020 09:23:43 -0700 (PDT)
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com.
+ [209.85.214.175])
+ by smtp.gmail.com with ESMTPSA id 1sm2672247pff.151.2020.05.14.09.23.43
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 May 2020 09:23:43 -0700 (PDT)
+Received: by mail-pl1-f175.google.com with SMTP id m7so1350211plt.5
+ for <freedreno@lists.freedesktop.org>; Thu, 14 May 2020 09:23:43 -0700 (PDT)
+X-Received: by 2002:a1f:9605:: with SMTP id y5mr4360665vkd.75.1589473046623;
+ Thu, 14 May 2020 09:17:26 -0700 (PDT)
+MIME-Version: 1.0
+References: <1588339863-1322-1-git-send-email-kalyan_t@codeaurora.org>
+In-Reply-To: <1588339863-1322-1-git-send-email-kalyan_t@codeaurora.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 14 May 2020 09:17:15 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=UJGivCyp=t0J++1DbSFDVf+5zSCcXgh83VZtssBmavjg@mail.gmail.com>
+Message-ID: <CAD=FV=UJGivCyp=t0J++1DbSFDVf+5zSCcXgh83VZtssBmavjg@mail.gmail.com>
+To: Kalyan Thota <kalyan_t@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: ensure device suspend happens
+ during PM sleep
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,64 +69,81 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Sharat Masetty <smasetty@codeaurora.org>,
- linux-kernel@vger.kernel.org, jcrouse@codeaurora.org, mka@chromium.org,
- dri-devel@freedesktop.org, georgi.djakov@linaro.org
-MIME-Version: 1.0
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, mkrishn@codeaurora.org,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, travitej@codeaurora.org,
+ LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
+ nganji@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
+ "Kristian H. Kristensen" <hoegsberg@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Jeykumar Sankaran <jsanka@codeaurora.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Update documentation to list the gpu opp table bindings including the
-newly added "opp-peak-kBps" needed for GPU-DDR bandwidth scaling.
+Hi,
 
-Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
----
- .../devicetree/bindings/display/msm/gpu.txt        | 28 ++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+On Fri, May 1, 2020 at 6:31 AM Kalyan Thota <kalyan_t@codeaurora.org> wrote:
+>
+> "The PM core always increments the runtime usage counter
+> before calling the ->suspend() callback and decrements it
+> after calling the ->resume() callback"
+>
+> DPU and DSI are managed as runtime devices. When
+> suspend is triggered, PM core adds a refcount on all the
+> devices and calls device suspend, since usage count is
+> already incremented, runtime suspend was not getting called
+> and it kept the clocks on which resulted in target not
+> entering into XO shutdown.
+>
+> Add changes to force suspend on runtime devices during pm sleep.
+>
+> Changes in v1:
+>  - Remove unnecessary checks in the function
+>     _dpu_kms_disable_dpu (Rob Clark).
+>
+> Changes in v2:
+>  - Avoid using suspend_late to reset the usagecount
+>    as suspend_late might not be called during suspend
+>    call failures (Doug).
+>
+> Changes in v3:
+>  - Use force suspend instead of managing device usage_count
+>    via runtime put and get API's to trigger callbacks (Doug).
+>
+> Changes in v4:
+>  - Check the return values of pm_runtime_force_suspend and
+>    pm_runtime_force_resume API's and pass appropriately (Doug).
+>
+> Changes in v5:
 
-diff --git a/Documentation/devicetree/bindings/display/msm/gpu.txt b/Documentation/devicetree/bindings/display/msm/gpu.txt
-index 70025cb..48bd4ab 100644
---- a/Documentation/devicetree/bindings/display/msm/gpu.txt
-+++ b/Documentation/devicetree/bindings/display/msm/gpu.txt
-@@ -79,6 +79,34 @@ Example a6xx (with GMU):
+Can you please put the version number properly in your subject?  It's
+really hard to tell one version of your patch from another.
 
- 		interconnects = <&rsc_hlos MASTER_GFX3D &rsc_hlos SLAVE_EBI1>;
 
-+		gpu_opp_table: opp-table {
-+			compatible = "operating-points-v2";
-+
-+			opp-430000000 {
-+				opp-hz = /bits/ 64 <430000000>;
-+				opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-+				opp-peak-kBps = <5412000>;
-+			};
-+
-+			opp-355000000 {
-+				opp-hz = /bits/ 64 <355000000>;
-+				opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
-+				opp-peak-kBps = <3072000>;
-+			};
-+
-+			opp-267000000 {
-+				opp-hz = /bits/ 64 <267000000>;
-+				opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-+				opp-peak-kBps = <3072000>;
-+			};
-+
-+			opp-180000000 {
-+				opp-hz = /bits/ 64 <180000000>;
-+				opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
-+				opp-peak-kBps = <1804000>;
-+			};
-+		};
-+
- 		qcom,gmu = <&gmu>;
+>  - With v4 patch, test cycle has uncovered issues in device resume.
+>
+>    On bubs: cmd tx failures were seen as SW is sending panel off
+>    commands when the dsi resources are turned off.
+>
+>    Upon suspend, DRM driver will issue a NULL composition to the
+>    dpu, followed by turning off all the HW blocks.
+>
+>    v5 changes will serialize the NULL commit and resource unwinding
+>    by handling them under PM prepare and PM complete phases there by
+>    ensuring that clks are on when panel off commands are being
+>    processed.
 
- 		zap-shader {
---
-2.7.4
+I'm still most definitely not an expert in how all the DRM pieces all
+hook up together, but the solution you have in this patch seems wrong
+to me.  As far as I can tell the "prepare" state isn't supposed to be
+actually doing the suspend work and here that's exactly what you're
+doing.  I think you should find a different solution to ensure
+ordering is correct.
+
+-Doug
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
