@@ -1,60 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B059B1D4287
-	for <lists+freedreno@lfdr.de>; Fri, 15 May 2020 02:58:22 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 92E221D42B1
+	for <lists+freedreno@lfdr.de>; Fri, 15 May 2020 03:05:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CC4E6E3D3;
-	Fri, 15 May 2020 00:58:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC40E6E0E7;
+	Fri, 15 May 2020 01:05:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
- [IPv6:2607:f8b0:4864:20::1041])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4BEF6EB9A
- for <freedreno@lists.freedesktop.org>; Fri, 15 May 2020 00:58:19 +0000 (UTC)
-Received: by mail-pj1-x1041.google.com with SMTP id ms17so238827pjb.0
- for <freedreno@lists.freedesktop.org>; Thu, 14 May 2020 17:58:19 -0700 (PDT)
+Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
+ [IPv6:2607:f8b0:4864:20::642])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE30D6E0E7
+ for <freedreno@lists.freedesktop.org>; Fri, 15 May 2020 01:05:37 +0000 (UTC)
+Received: by mail-pl1-x642.google.com with SMTP id t7so268011plr.0
+ for <freedreno@lists.freedesktop.org>; Thu, 14 May 2020 18:05:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=PYudng5R/wrTc6vNtO9kYwTzA6rGU6HzaC8pWT1Yijs=;
- b=im5Kif4hQbjYjGoKpn59HdHsewBmXMA5l9xRvjBaBG8IMXIe228lODRusVefCZp+wB
- lMMb74JQf1vcjIYjoRXUJ9onY/hyUMpdJ0LaVDqcXRyhyQyiVyU5lzHm1RH8l3/gpQCX
- FAoLbHI0FEMXWhjTR5xznZStgNuNZ0Hc5G628=
+ bh=6eDmVoxMjvhjUTcVq+QS+luvVgKfEd6UeTKYi0GYY/Q=;
+ b=nC6qh/RRtLo5YkFASVNTjzmS6hB2wcHOSlCr6oyH+TRQvoERZi7p4K1Xcm4kuC4zfI
+ IPZu7/uOH/jDh4/sS6a6Wl7/uYnk7PYrM5mxSbz3KCnEHIgK9FBWlUpMFggDwzTHihUK
+ oVuWf5zTDw/mr7UpS8XDlsrUQ8ldUVXmPUc90=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=PYudng5R/wrTc6vNtO9kYwTzA6rGU6HzaC8pWT1Yijs=;
- b=Da5FDi5mfc/FmuQWOhQlQexEDfKh5SsIgEuU1Z72+NLVCZ9nvopAfc3GxbZYF7Bi7q
- dWBAwwGB740AHP2IzlmmAOadY8ELPAO+3RpxlHfOlFmiNTFzj6x3e58j8b5pgAifDPTb
- 2nQwQnT3zgE5aGAyERyu5NAZFNGx2s9v/kzwIuCHPukatDLs2n6WXfEI560I9pQYYkwy
- STeSCgZ6nRTrCinIg9Imx6kKzYIjhWxSuwIpbpeMhXmdQx0hDDdtIKZ34BudI6UM8tIJ
- dzpSKFE+TwsCxTvvfirV7ImEeXmCYJW5+bVmuR16/+Bp7Jyhu4AIqYmXUjY+6kTIIMqi
- MjaA==
-X-Gm-Message-State: AOAM531QY00OR3BFFcx63CIJvMWXxF/sYS7UOFNt5fTFiOyrUhAekFHS
- B9z4NcDB5fV4PNRDUtbMxsAnyw==
-X-Google-Smtp-Source: ABdhPJxye5U4MtIWKA8XEV+Ile2cxBdIwWMj2P7B8bI+uQVmvGBl5gA50D6rwtjuL+/STdr3NPYmXw==
-X-Received: by 2002:a17:90a:22d0:: with SMTP id
- s74mr701194pjc.200.1589504299208; 
- Thu, 14 May 2020 17:58:19 -0700 (PDT)
+ bh=6eDmVoxMjvhjUTcVq+QS+luvVgKfEd6UeTKYi0GYY/Q=;
+ b=HC8QYB02dBg8hoMpqtD7IT4rO9IjgE3VqgM3dZ8cagwSemMoYmMtHaQPL2JrmXEYAZ
+ aCaLOrfJs0SA1S7M7I2b1PBzdw4cRsX+NfkBx2O5+1yG04JiKaY1HdRM0oUCa1RVTf0n
+ WYtDnXYn1Y+TbYFOEOlDQ5KjRN8LioU2WNy6gLs3zfB+bpXcKSMr2kBZmdK8d5Oa27go
+ K/8VDB1MQThTl+0nlSi0K6a/4/kepyT3WK2BkRvmpJAFcoIV1yBCXluGaUORcBzAzVak
+ 83ODK0vgzXI2jX0VtngVieSK2Ni8IyQYP/UEAclahssFp9QuilLx6udRAVTLV+t9pD0a
+ hedg==
+X-Gm-Message-State: AOAM531pYZnm138ew+UEY1UgLzt5LiEtrltZtbrikTnIl1hH3gZ7qbl2
+ w6/kOf5hBSMnb0qJ7RPPZ7smkw==
+X-Google-Smtp-Source: ABdhPJwB6PAoOJYeS3qdfXHG1VARwSCyiTzJNK443oUUSG4LRJTMdwSgD9Whi8xkSHQq+C2mHa74PQ==
+X-Received: by 2002:a17:90b:c90:: with SMTP id o16mr717743pjz.59.1589504737439; 
+ Thu, 14 May 2020 18:05:37 -0700 (PDT)
 Received: from localhost ([2620:15c:202:1:4fff:7a6b:a335:8fde])
- by smtp.gmail.com with ESMTPSA id m188sm363345pfd.67.2020.05.14.17.58.18
+ by smtp.gmail.com with ESMTPSA id g14sm363169pfh.49.2020.05.14.18.05.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 May 2020 17:58:18 -0700 (PDT)
-Date: Thu, 14 May 2020 17:58:17 -0700
+ Thu, 14 May 2020 18:05:36 -0700 (PDT)
+Date: Thu, 14 May 2020 18:05:35 -0700
 From: Matthias Kaehlcke <mka@chromium.org>
 To: Sharat Masetty <smasetty@codeaurora.org>
-Message-ID: <20200515005817.GW4525@google.com>
+Message-ID: <20200515010535.GX4525@google.com>
 References: <1589453659-27581-1-git-send-email-smasetty@codeaurora.org>
- <1589453659-27581-5-git-send-email-smasetty@codeaurora.org>
- <20200515003957.GV4525@google.com>
+ <1589453659-27581-6-git-send-email-smasetty@codeaurora.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200515003957.GV4525@google.com>
-Subject: Re: [Freedreno] [PATCH 4/6] drm: msm: a6xx: send opp instead of a
- frequency
+In-Reply-To: <1589453659-27581-6-git-send-email-smasetty@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH 5/6] drm: msm: a6xx: use dev_pm_opp_set_bw
+ to set DDR bandwidth
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,22 +74,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, May 14, 2020 at 05:39:57PM -0700, Matthias Kaehlcke wrote:
-> On Thu, May 14, 2020 at 04:24:17PM +0530, Sharat Masetty wrote:
-> > This patch changes the plumbing to send the devfreq recommended opp rather
-> > than the frequency. Also consolidate and rearrange the code in a6xx to set
-> > the GPU frequency and the icc vote in preparation for the upcoming
-> > changes for GPU->DDR scaling votes.
+On Thu, May 14, 2020 at 04:24:18PM +0530, Sharat Masetty wrote:
+> This patches replaces the previously used static DDR vote and uses
+> dev_pm_opp_set_bw() to scale GPU->DDR bandwidth along with scaling
+> GPU frequency.
 > 
-> Could this be relatively easily split in two patches, one passing the OPP
-> instead of the frequency, and another doing the consolidation? It typically
-> makes reviewing easier when logically unrelated changes are done in separate
-> patches.
+> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 6 +-----
+>  1 file changed, 1 insertion(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> index 2d8124b..79433d3 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> @@ -141,11 +141,7 @@ void a6xx_gmu_set_freq(struct msm_gpu *gpu, struct dev_pm_opp *opp)
+> 
+>  	gmu->freq = gmu->gpu_freqs[perf_index];
+> 
+> -	/*
+> -	 * Eventually we will want to scale the path vote with the frequency but
+> -	 * for now leave it at max so that the performance is nominal.
+> -	 */
+> -	icc_set_bw(gpu->icc_path, 0, MBps_to_icc(7216));
+> +	dev_pm_opp_set_bw(&gpu->pdev->dev, opp);
 
-After looking at the "upcoming changes for GPU->DDR scaling votes", which is
-essentially one line I'm doubting if the splitting would actually make sense.
-I'm now rather inclined to see "drm: msm: a6xx: use dev_pm_opp_set_bw to set
-DDR bandwidth" squashed into this patch.
+Is there a particular reason to keep this one liner in a separate patch?
+I think it would make sense to squash it into "drm: msm: a6xx: send opp
+instead of a frequency" and change the subject of the combined patch to
+something like "drm: msm: a6xx: Scale the DDR bandwidth dynamically".
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
