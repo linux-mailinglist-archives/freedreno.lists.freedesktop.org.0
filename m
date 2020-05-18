@@ -1,42 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51FBD1D7B71
-	for <lists+freedreno@lfdr.de>; Mon, 18 May 2020 16:39:30 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 072E71D7B86
+	for <lists+freedreno@lfdr.de>; Mon, 18 May 2020 16:42:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5AE06E33D;
-	Mon, 18 May 2020 14:39:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A343589D61;
+	Mon, 18 May 2020 14:42:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD03E6E210
- for <freedreno@lists.freedesktop.org>; Mon, 18 May 2020 14:39:26 +0000 (UTC)
-Received: from willie-the-truck (236.31.169.217.in-addr.arpa [217.169.31.236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A3493206D4;
- Mon, 18 May 2020 14:39:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1589812766;
- bh=GprrLmwAeZJ8PFHBulg/A1Y9wa1v1Z8pfqmPDRcBdhA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=yI1drx19cqJLuwFH5QqQzEH2uc2tHmPgjP1Hu8gy+t8qJXWfN5Nb/+opvlnG5vn5o
- I+MCPebT/mXZysMcaYzLjV18gouEW8lNXdeM/4v2f5fgfnEARWM7s1hkf8NDklsBM8
- pQflbDnPil1K/Y8onoTayiwJ4cJbxZWcW7506fbw=
-Date: Mon, 18 May 2020 15:39:21 +0100
-From: Will Deacon <will@kernel.org>
-To: Doug Anderson <dianders@chromium.org>
-Message-ID: <20200518143920.GJ32394@willie-the-truck>
-References: <1588329036-18732-1-git-send-email-smasetty@codeaurora.org>
- <1588329036-18732-2-git-send-email-smasetty@codeaurora.org>
- <CAD=FV=WXv9DYf7LWoFBvro=7Bzeb1_0bXAvRH-suzxnrCu+V2A@mail.gmail.com>
+Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
+ [104.130.122.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00CFB89B49
+ for <freedreno@lists.freedesktop.org>; Mon, 18 May 2020 14:42:47 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1589812967; h=In-Reply-To: Content-Type: MIME-Version:
+ References: Message-ID: Subject: Cc: To: From: Date: Sender;
+ bh=BOJG45sKpRoyYeCu2iPA0P0NjKwkRXyqePBzMDunQaI=;
+ b=P9UtLn9/lbQeARFepl60gHzNP09vAZFHQKU+C2KGm+VFK44b1ywelDcdSJAVyFicPprWJkze
+ 02RD7eyAkRn/vNzDeGnBZrD59j3SlEvc2MvlH+JEnHZd74ALPsafYltpX+U1HJNPE+uVzsQf
+ j5GxIKhRn87XzQ/LGHnF1Ivngrc=
+X-Mailgun-Sending-Ip: 104.130.122.26
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
+ by mxa.mailgun.org with ESMTP id 5ec29ee7.7f5eb9996ea0-smtp-out-n04;
+ Mon, 18 May 2020 14:42:47 -0000 (UTC)
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id EB2C5C433D2; Mon, 18 May 2020 14:42:46 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 2509DC432C2;
+ Mon, 18 May 2020 14:42:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 2509DC432C2
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=jcrouse@codeaurora.org
+Date: Mon, 18 May 2020 08:42:43 -0600
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: Jonathan Marek <jonathan@marek.ca>
+Message-ID: <20200518144243.GC3915@jcrouse1-lnx.qualcomm.com>
+Mail-Followup-To: Jonathan Marek <jonathan@marek.ca>,
+ freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
+References: <20200423210946.28867-1-jonathan@marek.ca>
+ <20200423210946.28867-2-jonathan@marek.ca>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAD=FV=WXv9DYf7LWoFBvro=7Bzeb1_0bXAvRH-suzxnrCu+V2A@mail.gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH 2/2] dt-bindings: arm-smmu: Add sc7180
- compatible string
+In-Reply-To: <20200423210946.28867-2-jonathan@marek.ca>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Freedreno] [PATCH v3 1/9] drm/msm: add
+ msm_gem_get_and_pin_iova_range
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,49 +76,162 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, Robin Murphy <robin.murphy@arm.com>,
- Sharat Masetty <smasetty@codeaurora.org>, LKML <linux-kernel@vger.kernel.org>,
- "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
- Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
- Matthias Kaehlcke <mka@chromium.org>, dri-devel@freedesktop.org,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, May 15, 2020 at 12:05:39PM -0700, Doug Anderson wrote:
-> On Fri, May 1, 2020 at 3:30 AM Sharat Masetty <smasetty@codeaurora.org> wrote:
-> >
-> > This patch simply adds a new compatible string for SC7180 platform.
-> >
-> > Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
-> > ---
-> >  Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 1 +
-> >  1 file changed, 1 insertion(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-> > index 6515dbe..986098b 100644
-> > --- a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-> > +++ b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-> > @@ -28,6 +28,7 @@ properties:
-> >            - enum:
-> >                - qcom,msm8996-smmu-v2
-> >                - qcom,msm8998-smmu-v2
-> > +              - qcom,sc7180-smmu-v2
-> >                - qcom,sdm845-smmu-v2
-> >            - const: qcom,smmu-v2
+On Thu, Apr 23, 2020 at 05:09:13PM -0400, Jonathan Marek wrote:
+> This function allows pinning iova to a specific page range (for a6xx GMU).
+
+Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
+
+> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+> ---
+>  drivers/gpu/drm/msm/msm_drv.h     |  6 +++++-
+>  drivers/gpu/drm/msm/msm_gem.c     | 28 +++++++++++++++++++++-------
+>  drivers/gpu/drm/msm/msm_gem_vma.c |  6 ++++--
+>  3 files changed, 30 insertions(+), 10 deletions(-)
 > 
-> Is anything blocking this patch from landing now?
+> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+> index 194d900a460e..966fd9068c94 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.h
+> +++ b/drivers/gpu/drm/msm/msm_drv.h
+> @@ -236,7 +236,8 @@ int msm_crtc_enable_vblank(struct drm_crtc *crtc);
+>  void msm_crtc_disable_vblank(struct drm_crtc *crtc);
+>  
+>  int msm_gem_init_vma(struct msm_gem_address_space *aspace,
+> -		struct msm_gem_vma *vma, int npages);
+> +		struct msm_gem_vma *vma, int npages,
+> +		u64 range_start, u64 range_end);
+>  void msm_gem_purge_vma(struct msm_gem_address_space *aspace,
+>  		struct msm_gem_vma *vma);
+>  void msm_gem_unmap_vma(struct msm_gem_address_space *aspace,
+> @@ -276,6 +277,9 @@ vm_fault_t msm_gem_fault(struct vm_fault *vmf);
+>  uint64_t msm_gem_mmap_offset(struct drm_gem_object *obj);
+>  int msm_gem_get_iova(struct drm_gem_object *obj,
+>  		struct msm_gem_address_space *aspace, uint64_t *iova);
+> +int msm_gem_get_and_pin_iova_range(struct drm_gem_object *obj,
+> +		struct msm_gem_address_space *aspace, uint64_t *iova,
+> +		u64 range_start, u64 range_end);
+>  int msm_gem_get_and_pin_iova(struct drm_gem_object *obj,
+>  		struct msm_gem_address_space *aspace, uint64_t *iova);
+>  uint64_t msm_gem_iova(struct drm_gem_object *obj,
+> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+> index 5a6a79fbc9d6..d8f56a34c117 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.c
+> +++ b/drivers/gpu/drm/msm/msm_gem.c
+> @@ -389,7 +389,8 @@ put_iova(struct drm_gem_object *obj)
+>  }
+>  
+>  static int msm_gem_get_iova_locked(struct drm_gem_object *obj,
+> -		struct msm_gem_address_space *aspace, uint64_t *iova)
+> +		struct msm_gem_address_space *aspace, uint64_t *iova,
+> +		u64 range_start, u64 range_end)
+>  {
+>  	struct msm_gem_object *msm_obj = to_msm_bo(obj);
+>  	struct msm_gem_vma *vma;
+> @@ -404,7 +405,8 @@ static int msm_gem_get_iova_locked(struct drm_gem_object *obj,
+>  		if (IS_ERR(vma))
+>  			return PTR_ERR(vma);
+>  
+> -		ret = msm_gem_init_vma(aspace, vma, obj->size >> PAGE_SHIFT);
+> +		ret = msm_gem_init_vma(aspace, vma, obj->size >> PAGE_SHIFT,
+> +			range_start, range_end);
+>  		if (ret) {
+>  			del_vma(vma);
+>  			return ret;
+> @@ -443,9 +445,13 @@ static int msm_gem_pin_iova(struct drm_gem_object *obj,
+>  			msm_obj->sgt, obj->size >> PAGE_SHIFT);
+>  }
+>  
+> -/* get iova and pin it. Should have a matching put */
+> -int msm_gem_get_and_pin_iova(struct drm_gem_object *obj,
+> -		struct msm_gem_address_space *aspace, uint64_t *iova)
+> +/*
+> + * get iova and pin it. Should have a matching put
+> + * limits iova to specified range (in pages)
+> + */
+> +int msm_gem_get_and_pin_iova_range(struct drm_gem_object *obj,
+> +		struct msm_gem_address_space *aspace, uint64_t *iova,
+> +		u64 range_start, u64 range_end)
+>  {
+>  	struct msm_gem_object *msm_obj = to_msm_bo(obj);
+>  	u64 local;
+> @@ -453,7 +459,8 @@ int msm_gem_get_and_pin_iova(struct drm_gem_object *obj,
+>  
+>  	mutex_lock(&msm_obj->lock);
+>  
+> -	ret = msm_gem_get_iova_locked(obj, aspace, &local);
+> +	ret = msm_gem_get_iova_locked(obj, aspace, &local,
+> +		range_start, range_end);
+>  
+>  	if (!ret)
+>  		ret = msm_gem_pin_iova(obj, aspace);
+> @@ -465,6 +472,13 @@ int msm_gem_get_and_pin_iova(struct drm_gem_object *obj,
+>  	return ret;
+>  }
+>  
+> +/* get iova and pin it. Should have a matching put */
+> +int msm_gem_get_and_pin_iova(struct drm_gem_object *obj,
+> +		struct msm_gem_address_space *aspace, uint64_t *iova)
+> +{
+> +	return msm_gem_get_and_pin_iova_range(obj, aspace, iova, 0, U64_MAX);
+> +}
+> +
+>  /*
+>   * Get an iova but don't pin it. Doesn't need a put because iovas are currently
+>   * valid for the life of the object
+> @@ -476,7 +490,7 @@ int msm_gem_get_iova(struct drm_gem_object *obj,
+>  	int ret;
+>  
+>  	mutex_lock(&msm_obj->lock);
+> -	ret = msm_gem_get_iova_locked(obj, aspace, iova);
+> +	ret = msm_gem_get_iova_locked(obj, aspace, iova, 0, U64_MAX);
+>  	mutex_unlock(&msm_obj->lock);
+>  
+>  	return ret;
+> diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
+> index 1af5354bcd46..407b7ab82818 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_vma.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_vma.c
+> @@ -103,7 +103,8 @@ void msm_gem_close_vma(struct msm_gem_address_space *aspace,
+>  
+>  /* Initialize a new vma and allocate an iova for it */
+>  int msm_gem_init_vma(struct msm_gem_address_space *aspace,
+> -		struct msm_gem_vma *vma, int npages)
+> +		struct msm_gem_vma *vma, int npages,
+> +		u64 range_start, u64 range_end)
+>  {
+>  	int ret;
+>  
+> @@ -111,7 +112,8 @@ int msm_gem_init_vma(struct msm_gem_address_space *aspace,
+>  		return -EBUSY;
+>  
+>  	spin_lock(&aspace->lock);
+> -	ret = drm_mm_insert_node(&aspace->mm, &vma->node, npages);
+> +	ret = drm_mm_insert_node_in_range(&aspace->mm, &vma->node, npages, 0,
+> +		0, range_start, range_end, 0);
+>  	spin_unlock(&aspace->lock);
+>  
+>  	if (ret)
+> -- 
+> 2.26.1
+> 
+> _______________________________________________
+> Freedreno mailing list
+> Freedreno@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/freedreno
 
-I thought updates to the bindings usually went via Rob and the device-tree
-tree, but neither of those are on cc.
-
-Perhaps resend with that fixed?
-
-Will
+-- 
+The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+a Linux Foundation Collaborative Project
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
