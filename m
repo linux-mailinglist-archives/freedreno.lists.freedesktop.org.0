@@ -1,67 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A46F1D7B22
-	for <lists+freedreno@lfdr.de>; Mon, 18 May 2020 16:23:52 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 921181D7B69
+	for <lists+freedreno@lfdr.de>; Mon, 18 May 2020 16:39:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B52F089C21;
-	Mon, 18 May 2020 14:23:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44DD86E184;
+	Mon, 18 May 2020 14:39:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail27.static.mailgun.info (mail27.static.mailgun.info
  [104.130.122.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81B5F89DBA
- for <freedreno@lists.freedesktop.org>; Mon, 18 May 2020 14:23:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83C336E184
+ for <freedreno@lists.freedesktop.org>; Mon, 18 May 2020 14:39:07 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1589811830; h=In-Reply-To: Content-Type: MIME-Version:
+ s=smtp; t=1589812750; h=In-Reply-To: Content-Type: MIME-Version:
  References: Message-ID: Subject: Cc: To: From: Date: Sender;
- bh=XnR/IfU/T1PqN5i2mz+2EYG87NYU7KY5NbZ546eRMTY=;
- b=Tse4DshoOvkvXMbSGwWr38L6QAaPvVeyY/EhGbJoNxzyRJHqHQ0XRjEFJoTkVk3u5wZ3Cq23
- 0ZMwXRs+gXAP9Ja6shE14qQ5xIzf10Q6huMfQi3Ao8iF2+kLa6W65uhtWcF+zfDzKUxvwC1j
- GB44PxhT2HF3dSC+jdQBaerq8JY=
+ bh=3jVQXLzS5PJPwz3uBBdwOaWCIbfx2OWYegKT20Bvp3w=;
+ b=JXonV4tM2cE3wP+mr9rc5wog7gz5hqb0WsG+h1PfTbIyuzzFagjfiKVi8JY8t6Vblz9KNTRl
+ u8X/bhIGuCGI6HMwZxT4vBNXA/KBDpdh1EyAgEiC0o8u0It7AQwM+ODp+HYaESKI2afkwngR
+ VXCbQ45n3lqA2zNsybmdlXIqR3I=
 X-Mailgun-Sending-Ip: 104.130.122.27
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5ec29a6a.7faa58d0ddc0-smtp-out-n01;
- Mon, 18 May 2020 14:23:38 -0000 (UTC)
+ by mxa.mailgun.org with ESMTP id 5ec29df5.7f85b62498b8-smtp-out-n04;
+ Mon, 18 May 2020 14:38:45 -0000 (UTC)
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 4105CC44795; Mon, 18 May 2020 14:23:37 +0000 (UTC)
+ id 0E5B4C44788; Mon, 18 May 2020 14:38:44 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
- autolearn=ham autolearn_force=no version=3.4.0
+ autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id D63DCC44791;
- Mon, 18 May 2020 14:23:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org D63DCC44791
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 59E58C433F2;
+ Mon, 18 May 2020 14:38:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 59E58C433F2
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  spf=none smtp.mailfrom=jcrouse@codeaurora.org
-Date: Mon, 18 May 2020 08:23:34 -0600
+Date: Mon, 18 May 2020 08:38:40 -0600
 From: Jordan Crouse <jcrouse@codeaurora.org>
-To: Sharat Masetty <smasetty@codeaurora.org>
-Message-ID: <20200518142333.GA10796@jcrouse1-lnx.qualcomm.com>
-Mail-Followup-To: Sharat Masetty <smasetty@codeaurora.org>,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- dri-devel@freedesktop.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, georgi.djakov@linaro.org,
- mka@chromium.org
-References: <1589453659-27581-1-git-send-email-smasetty@codeaurora.org>
- <1589453659-27581-6-git-send-email-smasetty@codeaurora.org>
+To: Shawn Guo <shawn.guo@linaro.org>
+Message-ID: <20200518143840.GA3915@jcrouse1-lnx.qualcomm.com>
+Mail-Followup-To: Shawn Guo <shawn.guo@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org,
+ Brian Masney <masneyb@onstation.org>,
+ Konrad Dybcio <konradybcio@gmail.com>
+References: <20200509123846.27932-1-shawn.guo@linaro.org>
+ <20200509123846.27932-2-shawn.guo@linaro.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1589453659-27581-6-git-send-email-smasetty@codeaurora.org>
+In-Reply-To: <20200509123846.27932-2-shawn.guo@linaro.org>
 User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Freedreno] [PATCH 5/6] drm: msm: a6xx: use dev_pm_opp_set_bw
- to set DDR bandwidth
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/a4xx: add adreno a405 support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,50 +74,136 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, mka@chromium.org, dri-devel@freedesktop.org,
- freedreno@lists.freedesktop.org, georgi.djakov@linaro.org
+Cc: Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
+ Konrad Dybcio <konradybcio@gmail.com>, dri-devel@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, freedreno@lists.freedesktop.org,
+ Brian Masney <masneyb@onstation.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, May 14, 2020 at 04:24:18PM +0530, Sharat Masetty wrote:
-> This patches replaces the previously used static DDR vote and uses
-> dev_pm_opp_set_bw() to scale GPU->DDR bandwidth along with scaling
-> GPU frequency.
-> 
-> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
+On Sat, May 09, 2020 at 08:38:45PM +0800, Shawn Guo wrote:
+> It adds support for adreno a405 found on MSM8939.  The adreno_is_a430()
+> check in adreno_submit() needs an extension to cover a405.  The
+> downstream driver suggests it should cover the whole a4xx generation.
+> That's why it gets changed to adreno_is_a4xx(), while a420 is not
+> tested though.
+
+This looks good to me and if it boots then that's the best test of all.
+
+Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
+
+> Signed-off-by: Shawn Guo <shawn.guo@linaro.org>
 > ---
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 6 +-----
->  1 file changed, 1 insertion(+), 5 deletions(-)
+>  drivers/gpu/drm/msm/adreno/a4xx_gpu.c      | 29 +++++++++++++---------
+>  drivers/gpu/drm/msm/adreno/adreno_device.c | 11 ++++++++
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c    |  2 +-
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  5 ++++
+>  4 files changed, 34 insertions(+), 13 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> index 2d8124b..79433d3 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> @@ -141,11 +141,7 @@ void a6xx_gmu_set_freq(struct msm_gpu *gpu, struct dev_pm_opp *opp)
-> 
->  	gmu->freq = gmu->gpu_freqs[perf_index];
-> 
-> -	/*
-> -	 * Eventually we will want to scale the path vote with the frequency but
-> -	 * for now leave it at max so that the performance is nominal.
-> -	 */
-> -	icc_set_bw(gpu->icc_path, 0, MBps_to_icc(7216));
-> +	dev_pm_opp_set_bw(&gpu->pdev->dev, opp);
+> diff --git a/drivers/gpu/drm/msm/adreno/a4xx_gpu.c b/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
+> index 253d8d85daad..70de59751188 100644
+> --- a/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
+> @@ -66,19 +66,22 @@ static void a4xx_enable_hwcg(struct msm_gpu *gpu)
+>  		}
+>  	}
+>  
+> -	for (i = 0; i < 4; i++) {
+> -		gpu_write(gpu, REG_A4XX_RBBM_CLOCK_CTL_MARB_CCU(i),
+> -				0x00000922);
+> -	}
+> +	/* No CCU for A405 */
+> +	if (!adreno_is_a405(adreno_gpu)) {
+> +		for (i = 0; i < 4; i++) {
+> +			gpu_write(gpu, REG_A4XX_RBBM_CLOCK_CTL_MARB_CCU(i),
+> +					0x00000922);
+> +		}
+>  
+> -	for (i = 0; i < 4; i++) {
+> -		gpu_write(gpu, REG_A4XX_RBBM_CLOCK_HYST_RB_MARB_CCU(i),
+> -				0x00000000);
+> -	}
+> +		for (i = 0; i < 4; i++) {
+> +			gpu_write(gpu, REG_A4XX_RBBM_CLOCK_HYST_RB_MARB_CCU(i),
+> +					0x00000000);
+> +		}
+>  
+> -	for (i = 0; i < 4; i++) {
+> -		gpu_write(gpu, REG_A4XX_RBBM_CLOCK_DELAY_RB_MARB_CCU_L1(i),
+> -				0x00000001);
+> +		for (i = 0; i < 4; i++) {
+> +			gpu_write(gpu, REG_A4XX_RBBM_CLOCK_DELAY_RB_MARB_CCU_L1(i),
+> +					0x00000001);
+> +		}
+>  	}
+>  
+>  	gpu_write(gpu, REG_A4XX_RBBM_CLOCK_MODE_GPC, 0x02222222);
+> @@ -137,7 +140,9 @@ static int a4xx_hw_init(struct msm_gpu *gpu)
+>  	uint32_t *ptr, len;
+>  	int i, ret;
+>  
+> -	if (adreno_is_a420(adreno_gpu)) {
+> +	if (adreno_is_a405(adreno_gpu)) {
+> +		gpu_write(gpu, REG_A4XX_VBIF_ROUND_ROBIN_QOS_ARB, 0x00000003);
+> +	} else if (adreno_is_a420(adreno_gpu)) {
+>  		gpu_write(gpu, REG_A4XX_VBIF_ABIT_SORT, 0x0001001F);
+>  		gpu_write(gpu, REG_A4XX_VBIF_ABIT_SORT_CONF, 0x000000A4);
+>  		gpu_write(gpu, REG_A4XX_VBIF_GATE_OFF_WRREQ_EN, 0x00000001);
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> index cb3a6e597d76..b69757383965 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> @@ -92,6 +92,17 @@ static const struct adreno_info gpulist[] = {
+>  		.gmem  = SZ_1M,
+>  		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+>  		.init  = a3xx_gpu_init,
+> +	}, {
+> +		.rev   = ADRENO_REV(4, 0, 5, ANY_ID),
+> +		.revn  = 405,
+> +		.name  = "A405",
+> +		.fw = {
+> +			[ADRENO_FW_PM4] = "a420_pm4.fw",
+> +			[ADRENO_FW_PFP] = "a420_pfp.fw",
+> +		},
+> +		.gmem  = SZ_256K,
+> +		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+> +		.init  = a4xx_gpu_init,
+>  	}, {
+>  		.rev   = ADRENO_REV(4, 2, 0, ANY_ID),
+>  		.revn  = 420,
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> index 1d5c43c22269..3ddbf507941c 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -459,7 +459,7 @@ void adreno_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit,
+>  				break;
+>  			/* fall-thru */
+>  		case MSM_SUBMIT_CMD_BUF:
+> -			OUT_PKT3(ring, adreno_is_a430(adreno_gpu) ?
+> +			OUT_PKT3(ring, adreno_is_a4xx(adreno_gpu) ?
+>  				CP_INDIRECT_BUFFER_PFE : CP_INDIRECT_BUFFER_PFD, 2);
+>  			OUT_RING(ring, lower_32_bits(submit->cmd[i].iova));
+>  			OUT_RING(ring, submit->cmd[i].size);
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> index 9ff4e550e7bd..35f744834ea9 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> @@ -202,6 +202,11 @@ static inline bool adreno_is_a4xx(struct adreno_gpu *gpu)
+>  	return (gpu->revn >= 400) && (gpu->revn < 500);
 >  }
-
-This adds an implicit requirement that all targets need bandwidth settings
-defined in the OPP or they won't get a bus vote at all. I would prefer that
-there be an default escape valve but if not you'll need to add
-bandwidth values for the sdm845 OPP that target doesn't regress.
-
-Jordan
-
->  unsigned long a6xx_gmu_get_freq(struct msm_gpu *gpu)
-> --
-> 2.7.4
+>  
+> +static inline int adreno_is_a405(struct adreno_gpu *gpu)
+> +{
+> +	return gpu->revn == 405;
+> +}
+> +
+>  static inline int adreno_is_a420(struct adreno_gpu *gpu)
+>  {
+>  	return gpu->revn == 420;
+> -- 
+> 2.17.1
 > 
 
 -- 
