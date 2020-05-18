@@ -2,63 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C55BC1D7E5B
-	for <lists+freedreno@lfdr.de>; Mon, 18 May 2020 18:25:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C47C21D89B5
+	for <lists+freedreno@lfdr.de>; Mon, 18 May 2020 23:00:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5383A6E431;
-	Mon, 18 May 2020 16:25:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E91A6E491;
+	Mon, 18 May 2020 21:00:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com
- [IPv6:2a00:1450:4864:20::541])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A84D6E431
- for <freedreno@lists.freedesktop.org>; Mon, 18 May 2020 16:25:23 +0000 (UTC)
-Received: by mail-ed1-x541.google.com with SMTP id i16so4520052edv.1
- for <freedreno@lists.freedesktop.org>; Mon, 18 May 2020 09:25:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=C9o4dW1opf6PK9dDJU+olx6LivIhnF/LUajcX/auTKM=;
- b=mk9a0EE30LQPszKX5ot6/btd4Lvv+bgSkXNddm9G/X4xPGhTcYfGn9iToM4kQPb/aU
- bCDe3NfgCGMurJGVDAnSpPBLaTOXEd/bT2NFKE/v4MuX2/c2VqGk+EFAfp7T2o2JYqMA
- zsJwIKhZtvZ7nq9HWgQl35cR3+Ew4PlBMq6VU8M0Ii/nrjhC4DWDeqVzm5wmoA02AZHy
- aHi0JKC+zVh29NEUQL+FyqnIzfROsHeli2W1Lc2Lop/O2qTCY5exQhzQXiRDVaqnRNKF
- nC62vqaYbx5FkbjCkN6dXtoAEhJxwRuhHYF2cCsn1WJ6lfpVyExb4l1U+fIwjAg1W4AN
- GfMA==
+Received: from mail-ua1-x941.google.com (mail-ua1-x941.google.com
+ [IPv6:2607:f8b0:4864:20::941])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E0486E286
+ for <freedreno@lists.freedesktop.org>; Mon, 18 May 2020 21:00:03 +0000 (UTC)
+Received: by mail-ua1-x941.google.com with SMTP id z12so1906935uap.6
+ for <freedreno@lists.freedesktop.org>; Mon, 18 May 2020 14:00:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=4vQAvXs8YebqJQNpvsgx+YOpDZkNHLr4/g7pen09M+Y=;
+ b=UzmCAWI3Et1k/ZetXQXo8P7q5FAsHXBwwnFSCGgtDVWBYyDfVAPaFJFOP+/jbBxQPZ
+ x63KZMFIM/dDJIh3QlTuH2yECcrZwYZCpiYH9MFtMCDOG8n18NeS6lZ7oPGMpcTGWu85
+ xnn+GfXK8uB79yIF6irfWr1brh/7UoNiSPDHs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=C9o4dW1opf6PK9dDJU+olx6LivIhnF/LUajcX/auTKM=;
- b=PldHsx6U0zdhweXaqINLdgWetG/Hmiya/L1dh6s5Oul1CtMRN+3vw5lVNYcoSohJAb
- tHU7BUezmdyEMNq8zJs4KWihruRJClkqj766o1yi1DpANZUE2tJegIo9uLpFF+EpTN0p
- JtwAHUNki6gFMQPYBqTSX1DeW6fTjtMkwsNkSNDt/aq4Sq47RlNAi/kCFGzuGGK7WgA3
- k4gdOgpztY3scg+Ot2KdK4LKW4YwPTRA1ss5vpk/LNbIaAiADhQxGt2nW1euCppk2Gvc
- WiNi/el3b+bs1Nu0LyixzeeFMQuOSzvOb6Mida4cPGXVci0pucqs74wY6eEK7eBS3JEg
- I0Sg==
-X-Gm-Message-State: AOAM533kJ7DBOOIJLmkeK4zFeB9XgTrDFU6MGpDEVXQ9DISQmh/oF54T
- arPWflnXFmVHF4nWEFDzUiSpug1iXlOatyrMIBk=
-X-Google-Smtp-Source: ABdhPJwYjoPZytoziRsU8pzisjXxK0MKS7CxJZXMVVTHEUikl7yW7jJlqgckmGbHBkbra1XtkUxs8t43eY3HhJcYOUQ=
-X-Received: by 2002:a05:6402:1a29:: with SMTP id
- be9mr7821163edb.70.1589819121915; 
- Mon, 18 May 2020 09:25:21 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=4vQAvXs8YebqJQNpvsgx+YOpDZkNHLr4/g7pen09M+Y=;
+ b=dE+Yss7Xs9frwi1RkSk6oFqmX59QYnlTdkNOb61Ex0WFJAUT7Hbvr/2dQsItSo4S2Q
+ bQG+IDIXpwDa4sxGR1O/5pNF1eK5H6sg6hxGF1on8GUO2mcUE8Yj96ee986QShx1r3Vd
+ HWESy3mvHlQQ8XN88noW/Devz2APL3frFco2mRJkQ26hzWKS6vvyysemjl8llWHQMbqJ
+ HNRnxh9k0GijJWwBSCXgJz6+CuXj8LjFRPZbOer9NrSl5Xt+uc2VO2Aeum0LgMoZEHl7
+ 6+18Zp0Y+t2MFfFTN47RJldxC4TDBdrQvEvzs7jtslserorml1LxVvuHKEFKWRytq+f2
+ /huA==
+X-Gm-Message-State: AOAM5305oWa2FIglsZUGzkDEUEovxtSpVNZ24eD0ElgS9iKx3M1/03Mg
+ yiO3mc2OlhoMN8vMVXGoBFPjAv6ZSGg=
+X-Google-Smtp-Source: ABdhPJz56W8lEuknNEhKkQmByd2HBR+X3kjMXI2tUrzMidPZ5FOw+jWpZl5H8gI7ypSSXTwkZ+u7mw==
+X-Received: by 2002:ab0:1a1:: with SMTP id 30mr3051220ual.4.1589835602313;
+ Mon, 18 May 2020 14:00:02 -0700 (PDT)
+Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com.
+ [209.85.222.46])
+ by smtp.gmail.com with ESMTPSA id d2sm3126098vsp.4.2020.05.18.14.00.00
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 18 May 2020 14:00:01 -0700 (PDT)
+Received: by mail-ua1-f46.google.com with SMTP id g7so3992889uap.7
+ for <freedreno@lists.freedesktop.org>; Mon, 18 May 2020 14:00:00 -0700 (PDT)
+X-Received: by 2002:ab0:b13:: with SMTP id b19mr12713480uak.91.1589835600274; 
+ Mon, 18 May 2020 14:00:00 -0700 (PDT)
 MIME-Version: 1.0
-References: <1589453659-27581-1-git-send-email-smasetty@codeaurora.org>
- <1589453659-27581-6-git-send-email-smasetty@codeaurora.org>
- <20200518142333.GA10796@jcrouse1-lnx.qualcomm.com>
-In-Reply-To: <20200518142333.GA10796@jcrouse1-lnx.qualcomm.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 18 May 2020 09:25:41 -0700
-Message-ID: <CAF6AEGtoNwUGX-r7QytGn5hSU-VD4RJZyhcb3WdgAgAFR5BK4A@mail.gmail.com>
-To: Sharat Masetty <smasetty@codeaurora.org>,
- freedreno <freedreno@lists.freedesktop.org>, 
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, dri-devel@freedesktop.org, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Georgi Djakov <georgi.djakov@linaro.org>, 
- Matthias Kaehlcke <mka@chromium.org>
-Subject: Re: [Freedreno] [PATCH 5/6] drm: msm: a6xx: use dev_pm_opp_set_bw
- to set DDR bandwidth
+References: <1588329036-18732-1-git-send-email-smasetty@codeaurora.org>
+ <1588329036-18732-2-git-send-email-smasetty@codeaurora.org>
+ <CAD=FV=WXv9DYf7LWoFBvro=7Bzeb1_0bXAvRH-suzxnrCu+V2A@mail.gmail.com>
+ <20200518143920.GJ32394@willie-the-truck>
+In-Reply-To: <20200518143920.GJ32394@willie-the-truck>
+From: Doug Anderson <dianders@chromium.org>
+Date: Mon, 18 May 2020 13:59:49 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=We2+5QHimzr+ukit9qkDKQaaTHYEZGkVbOwsNuy11k9A@mail.gmail.com>
+Message-ID: <CAD=FV=We2+5QHimzr+ukit9qkDKQaaTHYEZGkVbOwsNuy11k9A@mail.gmail.com>
+To: Will Deacon <will@kernel.org>
+Subject: Re: [Freedreno] [PATCH 2/2] dt-bindings: arm-smmu: Add sc7180
+ compatible string
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,72 +72,66 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>, Robin Murphy <robin.murphy@arm.com>,
+ Sharat Masetty <smasetty@codeaurora.org>, LKML <linux-kernel@vger.kernel.org>,
+ "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
+ Matthias Kaehlcke <mka@chromium.org>, dri-devel@freedesktop.org,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, May 18, 2020 at 7:23 AM Jordan Crouse <jcrouse@codeaurora.org> wrote:
->
-> On Thu, May 14, 2020 at 04:24:18PM +0530, Sharat Masetty wrote:
-> > This patches replaces the previously used static DDR vote and uses
-> > dev_pm_opp_set_bw() to scale GPU->DDR bandwidth along with scaling
-> > GPU frequency.
-> >
-> > Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
-> > ---
-> >  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 6 +-----
-> >  1 file changed, 1 insertion(+), 5 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> > index 2d8124b..79433d3 100644
-> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> > @@ -141,11 +141,7 @@ void a6xx_gmu_set_freq(struct msm_gpu *gpu, struct dev_pm_opp *opp)
-> >
-> >       gmu->freq = gmu->gpu_freqs[perf_index];
-> >
-> > -     /*
-> > -      * Eventually we will want to scale the path vote with the frequency but
-> > -      * for now leave it at max so that the performance is nominal.
-> > -      */
-> > -     icc_set_bw(gpu->icc_path, 0, MBps_to_icc(7216));
-> > +     dev_pm_opp_set_bw(&gpu->pdev->dev, opp);
-> >  }
->
-> This adds an implicit requirement that all targets need bandwidth settings
-> defined in the OPP or they won't get a bus vote at all. I would prefer that
-> there be an default escape valve but if not you'll need to add
-> bandwidth values for the sdm845 OPP that target doesn't regress.
->
+Hi,
 
-it looks like we could maybe do something like:
-
-  ret = dev_pm_opp_set_bw(...);
-  if (ret) {
-      dev_warn_once(dev, "no bandwidth settings");
-      icc_set_bw(...);
-  }
-
-?
-
-BR,
--R
-
-> Jordan
+On Mon, May 18, 2020 at 7:39 AM Will Deacon <will@kernel.org> wrote:
 >
-> >  unsigned long a6xx_gmu_get_freq(struct msm_gpu *gpu)
-> > --
-> > 2.7.4
+> On Fri, May 15, 2020 at 12:05:39PM -0700, Doug Anderson wrote:
+> > On Fri, May 1, 2020 at 3:30 AM Sharat Masetty <smasetty@codeaurora.org> wrote:
+> > >
+> > > This patch simply adds a new compatible string for SC7180 platform.
+> > >
+> > > Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
+> > > ---
+> > >  Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 1 +
+> > >  1 file changed, 1 insertion(+)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+> > > index 6515dbe..986098b 100644
+> > > --- a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+> > > +++ b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+> > > @@ -28,6 +28,7 @@ properties:
+> > >            - enum:
+> > >                - qcom,msm8996-smmu-v2
+> > >                - qcom,msm8998-smmu-v2
+> > > +              - qcom,sc7180-smmu-v2
+> > >                - qcom,sdm845-smmu-v2
+> > >            - const: qcom,smmu-v2
 > >
+> > Is anything blocking this patch from landing now?
 >
-> --
-> The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
-> a Linux Foundation Collaborative Project
-> _______________________________________________
-> Freedreno mailing list
-> Freedreno@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/freedreno
+> I thought updates to the bindings usually went via Rob and the device-tree
+> tree, but neither of those are on cc.
+>
+> Perhaps resend with that fixed?
+
+Ah, I guess I wasn't familiar with how things worked for this file, or
+maybe things have changed recently?  I'm used to most bindings going
+through the same tree as the drivers that use them.  Usually if things
+are at all complicated maintainers wait for an Ack from Rob (so he
+should have been CCed for sure) and then land.
+
+In this case it actually looks like Bjorn landed it in the Qualcomm
+and I just didn't realize it.  That seems like it should be fine since
+it's in the middle of a clause that's all Qualcomm and the change
+shouldn't be controversial in any way.  :-)
+
+Thanks!
+
+-Doug
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
