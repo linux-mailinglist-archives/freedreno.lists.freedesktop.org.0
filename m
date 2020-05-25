@@ -2,57 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AE471DFBA6
-	for <lists+freedreno@lfdr.de>; Sun, 24 May 2020 01:18:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F20261E152A
+	for <lists+freedreno@lfdr.de>; Mon, 25 May 2020 22:20:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A1476E15E;
-	Sat, 23 May 2020 23:18:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BDA089C48;
+	Mon, 25 May 2020 20:20:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com
- [IPv6:2a00:1450:4864:20::641])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13B036E15E;
- Sat, 23 May 2020 23:18:43 +0000 (UTC)
-Received: by mail-ej1-x641.google.com with SMTP id d7so16949968eja.7;
- Sat, 23 May 2020 16:18:42 -0700 (PDT)
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D4CB89BF6;
+ Mon, 25 May 2020 20:20:15 +0000 (UTC)
+Received: by mail-ej1-x630.google.com with SMTP id s21so21626615ejd.2;
+ Mon, 25 May 2020 13:20:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=qTudC0kHsQhaAnF/cig67ZtgOuZShJYIz5n75777QI0=;
- b=nR7VJUtBYdfY7cZfN+bMTyk9xVMDKht+TU3DEdUb3kXBwElFsd6R9+g4zVO4qYGjND
- j3ExNebSDQansXRRAUMWm6XOapUtBjPUSJ7tHvL35C2foTZ+nl6S/qEbhEuE/nPSU3wi
- AVY66IrjmaHc1lSHqRphxZvFfNCLN2K9uH6rGUGVH21aIPaEwn71KM2mtPe3xYwHAP15
- 2ecZeBo+JFYQvl/cYqwAcybMbgYjRvDz+Eva1HQsY/dHHZvj5G1e3UXLNygrki7r6jXN
- t2DnbijuggGFY3Ewha8JmDqLNZ2+5YGJ3XHag4vNPWGbUAGIvA0Jnu5O/C9V33Mx6oga
- PBvw==
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=PoIaK/pV9OVJlJWu+gk2RvaOMk7FYxWYIk7W+GWUZIc=;
+ b=BlG1u/53E0k/cxphrEAEQh0jv/4wUw0rI7aAQNCNBebgaqk3MrjPRWLFP9lwzuti9w
+ Y6lDJCz9LgYXAMXh6Ep9cpUsIGOflEQmYJHurd7xrwX7Fj8aiIpWAdsjXcYO5cA0O8i3
+ TI/zsA0kdTtFXiLUZLkmLdPuMG/F0zfYwevXcyuF3hmrnLCiRPV/Q8D++vsltvRRjEb6
+ AISfw9OPo3BQqf9izNvJo5e9E2hLRPvgNPyGXK7ZPkMeH/QRwHTmMk/PcrOGqZpWS3ig
+ I0pQphUtnyIEwduqcTyOKT/MbQwnT9ub65zoIKHy1mmKTb0fJxZ9BK2fcU4LhiGnn1rM
+ dCwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=qTudC0kHsQhaAnF/cig67ZtgOuZShJYIz5n75777QI0=;
- b=PhC37pB4XKIjHSBXoduHNzuxPcMBFheYdF/pnLJKx1s/CEi0ISCaiO0LrRc6k5Bg1c
- Vgjv0MI+zTObDAwzrcBnymTjy8TWMHuz7QgQNQiJTG3J2072JvoPQCc0kRvDGVhpqmUv
- 0dSHZn456BckYod5KL3yRrqXQ4CjqPKBllTwmqtaj/ytnUXonh4hZ8hz2WpYaXPlSGdj
- P/S/qTHN3qTh5TdBYhwHDulBscq1Vd7TGZjxsA6aHTd7AWxaP65f1zC4EwS0Ihqk2VAJ
- 93+tN8BKM0qQTuqCF3UdXKf1DtyDrJghI5F+qzUy8uwqTh/hV228AmLFCj2EB9f+swuk
- aFHg==
-X-Gm-Message-State: AOAM530pzuxJ5N1VOJOH1Gju+LrISzG9sh/XKnCeCvdBZ0aTRmeuvk9T
- 1pja0xu00G4o124aCEi4Z1SUHKG7Ay24Z/QgtyE=
-X-Google-Smtp-Source: ABdhPJwzMx/jVFuTDLKRDebwIdmlbU6Vpg2xa3/LcsOdKTMjNBXwRaLoF5JgX+ThsXGDyFVVS7kntTFfz4vPb72aNas=
-X-Received: by 2002:a17:906:6843:: with SMTP id
- a3mr12943995ejs.245.1590275921497; 
- Sat, 23 May 2020 16:18:41 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=PoIaK/pV9OVJlJWu+gk2RvaOMk7FYxWYIk7W+GWUZIc=;
+ b=RrLDxCdUUaPIoj0UDLJgOXd57ukBYjKNwb5qROGbTUJmbfrl3Dvr8tkepI/OlI5J6H
+ NMjOf5AZg0kIZQAwk3FAvYqsyxPjQCyHdyllbKXD9eE6Aqdl/tFjQ2TuNjIalI6myGoy
+ zWj8rQgjxCiixEDfgH+ZGNhLTS8ql/6zaSWVUjPu7FaJ13UXR1JKYbWDEBTI+uua/i+R
+ h/GmC6coZT7k+C+vrhbShGPvZQX2A7tjIrbwLOcUD8NqlY6SsoXZBJNzXVYXgxFo969o
+ 7hdxIWdr4saypC+/qAra6AliIQWTHwqNvXs+e7UAzsuQduoGLB2J5PmtJI1BOWGEOHNR
+ rG5w==
+X-Gm-Message-State: AOAM531HQEowrdFtAiu8rSABeHEs6clcxdC0BNti9dHIZPN9HsF6HqnU
+ 8eJwKDEmxo8MTHo0FW4x0y230EjVD6oKRKeIAD0=
+X-Google-Smtp-Source: ABdhPJzGBBplhgkLgweqOx2JdMhGzZRkrpe9//0ny+sPB1V0GdFyUBsf7L+dELYRTCsUuX8afEdERCn9Oq85bxMBWk8=
+X-Received: by 2002:a17:906:3a11:: with SMTP id
+ z17mr20807986eje.460.1590438013845; 
+ Mon, 25 May 2020 13:20:13 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200522220316.23772-1-jcrouse@codeaurora.org>
- <20200522220316.23772-2-jcrouse@codeaurora.org>
- <20200523072300.GB28198@dragon>
-In-Reply-To: <20200523072300.GB28198@dragon>
 From: Rob Clark <robdclark@gmail.com>
-Date: Sat, 23 May 2020 16:19:02 -0700
-Message-ID: <CAF6AEGsrH4PvhBHcVgkVWTk4+wXnRQqiusQA18MrZ-dX-oFRcg@mail.gmail.com>
-To: Shawn Guo <shawn.guo@linaro.org>
-Subject: Re: [Freedreno] [PATCH v1 1/3] drm/msm: Attach the IOMMU device
- during initialization
+Date: Mon, 25 May 2020 13:20:36 -0700
+Message-ID: <CAF6AEGuBodxXBcEZOU+bSBmxRmVx+JHVkFnt+R8sNn3dGafnpg@mail.gmail.com>
+To: Dave Airlie <airlied@gmail.com>
+Subject: [Freedreno] [pull] drm/msm: msm-next for 5.8
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,82 +58,160 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, freedreno <freedreno@lists.freedesktop.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, David Airlie <airlied@linux.ie>,
+Cc: freedreno <freedreno@lists.freedesktop.org>,
  linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Kalyan Thota <kalyan_t@codeaurora.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, tongtiangen <tongtiangen@huawei.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Drew Davenport <ddavenport@chromium.org>, Thomas Gleixner <tglx@linutronix.de>,
- AngeloGioacchino Del Regno <kholk11@gmail.com>,
- Sam Ravnborg <sam@ravnborg.org>, Georgi Djakov <georgi.djakov@linaro.org>,
- Wambui Karuga <wambui.karugax@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-T24gU2F0LCBNYXkgMjMsIDIwMjAgYXQgMTI6MjMgQU0gU2hhd24gR3VvIDxzaGF3bi5ndW9AbGlu
-YXJvLm9yZz4gd3JvdGU6Cj4KPiBPbiBGcmksIE1heSAyMiwgMjAyMCBhdCAwNDowMzoxNFBNIC0w
-NjAwLCBKb3JkYW4gQ3JvdXNlIHdyb3RlOgo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9tc20vbXNtX2dwdW1tdS5jIGIvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZ3B1bW11LmMKPiA+
-IGluZGV4IDM0OTgwZDhlYjdhZC4uMGFkMGY4NDg1NjBhIDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL21zbS9tc21fZ3B1bW11LmMKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9tc20v
-bXNtX2dwdW1tdS5jCj4gPiBAQCAtMjEsMTEgKzIxLDYgQEAgc3RydWN0IG1zbV9ncHVtbXUgewo+
-ID4gICNkZWZpbmUgR1BVTU1VX1BBR0VfU0laRSBTWl80Swo+ID4gICNkZWZpbmUgVEFCTEVfU0la
-RSAoc2l6ZW9mKHVpbnQzMl90KSAqIEdQVU1NVV9WQV9SQU5HRSAvIEdQVU1NVV9QQUdFX1NJWkUp
-Cj4gPgo+ID4gLXN0YXRpYyBpbnQgbXNtX2dwdW1tdV9hdHRhY2goc3RydWN0IG1zbV9tbXUgKm1t
-dSkKPiA+IC17Cj4gPiAtICAgICByZXR1cm4gMDsKPiA+IC19Cj4gPiAtCj4gPiAgc3RhdGljIHZv
-aWQgbXNtX2dwdW1tdV9kZXRhY2goc3RydWN0IG1zbV9tbXUgKm1tdSkKPiA+ICB7Cj4gPiAgfQo+
-ID4gQEAgLTg1LDcgKzgwLDYgQEAgc3RhdGljIHZvaWQgbXNtX2dwdW1tdV9kZXN0cm95KHN0cnVj
-dCBtc21fbW11ICptbXUpCj4gPiAgfQo+ID4KPiA+ICBzdGF0aWMgY29uc3Qgc3RydWN0IG1zbV9t
-bXVfZnVuY3MgZnVuY3MgPSB7Cj4gPiAtICAgICAgICAgICAgIC5hdHRhY2ggPSBtc21fZ3B1bW11
-X2F0dGFjaCwKPiA+ICAgICAgICAgICAgICAgLmRldGFjaCA9IG1zbV9ncHVtbXVfZGV0YWNoLAo+
-ID4gICAgICAgICAgICAgICAubWFwID0gbXNtX2dwdW1tdV9tYXAsCj4gPiAgICAgICAgICAgICAg
-IC51bm1hcCA9IG1zbV9ncHVtbXVfdW5tYXAsCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL21zbS9tc21faW9tbXUuYyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2lvbW11LmMKPiA+
-IGluZGV4IGFkNThjZmU1OTk4ZS4uZTM1ZGFiNTc5MmNmIDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL21zbS9tc21faW9tbXUuYwo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL21zbS9t
-c21faW9tbXUuYwo+ID4gQEAgLTY2LDcgKzY2LDYgQEAgc3RhdGljIHZvaWQgbXNtX2lvbW11X2Rl
-c3Ryb3koc3RydWN0IG1zbV9tbXUgKm1tdSkKPiA+ICB9Cj4gPgo+ID4gIHN0YXRpYyBjb25zdCBz
-dHJ1Y3QgbXNtX21tdV9mdW5jcyBmdW5jcyA9IHsKPiA+IC0gICAgICAgICAgICAgLmF0dGFjaCA9
-IG1zbV9pb21tdV9hdHRhY2gsCj4KPiBJdCBjYXVzZXMgYW4gdW51c2VkIGZ1bmN0aW9uIHdhcm5p
-bmcgYXMgYmVsb3cuCj4KPiBkcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9pb21tdS5jOjI2OjEyOiB3
-YXJuaW5nOiDigJhtc21faW9tbXVfYXR0YWNo4oCZIGRlZmluZWQgYnV0IG5vdCB1c2VkIFstV3Vu
-dXNlZC1mdW5jdGlvbl0KPiAgc3RhdGljIGludCBtc21faW9tbXVfYXR0YWNoKHN0cnVjdCBtc21f
-bW11ICptbXUpCj4gICAgICAgICAgICAgXn5+fn5+fn5+fn5+fn5+fgo+Cj4gTm90IHN1cmUgaWYg
-eW91IHdpbGwgdXNlIGl0IGFnYWluIGluIGZ1dHVyZSBwYXRjaGVzIHRob3VnaC4KCmxvb2tzIGxp
-a2UgdGhpcyB3YXMgcmVtb3ZlZCBpbiBtc21fZ3B1bW11IChhMnh4KSBidXQgbm90IG1zbV9pb21t
-dQooYTN4eCspLi4gSSd2ZSBzcXVhc2hlZCBhIGZpeHVwIGFuZCBwdXNoZWQgdG8gbXNtLW5leHQK
-CnRoeAoKQlIsCi1SCgo+IFNoYXduCj4KPiA+ICAgICAgICAgICAgICAgLmRldGFjaCA9IG1zbV9p
-b21tdV9kZXRhY2gsCj4gPiAgICAgICAgICAgICAgIC5tYXAgPSBtc21faW9tbXVfbWFwLAo+ID4g
-ICAgICAgICAgICAgICAudW5tYXAgPSBtc21faW9tbXVfdW5tYXAsCj4gPiBAQCAtNzYsNiArNzUs
-NyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IG1zbV9tbXVfZnVuY3MgZnVuY3MgPSB7Cj4gPiAgc3Ry
-dWN0IG1zbV9tbXUgKm1zbV9pb21tdV9uZXcoc3RydWN0IGRldmljZSAqZGV2LCBzdHJ1Y3QgaW9t
-bXVfZG9tYWluICpkb21haW4pCj4gPiAgewo+ID4gICAgICAgc3RydWN0IG1zbV9pb21tdSAqaW9t
-bXU7Cj4gPiArICAgICBpbnQgcmV0Owo+ID4KPiA+ICAgICAgIGlvbW11ID0ga3phbGxvYyhzaXpl
-b2YoKmlvbW11KSwgR0ZQX0tFUk5FTCk7Cj4gPiAgICAgICBpZiAoIWlvbW11KQo+ID4gQEAgLTg1
-LDUgKzg1LDExIEBAIHN0cnVjdCBtc21fbW11ICptc21faW9tbXVfbmV3KHN0cnVjdCBkZXZpY2Ug
-KmRldiwgc3RydWN0IGlvbW11X2RvbWFpbiAqZG9tYWluKQo+ID4gICAgICAgbXNtX21tdV9pbml0
-KCZpb21tdS0+YmFzZSwgZGV2LCAmZnVuY3MpOwo+ID4gICAgICAgaW9tbXVfc2V0X2ZhdWx0X2hh
-bmRsZXIoZG9tYWluLCBtc21fZmF1bHRfaGFuZGxlciwgaW9tbXUpOwo+ID4KPiA+ICsgICAgIHJl
-dCA9IGlvbW11X2F0dGFjaF9kZXZpY2UoaW9tbXUtPmRvbWFpbiwgZGV2KTsKPiA+ICsgICAgIGlm
-IChyZXQpIHsKPiA+ICsgICAgICAgICAgICAga2ZyZWUoaW9tbXUpOwo+ID4gKyAgICAgICAgICAg
-ICByZXR1cm4gRVJSX1BUUihyZXQpOwo+ID4gKyAgICAgfQo+ID4gKwo+ID4gICAgICAgcmV0dXJu
-ICZpb21tdS0+YmFzZTsKPiA+ICB9Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL21z
-bS9tc21fbW11LmggYi9kcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9tbXUuaAo+ID4gaW5kZXggNjdh
-NjIzZjE0MzE5Li5iYWU5ZThlNjdlYzEgMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-bXNtL21zbV9tbXUuaAo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fbW11LmgKPiA+
-IEBAIC0xMCw3ICsxMCw2IEBACj4gPiAgI2luY2x1ZGUgPGxpbnV4L2lvbW11Lmg+Cj4gPgo+ID4g
-IHN0cnVjdCBtc21fbW11X2Z1bmNzIHsKPiA+IC0gICAgIGludCAoKmF0dGFjaCkoc3RydWN0IG1z
-bV9tbXUgKm1tdSk7Cj4gPiAgICAgICB2b2lkICgqZGV0YWNoKShzdHJ1Y3QgbXNtX21tdSAqbW11
-KTsKPiA+ICAgICAgIGludCAoKm1hcCkoc3RydWN0IG1zbV9tbXUgKm1tdSwgdWludDY0X3QgaW92
-YSwgc3RydWN0IHNnX3RhYmxlICpzZ3QsCj4gPiAgICAgICAgICAgICAgICAgICAgICAgdW5zaWdu
-ZWQgbGVuLCBpbnQgcHJvdCk7Cj4gPiAtLQo+ID4gMi4xNy4xCj4gPgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpGcmVlZHJlbm8gbWFpbGluZyBsaXN0CkZy
-ZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9mcmVlZHJlbm8K
+Hi Dave,
+
+Not too huge this time around, but a bunch of interesting new
+stuff:
+
+ * new gpu support: a405, a640, a650
+ * dpu: clock and bandwidth scaling
+ * dpu: color processing support
+ * mdp5: support for msm8x36 (the thing with a405)
+ * some prep work for per-context pagetables (ie the part that
+   does not depend on in-flight iommu patches)
+ * last but not least, UABI update for submit ioctl to support
+   syncobj (from Bas)
+
+The UABI change has been on-list and reviewed for a while now.
+The only reason I didn't pull it in last cycle was that I ran
+out of time to review it myself at the time.  But I'm happy
+with it.  The MR for mesa (vulkan/turnip) support is here:
+
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/2769
+
+
+The following changes since commit 2ef96a5bb12be62ef75b5828c0aab838ebb29cb8:
+
+  Linux 5.7-rc5 (2020-05-10 15:16:58 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/msm.git drm-msm-next-2020-05-25
+
+for you to fetch changes up to d9e19d7966a31ae70edfe0cb7cb044e20343a0c9:
+
+  drm/msm/a6xx: skip HFI set freq if GMU is powered down (2020-05-23
+13:38:16 -0700)
+
+----------------------------------------------------------------
+Bas Nieuwenhuizen (1):
+      drm/msm: Add syncobj support.
+
+Bjorn Andersson (1):
+      drm/msm: Fix undefined "rd_full" link error
+
+Christophe JAILLET (2):
+      drm/msm/a6xx: Fix a typo in an error message
+      drm/msm: Fix typo
+
+Hongbo Yao (1):
+      drm/msm/dpu: Fix compile warnings
+
+Jonathan Marek (10):
+      drm/msm: add msm_gem_get_and_pin_iova_range
+      drm/msm: add internal MSM_BO_MAP_PRIV flag
+      drm/msm/a6xx: use msm_gem for GMU memory objects
+      drm/msm/a6xx: add A640/A650 to gpulist
+      drm/msm/a6xx: HFI v2 for A640 and A650
+      drm/msm/a6xx: A640/A650 GMU firmware path
+      drm/msm/a6xx: update pdc/rscc GMU registers for A640/A650
+      drm/msm/a6xx: enable GMU log
+      drm/msm/a6xx: update a6xx_hw_init for A640 and A650
+      drm/msm/a6xx: skip HFI set freq if GMU is powered down
+
+Jordan Crouse (4):
+      drm/msm: Check for powered down HW in the devfreq callbacks
+      drm/msm: Attach the IOMMU device during initialization
+      drm/msm: Refactor address space initialization
+      drm/msm: Update the MMU helper function APIs
+
+Kalyan Thota (3):
+      drm/msm/dpu: add support for color processing blocks in dpu driver
+      drm/msm/dpu: add support for pcc color block in dpu driver
+      drm/msm/dpu: add support for clk and bw scaling for display
+
+Konrad Dybcio (1):
+      drm/msm/mdp5: Add MDP5 configuration for MSM8x36.
+
+Krishna Manikandan (1):
+      drm/msm/dpu: update bandwidth threshold check
+
+Roy Spliet (1):
+      drm/msm/mdp5: Fix mdp5_init error path for failed mdp5_kms allocation
+
+Shawn Guo (2):
+      drm/msm/a4xx: add adreno a405 support
+      drm/msm/a4xx: add a405_registers for a405 device
+
+kbuild test robot (2):
+      drm/msm/a6xx: a6xx_hfi_send_start() can be static
+      drm/msm/dpu: dpu_setup_dspp_pcc() can be static
+
+ drivers/gpu/drm/msm/Makefile                   |   1 +
+ drivers/gpu/drm/msm/adreno/a2xx_gpu.c          |  16 +
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c          |   1 +
+ drivers/gpu/drm/msm/adreno/a4xx_gpu.c          |  83 ++++-
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c          |   7 +
+ drivers/gpu/drm/msm/adreno/a6xx.xml.h          |  14 +
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c          | 418 +++++++++++++++++++------
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h          |  37 ++-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h      |  48 +--
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c          |  70 ++++-
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.c          | 123 +++++++-
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.h          |  50 ++-
+ drivers/gpu/drm/msm/adreno/adreno_device.c     |  35 +++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c        |  27 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h        |  23 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c  | 125 +++++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c       |  95 ++++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h       |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c    |  12 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  53 +++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  43 +++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c     |  26 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h     |   3 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c    | 129 ++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.h    | 100 ++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h    |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c        |  55 +++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h        |   5 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c       |   9 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c      |  82 +++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h      |   4 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c         |  58 +++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h         |   2 +
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c       |  18 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c       |  80 ++++-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c      |   4 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c       |  21 +-
+ drivers/gpu/drm/msm/msm_drv.c                  |   6 +-
+ drivers/gpu/drm/msm/msm_drv.h                  |  15 +-
+ drivers/gpu/drm/msm/msm_gem.c                  |  31 +-
+ drivers/gpu/drm/msm/msm_gem.h                  |   1 +
+ drivers/gpu/drm/msm/msm_gem_submit.c           | 232 +++++++++++++-
+ drivers/gpu/drm/msm/msm_gem_vma.c              |  42 +--
+ drivers/gpu/drm/msm/msm_gpu.c                  |  49 +--
+ drivers/gpu/drm/msm/msm_gpu.h                  |   4 +-
+ drivers/gpu/drm/msm/msm_gpummu.c               |  10 +-
+ drivers/gpu/drm/msm/msm_iommu.c                |  22 +-
+ drivers/gpu/drm/msm/msm_mmu.h                  |   5 +-
+ drivers/gpu/drm/msm/msm_rd.c                   |   4 +-
+ include/uapi/drm/msm_drm.h                     |  24 +-
+ 50 files changed, 1923 insertions(+), 403 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.h
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
