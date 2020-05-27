@@ -2,71 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 586A21E2746
-	for <lists+freedreno@lfdr.de>; Tue, 26 May 2020 18:41:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 484031E3CAB
+	for <lists+freedreno@lfdr.de>; Wed, 27 May 2020 10:53:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00A6F89AC2;
-	Tue, 26 May 2020 16:41:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDF9089736;
+	Wed, 27 May 2020 08:53:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail27.static.mailgun.info (mail27.static.mailgun.info
- [104.130.122.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA94389AC2
- for <freedreno@lists.freedesktop.org>; Tue, 26 May 2020 16:41:02 +0000 (UTC)
+X-Greylist: delayed 312 seconds by postgrey-1.36 at gabe;
+ Wed, 27 May 2020 08:53:02 UTC
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC7F589736
+ for <freedreno@lists.freedesktop.org>; Wed, 27 May 2020 08:53:02 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1590511262; h=In-Reply-To: Content-Type: MIME-Version:
- References: Message-ID: Subject: Cc: To: From: Date: Sender;
- bh=bxNy9OVVcbUGXRZMeRrO1nMkFefTO00pUgSxEDv45l8=;
- b=akkKBc5PPLF9QcXbHZ1BxG0xBhGHrAG3DkCHHCcCt1anPlauNvia0q11vTs8Nymaa6oKPtBs
- UlpIm/iUHkJSEa9BIyNJJ0rMsnyJoYPnIC+r7vkf7i8bQERUbngrQi+79QASit7+x5+qyElr
- yCPYkLUbInMpQaXpTtIwFVw+0B4=
-X-Mailgun-Sending-Ip: 104.130.122.27
+ s=smtp; t=1590569583; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: Cc: References: To:
+ Subject: Sender; bh=uae7yIbf7LkvKzwAx7OZgJqnIs4z8A3JvYEC3/kjvas=;
+ b=UhdJDnvWv0H91EDR5wCbquXaVWOzvYWN1KDNOxbWR5eICn5OQKizFPjpluKgo2xmHEZJ5ekx
+ VFaUW94bpaEnsTz9sOCyt/90ybFvLTW5Wbs0FnhxgR6uhS201ZHrdkPwe6KRbSoCaKcXxZ59
+ 9BrOy9/t8HnIBHOMwIyoP7MM9/8=
+X-Mailgun-Sending-Ip: 69.72.43.7
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
- 5ecd469dbf0e32d254e3c9bb (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 26 May 2020 16:41:01
+ smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
+ 5ece292d2c54998475908ba5 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 27 May 2020 08:47:41
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 8F451C43387; Tue, 26 May 2020 16:41:01 +0000 (UTC)
+ id B9659C433CA; Wed, 27 May 2020 08:47:40 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE,
  URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
+Received: from [192.168.1.227] (unknown [49.204.179.34])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id C44A4C433C9;
- Tue, 26 May 2020 16:40:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org C44A4C433C9
+ (No client certificate requested) (Authenticated sender: smasetty)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id D6D3AC433C6;
+ Wed, 27 May 2020 08:47:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org D6D3AC433C6
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=jcrouse@codeaurora.org
-Date: Tue, 26 May 2020 10:40:57 -0600
-From: Jordan Crouse <jcrouse@codeaurora.org>
-To: Jonathan Marek <jonathan@marek.ca>
-Message-ID: <20200526164057.GC20960@jcrouse1-lnx.qualcomm.com>
-Mail-Followup-To: Jonathan Marek <jonathan@marek.ca>,
- freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20200526032514.22198-1-jonathan@marek.ca>
+ spf=none smtp.mailfrom=smasetty@codeaurora.org
+To: Rob Clark <robdclark@gmail.com>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, dri-devel@freedesktop.org,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Georgi Djakov <georgi.djakov@linaro.org>,
+ Matthias Kaehlcke <mka@chromium.org>
+References: <1589453659-27581-1-git-send-email-smasetty@codeaurora.org>
+ <1589453659-27581-6-git-send-email-smasetty@codeaurora.org>
+ <20200518142333.GA10796@jcrouse1-lnx.qualcomm.com>
+ <CAF6AEGtoNwUGX-r7QytGn5hSU-VD4RJZyhcb3WdgAgAFR5BK4A@mail.gmail.com>
+From: Sharat Masetty <smasetty@codeaurora.org>
+Message-ID: <c8a514c9-5e48-b561-4b45-47cde3bdfb34@codeaurora.org>
+Date: Wed, 27 May 2020 14:17:32 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200526032514.22198-1-jonathan@marek.ca>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: set ubwc config for A640 and
- A650
+In-Reply-To: <CAF6AEGtoNwUGX-r7QytGn5hSU-VD4RJZyhcb3WdgAgAFR5BK4A@mail.gmail.com>
+Content-Language: en-US
+Subject: Re: [Freedreno] [PATCH 5/6] drm: msm: a6xx: use dev_pm_opp_set_bw
+ to set DDR bandwidth
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,127 +81,65 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
- Sharat Masetty <smasetty@codeaurora.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: viresh.kumar@linaro.org, rnayak@codeaurora.org, sibis@codeaurora.org,
+ saravanak@google.com
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, May 25, 2020 at 11:25:13PM -0400, Jonathan Marek wrote:
-> This is required for A640 and A650 to be able to share UBWC-compressed
-> images with other HW such as display, which expect this configuration.
-
-> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 38 ++++++++++++++++++++++-----
->  1 file changed, 32 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index 6f335ae179c8..aa004a261277 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -289,6 +289,37 @@ static void a6xx_set_hwcg(struct msm_gpu *gpu, bool state)
->  	gpu_write(gpu, REG_A6XX_RBBM_CLOCK_CNTL, state ? 0x8aa8aa02 : 0);
->  }
->  
-> +static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
-> +{
-> +	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-> +	u32 lower_bit = 2;
-> +	u32 amsbc = 0;
-> +	u32 rgb565_predicator = 0;
-> +	u32 uavflagprd_inv = 0;
-> +
-
-This hardware design has the amazing ability to make me sad every time I see it.
-
-> +	/* a618 is using the hw default values */
-> +	if (adreno_is_a618(adreno_gpu))
-> +		return;
-> +
-I've been a recent convert to the cult of <linux/bitfields.h> and FIELD_PREP()
-could help, maybe?
-
-if (adreno_is_a640(adreno_gpu)) {
-	rb_ncmode = FIELD_PREP(REG_A6XX_RB_NC_MODE_CNTL_AMSBC, 1);
-	rb_ncmode |= FIELD_PREP(REG_A6XX_RB_NC_MODE_CNTL_HBB, 2);
-
-	tpl1_ncmode  = FIELD_PREP(REG_A6XX_TPL1_NC_MODE_HBB, 2);
-
-	sp_ncmode  = FIELD_PREP(REG_A6XX_TPL1_NC_MODE_HBB, 2);
-
-	uchemode  = FIELD_PREP(REG_A6XX_UCHE_MODE_CNTL_HBB, 2);
-} else if adreno_is_a650(adreno_gpu)) {
-	rb_ncmode = FIELD_PREP(REG_A6XX_RB_NC_MODE_CNTL_AMSBC, 1);
-	rb_ncmode |= FIELD_PREP(REG_A6XX_RB_NC_MODE_CNTL_HBB, 3);
-	rb_ncmode |= FIELD_PREP(REG_A6XX_RB_NC_MODE_CNTL_RGB565, 1);
-
-	tpl1_ncmode  = FIELD_PREP(REG_A6XX_TPL1_NC_MODE_HBB, 3);
-
-	sp_ncmode  = FIELD_PREP(REG_A6XX_TPL1_NC_MODE_HBB, 3);
-	sp_ncmode  |= FIELD_PREP(REG_A6XX_TPL1_NC_MODE_UAVFLAGPRD_INV, 2);
-
-	uchemode  = FIELD_PREP(REG_A6XX_UCHE_MODE_CNTL_HBB, 2);
-}
-
-I'm not sure if that is any clearer or not. Perhaps this is a problem for the
-next person to add a new target. Regardless the code is programming the
-hardware correctly so...
-
-Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
-
-
-> +	if (adreno_is_a640(adreno_gpu))
-> +		amsbc = 1;
-> +
-> +	if (adreno_is_a650(adreno_gpu)) {
-> +		/* TODO: get ddr type from bootloader and use 2 for LPDDR4 */
-> +		lower_bit = 3;
-> +		amsbc = 1;
-> +		rgb565_predicator = 1;
-> +		uavflagprd_inv = 2;
-> +	}
-> +
-> +	gpu_write(gpu, REG_A6XX_RB_NC_MODE_CNTL,
-> +		rgb565_predicator << 11 | amsbc << 4 | lower_bit << 1);
-> +	gpu_write(gpu, REG_A6XX_TPL1_NC_MODE_CNTL, lower_bit << 1);
-> +	gpu_write(gpu, REG_A6XX_SP_NC_MODE_CNTL,
-> +		uavflagprd_inv >> 4 | lower_bit << 1);
-> +	gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL, lower_bit << 21);
-> +}
-> +
->  static int a6xx_cp_init(struct msm_gpu *gpu)
->  {
->  	struct msm_ringbuffer *ring = gpu->rb[0];
-> @@ -478,12 +509,7 @@ static int a6xx_hw_init(struct msm_gpu *gpu)
->  	/* Select CP0 to always count cycles */
->  	gpu_write(gpu, REG_A6XX_CP_PERFCTR_CP_SEL_0, PERF_CP_ALWAYS_COUNT);
->  
-> -	if (adreno_is_a630(adreno_gpu)) {
-> -		gpu_write(gpu, REG_A6XX_RB_NC_MODE_CNTL, 2 << 1);
-> -		gpu_write(gpu, REG_A6XX_TPL1_NC_MODE_CNTL, 2 << 1);
-> -		gpu_write(gpu, REG_A6XX_SP_NC_MODE_CNTL, 2 << 1);
-> -		gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL, 2 << 21);
-> -	}
-> +	a6xx_set_ubwc_config(gpu);
->  
->  	/* Enable fault detection */
->  	gpu_write(gpu, REG_A6XX_RBBM_INTERFACE_HANG_INT_CNTL,
-> -- 
-> 2.26.1
-> 
-
--- 
-The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
-a Linux Foundation Collaborative Project
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+KyBtb3JlIGZvbGtzCgpPbiA1LzE4LzIwMjAgOTo1NSBQTSwgUm9iIENsYXJrIHdyb3RlOgo+IE9u
+IE1vbiwgTWF5IDE4LCAyMDIwIGF0IDc6MjMgQU0gSm9yZGFuIENyb3VzZSA8amNyb3VzZUBjb2Rl
+YXVyb3JhLm9yZz4gd3JvdGU6Cj4+IE9uIFRodSwgTWF5IDE0LCAyMDIwIGF0IDA0OjI0OjE4UE0g
+KzA1MzAsIFNoYXJhdCBNYXNldHR5IHdyb3RlOgo+Pj4gVGhpcyBwYXRjaGVzIHJlcGxhY2VzIHRo
+ZSBwcmV2aW91c2x5IHVzZWQgc3RhdGljIEREUiB2b3RlIGFuZCB1c2VzCj4+PiBkZXZfcG1fb3Bw
+X3NldF9idygpIHRvIHNjYWxlIEdQVS0+RERSIGJhbmR3aWR0aCBhbG9uZyB3aXRoIHNjYWxpbmcK
+Pj4+IEdQVSBmcmVxdWVuY3kuCj4+Pgo+Pj4gU2lnbmVkLW9mZi1ieTogU2hhcmF0IE1hc2V0dHkg
+PHNtYXNldHR5QGNvZGVhdXJvcmEub3JnPgo+Pj4gLS0tCj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9t
+c20vYWRyZW5vL2E2eHhfZ211LmMgfCA2ICstLS0tLQo+Pj4gICAxIGZpbGUgY2hhbmdlZCwgMSBp
+bnNlcnRpb24oKyksIDUgZGVsZXRpb25zKC0pCj4+Pgo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9tc20vYWRyZW5vL2E2eHhfZ211LmMgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2FkcmVu
+by9hNnh4X2dtdS5jCj4+PiBpbmRleCAyZDgxMjRiLi43OTQzM2QzIDEwMDY0NAo+Pj4gLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL21zbS9hZHJlbm8vYTZ4eF9nbXUuYwo+Pj4gKysrIGIvZHJpdmVycy9n
+cHUvZHJtL21zbS9hZHJlbm8vYTZ4eF9nbXUuYwo+Pj4gQEAgLTE0MSwxMSArMTQxLDcgQEAgdm9p
+ZCBhNnh4X2dtdV9zZXRfZnJlcShzdHJ1Y3QgbXNtX2dwdSAqZ3B1LCBzdHJ1Y3QgZGV2X3BtX29w
+cCAqb3BwKQo+Pj4KPj4+ICAgICAgICBnbXUtPmZyZXEgPSBnbXUtPmdwdV9mcmVxc1twZXJmX2lu
+ZGV4XTsKPj4+Cj4+PiAtICAgICAvKgo+Pj4gLSAgICAgICogRXZlbnR1YWxseSB3ZSB3aWxsIHdh
+bnQgdG8gc2NhbGUgdGhlIHBhdGggdm90ZSB3aXRoIHRoZSBmcmVxdWVuY3kgYnV0Cj4+PiAtICAg
+ICAgKiBmb3Igbm93IGxlYXZlIGl0IGF0IG1heCBzbyB0aGF0IHRoZSBwZXJmb3JtYW5jZSBpcyBu
+b21pbmFsLgo+Pj4gLSAgICAgICovCj4+PiAtICAgICBpY2Nfc2V0X2J3KGdwdS0+aWNjX3BhdGgs
+IDAsIE1CcHNfdG9faWNjKDcyMTYpKTsKPj4+ICsgICAgIGRldl9wbV9vcHBfc2V0X2J3KCZncHUt
+PnBkZXYtPmRldiwgb3BwKTsKPj4+ICAgfQo+PiBUaGlzIGFkZHMgYW4gaW1wbGljaXQgcmVxdWly
+ZW1lbnQgdGhhdCBhbGwgdGFyZ2V0cyBuZWVkIGJhbmR3aWR0aCBzZXR0aW5ncwo+PiBkZWZpbmVk
+IGluIHRoZSBPUFAgb3IgdGhleSB3b24ndCBnZXQgYSBidXMgdm90ZSBhdCBhbGwuIEkgd291bGQg
+cHJlZmVyIHRoYXQKPj4gdGhlcmUgYmUgYW4gZGVmYXVsdCBlc2NhcGUgdmFsdmUgYnV0IGlmIG5v
+dCB5b3UnbGwgbmVlZCB0byBhZGQKPj4gYmFuZHdpZHRoIHZhbHVlcyBmb3IgdGhlIHNkbTg0NSBP
+UFAgdGhhdCB0YXJnZXQgZG9lc24ndCByZWdyZXNzLgo+Pgo+IGl0IGxvb2tzIGxpa2Ugd2UgY291
+bGQgbWF5YmUgZG8gc29tZXRoaW5nIGxpa2U6Cj4KPiAgICByZXQgPSBkZXZfcG1fb3BwX3NldF9i
+dyguLi4pOwo+ICAgIGlmIChyZXQpIHsKPiAgICAgICAgZGV2X3dhcm5fb25jZShkZXYsICJubyBi
+YW5kd2lkdGggc2V0dGluZ3MiKTsKPiAgICAgICAgaWNjX3NldF9idyguLi4pOwo+ICAgIH0KPgo+
+ID8KPgo+IEJSLAo+IC1SCgpUaGVyZSBpcyBhIGJpdCBvZiBhbiBpc3N1ZSBoZXJlIC0gTG9va3Mg
+bGlrZSBpdHMgbm90IHBvc3NpYmxlIHRvIHR3byBpY2MgCmhhbmRsZXMgdG8gdGhlIHNhbWUgcGF0
+aC7CoCBJdHMgY2F1c2luZyBkb3VibGUgZW51bWVyYXRpb24gb2YgdGhlIHBhdGhzIAppbiB0aGUg
+aWNjIGNvcmUgYW5kIG1lc3NpbmcgdXAgcGF0aCB2b3Rlcy4gV2l0aCBbMV0gU2luY2Ugb3BwL2Nv
+cmUgCmFscmVhZHkgZ2V0cyBhIGhhbmRsZSB0byB0aGUgaWNjIHBhdGggYXMgcGFydCBvZiB0YWJs
+ZSBhZGQswqAgZHJtL21zbSAKY291bGQgZG8gZWl0aGVyCgphKSBDb25kaXRpb25hbGx5IGVudW1l
+cmF0ZSBncHUtPmljY19wYXRoIGhhbmRsZSBvbmx5IHdoZW4gcG0vb3BwIGNvcmUgCmhhcyBub3Qg
+Z290IHRoZSBpY2MgcGF0aCBoYW5kbGUuIEkgY291bGQgdXNlIHNvbWV0aGluZyBsaWtlIFsyXSB0
+byAKZGV0ZXJtaW5lIGlmIHNob3VsZCBpbml0aWFsaXplIGdwdS0+aWNjX3BhdGgqCgpiKSBBZGQg
+cGVhay1vcHAtY29uZmlncyBpbiA4NDUgZHQgYW5kIG1hbmRhdGUgYWxsIGZ1dHVyZSB2ZXJzaW9u
+cyB0byB1c2UgCnRoaXMgYmluZGluZ3MuIFdpdGggdGhpcywgSSBjYW4gcmVtb3ZlIGdwdS0+aWNj
+X3BhdGggZnJvbSBtc20vZHJtIApjb21wbGV0ZWx5IGFuZCBvbmx5IHJlbHkgb24gb3BwL2NvcmUg
+Zm9yIGJ3IHZvdGluZy4KClsxXSAtIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL3BhdGNod29yay9j
+b3Zlci8xMjQwNjg3LwoKWzJdIC0gaHR0cHM6Ly9wYXRjaHdvcmsua2VybmVsLm9yZy9wYXRjaC8x
+MTUyNzU3My8KCkxldCBtZSBrbm93IHlvdXIgdGhvdWdodHMKClNoYXJhdAoKPgo+PiBKb3JkYW4K
+Pj4KPj4+ICAgdW5zaWduZWQgbG9uZyBhNnh4X2dtdV9nZXRfZnJlcShzdHJ1Y3QgbXNtX2dwdSAq
+Z3B1KQo+Pj4gLS0KPj4+IDIuNy40Cj4+Pgo+PiAtLQo+PiBUaGUgUXVhbGNvbW0gSW5ub3ZhdGlv
+biBDZW50ZXIsIEluYy4gaXMgYSBtZW1iZXIgb2YgQ29kZSBBdXJvcmEgRm9ydW0sCj4+IGEgTGlu
+dXggRm91bmRhdGlvbiBDb2xsYWJvcmF0aXZlIFByb2plY3QKPj4gX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4gRnJlZWRyZW5vIG1haWxpbmcgbGlzdAo+
+PiBGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5vCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJlZWRy
+ZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVubwo=
