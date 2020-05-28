@@ -1,63 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 870261E6DC9
-	for <lists+freedreno@lfdr.de>; Thu, 28 May 2020 23:37:54 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CC691E6E83
+	for <lists+freedreno@lfdr.de>; Fri, 29 May 2020 00:20:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 098916E7EF;
-	Thu, 28 May 2020 21:37:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61FCB6E226;
+	Thu, 28 May 2020 22:20:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ua1-x943.google.com (mail-ua1-x943.google.com
- [IPv6:2607:f8b0:4864:20::943])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F21989B8F
- for <freedreno@lists.freedesktop.org>; Thu, 28 May 2020 21:37:51 +0000 (UTC)
-Received: by mail-ua1-x943.google.com with SMTP id k3so62993ual.8
- for <freedreno@lists.freedesktop.org>; Thu, 28 May 2020 14:37:51 -0700 (PDT)
+Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
+ [IPv6:2607:f8b0:4864:20::102e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B87866E226
+ for <freedreno@lists.freedesktop.org>; Thu, 28 May 2020 22:20:20 +0000 (UTC)
+Received: by mail-pj1-x102e.google.com with SMTP id ci23so205949pjb.5
+ for <freedreno@lists.freedesktop.org>; Thu, 28 May 2020 15:20:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=6EBXP08UfA+20wnVaOt/Z0KcauZvdNBVCxlQRkCKiaE=;
- b=hQE6rkU9ZVc2K3wj2lHCfZ6PCW6mEVrt6pyiaSDGWcBIMcQg9CeU1m6QiV/RMjl/FO
- QW+xgDshAs1RIO/5kskBlpD5CGQInHMf4OK055PDNSV+BHB9yk9TxBI+8Xml915AGrxN
- CRVyAjb8Q9DR9q6ppylctJsVaX7mnSK1Ql2rk=
+ h=mime-version:content-transfer-encoding:in-reply-to:references
+ :subject:from:cc:to:date:message-id:user-agent;
+ bh=NIrmsov8fCmRXlFvg/QT7vVocTnt+ne2gI6KC0HBK0s=;
+ b=afY0mSX4ecEhor/wnhCdYO9il2Qtq7+n+SMWBVmU+POSzCk+3OpQZWwmv7EVvRA818
+ 1/xOb28Rt8SImGKI/oRgohVUXOtsGfffbAFwMcGZYFHDW8aYoSNHechWOLGk5al4qV7z
+ vSI8HsqGIo6mCTOjm919fK1nnMI69ZuEw3k30=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=6EBXP08UfA+20wnVaOt/Z0KcauZvdNBVCxlQRkCKiaE=;
- b=qHJXVlE0dkscGVzkMqZkc9D+qT7HLYCDx5qxV1XJeflKCMv5k8cXGaMISklY9b0712
- xZA6D6HjJjB8QIrwepQN2FiQfIc3rqgaK3Oeby3C+sHYWbvw96zP9J5fXd853A5VgYmU
- QYeazkmAYU1IcZjz8iwl4VEqqrk2hsbmml8IDU7GO50WKXMKsNxW+RQXWwPt4brCs3pO
- zSds6by9T38uxvMWdH3BG6LAocAkZ6OE4eSHqKJk8RyhcvwejwI6bduy+kUfReAxD8PD
- gSuPtGCirBAqWPrsjyh+T5objvQi/zY59yjNYQfbyodTPDtrgddBCKZVvnH9n4beKg/x
- l0iA==
-X-Gm-Message-State: AOAM530x5pjDIEHC7fZ7Dmi+qPBSVctW3Vq7ktZ/OvmGO5KyptNy9rdS
- 2itQvvMc0SZGKU9ZwXtalNvwiDwWkps=
-X-Google-Smtp-Source: ABdhPJxqiGikd80a0z/RDvB58hfeFsNP7BBAHUjbYBnsDqI68oiEUuBWSaMK9WRjDQsWmOLHnEhChg==
-X-Received: by 2002:ab0:1548:: with SMTP id p8mr3694884uae.60.1590701869830;
- Thu, 28 May 2020 14:37:49 -0700 (PDT)
-Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com.
- [209.85.222.51])
- by smtp.gmail.com with ESMTPSA id r12sm447296vka.9.2020.05.28.14.37.48
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 May 2020 14:37:48 -0700 (PDT)
-Received: by mail-ua1-f51.google.com with SMTP id g7so64243uap.7
- for <freedreno@lists.freedesktop.org>; Thu, 28 May 2020 14:37:48 -0700 (PDT)
-X-Received: by 2002:ab0:1684:: with SMTP id e4mr3531314uaf.22.1590701867624;
- Thu, 28 May 2020 14:37:47 -0700 (PDT)
+ h=x-gm-message-state:mime-version:content-transfer-encoding
+ :in-reply-to:references:subject:from:cc:to:date:message-id
+ :user-agent;
+ bh=NIrmsov8fCmRXlFvg/QT7vVocTnt+ne2gI6KC0HBK0s=;
+ b=tsZVGGhYDPO+CjJHfpjN9W9yYhitbK1BUMYrcdih07PToknAxLQPLnVvo8dlsGWpdR
+ 5yoQKIj9CWjC4vy4dI2xTa2jnA1IrrOkzGK2Tr5838w3ilwZdrBcAho1ShMmjeqnvm88
+ PxX/tYp6x1qNMT6J2K2go9gXrkRvRTTaik11CmPf6LdwBznKRbj4NuX5uJc1GJqhVd6y
+ 8zhJyaI1vRiK4AKd/5Q3Or0kUPLdHa5Hfn/h8V3633liMp7NSZ3vyfeCr8zwgQTS3jHk
+ UPsbXUoyaMn7ryi/MmteaWStJJH/CpjFWHC7yR7xacAUM+k4aXyZLx4aaKFPzckV3zm7
+ /PvQ==
+X-Gm-Message-State: AOAM531+DlLObBAsblWkaXOF6zHn8rYSc4qR6Rs4HSDBXDVGomSREJgr
+ B35tu6pzvOs3mOfKM+jVwJshNg==
+X-Google-Smtp-Source: ABdhPJzUwecS9O4N+0Q5MiuUxbCuwmR873e50Cqr3EvQobTbxJBzbn00SvqWBzMofBCP1ZKG8DsPNQ==
+X-Received: by 2002:a17:902:a604:: with SMTP id
+ u4mr5665326plq.196.1590704420073; 
+ Thu, 28 May 2020 15:20:20 -0700 (PDT)
+Received: from chromium.org ([2620:15c:202:1:fa53:7765:582b:82b9])
+ by smtp.gmail.com with ESMTPSA id v1sm6539323pjn.9.2020.05.28.15.20.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 May 2020 15:20:19 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200422090443.12529-1-harigovi@codeaurora.org>
- <158931520588.215346.14524550377627605126@swboyd.mtv.corp.google.com>
-In-Reply-To: <158931520588.215346.14524550377627605126@swboyd.mtv.corp.google.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 28 May 2020 14:37:36 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VLNuG7ZGN_yRe9zN3fahBKhevjkJDBTh7G4kozKvnDnQ@mail.gmail.com>
-Message-ID: <CAD=FV=VLNuG7ZGN_yRe9zN3fahBKhevjkJDBTh7G4kozKvnDnQ@mail.gmail.com>
-To: Stephen Boyd <swboyd@chromium.org>
-Subject: Re: [Freedreno] [v1] drm/bridge: ensure bridge suspend happens
- during PM sleep
+In-Reply-To: <1590655103-21568-1-git-send-email-mkrishn@codeaurora.org>
+References: <1590655103-21568-1-git-send-email-mkrishn@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+To: Krishna Manikandan <mkrishn@codeaurora.org>, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org
+Date: Thu, 28 May 2020 15:20:18 -0700
+Message-ID: <159070441846.69627.1650074507855844615@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9
+Subject: Re: [Freedreno] [v1] drm/msm: add shutdown support for display
+ platform_driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,54 +68,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Sam Ravnborg <sam@ravnborg.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Harigovindan P <harigovi@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
- nganji@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
- Kalyan Thota <kalyan_t@codeaurora.org>,
- "Kristian H. Kristensen" <hoegsberg@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: Krishna Manikandan <mkrishn@codeaurora.org>, linux-kernel@vger.kernel.org,
+ robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
+ kalyan_t@codeaurora.org, hoegsberg@chromium.org, mka@chromium.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+Quoting Krishna Manikandan (2020-05-28 01:38:23)
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index e4b750b..7a8953f 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -1322,6 +1322,18 @@ static int msm_pdev_remove(struct platform_device *pdev)
+>         return 0;
+>  }
+>  
+> +static void msm_pdev_shutdown(struct platform_device *pdev)
+> +{
+> +       struct drm_device *drm = platform_get_drvdata(pdev);
+> +
+> +       if (!drm) {
+> +               DRM_ERROR("Invalid drm device node\n");
+> +               return;
+> +       }
 
-On Tue, May 12, 2020 at 1:26 PM Stephen Boyd <swboyd@chromium.org> wrote:
->
-> The subject is not specific enough. I'd expect it to be something like:
->
-> drm/bridge: ti-sn65dsi86: ensure bridge suspend happens during PM sleep
->
-> Quoting Harigovindan P (2020-04-22 02:04:43)
-> > ti-sn65dsi86 bridge is enumerated as a runtime device.
-> >
-> > Adding sleep ops to force runtime_suspend when PM suspend is
-> > requested on the device.
-> >
-> > This change needs to be taken along with the series:
-> > https://patchwork.kernel.org/patch/11494309/
->
-> Why? It doesn't seem like it should be required to go along with a qcom
-> specific driver patch.
->
-> >
-> > Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
-> > ---
->
-> Besides the subject:
->
-> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+When would this ever happen? Please drop this useless check.
 
-Are you planning to re-post with the changes Stephen requested?  Maybe
-CC Sam too who was nice enough to help land some of my recent changes
-to this driver.
-
--Doug
+> +
+> +       drm_atomic_helper_shutdown(drm);
+> +}
+> +
+>  static const struct of_device_id dt_match[] = {
+>         { .compatible = "qcom,mdp4", .data = (void *)KMS_MDP4 },
+>         { .compatible = "qcom,mdss", .data = (void *)KMS_MDP5 },
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
