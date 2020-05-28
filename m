@@ -1,65 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19C241E50FB
-	for <lists+freedreno@lfdr.de>; Thu, 28 May 2020 00:11:18 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 13E501E5AC9
+	for <lists+freedreno@lfdr.de>; Thu, 28 May 2020 10:29:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 559086E3D2;
-	Wed, 27 May 2020 22:11:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBF3C6E50B;
+	Thu, 28 May 2020 08:29:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-vk1-xa42.google.com (mail-vk1-xa42.google.com
- [IPv6:2607:f8b0:4864:20::a42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19284897F3
- for <freedreno@lists.freedesktop.org>; Wed, 27 May 2020 22:11:15 +0000 (UTC)
-Received: by mail-vk1-xa42.google.com with SMTP id h74so4858667vka.7
- for <freedreno@lists.freedesktop.org>; Wed, 27 May 2020 15:11:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Ib++0cCLLitVx1shV2jGQa+ni4nOQcBF64cPLDTrgCc=;
- b=NcXYcKIVwG0ueKs966DI5d737p2jqNpsHmdvqJgR5Ck2iSd69RDowe2cbDvVSielEW
- 4f4lDTsaueLXnEUlskfiQPVLfIGMNLtm+QHarALLKVNc2VVcQWaft+Ihz6qri+7/WBZj
- pqaDs2RMNbRSOwWWEDWMuRuS01IjqvQlxSczM=
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A32796E11C
+ for <freedreno@lists.freedesktop.org>; Thu, 28 May 2020 08:29:28 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id u13so2232356wml.1
+ for <freedreno@lists.freedesktop.org>; Thu, 28 May 2020 01:29:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=3a+6oUJ3RVAXmDVoeSWKckQbnvzhZe/iIrVHhbckTSA=;
+ b=ERqBDMdAnQDYPD9KzJ57eRE4d+vU/o813ShwTbfBLtbCPVIBgTaGUk/HN4PKVgHz5s
+ ssiiZRJ60nWDc+hDFscU9QlTDVUzDb9MRNK98C0hJwkIiyOSSelVGtknQyCpx4ES2ly1
+ yNdD/WL4E0sqjH6i2/6NDVraxFVCuAVJXsZxo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Ib++0cCLLitVx1shV2jGQa+ni4nOQcBF64cPLDTrgCc=;
- b=QsDRWb0LFr7gPSk1Jd6iK+NKpE19WLuksOBxCd3/IfxobbmJnrx3mOyeRcOdCMtRF1
- zyx47fvCRZiWnhSnbWeGMb/K8jPGEI6dz6WZFfaEts50qWEykZnar0IlOm+0F5YV5MQR
- ZprmPtJfYQLMGzM8DiTsjjNYiTgTxwzTAAZ6tPF/KtJkomZDfri7QNJdkvvsIMUcVElc
- 5D3U4DCc74kxRwCm6A2gsB9dBRnw4CoZlylJWrZn0Zjd+rnIg8TvgLWS680LQxk3rBq8
- kcDzlCgUdsa8MTDOQ4wASnhkRhP8k8O4nn9KYAFwqwraUv9q8ZClF3g5CBxI+cNnQAUK
- TN1A==
-X-Gm-Message-State: AOAM532o48/tFO7mpJas35QOc2K6xYTY8njCYB7SeK4nzRckaG1MBhjF
- bRUyJbb5nU1U5coJNH24mO1uuXOHoaE=
-X-Google-Smtp-Source: ABdhPJweXhNgCjP/VpiEa7/xLqFJ8rRaLNsXTWMh4BQdC9AqPp8Ab7SRSKEzC/4b9fAemyGqYzyqsQ==
-X-Received: by 2002:a1f:4a83:: with SMTP id x125mr150337vka.44.1590617473726; 
- Wed, 27 May 2020 15:11:13 -0700 (PDT)
-Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com.
- [209.85.217.54])
- by smtp.gmail.com with ESMTPSA id j65sm392581vkc.22.2020.05.27.15.11.12
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 May 2020 15:11:13 -0700 (PDT)
-Received: by mail-vs1-f54.google.com with SMTP id l15so14678816vsr.3
- for <freedreno@lists.freedesktop.org>; Wed, 27 May 2020 15:11:12 -0700 (PDT)
-X-Received: by 2002:a67:e884:: with SMTP id x4mr6706217vsn.106.1590617472047; 
- Wed, 27 May 2020 15:11:12 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=3a+6oUJ3RVAXmDVoeSWKckQbnvzhZe/iIrVHhbckTSA=;
+ b=CGAr98BPnkrvVyOcpTPhn2o/ffR6bRwZZ24VGYFHQN+CnDgXvhP3aeO+zetOmCY7R2
+ ii+wmIHvA1JKWQNDI68meOfx8nE3tCuwvtUuROSQF8n4ID9ND3heBBvpD22qDJf7aAq8
+ nFHgeF2ZwJIX4RN+2VO1EsCpY7cjp6DERKhdeqnfn0hYej18yNDHNua4Fp9IUQAPUH4e
+ 8mHqPWGLfJCJBEjn2/TwThWcOD7XXP1RjsFQIkCazAxI533TFUEsp7PYj39NTAO63HGk
+ Gu7O1m//zvf6jxzRW/uqLdLcXj0Gv55xznJ8u2yEVHoSx6PjQ3T45/r8t1w7K+ktPHkW
+ HajA==
+X-Gm-Message-State: AOAM533QX1uc6N9DFgnDvZ7aQIxxS3kDdd9GphC863hhqIVxX+4W9V67
+ IK9LOgDkdwJwWDNVaveAPNKh0Q==
+X-Google-Smtp-Source: ABdhPJw4yVmexsCHhZYQAMfsaB18NxRGTxyj/lu3EJI0gih192r5q6aVr+bET/fdfmcmLb2vss9cyA==
+X-Received: by 2002:a05:600c:2201:: with SMTP id
+ z1mr2224541wml.70.1590654567303; 
+ Thu, 28 May 2020 01:29:27 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id y4sm5288810wro.91.2020.05.28.01.29.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 May 2020 01:29:26 -0700 (PDT)
+Date: Thu, 28 May 2020 10:29:24 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: DRI Development <dri-devel@lists.freedesktop.org>
+Message-ID: <20200528082924.GT206103@phenom.ffwll.local>
+References: <20200511093554.211493-2-daniel.vetter@ffwll.ch>
+ <20200514201117.465146-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-References: <1588339863-1322-1-git-send-email-kalyan_t@codeaurora.org>
- <CAD=FV=UJGivCyp=t0J++1DbSFDVf+5zSCcXgh83VZtssBmavjg@mail.gmail.com>
- <32c01e9a5277bdbdbab868eb71688184@codeaurora.org>
- <CAD=FV=VVi6oUDx_2Yf543ZphS1oQJiQU8St0XNUHs7HyPkoTeg@mail.gmail.com>
-In-Reply-To: <CAD=FV=VVi6oUDx_2Yf543ZphS1oQJiQU8St0XNUHs7HyPkoTeg@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 27 May 2020 15:11:00 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=XphGpmBwZdL0jZ5HEFdxY3L7nH+s9_A0Kjamtg7j3R9w@mail.gmail.com>
-Message-ID: <CAD=FV=XphGpmBwZdL0jZ5HEFdxY3L7nH+s9_A0Kjamtg7j3R9w@mail.gmail.com>
-To: Kalyan Thota <kalyan_t@codeaurora.org>, Sean Paul <seanpaul@chromium.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: ensure device suspend happens
- during PM sleep
+Content-Disposition: inline
+In-Reply-To: <20200514201117.465146-1-daniel.vetter@ffwll.ch>
+X-Operating-System: Linux phenom 5.6.0-1-amd64 
+Subject: Re: [Freedreno] [PATCH] drm/msm: Don't call dma_buf_vunmap without
+ _vmap
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,168 +67,87 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, mkrishn@codeaurora.org, travitej@codeaurora.org,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
- nganji@codeaurora.org, "Kristian H. Kristensen" <hoegsberg@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Jeykumar Sankaran <jsanka@codeaurora.org>
+Cc: Sean Paul <sean@poorly.run>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Rob Clark <robdclark@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Daniel Vetter <daniel.vetter@intel.com>, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+On Thu, May 14, 2020 at 10:11:17PM +0200, Daniel Vetter wrote:
+> I honestly don't exactly understand what's going on here, but the
+> current code is wrong for sure: It calls dma_buf_vunmap without ever
+> calling dma_buf_vmap.
+> 
+> What I'm not sure about is whether the WARN_ON is correct:
+> - msm imports dma-buf using drm_prime_sg_to_page_addr_arrays. Which is
+>   a pretty neat layering violation of how you shouldn't peek behind
+>   the curtain of the dma-buf exporter, but par for course. Note that
+>   all the nice new helpers don't (and we should probably have a bit a
+>   warning about this in the kerneldoc).
+> 
+> - but then in the get_vaddr() in msm_gem.c, we seems to happily wrap a
+>   vmap() around any object with ->pages set (so including imported
+>   dma-buf).
+> 
+> - I'm not seeing any guarantees that userspace can't use an imported
+>   dma-buf for e.g. MSM_SUBMIT_CMD_BUF in a5xx_submit_in_rb, so no
+>   guarantees that an imported dma-buf won't end up with a ->vaddr set.
+> 
+> But even if that WARN_ON is wrong, cleaning up a vmap() done by msm by
+> calling dma_buf_vunmap is the wrong thing to do.
+> 
+> v2: Rob said in review that we do indeed have a gap in get_vaddr() that
+> needs to be plugged. But the users I've found aren't legit users on
+> imported dma-buf, so we can just reject that.
+> 
+> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Sean Paul <sean@poorly.run>
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: freedreno@lists.freedesktop.org
 
-On Fri, May 15, 2020 at 9:37 AM Doug Anderson <dianders@chromium.org> wrote:
->
-> Hi,
->
-> On Fri, May 15, 2020 at 5:06 AM <kalyan_t@codeaurora.org> wrote:
-> >
-> > On 2020-05-14 21:47, Doug Anderson wrote:
-> > > Hi,
-> > >
-> > > On Fri, May 1, 2020 at 6:31 AM Kalyan Thota <kalyan_t@codeaurora.org>
-> > > wrote:
-> > >>
-> > >> "The PM core always increments the runtime usage counter
-> > >> before calling the ->suspend() callback and decrements it
-> > >> after calling the ->resume() callback"
-> > >>
-> > >> DPU and DSI are managed as runtime devices. When
-> > >> suspend is triggered, PM core adds a refcount on all the
-> > >> devices and calls device suspend, since usage count is
-> > >> already incremented, runtime suspend was not getting called
-> > >> and it kept the clocks on which resulted in target not
-> > >> entering into XO shutdown.
-> > >>
-> > >> Add changes to force suspend on runtime devices during pm sleep.
-> > >>
-> > >> Changes in v1:
-> > >>  - Remove unnecessary checks in the function
-> > >>     _dpu_kms_disable_dpu (Rob Clark).
-> > >>
-> > >> Changes in v2:
-> > >>  - Avoid using suspend_late to reset the usagecount
-> > >>    as suspend_late might not be called during suspend
-> > >>    call failures (Doug).
-> > >>
-> > >> Changes in v3:
-> > >>  - Use force suspend instead of managing device usage_count
-> > >>    via runtime put and get API's to trigger callbacks (Doug).
-> > >>
-> > >> Changes in v4:
-> > >>  - Check the return values of pm_runtime_force_suspend and
-> > >>    pm_runtime_force_resume API's and pass appropriately (Doug).
-> > >>
-> > >> Changes in v5:
-> > >
-> > > Can you please put the version number properly in your subject?  It's
-> > > really hard to tell one version of your patch from another.
-> > >
-> > >
-> > >>  - With v4 patch, test cycle has uncovered issues in device resume.
-> > >>
-> > >>    On bubs: cmd tx failures were seen as SW is sending panel off
-> > >>    commands when the dsi resources are turned off.
-> > >>
-> > >>    Upon suspend, DRM driver will issue a NULL composition to the
-> > >>    dpu, followed by turning off all the HW blocks.
-> > >>
-> > >>    v5 changes will serialize the NULL commit and resource unwinding
-> > >>    by handling them under PM prepare and PM complete phases there by
-> > >>    ensuring that clks are on when panel off commands are being
-> > >>    processed.
-> > >
-> > > I'm still most definitely not an expert in how all the DRM pieces all
-> > > hook up together, but the solution you have in this patch seems wrong
-> > > to me.  As far as I can tell the "prepare" state isn't supposed to be
-> > > actually doing the suspend work and here that's exactly what you're
-> > > doing.  I think you should find a different solution to ensure
-> > > ordering is correct.
-> > >
-> > > -Doug
-> > >
-> >
-> > Hi,
->
-> Quite honestly I'm probably not the right person to be reviewing this
-> code.  I mostly just noticed one of your early patches and it looked
-> strange to me.  Hopefully someone with actual experience in how all
-> the DRM components work together can actually review and see if this
-> makes sense.  Maybe Sean would know better?
->
-> That being said, let me at least look at what you're saying...
->
->
-> > Prepare and Complete are callbacks defined as part of Sleep and Resume
-> > sequence
-> >
-> > Entering PM SUSPEND the phases are : prepare --> suspend -->
-> > suspend_late --> suspend_noirq.
-> > While leaving PM SUSPEND the phases are: resume_noirq --> resume_early
-> > --> resume --> complete.
->
-> Sure, it's part of the sequence.  It's also documented in pm.h as:
->
->  * The principal role of this callback is to prevent new children of
->  * the device from being registered after it has returned (the driver's
->  * subsystem and generally the rest of the kernel is supposed to prevent
->  * new calls to the probe method from being made too once @prepare() has
->  * succeeded).
->
-> It does not feel like that matches your usage of this call.
->
->
-> > The reason to push drm suspend handling to PM prepare phase is that
-> > parent here will trigger a modeset to turn off the timing and
-> > subsequently the panel.
-> > the child devices should not turn of their clocks before parent unwinds
-> > the composition. Hence they are serialized as per the sequence mentioned
-> > above.
->
-> So the general model in Linux is that children suspend before their
-> parents, right?  So you're saying that, in this case, the parent needs
-> to act on the child before the child suspends.  Is that correct?
->
-> Rather than hijacking the prepare/complete, I'd be at least slightly
-> inclined to move the other driver to turn off its clocks in
-> suspend_late and to turn them back on in resume_early?  That seems to
-> be what was done in "analogix_dp-rockchip.c" to solve a similar
-> problem.
->
->
-> > A similar approach is taken by other driver that use drm framework. In
-> > this driver, the device registers for prepare and complete callbacks to
-> > handle drm_suspend and drm_resume.
-> > https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/exynos/exynos_drm_drv.c#L163
->
-> OK, if there is another driver in DRM then I guess I won't object too
-> strongly.  Note that when searching for other drivers I noticed this
-> bit in todo.rst:
->
-> * Most drivers (except i915 and nouveau) that use
-> * drm_atomic_helper_suspend/resume() can probably be converted to use
-> * drm_mode_config_helper_suspend/resume(). Also there's still open-coded version
-> * of the atomic suspend/resume code in older atomic modeset drivers.
->
-> Does anything get fixed if you do that?  It seems like it'd cleanup
-> your code a bit so maybe worth doing anyway...
->
+Ping for some review/ack so I can start landing thist stuff please?
+
+Thanks, Daniel
+
 > ---
->
-> I guess the last question I'd want resolved is why you have this asymmetry:
->
-> SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, msm_pm_resume)
->
-> Why couldn't you use pm_runtime_force_resume()?
+>  drivers/gpu/drm/msm/msm_gem.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+> index 5a6a79fbc9d6..e70abd1cde43 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.c
+> +++ b/drivers/gpu/drm/msm/msm_gem.c
+> @@ -554,6 +554,9 @@ static void *get_vaddr(struct drm_gem_object *obj, unsigned madv)
+>  	struct msm_gem_object *msm_obj = to_msm_bo(obj);
+>  	int ret = 0;
+>  
+> +	if (obj->import_attach)
+> +		return ERR_PTR(-ENODEV);
+> +
+>  	mutex_lock(&msm_obj->lock);
+>  
+>  	if (WARN_ON(msm_obj->madv > madv)) {
+> @@ -907,8 +910,7 @@ static void free_object(struct msm_gem_object *msm_obj)
+>  	put_iova(obj);
+>  
+>  	if (obj->import_attach) {
+> -		if (msm_obj->vaddr)
+> -			dma_buf_vunmap(obj->import_attach->dmabuf, msm_obj->vaddr);
+> +		WARN_ON(msm_obj->vaddr);
+>  
+>  		/* Don't drop the pages for imported dmabuf, as they are not
+>  		 * ours, just free the array we allocated:
+> -- 
+> 2.26.2
+> 
 
-I'm curious if you had answers to any of the questions I posed in my review.
-
--Doug
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
