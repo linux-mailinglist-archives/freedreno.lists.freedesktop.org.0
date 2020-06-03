@@ -2,59 +2,49 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61D4F1EBFAA
-	for <lists+freedreno@lfdr.de>; Tue,  2 Jun 2020 18:10:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66A651EC659
+	for <lists+freedreno@lfdr.de>; Wed,  3 Jun 2020 02:50:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62C1E6E42D;
-	Tue,  2 Jun 2020 16:10:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 741B66E4A2;
+	Wed,  3 Jun 2020 00:50:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A5466E42E
- for <freedreno@lists.freedesktop.org>; Tue,  2 Jun 2020 16:10:22 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1591114222; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=6WkZkPNZYqHtyoOR3WPRpDqJzCSNDoDiaqF/KoiR35c=;
- b=iS9IHuAMxisbY6JcWe1HokTxLce1OzUlLBV4+/CX1taL5a61J0OZBuKS4YLnPVmjVksubsF7
- +Fs2QcvN5RWrkHVfSVCeMT4wh8clI5R2IvdzaRRYEINXERXXq8r0m/sNRA3ihFRO/ATq2Sac
- iFxXF+CCjlZpRxq2mOy8ZN6dSfY=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n10.prod.us-east-1.postgun.com with SMTP id
- 5ed679edea0dfa490e7282d3 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 02 Jun 2020 16:10:21
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 05D1EC433CA; Tue,  2 Jun 2020 16:10:21 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED autolearn=ham
- autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: saiprakash.ranjan)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 816A8C433CB;
- Tue,  2 Jun 2020 16:10:20 +0000 (UTC)
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 524C16E4AA;
+ Wed,  3 Jun 2020 00:50:27 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id x93so276369ede.9;
+ Tue, 02 Jun 2020 17:50:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=m6qE/X0sOaatSZyv92ajzNnqOVpyDVid2J86Jtgzdus=;
+ b=fizzgpL+7ZpbrTnWlXF+WFHbmvXQkcAuSRnt37aTmmPD+UYlihtyWKfFVBaIsOrbHs
+ uJzn1JPPxXeW8/uw3eBEsn9r96Y8vPDhlpJRJbK1piD0aRBA/rK9sxjqhmEa41TXpwVJ
+ PLMbL5URzU2DcUQFaID2f5AV4kUiexVpiXmWD9fGKAIVRSnTVLS4TDZ2RxdkkqxVz+wS
+ 959KFSdy5gp2AnRKJ0n05EAo1JXHVIVCYUUnmLi4C6gkw/pO6sIC2n5CRNXweGXlaPvv
+ qroCwhT/n0+TCwnfonwjkQQ1n0joiPtT7kklesgSaTF1QUGFbNcdk6C4EoPCPjJwdf9J
+ Lahg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=m6qE/X0sOaatSZyv92ajzNnqOVpyDVid2J86Jtgzdus=;
+ b=A9su0FjQ2pjo5U9jsdOlOdFUrBTPkFWHc9Uet5rdWmoiy0wgTRQpHwi408ucEKgxbh
+ qkU/95EtP95xhLinGQQ/x7pEIrk1NblQgyjkxRu4mgaW1tGNfMrOSJbnv/98PuUaEuLj
+ mQmisVhYmQhdD0VZyy4LVRmvD0ArdQoLBXd27ZoGpFIOgussxD01rd7xTuGpazf/hLSt
+ 9PV5VN2TBwFSjO5SPKQy7i3MvVjh5Iz8MMgbjVNN6lnPcinOFVeVTJ48bFaA1suteatx
+ JVdCjA9d3v0O8e7yVVQ/56fHptsg3O8zmWjAVONAZpPvL39XMHQ4UfemF/vP9FJrKXTw
+ fF/w==
+X-Gm-Message-State: AOAM532945GnEl8qvJ40mGsPa1ktZcYsViX5QTajG7T3lJiEcW+jUrBB
+ fBexLhl58kyNPLKtRQToq5KPwcITmuW+6PUKBeO/VSaT428=
+X-Google-Smtp-Source: ABdhPJy/d0oai6ufqfyZigpTK+jeE2AGbcT7hzkFeJjfl6h+xNLVbFr/DASFnUoizyYH+pyDz91xkNAiympzIx+Rb54=
+X-Received: by 2002:aa7:d7cc:: with SMTP id e12mr11520184eds.70.1591145425779; 
+ Tue, 02 Jun 2020 17:50:25 -0700 (PDT)
 MIME-Version: 1.0
-Date: Tue, 02 Jun 2020 21:40:20 +0530
-From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-To: Emil Velikov <emil.l.velikov@gmail.com>
-In-Reply-To: <CACvgo50b+m2+onak=AZfgihkBXEP9POjMR52087v==-puLdkQQ@mail.gmail.com>
-References: <1591009402-681-1-git-send-email-mkrishn@codeaurora.org>
- <CACvgo50eb5_jp_6B5tkV9cX_X2_y2Xnavu+wvUUhHN5FsV9hiw@mail.gmail.com>
- <cd61dd742e73b89794fc1b812d9fdcd9@codeaurora.org>
- <CACvgo50b+m2+onak=AZfgihkBXEP9POjMR52087v==-puLdkQQ@mail.gmail.com>
-Message-ID: <8742ac6fbd498fdc22dcd469c3a2d52a@codeaurora.org>
-X-Sender: saiprakash.ranjan@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [v2] drm/msm: add shutdown support for display
- platform_driver
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 2 Jun 2020 17:50:51 -0700
+Message-ID: <CAF6AEGvLMubYPeKZ0rvOp45=+h4HZz-K9XNf0CXYcvPDVbnqLA@mail.gmail.com>
+To: Dave Airlie <airlied@gmail.com>
+Subject: [Freedreno] [pull v2] drm/msm: msm-next for 5.8
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,90 +57,162 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Krishna Manikandan <mkrishn@codeaurora.org>,
- devicetree-owner@vger.kernel.org, devicetree <devicetree@vger.kernel.org>,
+Cc: freedreno <freedreno@lists.freedesktop.org>,
  linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
- ML dri-devel <dri-devel@lists.freedesktop.org>, mka@chromium.org,
- Sean Paul <seanpaul@chromium.org>, kalyan_t@codeaurora.org,
- "Kristian H . Kristensen" <hoegsberg@chromium.org>,
- freedreno@lists.freedesktop.org
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Emil,
+Hi Dave,
 
-On 2020-06-02 21:09, Emil Velikov wrote:
-> On Tue, 2 Jun 2020 at 15:49, Sai Prakash Ranjan
-> <saiprakash.ranjan@codeaurora.org> wrote:
->> 
->> Hi Emil,
->> 
->> On 2020-06-02 19:43, Emil Velikov wrote:
->> > Hi Krishna,
->> >
->> > On Tue, 2 Jun 2020 at 08:17, Krishna Manikandan
->> > <mkrishn@codeaurora.org> wrote:
->> >>
->> >> Define shutdown callback for display drm driver,
->> >> so as to disable all the CRTCS when shutdown
->> >> notification is received by the driver.
->> >>
->> >> This change will turn off the timing engine so
->> >> that no display transactions are requested
->> >> while mmu translations are getting disabled
->> >> during reboot sequence.
->> >>
->> >> Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
->> >>
->> > AFAICT atomics is setup in msm_drm_ops::bind and shutdown in
->> > msm_drm_ops::unbind.
->> >
->> > Are you saying that unbind never triggers? If so, then we should
->> > really fix that instead, since this patch seems more like a
->> > workaround.
->> >
->> 
->> Which path do you suppose that the unbind should be called from, 
->> remove
->> callback? Here we are talking about the drivers which are builtin, 
->> where
->> remove callbacks are not called from the driver core during
->> reboot/shutdown,
->> instead shutdown callbacks are called which needs to be defined in 
->> order
->> to
->> trigger unbind. So AFAICS there is nothing to be fixed.
->> 
-> Interesting - in drm effectively only drm panels implement .shutdown.
-> So my naive assumption was that .remove was used implicitly by core,
-> as part of the shutdown process. Yet that's not the case, so it seems
-> that many drivers could use some fixes.
-> 
-> Then again, that's an existing problem which is irrelevant for msm.
-> -Emil
+v2 with the dpu clk and bw scaling patch that had issues on armv7 reverted.
 
-To give more context, we are actually targeting the clients/consumers
-of SMMU/IOMMU here because we have to make sure that before the supplier
-(SMMU) shuts down, its consumers/clients need to be shutdown properly.
-Now the ordering of this is taken care in the SMMU driver via 
-device_link
-which makes sure that consumer shutdown callbacks are called first, but 
-we
-need to define shutdown callbacks for all its consumers to make sure we
-actually shutdown the clients or else it would invite the crashes during 
-reboot
-which in this case was seen for display.
+updated description of original pull req:
 
-Thanks,
-Sai
+Not too huge this time around, but a bunch of interesting new
+stuff:
 
--- 
-QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a 
-member
-of Code Aurora Forum, hosted by The Linux Foundation
+ * new gpu support: a405, a640, a650
+ * dpu: color processing support
+ * mdp5: support for msm8x36 (the thing with a405)
+ * some prep work for per-context pagetables (ie the part that
+   does not depend on in-flight iommu patches)
+ * last but not least, UABI update for submit ioctl to support
+   syncobj (from Bas)
+
+The UABI change has been on-list and reviewed for a while now.
+The only reason I didn't pull it in last cycle was that I ran
+out of time to review it myself at the time.  But I'm happy
+with it.  The MR for mesa (vulkan/turnip) support is here:
+
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/2769
+
+
+The following changes since commit 2ef96a5bb12be62ef75b5828c0aab838ebb29cb8:
+
+  Linux 5.7-rc5 (2020-05-10 15:16:58 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/msm.git
+
+for you to fetch changes up to 1cb2c4a2c89b2004a36399860c85a1af9b3fcba7:
+
+  Revert "drm/msm/dpu: add support for clk and bw scaling for display"
+(2020-06-01 20:56:18 -0700)
+
+----------------------------------------------------------------
+Bas Nieuwenhuizen (1):
+      drm/msm: Add syncobj support.
+
+Bjorn Andersson (1):
+      drm/msm: Fix undefined "rd_full" link error
+
+Christophe JAILLET (2):
+      drm/msm/a6xx: Fix a typo in an error message
+      drm/msm: Fix typo
+
+Hongbo Yao (1):
+      drm/msm/dpu: Fix compile warnings
+
+Jonathan Marek (10):
+      drm/msm: add msm_gem_get_and_pin_iova_range
+      drm/msm: add internal MSM_BO_MAP_PRIV flag
+      drm/msm/a6xx: use msm_gem for GMU memory objects
+      drm/msm/a6xx: add A640/A650 to gpulist
+      drm/msm/a6xx: HFI v2 for A640 and A650
+      drm/msm/a6xx: A640/A650 GMU firmware path
+      drm/msm/a6xx: update pdc/rscc GMU registers for A640/A650
+      drm/msm/a6xx: enable GMU log
+      drm/msm/a6xx: update a6xx_hw_init for A640 and A650
+      drm/msm/a6xx: skip HFI set freq if GMU is powered down
+
+Jordan Crouse (4):
+      drm/msm: Check for powered down HW in the devfreq callbacks
+      drm/msm: Attach the IOMMU device during initialization
+      drm/msm: Refactor address space initialization
+      drm/msm: Update the MMU helper function APIs
+
+Kalyan Thota (3):
+      drm/msm/dpu: add support for color processing blocks in dpu driver
+      drm/msm/dpu: add support for pcc color block in dpu driver
+      drm/msm/dpu: add support for clk and bw scaling for display
+
+Konrad Dybcio (1):
+      drm/msm/mdp5: Add MDP5 configuration for MSM8x36.
+
+Krishna Manikandan (1):
+      drm/msm/dpu: update bandwidth threshold check
+
+Rob Clark (1):
+      Revert "drm/msm/dpu: add support for clk and bw scaling for display"
+
+Roy Spliet (1):
+      drm/msm/mdp5: Fix mdp5_init error path for failed mdp5_kms allocation
+
+Shawn Guo (2):
+      drm/msm/a4xx: add adreno a405 support
+      drm/msm/a4xx: add a405_registers for a405 device
+
+kbuild test robot (2):
+      drm/msm/a6xx: a6xx_hfi_send_start() can be static
+      drm/msm/dpu: dpu_setup_dspp_pcc() can be static
+
+ drivers/gpu/drm/msm/Makefile                   |   1 +
+ drivers/gpu/drm/msm/adreno/a2xx_gpu.c          |  16 +
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c          |   1 +
+ drivers/gpu/drm/msm/adreno/a4xx_gpu.c          |  83 ++++-
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c          |   7 +
+ drivers/gpu/drm/msm/adreno/a6xx.xml.h          |  14 +
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c          | 418 +++++++++++++++++++------
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h          |  37 ++-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h      |  48 +--
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c          |  70 ++++-
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.c          | 123 +++++++-
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.h          |  50 ++-
+ drivers/gpu/drm/msm/adreno/adreno_device.c     |  35 +++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c        |  27 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h        |  23 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c  |  23 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c       |  95 ++++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h       |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c    |  12 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  48 ++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  39 +++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c     |  26 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h     |   3 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c    | 129 ++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.h    | 100 ++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h    |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c        |  18 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h        |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c         |  58 +++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h         |   2 +
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c       |  18 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c       |  80 ++++-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c      |   4 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c       |  21 +-
+ drivers/gpu/drm/msm/msm_drv.c                  |   6 +-
+ drivers/gpu/drm/msm/msm_drv.h                  |  15 +-
+ drivers/gpu/drm/msm/msm_gem.c                  |  31 +-
+ drivers/gpu/drm/msm/msm_gem.h                  |   1 +
+ drivers/gpu/drm/msm/msm_gem_submit.c           | 232 +++++++++++++-
+ drivers/gpu/drm/msm/msm_gem_vma.c              |  42 +--
+ drivers/gpu/drm/msm/msm_gpu.c                  |  49 +--
+ drivers/gpu/drm/msm/msm_gpu.h                  |   4 +-
+ drivers/gpu/drm/msm/msm_gpummu.c               |  10 +-
+ drivers/gpu/drm/msm/msm_iommu.c                |  22 +-
+ drivers/gpu/drm/msm/msm_mmu.h                  |   5 +-
+ drivers/gpu/drm/msm/msm_rd.c                   |   4 +-
+ include/uapi/drm/msm_drm.h                     |  24 +-
+ 47 files changed, 1697 insertions(+), 382 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.h
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
