@@ -2,32 +2,37 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 948021EE52B
-	for <lists+freedreno@lfdr.de>; Thu,  4 Jun 2020 15:20:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6731A1EEB2F
+	for <lists+freedreno@lfdr.de>; Thu,  4 Jun 2020 21:33:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CFCD6E3B7;
-	Thu,  4 Jun 2020 13:20:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D0076E0CA;
+	Thu,  4 Jun 2020 19:33:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-blr-02.qualcomm.com (alexa-out-blr-02.qualcomm.com
- [103.229.18.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C97256E37C;
- Thu,  4 Jun 2020 13:20:39 +0000 (UTC)
-Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
- by alexa-out-blr-02.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 04 Jun 2020 18:50:06 +0530
-Received: from kalyant-linux.qualcomm.com ([10.204.66.210])
- by ironmsg02-blr.qualcomm.com with ESMTP; 04 Jun 2020 18:49:41 +0530
-Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
- id 55AFD49A8; Thu,  4 Jun 2020 18:49:40 +0530 (IST)
-From: Kalyan Thota <kalyan_t@codeaurora.org>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Date: Thu,  4 Jun 2020 18:49:35 +0530
-Message-Id: <1591276775-13949-1-git-send-email-kalyan_t@codeaurora.org>
-X-Mailer: git-send-email 1.9.1
-Subject: [Freedreno] [PATCH v6] drm/msm/dpu: ensure device suspend happens
- during PM sleep
+Received: from asavdk3.altibox.net (asavdk3.altibox.net [109.247.116.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 467CC6E591;
+ Thu,  4 Jun 2020 19:33:18 +0000 (UTC)
+Received: from ravnborg.org (unknown [158.248.194.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by asavdk3.altibox.net (Postfix) with ESMTPS id D09B120021;
+ Thu,  4 Jun 2020 21:33:14 +0200 (CEST)
+Date: Thu, 4 Jun 2020 21:33:13 +0200
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Harigovindan P <harigovi@codeaurora.org>
+Message-ID: <20200604193313.GA94913@ravnborg.org>
+References: <20200604103438.23667-1-harigovi@codeaurora.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20200604103438.23667-1-harigovi@codeaurora.org>
+X-CMAE-Score: 0
+X-CMAE-Analysis: v=2.3 cv=edQTgYMH c=1 sm=1 tr=0
+ a=UWs3HLbX/2nnQ3s7vZ42gw==:117 a=UWs3HLbX/2nnQ3s7vZ42gw==:17
+ a=kj9zAlcOel0A:10 a=LpQP-O61AAAA:8 a=M66uC3hkwJVUcRF4gK8A:9
+ a=CjuIK1q_8ugA:10 a=pioyyrs4ZptJ924tMmac:22 a=pHzHmUro8NiASowvMSCR:22
+ a=nt3jZW36AmriUCFCBwmW:22
+Subject: Re: [Freedreno] [v2] drm/bridge: ti-sn65dsi86: ensure bridge
+ suspend happens during PM sleep
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,216 +45,60 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: mkrishn@codeaurora.org, travitej@codeaurora.org, dianders@chromium.org,
- linux-kernel@vger.kernel.org, robdclark@gmail.com, nganji@codeaurora.org,
- seanpaul@chromium.org, Kalyan Thota <kalyan_t@codeaurora.org>,
- hoegsberg@chromium.org, jsanka@codeaurora.org
-MIME-Version: 1.0
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
+ kalyan_t@codeaurora.org, hoegsberg@chromium.org,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-"The PM core always increments the runtime usage counter
-before calling the ->suspend() callback and decrements it
-after calling the ->resume() callback"
+Hi Harigovindan
+On Thu, Jun 04, 2020 at 04:04:38PM +0530, Harigovindan P wrote:
+> ti-sn65dsi86 bridge is enumerated as a runtime device.
+> 
+> Adding sleep ops to force runtime_suspend when PM suspend is
+> requested on the device.
 
-DPU and DSI are managed as runtime devices. When
-suspend is triggered, PM core adds a refcount on all the
-devices and calls device suspend, since usage count is
-already incremented, runtime suspend was not getting called
-and it kept the clocks on which resulted in target not
-entering into XO shutdown.
+Patch looks correct - but could you please explain why it is needed.
+What is the gain compared to not having this patch.
 
-Add changes to force suspend on runtime devices during pm sleep.
+I ask for two reasons:
+1) I really do not know
+2) this info should be in the changelog
 
-Changes in v1:
- - Remove unnecessary checks in the function
-    _dpu_kms_disable_dpu (Rob Clark).
+Without a better changelog no ack from me - sorry.
 
-Changes in v2:
- - Avoid using suspend_late to reset the usagecount
-   as suspend_late might not be called during suspend
-   call failures (Doug).
+	Sam
 
-Changes in v3:
- - Use force suspend instead of managing device usage_count
-   via runtime put and get API's to trigger callbacks (Doug).
-
-Changes in v4:
- - Check the return values of pm_runtime_force_suspend and
-   pm_runtime_force_resume API's and pass appropriately (Doug).
-
-Changes in v5:
- - With v4 patch, test cycle has uncovered issues in device resume.
-
-   On bubs: cmd tx failures were seen as SW is sending panel off
-   commands when the dsi resources are turned off.
-
-   Upon suspend, DRM driver will issue a NULL composition to the
-   dpu, followed by turning off all the HW blocks.
-
-   v5 changes will serialize the NULL commit and resource unwinding
-   by handling them under PM prepare and PM complete phases there by
-   ensuring that clks are on when panel off commands are being
-   processed.
-
-Changes in v6:
-- Use drm_mode_config_helper_suspend/resume() instead of legacy API
-  drm_atomic_helper_suspend/resume() (Doug).
-
-  Trigger runtime callbacks from the suspend/resume call to turn
-  off the resources.
-
-Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c |  2 +
- drivers/gpu/drm/msm/dsi/dsi.c           |  2 +
- drivers/gpu/drm/msm/msm_drv.c           | 67 ++++++++++++++++-----------------
- 3 files changed, 37 insertions(+), 34 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index ce19f1d..b886d9d 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -1123,6 +1123,8 @@ static int __maybe_unused dpu_runtime_resume(struct device *dev)
- 
- static const struct dev_pm_ops dpu_pm_ops = {
- 	SET_RUNTIME_PM_OPS(dpu_runtime_suspend, dpu_runtime_resume, NULL)
-+	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-+				pm_runtime_force_resume)
- };
- 
- static const struct of_device_id dpu_dt_match[] = {
-diff --git a/drivers/gpu/drm/msm/dsi/dsi.c b/drivers/gpu/drm/msm/dsi/dsi.c
-index 55ea4bc2..62704885 100644
---- a/drivers/gpu/drm/msm/dsi/dsi.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi.c
-@@ -161,6 +161,8 @@ static int dsi_dev_remove(struct platform_device *pdev)
- 
- static const struct dev_pm_ops dsi_pm_ops = {
- 	SET_RUNTIME_PM_OPS(msm_dsi_runtime_suspend, msm_dsi_runtime_resume, NULL)
-+	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-+				pm_runtime_force_resume)
- };
- 
- static struct platform_driver dsi_driver = {
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 7d985f8..da42ff7 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -1035,75 +1035,74 @@ static int msm_ioctl_submitqueue_close(struct drm_device *dev, void *data,
- 	.patchlevel         = MSM_VERSION_PATCHLEVEL,
- };
- 
--#ifdef CONFIG_PM_SLEEP
--static int msm_pm_suspend(struct device *dev)
-+#ifdef CONFIG_PM
-+static int msm_runtime_suspend(struct device *dev)
- {
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct msm_drm_private *priv = ddev->dev_private;
-+	struct msm_mdss *mdss = priv->mdss;
- 
--	if (WARN_ON(priv->pm_state))
--		drm_atomic_state_put(priv->pm_state);
-+	DBG("");
- 
--	priv->pm_state = drm_atomic_helper_suspend(ddev);
--	if (IS_ERR(priv->pm_state)) {
--		int ret = PTR_ERR(priv->pm_state);
--		DRM_ERROR("Failed to suspend dpu, %d\n", ret);
--		return ret;
--	}
-+	if (mdss && mdss->funcs)
-+		return mdss->funcs->disable(mdss);
- 
- 	return 0;
- }
- 
--static int msm_pm_resume(struct device *dev)
-+static int msm_runtime_resume(struct device *dev)
- {
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct msm_drm_private *priv = ddev->dev_private;
--	int ret;
-+	struct msm_mdss *mdss = priv->mdss;
- 
--	if (WARN_ON(!priv->pm_state))
--		return -ENOENT;
-+	DBG("");
- 
--	ret = drm_atomic_helper_resume(ddev, priv->pm_state);
--	if (!ret)
--		priv->pm_state = NULL;
-+	if (mdss && mdss->funcs)
-+		return mdss->funcs->enable(mdss);
- 
--	return ret;
-+	return 0;
- }
- #endif
- 
--#ifdef CONFIG_PM
--static int msm_runtime_suspend(struct device *dev)
-+#ifdef CONFIG_PM_SLEEP
-+static int msm_pm_suspend(struct device *dev)
- {
--	struct drm_device *ddev = dev_get_drvdata(dev);
--	struct msm_drm_private *priv = ddev->dev_private;
--	struct msm_mdss *mdss = priv->mdss;
- 
--	DBG("");
-+	if (pm_runtime_suspended(dev))
-+		return 0;
- 
--	if (mdss && mdss->funcs)
--		return mdss->funcs->disable(mdss);
-+	return msm_runtime_suspend(dev);
-+}
- 
--	return 0;
-+static int msm_pm_resume(struct device *dev)
-+{
-+	if (pm_runtime_suspended(dev))
-+		return 0;
-+
-+	return msm_runtime_resume(dev);
- }
- 
--static int msm_runtime_resume(struct device *dev)
-+static int msm_pm_prepare(struct device *dev)
- {
- 	struct drm_device *ddev = dev_get_drvdata(dev);
--	struct msm_drm_private *priv = ddev->dev_private;
--	struct msm_mdss *mdss = priv->mdss;
- 
--	DBG("");
-+	return drm_mode_config_helper_suspend(ddev);
-+}
- 
--	if (mdss && mdss->funcs)
--		return mdss->funcs->enable(mdss);
-+static void msm_pm_complete(struct device *dev)
-+{
-+	struct drm_device *ddev = dev_get_drvdata(dev);
- 
--	return 0;
-+	drm_mode_config_helper_resume(ddev);
- }
- #endif
- 
- static const struct dev_pm_ops msm_pm_ops = {
- 	SET_SYSTEM_SLEEP_PM_OPS(msm_pm_suspend, msm_pm_resume)
- 	SET_RUNTIME_PM_OPS(msm_runtime_suspend, msm_runtime_resume, NULL)
-+	.prepare = msm_pm_prepare,
-+	.complete = msm_pm_complete,
- };
- 
- /*
--- 
-1.9.1
-
+> 
+> Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
+> ---
+> Changes in v2:
+> 	- Include bridge name in the commit message and 
+> 	remove dependent patchwork link from the commit
+> 	text as bridge is independent of OEM(Stephen Boyd)
+> 
+>  drivers/gpu/drm/bridge/ti-sn65dsi86.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi86.c b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
+> index 6ad688b320ae..2eef755b2917 100644
+> --- a/drivers/gpu/drm/bridge/ti-sn65dsi86.c
+> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
+> @@ -159,6 +159,8 @@ static int __maybe_unused ti_sn_bridge_suspend(struct device *dev)
+>  
+>  static const struct dev_pm_ops ti_sn_bridge_pm_ops = {
+>  	SET_RUNTIME_PM_OPS(ti_sn_bridge_suspend, ti_sn_bridge_resume, NULL)
+> +	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
+> +				pm_runtime_force_resume)
+>  };
+>  
+>  static int status_show(struct seq_file *s, void *data)
+> -- 
+> 2.27.0
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
