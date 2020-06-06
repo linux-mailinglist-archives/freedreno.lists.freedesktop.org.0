@@ -1,47 +1,47 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FBAC1F04D6
-	for <lists+freedreno@lfdr.de>; Sat,  6 Jun 2020 06:26:28 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 262291F04D9
+	for <lists+freedreno@lfdr.de>; Sat,  6 Jun 2020 06:26:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B8EA6E988;
-	Sat,  6 Jun 2020 04:26:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 842246E98D;
+	Sat,  6 Jun 2020 04:26:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCD606E987
- for <freedreno@lists.freedesktop.org>; Sat,  6 Jun 2020 04:26:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A82416E989
+ for <freedreno@lists.freedesktop.org>; Sat,  6 Jun 2020 04:26:29 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1591417584; h=References: In-Reply-To: Message-Id: Date:
+ s=smtp; t=1591417589; h=References: In-Reply-To: Message-Id: Date:
  Subject: Cc: To: From: Sender;
- bh=tn5gi1Otn1ylD+14wqnz4lpLN6ZONUWrIblJIc0Ocik=;
- b=GHZta2Zdp8kSwU/jg+NKyo+R0H+/2r24r9uMlx1RG2jyEepiUrGjOjWefOQhzrBn8XBhA01q
- zemSPajwO4LT2yvGreuWRmaCx1xkBIQoz+4Aqk+xSN74H6YJhsMUvO9j2Mo6FvPCTdFlqYoX
- fYoFmKenJuUco38+KPrs1TuGXAM=
+ bh=1I4ZO0g+cZgUJhZXpWRg+9zaHY5dR8+6XUJA4A3etwM=;
+ b=EuOGfVwgHYwJ3ioewZgg6vIRkd+HKHcBJ9apyus/SzIkDys42P2S6V9rmjn2+Nm4b7dLGVGW
+ 8qBPyA2O1I7eOKKqZ7HONqEFMJ8TJMbD6m4TIx2H6+q5g7nEzAihn/jtTh80QGEqbN0XLRMb
+ g3rW1U6t88lozh9Zu7wuNLivBv0=
 X-Mailgun-Sending-Ip: 69.72.43.7
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n06.prod.us-east-1.postgun.com with SMTP id
- 5edb1af039a1c6cc0bafa672 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Sat, 06 Jun 2020 04:26:24
+ smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
+ 5edb1af5e8914a8bc15ea17a (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Sat, 06 Jun 2020 04:26:29
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id CA708C433C6; Sat,  6 Jun 2020 04:26:23 +0000 (UTC)
+ id 9D154C4344B; Sat,  6 Jun 2020 04:26:28 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
- autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from hyd-lnxbld559.qualcomm.com
  (blr-c-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.19.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: smasetty)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id DDB9BC4339C;
- Sat,  6 Jun 2020 04:26:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org DDB9BC4339C
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 5E0D0C433A1;
+ Sat,  6 Jun 2020 04:26:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 5E0D0C433A1
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
@@ -49,13 +49,13 @@ Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
 From: Sharat Masetty <smasetty@codeaurora.org>
 To: freedreno@lists.freedesktop.org,
 	devicetree@vger.kernel.org
-Date: Sat,  6 Jun 2020 09:55:49 +0530
-Message-Id: <1591417551-38051-5-git-send-email-smasetty@codeaurora.org>
+Date: Sat,  6 Jun 2020 09:55:50 +0530
+Message-Id: <1591417551-38051-6-git-send-email-smasetty@codeaurora.org>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1591417551-38051-1-git-send-email-smasetty@codeaurora.org>
 References: <1591417551-38051-1-git-send-email-smasetty@codeaurora.org>
-Subject: [Freedreno] [PATCH v3 4/6] arm64: dts: qcom: SDM845: Enable GPU DDR
- bw scaling
+Subject: [Freedreno] [PATCH v3 5/6] arm64: dts: qcom: sc7180: Add
+ interconnects property for GPU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,73 +78,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This patch adds the interconnects property for the gpu node and the
-opp-peak-kBps property to the opps of the gpu opp table. This should
-help enable DDR bandwidth scaling dynamically and proportionally to the
-GPU frequency.
+This patch adds the interconnects property to the GPU node. This enables
+the GPU->DDR path bandwidth voting.
 
 Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
 ---
- arch/arm64/boot/dts/qcom/sdm845.dtsi | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ arch/arm64/boot/dts/qcom/sc7180.dtsi | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-index 11fc3f24..6ea6f54 100644
---- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-@@ -3240,6 +3240,8 @@
-
+diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+index eaede5e..34004ad 100644
+--- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+@@ -1497,6 +1497,8 @@
+ 			operating-points-v2 = <&gpu_opp_table>;
  			qcom,gmu = <&gmu>;
 
-+			interconnects = <&mem_noc MASTER_GFX3D &mem_noc SLAVE_EBI1>;
++			interconnects = <&gem_noc MASTER_GFX3D &mc_virt SLAVE_EBI1>;
 +
- 			zap_shader: zap-shader {
- 				memory-region = <&gpu_mem>;
- 			};
-@@ -3250,36 +3252,43 @@
- 				opp-710000000 {
- 					opp-hz = /bits/ 64 <710000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
-+					opp-peak-kBps = <7216000>;
- 				};
+ 			gpu_opp_table: opp-table {
+ 				compatible = "operating-points-v2";
 
- 				opp-675000000 {
- 					opp-hz = /bits/ 64 <675000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
-+					opp-peak-kBps = <7216000>;
- 				};
-
- 				opp-596000000 {
- 					opp-hz = /bits/ 64 <596000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
-+					opp-peak-kBps = <6220000>;
- 				};
-
- 				opp-520000000 {
- 					opp-hz = /bits/ 64 <520000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
-+					opp-peak-kBps = <6220000>;
- 				};
-
- 				opp-414000000 {
- 					opp-hz = /bits/ 64 <414000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-+					opp-peak-kBps = <4068000>;
- 				};
-
- 				opp-342000000 {
- 					opp-hz = /bits/ 64 <342000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
-+					opp-peak-kBps = <2724000>;
- 				};
-
- 				opp-257000000 {
- 					opp-hz = /bits/ 64 <257000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-+					opp-peak-kBps = <1648000>;
- 				};
- 			};
- 		};
 --
 2.7.4
 
