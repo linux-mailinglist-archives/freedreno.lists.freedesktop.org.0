@@ -1,59 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D5D81F2131
-	for <lists+freedreno@lfdr.de>; Mon,  8 Jun 2020 23:05:48 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id ADAF81F21CE
+	for <lists+freedreno@lfdr.de>; Tue,  9 Jun 2020 00:26:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B4496E99C;
-	Mon,  8 Jun 2020 21:05:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E36789F01;
+	Mon,  8 Jun 2020 22:26:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
- [IPv6:2607:f8b0:4864:20::841])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B67346E99B
- for <freedreno@lists.freedesktop.org>; Mon,  8 Jun 2020 21:05:45 +0000 (UTC)
-Received: by mail-qt1-x841.google.com with SMTP id k22so15913500qtm.6
- for <freedreno@lists.freedesktop.org>; Mon, 08 Jun 2020 14:05:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poorly.run; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=l260Oczt5NYvBAM8JWGWfwlC6xbJl17o2VEf10AzS44=;
- b=CseeuErBEfArFH/qvOm2e4aOzEu/535Sq9CuJsWO1Q85F5s0ZS6M7UdDa5H4jhBgGa
- mYOopnpofEfIk8y1bVHZIwXOVLbImEkLkXO3i6I8C9ZoZgeRZKZxaigphcgOXPBTEm6e
- GTMuVEQV35zYYmlj2g+7ofAGHlHaNf7z9t4NgGFjBtQmJW1LPjapU5eyBeyw1NX4SoJ6
- 7oCK5TGSqKR3jgn6fDhvNkX+YFV9xSIRKs1rpLc6/DvOV3A4ebbC3ZpAYqvuw3wFZcB2
- S0XR8qMXnZ6WDHwEw9SUOxjQq3IOaA90FyIleE5dHV5Sp/aSVA445nB2Cw+X2J2Akfs+
- VozQ==
+Received: from mail-ot1-x341.google.com (mail-ot1-x341.google.com
+ [IPv6:2607:f8b0:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F4D189F01
+ for <freedreno@lists.freedesktop.org>; Mon,  8 Jun 2020 22:26:01 +0000 (UTC)
+Received: by mail-ot1-x341.google.com with SMTP id 97so3656859otg.3
+ for <freedreno@lists.freedesktop.org>; Mon, 08 Jun 2020 15:26:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=bc9tsjIFv/jB6QM+YnSZNZcJOlFnkdAaejqLZYVYxEA=;
+ b=BLSZRjuywFEWfrzDsWBfP9L/UD63HowwitzIJ8ZQDiSGzaYpks1b2U9LlDoJlCAh1B
+ 7bRYKtOaOCcX+qfCaB6XxW9qtpsYVIXv/rO7pUoQsHxqBBQwuNStQYxxdUZrcY2sVEaF
+ JRUw0EUxUgkG0aW2gXuz6MlGRVnC8wq/zbzOso/uojEYoGpZkJ3lkVls7CABw8X8WADe
+ InLkZddLI8woa2s6PnDkQfNqc7WBwUC3zdRkcvTRJYZ00vxHgTbPq4RmVVRCVUhaua0h
+ NLDvKCNa9F/wn2ffBc3CxlbvQsUPJagssMuZmOxuDDe5F4a5UBg6InhK9JLs8kq2F5Dx
+ M4VA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=l260Oczt5NYvBAM8JWGWfwlC6xbJl17o2VEf10AzS44=;
- b=I9X9OPVONVDghKXmqayKRsZGYaCFZrDzlg6cvDMAkN6nz/8lM25ZG1h3MUoPyy5w7A
- cyxXAKSCDuuvi4ht1HJqSMADc6I6KEg3+dK6LWRlUua2/pXanBZt1DIQe46mLfdoPbtm
- Myn8EH6FkJFRzMHYhSrMDG5pT8W/96ki6uyt06/HI09wiMi5YDdDJTaJYofalV2QZWD3
- K0+eaTIL5UyE7PY9NjyIVB1f8Hymq1lnyybPGE9EW3wDDoYguDRAvGTyA8Lj0HJE/fLk
- J5UA+4/QVVOw5GnKUKJw+i89C67wCXdwdTx/r6bYoS3vVaJIYUatEHeT9qrgsSvI7jRH
- 5Hyg==
-X-Gm-Message-State: AOAM532OmxlKWh/7tdMhxC0u6oZXJkuAOFX7iemE/kWn/cgm2rI+vV15
- qgRXnMUT4z9+MO9TdefKd3Ip4A==
-X-Google-Smtp-Source: ABdhPJz+V6uEQOV6V65xXTa5fOfwbjDQhqzzFkU5HU0ppoPhtj/oZgEmG1jcwSwRc3m01YVKe+vcTA==
-X-Received: by 2002:ac8:342b:: with SMTP id u40mr24513501qtb.59.1591650344787; 
- Mon, 08 Jun 2020 14:05:44 -0700 (PDT)
-Received: from localhost (mobile-166-173-249-24.mycingular.net.
- [166.173.249.24])
- by smtp.gmail.com with ESMTPSA id z19sm9028902qtz.81.2020.06.08.14.05.44
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 08 Jun 2020 14:05:44 -0700 (PDT)
-From: Sean Paul <sean@poorly.run>
-To: dri-devel@lists.freedesktop.org
-Date: Mon,  8 Jun 2020 17:04:54 -0400
-Message-Id: <20200608210505.48519-5-sean@poorly.run>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200608210505.48519-1-sean@poorly.run>
-References: <20200608210505.48519-1-sean@poorly.run>
-Subject: [Freedreno] [PATCH v5 04/13] drm/msm/dpu: Replace definitions for
- dpu debug macros
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=bc9tsjIFv/jB6QM+YnSZNZcJOlFnkdAaejqLZYVYxEA=;
+ b=quXs2sHBQ2m+pgHG0ng2oezen0P32mnW+SZiZO/XFCV18jU2QJH1YmhSH+J80Ujpp8
+ q6wKygdyvQUPd/1RCWCoxHfGAtMc6OZs+LcvtNwMw16gcK5COYdGYrHfneGcUn0vfnbs
+ PvN8I6sPFJuTS7CdhSKf5/tGcO8W9/zLSy16VQ0SiTsb493OU6IpL1kw10mafnxuD3bP
+ AdKI5MMGcUp4HZP8Q0nO3b3/PrbNpcuoj+exWQH8D28LVBkW37w+KKwmrogom22GdCC/
+ jWk0Wtr3T5xXKMiZtGFmKzNZafLOMs1RID1YLlv5h8U08Ts8yxqXnL1UwCEJh06NGqUE
+ u95w==
+X-Gm-Message-State: AOAM531SfSFDAa9EZuYG6wcewLLUij2+/aIRojAY/y0PZcLc1dcXBlur
+ /G0P6qMX92mkAvXoLrqL+6ICT4iBeVsif1CT+E+MEw==
+X-Google-Smtp-Source: ABdhPJyMp64A28sOxzeSkkFqGhDUVU7DykXVmi2Ng6Irnv+4+gn54jjMjWOaLN2VKHEcZDo9gLdLayjCOhVevAod6FU=
+X-Received: by 2002:a9d:26:: with SMTP id 35mr12455930ota.352.1591655160681;
+ Mon, 08 Jun 2020 15:26:00 -0700 (PDT)
+MIME-Version: 1.0
+References: <1585044079-358-1-git-send-email-kalyan_t@codeaurora.org>
+In-Reply-To: <1585044079-358-1-git-send-email-kalyan_t@codeaurora.org>
+From: John Stultz <john.stultz@linaro.org>
+Date: Mon, 8 Jun 2020 15:25:48 -0700
+Message-ID: <CALAqxLViRrga-XW2o1J1JutFdS1d-qmmgOrEP2beNygw3A7H4A@mail.gmail.com>
+To: Kalyan Thota <kalyan_t@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dpu: add support for color
+ processing blocks in dpu driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,70 +61,65 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, freedreno@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
- daniel.vetter@ffwll.ch, maarten.lankhorst@linux.intel.com,
- Rob Clark <robdclark@gmail.com>, mripard@kernel.org, ppaalanen@gmail.com,
- Sean Paul <seanpaul@chromium.org>, tzimmermann@suse.de,
- linux-arm-msm@vger.kernel.org, airlied@gmail.com
-MIME-Version: 1.0
+Cc: Amit Pundir <amit.pundir@linaro.org>, mkrishn@codeaurora.org,
+ travitej@codeaurora.org, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Doug Anderson <dianders@chromium.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ lkml <linux-kernel@vger.kernel.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Sean Paul <seanpaul@chromium.org>,
+ Rob Clark <robdclark@gmail.com>, hoegsberg@chromium.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, freedreno@lists.freedesktop.org,
+ Sumit Semwal <sumit.semwal@linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Sean Paul <seanpaul@chromium.org>
+On Wed, Mar 25, 2020 at 1:17 AM Kalyan Thota <kalyan_t@codeaurora.org> wrote:
+>
+> This change adds support to configure dspp blocks in
+> the dpu driver.
+>
+> Macro description of the changes coming in this patch.
+> 1) Add dspp definitions in the hw catalog.
+> 2) Add capability to reserve dspp blocks in the display data path.
+> 3) Attach the reserved block to the encoder.
+>
+> Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
 
-The debug messages shouldn't be logged as errors when debug categories
-are enabled. Use the drm logging helpers to do the right thing
+Hey all,
+  With this patch now merged upstream, I'm seeing a regression on
+db845c that I bisected down to it.
 
-Signed-off-by: Sean Paul <seanpaul@chromium.org>
+When I boot up I see:
+[   40.976737] [drm:_dpu_rm_check_lm_and_get_connected_blks] [dpu
+error]failed to get dspp on lm 0
+[   40.985600] [drm:_dpu_rm_check_lm_and_get_connected_blks] [dpu
+error]failed to get dspp on lm 0
+[   40.994587] [drm:_dpu_rm_check_lm_and_get_connected_blks] [dpu
+error]failed to get dspp on lm 0
+[   41.003492] [drm:_dpu_rm_check_lm_and_get_connected_blks] [dpu
+error]failed to get dspp on lm 0
+[   41.012283] [drm:_dpu_rm_make_reservation] [dpu error]unable to
+find appropriate mixers
+[   41.020369] [drm:dpu_rm_reserve] [dpu error]failed to reserve hw
+resources: -119
 
-Changes in v5:
--Added to the set
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h | 20 ++++----------------
- 1 file changed, 4 insertions(+), 16 deletions(-)
+Over and over, and the display doesn't start up.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-index 4e32d040f1e6..89c444ec3bb8 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-@@ -29,27 +29,15 @@
-  * DPU_DEBUG - macro for kms/plane/crtc/encoder/connector logs
-  * @fmt: Pointer to format string
-  */
--#define DPU_DEBUG(fmt, ...)                                                \
--	do {                                                               \
--		if (drm_debug_enabled(DRM_UT_KMS))                         \
--			DRM_DEBUG(fmt, ##__VA_ARGS__); \
--		else                                                       \
--			pr_debug(fmt, ##__VA_ARGS__);                      \
--	} while (0)
-+#define DPU_DEBUG(fmt, ...) DRM_DEBUG_KMS(fmt, ##__VA_ARGS__)
- 
- /**
-  * DPU_DEBUG_DRIVER - macro for hardware driver logging
-  * @fmt: Pointer to format string
-  */
--#define DPU_DEBUG_DRIVER(fmt, ...)                                         \
--	do {                                                               \
--		if (drm_debug_enabled(DRM_UT_DRIVER))                      \
--			DRM_ERROR(fmt, ##__VA_ARGS__); \
--		else                                                       \
--			pr_debug(fmt, ##__VA_ARGS__);                      \
--	} while (0)
--
--#define DPU_ERROR(fmt, ...) pr_err("[dpu error]" fmt, ##__VA_ARGS__)
-+#define DPU_DEBUG_DRIVER(fmt, ...) DRM_DEBUG_DRIVER(fmt, ##__VA_ARGS__)
-+
-+#define DPU_ERROR(fmt, ...) DRM_ERROR(fmt, ##__VA_ARGS__)
- 
- /**
-  * ktime_compare_safe - compare two ktime structures
--- 
-Sean Paul, Software Engineer, Google / Chromium OS
+I suspect we're supposed to catch the following check before the failure:
 
++       if (!reqs->topology.num_dspp)
++               return true;
+
+I suspect the issue is in dpu_encoder_get_topology() we don't fully
+initialize the topology structure on the stack before returning it.
+
+Does that sound plausible or is there likely some other cause?
+
+thanks
+-john
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
