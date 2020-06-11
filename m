@@ -1,62 +1,42 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDF9F1F5B9F
-	for <lists+freedreno@lfdr.de>; Wed, 10 Jun 2020 20:58:12 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 785121F64B0
+	for <lists+freedreno@lfdr.de>; Thu, 11 Jun 2020 11:26:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4938889CF1;
-	Wed, 10 Jun 2020 18:58:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91DAB6E060;
+	Thu, 11 Jun 2020 09:26:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-vs1-xe41.google.com (mail-vs1-xe41.google.com
- [IPv6:2607:f8b0:4864:20::e41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0F0E89CC1
- for <freedreno@lists.freedesktop.org>; Wed, 10 Jun 2020 18:58:09 +0000 (UTC)
-Received: by mail-vs1-xe41.google.com with SMTP id l10so1894803vsr.10
- for <freedreno@lists.freedesktop.org>; Wed, 10 Jun 2020 11:58:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=oAuiLS5G9yRr9AdnpqJ+b7J1vIYfSf3q36M8NOV942c=;
- b=ZoFELyV3tBihmyebsCsoJk3lsYw7dHxokZr208+Oi3cjS0rKE47GyTKi/8fqkKgIhj
- 5s0cu1ckOGvd4aV4SjB5D5/nJDeMoIjxvt2U2Ccw/Kfve0CtzajVy/w53lYfU6Xu6k7N
- S8PCnMI8f5/e0ChFtq938rNtp430lbPGfI6Ng=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=oAuiLS5G9yRr9AdnpqJ+b7J1vIYfSf3q36M8NOV942c=;
- b=hkXI1pweKoTtSUgiiRaum+gqMiiH15/OJDgB5pbUaRjuhkTe0Myd7BS02SP0Q1mtUF
- 2cU1OkXNhewReYELALy4UUjHxTEIM9Bez4nAiBu2lRW5V+sxz/+yuIu7O3jeE6pbJd88
- nf6OkMclAQrCKPFPySmTAuIDy3KD3R6XwXkbmG2K5eiFMXSNOg6oQOdhSflrcHAtXYfA
- uURiHNbzB7ma8KXb8tcd901Tld4Emcvlx+Ati3Lr1Znfq29H6WEpn9+mjpJIYAmCvny2
- E8yLLwK2e0EWjRKcnMsiboq2sbcUF81fSPVaMNuZSJmL94Rlk9nS/wRnJXOcHGyMyAKH
- EHJg==
-X-Gm-Message-State: AOAM5320vBrmCf9b3L603JY6vPlWrwYGB6dpcgPYyImMUtvO2UVM5JIR
- gmFUNbTb/aT9FQU/cMmebW6uBbLsloA=
-X-Google-Smtp-Source: ABdhPJzsagym7oA0uOjNpOSAuzaUgB/Q0qSCaurG5jftAIy7JF6TfabC0ZIxDTehOMZ0+ruNoP5i6A==
-X-Received: by 2002:a67:8cc8:: with SMTP id o191mr3814328vsd.26.1591815488355; 
- Wed, 10 Jun 2020 11:58:08 -0700 (PDT)
-Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com.
- [209.85.217.46])
- by smtp.gmail.com with ESMTPSA id o10sm103384uae.7.2020.06.10.11.58.07
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Jun 2020 11:58:07 -0700 (PDT)
-Received: by mail-vs1-f46.google.com with SMTP id c1so1891487vsc.11
- for <freedreno@lists.freedesktop.org>; Wed, 10 Jun 2020 11:58:07 -0700 (PDT)
-X-Received: by 2002:a67:e445:: with SMTP id n5mr3989129vsm.73.1591815486605;
- Wed, 10 Jun 2020 11:58:06 -0700 (PDT)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F8DE6E060;
+ Thu, 11 Jun 2020 09:26:02 +0000 (UTC)
+IronPort-SDR: 7CBmPK5Vpixkh5dvHCE5/ibjLU6BpPi6sxlKtU5Vdfrj1kev8dFdueVEgEWWuD5nK0fZ64EeCB
+ 0KkbVe8b4SGg==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2020 02:26:01 -0700
+IronPort-SDR: GPQzoh9Bx+RX+Tk1e1fWY7vAqHvvL6Vq+NjhyiNCj6ZIYNqwYaoN9QIW4YBXJ9HM4rjEvW7NKE
+ rWf9khWxisEw==
+X-IronPort-AV: E=Sophos;i="5.73,499,1583222400"; d="scan'208";a="447857473"
+Received: from cstenzel-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.252.45.107])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2020 02:25:57 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Tanmay Shah <tanmay@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20200609034047.9407-1-tanmay@codeaurora.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20200609034047.9407-1-tanmay@codeaurora.org>
+Date: Thu, 11 Jun 2020 12:25:54 +0300
+Message-ID: <87mu5avtr1.fsf@intel.com>
 MIME-Version: 1.0
-References: <20200609120455.20458-1-harigovi@codeaurora.org>
-In-Reply-To: <20200609120455.20458-1-harigovi@codeaurora.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 10 Jun 2020 11:57:55 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=UMELcq_-aYdQBW3CuJgTqZWYkE8c5AMKT74Z1Z0QHusg@mail.gmail.com>
-Message-ID: <CAD=FV=UMELcq_-aYdQBW3CuJgTqZWYkE8c5AMKT74Z1Z0QHusg@mail.gmail.com>
-To: Harigovindan P <harigovi@codeaurora.org>
-Subject: Re: [Freedreno] [v3] drm/bridge: ti-sn65dsi86: ensure bridge
- suspend happens during PM sleep
+Subject: Re: [Freedreno] [PATCH v6 2/5] drm: add constant N value in helper
+ file
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,63 +49,67 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Sam Ravnborg <sam@ravnborg.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- nganji@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
- Kalyan Thota <kalyan_t@codeaurora.org>,
- "Kristian H. Kristensen" <hoegsberg@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: freedreno@lists.freedesktop.org, Tanmay Shah <tanmay@codeaurora.org>,
+ swboyd@chromium.org, seanpaul@chromium.org, abhinavk@codeaurora.org,
+ Vara Reddy <varar@codeaurora.org>, sam@ravnborg.org, linux-clk@vger.kernel.org,
+ chandanu@codeaurora.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-
-On Tue, Jun 9, 2020 at 5:05 AM Harigovindan P <harigovi@codeaurora.org> wrote:
+On Mon, 08 Jun 2020, Tanmay Shah <tanmay@codeaurora.org> wrote:
+> From: Chandan Uddaraju <chandanu@codeaurora.org>
 >
-> ti-sn65dsi86 bridge is enumerated as a runtime device. When
-> suspend is triggered, PM core adds a refcount on all the
-> devices and calls device suspend, since usage count is
-> already incremented, runtime suspend will not be called
-> and it kept the bridge regulators and gpios ON which resulted
-> in platform not entering into XO shutdown.
-
-The "XO shutdown" concept is a very Qualcomm-specific concept but this
-bridge chip could be used on any board.  ...but I think it's fine to
-leave it as-is since the meaning is clear enough.
-
-
-> Add changes to force suspend on the runtime device during pm sleep.
+> The constant N value (0x8000) is used by i915 DP
+> driver. Define this value in dp helper header file
+> to use in multiple Display Port drivers. Change
+> i915 driver accordingly.
 >
-> Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
+> Change in v6: Change commit message
+>
+> Signed-off-by: Chandan Uddaraju <chandanu@codeaurora.org>
+> Signed-off-by: Vara Reddy <varar@codeaurora.org>
+> Signed-off-by: Tanmay Shah <tanmay@codeaurora.org>
+
+Acked-by: Jani Nikula <jani.nikula@intel.com>
+
+for merging via drm-misc if that helps you.
+
+
 > ---
+>  drivers/gpu/drm/i915/display/intel_display.c | 2 +-
+>  include/drm/drm_dp_helper.h                  | 1 +
+>  2 files changed, 2 insertions(+), 1 deletion(-)
 >
-> Changes in v2:
->         - Include bridge name in the commit message and
->         remove dependent patchwork link from the commit
->         text as bridge is independent of OEM(Stephen Boyd)
->
-> Changes in v3:
->         - Updating changelog to explain the need for patch
->
->  drivers/gpu/drm/bridge/ti-sn65dsi86.c | 2 ++
->  1 file changed, 2 insertions(+)
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> index 9ea1a39..4b2cfff 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -8085,7 +8085,7 @@ static void compute_m_n(unsigned int m, unsigned int n,
+>  	 * which the devices expect also in synchronous clock mode.
+>  	 */
+>  	if (constant_n)
+> -		*ret_n = 0x8000;
+> +		*ret_n = DP_LINK_CONSTANT_N_VALUE;
+>  	else
+>  		*ret_n = min_t(unsigned int, roundup_pow_of_two(n), DATA_LINK_N_MAX);
+>  
+> diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
+> index 2035ac4..589132a 100644
+> --- a/include/drm/drm_dp_helper.h
+> +++ b/include/drm/drm_dp_helper.h
+> @@ -1134,6 +1134,7 @@
+>  #define DP_MST_PHYSICAL_PORT_0 0
+>  #define DP_MST_LOGICAL_PORT_0 8
+>  
+> +#define DP_LINK_CONSTANT_N_VALUE 0x8000
+>  #define DP_LINK_STATUS_SIZE	   6
+>  bool drm_dp_channel_eq_ok(const u8 link_status[DP_LINK_STATUS_SIZE],
+>  			  int lane_count);
 
-Note that it's generally considered nice to CC folks who commented on
-previous versions of the patch since they are folks who are almost
-certainly interested in it.  In this case that would be me and Stephen
-Boyd.
-
-You could also, in theory, carry Stephen's Reviewed-by patch from v1
-since you have fixed the subject as he requested and you have now also
-fixed the commit message to have some details.
-
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
+-- 
+Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
