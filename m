@@ -2,53 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A92A1F6CDF
-	for <lists+freedreno@lfdr.de>; Thu, 11 Jun 2020 19:36:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B514F1F6E74
+	for <lists+freedreno@lfdr.de>; Thu, 11 Jun 2020 22:07:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1CB46E929;
-	Thu, 11 Jun 2020 17:36:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BF6D6E93A;
+	Thu, 11 Jun 2020 20:07:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
- [IPv6:2607:f8b0:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24EBD6E929
- for <freedreno@lists.freedesktop.org>; Thu, 11 Jun 2020 17:36:33 +0000 (UTC)
-Received: by mail-oi1-x22c.google.com with SMTP id 25so6104331oiy.13
- for <freedreno@lists.freedesktop.org>; Thu, 11 Jun 2020 10:36:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=jrCOk7vsq1IE7uGd57AzoLSP1ALvkvtrfTao0LV5h+4=;
- b=PjCLvAgUk17O5rGvaRSULcAXIKgAeNPYfQj4+nc/jEDzvDt79xSOJ9y90gnyDsej57
- d6kv8CTeKJDW3tgsSbIhUH7B684pz0QDJS1PAC3ELlVYxup3lQZTLhIejtwsgQQWCbBm
- whcIjLz3Q4YA0rJbpmM7ez8cXb5PsSzB5hLw90jsFbfweSA0DgsHHTj0a3UpXNkTiXsK
- FHCNP6NH+PXkniJe6PD0IrUkKYLC/AfJYgTbByfESpbB7Eh6RWa3w2B8JexkbcgtqPsr
- BKFM8ErfoR7rUDwZJTpr2FypGZPTKX734j7VFNPPb3SuZIWCuP8HJJ3I2VIKp5nax4vd
- X7rA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=jrCOk7vsq1IE7uGd57AzoLSP1ALvkvtrfTao0LV5h+4=;
- b=EgRqrTnqoE+06HTa+gL203gWe4Xv+af/JhrBlMpMrsuDHP/Slx1F3XtnLGLabXgDtI
- wKeDEj4KOo5U1I+Z0C+juaGPTphAsiJzy0uosUuZwq7+OhuFTdkW7HwjvLbfc1WNMVXn
- +ZALOncM0tWIAgfNxjyNGHXknG4vBEvaK7GfCFIQQANSKGSZ+iYPJbb1c9JZK24XGtlQ
- yKPK0IRCDtrNFcUV2seWs5TAx4jqkD1L55K6Js64q+lAwwQvjJdWdIhvEhi52WnrwNc3
- Hht2l0sG4TDTHC1IxvYEXyBW2JzVt1Nrz4AOuVGfCYZ83SrGa8TDRyc5wEau6l1e/GVQ
- MosA==
-X-Gm-Message-State: AOAM531WAqJhwIHYwUCva+7m0IQn6+atU69Sn+CPG2CV/dZn/UM3uFLe
- 3A8ABwXMjvLtrMi4Dy0Ocof9AcVxuCMpPpNZ9qU0DQ==
-X-Google-Smtp-Source: ABdhPJzBOdT+Dsmoz25Sk2BkH7lQgOo+1veTThTfIOcpemZoPqBRr3Bokq20sHjcYAD8NriytacdHguqDLTVuu4eLUw=
-X-Received: by 2002:aca:2108:: with SMTP id 8mr7354040oiz.10.1591896992417;
- Thu, 11 Jun 2020 10:36:32 -0700 (PDT)
+Received: from mail27.static.mailgun.info (mail27.static.mailgun.info
+ [104.130.122.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72B216E936
+ for <freedreno@lists.freedesktop.org>; Thu, 11 Jun 2020 20:07:12 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1591906032; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=Gt4Yl17uHxeVszwUdwoN2Kua/oUvLPKVV3l9/jcWrV0=;
+ b=R5cPSxSAnt3DK5K6MJrJnY1knOOlpxyz/Zqfh9o2eT40hpfA54+BLM2F0tD24RITLrkwt/Ic
+ uHHssMHGqOz070WvtFo3JCFNIIIW85gGQK8AspWeDpwQlPtfiUciPjsiIX2Q/xHZdUHvmmOe
+ pqLH5k4OKXdzfR7Pv8Ou0otf0Tw=
+X-Mailgun-Sending-Ip: 104.130.122.27
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n13.prod.us-east-1.postgun.com with SMTP id
+ 5ee28eef8fe116ddd957ee82 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 11 Jun 2020 20:07:11
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 96728C43391; Thu, 11 Jun 2020 20:07:10 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: tanmay)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 70E5BC433C8;
+ Thu, 11 Jun 2020 20:07:09 +0000 (UTC)
 MIME-Version: 1.0
-References: <1591880115-12721-1-git-send-email-mkrishn@codeaurora.org>
-In-Reply-To: <1591880115-12721-1-git-send-email-mkrishn@codeaurora.org>
-From: John Stultz <john.stultz@linaro.org>
-Date: Thu, 11 Jun 2020 10:36:21 -0700
-Message-ID: <CALAqxLWnXD4XzGU=7mkLCyAkN1ONB=NRne9y8PxPWGZg4hgX8Q@mail.gmail.com>
-To: Krishna Manikandan <mkrishn@codeaurora.org>
-Subject: Re: [Freedreno] [v1] drm/msm/dpu: request for display color blocks
- based on hw catalog entry
+Date: Thu, 11 Jun 2020 13:07:09 -0700
+From: tanmay@codeaurora.org
+To: Stephen Boyd <swboyd@chromium.org>
+In-Reply-To: <159175530931.242598.4696487926885071106@swboyd.mtv.corp.google.com>
+References: <20200609033818.9028-1-tanmay@codeaurora.org>
+ <159175530931.242598.4696487926885071106@swboyd.mtv.corp.google.com>
+Message-ID: <d6db52a33ac787c0fe6134ca32c06007@codeaurora.org>
+X-Sender: tanmay@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v6 1/5] dt-bindings: msm/dp: add bindings of
+ DP/DP-PLL driver for Snapdragon
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,35 +65,235 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- lkml <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Doug Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>,
- nganji@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
- abhinavk@codeaurora.org, Kalyan Thota <kalyan_t@codeaurora.org>,
- hoegsberg@chromium.org, freedreno@lists.freedesktop.org,
- Matthias Kaehlcke <mka@chromium.org>
-Content-Type: text/plain; charset="us-ascii"
+Cc: devicetree@vger.kernel.org, sam@ravnborg.org, abhinavk@codeaurora.org,
+ robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Vara Reddy <varar@codeaurora.org>, freedreno@lists.freedesktop.org,
+ linux-clk@vger.kernel.org, chandanu@codeaurora.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jun 11, 2020 at 5:55 AM Krishna Manikandan
-<mkrishn@codeaurora.org> wrote:
->
-> From: Kalyan Thota <kalyan_t@codeaurora.org>
->
-> Request for color processing blocks only if they are
-> available in the display hw catalog and they are
-> sufficient in number for the selection.
->
-> Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
+On 2020-06-09 19:15, Stephen Boyd wrote:
+> Quoting Tanmay Shah (2020-06-08 20:38:18)
+>> diff --git 
+>> a/Documentation/devicetree/bindings/display/msm/dp-sc7180.yaml 
+>> b/Documentation/devicetree/bindings/display/msm/dp-sc7180.yaml
+>> new file mode 100644
+>> index 0000000..5fdb915
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/display/msm/dp-sc7180.yaml
+> 
+> Typically the file name matches the compatible string. But the
+> compatible string is just qcom,dp-display. Maybe the compatible string
+> should be qcom,sc7180-dp? Notice that the SoC number comes first as is
+> preferred.
+> 
+These bindings will be similar for upcoming SOC as well.
+So just for understanding, when we add new SOC do we create new file 
+with same bidings
+with SOC number in new file name?
+Instead we can keep this file's name as qcom,dp-display.yaml (same as 
+compatible const) and we can include SOC number in compatible enum ?
+some examples:
+https://patchwork.kernel.org/patch/11448357/
+https://patchwork.kernel.org/patch/11164619/
+> 
+>> @@ -0,0 +1,142 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only  OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/display/msm/dp-sc7180.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Qualcomm Display Port Controller.
+>> +
+>> +maintainers:
+>> +  - Chandan Uddaraju <chandanu@codeaurora.org>
+>> +  - Vara Reddy <varar@codeaurora.org>
+>> +  - Tanmay Shah <tanmay@codeaurora.org>
+>> +
+>> +description: |
+>> +  Device tree bindings for MSM Display Port which supports DP host 
+>> controllers
+>> +  that are compatible with VESA Display Port interface specification.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    items:
+>> +      - const: qcom,dp-display
+>> +
+>> +  cell-index:
+>> +    description: Specifies the controller instance.
+>> +
+>> +  reg:
+>> +    items:
+>> +      - description: DP controller registers
+>> +
+>> +  interrupts:
+>> +    description: The interrupt signal from the DP block.
+>> +
+>> +  clocks:
+>> +    description: List of clock specifiers for clocks needed by the 
+>> device.
+>> +    items:
+>> +      - description: Display Port AUX clock
+>> +      - description: Display Port Link clock
+>> +      - description: Link interface clock between DP and PHY
+>> +      - description: Display Port Pixel clock
+>> +      - description: Root clock generator for pixel clock
+>> +
+>> +  clock-names:
+>> +    description: |
+>> +      Device clock names in the same order as mentioned in clocks 
+>> property.
+>> +      The required clocks are mentioned below.
+>> +    items:
+>> +      - const: core_aux
+>> +      - const: ctrl_link
+>> +      - const: ctrl_link_iface
+>> +      - const: stream_pixel
+>> +      - const: pixel_rcg
+> 
+> Why not just 'pixel'? And why is the root clk generator important? It
+> looks like this binding should be using the assigned clock parents
+> property instead so that it doesn't have to call clk_set_parent()
+> explicitly.
+> 
+Are we talking about renaming stream_pixel to pixel only?
+We divide clocks in categories: core, control and stream clock.
+Similar terminology will be used in subsequent driver patches as well.
 
-Tested-by: John Stultz <john.stultz@linaro.org>
+We can remove pixel_rcg use assigned clock parents property and remove 
+clk_set_parent
+from driver.
 
-Thanks so much for the quick fix!
--john
+>> +  "#clock-cells":
+>> +    const: 1
+>> +
+>> +  vdda-1p2-supply:
+>> +    description: phandle to vdda 1.2V regulator node.
+>> +
+>> +  vdda-0p9-supply:
+>> +    description: phandle to vdda 0.9V regulator node.
+>> +
+>> +  data-lanes = <0 1>:
+> 
+> Is this correct? We can have = <value> in the property name? Also feels
+> generic and possibly should come from the phy binding instead of from
+> the controller binding.
+> 
+We are using this property in DP controller programming sequence such as 
+link training.
+So I think we can keep this here.
+You are right about <value>. <0 1> part should be in example only. It 
+was passing through dt_binding_check though.
+Here it should be like:
+data-lanes:
+minItems:1
+maxItems:4
+
+>> +    type: object
+>> +    description: Maximum number of lanes that can be used for Display 
+>> port.
+>> +
+>> +  ports:
+>> +    description: |
+>> +       Contains display port controller endpoint subnode.
+>> +       remote-endpoint: |
+>> +         For port@0, set to phandle of the connected panel/bridge's
+>> +         input endpoint. For port@1, set to the DPU interface output.
+>> +         Documentation/devicetree/bindings/graph.txt and
+>> +         
+>> Documentation/devicetree/bindings/media/video-interfaces.txt.
+>> +
+>> +patternProperties:
+>> +  "^aux-cfg([0-9])-settings$":
+>> +    type: object
+>> +    description: |
+>> +      Specifies the DP AUX configuration [0-9] settings.
+>> +      The first entry in this array corresponds to the register 
+>> offset
+>> +      within DP AUX, while the remaining entries indicate the
+>> +      programmable values.
+> 
+> I'd prefer this was removed from the binding and hardcoded in the 
+> driver
+> until we can understand what the values are. If they're not
+> understandable then they most likely don't change and should be done in
+> the driver.
+> 
+Typically customers tune these values by working with vendor. So for 
+different boards it can be different. Even though it is hard for 
+customers to do this themselves, these are still board specific and 
+belong to dts. As requested earlier, we have added default values 
+already and made these properties optional but, we would like to keep it 
+in bindings so we can have option to tune them as required.
+>> +
+>> +required:
+>> +  - compatible
+>> +  - cell-index
+>> +  - reg
+>> +  - interrupts
+>> +  - clocks
+>> +  - clock-names
+>> +  - vdda-1p2-supply
+>> +  - vdda-0p9-supply
+>> +  - data-lanes
+>> +  - ports
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>> +    #include <dt-bindings/clock/qcom,dispcc-sdm845.h>
+>> +    #include <dt-bindings/clock/qcom,gcc-sdm845.h>
+>> +    msm_dp: displayport-controller@ae90000{
+>> +        compatible = "qcom,dp-display";
+>> +        cell-index = <0>;
+>> +        reg = <0 0xae90000 0 0x1400>;
+>> +        reg-names = "dp_controller";
+>> +
+>> +        interrupt-parent = <&display_subsystem>;
+>> +        interrupts = <12 0>;
+>> +
+>> +        clocks = <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
+>> +                 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
+>> +                 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
+>> +                 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>,
+>> +                 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
+>> +        clock-names = "core_aux",
+>> +                      "ctrl_link",
+>> +                      "ctrl_link_iface", "stream_pixel",
+>> +                      "pixel_rcg";
+>> +        #clock-cells = <1>;
+>> +
+>> +        vdda-1p2-supply = <&vreg_l3c_1p2>;
+>> +        vdda-0p9-supply = <&vreg_l4a_0p8>;
+>> +
+>> +        data-lanes = <0 1>;
+>> +
+>> +        ports {
+>> +            #address-cells = <1>;
+>> +            #size-cells = <0>;
+>> +
+>> +            port@0 {
+>> +                reg = <0>;
+>> +                dp_in: endpoint {
+>> +                    remote-endpoint = <&dpu_intf0_out>;
+>> +                };
+>> +            };
+>> +
+>> +            port@1 {
+>> +                reg = <1>;
+>> +                dp_out: endpoint {
+>> +                };
+>> +            };
+>> +        };
+>> +    };
+> 
+> I believe there should be a '...' here.
+I think you mean signature is missing? If not could you please explain?
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
