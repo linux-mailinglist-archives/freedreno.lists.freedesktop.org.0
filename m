@@ -2,47 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36F9F1F7B8B
-	for <lists+freedreno@lfdr.de>; Fri, 12 Jun 2020 18:22:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF2581F7C6D
+	for <lists+freedreno@lfdr.de>; Fri, 12 Jun 2020 19:22:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1FB26E91D;
-	Fri, 12 Jun 2020 16:22:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B75E6EA13;
+	Fri, 12 Jun 2020 17:22:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BACE76E91D;
- Fri, 12 Jun 2020 16:22:35 +0000 (UTC)
-Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com
- [209.85.167.180])
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B49A36EA13
+ for <freedreno@lists.freedesktop.org>; Fri, 12 Jun 2020 17:22:03 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1591982524; h=In-Reply-To: Content-Type: MIME-Version:
+ References: Message-ID: Subject: Cc: To: From: Date: Sender;
+ bh=fWknkGYfbRq73n5akkvEQmXOR+Mhuj3iaaByL0gFj24=;
+ b=O0xwb/AYR5ClPkR1gjfnvoiyZAJTiG2s8qpT9GzzBH4Fomvb7zfX8+jDWIMK+hPmowPKEUHN
+ frULnzjj1xzvK8BTSI59oVUlm1WCtxfkl95O1PX1JwAwRXNhinmEh+KLS8VNZOkNTewXRmNc
+ 3J2rXTnUZhpyC3/4u1EZ+Z36NL0=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n15.prod.us-east-1.postgun.com with SMTP id
+ 5ee3b9b6bfb34e631c88d384 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 12 Jun 2020 17:21:58
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 22C9FC433C8; Fri, 12 Jun 2020 17:21:58 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7A58B2084D;
- Fri, 12 Jun 2020 16:22:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591978955;
- bh=Q8xnuSQvFkUDr8zmvrG1XuxDC3lkFjCFlAB3OwOthW4=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=BVQsixGONhmhI/hbz9XIDAHAukYVbQ8gZeQ98icrFxKeCJFbL4dsGpULSCHemI7ws
- H1oOKVYzkPwdEbybBZUImY0uFFy7+6lm5RhyjtVJHOsbiALRIIxGe+8S0jMnyNrufo
- IjH3yMvarjQ+TolrbESM6I46+soCSCMoAsOI3phM=
-Received: by mail-oi1-f180.google.com with SMTP id k4so9209548oik.2;
- Fri, 12 Jun 2020 09:22:35 -0700 (PDT)
-X-Gm-Message-State: AOAM532uJCs4mZJkyV4UI0M6VpYhDN2n7lS+WaEQ4PsLd7nwK548Ib2b
- pZ6GhIzMjfR73kcnUPOcZo2A1fXIbe41wloJmg==
-X-Google-Smtp-Source: ABdhPJwPoRIwsHGp/Q6SDOjjjB5xHEQEwUclkLWle+xl2si3N6oLoxWnuEys74ZMjvgMU2tZ1ygwIobN1Wc1Q5gaWWQ=
-X-Received: by 2002:aca:6004:: with SMTP id u4mr2905435oib.106.1591978954766; 
- Fri, 12 Jun 2020 09:22:34 -0700 (PDT)
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id D60C1C43391;
+ Fri, 12 Jun 2020 17:21:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org D60C1C43391
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=jcrouse@codeaurora.org
+Date: Fri, 12 Jun 2020 11:21:51 -0600
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <20200612172151.GA12783@jcrouse1-lnx.qualcomm.com>
+Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>, 
+ Akhil P Oommen <akhilpo@codeaurora.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
+ Eric Anholt <eric@anholt.net>, Jonathan Marek <jonathan@marek.ca>,
+ Sean Paul <sean@poorly.run>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+References: <20200611222921.464-1-jcrouse@codeaurora.org>
+ <20200611222921.464-7-jcrouse@codeaurora.org>
+ <CAF6AEGuyqgYKZsnBPCii4W=jxPcFU7JYKn4NBd8JVq7Pt1kR_Q@mail.gmail.com>
 MIME-Version: 1.0
-References: <20200612015030.16072-1-tanmay@codeaurora.org>
- <20200612015030.16072-2-tanmay@codeaurora.org>
-In-Reply-To: <20200612015030.16072-2-tanmay@codeaurora.org>
-From: Rob Herring <robh+dt@kernel.org>
-Date: Fri, 12 Jun 2020 10:21:58 -0600
-X-Gmail-Original-Message-ID: <CAL_JsqKO=UZqJYS49gmVkbRocqnOLqH=wCKKZM5a3UvXnWrTeA@mail.gmail.com>
-Message-ID: <CAL_JsqKO=UZqJYS49gmVkbRocqnOLqH=wCKKZM5a3UvXnWrTeA@mail.gmail.com>
-To: Tanmay Shah <tanmay@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v6 1/5] dt-bindings: msm/dp: add bindings of
- DP/DP-PLL driver for Snapdragon
+Content-Disposition: inline
+In-Reply-To: <CAF6AEGuyqgYKZsnBPCii4W=jxPcFU7JYKn4NBd8JVq7Pt1kR_Q@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Freedreno] [PATCH 6/6] drm/msm/a6xx: Add support for
+ per-instance pagetables
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,280 +83,186 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, aravindh@codeaurora.org,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+Cc: Sean Paul <sean@poorly.run>, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <seanpaul@chromium.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
- Vara Reddy <varar@codeaurora.org>, freedreno <freedreno@lists.freedesktop.org>,
- Sam Ravnborg <sam@ravnborg.org>, Chandan Uddaraju <chandanu@codeaurora.org>
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Eric Anholt <eric@anholt.net>,
+ "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jun 11, 2020 at 7:51 PM Tanmay Shah <tanmay@codeaurora.org> wrote:
->
-> From: Chandan Uddaraju <chandanu@codeaurora.org>
->
-> Add bindings for Snapdragon DisplayPort controller driver.
->
-> Changes in V2:
-> Provide details about sel-gpio
->
-> Changes in V4:
-> Provide details about max dp lanes
-> Change the commit text
->
-> Changes in V5:
-> moved dp.txt to yaml file
->
-> Changes in v6:
-> - Squash all AUX LUT properties into one pattern Property
-> - Make aux-cfg[0-9]-settings properties optional
-> - Remove PLL/PHY bindings from DP controller dts
-> - Add DP clocks description
-> - Remove _clk suffix from clock names
-> - Rename pixel clock to stream_pixel
-> - Remove redundant bindings (GPIO, PHY, HDCP clock, etc..)
-> - Fix indentation
-> - Add Display Port as interface of DPU in DPU bindings
->   and add port mapping accordingly.
->
-> Signed-off-by: Chandan Uddaraju <chandanu@codeaurora.org>
-> Signed-off-by: Vara Reddy <varar@codeaurora.org>
-> Signed-off-by: Tanmay Shah <tanmay@codeaurora.org>
-> ---
->  .../bindings/display/msm/dp-sc7180.yaml       | 142 ++++++++++++++++++
->  .../devicetree/bindings/display/msm/dpu.txt   |   8 +
->  2 files changed, 150 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/msm/dp-sc7180.yaml
+On Thu, Jun 11, 2020 at 08:22:29PM -0700, Rob Clark wrote:
+> On Thu, Jun 11, 2020 at 3:29 PM Jordan Crouse <jcrouse@codeaurora.org> wrote:
+> >
+> > Add support for using per-instance pagetables if all the dependencies are
+> > available.
+> >
+> > Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
+> > ---
+> >
+> >  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 69 ++++++++++++++++++++++++++-
+> >  drivers/gpu/drm/msm/msm_ringbuffer.h  |  1 +
+> >  2 files changed, 69 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > index a1589e040c57..5e82b85d4d55 100644
+> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > @@ -79,6 +79,58 @@ static void get_stats_counter(struct msm_ringbuffer *ring, u32 counter,
+> >         OUT_RING(ring, upper_32_bits(iova));
+> >  }
+> >
+> > +static void a6xx_set_pagetable(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
+> > +               struct msm_file_private *ctx)
+> > +{
+> > +       phys_addr_t ttbr;
+> > +       u32 asid;
+> > +
+> > +       if (msm_iommu_pagetable_params(ctx->aspace->mmu, &ttbr, &asid))
+> > +               return;
+> > +
+> > +       OUT_PKT7(ring, CP_SET_PROTECTED_MODE, 1);
+> > +       OUT_RING(ring, 0);
+> > +
+> > +       /* Turn on APIV mode to access critical regions */
+> > +       OUT_PKT4(ring, REG_A6XX_CP_MISC_CNTL, 1);
+> > +       OUT_RING(ring, 1);
+> > +
+> > +       /* Make sure the ME is synchronized before staring the update */
+> > +       OUT_PKT7(ring, CP_WAIT_FOR_ME, 0);
+> > +
+> > +       /* Execute the table update */
+> > +       OUT_PKT7(ring, CP_SMMU_TABLE_UPDATE, 4);
+> > +       OUT_RING(ring, lower_32_bits(ttbr));
+> > +       OUT_RING(ring, (((u64) asid) << 48) | upper_32_bits(ttbr));
+> > +       /* CONTEXTIDR is currently unused */
+> > +       OUT_RING(ring, 0);
+> > +       /* CONTEXTBANK is currently unused */
+> > +       OUT_RING(ring, 0);
+> 
+> I can add this to xml (on userspace side, we've been describing packet
+> payload in xml and using the generated builders), and update generated
+> headers, if you agree to not add more open-coded pkt7 building ;-)
 
-Is it too much to ask for Qualcomm to coordinate your work? I'm not
-going to do that for you. This conflicts with "[v4] dt-bindings: msm:
-disp: add yaml schemas for DPU and DSI bindings".
+But open coding opcode is so much fun! :)  Its fine to put this in the XML. It
+can only be executed from the ringbuffer FWIW.
 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dp-sc7180.yaml b/Documentation/devicetree/bindings/display/msm/dp-sc7180.yaml
-> new file mode 100644
-> index 000000000000..5fdb9153df00
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/msm/dp-sc7180.yaml
-> @@ -0,0 +1,142 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only  OR BSD-2-Clause)
+> > +
+> > +       /*
+> > +        * Write the new TTBR0 to the memstore. This is good for debugging.
+> > +        */
+> > +       OUT_PKT7(ring, CP_MEM_WRITE, 4);
+> > +       OUT_RING(ring, lower_32_bits(rbmemptr(ring, ttbr0)));
+> > +       OUT_RING(ring, upper_32_bits(rbmemptr(ring, ttbr0)));
+> > +       OUT_RING(ring, lower_32_bits(ttbr));
+> > +       OUT_RING(ring, (((u64) asid) << 48) | upper_32_bits(ttbr));
+> > +
+> > +       /* Invalidate the draw state so we start off fresh */
+> > +       OUT_PKT7(ring, CP_SET_DRAW_STATE, 3);
+> > +       OUT_RING(ring, 0x40000);
+> > +       OUT_RING(ring, 1);
+> > +       OUT_RING(ring, 0);
+> 
+> Ie, this would look like:
+> 
+>     OUT_PKT7(ring, CP_SET_DRAW_STATE, 3);
+>     OUT_RING(ring, CP_SET_DRAW_STATE__0_COUNT(0) |
+>             CP_SET_DRAW_STATE__0_DISABLE_ALL_GROUPS |
+>             CP_SET_DRAW_STATE__0_GROUP_ID(0));
+>     OUT_RING(ring, CP_SET_DRAW_STATE__1_ADDR_LO(1));
+>     OUT_RING(ring, CP_SET_DRAW_STATE__2_ADDR_HI(0));
+> 
+> .. but written that way, I think you meant ADDR_LO to be zero?
+> 
+> (it is possible we need to regen headers for that to work, the kernel
+> headers are somewhat out of date by now)
 
-Extra space.
+As we discussed on IRC this bit isn't needed because the CP_SMMU_TABLE_UPDATE
+handles it for us.  I'll remove that.
 
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/msm/dp-sc7180.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Display Port Controller.
-> +
-> +maintainers:
-> +  - Chandan Uddaraju <chandanu@codeaurora.org>
-> +  - Vara Reddy <varar@codeaurora.org>
-> +  - Tanmay Shah <tanmay@codeaurora.org>
-> +
-> +description: |
-> +  Device tree bindings for MSM Display Port which supports DP host controllers
-> +  that are compatible with VESA Display Port interface specification.
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - const: qcom,dp-display
+> BR,
+> -R
 
-That's what the h/w reference manual calls this? It should be SoC specific.
+Jordan
 
-> +
-> +  cell-index:
-> +    description: Specifies the controller instance.
+> > +
+> > +       /* Turn off APRIV */
+> > +       OUT_PKT4(ring, REG_A6XX_CP_MISC_CNTL, 1);
+> > +       OUT_RING(ring, 0);
+> > +
+> > +       /* Turn off protected mode */
+> > +       OUT_PKT7(ring, CP_SET_PROTECTED_MODE, 1);
+> > +       OUT_RING(ring, 1);
+> > +}
+> > +
+> >  static void a6xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit,
+> >         struct msm_file_private *ctx)
+> >  {
+> > @@ -89,6 +141,8 @@ static void a6xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit,
+> >         struct msm_ringbuffer *ring = submit->ring;
+> >         unsigned int i;
+> >
+> > +       a6xx_set_pagetable(gpu, ring, ctx);
+> > +
+> >         get_stats_counter(ring, REG_A6XX_RBBM_PERFCTR_CP_0_LO,
+> >                 rbmemptr_stats(ring, index, cpcycles_start));
+> >
+> > @@ -872,6 +926,18 @@ static unsigned long a6xx_gpu_busy(struct msm_gpu *gpu)
+> >         return (unsigned long)busy_time;
+> >  }
+> >
+> > +struct msm_gem_address_space *a6xx_address_space_instance(struct msm_gpu *gpu)
+> > +{
+> > +       struct msm_mmu *mmu;
+> > +
+> > +       mmu = msm_iommu_pagetable_create(gpu->aspace->mmu);
+> > +       if (IS_ERR(mmu))
+> > +               return msm_gem_address_space_get(gpu->aspace);
+> > +
+> > +       return msm_gem_address_space_create(mmu,
+> > +               "gpu", 0x100000000ULL, 0x1ffffffffULL);
+> > +}
+> > +
+> >  static const struct adreno_gpu_funcs funcs = {
+> >         .base = {
+> >                 .get_param = adreno_get_param,
+> > @@ -893,8 +959,9 @@ static const struct adreno_gpu_funcs funcs = {
+> >  #if defined(CONFIG_DRM_MSM_GPU_STATE)
+> >                 .gpu_state_get = a6xx_gpu_state_get,
+> >                 .gpu_state_put = a6xx_gpu_state_put,
+> > -               .create_address_space = adreno_iommu_create_address_space,
+> >  #endif
+> > +               .create_address_space = adreno_iommu_create_address_space,
+> > +               .address_space_instance = a6xx_address_space_instance,
+> >         },
+> >         .get_timestamp = a6xx_get_timestamp,
+> >  };
+> > diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.h b/drivers/gpu/drm/msm/msm_ringbuffer.h
+> > index 7764373d0ed2..0987d6bf848c 100644
+> > --- a/drivers/gpu/drm/msm/msm_ringbuffer.h
+> > +++ b/drivers/gpu/drm/msm/msm_ringbuffer.h
+> > @@ -31,6 +31,7 @@ struct msm_rbmemptrs {
+> >         volatile uint32_t fence;
+> >
+> >         volatile struct msm_gpu_submit_stats stats[MSM_GPU_SUBMIT_STATS_COUNT];
+> > +       volatile u64 ttbr0;
+> >  };
+> >
+> >  struct msm_ringbuffer {
+> > --
+> > 2.17.1
+> >
 
-Pretty sure I already said no to this.
-
-> +
-> +  reg:
-> +    items:
-> +      - description: DP controller registers
-
-Just: 'maxItems: 1'
-
-> +
-> +  interrupts:
-> +    description: The interrupt signal from the DP block.
-
-How many?
-
-The description is useless. That's every 'interrupts'.
-
-> +
-> +  clocks:
-> +    description: List of clock specifiers for clocks needed by the device.
-
-That's every 'clocks' property. Drop.
-
-> +    items:
-> +      - description: Display Port AUX clock
-> +      - description: Display Port Link clock
-> +      - description: Link interface clock between DP and PHY
-> +      - description: Display Port Pixel clock
-> +      - description: Root clock generator for pixel clock
-> +
-> +  clock-names:
-> +    description: |
-> +      Device clock names in the same order as mentioned in clocks property.
-> +      The required clocks are mentioned below.
-
-Drop.
-
-> +    items:
-> +      - const: core_aux
-> +      - const: ctrl_link
-> +      - const: ctrl_link_iface
-> +      - const: stream_pixel
-> +      - const: pixel_rcg
-
-blank line
-
-> +  "#clock-cells":
-> +    const: 1
-> +
-> +  vdda-1p2-supply:
-> +    description: phandle to vdda 1.2V regulator node.
-> +
-> +  vdda-0p9-supply:
-> +    description: phandle to vdda 0.9V regulator node.
-> +
-> +  data-lanes = <0 1>:
-
-Err, what?!
-
-> +    type: object
-
-This is a DT node?
-
-> +    description: Maximum number of lanes that can be used for Display port.
-> +
-> +  ports:
-> +    description: |
-> +       Contains display port controller endpoint subnode.
-> +       remote-endpoint: |
-> +         For port@0, set to phandle of the connected panel/bridge's
-> +         input endpoint. For port@1, set to the DPU interface output.
-
-Look at other schemas and see how they are done.
-
-> +         Documentation/devicetree/bindings/graph.txt and
-> +         Documentation/devicetree/bindings/media/video-interfaces.txt.
-> +
-> +patternProperties:
-> +  "^aux-cfg([0-9])-settings$":
-> +    type: object
-
-This is a DT node?
-
-> +    description: |
-> +      Specifies the DP AUX configuration [0-9] settings.
-> +      The first entry in this array corresponds to the register offset
-> +      within DP AUX, while the remaining entries indicate the
-> +      programmable values.
-> +
-> +required:
-> +  - compatible
-> +  - cell-index
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +  - clock-names
-> +  - vdda-1p2-supply
-> +  - vdda-0p9-supply
-> +  - data-lanes
-> +  - ports
-
-Add:
-additionalProperties: false
-
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/qcom,dispcc-sdm845.h>
-> +    #include <dt-bindings/clock/qcom,gcc-sdm845.h>
-> +    msm_dp: displayport-controller@ae90000{
-> +        compatible = "qcom,dp-display";
-> +        cell-index = <0>;
-> +        reg = <0 0xae90000 0 0x1400>;
-> +        reg-names = "dp_controller";
-> +
-> +        interrupt-parent = <&display_subsystem>;
-> +        interrupts = <12 0>;
-> +
-> +        clocks = <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
-> +                 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
-> +                 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
-> +                 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>,
-> +                 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
-> +        clock-names = "core_aux",
-> +                      "ctrl_link",
-> +                      "ctrl_link_iface", "stream_pixel",
-> +                      "pixel_rcg";
-> +        #clock-cells = <1>;
-> +
-> +        vdda-1p2-supply = <&vreg_l3c_1p2>;
-> +        vdda-0p9-supply = <&vreg_l4a_0p8>;
-> +
-> +        data-lanes = <0 1>;
-> +
-> +        ports {
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +
-> +            port@0 {
-> +                reg = <0>;
-> +                dp_in: endpoint {
-> +                    remote-endpoint = <&dpu_intf0_out>;
-> +                };
-> +            };
-> +
-> +            port@1 {
-> +                reg = <1>;
-> +                dp_out: endpoint {
-> +                };
-> +            };
-> +        };
-> +    };
-> diff --git a/Documentation/devicetree/bindings/display/msm/dpu.txt b/Documentation/devicetree/bindings/display/msm/dpu.txt
-> index 551ae26f60da..30c8ab479b02 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dpu.txt
-> +++ b/Documentation/devicetree/bindings/display/msm/dpu.txt
-> @@ -65,6 +65,7 @@ Required properties:
->
->         Port 0 -> DPU_INTF1 (DSI1)
->         Port 1 -> DPU_INTF2 (DSI2)
-> +       Port 2 -> DPU_INTF0 (DP)
->
->  Optional properties:
->  - assigned-clocks: list of clock specifiers for clocks needing rate assignment
-> @@ -136,6 +137,13 @@ Example:
->                                                 remote-endpoint = <&dsi1_in>;
->                                         };
->                                 };
-> +
-> +                               port@2 {
-> +                                       reg = <2>;
-> +                                       dpu_intf0_out: endpoint {
-> +                                               remote-endpoint = <&dp_in>;
-> +                                       };
-> +                               };
->                         };
->                 };
->         };
-> --
-> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-> a Linux Foundation Collaborative Project
->
+-- 
+The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+a Linux Foundation Collaborative Project
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
