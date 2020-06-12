@@ -1,33 +1,40 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F13C51F73E0
-	for <lists+freedreno@lfdr.de>; Fri, 12 Jun 2020 08:23:19 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 832EE1F766A
+	for <lists+freedreno@lfdr.de>; Fri, 12 Jun 2020 12:01:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A058589CD9;
-	Fri, 12 Jun 2020 06:23:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DED36E90E;
+	Fri, 12 Jun 2020 10:01:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-blr-01.qualcomm.com (alexa-out-blr-01.qualcomm.com
- [103.229.18.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D1B989CD9;
- Fri, 12 Jun 2020 06:23:16 +0000 (UTC)
-Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
- by alexa-out-blr-01.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 12 Jun 2020 11:53:13 +0530
-Received: from mkrishn-linux.qualcomm.com ([10.204.66.35])
- by ironmsg02-blr.qualcomm.com with ESMTP; 12 Jun 2020 11:52:47 +0530
-Received: by mkrishn-linux.qualcomm.com (Postfix, from userid 438394)
- id 6C8B047A6; Fri, 12 Jun 2020 11:52:46 +0530 (IST)
-From: Krishna Manikandan <mkrishn@codeaurora.org>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Date: Fri, 12 Jun 2020 11:52:37 +0530
-Message-Id: <1591942957-18410-1-git-send-email-mkrishn@codeaurora.org>
-X-Mailer: git-send-email 1.9.1
-Subject: [Freedreno] [v2] drm/msm/dpu: request for display color blocks
- based on hw catalog entry
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 015B66E905;
+ Fri, 12 Jun 2020 10:01:41 +0000 (UTC)
+Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
+ [83.86.89.107])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 3DE6A207D8;
+ Fri, 12 Jun 2020 10:01:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1591956101;
+ bh=IBzrqa8288WHt0Vr+2XSR3sZwtmgNbA3oFvFtV3/1MQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=V2vPFMorhf1SoQns9I/vVtVFeBl5WXxk3cGLGvcK//oMZ6nuV87wkamGEdT9lVhuA
+ 5/Oh1w5iuhlsKrHP4iiWxu7+icB1Rf0xEcwk16Ht5CJX6iPxFHhhdRK7+eyyxemqAL
+ jwWFREBmJhoD2QZdkNWo5iPAze0FaCHpdXyg46S8=
+Date: Fri, 12 Jun 2020 12:01:32 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Markus Elfring <Markus.Elfring@web.de>
+Message-ID: <20200612100132.GB3157576@kroah.com>
+References: <56a615b6-9881-ff01-fa0f-8ea070fc03e7@web.de>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <56a615b6-9881-ff01-fa0f-8ea070fc03e7@web.de>
+Subject: Re: [Freedreno] [PATCH] drm/msm: Improve exception handling in
+ msm_gpu_crashstate_capture()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,76 +47,54 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: mkrishn@codeaurora.org, linux-kernel@vger.kernel.org,
- abhinavk@codeaurora.org, dianders@chromium.org, robdclark@gmail.com,
- nganji@codeaurora.org, seanpaul@chromium.org,
- Kalyan Thota <kalyan_t@codeaurora.org>, john.stultz@linaro.org,
- hoegsberg@chromium.org, mka@chromium.org
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Sean Paul <sean@poorly.run>, opensource.kernel@vivo.com,
+ David Airlie <airlied@linux.ie>, Bernard Zhao <bernard@vivo.com>,
+ kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Kalyan Thota <kalyan_t@codeaurora.org>
-
-Request for color processing blocks only if they are
-available in the display hw catalog and they are
-sufficient in number for the selection.
-
-Changes in v2:
-	- Include Fixes tag in commit message (Rob Clark)
-	- Adding the Tested by tag as there are no code
-	  changes in v2
-
-Fixes: e47616df008b ("drm/msm/dpu: add support for color processing blocks in dpu driver")
-Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
-Tested-by: John Stultz <john.stultz@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 63976dc..9f8de77 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -521,7 +521,7 @@ static struct msm_display_topology dpu_encoder_get_topology(
- 			struct dpu_kms *dpu_kms,
- 			struct drm_display_mode *mode)
- {
--	struct msm_display_topology topology;
-+	struct msm_display_topology topology = {0};
- 	int i, intf_count = 0;
- 
- 	for (i = 0; i < MAX_PHYS_ENCODERS_PER_VIRTUAL; i++)
-@@ -537,7 +537,8 @@ static struct msm_display_topology dpu_encoder_get_topology(
- 	 * 1 LM, 1 INTF
- 	 * 2 LM, 1 INTF (stream merge to support high resolution interfaces)
- 	 *
--	 * Adding color blocks only to primary interface
-+	 * Adding color blocks only to primary interface if available in
-+	 * sufficient number
- 	 */
- 	if (intf_count == 2)
- 		topology.num_lm = 2;
-@@ -546,8 +547,11 @@ static struct msm_display_topology dpu_encoder_get_topology(
- 	else
- 		topology.num_lm = (mode->hdisplay > MAX_HDISPLAY_SPLIT) ? 2 : 1;
- 
--	if (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_DSI)
--		topology.num_dspp = topology.num_lm;
-+	if (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_DSI) {
-+		if (dpu_kms->catalog->dspp &&
-+			(dpu_kms->catalog->dspp_count >= topology.num_lm))
-+			topology.num_dspp = topology.num_lm;
-+	}
- 
- 	topology.num_enc = 0;
- 	topology.num_intf = intf_count;
--- 
-1.9.1
-
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+T24gRnJpLCBKdW4gMTIsIDIwMjAgYXQgMDk6MzY6MDlBTSArMDIwMCwgTWFya3VzIEVsZnJpbmcg
+d3JvdGU6Cj4gPiBGdW5jdGlvbiBtc21fZ3B1X2NyYXNoc3RhdGVfY2FwdHVyZSBtYXliZSBjYWxs
+ZWQgZm9yIHNldmVyYWwKPiA+IHRpbWVzLCBhbmQgdGhlbiB0aGUgc3RhdGUtPmJvcyBpcyBhIHBv
+dGVudGlhbCBtZW1sZWFrLiBBbHNvCj4gPiB0aGUgc3RhdGUtPnBvcyBtYXliZSBhbGxvYyBmYWls
+ZWQsIGJ1dCBub3cgd2l0aG91dCBhbnkgaGFuZGxlLgo+ID4gVGhpcyBjaGFuZ2UgaXMgdG8gZml4
+IHNvbWUgcG90ZW50aWFsIG1lbWxlYWsgYW5kIGFkZCBlcnJvcgo+ID4gaGFuZGxlIHdoZW4gYWxs
+b2MgZmFpbGVkLgo+IAo+IEkgc3VnZ2VzdCB0byBpbXByb3ZlIHRoZSBwcm92aWRlZCBpbmZvcm1h
+dGlvbi4KPiBIb3cgZG8geW91IHRoaW5rIGFib3V0IGEgd29yZGluZyB2YXJpYW50IGxpa2UgdGhl
+IGZvbGxvd2luZz8KPiAKPiAgICBUaGUgZnVuY3Rpb24g4oCcbXNtX2dwdV9jcmFzaHN0YXRlX2Nh
+cHR1cmXigJ0gY2FuIGJlIGNhbGxlZCBtdWx0aXBsZSB0aW1lcy4KPiAgICBUaGUgbWVtYmVycyDi
+gJxjb21t4oCdLCDigJxjbWTigJ0gYW5kIOKAnGJvc+KAnSBvZiB0aGUgZGF0YSBzdHJ1Y3R1cmUg
+4oCcbXNtX2dwdV9zdGF0ZeKAnQo+ICAgIGFyZSByZWFzc2lnbmVkIHdpdGggcG9pbnRlcnMgYWNj
+b3JkaW5nIHRvIGR5bmFtaWMgbWVtb3J5IGFsbG9jYXRpb25zCj4gICAgaWYgdGhlIHByZXByb2Nl
+c3NvciBzeW1ib2wg4oCcQ09ORklHX0RFVl9DT1JFRFVNUOKAnSB3YXMgZGVmaW5lZC4KPiAgICBC
+dXQgdGhlIGZ1bmN0aW9uIOKAnGtmcmVl4oCdIHdhcyBub3QgY2FsbGVkIGZvciB0aGVtIGJlZm9y
+ZS4KPiAKPiAgICBUaHVzIGFkZCBtaXNzaW5nIGFjdGlvbnMuCj4gICAgKiBSZWxlYXNlIHByZXZp
+b3VzIG9iamVjdHMuCj4gICAgKiBVc2UgZnVydGhlciBudWxsIHBvaW50ZXIgY2hlY2tzLgo+ICAg
+ICogQ29tcGxldGUgdGhlIGNvcnJlc3BvbmRpbmcgZXhjZXB0aW9uIGhhbmRsaW5nLgo+IAo+IAo+
+IFdvdWxkIHlvdSBsaWtlIHRvIGFkZCB0aGUgdGFnIOKAnEZpeGVz4oCdIHRvIHRoZSBjb21taXQg
+bWVzc2FnZT8KPiBodHRwczovL2dpdC5rZXJuZWwub3JnL3B1Yi9zY20vbGludXgva2VybmVsL2dp
+dC90b3J2YWxkcy9saW51eC5naXQvdHJlZS9Eb2N1bWVudGF0aW9uL3Byb2Nlc3Mvc3VibWl0dGlu
+Zy1wYXRjaGVzLnJzdD9pZD1iNzkxZDFiZGY5MjEyZDk0NGQ3NDlhNWM3ZmY2ZmViZGJhMjQxNzcx
+I24xODMKPiAKPiAKCkhpLAoKVGhpcyBpcyB0aGUgc2VtaS1mcmllbmRseSBwYXRjaC1ib3Qgb2Yg
+R3JlZyBLcm9haC1IYXJ0bWFuLgoKTWFya3VzLCB5b3Ugc2VlbSB0byBoYXZlIHNlbnQgYSBub25z
+ZW5zaWNhbCBvciBvdGhlcndpc2UgcG9pbnRsZXNzCnJldmlldyBjb21tZW50IHRvIGEgcGF0Y2gg
+c3VibWlzc2lvbiBvbiBhIExpbnV4IGtlcm5lbCBkZXZlbG9wZXIgbWFpbGluZwpsaXN0LiAgSSBz
+dHJvbmdseSBzdWdnZXN0IHRoYXQgeW91IG5vdCBkbyB0aGlzIGFueW1vcmUuICBQbGVhc2UgZG8g
+bm90CmJvdGhlciBkZXZlbG9wZXJzIHdobyBhcmUgYWN0aXZlbHkgd29ya2luZyB0byBwcm9kdWNl
+IHBhdGNoZXMgYW5kCmZlYXR1cmVzIHdpdGggY29tbWVudHMgdGhhdCwgaW4gdGhlIGVuZCwgYXJl
+IGEgd2FzdGUgb2YgdGltZS4KClBhdGNoIHN1Ym1pdHRlciwgcGxlYXNlIGlnbm9yZSBNYXJrdXMn
+cyBzdWdnZXN0aW9uOyB5b3UgZG8gbm90IG5lZWQgdG8KZm9sbG93IGl0IGF0IGFsbC4gIFRoZSBw
+ZXJzb24vYm90L0FJIHRoYXQgc2VudCBpdCBpcyBiZWluZyBpZ25vcmVkIGJ5CmFsbW9zdCBhbGwg
+TGludXgga2VybmVsIG1haW50YWluZXJzIGZvciBoYXZpbmcgYSBwZXJzaXN0ZW50IHBhdHRlcm4g
+b2YKYmVoYXZpb3Igb2YgcHJvZHVjaW5nIGRpc3RyYWN0aW5nIGFuZCBwb2ludGxlc3MgY29tbWVu
+dGFyeSwgYW5kCmluYWJpbGl0eSB0byBhZGFwdCB0byBmZWVkYmFjay4gIFBsZWFzZSBmZWVsIGZy
+ZWUgdG8gYWxzbyBpZ25vcmUgZW1haWxzCmZyb20gdGhlbS4KCnRoYW5rcywKCmdyZWcgay1oJ3Mg
+cGF0Y2ggZW1haWwgYm90Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ZyZWVk
+cmVubwo=
