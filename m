@@ -1,65 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93E561FD668
-	for <lists+freedreno@lfdr.de>; Wed, 17 Jun 2020 22:53:29 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id EC1EE1FD90C
+	for <lists+freedreno@lfdr.de>; Thu, 18 Jun 2020 00:40:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1051C6E190;
-	Wed, 17 Jun 2020 20:53:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 964E96E202;
+	Wed, 17 Jun 2020 22:40:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
- [IPv6:2607:f8b0:4864:20::1044])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B7946E190
- for <freedreno@lists.freedesktop.org>; Wed, 17 Jun 2020 20:53:26 +0000 (UTC)
-Received: by mail-pj1-x1044.google.com with SMTP id d6so1641655pjs.3
- for <freedreno@lists.freedesktop.org>; Wed, 17 Jun 2020 13:53:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=anholt-net.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=Rkwd2ka8Z7iO2pJxHXIRpwXonoZgh2tKHVmhTEheWDo=;
- b=ankX+yV3pTmnsA/EifSsAOqJzVbig1w1EwLxdujI9nqFQz069s7Fk775dKVyb77dZz
- lsPW2YGgbcyA3+CjH4idHRgLZ94mALQ2IjTUKoioyiNO8+//px24k4CRWfcNgZThRtrV
- SrVLqkHIkdcIAG+Ajf9KeNtMOuZC+3HGLZ/nRTDRer73f/76QobJZP52SyTCPDWBrtOP
- M7nvex6ZuDmGWg8hUvoB+co44d9rgwp6dVbl3WtsAK5Oz/bvPtC+dxGri4nOmSMHWZVV
- ciZ+p0m+yFcsotHidWlmJg1FcX0M3/PgJG2tzDLv0qYXaNrqFbr4RREJ9ZjJPMJlaxmO
- QEoA==
+Received: from mail-il1-f193.google.com (mail-il1-f193.google.com
+ [209.85.166.193])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5E9A6E202
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Jun 2020 22:40:27 +0000 (UTC)
+Received: by mail-il1-f193.google.com with SMTP id i1so3906688ils.11
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Jun 2020 15:40:27 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=Rkwd2ka8Z7iO2pJxHXIRpwXonoZgh2tKHVmhTEheWDo=;
- b=XBi1XGZALmmVpuW8Db3MYeKwc0C9J3o+sBtpRFfme1v0xXzkN6bj92kDaZB0NceObD
- 2Z/nIQO5JOSQ4PiJPbOIJAMsiaQLLZUA9Y3VARJYYckcUgT8Bi0KEwFMUyYPPYsJsyPl
- O/ar53K6HP4pro3Mn//nnM428hvclVOnzU6kfSZvozKIM11PFZXo5jxj6+HKpj2jKzo9
- X2PHkSq9VP6IYdjY9lbkmZAuR8k+chmKbSRrRtNVCY7vERn8/tU5AGhRkj/NzOEueuMJ
- XZyCZmhN+d/FtpgNnd5yN63LPUpunH5SKyUMADUcQjPHuPGylFSW9Nt8Inblc45rJOec
- DwaQ==
-X-Gm-Message-State: AOAM531F8DgCQAkgdm9k0CEs+8j+iU5v9+roHKJL+9bV+1P3jqotg7jr
- l09Tq363W9IWObu3SCxI8JG7pX0Z9ZAIMg==
-X-Google-Smtp-Source: ABdhPJwJ2UTlCE2dQ2laBUA/pxpoSp23Y3LfsK2W24qN8hJszwXs3PuSNGnOaofSqf1abQraw6x8yg==
-X-Received: by 2002:a17:90a:2683:: with SMTP id
- m3mr859532pje.196.1592427206091; 
- Wed, 17 Jun 2020 13:53:26 -0700 (PDT)
-Received: from miranda.anholt.net (c-73-11-63-120.hsd1.or.comcast.net.
- [73.11.63.120])
- by smtp.gmail.com with ESMTPSA id ca6sm392454pjb.46.2020.06.17.13.53.24
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=Zfs6fQ9dNu1WR3lr294IASeX3pxyyPciqezJugqbLdg=;
+ b=NBbCpdI3jiPyGj4FRpGvVT0oHibYOskwVntqrdIVW5FO1zfjHDrHWLqFWMT6QOcnKE
+ 9gw8ciy4mhZ1F7YwZ3nFBlysGbMJDz88PCoZYh8u1WqHWZ5jUkUHaD/6ffRnrR/jLmGG
+ 8ufHKwUHN7NMqNtsC5oxHJWAXL5lFkHAUO760Tt9Q4lDUiiGOQcx2Q9OvPUGCmGXgQmh
+ oqOkLl+PHGhP7GjEyD4Y/ZCPrD171IaAtdBusI8Wh5rqH3uusDuBJCeJ6JZ8GcPcFTSc
+ W1FdtHXcUPGcV0GjKqaW0OTDxxUO+irOBNwQBLLv2dBOv42sDpr4kjA6ob7OtqSl6q+q
+ MNPw==
+X-Gm-Message-State: AOAM533xbOXyASI27kI+tQq7sX1AJuMDOIUHl2h9vKjaYqkmqwrixca4
+ h1ot9JyndcYiCW8m2sUvSA==
+X-Google-Smtp-Source: ABdhPJzRwz/0uaYi76fA5Zd1pUASZHPvWS/+PxMD1pnVAfG3nH0ehNSUR64R0ytuzMsQ9XxUG4dQDg==
+X-Received: by 2002:a05:6e02:ef2:: with SMTP id
+ j18mr1221721ilk.69.1592433627244; 
+ Wed, 17 Jun 2020 15:40:27 -0700 (PDT)
+Received: from xps15 ([64.188.179.253])
+ by smtp.gmail.com with ESMTPSA id c85sm537559ilg.41.2020.06.17.15.40.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Jun 2020 13:53:25 -0700 (PDT)
-From: Eric Anholt <eric@anholt.net>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Jordan Crouse <jcrouse@codeaurora.org>
-Date: Wed, 17 Jun 2020 13:53:10 -0700
-Message-Id: <20200617205310.2183722-2-eric@anholt.net>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200617205310.2183722-1-eric@anholt.net>
-References: <20200617205310.2183722-1-eric@anholt.net>
+ Wed, 17 Jun 2020 15:40:26 -0700 (PDT)
+Received: (nullmailer pid 2970050 invoked by uid 1000);
+ Wed, 17 Jun 2020 22:40:25 -0000
+Date: Wed, 17 Jun 2020 16:40:25 -0600
+From: Rob Herring <robh@kernel.org>
+To: Jordan Crouse <jcrouse@codeaurora.org>
+Message-ID: <20200617224025.GA2969998@bogus>
+References: <20200611222128.28826-1-jcrouse@codeaurora.org>
+ <20200611222128.28826-4-jcrouse@codeaurora.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 2/2] drm/msm: Fix setup of a6xx
- create_address_space.
+Content-Disposition: inline
+In-Reply-To: <20200611222128.28826-4-jcrouse@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH v8 3/7] dt-bindings: arm-smmu: Add
+ compatible string for Adreno GPU SMMU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,38 +61,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eric Anholt <eric@anholt.net>, linux-kernel@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, Will Deacon <will@kernel.org>,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Joerg Roedel <joro@8bytes.org>, linux-kernel@vger.kernel.org,
+ iommu@lists.linux-foundation.org, Rob Herring <robh+dt@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-We don't want it under CONFIG_DRM_MSM_GPU_STATE, we need it all the
-time (like the other GPUs do).
+On Thu, 11 Jun 2020 16:21:24 -0600, Jordan Crouse wrote:
+> Every Qcom Adreno GPU has an embedded SMMU for its own use. These
+> devices depend on unique features such as split pagetables,
+> different stall/halt requirements and other settings. Identify them
+> with a compatible string so that they can be identified in the
+> arm-smmu implementation specific code.
+> 
+> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
+> ---
+> 
+>  Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
 
-Fixes: ccac7ce373c1 ("drm/msm: Refactor address space initialization")
-Signed-off-by: Eric Anholt <eric@anholt.net>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index a1589e040c57..7768557cdfb2 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -893,8 +893,8 @@ static const struct adreno_gpu_funcs funcs = {
- #if defined(CONFIG_DRM_MSM_GPU_STATE)
- 		.gpu_state_get = a6xx_gpu_state_get,
- 		.gpu_state_put = a6xx_gpu_state_put,
--		.create_address_space = adreno_iommu_create_address_space,
- #endif
-+		.create_address_space = adreno_iommu_create_address_space,
- 	},
- 	.get_timestamp = a6xx_get_timestamp,
- };
--- 
-2.26.2
-
+Reviewed-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
