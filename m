@@ -1,61 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 843B51FD591
-	for <lists+freedreno@lfdr.de>; Wed, 17 Jun 2020 21:52:55 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 959BB1FD5DB
+	for <lists+freedreno@lfdr.de>; Wed, 17 Jun 2020 22:16:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 064056E145;
-	Wed, 17 Jun 2020 19:52:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 549A06E17D;
+	Wed, 17 Jun 2020 20:16:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com
- [IPv6:2607:f8b0:4864:20::1042])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94BD16E145
- for <freedreno@lists.freedesktop.org>; Wed, 17 Jun 2020 19:52:53 +0000 (UTC)
-Received: by mail-pj1-x1042.google.com with SMTP id h22so1580281pjf.1
- for <freedreno@lists.freedesktop.org>; Wed, 17 Jun 2020 12:52:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:content-transfer-encoding:in-reply-to:references
- :subject:from:cc:to:date:message-id:user-agent;
- bh=LQsBfLuHQnXebs8tzUx0QZBobI6Ci5amH7vvKmW561c=;
- b=inVPy6Ehzcbr6FMktQ9CscKqG1doUmPe8FrnEKF0cVTb6589k12gpmi0AgjKifH7Sv
- M/DNoIl+ecZcJTAkS/5cwcxZxR+ha44f7/BQKoOYcrPMS3XRO5WP5gQhIfYAi/ODkZfy
- UG4FBXOf0RIrDWQgAHk2N4sP9zsAJhSMWYqrU=
+Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
+ [IPv6:2a00:1450:4864:20::242])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68C826E177
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Jun 2020 20:16:19 +0000 (UTC)
+Received: by mail-lj1-x242.google.com with SMTP id s1so4532918ljo.0
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Jun 2020 13:16:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=anholt-net.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=llMR4XP929ZlX0ktOlskzBn+oIEoOfRqB8eqQjrjFOM=;
+ b=RcjQboxpASiHG7fxPLYiYz5Qsa067b/Y7vl562EyU/eKD/7YLcsaUuCfIdUTFBIHmw
+ wHu1OwrDlNQHnWt4Ew9oNmuKIrDMqXCfolYHnFGrjkmeyGXdLquSjo3gFjVUR1nfQq/i
+ ZK6t1/zTyaUNnP5hURPNXEeotoLQhdR6NJOnbSNL2A0LapL/0QmmidRZK86i5GdxS0L9
+ jP1ZHgwGyeRQrZuUnxjyUCHcPXBBM3N5+LS4Ao9rF9K25pqmqaMxUzIWODCR9fG0TcDO
+ bi+9IEPa45OkrbM3kjub8tE3MWQeGbESE0rN8pj6AZO0BV4H+yNG5Einj+yC97ghVEgl
+ z+nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:content-transfer-encoding
- :in-reply-to:references:subject:from:cc:to:date:message-id
- :user-agent;
- bh=LQsBfLuHQnXebs8tzUx0QZBobI6Ci5amH7vvKmW561c=;
- b=OFkLb+Y4DxzPkWkLWaiIPGaIRsNa6Hv0FJBpf23nBNH/NsrZXGOY5Ut6cXX/a9+r+T
- c0YGt4nwfEG6BiOkpaWfBhhwvVChh3cAN1/K1U6buIoCXARIe1I04/OQM0EJRCpkWkYt
- gugpnA9tl9JvMlIfn4lQoXhmAjAniUT2MzJVrE4AKPyQNtf5Y3AM8wWGzTGuKgqq+q9g
- bqZ1zXTz2WqVqhtlZwtof/CUJ15CjyooNCG48byKPfWmOWusftwNRdV1PpeOoYvt3loZ
- fDBBCSumT8BIbmHfxfob2qQM1AdXc2W2978rt0G2iOh2dJnRFD3ijI0IzKQDDND1x0jn
- q8ag==
-X-Gm-Message-State: AOAM530dXlPIVmn7DTW92C/aQ5Rx6DmLftZsDl6FJFyC2PobcmgBmWsn
- 9zTvqDlwWsA38PPzWOxbxj0alXmaGho=
-X-Google-Smtp-Source: ABdhPJwJUycm8yXEm5q4JlYs31av1QS4bD6y+lVigYkxB8za+MHnq+pjRLRvt0SqgjrtnPemqxALvA==
-X-Received: by 2002:a17:90a:7785:: with SMTP id v5mr681689pjk.31.1592423573026; 
- Wed, 17 Jun 2020 12:52:53 -0700 (PDT)
-Received: from chromium.org ([2620:15c:202:1:fa53:7765:582b:82b9])
- by smtp.gmail.com with ESMTPSA id i3sm355161pjv.1.2020.06.17.12.52.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Jun 2020 12:52:52 -0700 (PDT)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=llMR4XP929ZlX0ktOlskzBn+oIEoOfRqB8eqQjrjFOM=;
+ b=BZt/cOasPTvi8g7yW7cVsbsSUcYG3xlg9uOouOaeTIhQqdBeOP2/dT4HjmRSNyuLXZ
+ 80LBYHQ7oPsEatEJFBLP8XPS1zfiUWLs2JpkZC/18Gk9OOL1BKsTG9RRCLxJ+wZYEFZB
+ /B4Mo6e3YeOYprXlh2hU/REmGCzVfG1DiVeJK5jNT2UDFvm0S8PBHUu6c94+TmRD0Z+e
+ thGmHqOlfi00tx+QEHo3rW7kLAGfmiSTn5Kz99znVsQUGO9IkIF729uU8SdgxIaxnvAc
+ qdMc2XwHc12SivKyxrVFjkXG+2YT8RRLflXUJ1r5tltKrJ6ZGK1rzGeCeXVvd7SrcE+J
+ LlWg==
+X-Gm-Message-State: AOAM530F6rx7WNRwPET23wzGpGDxhtHs19zRBCTSI6nJWV2YlsBfb2yW
+ BL72r31CSkuubgtCZwTuoJp0W3iL33pQe+Cq/zvqLA==
+X-Google-Smtp-Source: ABdhPJwSuKXzvk5zn5fk4tSXh655bmsbFyqQJkONPwl29Qe0rVGDqzm/i/OqfAbWrrePE2TK2xM+/wTuvOvXd6Q6bW8=
+X-Received: by 2002:a2e:9147:: with SMTP id q7mr513712ljg.430.1592424977772;
+ Wed, 17 Jun 2020 13:16:17 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAL_JsqLsp6gR_=nA36usk67n7+EJOoxt-87R5zc1_DXpap5cag@mail.gmail.com>
-References: <20200612015030.16072-1-tanmay@codeaurora.org>
- <20200612015030.16072-2-tanmay@codeaurora.org>
- <159230611219.62212.8262135380349283774@swboyd.mtv.corp.google.com>
- <CAL_JsqLsp6gR_=nA36usk67n7+EJOoxt-87R5zc1_DXpap5cag@mail.gmail.com>
-From: Stephen Boyd <swboyd@chromium.org>
-To: Rob Herring <robh+dt@kernel.org>
-Date: Wed, 17 Jun 2020 12:52:51 -0700
-Message-ID: <159242357167.62212.6568995439730589763@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.9
-Subject: Re: [Freedreno] [PATCH v6 1/5] dt-bindings: msm/dp: add bindings of
- DP/DP-PLL driver for Snapdragon
+References: <20200409233350.6343-1-jcrouse@codeaurora.org>
+ <20200409233350.6343-5-jcrouse@codeaurora.org>
+In-Reply-To: <20200409233350.6343-5-jcrouse@codeaurora.org>
+From: Eric Anholt <eric@anholt.net>
+Date: Wed, 17 Jun 2020 13:16:06 -0700
+Message-ID: <CADaigPWJDEwPZyUyEO9H3=+zzdEX=h+gSa-w1ppNpM9ryY0LZA@mail.gmail.com>
+To: Jordan Crouse <jcrouse@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH v6 4/5] drm/msm: Refactor address space
+ initialization
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,63 +63,82 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, aravindh@codeaurora.org,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>, linux-kernel@vger.kernel.org,
- dri-devel <dri-devel@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <seanpaul@chromium.org>, Tanmay Shah <tanmay@codeaurora.org>,
- Vara Reddy <varar@codeaurora.org>, freedreno <freedreno@lists.freedesktop.org>,
- Sam Ravnborg <sam@ravnborg.org>, Chandan Uddaraju <chandanu@codeaurora.org>
+Cc: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, David Airlie <airlied@linux.ie>,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ AngeloGioacchino Del Regno <kholk11@gmail.com>, will@kernel.org,
+ Wen Yang <wen.yang99@zte.com.cn>, Sam Ravnborg <sam@ravnborg.org>,
+ Ben Dooks <ben.dooks@codethink.co.uk>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Brian Masney <masneyb@onstation.org>, linux-arm-msm@vger.kernel.org,
+ Sharat Masetty <smasetty@codeaurora.org>, Robin Murphy <robin.murphy@arm.com>,
+ Alexios Zavras <alexios.zavras@intel.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Sean Paul <sean@poorly.run>,
+ Allison Randal <allison@lohutok.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ LKML <linux-kernel@vger.kernel.org>, zhengbin <zhengbin13@huawei.com>,
+ iommu@lists.linux-foundation.org, tongtiangen <tongtiangen@huawei.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Drew Davenport <ddavenport@chromium.org>,
+ Wambui Karuga <wambui.karugax@gmail.com>, freedreno@lists.freedesktop.org,
+ Georgi Djakov <georgi.djakov@linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Rob Herring (2020-06-17 08:38:20)
-> On Tue, Jun 16, 2020 at 5:15 AM Stephen Boyd <swboyd@chromium.org> wrote:
-> >
-> > Quoting Tanmay Shah (2020-06-11 18:50:26)
-> > > diff --git a/Documentation/devicetree/bindings/display/msm/dp-sc7180.yaml b/Documentation/devicetree/bindings/display/msm/dp-sc7180.yaml
-> > > new file mode 100644
-> > > index 000000000000..5fdb9153df00
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/display/msm/dp-sc7180.yaml
-> > > @@ -0,0 +1,142 @@
-> > > +        data-lanes = <0 1>;
-> > > +
-> > > +        ports {
-> > > +            #address-cells = <1>;
-> > > +            #size-cells = <0>;
-> > > +
-> > > +            port@0 {
-> > > +                reg = <0>;
-> > > +                dp_in: endpoint {
-> > > +                    remote-endpoint = <&dpu_intf0_out>;
-> > > +                };
-> > > +            };
-> > > +
-> > > +            port@1 {
-> > > +                reg = <1>;
-> > > +                dp_out: endpoint {
-> >
-> > Just curious what is eventually connected here? This is possibly a
-> > question for Rob Herring, but I can't figure out how we're supposed to
-> > connect this to the USB type-c connector that is receiving the DP
-> > signal. Does the type-c connector binding support connecting to this end
-> > of the graph? Or should this connect to the DP phy and then the phy
-> > connects to the USB type-c connector node? Right now it is empty which
-> > seems wrong.
-> 
-> It should connect to the Type-C connector perhaps thru some sort of
-> switching/muxing node, but that's not really flushed out though. See
-> 'dt-bindings: chrome: Add cros-ec-typec mux props' discussion with
-> your CrOS colleagues.
-> 
+On Thu, Apr 9, 2020 at 4:34 PM Jordan Crouse <jcrouse@codeaurora.org> wrote:
+>
+> Refactor how address space initialization works. Instead of having the
+> address space function create the MMU object (and thus require separate but
+> equal functions for gpummu and iommu) use a single function and pass the
+> MMU struct in. Make the generic code cleaner by using target specific
+> functions to create the address space so a2xx can do its own thing in its
+> own space.  For all the other targets use a generic helper to initialize
+> IOMMU but leave the door open for newer targets to use customization
+> if they need it.
 
-Ok. I see that we have an sbu endpoint for an aux channel but not a DP
-endpoint in the type-c connector. I guess it's an alternate mode of the
-connector too so maybe that complicates things. I'll talk to pmalani.
-Thanks.
+I'm seeing regressions in dEQP-VK.memory.allocation.random.* on cheza
+after this commit.   The symptom is that large allocations fail with
+-ENOSPC from MSM_GEM_INFO(IOVA).
+
+Possibly relevant change from having stuffed some debug info in:
+
+before:
+[    3.791436] [drm:msm_gem_address_space_create] *ERROR* msmgem
+address space create: 0x1000000 + 0xfeffffff
+[    3.801672] platform 506a000.gmu: Adding to iommu group 6
+[    3.807359] [drm:msm_gem_address_space_create] *ERROR* msmgem
+address space create: 0x0 + 0x7fffffff
+[    3.817140] msm ae00000.mdss: bound 5000000.gpu (ops a3xx_ops)
+[    3.823212] msm_dpu ae01000.mdp: [drm:msm_ioremap] *ERROR* failed
+to get memory resource: vbif_nrt
+[    3.832429] msm_dpu ae01000.mdp: [drm:msm_ioremap] *ERROR* failed
+to get memory resource: regdma
+[    3.841478] [drm:dpu_kms_hw_init:878] dpu hardware revision:0x40000000
+[    3.848193] [drm:msm_gem_address_space_create] *ERROR* msmgem
+address space create: 0x1000 + 0xffffefff
+
+after:
+
+[    3.798707] [drm:msm_gem_address_space_create] *ERROR* msmgem
+address space create: 0x1000000 + 0xfffffff
+[    3.808731] platform 506a000.gmu: Adding to iommu group 6
+[    3.814440] [drm:msm_gem_address_space_create] *ERROR* msmgem
+address space create: 0x0 + 0x7fffffff
+[    3.820494] hub 2-1:1.0: USB hub found
+[    3.824108] msm ae00000.mdss: bound 5000000.gpu (ops a3xx_ops)
+[    3.828554] hub 2-1:1.0: 4 ports detected
+[    3.833756] msm_dpu ae01000.mdp: [drm:msm_ioremap] *ERROR* failed
+to get memory resource: vbif_nrt
+[    3.847038] msm_dpu ae01000.mdp: [drm:msm_ioremap] *ERROR* failed
+to get memory resource: regdma
+[    3.856095] [drm:dpu_kms_hw_init:878] dpu hardware revision:0x40000000
+[    3.862840] [drm:msm_gem_address_space_create] *ERROR* msmgem
+address space create: 0x1000 + 0xfffffff
+
+256MB for GMU address space?
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
