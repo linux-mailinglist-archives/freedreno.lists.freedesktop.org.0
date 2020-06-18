@@ -2,42 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36CC41FDDEA
-	for <lists+freedreno@lfdr.de>; Thu, 18 Jun 2020 03:29:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 820221FE70A
+	for <lists+freedreno@lfdr.de>; Thu, 18 Jun 2020 04:38:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB3586EA57;
-	Thu, 18 Jun 2020 01:29:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC94C6EA04;
+	Thu, 18 Jun 2020 02:38:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 790FC6EA57;
- Thu, 18 Jun 2020 01:29:26 +0000 (UTC)
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
- [73.47.72.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 686C922209;
- Thu, 18 Jun 2020 01:29:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592443766;
- bh=03fCVU5g+JP9egRymhbYN0IgM6S53R3OBv/GHqButBc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=EKRAVZ7ktGdUMrbz3FCXiAN6ZIbJUm+HKEMAmfzbT0cBuippokiHVU4BWecPAKRPL
- GKsgIvM/7mPYSQQBQeKEWAagMfrUPEhMYxACWehhKOCcBsXUm0XfS5/qbxvBEWq+pE
- VqkXyhv0JAIa6zJubkMS47CKPd77DxZJii7Xtvls=
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Wed, 17 Jun 2020 21:27:50 -0400
-Message-Id: <20200618012819.609778-51-sashal@kernel.org>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200618012819.609778-1-sashal@kernel.org>
-References: <20200618012819.609778-1-sashal@kernel.org>
+Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
+ [IPv6:2a00:1450:4864:20::542])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 206626E0AC;
+ Thu, 18 Jun 2020 02:38:42 +0000 (UTC)
+Received: by mail-ed1-x542.google.com with SMTP id s28so3628076edw.11;
+ Wed, 17 Jun 2020 19:38:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=fn1oTj1MrOMqfg06EDKwAoYxj2Z3VWdebP8hXUOa11U=;
+ b=tVzXDIaw2NKS50gVeUXfTpB8tddn0VcobFGhMm9eW4rWh53jLNluzEtW2Ye4XHjQCS
+ kauGt+ouda2dca8jgapjjNZ2xaQ3fyM6h95VX/sKcOPrEq3Ahr7UHqjxX+3SUugDzKIN
+ jvSCgNBduyixkI8ID3xdsETMLX87i30zgGTWVZmwCsNRSLZdrX0/6g17gipF/fFokvWe
+ aUGi3WOtioAdevo+TTeg6PJvGKk7uRgzRn6eFQrieovVKFwBpHzcaZrJlWnaXgSyz/5A
+ pUkPBdTWrI+9tv+3azvnVTTJe+Q5JOh0KI2M6RiK12ZW1un3uFGu/nwB6zBMXBAUq2JE
+ sNug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=fn1oTj1MrOMqfg06EDKwAoYxj2Z3VWdebP8hXUOa11U=;
+ b=FClsy7rjCHAXESViD1Ts0kiACOnsNnkQ2l6agnBiM/2uIrkYM6AuwQtCJrcTlL94xy
+ puybuJk6NLXi8HYtZhbkh4Sd+BuRNQCMxx0idx2wurTnLaCp7l+IIt2tNzP8GRJyEgzi
+ Zg5Q8Oz4jKUxQngcX/Kg9YW05anUMoqOEHRDRzs17HgVndpiFH0/I3J5/HhSsc0DGnTU
+ ogvveG7DWL37k6E3+RQt/x1vjMeaXD/V/+pqlJMeSrUQ7pRBLjXWMHDqTVC7aZCwiqc6
+ qsaY3vtPEAXjulPMF9uHzVJ4POeMbK3cPBM49TqjIi0h6LKXlC9PuDZ9JhiTPOmvCc65
+ FXsA==
+X-Gm-Message-State: AOAM531zJpE5r6at/Ta8SgihG5qr0rmuvxLXRD/5hgTi5IbmeKYM9oqQ
+ Svwo4TaU9QfoZe20ZzdwtxTE44VvQlWSNkOjwF0=
+X-Google-Smtp-Source: ABdhPJwHVmIzvsNJeU6cQ52qJLQTS+rkoE2LIe9n+nnNDPP/fDkExgJg3wMLxUOIqWX8Y9YnQTQ0DkMuOdCUjA5NOUI=
+X-Received: by 2002:aa7:da14:: with SMTP id r20mr2030808eds.7.1592447920293;
+ Wed, 17 Jun 2020 19:38:40 -0700 (PDT)
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Subject: [Freedreno] [PATCH AUTOSEL 4.9 51/80] drm/msm/mdp5: Fix mdp5_init
- error path for failed mdp5_kms allocation
+References: <20200617205310.2183722-1-eric@anholt.net>
+In-Reply-To: <20200617205310.2183722-1-eric@anholt.net>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 17 Jun 2020 19:39:08 -0700
+Message-ID: <CAF6AEGu1jV+SWg8apDdq5QghGUvr1wKV38R8XwTL97VXfVUmdQ@mail.gmail.com>
+To: Eric Anholt <eric@anholt.net>
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm: Fix address space size after
+ refactor.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,47 +61,60 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Sasha Levin <sashal@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Roy Spliet <nouveau@spliet.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
- freedreno@lists.freedesktop.org
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Roy Spliet <nouveau@spliet.org>
+On Wed, Jun 17, 2020 at 1:53 PM Eric Anholt <eric@anholt.net> wrote:
+>
+> Previously the address space went from 16M to ~0u, but with the
+> refactor one of the 'f's was dropped, limiting us to 256MB.
+> Additionally, the new interface takes a start and size, not start and
+> end, so we can't just copy and paste.
+>
+> Fixes regressions in dEQP-VK.memory.allocation.random.*
+>
+> Fixes: ccac7ce373c1 ("drm/msm: Refactor address space initialization")
+> Signed-off-by: Eric Anholt <eric@anholt.net>
 
-[ Upstream commit e4337877c5d578722c0716f131fb774522013cf5 ]
 
-When allocation for mdp5_kms fails, calling mdp5_destroy() leads to undefined
-behaviour, likely a nullptr exception or use-after-free troubles.
+rebased on https://patchwork.freedesktop.org/series/78281/ (which
+fixed half of the problem) and pushed this and 2/2 to msm-next so it
+should show up in linux-next shortly..
 
-Signed-off-by: Roy Spliet <nouveau@spliet.org>
-Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
-Signed-off-by: Rob Clark <robdclark@chromium.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/msm/mdp/mdp5/mdp5_kms.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+planning to wait a short time more to see if we find any other issues
+and then send a -fixes PR
 
-diff --git a/drivers/gpu/drm/msm/mdp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/mdp/mdp5/mdp5_kms.c
-index ed7143d35b25..6224aca7cd29 100644
---- a/drivers/gpu/drm/msm/mdp/mdp5/mdp5_kms.c
-+++ b/drivers/gpu/drm/msm/mdp/mdp5/mdp5_kms.c
-@@ -769,7 +769,8 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
- 
- 	return 0;
- fail:
--	mdp5_destroy(pdev);
-+	if (mdp5_kms)
-+		mdp5_destroy(pdev);
- 	return ret;
- }
- 
--- 
-2.25.1
+BR,
+-R
 
+
+> ---
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> index 89673c7ed473..5db06b590943 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -194,7 +194,7 @@ adreno_iommu_create_address_space(struct msm_gpu *gpu,
+>         struct msm_gem_address_space *aspace;
+>
+>         aspace = msm_gem_address_space_create(mmu, "gpu", SZ_16M,
+> -               0xfffffff);
+> +               0xffffffff - SZ_16M);
+>
+>         if (IS_ERR(aspace) && !IS_ERR(mmu))
+>                 mmu->funcs->destroy(mmu);
+> --
+> 2.26.2
+>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
