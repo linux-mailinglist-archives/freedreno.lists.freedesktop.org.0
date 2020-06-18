@@ -1,56 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6657B1FFA8C
-	for <lists+freedreno@lfdr.de>; Thu, 18 Jun 2020 19:51:47 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 987FF1FFDC6
+	for <lists+freedreno@lfdr.de>; Fri, 19 Jun 2020 00:16:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6A126E0A8;
-	Thu, 18 Jun 2020 17:51:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4908C6E45D;
+	Thu, 18 Jun 2020 22:16:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com
- [IPv6:2a00:1450:4864:20::544])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F135E6E0A8
- for <freedreno@lists.freedesktop.org>; Thu, 18 Jun 2020 17:51:44 +0000 (UTC)
-Received: by mail-ed1-x544.google.com with SMTP id k8so5562797edq.4
- for <freedreno@lists.freedesktop.org>; Thu, 18 Jun 2020 10:51:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+Received: from mail-ot1-x344.google.com (mail-ot1-x344.google.com
+ [IPv6:2607:f8b0:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DBE96E45D
+ for <freedreno@lists.freedesktop.org>; Thu, 18 Jun 2020 22:16:12 +0000 (UTC)
+Received: by mail-ot1-x344.google.com with SMTP id n6so5845194otl.0
+ for <freedreno@lists.freedesktop.org>; Thu, 18 Jun 2020 15:16:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ALa+SFwGzID8ImPZvd/gh7ARze4v8XOQHS7yiSmNJ4I=;
- b=SgQoR3eLlenv2EqOGQxFKzxE+LEAoZd2LeBa17s0BulocCdPhVnwc/AjmcEFLerf/W
- aqaQ9dh2Gy+QnOP2b9ZNgN9hE5N7Mg6NNKeOr+wShT6MPOhvTLKpbB50c8eSlI4oAR6q
- j34KB0Fds6dXEtnIBAYA2Gv/kTmgDkQS7pYYYnviuF4qpRt7YCVHzJqyJ0amUfNjssCq
- vUy6ocsLj4l43A8QstDRMyxeqkezWcZeTJJhp4AaREpJjiLWCJGuSWHwm6unggqatESk
- Q1Q2KsGQ2XHqYCJVUuMxz1P3ny9ZFy94ex4Mfs8rr01kl6JX2eH9I3DpL0dR9b23zKpq
- nlBQ==
+ :cc; bh=rIJ2X6dOzoq0wY6kg8iKEYYmkTTN8+C1IDuvViUAAlw=;
+ b=lVrFJvl5mDjocLA105kchQDYwRR/Mq9nlcXy/owwADieAZYgAuGsjK3xpftm0NXclu
+ BDh1QPoJU1TPpXMWq0DmrgoRSIGzBPlrIy8he0In3LWP8m83XqE+r0HZadf/sXAFVj2e
+ IayO8IVxHmcZK2mLywOzCBqLmikiRhPA0Z8ME=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=ALa+SFwGzID8ImPZvd/gh7ARze4v8XOQHS7yiSmNJ4I=;
- b=nMjxyHsu+5tysKV/xYwc/vmbemJ5FAJcfc0+S9Z/zX6GK+2WqpdJNnVPfQ83G8oE03
- JCB0NLA18lZ+y0fnL2jOzFh7YT8reX/B3iUrYQqzLFxCAYwXAZbMydl2KRDzI40GVpdE
- FZjixNviJ8v6P8yG1s7JcPCWqr+TP7dPOiS7r3SiQl2bjd5RH0RFrtGYnsQlQgLDmPmx
- 7Nd5IwK8dSfcDI8UhYlSLvsQwsv/3ZD5AUO7BpF8KHXXNOySkYUKU5sKOtW6E0EqrO1K
- 2qGf3XHViLx2NFX9SwsoEimaDbFZupMvhwRc1ICqYrKlRdTmqMZhXCBOqBdV85lss0ZG
- MAOA==
-X-Gm-Message-State: AOAM5315nHNOslgk78BGrHbdN3Kz9+z172yP8IZ5idp23z+g9quK1V3v
- ebIheMFP6lwYYcpVL5mG2QVR88eyyCMpeQ7/lEw=
-X-Google-Smtp-Source: ABdhPJytB/UGD6hAjCOD+C83JzUvprqjIblQkleRxGZnaqiWH+UmVftWllPhJH3q1p69SQBfjLGK67ruQqCw921y6wI=
-X-Received: by 2002:a05:6402:699:: with SMTP id
- f25mr5150523edy.281.1592502702509; 
- Thu, 18 Jun 2020 10:51:42 -0700 (PDT)
+ bh=rIJ2X6dOzoq0wY6kg8iKEYYmkTTN8+C1IDuvViUAAlw=;
+ b=fjxGP9Mn0Q4dsXWibmBjVTLAKr4+2YeCINov//0zAEMtyDaDPrrG7ZXlZT2Yrp7ux5
+ soKj4lBBYnGsjihvTrBDvcIpiryho6IIr2rN/Jmi8a0M9d2mi4U3I0THk8JET+TJdtT6
+ 9/ruxoGytjgEAdoutenbcEsUdHe5NiYABPrgHodtHNyPO1HraVKQaAVH/q4AHqlh4WSr
+ WuNwInvvLM6jbt2s6beUGaw+Yk7bchaboGQockktxoxj17YRuaqa7VJoJxUmUCqPYIFq
+ Q0r8dGm5cv08hyelMvrclKd9Y27tu0UO2PlythSO+FZpk+sXwlrLRl4j8b5XmKE6fO5Y
+ QrZw==
+X-Gm-Message-State: AOAM530zuP5Z4EmgbW5s93TLQr2SR+yKHBifm9xXfvZpTpCdObR7IZcQ
+ LlYLsXvkBhPO72JECQcv6hinfFPe8qw=
+X-Google-Smtp-Source: ABdhPJxonO6EdBHARDdJkAvwpGcN2Ffe4kgTZ/KEkQ8sDgm8Fbjo1yDXwMZkz7TY2Nj7ofbpVy/niQ==
+X-Received: by 2002:a05:6830:1657:: with SMTP id
+ h23mr758541otr.339.1592518571388; 
+ Thu, 18 Jun 2020 15:16:11 -0700 (PDT)
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com.
+ [209.85.210.49])
+ by smtp.gmail.com with ESMTPSA id p9sm1001115ota.24.2020.06.18.15.16.11
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 18 Jun 2020 15:16:11 -0700 (PDT)
+Received: by mail-ot1-f49.google.com with SMTP id d4so5836050otk.2
+ for <freedreno@lists.freedesktop.org>; Thu, 18 Jun 2020 15:16:11 -0700 (PDT)
+X-Received: by 2002:a9f:3b1c:: with SMTP id i28mr501831uah.22.1592518164952;
+ Thu, 18 Jun 2020 15:09:24 -0700 (PDT)
 MIME-Version: 1.0
-References: <1591417551-38051-1-git-send-email-smasetty@codeaurora.org>
- <1591417551-38051-3-git-send-email-smasetty@codeaurora.org>
-In-Reply-To: <1591417551-38051-3-git-send-email-smasetty@codeaurora.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 18 Jun 2020 10:52:09 -0700
-Message-ID: <CAF6AEGva1DyFc1P_5+U=P+Sh-ngN9PyN6Hh2ZXBnxB952UQ54w@mail.gmail.com>
-To: Sharat Masetty <smasetty@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v3 2/6] drm: msm: a6xx: send opp instead of
- a frequency
+References: <20200609120455.20458-1-harigovi@codeaurora.org>
+In-Reply-To: <20200609120455.20458-1-harigovi@codeaurora.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 18 Jun 2020 15:09:13 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=XHHAAWNkJGMJESf4C=hcbaswFamGVeyMJ9eRd6dWAy8Q@mail.gmail.com>
+Message-ID: <CAD=FV=XHHAAWNkJGMJESf4C=hcbaswFamGVeyMJ9eRd6dWAy8Q@mail.gmail.com>
+To: Harigovindan P <harigovi@codeaurora.org>,
+ Neil Armstrong <narmstrong@baylibre.com>, 
+ Andrzej Hajda <a.hajda@samsung.com>
+Subject: Re: [Freedreno] [v3] drm/bridge: ti-sn65dsi86: ensure bridge
+ suspend happens during PM sleep
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,208 +73,77 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Jonathan <jonathan@marek.ca>,
- saravanak@google.com, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, Matthias Kaehlcke <mka@chromium.org>,
- dri-devel@freedesktop.org, Viresh Kumar <viresh.kumar@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Sibi Sankar <sibis@codeaurora.org>
+ <devicetree@vger.kernel.org>, Jernej Skrabec <jernej.skrabec@siol.net>,
+ Sam Ravnborg <sam@ravnborg.org>, Jonas Karlman <jonas@kwiboo.se>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
+ nganji@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Kalyan Thota <kalyan_t@codeaurora.org>,
+ "Kristian H. Kristensen" <hoegsberg@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Jun 5, 2020 at 9:26 PM Sharat Masetty <smasetty@codeaurora.org> wrote:
+Hi,
+
+On Tue, Jun 9, 2020 at 5:05 AM Harigovindan P <harigovi@codeaurora.org> wrote:
 >
-> This patch changes the plumbing to send the devfreq recommended opp rather
-> than the frequency. Also consolidate and rearrange the code in a6xx to set
-> the GPU frequency and the icc vote in preparation for the upcoming
-> changes for GPU->DDR scaling votes.
+> ti-sn65dsi86 bridge is enumerated as a runtime device. When
+> suspend is triggered, PM core adds a refcount on all the
+> devices and calls device suspend, since usage count is
+> already incremented, runtime suspend will not be called
+> and it kept the bridge regulators and gpios ON which resulted
+> in platform not entering into XO shutdown.
 >
-> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
+> Add changes to force suspend on the runtime device during pm sleep.
+>
+> Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
 > ---
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 62 +++++++++++++++++++----------------
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.h |  2 +-
->  drivers/gpu/drm/msm/msm_gpu.c         |  3 +-
->  drivers/gpu/drm/msm/msm_gpu.h         |  3 +-
->  4 files changed, 38 insertions(+), 32 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> index 748cd37..2d8124b 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> @@ -100,17 +100,30 @@ bool a6xx_gmu_gx_is_on(struct a6xx_gmu *gmu)
->                 A6XX_GMU_SPTPRAC_PWR_CLK_STATUS_GX_HM_CLK_OFF));
->  }
+> Changes in v2:
+>         - Include bridge name in the commit message and
+>         remove dependent patchwork link from the commit
+>         text as bridge is independent of OEM(Stephen Boyd)
 >
-> -static void __a6xx_gmu_set_freq(struct a6xx_gmu *gmu, int index)
-> +void a6xx_gmu_set_freq(struct msm_gpu *gpu, struct dev_pm_opp *opp)
->  {
-> -       struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
-> -       struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
-> -       struct msm_gpu *gpu = &adreno_gpu->base;
-> -       int ret;
-> +       struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-> +       struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
-> +       struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
-> +       u32 perf_index;
-> +       unsigned long gpu_freq;
-> +       int ret = 0;
-> +
-> +       gpu_freq = dev_pm_opp_get_freq(opp);
-> +
-> +       if (gpu_freq == gmu->freq)
-> +               return;
-> +
-> +       for (perf_index = 0; perf_index < gmu->nr_gpu_freqs - 1; perf_index++)
-> +               if (gpu_freq == gmu->gpu_freqs[perf_index])
-> +                       break;
-> +
-> +       gmu->current_perf_index = perf_index;
+> Changes in v3:
+>         - Updating changelog to explain the need for patch
 >
->         gmu_write(gmu, REG_A6XX_GMU_DCVS_ACK_OPTION, 0);
->
->         gmu_write(gmu, REG_A6XX_GMU_DCVS_PERF_SETTING,
-> -               ((3 & 0xf) << 28) | index);
-> +                       ((3 & 0xf) << 28) | perf_index);
->
->         /*
->          * Send an invalid index as a vote for the bus bandwidth and let the
-> @@ -126,7 +139,7 @@ static void __a6xx_gmu_set_freq(struct a6xx_gmu *gmu, int index)
->         if (ret)
->                 dev_err(gmu->dev, "GMU set GPU frequency error: %d\n", ret);
->
-> -       gmu->freq = gmu->gpu_freqs[index];
-> +       gmu->freq = gmu->gpu_freqs[perf_index];
->
->         /*
->          * Eventually we will want to scale the path vote with the frequency but
-> @@ -135,25 +148,6 @@ static void __a6xx_gmu_set_freq(struct a6xx_gmu *gmu, int index)
->         icc_set_bw(gpu->icc_path, 0, MBps_to_icc(7216));
->  }
->
-> -void a6xx_gmu_set_freq(struct msm_gpu *gpu, unsigned long freq)
-> -{
-> -       struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-> -       struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
-> -       struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
-> -       u32 perf_index = 0;
-> -
-> -       if (freq == gmu->freq)
-> -               return;
-> -
-> -       for (perf_index = 0; perf_index < gmu->nr_gpu_freqs - 1; perf_index++)
-> -               if (freq == gmu->gpu_freqs[perf_index])
-> -                       break;
-> -
-> -       gmu->current_perf_index = perf_index;
-> -
-> -       __a6xx_gmu_set_freq(gmu, perf_index);
-> -}
+>  drivers/gpu/drm/bridge/ti-sn65dsi86.c | 2 ++
+>  1 file changed, 2 insertions(+)
 
-this does end up conflicting a bit with some of the newer stuff that
-landed this cycle, in particular "drm/msm/a6xx: HFI v2 for A640 and
-A650"
+I think this patch is good to go now (has both Stephen's and my
+reviews).  I noticed that Neil landed my other patches to this driver
+recently (thanks!) and wondered why he didn't land this one.  Then, I
+realized that you didn't send it to him or the other bridge
+maintainer.  :(  Have you tried running get_maintainer?
 
-Adding Jonathan on CC since I think he will want to test this on
-a650/a640 as well..
+$ ./scripts/get_maintainer.pl -f drivers/gpu/drm/bridge/ti-sn65dsi86.c
+Andrzej Hajda <a.hajda@samsung.com> (maintainer:DRM DRIVERS FOR BRIDGE CHIPS)
+Neil Armstrong <narmstrong@baylibre.com> (maintainer:DRM DRIVERS FOR
+BRIDGE CHIPS)
+Laurent Pinchart <Laurent.pinchart@ideasonboard.com> (reviewer:DRM
+DRIVERS FOR BRIDGE CHIPS)
+Jonas Karlman <jonas@kwiboo.se> (reviewer:DRM DRIVERS FOR BRIDGE CHIPS)
+Jernej Skrabec <jernej.skrabec@siol.net> (reviewer:DRM DRIVERS FOR BRIDGE CHIPS)
+David Airlie <airlied@linux.ie> (maintainer:DRM DRIVERS)
+Daniel Vetter <daniel@ffwll.ch> (maintainer:DRM DRIVERS)
+dri-devel@lists.freedesktop.org (open list:DRM DRIVERS)
+linux-kernel@vger.kernel.org (open list)
 
-BR,
--R
+In any case, unless someone has extra feedback on this patch I think
+it's ready to land.
 
-> -
->  unsigned long a6xx_gmu_get_freq(struct msm_gpu *gpu)
->  {
->         struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-> @@ -708,6 +702,19 @@ static void a6xx_gmu_force_off(struct a6xx_gmu *gmu)
->         a6xx_gmu_rpmh_off(gmu);
->  }
->
-> +static void a6xx_gmu_set_initial_freq(struct msm_gpu *gpu, struct a6xx_gmu *gmu)
-> +{
-> +       struct dev_pm_opp *gpu_opp;
-> +       unsigned long gpu_freq = gmu->gpu_freqs[gmu->current_perf_index];
-> +
-> +       gpu_opp = dev_pm_opp_find_freq_exact(&gpu->pdev->dev, gpu_freq, true);
-> +       if (IS_ERR_OR_NULL(gpu_opp))
-> +               return;
-> +
-> +       a6xx_gmu_set_freq(gpu, gpu_opp);
-> +       dev_pm_opp_put(gpu_opp);
-> +}
-> +
->  int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
->  {
->         struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
-> @@ -759,8 +766,7 @@ int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
->         gmu_write(gmu, REG_A6XX_GMU_GMU2HOST_INTR_MASK, ~A6XX_HFI_IRQ_MASK);
->         enable_irq(gmu->hfi_irq);
->
-> -       /* Set the GPU to the current freq */
-> -       __a6xx_gmu_set_freq(gmu, gmu->current_perf_index);
-> +       a6xx_gmu_set_initial_freq(gpu, gmu);
->
->         /*
->          * "enable" the GX power domain which won't actually do anything but it
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> index 7239b8b..03ba60d 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> @@ -63,7 +63,7 @@ void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state);
->  int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node);
->  void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu);
->
-> -void a6xx_gmu_set_freq(struct msm_gpu *gpu, unsigned long freq);
-> +void a6xx_gmu_set_freq(struct msm_gpu *gpu, struct dev_pm_opp *opp);
->  unsigned long a6xx_gmu_get_freq(struct msm_gpu *gpu);
->
->  void a6xx_show(struct msm_gpu *gpu, struct msm_gpu_state *state,
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-> index 615c5cd..82c3068 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.c
-> +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> @@ -13,7 +13,6 @@
->
->  #include <generated/utsrelease.h>
->  #include <linux/string_helpers.h>
-> -#include <linux/pm_opp.h>
->  #include <linux/devfreq.h>
->  #include <linux/devcoredump.h>
->  #include <linux/sched/task.h>
-> @@ -34,7 +33,7 @@ static int msm_devfreq_target(struct device *dev, unsigned long *freq,
->                 return PTR_ERR(opp);
->
->         if (gpu->funcs->gpu_set_freq)
-> -               gpu->funcs->gpu_set_freq(gpu, (u64)*freq);
-> +               gpu->funcs->gpu_set_freq(gpu, opp);
->         else
->                 clk_set_rate(gpu->core_clk, *freq);
->
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-> index ab8f0f9c..cf0dc6d 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.h
-> +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> @@ -9,6 +9,7 @@
->
->  #include <linux/clk.h>
->  #include <linux/interconnect.h>
-> +#include <linux/pm_opp.h>
->  #include <linux/regulator/consumer.h>
->
->  #include "msm_drv.h"
-> @@ -63,7 +64,7 @@ struct msm_gpu_funcs {
->         struct msm_gpu_state *(*gpu_state_get)(struct msm_gpu *gpu);
->         int (*gpu_state_put)(struct msm_gpu_state *state);
->         unsigned long (*gpu_get_freq)(struct msm_gpu *gpu);
-> -       void (*gpu_set_freq)(struct msm_gpu *gpu, unsigned long freq);
-> +       void (*gpu_set_freq)(struct msm_gpu *gpu, struct dev_pm_opp *opp);
->  };
->
->  struct msm_gpu {
-> --
-> 2.7.4
->
+Neil: If you're willing to land this patch too, can you let
+Harigovindan know if it needs to be re-sent with you in the "To:" list
+or if you can find it on the dri-devel list?
+
+Thanks!
+
+-Doug
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
