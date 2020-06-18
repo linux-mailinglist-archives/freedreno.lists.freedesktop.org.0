@@ -1,54 +1,43 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC1EE1FD90C
-	for <lists+freedreno@lfdr.de>; Thu, 18 Jun 2020 00:40:30 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B1F9D1FDB61
+	for <lists+freedreno@lfdr.de>; Thu, 18 Jun 2020 03:13:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 964E96E202;
-	Wed, 17 Jun 2020 22:40:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5327E6EA33;
+	Thu, 18 Jun 2020 01:13:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-f193.google.com (mail-il1-f193.google.com
- [209.85.166.193])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5E9A6E202
- for <freedreno@lists.freedesktop.org>; Wed, 17 Jun 2020 22:40:27 +0000 (UTC)
-Received: by mail-il1-f193.google.com with SMTP id i1so3906688ils.11
- for <freedreno@lists.freedesktop.org>; Wed, 17 Jun 2020 15:40:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=Zfs6fQ9dNu1WR3lr294IASeX3pxyyPciqezJugqbLdg=;
- b=NBbCpdI3jiPyGj4FRpGvVT0oHibYOskwVntqrdIVW5FO1zfjHDrHWLqFWMT6QOcnKE
- 9gw8ciy4mhZ1F7YwZ3nFBlysGbMJDz88PCoZYh8u1WqHWZ5jUkUHaD/6ffRnrR/jLmGG
- 8ufHKwUHN7NMqNtsC5oxHJWAXL5lFkHAUO760Tt9Q4lDUiiGOQcx2Q9OvPUGCmGXgQmh
- oqOkLl+PHGhP7GjEyD4Y/ZCPrD171IaAtdBusI8Wh5rqH3uusDuBJCeJ6JZ8GcPcFTSc
- W1FdtHXcUPGcV0GjKqaW0OTDxxUO+irOBNwQBLLv2dBOv42sDpr4kjA6ob7OtqSl6q+q
- MNPw==
-X-Gm-Message-State: AOAM533xbOXyASI27kI+tQq7sX1AJuMDOIUHl2h9vKjaYqkmqwrixca4
- h1ot9JyndcYiCW8m2sUvSA==
-X-Google-Smtp-Source: ABdhPJzRwz/0uaYi76fA5Zd1pUASZHPvWS/+PxMD1pnVAfG3nH0ehNSUR64R0ytuzMsQ9XxUG4dQDg==
-X-Received: by 2002:a05:6e02:ef2:: with SMTP id
- j18mr1221721ilk.69.1592433627244; 
- Wed, 17 Jun 2020 15:40:27 -0700 (PDT)
-Received: from xps15 ([64.188.179.253])
- by smtp.gmail.com with ESMTPSA id c85sm537559ilg.41.2020.06.17.15.40.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Jun 2020 15:40:26 -0700 (PDT)
-Received: (nullmailer pid 2970050 invoked by uid 1000);
- Wed, 17 Jun 2020 22:40:25 -0000
-Date: Wed, 17 Jun 2020 16:40:25 -0600
-From: Rob Herring <robh@kernel.org>
-To: Jordan Crouse <jcrouse@codeaurora.org>
-Message-ID: <20200617224025.GA2969998@bogus>
-References: <20200611222128.28826-1-jcrouse@codeaurora.org>
- <20200611222128.28826-4-jcrouse@codeaurora.org>
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74C596EA29;
+ Thu, 18 Jun 2020 01:13:06 +0000 (UTC)
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+ [73.47.72.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 4E4B121924;
+ Thu, 18 Jun 2020 01:13:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1592442786;
+ bh=K65oyh5kbV+CJy45U4ctImhpPS1ivlTrRM/FOdW20Vs=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=k3Ulc+D70i51IWlWHnhCTaOvvX12WvTLtPUPSGSWblLrkhmRy1N5Enx8Fm5zDhC8+
+ 9Rt5AVfgyPfDBYZkfn5UifjW4hJHXBKdvqXh4AjcPMSxgycFHRJe5snzUmMyMKOUfH
+ GG1GOBCkE1uCyyf8TG6Fpj0LOvxLleVGzEj9qZic=
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Wed, 17 Jun 2020 21:05:27 -0400
+Message-Id: <20200618010805.600873-230-sashal@kernel.org>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20200618010805.600873-1-sashal@kernel.org>
+References: <20200618010805.600873-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200611222128.28826-4-jcrouse@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v8 3/7] dt-bindings: arm-smmu: Add
- compatible string for Adreno GPU SMMU
+X-stable: review
+X-Patchwork-Hint: Ignore
+Subject: [Freedreno] [PATCH AUTOSEL 5.7 230/388] drm/msm: Fix undefined
+ "rd_full" link error
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,31 +50,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Will Deacon <will@kernel.org>,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Joerg Roedel <joro@8bytes.org>, linux-kernel@vger.kernel.org,
- iommu@lists.linux-foundation.org, Rob Herring <robh+dt@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, linux-arm-kernel@lists.infradead.org
+Cc: Rob Clark <robdclark@chromium.org>, Stephen Rothwell <sfr@canb.auug.org.au>,
+ Sasha Levin <sashal@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 11 Jun 2020 16:21:24 -0600, Jordan Crouse wrote:
-> Every Qcom Adreno GPU has an embedded SMMU for its own use. These
-> devices depend on unique features such as split pagetables,
-> different stall/halt requirements and other settings. Identify them
-> with a compatible string so that they can be identified in the
-> arm-smmu implementation specific code.
-> 
-> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
-> ---
-> 
->  Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+[ Upstream commit 20aebe83698feb107d5a66b6cfd1d54459ccdfcf ]
+
+rd_full should be defined outside the CONFIG_DEBUG_FS region, in order
+to be able to link the msm driver even when CONFIG_DEBUG_FS is disabled.
+
+Fixes: e515af8d4a6f ("drm/msm: devcoredump should dump MSM_SUBMIT_BO_DUMP buffers")
+Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
+Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+Reviewed-by: Rob Clark <robdclark@gmail.com>
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/msm/msm_rd.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_rd.c b/drivers/gpu/drm/msm/msm_rd.c
+index 732f65df5c4f..fea30e7aa9e8 100644
+--- a/drivers/gpu/drm/msm/msm_rd.c
++++ b/drivers/gpu/drm/msm/msm_rd.c
+@@ -29,8 +29,6 @@
+  * or shader programs (if not emitted inline in cmdstream).
+  */
+ 
+-#ifdef CONFIG_DEBUG_FS
+-
+ #include <linux/circ_buf.h>
+ #include <linux/debugfs.h>
+ #include <linux/kfifo.h>
+@@ -47,6 +45,8 @@ bool rd_full = false;
+ MODULE_PARM_DESC(rd_full, "If true, $debugfs/.../rd will snapshot all buffer contents");
+ module_param_named(rd_full, rd_full, bool, 0600);
+ 
++#ifdef CONFIG_DEBUG_FS
++
+ enum rd_sect_type {
+ 	RD_NONE,
+ 	RD_TEST,       /* ascii text */
+-- 
+2.25.1
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
