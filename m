@@ -1,58 +1,99 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91AC71FFF94
-	for <lists+freedreno@lfdr.de>; Fri, 19 Jun 2020 03:12:54 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 75D5F200721
+	for <lists+freedreno@lfdr.de>; Fri, 19 Jun 2020 12:45:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DF266EBF9;
-	Fri, 19 Jun 2020 01:12:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91D746EC85;
+	Fri, 19 Jun 2020 10:45:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
- [IPv6:2607:f8b0:4864:20::542])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E7AA6EBFE
- for <freedreno@lists.freedesktop.org>; Fri, 19 Jun 2020 01:12:50 +0000 (UTC)
-Received: by mail-pg1-x542.google.com with SMTP id h10so3742910pgq.10
- for <freedreno@lists.freedesktop.org>; Thu, 18 Jun 2020 18:12:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:content-transfer-encoding:in-reply-to:references
- :subject:from:cc:to:date:message-id:user-agent;
- bh=C2dez5Y5nxFP07QRNZ0OnRkJ8X7zqlBAGXKDCAlVfhY=;
- b=oLZbVHf8BIG6+THknBsryI8MvBmceKvdaIGFcE3E8GegV/CVRGi6iE+Kwgyq9mrL17
- XRSoTGChHFP9fypFoBBia72WZxyDSkB0DKPHBdJZDUNsFAhLAEFRLc/D+ClLJBVEUj5u
- 8TfIW2yPdC0tRHqgM6ZlMpL1HE2kF0GK5OWBc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:content-transfer-encoding
- :in-reply-to:references:subject:from:cc:to:date:message-id
- :user-agent;
- bh=C2dez5Y5nxFP07QRNZ0OnRkJ8X7zqlBAGXKDCAlVfhY=;
- b=hIlT/gC7irxasPajqbHBII+kEpGQxUhMqiRmITfgGiBAa6ymBwmxFiwDOcNJ4//IRu
- 3y8mQtY18H14SZuNwu4ru/5MEBNR4nXZ3TEBinUGdkA+0bYP8YL7Pf6JbnJobhSn9URQ
- ebKjDrajkbShSz2TJ1bN63S6Q7MOWl0jqM5W8YTPGQ8L/O60Z4PL0t8RdnJq6IQF8cpT
- aEOlmA7WVHnKUAowTOkkL66OKn+UHPBT182RCmuLLQlyp8DMe2FE936Hkiovg6WtwjTl
- 58AjvTB0RkMHNIpGC8pB7yiuuXvQYSw9btyS+cW5pfZZlRnKoPZG/VgOn+JjVVWHiKq9
- MYJQ==
-X-Gm-Message-State: AOAM532II8iTp81FBPpPYhSMzzVY5CdMmjgi+qFg5GxThjIw6lpHEvd7
- dkjI6vLr/xR40jInrCHHb76dvw==
-X-Google-Smtp-Source: ABdhPJzpkIA9xRXSKhL1HR6SniZnYA3qMlfoJJoj709qP03uEsU3yPapKSC/mT40nipGsCn4VwPPgg==
-X-Received: by 2002:a65:614b:: with SMTP id o11mr995414pgv.443.1592529169747; 
- Thu, 18 Jun 2020 18:12:49 -0700 (PDT)
-Received: from chromium.org ([2620:15c:202:1:fa53:7765:582b:82b9])
- by smtp.gmail.com with ESMTPSA id n1sm3622207pjn.24.2020.06.18.18.12.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Jun 2020 18:12:49 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <20200618232113.22687-1-tanmay@codeaurora.org>
-References: <20200618232113.22687-1-tanmay@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-To: Tanmay Shah <tanmay@codeaurora.org>, agross@kernel.org
-Date: Thu, 18 Jun 2020 18:12:47 -0700
-Message-ID: <159252916745.62212.16228625951632835694@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.9
-Subject: Re: [Freedreno] [PATCH v2] arm64: dts: qcom: sc7180: Add Display
- Port dt node
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 748226EC81
+ for <freedreno@lists.freedesktop.org>; Fri, 19 Jun 2020 10:45:24 +0000 (UTC)
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20200619103703euoutp010b0b77fa87c972752934655cb5d15120~Z66G2DN8t1849718497euoutp01R
+ for <freedreno@lists.freedesktop.org>; Fri, 19 Jun 2020 10:37:03 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20200619103703euoutp010b0b77fa87c972752934655cb5d15120~Z66G2DN8t1849718497euoutp01R
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1592563023;
+ bh=ePXLHe/mfRhAa1xR5V0eqYUoM9rqbQC5MkvAEkUq1G0=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=ZFhjTnVZaE2XiZnBCSspMbkgzH5Il+E9nD+ZVHohrLrsgoN1wSxJ79CrFMiz5g1yu
+ mAS/0ZrNEkc9kXberoIVjTBNb8hD0AIYZGKbt6+AyHHuVrmv/VLa/3Zb/LL0ANN58U
+ cWEfTHTnWTZlkF70igiCj8OxDOXj2GPA+SGbEadA=
+Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTP id
+ 20200619103702eucas1p14e7a598cf79bb058dee154e1946a2c9c~Z66GdCl0p0705907059eucas1p1E;
+ Fri, 19 Jun 2020 10:37:02 +0000 (GMT)
+Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
+ eusmges3new.samsung.com (EUCPMTA) with SMTP id 9F.8C.06318.E459CEE5; Fri, 19
+ Jun 2020 11:37:02 +0100 (BST)
+Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20200619103702eucas1p1c57147013bbac3968f6ba073caec68b5~Z66F_rJ3n0704707047eucas1p1y;
+ Fri, 19 Jun 2020 10:37:02 +0000 (GMT)
+Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
+ eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20200619103701eusmtrp1ccebd68058c16a8bf7a62b76bf5d0462~Z66F4Xp_60959609596eusmtrp1-;
+ Fri, 19 Jun 2020 10:37:01 +0000 (GMT)
+X-AuditID: cbfec7f5-38bff700000018ae-63-5eec954e7dc0
+Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
+ eusmgms2.samsung.com (EUCPMTA) with SMTP id 98.0B.06017.D459CEE5; Fri, 19
+ Jun 2020 11:37:01 +0100 (BST)
+Received: from AMDC2765.digital.local (unknown [106.120.51.73]) by
+ eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20200619103701eusmtip230514ba84e3184c5dd6c231d8b83c417~Z66FMKCde3164531645eusmtip2W;
+ Fri, 19 Jun 2020 10:37:01 +0000 (GMT)
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+To: dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+Date: Fri, 19 Jun 2020 12:36:13 +0200
+Message-Id: <20200619103636.11974-14-m.szyprowski@samsung.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200619103636.11974-1-m.szyprowski@samsung.com>
+X-Brightmail-Tracker: H4sIAAAAAAAAA0VSa0hTYRjmO2eXo7g6TdEPk6xpUUFesMtXhtkNTn8yqD8GmStPam1TNrUM
+ ItEKm068UI0pZWVq3lObqZg5nTNk8zbNLNNlpeU1b5mJtnlm/Xve5/I+Lx8fgfOb2c5EuCSK
+ lkqEIgHHlqVu/m3YdfLeWJCXMsUNKQxvMfRCWcpGK+o0HBnnJjkoa1gP0PNCLYay633RrNGE
+ ofKhHjZKq9dzUVdNFgcVN/Vz0fDjBRw1TH1ho/6MJuC/nip6WASouvlsFlWt6udSVfODbGog
+ SYdRFTk3qQ/LQziV0ZsHqNr3cRxKV9PHpVIqCwA1U77plN1Z24MhtCg8hpZ6+gXbhmV1VLAj
+ VYJrqXotFgf0LnJgQ0ByNxzOLMbkwJbgk/kAlswmAYvAJ2cBzHwZyAgzAOaXaMBaIslgAIyQ
+ B6Dq/mecGcyJ8YQ53OLikN5QPi7nWLADeRvAFoWdxYSTKhyOaP6sCvZkAFTmajALZpFbYXqj
+ ZpXnkX4wvlpvrXOFhWVvVpfamPnRWw1syyJI9nHhu8FnGGM6BrsztFZsD3/oKrkMdoGtGcks
+ JpAAoMlQzGWGZAC74pXWCl/40bBoribM9+2ApTWeDH0YKjuMXAsNyXWwd3yDhcbNMF39AGdo
+ Hky8w2fc26BKV/KvtqG9E2cwBXvaFNYHTgMwPVnNSgWuqv9l2QAUACc6WiYOpWU+Evqqh0wo
+ lkVLQj0uRojLgfl3tS7r5l6B10sXNIAkgMCON3JmNIjPFsbIYsUaAAlc4MA7om8N4vNChLHX
+ aWnEeWm0iJZpwEaCJXDi+Tz5fo5Phgqj6Cs0HUlL11SMsHGOA3d1fZK+R8FdZUUFIalpg017
+ pB5JXitfL4kCpy4rkVFuOjHtaNrcGzARNmU/Muc3HfGrYswdfdr/M+C0i58bZ8SxVfT0+EQk
+ 2Ku3cW9pzDrQZrf9m6GuwXtpcV+TUrvcreksNE5V1zYqDhVrJ2eq0v1Dmo+2CxO3LNwYyJ2f
+ EeQIWLIwofdOXCoT/gW9h8I/WQMAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrBIsWRmVeSWpSXmKPExsVy+t/xe7q+U9/EGbw/Z2nRe+4kk8XGGetZ
+ Lf5vm8hsceXrezaLOc/PMlqsXH2UyWLBfmuLL1ceMllsenyN1WLi/rPsFpd3zWGzWHvkLrvF
+ 84U/mC0OfnjCanF38hFGB36PNfPWMHrs/baAxWPnrLvsHtu/PWD1uN99nMlj85J6j9v/HjN7
+ TL6xnNFj980GNo/ju26xe/RtWcXo8XmTXABPlJ5NUX5pSapCRn5xia1StKGFkZ6hpYWekYml
+ nqGxeayVkamSvp1NSmpOZllqkb5dgl7GnIubWQtmKVVMOHuUqYHxrEwXIyeHhICJRPe5c4xd
+ jFwcQgJLGSUmX/rKCJGQkTg5rYEVwhaW+HOtiw2i6BOjxMldD5lBEmwChhJdbyESIgKdjBLT
+ uj+ygzjMAkuYJfqmXmIDqRIW8JXYffk7WAeLgKrEpMOHwOK8AnYSTTvPQq2Tl1i94QBYDSdQ
+ /HXLQbDVQgK2EssXvGeewMi3gJFhFaNIamlxbnpusZFecWJucWleul5yfu4mRmAsbTv2c8sO
+ xq53wYcYBTgYlXh4X4S8jhNiTSwrrsw9xCjBwawkwut09nScEG9KYmVValF+fFFpTmrxIUZT
+ oKMmMkuJJucD4zyvJN7Q1NDcwtLQ3Njc2MxCSZy3Q+BgjJBAemJJanZqakFqEUwfEwenVAOj
+ 23eX5T1rOq/pTc2681JoufTxmvWur2/Na2eUVjV0m239VKaf6Y8mg3gX011lacM5X4znh0yw
+ /nNge0le9tVi/dRVFmdDr901nOay//X7ZU/OnDnQ9OX88Sl3xIz37s5XWsPO/NLe+Nqfz/Wh
+ 4QbxRdflt6VPdxVIvC1YefPk7/n3lVUPaWwTV2Ipzkg01GIuKk4EAHK7XDC7AgAA
+X-CMS-MailID: 20200619103702eucas1p1c57147013bbac3968f6ba073caec68b5
+X-Msg-Generator: CA
+X-RootMTR: 20200619103702eucas1p1c57147013bbac3968f6ba073caec68b5
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20200619103702eucas1p1c57147013bbac3968f6ba073caec68b5
+References: <20200619103636.11974-1-m.szyprowski@samsung.com>
+ <CGME20200619103702eucas1p1c57147013bbac3968f6ba073caec68b5@eucas1p1.samsung.com>
+Subject: [Freedreno] [PATCH v7 13/36] drm: msm: fix common struct sg_table
+ related issues
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,131 +106,130 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, bjorn.andersson@linaro.org,
- linux-arm-msm@vger.kernel.org, Tanmay Shah <tanmay@codeaurora.org>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- dianders@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
- abhinavk@codeaurora.org, aravindh@codeaurora.org,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ David Airlie <airlied@linux.ie>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Robin Murphy <robin.murphy@arm.com>,
+ Christoph Hellwig <hch@lst.de>, linux-arm-kernel@lists.infradead.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Tanmay Shah (2020-06-18 16:21:13)
-> Enable DP driver for sc7180.
+The Documentation/DMA-API-HOWTO.txt states that the dma_map_sg() function
+returns the number of the created entries in the DMA address space.
+However the subsequent calls to the dma_sync_sg_for_{device,cpu}() and
+dma_unmap_sg must be called with the original number of the entries
+passed to the dma_map_sg().
 
-Add DP device node on sc7180? This isn't a driver.
+struct sg_table is a common structure used for describing a non-contiguous
+memory buffer, used commonly in the DRM and graphics subsystems. It
+consists of a scatterlist with memory pages and DMA addresses (sgl entry),
+as well as the number of scatterlist entries: CPU pages (orig_nents entry)
+and DMA mapped pages (nents entry).
 
-> 
-> This change depends-on following series:
-> https://patchwork.freedesktop.org/series/78583/
-> and https://patchwork.freedesktop.org/patch/351990/
-> 
-> Changes in v2:
-> 
-> - Add assigned-clocks and assigned-clock-parents
-> - Remove cell-index and pixel_rcg
-> - Change compatible to qcom,sc7180-dp
-> 
-> Signed-off-by: Tanmay Shah <tanmay@codeaurora.org>
-> ---
->  arch/arm64/boot/dts/qcom/sc7180.dtsi | 57 ++++++++++++++++++++++++++--
->  1 file changed, 53 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> index 916401f7e87c..26fe623e3b0f 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> @@ -2216,10 +2216,19 @@ ports {
->                                         #address-cells = <1>;
->                                         #size-cells = <0>;
->  
-> +                                       port@1 {
-> +                                               reg = <1>;
-> +                                               dpu_intf1_out: endpoint {
-> +                                                       remote-endpoint =
-> +                                                                <&dsi0_in>;
-> +                                               };
-> +                                       };
-> +
->                                         port@0 {
->                                                 reg = <0>;
-> -                                               dpu_intf1_out: endpoint {
-> -                                                       remote-endpoint = <&dsi0_in>;
-> +                                               dpu_intf0_out: endpoint {
-> +                                                       remote-endpoint =
-> +                                                                <&dp_in>;
->                                                 };
->                                         };
->                                 };
+It turned out that it was a common mistake to misuse nents and orig_nents
+entries, calling DMA-mapping functions with a wrong number of entries or
+ignoring the number of mapped entries returned by the dma_map_sg()
+function.
 
-I thought this wasn't supposed to change? At least according to the
-binding it shouldn't be needed.
+To avoid such issues, lets use a common dma-mapping wrappers operating
+directly on the struct sg_table objects and use scatterlist page
+iterators where possible. This, almost always, hides references to the
+nents and orig_nents entries, making the code robust, easier to follow
+and copy/paste safe.
 
-> @@ -2293,6 +2302,46 @@ dsi_phy: dsi-phy@ae94400 {
->                         };
->                 };
->  
-> +               msm_dp: displayport-controller@ae90000{
-> +                       status = "ok";
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+---
+ drivers/gpu/drm/msm/msm_gem.c    | 13 +++++--------
+ drivers/gpu/drm/msm/msm_gpummu.c | 14 ++++++--------
+ drivers/gpu/drm/msm/msm_iommu.c  |  2 +-
+ 3 files changed, 12 insertions(+), 17 deletions(-)
 
-Please use status = "disabled";
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index 38b0c0e1f83e..e0d5fd36ea8f 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -53,11 +53,10 @@ static void sync_for_device(struct msm_gem_object *msm_obj)
+ 	struct device *dev = msm_obj->base.dev->dev;
+ 
+ 	if (get_dma_ops(dev) && IS_ENABLED(CONFIG_ARM64)) {
+-		dma_sync_sg_for_device(dev, msm_obj->sgt->sgl,
+-			msm_obj->sgt->nents, DMA_BIDIRECTIONAL);
++		dma_sync_sgtable_for_device(dev, msm_obj->sgt,
++					    DMA_BIDIRECTIONAL);
+ 	} else {
+-		dma_map_sg(dev, msm_obj->sgt->sgl,
+-			msm_obj->sgt->nents, DMA_BIDIRECTIONAL);
++		dma_map_sgtable(dev, msm_obj->sgt, DMA_BIDIRECTIONAL, 0);
+ 	}
+ }
+ 
+@@ -66,11 +65,9 @@ static void sync_for_cpu(struct msm_gem_object *msm_obj)
+ 	struct device *dev = msm_obj->base.dev->dev;
+ 
+ 	if (get_dma_ops(dev) && IS_ENABLED(CONFIG_ARM64)) {
+-		dma_sync_sg_for_cpu(dev, msm_obj->sgt->sgl,
+-			msm_obj->sgt->nents, DMA_BIDIRECTIONAL);
++		dma_sync_sgtable_for_cpu(dev, msm_obj->sgt, DMA_BIDIRECTIONAL);
+ 	} else {
+-		dma_unmap_sg(dev, msm_obj->sgt->sgl,
+-			msm_obj->sgt->nents, DMA_BIDIRECTIONAL);
++		dma_unmap_sgtable(dev, msm_obj->sgt, DMA_BIDIRECTIONAL, 0);
+ 	}
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/msm_gpummu.c b/drivers/gpu/drm/msm/msm_gpummu.c
+index 310a31b05faa..319f06c28235 100644
+--- a/drivers/gpu/drm/msm/msm_gpummu.c
++++ b/drivers/gpu/drm/msm/msm_gpummu.c
+@@ -30,21 +30,19 @@ static int msm_gpummu_map(struct msm_mmu *mmu, uint64_t iova,
+ {
+ 	struct msm_gpummu *gpummu = to_msm_gpummu(mmu);
+ 	unsigned idx = (iova - GPUMMU_VA_START) / GPUMMU_PAGE_SIZE;
+-	struct scatterlist *sg;
++	struct sg_dma_page_iter dma_iter;
+ 	unsigned prot_bits = 0;
+-	unsigned i, j;
+ 
+ 	if (prot & IOMMU_WRITE)
+ 		prot_bits |= 1;
+ 	if (prot & IOMMU_READ)
+ 		prot_bits |= 2;
+ 
+-	for_each_sg(sgt->sgl, sg, sgt->nents, i) {
+-		dma_addr_t addr = sg->dma_address;
+-		for (j = 0; j < sg->length / GPUMMU_PAGE_SIZE; j++, idx++) {
+-			gpummu->table[idx] = addr | prot_bits;
+-			addr += GPUMMU_PAGE_SIZE;
+-		}
++	for_each_sgtable_dma_page(sgt, &dma_iter, 0) {
++		dma_addr_t addr = sg_page_iter_dma_address(&dma_iter);
++
++		BUILD_BUG_ON(GPUMMU_PAGE_SIZE != PAGE_SIZE);
++		gpummu->table[idx++] = addr | prot_bits;
+ 	}
+ 
+ 	/* we can improve by deferring flush for multiple map() */
+diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
+index 3a381a9674c9..6c31e65834c6 100644
+--- a/drivers/gpu/drm/msm/msm_iommu.c
++++ b/drivers/gpu/drm/msm/msm_iommu.c
+@@ -36,7 +36,7 @@ static int msm_iommu_map(struct msm_mmu *mmu, uint64_t iova,
+ 	struct msm_iommu *iommu = to_msm_iommu(mmu);
+ 	size_t ret;
+ 
+-	ret = iommu_map_sg(iommu->domain, iova, sgt->sgl, sgt->nents, prot);
++	ret = iommu_map_sgtable(iommu->domain, iova, sgt, prot);
+ 	WARN_ON(!ret);
+ 
+ 	return (ret == len) ? 0 : -EINVAL;
+-- 
+2.17.1
 
-> +                       compatible = "qcom,sc7180-dp";
-> +
-> +                       reg = <0 0xae90000 0 0x1400>;
-> +                       reg-names = "dp_controller";
-> +
-> +                       interrupt-parent = <&mdss>;
-
-Any reason why this isn't under the mdss node like the other display
-device nodes?
-
-> +                       interrupts = <12 0>;
-> +
-> +                       clocks = <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
-> +                                <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
-> +                                <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
-> +                                <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
-> +                       clock-names = "core_aux", "ctrl_link",
-> +                                     "ctrl_link_iface", "stream_pixel";
-> +                       #clock-cells = <1>;
-> +                       assigned-clocks = <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
-> +                       assigned-clock-parents = <&msm_dp 1>;
-> +
-> +                       data-lanes = <0 1>;
-
-This can and should be left to the board files. At the SoC level my
-understanding is that there are four lanes possible, so no need to
-artificially limit it here.
-
-> +
-> +                       ports {
-> +                               #address-cells = <1>;
-> +                               #size-cells = <0>;
-> +                               port@0 {
-> +                                       reg = <0>;
-> +                                       dp_in: endpoint {
-> +                                               remote-endpoint =
-> +                                                        <&dpu_intf0_out>;
-
-I'd prefer these were on one line, regardless of the 80 character line
-limit/suggestion.
-
-> +                                       };
-> +                               };
-> +
-> +                               port@1 {
-> +                                       reg = <1>;
-> +                                       dp_out: endpoint { };
-> +                               };
-> +                       };
-> +               };
-> +
->                 dispcc: clock-controller@af00000 {
->                         compatible = "qcom,sc7180-dispcc";
->                         reg = <0 0x0af00000 0 0x200000>;
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
