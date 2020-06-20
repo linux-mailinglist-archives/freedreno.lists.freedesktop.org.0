@@ -2,35 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0A3A20232C
-	for <lists+freedreno@lfdr.de>; Sat, 20 Jun 2020 12:26:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DC7920253D
+	for <lists+freedreno@lfdr.de>; Sat, 20 Jun 2020 18:27:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4788A6E079;
-	Sat, 20 Jun 2020 10:26:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B1AD6E2F9;
+	Sat, 20 Jun 2020 16:27:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E31D96E079;
- Sat, 20 Jun 2020 10:26:44 +0000 (UTC)
-Received: from DGGEMS414-HUB.china.huawei.com (unknown [172.30.72.60])
- by Forcepoint Email with ESMTP id 9CEED5468307C131E412;
- Sat, 20 Jun 2020 18:26:41 +0800 (CST)
-Received: from [10.173.222.27] (10.173.222.27) by
- DGGEMS414-HUB.china.huawei.com (10.3.19.214) with Microsoft SMTP Server id
- 14.3.487.0; Sat, 20 Jun 2020 18:26:31 +0800
-To: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-References: <20200528130816.1670-1-yuzenghui@huawei.com>
-From: Zenghui Yu <yuzenghui@huawei.com>
-Message-ID: <f1357380-9e98-4c1e-c1bf-a0a95bb5910d@huawei.com>
-Date: Sat, 20 Jun 2020 18:26:30 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com
+ [IPv6:2a00:1450:4864:20::541])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28C506E2EC;
+ Sat, 20 Jun 2020 16:27:29 +0000 (UTC)
+Received: by mail-ed1-x541.google.com with SMTP id e12so10221565eds.2;
+ Sat, 20 Jun 2020 09:27:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=/BMMpD7qtU5pkOn7Z4pc22pm3d3A2SjW9M7WNCHeAiY=;
+ b=QVIIupKxa71Or8M1ClPfavFaWT0DeX7jreTr2LyxDbUbYAeTT4y0fkSdjacNshjutr
+ BeMoZok/aRl/E36YP4z8utRYnCpQeJ5Aosyto1cXGGEwZB9Gra6J+qWzl386BId7q3Kb
+ 8zIuaryYutyw+jQVByn0gym1OPyOV3sBKxcJyokF47KHEjiSyBh68bw3mluJMNUxiviE
+ l2IIgYY1n6WTEeHI9b0DBJl/ZMaQPepwgGW+9b4jLj3L9tvm3gZwBORH5uWTbppWk5Vy
+ fg8a4rck24+F1awR4f3zwPG04llDWfBqgeOfpU4yIasIHqci9y8XaLPxj/eXRtObYhOw
+ GO5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=/BMMpD7qtU5pkOn7Z4pc22pm3d3A2SjW9M7WNCHeAiY=;
+ b=LVz1mWb+4YGCXJU9E5hR6rmucNOIpRP07U5/DAFSsbKtCyiTDpDuWaOpuPoLbougbm
+ HYl35rc0fyIasbNJRwR3g2/7Flx/uUcFWTgVazq1EHxao2DWV0Uc7EeCQSEYxwEP2sLP
+ gg+QFblozSvEV1toJcvvIaFlV/q1AkVRh0McGce19BdIgMcW94QmSe99ZbgM5RQqsTCi
+ n+luR2DQ337xHdHSa0HPintBal6fJEC8bjOSZmIpnsAZ5+E0q9/oPfHlYn2fut7e1O/b
+ ZIYdBHYh5i/4GKT6gSm/o9RgnIXm2WQF2hiVoteHFhvHdJOThJqV54L8R1Xlojk7pXTK
+ A3ng==
+X-Gm-Message-State: AOAM533sjNDCnwxFoLht+aD+JgMre810yEN039NvfK7xKv0FXaQOvYsA
+ Jz3haT9Ed6yqS5iB9/aSsI2x8PgLwYa/NX5d5ZCV2eoOr3k=
+X-Google-Smtp-Source: ABdhPJypOsgdt+fPQZQTGg7oTELjjmivaxGQ2UlMWlYWToihFkcE5WrbmvWFN/dybafH1Uk8WYjOZIkXCWzA5J5yOUI=
+X-Received: by 2002:aa7:d952:: with SMTP id l18mr8585130eds.151.1592670447699; 
+ Sat, 20 Jun 2020 09:27:27 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200528130816.1670-1-yuzenghui@huawei.com>
-Content-Language: en-US
-X-Originating-IP: [10.173.222.27]
-X-CFilter-Loop: Reflected
+References: <20200528130816.1670-1-yuzenghui@huawei.com>
+ <f1357380-9e98-4c1e-c1bf-a0a95bb5910d@huawei.com>
+In-Reply-To: <f1357380-9e98-4c1e-c1bf-a0a95bb5910d@huawei.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Sat, 20 Jun 2020 09:27:56 -0700
+Message-ID: <CAF6AEGun5DgsTzLRswxt2NRG9P+HVake0hQUKPR6czcNvc5LxQ@mail.gmail.com>
+To: Zenghui Yu <yuzenghui@huawei.com>
 Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Fix usage of ERR_PTR()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -44,43 +61,72 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, robdclark@gmail.com, daniel@ffwll.ch,
- wanghaibin.wang@huawei.com, jsanka@codeaurora.org, sean@poorly.run
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ wanghaibin.wang@huawei.com, Jeykumar Sankaran <jsanka@codeaurora.org>,
+ Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-ping for this obvious fix...
+On Sat, Jun 20, 2020 at 3:26 AM Zenghui Yu <yuzenghui@huawei.com> wrote:
+>
+> ping for this obvious fix...
 
-On 2020/5/28 21:08, Zenghui Yu wrote:
-> ERR_PTR() is used in the kernel to encode an usual *negative* errno code
-> into a pointer.  Passing a positive value (ENOMEM) to it will break the
-> following IS_ERR() check.
-> 
-> Though memory allocation is unlikely to fail, it's still worth fixing.
-> And grepping shows that this is the only misuse of ERR_PTR() in kernel.
-> 
-> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
-> Signed-off-by: Zenghui Yu <yuzenghui@huawei.com>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index a1b79ee2bd9d..a2f6b688a976 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -2173,7 +2173,7 @@ struct drm_encoder *dpu_encoder_init(struct drm_device *dev,
->   
->   	dpu_enc = devm_kzalloc(dev->dev, sizeof(*dpu_enc), GFP_KERNEL);
->   	if (!dpu_enc)
-> -		return ERR_PTR(ENOMEM);
-> +		return ERR_PTR(-ENOMEM);
->   
->   	rc = drm_encoder_init(dev, &dpu_enc->base, &dpu_encoder_funcs,
->   			drm_enc_mode, NULL);
-> 
+Hi, thanks, but there is already a similar fix in msm-next:
+
+commit aa472721c8dbe1713cf510f56ffbc56ae9e14247
+Refs: v5.7-rc5-33-gaa472721c8db
+Author:     Chen Tao <chentao107@huawei.com>
+AuthorDate: Mon Jun 8 09:48:59 2020 +0800
+Commit:     Rob Clark <robdclark@chromium.org>
+CommitDate: Thu Jun 11 20:07:21 2020 -0700
+
+    drm/msm/dpu: fix error return code in dpu_encoder_init
+
+    Fix to return negative error code -ENOMEM with the use of
+    ERR_PTR from dpu_encoder_init.
+
+    Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+    Signed-off-by: Chen Tao <chentao107@huawei.com>
+    Signed-off-by: Rob Clark <robdclark@chromium.org>
+
+
+BR,
+-R
+
+>
+> On 2020/5/28 21:08, Zenghui Yu wrote:
+> > ERR_PTR() is used in the kernel to encode an usual *negative* errno code
+> > into a pointer.  Passing a positive value (ENOMEM) to it will break the
+> > following IS_ERR() check.
+> >
+> > Though memory allocation is unlikely to fail, it's still worth fixing.
+> > And grepping shows that this is the only misuse of ERR_PTR() in kernel.
+> >
+> > Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+> > Signed-off-by: Zenghui Yu <yuzenghui@huawei.com>
+> > ---
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > index a1b79ee2bd9d..a2f6b688a976 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > @@ -2173,7 +2173,7 @@ struct drm_encoder *dpu_encoder_init(struct drm_device *dev,
+> >
+> >       dpu_enc = devm_kzalloc(dev->dev, sizeof(*dpu_enc), GFP_KERNEL);
+> >       if (!dpu_enc)
+> > -             return ERR_PTR(ENOMEM);
+> > +             return ERR_PTR(-ENOMEM);
+> >
+> >       rc = drm_encoder_init(dev, &dpu_enc->base, &dpu_encoder_funcs,
+> >                       drm_enc_mode, NULL);
+> >
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
