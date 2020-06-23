@@ -1,57 +1,47 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A9BD203D30
-	for <lists+freedreno@lfdr.de>; Mon, 22 Jun 2020 18:55:52 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 658B3204B16
+	for <lists+freedreno@lfdr.de>; Tue, 23 Jun 2020 09:29:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1E9D6E0FB;
-	Mon, 22 Jun 2020 16:55:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CB066E950;
+	Tue, 23 Jun 2020 07:29:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6883E6E0CE
- for <freedreno@lists.freedesktop.org>; Mon, 22 Jun 2020 16:55:48 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1592844948; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=E1xy9Gx0hTkrEu6KUPmiiRl49qJNoU7hD/Q9T7ORmy0=;
- b=d0xecxRRJY872JEOr1evq6jqpUVNcWo9XI2qOCUMMPkpCkrLddBWQeDDYZASvjwl9b8q1C/1
- k7lqQ5j3904R8LtUQQLfEee5yemZDZW6RlcgobTC6q7uUnZKADPGtwQdtx/TCp7fB+ZBUBf7
- njK69cuDr+4RbZrBPjYdnbWOpPY=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n11.prod.us-east-1.postgun.com with SMTP id
- 5ef0e293567385e8e775f91e (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 22 Jun 2020 16:55:47
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id A9A17C43391; Mon, 22 Jun 2020 16:55:46 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from jordan-laptop.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id E005AC433CB;
- Mon, 22 Jun 2020 16:55:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org E005AC433CB
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=jcrouse@codeaurora.org
-From: Jordan Crouse <jcrouse@codeaurora.org>
-To: linux-arm-msm@vger.kernel.org
-Date: Mon, 22 Jun 2020 10:55:38 -0600
-Message-Id: <20200622165539.9247-1-jcrouse@codeaurora.org>
-X-Mailer: git-send-email 2.17.1
-Subject: [Freedreno] [PATCH] drm/msm: Fix up the rest of the messed up
- address sizes
+Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9238A6E081;
+ Tue, 23 Jun 2020 07:29:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+ s=20170329; 
+ h=MIME-Version:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
+ bh=Kzlg3bHRorDD7BWffZJv6GE9TJPKF3y/v/amkqlv3GY=; 
+ b=Aa5RZQ61Gr35Q9a7feARdpIBKBsBfXEzl4lNWlIFxFMSiigV830bNRBv9SrGb+DYg7WK4SGf4Q+HM/0DDj3K4Dc8K6i5te0h3BlsqZy1/n2G5aGhfmwbe/NH4spRpJoV80nUlOjWU0ja8SeBmTVIZYJJYWl2mm6WgA305MXx3vhGIS9oC9O4JCeiaWB6q7orEP2X7WW3mCRtIJQMOMqAoVV23wJYTEDCMEjyM94FDCnUbQ47WpNUj3pbty0pVwhMVkcCpHVUBbyCYXdCDyq+SGtPl6t0i5vgjsiUjsTmmLY7FD+TnA/V9Pz63DUOgBctFgF0maao6LvbspBiSo5vcQ==;
+Received: from 53.red-88-15-141.dynamicip.rima-tde.net ([88.15.141.53]
+ helo=maxwell) by fanzine.igalia.com with esmtpsa 
+ (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
+ id 1jndN9-0003TO-IZ; Tue, 23 Jun 2020 09:29:35 +0200
+Message-ID: <78d5ab87f0dfb7e3e1286a5f3f4f10fefa33e077.camel@igalia.com>
+From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
+To: "Szwichtenberg, Radoslaw" <radoslaw.szwichtenberg@intel.com>, 
+ "events@lists.x.org"
+ <events@lists.x.org>, "xorg-devel@lists.freedesktop.org"
+ <xorg-devel@lists.freedesktop.org>, "wayland-devel@lists.freedesktop.org"
+ <wayland-devel@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "mesa-dev@lists.freedesktop.org"
+ <mesa-dev@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "etnaviv@lists.freedesktop.org"
+ <etnaviv@lists.freedesktop.org>, "freedreno@lists.freedesktop.org"
+ <freedreno@lists.freedesktop.org>, "nouveau@lists.freedesktop.org"
+ <nouveau@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>
+Date: Tue, 23 Jun 2020 09:29:25 +0200
+In-Reply-To: <9a4392829de747a9a752a5b13f31f90b@intel.com>
+References: <9a4392829de747a9a752a5b13f31f90b@intel.com>
+User-Agent: Evolution 3.36.3 (3.36.3-1.fc32) 
+MIME-Version: 1.0
+Subject: Re: [Freedreno] [Mesa-dev] XDC 2020: Registration & Call for
+ Proposals now open!
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,108 +54,151 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Joerg Roedel <jroedel@suse.de>,
- Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Marek <jonathan@marek.ca>,
- Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, David Airlie <airlied@linux.ie>,
- Sean Paul <sean@poorly.run>, Sharat Masetty <smasetty@codeaurora.org>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Daniel Vetter <daniel@ffwll.ch>, Kalyan Thota <kalyan_t@codeaurora.org>,
- Drew Davenport <ddavenport@chromium.org>, tongtiangen <tongtiangen@huawei.com>,
- AngeloGioacchino Del Regno <kholk11@gmail.com>,
- Sam Ravnborg <sam@ravnborg.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "board@foundation.x.org" <board@foundation.x.org>
+Content-Type: multipart/mixed; boundary="===============1198753632=="
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-msm_gem_address_space_create() changed to take a start/length instead
-of a start/end for the iova space but all of the callers were just
-cut and pasted from the old usage. Most of the mistakes have been fixed
-up so just catch up the rest.
 
-Fixes: ccac7ce373c1 ("drm/msm: Refactor address space initialization")
-Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
----
+--===============1198753632==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-9+orxlxz86sWcnKf/R+o"
 
- drivers/gpu/drm/msm/adreno/a2xx_gpu.c    | 2 +-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c    | 2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  | 2 +-
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c | 2 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 2 +-
- 5 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a2xx_gpu.c b/drivers/gpu/drm/msm/adreno/a2xx_gpu.c
-index 60f6472a3e58..6021f8d9efd1 100644
---- a/drivers/gpu/drm/msm/adreno/a2xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a2xx_gpu.c
-@@ -408,7 +408,7 @@ a2xx_create_address_space(struct msm_gpu *gpu, struct platform_device *pdev)
- 	struct msm_gem_address_space *aspace;
- 
- 	aspace = msm_gem_address_space_create(mmu, "gpu", SZ_16M,
--		SZ_16M + 0xfff * SZ_64K);
-+		0xfff * SZ_64K);
- 
- 	if (IS_ERR(aspace) && !IS_ERR(mmu))
- 		mmu->funcs->destroy(mmu);
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 096be97ce9f9..21e77d67151f 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -1121,7 +1121,7 @@ static int a6xx_gmu_memory_probe(struct a6xx_gmu *gmu)
- 		return -ENODEV;
- 
- 	mmu = msm_iommu_new(gmu->dev, domain);
--	gmu->aspace = msm_gem_address_space_create(mmu, "gmu", 0x0, 0x7fffffff);
-+	gmu->aspace = msm_gem_address_space_create(mmu, "gmu", 0x0, 0x80000000);
- 	if (IS_ERR(gmu->aspace)) {
- 		iommu_domain_free(domain);
- 		return PTR_ERR(gmu->aspace);
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index b8615d4fe8a3..680527e28d09 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -780,7 +780,7 @@ static int _dpu_kms_mmu_init(struct dpu_kms *dpu_kms)
- 
- 	mmu = msm_iommu_new(dpu_kms->dev->dev, domain);
- 	aspace = msm_gem_address_space_create(mmu, "dpu1",
--		0x1000, 0xfffffff);
-+		0x1000, 0x100000000 - 0x1000);
- 
- 	if (IS_ERR(aspace)) {
- 		mmu->funcs->destroy(mmu);
-diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-index 08897184b1d9..fc6a3f8134c7 100644
---- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-@@ -514,7 +514,7 @@ struct msm_kms *mdp4_kms_init(struct drm_device *dev)
- 			config->iommu);
- 
- 		aspace  = msm_gem_address_space_create(mmu,
--			"mdp4", 0x1000, 0xffffffff);
-+			"mdp4", 0x1000, 0x100000000 - 0x1000);
- 
- 		if (IS_ERR(aspace)) {
- 			if (!IS_ERR(mmu))
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-index 54631fbd9389..8586d2cf1d94 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-@@ -641,7 +641,7 @@ struct msm_kms *mdp5_kms_init(struct drm_device *dev)
- 		mmu = msm_iommu_new(iommu_dev, config->platform.iommu);
- 
- 		aspace = msm_gem_address_space_create(mmu, "mdp5",
--			0x1000, 0xffffffff);
-+			0x1000, 0x100000000 - 0x1000);
- 
- 		if (IS_ERR(aspace)) {
- 			if (!IS_ERR(mmu))
--- 
-2.17.1
+--=-9+orxlxz86sWcnKf/R+o
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+This is a kindly reminder that the CFP deadline is in less than two
+weeks :)
+
+On Fri, 2020-05-15 at 14:15 +0000, Szwichtenberg, Radoslaw wrote:
+> Hello!
+>=20
+> Registration & Call for Proposals are now open for XDC 2020, which
+> will
+> take place at the Gda=C5=84sk University of Technology in Gda=C5=84sk, Po=
+land
+> on September 16-18, 2020.
+>=20
+> Thanks to LWN.net for hosting the website again this year!
+>=20
+>     https://xdc2020.x.org
+>    =20
+> As usual, the conference is free of charge and open to the general
+> public. If you plan on attending, please make sure to register as
+> early as possible! However, don't book any travel or hotel until the
+> organization decides if we keep the conference as it is or there is
+> any change. Please read this message on the website for more
+> information:
+>=20
+> https://xdc2020.x.org/event/9/page/78-covid-19
+>=20
+> In order to register as attendee, you will therefore need to register
+> via the XDC
+> website. However, as XDC is sharing the same Indico infrastructure as
+> LPC, if you previously registered on the LPC website
+> (linuxplumbersconference.org) or on the XDC 2019 website
+> (xdc2019.x.org), then you already have an active account
+> and can use the same username & password to login!
+>=20
+>     https://xdc2020.x.org/event/9/registrations/7/
+>=20
+> In addition to registration, the CfP is now open for talks, workshops
+> and demos at XDC 2020. While any serious proposal will be gratefully
+> considered, topics of interest to X.Org and freedesktop.org
+> developers
+> are encouraged. The program focus is on new development, ongoing
+> challenges and anything else that will spark discussions among
+> attendees in the hallway track.
+>=20
+> We are open to talks across all layers of the graphics stack, from
+> the
+> kernel to desktop environments / graphical applications and about how
+> to make things better for the developers who build them. Head to the
+> CfP page to learn more:=20
+>=20
+>     https://xdc2020.x.org/event/9/abstracts/
+>=20
+> The deadline for submissions is Sunday, 5 July 2020.
+>=20
+> Notice that the event may end up being postponed, converted to a
+> fully online conference, or even a hybrid one (physical event + some
+> remote talks). It depends on how COVID-19 situation evolves in the
+> different countries and the restrictions we will have at that time.
+> Also, some people may decide to skip the physical conference to avoid
+> any risk of infection. Because of that, please indicate in your talk
+> submission if you prefer to give a remote talk in the case that XDC
+> keeps being a physical event this year. Similarly, if you think that
+> your talk makes no sense if XDC ends up being a fully-virtual
+> conference, please indicate that in the notes of the talk submission.
+>=20
+
+We are gathering all the information in order to make a decision at the
+beginning of July. Stay tuned [0]!
+
+Sam
+
+[0] https://xdc2020.x.org/event/9/page/78-covid-19
+
+> If COVID-19 situation allows it, we are looking forward to seeing you
+> in Gda=C5=84sk! If you have any questions, please send me an email to=20
+> radoslaw.szwichtenberg@intel.com,  adding on CC the X.org board
+> (board at foundation.x.org).
+>=20
+> And don't forget, you can follow us on Twitter for all the latest
+> updates and to stay connected:
+>=20
+>     https://twitter.com/xdc2020
+>=20
+> Best,
+>=20
+> Radek
+>=20
+>=20
+> _______________________________________________
+> mesa-dev mailing list
+> mesa-dev@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/mesa-dev
+>=20
+
+--=-9+orxlxz86sWcnKf/R+o
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAl7xr1UACgkQf/S6MvF9
+w0OLkA//X2kk/vAbrnL+0CSgFbOfhaOJAhjB2KAGpfsKVdDYKXcRCIgoJE9ZAUDY
+HaWB/8mFfZPgfjHbqVQ7qTsQ1bITBHM0uAQ0L0PEgg/qpfaZIW5mI3jwmCWnVaXY
+NqgeicXisv2y4Fl+VzZe2qE1GWsnfnfW6NDV3rTUMckNiy1sQ9edF1vuTg1e31NB
+hCNy/50FUOR09EZAhjnMl8WfU6HSBxQNGeJK1k34TX7xGmPIjO17v4KmknZohLBd
+C441QmBG+144xV3so35CgNbtclyyJArHqUhSgsI9PoQjF6aCpw/1LFN54LPVg+dm
+848rSTgIdHNX432Zso605nv+QiU6DWCGX5/5RJ8iR9Nim3WKGZTPgdJfId3EI0BJ
+yzxIh/dJvTnoCPyYOUv4nAVdRnpAVtEBxiC4OuNnBo7szzp/qxfM/e6t0Zc6nWkx
+1gBTb5uG8JfHA6E534ktRU8INpEbwJnzsFk/GJX2oJ0CsPhhBQyBhtTAbFIDwYNP
+gHtJMzVVvp3dnYZfamqdON3fWH7/j75GT8fwGuutM/H17l4dShjKLtDX/+sLwfcn
+6dVX7Keg8PeDb6YvJhKAlT0TA2l0kqiKW7td1wkJvwp69Owkc/J81MQ5ky6vmxjT
+h/mk6pyEp31lIWNHovnfv21NWIriU7qnEc2FiPQIKsg3NJGb3n4=
+=BV8w
+-----END PGP SIGNATURE-----
+
+--=-9+orxlxz86sWcnKf/R+o--
+
+
+--===============1198753632==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
+
+--===============1198753632==--
+
