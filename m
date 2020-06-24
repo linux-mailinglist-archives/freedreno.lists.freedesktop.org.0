@@ -2,46 +2,33 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 658B3204B16
-	for <lists+freedreno@lfdr.de>; Tue, 23 Jun 2020 09:29:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 754F92072A4
+	for <lists+freedreno@lfdr.de>; Wed, 24 Jun 2020 13:57:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CB066E950;
-	Tue, 23 Jun 2020 07:29:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 280AC6EB14;
+	Wed, 24 Jun 2020 11:57:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9238A6E081;
- Tue, 23 Jun 2020 07:29:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
- s=20170329; 
- h=MIME-Version:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
- bh=Kzlg3bHRorDD7BWffZJv6GE9TJPKF3y/v/amkqlv3GY=; 
- b=Aa5RZQ61Gr35Q9a7feARdpIBKBsBfXEzl4lNWlIFxFMSiigV830bNRBv9SrGb+DYg7WK4SGf4Q+HM/0DDj3K4Dc8K6i5te0h3BlsqZy1/n2G5aGhfmwbe/NH4spRpJoV80nUlOjWU0ja8SeBmTVIZYJJYWl2mm6WgA305MXx3vhGIS9oC9O4JCeiaWB6q7orEP2X7WW3mCRtIJQMOMqAoVV23wJYTEDCMEjyM94FDCnUbQ47WpNUj3pbty0pVwhMVkcCpHVUBbyCYXdCDyq+SGtPl6t0i5vgjsiUjsTmmLY7FD+TnA/V9Pz63DUOgBctFgF0maao6LvbspBiSo5vcQ==;
-Received: from 53.red-88-15-141.dynamicip.rima-tde.net ([88.15.141.53]
- helo=maxwell) by fanzine.igalia.com with esmtpsa 
- (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
- id 1jndN9-0003TO-IZ; Tue, 23 Jun 2020 09:29:35 +0200
-Message-ID: <78d5ab87f0dfb7e3e1286a5f3f4f10fefa33e077.camel@igalia.com>
-From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
-To: "Szwichtenberg, Radoslaw" <radoslaw.szwichtenberg@intel.com>, 
- "events@lists.x.org"
- <events@lists.x.org>, "xorg-devel@lists.freedesktop.org"
- <xorg-devel@lists.freedesktop.org>, "wayland-devel@lists.freedesktop.org"
- <wayland-devel@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "mesa-dev@lists.freedesktop.org"
- <mesa-dev@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "etnaviv@lists.freedesktop.org"
- <etnaviv@lists.freedesktop.org>, "freedreno@lists.freedesktop.org"
- <freedreno@lists.freedesktop.org>, "nouveau@lists.freedesktop.org"
- <nouveau@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>
-Date: Tue, 23 Jun 2020 09:29:25 +0200
-In-Reply-To: <9a4392829de747a9a752a5b13f31f90b@intel.com>
-References: <9a4392829de747a9a752a5b13f31f90b@intel.com>
-User-Agent: Evolution 3.36.3 (3.36.3-1.fc32) 
-MIME-Version: 1.0
-Subject: Re: [Freedreno] [Mesa-dev] XDC 2020: Registration & Call for
- Proposals now open!
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 489FE6EB14;
+ Wed, 24 Jun 2020 11:57:08 +0000 (UTC)
+Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
+ by alexa-out.qualcomm.com with ESMTP; 24 Jun 2020 04:57:07 -0700
+Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
+ by ironmsg08-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 24 Jun 2020 04:57:06 -0700
+Received: from kalyant-linux.qualcomm.com ([10.204.66.210])
+ by ironmsg02-blr.qualcomm.com with ESMTP; 24 Jun 2020 17:26:42 +0530
+Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
+ id 921DE4A40; Wed, 24 Jun 2020 17:26:40 +0530 (IST)
+From: Kalyan Thota <kalyan_t@codeaurora.org>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Wed, 24 Jun 2020 17:26:36 +0530
+Message-Id: <1592999796-30501-1-git-send-email-kalyan_t@codeaurora.org>
+X-Mailer: git-send-email 1.9.1
+Subject: [Freedreno] [PATCH] drm/msm/dpu: add support for dither block in
+ display
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,151 +41,254 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "board@foundation.x.org" <board@foundation.x.org>
-Content-Type: multipart/mixed; boundary="===============1198753632=="
+Cc: mkrishn@codeaurora.org, travitej@codeaurora.org, dianders@chromium.org,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com, nganji@codeaurora.org,
+ seanpaul@chromium.org, Kalyan Thota <kalyan_t@codeaurora.org>,
+ hoegsberg@chromium.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+This change enables dither block for primary interface
+in display.
 
---===============1198753632==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-9+orxlxz86sWcnKf/R+o"
+Enabled for 6bpc in the current version.
 
+Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c     | 45 +++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c | 66 +++++++++++++++++++++----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h | 28 +++++++++++
+ 3 files changed, 130 insertions(+), 9 deletions(-)
 
---=-9+orxlxz86sWcnKf/R+o
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi,
-
-This is a kindly reminder that the CFP deadline is in less than two
-weeks :)
-
-On Fri, 2020-05-15 at 14:15 +0000, Szwichtenberg, Radoslaw wrote:
-> Hello!
->=20
-> Registration & Call for Proposals are now open for XDC 2020, which
-> will
-> take place at the Gda=C5=84sk University of Technology in Gda=C5=84sk, Po=
-land
-> on September 16-18, 2020.
->=20
-> Thanks to LWN.net for hosting the website again this year!
->=20
->     https://xdc2020.x.org
->    =20
-> As usual, the conference is free of charge and open to the general
-> public. If you plan on attending, please make sure to register as
-> early as possible! However, don't book any travel or hotel until the
-> organization decides if we keep the conference as it is or there is
-> any change. Please read this message on the website for more
-> information:
->=20
-> https://xdc2020.x.org/event/9/page/78-covid-19
->=20
-> In order to register as attendee, you will therefore need to register
-> via the XDC
-> website. However, as XDC is sharing the same Indico infrastructure as
-> LPC, if you previously registered on the LPC website
-> (linuxplumbersconference.org) or on the XDC 2019 website
-> (xdc2019.x.org), then you already have an active account
-> and can use the same username & password to login!
->=20
->     https://xdc2020.x.org/event/9/registrations/7/
->=20
-> In addition to registration, the CfP is now open for talks, workshops
-> and demos at XDC 2020. While any serious proposal will be gratefully
-> considered, topics of interest to X.Org and freedesktop.org
-> developers
-> are encouraged. The program focus is on new development, ongoing
-> challenges and anything else that will spark discussions among
-> attendees in the hallway track.
->=20
-> We are open to talks across all layers of the graphics stack, from
-> the
-> kernel to desktop environments / graphical applications and about how
-> to make things better for the developers who build them. Head to the
-> CfP page to learn more:=20
->=20
->     https://xdc2020.x.org/event/9/abstracts/
->=20
-> The deadline for submissions is Sunday, 5 July 2020.
->=20
-> Notice that the event may end up being postponed, converted to a
-> fully online conference, or even a hybrid one (physical event + some
-> remote talks). It depends on how COVID-19 situation evolves in the
-> different countries and the restrictions we will have at that time.
-> Also, some people may decide to skip the physical conference to avoid
-> any risk of infection. Because of that, please indicate in your talk
-> submission if you prefer to give a remote talk in the case that XDC
-> keeps being a physical event this year. Similarly, if you think that
-> your talk makes no sense if XDC ends up being a fully-virtual
-> conference, please indicate that in the notes of the talk submission.
->=20
-
-We are gathering all the information in order to make a decision at the
-beginning of July. Stay tuned [0]!
-
-Sam
-
-[0] https://xdc2020.x.org/event/9/page/78-covid-19
-
-> If COVID-19 situation allows it, we are looking forward to seeing you
-> in Gda=C5=84sk! If you have any questions, please send me an email to=20
-> radoslaw.szwichtenberg@intel.com,  adding on CC the X.org board
-> (board at foundation.x.org).
->=20
-> And don't forget, you can follow us on Twitter for all the latest
-> updates and to stay connected:
->=20
->     https://twitter.com/xdc2020
->=20
-> Best,
->=20
-> Radek
->=20
->=20
-> _______________________________________________
-> mesa-dev mailing list
-> mesa-dev@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/mesa-dev
->=20
-
---=-9+orxlxz86sWcnKf/R+o
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAl7xr1UACgkQf/S6MvF9
-w0OLkA//X2kk/vAbrnL+0CSgFbOfhaOJAhjB2KAGpfsKVdDYKXcRCIgoJE9ZAUDY
-HaWB/8mFfZPgfjHbqVQ7qTsQ1bITBHM0uAQ0L0PEgg/qpfaZIW5mI3jwmCWnVaXY
-NqgeicXisv2y4Fl+VzZe2qE1GWsnfnfW6NDV3rTUMckNiy1sQ9edF1vuTg1e31NB
-hCNy/50FUOR09EZAhjnMl8WfU6HSBxQNGeJK1k34TX7xGmPIjO17v4KmknZohLBd
-C441QmBG+144xV3so35CgNbtclyyJArHqUhSgsI9PoQjF6aCpw/1LFN54LPVg+dm
-848rSTgIdHNX432Zso605nv+QiU6DWCGX5/5RJ8iR9Nim3WKGZTPgdJfId3EI0BJ
-yzxIh/dJvTnoCPyYOUv4nAVdRnpAVtEBxiC4OuNnBo7szzp/qxfM/e6t0Zc6nWkx
-1gBTb5uG8JfHA6E534ktRU8INpEbwJnzsFk/GJX2oJ0CsPhhBQyBhtTAbFIDwYNP
-gHtJMzVVvp3dnYZfamqdON3fWH7/j75GT8fwGuutM/H17l4dShjKLtDX/+sLwfcn
-6dVX7Keg8PeDb6YvJhKAlT0TA2l0kqiKW7td1wkJvwp69Owkc/J81MQ5ky6vmxjT
-h/mk6pyEp31lIWNHovnfv21NWIriU7qnEc2FiPQIKsg3NJGb3n4=
-=BV8w
------END PGP SIGNATURE-----
-
---=-9+orxlxz86sWcnKf/R+o--
-
-
---===============1198753632==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 63976dc..26e870a 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -208,6 +208,42 @@ struct dpu_encoder_virt {
+ 
+ #define to_dpu_encoder_virt(x) container_of(x, struct dpu_encoder_virt, base)
+ 
++static u32 dither_matrix[DITHER_MATRIX_SZ] = {
++	15, 7, 13, 5, 3, 11, 1, 9, 12, 4, 14, 6, 0, 8, 2, 10
++};
++
++static void _dpu_encoder_setup_dither(struct dpu_encoder_phys *phys)
++{
++	struct dpu_hw_dither_cfg dither_cfg = { 0 };
++	struct drm_display_info *info;
++
++	if (!phys || !phys->connector || !phys->hw_pp ||
++		!phys->hw_pp->ops.setup_dither)
++		return;
++
++	info = &phys->connector->display_info;
++	if (!info)
++		return;
++
++	switch (phys->connector->display_info.bpc) {
++	case 6:
++		dither_cfg.c0_bitdepth = 6;
++		dither_cfg.c1_bitdepth = 6;
++		dither_cfg.c2_bitdepth = 6;
++		dither_cfg.c3_bitdepth = 6;
++		dither_cfg.temporal_en = 0;
++		break;
++	default:
++		phys->hw_pp->ops.setup_dither(phys->hw_pp, NULL);
++		return;
++	}
++
++	memcpy(&dither_cfg.matrix, dither_matrix,
++			sizeof(u32) * DITHER_MATRIX_SZ);
++
++	phys->hw_pp->ops.setup_dither(phys->hw_pp, &dither_cfg);
++}
++
+ void dpu_encoder_helper_report_irq_timeout(struct dpu_encoder_phys *phys_enc,
+ 		enum dpu_intr_idx intr_idx)
+ {
+@@ -1082,6 +1118,7 @@ static void _dpu_encoder_virt_enable_helper(struct drm_encoder *drm_enc)
+ 	struct dpu_encoder_virt *dpu_enc = NULL;
+ 	struct msm_drm_private *priv;
+ 	struct dpu_kms *dpu_kms;
++	int i;
+ 
+ 	if (!drm_enc || !drm_enc->dev) {
+ 		DPU_ERROR("invalid parameters\n");
+@@ -1104,6 +1141,14 @@ static void _dpu_encoder_virt_enable_helper(struct drm_encoder *drm_enc)
+ 				dpu_kms->catalog);
+ 
+ 	_dpu_encoder_update_vsync_source(dpu_enc, &dpu_enc->disp_info);
++
++	if (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_DSI) {
++		for (i = 0; i < dpu_enc->num_phys_encs; i++) {
++			struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
++
++			_dpu_encoder_setup_dither(phys);
++		}
++	}
+ }
+ 
+ void dpu_encoder_virt_runtime_resume(struct drm_encoder *drm_enc)
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
+index d110a40..cf7603d 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
+@@ -28,6 +28,16 @@
+ #define PP_FBC_BUDGET_CTL               0x038
+ #define PP_FBC_LOSSY_MODE               0x03C
+ 
++#define PP_DITHER_EN			0x000
++#define PP_DITHER_BITDEPTH		0x004
++#define PP_DITHER_MATRIX		0x008
++
++#define DITHER_DEPTH_MAP_INDEX 9
++
++static u32 dither_depth_map[DITHER_DEPTH_MAP_INDEX] = {
++	0, 0, 0, 0, 0, 0, 0, 1, 2
++};
++
+ static const struct dpu_pingpong_cfg *_pingpong_offset(enum dpu_pingpong pp,
+ 		const struct dpu_mdss_cfg *m,
+ 		void __iomem *addr,
+@@ -49,6 +59,40 @@ static const struct dpu_pingpong_cfg *_pingpong_offset(enum dpu_pingpong pp,
+ 	return ERR_PTR(-EINVAL);
+ }
+ 
++static void dpu_hw_pp_setup_dither(struct dpu_hw_pingpong *pp,
++				    struct dpu_hw_dither_cfg *cfg)
++{
++	struct dpu_hw_blk_reg_map *c;
++	u32 i, base, data = 0;
++
++	if (!pp)
++		return;
++
++	c = &pp->hw;
++	base = pp->caps->sblk->dither.base;
++	if (!cfg) {
++		DPU_REG_WRITE(c, base + PP_DITHER_EN, 0);
++		return;
++	}
++
++	data = dither_depth_map[cfg->c0_bitdepth] & REG_MASK(2);
++	data |= (dither_depth_map[cfg->c1_bitdepth] & REG_MASK(2)) << 2;
++	data |= (dither_depth_map[cfg->c2_bitdepth] & REG_MASK(2)) << 4;
++	data |= (dither_depth_map[cfg->c3_bitdepth] & REG_MASK(2)) << 6;
++	data |= (cfg->temporal_en) ? (1 << 8) : 0;
++
++	DPU_REG_WRITE(c, base + PP_DITHER_BITDEPTH, data);
++
++	for (i = 0; i < DITHER_MATRIX_SZ - 3; i += 4) {
++		data = (cfg->matrix[i] & REG_MASK(4)) |
++			((cfg->matrix[i + 1] & REG_MASK(4)) << 4) |
++			((cfg->matrix[i + 2] & REG_MASK(4)) << 8) |
++			((cfg->matrix[i + 3] & REG_MASK(4)) << 12);
++		DPU_REG_WRITE(c, base + PP_DITHER_MATRIX + i, data);
++	}
++	DPU_REG_WRITE(c, base + PP_DITHER_EN, 1);
++}
++
+ static int dpu_hw_pp_setup_te_config(struct dpu_hw_pingpong *pp,
+ 		struct dpu_hw_tear_check *te)
+ {
+@@ -180,15 +224,19 @@ static u32 dpu_hw_pp_get_line_count(struct dpu_hw_pingpong *pp)
+ 	return line;
+ }
+ 
+-static void _setup_pingpong_ops(struct dpu_hw_pingpong_ops *ops,
+-	const struct dpu_pingpong_cfg *hw_cap)
++static void _setup_pingpong_ops(struct dpu_hw_pingpong *c,
++				unsigned long features)
+ {
+-	ops->setup_tearcheck = dpu_hw_pp_setup_te_config;
+-	ops->enable_tearcheck = dpu_hw_pp_enable_te;
+-	ops->connect_external_te = dpu_hw_pp_connect_external_te;
+-	ops->get_vsync_info = dpu_hw_pp_get_vsync_info;
+-	ops->poll_timeout_wr_ptr = dpu_hw_pp_poll_timeout_wr_ptr;
+-	ops->get_line_count = dpu_hw_pp_get_line_count;
++	c->ops.setup_tearcheck = dpu_hw_pp_setup_te_config;
++	c->ops.enable_tearcheck = dpu_hw_pp_enable_te;
++	c->ops.connect_external_te = dpu_hw_pp_connect_external_te;
++	c->ops.get_vsync_info = dpu_hw_pp_get_vsync_info;
++	c->ops.poll_timeout_wr_ptr = dpu_hw_pp_poll_timeout_wr_ptr;
++	c->ops.get_line_count = dpu_hw_pp_get_line_count;
++
++	if (test_bit(DPU_PINGPONG_DITHER, &features) &&
++		IS_SC7180_TARGET(c->hw.hwversion))
++		c->ops.setup_dither = dpu_hw_pp_setup_dither;
+ };
+ 
+ static struct dpu_hw_blk_ops dpu_hw_ops;
+@@ -212,7 +260,7 @@ struct dpu_hw_pingpong *dpu_hw_pingpong_init(enum dpu_pingpong idx,
+ 
+ 	c->idx = idx;
+ 	c->caps = cfg;
+-	_setup_pingpong_ops(&c->ops, c->caps);
++	_setup_pingpong_ops(c, c->caps->features);
+ 
+ 	dpu_hw_blk_init(&c->base, DPU_HW_BLK_PINGPONG, idx, &dpu_hw_ops);
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h
+index d73cb73..065996b 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h
+@@ -10,6 +10,8 @@
+ #include "dpu_hw_util.h"
+ #include "dpu_hw_blk.h"
+ 
++#define DITHER_MATRIX_SZ 16
++
+ struct dpu_hw_pingpong;
+ 
+ struct dpu_hw_tear_check {
+@@ -35,6 +37,26 @@ struct dpu_hw_pp_vsync_info {
+ };
+ 
+ /**
++ * struct dpu_hw_dither_cfg - dither feature structure
++ * @flags: for customizing operations
++ * @temporal_en: temperal dither enable
++ * @c0_bitdepth: c0 component bit depth
++ * @c1_bitdepth: c1 component bit depth
++ * @c2_bitdepth: c2 component bit depth
++ * @c3_bitdepth: c2 component bit depth
++ * @matrix: dither strength matrix
++ */
++struct dpu_hw_dither_cfg {
++	u64 flags;
++	u32 temporal_en;
++	u32 c0_bitdepth;
++	u32 c1_bitdepth;
++	u32 c2_bitdepth;
++	u32 c3_bitdepth;
++	u32 matrix[DITHER_MATRIX_SZ];
++};
++
++/**
+  *
+  * struct dpu_hw_pingpong_ops : Interface to the pingpong Hw driver functions
+  *  Assumption is these functions will be called after clocks are enabled
+@@ -82,6 +104,12 @@ struct dpu_hw_pingpong_ops {
+ 	 * Obtain current vertical line counter
+ 	 */
+ 	u32 (*get_line_count)(struct dpu_hw_pingpong *pp);
++
++	/**
++	 * Setup dither matix for pingpong block
++	 */
++	void (*setup_dither)(struct dpu_hw_pingpong *pp,
++			struct dpu_hw_dither_cfg *cfg);
+ };
+ 
+ struct dpu_hw_pingpong {
+-- 
+1.9.1
 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
-
---===============1198753632==--
-
