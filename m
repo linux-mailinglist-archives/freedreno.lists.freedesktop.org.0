@@ -2,117 +2,49 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3EF220B106
-	for <lists+freedreno@lfdr.de>; Fri, 26 Jun 2020 13:55:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5673A20B491
+	for <lists+freedreno@lfdr.de>; Fri, 26 Jun 2020 17:32:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DC1E6EC7C;
-	Fri, 26 Jun 2020 11:55:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA38D6ECBA;
+	Fri, 26 Jun 2020 15:32:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B555B6EC7C
- for <freedreno@lists.freedesktop.org>; Fri, 26 Jun 2020 11:55:21 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id q15so8574240wmj.2
- for <freedreno@lists.freedesktop.org>; Fri, 26 Jun 2020 04:55:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=subject:to:cc:references:from:autocrypt:organization:message-id
- :date:user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=ZYdt4gQWBtJQecWrxgjcZRySxIabHfJby6/MGUebw0s=;
- b=jpX/3wozpDBWzQux0qF3QyqBy9feIYajR5bJ9ymLYvhvBkJK/kkJFDKN0U56fvoJ3q
- uzP4tu0DLCCJYhanx1Z78MpLM5frZV5bolYKICUkEhwG/qVeVMlQ7LT3OrRAL+Dl0mUU
- 1GIIt8JKAKszLjvLvqLvN/F+8uHMNkHhwWDj7DaZwpAMdQc7JvWKxsuYXUBPInIXJm0c
- TXwF4RzrJhCYGf26tAmrLfT0kKfHwJqZ+JMZPMP44sSO5eISXmy1XvmYXJE9n3MxbNG3
- GIy2+qSW7jGpPDvlwnfwxXmfkAJMOZHsESJ1TFoOpXgX21dla4ZDIFytL8eYnachGhfm
- GmFQ==
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13EBF6ECB8;
+ Fri, 26 Jun 2020 15:32:14 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id s28so7225624edw.11;
+ Fri, 26 Jun 2020 08:32:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=sisD+mlHl7C8CYQosxE2yZqCg+4na6/akZrccMrgES8=;
+ b=M9rOG1iqUTGJfLzsMRU+uKmHxbYt6WXxk/ygFmzH1wC1TriYfTuDdqJ7SVki63sOWu
+ lsp6STtO0LgJWFyJC+3GHqWiq90oDclHc1sLZ+PuZanQNSTeFpg8T8k1yo5tyxkrGh1C
+ xlJfLdus2IGu9qL19iCWlnh1x7so34u/cT+7mfGAGwCwQASVnS3UQq4B7waxzmvfwMhw
+ LU7xJl85nYcLRKWYKzmC/4JM9wWjY+UsLpt4xpI35Pcnk7MySppPH+Mn5Nirw4wMDoX3
+ uKrT9DojirIOzcEEBN5tG7sfaubVr0NYtFmZZB9lpWuwY4U9EDPyQ7ZXF8tCN/5UkdSU
+ YA0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:autocrypt
- :organization:message-id:date:user-agent:mime-version:in-reply-to
- :content-language:content-transfer-encoding;
- bh=ZYdt4gQWBtJQecWrxgjcZRySxIabHfJby6/MGUebw0s=;
- b=Q4VXrVjduP5MKccl0wUTgsSsQI+/IEMa/oQ+MVP4IPXBJD/qDAEKjiFHTBS8KpRjNK
- bf9G/vI4GiP+eiO3rbYRrbymfjuTBemq2Nqe3mWTkScEHYEbfd3Tfq+i1RSB1IvrGQX5
- p2uJ0BrSpc58vqMOuhy5vmosGHRGedwJoGlgpSWZHjfwrGUNy3lwOpUIoCgpPhDI1zfm
- bzDhf9RAVJhTDTahwr1F2rEWY3h/3fr6LYHqyHw2iX942PQHnpl+N/xHKBV1CuQfpFxQ
- dczFvYxetgilERE7wMo8wZ+hmUXMR5fl4l2l3uUgfPDgf7b6ZByHFM+NY7bZp5V5U9t0
- Q+QA==
-X-Gm-Message-State: AOAM533zkFGgOk/Sc2m4UTZpL3qJAM0S5nCtqkd64jPIpgCzPP7lofWg
- erigNwK0g/PiWqr9RY9g1g77vw==
-X-Google-Smtp-Source: ABdhPJy1xHuHs5H4vkG7tlNhlbwO4oRZmm6noYx2GQkUfK+F+v00YALGwgVJs1tFnCo/RWCXv2wU/Q==
-X-Received: by 2002:a1c:1dc7:: with SMTP id d190mr3010814wmd.36.1593172519840; 
- Fri, 26 Jun 2020 04:55:19 -0700 (PDT)
-Received: from [10.1.3.173]
- (laubervilliers-658-1-213-31.w90-63.abo.wanadoo.fr. [90.63.244.31])
- by smtp.gmail.com with ESMTPSA id t16sm15557658wru.9.2020.06.26.04.55.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 26 Jun 2020 04:55:18 -0700 (PDT)
-To: Doug Anderson <dianders@chromium.org>,
- Harigovindan P <harigovi@codeaurora.org>, Andrzej Hajda <a.hajda@samsung.com>
-References: <20200609120455.20458-1-harigovi@codeaurora.org>
- <CAD=FV=XHHAAWNkJGMJESf4C=hcbaswFamGVeyMJ9eRd6dWAy8Q@mail.gmail.com>
-From: Neil Armstrong <narmstrong@baylibre.com>
-Autocrypt: addr=narmstrong@baylibre.com; prefer-encrypt=mutual; keydata=
- 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
- BSwxi7g3Mu7u5kUByanqHyA=
-Organization: Baylibre
-Message-ID: <0d408a69-b5ef-d082-aaef-e6d0a9541d08@baylibre.com>
-Date: Fri, 26 Jun 2020 13:55:17 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=sisD+mlHl7C8CYQosxE2yZqCg+4na6/akZrccMrgES8=;
+ b=dXFvijLQcWAkAoxJ9QCZN7SIurQqMdjjPp0vXnDch9DS+CAFbeMLkSqnviOZpaTWa3
+ lT4tCBnhiZXp12cikJ4eTHlQz90SwOPUJChGNsJ82tlQQil2/hjHziv/JhPx8eeN5mdQ
+ doDKSKaBo/P3oMjkD2bRHeBLJ50HKzEFp7FJtF79UaoRG6345vxlYC373Y25PJVRK2oD
+ 5JzXrM7t6D2zHmnbr/Jk1XOMc0g17G3IQoFE2G12UKvDMZsq07+Sr6Uqcbx83isJyE+1
+ d5CfaoQ6lX4SZBZQwLMilKYrIopgagWAgmc3tQZuqdWeZ7yQg/hjMNqtdfWu9LdPoV47
+ 2jvQ==
+X-Gm-Message-State: AOAM5309keaPmHQFbprlp5b0jeFYI+FQcek6KqQAcoY9gCFl+zbygb+8
+ geU9VdFmQ46mQVd4ZpW+Ok85tpXgztjhOKUcFNbBNdW9RVo=
+X-Google-Smtp-Source: ABdhPJwT1TINnsmEQHyFt81RhldxZNYfXLU69wEptxxMIBuc4S3lt+KRGyfgPnzqlOmQWT3BolOB8DQQOuf4mXXYlc4=
+X-Received: by 2002:a50:eb02:: with SMTP id y2mr1398536edp.281.1593185532634; 
+ Fri, 26 Jun 2020 08:32:12 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAD=FV=XHHAAWNkJGMJESf4C=hcbaswFamGVeyMJ9eRd6dWAy8Q@mail.gmail.com>
-Content-Language: en-US
-Subject: Re: [Freedreno] [v3] drm/bridge: ti-sn65dsi86: ensure bridge
- suspend happens during PM sleep
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 26 Jun 2020 08:32:42 -0700
+Message-ID: <CAF6AEGsYHgxo0+Nwr0Wq3A8W6LW69SmbpDN4ckpTqxPtAW3vww@mail.gmail.com>
+To: Dave Airlie <airlied@gmail.com>
+Subject: [Freedreno] (no subject)
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,90 +57,69 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Jernej Skrabec <jernej.skrabec@siol.net>,
- Sam Ravnborg <sam@ravnborg.org>, Jonas Karlman <jonas@kwiboo.se>,
+Cc: freedreno <freedreno@lists.freedesktop.org>,
  linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
- nganji@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Kalyan Thota <kalyan_t@codeaurora.org>,
- "Kristian H. Kristensen" <hoegsberg@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+Hi Dave,
 
-On 19/06/2020 00:09, Doug Anderson wrote:
-> Hi,
-> 
-> On Tue, Jun 9, 2020 at 5:05 AM Harigovindan P <harigovi@codeaurora.org> wrote:
->>
->> ti-sn65dsi86 bridge is enumerated as a runtime device. When
->> suspend is triggered, PM core adds a refcount on all the
->> devices and calls device suspend, since usage count is
->> already incremented, runtime suspend will not be called
->> and it kept the bridge regulators and gpios ON which resulted
->> in platform not entering into XO shutdown.
->>
->> Add changes to force suspend on the runtime device during pm sleep.
->>
->> Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
->> ---
->>
->> Changes in v2:
->>         - Include bridge name in the commit message and
->>         remove dependent patchwork link from the commit
->>         text as bridge is independent of OEM(Stephen Boyd)
->>
->> Changes in v3:
->>         - Updating changelog to explain the need for patch
->>
->>  drivers/gpu/drm/bridge/ti-sn65dsi86.c | 2 ++
->>  1 file changed, 2 insertions(+)
-> 
-> I think this patch is good to go now (has both Stephen's and my
-> reviews).  I noticed that Neil landed my other patches to this driver
-> recently (thanks!) and wondered why he didn't land this one.  Then, I
-> realized that you didn't send it to him or the other bridge
-> maintainer.  :(  Have you tried running get_maintainer?
-> 
-> $ ./scripts/get_maintainer.pl -f drivers/gpu/drm/bridge/ti-sn65dsi86.c
-> Andrzej Hajda <a.hajda@samsung.com> (maintainer:DRM DRIVERS FOR BRIDGE CHIPS)
-> Neil Armstrong <narmstrong@baylibre.com> (maintainer:DRM DRIVERS FOR
-> BRIDGE CHIPS)
-> Laurent Pinchart <Laurent.pinchart@ideasonboard.com> (reviewer:DRM
-> DRIVERS FOR BRIDGE CHIPS)
-> Jonas Karlman <jonas@kwiboo.se> (reviewer:DRM DRIVERS FOR BRIDGE CHIPS)
-> Jernej Skrabec <jernej.skrabec@siol.net> (reviewer:DRM DRIVERS FOR BRIDGE CHIPS)
-> David Airlie <airlied@linux.ie> (maintainer:DRM DRIVERS)
-> Daniel Vetter <daniel@ffwll.ch> (maintainer:DRM DRIVERS)
-> dri-devel@lists.freedesktop.org (open list:DRM DRIVERS)
-> linux-kernel@vger.kernel.org (open list)
-> 
-> In any case, unless someone has extra feedback on this patch I think
-> it's ready to land.
-> 
-> Neil: If you're willing to land this patch too, can you let
-> Harigovindan know if it needs to be re-sent with you in the "To:" list
-> or if you can find it on the dri-devel list?
+A few fixes, mostly fallout from the address space refactor and dpu
+color processing.
 
-Sorry missed this one,
 
-Applying to drm-misc-next
+The following changes since commit 1cb2c4a2c89b2004a36399860c85a1af9b3fcba7:
 
-Neil
+  Revert "drm/msm/dpu: add support for clk and bw scaling for display"
+(2020-06-01 20:56:18 -0700)
 
-> 
-> Thanks!
-> 
-> -Doug
-> 
+are available in the Git repository at:
 
+  https://gitlab.freedesktop.org/drm/msm.git drm-msm-fixes-2020-06-25
+
+for you to fetch changes up to 30480e6ed508e3ff7a3e03c975696aa5196ffe8a:
+
+  drm/msm: Fix up the rest of the messed up address sizes (2020-06-22
+12:12:29 -0700)
+
+----------------------------------------------------------------
+Bernard Zhao (1):
+      drm/msm: fix potential memleak in error branch
+
+Chen Tao (1):
+      drm/msm/dpu: fix error return code in dpu_encoder_init
+
+Eric Anholt (2):
+      drm/msm: Fix address space size after refactor.
+      drm/msm: Fix setup of a6xx create_address_space.
+
+John Stultz (1):
+      drm/msm: Fix 0xfffflub in "Refactor address space initialization"
+
+Jordan Crouse (1):
+      drm/msm: Fix up the rest of the messed up address sizes
+
+Kalyan Thota (1):
+      drm/msm/dpu: request for display color blocks based on hw catalog entry
+
+Krishna Manikandan (1):
+      drm/msm/dpu: allow initialization of encoder locks during encoder init
+
+ drivers/gpu/drm/msm/adreno/a2xx_gpu.c       |  2 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c       |  2 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c       |  2 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c     |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 18 +++++++++++-------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |  2 +-
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c    |  2 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c    |  2 +-
+ drivers/gpu/drm/msm/msm_submitqueue.c       |  4 +++-
+ 9 files changed, 21 insertions(+), 15 deletions(-)
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
