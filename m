@@ -2,49 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D326520B4B2
-	for <lists+freedreno@lfdr.de>; Fri, 26 Jun 2020 17:35:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA5DC20B9A2
+	for <lists+freedreno@lfdr.de>; Fri, 26 Jun 2020 22:01:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8426C6ECBE;
-	Fri, 26 Jun 2020 15:35:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 528536E49D;
+	Fri, 26 Jun 2020 20:01:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [IPv6:2a00:1450:4864:20::52b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 605FC6ECBE;
- Fri, 26 Jun 2020 15:35:52 +0000 (UTC)
-Received: by mail-ed1-x52b.google.com with SMTP id dm19so1007697edb.13;
- Fri, 26 Jun 2020 08:35:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=nxgdI0PHS9fZd2ASUWxvxCPW2bkr766GJBjvOuZLk+k=;
- b=CRHD68toCt/9VGp07w4mYOLHRn3hIGw+Vm8TkX4eh2Y+RpKuLPkP5OLY2ZhV0PNHZU
- ls3VbZ8XlFfN2Uv6fW1mNwvgwQiPhKrzl5JYmjvsi6bIIEPHr4+ryG+7c4jVr4NO9Jhd
- M4/P49jxmgv9JZ2HkPy3TGGmsPX49kQKUDoRnuuSuuDqBt8Gfd8UIMYb5y0pnSboFAVf
- XXxn4gTZViPoINfrRWO7tj6oNl5/3GxFuOgyaLrlV4d4UK3WKDWpkx/obpsKGwu0I7w3
- gOwYHpf5O2SF2eqYbfTXi3QqAvsKKrZ+jOKzCI/RYfCL06csxokDz1Z5g0O+2ViiVMas
- trBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=nxgdI0PHS9fZd2ASUWxvxCPW2bkr766GJBjvOuZLk+k=;
- b=nzRkqbKhAIkD63uYvbWltdAr1W7q0pv62G4oRyKeegLaKyoQDKHpzzJLpQj9IHL/mQ
- crTtzlp8bC0DNqHulXx1M6TqU8wXdNYSP40FczaSJZWNmMAgQTu7lpwUhoID6PyijJDz
- 5TEYYD8NEWR+mg1UK7/vKm9DXvX0CEsPql2T++1nkbRLwlXwymEzFoK9vraoUzF2YRmn
- HqFDN+BjNnck0TYRPZzmRS2iPhheobPSNge2F15cLripnA0mJVj6JOisjIjNsG0ADDp1
- 5buIXo4tMS3E3o2C6+7DLMPUWMo8zDJUf1KNRz7cwv7cqTb32jGAGwqNwploEfaQjmAL
- f4lQ==
-X-Gm-Message-State: AOAM5301c6WccA3NFIJ7FO1z4EjJAvNJE2hEIRQyim+m1/5qGEIhn+Z3
- 7A/yFkJj0XGbJrLhkZYo6YR8mb9BcL2ILaDO6Yg=
-X-Google-Smtp-Source: ABdhPJyKflh7rbf7+P3RC95QxeqWSkrhiz5R9M1XvZ0YJ8a1m63hDgbcRRE25gjcqOQX/Z7qVhDK6qWOXmd7ovRzO3U=
-X-Received: by 2002:a50:eb02:: with SMTP id y2mr1417044edp.281.1593185751055; 
- Fri, 26 Jun 2020 08:35:51 -0700 (PDT)
-MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 26 Jun 2020 08:36:21 -0700
-Message-ID: <CAF6AEGv0SSXArdYs=mOLqJPJdkvk8CpxaJGecqgbOGazQ2n5og@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>
-Subject: [Freedreno] [pull] drm/msm: msm-fixes for 5.8-rc3
+Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
+ [104.130.122.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FF136E366
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Jun 2020 20:01:17 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1593201688; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=2y+LNzdtIXMVi5k8g41Y/QCp9p15+fIgDTNq1kYZi3c=;
+ b=U9p++U4co5N/Mhx4Jp7cbwZpLA/n05XxG+Eh6dO/JyvPUrkOvfledpatTC/B5n2csv3uakLr
+ 98UZ6B8rVPWA72mXHihOfizDJJoUk0FGGnW6jG4RWZcJX4nq8loVpo2CqEH0b6bK5Q6CnIWw
+ idLIopX68uZfEKIA0WYAPB644yc=
+X-Mailgun-Sending-Ip: 104.130.122.29
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n12.prod.us-west-2.postgun.com with SMTP id
+ 5ef653f0e144dd5115d681e5 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 26 Jun 2020 20:00:48
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 71161C433A1; Fri, 26 Jun 2020 20:00:48 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from jordan-laptop.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 13B03C433C8;
+ Fri, 26 Jun 2020 20:00:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 13B03C433C8
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=jcrouse@codeaurora.org
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: linux-arm-msm@vger.kernel.org
+Date: Fri, 26 Jun 2020 14:00:34 -0600
+Message-Id: <20200626200042.13713-1-jcrouse@codeaurora.org>
+X-Mailer: git-send-email 2.17.1
+Subject: [Freedreno] [PATCH v9 0/7] iommu/arm-smmu: Enable split pagetable
+ support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,71 +65,79 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Jordan Crouse <jcrouse@codeaurora.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Sean Paul <sean@poorly.run>
+Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ linux-kernel@vger.kernel.org, Will Deacon <will@kernel.org>,
+ David Airlie <airlied@linux.ie>, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joro@8bytes.org>, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Takashi Iwai <tiwai@suse.de>, iommu@lists.linux-foundation.org,
+ Andy Gross <agross@kernel.org>, John Stultz <john.stultz@linaro.org>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Shawn Guo <shawn.guo@linaro.org>, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, Brian Masney <masneyb@onstation.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-(retry with $subject)
+Another iteration of the split-pagetable support for arm-smmu and the Adreno GPU
+SMMU. After email discussions [1] we opted to make a arm-smmu implementation for
+specifically for the Adreno GPU and use that to enable split pagetable support
+and later other implementation specific bits that we need.
 
-Hi Dave,
+On the hardware side this is very close to the same code from before [2] only
+the TTBR1 quirk is turned on by the implementation and not a domain attribute.
+In drm/msm we use the returned size of the aperture as a clue to let us know
+which virtual address space we should use for global memory objects.
 
-A few fixes, mostly fallout from the address space refactor and dpu
-color processing.
+There are two open items that you should be aware of. First, in the
+implementation specific code we have to check the compatible string of the
+device so that we only enable TTBR1 for the GPU (SID 0) and not the GMU (SID 4).
+I went back and forth trying to decide if I wanted to use the compatible string
+or the SID as the filter and settled on the compatible string but I could be
+talked out of it.
+
+The other open item is that in drm/msm the hardware only uses 49 bits of the
+address space but arm-smmu expects the address to be sign extended all the way
+to 64 bits. This isn't a problem normally unless you look at the hardware
+registers that contain a IOVA and then the upper bits will be zero. I opted to
+restrict the internal drm/msm IOVA range to only 49 bits and then sign extend
+right before calling iommu_map / iommu_unmap. This is a bit wonky but I thought
+that matching the hardware would be less confusing when debugging a hang.
+
+v9: Fix bot-detected merge conflict
+v7: Add attached device to smmu_domain to pass to implementation specific
+functions
+
+[1] https://lists.linuxfoundation.org/pipermail/iommu/2020-May/044537.html
+[2] https://patchwork.kernel.org/patch/11482591/
 
 
-The following changes since commit 1cb2c4a2c89b2004a36399860c85a1af9b3fcba7:
+Jordan Crouse (7):
+  iommu/arm-smmu: Pass io-pgtable config to implementation specific
+    function
+  iommu/arm-smmu: Add support for split pagetables
+  dt-bindings: arm-smmu: Add compatible string for Adreno GPU SMMU
+  iommu/arm-smmu: Add a pointer to the attached device to smmu_domain
+  iommu/arm-smmu: Add implementation for the adreno GPU SMMU
+  drm/msm: Set the global virtual address range from the IOMMU domain
+  arm: dts: qcom: sm845: Set the compatible string for the GPU SMMU
 
-  Revert "drm/msm/dpu: add support for clk and bw scaling for display"
-(2020-06-01 20:56:18 -0700)
+ .../devicetree/bindings/iommu/arm,smmu.yaml   |  4 ++
+ arch/arm64/boot/dts/qcom/sdm845.dtsi          |  2 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c       | 13 +++++-
+ drivers/gpu/drm/msm/msm_iommu.c               |  7 +++
+ drivers/iommu/arm-smmu-impl.c                 |  6 ++-
+ drivers/iommu/arm-smmu-qcom.c                 | 45 ++++++++++++++++++-
+ drivers/iommu/arm-smmu.c                      | 38 +++++++++++-----
+ drivers/iommu/arm-smmu.h                      | 30 ++++++++++---
+ 8 files changed, 120 insertions(+), 25 deletions(-)
 
-are available in the Git repository at:
+-- 
+2.17.1
 
-  https://gitlab.freedesktop.org/drm/msm.git drm-msm-fixes-2020-06-25
-
-for you to fetch changes up to 30480e6ed508e3ff7a3e03c975696aa5196ffe8a:
-
-  drm/msm: Fix up the rest of the messed up address sizes (2020-06-22
-12:12:29 -0700)
-
-----------------------------------------------------------------
-Bernard Zhao (1):
-      drm/msm: fix potential memleak in error branch
-
-Chen Tao (1):
-      drm/msm/dpu: fix error return code in dpu_encoder_init
-
-Eric Anholt (2):
-      drm/msm: Fix address space size after refactor.
-      drm/msm: Fix setup of a6xx create_address_space.
-
-John Stultz (1):
-      drm/msm: Fix 0xfffflub in "Refactor address space initialization"
-
-Jordan Crouse (1):
-      drm/msm: Fix up the rest of the messed up address sizes
-
-Kalyan Thota (1):
-      drm/msm/dpu: request for display color blocks based on hw catalog entry
-
-Krishna Manikandan (1):
-      drm/msm/dpu: allow initialization of encoder locks during encoder init
-
- drivers/gpu/drm/msm/adreno/a2xx_gpu.c       |  2 +-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c       |  2 +-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c       |  2 +-
- drivers/gpu/drm/msm/adreno/adreno_gpu.c     |  2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 18 +++++++++++-------
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |  2 +-
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c    |  2 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c    |  2 +-
- drivers/gpu/drm/msm/msm_submitqueue.c       |  4 +++-
- 9 files changed, 21 insertions(+), 15 deletions(-)
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
