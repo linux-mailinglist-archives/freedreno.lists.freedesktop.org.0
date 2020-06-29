@@ -2,35 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id F04BF20CEF8
-	for <lists+freedreno@lfdr.de>; Mon, 29 Jun 2020 15:58:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FB9320CF41
+	for <lists+freedreno@lfdr.de>; Mon, 29 Jun 2020 16:52:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1F1E89DB5;
-	Mon, 29 Jun 2020 13:58:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C54EE89C1C;
+	Mon, 29 Jun 2020 14:52:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 365 seconds by postgrey-1.36 at gabe;
- Mon, 29 Jun 2020 13:58:15 UTC
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B4B489DB5;
- Mon, 29 Jun 2020 13:58:15 +0000 (UTC)
-Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
- by alexa-out.qualcomm.com with ESMTP; 29 Jun 2020 06:52:09 -0700
-Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
- by ironmsg09-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 29 Jun 2020 06:52:08 -0700
-Received: from harigovi-linux.qualcomm.com ([10.204.66.157])
- by ironmsg02-blr.qualcomm.com with ESMTP; 29 Jun 2020 19:21:47 +0530
-Received: by harigovi-linux.qualcomm.com (Postfix, from userid 2332695)
- id 31D671FC2; Mon, 29 Jun 2020 19:21:46 +0530 (IST)
-From: Harigovindan P <harigovi@codeaurora.org>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Date: Mon, 29 Jun 2020 19:21:44 +0530
-Message-Id: <20200629135144.8265-1-harigovi@codeaurora.org>
-X-Mailer: git-send-email 2.27.0
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DB2F89C1C
+ for <freedreno@lists.freedesktop.org>; Mon, 29 Jun 2020 14:52:16 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1593442338; h=In-Reply-To: Content-Type: MIME-Version:
+ References: Message-ID: Subject: Cc: To: From: Date: Sender;
+ bh=SBDpthJsACP4X9l/XtUwp2evGNFSv28FhmlHvAnZ2bs=;
+ b=hv6bXcyPdu8iWZYGMUMWvtcWgQBaVVvN6gJr7jY+qosgYl7QanJX0wzOlaZz8Co5Pyit0/mA
+ H7AJe9cGxHX7IyIElHlm+ItU0TODIaFAPpHWV5WxCxmDJJFMYtXLQGNE0RQViSha06962C/F
+ fwnSkip4gBQRU+O6kWU3LXuBgoA=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n14.prod.us-east-1.postgun.com with SMTP id
+ 5efa001aa3d8a4474330b08d (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 29 Jun 2020 14:52:10
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id DDF19C43391; Mon, 29 Jun 2020 14:52:09 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id A262AC433C6;
+ Mon, 29 Jun 2020 14:52:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org A262AC433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=jcrouse@codeaurora.org
+Date: Mon, 29 Jun 2020 08:52:04 -0600
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <20200629145203.GB25740@jcrouse1-lnx.qualcomm.com>
+Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ David Airlie <airlied@linux.ie>, Sean Paul <sean@poorly.run>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Takashi Iwai <tiwai@suse.de>,
+ "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>, 
+ John Stultz <john.stultz@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Shawn Guo <shawn.guo@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Brian Masney <masneyb@onstation.org>
+References: <20200626200042.13713-1-jcrouse@codeaurora.org>
+ <20200626200042.13713-7-jcrouse@codeaurora.org>
+ <CAF6AEGuNSAYNMG6CH6VMuyjiz5dfRoLWQ9OAFxPJrFmBrHe+Wg@mail.gmail.com>
 MIME-Version: 1.0
-Subject: [Freedreno] [v4] arm64: dts: sc7180: add nodes for idp display
+Content-Disposition: inline
+In-Reply-To: <CAF6AEGuNSAYNMG6CH6VMuyjiz5dfRoLWQ9OAFxPJrFmBrHe+Wg@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Freedreno] [PATCH v9 6/7] drm/msm: Set the global virtual
+ address range from the IOMMU domain
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,126 +85,124 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Harigovindan P <harigovi@codeaurora.org>, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
- kalyan_t@codeaurora.org, hoegsberg@chromium.org
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Takashi Iwai <tiwai@suse.de>,
+ "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
+ John Stultz <john.stultz@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Shawn Guo <shawn.guo@linaro.org>, Sean Paul <sean@poorly.run>,
+ Brian Masney <masneyb@onstation.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add nodes for IDP display. The display is Visionox RM69299.
+On Sat, Jun 27, 2020 at 10:10:14AM -0700, Rob Clark wrote:
+> On Fri, Jun 26, 2020 at 1:01 PM Jordan Crouse <jcrouse@codeaurora.org> wrote:
+> >
+> > Use the aperture settings from the IOMMU domain to set up the virtual
+> > address range for the GPU. This allows us to transparently deal with
+> > IOMMU side features (like split pagetables).
+> >
+> > Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
+> > ---
+> >
+> >  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 13 +++++++++++--
+> >  drivers/gpu/drm/msm/msm_iommu.c         |  7 +++++++
+> >  2 files changed, 18 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> > index 5db06b590943..3e717c1ebb7f 100644
+> > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> > @@ -192,9 +192,18 @@ adreno_iommu_create_address_space(struct msm_gpu *gpu,
+> >         struct iommu_domain *iommu = iommu_domain_alloc(&platform_bus_type);
+> >         struct msm_mmu *mmu = msm_iommu_new(&pdev->dev, iommu);
+> >         struct msm_gem_address_space *aspace;
+> > +       u64 start, size;
+> >
+> > -       aspace = msm_gem_address_space_create(mmu, "gpu", SZ_16M,
+> > -               0xffffffff - SZ_16M);
+> > +       /*
+> > +        * Use the aperture start or SZ_16M, whichever is greater. This will
+> > +        * ensure that we align with the allocated pagetable range while still
+> > +        * allowing room in the lower 32 bits for GMEM and whatnot
+> > +        */
+> > +       start = max_t(u64, SZ_16M, iommu->geometry.aperture_start);
+> > +       size = iommu->geometry.aperture_end - start + 1;
+> > +
+> > +       aspace = msm_gem_address_space_create(mmu, "gpu",
+> > +               start & GENMASK(48, 0), size);
+> 
+> hmm, I kinda think this isn't going to play well for the 32b gpus
+> (pre-a5xx).. possibly we should add address space size to 'struct
+> adreno_info'?
 
-Signed-off-by: Harigovindan P <harigovi@codeaurora.org>
----
-Changes in v2:
-	- Adding dependency patchwork series
-	- Removing suspend configuration
-	- Adding blank before space curly brace
-Changes in v3:
-	- Updating status for mdp and mdss node to get the
-	display working
-	- Change in commit text
-Changes in v4:
-	- Added pinconf subnode
-	- Using macros for function and drive-strength
+I checked and qcom-iommu sets the aperture correctly so this should be okay for
+everybody. To be honest, I'm nots sure if we even need to mask the start to 49
+bits. It seems that all of the iommu implementations do the right thing.  Of
+course it would be worth a check if you have a 4xx handy.
 
- arch/arm64/boot/dts/qcom/sc7180-idp.dts | 65 +++++++++++++++++++++++++
- 1 file changed, 65 insertions(+)
+> Or I guess it is always going to be the same for all devices within a
+> generation?  So it could just be passed in to adreno_gpu_init()
 
-diff --git a/arch/arm64/boot/dts/qcom/sc7180-idp.dts b/arch/arm64/boot/dts/qcom/sc7180-idp.dts
-index 39dbfc89689e..5e0b7e4b2545 100644
---- a/arch/arm64/boot/dts/qcom/sc7180-idp.dts
-+++ b/arch/arm64/boot/dts/qcom/sc7180-idp.dts
-@@ -9,6 +9,7 @@
- 
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-+#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
- #include "sc7180.dtsi"
- #include "pm6150.dtsi"
- #include "pm6150l.dtsi"
-@@ -287,6 +288,57 @@ vreg_bob: bob {
- 	};
- };
- 
-+&dsi0 {
-+	status = "okay";
-+
-+	vdda-supply = <&vreg_l3c_1p2>;
-+
-+	panel@0 {
-+		compatible = "visionox,rm69299-1080p-display";
-+		reg = <0>;
-+
-+		vdda-supply = <&vreg_l8c_1p8>;
-+		vdd3p3-supply = <&vreg_l18a_2p8>;
-+
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&disp_pins>;
-+
-+		reset-gpios = <&pm6150l_gpio 3 GPIO_ACTIVE_HIGH>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			port@0 {
-+				reg = <0>;
-+				panel0_in: endpoint {
-+					remote-endpoint = <&dsi0_out>;
-+				};
-+			};
-+		};
-+	};
-+
-+	ports {
-+		port@1 {
-+			endpoint {
-+				remote-endpoint = <&panel0_in>;
-+				data-lanes = <0 1 2 3>;
-+			};
-+		};
-+	};
-+};
-+
-+&dsi_phy {
-+	status = "okay";
-+};
-+
-+&mdp {
-+	status = "okay";
-+};
-+
-+&mdss {
-+	status = "okay";
-+};
-+
- &qspi {
- 	status = "okay";
- 	pinctrl-names = "default";
-@@ -402,6 +454,19 @@ wifi-firmware {
- 
- /* PINCTRL - additions to nodes defined in sc7180.dtsi */
- 
-+&pm6150l_gpio {
-+	disp_pins: disp-pins {
-+		pinconf {
-+			pins = "gpio3";
-+			function = PMIC_GPIO_FUNC_FUNC1;
-+			qcom,drive-strength = <PMIC_GPIO_STRENGTH_MED>;
-+			power-source = <0>;
-+			bias-disable;
-+			output-low;
-+		};
-+	};
-+};
-+
- &qspi_clk {
- 	pinconf {
- 		pins = "gpio63";
+We can do that easily if we are worried about it (see also: a2xx). I just
+figured this might save us a bit of code.
+
+> Hopefully that makes things smoother if we someday had more than 48bits..
+
+We'll be at 49 bits for as far ahead as I can see. 49 bits has a special
+meaning in the SMMU so it is a natural fit for the GPU hardware. If we change in
+N generations we can just shift to a family specific function at that point.
+
+Jordan
+
+> BR,
+> -R
+> 
+> >
+> >         if (IS_ERR(aspace) && !IS_ERR(mmu))
+> >                 mmu->funcs->destroy(mmu);
+> > diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
+> > index 3a381a9674c9..1b6635504069 100644
+> > --- a/drivers/gpu/drm/msm/msm_iommu.c
+> > +++ b/drivers/gpu/drm/msm/msm_iommu.c
+> > @@ -36,6 +36,10 @@ static int msm_iommu_map(struct msm_mmu *mmu, uint64_t iova,
+> >         struct msm_iommu *iommu = to_msm_iommu(mmu);
+> >         size_t ret;
+> >
+> > +       /* The arm-smmu driver expects the addresses to be sign extended */
+> > +       if (iova & BIT_ULL(48))
+> > +               iova |= GENMASK_ULL(63, 49);
+> > +
+> >         ret = iommu_map_sg(iommu->domain, iova, sgt->sgl, sgt->nents, prot);
+> >         WARN_ON(!ret);
+> >
+> > @@ -46,6 +50,9 @@ static int msm_iommu_unmap(struct msm_mmu *mmu, uint64_t iova, size_t len)
+> >  {
+> >         struct msm_iommu *iommu = to_msm_iommu(mmu);
+> >
+> > +       if (iova & BIT_ULL(48))
+> > +               iova |= GENMASK_ULL(63, 49);
+> > +
+> >         iommu_unmap(iommu->domain, iova, len);
+> >
+> >         return 0;
+> > --
+> > 2.17.1
+> >
+> > _______________________________________________
+> > Freedreno mailing list
+> > Freedreno@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/freedreno
+
 -- 
-2.27.0
-
+The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+a Linux Foundation Collaborative Project
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
