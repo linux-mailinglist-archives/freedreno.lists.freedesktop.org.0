@@ -1,81 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C12C20CF4B
-	for <lists+freedreno@lfdr.de>; Mon, 29 Jun 2020 16:57:15 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0627A20CFDB
+	for <lists+freedreno@lfdr.de>; Mon, 29 Jun 2020 17:53:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B60A689A4F;
-	Mon, 29 Jun 2020 14:57:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A033789C3F;
+	Mon, 29 Jun 2020 15:53:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
  [104.130.122.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C039F89864
- for <freedreno@lists.freedesktop.org>; Mon, 29 Jun 2020 14:57:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D146989C1B
+ for <freedreno@lists.freedesktop.org>; Mon, 29 Jun 2020 15:53:25 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1593442633; h=In-Reply-To: Content-Type: MIME-Version:
- References: Message-ID: Subject: Cc: To: From: Date: Sender;
- bh=tNiuQ+4uhjgZPnPAVe1RZE3rFmZ//xK6MB4wZLBlQDU=;
- b=F7lwTmEkx/9ziCTaNlkQ2nkpJtV4ELcyyAVw3R+a4jxtwVMDDeJa1Q7h7eBHqdDfHipIkAsQ
- 2YQ4GswtymnTPrqTjKDvEKBZ5ku29kZbLSPeQnm4XMOZSg+7MUMtRQhLDblrg/feDvPa2Uqv
- GmLWWOCf9egl3ylPGIREfHmNuFE=
+ s=smtp; t=1593446008; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=MMgpD5DCLQ6JjRpMGo318xv/+oipR7QB8aPXFQoSC2I=;
+ b=GvqOpzsMp9wwcqSXnxr0rS3dU8qmEG5zz9yWNyHssqR3CBjcJc6pm/mQU6iFU2GhOkCMZn3Q
+ FwR/CHiQtApvGb/lZtxfrWVn9G+GEwT1HtEz5MEYPXmTaJYRiwsjUoPMFYVixXjuojmIVP/b
+ hk67nV+xPX/7FsItkiqnRzBUIrY=
 X-Mailgun-Sending-Ip: 104.130.122.29
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
- 5efa0138bfb34e631c8f836e (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 29 Jun 2020 14:56:56
+ smtp-out-n18.prod.us-west-2.postgun.com with SMTP id
+ 5efa0e6a5866879c761e0d8e (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 29 Jun 2020 15:53:14
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id EF49AC433C6; Mon, 29 Jun 2020 14:56:55 +0000 (UTC)
+ id 67DE9C433C8; Mon, 29 Jun 2020 15:53:14 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
  autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 6D5F8C433C8;
- Mon, 29 Jun 2020 14:56:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 6D5F8C433C8
+Received: from blr-ubuntu-253.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: saiprakash.ranjan)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 467E3C433CA;
+ Mon, 29 Jun 2020 15:53:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 467E3C433CA
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=jcrouse@codeaurora.org
-Date: Mon, 29 Jun 2020 08:56:50 -0600
-From: Jordan Crouse <jcrouse@codeaurora.org>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20200629145650.GC25740@jcrouse1-lnx.qualcomm.com>
-Mail-Followup-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Eric Anholt <eric@anholt.net>,
- "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
- Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>, 
- John Stultz <john.stultz@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- freedreno <freedreno@lists.freedesktop.org>,
- Emil Velikov <emil.velikov@collabora.com>
-References: <20200626200414.14382-1-jcrouse@codeaurora.org>
- <20200626200414.14382-7-jcrouse@codeaurora.org>
- <CAF6AEGvFPtiFcBg5j3An5piPWy3Sg3=-o2k8Xzzf6anzVi9_ZA@mail.gmail.com>
- <CAF6AEGtOcA1V33KgaYKjn=FBk9_q4u8fF5Tgoyq7Y3vUp2pKjg@mail.gmail.com>
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org; spf=none
+ smtp.mailfrom=saiprakash.ranjan@codeaurora.org
+From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+To: Robin Murphy <robin.murphy@arm.com>, Will Deacon <will@kernel.org>,
+ Joerg Roedel <joro@8bytes.org>, Jordan Crouse <jcrouse@codeaurora.org>,
+ Rob Clark <robdclark@gmail.com>
+Date: Mon, 29 Jun 2020 21:22:43 +0530
+Message-Id: <cover.1593344119.git.saiprakash.ranjan@codeaurora.org>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAF6AEGtOcA1V33KgaYKjn=FBk9_q4u8fF5Tgoyq7Y3vUp2pKjg@mail.gmail.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Freedreno] [PATCH v2 6/6] drm/msm/a6xx: Add support for
- per-instance pagetables
+Subject: [Freedreno] [PATCHv3 0/7] System Cache support for GPU and required
+ SMMU support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,167 +70,85 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
+Cc: freedreno@lists.freedesktop.org,
  Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Eric Anholt <eric@anholt.net>,
- "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
- Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
- John Stultz <john.stultz@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>, Emil Velikov <emil.velikov@collabora.com>
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Sharat Masetty <smasetty@codeaurora.org>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Akhil P Oommen <akhilpo@codeaurora.org>,
+ iommu@lists.linux-foundation.org, Matthias Kaehlcke <mka@chromium.org>,
+ "Kristian H . Kristensen" <hoegsberg@google.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
+ Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
+ Emil Velikov <emil.velikov@collabora.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, Jun 27, 2020 at 01:11:14PM -0700, Rob Clark wrote:
-> On Sat, Jun 27, 2020 at 12:56 PM Rob Clark <robdclark@gmail.com> wrote:
-> >
-> > On Fri, Jun 26, 2020 at 1:04 PM Jordan Crouse <jcrouse@codeaurora.org> wrote:
-> > >
-> > > Add support for using per-instance pagetables if all the dependencies are
-> > > available.
-> > >
-> > > Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
-> > > ---
-> > >
-> > >  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 43 +++++++++++++++++++++++++++
-> > >  drivers/gpu/drm/msm/msm_ringbuffer.h  |  1 +
-> > >  2 files changed, 44 insertions(+)
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > > index aa53f47b7e8b..95ed2ceac121 100644
-> > > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > > @@ -79,6 +79,34 @@ static void get_stats_counter(struct msm_ringbuffer *ring, u32 counter,
-> > >         OUT_RING(ring, upper_32_bits(iova));
-> > >  }
-> > >
-> > > +static void a6xx_set_pagetable(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
-> > > +               struct msm_file_private *ctx)
-> > > +{
-> > > +       phys_addr_t ttbr;
-> > > +       u32 asid;
-> > > +
-> > > +       if (msm_iommu_pagetable_params(ctx->aspace->mmu, &ttbr, &asid))
-> > > +               return;
-> > > +
-> > > +       /* Execute the table update */
-> > > +       OUT_PKT7(ring, CP_SMMU_TABLE_UPDATE, 4);
-> > > +       OUT_RING(ring, lower_32_bits(ttbr));
-> > > +       OUT_RING(ring, (((u64) asid) << 48) | upper_32_bits(ttbr));
-> > > +       /* CONTEXTIDR is currently unused */
-> > > +       OUT_RING(ring, 0);
-> > > +       /* CONTEXTBANK is currently unused */
-> > > +       OUT_RING(ring, 0);
-> > > +
-> > > +       /*
-> > > +        * Write the new TTBR0 to the memstore. This is good for debugging.
-> > > +        */
-> > > +       OUT_PKT7(ring, CP_MEM_WRITE, 4);
-> > > +       OUT_RING(ring, lower_32_bits(rbmemptr(ring, ttbr0)));
-> > > +       OUT_RING(ring, upper_32_bits(rbmemptr(ring, ttbr0)));
-> > > +       OUT_RING(ring, lower_32_bits(ttbr));
-> > > +       OUT_RING(ring, (((u64) asid) << 48) | upper_32_bits(ttbr));
-> > > +}
-> > > +
-> > >  static void a6xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit,
-> > >         struct msm_file_private *ctx)
-> > >  {
-> > > @@ -89,6 +117,8 @@ static void a6xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit,
-> > >         struct msm_ringbuffer *ring = submit->ring;
-> > >         unsigned int i;
-> > >
-> > > +       a6xx_set_pagetable(gpu, ring, ctx);
-> > > +
-> > >         get_stats_counter(ring, REG_A6XX_RBBM_PERFCTR_CP_0_LO,
-> > >                 rbmemptr_stats(ring, index, cpcycles_start));
-> > >
-> > > @@ -872,6 +902,18 @@ static unsigned long a6xx_gpu_busy(struct msm_gpu *gpu)
-> > >         return (unsigned long)busy_time;
-> > >  }
-> > >
-> > > +struct msm_gem_address_space *a6xx_address_space_instance(struct msm_gpu *gpu)
-> > > +{
-> > > +       struct msm_mmu *mmu;
-> > > +
-> > > +       mmu = msm_iommu_pagetable_create(gpu->aspace->mmu);
-> > > +       if (IS_ERR(mmu))
-> > > +               return msm_gem_address_space_get(gpu->aspace);
-> > > +
-> > > +       return msm_gem_address_space_create(mmu,
-> > > +               "gpu", 0x100000000ULL, 0x1ffffffffULL);
-> > > +}
-> > > +
-> > >  static const struct adreno_gpu_funcs funcs = {
-> > >         .base = {
-> > >                 .get_param = adreno_get_param,
-> > > @@ -895,6 +937,7 @@ static const struct adreno_gpu_funcs funcs = {
-> > >                 .gpu_state_put = a6xx_gpu_state_put,
-> > >  #endif
-> > >                 .create_address_space = adreno_iommu_create_address_space,
-> > > +               .address_space_instance = a6xx_address_space_instance,
-> >
-> > Hmm, maybe instead of .address_space_instance, something like
-> > .create_context_address_space?
-> >
-> > Since like .create_address_space, it is creating an address space..
-> > the difference is that it is a per context/process aspace..
-> >
+Some hardware variants contain a system cache or the last level
+cache(llc). This cache is typically a large block which is shared
+by multiple clients on the SOC. GPU uses the system cache to cache
+both the GPU data buffers(like textures) as well the SMMU pagetables.
+This helps with improved render performance as well as lower power
+consumption by reducing the bus traffic to the system memory.
 
-This is a good suggestion. I'm always open to changing function names.
+The system cache architecture allows the cache to be split into slices
+which then be used by multiple SOC clients. This patch series is an
+effort to enable and use two of those slices perallocated for the GPU,
+one for the GPU data buffers and another for the GPU SMMU hardware
+pagetables.
 
-> 
-> 
-> or maybe just .create_pgtable and return the 'struct msm_mmu' (which
-> is itself starting to become less of a great name)..
-> 
-> The only other thing a6xx_address_space_instance() adds is knowing
-> where the split is between the kernel and user pgtables, and I suppose
-> that isn't a thing that would really be changing between gens?
+Patch 1 adds a init_context_bank implementation hook to set SCTLR.HUPCF.
+Patch 2,3,6,7 adds system cache support in SMMU and GPU driver.
+Patch 4 and 5 are minor cleanups for arm-smmu impl.
 
-In theory the split is determined by the hardware but its been the same for all
-a5xx/a6xx targets.
+Changes in v3:
+ * Fix domain attribute setting to before iommu_attach_device()
+ * Fix few code style and checkpatch warnings
+ * Rebase on top of Jordan's latest split pagetables and per-instance
+   pagetables support [1][2]
 
-Jordan
+Changes in v2:
+ * Addressed review comments and rebased on top of Jordan's split
+   pagetables series
 
-> BR,
-> -R
-> 
-> > BR,
-> > -R
-> >
-> > >         },
-> > >         .get_timestamp = a6xx_get_timestamp,
-> > >  };
-> > > diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.h b/drivers/gpu/drm/msm/msm_ringbuffer.h
-> > > index 7764373d0ed2..0987d6bf848c 100644
-> > > --- a/drivers/gpu/drm/msm/msm_ringbuffer.h
-> > > +++ b/drivers/gpu/drm/msm/msm_ringbuffer.h
-> > > @@ -31,6 +31,7 @@ struct msm_rbmemptrs {
-> > >         volatile uint32_t fence;
-> > >
-> > >         volatile struct msm_gpu_submit_stats stats[MSM_GPU_SUBMIT_STATS_COUNT];
-> > > +       volatile u64 ttbr0;
-> > >  };
-> > >
-> > >  struct msm_ringbuffer {
-> > > --
-> > > 2.17.1
-> > >
-> _______________________________________________
-> Freedreno mailing list
-> Freedreno@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/freedreno
+[1] https://lore.kernel.org/patchwork/cover/1264446/
+[2] https://lore.kernel.org/patchwork/cover/1264460/
+
+Jordan Crouse (1):
+  iommu/arm-smmu: Add a init_context_bank implementation hook
+
+Sai Prakash Ranjan (4):
+  iommu/io-pgtable-arm: Add support to use system cache
+  iommu/arm-smmu: Add domain attribute for system cache
+  iommu: arm-smmu-impl: Remove unwanted extra blank lines
+  iommu: arm-smmu-impl: Convert to use of_match_node() for qcom impl
+
+Sharat Masetty (2):
+  drm/msm: rearrange the gpu_rmw() function
+  drm/msm/a6xx: Add support for using system cache(LLC)
+
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 82 +++++++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h   |  3 +
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 23 ++++++-
+ drivers/gpu/drm/msm/msm_drv.c           |  8 +++
+ drivers/gpu/drm/msm/msm_drv.h           |  1 +
+ drivers/gpu/drm/msm/msm_gpu.h           |  5 +-
+ drivers/gpu/drm/msm/msm_iommu.c         |  3 +
+ drivers/gpu/drm/msm/msm_mmu.h           |  4 ++
+ drivers/iommu/arm-smmu-impl.c           | 13 ++--
+ drivers/iommu/arm-smmu-qcom.c           | 13 ++++
+ drivers/iommu/arm-smmu.c                | 46 +++++++++-----
+ drivers/iommu/arm-smmu.h                | 13 ++++
+ drivers/iommu/io-pgtable-arm.c          |  7 ++-
+ include/linux/io-pgtable.h              |  4 ++
+ include/linux/iommu.h                   |  1 +
+ 15 files changed, 198 insertions(+), 28 deletions(-)
 
 -- 
-The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
-a Linux Foundation Collaborative Project
+QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a member
+of Code Aurora Forum, hosted by The Linux Foundation
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
