@@ -2,35 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BFF620CFDC
-	for <lists+freedreno@lfdr.de>; Mon, 29 Jun 2020 17:53:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B5DC20CFE0
+	for <lists+freedreno@lfdr.de>; Mon, 29 Jun 2020 17:53:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE88889C89;
-	Mon, 29 Jun 2020 15:53:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC23889C9A;
+	Mon, 29 Jun 2020 15:53:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
  [104.130.122.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6970789C1B
- for <freedreno@lists.freedesktop.org>; Mon, 29 Jun 2020 15:53:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3C2489EB1
+ for <freedreno@lists.freedesktop.org>; Mon, 29 Jun 2020 15:53:41 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1593446009; h=Content-Transfer-Encoding: MIME-Version:
+ s=smtp; t=1593446025; h=Content-Transfer-Encoding: MIME-Version:
  References: In-Reply-To: Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=Ky6EgIpsLXuCQ1ZyQQj8TAObCq/x3v8ZEUf9hqB0i5U=;
- b=ZKEb+AuXSYb8xeIKnahozMUfaR8iGBdObTMZSgRwvCtOwfZBXNI+/1Z0nnaFUtqoXSbKNXZQ
- wLVLdbQniyf4codsuVFfD7vL7GBrhyVGpsofN4YY9q8Ew9070eitf6RIdYFtjWEW20Cj8+oP
- CgUb0eHC0aErug28eCX58jF/pZA=
+ Sender; bh=9FYkAqjYflD6eZbmJt0uRp2jmZWwtscz4u7DhzViLx0=;
+ b=T27sEN2ZQvVurtZwnQKbL2Is9ImotU1R+ZwAO5dS+gdbw2UA2WY5PKSH5y23519ZOm2coCXc
+ qf6eGqxAOmeX+DxVFaV3GMtBS6u5GKIh5NEErSPdpG50RVy9hzcdQhS70iGTJAvCyhWI+Mr1
+ sbffim7vOGEtrkEFjTQTB/K5nxg=
 X-Mailgun-Sending-Ip: 104.130.122.29
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n03.prod.us-west-2.postgun.com with SMTP id
- 5efa0e786bebe35deb5cd0b0 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 29 Jun 2020 15:53:28
+ smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
+ 5efa0e81ad153efa34657bae (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 29 Jun 2020 15:53:37
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 9B6EFC43391; Mon, 29 Jun 2020 15:53:28 +0000 (UTC)
+ id B10C1C433CB; Mon, 29 Jun 2020 15:53:37 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -41,9 +41,9 @@ Received: from blr-ubuntu-253.qualcomm.com
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested)
  (Authenticated sender: saiprakash.ranjan)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 36CB3C433C8;
- Mon, 29 Jun 2020 15:53:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 36CB3C433C8
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id A6E45C433C8;
+ Mon, 29 Jun 2020 15:53:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org A6E45C433C8
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org; spf=none
@@ -52,14 +52,14 @@ From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
 To: Robin Murphy <robin.murphy@arm.com>, Will Deacon <will@kernel.org>,
  Joerg Roedel <joro@8bytes.org>, Jordan Crouse <jcrouse@codeaurora.org>,
  Rob Clark <robdclark@gmail.com>
-Date: Mon, 29 Jun 2020 21:22:44 +0530
-Message-Id: <cdcc6a1c95a84e774790389dc8b3b7feeee490dc.1593344119.git.saiprakash.ranjan@codeaurora.org>
+Date: Mon, 29 Jun 2020 21:22:45 +0530
+Message-Id: <e167bbb8625c0ab6701f2b48416b88d260bd0ab0.1593344119.git.saiprakash.ranjan@codeaurora.org>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <cover.1593344119.git.saiprakash.ranjan@codeaurora.org>
 References: <cover.1593344119.git.saiprakash.ranjan@codeaurora.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCHv3 1/7] iommu/arm-smmu: Add a init_context_bank
- implementation hook
+Subject: [Freedreno] [PATCHv3 2/7] iommu/io-pgtable-arm: Add support to use
+ system cache
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,149 +87,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Jordan Crouse <jcrouse@codeaurora.org>
+Add a quirk IO_PGTABLE_QUIRK_SYS_CACHE to override the
+attributes set in TCR for the page table walker when
+using system cache.
 
-Add a new implementation hook to allow the implementation specific code
-to tweek the context bank configuration just before it gets written.
-The first user will be the Adreno GPU implementation to turn on
-SCTLR.HUPCF to ensure that a page fault doesn't terminating pending
-transactions. Doing so could hang the GPU if one of the terminated
-transactions is a CP read.
-
-This depends on the arm-smmu adreno SMMU implementation [1].
-
-[1] https://lore.kernel.org/patchwork/patch/1264452/
-
-Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
 Signed-off-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
 ---
- drivers/iommu/arm-smmu-qcom.c | 13 +++++++++++++
- drivers/iommu/arm-smmu.c      | 29 +++++++++++++----------------
- drivers/iommu/arm-smmu.h      | 12 ++++++++++++
- 3 files changed, 38 insertions(+), 16 deletions(-)
+ drivers/iommu/io-pgtable-arm.c | 7 ++++++-
+ include/linux/io-pgtable.h     | 4 ++++
+ 2 files changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iommu/arm-smmu-qcom.c b/drivers/iommu/arm-smmu-qcom.c
-index cb2acb6b19dd..6462fb00f493 100644
---- a/drivers/iommu/arm-smmu-qcom.c
-+++ b/drivers/iommu/arm-smmu-qcom.c
-@@ -17,6 +17,18 @@ static bool qcom_adreno_smmu_is_gpu_device(struct arm_smmu_domain *smmu_domain)
- 	return of_device_is_compatible(smmu_domain->dev->of_node, "qcom,adreno");
- }
+diff --git a/drivers/iommu/io-pgtable-arm.c b/drivers/iommu/io-pgtable-arm.c
+index 04fbd4bf0ff9..0a6cb82fd98a 100644
+--- a/drivers/iommu/io-pgtable-arm.c
++++ b/drivers/iommu/io-pgtable-arm.c
+@@ -792,7 +792,8 @@ arm_64_lpae_alloc_pgtable_s1(struct io_pgtable_cfg *cfg, void *cookie)
  
-+static void qcom_adreno_smmu_init_context_bank(struct arm_smmu_domain *smmu_domain,
-+		struct arm_smmu_cb *cb)
-+{
-+	/*
-+	 * On the GPU device we want to process subsequent transactions after a
-+	 * fault to keep the GPU from hanging
-+	 */
-+
-+	if (qcom_adreno_smmu_is_gpu_device(smmu_domain))
-+		cb->sctlr |= ARM_SMMU_SCTLR_HUPCF;
-+}
-+
- static int qcom_adreno_smmu_init_context(struct arm_smmu_domain *smmu_domain,
- 		struct io_pgtable_cfg *pgtbl_cfg)
- {
-@@ -92,6 +104,7 @@ static const struct arm_smmu_impl qcom_adreno_smmu_impl = {
- 	.init_context = qcom_adreno_smmu_init_context,
- 	.def_domain_type = qcom_smmu_def_domain_type,
- 	.reset = qcom_smmu500_reset,
-+	.init_context_bank = qcom_adreno_smmu_init_context_bank,
- };
+ 	if (cfg->quirks & ~(IO_PGTABLE_QUIRK_ARM_NS |
+ 			    IO_PGTABLE_QUIRK_NON_STRICT |
+-			    IO_PGTABLE_QUIRK_ARM_TTBR1))
++			    IO_PGTABLE_QUIRK_ARM_TTBR1 |
++			    IO_PGTABLE_QUIRK_SYS_CACHE))
+ 		return NULL;
  
- 
-diff --git a/drivers/iommu/arm-smmu.c b/drivers/iommu/arm-smmu.c
-index 4bd247dfd703..b2564f93d685 100644
---- a/drivers/iommu/arm-smmu.c
-+++ b/drivers/iommu/arm-smmu.c
-@@ -86,14 +86,6 @@ struct arm_smmu_smr {
- 	bool				valid;
- };
- 
--struct arm_smmu_cb {
--	u64				ttbr[2];
--	u32				tcr[2];
--	u32				mair[2];
--	struct arm_smmu_cfg		*cfg;
--	atomic_t			aux;
--};
--
- struct arm_smmu_master_cfg {
- 	struct arm_smmu_device		*smmu;
- 	s16				smendx[];
-@@ -580,6 +572,18 @@ static void arm_smmu_init_context_bank(struct arm_smmu_domain *smmu_domain,
- 			cb->mair[1] = pgtbl_cfg->arm_lpae_s1_cfg.mair >> 32;
- 		}
- 	}
-+
-+	cb->sctlr = ARM_SMMU_SCTLR_CFIE | ARM_SMMU_SCTLR_CFRE | ARM_SMMU_SCTLR_AFE |
-+		ARM_SMMU_SCTLR_TRE | ARM_SMMU_SCTLR_M;
-+
-+	if (stage1)
-+		cb->sctlr |= ARM_SMMU_SCTLR_S1_ASIDPNE;
-+	if (IS_ENABLED(CONFIG_CPU_BIG_ENDIAN))
-+		cb->sctlr |= ARM_SMMU_SCTLR_E;
-+
-+	/* Give the implementation a chance to adjust the configuration */
-+	if (smmu_domain->smmu->impl && smmu_domain->smmu->impl->init_context_bank)
-+		smmu_domain->smmu->impl->init_context_bank(smmu_domain, cb);
- }
- 
- static void arm_smmu_write_context_bank(struct arm_smmu_device *smmu, int idx)
-@@ -658,14 +662,7 @@ static void arm_smmu_write_context_bank(struct arm_smmu_device *smmu, int idx)
- 	}
- 
- 	/* SCTLR */
--	reg = ARM_SMMU_SCTLR_CFIE | ARM_SMMU_SCTLR_CFRE | ARM_SMMU_SCTLR_AFE |
--	      ARM_SMMU_SCTLR_TRE | ARM_SMMU_SCTLR_M;
--	if (stage1)
--		reg |= ARM_SMMU_SCTLR_S1_ASIDPNE;
--	if (IS_ENABLED(CONFIG_CPU_BIG_ENDIAN))
--		reg |= ARM_SMMU_SCTLR_E;
--
--	arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_SCTLR, reg);
-+	arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_SCTLR, cb->sctlr);
- }
- 
- /*
-diff --git a/drivers/iommu/arm-smmu.h b/drivers/iommu/arm-smmu.h
-index 79d441024043..4a335ef3d97a 100644
---- a/drivers/iommu/arm-smmu.h
-+++ b/drivers/iommu/arm-smmu.h
-@@ -142,6 +142,7 @@ enum arm_smmu_cbar_type {
- 
- #define ARM_SMMU_CB_SCTLR		0x0
- #define ARM_SMMU_SCTLR_S1_ASIDPNE	BIT(12)
-+#define ARM_SMMU_SCTLR_HUPCF		BIT(8)
- #define ARM_SMMU_SCTLR_CFCFG		BIT(7)
- #define ARM_SMMU_SCTLR_CFIE		BIT(6)
- #define ARM_SMMU_SCTLR_CFRE		BIT(5)
-@@ -349,6 +350,15 @@ struct arm_smmu_domain {
- 	bool				aux;
- };
- 
-+struct arm_smmu_cb {
-+	u64			ttbr[2];
-+	u32			tcr[2];
-+	u32			mair[2];
-+	u32			sctlr;
-+	struct arm_smmu_cfg	*cfg;
-+	atomic_t		aux;
-+};
-+
- static inline u32 arm_smmu_lpae_tcr(struct io_pgtable_cfg *cfg)
- {
- 	u32 tcr = FIELD_PREP(ARM_SMMU_TCR_TG0, cfg->arm_lpae_s1_cfg.tcr.tg) |
-@@ -403,6 +413,8 @@ struct arm_smmu_impl {
- 	void (*tlb_sync)(struct arm_smmu_device *smmu, int page, int sync,
- 			 int status);
- 	int (*def_domain_type)(struct device *dev);
-+	void (*init_context_bank)(struct arm_smmu_domain *smmu_domain,
-+			struct arm_smmu_cb *cb);
- };
- 
- static inline void __iomem *arm_smmu_page(struct arm_smmu_device *smmu, int n)
+ 	data = arm_lpae_alloc_pgtable(cfg);
+@@ -804,6 +805,10 @@ arm_64_lpae_alloc_pgtable_s1(struct io_pgtable_cfg *cfg, void *cookie)
+ 		tcr->sh = ARM_LPAE_TCR_SH_IS;
+ 		tcr->irgn = ARM_LPAE_TCR_RGN_WBWA;
+ 		tcr->orgn = ARM_LPAE_TCR_RGN_WBWA;
++	} else if (cfg->quirks & IO_PGTABLE_QUIRK_SYS_CACHE) {
++		tcr->sh = ARM_LPAE_TCR_SH_OS;
++		tcr->irgn = ARM_LPAE_TCR_RGN_NC;
++		tcr->orgn = ARM_LPAE_TCR_RGN_WBWA;
+ 	} else {
+ 		tcr->sh = ARM_LPAE_TCR_SH_OS;
+ 		tcr->irgn = ARM_LPAE_TCR_RGN_NC;
+diff --git a/include/linux/io-pgtable.h b/include/linux/io-pgtable.h
+index bbed1d3925ba..23114b3fe2a5 100644
+--- a/include/linux/io-pgtable.h
++++ b/include/linux/io-pgtable.h
+@@ -86,6 +86,9 @@ struct io_pgtable_cfg {
+ 	 *
+ 	 * IO_PGTABLE_QUIRK_ARM_TTBR1: (ARM LPAE format) Configure the table
+ 	 *	for use in the upper half of a split address space.
++	 *
++	 * IO_PGTABLE_QUIRK_SYS_CACHE: Override the attributes set in TCR for
++	 *	the page table walker when using system cache.
+ 	 */
+ 	#define IO_PGTABLE_QUIRK_ARM_NS		BIT(0)
+ 	#define IO_PGTABLE_QUIRK_NO_PERMS	BIT(1)
+@@ -93,6 +96,7 @@ struct io_pgtable_cfg {
+ 	#define IO_PGTABLE_QUIRK_ARM_MTK_EXT	BIT(3)
+ 	#define IO_PGTABLE_QUIRK_NON_STRICT	BIT(4)
+ 	#define IO_PGTABLE_QUIRK_ARM_TTBR1	BIT(5)
++	#define IO_PGTABLE_QUIRK_SYS_CACHE	BIT(6)
+ 	unsigned long			quirks;
+ 	unsigned long			pgsize_bitmap;
+ 	unsigned int			ias;
 -- 
 QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a member
 of Code Aurora Forum, hosted by The Linux Foundation
