@@ -2,57 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93EFA211478
-	for <lists+freedreno@lfdr.de>; Wed,  1 Jul 2020 22:35:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCECB211648
+	for <lists+freedreno@lfdr.de>; Thu,  2 Jul 2020 00:51:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D143A6E9EB;
-	Wed,  1 Jul 2020 20:35:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 091086EA0A;
+	Wed,  1 Jul 2020 22:51:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD6B66E9DB;
- Wed,  1 Jul 2020 20:35:29 +0000 (UTC)
-Received: by mail-pf1-x444.google.com with SMTP id j12so11479704pfn.10;
- Wed, 01 Jul 2020 13:35:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=HJ9TTMafjAv2n6VF7CyukcttktdVGJm2gJrszfZ6yf0=;
- b=eLGWVeTElNhUAoI1bkt1Q/YJF+W9Y/Hj92NiYYHjzJ7FEnGOfAZ5vU0qxI12qZ5uAE
- pTqPszrGg4gMawg+/HY/3BmpMvqa9tP16eqWJoFiQ/YOKEr4IVhcikEAeAylh+Vs7VBl
- Mh+iaDh+l2PJuxj8p+ulSBQwNW4YH3FnuSfSv+g2iXed9wknURQdO5lXe3gPKUlecsIJ
- QhNq+F/2OLLNVmR94Qfr1Wno7ZnCTqViWaTrNoXX++ZgS7F8a05Ynqes8exHMMkao+G2
- ekiGg0CZk/4OD1S1w0xiJBatcngizTOKVe+AgZIzs78aPjOcMcoD4yh738b3UXKXMKdT
- YnzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=HJ9TTMafjAv2n6VF7CyukcttktdVGJm2gJrszfZ6yf0=;
- b=OVXwzEE6lk3v2UPrnJDqL/Jgxvx0PpymyZGa44Ynpj0hkei24pGf4ATxZynp+IkXh6
- 5lWia2XrB19KI9GeHRY8+kCCnQ1H7Cek9mK4EP1z0wQgy3GZ/fep9+83+MCl0cievAE8
- DzivsMz4LwS9V7qUy4ypQT7bTQNZ15Cbm84CsMJBw/9fQBYbnJ5itGJPxEGP41CgLvph
- s5SJJd6nXYRhLJswfELaVBSRQ88q4GoSMchrY5MU2y3u9o3Jeify19HdOmriZgNuBNnP
- 67eFV+aPz7PVreb0bKwLFg5HipjvA9o2ybK5D3YxOMBkNgg0q4sc3h1t5hXJpL3qbh0/
- 0R4A==
-X-Gm-Message-State: AOAM531oDLWfEa0czxBbzpsjDPe1DbfFY6JtwxiWCpc8KB2GrVN0bCgL
- /GS8doicHD+P3Ge/Dg3H1CLgsPg8RFQ=
-X-Google-Smtp-Source: ABdhPJxUoiCn4AGn+fNLW0zKG5dEHRnT9pCAwHcIWzYq8IHBBFjU9ONd0ScleoT7eOV/MMwBuRTZBw==
-X-Received: by 2002:a63:4c08:: with SMTP id z8mr20807693pga.201.1593635729136; 
- Wed, 01 Jul 2020 13:35:29 -0700 (PDT)
-Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
- by smtp.gmail.com with ESMTPSA id
- e3sm3195919pjv.47.2020.07.01.13.35.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Jul 2020 13:35:28 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Wed,  1 Jul 2020 13:36:00 -0700
-Message-Id: <20200701203602.1272157-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.26.2
+Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
+ [104.130.122.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF4CC6EA0A
+ for <freedreno@lists.freedesktop.org>; Wed,  1 Jul 2020 22:51:24 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1593643884; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=Gzk6MArs2xkSxAn767zjaSgf4SaIL+y96yccCcZqcCg=;
+ b=NlYyDJW9QhsaC5/qopdCdTXKWo9nUoGkmj7aNxiAp5xcf8rB7rmaW7iGygk44jaHd5gkFPvM
+ 4avnTf6K7Y1qearEwJrI5r1mjYQSrG9qe13QDPLrvwLkaKAi+xWgACTIJb+FR5NG7dJJejqo
+ yyVk3z5C4ayUvYooXdfGEqalBWQ=
+X-Mailgun-Sending-Ip: 104.130.122.29
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n13.prod.us-east-1.postgun.com with SMTP id
+ 5efd136ba3d8a44743347bf9 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 01 Jul 2020 22:51:23
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 9D96CC43395; Wed,  1 Jul 2020 22:51:22 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,URIBL_BLOCKED
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id EFE0FC433C6;
+ Wed,  1 Jul 2020 22:51:21 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm: ratelimit crtc event overflow error
+Date: Wed, 01 Jul 2020 15:51:21 -0700
+From: abhinavk@codeaurora.org
+To: Rob Clark <robdclark@gmail.com>
+In-Reply-To: <20200701203602.1272157-1-robdclark@gmail.com>
+References: <20200701203602.1272157-1-robdclark@gmail.com>
+Message-ID: <d49731c0ecc5b2337f26597decbf82e4@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH] drm/msm: ratelimit crtc event overflow error
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,46 +63,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
- Sam Ravnborg <sam@ravnborg.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Hongbo Yao <yaohongbo@huawei.com>, open list <linux-kernel@vger.kernel.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Kalyan Thota <kalyan_t@codeaurora.org>,
- Drew Davenport <ddavenport@chromium.org>, Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="us-ascii"
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@linux.ie>, Sam Ravnborg <sam@ravnborg.org>,
+ linux-arm-msm@vger.kernel.org, Hongbo Yao <yaohongbo@huawei.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Kalyan Thota <kalyan_t@codeaurora.org>,
+ Drew Davenport <ddavenport@chromium.org>, Sean Paul <sean@poorly.run>,
+ linux-arm-msm-owner@vger.kernel.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
-
-This can happen a lot when things go pear shaped.  Lets not flood dmesg
-when this happens.
-
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index e15b42a780e0..969d95aa873c 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -389,7 +389,7 @@ static void dpu_crtc_frame_event_cb(void *data, u32 event)
- 	spin_unlock_irqrestore(&dpu_crtc->spin_lock, flags);
- 
- 	if (!fevent) {
--		DRM_ERROR("crtc%d event %d overflow\n", crtc->base.id, event);
-+		DRM_ERROR_RATELIMITED("crtc%d event %d overflow\n", crtc->base.id, event);
- 		return;
- 	}
- 
--- 
-2.26.2
-
+On 2020-07-01 13:36, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> This can happen a lot when things go pear shaped.  Lets not flood dmesg
+> when this happens.
+> 
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index e15b42a780e0..969d95aa873c 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -389,7 +389,7 @@ static void dpu_crtc_frame_event_cb(void *data, u32 
+> event)
+>  	spin_unlock_irqrestore(&dpu_crtc->spin_lock, flags);
+> 
+>  	if (!fevent) {
+> -		DRM_ERROR("crtc%d event %d overflow\n", crtc->base.id, event);
+> +		DRM_ERROR_RATELIMITED("crtc%d event %d overflow\n", crtc->base.id, 
+> event);
+>  		return;
+>  	}
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
