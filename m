@@ -1,61 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DB2220FD12
-	for <lists+freedreno@lfdr.de>; Tue, 30 Jun 2020 21:52:22 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id E6A0221025B
+	for <lists+freedreno@lfdr.de>; Wed,  1 Jul 2020 05:10:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6A106E196;
-	Tue, 30 Jun 2020 19:52:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4131A6E5B0;
+	Wed,  1 Jul 2020 03:10:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
- [104.130.122.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 238466E196
- for <freedreno@lists.freedesktop.org>; Tue, 30 Jun 2020 19:52:14 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1593546738; h=Content-Transfer-Encoding: MIME-Version:
- Message-Id: Date: Subject: Cc: To: From: Sender;
- bh=khdI7KK3P5HEXu5fVmHtaSFBLxX53kdpZO9nigjlUsg=;
- b=nxtg+g/L4p0WSPtiHRaIyFuV71avuJdFEnrXU1RQZ5s3Ztfwzm24TVYhhl7zjRMFnDCg0Fnk
- ClPA6BG1mnPbYmGHGROXCT/pXlD5vFSfe/ZjMFDHnfpMKXdijgcBOJlY83wvNucRtow3N7Wa
- ghf2P90HTG9SUb12Jsg6NC05Npg=
-X-Mailgun-Sending-Ip: 104.130.122.29
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n16.prod.us-west-2.postgun.com with SMTP id
- 5efb97e8f3deea03f390b244 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 30 Jun 2020 19:52:08
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 46636C433C8; Tue, 30 Jun 2020 19:52:08 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from linuxdisplay-lab-04.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: tanmay)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id DBF0AC433C6;
- Tue, 30 Jun 2020 19:52:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org DBF0AC433C6
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=tanmay@codeaurora.org
-From: Tanmay Shah <tanmay@codeaurora.org>
-To: swboyd@chromium.org,
-	seanpaul@chromium.org
-Date: Tue, 30 Jun 2020 12:51:51 -0700
-Message-Id: <20200630195151.347-1-tanmay@codeaurora.org>
-X-Mailer: git-send-email 2.27.0
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E429D6E5BB
+ for <freedreno@lists.freedesktop.org>; Wed,  1 Jul 2020 03:10:27 +0000 (UTC)
+Received: by mail-qt1-x841.google.com with SMTP id u17so17408760qtq.1
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Jun 2020 20:10:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=marek-ca.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=lsG0/vZrFsbUfKMaszn0w2LlEErj8aBW/8Ir/pz3OGU=;
+ b=k2b3NgAcITe6TyGQHN9BCCJhiQXvuAoeVzfKtvyoSmJgWi8jJF0AMFjlTCh3kwIv+X
+ haarJdYqFvdWs3JzwZBovese0hmZb5eKO8olFoXh8krhzwPKD+22sHoW+zu2hHq6A9NA
+ MqqElaJZeyXyqlV+mPCmIJrZIUwkj3WYL9YngExLzxBkl7s2k5aUT5/U2ONFWf+6Fgxz
+ H6BSC0sjIx6bDb5Pj6Ud57QK3GH9iksxg0GSk9JyMOHZDAT69Yr6Y3XCYmpFM51CVwfA
+ d3QmrhfH/PnJqSnM8PXxc+Q74T1PbSs8u2BiJlTg8wMRO+sUc6NcSkkymgP20aZ7b1JB
+ v4mA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=lsG0/vZrFsbUfKMaszn0w2LlEErj8aBW/8Ir/pz3OGU=;
+ b=GfddPExufBVYlhJB+ykkXWvPjj2TvmzDsR2UNbFgvplUYqu1Lw+Ee8m2CbPIvdxkb1
+ 4bkcUrZ3QvL+But/KBILZkkbx5Kpbi/KHm4p1ClQZScGAje3ZosXDUcpeUqOgiW9SWh6
+ yO7K+jwxqyMw4LdG2oEEbUjqlB9LA/GNLdFI3QRngDqHlaMEgVgM0kvgekj3Mz7arJRf
+ 2LJJO1nrTKT8G/sSYnxH4H0PQvfT17406GPW6DLcdaC0LV0100kmvbXvZXSz2e7q3ni0
+ 6RG/xJHl6uCIZEW01mnoSCug9L2spWa6sWwpJNhQuX9woNKkGSR1GaK4gvlJBQWyUTRR
+ Gijg==
+X-Gm-Message-State: AOAM533shVanzsItDCy/n28hdjyr/X64lpB6BDhE9nIaAixMEp7xdqGl
+ lcQPabbD5GJqQmVVlFfr11zHCA8yZA4=
+X-Google-Smtp-Source: ABdhPJxC8b4XsFFiHjxlqHTC3hjSOcLyAEEBDq59JntLmlgh6Yq4M83KNcLLHHfgnTn8UXfVaA2mvw==
+X-Received: by 2002:ac8:5048:: with SMTP id h8mr23325058qtm.81.1593573026817; 
+ Tue, 30 Jun 2020 20:10:26 -0700 (PDT)
+Received: from localhost.localdomain ([147.253.86.153])
+ by smtp.gmail.com with ESMTPSA id r188sm4436866qkf.128.2020.06.30.20.10.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 30 Jun 2020 20:10:26 -0700 (PDT)
+From: Jonathan Marek <jonathan@marek.ca>
+To: freedreno@lists.freedesktop.org
+Date: Tue, 30 Jun 2020 23:08:41 -0400
+Message-Id: <20200701030842.24395-1-jonathan@marek.ca>
+X-Mailer: git-send-email 2.26.1
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v3] arm64: dts: qcom: sc7180: Add Display Port
- dt node
+Subject: [Freedreno] [PATCH] drm/msm: handle for EPROBE_DEFER for of_icc_get
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,118 +65,95 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Tanmay Shah <tanmay@codeaurora.org>,
- aravindh@codeaurora.org, linux-arm-msm@vger.kernel.org,
- abhinavk@codeaurora.org, linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- bjorn.andersson@linaro.org, robdclark@gmail.com, agross@kernel.org,
- dri-devel@lists.freedesktop.org, varar@codeaurora.org,
- freedreno@lists.freedesktop.org, sam@ravnborg.org, chandanu@codeaurora.org
+Cc: David Airlie <airlied@linux.ie>, Fabio Estevam <festevam@gmail.com>,
+ Jordan Crouse <jcrouse@codeaurora.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Sean Paul <sean@poorly.run>, open list <linux-kernel@vger.kernel.org>,
+ Brian Masney <masneyb@onstation.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add DP device node on sc7180.
+Check for EPROBE_DEFER instead of silently not using icc if the msm driver
+probes before the interconnect driver.
 
-Changes in v2:
+Only check for EPROBE_DEFER because of_icc_get can return other errors that
+we want to ignore (ENODATA).
 
-- Add assigned-clocks and assigned-clock-parents
-- Remove cell-index and pixel_rcg
-- Change compatible to qcom,sc7180-dp
+Remove the WARN_ON in msm_gpu_cleanup because INIT_LIST_HEAD won't have
+been called on the list yet when going through the defer error path.
 
-Changes in v3:
-- Update commit text
-- Make DP child node of MDSS
-- Remove data-lanes property from SOC dts
-- Disable DP node in SOC dts
-- Assign DP to Port2 in MDP node
-- Add MDSS AHB clock in DP device node
-
-This patch depends-on:
-	https://patchwork.freedesktop.org/series/78953/
-
-Signed-off-by: Tanmay Shah <tanmay@codeaurora.org>
+Signed-off-by: Jonathan Marek <jonathan@marek.ca>
 ---
- arch/arm64/boot/dts/qcom/sc7180.dtsi | 49 ++++++++++++++++++++++++++--
- 1 file changed, 47 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 17 ++++++++++++++---
+ drivers/gpu/drm/msm/msm_gpu.c           |  2 --
+ 2 files changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-index 31b9217bb5bf..271d55db62ab 100644
---- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-@@ -2371,6 +2371,13 @@ dpu_intf1_out: endpoint {
- 							remote-endpoint = <&dsi0_in>;
- 						};
- 					};
-+
-+					port@2 {
-+						reg = <2>;
-+						dpu_intf0_out: endpoint {
-+							remote-endpoint = <&dp_in>;
-+						};
-+					};
- 				};
- 			};
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index 89673c7ed473..393c00425d68 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -940,12 +940,20 @@ static int adreno_get_pwrlevels(struct device *dev,
+ 		 */
+ 		gpu->icc_path = of_icc_get(dev, NULL);
+ 	}
+-	if (IS_ERR(gpu->icc_path))
++	if (IS_ERR(gpu->icc_path)) {
++		ret = PTR_ERR(gpu->icc_path);
+ 		gpu->icc_path = NULL;
++		if (ret == -EPROBE_DEFER)
++			return ret;
++	}
  
-@@ -2440,6 +2447,44 @@ dsi_phy: dsi-phy@ae94400 {
+ 	gpu->ocmem_icc_path = of_icc_get(dev, "ocmem");
+-	if (IS_ERR(gpu->ocmem_icc_path))
++	if (IS_ERR(gpu->ocmem_icc_path)) {
++		ret = PTR_ERR(gpu->ocmem_icc_path);
+ 		gpu->ocmem_icc_path = NULL;
++		if (ret == -EPROBE_DEFER)
++			return ret;
++	}
  
- 				status = "disabled";
- 			};
-+
-+			msm_dp: displayport-controller@ae90000{
-+				status = "disabled";
-+				compatible = "qcom,sc7180-dp";
-+
-+				reg = <0 0xae90000 0 0x1400>;
-+				reg-names = "dp_controller";
-+
-+				interrupt-parent = <&mdss>;
-+				interrupts = <12 0>;
-+
-+				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
-+				clock-names = "core_iface", "core_aux", "ctrl_link",
-+					      "ctrl_link_iface", "stream_pixel";
-+				#clock-cells = <1>;
-+				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
-+				assigned-clock-parents = <&msm_dp 1>;
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					port@0 {
-+						reg = <0>;
-+						dp_in: endpoint {
-+							remote-endpoint = <&dpu_intf0_out>;
-+						};
-+					};
-+
-+					port@1 {
-+						reg = <1>;
-+						dp_out: endpoint { };
-+					};
-+				};
-+			};
- 		};
+ 	return 0;
+ }
+@@ -996,6 +1004,7 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 	struct adreno_platform_config *config = pdev->dev.platform_data;
+ 	struct msm_gpu_config adreno_gpu_config  = { 0 };
+ 	struct msm_gpu *gpu = &adreno_gpu->base;
++	int ret;
  
- 		dispcc: clock-controller@af00000 {
-@@ -2449,8 +2494,8 @@ dispcc: clock-controller@af00000 {
- 				 <&gcc GCC_DISP_GPLL0_CLK_SRC>,
- 				 <&dsi_phy 0>,
- 				 <&dsi_phy 1>,
--				 <0>,
--				 <0>;
-+				 <&msm_dp 0>,
-+				 <&msm_dp 1>;
- 			clock-names = "bi_tcxo",
- 				      "gcc_disp_gpll0_clk_src",
- 				      "dsi0_phy_pll_out_byteclk",
+ 	adreno_gpu->funcs = funcs;
+ 	adreno_gpu->info = adreno_info(config->rev);
+@@ -1007,7 +1016,9 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 
+ 	adreno_gpu_config.nr_rings = nr_rings;
+ 
+-	adreno_get_pwrlevels(&pdev->dev, gpu);
++	ret = adreno_get_pwrlevels(&pdev->dev, gpu);
++	if (ret)
++		return ret;
+ 
+ 	pm_runtime_set_autosuspend_delay(&pdev->dev,
+ 		adreno_gpu->info->inactive_period);
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index a22d30622306..ccf9a0dd9706 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -959,8 +959,6 @@ void msm_gpu_cleanup(struct msm_gpu *gpu)
+ 
+ 	DBG("%s", gpu->name);
+ 
+-	WARN_ON(!list_empty(&gpu->active_list));
+-
+ 	for (i = 0; i < ARRAY_SIZE(gpu->rb); i++) {
+ 		msm_ringbuffer_destroy(gpu->rb[i]);
+ 		gpu->rb[i] = NULL;
 -- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+2.26.1
 
 _______________________________________________
 Freedreno mailing list
