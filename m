@@ -2,36 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4FB7210317
-	for <lists+freedreno@lfdr.de>; Wed,  1 Jul 2020 06:48:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDF28210900
+	for <lists+freedreno@lfdr.de>; Wed,  1 Jul 2020 12:11:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 675A66E5C0;
-	Wed,  1 Jul 2020 04:48:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 859D46E884;
+	Wed,  1 Jul 2020 10:11:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 304 seconds by postgrey-1.36 at gabe;
- Wed, 01 Jul 2020 04:16:47 UTC
-Received: from out30-45.freemail.mail.aliyun.com
- (out30-45.freemail.mail.aliyun.com [115.124.30.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2330D6E5C0;
- Wed,  1 Jul 2020 04:16:46 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R891e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04426;
- MF=tianjia.zhang@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
- TI=SMTPD_---0U1ElaLe_1593576699; 
-Received: from localhost(mailfrom:tianjia.zhang@linux.alibaba.com
- fp:SMTPD_---0U1ElaLe_1593576699) by smtp.aliyun-inc.com(127.0.0.1);
- Wed, 01 Jul 2020 12:11:40 +0800
-From: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
-To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
- ddavenport@chromium.org, zhengbin13@huawei.com, sam@ravnborg.org,
- kalyan_t@codeaurora.org
-Date: Wed,  1 Jul 2020 12:11:39 +0800
-Message-Id: <20200701041139.92191-1-tianjia.zhang@linux.alibaba.com>
-X-Mailer: git-send-email 2.17.1
-X-Mailman-Approved-At: Wed, 01 Jul 2020 04:48:48 +0000
-Subject: [Freedreno] [PATCH] drm/msm/dpu: fix wrong return value in
- dpu_encoder_init()
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEB1A6E884
+ for <freedreno@lists.freedesktop.org>; Wed,  1 Jul 2020 10:11:19 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1593598283; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=amiqoJGPjX9RNHOLVHTe5Q2mOjhh5iGIl3d/MtXJOIs=;
+ b=K5FEw/0y3uLKvgjdq2AkfWk5lniKbewDzaxui6l8XlQ7xH3tJjp6DWLdwYJIm9FGOeWhwF7g
+ H3dnOoUIScL2mCLpOb0GQ/Cz/c7MeN/gAd1pf2z1FtH5HkRcfVBAvrzo+Y0PZmRlDlLMYBp8
+ Rgrg0GQFzl4LTQ0AgSmhAj67jt8=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n15.prod.us-west-2.postgun.com with SMTP id
+ 5efc613a4c9690533a499f80 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 01 Jul 2020 10:11:06
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 1CCD9C433C6; Wed,  1 Jul 2020 10:11:06 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: saiprakash.ranjan)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id B6F35C433C8;
+ Wed,  1 Jul 2020 10:11:03 +0000 (UTC)
+MIME-Version: 1.0
+Date: Wed, 01 Jul 2020 15:41:03 +0530
+From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+To: Robin Murphy <robin.murphy@arm.com>, Jordan Crouse
+ <jcrouse@codeaurora.org>, Will Deacon <will@kernel.org>
+In-Reply-To: <20200626200042.13713-1-jcrouse@codeaurora.org>
+References: <20200626200042.13713-1-jcrouse@codeaurora.org>
+Message-ID: <bdc2a4348230f430138d320e49e188c0@codeaurora.org>
+X-Sender: saiprakash.ranjan@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v9 0/7] iommu/arm-smmu: Enable split
+ pagetable support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,39 +65,105 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, tianjia.zhang@linux.alibaba.com,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
+ Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Takashi Iwai <tiwai@suse.de>,
+ iommu@lists.linux-foundation.org, Andy Gross <agross@kernel.org>,
+ John Stultz <john.stultz@linaro.org>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Shawn Guo <shawn.guo@linaro.org>,
+ freedreno@lists.freedesktop.org, linux-arm-msm-owner@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Brian Masney <masneyb@onstation.org>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-A positive value ENOMEM is returned here. I thinr this is a typo error.
-It is necessary to return a negative error value.
+Hi Will, Robin,
 
-Signed-off-by: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 2020-06-27 01:30, Jordan Crouse wrote:
+> Another iteration of the split-pagetable support for arm-smmu and the 
+> Adreno GPU
+> SMMU. After email discussions [1] we opted to make a arm-smmu 
+> implementation for
+> specifically for the Adreno GPU and use that to enable split pagetable 
+> support
+> and later other implementation specific bits that we need.
+> 
+> On the hardware side this is very close to the same code from before 
+> [2] only
+> the TTBR1 quirk is turned on by the implementation and not a domain 
+> attribute.
+> In drm/msm we use the returned size of the aperture as a clue to let us 
+> know
+> which virtual address space we should use for global memory objects.
+> 
+> There are two open items that you should be aware of. First, in the
+> implementation specific code we have to check the compatible string of 
+> the
+> device so that we only enable TTBR1 for the GPU (SID 0) and not the GMU 
+> (SID 4).
+> I went back and forth trying to decide if I wanted to use the 
+> compatible string
+> or the SID as the filter and settled on the compatible string but I 
+> could be
+> talked out of it.
+> 
+> The other open item is that in drm/msm the hardware only uses 49 bits 
+> of the
+> address space but arm-smmu expects the address to be sign extended all 
+> the way
+> to 64 bits. This isn't a problem normally unless you look at the 
+> hardware
+> registers that contain a IOVA and then the upper bits will be zero. I 
+> opted to
+> restrict the internal drm/msm IOVA range to only 49 bits and then sign 
+> extend
+> right before calling iommu_map / iommu_unmap. This is a bit wonky but I 
+> thought
+> that matching the hardware would be less confusing when debugging a 
+> hang.
+> 
+> v9: Fix bot-detected merge conflict
+> v7: Add attached device to smmu_domain to pass to implementation 
+> specific
+> functions
+> 
+> [1] 
+> https://lists.linuxfoundation.org/pipermail/iommu/2020-May/044537.html
+> [2] https://patchwork.kernel.org/patch/11482591/
+> 
+> 
+> Jordan Crouse (7):
+>   iommu/arm-smmu: Pass io-pgtable config to implementation specific
+>     function
+>   iommu/arm-smmu: Add support for split pagetables
+>   dt-bindings: arm-smmu: Add compatible string for Adreno GPU SMMU
+>   iommu/arm-smmu: Add a pointer to the attached device to smmu_domain
+>   iommu/arm-smmu: Add implementation for the adreno GPU SMMU
+>   drm/msm: Set the global virtual address range from the IOMMU domain
+>   arm: dts: qcom: sm845: Set the compatible string for the GPU SMMU
+> 
+>  .../devicetree/bindings/iommu/arm,smmu.yaml   |  4 ++
+>  arch/arm64/boot/dts/qcom/sdm845.dtsi          |  2 +-
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c       | 13 +++++-
+>  drivers/gpu/drm/msm/msm_iommu.c               |  7 +++
+>  drivers/iommu/arm-smmu-impl.c                 |  6 ++-
+>  drivers/iommu/arm-smmu-qcom.c                 | 45 ++++++++++++++++++-
+>  drivers/iommu/arm-smmu.c                      | 38 +++++++++++-----
+>  drivers/iommu/arm-smmu.h                      | 30 ++++++++++---
+>  8 files changed, 120 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 63976dcd2ac8..119c89659e71 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -2183,7 +2183,7 @@ struct drm_encoder *dpu_encoder_init(struct drm_device *dev,
- 
- 	dpu_enc = devm_kzalloc(dev->dev, sizeof(*dpu_enc), GFP_KERNEL);
- 	if (!dpu_enc)
--		return ERR_PTR(ENOMEM);
-+		return ERR_PTR(-ENOMEM);
- 
- 	rc = drm_encoder_init(dev, &dpu_enc->base, &dpu_encoder_funcs,
- 			drm_enc_mode, NULL);
+Any chance reviewing this?
+
+Thanks,
+Sai
+
 -- 
-2.17.1
-
+QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a 
+member
+of Code Aurora Forum, hosted by The Linux Foundation
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
