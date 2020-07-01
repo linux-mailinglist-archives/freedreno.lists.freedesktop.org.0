@@ -1,63 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EBBC2111B6
-	for <lists+freedreno@lfdr.de>; Wed,  1 Jul 2020 19:14:45 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A3A9D2111F7
+	for <lists+freedreno@lfdr.de>; Wed,  1 Jul 2020 19:31:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B32F56E096;
-	Wed,  1 Jul 2020 17:14:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AFDE6E096;
+	Wed,  1 Jul 2020 17:31:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
- [IPv6:2607:f8b0:4864:20::842])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B69296E07F
- for <freedreno@lists.freedesktop.org>; Wed,  1 Jul 2020 17:14:42 +0000 (UTC)
-Received: by mail-qt1-x842.google.com with SMTP id o38so19023754qtf.6
- for <freedreno@lists.freedesktop.org>; Wed, 01 Jul 2020 10:14:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=marek-ca.20150623.gappssmtp.com; s=20150623;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=uyDrreb5/43nRuyXAG5DxhddbAStHj2IykaaREeLOAs=;
- b=lrfta52O1r0UsfmM79fscXfWiTmQ4Zl4t2olGT+gIZQ+ikYdcVVjEEd7tfkDk3mVJo
- 2yeVQsPbar4qpD3ErrFTsEMkmKrRg76t0/D5OdajQasvPoDo2HEYmv2xcnO+9Cr06g/5
- Jhgc14xFsLMXwm3zxMkcSzoq/Te/N+53cBoyeqOmOdNzg12m6a2/JCR96jBDDynnF+0p
- XdFp+xxEdg2W/Hqx+zlpYGrcRGmEMvYDfAktg0VnTxy3DKaeHF29ak7MAJVmOg3kobx6
- o+dyGtunNjmaa4MAMH2gTlnr4U/10Ur7ZqaShJOB0OaBuTd35v18MCOnI/NBMC8jQ/bp
- xv7g==
+Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
+ [IPv6:2607:f8b0:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E388F6E98B
+ for <freedreno@lists.freedesktop.org>; Wed,  1 Jul 2020 17:31:39 +0000 (UTC)
+Received: by mail-pf1-x441.google.com with SMTP id q17so11286562pfu.8
+ for <freedreno@lists.freedesktop.org>; Wed, 01 Jul 2020 10:31:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=4fNzrypwA+h6/cDmXnWYSRWs2TnExn3KjSMmEODDS5k=;
+ b=eij/r8Vh/rQed6wZTqGpOc18VEuPZcxNJDWCztfwt/yJl5o9O50Y0Kioeg4lEoOUYf
+ b5COS9gDdoCUd6jRHA4b8V3qeWtiUT35a4EVNWIv1kVBLT60wpQew/R3aqshKT3jEnh2
+ 6uh9PjDzwpNLFb86pW5QGPdxBz12d7V2eGx48=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=uyDrreb5/43nRuyXAG5DxhddbAStHj2IykaaREeLOAs=;
- b=Z1s2FIUYpU/cpM7iC0RDUOv9OPHOi4QDVBecngNWor7N+ZSA71Jat8xp9+Eb8sa/FG
- AXqPgr8jsYe40kX9KTHulhKl8kjcc2PqjFyz0Fiuq72CsC7NjMuS7wdertRSRJkYAX2g
- vbyGGgLAeyCuOLQnX6A2CblRF3HFP/cHVm/Kef9YXHyKke4W5hMGQsAoVPytzCx5n0L6
- SZEoJjU8BX2kTvQV9H6CPmbsM0KMdRwxCLUzqy73hNamMGVmhgROuz5U1JsjnrJwlkQy
- eWme+pLsmWLXb8v3k6BkleyFyOvK/PPaPKxxyluxwxrXLSL2REDYg4XCYvYkGi4UmDrF
- B3aQ==
-X-Gm-Message-State: AOAM5308qH7BY9S9TaexHss+zuX7uCZbmeDuZEnJtybHXL46AVoYK5AH
- qRQXwOiSZFs/ldW68JymvMSyyw==
-X-Google-Smtp-Source: ABdhPJwsdDTczZS+vX8/Nxdl4H4faN26QV/tRRi0cKAX20gxeG3JVW5sYGRaK3dP0UeDm5JOzT1QbQ==
-X-Received: by 2002:ac8:728b:: with SMTP id v11mr28496958qto.297.1593623681674; 
- Wed, 01 Jul 2020 10:14:41 -0700 (PDT)
-Received: from [192.168.0.189] ([147.253.86.153])
- by smtp.gmail.com with ESMTPSA id u27sm6069257qkm.121.2020.07.01.10.14.40
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=4fNzrypwA+h6/cDmXnWYSRWs2TnExn3KjSMmEODDS5k=;
+ b=XNx1i/g7r5LCQmuTG8StBV7nb3bXK9+yo1sEG51AP2Va6ccC0K75dFX4ExffTAhJUp
+ N/Jt0iaXJbVCy3WN+BuMciofHzRuBCDFOeFWlP5eCHplChCqIPPjmWTEFy9+AOFu7Psw
+ 7X6j1ysTs8IWWAsjTXfaEVfaYCy/FV4nsMidAY9StJOuPMEraZBEOuVdY8B0cjB3C2uk
+ 5zKA6JVuP4//Aj70UQvrU/7nbx/eOk3gmmWqPqCBK2yeb/alogqQqZ0QFEO+oROyEiq1
+ urIUtcFlrkcwqzfSkBDYaAUlEZlhTEOrmz4FvA4e4KfXF/FEIXAYhGDGhmAaTEJTFGMk
+ AWcA==
+X-Gm-Message-State: AOAM532i93NHDF/rVOiXh/nuqs5jH3ZoquiC9qQUqQx1c5NDMJRCHSNJ
+ SZ33ymIjlCkHHg9U0LxBd363/w==
+X-Google-Smtp-Source: ABdhPJxDxBe8JvlXms+W1hWSshtDpF7DzlWzhcD8TjKp0cMR4Tp3lor5DHtOOMRLn11J3GiOW8kXnQ==
+X-Received: by 2002:a63:fc43:: with SMTP id r3mr20981507pgk.423.1593624699558; 
+ Wed, 01 Jul 2020 10:31:39 -0700 (PDT)
+Received: from localhost ([2620:15c:202:1:f693:9fff:fef4:e70a])
+ by smtp.gmail.com with ESMTPSA id 21sm6435524pfu.124.2020.07.01.10.31.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Jul 2020 10:14:41 -0700 (PDT)
-To: Matthias Kaehlcke <mka@chromium.org>
+ Wed, 01 Jul 2020 10:31:38 -0700 (PDT)
+Date: Wed, 1 Jul 2020 10:31:37 -0700
+From: Matthias Kaehlcke <mka@chromium.org>
+To: Jonathan Marek <jonathan@marek.ca>
+Message-ID: <20200701173137.GD3191083@google.com>
 References: <20200701030842.24395-1-jonathan@marek.ca>
  <20200701171228.GC3191083@google.com>
-From: Jonathan Marek <jonathan@marek.ca>
-Message-ID: <49af8f44-51d4-aded-a34e-55c7c5780008@marek.ca>
-Date: Wed, 1 Jul 2020 13:13:34 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+ <49af8f44-51d4-aded-a34e-55c7c5780008@marek.ca>
 MIME-Version: 1.0
-In-Reply-To: <20200701171228.GC3191083@google.com>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <49af8f44-51d4-aded-a34e-55c7c5780008@marek.ca>
 Subject: Re: [Freedreno] [PATCH] drm/msm: handle for EPROBE_DEFER for
  of_icc_get
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -80,36 +74,34 @@ Cc: Fabio Estevam <festevam@gmail.com>, David Airlie <airlied@linux.ie>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
  Sean Paul <sean@poorly.run>, open list <linux-kernel@vger.kernel.org>,
  Brian Masney <masneyb@onstation.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 7/1/20 1:12 PM, Matthias Kaehlcke wrote:
-> Hi Jonathan,
+On Wed, Jul 01, 2020 at 01:13:34PM -0400, Jonathan Marek wrote:
+> On 7/1/20 1:12 PM, Matthias Kaehlcke wrote:
+> > Hi Jonathan,
+> > 
+> > On Tue, Jun 30, 2020 at 11:08:41PM -0400, Jonathan Marek wrote:
+> > > Check for EPROBE_DEFER instead of silently not using icc if the msm driver
+> > > probes before the interconnect driver.
+> > 
+> > Agreed with supporting deferred ICC probing.
+> > 
+> > > Only check for EPROBE_DEFER because of_icc_get can return other errors that
+> > > we want to ignore (ENODATA).
+> > 
+> > What would be the -ENODATA case?
+> > 
 > 
-> On Tue, Jun 30, 2020 at 11:08:41PM -0400, Jonathan Marek wrote:
->> Check for EPROBE_DEFER instead of silently not using icc if the msm driver
->> probes before the interconnect driver.
-> 
-> Agreed with supporting deferred ICC probing.
-> 
->> Only check for EPROBE_DEFER because of_icc_get can return other errors that
->> we want to ignore (ENODATA).
-> 
-> What would be the -ENODATA case?
-> 
+> The of_icc_get for the ocmem_icc_path can return -ENODATA when the ocmem
+> path is not specified (it is optional and only relevant for a3xx/a4xx).
 
-The of_icc_get for the ocmem_icc_path can return -ENODATA when the ocmem 
-path is not specified (it is optional and only relevant for a3xx/a4xx).
+Thanks for the clarification!
 
-> If the 'interconnects' property is not specified of_icc_get() returns NULL,
-> shouldn't all (or most) errors be propagated rather than staying silent?
-> 
-> Thanks
-> 
-> Matthias
-> 
+In this case it seems reasonable to me to return any error for the
+'gfx-mem' path and all errors except -ENODATA for 'ocmem'.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
