@@ -1,56 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCECB211648
-	for <lists+freedreno@lfdr.de>; Thu,  2 Jul 2020 00:51:27 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id EF954212DCE
+	for <lists+freedreno@lfdr.de>; Thu,  2 Jul 2020 22:22:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 091086EA0A;
-	Wed,  1 Jul 2020 22:51:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 456136E24B;
+	Thu,  2 Jul 2020 20:22:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
- [104.130.122.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF4CC6EA0A
- for <freedreno@lists.freedesktop.org>; Wed,  1 Jul 2020 22:51:24 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1593643884; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=Gzk6MArs2xkSxAn767zjaSgf4SaIL+y96yccCcZqcCg=;
- b=NlYyDJW9QhsaC5/qopdCdTXKWo9nUoGkmj7aNxiAp5xcf8rB7rmaW7iGygk44jaHd5gkFPvM
- 4avnTf6K7Y1qearEwJrI5r1mjYQSrG9qe13QDPLrvwLkaKAi+xWgACTIJb+FR5NG7dJJejqo
- yyVk3z5C4ayUvYooXdfGEqalBWQ=
-X-Mailgun-Sending-Ip: 104.130.122.29
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n13.prod.us-east-1.postgun.com with SMTP id
- 5efd136ba3d8a44743347bf9 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 01 Jul 2020 22:51:23
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 9D96CC43395; Wed,  1 Jul 2020 22:51:22 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,URIBL_BLOCKED
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id EFE0FC433C6;
- Wed,  1 Jul 2020 22:51:21 +0000 (UTC)
+Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
+ [IPv6:2a00:1450:4864:20::542])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60A756E24B
+ for <freedreno@lists.freedesktop.org>; Thu,  2 Jul 2020 20:22:07 +0000 (UTC)
+Received: by mail-ed1-x542.google.com with SMTP id a8so24116144edy.1
+ for <freedreno@lists.freedesktop.org>; Thu, 02 Jul 2020 13:22:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=LJqRalz8nhd1uucT/hW2AoacNEdXpfTo9tORErtQ+CY=;
+ b=A7yLVEUdkzu0U9R4Gydu8ALB+orKv8jxKoFtu9XmVALASxtFPW+Va6LJ5qJhI72YNO
+ 9Xv4iYY5bNsUh4qm4m+LioK2uUta+u/jnJbYpH5humUCWvYsMBgJboDYhKhHZZUx+Y2t
+ CDichgejEQLfWBWPDxoXBh4pejxijkeFbK9MuXnJAFs5KNJlHJCDWrK9c/h1hkSFn1Q4
+ i5mh2FvofLz5G0TU14GFgd8kGAENZrFOlC0+nycGxTpVBcCABFThDjY47tWqwP7ogWZm
+ 0gGGJU4NXyM42SPgXXtcGIsWvfmWkLee6PiI8Na2c1rFNSlo/xXzsM8i1cmZ6bAwIOqg
+ 4fkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=LJqRalz8nhd1uucT/hW2AoacNEdXpfTo9tORErtQ+CY=;
+ b=TaWXhyi3L4JfhbPpZBCYeZMkYwKu+YMlqPc64w7ZWYJ2DMXrbjf/Tlcu1fMZHk3HxO
+ IfE+NAdt67Nj7TQJQBTWaed1lvDpo7TqW8Zh21PLS2GOjKQ3v0Uv3pQI2GTmldyyDVGD
+ wjEQFzzX+k+x7ghUa578tGmgspEYsgVktlHIvEk9EgKsBxGXpiNhpuHKRPnMwdDmBATq
+ Q1tW+6A5rDNw7W1HIz+E6LyKPwT2yzcAwHaJPw4v+d/gfe5w3eCKvE5QeZrWiBzuuXaX
+ gNXyyP6MdfzMBXa5Rkqn0uDE3Ca1+IGeAzHEZ3UTkUs4/dXKfzbmOe5IV2VXHmyWjlB/
+ S+Pw==
+X-Gm-Message-State: AOAM532ta3V1l1yLnz5LwfpFKLwmflez8UZozedzU70x4E5lrFbVKHFX
+ qkpqjXZdnqZhlJFHW2nhUbdjWPoICh9+olYPTYg=
+X-Google-Smtp-Source: ABdhPJzZ45bUaTYoAMc4+7tytjU6jg5rAHFG6yHcGC5gt16WN/ceKbzpc4PdmYV+WosMNX1otFsQabXOGlQkVzfbrmw=
+X-Received: by 2002:a50:f392:: with SMTP id g18mr14487895edm.151.1593721325980; 
+ Thu, 02 Jul 2020 13:22:05 -0700 (PDT)
 MIME-Version: 1.0
-Date: Wed, 01 Jul 2020 15:51:21 -0700
-From: abhinavk@codeaurora.org
-To: Rob Clark <robdclark@gmail.com>
-In-Reply-To: <20200701203602.1272157-1-robdclark@gmail.com>
-References: <20200701203602.1272157-1-robdclark@gmail.com>
-Message-ID: <d49731c0ecc5b2337f26597decbf82e4@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH] drm/msm: ratelimit crtc event overflow error
+References: <20200626200042.13713-1-jcrouse@codeaurora.org>
+ <20200626200042.13713-3-jcrouse@codeaurora.org>
+In-Reply-To: <20200626200042.13713-3-jcrouse@codeaurora.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 2 Jul 2020 13:22:36 -0700
+Message-ID: <CAF6AEGuN6b5a0=Ava53vyv8E57=XCPBTZAjYrRNxtNv41VOp4Q@mail.gmail.com>
+To: Jordan Crouse <jcrouse@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH v9 2/7] iommu/arm-smmu: Add support for
+ split pagetables
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,45 +62,136 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, Sam Ravnborg <sam@ravnborg.org>,
- linux-arm-msm@vger.kernel.org, Hongbo Yao <yaohongbo@huawei.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Kalyan Thota <kalyan_t@codeaurora.org>,
- Drew Davenport <ddavenport@chromium.org>, Sean Paul <sean@poorly.run>,
- linux-arm-msm-owner@vger.kernel.org
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
+ John Stultz <john.stultz@linaro.org>, Will Deacon <will@kernel.org>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-07-01 13:36, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> This can happen a lot when things go pear shaped.  Lets not flood dmesg
-> when this happens.
-> 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
+On Fri, Jun 26, 2020 at 1:01 PM Jordan Crouse <jcrouse@codeaurora.org> wrote:
+>
+> Enable TTBR1 for a context bank if IO_PGTABLE_QUIRK_ARM_TTBR1 is selected
+> by the io-pgtable configuration.
+>
+> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> index e15b42a780e0..969d95aa873c 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -389,7 +389,7 @@ static void dpu_crtc_frame_event_cb(void *data, u32 
-> event)
->  	spin_unlock_irqrestore(&dpu_crtc->spin_lock, flags);
-> 
->  	if (!fevent) {
-> -		DRM_ERROR("crtc%d event %d overflow\n", crtc->base.id, event);
-> +		DRM_ERROR_RATELIMITED("crtc%d event %d overflow\n", crtc->base.id, 
-> event);
->  		return;
->  	}
+>
+>  drivers/iommu/arm-smmu.c | 21 ++++++++++++++++-----
+>  drivers/iommu/arm-smmu.h | 25 +++++++++++++++++++------
+>  2 files changed, 35 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/iommu/arm-smmu.c b/drivers/iommu/arm-smmu.c
+> index 8a3a6c8c887a..048de2681670 100644
+> --- a/drivers/iommu/arm-smmu.c
+> +++ b/drivers/iommu/arm-smmu.c
+> @@ -555,11 +555,15 @@ static void arm_smmu_init_context_bank(struct arm_smmu_domain *smmu_domain,
+>                         cb->ttbr[0] = pgtbl_cfg->arm_v7s_cfg.ttbr;
+>                         cb->ttbr[1] = 0;
+>                 } else {
+> -                       cb->ttbr[0] = pgtbl_cfg->arm_lpae_s1_cfg.ttbr;
+> -                       cb->ttbr[0] |= FIELD_PREP(ARM_SMMU_TTBRn_ASID,
+> -                                                 cfg->asid);
+> +                       cb->ttbr[0] = FIELD_PREP(ARM_SMMU_TTBRn_ASID,
+> +                               cfg->asid);
+>                         cb->ttbr[1] = FIELD_PREP(ARM_SMMU_TTBRn_ASID,
+> -                                                cfg->asid);
+> +                               cfg->asid);
+
+above looks like stray whitespace changes?
+
+> +
+> +                       if (pgtbl_cfg->quirks & IO_PGTABLE_QUIRK_ARM_TTBR1)
+> +                               cb->ttbr[1] |= pgtbl_cfg->arm_lpae_s1_cfg.ttbr;
+> +                       else
+> +                               cb->ttbr[0] |= pgtbl_cfg->arm_lpae_s1_cfg.ttbr;
+>                 }
+>         } else {
+>                 cb->ttbr[0] = pgtbl_cfg->arm_lpae_s2_cfg.vttbr;
+> @@ -824,7 +828,14 @@ static int arm_smmu_init_domain_context(struct iommu_domain *domain,
+>
+>         /* Update the domain's page sizes to reflect the page table format */
+>         domain->pgsize_bitmap = pgtbl_cfg.pgsize_bitmap;
+> -       domain->geometry.aperture_end = (1UL << ias) - 1;
+> +
+> +       if (pgtbl_cfg.quirks & IO_PGTABLE_QUIRK_ARM_TTBR1) {
+> +               domain->geometry.aperture_start = ~0UL << ias;
+> +               domain->geometry.aperture_end = ~0UL;
+> +       } else {
+> +               domain->geometry.aperture_end = (1UL << ias) - 1;
+> +       }
+> +
+>         domain->geometry.force_aperture = true;
+>
+>         /* Initialise the context bank with our page table cfg */
+> diff --git a/drivers/iommu/arm-smmu.h b/drivers/iommu/arm-smmu.h
+> index 38b041530a4f..5f2de20e883b 100644
+> --- a/drivers/iommu/arm-smmu.h
+> +++ b/drivers/iommu/arm-smmu.h
+> @@ -168,10 +168,12 @@ enum arm_smmu_cbar_type {
+>  #define ARM_SMMU_CB_TCR                        0x30
+>  #define ARM_SMMU_TCR_EAE               BIT(31)
+>  #define ARM_SMMU_TCR_EPD1              BIT(23)
+> +#define ARM_SMMU_TCR_A1                        BIT(22)
+>  #define ARM_SMMU_TCR_TG0               GENMASK(15, 14)
+>  #define ARM_SMMU_TCR_SH0               GENMASK(13, 12)
+>  #define ARM_SMMU_TCR_ORGN0             GENMASK(11, 10)
+>  #define ARM_SMMU_TCR_IRGN0             GENMASK(9, 8)
+> +#define ARM_SMMU_TCR_EPD0              BIT(7)
+>  #define ARM_SMMU_TCR_T0SZ              GENMASK(5, 0)
+>
+>  #define ARM_SMMU_VTCR_RES1             BIT(31)
+> @@ -347,12 +349,23 @@ struct arm_smmu_domain {
+>
+>  static inline u32 arm_smmu_lpae_tcr(struct io_pgtable_cfg *cfg)
+>  {
+> -       return ARM_SMMU_TCR_EPD1 |
+> -              FIELD_PREP(ARM_SMMU_TCR_TG0, cfg->arm_lpae_s1_cfg.tcr.tg) |
+> -              FIELD_PREP(ARM_SMMU_TCR_SH0, cfg->arm_lpae_s1_cfg.tcr.sh) |
+> -              FIELD_PREP(ARM_SMMU_TCR_ORGN0, cfg->arm_lpae_s1_cfg.tcr.orgn) |
+> -              FIELD_PREP(ARM_SMMU_TCR_IRGN0, cfg->arm_lpae_s1_cfg.tcr.irgn) |
+> -              FIELD_PREP(ARM_SMMU_TCR_T0SZ, cfg->arm_lpae_s1_cfg.tcr.tsz);
+> +       u32 tcr = FIELD_PREP(ARM_SMMU_TCR_TG0, cfg->arm_lpae_s1_cfg.tcr.tg) |
+> +               FIELD_PREP(ARM_SMMU_TCR_SH0, cfg->arm_lpae_s1_cfg.tcr.sh) |
+> +               FIELD_PREP(ARM_SMMU_TCR_ORGN0, cfg->arm_lpae_s1_cfg.tcr.orgn) |
+> +               FIELD_PREP(ARM_SMMU_TCR_IRGN0, cfg->arm_lpae_s1_cfg.tcr.irgn) |
+> +               FIELD_PREP(ARM_SMMU_TCR_T0SZ, cfg->arm_lpae_s1_cfg.tcr.tsz);
+> +
+> +       /*
+> +       * When TTBR1 is selected shift the TCR fields by 16 bits and disable
+> +       * translation in TTBR0
+> +       */
+> +       if (cfg->quirks & IO_PGTABLE_QUIRK_ARM_TTBR1) {
+> +               tcr = (tcr << 16) & ~ARM_SMMU_TCR_A1;
+> +               tcr |= ARM_SMMU_TCR_EPD0;
+> +       } else
+> +               tcr |= ARM_SMMU_TCR_EPD1;
+
+I'm not personally a fan of if/else ladders that mix {}'s, but
+Will/Robin may have a different opinion
+
+BR,
+-R
+
+> +
+> +       return tcr;
+>  }
+>
+>  static inline u32 arm_smmu_lpae_tcr2(struct io_pgtable_cfg *cfg)
+> --
+> 2.17.1
+>
+> _______________________________________________
+> iommu mailing list
+> iommu@lists.linux-foundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/iommu
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
