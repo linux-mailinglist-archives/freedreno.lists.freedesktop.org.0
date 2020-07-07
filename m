@@ -2,60 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F18AD213DD3
-	for <lists+freedreno@lfdr.de>; Fri,  3 Jul 2020 18:59:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B3DA216BA4
+	for <lists+freedreno@lfdr.de>; Tue,  7 Jul 2020 13:34:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92F2D6EB20;
-	Fri,  3 Jul 2020 16:59:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE32489F43;
+	Tue,  7 Jul 2020 11:34:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4482D6EB20
- for <freedreno@lists.freedesktop.org>; Fri,  3 Jul 2020 16:59:20 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1593795560; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=+gnWJZLQFOi3Y3xgbq+Jj83g8jf7HMQgZHy7FN5ldrA=;
- b=EjIuvl78ZmKmI6Au48AVCGhtr+kNqmihYQTsyl8VqwR6K+ZEVikpy/b0aQyYItbco/D7Mhv3
- M7kattnHUor2Z/HhH/nvTzHbZnSgQa8I1LX05DBq0OAvKsNnxaiCW/u3aZACJUkeQaUIMaG4
- nC5e5MtgXo2N+RQyT3fejwFZpxI=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n04.prod.us-east-1.postgun.com with SMTP id
- 5eff63e6a3d8a447431620b9 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 03 Jul 2020 16:59:18
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 8AAAAC433A1; Fri,  3 Jul 2020 16:59:17 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: saiprakash.ranjan)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 6CB36C433C6;
- Fri,  3 Jul 2020 16:59:16 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id CC95189F43
+ for <freedreno@lists.freedesktop.org>; Tue,  7 Jul 2020 11:34:29 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 155AC1FB;
+ Tue,  7 Jul 2020 04:34:29 -0700 (PDT)
+Received: from [10.57.21.32] (unknown [10.57.21.32])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 842DE3F71E;
+ Tue,  7 Jul 2020 04:34:27 -0700 (PDT)
+To: Jordan Crouse <jcrouse@codeaurora.org>, linux-arm-msm@vger.kernel.org
+References: <20200626200414.14382-1-jcrouse@codeaurora.org>
+ <20200626200414.14382-3-jcrouse@codeaurora.org>
+From: Robin Murphy <robin.murphy@arm.com>
+Message-ID: <99ecd948-7476-b9b4-12b4-1ced0084654f@arm.com>
+Date: Tue, 7 Jul 2020 12:34:26 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Date: Fri, 03 Jul 2020 22:29:16 +0530
-From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-To: Rob Clark <robdclark@gmail.com>
-In-Reply-To: <CAF6AEGsCROVTsi2R7_aUkmH9Luoc_guMR0w0KUJc2cEgpfj79w@mail.gmail.com>
-References: <cover.1593344119.git.saiprakash.ranjan@codeaurora.org>
- <449a6544b10f0035d191ac52283198343187c153.1593344120.git.saiprakash.ranjan@codeaurora.org>
- <20200703133732.GD18953@willie-the-truck>
- <ecfda7ca80f6d7b4ff3d89b8758f4dc9@codeaurora.org>
- <CAF6AEGsCROVTsi2R7_aUkmH9Luoc_guMR0w0KUJc2cEgpfj79w@mail.gmail.com>
-Message-ID: <c925406446bb2f6c7aead8e047672cae@codeaurora.org>
-X-Sender: saiprakash.ranjan@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCHv3 7/7] drm/msm/a6xx: Add support for using
- system cache(LLC)
+In-Reply-To: <20200626200414.14382-3-jcrouse@codeaurora.org>
+Content-Language: en-GB
+Subject: Re: [Freedreno] [PATCH v2 2/6] iommu/io-pgtable: Allow a pgtable
+ implementation to skip TLB operations
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,86 +43,77 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jordan Crouse <jcrouse@codeaurora.org>, Will Deacon <will@kernel.org>,
- David Airlie <airlied@linux.ie>, Sean Paul <sean@poorly.run>,
- Joerg Roedel <joro@8bytes.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- Emil Velikov <emil.velikov@collabora.com>, "list@263.net:IOMMU DRIVERS ,
- Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
- Matthias Kaehlcke <mka@chromium.org>,
- "Kristian H . Kristensen" <hoegsberg@google.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Stephen Boyd <swboyd@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Sharat Masetty <smasetty@codeaurora.org>, "moderated
- list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>, Robin Murphy <robin.murphy@arm.com>
+Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Joerg Roedel <jroedel@suse.de>, Will Deacon <will@kernel.org>,
+ linux-kernel@vger.kernel.org, iommu@lists.linux-foundation.org,
+ John Stultz <john.stultz@linaro.org>, freedreno@lists.freedesktop.org,
+ Yong Wu <yong.wu@mediatek.com>
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-07-03 21:34, Rob Clark wrote:
-> On Fri, Jul 3, 2020 at 7:53 AM Sai Prakash Ranjan
-> <saiprakash.ranjan@codeaurora.org> wrote:
->> 
->> Hi Will,
->> 
->> On 2020-07-03 19:07, Will Deacon wrote:
->> > On Mon, Jun 29, 2020 at 09:22:50PM +0530, Sai Prakash Ranjan wrote:
->> >> diff --git a/drivers/gpu/drm/msm/msm_iommu.c
->> >> b/drivers/gpu/drm/msm/msm_iommu.c
->> >> index f455c597f76d..bd1d58229cc2 100644
->> >> --- a/drivers/gpu/drm/msm/msm_iommu.c
->> >> +++ b/drivers/gpu/drm/msm/msm_iommu.c
->> >> @@ -218,6 +218,9 @@ static int msm_iommu_map(struct msm_mmu *mmu,
->> >> uint64_t iova,
->> >>              iova |= GENMASK_ULL(63, 49);
->> >>
->> >>
->> >> +    if (mmu->features & MMU_FEATURE_USE_SYSTEM_CACHE)
->> >> +            prot |= IOMMU_SYS_CACHE_ONLY;
->> >
->> > Given that I think this is the only user of IOMMU_SYS_CACHE_ONLY, then
->> > it
->> > looks like it should actually be a property on the domain because we
->> > never
->> > need to configure it on a per-mapping basis within a domain, and
->> > therefore
->> > it shouldn't be exposed by the IOMMU API as a prot flag.
->> >
->> > Do you agree?
->> >
->> 
->> GPU being the only user is for now, but there are other clients which
->> can use this.
->> Plus how do we set the memory attributes if we do not expose this as
->> prot flag?
-> 
-> It does appear that the downstream kgsl driver sets this for basically
-> all mappings.. well there is some conditional stuff around
-> DOMAIN_ATTR_USE_LLC_NWA but it seems based on the property of the
-> domain.  (Jordan may know more about what that is about.)  But looks
-> like there are a lot of different paths into iommu_map in kgsl so I
-> might have missed something.
-> 
-> Assuming there isn't some case where we specifically don't want to use
-> the system cache for some mapping, I think it could be a domain
-> attribute that sets an io_pgtable_cfg::quirks flag
-> 
+On 2020-06-26 21:04, Jordan Crouse wrote:
+> Allow a io-pgtable implementation to skip TLB operations by checking for
+> NULL pointers in the helper functions. It will be up to to the owner
+> of the io-pgtable instance to make sure that they independently handle
+> the TLB correctly.
 
-Ok then we are good to remove unused sys cache prot flag which Will has 
-posted.
+I don't really understand what this is for - tricking the IOMMU driver 
+into not performing its TLB maintenance at points when that maintenance 
+has been deemed necessary doesn't seem like the appropriate way to 
+achieve anything good :/
 
-Thanks,
-Sai
+Robin.
 
--- 
-QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a 
-member
-of Code Aurora Forum, hosted by The Linux Foundation
+> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
+> ---
+> 
+>   include/linux/io-pgtable.h | 11 +++++++----
+>   1 file changed, 7 insertions(+), 4 deletions(-)
+> 
+> diff --git a/include/linux/io-pgtable.h b/include/linux/io-pgtable.h
+> index 53d53c6c2be9..bbed1d3925ba 100644
+> --- a/include/linux/io-pgtable.h
+> +++ b/include/linux/io-pgtable.h
+> @@ -210,21 +210,24 @@ struct io_pgtable {
+>   
+>   static inline void io_pgtable_tlb_flush_all(struct io_pgtable *iop)
+>   {
+> -	iop->cfg.tlb->tlb_flush_all(iop->cookie);
+> +	if (iop->cfg.tlb)
+> +		iop->cfg.tlb->tlb_flush_all(iop->cookie);
+>   }
+>   
+>   static inline void
+>   io_pgtable_tlb_flush_walk(struct io_pgtable *iop, unsigned long iova,
+>   			  size_t size, size_t granule)
+>   {
+> -	iop->cfg.tlb->tlb_flush_walk(iova, size, granule, iop->cookie);
+> +	if (iop->cfg.tlb)
+> +		iop->cfg.tlb->tlb_flush_walk(iova, size, granule, iop->cookie);
+>   }
+>   
+>   static inline void
+>   io_pgtable_tlb_flush_leaf(struct io_pgtable *iop, unsigned long iova,
+>   			  size_t size, size_t granule)
+>   {
+> -	iop->cfg.tlb->tlb_flush_leaf(iova, size, granule, iop->cookie);
+> +	if (iop->cfg.tlb)
+> +		iop->cfg.tlb->tlb_flush_leaf(iova, size, granule, iop->cookie);
+>   }
+>   
+>   static inline void
+> @@ -232,7 +235,7 @@ io_pgtable_tlb_add_page(struct io_pgtable *iop,
+>   			struct iommu_iotlb_gather * gather, unsigned long iova,
+>   			size_t granule)
+>   {
+> -	if (iop->cfg.tlb->tlb_add_page)
+> +	if (iop->cfg.tlb && iop->cfg.tlb->tlb_add_page)
+>   		iop->cfg.tlb->tlb_add_page(gather, iova, granule, iop->cookie);
+>   }
+>   
+> 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
