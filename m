@@ -1,57 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93129216EFD
-	for <lists+freedreno@lfdr.de>; Tue,  7 Jul 2020 16:40:40 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id F345F216F7A
+	for <lists+freedreno@lfdr.de>; Tue,  7 Jul 2020 16:57:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 096F889468;
-	Tue,  7 Jul 2020 14:40:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E94706E07D;
+	Tue,  7 Jul 2020 14:57:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
- [IPv6:2a00:1450:4864:20::643])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B7DB89468;
- Tue,  7 Jul 2020 14:40:38 +0000 (UTC)
-Received: by mail-ej1-x643.google.com with SMTP id o18so42358857eje.7;
- Tue, 07 Jul 2020 07:40:38 -0700 (PDT)
+Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
+ [IPv6:2a00:1450:4864:20::542])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 130656E07D
+ for <freedreno@lists.freedesktop.org>; Tue,  7 Jul 2020 14:57:49 +0000 (UTC)
+Received: by mail-ed1-x542.google.com with SMTP id n2so29648140edr.5
+ for <freedreno@lists.freedesktop.org>; Tue, 07 Jul 2020 07:57:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=imLJnUQOJLoud+X7JV4k0nFtK3qoTW9M9kMrdG4xwTI=;
- b=aHH0P+bkfOnOzmnmods4GdjdWlAjXL7NcHWSCIqPEJ6IWdWVXm1RZ5DAu5od43MBuv
- lNEyRXTr/weOku3SuK8GWB9ayOF6WaJC5XgfdIIx/NtPLcPxnnHIm34UcoVKoJ4JOHSZ
- +wjMmO5QbULEYZ6Of6wfTJ/SWJcNLzbJZtXuzBVUpfN7k9/oRHxHkbmmRKz28aFq1Xbk
- pCQlUyJ/DJLHGMmOEhtJKPHzMX/WXHpOX+8aIUcw7lt21mHYXLazoPlZmnA8jSUPVTFB
- v7djJwHETW0fksU8Rk3rVZT5ZKco2icXkSYSM2sjR4Uu/3eyenhg2RKXKao2ZgzUWMjO
- 0seg==
+ :cc; bh=khu65Pwbl1kNKTb89zOFCrlCO2yNz4sw1thf27kEsfQ=;
+ b=jaAXDwnbE/CaK5p1bftSc2YTXzV6lblG73oSqeDq0/3RqUg+H6kxlpO2UlOhqskGTj
+ jsv8Z6x5JGoER60nKmqxf8NLbkJAhDrYhEvMEzd9VOU9ATFgQA+ChJB55NpV0Gj1NS+H
+ sqUtz9OuC7J1lM7NhOs/Lnuwl/OzTFJ/OeMSZmvom9RETA+EJhjR5cVODwsSPJo/H2I9
+ igf46DSpq3jeKyhUK800GmH9Hx8rn1AFxOPPnKgcZ9woQHKH9YIqB3E/m7anxqTtYufZ
+ 7DzcPfd8sWj1UxcWwESDny9/aZbbD/ompTdYwTuV8YlhKwH8MwQnUP73u2UOVAeVck5W
+ yPZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=imLJnUQOJLoud+X7JV4k0nFtK3qoTW9M9kMrdG4xwTI=;
- b=nrB5kDnfWx59O20WLxu9F6gQPlJ1rCvBG6K5T1NBn3FmCnclMWorpGGIjGNholTRuy
- J2eFNuc25tqpGND0P9dPEQMUMLqnlz1mzeXrvB0IylSGky8wixcnfNDGw47nzmJtevwF
- 7Fscc0hStJzt1Bhu7ILA/Rh0SL0oBFs9x7Js8CamWbXM53lXgBm8645/ytkZALnc/jNz
- xJ0cLgdSLYqCEwsad7zPl7n17O+i2Y1WD+WSe1aOyA+fY1y/QzDZKne777YCG9mH1pow
- qUS4p4cHcgLnoRuiOTH/bsoa6aj6Bd/3frihcN+8m2n+bZm/0HJVgBXdloze4PXWVbUs
- LX3Q==
-X-Gm-Message-State: AOAM5325uWPlmMKgc+udlSDThH9+W3ES8+ieQDcWDXu65lawN0u9T4dF
- 02s2zvFZx+RW1yCuKBQkxtwRXK3UT3rmadrsenA=
-X-Google-Smtp-Source: ABdhPJzD51acCpJc3O7M5S0uOgbu1Fmh7nqzUxLrTPB/+ZiC2H6qvnvDbadVTKPnPXeuu7l5PQGEaVebbvPOsMW3ja8=
-X-Received: by 2002:a17:906:1187:: with SMTP id
- n7mr42036538eja.161.1594132836884; 
- Tue, 07 Jul 2020 07:40:36 -0700 (PDT)
+ bh=khu65Pwbl1kNKTb89zOFCrlCO2yNz4sw1thf27kEsfQ=;
+ b=kZ70wE4XxX154CiJYKCAob4gk36TiSIF/2QaAnXWUX+8ia+PqqcJaFRhT+95UjEi/i
+ HhylSxjfAKqnhQCzfWMo+Hml1ouM/aWQYMjfb+nfuFQV+5Q9HqFlPxic8iUqr7iz0EhQ
+ QfE4Kjf7wQ2zwRD0Dz1alloNIutMVDnT8sMWwkNGqN3s56GUudSqAsHR/xv0827kgxfr
+ SVseThMKHHcFCfnNpdb2g3XqCD7emCAB+foZNQB09LdeN1A4/+5ldpytKKiepaXQPD0r
+ aDUgR2O1EhL37WR8sJZxAdKBGY2r10OkjTjOJeYtGcASUozfl1zazwswCvLj1mgo+nz9
+ iosw==
+X-Gm-Message-State: AOAM531HDZ3x83Ll6yq+PDiUnqrka9WcAK/1IONZcatjOSVuhQ1fs4T7
+ F5ndWB8/PnQgpwZsHoCKwSDUX2hX3zEffrDgilU=
+X-Google-Smtp-Source: ABdhPJyDZNWjZFmf40c+Y+boUsk7CQi9jFvF3xqkGvgARdOzu3nM3Ittis1px28gNvEhpp0/KtQJzuCWsqoa4CfOnU0=
+X-Received: by 2002:aa7:d792:: with SMTP id s18mr63073213edq.7.1594133867449; 
+ Tue, 07 Jul 2020 07:57:47 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200626200414.14382-1-jcrouse@codeaurora.org>
- <20200626200414.14382-5-jcrouse@codeaurora.org>
- <3feed674-5eb9-ca2f-76a7-f888f431c409@arm.com>
-In-Reply-To: <3feed674-5eb9-ca2f-76a7-f888f431c409@arm.com>
+ <20200626200414.14382-3-jcrouse@codeaurora.org>
+ <99ecd948-7476-b9b4-12b4-1ced0084654f@arm.com>
+ <CAF6AEGv2YXu44r9O0ZRkNM2ny4oMStxn4=GoCS3CLpPAKh_KZw@mail.gmail.com>
+In-Reply-To: <CAF6AEGv2YXu44r9O0ZRkNM2ny4oMStxn4=GoCS3CLpPAKh_KZw@mail.gmail.com>
 From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 7 Jul 2020 07:41:08 -0700
-Message-ID: <CAF6AEGsB7KN-y9QiX1DtNYBeBv3UgUXu6ReSpMY8hMx_8LXwaw@mail.gmail.com>
+Date: Tue, 7 Jul 2020 07:58:18 -0700
+Message-ID: <CAF6AEGttgRQ3Ug2Nw_vJgjjjUOc0OLPSs+xLv-XFHNrHTOL8sg@mail.gmail.com>
 To: Robin Murphy <robin.murphy@arm.com>
-Subject: Re: [Freedreno] [PATCH v2 4/6] drm/msm: Add support to create a
- local pagetable
+Subject: Re: [Freedreno] [PATCH v2 2/6] iommu/io-pgtable: Allow a pgtable
+ implementation to skip TLB operations
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,331 +64,192 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Joerg Roedel <jroedel@suse.de>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jcrouse@codeaurora.org>,
  "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
  Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
- John Stultz <john.stultz@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno <freedreno@lists.freedesktop.org>
+ Jordan Crouse <jcrouse@codeaurora.org>, John Stultz <john.stultz@linaro.org>,
+ Will Deacon <will@kernel.org>, Yong Wu <yong.wu@mediatek.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jul 7, 2020 at 4:36 AM Robin Murphy <robin.murphy@arm.com> wrote:
+On Tue, Jul 7, 2020 at 7:25 AM Rob Clark <robdclark@gmail.com> wrote:
 >
-> On 2020-06-26 21:04, Jordan Crouse wrote:
-> > Add support to create a io-pgtable for use by targets that support
-> > per-instance pagetables.  In order to support per-instance pagetables the
-> > GPU SMMU device needs to have the qcom,adreno-smmu compatible string and
-> > split pagetables and auxiliary domains need to be supported and enabled.
+> On Tue, Jul 7, 2020 at 4:34 AM Robin Murphy <robin.murphy@arm.com> wrote:
 > >
-> > Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
-> > ---
+> > On 2020-06-26 21:04, Jordan Crouse wrote:
+> > > Allow a io-pgtable implementation to skip TLB operations by checking for
+> > > NULL pointers in the helper functions. It will be up to to the owner
+> > > of the io-pgtable instance to make sure that they independently handle
+> > > the TLB correctly.
 > >
-> >   drivers/gpu/drm/msm/msm_gpummu.c |   2 +-
-> >   drivers/gpu/drm/msm/msm_iommu.c  | 180 ++++++++++++++++++++++++++++++-
-> >   drivers/gpu/drm/msm/msm_mmu.h    |  16 ++-
-> >   3 files changed, 195 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_gpummu.c b/drivers/gpu/drm/msm/msm_gpummu.c
-> > index 310a31b05faa..aab121f4beb7 100644
-> > --- a/drivers/gpu/drm/msm/msm_gpummu.c
-> > +++ b/drivers/gpu/drm/msm/msm_gpummu.c
-> > @@ -102,7 +102,7 @@ struct msm_mmu *msm_gpummu_new(struct device *dev, struct msm_gpu *gpu)
-> >       }
-> >
-> >       gpummu->gpu = gpu;
-> > -     msm_mmu_init(&gpummu->base, dev, &funcs);
-> > +     msm_mmu_init(&gpummu->base, dev, &funcs, MSM_MMU_GPUMMU);
-> >
-> >       return &gpummu->base;
-> >   }
-> > diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-> > index 1b6635504069..f455c597f76d 100644
-> > --- a/drivers/gpu/drm/msm/msm_iommu.c
-> > +++ b/drivers/gpu/drm/msm/msm_iommu.c
-> > @@ -4,15 +4,192 @@
-> >    * Author: Rob Clark <robdclark@gmail.com>
-> >    */
-> >
-> > +#include <linux/io-pgtable.h>
-> >   #include "msm_drv.h"
-> >   #include "msm_mmu.h"
-> >
-> >   struct msm_iommu {
-> >       struct msm_mmu base;
-> >       struct iommu_domain *domain;
-> > +     struct iommu_domain *aux_domain;
-> >   };
-> > +
-> >   #define to_msm_iommu(x) container_of(x, struct msm_iommu, base)
-> >
-> > +struct msm_iommu_pagetable {
-> > +     struct msm_mmu base;
-> > +     struct msm_mmu *parent;
-> > +     struct io_pgtable_ops *pgtbl_ops;
-> > +     phys_addr_t ttbr;
-> > +     u32 asid;
-> > +};
-> > +
-> > +static struct msm_iommu_pagetable *to_pagetable(struct msm_mmu *mmu)
-> > +{
-> > +     return container_of(mmu, struct msm_iommu_pagetable, base);
-> > +}
-> > +
-> > +static int msm_iommu_pagetable_unmap(struct msm_mmu *mmu, u64 iova,
-> > +             size_t size)
-> > +{
-> > +     struct msm_iommu_pagetable *pagetable = to_pagetable(mmu);
-> > +     struct io_pgtable_ops *ops = pagetable->pgtbl_ops;
-> > +     size_t unmapped = 0;
-> > +
-> > +     /* Unmap the block one page at a time */
-> > +     while (size) {
-> > +             unmapped += ops->unmap(ops, iova, 4096, NULL);
-> > +             iova += 4096;
-> > +             size -= 4096;
-> > +     }
-> > +
-> > +     iommu_flush_tlb_all(to_msm_iommu(pagetable->parent)->domain);
-> > +
-> > +     return (unmapped == size) ? 0 : -EINVAL;
-> > +}
+> > I don't really understand what this is for - tricking the IOMMU driver
+> > into not performing its TLB maintenance at points when that maintenance
+> > has been deemed necessary doesn't seem like the appropriate way to
+> > achieve anything good :/
 >
-> Remember in patch #1 when you said "Then 'domain' can be used like any
-> other iommu domain to map and unmap iova addresses in the pagetable."?
->
-> This appears to be very much not that :/
->
+> No, for triggering the io-pgtable helpers into not performing TLB
+> maintenance.  But seriously, since we are creating pgtables ourselves,
+> and we don't want to be ioremap'ing the GPU's SMMU instance, the
+> alternative is plugging in no-op helpers.  Which amounts to the same
+> thing.
 
-I guess that comment is a bit stale.. the original plan was to create
-an iommu_domain per set of pgtables, but at some point we realized
-that by using the io-pgtable helpers directly, we would inflict a lot
-less GPU-crazy on the iommu drivers
+Hmm, that said, since we are just memcpy'ing the io_pgtable_cfg from
+arm-smmu, it will already be populated with arm-smmu's fxn ptrs.  I
+guess we could maybe make it work without no-op helpers, although in
+that case it looks like we need to fix something about aux-domain vs
+tlb helpers:
+
+[  +0.004373] Unable to handle kernel NULL pointer dereference at
+virtual address 0000000000000019
+[  +0.004086] Mem abort info:
+[  +0.004319]   ESR = 0x96000004
+[  +0.003462]   EC = 0x25: DABT (current EL), IL = 32 bits
+[  +0.003494]   SET = 0, FnV = 0
+[  +0.002812]   EA = 0, S1PTW = 0
+[  +0.002873] Data abort info:
+[  +0.003031]   ISV = 0, ISS = 0x00000004
+[  +0.003785]   CM = 0, WnR = 0
+[  +0.003641] user pgtable: 4k pages, 48-bit VAs, pgdp=0000000261d65000
+[  +0.003383] [0000000000000019] pgd=0000000000000000, p4d=0000000000000000
+[  +0.003715] Internal error: Oops: 96000004 [#1] PREEMPT SMP
+[  +0.002744] Modules linked in: xt_CHECKSUM xt_MASQUERADE
+xt_conntrack ipt_REJECT nf_reject_ipv4 xt_tcpudp ip6table_mangle
+ip6table_nat iptable_mangle iptable_nat nf_nat nf_conntrack
+nf_defrag_ipv4 libcrc32c bridge stp llc ip6table_filter ip6_tables
+iptable_filter ax88179_178a usbnet uvcvideo videobuf2_vmalloc
+videobuf2_memops videobuf2_v4l2 videobuf2_common videodev mc
+hid_multitouch i2c_hid some_battery ti_sn65dsi86 hci_uart btqca btbcm
+qcom_spmi_adc5 bluetooth qcom_spmi_temp_alarm qcom_vadc_common
+ecdh_generic ecc snd_soc_sdm845 snd_soc_rt5663 snd_soc_qcom_common
+ath10k_snoc ath10k_core crct10dif_ce ath mac80211 snd_soc_rl6231
+soundwire_bus i2c_qcom_geni libarc4 qcom_rng msm phy_qcom_qusb2
+reset_qcom_pdc drm_kms_helper cfg80211 rfkill qcom_q6v5_mss
+qcom_q6v5_ipa_notify socinfo qrtr ns panel_simple qcom_q6v5_pas
+qcom_common qcom_glink_smem slim_qcom_ngd_ctrl qcom_sysmon drm
+qcom_q6v5 slimbus qmi_helpers qcom_wdt mdt_loader rmtfs_mem be2iscsi
+bnx2i cnic uio cxgb4i cxgb4 cxgb3i cxgb3 mdio
+[  +0.000139]  libcxgbi libcxgb qla4xxx iscsi_boot_sysfs iscsi_tcp
+libiscsi_tcp libiscsi scsi_transport_iscsi fuse ip_tables x_tables
+ipv6 nf_defrag_ipv6
+[  +0.020933] CPU: 3 PID: 168 Comm: kworker/u16:7 Not tainted
+5.8.0-rc1-c630+ #31
+[  +0.003828] Hardware name: LENOVO 81JL/LNVNB161216, BIOS
+9UCN33WW(V2.06) 06/ 4/2019
+[  +0.004039] Workqueue: msm msm_gem_free_work [msm]
+[  +0.003885] pstate: 60c00005 (nZCv daif +PAN +UAO BTYPE=--)
+[  +0.003859] pc : arm_smmu_tlb_inv_range_s1+0x30/0x148
+[  +0.003742] lr : arm_smmu_tlb_add_page_s1+0x1c/0x28
+[  +0.003887] sp : ffff800011cdb970
+[  +0.003868] x29: ffff800011cdb970 x28: 0000000000000003
+[  +0.003930] x27: ffff0001f1882f80 x26: 0000000000000001
+[  +0.003886] x25: 0000000000000003 x24: 0000000000000620
+[  +0.003932] x23: 0000000000000000 x22: 0000000000001000
+[  +0.003886] x21: 0000000000001000 x20: ffff0001cf857300
+[  +0.003916] x19: 0000000000000001 x18: 00000000ffffffff
+[  +0.003921] x17: ffffd9e6a24ae0e8 x16: 0000000000012577
+[  +0.003843] x15: 0000000000012578 x14: 0000000000000000
+[  +0.003884] x13: 0000000000012574 x12: ffffd9e6a2550180
+[  +0.003834] x11: 0000000000083f80 x10: 0000000000000000
+[  +0.003889] x9 : 0000000000000000 x8 : ffff0001f1882f80
+[  +0.003812] x7 : 0000000000000001 x6 : 0000000000000048
+[  +0.003807] x5 : ffff0001c86e1000 x4 : 0000000000000620
+[  +0.003802] x3 : ffff0001ddb57700 x2 : 0000000000001000
+[  +0.003809] x1 : 0000000000001000 x0 : 0000000101048000
+[  +0.003768] Call trace:
+[  +0.003665]  arm_smmu_tlb_inv_range_s1+0x30/0x148
+[  +0.003769]  arm_smmu_tlb_add_page_s1+0x1c/0x28
+[  +0.003760]  __arm_lpae_unmap+0x3c4/0x498
+[  +0.003821]  __arm_lpae_unmap+0xfc/0x498
+[  +0.003693]  __arm_lpae_unmap+0xfc/0x498
+[  +0.003704]  __arm_lpae_unmap+0xfc/0x498
+[  +0.003608]  arm_lpae_unmap+0x60/0x78
+[  +0.003653]  msm_iommu_pagetable_unmap+0x5c/0xa0 [msm]
+[  +0.003711]  msm_gem_purge_vma+0x48/0x70 [msm]
+[  +0.003716]  put_iova+0x68/0xc8 [msm]
+[  +0.003792]  msm_gem_free_work+0x118/0x190 [msm]
+[  +0.003739]  process_one_work+0x28c/0x6e8
+[  +0.003595]  worker_thread+0x4c/0x420
+[  +0.003546]  kthread+0x148/0x168
+[  +0.003675]  ret_from_fork+0x10/0x1c
+[  +0.003596] Code: 2a0403f8 a9046bf9 f9400073 39406077 (b9401a61)
 
 BR,
 -R
 
-> Robin.
 >
-> > +
-> > +static int msm_iommu_pagetable_map(struct msm_mmu *mmu, u64 iova,
-> > +             struct sg_table *sgt, size_t len, int prot)
-> > +{
-> > +     struct msm_iommu_pagetable *pagetable = to_pagetable(mmu);
-> > +     struct io_pgtable_ops *ops = pagetable->pgtbl_ops;
-> > +     struct scatterlist *sg;
-> > +     size_t mapped = 0;
-> > +     u64 addr = iova;
-> > +     unsigned int i;
-> > +
-> > +     for_each_sg(sgt->sgl, sg, sgt->nents, i) {
-> > +             size_t size = sg->length;
-> > +             phys_addr_t phys = sg_phys(sg);
-> > +
-> > +             /* Map the block one page at a time */
-> > +             while (size) {
-> > +                     if (ops->map(ops, addr, phys, 4096, prot)) {
-> > +                             msm_iommu_pagetable_unmap(mmu, iova, mapped);
-> > +                             return -EINVAL;
-> > +                     }
-> > +
-> > +                     phys += 4096;
-> > +                     addr += 4096;
-> > +                     size -= 4096;
-> > +                     mapped += 4096;
-> > +             }
-> > +     }
-> > +
-> > +     return 0;
-> > +}
-> > +
-> > +static void msm_iommu_pagetable_destroy(struct msm_mmu *mmu)
-> > +{
-> > +     struct msm_iommu_pagetable *pagetable = to_pagetable(mmu);
-> > +
-> > +     free_io_pgtable_ops(pagetable->pgtbl_ops);
-> > +     kfree(pagetable);
-> > +}
-> > +
-> > +/*
-> > + * Given a parent device, create and return an aux domain. This will enable the
-> > + * TTBR0 region
-> > + */
-> > +static struct iommu_domain *msm_iommu_get_aux_domain(struct msm_mmu *parent)
-> > +{
-> > +     struct msm_iommu *iommu = to_msm_iommu(parent);
-> > +     struct iommu_domain *domain;
-> > +     int ret;
-> > +
-> > +     if (iommu->aux_domain)
-> > +             return iommu->aux_domain;
-> > +
-> > +     if (!iommu_dev_has_feature(parent->dev, IOMMU_DEV_FEAT_AUX))
-> > +             return ERR_PTR(-ENODEV);
-> > +
-> > +     domain = iommu_domain_alloc(&platform_bus_type);
-> > +     if (!domain)
-> > +             return ERR_PTR(-ENODEV);
-> > +
-> > +     ret = iommu_aux_attach_device(domain, parent->dev);
-> > +     if (ret) {
-> > +             iommu_domain_free(domain);
-> > +             return ERR_PTR(ret);
-> > +     }
-> > +
-> > +     iommu->aux_domain = domain;
-> > +     return domain;
-> > +}
-> > +
-> > +int msm_iommu_pagetable_params(struct msm_mmu *mmu,
-> > +             phys_addr_t *ttbr, int *asid)
-> > +{
-> > +     struct msm_iommu_pagetable *pagetable;
-> > +
-> > +     if (mmu->type != MSM_MMU_IOMMU_PAGETABLE)
-> > +             return -EINVAL;
-> > +
-> > +     pagetable = to_pagetable(mmu);
-> > +
-> > +     if (ttbr)
-> > +             *ttbr = pagetable->ttbr;
-> > +
-> > +     if (asid)
-> > +             *asid = pagetable->asid;
-> > +
-> > +     return 0;
-> > +}
-> > +
-> > +static const struct msm_mmu_funcs pagetable_funcs = {
-> > +             .map = msm_iommu_pagetable_map,
-> > +             .unmap = msm_iommu_pagetable_unmap,
-> > +             .destroy = msm_iommu_pagetable_destroy,
-> > +};
-> > +
-> > +struct msm_mmu *msm_iommu_pagetable_create(struct msm_mmu *parent)
-> > +{
-> > +     static int next_asid = 16;
-> > +     struct msm_iommu_pagetable *pagetable;
-> > +     struct iommu_domain *aux_domain;
-> > +     struct io_pgtable_cfg cfg;
-> > +     int ret;
-> > +
-> > +     /* Make sure that the parent has a aux domain attached */
-> > +     aux_domain = msm_iommu_get_aux_domain(parent);
-> > +     if (IS_ERR(aux_domain))
-> > +             return ERR_CAST(aux_domain);
-> > +
-> > +     /* Get the pagetable configuration from the aux domain */
-> > +     ret = iommu_domain_get_attr(aux_domain, DOMAIN_ATTR_PGTABLE_CFG, &cfg);
-> > +     if (ret)
-> > +             return ERR_PTR(ret);
-> > +
-> > +     pagetable = kzalloc(sizeof(*pagetable), GFP_KERNEL);
-> > +     if (!pagetable)
-> > +             return ERR_PTR(-ENOMEM);
-> > +
-> > +     msm_mmu_init(&pagetable->base, parent->dev, &pagetable_funcs,
-> > +             MSM_MMU_IOMMU_PAGETABLE);
-> > +
-> > +     cfg.tlb = NULL;
-> > +
-> > +     pagetable->pgtbl_ops = alloc_io_pgtable_ops(ARM_64_LPAE_S1,
-> > +             &cfg, aux_domain);
-> > +
-> > +     if (!pagetable->pgtbl_ops) {
-> > +             kfree(pagetable);
-> > +             return ERR_PTR(-ENOMEM);
-> > +     }
-> > +
-> > +
-> > +     /* Needed later for TLB flush */
-> > +     pagetable->parent = parent;
-> > +     pagetable->ttbr = cfg.arm_lpae_s1_cfg.ttbr;
-> > +
-> > +     pagetable->asid = next_asid;
-> > +     next_asid = (next_asid + 1)  % 255;
-> > +     if (next_asid < 16)
-> > +             next_asid = 16;
-> > +
-> > +     return &pagetable->base;
-> > +}
-> > +
-> >   static int msm_fault_handler(struct iommu_domain *domain, struct device *dev,
-> >               unsigned long iova, int flags, void *arg)
-> >   {
-> > @@ -40,6 +217,7 @@ static int msm_iommu_map(struct msm_mmu *mmu, uint64_t iova,
-> >       if (iova & BIT_ULL(48))
-> >               iova |= GENMASK_ULL(63, 49);
+> Currently (in a later patch in the series) we are using
+> iommu_flush_tlb_all() when unmapping, which is a bit of a big hammer.
+> Although I think we could be a bit more clever and do the TLB ops on
+> the GPU (since the GPU knows if pagetables we are unmapping from are
+> in-use and could skip the TLB ops otherwise).
+>
+> On the topic, if we are using unique ASID values per set of
+> pagetables, how expensive is tlb invalidate for an ASID that has no
+> entries in the TLB?
+>
+> BR,
+> -R
+>
 > >
-> > +
-> >       ret = iommu_map_sg(iommu->domain, iova, sgt->sgl, sgt->nents, prot);
-> >       WARN_ON(!ret);
+> > Robin.
 > >
-> > @@ -85,7 +263,7 @@ struct msm_mmu *msm_iommu_new(struct device *dev, struct iommu_domain *domain)
-> >               return ERR_PTR(-ENOMEM);
-> >
-> >       iommu->domain = domain;
-> > -     msm_mmu_init(&iommu->base, dev, &funcs);
-> > +     msm_mmu_init(&iommu->base, dev, &funcs, MSM_MMU_IOMMU);
-> >       iommu_set_fault_handler(domain, msm_fault_handler, iommu);
-> >
-> >       ret = iommu_attach_device(iommu->domain, dev);
-> > diff --git a/drivers/gpu/drm/msm/msm_mmu.h b/drivers/gpu/drm/msm/msm_mmu.h
-> > index 3a534ee59bf6..61ade89d9e48 100644
-> > --- a/drivers/gpu/drm/msm/msm_mmu.h
-> > +++ b/drivers/gpu/drm/msm/msm_mmu.h
-> > @@ -17,18 +17,26 @@ struct msm_mmu_funcs {
-> >       void (*destroy)(struct msm_mmu *mmu);
-> >   };
-> >
-> > +enum msm_mmu_type {
-> > +     MSM_MMU_GPUMMU,
-> > +     MSM_MMU_IOMMU,
-> > +     MSM_MMU_IOMMU_PAGETABLE,
-> > +};
-> > +
-> >   struct msm_mmu {
-> >       const struct msm_mmu_funcs *funcs;
-> >       struct device *dev;
-> >       int (*handler)(void *arg, unsigned long iova, int flags);
-> >       void *arg;
-> > +     enum msm_mmu_type type;
-> >   };
-> >
-> >   static inline void msm_mmu_init(struct msm_mmu *mmu, struct device *dev,
-> > -             const struct msm_mmu_funcs *funcs)
-> > +             const struct msm_mmu_funcs *funcs, enum msm_mmu_type type)
-> >   {
-> >       mmu->dev = dev;
-> >       mmu->funcs = funcs;
-> > +     mmu->type = type;
-> >   }
-> >
-> >   struct msm_mmu *msm_iommu_new(struct device *dev, struct iommu_domain *domain);
-> > @@ -41,7 +49,13 @@ static inline void msm_mmu_set_fault_handler(struct msm_mmu *mmu, void *arg,
-> >       mmu->handler = handler;
-> >   }
-> >
-> > +struct msm_mmu *msm_iommu_pagetable_create(struct msm_mmu *parent);
-> > +
-> >   void msm_gpummu_params(struct msm_mmu *mmu, dma_addr_t *pt_base,
-> >               dma_addr_t *tran_error);
-> >
-> > +
-> > +int msm_iommu_pagetable_params(struct msm_mmu *mmu, phys_addr_t *ttbr,
-> > +             int *asid);
-> > +
-> >   #endif /* __MSM_MMU_H__ */
-> >
-> _______________________________________________
-> Freedreno mailing list
-> Freedreno@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/freedreno
+> > > Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
+> > > ---
+> > >
+> > >   include/linux/io-pgtable.h | 11 +++++++----
+> > >   1 file changed, 7 insertions(+), 4 deletions(-)
+> > >
+> > > diff --git a/include/linux/io-pgtable.h b/include/linux/io-pgtable.h
+> > > index 53d53c6c2be9..bbed1d3925ba 100644
+> > > --- a/include/linux/io-pgtable.h
+> > > +++ b/include/linux/io-pgtable.h
+> > > @@ -210,21 +210,24 @@ struct io_pgtable {
+> > >
+> > >   static inline void io_pgtable_tlb_flush_all(struct io_pgtable *iop)
+> > >   {
+> > > -     iop->cfg.tlb->tlb_flush_all(iop->cookie);
+> > > +     if (iop->cfg.tlb)
+> > > +             iop->cfg.tlb->tlb_flush_all(iop->cookie);
+> > >   }
+> > >
+> > >   static inline void
+> > >   io_pgtable_tlb_flush_walk(struct io_pgtable *iop, unsigned long iova,
+> > >                         size_t size, size_t granule)
+> > >   {
+> > > -     iop->cfg.tlb->tlb_flush_walk(iova, size, granule, iop->cookie);
+> > > +     if (iop->cfg.tlb)
+> > > +             iop->cfg.tlb->tlb_flush_walk(iova, size, granule, iop->cookie);
+> > >   }
+> > >
+> > >   static inline void
+> > >   io_pgtable_tlb_flush_leaf(struct io_pgtable *iop, unsigned long iova,
+> > >                         size_t size, size_t granule)
+> > >   {
+> > > -     iop->cfg.tlb->tlb_flush_leaf(iova, size, granule, iop->cookie);
+> > > +     if (iop->cfg.tlb)
+> > > +             iop->cfg.tlb->tlb_flush_leaf(iova, size, granule, iop->cookie);
+> > >   }
+> > >
+> > >   static inline void
+> > > @@ -232,7 +235,7 @@ io_pgtable_tlb_add_page(struct io_pgtable *iop,
+> > >                       struct iommu_iotlb_gather * gather, unsigned long iova,
+> > >                       size_t granule)
+> > >   {
+> > > -     if (iop->cfg.tlb->tlb_add_page)
+> > > +     if (iop->cfg.tlb && iop->cfg.tlb->tlb_add_page)
+> > >               iop->cfg.tlb->tlb_add_page(gather, iova, granule, iop->cookie);
+> > >   }
+> > >
+> > >
+> > _______________________________________________
+> > Freedreno mailing list
+> > Freedreno@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/freedreno
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
