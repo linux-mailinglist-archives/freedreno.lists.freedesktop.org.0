@@ -2,62 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E895A216E12
-	for <lists+freedreno@lfdr.de>; Tue,  7 Jul 2020 15:50:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 958C4216EAB
+	for <lists+freedreno@lfdr.de>; Tue,  7 Jul 2020 16:24:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 711376E073;
-	Tue,  7 Jul 2020 13:50:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4268E6E159;
+	Tue,  7 Jul 2020 14:24:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com
- [IPv6:2a00:1450:4864:20::543])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAADE6E05D
- for <freedreno@lists.freedesktop.org>; Tue,  7 Jul 2020 10:48:38 +0000 (UTC)
-Received: by mail-ed1-x543.google.com with SMTP id by13so28106191edb.11
- for <freedreno@lists.freedesktop.org>; Tue, 07 Jul 2020 03:48:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=OZw9WF+sLD7+S/P+7F6VJUju0c1b8KGkxnX1D6C0CBY=;
- b=VLodcZ+XVy6S8cm4qwMKpTFvUNqrFoZEbNt/c4CCapdXa7iXxB5CpvNSLzMPaFPdid
- LHVLihcWQ+Q2oZcjFMyUezBnO/uav7shIwwBtxbaIyBR/zcLXsQS3hdDHRtl1BwJhVyX
- KeCZh+yMfxSDW58BnTwMioYFGPuHU+T9iquLZmLY6QmsymaYnOtBvwmEIYQEQ+xRvPqJ
- Hm8Bi7plNgs/1ulVCD/3t3wD59OEGJ1ktz5X1+9/Rg5i4YrlUspH4ZnC3eTYsuIz9enK
- x0tUCUdT5vuKNswGw+11te2bqgOsOYOEGxaKk3OcG4qgEqfCgyzCD71pXavPIJ7HIoBp
- WgaA==
+Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
+ [IPv6:2a00:1450:4864:20::643])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 746026E159
+ for <freedreno@lists.freedesktop.org>; Tue,  7 Jul 2020 14:24:48 +0000 (UTC)
+Received: by mail-ej1-x643.google.com with SMTP id lx13so28070669ejb.4
+ for <freedreno@lists.freedesktop.org>; Tue, 07 Jul 2020 07:24:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=McOB/0yYDJQ83thcjyemD5c9BdlKzyjDAog3KEfKSkg=;
+ b=o3fLamn66/sQMIHRnVoui2FDdrvygbfj/EJvB9Xw4rIv+X9x15ea1yKUTl/955fnzN
+ ilaKEb8ttIYKv59wL5G/bO46wHEJ9VdVfjJ9hiJOKl977QUGjg4Lf2pxJ3+c+cBdo7qj
+ 9cWYbEmJ0jAhS6KOF1mcCJOuaA0rI4YlTAepyHevjsGqCiKKzJ3Id+g6qy6HcrAzgRMy
+ OuF87k/dWiLVPrbDxTo+ontV3+3tl9qTGWQUwmfVKEoEu9xKK70cbuv4fiMG+aXvoLBv
+ MUubXLSuPp/SumMQ9Kn9iV2TGdU4QyxK2sw7Bx1d+C9FOSmta10Wl7OGhkkaIccGlxwy
+ Mifg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=OZw9WF+sLD7+S/P+7F6VJUju0c1b8KGkxnX1D6C0CBY=;
- b=Nr80yBItd+7/Bf8jsIicyXI1LXiRqDssjcLPibxkMHC/Glae49Vz7VBMp9s5B/mZWb
- RfD5YGkmzd8TfpIrNJCrWtNz17rmriQcBSq1Jq+TKJ9+acfjLBrJtFdEKbrciYe/Qcnh
- yMPFtwsBF3S1/QYX6Jv5wSygPEjDA6JT/LlLbyjSJJCC0iXSZz6QrKYWVIvsvaSo9D8j
- gYSAZjbr+7giGRtGx5R61CrMvtfgBwVvIMvg65Z36CMBLVdo8mD0l3s1QEGC5KU5fQ3i
- T/G+v8Dc6c+VJq+rII9MowDGx9P/d2brJNLxyh6a2lSMOMmNItN67GgAAZwhsPqE/yci
- TA3A==
-X-Gm-Message-State: AOAM533nEIMoWZ8Fq9Y7FmPbpgoqyu9boXovJ6P3+tr5vF8qFe8W3Uf/
- QkFFt/PpPb+xxv7QOGAUUToygg==
-X-Google-Smtp-Source: ABdhPJxMCfYoXtG9EMvYyx83jtYoaHCy9ePgt3od0RIGDNDJYG7oY/Sdl2HKdoTPTHU2HCFZPmLE6A==
-X-Received: by 2002:a05:6402:16db:: with SMTP id
- r27mr61765206edx.139.1594118917429; 
- Tue, 07 Jul 2020 03:48:37 -0700 (PDT)
-Received: from myrica ([2001:1715:4e26:a7e0:116c:c27a:3e7f:5eaf])
- by smtp.gmail.com with ESMTPSA id t25sm174229ejc.34.2020.07.07.03.48.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jul 2020 03:48:36 -0700 (PDT)
-Date: Tue, 7 Jul 2020 12:48:25 +0200
-From: Jean-Philippe Brucker <jean-philippe@linaro.org>
-To: Jordan Crouse <jcrouse@codeaurora.org>
-Message-ID: <20200707104825.GA159413@myrica>
-References: <20200626200414.14382-1-jcrouse@codeaurora.org>
- <20200626200414.14382-2-jcrouse@codeaurora.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=McOB/0yYDJQ83thcjyemD5c9BdlKzyjDAog3KEfKSkg=;
+ b=OBAoXUCl3zHuSACCwNaDWNdqm+zg9qdkuMQI+81wMpX6Dta52svwKJugQK5Xd/PC+B
+ yh9SD7b+xwv/Xmq1IBhyBBwkQqw/Gxejenqwsl068eOwK+488TeYYZmKOcjK/87bJq2t
+ cmY8oOJC3j8TohjSK4dYzpjSIBtMD556jFegD4EQXxZgqh1O8pbczpjTBncDuwB4SR6y
+ ujx1oU7kiPoGtFi4xpELDat9zokFlbM5CbmL74gLET/bWYtQ036k/jcz2aSds9hkN8af
+ JAJRQr1opy2+24KKU6RIawscdZgYoKCymj2JpdL4nBJgL9p1MCW85F9BCiba9Zu7cKQR
+ SIPQ==
+X-Gm-Message-State: AOAM5304DLX9+zgrv6OxthWQCZ4sUyY0tm/fCdGrXoZMPGNCW/9wOQd/
+ IQoJGYeXLvHQ3aVcsHekhCCmJAfuiLxNhRe7PUA=
+X-Google-Smtp-Source: ABdhPJwm/0c5b1pm+RO/PcvtbbwfHWJUpLgSJZX4m+kdgXqWpEywCtvCuyEdwfXmE9Q48ukNOV1sECfMMVrbTNnIlGw=
+X-Received: by 2002:a17:906:1187:: with SMTP id
+ n7mr41984337eja.161.1594131887033; 
+ Tue, 07 Jul 2020 07:24:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200626200414.14382-2-jcrouse@codeaurora.org>
-X-Mailman-Approved-At: Tue, 07 Jul 2020 13:50:56 +0000
-Subject: Re: [Freedreno] [PATCH v2 1/6] iommu/arm-smmu: Add auxiliary domain
- support for arm-smmuv2
+References: <20200626200414.14382-1-jcrouse@codeaurora.org>
+ <20200626200414.14382-3-jcrouse@codeaurora.org>
+ <99ecd948-7476-b9b4-12b4-1ced0084654f@arm.com>
+In-Reply-To: <99ecd948-7476-b9b4-12b4-1ced0084654f@arm.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 7 Jul 2020 07:25:18 -0700
+Message-ID: <CAF6AEGv2YXu44r9O0ZRkNM2ny4oMStxn4=GoCS3CLpPAKh_KZw@mail.gmail.com>
+To: Robin Murphy <robin.murphy@arm.com>
+Subject: Re: [Freedreno] [PATCH v2 2/6] iommu/io-pgtable: Allow a pgtable
+ implementation to skip TLB operations
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,79 +64,106 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Robin Murphy <robin.murphy@arm.com>, linux-kernel@vger.kernel.org,
- iommu@lists.linux-foundation.org, John Stultz <john.stultz@linaro.org>,
- Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Joerg Roedel <jroedel@suse.de>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>, John Stultz <john.stultz@linaro.org>,
+ Will Deacon <will@kernel.org>, Yong Wu <yong.wu@mediatek.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Jordan,
+On Tue, Jul 7, 2020 at 4:34 AM Robin Murphy <robin.murphy@arm.com> wrote:
+>
+> On 2020-06-26 21:04, Jordan Crouse wrote:
+> > Allow a io-pgtable implementation to skip TLB operations by checking for
+> > NULL pointers in the helper functions. It will be up to to the owner
+> > of the io-pgtable instance to make sure that they independently handle
+> > the TLB correctly.
+>
+> I don't really understand what this is for - tricking the IOMMU driver
+> into not performing its TLB maintenance at points when that maintenance
+> has been deemed necessary doesn't seem like the appropriate way to
+> achieve anything good :/
 
-On Fri, Jun 26, 2020 at 02:04:09PM -0600, Jordan Crouse wrote:
-> Support auxiliary domains for arm-smmu-v2 to initialize and support
-> multiple pagetables for a single SMMU context bank. Since the smmu-v2
-> hardware doesn't have any built in support for switching the pagetable
-> base it is left as an exercise to the caller to actually use the pagetable.
-> 
-> Aux domains are supported if split pagetable (TTBR1) support has been
-> enabled on the master domain.  Each auxiliary domain will reuse the
-> configuration of the master domain. By default the a domain with TTBR1
-> support will have the TTBR0 region disabled so the first attached aux
-> domain will enable the TTBR0 region in the hardware and conversely the
-> last domain to be detached will disable TTBR0 translations.  All subsequent
-> auxiliary domains create a pagetable but not touch the hardware.
-> 
-> The leaf driver will be able to query the physical address of the
-> pagetable with the DOMAIN_ATTR_PTBASE attribute so that it can use the
-> address with whatever means it has to switch the pagetable base.
-> 
-> Following is a pseudo code example of how a domain can be created
-> 
->  /* Check to see if aux domains are supported */
->  if (iommu_dev_has_feature(dev, IOMMU_DEV_FEAT_AUX)) {
-> 	 iommu = iommu_domain_alloc(...);
-> 
+No, for triggering the io-pgtable helpers into not performing TLB
+maintenance.  But seriously, since we are creating pgtables ourselves,
+and we don't want to be ioremap'ing the GPU's SMMU instance, the
+alternative is plugging in no-op helpers.  Which amounts to the same
+thing.
 
-The device driver should also call iommu_dev_enable_feature() before using
-the AUX feature. I see that you implement them as NOPs and in this case
-the GPU is tightly coupled with the SMMU so interoperability between
-different IOMMU and device drivers doesn't matter much, but I think it's
-still a good idea to follow the same patterns in all drivers to make
-future work on the core IOMMU easier.
+Currently (in a later patch in the series) we are using
+iommu_flush_tlb_all() when unmapping, which is a bit of a big hammer.
+Although I think we could be a bit more clever and do the TLB ops on
+the GPU (since the GPU knows if pagetables we are unmapping from are
+in-use and could skip the TLB ops otherwise).
 
-> 	 if (iommu_aux_attach_device(domain, dev))
-> 		 return FAIL;
-> 
-> 	/* Save the base address of the pagetable for use by the driver
-> 	iommu_domain_get_attr(domain, DOMAIN_ATTR_PTBASE, &ptbase);
->  }
-> 
-> Then 'domain' can be used like any other iommu domain to map and
-> unmap iova addresses in the pagetable.
-> 
-> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
-> ---
-> 
->  drivers/iommu/arm-smmu.c | 219 ++++++++++++++++++++++++++++++++++++---
->  drivers/iommu/arm-smmu.h |   1 +
->  2 files changed, 204 insertions(+), 16 deletions(-)
-[...]
-> @@ -1653,6 +1836,10 @@ static struct iommu_ops arm_smmu_ops = {
->  	.get_resv_regions	= arm_smmu_get_resv_regions,
->  	.put_resv_regions	= generic_iommu_put_resv_regions,
->  	.def_domain_type	= arm_smmu_def_domain_type,
-> +	.dev_has_feat		= arm_smmu_dev_has_feat,
-> +	.dev_enable_feat	= arm_smmu_dev_enable_feat,
-> +	.dev_disable_feat	= arm_smmu_dev_disable_feat,
-> +	.aux_attach_dev		= arm_smmu_aux_attach_dev,
+On the topic, if we are using unique ASID values per set of
+pagetables, how expensive is tlb invalidate for an ASID that has no
+entries in the TLB?
 
-To be complete this also needs dev_feat_enabled() and aux_detach_dev() ops
+BR,
+-R
 
-Thanks,
-Jean
+>
+> Robin.
+>
+> > Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
+> > ---
+> >
+> >   include/linux/io-pgtable.h | 11 +++++++----
+> >   1 file changed, 7 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/include/linux/io-pgtable.h b/include/linux/io-pgtable.h
+> > index 53d53c6c2be9..bbed1d3925ba 100644
+> > --- a/include/linux/io-pgtable.h
+> > +++ b/include/linux/io-pgtable.h
+> > @@ -210,21 +210,24 @@ struct io_pgtable {
+> >
+> >   static inline void io_pgtable_tlb_flush_all(struct io_pgtable *iop)
+> >   {
+> > -     iop->cfg.tlb->tlb_flush_all(iop->cookie);
+> > +     if (iop->cfg.tlb)
+> > +             iop->cfg.tlb->tlb_flush_all(iop->cookie);
+> >   }
+> >
+> >   static inline void
+> >   io_pgtable_tlb_flush_walk(struct io_pgtable *iop, unsigned long iova,
+> >                         size_t size, size_t granule)
+> >   {
+> > -     iop->cfg.tlb->tlb_flush_walk(iova, size, granule, iop->cookie);
+> > +     if (iop->cfg.tlb)
+> > +             iop->cfg.tlb->tlb_flush_walk(iova, size, granule, iop->cookie);
+> >   }
+> >
+> >   static inline void
+> >   io_pgtable_tlb_flush_leaf(struct io_pgtable *iop, unsigned long iova,
+> >                         size_t size, size_t granule)
+> >   {
+> > -     iop->cfg.tlb->tlb_flush_leaf(iova, size, granule, iop->cookie);
+> > +     if (iop->cfg.tlb)
+> > +             iop->cfg.tlb->tlb_flush_leaf(iova, size, granule, iop->cookie);
+> >   }
+> >
+> >   static inline void
+> > @@ -232,7 +235,7 @@ io_pgtable_tlb_add_page(struct io_pgtable *iop,
+> >                       struct iommu_iotlb_gather * gather, unsigned long iova,
+> >                       size_t granule)
+> >   {
+> > -     if (iop->cfg.tlb->tlb_add_page)
+> > +     if (iop->cfg.tlb && iop->cfg.tlb->tlb_add_page)
+> >               iop->cfg.tlb->tlb_add_page(gather, iova, granule, iop->cookie);
+> >   }
+> >
+> >
+> _______________________________________________
+> Freedreno mailing list
+> Freedreno@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/freedreno
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
