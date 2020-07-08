@@ -1,60 +1,41 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1BBB217980
-	for <lists+freedreno@lfdr.de>; Tue,  7 Jul 2020 22:36:54 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 42076218B8A
+	for <lists+freedreno@lfdr.de>; Wed,  8 Jul 2020 17:41:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4B886E3F3;
-	Tue,  7 Jul 2020 20:36:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72C7689444;
+	Wed,  8 Jul 2020 15:41:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1043.google.com (mail-pj1-x1043.google.com
- [IPv6:2607:f8b0:4864:20::1043])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 779136E50B;
- Tue,  7 Jul 2020 20:36:52 +0000 (UTC)
-Received: by mail-pj1-x1043.google.com with SMTP id gc9so177526pjb.2;
- Tue, 07 Jul 2020 13:36:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=hZeUOpJQcEzlGIlg9oeO7yAlZJGbtEx7VcHRTHdaPHU=;
- b=gWh2/ziM4dgkXVl4R62ETmGK47WH9z9pI1OxYS/fPuNTPSw729Q8CqUHHwRh2Q1Jc7
- kAKXrPrjsrtGGQveWol+5BdvwVMO/08Ryzh1jzWuVpE8XuvkmbHblPXJkYRowrUSr4Nr
- T5q6y8KbmCQXldRgh9W5k4FwxiRQZvimCzAUIRDKdfkJF8ihgrci9e/gThaxPdS+gd1S
- P7ANwWYgsBOpZ7yCeJrEPV5j54iw15NEe5AA+t6H98xXV6fuH7kpHUiVRbXkZSvZVVwH
- qsOfNzq9q9pIsuwz96/Y6BZuk/yVoEa2jxjzcpMwd8hf+Fx5a7mF2/Cum24To9d5I6Ve
- q5zA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=hZeUOpJQcEzlGIlg9oeO7yAlZJGbtEx7VcHRTHdaPHU=;
- b=MyXPg55x3d7l+eevDxloGko/uJ6ldOQShuzV8jcR6FHOAdWHjebNgFsbGX5UW4V5v2
- QVjw+FNnFAkciCMuTF6SOp8Cw8RXSD+Gc30GB184CRlFSr35JEHQ19ecrSahp1XN3+Hp
- g4xvfkzTZ2/VLN6ibEgkyjXxjVmtUX5QjWneBxPNVczkAgP4ZJEa7HQhiYo95wMRjegC
- kCLtsHhqEN2gbVRdPGgnwq9+avTXOG6H1pgQ7DWXybvNyFSfgfAHKKEzLQug4iJxyqGa
- v91TmIWQMj7bHkkvhoSlDLb8tujjX9ekYYx9BTrQHRcxMBgLg3knmGKDsnBspSuBJoA/
- qHxQ==
-X-Gm-Message-State: AOAM532xdxhbC/712mbeKutpXO7Vb+zmIYe8aiyBNGUybwTQ4Jh00ljf
- 11n5A8fVfSwwNk1On6q7AeVsd43fsEE=
-X-Google-Smtp-Source: ABdhPJzLLECROxtVUUBHzDccmAZZ9FM/J/JHF97igPeg9tNrbfzr45IRJdns8aTkdIz+FrDboJGQ+w==
-X-Received: by 2002:a17:90a:148:: with SMTP id
- z8mr6497903pje.197.1594154211785; 
- Tue, 07 Jul 2020 13:36:51 -0700 (PDT)
-Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
- by smtp.gmail.com with ESMTPSA id u13sm3069925pjy.40.2020.07.07.13.36.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jul 2020 13:36:50 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Tue,  7 Jul 2020 13:35:00 -0700
-Message-Id: <20200707203529.2098979-3-robdclark@gmail.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200707203529.2098979-1-robdclark@gmail.com>
-References: <20200707203529.2098979-1-robdclark@gmail.com>
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 100CA89444;
+ Wed,  8 Jul 2020 15:41:19 +0000 (UTC)
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+ [73.47.72.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id EF399206DF;
+ Wed,  8 Jul 2020 15:41:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1594222878;
+ bh=jWTJMZSpFMXv1eN4iBy7F5NdaPw4rqs4cZcmn3E18Tk=;
+ h=From:To:Cc:Subject:Date:From;
+ b=ywlgMjIZIfbK8x6qVWUDDKaSMLzbqJX32SB0BeBhYW7KwLntTVbbsIgftAB9/Elrn
+ 88oq14MhXs7HeuPNHZcpTkZco4hpYWGOglNfzSFm/dYx7kn+IOYLJd2cM2f3NyoBdG
+ X92c60LOpMW/IQfF7B9ANvOjjwkqHzf7deITdjhE=
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Wed,  8 Jul 2020 11:40:47 -0400
+Message-Id: <20200708154116.3199728-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 2/2] drm/msm/adreno: un-open-code some packets
+X-stable: review
+X-Patchwork-Hint: Ignore
+Subject: [Freedreno] [PATCH AUTOSEL 5.7 01/30] drm/msm: fix potential
+ memleak in error branch
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,93 +48,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, Jonathan Marek <jonathan@marek.ca>,
- David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
- Akhil P Oommen <akhilpo@codeaurora.org>, Eric Anholt <eric@anholt.net>,
- Jordan Crouse <jcrouse@codeaurora.org>, Ben Dooks <ben.dooks@codethink.co.uk>,
- Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <kholk11@gmail.com>, Sean Paul <sean@poorly.run>,
- open list <linux-kernel@vger.kernel.org>
+Cc: Rob Clark <robdclark@chromium.org>, Sasha Levin <sashal@kernel.org>,
+ Bernard Zhao <bernard@vivo.com>, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+From: Bernard Zhao <bernard@vivo.com>
 
+[ Upstream commit 177d3819633cd520e3f95df541a04644aab4c657 ]
+
+In function msm_submitqueue_create, the queue is a local
+variable, in return -EINVAL branch, queue didn`t add to ctx`s
+list yet, and also didn`t kfree, this maybe bring in potential
+memleak.
+
+Signed-off-by: Bernard Zhao <bernard@vivo.com>
+[trivial commit msg fixup]
 Signed-off-by: Rob Clark <robdclark@chromium.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c |  5 +++--
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 11 +++++++----
- 2 files changed, 10 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/msm/msm_submitqueue.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index d95970a73fb4..7f4526b3283d 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -186,7 +186,8 @@ static void a5xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit,
- 	 * timestamp is written to the memory and then triggers the interrupt
- 	 */
- 	OUT_PKT7(ring, CP_EVENT_WRITE, 4);
--	OUT_RING(ring, CACHE_FLUSH_TS | (1 << 31));
-+	OUT_RING(ring, CP_EVENT_WRITE_0_EVENT(CACHE_FLUSH_TS) |
-+		CP_EVENT_WRITE_0_IRQ);
- 	OUT_RING(ring, lower_32_bits(rbmemptr(ring, fence)));
- 	OUT_RING(ring, upper_32_bits(rbmemptr(ring, fence)));
- 	OUT_RING(ring, submit->seqno);
-@@ -730,7 +731,7 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
- 	 */
- 	if (adreno_is_a530(adreno_gpu)) {
- 		OUT_PKT7(gpu->rb[0], CP_EVENT_WRITE, 1);
--		OUT_RING(gpu->rb[0], 0x0F);
-+		OUT_RING(gpu->rb[0], CP_EVENT_WRITE_0_EVENT(STAT_EVENT));
+diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
+index 001fbf537440a..a1d94be7883a0 100644
+--- a/drivers/gpu/drm/msm/msm_submitqueue.c
++++ b/drivers/gpu/drm/msm/msm_submitqueue.c
+@@ -71,8 +71,10 @@ int msm_submitqueue_create(struct drm_device *drm, struct msm_file_private *ctx,
+ 	queue->flags = flags;
  
- 		gpu->funcs->flush(gpu, gpu->rb[0]);
- 		if (!a5xx_idle(gpu, gpu->rb[0]))
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 7768557cdfb2..1ed325bea430 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -74,7 +74,9 @@ static void get_stats_counter(struct msm_ringbuffer *ring, u32 counter,
- 		u64 iova)
- {
- 	OUT_PKT7(ring, CP_REG_TO_MEM, 3);
--	OUT_RING(ring, counter | (1 << 30) | (2 << 18));
-+	OUT_RING(ring, CP_REG_TO_MEM_0_REG(counter) |
-+		CP_REG_TO_MEM_0_CNT(2) |
-+		CP_REG_TO_MEM_0_64B);
- 	OUT_RING(ring, lower_32_bits(iova));
- 	OUT_RING(ring, upper_32_bits(iova));
- }
-@@ -102,10 +104,10 @@ static void a6xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit,
+ 	if (priv->gpu) {
+-		if (prio >= priv->gpu->nr_rings)
++		if (prio >= priv->gpu->nr_rings) {
++			kfree(queue);
+ 			return -EINVAL;
++		}
  
- 	/* Invalidate CCU depth and color */
- 	OUT_PKT7(ring, CP_EVENT_WRITE, 1);
--	OUT_RING(ring, PC_CCU_INVALIDATE_DEPTH);
-+	OUT_RING(ring, CP_EVENT_WRITE_0_EVENT(PC_CCU_INVALIDATE_DEPTH));
- 
- 	OUT_PKT7(ring, CP_EVENT_WRITE, 1);
--	OUT_RING(ring, PC_CCU_INVALIDATE_COLOR);
-+	OUT_RING(ring, CP_EVENT_WRITE_0_EVENT(PC_CCU_INVALIDATE_COLOR));
- 
- 	/* Submit the commands */
- 	for (i = 0; i < submit->nr_cmds; i++) {
-@@ -139,7 +141,8 @@ static void a6xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit,
- 	 * timestamp is written to the memory and then triggers the interrupt
- 	 */
- 	OUT_PKT7(ring, CP_EVENT_WRITE, 4);
--	OUT_RING(ring, CACHE_FLUSH_TS | (1 << 31));
-+	OUT_RING(ring, CP_EVENT_WRITE_0_EVENT(CACHE_FLUSH_TS) |
-+		CP_EVENT_WRITE_0_IRQ);
- 	OUT_RING(ring, lower_32_bits(rbmemptr(ring, fence)));
- 	OUT_RING(ring, upper_32_bits(rbmemptr(ring, fence)));
- 	OUT_RING(ring, submit->seqno);
+ 		queue->prio = prio;
+ 	}
 -- 
-2.26.2
+2.25.1
 
 _______________________________________________
 Freedreno mailing list
