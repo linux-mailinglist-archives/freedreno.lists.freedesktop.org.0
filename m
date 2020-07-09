@@ -2,35 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C49121A84D
-	for <lists+freedreno@lfdr.de>; Thu,  9 Jul 2020 22:01:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D85221A84F
+	for <lists+freedreno@lfdr.de>; Thu,  9 Jul 2020 22:01:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEB156EB20;
-	Thu,  9 Jul 2020 20:01:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B2F66EB23;
+	Thu,  9 Jul 2020 20:01:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
  [104.130.122.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C98F6EB20
- for <freedreno@lists.freedesktop.org>; Thu,  9 Jul 2020 20:01:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41DC56EB23
+ for <freedreno@lists.freedesktop.org>; Thu,  9 Jul 2020 20:01:09 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1594324869; h=References: In-Reply-To: Message-Id: Date:
+ s=smtp; t=1594324870; h=References: In-Reply-To: Message-Id: Date:
  Subject: Cc: To: From: Sender;
- bh=qvFYV5gSdJN7uGe/5cfb+tk9FUbHSiqsuZE2Uf3f6Vs=;
- b=ndzwmDpTI2kYDFwhUL4qBLovZStFDsLSFIlE+oNgv67H6RjScM1Zwiqm4Ecgv3cH9GAOewih
- cfXHmojHBPksWT2DCwE6yzcaCdNeoo/VOvEj+NmGTSGR2uAMuegirtQJBtDeRpdtilkv74eC
- 1f4n6nrygjkdUAWWEgIdV6ELv6Q=
+ bh=WKQ8aVxRdqyA6YydgtYHyA6JBUgmK/HI6AY+VY0akjo=;
+ b=Apw3x9qA9UxXTYogN6HirKRWTWxkA95EnPykQX+AarTmyMxuqf+gvNlvXLumi+ZMOOJUbVr0
+ aDyDS6WEMkriNkedOf4IqqDuvig8TMfwT1yaQN2xOUpzdip8fj+3HtT/481TyxjUyXUD6wHQ
+ nkPpGeCiRFTAnDhuX0+R52vAceg=
 X-Mailgun-Sending-Ip: 104.130.122.29
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n19.prod.us-west-2.postgun.com with SMTP id
- 5f077778a19992ac65c71f34 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 09 Jul 2020 20:00:56
+ smtp-out-n03.prod.us-west-2.postgun.com with SMTP id
+ 5f07777cd8ca07a573edd88b (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 09 Jul 2020 20:01:00
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id B8BE4C433CA; Thu,  9 Jul 2020 20:00:55 +0000 (UTC)
+ id E520DC433C6; Thu,  9 Jul 2020 20:00:59 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -40,22 +40,22 @@ Received: from akhilpo-linux.qualcomm.com
  (blr-c-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.19.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: akhilpo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 1BB36C433C6;
- Thu,  9 Jul 2020 20:00:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 1BB36C433C6
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 29345C433A0;
+ Thu,  9 Jul 2020 20:00:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 29345C433A0
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  spf=none smtp.mailfrom=akhilpo@codeaurora.org
 From: Akhil P Oommen <akhilpo@codeaurora.org>
 To: freedreno@lists.freedesktop.org
-Date: Fri, 10 Jul 2020 01:30:21 +0530
-Message-Id: <1594324828-9571-2-git-send-email-akhilpo@codeaurora.org>
+Date: Fri, 10 Jul 2020 01:30:22 +0530
+Message-Id: <1594324828-9571-3-git-send-email-akhilpo@codeaurora.org>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1594324828-9571-1-git-send-email-akhilpo@codeaurora.org>
 References: <1594324828-9571-1-git-send-email-akhilpo@codeaurora.org>
-Subject: [Freedreno] [PATCH v4 1/7] dt-bindings: drm/msm/gpu: Document gpu
- opp table
+Subject: [Freedreno] [PATCH v4 2/7] drm: msm: a6xx: send opp instead of a
+ frequency
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,55 +80,185 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Sharat Masetty <smasetty@codeaurora.org>
 
-Update documentation to list the gpu opp table bindings including the
-newly added "opp-peak-kBps" needed for GPU-DDR bandwidth scaling.
+This patch changes the plumbing to send the devfreq recommended opp rather
+than the frequency. Also consolidate and rearrange the code in a6xx to set
+the GPU frequency and the icc vote in preparation for the upcoming
+changes for GPU->DDR scaling votes.
 
 Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
-Acked-by: Rob Herring <robh@kernel.org>
 Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
 ---
- .../devicetree/bindings/display/msm/gpu.txt        | 28 ++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 73 ++++++++++++++++-------------------
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h |  2 +-
+ drivers/gpu/drm/msm/msm_gpu.c         |  3 +-
+ drivers/gpu/drm/msm/msm_gpu.h         |  3 +-
+ 4 files changed, 38 insertions(+), 43 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/gpu.txt b/Documentation/devicetree/bindings/display/msm/gpu.txt
-index fd779cd..1af0ff1 100644
---- a/Documentation/devicetree/bindings/display/msm/gpu.txt
-+++ b/Documentation/devicetree/bindings/display/msm/gpu.txt
-@@ -112,6 +112,34 @@ Example a6xx (with GMU):
- 		interconnects = <&rsc_hlos MASTER_GFX3D &rsc_hlos SLAVE_EBI1>;
- 		interconnect-names = "gfx-mem";
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 21e77d6..233afea 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -103,17 +103,31 @@ bool a6xx_gmu_gx_is_on(struct a6xx_gmu *gmu)
+ 		A6XX_GMU_SPTPRAC_PWR_CLK_STATUS_GX_HM_CLK_OFF));
+ }
  
-+		gpu_opp_table: opp-table {
-+			compatible = "operating-points-v2";
+-static void __a6xx_gmu_set_freq(struct a6xx_gmu *gmu, int index)
++void a6xx_gmu_set_freq(struct msm_gpu *gpu, struct dev_pm_opp *opp)
+ {
+-	struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
+-	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+-	struct msm_gpu *gpu = &adreno_gpu->base;
+-	int ret;
++	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
++	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
++	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
++	u32 perf_index;
++	unsigned long gpu_freq;
++	int ret = 0;
 +
-+			opp-430000000 {
-+				opp-hz = /bits/ 64 <430000000>;
-+				opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-+				opp-peak-kBps = <5412000>;
-+			};
++	gpu_freq = dev_pm_opp_get_freq(opp);
 +
-+			opp-355000000 {
-+				opp-hz = /bits/ 64 <355000000>;
-+				opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
-+				opp-peak-kBps = <3072000>;
-+			};
++	if (gpu_freq == gmu->freq)
++		return;
 +
-+			opp-267000000 {
-+				opp-hz = /bits/ 64 <267000000>;
-+				opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-+				opp-peak-kBps = <3072000>;
-+			};
++	for (perf_index = 0; perf_index < gmu->nr_gpu_freqs - 1; perf_index++)
++		if (gpu_freq == gmu->gpu_freqs[perf_index])
++			break;
 +
-+			opp-180000000 {
-+				opp-hz = /bits/ 64 <180000000>;
-+				opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
-+				opp-peak-kBps = <1804000>;
-+			};
-+		};
-+
- 		qcom,gmu = <&gmu>;
++	gmu->current_perf_index = perf_index;
++	gmu->freq = gmu->gpu_freqs[perf_index];
  
- 		zap-shader {
+ 	gmu_write(gmu, REG_A6XX_GMU_DCVS_ACK_OPTION, 0);
+ 
+ 	gmu_write(gmu, REG_A6XX_GMU_DCVS_PERF_SETTING,
+-		((3 & 0xf) << 28) | index);
++			((3 & 0xf) << 28) | perf_index);
+ 
+ 	/*
+ 	 * Send an invalid index as a vote for the bus bandwidth and let the
+@@ -136,38 +150,6 @@ static void __a6xx_gmu_set_freq(struct a6xx_gmu *gmu, int index)
+ 	icc_set_bw(gpu->icc_path, 0, MBps_to_icc(7216));
+ }
+ 
+-void a6xx_gmu_set_freq(struct msm_gpu *gpu, unsigned long freq)
+-{
+-	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+-	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+-	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
+-	u32 perf_index = 0;
+-
+-	if (freq == gmu->freq)
+-		return;
+-
+-	for (perf_index = 0; perf_index < gmu->nr_gpu_freqs - 1; perf_index++)
+-		if (freq == gmu->gpu_freqs[perf_index])
+-			break;
+-
+-	gmu->current_perf_index = perf_index;
+-	gmu->freq = gmu->gpu_freqs[perf_index];
+-
+-	/*
+-	 * This can get called from devfreq while the hardware is idle. Don't
+-	 * bring up the power if it isn't already active
+-	 */
+-	if (pm_runtime_get_if_in_use(gmu->dev) == 0)
+-		return;
+-
+-	if (gmu->legacy)
+-		__a6xx_gmu_set_freq(gmu, perf_index);
+-	else
+-		a6xx_hfi_set_freq(gmu, perf_index);
+-
+-	pm_runtime_put(gmu->dev);
+-}
+-
+ unsigned long a6xx_gmu_get_freq(struct msm_gpu *gpu)
+ {
+ 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+@@ -839,6 +821,19 @@ static void a6xx_gmu_force_off(struct a6xx_gmu *gmu)
+ 	a6xx_gmu_rpmh_off(gmu);
+ }
+ 
++static void a6xx_gmu_set_initial_freq(struct msm_gpu *gpu, struct a6xx_gmu *gmu)
++{
++	struct dev_pm_opp *gpu_opp;
++	unsigned long gpu_freq = gmu->gpu_freqs[gmu->current_perf_index];
++
++	gpu_opp = dev_pm_opp_find_freq_exact(&gpu->pdev->dev, gpu_freq, true);
++	if (IS_ERR_OR_NULL(gpu_opp))
++		return;
++
++	a6xx_gmu_set_freq(gpu, gpu_opp);
++	dev_pm_opp_put(gpu_opp);
++}
++
+ int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
+ {
+ 	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+@@ -899,7 +894,7 @@ int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
+ 
+ 	/* Set the GPU to the current freq */
+ 	if (gmu->legacy)
+-		__a6xx_gmu_set_freq(gmu, gmu->current_perf_index);
++		a6xx_gmu_set_initial_freq(gpu, gmu);
+ 	else
+ 		a6xx_hfi_set_freq(gmu, gmu->current_perf_index);
+ 
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+index 7239b8b..03ba60d 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+@@ -63,7 +63,7 @@ void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state);
+ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node);
+ void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu);
+ 
+-void a6xx_gmu_set_freq(struct msm_gpu *gpu, unsigned long freq);
++void a6xx_gmu_set_freq(struct msm_gpu *gpu, struct dev_pm_opp *opp);
+ unsigned long a6xx_gmu_get_freq(struct msm_gpu *gpu);
+ 
+ void a6xx_show(struct msm_gpu *gpu, struct msm_gpu_state *state,
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index a22d306..82eb727 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -13,7 +13,6 @@
+ 
+ #include <generated/utsrelease.h>
+ #include <linux/string_helpers.h>
+-#include <linux/pm_opp.h>
+ #include <linux/devfreq.h>
+ #include <linux/devcoredump.h>
+ #include <linux/sched/task.h>
+@@ -34,7 +33,7 @@ static int msm_devfreq_target(struct device *dev, unsigned long *freq,
+ 		return PTR_ERR(opp);
+ 
+ 	if (gpu->funcs->gpu_set_freq)
+-		gpu->funcs->gpu_set_freq(gpu, (u64)*freq);
++		gpu->funcs->gpu_set_freq(gpu, opp);
+ 	else
+ 		clk_set_rate(gpu->core_clk, *freq);
+ 
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index 429cb40..0db117a 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -9,6 +9,7 @@
+ 
+ #include <linux/clk.h>
+ #include <linux/interconnect.h>
++#include <linux/pm_opp.h>
+ #include <linux/regulator/consumer.h>
+ 
+ #include "msm_drv.h"
+@@ -61,7 +62,7 @@ struct msm_gpu_funcs {
+ 	struct msm_gpu_state *(*gpu_state_get)(struct msm_gpu *gpu);
+ 	int (*gpu_state_put)(struct msm_gpu_state *state);
+ 	unsigned long (*gpu_get_freq)(struct msm_gpu *gpu);
+-	void (*gpu_set_freq)(struct msm_gpu *gpu, unsigned long freq);
++	void (*gpu_set_freq)(struct msm_gpu *gpu, struct dev_pm_opp *opp);
+ 	struct msm_gem_address_space *(*create_address_space)
+ 		(struct msm_gpu *gpu, struct platform_device *pdev);
+ };
 -- 
 2.7.4
 
