@@ -2,57 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 672B721C005
-	for <lists+freedreno@lfdr.de>; Sat, 11 Jul 2020 00:41:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 455D921C049
+	for <lists+freedreno@lfdr.de>; Sat, 11 Jul 2020 01:02:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 158686ED36;
-	Fri, 10 Jul 2020 22:41:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA6166ED62;
+	Fri, 10 Jul 2020 23:02:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E55AC6ED36
- for <freedreno@lists.freedesktop.org>; Fri, 10 Jul 2020 22:41:00 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1594420863; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=vtmcg9y3utHjV10IFgZiIry9hswQAoCk/nvV3VJg7Cw=;
- b=t/9bAcKm8IeOfIdyO7+BB5ip79vVqg/nWRNzpTuR/Fav43kdOu4pgEaHeCwaTFlXZblp2XYA
- wz9KlUaq2gaxFoK1bjj51xVkAf44+xZL0juqUeuA9e3w8Iv1xoHG7gLqhGuDTmmmIc82dOjC
- kDn/xhvWr7pnAMsAR0+QfPpLSCs=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n11.prod.us-east-1.postgun.com with SMTP id
- 5f08ee68d3d6508422fb42ce (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 10 Jul 2020 22:40:40
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id B0C81C433C6; Fri, 10 Jul 2020 22:40:39 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from cohens-linux.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com
- [129.46.232.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: cohens)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id A39CDC433C8;
- Fri, 10 Jul 2020 22:40:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org A39CDC433C8
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=cohens@codeaurora.org
-From: Steve Cohen <cohens@codeaurora.org>
-To: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org
-Date: Fri, 10 Jul 2020 18:40:26 -0400
-Message-Id: <1594420826-4897-1-git-send-email-cohens@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-Subject: [Freedreno] [PATCH] drm: hold gem reference until object is no
- longer accessed
+Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
+ [IPv6:2607:f8b0:4864:20::642])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22DF46ED62
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Jul 2020 23:02:45 +0000 (UTC)
+Received: by mail-pl1-x642.google.com with SMTP id d10so2852429pll.3
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Jul 2020 16:02:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=lCcFDIfWLkWWzSa31vXd7WJo8Tj5ziQlVQDdDR7C5oY=;
+ b=eSk70hMUPgz/3k9+jsUUcyV/2ls1oSHGujFrad521MpLwNTFi3jkIVTuxh/psq9MFB
+ gSIBJUNMurjt6JR179DwAKtpBcb2MiH1TvrZsLOlNzPYmhQrjv4tVtyc47GV5lmLb02U
+ Y1r1UkBY004HeQ7oKUtQr8gSgIwbtrc7TluJM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=lCcFDIfWLkWWzSa31vXd7WJo8Tj5ziQlVQDdDR7C5oY=;
+ b=rxFkQM7ZnthMT6F7yaouV4f5+n4BpZW/LqY1sXN1M0LSDdjSFekOR6qWh/Jzx1IAll
+ KPjz/Et7D/Y7gVNsYoWtBoFmsKXg2X6IFVfeqMiAgdx1YBu7Bu0rpfzmtkUfF7YBFaVU
+ 6DtRfAzW7hTHSBRzvnDWuyUmFXLmaGuPOZlsrLlRm91InGX46iYupqmtF5nzg+GDQtoJ
+ ztZdkZvjJ5iFmRd+IZiazymCG5Sd/cwfxRYWNHzy1LSYwyFplvj0Q4un4ZXjM9Nb5XYO
+ z3SCPvIUhqQ2y29twSmFG2SvD2ukLBY96QfUyZOoGI+wX7j+QvwTeQj2gRlW3egE3MsU
+ qfGw==
+X-Gm-Message-State: AOAM5329uyOFPnnWfO+K3mNZAcSluvCnUyIo4k0tXJ27jK+brMs9BiRr
+ J8Mz0xK/uO4FIN+k0t7mrW2umg==
+X-Google-Smtp-Source: ABdhPJz0vohhKOdR4S48Go6SbBkYwUYpvNGQCHrL60amRJ3jBZ6fmwC9ItCPgsI2PgpcjlqG0gq6pA==
+X-Received: by 2002:a17:902:bb82:: with SMTP id
+ m2mr4020800pls.61.1594422164622; 
+ Fri, 10 Jul 2020 16:02:44 -0700 (PDT)
+Received: from tictac2.mtv.corp.google.com
+ ([2620:15c:202:1:42b0:34ff:fe3d:58e6])
+ by smtp.gmail.com with ESMTPSA id my9sm7266836pjb.44.2020.07.10.16.02.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Jul 2020 16:02:44 -0700 (PDT)
+From: Douglas Anderson <dianders@chromium.org>
+To: Rob Herring <robh+dt@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>
+Date: Fri, 10 Jul 2020 16:02:15 -0700
+Message-Id: <20200710230224.2265647-1-dianders@chromium.org>
+X-Mailer: git-send-email 2.27.0.383.g050319c2ae-goog
+MIME-Version: 1.0
+Subject: [Freedreno] [PATCH 0/9] drm/msm: Avoid possible infinite probe
+ deferral and speed booting
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,53 +66,82 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: adelva@google.com, seanpaul@chromium.org, jsanka@codeaurora.org,
- pdhaval@codeaurora.org, Steve Cohen <cohens@codeaurora.org>
-MIME-Version: 1.0
+Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Douglas Anderson <dianders@chromium.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-BUG: KASAN: use-after-free in drm_gem_open_ioctl
+I found that if I ever had a little mistake in my kernel config,
+or device tree, or graphics driver that my system would sit in a loop
+at bootup trying again and again and again.  An example log was:
 
-There is potential for use-after-free here if the GEM object
-handle is closed between the idr lookup and retrieving the size
-from the object since a local reference is not being held at that
-point. Hold the local reference while the object can still be
-accessed to resolve this.
+  msm ae00000.mdss: bound ae01000.mdp (ops 0xffffffe596e951f8)
+  msm_dsi ae94000.dsi: ae94000.dsi supply gdsc not found, using dummy regulator
+  msm_dsi_manager_register: failed to register mipi dsi host for DSI 0
+  [drm:ti_sn_bridge_probe] *ERROR* could not find any panel node
+  ...
 
-Signed-off-by: Steve Cohen <cohens@codeaurora.org>
----
- drivers/gpu/drm/drm_gem.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+I finally tracked it down where this was happening:
+  - msm_pdev_probe() is called.
+  - msm_pdev_probe() registers drivers.  Registering drivers kicks
+    off processing of probe deferrals.
+  - component_master_add_with_match() could return -EPROBE_DEFER.
+    making msm_pdev_probe() return -EPROBE_DEFER.
+  - When msm_pdev_probe() returned the processing of probe deferrals
+    happens.
+  - Loop back to the start.
 
-diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index 7bf628e..4b2891c 100644
---- a/drivers/gpu/drm/drm_gem.c
-+++ b/drivers/gpu/drm/drm_gem.c
-@@ -898,14 +898,15 @@ drm_gem_open_ioctl(struct drm_device *dev, void *data,
- 
- 	/* drm_gem_handle_create_tail unlocks dev->object_name_lock. */
- 	ret = drm_gem_handle_create_tail(file_priv, obj, &handle);
--	drm_gem_object_put_unlocked(obj);
- 	if (ret)
--		return ret;
-+		goto out;
- 
- 	args->handle = handle;
- 	args->size = obj->size;
- 
--	return 0;
-+out:
-+	drm_gem_object_put_unlocked(obj);
-+	return ret;
- }
- 
- /**
+It looks like we can fix this by marking "mdss" as a "simple-bus".
+I have no idea if people consider this the right thing to do or a
+hack.  Hopefully it's the right thing to do.  :-)
+
+Once I do this I notice that my boot gets marginally faster (you
+don't need to probe the sub devices over and over) and also if I
+have a problem it doesn't loop forever (on my system it still
+gets upset about some stuck clocks in that case, but at least I
+can boot up).
+
+Unless someone hates this, I'd expect:
+- Get Rob H to say that the bindings are OK (if they are) and yell
+  that these really need to be converted to yaml (they do).
+- Get Sean or Rob C to land the bindings and driver patch.
+- Get Andy or Bjorn to land the dts bits.
+
+NOTES:
+- The first patch could land either way.  It's just a cleanup.
+- I tried to split the dts files into separate patches to ease
+  backporting if desired.  Also because I can't actually test most
+  of this hardware myself.
+
+
+Douglas Anderson (9):
+  drm/msm: Use the devm variant of of_platform_populate()
+  dt-bindings: msm/dpu: Add simple-bus to dpu bindings
+  dt-bindings: msm/mdp5: Add simple-bus to dpu bindings
+  drm/msm: Avoid manually populating our children if "simple-bus" is
+    there
+  arm64: dts: qcom: sc7180: Add "simple-bus" to our mdss node
+  arm64: dts: qcom: sdm845: Add "simple-bus" to our mdss node
+  arm64: dts: qcom: msm8916: Add "simple-bus" to our mdss node
+  arm64: dts: qcom: msm8996: Add "simple-bus" to our mdss node
+  ARM: dts: qcom: msm8974: Add "simple-bus" to our mdss node
+
+ .../devicetree/bindings/display/msm/dpu.txt   |  4 ++-
+ .../devicetree/bindings/display/msm/mdp5.txt  |  2 +-
+ arch/arm/boot/dts/qcom-msm8974.dtsi           |  2 +-
+ arch/arm64/boot/dts/qcom/msm8916.dtsi         |  2 +-
+ arch/arm64/boot/dts/qcom/msm8996.dtsi         |  2 +-
+ arch/arm64/boot/dts/qcom/sc7180.dtsi          |  2 +-
+ arch/arm64/boot/dts/qcom/sdm845.dtsi          |  2 +-
+ drivers/gpu/drm/msm/msm_drv.c                 | 34 ++++++++-----------
+ 8 files changed, 24 insertions(+), 26 deletions(-)
+
 -- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+2.27.0.383.g050319c2ae-goog
 
 _______________________________________________
 Freedreno mailing list
