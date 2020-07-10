@@ -1,55 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DC6021BB47
-	for <lists+freedreno@lfdr.de>; Fri, 10 Jul 2020 18:48:36 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id CD55821BBDB
+	for <lists+freedreno@lfdr.de>; Fri, 10 Jul 2020 19:08:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DA196EC91;
-	Fri, 10 Jul 2020 16:48:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EF0E6EC96;
+	Fri, 10 Jul 2020 17:08:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com
- [IPv6:2a00:1450:4864:20::642])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DB066EC90;
- Fri, 10 Jul 2020 16:48:33 +0000 (UTC)
-Received: by mail-ej1-x642.google.com with SMTP id w16so6808047ejj.5;
- Fri, 10 Jul 2020 09:48:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=AH6BfNEx7NMMgyW4KKGIOyQbMozTPM1cZFNmtLAMXVo=;
- b=itvOTeZzDsSKPmqWJyGD6DG0Zy9j+XU7lRcziqvd3wLRZvRrhacbBuSSAXWVPMYDiP
- O/TOXofNQ0ZEnZAPFUtEfKqH0WhpXRHQQk9dO07qaBzAU4CWsY9rCwMlrhDIsFnL9Cvq
- F24YrLP+euH2FKXaCsq2vIEFHMqDflH4YESs11zJFThC/pbNvW3PM3eHRjYrdX+v5wN/
- kpzlPtzFZLzTg4a2qC7fr4caD2Yu7hQ9cK0trZmaRpj1/9liISYEwf8VslD5Ph3jyMTO
- A+9panmjwkCMCoSArH1xEHAHCijuc1FPox0gRKyWguhTrMyQi2Z1xwg7xYP0k7fZeEcC
- VKAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=AH6BfNEx7NMMgyW4KKGIOyQbMozTPM1cZFNmtLAMXVo=;
- b=jSi5uz7xvHPQNcCSW5ilC8xNAFEPEVHB//o6+TTT+FM++SXC1zsJWdFUhCfovLeJL+
- 1RnrlOggESCNGHkN8JXhF7FXkI6DYACyhvNHCDpAzhn60mqgK9e5f8+nwvwOBdvJ+9w1
- VWFr46bVHgZKjFbJ5TEtAvNH32mVkyEvbqOJiUILA3ddNaEvv5xJNNKaQzuTwBKKkMMk
- JaQ0AZtC61QRIzSGojfSc0KJDqYjrcUH3WRnC976s0JO1X0d4R2Sz/kucybvjFIh2pPZ
- +b3Z1rXJCfP9oUpFlM2pd6UOxzpfDou+98bhGaZVuadh9tmBtJzF4LHnENyMLvAFgzPT
- Gwow==
-X-Gm-Message-State: AOAM53135vZ8YBVFB3lAlCd6lJzOehDp0vsY++VjdpgKjUbnpW7BUM9X
- /qtErabW5qIySizyBPzRxOOqwtznQIj4KOeMtSU=
-X-Google-Smtp-Source: ABdhPJwDjzzbL451WTm2kBZbNaPGaYstnPw8x3nK3iC9JJrKdS8XZ1xv6MgGnlX4lvBVk3NgQSo97t3LUsAnzPha41A=
-X-Received: by 2002:a17:906:7c54:: with SMTP id
- g20mr63237421ejp.460.1594399711917; 
- Fri, 10 Jul 2020 09:48:31 -0700 (PDT)
+Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
+ [104.130.122.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FC116EC96
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Jul 2020 17:08:17 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1594400900; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=FwNg3e/t161QXeNlfj8RjjHMHRPeaUVntsu2CE4ozZ0=;
+ b=mJGRhoID6lOM7QlfA3Frl5BigIOb5sD+6uHQDNrqfjqHdK3Q8yRNqUchODbvA/f1PA0sC49d
+ JZ5Ws2H2mbs4CTkPPniU02VG3GzSTPU91NEnXjfX2ds8qxoIoqEoJ1+qmNXbN2Q01GZDKYEH
+ n7Zfch/Hpc7cuxedGeXg4Zw7MtU=
+X-Mailgun-Sending-Ip: 104.130.122.29
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
+ 5f08a06ec7a053446a6125e9 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 10 Jul 2020 17:07:58
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id ADA30C433CA; Fri, 10 Jul 2020 17:07:57 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: tanmay)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 68BE5C433C6;
+ Fri, 10 Jul 2020 17:07:56 +0000 (UTC)
 MIME-Version: 1.0
-References: <1593089153-17811-1-git-send-email-kalyan_t@codeaurora.org>
-In-Reply-To: <1593089153-17811-1-git-send-email-kalyan_t@codeaurora.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 10 Jul 2020 09:49:04 -0700
-Message-ID: <CAF6AEGtPDh7q6Hjophdyz+Pvi93-bK5WULGeSw9P4BWRw5SWxQ@mail.gmail.com>
-To: Kalyan Thota <kalyan_t@codeaurora.org>
-Subject: Re: [Freedreno] [v1] drm/msm/dpu: enumerate second cursor pipe for
- external interface
+Date: Fri, 10 Jul 2020 10:07:56 -0700
+From: tanmay@codeaurora.org
+To: Rob Herring <robh@kernel.org>
+In-Reply-To: <20200709202110.GA814782@bogus>
+References: <20200630184507.15589-1-tanmay@codeaurora.org>
+ <20200709202110.GA814782@bogus>
+Message-ID: <2e867e903db9be91a988a37b7508abd0@codeaurora.org>
+X-Sender: tanmay@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v8 0/6] Add support for DisplayPort driver
+ on SnapDragon
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,78 +65,191 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Krishna Manikandan <mkrishn@codeaurora.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Raviteja Tamatam <travitej@codeaurora.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Douglas Anderson <dianders@chromium.org>, nganji@codeaurora.org,
- Sean Paul <seanpaul@chromium.org>,
- "Kristian H. Kristensen" <hoegsberg@chromium.org>,
- Stephen Boyd <swboyd@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
+Cc: devicetree@vger.kernel.org, aravindh@codeaurora.org, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ seanpaul@chromium.org, abhinavk@codeaurora.org, daniel@ffwll.ch,
+ varar@codeaurora.org, freedreno@lists.freedesktop.org, sam@ravnborg.org,
+ chandanu@codeaurora.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jun 25, 2020 at 5:46 AM Kalyan Thota <kalyan_t@codeaurora.org> wrote:
->
-> Setup an RGB HW pipe as cursor which can be used on
-> secondary interface.
->
-> For SC7180 2 HW pipes are enumerated as cursors
-> 1 - primary interface
-> 2 - secondary interface
->
-> Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index 8f2357d..23061fd 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -117,10 +117,10 @@
->                 .reg_off = 0x2AC, .bit_off = 0},
->         .clk_ctrls[DPU_CLK_CTRL_DMA0] = {
->                 .reg_off = 0x2AC, .bit_off = 8},
-> -       .clk_ctrls[DPU_CLK_CTRL_DMA1] = {
-> -               .reg_off = 0x2B4, .bit_off = 8},
->         .clk_ctrls[DPU_CLK_CTRL_CURSOR0] = {
-> -               .reg_off = 0x2BC, .bit_off = 8},
-> +               .reg_off = 0x2B4, .bit_off = 8},
-> +       .clk_ctrls[DPU_CLK_CTRL_CURSOR1] = {
-> +               .reg_off = 0x2C4, .bit_off = 8},
+Thanks for reviews Rob.
 
-It looks like you shifted the register offset here from 0x2bc to
-0x2c4, was that intentional?
-
-BR,
--R
-
->         },
->  };
->
-> @@ -272,10 +272,10 @@
->                 sc7180_vig_sblk_0, 0,  SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG0),
->         SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000,  DMA_SDM845_MASK,
->                 sdm845_dma_sblk_0, 1, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA0),
-> -       SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000,  DMA_SDM845_MASK,
-> -               sdm845_dma_sblk_1, 5, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA1),
-> +       SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000,  DMA_CURSOR_SDM845_MASK,
-> +               sdm845_dma_sblk_1, 5, SSPP_TYPE_DMA, DPU_CLK_CTRL_CURSOR0),
->         SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000,  DMA_CURSOR_SDM845_MASK,
-> -               sdm845_dma_sblk_2, 9, SSPP_TYPE_DMA, DPU_CLK_CTRL_CURSOR0),
-> +               sdm845_dma_sblk_2, 9, SSPP_TYPE_DMA, DPU_CLK_CTRL_CURSOR1),
->  };
->
->  /*************************************************************
-> --
-> 1.9.1
->
+On 2020-07-09 13:21, Rob Herring wrote:
+> On Tue, Jun 30, 2020 at 11:45:01AM -0700, Tanmay Shah wrote:
+>> These patches add Display-Port driver on SnapDragon/msm hardware.
+>> This series also contains device-tree bindings for msm DP driver.
+>> It also contains Makefile and Kconfig changes to compile msm DP 
+>> driver.
+>> 
+>> The block diagram of DP driver is shown below:
+>> 
+>> 
+>>                  +-------------+
+>>                  |DRM FRAMEWORK|
+>>                  +------+------+
+>>                         |
+>>                    +----v----+
+>>                    | DP DRM  |
+>>                    +----+----+
+>>                         |
+>>                    +----v----+
+>>      +------------+|   DP    +----------++------+
+>>      +        +---+| DISPLAY |+---+      |      |
+>>      |        +    +-+-----+-+    |      |      |
+>>      |        |      |     |      |      |      |
+>>      |        |      |     |      |      |      |
+>>      |        |      |     |      |      |      |
+>>      v        v      v     v      v      v      v
+>>  +------+ +------+ +---+ +----+ +----+ +---+ +-----+
+>>  |  DP  | |  DP  | |DP | | DP | | DP | |DP | | DP  |
+>>  |PARSER| | HPD  | |AUX| |LINK| |CTRL| |PHY| |POWER|
+>>  +--+---+ +---+--+ +---+ +----+ +--+-+ +-+-+ +-----+
+>>     |                              |     |
+>>  +--v---+                         +v-----v+
+>>  |DEVICE|                         |  DP   |
+>>  | TREE |                         |CATALOG|
+>>  +------+                         +---+---+
+>>                                       |
+>>                                   +---v----+
+>>                                   |CTRL/PHY|
+>>                                   |   HW   |
+>>                                   +--------+
+>> 
+>> Changes in v7:
+>> 
+>> - Modify cover letter description and fix title.
+>> - Introduce dp-controller.yaml for common bindings across SOC
+>> - Rename dp-sc7180.yaml to dp-controller-sc7180.yaml for SC7180 
+>> bindings
+>> - Rename compatible string to qcom,sc7180-dp
+>> - Add assigned-clocks and assigned-clock-parents properties in 
+>> bindings
+>> - Remove redundant code from driver
+>> - Extend series to include HPD detection logic
+>> 
+>> Changes in v8:
+>> 
+>> - Add MDSS AHB clock in bindings
+>> - Replace mode->vrefresh use with drm_mode_vrefresh API
+>> - Remove redundant aux config code from parser and aux module
+>> - Assign default max lanes if data-lanes property is not available
+>> - Fix use-after-free during DP driver remove
+>> - Unregister hardware clocks during driver cleanup
+>> 
+>> This series depends-on:
+>> 	https://patchwork.freedesktop.org/patch/366159/
+> 
+> If a single patch is a dependency, please coordinate your work and send
+> as 1 series.
+> 
+> To put it another way, I'm just going to ignore this series until the
+> dependency is sorted out.
+Sure I will wait till previous patch is resolved.
+> 
+>> 	https://patchwork.freedesktop.org/patch/369859/
+> 
+> Probably the same goes for this too, but I care less as it's not the
+> binding...
+Above patch is not compile time dependency, but without it we see issues 
+during runtime.
+So will be removed from dependency list.
+Thanks.
+> 
+>> 
+>> Chandan Uddaraju (4):
+>>   dt-bindings: msm/dp: add bindings of DP/DP-PLL driver for Snapdragon
+>>   drm: add constant N value in helper file
+>>   drm/msm/dp: add displayPort driver support
+>>   drm/msm/dp: add support for DP PLL driver
+>> 
+>> Jeykumar Sankaran (1):
+>>   drm/msm/dpu: add display port support in DPU
+>> 
+>> Tanmay Shah (1):
+>>   drm/msm/dp: Add Display Port HPD feature
+>> 
+>>  .../display/msm/dp-controller-sc7180.yaml     |  144 ++
+>>  .../bindings/display/msm/dp-controller.yaml   |   61 +
+>>  .../bindings/display/msm/dpu-sc7180.yaml      |   11 +
+>>  drivers/gpu/drm/i915/display/intel_display.c  |    2 +-
+>>  drivers/gpu/drm/msm/Kconfig                   |   16 +
+>>  drivers/gpu/drm/msm/Makefile                  |   14 +
+>>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |   29 +-
+>>  .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |    8 +
+>>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   83 +-
+>>  drivers/gpu/drm/msm/dp/dp_aux.c               |  510 +++++
+>>  drivers/gpu/drm/msm/dp/dp_aux.h               |   29 +
+>>  drivers/gpu/drm/msm/dp/dp_catalog.c           | 1060 ++++++++++
+>>  drivers/gpu/drm/msm/dp/dp_catalog.h           |  104 +
+>>  drivers/gpu/drm/msm/dp/dp_ctrl.c              | 1707 
+>> +++++++++++++++++
+>>  drivers/gpu/drm/msm/dp/dp_ctrl.h              |   35 +
+>>  drivers/gpu/drm/msm/dp/dp_display.c           | 1017 ++++++++++
+>>  drivers/gpu/drm/msm/dp/dp_display.h           |   31 +
+>>  drivers/gpu/drm/msm/dp/dp_drm.c               |  168 ++
+>>  drivers/gpu/drm/msm/dp/dp_drm.h               |   18 +
+>>  drivers/gpu/drm/msm/dp/dp_hpd.c               |   69 +
+>>  drivers/gpu/drm/msm/dp/dp_hpd.h               |   79 +
+>>  drivers/gpu/drm/msm/dp/dp_link.c              | 1216 ++++++++++++
+>>  drivers/gpu/drm/msm/dp/dp_link.h              |  132 ++
+>>  drivers/gpu/drm/msm/dp/dp_panel.c             |  490 +++++
+>>  drivers/gpu/drm/msm/dp/dp_panel.h             |   95 +
+>>  drivers/gpu/drm/msm/dp/dp_parser.c            |  267 +++
+>>  drivers/gpu/drm/msm/dp/dp_parser.h            |  138 ++
+>>  drivers/gpu/drm/msm/dp/dp_pll.c               |   99 +
+>>  drivers/gpu/drm/msm/dp/dp_pll.h               |   61 +
+>>  drivers/gpu/drm/msm/dp/dp_pll_10nm.c          |  917 +++++++++
+>>  drivers/gpu/drm/msm/dp/dp_pll_private.h       |  111 ++
+>>  drivers/gpu/drm/msm/dp/dp_power.c             |  392 ++++
+>>  drivers/gpu/drm/msm/dp/dp_power.h             |  103 +
+>>  drivers/gpu/drm/msm/dp/dp_reg.h               |  517 +++++
+>>  drivers/gpu/drm/msm/msm_drv.c                 |    2 +
+>>  drivers/gpu/drm/msm/msm_drv.h                 |   59 +-
+>>  include/drm/drm_dp_helper.h                   |    1 +
+>>  37 files changed, 9776 insertions(+), 19 deletions(-)
+>>  create mode 100644
+> Documentation/devicetree/bindings/display/msm/dp-controller-sc7180.yaml
+>>  create mode 100644
+> Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_aux.c
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_aux.h
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_catalog.c
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_catalog.h
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_ctrl.c
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_ctrl.h
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_display.c
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_display.h
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_drm.c
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_drm.h
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_hpd.c
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_hpd.h
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_link.c
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_link.h
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_panel.c
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_panel.h
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_parser.c
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_parser.h
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_pll.c
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_pll.h
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_pll_10nm.c
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_pll_private.h
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_power.c
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_power.h
+>>  create mode 100644 drivers/gpu/drm/msm/dp/dp_reg.h
+>> 
+>> 
+>> base-commit: 0a19b068acc47d05212f03e494381926dc0381e2
+>> prerequisite-patch-id: 8058026a54241aa728a91dd1685419afb249959e
+>> prerequisite-patch-id: ed730eb83f84501579332a0f0ab98f7ef649e868
+>> --
+>> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora
+> Forum,
+>> a Linux Foundation Collaborative Project
+>> 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
