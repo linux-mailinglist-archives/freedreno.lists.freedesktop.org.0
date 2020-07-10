@@ -2,57 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14A7621C07F
-	for <lists+freedreno@lfdr.de>; Sat, 11 Jul 2020 01:05:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DDC421C081
+	for <lists+freedreno@lfdr.de>; Sat, 11 Jul 2020 01:05:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 885F66E1A5;
-	Fri, 10 Jul 2020 23:05:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 454786E20D;
+	Fri, 10 Jul 2020 23:05:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
- [IPv6:2607:f8b0:4864:20::843])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 956B76E1A5
- for <freedreno@lists.freedesktop.org>; Fri, 10 Jul 2020 23:05:35 +0000 (UTC)
-Received: by mail-qt1-x843.google.com with SMTP id k18so5755890qtm.10
- for <freedreno@lists.freedesktop.org>; Fri, 10 Jul 2020 16:05:35 -0700 (PDT)
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 472876E20D
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Jul 2020 23:05:41 +0000 (UTC)
+Received: by mail-qt1-x841.google.com with SMTP id w27so5755759qtb.7
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Jul 2020 16:05:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=marek-ca.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=v6ivPqrjMDDr3TRNG96DmIieKD3MH/IuhTJHVemdvZo=;
- b=mD4rNTBvdE5KXuYC4b6PGIVTtIxAYQyogmsrVl9FyzpE/jLzFTlKgPK60wOz/OqYyy
- v2mTDwGgr9R9AHjgkMGkYmylnK9XZQwPUjJL7taIeoqjtLXWIdOPZOjroLYHpdmJVjib
- Dlb684ctSVhWjtAJ2ZXA/fso/BAjBuK2xUiQEg0dT5uvpAl7f8h6iRDhZ8OKZMLhVCIF
- hPWbN/85q+cxHa8dcGFcLZduJbrtIAPipHA7VkMVJsOE29/nsU0wUFUthA/sXZ67Xf1K
- XfynEAeHeix30IZF3doAyKYVOg9D3dVHquKmzdvpDjJtsCL6CQu83cRn8v4Rl9n/HL8V
- pPqQ==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=X3Q9PjvIkiub9SDi5ST21u3dYQ6wpXEFkUrvNbu49NQ=;
+ b=sZqxVZ16XMXWSCGcpa2Y6WchTWrh88KveDtmdgvHWNo/ZDhj6dNnCgmkOdTMkgUjWk
+ 2rc5Q4ADeYDNF+TaULXttJpzWZBkZes80QaGLhiiwclpH9TAb9IfZqNPPgQgIj/O/BIM
+ z7dqwys7OK/G3DLUOXgPNmt4/WedT6v6RcI0HvEA/pHhmBq/lmIJYZ0hsmlWK9LjOj0p
+ U07y+VLxkFK4EqNQKEv9fgGVdf1AY0Pb6Y6fCo6HAGr3zAjMQe09qXiBJ6AJrAA6nYDA
+ a0C/K27+GUD5jiPvgnDJfr/bzUXS5x8jtJVcITNmg9ciBIysqDRBrRrgB+gVythXvPLo
+ 5/fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=v6ivPqrjMDDr3TRNG96DmIieKD3MH/IuhTJHVemdvZo=;
- b=QB+UbXyYT5ee2rAERIEkUcXgZkPc9aYc7RDBZycOMfjRIq1ZNtzcqRdlePTplbUuTe
- trVLl9tdmp8AehG/+rTUfr8GLvK6ZknPniFKEvCRzBk1YCsTeYK+0GiPrhHj/Z/ZFuAs
- fZMRmyhpL+NA5xnH7jT3tOp9cjTqgrlVryYhFSW3ZnRFYk2OZMHiAvDz2XnsZMlVFHlb
- 7Qux/hUFAnkzeqmOVp61kyY0RhfqbRQ43Y2KHNm0soLsgJXCDovdI4bnLRCkQ1/VfseT
- QccyKWyf4WTqQkhI+u4geozlwFuFucxbK8qJ+tDzdCBgV2YjEUyQ/Ad8b6mKz2HaEavK
- BEEw==
-X-Gm-Message-State: AOAM531UYJcojIDZYY6rBQP2t3LB3O+VhMqADWHnLVs+pAsQIP78zktJ
- dMyStQf/DiKWDr+SHSK9r0aSVVNcO+A=
-X-Google-Smtp-Source: ABdhPJyUvIKbE5/BA3PRSmr94uSUG08duLAoCKW3CvonbUAJmLs93BI2H3hmv2nKUdMg7RgpyuPIYg==
-X-Received: by 2002:ac8:44d6:: with SMTP id b22mr73349830qto.391.1594422334354; 
- Fri, 10 Jul 2020 16:05:34 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=X3Q9PjvIkiub9SDi5ST21u3dYQ6wpXEFkUrvNbu49NQ=;
+ b=iRZllhW3P7xauyYsm4ofxybruuCUwOeTAaTpUS7QZk1ZOxgubeMe47xeB2ld55OkCf
+ X5qSUhOkeylt7azJ5nAropgwFIyoB8KmbswMCwYXUVmJVTpI7IS6Uqfozl66FgQ6PE8b
+ 6OOL4JVkJqxqkQyL4bQHq5N6Z+fwDtU4Qy4RpwS145BMgFrmM3EHrRFcp8Lo2B3F7JP7
+ mvABFhjumdHnP+F7JvJg7XOwwH5Fwb2QJx2RtBGnrzjnm45APCRLYLKkVllOo4xcGXcx
+ 1trYAAwCk6IYrD9/5kisRB/wzeD+4UNOXCLazP+PrpQ9uZ3AovSOZQ8hti7NfWjDYHgs
+ N4RQ==
+X-Gm-Message-State: AOAM531eNKbMCW37EnixGrUBs8ThYBLRcHxbZo5sCtsP+UVz2KoeYoqz
+ mjtcXdlISfPI3IxT2MKEZzjxDKvsg6UdqQ==
+X-Google-Smtp-Source: ABdhPJwvl2XF+qzMnXqNtckjWjGvpOzQ6OywoNC8NIABSElWhTNO0oTNYwMnDbP5CyzvxMziz4WXPA==
+X-Received: by 2002:ac8:33d7:: with SMTP id d23mr73606921qtb.204.1594422340007; 
+ Fri, 10 Jul 2020 16:05:40 -0700 (PDT)
 Received: from localhost.localdomain ([147.253.86.153])
- by smtp.gmail.com with ESMTPSA id l1sm9513541qtk.18.2020.07.10.16.05.32
+ by smtp.gmail.com with ESMTPSA id l1sm9513541qtk.18.2020.07.10.16.05.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2020 16:05:33 -0700 (PDT)
+ Fri, 10 Jul 2020 16:05:39 -0700 (PDT)
 From: Jonathan Marek <jonathan@marek.ca>
 To: freedreno@lists.freedesktop.org
-Date: Fri, 10 Jul 2020 19:04:09 -0400
-Message-Id: <20200710230413.2944-1-jonathan@marek.ca>
+Date: Fri, 10 Jul 2020 19:04:10 -0400
+Message-Id: <20200710230413.2944-2-jonathan@marek.ca>
 X-Mailer: git-send-email 2.26.1
+In-Reply-To: <20200710230413.2944-1-jonathan@marek.ca>
+References: <20200710230413.2944-1-jonathan@marek.ca>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v2 1/2] drm/msm/a6xx: hwcg tables in gpulist
+Subject: [Freedreno] [PATCH v2 2/2] drm/msm/a6xx: add A640/A650 hwcg
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,135 +68,234 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: AngeloGioacchino Del Regno <kholk11@gmail.com>,
- David Airlie <airlied@linux.ie>,
+ Shawn Guo <shawn.guo@linaro.org>, David Airlie <airlied@linux.ie>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
  Sharat Masetty <smasetty@codeaurora.org>,
  Jordan Crouse <jcrouse@codeaurora.org>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Shawn Guo <shawn.guo@linaro.org>,
- Sean Paul <sean@poorly.run>, Brian Masney <masneyb@onstation.org>,
- open list <linux-kernel@vger.kernel.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>, Eric Anholt <eric@anholt.net>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
+ Brian Masney <masneyb@onstation.org>, open list <linux-kernel@vger.kernel.org>,
  Wambui Karuga <wambui.karugax@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This will allow supporting different hwcg tables for a6xx.
+Initialize hardware clock-gating registers on A640 and A650 GPUs.
+
+At least for A650, this solves some performance issues.
 
 Signed-off-by: Jonathan Marek <jonathan@marek.ca>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 25 ++++++++++------------
- drivers/gpu/drm/msm/adreno/adreno_device.c |  1 +
- drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  8 +++++++
- 3 files changed, 20 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx.xml.h      |   8 ++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 117 ++++++++++++++++++++-
+ drivers/gpu/drm/msm/adreno/adreno_device.c |   2 +
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h    |   2 +-
+ 4 files changed, 125 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx.xml.h b/drivers/gpu/drm/msm/adreno/a6xx.xml.h
+index 47840b73cdda..f0498faf7d0b 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx.xml.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx.xml.h
+@@ -1996,6 +1996,14 @@ static inline uint32_t A6XX_CP_PROTECT_REG_MASK_LEN(uint32_t val)
+ 
+ #define REG_A6XX_RBBM_CLOCK_DELAY_HLSQ				0x0000011c
+ 
++#define REG_A6XX_RBBM_CLOCK_HYST_HLSQ				0x0000011d
++
++#define REG_A6XX_RBBM_CLOCK_CNTL_TEX_FCHE			0x00000120
++
++#define REG_A6XX_RBBM_CLOCK_DELAY_TEX_FCHE			0x00000121
++
++#define REG_A6XX_RBBM_CLOCK_HYST_TEX_FCHE			0x00000122
++
+ #define REG_A6XX_DBGC_CFG_DBGBUS_SEL_A				0x00000600
+ 
+ #define REG_A6XX_DBGC_CFG_DBGBUS_SEL_B				0x00000601
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 3397e5e00d1c..ddcbc57ac25d 100644
+index ddcbc57ac25d..726fc3d3c7ba 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -151,10 +151,7 @@ static void a6xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit,
- 	a6xx_flush(gpu, ring);
- }
- 
--static const struct {
--	u32 offset;
--	u32 value;
--} a6xx_hwcg[] = {
-+const struct adreno_reglist a630_hwcg[] = {
- 	{REG_A6XX_RBBM_CLOCK_CNTL_SP0, 0x22222222},
- 	{REG_A6XX_RBBM_CLOCK_CNTL_SP1, 0x22222222},
- 	{REG_A6XX_RBBM_CLOCK_CNTL_SP2, 0x22222222},
-@@ -259,7 +256,8 @@ static const struct {
- 	{REG_A6XX_RBBM_CLOCK_MODE_HLSQ, 0x00002222},
- 	{REG_A6XX_RBBM_CLOCK_CNTL_GMU_GX, 0x00000222},
- 	{REG_A6XX_RBBM_CLOCK_DELAY_GMU_GX, 0x00000111},
--	{REG_A6XX_RBBM_CLOCK_HYST_GMU_GX, 0x00000555}
-+	{REG_A6XX_RBBM_CLOCK_HYST_GMU_GX, 0x00000555},
-+	{},
+@@ -260,6 +260,112 @@ const struct adreno_reglist a630_hwcg[] = {
+ 	{},
  };
  
++const struct adreno_reglist a640_hwcg[] = {
++	{REG_A6XX_RBBM_CLOCK_CNTL_SP0, 0x02222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL2_SP0, 0x02222220},
++	{REG_A6XX_RBBM_CLOCK_DELAY_SP0, 0x00000080},
++	{REG_A6XX_RBBM_CLOCK_HYST_SP0, 0x0000F3CF},
++	{REG_A6XX_RBBM_CLOCK_CNTL_TP0, 0x02222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL2_TP0, 0x22222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL3_TP0, 0x22222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL4_TP0, 0x00022222},
++	{REG_A6XX_RBBM_CLOCK_DELAY_TP0, 0x11111111},
++	{REG_A6XX_RBBM_CLOCK_DELAY2_TP0, 0x11111111},
++	{REG_A6XX_RBBM_CLOCK_DELAY3_TP0, 0x11111111},
++	{REG_A6XX_RBBM_CLOCK_DELAY4_TP0, 0x00011111},
++	{REG_A6XX_RBBM_CLOCK_HYST_TP0, 0x77777777},
++	{REG_A6XX_RBBM_CLOCK_HYST2_TP0, 0x77777777},
++	{REG_A6XX_RBBM_CLOCK_HYST3_TP0, 0x77777777},
++	{REG_A6XX_RBBM_CLOCK_HYST4_TP0, 0x00077777},
++	{REG_A6XX_RBBM_CLOCK_CNTL_RB0, 0x22222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL2_RB0, 0x01002222},
++	{REG_A6XX_RBBM_CLOCK_CNTL_CCU0, 0x00002220},
++	{REG_A6XX_RBBM_CLOCK_HYST_RB_CCU0, 0x00040F00},
++	{REG_A6XX_RBBM_CLOCK_CNTL_RAC, 0x05222022},
++	{REG_A6XX_RBBM_CLOCK_CNTL2_RAC, 0x00005555},
++	{REG_A6XX_RBBM_CLOCK_DELAY_RAC, 0x00000011},
++	{REG_A6XX_RBBM_CLOCK_HYST_RAC, 0x00445044},
++	{REG_A6XX_RBBM_CLOCK_CNTL_TSE_RAS_RBBM, 0x04222222},
++	{REG_A6XX_RBBM_CLOCK_MODE_VFD, 0x00002222},
++	{REG_A6XX_RBBM_CLOCK_MODE_GPC, 0x00222222},
++	{REG_A6XX_RBBM_CLOCK_DELAY_HLSQ_2, 0x00000002},
++	{REG_A6XX_RBBM_CLOCK_MODE_HLSQ, 0x00002222},
++	{REG_A6XX_RBBM_CLOCK_DELAY_TSE_RAS_RBBM, 0x00004000},
++	{REG_A6XX_RBBM_CLOCK_DELAY_VFD, 0x00002222},
++	{REG_A6XX_RBBM_CLOCK_DELAY_GPC, 0x00000200},
++	{REG_A6XX_RBBM_CLOCK_DELAY_HLSQ, 0x00000000},
++	{REG_A6XX_RBBM_CLOCK_HYST_TSE_RAS_RBBM, 0x00000000},
++	{REG_A6XX_RBBM_CLOCK_HYST_VFD, 0x00000000},
++	{REG_A6XX_RBBM_CLOCK_HYST_GPC, 0x04104004},
++	{REG_A6XX_RBBM_CLOCK_HYST_HLSQ, 0x00000000},
++	{REG_A6XX_RBBM_CLOCK_CNTL_TEX_FCHE, 0x00000222},
++	{REG_A6XX_RBBM_CLOCK_DELAY_TEX_FCHE, 0x00000111},
++	{REG_A6XX_RBBM_CLOCK_HYST_TEX_FCHE, 0x00000000},
++	{REG_A6XX_RBBM_CLOCK_CNTL_UCHE, 0x22222222},
++	{REG_A6XX_RBBM_CLOCK_HYST_UCHE, 0x00000004},
++	{REG_A6XX_RBBM_CLOCK_DELAY_UCHE, 0x00000002},
++	{REG_A6XX_RBBM_ISDB_CNT, 0x00000182},
++	{REG_A6XX_RBBM_RAC_THRESHOLD_CNT, 0x00000000},
++	{REG_A6XX_RBBM_SP_HYST_CNT, 0x00000000},
++	{REG_A6XX_RBBM_CLOCK_CNTL_GMU_GX, 0x00000222},
++	{REG_A6XX_RBBM_CLOCK_DELAY_GMU_GX, 0x00000111},
++	{REG_A6XX_RBBM_CLOCK_HYST_GMU_GX, 0x00000555},
++	{},
++};
++
++const struct adreno_reglist a650_hwcg[] = {
++	{REG_A6XX_RBBM_CLOCK_CNTL_SP0, 0x02222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL2_SP0, 0x02222220},
++	{REG_A6XX_RBBM_CLOCK_DELAY_SP0, 0x00000080},
++	{REG_A6XX_RBBM_CLOCK_HYST_SP0, 0x0000F3CF},
++	{REG_A6XX_RBBM_CLOCK_CNTL_TP0, 0x02222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL2_TP0, 0x22222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL3_TP0, 0x22222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL4_TP0, 0x00022222},
++	{REG_A6XX_RBBM_CLOCK_DELAY_TP0, 0x11111111},
++	{REG_A6XX_RBBM_CLOCK_DELAY2_TP0, 0x11111111},
++	{REG_A6XX_RBBM_CLOCK_DELAY3_TP0, 0x11111111},
++	{REG_A6XX_RBBM_CLOCK_DELAY4_TP0, 0x00011111},
++	{REG_A6XX_RBBM_CLOCK_HYST_TP0, 0x77777777},
++	{REG_A6XX_RBBM_CLOCK_HYST2_TP0, 0x77777777},
++	{REG_A6XX_RBBM_CLOCK_HYST3_TP0, 0x77777777},
++	{REG_A6XX_RBBM_CLOCK_HYST4_TP0, 0x00077777},
++	{REG_A6XX_RBBM_CLOCK_CNTL_RB0, 0x22222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL2_RB0, 0x01002222},
++	{REG_A6XX_RBBM_CLOCK_CNTL_CCU0, 0x00002220},
++	{REG_A6XX_RBBM_CLOCK_HYST_RB_CCU0, 0x00040F00},
++	{REG_A6XX_RBBM_CLOCK_CNTL_RAC, 0x25222022},
++	{REG_A6XX_RBBM_CLOCK_CNTL2_RAC, 0x00005555},
++	{REG_A6XX_RBBM_CLOCK_DELAY_RAC, 0x00000011},
++	{REG_A6XX_RBBM_CLOCK_HYST_RAC, 0x00445044},
++	{REG_A6XX_RBBM_CLOCK_CNTL_TSE_RAS_RBBM, 0x04222222},
++	{REG_A6XX_RBBM_CLOCK_MODE_VFD, 0x00002222},
++	{REG_A6XX_RBBM_CLOCK_MODE_GPC, 0x00222222},
++	{REG_A6XX_RBBM_CLOCK_DELAY_HLSQ_2, 0x00000002},
++	{REG_A6XX_RBBM_CLOCK_MODE_HLSQ, 0x00002222},
++	{REG_A6XX_RBBM_CLOCK_DELAY_TSE_RAS_RBBM, 0x00004000},
++	{REG_A6XX_RBBM_CLOCK_DELAY_VFD, 0x00002222},
++	{REG_A6XX_RBBM_CLOCK_DELAY_GPC, 0x00000200},
++	{REG_A6XX_RBBM_CLOCK_DELAY_HLSQ, 0x00000000},
++	{REG_A6XX_RBBM_CLOCK_HYST_TSE_RAS_RBBM, 0x00000000},
++	{REG_A6XX_RBBM_CLOCK_HYST_VFD, 0x00000000},
++	{REG_A6XX_RBBM_CLOCK_HYST_GPC, 0x04104004},
++	{REG_A6XX_RBBM_CLOCK_HYST_HLSQ, 0x00000000},
++	{REG_A6XX_RBBM_CLOCK_CNTL_TEX_FCHE, 0x00000222},
++	{REG_A6XX_RBBM_CLOCK_DELAY_TEX_FCHE, 0x00000111},
++	{REG_A6XX_RBBM_CLOCK_HYST_TEX_FCHE, 0x00000777},
++	{REG_A6XX_RBBM_CLOCK_CNTL_UCHE, 0x22222222},
++	{REG_A6XX_RBBM_CLOCK_HYST_UCHE, 0x00000004},
++	{REG_A6XX_RBBM_CLOCK_DELAY_UCHE, 0x00000002},
++	{REG_A6XX_RBBM_ISDB_CNT, 0x00000182},
++	{REG_A6XX_RBBM_RAC_THRESHOLD_CNT, 0x00000000},
++	{REG_A6XX_RBBM_SP_HYST_CNT, 0x00000000},
++	{REG_A6XX_RBBM_CLOCK_CNTL_GMU_GX, 0x00000222},
++	{REG_A6XX_RBBM_CLOCK_DELAY_GMU_GX, 0x00000111},
++	{REG_A6XX_RBBM_CLOCK_HYST_GMU_GX, 0x00000555},
++	{},
++};
++
  static void a6xx_set_hwcg(struct msm_gpu *gpu, bool state)
-@@ -267,9 +265,13 @@ static void a6xx_set_hwcg(struct msm_gpu *gpu, bool state)
+ {
  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
- 	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+@@ -267,15 +373,20 @@ static void a6xx_set_hwcg(struct msm_gpu *gpu, bool state)
  	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
-+	const struct adreno_reglist *reg;
+ 	const struct adreno_reglist *reg;
  	unsigned int i;
- 	u32 val;
+-	u32 val;
++	u32 val, clock_cntl_on;
  
-+	if (!adreno_gpu->info->hwcg)
-+		return;
+ 	if (!adreno_gpu->info->hwcg)
+ 		return;
+ 
++	if (adreno_is_a630(adreno_gpu))
++		clock_cntl_on = 0x8aa8aa02;
++	else
++		clock_cntl_on = 0x8aa8aa82;
 +
  	val = gpu_read(gpu, REG_A6XX_RBBM_CLOCK_CNTL);
  
  	/* Don't re-program the registers if they are already correct */
-@@ -279,9 +281,8 @@ static void a6xx_set_hwcg(struct msm_gpu *gpu, bool state)
+-	if ((!state && !val) || (state && (val == 0x8aa8aa02)))
++	if ((!state && !val) || (state && (val == clock_cntl_on)))
+ 		return;
+ 
  	/* Disable SP clock before programming HWCG registers */
- 	gmu_rmw(gmu, REG_A6XX_GPU_GMU_GX_SPTPRAC_CLOCK_CONTROL, 1, 0);
- 
--	for (i = 0; i < ARRAY_SIZE(a6xx_hwcg); i++)
--		gpu_write(gpu, a6xx_hwcg[i].offset,
--			state ? a6xx_hwcg[i].value : 0);
-+	for (i = 0; (reg = &adreno_gpu->info->hwcg[i], reg->offset); i++)
-+		gpu_write(gpu, reg->offset, state ? reg->value : 0);
- 
+@@ -287,7 +398,7 @@ static void a6xx_set_hwcg(struct msm_gpu *gpu, bool state)
  	/* Enable SP clock */
  	gmu_rmw(gmu, REG_A6XX_GPU_GMU_GX_SPTPRAC_CLOCK_CONTROL, 0, 1);
-@@ -437,12 +438,8 @@ static int a6xx_hw_init(struct msm_gpu *gpu)
- 	gpu_write(gpu, REG_A6XX_TPL1_ADDR_MODE_CNTL, 0x1);
- 	gpu_write(gpu, REG_A6XX_RBBM_SECVID_TSB_ADDR_MODE_CNTL, 0x1);
  
--	/*
--	 * enable hardware clockgating
--	 * For now enable clock gating only for a630
--	 */
--	if (adreno_is_a630(adreno_gpu))
--		a6xx_set_hwcg(gpu, true);
-+	/* enable hardware clockgating */
-+	a6xx_set_hwcg(gpu, true);
+-	gpu_write(gpu, REG_A6XX_RBBM_CLOCK_CNTL, state ? 0x8aa8aa02 : 0);
++	gpu_write(gpu, REG_A6XX_RBBM_CLOCK_CNTL, state ? clock_cntl_on : 0);
+ }
  
- 	/* VBIF/GBIF start*/
- 	if (adreno_is_a640(adreno_gpu) || adreno_is_a650(adreno_gpu)) {
+ static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
 diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-index 7732f03d9e3a..97996e7fc668 100644
+index 97996e7fc668..4e84f3c76f4f 100644
 --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
 +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-@@ -200,6 +200,7 @@ static const struct adreno_info gpulist[] = {
+@@ -213,6 +213,7 @@ static const struct adreno_info gpulist[] = {
  		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
  		.init = a6xx_gpu_init,
- 		.zapfw = "a630_zap.mdt",
-+		.hwcg = a630_hwcg,
+ 		.zapfw = "a640_zap.mdt",
++		.hwcg = a640_hwcg,
  	}, {
- 		.rev = ADRENO_REV(6, 4, 0, ANY_ID),
- 		.revn = 640,
+ 		.rev = ADRENO_REV(6, 5, 0, ANY_ID),
+ 		.revn = 650,
+@@ -225,6 +226,7 @@ static const struct adreno_info gpulist[] = {
+ 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+ 		.init = a6xx_gpu_init,
+ 		.zapfw = "a650_zap.mdt",
++		.hwcg = a650_hwcg,
+ 	},
+ };
+ 
 diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index 2f5d2c3acc3a..426cabd374bb 100644
+index 426cabd374bb..99bb468f5f24 100644
 --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
 +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -68,6 +68,13 @@ struct adreno_gpu_funcs {
- 	int (*get_timestamp)(struct msm_gpu *gpu, uint64_t *value);
+@@ -73,7 +73,7 @@ struct adreno_reglist {
+ 	u32 value;
  };
  
-+struct adreno_reglist {
-+	u32 offset;
-+	u32 value;
-+};
-+
-+extern const struct adreno_reglist a630_hwcg[];
-+
+-extern const struct adreno_reglist a630_hwcg[];
++extern const struct adreno_reglist a630_hwcg[], a640_hwcg[], a650_hwcg[];
+ 
  struct adreno_info {
  	struct adreno_rev rev;
- 	uint32_t revn;
-@@ -78,6 +85,7 @@ struct adreno_info {
- 	struct msm_gpu *(*init)(struct drm_device *dev);
- 	const char *zapfw;
- 	u32 inactive_period;
-+	const struct adreno_reglist *hwcg;
- };
- 
- const struct adreno_info *adreno_info(struct adreno_rev rev);
 -- 
 2.26.1
 
