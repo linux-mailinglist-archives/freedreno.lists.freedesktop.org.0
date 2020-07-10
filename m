@@ -1,77 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2727921BCC3
-	for <lists+freedreno@lfdr.de>; Fri, 10 Jul 2020 20:03:59 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id BFDE821BDD6
+	for <lists+freedreno@lfdr.de>; Fri, 10 Jul 2020 21:41:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE8CB6ECC3;
-	Fri, 10 Jul 2020 18:03:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 063826ED01;
+	Fri, 10 Jul 2020 19:41:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
- [104.130.122.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC19F6ECC3
- for <freedreno@lists.freedesktop.org>; Fri, 10 Jul 2020 18:03:51 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1594404236; h=In-Reply-To: Content-Type: MIME-Version:
- References: Message-ID: Subject: Cc: To: From: Date: Sender;
- bh=ZQQMH0O09IKSJFL8FajJSP1V0zPU96pA8pCKynU0tJI=;
- b=piYmSEUTM6HMD6Cd3DC3hUrFeROtRYlkKr+/1dBerOYJ+IDfM6VvoKx8ZmXosp2mja7dwXDN
- 4zSXUhCgPWPITf/5kWy6x8bjUaXvOXLcSHXdFev+ZlDNOw5gn90hmrxB5TS7du397voaWG1t
- xu45eNyJJxIKJv4Law1Xt2xOqwk=
-X-Mailgun-Sending-Ip: 104.130.122.29
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n12.prod.us-west-2.postgun.com with SMTP id
- 5f08ad5f8e36ecda30ba6fac (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 10 Jul 2020 18:03:11
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 55F29C433A0; Fri, 10 Jul 2020 18:03:11 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 1456EC433C8;
- Fri, 10 Jul 2020 18:03:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 1456EC433C8
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=jcrouse@codeaurora.org
-Date: Fri, 10 Jul 2020 12:03:04 -0600
-From: Jordan Crouse <jcrouse@codeaurora.org>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20200710180304.GG21059@jcrouse1-lnx.qualcomm.com>
-Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- Eric Anholt <eric@anholt.net>,
- Ben Dooks <ben.dooks@codethink.co.uk>,
- Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <kholk11@gmail.com>,
- Sean Paul <sean@poorly.run>,
- open list <linux-kernel@vger.kernel.org>
-References: <20200707203529.2098979-1-robdclark@gmail.com>
- <20200707203529.2098979-3-robdclark@gmail.com>
+Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com
+ [IPv6:2a00:1450:4864:20::644])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA2B66ECFF
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Jul 2020 19:41:00 +0000 (UTC)
+Received: by mail-ej1-x644.google.com with SMTP id w16so7301574ejj.5
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Jul 2020 12:41:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=6Mfk46Wt0EkqUcbzqXWWdXTqCsqh4r5j+eF9fbxeot0=;
+ b=Y7xXCS1nOyST5iaTPkncvqxbKVgFj+Nfn88bRSj5S4OQHG4kl1muiQw/AvZYLNudnY
+ 9mPoOtL6Pt896dSy83Z2dzSkM7nl4FiBi/v8tuWypIw2LqrCLpodTF9fmoLXMu+Ej30S
+ k2DwUlGDQfXjBxJL+d+Lgumj2g42UGKwXpN8Knytkji13XJi+RusTz1bmPzggaxcbAiT
+ 1dZLUkbOKTp1siTDY+nEzLfpzQWWkVJKY9wNRhV5+9AKOciOZjEA8hxs2RJ0Ai4bvFLf
+ q9+wsgdRL0qTHOnRDRpPH0qiHuUR/P7l9kgLy9FTHiAG9994JxxqpCBS7khSp1dMSBS+
+ vvlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=6Mfk46Wt0EkqUcbzqXWWdXTqCsqh4r5j+eF9fbxeot0=;
+ b=tyKi5k+ZsvkdgQ7Zq0nOr3TCJxLt1YnLdlVHfvJjueJT2wQ4QzL4bBAULVHz652xj6
+ WL9/YEtvNM3iN79gn8H0L2c13u2vyqWrjBhvApVQEYOAfy7PETve7P+gDnW0nk+3VbOJ
+ +PWfWsAy5LgtEGolu2U9T2g541veqXwyjo6HdnfqWKR0zH3rSDx6jE8dnTeXZL6o1eSf
+ owm6DTb25rzoaQLSkzjDKdeWOtLriHN0p9cZB47Vw+BD5aCcXyuKMrSxWNh6EblPpiWA
+ MpnlC3clh3S1JlMD763umitlux0orNS44undz347uIbeHAvVp54W2CPNkgMUPtk31EGt
+ 059g==
+X-Gm-Message-State: AOAM530RCAk5bKZBdcYE2T0jKWI2cywl+UkBcuCSinPbu81VqbRL6x5J
+ Pg5zW1L3u/W+/QyNeC3wZDMEmavHKZepKTrKzvU=
+X-Google-Smtp-Source: ABdhPJwwtakCaQKxyz/Xgq/TraHmqTx5+wz3uRxu6aBHqI7ZcwPjE6kUBX1Sx322eMeOiNMBX1MH0LMW8jw21ilN+fs=
+X-Received: by 2002:a17:906:328d:: with SMTP id
+ 13mr63567977ejw.71.1594410059289; 
+ Fri, 10 Jul 2020 12:40:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200707203529.2098979-3-robdclark@gmail.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/adreno: un-open-code some
- packets
+References: <1594324828-9571-1-git-send-email-akhilpo@codeaurora.org>
+ <1594324828-9571-5-git-send-email-akhilpo@codeaurora.org>
+In-Reply-To: <1594324828-9571-5-git-send-email-akhilpo@codeaurora.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 10 Jul 2020 12:41:31 -0700
+Message-ID: <CAF6AEGv4Nc6ZAxGoCC1s5KT=rxLR6uZDHfDnWZRnnLhqnegOpA@mail.gmail.com>
+To: Akhil P Oommen <akhilpo@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH v4 4/7] drm: msm: a6xx: use
+ dev_pm_opp_set_bw to scale DDR
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,105 +63,124 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Jonathan Marek <jonathan@marek.ca>,
- David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Jonathan <jonathan@marek.ca>,
+ saravanak@google.com, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  Sharat Masetty <smasetty@codeaurora.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>, dri-devel@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>, Eric Anholt <eric@anholt.net>,
- Ben Dooks <ben.dooks@codethink.co.uk>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>, AngeloGioacchino Del Regno <kholk11@gmail.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>, Matthias Kaehlcke <mka@chromium.org>,
+ dri-devel@freedesktop.org, Viresh Kumar <viresh.kumar@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Sibi Sankar <sibis@codeaurora.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jul 07, 2020 at 01:35:00PM -0700, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-
-Might need a commit log here, but otherwise makes sense.
-
-Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
-
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
+On Thu, Jul 9, 2020 at 1:01 PM Akhil P Oommen <akhilpo@codeaurora.org> wrote:
+>
+> From: Sharat Masetty <smasetty@codeaurora.org>
+>
+> This patches replaces the previously used static DDR vote and uses
+> dev_pm_opp_set_bw() to scale GPU->DDR bandwidth along with scaling
+> GPU frequency. Also since the icc path voting is handled completely
+> in the opp driver, remove the icc_path handle and its usage in the
+> drm driver.
+>
+> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
+> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
 > ---
->  drivers/gpu/drm/msm/adreno/a5xx_gpu.c |  5 +++--
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 11 +++++++----
->  2 files changed, 10 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> index d95970a73fb4..7f4526b3283d 100644
-> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> @@ -186,7 +186,8 @@ static void a5xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit,
->  	 * timestamp is written to the memory and then triggers the interrupt
->  	 */
->  	OUT_PKT7(ring, CP_EVENT_WRITE, 4);
-> -	OUT_RING(ring, CACHE_FLUSH_TS | (1 << 31));
-> +	OUT_RING(ring, CP_EVENT_WRITE_0_EVENT(CACHE_FLUSH_TS) |
-> +		CP_EVENT_WRITE_0_IRQ);
->  	OUT_RING(ring, lower_32_bits(rbmemptr(ring, fence)));
->  	OUT_RING(ring, upper_32_bits(rbmemptr(ring, fence)));
->  	OUT_RING(ring, submit->seqno);
-> @@ -730,7 +731,7 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
->  	 */
->  	if (adreno_is_a530(adreno_gpu)) {
->  		OUT_PKT7(gpu->rb[0], CP_EVENT_WRITE, 1);
-> -		OUT_RING(gpu->rb[0], 0x0F);
-> +		OUT_RING(gpu->rb[0], CP_EVENT_WRITE_0_EVENT(STAT_EVENT));
->  
->  		gpu->funcs->flush(gpu, gpu->rb[0]);
->  		if (!a5xx_idle(gpu, gpu->rb[0]))
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index 7768557cdfb2..1ed325bea430 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -74,7 +74,9 @@ static void get_stats_counter(struct msm_ringbuffer *ring, u32 counter,
->  		u64 iova)
->  {
->  	OUT_PKT7(ring, CP_REG_TO_MEM, 3);
-> -	OUT_RING(ring, counter | (1 << 30) | (2 << 18));
-> +	OUT_RING(ring, CP_REG_TO_MEM_0_REG(counter) |
-> +		CP_REG_TO_MEM_0_CNT(2) |
-> +		CP_REG_TO_MEM_0_64B);
->  	OUT_RING(ring, lower_32_bits(iova));
->  	OUT_RING(ring, upper_32_bits(iova));
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 25 +++++++++++++++++--------
+>  1 file changed, 17 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> index b547339..6fbfd7d 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> @@ -123,7 +123,7 @@ void a6xx_gmu_set_freq(struct msm_gpu *gpu, struct dev_pm_opp *opp)
+>
+>         if (!gmu->legacy) {
+>                 a6xx_hfi_set_freq(gmu, gmu->current_perf_index);
+> -               icc_set_bw(gpu->icc_path, 0, MBps_to_icc(7216));
+> +               dev_pm_opp_set_bw(&gpu->pdev->dev, opp);
+
+What is the status of the patch to add dev_pm_opp_set_bw()?  If it is
+ready to go, and I get an ack-by from the OPP maintainer, I suppose I
+could merge it via drm/msm.
+
+Otherwise should we consider pulling in a private copy of it into
+drm/msm (and then drop it to use the helper in, hopefully, the next
+cycle)?
+
+I'm pulling the patches preceding this one into msm-next-staging to do
+some testing.  And the dt patches following this one would normally
+get merged via Bjorn.  At the moment, I'm not sure what to do with
+this one.
+
+BR,
+-R
+
+>                 return;
+>         }
+>
+> @@ -149,11 +149,7 @@ void a6xx_gmu_set_freq(struct msm_gpu *gpu, struct dev_pm_opp *opp)
+>         if (ret)
+>                 dev_err(gmu->dev, "GMU set GPU frequency error: %d\n", ret);
+>
+> -       /*
+> -        * Eventually we will want to scale the path vote with the frequency but
+> -        * for now leave it at max so that the performance is nominal.
+> -        */
+> -       icc_set_bw(gpu->icc_path, 0, MBps_to_icc(7216));
+> +       dev_pm_opp_set_bw(&gpu->pdev->dev, opp);
 >  }
-> @@ -102,10 +104,10 @@ static void a6xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit,
->  
->  	/* Invalidate CCU depth and color */
->  	OUT_PKT7(ring, CP_EVENT_WRITE, 1);
-> -	OUT_RING(ring, PC_CCU_INVALIDATE_DEPTH);
-> +	OUT_RING(ring, CP_EVENT_WRITE_0_EVENT(PC_CCU_INVALIDATE_DEPTH));
->  
->  	OUT_PKT7(ring, CP_EVENT_WRITE, 1);
-> -	OUT_RING(ring, PC_CCU_INVALIDATE_COLOR);
-> +	OUT_RING(ring, CP_EVENT_WRITE_0_EVENT(PC_CCU_INVALIDATE_COLOR));
->  
->  	/* Submit the commands */
->  	for (i = 0; i < submit->nr_cmds; i++) {
-> @@ -139,7 +141,8 @@ static void a6xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit,
->  	 * timestamp is written to the memory and then triggers the interrupt
->  	 */
->  	OUT_PKT7(ring, CP_EVENT_WRITE, 4);
-> -	OUT_RING(ring, CACHE_FLUSH_TS | (1 << 31));
-> +	OUT_RING(ring, CP_EVENT_WRITE_0_EVENT(CACHE_FLUSH_TS) |
-> +		CP_EVENT_WRITE_0_IRQ);
->  	OUT_RING(ring, lower_32_bits(rbmemptr(ring, fence)));
->  	OUT_RING(ring, upper_32_bits(rbmemptr(ring, fence)));
->  	OUT_RING(ring, submit->seqno);
-> -- 
-> 2.26.2
-> 
+>
+>  unsigned long a6xx_gmu_get_freq(struct msm_gpu *gpu)
+> @@ -840,6 +836,19 @@ static void a6xx_gmu_set_initial_freq(struct msm_gpu *gpu, struct a6xx_gmu *gmu)
+>         dev_pm_opp_put(gpu_opp);
+>  }
+>
+> +static void a6xx_gmu_set_initial_bw(struct msm_gpu *gpu, struct a6xx_gmu *gmu)
+> +{
+> +       struct dev_pm_opp *gpu_opp;
+> +       unsigned long gpu_freq = gmu->gpu_freqs[gmu->current_perf_index];
+> +
+> +       gpu_opp = dev_pm_opp_find_freq_exact(&gpu->pdev->dev, gpu_freq, true);
+> +       if (IS_ERR_OR_NULL(gpu_opp))
+> +               return;
+> +
+> +       dev_pm_opp_set_bw(&gpu->pdev->dev, gpu_opp);
+> +       dev_pm_opp_put(gpu_opp);
+> +}
+> +
+>  int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
+>  {
+>         struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+> @@ -864,7 +873,7 @@ int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
+>         }
+>
+>         /* Set the bus quota to a reasonable value for boot */
+> -       icc_set_bw(gpu->icc_path, 0, MBps_to_icc(3072));
+> +       a6xx_gmu_set_initial_bw(gpu, gmu);
+>
+>         /* Enable the GMU interrupt */
+>         gmu_write(gmu, REG_A6XX_GMU_AO_HOST_INTERRUPT_CLR, ~0);
+> @@ -1040,7 +1049,7 @@ int a6xx_gmu_stop(struct a6xx_gpu *a6xx_gpu)
+>                 a6xx_gmu_shutdown(gmu);
+>
+>         /* Remove the bus vote */
+> -       icc_set_bw(gpu->icc_path, 0, 0);
+> +       dev_pm_opp_set_bw(&gpu->pdev->dev, NULL);
+>
+>         /*
+>          * Make sure the GX domain is off before turning off the GMU (CX)
+> --
+> 2.7.4
+>
 > _______________________________________________
 > Freedreno mailing list
 > Freedreno@lists.freedesktop.org
 > https://lists.freedesktop.org/mailman/listinfo/freedreno
-
--- 
-The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
-a Linux Foundation Collaborative Project
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
