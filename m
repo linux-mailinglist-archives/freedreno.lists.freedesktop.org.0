@@ -1,36 +1,35 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0A2321BEF2
-	for <lists+freedreno@lfdr.de>; Fri, 10 Jul 2020 23:03:54 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6ED0221BF0E
+	for <lists+freedreno@lfdr.de>; Fri, 10 Jul 2020 23:13:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FC856ED0D;
-	Fri, 10 Jul 2020 21:03:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CEF18828C;
+	Fri, 10 Jul 2020 21:13:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
- [104.130.122.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 041A66ED10
- for <freedreno@lists.freedesktop.org>; Fri, 10 Jul 2020 21:03:52 +0000 (UTC)
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB7908828C
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Jul 2020 21:13:12 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1594415033; h=Content-Transfer-Encoding: Content-Type:
+ s=smtp; t=1594415594; h=Content-Transfer-Encoding: Content-Type:
  In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
- Subject: Sender; bh=/Y+F2VRKOW+F7AotxxwUsOTyOLysK88Rj1ETIuOMgCU=;
- b=K1QBeMEFwjzU6iz6Tx1PLxtoWLTUWm7JcEubT+A07KNNiLr2OWjn77KRPilhS6roPJzzKLrs
- 5pBEP2AVzp6rT7VxA8N44dSDDokYFieITK72BH2X9/CMMoOx2SiJIjOCue9vi8Ib+07rQsN6
- d8skAAWUx/n23ouU8BNO4OGoMR8=
-X-Mailgun-Sending-Ip: 104.130.122.29
+ Subject: Sender; bh=Y1rBBSjHn58KkYWcfa8FN19qXT4mpd6FmEsIOBn/G4I=;
+ b=AB2dPD1ni0iGUgKeHvbSEWTnY2tCNQ3tivi7l7QKhc+W2+7Mzflqp5pddvTzAz3uJ+VGgWih
+ OBaYfcUo6OffZ+OFCBn4R5GNj4TLYrl/WlcisvUu/UnQWisYHQk1vQLpTRoOfTSNb/1rK61o
+ pwQMLP1bjua7uMzzE/jdLTQHVhI=
+X-Mailgun-Sending-Ip: 69.72.43.7
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n20.prod.us-east-1.postgun.com with SMTP id
- 5f08d7b5427cd55766d3cb26 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 10 Jul 2020 21:03:49
+ smtp-out-n17.prod.us-east-1.postgun.com with SMTP id
+ 5f08d9e5e3bee12510675c81 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 10 Jul 2020 21:13:09
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id C4DC4C433A1; Fri, 10 Jul 2020 21:03:47 +0000 (UTC)
+ id 361D8C43391; Fri, 10 Jul 2020 21:13:09 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -39,27 +38,27 @@ X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
 Received: from [192.168.1.9] (unknown [117.210.185.108])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: akhilpo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 599D8C433C6;
- Fri, 10 Jul 2020 21:03:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 599D8C433C6
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 66CF0C433C8;
+ Fri, 10 Jul 2020 21:13:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 66CF0C433C8
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  spf=none smtp.mailfrom=akhilpo@codeaurora.org
-To: Rob Clark <robdclark@gmail.com>
+To: Jonathan Marek <jonathan@marek.ca>, freedreno@lists.freedesktop.org
 References: <1594324828-9571-1-git-send-email-akhilpo@codeaurora.org>
- <1594324828-9571-5-git-send-email-akhilpo@codeaurora.org>
- <CAF6AEGv4Nc6ZAxGoCC1s5KT=rxLR6uZDHfDnWZRnnLhqnegOpA@mail.gmail.com>
+ <1594324828-9571-4-git-send-email-akhilpo@codeaurora.org>
+ <322c921f-7c8f-7052-b191-44f0dade742e@marek.ca>
 From: Akhil P Oommen <akhilpo@codeaurora.org>
-Message-ID: <17afba8b-dae5-d724-4c8c-8b4c79fcfb84@codeaurora.org>
-Date: Sat, 11 Jul 2020 02:33:40 +0530
+Message-ID: <40f6df1d-f524-c612-9215-591fd7f16e3b@codeaurora.org>
+Date: Sat, 11 Jul 2020 02:43:02 +0530
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <CAF6AEGv4Nc6ZAxGoCC1s5KT=rxLR6uZDHfDnWZRnnLhqnegOpA@mail.gmail.com>
+In-Reply-To: <322c921f-7c8f-7052-b191-44f0dade742e@marek.ca>
 Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH v4 4/7] drm: msm: a6xx: use
- dev_pm_opp_set_bw to scale DDR
+Subject: Re: [Freedreno] [PATCH v4 3/7] drm: msm: a6xx: set gpu freq through
+ hfi
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,131 +71,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Jonathan <jonathan@marek.ca>,
- saravanak@google.com, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, Matthias Kaehlcke <mka@chromium.org>,
- dri-devel@freedesktop.org, Viresh Kumar <viresh.kumar@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Sibi Sankar <sibis@codeaurora.org>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: devicetree@vger.kernel.org, saravanak@google.com,
+ linux-arm-msm@vger.kernel.org, smasetty@codeaurora.org,
+ linux-kernel@vger.kernel.org, mka@chromium.org, dri-devel@freedesktop.org,
+ viresh.kumar@linaro.org, sibis@codeaurora.org
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On 7/11/2020 1:11 AM, Rob Clark wrote:
-> On Thu, Jul 9, 2020 at 1:01 PM Akhil P Oommen <akhilpo@codeaurora.org> wrote:
->> From: Sharat Masetty <smasetty@codeaurora.org>
->>
->> This patches replaces the previously used static DDR vote and uses
->> dev_pm_opp_set_bw() to scale GPU->DDR bandwidth along with scaling
->> GPU frequency. Also since the icc path voting is handled completely
->> in the opp driver, remove the icc_path handle and its usage in the
->> drm driver.
->>
->> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
->> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
->> ---
->>   drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 25 +++++++++++++++++--------
->>   1 file changed, 17 insertions(+), 8 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->> index b547339..6fbfd7d 100644
->> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->> @@ -123,7 +123,7 @@ void a6xx_gmu_set_freq(struct msm_gpu *gpu, struct dev_pm_opp *opp)
->>
->>          if (!gmu->legacy) {
->>                  a6xx_hfi_set_freq(gmu, gmu->current_perf_index);
->> -               icc_set_bw(gpu->icc_path, 0, MBps_to_icc(7216));
->> +               dev_pm_opp_set_bw(&gpu->pdev->dev, opp);
-> What is the status of the patch to add dev_pm_opp_set_bw()?  If it is
-> ready to go, and I get an ack-by from the OPP maintainer, I suppose I
-> could merge it via drm/msm.
->
-> Otherwise should we consider pulling in a private copy of it into
-> drm/msm (and then drop it to use the helper in, hopefully, the next
-> cycle)?
->
-> I'm pulling the patches preceding this one into msm-next-staging to do
-> some testing.  And the dt patches following this one would normally
-> get merged via Bjorn.  At the moment, I'm not sure what to do with
-> this one.
->
-> BR,
-> -R
-I see Sibi's patch is already picked in opp/linux-next branch.
-https://kernel.googlesource.com/pub/scm/linux/kernel/git/vireshk/pm/+/b466542f331e221a3628c1cfe5ccff307d7d787f 
-
-
-Thanks,
--Akhil
-
->>                  return;
->>          }
->>
->> @@ -149,11 +149,7 @@ void a6xx_gmu_set_freq(struct msm_gpu *gpu, struct dev_pm_opp *opp)
->>          if (ret)
->>                  dev_err(gmu->dev, "GMU set GPU frequency error: %d\n", ret);
->>
->> -       /*
->> -        * Eventually we will want to scale the path vote with the frequency but
->> -        * for now leave it at max so that the performance is nominal.
->> -        */
->> -       icc_set_bw(gpu->icc_path, 0, MBps_to_icc(7216));
->> +       dev_pm_opp_set_bw(&gpu->pdev->dev, opp);
->>   }
->>
->>   unsigned long a6xx_gmu_get_freq(struct msm_gpu *gpu)
->> @@ -840,6 +836,19 @@ static void a6xx_gmu_set_initial_freq(struct msm_gpu *gpu, struct a6xx_gmu *gmu)
->>          dev_pm_opp_put(gpu_opp);
->>   }
->>
->> +static void a6xx_gmu_set_initial_bw(struct msm_gpu *gpu, struct a6xx_gmu *gmu)
->> +{
->> +       struct dev_pm_opp *gpu_opp;
->> +       unsigned long gpu_freq = gmu->gpu_freqs[gmu->current_perf_index];
->> +
->> +       gpu_opp = dev_pm_opp_find_freq_exact(&gpu->pdev->dev, gpu_freq, true);
->> +       if (IS_ERR_OR_NULL(gpu_opp))
->> +               return;
->> +
->> +       dev_pm_opp_set_bw(&gpu->pdev->dev, gpu_opp);
->> +       dev_pm_opp_put(gpu_opp);
->> +}
->> +
->>   int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
->>   {
->>          struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
->> @@ -864,7 +873,7 @@ int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
->>          }
->>
->>          /* Set the bus quota to a reasonable value for boot */
->> -       icc_set_bw(gpu->icc_path, 0, MBps_to_icc(3072));
->> +       a6xx_gmu_set_initial_bw(gpu, gmu);
->>
->>          /* Enable the GMU interrupt */
->>          gmu_write(gmu, REG_A6XX_GMU_AO_HOST_INTERRUPT_CLR, ~0);
->> @@ -1040,7 +1049,7 @@ int a6xx_gmu_stop(struct a6xx_gpu *a6xx_gpu)
->>                  a6xx_gmu_shutdown(gmu);
->>
->>          /* Remove the bus vote */
->> -       icc_set_bw(gpu->icc_path, 0, 0);
->> +       dev_pm_opp_set_bw(&gpu->pdev->dev, NULL);
->>
->>          /*
->>           * Make sure the GX domain is off before turning off the GMU (CX)
->> --
->> 2.7.4
->>
->> _______________________________________________
->> Freedreno mailing list
->> Freedreno@lists.freedesktop.org
->> https://lists.freedesktop.org/mailman/listinfo/freedreno
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+Ck9uIDcvMTAvMjAyMCAxOjM0IEFNLCBKb25hdGhhbiBNYXJlayB3cm90ZToKPiBPbiA3LzkvMjAg
+NDowMCBQTSwgQWtoaWwgUCBPb21tZW4gd3JvdGU6Cj4+IE5ld2VyIHRhcmdldHMgc3VwcG9ydCBj
+aGFuZ2luZyBncHUgZnJlcXVlbmN5IHRocm91Z2ggSEZJLiBTbwo+PiB1c2UgdGhhdCB3aGVyZXZl
+ciBzdXBwb3J0ZWQgaW5zdGVhZCBvZiB0aGUgbGVnYWN5IG1ldGhvZC4KPj4KPgo+IEl0IHdhcyBh
+bHJlYWR5IHVzaW5nIEhGSSBvbiBuZXdlciB0YXJnZXRzLiBEb24ndCBicmVhayBpdCBpbiBvbmUg
+Cj4gY29tbWl0IHRoZW4gZml4IGl0IGluIHRoZSBuZXh0LgoKT29wcy4gSSBzb21laG93IGdvdCBj
+b25mdXNlZC4gV2lsbCBmaXggYW5kIHJlc2VuZC4KCi1Ba2hpbAoKPgo+PiBTaWduZWQtb2ZmLWJ5
+OiBBa2hpbCBQIE9vbW1lbiA8YWtoaWxwb0Bjb2RlYXVyb3JhLm9yZz4KPj4gLS0tCj4+IMKgIGRy
+aXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2E2eHhfZ211LmMgfCAxMSArKysrKysrLS0tLQo+PiDC
+oCAxIGZpbGUgY2hhbmdlZCwgNyBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQo+Pgo+PiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL21zbS9hZHJlbm8vYTZ4eF9nbXUuYyAKPj4gYi9k
+cml2ZXJzL2dwdS9kcm0vbXNtL2FkcmVuby9hNnh4X2dtdS5jCj4+IGluZGV4IDIzM2FmZWEuLmI1
+NDczMzkgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2E2eHhfZ211
+LmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL21zbS9hZHJlbm8vYTZ4eF9nbXUuYwo+PiBAQCAt
+MTIxLDYgKzEyMSwxMiBAQCB2b2lkIGE2eHhfZ211X3NldF9mcmVxKHN0cnVjdCBtc21fZ3B1ICpn
+cHUsIAo+PiBzdHJ1Y3QgZGV2X3BtX29wcCAqb3BwKQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgaWYg
+KGdwdV9mcmVxID09IGdtdS0+Z3B1X2ZyZXFzW3BlcmZfaW5kZXhdKQo+PiDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCBicmVhazsKPj4gwqAgK8KgwqDCoCBpZiAoIWdtdS0+bGVnYWN5KSB7Cj4+
+ICvCoMKgwqDCoMKgwqDCoCBhNnh4X2hmaV9zZXRfZnJlcShnbXUsIGdtdS0+Y3VycmVudF9wZXJm
+X2luZGV4KTsKPj4gK8KgwqDCoMKgwqDCoMKgIGljY19zZXRfYncoZ3B1LT5pY2NfcGF0aCwgMCwg
+TUJwc190b19pY2MoNzIxNikpOwo+PiArwqDCoMKgwqDCoMKgwqAgcmV0dXJuOwo+PiArwqDCoMKg
+IH0KPj4gKwo+PiDCoMKgwqDCoMKgIGdtdS0+Y3VycmVudF9wZXJmX2luZGV4ID0gcGVyZl9pbmRl
+eDsKPj4gwqDCoMKgwqDCoCBnbXUtPmZyZXEgPSBnbXUtPmdwdV9mcmVxc1twZXJmX2luZGV4XTsK
+Pj4gwqAgQEAgLTg5MywxMCArODk5LDcgQEAgaW50IGE2eHhfZ211X3Jlc3VtZShzdHJ1Y3QgYTZ4
+eF9ncHUgKmE2eHhfZ3B1KQo+PiDCoMKgwqDCoMKgIGVuYWJsZV9pcnEoZ211LT5oZmlfaXJxKTsK
+Pj4gwqAgwqDCoMKgwqDCoCAvKiBTZXQgdGhlIEdQVSB0byB0aGUgY3VycmVudCBmcmVxICovCj4+
+IC3CoMKgwqAgaWYgKGdtdS0+bGVnYWN5KQo+PiAtwqDCoMKgwqDCoMKgwqAgYTZ4eF9nbXVfc2V0
+X2luaXRpYWxfZnJlcShncHUsIGdtdSk7Cj4+IC3CoMKgwqAgZWxzZQo+PiAtwqDCoMKgwqDCoMKg
+wqAgYTZ4eF9oZmlfc2V0X2ZyZXEoZ211LCBnbXUtPmN1cnJlbnRfcGVyZl9pbmRleCk7Cj4+ICvC
+oMKgwqAgYTZ4eF9nbXVfc2V0X2luaXRpYWxfZnJlcShncHUsIGdtdSk7Cj4+IMKgIMKgwqDCoMKg
+wqAgLyoKPj4gwqDCoMKgwqDCoMKgICogImVuYWJsZSIgdGhlIEdYIHBvd2VyIGRvbWFpbiB3aGlj
+aCB3b24ndCBhY3R1YWxseSBkbyAKPj4gYW55dGhpbmcgYnV0IGl0Cj4+Cj4gX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBkcmktZGV2ZWwgbWFpbGluZyBs
+aXN0Cj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJl
+ZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVubwo=
