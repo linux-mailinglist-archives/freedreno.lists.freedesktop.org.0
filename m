@@ -1,61 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73F3221C13C
-	for <lists+freedreno@lfdr.de>; Sat, 11 Jul 2020 02:50:26 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6512321C13D
+	for <lists+freedreno@lfdr.de>; Sat, 11 Jul 2020 02:50:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 253156ED99;
-	Sat, 11 Jul 2020 00:50:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F7136ED9E;
+	Sat, 11 Jul 2020 00:50:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
- [IPv6:2607:f8b0:4864:20::842])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A33C6ED94
- for <freedreno@lists.freedesktop.org>; Sat, 11 Jul 2020 00:50:23 +0000 (UTC)
-Received: by mail-qt1-x842.google.com with SMTP id k18so5895366qtm.10
- for <freedreno@lists.freedesktop.org>; Fri, 10 Jul 2020 17:50:23 -0700 (PDT)
+Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
+ [IPv6:2607:f8b0:4864:20::844])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 973916ED9D
+ for <freedreno@lists.freedesktop.org>; Sat, 11 Jul 2020 00:50:26 +0000 (UTC)
+Received: by mail-qt1-x844.google.com with SMTP id i3so5886697qtq.13
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Jul 2020 17:50:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=marek-ca.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=DZjkvReBVpxbpSNmHSMVv60YPHC0WHPyESfR7wPaf0g=;
- b=o704Ym7dIhKXAkyDL8wWtM4GXO7WB+4QK8fwOAGIviSDXDDm0/+HMQIQ/ljFUGi6vu
- FD8S6XgLIGOgfVANnGtaQnj6TrfXjfs4oghvM+iSUGO0Nq6YVKkL6unc5KpoPLDcKQWd
- IBvJ3aMtJlbvSqkCtRGAoy0CyeyNpKYEhn+hcHlXjVVVzETEcfVxw1Aw1Z2lthekKnv2
- R3EKsdFsM40+3TfLhz1x+n3RYAxPTl9g/Vh+Nqmku88ML+Mtd+XC8m5nFLRMBPknRrg/
- 8tO8eEu3b3vWHKHKn7hBzPSLpybOAf3I3JBZsxb5Nihub8DeCs8DAwcVQ6gecq1Ezkr2
- dcOw==
+ bh=izNhrC5VtfHpA1GUSqqdzz7c1CzfJZD2D6W22+yRsPM=;
+ b=ev+OQ//NinE/lLhKRD9Vpstt6Y2VpBnR4GB/vbiHa5AGsOsBP7uHZfHFp6gM9U0m0v
+ F+IhT5vzen3NPGAHNVW5vTKuZuNlSERWTPT4K9Mg50qSJKpfqKqD+x3IbTod98An+PPT
+ N3ie3LFgLwnhwl0iN3Wm3ravps6ZCzYcyM7LzGVODi2UJ+w48JTIPrt2+cvZmYyD6vxw
+ /zMzIvWkkXAkPH+6Fnad3s62r7DOZxcQ3ANlMMsT7I0cbul8AD5AlsF5nqvOSMr42kGQ
+ rWTsr6qAC1AVYUfdiEzFSI15pQITBEp1JneKGSID9cNQgh6KWwjV52CQ76ghs6QV1V6a
+ p0ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=DZjkvReBVpxbpSNmHSMVv60YPHC0WHPyESfR7wPaf0g=;
- b=OI5Q0nrxB2d6K8H4d9GW82d6fHzIdAW2Yej7Ajep8D2Ra5uXh61ZdxHtITCfJqCP/z
- SXepcrhuQ/vdQsasg7yFw4BTyM1+Arw3JTIG3ALO7GmcU6B2ewTBmLcdMmH0PSATi6tE
- w3nvG0KypV7NfaytN9Wv9GfIwhvHDzs5FCfZJrqRUYWoRPmAAu4vuAFS1dGipE26VgKR
- ztVMtivtwZQE8OLthju4Md3yNh4fdWziwPmn766Mr8CZr4FdK5MALR8tTbG6TbCwUe2a
- irKkbBJCePgIurmhz771rKkxQFEf1VF5iX97KOiomifXsu9gOVYRet61vL3V7u/Jftmg
- kvtw==
-X-Gm-Message-State: AOAM533hnBG2zHgxmSiiszA9UgUlzeV30KZ2SX+NRxpokE6/mMKGXDPM
- BieZW83+/lYy5oDvoUPYqf1lLWDh5kLYww==
-X-Google-Smtp-Source: ABdhPJyB7Ha2yTM+Stl8pYFfDl5fldqN1HEwj9OFsLXc478vVz/hiCOClq5YiBaMnQ0i3Sp/gZ75Xw==
-X-Received: by 2002:ac8:4e08:: with SMTP id c8mr74451649qtw.299.1594428622218; 
- Fri, 10 Jul 2020 17:50:22 -0700 (PDT)
+ bh=izNhrC5VtfHpA1GUSqqdzz7c1CzfJZD2D6W22+yRsPM=;
+ b=XF8E8S7FvNAgCg1bBqBDfgjNevERFQ5J4SAT3CfmYrcs9+/mdADgv8XbtgS8lQQPxB
+ pcS5jgqeRD9eGRiiMPd7WRi+CmZpArzJWFt7JXj7tvS8ThLnUjQ5d0bLz0CLHCIucFBO
+ yY8p6IgC4LrbXGiPB3dv1T2oimcmC3c4gV8F+VdkG6IETacOJEcVjlLUlpfsSmfQFpu2
+ RR0HbYXO9Vu8+2A9E4HyU1GbPz2h3KE4fZUrW9lpZvIWQ3EoOtnpaE9N8sfAWMhm2oRx
+ QGC/65sEhEEGbhZO8PFIXpZ/gY9e17VYpC7ljKv1JVpWkmCSbko0vBru6rCb4KaxGJ2m
+ bn5g==
+X-Gm-Message-State: AOAM533PQJKOyPR/7qGEw22J9Sb6+vIzv4jzw/uLHT1qCb9B2dLDQmy/
+ RD/FNW9TXw6HvK9pG/TPM6UEqw7Qr5EJ8Q==
+X-Google-Smtp-Source: ABdhPJwzt4YM6FzL/34OUtgtkT0iU9+6nv739b3N6HVYB0vwqgjsQD7Q8iNbOMqFuhxeTnVULGziew==
+X-Received: by 2002:ac8:47ce:: with SMTP id d14mr73559525qtr.285.1594428625422; 
+ Fri, 10 Jul 2020 17:50:25 -0700 (PDT)
 Received: from localhost.localdomain ([147.253.86.153])
- by smtp.gmail.com with ESMTPSA id g20sm10427510qtc.46.2020.07.10.17.50.21
+ by smtp.gmail.com with ESMTPSA id g20sm10427510qtc.46.2020.07.10.17.50.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2020 17:50:21 -0700 (PDT)
+ Fri, 10 Jul 2020 17:50:25 -0700 (PDT)
 From: Jonathan Marek <jonathan@marek.ca>
 To: freedreno@lists.freedesktop.org
-Date: Fri, 10 Jul 2020 20:47:29 -0400
-Message-Id: <20200711004752.30760-7-jonathan@marek.ca>
+Date: Fri, 10 Jul 2020 20:47:30 -0400
+Message-Id: <20200711004752.30760-8-jonathan@marek.ca>
 X-Mailer: git-send-email 2.26.1
 In-Reply-To: <20200711004752.30760-1-jonathan@marek.ca>
 References: <20200711004752.30760-1-jonathan@marek.ca>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v2 6/8] drm/msm/dpu: intf timing path for
- displayport
+Subject: [Freedreno] [PATCH v2 7/8] drm/msm/dpu: add SM8150 to hw catalog
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,55 +80,261 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Calculate the correct timings for displayport, from downstream driver.
+This brings up basic video mode functionality for SM8150 DPU. Command mode
+and dual mixer/intf configurations are not working, future patches will
+address this. Scaler functionality and multiple planes is also untested.
 
 Signed-off-by: Jonathan Marek <jonathan@marek.ca>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 148 ++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h   |   2 +
+ 2 files changed, 150 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-index 64f556d693dd..6f0f54588124 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-@@ -107,11 +107,6 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
- 	display_v_end = ((vsync_period - p->v_front_porch) * hsync_period) +
- 	p->hsync_skew - 1;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index 1d19c377b096..20f869bbd574 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -92,6 +92,23 @@ static const struct dpu_caps sc7180_dpu_caps = {
+ 	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
+ };
  
--	if (ctx->cap->type == INTF_EDP || ctx->cap->type == INTF_DP) {
--		display_v_start += p->hsync_pulse_width + p->h_back_porch;
--		display_v_end -= p->h_front_porch;
--	}
--
- 	hsync_start_x = p->h_back_porch + p->hsync_pulse_width;
- 	hsync_end_x = hsync_period - p->h_front_porch - 1;
++static const struct dpu_caps sm8150_dpu_caps = {
++	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
++	.max_mixer_blendstages = 0xb,
++	.max_linewidth = 4096,
++	.qseed_type = DPU_SSPP_SCALER_QSEED3,
++	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2, /* TODO: v2.5 */
++	.ubwc_version = DPU_HW_UBWC_VER_30,
++	.has_src_split = true,
++	.has_dim_layer = true,
++	.has_idle_pc = true,
++	.has_3d_merge = true,
++	.max_linewidth = 4096,
++	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
++	.max_hdeci_exp = MAX_HORZ_DECIMATION,
++	.max_vdeci_exp = MAX_VERT_DECIMATION,
++};
++
+ static const struct dpu_mdp_cfg sdm845_mdp[] = {
+ 	{
+ 	.name = "top_0", .id = MDP_TOP,
+@@ -183,6 +200,39 @@ static const struct dpu_ctl_cfg sc7180_ctl[] = {
+ 	},
+ };
  
-@@ -144,10 +139,25 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
- 	hsync_ctl = (hsync_period << 16) | p->hsync_pulse_width;
- 	display_hctl = (hsync_end_x << 16) | hsync_start_x;
++static const struct dpu_ctl_cfg sm8150_ctl[] = {
++	{
++	.name = "ctl_0", .id = CTL_0,
++	.base = 0x1000, .len = 0x1e0,
++	.features = BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_SPLIT_DISPLAY)
++	},
++	{
++	.name = "ctl_1", .id = CTL_1,
++	.base = 0x1200, .len = 0x1e0,
++	.features = BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_SPLIT_DISPLAY)
++	},
++	{
++	.name = "ctl_2", .id = CTL_2,
++	.base = 0x1400, .len = 0x1e0,
++	.features = BIT(DPU_CTL_ACTIVE_CFG)
++	},
++	{
++	.name = "ctl_3", .id = CTL_3,
++	.base = 0x1600, .len = 0x1e0,
++	.features = BIT(DPU_CTL_ACTIVE_CFG)
++	},
++	{
++	.name = "ctl_4", .id = CTL_4,
++	.base = 0x1800, .len = 0x1e0,
++	.features = BIT(DPU_CTL_ACTIVE_CFG)
++	},
++	{
++	.name = "ctl_5", .id = CTL_5,
++	.base = 0x1a00, .len = 0x1e0,
++	.features = BIT(DPU_CTL_ACTIVE_CFG)
++	},
++};
++
+ /*************************************************************
+  * SSPP sub blocks config
+  *************************************************************/
+@@ -338,6 +388,23 @@ static const struct dpu_lm_cfg sc7180_lm[] = {
+ 		&sc7180_lm_sblk, PINGPONG_1, LM_0, 0),
+ };
  
-+	if (ctx->cap->type == INTF_EDP || ctx->cap->type == INTF_DP) {
-+		active_h_start = hsync_start_x;
-+		active_h_end = active_h_start + p->xres - 1;
-+		active_v_start = display_v_start;
-+		active_v_end = active_v_start + (p->yres * hsync_period) - 1;
++/* SM8150 */
 +
-+		display_v_start += p->hsync_pulse_width + p->h_back_porch;
++static const struct dpu_lm_cfg sm8150_lm[] = {
++	LM_BLK("lm_0", LM_0, 0x44000, MIXER_SDM845_MASK,
++		&sdm845_lm_sblk, PINGPONG_0, LM_1, 0),
++	LM_BLK("lm_1", LM_1, 0x45000, MIXER_SDM845_MASK,
++		&sdm845_lm_sblk, PINGPONG_1, LM_0, 0),
++	LM_BLK("lm_2", LM_2, 0x46000, MIXER_SDM845_MASK,
++		&sdm845_lm_sblk, PINGPONG_2, LM_3, 0),
++	LM_BLK("lm_3", LM_3, 0x47000, MIXER_SDM845_MASK,
++		&sdm845_lm_sblk, PINGPONG_3, LM_2, 0),
++	LM_BLK("lm_4", LM_4, 0x48000, MIXER_SDM845_MASK,
++		&sdm845_lm_sblk, PINGPONG_4, LM_5, 0),
++	LM_BLK("lm_5", LM_5, 0x49000, MIXER_SDM845_MASK,
++		&sdm845_lm_sblk, PINGPONG_5, LM_4, 0),
++};
 +
-+		active_hctl = (active_h_end << 16) | active_h_start;
-+		display_hctl = active_hctl;
-+	}
+ /*************************************************************
+  * DSPP sub blocks config
+  *************************************************************/
+@@ -357,6 +424,7 @@ static const struct dpu_dspp_sub_blks sc7180_dspp_sblk = {
+ static const struct dpu_dspp_cfg sc7180_dspp[] = {
+ 	DSPP_BLK("dspp_0", DSPP_0, 0x54000),
+ };
 +
- 	den_polarity = 0;
- 	if (ctx->cap->type == INTF_HDMI) {
- 		hsync_polarity = p->yres >= 720 ? 0 : 1;
- 		vsync_polarity = p->yres >= 720 ? 0 : 1;
-+	} else if (ctx->cap->type == INTF_DP) {
-+		hsync_polarity = p->hsync_polarity;
-+		vsync_polarity = p->vsync_polarity;
- 	} else {
- 		hsync_polarity = 0;
- 		vsync_polarity = 0;
+ /*************************************************************
+  * PINGPONG sub blocks config
+  *************************************************************/
+@@ -399,6 +467,15 @@ static struct dpu_pingpong_cfg sc7180_pp[] = {
+ 	PP_BLK_TE("pingpong_1", PINGPONG_1, 0x70800),
+ };
+ 
++static const struct dpu_pingpong_cfg sm8150_pp[] = {
++	PP_BLK_TE("pingpong_0", PINGPONG_0, 0x70000),
++	PP_BLK_TE("pingpong_1", PINGPONG_1, 0x70800),
++	PP_BLK("pingpong_2", PINGPONG_2, 0x71000),
++	PP_BLK("pingpong_3", PINGPONG_3, 0x71800),
++	PP_BLK("pingpong_4", PINGPONG_4, 0x72000),
++	PP_BLK("pingpong_5", PINGPONG_5, 0x72800),
++};
++
+ /*************************************************************
+  * INTF sub blocks config
+  *************************************************************/
+@@ -424,6 +501,13 @@ static const struct dpu_intf_cfg sc7180_intf[] = {
+ 	INTF_BLK("intf_1", INTF_1, 0x6A800, INTF_DSI, 0, INTF_SC7180_MASK),
+ };
+ 
++static const struct dpu_intf_cfg sm8150_intf[] = {
++	INTF_BLK("intf_0", INTF_0, 0x6A000, INTF_DP, 0, INTF_SC7180_MASK),
++	INTF_BLK("intf_1", INTF_1, 0x6A800, INTF_DSI, 0, INTF_SC7180_MASK),
++	INTF_BLK("intf_2", INTF_2, 0x6B000, INTF_DSI, 1, INTF_SC7180_MASK),
++	INTF_BLK("intf_3", INTF_3, 0x6B800, INTF_DP, 1, INTF_SC7180_MASK),
++};
++
+ /*************************************************************
+  * VBIF sub blocks config
+  *************************************************************/
+@@ -454,6 +538,10 @@ static const struct dpu_reg_dma_cfg sdm845_regdma = {
+ 	.base = 0x0, .version = 0x1, .trigger_sel_off = 0x119c
+ };
+ 
++static const struct dpu_reg_dma_cfg sm8150_regdma = {
++	.base = 0x0, .version = 0x00010001, .trigger_sel_off = 0x119c
++};
++
+ /*************************************************************
+  * PERF data config
+  *************************************************************/
+@@ -478,6 +566,10 @@ static const struct dpu_qos_lut_entry sc7180_qos_linear[] = {
+ 	{.fl = 0, .lut = 0x0011222222335777},
+ };
+ 
++static const struct dpu_qos_lut_entry sm8150_qos_linear[] = {
++	{.fl = 0, .lut = 0x0011222222223357 },
++};
++
+ static const struct dpu_qos_lut_entry sdm845_qos_macrotile[] = {
+ 	{.fl = 10, .lut = 0x344556677},
+ 	{.fl = 11, .lut = 0x3344556677},
+@@ -562,6 +654,31 @@ static const struct dpu_perf_cfg sc7180_perf_data = {
+ 	},
+ };
+ 
++static const struct dpu_perf_cfg sm8150_perf_data = {
++	.max_bw_low = 12800000,
++	.max_bw_high = 12800000,
++	.min_core_ib = 2400000,
++	.min_llcc_ib = 800000,
++	.min_dram_ib = 800000,
++	.danger_lut_tbl = {0xf, 0xffff, 0x0},
++	.qos_lut_tbl = {
++		{.nentry = ARRAY_SIZE(sm8150_qos_linear),
++		.entries = sm8150_qos_linear
++		},
++		{.nentry = ARRAY_SIZE(sc7180_qos_macrotile),
++		.entries = sc7180_qos_macrotile
++		},
++		{.nentry = ARRAY_SIZE(sc7180_qos_nrt),
++		.entries = sc7180_qos_nrt
++		},
++		/* TODO: macrotile-qseed is different from macrotile */
++	},
++	.cdp_cfg = {
++		{.rd_enable = 1, .wr_enable = 1},
++		{.rd_enable = 1, .wr_enable = 0}
++	},
++};
++
+ /*************************************************************
+  * Hardware catalog init
+  *************************************************************/
+@@ -626,9 +743,40 @@ static void sc7180_cfg_init(struct dpu_mdss_cfg *dpu_cfg)
+ 	};
+ }
+ 
++/*
++ * sm8150_cfg_init(): populate sm8150 dpu sub-blocks reg offsets
++ * and instance counts.
++ */
++static void sm8150_cfg_init(struct dpu_mdss_cfg *dpu_cfg)
++{
++	*dpu_cfg = (struct dpu_mdss_cfg){
++		.caps = &sm8150_dpu_caps,
++		.mdp_count = ARRAY_SIZE(sdm845_mdp),
++		.mdp = sdm845_mdp,
++		.ctl_count = ARRAY_SIZE(sm8150_ctl),
++		.ctl = sm8150_ctl,
++		.sspp_count = ARRAY_SIZE(sdm845_sspp),
++		.sspp = sdm845_sspp,
++		.mixer_count = ARRAY_SIZE(sm8150_lm),
++		.mixer = sm8150_lm,
++		.pingpong_count = ARRAY_SIZE(sm8150_pp),
++		.pingpong = sm8150_pp,
++		.intf_count = ARRAY_SIZE(sm8150_intf),
++		.intf = sm8150_intf,
++		.vbif_count = ARRAY_SIZE(sdm845_vbif),
++		.vbif = sdm845_vbif,
++		.reg_dma_count = 1,
++		.dma_cfg = sm8150_regdma,
++		.perf = sm8150_perf_data,
++		.mdss_irqs = 0x3ff,
++	};
++}
++
+ static const struct dpu_mdss_hw_cfg_handler cfg_handler[] = {
+ 	{ .hw_rev = DPU_HW_VER_400, .cfg_init = sdm845_cfg_init},
+ 	{ .hw_rev = DPU_HW_VER_401, .cfg_init = sdm845_cfg_init},
++	{ .hw_rev = DPU_HW_VER_500, .cfg_init = sm8150_cfg_init},
++	{ .hw_rev = DPU_HW_VER_501, .cfg_init = sm8150_cfg_init},
+ 	{ .hw_rev = DPU_HW_VER_620, .cfg_init = sc7180_cfg_init},
+ };
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+index 402dc5832361..979fd2c60aa0 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+@@ -171,6 +171,7 @@ enum dpu_ctl {
+ 	CTL_2,
+ 	CTL_3,
+ 	CTL_4,
++	CTL_5,
+ 	CTL_MAX
+ };
+ 
+@@ -180,6 +181,7 @@ enum dpu_pingpong {
+ 	PINGPONG_2,
+ 	PINGPONG_3,
+ 	PINGPONG_4,
++	PINGPONG_5,
+ 	PINGPONG_S0,
+ 	PINGPONG_MAX
+ };
 -- 
 2.26.1
 
