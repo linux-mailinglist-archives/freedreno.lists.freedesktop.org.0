@@ -1,58 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E16A821E23C
-	for <lists+freedreno@lfdr.de>; Mon, 13 Jul 2020 23:32:30 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E70221E340
+	for <lists+freedreno@lfdr.de>; Tue, 14 Jul 2020 00:55:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 896E76E105;
-	Mon, 13 Jul 2020 21:32:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0F116E82A;
+	Mon, 13 Jul 2020 22:55:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
- [IPv6:2a00:1450:4864:20::643])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F84B6E105;
- Mon, 13 Jul 2020 21:32:28 +0000 (UTC)
-Received: by mail-ej1-x643.google.com with SMTP id lx13so19103113ejb.4;
- Mon, 13 Jul 2020 14:32:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=9xk5002gZ5H7JGOgsHs7h731etRLB6WtyENiHxGGu7I=;
- b=bLpTnFR30/+CWwAe8tAwcO+WU+hkSYANQdbkuElT0SAIi6ujeM1TQRDW+tCw7AICBj
- 5kCIWw6YVvqgCI3mI7R3rV4p4D/H1krl4pX5fIqkagHlyiEFyV329SLTFtsSHwii5Pvs
- NeEcqyvNhCmv006c7RAJd1CQDhlH02TJpBBVtkzWG3QMAyS8lhgPxRzgN6IKJvk8TKPT
- iOYrzrUHpGNz96WU9SoDtgqNIGpwQAbG5CIzoGQbtjCl4cby+ZNa9qJtkEVVg7PL+93M
- vusMQSDo7Z272nWxnOj7FItu1oUHIplSVGK/K9ov0C0pGx+tmdVKK6E4IM28vEMhl+Ku
- EEsw==
+Received: from mail-qv1-xf43.google.com (mail-qv1-xf43.google.com
+ [IPv6:2607:f8b0:4864:20::f43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79FD56E82A
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Jul 2020 22:55:13 +0000 (UTC)
+Received: by mail-qv1-xf43.google.com with SMTP id m9so6616743qvx.5
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Jul 2020 15:55:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=marek-ca.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=UB04SDsGtdgD9O0BAxZlC5pe+7E+tV+tVdZ5syl+8GE=;
+ b=phQ3z4XM879Mg4TOckIPk5Dk89byIXjH5l1Ueod4hxvsspSvQrbYmrKa7jp6giCzjC
+ aG0WR8fPrx31wi2pKkzaMt+biVC5PTTZ/BNVEZS86DXTtH1kfAIhUOr/DWnYf1BCxIm+
+ XpOeTsFUeut8tBwi4ZyJLjOZi67wtb5RC8Kx41AENk5ZtijKl1JZQOCiOV7bdURhCSTw
+ V8NVyPwGqRSChiWgc7qbgDEgMWZTq0oRPnViI9jeuNaLhxTOR0kpbFalWfjZfsLgvDb8
+ mC2I2McVH3RcGEM6p+MvTn8iy4xl61VJhjF+5+h7wKlRystzel3ka5+gm+2exuDs93z1
+ EJAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=9xk5002gZ5H7JGOgsHs7h731etRLB6WtyENiHxGGu7I=;
- b=CBQVDz2NU59d/P70WdIXTdfwX1Wla2XCuAfTlfnLNMaIKGUVuIPnug7tOaj3O8lwf5
- A8w2rKXzmXn+sQUBius9gm93pnkLqQHOw3FcmTdITlKjZmZOfP3mSPOvM7DTIbo2tkAM
- 8c1vWjkQVS3E449hcfwLLuYCLr7r1ZAExcXN3MxZo59GnvJSI/sOFWKEpMm5bAKVWit4
- x3Rrn6f87zZ9IPtrx3dOAZYd4Jse8HHjrUpSoCzHbJIV3TFKCyTvWGpjW1o1wBwL3Djd
- otUG811K+kqKITMou7Y/otvgtQTj1Ykd1mn8nR2IgyMxNGcehSKMiZqoRxB8g2WdXAoG
- UHyg==
-X-Gm-Message-State: AOAM533D8qRxpROi2Zllht4SlLMuOkF6o1ZCsDDq/15RUgOGyUlY5kv1
- 1yhoNhVvg1m6WyIOYopGMe5G/Xmvf7zoShRGNdI=
-X-Google-Smtp-Source: ABdhPJwMoWogKyu+hB7N/OXDUjzYJXatIjRK36LwG1lOC44kvht0iMkOGCJlZyw4lHZLCW+pL24HAecjyLLmYhlZNWg=
-X-Received: by 2002:a17:906:ca4c:: with SMTP id
- jx12mr1508481ejb.231.1594675946837; 
- Mon, 13 Jul 2020 14:32:26 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=UB04SDsGtdgD9O0BAxZlC5pe+7E+tV+tVdZ5syl+8GE=;
+ b=kBIAWS4hCcRg2b4d55eZL0Z4o/kfVpAjG+rqWcj/BtUsx6yXXuzQKTQaJBwIIQnwUm
+ cceXfouBdsu0ZgNrN7rAcgZ23dxm+iQwYJqo+eKu+ZOtYdTfg3FBb+f41NQxSgpAUQgV
+ 5Q1V8b1E1t9/RQfXqhG0JjSxY4U9ORYEJpfCuEJd0V3jCnd2foCgzR2p+x1x2c8os2OF
+ WtO8YEYzfhTdXHpSgEdaPCkZIHk6zFNMfMJW/M1Za5J7p9dVSRIg7Fap5Six5smG1EVu
+ M1mmIc4T48CZHGBnQp1ZTUdLT+HFZfEAnxmMJ8r4D0+OpEEo5C9lNsoMaytHsZXwEGPZ
+ KuSw==
+X-Gm-Message-State: AOAM530vlJM/9MEw4GWC+YvkPeQKUhL+44Y1hXxAzIDpRETSWzd689IW
+ S2t6HPcdSjYKFASYxTNks7vu1W3LWiU5ng==
+X-Google-Smtp-Source: ABdhPJzT4kWTe7OAToMzZZAU4W5K1Fgae2SY+FVbLq8HcjZ7nDEsaM7430chMTRWXiz9iMYU6zS6fg==
+X-Received: by 2002:ad4:48cf:: with SMTP id v15mr1725778qvx.101.1594680912255; 
+ Mon, 13 Jul 2020 15:55:12 -0700 (PDT)
+Received: from localhost.localdomain ([147.253.86.153])
+ by smtp.gmail.com with ESMTPSA id f54sm22405752qte.76.2020.07.13.15.55.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 Jul 2020 15:55:11 -0700 (PDT)
+From: Jonathan Marek <jonathan@marek.ca>
+To: freedreno@lists.freedesktop.org
+Date: Mon, 13 Jul 2020 18:53:39 -0400
+Message-Id: <20200713225345.20556-1-jonathan@marek.ca>
+X-Mailer: git-send-email 2.26.1
 MIME-Version: 1.0
-References: <20200710230224.2265647-1-dianders@chromium.org>
- <CAL_JsqKC5WtHb-coMCxMTDJ7CJcjVXcAxDT4J9N-Xyr=0uuURA@mail.gmail.com>
- <CAD=FV=XWKoTd_t2uRGpw3oa0Nij2EPeAJpOHhUipXFW07JN2qw@mail.gmail.com>
- <CAL_JsqLJM5nwNSdugMBLDVtjP97dikCm_AiHjnDs1jqBOFoaaQ@mail.gmail.com>
-In-Reply-To: <CAL_JsqLJM5nwNSdugMBLDVtjP97dikCm_AiHjnDs1jqBOFoaaQ@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 13 Jul 2020 14:32:59 -0700
-Message-ID: <CAF6AEGufuFW3ba3u3A+mY+Gw0ouH2x9xY-9A+OtVff+iXdix9A@mail.gmail.com>
-To: Rob Herring <robh+dt@kernel.org>
-Subject: Re: [Freedreno] [PATCH 0/9] drm/msm: Avoid possible infinite probe
- deferral and speed booting
+Subject: [Freedreno] [PATCH v4 0/3] drm/msm: handle for EPROBE_DEFER for
+ of_icc_get
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,84 +66,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Doug Anderson <dianders@chromium.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Andy Gross <agross@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: Sean Paul <sean@poorly.run>, Rob Clark <robdclark@gmail.com>,
+ David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Takashi Iwai <tiwai@suse.de>,
+ Jordan Crouse <jcrouse@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Fabio Estevam <festevam@gmail.com>, Brian Masney <masneyb@onstation.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jul 13, 2020 at 1:25 PM Rob Herring <robh+dt@kernel.org> wrote:
->
-> On Mon, Jul 13, 2020 at 9:08 AM Doug Anderson <dianders@chromium.org> wrote:
-> >
-> > Hi,
-> >
-> > On Mon, Jul 13, 2020 at 7:11 AM Rob Herring <robh+dt@kernel.org> wrote:
-> > >
-> > > On Fri, Jul 10, 2020 at 5:02 PM Douglas Anderson <dianders@chromium.org> wrote:
-> > > >
-> > > > I found that if I ever had a little mistake in my kernel config,
-> > > > or device tree, or graphics driver that my system would sit in a loop
-> > > > at bootup trying again and again and again.  An example log was:
-> > >
-> > > Why do we care about optimizing the error case?
-> >
-> > It actually results in a _fully_ infinite loop.  That is: if anything
-> > small causes a component of DRM to fail to probe then the whole system
-> > doesn't boot because it just loops trying to probe over and over
-> > again.  The messages I put in the commit message are printed over and
-> > over and over again.
->
-> Sounds like a bug as that's not what should happen.
->
-> If you defer during boot (initcalls), then you'll be on the deferred
-> list until late_initcall and everything is retried. After
-> late_initcall, only devices getting added should trigger probing. But
-> maybe the adding and then removing a device is causing a re-trigger.
->
-> > > >   msm ae00000.mdss: bound ae01000.mdp (ops 0xffffffe596e951f8)
-> > > >   msm_dsi ae94000.dsi: ae94000.dsi supply gdsc not found, using dummy regulator
-> > > >   msm_dsi_manager_register: failed to register mipi dsi host for DSI 0
-> > > >   [drm:ti_sn_bridge_probe] *ERROR* could not find any panel node
-> > > >   ...
-> > > >
-> > > > I finally tracked it down where this was happening:
-> > > >   - msm_pdev_probe() is called.
-> > > >   - msm_pdev_probe() registers drivers.  Registering drivers kicks
-> > > >     off processing of probe deferrals.
-> > > >   - component_master_add_with_match() could return -EPROBE_DEFER.
-> > > >     making msm_pdev_probe() return -EPROBE_DEFER.
-> > > >   - When msm_pdev_probe() returned the processing of probe deferrals
-> > > >     happens.
-> > > >   - Loop back to the start.
-> > > >
-> > > > It looks like we can fix this by marking "mdss" as a "simple-bus".
-> > > > I have no idea if people consider this the right thing to do or a
-> > > > hack.  Hopefully it's the right thing to do.  :-)
-> > >
-> > > It's a simple test. Do the child devices have any dependency on the
-> > > parent to probe and/or function? If so, not a simple-bus.
-> >
-> > Great!  You can see in the earlier patch in the series that the very
-> > first thing that happens when the parent device probes is that it
-> > calls devm_of_platform_populate().  That means no dependencies, right?
->
-> It should. But then I reviewed the MDSS binding today and it looks
-> like the MDSS is the interrupt parent for at least some child devices?
->
+Check for errors instead of silently not using icc if the msm driver
+probes before the interconnect driver.
 
-yes, that is correct
+Allow ENODATA for ocmem path, as it is optional and this error
+is returned when "gfx-mem" path is provided but not "ocmem".
 
-BR,
--R
+Because msm_gpu_cleanup assumes msm_gpu_init has been called, the icc path
+init needs to be after msm_gpu_init for the error path to work.
+
+v2: changed to not only check for EPROBE_DEFER
+v3: move icc path init after msm_gpu_init to avoid deleting a WARN_ON
+v4: added two patches to fix issues with probe deferring later in v3
+
+Jonathan Marek (3):
+  drm/msm: fix unbalanced pm_runtime_enable in adreno_gpu_{init,cleanup}
+  drm/msm: reset devfreq freq_table/max_state before devfreq_add_device
+  drm/msm: handle for EPROBE_DEFER for of_icc_get
+
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 68 +++++++++++++++----------
+ drivers/gpu/drm/msm/msm_gpu.c           |  4 ++
+ 2 files changed, 45 insertions(+), 27 deletions(-)
+
+-- 
+2.26.1
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
