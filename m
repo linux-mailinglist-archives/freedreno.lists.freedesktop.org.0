@@ -2,63 +2,40 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63B7321D9C7
-	for <lists+freedreno@lfdr.de>; Mon, 13 Jul 2020 17:08:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 064DE21D9CC
+	for <lists+freedreno@lfdr.de>; Mon, 13 Jul 2020 17:09:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 576666E258;
-	Mon, 13 Jul 2020 15:08:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A11396E258;
+	Mon, 13 Jul 2020 15:09:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-vk1-xa43.google.com (mail-vk1-xa43.google.com
- [IPv6:2607:f8b0:4864:20::a43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 190906E258
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jul 2020 15:08:40 +0000 (UTC)
-Received: by mail-vk1-xa43.google.com with SMTP id c11so2862443vkn.11
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jul 2020 08:08:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=jL0qg9txtW+UzBOFpRiVbZ1cvNjK+k+Z2zD2+dWd5xU=;
- b=Rrznap+7c3ejPjjRxwh934nQUUwJZgqI+M3shHiuekSOP8O2XMiQptg6HCTZ3/GqCq
- PtvZbvQ+9M7G4UEaYbk2Zkurr6mOU2qKAsB6gunmVxW0xlHUEsKN65rqdz5KBVIGQVuf
- s4ezGY5pV1pLxDDQrvlXGCCUyp85khIBh+8xk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=jL0qg9txtW+UzBOFpRiVbZ1cvNjK+k+Z2zD2+dWd5xU=;
- b=Bbs556qfXO3ATNHMEbkflfL9T8gJSVA2A2vvPteK+FotF2GGJEURFg8c20Mk0xF0KT
- 7vJQcMuRgQ1PeIVICK5qA5rcPmI6FM6mLz3DKgyjBseGfB5l3X9EmhIlcad/K8Y1s4Xg
- h+x7KIQKJ8RBKx4DGaACuAtKr2v1hUtq9eHtXKgVKtTLmx3OryVpyWdQdOkGbMZIQJsE
- tQaIPPq7RmCLSyDEV8KaV8irATyV8ar46fmDOTRxQxlBMbsi6LbFpV2ZjYDVqKq8cj+5
- nI/hzGrpCE48i89yXKgf0OBNPEraxjf0hVkGWpaE6VYnppITcyDQEuPq4Sh8szhSw0bI
- iKGA==
-X-Gm-Message-State: AOAM5305Yu6HXfzvjmHX56ETS0EmtnRDiDLAYhLzQTEEyAZOnM+8ly/P
- 2TznZV7ZZWULPVLc9a1VUMrJHMyeC+g=
-X-Google-Smtp-Source: ABdhPJy/fLoK9HlDqFeHS9kYUpomBbJ+89Favu+/4ic0TrinJUIQgXkKApIm/8D+JJmHvqT1v2d0Ug==
-X-Received: by 2002:a1f:2f8a:: with SMTP id v132mr215084vkv.13.1594652911762; 
- Mon, 13 Jul 2020 08:08:31 -0700 (PDT)
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com.
- [209.85.217.45])
- by smtp.gmail.com with ESMTPSA id e5sm1848164vsq.15.2020.07.13.08.08.31
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Jul 2020 08:08:31 -0700 (PDT)
-Received: by mail-vs1-f45.google.com with SMTP id x13so6749786vsx.13
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jul 2020 08:08:31 -0700 (PDT)
-X-Received: by 2002:a05:6102:20a:: with SMTP id
- z10mr50329603vsp.213.1594652906281; 
- Mon, 13 Jul 2020 08:08:26 -0700 (PDT)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6548A6E258
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Jul 2020 15:09:08 +0000 (UTC)
+Received: from willie-the-truck (236.31.169.217.in-addr.arpa [217.169.31.236])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id C8A14205CB;
+ Mon, 13 Jul 2020 15:09:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1594652947;
+ bh=vngHFPy6JLQna7o2+Dx1IPDqHMOEQth8MnxQOxW04yA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=E040T9qhClnKRLJxdVpFYW9R6VpwPxG9f7y42Fa2tHvqsGskw4NuW6j0cd3ObUudq
+ C88NkzK3mA+1rIsiiflU4VV5PwpEa7I2V/YQEyD1t8Tu42WQKdA1ZFog36C6ESpbNV
+ 57ZOU5atVZ7mjGB1ufC8p0H5F1tiOPa8sFPjAVqs=
+Date: Mon, 13 Jul 2020 16:09:02 +0100
+From: Will Deacon <will@kernel.org>
+To: Jordan Crouse <jcrouse@codeaurora.org>
+Message-ID: <20200713150901.GA3072@willie-the-truck>
+References: <20200626200042.13713-1-jcrouse@codeaurora.org>
+ <20200626200042.13713-5-jcrouse@codeaurora.org>
 MIME-Version: 1.0
-References: <20200710230224.2265647-1-dianders@chromium.org>
- <CAL_JsqKC5WtHb-coMCxMTDJ7CJcjVXcAxDT4J9N-Xyr=0uuURA@mail.gmail.com>
-In-Reply-To: <CAL_JsqKC5WtHb-coMCxMTDJ7CJcjVXcAxDT4J9N-Xyr=0uuURA@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Mon, 13 Jul 2020 08:08:14 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=XWKoTd_t2uRGpw3oa0Nij2EPeAJpOHhUipXFW07JN2qw@mail.gmail.com>
-Message-ID: <CAD=FV=XWKoTd_t2uRGpw3oa0Nij2EPeAJpOHhUipXFW07JN2qw@mail.gmail.com>
-To: Rob Herring <robh+dt@kernel.org>
-Subject: Re: [Freedreno] [PATCH 0/9] drm/msm: Avoid possible infinite probe
- deferral and speed booting
+Content-Disposition: inline
+In-Reply-To: <20200626200042.13713-5-jcrouse@codeaurora.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Freedreno] [PATCH v9 4/7] iommu/arm-smmu: Add a pointer to the
+ attached device to smmu_domain
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,103 +48,77 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Andy Gross <agross@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ linux-arm-msm@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
+ Robin Murphy <robin.murphy@arm.com>, linux-kernel@vger.kernel.org,
+ iommu@lists.linux-foundation.org, John Stultz <john.stultz@linaro.org>,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+On Fri, Jun 26, 2020 at 02:00:38PM -0600, Jordan Crouse wrote:
+> Add a link to the pointer to the struct device that is attached to a
+> domain. This makes it easy to get the pointer if it is needed in the
+> implementation specific code.
+> 
+> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
+> ---
+> 
+>  drivers/iommu/arm-smmu.c | 6 ++++--
+>  drivers/iommu/arm-smmu.h | 1 +
+>  2 files changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/iommu/arm-smmu.c b/drivers/iommu/arm-smmu.c
+> index 048de2681670..060139452c54 100644
+> --- a/drivers/iommu/arm-smmu.c
+> +++ b/drivers/iommu/arm-smmu.c
+> @@ -668,7 +668,8 @@ static void arm_smmu_write_context_bank(struct arm_smmu_device *smmu, int idx)
+>  }
+>  
+>  static int arm_smmu_init_domain_context(struct iommu_domain *domain,
+> -					struct arm_smmu_device *smmu)
+> +					struct arm_smmu_device *smmu,
+> +					struct device *dev)
+>  {
+>  	int irq, start, ret = 0;
+>  	unsigned long ias, oas;
+> @@ -801,6 +802,7 @@ static int arm_smmu_init_domain_context(struct iommu_domain *domain,
+>  		cfg->asid = cfg->cbndx;
+>  
+>  	smmu_domain->smmu = smmu;
+> +	smmu_domain->dev = dev;
+>  
+>  	pgtbl_cfg = (struct io_pgtable_cfg) {
+>  		.pgsize_bitmap	= smmu->pgsize_bitmap,
+> @@ -1190,7 +1192,7 @@ static int arm_smmu_attach_dev(struct iommu_domain *domain, struct device *dev)
+>  		return ret;
+>  
+>  	/* Ensure that the domain is finalised */
+> -	ret = arm_smmu_init_domain_context(domain, smmu);
+> +	ret = arm_smmu_init_domain_context(domain, smmu, dev);
+>  	if (ret < 0)
+>  		goto rpm_put;
+>  
+> diff --git a/drivers/iommu/arm-smmu.h b/drivers/iommu/arm-smmu.h
+> index 5f2de20e883b..d33cfe26b2f5 100644
+> --- a/drivers/iommu/arm-smmu.h
+> +++ b/drivers/iommu/arm-smmu.h
+> @@ -345,6 +345,7 @@ struct arm_smmu_domain {
+>  	struct mutex			init_mutex; /* Protects smmu pointer */
+>  	spinlock_t			cb_lock; /* Serialises ATS1* ops and TLB syncs */
+>  	struct iommu_domain		domain;
+> +	struct device			*dev;	/* Device attached to this domain */
 
-On Mon, Jul 13, 2020 at 7:11 AM Rob Herring <robh+dt@kernel.org> wrote:
->
-> On Fri, Jul 10, 2020 at 5:02 PM Douglas Anderson <dianders@chromium.org> wrote:
-> >
-> > I found that if I ever had a little mistake in my kernel config,
-> > or device tree, or graphics driver that my system would sit in a loop
-> > at bootup trying again and again and again.  An example log was:
->
-> Why do we care about optimizing the error case?
+This really doesn't feel right to me -- you can generally have multiple
+devices attached to a domain and they can come and go without the domain
+being destroyed. Perhaps you could instead identify the GPU during
+cfg_probe() and squirrel that information away somewhere?
 
-It actually results in a _fully_ infinite loop.  That is: if anything
-small causes a component of DRM to fail to probe then the whole system
-doesn't boot because it just loops trying to probe over and over
-again.  The messages I put in the commit message are printed over and
-over and over again.
+The rest of the series looks ok to me.
 
-
-> >   msm ae00000.mdss: bound ae01000.mdp (ops 0xffffffe596e951f8)
-> >   msm_dsi ae94000.dsi: ae94000.dsi supply gdsc not found, using dummy regulator
-> >   msm_dsi_manager_register: failed to register mipi dsi host for DSI 0
-> >   [drm:ti_sn_bridge_probe] *ERROR* could not find any panel node
-> >   ...
-> >
-> > I finally tracked it down where this was happening:
-> >   - msm_pdev_probe() is called.
-> >   - msm_pdev_probe() registers drivers.  Registering drivers kicks
-> >     off processing of probe deferrals.
-> >   - component_master_add_with_match() could return -EPROBE_DEFER.
-> >     making msm_pdev_probe() return -EPROBE_DEFER.
-> >   - When msm_pdev_probe() returned the processing of probe deferrals
-> >     happens.
-> >   - Loop back to the start.
-> >
-> > It looks like we can fix this by marking "mdss" as a "simple-bus".
-> > I have no idea if people consider this the right thing to do or a
-> > hack.  Hopefully it's the right thing to do.  :-)
->
-> It's a simple test. Do the child devices have any dependency on the
-> parent to probe and/or function? If so, not a simple-bus.
-
-Great!  You can see in the earlier patch in the series that the very
-first thing that happens when the parent device probes is that it
-calls devm_of_platform_populate().  That means no dependencies, right?
- So that means it's fine/correct to add "simple-bus" here?
-
-
-> > Once I do this I notice that my boot gets marginally faster (you
-> > don't need to probe the sub devices over and over) and also if I
->
-> Can you quantify that?
-
-I'd say < 100 us.  I can try to quantify more if needed, but it wasn't
-the point of this patch.
-
-
-> Have you run with devlinks enabled. You need a command line option to
-> enable. That too should reduce deferred probes.
-
-Ah, good idea!  I will try it.  However, even with devlinks, if there
-is any chance of deferred probes then we need a fix like this.  The
-point of the patch isn't about speeding things up but about avoiding
-an infinite loop at bootup due to a small bug.
-
-
-> > have a problem it doesn't loop forever (on my system it still
-> > gets upset about some stuck clocks in that case, but at least I
-> > can boot up).
->
-> Deferred probe only runs when a device is added, so it's not like it
-> is continually running.
-
-If you don't mind looking at the code patch, see:
-
-https://lore.kernel.org/r/20200710160131.4.I358ea82de218ea5f4406572ade23f5e121297555@changeid/
-
-Specifically you can see that each time we try to probe we were
-calling of_platform_populate().  That appeared to be enough to trigger
-things.
-
-
--Doug
+Will
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
