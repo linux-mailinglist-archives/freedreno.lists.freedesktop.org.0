@@ -2,59 +2,46 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 994B121D62F
-	for <lists+freedreno@lfdr.de>; Mon, 13 Jul 2020 14:42:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E6DF21D7EE
+	for <lists+freedreno@lfdr.de>; Mon, 13 Jul 2020 16:11:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C4B56E34E;
-	Mon, 13 Jul 2020 12:42:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D472E6E526;
+	Mon, 13 Jul 2020 14:11:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
- [104.130.122.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FA776E4C9
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jul 2020 12:42:26 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1594644146; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=YLjZebXB525vE+wY7ILTYsnkukVESCi+HQU325VZ01E=;
- b=mWBwTCezJscj3uxTsJ2s8JCGh3oxemxTiryetTNhcUgtjIh6L5S+RpQbZssxNyUrNlZV6KsT
- ytQOEkOQqv1QwgCh+wyQvqbBDQrPuJAus/uJLubrvW5GCmXJE6k/G9y/jUBhA5mgNFExqUt/
- sdaNIXzLN9Tw0jx8aCHOS3NLwQs=
-X-Mailgun-Sending-Ip: 104.130.122.29
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
- 5f0c56b1ee86618575b6e6a4 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 13 Jul 2020 12:42:25
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 701D6C433AD; Mon, 13 Jul 2020 12:42:24 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from akhilpo-linux.qualcomm.com (unknown [202.46.22.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: akhilpo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id A4B22C433B2;
- Mon, 13 Jul 2020 12:42:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org A4B22C433B2
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=akhilpo@codeaurora.org
-From: Akhil P Oommen <akhilpo@codeaurora.org>
-To: freedreno@lists.freedesktop.org
-Date: Mon, 13 Jul 2020 18:11:46 +0530
-Message-Id: <1594644106-22449-7-git-send-email-akhilpo@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1594644106-22449-1-git-send-email-akhilpo@codeaurora.org>
-References: <1594644106-22449-1-git-send-email-akhilpo@codeaurora.org>
-Subject: [Freedreno] [PATCH v5 6/6] arm64: dts: qcom: sc7180: Add
- opp-peak-kBps to GPU opp
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5E7F6E503;
+ Mon, 13 Jul 2020 14:11:19 +0000 (UTC)
+Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com
+ [209.85.161.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 8547620771;
+ Mon, 13 Jul 2020 14:11:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1594649479;
+ bh=T7QvK7R+StJM4r1IQ7c0n9HcB+fbfozHwcxG3TVZxo4=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=X7FqkZipmIBmyCZGB2I50FJei86C7jKNyhfscfKTgxvANpKpPjPQ+2Oe2TEv+EiB7
+ affUXOkPREJoFFD6k8g7b7Z4mpB0bFJ/1T92vUM55PbW8XX5Tt0XNsw4Sk0jdKO3ZR
+ L3jlsUUKQorGXQalVIGSFuIaVfRfeIfGk032djzI=
+Received: by mail-oo1-f54.google.com with SMTP id s190so2357815ooa.13;
+ Mon, 13 Jul 2020 07:11:19 -0700 (PDT)
+X-Gm-Message-State: AOAM5318Q39X16kqB9hjneQcer28T6FQrgGhiC0fY5MWB1Ba3iWG4pC6
+ ttw+HxCAqEOAyo1tAl0EJBVXFk7zLV51IBTpBw==
+X-Google-Smtp-Source: ABdhPJzP1wWznjdcOYYxW7COHis2JavRSCgLMLU2wKLa+wmcB7a1M0yROJgH50RXyQmrjZLEyjG4GfeETI7dveqtQXI=
+X-Received: by 2002:a4a:7459:: with SMTP id t25mr64494ooe.25.1594649478792;
+ Mon, 13 Jul 2020 07:11:18 -0700 (PDT)
+MIME-Version: 1.0
+References: <20200710230224.2265647-1-dianders@chromium.org>
+In-Reply-To: <20200710230224.2265647-1-dianders@chromium.org>
+From: Rob Herring <robh+dt@kernel.org>
+Date: Mon, 13 Jul 2020 08:11:07 -0600
+X-Gmail-Original-Message-ID: <CAL_JsqKC5WtHb-coMCxMTDJ7CJcjVXcAxDT4J9N-Xyr=0uuURA@mail.gmail.com>
+Message-ID: <CAL_JsqKC5WtHb-coMCxMTDJ7CJcjVXcAxDT4J9N-Xyr=0uuURA@mail.gmail.com>
+To: Douglas Anderson <dianders@chromium.org>
+Subject: Re: [Freedreno] [PATCH 0/9] drm/msm: Avoid possible infinite probe
+ deferral and speed booting
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,81 +54,65 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, jonathan@marek.ca, saravanak@google.com,
- linux-arm-msm@vger.kernel.org, smasetty@codeaurora.org,
- linux-kernel@vger.kernel.org, jcrouse@codeaurora.org, mka@chromium.org,
- robdclark@gmail.com, dri-devel@freedesktop.org, viresh.kumar@linaro.org,
- sibis@codeaurora.org
-MIME-Version: 1.0
+Cc: freedreno <freedreno@lists.freedesktop.org>, devicetree@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Sharat Masetty <smasetty@codeaurora.org>
+On Fri, Jul 10, 2020 at 5:02 PM Douglas Anderson <dianders@chromium.org> wrote:
+>
+> I found that if I ever had a little mistake in my kernel config,
+> or device tree, or graphics driver that my system would sit in a loop
+> at bootup trying again and again and again.  An example log was:
 
-Add opp-peak-kBps bindings to the GPU opp table, listing the peak
-GPU -> DDR bandwidth requirement for each opp level. This will be
-used to scale the DDR bandwidth along with the GPU frequency dynamically.
+Why do we care about optimizing the error case?
 
-Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
-Reviewed-by: Matthias Kaehlcke <mka@chromium.org>
-Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
----
- arch/arm64/boot/dts/qcom/sc7180.dtsi | 7 +++++++
- 1 file changed, 7 insertions(+)
+>   msm ae00000.mdss: bound ae01000.mdp (ops 0xffffffe596e951f8)
+>   msm_dsi ae94000.dsi: ae94000.dsi supply gdsc not found, using dummy regulator
+>   msm_dsi_manager_register: failed to register mipi dsi host for DSI 0
+>   [drm:ti_sn_bridge_probe] *ERROR* could not find any panel node
+>   ...
+>
+> I finally tracked it down where this was happening:
+>   - msm_pdev_probe() is called.
+>   - msm_pdev_probe() registers drivers.  Registering drivers kicks
+>     off processing of probe deferrals.
+>   - component_master_add_with_match() could return -EPROBE_DEFER.
+>     making msm_pdev_probe() return -EPROBE_DEFER.
+>   - When msm_pdev_probe() returned the processing of probe deferrals
+>     happens.
+>   - Loop back to the start.
+>
+> It looks like we can fix this by marking "mdss" as a "simple-bus".
+> I have no idea if people consider this the right thing to do or a
+> hack.  Hopefully it's the right thing to do.  :-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-index a567297..8567e9e 100644
---- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-@@ -1478,36 +1478,43 @@
- 				opp-800000000 {
- 					opp-hz = /bits/ 64 <800000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
-+					opp-peak-kBps = <8532000>;
- 				};
- 
- 				opp-650000000 {
- 					opp-hz = /bits/ 64 <650000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
-+					opp-peak-kBps = <7216000>;
- 				};
- 
- 				opp-565000000 {
- 					opp-hz = /bits/ 64 <565000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
-+					opp-peak-kBps = <5412000>;
- 				};
- 
- 				opp-430000000 {
- 					opp-hz = /bits/ 64 <430000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-+					opp-peak-kBps = <5412000>;
- 				};
- 
- 				opp-355000000 {
- 					opp-hz = /bits/ 64 <355000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
-+					opp-peak-kBps = <3072000>;
- 				};
- 
- 				opp-267000000 {
- 					opp-hz = /bits/ 64 <267000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-+					opp-peak-kBps = <3072000>;
- 				};
- 
- 				opp-180000000 {
- 					opp-hz = /bits/ 64 <180000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
-+					opp-peak-kBps = <1804000>;
- 				};
- 			};
- 		};
--- 
-2.7.4
+It's a simple test. Do the child devices have any dependency on the
+parent to probe and/or function? If so, not a simple-bus.
 
+> Once I do this I notice that my boot gets marginally faster (you
+> don't need to probe the sub devices over and over) and also if I
+
+Can you quantify that?
+
+Have you run with devlinks enabled. You need a command line option to
+enable. That too should reduce deferred probes.
+
+> have a problem it doesn't loop forever (on my system it still
+> gets upset about some stuck clocks in that case, but at least I
+> can boot up).
+
+Deferred probe only runs when a device is added, so it's not like it
+is continually running.
+
+Rob
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
