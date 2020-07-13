@@ -2,52 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 710CC21D8E0
-	for <lists+freedreno@lfdr.de>; Mon, 13 Jul 2020 16:46:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78A2921D947
+	for <lists+freedreno@lfdr.de>; Mon, 13 Jul 2020 16:58:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB9E46E25C;
-	Mon, 13 Jul 2020 14:46:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E2FC6E258;
+	Mon, 13 Jul 2020 14:58:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-f66.google.com (mail-io1-f66.google.com
- [209.85.166.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF35689F35;
- Mon, 13 Jul 2020 14:46:43 +0000 (UTC)
-Received: by mail-io1-f66.google.com with SMTP id v8so13740713iox.2;
- Mon, 13 Jul 2020 07:46:43 -0700 (PDT)
+Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com
+ [IPv6:2607:f8b0:4864:20::d42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 694706E258;
+ Mon, 13 Jul 2020 14:58:46 +0000 (UTC)
+Received: by mail-io1-xd42.google.com with SMTP id e64so13766473iof.12;
+ Mon, 13 Jul 2020 07:58:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Mr56/9hhLOah/1WskpzGTun6YF0+zSZRxtX7at7eeVk=;
+ b=Gc+A3oOTz9nxjK8Oyz2sB/jyvAya9tVKQeexSVdJCjoV2OVdcuV0hIniUbCNB6CwVZ
+ 6tY79EfIWpa2RVlOKKs3UFWTSFhE8GHr7esXVeevmPwDOy3oVqXj4hnc2uQQRiRTIySw
+ JryBhJveeYTzUlsqJK+yoBd2NT6eWoHVH60yiUeOtgMme73L4+xdqzK+uptFtkMMV8f3
+ Our1KWeXztm/kR0adTbs2OqgrVgmSlL3WLs5pQ3mii/5JG5wFgyfV4CKA+3qyalk+uns
+ vKkfdSYpj0+EVH22FK8/xli/MytuOFNPdL0TvjcH7vC8l79CN4vVCKEjohHu054mLGju
+ EWGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=nbDwnmZqExm0GJ0AQBPbfTfEhmeWr4XCe+A+8/PM6M0=;
- b=M8tC/XzaWaVpE/pyf6bdV6K7h/Olc4K/auJt7Z66zxjPB4Q0BUe0nNuIReAAFBrmoI
- F2/JrLeisy0gLq81FtOZZpKMFTtr1U18ClLchLz0q5RvD4He4k8gz0id+VbKyhemJjTX
- WA+tfXKaU0NMelWqG+7l2CxUCCwScfMNE7phfV0guzDcXkcNFX6MAuO1XGSF2xUx9vW2
- Jz/32xNaeUl2pattxtYOm9A/35+rsPJMRwg4eXfJg8GJa41w/j1NpgUvz5kzq9BCz5RZ
- 9o8Q7FFMfFzlQi2q5y8RQi9Fu4BI8Vde4NengUECQAdHzHd1EIs/xYUCRTspOBX61jEG
- gqQw==
-X-Gm-Message-State: AOAM5323bAzqgbrBMkT4mp1tFh7R9CcicqStbszWBiOZUwaoOjyxbe2/
- g1NnSc9QmBksd6okQc/kVA==
-X-Google-Smtp-Source: ABdhPJyC5hljtwK8AI4NvIkZ9UF+F6cv86WbaPgrtAlXxynhWmF1sbz5QKxouIpA7c6uyqRQqrL5Nw==
-X-Received: by 2002:a05:6638:2615:: with SMTP id
- m21mr394291jat.134.1594651603099; 
- Mon, 13 Jul 2020 07:46:43 -0700 (PDT)
-Received: from xps15 ([64.188.179.252])
- by smtp.gmail.com with ESMTPSA id s11sm8669417ili.79.2020.07.13.07.46.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jul 2020 07:46:42 -0700 (PDT)
-Received: (nullmailer pid 157351 invoked by uid 1000);
- Mon, 13 Jul 2020 14:46:40 -0000
-Date: Mon, 13 Jul 2020 08:46:40 -0600
-From: Rob Herring <robh@kernel.org>
-To: Krishna Manikandan <mkrishn@codeaurora.org>
-Message-ID: <20200713144640.GA155367@bogus>
-References: <1594389469-2573-1-git-send-email-mkrishn@codeaurora.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Mr56/9hhLOah/1WskpzGTun6YF0+zSZRxtX7at7eeVk=;
+ b=bBtT+oQs5q1KYP+l31+5FArb3D37bMriDZ9CsugthTjku/LnZ7o2UnRHcgGOT7jWej
+ Wore6S0k+BUwQUeeJxTYmNjI8Tl/QJ4kXOCoWi2hbOKi/ex5Ec9DH1PragQsEacrJwGH
+ BRXp6HVKHQMIFv0I3Rnj149mVUz+wo+i5pcxINtqtq5LGsBsShIYXplJc+1dWDAGKI9C
+ mEeMog3TcObQBtyUk0Ezn55DLBMVhdW/hKCG77xTi962UBmUKoO9AgYv1nvunKEbh7ox
+ 5ZgFzA7Ne1T4/FnkFumGH7WxivD4+b8/8EJvffp3zmPB7pBLt9WgXqJCdAE5LaWBmG7X
+ ccCg==
+X-Gm-Message-State: AOAM531mDsCyTPrJVU8HnceeZgPIyVwfArWv62N9fmFW31SOA3dR4oQy
+ EVa3/bWujcx+fvd4/UOejzIwGWBTHtq4jzJ5BqezbA==
+X-Google-Smtp-Source: ABdhPJyIb4TLaDuRzssmGjD8GlxCnRNZPX1fjJp7B0DVJOpqXfeErBQ2zLmh4Yjcd81ES/b/Ybs6G90MJv7Otmmv4ng=
+X-Received: by 2002:a02:c604:: with SMTP id i4mr442905jan.19.1594652325448;
+ Mon, 13 Jul 2020 07:58:45 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1594389469-2573-1-git-send-email-mkrishn@codeaurora.org>
-Subject: Re: [Freedreno] [v5] dt-bindings: msm: disp: add yaml schemas for
- DPU and DSI bindings
+References: <20200710230224.2265647-1-dianders@chromium.org>
+ <CAL_JsqKC5WtHb-coMCxMTDJ7CJcjVXcAxDT4J9N-Xyr=0uuURA@mail.gmail.com>
+In-Reply-To: <CAL_JsqKC5WtHb-coMCxMTDJ7CJcjVXcAxDT4J9N-Xyr=0uuURA@mail.gmail.com>
+From: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
+Date: Mon, 13 Jul 2020 08:58:34 -0600
+Message-ID: <CAOCk7NrCXXM_RgohjhooJUcenTkV5ajs+Xg1QE-7F5BDRYppyw@mail.gmail.com>
+To: Rob Herring <robh+dt@kernel.org>
+Subject: Re: [Freedreno] [PATCH 0/9] drm/msm: Avoid possible infinite probe
+ deferral and speed booting
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,116 +62,78 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
- kalyan_t@codeaurora.org, hoegsberg@chromium.org,
- freedreno@lists.freedesktop.org
+Cc: Sean Paul <sean@poorly.run>, DTML <devicetree@vger.kernel.org>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 10 Jul 2020 19:27:49 +0530, Krishna Manikandan wrote:
-> MSM Mobile Display Subsytem (MDSS) encapsulates sub-blocks
-> like DPU display controller, DSI etc. Add YAML schema
-> for the device tree bindings for the same.
-> 
-> Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
-> 
-> Changes in v2:
-> 	- Changed dpu to DPU (Sam Ravnborg)
-> 	- Fixed indentation issues (Sam Ravnborg)
-> 	- Added empty line between different properties (Sam Ravnborg)
-> 	- Replaced reference txt files with  their corresponding
-> 	  yaml files (Sam Ravnborg)
-> 	- Modified the file to use "|" only when it is
-> 	  necessary (Sam Ravnborg)
-> 
-> Changes in v3:
-> 	- Corrected the license used (Rob Herring)
-> 	- Added maxItems for properties (Rob Herring)
-> 	- Dropped generic descriptions (Rob Herring)
-> 	- Added ranges property (Rob Herring)
-> 	- Corrected the indendation (Rob Herring)
-> 	- Added additionalProperties (Rob Herring)
-> 	- Split dsi file into two, one for dsi controller
-> 	  and another one for dsi phy per target (Rob Herring)
-> 	- Corrected description for pinctrl-names (Rob Herring)
-> 	- Corrected the examples used in yaml file (Rob Herring)
-> 	- Delete dsi.txt and dpu.txt (Rob Herring)
-> 
-> Changes in v4:
-> 	- Move schema up by one level (Rob Herring)
-> 	- Add patternProperties for mdp node (Rob Herring)
-> 	- Corrected description of some properties (Rob Herring)
-> 
-> Changes in v5:
-> 	- Correct the indentation (Rob Herring)
-> 	- Remove unnecessary description from properties (Rob Herring)
-> 	- Correct the number of interconnect entries (Rob Herring)
-> 	- Add interconnect names for sc7180 (Rob Herring)
-> 	- Add description for ports (Rob Herring)
-> 	- Remove common properties (Rob Herring)
-> 	- Add unevalutatedProperties (Rob Herring)
-> 	- Reference existing dsi controller yaml in the common
-> 	  dsi controller file (Rob Herring)
-> 	- Correct the description of clock names to include only the
-> 	  clocks that are required (Rob Herring)
-> 	- Remove properties which are already covered under the common
-> 	  binding (Rob Herring)
-> 	- Add dsi phy supply nodes which are required for sc7180 and
-> 	  sdm845 targets (Rob Herring)
-> 	- Add type ref for syscon-sfpb (Rob Herring)
-> ---
->  .../bindings/display/dsi-controller.yaml           |   4 +-
->  .../bindings/display/msm/dpu-sc7180.yaml           | 230 +++++++++++++++++++
->  .../bindings/display/msm/dpu-sdm845.yaml           | 210 ++++++++++++++++++
->  .../devicetree/bindings/display/msm/dpu.txt        | 141 ------------
->  .../display/msm/dsi-common-controller.yaml         | 178 +++++++++++++++
->  .../display/msm/dsi-controller-sc7180.yaml         | 115 ++++++++++
->  .../display/msm/dsi-controller-sdm845.yaml         | 115 ++++++++++
->  .../bindings/display/msm/dsi-phy-sc7180.yaml       |  79 +++++++
->  .../bindings/display/msm/dsi-phy-sdm845.yaml       |  81 +++++++
->  .../devicetree/bindings/display/msm/dsi-phy.yaml   |  79 +++++++
->  .../devicetree/bindings/display/msm/dsi.txt        | 246 ---------------------
->  11 files changed, 1089 insertions(+), 389 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
->  create mode 100644 Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
->  delete mode 100644 Documentation/devicetree/bindings/display/msm/dpu.txt
->  create mode 100644 Documentation/devicetree/bindings/display/msm/dsi-common-controller.yaml
->  create mode 100644 Documentation/devicetree/bindings/display/msm/dsi-controller-sc7180.yaml
->  create mode 100644 Documentation/devicetree/bindings/display/msm/dsi-controller-sdm845.yaml
->  create mode 100644 Documentation/devicetree/bindings/display/msm/dsi-phy-sc7180.yaml
->  create mode 100644 Documentation/devicetree/bindings/display/msm/dsi-phy-sdm845.yaml
->  create mode 100644 Documentation/devicetree/bindings/display/msm/dsi-phy.yaml
->  delete mode 100644 Documentation/devicetree/bindings/display/msm/dsi.txt
-> 
+On Mon, Jul 13, 2020 at 8:11 AM Rob Herring <robh+dt@kernel.org> wrote:
+>
+> On Fri, Jul 10, 2020 at 5:02 PM Douglas Anderson <dianders@chromium.org> wrote:
+> >
+> > I found that if I ever had a little mistake in my kernel config,
+> > or device tree, or graphics driver that my system would sit in a loop
+> > at bootup trying again and again and again.  An example log was:
+>
+> Why do we care about optimizing the error case?
+>
+> >   msm ae00000.mdss: bound ae01000.mdp (ops 0xffffffe596e951f8)
+> >   msm_dsi ae94000.dsi: ae94000.dsi supply gdsc not found, using dummy regulator
+> >   msm_dsi_manager_register: failed to register mipi dsi host for DSI 0
+> >   [drm:ti_sn_bridge_probe] *ERROR* could not find any panel node
+> >   ...
+> >
+> > I finally tracked it down where this was happening:
+> >   - msm_pdev_probe() is called.
+> >   - msm_pdev_probe() registers drivers.  Registering drivers kicks
+> >     off processing of probe deferrals.
+> >   - component_master_add_with_match() could return -EPROBE_DEFER.
+> >     making msm_pdev_probe() return -EPROBE_DEFER.
+> >   - When msm_pdev_probe() returned the processing of probe deferrals
+> >     happens.
+> >   - Loop back to the start.
+> >
+> > It looks like we can fix this by marking "mdss" as a "simple-bus".
+> > I have no idea if people consider this the right thing to do or a
+> > hack.  Hopefully it's the right thing to do.  :-)
+>
+> It's a simple test. Do the child devices have any dependency on the
+> parent to probe and/or function? If so, not a simple-bus.
+>
+> > Once I do this I notice that my boot gets marginally faster (you
+> > don't need to probe the sub devices over and over) and also if I
+>
+> Can you quantify that?
+>
+> Have you run with devlinks enabled. You need a command line option to
+> enable. That too should reduce deferred probes.
+>
+> > have a problem it doesn't loop forever (on my system it still
+> > gets upset about some stuck clocks in that case, but at least I
+> > can boot up).
+>
+> Deferred probe only runs when a device is added, so it's not like it
+> is continually running.
 
+But it is.  I've hit this as well, but haven't attempted a fix.
 
-My bot found errors running 'make dt_binding_check' on your patch:
-
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/display/msm/dsi-controller-sc7180.example.dt.yaml: example-0: dsi@ae94000:reg:0: [0, 183058432, 0, 1024] is too long
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/display/msm/dpu-sdm845.example.dt.yaml: example-0: mdss@ae00000:reg:0: [0, 182452224, 0, 4096] is too long
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/display/msm/dsi-phy-sc7180.example.dt.yaml: example-0: dsi-phy@ae94400:reg:0: [0, 183059456, 0, 512] is too long
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/display/msm/dsi-phy-sc7180.example.dt.yaml: example-0: dsi-phy@ae94400:reg:1: [0, 183059968, 0, 640] is too long
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/display/msm/dsi-phy-sc7180.example.dt.yaml: example-0: dsi-phy@ae94400:reg:2: [0, 183060992, 0, 480] is too long
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/display/msm/dpu-sc7180.example.dt.yaml: example-0: mdss@ae00000:reg:0: [0, 182452224, 0, 4096] is too long
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/display/msm/dsi-phy-sdm845.example.dt.yaml: example-0: dsi-phy@ae94400:reg:0: [0, 183059456, 0, 512] is too long
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/display/msm/dsi-phy-sdm845.example.dt.yaml: example-0: dsi-phy@ae94400:reg:1: [0, 183059968, 0, 640] is too long
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/display/msm/dsi-phy-sdm845.example.dt.yaml: example-0: dsi-phy@ae94400:reg:2: [0, 183060992, 0, 480] is too long
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/display/msm/dsi-controller-sdm845.example.dt.yaml: example-0: dsi@ae94000:reg:0: [0, 183058432, 0, 1024] is too long
-
-
-See https://patchwork.ozlabs.org/patch/1326868
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure dt-schema is up to date:
-
-pip3 install git+https://github.com/devicetree-org/dt-schema.git@master --upgrade
-
-Please check and re-submit.
-
+So we have a parent device, with several sub devices.  The parent
+device probes which causes the sub devices to probe.  One of the sub
+devices successfully probes, and another fails with EPROBE_DEFER.
+This both caused the probe defer framework to immediately schedule
+processing the probe defer queue, and also cause all of the chile
+devices and the parent device to be removed to probe defer later.
+Since the system state doesn't change (one of the sub devices actually
+requires an independent other device to have probed), the system ends
+up an an infinite probe defer loop.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
