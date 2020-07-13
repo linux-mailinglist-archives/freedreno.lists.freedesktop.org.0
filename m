@@ -1,35 +1,36 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79EC821D61B
-	for <lists+freedreno@lfdr.de>; Mon, 13 Jul 2020 14:42:02 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id CF47021D61F
+	for <lists+freedreno@lfdr.de>; Mon, 13 Jul 2020 14:42:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB08B89BF4;
-	Mon, 13 Jul 2020 12:42:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8484389D4F;
+	Mon, 13 Jul 2020 12:42:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
  [104.130.122.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FFD489BF4
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jul 2020 12:41:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D245F89D4F
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Jul 2020 12:42:02 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1594644119; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=n+H8qsu8A2eN0qoFysCP3JyT/AZw34OjCJZOpkdVaGM=;
- b=DhQCXK0da3gAeH0hD8ONJD+msExPtiA6eLQuy+4clKfIQSwYby8Bgpl1C9UoJyIy0KY1xGG3
- HHcCdpsjoRBn9l8TkyvcrjX2kJGiggsxh8jroNOM9Ji18yZd75C4dcqY5LFSN9rXZVQDJXHC
- dw3Q8LvzEv6YNXVliCpe0/Smh9k=
+ s=smtp; t=1594644123; h=References: In-Reply-To: Message-Id: Date:
+ Subject: Cc: To: From: Sender;
+ bh=qvFYV5gSdJN7uGe/5cfb+tk9FUbHSiqsuZE2Uf3f6Vs=;
+ b=Sno5+srO+UwoAraL7OqSc2p+R6XjkaBNmZTTvs0jfgDLihYMypnxfzDHEcTsQ7XxkHr5Rc4s
+ ddm5bzNtgA1XQk9Mzov4GDgfF6Nb1V6LAKnNsQ1D1+otQ9T5Q/W9L1NU0VwS5HZluAfZR6BU
+ 3rL39QB2vFjDriJkcaFkkX/P4EQ=
 X-Mailgun-Sending-Ip: 104.130.122.29
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
  smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
- 5f0c5696c9bd2efa2eaf556c (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 13 Jul 2020 12:41:58
+ 5f0c569a101276849046e70a (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 13 Jul 2020 12:42:02
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id EDCA6C4339C; Mon, 13 Jul 2020 12:41:57 +0000 (UTC)
+ id 37518C433AF; Mon, 13 Jul 2020 12:42:02 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -38,19 +39,22 @@ X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
 Received: from akhilpo-linux.qualcomm.com (unknown [202.46.22.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: akhilpo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id BEC02C433C8;
- Mon, 13 Jul 2020 12:41:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org BEC02C433C8
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id D7B2EC433CA;
+ Mon, 13 Jul 2020 12:41:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org D7B2EC433CA
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  spf=none smtp.mailfrom=akhilpo@codeaurora.org
 From: Akhil P Oommen <akhilpo@codeaurora.org>
 To: freedreno@lists.freedesktop.org
-Date: Mon, 13 Jul 2020 18:11:40 +0530
-Message-Id: <1594644106-22449-1-git-send-email-akhilpo@codeaurora.org>
+Date: Mon, 13 Jul 2020 18:11:41 +0530
+Message-Id: <1594644106-22449-2-git-send-email-akhilpo@codeaurora.org>
 X-Mailer: git-send-email 2.7.4
-Subject: [Freedreno] [PATCH v5 0/6] Add support for GPU DDR BW scaling
+In-Reply-To: <1594644106-22449-1-git-send-email-akhilpo@codeaurora.org>
+References: <1594644106-22449-1-git-send-email-akhilpo@codeaurora.org>
+Subject: [Freedreno] [PATCH v5 1/6] dt-bindings: drm/msm/gpu: Document gpu
+ opp table
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,39 +78,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This series adds support for GPU DDR bandwidth scaling and is based on the
-bindings from Georgi [1]. This is mostly a rebase of Sharat's patches [2] on the
-tip of msm-next branch.
+From: Sharat Masetty <smasetty@codeaurora.org>
 
-Changes from v4:
-- Squashed a patch to another one to fix Jonathan's comment
-- Add back the pm_runtime_get_if_in_use() check
+Update documentation to list the gpu opp table bindings including the
+newly added "opp-peak-kBps" needed for GPU-DDR bandwidth scaling.
 
-Changes from v3:
-- Rebased on top of Jonathan's patch which adds support for changing gpu freq
-through hfi on newer targets
-- As suggested by Rob, left the icc_path intact for pre-a6xx GPUs
+Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
+Acked-by: Rob Herring <robh@kernel.org>
+Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+---
+ .../devicetree/bindings/display/msm/gpu.txt        | 28 ++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-[1] https://kernel.googlesource.com/pub/scm/linux/kernel/git/vireshk/pm/+log/opp/linux-next/
-[2] https://patchwork.freedesktop.org/series/75291/
-
-Sharat Masetty (6):
-  dt-bindings: drm/msm/gpu: Document gpu opp table
-  drm: msm: a6xx: send opp instead of a frequency
-  drm: msm: a6xx: use dev_pm_opp_set_bw to scale DDR
-  arm64: dts: qcom: SDM845: Enable GPU DDR bw scaling
-  arm64: dts: qcom: sc7180: Add interconnects property for GPU
-  arm64: dts: qcom: sc7180: Add opp-peak-kBps to GPU opp
-
- .../devicetree/bindings/display/msm/gpu.txt        |  28 ++++++
- arch/arm64/boot/dts/qcom/sc7180.dtsi               |   9 ++
- arch/arm64/boot/dts/qcom/sdm845.dtsi               |   9 ++
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c              | 108 ++++++++++++---------
- drivers/gpu/drm/msm/adreno/a6xx_gpu.h              |   2 +-
- drivers/gpu/drm/msm/msm_gpu.c                      |   3 +-
- drivers/gpu/drm/msm/msm_gpu.h                      |   3 +-
- 7 files changed, 112 insertions(+), 50 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/display/msm/gpu.txt b/Documentation/devicetree/bindings/display/msm/gpu.txt
+index fd779cd..1af0ff1 100644
+--- a/Documentation/devicetree/bindings/display/msm/gpu.txt
++++ b/Documentation/devicetree/bindings/display/msm/gpu.txt
+@@ -112,6 +112,34 @@ Example a6xx (with GMU):
+ 		interconnects = <&rsc_hlos MASTER_GFX3D &rsc_hlos SLAVE_EBI1>;
+ 		interconnect-names = "gfx-mem";
+ 
++		gpu_opp_table: opp-table {
++			compatible = "operating-points-v2";
++
++			opp-430000000 {
++				opp-hz = /bits/ 64 <430000000>;
++				opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
++				opp-peak-kBps = <5412000>;
++			};
++
++			opp-355000000 {
++				opp-hz = /bits/ 64 <355000000>;
++				opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
++				opp-peak-kBps = <3072000>;
++			};
++
++			opp-267000000 {
++				opp-hz = /bits/ 64 <267000000>;
++				opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
++				opp-peak-kBps = <3072000>;
++			};
++
++			opp-180000000 {
++				opp-hz = /bits/ 64 <180000000>;
++				opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
++				opp-peak-kBps = <1804000>;
++			};
++		};
++
+ 		qcom,gmu = <&gmu>;
+ 
+ 		zap-shader {
 -- 
 2.7.4
 
