@@ -1,52 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78A2921D947
-	for <lists+freedreno@lfdr.de>; Mon, 13 Jul 2020 16:58:49 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 63B7321D9C7
+	for <lists+freedreno@lfdr.de>; Mon, 13 Jul 2020 17:08:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E2FC6E258;
-	Mon, 13 Jul 2020 14:58:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 576666E258;
+	Mon, 13 Jul 2020 15:08:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com
- [IPv6:2607:f8b0:4864:20::d42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 694706E258;
- Mon, 13 Jul 2020 14:58:46 +0000 (UTC)
-Received: by mail-io1-xd42.google.com with SMTP id e64so13766473iof.12;
- Mon, 13 Jul 2020 07:58:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+Received: from mail-vk1-xa43.google.com (mail-vk1-xa43.google.com
+ [IPv6:2607:f8b0:4864:20::a43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 190906E258
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Jul 2020 15:08:40 +0000 (UTC)
+Received: by mail-vk1-xa43.google.com with SMTP id c11so2862443vkn.11
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Jul 2020 08:08:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Mr56/9hhLOah/1WskpzGTun6YF0+zSZRxtX7at7eeVk=;
- b=Gc+A3oOTz9nxjK8Oyz2sB/jyvAya9tVKQeexSVdJCjoV2OVdcuV0hIniUbCNB6CwVZ
- 6tY79EfIWpa2RVlOKKs3UFWTSFhE8GHr7esXVeevmPwDOy3oVqXj4hnc2uQQRiRTIySw
- JryBhJveeYTzUlsqJK+yoBd2NT6eWoHVH60yiUeOtgMme73L4+xdqzK+uptFtkMMV8f3
- Our1KWeXztm/kR0adTbs2OqgrVgmSlL3WLs5pQ3mii/5JG5wFgyfV4CKA+3qyalk+uns
- vKkfdSYpj0+EVH22FK8/xli/MytuOFNPdL0TvjcH7vC8l79CN4vVCKEjohHu054mLGju
- EWGQ==
+ :cc; bh=jL0qg9txtW+UzBOFpRiVbZ1cvNjK+k+Z2zD2+dWd5xU=;
+ b=Rrznap+7c3ejPjjRxwh934nQUUwJZgqI+M3shHiuekSOP8O2XMiQptg6HCTZ3/GqCq
+ PtvZbvQ+9M7G4UEaYbk2Zkurr6mOU2qKAsB6gunmVxW0xlHUEsKN65rqdz5KBVIGQVuf
+ s4ezGY5pV1pLxDDQrvlXGCCUyp85khIBh+8xk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=Mr56/9hhLOah/1WskpzGTun6YF0+zSZRxtX7at7eeVk=;
- b=bBtT+oQs5q1KYP+l31+5FArb3D37bMriDZ9CsugthTjku/LnZ7o2UnRHcgGOT7jWej
- Wore6S0k+BUwQUeeJxTYmNjI8Tl/QJ4kXOCoWi2hbOKi/ex5Ec9DH1PragQsEacrJwGH
- BRXp6HVKHQMIFv0I3Rnj149mVUz+wo+i5pcxINtqtq5LGsBsShIYXplJc+1dWDAGKI9C
- mEeMog3TcObQBtyUk0Ezn55DLBMVhdW/hKCG77xTi962UBmUKoO9AgYv1nvunKEbh7ox
- 5ZgFzA7Ne1T4/FnkFumGH7WxivD4+b8/8EJvffp3zmPB7pBLt9WgXqJCdAE5LaWBmG7X
- ccCg==
-X-Gm-Message-State: AOAM531mDsCyTPrJVU8HnceeZgPIyVwfArWv62N9fmFW31SOA3dR4oQy
- EVa3/bWujcx+fvd4/UOejzIwGWBTHtq4jzJ5BqezbA==
-X-Google-Smtp-Source: ABdhPJyIb4TLaDuRzssmGjD8GlxCnRNZPX1fjJp7B0DVJOpqXfeErBQ2zLmh4Yjcd81ES/b/Ybs6G90MJv7Otmmv4ng=
-X-Received: by 2002:a02:c604:: with SMTP id i4mr442905jan.19.1594652325448;
- Mon, 13 Jul 2020 07:58:45 -0700 (PDT)
+ bh=jL0qg9txtW+UzBOFpRiVbZ1cvNjK+k+Z2zD2+dWd5xU=;
+ b=Bbs556qfXO3ATNHMEbkflfL9T8gJSVA2A2vvPteK+FotF2GGJEURFg8c20Mk0xF0KT
+ 7vJQcMuRgQ1PeIVICK5qA5rcPmI6FM6mLz3DKgyjBseGfB5l3X9EmhIlcad/K8Y1s4Xg
+ h+x7KIQKJ8RBKx4DGaACuAtKr2v1hUtq9eHtXKgVKtTLmx3OryVpyWdQdOkGbMZIQJsE
+ tQaIPPq7RmCLSyDEV8KaV8irATyV8ar46fmDOTRxQxlBMbsi6LbFpV2ZjYDVqKq8cj+5
+ nI/hzGrpCE48i89yXKgf0OBNPEraxjf0hVkGWpaE6VYnppITcyDQEuPq4Sh8szhSw0bI
+ iKGA==
+X-Gm-Message-State: AOAM5305Yu6HXfzvjmHX56ETS0EmtnRDiDLAYhLzQTEEyAZOnM+8ly/P
+ 2TznZV7ZZWULPVLc9a1VUMrJHMyeC+g=
+X-Google-Smtp-Source: ABdhPJy/fLoK9HlDqFeHS9kYUpomBbJ+89Favu+/4ic0TrinJUIQgXkKApIm/8D+JJmHvqT1v2d0Ug==
+X-Received: by 2002:a1f:2f8a:: with SMTP id v132mr215084vkv.13.1594652911762; 
+ Mon, 13 Jul 2020 08:08:31 -0700 (PDT)
+Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com.
+ [209.85.217.45])
+ by smtp.gmail.com with ESMTPSA id e5sm1848164vsq.15.2020.07.13.08.08.31
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 13 Jul 2020 08:08:31 -0700 (PDT)
+Received: by mail-vs1-f45.google.com with SMTP id x13so6749786vsx.13
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Jul 2020 08:08:31 -0700 (PDT)
+X-Received: by 2002:a05:6102:20a:: with SMTP id
+ z10mr50329603vsp.213.1594652906281; 
+ Mon, 13 Jul 2020 08:08:26 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200710230224.2265647-1-dianders@chromium.org>
  <CAL_JsqKC5WtHb-coMCxMTDJ7CJcjVXcAxDT4J9N-Xyr=0uuURA@mail.gmail.com>
 In-Reply-To: <CAL_JsqKC5WtHb-coMCxMTDJ7CJcjVXcAxDT4J9N-Xyr=0uuURA@mail.gmail.com>
-From: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
-Date: Mon, 13 Jul 2020 08:58:34 -0600
-Message-ID: <CAOCk7NrCXXM_RgohjhooJUcenTkV5ajs+Xg1QE-7F5BDRYppyw@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Mon, 13 Jul 2020 08:08:14 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=XWKoTd_t2uRGpw3oa0Nij2EPeAJpOHhUipXFW07JN2qw@mail.gmail.com>
+Message-ID: <CAD=FV=XWKoTd_t2uRGpw3oa0Nij2EPeAJpOHhUipXFW07JN2qw@mail.gmail.com>
 To: Rob Herring <robh+dt@kernel.org>
 Subject: Re: [Freedreno] [PATCH 0/9] drm/msm: Avoid possible infinite probe
  deferral and speed booting
@@ -62,20 +71,23 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, DTML <devicetree@vger.kernel.org>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Douglas Anderson <dianders@chromium.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jul 13, 2020 at 8:11 AM Rob Herring <robh+dt@kernel.org> wrote:
+Hi,
+
+On Mon, Jul 13, 2020 at 7:11 AM Rob Herring <robh+dt@kernel.org> wrote:
 >
 > On Fri, Jul 10, 2020 at 5:02 PM Douglas Anderson <dianders@chromium.org> wrote:
 > >
@@ -84,7 +96,14 @@ On Mon, Jul 13, 2020 at 8:11 AM Rob Herring <robh+dt@kernel.org> wrote:
 > > at bootup trying again and again and again.  An example log was:
 >
 > Why do we care about optimizing the error case?
->
+
+It actually results in a _fully_ infinite loop.  That is: if anything
+small causes a component of DRM to fail to probe then the whole system
+doesn't boot because it just loops trying to probe over and over
+again.  The messages I put in the commit message are printed over and
+over and over again.
+
+
 > >   msm ae00000.mdss: bound ae01000.mdp (ops 0xffffffe596e951f8)
 > >   msm_dsi ae94000.dsi: ae94000.dsi supply gdsc not found, using dummy regulator
 > >   msm_dsi_manager_register: failed to register mipi dsi host for DSI 0
@@ -107,15 +126,31 @@ On Mon, Jul 13, 2020 at 8:11 AM Rob Herring <robh+dt@kernel.org> wrote:
 >
 > It's a simple test. Do the child devices have any dependency on the
 > parent to probe and/or function? If so, not a simple-bus.
->
+
+Great!  You can see in the earlier patch in the series that the very
+first thing that happens when the parent device probes is that it
+calls devm_of_platform_populate().  That means no dependencies, right?
+ So that means it's fine/correct to add "simple-bus" here?
+
+
 > > Once I do this I notice that my boot gets marginally faster (you
 > > don't need to probe the sub devices over and over) and also if I
 >
 > Can you quantify that?
->
+
+I'd say < 100 us.  I can try to quantify more if needed, but it wasn't
+the point of this patch.
+
+
 > Have you run with devlinks enabled. You need a command line option to
 > enable. That too should reduce deferred probes.
->
+
+Ah, good idea!  I will try it.  However, even with devlinks, if there
+is any chance of deferred probes then we need a fix like this.  The
+point of the patch isn't about speeding things up but about avoiding
+an infinite loop at bootup due to a small bug.
+
+
 > > have a problem it doesn't loop forever (on my system it still
 > > gets upset about some stuck clocks in that case, but at least I
 > > can boot up).
@@ -123,17 +158,16 @@ On Mon, Jul 13, 2020 at 8:11 AM Rob Herring <robh+dt@kernel.org> wrote:
 > Deferred probe only runs when a device is added, so it's not like it
 > is continually running.
 
-But it is.  I've hit this as well, but haven't attempted a fix.
+If you don't mind looking at the code patch, see:
 
-So we have a parent device, with several sub devices.  The parent
-device probes which causes the sub devices to probe.  One of the sub
-devices successfully probes, and another fails with EPROBE_DEFER.
-This both caused the probe defer framework to immediately schedule
-processing the probe defer queue, and also cause all of the chile
-devices and the parent device to be removed to probe defer later.
-Since the system state doesn't change (one of the sub devices actually
-requires an independent other device to have probed), the system ends
-up an an infinite probe defer loop.
+https://lore.kernel.org/r/20200710160131.4.I358ea82de218ea5f4406572ade23f5e121297555@changeid/
+
+Specifically you can see that each time we try to probe we were
+calling of_platform_populate().  That appeared to be enough to trigger
+things.
+
+
+-Doug
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
