@@ -1,58 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4214221E4F9
-	for <lists+freedreno@lfdr.de>; Tue, 14 Jul 2020 03:12:24 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id BDE7421E709
+	for <lists+freedreno@lfdr.de>; Tue, 14 Jul 2020 06:38:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3A8F6E85D;
-	Tue, 14 Jul 2020 01:12:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E63A8825B;
+	Tue, 14 Jul 2020 04:38:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
- [IPv6:2607:f8b0:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E28496E85D
- for <freedreno@lists.freedesktop.org>; Tue, 14 Jul 2020 01:12:21 +0000 (UTC)
-Received: by mail-pf1-x443.google.com with SMTP id a14so6844676pfi.2
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jul 2020 18:12:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=5yjaTy96iRFPTsi26P18yq64D5S2151Zztu56aP2UQk=;
- b=DKREwuM1AdDK/M5PRjMceNQQ5PSr4Xfy3P/tz5j9KLqG7xpQvwFBtF6iqOKNiHJeHz
- 0LtGhspN0cAeU/1/I6hlmRFzPP+PakMNDDWkk+6neyLAw6VjOq3PKxLlGjVYFwnl71jY
- CvuZix9jHtiIZKtZpVPiMHxs6yo596oGk6UAo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=5yjaTy96iRFPTsi26P18yq64D5S2151Zztu56aP2UQk=;
- b=uRMnIqv6J0ovHDsTFc0AWOcygV6w8ueGtGWNkNEVboSg/vu86DG4RMzWIeJKY3seL3
- +n102ig1BNl2l0qzG4bTDzNHU9OmbCPOW9aMJbGEJowFgFUxFGAckQeB+yOR9xXBZ3uV
- nBaoMi8utMiVRc6MI3VakY8Mum+dZ6P/4gehwaIZPmpkFeRrRzgK08v9GoEtdE3I7O0A
- gF3Y/ERSa4ob0OaFyGRgdjzujEzoYVzBXPYTFtX/75VqRbDqKhvdskZaR7CX1Boz+u7c
- uvWsiqhZ2Nj0J2iHbOXDhBWBxQfCOeRinlhpUHcVbtzSMcRvLbeIRohHISOfbzCTrW68
- vUkQ==
-X-Gm-Message-State: AOAM533KvsaqnIq4jStYN/qxKuAKQMjYc6F9wScK8Lathpupriz756CS
- L6gbhPtAOyWyWLKj1VWeHWqAqA==
-X-Google-Smtp-Source: ABdhPJzURU5w7Tj+O39sbKidAAXjNVHx+XXYlAgKEyC4g8eI7DWw01L8nI4SKvyRTPsf2//G04xEaQ==
-X-Received: by 2002:a05:6a00:14ce:: with SMTP id
- w14mr2275557pfu.121.1594689141507; 
- Mon, 13 Jul 2020 18:12:21 -0700 (PDT)
-Received: from localhost ([2620:15c:202:1:f693:9fff:fef4:e70a])
- by smtp.gmail.com with ESMTPSA id e8sm15972489pfl.125.2020.07.13.18.12.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Jul 2020 18:12:20 -0700 (PDT)
-Date: Mon, 13 Jul 2020 18:12:19 -0700
-From: Matthias Kaehlcke <mka@chromium.org>
-To: Kalyan Thota <kalyan_t@codeaurora.org>
-Message-ID: <20200714011219.GQ3191083@google.com>
-References: <1592489321-29213-1-git-send-email-kalyan_t@codeaurora.org>
+Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
+ [104.130.122.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CF266E8B5
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Jul 2020 04:38:05 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1594701489; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=l+SKEtwEvXbX8Q/Z4ekeTlZzRX1TnFGS7mEIQl2l3LY=;
+ b=TgZslLKG6yAMHu38nEfNzxJqfOI75+xD+FTvoOqUv09v1aTP5JvecRWeilPucKnO0KsM6s3k
+ uYPfw6osLJR+WVST1ElHA0zt4kXspzMLdOHZ214BjJ6qdS6Tb/mdCjjnNokTX+tIHBR8nkT2
+ TWxdDq6x9edCEzcGsbKIzcRP3Og=
+X-Mailgun-Sending-Ip: 104.130.122.29
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n12.prod.us-west-2.postgun.com with SMTP id
+ 5f0d36a5b35196d59d945c02 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 14 Jul 2020 04:37:57
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 751B7C43387; Tue, 14 Jul 2020 04:37:57 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: saiprakash.ranjan)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id B5890C433C8;
+ Tue, 14 Jul 2020 04:37:56 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1592489321-29213-1-git-send-email-kalyan_t@codeaurora.org>
-Subject: Re: [Freedreno] [v1] drm/msm/dpu: add support for clk and bw
- scaling for display
+Date: Tue, 14 Jul 2020 10:07:56 +0530
+From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+To: Will Deacon <will@kernel.org>, Jordan Crouse <jcrouse@codeaurora.org>
+In-Reply-To: <20200713191310.GD3815@jcrouse1-lnx.qualcomm.com>
+References: <20200611223656.4724-1-jcrouse@codeaurora.org>
+ <20200713151123.GB3072@willie-the-truck>
+ <20200713170032.GH21059@jcrouse1-lnx.qualcomm.com>
+ <20200713190331.GA3444@willie-the-truck>
+ <20200713191310.GD3815@jcrouse1-lnx.qualcomm.com>
+Message-ID: <928c0e7a22e9b193774b1e35fbe98762@codeaurora.org>
+X-Sender: saiprakash.ranjan@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH] iommu/arm-smmu: Add a init_context_bank
+ implementation hook
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,33 +69,79 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, mkrishn@codeaurora.org,
- linux-arm-msm@vger.kernel.org, travitej@codeaurora.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- dianders@chromium.org, robdclark@gmail.com, nganji@codeaurora.org,
- seanpaul@chromium.org, hoegsberg@chromium.org, freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: linux-arm-msm@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
+ Robin Murphy <robin.murphy@arm.com>, linux-kernel@vger.kernel.org,
+ iommu@lists.linux-foundation.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jun 18, 2020 at 07:38:41PM +0530, Kalyan Thota wrote:
-> This change adds support to scale src clk and bandwidth as
-> per composition requirements.
+On 2020-07-14 00:43, Jordan Crouse wrote:
+> On Mon, Jul 13, 2020 at 08:03:32PM +0100, Will Deacon wrote:
+>> On Mon, Jul 13, 2020 at 11:00:32AM -0600, Jordan Crouse wrote:
+>> > On Mon, Jul 13, 2020 at 04:11:23PM +0100, Will Deacon wrote:
+>> > > On Thu, Jun 11, 2020 at 04:36:56PM -0600, Jordan Crouse wrote:
+>> > > > Add a new implementation hook to allow the implementation specific code
+>> > > > to tweek the context bank configuration just before it gets written.
+>> > > > The first user will be the Adreno GPU implementation to turn on
+>> > > > SCTLR.HUPCF to ensure that a page fault doesn't terminating pending
+>> > > > transactions. Doing so could hang the GPU if one of the terminated
+>> > > > transactions is a CP read.
+>> > > >
+>> > > > This depends on the arm-smmu adreno SMMU implementation [1].
+>> > > >
+>> > > > [1] https://patchwork.kernel.org/patch/11600943/
+>> > > >
+>> > > > Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
+>> > > > ---
+>> > > >
+>> > > >  drivers/iommu/arm-smmu-qcom.c | 13 +++++++++++++
+>> > > >  drivers/iommu/arm-smmu.c      | 28 +++++++++++++---------------
+>> > > >  drivers/iommu/arm-smmu.h      | 11 +++++++++++
+>> > > >  3 files changed, 37 insertions(+), 15 deletions(-)
+>> > >
+>> > > This looks straightforward enough, but I don't want to merge this without
+>> > > a user and Sai's series has open questions afaict.
+>> >
+>> > Not sure what you mean by a user in this context?
+>> > Are you referring to https://patchwork.kernel.org/patch/11628541/?
+>> 
+>> Right, this post was just a single patch in isolation, whereas it was
+>> reposted over at:
+>> 
+>> https://lore.kernel.org/r/cdcc6a1c95a84e774790389dc8b3b7feeee490dc.1593344119.git.saiprakash.ranjan@codeaurora.org
+>> 
+>> so I'll ignore this one. Sorry, I'm just really struggling to keep 
+>> track
+>> of what is targetting 5.9, and I don't have tonnes of time to sift 
+>> through
+>> the backlog of duplicate postings :(
 > 
-> Interconnect registration for bw has been moved to mdp
-> device node from mdss to facilitate the scaling.
+> Yeah, that is our fault. There are too many cooks in the kitchen.
 > 
-> Changes in v1:
->  - Address armv7 compilation issues with the patch (Rob)
+> We need to pick either system cache or split pagetable and serialize
+> the other on top of it to get the impl code going and then build from 
+> there.
+> This particular patch can happily hang out in the background until the 
+> rest is
+> resolved.
 > 
-> Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
 
-It seems this is an evolution of this series: https://patchwork.kernel.org/project/linux-arm-msm/list/?series=265351
+My bad, sorry. Let us get split pagetable support reviewed first, then I 
+can post
+system cache support on top of it. As jordan said, this patch can 
+hibernate until
+those get resolved.
 
-Are the DT bits of the series still valid? If so please include them in the
-series, otherwise please add DT patches to allow folks to test and review,
-and get them landed in Bjorn's tree after the driver changes have landed.
+Thanks,
+Sai
+
+-- 
+QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a 
+member
+of Code Aurora Forum, hosted by The Linux Foundation
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
