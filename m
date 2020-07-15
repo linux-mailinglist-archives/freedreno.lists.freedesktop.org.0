@@ -1,53 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5755A221139
-	for <lists+freedreno@lfdr.de>; Wed, 15 Jul 2020 17:36:14 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id AEECC22137D
+	for <lists+freedreno@lfdr.de>; Wed, 15 Jul 2020 19:30:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 113C36EBB3;
-	Wed, 15 Jul 2020 15:36:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 091046EBE4;
+	Wed, 15 Jul 2020 17:30:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
- [IPv6:2a00:1450:4864:20::542])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E32326EBB0
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jul 2020 15:36:11 +0000 (UTC)
-Received: by mail-ed1-x542.google.com with SMTP id a8so1944648edy.1
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jul 2020 08:36:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ldTR/KsOkvUXfFE3oIwY06p1m96PfAnxhTKvRebiJFk=;
- b=WcIywgf/5yGovAVSIjXD9OIB0Yx1Lqe39sKQcKnE0bhl7NpHMP3wyUyXsz76eznoDN
- kLjzcwlopVjThClxHuAyihsZX8FPaEHuAR07Xs+vzRHSsrUbJI0eICfPyJGZKPi/QsKZ
- mmZYeZuAvUsvxgkbItIok1s8pKt4mmzBtXk9cwHdKDPanj9nt1L5t+ZuHliLF00lGmDj
- sgGGTAONqoqLI9wypqeA5drEqMm5oVMEDqzFIsWfOobV+z2oJKOnAPiPglVQaa4qup8s
- aimYRQqb3HkkSb9UJ3FCrUOw7rkvO35YQrAjHrLTkQRICmx+aHtbSrz7ehlxcrNUKK9x
- axwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ldTR/KsOkvUXfFE3oIwY06p1m96PfAnxhTKvRebiJFk=;
- b=rvgHanZ72f2EkBlFLwx6VJscJNAYXc8DHJQeAKaJq3c5pn/AYdbiCD3tCG8G2ekNGd
- 2UUP04a8itFAP9Nk3hkVhoha0bfA9Etgr80eAilIbOhvpXMZNx2lNAJTz5hyt2YsTOoo
- yxFoS9hBE6Tx2rAjuzestgw+g1xRhA1RQ/PjmhZk8w/JWXvcCAHsTWKLIgDW8t8g8VX8
- dpOS4WXgoY0dTTrC2AOsEtyQHxLMhQzh8vuDMm3/EsLPRTfCiHWd+8c7j4TDFWJhBohB
- g9KxNHMdATpRlrhwMN27PgAwfHEO1GanvYfm4NmXQZGjupD6yzngq5YxpffULmw75i8M
- 6AzQ==
-X-Gm-Message-State: AOAM530y5UE92W9TuuDuY259Ad2H872KyTNx/j5H9IscoB7dQ9bCTq2P
- amisdop4OYbE/FT44otgR+z69GbRc8gOW0aom3s=
-X-Google-Smtp-Source: ABdhPJwUDgryr+uwNIkAcro/MFjmRNEHds+xBye6alkuUKRwQY/Ip2yfUIBYAYZ0SbfRqlleTEVLIvRkwjo+QnLxV+0=
-X-Received: by 2002:a50:cd1a:: with SMTP id z26mr209684edi.120.1594827370435; 
- Wed, 15 Jul 2020 08:36:10 -0700 (PDT)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE8D36EBE4;
+ Wed, 15 Jul 2020 17:30:41 +0000 (UTC)
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
+ [209.85.167.173])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id A13F120672;
+ Wed, 15 Jul 2020 17:30:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1594834241;
+ bh=4T6S2epKi2ENJEC3KsYLtzEaf+uX57nEZeTJaHpHW8Q=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=UGHUsR7BJPApYZexFuAAHrBmRxmIAKgVSeA6cL9K/upaRAeFUcZHrQLGgvS+7p5F3
+ 6hvgH5plDm73aCY/VvnLmFS0Iaslye8woDqCku7pQDoa+9S8jLe4ZuFWd7MlnWOIAO
+ vqFWOiHuJh5mvdnEdK89U+IhikuPR54noxKyGrjI=
+Received: by mail-oi1-f173.google.com with SMTP id r8so2836564oij.5;
+ Wed, 15 Jul 2020 10:30:41 -0700 (PDT)
+X-Gm-Message-State: AOAM532FAaHFxU9Mk/5ROZ4mhelGj+FNRUQCFx4L8/tstCIGrkm6legQ
+ IxSveW2vy92Noj3UKPexcqD7O8D483uNGFHt9Q==
+X-Google-Smtp-Source: ABdhPJwVPF7yPW/4Xav5tdTwLAAlgry1UaSHbNVOcYXq6cWPmc2b5sYdGrcceGq9vFN8OCcKMceTZ8Ekrz+Jdd7ZRTE=
+X-Received: by 2002:aca:bb82:: with SMTP id l124mr693571oif.106.1594834240916; 
+ Wed, 15 Jul 2020 10:30:40 -0700 (PDT)
 MIME-Version: 1.0
-References: <1594644106-22449-1-git-send-email-akhilpo@codeaurora.org>
-In-Reply-To: <1594644106-22449-1-git-send-email-akhilpo@codeaurora.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 15 Jul 2020 08:36:43 -0700
-Message-ID: <CAF6AEGtAEwZbWxLb4MxaWNswvtrFbLK+N0Fez2XYr7odKZffWA@mail.gmail.com>
-To: Akhil P Oommen <akhilpo@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v5 0/6] Add support for GPU DDR BW scaling
+References: <20200710230224.2265647-1-dianders@chromium.org>
+ <CAL_JsqKC5WtHb-coMCxMTDJ7CJcjVXcAxDT4J9N-Xyr=0uuURA@mail.gmail.com>
+ <CAD=FV=XWKoTd_t2uRGpw3oa0Nij2EPeAJpOHhUipXFW07JN2qw@mail.gmail.com>
+ <CAL_JsqLJM5nwNSdugMBLDVtjP97dikCm_AiHjnDs1jqBOFoaaQ@mail.gmail.com>
+ <CAD=FV=UP0AHWr22U69TKcwwAefPCYMsfzymobczqmrdB6BOOhA@mail.gmail.com>
+ <CAOCk7NoX-XAXy2WaYGjGOtEmypis-DO-W1cfU0wnucHH0oZrqg@mail.gmail.com>
+ <CAL_Jsq+Nys+ry-3D07e-68e=9Pb34C9Js6piAnzwd1gXf_DmTw@mail.gmail.com>
+ <20200714225220.GI388985@builder.lan>
+In-Reply-To: <20200714225220.GI388985@builder.lan>
+From: Rob Herring <robh+dt@kernel.org>
+Date: Wed, 15 Jul 2020 11:30:29 -0600
+X-Gmail-Original-Message-ID: <CAL_JsqKU7X5f-Dt67N_yFQUUVuXrZYomB-n=dKyUqD94OXFyJQ@mail.gmail.com>
+Message-ID: <CAL_JsqKU7X5f-Dt67N_yFQUUVuXrZYomB-n=dKyUqD94OXFyJQ@mail.gmail.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+Subject: Re: [Freedreno] [PATCH 0/9] drm/msm: Avoid possible infinite probe
+ deferral and speed booting
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,68 +61,141 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Jonathan <jonathan@marek.ca>,
- saravanak@google.com, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, Matthias Kaehlcke <mka@chromium.org>,
- dri-devel@freedesktop.org, Viresh Kumar <viresh.kumar@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Sibi Sankar <sibis@codeaurora.org>
+Cc: Sean Paul <sean@poorly.run>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Doug Anderson <dianders@chromium.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jul 13, 2020 at 5:41 AM Akhil P Oommen <akhilpo@codeaurora.org> wrote:
+On Tue, Jul 14, 2020 at 4:54 PM Bjorn Andersson
+<bjorn.andersson@linaro.org> wrote:
 >
-> This series adds support for GPU DDR bandwidth scaling and is based on the
-> bindings from Georgi [1]. This is mostly a rebase of Sharat's patches [2] on the
-> tip of msm-next branch.
+> On Tue 14 Jul 15:13 PDT 2020, Rob Herring wrote:
 >
-> Changes from v4:
-> - Squashed a patch to another one to fix Jonathan's comment
-> - Add back the pm_runtime_get_if_in_use() check
+> > On Tue, Jul 14, 2020 at 10:33 AM Jeffrey Hugo <jeffrey.l.hugo@gmail.com> wrote:
+> > >
+> > > On Mon, Jul 13, 2020 at 5:50 PM Doug Anderson <dianders@chromium.org> wrote:
+> > > >
+> > > > Hi,
+> > > >
+> > > > On Mon, Jul 13, 2020 at 1:25 PM Rob Herring <robh+dt@kernel.org> wrote:
+> > > > >
+> > > > > On Mon, Jul 13, 2020 at 9:08 AM Doug Anderson <dianders@chromium.org> wrote:
+> > > > > >
+> > > > > > Hi,
+> > > > > >
+> > > > > > On Mon, Jul 13, 2020 at 7:11 AM Rob Herring <robh+dt@kernel.org> wrote:
+> > > > > > >
+> > > > > > > On Fri, Jul 10, 2020 at 5:02 PM Douglas Anderson <dianders@chromium.org> wrote:
+> > > > > > > >
+> > > > > > > > I found that if I ever had a little mistake in my kernel config,
+> > > > > > > > or device tree, or graphics driver that my system would sit in a loop
+> > > > > > > > at bootup trying again and again and again.  An example log was:
+> > > > > > >
+> > > > > > > Why do we care about optimizing the error case?
+> > > > > >
+> > > > > > It actually results in a _fully_ infinite loop.  That is: if anything
+> > > > > > small causes a component of DRM to fail to probe then the whole system
+> > > > > > doesn't boot because it just loops trying to probe over and over
+> > > > > > again.  The messages I put in the commit message are printed over and
+> > > > > > over and over again.
+> > > > >
+> > > > > Sounds like a bug as that's not what should happen.
+> > > > >
+> > > > > If you defer during boot (initcalls), then you'll be on the deferred
+> > > > > list until late_initcall and everything is retried. After
+> > > > > late_initcall, only devices getting added should trigger probing. But
+> > > > > maybe the adding and then removing a device is causing a re-trigger.
+> > > >
+> > > > Right, I'm nearly certain that the adding and then removing is causing
+> > > > a re-trigger.  I believe the loop would happen for any case where we
+> > > > have a probe function that:
+> > > >
+> > > > 1. Adds devices.
+> > > > 2. After adding devices it decides that it needs to defer.
+> > > > 3. Removes the devices it added.
+> > > > 4. Return -EPROBE_DEFER from its probe function.
+> > > >
+> > > > Specifically from what I know about how -EPROBE_DEFER works I'm not
+> > > > sure how it wouldn't cause an infinite loop in that case.
+> > > >
+> > > > Perhaps the missing part of my explanation, though, is why it never
+> > > > gets out of this infinite loop.  In my case I purposely made the
+> > > > bridge chip "ti-sn65dsi86.c" return an error (-EINVAL) in its probe
+> > > > every time.  Obviously I wasn't going to get a display up like this,
+> > > > but I just wanted to not loop forever at bootup.  I tracked down
+> > > > exactly why we get an - EPROBE_DEFER over and over in this case.
+> > > >
+> > > > You can see it in msm_dsi_host_register().  If some components haven't
+> > > > shown up when that function runs it will _always_ return
+> > > > -EPROBE_DEFER.
+> > > >
+> > > > In my case, since I caused the bridge to fail to probe, those
+> > > > components will _never_ show up.  That means that
+> > > > msm_dsi_host_register() will _always_ return -EPROBE_DEFER.
+> > > >
+> > > > I haven't dug through all the DRM code enough, but it doesn't
+> > > > necessarily seem like the wrong behavior.  If the bridge driver or a
+> > > > panel was a module then (presumably) they could show up later and so
+> > > > it should be OK for it to defer, right?
+> > > >
+> > > > So with all that, it doesn't really feel like this is a bug so much as
+> > > > it's an unsupported use case.  The current deferral logic simply can't
+> > > > handle the case we're throwing at it.  You cannot return -EPROBE_DEFER
+> > > > if your probe function adds devices each time through the probe
+> > > > function.
+> > > >
+> > > > Assuming all the above makes sense, that means we're stuck with:
+> > > >
+> > > > a) This patch series, which makes us not add devices.
+> > > >
+> > > > b) Some other patch series which rearchitects the MSM graphics stack
+> > > > to not return -EPROBE_DEFER in this case.
+> > >
+> > > This isn't a MSM specific issue.  This is an issue with how the DSI
+> > > interface works, and how software is structured in Linux.  I would
+> > > expect that pretty much any DSI host in the kernel would have some
+> > > version of this issue.
+> > >
+> > > The problem is that DSI is not "hot pluggable", so to give the DRM
+> > > stack the info it needs, we need both the DSI controller (aka the MSM
+> > > graphics stack in your case), and the thing it connects to (in your
+> > > case, the TI bridge, normally the actual panel) because the DRM stack
+> > > expects that if init completes, it has certain information
+> > > (resolution, etc), and some of that information is in the DSI
+> > > controller, and some of it is on the DSI device.
+> >
+> > Ah yes, DRM's lack of hot-plug and discrete component support... Is
+> > that not improved with some of the bridge rework?
+> >
+> > Anyways, given there is a child dependency on the parent, I don't
+> > think we should work-around DRM deficiencies in DT.
+> >
+> > BTW, There's also a deferred probe timeout you can use which stops
+> > deferring probe some number of seconds after late_initcall.
+> >
 >
-> Changes from v3:
-> - Rebased on top of Jonathan's patch which adds support for changing gpu freq
-> through hfi on newer targets
-> - As suggested by Rob, left the icc_path intact for pre-a6xx GPUs
->
-> [1] https://kernel.googlesource.com/pub/scm/linux/kernel/git/vireshk/pm/+log/opp/linux-next/
-> [2] https://patchwork.freedesktop.org/series/75291/
->
-> Sharat Masetty (6):
->   dt-bindings: drm/msm/gpu: Document gpu opp table
->   drm: msm: a6xx: send opp instead of a frequency
->   drm: msm: a6xx: use dev_pm_opp_set_bw to scale DDR
->   arm64: dts: qcom: SDM845: Enable GPU DDR bw scaling
->   arm64: dts: qcom: sc7180: Add interconnects property for GPU
->   arm64: dts: qcom: sc7180: Add opp-peak-kBps to GPU opp
+> I don't think we can rely on the deferred probe timeout, given that it
+> was reverted back to 0 seconds past late_initcall - which given that
+> most of the involved components are modules, means that without the
+> opt-in command line option we would likely fail to bring up the display.
 
-I can take the first two into msm-next, the 3rd will need to wait
-until dev_pm_opp_set_bw() lands
+I meant just as a way to make progress booting in this case where the
+display is never coming up. We're talking only about a better
+experience for an error case.
 
-Bjorn, I assume you take the last three?
+Maybe a simple solution is just having some delay inserted between
+delayed probe triggers so progress is made.
 
-BR,
--R
-
->
->  .../devicetree/bindings/display/msm/gpu.txt        |  28 ++++++
->  arch/arm64/boot/dts/qcom/sc7180.dtsi               |   9 ++
->  arch/arm64/boot/dts/qcom/sdm845.dtsi               |   9 ++
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c              | 108 ++++++++++++---------
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.h              |   2 +-
->  drivers/gpu/drm/msm/msm_gpu.c                      |   3 +-
->  drivers/gpu/drm/msm/msm_gpu.h                      |   3 +-
->  7 files changed, 112 insertions(+), 50 deletions(-)
->
-> --
-> 2.7.4
->
+Rob
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
