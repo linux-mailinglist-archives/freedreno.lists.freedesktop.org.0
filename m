@@ -2,72 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF6022215B7
-	for <lists+freedreno@lfdr.de>; Wed, 15 Jul 2020 22:05:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 126312217AB
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jul 2020 00:19:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 798B76EC12;
-	Wed, 15 Jul 2020 20:05:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD7786EB73;
+	Wed, 15 Jul 2020 22:19:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
- [104.130.122.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82AC76EC0F
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jul 2020 20:05:37 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1594843541; h=In-Reply-To: Content-Type: MIME-Version:
- References: Message-ID: Subject: Cc: To: From: Date: Sender;
- bh=fvwWPJ4nfvf5fMLrZzvo42MkdKAWewsiREaDmkMYpTg=;
- b=IJa56gLQKU/ewKUzviyOW2n04NYcbQtKfsivz4kP94iDPrDf7hIwrvXeb0YHZ5dkM6gXgzeK
- f7PR9z4X//miRh7SbXBa0YHTsHWWFlYQTkCX8no9sBkT+EN4z0H4yMPI/Cv12kB5Zr7mIfzE
- Jz6Bpou61oRM4wCBEJFXNhnNcks=
-X-Mailgun-Sending-Ip: 104.130.122.29
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n16.prod.us-east-1.postgun.com with SMTP id
- 5f0f618ae3bee125101734d6 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 15 Jul 2020 20:05:30
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id A2BE0C433A0; Wed, 15 Jul 2020 20:05:29 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id B37ADC433C9;
- Wed, 15 Jul 2020 20:05:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org B37ADC433C9
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=jcrouse@codeaurora.org
-Date: Wed, 15 Jul 2020 14:05:24 -0600
-From: Jordan Crouse <jcrouse@codeaurora.org>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20200715200523.GA26861@jcrouse1-lnx.qualcomm.com>
-Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
- Rob Clark <robdclark@chromium.org>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Brian Masney <masneyb@onstation.org>,
- Fabio Estevam <festevam@gmail.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20200715190732.3116556-1-robdclark@gmail.com>
+Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
+ [IPv6:2607:f8b0:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF8386EB46;
+ Wed, 15 Jul 2020 22:19:24 +0000 (UTC)
+Received: by mail-pf1-x441.google.com with SMTP id s26so2721648pfm.4;
+ Wed, 15 Jul 2020 15:19:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=qxMjYphEfEAV7tSz+LCOdD9vQZvr3WacRlabwazm568=;
+ b=tUbTUWR3dxj56+YyBKIZgJW/7OA2iUxxr4thXULbGaCVs/FCj2qxgmftDdCgQcDfAj
+ P5pg8iyiIjQnURraFdk4xxB9TYVuanQxxhvUUAqFJKFeXquE3grQoz4CcppAAy4p5B5E
+ R+/cmzvRIj8wFAXTYPyl3DfbeeARc8bZzK9LkaPYajrSDztZTrdukZcz/XpD4YeBH+Se
+ vYEXBRqGTZ/F2Fuv9aMgg/pO+40ZN4ejTFs7IzCFduxAh5ykbHu13lc1dBt0YzCg57dZ
+ p4UV4ANTI/ixautCIS60xQkouahgl9VBwr1QkJCepyM0WYVBoR1dvQklHkzhUAmNDkU/
+ NR5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=qxMjYphEfEAV7tSz+LCOdD9vQZvr3WacRlabwazm568=;
+ b=tdcSKsmbFIEt8Y875s4O4Dy9NUHBb920UMfw+qbdo9cSHyrXQ+O6VGa1O+lHS0035w
+ JsK8qBgLOVoaOub7I30Jec0/+1xFvMBJqkivm7MhHMYe+y6GvfTvGlwgZFZHujGTY9Em
+ cU3RS6uC8vAdrNQZKouKV23NN55MyWLTwROYUWcQtXtSR/h0cGgR8FmkCtDEOnq3V2Ta
+ IbYLey9AWCp7cLJKlS7urWXRuEEWKhkJzcnuModb0RtifR82Q3RWURmhoxlm4mCIwI4H
+ fZD5C8Hn1k5p+0EeGdbeVKPVwsTOSDCl/DS+CderGMykKJplLBnaSzd7eQtqJpG1XeYz
+ jgjQ==
+X-Gm-Message-State: AOAM533PoGtXakejWrd/3Wn3VystJQrOmesYIQ5WNi+B5LlfzR60jXn1
+ GtsKbqUs9GMfXgOb5/VGAe51zQ2akiU=
+X-Google-Smtp-Source: ABdhPJztQ4b1Z0Z4rUFJQFEEF4msB+mPG53K5SjClbyNecECZ4BF9AnbVoPPw+8lwtj9Zq1DN6QehQ==
+X-Received: by 2002:a63:135b:: with SMTP id 27mr1656329pgt.37.1594851563677;
+ Wed, 15 Jul 2020 15:19:23 -0700 (PDT)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ p9sm1445997pgc.77.2020.07.15.15.19.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Jul 2020 15:19:22 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Wed, 15 Jul 2020 15:19:51 -0700
+Message-Id: <20200715221955.3209856-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200715190732.3116556-1-robdclark@gmail.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Freedreno] [PATCH] drm/msm/adreno: fix gpu probe if no
- interconnect-names
+Subject: [Freedreno] [PATCH] drm/msm/dpu: fix/enable 6bpc dither with
+ split-lm
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,93 +68,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, Jonathan Marek <jonathan@marek.ca>,
- David Airlie <airlied@linux.ie>, Fabio Estevam <festevam@gmail.com>,
- open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ <freedreno@lists.freedesktop.org>, Sam Ravnborg <sam@ravnborg.org>,
+ David Airlie <airlied@linux.ie>, Steev Klimaszewski <steev@gentoo.org>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sean Paul <sean@poorly.run>, Brian Masney <masneyb@onstation.org>
+ Doug Anderson <dianders@chromium.org>, Stephen Boyd <swboyd@chromium.org>,
+ Zheng Bin <zhengbin13@huawei.com>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Kalyan Thota <kalyan_t@codeaurora.org>,
+ Drew Davenport <ddavenport@chromium.org>, Sean Paul <sean@poorly.run>,
+ open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jul 15, 2020 at 12:07:30PM -0700, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> If there is no interconnect-names, but there is an interconnects
-> property, then of_icc_get(dev, "gfx-mem"); would return an error
-> rather than NULL.
-> 
-> Also, if there is no interconnect-names property, there will never
-> be a ocmem path.  But of_icc_get(dev, "ocmem") would return -EINVAL
-> instead of -ENODATA.  Just don't bother trying in this case.
-> 
-> v2: explicity check for interconnect-names property
-> 
-> Fixes: 8e29fb37b301 ("drm/msm: handle for EPROBE_DEFER for of_icc_get")
-> Fixes: 00bb9243d346 ("drm/msm/gpu: add support for ocmem interconnect path")
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 18 ++++++++++--------
->  1 file changed, 10 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> index 0527e85184e1..e23641a5ec84 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -1003,22 +1003,23 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->  	if (ret)
->  		return ret;
->  
-> -	/* Check for an interconnect path for the bus */
-> -	gpu->icc_path = of_icc_get(dev, "gfx-mem");
-> -	if (!gpu->icc_path) {
-> -		/*
-> -		 * Keep compatbility with device trees that don't have an
-> -		 * interconnect-names property.
-> -		 */
-> +	/*
-> +	 * The legacy case, before "interconnect-names", only has a
-> +	 * single interconnect path which is equivalent to "gfx-mem"
-> +	 */
-> +	if (!of_find_property(dev->of_node, "interconnect-names", NULL)) {
->  		gpu->icc_path = of_icc_get(dev, NULL);
-> +	} else {
-> +		gpu->icc_path = of_icc_get(dev, "gfx-mem");
-> +		gpu->ocmem_icc_path = of_icc_get(dev, "ocmem");
->  	}
-> +
->  	if (IS_ERR(gpu->icc_path)) {
->  		ret = PTR_ERR(gpu->icc_path);
->  		gpu->icc_path = NULL;
->  		return ret;
->  	}
->  
-> -	gpu->ocmem_icc_path = of_icc_get(dev, "ocmem");
->  	if (IS_ERR(gpu->ocmem_icc_path)) {
->  		ret = PTR_ERR(gpu->ocmem_icc_path);
->  		gpu->ocmem_icc_path = NULL;
-> @@ -1026,6 +1027,7 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->  		if (ret != -ENODATA)
->  			return ret;
->  	}
-> +
+From: Rob Clark <robdclark@chromium.org>
 
-Nit for an extra blank line but otherwise looks fine.  I like this workaround.
+If split-lm is used (for ex, on sdm845), we can have multiple ping-
+pongs, but only a single phys encoder.  We need to configure dithering
+on each of them.
 
-With that, Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 22 ++++++++++---------
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c   |  3 +--
+ 2 files changed, 13 insertions(+), 12 deletions(-)
 
->  	return 0;
->  }
->  
-> -- 
-> 2.26.2
-> 
-
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 46df0ff75b85..9b98b63c77fb 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -212,14 +212,14 @@ static u32 dither_matrix[DITHER_MATRIX_SZ] = {
+ 	15, 7, 13, 5, 3, 11, 1, 9, 12, 4, 14, 6, 0, 8, 2, 10
+ };
+ 
+-static void _dpu_encoder_setup_dither(struct dpu_encoder_phys *phys)
++static void _dpu_encoder_setup_dither(struct dpu_hw_pingpong *hw_pp, unsigned bpc)
+ {
+ 	struct dpu_hw_dither_cfg dither_cfg = { 0 };
+ 
+-	if (!phys->hw_pp || !phys->hw_pp->ops.setup_dither)
++	if (!hw_pp->ops.setup_dither)
+ 		return;
+ 
+-	switch (phys->connector->display_info.bpc) {
++	switch (bpc) {
+ 	case 6:
+ 		dither_cfg.c0_bitdepth = 6;
+ 		dither_cfg.c1_bitdepth = 6;
+@@ -228,14 +228,14 @@ static void _dpu_encoder_setup_dither(struct dpu_encoder_phys *phys)
+ 		dither_cfg.temporal_en = 0;
+ 		break;
+ 	default:
+-		phys->hw_pp->ops.setup_dither(phys->hw_pp, NULL);
++		hw_pp->ops.setup_dither(hw_pp, NULL);
+ 		return;
+ 	}
+ 
+ 	memcpy(&dither_cfg.matrix, dither_matrix,
+ 			sizeof(u32) * DITHER_MATRIX_SZ);
+ 
+-	phys->hw_pp->ops.setup_dither(phys->hw_pp, &dither_cfg);
++	hw_pp->ops.setup_dither(hw_pp, &dither_cfg);
+ }
+ 
+ void dpu_encoder_helper_report_irq_timeout(struct dpu_encoder_phys *phys_enc,
+@@ -1132,11 +1132,13 @@ static void _dpu_encoder_virt_enable_helper(struct drm_encoder *drm_enc)
+ 
+ 	_dpu_encoder_update_vsync_source(dpu_enc, &dpu_enc->disp_info);
+ 
+-	if (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_DSI) {
+-		for (i = 0; i < dpu_enc->num_phys_encs; i++) {
+-			struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
+-
+-			_dpu_encoder_setup_dither(phys);
++	if (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_DSI &&
++			!WARN_ON(dpu_enc->num_phys_encs == 0)) {
++		unsigned bpc = dpu_enc->phys_encs[0]->connector->display_info.bpc;
++		for (i = 0; i < MAX_CHANNELS_PER_ENC; i++) {
++			if (!dpu_enc->hw_pp[i])
++				continue;
++			_dpu_encoder_setup_dither(dpu_enc->hw_pp[i], bpc);
+ 		}
+ 	}
+ }
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
+index 7411ab6bf6af..bea4ab5c58c5 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
+@@ -231,8 +231,7 @@ static void _setup_pingpong_ops(struct dpu_hw_pingpong *c,
+ 	c->ops.poll_timeout_wr_ptr = dpu_hw_pp_poll_timeout_wr_ptr;
+ 	c->ops.get_line_count = dpu_hw_pp_get_line_count;
+ 
+-	if (test_bit(DPU_PINGPONG_DITHER, &features) &&
+-		IS_SC7180_TARGET(c->hw.hwversion))
++	if (test_bit(DPU_PINGPONG_DITHER, &features))
+ 		c->ops.setup_dither = dpu_hw_pp_setup_dither;
+ };
+ 
 -- 
-The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
-a Linux Foundation Collaborative Project
+2.26.2
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
