@@ -1,47 +1,34 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA679221EE0
-	for <lists+freedreno@lfdr.de>; Thu, 16 Jul 2020 10:51:00 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C1F0422218E
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jul 2020 13:36:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E4366E059;
-	Thu, 16 Jul 2020 08:50:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F2DE6EC45;
+	Thu, 16 Jul 2020 11:36:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72C2D6E059
- for <freedreno@lists.freedesktop.org>; Thu, 16 Jul 2020 08:50:58 +0000 (UTC)
-Received: from willie-the-truck (236.31.169.217.in-addr.arpa [217.169.31.236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C7ABE2067D;
- Thu, 16 Jul 2020 08:50:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1594889458;
- bh=U7X430J5V6ePsxTX3punZtP6BZO/DUniM8aSGD0rCbE=;
- h=Date:From:To:Subject:References:In-Reply-To:From;
- b=lZz7/S2vinkg3caYNt3YEW0+aHk66D0ubE/cVS+1d1BJj1TOMJLdy0VXqxtqvmFif
- cDATDWQ5495bMsQhe9jCZDMOaj8c/C54/Gzxzj3D8BOc5ai8vt33x1Nk/IMcu71aBm
- 4fkAgq1cHMXKB9HNNTG5q2laTa6Mvod6Foqi0R5M=
-Date: Thu, 16 Jul 2020 09:50:53 +0100
-From: Will Deacon <will@kernel.org>
-To: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- linux-arm-msm@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
- Robin Murphy <robin.murphy@arm.com>, linux-kernel@vger.kernel.org,
- iommu@lists.linux-foundation.org, John Stultz <john.stultz@linaro.org>,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
-Message-ID: <20200716085053.GB6771@willie-the-truck>
-References: <20200626200042.13713-1-jcrouse@codeaurora.org>
- <20200626200042.13713-5-jcrouse@codeaurora.org>
- <20200713150901.GA3072@willie-the-truck>
- <20200713171917.GA3815@jcrouse1-lnx.qualcomm.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200713171917.GA3815@jcrouse1-lnx.qualcomm.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH v9 4/7] iommu/arm-smmu: Add a pointer to the
- attached device to smmu_domain
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 672636EC4A;
+ Thu, 16 Jul 2020 11:36:05 +0000 (UTC)
+Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
+ by alexa-out.qualcomm.com with ESMTP; 16 Jul 2020 04:36:05 -0700
+Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
+ by ironmsg09-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 16 Jul 2020 04:36:04 -0700
+Received: from kalyant-linux.qualcomm.com ([10.204.66.210])
+ by ironmsg02-blr.qualcomm.com with ESMTP; 16 Jul 2020 17:05:38 +0530
+Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
+ id 0740C4B0D; Thu, 16 Jul 2020 17:05:37 +0530 (IST)
+From: Kalyan Thota <kalyan_t@codeaurora.org>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Thu, 16 Jul 2020 17:05:32 +0530
+Message-Id: <1594899334-19772-1-git-send-email-kalyan_t@codeaurora.org>
+X-Mailer: git-send-email 1.9.1
+Subject: [Freedreno] [PATCH 1/3] arm64: dts: sc7180: add interconnect
+ bindings for display
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,44 +41,51 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: Krishna Manikandan <mkrishn@codeaurora.org>, travitej@codeaurora.org,
+ linux-kernel@vger.kernel.org, dianders@chromium.org, robdclark@gmail.com,
+ nganji@codeaurora.org, seanpaul@chromium.org, hoegsberg@chromium.org,
+ jsanka@codeaurora.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jul 13, 2020 at 11:19:17AM -0600, Jordan Crouse wrote:
-> On Mon, Jul 13, 2020 at 04:09:02PM +0100, Will Deacon wrote:
-> > On Fri, Jun 26, 2020 at 02:00:38PM -0600, Jordan Crouse wrote:
-> > > diff --git a/drivers/iommu/arm-smmu.h b/drivers/iommu/arm-smmu.h
-> > > index 5f2de20e883b..d33cfe26b2f5 100644
-> > > --- a/drivers/iommu/arm-smmu.h
-> > > +++ b/drivers/iommu/arm-smmu.h
-> > > @@ -345,6 +345,7 @@ struct arm_smmu_domain {
-> > >  	struct mutex			init_mutex; /* Protects smmu pointer */
-> > >  	spinlock_t			cb_lock; /* Serialises ATS1* ops and TLB syncs */
-> > >  	struct iommu_domain		domain;
-> > > +	struct device			*dev;	/* Device attached to this domain */
-> > 
-> > This really doesn't feel right to me -- you can generally have multiple
-> > devices attached to a domain and they can come and go without the domain
-> > being destroyed. Perhaps you could instead identify the GPU during
-> > cfg_probe() and squirrel that information away somewhere?
-> 
-> I need some help here. The SMMU device (qcom,adreno-smmu) will have at least two
-> stream ids from two different platform devices (GPU and GMU) and I need to
-> configure split-pagetable and stall/terminate differently on the two domains.
+From: Krishna Manikandan <mkrishn@codeaurora.org>
 
-Hmm. How does the GPU driver know which context bank is assigned to the GPU
-and which one is assigned to the GMU? I assume it needs this information so
-that it can play its nasty tricks with the TTBR registers?
+This change adds the interconnect bindings to the
+MDSS node. This will establish Display to DDR path
+for bus bandwidth voting.
 
-I ask because if we need to guarantee stability of the context-bank
-assignment, then you could match on that in the ->init_context() callback,
-but now I worry that it currently works by luck :/
+Changes in v2:
+	- Change in commit message(Matthias Kaehlcke)
 
-Do we need to add an extra callback to allocate the context bank?
+Changes in v3:
+	- Updated commit message to include
+	  reviewer's name in v2
 
-Will
+Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
+---
+ arch/arm64/boot/dts/qcom/sc7180.dtsi | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+index 998f101..4f2c0d1 100644
+--- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+@@ -1522,6 +1522,9 @@
+ 			interrupt-controller;
+ 			#interrupt-cells = <1>;
+ 
++			interconnects = <&mmss_noc MASTER_MDP0 &mc_virt SLAVE_EBI1>;
++			interconnect-names = "mdp0-mem";
++
+ 			iommus = <&apps_smmu 0x800 0x2>;
+ 
+ 			#address-cells = <2>;
+-- 
+1.9.1
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
