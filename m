@@ -2,34 +2,33 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2521223CAC
-	for <lists+freedreno@lfdr.de>; Fri, 17 Jul 2020 15:30:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CBC4223E1F
+	for <lists+freedreno@lfdr.de>; Fri, 17 Jul 2020 16:36:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A29FE6EDAE;
-	Fri, 17 Jul 2020 13:30:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D52D06EC87;
+	Fri, 17 Jul 2020 14:36:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64C996EDAE
- for <freedreno@lists.freedesktop.org>; Fri, 17 Jul 2020 13:30:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBC866EC87
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Jul 2020 14:36:42 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1594992640; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=YQ4zTOzVY7tD8+0LunMnnTS0zV8fWFiSWwGe3hpL4w0=;
- b=qYrInPgtx1p5OFwZm/3WnkgOiZBJyIbt2q6v9JzkOMR1cYnqEDYZ4l+9RjRoj2A00VJoadbB
- XVfv+G+woOaLB5kOR0O5xjXQkerLZf+oBsDR4qAeqyODrboFyPKRbsl6zMqx5f+pJ2P7Ubc8
- 1Q30Z2DafccV1M98sXLV3UnwaRA=
+ s=smtp; t=1594996605; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=TyKyzR05tZRTaaXsH6YWC6xsJl+USZ1JBrWVHA4S8uY=;
+ b=JVgarnUC0x3K/X3Z2MpK8CTogbv3RernZ3RmAPBrqyWkVW8ywYkb9VawbwlZzUdmub+Kj426
+ CLaFy1J2uFMebSGDZYqwKgwoQo0sKTstr5Rr1Qa9NnDWXqUiE4HKE7g3jUjhw+wxDXtLnvbP
+ iXQLxIHvVh+Grjh+cw0Vbj/vKzM=
 X-Mailgun-Sending-Ip: 69.72.43.7
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
- 5f11a7ebee6926bb4f320b6d (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 17 Jul 2020 13:30:19
+ smtp-out-n19.prod.us-west-2.postgun.com with SMTP id
+ 5f11b777166c1c5494e81403 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 17 Jul 2020 14:36:39
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 966C0C433B7; Fri, 17 Jul 2020 13:30:18 +0000 (UTC)
+ id 5A1C6C43395; Fri, 17 Jul 2020 14:36:39 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -38,22 +37,20 @@ X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
 Received: from akhilpo-linux.qualcomm.com (unknown [202.46.22.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: akhilpo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id A8527C433AF;
- Fri, 17 Jul 2020 13:30:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org A8527C433AF
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 57AD6C433C6;
+ Fri, 17 Jul 2020 14:36:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 57AD6C433C6
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  spf=none smtp.mailfrom=akhilpo@codeaurora.org
 From: Akhil P Oommen <akhilpo@codeaurora.org>
 To: freedreno@lists.freedesktop.org
-Date: Fri, 17 Jul 2020 18:59:39 +0530
-Message-Id: <1594992579-20662-7-git-send-email-akhilpo@codeaurora.org>
+Date: Fri, 17 Jul 2020 20:04:18 +0530
+Message-Id: <1594996458-15529-1-git-send-email-akhilpo@codeaurora.org>
 X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1594992579-20662-1-git-send-email-akhilpo@codeaurora.org>
-References: <1594992579-20662-1-git-send-email-akhilpo@codeaurora.org>
-Subject: [Freedreno] [PATCH v6 6/6] arm64: dts: qcom: sc7180: Add
- opp-peak-kBps to GPU opp
+Subject: [Freedreno] [PATCH v2] drm: msm: a6xx: fix gpu failure after system
+ resume
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,78 +63,77 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, jonathan@marek.ca, saravanak@google.com,
- linux-arm-msm@vger.kernel.org, smasetty@codeaurora.org,
- linux-kernel@vger.kernel.org, bjorn.andersson@linaro.org,
- jcrouse@codeaurora.org, mka@chromium.org, robdclark@gmail.com,
- dri-devel@freedesktop.org, viresh.kumar@linaro.org, sibis@codeaurora.org
+Cc: dianders@chromium.org, linux-arm-msm@vger.kernel.org, robdclark@gmail.com,
+ linux-kernel@vger.kernel.org, jcrouse@codeaurora.org, mka@chromium.org,
+ dri-devel@freedesktop.org
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Sharat Masetty <smasetty@codeaurora.org>
+On targets where GMU is available, GMU takes over the ownership of GX GDSC
+during its initialization. So, move the refcount-get on GX PD before we
+initialize the GMU. This ensures that nobody can collapse the GX GDSC
+once GMU owns the GX GDSC. This patch fixes some GMU OOB errors seen
+during GPU wake up during a system resume.
 
-Add opp-peak-kBps bindings to the GPU opp table, listing the peak
-GPU -> DDR bandwidth requirement for each opp level. This will be
-used to scale the DDR bandwidth along with the GPU frequency dynamically.
-
-Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
-Reviewed-by: Matthias Kaehlcke <mka@chromium.org>
 Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+Reported-by: Matthias Kaehlcke <mka@chromium.org>
+Tested-by: Matthias Kaehlcke <mka@chromium.org>
 ---
- arch/arm64/boot/dts/qcom/sc7180.dtsi | 7 +++++++
- 1 file changed, 7 insertions(+)
+Changes from v1:
+- Reworded the commit text
+- Added Reported-by & Tested-by tags
 
-diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-index 80fe54b..ff4ddf1 100644
---- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-@@ -1479,36 +1479,43 @@
- 				opp-800000000 {
- 					opp-hz = /bits/ 64 <800000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
-+					opp-peak-kBps = <8532000>;
- 				};
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 21e77d6..1d33020 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -854,10 +854,19 @@ int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
+ 	/* Turn on the resources */
+ 	pm_runtime_get_sync(gmu->dev);
  
- 				opp-650000000 {
- 					opp-hz = /bits/ 64 <650000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
-+					opp-peak-kBps = <7216000>;
- 				};
++	/*
++	 * "enable" the GX power domain which won't actually do anything but it
++	 * will make sure that the refcounting is correct in case we need to
++	 * bring down the GX after a GMU failure
++	 */
++	if (!IS_ERR_OR_NULL(gmu->gxpd))
++		pm_runtime_get_sync(gmu->gxpd);
++
+ 	/* Use a known rate to bring up the GMU */
+ 	clk_set_rate(gmu->core_clk, 200000000);
+ 	ret = clk_bulk_prepare_enable(gmu->nr_clocks, gmu->clocks);
+ 	if (ret) {
++		pm_runtime_put(gmu->gxpd);
+ 		pm_runtime_put(gmu->dev);
+ 		return ret;
+ 	}
+@@ -903,19 +912,12 @@ int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
+ 	else
+ 		a6xx_hfi_set_freq(gmu, gmu->current_perf_index);
  
- 				opp-565000000 {
- 					opp-hz = /bits/ 64 <565000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
-+					opp-peak-kBps = <5412000>;
- 				};
+-	/*
+-	 * "enable" the GX power domain which won't actually do anything but it
+-	 * will make sure that the refcounting is correct in case we need to
+-	 * bring down the GX after a GMU failure
+-	 */
+-	if (!IS_ERR_OR_NULL(gmu->gxpd))
+-		pm_runtime_get(gmu->gxpd);
+-
+ out:
+ 	/* On failure, shut down the GMU to leave it in a good state */
+ 	if (ret) {
+ 		disable_irq(gmu->gmu_irq);
+ 		a6xx_rpmh_stop(gmu);
++		pm_runtime_put(gmu->gxpd);
+ 		pm_runtime_put(gmu->dev);
+ 	}
  
- 				opp-430000000 {
- 					opp-hz = /bits/ 64 <430000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-+					opp-peak-kBps = <5412000>;
- 				};
- 
- 				opp-355000000 {
- 					opp-hz = /bits/ 64 <355000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
-+					opp-peak-kBps = <3072000>;
- 				};
- 
- 				opp-267000000 {
- 					opp-hz = /bits/ 64 <267000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-+					opp-peak-kBps = <3072000>;
- 				};
- 
- 				opp-180000000 {
- 					opp-hz = /bits/ 64 <180000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
-+					opp-peak-kBps = <1804000>;
- 				};
- 			};
- 		};
 -- 
 2.7.4
 
