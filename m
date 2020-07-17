@@ -1,38 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54746222CC8
-	for <lists+freedreno@lfdr.de>; Thu, 16 Jul 2020 22:29:58 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A153F223C9C
+	for <lists+freedreno@lfdr.de>; Fri, 17 Jul 2020 15:29:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04E7A6ECDC;
-	Thu, 16 Jul 2020 20:29:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B408A6EDAC;
+	Fri, 17 Jul 2020 13:29:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from asavdk3.altibox.net (asavdk3.altibox.net [109.247.116.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 229646ECDC;
- Thu, 16 Jul 2020 20:29:56 +0000 (UTC)
-Received: from ravnborg.org (unknown [188.228.123.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by asavdk3.altibox.net (Postfix) with ESMTPS id 0CD4E20024;
- Thu, 16 Jul 2020 22:29:53 +0200 (CEST)
-Date: Thu, 16 Jul 2020 22:29:52 +0200
-From: Sam Ravnborg <sam@ravnborg.org>
-To: Steve Cohen <cohens@codeaurora.org>
-Message-ID: <20200716202952.GF2254583@ravnborg.org>
-References: <1594420826-4897-1-git-send-email-cohens@codeaurora.org>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1594420826-4897-1-git-send-email-cohens@codeaurora.org>
-X-CMAE-Score: 0
-X-CMAE-Analysis: v=2.3 cv=f+hm+t6M c=1 sm=1 tr=0
- a=S6zTFyMACwkrwXSdXUNehg==:117 a=S6zTFyMACwkrwXSdXUNehg==:17
- a=kj9zAlcOel0A:10 a=LpQP-O61AAAA:8 a=e5mUnYsNAAAA:8
- a=7NIp_XQ0yF2F6IRQXbcA:9 a=CjuIK1q_8ugA:10 a=pioyyrs4ZptJ924tMmac:22
- a=Vxmtnl_E_bksehYqCbjh:22
-Subject: Re: [Freedreno] [PATCH] drm: hold gem reference until object is no
- longer accessed
+Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
+ [104.130.122.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB55C6EDAA
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Jul 2020 13:29:52 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1594992593; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=syxYnsEts5Do5jGdb1EtbueYGDiFVWIM3nifipnzhbI=;
+ b=Qoq3mYA+bL6AUaA7ZAtp0SPmwhZb8t85qWIowC8QRd2Lk6r/nNWR31WBLfPh8iTDQ2c99oE2
+ b1e0e50sW/IZdzErfMKTcDBioSmYcAC/siB452wc20VXdu9ilLmhGVHyvUuaREVp89lPkkWr
+ Mj8DjaLqkIp1zLkAvVEj9Kn+sJQ=
+X-Mailgun-Sending-Ip: 104.130.122.29
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n09.prod.us-west-2.postgun.com with SMTP id
+ 5f11a7cfee6926bb4f31cde8 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 17 Jul 2020 13:29:51
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 7D4C9C433AD; Fri, 17 Jul 2020 13:29:50 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from akhilpo-linux.qualcomm.com (unknown [202.46.22.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id D27A9C433C9;
+ Fri, 17 Jul 2020 13:29:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org D27A9C433C9
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=akhilpo@codeaurora.org
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+To: freedreno@lists.freedesktop.org
+Date: Fri, 17 Jul 2020 18:59:33 +0530
+Message-Id: <1594992579-20662-1-git-send-email-akhilpo@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH v6 0/6] Add support for GPU DDR BW scaling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,78 +63,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: adelva@google.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, pdhaval@codeaurora.org, seanpaul@chromium.org,
- freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, jonathan@marek.ca, saravanak@google.com,
+ linux-arm-msm@vger.kernel.org, smasetty@codeaurora.org,
+ linux-kernel@vger.kernel.org, bjorn.andersson@linaro.org,
+ jcrouse@codeaurora.org, mka@chromium.org, robdclark@gmail.com,
+ dri-devel@freedesktop.org, viresh.kumar@linaro.org, sibis@codeaurora.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Steve and others.
+This series add support for GPU DDR bandwidth scaling and is based on the
+bindings from Georgi [1]. This is mostly a rebase of Sharat's patches [2] on the
+tip of msm-next branch.
 
-On Fri, Jul 10, 2020 at 06:40:26PM -0400, Steve Cohen wrote:
-> BUG: KASAN: use-after-free in drm_gem_open_ioctl
-> 
-> There is potential for use-after-free here if the GEM object
-> handle is closed between the idr lookup and retrieving the size
-> from the object since a local reference is not being held at that
-> point. Hold the local reference while the object can still be
-> accessed to resolve this.
-> 
-> Signed-off-by: Steve Cohen <cohens@codeaurora.org>
-> ---
->  drivers/gpu/drm/drm_gem.c | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> index 7bf628e..4b2891c 100644
-> --- a/drivers/gpu/drm/drm_gem.c
-> +++ b/drivers/gpu/drm/drm_gem.c
-> @@ -898,14 +898,15 @@ drm_gem_open_ioctl(struct drm_device *dev, void *data,
->  
->  	/* drm_gem_handle_create_tail unlocks dev->object_name_lock. */
->  	ret = drm_gem_handle_create_tail(file_priv, obj, &handle);
-> -	drm_gem_object_put_unlocked(obj);
->  	if (ret)
-> -		return ret;
-> +		goto out;
->  
->  	args->handle = handle;
->  	args->size = obj->size;
->  
-> -	return 0;
-> +out:
-> +	drm_gem_object_put_unlocked(obj);
-> +	return ret;
+[1] https://kernel.googlesource.com/pub/scm/linux/kernel/git/vireshk/pm/+log/opp/linux-next/
+[2] https://patchwork.freedesktop.org/series/75291/
 
-Lookign at drm_gem_flink_ioctl() that is implmented just above this
-functions there are two things that I noted.
+Changes from v5:
+- Added "interconnect-names" property
 
-1) In drm_gem_flink_ioctl() the label is named "err:" - and my OCD likes
-that similar labels have the same name.
+Changes from v4:
+- Squashed a patch to another one to fix Jonathan's comment
+- Add back the pm_runtime_get_if_in_use() check
 
-2) The function takes the object_name_lock but fails to release it in
-the error situation.
+Changes from v3:
+- Rebased on top of Jonathan's patch which adds support for changing gpu freq
+through hfi on newer targets
+- As suggested by Rob, left the icc_path intact for pre-a6xx GPUs
 
-Danile Vetter updated the locking in
-20228c447846da9399ead53fdbbc8ab69b47788a ("drm/gem: completely close gem_open vs. gem_close races")
+Sharat Masetty (6):
+  dt-bindings: drm/msm/gpu: Document gpu opp table
+  drm: msm: a6xx: send opp instead of a frequency
+  drm: msm: a6xx: use dev_pm_opp_set_bw to scale DDR
+  arm64: dts: qcom: SDM845: Enable GPU DDR bw scaling
+  arm64: dts: qcom: sc7180: Add interconnects property for GPU
+  arm64: dts: qcom: sc7180: Add opp-peak-kBps to GPU opp
 
-but I failed to follow it all.
+ .../devicetree/bindings/display/msm/gpu.txt        |  28 ++++++
+ arch/arm64/boot/dts/qcom/sc7180.dtsi               |  10 ++
+ arch/arm64/boot/dts/qcom/sdm845.dtsi               |  10 ++
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              | 108 ++++++++++++---------
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h              |   2 +-
+ drivers/gpu/drm/msm/msm_gpu.c                      |   3 +-
+ drivers/gpu/drm/msm/msm_gpu.h                      |   3 +-
+ 7 files changed, 114 insertions(+), 50 deletions(-)
 
-	Sam
+-- 
+2.7.4
 
->  }
->  
->  /**
-> -- 
-> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-> a Linux Foundation Collaborative Project
-> 
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
