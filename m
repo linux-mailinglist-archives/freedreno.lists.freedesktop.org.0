@@ -2,38 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDE07225200
-	for <lists+freedreno@lfdr.de>; Sun, 19 Jul 2020 15:39:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83FD2225419
+	for <lists+freedreno@lfdr.de>; Sun, 19 Jul 2020 22:21:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61E3F6E0B8;
-	Sun, 19 Jul 2020 13:39:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C77896E14F;
+	Sun, 19 Jul 2020 20:21:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from asavdk4.altibox.net (asavdk4.altibox.net [109.247.116.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 469276E02D;
- Sun, 19 Jul 2020 13:39:56 +0000 (UTC)
-Received: from ravnborg.org (unknown [188.228.123.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by asavdk4.altibox.net (Postfix) with ESMTPS id DFA79804DA;
- Sun, 19 Jul 2020 15:39:53 +0200 (CEST)
-Date: Sun, 19 Jul 2020 15:39:52 +0200
-From: Sam Ravnborg <sam@ravnborg.org>
-To: Steve Cohen <cohens@codeaurora.org>
-Message-ID: <20200719133952.GA40646@ravnborg.org>
-References: <1594420826-4897-1-git-send-email-cohens@codeaurora.org>
- <20200716202952.GF2254583@ravnborg.org>
+Received: from mail-oi1-x244.google.com (mail-oi1-x244.google.com
+ [IPv6:2607:f8b0:4864:20::244])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C1836E162
+ for <freedreno@lists.freedesktop.org>; Sun, 19 Jul 2020 19:55:55 +0000 (UTC)
+Received: by mail-oi1-x244.google.com with SMTP id e4so12770897oib.1
+ for <freedreno@lists.freedesktop.org>; Sun, 19 Jul 2020 12:55:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kali.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=mRtQwdBy4cMJ2VUTfd5VyA2rBeltOGvlkiQuwEZP/i0=;
+ b=PhcDkenTejEXeGJcJ3EQZjX+eEwXRF9XstpBQVjzS7UUEYNKMmLlrNKaIspOlx7Zap
+ Rz+/m+U/nF7UDTCOYhgyHx4VWF01jSPYYOSDOjWLwZZMCsIHRjNfLD6+9oSJ6l6PrVr9
+ ZEKskoCZDSWAaJxXwdyDNG7V7TsiPdJA95T+3fKsSUHzkvSi/vfkhl9M5v8VmXMsmLRh
+ XutfxqtwmBu1NRfPkBwHoTShtmY7kotXkg9ErOerm2o0HGP85uWR1SwDpB5V7C2Ikxqr
+ SSapvobuuewi9v1BGd9oNqQOtZQrPrxU5xjs7im7rVpW5JFcDDw6JglzhMNhZCwKzSWf
+ en+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=mRtQwdBy4cMJ2VUTfd5VyA2rBeltOGvlkiQuwEZP/i0=;
+ b=hl+IcaGqA838NQOBlRM+WtBgrNvyerVgdBvhnbUlLAgcN9cCuLKrKnK/U6CY16Z0GZ
+ qxAyMNfsD0P7IuCJg2QFpOt3jnKqwkBNcyrjGgQY2cRh2H0pFzePXFC5MrFNM6HAHWt7
+ oL7PF7/rdRL8eeNx02JuEMLu/0q4lWCMCMlvaJNMkX71oya9rvo3OWMqeSovuloqOKrg
+ qLS5Si8TQ55iHsQ0brpbtInEI9KsC4ioe0HKACFeH1vRFm6tofsT+59awgTNRrz8rVMB
+ b4g8h1jIGO2oo/ppfDaE3vxLtmfgUmww7wl9M5oA3JqHCRL0/pUhdRVEa0TE0+QzBHol
+ Byzw==
+X-Gm-Message-State: AOAM531YtWCqNRFdtqh305RK8WzC36kj3KPaXn21R5Uu0u3LJXvd1Sam
+ cRijcLwMgUy7M8czJH/LzIZn9A==
+X-Google-Smtp-Source: ABdhPJw49cUNxgoWmff++mA23jaYik5OoL2M48trhIC+wILhz86X9K4y444350XVMjDkuuELIlfF6g==
+X-Received: by 2002:aca:54d1:: with SMTP id i200mr15643632oib.11.1595188554414; 
+ Sun, 19 Jul 2020 12:55:54 -0700 (PDT)
+Received: from Steevs-MBP.hackershack.net (cpe-173-175-113-3.satx.res.rr.com.
+ [173.175.113.3])
+ by smtp.gmail.com with ESMTPSA id 97sm3091692oti.15.2020.07.19.12.55.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 19 Jul 2020 12:55:53 -0700 (PDT)
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+References: <20200715221955.3209856-1-robdclark@gmail.com>
+From: Steev Klimaszewski <steev@kali.org>
+Message-ID: <997f19de-9ea0-969c-ba91-603a2b214299@kali.org>
+Date: Sun, 19 Jul 2020 14:55:52 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200716202952.GF2254583@ravnborg.org>
-X-CMAE-Score: 0
-X-CMAE-Analysis: v=2.3 cv=aP3eV41m c=1 sm=1 tr=0
- a=S6zTFyMACwkrwXSdXUNehg==:117 a=S6zTFyMACwkrwXSdXUNehg==:17
- a=kj9zAlcOel0A:10 a=LpQP-O61AAAA:8 a=7gkXJVJtAAAA:8 a=e5mUnYsNAAAA:8
- a=T2CN4U7q9iM9Igr8EeIA:9 a=CjuIK1q_8ugA:10 a=pioyyrs4ZptJ924tMmac:22
- a=E9Po1WZjFZOl8hwRPBS3:22 a=Vxmtnl_E_bksehYqCbjh:22
-Subject: Re: [Freedreno] [PATCH] drm: hold gem reference until object is no
- longer accessed
+In-Reply-To: <20200715221955.3209856-1-robdclark@gmail.com>
+Content-Language: en-US
+X-Mailman-Approved-At: Sun, 19 Jul 2020 20:21:12 +0000
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: fix/enable 6bpc dither with
+ split-lm
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,96 +72,83 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: adelva@google.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, pdhaval@codeaurora.org, seanpaul@chromium.org,
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <freedreno@lists.freedesktop.org>, Sam Ravnborg <sam@ravnborg.org>,
+ David Airlie <airlied@linux.ie>, Steev Klimaszewski <steev@gentoo.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Doug Anderson <dianders@chromium.org>, Stephen Boyd <swboyd@chromium.org>,
+ Zheng Bin <zhengbin13@huawei.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Kalyan Thota <kalyan_t@codeaurora.org>,
+ Drew Davenport <ddavenport@chromium.org>, Sean Paul <sean@poorly.run>,
+ open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Steve.
-
-On Thu, Jul 16, 2020 at 10:29:52PM +0200, Sam Ravnborg wrote:
-> Hi Steve and others.
-> 
-> On Fri, Jul 10, 2020 at 06:40:26PM -0400, Steve Cohen wrote:
-> > BUG: KASAN: use-after-free in drm_gem_open_ioctl
-> > 
-> > There is potential for use-after-free here if the GEM object
-> > handle is closed between the idr lookup and retrieving the size
-> > from the object since a local reference is not being held at that
-> > point. Hold the local reference while the object can still be
-> > accessed to resolve this.
-> > 
-> > Signed-off-by: Steve Cohen <cohens@codeaurora.org>
-> > ---
-> >  drivers/gpu/drm/drm_gem.c | 7 ++++---
-> >  1 file changed, 4 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> > index 7bf628e..4b2891c 100644
-> > --- a/drivers/gpu/drm/drm_gem.c
-> > +++ b/drivers/gpu/drm/drm_gem.c
-> > @@ -898,14 +898,15 @@ drm_gem_open_ioctl(struct drm_device *dev, void *data,
-> >  
-> >  	/* drm_gem_handle_create_tail unlocks dev->object_name_lock. */
-> >  	ret = drm_gem_handle_create_tail(file_priv, obj, &handle);
-> > -	drm_gem_object_put_unlocked(obj);
-> >  	if (ret)
-> > -		return ret;
-> > +		goto out;
-> >  
-> >  	args->handle = handle;
-> >  	args->size = obj->size;
-> >  
-> > -	return 0;
-> > +out:
-> > +	drm_gem_object_put_unlocked(obj);
-> > +	return ret;
-> 
-> Lookign at drm_gem_flink_ioctl() that is implmented just above this
-> functions there are two things that I noted.
-> 
-> 1) In drm_gem_flink_ioctl() the label is named "err:" - and my OCD likes
-> that similar labels have the same name.
-> 
-> 2) The function takes the object_name_lock but fails to release it in
-> the error situation.
-Daniel pointed out on irc that drm_gem_handle_create_tail releases the
-lock. If I had read the comment I would have noticed too - sigh.
-
-With the label name fixed to "err:" like used in the function above:
-Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
-
-Please re-submit.
-
-	Sam
-
-> 
-> Danile Vetter updated the locking in
-> 20228c447846da9399ead53fdbbc8ab69b47788a ("drm/gem: completely close gem_open vs. gem_close races")
-> 
-> but I failed to follow it all.
-> 
-> 	Sam
-> 
-> >  }
-> >  
-> >  /**
-> > -- 
-> > The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-> > a Linux Foundation Collaborative Project
-> > 
-> > _______________________________________________
-> > dri-devel mailing list
-> > dri-devel@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/dri-devel
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+SGksCgpPbiA3LzE1LzIwIDU6MTkgUE0sIFJvYiBDbGFyayB3cm90ZToKPiBGcm9tOiBSb2IgQ2xh
+cmsgPHJvYmRjbGFya0BjaHJvbWl1bS5vcmc+Cj4KPiBJZiBzcGxpdC1sbSBpcyB1c2VkIChmb3Ig
+ZXgsIG9uIHNkbTg0NSksIHdlIGNhbiBoYXZlIG11bHRpcGxlIHBpbmctCj4gcG9uZ3MsIGJ1dCBv
+bmx5IGEgc2luZ2xlIHBoeXMgZW5jb2Rlci4gIFdlIG5lZWQgdG8gY29uZmlndXJlIGRpdGhlcmlu
+Zwo+IG9uIGVhY2ggb2YgdGhlbS4KPgo+IFNpZ25lZC1vZmYtYnk6IFJvYiBDbGFyayA8cm9iZGNs
+YXJrQGNocm9taXVtLm9yZz4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEv
+ZHB1X2VuY29kZXIuYyAgIHwgMjIgKysrKysrKysrKy0tLS0tLS0tLQo+ICAuLi4vZ3B1L2RybS9t
+c20vZGlzcC9kcHUxL2RwdV9od19waW5ncG9uZy5jICAgfCAgMyArLS0KPiAgMiBmaWxlcyBjaGFu
+Z2VkLCAxMyBpbnNlcnRpb25zKCspLCAxMiBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfZW5jb2Rlci5jIGIvZHJpdmVycy9ncHUv
+ZHJtL21zbS9kaXNwL2RwdTEvZHB1X2VuY29kZXIuYwo+IGluZGV4IDQ2ZGYwZmY3NWI4NS4uOWI5
+OGI2M2M3N2ZiIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2Rw
+dV9lbmNvZGVyLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfZW5j
+b2Rlci5jCj4gQEAgLTIxMiwxNCArMjEyLDE0IEBAIHN0YXRpYyB1MzIgZGl0aGVyX21hdHJpeFtE
+SVRIRVJfTUFUUklYX1NaXSA9IHsKPiAgCTE1LCA3LCAxMywgNSwgMywgMTEsIDEsIDksIDEyLCA0
+LCAxNCwgNiwgMCwgOCwgMiwgMTAKPiAgfTsKPiAgCj4gLXN0YXRpYyB2b2lkIF9kcHVfZW5jb2Rl
+cl9zZXR1cF9kaXRoZXIoc3RydWN0IGRwdV9lbmNvZGVyX3BoeXMgKnBoeXMpCj4gK3N0YXRpYyB2
+b2lkIF9kcHVfZW5jb2Rlcl9zZXR1cF9kaXRoZXIoc3RydWN0IGRwdV9od19waW5ncG9uZyAqaHdf
+cHAsIHVuc2lnbmVkIGJwYykKPiAgewo+ICAJc3RydWN0IGRwdV9od19kaXRoZXJfY2ZnIGRpdGhl
+cl9jZmcgPSB7IDAgfTsKPiAgCj4gLQlpZiAoIXBoeXMtPmh3X3BwIHx8ICFwaHlzLT5od19wcC0+
+b3BzLnNldHVwX2RpdGhlcikKPiArCWlmICghaHdfcHAtPm9wcy5zZXR1cF9kaXRoZXIpCj4gIAkJ
+cmV0dXJuOwo+ICAKPiAtCXN3aXRjaCAocGh5cy0+Y29ubmVjdG9yLT5kaXNwbGF5X2luZm8uYnBj
+KSB7Cj4gKwlzd2l0Y2ggKGJwYykgewo+ICAJY2FzZSA2Ogo+ICAJCWRpdGhlcl9jZmcuYzBfYml0
+ZGVwdGggPSA2Owo+ICAJCWRpdGhlcl9jZmcuYzFfYml0ZGVwdGggPSA2Owo+IEBAIC0yMjgsMTQg
+KzIyOCwxNCBAQCBzdGF0aWMgdm9pZCBfZHB1X2VuY29kZXJfc2V0dXBfZGl0aGVyKHN0cnVjdCBk
+cHVfZW5jb2Rlcl9waHlzICpwaHlzKQo+ICAJCWRpdGhlcl9jZmcudGVtcG9yYWxfZW4gPSAwOwo+
+ICAJCWJyZWFrOwo+ICAJZGVmYXVsdDoKPiAtCQlwaHlzLT5od19wcC0+b3BzLnNldHVwX2RpdGhl
+cihwaHlzLT5od19wcCwgTlVMTCk7Cj4gKwkJaHdfcHAtPm9wcy5zZXR1cF9kaXRoZXIoaHdfcHAs
+IE5VTEwpOwo+ICAJCXJldHVybjsKPiAgCX0KPiAgCj4gIAltZW1jcHkoJmRpdGhlcl9jZmcubWF0
+cml4LCBkaXRoZXJfbWF0cml4LAo+ICAJCQlzaXplb2YodTMyKSAqIERJVEhFUl9NQVRSSVhfU1op
+Owo+ICAKPiAtCXBoeXMtPmh3X3BwLT5vcHMuc2V0dXBfZGl0aGVyKHBoeXMtPmh3X3BwLCAmZGl0
+aGVyX2NmZyk7Cj4gKwlod19wcC0+b3BzLnNldHVwX2RpdGhlcihod19wcCwgJmRpdGhlcl9jZmcp
+Owo+ICB9Cj4gIAo+ICB2b2lkIGRwdV9lbmNvZGVyX2hlbHBlcl9yZXBvcnRfaXJxX3RpbWVvdXQo
+c3RydWN0IGRwdV9lbmNvZGVyX3BoeXMgKnBoeXNfZW5jLAo+IEBAIC0xMTMyLDExICsxMTMyLDEz
+IEBAIHN0YXRpYyB2b2lkIF9kcHVfZW5jb2Rlcl92aXJ0X2VuYWJsZV9oZWxwZXIoc3RydWN0IGRy
+bV9lbmNvZGVyICpkcm1fZW5jKQo+ICAKPiAgCV9kcHVfZW5jb2Rlcl91cGRhdGVfdnN5bmNfc291
+cmNlKGRwdV9lbmMsICZkcHVfZW5jLT5kaXNwX2luZm8pOwo+ICAKPiAtCWlmIChkcHVfZW5jLT5k
+aXNwX2luZm8uaW50Zl90eXBlID09IERSTV9NT0RFX0VOQ09ERVJfRFNJKSB7Cj4gLQkJZm9yIChp
+ID0gMDsgaSA8IGRwdV9lbmMtPm51bV9waHlzX2VuY3M7IGkrKykgewo+IC0JCQlzdHJ1Y3QgZHB1
+X2VuY29kZXJfcGh5cyAqcGh5cyA9IGRwdV9lbmMtPnBoeXNfZW5jc1tpXTsKPiAtCj4gLQkJCV9k
+cHVfZW5jb2Rlcl9zZXR1cF9kaXRoZXIocGh5cyk7Cj4gKwlpZiAoZHB1X2VuYy0+ZGlzcF9pbmZv
+LmludGZfdHlwZSA9PSBEUk1fTU9ERV9FTkNPREVSX0RTSSAmJgo+ICsJCQkhV0FSTl9PTihkcHVf
+ZW5jLT5udW1fcGh5c19lbmNzID09IDApKSB7Cj4gKwkJdW5zaWduZWQgYnBjID0gZHB1X2VuYy0+
+cGh5c19lbmNzWzBdLT5jb25uZWN0b3ItPmRpc3BsYXlfaW5mby5icGM7Cj4gKwkJZm9yIChpID0g
+MDsgaSA8IE1BWF9DSEFOTkVMU19QRVJfRU5DOyBpKyspIHsKPiArCQkJaWYgKCFkcHVfZW5jLT5o
+d19wcFtpXSkKPiArCQkJCWNvbnRpbnVlOwo+ICsJCQlfZHB1X2VuY29kZXJfc2V0dXBfZGl0aGVy
+KGRwdV9lbmMtPmh3X3BwW2ldLCBicGMpOwo+ICAJCX0KPiAgCX0KPiAgfQo+IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfaHdfcGluZ3BvbmcuYyBiL2RyaXZl
+cnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9od19waW5ncG9uZy5jCj4gaW5kZXggNzQxMWFi
+NmJmNmFmLi5iZWE0YWI1YzU4YzUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL21zbS9k
+aXNwL2RwdTEvZHB1X2h3X3Bpbmdwb25nLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rp
+c3AvZHB1MS9kcHVfaHdfcGluZ3BvbmcuYwo+IEBAIC0yMzEsOCArMjMxLDcgQEAgc3RhdGljIHZv
+aWQgX3NldHVwX3Bpbmdwb25nX29wcyhzdHJ1Y3QgZHB1X2h3X3Bpbmdwb25nICpjLAo+ICAJYy0+
+b3BzLnBvbGxfdGltZW91dF93cl9wdHIgPSBkcHVfaHdfcHBfcG9sbF90aW1lb3V0X3dyX3B0cjsK
+PiAgCWMtPm9wcy5nZXRfbGluZV9jb3VudCA9IGRwdV9od19wcF9nZXRfbGluZV9jb3VudDsKPiAg
+Cj4gLQlpZiAodGVzdF9iaXQoRFBVX1BJTkdQT05HX0RJVEhFUiwgJmZlYXR1cmVzKSAmJgo+IC0J
+CUlTX1NDNzE4MF9UQVJHRVQoYy0+aHcuaHd2ZXJzaW9uKSkKPiArCWlmICh0ZXN0X2JpdChEUFVf
+UElOR1BPTkdfRElUSEVSLCAmZmVhdHVyZXMpKQo+ICAJCWMtPm9wcy5zZXR1cF9kaXRoZXIgPSBk
+cHVfaHdfcHBfc2V0dXBfZGl0aGVyOwo+ICB9OwoKU29ycnkgZm9yIHRha2luZyBzbyBsb25nIHRv
+IGdldCBhcm91bmQgdG8gdGVzdGluZyB0aGlzLsKgIEkgd2FzIGFibGUgdG8KdG9kYXksIGFuZCBp
+dCBkb2VzIHJlZHVjZSB0aGUgYmFuZGluZyB0byBiZSBsZXNzIG5vdGljZWFibGUuCgpUZXN0ZWQt
+Ynk6IFN0ZWV2IEtsaW1hc3pld3NraSA8c3RlZXZAa2FsaS5vcmc+CgpUaGFua3MhCgotLSBzdGVl
+dgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRy
+ZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5vCg==
