@@ -2,55 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 842E3226327
-	for <lists+freedreno@lfdr.de>; Mon, 20 Jul 2020 17:22:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEEFE2263E6
+	for <lists+freedreno@lfdr.de>; Mon, 20 Jul 2020 17:41:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EE6B89B0D;
-	Mon, 20 Jul 2020 15:22:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D13889C1F;
+	Mon, 20 Jul 2020 15:41:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-x143.google.com (mail-il1-x143.google.com
- [IPv6:2607:f8b0:4864:20::143])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECFF989AC6;
- Mon, 20 Jul 2020 15:22:34 +0000 (UTC)
-Received: by mail-il1-x143.google.com with SMTP id s21so13607592ilk.5;
- Mon, 20 Jul 2020 08:22:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=YTvVo/WqRmwmKrp+4IJv8WZy6Bskg7m6aPJC4k+BRDo=;
- b=BRX1Lw8H+UIhc3+TlKDeISox3Kgztn9uZQ0A8XreA52NJLvF5T0eOBXN5ED6Lbt92+
- adJHhY3Qtv4SrOQhoBvIJU5qo+mKk78+KWXpNlhEAm6epvd3dYIXpnYovILuYLmbaxQA
- ByFFxlHmQ0ROpgGlGw/hHFXQnQijn6oK7ojFm5ux9ifdhoM4Si9nTLJR45LUzig5m/wu
- veTAKx5CCbLOxX8DXLsH4oik2EVVVZdqSxsE3ZG0zJstqA77FYCjV+SPQPGCilk91OYV
- k8iH8FYq0PNf7PdlxjWF7fQFjm5iBISfEtRVyJ3JZnNHel1I5bdiCmdJUw3XKHFAx6TE
- 3/fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=YTvVo/WqRmwmKrp+4IJv8WZy6Bskg7m6aPJC4k+BRDo=;
- b=R4imK0B2ic22fdBzCULdFqp0mw5NGJ5u4Xx+2su+2/izVmTvDwOCEN5fu8jNySTgSe
- m537BgkrIDJugxbAfMMNKIj3SFoo1vGFhY9gg/BzvYDrgYHvJQkgHX65+UhQrYwm3JjR
- ji9h3Gapo3gB4gjImssnL5rF77IVbAt9SdP9FpfK2QM2VWlCsBuzvHk4mq7k8+Pgoo0A
- NjXGZCJsjmgwwSD0aUha3ooRLTABUsZx6KNqsgvThQUlDFAKBfp792rPI9leDLP5rpmN
- muuig5bJxiMSm3qLt7iqx4awdPtxDm2I3zJ3dIP/9td381+k3raTF4Uv+kA06PJgrGNK
- T4cA==
-X-Gm-Message-State: AOAM5307cvmyh/MpnjJY87ygyDJKOGSHtBNNMPgL3CKIiM+KUsq1ZtRD
- +FhmV+AjYvaPeiac5RDq8Kr3eWTF23rB5a+CE20=
-X-Google-Smtp-Source: ABdhPJwo46IUG9Uvw1AF5fAEN6qBNZnifgUkqvyITHYxBM8kiaMFkhqqRK/O272Hmjm6K1DZOjzT09uiNq1omiRtZP4=
-X-Received: by 2002:a05:6e02:8a8:: with SMTP id
- a8mr24502403ilt.52.1595258554196; 
- Mon, 20 Jul 2020 08:22:34 -0700 (PDT)
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2647789C2C
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Jul 2020 15:41:19 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1595259681; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=mgZPX/ORqnPLBZAJTpnFrkYtIjx2TWoOg4J5PqIxq8Y=;
+ b=e6KF+FCQBAKATHu28eMnoQ/unvxm2xvKn9WbHICCqwvJfE463X1JVbVq+xrjzQvNwY2RhHJM
+ 1ZK+VTYc2aoSpC29hUEqCtq382blwXbpvFvZOyNkhwdGKgJChpDcHd6MOoaPEo4oH361Saup
+ 5iVJya4h7uk9A7+Z/kmX5FHffvc=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n17.prod.us-east-1.postgun.com with SMTP id
+ 5f15bb12c7a053446a4bfb95 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 20 Jul 2020 15:41:06
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 3F64DC433CB; Mon, 20 Jul 2020 15:41:03 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from jordan-laptop.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id C7775C433C6;
+ Mon, 20 Jul 2020 15:40:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org C7775C433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=jcrouse@codeaurora.org
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: linux-arm-msm@vger.kernel.org
+Date: Mon, 20 Jul 2020 09:40:34 -0600
+Message-Id: <20200720154047.3611092-1-jcrouse@codeaurora.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20200715221955.3209856-1-robdclark@gmail.com>
- <92c9e9d08dfa014f1589186a68902de7@codeaurora.org>
-In-Reply-To: <92c9e9d08dfa014f1589186a68902de7@codeaurora.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 20 Jul 2020 08:23:09 -0700
-Message-ID: <CAF6AEGuV7vTseh5KmCremhhfR1E4sAY1oPAwtCOCtYb1vx=A0g@mail.gmail.com>
-To: Kalyan Thota <kalyan_t@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: fix/enable 6bpc dither with
- split-lm
+Subject: [Freedreno] [PATCH v10 00/13] iommu/arm-smmu: Add Adreno SMMU
+ specific implementation
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,125 +66,109 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Doug Anderson <dianders@chromium.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Zheng Bin <zhengbin13@huawei.com>,
- Sean Paul <sean@poorly.run>, Daniel Vetter <daniel@ffwll.ch>,
- Steev Klimaszewski <steev@gentoo.org>,
- Drew Davenport <ddavenport@chromium.org>, Sam Ravnborg <sam@ravnborg.org>,
- open list <linux-kernel@vger.kernel.org>
+Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ Akhil P Oommen <akhilpo@codeaurora.org>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Eric Anholt <eric@anholt.net>,
+ AngeloGioacchino Del Regno <kholk11@gmail.com>, Will Deacon <will@kernel.org>,
+ Emil Velikov <emil.velikov@collabora.com>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>, Joerg Roedel <joro@8bytes.org>,
+ iommu@lists.linux-foundation.org, Andy Gross <agross@kernel.org>,
+ Brian Masney <masneyb@onstation.org>, Wambui Karuga <wambui.karugax@gmail.com>,
+ Sharat Masetty <smasetty@codeaurora.org>, Rob Herring <robh+dt@kernel.org>,
+ John Stultz <john.stultz@linaro.org>, Sean Paul <sean@poorly.run>,
+ Ben Dooks <ben.dooks@codethink.co.uk>, linux-arm-kernel@lists.infradead.org,
+ Robin Murphy <robin.murphy@arm.com>, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Shawn Guo <shawn.guo@linaro.org>, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jul 20, 2020 at 5:53 AM <kalyan_t@codeaurora.org> wrote:
->
-> On 2020-07-16 03:49, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > If split-lm is used (for ex, on sdm845), we can have multiple ping-
-> > pongs, but only a single phys encoder.  We need to configure dithering
-> > on each of them.
-> >
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > ---
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 22 ++++++++++---------
-> >  .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c   |  3 +--
-> >  2 files changed, 13 insertions(+), 12 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > index 46df0ff75b85..9b98b63c77fb 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > @@ -212,14 +212,14 @@ static u32 dither_matrix[DITHER_MATRIX_SZ] = {
-> >       15, 7, 13, 5, 3, 11, 1, 9, 12, 4, 14, 6, 0, 8, 2, 10
-> >  };
-> >
-> > -static void _dpu_encoder_setup_dither(struct dpu_encoder_phys *phys)
-> > +static void _dpu_encoder_setup_dither(struct dpu_hw_pingpong *hw_pp,
-> > unsigned bpc)
-> >  {
-> >       struct dpu_hw_dither_cfg dither_cfg = { 0 };
-> >
-> > -     if (!phys->hw_pp || !phys->hw_pp->ops.setup_dither)
-> > +     if (!hw_pp->ops.setup_dither)
-> >               return;
-> >
-> > -     switch (phys->connector->display_info.bpc) {
-> > +     switch (bpc) {
-> >       case 6:
-> >               dither_cfg.c0_bitdepth = 6;
-> >               dither_cfg.c1_bitdepth = 6;
-> > @@ -228,14 +228,14 @@ static void _dpu_encoder_setup_dither(struct
-> > dpu_encoder_phys *phys)
-> >               dither_cfg.temporal_en = 0;
-> >               break;
-> >       default:
-> > -             phys->hw_pp->ops.setup_dither(phys->hw_pp, NULL);
-> > +             hw_pp->ops.setup_dither(hw_pp, NULL);
-> >               return;
-> >       }
-> >
-> >       memcpy(&dither_cfg.matrix, dither_matrix,
-> >                       sizeof(u32) * DITHER_MATRIX_SZ);
-> >
-> > -     phys->hw_pp->ops.setup_dither(phys->hw_pp, &dither_cfg);
-> > +     hw_pp->ops.setup_dither(hw_pp, &dither_cfg);
-> >  }
-> >
-> >  void dpu_encoder_helper_report_irq_timeout(struct dpu_encoder_phys
-> > *phys_enc,
-> > @@ -1132,11 +1132,13 @@ static void
-> > _dpu_encoder_virt_enable_helper(struct drm_encoder *drm_enc)
-> >
-> >       _dpu_encoder_update_vsync_source(dpu_enc, &dpu_enc->disp_info);
-> >
-> > -     if (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_DSI) {
-> > -             for (i = 0; i < dpu_enc->num_phys_encs; i++) {
-> > -                     struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
-> > -
-> > -                     _dpu_encoder_setup_dither(phys);
-> > +     if (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_DSI &&
-> > +                     !WARN_ON(dpu_enc->num_phys_encs == 0)) {
-> > +             unsigned bpc = dpu_enc->phys_encs[0]->connector->display_info.bpc;
-> > +             for (i = 0; i < MAX_CHANNELS_PER_ENC; i++) {
-> > +                     if (!dpu_enc->hw_pp[i])
-> > +                             continue;
-> > +                     _dpu_encoder_setup_dither(dpu_enc->hw_pp[i], bpc);
-> >               }
-> >       }
-> >  }
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
-> > b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
-> > index 7411ab6bf6af..bea4ab5c58c5 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
-> > @@ -231,8 +231,7 @@ static void _setup_pingpong_ops(struct
-> > dpu_hw_pingpong *c,
-> >       c->ops.poll_timeout_wr_ptr = dpu_hw_pp_poll_timeout_wr_ptr;
-> >       c->ops.get_line_count = dpu_hw_pp_get_line_count;
-> >
-> > -     if (test_bit(DPU_PINGPONG_DITHER, &features) &&
-> > -             IS_SC7180_TARGET(c->hw.hwversion))
-> > +     if (test_bit(DPU_PINGPONG_DITHER, &features))
-> >               c->ops.setup_dither = dpu_hw_pp_setup_dither;
-> >  };
->
-> Change looks good to me
+(reworded the summary to reflect ongoing changes in the code)
 
-Does that count as a Reviewed-by?
+This series adds an Adreno SMMU implementation to arm-smmu to allow GPU hardware
+pagetable switching.
 
-BR,
--R
+The Adreno GPU has built in capabilities to switch the TTBR0 pagetable during
+runtime to allow each individual instance or application to have its own
+pagetable.  In order to take advantage of the HW capabilities there are certain
+requirements needed of the SMMU hardware.
 
->
-> - Kalyan
+This series adds support for an Adreno specific arm-smmu implementation. The new
+implementation 1) ensures that the GPU domain is always assigned context bank 0,
+2) enables split pagetable support (TTBR1) so that the instance specific
+pagetable can be swapped while the global memory remains in place and 3) shares
+the current pagetable configuration with the GPU driver to allow it to create
+its own io-pgtable instances.
+
+The series then adds the drm/msm code to enable these features. For targets that
+support it allocate new pagetables using the io-pgtable configuration shared by
+the arm-smmu driver and swap them in during runtime.
+
+This version of the series merges the previous patchset(s) [1] and [2]
+with the following improvements:
+
+  - arm-smmu: add implementation hook to allocate context banks
+  - arm-smmu: Match the GPU domain by stream ID instead of compatible string
+  - arm-smmu: Make DOMAIN_ATTR_PGTABLE_CFG bi-directional. The leaf driver
+    queries the configuration to create a pagetable and then sends the newly
+    created configuration back to the smmu-driver to enable TTBR0
+  - drm/msm: Add context reference counting for submissions
+  - drm/msm: Use dummy functions to skip TLB operations on per-instance
+    pagetables
+
+[1] https://lists.linuxfoundation.org/pipermail/iommu/2020-June/045653.html
+[2] https://lists.linuxfoundation.org/pipermail/iommu/2020-June/045659.html
+
+
+Jordan Crouse (13):
+  iommu/arm-smmu: Pass io-pgtable config to implementation specific
+    function
+  iommu/arm-smmu: Add support for split pagetables
+  iommu/arm-smmu: Add implementation hooks to configure contexts
+  iommu/arm-smmu-qcom: Add implementation for the adreno GPU SMMU
+  iommu: Add a domain attribute to get/set a pagetable configuration
+  iommu/arm-smmu-qcom: Get and set the pagetable config for split
+    pagetables
+  dt-bindings: arm-smmu: Add compatible string for Adreno GPU SMMU
+  drm/msm: Add a context pointer to the submitqueue
+  drm/msm: Set the global virtual address range from the IOMMU domain
+  drm/msm: Add support to create a local pagetable
+  drm/msm: Add support for private address space instances
+  drm/msm/a6xx: Add support for per-instance pagetables
+  arm: dts: qcom: sm845: Set the compatible string for the GPU SMMU
+
+ .../devicetree/bindings/iommu/arm,smmu.yaml   |   4 +
+ arch/arm64/boot/dts/qcom/sdm845.dtsi          |   2 +-
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |  12 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c         |  58 ++++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h         |   1 +
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  18 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h       |   3 +-
+ drivers/gpu/drm/msm/msm_drv.c                 |  16 +-
+ drivers/gpu/drm/msm/msm_drv.h                 |  13 ++
+ drivers/gpu/drm/msm/msm_gem.h                 |   1 +
+ drivers/gpu/drm/msm/msm_gem_submit.c          |   8 +-
+ drivers/gpu/drm/msm/msm_gem_vma.c             |   9 +
+ drivers/gpu/drm/msm/msm_gpu.c                 |  26 ++-
+ drivers/gpu/drm/msm/msm_gpu.h                 |  12 +-
+ drivers/gpu/drm/msm/msm_gpummu.c              |   2 +-
+ drivers/gpu/drm/msm/msm_iommu.c               | 198 +++++++++++++++++-
+ drivers/gpu/drm/msm/msm_mmu.h                 |  16 +-
+ drivers/gpu/drm/msm/msm_ringbuffer.h          |   1 +
+ drivers/gpu/drm/msm/msm_submitqueue.c         |   8 +-
+ drivers/iommu/arm-smmu-impl.c                 |   6 +-
+ drivers/iommu/arm-smmu-qcom.c                 | 130 +++++++++++-
+ drivers/iommu/arm-smmu.c                      | 108 +++++-----
+ drivers/iommu/arm-smmu.h                      |  65 +++++-
+ include/linux/iommu.h                         |   1 +
+ 24 files changed, 619 insertions(+), 99 deletions(-)
+
+-- 
+2.25.1
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
