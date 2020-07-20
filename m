@@ -2,64 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83FD2225419
-	for <lists+freedreno@lfdr.de>; Sun, 19 Jul 2020 22:21:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27105225854
+	for <lists+freedreno@lfdr.de>; Mon, 20 Jul 2020 09:22:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C77896E14F;
-	Sun, 19 Jul 2020 20:21:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68E748935B;
+	Mon, 20 Jul 2020 07:22:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x244.google.com (mail-oi1-x244.google.com
- [IPv6:2607:f8b0:4864:20::244])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C1836E162
- for <freedreno@lists.freedesktop.org>; Sun, 19 Jul 2020 19:55:55 +0000 (UTC)
-Received: by mail-oi1-x244.google.com with SMTP id e4so12770897oib.1
- for <freedreno@lists.freedesktop.org>; Sun, 19 Jul 2020 12:55:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kali.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=mRtQwdBy4cMJ2VUTfd5VyA2rBeltOGvlkiQuwEZP/i0=;
- b=PhcDkenTejEXeGJcJ3EQZjX+eEwXRF9XstpBQVjzS7UUEYNKMmLlrNKaIspOlx7Zap
- Rz+/m+U/nF7UDTCOYhgyHx4VWF01jSPYYOSDOjWLwZZMCsIHRjNfLD6+9oSJ6l6PrVr9
- ZEKskoCZDSWAaJxXwdyDNG7V7TsiPdJA95T+3fKsSUHzkvSi/vfkhl9M5v8VmXMsmLRh
- XutfxqtwmBu1NRfPkBwHoTShtmY7kotXkg9ErOerm2o0HGP85uWR1SwDpB5V7C2Ikxqr
- SSapvobuuewi9v1BGd9oNqQOtZQrPrxU5xjs7im7rVpW5JFcDDw6JglzhMNhZCwKzSWf
- en+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=mRtQwdBy4cMJ2VUTfd5VyA2rBeltOGvlkiQuwEZP/i0=;
- b=hl+IcaGqA838NQOBlRM+WtBgrNvyerVgdBvhnbUlLAgcN9cCuLKrKnK/U6CY16Z0GZ
- qxAyMNfsD0P7IuCJg2QFpOt3jnKqwkBNcyrjGgQY2cRh2H0pFzePXFC5MrFNM6HAHWt7
- oL7PF7/rdRL8eeNx02JuEMLu/0q4lWCMCMlvaJNMkX71oya9rvo3OWMqeSovuloqOKrg
- qLS5Si8TQ55iHsQ0brpbtInEI9KsC4ioe0HKACFeH1vRFm6tofsT+59awgTNRrz8rVMB
- b4g8h1jIGO2oo/ppfDaE3vxLtmfgUmww7wl9M5oA3JqHCRL0/pUhdRVEa0TE0+QzBHol
- Byzw==
-X-Gm-Message-State: AOAM531YtWCqNRFdtqh305RK8WzC36kj3KPaXn21R5Uu0u3LJXvd1Sam
- cRijcLwMgUy7M8czJH/LzIZn9A==
-X-Google-Smtp-Source: ABdhPJw49cUNxgoWmff++mA23jaYik5OoL2M48trhIC+wILhz86X9K4y444350XVMjDkuuELIlfF6g==
-X-Received: by 2002:aca:54d1:: with SMTP id i200mr15643632oib.11.1595188554414; 
- Sun, 19 Jul 2020 12:55:54 -0700 (PDT)
-Received: from Steevs-MBP.hackershack.net (cpe-173-175-113-3.satx.res.rr.com.
- [173.175.113.3])
- by smtp.gmail.com with ESMTPSA id 97sm3091692oti.15.2020.07.19.12.55.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 19 Jul 2020 12:55:53 -0700 (PDT)
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
-References: <20200715221955.3209856-1-robdclark@gmail.com>
-From: Steev Klimaszewski <steev@kali.org>
-Message-ID: <997f19de-9ea0-969c-ba91-603a2b214299@kali.org>
-Date: Sun, 19 Jul 2020 14:55:52 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.10.0
+X-Greylist: delayed 304 seconds by postgrey-1.36 at gabe;
+ Mon, 20 Jul 2020 07:22:43 UTC
+Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4470C8935B
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Jul 2020 07:22:43 +0000 (UTC)
+Received: from mail-qt1-f175.google.com ([209.85.160.175]) by
+ mrelayeu.kundenserver.de (mreue106 [212.227.15.145]) with ESMTPSA (Nemesis)
+ id 1MEmtx-1k4M4w0P7b-00GF0B for <freedreno@lists.freedesktop.org>; Mon, 20
+ Jul 2020 09:17:37 +0200
+Received: by mail-qt1-f175.google.com with SMTP id 6so12254236qtt.0
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Jul 2020 00:17:36 -0700 (PDT)
+X-Gm-Message-State: AOAM531nKyzLbGrxglGGAb/MdzL0JH2/AACKm8SvSRElvqym3wcYLTw3
+ d+EXJ6xDD9dU1L5RrjiLpPc+ocNL9AlzbzvH4z8=
+X-Google-Smtp-Source: ABdhPJwQ7aG0Kfph32W7oujhBLlHufrj5SBDtqFGsDCgZiI0AOcu8JEKEqCBhxfpFSaC0WpZ33qNauezR2FDL5mRSbE=
+X-Received: by 2002:ac8:2b98:: with SMTP id m24mr22488198qtm.7.1595229455883; 
+ Mon, 20 Jul 2020 00:17:35 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200715221955.3209856-1-robdclark@gmail.com>
-Content-Language: en-US
-X-Mailman-Approved-At: Sun, 19 Jul 2020 20:21:12 +0000
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: fix/enable 6bpc dither with
- split-lm
+References: <CA+G9fYuzqA0N6O-52uH9aHjsfF6HfhuxMby1Y6Yz7jGMAHW0zw@mail.gmail.com>
+In-Reply-To: <CA+G9fYuzqA0N6O-52uH9aHjsfF6HfhuxMby1Y6Yz7jGMAHW0zw@mail.gmail.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Mon, 20 Jul 2020 09:17:20 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a1SHQKNNCVj9Gp25BLuXUC2nf7FuVrqfpPYQkvMbhjzFg@mail.gmail.com>
+Message-ID: <CAK8P3a1SHQKNNCVj9Gp25BLuXUC2nf7FuVrqfpPYQkvMbhjzFg@mail.gmail.com>
+To: Naresh Kamboju <naresh.kamboju@linaro.org>
+X-Provags-ID: V03:K1:rVIuNZg9AtnhhcUtCiCDrCJqd6enILX/dvMhXImeRpfdwhDmyEL
+ T1L8S1/K2JC1Z2RqiQMd9yd039xHq0L+yqQ/QT5HgA+ALE1oWJm43atImiGDjCK3SxzXpiy
+ lorD/kaKou0jKVSffrxG3ccB2YHxI1E/GClCaf69zgVmjM9FdPSfKvr05Lhcqopu9DqdabM
+ DEu30+nnQn3QLsB4mw5Zw==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:REeh0gdxQxE=:kQmSfoHU/nouSIzPUnoDrO
+ CuBEEdWt72BGs7AyCnpI/i+glJPrp6B3LzsF/s49upLSPSNfMx2Mk8RV6oovowSQHTevKVq9m
+ aWDgFwAB3zvao19PP65h3mZ82t9CfeyM0fTyKTv4D21FOCZdeg0QhLYrZ+CYsYSW7NkCzMpQM
+ nKoJQLL8GaMkO1yXRKCGunwsJSuURetFfV1Lk/+hovaMAp6vNkNCOuqzzr6IpnR1jkc017dwZ
+ PjRvXfx8Iq+qRH/W3cJEXtO3W4Sl2SvfoyMQ+O3j8syUh+Xk07UxpIoH3apSx5luWMRWcFETd
+ vAgdTwtDPwtAR+88OwdQEH+B7MOlTQtSjHIbig+vKGF3LC2XuCdpyuxhWyuRswkE2uDmTyIPp
+ Gktu7Kj+b3sL02k1LS5UeZDNPClIIJGe1UYiWDupA803BVqKL12ddvgC2RAvKTeHbOuXN/RjS
+ itSl+RzQwZJhEKct3Jf1cX4WkaAfDJLhKaWwMy7CiFLauUtXAB/5+0udII/Bud7ufwbABGJe2
+ FC8eaApb4FK8mk3r1Zt0jE84fZnIBiROmkgBFzsrWmuqkvd6UXD2KAAbc3evWqexBRIohe5lO
+ tP1C+0L3T8CsZ4pBft2UKUxHz1sCeJ82bAf9mhVM7qG+IaEXtpePxD7Uao7o9EyUSYisvj8wv
+ 3UQXjLFzx3DdTBwsLmmErK3ySvnAVyyKSIRhJoaxHzA7uP0nOwxrD2tnVHAVFJPFG1fFsON8t
+ F7IYfE4A+vcZoK6hRkwHrgR6ChIOqOuE2pzxzVD6ENovp++rmqYquqJFR0MIWPxbACr09SQ9W
+ EZO10YpcD0RxUEcT63s4j1zGgPrGdD1R91kComYVTYNkt+LO1VbuJ+DaYPHr0jhDTWUByJu4E
+ XJN13TFuHt9tUJzklIV0bCdUfcy0mnNKmO7OHe2HiZ1pdWc2gvaC7AJ2whBkIdHWoBoShqyeo
+ 6eFZ6TEBxkULXXmtsZiu+7my1nlWicBfWu4+DRiQQ0d4QCDAS7D8y
+Subject: Re: [Freedreno] arm64: Internal error: Oops:
+ qcom_iommu_tlb_inv_context free_io_pgtable_ops on db410c
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,83 +67,189 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, Sam Ravnborg <sam@ravnborg.org>,
- David Airlie <airlied@linux.ie>, Steev Klimaszewski <steev@gentoo.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Doug Anderson <dianders@chromium.org>, Stephen Boyd <swboyd@chromium.org>,
- Zheng Bin <zhengbin13@huawei.com>, Daniel Vetter <daniel@ffwll.ch>,
- Kalyan Thota <kalyan_t@codeaurora.org>,
- Drew Davenport <ddavenport@chromium.org>, Sean Paul <sean@poorly.run>,
- open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: lkft-triage@lists.linaro.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Eric Anholt <eric@anholt.net>, Thierry Reding <thierry.reding@gmail.com>,
+ "Guohanjun \(Hanjun Guo\)" <guohanjun@huawei.com>,
+ Will Deacon <will@kernel.org>,
+ Jean-Philippe Brucker <jean-philippe@linaro.org>,
+ Vinod Koul <vinod.koul@linaro.org>, Joerg Roedel <joro@8bytes.org>,
+ "open list:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+ Andy Gross <agross@kernel.org>, freedreno@lists.freedesktop.org,
+ Joerg Roedel <jroedel@suse.de>, John Stultz <john.stultz@linaro.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>,
+ "moderated list:ARM/Mediatek SoC..." <linux-mediatek@lists.infradead.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Sean Paul <sean@poorly.run>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, Qian Cai <cai@lca.pw>,
+ Robin Murphy <robin.murphy@arm.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-SGksCgpPbiA3LzE1LzIwIDU6MTkgUE0sIFJvYiBDbGFyayB3cm90ZToKPiBGcm9tOiBSb2IgQ2xh
-cmsgPHJvYmRjbGFya0BjaHJvbWl1bS5vcmc+Cj4KPiBJZiBzcGxpdC1sbSBpcyB1c2VkIChmb3Ig
-ZXgsIG9uIHNkbTg0NSksIHdlIGNhbiBoYXZlIG11bHRpcGxlIHBpbmctCj4gcG9uZ3MsIGJ1dCBv
-bmx5IGEgc2luZ2xlIHBoeXMgZW5jb2Rlci4gIFdlIG5lZWQgdG8gY29uZmlndXJlIGRpdGhlcmlu
-Zwo+IG9uIGVhY2ggb2YgdGhlbS4KPgo+IFNpZ25lZC1vZmYtYnk6IFJvYiBDbGFyayA8cm9iZGNs
-YXJrQGNocm9taXVtLm9yZz4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEv
-ZHB1X2VuY29kZXIuYyAgIHwgMjIgKysrKysrKysrKy0tLS0tLS0tLQo+ICAuLi4vZ3B1L2RybS9t
-c20vZGlzcC9kcHUxL2RwdV9od19waW5ncG9uZy5jICAgfCAgMyArLS0KPiAgMiBmaWxlcyBjaGFu
-Z2VkLCAxMyBpbnNlcnRpb25zKCspLCAxMiBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfZW5jb2Rlci5jIGIvZHJpdmVycy9ncHUv
-ZHJtL21zbS9kaXNwL2RwdTEvZHB1X2VuY29kZXIuYwo+IGluZGV4IDQ2ZGYwZmY3NWI4NS4uOWI5
-OGI2M2M3N2ZiIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2Rw
-dV9lbmNvZGVyLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfZW5j
-b2Rlci5jCj4gQEAgLTIxMiwxNCArMjEyLDE0IEBAIHN0YXRpYyB1MzIgZGl0aGVyX21hdHJpeFtE
-SVRIRVJfTUFUUklYX1NaXSA9IHsKPiAgCTE1LCA3LCAxMywgNSwgMywgMTEsIDEsIDksIDEyLCA0
-LCAxNCwgNiwgMCwgOCwgMiwgMTAKPiAgfTsKPiAgCj4gLXN0YXRpYyB2b2lkIF9kcHVfZW5jb2Rl
-cl9zZXR1cF9kaXRoZXIoc3RydWN0IGRwdV9lbmNvZGVyX3BoeXMgKnBoeXMpCj4gK3N0YXRpYyB2
-b2lkIF9kcHVfZW5jb2Rlcl9zZXR1cF9kaXRoZXIoc3RydWN0IGRwdV9od19waW5ncG9uZyAqaHdf
-cHAsIHVuc2lnbmVkIGJwYykKPiAgewo+ICAJc3RydWN0IGRwdV9od19kaXRoZXJfY2ZnIGRpdGhl
-cl9jZmcgPSB7IDAgfTsKPiAgCj4gLQlpZiAoIXBoeXMtPmh3X3BwIHx8ICFwaHlzLT5od19wcC0+
-b3BzLnNldHVwX2RpdGhlcikKPiArCWlmICghaHdfcHAtPm9wcy5zZXR1cF9kaXRoZXIpCj4gIAkJ
-cmV0dXJuOwo+ICAKPiAtCXN3aXRjaCAocGh5cy0+Y29ubmVjdG9yLT5kaXNwbGF5X2luZm8uYnBj
-KSB7Cj4gKwlzd2l0Y2ggKGJwYykgewo+ICAJY2FzZSA2Ogo+ICAJCWRpdGhlcl9jZmcuYzBfYml0
-ZGVwdGggPSA2Owo+ICAJCWRpdGhlcl9jZmcuYzFfYml0ZGVwdGggPSA2Owo+IEBAIC0yMjgsMTQg
-KzIyOCwxNCBAQCBzdGF0aWMgdm9pZCBfZHB1X2VuY29kZXJfc2V0dXBfZGl0aGVyKHN0cnVjdCBk
-cHVfZW5jb2Rlcl9waHlzICpwaHlzKQo+ICAJCWRpdGhlcl9jZmcudGVtcG9yYWxfZW4gPSAwOwo+
-ICAJCWJyZWFrOwo+ICAJZGVmYXVsdDoKPiAtCQlwaHlzLT5od19wcC0+b3BzLnNldHVwX2RpdGhl
-cihwaHlzLT5od19wcCwgTlVMTCk7Cj4gKwkJaHdfcHAtPm9wcy5zZXR1cF9kaXRoZXIoaHdfcHAs
-IE5VTEwpOwo+ICAJCXJldHVybjsKPiAgCX0KPiAgCj4gIAltZW1jcHkoJmRpdGhlcl9jZmcubWF0
-cml4LCBkaXRoZXJfbWF0cml4LAo+ICAJCQlzaXplb2YodTMyKSAqIERJVEhFUl9NQVRSSVhfU1op
-Owo+ICAKPiAtCXBoeXMtPmh3X3BwLT5vcHMuc2V0dXBfZGl0aGVyKHBoeXMtPmh3X3BwLCAmZGl0
-aGVyX2NmZyk7Cj4gKwlod19wcC0+b3BzLnNldHVwX2RpdGhlcihod19wcCwgJmRpdGhlcl9jZmcp
-Owo+ICB9Cj4gIAo+ICB2b2lkIGRwdV9lbmNvZGVyX2hlbHBlcl9yZXBvcnRfaXJxX3RpbWVvdXQo
-c3RydWN0IGRwdV9lbmNvZGVyX3BoeXMgKnBoeXNfZW5jLAo+IEBAIC0xMTMyLDExICsxMTMyLDEz
-IEBAIHN0YXRpYyB2b2lkIF9kcHVfZW5jb2Rlcl92aXJ0X2VuYWJsZV9oZWxwZXIoc3RydWN0IGRy
-bV9lbmNvZGVyICpkcm1fZW5jKQo+ICAKPiAgCV9kcHVfZW5jb2Rlcl91cGRhdGVfdnN5bmNfc291
-cmNlKGRwdV9lbmMsICZkcHVfZW5jLT5kaXNwX2luZm8pOwo+ICAKPiAtCWlmIChkcHVfZW5jLT5k
-aXNwX2luZm8uaW50Zl90eXBlID09IERSTV9NT0RFX0VOQ09ERVJfRFNJKSB7Cj4gLQkJZm9yIChp
-ID0gMDsgaSA8IGRwdV9lbmMtPm51bV9waHlzX2VuY3M7IGkrKykgewo+IC0JCQlzdHJ1Y3QgZHB1
-X2VuY29kZXJfcGh5cyAqcGh5cyA9IGRwdV9lbmMtPnBoeXNfZW5jc1tpXTsKPiAtCj4gLQkJCV9k
-cHVfZW5jb2Rlcl9zZXR1cF9kaXRoZXIocGh5cyk7Cj4gKwlpZiAoZHB1X2VuYy0+ZGlzcF9pbmZv
-LmludGZfdHlwZSA9PSBEUk1fTU9ERV9FTkNPREVSX0RTSSAmJgo+ICsJCQkhV0FSTl9PTihkcHVf
-ZW5jLT5udW1fcGh5c19lbmNzID09IDApKSB7Cj4gKwkJdW5zaWduZWQgYnBjID0gZHB1X2VuYy0+
-cGh5c19lbmNzWzBdLT5jb25uZWN0b3ItPmRpc3BsYXlfaW5mby5icGM7Cj4gKwkJZm9yIChpID0g
-MDsgaSA8IE1BWF9DSEFOTkVMU19QRVJfRU5DOyBpKyspIHsKPiArCQkJaWYgKCFkcHVfZW5jLT5o
-d19wcFtpXSkKPiArCQkJCWNvbnRpbnVlOwo+ICsJCQlfZHB1X2VuY29kZXJfc2V0dXBfZGl0aGVy
-KGRwdV9lbmMtPmh3X3BwW2ldLCBicGMpOwo+ICAJCX0KPiAgCX0KPiAgfQo+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfaHdfcGluZ3BvbmcuYyBiL2RyaXZl
-cnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9od19waW5ncG9uZy5jCj4gaW5kZXggNzQxMWFi
-NmJmNmFmLi5iZWE0YWI1YzU4YzUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL21zbS9k
-aXNwL2RwdTEvZHB1X2h3X3Bpbmdwb25nLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rp
-c3AvZHB1MS9kcHVfaHdfcGluZ3BvbmcuYwo+IEBAIC0yMzEsOCArMjMxLDcgQEAgc3RhdGljIHZv
-aWQgX3NldHVwX3Bpbmdwb25nX29wcyhzdHJ1Y3QgZHB1X2h3X3Bpbmdwb25nICpjLAo+ICAJYy0+
-b3BzLnBvbGxfdGltZW91dF93cl9wdHIgPSBkcHVfaHdfcHBfcG9sbF90aW1lb3V0X3dyX3B0cjsK
-PiAgCWMtPm9wcy5nZXRfbGluZV9jb3VudCA9IGRwdV9od19wcF9nZXRfbGluZV9jb3VudDsKPiAg
-Cj4gLQlpZiAodGVzdF9iaXQoRFBVX1BJTkdQT05HX0RJVEhFUiwgJmZlYXR1cmVzKSAmJgo+IC0J
-CUlTX1NDNzE4MF9UQVJHRVQoYy0+aHcuaHd2ZXJzaW9uKSkKPiArCWlmICh0ZXN0X2JpdChEUFVf
-UElOR1BPTkdfRElUSEVSLCAmZmVhdHVyZXMpKQo+ICAJCWMtPm9wcy5zZXR1cF9kaXRoZXIgPSBk
-cHVfaHdfcHBfc2V0dXBfZGl0aGVyOwo+ICB9OwoKU29ycnkgZm9yIHRha2luZyBzbyBsb25nIHRv
-IGdldCBhcm91bmQgdG8gdGVzdGluZyB0aGlzLsKgIEkgd2FzIGFibGUgdG8KdG9kYXksIGFuZCBp
-dCBkb2VzIHJlZHVjZSB0aGUgYmFuZGluZyB0byBiZSBsZXNzIG5vdGljZWFibGUuCgpUZXN0ZWQt
-Ynk6IFN0ZWV2IEtsaW1hc3pld3NraSA8c3RlZXZAa2FsaS5vcmc+CgpUaGFua3MhCgotLSBzdGVl
-dgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRy
-ZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5vCg==
+On Mon, Jul 20, 2020 at 8:36 AM Naresh Kamboju
+<naresh.kamboju@linaro.org> wrote:
+>
+> This kernel oops while boot linux mainline kernel on arm64  db410c device.
+>
+> metadata:
+>   git branch: master
+>   git repo: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+>   git commit: f8456690ba8eb18ea4714e68554e242a04f65cff
+>   git describe: v5.8-rc5-48-gf8456690ba8e
+>   make_kernelversion: 5.8.0-rc5
+>   kernel-config:
+> https://builds.tuxbuild.com/2aLnwV7BLStU0t1R1QPwHQ/kernel.config
+
+Thanks for the report. Adding freedreno folks to Cc, as this may have something
+to do with that driver.
+
+>
+> [    5.444121] Unable to handle kernel NULL pointer dereference at
+> virtual address 0000000000000018
+> [    5.456615]   ESR = 0x96000004
+> [    5.464471]   SET = 0, FnV = 0
+> [    5.464487]   EA = 0, S1PTW = 0
+> [    5.466521] Data abort info:
+> [    5.469971]   ISV = 0, ISS = 0x00000004
+> [    5.472768]   CM = 0, WnR = 0
+> [    5.476172] user pgtable: 4k pages, 48-bit VAs, pgdp=00000000bacba000
+> [    5.479349] [0000000000000018] pgd=0000000000000000, p4d=0000000000000000
+> [    5.485820] Internal error: Oops: 96000004 [#1] PREEMPT SMP
+> [    5.492448] Modules linked in: crct10dif_ce adv7511(+)
+> qcom_spmi_temp_alarm cec msm(+) mdt_loader qcom_camss videobuf2_dma_sg
+> drm_kms_helper v4l2_fwnode videobuf2_memops videobuf2_v4l2 qcom_rng
+> videobuf2_common i2c_qcom_cci display_connector socinfo drm qrtr ns
+> rmtfs_mem fuse
+> [    5.500256] CPU: 0 PID: 286 Comm: systemd-udevd Not tainted 5.8.0-rc5 #1
+> [    5.522484] Hardware name: Qualcomm Technologies, Inc. APQ 8016 SBC (DT)
+> [    5.529170] pstate: 20000005 (nzCv daif -PAN -UAO BTYPE=--)
+> [    5.535856] pc : qcom_iommu_tlb_inv_context+0x18/0xa8
+> [    5.541148] lr : free_io_pgtable_ops+0x28/0x58
+> [    5.546350] sp : ffff80001219b5f0
+> [    5.550689] x29: ffff80001219b5f0 x28: 0000000000000013
+> [    5.554078] x27: 0000000000000100 x26: ffff000036add3b8
+> [    5.559459] x25: ffff80000915e910 x24: ffff00003a5458c0
+> [    5.564753] x23: 0000000000000003 x22: ffff000036a37058
+> [    5.570049] x21: ffff000036a3a100 x20: ffff000036a3a480
+> [    5.575344] x19: ffff000036a37158 x18: 0000000000000000
+> [    5.580639] x17: 0000000000000000 x16: 0000000000000000
+> [    5.585935] x15: 0000000000000004 x14: 0000000000000368
+> [    5.591229] x13: 0000000000000000 x12: ffff000039c61798
+> [    5.596525] x11: ffff000039c616d0 x10: 0000000040000000
+> [    5.601820] x9 : 0000000000000000 x8 : ffff000039c616f8
+> [    5.607114] x7 : 0000000000000000 x6 : ffff000009f699a0
+> [    5.612410] x5 : ffff80001219b520 x4 : ffff000036a3a000
+> [    5.617705] x3 : ffff000009f69904 x2 : 0000000000000000
+> [    5.623001] x1 : ffff8000107e27e8 x0 : ffff00003a545810
+> [    5.628297] Call trace:
+> [    5.633592]  qcom_iommu_tlb_inv_context+0x18/0xa8
+
+This means that dev_iommu_fwspec_get() has returned NULL
+in qcom_iommu_tlb_inv_context(), either because dev->iommu
+is NULL, or because dev->iommu->fwspec is NULL.
+
+qcom_iommu_tlb_inv_context() does not check for a NULL
+pointer before using the returned object.
+
+The bug is either in the lack of error handling, or the fact
+that it's possible to get into this function for a device
+that has not been fully set up.
+
+> [    5.635764]  free_io_pgtable_ops+0x28/0x58
+> [    5.640624]  qcom_iommu_domain_free+0x38/0x60
+> [    5.644617]  iommu_group_release+0x4c/0x70
+> [    5.649045]  kobject_put+0x6c/0x120
+> [    5.653035]  kobject_del+0x64/0x90
+> [    5.656421]  kobject_put+0xfc/0x120
+> [    5.659893]  iommu_group_remove_device+0xdc/0xf0
+> [    5.663281]  iommu_release_device+0x44/0x70
+> [    5.668142]  iommu_bus_notifier+0xbc/0xd0
+> [    5.672048]  notifier_call_chain+0x54/0x98
+> [    5.676214]  blocking_notifier_call_chain+0x48/0x70
+> [    5.680209]  device_del+0x26c/0x3a0
+> [    5.684981]  platform_device_del.part.0+0x1c/0x88
+> [    5.688453]  platform_device_unregister+0x24/0x40
+> [    5.693316]  of_platform_device_destroy+0xe4/0xf8
+> [    5.698002]  device_for_each_child+0x5c/0xa8
+> [    5.702689]  of_platform_depopulate+0x3c/0x80
+> [    5.707144]  msm_pdev_probe+0x1c4/0x308 [msm]
+
+It was triggered by a failure in msm_pdev_probe(), which was
+calls of_platform_depopulate() in its error handling code.
+This is a combination of two problems:
+
+a) Whatever caused msm_pdev_probe() to fail means that
+the gpu won't be usable, though it should not have caused the
+kernel to crash.
+
+b) the error handling itself causing additional problems due
+to failed unwinding.
+
+> [    5.711286]  platform_drv_probe+0x54/0xa8
+> [    5.715624]  really_probe+0xd8/0x320
+> [    5.719617]  driver_probe_device+0x58/0xb8
+> [    5.723263]  device_driver_attach+0x74/0x80
+> [    5.727168]  __driver_attach+0x58/0xe0
+> [    5.731248]  bus_for_each_dev+0x70/0xc0
+> [    5.735067]  driver_attach+0x24/0x30
+> [    5.738801]  bus_add_driver+0x14c/0x1f0
+> [    5.742619]  driver_register+0x64/0x120
+> [    5.746178]  __platform_driver_register+0x48/0x58
+> [    5.750099]  msm_drm_register+0x58/0x70 [msm]
+> [    5.754861]  do_one_initcall+0x54/0x1a0
+> [    5.759200]  do_init_module+0x54/0x200
+> [    5.762846]  load_module+0x1d1c/0x2300
+> [    5.766664]  __do_sys_finit_module+0xd8/0xf0
+> [    5.770398]  __arm64_sys_finit_module+0x20/0x30
+> [    5.774826]  el0_svc_common.constprop.0+0x6c/0x168
+> [    5.779078]  do_el0_svc+0x24/0x90
+> [    5.783939]  el0_sync_handler+0x90/0x198
+> [    5.787323]  el0_sync+0x158/0x180
+> [    5.791323] Code: 910003fd f9417404 b4000484 f9401482 (b9401846)
+> [    5.794532] ---[ end trace 3d6a53241629e560 ]---
+>
+> full crash log details.
+> https://qa-reports.linaro.org/lkft/linux-mainline-oe/build/v5.8-rc5-48-gf8456690ba8e/testrun/2945157/suite/linux-log-parser/test/check-kernel-oops-1573988/log
+
+There are a couple of messages directly preceding the bug output that are
+probably relevant here:
+
+[    5.259499] debugfs: Directory '1b0ac00.camss-vdda' with parent
+'smd:rpm:rpm-requests:pm8916-regulators-l2' already present!
+         Starting Resize root filesystem to fit available disk space...
+         Starting Start the WCN core...
+[[0;32m  OK  [0m] Started Network Service.
+[[0;32m  OK  [0m] Started QRTR service.
+[    5.352993] adreno 1c00000.gpu: Adding to iommu group 1
+[    5.357489] msm_mdp 1a01000.mdp: Adding to iommu group 2
+[    5.357757] msm_mdp 1a01000.mdp: No interconnect support may cause
+display underflows!
+[    5.366215] adv7511 3-0039: supply dvdd not found, using dummy regulator
+[    5.378036] msm 1a00000.mdss: supply vdd not found, using dummy regulator
+[    5.378715] msm_mdp 1a01000.mdp: [drm:mdp5_bind [msm]] MDP5 version v1.6
+[    5.380549] adv7511 3-0039: supply pvdd not found, using dummy regulator
+[    5.384606] msm 1a00000.mdss: bound 1a01000.mdp (ops mdp5_ops [msm])
+[    5.394368] adv7511 3-0039: supply a2vdd not found, using dummy regulator
+[    5.397633] msm_dsi 1a98000.dsi: supply gdsc not found, using dummy regulator
+[    5.411897] msm_dsi 1a98000.dsi: supply gdsc not found, using dummy regulator
+[    5.420207] msm_dsi_manager_register: failed to register mipi dsi
+host for DSI 0
+[    5.425717] platform 1a01000.mdp: Removing from iommu group 2
+[[0;1;31mFAILED[0m] Failed to start Entropy Daemon based on the HAVEGE
+algorithm.[    5.444121] Unable to handle kernel NULL pointer
+dereference at virtual address 0000000000000018
+
+See 'systemctl status haveged.service' for detai[    5.456615]   ESR =
+0x96000004
+ls.
+[    5.464471]   SET = 0, FnV = 0
+[    5.464487]   EA = 0, S1PTW = 0
+
+        Arnd
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
