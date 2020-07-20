@@ -1,20 +1,20 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A0672262B8
-	for <lists+freedreno@lfdr.de>; Mon, 20 Jul 2020 17:03:33 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 78EFA2262BF
+	for <lists+freedreno@lfdr.de>; Mon, 20 Jul 2020 17:04:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2B2789C98;
-	Mon, 20 Jul 2020 15:03:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F19CE89D8D;
+	Mon, 20 Jul 2020 15:04:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com
- [IPv6:2607:f8b0:4864:20::d43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9ACD89C98
- for <freedreno@lists.freedesktop.org>; Mon, 20 Jul 2020 15:03:30 +0000 (UTC)
-Received: by mail-io1-xd43.google.com with SMTP id e64so17901012iof.12
- for <freedreno@lists.freedesktop.org>; Mon, 20 Jul 2020 08:03:30 -0700 (PDT)
+Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
+ [IPv6:2a00:1450:4864:20::542])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C83489D73
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Jul 2020 15:03:59 +0000 (UTC)
+Received: by mail-ed1-x542.google.com with SMTP id d16so12987092edz.12
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Jul 2020 08:03:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc; bh=pcfxvqUoA5Q84iZVIjEC8f/UAFuiPguvgTdlO6gr+z8=;
@@ -29,17 +29,18 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
  bh=pcfxvqUoA5Q84iZVIjEC8f/UAFuiPguvgTdlO6gr+z8=;
- b=mzH8qRBwI8NdeRnstCFK8do+2ozhC4/nSBN4YjdRfW83dZ6U2SIqfY77kOgyhTMITZ
- UjR96In3xi7xTCohcWw2vn7jPHxHP5LfUvjB9tpL9f6+j+LoS3oIAiYLpQScAb3wqf4S
- 9MLIZrzgaEKpRuVg8TsZ0wcN+PomaOrCGBFe750w480MmHLeaFwj/a83D6PDTgosaw2q
- +KrdTVUIppNOzha/hZ6/X4dSwFuOZtz81WAoDPt6YQ4iNYGyZxsUA9/1aMecRpE+tQjB
- yCbjEzYcFdvBWcERFgV0ckkmiAHTE8q5jkPFjE9QCD5Ivakf/TWWatK15fPS/lGyuZnv
- 93/w==
-X-Gm-Message-State: AOAM533u6TEpW88jOajUYuIg0kf+iVv19gX0vnM4PWCTbzl9B/yLY2uM
- D5IdC6iV4JgsoNeczlWqeo45QD+aRBIqJ1cvmZs=
-X-Google-Smtp-Source: ABdhPJzIbmtiIdLPMhyi/GvPa8hA5p1L8XEl7Yhw3/V97KBA7XMRywAMZ5AtZBSscwPbiDM0aPGhETkFHsZErsQ6ju8=
-X-Received: by 2002:a5d:8d12:: with SMTP id p18mr23344299ioj.148.1595257409980; 
- Mon, 20 Jul 2020 08:03:29 -0700 (PDT)
+ b=H7WDa5Q38cBdiklagzehlThgDMQ8rsxh88MjFu6wCCye8nerV8tvcpvlBm8AvS+pS/
+ pA8gPfQ1iRaSF9ZPMYjrdqGpUoViydZb76rm4P9B3KvcbABvmEL0ZQQK58LPly6VXXtY
+ K20ONIckWNUoDEFqE9CP78tEK5blKg8oNMKUHuiwSImJtsxmmVfvMWb5ANuXy139Ci4b
+ Lm75a/UuvLW3zQXGNOC+d+GygS5XbFCSheHXutGHuHp8OO7fAqKeqy85mWoAji6gypkr
+ O9iFsBuxEF43FpS5XcbeFN6eU+JS9Yf+3JbANkOV4ZC48ecJDJTiYXwtsMlwFhJ5iOI7
+ 6NxQ==
+X-Gm-Message-State: AOAM532WLccPc4gmWCVv7Ek+T19PFq5DO4aN10dtwOHrIOnQTh/MCSpv
+ HuNVQf+yJNPjUi6Ne39B2zgxbfvzeKk+XtssoQA=
+X-Google-Smtp-Source: ABdhPJxr/dF/eAhMBtgTK8Ekd/dD+VXGNXZ2szgkQS7sHIh3pcfb9CmuaJFDjNwfsB5hiYCLpFtQuCqbT1WNnHB92j4=
+X-Received: by 2002:a05:6402:1250:: with SMTP id
+ l16mr22421840edw.362.1595257438172; 
+ Mon, 20 Jul 2020 08:03:58 -0700 (PDT)
 MIME-Version: 1.0
 References: <1594644106-22449-1-git-send-email-akhilpo@codeaurora.org>
  <CAF6AEGtAEwZbWxLb4MxaWNswvtrFbLK+N0Fez2XYr7odKZffWA@mail.gmail.com>
