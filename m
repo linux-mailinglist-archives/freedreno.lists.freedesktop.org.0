@@ -1,61 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A66F226412
-	for <lists+freedreno@lfdr.de>; Mon, 20 Jul 2020 17:42:08 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id E82022265BD
+	for <lists+freedreno@lfdr.de>; Mon, 20 Jul 2020 17:57:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F252A89C1F;
-	Mon, 20 Jul 2020 15:42:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D57089D81;
+	Mon, 20 Jul 2020 15:57:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECDD389C1F
- for <freedreno@lists.freedesktop.org>; Mon, 20 Jul 2020 15:42:02 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1595259725; h=Content-Transfer-Encoding: MIME-Version:
- References: In-Reply-To: Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=zyH7f0j1Zl1XaF/dWFxsiYKuhloakssbIQW2PQAFye8=;
- b=e02eJsxiJATdk0/zNoRtbdp/gl0pfkUFBJ4PfwFdOoLOAKfmfcC7bCYlXbA5c4mEUrFhV5Ke
- R3g4WqRaWsCaAEo7AvreGxp2zc2tFcLScwmo58NtayfL9vmb5Iuam09oTp4D8w3XMHT4vzX9
- UQ39FI3QV63x8r35ozzcGX8p6wk=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n14.prod.us-west-2.postgun.com with SMTP id
- 5f15bb37eef925b694f09177 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 20 Jul 2020 15:41:43
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 26A71C4361B; Mon, 20 Jul 2020 15:41:35 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from jordan-laptop.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 7AB58C43395;
- Mon, 20 Jul 2020 15:41:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 7AB58C43395
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=jcrouse@codeaurora.org
-From: Jordan Crouse <jcrouse@codeaurora.org>
-To: linux-arm-msm@vger.kernel.org
-Date: Mon, 20 Jul 2020 09:40:47 -0600
-Message-Id: <20200720154047.3611092-14-jcrouse@codeaurora.org>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200720154047.3611092-1-jcrouse@codeaurora.org>
-References: <20200720154047.3611092-1-jcrouse@codeaurora.org>
+Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com
+ [IPv6:2a00:1450:4864:20::543])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42FBB89D81
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Jul 2020 15:57:31 +0000 (UTC)
+Received: by mail-ed1-x543.google.com with SMTP id bm28so13196966edb.2
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Jul 2020 08:57:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=6PvW3XVDy+rQEFwwQM6+F7fPiu+tQX07MeqjT24Y590=;
+ b=qkNwFlO65sfUiFoIZ4iNnTliLA2k8RXzhtP23bl24kiTfg5EVrh1FeUAO4WT6x9nx0
+ oQ7KjMNp61d20Xkv1PoYmrOTK4ukXCKirkEA6SnAVYof7VaQg8syuX4Du9jcm+/jreAm
+ /ororTSMOuUTc69NFNR+pj0exx9lUMly1MhqQ43HRdT/tj3+JgVJewd4Ohjab9wPxRI9
+ F7xKC1bVu8intaaKnV80KBVaAbAn8D3NkpN/H8o2shkmPuIQkNotD/GCh2J0bjHReFBk
+ 6Wo8k4bJ6JB6zeamO7J+pbF8fwHhWe1gUUv5EUxSuZaUppolDpCvr47WLcr6NgsdaUtC
+ W/3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=6PvW3XVDy+rQEFwwQM6+F7fPiu+tQX07MeqjT24Y590=;
+ b=nZzeW9gZXSqw8ZgZdYoBzroW+uoXctO1Hoi++JDyC+ZU0buE4FVQsNfKUx8NLMWgQm
+ DgaTvMizcazqZ26oxHTNsHxMePOQLt3KMTQIxCNcCZGrRu82/iUeFYb7NDjgGjAlz2me
+ LksvRW0YbTmOci4ha+b3qMAobAT06VTey9lej1HcEQ5e5JyJn2WXP2AnmbUFFZjXayFT
+ EPXhd6xIsK98S5CzMPq/iQWBIdlH8hmoeI8D3OPpKp+X9cMXbM6xFglIdcJeJxqCBnyS
+ EA2Leu6nFVe6zAJ8f/ARYPSkB/WL/qBq5amsmeONNAbEDBd2NgEeF36ZQ5LBvfJIB7ql
+ 30/A==
+X-Gm-Message-State: AOAM53090wrkTzDcSLINkS7aHH7rmC4tUz27ywRBuUruTgWakbsQavGl
+ Hq2b+N5VCH0PmHpaYKzEw03qdHTkXmHRO9da114=
+X-Google-Smtp-Source: ABdhPJyonBBTiMXUfR54zQA6LqT9AbdCsa3eg+/Tv/99i/hIC7tvYNSqrVF0C2Hhv4FEcx4cMke8IorXjqpIvtNpZgg=
+X-Received: by 2002:a50:f392:: with SMTP id g18mr21561831edm.151.1595260649670; 
+ Mon, 20 Jul 2020 08:57:29 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v10 13/13] arm: dts: qcom: sm845: Set the
- compatible string for the GPU SMMU
+References: <CA+G9fYuzqA0N6O-52uH9aHjsfF6HfhuxMby1Y6Yz7jGMAHW0zw@mail.gmail.com>
+ <CAK8P3a1SHQKNNCVj9Gp25BLuXUC2nf7FuVrqfpPYQkvMbhjzFg@mail.gmail.com>
+ <ad7ba016-c3eb-a833-e4d3-4cdcb53ca786@arm.com>
+In-Reply-To: <ad7ba016-c3eb-a833-e4d3-4cdcb53ca786@arm.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 20 Jul 2020 08:58:04 -0700
+Message-ID: <CAF6AEGsBRxFC918nNzJZnxMpFnNC6qcNGvMjjM8U3AAn6CusNA@mail.gmail.com>
+To: Robin Murphy <robin.murphy@arm.com>
+Subject: Re: [Freedreno] arm64: Internal error: Oops:
+ qcom_iommu_tlb_inv_context free_io_pgtable_ops on db410c
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,42 +63,215 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- freedreno@lists.freedesktop.org, Robin Murphy <robin.murphy@arm.com>,
- Rob Herring <robh+dt@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- iommu@lists.linux-foundation.org, Andy Gross <agross@kernel.org>,
- Will Deacon <will@kernel.org>, linux-kernel@vger.kernel.org
+Cc: Jean-Philippe Brucker <jean-philippe@linaro.org>,
+ Joerg Roedel <jroedel@suse.de>, Vinod Koul <vinod.koul@linaro.org>,
+ Arnd Bergmann <arnd@arndb.de>, Will Deacon <will@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Naresh Kamboju <naresh.kamboju@linaro.org>,
+ Sudeep Holla <sudeep.holla@arm.com>,
+ "Guohanjun \(Hanjun Guo\)" <guohanjun@huawei.com>,
+ open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
+ Eric Anholt <eric@anholt.net>,
+ "open list:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+ Andy Gross <agross@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ John Stultz <john.stultz@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>, Sean Paul <sean@poorly.run>,
+ "moderated list:ARM/Mediatek SoC..." <linux-mediatek@lists.infradead.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Set the qcom,adreno-smmu compatible string for the GPU SMMU to enable
-split pagetables and per-instance pagetables for drm/msm.
+On Mon, Jul 20, 2020 at 4:28 AM Robin Murphy <robin.murphy@arm.com> wrote:
+>
+> On 2020-07-20 08:17, Arnd Bergmann wrote:
+> > On Mon, Jul 20, 2020 at 8:36 AM Naresh Kamboju
+> > <naresh.kamboju@linaro.org> wrote:
+> >>
+> >> This kernel oops while boot linux mainline kernel on arm64  db410c device.
+> >>
+> >> metadata:
+> >>    git branch: master
+> >>    git repo: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+> >>    git commit: f8456690ba8eb18ea4714e68554e242a04f65cff
+> >>    git describe: v5.8-rc5-48-gf8456690ba8e
+> >>    make_kernelversion: 5.8.0-rc5
+> >>    kernel-config:
+> >> https://builds.tuxbuild.com/2aLnwV7BLStU0t1R1QPwHQ/kernel.config
+> >
+> > Thanks for the report. Adding freedreno folks to Cc, as this may have something
+> > to do with that driver.
+> >
+> >>
+> >> [    5.444121] Unable to handle kernel NULL pointer dereference at
+> >> virtual address 0000000000000018
+> >> [    5.456615]   ESR = 0x96000004
+> >> [    5.464471]   SET = 0, FnV = 0
+> >> [    5.464487]   EA = 0, S1PTW = 0
+> >> [    5.466521] Data abort info:
+> >> [    5.469971]   ISV = 0, ISS = 0x00000004
+> >> [    5.472768]   CM = 0, WnR = 0
+> >> [    5.476172] user pgtable: 4k pages, 48-bit VAs, pgdp=00000000bacba000
+> >> [    5.479349] [0000000000000018] pgd=0000000000000000, p4d=0000000000000000
+> >> [    5.485820] Internal error: Oops: 96000004 [#1] PREEMPT SMP
+> >> [    5.492448] Modules linked in: crct10dif_ce adv7511(+)
+> >> qcom_spmi_temp_alarm cec msm(+) mdt_loader qcom_camss videobuf2_dma_sg
+> >> drm_kms_helper v4l2_fwnode videobuf2_memops videobuf2_v4l2 qcom_rng
+> >> videobuf2_common i2c_qcom_cci display_connector socinfo drm qrtr ns
+> >> rmtfs_mem fuse
+> >> [    5.500256] CPU: 0 PID: 286 Comm: systemd-udevd Not tainted 5.8.0-rc5 #1
+> >> [    5.522484] Hardware name: Qualcomm Technologies, Inc. APQ 8016 SBC (DT)
+> >> [    5.529170] pstate: 20000005 (nzCv daif -PAN -UAO BTYPE=--)
+> >> [    5.535856] pc : qcom_iommu_tlb_inv_context+0x18/0xa8
+> >> [    5.541148] lr : free_io_pgtable_ops+0x28/0x58
+> >> [    5.546350] sp : ffff80001219b5f0
+> >> [    5.550689] x29: ffff80001219b5f0 x28: 0000000000000013
+> >> [    5.554078] x27: 0000000000000100 x26: ffff000036add3b8
+> >> [    5.559459] x25: ffff80000915e910 x24: ffff00003a5458c0
+> >> [    5.564753] x23: 0000000000000003 x22: ffff000036a37058
+> >> [    5.570049] x21: ffff000036a3a100 x20: ffff000036a3a480
+> >> [    5.575344] x19: ffff000036a37158 x18: 0000000000000000
+> >> [    5.580639] x17: 0000000000000000 x16: 0000000000000000
+> >> [    5.585935] x15: 0000000000000004 x14: 0000000000000368
+> >> [    5.591229] x13: 0000000000000000 x12: ffff000039c61798
+> >> [    5.596525] x11: ffff000039c616d0 x10: 0000000040000000
+> >> [    5.601820] x9 : 0000000000000000 x8 : ffff000039c616f8
+> >> [    5.607114] x7 : 0000000000000000 x6 : ffff000009f699a0
+> >> [    5.612410] x5 : ffff80001219b520 x4 : ffff000036a3a000
+> >> [    5.617705] x3 : ffff000009f69904 x2 : 0000000000000000
+> >> [    5.623001] x1 : ffff8000107e27e8 x0 : ffff00003a545810
+> >> [    5.628297] Call trace:
+> >> [    5.633592]  qcom_iommu_tlb_inv_context+0x18/0xa8
+> >
+> > This means that dev_iommu_fwspec_get() has returned NULL
+> > in qcom_iommu_tlb_inv_context(), either because dev->iommu
+> > is NULL, or because dev->iommu->fwspec is NULL.
+> >
+> > qcom_iommu_tlb_inv_context() does not check for a NULL
+> > pointer before using the returned object.
+> >
+> > The bug is either in the lack of error handling, or the fact
+> > that it's possible to get into this function for a device
+> > that has not been fully set up.
+>
+> Not quite - the device *was* properly set up, but has already been
+> properly torn down again in the removal path by iommu_release_device().
+> The problem is that qcom-iommu kept the device pointer as its TLB cookie
+> for the domain, but the domain has a longer lifespan than the validity
+> of that device - that's a fundamental design flaw in the driver.
 
-Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
----
+fwiw, I just sent "iommu/qcom: Use domain rather than dev as tlb
+cookie".. untested but looks like a straightforward enough change to
+switch over to using the domain rather than dev as cookie
 
- arch/arm64/boot/dts/qcom/sdm845.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+BR,
+-R
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-index 759cdd0b002b..d883144360aa 100644
---- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-@@ -3981,7 +3981,7 @@ opp-257000000 {
- 		};
- 
- 		adreno_smmu: iommu@5040000 {
--			compatible = "qcom,sdm845-smmu-v2", "qcom,smmu-v2";
-+			compatible = "qcom,adreno-smmu", "qcom,smmu-v2";
- 			reg = <0 0x5040000 0 0x10000>;
- 			#iommu-cells = <1>;
- 			#global-interrupts = <2>;
--- 
-2.25.1
-
+>
+> Robin.
+>
+> >> [    5.635764]  free_io_pgtable_ops+0x28/0x58
+> >> [    5.640624]  qcom_iommu_domain_free+0x38/0x60
+> >> [    5.644617]  iommu_group_release+0x4c/0x70
+> >> [    5.649045]  kobject_put+0x6c/0x120
+> >> [    5.653035]  kobject_del+0x64/0x90
+> >> [    5.656421]  kobject_put+0xfc/0x120
+> >> [    5.659893]  iommu_group_remove_device+0xdc/0xf0
+> >> [    5.663281]  iommu_release_device+0x44/0x70
+> >> [    5.668142]  iommu_bus_notifier+0xbc/0xd0
+> >> [    5.672048]  notifier_call_chain+0x54/0x98
+> >> [    5.676214]  blocking_notifier_call_chain+0x48/0x70
+> >> [    5.680209]  device_del+0x26c/0x3a0
+> >> [    5.684981]  platform_device_del.part.0+0x1c/0x88
+> >> [    5.688453]  platform_device_unregister+0x24/0x40
+> >> [    5.693316]  of_platform_device_destroy+0xe4/0xf8
+> >> [    5.698002]  device_for_each_child+0x5c/0xa8
+> >> [    5.702689]  of_platform_depopulate+0x3c/0x80
+> >> [    5.707144]  msm_pdev_probe+0x1c4/0x308 [msm]
+> >
+> > It was triggered by a failure in msm_pdev_probe(), which was
+> > calls of_platform_depopulate() in its error handling code.
+> > This is a combination of two problems:
+> >
+> > a) Whatever caused msm_pdev_probe() to fail means that
+> > the gpu won't be usable, though it should not have caused the
+> > kernel to crash.
+> >
+> > b) the error handling itself causing additional problems due
+> > to failed unwinding.
+> >
+> >> [    5.711286]  platform_drv_probe+0x54/0xa8
+> >> [    5.715624]  really_probe+0xd8/0x320
+> >> [    5.719617]  driver_probe_device+0x58/0xb8
+> >> [    5.723263]  device_driver_attach+0x74/0x80
+> >> [    5.727168]  __driver_attach+0x58/0xe0
+> >> [    5.731248]  bus_for_each_dev+0x70/0xc0
+> >> [    5.735067]  driver_attach+0x24/0x30
+> >> [    5.738801]  bus_add_driver+0x14c/0x1f0
+> >> [    5.742619]  driver_register+0x64/0x120
+> >> [    5.746178]  __platform_driver_register+0x48/0x58
+> >> [    5.750099]  msm_drm_register+0x58/0x70 [msm]
+> >> [    5.754861]  do_one_initcall+0x54/0x1a0
+> >> [    5.759200]  do_init_module+0x54/0x200
+> >> [    5.762846]  load_module+0x1d1c/0x2300
+> >> [    5.766664]  __do_sys_finit_module+0xd8/0xf0
+> >> [    5.770398]  __arm64_sys_finit_module+0x20/0x30
+> >> [    5.774826]  el0_svc_common.constprop.0+0x6c/0x168
+> >> [    5.779078]  do_el0_svc+0x24/0x90
+> >> [    5.783939]  el0_sync_handler+0x90/0x198
+> >> [    5.787323]  el0_sync+0x158/0x180
+> >> [    5.791323] Code: 910003fd f9417404 b4000484 f9401482 (b9401846)
+> >> [    5.794532] ---[ end trace 3d6a53241629e560 ]---
+> >>
+> >> full crash log details.
+> >> https://qa-reports.linaro.org/lkft/linux-mainline-oe/build/v5.8-rc5-48-gf8456690ba8e/testrun/2945157/suite/linux-log-parser/test/check-kernel-oops-1573988/log
+> >
+> > There are a couple of messages directly preceding the bug output that are
+> > probably relevant here:
+> >
+> > [    5.259499] debugfs: Directory '1b0ac00.camss-vdda' with parent
+> > 'smd:rpm:rpm-requests:pm8916-regulators-l2' already present!
+> >           Starting Resize root filesystem to fit available disk space...
+> >           Starting Start the WCN core...
+> > [[0;32m  OK  [0m] Started Network Service.
+> > [[0;32m  OK  [0m] Started QRTR service.
+> > [    5.352993] adreno 1c00000.gpu: Adding to iommu group 1
+> > [    5.357489] msm_mdp 1a01000.mdp: Adding to iommu group 2
+> > [    5.357757] msm_mdp 1a01000.mdp: No interconnect support may cause
+> > display underflows!
+> > [    5.366215] adv7511 3-0039: supply dvdd not found, using dummy regulator
+> > [    5.378036] msm 1a00000.mdss: supply vdd not found, using dummy regulator
+> > [    5.378715] msm_mdp 1a01000.mdp: [drm:mdp5_bind [msm]] MDP5 version v1.6
+> > [    5.380549] adv7511 3-0039: supply pvdd not found, using dummy regulator
+> > [    5.384606] msm 1a00000.mdss: bound 1a01000.mdp (ops mdp5_ops [msm])
+> > [    5.394368] adv7511 3-0039: supply a2vdd not found, using dummy regulator
+> > [    5.397633] msm_dsi 1a98000.dsi: supply gdsc not found, using dummy regulator
+> > [    5.411897] msm_dsi 1a98000.dsi: supply gdsc not found, using dummy regulator
+> > [    5.420207] msm_dsi_manager_register: failed to register mipi dsi
+> > host for DSI 0
+> > [    5.425717] platform 1a01000.mdp: Removing from iommu group 2
+> > [[0;1;31mFAILED[0m] Failed to start Entropy Daemon based on the HAVEGE
+> > algorithm.[    5.444121] Unable to handle kernel NULL pointer
+> > dereference at virtual address 0000000000000018
+> >
+> > See 'systemctl status haveged.service' for detai[    5.456615]   ESR =
+> > 0x96000004
+> > ls.
+> > [    5.464471]   SET = 0, FnV = 0
+> > [    5.464487]   EA = 0, S1PTW = 0
+> >
+> >          Arnd
+> > _______________________________________________
+> > iommu mailing list
+> > iommu@lists.linux-foundation.org
+> > https://lists.linuxfoundation.org/mailman/listinfo/iommu
+> >
+> _______________________________________________
+> Freedreno mailing list
+> Freedreno@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/freedreno
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
