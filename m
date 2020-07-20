@@ -1,60 +1,90 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27105225854
-	for <lists+freedreno@lfdr.de>; Mon, 20 Jul 2020 09:22:47 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 371C82258D0
+	for <lists+freedreno@lfdr.de>; Mon, 20 Jul 2020 09:41:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68E748935B;
-	Mon, 20 Jul 2020 07:22:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7398B6E1A7;
+	Mon, 20 Jul 2020 07:41:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 304 seconds by postgrey-1.36 at gabe;
- Mon, 20 Jul 2020 07:22:43 UTC
-Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4470C8935B
- for <freedreno@lists.freedesktop.org>; Mon, 20 Jul 2020 07:22:43 +0000 (UTC)
-Received: from mail-qt1-f175.google.com ([209.85.160.175]) by
- mrelayeu.kundenserver.de (mreue106 [212.227.15.145]) with ESMTPSA (Nemesis)
- id 1MEmtx-1k4M4w0P7b-00GF0B for <freedreno@lists.freedesktop.org>; Mon, 20
- Jul 2020 09:17:37 +0200
-Received: by mail-qt1-f175.google.com with SMTP id 6so12254236qtt.0
- for <freedreno@lists.freedesktop.org>; Mon, 20 Jul 2020 00:17:36 -0700 (PDT)
-X-Gm-Message-State: AOAM531nKyzLbGrxglGGAb/MdzL0JH2/AACKm8SvSRElvqym3wcYLTw3
- d+EXJ6xDD9dU1L5RrjiLpPc+ocNL9AlzbzvH4z8=
-X-Google-Smtp-Source: ABdhPJwQ7aG0Kfph32W7oujhBLlHufrj5SBDtqFGsDCgZiI0AOcu8JEKEqCBhxfpFSaC0WpZ33qNauezR2FDL5mRSbE=
-X-Received: by 2002:ac8:2b98:: with SMTP id m24mr22488198qtm.7.1595229455883; 
- Mon, 20 Jul 2020 00:17:35 -0700 (PDT)
+Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5F5B6E178;
+ Mon, 20 Jul 2020 07:41:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+ s=20170329; 
+ h=Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:References:Cc:To:From:Subject;
+ bh=zKloZSiobw3jlXQasA0k5/s1eYMAWFXIkqzzZ8euj/s=; 
+ b=QcrjeJXwuSPmu9x821YGFGbULY9Z/k1kL9nFrjryLU2K1nzPb3IgvMbRwoHytfaOZfmDTM6utBIAma4jKs7Dk6LRVoCHr+Is3JaCr6sIeehquMnw/yk3ezfIo/3vupqj4V/1pnJWxhbHj5r/wVVvbk/MI00pPG5KK4AMw9yXGS1Kkp189UmA/V/HVOdxiaqheH0Ahv9v9ek6DHZyCNEVvqf04fqTv+KhrQXGmZfRWbJIm6iTNFoP33OuKssy+Ej9LkijNF8T4WxZJWZCVXAo10mrcb4QW3lWX4Dlhwn0sL7gyUvAeR2Qa9tH4A4qEO3AFvlXC41nNzKe8ladbozSqw==;
+Received: from 11.red-79-157-245.dynamicip.rima-tde.net ([79.157.245.11]
+ helo=[192.168.2.252]) by fanzine.igalia.com with esmtpsa 
+ (Cipher TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim)
+ id 1jxQQF-0005um-Ez; Mon, 20 Jul 2020 09:41:15 +0200
+From: =?UTF-8?Q?Samuel_Iglesias_Gons=c3=a1lvez?= <siglesias@igalia.com>
+To: "Szwichtenberg, Radoslaw" <radoslaw.szwichtenberg@intel.com>,
+ "events@lists.x.org" <events@lists.x.org>,
+ "xorg-devel@lists.freedesktop.org" <xorg-devel@lists.freedesktop.org>,
+ "wayland-devel@lists.freedesktop.org" <wayland-devel@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "mesa-dev@lists.freedesktop.org" <mesa-dev@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "etnaviv@lists.freedesktop.org" <etnaviv@lists.freedesktop.org>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
+ "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+References: <4e5319c905109f9fe4ca48dee0e89d83ec73f2da.camel@igalia.com>
+Autocrypt: addr=siglesias@igalia.com; keydata=
+ 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
+ zYa9Fv+6Emblbj8n
+Message-ID: <b7a10661-2e4d-4462-98f6-de13226eeccc@igalia.com>
+Date: Mon, 20 Jul 2020 09:41:05 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <CA+G9fYuzqA0N6O-52uH9aHjsfF6HfhuxMby1Y6Yz7jGMAHW0zw@mail.gmail.com>
-In-Reply-To: <CA+G9fYuzqA0N6O-52uH9aHjsfF6HfhuxMby1Y6Yz7jGMAHW0zw@mail.gmail.com>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Mon, 20 Jul 2020 09:17:20 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a1SHQKNNCVj9Gp25BLuXUC2nf7FuVrqfpPYQkvMbhjzFg@mail.gmail.com>
-Message-ID: <CAK8P3a1SHQKNNCVj9Gp25BLuXUC2nf7FuVrqfpPYQkvMbhjzFg@mail.gmail.com>
-To: Naresh Kamboju <naresh.kamboju@linaro.org>
-X-Provags-ID: V03:K1:rVIuNZg9AtnhhcUtCiCDrCJqd6enILX/dvMhXImeRpfdwhDmyEL
- T1L8S1/K2JC1Z2RqiQMd9yd039xHq0L+yqQ/QT5HgA+ALE1oWJm43atImiGDjCK3SxzXpiy
- lorD/kaKou0jKVSffrxG3ccB2YHxI1E/GClCaf69zgVmjM9FdPSfKvr05Lhcqopu9DqdabM
- DEu30+nnQn3QLsB4mw5Zw==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:REeh0gdxQxE=:kQmSfoHU/nouSIzPUnoDrO
- CuBEEdWt72BGs7AyCnpI/i+glJPrp6B3LzsF/s49upLSPSNfMx2Mk8RV6oovowSQHTevKVq9m
- aWDgFwAB3zvao19PP65h3mZ82t9CfeyM0fTyKTv4D21FOCZdeg0QhLYrZ+CYsYSW7NkCzMpQM
- nKoJQLL8GaMkO1yXRKCGunwsJSuURetFfV1Lk/+hovaMAp6vNkNCOuqzzr6IpnR1jkc017dwZ
- PjRvXfx8Iq+qRH/W3cJEXtO3W4Sl2SvfoyMQ+O3j8syUh+Xk07UxpIoH3apSx5luWMRWcFETd
- vAgdTwtDPwtAR+88OwdQEH+B7MOlTQtSjHIbig+vKGF3LC2XuCdpyuxhWyuRswkE2uDmTyIPp
- Gktu7Kj+b3sL02k1LS5UeZDNPClIIJGe1UYiWDupA803BVqKL12ddvgC2RAvKTeHbOuXN/RjS
- itSl+RzQwZJhEKct3Jf1cX4WkaAfDJLhKaWwMy7CiFLauUtXAB/5+0udII/Bud7ufwbABGJe2
- FC8eaApb4FK8mk3r1Zt0jE84fZnIBiROmkgBFzsrWmuqkvd6UXD2KAAbc3evWqexBRIohe5lO
- tP1C+0L3T8CsZ4pBft2UKUxHz1sCeJ82bAf9mhVM7qG+IaEXtpePxD7Uao7o9EyUSYisvj8wv
- 3UQXjLFzx3DdTBwsLmmErK3ySvnAVyyKSIRhJoaxHzA7uP0nOwxrD2tnVHAVFJPFG1fFsON8t
- F7IYfE4A+vcZoK6hRkwHrgR6ChIOqOuE2pzxzVD6ENovp++rmqYquqJFR0MIWPxbACr09SQ9W
- EZO10YpcD0RxUEcT63s4j1zGgPrGdD1R91kComYVTYNkt+LO1VbuJ+DaYPHr0jhDTWUByJu4E
- XJN13TFuHt9tUJzklIV0bCdUfcy0mnNKmO7OHe2HiZ1pdWc2gvaC7AJ2whBkIdHWoBoShqyeo
- 6eFZ6TEBxkULXXmtsZiu+7my1nlWicBfWu4+DRiQQ0d4QCDAS7D8y
-Subject: Re: [Freedreno] arm64: Internal error: Oops:
- qcom_iommu_tlb_inv_context free_io_pgtable_ops on db410c
+In-Reply-To: <4e5319c905109f9fe4ca48dee0e89d83ec73f2da.camel@igalia.com>
+Subject: Re: [Freedreno] [Mesa-dev] [XDC 2020] Virtual conference + Call for
+ Proposals extended 2 weeks more
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,189 +97,108 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: lkft-triage@lists.linaro.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Eric Anholt <eric@anholt.net>, Thierry Reding <thierry.reding@gmail.com>,
- "Guohanjun \(Hanjun Guo\)" <guohanjun@huawei.com>,
- Will Deacon <will@kernel.org>,
- Jean-Philippe Brucker <jean-philippe@linaro.org>,
- Vinod Koul <vinod.koul@linaro.org>, Joerg Roedel <joro@8bytes.org>,
- "open list:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- Andy Gross <agross@kernel.org>, freedreno@lists.freedesktop.org,
- Joerg Roedel <jroedel@suse.de>, John Stultz <john.stultz@linaro.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Jordan Crouse <jcrouse@codeaurora.org>,
- "moderated list:ARM/Mediatek SoC..." <linux-mediatek@lists.infradead.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, Sean Paul <sean@poorly.run>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- Sudeep Holla <sudeep.holla@arm.com>, Qian Cai <cai@lca.pw>,
- Robin Murphy <robin.murphy@arm.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "board@foundation.x.org" <board@foundation.x.org>
+Content-Type: multipart/mixed; boundary="===============0508114676=="
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jul 20, 2020 at 8:36 AM Naresh Kamboju
-<naresh.kamboju@linaro.org> wrote:
->
-> This kernel oops while boot linux mainline kernel on arm64  db410c device.
->
-> metadata:
->   git branch: master
->   git repo: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
->   git commit: f8456690ba8eb18ea4714e68554e242a04f65cff
->   git describe: v5.8-rc5-48-gf8456690ba8e
->   make_kernelversion: 5.8.0-rc5
->   kernel-config:
-> https://builds.tuxbuild.com/2aLnwV7BLStU0t1R1QPwHQ/kernel.config
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0508114676==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="ZQoaTBgo848hWk0E0C9NphXkPLcGLe8RU"
 
-Thanks for the report. Adding freedreno folks to Cc, as this may have something
-to do with that driver.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--ZQoaTBgo848hWk0E0C9NphXkPLcGLe8RU
+Content-Type: multipart/mixed; boundary="mwiVjPF7I377Vg5TCaroOAumpIL9da1EC"
 
->
-> [    5.444121] Unable to handle kernel NULL pointer dereference at
-> virtual address 0000000000000018
-> [    5.456615]   ESR = 0x96000004
-> [    5.464471]   SET = 0, FnV = 0
-> [    5.464487]   EA = 0, S1PTW = 0
-> [    5.466521] Data abort info:
-> [    5.469971]   ISV = 0, ISS = 0x00000004
-> [    5.472768]   CM = 0, WnR = 0
-> [    5.476172] user pgtable: 4k pages, 48-bit VAs, pgdp=00000000bacba000
-> [    5.479349] [0000000000000018] pgd=0000000000000000, p4d=0000000000000000
-> [    5.485820] Internal error: Oops: 96000004 [#1] PREEMPT SMP
-> [    5.492448] Modules linked in: crct10dif_ce adv7511(+)
-> qcom_spmi_temp_alarm cec msm(+) mdt_loader qcom_camss videobuf2_dma_sg
-> drm_kms_helper v4l2_fwnode videobuf2_memops videobuf2_v4l2 qcom_rng
-> videobuf2_common i2c_qcom_cci display_connector socinfo drm qrtr ns
-> rmtfs_mem fuse
-> [    5.500256] CPU: 0 PID: 286 Comm: systemd-udevd Not tainted 5.8.0-rc5 #1
-> [    5.522484] Hardware name: Qualcomm Technologies, Inc. APQ 8016 SBC (DT)
-> [    5.529170] pstate: 20000005 (nzCv daif -PAN -UAO BTYPE=--)
-> [    5.535856] pc : qcom_iommu_tlb_inv_context+0x18/0xa8
-> [    5.541148] lr : free_io_pgtable_ops+0x28/0x58
-> [    5.546350] sp : ffff80001219b5f0
-> [    5.550689] x29: ffff80001219b5f0 x28: 0000000000000013
-> [    5.554078] x27: 0000000000000100 x26: ffff000036add3b8
-> [    5.559459] x25: ffff80000915e910 x24: ffff00003a5458c0
-> [    5.564753] x23: 0000000000000003 x22: ffff000036a37058
-> [    5.570049] x21: ffff000036a3a100 x20: ffff000036a3a480
-> [    5.575344] x19: ffff000036a37158 x18: 0000000000000000
-> [    5.580639] x17: 0000000000000000 x16: 0000000000000000
-> [    5.585935] x15: 0000000000000004 x14: 0000000000000368
-> [    5.591229] x13: 0000000000000000 x12: ffff000039c61798
-> [    5.596525] x11: ffff000039c616d0 x10: 0000000040000000
-> [    5.601820] x9 : 0000000000000000 x8 : ffff000039c616f8
-> [    5.607114] x7 : 0000000000000000 x6 : ffff000009f699a0
-> [    5.612410] x5 : ffff80001219b520 x4 : ffff000036a3a000
-> [    5.617705] x3 : ffff000009f69904 x2 : 0000000000000000
-> [    5.623001] x1 : ffff8000107e27e8 x0 : ffff00003a545810
-> [    5.628297] Call trace:
-> [    5.633592]  qcom_iommu_tlb_inv_context+0x18/0xa8
+--mwiVjPF7I377Vg5TCaroOAumpIL9da1EC
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 
-This means that dev_iommu_fwspec_get() has returned NULL
-in qcom_iommu_tlb_inv_context(), either because dev->iommu
-is NULL, or because dev->iommu->fwspec is NULL.
 
-qcom_iommu_tlb_inv_context() does not check for a NULL
-pointer before using the returned object.
 
-The bug is either in the lack of error handling, or the fact
-that it's possible to get into this function for a device
-that has not been fully set up.
+On 7/3/20 4:41 PM, Samuel Iglesias Gons=C3=A1lvez wrote:
+> Hi,
+>=20
+> In the last meeting, X.Org Foundation board has decided that XDC 2020
+> will be a virtual conference, given the uncertain COVID-19 situation in=
 
-> [    5.635764]  free_io_pgtable_ops+0x28/0x58
-> [    5.640624]  qcom_iommu_domain_free+0x38/0x60
-> [    5.644617]  iommu_group_release+0x4c/0x70
-> [    5.649045]  kobject_put+0x6c/0x120
-> [    5.653035]  kobject_del+0x64/0x90
-> [    5.656421]  kobject_put+0xfc/0x120
-> [    5.659893]  iommu_group_remove_device+0xdc/0xf0
-> [    5.663281]  iommu_release_device+0x44/0x70
-> [    5.668142]  iommu_bus_notifier+0xbc/0xd0
-> [    5.672048]  notifier_call_chain+0x54/0x98
-> [    5.676214]  blocking_notifier_call_chain+0x48/0x70
-> [    5.680209]  device_del+0x26c/0x3a0
-> [    5.684981]  platform_device_del.part.0+0x1c/0x88
-> [    5.688453]  platform_device_unregister+0x24/0x40
-> [    5.693316]  of_platform_device_destroy+0xe4/0xf8
-> [    5.698002]  device_for_each_child+0x5c/0xa8
-> [    5.702689]  of_platform_depopulate+0x3c/0x80
-> [    5.707144]  msm_pdev_probe+0x1c4/0x308 [msm]
+> Europe by September, including the possibility of a second wave,
+> outbreaks and travel restrictions, either in Poland or in other
+> countries.
+>=20
+> XDC 2020 organization team agrees on this decision and it volunteered
+> to organize our first virtual XDC!
+>=20
+> We would like to announce as well that the new CFP deadline is Sunday
+> July 19th 2020. Don't forget to submit your talk, demo and workshop
+> proposals!
+>=20
 
-It was triggered by a failure in msm_pdev_probe(), which was
-calls of_platform_depopulate() in its error handling code.
-This is a combination of two problems:
+As approved in last board's meeting [0], CfP is extended until two weeks
+before the conference, or until we fill all the slots (whichever happens
+first). Please submit your talk proposals early!
 
-a) Whatever caused msm_pdev_probe() to fail means that
-the gpu won't be usable, though it should not have caused the
-kernel to crash.
+Last two years we had lots of talks about new and fresh development and
+we prioritized those over other kind of talks, as they had more
+potential for discussions and hallway track. However, this year that
+doesn't make too much sense, so we encourage our community to submit any
+talk related to open-source graphics stack, including those that focus
+on project status updates.
 
-b) the error handling itself causing additional problems due
-to failed unwinding.
+Sam
 
-> [    5.711286]  platform_drv_probe+0x54/0xa8
-> [    5.715624]  really_probe+0xd8/0x320
-> [    5.719617]  driver_probe_device+0x58/0xb8
-> [    5.723263]  device_driver_attach+0x74/0x80
-> [    5.727168]  __driver_attach+0x58/0xe0
-> [    5.731248]  bus_for_each_dev+0x70/0xc0
-> [    5.735067]  driver_attach+0x24/0x30
-> [    5.738801]  bus_add_driver+0x14c/0x1f0
-> [    5.742619]  driver_register+0x64/0x120
-> [    5.746178]  __platform_driver_register+0x48/0x58
-> [    5.750099]  msm_drm_register+0x58/0x70 [msm]
-> [    5.754861]  do_one_initcall+0x54/0x1a0
-> [    5.759200]  do_init_module+0x54/0x200
-> [    5.762846]  load_module+0x1d1c/0x2300
-> [    5.766664]  __do_sys_finit_module+0xd8/0xf0
-> [    5.770398]  __arm64_sys_finit_module+0x20/0x30
-> [    5.774826]  el0_svc_common.constprop.0+0x6c/0x168
-> [    5.779078]  do_el0_svc+0x24/0x90
-> [    5.783939]  el0_sync_handler+0x90/0x198
-> [    5.787323]  el0_sync+0x158/0x180
-> [    5.791323] Code: 910003fd f9417404 b4000484 f9401482 (b9401846)
-> [    5.794532] ---[ end trace 3d6a53241629e560 ]---
->
-> full crash log details.
-> https://qa-reports.linaro.org/lkft/linux-mainline-oe/build/v5.8-rc5-48-gf8456690ba8e/testrun/2945157/suite/linux-log-parser/test/check-kernel-oops-1573988/log
+[0] https://www.x.org/wiki/BoardOfDirectors/MeetingSummaries/2020/07-16/
 
-There are a couple of messages directly preceding the bug output that are
-probably relevant here:
+> Thanks,
+>=20
+> Sam
+>=20
+>=20
+> _______________________________________________
+> mesa-dev mailing list
+> mesa-dev@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/mesa-dev
+>=20
 
-[    5.259499] debugfs: Directory '1b0ac00.camss-vdda' with parent
-'smd:rpm:rpm-requests:pm8916-regulators-l2' already present!
-         Starting Resize root filesystem to fit available disk space...
-         Starting Start the WCN core...
-[[0;32m  OK  [0m] Started Network Service.
-[[0;32m  OK  [0m] Started QRTR service.
-[    5.352993] adreno 1c00000.gpu: Adding to iommu group 1
-[    5.357489] msm_mdp 1a01000.mdp: Adding to iommu group 2
-[    5.357757] msm_mdp 1a01000.mdp: No interconnect support may cause
-display underflows!
-[    5.366215] adv7511 3-0039: supply dvdd not found, using dummy regulator
-[    5.378036] msm 1a00000.mdss: supply vdd not found, using dummy regulator
-[    5.378715] msm_mdp 1a01000.mdp: [drm:mdp5_bind [msm]] MDP5 version v1.6
-[    5.380549] adv7511 3-0039: supply pvdd not found, using dummy regulator
-[    5.384606] msm 1a00000.mdss: bound 1a01000.mdp (ops mdp5_ops [msm])
-[    5.394368] adv7511 3-0039: supply a2vdd not found, using dummy regulator
-[    5.397633] msm_dsi 1a98000.dsi: supply gdsc not found, using dummy regulator
-[    5.411897] msm_dsi 1a98000.dsi: supply gdsc not found, using dummy regulator
-[    5.420207] msm_dsi_manager_register: failed to register mipi dsi
-host for DSI 0
-[    5.425717] platform 1a01000.mdp: Removing from iommu group 2
-[[0;1;31mFAILED[0m] Failed to start Entropy Daemon based on the HAVEGE
-algorithm.[    5.444121] Unable to handle kernel NULL pointer
-dereference at virtual address 0000000000000018
 
-See 'systemctl status haveged.service' for detai[    5.456615]   ESR =
-0x96000004
-ls.
-[    5.464471]   SET = 0, FnV = 0
-[    5.464487]   EA = 0, S1PTW = 0
+--mwiVjPF7I377Vg5TCaroOAumpIL9da1EC--
 
-        Arnd
+--ZQoaTBgo848hWk0E0C9NphXkPLcGLe8RU
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAl8VSpEACgkQf/S6MvF9
+w0OoXQ//aV7u8Q3LO6+yzmhnP5Mr4K/j16dVyjxaUd6+kf95xT2ng9ivvEWqguHh
+XOeRPW6Mbs4hfW2SpUfeeKZtjRxEQ/G6H2wqVE7ZQR5UQfO0XwuTRJjuFeOSbqj9
+lrNvUh7eoZWPlQUEgjOpGMJJrJpI6lE9ibT3JP7HFS0ejmohiu5A5R+DKR5yLfX6
+VhbWmHe5xpiXZ2+Dwhhu0oJ+Mm+4qSftAuPRqrad15isfrVbJc763t+XoV+KyjJV
+P3RUlCSNgN6OwUukOMrAy7rgEQlExJkFU08t6wvQ755PvAyd7oU98hqSdl/uwc5D
+pqhnctVV+xbfHjL4OF9WYlykCNFYV13iQIJ5SCLLBb1ZNNTfcFzr2QjzFn50JA+C
+c4Ccli2RfoyumQjc9h0ucW4wiQraSrJPWydGK7YsXuzo8Fx9E5ib0aHC0khqR8gy
+2NLa9VkAm4pskRQdKtE3YLykpittd4ixjiMtsD8TeQXskLgzfRERwyO2tuJ6QR0A
+RdcnZuMDJRV7M32t7IcDhwrqwJubO36/bOOR9il7dfQ75vU6r2kGD2nHA+lBMZdZ
+ZBTEHIn/kMEZImLvb5SC0VQEKcXKy2FRv0QajJYzfuMlLEvZZHEX9Su2mYf5d0Z6
+jdGoRSuBydp+CuCLCCSk8OT9hhov8rZ5JvqPpxfB6jzcjmxBaI8=
+=UDoL
+-----END PGP SIGNATURE-----
+
+--ZQoaTBgo848hWk0E0C9NphXkPLcGLe8RU--
+
+--===============0508114676==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
+
+--===============0508114676==--
