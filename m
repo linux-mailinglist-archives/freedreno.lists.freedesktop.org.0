@@ -1,58 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 327C022805D
-	for <lists+freedreno@lfdr.de>; Tue, 21 Jul 2020 14:57:55 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 20F4F22821B
+	for <lists+freedreno@lfdr.de>; Tue, 21 Jul 2020 16:27:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6F2C6E1BC;
-	Tue, 21 Jul 2020 12:57:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE1F76E503;
+	Tue, 21 Jul 2020 14:27:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD93A6E1F1
- for <freedreno@lists.freedesktop.org>; Tue, 21 Jul 2020 12:57:52 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1595336272; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=zL4Vmv3VgfCA8IfWdHITcCzdfO+3oA2nyWU0ZMt5Q0A=;
- b=tZdoAwUNk5wBAsL5vzk2vujCY5tznoLVTibFmUe4YTBC38EhPqeVzawMR2pyUPOSOQOgZevO
- 3hyyIeFc+gpkje/gkQ9fZB4cQlWWDfINcSknVpdCuUI+9cCmxuiehQH8L9Q1IUj/GniKL+GD
- V4D3ShJuOJj799n2Ug3hsZE8ojk=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n18.prod.us-west-2.postgun.com with SMTP id
- 5f16e64f3dbcb593a9b88c1c (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 21 Jul 2020 12:57:51
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 92AA6C433CA; Tue, 21 Jul 2020 12:57:51 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,URIBL_BLOCKED
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: kalyan_t)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id DF31AC433C9;
- Tue, 21 Jul 2020 12:57:49 +0000 (UTC)
+Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com
+ [IPv6:2a00:1450:4864:20::642])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C84D26E503
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Jul 2020 14:27:55 +0000 (UTC)
+Received: by mail-ej1-x642.google.com with SMTP id n22so18910051ejy.3
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Jul 2020 07:27:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=FoM2lLvk+HU1JsguyDzCkDhJcQpe74th81bnFKHZ61k=;
+ b=Tb36TVsvZyPVCNfk8o0RlrlP+mnR/eMaGMgp6Ca1CqlBYlXZG8opeFsuRSmWNEGnGT
+ 3a0tm2PbY756z7t31/5nk17pGk2BzWpoQBFQIyUej3lj4szEfe+nJh91oxub3Fy77Ztt
+ tf4BTSjY2cEUt7m4bl9/ZYp4SZnw4Fi3KOq/M6F92/ntlTkSAaLFhE1WGSUUQImHNrKr
+ tcRL5XsJwxlx/iEv9vt86Kc3XkyDdsQYaX8qd020OiJ4QhECITtA7w3G5t4t+V4XhVDz
+ ZBaw6bBvig4y+KfHz01SUMWZbGu+5lTOxxFaAfSXLQu4XEfbEWDywzSrEfb7texqDZ4G
+ aW2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=FoM2lLvk+HU1JsguyDzCkDhJcQpe74th81bnFKHZ61k=;
+ b=PTGzeSOghb+5gunDocY+wSRfqHHW6Pei85h9Vkz4PwXVBqqx63q+Hj31Qd7qgcr/YS
+ Y2e0Qe3YWDzcBGzV3X8domNZ5OaWPZX1KwxRpaR+j5sUb+3/ZBSOsQQJM7h+P6x4zqlI
+ A/I4Kv1vhWOdcWcpcCzEHInp58gAoH0v15gMneRDBGJ+vWWbcp07pzWanT88WtkSh2Uf
+ L4XxLj0Z3aMDFdJeKmXOr1sLUkothOY1cawlYiCXOsmLo6pcEEILfoVef7ALYLdVhvfV
+ VWT4Vehr3H9Z4kBzxgBxXAnVdBd/KjykiLsAmlmzy+MDmXSHbYnLNckNKF7n9VDUxHDk
+ B4XA==
+X-Gm-Message-State: AOAM533yY4aMd/EHH0HdYiaK/kFYqBVZK4oS4874IdELOAn+6++FY6o5
+ HbfCwA//bVVxnwLGcAntuzwW9bE8oY8eciBuOdw=
+X-Google-Smtp-Source: ABdhPJzSo6Fh1hKllPx1Sf8jn5wjHy9PnUTmzYxaeqSTRJRgYWldpUIItzBxdpOIlcnV/OUxWXwrM0RFinDCHwJeuFY=
+X-Received: by 2002:a17:906:ca4c:: with SMTP id
+ jx12mr24039568ejb.231.1595341674113; 
+ Tue, 21 Jul 2020 07:27:54 -0700 (PDT)
 MIME-Version: 1.0
-Date: Tue, 21 Jul 2020 18:27:49 +0530
-From: kalyan_t@codeaurora.org
-To: Rob Clark <robdclark@gmail.com>
-In-Reply-To: <CAF6AEGuV7vTseh5KmCremhhfR1E4sAY1oPAwtCOCtYb1vx=A0g@mail.gmail.com>
-References: <20200715221955.3209856-1-robdclark@gmail.com>
- <92c9e9d08dfa014f1589186a68902de7@codeaurora.org>
- <CAF6AEGuV7vTseh5KmCremhhfR1E4sAY1oPAwtCOCtYb1vx=A0g@mail.gmail.com>
-Message-ID: <dbd08d83075ce6356a233f66b3001cc7@codeaurora.org>
-X-Sender: kalyan_t@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: fix/enable 6bpc dither with
- split-lm
+References: <1594644106-22449-1-git-send-email-akhilpo@codeaurora.org>
+ <CAF6AEGtAEwZbWxLb4MxaWNswvtrFbLK+N0Fez2XYr7odKZffWA@mail.gmail.com>
+ <20200720100131.6ux4zumbwqpa42ye@vireshk-mac-ubuntu>
+ <CAF6AEGurrsd3nrbB=ktZjWfKTNbKwPHYwTFiZdD-NOW1T7gePQ@mail.gmail.com>
+ <20200721032442.hv7l4q6633vnmnfe@vireshk-mac-ubuntu>
+In-Reply-To: <20200721032442.hv7l4q6633vnmnfe@vireshk-mac-ubuntu>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 21 Jul 2020 07:28:30 -0700
+Message-ID: <CAF6AEGuhQcRskGhrFvmCf5T3EcZ9S+3LRdZBiaDYqF34yZjd+A@mail.gmail.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+Subject: Re: [Freedreno] [PATCH v5 0/6] Add support for GPU DDR BW scaling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,133 +65,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Sam Ravnborg <sam@ravnborg.org>,
- David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Doug Anderson <dianders@chromium.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Zheng Bin <zhengbin13@huawei.com>,
- Sean Paul <sean@poorly.run>, Daniel Vetter <daniel@ffwll.ch>,
- Steev Klimaszewski <steev@gentoo.org>,
- Drew Davenport <ddavenport@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Jonathan <jonathan@marek.ca>,
+ saravanak@google.com, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>, Matthias Kaehlcke <mka@chromium.org>,
+ dri-devel@freedesktop.org, Dave Airlie <airlied@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Sibi Sankar <sibis@codeaurora.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-07-20 20:53, Rob Clark wrote:
-> On Mon, Jul 20, 2020 at 5:53 AM <kalyan_t@codeaurora.org> wrote:
->> 
->> On 2020-07-16 03:49, Rob Clark wrote:
->> > From: Rob Clark <robdclark@chromium.org>
->> >
->> > If split-lm is used (for ex, on sdm845), we can have multiple ping-
->> > pongs, but only a single phys encoder.  We need to configure dithering
->> > on each of them.
->> >
->> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-      Reviewed-by: Kalyan Thota <kalyan_t@codeaurora.org>
->> > ---
->> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 22 ++++++++++---------
->> >  .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c   |  3 +--
->> >  2 files changed, 13 insertions(+), 12 deletions(-)
->> >
->> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> > b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> > index 46df0ff75b85..9b98b63c77fb 100644
->> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> > @@ -212,14 +212,14 @@ static u32 dither_matrix[DITHER_MATRIX_SZ] = {
->> >       15, 7, 13, 5, 3, 11, 1, 9, 12, 4, 14, 6, 0, 8, 2, 10
->> >  };
->> >
->> > -static void _dpu_encoder_setup_dither(struct dpu_encoder_phys *phys)
->> > +static void _dpu_encoder_setup_dither(struct dpu_hw_pingpong *hw_pp,
->> > unsigned bpc)
->> >  {
->> >       struct dpu_hw_dither_cfg dither_cfg = { 0 };
->> >
->> > -     if (!phys->hw_pp || !phys->hw_pp->ops.setup_dither)
->> > +     if (!hw_pp->ops.setup_dither)
->> >               return;
->> >
->> > -     switch (phys->connector->display_info.bpc) {
->> > +     switch (bpc) {
->> >       case 6:
->> >               dither_cfg.c0_bitdepth = 6;
->> >               dither_cfg.c1_bitdepth = 6;
->> > @@ -228,14 +228,14 @@ static void _dpu_encoder_setup_dither(struct
->> > dpu_encoder_phys *phys)
->> >               dither_cfg.temporal_en = 0;
->> >               break;
->> >       default:
->> > -             phys->hw_pp->ops.setup_dither(phys->hw_pp, NULL);
->> > +             hw_pp->ops.setup_dither(hw_pp, NULL);
->> >               return;
->> >       }
->> >
->> >       memcpy(&dither_cfg.matrix, dither_matrix,
->> >                       sizeof(u32) * DITHER_MATRIX_SZ);
->> >
->> > -     phys->hw_pp->ops.setup_dither(phys->hw_pp, &dither_cfg);
->> > +     hw_pp->ops.setup_dither(hw_pp, &dither_cfg);
->> >  }
->> >
->> >  void dpu_encoder_helper_report_irq_timeout(struct dpu_encoder_phys
->> > *phys_enc,
->> > @@ -1132,11 +1132,13 @@ static void
->> > _dpu_encoder_virt_enable_helper(struct drm_encoder *drm_enc)
->> >
->> >       _dpu_encoder_update_vsync_source(dpu_enc, &dpu_enc->disp_info);
->> >
->> > -     if (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_DSI) {
->> > -             for (i = 0; i < dpu_enc->num_phys_encs; i++) {
->> > -                     struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
->> > -
->> > -                     _dpu_encoder_setup_dither(phys);
->> > +     if (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_DSI &&
->> > +                     !WARN_ON(dpu_enc->num_phys_encs == 0)) {
->> > +             unsigned bpc = dpu_enc->phys_encs[0]->connector->display_info.bpc;
->> > +             for (i = 0; i < MAX_CHANNELS_PER_ENC; i++) {
->> > +                     if (!dpu_enc->hw_pp[i])
->> > +                             continue;
->> > +                     _dpu_encoder_setup_dither(dpu_enc->hw_pp[i], bpc);
->> >               }
->> >       }
->> >  }
->> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
->> > b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
->> > index 7411ab6bf6af..bea4ab5c58c5 100644
->> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
->> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
->> > @@ -231,8 +231,7 @@ static void _setup_pingpong_ops(struct
->> > dpu_hw_pingpong *c,
->> >       c->ops.poll_timeout_wr_ptr = dpu_hw_pp_poll_timeout_wr_ptr;
->> >       c->ops.get_line_count = dpu_hw_pp_get_line_count;
->> >
->> > -     if (test_bit(DPU_PINGPONG_DITHER, &features) &&
->> > -             IS_SC7180_TARGET(c->hw.hwversion))
->> > +     if (test_bit(DPU_PINGPONG_DITHER, &features))
->> >               c->ops.setup_dither = dpu_hw_pp_setup_dither;
->> >  };
->> 
->> Change looks good to me
-> 
-> Does that count as a Reviewed-by?
-> 
-Sure i have added the tag.
+On Mon, Jul 20, 2020 at 8:24 PM Viresh Kumar <viresh.kumar@linaro.org> wrote:
+>
+> On 20-07-20, 08:03, Rob Clark wrote:
+> > On Mon, Jul 20, 2020 at 3:01 AM Viresh Kumar <viresh.kumar@linaro.org> wrote:
+> > >
+> > > On 15-07-20, 08:36, Rob Clark wrote:
+> > > > I can take the first two into msm-next, the 3rd will need to wait
+> > > > until dev_pm_opp_set_bw() lands
+> > >
+> > > You can base that on a8351c12c6c7 in linux-next, I will make sure not to rebase
+> > > it anymore.
+>
+> This was 5.8-rc1 + 2 patches for OPP. That's all.
+>
+> > >
+> >
+> > I can't really base on something newer than drm-next
+>
+> But you need the OPP dependency, isn't it ?
 
-> BR,
-> -R
-> 
->> 
->> - Kalyan
-> _______________________________________________
-> Freedreno mailing list
-> Freedreno@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/freedreno
+With your ack, I can add the patch the dev_pm_opp_set_bw patch to my
+tree and merge it via msm-next -> drm-next -> linus
+
+Otherwise I can send a second later pull req that adds the final patch
+after has rebased to 5.9-rc1 (by which point the opp next tree will
+have presumably been merged
+
+BR,
+-R
+
+>
+> --
+> viresh
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
