@@ -2,46 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACED0227498
-	for <lists+freedreno@lfdr.de>; Tue, 21 Jul 2020 03:33:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0158922764F
+	for <lists+freedreno@lfdr.de>; Tue, 21 Jul 2020 04:57:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56B3E89AC0;
-	Tue, 21 Jul 2020 01:33:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E9BB6E175;
+	Tue, 21 Jul 2020 02:57:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m176150.mail.qiye.163.com (m176150.mail.qiye.163.com
- [59.111.176.150])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 901D089AC0
- for <freedreno@lists.freedesktop.org>; Tue, 21 Jul 2020 01:33:40 +0000 (UTC)
-Received: from vivo.com (wm-10.qy.internal [127.0.0.1])
- by m176150.mail.qiye.163.com (Hmail) with ESMTP id 083D01A2142;
- Tue, 21 Jul 2020 09:33:03 +0800 (CST)
-Message-ID: <AE2AjQBfDVxlYNyBF9u*s4rp.1.1595295183020.Hmail.bernard@vivo.com>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, 
- Drew Davenport <ddavenport@chromium.org>, 
- Bernard Zhao <bernard@vivo.com>, Hongbo Yao <yaohongbo@huawei.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, 
- Kalyan Thota <kalyan_t@codeaurora.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-X-Priority: 3
-X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com
-X-Originating-IP: 14.29.82.33
+Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com
+ [IPv6:2a00:1450:4864:20::641])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EEFC6E175;
+ Tue, 21 Jul 2020 02:57:25 +0000 (UTC)
+Received: by mail-ej1-x641.google.com with SMTP id n26so20177841ejx.0;
+ Mon, 20 Jul 2020 19:57:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=k3JdCJR2g5rc0/sk91yNgBSkmWQJyhTVgrDHkUGVHjw=;
+ b=Ss+c31OQAohgVfaRucUoILyjm6J/RThUhKr6ofrstPJujUivtlfDotidMEUMZKHB+0
+ 6Wd6QUhcvkfDapbavhErmJ80xEwYbu9YZytMwRbP3eIdEmtSgbBxJUO3oPmjUHf9Ni8f
+ 27bk0w+qnBMTTEKloJighsCyGrB0kBIe/tJh8WlNOo5GaoaYyVSaMRJ2vt5Q8APzYigr
+ AXzCk+Y704447zXoZzuMh+A90Z5uB7ZVUSMz2YbKXDFDObY4VJkICExQraK7UJVYlCtj
+ OdyImGMjFLv1Vl5UrvH9yK0dRDbbO/IC2odAOVT4JoaadEul+SqJy2UkDNLexg7REcBO
+ GxWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=k3JdCJR2g5rc0/sk91yNgBSkmWQJyhTVgrDHkUGVHjw=;
+ b=j2r9kkDEh+2p49eheTp2ql471h4b/OcFjJzeNt2HUpKgHn/n3csy3TgpS8Rza4sIPl
+ t26YNjYZXB99K+GIrevduVKR8py+LV936w+mHAR5GrkActAksGhtwKjAChV0loxOKrj8
+ kpaCqSF7UmyflQM7F4boENM6gwjCoukDjXxghMLkx2obl6xtlZaQtzbKICDXfGo68eHA
+ SHEPLkJkFNRaGtBvjFpG52gZZE3cAuTrLe3BFmEfKOh4V+I3ZJ1tTsVBPiROjeiLGatl
+ 5PPdWVQxHv9JBwU8eDNwlDiO5ubL5nW769PloPnlhsRZHsXH6Iv8dF/mauFGrbLNdhbr
+ kXfw==
+X-Gm-Message-State: AOAM533hyWJ3vrrDW3jUZsiGqT/ArjzUocWAt5W0nl1AwD2WRjHElw9u
+ N2mRKGzLQwXAz4pOLsA+8RgJy3gGinHkxRC0dvg=
+X-Google-Smtp-Source: ABdhPJxwgJlH0PXNzdQwqlPRE5KW+3uZUS5mN2weS9bw8M9k15h4pa+fCzhaVK9NIYfSd8sazWjt2MCDtc2a5bKHZ9o=
+X-Received: by 2002:a17:906:494a:: with SMTP id
+ f10mr24210363ejt.428.1595300243613; 
+ Mon, 20 Jul 2020 19:57:23 -0700 (PDT)
 MIME-Version: 1.0
-Received: from bernard@vivo.com( [14.29.82.33) ] by ajax-webmail ( [127.0.0.1]
- ) ; Tue, 21 Jul 2020 09:33:03 +0800 (GMT+08:00)
-From: Bernard <bernard@vivo.com>
-Date: Tue, 21 Jul 2020 09:33:03 +0800 (GMT+08:00)
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
- oVCBIfWUFZSE8ZQh5CQ05OSU8eVkpOQk5JQk5KQ0hKT0tVEwETFhoSFyQUDg9ZV1kWGg8SFR0UWU
- FZT0tIVUpKS0hKTFVKS0tZBg++
-X-HM-Sender-Digest: e1kMHhlZQQ8JDh5XWRIfHhUPWUFZRzo#SToRKjkdPy0DFyI1Ajk9Qg5R
- CE8JC1VKVUpOQk5JQk5KQ0hOSENVMxYaEhdVGR4JFRoJHzsNEg0UVRgUFkVZV1kSC1lBWUpPVUlC
- VUNJVUhIWVdZCAFZQU1OTk83Bg++
-X-HM-Tid: 0a736f00b0cd93b4kuws083d01a2142
-Subject: [Freedreno] =?utf-8?q?=5BResend=5D=5BPATCH=5D_drm/msm=3A_use_kth?=
- =?utf-8?q?read=5Fcreate=5Fworker_instead_of_kthread=5Frun?=
+References: <20200707184125.15114-1-khsieh@codeaurora.org>
+ <159527632812.1987609.6364896740387949838@swboyd.mtv.corp.google.com>
+ <91a8eef836c1939cb57942c6fdcf2772@codeaurora.org>
+ <159528794676.3847286.1584696687662833591@swboyd.mtv.corp.google.com>
+In-Reply-To: <159528794676.3847286.1584696687662833591@swboyd.mtv.corp.google.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 20 Jul 2020 19:57:59 -0700
+Message-ID: <CAF6AEGs0+=tpOWtY0kUc=Vt7EdEEwQjEffMXxFtDo142gRYRhQ@mail.gmail.com>
+To: Stephen Boyd <swboyd@chromium.org>
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Add DP compliance tests on
+ Snapdragon Chipsets
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,99 +65,62 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: opensource.kernel@vivo.com
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>, khsieh@codeaurora.org,
+ Tanmay Shah <tanmay@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
+ aravindh@codeaurora.org, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Use kthread_create_worker to simplify the code and optimise
-the manager struct: msm_drm_thread. With this change, we
-could remove struct element (struct task_struct *thread &
-struct kthread_worker worker), instead, use one point (struct
-kthread_worker *worker).
+On Mon, Jul 20, 2020 at 4:32 PM Stephen Boyd <swboyd@chromium.org> wrote:
+>
+> Quoting khsieh@codeaurora.org (2020-07-20 15:48:13)
+> > On 2020-07-20 13:18, Stephen Boyd wrote:
+> > > Quoting Kuogee Hsieh (2020-07-07 11:41:25)
+> > >>  drivers/gpu/drm/msm/dp/dp_power.c           |  32 +-
+> > >>  drivers/gpu/drm/msm/dp/dp_power.h           |   1 +
+> > >>  drivers/gpu/drm/msm/dp/dp_reg.h             |   1 +
+> > >>  17 files changed, 861 insertions(+), 424 deletions(-)
+> > >
+> > > It seems to spread various changes throughout the DP bits and only has
+> > > a
+> > > short description about what's changing. Given that the series above
+> > > isn't merged it would be better to get rid of this change and make the
+> > > changes in the patches that introduce these files.
+> > >
+> >
+> > Yes, the base DP driver is not yet merged as its still in reviews and
+> > has been for a while.
+> > While it is being reviewed, different developers are working on
+> > different aspects of DP such as base DP driver, DP compliance, audio etc
+> > to keep things going in parallel.
+> > To maintain the authorship of the different developers, we prefer having
+> > them as separate changes and not merge them.
+> > We can make all these changes as part of the same series if that shall
+> > help to keep things together but would prefer the changes themselves to
+> > be separate.
+> > Please consider this and let us know if that works.
+> >
+>
+> I'm not the maintainer here so it's not really up to me, but this is why
+> we have the Co-developed-by tag, to show that multiple people worked on
+> some patch. The patch is supposed to logically stand on its own
+> regardless of how many people worked on it. Authorship is a single
+> person but the Co-developed-by tag helps express that more than one
+> person is the actual author of the patch. Can you use that tag instead
+> and then squash this into the other DP patches?
 
-Signed-off-by: Bernard Zhao <bernard@vivo.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c |  2 +-
- drivers/gpu/drm/msm/msm_drv.c            | 18 ++++++------------
- drivers/gpu/drm/msm/msm_drv.h            |  3 +--
- 3 files changed, 8 insertions(+), 15 deletions(-)
+The dpu mega-patches are hard enough to review already.. I'd really
+appreciated it if the dpu dev's sort out some way to squash later
+fixups into earlier patches
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index e15b42a780e0..c959c959021d 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -396,7 +396,7 @@ static void dpu_crtc_frame_event_cb(void *data, u32 event)
- 	fevent->event = event;
- 	fevent->crtc = crtc;
- 	fevent->ts = ktime_get();
--	kthread_queue_work(&priv->event_thread[crtc_id].worker, &fevent->work);
-+	kthread_queue_work(priv->event_thread[crtc_id].worker, &fevent->work);
- }
- 
- void dpu_crtc_complete_commit(struct drm_crtc *crtc)
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index f6ce40bf3699..82e79b82a594 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -238,10 +238,8 @@ static int msm_drm_uninit(struct device *dev)
- 
- 	/* clean up event worker threads */
- 	for (i = 0; i < priv->num_crtcs; i++) {
--		if (priv->event_thread[i].thread) {
--			kthread_destroy_worker(&priv->event_thread[i].worker);
--			priv->event_thread[i].thread = NULL;
--		}
-+		if (priv->event_thread[i].worker)
-+			kthread_destroy_worker(priv->event_thread[i].worker);
- 	}
- 
- 	msm_gem_shrinker_cleanup(ddev);
-@@ -504,19 +502,15 @@ static int msm_drm_init(struct device *dev, struct drm_driver *drv)
- 	for (i = 0; i < priv->num_crtcs; i++) {
- 		/* initialize event thread */
- 		priv->event_thread[i].crtc_id = priv->crtcs[i]->base.id;
--		kthread_init_worker(&priv->event_thread[i].worker);
- 		priv->event_thread[i].dev = ddev;
--		priv->event_thread[i].thread =
--			kthread_run(kthread_worker_fn,
--				&priv->event_thread[i].worker,
--				"crtc_event:%d", priv->event_thread[i].crtc_id);
--		if (IS_ERR(priv->event_thread[i].thread)) {
-+		priv->event_thread[i].worker = kthread_create_worker(0,
-+			"crtc_event:%d", priv->event_thread[i].crtc_id);
-+		if (IS_ERR(priv->event_thread[i].worker)) {
- 			DRM_DEV_ERROR(dev, "failed to create crtc_event kthread\n");
--			priv->event_thread[i].thread = NULL;
- 			goto err_msm_uninit;
- 		}
- 
--		ret = sched_setscheduler(priv->event_thread[i].thread,
-+		ret = sched_setscheduler(priv->event_thread[i].worker->task,
- 					 SCHED_FIFO, &param);
- 		if (ret)
- 			dev_warn(dev, "event_thread set priority failed:%d\n",
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index e2d6a6056418..daf2f4e5548c 100644
---- a/drivers/gpu/drm/msm/msm_drv.h
-+++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -129,9 +129,8 @@ struct msm_display_info {
- /* Commit/Event thread specific structure */
- struct msm_drm_thread {
- 	struct drm_device *dev;
--	struct task_struct *thread;
- 	unsigned int crtc_id;
--	struct kthread_worker worker;
-+	struct kthread_worker *worker;
- };
- 
- struct msm_drm_private {
--- 
-2.17.1
-
-
-
+BR,
+-R
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
