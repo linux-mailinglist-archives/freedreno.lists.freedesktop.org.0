@@ -2,57 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0158922764F
-	for <lists+freedreno@lfdr.de>; Tue, 21 Jul 2020 04:57:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43BDF2276A7
+	for <lists+freedreno@lfdr.de>; Tue, 21 Jul 2020 05:24:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E9BB6E175;
-	Tue, 21 Jul 2020 02:57:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD1E86E1BC;
+	Tue, 21 Jul 2020 03:24:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com
- [IPv6:2a00:1450:4864:20::641])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EEFC6E175;
- Tue, 21 Jul 2020 02:57:25 +0000 (UTC)
-Received: by mail-ej1-x641.google.com with SMTP id n26so20177841ejx.0;
- Mon, 20 Jul 2020 19:57:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=k3JdCJR2g5rc0/sk91yNgBSkmWQJyhTVgrDHkUGVHjw=;
- b=Ss+c31OQAohgVfaRucUoILyjm6J/RThUhKr6ofrstPJujUivtlfDotidMEUMZKHB+0
- 6Wd6QUhcvkfDapbavhErmJ80xEwYbu9YZytMwRbP3eIdEmtSgbBxJUO3oPmjUHf9Ni8f
- 27bk0w+qnBMTTEKloJighsCyGrB0kBIe/tJh8WlNOo5GaoaYyVSaMRJ2vt5Q8APzYigr
- AXzCk+Y704447zXoZzuMh+A90Z5uB7ZVUSMz2YbKXDFDObY4VJkICExQraK7UJVYlCtj
- OdyImGMjFLv1Vl5UrvH9yK0dRDbbO/IC2odAOVT4JoaadEul+SqJy2UkDNLexg7REcBO
- GxWA==
+Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
+ [IPv6:2607:f8b0:4864:20::544])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 684F76E1BC
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Jul 2020 03:24:55 +0000 (UTC)
+Received: by mail-pg1-x544.google.com with SMTP id m22so11267806pgv.9
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Jul 2020 20:24:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=xEKJp/jVsPRX4UpWt8HfxSdWbSchkUleBYjVnsTaofA=;
+ b=LQHyZUWBvXVCW395DzCgA0Dhe5iVnTk00XHZfa9Y30Fi6a7xuBBwh8d/I2OiyxQi8O
+ +LA8HvHeYdFDOzs4BqC3u3SV8ITPjtTbJFB8rSBrsk5B9SfjlOOghCWPQ2HCeWTEw5It
+ R7Yq+EdLhhwajEl5phhZ0NpX/S8XoLKNpSthc2i5xLCERwf8ohqeWqd93eJzunZtDWpC
+ wxlBW46cFDuL3s+EbbViTlFSPFuZ/CxjYL7oDjdoKeSHoZVhk1lgTqI9fwmdg2LZ0woA
+ yl/MBm9Qb8WXF8FkLvcb1DUI6Owzq7zAgMNx9EDlZwu4lJ033QNTwmrXOozbT5lNJcRS
+ 71aA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=k3JdCJR2g5rc0/sk91yNgBSkmWQJyhTVgrDHkUGVHjw=;
- b=j2r9kkDEh+2p49eheTp2ql471h4b/OcFjJzeNt2HUpKgHn/n3csy3TgpS8Rza4sIPl
- t26YNjYZXB99K+GIrevduVKR8py+LV936w+mHAR5GrkActAksGhtwKjAChV0loxOKrj8
- kpaCqSF7UmyflQM7F4boENM6gwjCoukDjXxghMLkx2obl6xtlZaQtzbKICDXfGo68eHA
- SHEPLkJkFNRaGtBvjFpG52gZZE3cAuTrLe3BFmEfKOh4V+I3ZJ1tTsVBPiROjeiLGatl
- 5PPdWVQxHv9JBwU8eDNwlDiO5ubL5nW769PloPnlhsRZHsXH6Iv8dF/mauFGrbLNdhbr
- kXfw==
-X-Gm-Message-State: AOAM533hyWJ3vrrDW3jUZsiGqT/ArjzUocWAt5W0nl1AwD2WRjHElw9u
- N2mRKGzLQwXAz4pOLsA+8RgJy3gGinHkxRC0dvg=
-X-Google-Smtp-Source: ABdhPJxwgJlH0PXNzdQwqlPRE5KW+3uZUS5mN2weS9bw8M9k15h4pa+fCzhaVK9NIYfSd8sazWjt2MCDtc2a5bKHZ9o=
-X-Received: by 2002:a17:906:494a:: with SMTP id
- f10mr24210363ejt.428.1595300243613; 
- Mon, 20 Jul 2020 19:57:23 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=xEKJp/jVsPRX4UpWt8HfxSdWbSchkUleBYjVnsTaofA=;
+ b=JRgnWzykqSe8Sl6GhPqU6RfoX4WA6hSrfZPMnFbK6wbhOFi7B+nAlrNDHue7kZ5SF8
+ lbqDClgpddaSLRVnCd6EzjTX+db8odgHeKDGoquU5cFtoaEKAFLNIeoxx0RD3Z+bZpOV
+ NpmCmbeZfJdm6EIKO00YVv7EDxat5ByEW2BWkJuRHHevQIZSxZ88UAQ4/t9iL4FyN7eM
+ 1Soai3oMWdh/yKBLuaNKKRxPzL66FzLUl8WvbfLV/TdoxLz0RUMIKwmAS3v+z9XK8RVt
+ p4qPIqVWhcG36edp5VOb3s9wqCuBFh1uZapOnHv2nMDaFNNv6MKCK/N4t/OeBcJ61Sss
+ 4K9g==
+X-Gm-Message-State: AOAM533Q9BSlZBRU67Ambg4BuxC4Sg6unaaeWqb8XP5c+hdrX8qe+CFm
+ 8ZiWsIsSjIhxTF9JQEOp8+q9Mg==
+X-Google-Smtp-Source: ABdhPJzzJUvTTt3zYg8Ad9nFkak4Z6dshzvJaAVPO+PpmMtkXDtOIXzZcz5rd02eSZR/emH7oCtbLw==
+X-Received: by 2002:a65:4bc8:: with SMTP id p8mr20871536pgr.418.1595301895018; 
+ Mon, 20 Jul 2020 20:24:55 -0700 (PDT)
+Received: from localhost ([223.179.133.67])
+ by smtp.gmail.com with ESMTPSA id e18sm18353912pff.37.2020.07.20.20.24.53
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 20 Jul 2020 20:24:53 -0700 (PDT)
+Date: Tue, 21 Jul 2020 08:54:42 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <20200721032442.hv7l4q6633vnmnfe@vireshk-mac-ubuntu>
+References: <1594644106-22449-1-git-send-email-akhilpo@codeaurora.org>
+ <CAF6AEGtAEwZbWxLb4MxaWNswvtrFbLK+N0Fez2XYr7odKZffWA@mail.gmail.com>
+ <20200720100131.6ux4zumbwqpa42ye@vireshk-mac-ubuntu>
+ <CAF6AEGurrsd3nrbB=ktZjWfKTNbKwPHYwTFiZdD-NOW1T7gePQ@mail.gmail.com>
 MIME-Version: 1.0
-References: <20200707184125.15114-1-khsieh@codeaurora.org>
- <159527632812.1987609.6364896740387949838@swboyd.mtv.corp.google.com>
- <91a8eef836c1939cb57942c6fdcf2772@codeaurora.org>
- <159528794676.3847286.1584696687662833591@swboyd.mtv.corp.google.com>
-In-Reply-To: <159528794676.3847286.1584696687662833591@swboyd.mtv.corp.google.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 20 Jul 2020 19:57:59 -0700
-Message-ID: <CAF6AEGs0+=tpOWtY0kUc=Vt7EdEEwQjEffMXxFtDo142gRYRhQ@mail.gmail.com>
-To: Stephen Boyd <swboyd@chromium.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Add DP compliance tests on
- Snapdragon Chipsets
+Content-Disposition: inline
+In-Reply-To: <CAF6AEGurrsd3nrbB=ktZjWfKTNbKwPHYwTFiZdD-NOW1T7gePQ@mail.gmail.com>
+User-Agent: NeoMutt/20170609 (1.8.3)
+Subject: Re: [Freedreno] [PATCH v5 0/6] Add support for GPU DDR BW scaling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,62 +70,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Jonathan <jonathan@marek.ca>,
+ saravanak@google.com, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>, khsieh@codeaurora.org,
- Tanmay Shah <tanmay@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
- aravindh@codeaurora.org, Sean Paul <sean@poorly.run>
+ Jordan Crouse <jcrouse@codeaurora.org>, Matthias Kaehlcke <mka@chromium.org>,
+ dri-devel@freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Sibi Sankar <sibis@codeaurora.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jul 20, 2020 at 4:32 PM Stephen Boyd <swboyd@chromium.org> wrote:
->
-> Quoting khsieh@codeaurora.org (2020-07-20 15:48:13)
-> > On 2020-07-20 13:18, Stephen Boyd wrote:
-> > > Quoting Kuogee Hsieh (2020-07-07 11:41:25)
-> > >>  drivers/gpu/drm/msm/dp/dp_power.c           |  32 +-
-> > >>  drivers/gpu/drm/msm/dp/dp_power.h           |   1 +
-> > >>  drivers/gpu/drm/msm/dp/dp_reg.h             |   1 +
-> > >>  17 files changed, 861 insertions(+), 424 deletions(-)
-> > >
-> > > It seems to spread various changes throughout the DP bits and only has
-> > > a
-> > > short description about what's changing. Given that the series above
-> > > isn't merged it would be better to get rid of this change and make the
-> > > changes in the patches that introduce these files.
-> > >
+On 20-07-20, 08:03, Rob Clark wrote:
+> On Mon, Jul 20, 2020 at 3:01 AM Viresh Kumar <viresh.kumar@linaro.org> wrote:
 > >
-> > Yes, the base DP driver is not yet merged as its still in reviews and
-> > has been for a while.
-> > While it is being reviewed, different developers are working on
-> > different aspects of DP such as base DP driver, DP compliance, audio etc
-> > to keep things going in parallel.
-> > To maintain the authorship of the different developers, we prefer having
-> > them as separate changes and not merge them.
-> > We can make all these changes as part of the same series if that shall
-> > help to keep things together but would prefer the changes themselves to
-> > be separate.
-> > Please consider this and let us know if that works.
+> > On 15-07-20, 08:36, Rob Clark wrote:
+> > > I can take the first two into msm-next, the 3rd will need to wait
+> > > until dev_pm_opp_set_bw() lands
 > >
->
-> I'm not the maintainer here so it's not really up to me, but this is why
-> we have the Co-developed-by tag, to show that multiple people worked on
-> some patch. The patch is supposed to logically stand on its own
-> regardless of how many people worked on it. Authorship is a single
-> person but the Co-developed-by tag helps express that more than one
-> person is the actual author of the patch. Can you use that tag instead
-> and then squash this into the other DP patches?
+> > You can base that on a8351c12c6c7 in linux-next, I will make sure not to rebase
+> > it anymore.
 
-The dpu mega-patches are hard enough to review already.. I'd really
-appreciated it if the dpu dev's sort out some way to squash later
-fixups into earlier patches
+This was 5.8-rc1 + 2 patches for OPP. That's all.
 
-BR,
--R
+> >
+> 
+> I can't really base on something newer than drm-next
+
+But you need the OPP dependency, isn't it ?
+
+-- 
+viresh
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
