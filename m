@@ -2,62 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43BDF2276A7
-	for <lists+freedreno@lfdr.de>; Tue, 21 Jul 2020 05:24:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA937227AB3
+	for <lists+freedreno@lfdr.de>; Tue, 21 Jul 2020 10:32:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD1E86E1BC;
-	Tue, 21 Jul 2020 03:24:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 689C66E29A;
+	Tue, 21 Jul 2020 08:32:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 684F76E1BC
- for <freedreno@lists.freedesktop.org>; Tue, 21 Jul 2020 03:24:55 +0000 (UTC)
-Received: by mail-pg1-x544.google.com with SMTP id m22so11267806pgv.9
- for <freedreno@lists.freedesktop.org>; Mon, 20 Jul 2020 20:24:55 -0700 (PDT)
+Received: from mail-vk1-xa2f.google.com (mail-vk1-xa2f.google.com
+ [IPv6:2607:f8b0:4864:20::a2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F3AB6E29A
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Jul 2020 08:32:35 +0000 (UTC)
+Received: by mail-vk1-xa2f.google.com with SMTP id 66so4332835vka.13
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Jul 2020 01:32:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=xEKJp/jVsPRX4UpWt8HfxSdWbSchkUleBYjVnsTaofA=;
- b=LQHyZUWBvXVCW395DzCgA0Dhe5iVnTk00XHZfa9Y30Fi6a7xuBBwh8d/I2OiyxQi8O
- +LA8HvHeYdFDOzs4BqC3u3SV8ITPjtTbJFB8rSBrsk5B9SfjlOOghCWPQ2HCeWTEw5It
- R7Yq+EdLhhwajEl5phhZ0NpX/S8XoLKNpSthc2i5xLCERwf8ohqeWqd93eJzunZtDWpC
- wxlBW46cFDuL3s+EbbViTlFSPFuZ/CxjYL7oDjdoKeSHoZVhk1lgTqI9fwmdg2LZ0woA
- yl/MBm9Qb8WXF8FkLvcb1DUI6Owzq7zAgMNx9EDlZwu4lJ033QNTwmrXOozbT5lNJcRS
- 71aA==
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=PoeTzQAbfq8diFTwwkNIgvAU88Rk11ryiy5bkw2TiLE=;
+ b=qkm0DThRajhvOArCsxPVp1WLsRduMWxTjOVSRdgSHGFQtywjmua1Zl9383pSh24DNb
+ v0XyxiAVaFN2kT0lLlfTZxPoDCc49BlaWLllFJu333dYWH0XizRN0yZWSClvUoe5d6gX
+ 5sPeNxdD+omjnrlErPeHqeUtaI4YymmCxSP2Any4uMGd2Vtc6B+yXnsrudl4a+QS6I5t
+ c3h6RTazDPN8jUdsGPBOoWcIzUERpPhQ7NJ6MXoscqG3OHeeveIZgFeFBRolVcqYRIPp
+ hDZkPeoG5EFi2oluChUeG6rVI385un+IOgpRNfE2rp+hWQ6dGV/zma8+Tqot6ol7oInA
+ Mk2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=xEKJp/jVsPRX4UpWt8HfxSdWbSchkUleBYjVnsTaofA=;
- b=JRgnWzykqSe8Sl6GhPqU6RfoX4WA6hSrfZPMnFbK6wbhOFi7B+nAlrNDHue7kZ5SF8
- lbqDClgpddaSLRVnCd6EzjTX+db8odgHeKDGoquU5cFtoaEKAFLNIeoxx0RD3Z+bZpOV
- NpmCmbeZfJdm6EIKO00YVv7EDxat5ByEW2BWkJuRHHevQIZSxZ88UAQ4/t9iL4FyN7eM
- 1Soai3oMWdh/yKBLuaNKKRxPzL66FzLUl8WvbfLV/TdoxLz0RUMIKwmAS3v+z9XK8RVt
- p4qPIqVWhcG36edp5VOb3s9wqCuBFh1uZapOnHv2nMDaFNNv6MKCK/N4t/OeBcJ61Sss
- 4K9g==
-X-Gm-Message-State: AOAM533Q9BSlZBRU67Ambg4BuxC4Sg6unaaeWqb8XP5c+hdrX8qe+CFm
- 8ZiWsIsSjIhxTF9JQEOp8+q9Mg==
-X-Google-Smtp-Source: ABdhPJzzJUvTTt3zYg8Ad9nFkak4Z6dshzvJaAVPO+PpmMtkXDtOIXzZcz5rd02eSZR/emH7oCtbLw==
-X-Received: by 2002:a65:4bc8:: with SMTP id p8mr20871536pgr.418.1595301895018; 
- Mon, 20 Jul 2020 20:24:55 -0700 (PDT)
-Received: from localhost ([223.179.133.67])
- by smtp.gmail.com with ESMTPSA id e18sm18353912pff.37.2020.07.20.20.24.53
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 20 Jul 2020 20:24:53 -0700 (PDT)
-Date: Tue, 21 Jul 2020 08:54:42 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20200721032442.hv7l4q6633vnmnfe@vireshk-mac-ubuntu>
-References: <1594644106-22449-1-git-send-email-akhilpo@codeaurora.org>
- <CAF6AEGtAEwZbWxLb4MxaWNswvtrFbLK+N0Fez2XYr7odKZffWA@mail.gmail.com>
- <20200720100131.6ux4zumbwqpa42ye@vireshk-mac-ubuntu>
- <CAF6AEGurrsd3nrbB=ktZjWfKTNbKwPHYwTFiZdD-NOW1T7gePQ@mail.gmail.com>
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=PoeTzQAbfq8diFTwwkNIgvAU88Rk11ryiy5bkw2TiLE=;
+ b=gEQqy0Jp0km81AE2NHwWeQS7FlXkVTTfsQ6t0ZMPV9Zf/y+xhPZf31344Su7b9UCC5
+ uV4Epb1gtYpNQ8qfRC/GlgwJGpN6RxY+2qr4GelYPBsFvNoGKCuHF5SqDLJtedawkGU8
+ iIr0ek7mw2sziA5iUX41Vm2e0UjWu+ZEsiadPliIFMVzHHxdjkH/eWTKRBGmf0ImoklA
+ r0ziivYxNJAmaVsda0dZAv1XdO9oMDoNQ6tWgS1lTum16nzxqZHQfFS6KQ+6hYSDbka9
+ LkGp95V1/sogOc5r7JfguzJ1jF/1ikCYQa3nS7VgRYkm5niaaEB7X4QNOXYtvnGBnmYr
+ xmyw==
+X-Gm-Message-State: AOAM531odConPYUUq0AV4GNIigCmnQyETB0kct2ik3cTLYpcd52zVeLu
+ YmFBTHgpY0dlb3ZgbMzifM3Uc9pcYGBqrLTG5l5mffncGZVTGNGR
+X-Google-Smtp-Source: ABdhPJwbf5Rm4LJQfuNeEBXEFYSArJpqfyxXBcSf96bg1G+qIb4bGdA0GfWckqnuMBu8NcbcIyGsk60Fg5COAjcw1MY=
+X-Received: by 2002:a1f:a14f:: with SMTP id k76mr19527994vke.0.1595320353996; 
+ Tue, 21 Jul 2020 01:32:33 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAF6AEGurrsd3nrbB=ktZjWfKTNbKwPHYwTFiZdD-NOW1T7gePQ@mail.gmail.com>
-User-Agent: NeoMutt/20170609 (1.8.3)
-Subject: Re: [Freedreno] [PATCH v5 0/6] Add support for GPU DDR BW scaling
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Tue, 21 Jul 2020 14:02:22 +0530
+Message-ID: <CA+G9fYvGXOcsF=70FVwOxqVYOeGTUuzhUzh5od1cKV1hshsW_g@mail.gmail.com>
+To: linux- stable <stable@vger.kernel.org>, linux-clk@vger.kernel.org, 
+ open list <linux-kernel@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>
+Subject: [Freedreno] stable-rc 4.14: arm64: Internal error: Oops:
+ clk_reparent __clk_set_parent_before on db410c
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,41 +61,171 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Jonathan <jonathan@marek.ca>,
- saravanak@google.com, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, Matthias Kaehlcke <mka@chromium.org>,
- dri-devel@freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Sibi Sankar <sibis@codeaurora.org>
+Cc: Sasha Levin <sashal@kernel.org>, Rob Clark <robdclark@chromium.org>,
+ Arnd Bergmann <arnd@arndb.de>, samuel@sholland.org,
+ Stephen Boyd <sboyd@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Michael Turquette <mturquette@baylibre.com>, Chen-Yu Tsai <wens@csie.org>,
+ lkft-triage@lists.linaro.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Eric Anholt <eric@anholt.net>, jcrouse@codeaurora.org,
+ Andy Gross <agross@kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Robin Murphy <robin.murphy@arm.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 20-07-20, 08:03, Rob Clark wrote:
-> On Mon, Jul 20, 2020 at 3:01 AM Viresh Kumar <viresh.kumar@linaro.org> wrote:
-> >
-> > On 15-07-20, 08:36, Rob Clark wrote:
-> > > I can take the first two into msm-next, the 3rd will need to wait
-> > > until dev_pm_opp_set_bw() lands
-> >
-> > You can base that on a8351c12c6c7 in linux-next, I will make sure not to rebase
-> > it anymore.
+Kernel Internal oops while booting stable-rc 4.14 kernel on qcom db410c device
+this problem happened only once on this specific platform.
+and  rcu_preempt detected stalls on CPUs/tasks detected after this and
+board hung.
 
-This was 5.8-rc1 + 2 patches for OPP. That's all.
+metadata:
+  git branch: linux-4.14.y
+  git repo: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+  git commit: 5b1e982af0f810358664827a6333affb4f5d8eb5
+  git describe: v4.14.188-126-g5b1e982af0f8
+  make_kernelversion: 4.14.189-rc1
+  kernel-config:
+https://builds.tuxbuild.com/12PM71zBW-5EAp5ztC_yxg/kernel.config
 
-> >
-> 
-> I can't really base on something newer than drm-next
+Crash dump:
 
-But you need the OPP dependency, isn't it ?
+[    5.424958] Unable to handle kernel paging request at virtual
+address 00001008
+[    5.435485] Mem abort info:
+[    5.442509]   Exception class = DABT (current EL), IL = 32 bits
+[    5.445203]   SET = 0, FnV = 0
+[[    5.451101]   EA = 0, S1PTW =[    5.454226] Data abort info:
+[    5.457264]   ISV = 0, ISS = 0x00000044
+[    5.460390]   CM = 0, WnR = 1
+[    5.463951] user pgtable: 4k pages, 48-bit VAs, pgd = ffff80003d66d000
+[    5.467078] [0000000000001008] *pgd=0000000000000000
+[    5.473503] Internal error: Oops: 96000044 [#1] PREEMPT SMP
+[    5.479838] Modules linked in: adv7511 msm mdt_loader msm_rng
+drm_kms_helper rng_core drm fuse
+[    5.485405] Process kworker/2:0 (pid: 21, stack limit = 0xffff000009450000)
+[    5.494090] CPU: 2 PID: 21 Comm: kworker/2:0 Not tainted 4.14.189-rc1 #1
+[    5.501036] Hardware name: Qualcomm Technologies, Inc. APQ 8016 SBC (DT)
+[    5.507996] Workqueue: events deferred_probe_work_func
+[    5.514935] task: ffff80003d454380 task.stack: ffff000009450000
+[    5.520155] pc : clk_reparent+0x60/0xe8
+[    5.526058] lr : __clk_set_parent_before+0x40/0x88
+[    5.529882] sp : ffff000009453640 pstate : 800001c5
+[    5.534748] x29: ffff000009453640 x28: ffff0000090b7000
+[    5.539615] x27: ffff80003fe7c478 x26: ffff0000094537a8
+[    5.545175] x25: 0000000000000001 x24: ffff000009239038
+[    5.550736] x23: ffff80003b6be688 x22: 0000000000000000
+[    5.556297] x21: 0000000000000000 x20: ffff80003c9d8c00
+[    5.561858] x19: ffff80003d798900 x18: 00000000fffffffe
+[    5.567419] x17: 0000ffff7fdbb6a0 x16: ffff00000821ad98
+[    5.572980] x15: 0000000000000001 x14: ffffffffffffffff
+[    5.578540] x13: ffff0000094537c8 x12: 0000000000000010
+[    5.584102] x11: 0000000000000010 x10: 0101010101010101
+[    5.589663] x9 : 0000000000000000 x8 : 7f7f7f7f7f7f7f7f
+[    5.595223] x7 : fefefefefeff6e77 x6 : 0000000000000140
+[    5.600784] x5 : 0000000000000001 x4 : ffff80003c9d8c00
+[    5.606344] x3 : ffff80003d798900 x2 : 0000000000000004
+[    5.611905] x1 : ffff80003d7989a8 x0 : 0000000000001000
+[    5.617467] Call trace:
+[    5.623030]  clk_reparent+0x60/0xe8
+[    5.625465]  __clk_set_parent_before+0x40/0x88
+[    5.628943]  clk_register+0x330/0x618
+[    5.633668]  pll_28nm_register+0xa4/0x340 [msm]
+[    5.637492]  msm_dsi_pll_28nm_init+0xc8/0x1d8 [msm]
+[    5.642007]  msm_dsi_pll_init+0x34/0xe0 [msm]
+[    5.646870]  dsi_phy_driver_probe+0x1cc/0x310 [msm]
+[    5.651196]  platform_drv_probe+0x58/0xb8
+[    5.656060]  driver_probe_device+0x228/0x2d0
+[    5.660231]  __device_attach_driver+0xb8/0xe8
+[    5.664750]  bus_for_each_drv+0x64/0xa0
+[    5.669269]  __device_attach+0xcc/0x138
+[    5.673093]  device_initial_probe+0x10/0x18
+[    5.676918]  bus_probe_device+0x90/0x98
+[    5.681088]  device_add+0x3c4/0x5a8
+[    5.684915]  of_device_add+0x40/0x58
+[    5.688392]  of_platform_device_create_pdata+0x80/0xe8
+[    5.692219]  of_platform_bus_create+0xd4/0x308
+[    5.697432]  of_platform_populate+0x48/0xb8
+[    5.702143]  msm_pdev_probe+0x3c/0x328 [msm]
+[    5.706125]  platform_drv_probe+0x58/0xb8
+[    5.710642]  driver_probe_device+0x228/0x2d0
+[    5.714814]  __device_attach_driver+0xb8/0xe8
+[    5.719334]  bus_for_each_drv+0x64/0xa0
+[    5.723852]  __device_attach+0xcc/0x138
+[    5.727677]  device_initial_probe+0x10/0x18
+[    5.731502]  bus_probe_device+0x90/0x98
+[    5.735675]  deferred_probe_work_func+0xa4/0x140
+[    5.739502]  process_one_work+0x19c/0x300
+[    5.744366]  worker_thread+0x4c/0x420
+[    5.748539]  kthread+0x100/0x130
+[    5.752362]  ret_from_fork+0x10/0x1c
+[    5.755842] Code: 54000260 f9405080 f9005460 b4000040 (f9000401)
+[    5.759669] ---[ end trace 6d70d7dd8a236384 ]---
+[    5.765922] note: kworker/2:0[21] exited with preempt_count 1
+[   26.777168] INFO: rcu_preempt detected stalls on CPUs/tasks:
+[   26.777204] 0-...: (1 GPs behind) idle=2fa/140000000000001/0
+softirq=1679/1723 fqs=2625
+[   26.783112] 1-...: (1 GPs behind) idle=53a/140000000000000/0
+softirq=1946/1958 fqs=2625
+[   26.791444] (detected by 3, t=5252 jiffies, g=58, c=57, q=2362)
+[   26.799781] Task dump for CPU 0:
+[   26.806033] systemd-udevd   R  running task        0  2533      1 0x00000202
+[   26.809515] Call trace:
+[   26.816814]  __switch_to+0xe8/0x148
+[   26.819248]  __wake_up_common+0x80/0x170
+[   26.822724]  __wake_up_common_lock+0x7c/0xa8
+[   26.826897]  __wake_up_sync_key+0x1c/0x28
+[   26.831416]  sock_def_readable+0x40/0x88
+[   26.835584] Task dump for CPU 1:
+[   26.839755] systemd         R  running task        0     1      0 0x0000000a
+[   26.843237] Call trace:
+[   26.850531]  __switch_to+0xe8/0x148
+[   26.852968]  0xffff800009fc8000
+[   26.856467] INFO: rcu_sched detected stalls on CPUs/tasks:
+[   26.859584] 0-...: (1 GPs behind) idle=2fa/140000000000001/0
+softirq=1722/1723 fqs=2625
+[   26.865145] 1-...: (1 GPs behind) idle=53a/140000000000000/0
+softirq=1957/1958 fqs=2625
+[   26.873477] (detected by 3, t=5270 jiffies, g=-150, c=-151, q=3)
+[   26.881815] Task dump for CPU 0:
+[   26.888067] systemd-udevd   R  running task        0  2533      1 0x00000202
+[   26.891549] Call trace:
+[   26.898845]  __switch_to+0xe8/0x148
+[   26.901281]  __wake_up_common+0x80/0x170
+[   26.904758]  __wake_up_common_lock+0x7c/0xa8
+[   26.908931]  __wake_up_sync_key+0x1c/0x28
+[   26.913449]  sock_def_readable+0x40/0x88
+[   26.917618] Task dump for CPU 1:
+[   26.921790] systemd         R  running task        0     1      0 0x0000000a
+[   26.925271] Call trace:
+[   26.932565]  __switch_to+0xe8/0x148
+[   26.935002]  0xffff800009fc8000
+[   41.449201] random: crng init done
+[   41.449221] random: 7 urandom warning(s) missed due to ratelimiting
+[   89.797164] INFO: rcu_preempt detected stalls on CPUs/tasks:
+[   89.797195] 0-...: (1 GPs behind) idle=2fa/140000000000001/0
+softirq=1679/1723 fqs=10482
+[   89.803103] 1-...: (1 GPs behind) idle=53a/140000000000000/0
+softirq=1946/1958 fqs=10482
+[   89.811437] (detected by 3, t=21007 jiffies, g=58, c=57, q=2578)
+[   89.819773] Task dump for CPU 0:
+[   89.826027] systemd-udevd   R  running task        0  2533      1 0x00000202
+[   89.829508] Call trace:
+[   89.836807]  __switch_to+0xe8/0x148
+[   89.839241]  __wake_up_common+0x80/0x170
+[   89.842717]  __wake_up_common_lock+0x7c/0xa8
+[   89.846891]  __wake_up_sync_key+0x1c/0x28
+[   89.851410]  sock_def_readable+0x40/0x88
+<System Hung>
+
+Full test log,
+https://qa-reports.linaro.org/lkft/linux-stable-rc-4.14-oe/build/v4.14.188-126-g5b1e982af0f8/testrun/2969667/suite/linux-log-parser/test/check-kernel-oops-1592908/log
+
 
 -- 
-viresh
+Linaro LKFT
+https://lkft.linaro.org
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
