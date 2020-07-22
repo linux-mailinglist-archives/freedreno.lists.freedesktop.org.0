@@ -1,61 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5B35228A94
-	for <lists+freedreno@lfdr.de>; Tue, 21 Jul 2020 23:16:13 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 91F74228FB0
+	for <lists+freedreno@lfdr.de>; Wed, 22 Jul 2020 07:30:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2BE56E45C;
-	Tue, 21 Jul 2020 21:16:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 555316E31D;
+	Wed, 22 Jul 2020 05:30:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
- [104.130.122.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99F1E6E45D
- for <freedreno@lists.freedesktop.org>; Tue, 21 Jul 2020 21:16:07 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1595366170; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=QIFHHn9Bz6CS1awEQLVI1+5x4m0PpVAHkNs3N45sppE=;
- b=WSVXodPPSIHkblm8WifbwsDKvcZqZuz4iHVeXt4r96SvdlHdmvjzhjZjdn4uHaUBX72KDvWV
- YUZKnpx9Eyl5+xEvRUA69Lg0T5tiEtswD+xIX//YqEij+N46IBGRcZ7TDEcAQUL1ELwOtuc7
- GrBRXJfn//baOEpMvuxVVSsaw98=
-X-Mailgun-Sending-Ip: 104.130.122.29
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n11.prod.us-east-1.postgun.com with SMTP id
- 5f175af98423214e13d2f2b3 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 21 Jul 2020 21:15:37
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id EBA42C433C9; Tue, 21 Jul 2020 21:15:36 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,URIBL_BLOCKED
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 9FDE8C433C6;
- Tue, 21 Jul 2020 21:15:35 +0000 (UTC)
-MIME-Version: 1.0
-Date: Tue, 21 Jul 2020 14:15:35 -0700
-From: khsieh@codeaurora.org
+Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
+ [IPv6:2607:f8b0:4864:20::543])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B46036E320
+ for <freedreno@lists.freedesktop.org>; Wed, 22 Jul 2020 05:30:27 +0000 (UTC)
+Received: by mail-pg1-x543.google.com with SMTP id p3so597616pgh.3
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Jul 2020 22:30:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=dl6zwzhq+FsMerc9qwgjpE1ja24WRPYdLlSyn3M9Lhc=;
+ b=wFYPLNpIceaExhbJzjXzj6tDwJR+E2dHZTr/ewhWaneEnAkKVT4tW3ngs4Ana5WOY4
+ JfAbIvMdjf1VIJe9UXtwIm9fjoqxZ4usIYpwHCVaZavJIFFd+fnrU6vME5UiA3OflLMv
+ PjFwR9gTJfbDkCNCnxFjdkM5ybfl439hSbbNWHF+AANDuDpkYtixQfBLNPZswGRM2DZc
+ A+KAoq8xOpfUBwZcC55ebWCtTICdrxK1ie00kDe8G4+14vi1XxzOFtfhfeTXnUap7efU
+ QN1XAOgUSvgdOOotJ2DjwrU3ZOPO07v9BSL1HUBLvu0PwWszIbIqxbQX6Ez2fani/u8w
+ 0nmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=dl6zwzhq+FsMerc9qwgjpE1ja24WRPYdLlSyn3M9Lhc=;
+ b=SEEm16tqVcYJoWnL/KaKWKNXkNdgZzYoT8pnUXL5BKt0BYTQcpzU9zr5bu/1tPDlJB
+ +JvAQKQrTSwRg/r8m235mfMHCnqSZNZ4HV3uDy/tuEycVBiW53b4QwXhhLCqlsOtZgcV
+ /pEbU0ync5sKxat690PF7xnh3Qupca1YszjWP/9E1PBrtS37b+Y8mqkrOluEwX8kRp4A
+ 7S/BrSAnjIj1FcFXDIO5th+hqtQ9AOBHRMWDMwEu8Arcb14IfAhI7gaKZkR0QorEsCYi
+ HdhpXtv5FMDboPnFJbjCehaKgvqyihSYf6DKWxGjvcJ1coypF7/kzfnBafvNs1zQWA8k
+ uYBQ==
+X-Gm-Message-State: AOAM533CG947OIpmGYmqK+fLpFFjGnXDEtgDEqHhS3Vgc6OE6qLK+5fR
+ nICUoL5eb2DZdgKius6tPWtHPA==
+X-Google-Smtp-Source: ABdhPJwOr+y0DG+QB+DOdgrlRofbLELHLiFlXrD3oG8oQpR/O3B/puROrAIHaF3LxSmr19O0mGHgVA==
+X-Received: by 2002:a62:8fc6:: with SMTP id n189mr25703478pfd.10.1595395827137; 
+ Tue, 21 Jul 2020 22:30:27 -0700 (PDT)
+Received: from localhost ([182.77.116.224])
+ by smtp.gmail.com with ESMTPSA id ml8sm4857037pjb.47.2020.07.21.22.30.25
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Tue, 21 Jul 2020 22:30:26 -0700 (PDT)
+Date: Wed, 22 Jul 2020 11:00:23 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
 To: Rob Clark <robdclark@gmail.com>
-In-Reply-To: <CAF6AEGs0+=tpOWtY0kUc=Vt7EdEEwQjEffMXxFtDo142gRYRhQ@mail.gmail.com>
-References: <20200707184125.15114-1-khsieh@codeaurora.org>
- <159527632812.1987609.6364896740387949838@swboyd.mtv.corp.google.com>
- <91a8eef836c1939cb57942c6fdcf2772@codeaurora.org>
- <159528794676.3847286.1584696687662833591@swboyd.mtv.corp.google.com>
- <CAF6AEGs0+=tpOWtY0kUc=Vt7EdEEwQjEffMXxFtDo142gRYRhQ@mail.gmail.com>
-Message-ID: <9fa6328419fa5ddcca856d3c505394f8@codeaurora.org>
-X-Sender: khsieh@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Add DP compliance tests on
- Snapdragon Chipsets
+Message-ID: <20200722053023.vwaoj5oqh4cazzzz@vireshk-mac-ubuntu>
+References: <1594644106-22449-1-git-send-email-akhilpo@codeaurora.org>
+ <CAF6AEGtAEwZbWxLb4MxaWNswvtrFbLK+N0Fez2XYr7odKZffWA@mail.gmail.com>
+ <20200720100131.6ux4zumbwqpa42ye@vireshk-mac-ubuntu>
+ <CAF6AEGurrsd3nrbB=ktZjWfKTNbKwPHYwTFiZdD-NOW1T7gePQ@mail.gmail.com>
+ <20200721032442.hv7l4q6633vnmnfe@vireshk-mac-ubuntu>
+ <CAF6AEGuhQcRskGhrFvmCf5T3EcZ9S+3LRdZBiaDYqF34yZjd+A@mail.gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CAF6AEGuhQcRskGhrFvmCf5T3EcZ9S+3LRdZBiaDYqF34yZjd+A@mail.gmail.com>
+User-Agent: NeoMutt/20170609 (1.8.3)
+Subject: Re: [Freedreno] [PATCH v5 0/6] Add support for GPU DDR BW scaling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,77 +72,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Jonathan <jonathan@marek.ca>,
+ saravanak@google.com, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
- Tanmay Shah <tanmay@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
- aravindh@codeaurora.org, Sean Paul <sean@poorly.run>
+ Jordan Crouse <jcrouse@codeaurora.org>, Matthias Kaehlcke <mka@chromium.org>,
+ dri-devel@freedesktop.org, Dave Airlie <airlied@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Sibi Sankar <sibis@codeaurora.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-07-20 19:57, Rob Clark wrote:
-> On Mon, Jul 20, 2020 at 4:32 PM Stephen Boyd <swboyd@chromium.org> 
-> wrote:
->> 
->> Quoting khsieh@codeaurora.org (2020-07-20 15:48:13)
->> > On 2020-07-20 13:18, Stephen Boyd wrote:
->> > > Quoting Kuogee Hsieh (2020-07-07 11:41:25)
->> > >>  drivers/gpu/drm/msm/dp/dp_power.c           |  32 +-
->> > >>  drivers/gpu/drm/msm/dp/dp_power.h           |   1 +
->> > >>  drivers/gpu/drm/msm/dp/dp_reg.h             |   1 +
->> > >>  17 files changed, 861 insertions(+), 424 deletions(-)
->> > >
->> > > It seems to spread various changes throughout the DP bits and only has
->> > > a
->> > > short description about what's changing. Given that the series above
->> > > isn't merged it would be better to get rid of this change and make the
->> > > changes in the patches that introduce these files.
->> > >
->> >
->> > Yes, the base DP driver is not yet merged as its still in reviews and
->> > has been for a while.
->> > While it is being reviewed, different developers are working on
->> > different aspects of DP such as base DP driver, DP compliance, audio etc
->> > to keep things going in parallel.
->> > To maintain the authorship of the different developers, we prefer having
->> > them as separate changes and not merge them.
->> > We can make all these changes as part of the same series if that shall
->> > help to keep things together but would prefer the changes themselves to
->> > be separate.
->> > Please consider this and let us know if that works.
->> >
->> 
->> I'm not the maintainer here so it's not really up to me, but this is 
->> why
->> we have the Co-developed-by tag, to show that multiple people worked 
->> on
->> some patch. The patch is supposed to logically stand on its own
->> regardless of how many people worked on it. Authorship is a single
->> person but the Co-developed-by tag helps express that more than one
->> person is the actual author of the patch. Can you use that tag instead
->> and then squash this into the other DP patches?
-> 
-> The dpu mega-patches are hard enough to review already.. I'd really
-> appreciated it if the dpu dev's sort out some way to squash later
-> fixups into earlier patches
-> 
-> BR,
-> -R
-as per discussion on IRC, I have separated the parts of this change 
-which are
-unrelated to compliance and we have merged it to the base DP driver and 
-added
-the Co-developed-by tag there. Since this change adds supports for DP 
-compliance
-on MSM chipsets which is a new feature and not fixes to the base driver, 
-we will
-prefer to have this as a separate change as it will make it easier for 
-you to
-review it instead of continuing to expand the base DP driver
+On 21-07-20, 07:28, Rob Clark wrote:
+> With your ack, I can add the patch the dev_pm_opp_set_bw patch to my
+> tree and merge it via msm-next -> drm-next -> linus
+
+I wanted to send it via my tree, but its okay. Pick this patch from
+linux-next and add my Ack, I will drop it after that.
+
+a8351c12c6c7 OPP: Add and export helper to set bandwidth
+
+> Otherwise I can send a second later pull req that adds the final patch
+> after has rebased to 5.9-rc1 (by which point the opp next tree will
+> have presumably been merged
+
+The PM stuff gets pushed fairly early and so I was asking you to
+rebase just on my tree, so you could have sent the pull request right
+after the PM tree landed there instead of waiting for rc1.
+
+But its fine now.
+
+-- 
+viresh
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
