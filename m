@@ -1,42 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 005D122DEDC
-	for <lists+freedreno@lfdr.de>; Sun, 26 Jul 2020 14:04:27 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3118B22E177
+	for <lists+freedreno@lfdr.de>; Sun, 26 Jul 2020 18:54:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB98789E0D;
-	Sun, 26 Jul 2020 12:04:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D29A889D9B;
+	Sun, 26 Jul 2020 16:54:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6457189DA4;
- Sun, 26 Jul 2020 12:04:25 +0000 (UTC)
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 40BAB2065E;
- Sun, 26 Jul 2020 12:04:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1595765065;
- bh=LJxegL2P5hNKR910G8c/QDoI1uB2BfRFQ4PeiQJwStQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Xy0KtmyrKY0jX8tITQlUegCxmDYNtTsgBZMQUvwmUrdMbIF0cVKjshR0MQeIGNHRj
- u3dZWeWJc5V9C/OxmUSuefkUN6fX7aAq8RXQINPs/V1QurcwpCNTAP9KonYrK9ZOLC
- qACyVZsJwgPmYtOqUITCkz9UKqybv0a91ujrcAaY=
-Date: Sun, 26 Jul 2020 14:04:22 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Konrad Dybcio <konradybcio@gmail.com>
-Message-ID: <20200726120422.GA1292190@kroah.com>
-References: <20200726111215.22361-1-konradybcio@gmail.com>
- <20200726111215.22361-10-konradybcio@gmail.com>
- <20200726112920.GA1286220@kroah.com>
- <CAMS8qEV7jhbHqpXE2UOaXBVM5WbCThaGrcD3wiH9kf6h_K-qeA@mail.gmail.com>
+Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com
+ [IPv6:2a00:1450:4864:20::641])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7237789D9B
+ for <freedreno@lists.freedesktop.org>; Sun, 26 Jul 2020 16:54:40 +0000 (UTC)
+Received: by mail-ej1-x641.google.com with SMTP id y10so14738665eje.1
+ for <freedreno@lists.freedesktop.org>; Sun, 26 Jul 2020 09:54:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=CBVgBFjkce72YAGTOc2I0NfR2QTyjZahMOR47tbfoe0=;
+ b=WZYXiUPxENKn4QSxY7fPf+iBaAhsNwecbIqIua+YO2effyaCG04XLdhlYe/ugtAfun
+ 1fXbuueu1sL3HDK5Dtsz0YubABpEtjbQo7eptsxI/lBXgWB/3WVVVEEmE5w+FLXH6uKi
+ ZIeZey8Cvr8anwVeJAwUu0rt41msmaOcLhKWamXZ4XPPQloplOSyM69HBfahGiFQeaKe
+ VdrYrSXa5wP7b1gmFMJiWqd2K8TOxBosAvi2Z9c8hlyuujPC5uhKq+dgDVj4VMpUybxU
+ kiYkfmIFSDy/R08StwIylDGo6dkk0/l7B5Clr00ZfG0Jw2OpT/++z7w9JMSJTwfmA6aD
+ AyRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=CBVgBFjkce72YAGTOc2I0NfR2QTyjZahMOR47tbfoe0=;
+ b=ioX2yHFKed3jDNAcTifKrlDaS6vHdPofD2zLHMzFtp12d3c7nnrx86o9XjTvJUvE9+
+ L9QzhSQHW5C/Ktl+lIQpvNmISj4lwBQ/I/60sOd2SjAuJVO+6Duci5vUVY/NdQmLI69S
+ Pe/oYXaePnp5SWDY3VDqtGSje0vpXTS1oRleBFcfxU1AFXl2tGJkoQm1/s27mKoJRV31
+ jVixH6rgz8GzfIj45MltxUDsA3mhm570xebGjqiANVKUjXj1b8zib1YH2VOhB36wq+eQ
+ 7EytHKRW7NKnzPLxsQnBLfU4BjsuwJb+GolH4eReM6w5zwg+3mFpXdrzoMYtvVBA7xbO
+ IH5Q==
+X-Gm-Message-State: AOAM531yXx7XgSvfHnV6MJ94l/gTjN29WbGTth9Cxyg598jQqAt3VSVn
+ 2l+9TkmSdUxhqj+VYIDLYdX7blWvIbaXV49wp8A=
+X-Google-Smtp-Source: ABdhPJwDnlAPaImQnrQAApbQ+w+cGsIt/2VZqafSu7Ti4+lytmzJqD4dBVNo+ZeSue4XBagNFOp/lX3pdQrzVmj/eOM=
+X-Received: by 2002:a17:906:f199:: with SMTP id
+ gs25mr1970599ejb.161.1595782478958; 
+ Sun, 26 Jul 2020 09:54:38 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAMS8qEV7jhbHqpXE2UOaXBVM5WbCThaGrcD3wiH9kf6h_K-qeA@mail.gmail.com>
-Subject: Re: [Freedreno] [PATCH 9/9] soc/qcom: Add REVID driver
+References: <20200720154047.3611092-1-jcrouse@codeaurora.org>
+ <20200720154047.3611092-8-jcrouse@codeaurora.org>
+In-Reply-To: <20200720154047.3611092-8-jcrouse@codeaurora.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Sun, 26 Jul 2020 09:55:18 -0700
+Message-ID: <CAF6AEGu50KtjFHJO3Txrbjnn1xoG5WDyuU_e__RsGPXe-5Z46g@mail.gmail.com>
+To: Jordan Crouse <jcrouse@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH v10 07/13] dt-bindings: arm-smmu: Add
+ compatible string for Adreno GPU SMMU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,75 +63,61 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Krzysztof Wilczynski <kw@linux.com>,
- Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, David Airlie <airlied@linux.ie>,
- Michael Turquette <mturquette@baylibre.com>,
- "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- AngeloGioacchino Del Regno <kholk11@gmail.com>,
- Sam Ravnborg <sam@ravnborg.org>, linux-clk@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Kishon Vijay Abraham I <kishon@ti.com>,
- Martin Botka <martin.botka1@gmail.com>, Andy Gross <agross@kernel.org>,
- Brian Masney <masneyb@onstation.org>, DTML <devicetree@vger.kernel.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Xiaozhe Shi <xiaozhes@codeaurora.org>, Jordan Crouse <jcrouse@codeaurora.org>,
- Rob Herring <robh+dt@kernel.org>, Sean Paul <sean@poorly.run>,
- Ben Dooks <ben.dooks@codethink.co.uk>, Felipe Balbi <balbi@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, linux-usb@vger.kernel.org,
- Harigovindan P <harigovi@codeaurora.org>,
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Will Deacon <will@kernel.org>,
+ Rob Herring <robh@kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- zhengbin <zhengbin13@huawei.com>, Manu Gautam <mgautam@codeaurora.org>,
- Vinod Koul <vkoul@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno <freedreno@lists.freedesktop.org>
+ "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
+ Rob Herring <robh+dt@kernel.org>, freedreno <freedreno@lists.freedesktop.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Jul 26, 2020 at 01:40:46PM +0200, Konrad Dybcio wrote:
-> >Horrible global symbol name.  Who calls this?
-> 
-> Welcome to development on qcom platforms :D
+On Mon, Jul 20, 2020 at 8:41 AM Jordan Crouse <jcrouse@codeaurora.org> wrote:
+>
+> Every Qcom Adreno GPU has an embedded SMMU for its own use. These
 
-Yeah, I have seen :(
+minor detail: this is true for a3xx and later but not a2xx ;-)
 
-> >This is the last patch in
-> >the series, so if there is no user for this, please don't export it.
-> 
-> Other downstream drivers make use of it.. need to get this up first, sorry :V
-
-Then use a proper name for it, with a correct prefix, and export it with
-EXPORT_SYMBOL_GPL() please.
-
-> >Why do you need a .h file in the include directory if only a single .c
-> >file needs it?  Just put that info in the .c file itself.
-> 
-> Again, other downstream drivers which some people and I intend to
-> bring to upstream standards use that to access the PMIC model/hw revision.
-
-But all of those defines are not needed, just the function name, right?
-
-> >But again, who uses this module?  If it's only good for a single line in
-> >the kernel log, that feels like a huge waste to me.
-> 
-> downstream-kernel-dir$ rg -l qpnp-revid.h | wc -l
-> 25
-> 
-> So yeah, quite a bunch of other qcom-specific drivers.
-> 
-> I'll try to fix these and send a v2.
-
-Hold off on this and wait until there is a real user for it, as we can
-not take api additions without a user, otherwise we will just come along
-and delete the code.
-
-Submit it as part of a series that actually uses the function, so we can
-at least see if the function makes sense to be used in that way as well,
-right now we have no clue.
-
-thanks,
-
-greg k-h
+> devices depend on unique features such as split pagetables,
+> different stall/halt requirements and other settings. Identify them
+> with a compatible string so that they can be identified in the
+> arm-smmu implementation specific code.
+>
+> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
+> Reviewed-by: Rob Herring <robh@kernel.org>
+> ---
+>
+>  Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+> index d7ceb4c34423..e52a1b146c97 100644
+> --- a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+> +++ b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+> @@ -38,6 +38,10 @@ properties:
+>                - qcom,sc7180-smmu-500
+>                - qcom,sdm845-smmu-500
+>            - const: arm,mmu-500
+> +      - description: Qcom Adreno GPUs implementing "arm,smmu-v2"
+> +        items:
+> +          - const: qcom,adreno-smmu
+> +          - const: qcom,smmu-v2
+>        - items:
+>            - const: arm,mmu-500
+>            - const: arm,smmu-v2
+> --
+> 2.25.1
+>
+> _______________________________________________
+> iommu mailing list
+> iommu@lists.linux-foundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/iommu
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
