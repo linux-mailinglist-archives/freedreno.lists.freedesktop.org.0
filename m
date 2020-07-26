@@ -1,56 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3118B22E177
-	for <lists+freedreno@lfdr.de>; Sun, 26 Jul 2020 18:54:43 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B967222E186
+	for <lists+freedreno@lfdr.de>; Sun, 26 Jul 2020 19:02:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D29A889D9B;
-	Sun, 26 Jul 2020 16:54:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74AEF89F4F;
+	Sun, 26 Jul 2020 17:02:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com
- [IPv6:2a00:1450:4864:20::641])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7237789D9B
- for <freedreno@lists.freedesktop.org>; Sun, 26 Jul 2020 16:54:40 +0000 (UTC)
-Received: by mail-ej1-x641.google.com with SMTP id y10so14738665eje.1
- for <freedreno@lists.freedesktop.org>; Sun, 26 Jul 2020 09:54:40 -0700 (PDT)
+Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com
+ [IPv6:2a00:1450:4864:20::544])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E0FA89F4F
+ for <freedreno@lists.freedesktop.org>; Sun, 26 Jul 2020 17:02:30 +0000 (UTC)
+Received: by mail-ed1-x544.google.com with SMTP id h28so10433502edz.0
+ for <freedreno@lists.freedesktop.org>; Sun, 26 Jul 2020 10:02:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=CBVgBFjkce72YAGTOc2I0NfR2QTyjZahMOR47tbfoe0=;
- b=WZYXiUPxENKn4QSxY7fPf+iBaAhsNwecbIqIua+YO2effyaCG04XLdhlYe/ugtAfun
- 1fXbuueu1sL3HDK5Dtsz0YubABpEtjbQo7eptsxI/lBXgWB/3WVVVEEmE5w+FLXH6uKi
- ZIeZey8Cvr8anwVeJAwUu0rt41msmaOcLhKWamXZ4XPPQloplOSyM69HBfahGiFQeaKe
- VdrYrSXa5wP7b1gmFMJiWqd2K8TOxBosAvi2Z9c8hlyuujPC5uhKq+dgDVj4VMpUybxU
- kiYkfmIFSDy/R08StwIylDGo6dkk0/l7B5Clr00ZfG0Jw2OpT/++z7w9JMSJTwfmA6aD
- AyRA==
+ :cc; bh=vqJigkc3igUS2cVEm8BI8huTNBWytoNhNONUxIK8JdE=;
+ b=FNWC0XgyURknaBPIMonO4L8XBAugVby97t8RO9h6h82Sf7+Tl0KnbZ52IJjMRlzKwd
+ scOI1cXajPHYazMGJh5bZKd/QtdBFV2dQfFHCqZCpZWPbLvB5nmIFLhtdrdpr5gR78TI
+ XdJTfUwUVjqGAMOS5SuPNFbngNF9jax6Re2Dcp7Aerv/Thw5IJ1dq8wZrdJ74yQ2n/dW
+ 1wgJmZ8o4oU17Ya4KmPGtJFYH7MGWcOFU4Of5q9PfHi8eoe7EpxS4cP5AWTwVecirrcI
+ gP9URO0n06KykrfFdCC9CdsYicPETYQQddu2KA7Zs8D4ooPX2kANacUCMprGpfqV3QbQ
+ 23Lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=CBVgBFjkce72YAGTOc2I0NfR2QTyjZahMOR47tbfoe0=;
- b=ioX2yHFKed3jDNAcTifKrlDaS6vHdPofD2zLHMzFtp12d3c7nnrx86o9XjTvJUvE9+
- L9QzhSQHW5C/Ktl+lIQpvNmISj4lwBQ/I/60sOd2SjAuJVO+6Duci5vUVY/NdQmLI69S
- Pe/oYXaePnp5SWDY3VDqtGSje0vpXTS1oRleBFcfxU1AFXl2tGJkoQm1/s27mKoJRV31
- jVixH6rgz8GzfIj45MltxUDsA3mhm570xebGjqiANVKUjXj1b8zib1YH2VOhB36wq+eQ
- 7EytHKRW7NKnzPLxsQnBLfU4BjsuwJb+GolH4eReM6w5zwg+3mFpXdrzoMYtvVBA7xbO
- IH5Q==
-X-Gm-Message-State: AOAM531yXx7XgSvfHnV6MJ94l/gTjN29WbGTth9Cxyg598jQqAt3VSVn
- 2l+9TkmSdUxhqj+VYIDLYdX7blWvIbaXV49wp8A=
-X-Google-Smtp-Source: ABdhPJwDnlAPaImQnrQAApbQ+w+cGsIt/2VZqafSu7Ti4+lytmzJqD4dBVNo+ZeSue4XBagNFOp/lX3pdQrzVmj/eOM=
-X-Received: by 2002:a17:906:f199:: with SMTP id
- gs25mr1970599ejb.161.1595782478958; 
- Sun, 26 Jul 2020 09:54:38 -0700 (PDT)
+ bh=vqJigkc3igUS2cVEm8BI8huTNBWytoNhNONUxIK8JdE=;
+ b=EijfN4wX6cKex/V5to5jSen39dfZqUHDwCXrfFIkRQ6QOPMQCQDo/YtGMVjBGXeGH9
+ LCoTOU8yI2Fa3oOrwOP2i8Gf1HuapcdwS5vQaBPpVx+xaGbdckTW5eVYQnGZJgag4ZbA
+ ltVhOEml+EwuTBnuOfX5tTeVpMD8kKTOPsot3rgdFBuXfTMZfEAG/YwXKcXdyD+t8LPN
+ TnJn6ZRe1LOGvxwF4CC19R/T/HYxNAV6fxSsd+RMlHEUnG+hfE31RlXqtip0QlgI8ycw
+ CSiKPn7mCb+LbNuli+KJZidqN4mcHNxHPIcc8B/5SU9R47rA2/Up1xc5AazkuXobUEZL
+ Bb9A==
+X-Gm-Message-State: AOAM530ldDBYyOoJuL3bjL0ZyxkQeBRSsH1u9DE9kKoBdV6AlaTi+HRS
+ oyrhhFZtXuncnOfkpCos0mRB94z6yGE0jyObKIE=
+X-Google-Smtp-Source: ABdhPJz82dpeEPbR1Xtfmkl2JtXHTjStwPUWLpKbFISs6ED3u33doh8XAyCMytHvaqDpkWq/Wga9lMPNWZaDSUGrtEI=
+X-Received: by 2002:a05:6402:a5b:: with SMTP id
+ bt27mr1535161edb.120.1595782948944; 
+ Sun, 26 Jul 2020 10:02:28 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200720154047.3611092-1-jcrouse@codeaurora.org>
- <20200720154047.3611092-8-jcrouse@codeaurora.org>
-In-Reply-To: <20200720154047.3611092-8-jcrouse@codeaurora.org>
+ <20200720154047.3611092-7-jcrouse@codeaurora.org>
+In-Reply-To: <20200720154047.3611092-7-jcrouse@codeaurora.org>
 From: Rob Clark <robdclark@gmail.com>
-Date: Sun, 26 Jul 2020 09:55:18 -0700
-Message-ID: <CAF6AEGu50KtjFHJO3Txrbjnn1xoG5WDyuU_e__RsGPXe-5Z46g@mail.gmail.com>
+Date: Sun, 26 Jul 2020 10:03:07 -0700
+Message-ID: <CAF6AEGuF_fC4=vBKr24HogE-d3KkXUQivOpVde9iqf+RvRzNtA@mail.gmail.com>
 To: Jordan Crouse <jcrouse@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v10 07/13] dt-bindings: arm-smmu: Add
- compatible string for Adreno GPU SMMU
+Subject: Re: [Freedreno] [PATCH v10 06/13] iommu/arm-smmu-qcom: Get and set
+ the pagetable config for split pagetables
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,13 +63,14 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Will Deacon <will@kernel.org>,
- Rob Herring <robh@kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Will Deacon <will@kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Joerg Roedel <joro@8bytes.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
  "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
  Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
- Rob Herring <robh+dt@kernel.org>, freedreno <freedreno@lists.freedesktop.org>,
  Robin Murphy <robin.murphy@arm.com>,
  "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
  <linux-arm-kernel@lists.infradead.org>
@@ -80,44 +81,215 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Mon, Jul 20, 2020 at 8:41 AM Jordan Crouse <jcrouse@codeaurora.org> wrote:
 >
-> Every Qcom Adreno GPU has an embedded SMMU for its own use. These
-
-minor detail: this is true for a3xx and later but not a2xx ;-)
-
-> devices depend on unique features such as split pagetables,
-> different stall/halt requirements and other settings. Identify them
-> with a compatible string so that they can be identified in the
-> arm-smmu implementation specific code.
+> The Adreno GPU has the capability to manage its own pagetables and switch
+> them dynamically from the hardware. To do this the GPU uses TTBR1 for
+> "global" GPU memory and creates local pagetables for each context and
+> switches them dynamically with the GPU.
+>
+> Use DOMAIN_ATTR_PGTABLE_CFG to get the current configuration for the
+> TTBR1 pagetable from the smmu driver so the leaf driver can create
+> compatible pagetables for use with TTBR0.
+>
+> Because TTBR0 is disabled by default when TTBR1 is enabled the GPU
+> driver can pass the configuration of one of the newly created pagetables
+> back through DOMAIN_ATTR_PGTABLE_CFG as a trigger to enable translation on
+> TTBR0.
 >
 > Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
-> Reviewed-by: Rob Herring <robh@kernel.org>
 > ---
 >
->  Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 4 ++++
->  1 file changed, 4 insertions(+)
+>  drivers/iommu/arm-smmu-qcom.c | 47 +++++++++++++++++++++++++++++++++++
+>  drivers/iommu/arm-smmu.c      | 32 ++++++++++++++++++------
+>  drivers/iommu/arm-smmu.h      | 10 ++++++++
+>  3 files changed, 81 insertions(+), 8 deletions(-)
 >
-> diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-> index d7ceb4c34423..e52a1b146c97 100644
-> --- a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-> +++ b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-> @@ -38,6 +38,10 @@ properties:
->                - qcom,sc7180-smmu-500
->                - qcom,sdm845-smmu-500
->            - const: arm,mmu-500
-> +      - description: Qcom Adreno GPUs implementing "arm,smmu-v2"
-> +        items:
-> +          - const: qcom,adreno-smmu
-> +          - const: qcom,smmu-v2
->        - items:
->            - const: arm,mmu-500
->            - const: arm,smmu-v2
+> diff --git a/drivers/iommu/arm-smmu-qcom.c b/drivers/iommu/arm-smmu-qcom.c
+> index b9a5c5369e86..9a0c64ca9cb6 100644
+> --- a/drivers/iommu/arm-smmu-qcom.c
+> +++ b/drivers/iommu/arm-smmu-qcom.c
+> @@ -34,6 +34,52 @@ static bool qcom_adreno_smmu_is_gpu_device(struct device *dev)
+>         return false;
+>  }
+>
+> +/*
+> + * Local implementation to configure TTBR0 wil the specified pagetable config.
+> + * The GPU driver will call this to enable TTBR0 when per-instance pagetables
+> + * are active
+> + */
+> +static int qcom_adreno_smmu_set_pgtable_cfg(struct arm_smmu_domain *smmu_domain,
+> +               struct io_pgtable_cfg *pgtbl_cfg)
+> +{
+> +       struct io_pgtable *pgtable = io_pgtable_ops_to_pgtable(smmu_domain->pgtbl_ops);
+> +       struct arm_smmu_cfg *cfg = &smmu_domain->cfg;
+> +       struct arm_smmu_cb *cb = &smmu_domain->smmu->cbs[cfg->cbndx];
+> +
+> +       /* The domain must have split pagetables already enabled */
+> +       if (cb->tcr[0] & ARM_SMMU_TCR_EPD1)
+> +               return -EINVAL;
+> +
+> +       /* If the pagetable config is NULL, disable TTBR0 */
+> +       if (!pgtbl_cfg) {
+> +               /* Do nothing if it is already disabled */
+> +               if ((cb->tcr[0] & ARM_SMMU_TCR_EPD0))
+> +                       return -EINVAL;
+> +
+> +               /* Set TCR to the original configuration */
+> +               cb->tcr[0] = arm_smmu_lpae_tcr(&pgtable->cfg);
+> +               cb->ttbr[0] = FIELD_PREP(ARM_SMMU_TTBRn_ASID, cb->cfg->asid);
+> +       } else {
+> +               u32 tcr = cb->tcr[0];
+> +
+> +               /* FIXME: What sort of validation do we need to do here? */
+> +
+> +               /* Don't call this again if TTBR0 is already enabled */
+> +               if (!(cb->tcr[0] & ARM_SMMU_TCR_EPD0))
+> +                       return -EINVAL;
+> +
+> +               tcr |= arm_smmu_lpae_tcr(pgtbl_cfg);
+> +               tcr &= ~(ARM_SMMU_TCR_EPD0 | ARM_SMMU_TCR_EPD1);
+> +
+> +               cb->tcr[0] = tcr;
+> +               cb->ttbr[0] = pgtbl_cfg->arm_lpae_s1_cfg.ttbr;
+> +               cb->ttbr[0] |= FIELD_PREP(ARM_SMMU_TTBRn_ASID, cb->cfg->asid);
+> +       }
+> +
+> +       arm_smmu_write_context_bank(smmu_domain->smmu, cb->cfg->cbndx);
+> +       return 0;
+> +}
+> +
+>  static int qcom_adreno_smmu_alloc_context_bank(struct arm_smmu_domain *smmu_domain,
+>                 struct device *dev, int start, int count)
+>  {
+> @@ -131,6 +177,7 @@ static const struct arm_smmu_impl qcom_adreno_smmu_impl = {
+>         .def_domain_type = qcom_smmu_def_domain_type,
+>         .reset = qcom_smmu500_reset,
+>         .alloc_context_bank = qcom_adreno_smmu_alloc_context_bank,
+> +       .set_pgtable_cfg = qcom_adreno_smmu_set_pgtable_cfg,
+>  };
+>
+>  static struct arm_smmu_device *qcom_smmu_create(struct arm_smmu_device *smmu,
+> diff --git a/drivers/iommu/arm-smmu.c b/drivers/iommu/arm-smmu.c
+> index fff536a44faa..e1036ae54a8d 100644
+> --- a/drivers/iommu/arm-smmu.c
+> +++ b/drivers/iommu/arm-smmu.c
+> @@ -86,13 +86,6 @@ struct arm_smmu_smr {
+>         bool                            valid;
+>  };
+>
+> -struct arm_smmu_cb {
+> -       u64                             ttbr[2];
+> -       u32                             tcr[2];
+> -       u32                             mair[2];
+> -       struct arm_smmu_cfg             *cfg;
+> -};
+> -
+>  static bool using_legacy_binding, using_generic_binding;
+>
+>  static inline int arm_smmu_rpm_get(struct arm_smmu_device *smmu)
+> @@ -558,7 +551,7 @@ static void arm_smmu_init_context_bank(struct arm_smmu_domain *smmu_domain,
+>         }
+>  }
+>
+> -static void arm_smmu_write_context_bank(struct arm_smmu_device *smmu, int idx)
+> +void arm_smmu_write_context_bank(struct arm_smmu_device *smmu, int idx)
+>  {
+>         u32 reg;
+>         bool stage1;
+> @@ -1515,6 +1508,18 @@ static int arm_smmu_domain_get_attr(struct iommu_domain *domain,
+>                 case DOMAIN_ATTR_NESTING:
+>                         *(int *)data = (smmu_domain->stage == ARM_SMMU_DOMAIN_NESTED);
+>                         return 0;
+> +               case DOMAIN_ATTR_PGTABLE_CFG: {
+> +                       struct io_pgtable *pgtable;
+> +                       struct io_pgtable_cfg *dest = data;
+> +
+> +                       if (!smmu_domain->pgtbl_ops)
+> +                               return -ENODEV;
+> +
+> +                       pgtable = io_pgtable_ops_to_pgtable(smmu_domain->pgtbl_ops);
+> +
+> +                       memcpy(dest, &pgtable->cfg, sizeof(*dest));
+> +                       return 0;
+> +               }
+
+hmm, maybe it would make sense to have impl hooks for get/set_attr, so
+we could handle DOMAIN_ATTR_PGTABLE_CFG inside the adreno_smmu_impl?
+
+Having impl specific domain attrs would be useful for what I have in
+mind to enable stall/resume support, so we can hook in devcoredump to
+iova faults (which would be a huge improvement for debugability, right
+now iova faults are somewhat harder to debug than needed).  My rough
+idea was to add DOMAIN_ATTR_RESUME, which could be used with
+set_attr() to (1) enable STALL and let drm/msm know whether the iommu
+supports it, and (2) resume translation from wq context after
+devcoredump snapshot is collected.
+
+BR,
+-R
+
+>                 default:
+>                         return -ENODEV;
+>                 }
+> @@ -1555,6 +1560,17 @@ static int arm_smmu_domain_set_attr(struct iommu_domain *domain,
+>                         else
+>                                 smmu_domain->stage = ARM_SMMU_DOMAIN_S1;
+>                         break;
+> +               case DOMAIN_ATTR_PGTABLE_CFG: {
+> +                       struct arm_smmu_device *smmu = smmu_domain->smmu;
+> +
+> +                       ret = -EPERM;
+> +
+> +                       if (smmu)
+> +                               if (smmu->impl && smmu->impl->set_pgtable_cfg)
+> +                                       ret = smmu->impl->set_pgtable_cfg(smmu_domain,
+> +                                               data);
+> +                       }
+> +                       break;
+>                 default:
+>                         ret = -ENODEV;
+>                 }
+> diff --git a/drivers/iommu/arm-smmu.h b/drivers/iommu/arm-smmu.h
+> index 9f81c1fffe1e..9325fc28d24a 100644
+> --- a/drivers/iommu/arm-smmu.h
+> +++ b/drivers/iommu/arm-smmu.h
+> @@ -328,6 +328,13 @@ struct arm_smmu_cfg {
+>  };
+>  #define ARM_SMMU_INVALID_IRPTNDX       0xff
+>
+> +struct arm_smmu_cb {
+> +       u64                             ttbr[2];
+> +       u32                             tcr[2];
+> +       u32                             mair[2];
+> +       struct arm_smmu_cfg             *cfg;
+> +};
+> +
+>  enum arm_smmu_domain_stage {
+>         ARM_SMMU_DOMAIN_S1 = 0,
+>         ARM_SMMU_DOMAIN_S2,
+> @@ -408,6 +415,8 @@ struct arm_smmu_impl {
+>         int (*def_domain_type)(struct device *dev);
+>         int (*alloc_context_bank)(struct arm_smmu_domain *smmu_domain,
+>                         struct device *dev, int start, int max);
+> +       int (*set_pgtable_cfg)(struct arm_smmu_domain *smmu_domain,
+> +                       struct io_pgtable_cfg *cfg);
+>  };
+>
+>  #define INVALID_SMENDX                 -1
+> @@ -493,6 +502,7 @@ struct arm_smmu_device *arm_smmu_impl_init(struct arm_smmu_device *smmu);
+>  struct arm_smmu_device *qcom_smmu_impl_init(struct arm_smmu_device *smmu);
+>  struct arm_smmu_device *qcom_adreno_smmu_impl_init(struct arm_smmu_device *smmu);
+>
+> +void arm_smmu_write_context_bank(struct arm_smmu_device *smmu, int idx);
+>  int arm_mmu500_reset(struct arm_smmu_device *smmu);
+>
+>  #endif /* _ARM_SMMU_H */
 > --
 > 2.25.1
 >
 > _______________________________________________
-> iommu mailing list
-> iommu@lists.linux-foundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/iommu
+> Freedreno mailing list
+> Freedreno@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/freedreno
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
