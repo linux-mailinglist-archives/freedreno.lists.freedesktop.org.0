@@ -1,57 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3ABF622F9AA
-	for <lists+freedreno@lfdr.de>; Mon, 27 Jul 2020 21:58:52 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DD8E22F9B0
+	for <lists+freedreno@lfdr.de>; Mon, 27 Jul 2020 21:59:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD45B89F5B;
-	Mon, 27 Jul 2020 19:58:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3044989F6B;
+	Mon, 27 Jul 2020 19:59:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com
- [IPv6:2a00:1450:4864:20::641])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3C1D89F5B;
- Mon, 27 Jul 2020 19:58:49 +0000 (UTC)
-Received: by mail-ej1-x641.google.com with SMTP id dk23so6431242ejb.11;
- Mon, 27 Jul 2020 12:58:49 -0700 (PDT)
+Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com
+ [IPv6:2a00:1450:4864:20::644])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D0F389F6B;
+ Mon, 27 Jul 2020 19:59:04 +0000 (UTC)
+Received: by mail-ej1-x644.google.com with SMTP id o18so18281371eje.7;
+ Mon, 27 Jul 2020 12:59:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=P+ZtokmBUXMUzMCK2bGHNX1SgF1vgTjbYOyC77ce+jk=;
- b=d/dz9cHAZyIUWkOF4iyEEB54wC9RrtmHHxRtwGzmM1BAlZZ3oFzIXxmFfA0mafFd/T
- 5HP7Z8Tx3WlvC8JjvVLdB9XCem6CpF4Yh6qILouU3qfTNoXpr0VPHusKxiofDodqqNk7
- KcexI47FrbFGgsI7EGCT9Qrph1GgYWDCFhAdpDp6J2/EhhKUkd8KvwTpdghR4oDAXS5R
- gy67QDNSKnXskDxTAMVX5R4zDHJ5B1mr8eQGhyafd1NRj41S/DnCvgVo6LbmCwgFwxfS
- nfePOw8uVEiDvupvIB1V6Dm0zdOVswIdqpLglfjECJu+jypGAmMuDHzqImmmBxkZ8wVA
- 7INg==
+ :cc; bh=djQ21RTJ93c9kqwB25zIQ/ST+ogHMsSV3nZHz/8ca38=;
+ b=heONYTvaIXjisXfWesNdZBH3HR8Goezr0M9/B4pi218SoZAhRizIbEnlpbiqZJYMa3
+ CymQT7ZTt7ccvP9R1yW4XYJ8IGQ/8EWsv9QTUTnNbBj7inBMYkRpsKQiO/fhVISer/Pq
+ 0vYdTkQ2Qn829HoEkOgIN9H5M2pqiH+EgUH86glh+ZWkp3u7ZgS83Ma4NJuxLHsMv0XT
+ 5URHnSmWVFfrEeMA03efn6TKDJetxsRmfy+VJcdXh3h6WYjImIxnOMfDwI8sXEU0c836
+ 81anQIl0wlW5GrrZ7zpqqgJMiU5UyaCEmqUOFHnDHEu/yIyTXgsYKrdQhA8yOZSRXJIP
+ onpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=P+ZtokmBUXMUzMCK2bGHNX1SgF1vgTjbYOyC77ce+jk=;
- b=tuk5c9amoGaF2oLRaVQx+R2G/DvnalGTdkQDUtliNR5anZ0NFHDz4Im61IViouPKpJ
- jq5Cmd+tNSG8zMpEe6fb9y554gnDUBnSthwNGomOJPMarQJMJnacmgJVY0/B5JZvXgFU
- 7a86M+ZfG801MH/8Q5vp20sQzzHz+qVoNInGjjsUmpUrTzFPb7G+VQb/raXi3hyHL6TB
- 0bd1WqvDYrReoEopTxv9GYxnHD6m06nlqcoeWmyYEWDRPKajrItssGLq461u/3LyeEXr
- mM70VVLpHyfucsu9qWJW3dYz29mvpyKrygS2FlBGLlrGALpDlNWiXBYGbH6FGONo0tl1
- U5Rw==
-X-Gm-Message-State: AOAM533sAampX2+dL4ZsWCTfVk8kxLiafOSFJL694AWWvIHdjaEFO3+y
- 6sMC3qR9qkwrm3VD03MPnyQ+PXdduQAAIRSctLA=
-X-Google-Smtp-Source: ABdhPJx5Tqhd6JeCOLSOIs2/bFHHFG80V48Q4I9sJHYsrBzE7kDBMjNuOPbuf5tIW9RJHzS57R9ksfFzYzReLr1GKjQ=
-X-Received: by 2002:a17:906:f905:: with SMTP id
- lc5mr6596445ejb.340.1595879928214; 
- Mon, 27 Jul 2020 12:58:48 -0700 (PDT)
+ bh=djQ21RTJ93c9kqwB25zIQ/ST+ogHMsSV3nZHz/8ca38=;
+ b=D7cunOGzR1sQ7roErA2SB1zRk0RYazq9tD6zkVcwbwmk6+LsZahgJJJfpTAIambWMu
+ 2aJdSO3eg9vOHMauuM3kRlQPEt/15P0jYLi64EXr1cOX7huBe0PsjZatV0OZVua2U8NL
+ EeJVwOAh482QYSntt62c7NO348vKnoTGGK2P2YgVfd9BbXVURIIU6Oc89qOFEoI7UPmP
+ Los6/8P0H3xuqQN/moanQ/ceYsDPElx7lo5/AMBV3/G4Fx3QSLyS6bNsyIfGU2IkJR5F
+ deOjWAgltbznd6Fc6RdpOQnnOr5e47GRQXdaFnrjg/6ymiH5f+onZnb9BuSSco+hj6t2
+ Jf0w==
+X-Gm-Message-State: AOAM531l63Z4PVB8/1XG7F4+/jcTM/aSgEc1DuGC9IWzk6po0xrslO9p
+ fDJi4XS9fxWKq7L5K0xs9TVHNsvGWvRC51YkySs=
+X-Google-Smtp-Source: ABdhPJwfVv71IAplhkO3yFPYokjDknujpfGl4Qc8owyxPo/klfQMtQ6qhz4AzI9gvxqd9KqcUezDTWMXq2Y5KwAMqsI=
+X-Received: by 2002:a17:906:365a:: with SMTP id
+ r26mr18823220ejb.52.1595879943063; 
+ Mon, 27 Jul 2020 12:59:03 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200726111215.22361-1-konradybcio@gmail.com>
- <20200726111215.22361-9-konradybcio@gmail.com>
- <159587887102.1360974.16083886481437183810@swboyd.mtv.corp.google.com>
-In-Reply-To: <159587887102.1360974.16083886481437183810@swboyd.mtv.corp.google.com>
+ <20200726111215.22361-2-konradybcio@gmail.com>
+ <159587899589.1360974.4403082749390843157@swboyd.mtv.corp.google.com>
+In-Reply-To: <159587899589.1360974.4403082749390843157@swboyd.mtv.corp.google.com>
 From: Konrad Dybcio <konradybcio@gmail.com>
-Date: Mon, 27 Jul 2020 21:58:12 +0200
-Message-ID: <CAMS8qEU9t=QZR34FifzGMsQkhxQCVtOfoNRX-n_0xZJz2rbcyw@mail.gmail.com>
+Date: Mon, 27 Jul 2020 21:58:27 +0200
+Message-ID: <CAMS8qEXRJxKTqyiB9f7YeKr7_Mcik96BM=K5WLUf2fbALsAALQ@mail.gmail.com>
 To: Stephen Boyd <sboyd@kernel.org>
-Subject: Re: [Freedreno] [PATCH 8/9] clk: qcom: gcc-sdm660: Fix up
- gcc_mss_mnoc_bimc_axi_clk
+Subject: Re: [Freedreno] [PATCH 1/9] clk: qcom: gcc-sdm660: Add missing
+ modem reset
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,15 +83,11 @@ Cc: Krzysztof Wilczynski <kw@linux.com>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  zhengbin <zhengbin13@huawei.com>, Manu Gautam <mgautam@codeaurora.org>,
  Vinod Koul <vkoul@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno <freedreno@lists.freedesktop.org>
+ Shawn Guo <shawn.guo@linaro.org>, freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
-
->Fixes tag?
-
-Can I add it here? I supose I can.
 
 Fixes: f2a76a2955c0 (clk: qcom: Add Global Clock controller (GCC)
 driver for SDM660)
