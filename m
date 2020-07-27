@@ -1,40 +1,40 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB7F722F946
-	for <lists+freedreno@lfdr.de>; Mon, 27 Jul 2020 21:43:18 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5182822F98E
+	for <lists+freedreno@lfdr.de>; Mon, 27 Jul 2020 21:55:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 942B689346;
-	Mon, 27 Jul 2020 19:43:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0A2C89F5B;
+	Mon, 27 Jul 2020 19:55:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32F348932B;
- Mon, 27 Jul 2020 19:43:17 +0000 (UTC)
-Received: from kernel.org (unknown [104.132.0.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E721389DC0;
+ Mon, 27 Jul 2020 19:55:12 +0000 (UTC)
+Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
+ [83.86.89.107])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id F32E920738;
- Mon, 27 Jul 2020 19:43:16 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 4F8622072E;
+ Mon, 27 Jul 2020 19:55:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1595878997;
- bh=/To1bGg//yXUv80zECnKNVHystAZpMAISTzkS6dglsc=;
- h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
- b=I9dg0M8aTJjKRMjV5TTNi2hH9vKBQw6u83K9gtXJYOSWWh/9i/sGak9fE0BXyU8QM
- 3X90QJB7405C3qIiTs4PiBilneNCOCOh8YtOCYKR7ee2Vr7T9ZgYqrp7Y83LwRM+nf
- TZmHjGuxug1RcT+vvL9PScmlk9AC+EyvwMnv2eAQ=
+ s=default; t=1595879712;
+ bh=Eihzj9yY4QhXjvJiGtP5cGNyIPMsxel19lv/3GimdaU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=cIeEb6PNzza0iwI8PApMML3SFVNmb2l/86jCWN8qMkxnxHpVLbGi7g8vqsCSG3l6l
+ GwATFf6nweneG2V8IPskGfFQsKFd1rCDcXOFfZhUA4THOMmJGpjDEf9b3MEHCHLue3
+ uvbmXVlHia5Frt1tZY/Dc96rxzLpiSWN5QFPMTm8=
+Date: Mon, 27 Jul 2020 21:55:07 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Steve Cohen <cohens@codeaurora.org>
+Message-ID: <20200727195507.GA240123@kroah.com>
+References: <1595284250-31580-1-git-send-email-cohens@codeaurora.org>
 MIME-Version: 1.0
-In-Reply-To: <20200726111215.22361-2-konradybcio@gmail.com>
-References: <20200726111215.22361-1-konradybcio@gmail.com>
- <20200726111215.22361-2-konradybcio@gmail.com>
-From: Stephen Boyd <sboyd@kernel.org>
-To: konradybcio@gmail.com
-Date: Mon, 27 Jul 2020 12:43:15 -0700
-Message-ID: <159587899589.1360974.4403082749390843157@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.9.1
-Subject: Re: [Freedreno] [PATCH 1/9] clk: qcom: gcc-sdm660: Add missing
- modem reset
+Content-Disposition: inline
+In-Reply-To: <1595284250-31580-1-git-send-email-cohens@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH V2] drm: hold gem reference until object is
+ no longer accessed
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,42 +47,81 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Krzysztof Wilczynski <kw@linux.com>,
- Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, David Airlie <airlied@linux.ie>,
- Michael Turquette <mturquette@baylibre.com>, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- AngeloGioacchino Del Regno <kholk11@gmail.com>,
- Sam Ravnborg <sam@ravnborg.org>, linux-clk@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Kishon Vijay Abraham I <kishon@ti.com>,
- martin.botka1@gmail.com, Andy Gross <agross@kernel.org>,
- Brian Masney <masneyb@onstation.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, Xiaozhe Shi <xiaozhes@codeaurora.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, Rob Herring <robh+dt@kernel.org>,
- Sean Paul <sean@poorly.run>, Ben Dooks <ben.dooks@codethink.co.uk>,
- Felipe Balbi <balbi@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- Harigovindan P <harigovi@codeaurora.org>, linux-kernel@vger.kernel.org,
- zhengbin <zhengbin13@huawei.com>, Manu Gautam <mgautam@codeaurora.org>,
- Vinod Koul <vkoul@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Shawn Guo <shawn.guo@linaro.org>, freedreno@lists.freedesktop.org
+Cc: adelva@google.com, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ pdhaval@codeaurora.org, seanpaul@chromium.org, daniel@ffwll.ch,
+ jsanka@codeaurora.org, sam@ravnborg.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Konrad Dybcio (2020-07-26 04:11:58)
-> This will be required in order to support the
-> modem upstream.
+On Mon, Jul 20, 2020 at 06:30:50PM -0400, Steve Cohen wrote:
+> A use-after-free in drm_gem_open_ioctl can happen if the
+> GEM object handle is closed between the idr lookup and
+> retrieving the size from said object since a local reference
+> is not being held at that point. Hold the local reference
+> while the object can still be accessed to fix this and
+> plug the potential security hole.
 > 
-> Signed-off-by: Konrad Dybcio <konradybcio@gmail.com>
+> Signed-off-by: Steve Cohen <cohens@codeaurora.org>
 > ---
+>  drivers/gpu/drm/drm_gem.c | 10 ++++------
+>  1 file changed, 4 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+> index 7bf628e..ee2058a 100644
+> --- a/drivers/gpu/drm/drm_gem.c
+> +++ b/drivers/gpu/drm/drm_gem.c
+> @@ -871,9 +871,6 @@ drm_gem_flink_ioctl(struct drm_device *dev, void *data,
+>   * @file_priv: drm file-private structure
+>   *
+>   * Open an object using the global name, returning a handle and the size.
+> - *
+> - * This handle (of course) holds a reference to the object, so the object
+> - * will not go away until the handle is deleted.
+>   */
+>  int
+>  drm_gem_open_ioctl(struct drm_device *dev, void *data,
+> @@ -898,14 +895,15 @@ drm_gem_open_ioctl(struct drm_device *dev, void *data,
+>  
+>  	/* drm_gem_handle_create_tail unlocks dev->object_name_lock. */
+>  	ret = drm_gem_handle_create_tail(file_priv, obj, &handle);
+> -	drm_gem_object_put_unlocked(obj);
+>  	if (ret)
+> -		return ret;
+> +		goto err;
+>  
+>  	args->handle = handle;
+>  	args->size = obj->size;
+>  
+> -	return 0;
+> +err:
+> +	drm_gem_object_put_unlocked(obj);
+> +	return ret;
+>  }
+>  
+>  /**
 
-Should have a fixes tag too.
+As this seems to fix an important issue, any reason it wasn't cc: stable
+on it so that it gets backported properly?
 
->  drivers/clk/qcom/gcc-sdm660.c               | 1 +
->  include/dt-bindings/clock/qcom,gcc-sdm660.h | 1 +
->  2 files changed, 2 insertions(+)
->
+How about a "Fixes:" tag so that we know what commit id it fixes so we
+know how far back to backport things?
+
+And a hint to the maintainers that "this is an issue that needs to get
+into 5.8-final, it shouldn't wait around longer please" would have also
+been nice to see :)
+
+And what chagned from v1, aren't you supposed to list that somewhere in
+the changelog or below the --- line (never remember what DRM drivers
+want here...)
+
+Care to send a v3?
+
+thanks,
+
+greg k-h
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
