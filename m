@@ -2,56 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DD8E22F9B0
-	for <lists+freedreno@lfdr.de>; Mon, 27 Jul 2020 21:59:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82EA922F9E1
+	for <lists+freedreno@lfdr.de>; Mon, 27 Jul 2020 22:11:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3044989F6B;
-	Mon, 27 Jul 2020 19:59:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 122F289F6F;
+	Mon, 27 Jul 2020 20:11:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com
- [IPv6:2a00:1450:4864:20::644])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D0F389F6B;
- Mon, 27 Jul 2020 19:59:04 +0000 (UTC)
-Received: by mail-ej1-x644.google.com with SMTP id o18so18281371eje.7;
- Mon, 27 Jul 2020 12:59:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=djQ21RTJ93c9kqwB25zIQ/ST+ogHMsSV3nZHz/8ca38=;
- b=heONYTvaIXjisXfWesNdZBH3HR8Goezr0M9/B4pi218SoZAhRizIbEnlpbiqZJYMa3
- CymQT7ZTt7ccvP9R1yW4XYJ8IGQ/8EWsv9QTUTnNbBj7inBMYkRpsKQiO/fhVISer/Pq
- 0vYdTkQ2Qn829HoEkOgIN9H5M2pqiH+EgUH86glh+ZWkp3u7ZgS83Ma4NJuxLHsMv0XT
- 5URHnSmWVFfrEeMA03efn6TKDJetxsRmfy+VJcdXh3h6WYjImIxnOMfDwI8sXEU0c836
- 81anQIl0wlW5GrrZ7zpqqgJMiU5UyaCEmqUOFHnDHEu/yIyTXgsYKrdQhA8yOZSRXJIP
- onpg==
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C7CD89F6F
+ for <freedreno@lists.freedesktop.org>; Mon, 27 Jul 2020 20:11:33 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id t142so9611120wmt.4
+ for <freedreno@lists.freedesktop.org>; Mon, 27 Jul 2020 13:11:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=zDl5RUkfGHLSMInWwOp5px8udHYRLdUMjoic1PpjVzM=;
+ b=KHq123hD2/MOYXmQm30EB+T4d29gRLDQE8GGnUbZIJXHvyl32bmUhJ6AL0P0OGCHdR
+ T2iLLaWxd5MPHEG+8jlBEb5904LKf+hJ79p5kPdGa+N3iVa+Y6CVeZwLFYTdpaQUhs7D
+ tsVSMWoP2JoVj05Bk1DLst1iCaCjNhYu2om7U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=djQ21RTJ93c9kqwB25zIQ/ST+ogHMsSV3nZHz/8ca38=;
- b=D7cunOGzR1sQ7roErA2SB1zRk0RYazq9tD6zkVcwbwmk6+LsZahgJJJfpTAIambWMu
- 2aJdSO3eg9vOHMauuM3kRlQPEt/15P0jYLi64EXr1cOX7huBe0PsjZatV0OZVua2U8NL
- EeJVwOAh482QYSntt62c7NO348vKnoTGGK2P2YgVfd9BbXVURIIU6Oc89qOFEoI7UPmP
- Los6/8P0H3xuqQN/moanQ/ceYsDPElx7lo5/AMBV3/G4Fx3QSLyS6bNsyIfGU2IkJR5F
- deOjWAgltbznd6Fc6RdpOQnnOr5e47GRQXdaFnrjg/6ymiH5f+onZnb9BuSSco+hj6t2
- Jf0w==
-X-Gm-Message-State: AOAM531l63Z4PVB8/1XG7F4+/jcTM/aSgEc1DuGC9IWzk6po0xrslO9p
- fDJi4XS9fxWKq7L5K0xs9TVHNsvGWvRC51YkySs=
-X-Google-Smtp-Source: ABdhPJwfVv71IAplhkO3yFPYokjDknujpfGl4Qc8owyxPo/klfQMtQ6qhz4AzI9gvxqd9KqcUezDTWMXq2Y5KwAMqsI=
-X-Received: by 2002:a17:906:365a:: with SMTP id
- r26mr18823220ejb.52.1595879943063; 
- Mon, 27 Jul 2020 12:59:03 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=zDl5RUkfGHLSMInWwOp5px8udHYRLdUMjoic1PpjVzM=;
+ b=JGogEgPI/5mz/e0bTCJ5VzzY07JiWbcaHdqJ6S7kQQOxzYvk+Tlng8cfOaDxJi30O+
+ Oo5cXDUpadR04iz8HqEtTU0jMaBhYbWURDg/vNQnW3SPK+N+L3EuoE0FcGfi+Xi5/tSc
+ UPAZt9vBeIrLaFwb/hUXnYGK6At7X+wtHQjFlS6bYObUsM5ejolqnqHoeSIXbYa4SRzr
+ 7eBXVRj1bEmws6jQnns6kIsK57/56lN2BWiYhgNPhmBMkhwxnCzhqAGcOcJRo5Q5CRNQ
+ TJfVgg9u0bAMIwfssR2GsEvVQoysnorGTa1e7ixmA+kUSFZfZoEvF542ZBPwblbsS9XK
+ +L0A==
+X-Gm-Message-State: AOAM532hdOri2jhIRURHw90Ufw7x5YBddjUQn551SOooT30ZHi4jYW3l
+ HDiuj9Hh769Fed5gfECGVRoaTg==
+X-Google-Smtp-Source: ABdhPJx2a1g6uHcTUbQzBEkQW+R9PdQZzqy6R2CTGKDOzBc2bsgXoymvHQ3XrYGlWk0eY5Ti4DJdiw==
+X-Received: by 2002:a7b:c257:: with SMTP id b23mr762510wmj.164.1595880691611; 
+ Mon, 27 Jul 2020 13:11:31 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id b137sm1000166wmb.9.2020.07.27.13.11.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Jul 2020 13:11:30 -0700 (PDT)
+Date: Mon, 27 Jul 2020 22:11:28 +0200
+From: daniel@ffwll.ch
+To: 
+Message-ID: <20200727201128.GX6419@phenom.ffwll.local>
+References: <1595284250-31580-1-git-send-email-cohens@codeaurora.org>
+ <20200727195507.GA240123@kroah.com>
 MIME-Version: 1.0
-References: <20200726111215.22361-1-konradybcio@gmail.com>
- <20200726111215.22361-2-konradybcio@gmail.com>
- <159587899589.1360974.4403082749390843157@swboyd.mtv.corp.google.com>
-In-Reply-To: <159587899589.1360974.4403082749390843157@swboyd.mtv.corp.google.com>
-From: Konrad Dybcio <konradybcio@gmail.com>
-Date: Mon, 27 Jul 2020 21:58:27 +0200
-Message-ID: <CAMS8qEXRJxKTqyiB9f7YeKr7_Mcik96BM=K5WLUf2fbALsAALQ@mail.gmail.com>
-To: Stephen Boyd <sboyd@kernel.org>
-Subject: Re: [Freedreno] [PATCH 1/9] clk: qcom: gcc-sdm660: Add missing
- modem reset
+Content-Disposition: inline
+In-Reply-To: <20200727195507.GA240123@kroah.com>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
+Subject: Re: [Freedreno] [PATCH V2] drm: hold gem reference until object is
+ no longer accessed
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,33 +66,101 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Krzysztof Wilczynski <kw@linux.com>,
- Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, David Airlie <airlied@linux.ie>,
- Michael Turquette <mturquette@baylibre.com>,
- "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- AngeloGioacchino Del Regno <kholk11@gmail.com>,
- Sam Ravnborg <sam@ravnborg.org>, devic <etree@vger.kernel.org>,
- Rob Clark <robdclark@gmail.com>, Kishon Vijay Abraham I <kishon@ti.com>,
- Martin Botka <martin.botka1@gmail.com>, Andy Gross <agross@kernel.org>,
- Brian Masney <masneyb@onstation.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, linux-clk@vger.kernel.org,
- Xiaozhe Shi <xiaozhes@codeaurora.org>, Jordan Crouse <jcrouse@codeaurora.org>,
- Rob Herring <robh+dt@kernel.org>, Sean Paul <sean@poorly.run>,
- Ben Dooks <ben.dooks@codethink.co.uk>, Felipe Balbi <balbi@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- Harigovindan P <harigovi@codeaurora.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- zhengbin <zhengbin13@huawei.com>, Manu Gautam <mgautam@codeaurora.org>,
- Vinod Koul <vkoul@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Shawn Guo <shawn.guo@linaro.org>, freedreno <freedreno@lists.freedesktop.org>
+Cc: adelva@google.com, Steve Cohen <cohens@codeaurora.org>,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ pdhaval@codeaurora.org, seanpaul@chromium.org, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, jsanka@codeaurora.org, sam@ravnborg.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Fixes: f2a76a2955c0 (clk: qcom: Add Global Clock controller (GCC)
-driver for SDM660)
+On Mon, Jul 27, 2020 at 09:55:07PM +0200, Greg KH wrote:
+> On Mon, Jul 20, 2020 at 06:30:50PM -0400, Steve Cohen wrote:
+> > A use-after-free in drm_gem_open_ioctl can happen if the
+> > GEM object handle is closed between the idr lookup and
+> > retrieving the size from said object since a local reference
+> > is not being held at that point. Hold the local reference
+> > while the object can still be accessed to fix this and
+> > plug the potential security hole.
+> > 
+> > Signed-off-by: Steve Cohen <cohens@codeaurora.org>
+> > ---
+> >  drivers/gpu/drm/drm_gem.c | 10 ++++------
+> >  1 file changed, 4 insertions(+), 6 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+> > index 7bf628e..ee2058a 100644
+> > --- a/drivers/gpu/drm/drm_gem.c
+> > +++ b/drivers/gpu/drm/drm_gem.c
+> > @@ -871,9 +871,6 @@ drm_gem_flink_ioctl(struct drm_device *dev, void *data,
+> >   * @file_priv: drm file-private structure
+> >   *
+> >   * Open an object using the global name, returning a handle and the size.
+> > - *
+> > - * This handle (of course) holds a reference to the object, so the object
+> > - * will not go away until the handle is deleted.
+> >   */
+> >  int
+> >  drm_gem_open_ioctl(struct drm_device *dev, void *data,
+> > @@ -898,14 +895,15 @@ drm_gem_open_ioctl(struct drm_device *dev, void *data,
+> >  
+> >  	/* drm_gem_handle_create_tail unlocks dev->object_name_lock. */
+> >  	ret = drm_gem_handle_create_tail(file_priv, obj, &handle);
+> > -	drm_gem_object_put_unlocked(obj);
+> >  	if (ret)
+> > -		return ret;
+> > +		goto err;
+> >  
+> >  	args->handle = handle;
+> >  	args->size = obj->size;
+> >  
+> > -	return 0;
+> > +err:
+> > +	drm_gem_object_put_unlocked(obj);
+> > +	return ret;
+> >  }
+> >  
+> >  /**
+> 
+> As this seems to fix an important issue, any reason it wasn't cc: stable
+> on it so that it gets backported properly?
+> 
+> How about a "Fixes:" tag so that we know what commit id it fixes so we
+> know how far back to backport things?
+> 
+> And a hint to the maintainers that "this is an issue that needs to get
+> into 5.8-final, it shouldn't wait around longer please" would have also
+> been nice to see :)
+> 
+> And what chagned from v1, aren't you supposed to list that somewhere in
+> the changelog or below the --- line (never remember what DRM drivers
+> want here...)
+> 
+> Care to send a v3?
+
+Don't worry, I'm pushing this to drm-misc-fixes now, should still make it
+to 5.8. Plus cc: stable. I didn't bother with Fixes: since I think the bug
+is rather old. Also, worst case you leak 32bit of some kernel memory that
+got reused already (but yeah I know that's often enough to get the foot in
+somewhere nasty and crack the door open).
+
+I think it fell through cracks because Sam said he'll apply, guess that
+didn't happen.
+
+Also yes a changelog, somewhere, for next time around.
+-Daniel
+
+
+> 
+> thanks,
+> 
+> greg k-h
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
