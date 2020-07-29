@@ -1,61 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C14262305D0
-	for <lists+freedreno@lfdr.de>; Tue, 28 Jul 2020 10:52:52 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 247A1231924
+	for <lists+freedreno@lfdr.de>; Wed, 29 Jul 2020 07:36:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6A0E6E228;
-	Tue, 28 Jul 2020 08:52:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54E7F6E43B;
+	Wed, 29 Jul 2020 05:36:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BCB86E220
- for <freedreno@lists.freedesktop.org>; Tue, 28 Jul 2020 08:52:49 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id 9so16516052wmj.5
- for <freedreno@lists.freedesktop.org>; Tue, 28 Jul 2020 01:52:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=HGy3jmbnLWtAugJhNyMPmIfpo7WUVn9rkKkQMW0ipLs=;
- b=M0e+APlLzUzGPEQPb5lfmfSp/o1k5PEssqciRfuFNdb3qha7nkzlBkC5i4JT2rzaO3
- sVfant5ccFL4AzNOePYhmHnXyZ4waR4H7ygUIgWUkzaFMamybKKUIxUuo6i3HWPBvxGn
- RoVPbV+rY96rVH4R2kzqG5FARO4ooptQ5407s=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=HGy3jmbnLWtAugJhNyMPmIfpo7WUVn9rkKkQMW0ipLs=;
- b=X1iWVhaTsaL9EhcUzYaxMJhte9B5HI2SHC9M4l6/lL8o8lBSccLinhQ/kD3zh9GH9R
- bVY7PzhQ0ERJr0rDTrQpDVrBwyqw+B4Ch5A7490xezQEI7FicCLk9LaJUZrbZkU15FsX
- s/QC56uhCs4Rh9zKnxoiz6y+ZuRFUYZ28nxyBTioWtHJoi1Q9fPZzKuH+GhL3NUctoqr
- xSAxD30EeFZ7c7Lojz9U8M/aEC2DHiGuabg9mqW1JQAuOMhdUw7hkNxuqxbj+gXqXgUe
- 5BkY6rG7G6zdubMQE2PR45kA8+VDUrpf14iqFBzmwRGclSdFlVNUO94IZzaz3z3yn48W
- ERig==
-X-Gm-Message-State: AOAM533LpRfrqcZeaAzT5x3R/tRbmSVRLtt45123HtZlN4TmbE7GaPWQ
- 9+J31c0XEQmPPw9eQ90I44BA9A==
-X-Google-Smtp-Source: ABdhPJyiM85CyXyw1HU6z/kML8IsbJGp9eXAAaJbV6ajj+CHl0qhajof/NwnJjkMBiAqdI6zzfqQxw==
-X-Received: by 2002:a7b:ce0e:: with SMTP id m14mr3189753wmc.160.1595926367684; 
- Tue, 28 Jul 2020 01:52:47 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id z207sm3317950wmc.2.2020.07.28.01.52.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Jul 2020 01:52:46 -0700 (PDT)
-Date: Tue, 28 Jul 2020 10:52:44 +0200
-From: daniel@ffwll.ch
-To: 
-Message-ID: <20200728085244.GY6419@phenom.ffwll.local>
-References: <1595284250-31580-1-git-send-email-cohens@codeaurora.org>
- <20200727195507.GA240123@kroah.com>
- <20200727201128.GX6419@phenom.ffwll.local>
- <f035111e7139bdaeb7562afd2415f366@codeaurora.org>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <f035111e7139bdaeb7562afd2415f366@codeaurora.org>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
-Subject: Re: [Freedreno] [PATCH V2] drm: hold gem reference until object is
- no longer accessed
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB59C6E440
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Jul 2020 05:36:49 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1596001012; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=Nj7EmiVixXrJxeYBB1Hx4fSCI5ncRdynyCsACLKj4pM=;
+ b=U6MFa1USfulKdIASGWO0MoD/Y/ZcFlWs+UY5zGPJpUPnLY2GEUgWO+rWThuF/39H/R71uOXc
+ Bxn0s2LRqJ2TyEQhf0R7B/J5X2KRhn6j4ks7aONPul1EpCzZ/ZJ5hOFRnrKxfYWQH2Wal7/I
+ XCyPMj2xBYqcComim+7//x6cS5w=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
+ 5f210ad3bd0c3f0296714428 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 29 Jul 2020 05:36:19
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 09B68C433CA; Wed, 29 Jul 2020 05:36:19 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from cohens-linux.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com
+ [129.46.232.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: cohens)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 3E98EC433C6;
+ Wed, 29 Jul 2020 05:36:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 3E98EC433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=cohens@codeaurora.org
+From: Steve Cohen <cohens@codeaurora.org>
+To: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org
+Date: Wed, 29 Jul 2020 01:35:52 -0400
+Message-Id: <1596000952-27621-1-git-send-email-cohens@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH] drm: re-add deleted doc for drm_gem_open_ioctl
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,125 +64,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: adelva@google.com, sam@ravnborg.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, pdhaval@codeaurora.org, seanpaul@chromium.org,
- daniel@ffwll.ch, jsanka@codeaurora.org, freedreno@lists.freedesktop.org
+Cc: adelva@google.com, Steve Cohen <cohens@codeaurora.org>,
+ gregkh@linuxfoundation.org, pdhaval@codeaurora.org, daniel@ffwll.ch,
+ jsanka@codeaurora.org, sam@ravnborg.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jul 27, 2020 at 05:54:59PM -0400, cohens@codeaurora.org wrote:
-> On 2020-07-27 16:11, daniel@ffwll.ch wrote:
-> > On Mon, Jul 27, 2020 at 09:55:07PM +0200, Greg KH wrote:
-> > > On Mon, Jul 20, 2020 at 06:30:50PM -0400, Steve Cohen wrote:
-> > > > A use-after-free in drm_gem_open_ioctl can happen if the
-> > > > GEM object handle is closed between the idr lookup and
-> > > > retrieving the size from said object since a local reference
-> > > > is not being held at that point. Hold the local reference
-> > > > while the object can still be accessed to fix this and
-> > > > plug the potential security hole.
-> > > >
-> > > > Signed-off-by: Steve Cohen <cohens@codeaurora.org>
-> > > > ---
-> > > >  drivers/gpu/drm/drm_gem.c | 10 ++++------
-> > > >  1 file changed, 4 insertions(+), 6 deletions(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> > > > index 7bf628e..ee2058a 100644
-> > > > --- a/drivers/gpu/drm/drm_gem.c
-> > > > +++ b/drivers/gpu/drm/drm_gem.c
-> > > > @@ -871,9 +871,6 @@ drm_gem_flink_ioctl(struct drm_device *dev, void *data,
-> > > >   * @file_priv: drm file-private structure
-> > > >   *
-> > > >   * Open an object using the global name, returning a handle and the size.
-> > > > - *
-> > > > - * This handle (of course) holds a reference to the object, so the object
-> > > > - * will not go away until the handle is deleted.
-> > > >   */
-> > > >  int
-> > > >  drm_gem_open_ioctl(struct drm_device *dev, void *data,
-> > > > @@ -898,14 +895,15 @@ drm_gem_open_ioctl(struct drm_device *dev, void *data,
-> > > >
-> > > >  	/* drm_gem_handle_create_tail unlocks dev->object_name_lock. */
-> > > >  	ret = drm_gem_handle_create_tail(file_priv, obj, &handle);
-> > > > -	drm_gem_object_put_unlocked(obj);
-> > > >  	if (ret)
-> > > > -		return ret;
-> > > > +		goto err;
-> > > >
-> > > >  	args->handle = handle;
-> > > >  	args->size = obj->size;
-> > > >
-> > > > -	return 0;
-> > > > +err:
-> > > > +	drm_gem_object_put_unlocked(obj);
-> > > > +	return ret;
-> > > >  }
-> > > >
-> > > >  /**
-> > > 
-> > > As this seems to fix an important issue, any reason it wasn't cc:
-> > > stable
-> > > on it so that it gets backported properly?
-> > > 
-> > > How about a "Fixes:" tag so that we know what commit id it fixes so we
-> > > know how far back to backport things?
-> > > 
-> > > And a hint to the maintainers that "this is an issue that needs to get
-> > > into 5.8-final, it shouldn't wait around longer please" would have
-> > > also
-> > > been nice to see :)
-> > > 
-> > > And what chagned from v1, aren't you supposed to list that somewhere
-> > > in
-> > > the changelog or below the --- line (never remember what DRM drivers
-> > > want here...)
-> > > 
-> > > Care to send a v3?
-> > 
-> > Don't worry, I'm pushing this to drm-misc-fixes now, should still make
-> > it
-> > to 5.8. Plus cc: stable. I didn't bother with Fixes: since I think the
-> > bug
-> > is rather old. Also, worst case you leak 32bit of some kernel memory
-> > that
-> > got reused already (but yeah I know that's often enough to get the foot
-> > in
-> > somewhere nasty and crack the door open).
-> > 
-> > I think it fell through cracks because Sam said he'll apply, guess that
-> > didn't happen.
-> 
-> Sam added his Reviewed-By on V1 with a comment to rename the goto label,
-> but in V2 I also updated the API documentation and the commit text for
-> a more complete change and thought he would re-add the tag.
-> 
-> > Also yes a changelog, somewhere, for next time around.
-> 
-> Apologies, it won't happen again. Should I still submit a V3?
-> It looks like you've got Greg's concerns covered.
+Add back the removed documentation for drm_gem_open_ioctl.
+This patch is submitted in response to [1].
 
-Uh no, but we need another patch to re-add the kerneldoc you deleted. I
-missed that when merging your patch. Also that's kinda what patch
-changelogs are for, for blind reviewers like me :-)
--Daniel
+[1] https://lore.kernel.org/linux-arm-msm/20200728085244.GY6419@phenom.ffwll.local/
 
-> 
-> -Steve
-> 
-> > -Daniel
-> > 
-> > 
-> > > 
-> > > thanks,
-> > > 
-> > > greg k-h
+Signed-off-by: Steve Cohen <cohens@codeaurora.org>
+---
+ drivers/gpu/drm/drm_gem.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
+diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+index ee2058a..fe94122 100644
+--- a/drivers/gpu/drm/drm_gem.c
++++ b/drivers/gpu/drm/drm_gem.c
+@@ -871,6 +871,9 @@ drm_gem_flink_ioctl(struct drm_device *dev, void *data,
+  * @file_priv: drm file-private structure
+  *
+  * Open an object using the global name, returning a handle and the size.
++ *
++ * This handle (of course) holds a reference to the object, so the object
++ * will not go away until the handle is deleted.
+  */
+ int
+ drm_gem_open_ioctl(struct drm_device *dev, void *data,
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
