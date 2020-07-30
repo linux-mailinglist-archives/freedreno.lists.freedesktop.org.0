@@ -1,54 +1,47 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED30F2335B0
-	for <lists+freedreno@lfdr.de>; Thu, 30 Jul 2020 17:37:31 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 82EB92335D8
+	for <lists+freedreno@lfdr.de>; Thu, 30 Jul 2020 17:45:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6DB56E252;
-	Thu, 30 Jul 2020 15:37:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 082076E91A;
+	Thu, 30 Jul 2020 15:45:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1043.google.com (mail-pj1-x1043.google.com
- [IPv6:2607:f8b0:4864:20::1043])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B43EE6E252
- for <freedreno@lists.freedesktop.org>; Thu, 30 Jul 2020 15:37:29 +0000 (UTC)
-Received: by mail-pj1-x1043.google.com with SMTP id ha11so4861756pjb.1
- for <freedreno@lists.freedesktop.org>; Thu, 30 Jul 2020 08:37:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=9SEQ1OEv82nHNMdL9SqhRCzSBouc4sokzr4x8Hh1/DI=;
- b=MGZ/ahYtIdiF9ni3ETE3Khx9UnzPeaO4A/M7nSu0MJyY5+bCzMAsEhfkzzy2Gy2vHu
- N6joxF9xSH76v6buIa+i8zHYXDLBXuMJT6TDd7p3WcnMb9N2l3Szxxl333c9/wjLes+C
- KtGkEIWrsimjwMDomJX3xuQeVyWoSYJbL0I3PyBtDVqJClaQgg9l4+QISP2TJ2TKivAo
- prRKjq++Yg1p+fpQMs+eU75sFdgTQy1OezcxkoAtTcQky2LSiVUmrmEZ3bdWem0LD+gh
- BUuZmuoHDN7Lc3ZjsiqvPDeGFq3/uxgCTXRPlI9G52R9C+UxF/divsyP6+uS1leZZniY
- d9Ug==
+Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com
+ [IPv6:2a00:1450:4864:20::541])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DDB36E915
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Jul 2020 15:45:37 +0000 (UTC)
+Received: by mail-ed1-x541.google.com with SMTP id l23so6587180edv.11
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Jul 2020 08:45:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=e1J01Oczhd220RAym1LfngVA7OUijoix/GTLOnOq0wQ=;
+ b=mYI2K30rokgxWE0w7UBhOkOYryaDcfDKVw60BHk8x3vYQ//HRCVaVYL2FU1hFijMfT
+ 8rwLHSUgRg6/W4AvbrMRanJPGCBILdYCXc9SWKUFPRFJy2DEbfn3agkQJvTbPEzwd5hq
+ Z7xb4bbxbDLahiPDYZ4URSuz3MQj++4zVmHqM/tXhleHuX4XwfDzWsqa7a3ASLmbqdNw
+ PQtvqxQ6Qv1RyiW63qtuPBNmZF21uFplD/0Yigy4RjgHLEr3/XZIdkL6GA62Vw7iCzbH
+ ocQCE4wQEl0soppOd8kGhR6nr5YcIrnu8VKQ6oc7usO2cTRWz0ICuZi+gHH8fMD59RgR
+ HGRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=9SEQ1OEv82nHNMdL9SqhRCzSBouc4sokzr4x8Hh1/DI=;
- b=iFi1csBY+duKE1etCpM2uvsQY/XaKfaaLNUY2C+lqnRA7CikTsPzRPiYMdn+TE7fWK
- HftHcn65nPxF4+XB8PNxnQchrQ3p6p/DwjYZAYJtHjg0fW/6CFFHO88pblqawvBURCeX
- uTSz3NoTdBDmPTofmN5WV7ux7z8AdklC3XqEysFT6fngTK71VCQT6F/0epkuvgs43vON
- 9BPmMer36mM2skWxLzvcBhwDpAV9smYRj7KkqzPaisBKKsV4lz9Rho7141oUEY2MGVrg
- u2NHKESkjv3Tg0dp2xC+NqQmri2EXjBwE4TwVMUq9OsZ7ZZbRA99WW9cbxQcU6qfSVqo
- 0S5A==
-X-Gm-Message-State: AOAM531u/yS/UKrgv0w5vjYgP0FLA09m14pf1FwVbthgS1sYqqpCkaTs
- o6OqSl1Uh/Z5NGLI5tySwJ8yhw==
-X-Google-Smtp-Source: ABdhPJwQyi8M14QMhOXfHbSaGH7VCYAkvRqASesnwEbOczg1tB8ocLA9RDU1wXDJ/FEr3D1Nv1dW2A==
-X-Received: by 2002:a62:520b:: with SMTP id g11mr3981023pfb.168.1596123449285; 
- Thu, 30 Jul 2020 08:37:29 -0700 (PDT)
-Received: from localhost ([106.201.14.19])
- by smtp.gmail.com with ESMTPSA id f29sm6943179pga.59.2020.07.30.08.37.26
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 30 Jul 2020 08:37:27 -0700 (PDT)
-Date: Thu, 30 Jul 2020 21:07:22 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20200730153722.cnpg6n6tnmvjtuso@vireshk-mac-ubuntu>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=e1J01Oczhd220RAym1LfngVA7OUijoix/GTLOnOq0wQ=;
+ b=bPU8LQVJk2Z8/95uswufH4k0Z5SodPm5pMk4mjQl5LEFE0D976oS/fiOmSMDplJRvp
+ dgW4V13OFx3Vwwycx+tCllmkGq7Kd6EDGsBMeqmeSIIC46Xk4A7sdR3Y1Mfdj2CgwJ7N
+ d7Ot3yJnaj40gWgXHczbBaJXwh2o1Arag9d1VM35J8X4o94bq7qnIVD3Jkm/vh/STLuw
+ U/M7v1p+BApaRKuHflNxAi4Jer7SA3sATF5/9xlRiC5eMwJMpW7JiMp3yHkAbbDv1pY6
+ iK9h6Hac/x7NocZVE4zfb1ubMQibgx9IdZ42eubJARM1SkGApaPRZ6c2HOEsqZAlnfhu
+ pPMw==
+X-Gm-Message-State: AOAM530QsDBkHFPp+O0nR2Eyyc7pyLQ8UZrPpkORFCxxW/VGETrZEpXO
+ IVs7itzo65QcE4hoYq71peBT+w3jF9puzkmJXrU=
+X-Google-Smtp-Source: ABdhPJxJBzb6IrbCKjuOC0BujTWS0dRylwUyeXRe0DDUCUbkZVlP/EuIVuplkgjxRZfoLFnUlWJiDAFypFhpWjX6r1E=
+X-Received: by 2002:a05:6402:1c10:: with SMTP id
+ ck16mr3213692edb.151.1596123935735; 
+ Thu, 30 Jul 2020 08:45:35 -0700 (PDT)
+MIME-Version: 1.0
 References: <1594644106-22449-1-git-send-email-akhilpo@codeaurora.org>
  <CAF6AEGtAEwZbWxLb4MxaWNswvtrFbLK+N0Fez2XYr7odKZffWA@mail.gmail.com>
  <20200720100131.6ux4zumbwqpa42ye@vireshk-mac-ubuntu>
@@ -58,10 +51,12 @@ References: <1594644106-22449-1-git-send-email-akhilpo@codeaurora.org>
  <20200722053023.vwaoj5oqh4cazzzz@vireshk-mac-ubuntu>
  <20200730051045.jejrtkor3b32l2qe@vireshk-mac-ubuntu>
  <CAF6AEGuzff9+Wy4EHx0aDx1gBzSEGh--yqT5rnwLHp=U6amnyA@mail.gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAF6AEGuzff9+Wy4EHx0aDx1gBzSEGh--yqT5rnwLHp=U6amnyA@mail.gmail.com>
-User-Agent: NeoMutt/20170609 (1.8.3)
+ <20200730153722.cnpg6n6tnmvjtuso@vireshk-mac-ubuntu>
+In-Reply-To: <20200730153722.cnpg6n6tnmvjtuso@vireshk-mac-ubuntu>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 30 Jul 2020 08:46:16 -0700
+Message-ID: <CAF6AEGs9=-0YBJpONaXf1wavU5ZpxhAQ19vfOn4JHby1zgPwpg@mail.gmail.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>
 Subject: Re: [Freedreno] [PATCH v5 0/6] Add support for GPU DDR BW scaling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,23 +86,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 30-07-20, 08:27, Rob Clark wrote:
-> Hmm, I've already sent my pull request to Dave, dropping the patch
-> would require force-push and sending a new PR.  Which I can do if Dave
-> prefers.  OTOH I guess it isn't the end of the world if the patch is
-> merged via two different trees.
+On Thu, Jul 30, 2020 at 8:37 AM Viresh Kumar <viresh.kumar@linaro.org> wrote:
+>
+> On 30-07-20, 08:27, Rob Clark wrote:
+> > Hmm, I've already sent my pull request to Dave, dropping the patch
+> > would require force-push and sending a new PR.  Which I can do if Dave
+> > prefers.  OTOH I guess it isn't the end of the world if the patch is
+> > merged via two different trees.
+>
+> I don't think a patch can go via two trees, as that would have two sha
+> keys for the same code.
 
-I don't think a patch can go via two trees, as that would have two sha
-keys for the same code.
+it looks weird in the history, but other than that I think it is
+fine.. at least I see it happen somewhat regularly with fixes in drm
 
-Though it is fine for a patch to go via two different trees if we make
-sure the same sha key is used for both.
+> Though it is fine for a patch to go via two different trees if we make
+> sure the same sha key is used for both.
+>
+> Will it be possible for you to provide a branch/tag of your branch
+> that I can base stuff of ?
 
-Will it be possible for you to provide a branch/tag of your branch
-that I can base stuff of ?
+You could use https://gitlab.freedesktop.org/drm/msm/-/commits/msm-next/
+(or the tag drm-msm-next-2020-07-29), which already has the OPP patch.
+I've been trying to avoid force-pushing that because downstream trees
+are already pulling from that.
 
--- 
-viresh
+BR,
+-R
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
