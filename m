@@ -2,53 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D26D1233A11
-	for <lists+freedreno@lfdr.de>; Thu, 30 Jul 2020 22:52:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73699233A74
+	for <lists+freedreno@lfdr.de>; Thu, 30 Jul 2020 23:22:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 754726E0C2;
-	Thu, 30 Jul 2020 20:52:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14D1F6E5C6;
+	Thu, 30 Jul 2020 21:22:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B3E36E0C2
- for <freedreno@lists.freedesktop.org>; Thu, 30 Jul 2020 20:52:04 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id a15so26093548wrh.10
- for <freedreno@lists.freedesktop.org>; Thu, 30 Jul 2020 13:52:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=sNQBhS7/TXLnuBaPJWGWRsQsFBSRrqawtzX8JhhIouk=;
- b=CBoJ2b24vgzFcivcALEjMgSA99rMeCMANwn1Vt2DLSpjaKdWZszhgXW8MtjGenxbMJ
- BOPMYPR8mlZnVuwZctaGzWvqUTpjCUuXAHK/cmcLrrWh5tW4Z9gxLVXIeQa1on6qNiYj
- 0XxDW1OM66WUEghPc4g4AJ6FxEV7dlZVNSOMR2c9X1C7PSkG4I/qF9f9r04lgNSkozLO
- gunC+ioLtfWhVHr1J8k9Xw68bEkYpxCr0A5+T6fbQdtY3uW3ya833H0mrlscYyViUVxS
- +zsheqI2fMX6LgzTmxQBL5N81TODqu1N6ai0Ph2K52KaNQaum0kYO4ytk6ckfoQx0QWU
- Bacw==
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [IPv6:2a00:1450:4864:20::634])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF0D56E5C3;
+ Thu, 30 Jul 2020 21:22:38 +0000 (UTC)
+Received: by mail-ej1-x634.google.com with SMTP id d6so15572691ejr.5;
+ Thu, 30 Jul 2020 14:22:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=AHa4cCw7UaXFq21Bry8nxx/yxjhkEeZr9mmkXZz+/CA=;
+ b=Lr9QGCDwKuV19j3Hna4uA6xn927LxQwNAiw575xSPKY1DTdTsdQfhISPb6pqf7Yf1q
+ dDiTwLugtkLKnXZrQZozM1FOboncVli/qBg+4Y/gku6EhGmgFHkDGgKD7a5hRSHolCCk
+ /pVWBgoEBRddPMmCRcaflx2pUKPEDq0BKcry6J2ZJQmNrlu7eumANRgZiozdN1jGlRYp
+ 2ZqEPJrNoKuNh9mUffgGXjevlufmm0BQx08bzavxiBoA7X4iOERRGDl3sp7hzcikA4LW
+ K0Rd5fvt4W6OSRb7pin4WXvgbL0mVyjFJxAcdQYvxuyT5kByGEFZmipJTmiPyExhKMCu
+ 4jlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=sNQBhS7/TXLnuBaPJWGWRsQsFBSRrqawtzX8JhhIouk=;
- b=DTby3xWNFUIs8OATTk6VxNg4himZjU5fJNRdMVWbxOkSKV9ULXEie+oehllYr1WKRc
- hsp4UccZbb6KWf7X4Tcl8Bu10GbbsAAk9avi/EglVR4gLWcZJJhf+7AqFKsCov67icku
- b4npG/IMwJ9vaC7Cd9OZMz4jpVXAbf4eJrwfm5mTbJzyWOtMbSfuRrqYqwgtXtNU/jqQ
- fGU4gvwYY5/CpTa396rezlnNJlp7yeuvyy1NBU10ZKm52gYm3tJ/vLiNJv02LDaPgNm6
- lP30D5Z1jofm7RB4t6TrDPecGjUxk2KDGv8jMVS8NnpyLTSWzx/tBlIJBYNMp1eYxpDB
- 1czg==
-X-Gm-Message-State: AOAM531kFI5iBaKWDwCUH+/FTI6Po66oGr94H9AeRYIomNRCDfBIqRqb
- PKU6njcU9OZCDOBbx/qM/nuaYs5qydTssU+KdJ5xbg==
-X-Google-Smtp-Source: ABdhPJxDgRl/9ZgCFmOaT5JPiqE/grxj5wZw4lSsGR7jhPrRnIbadzcC+0YX7MIInKKf4u/DcAuREV5aPKnCYc60CVI=
-X-Received: by 2002:adf:a19e:: with SMTP id u30mr460027wru.274.1596142322855; 
- Thu, 30 Jul 2020 13:52:02 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=AHa4cCw7UaXFq21Bry8nxx/yxjhkEeZr9mmkXZz+/CA=;
+ b=GOsqT8/cx+UH9JxRXocSjYg+6IRB5WCMvZb2slCNy4xNiTW9M0l9ZyuZMDjepT7Ynb
+ TL6Z3fBgmFaWn2lGRYdSDkb0txC/1YvS++y1eBkMS9EgalrEoaQaeCtGGPj/8KNALBse
+ xjjLA411IrHYSjIQUmN1Ljl6dAKVE3vP+fm2Nia+cjLO9EWBmtbiQd3gEb/JPvAnjVQU
+ 3+S//as6r9jX5aqBuY3iqcpLVFm0jazyUFPoPE0sa/AJPzaDPzFYYFUDWvHaoMoaIPA2
+ FDayUYqGE5R8UF6YPOXD8lv2X3fwp77o/HQmnRbcOCJnlaoIga+tPhwpC44sN3w2fYU+
+ V/Fg==
+X-Gm-Message-State: AOAM532r/5wfIqIckEhGXY+nlS+gojB8/GMVXdjCG8alXXtXNj4XBQls
+ wmCtt2VXuPn09DQudTVP1D6KP5D2mRHQGIsnpdnJXM9IL4s=
+X-Google-Smtp-Source: ABdhPJxMcqyr/ooN16q5acNPylmLQkjVzf0AqYmtfekpVV2nr07Tx9u8WmLGhKLhU06grHFTnpznaYwxlsKUFd19k/Q=
+X-Received: by 2002:a17:906:95cb:: with SMTP id
+ n11mr1014423ejy.506.1596144157217; 
+ Thu, 30 Jul 2020 14:22:37 -0700 (PDT)
 MIME-Version: 1.0
-References: <1596116336-23147-1-git-send-email-kalyan_t@codeaurora.org>
-In-Reply-To: <1596116336-23147-1-git-send-email-kalyan_t@codeaurora.org>
-From: Kristian Kristensen <hoegsberg@google.com>
-Date: Thu, 30 Jul 2020 13:51:51 -0700
-Message-ID: <CAOPc6T=+Yx=+QzOr+6f3SXZXPqE-FTKkis4a+pODnGM5pxyTVQ@mail.gmail.com>
-To: Kalyan Thota <kalyan_t@codeaurora.org>
-Subject: Re: [Freedreno] [v1] drm/msm/dpu: Fix scale params in plane
- validation
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 30 Jul 2020 14:23:18 -0700
+Message-ID: <CAF6AEGs_eswoX-E0Ddg5DoEQy35x3GG+6SDXUAjPMrtAWFkqng@mail.gmail.com>
+To: Dave Airlie <airlied@gmail.com>
+Subject: [Freedreno] [pull v2] drm/msm: msm-next for 5.9
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,63 +58,172 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, mkrishn@codeaurora.org,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, travitej@codeaurora.org,
- open list <linux-kernel@vger.kernel.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Doug Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>,
- nganji@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
- hoegsberg <hoegsberg@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jul 30, 2020 at 6:39 AM Kalyan Thota <kalyan_t@codeaurora.org> wrote:
->
-> Plane validation uses an API drm_calc_scale which will
-> return src/dst value as a scale ratio.
->
-> when viewing the range on a scale the values should fall in as
->
-> Upscale ratio < Unity scale < Downscale ratio for src/dst formula
->
-> Fix the min and max scale ratios to suit the API accordingly.
->
-> Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> index 6379fe1..e46dcb9 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> @@ -946,9 +946,9 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->                 crtc_state = drm_atomic_get_new_crtc_state(state->state,
->                                                            state->crtc);
->
-> -       min_scale = FRAC_16_16(1, pdpu->pipe_sblk->maxdwnscale);
-> +       min_scale = FRAC_16_16(1, pdpu->pipe_sblk->maxupscale);
->         ret = drm_atomic_helper_check_plane_state(state, crtc_state, min_scale,
-> -                                         pdpu->pipe_sblk->maxupscale << 16,
-> +                                         pdpu->pipe_sblk->maxdwnscale << 16,
->                                           true, true);
->         if (ret) {
->                 DPU_DEBUG_PLANE(pdpu, "Check plane state failed (%d)\n", ret);
+Hi Dave,
 
-Right, I can see how the drm convention of scaling factor being from
-dest to src (ie 2x scaling up src to dst is as scale factor of 0.5).
-Thanks for fixing this,
+Take 2 of msm-next pull, this version drops the OPP patch due to [1],
+so I'll send the gpu opp/bw scaling patch after the OPP patch lands.
+Since I had to force-push I took the opportunity to rebase on
+drm-next, and since you already merged in 5.8-rc6 a few fixes from the
+last cycle dropped out.
 
-Tested-by: Kristian H. Kristensen <hoegsberg@google.com>
-Reviewed-by: Kristian H. Kristensen <hoegsberg@google.com>
+This time around:
 
-> --
-> 1.9.1
->
+* A bunch more a650/a640 (sm8150/sm8250) display and GPU enablement
+  and fixes
+* Enable dpu dither block for 6bpc panels
+* dpu suspend fixes
+* dpu fix for cursor on 2nd display
+* dsi/mdp5 enablement for sdm630/sdm636/sdm660
+
+I also regenerated the register headers, which accounts for a good
+bit of the size this time, because we hadn't re-synced the register
+headers since the early days of a6xx bringup.
+
+[1] https://lkml.org/lkml/2020/7/30/23
+
+The following changes since commit 5de5b6ecf97a021f29403aa272cb4e03318ef586:
+
+  drm/ttm/nouveau: don't call tt destroy callback on alloc failure.
+(2020-07-29 10:06:38 +1000)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/msm.git drm-msm-next-2020-07-30
+
+for you to fetch changes up to aa6800856f3aba864f8174dd1ac2c325e37be428:
+
+  drm/msm: use kthread_create_worker instead of kthread_run
+(2020-07-30 13:46:11 -0700)
+
+----------------------------------------------------------------
+Akhil P Oommen (2):
+      drm/msm: Fix a null pointer access in msm_gem_shrinker_count()
+      drm: msm: a6xx: fix gpu failure after system resume
+
+Bernard (1):
+      drm/msm: use kthread_create_worker instead of kthread_run
+
+Eric Anholt (2):
+      drm/msm: Garbage collect unused resource _len fields.
+      drm/msm: Quiet error during failure in optional resource mappings.
+
+Jonathan Marek (16):
+      drm/msm: fix unbalanced pm_runtime_enable in adreno_gpu_{init, cleanup}
+      drm/msm: reset devfreq freq_table/max_state before devfreq_add_device
+      drm/msm: handle for EPROBE_DEFER for of_icc_get
+      drm/msm/a6xx: fix crashstate capture for A650
+      drm/msm/a6xx: add build_bw_table for A640/A650
+      drm/msm/a6xx: set ubwc config for A640 and A650
+      drm/msm/dpu: use right setup_blend_config for sm8150 and sm8250
+      drm/msm/dpu: update UBWC config for sm8150 and sm8250
+      drm/msm/dpu: move some sspp caps to dpu_caps
+      drm/msm/dpu: don't use INTF_INPUT_CTRL feature on sdm845
+      drm/msm/dpu: set missing flush bits for INTF_2 and INTF_3
+      drm/msm/dpu: intf timing path for displayport
+      drm/msm/dpu: add SM8150 to hw catalog
+      drm/msm/dpu: add SM8250 to hw catalog
+      drm/msm/a6xx: hwcg tables in gpulist
+      drm/msm/a6xx: add A640/A650 hwcg
+
+Kalyan Thota (3):
+      drm/msm/dpu: ensure device suspend happens during PM sleep
+      drm/msm/dpu: enumerate second cursor pipe for external interface
+      drm/msm/dpu: add support for dither block in display
+
+Konrad Dybcio (4):
+      drm/msm/dsi: Add phy configuration for SDM630/636/660
+      drm/msm/mdp5: Add MDP5 configuration for SDM630
+      drm/msm/dsi: Add DSI configuration for SDM660
+      drm/msm/mdp5: Add MDP5 configuration for SDM636/660
+
+Rajendra Nayak (2):
+      drm/msm/dpu: Use OPP API to set clk/perf state
+      drm/msm: dsi: Use OPP API to set clk/perf state
+
+Rob Clark (5):
+      drm/msm/adreno: fix gpu probe if no interconnect-names
+      drm/msm: ratelimit crtc event overflow error
+      drm/msm/dpu: fix/enable 6bpc dither with split-lm
+      drm/msm: sync generated headers
+      drm/msm/adreno: un-open-code some packets
+
+Sharat Masetty (2):
+      dt-bindings: drm/msm/gpu: Document gpu opp table
+      drm: msm: a6xx: send opp instead of a frequency
+
+ .../devicetree/bindings/display/msm/dsi.txt        |    1 +
+ .../devicetree/bindings/display/msm/gpu.txt        |   28 +
+ drivers/gpu/drm/msm/adreno/a2xx.xml.h              | 1102 +++++-
+ drivers/gpu/drm/msm/adreno/a3xx.xml.h              |  102 +-
+ drivers/gpu/drm/msm/adreno/a4xx.xml.h              |  125 +-
+ drivers/gpu/drm/msm/adreno/a5xx.xml.h              |  403 ++-
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c              |    5 +-
+ drivers/gpu/drm/msm/adreno/a6xx.xml.h              | 3624 ++++++++++++++++----
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |  107 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h              |    5 +
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h          |  147 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  191 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h              |    2 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c        |   25 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h        |   12 +-
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.c              |   74 +
+ drivers/gpu/drm/msm/adreno/adreno_common.xml.h     |  230 +-
+ drivers/gpu/drm/msm/adreno/adreno_device.c         |    3 +
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c            |   70 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h            |    8 +
+ drivers/gpu/drm/msm/adreno/adreno_pm4.xml.h        |  933 ++++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c      |    3 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           |    4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |   49 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  297 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   48 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |   20 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        |   29 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c          |    5 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |    2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c    |   62 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h    |   28 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c        |   16 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c         |   18 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h         |    7 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   54 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h            |    5 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c           |   84 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          |    6 +-
+ drivers/gpu/drm/msm/disp/mdp4/mdp4.xml.h           |   26 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5.xml.h           |   26 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c           |  198 ++
+ drivers/gpu/drm/msm/disp/mdp_common.xml.h          |   26 +-
+ drivers/gpu/drm/msm/dsi/dsi.c                      |    2 +
+ drivers/gpu/drm/msm/dsi/dsi.xml.h                  |  230 +-
+ drivers/gpu/drm/msm/dsi/dsi_cfg.c                  |   21 +
+ drivers/gpu/drm/msm/dsi/dsi_cfg.h                  |    1 +
+ drivers/gpu/drm/msm/dsi/dsi_host.c                 |   41 +-
+ drivers/gpu/drm/msm/dsi/mmss_cc.xml.h              |   26 +-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c              |    2 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h              |    1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c         |   18 +
+ drivers/gpu/drm/msm/dsi/sfpb.xml.h                 |   26 +-
+ drivers/gpu/drm/msm/edp/edp.xml.h                  |   26 +-
+ drivers/gpu/drm/msm/hdmi/hdmi.xml.h                |   26 +-
+ drivers/gpu/drm/msm/hdmi/qfprom.xml.h              |   26 +-
+ drivers/gpu/drm/msm/msm_drv.c                      |  107 +-
+ drivers/gpu/drm/msm/msm_drv.h                      |    5 +-
+ drivers/gpu/drm/msm/msm_gem.c                      |   36 +-
+ drivers/gpu/drm/msm/msm_gpu.c                      |    7 +-
+ drivers/gpu/drm/msm/msm_gpu.h                      |    3 +-
+ 61 files changed, 7205 insertions(+), 1609 deletions(-)
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
