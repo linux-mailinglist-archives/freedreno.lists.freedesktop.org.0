@@ -1,30 +1,53 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC44F234AE9
-	for <lists+freedreno@lfdr.de>; Fri, 31 Jul 2020 20:27:23 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id CED11234C2B
+	for <lists+freedreno@lfdr.de>; Fri, 31 Jul 2020 22:26:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 748156EB2E;
-	Fri, 31 Jul 2020 18:27:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DEDF6E040;
+	Fri, 31 Jul 2020 20:26:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA2B16EB2D;
- Fri, 31 Jul 2020 18:27:18 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: bbeckett) with ESMTPSA id 47790299373
-From: Robert Beckett <bob.beckett@collabora.com>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Fri, 31 Jul 2020 19:25:49 +0100
-Message-Id: <20200731182639.10949-1-bob.beckett@collabora.com>
-X-Mailer: git-send-email 2.20.1
+Received: from mail-io1-f68.google.com (mail-io1-f68.google.com
+ [209.85.166.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F92C6E040;
+ Fri, 31 Jul 2020 20:26:06 +0000 (UTC)
+Received: by mail-io1-f68.google.com with SMTP id q75so24742050iod.1;
+ Fri, 31 Jul 2020 13:26:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=BGJ0cV6tlcyXT1xqGGOkGIW3JZcU+nzmQwF+b4XNxkk=;
+ b=OekTvHyEiEcVx57+l08uzPVb5zzLX2t20hl4MbSOL22YnvuwCq7rXeBp6Dr8Mn6t2c
+ f7/dBMU5fxv+OjLV96Kg61859f2AqR92VHtXEMOppUzpxrT97ibODOEfs85Oy7biWxdn
+ oc5JD1pwy/+UWdL86ef2dPq6eM2e9+O5fv2vkColWVsdPN0qPBh3Be2uWLlMz+m4aGI7
+ 2FXAcodYlVBDGbZpeiB9GVYVjowkqhOX+yxpieABPVPnOZSWaG2qRQn3F8wENdhc2jwi
+ WRwkrpe8pwZvRMfTkSoeE319tXzu0FcNfoCI4/SUaVpaM0Mm9MzNdo7b93ucekJv3hDT
+ XpNA==
+X-Gm-Message-State: AOAM533NNqg5T6LPPfGivOdEhA5+wEkzRnELj+cpTc3RnD3uuyBvxgdL
+ M7AS2NBcqrk23u4ZdqVtHw==
+X-Google-Smtp-Source: ABdhPJwE1oeviUbVjkAV9WCXrw2poWOORAGd9woxfUZAaudtQVnqWHqszu63PdcS8I49J5RJfronOg==
+X-Received: by 2002:a02:6009:: with SMTP id i9mr6756397jac.78.1596227165611;
+ Fri, 31 Jul 2020 13:26:05 -0700 (PDT)
+Received: from xps15 ([64.188.179.252])
+ by smtp.gmail.com with ESMTPSA id n1sm5322084ilo.68.2020.07.31.13.26.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 31 Jul 2020 13:26:04 -0700 (PDT)
+Received: (nullmailer pid 722926 invoked by uid 1000);
+ Fri, 31 Jul 2020 20:26:00 -0000
+Date: Fri, 31 Jul 2020 14:26:00 -0600
+From: Rob Herring <robh@kernel.org>
+To: Konrad Dybcio <konradybcio@gmail.com>
+Message-ID: <20200731202600.GA722818@bogus>
+References: <20200726111215.22361-1-konradybcio@gmail.com>
+ <20200726111215.22361-3-konradybcio@gmail.com>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm: Add vblank timestamp support for dpu1
+Content-Disposition: inline
+In-Reply-To: <20200726111215.22361-3-konradybcio@gmail.com>
+Subject: Re: [Freedreno] [PATCH 2/9] phy: qcom-qusb2: Add support for
+ SDM630/660
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,212 +60,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Robert Beckett <bob.beckett@collabora.com>
+Cc: Krzysztof Wilczynski <kw@linux.com>,
+ Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, David Airlie <airlied@linux.ie>,
+ Michael Turquette <mturquette@baylibre.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, AngeloGioacchino Del Regno <kholk11@gmail.com>,
+ Sam Ravnborg <sam@ravnborg.org>, linux-clk@vger.kernel.org,
+ Kishon Vijay Abraham I <kishon@ti.com>, martin.botka1@gmail.com,
+ Andy Gross <agross@kernel.org>, Brian Masney <masneyb@onstation.org>,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Xiaozhe Shi <xiaozhes@codeaurora.org>, Rob Herring <robh+dt@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
+ Ben Dooks <ben.dooks@codethink.co.uk>, Felipe Balbi <balbi@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ Harigovindan P <harigovi@codeaurora.org>, zhengbin <zhengbin13@huawei.com>,
+ Manu Gautam <mgautam@codeaurora.org>, Vinod Koul <vkoul@kernel.org>,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-add vblank timestamp support via drm helpers
+On Sun, 26 Jul 2020 13:11:59 +0200, Konrad Dybcio wrote:
+> QUSB on these SoCs actually uses *almost* the same
+> configuration that msm8996 does, so we can reuse
+> the phy_cfg from there with just a single change
+> (se clock scheme).
+> 
+> Signed-off-by: Konrad Dybcio <konradybcio@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/phy/qcom,qusb2-phy.yaml | 1 +
+>  drivers/phy/qualcomm/phy-qcom-qusb2.c                     | 7 ++++++-
+>  2 files changed, 7 insertions(+), 1 deletion(-)
+> 
 
-Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 71 ++++++++++++++++++++-
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  7 ++
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  5 ++
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 10 ++-
- drivers/gpu/drm/msm/msm_drv.c               |  1 +
- 5 files changed, 92 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index f272a8d0f95b..b62552cad135 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -297,8 +297,8 @@ void dpu_crtc_vblank_callback(struct drm_crtc *crtc)
- 		dpu_crtc->vblank_cb_time = ktime_get();
- 	else
- 		dpu_crtc->vblank_cb_count++;
--	_dpu_crtc_complete_flip(crtc);
- 	drm_crtc_handle_vblank(crtc);
-+	_dpu_crtc_complete_flip(crtc);
- 	trace_dpu_crtc_vblank_cb(DRMID(crtc));
- }
- 
-@@ -1320,6 +1320,73 @@ static void dpu_crtc_early_unregister(struct drm_crtc *crtc)
- 	debugfs_remove_recursive(dpu_crtc->debugfs_root);
- }
- 
-+static struct drm_encoder *get_encoder_from_crtc(struct drm_crtc *crtc)
-+{
-+	struct drm_device *dev = crtc->dev;
-+	struct drm_encoder *encoder;
-+
-+	drm_for_each_encoder(encoder, dev)
-+		if (encoder->crtc == crtc)
-+			return encoder;
-+
-+	return NULL;
-+}
-+
-+static bool dpu_crtc_get_scanout_position(struct drm_crtc *crtc,
-+					   bool in_vblank_irq,
-+					   int *vpos, int *hpos,
-+					   ktime_t *stime, ktime_t *etime,
-+					   const struct drm_display_mode *mode)
-+{
-+	unsigned int pipe = crtc->index;
-+	struct drm_encoder *encoder;
-+	int line, vsw, vbp, vactive_start, vactive_end, vfp_end;
-+
-+
-+	encoder = get_encoder_from_crtc(crtc);
-+	if (!encoder) {
-+		DRM_ERROR("no encoder found for crtc %d\n", pipe);
-+		return false;
-+	}
-+
-+	vsw = mode->crtc_vsync_end - mode->crtc_vsync_start;
-+	vbp = mode->crtc_vtotal - mode->crtc_vsync_end;
-+
-+	/*
-+	 * the line counter is 1 at the start of the VSYNC pulse and VTOTAL at
-+	 * the end of VFP. Translate the porch values relative to the line
-+	 * counter positions.
-+	 */
-+
-+	vactive_start = vsw + vbp + 1;
-+
-+	vactive_end = vactive_start + mode->crtc_vdisplay;
-+
-+	/* last scan line before VSYNC */
-+	vfp_end = mode->crtc_vtotal;
-+
-+	if (stime)
-+		*stime = ktime_get();
-+
-+	line = dpu_encoder_get_linecount(encoder);
-+
-+	if (line < vactive_start)
-+		line -= vactive_start;
-+	else if (line > vactive_end)
-+		line = line - vfp_end - vactive_start;
-+	else
-+		line -= vactive_start;
-+
-+	*vpos = line;
-+	*hpos = 0;
-+
-+	if (etime)
-+		*etime = ktime_get();
-+
-+	return true;
-+}
-+
-+
- static const struct drm_crtc_funcs dpu_crtc_funcs = {
- 	.set_config = drm_atomic_helper_set_config,
- 	.destroy = dpu_crtc_destroy,
-@@ -1331,6 +1398,7 @@ static const struct drm_crtc_funcs dpu_crtc_funcs = {
- 	.early_unregister = dpu_crtc_early_unregister,
- 	.enable_vblank  = msm_crtc_enable_vblank,
- 	.disable_vblank = msm_crtc_disable_vblank,
-+	.get_vblank_timestamp = drm_crtc_vblank_helper_get_vblank_timestamp,
- };
- 
- static const struct drm_crtc_helper_funcs dpu_crtc_helper_funcs = {
-@@ -1339,6 +1407,7 @@ static const struct drm_crtc_helper_funcs dpu_crtc_helper_funcs = {
- 	.atomic_check = dpu_crtc_atomic_check,
- 	.atomic_begin = dpu_crtc_atomic_begin,
- 	.atomic_flush = dpu_crtc_atomic_flush,
-+	.get_scanout_position = dpu_crtc_get_scanout_position,
- };
- 
- /* initialize crtc */
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index a97f6d2e5a08..1d7d676355ee 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -1659,6 +1659,13 @@ static u32 _dpu_encoder_calculate_linetime(struct dpu_encoder_virt *dpu_enc,
- 	return line_time;
- }
- 
-+int dpu_encoder_get_linecount(struct drm_encoder *encoder)
-+{
-+	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(encoder);
-+
-+	return dpu_enc->cur_master->ops.get_line_count(dpu_enc->cur_master);
-+}
-+
- int dpu_encoder_vsync_time(struct drm_encoder *drm_enc, ktime_t *wakeup_time)
- {
- 	struct drm_display_mode *mode;
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-index b4913465e602..f492ef0a2b2b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-@@ -85,6 +85,11 @@ void dpu_encoder_trigger_kickoff_pending(struct drm_encoder *encoder);
-  */
- void dpu_encoder_kickoff(struct drm_encoder *encoder);
- 
-+/**
-+ * dpu_encoder_get_linecount - get the current scanline count for this encoder
-+ */
-+int dpu_encoder_get_linecount(struct drm_encoder *encoder);
-+
- /**
-  * dpu_encoder_wakeup_time - get the time of the next vsync
-  */
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index c0a4d4e16d82..db8a461a1786 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -14,6 +14,7 @@
- 
- #include <drm/drm_crtc.h>
- #include <drm/drm_file.h>
-+#include <drm/drm_vblank.h>
- 
- #include "msm_drv.h"
- #include "msm_mmu.h"
-@@ -337,6 +338,11 @@ static void dpu_kms_prepare_commit(struct msm_kms *kms,
- 	if (!kms)
- 		return;
- 
-+	for_each_new_crtc_in_state(state, crtc, crtc_state, i) {
-+		if (crtc_state->mode.crtc_clock)
-+			drm_crtc_vblank_get(crtc);
-+	}
-+
- 	/* Call prepare_commit for all affected encoders */
- 	for_each_new_crtc_in_state(state, crtc, crtc_state, i) {
- 		drm_for_each_encoder_mask(encoder, crtc->dev,
-@@ -389,8 +395,10 @@ static void dpu_kms_complete_commit(struct msm_kms *kms, unsigned crtc_mask)
- 
- 	DPU_ATRACE_BEGIN("kms_complete_commit");
- 
--	for_each_crtc_mask(dpu_kms->dev, crtc, crtc_mask)
-+	for_each_crtc_mask(dpu_kms->dev, crtc, crtc_mask) {
- 		dpu_crtc_complete_commit(crtc);
-+		drm_crtc_vblank_put(crtc);
-+	}
- 
- 	DPU_ATRACE_END("kms_complete_commit");
- }
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 36d98d4116ca..01734191cd31 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -687,6 +687,7 @@ int msm_crtc_enable_vblank(struct drm_crtc *crtc)
- 	struct msm_kms *kms = priv->kms;
- 	if (!kms)
- 		return -ENXIO;
-+	drm_calc_timestamping_constants(crtc, &crtc->state->adjusted_mode);
- 	DBG("dev=%p, crtc=%u", dev, pipe);
- 	return vblank_ctrl_queue_work(priv, pipe, true);
- }
--- 
-2.20.1
-
+Acked-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
