@@ -1,62 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0A0E233AB3
-	for <lists+freedreno@lfdr.de>; Thu, 30 Jul 2020 23:25:30 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 423EC234233
+	for <lists+freedreno@lfdr.de>; Fri, 31 Jul 2020 11:17:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5ECAA6E96B;
-	Thu, 30 Jul 2020 21:25:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC8C56EA45;
+	Fri, 31 Jul 2020 09:17:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com
- [IPv6:2a00:1450:4864:20::544])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F07B6E96A
- for <freedreno@lists.freedesktop.org>; Thu, 30 Jul 2020 21:25:28 +0000 (UTC)
-Received: by mail-ed1-x544.google.com with SMTP id i26so17676145edv.4
- for <freedreno@lists.freedesktop.org>; Thu, 30 Jul 2020 14:25:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=wawmnCkVtSyffuOwOyR8jlmGJuUCenrTBxUUEtQt514=;
- b=EBuP8Sph1VcJ11/DEK8U8Vw5lkys5pkoPHdRkZ4qSn04EMNMYTDwn/188gwovds3b0
- OxdeWFiNycKygBIF6EbR439Ba0O/evJ4dO/OFAOCDCXGWdnWyuTEaEQ8pxWkgDQsDT49
- ixEd1m7vu0YdVDd23vJduP196itvUII6BXff9dn2zs9UWBlMCs1DExy4Lg6ONdto1EAN
- xJAHxGd85yfCUYW4BRAtUxIHQjFb/fYkR1sMz+pqTluqvHpLxXQjuP6uqQWzj/TQv2iK
- TWOlPm33HCVveFBueimXJMG8cza2wAsC2GHxv1npabeVJskgo2cNIa+B/RqtY2jKX2l+
- ZY5g==
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8072D6EA44
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Jul 2020 09:17:52 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id k8so8600404wma.2
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Jul 2020 02:17:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=zap5mCPdXGfCBoAglpFSUI584futiyKZR3trwr0wzD8=;
+ b=hrXPg9RLOgJQDEhP1zScUI2NKWRyxq+SOMDtubqqTm9OhE3LSXNrEngEmNAZLOTL0H
+ fBRH5ArtO84NfTCYG8xBTJddOZMVD63HOKJ+1I9ZLDreM4zYgFi9cYauzula4Crybhif
+ 4yKDC5LtUynoFNpru4vkUKuO2Vq2Dnh4f8Z6k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=wawmnCkVtSyffuOwOyR8jlmGJuUCenrTBxUUEtQt514=;
- b=L0N/Qo04XC5DdqVCefs9LDccQIyFqw08PUOkehWIxMFURDSPrFrQoE+1BBk4rop5v8
- 57IfFZ/xY5xi8+sBTLGcrMM+ewWyLuBp/+D6wV0kfXdbGx9JV6DJAx8XMEBs2ShPPHPp
- /9tnozIrSMrk2ld2lJWcmjTV9x2Ec9f+D5wqMIW2JW6PS+hVxlP6k5SCLJJdav/p+L8L
- jwv+lhybPK8PdTI37lSZhdW4vcmitWlrG+Z86a72ZNClE16KDxstLvo6Y5w/uf39bQyp
- 929cKaq0Pb+Vgytwl/b+l5o5K2H3Ojr+bXTPZoG9bbOYD2mI47HAXp/SXn8JSTa1c2CW
- Ti5w==
-X-Gm-Message-State: AOAM532zPvcsSpwqnwcT3wIH0lurMR2jAwR+iksfHul6IBDj7RHalxD/
- aZ/DGfRMUQW2KxvP0z9+gyhal0p0GYtMqgCVrS4=
-X-Google-Smtp-Source: ABdhPJy1pelESLieAiXYCo+JBitUpkLV1nPOYhvQ2AwIzIy7aygRU3kvbY5RKU7cSN8I5DNmYQdtC1A9nfBZJYuxf0o=
-X-Received: by 2002:a50:fd19:: with SMTP id i25mr976597eds.101.1596144326878; 
- Thu, 30 Jul 2020 14:25:26 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=zap5mCPdXGfCBoAglpFSUI584futiyKZR3trwr0wzD8=;
+ b=OkymbhvpkTu5/yFPi6a6SLQ1UjoXhOblEjrbSN4c+WbXn2k8TVLEJzegiDvVSzFR8C
+ Uz882PP0AmufD0uJY/09LPPd5F+3FVYNcC122JpCr/wsBP9Ej8x9K4rNaL31ofm2x8Vr
+ XG5WSzh+gs3u5FMqtbwtMenZ1JLZudCUtAqsLkP6V7faNqhQ1GWiTS26gykWFo/faMi2
+ osMDI32dD5dAoO+qg6U8vTINrFYDm+38nKoPyXjSwXKixdB5nowReziwQlok4ta62DUf
+ lWA2kjWfaDWklyN8zjOpDFEKts5yH3B7JmhZ16tF+Yea0DWd5mhX8ZIr9zlRpIm/ykEh
+ 3PtQ==
+X-Gm-Message-State: AOAM530th3IKdhn4w4IYP+r4js+TeEs4qJWCSeLcaMvYIetUQFJKy0/C
+ e15i8GWTAwCkkoYMBGKCYX2yLQ==
+X-Google-Smtp-Source: ABdhPJzcg+Saw+jf9MpEs60W0A+5dDIrQXLHf8yAkzEyQPQJ2WoiIqn+/xFeKy/ou89Ul0fBMASB5w==
+X-Received: by 2002:a1c:80c3:: with SMTP id b186mr3024941wmd.10.1596187071227; 
+ Fri, 31 Jul 2020 02:17:51 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id w14sm12443489wrt.55.2020.07.31.02.17.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 31 Jul 2020 02:17:50 -0700 (PDT)
+Date: Fri, 31 Jul 2020 11:17:48 +0200
+From: daniel@ffwll.ch
+To: 
+Message-ID: <20200731091748.GU6419@phenom.ffwll.local>
+References: <1596000952-27621-1-git-send-email-cohens@codeaurora.org>
 MIME-Version: 1.0
-References: <1594644106-22449-1-git-send-email-akhilpo@codeaurora.org>
- <CAF6AEGtAEwZbWxLb4MxaWNswvtrFbLK+N0Fez2XYr7odKZffWA@mail.gmail.com>
- <20200720100131.6ux4zumbwqpa42ye@vireshk-mac-ubuntu>
- <CAF6AEGurrsd3nrbB=ktZjWfKTNbKwPHYwTFiZdD-NOW1T7gePQ@mail.gmail.com>
- <20200721032442.hv7l4q6633vnmnfe@vireshk-mac-ubuntu>
- <CAF6AEGuhQcRskGhrFvmCf5T3EcZ9S+3LRdZBiaDYqF34yZjd+A@mail.gmail.com>
- <20200722053023.vwaoj5oqh4cazzzz@vireshk-mac-ubuntu>
- <20200730051045.jejrtkor3b32l2qe@vireshk-mac-ubuntu>
- <CAF6AEGuzff9+Wy4EHx0aDx1gBzSEGh--yqT5rnwLHp=U6amnyA@mail.gmail.com>
- <20200730153722.cnpg6n6tnmvjtuso@vireshk-mac-ubuntu>
-In-Reply-To: <20200730153722.cnpg6n6tnmvjtuso@vireshk-mac-ubuntu>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 30 Jul 2020 14:26:08 -0700
-Message-ID: <CAF6AEGv-e5KdbcDcst=y+h-uhDa4sKKEMoGuA88bvZ_1i46RLQ@mail.gmail.com>
-To: Viresh Kumar <viresh.kumar@linaro.org>, Dave Airlie <airlied@gmail.com>
-Subject: Re: [Freedreno] [PATCH v5 0/6] Add support for GPU DDR BW scaling
+Content-Disposition: inline
+In-Reply-To: <1596000952-27621-1-git-send-email-cohens@codeaurora.org>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
+Subject: Re: [Freedreno] [PATCH] drm: re-add deleted doc for
+ drm_gem_open_ioctl
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,44 +65,53 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Jonathan <jonathan@marek.ca>,
- saravanak@google.com, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, Matthias Kaehlcke <mka@chromium.org>,
- dri-devel@freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Sibi Sankar <sibis@codeaurora.org>
+Cc: adelva@google.com, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ pdhaval@codeaurora.org, daniel@ffwll.ch, gregkh@linuxfoundation.org,
+ jsanka@codeaurora.org, sam@ravnborg.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jul 30, 2020 at 8:37 AM Viresh Kumar <viresh.kumar@linaro.org> wrote:
->
-> On 30-07-20, 08:27, Rob Clark wrote:
-> > Hmm, I've already sent my pull request to Dave, dropping the patch
-> > would require force-push and sending a new PR.  Which I can do if Dave
-> > prefers.  OTOH I guess it isn't the end of the world if the patch is
-> > merged via two different trees.
->
-> I don't think a patch can go via two trees, as that would have two sha
-> keys for the same code.
->
-> Though it is fine for a patch to go via two different trees if we make
-> sure the same sha key is used for both.
->
-> Will it be possible for you to provide a branch/tag of your branch
-> that I can base stuff of ?
->
+On Wed, Jul 29, 2020 at 01:35:52AM -0400, Steve Cohen wrote:
+> Add back the removed documentation for drm_gem_open_ioctl.
+> This patch is submitted in response to [1].
+> 
+> [1] https://lore.kernel.org/linux-arm-msm/20200728085244.GY6419@phenom.ffwll.local/
+> 
+> Signed-off-by: Steve Cohen <cohens@codeaurora.org>
+> ---
+>  drivers/gpu/drm/drm_gem.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+> index ee2058a..fe94122 100644
+> --- a/drivers/gpu/drm/drm_gem.c
+> +++ b/drivers/gpu/drm/drm_gem.c
+> @@ -871,6 +871,9 @@ drm_gem_flink_ioctl(struct drm_device *dev, void *data,
+>   * @file_priv: drm file-private structure
+>   *
+>   * Open an object using the global name, returning a handle and the size.
+> + *
+> + * This handle (of course) holds a reference to the object, so the object
+> + * will not go away until the handle is deleted.
 
-Ok, I sent a v2 pull req that dropped the OPP patch.  Both are tagged
-so Dave can use either version, so I guess you two can coordinate this
+Applied, thanks.
+-Daniel
 
-BR,
--R
+>   */
+>  int
+>  drm_gem_open_ioctl(struct drm_device *dev, void *data,
+> -- 
+> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+> a Linux Foundation Collaborative Project
+> 
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
