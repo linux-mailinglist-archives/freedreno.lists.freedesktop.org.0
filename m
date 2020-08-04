@@ -1,56 +1,53 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C74923BD64
-	for <lists+freedreno@lfdr.de>; Tue,  4 Aug 2020 17:43:14 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3334523BFFC
+	for <lists+freedreno@lfdr.de>; Tue,  4 Aug 2020 21:31:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B308E89F8B;
-	Tue,  4 Aug 2020 15:43:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A9896E4B6;
+	Tue,  4 Aug 2020 19:31:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com
- [IPv6:2a00:1450:4864:20::642])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4694289F8B;
- Tue,  4 Aug 2020 15:43:11 +0000 (UTC)
-Received: by mail-ej1-x642.google.com with SMTP id jp10so16396288ejb.0;
- Tue, 04 Aug 2020 08:43:11 -0700 (PDT)
+Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com
+ [IPv6:2a00:1450:4864:20::543])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CD7089CD5;
+ Tue,  4 Aug 2020 19:31:47 +0000 (UTC)
+Received: by mail-ed1-x543.google.com with SMTP id bs17so11982701edb.1;
+ Tue, 04 Aug 2020 12:31:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=XvDU7ICblMvlU4iZYYabhFUIQmUPVsxNxDRb1FZXmmQ=;
- b=e+67uSIMTJb41hxcWS6ZQmz0qzGJN+L+0LjLuEvxDP1SR0HK+KVh6uL3ACN479ohD3
- DLaWjsW/mWVnl/3x1ojrBejYHb+DM/wjSxscTaohaLbeuJCKGccPBqiFa8g732pJRXUP
- 2KVSV9Z++b3X5HJPoDh6XVcCdEJjVDTWwCrdgDICS8KWTRU7O9tNn+K8roCzsUPmarEI
- oVFQSHvmt4HjwSni/SMqATRSdKoCyXEEu02bXcTrRo5SuSdGil4TT4HjFFoCewftRUi4
- 8KUaA8nTjECb2DfjErOR1OjXDtcFEdROjk2TbRGxLEPAR3yWHAvbDbQDlz1dbR2WFUw1
- sEVg==
+ :cc; bh=lPQhi2EGIWphqgXXS6/LgcuZPutzCILAsqJJu6qo/8w=;
+ b=b22tYC6z9W/pbIRO7pJWfs9ARLlciURv3Ksmck7YruC7f5u3NH1DKq5lVFgz/t3qqV
+ W/JlYe5Bl2+t9oCR8Sm1qfSKQzMujgg9Wg2C7ZkGJaLqh6A5jLqskKrWqViCYnmNo2L+
+ nv8/HgDn0+cqpExXpEniNbSJ6qBDHGZm0HQQZQT3fdWO9PhLxX8N/ASz+EutLp3lgAfl
+ ZaJExNIczPugzHIw3Mr9HKcuQzQduUi6thP4zEXv05vIbEYRCHykgfBC2e9kebRjQJfh
+ UtetO4nSPpY1RhZbbDpNiLPTTrmkAqr6t4wGjJV1NHzPoWjmNP1koKNIZD7ta2+c2X/X
+ ssQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=XvDU7ICblMvlU4iZYYabhFUIQmUPVsxNxDRb1FZXmmQ=;
- b=BzAVUZF+RrWFswiGSoAkYN+3Vlct+k7LRR4leQfhkAJThWF2A0DBGlloWXCRjQGvBx
- PRCd7Ynw1weSBVlb0ylCguXZ44Vw+0nXB2TnS16RoZa72b34qF+TuSU6RfoYlswVs+dA
- 1ahU1VkcEKpshjSfWuKTEo3jcucltne3e67i7ma/Wta83M3GRO6kF9QPBgq3zFYWnmdv
- H+fQj6aCU0Liypv20c7W2GgUBppjVOhNdSkacZBbANXFr7qx09mZpR2fINeBSIkuoJxY
- fbhVLWwL2sIbH2/gZrdKeVkjcRiCoqX3uwQ8tv4oEwB/a8MdEzkfRSLZNdgKaWRoR9zZ
- 4IrQ==
-X-Gm-Message-State: AOAM530DZI8kk7J8SfVcsllrjPw3uMNpQdcdgOWXmoiA7uS7WjG0d4lS
- 04BaoBfsu1PO4zOcHew83PqaT8LY+jxq7krhCCk=
-X-Google-Smtp-Source: ABdhPJyG/9OaPWsq91DUuGc0ZHEkp1Igwsy4OYzy799p9zWx9XbX3KeVYuueq33MKr+f5VDzCNWkOoFl7hDa0Dk2xRI=
-X-Received: by 2002:a17:906:f14f:: with SMTP id
- gw15mr21260603ejb.245.1596555789850; 
- Tue, 04 Aug 2020 08:43:09 -0700 (PDT)
+ bh=lPQhi2EGIWphqgXXS6/LgcuZPutzCILAsqJJu6qo/8w=;
+ b=jZDPsrxKkHHiT9em2WHqeFOAa8ufXW3r9tXOCjPb9EwRIxgca30BOWipl8pa73frSk
+ H9gptf23XimAalvqR0Hhgwsk6Ur8JBh503OEIyOv0M7Y0gPKQrY+T3emGm17oLkWJrUC
+ SQ/WAtiUypIPwpXaGbomMlQy5dhCMAMXP1pBJFjiSBKlCBClomR2tCpPl/653gMZ8jNG
+ hjEKOmNaqHQzoK/b1tZm4esjgoGy98VNrB+3yCUtmw8r9l9RPB4aflA5i/KFd6dvsbx6
+ Dj0b/vDInqR2MIcwSGpyMfEfvSILMFzJBUm3cRq06axoxL0E4qIv6p6a4Zsw83fIFNTi
+ KMZQ==
+X-Gm-Message-State: AOAM531gzegaqnnlBPqkP4u6OHIkgyjiRCsePPxN08NYnJnFDOtFw2pv
+ ZcSLTZw1Dzz/Fzp5cAASfanGa8j7pFBz0pUmy0Q=
+X-Google-Smtp-Source: ABdhPJyWzQIa1aqdPHfKxqQQpi7/uDtf+blsHcQxkD1HTdQTfhXqWmSKU5IaGYgFNsjgBZf8SpKdcLXhi7nHsJkqAV4=
+X-Received: by 2002:a50:fd16:: with SMTP id i22mr21981071eds.281.1596569505319; 
+ Tue, 04 Aug 2020 12:31:45 -0700 (PDT)
 MIME-Version: 1.0
-References: <1594899334-19772-1-git-send-email-kalyan_t@codeaurora.org>
- <1594899334-19772-2-git-send-email-kalyan_t@codeaurora.org>
-In-Reply-To: <1594899334-19772-2-git-send-email-kalyan_t@codeaurora.org>
+References: <1596540744-6902-1-git-send-email-kalyan_t@codeaurora.org>
+In-Reply-To: <1596540744-6902-1-git-send-email-kalyan_t@codeaurora.org>
 From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 4 Aug 2020 08:43:54 -0700
-Message-ID: <CAF6AEGu8GG4i1inhjQ11PDeUxEq=4E2ggVm6cL=AfNHbvNuh6w@mail.gmail.com>
+Date: Tue, 4 Aug 2020 12:32:29 -0700
+Message-ID: <CAF6AEGtpPU+ALcpQMuy-MpLF_ZwjD+k=aN7gkoBFjJPq1++9qQ@mail.gmail.com>
 To: Kalyan Thota <kalyan_t@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH 2/3] arm64: dts: sc7180: add bus clock to
- mdp node for sc7180 target
+Subject: Re: [Freedreno] [v1] drm/msm/dpu: update reservations in commit path
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,79 +60,108 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Krishna Manikandan <mkrishn@codeaurora.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Krishna Manikandan <mkrishn@codeaurora.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  Raviteja Tamatam <travitej@codeaurora.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  dri-devel <dri-devel@lists.freedesktop.org>,
  Douglas Anderson <dianders@chromium.org>, nganji@codeaurora.org,
- Sean Paul <seanpaul@chromium.org>,
+ Sean Paul <seanpaul@chromium.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Drew Davenport <ddavenport@chromium.org>,
  "Kristian H. Kristensen" <hoegsberg@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Jeykumar Sankaran <jsanka@codeaurora.org>
+ Stephen Boyd <swboyd@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jul 16, 2020 at 4:36 AM Kalyan Thota <kalyan_t@codeaurora.org> wrote:
+On Tue, Aug 4, 2020 at 4:32 AM Kalyan Thota <kalyan_t@codeaurora.org> wrote:
 >
-> From: Krishna Manikandan <mkrishn@codeaurora.org>
+> DPU resources reserved in the atomic_check path gets unwinded
+> during modeset operation before commit happens in a non seamless
+> transition.
 >
-> Move the bus clock to mdp device node,in order
-> to facilitate bus band width scaling on sc7180
-> target.
+> Update the reservations in the commit path to avoid resource
+> failures. Secondly have dummy reservations in atomic_check path
+> so that we can gracefully fail the composition if resources are
+> not available.
 >
-> The parent device MDSS will not vote for bus bw,
-> instead the vote will be triggered by mdp device
-> node. Since a minimum vote is required to turn
-> on bus clock, move the clock node to mdp device
-> from where the votes are requested.
->
-> This patch has dependency on the below series
-> https://patchwork.kernel.org/patch/11468783/
->
-> Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
-
-Reviewed-by: Rob Clark <robdclark@chromium.org>
-
+> Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
 > ---
->  arch/arm64/boot/dts/qcom/sc7180.dtsi | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 15 +++++++++++----
+>  1 file changed, 11 insertions(+), 4 deletions(-)
 >
-> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> index 4f2c0d1..31fed6d 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> @@ -1510,10 +1510,9 @@
->                         power-domains = <&dispcc MDSS_GDSC>;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 63976dc..c6b8254 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -565,7 +565,7 @@ static int dpu_encoder_virt_atomic_check(
+>         const struct drm_display_mode *mode;
+>         struct drm_display_mode *adj_mode;
+>         struct msm_display_topology topology;
+> -       struct dpu_global_state *global_state;
+> +       struct dpu_global_state tmp_resv_state;
+>         int i = 0;
+>         int ret = 0;
 >
->                         clocks = <&gcc GCC_DISP_AHB_CLK>,
-> -                                <&gcc GCC_DISP_HF_AXI_CLK>,
->                                  <&dispcc DISP_CC_MDSS_AHB_CLK>,
->                                  <&dispcc DISP_CC_MDSS_MDP_CLK>;
-> -                       clock-names = "iface", "bus", "ahb", "core";
-> +                       clock-names = "iface", "ahb", "core";
+> @@ -582,7 +582,7 @@ static int dpu_encoder_virt_atomic_check(
+>         dpu_kms = to_dpu_kms(priv->kms);
+>         mode = &crtc_state->mode;
+>         adj_mode = &crtc_state->adjusted_mode;
+> -       global_state = dpu_kms_get_existing_global_state(dpu_kms);
+> +       memset(&tmp_resv_state, 0, sizeof(tmp_resv_state));
+
+I think what you want to do is dpu_kms_get_global_state().. that will
+clone/duplicate the existing global state (or return the already
+duplicated global state if it is called multiple times).
+
+It is safe to modify this global state in the atomic_check() path.. in
+fact that is the intention.  For a TEST_ONLY atomic commit, or if any
+of the atomic_check()'s fail, this new duplicated global state is
+discarded.  If all the checks succeed and the atomic update is
+committed to hw, this new global state replaces the existing global
+state.
+
+BR,
+-R
+
+>         trace_dpu_enc_atomic_check(DRMID(drm_enc));
 >
->                         assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>;
->                         assigned-clock-rates = <300000000>;
-> @@ -1539,12 +1538,13 @@
->                                       <0 0x0aeb0000 0 0x2008>;
->                                 reg-names = "mdp", "vbif";
+>         /*
+> @@ -621,7 +621,7 @@ static int dpu_encoder_virt_atomic_check(
+>                  * info may not be available to complete reservation.
+>                  */
+>                 if (drm_atomic_crtc_needs_modeset(crtc_state)) {
+> -                       ret = dpu_rm_reserve(&dpu_kms->rm, global_state,
+> +                       ret = dpu_rm_reserve(&dpu_kms->rm, &tmp_resv_state,
+>                                         drm_enc, crtc_state, topology);
+>                 }
+>         }
+> @@ -966,7 +966,7 @@ static void dpu_encoder_virt_mode_set(struct drm_encoder *drm_enc,
+>         struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
+>         struct dpu_hw_blk *hw_dspp[MAX_CHANNELS_PER_ENC] = { NULL };
+>         int num_lm, num_ctl, num_pp, num_dspp;
+> -       int i, j;
+> +       int i, j, rc;
 >
-> -                               clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +                               clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
-> +                                        <&dispcc DISP_CC_MDSS_AHB_CLK>,
->                                          <&dispcc DISP_CC_MDSS_ROT_CLK>,
->                                          <&dispcc DISP_CC_MDSS_MDP_LUT_CLK>,
->                                          <&dispcc DISP_CC_MDSS_MDP_CLK>,
->                                          <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
-> -                               clock-names = "iface", "rot", "lut", "core",
-> +                               clock-names = "bus", "iface", "rot", "lut", "core",
->                                               "vsync";
->                                 assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>,
->                                                   <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
+>         if (!drm_enc) {
+>                 DPU_ERROR("invalid encoder\n");
+> @@ -1006,6 +1006,13 @@ static void dpu_encoder_virt_mode_set(struct drm_encoder *drm_enc,
+>
+>         topology = dpu_encoder_get_topology(dpu_enc, dpu_kms, adj_mode);
+>
+> +       rc = dpu_rm_reserve(&dpu_kms->rm, global_state, drm_enc,
+> +               drm_crtc->state, topology);
+> +       if (rc) {
+> +               DPU_ERROR_ENC(dpu_enc, "Failed to reserve resources\n");
+> +               return;
+> +       }
+> +
+>         /* Query resource that have been reserved in atomic check step. */
+>         num_pp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+>                 drm_enc->base.id, DPU_HW_BLK_PINGPONG, hw_pp,
 > --
 > 1.9.1
 >
