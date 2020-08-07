@@ -2,56 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02DD023DC08
-	for <lists+freedreno@lfdr.de>; Thu,  6 Aug 2020 18:44:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A718923E7A9
+	for <lists+freedreno@lfdr.de>; Fri,  7 Aug 2020 09:17:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96ED46E8DF;
-	Thu,  6 Aug 2020 16:44:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E6C56E96F;
+	Fri,  7 Aug 2020 07:17:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com
- [IPv6:2a00:1450:4864:20::544])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1397C6E8DF;
- Thu,  6 Aug 2020 16:44:45 +0000 (UTC)
-Received: by mail-ed1-x544.google.com with SMTP id v22so24848080edy.0;
- Thu, 06 Aug 2020 09:44:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=7j5tR0m8H3OjMJuPim98FwiN1aMkbIjxdxVhuyjo0Ew=;
- b=eoPd66cTTjH9l86GoO63fQ8X+ctw+Tj6hSPmE5nYp/Vdw7ql/bdp4r9RzKYlJMfuc6
- Uv8D1gdE4B+TP1mfI9optHvVmRoSLmApmaSXNVcECB65pZ8tz+2AyjO9ruPRFC25iy7P
- GUKejLwQ/2ZaTbOxLdkbRqTHAS7Pf8nC9vskid09nzG5twd6YAD24ztc9/h6xh5r/wS8
- IxPxwM73RIb7oiyYJwFcLdvxiVLKrNZLEgBmui6leAyfg2ByBszOKKDeCehFyiG9JPsm
- K4eQ1HVC6piC9IOLSV2KMGGIbEXbSenlSoNegi0W7skQxYA720JZqAWd99NG0vJG3oe2
- rXFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=7j5tR0m8H3OjMJuPim98FwiN1aMkbIjxdxVhuyjo0Ew=;
- b=IPBzKUp0PFOYdj8EhBWXNZLN2g0p09djuq43lvw7z4Fe32ekZR7mHspXwXHHhl706d
- khh7sTD5uTV+h/bE+/nkxnUTwJIoXTVqC8mBl6qAnFm2P27sJMGrIaHq4RkVZdwQtdgK
- JJ7oJRYCGXSnmP9totK/laqlTOUSNzzOudPjGlKUz+E+qLSxVF0BrsRAxae2pVP74aa6
- MVdn2e/KHSmc54cKDwxgRM2+L2vc4a7aajwkmiR1Pe78VkL98cQY3VHtH7qXw7oOoKcW
- An2O5qS3qgHMmlmy4EQTIy7sXoLGUSiyMbUF7cNz4S7TXgjtV3teJ+8CLrfPhOtoTC91
- rglA==
-X-Gm-Message-State: AOAM533qLz3+peTGU//FR3jVb3KfNyBZkVvxEHvIv3eFZXlrXvPkDLIr
- RyURCT60BIvaqnw8QmMKlKdOkeripkjNftYhfEY=
-X-Google-Smtp-Source: ABdhPJwR1WrcmmYyv3xVh2Lg73XDm1Qy31RKbQCdDoen+3KsX/nStphPf+QMMn9o4Ud82k5K1qcstkFDVwFQJCjr5Ao=
-X-Received: by 2002:a05:6402:a5b:: with SMTP id
- bt27mr5003305edb.120.1596732284503; 
- Thu, 06 Aug 2020 09:44:44 -0700 (PDT)
+Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
+ [104.130.122.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A87876E96D
+ for <freedreno@lists.freedesktop.org>; Fri,  7 Aug 2020 07:17:34 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1596784654; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=PsrmpV7aCgsjcTBiYds5TLUyqKco9jzw4xFDzUS1GsQ=;
+ b=ZmZ7B7JYactJRh0Xaf4Bmn1dt76w6Z73M8QvKvU0sqB77JWhy+xT/Spyy/ju/ug/Se5Vicw7
+ sLVvk+5LK4wn2V9DT7TR58d1mraps76/yKuhvWWdMxdERP0flyd3kGzYBdL0iL5DWeVL6acE
+ f7ehmkinlC2zGy7zKtXSFFrI/I8=
+X-Mailgun-Sending-Ip: 104.130.122.29
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n17.prod.us-east-1.postgun.com with SMTP id
+ 5f2d000dba4c2cd3672149ef (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 07 Aug 2020 07:17:33
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 95104C43391; Fri,  7 Aug 2020 07:17:32 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from linuxdisplay-lab-04.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: tanmay)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 83561C433C9;
+ Fri,  7 Aug 2020 07:17:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 83561C433C9
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=tanmay@codeaurora.org
+From: Tanmay Shah <tanmay@codeaurora.org>
+To: swboyd@chromium.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, robdclark@gmail.com
+Date: Fri,  7 Aug 2020 00:17:13 -0700
+Message-Id: <20200807071718.17937-1-tanmay@codeaurora.org>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-References: <1596634446-1413-1-git-send-email-kalyan_t@codeaurora.org>
- <CAF6AEGtWNDGDsUBVk-Ud5OpretHA4qKDKtE+3mS=C8DAa=+Heg@mail.gmail.com>
- <1101abba0c8082da196f36636ef07a84@codeaurora.org>
-In-Reply-To: <1101abba0c8082da196f36636ef07a84@codeaurora.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 6 Aug 2020 09:45:28 -0700
-Message-ID: <CAF6AEGu2Lfb94kjnd7+GU_c93z0Zw2SgQ==UcrjPg3Wah=24ng@mail.gmail.com>
-To: Kalyan Thota <kalyan_t@codeaurora.org>
-Subject: Re: [Freedreno] [v1] drm/msm/dpu: Fix reservation failures in
- modeset
+Subject: [Freedreno] [PATCH v9 0/5] Add support for DisplayPort driver on
+ SnapDragon
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,141 +68,162 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Krishna Manikandan <mkrishn@codeaurora.org>,
- Raviteja Tamatam <travitej@codeaurora.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Douglas Anderson <dianders@chromium.org>, nganji@codeaurora.org,
- Sean Paul <seanpaul@chromium.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
- Drew Davenport <ddavenport@chromium.org>,
- "Kristian H. Kristensen" <hoegsberg@chromium.org>,
- Stephen Boyd <swboyd@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: airlied@linux.ie, linux-kernel@vger.kernel.org, abhinavk@codeaurora.org,
+ khsieh@codeaurora.org, seanpaul@chromium.org,
+ Tanmay Shah <tanmay@codeaurora.org>, daniel@ffwll.ch, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Aug 6, 2020 at 7:46 AM <kalyan_t@codeaurora.org> wrote:
->
-> On 2020-08-05 21:18, Rob Clark wrote:
-> > On Wed, Aug 5, 2020 at 6:34 AM Kalyan Thota <kalyan_t@codeaurora.org>
-> > wrote:
-> >>
-> >> In TEST_ONLY commit, rm global_state will duplicate the
-> >> object and request for new reservations, once they pass
-> >> then the new state will be swapped with the old and will
-> >> be available for the Atomic Commit.
-> >>
-> >> This patch fixes some of missing links in the resource
-> >> reservation sequence mentioned above.
-> >>
-> >> 1) Creation of a duplicate state in test_only commit (Rob)
-> >> 2) Allow resource release only during crtc_active false.
-> >>
-> >> For #2
-> >> In a modeset operation, swap state happens well before disable.
-> >> Hence clearing reservations in disable will cause failures
-> >> in modeset enable.
-> >>
-> >> Sequence:
-> >>     Swap state --> old, new
-> >>     modeset disables --> virt disable
-> >>     modeset enable --> virt modeset
-> >>
-> >> Allow reservations to be cleared only when crtc active is false
-> >> as in that case there wont be any modeset enable after disable.
-> >>
-> >> Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
-> >> ---
-> >>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 7 +++++--
-> >>  1 file changed, 5 insertions(+), 2 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> >> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> >> index 63976dc..b85a576 100644
-> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> >> @@ -582,7 +582,7 @@ static int dpu_encoder_virt_atomic_check(
-> >>         dpu_kms = to_dpu_kms(priv->kms);
-> >>         mode = &crtc_state->mode;
-> >>         adj_mode = &crtc_state->adjusted_mode;
-> >> -       global_state = dpu_kms_get_existing_global_state(dpu_kms);
-> >> +       global_state = dpu_kms_get_global_state(crtc_state->state);
-> >>         trace_dpu_enc_atomic_check(DRMID(drm_enc));
-> >>
-> >>         /*
-> >> @@ -1172,6 +1172,7 @@ static void dpu_encoder_virt_disable(struct
-> >> drm_encoder *drm_enc)
-> >>         struct msm_drm_private *priv;
-> >>         struct dpu_kms *dpu_kms;
-> >>         struct dpu_global_state *global_state;
-> >> +       struct drm_crtc_state *crtc_state;
-> >>         int i = 0;
-> >>
-> >>         if (!drm_enc) {
-> >> @@ -1191,6 +1192,7 @@ static void dpu_encoder_virt_disable(struct
-> >> drm_encoder *drm_enc)
-> >>         priv = drm_enc->dev->dev_private;
-> >>         dpu_kms = to_dpu_kms(priv->kms);
-> >>         global_state = dpu_kms_get_existing_global_state(dpu_kms);
-> >> +       crtc_state = drm_enc->crtc->state;
-> >>
-> >>         trace_dpu_enc_disable(DRMID(drm_enc));
-> >>
-> >> @@ -1220,7 +1222,8 @@ static void dpu_encoder_virt_disable(struct
-> >> drm_encoder *drm_enc)
-> >>
-> >>         DPU_DEBUG_ENC(dpu_enc, "encoder disabled\n");
-> >>
-> >> -       dpu_rm_release(global_state, drm_enc);
-> >> +       if (crtc_state->active_changed && !crtc_state->active)
-> >> +               dpu_rm_release(global_state, drm_enc);
-> >
-> > I still think releasing the state in the atomic_commit() path is the
-> > wrong thing to do.  In the commit path, the various state objects
-> > should be immutable.. ie. in the atomic_test() path you derive the new
-> > hw state (including assignment/release of resources), and
-> > atomic_commit() is simply pushing the state down to the hw.
-> >
-> > Otherwise, this looks better than v1.
-> >
-> > BR,
-> > -R
-> >
-> okay. Should we avoid reservation all together if active=0 on that crtc
-> and trigger rm_release on the enc during atomic_check ?
-> how do you see the approach ?
+These patches add Display-Port driver on SnapDragon/msm hardware.
+This series also contains device-tree bindings for msm DP driver.
+It also contains Makefile and Kconfig changes to compile msm DP driver.
 
-Yeah, I suppose something like:
+The block diagram of DP driver is shown below:
 
-   if (drm_atomic_crtc_needs_modeset()) {
-      reserve()
-   } else if (active_changed && !active) {
-      release()
-   }
 
-I think it could happen (at least with atomic api) that you get a
-modeset without active_changed, so we might need to release() and then
-reserve() in that case?  (This is probably where starting to run more
-IGT tests would be useful)
+                 +-------------+
+                 |DRM FRAMEWORK|
+                 +------+------+
+                        |
+                   +----v----+
+                   | DP DRM  |
+                   +----+----+
+                        |
+                   +----v----+
+     +------------+|   DP    +----------++------+
+     +        +---+| DISPLAY |+---+      |      |
+     |        +    +-+-----+-+    |      |      |
+     |        |      |     |      |      |      |
+     |        |      |     |      |      |      |
+     |        |      |     |      |      |      |
+     v        v      v     v      v      v      v
+ +------+ +------+ +---+ +----+ +----+ +---+ +-----+
+ |  DP  | |  DP  | |DP | | DP | | DP | |DP | | DP  |
+ |PARSER| | HPD  | |AUX| |LINK| |CTRL| |PHY| |POWER|
+ +--+---+ +---+--+ +---+ +----+ +--+-+ +-+-+ +-----+
+    |                              |     |
+ +--v---+                         +v-----v+
+ |DEVICE|                         |  DP   |
+ | TREE |                         |CATALOG|
+ +------+                         +---+---+
+                                      |
+                                  +---v----+
+                                  |CTRL/PHY|
+                                  |   HW   |
+                                  +--------+
 
-BR,
--R
+Changes in v7:
 
-> -Kalyan
-> >>
-> >>         mutex_unlock(&dpu_enc->enc_lock);
-> >>  }
-> >> --
-> >> 1.9.1
-> >>
-> > _______________________________________________
-> > Freedreno mailing list
-> > Freedreno@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/freedreno
+- Modify cover letter description and fix title.
+- Introduce dp-controller.yaml for common bindings across SOC
+- Rename dp-sc7180.yaml to dp-controller-sc7180.yaml for SC7180 bindings
+- Rename compatible string to qcom,sc7180-dp
+- Add assigned-clocks and assigned-clock-parents properties in bindings
+- Remove redundant code from driver
+- Extend series to include HPD detection logic
+
+Changes in v8:
+
+- Add MDSS AHB clock in bindings 
+- Replace mode->vrefresh use with drm_mode_vrefresh API
+- Remove redundant aux config code from parser and aux module
+- Assign default max lanes if data-lanes property is not available
+- Fix use-after-free during DP driver remove
+- Unregister hardware clocks during driver cleanup
+
+Changes in v9:
+
+- Drop YAML bindings change from the series
+- Use assigne-clock-parents property and remove clk_set_parent use from code
+- Access register address space without name
+- Fix DP register dump utility
+- Disable DP clocks after vsync generated
+- Avoid 64-bit modulo operation
+- Drop any unused code and fix function proptotyes to avoid W=1 warnings
+- Drop DRM_MSM_DP_10NM_PLL config as only 10nm PLL is available
+
+Chandan Uddaraju (4):
+  dt-bindings: msm/dp: add bindings of DP/DP-PLL driver for Snapdragon
+  drm: add constant N value in helper file
+  drm/msm/dp: add displayPort driver support
+  drm/msm/dp: add support for DP PLL driver
+
+Jeykumar Sankaran (1):
+  drm/msm/dpu: add display port support in DPU
+
+Tanmay Shah (1):
+  drm/msm/dp: Add Display Port HPD feature
+
+ drivers/gpu/drm/i915/display/intel_display.c  |    2 +-
+ drivers/gpu/drm/msm/Kconfig                   |    9 +
+ drivers/gpu/drm/msm/Makefile                  |   14 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |   27 +-
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |    8 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   83 +-
+ drivers/gpu/drm/msm/dp/dp_aux.c               |  510 +++++
+ drivers/gpu/drm/msm/dp/dp_aux.h               |   29 +
+ drivers/gpu/drm/msm/dp/dp_catalog.c           | 1030 ++++++++++
+ drivers/gpu/drm/msm/dp/dp_catalog.h           |  104 +
+ drivers/gpu/drm/msm/dp/dp_ctrl.c              | 1693 +++++++++++++++++
+ drivers/gpu/drm/msm/dp/dp_ctrl.h              |   35 +
+ drivers/gpu/drm/msm/dp/dp_display.c           | 1017 ++++++++++
+ drivers/gpu/drm/msm/dp/dp_display.h           |   31 +
+ drivers/gpu/drm/msm/dp/dp_drm.c               |  168 ++
+ drivers/gpu/drm/msm/dp/dp_drm.h               |   18 +
+ drivers/gpu/drm/msm/dp/dp_hpd.c               |   69 +
+ drivers/gpu/drm/msm/dp/dp_hpd.h               |   79 +
+ drivers/gpu/drm/msm/dp/dp_link.c              | 1214 ++++++++++++
+ drivers/gpu/drm/msm/dp/dp_link.h              |  132 ++
+ drivers/gpu/drm/msm/dp/dp_panel.c             |  486 +++++
+ drivers/gpu/drm/msm/dp/dp_panel.h             |   95 +
+ drivers/gpu/drm/msm/dp/dp_parser.c            |  269 +++
+ drivers/gpu/drm/msm/dp/dp_parser.h            |  138 ++
+ drivers/gpu/drm/msm/dp/dp_pll.c               |   99 +
+ drivers/gpu/drm/msm/dp/dp_pll.h               |   61 +
+ drivers/gpu/drm/msm/dp/dp_pll_10nm.c          |  917 +++++++++
+ drivers/gpu/drm/msm/dp/dp_pll_private.h       |   98 +
+ drivers/gpu/drm/msm/dp/dp_power.c             |  373 ++++
+ drivers/gpu/drm/msm/dp/dp_power.h             |  103 +
+ drivers/gpu/drm/msm/dp/dp_reg.h               |  517 +++++
+ drivers/gpu/drm/msm/msm_drv.c                 |    2 +
+ drivers/gpu/drm/msm/msm_drv.h                 |   59 +-
+ include/drm/drm_dp_helper.h                   |    1 +
+ 34 files changed, 9471 insertions(+), 19 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_aux.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_aux.h
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_catalog.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_catalog.h
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_ctrl.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_ctrl.h
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_display.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_display.h
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_drm.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_drm.h
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_hpd.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_hpd.h
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_link.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_link.h
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_panel.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_panel.h
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_parser.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_parser.h
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_pll.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_pll.h
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_pll_10nm.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_pll_private.h
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_power.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_power.h
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_reg.h
+
+
+base-commit: 418eda8f3fe292782c150266d693d55d284c0c98
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
