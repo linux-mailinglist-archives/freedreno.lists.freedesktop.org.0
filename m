@@ -1,47 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A6CE23F3C4
-	for <lists+freedreno@lfdr.de>; Fri,  7 Aug 2020 22:28:51 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2960B23F488
+	for <lists+freedreno@lfdr.de>; Fri,  7 Aug 2020 23:45:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F3C56EA2A;
-	Fri,  7 Aug 2020 20:28:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCA0A6E0A1;
+	Fri,  7 Aug 2020 21:45:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 519406EA29;
- Fri,  7 Aug 2020 20:28:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
- :Reply-To:Content-ID:Content-Description;
- bh=xRUD55pKuLg6gojA/cds2ffAUN36ReNagtqRG0GQuOQ=; b=eMECZogztFAvPBcu91JBf/wLGM
- k1ceU0vlipiSyF/G/oMzLceUJUkmnts30fR0q2pmDv82h1fK80oSlFWBy8h78KX7AiVirD+JYaJxy
- tXpFbNVVNfKY4cuNjqdQBKxlNJ5k7EfvRwx5DrJOSYcQB1lY0LQsWjpTvI0R9nyB2LyNsR6CeJe8R
- zGc5QI7AEsgMCNtqPdk4LZ28D+nZnjXA+qImpWBbKE1C1AMO6wG5mShWIw8NjQJvFKBbkygQBr/Qh
- HrP6IkmCYd6dCSvDooYUEj2SzoS3QhuYD4ld+Mzq8LJd2BKL1LvTwVvph76zE+uCdeKXqjNqslrtl
- iOfpdiUw==;
-Received: from [2601:1c0:6280:3f0:897c:6038:c71d:ecac]
- by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1k48yo-0004Yn-VD; Fri, 07 Aug 2020 20:28:43 +0000
-To: Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>
-References: <20200807071718.17937-1-tanmay@codeaurora.org>
- <20200807071718.17937-4-tanmay@codeaurora.org>
- <3b0d0e49-5fe8-e217-4ddc-1ff08e65ab48@infradead.org>
- <CAF6AEGv5Yf1x7aCEauP7XtzTjpUCxJt6_GzxFhFXyf_DX_Gi+g@mail.gmail.com>
- <159683184187.1360974.15575847254880429529@swboyd.mtv.corp.google.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <75acac5a-b4a5-9c5a-4404-fb936d738e46@infradead.org>
-Date: Fri, 7 Aug 2020 13:28:38 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F46C6E0A1;
+ Fri,  7 Aug 2020 21:45:37 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id f18so9475057wmc.0;
+ Fri, 07 Aug 2020 14:45:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=gSc3WQ+g0bVD00tftXx475OyaG+MO1Rw6PTdZ2MSKss=;
+ b=FEWJCMbk5AFlc069+ExQrG8l1jxFukCak7ElgUpHyVLEw4kEH+1RKYn1OWWQK8Qw52
+ Po3jwqb82+6HPsar2ubPm31bJncsy2zL2b00voh4MH1vE/yvAgEq9e3Ufv3R1WvWYlix
+ Bt3jVZv8bX4VyG1h5KsMQxWXA5ajVDr2jI5n1vh2bTv4BRMABmF734swqLcdKPJp1ygD
+ lEk47KyeYAKELUw3eedqJnGRv0e/COTOACxJe/WII23QQWz8FY3c0evz9h1w6E1NgDmT
+ oP62EAOgAaDCcpZgShRFAE+1Mnk39WobaNjkw1GnOVPgrRyWKX9KTzz3/T5AzfjT439t
+ nStg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=gSc3WQ+g0bVD00tftXx475OyaG+MO1Rw6PTdZ2MSKss=;
+ b=Qi3uEtR2V2ymWeTjYCvOyysYe47/4vuq1cqB7RSg+lBmRQuuSZRbnq5Pu6uRJFNaMO
+ yyUQqq30oOE1OHAD6pwzbEakaA6MPIyKQqMON0aZXDUeZlYcEpc2Fl+I/HkYtlB/iJf3
+ /2aIBvGt//u1f+CowuUqs7KrX8nfMeAg40e8I96KA1bMPiDG2lk7/kc24kojfKap6xLM
+ 0NWQx7Yrr+vrzJ34n1kWUUlzBYaT89KrBvZIDFmoyJP1abgTn7NrEdICy9zlGXSi6eOm
+ sjk0qifyxSS7F5cn07j+DpbEj21fRLW8t+/Z6wdPewmHAEPKr+1kI+o7Ad6FPU5ffbMe
+ twOA==
+X-Gm-Message-State: AOAM533uApB/XZ0JLxhb2J/kh3C2Tf/SlhH99CEEZUu18RXh1nyloqmC
+ IUbeRZrDhEZcipAPgHrU14BCi3OITySNn3GiDDg=
+X-Google-Smtp-Source: ABdhPJzkWuT3I3RweXfRYj4H3ZeNNpnhnAHZolkWqzpzdvL94gruFh4MON21DFocNq4h4AaLmbesJ5AsfYYMHDlXDAM=
+X-Received: by 2002:a7b:c257:: with SMTP id b23mr13997836wmj.164.1596836736069; 
+ Fri, 07 Aug 2020 14:45:36 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <159683184187.1360974.15575847254880429529@swboyd.mtv.corp.google.com>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH v9 3/5] drm/msm/dp: add support for DP PLL
- driver
+References: <1596805767-29339-1-git-send-email-kalyan_t@codeaurora.org>
+In-Reply-To: <1596805767-29339-1-git-send-email-kalyan_t@codeaurora.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 7 Aug 2020 14:46:20 -0700
+Message-ID: <CAF6AEGtY8xdy=KoJVWr1hMOdduv5b0EwENL1Txcs7R_2AFEK3Q@mail.gmail.com>
+To: Kalyan Thota <kalyan_t@codeaurora.org>
+Subject: Re: [Freedreno] [v2] drm/msm/dpu: Fix reservation failures in
+ modeset
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,60 +61,128 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Krishna Manikandan <mkrishn@codeaurora.org>,
+ Stephen Boyd <sboyd@kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Raviteja Tamatam <travitej@codeaurora.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, khsieh@codeaurora.org,
- Sean Paul <seanpaul@chromium.org>, Tanmay Shah <tanmay@codeaurora.org>,
- Daniel Vetter <daniel@ffwll.ch>, Vara Reddy <varar@codeaurora.org>,
- aravindh@codeaurora.org, freedreno <freedreno@lists.freedesktop.org>,
- Chandan Uddaraju <chandanu@codeaurora.org>
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Douglas Anderson <dianders@chromium.org>, nganji@codeaurora.org,
+ Sean Paul <seanpaul@chromium.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Drew Davenport <ddavenport@chromium.org>,
+ "Kristian H. Kristensen" <hoegsberg@chromium.org>,
+ Stephen Boyd <swboyd@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 8/7/20 1:24 PM, Stephen Boyd wrote:
-> Quoting Rob Clark (2020-08-07 08:51:48)
->> On Fri, Aug 7, 2020 at 8:27 AM Randy Dunlap <rdunlap@infradead.org> wrote:
->>>
->>> On 8/7/20 12:17 AM, Tanmay Shah wrote:
->>>> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
->>>> index ea3c4d094d09..cc1392b29022 100644
->>>> --- a/drivers/gpu/drm/msm/Kconfig
->>>> +++ b/drivers/gpu/drm/msm/Kconfig
->>>> @@ -60,6 +60,7 @@ config DRM_MSM_HDMI_HDCP
->>>>  config DRM_MSM_DP
->>>>       bool "Enable DP support in MSM DRM driver"
->>>>       depends on DRM_MSM
->>>> +     default y
->>>>       help
->>>>         Compile in support for DP driver in msm drm driver. DP external
->>>>         display support is enabled through this config option. It can
->>>
->>> Hi,
->>>
->>> You need a very strong justification to make an optional part of a driver
->>> to be "default y".
->>
->> My opinion is that if the driver is built, everything should be built.
->> This is what makes sense for distro's.  It is only the embedded case
->> where you want to trim down unneeded features where you might want to
->> disable some parts.  So 'default y' makes sense to me.
+On Fri, Aug 7, 2020 at 6:10 AM Kalyan Thota <kalyan_t@codeaurora.org> wrote:
+>
+> In TEST_ONLY commit, rm global_state will duplicate the
+> object and request for new reservations, once they pass
+> then the new state will be swapped with the old and will
+> be available for the Atomic Commit.
+>
+> This patch fixes some of missing links in the resource
+> reservation sequence mentioned above.
+>
+> 1) Creation of duplicate state in test_only commit (Rob)
+> 2) Allocate and release the resources on every modeset.
+> 3) Avoid allocation only when active is false.
+>
+> In a modeset operation, swap state happens well before
+> disable. Hence clearing reservations in disable will
+> cause failures in modeset enable.
+>
+> Allow reservations to be cleared/allocated before swap,
+> such that only newly committed resources are pushed to HW.
+>
+> Changes in v1:
+>  - Move the rm release to atomic_check.
+>  - Ensure resource allocation and free happens when active
+>    is not changed i.e only when mode is changed.(Rob)
+>
+> Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 17 ++++++++---------
+>  1 file changed, 8 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 63976dc..50a98d1 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -582,7 +582,7 @@ static int dpu_encoder_virt_atomic_check(
+>         dpu_kms = to_dpu_kms(priv->kms);
+>         mode = &crtc_state->mode;
+>         adj_mode = &crtc_state->adjusted_mode;
+> -       global_state = dpu_kms_get_existing_global_state(dpu_kms);
+> +       global_state = dpu_kms_get_global_state(crtc_state->state);
 
-We don't set defaults for distro convenience.
+sboyd noticed with lock debug enabled, that you are missing:
 
-> 
-> Maybe use 'default DRM_MSM' so that it doesn't trigger the 'default y'
-> filters people have?
+   if (IS_ERR(global_state))
+     return PTR_ERR(global_state);
 
-Most people can figure that one out.  ;)
-I don't have any automated filters.
+since drm_modeset_lock() can fail (and if you have
+CONFIG_DEBUG_WW_MUTEX_SLOWPATH enabled, it frequently does return
+-EDEADLK, to test the backoff path)
 
--- 
-~Randy
+BR,
+-R
 
+>         trace_dpu_enc_atomic_check(DRMID(drm_enc));
+>
+>         /*
+> @@ -617,12 +617,15 @@ static int dpu_encoder_virt_atomic_check(
+>         /* Reserve dynamic resources now. */
+>         if (!ret) {
+>                 /*
+> -                * Avoid reserving resources when mode set is pending. Topology
+> -                * info may not be available to complete reservation.
+> +                * Release and Allocate resources on every modeset
+> +                * Dont allocate when active is false.
+>                  */
+>                 if (drm_atomic_crtc_needs_modeset(crtc_state)) {
+> -                       ret = dpu_rm_reserve(&dpu_kms->rm, global_state,
+> -                                       drm_enc, crtc_state, topology);
+> +                       dpu_rm_release(global_state, drm_enc);
+> +
+> +                       if (!crtc_state->active_changed || crtc_state->active)
+> +                               ret = dpu_rm_reserve(&dpu_kms->rm, global_state,
+> +                                               drm_enc, crtc_state, topology);
+>                 }
+>         }
+>
+> @@ -1171,7 +1174,6 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
+>         struct dpu_encoder_virt *dpu_enc = NULL;
+>         struct msm_drm_private *priv;
+>         struct dpu_kms *dpu_kms;
+> -       struct dpu_global_state *global_state;
+>         int i = 0;
+>
+>         if (!drm_enc) {
+> @@ -1190,7 +1192,6 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
+>
+>         priv = drm_enc->dev->dev_private;
+>         dpu_kms = to_dpu_kms(priv->kms);
+> -       global_state = dpu_kms_get_existing_global_state(dpu_kms);
+>
+>         trace_dpu_enc_disable(DRMID(drm_enc));
+>
+> @@ -1220,8 +1221,6 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
+>
+>         DPU_DEBUG_ENC(dpu_enc, "encoder disabled\n");
+>
+> -       dpu_rm_release(global_state, drm_enc);
+> -
+>         mutex_unlock(&dpu_enc->enc_lock);
+>  }
+>
+> --
+> 1.9.1
+>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
