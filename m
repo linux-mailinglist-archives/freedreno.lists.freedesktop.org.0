@@ -1,44 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E0B323F0E2
-	for <lists+freedreno@lfdr.de>; Fri,  7 Aug 2020 18:21:42 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 456E923F222
+	for <lists+freedreno@lfdr.de>; Fri,  7 Aug 2020 19:46:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 522F66E139;
-	Fri,  7 Aug 2020 16:21:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEE436E17F;
+	Fri,  7 Aug 2020 17:46:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D8C76E139;
- Fri,  7 Aug 2020 16:21:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
- :Reply-To:Content-ID:Content-Description;
- bh=S8JHbHVUKOnsDJ6vyDw0HBSI86uZiFi5itw14Bq3gQU=; b=jOD2ZI+n0+FgJNGycqX64zKdGD
- 4/o/iIp+buCL8ZsTq/dYT8ZX74PeRaHP6hBP81XbZUifMux8OnSCQfaQVrm39N5NQrK6yZwlMxBCg
- NVr0dwLLvZmb5NBI4j+0nMIPLKe5ZCSs/8iOWOj/HqN3ssOP9EimnDK0TI6TxKJJ4izGK92drhUF2
- Ym5tlRsy9nNUxy56Zhg3vFijErdRX9ObeRw2KSOEZYdBMTg9JMugJXgmnnQ6SiCc5Jp6Feb8ICndg
- JaTSsg2+dw7MzWTiI1Zivi2/El06E6dbX9ZiDkbTp7C4DYk6/MUYyYgJs2gWzqUjB+NuCqc5E5p5i
- +7tqXNDw==;
-Received: from [2601:1c0:6280:3f0:897c:6038:c71d:ecac]
- by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1k457g-0002hE-0j; Fri, 07 Aug 2020 16:21:36 +0000
-To: Guenter Roeck <groeck@google.com>
+Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com
+ [IPv6:2a00:1450:4864:20::642])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B16F6EA22
+ for <freedreno@lists.freedesktop.org>; Fri,  7 Aug 2020 16:10:02 +0000 (UTC)
+Received: by mail-ej1-x642.google.com with SMTP id l4so2596979ejd.13
+ for <freedreno@lists.freedesktop.org>; Fri, 07 Aug 2020 09:10:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=e0+XcafvkYqFAISI9FsWYXqr0NzOr+9r9ZHvTjYtkXc=;
+ b=SSP5OEKD8fj8yOVmeHuyAsd7v5SDawwciuLl0spQMxOn1ma+BoYKRaRpEMNGoBSqCw
+ wHu499nyL9wVoU/h6acqvIropQ032VOLjJRuhf/0UGaesQO6e5UPVCy8fIN9e7J1BQHT
+ yrH8BaIB+7/l2ZAnparNyoAIh2P1OrkzU+y5DXex7BxCn3s6Oe6WbRxPQIJMyHZUOxc7
+ ZPPCNI6uYEhToABA87QGOi9nWIFXJ6cTXz9p4htArMo5RwDdkuJ+xkbfuZbrhVS7BMRa
+ q4Lqlv6/40JS7T0d3rmheoRNp0NkEQSID42YY31Mv5Bx5IeDSetS5HCVwikDMePvA4js
+ w2Tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=e0+XcafvkYqFAISI9FsWYXqr0NzOr+9r9ZHvTjYtkXc=;
+ b=qTES2W/Agc9Bd+00hluY/am/Vq5pt2EuULMlRzvI4ewl3gT0Ftl7vvFREL2xHuTT88
+ TBrOtvGzNdWedo2UozWwE7SLnOTneZTVoqeDep65ikpSDsE4t43TlDsQi+Aj4/P/zNWm
+ 6LtJiBK4MVyjewjya/53/QypTq+C4B6hgUom2XZDO3muZW+H/sZTK6pKjZAIrjwHXmmy
+ szVvA9WQYoU3lO86UruXCSkxcF/F9hIBeOkgeyFeLUZXgZ45Z0w3dAjdsS87nQNOG0lU
+ 1478JiYa6R3/kooeLI1yw8PAdyYsegPlbb3UKbmlyTpnOVFmexev+H/cIPd3KfpOwivu
+ aDRA==
+X-Gm-Message-State: AOAM5301uU+zYPnN+wqyvbjIcHdOLJcGBS79GUx7MdQVM5IpPHVQatCG
+ xJbVgrdyhvRU/OPX8OTuGkKl3JIY+eqVQsWXR7JY3w==
+X-Google-Smtp-Source: ABdhPJzdcRdTkOs+1G2pCdfkm+OyrYACJDw4v+tP3FYbX5unsdmggkgMqGmRVjVfrIDE5rOzWCzhoWk91aR3GjYmu9g=
+X-Received: by 2002:a17:906:e87:: with SMTP id
+ p7mr9829318ejf.547.1596816600939; 
+ Fri, 07 Aug 2020 09:10:00 -0700 (PDT)
+MIME-Version: 1.0
 References: <20200807071718.17937-1-tanmay@codeaurora.org>
  <20200807071718.17937-3-tanmay@codeaurora.org>
  <b0e8415f-53e6-575d-5774-5f4f7adca982@infradead.org>
- <CABXOdTf6be2-O_aBakamNFswt+Xk0urJ7_x9hgwuuFO6=NDeew@mail.gmail.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <ab0a3659-b4c4-e7a9-f010-9ace4dae84a7@infradead.org>
-Date: Fri, 7 Aug 2020 09:21:31 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <CABXOdTf6be2-O_aBakamNFswt+Xk0urJ7_x9hgwuuFO6=NDeew@mail.gmail.com>
-Content-Language: en-US
+In-Reply-To: <b0e8415f-53e6-575d-5774-5f4f7adca982@infradead.org>
+From: Guenter Roeck <groeck@google.com>
+Date: Fri, 7 Aug 2020 09:09:50 -0700
+Message-ID: <CABXOdTf6be2-O_aBakamNFswt+Xk0urJ7_x9hgwuuFO6=NDeew@mail.gmail.com>
+To: Randy Dunlap <rdunlap@infradead.org>
+X-Mailman-Approved-At: Fri, 07 Aug 2020 17:46:43 +0000
 Subject: Re: [Freedreno] [PATCH v9 2/5] drm/msm/dp: add displayPort driver
  support
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -67,51 +79,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 8/7/20 9:09 AM, Guenter Roeck wrote:
-> On Fri, Aug 7, 2020 at 8:37 AM Randy Dunlap <rdunlap@infradead.org> wrote:
->>
->> On 8/7/20 12:17 AM, Tanmay Shah wrote:
->>> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
->>> index 6deaa7d01654..ea3c4d094d09 100644
->>> --- a/drivers/gpu/drm/msm/Kconfig
->>> +++ b/drivers/gpu/drm/msm/Kconfig
->>> @@ -57,6 +57,14 @@ config DRM_MSM_HDMI_HDCP
->>>       help
->>>         Choose this option to enable HDCP state machine
->>>
->>> +config DRM_MSM_DP
->>> +     bool "Enable DP support in MSM DRM driver"
->>
->>         bool "Enabled DisplayPort support in MSM DRM driver"
->>
-> Why "Enabled" ? This would be quite unusual for a Kconfig entry.
+On Fri, Aug 7, 2020 at 8:37 AM Randy Dunlap <rdunlap@infradead.org> wrote:
+>
+> On 8/7/20 12:17 AM, Tanmay Shah wrote:
+> > diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
+> > index 6deaa7d01654..ea3c4d094d09 100644
+> > --- a/drivers/gpu/drm/msm/Kconfig
+> > +++ b/drivers/gpu/drm/msm/Kconfig
+> > @@ -57,6 +57,14 @@ config DRM_MSM_HDMI_HDCP
+> >       help
+> >         Choose this option to enable HDCP state machine
+> >
+> > +config DRM_MSM_DP
+> > +     bool "Enable DP support in MSM DRM driver"
+>
+>         bool "Enabled DisplayPort support in MSM DRM driver"
+>
+Why "Enabled" ? This would be quite unusual for a Kconfig entry.
 
-Sorry, my typo.
-Just "Enable", like it was earlier.
+Guenter
 
-> Guenter
-> 
->>> +     depends on DRM_MSM
->>> +     help
->>> +       Compile in support for DP driver in msm drm driver. DP external
->>
->>                                               MSM DRM
->>
->> Also:
->> I can't find anywhere in drivers/gpu/drm/msm/ that explains what MSM means.
->> What does it mean?
->>
->>> +       display support is enabled through this config option. It can
->>> +       be primary or secondary display on device.
->>> +
->>>  config DRM_MSM_DSI
->>>       bool "Enable DSI support in MSM DRM driver"
->>>       depends on DRM_MSM
-
-
--- 
-~Randy
-
+> > +     depends on DRM_MSM
+> > +     help
+> > +       Compile in support for DP driver in msm drm driver. DP external
+>
+>                                               MSM DRM
+>
+> Also:
+> I can't find anywhere in drivers/gpu/drm/msm/ that explains what MSM means.
+> What does it mean?
+>
+> > +       display support is enabled through this config option. It can
+> > +       be primary or secondary display on device.
+> > +
+> >  config DRM_MSM_DSI
+> >       bool "Enable DSI support in MSM DRM driver"
+> >       depends on DRM_MSM
+>
+> thanks.
+> --
+> ~Randy
+>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
