@@ -2,58 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F8AB23F221
-	for <lists+freedreno@lfdr.de>; Fri,  7 Aug 2020 19:46:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 545E123F2D1
+	for <lists+freedreno@lfdr.de>; Fri,  7 Aug 2020 20:35:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A9F16E17D;
-	Fri,  7 Aug 2020 17:46:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00A5C6E1A4;
+	Fri,  7 Aug 2020 18:35:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com
- [IPv6:2a00:1450:4864:20::641])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D99696EA1F
- for <freedreno@lists.freedesktop.org>; Fri,  7 Aug 2020 16:11:44 +0000 (UTC)
-Received: by mail-ej1-x641.google.com with SMTP id m19so2625371ejd.8
- for <freedreno@lists.freedesktop.org>; Fri, 07 Aug 2020 09:11:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C41C96E1A4;
+ Fri,  7 Aug 2020 18:35:11 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id r2so2531658wrs.8;
+ Fri, 07 Aug 2020 11:35:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=y9D1KRUva+vEZ2yw/RUAbLSmKMRhybgAq31n6MCUn2w=;
- b=h8dgkoz8y/OiP85im29r03TQUoi5ZKfJewD54te1FYPtv/KEpTqZ+Da+Zaa0mlPEzE
- csDJUwYUPnrshDjQ6xV40Ux3iDsSemGp/pg5DQtAWRaB1aGrbcaG9gUW+rtMRRyLTgQ1
- ncC2qUcZI2kRdy542DbHxGfUEqUYiTPyZUafAliFIznk/rTpMgi5ASJ+4ySkCniKIYMH
- NT/hAK1qje2Ml/rNoKixLn77hnR0JvTBdLS+KtPpJPZMdhr7cQOtZqWHfQgUL/vZkkk7
- E9brMTW0uk6z/ioIWdFAof0g60jFqE3pnegpob1E+DCmYgk2LVRWhJjiwf5Qz2gjAWiK
- Gb+g==
+ :cc; bh=/7v8tLZPCG6zEGppTbnr/mOQh18VtmETDIdiYaSnWP4=;
+ b=GMJYlwU4paaFWGfBg5xc4htfZR0j3RuMsCImhjl4L0pS49fbajy9/llOEcQPxIxo18
+ n8/esKaUsGlne0LZD6w7qqCfWlu03X/IHF1k96AixDQWmOr/jQbLD5UrJynNahS2DIX9
+ tlj4B3h3SWY1DYgts730/6n14UBICFltHEZtiDrQjxH2A2e7kknkTnifSy7J/v3mnQx3
+ nI8DtzTkgg1unTBk4BxO03qkbh5jwkaFinosFuMU5OTPjl0js8pCDowp/qlzUKcz+G0q
+ +0VvuE6uhB1fIxEd99TfFEoXkarY3kYDE+DX8gZZdi/tmugVHd/V2dwX3rViqBMyHLM/
+ /sxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=y9D1KRUva+vEZ2yw/RUAbLSmKMRhybgAq31n6MCUn2w=;
- b=lNiEUltj8tXwuqmszniWzG7tFKtFtHcWNh21JzklG0dMCNEqRcq3U8lOYgGCPlTXWH
- 2AqV5jJsb0JsOf/dVbV5Bgs4MI/O5RV2MpaWIxwC92x5b61ZMK7Zcp5daGTPh34/DXWI
- VzGzuOdRygoCyVF0ouB7OxT8Qm3bTvFzhhrYTUHqrXwb+uGzf2oA+tjDKs+K4JefTEnE
- CaovgLvQD02hq7ujMrW+dbMKSHzAD9dPpM6y38a7rZ1lQKVzFKrRtQBiC2GmEuTakCyN
- bFZhoYY1kOuYI/NXJvDbUchQuNwohNffJ9JJEgF5RB1XE2f2y2byNzyv09rjgr4ZkYCd
- CdWg==
-X-Gm-Message-State: AOAM530VHtRNK+mos1NaUWvy/xAjoePbUGdjO1KK7+gDbxI3c5MXYvxR
- D7K6JapVAJrFrbrCGtdqJPpWMMT+8HQCbCvj2BbWRA==
-X-Google-Smtp-Source: ABdhPJyrYrsX5pEESa8H+K7koPpEjRogCNgaqAF5EHjcrBUY1fHtp+5JeCDPHY/P9J9KeauYe50jhbLLuLbLdMYGuqM=
-X-Received: by 2002:a17:906:9399:: with SMTP id
- l25mr9939694ejx.212.1596816703233; 
- Fri, 07 Aug 2020 09:11:43 -0700 (PDT)
+ bh=/7v8tLZPCG6zEGppTbnr/mOQh18VtmETDIdiYaSnWP4=;
+ b=SUQ6QQTeDLvZ/b30E/7HMlMpuE3bOrPTGHejARPcs5KDZgsAb+MDxXGUw11fx9zK6C
+ XA2YThbkButCV5rE+7L1bumjiop0XS3ttPutRCS7mE9Bu9Wu8qKHyFQf/P4VhxH6EKdg
+ l5hmalr5zmrjtYAK/O1gZk2jGtzyymSgV+fC3Y4bhvUivfenb/BLWHU9ayvbedEiuosG
+ tWADkAMZV9wRg5+3gZa/zerPIRPN0IhQLQ9/rwd8T2MGRhI05d7yEZUe31IOYV+n6TfF
+ dGDKOi98Ne3QYgNV4vvOhtEKQCAt/BrCi+avkx8tVYM4021gYtBX6GCqX61zkQKwVvrf
+ tC5w==
+X-Gm-Message-State: AOAM532KsdUTCfNkouYS6SYww7XphSBzosdwSZAZqJP5/QxmpOpYo2eC
+ SHMb7oDm9V6QkQis0v1JZJciAXn8YUNZatQTzRY=
+X-Google-Smtp-Source: ABdhPJxiSl+Xf4ZOjRL9fxYlXlSSB7aIXCHCh2kclUFefC9ORTjb2cvzLFJYlbiCHFrVGJM4zmJKVF4OaMQY4g0/yVM=
+X-Received: by 2002:adf:ec04:: with SMTP id x4mr12529322wrn.28.1596825310354; 
+ Fri, 07 Aug 2020 11:35:10 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200807071718.17937-1-tanmay@codeaurora.org>
- <20200807071718.17937-3-tanmay@codeaurora.org>
- <b0e8415f-53e6-575d-5774-5f4f7adca982@infradead.org>
- <CAF6AEGvLrR2LPTF2DDEcxRwQY+pEEcooZh=NBSr5WOs+TUk0Dw@mail.gmail.com>
-In-Reply-To: <CAF6AEGvLrR2LPTF2DDEcxRwQY+pEEcooZh=NBSr5WOs+TUk0Dw@mail.gmail.com>
-From: Guenter Roeck <groeck@google.com>
-Date: Fri, 7 Aug 2020 09:11:32 -0700
-Message-ID: <CABXOdTeYOVWKNWfJxxVDC6Mdu1aisCs6yDCAdxRQGuUp8r2EQA@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-X-Mailman-Approved-At: Fri, 07 Aug 2020 17:46:43 +0000
-Subject: Re: [Freedreno] [PATCH v9 2/5] drm/msm/dp: add displayPort driver
- support
+References: <cover.1596523009.git.saiprakash.ranjan@codeaurora.org>
+In-Reply-To: <cover.1596523009.git.saiprakash.ranjan@codeaurora.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 7 Aug 2020 11:35:54 -0700
+Message-ID: <CAF6AEGv3drZA64mRLxqwJ5nW597=GRV80GM6k7vLO306nytDkg@mail.gmail.com>
+To: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH 0/2] Remove unused downstream bus scaling
+ apis
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,74 +61,47 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ Sam Ravnborg <sam@ravnborg.org>, David Airlie <airlied@linux.ie>,
  linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Randy Dunlap <rdunlap@infradead.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, khsieh@codeaurora.org,
- Sean Paul <seanpaul@chromium.org>, Tanmay Shah <tanmay@codeaurora.org>,
- Daniel Vetter <daniel@ffwll.ch>, Guenter Roeck <groeck@chromium.org>,
- Vara Reddy <varar@codeaurora.org>, aravindh@codeaurora.org,
- freedreno <freedreno@lists.freedesktop.org>,
- Chandan Uddaraju <chandanu@codeaurora.org>
+ Jordan Crouse <jcrouse@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Aug 7, 2020 at 8:48 AM Rob Clark <robdclark@gmail.com> wrote:
+On Mon, Aug 3, 2020 at 11:45 PM Sai Prakash Ranjan
+<saiprakash.ranjan@codeaurora.org> wrote:
 >
-> On Fri, Aug 7, 2020 at 8:37 AM Randy Dunlap <rdunlap@infradead.org> wrote:
-> >
-> > On 8/7/20 12:17 AM, Tanmay Shah wrote:
-> > > diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
-> > > index 6deaa7d01654..ea3c4d094d09 100644
-> > > --- a/drivers/gpu/drm/msm/Kconfig
-> > > +++ b/drivers/gpu/drm/msm/Kconfig
-> > > @@ -57,6 +57,14 @@ config DRM_MSM_HDMI_HDCP
-> > >       help
-> > >         Choose this option to enable HDCP state machine
-> > >
-> > > +config DRM_MSM_DP
-> > > +     bool "Enable DP support in MSM DRM driver"
-> >
-> >         bool "Enabled DisplayPort support in MSM DRM driver"
-> >
-> > > +     depends on DRM_MSM
-> > > +     help
-> > > +       Compile in support for DP driver in msm drm driver. DP external
-> >
-> >                                               MSM DRM
-> >
-> > Also:
-> > I can't find anywhere in drivers/gpu/drm/msm/ that explains what MSM means.
-> > What does it mean?
->
-> I believe it stands for "Mobile Station Modem".. in the pre-devicetree
-> days it was the name of the qcom platform.  Things later shifted to
-> "qcom" instead, but that was after this driver was merged.  At this
-> point it is just three letters ;-)
+> MSM bus scaling has moved on to use interconnect framework
+> and downstream bus scaling apis are not present anymore.
+> Remove them as they are nop anyways in the current code,
+> no functional change.
 >
 
-FWIW: https://en.wikichip.org/wiki/qualcomm/msm
+thanks, nice cleanup.. I'm pulling into msm-next-staging
 
-Guenter
+BR,
+-R
 
-> BR,
-> -R
+> Sai Prakash Ranjan (2):
+>   drm/msm/mdp4: Remove unused downstream bus scaling apis
+>   drm/msm/mdp5: Remove unused downstream bus scaling apis
 >
-> > > +       display support is enabled through this config option. It can
-> > > +       be primary or secondary display on device.
-> > > +
-> > >  config DRM_MSM_DSI
-> > >       bool "Enable DSI support in MSM DRM driver"
-> > >       depends on DRM_MSM
-> >
-> > thanks.
-> > --
-> > ~Randy
-> >
+>  .../gpu/drm/msm/disp/mdp4/mdp4_dtv_encoder.c  | 51 --------------
+>  drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h      | 13 ----
+>  .../gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c | 47 -------------
+>  .../gpu/drm/msm/disp/mdp5/mdp5_cmd_encoder.c  | 24 -------
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_encoder.c  | 68 -------------------
+>  5 files changed, 203 deletions(-)
+>
+> --
+> QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a member
+> of Code Aurora Forum, hosted by The Linux Foundation
+>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
