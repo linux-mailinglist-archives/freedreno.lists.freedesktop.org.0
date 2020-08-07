@@ -1,55 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 477FF23F37C
-	for <lists+freedreno@lfdr.de>; Fri,  7 Aug 2020 22:03:14 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 15DC623F3BF
+	for <lists+freedreno@lfdr.de>; Fri,  7 Aug 2020 22:24:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BD216E154;
-	Fri,  7 Aug 2020 20:03:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D23FA6EA27;
+	Fri,  7 Aug 2020 20:24:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 977AA6E154;
- Fri,  7 Aug 2020 20:03:11 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id 88so2726430wrh.3;
- Fri, 07 Aug 2020 13:03:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=OSLWRy9ysyT4eibP6iMlQrzS7AS0P8deCWCZeNvVCDw=;
- b=cKuC0uosBz+Tin+kAwwFiT57a/t33eF5zdr86svo0PRBao/R9rftfkIlicbGB/6CfQ
- S4nfOQXRm7QbcyeEjObL4IOJvkpgekEuY1wHQomjGZu9fhQfYqghrxYjTyfu+hh5rIWB
- s1XhiMeNyq9zTiHXWTbTKy/1YRjfnuTn7h3Z4fGWrvt3Q+0rFf9e5BSO2QL5hV2vbp5p
- +blXEG1jfKgMoEI17LfReVX/qA8nv53xZ+ZkXxnvmeIRyGFemZ/gSUhc/xihJma7Kbfg
- SrkH3q01dBRUJ7xQrEaXjgbNWMoGkX61z2jDW5CvPhNAY2axJmS/ZiA5aoh4XYO4h2EJ
- j+fA==
+Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com
+ [IPv6:2607:f8b0:4864:20::1042])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C6686EA27
+ for <freedreno@lists.freedesktop.org>; Fri,  7 Aug 2020 20:24:04 +0000 (UTC)
+Received: by mail-pj1-x1042.google.com with SMTP id mt12so1486706pjb.4
+ for <freedreno@lists.freedesktop.org>; Fri, 07 Aug 2020 13:24:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:content-transfer-encoding:in-reply-to:references
+ :subject:from:cc:to:date:message-id:user-agent;
+ bh=8kRWK6mpY0yuzrMz6VeBLLcMrpVG8ZtSX/iAsw+ut4A=;
+ b=WEQMKsvxL+jGuutK/BX9GjKhG9V6iqjN0wIPhLgvikM+b48e3QcXAaeBfnLsnUbVQM
+ sEPO5cpmUWUqe4CGQPLKERNzawMZGhiNtw2+3gnBjmoKN8srnzPI9ngJ2NslwuAjvSVk
+ RgOZqa5CfaRROKBbMjMpTLlU7cxtbupJL0vwY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=OSLWRy9ysyT4eibP6iMlQrzS7AS0P8deCWCZeNvVCDw=;
- b=rUhS+XfdjXJDvsQYMi4Nu38fKwVnN7gdvYrCKzx88ANylWdnWXBmPszzuyOS9Z0BO1
- wgZBhWokiy6EGsI6SVwUs9djrCLUTVQI24LO8TFFzgDjxJ9/X22ssjuogJIfLZO1evgu
- zVGlHAP2ILqPNvQ+qYg+ttu7ZYz1Bme7SXvrDvBGx7vzJEMlbfppRxI/a8s20HBgGwIH
- 420GY/cFa+ibYAiYKyP44OAvkRspsd6RrosSyRzg8YOHKFkNsMoAN+Tn8voktj2bMd+1
- IThhvINmttwOOfDNnItCPSKqGLpPeQ5MMUWxXch7oYhL9blmCW7ji+uqpL3vpwoLPv3W
- fr5g==
-X-Gm-Message-State: AOAM533pfDw2zIPZwZmAPOzxn8agU78lwKEin9ibbeqQMCRHYW4+5YQ/
- lLiyRjxC6o/X+ukAYU44f1ek1mSXq2NlT1Hn9FE=
-X-Google-Smtp-Source: ABdhPJxMIcDcXDI1jEIi/2CWQ0HC/RAkG26jBGU/hI2e7LmI9IXbWAVf1mVql7wNxwQh+Fcvv0OGDkHMT6/AryEFd7Q=
-X-Received: by 2002:adf:ec04:: with SMTP id x4mr12769567wrn.28.1596830590085; 
- Fri, 07 Aug 2020 13:03:10 -0700 (PDT)
+ h=x-gm-message-state:mime-version:content-transfer-encoding
+ :in-reply-to:references:subject:from:cc:to:date:message-id
+ :user-agent;
+ bh=8kRWK6mpY0yuzrMz6VeBLLcMrpVG8ZtSX/iAsw+ut4A=;
+ b=FHGboYkCyzkT8PxCPH0+negAAmhuCQPD3fZbjnHD6BpMuHXlfzWyyYyteGr1cGJys8
+ MRiEs7Fpl4OXQErXAwyVVLckmOtxDbVAF3mYHtwkHOU7ciqUmd7EsZKU4FrEe3DJ/GMI
+ UcOBEVhGqxgp3HTcNpCzS+oxrG9b91XB0y1K+Mz19+Pt7nSnt9oyxTsTs/Ru+REft0TT
+ iH7xyXzXyc+fhxmPNYG76mRvjeWsnC13jwFQ6IOMgYDE2XxtY6P7PngvAPgo8pUE7ido
+ +OLjMVhEr4FJVpxDvhnXccPgXZm9d7gtkc6sHUnwMqePxN23W1ssWX3JT85OsyRjnUST
+ pEvA==
+X-Gm-Message-State: AOAM533qdZ2E8UDcJpLwflLcyVILkwR3Ba9xC1obdPbMQMnUILCbffE9
+ BtqG3Nh67tOyrkN3IT/gbRMTGg==
+X-Google-Smtp-Source: ABdhPJwUCMA+qcCj4NBJ6bH6GJrNHolYmVbC63o7ey2y7ucXrSodd1KiH1QHhuAQODHYrQ6iqRsEPQ==
+X-Received: by 2002:a17:902:b089:: with SMTP id
+ p9mr13616774plr.52.1596831843666; 
+ Fri, 07 Aug 2020 13:24:03 -0700 (PDT)
+Received: from chromium.org ([2620:15c:202:1:3e52:82ff:fe6c:83ab])
+ by smtp.gmail.com with ESMTPSA id z23sm11490482pgv.57.2020.08.07.13.24.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 07 Aug 2020 13:24:03 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200803193547.305660-1-jcrouse@codeaurora.org>
- <20200803193547.305660-11-jcrouse@codeaurora.org>
-In-Reply-To: <20200803193547.305660-11-jcrouse@codeaurora.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 7 Aug 2020 13:03:54 -0700
-Message-ID: <CAF6AEGv53rt=33TjQ5mim3hhQvsQugv+u61r68=FTctdmoXw0w@mail.gmail.com>
-To: Jordan Crouse <jcrouse@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v11 10/12] drm/msm: Add support for private
- address space instances
+In-Reply-To: <CAF6AEGv5Yf1x7aCEauP7XtzTjpUCxJt6_GzxFhFXyf_DX_Gi+g@mail.gmail.com>
+References: <20200807071718.17937-1-tanmay@codeaurora.org>
+ <20200807071718.17937-4-tanmay@codeaurora.org>
+ <3b0d0e49-5fe8-e217-4ddc-1ff08e65ab48@infradead.org>
+ <CAF6AEGv5Yf1x7aCEauP7XtzTjpUCxJt6_GzxFhFXyf_DX_Gi+g@mail.gmail.com>
+From: Stephen Boyd <swboyd@chromium.org>
+To: Randy Dunlap <rdunlap@infradead.org>, Rob Clark <robdclark@gmail.com>
+Date: Fri, 07 Aug 2020 13:24:01 -0700
+Message-ID: <159683184187.1360974.15575847254880429529@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
+Subject: Re: [Freedreno] [PATCH v9 3/5] drm/msm/dp: add support for DP PLL
+ driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,205 +69,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Will Deacon <will@kernel.org>, David Airlie <airlied@linux.ie>,
+Cc: David Airlie <airlied@linux.ie>,
  linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
- Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno <freedreno@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, khsieh@codeaurora.org,
+ Sean Paul <seanpaul@chromium.org>, Tanmay Shah <tanmay@codeaurora.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Vara Reddy <varar@codeaurora.org>,
+ aravindh@codeaurora.org, freedreno <freedreno@lists.freedesktop.org>,
+ Chandan Uddaraju <chandanu@codeaurora.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Aug 3, 2020 at 12:36 PM Jordan Crouse <jcrouse@codeaurora.org> wrote:
->
-> Add support for allocating private address space instances. Targets that
-> support per-context pagetables should implement their own function to
-> allocate private address spaces.
->
-> The default will return a pointer to the global address space.
->
-> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
-> ---
->
->  drivers/gpu/drm/msm/msm_drv.c     | 13 +++++++------
->  drivers/gpu/drm/msm/msm_drv.h     |  5 +++++
->  drivers/gpu/drm/msm/msm_gem_vma.c |  9 +++++++++
->  drivers/gpu/drm/msm/msm_gpu.c     | 17 +++++++++++++++++
->  drivers/gpu/drm/msm/msm_gpu.h     |  5 +++++
->  5 files changed, 43 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index 108b663c3ef2..f072306f1260 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -597,7 +597,7 @@ static int context_init(struct drm_device *dev, struct drm_file *file)
->         kref_init(&ctx->ref);
->         msm_submitqueue_init(dev, ctx);
->
-> -       ctx->aspace = priv->gpu ? priv->gpu->aspace : NULL;
-> +       ctx->aspace = msm_gpu_create_private_address_space(priv->gpu);
->         file->driver_priv = ctx;
->
->         return 0;
-> @@ -780,18 +780,19 @@ static int msm_ioctl_gem_cpu_fini(struct drm_device *dev, void *data,
->  }
->
->  static int msm_ioctl_gem_info_iova(struct drm_device *dev,
-> -               struct drm_gem_object *obj, uint64_t *iova)
-> +               struct drm_file *file, struct drm_gem_object *obj,
-> +               uint64_t *iova)
->  {
-> -       struct msm_drm_private *priv = dev->dev_private;
-> +       struct msm_file_private *ctx = file->driver_priv;
->
-> -       if (!priv->gpu)
-> +       if (!ctx->aspace)
->                 return -EINVAL;
->
->         /*
->          * Don't pin the memory here - just get an address so that userspace can
->          * be productive
->          */
-> -       return msm_gem_get_iova(obj, priv->gpu->aspace, iova);
-> +       return msm_gem_get_iova(obj, ctx->aspace, iova);
->  }
->
->  static int msm_ioctl_gem_info(struct drm_device *dev, void *data,
-> @@ -830,7 +831,7 @@ static int msm_ioctl_gem_info(struct drm_device *dev, void *data,
->                 args->value = msm_gem_mmap_offset(obj);
->                 break;
->         case MSM_INFO_GET_IOVA:
-> -               ret = msm_ioctl_gem_info_iova(dev, obj, &args->value);
-> +               ret = msm_ioctl_gem_info_iova(dev, file, obj, &args->value);
->                 break;
->         case MSM_INFO_SET_NAME:
->                 /* length check should leave room for terminating null: */
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-> index f69c6d62584d..51a5c9083e13 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -249,6 +249,10 @@ int msm_gem_map_vma(struct msm_gem_address_space *aspace,
->  void msm_gem_close_vma(struct msm_gem_address_space *aspace,
->                 struct msm_gem_vma *vma);
->
-> +
-> +struct msm_gem_address_space *
-> +msm_gem_address_space_get(struct msm_gem_address_space *aspace);
-> +
->  void msm_gem_address_space_put(struct msm_gem_address_space *aspace);
->
->  struct msm_gem_address_space *
-> @@ -434,6 +438,7 @@ static inline void msm_file_private_destroy(struct kref *kref)
->         struct msm_file_private *ctx = container_of(kref,
->                 struct msm_file_private, ref);
->
-> +       msm_gem_address_space_put(ctx->aspace);
->         kfree(ctx);
->  }
->
-> diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
-> index 5f6a11211b64..29cc1305cf37 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_vma.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-> @@ -27,6 +27,15 @@ void msm_gem_address_space_put(struct msm_gem_address_space *aspace)
->                 kref_put(&aspace->kref, msm_gem_address_space_destroy);
->  }
->
-> +struct msm_gem_address_space *
-> +msm_gem_address_space_get(struct msm_gem_address_space *aspace)
-> +{
-> +       if (!IS_ERR_OR_NULL(aspace))
-> +               kref_get(&aspace->kref);
-> +
-> +       return aspace;
-> +}
-> +
->  /* Actually unmap memory for the vma */
->  void msm_gem_purge_vma(struct msm_gem_address_space *aspace,
->                 struct msm_gem_vma *vma)
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-> index a1f3da6550e5..aabbd7908ee5 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.c
-> +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> @@ -823,6 +823,23 @@ static int get_clocks(struct platform_device *pdev, struct msm_gpu *gpu)
->         return 0;
->  }
->
-> +/* Return a new address space for a msm_drm_private instance */
-> +struct msm_gem_address_space *
-> +msm_gpu_create_private_address_space(struct msm_gpu *gpu)
-> +{
-> +       if (!gpu)
-> +               return NULL;
-> +
-> +       /*
-> +        * If the target doesn't support private address spaces then return
-> +        * the global one
-> +        */
-> +       if (!gpu->funcs->create_private_address_space)
-> +               return msm_gem_address_space_get(gpu->aspace);
-> +
-> +       return gpu->funcs->create_private_address_space(gpu);
+Quoting Rob Clark (2020-08-07 08:51:48)
+> On Fri, Aug 7, 2020 at 8:27 AM Randy Dunlap <rdunlap@infradead.org> wrote:
+> >
+> > On 8/7/20 12:17 AM, Tanmay Shah wrote:
+> > > diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
+> > > index ea3c4d094d09..cc1392b29022 100644
+> > > --- a/drivers/gpu/drm/msm/Kconfig
+> > > +++ b/drivers/gpu/drm/msm/Kconfig
+> > > @@ -60,6 +60,7 @@ config DRM_MSM_HDMI_HDCP
+> > >  config DRM_MSM_DP
+> > >       bool "Enable DP support in MSM DRM driver"
+> > >       depends on DRM_MSM
+> > > +     default y
+> > >       help
+> > >         Compile in support for DP driver in msm drm driver. DP external
+> > >         display support is enabled through this config option. It can
+> >
+> > Hi,
+> >
+> > You need a very strong justification to make an optional part of a driver
+> > to be "default y".
+> 
+> My opinion is that if the driver is built, everything should be built.
+> This is what makes sense for distro's.  It is only the embedded case
+> where you want to trim down unneeded features where you might want to
+> disable some parts.  So 'default y' makes sense to me.
+> 
 
-so if you flip the logic around here, you can get rid of the
-msm_gem_address_space_get() in per-gen backend and consolidate the
-error handling here, ie.
-
-  struct msm_gem_address_space *aspace = NULL;
-
-  if (gpu->funcs->create_private_address_space)
-     aspace = gpu->funcs->create_private_address_space(...);
-
-  if (IS_ERR_OR_NULL(aspace))
-    aspace = msm_gem_address_space_get(...);
-
-(and that also simplifies a bit the patch I have on top to show comm in debugfs)
-
-BR,
--R
-
-> +}
-> +
->  int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->                 struct msm_gpu *gpu, const struct msm_gpu_funcs *funcs,
->                 const char *name, struct msm_gpu_config *config)
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-> index d496d488222c..d298657b4730 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.h
-> +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> @@ -64,6 +64,8 @@ struct msm_gpu_funcs {
->         void (*gpu_set_freq)(struct msm_gpu *gpu, struct dev_pm_opp *opp);
->         struct msm_gem_address_space *(*create_address_space)
->                 (struct msm_gpu *gpu, struct platform_device *pdev);
-> +       struct msm_gem_address_space *(*create_private_address_space)
-> +               (struct msm_gpu *gpu);
->  };
->
->  struct msm_gpu {
-> @@ -286,6 +288,9 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->                 struct msm_gpu *gpu, const struct msm_gpu_funcs *funcs,
->                 const char *name, struct msm_gpu_config *config);
->
-> +struct msm_gem_address_space *
-> +msm_gpu_create_private_address_space(struct msm_gpu *gpu);
-> +
->  void msm_gpu_cleanup(struct msm_gpu *gpu);
->
->  struct msm_gpu *adreno_load_gpu(struct drm_device *dev);
-> --
-> 2.25.1
->
-> _______________________________________________
-> Freedreno mailing list
-> Freedreno@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/freedreno
+Maybe use 'default DRM_MSM' so that it doesn't trigger the 'default y'
+filters people have?
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
