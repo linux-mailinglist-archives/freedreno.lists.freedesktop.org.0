@@ -2,61 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA08D23E80B
-	for <lists+freedreno@lfdr.de>; Fri,  7 Aug 2020 09:37:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F32FB23E9A0
+	for <lists+freedreno@lfdr.de>; Fri,  7 Aug 2020 10:57:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 657D06E073;
-	Fri,  7 Aug 2020 07:37:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04F4C6E981;
+	Fri,  7 Aug 2020 08:57:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
- [104.130.122.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 422F86E073
- for <freedreno@lists.freedesktop.org>; Fri,  7 Aug 2020 07:37:44 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1596785867; h=Content-Transfer-Encoding: MIME-Version:
- Message-Id: Date: Subject: Cc: To: From: Sender;
- bh=0GqpQXEcvOowQrBcjr1VTdagh2TvhN6ZZx7qSkiCD20=;
- b=D2Tj5QXdM75J3PPYPUuyBHujkKrvLZ41R0WJgOKFZTXsuufdrl+YbgzDZXkjOyYABY1gPh/g
- tbceXUJCnCePzs/Yg1R+QIt7/sHpa13NIZ8xXyJiGDwjhVhq9iEKy9PNRdT9JrMIo1ALxMVI
- YqRKLVdcgGUveJiJmhyxewKIrQg=
-X-Mailgun-Sending-Ip: 104.130.122.29
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n17.prod.us-west-2.postgun.com with SMTP id
- 5f2d04af46ed9966740106d0 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 07 Aug 2020 07:37:19
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 73B15C433CA; Fri,  7 Aug 2020 07:37:19 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from linuxdisplay-lab-04.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: tanmay)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 2E1CCC433C6;
- Fri,  7 Aug 2020 07:37:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 2E1CCC433C6
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=tanmay@codeaurora.org
-From: Tanmay Shah <tanmay@codeaurora.org>
-To: =devicetree@vger.kernel.org, swboyd@chromium.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com
-Date: Fri,  7 Aug 2020 00:36:47 -0700
-Message-Id: <20200807073647.1900-1-tanmay@codeaurora.org>
-X-Mailer: git-send-email 2.27.0
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 053E86E146
+ for <freedreno@lists.freedesktop.org>; Fri,  7 Aug 2020 08:57:45 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id g8so1047191wmk.3
+ for <freedreno@lists.freedesktop.org>; Fri, 07 Aug 2020 01:57:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=H73Msn3ig8oo+rXLBRFR40qhkjSySvB7pfbrGJDIkto=;
+ b=P5BLbM7NaQMP5e2hJpp/jGb9n9cEXDqguDO01xB7EI9UcQR7OyzK98j0PVhTipFk+W
+ TQ70UzqxnBDEJangW88G9Dq+lqyXD9Rf/jm+IVd7toPT5l6IrZDIoKO127KmFgkwabTs
+ W14uS0QIQXZq8BKcRvIVDm4eJj+ZOC+728qNQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :in-reply-to;
+ bh=H73Msn3ig8oo+rXLBRFR40qhkjSySvB7pfbrGJDIkto=;
+ b=KUrPbeaTviiW+u27+zwhiHG/++Bzt5wsO1R6HPi6nXhAROhvEqW5Q9BxBtj72LTOUc
+ J3yWw+AjYP1DWj7Wu4xfbGMF1j/m5TldZc1YVs3RiuM5j/4E5Q2gjazMXK7vi9kKx1vA
+ YP7dB5/l9+VBVcG5JxDxfs/tf2Ooqt/YlAgVG049y0pKtRK8mykO02zCFEy8BLRVszij
+ +8VLS5SL+4LGPki9O1gUHEcq4pHaXRIqcOGbLqHOTkIDAxj6DaKAnvJ+B2quGVl4CZIL
+ Z3p2f1TNnseACI9pV2+PvGNPB29wDugofdESWxublQrk5zRqwq1ZpPD5wez7ZnJiQRN6
+ CMWg==
+X-Gm-Message-State: AOAM530GwtVwp058SuLibsGZQZhGHa8m+AWaB65cROZJ3BSAVePRMgSO
+ 6/iC86rt4Rq+PYTvr9yJrktIeA==
+X-Google-Smtp-Source: ABdhPJynkqQfgSYGXyIhXXRsLuU2JaYCqT62Ezi3rAu3TCxoggostYXPfA0lWy6VQU0lDkGUgE8khA==
+X-Received: by 2002:a1c:df02:: with SMTP id w2mr12869666wmg.137.1596790663593; 
+ Fri, 07 Aug 2020 01:57:43 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id o30sm9643520wra.67.2020.08.07.01.57.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 07 Aug 2020 01:57:42 -0700 (PDT)
+Date: Fri, 7 Aug 2020 10:57:40 +0200
+From: daniel@ffwll.ch
+To: 
+Message-ID: <20200807085740.GR6419@phenom.ffwll.local>
+Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
+ Kalyan Thota <kalyan_t@codeaurora.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, 
+ Krishna Manikandan <mkrishn@codeaurora.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Raviteja Tamatam <travitej@codeaurora.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ Sean Paul <seanpaul@chromium.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Drew Davenport <ddavenport@chromium.org>,
+ "Kristian H. Kristensen" <hoegsberg@chromium.org>,
+ Stephen Boyd <swboyd@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>
+References: <1596634446-1413-1-git-send-email-kalyan_t@codeaurora.org>
+ <CAF6AEGtWNDGDsUBVk-Ud5OpretHA4qKDKtE+3mS=C8DAa=+Heg@mail.gmail.com>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v4] arm64: dts: qcom: sc7180: Add Display Port
- dt node
+Content-Disposition: inline
+In-Reply-To: <CAF6AEGtWNDGDsUBVk-Ud5OpretHA4qKDKtE+3mS=C8DAa=+Heg@mail.gmail.com>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
+Subject: Re: [Freedreno] [v1] drm/msm/dpu: Fix reservation failures in
+ modeset
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,122 +83,135 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, linux-kernel@vger.kernel.org, abhinavk@codeaurora.org,
- khsieh@codeaurora.org, seanpaul@chromium.org,
- Tanmay Shah <tanmay@codeaurora.org>, daniel@ffwll.ch, aravindh@codeaurora.org,
- freedreno@lists.freedesktop.org
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Krishna Manikandan <mkrishn@codeaurora.org>,
+ Raviteja Tamatam <travitej@codeaurora.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Douglas Anderson <dianders@chromium.org>, Sean Paul <seanpaul@chromium.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Kalyan Thota <kalyan_t@codeaurora.org>,
+ Drew Davenport <ddavenport@chromium.org>,
+ "Kristian H. Kristensen" <hoegsberg@chromium.org>,
+ Stephen Boyd <swboyd@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add DP device node on sc7180.
+On Wed, Aug 05, 2020 at 08:48:34AM -0700, Rob Clark wrote:
+> On Wed, Aug 5, 2020 at 6:34 AM Kalyan Thota <kalyan_t@codeaurora.org> wrote:
+> >
+> > In TEST_ONLY commit, rm global_state will duplicate the
+> > object and request for new reservations, once they pass
+> > then the new state will be swapped with the old and will
+> > be available for the Atomic Commit.
+> >
+> > This patch fixes some of missing links in the resource
+> > reservation sequence mentioned above.
+> >
+> > 1) Creation of a duplicate state in test_only commit (Rob)
+> > 2) Allow resource release only during crtc_active false.
+> >
+> > For #2
+> > In a modeset operation, swap state happens well before disable.
+> > Hence clearing reservations in disable will cause failures
+> > in modeset enable.
+> >
+> > Sequence:
+> >     Swap state --> old, new
+> >     modeset disables --> virt disable
+> >     modeset enable --> virt modeset
+> >
+> > Allow reservations to be cleared only when crtc active is false
+> > as in that case there wont be any modeset enable after disable.
+> >
+> > Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
+> > ---
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 7 +++++--
+> >  1 file changed, 5 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > index 63976dc..b85a576 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > @@ -582,7 +582,7 @@ static int dpu_encoder_virt_atomic_check(
+> >         dpu_kms = to_dpu_kms(priv->kms);
+> >         mode = &crtc_state->mode;
+> >         adj_mode = &crtc_state->adjusted_mode;
+> > -       global_state = dpu_kms_get_existing_global_state(dpu_kms);
+> > +       global_state = dpu_kms_get_global_state(crtc_state->state);
+> >         trace_dpu_enc_atomic_check(DRMID(drm_enc));
+> >
+> >         /*
+> > @@ -1172,6 +1172,7 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
+> >         struct msm_drm_private *priv;
+> >         struct dpu_kms *dpu_kms;
+> >         struct dpu_global_state *global_state;
+> > +       struct drm_crtc_state *crtc_state;
+> >         int i = 0;
+> >
+> >         if (!drm_enc) {
+> > @@ -1191,6 +1192,7 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
+> >         priv = drm_enc->dev->dev_private;
+> >         dpu_kms = to_dpu_kms(priv->kms);
+> >         global_state = dpu_kms_get_existing_global_state(dpu_kms);
+> > +       crtc_state = drm_enc->crtc->state;
+> >
+> >         trace_dpu_enc_disable(DRMID(drm_enc));
+> >
+> > @@ -1220,7 +1222,8 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
+> >
+> >         DPU_DEBUG_ENC(dpu_enc, "encoder disabled\n");
+> >
+> > -       dpu_rm_release(global_state, drm_enc);
+> > +       if (crtc_state->active_changed && !crtc_state->active)
+> > +               dpu_rm_release(global_state, drm_enc);
+> 
+> I still think releasing the state in the atomic_commit() path is the
+> wrong thing to do.  In the commit path, the various state objects
+> should be immutable.. ie. in the atomic_test() path you derive the new
+> hw state (including assignment/release of resources), and
+> atomic_commit() is simply pushing the state down to the hw.
+> 
+> Otherwise, this looks better than v1.
 
-Changes in v2:
+Yeah this races and is total no-go. If you touch your state in commit
+(except some very specific exceptions), then a next TEST_ONLY atomic_check
+might duplicate the atomic state object in an incosistent state, and fail.
 
-- Add assigned-clocks and assigned-clock-parents
-- Remove cell-index and pixel_rcg
-- Change compatible to qcom,sc7180-dp
+Worse, this looks like if you race like that then you might duplicate an
+object with old reservations still in place, and then we've essentially
+leaked those resources and need to reboot. Yes most compositors use
+blocking modesets, but some actually do full nonblocking modesets.
 
-Changes in v3:
-- Update commit text
-- Make DP child node of MDSS
-- Remove data-lanes property from SOC dts
-- Disable DP node in SOC dts
-- Assign DP to Port2 in MDP node
-- Add MDSS AHB clock in DP device node
+This stuff needs to be moved into the atomic_check code, and your commit
+code needs to be careful to use the right state (old or new) when pushing
+it into hw.
 
-Changes in v4:
-- Remove redundant reg-names property
-- Use IRQ flag instead had hard coded value.
-- Add link clock source in assigned-clocks list.
+Cheers, Daniel
 
-This patch depends-on following series:
-https://lore.kernel.org/dri-devel/20200807071718.17937-1-tanmay@codeaurora.org/
+> 
+> BR,
+> -R
+> 
+> >
+> >         mutex_unlock(&dpu_enc->enc_lock);
+> >  }
+> > --
+> > 1.9.1
+> >
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 
-Signed-off-by: Tanmay Shah <tanmay@codeaurora.org>
----
- arch/arm64/boot/dts/qcom/sc7180.dtsi | 49 ++++++++++++++++++++++++++--
- 1 file changed, 47 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-index 31b9217bb5bf..bb52b69df6fb 100644
---- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-@@ -2371,6 +2371,13 @@ dpu_intf1_out: endpoint {
- 							remote-endpoint = <&dsi0_in>;
- 						};
- 					};
-+
-+					port@2 {
-+						reg = <2>;
-+						dpu_intf0_out: endpoint {
-+							remote-endpoint = <&dp_in>;
-+						};
-+					};
- 				};
- 			};
- 
-@@ -2440,6 +2447,44 @@ dsi_phy: dsi-phy@ae94400 {
- 
- 				status = "disabled";
- 			};
-+
-+			msm_dp: displayport-controller@ae90000 {
-+				status = "disabled";
-+				compatible = "qcom,sc7180-dp";
-+
-+				reg = <0 0x0ae90000 0 0x1400>;
-+
-+				interrupt-parent = <&mdss>;
-+				interrupts = <12 IRQ_TYPE_NONE>;
-+
-+				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
-+				clock-names = "core_iface", "core_aux", "ctrl_link",
-+					      "ctrl_link_iface", "stream_pixel";
-+				#clock-cells = <1>;
-+				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
-+						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
-+				assigned-clock-parents = <&msm_dp 0>, <&msm_dp 1>;
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					port@0 {
-+						reg = <0>;
-+						dp_in: endpoint {
-+							remote-endpoint = <&dpu_intf0_out>;
-+						};
-+					};
-+
-+					port@1 {
-+						reg = <1>;
-+						dp_out: endpoint { };
-+					};
-+				};
-+			};
- 		};
- 
- 		dispcc: clock-controller@af00000 {
-@@ -2449,8 +2494,8 @@ dispcc: clock-controller@af00000 {
- 				 <&gcc GCC_DISP_GPLL0_CLK_SRC>,
- 				 <&dsi_phy 0>,
- 				 <&dsi_phy 1>,
--				 <0>,
--				 <0>;
-+				 <&msm_dp 0>,
-+				 <&msm_dp 1>;
- 			clock-names = "bi_tcxo",
- 				      "gcc_disp_gpll0_clk_src",
- 				      "dsi0_phy_pll_out_byteclk",
 -- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
