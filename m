@@ -2,34 +2,34 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A46B2412FD
-	for <lists+freedreno@lfdr.de>; Tue, 11 Aug 2020 00:27:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EEEA2412FA
+	for <lists+freedreno@lfdr.de>; Tue, 11 Aug 2020 00:27:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E10926E2B2;
-	Mon, 10 Aug 2020 22:27:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD07389D99;
+	Mon, 10 Aug 2020 22:27:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 192DF6E071
- for <freedreno@lists.freedesktop.org>; Mon, 10 Aug 2020 22:27:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8816389D99
+ for <freedreno@lists.freedesktop.org>; Mon, 10 Aug 2020 22:27:18 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1597098445; h=Content-Transfer-Encoding: MIME-Version:
- Message-Id: Date: Subject: Cc: To: From: Sender;
- bh=FIQjkRwzuaqtcrLpjzp5zoMBHsNGZCnkU4UlVvBNRWY=;
- b=pY2KqWETx72A9PoJanGNfdjQko5/vj8UQCHV6vB5P1FIJNXrg/Xi7cDP+mZ2gfl5G3D+BmFO
- JxsOW8PZ1IVoQtNOunLk7IMotWc8yAEFXHnXddMe3rA/dsN8/AxsNyA/f2d1M78e/6p7XqbU
- Bzlr5Gi1PBNUa3vgBba8+ZsJMtw=
+ s=smtp; t=1597098443; h=Content-Transfer-Encoding: MIME-Version:
+ References: In-Reply-To: Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=FHtW4WjaTsFoNisPqVbyXMhsG1JBUXON5dZ+qL6ZJhk=;
+ b=b+clH0zj4rzOR2QJvoSTObKKrXNgbDQFklLHOjEOfgsIs/RCzc62IGl6Aa1OxWsVap+PmwJr
+ b+uK1qSWvPUjcNVM9yu3mPjKITEyQGs0Y2pddmjXN5Gssddw+nxEwrISoZh6RTkRV1hxTbHt
+ //SG3xyygtqip5l/VH4zQXt8koo=
 X-Mailgun-Sending-Ip: 69.72.43.7
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n18.prod.us-west-2.postgun.com with SMTP id
- 5f31c9bc4c787f237b0ff433 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 10 Aug 2020 22:27:08
+ smtp-out-n03.prod.us-west-2.postgun.com with SMTP id
+ 5f31c9be668ab3fef6c8444b (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 10 Aug 2020 22:27:10
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id F18CDC43391; Mon, 10 Aug 2020 22:27:07 +0000 (UTC)
+ id 6EB90C433AF; Mon, 10 Aug 2020 22:27:10 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -39,21 +39,23 @@ Received: from jordan-laptop.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id CBE2DC433C6;
- Mon, 10 Aug 2020 22:27:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org CBE2DC433C6
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id D52DCC433CA;
+ Mon, 10 Aug 2020 22:27:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org D52DCC433CA
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  spf=none smtp.mailfrom=jcrouse@codeaurora.org
 From: Jordan Crouse <jcrouse@codeaurora.org>
 To: linux-arm-msm@vger.kernel.org
-Date: Mon, 10 Aug 2020 16:26:44 -0600
-Message-Id: <20200810222657.1841322-1-jcrouse@codeaurora.org>
+Date: Mon, 10 Aug 2020 16:26:45 -0600
+Message-Id: <20200810222657.1841322-2-jcrouse@codeaurora.org>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20200810222657.1841322-1-jcrouse@codeaurora.org>
+References: <20200810222657.1841322-1-jcrouse@codeaurora.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v12 00/13] iommu/arm-smmu: Add Adreno SMMU
- specific implementation
+Subject: [Freedreno] [PATCH v12 01/13] iommu/arm-smmu: Pass io-pgtable
+ config to implementation specific function
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,121 +68,91 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- Hanna Hawa <hannah@marvell.com>, Akhil P Oommen <akhilpo@codeaurora.org>,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Eric Anholt <eric@anholt.net>, Thierry Reding <thierry.reding@gmail.com>,
+Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ linux-kernel@vger.kernel.org, Will Deacon <will@kernel.org>,
+ freedreno@lists.freedesktop.org, Joerg Roedel <joro@8bytes.org>,
+ Krishna Reddy <vdumpa@nvidia.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Nicolin Chen <nicoleotsuka@gmail.com>, iommu@lists.linux-foundation.org,
+ Thierry Reding <thierry.reding@gmail.com>,
  Vivek Gautam <vivek.gautam@codeaurora.org>,
- AngeloGioacchino Del Regno <kholk11@gmail.com>, Will Deacon <will@kernel.org>,
- Emil Velikov <emil.velikov@collabora.com>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, Sam Ravnborg <sam@ravnborg.org>,
- Joerg Roedel <joro@8bytes.org>, Rob Clark <robdclark@gmail.com>,
- Jon Hunter <jonathanh@nvidia.com>, Andy Gross <agross@kernel.org>,
- Sibi Sankar <sibis@codeaurora.org>, Thierry Reding <treding@nvidia.com>,
- Brian Masney <masneyb@onstation.org>, Wambui Karuga <wambui.karugax@gmail.com>,
- Sharat Masetty <smasetty@codeaurora.org>, Robin Murphy <robin.murphy@arm.com>,
- Pritesh Raithatha <praithatha@nvidia.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Krishna Reddy <vdumpa@nvidia.com>,
- Rob Herring <robh+dt@kernel.org>, Stephen Boyd <swboyd@chromium.org>,
- Sean Paul <sean@poorly.run>, Ben Dooks <ben.dooks@codethink.co.uk>,
- linux-arm-kernel@lists.infradead.org,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Douglas Anderson <dianders@chromium.org>, linux-kernel@vger.kernel.org,
- iommu@lists.linux-foundation.org, Daniel Vetter <daniel@ffwll.ch>,
- Shawn Guo <shawn.guo@linaro.org>, freedreno@lists.freedesktop.org
+ Jon Hunter <jonathanh@nvidia.com>, Robin Murphy <robin.murphy@arm.com>,
+ linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This series adds an Adreno SMMU implementation to arm-smmu to allow GPU hardware
-pagetable switching.
+Construct the io-pgtable config before calling the implementation specific
+init_context function and pass it so the implementation specific function
+can get a chance to change it before the io-pgtable is created.
 
-The Adreno GPU has built in capabilities to switch the TTBR0 pagetable during
-runtime to allow each individual instance or application to have its own
-pagetable.  In order to take advantage of the HW capabilities there are certain
-requirements needed of the SMMU hardware.
+Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
+---
 
-This series adds support for an Adreno specific arm-smmu implementation. The new
-implementation 1) ensures that the GPU domain is always assigned context bank 0,
-2) enables split pagetable support (TTBR1) so that the instance specific
-pagetable can be swapped while the global memory remains in place and 3) shares
-the current pagetable configuration with the GPU driver to allow it to create
-its own io-pgtable instances.
+ drivers/iommu/arm/arm-smmu/arm-smmu-impl.c |  3 ++-
+ drivers/iommu/arm/arm-smmu/arm-smmu.c      | 11 ++++++-----
+ drivers/iommu/arm/arm-smmu/arm-smmu.h      |  3 ++-
+ 3 files changed, 10 insertions(+), 7 deletions(-)
 
-The series then adds the drm/msm code to enable these features. For targets that
-support it allocate new pagetables using the io-pgtable configuration shared by
-the arm-smmu driver and swap them in during runtime.
-
-This version of the series merges the previous patchset(s) [1] and [2]
-with the following improvements:
-
-v12:
-  - Nitpick cleanups in gpu/drm/msm/msm_iommu.c (Rob Clark)
-  - Reorg in gpu/drm/msm/msm_gpu.c (Rob Clark)
-  - Use the default asid for the context bank so that iommu_tlb_flush_all works
-  - Flush the UCHE after a page switch
-  - Add the SCTLR.HUPCF patch at the end of the series
-v11:
-  - Add implementation specific get_attr/set_attr functions (per Rob Clark)
-  - Fix context bank allocation (per Bjorn Andersson)
-v10:
-  - arm-smmu: add implementation hook to allocate context banks
-  - arm-smmu: Match the GPU domain by stream ID instead of compatible string
-  - arm-smmu: Make DOMAIN_ATTR_PGTABLE_CFG bi-directional. The leaf driver
-    queries the configuration to create a pagetable and then sends the newly
-    created configuration back to the smmu-driver to enable TTBR0
-  - drm/msm: Add context reference counting for submissions
-  - drm/msm: Use dummy functions to skip TLB operations on per-instance
-    pagetables
-
-[1] https://lists.linuxfoundation.org/pipermail/iommu/2020-June/045653.html
-[2] https://lists.linuxfoundation.org/pipermail/iommu/2020-June/045659.html
-
-
-Jordan Crouse (13):
-  iommu/arm-smmu: Pass io-pgtable config to implementation specific
-    function
-  iommu/arm-smmu: Add support for split pagetables
-  iommu/arm-smmu: Prepare for the adreno-smmu implementation
-  iommu: Add a domain attribute to get/set a pagetable configuration
-  iommu/arm-smmu-qcom: Add implementation for the adreno GPU SMMU
-  dt-bindings: arm-smmu: Add compatible string for Adreno GPU SMMU
-  drm/msm: Add a context pointer to the submitqueue
-  drm/msm: Set the global virtual address range from the IOMMU domain
-  drm/msm: Add support to create a local pagetable
-  drm/msm: Add support for private address space instances
-  drm/msm/a6xx: Add support for per-instance pagetables
-  arm: dts: qcom: sm845: Set the compatible string for the GPU SMMU
-  iommu/arm-smmu: Add a init_context_bank implementation hook
-
- .../devicetree/bindings/iommu/arm,smmu.yaml   |   4 +
- arch/arm64/boot/dts/qcom/sdm845.dtsi          |   2 +-
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |  12 +-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c         |  75 ++++++-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.h         |   1 +
- drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  18 +-
- drivers/gpu/drm/msm/adreno/adreno_gpu.h       |   3 +-
- drivers/gpu/drm/msm/msm_drv.c                 |  16 +-
- drivers/gpu/drm/msm/msm_drv.h                 |  13 ++
- drivers/gpu/drm/msm/msm_gem.h                 |   1 +
- drivers/gpu/drm/msm/msm_gem_submit.c          |   8 +-
- drivers/gpu/drm/msm/msm_gem_vma.c             |   9 +
- drivers/gpu/drm/msm/msm_gpu.c                 |  31 ++-
- drivers/gpu/drm/msm/msm_gpu.h                 |  12 +-
- drivers/gpu/drm/msm/msm_gpummu.c              |   2 +-
- drivers/gpu/drm/msm/msm_iommu.c               | 197 +++++++++++++++++-
- drivers/gpu/drm/msm/msm_mmu.h                 |  16 +-
- drivers/gpu/drm/msm/msm_ringbuffer.h          |   1 +
- drivers/gpu/drm/msm/msm_submitqueue.c         |   8 +-
- drivers/iommu/arm/arm-smmu/arm-smmu-impl.c    |   6 +-
- drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c    | 172 ++++++++++++++-
- drivers/iommu/arm/arm-smmu/arm-smmu.c         | 134 ++++++------
- drivers/iommu/arm/arm-smmu/arm-smmu.h         |  87 +++++++-
- include/linux/iommu.h                         |   1 +
- 24 files changed, 708 insertions(+), 121 deletions(-)
-
+diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c b/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
+index f4ff124a1967..a9861dcd0884 100644
+--- a/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
++++ b/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
+@@ -68,7 +68,8 @@ static int cavium_cfg_probe(struct arm_smmu_device *smmu)
+ 	return 0;
+ }
+ 
+-static int cavium_init_context(struct arm_smmu_domain *smmu_domain)
++static int cavium_init_context(struct arm_smmu_domain *smmu_domain,
++		struct io_pgtable_cfg *pgtbl_cfg)
+ {
+ 	struct cavium_smmu *cs = container_of(smmu_domain->smmu,
+ 					      struct cavium_smmu, smmu);
+diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+index 09c42af9f31e..37d8d49299b4 100644
+--- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
++++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+@@ -795,11 +795,6 @@ static int arm_smmu_init_domain_context(struct iommu_domain *domain,
+ 		cfg->asid = cfg->cbndx;
+ 
+ 	smmu_domain->smmu = smmu;
+-	if (smmu->impl && smmu->impl->init_context) {
+-		ret = smmu->impl->init_context(smmu_domain);
+-		if (ret)
+-			goto out_unlock;
+-	}
+ 
+ 	pgtbl_cfg = (struct io_pgtable_cfg) {
+ 		.pgsize_bitmap	= smmu->pgsize_bitmap,
+@@ -810,6 +805,12 @@ static int arm_smmu_init_domain_context(struct iommu_domain *domain,
+ 		.iommu_dev	= smmu->dev,
+ 	};
+ 
++	if (smmu->impl && smmu->impl->init_context) {
++		ret = smmu->impl->init_context(smmu_domain, &pgtbl_cfg);
++		if (ret)
++			goto out_clear_smmu;
++	}
++
+ 	if (smmu_domain->non_strict)
+ 		pgtbl_cfg.quirks |= IO_PGTABLE_QUIRK_NON_STRICT;
+ 
+diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.h b/drivers/iommu/arm/arm-smmu/arm-smmu.h
+index d890a4a968e8..83294516ac08 100644
+--- a/drivers/iommu/arm/arm-smmu/arm-smmu.h
++++ b/drivers/iommu/arm/arm-smmu/arm-smmu.h
+@@ -386,7 +386,8 @@ struct arm_smmu_impl {
+ 			    u64 val);
+ 	int (*cfg_probe)(struct arm_smmu_device *smmu);
+ 	int (*reset)(struct arm_smmu_device *smmu);
+-	int (*init_context)(struct arm_smmu_domain *smmu_domain);
++	int (*init_context)(struct arm_smmu_domain *smmu_domain,
++			struct io_pgtable_cfg *cfg);
+ 	void (*tlb_sync)(struct arm_smmu_device *smmu, int page, int sync,
+ 			 int status);
+ 	int (*def_domain_type)(struct device *dev);
 -- 
 2.25.1
 
