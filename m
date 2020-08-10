@@ -1,43 +1,43 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 023DC240E19
-	for <lists+freedreno@lfdr.de>; Mon, 10 Aug 2020 21:13:00 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B341240E6B
+	for <lists+freedreno@lfdr.de>; Mon, 10 Aug 2020 21:13:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78F946E188;
-	Mon, 10 Aug 2020 19:12:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20FFA6E448;
+	Mon, 10 Aug 2020 19:13:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B335D6E188;
- Mon, 10 Aug 2020 19:12:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 279306E448;
+ Mon, 10 Aug 2020 19:13:44 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9CF062224D;
- Mon, 10 Aug 2020 19:12:56 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1F5EB22B49;
+ Mon, 10 Aug 2020 19:13:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597086777;
- bh=SKGMe+AprkijJRliWRr1iYnN8WQZPb7T8w0+0v5Nv6g=;
+ s=default; t=1597086824;
+ bh=5SdRxwewqwZ7KrqOvfnH5u5FxN5Aybc+C9XT0SFfjLE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=w/+FSGAtPzg8/bs986RncAKfjeMh1AfSIcZpX8Cad5itJjVQQSTutoExkzsIn+2h3
- rdHbqQ1IEFFDVaj2u+aeZziLXFY4LhOmquLsjPDcW691avJtjmonlw0Q9WXruyE3zn
- 9YS3i77QIRucZCE6mqVoTGL45HyCiiMv0j4ZjY54=
+ b=o3RKHiWVI33KMZLFvFNDZH9IC2ptg5xeH5eWAEiMqYO4hQ341FIl8PTv4rkrYGAcr
+ 102kAyRIfLfPAcF3yzEOOtyGEaKD9X82KIdMFnYbPA/jbGgW9FFBokFyk+WSl7uuz+
+ gJLMJtviuQr7Gr420VBNeSc5V7xyj2T7oz2qjbSk=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Mon, 10 Aug 2020 15:11:53 -0400
-Message-Id: <20200810191153.3794446-45-sashal@kernel.org>
+Date: Mon, 10 Aug 2020 15:12:59 -0400
+Message-Id: <20200810191259.3794858-31-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200810191153.3794446-1-sashal@kernel.org>
-References: <20200810191153.3794446-1-sashal@kernel.org>
+In-Reply-To: <20200810191259.3794858-1-sashal@kernel.org>
+References: <20200810191259.3794858-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Subject: [Freedreno] [PATCH AUTOSEL 5.4 45/45] drm/msm: ratelimit crtc event
- overflow error
+Subject: [Freedreno] [PATCH AUTOSEL 4.19 31/31] drm/msm: ratelimit crtc
+ event overflow error
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,10 +74,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index ce59adff06aa1..36c85c05b7cf7 100644
+index 4752f08f0884c..3c3b7f7013e87 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -381,7 +381,7 @@ static void dpu_crtc_frame_event_cb(void *data, u32 event)
+@@ -659,7 +659,7 @@ static void dpu_crtc_frame_event_cb(void *data, u32 event)
  	spin_unlock_irqrestore(&dpu_crtc->spin_lock, flags);
  
  	if (!fevent) {
