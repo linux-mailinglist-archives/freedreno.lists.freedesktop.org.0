@@ -2,60 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2141F241315
-	for <lists+freedreno@lfdr.de>; Tue, 11 Aug 2020 00:27:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F82B24131C
+	for <lists+freedreno@lfdr.de>; Tue, 11 Aug 2020 00:27:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2A4F89D99;
-	Mon, 10 Aug 2020 22:27:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 493656E055;
+	Mon, 10 Aug 2020 22:27:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C6166E48C
- for <freedreno@lists.freedesktop.org>; Mon, 10 Aug 2020 22:27:45 +0000 (UTC)
+Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
+ [104.130.122.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0998B6E055
+ for <freedreno@lists.freedesktop.org>; Mon, 10 Aug 2020 22:27:49 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1597098465; h=Content-Transfer-Encoding: MIME-Version:
+ s=smtp; t=1597098469; h=Content-Transfer-Encoding: MIME-Version:
  References: In-Reply-To: Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=yOMYncf5nMXrU1PRqoN8EKXZ0DovQfRsHybdYeETpeQ=;
- b=hHa46+P5baaVUAzZKV6Thwol3jc9CbrNd29/qfCw3Y2qIYFBAs5iLVFCM+X+V953+mJRS8mi
- TpppauSAFWDKbHIH3fETf3d2rMcOO3X7aeanvAmSJo5uf8lt3aV+Pkh951n5SK5mM6VIJkmD
- VOIxHA+3FWsxrUh5xnvh8bjph+k=
-X-Mailgun-Sending-Ip: 69.72.43.7
+ Sender; bh=luFjlnOjyWOq8Y2pNHotM6G2poKKOZibPxqXcVoTZhI=;
+ b=fm180B0OJkrhls/sJBHZ+F+thORYl5WxGY4fdknEKowXF98fBypleELo1WTgAVoP/3QtbvAW
+ pk2K8uJeQ69+QbMe1b5KUVpkfwHc/Xo9eB4/D82qk0mAwXdFxEispwxNyApy+icuYhXlPjkH
+ HrJSofHu0dr1AxCX6L7e8SNuMxk=
+X-Mailgun-Sending-Ip: 104.130.122.29
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n03.prod.us-west-2.postgun.com with SMTP id
- 5f31c9e0c85a1092b0fb1de2 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 10 Aug 2020 22:27:44
+ smtp-out-n07.prod.us-west-2.postgun.com with SMTP id
+ 5f31c9e5d96d28d61ee229ec (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 10 Aug 2020 22:27:49
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 8A23BC43449; Mon, 10 Aug 2020 22:27:40 +0000 (UTC)
+ id 85730C433B2; Mon, 10 Aug 2020 22:27:45 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
- autolearn=unavailable autolearn_force=no version=3.4.0
+ autolearn=ham autolearn_force=no version=3.4.0
 Received: from jordan-laptop.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 917CBC4344D;
- Mon, 10 Aug 2020 22:27:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 917CBC4344D
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 38B0EC4345B;
+ Mon, 10 Aug 2020 22:27:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 38B0EC4345B
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  spf=none smtp.mailfrom=jcrouse@codeaurora.org
 From: Jordan Crouse <jcrouse@codeaurora.org>
 To: linux-arm-msm@vger.kernel.org
-Date: Mon, 10 Aug 2020 16:26:56 -0600
-Message-Id: <20200810222657.1841322-13-jcrouse@codeaurora.org>
+Date: Mon, 10 Aug 2020 16:26:57 -0600
+Message-Id: <20200810222657.1841322-14-jcrouse@codeaurora.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200810222657.1841322-1-jcrouse@codeaurora.org>
 References: <20200810222657.1841322-1-jcrouse@codeaurora.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v12 12/13] arm: dts: qcom: sm845: Set the
- compatible string for the GPU SMMU
+Subject: [Freedreno] [RFC v12 13/13] iommu/arm-smmu: Add a init_context_bank
+ implementation hook
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,39 +69,160 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Thierry Reding <treding@nvidia.com>, linux-kernel@vger.kernel.org,
  Will Deacon <will@kernel.org>, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Joerg Roedel <joro@8bytes.org>, Krishna Reddy <vdumpa@nvidia.com>,
+ Stephen Boyd <swboyd@chromium.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>, iommu@lists.linux-foundation.org,
- Andy Gross <agross@kernel.org>, Robin Murphy <robin.murphy@arm.com>
+ Sibi Sankar <sibis@codeaurora.org>, Vivek Gautam <vivek.gautam@codeaurora.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Pritesh Raithatha <praithatha@nvidia.com>, Robin Murphy <robin.murphy@arm.com>,
+ linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Set the qcom,adreno-smmu compatible string for the GPU SMMU to enable
-split pagetables and per-instance pagetables for drm/msm.
+Add a new implementation hook to allow the implementation specific code
+to tweek the context bank configuration just before it gets written.
+The first user will be the Adreno GPU implementation to turn on
+SCTLR.HUPCF to ensure that a page fault doesn't terminating pending
+transactions. Doing so could hang the GPU if one of the terminated
+transactions is a CP read.
 
 Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
 ---
 
- arch/arm64/boot/dts/qcom/sdm845.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 16 ++++++++++++++++
+ drivers/iommu/arm/arm-smmu/arm-smmu.c      | 21 +++++++++++++--------
+ drivers/iommu/arm/arm-smmu/arm-smmu.h      |  5 +++++
+ 3 files changed, 34 insertions(+), 8 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-index 2884577dcb77..6a9adaa401a9 100644
---- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-@@ -4058,7 +4058,7 @@ opp-257000000 {
- 		};
+diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+index 3be10145bf57..baa026ddca1c 100644
+--- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
++++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+@@ -34,6 +34,19 @@ static bool qcom_adreno_smmu_is_gpu_device(struct device *dev)
+ 	return false;
+ }
  
- 		adreno_smmu: iommu@5040000 {
--			compatible = "qcom,sdm845-smmu-v2", "qcom,smmu-v2";
-+			compatible = "qcom,adreno-smmu", "qcom,smmu-v2";
- 			reg = <0 0x5040000 0 0x10000>;
- 			#iommu-cells = <1>;
- 			#global-interrupts = <2>;
++#define QCOM_ADRENO_SMMU_GPU 1
++
++static void qcom_adreno_smmu_init_context_bank(struct arm_smmu_domain *smmu_domain,
++		struct arm_smmu_cb *cb)
++{
++	/*
++	 * On the GPU device we want to process subsequent transactions after a
++	 * fault to keep the GPU from hanging
++	 */
++	if (cb->cfg->priv == QCOM_ADRENO_SMMU_GPU)
++		cb->sctlr |= ARM_SMMU_SCTLR_HUPCF;
++}
++
+ /*
+  * Local implementation to configure TTBR0 with the specified pagetable config.
+  * The GPU driver will call this to enable TTBR0 when per-instance pagetables
+@@ -120,6 +133,7 @@ static int qcom_adreno_smmu_alloc_context_bank(struct arm_smmu_domain *smmu_doma
+ 		count = 1;
+ 	} else {
+ 		start = 1;
++		smmu_domain->cfg.priv = QCOM_ADRENO_SMMU_GPU;
+ 	}
+ 
+ 	return __arm_smmu_alloc_bitmap(smmu->context_map, start, count);
+@@ -141,6 +155,7 @@ static int qcom_adreno_smmu_init_context(struct arm_smmu_domain *smmu_domain,
+ 	    (smmu_domain->cfg.fmt == ARM_SMMU_CTX_FMT_AARCH64))
+ 		pgtbl_cfg->quirks |= IO_PGTABLE_QUIRK_ARM_TTBR1;
+ 
++
+ 	return 0;
+ }
+ 
+@@ -204,6 +219,7 @@ static const struct arm_smmu_impl qcom_adreno_smmu_impl = {
+ 	.alloc_context_bank = qcom_adreno_smmu_alloc_context_bank,
+ 	.domain_set_attr = qcom_adreno_smmu_domain_set_attr,
+ 	.domain_get_attr = qcom_adreno_smmu_domain_get_attr,
++	.init_context_bank = qcom_adreno_smmu_init_context_bank,
+ };
+ 
+ static struct arm_smmu_device *qcom_smmu_create(struct arm_smmu_device *smmu,
+diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+index e0a3e0da885b..6225649bbfef 100644
+--- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
++++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+@@ -532,6 +532,18 @@ static void arm_smmu_init_context_bank(struct arm_smmu_domain *smmu_domain,
+ 			cb->mair[1] = pgtbl_cfg->arm_lpae_s1_cfg.mair >> 32;
+ 		}
+ 	}
++
++	cb->sctlr = ARM_SMMU_SCTLR_CFIE | ARM_SMMU_SCTLR_CFRE | ARM_SMMU_SCTLR_AFE |
++		ARM_SMMU_SCTLR_TRE | ARM_SMMU_SCTLR_M;
++
++	if (stage1)
++		cb->sctlr |= ARM_SMMU_SCTLR_S1_ASIDPNE;
++	if (IS_ENABLED(CONFIG_CPU_BIG_ENDIAN))
++		cb->sctlr |= ARM_SMMU_SCTLR_E;
++
++	/* Give the implementation a chance to adjust the configuration */
++	if (smmu_domain->smmu->impl && smmu_domain->smmu->impl->init_context_bank)
++		smmu_domain->smmu->impl->init_context_bank(smmu_domain, cb);
+ }
+ 
+ void arm_smmu_write_context_bank(struct arm_smmu_device *smmu, int idx)
+@@ -610,14 +622,7 @@ void arm_smmu_write_context_bank(struct arm_smmu_device *smmu, int idx)
+ 	}
+ 
+ 	/* SCTLR */
+-	reg = ARM_SMMU_SCTLR_CFIE | ARM_SMMU_SCTLR_CFRE | ARM_SMMU_SCTLR_AFE |
+-	      ARM_SMMU_SCTLR_TRE | ARM_SMMU_SCTLR_M;
+-	if (stage1)
+-		reg |= ARM_SMMU_SCTLR_S1_ASIDPNE;
+-	if (IS_ENABLED(CONFIG_CPU_BIG_ENDIAN))
+-		reg |= ARM_SMMU_SCTLR_E;
+-
+-	arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_SCTLR, reg);
++	arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_SCTLR, cb->sctlr);
+ }
+ 
+ static int arm_smmu_init_domain_context(struct iommu_domain *domain,
+diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.h b/drivers/iommu/arm/arm-smmu/arm-smmu.h
+index 870f0fd060a5..e84b8da8b93b 100644
+--- a/drivers/iommu/arm/arm-smmu/arm-smmu.h
++++ b/drivers/iommu/arm/arm-smmu/arm-smmu.h
+@@ -143,6 +143,7 @@ enum arm_smmu_cbar_type {
+ 
+ #define ARM_SMMU_CB_SCTLR		0x0
+ #define ARM_SMMU_SCTLR_S1_ASIDPNE	BIT(12)
++#define ARM_SMMU_SCTLR_HUPCF		BIT(8)
+ #define ARM_SMMU_SCTLR_CFCFG		BIT(7)
+ #define ARM_SMMU_SCTLR_CFIE		BIT(6)
+ #define ARM_SMMU_SCTLR_CFRE		BIT(5)
+@@ -343,6 +344,7 @@ struct arm_smmu_cfg {
+ 	};
+ 	enum arm_smmu_cbar_type		cbar;
+ 	enum arm_smmu_context_fmt	fmt;
++	unsigned long			priv;
+ };
+ #define ARM_SMMU_INVALID_IRPTNDX	0xff
+ 
+@@ -350,6 +352,7 @@ struct arm_smmu_cb {
+ 	u64				ttbr[2];
+ 	u32				tcr[2];
+ 	u32				mair[2];
++	u32				sctlr;
+ 	struct arm_smmu_cfg		*cfg;
+ };
+ 
+@@ -439,6 +442,8 @@ struct arm_smmu_impl {
+ 			enum iommu_attr attr, void *data);
+ 	int (*domain_set_attr)(struct arm_smmu_domain *smmu_domain,
+ 			enum iommu_attr attr, void *data);
++	void (*init_context_bank)(struct arm_smmu_domain *smmu_domain,
++			struct arm_smmu_cb *cb);
+ };
+ 
+ #define INVALID_SMENDX			-1
 -- 
 2.25.1
 
