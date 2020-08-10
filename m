@@ -1,58 +1,33 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9020523F855
-	for <lists+freedreno@lfdr.de>; Sat,  8 Aug 2020 19:28:35 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 17EB224062C
+	for <lists+freedreno@lfdr.de>; Mon, 10 Aug 2020 14:49:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 421C16E21B;
-	Sat,  8 Aug 2020 17:28:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6EAF6E40D;
+	Mon, 10 Aug 2020 12:49:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com
- [IPv6:2607:f8b0:4864:20::1042])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA5536E0FD;
- Sat,  8 Aug 2020 17:28:30 +0000 (UTC)
-Received: by mail-pj1-x1042.google.com with SMTP id ep8so2594196pjb.3;
- Sat, 08 Aug 2020 10:28:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=v4VG68yjsSgJtRppBPF3uOrudyHEUR7Dzur3xN68sJo=;
- b=LrumZTBTGBsFlxmSWq3tdNULI4G/LxjTqO7lrauGcYh59HaMmOQ/HpjplxEAKGw3Wr
- jnZC8tOCSXmxU/n9HkWPLYthFW4fCWd13GtKO5vG6VJfRz4I/IkwnAeddxRxGNOKvhBI
- yGRkyfpKht291PbtrNkaNHspu/bkYnSPFQFoKTpeo5EXO20TcjjCrMPq3F9y1HfXXFVu
- C1INfLwg9aSZiLnCDM7h6sAecEmB2JjpviqYLyw09Wp+Rr+rkHxHwbeTJBdu4Q+sGBFG
- Cns1iJ+Rd4NQL+vC47RX4oLc3fCFhwP2Iv8VDSWc2a7C5RHJ2jccZXAvKzIypxC3SqU6
- prbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=v4VG68yjsSgJtRppBPF3uOrudyHEUR7Dzur3xN68sJo=;
- b=btZ66NId1K/cShDeYwgH4/xradUm6+p67MbE6pd5XirgPmyzhDMExu7+eagoESXagY
- G/FgDwjZ51UzzXCdxRmMj8EhERFKaScnMsdu+DESSLYV7+vb4E2dupuPt/7nEKz7nrC/
- dMal8Ifvt15tmC0CsGXhZ3xqjt+6ORdZV/utWqlW0fJ8aA7Me7m935RWkB3aJOK0yrAX
- /XFM6O6U18Jxo5w8Uvp6H/VFijUjQ2sObg2Z5OEO7put8mHhjUvXVli/SHrSAJIOXaha
- iZ4PTPx/lrleK7CqUzMiqa69CS6q7aG0nrkLCCGN64WEVdqSVNMzRlm+IX59Im1n0Wx/
- IF1g==
-X-Gm-Message-State: AOAM532EK4P4BmH1u4ccbqPVe/sndc+EAL4Ho9TMD1L1oTAHU1UJYmBk
- O9A5javGX4zhf0s+6Mlp+UjpFQWhYsg=
-X-Google-Smtp-Source: ABdhPJzYr7usx3fGNyyPrJWCnyL3rFFa3Db/Q54TjWtTPXqE1GkwwM99QtEJztB1F3g1c1ejhy8NjA==
-X-Received: by 2002:a17:90b:378d:: with SMTP id
- mz13mr18857396pjb.98.1596907709800; 
- Sat, 08 Aug 2020 10:28:29 -0700 (PDT)
-Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
- by smtp.gmail.com with ESMTPSA id a7sm7594801pfd.194.2020.08.08.10.28.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2020 10:28:28 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Sat,  8 Aug 2020 10:29:11 -0700
-Message-Id: <20200808172913.380050-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.26.2
-MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm/a6xx: fix crashdec section name typo
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32E4D6E40D;
+ Mon, 10 Aug 2020 12:49:53 +0000 (UTC)
+Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
+ by alexa-out.qualcomm.com with ESMTP; 10 Aug 2020 05:49:52 -0700
+Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
+ by ironmsg08-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 10 Aug 2020 05:49:51 -0700
+Received: from kalyant-linux.qualcomm.com ([10.204.66.210])
+ by ironmsg01-blr.qualcomm.com with ESMTP; 10 Aug 2020 18:19:21 +0530
+Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
+ id 8338048E5; Mon, 10 Aug 2020 18:19:20 +0530 (IST)
+From: Kalyan Thota <kalyan_t@codeaurora.org>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Mon, 10 Aug 2020 18:19:18 +0530
+Message-Id: <1597063758-26238-1-git-send-email-kalyan_t@codeaurora.org>
+X-Mailer: git-send-email 1.9.1
+Subject: [Freedreno] [v3] drm/msm/dpu: Fix reservation failures in modeset
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,48 +40,113 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, Jonathan Marek <jonathan@marek.ca>,
- David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Jordan Crouse <jcrouse@codeaurora.org>,
- open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
+Cc: mkrishn@codeaurora.org, travitej@codeaurora.org, dianders@chromium.org,
+ abhinavk@codeaurora.org, linux-kernel@vger.kernel.org, robdclark@gmail.com,
+ nganji@codeaurora.org, seanpaul@chromium.org,
+ Kalyan Thota <kalyan_t@codeaurora.org>, ddavenport@chromium.org,
+ hoegsberg@chromium.org, swboyd@chromium.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+In TEST_ONLY commit, rm global_state will duplicate the
+object and request for new reservations, once they pass
+then the new state will be swapped with the old and will
+be available for the Atomic Commit.
 
-Backport note: maybe wait some time for the crashdec MR[1] to look for
-both the old typo'd name and the corrected name to land in mesa 20.2
+This patch fixes some of missing links in the resource
+reservation sequence mentioned above.
 
-[1] https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/6242
+1) Creation of duplicate state in test_only commit (Rob)
+2) Allocate and release the resources on every modeset.
+3) Avoid allocation only when active is false.
 
-Fixes: 1707add81551 ("drm/msm/a6xx: Add a6xx gpu state")
-Signed-off-by: Rob Clark <robdclark@chromium.org>
+In a modeset operation, swap state happens well before
+disable. Hence clearing reservations in disable will
+cause failures in modeset enable.
+
+Allow reservations to be cleared/allocated before swap,
+such that only newly committed resources are pushed to HW.
+
+Changes in v1:
+ - Move the rm release to atomic_check.
+ - Ensure resource allocation and free happens when active
+   is not changed i.e only when mode is changed.(Rob)
+
+Changes in v2:
+ - Handle dpu_kms_get_global_state API failure as it may
+   return EDEADLK (swboyd).
+
+Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 20 +++++++++++---------
+ 1 file changed, 11 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
-index 846fd5b54c23..2fb58b7098e4 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
-@@ -372,7 +372,7 @@ static const struct a6xx_indexed_registers {
- 	u32 data;
- 	u32 count;
- } a6xx_indexed_reglist[] = {
--	{ "CP_SEQ_STAT", REG_A6XX_CP_SQE_STAT_ADDR,
-+	{ "CP_SQE_STAT", REG_A6XX_CP_SQE_STAT_ADDR,
- 		REG_A6XX_CP_SQE_STAT_DATA, 0x33 },
- 	{ "CP_DRAW_STATE", REG_A6XX_CP_DRAW_STATE_ADDR,
- 		REG_A6XX_CP_DRAW_STATE_DATA, 0x100 },
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 63976dc..39e0b32 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -582,7 +582,10 @@ static int dpu_encoder_virt_atomic_check(
+ 	dpu_kms = to_dpu_kms(priv->kms);
+ 	mode = &crtc_state->mode;
+ 	adj_mode = &crtc_state->adjusted_mode;
+-	global_state = dpu_kms_get_existing_global_state(dpu_kms);
++	global_state = dpu_kms_get_global_state(crtc_state->state);
++	if (IS_ERR(global_state))
++		return PTR_ERR(global_state);
++
+ 	trace_dpu_enc_atomic_check(DRMID(drm_enc));
+ 
+ 	/*
+@@ -617,12 +620,15 @@ static int dpu_encoder_virt_atomic_check(
+ 	/* Reserve dynamic resources now. */
+ 	if (!ret) {
+ 		/*
+-		 * Avoid reserving resources when mode set is pending. Topology
+-		 * info may not be available to complete reservation.
++		 * Release and Allocate resources on every modeset
++		 * Dont allocate when active is false.
+ 		 */
+ 		if (drm_atomic_crtc_needs_modeset(crtc_state)) {
+-			ret = dpu_rm_reserve(&dpu_kms->rm, global_state,
+-					drm_enc, crtc_state, topology);
++			dpu_rm_release(global_state, drm_enc);
++
++			if (!crtc_state->active_changed || crtc_state->active)
++				ret = dpu_rm_reserve(&dpu_kms->rm, global_state,
++						drm_enc, crtc_state, topology);
+ 		}
+ 	}
+ 
+@@ -1171,7 +1177,6 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
+ 	struct dpu_encoder_virt *dpu_enc = NULL;
+ 	struct msm_drm_private *priv;
+ 	struct dpu_kms *dpu_kms;
+-	struct dpu_global_state *global_state;
+ 	int i = 0;
+ 
+ 	if (!drm_enc) {
+@@ -1190,7 +1195,6 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
+ 
+ 	priv = drm_enc->dev->dev_private;
+ 	dpu_kms = to_dpu_kms(priv->kms);
+-	global_state = dpu_kms_get_existing_global_state(dpu_kms);
+ 
+ 	trace_dpu_enc_disable(DRMID(drm_enc));
+ 
+@@ -1220,8 +1224,6 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
+ 
+ 	DPU_DEBUG_ENC(dpu_enc, "encoder disabled\n");
+ 
+-	dpu_rm_release(global_state, drm_enc);
+-
+ 	mutex_unlock(&dpu_enc->enc_lock);
+ }
+ 
 -- 
-2.26.2
+1.9.1
 
 _______________________________________________
 Freedreno mailing list
