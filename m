@@ -1,62 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD42D2414D2
-	for <lists+freedreno@lfdr.de>; Tue, 11 Aug 2020 04:16:27 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D110C241DCF
+	for <lists+freedreno@lfdr.de>; Tue, 11 Aug 2020 18:07:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DD6789D81;
-	Tue, 11 Aug 2020 02:16:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A12E6E55E;
+	Tue, 11 Aug 2020 16:07:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
  [104.130.122.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 431C889D99
- for <freedreno@lists.freedesktop.org>; Tue, 11 Aug 2020 02:16:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2994A6E55E
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Aug 2020 16:07:17 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1597112185; h=Content-Transfer-Encoding: MIME-Version:
- Message-Id: Date: Subject: Cc: To: From: Sender;
- bh=/llS1VKuhZjl980iJmKrV/VZDO5nanGEJAgyZaE+Dkk=;
- b=N7GIbqCQ2nyCQoTJUi76iECXW36H3HQ6OMJj8+6sjuuD/xGF9hO/Ot1mxn+QMhQVTyG2aPkw
- EWEBscE5TAHOmShtUXxXiJxmC33PX+YUlLlM9D4G3dCscgcU+rwS3tcwS1xEMnkLS9gPnVp8
- Ws99Ds1TXi+nkE0IY8y/PUXDYeM=
+ s=smtp; t=1597162039; h=In-Reply-To: Content-Type: MIME-Version:
+ References: Message-ID: Subject: Cc: To: From: Date: Sender;
+ bh=aopWiCCtLIEBIrrQ/NhWFIPKW7qlpjHho6adIWqA26g=;
+ b=oYQX4ASutNR6a2IMx9KgO0kglTD3fqLRPXa9JsF5mOl+cYwtSX+e4jL9OGgMIq9JVRSMSzik
+ 9mNhPQZioJ6WN5amIi4phnGHjS/EgzgeFQkhIT/gEhA9jOweNprrf65p3X5j2YwdIyfk47jz
+ cUQlvcP5Xgu3E68NmWU7X42ZNhs=
 X-Mailgun-Sending-Ip: 104.130.122.29
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
- 5f31ff78440a07969a1c41e0 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 11 Aug 2020 02:16:24
+ smtp-out-n10.prod.us-west-2.postgun.com with SMTP id
+ 5f32c1f803528d40247ba285 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 11 Aug 2020 16:06:16
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 63025C433CB; Tue, 11 Aug 2020 02:16:23 +0000 (UTC)
+ id 2B641C433C9; Tue, 11 Aug 2020 16:06:16 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
  autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from linuxdisplay-lab-04.qualcomm.com (i-global254.qualcomm.com
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: tanmay)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 1BF4BC433C9;
- Tue, 11 Aug 2020 02:16:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 1BF4BC433C9
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 61799C433C6;
+ Tue, 11 Aug 2020 16:06:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 61799C433C6
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=tanmay@codeaurora.org
-From: Tanmay Shah <tanmay@codeaurora.org>
-To: swboyd@chromium.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com
-Date: Mon, 10 Aug 2020 19:15:53 -0700
-Message-Id: <20200811021553.25023-1-tanmay@codeaurora.org>
-X-Mailer: git-send-email 2.27.0
+ spf=none smtp.mailfrom=jcrouse@codeaurora.org
+Date: Tue, 11 Aug 2020 10:06:11 -0600
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <20200811160611.GA3221@jcrouse1-lnx.qualcomm.com>
+Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
+ dri-devel@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20200808172913.380050-1-robdclark@gmail.com>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v5] arm64: dts: qcom: sc7180: Add Display Port
- dt node
+Content-Disposition: inline
+In-Reply-To: <20200808172913.380050-1-robdclark@gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: fix crashdec section name typo
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,154 +78,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, linux-kernel@vger.kernel.org, abhinavk@codeaurora.org,
- khsieh@codeaurora.org, seanpaul@chromium.org,
- Tanmay Shah <tanmay@codeaurora.org>, daniel@ffwll.ch, aravindh@codeaurora.org,
- freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <freedreno@lists.freedesktop.org>, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add DP device node on sc7180.
+On Sat, Aug 08, 2020 at 10:29:11AM -0700, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> Backport note: maybe wait some time for the crashdec MR[1] to look for
+> both the old typo'd name and the corrected name to land in mesa 20.2
+> 
+> [1] https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/6242
 
-Changes in v2:
+Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
 
-- Add assigned-clocks and assigned-clock-parents
-- Remove cell-index and pixel_rcg
-- Change compatible to qcom,sc7180-dp
+> Fixes: 1707add81551 ("drm/msm/a6xx: Add a6xx gpu state")
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
+> index 846fd5b54c23..2fb58b7098e4 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
+> @@ -372,7 +372,7 @@ static const struct a6xx_indexed_registers {
+>  	u32 data;
+>  	u32 count;
+>  } a6xx_indexed_reglist[] = {
+> -	{ "CP_SEQ_STAT", REG_A6XX_CP_SQE_STAT_ADDR,
+> +	{ "CP_SQE_STAT", REG_A6XX_CP_SQE_STAT_ADDR,
+>  		REG_A6XX_CP_SQE_STAT_DATA, 0x33 },
+>  	{ "CP_DRAW_STATE", REG_A6XX_CP_DRAW_STATE_ADDR,
+>  		REG_A6XX_CP_DRAW_STATE_DATA, 0x100 },
+> -- 
+> 2.26.2
+> 
 
-Changes in v3:
-- Update commit text
-- Make DP child node of MDSS
-- Remove data-lanes property from SOC dts
-- Disable DP node in SOC dts
-- Assign DP to Port2 in MDP node
-- Add MDSS AHB clock in DP device node
-
-Changes in v4:
-- Remove redundant reg-names property
-- Use IRQ flag instead had hard coded value.
-- Add link clock source in assigned-clocks list.
-
-Changes in v5:
-- Add OPP table and power-domains for DisplayPort
-
-This patch depends-on following series:
-https://lore.kernel.org/dri-devel/20200807071718.17937-1-tanmay@codeaurora.org/
-
-Signed-off-by: Tanmay Shah <tanmay@codeaurora.org>
-Co-developed-by: Kuogee Hsieh <khsieh@codeaurora.org>
-Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
----
- arch/arm64/boot/dts/qcom/sc7180.dtsi | 76 +++++++++++++++++++++++++++-
- 1 file changed, 74 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-index 31b9217bb5bf..2998fae863a7 100644
---- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-@@ -2371,6 +2371,13 @@ dpu_intf1_out: endpoint {
- 							remote-endpoint = <&dsi0_in>;
- 						};
- 					};
-+
-+					port@2 {
-+						reg = <2>;
-+						dpu_intf0_out: endpoint {
-+							remote-endpoint = <&dp_in>;
-+						};
-+					};
- 				};
- 			};
- 
-@@ -2440,6 +2447,71 @@ dsi_phy: dsi-phy@ae94400 {
- 
- 				status = "disabled";
- 			};
-+
-+			msm_dp: displayport-controller@ae90000 {
-+				status = "disabled";
-+				compatible = "qcom,sc7180-dp";
-+
-+				reg = <0 0x0ae90000 0 0x1400>;
-+
-+				interrupt-parent = <&mdss>;
-+				interrupts = <12 IRQ_TYPE_NONE>;
-+
-+				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
-+				clock-names = "core_iface", "core_aux", "ctrl_link",
-+					      "ctrl_link_iface", "stream_pixel";
-+				#clock-cells = <1>;
-+				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
-+						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
-+				assigned-clock-parents = <&msm_dp 0>, <&msm_dp 1>;
-+
-+				operating-points-v2 = <&dp_opp_table>;
-+				power-domains = <&rpmhpd SC7180_CX>;
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					port@0 {
-+						reg = <0>;
-+						dp_in: endpoint {
-+							remote-endpoint = <&dpu_intf0_out>;
-+						};
-+					};
-+
-+					port@1 {
-+						reg = <1>;
-+						dp_out: endpoint { };
-+					};
-+				};
-+
-+				dp_opp_table: dp-opp-table {
-+					compatible = "operating-points-v2";
-+
-+					opp-160000000 {
-+						opp-hz = /bits/ 64 <160000000>;
-+						required-opps = <&rpmhpd_opp_low_svs>;
-+					};
-+
-+					opp-270000000 {
-+						opp-hz = /bits/ 64 <270000000>;
-+						required-opps = <&rpmhpd_opp_svs>;
-+					};
-+
-+					opp-540000000 {
-+						opp-hz = /bits/ 64 <540000000>;
-+						required-opps = <&rpmhpd_opp_svs_l1>;
-+					};
-+
-+					opp-810000000 {
-+						opp-hz = /bits/ 64 <810000000>;
-+						required-opps = <&rpmhpd_opp_nom>;
-+					};
-+				};
-+			};
- 		};
- 
- 		dispcc: clock-controller@af00000 {
-@@ -2449,8 +2521,8 @@ dispcc: clock-controller@af00000 {
- 				 <&gcc GCC_DISP_GPLL0_CLK_SRC>,
- 				 <&dsi_phy 0>,
- 				 <&dsi_phy 1>,
--				 <0>,
--				 <0>;
-+				 <&msm_dp 0>,
-+				 <&msm_dp 1>;
- 			clock-names = "bi_tcxo",
- 				      "gcc_disp_gpll0_clk_src",
- 				      "dsi0_phy_pll_out_byteclk",
 -- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
 a Linux Foundation Collaborative Project
-
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
