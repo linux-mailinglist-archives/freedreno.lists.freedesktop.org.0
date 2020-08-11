@@ -2,58 +2,46 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96FF424208C
-	for <lists+freedreno@lfdr.de>; Tue, 11 Aug 2020 21:49:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE80124213D
+	for <lists+freedreno@lfdr.de>; Tue, 11 Aug 2020 22:21:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA9036E7D0;
-	Tue, 11 Aug 2020 19:49:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8152D6E7EC;
+	Tue, 11 Aug 2020 20:21:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD8EC6E7D2
- for <freedreno@lists.freedesktop.org>; Tue, 11 Aug 2020 19:49:14 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1597175357; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=JjTim0gb+1hEs7u9Q27jb9eJJjx9k1/9OYuzAM5+4TM=;
- b=T/901ttw2aqeqrdbkPziZGh2lhbwT8bSYZlWxlJByLUE/n+QISXbF2nDmyomh1/BYe1Fmsj6
- 7twmwUFOl3kCGZ1wwX9Z+yyRwRajbgA5oQeJz4ku8CoftoKutPMX5kDuqUkQIc1sFnMR/s4d
- MlMF4VIjUDZNtujPHQZqKNMzSR0=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n15.prod.us-east-1.postgun.com with SMTP id
- 5f32f62eba4c2cd3678bed1e (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 11 Aug 2020 19:49:02
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id D4C01C4339C; Tue, 11 Aug 2020 19:49:01 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: tanmay)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 8F82BC433C9;
- Tue, 11 Aug 2020 19:49:00 +0000 (UTC)
-MIME-Version: 1.0
-Date: Tue, 11 Aug 2020 12:49:00 -0700
-From: tanmay@codeaurora.org
-To: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <75acac5a-b4a5-9c5a-4404-fb936d738e46@infradead.org>
+Received: from merlin.infradead.org (merlin.infradead.org
+ [IPv6:2001:8b0:10b:1231::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F10E86E7EC;
+ Tue, 11 Aug 2020 20:21:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=merlin.20170209; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
+ :Reply-To:Content-ID:Content-Description;
+ bh=mu8ZGHCtLzfb4Q1brYigGzESLOWdAu8Y0s2c7XTplC8=; b=284/OXxnHd747ZUgC23m/S9th+
+ 7fU/+S+BrIfZAzGbDCJ9hKskEz65vFxHjCYXwR4+nsltIHh+uEV/PLGeTNtQC67TxZlyxTE5fERG2
+ NXdSnWsZnb/Br3YZBMqcz/n7ERi4JfJoRq4CuklWCIfbeneuN0b9BMPvKXOGFde8FCQ7gV/5EY9PW
+ pZfsQHsKAwqKnIugSYP8VXO1scYbxv1Ti4ZmOQP0BlDCVlv01mHc9AYEw7lLzmQXUzL1u22oywuqC
+ lXrNFtsh2UvZp5u61MAbyx9tQ/22xMJ+iZ1Du7AaVB5bNd8V+n7m8NM23Jiv/GMi2iAQPbVGGq32e
+ bsdMdEgw==;
+Received: from [2601:1c0:6280:3f0::19c2]
+ by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1k5amB-0001WQ-HM; Tue, 11 Aug 2020 20:21:39 +0000
+To: tanmay@codeaurora.org
 References: <20200807071718.17937-1-tanmay@codeaurora.org>
  <20200807071718.17937-4-tanmay@codeaurora.org>
  <3b0d0e49-5fe8-e217-4ddc-1ff08e65ab48@infradead.org>
  <CAF6AEGv5Yf1x7aCEauP7XtzTjpUCxJt6_GzxFhFXyf_DX_Gi+g@mail.gmail.com>
  <159683184187.1360974.15575847254880429529@swboyd.mtv.corp.google.com>
  <75acac5a-b4a5-9c5a-4404-fb936d738e46@infradead.org>
-Message-ID: <639438051c1b2fe1d9bec5f6343a6dec@codeaurora.org>
-X-Sender: tanmay@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
+ <639438051c1b2fe1d9bec5f6343a6dec@codeaurora.org>
+From: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <7222ceca-9fe2-f91b-4129-5a70952875f7@infradead.org>
+Date: Tue, 11 Aug 2020 13:21:32 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <639438051c1b2fe1d9bec5f6343a6dec@codeaurora.org>
+Content-Language: en-US
 Subject: Re: [Freedreno] [PATCH v9 3/5] drm/msm/dp: add support for DP PLL
  driver
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -78,59 +66,43 @@ Cc: David Airlie <airlied@linux.ie>,
  Vara Reddy <varar@codeaurora.org>, aravindh@codeaurora.org,
  freedreno <freedreno@lists.freedesktop.org>,
  Chandan Uddaraju <chandanu@codeaurora.org>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-08-07 13:28, Randy Dunlap wrote:
-> On 8/7/20 1:24 PM, Stephen Boyd wrote:
->> Quoting Rob Clark (2020-08-07 08:51:48)
->>> On Fri, Aug 7, 2020 at 8:27 AM Randy Dunlap <rdunlap@infradead.org>
->>> wrote:
->>>> 
->>>> On 8/7/20 12:17 AM, Tanmay Shah wrote:
->>>>> diff --git a/drivers/gpu/drm/msm/Kconfig 
->>>>> b/drivers/gpu/drm/msm/Kconfig
->>>>> index ea3c4d094d09..cc1392b29022 100644
->>>>> --- a/drivers/gpu/drm/msm/Kconfig
->>>>> +++ b/drivers/gpu/drm/msm/Kconfig
->>>>> @@ -60,6 +60,7 @@ config DRM_MSM_HDMI_HDCP
->>>>>  config DRM_MSM_DP
->>>>>       bool "Enable DP support in MSM DRM driver"
->>>>>       depends on DRM_MSM
->>>>> +     default y
->>>>>       help
->>>>>         Compile in support for DP driver in msm drm driver. DP 
->>>>> external
->>>>>         display support is enabled through this config option. It 
->>>>> can
->>>> 
->>>> Hi,
->>>> 
->>>> You need a very strong justification to make an optional part of a
->>>> driver
->>>> to be "default y".
->>> 
->>> My opinion is that if the driver is built, everything should be 
->>> built.
->>> This is what makes sense for distro's.  It is only the embedded case
->>> where you want to trim down unneeded features where you might want to
->>> disable some parts.  So 'default y' makes sense to me.
-> 
-> We don't set defaults for distro convenience.
-> 
->> 
->> Maybe use 'default DRM_MSM' so that it doesn't trigger the 'default y'
->> filters people have?
-> 
-> Most people can figure that one out.  ;)
-> I don't have any automated filters.
-
-After after further reviews, I agree with Rob. Display Port is required 
-module as of now so it makes sense to keep 'default y'.
-
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+T24gOC8xMS8yMCAxMjo0OSBQTSwgdGFubWF5QGNvZGVhdXJvcmEub3JnIHdyb3RlOgo+IE9uIDIw
+MjAtMDgtMDcgMTM6MjgsIFJhbmR5IER1bmxhcCB3cm90ZToKPj4gT24gOC83LzIwIDE6MjQgUE0s
+IFN0ZXBoZW4gQm95ZCB3cm90ZToKPj4+IFF1b3RpbmcgUm9iIENsYXJrICgyMDIwLTA4LTA3IDA4
+OjUxOjQ4KQo+Pj4+IE9uIEZyaSwgQXVnIDcsIDIwMjAgYXQgODoyNyBBTSBSYW5keSBEdW5sYXAg
+PHJkdW5sYXBAaW5mcmFkZWFkLm9yZz4KPj4+PiB3cm90ZToKPj4+Pj4KPj4+Pj4gT24gOC83LzIw
+IDEyOjE3IEFNLCBUYW5tYXkgU2hhaCB3cm90ZToKPj4+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vbXNtL0tjb25maWcgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL0tjb25maWcKPj4+Pj4+
+IGluZGV4IGVhM2M0ZDA5NGQwOS4uY2MxMzkyYjI5MDIyIDEwMDY0NAo+Pj4+Pj4gLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL21zbS9LY29uZmlnCj4+Pj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbXNt
+L0tjb25maWcKPj4+Pj4+IEBAIC02MCw2ICs2MCw3IEBAIGNvbmZpZyBEUk1fTVNNX0hETUlfSERD
+UAo+Pj4+Pj4gwqBjb25maWcgRFJNX01TTV9EUAo+Pj4+Pj4gwqDCoMKgwqDCoCBib29sICJFbmFi
+bGUgRFAgc3VwcG9ydCBpbiBNU00gRFJNIGRyaXZlciIKPj4+Pj4+IMKgwqDCoMKgwqAgZGVwZW5k
+cyBvbiBEUk1fTVNNCj4+Pj4+PiArwqDCoMKgwqAgZGVmYXVsdCB5Cj4+Pj4+PiDCoMKgwqDCoMKg
+IGhlbHAKPj4+Pj4+IMKgwqDCoMKgwqDCoMKgIENvbXBpbGUgaW4gc3VwcG9ydCBmb3IgRFAgZHJp
+dmVyIGluIG1zbSBkcm0gZHJpdmVyLiBEUCBleHRlcm5hbAo+Pj4+Pj4gwqDCoMKgwqDCoMKgwqAg
+ZGlzcGxheSBzdXBwb3J0IGlzIGVuYWJsZWQgdGhyb3VnaCB0aGlzIGNvbmZpZyBvcHRpb24uIEl0
+IGNhbgo+Pj4+Pgo+Pj4+PiBIaSwKPj4+Pj4KPj4+Pj4gWW91IG5lZWQgYSB2ZXJ5IHN0cm9uZyBq
+dXN0aWZpY2F0aW9uIHRvIG1ha2UgYW4gb3B0aW9uYWwgcGFydCBvZiBhCj4+Pj4+IGRyaXZlcgo+
+Pj4+PiB0byBiZSAiZGVmYXVsdCB5Ii4KPj4+Pgo+Pj4+IE15IG9waW5pb24gaXMgdGhhdCBpZiB0
+aGUgZHJpdmVyIGlzIGJ1aWx0LCBldmVyeXRoaW5nIHNob3VsZCBiZSBidWlsdC4KPj4+PiBUaGlz
+IGlzIHdoYXQgbWFrZXMgc2Vuc2UgZm9yIGRpc3RybydzLsKgIEl0IGlzIG9ubHkgdGhlIGVtYmVk
+ZGVkIGNhc2UKPj4+PiB3aGVyZSB5b3Ugd2FudCB0byB0cmltIGRvd24gdW5uZWVkZWQgZmVhdHVy
+ZXMgd2hlcmUgeW91IG1pZ2h0IHdhbnQgdG8KPj4+PiBkaXNhYmxlIHNvbWUgcGFydHMuwqAgU28g
+J2RlZmF1bHQgeScgbWFrZXMgc2Vuc2UgdG8gbWUuCj4+Cj4+IFdlIGRvbid0IHNldCBkZWZhdWx0
+cyBmb3IgZGlzdHJvIGNvbnZlbmllbmNlLgo+Pgo+Pj4KPj4+IE1heWJlIHVzZSAnZGVmYXVsdCBE
+Uk1fTVNNJyBzbyB0aGF0IGl0IGRvZXNuJ3QgdHJpZ2dlciB0aGUgJ2RlZmF1bHQgeScKPj4+IGZp
+bHRlcnMgcGVvcGxlIGhhdmU/Cj4+Cj4+IE1vc3QgcGVvcGxlIGNhbiBmaWd1cmUgdGhhdCBvbmUg
+b3V0LsKgIDspCj4+IEkgZG9uJ3QgaGF2ZSBhbnkgYXV0b21hdGVkIGZpbHRlcnMuCj4gCj4gQWZ0
+ZXIgYWZ0ZXIgZnVydGhlciByZXZpZXdzLCBJIGFncmVlIHdpdGggUm9iLiBEaXNwbGF5IFBvcnQg
+aXMgcmVxdWlyZWQgbW9kdWxlIGFzIG9mIG5vdyBzbyBpdCBtYWtlcyBzZW5zZSB0byBrZWVwICdk
+ZWZhdWx0IHknLgoKSWYgaXQgaXMgcmVxdWlyZWQsIHRoZW4geW91IGRvbid0IG5lZWQgdG8gaGF2
+ZSBhIEtjb25maWcgZW50cnkvc3ltYm9sIGZvciBpdC4KCgotLSAKflJhbmR5CgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpGcmVlZHJlbm8gbWFpbGluZyBs
+aXN0CkZyZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9mcmVlZHJlbm8K
