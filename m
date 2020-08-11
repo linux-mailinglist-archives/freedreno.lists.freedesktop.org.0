@@ -2,60 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2DD724204D
-	for <lists+freedreno@lfdr.de>; Tue, 11 Aug 2020 21:30:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96FF424208C
+	for <lists+freedreno@lfdr.de>; Tue, 11 Aug 2020 21:49:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 766006E5CD;
-	Tue, 11 Aug 2020 19:30:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA9036E7D0;
+	Tue, 11 Aug 2020 19:49:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
- [IPv6:2607:f8b0:4864:20::642])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D98FA6E5CD
- for <freedreno@lists.freedesktop.org>; Tue, 11 Aug 2020 19:30:30 +0000 (UTC)
-Received: by mail-pl1-x642.google.com with SMTP id r4so19115pls.2
- for <freedreno@lists.freedesktop.org>; Tue, 11 Aug 2020 12:30:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:content-transfer-encoding:in-reply-to:references
- :subject:from:cc:to:date:message-id:user-agent;
- bh=+n9PUP/yu05/9MDe2VuxcN4yg1PRKAeGWVDeYP991FY=;
- b=lpt7Jm9cDHqdN9rwJn9az98LIyC8PWOAXXdc78UL2gjQNuYua8XrdpG+POwMqKX9XB
- VyYODz3OKowxSXkD5UMXyRoCr6j1yD6TQBP1AMmD2lNsNEIMj9+9D9uEG7figGQCkTI9
- 4PaMD18uQVJm6IdYI6oiKA3MPtbWp8CC8dFG4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:content-transfer-encoding
- :in-reply-to:references:subject:from:cc:to:date:message-id
- :user-agent;
- bh=+n9PUP/yu05/9MDe2VuxcN4yg1PRKAeGWVDeYP991FY=;
- b=fp7B1w19UFYeUNsj1J/IzLBlpUFPQ1q4RAkxEOPk588JZm0Qoo41n4HnmWMlrkj43m
- GkeQiSUCgsTmnxD8UECQjktXEWGgCccNQ2rdHu96LvW6i3KxWy8Wv7yPYeuzf6J9fkev
- nXHxzcmdQ6XVAOMO24fdpXXge86Zl/F7GJWwOmxpYcWMCadyGnY0nhFL/qd63PPqOofj
- uLw1MeQN7Lw0G4VGEjIW3GGfOcqVf1xDoDck3tAh+txg907YwbdqC0Amr/dZuXvZaivz
- a4HAP8HuS+5hsa1iFdmojzuN3dYSXLD5LcQXlJGBkV46mJHxnIyeWfIT9jFIaM9YBEg0
- l3/Q==
-X-Gm-Message-State: AOAM532mqFAZJqCj5qJnyUjE5XZ8yjVLSGINt4/JskIaqkUsEIFR5fdv
- IdxhWlAhoqPgFZILLBB4ruQkLA==
-X-Google-Smtp-Source: ABdhPJwe4qk4u80qb7K6M0UTxshn2s9EH/901eeU60PzedzdUY+tVv6ME7a5eBT8eA4fvUg13Z569w==
-X-Received: by 2002:a17:902:82c1:: with SMTP id
- u1mr2289880plz.224.1597174230361; 
- Tue, 11 Aug 2020 12:30:30 -0700 (PDT)
-Received: from chromium.org ([2620:15c:202:1:3e52:82ff:fe6c:83ab])
- by smtp.gmail.com with ESMTPSA id y12sm16694716pgi.75.2020.08.11.12.30.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Aug 2020 12:30:29 -0700 (PDT)
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD8EC6E7D2
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Aug 2020 19:49:14 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1597175357; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=JjTim0gb+1hEs7u9Q27jb9eJJjx9k1/9OYuzAM5+4TM=;
+ b=T/901ttw2aqeqrdbkPziZGh2lhbwT8bSYZlWxlJByLUE/n+QISXbF2nDmyomh1/BYe1Fmsj6
+ 7twmwUFOl3kCGZ1wwX9Z+yyRwRajbgA5oQeJz4ku8CoftoKutPMX5kDuqUkQIc1sFnMR/s4d
+ MlMF4VIjUDZNtujPHQZqKNMzSR0=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n15.prod.us-east-1.postgun.com with SMTP id
+ 5f32f62eba4c2cd3678bed1e (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 11 Aug 2020 19:49:02
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id D4C01C4339C; Tue, 11 Aug 2020 19:49:01 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: tanmay)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 8F82BC433C9;
+ Tue, 11 Aug 2020 19:49:00 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <20200811021553.25023-1-tanmay@codeaurora.org>
-References: <20200811021553.25023-1-tanmay@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-To: Tanmay Shah <tanmay@codeaurora.org>, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- robdclark@gmail.com
-Date: Tue, 11 Aug 2020 12:30:28 -0700
-Message-ID: <159717422853.1360974.2200109790995932014@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.9.1
-Subject: Re: [Freedreno] [PATCH v5] arm64: dts: qcom: sc7180: Add Display
- Port dt node
+Date: Tue, 11 Aug 2020 12:49:00 -0700
+From: tanmay@codeaurora.org
+To: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <75acac5a-b4a5-9c5a-4404-fb936d738e46@infradead.org>
+References: <20200807071718.17937-1-tanmay@codeaurora.org>
+ <20200807071718.17937-4-tanmay@codeaurora.org>
+ <3b0d0e49-5fe8-e217-4ddc-1ff08e65ab48@infradead.org>
+ <CAF6AEGv5Yf1x7aCEauP7XtzTjpUCxJt6_GzxFhFXyf_DX_Gi+g@mail.gmail.com>
+ <159683184187.1360974.15575847254880429529@swboyd.mtv.corp.google.com>
+ <75acac5a-b4a5-9c5a-4404-fb936d738e46@infradead.org>
+Message-ID: <639438051c1b2fe1d9bec5f6343a6dec@codeaurora.org>
+X-Sender: tanmay@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v9 3/5] drm/msm/dp: add support for DP PLL
+ driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,120 +68,68 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, linux-kernel@vger.kernel.org, abhinavk@codeaurora.org,
- khsieh@codeaurora.org, seanpaul@chromium.org,
- Tanmay Shah <tanmay@codeaurora.org>, daniel@ffwll.ch, aravindh@codeaurora.org,
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Stephen Boyd <swboyd@chromium.org>, khsieh@codeaurora.org,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <seanpaul@chromium.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Vara Reddy <varar@codeaurora.org>, aravindh@codeaurora.org,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Chandan Uddaraju <chandanu@codeaurora.org>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Tanmay Shah (2020-08-10 19:15:53)
-> @@ -2440,6 +2447,71 @@ dsi_phy: dsi-phy@ae94400 {
->  
->                                 status = "disabled";
->                         };
-> +
-> +                       msm_dp: displayport-controller@ae90000 {
-> +                               status = "disabled";
-> +                               compatible = "qcom,sc7180-dp";
-> +
-> +                               reg = <0 0x0ae90000 0 0x1400>;
-> +
-> +                               interrupt-parent = <&mdss>;
-> +                               interrupts = <12 IRQ_TYPE_NONE>;
+On 2020-08-07 13:28, Randy Dunlap wrote:
+> On 8/7/20 1:24 PM, Stephen Boyd wrote:
+>> Quoting Rob Clark (2020-08-07 08:51:48)
+>>> On Fri, Aug 7, 2020 at 8:27 AM Randy Dunlap <rdunlap@infradead.org>
+>>> wrote:
+>>>> 
+>>>> On 8/7/20 12:17 AM, Tanmay Shah wrote:
+>>>>> diff --git a/drivers/gpu/drm/msm/Kconfig 
+>>>>> b/drivers/gpu/drm/msm/Kconfig
+>>>>> index ea3c4d094d09..cc1392b29022 100644
+>>>>> --- a/drivers/gpu/drm/msm/Kconfig
+>>>>> +++ b/drivers/gpu/drm/msm/Kconfig
+>>>>> @@ -60,6 +60,7 @@ config DRM_MSM_HDMI_HDCP
+>>>>>  config DRM_MSM_DP
+>>>>>       bool "Enable DP support in MSM DRM driver"
+>>>>>       depends on DRM_MSM
+>>>>> +     default y
+>>>>>       help
+>>>>>         Compile in support for DP driver in msm drm driver. DP 
+>>>>> external
+>>>>>         display support is enabled through this config option. It 
+>>>>> can
+>>>> 
+>>>> Hi,
+>>>> 
+>>>> You need a very strong justification to make an optional part of a
+>>>> driver
+>>>> to be "default y".
+>>> 
+>>> My opinion is that if the driver is built, everything should be 
+>>> built.
+>>> This is what makes sense for distro's.  It is only the embedded case
+>>> where you want to trim down unneeded features where you might want to
+>>> disable some parts.  So 'default y' makes sense to me.
+> 
+> We don't set defaults for distro convenience.
+> 
+>> 
+>> Maybe use 'default DRM_MSM' so that it doesn't trigger the 'default y'
+>> filters people have?
+> 
+> Most people can figure that one out.  ;)
+> I don't have any automated filters.
 
-Please drop the flags. It's not required per the binding. It should just
-be a single number, i.e. <12>.
+After after further reviews, I agree with Rob. Display Port is required 
+module as of now so it makes sense to keep 'default y'.
 
-> +
-> +                               clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +                                        <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
-> +                                        <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
-> +                                        <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
-> +                                        <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
-> +                               clock-names = "core_iface", "core_aux", "ctrl_link",
-> +                                             "ctrl_link_iface", "stream_pixel";
-> +                               #clock-cells = <1>;
-> +                               assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
-> +                                                 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
-> +                               assigned-clock-parents = <&msm_dp 0>, <&msm_dp 1>;
-> +
-> +                               operating-points-v2 = <&dp_opp_table>;
-> +                               power-domains = <&rpmhpd SC7180_CX>;
-
-Can you send another patch to add the hpd pinctrl binding for the hpd
-function? It would be useful to have that in the SoC level in case any
-board wants to use the hpd pin on this SoC without having to implement
-it themselves. It could be assigned here too as the pinctrl but I'm not
-sure if that is correct. Probably better to just have it in the SoC file
-and then let boards pick to use it.
-
-> +
-> +                               ports {
-> +                                       #address-cells = <1>;
-> +                                       #size-cells = <0>;
-> +                                       port@0 {
-> +                                               reg = <0>;
-> +                                               dp_in: endpoint {
-> +                                                       remote-endpoint = <&dpu_intf0_out>;
-> +                                               };
-> +                                       };
-> +
-> +                                       port@1 {
-> +                                               reg = <1>;
-> +                                               dp_out: endpoint { };
-> +                                       };
-> +                               };
-> +
-> +                               dp_opp_table: dp-opp-table {
-
-Can this be called opp-table? I don't see the need to make it more
-specific given that it doesn't share the namespace at this level with
-anything else that is an opp table.
-
-> +                                       compatible = "operating-points-v2";
-> +
-> +                                       opp-160000000 {
-> +                                               opp-hz = /bits/ 64 <160000000>;
-> +                                               required-opps = <&rpmhpd_opp_low_svs>;
-> +                                       };
-> +
-> +                                       opp-270000000 {
-> +                                               opp-hz = /bits/ 64 <270000000>;
-> +                                               required-opps = <&rpmhpd_opp_svs>;
-> +                                       };
-> +
-> +                                       opp-540000000 {
-> +                                               opp-hz = /bits/ 64 <540000000>;
-> +                                               required-opps = <&rpmhpd_opp_svs_l1>;
-> +                                       };
-> +
-> +                                       opp-810000000 {
-> +                                               opp-hz = /bits/ 64 <810000000>;
-> +                                               required-opps = <&rpmhpd_opp_nom>;
-> +                                       };
-> +                               };
-> +                       };
->                 };
->  
->                 dispcc: clock-controller@af00000 {
-> @@ -2449,8 +2521,8 @@ dispcc: clock-controller@af00000 {
->                                  <&gcc GCC_DISP_GPLL0_CLK_SRC>,
->                                  <&dsi_phy 0>,
->                                  <&dsi_phy 1>,
-> -                                <0>,
-> -                                <0>;
-> +                                <&msm_dp 0>,
-> +                                <&msm_dp 1>;
-
-This bit will have to change when the DP phy is split off into the qmp
-driver.
-
->                         clock-names = "bi_tcxo",
->                                       "gcc_disp_gpll0_clk_src",
->                                       "dsi0_phy_pll_out_byteclk",
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
