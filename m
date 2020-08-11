@@ -2,48 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE80124213D
-	for <lists+freedreno@lfdr.de>; Tue, 11 Aug 2020 22:21:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E8EF2421A9
+	for <lists+freedreno@lfdr.de>; Tue, 11 Aug 2020 23:09:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8152D6E7EC;
-	Tue, 11 Aug 2020 20:21:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C9AB6E848;
+	Tue, 11 Aug 2020 21:09:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from merlin.infradead.org (merlin.infradead.org
- [IPv6:2001:8b0:10b:1231::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F10E86E7EC;
- Tue, 11 Aug 2020 20:21:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=merlin.20170209; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
- :Reply-To:Content-ID:Content-Description;
- bh=mu8ZGHCtLzfb4Q1brYigGzESLOWdAu8Y0s2c7XTplC8=; b=284/OXxnHd747ZUgC23m/S9th+
- 7fU/+S+BrIfZAzGbDCJ9hKskEz65vFxHjCYXwR4+nsltIHh+uEV/PLGeTNtQC67TxZlyxTE5fERG2
- NXdSnWsZnb/Br3YZBMqcz/n7ERi4JfJoRq4CuklWCIfbeneuN0b9BMPvKXOGFde8FCQ7gV/5EY9PW
- pZfsQHsKAwqKnIugSYP8VXO1scYbxv1Ti4ZmOQP0BlDCVlv01mHc9AYEw7lLzmQXUzL1u22oywuqC
- lXrNFtsh2UvZp5u61MAbyx9tQ/22xMJ+iZ1Du7AaVB5bNd8V+n7m8NM23Jiv/GMi2iAQPbVGGq32e
- bsdMdEgw==;
-Received: from [2601:1c0:6280:3f0::19c2]
- by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1k5amB-0001WQ-HM; Tue, 11 Aug 2020 20:21:39 +0000
-To: tanmay@codeaurora.org
-References: <20200807071718.17937-1-tanmay@codeaurora.org>
- <20200807071718.17937-4-tanmay@codeaurora.org>
- <3b0d0e49-5fe8-e217-4ddc-1ff08e65ab48@infradead.org>
- <CAF6AEGv5Yf1x7aCEauP7XtzTjpUCxJt6_GzxFhFXyf_DX_Gi+g@mail.gmail.com>
- <159683184187.1360974.15575847254880429529@swboyd.mtv.corp.google.com>
- <75acac5a-b4a5-9c5a-4404-fb936d738e46@infradead.org>
- <639438051c1b2fe1d9bec5f6343a6dec@codeaurora.org>
-From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <7222ceca-9fe2-f91b-4129-5a70952875f7@infradead.org>
-Date: Tue, 11 Aug 2020 13:21:32 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com
+ [IPv6:2607:f8b0:4864:20::1042])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 496F06E844;
+ Tue, 11 Aug 2020 21:08:59 +0000 (UTC)
+Received: by mail-pj1-x1042.google.com with SMTP id f9so57714pju.4;
+ Tue, 11 Aug 2020 14:08:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=MndcDzC/7AcUJRluxUgqjFCuSvCxnzh1AGFXbovDx5M=;
+ b=noltbly0zKrpOk/SZeDEHs3VqJnIemgq0K4S5/hbOHx1rrIgo5711lTz2awSjikBfz
+ 5SeO5QIt37qI7/qXsIKttKFObQpZ1LN/725Z2XqnFj0Gtgt7bu2OfZ/D0g8VjAD9RyaI
+ UJLvwVf5hOGPnlYzVJPWdvpD7Wlmvn88hYBOVs9ynTEDRhglJdmRnBt+yNadEVFRZepo
+ r1nEmHabYv/7cBf2Vw8G5rdFHnYOZmdMLHlGOojo5CBs9FUqJAdsrG1TUJGmBJ7wf/cY
+ GZ0O7It4V3Rd66hTUvL4kZq0ZgEZlp7MWNakNS46uDYsjN45EUplATuK2iBPhJAB0k9T
+ O8zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=MndcDzC/7AcUJRluxUgqjFCuSvCxnzh1AGFXbovDx5M=;
+ b=nKk/6Io9RdMdUsclSgmzr9fJck0Y2jcmUcmPfG42xwm206fJKLmYewwAqjGpZI3CCv
+ EXztwLp2qYVIu0PUC5lH7O4cnhWhvLT7nQuVj1GQ67mk9085QOevz+2uu4RrTSSn4745
+ VvvdQLKwovifctyG5qQpWn2gp2WDDGMsPK82LpuMYcA9gV8PwK/+JvWPCuSIRKR2CYnm
+ CYLjTxmWbSiKv+fCLBI6W/MMEj1h7PiJwHlPNT+w8fKN4c2Jyl8PkOKVywHFgSxFbHE2
+ qJ3j1/bCZm3nPurJ0J46jQm+XmqXsYSkfbytjKW2x64to0X6bTJPaHPiBvdBgTK00HXZ
+ uyGQ==
+X-Gm-Message-State: AOAM530+HwOT5cMlWhEw3GVlXBdWPwgqtcO6c8MN//gwVvIFlaiJPUHl
+ OqhrqE5uT6nhlB/mV57SxchHTFa7ZuM=
+X-Google-Smtp-Source: ABdhPJxQYo13BOHv9SR2FnAADb18QXpqroXf/pda53QGuHBM1XL/wjykqI6CGbWG6k9YJwfLrhDjWA==
+X-Received: by 2002:a17:902:b18b:: with SMTP id
+ s11mr2646637plr.211.1597180138472; 
+ Tue, 11 Aug 2020 14:08:58 -0700 (PDT)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id b63sm6060pfg.43.2020.08.11.14.08.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Aug 2020 14:08:56 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue, 11 Aug 2020 14:09:35 -0700
+Message-Id: <20200811210938.552939-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <639438051c1b2fe1d9bec5f6343a6dec@codeaurora.org>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH v9 3/5] drm/msm/dp: add support for DP PLL
- driver
+Subject: [Freedreno] [PATCH] drm/msm/dpu: fix unitialized variable error
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,53 +65,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, khsieh@codeaurora.org,
- Rob Clark <robdclark@gmail.com>, Sean Paul <seanpaul@chromium.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
- Vara Reddy <varar@codeaurora.org>, aravindh@codeaurora.org,
- freedreno <freedreno@lists.freedesktop.org>,
- Chandan Uddaraju <chandanu@codeaurora.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <freedreno@lists.freedesktop.org>, kernel test robot <lkp@intel.com>,
+ Sam Ravnborg <sam@ravnborg.org>, David Airlie <airlied@linux.ie>,
+ Bernard <bernard@vivo.com>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Hongbo Yao <yaohongbo@huawei.com>, open list <linux-kernel@vger.kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Daniel Vetter <daniel@ffwll.ch>, Kalyan Thota <kalyan_t@codeaurora.org>,
+ Drew Davenport <ddavenport@chromium.org>, Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-T24gOC8xMS8yMCAxMjo0OSBQTSwgdGFubWF5QGNvZGVhdXJvcmEub3JnIHdyb3RlOgo+IE9uIDIw
-MjAtMDgtMDcgMTM6MjgsIFJhbmR5IER1bmxhcCB3cm90ZToKPj4gT24gOC83LzIwIDE6MjQgUE0s
-IFN0ZXBoZW4gQm95ZCB3cm90ZToKPj4+IFF1b3RpbmcgUm9iIENsYXJrICgyMDIwLTA4LTA3IDA4
-OjUxOjQ4KQo+Pj4+IE9uIEZyaSwgQXVnIDcsIDIwMjAgYXQgODoyNyBBTSBSYW5keSBEdW5sYXAg
-PHJkdW5sYXBAaW5mcmFkZWFkLm9yZz4KPj4+PiB3cm90ZToKPj4+Pj4KPj4+Pj4gT24gOC83LzIw
-IDEyOjE3IEFNLCBUYW5tYXkgU2hhaCB3cm90ZToKPj4+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vbXNtL0tjb25maWcgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL0tjb25maWcKPj4+Pj4+
-IGluZGV4IGVhM2M0ZDA5NGQwOS4uY2MxMzkyYjI5MDIyIDEwMDY0NAo+Pj4+Pj4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL21zbS9LY29uZmlnCj4+Pj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbXNt
-L0tjb25maWcKPj4+Pj4+IEBAIC02MCw2ICs2MCw3IEBAIGNvbmZpZyBEUk1fTVNNX0hETUlfSERD
-UAo+Pj4+Pj4gwqBjb25maWcgRFJNX01TTV9EUAo+Pj4+Pj4gwqDCoMKgwqDCoCBib29sICJFbmFi
-bGUgRFAgc3VwcG9ydCBpbiBNU00gRFJNIGRyaXZlciIKPj4+Pj4+IMKgwqDCoMKgwqAgZGVwZW5k
-cyBvbiBEUk1fTVNNCj4+Pj4+PiArwqDCoMKgwqAgZGVmYXVsdCB5Cj4+Pj4+PiDCoMKgwqDCoMKg
-IGhlbHAKPj4+Pj4+IMKgwqDCoMKgwqDCoMKgIENvbXBpbGUgaW4gc3VwcG9ydCBmb3IgRFAgZHJp
-dmVyIGluIG1zbSBkcm0gZHJpdmVyLiBEUCBleHRlcm5hbAo+Pj4+Pj4gwqDCoMKgwqDCoMKgwqAg
-ZGlzcGxheSBzdXBwb3J0IGlzIGVuYWJsZWQgdGhyb3VnaCB0aGlzIGNvbmZpZyBvcHRpb24uIEl0
-IGNhbgo+Pj4+Pgo+Pj4+PiBIaSwKPj4+Pj4KPj4+Pj4gWW91IG5lZWQgYSB2ZXJ5IHN0cm9uZyBq
-dXN0aWZpY2F0aW9uIHRvIG1ha2UgYW4gb3B0aW9uYWwgcGFydCBvZiBhCj4+Pj4+IGRyaXZlcgo+
-Pj4+PiB0byBiZSAiZGVmYXVsdCB5Ii4KPj4+Pgo+Pj4+IE15IG9waW5pb24gaXMgdGhhdCBpZiB0
-aGUgZHJpdmVyIGlzIGJ1aWx0LCBldmVyeXRoaW5nIHNob3VsZCBiZSBidWlsdC4KPj4+PiBUaGlz
-IGlzIHdoYXQgbWFrZXMgc2Vuc2UgZm9yIGRpc3RybydzLsKgIEl0IGlzIG9ubHkgdGhlIGVtYmVk
-ZGVkIGNhc2UKPj4+PiB3aGVyZSB5b3Ugd2FudCB0byB0cmltIGRvd24gdW5uZWVkZWQgZmVhdHVy
-ZXMgd2hlcmUgeW91IG1pZ2h0IHdhbnQgdG8KPj4+PiBkaXNhYmxlIHNvbWUgcGFydHMuwqAgU28g
-J2RlZmF1bHQgeScgbWFrZXMgc2Vuc2UgdG8gbWUuCj4+Cj4+IFdlIGRvbid0IHNldCBkZWZhdWx0
-cyBmb3IgZGlzdHJvIGNvbnZlbmllbmNlLgo+Pgo+Pj4KPj4+IE1heWJlIHVzZSAnZGVmYXVsdCBE
-Uk1fTVNNJyBzbyB0aGF0IGl0IGRvZXNuJ3QgdHJpZ2dlciB0aGUgJ2RlZmF1bHQgeScKPj4+IGZp
-bHRlcnMgcGVvcGxlIGhhdmU/Cj4+Cj4+IE1vc3QgcGVvcGxlIGNhbiBmaWd1cmUgdGhhdCBvbmUg
-b3V0LsKgIDspCj4+IEkgZG9uJ3QgaGF2ZSBhbnkgYXV0b21hdGVkIGZpbHRlcnMuCj4gCj4gQWZ0
-ZXIgYWZ0ZXIgZnVydGhlciByZXZpZXdzLCBJIGFncmVlIHdpdGggUm9iLiBEaXNwbGF5IFBvcnQg
-aXMgcmVxdWlyZWQgbW9kdWxlIGFzIG9mIG5vdyBzbyBpdCBtYWtlcyBzZW5zZSB0byBrZWVwICdk
-ZWZhdWx0IHknLgoKSWYgaXQgaXMgcmVxdWlyZWQsIHRoZW4geW91IGRvbid0IG5lZWQgdG8gaGF2
-ZSBhIEtjb25maWcgZW50cnkvc3ltYm9sIGZvciBpdC4KCgotLSAKflJhbmR5CgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpGcmVlZHJlbm8gbWFpbGluZyBs
-aXN0CkZyZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9mcmVlZHJlbm8K
+From: Rob Clark <robdclark@chromium.org>
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c:817 dpu_crtc_enable() error: uninitialized symbol 'request_bandwidth'.
+
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index f272a8d0f95b..c2729f71e2fa 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -827,7 +827,7 @@ static void dpu_crtc_enable(struct drm_crtc *crtc,
+ {
+ 	struct dpu_crtc *dpu_crtc;
+ 	struct drm_encoder *encoder;
+-	bool request_bandwidth;
++	bool request_bandwidth = false;
+ 
+ 	if (!crtc) {
+ 		DPU_ERROR("invalid crtc\n");
+-- 
+2.26.2
+
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
