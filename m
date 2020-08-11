@@ -1,64 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79167242259
-	for <lists+freedreno@lfdr.de>; Wed, 12 Aug 2020 00:09:49 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F64D2422D9
+	for <lists+freedreno@lfdr.de>; Wed, 12 Aug 2020 01:36:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DA996E858;
-	Tue, 11 Aug 2020 22:09:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 624E86E861;
+	Tue, 11 Aug 2020 23:36:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
- [104.130.122.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA5B26E854
- for <freedreno@lists.freedesktop.org>; Tue, 11 Aug 2020 22:09:46 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1597183786; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=8nVYNeSoMlj/0DZnpTkkfpxc5/vnT3kxypEjr4vqN8U=;
- b=OUCqnGPA6wvJ1/9HD9siZEQ+9R+UamMeoXBQ1FDq5FBPXlCSFpruv7lM8mZNphEW0njM+Mxo
- k14WZENU6QiX/CDFIJLqorqWNSZTuIO6yyzwVvo+mOh5ydWutplAgB3KywmPAPUBP/FzI78J
- H/KapqmuhovyPH9Zyzl/eM66DWo=
-X-Mailgun-Sending-Ip: 104.130.122.29
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n08.prod.us-east-1.postgun.com with SMTP id
- 5f331729f2b697637a4d1e3f (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 11 Aug 2020 22:09:45
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id C0B31C433C9; Tue, 11 Aug 2020 22:09:44 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: tanmay)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id E81ABC433C6;
- Tue, 11 Aug 2020 22:09:43 +0000 (UTC)
+Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
+ [IPv6:2607:f8b0:4864:20::1041])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D68FF6E85F;
+ Tue, 11 Aug 2020 23:36:17 +0000 (UTC)
+Received: by mail-pj1-x1041.google.com with SMTP id t6so215656pjr.0;
+ Tue, 11 Aug 2020 16:36:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=qJacNYTNjzvH1OwtDhhId+31gqWxjTcV/w1QSNegM+s=;
+ b=CaYwq5LCxIlp+3gYSayjOxXtKRP6v2EROxO/iEm3y8UwMofSDO5cUtWm+cKJOVBFoM
+ 2rKFMuaC9rhvn/bSxR6nyOPkWatNI5cpAVIV+Oldh4XzmE0yQzHd1jtiaH9oRfLeOiUn
+ GvUGjf+1xeTxs7BAU4shdSlz0LMPkQhtsptdYDhayUc+8qzs15B7BpjPnI2C3NHIEjPf
+ 67fHHiF5O0JD0tDCP04f7Fs987VRj2UjMrGhDMJEgj6pOmlHuTnh9MnAdLbuw4BLVDbH
+ wXPbJ14LJwDPjhrGvLv3LlJNIMegdoDBw9fqvk4AORulucMVy56eDx9TQC0xaWInAUfa
+ Y9IA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=qJacNYTNjzvH1OwtDhhId+31gqWxjTcV/w1QSNegM+s=;
+ b=F+zbicby4YXvdwRNPojFXxh9PnRg2Xy4g7ODD9zfT4ywjFCeZBEUhZjW3m21UkIpnc
+ zeDpFCcRRUFBHAHi+5QBTj4OhBp/iL4clJ3sKn72tvPNO474FdbpzhF71yAbtrhdFcpv
+ d8XE6811o2t59tdPVuOlkOtq72FTWbsMQhjqk5pA/JbRVT3sXp07H69rObQeBaan17B4
+ MmbQIy4KbtcBRz1YHOZh00RVFbqLjdCVIWO26QrXqolg0SSGKAZMbGrCwwsTK2cU7L54
+ 97uT5dv1QCWdisrxj1W02S5nC6ekgMFmCB12hBEH+lwfJXQbMVURu3FaRYKUVP2Hqws/
+ Tn2Q==
+X-Gm-Message-State: AOAM532+cpU5rmqcPrMSXoJvh/gwAlEMTRfSOFrDJecUOA6kijRUuq3H
+ r5yyEvoTmpxkaftqOqRxcI0P5Mpey4E=
+X-Google-Smtp-Source: ABdhPJwxWi7J5+1MuA33io5kkO68CeF200KVuyXZNGvfWESG3ekCOHUR+qXq4mmgKbNk3jfCFaQofA==
+X-Received: by 2002:a17:902:523:: with SMTP id
+ 32mr2948980plf.176.1597188976937; 
+ Tue, 11 Aug 2020 16:36:16 -0700 (PDT)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ j20sm90019pjy.51.2020.08.11.16.36.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Aug 2020 16:36:15 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue, 11 Aug 2020 16:36:57 -0700
+Message-Id: <20200811233702.580744-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Date: Tue, 11 Aug 2020 15:09:43 -0700
-From: Tanmay Shah <tanmay@codeaurora.org>
-To: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <7222ceca-9fe2-f91b-4129-5a70952875f7@infradead.org>
-References: <20200807071718.17937-1-tanmay@codeaurora.org>
- <20200807071718.17937-4-tanmay@codeaurora.org>
- <3b0d0e49-5fe8-e217-4ddc-1ff08e65ab48@infradead.org>
- <CAF6AEGv5Yf1x7aCEauP7XtzTjpUCxJt6_GzxFhFXyf_DX_Gi+g@mail.gmail.com>
- <159683184187.1360974.15575847254880429529@swboyd.mtv.corp.google.com>
- <75acac5a-b4a5-9c5a-4404-fb936d738e46@infradead.org>
- <639438051c1b2fe1d9bec5f6343a6dec@codeaurora.org>
- <7222ceca-9fe2-f91b-4129-5a70952875f7@infradead.org>
-Message-ID: <9624e970765dc0739793612c2a5c53bc@codeaurora.org>
-X-Sender: tanmay@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH v9 3/5] drm/msm/dp: add support for DP PLL
- driver
+Subject: [Freedreno] [PATCH] drm/msm/a6xx: add module param to enable
+ debugbus snapshot
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,58 +67,81 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, khsieh@codeaurora.org,
- Rob Clark <robdclark@gmail.com>, Sean Paul <seanpaul@chromium.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
- Vara Reddy <varar@codeaurora.org>, aravindh@codeaurora.org,
- freedreno <freedreno@lists.freedesktop.org>,
- Chandan Uddaraju <chandanu@codeaurora.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <freedreno@lists.freedesktop.org>, Shawn Guo <shawn.guo@linaro.org>,
+ Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>,
+ open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <kholk11@gmail.com>, Sean Paul <sean@poorly.run>,
+ Brian Masney <masneyb@onstation.org>, Wambui Karuga <wambui.karugax@gmail.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-T24gMjAyMC0wOC0xMSAxMzoyMSwgUmFuZHkgRHVubGFwIHdyb3RlOgo+IE9uIDgvMTEvMjAgMTI6
-NDkgUE0sIHRhbm1heUBjb2RlYXVyb3JhLm9yZyB3cm90ZToKPj4gT24gMjAyMC0wOC0wNyAxMzoy
-OCwgUmFuZHkgRHVubGFwIHdyb3RlOgo+Pj4gT24gOC83LzIwIDE6MjQgUE0sIFN0ZXBoZW4gQm95
-ZCB3cm90ZToKPj4+PiBRdW90aW5nIFJvYiBDbGFyayAoMjAyMC0wOC0wNyAwODo1MTo0OCkKPj4+
-Pj4gT24gRnJpLCBBdWcgNywgMjAyMCBhdCA4OjI3IEFNIFJhbmR5IER1bmxhcCA8cmR1bmxhcEBp
-bmZyYWRlYWQub3JnPgo+Pj4+PiB3cm90ZToKPj4+Pj4+IAo+Pj4+Pj4gT24gOC83LzIwIDEyOjE3
-IEFNLCBUYW5tYXkgU2hhaCB3cm90ZToKPj4+Pj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL21zbS9LY29uZmlnIAo+Pj4+Pj4+IGIvZHJpdmVycy9ncHUvZHJtL21zbS9LY29uZmlnCj4+
-Pj4+Pj4gaW5kZXggZWEzYzRkMDk0ZDA5Li5jYzEzOTJiMjkwMjIgMTAwNjQ0Cj4+Pj4+Pj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL21zbS9LY29uZmlnCj4+Pj4+Pj4gKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL21zbS9LY29uZmlnCj4+Pj4+Pj4gQEAgLTYwLDYgKzYwLDcgQEAgY29uZmlnIERSTV9NU01f
-SERNSV9IRENQCj4+Pj4+Pj4gwqBjb25maWcgRFJNX01TTV9EUAo+Pj4+Pj4+IMKgwqDCoMKgwqAg
-Ym9vbCAiRW5hYmxlIERQIHN1cHBvcnQgaW4gTVNNIERSTSBkcml2ZXIiCj4+Pj4+Pj4gwqDCoMKg
-wqDCoCBkZXBlbmRzIG9uIERSTV9NU00KPj4+Pj4+PiArwqDCoMKgwqAgZGVmYXVsdCB5Cj4+Pj4+
-Pj4gwqDCoMKgwqDCoCBoZWxwCj4+Pj4+Pj4gwqDCoMKgwqDCoMKgwqAgQ29tcGlsZSBpbiBzdXBw
-b3J0IGZvciBEUCBkcml2ZXIgaW4gbXNtIGRybSBkcml2ZXIuIERQIAo+Pj4+Pj4+IGV4dGVybmFs
-Cj4+Pj4+Pj4gwqDCoMKgwqDCoMKgwqAgZGlzcGxheSBzdXBwb3J0IGlzIGVuYWJsZWQgdGhyb3Vn
-aCB0aGlzIGNvbmZpZyBvcHRpb24uIEl0IAo+Pj4+Pj4+IGNhbgo+Pj4+Pj4gCj4+Pj4+PiBIaSwK
-Pj4+Pj4+IAo+Pj4+Pj4gWW91IG5lZWQgYSB2ZXJ5IHN0cm9uZyBqdXN0aWZpY2F0aW9uIHRvIG1h
-a2UgYW4gb3B0aW9uYWwgcGFydCBvZiBhCj4+Pj4+PiBkcml2ZXIKPj4+Pj4+IHRvIGJlICJkZWZh
-dWx0IHkiLgo+Pj4+PiAKPj4+Pj4gTXkgb3BpbmlvbiBpcyB0aGF0IGlmIHRoZSBkcml2ZXIgaXMg
-YnVpbHQsIGV2ZXJ5dGhpbmcgc2hvdWxkIGJlIAo+Pj4+PiBidWlsdC4KPj4+Pj4gVGhpcyBpcyB3
-aGF0IG1ha2VzIHNlbnNlIGZvciBkaXN0cm8ncy7CoCBJdCBpcyBvbmx5IHRoZSBlbWJlZGRlZCAK
-Pj4+Pj4gY2FzZQo+Pj4+PiB3aGVyZSB5b3Ugd2FudCB0byB0cmltIGRvd24gdW5uZWVkZWQgZmVh
-dHVyZXMgd2hlcmUgeW91IG1pZ2h0IHdhbnQgCj4+Pj4+IHRvCj4+Pj4+IGRpc2FibGUgc29tZSBw
-YXJ0cy7CoCBTbyAnZGVmYXVsdCB5JyBtYWtlcyBzZW5zZSB0byBtZS4KPj4+IAo+Pj4gV2UgZG9u
-J3Qgc2V0IGRlZmF1bHRzIGZvciBkaXN0cm8gY29udmVuaWVuY2UuCj4+PiAKPj4+PiAKPj4+PiBN
-YXliZSB1c2UgJ2RlZmF1bHQgRFJNX01TTScgc28gdGhhdCBpdCBkb2Vzbid0IHRyaWdnZXIgdGhl
-ICdkZWZhdWx0IAo+Pj4+IHknCj4+Pj4gZmlsdGVycyBwZW9wbGUgaGF2ZT8KPj4+IAo+Pj4gTW9z
-dCBwZW9wbGUgY2FuIGZpZ3VyZSB0aGF0IG9uZSBvdXQuwqAgOykKPj4+IEkgZG9uJ3QgaGF2ZSBh
-bnkgYXV0b21hdGVkIGZpbHRlcnMuCj4+IAo+PiBBZnRlciBhZnRlciBmdXJ0aGVyIHJldmlld3Ms
-IEkgYWdyZWUgd2l0aCBSb2IuIERpc3BsYXkgUG9ydCBpcyAKPj4gcmVxdWlyZWQgbW9kdWxlIGFz
-IG9mIG5vdyBzbyBpdCBtYWtlcyBzZW5zZSB0byBrZWVwICdkZWZhdWx0IHknLgo+IAo+IElmIGl0
-IGlzIHJlcXVpcmVkLCB0aGVuIHlvdSBkb24ndCBuZWVkIHRvIGhhdmUgYSBLY29uZmlnIGVudHJ5
-L3N5bWJvbCAKPiBmb3IgaXQuCgpLY29uZmlnIG1ha2VzIGRyaXZlciBmbGV4aWJsZS4gT3RoZXIg
-bW91ZGxlcyBpbiB0aGUgZHJpdmVyIGFyZSBhbHNvIAonZGVmYXVsdCB5JyBzdWNoIGFzIERTSS4g
-SSB3aWxsIGxldCBSb2IgZ3VpZGUgdXMgZnVydGhlciBvbiB0aGlzIGFzIGhlIAppcyB0aGUgbWFp
-bnRhaW5lci4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-RnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5vCg==
+From: Rob Clark <robdclark@chromium.org>
+
+For production devices, the debugbus sections will typically be fused
+off and empty in the gpu device coredump.  But since this may contain
+data like cache contents, don't capture it by default.
+
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 3 ++-
+ drivers/gpu/drm/msm/adreno/adreno_device.c  | 4 ++++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h     | 2 ++
+ 3 files changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+index 959656ad6987..b12f5b4a1bea 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+@@ -938,7 +938,8 @@ struct msm_gpu_state *a6xx_gpu_state_get(struct msm_gpu *gpu)
+ 		msm_gem_kernel_put(dumper.bo, gpu->aspace, true);
+ 	}
+ 
+-	a6xx_get_debugbus(gpu, a6xx_state);
++	if (snapshot_debugbus)
++		a6xx_get_debugbus(gpu, a6xx_state);
+ 
+ 	return  &a6xx_state->base;
+ }
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index 4e84f3c76f4f..9eeb46bf2a5d 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -14,6 +14,10 @@ bool hang_debug = false;
+ MODULE_PARM_DESC(hang_debug, "Dump registers when hang is detected (can be slow!)");
+ module_param_named(hang_debug, hang_debug, bool, 0600);
+ 
++bool snapshot_debugbus = false;
++MODULE_PARM_DESC(snapshot_debugbus, "Include debugbus sections in GPU devcoredump (if not fused off)");
++module_param_named(snapshot_debugbus, snapshot_debugbus, bool, 0600);
++
+ static const struct adreno_info gpulist[] = {
+ 	{
+ 		.rev   = ADRENO_REV(2, 0, 0, 0),
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index 99bb468f5f24..e55abae365b5 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -21,6 +21,8 @@
+ #define REG_SKIP ~0
+ #define REG_ADRENO_SKIP(_offset) [_offset] = REG_SKIP
+ 
++extern bool snapshot_debugbus;
++
+ /**
+  * adreno_regs: List of registers that are used in across all
+  * 3D devices. Each device type has different offset value for the same
+-- 
+2.26.2
+
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
