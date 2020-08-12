@@ -2,42 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A19F242E36
-	for <lists+freedreno@lfdr.de>; Wed, 12 Aug 2020 19:44:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8536242F3E
+	for <lists+freedreno@lfdr.de>; Wed, 12 Aug 2020 21:30:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DE836E948;
-	Wed, 12 Aug 2020 17:44:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94CD96E136;
+	Wed, 12 Aug 2020 19:30:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F64789F53
- for <freedreno@lists.freedesktop.org>; Wed, 12 Aug 2020 17:44:30 +0000 (UTC)
-Received: from kernel.org (unknown [104.132.0.74])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 31ABD20781;
- Wed, 12 Aug 2020 17:44:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597254270;
- bh=28DUEag+8EHTAqymbd12JJo2CcoS2UDf2nbADDMAw8o=;
- h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
- b=TD1K2eLRsFkw1pUi6MRPtrhRIEWAKzNvstiEGr0NudRvwcqMv9bBJzasuUao9Wca4
- 9zB4zfWRjRp7MbfjoWUO/B9qDO8avGbG9BlQMsnY6PRmyeP47R2LjL7wYlLfokUpgI
- VjIoZG+ogWktoIfhIGCKTytYWHNyZCHvkpSced3Y=
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CD6F6E130
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Aug 2020 19:30:26 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1597260626; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=4+/wN/ZFlubPC8f06kWYCcnSStIOeSWNXCfdlUIBb6Q=;
+ b=pm1U6Q2I8M8hItidCnxho4pwucBFeNwT0R2kMX7gZSDtI8XEQpDzC+qXCO4vzd5zr2pBn8eQ
+ xXcfd1SG22FjOJcW8VEHjpWifer5pvsBhNVONp7EZKlRfQBm3Nkll/xaXkUoUtfQhAuelreb
+ n8mlbxJYnPmIUe8QlAltJ9rEsns=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n03.prod.us-west-2.postgun.com with SMTP id
+ 5f3443512f4952907de04f3b (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 12 Aug 2020 19:30:25
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id BBAEBC43395; Wed, 12 Aug 2020 19:30:24 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: tanmay)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id DC4C6C433C9;
+ Wed, 12 Aug 2020 19:30:23 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <159549996283.3847286.2480782726716664105@swboyd.mtv.corp.google.com>
-References: <CA+G9fYvGXOcsF=70FVwOxqVYOeGTUuzhUzh5od1cKV1hshsW_g@mail.gmail.com>
- <CAK8P3a1ReCDR8REM7AWMisiEJ_D45pC8dXaoYFFVG3aZj91e7Q@mail.gmail.com>
- <159549159798.3847286.18202724980881020289@swboyd.mtv.corp.google.com>
- <CA+G9fYte5U-D7fqps2qJga_LSuGrb6t9Y1rOvPCPzz46BwchyA@mail.gmail.com>
- <159549996283.3847286.2480782726716664105@swboyd.mtv.corp.google.com>
-From: Stephen Boyd <sboyd@kernel.org>
-To: Naresh Kamboju <naresh.kamboju@linaro.org>
-Date: Wed, 12 Aug 2020 10:44:28 -0700
-Message-ID: <159725426896.33733.4908725817224764584@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.9.1
-Subject: Re: [Freedreno] stable-rc 4.14: arm64: Internal error: Oops:
- clk_reparent __clk_set_parent_before on db410c
+Date: Wed, 12 Aug 2020 12:30:23 -0700
+From: Tanmay Shah <tanmay@codeaurora.org>
+To: Stephen Boyd <swboyd@chromium.org>
+In-Reply-To: <159717422853.1360974.2200109790995932014@swboyd.mtv.corp.google.com>
+References: <20200811021553.25023-1-tanmay@codeaurora.org>
+ <159717422853.1360974.2200109790995932014@swboyd.mtv.corp.google.com>
+Message-ID: <70d8a4f073abf7a038c9830ec6586709@codeaurora.org>
+X-Sender: tanmay@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v5] arm64: dts: qcom: sc7180: Add Display
+ Port dt node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,41 +64,169 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Rob Clark <robdclark@chromium.org>,
- Arnd Bergmann <arnd@arndb.de>, samuel@sholland.org,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- open list <linux-kernel@vger.kernel.org>,
- linux- stable <stable@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
- Eric Anholt <eric@anholt.net>, Jordan Crouse <jcrouse@codeaurora.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- lkft-triage@lists.linaro.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Chen-Yu Tsai <wens@csie.org>, freedreno <freedreno@lists.freedesktop.org>,
- linux-clk <linux-clk@vger.kernel.org>, Robin Murphy <robin.murphy@arm.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: devicetree@vger.kernel.org,
+ dri-devel <dri-devel-bounces@lists.freedesktop.org>, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, khsieh@codeaurora.org, robdclark@gmail.com,
+ seanpaul@chromium.org, abhinavk@codeaurora.org, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Stephen Boyd (2020-07-23 03:26:02)
-> Quoting Naresh Kamboju (2020-07-23 03:10:37)
-> > On Thu, 23 Jul 2020 at 13:36, Stephen Boyd <sboyd@kernel.org> wrote:
-> > >
-> > > It sounds like maybe you need this patch?
-> > >
-> > > bdcf1dc25324 ("clk: Evict unregistered clks from parent caches")
-> > 
-> > Cherry-pick did not work on stable-rc 4.14
-> > this patch might need backporting.
-> > I am not sure.
-> > 
+On 2020-08-11 12:30, Stephen Boyd wrote:
+> Quoting Tanmay Shah (2020-08-10 19:15:53)
+>> @@ -2440,6 +2447,71 @@ dsi_phy: dsi-phy@ae94400 {
+>> 
+>>                                 status = "disabled";
+>>                         };
+>> +
+>> +                       msm_dp: displayport-controller@ae90000 {
+>> +                               status = "disabled";
+>> +                               compatible = "qcom,sc7180-dp";
+>> +
+>> +                               reg = <0 0x0ae90000 0 0x1400>;
+>> +
+>> +                               interrupt-parent = <&mdss>;
+>> +                               interrupts = <12 IRQ_TYPE_NONE>;
 > 
-> Ok. That commit fixes a regression in the 3.x series of the kernel so it
-> should go back to any LTS kernels. It looks like at least on 4.14 it's a
-> trivial conflict. Here's a backport to 4.14
+> Please drop the flags. It's not required per the binding. It should 
+> just
+> be a single number, i.e. <12>.
+> 
 
-Did this help?
+Sure. I will change DP-bindings accordingly as well.
+
+>> +
+>> +                               clocks = <&dispcc 
+>> DISP_CC_MDSS_AHB_CLK>,
+>> +                                        <&dispcc
+> DISP_CC_MDSS_DP_AUX_CLK>,
+>> +                                        <&dispcc
+> DISP_CC_MDSS_DP_LINK_CLK>,
+>> +                                        <&dispcc
+> DISP_CC_MDSS_DP_LINK_INTF_CLK>,
+>> +                                        <&dispcc
+> DISP_CC_MDSS_DP_PIXEL_CLK>;
+>> +                               clock-names = "core_iface", 
+>> "core_aux",
+> "ctrl_link",
+>> +                                             "ctrl_link_iface",
+> "stream_pixel";
+>> +                               #clock-cells = <1>;
+>> +                               assigned-clocks = <&dispcc
+> DISP_CC_MDSS_DP_LINK_CLK_SRC>,
+>> +                                                 <&dispcc
+> DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
+>> +                               assigned-clock-parents = <&msm_dp 0>,
+> <&msm_dp 1>;
+>> +
+>> +                               operating-points-v2 = <&dp_opp_table>;
+>> +                               power-domains = <&rpmhpd SC7180_CX>;
+> 
+> Can you send another patch to add the hpd pinctrl binding for the hpd
+> function? It would be useful to have that in the SoC level in case any
+> board wants to use the hpd pin on this SoC without having to implement
+> it themselves. It could be assigned here too as the pinctrl but I'm not
+> sure if that is correct. Probably better to just have it in the SoC 
+> file
+> and then let boards pick to use it.
+> 
+
+We have tlmm node in sc7180.dtsi. We can define pinctrl definition for 
+"dp_hot" funtionality there.
+
+>> +
+>> +                               ports {
+>> +                                       #address-cells = <1>;
+>> +                                       #size-cells = <0>;
+>> +                                       port@0 {
+>> +                                               reg = <0>;
+>> +                                               dp_in: endpoint {
+>> +                                                       
+>> remote-endpoint
+> = <&dpu_intf0_out>;
+>> +                                               };
+>> +                                       };
+>> +
+>> +                                       port@1 {
+>> +                                               reg = <1>;
+>> +                                               dp_out: endpoint { };
+>> +                                       };
+>> +                               };
+>> +
+>> +                               dp_opp_table: dp-opp-table {
+> 
+> Can this be called opp-table? I don't see the need to make it more
+> specific given that it doesn't share the namespace at this level with
+> anything else that is an opp table.
+> 
+
+DSI and MDP's OPP table names were posted here:
+https://lore.kernel.org/dri-devel/1594292674-15632-4-git-send-email-rnayak@codeaurora.org/
+
+So, It makes sense to keep naming conventions similar to dsi and mdp's 
+opp table.
+
+>> +                                       compatible =
+> "operating-points-v2";
+>> +
+>> +                                       opp-160000000 {
+>> +                                               opp-hz = /bits/ 64
+> <160000000>;
+>> +                                               required-opps =
+> <&rpmhpd_opp_low_svs>;
+>> +                                       };
+>> +
+>> +                                       opp-270000000 {
+>> +                                               opp-hz = /bits/ 64
+> <270000000>;
+>> +                                               required-opps =
+> <&rpmhpd_opp_svs>;
+>> +                                       };
+>> +
+>> +                                       opp-540000000 {
+>> +                                               opp-hz = /bits/ 64
+> <540000000>;
+>> +                                               required-opps =
+> <&rpmhpd_opp_svs_l1>;
+>> +                                       };
+>> +
+>> +                                       opp-810000000 {
+>> +                                               opp-hz = /bits/ 64
+> <810000000>;
+>> +                                               required-opps =
+> <&rpmhpd_opp_nom>;
+>> +                                       };
+>> +                               };
+>> +                       };
+>>                 };
+>> 
+>>                 dispcc: clock-controller@af00000 {
+>> @@ -2449,8 +2521,8 @@ dispcc: clock-controller@af00000 {
+>>                                  <&gcc GCC_DISP_GPLL0_CLK_SRC>,
+>>                                  <&dsi_phy 0>,
+>>                                  <&dsi_phy 1>,
+>> -                                <0>,
+>> -                                <0>;
+>> +                                <&msm_dp 0>,
+>> +                                <&msm_dp 1>;
+> 
+> This bit will have to change when the DP phy is split off into the qmp
+> driver.
+> 
+
+Yes. It will be <&dp_phy 0> and <&dp_phy 1> assuming dp_phy is DP PHY 
+dts node name.
+
+>>                         clock-names = "bi_tcxo",
+>>                                       "gcc_disp_gpll0_clk_src",
+>>                                       "dsi0_phy_pll_out_byteclk",
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
