@@ -2,59 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F64D2422D9
-	for <lists+freedreno@lfdr.de>; Wed, 12 Aug 2020 01:36:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA4172424C7
+	for <lists+freedreno@lfdr.de>; Wed, 12 Aug 2020 06:42:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 624E86E861;
-	Tue, 11 Aug 2020 23:36:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63FE76E89E;
+	Wed, 12 Aug 2020 04:42:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
- [IPv6:2607:f8b0:4864:20::1041])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D68FF6E85F;
- Tue, 11 Aug 2020 23:36:17 +0000 (UTC)
-Received: by mail-pj1-x1041.google.com with SMTP id t6so215656pjr.0;
- Tue, 11 Aug 2020 16:36:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=qJacNYTNjzvH1OwtDhhId+31gqWxjTcV/w1QSNegM+s=;
- b=CaYwq5LCxIlp+3gYSayjOxXtKRP6v2EROxO/iEm3y8UwMofSDO5cUtWm+cKJOVBFoM
- 2rKFMuaC9rhvn/bSxR6nyOPkWatNI5cpAVIV+Oldh4XzmE0yQzHd1jtiaH9oRfLeOiUn
- GvUGjf+1xeTxs7BAU4shdSlz0LMPkQhtsptdYDhayUc+8qzs15B7BpjPnI2C3NHIEjPf
- 67fHHiF5O0JD0tDCP04f7Fs987VRj2UjMrGhDMJEgj6pOmlHuTnh9MnAdLbuw4BLVDbH
- wXPbJ14LJwDPjhrGvLv3LlJNIMegdoDBw9fqvk4AORulucMVy56eDx9TQC0xaWInAUfa
- Y9IA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=qJacNYTNjzvH1OwtDhhId+31gqWxjTcV/w1QSNegM+s=;
- b=F+zbicby4YXvdwRNPojFXxh9PnRg2Xy4g7ODD9zfT4ywjFCeZBEUhZjW3m21UkIpnc
- zeDpFCcRRUFBHAHi+5QBTj4OhBp/iL4clJ3sKn72tvPNO474FdbpzhF71yAbtrhdFcpv
- d8XE6811o2t59tdPVuOlkOtq72FTWbsMQhjqk5pA/JbRVT3sXp07H69rObQeBaan17B4
- MmbQIy4KbtcBRz1YHOZh00RVFbqLjdCVIWO26QrXqolg0SSGKAZMbGrCwwsTK2cU7L54
- 97uT5dv1QCWdisrxj1W02S5nC6ekgMFmCB12hBEH+lwfJXQbMVURu3FaRYKUVP2Hqws/
- Tn2Q==
-X-Gm-Message-State: AOAM532+cpU5rmqcPrMSXoJvh/gwAlEMTRfSOFrDJecUOA6kijRUuq3H
- r5yyEvoTmpxkaftqOqRxcI0P5Mpey4E=
-X-Google-Smtp-Source: ABdhPJwxWi7J5+1MuA33io5kkO68CeF200KVuyXZNGvfWESG3ekCOHUR+qXq4mmgKbNk3jfCFaQofA==
-X-Received: by 2002:a17:902:523:: with SMTP id
- 32mr2948980plf.176.1597188976937; 
- Tue, 11 Aug 2020 16:36:16 -0700 (PDT)
-Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
- by smtp.gmail.com with ESMTPSA id
- j20sm90019pjy.51.2020.08.11.16.36.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Aug 2020 16:36:15 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Tue, 11 Aug 2020 16:36:57 -0700
-Message-Id: <20200811233702.580744-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.26.2
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3608C6E8A0
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Aug 2020 04:42:52 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1597207375; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=0l/yxiLv9yk+WALesvOO125wOcWo89hw2RahBgzY1yI=;
+ b=WVjdGTsJJ38EweYgNVO739es8qu3+3v3W6yrbHS4rp1LcSg3DS4jBZXOFLW7n6iv6D6JIHPq
+ 0s7amCSa+YyXMmyWqXRsQyg3ZDAfk9JmJmNdwBuIcVk0iqkcecPt70+5eSk2DV5DYXGRS4ab
+ 305qzbXkgl4jXe56aBx2dJmW78E=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n09.prod.us-east-1.postgun.com with SMTP id
+ 5f33733fd48d4625caf6787e (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 12 Aug 2020 04:42:39
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id DD8F1C433CB; Wed, 12 Aug 2020 04:42:38 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from linuxdisplay-lab-04.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: tanmay)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 5A543C433C9;
+ Wed, 12 Aug 2020 04:42:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 5A543C433C9
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=tanmay@codeaurora.org
+From: Tanmay Shah <tanmay@codeaurora.org>
+To: swboyd@chromium.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ robdclark@gmail.com
+Date: Tue, 11 Aug 2020 21:42:18 -0700
+Message-Id: <20200812044223.19279-1-tanmay@codeaurora.org>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm/a6xx: add module param to enable
- debugbus snapshot
+Subject: [Freedreno] [PATCH v10 0/5] Add support for DisplayPort driver on
+ SnapDragon
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,79 +68,165 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, Shawn Guo <shawn.guo@linaro.org>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Jordan Crouse <jcrouse@codeaurora.org>,
- open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <kholk11@gmail.com>, Sean Paul <sean@poorly.run>,
- Brian Masney <masneyb@onstation.org>, Wambui Karuga <wambui.karugax@gmail.com>
+Cc: airlied@linux.ie, linux-kernel@vger.kernel.org, abhinavk@codeaurora.org,
+ khsieh@codeaurora.org, seanpaul@chromium.org,
+ Tanmay Shah <tanmay@codeaurora.org>, daniel@ffwll.ch, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+These patches add Display-Port driver on SnapDragon/msm hardware.
+This series also contains device-tree bindings for msm DP driver.
+It also contains Makefile and Kconfig changes to compile msm DP driver.
 
-For production devices, the debugbus sections will typically be fused
-off and empty in the gpu device coredump.  But since this may contain
-data like cache contents, don't capture it by default.
+The block diagram of DP driver is shown below:
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 3 ++-
- drivers/gpu/drm/msm/adreno/adreno_device.c  | 4 ++++
- drivers/gpu/drm/msm/adreno/adreno_gpu.h     | 2 ++
- 3 files changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-index 959656ad6987..b12f5b4a1bea 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-@@ -938,7 +938,8 @@ struct msm_gpu_state *a6xx_gpu_state_get(struct msm_gpu *gpu)
- 		msm_gem_kernel_put(dumper.bo, gpu->aspace, true);
- 	}
- 
--	a6xx_get_debugbus(gpu, a6xx_state);
-+	if (snapshot_debugbus)
-+		a6xx_get_debugbus(gpu, a6xx_state);
- 
- 	return  &a6xx_state->base;
- }
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-index 4e84f3c76f4f..9eeb46bf2a5d 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-@@ -14,6 +14,10 @@ bool hang_debug = false;
- MODULE_PARM_DESC(hang_debug, "Dump registers when hang is detected (can be slow!)");
- module_param_named(hang_debug, hang_debug, bool, 0600);
- 
-+bool snapshot_debugbus = false;
-+MODULE_PARM_DESC(snapshot_debugbus, "Include debugbus sections in GPU devcoredump (if not fused off)");
-+module_param_named(snapshot_debugbus, snapshot_debugbus, bool, 0600);
-+
- static const struct adreno_info gpulist[] = {
- 	{
- 		.rev   = ADRENO_REV(2, 0, 0, 0),
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index 99bb468f5f24..e55abae365b5 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -21,6 +21,8 @@
- #define REG_SKIP ~0
- #define REG_ADRENO_SKIP(_offset) [_offset] = REG_SKIP
- 
-+extern bool snapshot_debugbus;
-+
- /**
-  * adreno_regs: List of registers that are used in across all
-  * 3D devices. Each device type has different offset value for the same
+                 +-------------+
+                 |DRM FRAMEWORK|
+                 +------+------+
+                        |
+                   +----v----+
+                   | DP DRM  |
+                   +----+----+
+                        |
+                   +----v----+
+     +------------+|   DP    +----------++------+
+     +        +---+| DISPLAY |+---+      |      |
+     |        +    +-+-----+-+    |      |      |
+     |        |      |     |      |      |      |
+     |        |      |     |      |      |      |
+     |        |      |     |      |      |      |
+     v        v      v     v      v      v      v
+ +------+ +------+ +---+ +----+ +----+ +---+ +-----+
+ |  DP  | |  DP  | |DP | | DP | | DP | |DP | | DP  |
+ |PARSER| | HPD  | |AUX| |LINK| |CTRL| |PHY| |POWER|
+ +--+---+ +---+--+ +---+ +----+ +--+-+ +-+-+ +-----+
+    |                              |     |
+ +--v---+                         +v-----v+
+ |DEVICE|                         |  DP   |
+ | TREE |                         |CATALOG|
+ +------+                         +---+---+
+                                      |
+                                  +---v----+
+                                  |CTRL/PHY|
+                                  |   HW   |
+                                  +--------+
+
+Changes in v7:
+
+- Modify cover letter description and fix title.
+- Introduce dp-controller.yaml for common bindings across SOC
+- Rename dp-sc7180.yaml to dp-controller-sc7180.yaml for SC7180 bindings
+- Rename compatible string to qcom,sc7180-dp
+- Add assigned-clocks and assigned-clock-parents properties in bindings
+- Remove redundant code from driver
+- Extend series to include HPD detection logic
+
+Changes in v8:
+
+- Add MDSS AHB clock in bindings 
+- Replace mode->vrefresh use with drm_mode_vrefresh API
+- Remove redundant aux config code from parser and aux module
+- Assign default max lanes if data-lanes property is not available
+- Fix use-after-free during DP driver remove
+- Unregister hardware clocks during driver cleanup
+
+Changes in v9:
+
+- Drop YAML bindings change from the series
+- Use assigne-clock-parents property and remove clk_set_parent use from code
+- Access register address space without name
+- Fix DP register dump utility
+- Disable DP clocks after vsync generated
+- Avoid 64-bit modulo operation
+- Drop any unused code and fix function proptotyes to avoid W=1 warnings
+- Drop DRM_MSM_DP_10NM_PLL config as only 10nm PLL is available
+
+Changes in v10:
+
+- Fix help description of Kconfig entry
+
+Chandan Uddaraju (4):
+  dt-bindings: msm/dp: add bindings of DP/DP-PLL driver for Snapdragon
+  drm: add constant N value in helper file
+  drm/msm/dp: add displayPort driver support
+  drm/msm/dp: add support for DP PLL driver
+
+Jeykumar Sankaran (1):
+  drm/msm/dpu: add display port support in DPU
+
+Tanmay Shah (1):
+  drm/msm/dp: Add Display Port HPD feature
+
+ drivers/gpu/drm/i915/display/intel_display.c  |    2 +-
+ drivers/gpu/drm/msm/Kconfig                   |    9 +
+ drivers/gpu/drm/msm/Makefile                  |   14 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |   27 +-
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |    8 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   83 +-
+ drivers/gpu/drm/msm/dp/dp_aux.c               |  510 +++++
+ drivers/gpu/drm/msm/dp/dp_aux.h               |   29 +
+ drivers/gpu/drm/msm/dp/dp_catalog.c           | 1030 ++++++++++
+ drivers/gpu/drm/msm/dp/dp_catalog.h           |  104 +
+ drivers/gpu/drm/msm/dp/dp_ctrl.c              | 1693 +++++++++++++++++
+ drivers/gpu/drm/msm/dp/dp_ctrl.h              |   35 +
+ drivers/gpu/drm/msm/dp/dp_display.c           | 1017 ++++++++++
+ drivers/gpu/drm/msm/dp/dp_display.h           |   31 +
+ drivers/gpu/drm/msm/dp/dp_drm.c               |  168 ++
+ drivers/gpu/drm/msm/dp/dp_drm.h               |   18 +
+ drivers/gpu/drm/msm/dp/dp_hpd.c               |   69 +
+ drivers/gpu/drm/msm/dp/dp_hpd.h               |   79 +
+ drivers/gpu/drm/msm/dp/dp_link.c              | 1214 ++++++++++++
+ drivers/gpu/drm/msm/dp/dp_link.h              |  132 ++
+ drivers/gpu/drm/msm/dp/dp_panel.c             |  486 +++++
+ drivers/gpu/drm/msm/dp/dp_panel.h             |   95 +
+ drivers/gpu/drm/msm/dp/dp_parser.c            |  269 +++
+ drivers/gpu/drm/msm/dp/dp_parser.h            |  138 ++
+ drivers/gpu/drm/msm/dp/dp_pll.c               |   99 +
+ drivers/gpu/drm/msm/dp/dp_pll.h               |   61 +
+ drivers/gpu/drm/msm/dp/dp_pll_10nm.c          |  917 +++++++++
+ drivers/gpu/drm/msm/dp/dp_pll_private.h       |   98 +
+ drivers/gpu/drm/msm/dp/dp_power.c             |  373 ++++
+ drivers/gpu/drm/msm/dp/dp_power.h             |  103 +
+ drivers/gpu/drm/msm/dp/dp_reg.h               |  517 +++++
+ drivers/gpu/drm/msm/msm_drv.c                 |    2 +
+ drivers/gpu/drm/msm/msm_drv.h                 |   59 +-
+ include/drm/drm_dp_helper.h                   |    1 +
+ 34 files changed, 9471 insertions(+), 19 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_aux.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_aux.h
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_catalog.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_catalog.h
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_ctrl.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_ctrl.h
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_display.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_display.h
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_drm.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_drm.h
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_hpd.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_hpd.h
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_link.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_link.h
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_panel.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_panel.h
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_parser.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_parser.h
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_pll.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_pll.h
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_pll_10nm.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_pll_private.h
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_power.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_power.h
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_reg.h
+
+
+base-commit: 418eda8f3fe292782c150266d693d55d284c0c98
 -- 
-2.26.2
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
 _______________________________________________
 Freedreno mailing list
