@@ -2,75 +2,42 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2B1F242BDD
-	for <lists+freedreno@lfdr.de>; Wed, 12 Aug 2020 17:05:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A19F242E36
+	for <lists+freedreno@lfdr.de>; Wed, 12 Aug 2020 19:44:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E0916E143;
-	Wed, 12 Aug 2020 15:05:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DE836E948;
+	Wed, 12 Aug 2020 17:44:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
- [104.130.122.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A511A6E143
- for <freedreno@lists.freedesktop.org>; Wed, 12 Aug 2020 15:05:07 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1597244707; h=In-Reply-To: Content-Type: MIME-Version:
- References: Message-ID: Subject: Cc: To: From: Date: Sender;
- bh=he48vNhB/H7o1FXWZlCjSNh7DZeQpxJ6JMe+OQtpTL4=;
- b=NwgYzuYb1Pt7tDC4XvDgQou0Aa66m88LR6TU3tsjbCsz4LSuroxEa/T7kRSY2VdX7ICQ6FrO
- 4j7smoiCufgaS4KuqvpJT4olzNDXkPUPaGjbB6z7SF0842OTCzdJAXgSEv13H5p1uimTDvXb
- Dv8uNulU1PAreLCjXzCzuMu9gvo=
-X-Mailgun-Sending-Ip: 104.130.122.29
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
- 5f3405228567201751699954 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 12 Aug 2020 15:05:06
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 83489C433A0; Wed, 12 Aug 2020 15:05:05 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 676D4C433C6;
- Wed, 12 Aug 2020 15:05:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 676D4C433C6
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=jcrouse@codeaurora.org
-Date: Wed, 12 Aug 2020 09:05:00 -0600
-From: Jordan Crouse <jcrouse@codeaurora.org>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20200812150459.GB3221@jcrouse1-lnx.qualcomm.com>
-Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>,
- AngeloGioacchino Del Regno <kholk11@gmail.com>,
- Shawn Guo <shawn.guo@linaro.org>,
- Wambui Karuga <wambui.karugax@gmail.com>,
- Brian Masney <masneyb@onstation.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20200811233702.580744-1-robdclark@gmail.com>
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F64789F53
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Aug 2020 17:44:30 +0000 (UTC)
+Received: from kernel.org (unknown [104.132.0.74])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 31ABD20781;
+ Wed, 12 Aug 2020 17:44:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1597254270;
+ bh=28DUEag+8EHTAqymbd12JJo2CcoS2UDf2nbADDMAw8o=;
+ h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+ b=TD1K2eLRsFkw1pUi6MRPtrhRIEWAKzNvstiEGr0NudRvwcqMv9bBJzasuUao9Wca4
+ 9zB4zfWRjRp7MbfjoWUO/B9qDO8avGbG9BlQMsnY6PRmyeP47R2LjL7wYlLfokUpgI
+ VjIoZG+ogWktoIfhIGCKTytYWHNyZCHvkpSced3Y=
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200811233702.580744-1-robdclark@gmail.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: add module param to enable
- debugbus snapshot
+In-Reply-To: <159549996283.3847286.2480782726716664105@swboyd.mtv.corp.google.com>
+References: <CA+G9fYvGXOcsF=70FVwOxqVYOeGTUuzhUzh5od1cKV1hshsW_g@mail.gmail.com>
+ <CAK8P3a1ReCDR8REM7AWMisiEJ_D45pC8dXaoYFFVG3aZj91e7Q@mail.gmail.com>
+ <159549159798.3847286.18202724980881020289@swboyd.mtv.corp.google.com>
+ <CA+G9fYte5U-D7fqps2qJga_LSuGrb6t9Y1rOvPCPzz46BwchyA@mail.gmail.com>
+ <159549996283.3847286.2480782726716664105@swboyd.mtv.corp.google.com>
+From: Stephen Boyd <sboyd@kernel.org>
+To: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Wed, 12 Aug 2020 10:44:28 -0700
+Message-ID: <159725426896.33733.4908725817224764584@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
+Subject: Re: [Freedreno] stable-rc 4.14: arm64: Internal error: Oops:
+ clk_reparent __clk_set_parent_before on db410c
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,86 +50,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, Shawn Guo <shawn.guo@linaro.org>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>, Brian Masney <masneyb@onstation.org>,
- dri-devel@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <kholk11@gmail.com>, Sean Paul <sean@poorly.run>,
- Wambui Karuga <wambui.karugax@gmail.com>
+Cc: Sasha Levin <sashal@kernel.org>, Rob Clark <robdclark@chromium.org>,
+ Arnd Bergmann <arnd@arndb.de>, samuel@sholland.org,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ linux- stable <stable@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ Eric Anholt <eric@anholt.net>, Jordan Crouse <jcrouse@codeaurora.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ lkft-triage@lists.linaro.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Chen-Yu Tsai <wens@csie.org>, freedreno <freedreno@lists.freedesktop.org>,
+ linux-clk <linux-clk@vger.kernel.org>, Robin Murphy <robin.murphy@arm.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Aug 11, 2020 at 04:36:57PM -0700, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
+Quoting Stephen Boyd (2020-07-23 03:26:02)
+> Quoting Naresh Kamboju (2020-07-23 03:10:37)
+> > On Thu, 23 Jul 2020 at 13:36, Stephen Boyd <sboyd@kernel.org> wrote:
+> > >
+> > > It sounds like maybe you need this patch?
+> > >
+> > > bdcf1dc25324 ("clk: Evict unregistered clks from parent caches")
+> > 
+> > Cherry-pick did not work on stable-rc 4.14
+> > this patch might need backporting.
+> > I am not sure.
+> > 
 > 
-> For production devices, the debugbus sections will typically be fused
-> off and empty in the gpu device coredump.  But since this may contain
-> data like cache contents, don't capture it by default.
+> Ok. That commit fixes a regression in the 3.x series of the kernel so it
+> should go back to any LTS kernels. It looks like at least on 4.14 it's a
+> trivial conflict. Here's a backport to 4.14
 
-Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
-
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 3 ++-
->  drivers/gpu/drm/msm/adreno/adreno_device.c  | 4 ++++
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h     | 2 ++
->  3 files changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> index 959656ad6987..b12f5b4a1bea 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> @@ -938,7 +938,8 @@ struct msm_gpu_state *a6xx_gpu_state_get(struct msm_gpu *gpu)
->  		msm_gem_kernel_put(dumper.bo, gpu->aspace, true);
->  	}
->  
-> -	a6xx_get_debugbus(gpu, a6xx_state);
-> +	if (snapshot_debugbus)
-> +		a6xx_get_debugbus(gpu, a6xx_state);
->  
->  	return  &a6xx_state->base;
->  }
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> index 4e84f3c76f4f..9eeb46bf2a5d 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> @@ -14,6 +14,10 @@ bool hang_debug = false;
->  MODULE_PARM_DESC(hang_debug, "Dump registers when hang is detected (can be slow!)");
->  module_param_named(hang_debug, hang_debug, bool, 0600);
->  
-> +bool snapshot_debugbus = false;
-> +MODULE_PARM_DESC(snapshot_debugbus, "Include debugbus sections in GPU devcoredump (if not fused off)");
-> +module_param_named(snapshot_debugbus, snapshot_debugbus, bool, 0600);
-> +
->  static const struct adreno_info gpulist[] = {
->  	{
->  		.rev   = ADRENO_REV(2, 0, 0, 0),
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> index 99bb468f5f24..e55abae365b5 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> @@ -21,6 +21,8 @@
->  #define REG_SKIP ~0
->  #define REG_ADRENO_SKIP(_offset) [_offset] = REG_SKIP
->  
-> +extern bool snapshot_debugbus;
-> +
->  /**
->   * adreno_regs: List of registers that are used in across all
->   * 3D devices. Each device type has different offset value for the same
-> -- 
-> 2.26.2
-> 
-
--- 
-The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
-a Linux Foundation Collaborative Project
+Did this help?
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
