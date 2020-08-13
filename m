@@ -1,59 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 003B9243F00
-	for <lists+freedreno@lfdr.de>; Thu, 13 Aug 2020 20:44:28 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 11EDD243F0A
+	for <lists+freedreno@lfdr.de>; Thu, 13 Aug 2020 20:55:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B827C6EA8F;
-	Thu, 13 Aug 2020 18:44:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B61C56EA90;
+	Thu, 13 Aug 2020 18:55:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
- [IPv6:2607:f8b0:4864:20::841])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B89D6EA8F
- for <freedreno@lists.freedesktop.org>; Thu, 13 Aug 2020 18:44:27 +0000 (UTC)
-Received: by mail-qt1-x841.google.com with SMTP id h21so5121390qtp.11
- for <freedreno@lists.freedesktop.org>; Thu, 13 Aug 2020 11:44:27 -0700 (PDT)
+Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
+ [IPv6:2607:f8b0:4864:20::843])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 829A66EA91
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Aug 2020 18:55:11 +0000 (UTC)
+Received: by mail-qt1-x843.google.com with SMTP id h21so5146624qtp.11
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Aug 2020 11:55:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=marek-ca.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=i08DjFarJSioJFF+3BzXlzJrV3znYAwGrEz9J75FiX4=;
- b=Zey1i9YKtQygbzUDBlnW/AKCXPLBGNuzu5QshFKXWVoQGiehGBZWCktZt7P3kmrpyp
- etLXXJqJYrSLasI6L4DL57cfA+jq+WuaWJ/dPEgm2kOqm3bplNfFZIpdLzM7qO2fNPq7
- SI5LUPLrMuHlHu1uf/aInNBO05dHYBMtKk/hlVAFeX3t786TTYiuZEzAx4LXnEkK7I0e
- 1p8k2gLsGsdxA6VIzuicHGDlI6A8b4Epw4DAlh/QfTuf/VfScE0xJyabJHg11CBxZeHE
- H0gbHy7e4Q3PbTQZ4meSA/pFmvsFfvHNyNKZ3BFuZp2OZnw9nKiJwvbWyHbdD+hYFFnb
- 6FpQ==
+ bh=+Jgraj+114QRBzFXPeF3FuYfVHOWKZNgIZ9aTNenrPE=;
+ b=K5ZUHZoTVkZ0tY5PKep0FfWqPe292MdYUK7XrGfQT5bPLzimznrpCsHYK7epjlHC1i
+ xXd7fNIrqvF8K/M1sfQ6jyqPzwslt0B3Bhwb3q3FK+qBiYQjOk/3kdnaLrq5qlsdroFs
+ fWiJWg9CRP/lrcvc4QOg8w5q5NCJzb1qqdFsgGhM3jmgGBMWerAeW8B+uXBhXF3qHHn5
+ Vcr0kS3wh8MN9ZCjiI+FPVOtUIcllhV4748X8W50DajAZ5duXbgS1buXOExgWl8aY9eQ
+ lOj5Y5M+FGSlVFkyntXue9hSAx9OlmmTv8dHjt1lUn8MHgV7guNNProl0yGA34GMCbGP
+ 30Yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=i08DjFarJSioJFF+3BzXlzJrV3znYAwGrEz9J75FiX4=;
- b=CtDDVcx7m5NJMeI8r7ovy0RVC8tTv2NOOytTrq2Z19DauQdRGkyTAs7rzrEDrVxz8+
- wR86ao1Sq7VeBk84HLeaiWkQORw1VLGTVUKdu5dOghXPTjY5RgbaNxrk4HfeF7r4Stsa
- 5JqUB9pD3rNMHQvmNw3VZZeOd8ppe7c8sego/XDUtLAqCxQgErBjciD/9dsLUQFvyl3L
- xfasVadZDSIiQITqpSgzhM1uK/SPPw59/5NqH3IMDIKsKebxCVR6WXiNX+Irh4+J0GZ0
- JpMWXgAhIbfa4+pmKOBvLE7iI6psxenIbhGSVBrNi7hn3aUNMTpXySh5qdymFCEseL4V
- yw5g==
-X-Gm-Message-State: AOAM530dJ/wGWPtwgMUURKqrwU1UqMnAQ/FW3pFmrKR6R61cXrnurioL
- A0biKq4wa74dLRt+nRNhA8kjL7P2qfE=
-X-Google-Smtp-Source: ABdhPJyZpBHtFpCwUCN1Y5bRe8UUWA5ZmNxEvgqLYBigYpnTpeGmXkwoWEtaaNHcAVUMDbL7wZ6m1A==
-X-Received: by 2002:aed:2946:: with SMTP id s64mr6816571qtd.204.1597344266044; 
- Thu, 13 Aug 2020 11:44:26 -0700 (PDT)
+ bh=+Jgraj+114QRBzFXPeF3FuYfVHOWKZNgIZ9aTNenrPE=;
+ b=c4HZut7KxZg7KPR50Mbsc29T+nM4zjXNIakzu352sIlYn4a2Nxr+sPv5n0bKtFxpry
+ nlM2z922pt81RScVGQ8mW+uDYm7ilD6IwrRbZIcDeWNTdloMqkRZs8ZNSgWROoh9Gs4r
+ aebutPAeJvXg1M/2ChH8BhXzNV7REvlXgx1YuUDIb+RUMkNR++mkaJVtRXpayZQYJypH
+ U7noq+AUsKXMBkN513ahLpe+By0yGjYJmZMLFwtHTKWJbwdap5OA6BQqqotLD6kf3yEW
+ jkH1YxssQlKWkQ1TjK/zGtbcDj9R99f14ArckPMz8lK2xE4oOKvdnlpudLjMVhZZmDqY
+ q/ug==
+X-Gm-Message-State: AOAM53200VmpQSkJSrFLut57hDIsKRTAcmzTejCq85KrzrDL9iwgBe9K
+ PvvBCfqCvIbAoRbQ2z89PI3aVWbVv98=
+X-Google-Smtp-Source: ABdhPJzq+Dlcltn9G2WI66j6mqaoOepwS8++0OsOncRBWUC+uPv29ltLhNqGOeIkEg8DOqa3CRYt/g==
+X-Received: by 2002:ac8:4e51:: with SMTP id e17mr6954689qtw.173.1597344910414; 
+ Thu, 13 Aug 2020 11:55:10 -0700 (PDT)
 Received: from localhost.localdomain ([147.253.86.153])
- by smtp.gmail.com with ESMTPSA id k5sm6415227qke.18.2020.08.13.11.44.24
+ by smtp.gmail.com with ESMTPSA id l64sm5816733qkc.21.2020.08.13.11.55.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Aug 2020 11:44:25 -0700 (PDT)
+ Thu, 13 Aug 2020 11:55:09 -0700 (PDT)
 From: Jonathan Marek <jonathan@marek.ca>
 To: freedreno@lists.freedesktop.org
-Date: Thu, 13 Aug 2020 14:44:18 -0400
-Message-Id: <20200813184420.18448-1-jonathan@marek.ca>
+Date: Thu, 13 Aug 2020 14:54:48 -0400
+Message-Id: <20200813185450.19387-1-jonathan@marek.ca>
 X-Mailer: git-send-email 2.26.1
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm/a6xx: fix frequency not always being
- restored on GMU resume
+Subject: [Freedreno] [RESEND PATCH] drm/msm/a6xx: fix frequency not always
+ being restored on GMU resume
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,6 +72,7 @@ Cc: David Airlie <airlied@linux.ie>,
  Jordan Crouse <jcrouse@codeaurora.org>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
  Akhil P Oommen <akhilpo@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
  Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
  open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
@@ -87,6 +88,8 @@ resuming GMU after recovering from a hang.
 Use a simple workaround to prevent this from happening.
 
 Fixes: 1f60d11423db ("drm: msm: a6xx: send opp instead of a frequency")
+
+Signed-off-by: Jonathan Marek <jonathan@marek.ca>
 ---
  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 1 +
  1 file changed, 1 insertion(+)
