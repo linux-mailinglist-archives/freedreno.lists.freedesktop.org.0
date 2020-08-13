@@ -2,57 +2,48 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A110624319C
-	for <lists+freedreno@lfdr.de>; Thu, 13 Aug 2020 02:02:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 412DE243607
+	for <lists+freedreno@lfdr.de>; Thu, 13 Aug 2020 10:36:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78E0B6E964;
-	Thu, 13 Aug 2020 00:02:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F7726E5A2;
+	Thu, 13 Aug 2020 08:36:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
- [IPv6:2607:f8b0:4864:20::541])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EA416E963;
- Thu, 13 Aug 2020 00:02:20 +0000 (UTC)
-Received: by mail-pg1-x541.google.com with SMTP id j21so1879934pgi.9;
- Wed, 12 Aug 2020 17:02:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=NL6rjLUzSXMKDMOOhTr8S6EoaPbeYW69JWbRVQ0AlOQ=;
- b=U2gNhKgvUtMwI0xzUVhx//Bq/+qwtjFeuaYS1iveIR3A4bsACyis1XddGwiY6dK2Sn
- 6jbT7RsiRVg4o5I9ePAPB9paTugf7W0AFcLzK5wXEbTZo+P35e/+ALwm2rCJrrKtDu3k
- QF8c2z47qQ9ToSjndnfod7w9oaqdqX0rpY9OcEHNQNshW0I1MNOYt8B2wVa6hUuRfxLP
- JX84Att2w1CT9xa5NObA6SMP5S2SXrU9yu9N1jAjKiD8MtKfyIvLn5dP8l7iZy+cIMPr
- eafUH6Ta2blVR9Y7ToWsVuBk8fVhSdKCO5nOlGZBcndN73qqU5NcvBYHd5k9LbAGOJ7U
- 1ZZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=NL6rjLUzSXMKDMOOhTr8S6EoaPbeYW69JWbRVQ0AlOQ=;
- b=jeSkjlVGzRNufFy+2RkoFQxIirXTpwUUzBV64I6LAZLyIbEyuDF2V0z4VOQEwOAj19
- f1JZu5OfEBIqGkHRn6yDLAm5F717isM5M0Rg9ETnU0BTbkRz3qxEUZLx1K4kcq9mSuNm
- ZQrU1BF+n7IrjKtfcGXq6J2XPPCyq/ol+2pHf3yrGAh9PIWKtGMd2qnROX4LAeWUpbQW
- QObcQDEtf+LL3IxahCgVADb9NTT3TUYK91ay3QMmyB9CtzpZtH6SEBgf/HWsmT3rlEJQ
- /XdwqntuvkHJYEgf3J3wytH2atk4SS7fNEeXr1N34PNC+CUFQreAou1FJsBsHbw40IQC
- nyQQ==
-X-Gm-Message-State: AOAM53366y9wBfjIwJaqnoV1LNv2qI3l+KFxO3VRL0Nfr6AYaczHazys
- vtcBQqSMlBFRd/kUBjPHJGz23bBjaP0=
-X-Google-Smtp-Source: ABdhPJyrSzvVBwV+Sltkyb+UhvogaKP8htnyL7cUHmv9324U3QvGSXf9RSUI9G2wmyoYoKvDJUop1g==
-X-Received: by 2002:a62:d149:: with SMTP id t9mr1853163pfl.59.1597276939794;
- Wed, 12 Aug 2020 17:02:19 -0700 (PDT)
-Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
- by smtp.gmail.com with ESMTPSA id
- y20sm3563448pfn.183.2020.08.12.17.02.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Aug 2020 17:02:18 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Wed, 12 Aug 2020 17:03:09 -0700
-Message-Id: <20200813000311.708728-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.26.2
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB1296E1E8;
+ Thu, 13 Aug 2020 08:36:52 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 5A629AE35;
+ Thu, 13 Aug 2020 08:37:13 +0000 (UTC)
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch, linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, l.stach@pengutronix.de, christian.gmeiner@gmail.com,
+ inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, kgene@kernel.org, krzk@kernel.org,
+ patrik.r.jakobsson@gmail.com, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ chunkuang.hu@kernel.org, p.zabel@pengutronix.de, matthias.bgg@gmail.com,
+ robdclark@gmail.com, sean@poorly.run, bskeggs@redhat.com,
+ tomi.valkeinen@ti.com, eric@anholt.net, hjc@rock-chips.com,
+ heiko@sntech.de, thierry.reding@gmail.com, jonathanh@nvidia.com,
+ rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
+ oleksandr_andrushchenko@epam.com, hyun.kwon@xilinx.com,
+ laurent.pinchart@ideasonboard.com, michal.simek@xilinx.com,
+ sumit.semwal@linaro.org, evan.quan@amd.com, Hawking.Zhang@amd.com,
+ tianci.yin@amd.com, marek.olsak@amd.com, hdegoede@redhat.com,
+ andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com, xinhui.pan@amd.com,
+ aaron.liu@amd.com, nirmoy.das@amd.com, chris@chris-wilson.co.uk,
+ matthew.auld@intel.com, abdiel.janulgue@linux.intel.com,
+ tvrtko.ursulin@linux.intel.com, andi.shyti@intel.com, sam@ravnborg.org,
+ miaoqinglang@huawei.com, emil.velikov@collabora.com
+Date: Thu, 13 Aug 2020 10:36:24 +0200
+Message-Id: <20200813083644.31711-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm/adreno: fix updating ring fence
+Subject: [Freedreno] [PATCH 00/20] Convert all remaining drivers to GEM
+ object functions
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,52 +56,120 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, Jonathan Marek <jonathan@marek.ca>,
- David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Jordan Crouse <jcrouse@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Takashi Iwai <tiwai@suse.de>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>, open list <linux-kernel@vger.kernel.org>,
- Brian Masney <masneyb@onstation.org>
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, nouveau@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, xen-devel@lists.xenproject.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+The GEM and PRIME related callbacks in struct drm_driver are deprecated in
+favor of GEM object functions in struct drm_gem_object_funcs. This patchset
+converts the remaining drivers to object functions and removes most of the
+obsolete interfaces.
 
-We need to set it to the most recent completed fence, not the most
-recent submitted.  Otherwise we have races where we think we can retire
-submits that the GPU is not finished with, if the GPU doesn't manage to
-overwrite the seqno before we look at it.
+Patches #1 to #18 convert DRM drivers to GEM object functions, one by one.
+Each patch moves existing callbacks from struct drm_driver to an instance
+of struct drm_gem_object_funcs, and sets these funcs when the GEM object is
+initialized. The expection is .gem_prime_mmap. There are different ways of
+how drivers implement the callback, and moving it to GEM object functions
+requires a closer review for each.
 
-This can show up with hang recovery if one of the submits after the
-crashing submit also hangs after it is replayed.
+Patch #19 converts xlnx to CMA helper macros. There's no apparent reason
+why the driver does the GEM setup on it's own. Using CMA helper macros
+adds GEM object functions implicitly.
 
-Fixes: f97decac5f4c ("drm/msm: Support multiple ringbuffers")
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+With most of the GEM and PRIME moved to GEM object functions, related code
+in struct drm_driver and in the DRM core/helpers is being removed by patch
+#20.
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index f9e3badf2fca..34e6242c1767 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -405,7 +405,7 @@ int adreno_hw_init(struct msm_gpu *gpu)
- 		ring->next = ring->start;
- 
- 		/* reset completed fence seqno: */
--		ring->memptrs->fence = ring->seqno;
-+		ring->memptrs->fence = ring->fctx->completed_fence;
- 		ring->memptrs->rptr = 0;
- 	}
- 
--- 
-2.26.2
+Further testing is welcome. I tested the drivers for which I have HW
+available, which are gma500, i915, nouveau, radeon and vc4. The console,
+Weston and Xorg apparently work with the patches applied.
+
+Thomas Zimmermann (20):
+  drm/amdgpu: Introduce GEM object functions
+  drm/armada: Introduce GEM object functions
+  drm/etnaviv: Introduce GEM object functions
+  drm/exynos: Introduce GEM object functions
+  drm/gma500: Introduce GEM object functions
+  drm/i915: Introduce GEM object functions
+  drm/mediatek: Introduce GEM object functions
+  drm/msm: Introduce GEM object funcs
+  drm/nouveau: Introduce GEM object functions
+  drm/omapdrm: Introduce GEM object functions
+  drm/pl111: Introduce GEM object functions
+  drm/radeon: Introduce GEM object functions
+  drm/rockchip: Convert to drm_gem_object_funcs
+  drm/tegra: Introduce GEM object functions
+  drm/vc4: Introduce GEM object functions
+  drm/vgem: Introduce GEM object functions
+  drm/vkms: Introduce GEM object functions
+  drm/xen: Introduce GEM object functions
+  drm/xlnx: Initialize DRM driver instance with CMA helper macro
+  drm: Remove obsolete GEM and PRIME callbacks from struct drm_driver
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  6 --
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    | 12 +++
+ drivers/gpu/drm/armada/armada_drv.c           |  3 -
+ drivers/gpu/drm/armada/armada_gem.c           | 12 ++-
+ drivers/gpu/drm/armada/armada_gem.h           |  2 -
+ drivers/gpu/drm/drm_gem.c                     | 35 ++------
+ drivers/gpu/drm/drm_gem_cma_helper.c          |  6 +-
+ drivers/gpu/drm/drm_prime.c                   | 17 ++--
+ drivers/gpu/drm/etnaviv/etnaviv_drv.c         | 13 ---
+ drivers/gpu/drm/etnaviv/etnaviv_drv.h         |  1 -
+ drivers/gpu/drm/etnaviv/etnaviv_gem.c         | 19 ++++-
+ drivers/gpu/drm/exynos/exynos_drm_drv.c       | 10 ---
+ drivers/gpu/drm/exynos/exynos_drm_gem.c       | 15 ++++
+ drivers/gpu/drm/gma500/framebuffer.c          |  2 +
+ drivers/gpu/drm/gma500/gem.c                  | 18 +++-
+ drivers/gpu/drm/gma500/gem.h                  |  3 +
+ drivers/gpu/drm/gma500/psb_drv.c              |  9 --
+ drivers/gpu/drm/gma500/psb_drv.h              |  2 -
+ drivers/gpu/drm/i915/gem/i915_gem_object.c    |  9 +-
+ drivers/gpu/drm/i915/i915_drv.c               | 10 ++-
+ drivers/gpu/drm/i915/i915_drv.h               |  1 +
+ .../gpu/drm/i915/selftests/mock_gem_device.c  |  3 -
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        |  5 --
+ drivers/gpu/drm/mediatek/mtk_drm_gem.c        | 11 +++
+ drivers/gpu/drm/msm/msm_drv.c                 | 13 ---
+ drivers/gpu/drm/msm/msm_drv.h                 |  1 -
+ drivers/gpu/drm/msm/msm_gem.c                 | 19 ++++-
+ drivers/gpu/drm/nouveau/nouveau_drm.c         |  9 --
+ drivers/gpu/drm/nouveau/nouveau_gem.c         | 13 +++
+ drivers/gpu/drm/nouveau/nouveau_gem.h         |  2 +
+ drivers/gpu/drm/nouveau/nouveau_prime.c       |  2 +
+ drivers/gpu/drm/omapdrm/omap_drv.c            |  9 --
+ drivers/gpu/drm/omapdrm/omap_gem.c            | 16 +++-
+ drivers/gpu/drm/omapdrm/omap_gem.h            |  1 -
+ drivers/gpu/drm/pl111/pl111_drv.c             | 28 +++++-
+ drivers/gpu/drm/radeon/radeon_drv.c           | 23 +----
+ drivers/gpu/drm/radeon/radeon_object.c        | 26 ++++++
+ drivers/gpu/drm/rockchip/rockchip_drm_drv.c   |  5 --
+ drivers/gpu/drm/rockchip/rockchip_drm_gem.c   | 10 +++
+ drivers/gpu/drm/tegra/drm.c                   |  4 -
+ drivers/gpu/drm/tegra/gem.c                   |  8 ++
+ drivers/gpu/drm/vc4/vc4_bo.c                  | 21 ++++-
+ drivers/gpu/drm/vc4/vc4_drv.c                 | 12 ---
+ drivers/gpu/drm/vc4/vc4_drv.h                 |  1 -
+ drivers/gpu/drm/vgem/vgem_drv.c               | 21 +++--
+ drivers/gpu/drm/vkms/vkms_drv.c               |  8 --
+ drivers/gpu/drm/vkms/vkms_gem.c               | 13 +++
+ drivers/gpu/drm/xen/xen_drm_front.c           | 12 +--
+ drivers/gpu/drm/xen/xen_drm_front.h           |  2 +
+ drivers/gpu/drm/xen/xen_drm_front_gem.c       | 15 ++++
+ drivers/gpu/drm/xlnx/zynqmp_dpsub.c           | 14 +--
+ include/drm/drm_drv.h                         | 85 +------------------
+ 52 files changed, 311 insertions(+), 306 deletions(-)
+
+--
+2.28.0
 
 _______________________________________________
 Freedreno mailing list
