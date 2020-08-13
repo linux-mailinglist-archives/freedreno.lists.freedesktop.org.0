@@ -1,55 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39D2C243DEC
-	for <lists+freedreno@lfdr.de>; Thu, 13 Aug 2020 19:03:23 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 003B9243F00
+	for <lists+freedreno@lfdr.de>; Thu, 13 Aug 2020 20:44:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CF0B6EA6A;
-	Thu, 13 Aug 2020 17:03:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B827C6EA8F;
+	Thu, 13 Aug 2020 18:44:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3F036E105;
- Thu, 13 Aug 2020 17:03:20 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id f7so5972196wrw.1;
- Thu, 13 Aug 2020 10:03:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=f2OcjbUQiolvvjtdbVSQNs7Tp8xSogd0JfYY2T8Mi5A=;
- b=ZK6Xnm68XM2Weqtgt+oy3WcBDmBJh4lWuF7ScdBCNMZtV8MrK+cZ+1LJEGHPT2ytSK
- tp/+w+gZYNpoViq7ImvjHNu8E7fY6uYz3Akw85Q3r0hc/J+QsRASf9v/kyU8jzmG5j2B
- 9nsKgs+z0spe3DYv+WKNqKQ7PfS15szCOW+9fYB5VdGm7W0WitS+HSAyudQvZVOOWFm+
- /SWJGA27fdofLe5npVil/Q17mLoctp20Yq6pwOyU8qH91l8DLctei8TLNk3yrkPtfGvt
- qq7SlDif8CyQDYsl5hNTWGFbzQDt3HFxHqMv6/x0PB6fuxphRpvHlnk9LPaAYLEfD9oY
- Q1vg==
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B89D6EA8F
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Aug 2020 18:44:27 +0000 (UTC)
+Received: by mail-qt1-x841.google.com with SMTP id h21so5121390qtp.11
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Aug 2020 11:44:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=marek-ca.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=i08DjFarJSioJFF+3BzXlzJrV3znYAwGrEz9J75FiX4=;
+ b=Zey1i9YKtQygbzUDBlnW/AKCXPLBGNuzu5QshFKXWVoQGiehGBZWCktZt7P3kmrpyp
+ etLXXJqJYrSLasI6L4DL57cfA+jq+WuaWJ/dPEgm2kOqm3bplNfFZIpdLzM7qO2fNPq7
+ SI5LUPLrMuHlHu1uf/aInNBO05dHYBMtKk/hlVAFeX3t786TTYiuZEzAx4LXnEkK7I0e
+ 1p8k2gLsGsdxA6VIzuicHGDlI6A8b4Epw4DAlh/QfTuf/VfScE0xJyabJHg11CBxZeHE
+ H0gbHy7e4Q3PbTQZ4meSA/pFmvsFfvHNyNKZ3BFuZp2OZnw9nKiJwvbWyHbdD+hYFFnb
+ 6FpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=f2OcjbUQiolvvjtdbVSQNs7Tp8xSogd0JfYY2T8Mi5A=;
- b=Za+rAZJU30ytYQ+5Ed6O9NvmbEQWkCiBG8rEoPblx1TeLOKpjg6qfvDez7soI2WOjx
- lQ1Sp77O3GGODAtIZ2KjWXM1cJulEHqJsIW1MP1TGjZRaoZECvZJejrUoNPKskWungcX
- CuQCwp/BRiFUgfu2l+k7nbClao5ZHfsXyVmzGMBqHlyNG3Z8djfj7fF6PlUBiNSJ1ww9
- N9e6kZ77YDgIEZFrzf4Snmks/SRsEsiWqisaANarB940Y8RX8BFhf/PaxWUkh6125aT9
- 3cRH12ObBYYI8kEVnE1qLAwvua9tBAs6TUdHp8RBOhx3PFuE/CRw06dNe5mtpDZOZ9b6
- 1kVg==
-X-Gm-Message-State: AOAM531HAef7EQaDycLuifAXnyYC/lnhkcvOBUCEIIwbHEUstngzjcPv
- XOCR7EhcfPpkoxdbwNOnb9pU+GPUEfHTSA3hzAQ=
-X-Google-Smtp-Source: ABdhPJwPNi4Dk4hbn8MvomzE5XprOKkd1JdsgDq0RR0BsrBUKWcJC//EUB0I4UQXhY2gfAX3taxczNZaZKNnP7WG/N8=
-X-Received: by 2002:a5d:4ad1:: with SMTP id y17mr5227777wrs.132.1597338199356; 
- Thu, 13 Aug 2020 10:03:19 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=i08DjFarJSioJFF+3BzXlzJrV3znYAwGrEz9J75FiX4=;
+ b=CtDDVcx7m5NJMeI8r7ovy0RVC8tTv2NOOytTrq2Z19DauQdRGkyTAs7rzrEDrVxz8+
+ wR86ao1Sq7VeBk84HLeaiWkQORw1VLGTVUKdu5dOghXPTjY5RgbaNxrk4HfeF7r4Stsa
+ 5JqUB9pD3rNMHQvmNw3VZZeOd8ppe7c8sego/XDUtLAqCxQgErBjciD/9dsLUQFvyl3L
+ xfasVadZDSIiQITqpSgzhM1uK/SPPw59/5NqH3IMDIKsKebxCVR6WXiNX+Irh4+J0GZ0
+ JpMWXgAhIbfa4+pmKOBvLE7iI6psxenIbhGSVBrNi7hn3aUNMTpXySh5qdymFCEseL4V
+ yw5g==
+X-Gm-Message-State: AOAM530dJ/wGWPtwgMUURKqrwU1UqMnAQ/FW3pFmrKR6R61cXrnurioL
+ A0biKq4wa74dLRt+nRNhA8kjL7P2qfE=
+X-Google-Smtp-Source: ABdhPJyZpBHtFpCwUCN1Y5bRe8UUWA5ZmNxEvgqLYBigYpnTpeGmXkwoWEtaaNHcAVUMDbL7wZ6m1A==
+X-Received: by 2002:aed:2946:: with SMTP id s64mr6816571qtd.204.1597344266044; 
+ Thu, 13 Aug 2020 11:44:26 -0700 (PDT)
+Received: from localhost.localdomain ([147.253.86.153])
+ by smtp.gmail.com with ESMTPSA id k5sm6415227qke.18.2020.08.13.11.44.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 13 Aug 2020 11:44:25 -0700 (PDT)
+From: Jonathan Marek <jonathan@marek.ca>
+To: freedreno@lists.freedesktop.org
+Date: Thu, 13 Aug 2020 14:44:18 -0400
+Message-Id: <20200813184420.18448-1-jonathan@marek.ca>
+X-Mailer: git-send-email 2.26.1
 MIME-Version: 1.0
-References: <20200810222657.1841322-1-jcrouse@codeaurora.org>
- <20200810222657.1841322-8-jcrouse@codeaurora.org>
-In-Reply-To: <20200810222657.1841322-8-jcrouse@codeaurora.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 13 Aug 2020 10:04:05 -0700
-Message-ID: <CAF6AEGv+X88Jrha7zhQ+78RbGqK78Ghi49a_V6zE-fmRDvcGFw@mail.gmail.com>
-To: Jordan Crouse <jcrouse@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v12 07/13] drm/msm: Add a context pointer to
- the submitqueue
+Subject: [Freedreno] [PATCH] drm/msm/a6xx: fix frequency not always being
+ restored on GMU resume
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,82 +67,45 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: David Airlie <airlied@linux.ie>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Eric Anholt <eric@anholt.net>,
- AngeloGioacchino Del Regno <kholk11@gmail.com>,
- Sam Ravnborg <sam@ravnborg.org>, Emil Velikov <emil.velikov@collabora.com>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, Will Deacon <will@kernel.org>,
- Ben Dooks <ben.dooks@codethink.co.uk>,
- Wambui Karuga <wambui.karugax@gmail.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>, Brian Masney <masneyb@onstation.org>,
- Sean Paul <sean@poorly.run>, Robin Murphy <robin.murphy@arm.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
- Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
- Daniel Vetter <daniel@ffwll.ch>, Shawn Guo <shawn.guo@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
+ open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Aug 10, 2020 at 3:27 PM Jordan Crouse <jcrouse@codeaurora.org> wrote:
->
-> Each submitqueue is attached to a context. Add a pointer to the
-> context to the submitqueue at create time and refcount it so
-> that it stays around through the life of the queue.
->
-> GPU submissions can access the active context via the submitqueue
-> instead of requiring it to be passed around from function to
-> function.
->
-> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
-> ---
->
->  drivers/gpu/drm/msm/adreno/a5xx_gpu.c   | 12 +++++-------
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c   |  5 ++---
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c |  5 ++---
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h |  3 +--
->  drivers/gpu/drm/msm/msm_drv.c           |  3 ++-
->  drivers/gpu/drm/msm/msm_drv.h           |  8 ++++++++
->  drivers/gpu/drm/msm/msm_gem.h           |  1 +
->  drivers/gpu/drm/msm/msm_gem_submit.c    |  8 ++++----
->  drivers/gpu/drm/msm/msm_gpu.c           |  9 ++++-----
->  drivers/gpu/drm/msm/msm_gpu.h           |  7 +++----
->  drivers/gpu/drm/msm/msm_submitqueue.c   |  8 +++++++-
->  11 files changed, 39 insertions(+), 30 deletions(-)
->
+The patch reorganizing the set_freq function made it so the gmu resume
+doesn't always set the frequency, because a6xx_gmu_set_freq() exits early
+when the frequency hasn't been changed. Note this always happens when
+resuming GMU after recovering from a hang.
 
-[snip]
+Use a simple workaround to prevent this from happening.
 
-> diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
-> index a1d94be7883a..10f557225a3e 100644
-> --- a/drivers/gpu/drm/msm/msm_submitqueue.c
-> +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
-> @@ -49,8 +49,10 @@ void msm_submitqueue_close(struct msm_file_private *ctx)
->          * No lock needed in close and there won't
->          * be any more user ioctls coming our way
->          */
-> -       list_for_each_entry_safe(entry, tmp, &ctx->submitqueues, node)
-> +       list_for_each_entry_safe(entry, tmp, &ctx->submitqueues, node) {
-> +               kref_put(&ctx->ref, msm_file_private_destroy);
->                 msm_submitqueue_put(entry);
-> +       }
+Fixes: 1f60d11423db ("drm: msm: a6xx: send opp instead of a frequency")
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-oh, this is the problem I mentioned in the last email.. we are
-dropping the queue's reference to the ctx, when the device file is
-closed, not on the last unref of the queue.  So the queue stays live
-until all associated submits are retired, but the ctx ref (and
-therefore the aspace) get destroyed earlier
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index b67b38c8fadf..bbbd00020f92 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -845,6 +845,7 @@ static void a6xx_gmu_set_initial_freq(struct msm_gpu *gpu, struct a6xx_gmu *gmu)
+ 	if (IS_ERR_OR_NULL(gpu_opp))
+ 		return;
+ 
++	gmu->freq = 0; /* so a6xx_gmu_set_freq() doesn't exit early */
+ 	a6xx_gmu_set_freq(gpu, gpu_opp);
+ 	dev_pm_opp_put(gpu_opp);
+ }
+-- 
+2.26.1
 
-BR,
--R
-
->  }
->
->  int msm_submitqueue_create(struct drm_device *drm, struct msm_file_private *ctx,
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
