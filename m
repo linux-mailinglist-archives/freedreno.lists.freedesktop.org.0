@@ -1,41 +1,40 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D65F243ABF
-	for <lists+freedreno@lfdr.de>; Thu, 13 Aug 2020 15:23:45 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id F2506243AD1
+	for <lists+freedreno@lfdr.de>; Thu, 13 Aug 2020 15:36:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 941A56E9ED;
-	Thu, 13 Aug 2020 13:23:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7C496E20E;
+	Thu, 13 Aug 2020 13:36:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AE9E6E9ED
- for <freedreno@lists.freedesktop.org>; Thu, 13 Aug 2020 13:23:42 +0000 (UTC)
-Received: from willie-the-truck (236.31.169.217.in-addr.arpa [217.169.31.236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8AA7C20768;
- Thu, 13 Aug 2020 13:23:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597325021;
- bh=nwBcHLQtnlfDIMhhidp3mFZTNefj9XCZxmSg2p2PeNA=;
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [IPv6:2001:4b98:dc2:55:216:3eff:fef7:d647])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE1D06E147;
+ Thu, 13 Aug 2020 13:36:20 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
+ [62.78.145.57])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id EEF4C80C;
+ Thu, 13 Aug 2020 15:36:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1597325779;
+ bh=LFjCPgHaIF6gKZ6ttwoh7vM/ha5xd+8WqVY3LrXFqdY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=K2bZ9XVlxHbkebFL8JjRdtexL55UfQMacYaxyE4tNNZt4FM2Ugk1aqNszSOgJphdf
- lq99tGEJh98XYa0sffw9jLBkTFC5QJsGtyb64dNSjcUhMzvPVOIkyn9DPYdIYhCVO9
- r0K3MWq6HRLkkIwcEysqu15NO+hz+8DfMz2UzrTU=
-Date: Thu, 13 Aug 2020 14:23:36 +0100
-From: Will Deacon <will@kernel.org>
-To: Jordan Crouse <jcrouse@codeaurora.org>
-Message-ID: <20200813132336.GA10359@willie-the-truck>
-References: <20200810222657.1841322-1-jcrouse@codeaurora.org>
- <20200810222657.1841322-6-jcrouse@codeaurora.org>
+ b=mD2ffodeTiALBx4jMPG8qxz9L2zNHMknBM29LVKDZwsuv+HPNiU01uwaTPvLjoGS1
+ sOMLw+vbWye9FliJAd9NJAyN9AUdPYnu7XpJWDyFWNmXGiBOuqF8WtSmdbAdPKkTbA
+ m/8ZHk2o7qVvXfCHUPCtVlJuq/Rqpw7zILkn+1Oc=
+Date: Thu, 13 Aug 2020 16:36:05 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <20200813133605.GJ6057@pendragon.ideasonboard.com>
+References: <20200813083644.31711-1-tzimmermann@suse.de>
+ <20200813083644.31711-20-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200810222657.1841322-6-jcrouse@codeaurora.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH v12 05/13] iommu/arm-smmu-qcom: Add
- implementation for the adreno GPU SMMU
+In-Reply-To: <20200813083644.31711-20-tzimmermann@suse.de>
+Subject: Re: [Freedreno] [PATCH 19/20] drm/xlnx: Initialize DRM driver
+ instance with CMA helper macro
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,81 +47,100 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Hanna Hawa <hannah@marvell.com>, Robin Murphy <robin.murphy@arm.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, iommu@lists.linux-foundation.org,
- Krishna Reddy <vdumpa@nvidia.com>, Sibi Sankar <sibis@codeaurora.org>,
- Vivek Gautam <vivek.gautam@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
- freedreno@lists.freedesktop.org, Joerg Roedel <joro@8bytes.org>,
- linux-arm-kernel@lists.infradead.org
+Cc: hamohammed.sa@gmail.com, heiko@sntech.de, andrey.grodzovsky@amd.com,
+ airlied@linux.ie, nouveau@lists.freedesktop.org,
+ joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org,
+ michal.simek@xilinx.com, eric@anholt.net, thierry.reding@gmail.com,
+ robdclark@gmail.com, krzk@kernel.org, sam@ravnborg.org,
+ sumit.semwal@linaro.org, emil.velikov@collabora.com,
+ abdiel.janulgue@linux.intel.com, linux-samsung-soc@vger.kernel.org,
+ jy0922.shim@samsung.com, oleksandr_andrushchenko@epam.com,
+ tomi.valkeinen@ti.com, linux-tegra@vger.kernel.org, linux@armlinux.org.uk,
+ patrik.r.jakobsson@gmail.com, jonathanh@nvidia.com,
+ linux-rockchip@lists.infradead.org, kgene@kernel.org, bskeggs@redhat.com,
+ xen-devel@lists.xenproject.org, intel-gfx@lists.freedesktop.org,
+ matthew.auld@intel.com, chunkuang.hu@kernel.org, andi.shyti@intel.com,
+ daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, marek.olsak@amd.com,
+ tianci.yin@amd.com, maarten.lankhorst@linux.intel.com,
+ etnaviv@lists.freedesktop.org, jani.nikula@linux.intel.com,
+ inki.dae@samsung.com, hdegoede@redhat.com, christian.gmeiner@gmail.com,
+ linux-mediatek@lists.infradead.org, mripard@kernel.org, rodrigo.vivi@intel.com,
+ matthias.bgg@gmail.com, evan.quan@amd.com, sean@poorly.run,
+ linux-arm-kernel@lists.infradead.org, tvrtko.ursulin@linux.intel.com,
+ amd-gfx@lists.freedesktop.org, chris@chris-wilson.co.uk, hyun.kwon@xilinx.com,
+ rodrigosiqueiramelo@gmail.com, aaron.liu@amd.com, Felix.Kuehling@amd.com,
+ xinhui.pan@amd.com, sw0312.kim@samsung.com, hjc@rock-chips.com,
+ miaoqinglang@huawei.com, kyungmin.park@samsung.com, nirmoy.das@amd.com,
+ p.zabel@pengutronix.de, alexander.deucher@amd.com, Hawking.Zhang@amd.com,
+ freedreno@lists.freedesktop.org, christian.koenig@amd.com,
+ l.stach@pengutronix.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Aug 10, 2020 at 04:26:49PM -0600, Jordan Crouse wrote:
-> Add a special implementation for the SMMU attached to most Adreno GPU
-> target triggered from the qcom,adreno-smmu compatible string.
+Hi Thomas,
+
+Thank you for the patch.
+
+On Thu, Aug 13, 2020 at 10:36:43AM +0200, Thomas Zimmermann wrote:
+> The xlnx driver uses CMA helpers with default callback functions.
+> Initialize the driver structure with the rsp CMA helper macro. The
+> driver is being converted to use GEM object functions as part of
+> this change.
 > 
-> The new Adreno SMMU implementation will enable split pagetables
-> (TTBR1) for the domain attached to the GPU device (SID 0) and
-> hard code it context bank 0 so the GPU hardware can implement
-> per-instance pagetables.
+> Two callbacks, .dumb_destroy and .gem_prime_import, were initialized
+> to their default implementations, so they are just kept empty now.
 > 
-> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
+>  drivers/gpu/drm/xlnx/zynqmp_dpsub.c | 14 +-------------
+>  1 file changed, 1 insertion(+), 13 deletions(-)
 > 
->  drivers/iommu/arm/arm-smmu/arm-smmu-impl.c |   3 +
->  drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 156 ++++++++++++++++++++-
->  2 files changed, 157 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c b/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
-> index 88f17cc33023..d199b4bff15d 100644
-> --- a/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
-> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
-> @@ -223,6 +223,9 @@ struct arm_smmu_device *arm_smmu_impl_init(struct arm_smmu_device *smmu)
->  	    of_device_is_compatible(np, "qcom,sm8250-smmu-500"))
->  		return qcom_smmu_impl_init(smmu);
+> diff --git a/drivers/gpu/drm/xlnx/zynqmp_dpsub.c b/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
+> index 26328c76305b..058044dcc062 100644
+> --- a/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
+> +++ b/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
+> @@ -80,19 +80,7 @@ static struct drm_driver zynqmp_dpsub_drm_driver = {
+>  	.driver_features		= DRIVER_MODESET | DRIVER_GEM |
+>  					  DRIVER_ATOMIC,
 >  
-> +	if (of_device_is_compatible(smmu->dev->of_node, "qcom,adreno-smmu"))
-> +		return qcom_adreno_smmu_impl_init(smmu);
-> +
->  	if (of_device_is_compatible(np, "marvell,ap806-smmu-500"))
->  		smmu->impl = &mrvl_mmu500_impl;
->  
-> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-> index be4318044f96..3be10145bf57 100644
-> --- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-> @@ -12,6 +12,138 @@ struct qcom_smmu {
->  	struct arm_smmu_device smmu;
->  };
->  
-> +#define QCOM_ADRENO_SMMU_GPU_SID 0
-> +
-> +static bool qcom_adreno_smmu_is_gpu_device(struct device *dev)
-> +{
-> +	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-> +	struct arm_smmu_master_cfg *cfg = dev_iommu_priv_get(dev);
-> +	int idx, i;
-> +
-> +	/*
-> +	 * The GPU will always use SID 0 so that is a handy way to uniquely
-> +	 * identify it and configure it for per-instance pagetables
-> +	 */
-> +	for_each_cfg_sme(cfg, fwspec, i, idx) {
-> +		u16 sid = FIELD_GET(ARM_SMMU_SMR_ID, fwspec->ids[i]);
-> +
-> +		if (sid == QCOM_ADRENO_SMMU_GPU_SID)
-> +			return true;
-> +	}
+> -	.prime_handle_to_fd		= drm_gem_prime_handle_to_fd,
+> -	.prime_fd_to_handle		= drm_gem_prime_fd_to_handle,
+> -	.gem_prime_export		= drm_gem_prime_export,
+> -	.gem_prime_import		= drm_gem_prime_import,
+> -	.gem_prime_get_sg_table		= drm_gem_cma_prime_get_sg_table,
+> -	.gem_prime_import_sg_table	= drm_gem_cma_prime_import_sg_table,
+> -	.gem_prime_vmap			= drm_gem_cma_prime_vmap,
+> -	.gem_prime_vunmap		= drm_gem_cma_prime_vunmap,
+> -	.gem_prime_mmap			= drm_gem_cma_prime_mmap,
+> -	.gem_free_object_unlocked	= drm_gem_cma_free_object,
+> -	.gem_vm_ops			= &drm_gem_cma_vm_ops,
+> -	.dumb_create			= zynqmp_dpsub_dumb_create,
+> -	.dumb_destroy			= drm_gem_dumb_destroy,
+> +	DRM_GEM_CMA_DRIVER_OPS_VMAP_WITH_DUMB_CREATE(zynqmp_dpsub_dumb_create),
 
-Is for_each_cfg_sme() really what you want here? You're not using idx for
-anything, so I guess it should really be a loop over the sids (e.g. a bog
-standard for loop from 0 to fw->num_ids - 1)?
+The only effective change here is
 
-Will
+-	.gem_prime_import_sg_table	= drm_gem_cma_prime_import_sg_table,
+-	.gem_prime_mmap			= drm_gem_cma_prime_mmap,
++	.gem_prime_import_sg_table	= drm_gem_cma_prime_import_sg_table_vmap,
++	.gem_prime_mmap			= drm_gem_prime_mmap,
+
+The change is significant, and I have a hard time following the code to
+verify that it's correct, or if it's an undesired side effect. If it's
+correct, could the change be mentioned in the commit message, with at
+least a brief explanation of why this is correct, and what the
+consequences here ?
+
+>  
+>  	.fops				= &zynqmp_dpsub_drm_fops,
+>  
+
+-- 
+Regards,
+
+Laurent Pinchart
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
