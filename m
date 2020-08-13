@@ -2,57 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18B40243D57
-	for <lists+freedreno@lfdr.de>; Thu, 13 Aug 2020 18:27:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39D2C243DEC
+	for <lists+freedreno@lfdr.de>; Thu, 13 Aug 2020 19:03:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA0086E9FE;
-	Thu, 13 Aug 2020 16:27:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CF0B6EA6A;
+	Thu, 13 Aug 2020 17:03:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
  [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCE416E9FE
- for <freedreno@lists.freedesktop.org>; Thu, 13 Aug 2020 16:27:17 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id z18so5818338wrm.12
- for <freedreno@lists.freedesktop.org>; Thu, 13 Aug 2020 09:27:17 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3F036E105;
+ Thu, 13 Aug 2020 17:03:20 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id f7so5972196wrw.1;
+ Thu, 13 Aug 2020 10:03:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=i8A41jTFfKzD80jObOhia7RlfQfORZCQM0sSroioat0=;
- b=ltF5tFROgFAZgA5ykWdfcsD7a6IqKI1lHnkqk0uW8c1mUO/qzVluK8J1t8jmVU4Job
- +Vtmoin3OAPiYr73l3JEOUZ2gUWG37ta+25nQ1mYsZAe1/7npia4seT0uQnwwQMEYozf
- HfIw62D1Rw2pf0hw8IK2fApNoBdewGrJ4hMkkeVIkyeLNEO+zqe9XwTT+LvaIITCC1xv
- 1xyi8enK2pWVuiyvYNl+LV1Nbe+j4UkavqT8Slf48jxAMw7lbGS2y6k/TeSnT1m1qkQ8
- UbQwWVqGIXGph/HTTeOyWh4MAQje6Nxo0grB6X9N0p8EBYF4hrSCRZEs/R2Kdx8WoFc6
- EwDg==
+ :cc; bh=f2OcjbUQiolvvjtdbVSQNs7Tp8xSogd0JfYY2T8Mi5A=;
+ b=ZK6Xnm68XM2Weqtgt+oy3WcBDmBJh4lWuF7ScdBCNMZtV8MrK+cZ+1LJEGHPT2ytSK
+ tp/+w+gZYNpoViq7ImvjHNu8E7fY6uYz3Akw85Q3r0hc/J+QsRASf9v/kyU8jzmG5j2B
+ 9nsKgs+z0spe3DYv+WKNqKQ7PfS15szCOW+9fYB5VdGm7W0WitS+HSAyudQvZVOOWFm+
+ /SWJGA27fdofLe5npVil/Q17mLoctp20Yq6pwOyU8qH91l8DLctei8TLNk3yrkPtfGvt
+ qq7SlDif8CyQDYsl5hNTWGFbzQDt3HFxHqMv6/x0PB6fuxphRpvHlnk9LPaAYLEfD9oY
+ Q1vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=i8A41jTFfKzD80jObOhia7RlfQfORZCQM0sSroioat0=;
- b=DzB1FbucHj8py827EcbHri0HuMbf5YQsKtgrR/lWI2RzFCFJM6uruCOtUFtYgDQlGv
- PCYdjmxFXm3ssxftf/IDzuPQDMBpJrKLnmUM8zYJO2X0JFtSjVqwWDAuQsVTbuHh572Z
- igEKRcbCfM/peftaDKzlLdSF9Pk6aLJS6aUAjKbvvDxgJW1sbRM04RzJQq8akvDWz4YJ
- dQpsZx0S1TETUjP5bvgkZCOWIXvU54wQAMKwXz3tiemngbx5WCqAM44QwFJnC1vUgOBD
- lvy8IbvAdF+CmDQmibOCSDy244Qsqg0h/xv9VGl5TEzuGNTDed9db/ep1UTPoPEc6Nit
- i3EA==
-X-Gm-Message-State: AOAM530VgW2jaUulxuwTXVA2369XW8GxUkjoLccG+1Wxd2yPNxcesiKL
- McX8wJla1aaZp/k3dup5xNX3WRTXbgUb7J/R3rw=
-X-Google-Smtp-Source: ABdhPJzH/J7FP/7qCdkL8eeSCxCr1qpeQTRxwqPrMBjocRjU8savD+CGNSock5FfU9Bf2OHfq/Jig6M1BNJ0N1f/Sso=
-X-Received: by 2002:a5d:4a8a:: with SMTP id o10mr4512119wrq.327.1597336036448; 
- Thu, 13 Aug 2020 09:27:16 -0700 (PDT)
+ bh=f2OcjbUQiolvvjtdbVSQNs7Tp8xSogd0JfYY2T8Mi5A=;
+ b=Za+rAZJU30ytYQ+5Ed6O9NvmbEQWkCiBG8rEoPblx1TeLOKpjg6qfvDez7soI2WOjx
+ lQ1Sp77O3GGODAtIZ2KjWXM1cJulEHqJsIW1MP1TGjZRaoZECvZJejrUoNPKskWungcX
+ CuQCwp/BRiFUgfu2l+k7nbClao5ZHfsXyVmzGMBqHlyNG3Z8djfj7fF6PlUBiNSJ1ww9
+ N9e6kZ77YDgIEZFrzf4Snmks/SRsEsiWqisaANarB940Y8RX8BFhf/PaxWUkh6125aT9
+ 3cRH12ObBYYI8kEVnE1qLAwvua9tBAs6TUdHp8RBOhx3PFuE/CRw06dNe5mtpDZOZ9b6
+ 1kVg==
+X-Gm-Message-State: AOAM531HAef7EQaDycLuifAXnyYC/lnhkcvOBUCEIIwbHEUstngzjcPv
+ XOCR7EhcfPpkoxdbwNOnb9pU+GPUEfHTSA3hzAQ=
+X-Google-Smtp-Source: ABdhPJwPNi4Dk4hbn8MvomzE5XprOKkd1JdsgDq0RR0BsrBUKWcJC//EUB0I4UQXhY2gfAX3taxczNZaZKNnP7WG/N8=
+X-Received: by 2002:a5d:4ad1:: with SMTP id y17mr5227777wrs.132.1597338199356; 
+ Thu, 13 Aug 2020 10:03:19 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200810222657.1841322-1-jcrouse@codeaurora.org>
- <20200810222657.1841322-5-jcrouse@codeaurora.org>
- <20200813131412.GB10256@willie-the-truck>
- <CAF6AEGuCubnXu7FKuCHPx0Bow4O7M8NSBThHDusev7xX6v2zQQ@mail.gmail.com>
- <20200813151934.GA10534@willie-the-truck>
-In-Reply-To: <20200813151934.GA10534@willie-the-truck>
+ <20200810222657.1841322-8-jcrouse@codeaurora.org>
+In-Reply-To: <20200810222657.1841322-8-jcrouse@codeaurora.org>
 From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 13 Aug 2020 09:28:02 -0700
-Message-ID: <CAF6AEGsfP14bJzdJP70YonM6J00+PAZVk2neURT3rb2+PcRNDg@mail.gmail.com>
-To: Will Deacon <will@kernel.org>
-Subject: Re: [Freedreno] [PATCH v12 04/13] iommu: Add a domain attribute to
- get/set a pagetable configuration
+Date: Thu, 13 Aug 2020 10:04:05 -0700
+Message-ID: <CAF6AEGv+X88Jrha7zhQ+78RbGqK78Ghi49a_V6zE-fmRDvcGFw@mail.gmail.com>
+To: Jordan Crouse <jcrouse@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH v12 07/13] drm/msm: Add a context pointer to
+ the submitqueue
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,78 +62,83 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
+Cc: David Airlie <airlied@linux.ie>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Eric Anholt <eric@anholt.net>,
+ AngeloGioacchino Del Regno <kholk11@gmail.com>,
+ Sam Ravnborg <sam@ravnborg.org>, Emil Velikov <emil.velikov@collabora.com>,
  Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, Joerg Roedel <joro@8bytes.org>,
+ Jonathan Marek <jonathan@marek.ca>, Will Deacon <will@kernel.org>,
+ Ben Dooks <ben.dooks@codethink.co.uk>,
+ Wambui Karuga <wambui.karugax@gmail.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>, Brian Masney <masneyb@onstation.org>,
+ Sean Paul <sean@poorly.run>, Robin Murphy <robin.murphy@arm.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
  Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, Robin Murphy <robin.murphy@arm.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+ Daniel Vetter <daniel@ffwll.ch>, Shawn Guo <shawn.guo@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Aug 13, 2020 at 8:19 AM Will Deacon <will@kernel.org> wrote:
+On Mon, Aug 10, 2020 at 3:27 PM Jordan Crouse <jcrouse@codeaurora.org> wrote:
 >
-> On Thu, Aug 13, 2020 at 08:11:02AM -0700, Rob Clark wrote:
-> > On Thu, Aug 13, 2020 at 6:14 AM Will Deacon <will@kernel.org> wrote:
-> > >
-> > > On Mon, Aug 10, 2020 at 04:26:48PM -0600, Jordan Crouse wrote:
-> > > > Add domain attribute DOMAIN_ATTR_PGTABLE_CFG. This will be used by
-> > > > arm-smmu to share the current pagetable configuration with the
-> > > > leaf driver and to allow the leaf driver to set up a new pagetable
-> > > > configuration under certain circumstances.
-> > > >
-> > > > Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
-> > > > ---
-> > > >
-> > > >  include/linux/iommu.h | 1 +
-> > > >  1 file changed, 1 insertion(+)
-> > > >
-> > > > diff --git a/include/linux/iommu.h b/include/linux/iommu.h
-> > > > index fee209efb756..995ab8c47ef2 100644
-> > > > --- a/include/linux/iommu.h
-> > > > +++ b/include/linux/iommu.h
-> > > > @@ -118,6 +118,7 @@ enum iommu_attr {
-> > > >       DOMAIN_ATTR_FSL_PAMUV1,
-> > > >       DOMAIN_ATTR_NESTING,    /* two stages of translation */
-> > > >       DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE,
-> > > > +     DOMAIN_ATTR_PGTABLE_CFG,
-> > > >       DOMAIN_ATTR_MAX,
-> > > >  };
-> > >
-> > > Nobody other than the adreno gpu uses this, so can we avoid exposing it
-> > > in the IOMMU API, please? Given that you have a reference to the adreno
-> > > GPU device in the SMMU implementation code thanks to .alloc_context_bank(),
-> > > can you squirrel some function pointers away in the driver data (i.e. with
-> > > dev_set_drvdata()) instead?
-> > >
-> >
-> > Hmm, we are already using drvdata on the gpu side, and it looks like
-> > arm-smmu is also using it.  Could we get away with stashing an extra
-> > 'void *' in iommu_domain itself?
+> Each submitqueue is attached to a context. Add a pointer to the
+> context to the submitqueue at create time and refcount it so
+> that it stays around through the life of the queue.
 >
-> What I meant was, expose the type of whatever you put in there on the GPU
-> side so that the SMMU impl can install its function pointers into a field of
-> that structure. As far as I'm concerned, the SMMU impl code and the GPU
-> driver are the same entity and we should keep their communication private,
-> rather than expose it up the stack. After all, the GPU writes to the SMMU
-> registers!
+> GPU submissions can access the active context via the submitqueue
+> instead of requiring it to be passed around from function to
+> function.
 >
-> If you really don't want to expose all of your gubbins, I suppose you
-> could have a structure just for the SMMU view and container_of() out of
-> that on the GPU side.
+> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
+> ---
+>
+>  drivers/gpu/drm/msm/adreno/a5xx_gpu.c   | 12 +++++-------
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c   |  5 ++---
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c |  5 ++---
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h |  3 +--
+>  drivers/gpu/drm/msm/msm_drv.c           |  3 ++-
+>  drivers/gpu/drm/msm/msm_drv.h           |  8 ++++++++
+>  drivers/gpu/drm/msm/msm_gem.h           |  1 +
+>  drivers/gpu/drm/msm/msm_gem_submit.c    |  8 ++++----
+>  drivers/gpu/drm/msm/msm_gpu.c           |  9 ++++-----
+>  drivers/gpu/drm/msm/msm_gpu.h           |  7 +++----
+>  drivers/gpu/drm/msm/msm_submitqueue.c   |  8 +++++++-
+>  11 files changed, 39 insertions(+), 30 deletions(-)
+>
 
-yeah, msm_gpu has a lot of internal state.. but I suppose we could
-define a 'struct adreno_smmu_priv' and embed that in msm_gpu, and
-throw in a get_gpu_drvdata() type wrapper for get_drvdata() to make
-this not totally horrible in the various cases places that use
-get_drvdata() currently.
+[snip]
+
+> diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
+> index a1d94be7883a..10f557225a3e 100644
+> --- a/drivers/gpu/drm/msm/msm_submitqueue.c
+> +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
+> @@ -49,8 +49,10 @@ void msm_submitqueue_close(struct msm_file_private *ctx)
+>          * No lock needed in close and there won't
+>          * be any more user ioctls coming our way
+>          */
+> -       list_for_each_entry_safe(entry, tmp, &ctx->submitqueues, node)
+> +       list_for_each_entry_safe(entry, tmp, &ctx->submitqueues, node) {
+> +               kref_put(&ctx->ref, msm_file_private_destroy);
+>                 msm_submitqueue_put(entry);
+> +       }
+
+oh, this is the problem I mentioned in the last email.. we are
+dropping the queue's reference to the ctx, when the device file is
+closed, not on the last unref of the queue.  So the queue stays live
+until all associated submits are retired, but the ctx ref (and
+therefore the aspace) get destroyed earlier
 
 BR,
 -R
+
+>  }
+>
+>  int msm_submitqueue_create(struct drm_device *drm, struct msm_file_private *ctx,
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
