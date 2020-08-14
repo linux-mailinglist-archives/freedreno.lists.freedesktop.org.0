@@ -1,59 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11EDD243F0A
-	for <lists+freedreno@lfdr.de>; Thu, 13 Aug 2020 20:55:14 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id AF205244329
+	for <lists+freedreno@lfdr.de>; Fri, 14 Aug 2020 04:40:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B61C56EA90;
-	Thu, 13 Aug 2020 18:55:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBFAE6EADB;
+	Fri, 14 Aug 2020 02:40:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
- [IPv6:2607:f8b0:4864:20::843])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 829A66EA91
- for <freedreno@lists.freedesktop.org>; Thu, 13 Aug 2020 18:55:11 +0000 (UTC)
-Received: by mail-qt1-x843.google.com with SMTP id h21so5146624qtp.11
- for <freedreno@lists.freedesktop.org>; Thu, 13 Aug 2020 11:55:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=marek-ca.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=+Jgraj+114QRBzFXPeF3FuYfVHOWKZNgIZ9aTNenrPE=;
- b=K5ZUHZoTVkZ0tY5PKep0FfWqPe292MdYUK7XrGfQT5bPLzimznrpCsHYK7epjlHC1i
- xXd7fNIrqvF8K/M1sfQ6jyqPzwslt0B3Bhwb3q3FK+qBiYQjOk/3kdnaLrq5qlsdroFs
- fWiJWg9CRP/lrcvc4QOg8w5q5NCJzb1qqdFsgGhM3jmgGBMWerAeW8B+uXBhXF3qHHn5
- Vcr0kS3wh8MN9ZCjiI+FPVOtUIcllhV4748X8W50DajAZ5duXbgS1buXOExgWl8aY9eQ
- lOj5Y5M+FGSlVFkyntXue9hSAx9OlmmTv8dHjt1lUn8MHgV7guNNProl0yGA34GMCbGP
- 30Yw==
+Received: from mail-pj1-x1043.google.com (mail-pj1-x1043.google.com
+ [IPv6:2607:f8b0:4864:20::1043])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66FE089CC1;
+ Fri, 14 Aug 2020 02:40:43 +0000 (UTC)
+Received: by mail-pj1-x1043.google.com with SMTP id 2so3713223pjx.5;
+ Thu, 13 Aug 2020 19:40:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=owfmQXFgf/fH58BV+ic1nMBs1aCC02JSGh5gYv3klp8=;
+ b=lsiZrbDjIcUnnBikCQDJEBZ82+asgOneztDDZB/zGHWwNfBBIlDvZig6cPm+zpN9uL
+ I6faNW9U9xRDsexV0d3yePpmSWqj152dK7U2QPNytL/KC+gvyQJKACs2+u+YiUEEza1f
+ MuM1pqhImoxHVu5b9LlFgP7nJJtXYNa9NVdBBuOGLzYK8bPHvmtwf+CUB+zia0WL8wt4
+ XYegTlvmeExE/ExPkHNGXMLctzdipPb9a8wUiWVbBOYeiC4nHDgLdWag/j8GGWwC03Qf
+ iFLKJVdwelOIQuvRP/cAfkF9w/2XixQHpnvUSmBgH9bNlytB/Fb5EthFc/B5uRdE0/8w
+ iKBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=+Jgraj+114QRBzFXPeF3FuYfVHOWKZNgIZ9aTNenrPE=;
- b=c4HZut7KxZg7KPR50Mbsc29T+nM4zjXNIakzu352sIlYn4a2Nxr+sPv5n0bKtFxpry
- nlM2z922pt81RScVGQ8mW+uDYm7ilD6IwrRbZIcDeWNTdloMqkRZs8ZNSgWROoh9Gs4r
- aebutPAeJvXg1M/2ChH8BhXzNV7REvlXgx1YuUDIb+RUMkNR++mkaJVtRXpayZQYJypH
- U7noq+AUsKXMBkN513ahLpe+By0yGjYJmZMLFwtHTKWJbwdap5OA6BQqqotLD6kf3yEW
- jkH1YxssQlKWkQ1TjK/zGtbcDj9R99f14ArckPMz8lK2xE4oOKvdnlpudLjMVhZZmDqY
- q/ug==
-X-Gm-Message-State: AOAM53200VmpQSkJSrFLut57hDIsKRTAcmzTejCq85KrzrDL9iwgBe9K
- PvvBCfqCvIbAoRbQ2z89PI3aVWbVv98=
-X-Google-Smtp-Source: ABdhPJzq+Dlcltn9G2WI66j6mqaoOepwS8++0OsOncRBWUC+uPv29ltLhNqGOeIkEg8DOqa3CRYt/g==
-X-Received: by 2002:ac8:4e51:: with SMTP id e17mr6954689qtw.173.1597344910414; 
- Thu, 13 Aug 2020 11:55:10 -0700 (PDT)
-Received: from localhost.localdomain ([147.253.86.153])
- by smtp.gmail.com with ESMTPSA id l64sm5816733qkc.21.2020.08.13.11.55.09
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=owfmQXFgf/fH58BV+ic1nMBs1aCC02JSGh5gYv3klp8=;
+ b=FePLtne0BY8yMqiicUSliBdsz0HG32/CSvqVYTsKdz72QImQ4lt+bjl8HIZAR2ih5A
+ N3FzQt3oI7hPU0nFDoDJFDtWdjmozRtCOsUKgMKOoobgt9TfiN5Gf01FqPEb2f1VpAVN
+ 2p9Wz+aRwTKV5Ub3YRG19QPhVvfJy/ayqidCG0+I5uCjMqkedSjO+OKA1bstxfTnc+/J
+ mJzfpI84kgotJA+/2WjTTGkrY0qMyb9BRSiYAcJKWmYI+sRrSv6+o3GbOl4MJ5IjadDl
+ 9bhvPYanA6z8oDJMd5pP5bWzAIAWKJwGGo3TIIkvluapCknJZXQbLmvU2/ZsbE70wmCQ
+ hB+Q==
+X-Gm-Message-State: AOAM533P16miSNCyHOJuVB5nSiPQ6xo4v8seUUAqhO9zzqRoDaT5Q36v
+ Tag7dmg9OmG9FQ7gaRJtjUEJuZB3jMg=
+X-Google-Smtp-Source: ABdhPJwWmUSOx1eEo2u76f8aikt4xuixi23dTQV5RYorGVXebHwyI7SWesWZ3r2epsMthKNgKT0I/Q==
+X-Received: by 2002:a17:902:ed4a:: with SMTP id
+ y10mr575938plb.106.1597372842579; 
+ Thu, 13 Aug 2020 19:40:42 -0700 (PDT)
+Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
+ by smtp.gmail.com with ESMTPSA id mh14sm6740321pjb.23.2020.08.13.19.40.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Aug 2020 11:55:09 -0700 (PDT)
-From: Jonathan Marek <jonathan@marek.ca>
-To: freedreno@lists.freedesktop.org
-Date: Thu, 13 Aug 2020 14:54:48 -0400
-Message-Id: <20200813185450.19387-1-jonathan@marek.ca>
-X-Mailer: git-send-email 2.26.1
+ Thu, 13 Aug 2020 19:40:41 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
+ linux-arm-msm@vger.kernel.org
+Date: Thu, 13 Aug 2020 19:40:55 -0700
+Message-Id: <20200814024114.1177553-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20200810222657.1841322-1-jcrouse@codeaurora.org>
+References: <20200810222657.1841322-1-jcrouse@codeaurora.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [RESEND PATCH] drm/msm/a6xx: fix frequency not always
- being restored on GMU resume
+Subject: [Freedreno] [PATCH 00/19] iommu/arm-smmu + drm/msm: per-process GPU
+ pgtables
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,48 +69,153 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Jordan Crouse <jcrouse@codeaurora.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
- open list <linux-kernel@vger.kernel.org>
+Cc: Rob Clark <robdclark@chromium.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Sibi Sankar <sibis@codeaurora.org>, Vivek Gautam <vivek.gautam@codeaurora.org>,
+ Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The patch reorganizing the set_freq function made it so the gmu resume
-doesn't always set the frequency, because a6xx_gmu_set_freq() exits early
-when the frequency hasn't been changed. Note this always happens when
-resuming GMU after recovering from a hang.
+From: Rob Clark <robdclark@chromium.org>
 
-Use a simple workaround to prevent this from happening.
+NOTE: Since Jordan was out today, and I wanted to keep things moving on
+      this, I took the liberty of respinning his series (originally
+      titled "iommu/arm-smmu: Add Adreno SMMU specific implementation")
+      with updates based on Will's review comments, and some fixes and
+      extra bits that I found in stress testing the series.  Original
+      commit msg and updated version history below.
 
-Fixes: 1f60d11423db ("drm: msm: a6xx: send opp instead of a frequency")
+      In general I like the private interface between adreno-smmu and
+      the GPU driver.  It should make for a more straightforward way
+      to extend things to optimize TLB invalidation in the future, for
+      example, rather than shoe-horning everything thru domain attrs.
+      And it lets us describe the get_ttbr1_cfg/set_ttrb0_cfg dance
+      more clearly.  Although it is going to make landing this via
+      iommu vs drm tree a bit more difficult.  Maybe there are some
+      arm-smmu parts of this series that could be pulled out to make
+      it not conflicty to land the private interface and adreno-smmu
+      bits via the drm tree?  (But I'm jumping a bit ahead here.  Just
+      wanted to point out that issue.)
 
-Signed-off-by: Jonathan Marek <jonathan@marek.ca>
----
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 1 +
- 1 file changed, 1 insertion(+)
+      The complete series can be found at:
+      https://gitlab.freedesktop.org/drm/msm/-/commits/msm-next-pgtables
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index b67b38c8fadf..bbbd00020f92 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -845,6 +845,7 @@ static void a6xx_gmu_set_initial_freq(struct msm_gpu *gpu, struct a6xx_gmu *gmu)
- 	if (IS_ERR_OR_NULL(gpu_opp))
- 		return;
- 
-+	gmu->freq = 0; /* so a6xx_gmu_set_freq() doesn't exit early */
- 	a6xx_gmu_set_freq(gpu, gpu_opp);
- 	dev_pm_opp_put(gpu_opp);
- }
+This series adds an Adreno SMMU implementation to arm-smmu to allow GPU hardware
+pagetable switching.
+
+The Adreno GPU has built in capabilities to switch the TTBR0 pagetable during
+runtime to allow each individual instance or application to have its own
+pagetable.  In order to take advantage of the HW capabilities there are certain
+requirements needed of the SMMU hardware.
+
+This series adds support for an Adreno specific arm-smmu implementation. The new
+implementation 1) ensures that the GPU domain is always assigned context bank 0,
+2) enables split pagetable support (TTBR1) so that the instance specific
+pagetable can be swapped while the global memory remains in place and 3) shares
+the current pagetable configuration with the GPU driver to allow it to create
+its own io-pgtable instances.
+
+The series then adds the drm/msm code to enable these features. For targets that
+support it allocate new pagetables using the io-pgtable configuration shared by
+the arm-smmu driver and swap them in during runtime.
+
+This version of the series merges the previous patchset(s) [1] and [2]
+with the following improvements:
+
+v13: (Respin by Rob)
+  - Switch to a private interface between adreno-smmu and GPU driver,
+    dropping the custom domain attr (Will Deacon)
+  - Rework the SCTLR.HUPCF patch to add new fields in smmu_domain->cfg
+    rather than adding new impl hook (Will Deacon)
+  - Drop for_each_cfg_sme() in favor of plain for() loop (Will Deacon)
+  - Fix context refcnt'ing issue which was causing problems with GPU
+    crash recover stress testing.
+  - Spiff up $debugfs/gem to show process information associated with
+    VMAs
+v12:
+  - Nitpick cleanups in gpu/drm/msm/msm_iommu.c (Rob Clark)
+  - Reorg in gpu/drm/msm/msm_gpu.c (Rob Clark)
+  - Use the default asid for the context bank so that iommu_tlb_flush_all works
+  - Flush the UCHE after a page switch
+  - Add the SCTLR.HUPCF patch at the end of the series
+v11:
+  - Add implementation specific get_attr/set_attr functions (per Rob Clark)
+  - Fix context bank allocation (per Bjorn Andersson)
+v10:
+  - arm-smmu: add implementation hook to allocate context banks
+  - arm-smmu: Match the GPU domain by stream ID instead of compatible string
+  - arm-smmu: Make DOMAIN_ATTR_PGTABLE_CFG bi-directional. The leaf driver
+    queries the configuration to create a pagetable and then sends the newly
+    created configuration back to the smmu-driver to enable TTBR0
+  - drm/msm: Add context reference counting for submissions
+  - drm/msm: Use dummy functions to skip TLB operations on per-instance
+    pagetables
+
+[1] https://lists.linuxfoundation.org/pipermail/iommu/2020-June/045653.html
+[2] https://lists.linuxfoundation.org/pipermail/iommu/2020-June/045659.html
+
+
+Jordan Crouse (12):
+  iommu/arm-smmu: Pass io-pgtable config to implementation specific
+    function
+  iommu/arm-smmu: Add support for split pagetables
+  iommu/arm-smmu: Prepare for the adreno-smmu implementation
+  iommu/arm-smmu-qcom: Add implementation for the adreno GPU SMMU
+  dt-bindings: arm-smmu: Add compatible string for Adreno GPU SMMU
+  drm/msm: Add a context pointer to the submitqueue
+  drm/msm: Drop context arg to gpu->submit()
+  drm/msm: Set the global virtual address range from the IOMMU domain
+  drm/msm: Add support to create a local pagetable
+  drm/msm: Add support for private address space instances
+  drm/msm/a6xx: Add support for per-instance pagetables
+  arm: dts: qcom: sm845: Set the compatible string for the GPU SMMU
+
+Rob Clark (7):
+  drm/msm: remove dangling submitqueue references
+  iommu: add private interface for adreno-smmu
+  drm/msm/gpu: add dev_to_gpu() helper
+  drm/msm: set adreno_smmu as gpu's drvdata
+  iommu/arm-smmu: constify some helpers
+  iommu/arm-smmu: add a way for implementations to influence SCTLR
+  drm/msm: show process names in gem_describe
+
+ .../devicetree/bindings/iommu/arm,smmu.yaml   |   4 +
+ arch/arm64/boot/dts/qcom/sdm845.dtsi          |   2 +-
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |  12 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c         |  75 ++++++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h         |   1 +
+ drivers/gpu/drm/msm/adreno/adreno_device.c    |  12 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  18 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h       |   3 +-
+ drivers/gpu/drm/msm/msm_drv.c                 |  16 +-
+ drivers/gpu/drm/msm/msm_drv.h                 |  25 +++
+ drivers/gpu/drm/msm/msm_gem.c                 |  25 ++-
+ drivers/gpu/drm/msm/msm_gem.h                 |   6 +
+ drivers/gpu/drm/msm/msm_gem_submit.c          |   8 +-
+ drivers/gpu/drm/msm/msm_gem_vma.c             |  10 +
+ drivers/gpu/drm/msm/msm_gpu.c                 |  41 +++-
+ drivers/gpu/drm/msm/msm_gpu.h                 |  21 +-
+ drivers/gpu/drm/msm/msm_gpummu.c              |   2 +-
+ drivers/gpu/drm/msm/msm_iommu.c               | 206 +++++++++++++++++-
+ drivers/gpu/drm/msm/msm_mmu.h                 |  16 +-
+ drivers/gpu/drm/msm/msm_ringbuffer.h          |   1 +
+ drivers/gpu/drm/msm/msm_submitqueue.c         |   7 +-
+ drivers/iommu/arm/arm-smmu/arm-smmu-impl.c    |   6 +-
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c    | 155 ++++++++++++-
+ drivers/iommu/arm/arm-smmu/arm-smmu.c         | 102 ++++-----
+ drivers/iommu/arm/arm-smmu/arm-smmu.h         |  87 +++++++-
+ include/linux/adreno-smmu-priv.h              |  36 +++
+ 26 files changed, 765 insertions(+), 132 deletions(-)
+ create mode 100644 include/linux/adreno-smmu-priv.h
+
 -- 
-2.26.1
+2.26.2
 
 _______________________________________________
 Freedreno mailing list
