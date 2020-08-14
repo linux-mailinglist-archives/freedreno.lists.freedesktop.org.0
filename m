@@ -2,41 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A6A824465B
-	for <lists+freedreno@lfdr.de>; Fri, 14 Aug 2020 10:18:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8BB7244D47
+	for <lists+freedreno@lfdr.de>; Fri, 14 Aug 2020 19:05:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDABE6E32B;
-	Fri, 14 Aug 2020 08:18:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AA066EA46;
+	Fri, 14 Aug 2020 17:05:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-m17613.qiye.163.com (mail-m17613.qiye.163.com
- [59.111.176.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B38886E2DC
- for <freedreno@lists.freedesktop.org>; Fri, 14 Aug 2020 08:18:00 +0000 (UTC)
-Received: from ubuntu.localdomain (unknown [157.0.31.125])
- by mail-m17613.qiye.163.com (Hmail) with ESMTPA id DAA47482392;
- Fri, 14 Aug 2020 16:17:54 +0800 (CST)
-From: Bernard Zhao <bernard@vivo.com>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Sam Ravnborg <sam@ravnborg.org>, Wambui Karuga <wambui.karugax@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Emil Velikov <emil.velikov@collabora.com>, Bernard Zhao <bernard@vivo.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Fri, 14 Aug 2020 01:17:44 -0700
-Message-Id: <20200814081747.8624-1-bernard@vivo.com>
-X-Mailer: git-send-email 2.26.2
+Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com
+ [IPv6:2a00:1450:4864:20::143])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49AD56EA46
+ for <freedreno@lists.freedesktop.org>; Fri, 14 Aug 2020 17:05:46 +0000 (UTC)
+Received: by mail-lf1-x143.google.com with SMTP id c15so5181251lfi.3
+ for <freedreno@lists.freedesktop.org>; Fri, 14 Aug 2020 10:05:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=8+3+utw2qoRZvLkLueDeqTz6MAU6wAFy/JkEJxDI190=;
+ b=ZWgJmUCeihHACbWSIyHdS2NjmGo8wzQS/+58lG4r5mWLm1gQC1nYxuKqBjHlBt4RRE
+ LlB2pub5ZH77qfJALXBdntKeIM5bZNGksNs0tUjbtOgWMrXftXIyPNho2DFZuIe37v+N
+ WdIouqpi54ottOqyWtTG+nEmeuhTcfdLH4ngm9XT9+Ddx0Rb7Mvw1osKqoZxU0xSDLxd
+ N20VI1G+tCE04FOKIviXBz/Hd9sfpoP11wGv8qFO1MTVACWSXi3++1UqBonAp/9Q/Wpy
+ dR2Bz71icKsujFWb6KuQr26VCZqwvCasATC1iCKC2hrgYejXnjoiq2yMiKkGstTF09/G
+ zw2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=8+3+utw2qoRZvLkLueDeqTz6MAU6wAFy/JkEJxDI190=;
+ b=fAGpvA1EUmHe3wz3443o0Jkg2yBmYY4jUrq5mzNysFXuXzV3SNVhbschLIoNz2dPe2
+ 2COZ0/E7/03Ognw6LzWvC3taPJmfUwzcGU9QiaH2Z9J/zWHPA2dOFC733aGJzIxKbedC
+ 6yg5FFy69SKaeqafgoixHj4g2IT4apK7/KFzcNKRZlXb8OIuNgDvarIMDBK7ViJ6ta1g
+ hMQD0oa+g7I0xBoDK593WwP37rDyRerv2BC39I/xctUu5TfOLd8mlIeDam68OWfF03sQ
+ 2fpF8GiJmjeGjPdKpNYTPf9qzxh+SEyghtMDGPW0NE77xb1qhsYdevRvGKbvNLYa8efC
+ vgjA==
+X-Gm-Message-State: AOAM532zdeSgloqoNDOL469cH9kG4d+4BJBSaZwRLzXC+I+m3iLx1ihU
+ Vq8M6zlYQAWOoTxNM8KsGesVXg==
+X-Google-Smtp-Source: ABdhPJzaklkyPmJ9zd43OPheLnHOE8PZBUWYTxxslFUIk7wE8Tgst5f8HCTE8QoQCCHx2a6NzMJ0AQ==
+X-Received: by 2002:ac2:5dc1:: with SMTP id x1mr1622219lfq.217.1597424744650; 
+ Fri, 14 Aug 2020 10:05:44 -0700 (PDT)
+Received: from [192.168.43.7] ([188.162.64.200])
+ by smtp.gmail.com with ESMTPSA id m64sm2056913lfd.0.2020.08.14.10.05.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 14 Aug 2020 10:05:43 -0700 (PDT)
+To: Tanmay Shah <tanmay@codeaurora.org>, swboyd@chromium.org,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, robdclark@gmail.com
+References: <20200812044223.19279-1-tanmay@codeaurora.org>
+ <20200812044223.19279-4-tanmay@codeaurora.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <821b5cf9-5ca0-7026-fd99-9a32285ed030@linaro.org>
+Date: Fri, 14 Aug 2020 20:05:41 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
- oVCBIfWUFZHhpDHRoYT05CQh5PVkpOQkxIQkhLTE5JSE9VEwETFhoSFyQUDg9ZV1kWGg8SFR0UWU
- FZT0tIVUpKS0hKTFVKS0tZBg++
-X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6NSo6Fhw6Aj8qAjoQIiIOLSlN
- EwwaFExVSlVKTkJMSEJIS0xOTUxOVTMWGhIXVRkeCRUaCR87DRINFFUYFBZFWVdZEgtZQVlKTkxV
- S1VISlVKSU5ZV1kIAVlBT0pPQzcG
-X-HM-Tid: 0a73ec0bfb9193bakuwsdaa47482392
-Subject: [Freedreno] [PATCH] drm/msm/adreno: remove return value of function
- XX_print
+In-Reply-To: <20200812044223.19279-4-tanmay@codeaurora.org>
+Content-Language: en-US
+Subject: Re: [Freedreno] [PATCH v10 3/5] drm/msm/dp: add support for DP PLL
+ driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,100 +73,143 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: opensource.kernel@vivo.com
-Content-Type: text/plain; charset="us-ascii"
+Cc: airlied@linux.ie, linux-kernel@vger.kernel.org, abhinavk@codeaurora.org,
+ khsieh@codeaurora.org, seanpaul@chromium.org, daniel@ffwll.ch,
+ Vara Reddy <varar@codeaurora.org>, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org, Chandan Uddaraju <chandanu@codeaurora.org>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-XX_print like pfp_print/me_print/meq_print/roq_print are just
-used in file a5xx_debugfs.c. And these function always return
-0, this return value is meaningless.
-This change is to make the code a bit more readable.
 
-Signed-off-by: Bernard Zhao <bernard@vivo.com>
----
- drivers/gpu/drm/msm/adreno/a5xx_debugfs.c | 21 +++++++--------------
- 1 file changed, 7 insertions(+), 14 deletions(-)
+On 12/08/2020 07:42, Tanmay Shah wrote:
+ > From: Chandan Uddaraju <chandanu@codeaurora.org>
+ >
+ > Add the needed DP PLL specific files to support
+ > display port interface on msm targets.
 
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_debugfs.c b/drivers/gpu/drm/msm/adreno/a5xx_debugfs.c
-index 68eddac7771c..fc2c905b6c9e 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_debugfs.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_debugfs.c
-@@ -11,7 +11,7 @@
- 
- #include "a5xx_gpu.h"
- 
--static int pfp_print(struct msm_gpu *gpu, struct drm_printer *p)
-+static void pfp_print(struct msm_gpu *gpu, struct drm_printer *p)
- {
- 	int i;
- 
-@@ -22,11 +22,9 @@ static int pfp_print(struct msm_gpu *gpu, struct drm_printer *p)
- 		drm_printf(p, "  %02x: %08x\n", i,
- 			gpu_read(gpu, REG_A5XX_CP_PFP_STAT_DATA));
- 	}
--
--	return 0;
- }
- 
--static int me_print(struct msm_gpu *gpu, struct drm_printer *p)
-+static void me_print(struct msm_gpu *gpu, struct drm_printer *p)
- {
- 	int i;
- 
-@@ -37,11 +35,9 @@ static int me_print(struct msm_gpu *gpu, struct drm_printer *p)
- 		drm_printf(p, "  %02x: %08x\n", i,
- 			gpu_read(gpu, REG_A5XX_CP_ME_STAT_DATA));
- 	}
--
--	return 0;
- }
- 
--static int meq_print(struct msm_gpu *gpu, struct drm_printer *p)
-+static void meq_print(struct msm_gpu *gpu, struct drm_printer *p)
- {
- 	int i;
- 
-@@ -52,11 +48,9 @@ static int meq_print(struct msm_gpu *gpu, struct drm_printer *p)
- 		drm_printf(p, "  %02x: %08x\n", i,
- 			gpu_read(gpu, REG_A5XX_CP_MEQ_DBG_DATA));
- 	}
--
--	return 0;
- }
- 
--static int roq_print(struct msm_gpu *gpu, struct drm_printer *p)
-+static void roq_print(struct msm_gpu *gpu, struct drm_printer *p)
- {
- 	int i;
- 
-@@ -71,8 +65,6 @@ static int roq_print(struct msm_gpu *gpu, struct drm_printer *p)
- 		drm_printf(p, "  %02x: %08x %08x %08x %08x\n", i,
- 			val[0], val[1], val[2], val[3]);
- 	}
--
--	return 0;
- }
- 
- static int show(struct seq_file *m, void *arg)
-@@ -81,10 +73,11 @@ static int show(struct seq_file *m, void *arg)
- 	struct drm_device *dev = node->minor->dev;
- 	struct msm_drm_private *priv = dev->dev_private;
- 	struct drm_printer p = drm_seq_file_printer(m);
--	int (*show)(struct msm_gpu *gpu, struct drm_printer *p) =
-+	void (*show)(struct msm_gpu *gpu, struct drm_printer *p) =
- 		node->info_ent->data;
- 
--	return show(priv->gpu, &p);
-+	show(priv->gpu, &p);
-+	return 0;
- }
- 
- #define ENT(n) { .name = #n, .show = show, .data = n ##_print }
+[skipped]
+
+ > diff --git a/drivers/gpu/drm/msm/dp/dp_pll_private.h 
+b/drivers/gpu/drm/msm/dp/dp_pll_private.h
+ > new file mode 100644
+ > index 000000000000..475ba6ed59ab
+ > --- /dev/null
+ > +++ b/drivers/gpu/drm/msm/dp/dp_pll_private.h
+ > @@ -0,0 +1,98 @@
+ > +/* SPDX-License-Identifier: GPL-2.0-only */
+ > +/*
+ > + * Copyright (c) 2016-2020, The Linux Foundation. All rights reserved.
+ > + */
+ > +
+ > +#ifndef __DP_PLL_10NM_H
+ > +#define __DP_PLL_10NM_H
+ > +
+ > +#include "dp_pll.h"
+ > +#include "dp_reg.h"
+ > +
+ > +#define DP_VCO_HSCLK_RATE_1620MHZDIV1000    1620000UL
+ > +#define DP_VCO_HSCLK_RATE_2700MHZDIV1000    2700000UL
+ > +#define DP_VCO_HSCLK_RATE_5400MHZDIV1000    5400000UL
+ > +#define DP_VCO_HSCLK_RATE_8100MHZDIV1000    8100000UL
+ > +
+ > +#define NUM_DP_CLOCKS_MAX            6
+ > +
+ > +#define DP_PHY_PLL_POLL_SLEEP_US        500
+ > +#define DP_PHY_PLL_POLL_TIMEOUT_US        10000
+ > +
+ > +#define DP_VCO_RATE_8100MHZDIV1000        8100000UL
+ > +#define DP_VCO_RATE_9720MHZDIV1000        9720000UL
+ > +#define DP_VCO_RATE_10800MHZDIV1000        10800000UL
+ > +
+ > +struct dp_pll_vco_clk {
+ > +    struct clk_hw hw;
+ > +    unsigned long    rate;        /* current vco rate */
+ > +    u64        min_rate;    /* min vco rate */
+ > +    u64        max_rate;    /* max vco rate */
+ > +    void        *priv;
+ > +};
+ > +
+ > +struct dp_pll_db {
+
+This struct should probably go into dp_pll_10nm.c. dp_pll_7nm.c, for 
+example, will use slightly different structure.
+
+ > +    struct msm_dp_pll *base;
+ > +
+ > +    int id;
+ > +    struct platform_device *pdev;
+ > +
+ > +    /* private clocks: */
+ > +    bool fixed_factor_clk[NUM_DP_CLOCKS_MAX];
+ > +    struct clk_hw *hws[NUM_DP_CLOCKS_MAX];
+
+Then these two fields can use exact number of clocks rather than 
+NUM_DP_CLOCKS_MAX.
+
+ > +    u32 num_hws;
+ > +
+ > +    /* lane and orientation settings */
+ > +    u8 lane_cnt;
+ > +    u8 orientation;
+ > +
+ > +    /* COM PHY settings */
+ > +    u32 hsclk_sel;
+ > +    u32 dec_start_mode0;
+ > +    u32 div_frac_start1_mode0;
+ > +    u32 div_frac_start2_mode0;
+ > +    u32 div_frac_start3_mode0;
+ > +    u32 integloop_gain0_mode0;
+ > +    u32 integloop_gain1_mode0;
+ > +    u32 vco_tune_map;
+ > +    u32 lock_cmp1_mode0;
+ > +    u32 lock_cmp2_mode0;
+ > +    u32 lock_cmp3_mode0;
+ > +    u32 lock_cmp_en;
+ > +
+ > +    /* PHY vco divider */
+ > +    u32 phy_vco_div;
+ > +    /*
+ > +     * Certain pll's needs to update the same vco rate after resume in
+ > +     * suspend/resume scenario. Cached the vco rate for such plls.
+ > +     */
+ > +    unsigned long    vco_cached_rate;
+ > +    u32        cached_cfg0;
+ > +    u32        cached_cfg1;
+ > +    u32        cached_outdiv;
+ > +
+ > +    uint32_t index;
+ > +};
+ > +
+ > +static inline struct dp_pll_vco_clk *to_dp_vco_hw(struct clk_hw *hw)
+ > +{
+ > +    return container_of(hw, struct dp_pll_vco_clk, hw);
+ > +}
+ > +
+ > +#define to_msm_dp_pll(vco) ((struct msm_dp_pll *)vco->priv)
+ > +
+ > +#define to_dp_pll_db(x)    ((struct dp_pll_db *)x->priv)
+ > +
+ > +int dp_vco_set_rate_10nm(struct clk_hw *hw, unsigned long rate,
+ > +                unsigned long parent_rate);
+ > +unsigned long dp_vco_recalc_rate_10nm(struct clk_hw *hw,
+ > +                unsigned long parent_rate);
+ > +long dp_vco_round_rate_10nm(struct clk_hw *hw, unsigned long rate,
+ > +                unsigned long *parent_rate);
+ > +int dp_vco_prepare_10nm(struct clk_hw *hw);
+ > +void dp_vco_unprepare_10nm(struct clk_hw *hw);
+ > +
+ > +int msm_dp_pll_10nm_init(struct msm_dp_pll *dp_pll, int id);
+ > +void msm_dp_pll_10nm_deinit(struct msm_dp_pll *dp_pll);
+
+These functions don't seem to be used outside of dp_pll_10nm. What about 
+making them static?
+
+
 -- 
-2.26.2
-
+With best wishes
+Dmitry
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
