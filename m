@@ -1,56 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A74C24501B
-	for <lists+freedreno@lfdr.de>; Sat, 15 Aug 2020 01:22:53 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 32E7F2450EF
+	for <lists+freedreno@lfdr.de>; Sat, 15 Aug 2020 13:45:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAD3A6EC36;
-	Fri, 14 Aug 2020 23:22:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DB446E0AB;
+	Sat, 15 Aug 2020 11:45:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 939EB6EC34
- for <freedreno@lists.freedesktop.org>; Fri, 14 Aug 2020 23:22:46 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1597447369; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=cqB2KYoA6yVaX4oJso9WfBF09SwAmfmeiF0tTyQrqMw=;
- b=nw5NSWY1S5qqLmqbkVfCeuWoJwgVOMmRzDBtgCUvOGYj2hg9j3nmb58/woSAqnuSsMmH/HyR
- OS5VOWQkTktfhTj6JJ49EuLowHUelcWQDsF4o05dFtuTFs4mR12J10WHjI3x+Vlrjwn3M6l2
- z1cs7bG+HcqddLRyVeZvCvFijMQ=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
- 5f371cbd4c787f237b9f30be (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 14 Aug 2020 23:22:37
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 968E0C433CA; Fri, 14 Aug 2020 23:22:37 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: tanmay)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 64FAEC433C9;
- Fri, 14 Aug 2020 23:22:35 +0000 (UTC)
-MIME-Version: 1.0
-Date: Fri, 14 Aug 2020 16:22:35 -0700
-From: Tanmay Shah <tanmay@codeaurora.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <821b5cf9-5ca0-7026-fd99-9a32285ed030@linaro.org>
+Received: from mail-lj1-x243.google.com (mail-lj1-x243.google.com
+ [IPv6:2a00:1450:4864:20::243])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4EF76E0AB
+ for <freedreno@lists.freedesktop.org>; Sat, 15 Aug 2020 11:45:22 +0000 (UTC)
+Received: by mail-lj1-x243.google.com with SMTP id t23so12592747ljc.3
+ for <freedreno@lists.freedesktop.org>; Sat, 15 Aug 2020 04:45:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=5kWxC8Q2TEsOvsKTGoT0rCit1An1OvXbLIdlQ6bd9Xs=;
+ b=ZS0e8CPjP36nUfDoaFcR/gSeh9MJeNUD3mEmkDjX5vrf2ZC5SX2Nm17xCI9sns7sGO
+ fQRiNyUy5ermFlaOZxi1TsUSVDW7nLZ6oyGj6VKZ60cewZW650VGIUyhUvuYoVpFu2Hd
+ 7G0C9NCqROSsIQS6uMoYtBYF3CrjL1qiVKuMo3iR0rTxUzPxSKHLcAlTjKqAnFFsepvJ
+ GLk/Dsc2y3pQ5h9H/RS3E6TLLJ6q03JFZA/vQs06i/jRe5DpH24PHLKIPyI82EosvniK
+ AS20iIrPyh4qNM+mFTzaDa+tsovJSpucty7obPIPRELyjiQloHSM/P9trWlYgmESLLQQ
+ kD2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=5kWxC8Q2TEsOvsKTGoT0rCit1An1OvXbLIdlQ6bd9Xs=;
+ b=p79H9eIyh6PN6iW/wKoI8Am5oQOujy/xSc8++ihTBJefTR176Lkn4E/DDjHUZO6UMa
+ 2UoFhl7xQmXSqTtKhOAhmOrjse16BgDGz5b65cc1f6YssWcutDmn/4bjDiDMrqYvEE1x
+ QbVZBhR1eO+nFhcftrWDYeV/IGho72a3fDO3jQOHCCSVkjdGdKPBvQNVqUpxRK8iXbza
+ ROI3z5CgH0uyKry4EIKl0//KUUo3SGQRWE7njkzI056YaggTz/4s1nzp6UT/hKuBDsc3
+ ueLUT4oNbCu7FP2uh8+L62+8NIEmd5A2XXaRA0FGSMZeK+7HtnEriO0NvahS9Sx/xqMK
+ e79Q==
+X-Gm-Message-State: AOAM533E3GK06zfo5X1g74ssB0gFcANDkGB4lJoJRppENcKxwcSBZpcA
+ wRoLM/iKldkUFkT6JErvC5j8Yw==
+X-Google-Smtp-Source: ABdhPJxCubHTocMX6RPP0TdHWoKCqAKVAzmoybFXXugys1W9NRplxlI5higWH1CbHPi3zmZY3Rsgow==
+X-Received: by 2002:a2e:8717:: with SMTP id m23mr3471731lji.245.1597491920894; 
+ Sat, 15 Aug 2020 04:45:20 -0700 (PDT)
+Received: from [192.168.43.7] ([94.25.229.189])
+ by smtp.gmail.com with ESMTPSA id o1sm2361694ljc.3.2020.08.15.04.45.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 15 Aug 2020 04:45:20 -0700 (PDT)
+To: Tanmay Shah <tanmay@codeaurora.org>
 References: <20200812044223.19279-1-tanmay@codeaurora.org>
  <20200812044223.19279-4-tanmay@codeaurora.org>
  <821b5cf9-5ca0-7026-fd99-9a32285ed030@linaro.org>
-Message-ID: <f6b330778c07abd3003da9acab4d3398@codeaurora.org>
-X-Sender: tanmay@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
+ <f6b330778c07abd3003da9acab4d3398@codeaurora.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <28b1f678-ab8f-cf6a-af9f-fcd79131bdc1@linaro.org>
+Date: Sat, 15 Aug 2020 14:45:17 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
+MIME-Version: 1.0
+In-Reply-To: <f6b330778c07abd3003da9acab4d3398@codeaurora.org>
+Content-Language: en-US
 Subject: Re: [Freedreno] [PATCH v10 3/5] drm/msm/dp: add support for DP PLL
  driver
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -71,148 +79,101 @@ Cc: devicetree@vger.kernel.org, airlied@linux.ie, linux-arm-msm@vger.kernel.org,
  seanpaul@chromium.org, abhinavk@codeaurora.org, daniel@ffwll.ch,
  Vara Reddy <varar@codeaurora.org>, aravindh@codeaurora.org,
  freedreno@lists.freedesktop.org, Chandan Uddaraju <chandanu@codeaurora.org>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-08-14 10:05, Dmitry Baryshkov wrote:
-> On 12/08/2020 07:42, Tanmay Shah wrote:
->> From: Chandan Uddaraju <chandanu@codeaurora.org>
->> 
->> Add the needed DP PLL specific files to support
->> display port interface on msm targets.
-> 
-> [skipped]
-> 
->> diff --git a/drivers/gpu/drm/msm/dp/dp_pll_private.h 
->> b/drivers/gpu/drm/msm/dp/dp_pll_private.h
->> new file mode 100644
->> index 000000000000..475ba6ed59ab
->> --- /dev/null
->> +++ b/drivers/gpu/drm/msm/dp/dp_pll_private.h
->> @@ -0,0 +1,98 @@
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->> +/*
->> + * Copyright (c) 2016-2020, The Linux Foundation. All rights 
->> reserved.
->> + */
->> +
->> +#ifndef __DP_PLL_10NM_H
->> +#define __DP_PLL_10NM_H
->> +
->> +#include "dp_pll.h"
->> +#include "dp_reg.h"
->> +
->> +#define DP_VCO_HSCLK_RATE_1620MHZDIV1000    1620000UL
->> +#define DP_VCO_HSCLK_RATE_2700MHZDIV1000    2700000UL
->> +#define DP_VCO_HSCLK_RATE_5400MHZDIV1000    5400000UL
->> +#define DP_VCO_HSCLK_RATE_8100MHZDIV1000    8100000UL
->> +
->> +#define NUM_DP_CLOCKS_MAX            6
->> +
->> +#define DP_PHY_PLL_POLL_SLEEP_US        500
->> +#define DP_PHY_PLL_POLL_TIMEOUT_US        10000
->> +
->> +#define DP_VCO_RATE_8100MHZDIV1000        8100000UL
->> +#define DP_VCO_RATE_9720MHZDIV1000        9720000UL
->> +#define DP_VCO_RATE_10800MHZDIV1000        10800000UL
->> +
->> +struct dp_pll_vco_clk {
->> +    struct clk_hw hw;
->> +    unsigned long    rate;        /* current vco rate */
->> +    u64        min_rate;    /* min vco rate */
->> +    u64        max_rate;    /* max vco rate */
->> +    void        *priv;
->> +};
->> +
->> +struct dp_pll_db {
-> 
-> This struct should probably go into dp_pll_10nm.c. dp_pll_7nm.c, for
-> example, will use slightly different structure.
-> 
-
-Sure, it sounds good. I will give it try. Thanks!
-
->> +    struct msm_dp_pll *base;
->> +
->> +    int id;
->> +    struct platform_device *pdev;
->> +
->> +    /* private clocks: */
->> +    bool fixed_factor_clk[NUM_DP_CLOCKS_MAX];
->> +    struct clk_hw *hws[NUM_DP_CLOCKS_MAX];
-> 
-> Then these two fields can use exact number of clocks rather than
-> NUM_DP_CLOCKS_MAX.
-> 
-
-I didn't get this. I think NUM_DP_CLOCKS_MAX is doing same?
-
->> +    u32 num_hws;
->> +
->> +    /* lane and orientation settings */
->> +    u8 lane_cnt;
->> +    u8 orientation;
->> +
->> +    /* COM PHY settings */
->> +    u32 hsclk_sel;
->> +    u32 dec_start_mode0;
->> +    u32 div_frac_start1_mode0;
->> +    u32 div_frac_start2_mode0;
->> +    u32 div_frac_start3_mode0;
->> +    u32 integloop_gain0_mode0;
->> +    u32 integloop_gain1_mode0;
->> +    u32 vco_tune_map;
->> +    u32 lock_cmp1_mode0;
->> +    u32 lock_cmp2_mode0;
->> +    u32 lock_cmp3_mode0;
->> +    u32 lock_cmp_en;
->> +
->> +    /* PHY vco divider */
->> +    u32 phy_vco_div;
->> +    /*
->> +     * Certain pll's needs to update the same vco rate after resume 
->> in
->> +     * suspend/resume scenario. Cached the vco rate for such plls.
->> +     */
->> +    unsigned long    vco_cached_rate;
->> +    u32        cached_cfg0;
->> +    u32        cached_cfg1;
->> +    u32        cached_outdiv;
->> +
->> +    uint32_t index;
->> +};
->> +
->> +static inline struct dp_pll_vco_clk *to_dp_vco_hw(struct clk_hw *hw)
->> +{
->> +    return container_of(hw, struct dp_pll_vco_clk, hw);
->> +}
->> +
->> +#define to_msm_dp_pll(vco) ((struct msm_dp_pll *)vco->priv)
->> +
->> +#define to_dp_pll_db(x)    ((struct dp_pll_db *)x->priv)
->> +
->> +int dp_vco_set_rate_10nm(struct clk_hw *hw, unsigned long rate,
->> +                unsigned long parent_rate);
->> +unsigned long dp_vco_recalc_rate_10nm(struct clk_hw *hw,
->> +                unsigned long parent_rate);
->> +long dp_vco_round_rate_10nm(struct clk_hw *hw, unsigned long rate,
->> +                unsigned long *parent_rate);
->> +int dp_vco_prepare_10nm(struct clk_hw *hw);
->> +void dp_vco_unprepare_10nm(struct clk_hw *hw);
->> +
->> +int msm_dp_pll_10nm_init(struct msm_dp_pll *dp_pll, int id);
->> +void msm_dp_pll_10nm_deinit(struct msm_dp_pll *dp_pll);
-> 
-> These functions don't seem to be used outside of dp_pll_10nm. What
-> about making them static?
-
-I can't declare static to "init" and "deinit" as they are exported to 
-dp_pll.c.
-Rest of them I can move to dp_pll_10nm and then define static.
-
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+T24gMTUvMDgvMjAyMCAwMjoyMiwgVGFubWF5IFNoYWggd3JvdGU6Cj4gT24gMjAyMC0wOC0xNCAx
+MDowNSwgRG1pdHJ5IEJhcnlzaGtvdiB3cm90ZToKPj4gT24gMTIvMDgvMjAyMCAwNzo0MiwgVGFu
+bWF5IFNoYWggd3JvdGU6Cj4+PiBGcm9tOiBDaGFuZGFuIFVkZGFyYWp1IDxjaGFuZGFudUBjb2Rl
+YXVyb3JhLm9yZz4KPj4+Cj4+PiBBZGQgdGhlIG5lZWRlZCBEUCBQTEwgc3BlY2lmaWMgZmlsZXMg
+dG8gc3VwcG9ydAo+Pj4gZGlzcGxheSBwb3J0IGludGVyZmFjZSBvbiBtc20gdGFyZ2V0cy4KPj4K
+Pj4gW3NraXBwZWRdCj4+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL21zbS9kcC9k
+cF9wbGxfcHJpdmF0ZS5oIAo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2RwL2RwX3BsbF9wcml2
+YXRlLmgKPj4+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4+PiBpbmRleCAwMDAwMDAwMDAwMDAuLjQ3
+NWJhNmVkNTlhYgo+Pj4gLS0tIC9kZXYvbnVsbAo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL21z
+bS9kcC9kcF9wbGxfcHJpdmF0ZS5oCj4+PiBAQCAtMCwwICsxLDk4IEBACj4+PiArLyogU1BEWC1M
+aWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAtb25seSAqLwo+Pj4gKy8qCj4+PiArICogQ29weXJp
+Z2h0IChjKSAyMDE2LTIwMjAsIFRoZSBMaW51eCBGb3VuZGF0aW9uLiBBbGwgcmlnaHRzIHJlc2Vy
+dmVkLgo+Pj4gKyAqLwo+Pj4gKwo+Pj4gKyNpZm5kZWYgX19EUF9QTExfMTBOTV9ICj4+PiArI2Rl
+ZmluZSBfX0RQX1BMTF8xME5NX0gKPj4+ICsKPj4+ICsjaW5jbHVkZSAiZHBfcGxsLmgiCj4+PiAr
+I2luY2x1ZGUgImRwX3JlZy5oIgo+Pj4gKwo+Pj4gKyNkZWZpbmUgRFBfVkNPX0hTQ0xLX1JBVEVf
+MTYyME1IWkRJVjEwMDDCoMKgwqAgMTYyMDAwMFVMCj4+PiArI2RlZmluZSBEUF9WQ09fSFNDTEtf
+UkFURV8yNzAwTUhaRElWMTAwMMKgwqDCoCAyNzAwMDAwVUwKPj4+ICsjZGVmaW5lIERQX1ZDT19I
+U0NMS19SQVRFXzU0MDBNSFpESVYxMDAwwqDCoMKgIDU0MDAwMDBVTAo+Pj4gKyNkZWZpbmUgRFBf
+VkNPX0hTQ0xLX1JBVEVfODEwME1IWkRJVjEwMDDCoMKgwqAgODEwMDAwMFVMCj4+PiArCj4+PiAr
+I2RlZmluZSBOVU1fRFBfQ0xPQ0tTX01BWMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgNgo+Pj4gKwo+
+Pj4gKyNkZWZpbmUgRFBfUEhZX1BMTF9QT0xMX1NMRUVQX1VTwqDCoMKgwqDCoMKgwqAgNTAwCj4+
+PiArI2RlZmluZSBEUF9QSFlfUExMX1BPTExfVElNRU9VVF9VU8KgwqDCoMKgwqDCoMKgIDEwMDAw
+Cj4+PiArCj4+PiArI2RlZmluZSBEUF9WQ09fUkFURV84MTAwTUhaRElWMTAwMMKgwqDCoMKgwqDC
+oMKgIDgxMDAwMDBVTAo+Pj4gKyNkZWZpbmUgRFBfVkNPX1JBVEVfOTcyME1IWkRJVjEwMDDCoMKg
+wqDCoMKgwqDCoCA5NzIwMDAwVUwKPj4+ICsjZGVmaW5lIERQX1ZDT19SQVRFXzEwODAwTUhaRElW
+MTAwMMKgwqDCoMKgwqDCoMKgIDEwODAwMDAwVUwKPj4+ICsKPj4+ICtzdHJ1Y3QgZHBfcGxsX3Zj
+b19jbGsgewo+Pj4gK8KgwqDCoCBzdHJ1Y3QgY2xrX2h3IGh3Owo+Pj4gK8KgwqDCoCB1bnNpZ25l
+ZCBsb25nwqDCoMKgIHJhdGU7wqDCoMKgwqDCoMKgwqAgLyogY3VycmVudCB2Y28gcmF0ZSAqLwo+
+Pj4gK8KgwqDCoCB1NjTCoMKgwqDCoMKgwqDCoCBtaW5fcmF0ZTvCoMKgwqAgLyogbWluIHZjbyBy
+YXRlICovCj4+PiArwqDCoMKgIHU2NMKgwqDCoMKgwqDCoMKgIG1heF9yYXRlO8KgwqDCoCAvKiBt
+YXggdmNvIHJhdGUgKi8KPj4+ICvCoMKgwqAgdm9pZMKgwqDCoMKgwqDCoMKgICpwcml2Owo+Pj4g
+K307Cj4+PiArCj4+PiArc3RydWN0IGRwX3BsbF9kYiB7Cj4+Cj4+IFRoaXMgc3RydWN0IHNob3Vs
+ZCBwcm9iYWJseSBnbyBpbnRvIGRwX3BsbF8xMG5tLmMuIGRwX3BsbF83bm0uYywgZm9yCj4+IGV4
+YW1wbGUsIHdpbGwgdXNlIHNsaWdodGx5IGRpZmZlcmVudCBzdHJ1Y3R1cmUuCj4+Cj4gCj4gU3Vy
+ZSwgaXQgc291bmRzIGdvb2QuIEkgd2lsbCBnaXZlIGl0IHRyeS4gVGhhbmtzIQo+IAo+Pj4gK8Kg
+wqDCoCBzdHJ1Y3QgbXNtX2RwX3BsbCAqYmFzZTsKPj4+ICsKPj4+ICvCoMKgwqAgaW50IGlkOwo+
+Pj4gK8KgwqDCoCBzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2Owo+Pj4gKwo+Pj4gK8KgwqDC
+oCAvKiBwcml2YXRlIGNsb2NrczogKi8KPj4+ICvCoMKgwqAgYm9vbCBmaXhlZF9mYWN0b3JfY2xr
+W05VTV9EUF9DTE9DS1NfTUFYXTsKPj4+ICvCoMKgwqAgc3RydWN0IGNsa19odyAqaHdzW05VTV9E
+UF9DTE9DS1NfTUFYXTsKPj4KPj4gVGhlbiB0aGVzZSB0d28gZmllbGRzIGNhbiB1c2UgZXhhY3Qg
+bnVtYmVyIG9mIGNsb2NrcyByYXRoZXIgdGhhbgo+PiBOVU1fRFBfQ0xPQ0tTX01BWC4KPj4KPiAK
+PiBJIGRpZG4ndCBnZXQgdGhpcy4gSSB0aGluayBOVU1fRFBfQ0xPQ0tTX01BWCBpcyBkb2luZyBz
+YW1lPwoKTm90IGV4YWN0bHkuIFdlJ2QgbmVlZCBmaXhlZF9mYWN0b3JfY2xrWzRdIGZvciAxMG5t
+IHJhdGhlciB0aGFuIDYuIEl0J3MgCm5vdCB0aGF0IGltcG9ydGFudCwganVzdCBhIHNtYWxsIG5p
+dHBpY2suCgoKPj4+ICvCoMKgwqAgdTMyIG51bV9od3M7Cj4+PiArCj4+PiArwqDCoMKgIC8qIGxh
+bmUgYW5kIG9yaWVudGF0aW9uIHNldHRpbmdzICovCj4+PiArwqDCoMKgIHU4IGxhbmVfY250Owo+
+Pj4gK8KgwqDCoCB1OCBvcmllbnRhdGlvbjsKPj4+ICsKPj4+ICvCoMKgwqAgLyogQ09NIFBIWSBz
+ZXR0aW5ncyAqLwo+Pj4gK8KgwqDCoCB1MzIgaHNjbGtfc2VsOwo+Pj4gK8KgwqDCoCB1MzIgZGVj
+X3N0YXJ0X21vZGUwOwo+Pj4gK8KgwqDCoCB1MzIgZGl2X2ZyYWNfc3RhcnQxX21vZGUwOwo+Pj4g
+K8KgwqDCoCB1MzIgZGl2X2ZyYWNfc3RhcnQyX21vZGUwOwo+Pj4gK8KgwqDCoCB1MzIgZGl2X2Zy
+YWNfc3RhcnQzX21vZGUwOwo+Pj4gK8KgwqDCoCB1MzIgaW50ZWdsb29wX2dhaW4wX21vZGUwOwo+
+Pj4gK8KgwqDCoCB1MzIgaW50ZWdsb29wX2dhaW4xX21vZGUwOwo+Pj4gK8KgwqDCoCB1MzIgdmNv
+X3R1bmVfbWFwOwo+Pj4gK8KgwqDCoCB1MzIgbG9ja19jbXAxX21vZGUwOwo+Pj4gK8KgwqDCoCB1
+MzIgbG9ja19jbXAyX21vZGUwOwo+Pj4gK8KgwqDCoCB1MzIgbG9ja19jbXAzX21vZGUwOwo+Pj4g
+K8KgwqDCoCB1MzIgbG9ja19jbXBfZW47Cj4+PiArCj4+PiArwqDCoMKgIC8qIFBIWSB2Y28gZGl2
+aWRlciAqLwo+Pj4gK8KgwqDCoCB1MzIgcGh5X3Zjb19kaXY7Cj4+PiArwqDCoMKgIC8qCj4+PiAr
+wqDCoMKgwqAgKiBDZXJ0YWluIHBsbCdzIG5lZWRzIHRvIHVwZGF0ZSB0aGUgc2FtZSB2Y28gcmF0
+ZSBhZnRlciByZXN1bWUgaW4KPj4+ICvCoMKgwqDCoCAqIHN1c3BlbmQvcmVzdW1lIHNjZW5hcmlv
+LiBDYWNoZWQgdGhlIHZjbyByYXRlIGZvciBzdWNoIHBsbHMuCj4+PiArwqDCoMKgwqAgKi8KPj4+
+ICvCoMKgwqAgdW5zaWduZWQgbG9uZ8KgwqDCoCB2Y29fY2FjaGVkX3JhdGU7Cj4+PiArwqDCoMKg
+IHUzMsKgwqDCoMKgwqDCoMKgIGNhY2hlZF9jZmcwOwo+Pj4gK8KgwqDCoCB1MzLCoMKgwqDCoMKg
+wqDCoCBjYWNoZWRfY2ZnMTsKPj4+ICvCoMKgwqAgdTMywqDCoMKgwqDCoMKgwqAgY2FjaGVkX291
+dGRpdjsKPj4+ICsKPj4+ICvCoMKgwqAgdWludDMyX3QgaW5kZXg7Cj4+PiArfTsKPj4+ICsKPj4+
+ICtzdGF0aWMgaW5saW5lIHN0cnVjdCBkcF9wbGxfdmNvX2NsayAqdG9fZHBfdmNvX2h3KHN0cnVj
+dCBjbGtfaHcgKmh3KQo+Pj4gK3sKPj4+ICvCoMKgwqAgcmV0dXJuIGNvbnRhaW5lcl9vZihodywg
+c3RydWN0IGRwX3BsbF92Y29fY2xrLCBodyk7Cj4+PiArfQo+Pj4gKwo+Pj4gKyNkZWZpbmUgdG9f
+bXNtX2RwX3BsbCh2Y28pICgoc3RydWN0IG1zbV9kcF9wbGwgKil2Y28tPnByaXYpCj4+PiArCj4+
+PiArI2RlZmluZSB0b19kcF9wbGxfZGIoeCnCoMKgwqAgKChzdHJ1Y3QgZHBfcGxsX2RiICopeC0+
+cHJpdikKPj4+ICsKPj4+ICtpbnQgZHBfdmNvX3NldF9yYXRlXzEwbm0oc3RydWN0IGNsa19odyAq
+aHcsIHVuc2lnbmVkIGxvbmcgcmF0ZSwKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgdW5zaWduZWQgbG9uZyBwYXJlbnRfcmF0ZSk7Cj4+PiArdW5zaWduZWQgbG9uZyBkcF92Y29f
+cmVjYWxjX3JhdGVfMTBubShzdHJ1Y3QgY2xrX2h3ICpodywKPj4+ICvCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgdW5zaWduZWQgbG9uZyBwYXJlbnRfcmF0ZSk7Cj4+PiArbG9uZyBkcF92
+Y29fcm91bmRfcmF0ZV8xMG5tKHN0cnVjdCBjbGtfaHcgKmh3LCB1bnNpZ25lZCBsb25nIHJhdGUs
+Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGxvbmcgKnBhcmVu
+dF9yYXRlKTsKPj4+ICtpbnQgZHBfdmNvX3ByZXBhcmVfMTBubShzdHJ1Y3QgY2xrX2h3ICpodyk7
+Cj4+PiArdm9pZCBkcF92Y29fdW5wcmVwYXJlXzEwbm0oc3RydWN0IGNsa19odyAqaHcpOwo+Pj4g
+Kwo+Pj4gK2ludCBtc21fZHBfcGxsXzEwbm1faW5pdChzdHJ1Y3QgbXNtX2RwX3BsbCAqZHBfcGxs
+LCBpbnQgaWQpOwo+Pj4gK3ZvaWQgbXNtX2RwX3BsbF8xMG5tX2RlaW5pdChzdHJ1Y3QgbXNtX2Rw
+X3BsbCAqZHBfcGxsKTsKPj4KPj4gVGhlc2UgZnVuY3Rpb25zIGRvbid0IHNlZW0gdG8gYmUgdXNl
+ZCBvdXRzaWRlIG9mIGRwX3BsbF8xMG5tLiBXaGF0Cj4+IGFib3V0IG1ha2luZyB0aGVtIHN0YXRp
+Yz8KPiAKPiBJIGNhbid0IGRlY2xhcmUgc3RhdGljIHRvICJpbml0IiBhbmQgImRlaW5pdCIgYXMg
+dGhleSBhcmUgZXhwb3J0ZWQgdG8gCj4gZHBfcGxsLmMuCj4gUmVzdCBvZiB0aGVtIEkgY2FuIG1v
+dmUgdG8gZHBfcGxsXzEwbm0gYW5kIHRoZW4gZGVmaW5lIHN0YXRpYy4KClBsZWFzZSBleHVzZSBt
+ZSBmb3Igbm90IGJlaW5nIGV4YWN0IGVub3VnaC4gT2YgY291cnNlIEkgbWVhbnQgCmRwX3Zjb19G
+T09fMTBubSgpIGZ1bmN0aW9ucywgbm90IGluaXQvZXhpdC4KCkJUVzogYXMgSSdtIGxvb2tpbmcg
+b250byA3bm0gZHAgcGxsLCB3aGljaCBuYW1pbmcgd291bGQgeW91IHByZWZlcj8KCldlIGNhbiBo
+YXZlIHNlcGFyYXRlIERQX1BMTF8xMG5tL0RQX1BMTF83bm0gbmFtZXNwYWNlcyAoYXMgRFNJIFBM
+THMgZG8pIApvciBJIGNhbiBvdmVycmlkZSBvbmx5IGEgc2V0IG9mIGNvbnN0YW50cyAobGlrZSBk
+b3duc3RyZWFtIGRyaXZlciBkb2VzKS4KCi0tIApXaXRoIGJlc3Qgd2lzaGVzCkRtaXRyeQpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpGcmVlZHJlbm8gbWFp
+bGluZyBsaXN0CkZyZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9mcmVlZHJlbm8K
