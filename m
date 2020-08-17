@@ -2,58 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DD85246C92
-	for <lists+freedreno@lfdr.de>; Mon, 17 Aug 2020 18:22:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DA89246CB7
+	for <lists+freedreno@lfdr.de>; Mon, 17 Aug 2020 18:26:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FCE589E08;
-	Mon, 17 Aug 2020 16:22:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31B87899BC;
+	Mon, 17 Aug 2020 16:26:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
- [IPv6:2607:f8b0:4864:20::641])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C44889DFB;
- Mon, 17 Aug 2020 16:22:17 +0000 (UTC)
-Received: by mail-pl1-x641.google.com with SMTP id g15so3872021plj.6;
- Mon, 17 Aug 2020 09:22:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=LMklsHHTMxijqDeAVwRgPfCmNnVtewqnmZOiIx8IoQs=;
- b=RbABWtb8XXpDsj3fj6OykBcPLZ5s6mzXo5+8O5lLzibS4H/7sSSbJxgK232d3ZHNl1
- b9OzjD8Evbx+rgydLEzlQePAE9vfUy5L6WAd/HPRFwk/FX68hop3CG7mzh3ZM81mv6Sx
- syKtTcwlb9dGPXkYfbADlIa/5LOrPQHNFDoPCojDFrab605RRle/eZNq65gZHtMmMWrU
- V0k8w/Htzxgdw5ge65ajA54zbKU9mqntHLqH2bMvqPu/STQuBK6D5VB8TdOgcvrSTl2F
- ssnNqEgnzGyi/N+mbujL5peAmlxByvmEpZg6BnM7T5YM+fbbsqtTUqQQ8HBqO++dG3Np
- sTNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=LMklsHHTMxijqDeAVwRgPfCmNnVtewqnmZOiIx8IoQs=;
- b=n3TVgW1a1AeSwgvawBa/j/ukKeNgavAO4hWfR6PEBsox9UfOZlHlPFp/Cq4coa2/xP
- pODgOq6wQGroS9CSfvSWr7KY0aQXE/NvVEgd4mU3NAN4af8kJK3DFl75jktuvZEpdpvv
- AGjrjdSQB+42Ss9zQhI5AvBkbuak8SokOzOydzWjMM/b3jFor2LhHR3dK0OZWHvYhOtC
- Cc5lvy6/PFeIJawno0a4bUceDV/NKaxacFmtQ2UffK30pZnzc6szhaaJxZeC2XXD4yDJ
- aqmnWL0FtBXaN3WmjeGXUFe0Cz6y/HOeGP9Ul36hKX1/OSFrxxw6JjNVfI9vye5ceZv2
- rFNw==
-X-Gm-Message-State: AOAM532UaAhJQzzisrffbBBwCYyRz/Z6kUwJUO4+sb7VzEbsSa5s6+6y
- d4mrw7Nqt4JbYTXKFotMRwMzFvor7f+wwg==
-X-Google-Smtp-Source: ABdhPJxZqVKsxln0UatgdMDzqUQzs7RKNdYGMqEbSpKXAB2AkdX/2A4LN0FQkPSE/xgeFXUS77iQIw==
-X-Received: by 2002:a17:902:7616:: with SMTP id
- k22mr12281766pll.25.1597681336661; 
- Mon, 17 Aug 2020 09:22:16 -0700 (PDT)
-Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
- by smtp.gmail.com with ESMTPSA id
- w16sm20513732pfq.13.2020.08.17.09.22.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2020 09:22:15 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Mon, 17 Aug 2020 09:23:09 -0700
-Message-Id: <20200817162309.362032-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.26.2
+Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
+ [104.130.122.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C433899BC
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Aug 2020 16:26:07 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1597681569; h=In-Reply-To: Content-Type: MIME-Version:
+ References: Message-ID: Subject: Cc: To: From: Date: Sender;
+ bh=3AJR1rabANV+5oYOKdD6QLeJhKliqDUS2dV6N7xL9LU=;
+ b=CG7Tz2LqOW4oXfA8T3vqEespac2tfLB+jtX7uhW5oDmACR3u4TQAd3HbvuYKg5sKjj1atdq0
+ bzT8VlMj3hg3EQT89oR8XNvwFS+w/iuzMSq2HeQPfP2nj12Upa/kKELE3AHhG9s5lDKZH/0a
+ UKUfxKVbBpaGoJFenRXE2vnX+ug=
+X-Mailgun-Sending-Ip: 104.130.122.29
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n09.prod.us-east-1.postgun.com with SMTP id
+ 5f3aaf9a61f1d41834ee7a50 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 17 Aug 2020 16:26:02
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id B3A5AC4339C; Mon, 17 Aug 2020 16:26:01 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=ham autolearn_force=no version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 3201BC433C6;
+ Mon, 17 Aug 2020 16:26:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 3201BC433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=jcrouse@codeaurora.org
+Date: Mon, 17 Aug 2020 10:25:57 -0600
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <20200817162556.GD3221@jcrouse1-lnx.qualcomm.com>
+Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
+ dri-devel@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Jonathan Marek <jonathan@marek.ca>,
+ Brian Masney <masneyb@onstation.org>, Takashi Iwai <tiwai@suse.de>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20200813000311.708728-1-robdclark@gmail.com>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm/gpu: make ringbuffer readonly
+Content-Disposition: inline
+In-Reply-To: <20200813000311.708728-1-robdclark@gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Freedreno] [PATCH] drm/msm/adreno: fix updating ring fence
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,44 +81,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ <freedreno@lists.freedesktop.org>, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Rob Clark <robdclark@gmail.com>, open list <linux-kernel@vger.kernel.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+ open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Takashi Iwai <tiwai@suse.de>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
+ Brian Masney <masneyb@onstation.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On Wed, Aug 12, 2020 at 05:03:09PM -0700, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> We need to set it to the most recent completed fence, not the most
+> recent submitted.  Otherwise we have races where we think we can retire
+> submits that the GPU is not finished with, if the GPU doesn't manage to
+> overwrite the seqno before we look at it.
+> 
+> This can show up with hang recovery if one of the submits after the
+> crashing submit also hangs after it is replayed.
 
-The GPU has no business writing into the ringbuffer, let's make it
-readonly to the GPU.
+Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
 
-Fixes: 7198e6b03155 ("drm/msm: add a3xx gpu support")
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/msm_ringbuffer.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+> Fixes: f97decac5f4c ("drm/msm: Support multiple ringbuffers")
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> index f9e3badf2fca..34e6242c1767 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -405,7 +405,7 @@ int adreno_hw_init(struct msm_gpu *gpu)
+>  		ring->next = ring->start;
+>  
+>  		/* reset completed fence seqno: */
+> -		ring->memptrs->fence = ring->seqno;
+> +		ring->memptrs->fence = ring->fctx->completed_fence;
+>  		ring->memptrs->rptr = 0;
+>  	}
+>  
+> -- 
+> 2.26.2
+> 
 
-diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/msm_ringbuffer.c
-index e397c44cc011..39ecb5a18431 100644
---- a/drivers/gpu/drm/msm/msm_ringbuffer.c
-+++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
-@@ -27,7 +27,8 @@ struct msm_ringbuffer *msm_ringbuffer_new(struct msm_gpu *gpu, int id,
- 	ring->id = id;
- 
- 	ring->start = msm_gem_kernel_new(gpu->dev, MSM_GPU_RINGBUFFER_SZ,
--		MSM_BO_WC, gpu->aspace, &ring->bo, &ring->iova);
-+		MSM_BO_WC | MSM_BO_GPU_READONLY, gpu->aspace, &ring->bo,
-+		&ring->iova);
- 
- 	if (IS_ERR(ring->start)) {
- 		ret = PTR_ERR(ring->start);
 -- 
-2.26.2
-
+The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+a Linux Foundation Collaborative Project
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
