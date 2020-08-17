@@ -2,57 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D0B72454C1
-	for <lists+freedreno@lfdr.de>; Sun, 16 Aug 2020 00:45:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3BF72466A8
+	for <lists+freedreno@lfdr.de>; Mon, 17 Aug 2020 14:52:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 971AD6E1B4;
-	Sat, 15 Aug 2020 22:45:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DA9F6E0C9;
+	Mon, 17 Aug 2020 12:52:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24EA46E1AA;
- Sat, 15 Aug 2020 22:45:02 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id a14so11397010wra.5;
- Sat, 15 Aug 2020 15:45:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=9v1OHYfpYYA5o/8gW7muupb2BSzWhmjZmmPoVg8UHwc=;
- b=MpU7wlgpTu1VPsWReQOUM/Bp5mLVx+ftP/V75G52LjsbxIo0QsuOu+JU04yHVEg5S/
- nsZ9/+Wnv2a2DwABGH8PnHx4rOhBACh5cu1geL49bsD+gBwXVp/6IcWK38MaAjWEXw41
- ANFCNlEfCzomspwnKHST58MPeRpbLVzFvqI46n8PmPHZNgfqwOcTxworhoGkNcBEjjBz
- wuKqXLFWBijjQirO2k5/IYcc1nnnNvNUIVLuhznkBUfdsCD69KMHrVsYoxcjAO/bAJs8
- vkbN98ksfwqIcEU2E1doYtWGcoupmIAS4kSIHUpAxy/rGDPvMyasCQaqVXseENtyh/D8
- OS1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=9v1OHYfpYYA5o/8gW7muupb2BSzWhmjZmmPoVg8UHwc=;
- b=qNVl3XvR2W5fJv9LRLDfrPx6m+CSjiTqBIT9dXTkFbfHKZPbkUOaAVBBIokoWEHuMh
- 4shYiG/h8+ucE8pvHQacUav8g0HDiK0dn4EpDpeBh/58QyyunSe+dlEG7kuNLe3WAVR6
- lf8LRxKNf/i/f+Q6JOu3MFaVEHrofDabajz6CoDurVRScpRsCVqQn+NWo0B8OjW7Pr3g
- 55OE6p2G5dw9ifC8bvEkw6TSb4Y1B87c2XrAOAWpBdbkzJS6OIab1KPaDQMlfbINx265
- cU+/k5eLneFPyFJbMd9iufAR8HMz7+YUA8L5cPXoOv0uWbphVROqpfeIRNMrvA5X72KB
- ZaNA==
-X-Gm-Message-State: AOAM532sp6uOngV1A+ydoPoMETCgid1+caJ1EX1ZnaLpZoUS5GAPrPNF
- E9aDKtjSKx8NqQ0MGql0vUdPERS6aUX7IGpAxsw=
-X-Google-Smtp-Source: ABdhPJzr5FnMJX5imMejIe/UKLhmWfwhLVclXOj7FCJyMJx6rMCaQPKMBXCSD8ToEEmwQazfqzKj0xkGimx92he2ANI=
-X-Received: by 2002:adf:f485:: with SMTP id l5mr7848208wro.147.1597531500581; 
- Sat, 15 Aug 2020 15:45:00 -0700 (PDT)
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EE956E0C9
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Aug 2020 12:52:05 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1597668730; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
+ Subject: Sender; bh=JGVe9PW+tTDsQAAqGjQ8ritTdegK9mneovtsPPAvGdU=;
+ b=UV8eakOTQWYWUJQGPvyCTwxJIYHIiYjATX0+vyMwTM8z3Wp7jNm2yoiJt8CAH4/AowaMluRR
+ 45H2W2ldpQ6Cj3WcKL5RDVzPmeGwPx18zQScyji1J2xYWhLz5GZ4kd2+IsoDJgDWzMNWRAXP
+ DVEMPOzdLR8S5OcceALOpaedW/8=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n04.prod.us-east-1.postgun.com with SMTP id
+ 5f3a7d6d8567201751bdf31b (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 17 Aug 2020 12:51:57
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id C24A6C43391; Mon, 17 Aug 2020 12:51:56 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.6 required=2.0 tests=ALL_TRUSTED,NICE_REPLY_A,
+ SPF_NONE autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from [192.168.1.7] (unknown [117.217.239.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 3ABC4C433CA;
+ Mon, 17 Aug 2020 12:51:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 3ABC4C433CA
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=akhilpo@codeaurora.org
+To: Jonathan Marek <jonathan@marek.ca>, freedreno@lists.freedesktop.org
+References: <20200813185450.19387-1-jonathan@marek.ca>
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+Message-ID: <270c4efd-8524-c389-3347-2f9c4e246b6d@codeaurora.org>
+Date: Mon, 17 Aug 2020 18:21:50 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-References: <20200812044223.19279-1-tanmay@codeaurora.org>
- <20200812044223.19279-4-tanmay@codeaurora.org>
- <821b5cf9-5ca0-7026-fd99-9a32285ed030@linaro.org>
- <CAF6AEGtcfXodN1_HSdTcH402FdwTk15Nt6p3F=QYeSRhTc+hqw@mail.gmail.com>
- <1ea81fa2-1dc8-a0b9-aa32-3127e9354be2@marek.ca>
-In-Reply-To: <1ea81fa2-1dc8-a0b9-aa32-3127e9354be2@marek.ca>
-From: Rob Clark <robdclark@gmail.com>
-Date: Sat, 15 Aug 2020 15:45:48 -0700
-Message-ID: <CAF6AEGt+NV-T7Qo_-gLM981QBWy3865Vbj518sd-4XQJccX_WA@mail.gmail.com>
-To: Jonathan Marek <jonathan@marek.ca>
-Subject: Re: [Freedreno] [PATCH v10 3/5] drm/msm/dp: add support for DP PLL
- driver
+In-Reply-To: <20200813185450.19387-1-jonathan@marek.ca>
+Content-Language: en-US
+Subject: Re: [Freedreno] [RESEND PATCH] drm/msm/a6xx: fix frequency not
+ always being restored on GMU resume
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,150 +69,52 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Tanmay Shah <tanmay@codeaurora.org>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
- khsieh@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Vara Reddy <varar@codeaurora.org>, aravindh@codeaurora.org,
- freedreno <freedreno@lists.freedesktop.org>,
- Chandan Uddaraju <chandanu@codeaurora.org>
-Content-Type: text/plain; charset="us-ascii"
+Cc: David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Sean Paul <sean@poorly.run>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, Aug 15, 2020 at 2:21 PM Jonathan Marek <jonathan@marek.ca> wrote:
->
-> On 8/15/20 4:20 PM, Rob Clark wrote:
-> > On Fri, Aug 14, 2020 at 10:05 AM Dmitry Baryshkov
-> > <dmitry.baryshkov@linaro.org> wrote:
-> >>
-> >>
-> >> On 12/08/2020 07:42, Tanmay Shah wrote:
-> >>   > From: Chandan Uddaraju <chandanu@codeaurora.org>
-> >>   >
-> >>   > Add the needed DP PLL specific files to support
-> >>   > display port interface on msm targets.
-> >>
-> >> [skipped]
-> >>
-> >>   > diff --git a/drivers/gpu/drm/msm/dp/dp_pll_private.h
-> >> b/drivers/gpu/drm/msm/dp/dp_pll_private.h
-> >>   > new file mode 100644
-> >>   > index 000000000000..475ba6ed59ab
-> >>   > --- /dev/null
-> >>   > +++ b/drivers/gpu/drm/msm/dp/dp_pll_private.h
-> >>   > @@ -0,0 +1,98 @@
-> >>   > +/* SPDX-License-Identifier: GPL-2.0-only */
-> >>   > +/*
-> >>   > + * Copyright (c) 2016-2020, The Linux Foundation. All rights reserved.
-> >>   > + */
-> >>   > +
-> >>   > +#ifndef __DP_PLL_10NM_H
-> >>   > +#define __DP_PLL_10NM_H
-> >>   > +
-> >>   > +#include "dp_pll.h"
-> >>   > +#include "dp_reg.h"
-> >>   > +
-> >>   > +#define DP_VCO_HSCLK_RATE_1620MHZDIV1000    1620000UL
-> >>   > +#define DP_VCO_HSCLK_RATE_2700MHZDIV1000    2700000UL
-> >>   > +#define DP_VCO_HSCLK_RATE_5400MHZDIV1000    5400000UL
-> >>   > +#define DP_VCO_HSCLK_RATE_8100MHZDIV1000    8100000UL
-> >>   > +
-> >>   > +#define NUM_DP_CLOCKS_MAX            6
-> >>   > +
-> >>   > +#define DP_PHY_PLL_POLL_SLEEP_US        500
-> >>   > +#define DP_PHY_PLL_POLL_TIMEOUT_US        10000
-> >>   > +
-> >>   > +#define DP_VCO_RATE_8100MHZDIV1000        8100000UL
-> >>   > +#define DP_VCO_RATE_9720MHZDIV1000        9720000UL
-> >>   > +#define DP_VCO_RATE_10800MHZDIV1000        10800000UL
-> >>   > +
-> >>   > +struct dp_pll_vco_clk {
-> >>   > +    struct clk_hw hw;
-> >>   > +    unsigned long    rate;        /* current vco rate */
-> >>   > +    u64        min_rate;    /* min vco rate */
-> >>   > +    u64        max_rate;    /* max vco rate */
-> >>   > +    void        *priv;
-> >>   > +};
-> >>   > +
-> >>   > +struct dp_pll_db {
-> >>
-> >> This struct should probably go into dp_pll_10nm.c. dp_pll_7nm.c, for
-> >> example, will use slightly different structure.
-> >
-> > Note that sboyd has a WIP series to move all of the pll code out to a
-> > phy driver.  If there is work already happening on 7nm support, it
-> > might be better to go with the separate phy driver approach?  I'm
-> > still a bit undecided about whether to land the dp code initially with
-> > the pll stuff in drm, and then continue refactoring to move to
-> > separate phy driver upstream, or to strip out the pll code from the
-> > beginning.  If you/someone is working on 7nm support, then feedback
-> > about which approach is easier is welcome.
-> >
-> > https://lore.kernel.org/dri-devel/20200611091919.108018-1-swboyd@chromium.org/
-> >
->
-> I have a sm8150/sm8250 (7nm) upstream kernel stack with DP enabled, and
-> I have done something similar, with the PLL driver in the QMP phy,
-> although not based on sboyd's series (along with some typec changes to
-> negotiate the DP alt mode and get HPD events, etc.). I don't think
-> having PLL in drm/msm makes sense, the drm/msm DP driver shouldn't need
-> to be aware of the DP PLL/PHY driver, it only needs to set the
-> link/pixel clock rates which are in dispcc (and those then have the PLL
-> clocks as a parent).
+Why don't we move the early return in a6xx_gmu_set_freq() to 
+msm_devfreq_target() instead?
 
-yeah, in the dp case, having phy split out makes a ton of sense.. it
-would maybe be a nice cleanup in other cases (dsi, hdmi) but the
-combination of usb+dp makes burying this in drm not so great..
+-Akhil.
 
-It would be good if you could work w/ sboyd on this.. based on what
-I've seen on previous gens, it is probably a different phy driver for
-7nm vs 10nm, but I think where we want to end up upstream is with phy
-split out of drm.
+On 8/14/2020 12:24 AM, Jonathan Marek wrote:
+> The patch reorganizing the set_freq function made it so the gmu resume
+> doesn't always set the frequency, because a6xx_gmu_set_freq() exits early
+> when the frequency hasn't been changed. Note this always happens when
+> resuming GMU after recovering from a hang.
+> 
+> Use a simple workaround to prevent this from happening.
+> 
+> Fixes: 1f60d11423db ("drm: msm: a6xx: send opp instead of a frequency")
+> 
+> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+> ---
+>   drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> index b67b38c8fadf..bbbd00020f92 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> @@ -845,6 +845,7 @@ static void a6xx_gmu_set_initial_freq(struct msm_gpu *gpu, struct a6xx_gmu *gmu)
+>   	if (IS_ERR_OR_NULL(gpu_opp))
+>   		return;
+>   
+> +	gmu->freq = 0; /* so a6xx_gmu_set_freq() doesn't exit early */
+>   	a6xx_gmu_set_freq(gpu, gpu_opp);
+>   	dev_pm_opp_put(gpu_opp);
+>   }
+> 
 
-> FYI, since it sounds you are considering landing this: it is completely
-> broken, for example:
-> - ioremap()'s to #define'd addresses in the PLL driver
-> - main DP driver reading/writing to registers in the PHY region, but
-> getting the base address from devicetree was removed since earlier
-> revisions, so it just fails completely. Look at usb3_dp_com (for
-> example), which in dp_catalog_ctrl_usb_reset() would be used to
-> overwrite registers already being driven by the qmp phy driver - but now
-> the usb3_dp_com.base is never initialized.
-
-Yeah, the idea to land dp isn't that it is perfect (or even not
-broken), so much as having something upstream gives a common base for
-others to work against.. maybe we should make the dp parts 'depends on
-STAGING'?
-
-I could keep a separate msm-next-dp branch that I rebase, to give a
-common point for folks working dp support for various different gens
-to coordinate work on.. that kinda sounds like a bunch of extra work
-for me, so might as well land what we have somehow and work together
-from there ;-)
-
-But it does sound like you are making the case for including the patch
-to drop the pll stuff and use phy framework as part of what initially
-goes upstream.
-
-BR,
--R
-
->
-> -Jonathan
->
-> > BR,
-> > -R
-> > _______________________________________________
-> > Freedreno mailing list
-> > Freedreno@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/freedreno
-> >
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
