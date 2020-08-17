@@ -2,59 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C748247833
-	for <lists+freedreno@lfdr.de>; Mon, 17 Aug 2020 22:37:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30CE524796A
+	for <lists+freedreno@lfdr.de>; Tue, 18 Aug 2020 00:01:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AC0E89F4F;
-	Mon, 17 Aug 2020 20:37:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2F7F89F45;
+	Mon, 17 Aug 2020 22:01:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C855989F4F;
- Mon, 17 Aug 2020 20:37:37 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id d190so14338615wmd.4;
- Mon, 17 Aug 2020 13:37:37 -0700 (PDT)
+Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
+ [IPv6:2607:f8b0:4864:20::643])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7E6289F45;
+ Mon, 17 Aug 2020 22:01:56 +0000 (UTC)
+Received: by mail-pl1-x643.google.com with SMTP id g7so7094049plq.1;
+ Mon, 17 Aug 2020 15:01:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=yjjlfA5SIH3iANzOqp3Q42Bk0qS4JZqVM5JMYxnxNMY=;
- b=fkIj8PxW7fObxkulS7LlzxGxhfnICAcPnTX7YG87lfY9u8HusanjsAzSX5RxQM6NJH
- iQ0LYNGP2N3mRzW4cQdhLtjKD84xljtQ4flihEqRKtnFOBHHlu+9ZSRkH7htbx/XEMWS
- Q1AU9ObDjGrHDwLZkui0WeNu4l2g+SyoS94cR9axD9bO/O3McDUsTAeVQxMonJVvUGGz
- l+x+jT5vUw4MWVKfDP+0GeG7+4NKiRUHEUcjFisnZCb8oPDoJVQijiRNcGExbrvM7RpD
- VxgDl6oxkzRPC2xwReF8zVjvGWZ90jFTjHX+Ojm5xaeeBs+vBRffqIYNFpbNPUZUzTrM
- FqTw==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=trlk/3uXQdYpfCiR6zf1NBJMUfnwN4OseEJTaKFkirk=;
+ b=UgIskbh92JnnX2yxoa9Qd2Snaa/33Eocjr1ug5PGgM8C/G0SbtYI7xZQApMuh9Q34L
+ 32FfU+ig7V85PrVLFlgOru5ICwsL6nl4nyHRFqElEJM5edA+AoRR8nMT8PzNMDQOytYh
+ P0tfH+cBsgBcsqXOH+u8tnbBKRUsGZCjGEr/MZxMhKYtgf+lVI9Jh0gjKTqSaHoG/WqV
+ 5wnJlx6upNKNrTS8D5MkbThxMOcqJR2inYDfOvJJ23OEzVf0f7yo1phyxQF54EQ2Dlrl
+ 0/ilMbwN5QU7lbmOayWOFXR9GevWII/8fqsDceTa9alQ8L88nSLO5q3vSG82CLPFZlrD
+ EOqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=yjjlfA5SIH3iANzOqp3Q42Bk0qS4JZqVM5JMYxnxNMY=;
- b=Fr5zPqZDkrEBvEIX6W37U0smcf+VjsnzgdFrtwgWKgDMuYfDarKEGdbEs13H8tZJg5
- wibbGvW1pS40xQP++YDbv0BsNLs4Tm9uW45V8BR6HzqYMYhWV/ab9dGapkAMerZZ3A7n
- RR37TUchU3JZx8hK/SN47DghsyW7LH6Hc8Jc+dQWy7nIulT8oPafBaaYr23A3C6kO7Ti
- tvyqH9e6tGIBUi3MiJCwrj8DKU3lkrRLPeKo7gBB9IpvrlwRrp4t+V7TWg/1Ewyy/bfv
- wPX0qY1EBIBtmiDzSjEpXbBraMZhucYi2GaShMVY6C1gCyfgoX8sWvsJRuMJudx/Qg6Q
- N+Xg==
-X-Gm-Message-State: AOAM53083B1nSZZikHkHj6ZvBP2A/7v8eHGa4BFECgo+x7ENpKmpsdoo
- pGQnCZN09U6Fttl9nVb32WSjrUshVMVjkjopKtY=
-X-Google-Smtp-Source: ABdhPJxMHUN22Y2LCJd5a6GMrlUjwkav8ruqE+rA4jvvpRZ3M53vaGfrjREbtGXwocAFg0Sz1hQxui8NK7jcWESGW90=
-X-Received: by 2002:a1c:4c17:: with SMTP id z23mr16891369wmf.49.1597696656253; 
- Mon, 17 Aug 2020 13:37:36 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200812044223.19279-1-tanmay@codeaurora.org>
- <20200812044223.19279-4-tanmay@codeaurora.org>
- <821b5cf9-5ca0-7026-fd99-9a32285ed030@linaro.org>
- <CAF6AEGtcfXodN1_HSdTcH402FdwTk15Nt6p3F=QYeSRhTc+hqw@mail.gmail.com>
- <1ea81fa2-1dc8-a0b9-aa32-3127e9354be2@marek.ca>
- <CAF6AEGt+NV-T7Qo_-gLM981QBWy3865Vbj518sd-4XQJccX_WA@mail.gmail.com>
- <d67ffcd6-b10c-92a4-55a7-40521b3be68f@linaro.org>
-In-Reply-To: <d67ffcd6-b10c-92a4-55a7-40521b3be68f@linaro.org>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=trlk/3uXQdYpfCiR6zf1NBJMUfnwN4OseEJTaKFkirk=;
+ b=LbrLbSXigN26ZC7+it0t9RtWFKYx9z2g3UfCBbXSkBdrFpCFEOaicp4OTfppsLOI8b
+ giNA0XcdS/37yfWHxpAkfdPOxrgI+LJybvROuOcuCJHtM2MjgossqUDqEvetF11BSHbl
+ UjdSbdoHDeYD2IKIB7H5raTjkOY/bTMp7g63dDrowQs4BagI+YStYbu/ZJFBPEUwWHHZ
+ OWwLrWGpiH7Fv6yYodRUY/hKV9DImlU+WE8Rf/VMoYuHGUfaSXuJDur/GizT+s9YyM/1
+ 9OClBmgLC3j6cHY1nmi/4iY/V72uoLYhsoRQkybwzCO/GWelrMBJt4j+92GXKT20H3kQ
+ FKFA==
+X-Gm-Message-State: AOAM532ju/CUAyPIONy04Wb+qNP73QHalH3n+nVwz2zoYIpBDmSW802o
+ vdtRJ7VpueuuukSwDBO1CCru5sCBqoOzCDqp
+X-Google-Smtp-Source: ABdhPJxuc4xae1ZADXa97WPg87JZfSDrlOOC/ynLcCZZtE5xQDqUW8tKk8cp6xGc7CLtA+Awk99pQg==
+X-Received: by 2002:a17:902:b788:: with SMTP id
+ e8mr13005586pls.117.1597701715879; 
+ Mon, 17 Aug 2020 15:01:55 -0700 (PDT)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ f27sm20817812pfk.217.2020.08.17.15.01.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Aug 2020 15:01:54 -0700 (PDT)
 From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 17 Aug 2020 13:37:24 -0700
-Message-ID: <CAF6AEGuiiJOp4gD3tL9i-o+UFeu=Au5zpGjQ4-wjNj9Lu4OCNA@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH v10 3/5] drm/msm/dp: add support for DP PLL
- driver
+To: dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
+ linux-arm-msm@vger.kernel.org
+Date: Mon, 17 Aug 2020 15:01:25 -0700
+Message-Id: <20200817220238.603465-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.26.2
+MIME-Version: 1.0
+Subject: [Freedreno] [PATCH 00/20] iommu/arm-smmu + drm/msm: per-process GPU
+ pgtables
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,129 +68,151 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Tanmay Shah <tanmay@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
- khsieh@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- Vara Reddy <varar@codeaurora.org>, aravindh@codeaurora.org,
- freedreno <freedreno@lists.freedesktop.org>,
- Chandan Uddaraju <chandanu@codeaurora.org>
+Cc: Wambui Karuga <wambui.karugax@gmail.com>, Takashi Iwai <tiwai@suse.de>,
+ Hanna Hawa <hannah@marvell.com>, Akhil P Oommen <akhilpo@codeaurora.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Eric Anholt <eric@anholt.net>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Vivek Gautam <vivek.gautam@codeaurora.org>,
+ AngeloGioacchino Del Regno <kholk11@gmail.com>, Will Deacon <will@kernel.org>,
+ Emil Velikov <emil.velikov@collabora.com>, Rob Clark <robdclark@chromium.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>, Sam Ravnborg <sam@ravnborg.org>,
+ Joerg Roedel <joro@8bytes.org>, Jon Hunter <jonathanh@nvidia.com>,
+ Ben Dooks <ben.dooks@codethink.co.uk>, Sibi Sankar <sibis@codeaurora.org>,
+ Thierry Reding <treding@nvidia.com>, Brian Masney <masneyb@onstation.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Joerg Roedel <jroedel@suse.de>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Pritesh Raithatha <praithatha@nvidia.com>, Stephen Boyd <swboyd@chromium.org>,
+ Nicolin Chen <nicoleotsuka@gmail.com>, Jordan Crouse <jcrouse@codeaurora.org>,
+ John Stultz <john.stultz@linaro.org>, freedreno@lists.freedesktop.org,
+ "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Krishna Reddy <vdumpa@nvidia.com>, open list <linux-kernel@vger.kernel.org>,
+ Shawn Guo <shawn.guo@linaro.org>, Robin Murphy <robin.murphy@arm.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Aug 17, 2020 at 1:32 PM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> On 16/08/2020 01:45, Rob Clark wrote:
-> > On Sat, Aug 15, 2020 at 2:21 PM Jonathan Marek <jonathan@marek.ca> wrote:
-> >>
-> >> On 8/15/20 4:20 PM, Rob Clark wrote:
-> >>> On Fri, Aug 14, 2020 at 10:05 AM Dmitry Baryshkov
-> >>> <dmitry.baryshkov@linaro.org> wrote:
-> >>>>
-> >>>>
-> >>>> On 12/08/2020 07:42, Tanmay Shah wrote:
-> >>>>    > From: Chandan Uddaraju <chandanu@codeaurora.org>
-> >>>>    >
-> >>>>    > Add the needed DP PLL specific files to support
-> >>>>    > display port interface on msm targets.
-> >>>>
-> >>>> [skipped]
-> >>>>
-> >>>>    > diff --git a/drivers/gpu/drm/msm/dp/dp_pll_private.h
-> >>>> b/drivers/gpu/drm/msm/dp/dp_pll_private.h
-> >>>>    > new file mode 100644
-> >>>>    > index 000000000000..475ba6ed59ab
-> >>>>    > --- /dev/null
-> >>>>    > +++ b/drivers/gpu/drm/msm/dp/dp_pll_private.h
-> >>>>    > @@ -0,0 +1,98 @@
-> >>>>    > +/* SPDX-License-Identifier: GPL-2.0-only */
-> >>>>    > +/*
-> >>>>    > + * Copyright (c) 2016-2020, The Linux Foundation. All rights reserved.
-> >>>>    > + */
-> >>>>    > +
-> >>>>    > +#ifndef __DP_PLL_10NM_H
-> >>>>    > +#define __DP_PLL_10NM_H
-> >>>>    > +
-> >>>>    > +#include "dp_pll.h"
-> >>>>    > +#include "dp_reg.h"
-> >>>>    > +
-> >>>>    > +#define DP_VCO_HSCLK_RATE_1620MHZDIV1000    1620000UL
-> >>>>    > +#define DP_VCO_HSCLK_RATE_2700MHZDIV1000    2700000UL
-> >>>>    > +#define DP_VCO_HSCLK_RATE_5400MHZDIV1000    5400000UL
-> >>>>    > +#define DP_VCO_HSCLK_RATE_8100MHZDIV1000    8100000UL
-> >>>>    > +
-> >>>>    > +#define NUM_DP_CLOCKS_MAX            6
-> >>>>    > +
-> >>>>    > +#define DP_PHY_PLL_POLL_SLEEP_US        500
-> >>>>    > +#define DP_PHY_PLL_POLL_TIMEOUT_US        10000
-> >>>>    > +
-> >>>>    > +#define DP_VCO_RATE_8100MHZDIV1000        8100000UL
-> >>>>    > +#define DP_VCO_RATE_9720MHZDIV1000        9720000UL
-> >>>>    > +#define DP_VCO_RATE_10800MHZDIV1000        10800000UL
-> >>>>    > +
-> >>>>    > +struct dp_pll_vco_clk {
-> >>>>    > +    struct clk_hw hw;
-> >>>>    > +    unsigned long    rate;        /* current vco rate */
-> >>>>    > +    u64        min_rate;    /* min vco rate */
-> >>>>    > +    u64        max_rate;    /* max vco rate */
-> >>>>    > +    void        *priv;
-> >>>>    > +};
-> >>>>    > +
-> >>>>    > +struct dp_pll_db {
-> >>>>
-> >>>> This struct should probably go into dp_pll_10nm.c. dp_pll_7nm.c, for
-> >>>> example, will use slightly different structure.
-> >>>
-> >>> Note that sboyd has a WIP series to move all of the pll code out to a
-> >>> phy driver.  If there is work already happening on 7nm support, it
-> >>> might be better to go with the separate phy driver approach?  I'm
-> >>> still a bit undecided about whether to land the dp code initially with
-> >>> the pll stuff in drm, and then continue refactoring to move to
-> >>> separate phy driver upstream, or to strip out the pll code from the
-> >>> beginning.  If you/someone is working on 7nm support, then feedback
-> >>> about which approach is easier is welcome.
-> >>>
-> >>> https://lore.kernel.org/dri-devel/20200611091919.108018-1-swboyd@chromium.org/
-> >>>
-> >>
-> >> I have a sm8150/sm8250 (7nm) upstream kernel stack with DP enabled, and
-> >> I have done something similar, with the PLL driver in the QMP phy,
-> >> although not based on sboyd's series (along with some typec changes to
-> >> negotiate the DP alt mode and get HPD events, etc.). I don't think
-> >> having PLL in drm/msm makes sense, the drm/msm DP driver shouldn't need
-> >> to be aware of the DP PLL/PHY driver, it only needs to set the
-> >> link/pixel clock rates which are in dispcc (and those then have the PLL
-> >> clocks as a parent).
-> >
-> > yeah, in the dp case, having phy split out makes a ton of sense.. it
-> > would maybe be a nice cleanup in other cases (dsi, hdmi) but the
-> > combination of usb+dp makes burying this in drm not so great..
-> >
-> > It would be good if you could work w/ sboyd on this.. based on what
-> > I've seen on previous gens, it is probably a different phy driver for
-> > 7nm vs 10nm, but I think where we want to end up upstream is with phy
-> > split out of drm.
->
-> 7nm differs in registers programming, so it would end up with a separate
-> set of tables in qmp phy driver. There is also a 14nm version of dp phy,
-> but I don't know if it usable in any actual hardware design.
->
+From: Rob Clark <robdclark@chromium.org>
 
-I'll defer to Stephen about phy stuff, but was kinda just expecting to
-have different phy drivers for different process sizes, rather than
-trying to bundle it all in one phy driver.  At least what I've seen
-before for dsi/hdmi/etc phy's is that the register programming is
-different enough to not really share much.
+This series adds an Adreno SMMU implementation to arm-smmu to allow GPU hardware
+pagetable switching.
 
-BR,
--R
+The Adreno GPU has built in capabilities to switch the TTBR0 pagetable during
+runtime to allow each individual instance or application to have its own
+pagetable.  In order to take advantage of the HW capabilities there are certain
+requirements needed of the SMMU hardware.
+
+This series adds support for an Adreno specific arm-smmu implementation. The new
+implementation 1) ensures that the GPU domain is always assigned context bank 0,
+2) enables split pagetable support (TTBR1) so that the instance specific
+pagetable can be swapped while the global memory remains in place and 3) shares
+the current pagetable configuration with the GPU driver to allow it to create
+its own io-pgtable instances.
+
+The series then adds the drm/msm code to enable these features. For targets that
+support it allocate new pagetables using the io-pgtable configuration shared by
+the arm-smmu driver and swap them in during runtime.
+
+This version of the series merges the previous patchset(s) [1] and [2]
+with the following improvements:
+
+v14: (Respin by Rob)
+  - Minor update to 16/20 (only force ASID to zero in one place)
+  - Addition of sc7180 dtsi patch.
+v13: (Respin by Rob)
+  - Switch to a private interface between adreno-smmu and GPU driver,
+    dropping the custom domain attr (Will Deacon)
+  - Rework the SCTLR.HUPCF patch to add new fields in smmu_domain->cfg
+    rather than adding new impl hook (Will Deacon)
+  - Drop for_each_cfg_sme() in favor of plain for() loop (Will Deacon)
+  - Fix context refcnt'ing issue which was causing problems with GPU
+    crash recover stress testing.
+  - Spiff up $debugfs/gem to show process information associated with
+    VMAs
+v12:
+  - Nitpick cleanups in gpu/drm/msm/msm_iommu.c (Rob Clark)
+  - Reorg in gpu/drm/msm/msm_gpu.c (Rob Clark)
+  - Use the default asid for the context bank so that iommu_tlb_flush_all works
+  - Flush the UCHE after a page switch
+  - Add the SCTLR.HUPCF patch at the end of the series
+v11:
+  - Add implementation specific get_attr/set_attr functions (per Rob Clark)
+  - Fix context bank allocation (per Bjorn Andersson)
+v10:
+  - arm-smmu: add implementation hook to allocate context banks
+  - arm-smmu: Match the GPU domain by stream ID instead of compatible string
+  - arm-smmu: Make DOMAIN_ATTR_PGTABLE_CFG bi-directional. The leaf driver
+    queries the configuration to create a pagetable and then sends the newly
+    created configuration back to the smmu-driver to enable TTBR0
+  - drm/msm: Add context reference counting for submissions
+  - drm/msm: Use dummy functions to skip TLB operations on per-instance
+    pagetables
+
+[1] https://lists.linuxfoundation.org/pipermail/iommu/2020-June/045653.html
+[2] https://lists.linuxfoundation.org/pipermail/iommu/2020-June/045659.html
+
+
+Jordan Crouse (12):
+  iommu/arm-smmu: Pass io-pgtable config to implementation specific
+    function
+  iommu/arm-smmu: Add support for split pagetables
+  iommu/arm-smmu: Prepare for the adreno-smmu implementation
+  iommu/arm-smmu-qcom: Add implementation for the adreno GPU SMMU
+  dt-bindings: arm-smmu: Add compatible string for Adreno GPU SMMU
+  drm/msm: Add a context pointer to the submitqueue
+  drm/msm: Drop context arg to gpu->submit()
+  drm/msm: Set the global virtual address range from the IOMMU domain
+  drm/msm: Add support to create a local pagetable
+  drm/msm: Add support for private address space instances
+  drm/msm/a6xx: Add support for per-instance pagetables
+  arm: dts: qcom: sm845: Set the compatible string for the GPU SMMU
+
+Rob Clark (8):
+  drm/msm: remove dangling submitqueue references
+  iommu: add private interface for adreno-smmu
+  drm/msm/gpu: add dev_to_gpu() helper
+  drm/msm: set adreno_smmu as gpu's drvdata
+  iommu/arm-smmu: constify some helpers
+  arm: dts: qcom: sc7180: Set the compatible string for the GPU SMMU
+  iommu/arm-smmu: add a way for implementations to influence SCTLR
+  drm/msm: show process names in gem_describe
+
+ .../devicetree/bindings/iommu/arm,smmu.yaml   |   4 +
+ arch/arm64/boot/dts/qcom/sc7180.dtsi          |   2 +-
+ arch/arm64/boot/dts/qcom/sdm845.dtsi          |   2 +-
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |  12 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c         |  68 +++++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h         |   1 +
+ drivers/gpu/drm/msm/adreno/adreno_device.c    |  12 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  18 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h       |   3 +-
+ drivers/gpu/drm/msm/msm_drv.c                 |  16 +-
+ drivers/gpu/drm/msm/msm_drv.h                 |  25 +++
+ drivers/gpu/drm/msm/msm_gem.c                 |  25 ++-
+ drivers/gpu/drm/msm/msm_gem.h                 |   6 +
+ drivers/gpu/drm/msm/msm_gem_submit.c          |   8 +-
+ drivers/gpu/drm/msm/msm_gem_vma.c             |  10 +
+ drivers/gpu/drm/msm/msm_gpu.c                 |  41 +++-
+ drivers/gpu/drm/msm/msm_gpu.h                 |  21 +-
+ drivers/gpu/drm/msm/msm_gpummu.c              |   2 +-
+ drivers/gpu/drm/msm/msm_iommu.c               | 206 +++++++++++++++++-
+ drivers/gpu/drm/msm/msm_mmu.h                 |  16 +-
+ drivers/gpu/drm/msm/msm_ringbuffer.h          |   1 +
+ drivers/gpu/drm/msm/msm_submitqueue.c         |   7 +-
+ drivers/iommu/arm/arm-smmu/arm-smmu-impl.c    |   6 +-
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c    | 155 ++++++++++++-
+ drivers/iommu/arm/arm-smmu/arm-smmu.c         | 102 ++++-----
+ drivers/iommu/arm/arm-smmu/arm-smmu.h         |  87 +++++++-
+ include/linux/adreno-smmu-priv.h              |  36 +++
+ 27 files changed, 759 insertions(+), 133 deletions(-)
+ create mode 100644 include/linux/adreno-smmu-priv.h
+
+-- 
+2.26.2
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
