@@ -1,59 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B390E248277
-	for <lists+freedreno@lfdr.de>; Tue, 18 Aug 2020 12:03:53 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D58AE24829C
+	for <lists+freedreno@lfdr.de>; Tue, 18 Aug 2020 12:10:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF23089B98;
-	Tue, 18 Aug 2020 10:03:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 897998920E;
+	Tue, 18 Aug 2020 10:10:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEBB589B98
- for <freedreno@lists.freedesktop.org>; Tue, 18 Aug 2020 10:03:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7893F8920E
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Aug 2020 10:10:34 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1597745029; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=JE65E5Dtrka1DOzWdtukE2KACAFY/NVV59JKO7w/pIg=;
- b=fnhkXSkcLCPPnMKId62boXyPPMxei8nsP69W4pQ2iOSUvlTSmPdTCj0wBzq67vF45wp1+BEt
- Vxr1AXprs2LaCOl/h81ApLT9rtBIFBnapqDWjGBFoCuzximdLYotxzzPjDpxMD5y+YEQQP8o
- tJk/PJ5xHvs6PnvAmGd9eyPtw/c=
+ s=smtp; t=1597745438; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
+ Subject: Sender; bh=cMiPEOYAp7lCAutY0bCyWT5k1cICbkV3n89hqvcObrw=;
+ b=VkcFMiPzpt0YaoFL2bgLFrzItNCnZGkJ6JUUWrRiqYpU2PSgnfGmHsgR7nxky0JHXpZ7q4LF
+ 35tMJcBv39MF9+ubemf6cs/h+4nK2EIoIoLcEx/fRsazTMDDbtJWD5j3XEvX4vZ0IQrr+yOf
+ 8ntKa0JK4TmkO2hAK51pTxHczjY=
 X-Mailgun-Sending-Ip: 69.72.43.7
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
- 5f3ba76e668ab3fef61aa303 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 18 Aug 2020 10:03:26
+ smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
+ 5f3ba912440a07969ae40eb4 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 18 Aug 2020 10:10:26
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 15F8DC433CB; Tue, 18 Aug 2020 10:03:26 +0000 (UTC)
+ id 8BDC5C433A0; Tue, 18 Aug 2020 10:10:25 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,URIBL_BLOCKED
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: saiprakash.ranjan)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id AA871C433CA;
- Tue, 18 Aug 2020 10:03:24 +0000 (UTC)
+X-Spam-Status: No, score=-3.9 required=2.0 tests=ALL_TRUSTED,NICE_REPLY_A,
+ SPF_NONE, URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from [192.168.1.7] (unknown [59.99.218.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 08D03C433C6;
+ Tue, 18 Aug 2020 10:10:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 08D03C433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=akhilpo@codeaurora.org
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux-foundation.org, linux-arm-msm@vger.kernel.org
+References: <20200817220238.603465-1-robdclark@gmail.com>
+ <20200817220238.603465-17-robdclark@gmail.com>
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+Message-ID: <e10e295a-7022-8250-f01d-dbf4ba98e786@codeaurora.org>
+Date: Tue, 18 Aug 2020 15:40:15 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Date: Tue, 18 Aug 2020 15:33:24 +0530
-From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-To: Krishna Manikandan <mkrishn@codeaurora.org>, Emil Velikov
- <emil.velikov@collabora.com>, robdclark@gmail.com, seanpaul@chromium.org,
- hoegsberg@chromium.org, kalyan_t@codeaurora.org, nganji@codeaurora.org
-In-Reply-To: <1591009402-681-1-git-send-email-mkrishn@codeaurora.org>
-References: <1591009402-681-1-git-send-email-mkrishn@codeaurora.org>
-Message-ID: <a3fcad3f97c258043cd4268ef2c99740@codeaurora.org>
-X-Sender: saiprakash.ranjan@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [v2] drm/msm: add shutdown support for display
- platform_driver
+In-Reply-To: <20200817220238.603465-17-robdclark@gmail.com>
+Content-Language: en-US
+Subject: Re: [Freedreno] [PATCH 16/20] drm/msm/a6xx: Add support for
+ per-instance pagetables
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,76 +71,166 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- mka@chromium.org, freedreno@lists.freedesktop.org,
- linux-arm-msm-owner@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Jonathan Marek <jonathan@marek.ca>,
+ Eric Anholt <eric@anholt.net>, David Airlie <airlied@linux.ie>,
+ Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
+ Jordan Crouse <jcrouse@codeaurora.org>, Sibi Sankar <sibis@codeaurora.org>,
+ Vivek Gautam <vivek.gautam@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
+ freedreno@lists.freedesktop.org, Sharat Masetty <smasetty@codeaurora.org>,
+ open list <linux-kernel@vger.kernel.org>
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+Reviewed-by: Akhil P Oommen <akhilpo@codeaurora.org>
 
-On 2020-06-01 16:33, Krishna Manikandan wrote:
-> Define shutdown callback for display drm driver,
-> so as to disable all the CRTCS when shutdown
-> notification is received by the driver.
+On 8/18/2020 3:31 AM, Rob Clark wrote:
+> From: Jordan Crouse <jcrouse@codeaurora.org>
 > 
-> This change will turn off the timing engine so
-> that no display transactions are requested
-> while mmu translations are getting disabled
-> during reboot sequence.
+> Add support for using per-instance pagetables if all the dependencies are
+> available.
 > 
-> Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
-> 
-> Changes in v2:
-> 	- Remove NULL check from msm_pdev_shutdown (Stephen Boyd)
-> 	- Change commit text to reflect when this issue
-> 	  was uncovered (Sai Prakash Ranjan)
+> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
 > ---
->  drivers/gpu/drm/msm/msm_drv.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
+>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 63 +++++++++++++++++++++++++++
+>   drivers/gpu/drm/msm/adreno/a6xx_gpu.h |  1 +
+>   drivers/gpu/drm/msm/msm_ringbuffer.h  |  1 +
+>   3 files changed, 65 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c 
-> b/drivers/gpu/drm/msm/msm_drv.c
-> index e4b750b..94e3963 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -1322,6 +1322,13 @@ static int msm_pdev_remove(struct 
-> platform_device *pdev)
->  	return 0;
->  }
-> 
-> +static void msm_pdev_shutdown(struct platform_device *pdev)
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index 5eabb0109577..d7ad6c78d787 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -81,6 +81,49 @@ static void get_stats_counter(struct msm_ringbuffer *ring, u32 counter,
+>   	OUT_RING(ring, upper_32_bits(iova));
+>   }
+>   
+> +static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_gpu,
+> +		struct msm_ringbuffer *ring, struct msm_file_private *ctx)
 > +{
-> +	struct drm_device *drm = platform_get_drvdata(pdev);
+> +	phys_addr_t ttbr;
+> +	u32 asid;
+> +	u64 memptr = rbmemptr(ring, ttbr0);
 > +
-> +	drm_atomic_helper_shutdown(drm);
+> +	if (ctx == a6xx_gpu->cur_ctx)
+> +		return;
+> +
+> +	if (msm_iommu_pagetable_params(ctx->aspace->mmu, &ttbr, &asid))
+> +		return;
+> +
+> +	/* Execute the table update */
+> +	OUT_PKT7(ring, CP_SMMU_TABLE_UPDATE, 4);
+> +	OUT_RING(ring, CP_SMMU_TABLE_UPDATE_0_TTBR0_LO(lower_32_bits(ttbr)));
+> +
+> +	OUT_RING(ring,
+> +		CP_SMMU_TABLE_UPDATE_1_TTBR0_HI(upper_32_bits(ttbr)) |
+> +		CP_SMMU_TABLE_UPDATE_1_ASID(asid));
+> +	OUT_RING(ring, CP_SMMU_TABLE_UPDATE_2_CONTEXTIDR(0));
+> +	OUT_RING(ring, CP_SMMU_TABLE_UPDATE_3_CONTEXTBANK(0));
+> +
+> +	/*
+> +	 * Write the new TTBR0 to the memstore. This is good for debugging.
+> +	 */
+> +	OUT_PKT7(ring, CP_MEM_WRITE, 4);
+> +	OUT_RING(ring, CP_MEM_WRITE_0_ADDR_LO(lower_32_bits(memptr)));
+> +	OUT_RING(ring, CP_MEM_WRITE_1_ADDR_HI(upper_32_bits(memptr)));
+> +	OUT_RING(ring, lower_32_bits(ttbr));
+> +	OUT_RING(ring, (asid << 16) | upper_32_bits(ttbr));
+> +
+> +	/*
+> +	 * And finally, trigger a uche flush to be sure there isn't anything
+> +	 * lingering in that part of the GPU
+> +	 */
+> +
+> +	OUT_PKT7(ring, CP_EVENT_WRITE, 1);
+> +	OUT_RING(ring, 0x31);
+> +
+> +	a6xx_gpu->cur_ctx = ctx;
 > +}
 > +
->  static const struct of_device_id dt_match[] = {
->  	{ .compatible = "qcom,mdp4", .data = (void *)KMS_MDP4 },
->  	{ .compatible = "qcom,mdss", .data = (void *)KMS_MDP5 },
-> @@ -1334,6 +1341,7 @@ static int msm_pdev_remove(struct platform_device 
-> *pdev)
->  static struct platform_driver msm_platform_driver = {
->  	.probe      = msm_pdev_probe,
->  	.remove     = msm_pdev_remove,
-> +	.shutdown   = msm_pdev_shutdown,
->  	.driver     = {
->  		.name   = "msm",
->  		.of_match_table = dt_match,
+>   static void a6xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+>   {
+>   	unsigned int index = submit->seqno % MSM_GPU_SUBMIT_STATS_COUNT;
+> @@ -90,6 +133,8 @@ static void a6xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+>   	struct msm_ringbuffer *ring = submit->ring;
+>   	unsigned int i;
+>   
+> +	a6xx_set_pagetable(a6xx_gpu, ring, submit->queue->ctx);
+> +
+>   	get_stats_counter(ring, REG_A6XX_RBBM_PERFCTR_CP_0_LO,
+>   		rbmemptr_stats(ring, index, cpcycles_start));
+>   
+> @@ -696,6 +741,8 @@ static int a6xx_hw_init(struct msm_gpu *gpu)
+>   	/* Always come up on rb 0 */
+>   	a6xx_gpu->cur_ring = gpu->rb[0];
+>   
+> +	a6xx_gpu->cur_ctx = NULL;
+> +
+>   	/* Enable the SQE_to start the CP engine */
+>   	gpu_write(gpu, REG_A6XX_CP_SQE_CNTL, 1);
+>   
+> @@ -1008,6 +1055,21 @@ static unsigned long a6xx_gpu_busy(struct msm_gpu *gpu)
+>   	return (unsigned long)busy_time;
+>   }
+>   
+> +static struct msm_gem_address_space *
+> +a6xx_create_private_address_space(struct msm_gpu *gpu)
+> +{
+> +	struct msm_gem_address_space *aspace = NULL;
+> +	struct msm_mmu *mmu;
+> +
+> +	mmu = msm_iommu_pagetable_create(gpu->aspace->mmu);
+> +
+> +	if (!IS_ERR(mmu))
+> +		aspace = msm_gem_address_space_create(mmu,
+> +			"gpu", 0x100000000ULL, 0x1ffffffffULL);
+> +
+> +	return aspace;
+> +}
+> +
+>   static const struct adreno_gpu_funcs funcs = {
+>   	.base = {
+>   		.get_param = adreno_get_param,
+> @@ -1031,6 +1093,7 @@ static const struct adreno_gpu_funcs funcs = {
+>   		.gpu_state_put = a6xx_gpu_state_put,
+>   #endif
+>   		.create_address_space = adreno_iommu_create_address_space,
+> +		.create_private_address_space = a6xx_create_private_address_space,
+>   	},
+>   	.get_timestamp = a6xx_get_timestamp,
+>   };
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> index 03ba60d5b07f..da22d7549d9b 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> @@ -19,6 +19,7 @@ struct a6xx_gpu {
+>   	uint64_t sqe_iova;
+>   
+>   	struct msm_ringbuffer *cur_ring;
+> +	struct msm_file_private *cur_ctx;
+>   
+>   	struct a6xx_gmu gmu;
+>   };
+> diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.h b/drivers/gpu/drm/msm/msm_ringbuffer.h
+> index 7764373d0ed2..0987d6bf848c 100644
+> --- a/drivers/gpu/drm/msm/msm_ringbuffer.h
+> +++ b/drivers/gpu/drm/msm/msm_ringbuffer.h
+> @@ -31,6 +31,7 @@ struct msm_rbmemptrs {
+>   	volatile uint32_t fence;
+>   
+>   	volatile struct msm_gpu_submit_stats stats[MSM_GPU_SUBMIT_STATS_COUNT];
+> +	volatile u64 ttbr0;
+>   };
+>   
+>   struct msm_ringbuffer {
+> 
 
-Any more comments on this patch?
-
-Thanks,
-Sai
-
--- 
-QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a 
-member
-of Code Aurora Forum, hosted by The Linux Foundation
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
