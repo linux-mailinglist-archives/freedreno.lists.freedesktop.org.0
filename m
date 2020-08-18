@@ -2,59 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD631247ADE
-	for <lists+freedreno@lfdr.de>; Tue, 18 Aug 2020 00:59:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FC5C247B72
+	for <lists+freedreno@lfdr.de>; Tue, 18 Aug 2020 02:22:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 581DA6E149;
-	Mon, 17 Aug 2020 22:59:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C73D06E15F;
+	Tue, 18 Aug 2020 00:22:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
- [104.130.122.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21A7C6E149
- for <freedreno@lists.freedesktop.org>; Mon, 17 Aug 2020 22:59:35 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1597705177; h=Content-Transfer-Encoding: MIME-Version:
- Message-Id: Date: Subject: Cc: To: From: Sender;
- bh=1iMRAOibRi50JnJL7Gy/48bD9j2LMVyK5mB4/xTVJwk=;
- b=JekEa6y/c8yxUxSXziwIs6dSiXDFqXlH8+95P6Sf+nzTSLq152rBqmLdkgSEereJ0t7sON0b
- Bp6RgBd05vnouSww5UWoEzvYqbaLbd/8oADBO8QWKxqemGtXIkumOPcK9qYCJsdWcD9f6CJe
- R/myJNhnlfwKZOwcTRlAI6+UEW4=
-X-Mailgun-Sending-Ip: 104.130.122.29
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n04.prod.us-east-1.postgun.com with SMTP id
- 5f3b0bcfcbcd42bdeeae1e70 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 17 Aug 2020 22:59:27
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 34B8CC433CB; Mon, 17 Aug 2020 22:59:26 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
- autolearn=ham autolearn_force=no version=3.4.0
-Received: from linuxdisplay-lab-04.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: tanmay)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 4F84AC433CA;
- Mon, 17 Aug 2020 22:59:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 4F84AC433CA
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=tanmay@codeaurora.org
-From: Tanmay Shah <tanmay@codeaurora.org>
-To: swboyd@chromium.org
-Date: Mon, 17 Aug 2020 15:59:12 -0700
-Message-Id: <20200817225912.3149-1-tanmay@codeaurora.org>
-X-Mailer: git-send-email 2.27.0
+Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
+ [IPv6:2607:f8b0:4864:20::543])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 612A26E176
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Aug 2020 00:22:28 +0000 (UTC)
+Received: by mail-pg1-x543.google.com with SMTP id o5so8919213pgb.2
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Aug 2020 17:22:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:content-transfer-encoding:in-reply-to:references
+ :subject:from:cc:to:date:message-id:user-agent;
+ bh=G4S72b5uoF0KvLSq8Fxn7M3pQq4TBaiGBup4iTUl/TU=;
+ b=lD3hYa4SkXByNwvhpt56gj/tstJy1tqXwYDtCWD3Qh1s2U6dZw5MEzqRk08E30ztkT
+ H/Lu0d2EH0rF/bkPDTJVXWn47uVNcdiGJ1hCMU3zKIXlLYl+dtVhUKvm1nAu1iFV1A6i
+ FBmisgXAtLRbUcQ4JPFyzI1jg1WPfNLwNE1gM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:content-transfer-encoding
+ :in-reply-to:references:subject:from:cc:to:date:message-id
+ :user-agent;
+ bh=G4S72b5uoF0KvLSq8Fxn7M3pQq4TBaiGBup4iTUl/TU=;
+ b=QAG6Q8zuzVdMmPTs275KM06/eBXJVZsacMoKkBYbBYa1L5OVDtM+iNs25mrejyB4uX
+ PCDzoUhV5AlsgW0d40edaNfY+OOypjQ8aSpO4GHpYBp0fNnBdGyq2IdTO6a8ED5hHYZY
+ Gn5tz8MPOw3gMjgteXhslYfnGETYLGPqaxDEOrf4JR1sAt+9rt01uwJl8CT3BVYhcqHa
+ Vc7ni8SmOJxUFVhXKjKkpVHjYqqYJu1wzhXQXB2LgHenBdS/CJo9n0tr2pU1NU9nTqAE
+ SXic//MHfOQ8nj2HLsqlI+NejT5svDjI8y882OoJhD5Z2tQ0J9ToL5jd7vDnUk79Ne1C
+ Ty6w==
+X-Gm-Message-State: AOAM532I0VH7+3osajFv8FonRPAdw72eEdZesHJAwKwk9ZCS77CpOpY/
+ a2SB7Th1mweRSAN5dqH+F29Ohw==
+X-Google-Smtp-Source: ABdhPJyx5W7AFU45MW9bjlWtaga4TqK2K/MQWMdH80dZVXkjSwadqmJpL5/JLqjL+aKPBgsgPwBzeg==
+X-Received: by 2002:a63:30c6:: with SMTP id
+ w189mr11295826pgw.241.1597710147966; 
+ Mon, 17 Aug 2020 17:22:27 -0700 (PDT)
+Received: from chromium.org ([2620:15c:202:1:3e52:82ff:fe6c:83ab])
+ by smtp.gmail.com with ESMTPSA id h5sm21282963pfq.146.2020.08.17.17.22.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Aug 2020 17:22:27 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v2] arm64: dts: qcom: sc7180: Add DisplayPort
- HPD pin dt node
+In-Reply-To: <20200817225912.3149-1-tanmay@codeaurora.org>
+References: <20200817225912.3149-1-tanmay@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+To: Tanmay Shah <tanmay@codeaurora.org>
+Date: Mon, 17 Aug 2020 17:22:25 -0700
+Message-ID: <159771014584.2423498.11072252787625455437@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
+Subject: Re: [Freedreno] [PATCH v2] arm64: dts: qcom: sc7180: Add
+ DisplayPort HPD pin dt node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,44 +76,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This node defines alternate DP HPD functionality of GPIO.
+Quoting Tanmay Shah (2020-08-17 15:59:12)
+> This node defines alternate DP HPD functionality of GPIO.
+> 
+> Signed-off-by: Tanmay Shah <tanmay@codeaurora.org>
+> ---
+>  arch/arm64/boot/dts/qcom/sc7180.dtsi | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> index bf2f2bb1aa79..0eedf057acc1 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> @@ -1457,6 +1457,19 @@ pinconf-sd-cd {
+>                                         drive-strength = <2>;
+>                                 };
+>                         };
+> +
+> +                       dp_hot_plug_det: dp-hot-plug-det {
 
-Signed-off-by: Tanmay Shah <tanmay@codeaurora.org>
----
- arch/arm64/boot/dts/qcom/sc7180.dtsi | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+And this should be sorted alphabetically instead of put at the end of
+the node.
 
-diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-index bf2f2bb1aa79..0eedf057acc1 100644
---- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-@@ -1457,6 +1457,19 @@ pinconf-sd-cd {
- 					drive-strength = <2>;
- 				};
- 			};
-+
-+			dp_hot_plug_det: dp-hot-plug-det {
-+				pinmux {
-+					pins = "gpio117";
-+					function = "dp_hot";
-+				};
-+
-+				pinconf {
-+					pins = "gpio117";
-+					bias-disable;
-+					input-enable;
-+				};
-+			};
- 		};
- 
- 		gpu: gpu@5000000 {
-
-base-commit: 62975d27d647a40c58d3b96c29b911fc4f33c310
-prerequisite-patch-id: a4d3e51b6e1200ff7d4550f206db98a92c0a098f
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
-
+> +                               pinmux {
+> +                                       pins = "gpio117";
+> +                                       function = "dp_hot";
+> +                               };
+> +
+> +                               pinconf {
+> +                                       pins = "gpio117";
+> +                                       bias-disable;
+> +                                       input-enable;
+> +                               };
+> +                       };
+>                 };
+>  
+>                 gpu: gpu@5000000 {
+>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
