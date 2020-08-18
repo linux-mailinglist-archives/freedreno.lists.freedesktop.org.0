@@ -1,55 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01C0824873A
-	for <lists+freedreno@lfdr.de>; Tue, 18 Aug 2020 16:19:34 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1ADFF24873C
+	for <lists+freedreno@lfdr.de>; Tue, 18 Aug 2020 16:19:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B61E68999E;
-	Tue, 18 Aug 2020 14:19:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C284B899FF;
+	Tue, 18 Aug 2020 14:19:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65B0A89E7C
- for <freedreno@lists.freedesktop.org>; Tue, 18 Aug 2020 08:27:14 +0000 (UTC)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
+ [205.139.110.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2835089BE8
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Aug 2020 09:01:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1597739233;
+ s=mimecast20190719; t=1597741283;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=YE9v2iUUt0C+eIB9363k6FZZUNnKbdhJpiU9fX/PhuY=;
- b=Af/2mKqOvbxTNoooOkwf2vMQkD1fX7Bsqo7+NuMpZbcr6pnrUM1vF+jLc9VRucj8HrUKuL
- iv8JWKvDfGeaP6e6lk06lWGvq0CYSjuR8dJzCJjewDkHxveVPC8sQTfsNg041G6Adz/VOk
- MDAIKk1NmMkqOi9RnmuJ569MwcKJXQM=
+ bh=LwYlioqpHS/gmxgOcffqAwVxuvHCLYruQxEepn5wr38=;
+ b=Gyl0qSD/tDVYurvIB6qUfUeeVuXUyG+kdNRPV7Pmc6vhccMgHNcL55bbG8Fw4NBVae1NLb
+ 74VSt+IBCpO9s/VjqqPtkfpo6d9z5z7xLGsEWuJxGkOZNYCwM3kt/96jEH1CK+EAEZXYeD
+ UlsCyvH56NFFPPxDLwM/4rgqntaChmc=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-11-ahIv83ehNsqc6ofMzQXlaA-1; Tue, 18 Aug 2020 04:27:09 -0400
-X-MC-Unique: ahIv83ehNsqc6ofMzQXlaA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
- [10.5.11.23])
+ us-mta-132-mlrecaKvN2iRk-aKQOmtPQ-1; Tue, 18 Aug 2020 05:00:57 -0400
+X-MC-Unique: mlrecaKvN2iRk-aKQOmtPQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B292C1DDF1;
- Tue, 18 Aug 2020 08:27:06 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D5813A0BC2;
+ Tue, 18 Aug 2020 09:00:53 +0000 (UTC)
 Received: from sirius.home.kraxel.org (ovpn-112-195.ams2.redhat.com
  [10.36.112.195])
- by smtp.corp.redhat.com (Postfix) with ESMTP id A5EAA261B9;
- Tue, 18 Aug 2020 08:27:04 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id EFEDA5D9D2;
+ Tue, 18 Aug 2020 09:00:49 +0000 (UTC)
 Received: by sirius.home.kraxel.org (Postfix, from userid 1000)
- id C21E09CBD; Tue, 18 Aug 2020 10:27:03 +0200 (CEST)
-Date: Tue, 18 Aug 2020 10:27:03 +0200
+ id 078151753B; Tue, 18 Aug 2020 11:00:49 +0200 (CEST)
+Date: Tue, 18 Aug 2020 11:00:49 +0200
 From: Gerd Hoffmann <kraxel@redhat.com>
 To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Message-ID: <20200818082703.7z6fcvoymiqow5kw@sirius.home.kraxel.org>
+Message-ID: <20200818090049.qomgyyw6hif4cmah@sirius.home.kraxel.org>
 References: <20200818074828.9509-1-kraxel@redhat.com>
  <20200818074828.9509-2-kraxel@redhat.com>
  <9c355d64-1a61-eb59-be80-d9fc863ddf22@amd.com>
+ <20200818082703.7z6fcvoymiqow5kw@sirius.home.kraxel.org>
+ <03c03129-db27-c6da-df8f-909141d2a3f7@amd.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <9c355d64-1a61-eb59-be80-d9fc863ddf22@amd.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+In-Reply-To: <03c03129-db27-c6da-df8f-909141d2a3f7@amd.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-Mailman-Approved-At: Tue, 18 Aug 2020 14:19:31 +0000
 Subject: Re: [Freedreno] [PATCH 1/2] drm: allow limiting the scatter list
  size.
@@ -85,37 +86,37 @@ Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
  "moderated list:DRM DRIVERS FOR XEN" <xen-devel@lists.xenproject.org>,
  Sean Paul <sean@poorly.run>, "moderated list:ARM/Rockchip SoC support"
  <linux-arm-kernel@lists.infradead.org>, Ben Skeggs <bskeggs@redhat.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Aug 18, 2020 at 09:57:59AM +0200, Christian K=F6nig wrote:
-> Am 18.08.20 um 09:48 schrieb Gerd Hoffmann:
-> > Add max_segment argument to drm_prime_pages_to_sg().  When set pass it
-> > through to the __sg_alloc_table_from_pages() call, otherwise use
-> > SCATTERLIST_MAX_SEGMENT.
-> > =
+  Hi,
 
-> > Also add max_segment field to gem objects and pass it to
-> > drm_prime_pages_to_sg() calls in drivers and helpers.
-> > =
+> > > I'm missing an explanation why this should be useful (it certainly is).
+> > virtio-gpu needs this to work properly with SEV (see patch 2/2 of this
+> > series).
+> 
+> Yeah, that's the problem patch 2/2 never showed up here :)
 
-> > Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-> =
+The list should have everything.
 
-> I'm missing an explanation why this should be useful (it certainly is).
+Your inbox probably has 1/2 only because 2/2 doesn't touch amd code and
+'git send-email' evaluates sendemail.cccmd (pointing to
+get_maintainer.pl) for each patch individually.
 
-virtio-gpu needs this to work properly with SEV (see patch 2/2 of this
-series).
+I've found this behavior confusing at times before.  Is there some way
+to send the whole series to everybody?  Or at least the cover letter?
+The git-send-email manpage doesn't give a clue :(
 
-> And the maximum segment size seems misplaced in the GEM object. This is
-> usually a property of the device or even completely constant.
+> > Placing it in drm_device instead would indeed work for virtio-gpu, so I
+> > guess you are suggesting that instead?
+> 
+> That is probably the best approach, yes.
 
-Placing it in drm_device instead would indeed work for virtio-gpu, so I
-guess you are suggesting that instead?
+Ok, I'll go that route then.
 
-take care,
+thanks,
   Gerd
 
 _______________________________________________
