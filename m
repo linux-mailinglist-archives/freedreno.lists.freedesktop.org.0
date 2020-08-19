@@ -1,61 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D62DB24A4A3
-	for <lists+freedreno@lfdr.de>; Wed, 19 Aug 2020 19:10:28 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DA6E24A504
+	for <lists+freedreno@lfdr.de>; Wed, 19 Aug 2020 19:36:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 770256E55C;
-	Wed, 19 Aug 2020 17:10:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58F646E083;
+	Wed, 19 Aug 2020 17:36:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x243.google.com (mail-oi1-x243.google.com
- [IPv6:2607:f8b0:4864:20::243])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B4FC6E55C
- for <freedreno@lists.freedesktop.org>; Wed, 19 Aug 2020 17:10:26 +0000 (UTC)
-Received: by mail-oi1-x243.google.com with SMTP id k4so21650819oik.2
- for <freedreno@lists.freedesktop.org>; Wed, 19 Aug 2020 10:10:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1247F6E083;
+ Wed, 19 Aug 2020 17:36:51 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id a5so22346127wrm.6;
+ Wed, 19 Aug 2020 10:36:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ktYpsCxiLWJOQgFpjU6rm698Y/qLm2dIO8jCJsadEOU=;
- b=Cf6w4ypyePA72N9OwZ/X/gIqgQ3/Z2O3rsVEAnbMsPXxSteDXfBbrAJ2YKaLKzi+2G
- eJlNvZyKM6mcCsbB8rTNwjE0zNlCUOU27vLJyO1vH/Kf6P5hVdc0XLNeLzE0ilaNzTIL
- c/q/2eCUoXXxQCiuP4bqs7wWJmNaxuO94MGUY=
+ :cc; bh=+bhGv6x9d7Md61hsuFNIkfPq3bcxtQviu/6k9haxoN4=;
+ b=Y4Yn43JUJRrnzNlVJ+qfW7bTGDlgp2KtAFgWc1ZC9OPN4PtPcF9CK1XSQ8U3PFJ1Tu
+ Bsm+r/sys5RMoWP28GmgJYpsd37KV1EcicLfj3QOLnX3TPMxtYJJVk1yCM3Y0w3kIfhY
+ EmQpu3G85KwwwpgqHDimPq1NhbMCE0REYYYcDYMlfiMBhnyGJSOPmgpqKDb6bTqvXRAm
+ VcjvxvQwfzAM+GBK2aL091eP/ab/HYq1kim9ftBGy5zXWJLGTve5gyYsJ6xOvtaphH+n
+ k6y63OsFV5RRYbksUcCsack5Rbaa1ukiRgAA0dZwr3rmhwOi/ViiIumPfhNQjS0qK2jj
+ mTXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=ktYpsCxiLWJOQgFpjU6rm698Y/qLm2dIO8jCJsadEOU=;
- b=Gj+4K9orDJ0Ez13AWvFtLbVvA/OZDMghsrnPFGKstj1lat09AULD4UUNeTSSxGemPn
- p/K8RHYrvzdenfPbq+yc088dARwtulVGRWiHJ2A0fR2YoEL2kxjV8Qr/nujWY03t8OlZ
- VLdeFIuRBxzu+D7BjjWX2MqTv1im/3BHW482jS716wJUddA3YGnWYoIE3b52tn62NNDf
- jychBIRi6mGk/o8DOqBywmRGLNiGjpebj1+/+gyh7e0+Rg3COhZE6wItnR1zTODJgtsv
- TvNKD0fcD2xCeJBvPq/5Mc0R/FV9iJ2c/TT2IPtPKPXUAqYikll5eN85P2Z81dqG8Fi7
- n9tg==
-X-Gm-Message-State: AOAM532jOkhUIJmulE623RyJkkeaMszo+T4a+yf9mwFeUtyVind368qC
- aMouOMYotUn4iwOGYiz9nsbNFQ0Xn9l5kw==
-X-Google-Smtp-Source: ABdhPJz4CkX2NvFhaF0yYL9VzaztxiR0tygxF78yE28XtyDqsuj4LOaSI4scf4WAUL2PRQ6Xt3PR3w==
-X-Received: by 2002:aca:4d48:: with SMTP id a69mr3932452oib.39.1597857023643; 
- Wed, 19 Aug 2020 10:10:23 -0700 (PDT)
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com.
- [209.85.210.49])
- by smtp.gmail.com with ESMTPSA id t21sm4490580ooc.43.2020.08.19.10.10.22
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Aug 2020 10:10:23 -0700 (PDT)
-Received: by mail-ot1-f49.google.com with SMTP id a65so19605573otc.8
- for <freedreno@lists.freedesktop.org>; Wed, 19 Aug 2020 10:10:22 -0700 (PDT)
-X-Received: by 2002:a25:d802:: with SMTP id p2mr37420399ybg.446.1597856554388; 
- Wed, 19 Aug 2020 10:02:34 -0700 (PDT)
+ bh=+bhGv6x9d7Md61hsuFNIkfPq3bcxtQviu/6k9haxoN4=;
+ b=uHOIaKWFXi+4QAurxqhIC0lsBwVO4lUn+BKHlEdPtx2trNh69JtowJzMADb+R9/z5K
+ CXv6UZ81OXtszGWrVBUyTYrKM4CPTyW4c9xeE+FCPS4SAf+sbSIU95UrTX+Xej7fQQMB
+ lnzB0nQ1B7xSugLLEDFsp7AgzVAIJr74VZEnKCtfXG0Gd5vjuZPe4GQqkUoK4x2lZoCm
+ lvti47WxmAX7ODnWFxjb2zGEYK7e2KiIOeJTwfZroTeD9Tjk5GjBZjC/I28oSOa4qrOU
+ nq7wlQQ0C1RtMghYPq+b+fr6xzuBCMgy+lZ28UrlJKQaskcMMMAVHAfZ7P8psTrWdIdm
+ rcKA==
+X-Gm-Message-State: AOAM532Vg2FaoeYE909+WEm7bIgywcQLxUTfyucKpQq/EKqGIocOrVin
+ zTaWKAAlJTBtRc+eHQ2NRmQgyDJOaGkccqYsZ8A=
+X-Google-Smtp-Source: ABdhPJzglAj2zEcuSTfR/ApGNCwL58mvFBlYw3kwcRHOHl7jcRz0JgVZV5GKXtIiD8j0Ohle/G/9WooWDkBOpUVFHgw=
+X-Received: by 2002:a5d:4a8a:: with SMTP id o10mr4835046wrq.327.1597858609658; 
+ Wed, 19 Aug 2020 10:36:49 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200817220238.603465-1-robdclark@gmail.com>
  <20200817220238.603465-11-robdclark@gmail.com>
-In-Reply-To: <20200817220238.603465-11-robdclark@gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 19 Aug 2020 10:02:20 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VzYSL-3q0oFPPSP7FiEdLeTEN6Zy=kp-73B=8LAavmVw@mail.gmail.com>
-Message-ID: <CAD=FV=VzYSL-3q0oFPPSP7FiEdLeTEN6Zy=kp-73B=8LAavmVw@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
+ <CAD=FV=VzYSL-3q0oFPPSP7FiEdLeTEN6Zy=kp-73B=8LAavmVw@mail.gmail.com>
+In-Reply-To: <CAD=FV=VzYSL-3q0oFPPSP7FiEdLeTEN6Zy=kp-73B=8LAavmVw@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 19 Aug 2020 10:36:38 -0700
+Message-ID: <CAF6AEGt=tGe3WQfyF_NuvJVXRbMH1=fnNK63MLpz0zxjZ9cwgQ@mail.gmail.com>
+To: Doug Anderson <dianders@chromium.org>
 Subject: Re: [Freedreno] [PATCH 10/20] dt-bindings: arm-smmu: Add compatible
  string for Adreno GPU SMMU
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -90,73 +83,89 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-
-On Mon, Aug 17, 2020 at 3:03 PM Rob Clark <robdclark@gmail.com> wrote:
+On Wed, Aug 19, 2020 at 10:03 AM Doug Anderson <dianders@chromium.org> wrote:
 >
-> From: Jordan Crouse <jcrouse@codeaurora.org>
+> Hi,
 >
-> Every Qcom Adreno GPU has an embedded SMMU for its own use. These
-> devices depend on unique features such as split pagetables,
-> different stall/halt requirements and other settings. Identify them
-> with a compatible string so that they can be identified in the
-> arm-smmu implementation specific code.
+> On Mon, Aug 17, 2020 at 3:03 PM Rob Clark <robdclark@gmail.com> wrote:
+> >
+> > From: Jordan Crouse <jcrouse@codeaurora.org>
+> >
+> > Every Qcom Adreno GPU has an embedded SMMU for its own use. These
+> > devices depend on unique features such as split pagetables,
+> > different stall/halt requirements and other settings. Identify them
+> > with a compatible string so that they can be identified in the
+> > arm-smmu implementation specific code.
+> >
+> > Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
+> > Reviewed-by: Rob Herring <robh@kernel.org>
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > ---
+> >  Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 4 ++++
+> >  1 file changed, 4 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+> > index 503160a7b9a0..5ec5d0d691f6 100644
+> > --- a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+> > +++ b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+> > @@ -40,6 +40,10 @@ properties:
+> >                - qcom,sm8150-smmu-500
+> >                - qcom,sm8250-smmu-500
+> >            - const: arm,mmu-500
+> > +      - description: Qcom Adreno GPUs implementing "arm,smmu-v2"
+> > +        items:
+> > +          - const: qcom,adreno-smmu
+> > +          - const: qcom,smmu-v2
 >
-> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
-> Reviewed-by: Rob Herring <robh@kernel.org>
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 4 ++++
->  1 file changed, 4 insertions(+)
+> I know I'm kinda late to the game, but this seems weird to me,
+> especially given the later patches in the series like:
 >
-> diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-> index 503160a7b9a0..5ec5d0d691f6 100644
-> --- a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-> +++ b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-> @@ -40,6 +40,10 @@ properties:
->                - qcom,sm8150-smmu-500
->                - qcom,sm8250-smmu-500
->            - const: arm,mmu-500
-> +      - description: Qcom Adreno GPUs implementing "arm,smmu-v2"
-> +        items:
-> +          - const: qcom,adreno-smmu
-> +          - const: qcom,smmu-v2
-
-I know I'm kinda late to the game, but this seems weird to me,
-especially given the later patches in the series like:
-
-https://lore.kernel.org/r/20200817220238.603465-19-robdclark@gmail.com
-
-Specifically in that patch you can see that this IOMMU already had a
-compatible string and we're changing it and throwing away the
-model-specific string?  I'm guessing that you're just trying to make
-it easier for code to identify the adreno iommu, but it seems like a
-better way would have been to just add the adreno compatible in the
-middle, like:
-
-      - description: Qcom Adreno GPUs implementing "arm,smmu-v2"
-        items:
-          - enum:
-              - qcom,msm8996-smmu-v2
-              - qcom,msm8998-smmu-v2
-              - qcom,sc7180-smmu-v2
-              - qcom,sdm845-smmu-v2
-        - const: qcom,adreno-smmu
-        - const: qcom,smmu-v2
-
-Then we still have the SoC-specific compatible string in case we need
-it but we also have the generic one?  It also means that we're not
-deleting the old compatible string...
-
--Doug
-
-
->        - description: Marvell SoCs implementing "arm,mmu-500"
->          items:
->            - const: marvell,ap806-smmu-500
-> --
-> 2.26.2
+> https://lore.kernel.org/r/20200817220238.603465-19-robdclark@gmail.com
 >
+> Specifically in that patch you can see that this IOMMU already had a
+> compatible string and we're changing it and throwing away the
+> model-specific string?  I'm guessing that you're just trying to make
+> it easier for code to identify the adreno iommu, but it seems like a
+> better way would have been to just add the adreno compatible in the
+> middle, like:
+>
+>       - description: Qcom Adreno GPUs implementing "arm,smmu-v2"
+>         items:
+>           - enum:
+>               - qcom,msm8996-smmu-v2
+>               - qcom,msm8998-smmu-v2
+>               - qcom,sc7180-smmu-v2
+>               - qcom,sdm845-smmu-v2
+>         - const: qcom,adreno-smmu
+>         - const: qcom,smmu-v2
+>
+> Then we still have the SoC-specific compatible string in case we need
+> it but we also have the generic one?  It also means that we're not
+> deleting the old compatible string...
+
+I did bring up the thing about removing the compat string in an
+earlier revision of the series.. but then we realized that
+qcom,sc7180-smmu-v2 was never actually used anywhere.
+
+But I guess we could:  compatible = "qcom,sc7180-smmu-v2",
+"qcom,adreno-smmu", "qcom,smmu-v2";
+
+BR,
+-R
+
+
+
+
+>
+> -Doug
+>
+>
+> >        - description: Marvell SoCs implementing "arm,mmu-500"
+> >          items:
+> >            - const: marvell,ap806-smmu-500
+> > --
+> > 2.26.2
+> >
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
