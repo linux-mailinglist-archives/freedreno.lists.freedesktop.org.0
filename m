@@ -1,58 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B491124B2BE
-	for <lists+freedreno@lfdr.de>; Thu, 20 Aug 2020 11:36:28 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3822724B6EA
+	for <lists+freedreno@lfdr.de>; Thu, 20 Aug 2020 12:44:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 703266E92B;
-	Thu, 20 Aug 2020 09:36:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA8956E934;
+	Thu, 20 Aug 2020 10:44:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
- [IPv6:2a00:1450:4864:20::242])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 518F96E92B
- for <freedreno@lists.freedesktop.org>; Thu, 20 Aug 2020 09:36:26 +0000 (UTC)
-Received: by mail-lj1-x242.google.com with SMTP id v12so1321004ljc.10
- for <freedreno@lists.freedesktop.org>; Thu, 20 Aug 2020 02:36:26 -0700 (PDT)
+Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
+ [IPv6:2607:f8b0:4864:20::543])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FF5F6E936
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Aug 2020 10:44:16 +0000 (UTC)
+Received: by mail-pg1-x543.google.com with SMTP id h12so934530pgm.7
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Aug 2020 03:44:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=iyIFHI/GagIm4is2IjKR4dFCd2u6tmF485sTbdWxVbM=;
- b=MLkiiqpTIK0T8bIG8a7cw3MlTUto09mHqhVzUWPfnkk4OxAgoe4yk5RS+KzyPkc0rV
- fSzxXaaHo2Ohq+lyWw4WVH93TRgv0UhPZUicHg09AtCULq+HW79090fk/I68wSIlGQG2
- 2YPoUJB+09rDM1BounEJ/4DbnRsg71ly86n0zyynHqByO23KsJ1MgRQ/VchwqV4iuXtR
- EPP+1nsst3H0kTK7jgtwccEi40dav3czNwj4Djj7S330dhKMPaA5ZW7WUY6bzUnGclve
- uVQdReKKsIlH6FcLOEOc27TBBv89loXlhqZcWAYQOMFu+5mX+RGolF/sT/kU6WzuEh1Z
- mtCw==
+ bh=3PXtPhgN15xkqptqDoOT+6OR5bz1DwLunRYJNev9KR4=;
+ b=zkaFZto0eMoTUXrhXnN5c215rPk2SI+mYKS6axiQrRCTTNkAxc+HQ1zvbE+9q8CdK3
+ ejrwiC5XvbU1VEVR0PkGPGG669EkRUf07na+UAjM95hQEAsG4rAcauD7W4QS/mQQK9Ji
+ aHAzBEJD8cb3YAopp2IN0BnKR0TfeOemTuipy2eA7MsVI9rqpSpfngZuJ3YGffGgvoOr
+ 2qaNwaJ3BQvjLM/eOrXzy4yluttDslK9WrVaLBIAQGyCyGmcBfTPfVT8FfIY5a1ueI/3
+ qAMmm3cwSJncp0MSZc3c4f5Ucf1L5617fzuL31JE1OimTfSyQCLy69f4jWzzKMfRVtbY
+ sboA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=iyIFHI/GagIm4is2IjKR4dFCd2u6tmF485sTbdWxVbM=;
- b=QvmvSJoQAdKJ9aqvuaso/lWSS6Sechja/xenzu9AySIYU81xUM1mRDtSS777wBEdV2
- Fk7yoUc0XfTf7Wq3aJ+Ihoi5NEGM6bFq8mVtQJLDtbFT8+MM6r759jr3urWfBCeZFf7A
- jxG0sNgzkntMH4vRlklImxc76Eqo8aaerp5HwH8tf3nQyr7IlicG127mKp+EN96VxFCG
- S4SJjHmo/hatfVLkqC0fWK+GaL0no0KUT+u6BaxBJOkQpdpfA6Gm6R/dUPQJxvkZulpB
- v+GbQIgcftKptDDe864P2SplH8D6ckZy13zq/+9E2QWtjfUQDsWCtAO04bqCFBdvnq2a
- hnRg==
-X-Gm-Message-State: AOAM532T1PHXu5jWRzOme0/EZybi2cNYSCMfV2X8ms/1Ys9l6Y/B8Udl
- EFqzvRjqA5YkwOjFEIjTmNb19A==
-X-Google-Smtp-Source: ABdhPJzkrJAsNCFVlqgWwzF85xdP8TGCbYUj+sMOPyxm2W8leLqPgVkA3ZiRvIiKvXe8klbPf8wjPA==
-X-Received: by 2002:a2e:71a:: with SMTP id 26mr1262048ljh.198.1597916184580;
- Thu, 20 Aug 2020 02:36:24 -0700 (PDT)
-Received: from eriador.lan ([188.162.65.245])
- by smtp.gmail.com with ESMTPSA id o1sm341811ljc.3.2020.08.20.02.36.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Aug 2020 02:36:23 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-Date: Thu, 20 Aug 2020 12:36:22 +0300
-Message-Id: <20200820093622.3801751-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.28.0
+ bh=3PXtPhgN15xkqptqDoOT+6OR5bz1DwLunRYJNev9KR4=;
+ b=kAfbuz5WCWuH80ffX795RJE0GagV8pgm0JC99H/b3XSWlOmvN4dfsU1tANIzkrO3QA
+ gF8mZJkgD36a/q0I/+v6sFMj/e1LZb0HfDeHiYfxF9HoNe6vg8P5ptuNQdZ/wR4WUS4s
+ MhP0SGQ9sg/gPk3CXS30e9XrlPU60mWCFV4AH+MVsXhsB6Mj9cKHVt6rxasJ/6Ejo6U9
+ E+uayHdwyPDHT5LrVUni5F6PRJmyJN8/Y0n09hAE7858bfkRemk2JntHG1wsKdxzBB+O
+ 48BobbyzbyOqabx7GKNJBcrqoDbTNSmVFfDg3CN++LmH4uGsLAY0cryV/h2QVSVH1WHC
+ wp8Q==
+X-Gm-Message-State: AOAM5331zEQ5lvtSROuKAoql8sUImaDUDr3wFAookaddO8pRr+Ik2P4d
+ aNQBbHBvQa/QI8MfqvC1x1XjnQ==
+X-Google-Smtp-Source: ABdhPJzGI4PMt2rxPglqL7BKdt2SWVVgHiE/GuL96GZfgXci06o5FRoVl3y2qYxeBmL8p5wYvmHOSw==
+X-Received: by 2002:a65:4808:: with SMTP id h8mr2045357pgs.113.1597920255960; 
+ Thu, 20 Aug 2020 03:44:15 -0700 (PDT)
+Received: from localhost ([122.172.43.13])
+ by smtp.gmail.com with ESMTPSA id e8sm2352323pfd.34.2020.08.20.03.44.14
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 20 Aug 2020 03:44:15 -0700 (PDT)
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: rnayak@codeaurora.org, Adrian Hunter <adrian.hunter@intel.com>,
+ Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
+ Fabio Estevam <festevam@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Mark Brown <broonie@kernel.org>,
+ NXP Linux Team <linux-imx@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Qiang Yu <yuq825@gmail.com>, "Rafael J. Wysocki" <rjw@rjwysocki.net>,
+ Rob Clark <robdclark@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Sean Paul <sean@poorly.run>, Shawn Guo <shawnguo@kernel.org>,
+ Ulf Hansson <ulf.hansson@linaro.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>
+Date: Thu, 20 Aug 2020 16:13:49 +0530
+Message-Id: <cover.1597919647.git.viresh.kumar@linaro.org>
+X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm/a6xx: fix gmu start on newer firmware
+Subject: [Freedreno] [PATCH 0/8] opp: Unconditionally call
+ dev_pm_opp_of_remove_table()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,52 +78,58 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+Cc: Nishanth Menon <nm@ti.com>, Vincent Guittot <vincent.guittot@linaro.org>,
+ lima@lists.freedesktop.org, linux-pm@vger.kernel.org,
+ Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-spi@vger.kernel.org,
+ linux-serial@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-New Qualcomm firmware has changed a way it reports back the 'started'
-event. Support new register values.
+Hello,
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+This cleans up some of the user code around calls to
+dev_pm_opp_of_remove_table().
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index b67b38c8fadf..0df56292e227 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -204,6 +204,16 @@ static int a6xx_gmu_start(struct a6xx_gmu *gmu)
- {
- 	int ret;
- 	u32 val;
-+	u32 mask, reset_val;
-+
-+	val = gmu_read(gmu, REG_A6XX_GMU_CM3_DTCM_START + 0xff8);
-+	if (val <= 0x20010004) {
-+		mask = 0xffffffff;
-+		reset_val = 0xbabeface;
-+	} else {
-+		mask = 0x1ff;
-+		reset_val = 0x100;
-+	}
- 
- 	gmu_write(gmu, REG_A6XX_GMU_CM3_SYSRESET, 1);
- 
-@@ -215,7 +225,7 @@ static int a6xx_gmu_start(struct a6xx_gmu *gmu)
- 	gmu_write(gmu, REG_A6XX_GMU_CM3_SYSRESET, 0);
- 
- 	ret = gmu_poll_timeout(gmu, REG_A6XX_GMU_CM3_FW_INIT_RESULT, val,
--		val == 0xbabeface, 100, 10000);
-+		(val & mask) == reset_val, 100, 10000);
- 
- 	if (ret)
- 		DRM_DEV_ERROR(gmu->dev, "GMU firmware initialization timed out\n");
+All the patches can be picked by respective maintainers directly except
+for the last patch, which needs the previous two to get merged first.
+
+These are based for 5.9-rc1.
+
+Rajendra, Since most of these changes are related to qcom stuff, it
+would be great if you can give them a try. I wasn't able to test them
+due to lack of hardware.
+
+Viresh Kumar (8):
+  cpufreq: imx6q: Unconditionally call dev_pm_opp_of_remove_table()
+  drm/lima: Unconditionally call dev_pm_opp_of_remove_table()
+  drm/msm: Unconditionally call dev_pm_opp_of_remove_table()
+  mmc: sdhci-msm: Unconditionally call dev_pm_opp_of_remove_table()
+  spi: spi-geni-qcom: Unconditionally call dev_pm_opp_of_remove_table()
+  spi: spi-qcom-qspi: Unconditionally call dev_pm_opp_of_remove_table()
+  tty: serial: qcom_geni_serial: Unconditionally call
+    dev_pm_opp_of_remove_table()
+  qcom-geni-se: remove has_opp_table
+
+ drivers/cpufreq/imx6q-cpufreq.c         | 10 ++--------
+ drivers/gpu/drm/lima/lima_devfreq.c     |  6 +-----
+ drivers/gpu/drm/lima/lima_devfreq.h     |  1 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 10 +++-------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h |  1 -
+ drivers/gpu/drm/msm/dsi/dsi_host.c      |  8 ++------
+ drivers/mmc/host/sdhci-msm.c            | 11 +++--------
+ drivers/spi/spi-geni-qcom.c             | 10 +++-------
+ drivers/spi/spi-qcom-qspi.c             | 11 +++--------
+ drivers/tty/serial/qcom_geni_serial.c   | 10 +++-------
+ include/linux/qcom-geni-se.h            |  2 --
+ 11 files changed, 20 insertions(+), 60 deletions(-)
+
 -- 
-2.28.0
+2.25.0.rc1.19.g042ed3e048af
 
 _______________________________________________
 Freedreno mailing list
