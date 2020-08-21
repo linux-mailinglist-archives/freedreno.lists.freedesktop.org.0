@@ -2,61 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B310324B6EC
-	for <lists+freedreno@lfdr.de>; Thu, 20 Aug 2020 12:44:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E753624D76F
+	for <lists+freedreno@lfdr.de>; Fri, 21 Aug 2020 16:40:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76EAA6E939;
-	Thu, 20 Aug 2020 10:44:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F2246E5A0;
+	Fri, 21 Aug 2020 14:40:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
- [IPv6:2607:f8b0:4864:20::641])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 515086E939
- for <freedreno@lists.freedesktop.org>; Thu, 20 Aug 2020 10:44:25 +0000 (UTC)
-Received: by mail-pl1-x641.google.com with SMTP id y6so858587plt.3
- for <freedreno@lists.freedesktop.org>; Thu, 20 Aug 2020 03:44:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=DpgTiEjgRiD0zhPSebj/TpHieKoL8i50gdOLCJBlmJ4=;
- b=OSGUAITJhbJJ52/Uazu0MwC68AnxFTVFBm2nryW7rIRv2Iehs4ErKkFDB4CvW/yifJ
- ELaRK72bwMfqIokp6jb3YgnqZhSeHNDQzg025eNwaeahDVZfjtOHufpZEQ4EPZA58LRi
- wjwfNwQUwHsjcucCKoKS/aPzEGZSL86XD6dlQ/mSWuZKipvSC8SbXtbH0VffOwrmBBS9
- N+TkFN4uny2gtdDnktp1L5R0IDe52JqLCbLdiILjK+3LPgtibESdOcwz3gLKy5O87faY
- np1FWs1hsGNXwSzhURE1Okz9dQm9zvIw5pJ4DhKC7mK3BqIx6pBnupcYs8m0KuS4XwTF
- 7ZTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=DpgTiEjgRiD0zhPSebj/TpHieKoL8i50gdOLCJBlmJ4=;
- b=dNNHH4+38ipGyvs3fvGi7+bj8JDZ6IubuW1ZfsGRTcDjOJjel1tvDKBdMQ2Qfsai5o
- g7g5vcBX8FQDD1BP2/0JqwlusmUKWUW2C4k7m+nDjcyXSOBzy6lHVG34RDyj/pxdK3sD
- 7k0vQBbv5zoRtEqYf293yzVsUAaJZNTF+FphOspEesPm/HNLmPqi0N+lr4q2tZBxKm4m
- 85B+cTUHHhLAD4NeqfH+81iqooXSskQjbV+2Fz9byNza/8HBK46284YEAm1qtomTQD0C
- V9ssn5dFO23abiPktkO+rk9EDsj3pEOlQzUl7aJbcZcS/qs3jvlsc8S806IZcM+1jWNd
- G4jQ==
-X-Gm-Message-State: AOAM533AuCy6If5oIa+oGIBghMX7alpNPnnJ7q86p1ePmsakpWpYdPWb
- vkCFD5PJy5bteAET0U+wFlYfNA==
-X-Google-Smtp-Source: ABdhPJxZdfH8zu/kawgBGn1ZD0k1zqJV1XqBEDc/6HZKKh1V4ywtw6ENVhC4nHHzRCocDlAUxfTj2w==
-X-Received: by 2002:a17:90b:238d:: with SMTP id
- mr13mr1928786pjb.132.1597920264919; 
- Thu, 20 Aug 2020 03:44:24 -0700 (PDT)
-Received: from localhost ([122.172.43.13])
- by smtp.gmail.com with ESMTPSA id e7sm2145009pgn.64.2020.08.20.03.44.24
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 20 Aug 2020 03:44:24 -0700 (PDT)
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: rnayak@codeaurora.org, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
-Date: Thu, 20 Aug 2020 16:13:52 +0530
-Message-Id: <4ca1dd576f016d49e57b679d0921a268b4a7fa62.1597919647.git.viresh.kumar@linaro.org>
-X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
-In-Reply-To: <cover.1597919647.git.viresh.kumar@linaro.org>
-References: <cover.1597919647.git.viresh.kumar@linaro.org>
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4942C6E5A0
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Aug 2020 14:39:58 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1598020801; h=In-Reply-To: Content-Type: MIME-Version:
+ References: Message-ID: Subject: Cc: To: From: Date: Sender;
+ bh=f4QpQDB+MbSkZZvbfEWSvvZ3/lzOjyR6dXGT/NcXAIQ=;
+ b=JEK8puis6ogysy9vKqoVXQBEv7i0YpoL/6nedOpK/45yO+2S6HOhHxpzk0VtHmos13JbNK47
+ 8cEXO5o2vNoDBa60FGnymCFVK1p9H1feS21nv8htGFSvFedct/MU9AHj7p05hQHPgKLF+c4y
+ kYbaoNu6fOJE5Igpk6Cuj6N5DHA=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
+ 5f3fdcb5b09c62898fb5126b (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 21 Aug 2020 14:39:49
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 78859C4339C; Fri, 21 Aug 2020 14:39:48 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id AC05CC433C6;
+ Fri, 21 Aug 2020 14:39:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org AC05CC433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=jcrouse@codeaurora.org
+Date: Fri, 21 Aug 2020 08:39:38 -0600
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <20200821143938.GA27918@jcrouse1-lnx.qualcomm.com>
+Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
+ Doug Anderson <dianders@chromium.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Will Deacon <will@kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Sibi Sankar <sibis@codeaurora.org>,
+ Vivek Gautam <vivek.gautam@codeaurora.org>,
+ Stephen Boyd <swboyd@chromium.org>,
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Rob Herring <robh@kernel.org>, Rob Clark <robdclark@chromium.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, 
+ open list <linux-kernel@vger.kernel.org>
+References: <20200817220238.603465-1-robdclark@gmail.com>
+ <20200817220238.603465-11-robdclark@gmail.com>
+ <CAD=FV=VzYSL-3q0oFPPSP7FiEdLeTEN6Zy=kp-73B=8LAavmVw@mail.gmail.com>
+ <CAF6AEGt=tGe3WQfyF_NuvJVXRbMH1=fnNK63MLpz0zxjZ9cwgQ@mail.gmail.com>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 3/8] drm/msm: Unconditionally call
- dev_pm_opp_of_remove_table()
+Content-Disposition: inline
+In-Reply-To: <CAF6AEGt=tGe3WQfyF_NuvJVXRbMH1=fnNK63MLpz0zxjZ9cwgQ@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Freedreno] [PATCH 10/20] dt-bindings: arm-smmu: Add compatible
+ string for Adreno GPU SMMU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,111 +92,122 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Nishanth Menon <nm@ti.com>, Vincent Guittot <vincent.guittot@linaro.org>,
- linux-pm@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Rafael Wysocki <rjw@rjwysocki.net>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ open list <linux-kernel@vger.kernel.org>, Rob Herring <robh@kernel.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Joerg Roedel <joro@8bytes.org>, Doug Anderson <dianders@chromium.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
+ Rob Herring <robh+dt@kernel.org>, Sibi Sankar <sibis@codeaurora.org>,
+ Vivek Gautam <vivek.gautam@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
+ Will Deacon <will@kernel.org>,
+ "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>,
+ Robin Murphy <robin.murphy@arm.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-dev_pm_opp_of_remove_table() doesn't report any errors when it fails to
-find the OPP table with error -ENODEV (i.e. OPP table not present for
-the device). And we can call dev_pm_opp_of_remove_table()
-unconditionally here.
+On Wed, Aug 19, 2020 at 10:36:38AM -0700, Rob Clark wrote:
+> On Wed, Aug 19, 2020 at 10:03 AM Doug Anderson <dianders@chromium.org> wrote:
+> >
+> > Hi,
+> >
+> > On Mon, Aug 17, 2020 at 3:03 PM Rob Clark <robdclark@gmail.com> wrote:
+> > >
+> > > From: Jordan Crouse <jcrouse@codeaurora.org>
+> > >
+> > > Every Qcom Adreno GPU has an embedded SMMU for its own use. These
+> > > devices depend on unique features such as split pagetables,
+> > > different stall/halt requirements and other settings. Identify them
+> > > with a compatible string so that they can be identified in the
+> > > arm-smmu implementation specific code.
+> > >
+> > > Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
+> > > Reviewed-by: Rob Herring <robh@kernel.org>
+> > > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > > ---
+> > >  Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 4 ++++
+> > >  1 file changed, 4 insertions(+)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+> > > index 503160a7b9a0..5ec5d0d691f6 100644
+> > > --- a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+> > > +++ b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+> > > @@ -40,6 +40,10 @@ properties:
+> > >                - qcom,sm8150-smmu-500
+> > >                - qcom,sm8250-smmu-500
+> > >            - const: arm,mmu-500
+> > > +      - description: Qcom Adreno GPUs implementing "arm,smmu-v2"
+> > > +        items:
+> > > +          - const: qcom,adreno-smmu
+> > > +          - const: qcom,smmu-v2
+> >
+> > I know I'm kinda late to the game, but this seems weird to me,
+> > especially given the later patches in the series like:
+> >
+> > https://lore.kernel.org/r/20200817220238.603465-19-robdclark@gmail.com
+> >
+> > Specifically in that patch you can see that this IOMMU already had a
+> > compatible string and we're changing it and throwing away the
+> > model-specific string?  I'm guessing that you're just trying to make
+> > it easier for code to identify the adreno iommu, but it seems like a
+> > better way would have been to just add the adreno compatible in the
+> > middle, like:
+> >
+> >       - description: Qcom Adreno GPUs implementing "arm,smmu-v2"
+> >         items:
+> >           - enum:
+> >               - qcom,msm8996-smmu-v2
+> >               - qcom,msm8998-smmu-v2
+> >               - qcom,sc7180-smmu-v2
+> >               - qcom,sdm845-smmu-v2
+> >         - const: qcom,adreno-smmu
+> >         - const: qcom,smmu-v2
+> >
+> > Then we still have the SoC-specific compatible string in case we need
+> > it but we also have the generic one?  It also means that we're not
+> > deleting the old compatible string...
+> 
+> I did bring up the thing about removing the compat string in an
+> earlier revision of the series.. but then we realized that
+> qcom,sc7180-smmu-v2 was never actually used anywhere.
+> 
+> But I guess we could:  compatible = "qcom,sc7180-smmu-v2",
+> "qcom,adreno-smmu", "qcom,smmu-v2";
 
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 10 +++-------
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h |  1 -
- drivers/gpu/drm/msm/dsi/dsi_host.c      |  8 ++------
- 3 files changed, 5 insertions(+), 14 deletions(-)
+I think the SoC specific string is intended for the "other" SMMU that everybody
+else uses. Rarely would a workaround for that SMMU affect the GPU and vice
+versa. Since these are the bindings it doesn't hurt to allow for the possibility
+but I would be surprised if the occasion presented itself.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index c0a4d4e16d82..1bd67ba1bf1f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -1010,9 +1010,7 @@ static int dpu_bind(struct device *dev, struct device *master, void *data)
- 		return PTR_ERR(dpu_kms->opp_table);
- 	/* OPP table is optional */
- 	ret = dev_pm_opp_of_add_table(dev);
--	if (!ret) {
--		dpu_kms->has_opp_table = true;
--	} else if (ret != -ENODEV) {
-+	if (ret != -ENODEV) {
- 		dev_err(dev, "invalid OPP table in device tree\n");
- 		dev_pm_opp_put_clkname(dpu_kms->opp_table);
- 		return ret;
-@@ -1037,8 +1035,7 @@ static int dpu_bind(struct device *dev, struct device *master, void *data)
- 	priv->kms = &dpu_kms->base;
- 	return ret;
- err:
--	if (dpu_kms->has_opp_table)
--		dev_pm_opp_of_remove_table(dev);
-+	dev_pm_opp_of_remove_table(dev);
- 	dev_pm_opp_put_clkname(dpu_kms->opp_table);
- 	return ret;
- }
-@@ -1056,8 +1053,7 @@ static void dpu_unbind(struct device *dev, struct device *master, void *data)
- 	if (dpu_kms->rpm_enabled)
- 		pm_runtime_disable(&pdev->dev);
- 
--	if (dpu_kms->has_opp_table)
--		dev_pm_opp_of_remove_table(dev);
-+	dev_pm_opp_of_remove_table(dev);
- 	dev_pm_opp_put_clkname(dpu_kms->opp_table);
- }
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-index e140cd633071..8295979a7165 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-@@ -129,7 +129,6 @@ struct dpu_kms {
- 	bool rpm_enabled;
- 
- 	struct opp_table *opp_table;
--	bool has_opp_table;
- 
- 	struct dss_module_power mp;
- 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index b17ac6c27554..288f9df06ea2 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -113,7 +113,6 @@ struct msm_dsi_host {
- 	struct clk *byte_intf_clk;
- 
- 	struct opp_table *opp_table;
--	bool has_opp_table;
- 
- 	u32 byte_clk_rate;
- 	u32 pixel_clk_rate;
-@@ -1891,9 +1890,7 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
- 		return PTR_ERR(msm_host->opp_table);
- 	/* OPP table is optional */
- 	ret = dev_pm_opp_of_add_table(&pdev->dev);
--	if (!ret) {
--		msm_host->has_opp_table = true;
--	} else if (ret != -ENODEV) {
-+	if (ret != -ENODEV) {
- 		dev_err(&pdev->dev, "invalid OPP table in device tree\n");
- 		dev_pm_opp_put_clkname(msm_host->opp_table);
- 		return ret;
-@@ -1934,8 +1931,7 @@ void msm_dsi_host_destroy(struct mipi_dsi_host *host)
- 	mutex_destroy(&msm_host->cmd_mutex);
- 	mutex_destroy(&msm_host->dev_mutex);
- 
--	if (msm_host->has_opp_table)
--		dev_pm_opp_of_remove_table(&msm_host->pdev->dev);
-+	dev_pm_opp_of_remove_table(&msm_host->pdev->dev);
- 	dev_pm_opp_put_clkname(msm_host->opp_table);
- 	pm_runtime_disable(&msm_host->pdev->dev);
- }
+Jordan
+
+> BR,
+> -R
+> 
+> 
+> 
+> 
+> >
+> > -Doug
+> >
+> >
+> > >        - description: Marvell SoCs implementing "arm,mmu-500"
+> > >          items:
+> > >            - const: marvell,ap806-smmu-500
+> > > --
+> > > 2.26.2
+> > >
+
 -- 
-2.25.0.rc1.19.g042ed3e048af
-
+The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+a Linux Foundation Collaborative Project
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
