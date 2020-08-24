@@ -2,61 +2,49 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C4E025084D
-	for <lists+freedreno@lfdr.de>; Mon, 24 Aug 2020 20:43:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 522C42508A3
+	for <lists+freedreno@lfdr.de>; Mon, 24 Aug 2020 21:02:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0E266E466;
-	Mon, 24 Aug 2020 18:43:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E74116E47B;
+	Mon, 24 Aug 2020 19:02:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
- [IPv6:2607:f8b0:4864:20::1041])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 108D46E526;
- Mon, 24 Aug 2020 18:43:16 +0000 (UTC)
-Received: by mail-pj1-x1041.google.com with SMTP id q93so77398pjq.0;
- Mon, 24 Aug 2020 11:43:16 -0700 (PDT)
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 549E46E0C1;
+ Mon, 24 Aug 2020 19:02:20 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id a5so10052537wrm.6;
+ Mon, 24 Aug 2020 12:02:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=AC5ImHpMp+jWX/ACOy7SaY7mRdOd/yQkd8IlsbOtJsk=;
- b=RH9L9oVy2h913LfHW6P+XO6u/MxMzMTUUsKJBGwDeDZ9Uoa57fZQ79YUlceINIegKm
- cJ7uxcs8YDHSJGwqtSFLLOWy2gX+azFPc1o1cC/2qICmgIWp7bV7WLvZbEkdUhduGh9i
- JMUtHVmr44iTsqMBUpv22v4RVQpvoDYnFFmbLWceeO1FOEML4ttF+kMzKQ/ob4Tzi6aV
- fBCFbZT254UHAzBt1wdSzepOSQDg49je32TL2yCKf3ypfg6T6r7XY85LlHW7auDAoxH0
- VL4vS0bYuIm+n0VP/BBp9plgvmYcYWOph1jUZEqfcTQDqOEXU/51yNd01ojYzNfbH8dS
- JHeA==
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=ixdaZBEf/bJWyqGfEyqLlCaukcoJXcmOC8zF6EigEiQ=;
+ b=b92lgvNrxkMBO2nUp2LnX+1F0/5KZF+ViqMB5ECk2oj13w3XqbcypIfcJLLyp2jLg+
+ Z60RfOmE77SnLGRAxUrRkUrcjJsJNn0wykgrju4NGWzPEv4kLAW6RNGoG0cE5y4kAGns
+ L7zo/JD9/Cb2a/khaqB4L4Xmr4BmthPv+iUnX/J+y4Z1BQxwb+XxcYzwqxKO+n1WXoJO
+ s9COolYeh7elE8E8MqVZmTe6taea2VMf/+Wy2lQ52VaOAOfj3Icp27Y4O/z4PNN2HS18
+ CcSGo0A4zofnVyjWDxdHkdEHlYZBs0skLGE4DshyegNFGPdvHPTud/ucRJNrfO+LLkQB
+ LGPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=AC5ImHpMp+jWX/ACOy7SaY7mRdOd/yQkd8IlsbOtJsk=;
- b=M9LyeUjR4f7c6rNpQiMoynitBP/JbrUVLY6Xt2ggJvwns/4KTFdp+I/SDg5kTe54Yo
- 1fSzP8bH9Xeglhpqbu/O+CMx7MXLgFiLGzfdqmnVBnauqpHdhc/0EI3aKyCnBHVbN5Sf
- lIwHHb5KN195ZLNA+FNNwXQJpnuAHZjd6RqNpNikNZRjEbtgZO7vupW14MADG5KZ2NS9
- aLsgwgcbt2GP0uks4YDqeP19ty3f/57mkLo4hTmvVDPeuncVOZ4w7xT9qra5Fg4u9MJ1
- 6hw4Y7GRrS9hacOazVIDBp6zCN4XkEeDjUdVeGorZcIzSlGh1t0e/y3DKpDMxR5RFY3s
- sN4Q==
-X-Gm-Message-State: AOAM531UzG76KIzE7sJkNqk4vxYzNz2kkqSw3mQdiNjOnZi3MIdjWXev
- aOVEObMOANC+oqEhect5A01ONcm98qZ9ZvPj
-X-Google-Smtp-Source: ABdhPJx44Gr61vM4CtpKXIdAOMWPg+XX5qMK442F+uOYSHCSUwT2vUJvhYx/tuN9h9j1jJ6/5O8fSQ==
-X-Received: by 2002:a17:90b:4c03:: with SMTP id
- na3mr509206pjb.29.1598294593422; 
- Mon, 24 Aug 2020 11:43:13 -0700 (PDT)
-Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
- by smtp.gmail.com with ESMTPSA id r186sm13557644pfr.162.2020.08.24.11.43.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Aug 2020 11:43:12 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org,
-	iommu@lists.linux-foundation.org
-Date: Mon, 24 Aug 2020 11:37:54 -0700
-Message-Id: <20200824183825.1778810-21-robdclark@gmail.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200824183825.1778810-1-robdclark@gmail.com>
-References: <20200824183825.1778810-1-robdclark@gmail.com>
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=ixdaZBEf/bJWyqGfEyqLlCaukcoJXcmOC8zF6EigEiQ=;
+ b=Vkb2fwNSMlrDPCQH9dCUlOWUJoLqnAjTwkqd367kbwbxCh2XBriE3CY3iQbAhv7FCU
+ ubw2B9cAHGXrMjfLKvSARd6OcotlE+/wKIP8uta5I0hCP6A+dsqCdy7xn8etj+r/iMng
+ CmS6wyjNv5UNXJt6J5C5YP2XSZkdti9iIRq3jIa81uWpSIJj3lIrPG3tY5MRz5ZoIxEC
+ 70azJHLwlE6yh2tzoFJVPu3nGLUGPZ3EgRrD4kZs04YVC5/hEm0Vdle5UtYG+7uvIpcS
+ 4hjfH9oX9vOw1xsTDxKuRGuXU5YTbS/0/rDlku8jt522AR/Mo2YXURNaXrINXrPXzYZh
+ qxRg==
+X-Gm-Message-State: AOAM531Nc9jsLx+c8h4evpDsWhHMLB1rjS5Xk3pWi70adaw+SLXVvuU0
+ ku5S9Z9IIlpNW9JQBPsXqFGUfOURKK6j0KqfsBxK+B3LAnqusg==
+X-Google-Smtp-Source: ABdhPJxb7xgiv95iPUd8pl9/NHIiGN0yDxgN7uSKxdrP5bbjwtzZNBdQ02evVOM9lrbm73E/Ij0tP8RgxGTTGXfwZSA=
+X-Received: by 2002:a5d:4a8a:: with SMTP id o10mr6668363wrq.327.1598295738854; 
+ Mon, 24 Aug 2020 12:02:18 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 20/20] drm/msm: show process names in
- gem_describe
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 24 Aug 2020 12:03:06 -0700
+Message-ID: <CAF6AEGt45A4ObyhEdC5Ga4f4cAf-NBSVRECu7df3Gh6-X4G3tQ@mail.gmail.com>
+To: Dave Airlie <airlied@gmail.com>
+Subject: [Freedreno] [pull] drm/msm: msm-fixes-v5.9
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,166 +57,73 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Akhil P Oommen <akhilpo@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Eric Anholt <eric@anholt.net>,
- Vivek Gautam <vivek.gautam@codeaurora.org>,
- AngeloGioacchino Del Regno <kholk11@gmail.com>, Will Deacon <will@kernel.org>,
- Rob Clark <robdclark@chromium.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, Joerg Roedel <joro@8bytes.org>,
- Ben Dooks <ben.dooks@codethink.co.uk>, Sibi Sankar <sibis@codeaurora.org>,
- Brian Masney <masneyb@onstation.org>, Joerg Roedel <jroedel@suse.de>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Stephen Boyd <swboyd@chromium.org>, Jordan Crouse <jcrouse@codeaurora.org>,
- John Stultz <john.stultz@linaro.org>, Sean Paul <sean@poorly.run>,
- freedreno@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Robin Murphy <robin.murphy@arm.com>
+Cc: Sean Paul <sean@poorly.run>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+Hi Dave,
 
-In $debugfs/gem we already show any vma(s) associated with an object.
-Also show process names if the vma's address space is a per-process
-address space.
+Some fixes for v5.9 plus the one opp/bandwidth scaling patch ("drm:
+msm: a6xx: use dev_pm_opp_set_bw to scale DDR") which was not included
+in the initial pull due to dependency on patch landing thru OPP tree
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
-Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
----
- drivers/gpu/drm/msm/msm_drv.c     |  2 +-
- drivers/gpu/drm/msm/msm_gem.c     | 25 +++++++++++++++++++++----
- drivers/gpu/drm/msm/msm_gem.h     |  5 +++++
- drivers/gpu/drm/msm/msm_gem_vma.c |  1 +
- drivers/gpu/drm/msm/msm_gpu.c     |  8 +++++---
- drivers/gpu/drm/msm/msm_gpu.h     |  2 +-
- 6 files changed, 34 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 7e963f707852..7143756b7e83 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -597,7 +597,7 @@ static int context_init(struct drm_device *dev, struct drm_file *file)
- 	kref_init(&ctx->ref);
- 	msm_submitqueue_init(dev, ctx);
- 
--	ctx->aspace = msm_gpu_create_private_address_space(priv->gpu);
-+	ctx->aspace = msm_gpu_create_private_address_space(priv->gpu, current);
- 	file->driver_priv = ctx;
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index 3cb7aeb93fd3..76a6c5271e57 100644
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -842,11 +842,28 @@ void msm_gem_describe(struct drm_gem_object *obj, struct seq_file *m)
- 
- 		seq_puts(m, "      vmas:");
- 
--		list_for_each_entry(vma, &msm_obj->vmas, list)
--			seq_printf(m, " [%s: %08llx,%s,inuse=%d]",
--				vma->aspace != NULL ? vma->aspace->name : NULL,
--				vma->iova, vma->mapped ? "mapped" : "unmapped",
-+		list_for_each_entry(vma, &msm_obj->vmas, list) {
-+			const char *name, *comm;
-+			if (vma->aspace) {
-+				struct msm_gem_address_space *aspace = vma->aspace;
-+				struct task_struct *task =
-+					get_pid_task(aspace->pid, PIDTYPE_PID);
-+				if (task) {
-+					comm = kstrdup(task->comm, GFP_KERNEL);
-+				} else {
-+					comm = NULL;
-+				}
-+				name = aspace->name;
-+			} else {
-+				name = comm = NULL;
-+			}
-+			seq_printf(m, " [%s%s%s: aspace=%p, %08llx,%s,inuse=%d]",
-+				name, comm ? ":" : "", comm ? comm : "",
-+				vma->aspace, vma->iova,
-+				vma->mapped ? "mapped" : "unmapped",
- 				vma->inuse);
-+			kfree(comm);
-+		}
- 
- 		seq_puts(m, "\n");
- 	}
-diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-index 9c573c4269cb..7b1c7a5f8eef 100644
---- a/drivers/gpu/drm/msm/msm_gem.h
-+++ b/drivers/gpu/drm/msm/msm_gem.h
-@@ -24,6 +24,11 @@ struct msm_gem_address_space {
- 	spinlock_t lock; /* Protects drm_mm node allocation/removal */
- 	struct msm_mmu *mmu;
- 	struct kref kref;
-+
-+	/* For address spaces associated with a specific process, this
-+	 * will be non-NULL:
-+	 */
-+	struct pid *pid;
- };
- 
- struct msm_gem_vma {
-diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
-index 29cc1305cf37..80a8a266d68f 100644
---- a/drivers/gpu/drm/msm/msm_gem_vma.c
-+++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-@@ -17,6 +17,7 @@ msm_gem_address_space_destroy(struct kref *kref)
- 	drm_mm_takedown(&aspace->mm);
- 	if (aspace->mmu)
- 		aspace->mmu->funcs->destroy(aspace->mmu);
-+	put_pid(aspace->pid);
- 	kfree(aspace);
- }
- 
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 951850804d77..ac8961187a73 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -825,10 +825,9 @@ static int get_clocks(struct platform_device *pdev, struct msm_gpu *gpu)
- 
- /* Return a new address space for a msm_drm_private instance */
- struct msm_gem_address_space *
--msm_gpu_create_private_address_space(struct msm_gpu *gpu)
-+msm_gpu_create_private_address_space(struct msm_gpu *gpu, struct task_struct *task)
- {
- 	struct msm_gem_address_space *aspace = NULL;
--
- 	if (!gpu)
- 		return NULL;
- 
-@@ -836,8 +835,11 @@ msm_gpu_create_private_address_space(struct msm_gpu *gpu)
- 	 * If the target doesn't support private address spaces then return
- 	 * the global one
- 	 */
--	if (gpu->funcs->create_private_address_space)
-+	if (gpu->funcs->create_private_address_space) {
- 		aspace = gpu->funcs->create_private_address_space(gpu);
-+		if (!IS_ERR(aspace))
-+			aspace->pid = get_pid(task_pid(task));
-+	}
- 
- 	if (IS_ERR_OR_NULL(aspace))
- 		aspace = msm_gem_address_space_get(gpu->aspace);
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index 4052a18e18c2..59f26bd0fe42 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -298,7 +298,7 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
- 		const char *name, struct msm_gpu_config *config);
- 
- struct msm_gem_address_space *
--msm_gpu_create_private_address_space(struct msm_gpu *gpu);
-+msm_gpu_create_private_address_space(struct msm_gpu *gpu, struct task_struct *task);
- 
- void msm_gpu_cleanup(struct msm_gpu *gpu);
- 
--- 
-2.26.2
+The following changes since commit 9123e3a74ec7b934a4a099e98af6a61c2f80bbf5:
 
+  Linux 5.9-rc1 (2020-08-16 13:04:57 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/msm.git drm-msm-fixes-2020-08-24
+
+for you to fetch changes up to 5e0c22d4a9ddae4e784a3e171b9d3d452b37aeb2:
+
+  drm/msm/a6xx: fix frequency not always being restored on GMU resume
+(2020-08-22 10:56:45 -0700)
+
+----------------------------------------------------------------
+Dmitry Baryshkov (1):
+      drm/msm/a6xx: fix gmu start on newer firmware
+
+Jonathan Marek (1):
+      drm/msm/a6xx: fix frequency not always being restored on GMU resume
+
+Kalyan Thota (2):
+      drm/msm/dpu: Fix reservation failures in modeset
+      drm/msm/dpu: Fix scale params in plane validation
+
+Krishna Manikandan (1):
+      drm/msm: add shutdown support for display platform_driver
+
+Rob Clark (6):
+      drm/msm/dpu: fix unitialized variable error
+      drm/msm/adreno: fix updating ring fence
+      drm/msm/gpu: make ringbuffer readonly
+      drm/msm: enable vblank during atomic commits
+      drm/msm/a6xx: fix crashdec section name typo
+      drm/msm/a6xx: add module param to enable debugbus snapshot
+
+Sharat Masetty (1):
+      drm: msm: a6xx: use dev_pm_opp_set_bw to scale DDR
+
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c       | 38 ++++++++++++++++++++++-------
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c |  3 ++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h |  2 +-
+ drivers/gpu/drm/msm/adreno/adreno_device.c  |  4 +++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c     |  2 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h     |  2 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 20 ++++++++-------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   |  4 +--
+ drivers/gpu/drm/msm/msm_atomic.c            | 36 +++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/msm_drv.c               |  8 ++++++
+ drivers/gpu/drm/msm/msm_ringbuffer.c        |  3 ++-
+ 12 files changed, 99 insertions(+), 25 deletions(-)
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
