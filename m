@@ -1,62 +1,46 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A76A24F06B
-	for <lists+freedreno@lfdr.de>; Mon, 24 Aug 2020 01:05:51 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 403E224F3CB
+	for <lists+freedreno@lfdr.de>; Mon, 24 Aug 2020 10:18:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDDC6894E0;
-	Sun, 23 Aug 2020 23:05:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA4DD6E1A3;
+	Mon, 24 Aug 2020 08:18:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
- [IPv6:2607:f8b0:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33F1D8919E;
- Sun, 23 Aug 2020 23:05:49 +0000 (UTC)
-Received: by mail-pf1-x441.google.com with SMTP id x25so3856130pff.4;
- Sun, 23 Aug 2020 16:05:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=rXg5ASTJKuS2X6twhw4KiiTJ11cb3nEvoe/6O1rzpFA=;
- b=TsXvoWqU84vmi9BoaUbGwBu0FapYlXJXX/AAIBvYoJuj01qPejSnDkFHpmgu5hFyBR
- v/8EnTWuOcu9kayTHFrbtnRsfVWfrvwa+FUoU1AjQ9heIhjTC0J3LJv/GFGISYKkEG4e
- LkGd32MHVU6nP/z5Rq6++B1/c+Mzj0qlPhqjMjo97MnMT8JY0dlLjANmm8qDaesTc5uF
- A3WZXlgcUGBugnJNmOCIgtyLqktpYiH7I8Ox4lchKO8tMcmyBnCeDTrOq1VMCLWWp6t5
- AXZVc4aFAFLQzJeFTEG2NskFitLMQWBneex1agMFvl57FU7qbyWkCKhoKEtL4r8XNubQ
- l/Kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :references:mime-version:content-disposition:in-reply-to:user-agent;
- bh=rXg5ASTJKuS2X6twhw4KiiTJ11cb3nEvoe/6O1rzpFA=;
- b=XzRAixyZR+lgTwIgBZwMBp4WtlC7FmFeC95/lGcIcYceUqSYS7pDWACECWHBxSevvT
- Kl8UHIfgQb8bN7fAq3ztJItXAQF5BsT1s/FkyOXsGFG7X6RtlnH3oGVWlowVR62jOOXw
- 1t0UoAZ6xlS79oXJI36nf9/J9GTJz1NWzpdtZgY9KW/CCObkDdxwZwP47aOThJ0YO1rk
- o3Gr83BQ9gCTdP9I5V4ZYgJ8R/Yj9i1VAURr91q2H4QAn3IHUYqJB2OgbYLGVrLJJwUD
- L25yOVg5aKfmEYOjkKrd7Ip/tMyJFWtS4flmrXhHMbW9JgZz9ow3ViEZdjE9007WSE7b
- wfiw==
-X-Gm-Message-State: AOAM532BFuB2mOumLIqXgNXcr6yQUS0n1nMF16fkDkdkv55DDP/rboyZ
- vP0bMML/b4mex2HlGLDEYU8=
-X-Google-Smtp-Source: ABdhPJwfvPy+sDses+GtoesDUewMlb1JaroSst40hW/p6qpgdSpWzbIrAHIwiqfhj0Iikn7Qc0J4Nw==
-X-Received: by 2002:a65:4502:: with SMTP id n2mr1758109pgq.132.1598223948586; 
- Sun, 23 Aug 2020 16:05:48 -0700 (PDT)
-Received: from localhost ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id b24sm7562652pjp.22.2020.08.23.16.05.47
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Sun, 23 Aug 2020 16:05:48 -0700 (PDT)
-Date: Sun, 23 Aug 2020 16:05:46 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Jordan Crouse <jcrouse@codeaurora.org>
-Message-ID: <20200823230546.GA189660@roeck-us.net>
-References: <20200810222657.1841322-1-jcrouse@codeaurora.org>
- <20200810222657.1841322-10-jcrouse@codeaurora.org>
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB1816E1A3
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Aug 2020 08:18:25 +0000 (UTC)
+Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
+ [83.86.89.107])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id C711E20738;
+ Mon, 24 Aug 2020 08:18:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1598257105;
+ bh=jc2ZdJllY7rFi6smiNrx8eJZXT27bCjsYZyb/p1oIOo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=iNmau/avDoftaYMD38taVSkLs5uknKkHzcy14C72Q59OVYBS/mFgSzqJ2zKf9vrPs
+ yeMuyJrJ2fyN97+yZhmQD1uh3IM0vptMzS3vH6x2oD2A0vDj3AuFZojFDg0VD/y4AS
+ OBo1w7ITWGdhhamXCuXhdltt3+ujlauzoN9X/qxk=
+Date: Mon, 24 Aug 2020 10:18:43 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Naresh Kamboju <naresh.kamboju@linaro.org>
+Message-ID: <20200824081843.GB248691@kroah.com>
+References: <CA+G9fYvGXOcsF=70FVwOxqVYOeGTUuzhUzh5od1cKV1hshsW_g@mail.gmail.com>
+ <CAK8P3a1ReCDR8REM7AWMisiEJ_D45pC8dXaoYFFVG3aZj91e7Q@mail.gmail.com>
+ <159549159798.3847286.18202724980881020289@swboyd.mtv.corp.google.com>
+ <CA+G9fYte5U-D7fqps2qJga_LSuGrb6t9Y1rOvPCPzz46BwchyA@mail.gmail.com>
+ <159549996283.3847286.2480782726716664105@swboyd.mtv.corp.google.com>
+ <159725426896.33733.4908725817224764584@swboyd.mtv.corp.google.com>
+ <CA+G9fYuVQonk+hcaJWaJ2CNWrsgV5EsRa+1eUr6+UUKxHGB3vw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200810222657.1841322-10-jcrouse@codeaurora.org>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Freedreno] [PATCH v12 09/13] drm/msm: Add support to create a
- local pagetable
+In-Reply-To: <CA+G9fYuVQonk+hcaJWaJ2CNWrsgV5EsRa+1eUr6+UUKxHGB3vw@mail.gmail.com>
+Subject: Re: [Freedreno] stable-rc 4.14: arm64: Internal error: Oops:
+ clk_reparent __clk_set_parent_before on db410c
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,316 +53,54 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Will Deacon <will@kernel.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Robin Murphy <robin.murphy@arm.com>,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- iommu@lists.linux-foundation.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>, Rob Clark <robdclark@chromium.org>,
+ Arnd Bergmann <arnd@arndb.de>, samuel@sholland.org,
+ Stephen Boyd <sboyd@kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ linux- stable <stable@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ Eric Anholt <eric@anholt.net>, Jordan Crouse <jcrouse@codeaurora.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ lkft-triage@lists.linaro.org, Miquel Raynal <miquel.raynal@bootlin.com>,
+ Chen-Yu Tsai <wens@csie.org>, freedreno <freedreno@lists.freedesktop.org>,
+ linux-clk <linux-clk@vger.kernel.org>, Robin Murphy <robin.murphy@arm.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Aug 10, 2020 at 04:26:53PM -0600, Jordan Crouse wrote:
-> Add support to create a io-pgtable for use by targets that support
-> per-instance pagetables. In order to support per-instance pagetables the
-> GPU SMMU device needs to have the qcom,adreno-smmu compatible string and
-> split pagetables enabled.
+On Thu, Aug 13, 2020 at 07:30:40PM +0530, Naresh Kamboju wrote:
+> On Wed, 12 Aug 2020 at 23:14, Stephen Boyd <sboyd@kernel.org> wrote:
+> >
+> > Quoting Stephen Boyd (2020-07-23 03:26:02)
+> > > Quoting Naresh Kamboju (2020-07-23 03:10:37)
+> > > > On Thu, 23 Jul 2020 at 13:36, Stephen Boyd <sboyd@kernel.org> wrote:
+> > > > >
+> > > > > It sounds like maybe you need this patch?
+> > > > >
+> > > > > bdcf1dc25324 ("clk: Evict unregistered clks from parent caches")
+> > > >
+> > > > Cherry-pick did not work on stable-rc 4.14
+> > > > this patch might need backporting.
+> > > > I am not sure.
+> > > >
+> > >
+> > > Ok. That commit fixes a regression in the 3.x series of the kernel so it
+> > > should go back to any LTS kernels. It looks like at least on 4.14 it's a
+> > > trivial conflict. Here's a backport to 4.14
+> >
+> > Did this help?
 > 
-> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
-
-This patch adds a hard dependency on IOMMU_IO_PGTABLE (for
-alloc_io_pgtable_ops and free_io_pgtable_ops).
-
-Guenter
-
-> ---
+> Thanks for your patch.
+> Sorry for the late reply.
+> The reported issue is not always reproducible However,
+> I have tested this for 100 cycles and did not notice the reported problem.
 > 
->  drivers/gpu/drm/msm/msm_gpummu.c |   2 +-
->  drivers/gpu/drm/msm/msm_iommu.c  | 190 ++++++++++++++++++++++++++++++-
->  drivers/gpu/drm/msm/msm_mmu.h    |  16 ++-
->  3 files changed, 205 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_gpummu.c b/drivers/gpu/drm/msm/msm_gpummu.c
-> index 310a31b05faa..aab121f4beb7 100644
-> --- a/drivers/gpu/drm/msm/msm_gpummu.c
-> +++ b/drivers/gpu/drm/msm/msm_gpummu.c
-> @@ -102,7 +102,7 @@ struct msm_mmu *msm_gpummu_new(struct device *dev, struct msm_gpu *gpu)
->  	}
->  
->  	gpummu->gpu = gpu;
-> -	msm_mmu_init(&gpummu->base, dev, &funcs);
-> +	msm_mmu_init(&gpummu->base, dev, &funcs, MSM_MMU_GPUMMU);
->  
->  	return &gpummu->base;
->  }
-> diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-> index 1b6635504069..bc04dda8a198 100644
-> --- a/drivers/gpu/drm/msm/msm_iommu.c
-> +++ b/drivers/gpu/drm/msm/msm_iommu.c
-> @@ -4,15 +4,201 @@
->   * Author: Rob Clark <robdclark@gmail.com>
->   */
->  
-> +#include <linux/io-pgtable.h>
->  #include "msm_drv.h"
->  #include "msm_mmu.h"
->  
->  struct msm_iommu {
->  	struct msm_mmu base;
->  	struct iommu_domain *domain;
-> +	atomic_t pagetables;
->  };
-> +
->  #define to_msm_iommu(x) container_of(x, struct msm_iommu, base)
->  
-> +struct msm_iommu_pagetable {
-> +	struct msm_mmu base;
-> +	struct msm_mmu *parent;
-> +	struct io_pgtable_ops *pgtbl_ops;
-> +	phys_addr_t ttbr;
-> +	u32 asid;
-> +};
-> +static struct msm_iommu_pagetable *to_pagetable(struct msm_mmu *mmu)
-> +{
-> +	return container_of(mmu, struct msm_iommu_pagetable, base);
-> +}
-> +
-> +static int msm_iommu_pagetable_unmap(struct msm_mmu *mmu, u64 iova,
-> +		size_t size)
-> +{
-> +	struct msm_iommu_pagetable *pagetable = to_pagetable(mmu);
-> +	struct io_pgtable_ops *ops = pagetable->pgtbl_ops;
-> +	size_t unmapped = 0;
-> +
-> +	/* Unmap the block one page at a time */
-> +	while (size) {
-> +		unmapped += ops->unmap(ops, iova, 4096, NULL);
-> +		iova += 4096;
-> +		size -= 4096;
-> +	}
-> +
-> +	iommu_flush_tlb_all(to_msm_iommu(pagetable->parent)->domain);
-> +
-> +	return (unmapped == size) ? 0 : -EINVAL;
-> +}
-> +
-> +static int msm_iommu_pagetable_map(struct msm_mmu *mmu, u64 iova,
-> +		struct sg_table *sgt, size_t len, int prot)
-> +{
-> +	struct msm_iommu_pagetable *pagetable = to_pagetable(mmu);
-> +	struct io_pgtable_ops *ops = pagetable->pgtbl_ops;
-> +	struct scatterlist *sg;
-> +	size_t mapped = 0;
-> +	u64 addr = iova;
-> +	unsigned int i;
-> +
-> +	for_each_sg(sgt->sgl, sg, sgt->nents, i) {
-> +		size_t size = sg->length;
-> +		phys_addr_t phys = sg_phys(sg);
-> +
-> +		/* Map the block one page at a time */
-> +		while (size) {
-> +			if (ops->map(ops, addr, phys, 4096, prot, GFP_KERNEL)) {
-> +				msm_iommu_pagetable_unmap(mmu, iova, mapped);
-> +				return -EINVAL;
-> +			}
-> +
-> +			phys += 4096;
-> +			addr += 4096;
-> +			size -= 4096;
-> +			mapped += 4096;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void msm_iommu_pagetable_destroy(struct msm_mmu *mmu)
-> +{
-> +	struct msm_iommu_pagetable *pagetable = to_pagetable(mmu);
-> +	struct msm_iommu *iommu = to_msm_iommu(pagetable->parent);
-> +
-> +	/*
-> +	 * If this is the last attached pagetable for the parent,
-> +	 * disable TTBR0 in the arm-smmu driver
-> +	 */
-> +	if (atomic_dec_return(&iommu->pagetables) == 0)
-> +		iommu_domain_set_attr(iommu->domain,
-> +			DOMAIN_ATTR_PGTABLE_CFG, NULL);
-> +
-> +	free_io_pgtable_ops(pagetable->pgtbl_ops);
-> +	kfree(pagetable);
-> +}
-> +
-> +int msm_iommu_pagetable_params(struct msm_mmu *mmu,
-> +		phys_addr_t *ttbr, int *asid)
-> +{
-> +	struct msm_iommu_pagetable *pagetable;
-> +
-> +	if (mmu->type != MSM_MMU_IOMMU_PAGETABLE)
-> +		return -EINVAL;
-> +
-> +	pagetable = to_pagetable(mmu);
-> +
-> +	if (ttbr)
-> +		*ttbr = pagetable->ttbr;
-> +
-> +	if (asid)
-> +		*asid = pagetable->asid;
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct msm_mmu_funcs pagetable_funcs = {
-> +		.map = msm_iommu_pagetable_map,
-> +		.unmap = msm_iommu_pagetable_unmap,
-> +		.destroy = msm_iommu_pagetable_destroy,
-> +};
-> +
-> +static void msm_iommu_tlb_flush_all(void *cookie)
-> +{
-> +}
-> +
-> +static void msm_iommu_tlb_flush_walk(unsigned long iova, size_t size,
-> +		size_t granule, void *cookie)
-> +{
-> +}
-> +
-> +static void msm_iommu_tlb_add_page(struct iommu_iotlb_gather *gather,
-> +		unsigned long iova, size_t granule, void *cookie)
-> +{
-> +}
-> +
-> +static const struct iommu_flush_ops null_tlb_ops = {
-> +	.tlb_flush_all = msm_iommu_tlb_flush_all,
-> +	.tlb_flush_walk = msm_iommu_tlb_flush_walk,
-> +	.tlb_flush_leaf = msm_iommu_tlb_flush_walk,
-> +	.tlb_add_page = msm_iommu_tlb_add_page,
-> +};
-> +
-> +struct msm_mmu *msm_iommu_pagetable_create(struct msm_mmu *parent)
-> +{
-> +	struct msm_iommu *iommu = to_msm_iommu(parent);
-> +	static int next_asid = 16;
-> +	struct msm_iommu_pagetable *pagetable;
-> +	struct io_pgtable_cfg cfg;
-> +	int ret;
-> +
-> +	/* Get the pagetable configuration from the domain */
-> +	ret = iommu_domain_get_attr(iommu->domain,
-> +		DOMAIN_ATTR_PGTABLE_CFG, &cfg);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +
-> +	pagetable = kzalloc(sizeof(*pagetable), GFP_KERNEL);
-> +	if (!pagetable)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	msm_mmu_init(&pagetable->base, parent->dev, &pagetable_funcs,
-> +		MSM_MMU_IOMMU_PAGETABLE);
-> +
-> +	/* The incoming cfg will have the TTBR1 quirk enabled */
-> +	cfg.quirks &= ~IO_PGTABLE_QUIRK_ARM_TTBR1;
-> +	cfg.tlb = &null_tlb_ops;
-> +
-> +	pagetable->pgtbl_ops = alloc_io_pgtable_ops(ARM_64_LPAE_S1,
-> +		&cfg, iommu->domain);
-> +
-> +	if (!pagetable->pgtbl_ops) {
-> +		kfree(pagetable);
-> +		return ERR_PTR(-ENOMEM);
-> +	}
-> +
-> +	/*
-> +	 * If this is the first pagetable that we've allocated, send it back to
-> +	 * the arm-smmu driver as a trigger to set up TTBR0
-> +	 */
-> +	if (atomic_inc_return(&iommu->pagetables) == 1) {
-> +		ret = iommu_domain_set_attr(iommu->domain,
-> +			DOMAIN_ATTR_PGTABLE_CFG, &cfg);
-> +		if (ret) {
-> +			free_io_pgtable_ops(pagetable->pgtbl_ops);
-> +			kfree(pagetable);
-> +			return ERR_PTR(ret);
-> +		}
-> +	}
-> +
-> +	/* Needed later for TLB flush */
-> +	pagetable->parent = parent;
-> +	pagetable->ttbr = cfg.arm_lpae_s1_cfg.ttbr;
-> +
-> +	pagetable->asid = next_asid;
-> +	next_asid = (next_asid + 1) % 255;
-> +	next_asid = min(16, next_asid);
-> +
-> +	return &pagetable->base;
-> +}
-> +
->  static int msm_fault_handler(struct iommu_domain *domain, struct device *dev,
->  		unsigned long iova, int flags, void *arg)
->  {
-> @@ -85,9 +271,11 @@ struct msm_mmu *msm_iommu_new(struct device *dev, struct iommu_domain *domain)
->  		return ERR_PTR(-ENOMEM);
->  
->  	iommu->domain = domain;
-> -	msm_mmu_init(&iommu->base, dev, &funcs);
-> +	msm_mmu_init(&iommu->base, dev, &funcs, MSM_MMU_IOMMU);
->  	iommu_set_fault_handler(domain, msm_fault_handler, iommu);
->  
-> +	atomic_set(&iommu->pagetables, 0);
-> +
->  	ret = iommu_attach_device(iommu->domain, dev);
->  	if (ret) {
->  		kfree(iommu);
-> diff --git a/drivers/gpu/drm/msm/msm_mmu.h b/drivers/gpu/drm/msm/msm_mmu.h
-> index 3a534ee59bf6..61ade89d9e48 100644
-> --- a/drivers/gpu/drm/msm/msm_mmu.h
-> +++ b/drivers/gpu/drm/msm/msm_mmu.h
-> @@ -17,18 +17,26 @@ struct msm_mmu_funcs {
->  	void (*destroy)(struct msm_mmu *mmu);
->  };
->  
-> +enum msm_mmu_type {
-> +	MSM_MMU_GPUMMU,
-> +	MSM_MMU_IOMMU,
-> +	MSM_MMU_IOMMU_PAGETABLE,
-> +};
-> +
->  struct msm_mmu {
->  	const struct msm_mmu_funcs *funcs;
->  	struct device *dev;
->  	int (*handler)(void *arg, unsigned long iova, int flags);
->  	void *arg;
-> +	enum msm_mmu_type type;
->  };
->  
->  static inline void msm_mmu_init(struct msm_mmu *mmu, struct device *dev,
-> -		const struct msm_mmu_funcs *funcs)
-> +		const struct msm_mmu_funcs *funcs, enum msm_mmu_type type)
->  {
->  	mmu->dev = dev;
->  	mmu->funcs = funcs;
-> +	mmu->type = type;
->  }
->  
->  struct msm_mmu *msm_iommu_new(struct device *dev, struct iommu_domain *domain);
-> @@ -41,7 +49,13 @@ static inline void msm_mmu_set_fault_handler(struct msm_mmu *mmu, void *arg,
->  	mmu->handler = handler;
->  }
->  
-> +struct msm_mmu *msm_iommu_pagetable_create(struct msm_mmu *parent);
-> +
->  void msm_gpummu_params(struct msm_mmu *mmu, dma_addr_t *pt_base,
->  		dma_addr_t *tran_error);
->  
-> +
-> +int msm_iommu_pagetable_params(struct msm_mmu *mmu, phys_addr_t *ttbr,
-> +		int *asid);
-> +
->  #endif /* __MSM_MMU_H__ */
+> Tested-by: Naresh Kamboju <naresh.kamboju@linaro.org>
+
+Great, now queued up to 4.14.y and 4.19.y.
+
+greg k-h
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
