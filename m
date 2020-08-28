@@ -1,57 +1,74 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD3A229513B
-	for <lists+freedreno@lfdr.de>; Wed, 21 Oct 2020 18:59:13 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 862102957AB
+	for <lists+freedreno@lfdr.de>; Thu, 22 Oct 2020 07:10:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77C866EE1F;
-	Wed, 21 Oct 2020 16:59:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D3A16F3A2;
+	Thu, 22 Oct 2020 05:10:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CC446EE1C;
- Wed, 21 Oct 2020 16:59:10 +0000 (UTC)
-Received: by mail-wm1-x341.google.com with SMTP id 13so2887135wmf.0;
- Wed, 21 Oct 2020 09:59:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ZOAwZaaZ/beDzvPjh4DfLLmuqS+BF1EdS0841cgpzLs=;
- b=KrcsCvPHQglJCf7oeEF5m7FV7XdFHt9x7F3gW8Rhm9Z1S0QRti2sdPhJRUd8nmCeIQ
- 3nz8sdNk6BgUkY8f1F5JlMV1K0uL8nFfwxgu05ZF+h8mNRaCen+I8fHu2qwMEhXuoHxQ
- JTFVDgrFTd80wy7wECZ8QX6wcnuGl9kt13IUQGXxcIPJSeOsOY5kwp/AW1iyvLdjBvlE
- jfDbRMYRgpFMEECXiY7u070ca2FPFZbUC3+HpA7VTRRHbRF3eJzCfaBym6LyQzle5fXa
- WaSBCbwTh+MoUYuuOsfK7FkiK03/r7t6PaZbFWgBBPbVE14yW1uU1GbLQtr2syg0vJUc
- CNHg==
+Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
+ [IPv6:2607:f8b0:4864:20::544])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 391E76F3A2
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Oct 2020 05:10:48 +0000 (UTC)
+Received: by mail-pg1-x544.google.com with SMTP id l18so261825pgg.0
+ for <freedreno@lists.freedesktop.org>; Wed, 21 Oct 2020 22:10:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=resent-from:resent-date:resent-message-id:resent-to:from:to:cc
+ :subject:date:message-id:in-reply-to:references:mime-version
+ :content-transfer-encoding;
+ bh=lRIVhEzHo1XPH6PloaXFLB5fbBAOJPEuMdhJUY10d78=;
+ b=eWXUIxDu4+rDypc6fx1pvF9tVdMuzSdXP/gIyhs26Qf7ZceCmdu0CKoxAMSsjs8J4q
+ uIU1k88VHAMmprRu2TU1KIEcl1PicfEdGx/tPKl/g3kdHcvOYUYxOkTopg0WZcMVMzmG
+ n7hgamQB3MnBu29z3eRGmzUE/rnHc1adTGeiKZDCGXI0DvYgdHn5n08eQbh+gU1YiKMf
+ 52J8k0QtRn5UmYYNN1czXgo3GvRYUhnEO0CRxENxdLLcrjvOOq0P5+r2hwYbCxn7kXUg
+ JK773RyOOpfhBxH2nltdyZlJRC+lWjRCkiOgM30fpEWp+WqMA1HHmNPEB5fu1/lPynUs
+ ZhJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ZOAwZaaZ/beDzvPjh4DfLLmuqS+BF1EdS0841cgpzLs=;
- b=I+yAPyKqck/xjdbo5N3tvtJA5cgClvIiEawGzj2pv0WNLgt7DJaNyGRIXzikbEyWmZ
- O7iyAfoT2V3FBH57bEEoFF7LBrC/hplLLFSFwUdzh5zGTeYPkQFjUgUZdx8H/c8NAUDi
- rapVKDmRx5+GJ50ix6AGhqsTBo3YL6I0GqK46nYIfIopBbEFOTkHyJUlnWEK+DZjf83M
- Ph2RfPrxY5HiiFLV1g1LTHKeo0br0pMWKGQQGfngrz23H/hq4lh973d0hE7UFw0ozxIe
- WT7xxHdOyWbZGn8Ik4QrSFd9pdByZgcc5Z9jbKG7KZYdAfPYw8ed1kH0LKp1NbHz5Xha
- bsSw==
-X-Gm-Message-State: AOAM53260uJLvkgOSCtlsWmBvxuFktNbmndA946033XZnNSztu451UW+
- dhee+CRc7TThY7SkrLhV/uP3TaJSf795ahHF+OE=
-X-Google-Smtp-Source: ABdhPJwu3PAB+EK3ul320vHDvWKoXxQTAQwJyBX44XCUJZtWcWL6PCNBwIxZExqEpwyJy/GoRVJba0GldZXaq6LR/GQ=
-X-Received: by 2002:a05:600c:2241:: with SMTP id
- a1mr4787948wmm.49.1603299549106; 
- Wed, 21 Oct 2020 09:59:09 -0700 (PDT)
-MIME-Version: 1.0
+ h=x-gm-message-state:resent-from:resent-date:resent-message-id
+ :resent-to:from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=lRIVhEzHo1XPH6PloaXFLB5fbBAOJPEuMdhJUY10d78=;
+ b=dbnw1UP1AeHDEsQ/9nwktw2q43AM30IwyH9cKPbBeUD4q5bma+D57XpHrZj7Sn3++I
+ LWXJDnI6LForNx/nRWqbHgzOIeHdwOc6nq3NPSIq5AQUV/yf+iJ1Pe7SeYI7e4yPrErX
+ IuDkBVk8amXPOotJrBwJ/TNrmSL1nxIDyd5860jbBp9MJ/Lssoj5pX1uvhaQ4kpCJ1+m
+ pXvxiscJVsA9hdpg+R2UQXV63HHoyaLd76SMzED797VzxgH17EF/u2rXUXuDWtagtkV+
+ ED8EqzlEhhsl1RMsn+ZXW7B+DY5Llz+gVfW9M1M7eLf2OfK7VoO+MrV013wiKb0k+ATK
+ Jykg==
+X-Gm-Message-State: AOAM530ia8aAYRmDYkSB5g1LsEgTGo21VfmX14/2Cz+5uP1KUNpWSKYF
+ AOw2mo+KaZzOWEiFKuwcRXpZNPxszosNYw==
+X-Google-Smtp-Source: ABdhPJzV/LXDU4UGSnmttTeuwQfU5XuldLn432Pam68XntXB7X6qN8xltSV7ERTKS2+9k53cCiysHg==
+X-Received: by 2002:a63:2d05:: with SMTP id t5mr863626pgt.178.1603343447562;
+ Wed, 21 Oct 2020 22:10:47 -0700 (PDT)
+Received: from localhost ([122.181.54.133])
+ by smtp.gmail.com with ESMTPSA id g14sm476081pfo.17.2020.10.21.22.10.46
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 21 Oct 2020 22:10:47 -0700 (PDT)
+Resent-From: Viresh Kumar <viresh.kumar@linaro.org>
+Resent-Date: Thu, 22 Oct 2020 10:40:45 +0530
+Resent-Message-ID: <20201022051045.ve4gxrmqxsimd2hd@vireshk-i7>
+Resent-To: freedreno@lists.freedesktop.org
+Received: from pop.gmail.com [74.125.68.109]
+ by vireshk-i7 with POP3 (fetchmail-6.3.26)
+ for <vireshk@localhost> (single-drop); Fri, 28 Aug 2020 11:38:26 +0530 (IST)
+Received: from localhost ([122.167.135.199])
+ by smtp.gmail.com with ESMTPSA id a10sm109294pfn.219.2020.08.27.23.08.19
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 27 Aug 2020 23:08:19 -0700 (PDT)
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: rnayak@codeaurora.org, Qiang Yu <yuq825@gmail.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Date: Fri, 28 Aug 2020 11:37:47 +0530
+Message-Id: <62d944bdac75ec696828daad49fc1ddb6c637bcf.1598594714.git.viresh.kumar@linaro.org>
+X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
+In-Reply-To: <cover.1598594714.git.viresh.kumar@linaro.org>
 References: <cover.1598594714.git.viresh.kumar@linaro.org>
- <6e4110032f8711e8bb0acbeccfe66dec3b09d5c1.1598594714.git.viresh.kumar@linaro.org>
- <20201005062633.ejpehkpeuwksrx3e@vireshk-i7>
- <20201021072404.y43tjzd2ehclrejp@vireshk-i7>
-In-Reply-To: <20201021072404.y43tjzd2ehclrejp@vireshk-i7>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 21 Oct 2020 09:58:57 -0700
-Message-ID: <CAF6AEGvAK_mAxJB32vvPOD3jumpYprRtUBPT8GRBV8gty7fxFQ@mail.gmail.com>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-Subject: Re: [Freedreno] [PATCH V2 3/8] drm/msm: Unconditionally call
+MIME-Version: 1.0
+Subject: [Freedreno] [PATCH V2 2/8] drm/lima: Unconditionally call
  dev_pm_opp_of_remove_table()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,42 +82,70 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Nishanth Menon <nm@ti.com>, freedreno <freedreno@lists.freedesktop.org>,
- Rajendra Nayak <rnayak@codeaurora.org>, Linux PM <linux-pm@vger.kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+Cc: Nishanth Menon <nm@ti.com>, Vincent Guittot <vincent.guittot@linaro.org>,
+ lima@lists.freedesktop.org, linux-pm@vger.kernel.org,
+ Stephen Boyd <sboyd@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
  Naresh Kamboju <naresh.kamboju@linaro.org>, Rafael Wysocki <rjw@rjwysocki.net>,
- Douglas Anderson <dianders@chromium.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Vincent Guittot <vincent.guittot@linaro.org>, Sean Paul <sean@poorly.run>
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Oct 21, 2020 at 12:24 AM Viresh Kumar <viresh.kumar@linaro.org> wrote:
->
-> On 05-10-20, 11:56, Viresh Kumar wrote:
-> > On 28-08-20, 11:37, Viresh Kumar wrote:
-> > > dev_pm_opp_of_remove_table() doesn't report any errors when it fails to
-> > > find the OPP table with error -ENODEV (i.e. OPP table not present for
-> > > the device). And we can call dev_pm_opp_of_remove_table()
-> > > unconditionally here.
-> > >
-> > > While at it, also create a label to put clkname.
-> > >
-> > > Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-> >
-> > Can someone please apply this and the other drm patch (2/8) ?
->
-> Rob/Rajendra, can someone please have a look at these patches ?
+dev_pm_opp_of_remove_table() doesn't report any errors when it fails to
+find the OPP table with error -ENODEV (i.e. OPP table not present for
+the device). And we can call dev_pm_opp_of_remove_table()
+unconditionally here.
 
-Oh, sorry I missed that, could someone re-send it and CC
-freedreno@lists.freedesktop.org so it shows up in patchworks.. that is
-more reliable counting on me to not overlook something in my mail
+Reviewed-by: Qiang Yu <yuq825@gmail.com>
+Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 
-BR,
--R
+---
+V2: Applied Reviewed by tag.
+---
+ drivers/gpu/drm/lima/lima_devfreq.c | 6 +-----
+ drivers/gpu/drm/lima/lima_devfreq.h | 1 -
+ 2 files changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/lima/lima_devfreq.c b/drivers/gpu/drm/lima/lima_devfreq.c
+index bbe02817721b..cd290d866a04 100644
+--- a/drivers/gpu/drm/lima/lima_devfreq.c
++++ b/drivers/gpu/drm/lima/lima_devfreq.c
+@@ -105,10 +105,7 @@ void lima_devfreq_fini(struct lima_device *ldev)
+ 		devfreq->devfreq = NULL;
+ 	}
+ 
+-	if (devfreq->opp_of_table_added) {
+-		dev_pm_opp_of_remove_table(ldev->dev);
+-		devfreq->opp_of_table_added = false;
+-	}
++	dev_pm_opp_of_remove_table(ldev->dev);
+ 
+ 	if (devfreq->regulators_opp_table) {
+ 		dev_pm_opp_put_regulators(devfreq->regulators_opp_table);
+@@ -162,7 +159,6 @@ int lima_devfreq_init(struct lima_device *ldev)
+ 	ret = dev_pm_opp_of_add_table(dev);
+ 	if (ret)
+ 		goto err_fini;
+-	ldevfreq->opp_of_table_added = true;
+ 
+ 	lima_devfreq_reset(ldevfreq);
+ 
+diff --git a/drivers/gpu/drm/lima/lima_devfreq.h b/drivers/gpu/drm/lima/lima_devfreq.h
+index 5eed2975a375..2d9b3008ce77 100644
+--- a/drivers/gpu/drm/lima/lima_devfreq.h
++++ b/drivers/gpu/drm/lima/lima_devfreq.h
+@@ -18,7 +18,6 @@ struct lima_devfreq {
+ 	struct opp_table *clkname_opp_table;
+ 	struct opp_table *regulators_opp_table;
+ 	struct thermal_cooling_device *cooling;
+-	bool opp_of_table_added;
+ 
+ 	ktime_t busy_time;
+ 	ktime_t idle_time;
+-- 
+2.25.0.rc1.19.g042ed3e048af
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
