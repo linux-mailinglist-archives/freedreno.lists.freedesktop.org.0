@@ -1,63 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13FAE258BF7
-	for <lists+freedreno@lfdr.de>; Tue,  1 Sep 2020 11:46:12 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B446E258C11
+	for <lists+freedreno@lfdr.de>; Tue,  1 Sep 2020 11:51:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B35D189C55;
-	Tue,  1 Sep 2020 09:46:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E69D6E83E;
+	Tue,  1 Sep 2020 09:50:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1343E89C6B
- for <freedreno@lists.freedesktop.org>; Tue,  1 Sep 2020 09:46:07 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1598953570; h=Content-Transfer-Encoding: Content-Type:
- In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
- Subject: Sender; bh=b2eZhuFSLo8S06dwvehEezfz44wgJ9E7gdBWdQThQNc=;
- b=LM91pjFXqCdYxk/58zsghIArhRHsWdtZvn3x+BIQg1ydAgYR50f/g3GNXF5GR+8aTYtXT92o
- ziPR+SzdrVivBA09xvsO11c+p3PHrgDeH/FxugEJdecNqEfTOwB8/+XNikEA8ctDLZJ1HP8i
- 3Svcw/GKHU8Ypgq4zlRwisVItQM=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n06.prod.us-east-1.postgun.com with SMTP id
- 5f4e184673afa3417e732cb2 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 01 Sep 2020 09:45:42
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 33D4BC433AF; Tue,  1 Sep 2020 09:45:41 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-3.1 required=2.0 tests=ALL_TRUSTED,NICE_REPLY_A,
- SPF_NONE autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from [192.168.1.16] (unknown [61.1.231.241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: rnayak)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 42FFAC433CB;
- Tue,  1 Sep 2020 09:45:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 42FFAC433CB
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=rnayak@codeaurora.org
-To: Viresh Kumar <viresh.kumar@linaro.org>
+Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
+ [IPv6:2607:f8b0:4864:20::642])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04DF66E83E
+ for <freedreno@lists.freedesktop.org>; Tue,  1 Sep 2020 09:50:58 +0000 (UTC)
+Received: by mail-pl1-x642.google.com with SMTP id y6so268628plk.10
+ for <freedreno@lists.freedesktop.org>; Tue, 01 Sep 2020 02:50:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=jAYNBHZDd70TdEjE2DczmYfKG/N2ztUaNH/TxTyh9Cg=;
+ b=k18flmoNxQCq32ObHXfIj4WSLrlVekIVckTqF4jPygCGJxP9XbvDhVJWawCWx8I6TY
+ RHBcxUTRSgu97cg6OPhcMFeZq69mO6ulAZJOXrZKH2w8FL1F3KnZkg5sqd/BihpLns9n
+ D9f4uVDFD+u74wPgAy+6KJP8gBmgnVC5b39nsQ1NDOLjFixXd66a7Xvsu+/FsN7Ek5sU
+ IQY2N34/Il5vnyP7XjKBGwSTrvF3jHsdCZjyT0AxkCENNXrty0919SyaOUwaJOLUYsu+
+ ePFFbXvCObqmBVxeHXy2OMuC/5qkfbVmyDl34AQUq8u04rjxQ2UlkPmG0l8fpZ6r5NJF
+ x2Ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=jAYNBHZDd70TdEjE2DczmYfKG/N2ztUaNH/TxTyh9Cg=;
+ b=cyKd6WmFMiUzK6tA7fCkV00R1GAi7p+acwyCqB0DoweNpNgOC0M9NzoBBj+pBkNYiG
+ j5yBbK9Y67UhC4gEm2TPW2JX/dMTR7N7IWAcxvkUwSo8ul4IeStB3UvTwv9biYi2CA5Z
+ ARMYsqMGPcekjBE7j+T3vJoQVBUE80YYJdIXIAejxNHwb2iumTjA0kTjtiAzwrXEf4zC
+ VL0ZH68UD3QwfYeiU1niY3xc2VK171jxZzeg4llmpBqTo5tLepu3oPxjJ5UV6DnYhSUm
+ jtvTET6nwdz03XKTRZJKtGvHCBsuyLYVk5utT/DcC37iJTjzu3LI1XU94NOFMIuuyTTG
+ kEFg==
+X-Gm-Message-State: AOAM531vXc+s2py02NPRpUN4HYieJ8f90hxEdJp50MLq7FSr/gA8SlS0
+ ZqNjEB7euefGlFG4w2Tesyhbsg==
+X-Google-Smtp-Source: ABdhPJxCEhDyYmSPEgTYFdTqAvCxaJppkKdnPO/SXStQluVtRk/f1mAkZEHxXLJ+5RamFIlFffPC8w==
+X-Received: by 2002:a17:902:6b45:: with SMTP id
+ g5mr645391plt.163.1598953857535; 
+ Tue, 01 Sep 2020 02:50:57 -0700 (PDT)
+Received: from localhost ([122.167.135.199])
+ by smtp.gmail.com with ESMTPSA id 1sm1137318pfe.70.2020.09.01.02.50.56
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 01 Sep 2020 02:50:56 -0700 (PDT)
+Date: Tue, 1 Sep 2020 15:20:54 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Rajendra Nayak <rnayak@codeaurora.org>
+Message-ID: <20200901095054.pwnkzm5n3ys5r67p@vireshk-i7>
 References: <cover.1598594714.git.viresh.kumar@linaro.org>
  <6e4110032f8711e8bb0acbeccfe66dec3b09d5c1.1598594714.git.viresh.kumar@linaro.org>
  <bc64e031-c42f-9ed2-c597-18a790a4d3bb@codeaurora.org>
  <20200901083806.a2wz7idmfce2aj3a@vireshk-i7>
-From: Rajendra Nayak <rnayak@codeaurora.org>
-Message-ID: <fceb0b09-30cd-5084-0d0e-e7795cfc5fc9@codeaurora.org>
-Date: Tue, 1 Sep 2020 15:15:33 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ <fceb0b09-30cd-5084-0d0e-e7795cfc5fc9@codeaurora.org>
 MIME-Version: 1.0
-In-Reply-To: <20200901083806.a2wz7idmfce2aj3a@vireshk-i7>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <fceb0b09-30cd-5084-0d0e-e7795cfc5fc9@codeaurora.org>
+User-Agent: NeoMutt/20180716-391-311a52
 Subject: Re: [Freedreno] [PATCH V2 3/8] drm/msm: Unconditionally call
  dev_pm_opp_of_remove_table()
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -79,45 +80,53 @@ Cc: Nishanth Menon <nm@ti.com>, freedreno@lists.freedesktop.org,
  Rafael Wysocki <rjw@rjwysocki.net>, Douglas Anderson <dianders@chromium.org>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On 9/1/2020 2:08 PM, Viresh Kumar wrote:
-> On 01-09-20, 13:01, Rajendra Nayak wrote:
->> So FWIU, dpu_unbind() gets called even when dpu_bind() fails for some reason.
+On 01-09-20, 15:15, Rajendra Nayak wrote:
 > 
-> Ahh, I see.
+> On 9/1/2020 2:08 PM, Viresh Kumar wrote:
+> > On 01-09-20, 13:01, Rajendra Nayak wrote:
+> > > So FWIU, dpu_unbind() gets called even when dpu_bind() fails for some reason.
+> > 
+> > Ahh, I see.
+> > 
+> > > I tried to address that earlier [1] which I realized did not land.
+> > 
+> > I don't think that patch was required, as you can call
+> > dev_pm_opp_put_clkname() multiple times and it will return without any
+> > errors/crash.
 > 
->> I tried to address that earlier [1] which I realized did not land.
+> We did see a crash (Sai had reported it), perhaps with dsi [1] and not this
+> driver. But it was the same scenario that was possible here as well, which is
+> dev_pm_opp_put_clkname() getting called without dev_pm_opp_set_clkname()
+> being done. I think we ended up passing a NULL as opp_table in that case
+> and the function tries de-referencing it.
+
+Heh, yeah I did miss that stupid thing :(
+
+> > 
+> > > But with these changes
+> > > it will be even more broken unless we identify if we failed dpu_bind() before
+> > > adding the OPP table, while adding it, or all went well with opps and handle things
+> > > accordingly in dpu_unbind.
+> > 
+> > Maybe not as dev_pm_opp_of_remove_table() can be called multiple times
+> > as well without any errors or crash.
 > 
-> I don't think that patch was required, as you can call
-> dev_pm_opp_put_clkname() multiple times and it will return without any
-> errors/crash.
+> Can it be called without the driver ever doing a dev_pm_opp_of_add_table()?
 
-We did see a crash (Sai had reported it), perhaps with dsi [1] and not this
-driver. But it was the same scenario that was possible here as well, which is
-dev_pm_opp_put_clkname() getting called without dev_pm_opp_set_clkname()
-being done. I think we ended up passing a NULL as opp_table in that case
-and the function tries de-referencing it.
+Yes, as we will fail to find the OPP device in that case with -ENODEV
+and so won't even print a warning.
 
-> 
->> But with these changes
->> it will be even more broken unless we identify if we failed dpu_bind() before
->> adding the OPP table, while adding it, or all went well with opps and handle things
->> accordingly in dpu_unbind.
-> 
-> Maybe not as dev_pm_opp_of_remove_table() can be called multiple times
-> as well without any errors or crash.
+Also if the OPP table was previously added as a response to
+dev_pm_opp_set_clkname(), then we won't free it as well. So yes, it
+should work just fine.
 
-Can it be called without the driver ever doing a dev_pm_opp_of_add_table()?
-
-[1] https://lore.kernel.org/patchwork/patch/1275628/
 -- 
-QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a member
-of Code Aurora Forum, hosted by The Linux Foundation
+viresh
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
