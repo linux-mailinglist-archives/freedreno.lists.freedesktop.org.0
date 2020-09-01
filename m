@@ -2,60 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F78825865A
-	for <lists+freedreno@lfdr.de>; Tue,  1 Sep 2020 05:41:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28466258664
+	for <lists+freedreno@lfdr.de>; Tue,  1 Sep 2020 05:42:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BFD36E153;
-	Tue,  1 Sep 2020 03:41:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 786E66E56D;
+	Tue,  1 Sep 2020 03:42:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x341.google.com (mail-ot1-x341.google.com
- [IPv6:2607:f8b0:4864:20::341])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84A696E153
- for <freedreno@lists.freedesktop.org>; Tue,  1 Sep 2020 03:41:28 +0000 (UTC)
-Received: by mail-ot1-x341.google.com with SMTP id c10so131040otm.13
- for <freedreno@lists.freedesktop.org>; Mon, 31 Aug 2020 20:41:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=m9Iy8xTCC/lsqmeyypdzVoGtMOlOgKNaC8wzlU8V0Ak=;
- b=OvdGgx8zL65e4Bb0BcRh6yN/3q4dC8gjuaK+3Fhp4cUpG3iCDerutJodNY03OjYGP8
- Z7IeLMMyALrTbMCIheI/0pB9cFz8WOgmYMVVS4jpwYTel3xiCmjFIAmT/aZASLFaWd4T
- +KlMM+ZpXAHZxi2uxzJUWy5SvcX11B11Qn9yVD/wZUxJXte8pEL7w7rNAxWAuhIc35CN
- Z0PV5saGr80uO1fKWdefggxhfofcB5C9jh2zqS75yi2w1Q6GwKLqlIfRw7Z3vzdZXDaD
- QEF2clVJcASNZMrwB69e21JElbzPC9VzX1JB4pr5/tr3grZpDwrj/YjhqCs18KZRH2GG
- u1XQ==
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 830236E153;
+ Tue,  1 Sep 2020 03:42:11 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id w13so7912204wrk.5;
+ Mon, 31 Aug 2020 20:42:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=gEP+l6VmZ2AQhT9y6MxnJyCmEVijpcWpEhbN/rykvcE=;
+ b=CWrOGraZ3/zNXixoJEwLA3hwBYU2PWVJEJ6ylxVJux52OFGXCCNEGTUhC6mkNsNKpA
+ i1TXATaF9rTSGwMaVqrUu1Zz/Y1O9y1drCGCIQXqHRHg9tOaU+j7fvsU/CuvZxVlMMw5
+ jVxSR6ue24PPOYOWBejC9MloKJqqT/iDlRnzo7+6cRlhm0s17nQW9Gh2F7FrU9ZfvUxp
+ kAj8AgciZRjeU/IJPsUe/joigfP+Mc6xw8KC+pdmtDdlV3fkmAR0oIVELnk2GPlk1ru0
+ iqtKfLijhcQEQ37e9PwlNuKupuMgl1u6xVjd2ZRO3vozd8LXzB4Mr45MwWeEmJ4j6Osg
+ kkIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=m9Iy8xTCC/lsqmeyypdzVoGtMOlOgKNaC8wzlU8V0Ak=;
- b=hYdE76TLThb7DLqz1mMcWqEFTFhq4iFSv9CB9vQKfpaFQKeVqkDFMLWd29kn3+ubk7
- /DmIChJ+3iwnQLA3E4HU0TzO97k5p0cbyvErg6kbOP9TqLG1L6nZKuooLcBwsPZ9JvKD
- EtRNZde2sgSpRZXY16hWbUqyRxq8mKsJdkb29FSGevhbuV2NWahs7zqY/QIYqzLDxKnC
- 8zAeg3gB7IZ3zZgovhs7X3v9eO1mm0pikxSCqHdq4YJWJS7zPUzHnwuidFpsU8oXaCOr
- Zno+TM/7xW0o/BEj+I7ZwR1fMJL7SzkzbX3D5fR7E+PFnm/Ud9IOIasi+TD/5kYWoE+J
- 0reA==
-X-Gm-Message-State: AOAM533uRjySR18TeQRKKQbj4mVaN3moeoujLiwli29SMtRxbTeERUYs
- QA9f99TyRfZD035Ng898IlgOWw==
-X-Google-Smtp-Source: ABdhPJxtDOjj0e1mP0NY8oxLhIt6qsoBW5DDUq2IVcRAKAsm/7RnzzUFwBc3Sk1qfl66he83RS8k5Q==
-X-Received: by 2002:a9d:63c5:: with SMTP id e5mr9472otl.46.1598931687626;
- Mon, 31 Aug 2020 20:41:27 -0700 (PDT)
-Received: from yoga ([2605:6000:e5cb:c100:8898:14ff:fe6d:34e])
- by smtp.gmail.com with ESMTPSA id b79sm908112oii.33.2020.08.31.20.41.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Aug 2020 20:41:27 -0700 (PDT)
-Date: Mon, 31 Aug 2020 22:41:23 -0500
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20200901034123.GL3715@yoga>
-References: <20200810222657.1841322-1-jcrouse@codeaurora.org>
- <20200814024114.1177553-4-robdclark@gmail.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=gEP+l6VmZ2AQhT9y6MxnJyCmEVijpcWpEhbN/rykvcE=;
+ b=L1KgbgJzJXL8sST3TRp5gthdm4J+NXwg4I9pVPKA7N8clQzOECUOeFtgcb4kSpo2Fd
+ bIOUqFg5TX9hCaen94TB47XNlT13GqHV+lBDBaaxRODXNAyTqN5WoNTwwiqkl1KjIZlX
+ LX8ySzMgKHZJoURRldL9oYWa4GLohPHaZ3WtOT3Q166RD04OD/fIsLf+OAlYV55w6+JK
+ rRl4Wr0qZrPYIkrjwUPkOoLPFhniNvDM73En05wvqgE0Z89XvCGf5HRKcht/D5IyCFv0
+ IjevzmG1s1L9JIUvMyQ7kk/kdCrsnrvf7goP2Y+6RmFERQ2rTXXwP0SckTcFw0cEKu5w
+ +cMg==
+X-Gm-Message-State: AOAM5328pK3MjEybBaqddFk1BMC1I22izKw86DmdF+HhE/E6DvY6dMOa
+ DyeCyrF6pgyzLgFWAn5q51/VwUfnjh2s+IeBMgs=
+X-Google-Smtp-Source: ABdhPJyAYV0Dm0qLaL1mXbuG+PPAW1SP8BjwTCx+mqZtIG0Clr3g+Jy+4HR4m6cw7nu44h9gRxaSIWDuskrjmVwm3j8=
+X-Received: by 2002:adf:e6c7:: with SMTP id y7mr4030589wrm.147.1598931729990; 
+ Mon, 31 Aug 2020 20:42:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200814024114.1177553-4-robdclark@gmail.com>
-Subject: Re: [Freedreno] [PATCH 03/19] iommu/arm-smmu: Add support for split
- pagetables
+References: <20200810222657.1841322-1-jcrouse@codeaurora.org>
+ <20200814024114.1177553-2-robdclark@gmail.com> <20200901023517.GA54956@uller>
+In-Reply-To: <20200901023517.GA54956@uller>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 31 Aug 2020 20:42:57 -0700
+Message-ID: <CAF6AEGsx5mmUCuNApP692L-rS3wEbn4UqJBXuSr-38MAcVfoBw@mail.gmail.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+Subject: Re: [Freedreno] [PATCH 01/19] drm/msm: remove dangling submitqueue
+ references
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,135 +64,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>,
  Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jordan Crouse <jcrouse@codeaurora.org>,
- open list <linux-kernel@vger.kernel.org>, Will Deacon <will@kernel.org>,
- linux-arm-msm@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
- Robin Murphy <robin.murphy@arm.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, iommu@lists.linux-foundation.org,
- Krishna Reddy <vdumpa@nvidia.com>, Sibi Sankar <sibis@codeaurora.org>,
- Vivek Gautam <vivek.gautam@codeaurora.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jon Hunter <jonathanh@nvidia.com>, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org
+ open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Will Deacon <will@kernel.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, Joerg Roedel <joro@8bytes.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
+ "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
+ Sibi Sankar <sibis@codeaurora.org>, Vivek Gautam <vivek.gautam@codeaurora.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu 13 Aug 21:40 CDT 2020, Rob Clark wrote:
+On Mon, Aug 31, 2020 at 7:35 PM Bjorn Andersson
+<bjorn.andersson@linaro.org> wrote:
+>
+> On Fri 14 Aug 02:40 UTC 2020, Rob Clark wrote:
+>
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > Currently it doesn't matter, since we free the ctx immediately.  But
+> > when we start refcnt'ing the ctx, we don't want old dangling list
+> > entries to hang around.
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > ---
+> >  drivers/gpu/drm/msm/msm_submitqueue.c | 4 +++-
+> >  1 file changed, 3 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
+> > index a1d94be7883a..90c9d84e6155 100644
+> > --- a/drivers/gpu/drm/msm/msm_submitqueue.c
+> > +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
+> > @@ -49,8 +49,10 @@ void msm_submitqueue_close(struct msm_file_private *ctx)
+> >        * No lock needed in close and there won't
+> >        * be any more user ioctls coming our way
+> >        */
+> > -     list_for_each_entry_safe(entry, tmp, &ctx->submitqueues, node)
+> > +     list_for_each_entry_safe(entry, tmp, &ctx->submitqueues, node) {
+> > +             list_del(&entry->node);
+>
+> If you refcount ctx, what does that do for the entries in the submit
+> queue?
+>
+> "entry" here is kref'ed, but you're popping it off the list regardless
+> of the put ends up freeing the object or not - which afaict would mean
+> leaking the object.
+>
 
-> From: Jordan Crouse <jcrouse@codeaurora.org>
-> 
-> Enable TTBR1 for a context bank if IO_PGTABLE_QUIRK_ARM_TTBR1 is selected
-> by the io-pgtable configuration.
-> 
-> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/iommu/arm/arm-smmu/arm-smmu.c | 21 ++++++++++++++++-----
->  drivers/iommu/arm/arm-smmu/arm-smmu.h | 25 +++++++++++++++++++------
->  2 files changed, 35 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/arm-smmu/arm-smmu.c
-> index 37d8d49299b4..976d43a7f2ff 100644
-> --- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
-> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
-> @@ -552,11 +552,15 @@ static void arm_smmu_init_context_bank(struct arm_smmu_domain *smmu_domain,
->  			cb->ttbr[0] = pgtbl_cfg->arm_v7s_cfg.ttbr;
->  			cb->ttbr[1] = 0;
->  		} else {
-> -			cb->ttbr[0] = pgtbl_cfg->arm_lpae_s1_cfg.ttbr;
-> -			cb->ttbr[0] |= FIELD_PREP(ARM_SMMU_TTBRn_ASID,
-> -						  cfg->asid);
-> +			cb->ttbr[0] = FIELD_PREP(ARM_SMMU_TTBRn_ASID,
-> +				cfg->asid);
->  			cb->ttbr[1] = FIELD_PREP(ARM_SMMU_TTBRn_ASID,
-> -						 cfg->asid);
-> +				cfg->asid);
+What ends up happening is the submit has reference to submit-queue,
+which has reference to the ctx.. the submitqueue could be alive still
+pending in-flight submits (in a later patch), but dead from the PoV of
+userspace interface.
 
-The old indentation seems more appropriate.
+We aren't relying (or at least aren't in the end, and I *think* I
+didn't miss anything in the middle) relying on ctx->submitqueues list
+to clean anything up in the end, just track what is still a valid
+submitqueue from userspace PoV
 
-Apart from that this looks sensible.
+BR,
+-R
 
-Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-
-Regards,
-Bjorn
-
-> +
-> +			if (pgtbl_cfg->quirks & IO_PGTABLE_QUIRK_ARM_TTBR1)
-> +				cb->ttbr[1] |= pgtbl_cfg->arm_lpae_s1_cfg.ttbr;
-> +			else
-> +				cb->ttbr[0] |= pgtbl_cfg->arm_lpae_s1_cfg.ttbr;
->  		}
->  	} else {
->  		cb->ttbr[0] = pgtbl_cfg->arm_lpae_s2_cfg.vttbr;
-> @@ -822,7 +826,14 @@ static int arm_smmu_init_domain_context(struct iommu_domain *domain,
->  
->  	/* Update the domain's page sizes to reflect the page table format */
->  	domain->pgsize_bitmap = pgtbl_cfg.pgsize_bitmap;
-> -	domain->geometry.aperture_end = (1UL << ias) - 1;
-> +
-> +	if (pgtbl_cfg.quirks & IO_PGTABLE_QUIRK_ARM_TTBR1) {
-> +		domain->geometry.aperture_start = ~0UL << ias;
-> +		domain->geometry.aperture_end = ~0UL;
-> +	} else {
-> +		domain->geometry.aperture_end = (1UL << ias) - 1;
-> +	}
-> +
->  	domain->geometry.force_aperture = true;
->  
->  	/* Initialise the context bank with our page table cfg */
-> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.h b/drivers/iommu/arm/arm-smmu/arm-smmu.h
-> index 83294516ac08..f3e456893f28 100644
-> --- a/drivers/iommu/arm/arm-smmu/arm-smmu.h
-> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.h
-> @@ -169,10 +169,12 @@ enum arm_smmu_cbar_type {
->  #define ARM_SMMU_CB_TCR			0x30
->  #define ARM_SMMU_TCR_EAE		BIT(31)
->  #define ARM_SMMU_TCR_EPD1		BIT(23)
-> +#define ARM_SMMU_TCR_A1			BIT(22)
->  #define ARM_SMMU_TCR_TG0		GENMASK(15, 14)
->  #define ARM_SMMU_TCR_SH0		GENMASK(13, 12)
->  #define ARM_SMMU_TCR_ORGN0		GENMASK(11, 10)
->  #define ARM_SMMU_TCR_IRGN0		GENMASK(9, 8)
-> +#define ARM_SMMU_TCR_EPD0		BIT(7)
->  #define ARM_SMMU_TCR_T0SZ		GENMASK(5, 0)
->  
->  #define ARM_SMMU_VTCR_RES1		BIT(31)
-> @@ -350,12 +352,23 @@ struct arm_smmu_domain {
->  
->  static inline u32 arm_smmu_lpae_tcr(struct io_pgtable_cfg *cfg)
->  {
-> -	return ARM_SMMU_TCR_EPD1 |
-> -	       FIELD_PREP(ARM_SMMU_TCR_TG0, cfg->arm_lpae_s1_cfg.tcr.tg) |
-> -	       FIELD_PREP(ARM_SMMU_TCR_SH0, cfg->arm_lpae_s1_cfg.tcr.sh) |
-> -	       FIELD_PREP(ARM_SMMU_TCR_ORGN0, cfg->arm_lpae_s1_cfg.tcr.orgn) |
-> -	       FIELD_PREP(ARM_SMMU_TCR_IRGN0, cfg->arm_lpae_s1_cfg.tcr.irgn) |
-> -	       FIELD_PREP(ARM_SMMU_TCR_T0SZ, cfg->arm_lpae_s1_cfg.tcr.tsz);
-> +	u32 tcr = FIELD_PREP(ARM_SMMU_TCR_TG0, cfg->arm_lpae_s1_cfg.tcr.tg) |
-> +		FIELD_PREP(ARM_SMMU_TCR_SH0, cfg->arm_lpae_s1_cfg.tcr.sh) |
-> +		FIELD_PREP(ARM_SMMU_TCR_ORGN0, cfg->arm_lpae_s1_cfg.tcr.orgn) |
-> +		FIELD_PREP(ARM_SMMU_TCR_IRGN0, cfg->arm_lpae_s1_cfg.tcr.irgn) |
-> +		FIELD_PREP(ARM_SMMU_TCR_T0SZ, cfg->arm_lpae_s1_cfg.tcr.tsz);
-> +
-> +       /*
-> +	* When TTBR1 is selected shift the TCR fields by 16 bits and disable
-> +	* translation in TTBR0
-> +	*/
-> +	if (cfg->quirks & IO_PGTABLE_QUIRK_ARM_TTBR1) {
-> +		tcr = (tcr << 16) & ~ARM_SMMU_TCR_A1;
-> +		tcr |= ARM_SMMU_TCR_EPD0;
-> +	} else
-> +		tcr |= ARM_SMMU_TCR_EPD1;
-> +
-> +	return tcr;
->  }
->  
->  static inline u32 arm_smmu_lpae_tcr2(struct io_pgtable_cfg *cfg)
-> -- 
-> 2.26.2
-> 
+>
+> On the other hand, with the current implementation an object with higher
+> refcount with adjacent objects of single refcount would end up with
+> dangling pointers after the put. So in itself this change seems like a
+> net gain, but I'm wondering about the plan described in the commit
+> message.
+>
+> Regards,
+> Bjorn
+>
+> >               msm_submitqueue_put(entry);
+> > +     }
+> >  }
+> >
+> >  int msm_submitqueue_create(struct drm_device *drm, struct msm_file_private *ctx,
+> > --
+> > 2.26.2
+> >
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
