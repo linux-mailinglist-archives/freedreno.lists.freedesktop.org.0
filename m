@@ -1,61 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 078A025879E
-	for <lists+freedreno@lfdr.de>; Tue,  1 Sep 2020 07:42:48 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id E962F258915
+	for <lists+freedreno@lfdr.de>; Tue,  1 Sep 2020 09:32:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B14C86E15E;
-	Tue,  1 Sep 2020 05:42:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72A856E43C;
+	Tue,  1 Sep 2020 07:32:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
- [IPv6:2607:f8b0:4864:20::743])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C5776E15E
- for <freedreno@lists.freedesktop.org>; Tue,  1 Sep 2020 05:42:45 +0000 (UTC)
-Received: by mail-qk1-x743.google.com with SMTP id u3so8427075qkd.9
- for <freedreno@lists.freedesktop.org>; Mon, 31 Aug 2020 22:42:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=TjPySNIpD++R3nIfiDfbAnLHmr0c9i/LGC5Y9ogD0v8=;
- b=OAbWCK0Yezbsh/mzcgeE7sC/EeQQhZZ8WSfMp/Fmv/B7Lk2xTWpDZL7ez5bf5UDPWK
- 4Tue7VtzfuaCr5qUWiEay3FADaV89uAXqiEQ2f0UU/LKgixPCrQhkFXl83SKtXawRPug
- 3VswzBVU7BhUiPiBt4EI5sghR0SBrIxLZku0fNksghFQsFPBBSKTndX/FfB6TpJMrVJJ
- TE/FJhQHMSxivxBOC5CwlJvVL2inpaqTLLxgpXo2oLYU/jPdXYGaBWizv/c5P/4Twm4n
- oUcO4KIExFshItVD3J8hb+p6lpoDxm4JTY8Saz2oGC55/ChiWAPX6WIBTSDYFkqzsCAo
- 81SQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=TjPySNIpD++R3nIfiDfbAnLHmr0c9i/LGC5Y9ogD0v8=;
- b=SSVExZG33vY+eXG8/lsMnyvgt51LCaVu3pP3Gd/om9ZIriUjTNSrnwBFzc67B90zW8
- ZMH4FHHalpYfmDrR2PTvBsG4BQaoNoA8mYX0TXvvdYzbj/j5fifvnkZum1dBdsXawxIh
- VaWFMG09J7fsBerPMA3TCKmNQpyFs2TEKmTT0jc8W7hqPCBP23RrfV1wqcHy7dPh5ELJ
- viiLUpDx6XSwqd9IB33R2x5hjdpRKAVl694n/rC85vzHbMfXCyvv4XiNSzBoVhqcugHR
- HABDIvyl30xVcigvwSz+vC53/HbPvxpgEYpqn1cUyX06cB+tXS4fAAhDWTgI7NGsnnRD
- AxcA==
-X-Gm-Message-State: AOAM531bcy3PAYYSBgYLBQb1eWW9xYRyu+eBOGYj6G3RXsnc7v2mjs2X
- mOtY8OZ8U7KM5sVB6etRxpIHfA==
-X-Google-Smtp-Source: ABdhPJzptDekz3V1QxRTxrgjsN9RM1EoaAMnK6eUWK4D92iBVLom/mgdEqgNNG4GBVYJ/DvH3YX36g==
-X-Received: by 2002:a37:b307:: with SMTP id c7mr270811qkf.33.1598938964675;
- Mon, 31 Aug 2020 22:42:44 -0700 (PDT)
-Received: from uller (ec2-34-197-84-77.compute-1.amazonaws.com. [34.197.84.77])
- by smtp.gmail.com with ESMTPSA id s20sm354299qkg.65.2020.08.31.22.42.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Aug 2020 22:42:44 -0700 (PDT)
-Date: Tue, 1 Sep 2020 05:42:42 +0000
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20200901054242.GC54956@uller>
-References: <20200810222657.1841322-1-jcrouse@codeaurora.org>
- <20200814024114.1177553-2-robdclark@gmail.com>
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50BD96E43C
+ for <freedreno@lists.freedesktop.org>; Tue,  1 Sep 2020 07:32:02 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1598945525; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
+ Subject: Sender; bh=Zfqd1NY57glLHp+F+Na2YYDd6T8pT12Sz/2at7PsBCY=;
+ b=SJthwUwtPYKVIKYGmL5i5mf2V2P2DhVqUeFvZYGcHGExyxo+BX005soe3qN2omZMcg1eVsg9
+ WqPyAoKj2SN6Yfs3/tFfvabqNJm8v5CFfFIfhUs2mxIO+4J6jb7Y0zFACULpUiqasBG2pw53
+ hPFr7QEV7DjIxkomQo6dtJtknuA=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
+ 5f4df8eb7f21d51b30ec68b0 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 01 Sep 2020 07:31:55
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 62BCDC433A1; Tue,  1 Sep 2020 07:31:55 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-3.1 required=2.0 tests=ALL_TRUSTED,NICE_REPLY_A,
+ SPF_NONE, URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from [192.168.1.16] (unknown [61.1.231.241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: rnayak)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 808A5C433C6;
+ Tue,  1 Sep 2020 07:31:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 808A5C433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=rnayak@codeaurora.org
+To: Viresh Kumar <viresh.kumar@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>
+References: <cover.1598594714.git.viresh.kumar@linaro.org>
+ <6e4110032f8711e8bb0acbeccfe66dec3b09d5c1.1598594714.git.viresh.kumar@linaro.org>
+From: Rajendra Nayak <rnayak@codeaurora.org>
+Message-ID: <bc64e031-c42f-9ed2-c597-18a790a4d3bb@codeaurora.org>
+Date: Tue, 1 Sep 2020 13:01:47 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200814024114.1177553-2-robdclark@gmail.com>
-Subject: Re: [Freedreno] [PATCH 01/19] drm/msm: remove dangling submitqueue
- references
+In-Reply-To: <6e4110032f8711e8bb0acbeccfe66dec3b09d5c1.1598594714.git.viresh.kumar@linaro.org>
+Content-Language: en-US
+Subject: Re: [Freedreno] [PATCH V2 3/8] drm/msm: Unconditionally call
+ dev_pm_opp_of_remove_table()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,56 +71,140 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Will Deacon <will@kernel.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
- Robin Murphy <robin.murphy@arm.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
- iommu@lists.linux-foundation.org, Sibi Sankar <sibis@codeaurora.org>,
- Vivek Gautam <vivek.gautam@codeaurora.org>, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: Nishanth Menon <nm@ti.com>, Vincent Guittot <vincent.guittot@linaro.org>,
+ linux-pm@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
+ linux-arm-msm@vger.kernel.org, Naresh Kamboju <naresh.kamboju@linaro.org>,
+ Rafael Wysocki <rjw@rjwysocki.net>, Douglas Anderson <dianders@chromium.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ freedreno@lists.freedesktop.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri 14 Aug 02:40 UTC 2020, Rob Clark wrote:
 
-> From: Rob Clark <robdclark@chromium.org>
+On 8/28/2020 11:37 AM, Viresh Kumar wrote:
+> dev_pm_opp_of_remove_table() doesn't report any errors when it fails to
+> find the OPP table with error -ENODEV (i.e. OPP table not present for
+> the device). And we can call dev_pm_opp_of_remove_table()
+> unconditionally here.
+
+Its a little tricky to call things unconditionally for this driver, more below.
+
 > 
-> Currently it doesn't matter, since we free the ctx immediately.  But
-> when we start refcnt'ing the ctx, we don't want old dangling list
-> entries to hang around.
+> While at it, also create a label to put clkname.
 > 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-
-Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-
+> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+> 
 > ---
->  drivers/gpu/drm/msm/msm_submitqueue.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+> V2:
+> - Compare with -ENODEV only for failures.
+> - Create new label to put clkname.
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 14 +++++---------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h |  1 -
+>   drivers/gpu/drm/msm/dsi/dsi_host.c      |  8 ++------
+>   3 files changed, 7 insertions(+), 16 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
-> index a1d94be7883a..90c9d84e6155 100644
-> --- a/drivers/gpu/drm/msm/msm_submitqueue.c
-> +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
-> @@ -49,8 +49,10 @@ void msm_submitqueue_close(struct msm_file_private *ctx)
->  	 * No lock needed in close and there won't
->  	 * be any more user ioctls coming our way
->  	 */
-> -	list_for_each_entry_safe(entry, tmp, &ctx->submitqueues, node)
-> +	list_for_each_entry_safe(entry, tmp, &ctx->submitqueues, node) {
-> +		list_del(&entry->node);
->  		msm_submitqueue_put(entry);
-> +	}
->  }
->  
->  int msm_submitqueue_create(struct drm_device *drm, struct msm_file_private *ctx,
-> -- 
-> 2.26.2
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index c0a4d4e16d82..c8287191951f 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -1010,12 +1010,9 @@ static int dpu_bind(struct device *dev, struct device *master, void *data)
+>   		return PTR_ERR(dpu_kms->opp_table);
+>   	/* OPP table is optional */
+>   	ret = dev_pm_opp_of_add_table(dev);
+> -	if (!ret) {
+> -		dpu_kms->has_opp_table = true;
+> -	} else if (ret != -ENODEV) {
+> +	if (ret && ret != -ENODEV) {
+>   		dev_err(dev, "invalid OPP table in device tree\n");
+> -		dev_pm_opp_put_clkname(dpu_kms->opp_table);
+> -		return ret;
+> +		goto put_clkname;
+
+So FWIU, dpu_unbind() gets called even when dpu_bind() fails for some reason.
+I tried to address that earlier [1] which I realized did not land. But with these changes
+it will be even more broken unless we identify if we failed dpu_bind() before
+adding the OPP table, while adding it, or all went well with opps and handle things
+accordingly in dpu_unbind.
+
+[1] https://lore.kernel.org/patchwork/patch/1275632/
+
+>   	}
+>   
+>   	mp = &dpu_kms->mp;
+> @@ -1037,8 +1034,8 @@ static int dpu_bind(struct device *dev, struct device *master, void *data)
+>   	priv->kms = &dpu_kms->base;
+>   	return ret;
+>   err:
+> -	if (dpu_kms->has_opp_table)
+> -		dev_pm_opp_of_remove_table(dev);
+> +	dev_pm_opp_of_remove_table(dev);
+> +put_clkname:
+>   	dev_pm_opp_put_clkname(dpu_kms->opp_table);
+>   	return ret;
+>   }
+> @@ -1056,8 +1053,7 @@ static void dpu_unbind(struct device *dev, struct device *master, void *data)
+>   	if (dpu_kms->rpm_enabled)
+>   		pm_runtime_disable(&pdev->dev);
+>   
+> -	if (dpu_kms->has_opp_table)
+> -		dev_pm_opp_of_remove_table(dev);
+> +	dev_pm_opp_of_remove_table(dev);
+>   	dev_pm_opp_put_clkname(dpu_kms->opp_table);
+>   }
+>   
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+> index e140cd633071..8295979a7165 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+> @@ -129,7 +129,6 @@ struct dpu_kms {
+>   	bool rpm_enabled;
+>   
+>   	struct opp_table *opp_table;
+> -	bool has_opp_table;
+>   
+>   	struct dss_module_power mp;
+>   
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index b17ac6c27554..4335fe33250c 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -113,7 +113,6 @@ struct msm_dsi_host {
+>   	struct clk *byte_intf_clk;
+>   
+>   	struct opp_table *opp_table;
+> -	bool has_opp_table;
+>   
+>   	u32 byte_clk_rate;
+>   	u32 pixel_clk_rate;
+> @@ -1891,9 +1890,7 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
+>   		return PTR_ERR(msm_host->opp_table);
+>   	/* OPP table is optional */
+>   	ret = dev_pm_opp_of_add_table(&pdev->dev);
+> -	if (!ret) {
+> -		msm_host->has_opp_table = true;
+> -	} else if (ret != -ENODEV) {
+> +	if (ret && ret != -ENODEV) {
+>   		dev_err(&pdev->dev, "invalid OPP table in device tree\n");
+>   		dev_pm_opp_put_clkname(msm_host->opp_table);
+>   		return ret;
+> @@ -1934,8 +1931,7 @@ void msm_dsi_host_destroy(struct mipi_dsi_host *host)
+>   	mutex_destroy(&msm_host->cmd_mutex);
+>   	mutex_destroy(&msm_host->dev_mutex);
+>   
+> -	if (msm_host->has_opp_table)
+> -		dev_pm_opp_of_remove_table(&msm_host->pdev->dev);
+> +	dev_pm_opp_of_remove_table(&msm_host->pdev->dev);
+>   	dev_pm_opp_put_clkname(msm_host->opp_table);
+>   	pm_runtime_disable(&msm_host->pdev->dev);
+>   }
 > 
+
+-- 
+QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a member
+of Code Aurora Forum, hosted by The Linux Foundation
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
