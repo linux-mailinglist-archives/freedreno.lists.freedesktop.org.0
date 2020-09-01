@@ -1,62 +1,39 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27231259A23
-	for <lists+freedreno@lfdr.de>; Tue,  1 Sep 2020 18:47:05 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B3B7259F09
+	for <lists+freedreno@lfdr.de>; Tue,  1 Sep 2020 21:14:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAEA66E8AA;
-	Tue,  1 Sep 2020 16:47:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07A8F6E0F1;
+	Tue,  1 Sep 2020 19:14:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B67FA6E8A7;
- Tue,  1 Sep 2020 16:47:02 +0000 (UTC)
-Received: by mail-pf1-x442.google.com with SMTP id d22so1121342pfn.5;
- Tue, 01 Sep 2020 09:47:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=5JF0K2ibyE/zehbgbBKBhBqstwKgVBYPVbRBmEcyFBo=;
- b=M6TZ9EH6qhAEncJ58yGX4cmjWPOSr9dctkNugOKarHkbjwPx9K3jGRjC9WiGOB2lXC
- 5UoeTHKxWCg28bjDlLuhSXMMa3iJcfAQ+nproPESkVVnSwEQL6BTE//LqN91wEMaQX2N
- 54AGKoDFznNeKzl/qcpn7s8I4YuyrihDer2GyTumAPPQLtOqSnorUW3e8zkWh/C6PSdS
- FsOV9zu/JBzAzVQBguBcXd2SoM/IZb9zz/m1CI24XP9b4PXytnDvOJ1Zf9/NMyDrhanM
- XQjP8bE+ugOJasKQBxhw0SOyzYE40zvnRl2PiLH39a2nGnvYavKnlYqXTMYJowWykc4a
- rzBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=5JF0K2ibyE/zehbgbBKBhBqstwKgVBYPVbRBmEcyFBo=;
- b=aibvfpUOaS9TpiDRBhbQRFa3b8wAp7+wlSiipqrac6oSuYzqzcL2uE352RNFOSdP0P
- hKNSl10fzls7tLmUAvulZyJDse+Za9cBqcwOP5ugWK1XiCfUQ2mBnnXFA7Aptu4Vxs3+
- Z7vEcLAQ209eNrSM0y8llUY0mOPl+EYfyBgybl+u0ulQ0PKmcH7lGTnF64AZXVduPJh0
- 3gXFyDZzXy7edz354JR1XsL5hqZgPpvtBioZXa/KRT+DdAwLAiBl5nObnltD++TCtTSv
- uQbxruxcNN4uoG1jrQP+htR/39l8hCqVck7WZ2jY3Awgx1uONc171//j/I1yu8mzrpci
- ayiw==
-X-Gm-Message-State: AOAM533u1cm/5wWa4CWS9xiytJ8FFwR2nEXkioykivLY7gVIHVR5Q+Ll
- TRlUCYmfay0MAvAXteUqWC8/lQtFNYsODg==
-X-Google-Smtp-Source: ABdhPJzFiBFcl9IWHCBEPsYZ2kCZAqml6KMIXH5n8iP+j7MVj751hgr0V9WqyXImXO1gIBVGYFRdMA==
-X-Received: by 2002:a63:4a17:: with SMTP id x23mr2240347pga.380.1598978821265; 
- Tue, 01 Sep 2020 09:47:01 -0700 (PDT)
-Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
- by smtp.gmail.com with ESMTPSA id a8sm2663841pga.69.2020.09.01.09.47.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Sep 2020 09:47:00 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
- linux-arm-msm@vger.kernel.org, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>
-Date: Tue,  1 Sep 2020 09:46:28 -0700
-Message-Id: <20200901164707.2645413-12-robdclark@gmail.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200901164707.2645413-1-robdclark@gmail.com>
-References: <20200901164707.2645413-1-robdclark@gmail.com>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 9148F6E0F1;
+ Tue,  1 Sep 2020 19:14:32 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F21C51FB;
+ Tue,  1 Sep 2020 12:14:31 -0700 (PDT)
+Received: from [10.57.40.122] (unknown [10.57.40.122])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DC4A93F71F;
+ Tue,  1 Sep 2020 12:14:29 -0700 (PDT)
+To: Marek Szyprowski <m.szyprowski@samsung.com>,
+ dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+References: <20200826063316.23486-1-m.szyprowski@samsung.com>
+ <CGME20200826063535eucas1p10cef37d8364216cf57c97e96d3959dd2@eucas1p1.samsung.com>
+ <20200826063316.23486-13-m.szyprowski@samsung.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Message-ID: <fe224152-b621-d96e-b432-bf837d320210@arm.com>
+Date: Tue, 1 Sep 2020 20:14:24 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v16 11/20] drm/msm: Show process names in
- gem_describe
+In-Reply-To: <20200826063316.23486-13-m.szyprowski@samsung.com>
+Content-Language: en-GB
+Subject: Re: [Freedreno] [PATCH v9 12/32] drm: msm: fix common struct
+ sg_table related issues
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,160 +46,142 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, Sibi Sankar <sibis@codeaurora.org>,
- Vivek Gautam <vivek.gautam@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
- open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
+Cc: freedreno@lists.freedesktop.org,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>, Christoph Hellwig <hch@lst.de>,
+ linux-arm-kernel@lists.infradead.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On 2020-08-26 07:32, Marek Szyprowski wrote:
+> The Documentation/DMA-API-HOWTO.txt states that the dma_map_sg() function
+> returns the number of the created entries in the DMA address space.
+> However the subsequent calls to the dma_sync_sg_for_{device,cpu}() and
+> dma_unmap_sg must be called with the original number of the entries
+> passed to the dma_map_sg().
+> 
+> struct sg_table is a common structure used for describing a non-contiguous
+> memory buffer, used commonly in the DRM and graphics subsystems. It
+> consists of a scatterlist with memory pages and DMA addresses (sgl entry),
+> as well as the number of scatterlist entries: CPU pages (orig_nents entry)
+> and DMA mapped pages (nents entry).
+> 
+> It turned out that it was a common mistake to misuse nents and orig_nents
+> entries, calling DMA-mapping functions with a wrong number of entries or
+> ignoring the number of mapped entries returned by the dma_map_sg()
+> function.
+> 
+> To avoid such issues, lets use a common dma-mapping wrappers operating
+> directly on the struct sg_table objects and use scatterlist page
+> iterators where possible. This, almost always, hides references to the
+> nents and orig_nents entries, making the code robust, easier to follow
+> and copy/paste safe.
+> 
+> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> Acked-by: Rob Clark <robdclark@gmail.com>
+> ---
+>   drivers/gpu/drm/msm/msm_gem.c    | 13 +++++--------
+>   drivers/gpu/drm/msm/msm_gpummu.c | 14 ++++++--------
+>   drivers/gpu/drm/msm/msm_iommu.c  |  2 +-
+>   3 files changed, 12 insertions(+), 17 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+> index b2f49152b4d4..8c7ae812b813 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.c
+> +++ b/drivers/gpu/drm/msm/msm_gem.c
+> @@ -53,11 +53,10 @@ static void sync_for_device(struct msm_gem_object *msm_obj)
+>   	struct device *dev = msm_obj->base.dev->dev;
+>   
+>   	if (get_dma_ops(dev) && IS_ENABLED(CONFIG_ARM64)) {
+> -		dma_sync_sg_for_device(dev, msm_obj->sgt->sgl,
+> -			msm_obj->sgt->nents, DMA_BIDIRECTIONAL);
+> +		dma_sync_sgtable_for_device(dev, msm_obj->sgt,
+> +					    DMA_BIDIRECTIONAL);
+>   	} else {
+> -		dma_map_sg(dev, msm_obj->sgt->sgl,
+> -			msm_obj->sgt->nents, DMA_BIDIRECTIONAL);
+> +		dma_map_sgtable(dev, msm_obj->sgt, DMA_BIDIRECTIONAL, 0);
+>   	}
+>   }
+>   
+> @@ -66,11 +65,9 @@ static void sync_for_cpu(struct msm_gem_object *msm_obj)
+>   	struct device *dev = msm_obj->base.dev->dev;
+>   
+>   	if (get_dma_ops(dev) && IS_ENABLED(CONFIG_ARM64)) {
+> -		dma_sync_sg_for_cpu(dev, msm_obj->sgt->sgl,
+> -			msm_obj->sgt->nents, DMA_BIDIRECTIONAL);
+> +		dma_sync_sgtable_for_cpu(dev, msm_obj->sgt, DMA_BIDIRECTIONAL);
+>   	} else {
+> -		dma_unmap_sg(dev, msm_obj->sgt->sgl,
+> -			msm_obj->sgt->nents, DMA_BIDIRECTIONAL);
+> +		dma_unmap_sgtable(dev, msm_obj->sgt, DMA_BIDIRECTIONAL, 0);
+>   	}
+>   }
+>   
+> diff --git a/drivers/gpu/drm/msm/msm_gpummu.c b/drivers/gpu/drm/msm/msm_gpummu.c
+> index 310a31b05faa..319f06c28235 100644
+> --- a/drivers/gpu/drm/msm/msm_gpummu.c
+> +++ b/drivers/gpu/drm/msm/msm_gpummu.c
+> @@ -30,21 +30,19 @@ static int msm_gpummu_map(struct msm_mmu *mmu, uint64_t iova,
+>   {
+>   	struct msm_gpummu *gpummu = to_msm_gpummu(mmu);
+>   	unsigned idx = (iova - GPUMMU_VA_START) / GPUMMU_PAGE_SIZE;
+> -	struct scatterlist *sg;
+> +	struct sg_dma_page_iter dma_iter;
+>   	unsigned prot_bits = 0;
+> -	unsigned i, j;
+>   
+>   	if (prot & IOMMU_WRITE)
+>   		prot_bits |= 1;
+>   	if (prot & IOMMU_READ)
+>   		prot_bits |= 2;
+>   
+> -	for_each_sg(sgt->sgl, sg, sgt->nents, i) {
+> -		dma_addr_t addr = sg->dma_address;
+> -		for (j = 0; j < sg->length / GPUMMU_PAGE_SIZE; j++, idx++) {
+> -			gpummu->table[idx] = addr | prot_bits;
+> -			addr += GPUMMU_PAGE_SIZE;
+> -		}
+> +	for_each_sgtable_dma_page(sgt, &dma_iter, 0) {
+> +		dma_addr_t addr = sg_page_iter_dma_address(&dma_iter);
+> +
+> +		BUILD_BUG_ON(GPUMMU_PAGE_SIZE != PAGE_SIZE);
+> +		gpummu->table[idx++] = addr | prot_bits;
 
-In $debugfs/gem we already show any vma(s) associated with an object.
-Also show process names if the vma's address space is a per-process
-address space.
+Given that the BUILD_BUG_ON might prevent valid arm64 configs from 
+building, how about a simple tweak like:
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
-Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
-Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
----
- drivers/gpu/drm/msm/msm_drv.c     |  2 +-
- drivers/gpu/drm/msm/msm_gem.c     | 25 +++++++++++++++++++++----
- drivers/gpu/drm/msm/msm_gem.h     |  5 +++++
- drivers/gpu/drm/msm/msm_gem_vma.c |  1 +
- drivers/gpu/drm/msm/msm_gpu.c     |  8 +++++---
- drivers/gpu/drm/msm/msm_gpu.h     |  2 +-
- 6 files changed, 34 insertions(+), 9 deletions(-)
+		for (i = 0; i < PAGE_SIZE; i += GPUMMU_PAGE_SIZE)
+			gpummu->table[idx++] = i + addr | prot_bits;
+?
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 7e963f707852..7143756b7e83 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -597,7 +597,7 @@ static int context_init(struct drm_device *dev, struct drm_file *file)
- 	kref_init(&ctx->ref);
- 	msm_submitqueue_init(dev, ctx);
- 
--	ctx->aspace = msm_gpu_create_private_address_space(priv->gpu);
-+	ctx->aspace = msm_gpu_create_private_address_space(priv->gpu, current);
- 	file->driver_priv = ctx;
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index 3cb7aeb93fd3..76a6c5271e57 100644
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -842,11 +842,28 @@ void msm_gem_describe(struct drm_gem_object *obj, struct seq_file *m)
- 
- 		seq_puts(m, "      vmas:");
- 
--		list_for_each_entry(vma, &msm_obj->vmas, list)
--			seq_printf(m, " [%s: %08llx,%s,inuse=%d]",
--				vma->aspace != NULL ? vma->aspace->name : NULL,
--				vma->iova, vma->mapped ? "mapped" : "unmapped",
-+		list_for_each_entry(vma, &msm_obj->vmas, list) {
-+			const char *name, *comm;
-+			if (vma->aspace) {
-+				struct msm_gem_address_space *aspace = vma->aspace;
-+				struct task_struct *task =
-+					get_pid_task(aspace->pid, PIDTYPE_PID);
-+				if (task) {
-+					comm = kstrdup(task->comm, GFP_KERNEL);
-+				} else {
-+					comm = NULL;
-+				}
-+				name = aspace->name;
-+			} else {
-+				name = comm = NULL;
-+			}
-+			seq_printf(m, " [%s%s%s: aspace=%p, %08llx,%s,inuse=%d]",
-+				name, comm ? ":" : "", comm ? comm : "",
-+				vma->aspace, vma->iova,
-+				vma->mapped ? "mapped" : "unmapped",
- 				vma->inuse);
-+			kfree(comm);
-+		}
- 
- 		seq_puts(m, "\n");
- 	}
-diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-index 9c573c4269cb..7b1c7a5f8eef 100644
---- a/drivers/gpu/drm/msm/msm_gem.h
-+++ b/drivers/gpu/drm/msm/msm_gem.h
-@@ -24,6 +24,11 @@ struct msm_gem_address_space {
- 	spinlock_t lock; /* Protects drm_mm node allocation/removal */
- 	struct msm_mmu *mmu;
- 	struct kref kref;
-+
-+	/* For address spaces associated with a specific process, this
-+	 * will be non-NULL:
-+	 */
-+	struct pid *pid;
- };
- 
- struct msm_gem_vma {
-diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
-index 29cc1305cf37..80a8a266d68f 100644
---- a/drivers/gpu/drm/msm/msm_gem_vma.c
-+++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-@@ -17,6 +17,7 @@ msm_gem_address_space_destroy(struct kref *kref)
- 	drm_mm_takedown(&aspace->mm);
- 	if (aspace->mmu)
- 		aspace->mmu->funcs->destroy(aspace->mmu);
-+	put_pid(aspace->pid);
- 	kfree(aspace);
- }
- 
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 951850804d77..ac8961187a73 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -825,10 +825,9 @@ static int get_clocks(struct platform_device *pdev, struct msm_gpu *gpu)
- 
- /* Return a new address space for a msm_drm_private instance */
- struct msm_gem_address_space *
--msm_gpu_create_private_address_space(struct msm_gpu *gpu)
-+msm_gpu_create_private_address_space(struct msm_gpu *gpu, struct task_struct *task)
- {
- 	struct msm_gem_address_space *aspace = NULL;
--
- 	if (!gpu)
- 		return NULL;
- 
-@@ -836,8 +835,11 @@ msm_gpu_create_private_address_space(struct msm_gpu *gpu)
- 	 * If the target doesn't support private address spaces then return
- 	 * the global one
- 	 */
--	if (gpu->funcs->create_private_address_space)
-+	if (gpu->funcs->create_private_address_space) {
- 		aspace = gpu->funcs->create_private_address_space(gpu);
-+		if (!IS_ERR(aspace))
-+			aspace->pid = get_pid(task_pid(task));
-+	}
- 
- 	if (IS_ERR_OR_NULL(aspace))
- 		aspace = msm_gem_address_space_get(gpu->aspace);
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index 4052a18e18c2..59f26bd0fe42 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -298,7 +298,7 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
- 		const char *name, struct msm_gpu_config *config);
- 
- struct msm_gem_address_space *
--msm_gpu_create_private_address_space(struct msm_gpu *gpu);
-+msm_gpu_create_private_address_space(struct msm_gpu *gpu, struct task_struct *task);
- 
- void msm_gpu_cleanup(struct msm_gpu *gpu);
- 
--- 
-2.26.2
+Or alternatively perhaps some more aggressive #ifdefs or makefile tweaks 
+to prevent the GPUMMU code building for arm64 at all if it's only 
+relevant to 32-bit platforms (which I believe might be the case).
 
+Robin.
+
+>   	}
+>   
+>   	/* we can improve by deferring flush for multiple map() */
+> diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
+> index 3a381a9674c9..6c31e65834c6 100644
+> --- a/drivers/gpu/drm/msm/msm_iommu.c
+> +++ b/drivers/gpu/drm/msm/msm_iommu.c
+> @@ -36,7 +36,7 @@ static int msm_iommu_map(struct msm_mmu *mmu, uint64_t iova,
+>   	struct msm_iommu *iommu = to_msm_iommu(mmu);
+>   	size_t ret;
+>   
+> -	ret = iommu_map_sg(iommu->domain, iova, sgt->sgl, sgt->nents, prot);
+> +	ret = iommu_map_sgtable(iommu->domain, iova, sgt, prot);
+>   	WARN_ON(!ret);
+>   
+>   	return (ret == len) ? 0 : -EINVAL;
+> 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
