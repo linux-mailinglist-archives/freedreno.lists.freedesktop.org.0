@@ -1,39 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B3B7259F09
-	for <lists+freedreno@lfdr.de>; Tue,  1 Sep 2020 21:14:35 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id D84BA25A10C
+	for <lists+freedreno@lfdr.de>; Tue,  1 Sep 2020 23:59:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07A8F6E0F1;
-	Tue,  1 Sep 2020 19:14:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DD636E03F;
+	Tue,  1 Sep 2020 21:59:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9148F6E0F1;
- Tue,  1 Sep 2020 19:14:32 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F21C51FB;
- Tue,  1 Sep 2020 12:14:31 -0700 (PDT)
-Received: from [10.57.40.122] (unknown [10.57.40.122])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DC4A93F71F;
- Tue,  1 Sep 2020 12:14:29 -0700 (PDT)
-To: Marek Szyprowski <m.szyprowski@samsung.com>,
- dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-References: <20200826063316.23486-1-m.szyprowski@samsung.com>
- <CGME20200826063535eucas1p10cef37d8364216cf57c97e96d3959dd2@eucas1p1.samsung.com>
- <20200826063316.23486-13-m.szyprowski@samsung.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Message-ID: <fe224152-b621-d96e-b432-bf837d320210@arm.com>
-Date: Tue, 1 Sep 2020 20:14:24 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
+ [IPv6:2607:f8b0:4864:20::1044])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E71C6E0BC
+ for <freedreno@lists.freedesktop.org>; Tue,  1 Sep 2020 21:59:44 +0000 (UTC)
+Received: by mail-pj1-x1044.google.com with SMTP id ls14so1295261pjb.3
+ for <freedreno@lists.freedesktop.org>; Tue, 01 Sep 2020 14:59:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=3rnwj2YW6I8HLfDh0uPTOzbh/3kFrbTfzm4Bn/WyYBA=;
+ b=RXPbcL+/x/0/MCRLgV/vAAejfDzweAhJZwltTuPOwujDYS6sVTZv6LcDC0toDGfsR5
+ 27pTZsYznoxtJo9BWxj3FqS06iQt+BCkzz4EzmAtE+kXFe26jaN7/pwok/7gmxRtKHfG
+ Pu6xK0H/CaFc3L4FSKt022kwlnRYfZVf6g/HQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=3rnwj2YW6I8HLfDh0uPTOzbh/3kFrbTfzm4Bn/WyYBA=;
+ b=scZmN/H9hhQGFDzVsEerwSDUvUF9HN84yxi+MoT+LdY7vhDMaNzTTxH1gGc+IA9fqp
+ vDEGehvM5oli5079x8pkcWzfbqjwgAbfevzDgbzpWwLwBUSpVlpstexDAglsdb5SOWl4
+ uxeyQDDz2DFnDRqOQuenE1wIObod6/8M4a9ddWoeC/MUC6hk9LxSk7U9Ma0IJM2eYATL
+ dKtp/xPS7qCTu0TE6IrSbRtokt/F8Jd6PNNOUpn5X2fnaSJ7T6LGDMKsSIo+W/3ePAei
+ I4JQWJOPPakJc/qS7EnW0U9GA5CsnekkuyUBxXQcb0sH4tWRz4mofIh4vfMU0aNdDMy8
+ BDNw==
+X-Gm-Message-State: AOAM533S6mqNWt+a8qdAX51b9XtNLcQEfTRjHgBJradJfdfeZG6hxlHz
+ yVZKmrqSeEhTsKDa8uPw36k2+w==
+X-Google-Smtp-Source: ABdhPJz9RPfwEsuY9az8y012sHdT37924RbixUIVrrwiv3YuNEPc599qRWWZD3WwDHJJOHxIT49HpA==
+X-Received: by 2002:a17:902:7b8a:: with SMTP id
+ w10mr3245995pll.145.1598997583989; 
+ Tue, 01 Sep 2020 14:59:43 -0700 (PDT)
+Received: from smtp.gmail.com ([2620:15c:202:1:3e52:82ff:fe6c:83ab])
+ by smtp.gmail.com with ESMTPSA id q5sm3044037pfu.16.2020.09.01.14.59.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 01 Sep 2020 14:59:43 -0700 (PDT)
+From: Stephen Boyd <swboyd@chromium.org>
+To: Rob Clark <robdclark@gmail.com>
+Date: Tue,  1 Sep 2020 14:59:40 -0700
+Message-Id: <20200901215942.2559119-1-swboyd@chromium.org>
+X-Mailer: git-send-email 2.28.0.402.g5ffc5be6b7-goog
 MIME-Version: 1.0
-In-Reply-To: <20200826063316.23486-13-m.szyprowski@samsung.com>
-Content-Language: en-GB
-Subject: Re: [Freedreno] [PATCH v9 12/32] drm: msm: fix common struct
- sg_table related issues
+Subject: [Freedreno] [PATCH 0/2] A couple drm/msm fixes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,142 +62,27 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>, Christoph Hellwig <hch@lst.de>,
- linux-arm-kernel@lists.infradead.org
+Cc: Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-08-26 07:32, Marek Szyprowski wrote:
-> The Documentation/DMA-API-HOWTO.txt states that the dma_map_sg() function
-> returns the number of the created entries in the DMA address space.
-> However the subsequent calls to the dma_sync_sg_for_{device,cpu}() and
-> dma_unmap_sg must be called with the original number of the entries
-> passed to the dma_map_sg().
-> 
-> struct sg_table is a common structure used for describing a non-contiguous
-> memory buffer, used commonly in the DRM and graphics subsystems. It
-> consists of a scatterlist with memory pages and DMA addresses (sgl entry),
-> as well as the number of scatterlist entries: CPU pages (orig_nents entry)
-> and DMA mapped pages (nents entry).
-> 
-> It turned out that it was a common mistake to misuse nents and orig_nents
-> entries, calling DMA-mapping functions with a wrong number of entries or
-> ignoring the number of mapped entries returned by the dma_map_sg()
-> function.
-> 
-> To avoid such issues, lets use a common dma-mapping wrappers operating
-> directly on the struct sg_table objects and use scatterlist page
-> iterators where possible. This, almost always, hides references to the
-> nents and orig_nents entries, making the code robust, easier to follow
-> and copy/paste safe.
-> 
-> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> Acked-by: Rob Clark <robdclark@gmail.com>
-> ---
->   drivers/gpu/drm/msm/msm_gem.c    | 13 +++++--------
->   drivers/gpu/drm/msm/msm_gpummu.c | 14 ++++++--------
->   drivers/gpu/drm/msm/msm_iommu.c  |  2 +-
->   3 files changed, 12 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-> index b2f49152b4d4..8c7ae812b813 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.c
-> +++ b/drivers/gpu/drm/msm/msm_gem.c
-> @@ -53,11 +53,10 @@ static void sync_for_device(struct msm_gem_object *msm_obj)
->   	struct device *dev = msm_obj->base.dev->dev;
->   
->   	if (get_dma_ops(dev) && IS_ENABLED(CONFIG_ARM64)) {
-> -		dma_sync_sg_for_device(dev, msm_obj->sgt->sgl,
-> -			msm_obj->sgt->nents, DMA_BIDIRECTIONAL);
-> +		dma_sync_sgtable_for_device(dev, msm_obj->sgt,
-> +					    DMA_BIDIRECTIONAL);
->   	} else {
-> -		dma_map_sg(dev, msm_obj->sgt->sgl,
-> -			msm_obj->sgt->nents, DMA_BIDIRECTIONAL);
-> +		dma_map_sgtable(dev, msm_obj->sgt, DMA_BIDIRECTIONAL, 0);
->   	}
->   }
->   
-> @@ -66,11 +65,9 @@ static void sync_for_cpu(struct msm_gem_object *msm_obj)
->   	struct device *dev = msm_obj->base.dev->dev;
->   
->   	if (get_dma_ops(dev) && IS_ENABLED(CONFIG_ARM64)) {
-> -		dma_sync_sg_for_cpu(dev, msm_obj->sgt->sgl,
-> -			msm_obj->sgt->nents, DMA_BIDIRECTIONAL);
-> +		dma_sync_sgtable_for_cpu(dev, msm_obj->sgt, DMA_BIDIRECTIONAL);
->   	} else {
-> -		dma_unmap_sg(dev, msm_obj->sgt->sgl,
-> -			msm_obj->sgt->nents, DMA_BIDIRECTIONAL);
-> +		dma_unmap_sgtable(dev, msm_obj->sgt, DMA_BIDIRECTIONAL, 0);
->   	}
->   }
->   
-> diff --git a/drivers/gpu/drm/msm/msm_gpummu.c b/drivers/gpu/drm/msm/msm_gpummu.c
-> index 310a31b05faa..319f06c28235 100644
-> --- a/drivers/gpu/drm/msm/msm_gpummu.c
-> +++ b/drivers/gpu/drm/msm/msm_gpummu.c
-> @@ -30,21 +30,19 @@ static int msm_gpummu_map(struct msm_mmu *mmu, uint64_t iova,
->   {
->   	struct msm_gpummu *gpummu = to_msm_gpummu(mmu);
->   	unsigned idx = (iova - GPUMMU_VA_START) / GPUMMU_PAGE_SIZE;
-> -	struct scatterlist *sg;
-> +	struct sg_dma_page_iter dma_iter;
->   	unsigned prot_bits = 0;
-> -	unsigned i, j;
->   
->   	if (prot & IOMMU_WRITE)
->   		prot_bits |= 1;
->   	if (prot & IOMMU_READ)
->   		prot_bits |= 2;
->   
-> -	for_each_sg(sgt->sgl, sg, sgt->nents, i) {
-> -		dma_addr_t addr = sg->dma_address;
-> -		for (j = 0; j < sg->length / GPUMMU_PAGE_SIZE; j++, idx++) {
-> -			gpummu->table[idx] = addr | prot_bits;
-> -			addr += GPUMMU_PAGE_SIZE;
-> -		}
-> +	for_each_sgtable_dma_page(sgt, &dma_iter, 0) {
-> +		dma_addr_t addr = sg_page_iter_dma_address(&dma_iter);
-> +
-> +		BUILD_BUG_ON(GPUMMU_PAGE_SIZE != PAGE_SIZE);
-> +		gpummu->table[idx++] = addr | prot_bits;
+Two small fixes for an UBSAN warning and to make debugging a little
+easier.
 
-Given that the BUILD_BUG_ON might prevent valid arm64 configs from 
-building, how about a simple tweak like:
+Stephen Boyd (2):
+  drm/msm: Avoid div-by-zero in dpu_crtc_atomic_check()
+  drm/msm: Drop debug print in _dpu_crtc_setup_lm_bounds()
 
-		for (i = 0; i < PAGE_SIZE; i += GPUMMU_PAGE_SIZE)
-			gpummu->table[idx++] = i + addr | prot_bits;
-?
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-Or alternatively perhaps some more aggressive #ifdefs or makefile tweaks 
-to prevent the GPUMMU code building for arm64 at all if it's only 
-relevant to 32-bit platforms (which I believe might be the case).
+-- 
+Sent by a computer, using git, on the internet
 
-Robin.
-
->   	}
->   
->   	/* we can improve by deferring flush for multiple map() */
-> diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-> index 3a381a9674c9..6c31e65834c6 100644
-> --- a/drivers/gpu/drm/msm/msm_iommu.c
-> +++ b/drivers/gpu/drm/msm/msm_iommu.c
-> @@ -36,7 +36,7 @@ static int msm_iommu_map(struct msm_mmu *mmu, uint64_t iova,
->   	struct msm_iommu *iommu = to_msm_iommu(mmu);
->   	size_t ret;
->   
-> -	ret = iommu_map_sg(iommu->domain, iova, sgt->sgl, sgt->nents, prot);
-> +	ret = iommu_map_sgtable(iommu->domain, iova, sgt, prot);
->   	WARN_ON(!ret);
->   
->   	return (ret == len) ? 0 : -EINVAL;
-> 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
