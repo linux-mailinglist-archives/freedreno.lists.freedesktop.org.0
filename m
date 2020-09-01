@@ -2,61 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 555E92585AC
-	for <lists+freedreno@lfdr.de>; Tue,  1 Sep 2020 04:35:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC9CF258638
+	for <lists+freedreno@lfdr.de>; Tue,  1 Sep 2020 05:36:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B2316E56D;
-	Tue,  1 Sep 2020 02:35:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7215C6E153;
+	Tue,  1 Sep 2020 03:36:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
- [IPv6:2607:f8b0:4864:20::741])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AC9B6E56D
- for <freedreno@lists.freedesktop.org>; Tue,  1 Sep 2020 02:35:21 +0000 (UTC)
-Received: by mail-qk1-x741.google.com with SMTP id g72so7659045qke.8
- for <freedreno@lists.freedesktop.org>; Mon, 31 Aug 2020 19:35:21 -0700 (PDT)
+Received: from mail-oi1-x241.google.com (mail-oi1-x241.google.com
+ [IPv6:2607:f8b0:4864:20::241])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F8896E153
+ for <freedreno@lists.freedesktop.org>; Tue,  1 Sep 2020 03:36:54 +0000 (UTC)
+Received: by mail-oi1-x241.google.com with SMTP id u126so1651231oif.13
+ for <freedreno@lists.freedesktop.org>; Mon, 31 Aug 2020 20:36:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=sAkSksCshNCD0adm0PWVHtppOopUbUnVb4Kv/b5sxpQ=;
- b=X7VDKvWuVcCm6d71WbRGDBPl2PRAA3caYAsvX9a0iQnhlqUGnVr+3lTD9uiPKrGseV
- wvPYn+EjmvIw6hkJcskfTKPfWbrPa7yIAcqVY2uT5fcssTxk0ZIs53cKvafxjTE5fNpQ
- jK16OSHp6Y65G+bHCw/vFEXPKBFsH6Lb1UgMPJaaDUpwVy5tgHc+2vAabhmoMBNYb5NJ
- b5jDpAsGaWNATCkGPINy9jYFeTjF/zBU9R25CFrPGzRlE+Y75c1hBeJcPbcYDWBu8zvo
- vt0AzczXlEUBbhTgQp6yM7xku5oqHjQl9CDobdE8t5xv2S3t5FLTki5btvB1VzQiRAiy
- RkRA==
+ bh=3bbR697W940r4qzYtPEkaaefcfDcXbIb27x0eRbQn1Q=;
+ b=t88wyukFrGBP19mHYjYTWsz3cjpW6QpEg7Ltbz+G5xqv1PsMrwfuqtT+tsBMRaFiAe
+ 4gPWkDGMc/WT3t+OYUgDhDsySC1lQoBqPFXqCkKy/yNF7uKG0CBKbSLjEcYi8r99wzkD
+ zJ1uKKejvBjXEpmdvoN6S1Kw1Lszf8WchWPjqE6kBvVrLaMFqaxCLB8jHPVd05sLjn5w
+ Sn+IUjF1T8S8Vk2Gcxs12RcZw9Hv+7upag/QjiMCAT5OFVNyus4MjWThnyDI47KSEHer
+ iinAg7zWc3pxEuBAlyWYMLY4fj4xuriYi3LKpZ+nfuCVl8br024gHoMVW+1TKqgidBXf
+ 4pIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=sAkSksCshNCD0adm0PWVHtppOopUbUnVb4Kv/b5sxpQ=;
- b=PRS94p6crGkQFYhVq02bzpFKz1elh5eFOKmBCRMfjbwIcxSyYYDGA36iL2KA7EA627
- 7/PY9nmpksDC/CDsBqm2oKbRQKS8aY4lkR8wkWKjX2zMN4MMW84XtC1T+GO4EhXGHXP8
- cW4s8TIgbN/PQU79HKnMByeYZVY2E/skCh59g/aAl6T5/sEJn+nmIUOelbJ+YplJ3Y9A
- ngesbfFWgmPySiYYAnBaIhDDKre9cZ7Sd1uAbde6NwkwCnpQWWYchaGzYZae2f1W4x+E
- A+e657PFKOdepg5NTowyi7ln1mLIikoi0FXLIQs5HYdOwpl9WoTghPld7KqOcnsl9itz
- PJJw==
-X-Gm-Message-State: AOAM532+1qL3dM5+4R/yLUsGBD74tmodLTM/wZsyHHEGERUUoQSmU1g0
- D5h6znppB/v1JCC7TgRQM2pR4Q==
-X-Google-Smtp-Source: ABdhPJx7BeaFp2dnidck1oOhhHfYj6kzJNHKwcvWvxlyJU5srYROFYeR2ubg0/k9FzuVLaIx3C+6Xg==
-X-Received: by 2002:a05:620a:567:: with SMTP id
- p7mr4710228qkp.164.1598927720041; 
- Mon, 31 Aug 2020 19:35:20 -0700 (PDT)
-Received: from uller (ec2-34-197-84-77.compute-1.amazonaws.com. [34.197.84.77])
- by smtp.gmail.com with ESMTPSA id f22sm3589377qtq.64.2020.08.31.19.35.18
+ bh=3bbR697W940r4qzYtPEkaaefcfDcXbIb27x0eRbQn1Q=;
+ b=ukodMMzHGRxjKBBwn0t/EwdhC6avpobiapf9bRZC6DhpFA1yn/M2TMu4yndy81OCWY
+ 7ni/CrmC2ehW5ClHqT6JhqZ+qCWVBAFDcxxl+zVAF4dkwSGHeOVziaU4oe5hnAnk0+MW
+ wRu4HDXzx9MRsZE4K5j9RbQUIc+6ulVwcdLoQEnQUJvCYaOy+DDppoYKNs2Wrk++0YUy
+ qHbp/QO65z3lD8wuiBVf+gLqM6h7Z7Y++ueY63d8i3R5TWo3lRd4H2VfRtaH4piTuJim
+ aFGqQ8qZbNh4nZaVhuQ5npHy2M0u44zzlND1b08V05lHTgNnOgncCkQpUYvcpVcoc2VH
+ PeQQ==
+X-Gm-Message-State: AOAM532cAI2mmlO7aTgVlxCWwfYW1VpwNqh0pY2cQKxVvvxhDF4zA05U
+ 9YO6VEvVUBo8AkVdiWZwUcXFhQ==
+X-Google-Smtp-Source: ABdhPJzjeGy+/ZDGjjXngyiAJQe6e3aEgxmZgSoz2VhDdCQaWZ2XBv1SUodwsR+dKUEuJnH+tsgDPw==
+X-Received: by 2002:aca:5413:: with SMTP id i19mr16131oib.105.1598931413164;
+ Mon, 31 Aug 2020 20:36:53 -0700 (PDT)
+Received: from yoga ([2605:6000:e5cb:c100:8898:14ff:fe6d:34e])
+ by smtp.gmail.com with ESMTPSA id w136sm2050529oif.14.2020.08.31.20.36.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Aug 2020 19:35:19 -0700 (PDT)
-Date: Tue, 1 Sep 2020 02:35:17 +0000
+ Mon, 31 Aug 2020 20:36:52 -0700 (PDT)
+Date: Mon, 31 Aug 2020 22:36:35 -0500
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
 To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20200901023517.GA54956@uller>
+Message-ID: <20200901033635.GK3715@yoga>
 References: <20200810222657.1841322-1-jcrouse@codeaurora.org>
- <20200814024114.1177553-2-robdclark@gmail.com>
+ <20200814024114.1177553-3-robdclark@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200814024114.1177553-2-robdclark@gmail.com>
-Subject: Re: [Freedreno] [PATCH 01/19] drm/msm: remove dangling submitqueue
- references
+In-Reply-To: <20200814024114.1177553-3-robdclark@gmail.com>
+Subject: Re: [Freedreno] [PATCH 02/19] iommu/arm-smmu: Pass io-pgtable
+ config to implementation specific function
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,66 +70,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>,
  Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Will Deacon <will@kernel.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
- Robin Murphy <robin.murphy@arm.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
- iommu@lists.linux-foundation.org, Sibi Sankar <sibis@codeaurora.org>,
- Vivek Gautam <vivek.gautam@codeaurora.org>, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org
+ Jordan Crouse <jcrouse@codeaurora.org>,
+ open list <linux-kernel@vger.kernel.org>, Jonathan Marek <jonathan@marek.ca>,
+ Will Deacon <will@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Joerg Roedel <joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ iommu@lists.linux-foundation.org, Thierry Reding <thierry.reding@gmail.com>,
+ Krishna Reddy <vdumpa@nvidia.com>, Sibi Sankar <sibis@codeaurora.org>,
+ Vivek Gautam <vivek.gautam@codeaurora.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri 14 Aug 02:40 UTC 2020, Rob Clark wrote:
+On Thu 13 Aug 21:40 CDT 2020, Rob Clark wrote:
 
-> From: Rob Clark <robdclark@chromium.org>
+> From: Jordan Crouse <jcrouse@codeaurora.org>
 > 
-> Currently it doesn't matter, since we free the ctx immediately.  But
-> when we start refcnt'ing the ctx, we don't want old dangling list
-> entries to hang around.
+> Construct the io-pgtable config before calling the implementation specific
+> init_context function and pass it so the implementation specific function
+> can get a chance to change it before the io-pgtable is created.
 > 
+> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
 > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/gpu/drm/msm/msm_submitqueue.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
-> index a1d94be7883a..90c9d84e6155 100644
-> --- a/drivers/gpu/drm/msm/msm_submitqueue.c
-> +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
-> @@ -49,8 +49,10 @@ void msm_submitqueue_close(struct msm_file_private *ctx)
->  	 * No lock needed in close and there won't
->  	 * be any more user ioctls coming our way
->  	 */
-> -	list_for_each_entry_safe(entry, tmp, &ctx->submitqueues, node)
-> +	list_for_each_entry_safe(entry, tmp, &ctx->submitqueues, node) {
-> +		list_del(&entry->node);
 
-If you refcount ctx, what does that do for the entries in the submit
-queue?
-
-"entry" here is kref'ed, but you're popping it off the list regardless
-of the put ends up freeing the object or not - which afaict would mean
-leaking the object.
-
-
-On the other hand, with the current implementation an object with higher
-refcount with adjacent objects of single refcount would end up with
-dangling pointers after the put. So in itself this change seems like a
-net gain, but I'm wondering about the plan described in the commit
-message.
+Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 
 Regards,
 Bjorn
 
->  		msm_submitqueue_put(entry);
-> +	}
+> ---
+>  drivers/iommu/arm/arm-smmu/arm-smmu-impl.c |  3 ++-
+>  drivers/iommu/arm/arm-smmu/arm-smmu.c      | 11 ++++++-----
+>  drivers/iommu/arm/arm-smmu/arm-smmu.h      |  3 ++-
+>  3 files changed, 10 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c b/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
+> index f4ff124a1967..a9861dcd0884 100644
+> --- a/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
+> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
+> @@ -68,7 +68,8 @@ static int cavium_cfg_probe(struct arm_smmu_device *smmu)
+>  	return 0;
 >  }
 >  
->  int msm_submitqueue_create(struct drm_device *drm, struct msm_file_private *ctx,
+> -static int cavium_init_context(struct arm_smmu_domain *smmu_domain)
+> +static int cavium_init_context(struct arm_smmu_domain *smmu_domain,
+> +		struct io_pgtable_cfg *pgtbl_cfg)
+>  {
+>  	struct cavium_smmu *cs = container_of(smmu_domain->smmu,
+>  					      struct cavium_smmu, smmu);
+> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+> index 09c42af9f31e..37d8d49299b4 100644
+> --- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
+> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+> @@ -795,11 +795,6 @@ static int arm_smmu_init_domain_context(struct iommu_domain *domain,
+>  		cfg->asid = cfg->cbndx;
+>  
+>  	smmu_domain->smmu = smmu;
+> -	if (smmu->impl && smmu->impl->init_context) {
+> -		ret = smmu->impl->init_context(smmu_domain);
+> -		if (ret)
+> -			goto out_unlock;
+> -	}
+>  
+>  	pgtbl_cfg = (struct io_pgtable_cfg) {
+>  		.pgsize_bitmap	= smmu->pgsize_bitmap,
+> @@ -810,6 +805,12 @@ static int arm_smmu_init_domain_context(struct iommu_domain *domain,
+>  		.iommu_dev	= smmu->dev,
+>  	};
+>  
+> +	if (smmu->impl && smmu->impl->init_context) {
+> +		ret = smmu->impl->init_context(smmu_domain, &pgtbl_cfg);
+> +		if (ret)
+> +			goto out_clear_smmu;
+> +	}
+> +
+>  	if (smmu_domain->non_strict)
+>  		pgtbl_cfg.quirks |= IO_PGTABLE_QUIRK_NON_STRICT;
+>  
+> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.h b/drivers/iommu/arm/arm-smmu/arm-smmu.h
+> index d890a4a968e8..83294516ac08 100644
+> --- a/drivers/iommu/arm/arm-smmu/arm-smmu.h
+> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.h
+> @@ -386,7 +386,8 @@ struct arm_smmu_impl {
+>  			    u64 val);
+>  	int (*cfg_probe)(struct arm_smmu_device *smmu);
+>  	int (*reset)(struct arm_smmu_device *smmu);
+> -	int (*init_context)(struct arm_smmu_domain *smmu_domain);
+> +	int (*init_context)(struct arm_smmu_domain *smmu_domain,
+> +			struct io_pgtable_cfg *cfg);
+>  	void (*tlb_sync)(struct arm_smmu_device *smmu, int page, int sync,
+>  			 int status);
+>  	int (*def_domain_type)(struct device *dev);
 > -- 
 > 2.26.2
 > 
