@@ -1,55 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28466258664
-	for <lists+freedreno@lfdr.de>; Tue,  1 Sep 2020 05:42:14 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 99A5E25867F
+	for <lists+freedreno@lfdr.de>; Tue,  1 Sep 2020 05:52:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 786E66E56D;
-	Tue,  1 Sep 2020 03:42:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4986B6E573;
+	Tue,  1 Sep 2020 03:52:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 830236E153;
- Tue,  1 Sep 2020 03:42:11 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id w13so7912204wrk.5;
- Mon, 31 Aug 2020 20:42:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=gEP+l6VmZ2AQhT9y6MxnJyCmEVijpcWpEhbN/rykvcE=;
- b=CWrOGraZ3/zNXixoJEwLA3hwBYU2PWVJEJ6ylxVJux52OFGXCCNEGTUhC6mkNsNKpA
- i1TXATaF9rTSGwMaVqrUu1Zz/Y1O9y1drCGCIQXqHRHg9tOaU+j7fvsU/CuvZxVlMMw5
- jVxSR6ue24PPOYOWBejC9MloKJqqT/iDlRnzo7+6cRlhm0s17nQW9Gh2F7FrU9ZfvUxp
- kAj8AgciZRjeU/IJPsUe/joigfP+Mc6xw8KC+pdmtDdlV3fkmAR0oIVELnk2GPlk1ru0
- iqtKfLijhcQEQ37e9PwlNuKupuMgl1u6xVjd2ZRO3vozd8LXzB4Mr45MwWeEmJ4j6Osg
- kkIA==
+Received: from mail-oo1-xc43.google.com (mail-oo1-xc43.google.com
+ [IPv6:2607:f8b0:4864:20::c43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B26426E573
+ for <freedreno@lists.freedesktop.org>; Tue,  1 Sep 2020 03:52:20 +0000 (UTC)
+Received: by mail-oo1-xc43.google.com with SMTP id k13so1687782oor.2
+ for <freedreno@lists.freedesktop.org>; Mon, 31 Aug 2020 20:52:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=DHgd1Cn7DbLEoeK4tX+vty8BzXm7n6usmD/UeI07Mrk=;
+ b=dyaEu3K2fa7X2g3Iy4XaFmUwFb2VziG9VK8UPB8GwRUXnqKa7ib6yl+CECA0Q1vPLz
+ IjQ+mn612HdIbhc5odg6OfaT3Qb/TYbaI5T/zWIex5gVUoWgirWjKb0AvwZRDaqbzzCO
+ Y1OtNL+0UUlSJmpsQ0sd9QBKMSwBu6kJ5paH3wPa4P9agbIv6yxHgu7afTYDTEwIeYGH
+ DJZ6IsI3RU6NTWK8tqqEnwY3s/hCocMGlybV+ffvg6CgjQt6J50QWplKw+lBIr/ief3F
+ psjjzA+evsRqJDJS9fx7ldrRPcAmxLmEOhyENyNuK+ikFrDogOJS+r6DRfJGytxsSq3x
+ WDZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=gEP+l6VmZ2AQhT9y6MxnJyCmEVijpcWpEhbN/rykvcE=;
- b=L1KgbgJzJXL8sST3TRp5gthdm4J+NXwg4I9pVPKA7N8clQzOECUOeFtgcb4kSpo2Fd
- bIOUqFg5TX9hCaen94TB47XNlT13GqHV+lBDBaaxRODXNAyTqN5WoNTwwiqkl1KjIZlX
- LX8ySzMgKHZJoURRldL9oYWa4GLohPHaZ3WtOT3Q166RD04OD/fIsLf+OAlYV55w6+JK
- rRl4Wr0qZrPYIkrjwUPkOoLPFhniNvDM73En05wvqgE0Z89XvCGf5HRKcht/D5IyCFv0
- IjevzmG1s1L9JIUvMyQ7kk/kdCrsnrvf7goP2Y+6RmFERQ2rTXXwP0SckTcFw0cEKu5w
- +cMg==
-X-Gm-Message-State: AOAM5328pK3MjEybBaqddFk1BMC1I22izKw86DmdF+HhE/E6DvY6dMOa
- DyeCyrF6pgyzLgFWAn5q51/VwUfnjh2s+IeBMgs=
-X-Google-Smtp-Source: ABdhPJyAYV0Dm0qLaL1mXbuG+PPAW1SP8BjwTCx+mqZtIG0Clr3g+Jy+4HR4m6cw7nu44h9gRxaSIWDuskrjmVwm3j8=
-X-Received: by 2002:adf:e6c7:: with SMTP id y7mr4030589wrm.147.1598931729990; 
- Mon, 31 Aug 2020 20:42:09 -0700 (PDT)
-MIME-Version: 1.0
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=DHgd1Cn7DbLEoeK4tX+vty8BzXm7n6usmD/UeI07Mrk=;
+ b=evmDuqVkR+syhcA9XKBUPlIqSnS63/Qhvr8/3uTM4nN2V/1wlKocyx3SZZJIwT0EKm
+ tipAw7/N0E/mfHAa/MIep57JISmBuNvGoO4hEaFCkkd420tI5hfdi2r7tJnyGRCImXJt
+ Xi4FKyESFg83cnY+psYPGgDCi9vjrZWbTwIJW2B07iNOUc7i8Buji5G+XxR70TpgqWdS
+ Pg2S5D7NrgVP9vK5unLo26gUSTchYW571Z5+D3ogZ6OabNBebBd4bXr0WtVNkX+51nM3
+ N8QcL1pf/DuRWpVHayL9RDEVk1plpuOCdL7GA6Plrj6QEbhUeMihMxHhQcTSMLNAUxyY
+ EfRw==
+X-Gm-Message-State: AOAM533+R6T2aK012C82fmVjOcXg6Ca4b/Bncbxqj0kyjI0kUAebAydz
+ BftH4Dpda6hxxKKzgs2EM6CmXw==
+X-Google-Smtp-Source: ABdhPJyW82+oNd0uKsSlubviePmT2U0GHcTQ3RDx78hC9s24SzOxGZRfPqGKe1d6Eg2D6goGkTWR0w==
+X-Received: by 2002:a4a:aec3:: with SMTP id v3mr2968825oon.69.1598932339869;
+ Mon, 31 Aug 2020 20:52:19 -0700 (PDT)
+Received: from yoga ([2605:6000:e5cb:c100:8898:14ff:fe6d:34e])
+ by smtp.gmail.com with ESMTPSA id u19sm2067501oic.10.2020.08.31.20.52.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 31 Aug 2020 20:52:19 -0700 (PDT)
+Date: Mon, 31 Aug 2020 22:52:16 -0500
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <20200901035216.GM3715@yoga>
 References: <20200810222657.1841322-1-jcrouse@codeaurora.org>
- <20200814024114.1177553-2-robdclark@gmail.com> <20200901023517.GA54956@uller>
-In-Reply-To: <20200901023517.GA54956@uller>
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 31 Aug 2020 20:42:57 -0700
-Message-ID: <CAF6AEGsx5mmUCuNApP692L-rS3wEbn4UqJBXuSr-38MAcVfoBw@mail.gmail.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-Subject: Re: [Freedreno] [PATCH 01/19] drm/msm: remove dangling submitqueue
- references
+ <20200814024114.1177553-6-robdclark@gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20200814024114.1177553-6-robdclark@gmail.com>
+Subject: Re: [Freedreno] [PATCH 05/19] iommu: add private interface for
+ adreno-smmu
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,90 +70,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>,
  Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Will Deacon <will@kernel.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, Joerg Roedel <joro@8bytes.org>,
- Robin Murphy <robin.murphy@arm.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
- "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
- Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
+ open list <linux-kernel@vger.kernel.org>, Will Deacon <will@kernel.org>,
+ linux-arm-msm@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
+ Robin Murphy <robin.murphy@arm.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, iommu@lists.linux-foundation.org,
  Sibi Sankar <sibis@codeaurora.org>, Vivek Gautam <vivek.gautam@codeaurora.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Aug 31, 2020 at 7:35 PM Bjorn Andersson
-<bjorn.andersson@linaro.org> wrote:
->
-> On Fri 14 Aug 02:40 UTC 2020, Rob Clark wrote:
->
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > Currently it doesn't matter, since we free the ctx immediately.  But
-> > when we start refcnt'ing the ctx, we don't want old dangling list
-> > entries to hang around.
-> >
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > ---
-> >  drivers/gpu/drm/msm/msm_submitqueue.c | 4 +++-
-> >  1 file changed, 3 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
-> > index a1d94be7883a..90c9d84e6155 100644
-> > --- a/drivers/gpu/drm/msm/msm_submitqueue.c
-> > +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
-> > @@ -49,8 +49,10 @@ void msm_submitqueue_close(struct msm_file_private *ctx)
-> >        * No lock needed in close and there won't
-> >        * be any more user ioctls coming our way
-> >        */
-> > -     list_for_each_entry_safe(entry, tmp, &ctx->submitqueues, node)
-> > +     list_for_each_entry_safe(entry, tmp, &ctx->submitqueues, node) {
-> > +             list_del(&entry->node);
->
-> If you refcount ctx, what does that do for the entries in the submit
-> queue?
->
-> "entry" here is kref'ed, but you're popping it off the list regardless
-> of the put ends up freeing the object or not - which afaict would mean
-> leaking the object.
->
+On Thu 13 Aug 21:41 CDT 2020, Rob Clark wrote:
 
-What ends up happening is the submit has reference to submit-queue,
-which has reference to the ctx.. the submitqueue could be alive still
-pending in-flight submits (in a later patch), but dead from the PoV of
-userspace interface.
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> This interface will be used for drm/msm to coordinate with the
+> qcom_adreno_smmu_impl to enable/disable TTBR0 translation.
+> 
+> Once TTBR0 translation is enabled, the GPU's CP (Command Processor)
+> will directly switch TTBR0 pgtables (and do the necessary TLB inv)
+> synchronized to the GPU's operation.  But help from the SMMU driver
+> is needed to initially bootstrap TTBR0 translation, which cannot be
+> done from the GPU.
+> 
+> Since this is a very special case, a private interface is used to
+> avoid adding highly driver specific things to the public iommu
+> interface.
+> 
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
 
-We aren't relying (or at least aren't in the end, and I *think* I
-didn't miss anything in the middle) relying on ctx->submitqueues list
-to clean anything up in the end, just track what is still a valid
-submitqueue from userspace PoV
+Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 
-BR,
--R
-
->
-> On the other hand, with the current implementation an object with higher
-> refcount with adjacent objects of single refcount would end up with
-> dangling pointers after the put. So in itself this change seems like a
-> net gain, but I'm wondering about the plan described in the commit
-> message.
->
-> Regards,
-> Bjorn
->
-> >               msm_submitqueue_put(entry);
-> > +     }
-> >  }
-> >
-> >  int msm_submitqueue_create(struct drm_device *drm, struct msm_file_private *ctx,
-> > --
-> > 2.26.2
-> >
+> ---
+>  include/linux/adreno-smmu-priv.h | 36 ++++++++++++++++++++++++++++++++
+>  1 file changed, 36 insertions(+)
+>  create mode 100644 include/linux/adreno-smmu-priv.h
+> 
+> diff --git a/include/linux/adreno-smmu-priv.h b/include/linux/adreno-smmu-priv.h
+> new file mode 100644
+> index 000000000000..a889f28afb42
+> --- /dev/null
+> +++ b/include/linux/adreno-smmu-priv.h
+> @@ -0,0 +1,36 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2020 Google, Inc
+> + */
+> +
+> +#ifndef __ADRENO_SMMU_PRIV_H
+> +#define __ADRENO_SMMU_PRIV_H
+> +
+> +#include <linux/io-pgtable.h>
+> +
+> +/**
+> + * struct adreno_smmu_priv - private interface between adreno-smmu and GPU
+> + *
+> + * @cookie:        An opque token provided by adreno-smmu and passed
+> + *                 back into the callbacks
+> + * @get_ttbr1_cfg: Get the TTBR1 config for the GPUs context-bank
+> + * @set_ttbr0_cfg: Set the TTBR0 config for the GPUs context bank.  A
+> + *                 NULL config disables TTBR0 translation, otherwise
+> + *                 TTBR0 translation is enabled with the specified cfg
+> + *
+> + * The GPU driver (drm/msm) and adreno-smmu work together for controlling
+> + * the GPU's SMMU instance.  This is by necessity, as the GPU is directly
+> + * updating the SMMU for context switches, while on the other hand we do
+> + * not want to duplicate all of the initial setup logic from arm-smmu.
+> + *
+> + * This private interface is used for the two drivers to coordinate.  The
+> + * cookie and callback functions are populated when the GPU driver attaches
+> + * it's domain.
+> + */
+> +struct adreno_smmu_priv {
+> +    const void *cookie;
+> +    const struct io_pgtable_cfg *(*get_ttbr1_cfg)(const void *cookie);
+> +    int (*set_ttbr0_cfg)(const void *cookie, const struct io_pgtable_cfg *cfg);
+> +};
+> +
+> +#endif /* __ADRENO_SMMU_PRIV_H */
+> \ No newline at end of file
+> -- 
+> 2.26.2
+> 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
