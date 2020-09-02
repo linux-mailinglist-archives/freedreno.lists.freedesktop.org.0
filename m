@@ -1,44 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 057B825A5D4
-	for <lists+freedreno@lfdr.de>; Wed,  2 Sep 2020 08:52:39 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E1D625A60D
+	for <lists+freedreno@lfdr.de>; Wed,  2 Sep 2020 09:06:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAB356E127;
-	Wed,  2 Sep 2020 06:52:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDDBB6E14A;
+	Wed,  2 Sep 2020 07:06:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
- [209.85.128.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AD616E127;
- Wed,  2 Sep 2020 06:52:36 +0000 (UTC)
-Received: by mail-wm1-f68.google.com with SMTP id a9so3331824wmm.2;
- Tue, 01 Sep 2020 23:52:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=44BdaxqK2OQQPVP9Xv1Ay6p5VR9c7tRwk90e8v0rhXM=;
- b=rBfDgm4vt0PsNxdr/XRr1DlPWM6hxGNoPXGMWb4nhkSrjA8uXeFarENmm9DcKyxsC4
- mp8hR0lRqHGMGSqZdxJZdjm6+hLvDsUihr5PI77rvxefeyy3UKu9AGMSfl6a5hu/B1iV
- zs4bPtLtK602zUf3BUIaKsZT6S7J7QPwzHc6y+aeflTM/AvGBlS+WYnKGlwvsnoP/BQL
- qTnaOC+8C/nzVAYFzZiloTxGDBRqb4nIuMYo5DGufMuUSSrOPEKWJoTnv6CwEG7Sh4qf
- W50YeqRXNzPLIQ5DQL8g/T1xv0BfE+pK/fXeZN/EeVZcrX6GRf49Bs0/RglB/gLYWunc
- 6yug==
-X-Gm-Message-State: AOAM5314akqoqGWt8rICSzAW2sORwyf5+RSOy0eeb/TQ5i1FOELK6OPe
- GhUSbecfvOlAvnL7EPTUqWSakv0bo6PXy3Wx7UE=
-X-Google-Smtp-Source: ABdhPJwa0Qb9zS50HTgFl3gbsPuDmy4NHUh3WiKkgu/nBHI2j7Q+p+ABCxoU32SQaIktGbLN924T50hDLN1GySEVJKU=
-X-Received: by 2002:a1c:c90d:: with SMTP id f13mr5395692wmb.25.1599029554465; 
- Tue, 01 Sep 2020 23:52:34 -0700 (PDT)
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3E026E8FF
+ for <freedreno@lists.freedesktop.org>; Wed,  2 Sep 2020 07:06:46 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1599030409; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=6Cz9IZCRGGiEi7abWV/jZoTNF8HL+CeKuusk0aLrQAA=;
+ b=e8LgwM0oCjeyburk1JhYvG0pizkyBhbNg0Uc+tbLJ/KJF3XPhU3JhjDGu8xE9V/ITsRYxI0O
+ aTnBYyWSgtxnln0uwVtrlXQ97/aF1brDh4yXbid/CuS6EZ7punZMpW284qmko3jTiDShtYZ6
+ Q7snlDLZ+/Duk9rYrYqe28CguPw=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
+ 5f4f443b9bdf68cc0345b6ae (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 02 Sep 2020 07:05:31
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 3C068C43395; Wed,  2 Sep 2020 07:05:31 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: saiprakash.ranjan)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 7CD84C433C6;
+ Wed,  2 Sep 2020 07:05:30 +0000 (UTC)
 MIME-Version: 1.0
-References: <20200901154200.2451899-1-robdclark@gmail.com>
-In-Reply-To: <20200901154200.2451899-1-robdclark@gmail.com>
-From: Tomeu Vizoso <tomeu.vizoso@collabora.com>
-Date: Wed, 2 Sep 2020 08:52:23 +0200
-Message-ID: <CAAObsKD2uXmRD7Qw+kWzKcz5o96adczdaTGkPA_1fR=UZcR=cA@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Subject: Re: [Freedreno] [PATCH 0/3] drm/msm: More GPU tracepoints
+Date: Wed, 02 Sep 2020 12:35:30 +0530
+From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+To: Stephen Boyd <swboyd@chromium.org>
+In-Reply-To: <20200901215942.2559119-2-swboyd@chromium.org>
+References: <20200901215942.2559119-1-swboyd@chromium.org>
+ <20200901215942.2559119-2-swboyd@chromium.org>
+Message-ID: <b8ee3f88265f9aa510eef566f68532a0@codeaurora.org>
+X-Sender: saiprakash.ranjan@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm: Avoid div-by-zero in
+ dpu_crtc_atomic_check()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,128 +65,66 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Jonathan Marek <jonathan@marek.ca>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============1323215785=="
+Cc: freedreno@lists.freedesktop.org, Jordan Crouse <jcrouse@codeaurora.org>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <seanpaul@chromium.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Jeykumar Sankaran <jsanka@codeaurora.org>, Sean Paul <sean@poorly.run>,
+ linux-arm-msm-owner@vger.kernel.org
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
---===============1323215785==
-Content-Type: multipart/alternative; boundary="000000000000944f4a05ae4f149f"
+On 2020-09-02 03:29, Stephen Boyd wrote:
+> The cstate->num_mixers member is only set to a non-zero value once
+> dpu_encoder_virt_mode_set() is called, but the atomic check function 
+> can
+> be called by userspace before that. Let's avoid the div-by-zero here 
+> and
+> inside _dpu_crtc_setup_lm_bounds() by skipping this part of the atomic
+> check if dpu_encoder_virt_mode_set() hasn't been called yet. This fixes
+> an UBSAN warning:
+> 
+>  UBSAN: Undefined behaviour in 
+> drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c:860:31
+>  division by zero
+>  CPU: 7 PID: 409 Comm: frecon Tainted: G S                5.4.31 #128
+>  Hardware name: Google Trogdor (rev0) (DT)
+>  Call trace:
+>   dump_backtrace+0x0/0x14c
+>   show_stack+0x20/0x2c
+>   dump_stack+0xa0/0xd8
+>   __ubsan_handle_divrem_overflow+0xec/0x110
+>   dpu_crtc_atomic_check+0x97c/0x9d4
+>   drm_atomic_helper_check_planes+0x160/0x1c8
+>   drm_atomic_helper_check+0x54/0xbc
+>   drm_atomic_check_only+0x6a8/0x880
+>   drm_atomic_commit+0x20/0x5c
+>   drm_atomic_helper_set_config+0x98/0xa0
+>   drm_mode_setcrtc+0x308/0x5dc
+>   drm_ioctl_kernel+0x9c/0x114
+>   drm_ioctl+0x2ac/0x4b0
+>   drm_compat_ioctl+0xe8/0x13c
+>   __arm64_compat_sys_ioctl+0x184/0x324
+>   el0_svc_common+0xa4/0x154
+>   el0_svc_compat_handler+0x
+> 
+> Cc: Abhinav Kumar <abhinavk@codeaurora.org>
+> Cc: Jeykumar Sankaran <jsanka@codeaurora.org>
+> Cc: Jordan Crouse <jcrouse@codeaurora.org>
+> Cc: Sean Paul <seanpaul@chromium.org>
+> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
+> ---
 
---000000000000944f4a05ae4f149f
-Content-Type: text/plain; charset="UTF-8"
+Tested-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
 
-Hi Rob,
-
-Do you think we could make all these generic? Visualization tools will need
-to do some processing so these can be neatly presented and it could be far
-more convenient if people wouldn't need to add code for each GPU driver.
-
-Maybe we could put all these tracepoints in DRM core as they seem useful to
-all drivers?
-
-Thanks,
-
-Tomeu
-
-On Tue, 1 Sep 2020 at 17:41, Rob Clark <robdclark@gmail.com> wrote:
-
-> From: Rob Clark <robdclark@chromium.org>
->
-> Various extra tracepoints that I've been collecting.
->
-> Rob Clark (3):
->   drm/msm/gpu: Add GPU freq_change traces
->   drm/msm: Convert shrinker msgs to tracepoints
->   drm/msm/gpu: Add suspend/resume tracepoints
->
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c  |  3 +
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c  |  4 ++
->  drivers/gpu/drm/msm/msm_gem_shrinker.c |  5 +-
->  drivers/gpu/drm/msm/msm_gpu.c          |  4 ++
->  drivers/gpu/drm/msm/msm_gpu_trace.h    | 83 ++++++++++++++++++++++++++
->  5 files changed, 97 insertions(+), 2 deletions(-)
->
-> --
-> 2.26.2
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
->
-
---000000000000944f4a05ae4f149f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-family:monospac=
-e,monospace">Hi Rob,</div><div class=3D"gmail_default" style=3D"font-family=
-:monospace,monospace"><br></div><div class=3D"gmail_default" style=3D"font-=
-family:monospace,monospace">Do you think we could make all these generic? V=
-isualization tools will need to do some processing so these can be neatly p=
-resented and it could be far more convenient if people wouldn&#39;t need to=
- add code for each GPU driver.</div><div class=3D"gmail_default" style=3D"f=
-ont-family:monospace,monospace"><br></div><div class=3D"gmail_default" styl=
-e=3D"font-family:monospace,monospace">Maybe we could put all these tracepoi=
-nts in DRM core as they seem useful to all drivers?</div><div class=3D"gmai=
-l_default" style=3D"font-family:monospace,monospace"><br></div><div class=
-=3D"gmail_default" style=3D"font-family:monospace,monospace">Thanks,</div><=
-div class=3D"gmail_default" style=3D"font-family:monospace,monospace"><br><=
-/div><div class=3D"gmail_default" style=3D"font-family:monospace,monospace"=
->Tomeu<br></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
-=3D"gmail_attr">On Tue, 1 Sep 2020 at 17:41, Rob Clark &lt;<a href=3D"mailt=
-o:robdclark@gmail.com">robdclark@gmail.com</a>&gt; wrote:<br></div><blockqu=
-ote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px=
- solid rgb(204,204,204);padding-left:1ex">From: Rob Clark &lt;<a href=3D"ma=
-ilto:robdclark@chromium.org" target=3D"_blank">robdclark@chromium.org</a>&g=
-t;<br>
-<br>
-Various extra tracepoints that I&#39;ve been collecting.<br>
-<br>
-Rob Clark (3):<br>
-=C2=A0 drm/msm/gpu: Add GPU freq_change traces<br>
-=C2=A0 drm/msm: Convert shrinker msgs to tracepoints<br>
-=C2=A0 drm/msm/gpu: Add suspend/resume tracepoints<br>
-<br>
-=C2=A0drivers/gpu/drm/msm/adreno/a6xx_gmu.c=C2=A0 |=C2=A0 3 +<br>
-=C2=A0drivers/gpu/drm/msm/adreno/a6xx_gpu.c=C2=A0 |=C2=A0 4 ++<br>
-=C2=A0drivers/gpu/drm/msm/msm_gem_shrinker.c |=C2=A0 5 +-<br>
-=C2=A0drivers/gpu/drm/msm/msm_gpu.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=
-=A0 4 ++<br>
-=C2=A0drivers/gpu/drm/msm/msm_gpu_trace.h=C2=A0 =C2=A0 | 83 +++++++++++++++=
-+++++++++++<br>
-=C2=A05 files changed, 97 insertions(+), 2 deletions(-)<br>
-<br>
--- <br>
-2.26.2<br>
-<br>
-_______________________________________________<br>
-dri-devel mailing list<br>
-<a href=3D"mailto:dri-devel@lists.freedesktop.org" target=3D"_blank">dri-de=
-vel@lists.freedesktop.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/dri-devel" rel=3D=
-"noreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listin=
-fo/dri-devel</a><br>
-</blockquote></div>
-
---000000000000944f4a05ae4f149f--
-
---===============1323215785==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a 
+member
+of Code Aurora Forum, hosted by The Linux Foundation
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
-
---===============1323215785==--
