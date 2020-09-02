@@ -1,57 +1,44 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4459925A204
-	for <lists+freedreno@lfdr.de>; Wed,  2 Sep 2020 01:47:42 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 057B825A5D4
+	for <lists+freedreno@lfdr.de>; Wed,  2 Sep 2020 08:52:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F25D56E0F2;
-	Tue,  1 Sep 2020 23:47:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAB356E127;
+	Wed,  2 Sep 2020 06:52:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6135E6E0F2;
- Tue,  1 Sep 2020 23:47:40 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id c15so3272941wrs.11;
- Tue, 01 Sep 2020 16:47:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=3jRTuoyd0aXcHbT1FCJs9RFpBaj1SWDBNdxNAjLow6A=;
- b=n6smDPuHIimNu776vQSUaS1qsggoBq5uOTSwHLd5/IFbSMz5ED44hhXce9aEMpeJru
- ManD+gIWuESONyAVptU2MIj71LebpM14JXLMctKVe3L7glTMP7lE6BlnTos3LRqxZFJz
- SkQdY/SFu1A8/Bg2V80/DqvuAzb5I9Yv314kmaQWCQSdgMIJtsL4NnqeHmXR69SPWsWu
- p1YgYYiUZkPpVuwVgPsRk6EUe0dyUoHKEFpZN84ZR/hvpPcIKVDLW9lokYaoulBwmIe8
- NfOxsHq5MfAHB2qdlxxb9AEdjh7/kQscnsIEboSN5Nc575xjVgRk3CqpnChZQkrIUX9m
- yAQA==
+Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
+ [209.85.128.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AD616E127;
+ Wed,  2 Sep 2020 06:52:36 +0000 (UTC)
+Received: by mail-wm1-f68.google.com with SMTP id a9so3331824wmm.2;
+ Tue, 01 Sep 2020 23:52:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=3jRTuoyd0aXcHbT1FCJs9RFpBaj1SWDBNdxNAjLow6A=;
- b=sw/9SQHWDxtFCQyLyTIa8B1HNpVh9h01TsZfflh3wzlWNWTQSCPYeBIrdDKwnzaTBm
- j4PGP615yDGLA93CHa0JdsuruVS71wrKpdhgoum6AQKlMieefGteDl97AH25VUeefYQW
- kTOq2gJHk5UTrLLXYYMjpaPXi15ECurBrllJdK0UWbG1z9M8wLuU9gleCJcgsR+CR8W9
- yugYgxDh0Sx6QQ977+zPl/WSKsdfwhPwmWS2KpHcNQB5kJ9OOKn2QQeQgfKkFIsrdOIi
- HPFq5cAJo+f79snDrm+4q3XwoErH6wuXoFFqZfOeGYneZ+orIJoPVCS9NJM8V31U7sGe
- c5Wg==
-X-Gm-Message-State: AOAM531taK2VkxwDM7f1GTFLgEPGPD0ImtXGbCFNjW4vNXV32brfRL9O
- EJFr36jptnrH1IxKrPTTBIpaIzNfGPbGLL89mHY=
-X-Google-Smtp-Source: ABdhPJyxKRxrKYP38mwrpz7T/Q77cJAyI6CywuVy5qABpdgIdnJCw1QbCXjLLTX9MPIVNAtteXyldSgHtVE6jFLWLVA=
-X-Received: by 2002:a5d:4bc6:: with SMTP id l6mr4572138wrt.132.1599004058403; 
- Tue, 01 Sep 2020 16:47:38 -0700 (PDT)
+ bh=44BdaxqK2OQQPVP9Xv1Ay6p5VR9c7tRwk90e8v0rhXM=;
+ b=rBfDgm4vt0PsNxdr/XRr1DlPWM6hxGNoPXGMWb4nhkSrjA8uXeFarENmm9DcKyxsC4
+ mp8hR0lRqHGMGSqZdxJZdjm6+hLvDsUihr5PI77rvxefeyy3UKu9AGMSfl6a5hu/B1iV
+ zs4bPtLtK602zUf3BUIaKsZT6S7J7QPwzHc6y+aeflTM/AvGBlS+WYnKGlwvsnoP/BQL
+ qTnaOC+8C/nzVAYFzZiloTxGDBRqb4nIuMYo5DGufMuUSSrOPEKWJoTnv6CwEG7Sh4qf
+ W50YeqRXNzPLIQ5DQL8g/T1xv0BfE+pK/fXeZN/EeVZcrX6GRf49Bs0/RglB/gLYWunc
+ 6yug==
+X-Gm-Message-State: AOAM5314akqoqGWt8rICSzAW2sORwyf5+RSOy0eeb/TQ5i1FOELK6OPe
+ GhUSbecfvOlAvnL7EPTUqWSakv0bo6PXy3Wx7UE=
+X-Google-Smtp-Source: ABdhPJwa0Qb9zS50HTgFl3gbsPuDmy4NHUh3WiKkgu/nBHI2j7Q+p+ABCxoU32SQaIktGbLN924T50hDLN1GySEVJKU=
+X-Received: by 2002:a1c:c90d:: with SMTP id f13mr5395692wmb.25.1599029554465; 
+ Tue, 01 Sep 2020 23:52:34 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200826063316.23486-1-m.szyprowski@samsung.com>
- <CGME20200826063535eucas1p10cef37d8364216cf57c97e96d3959dd2@eucas1p1.samsung.com>
- <20200826063316.23486-13-m.szyprowski@samsung.com>
- <fe224152-b621-d96e-b432-bf837d320210@arm.com>
-In-Reply-To: <fe224152-b621-d96e-b432-bf837d320210@arm.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 1 Sep 2020 16:48:25 -0700
-Message-ID: <CAF6AEGscE4tdzugs75gFD+D43Un1DcKf8_=CwiPG2uHrytzwcQ@mail.gmail.com>
-To: Robin Murphy <robin.murphy@arm.com>
-Subject: Re: [Freedreno] [PATCH v9 12/32] drm: msm: fix common struct
- sg_table related issues
+References: <20200901154200.2451899-1-robdclark@gmail.com>
+In-Reply-To: <20200901154200.2451899-1-robdclark@gmail.com>
+From: Tomeu Vizoso <tomeu.vizoso@collabora.com>
+Date: Wed, 2 Sep 2020 08:52:23 +0200
+Message-ID: <CAAObsKD2uXmRD7Qw+kWzKcz5o96adczdaTGkPA_1fR=UZcR=cA@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>
+Subject: Re: [Freedreno] [PATCH 0/3] drm/msm: More GPU tracepoints
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,160 +51,128 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, linaro-mm-sig@lists.linaro.org,
- "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
- Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
- Christoph Hellwig <hch@lst.de>,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Rob Clark <robdclark@chromium.org>, Jonathan Marek <jonathan@marek.ca>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>
+Content-Type: multipart/mixed; boundary="===============1323215785=="
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Sep 1, 2020 at 12:14 PM Robin Murphy <robin.murphy@arm.com> wrote:
->
-> On 2020-08-26 07:32, Marek Szyprowski wrote:
-> > The Documentation/DMA-API-HOWTO.txt states that the dma_map_sg() function
-> > returns the number of the created entries in the DMA address space.
-> > However the subsequent calls to the dma_sync_sg_for_{device,cpu}() and
-> > dma_unmap_sg must be called with the original number of the entries
-> > passed to the dma_map_sg().
-> >
-> > struct sg_table is a common structure used for describing a non-contiguous
-> > memory buffer, used commonly in the DRM and graphics subsystems. It
-> > consists of a scatterlist with memory pages and DMA addresses (sgl entry),
-> > as well as the number of scatterlist entries: CPU pages (orig_nents entry)
-> > and DMA mapped pages (nents entry).
-> >
-> > It turned out that it was a common mistake to misuse nents and orig_nents
-> > entries, calling DMA-mapping functions with a wrong number of entries or
-> > ignoring the number of mapped entries returned by the dma_map_sg()
-> > function.
-> >
-> > To avoid such issues, lets use a common dma-mapping wrappers operating
-> > directly on the struct sg_table objects and use scatterlist page
-> > iterators where possible. This, almost always, hides references to the
-> > nents and orig_nents entries, making the code robust, easier to follow
-> > and copy/paste safe.
-> >
-> > Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> > Acked-by: Rob Clark <robdclark@gmail.com>
-> > ---
-> >   drivers/gpu/drm/msm/msm_gem.c    | 13 +++++--------
-> >   drivers/gpu/drm/msm/msm_gpummu.c | 14 ++++++--------
-> >   drivers/gpu/drm/msm/msm_iommu.c  |  2 +-
-> >   3 files changed, 12 insertions(+), 17 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-> > index b2f49152b4d4..8c7ae812b813 100644
-> > --- a/drivers/gpu/drm/msm/msm_gem.c
-> > +++ b/drivers/gpu/drm/msm/msm_gem.c
-> > @@ -53,11 +53,10 @@ static void sync_for_device(struct msm_gem_object *msm_obj)
-> >       struct device *dev = msm_obj->base.dev->dev;
-> >
-> >       if (get_dma_ops(dev) && IS_ENABLED(CONFIG_ARM64)) {
-> > -             dma_sync_sg_for_device(dev, msm_obj->sgt->sgl,
-> > -                     msm_obj->sgt->nents, DMA_BIDIRECTIONAL);
-> > +             dma_sync_sgtable_for_device(dev, msm_obj->sgt,
-> > +                                         DMA_BIDIRECTIONAL);
-> >       } else {
-> > -             dma_map_sg(dev, msm_obj->sgt->sgl,
-> > -                     msm_obj->sgt->nents, DMA_BIDIRECTIONAL);
-> > +             dma_map_sgtable(dev, msm_obj->sgt, DMA_BIDIRECTIONAL, 0);
-> >       }
-> >   }
-> >
-> > @@ -66,11 +65,9 @@ static void sync_for_cpu(struct msm_gem_object *msm_obj)
-> >       struct device *dev = msm_obj->base.dev->dev;
-> >
-> >       if (get_dma_ops(dev) && IS_ENABLED(CONFIG_ARM64)) {
-> > -             dma_sync_sg_for_cpu(dev, msm_obj->sgt->sgl,
-> > -                     msm_obj->sgt->nents, DMA_BIDIRECTIONAL);
-> > +             dma_sync_sgtable_for_cpu(dev, msm_obj->sgt, DMA_BIDIRECTIONAL);
-> >       } else {
-> > -             dma_unmap_sg(dev, msm_obj->sgt->sgl,
-> > -                     msm_obj->sgt->nents, DMA_BIDIRECTIONAL);
-> > +             dma_unmap_sgtable(dev, msm_obj->sgt, DMA_BIDIRECTIONAL, 0);
-> >       }
-> >   }
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_gpummu.c b/drivers/gpu/drm/msm/msm_gpummu.c
-> > index 310a31b05faa..319f06c28235 100644
-> > --- a/drivers/gpu/drm/msm/msm_gpummu.c
-> > +++ b/drivers/gpu/drm/msm/msm_gpummu.c
-> > @@ -30,21 +30,19 @@ static int msm_gpummu_map(struct msm_mmu *mmu, uint64_t iova,
-> >   {
-> >       struct msm_gpummu *gpummu = to_msm_gpummu(mmu);
-> >       unsigned idx = (iova - GPUMMU_VA_START) / GPUMMU_PAGE_SIZE;
-> > -     struct scatterlist *sg;
-> > +     struct sg_dma_page_iter dma_iter;
-> >       unsigned prot_bits = 0;
-> > -     unsigned i, j;
-> >
-> >       if (prot & IOMMU_WRITE)
-> >               prot_bits |= 1;
-> >       if (prot & IOMMU_READ)
-> >               prot_bits |= 2;
-> >
-> > -     for_each_sg(sgt->sgl, sg, sgt->nents, i) {
-> > -             dma_addr_t addr = sg->dma_address;
-> > -             for (j = 0; j < sg->length / GPUMMU_PAGE_SIZE; j++, idx++) {
-> > -                     gpummu->table[idx] = addr | prot_bits;
-> > -                     addr += GPUMMU_PAGE_SIZE;
-> > -             }
-> > +     for_each_sgtable_dma_page(sgt, &dma_iter, 0) {
-> > +             dma_addr_t addr = sg_page_iter_dma_address(&dma_iter);
-> > +
-> > +             BUILD_BUG_ON(GPUMMU_PAGE_SIZE != PAGE_SIZE);
-> > +             gpummu->table[idx++] = addr | prot_bits;
->
-> Given that the BUILD_BUG_ON might prevent valid arm64 configs from
-> building, how about a simple tweak like:
->
->                 for (i = 0; i < PAGE_SIZE; i += GPUMMU_PAGE_SIZE)
->                         gpummu->table[idx++] = i + addr | prot_bits;
-> ?
->
-> Or alternatively perhaps some more aggressive #ifdefs or makefile tweaks
-> to prevent the GPUMMU code building for arm64 at all if it's only
-> relevant to 32-bit platforms (which I believe might be the case).
+--===============1323215785==
+Content-Type: multipart/alternative; boundary="000000000000944f4a05ae4f149f"
 
-yes, the gpummu path is only used on older armv7 snapdragon and imx5
-platforms.. I suppose maybe the easy thing would be to add a stub for
-msm_gpummu_new() and msm_gpummu_params() and then only build it on
-arm64?
+--000000000000944f4a05ae4f149f
+Content-Type: text/plain; charset="UTF-8"
 
-BR,
--R
+Hi Rob,
 
+Do you think we could make all these generic? Visualization tools will need
+to do some processing so these can be neatly presented and it could be far
+more convenient if people wouldn't need to add code for each GPU driver.
 
-> Robin.
+Maybe we could put all these tracepoints in DRM core as they seem useful to
+all drivers?
+
+Thanks,
+
+Tomeu
+
+On Tue, 1 Sep 2020 at 17:41, Rob Clark <robdclark@gmail.com> wrote:
+
+> From: Rob Clark <robdclark@chromium.org>
 >
-> >       }
-> >
-> >       /* we can improve by deferring flush for multiple map() */
-> > diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-> > index 3a381a9674c9..6c31e65834c6 100644
-> > --- a/drivers/gpu/drm/msm/msm_iommu.c
-> > +++ b/drivers/gpu/drm/msm/msm_iommu.c
-> > @@ -36,7 +36,7 @@ static int msm_iommu_map(struct msm_mmu *mmu, uint64_t iova,
-> >       struct msm_iommu *iommu = to_msm_iommu(mmu);
-> >       size_t ret;
-> >
-> > -     ret = iommu_map_sg(iommu->domain, iova, sgt->sgl, sgt->nents, prot);
-> > +     ret = iommu_map_sgtable(iommu->domain, iova, sgt, prot);
-> >       WARN_ON(!ret);
-> >
-> >       return (ret == len) ? 0 : -EINVAL;
-> >
+> Various extra tracepoints that I've been collecting.
+>
+> Rob Clark (3):
+>   drm/msm/gpu: Add GPU freq_change traces
+>   drm/msm: Convert shrinker msgs to tracepoints
+>   drm/msm/gpu: Add suspend/resume tracepoints
+>
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c  |  3 +
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c  |  4 ++
+>  drivers/gpu/drm/msm/msm_gem_shrinker.c |  5 +-
+>  drivers/gpu/drm/msm/msm_gpu.c          |  4 ++
+>  drivers/gpu/drm/msm/msm_gpu_trace.h    | 83 ++++++++++++++++++++++++++
+>  5 files changed, 97 insertions(+), 2 deletions(-)
+>
+> --
+> 2.26.2
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+>
+
+--000000000000944f4a05ae4f149f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-family:monospac=
+e,monospace">Hi Rob,</div><div class=3D"gmail_default" style=3D"font-family=
+:monospace,monospace"><br></div><div class=3D"gmail_default" style=3D"font-=
+family:monospace,monospace">Do you think we could make all these generic? V=
+isualization tools will need to do some processing so these can be neatly p=
+resented and it could be far more convenient if people wouldn&#39;t need to=
+ add code for each GPU driver.</div><div class=3D"gmail_default" style=3D"f=
+ont-family:monospace,monospace"><br></div><div class=3D"gmail_default" styl=
+e=3D"font-family:monospace,monospace">Maybe we could put all these tracepoi=
+nts in DRM core as they seem useful to all drivers?</div><div class=3D"gmai=
+l_default" style=3D"font-family:monospace,monospace"><br></div><div class=
+=3D"gmail_default" style=3D"font-family:monospace,monospace">Thanks,</div><=
+div class=3D"gmail_default" style=3D"font-family:monospace,monospace"><br><=
+/div><div class=3D"gmail_default" style=3D"font-family:monospace,monospace"=
+>Tomeu<br></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
+=3D"gmail_attr">On Tue, 1 Sep 2020 at 17:41, Rob Clark &lt;<a href=3D"mailt=
+o:robdclark@gmail.com">robdclark@gmail.com</a>&gt; wrote:<br></div><blockqu=
+ote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px=
+ solid rgb(204,204,204);padding-left:1ex">From: Rob Clark &lt;<a href=3D"ma=
+ilto:robdclark@chromium.org" target=3D"_blank">robdclark@chromium.org</a>&g=
+t;<br>
+<br>
+Various extra tracepoints that I&#39;ve been collecting.<br>
+<br>
+Rob Clark (3):<br>
+=C2=A0 drm/msm/gpu: Add GPU freq_change traces<br>
+=C2=A0 drm/msm: Convert shrinker msgs to tracepoints<br>
+=C2=A0 drm/msm/gpu: Add suspend/resume tracepoints<br>
+<br>
+=C2=A0drivers/gpu/drm/msm/adreno/a6xx_gmu.c=C2=A0 |=C2=A0 3 +<br>
+=C2=A0drivers/gpu/drm/msm/adreno/a6xx_gpu.c=C2=A0 |=C2=A0 4 ++<br>
+=C2=A0drivers/gpu/drm/msm/msm_gem_shrinker.c |=C2=A0 5 +-<br>
+=C2=A0drivers/gpu/drm/msm/msm_gpu.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=
+=A0 4 ++<br>
+=C2=A0drivers/gpu/drm/msm/msm_gpu_trace.h=C2=A0 =C2=A0 | 83 +++++++++++++++=
++++++++++++<br>
+=C2=A05 files changed, 97 insertions(+), 2 deletions(-)<br>
+<br>
+-- <br>
+2.26.2<br>
+<br>
+_______________________________________________<br>
+dri-devel mailing list<br>
+<a href=3D"mailto:dri-devel@lists.freedesktop.org" target=3D"_blank">dri-de=
+vel@lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/dri-devel" rel=3D=
+"noreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listin=
+fo/dri-devel</a><br>
+</blockquote></div>
+
+--000000000000944f4a05ae4f149f--
+
+--===============1323215785==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
+
+--===============1323215785==--
