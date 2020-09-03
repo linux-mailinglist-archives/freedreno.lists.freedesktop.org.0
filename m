@@ -1,55 +1,80 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 112B625BB8A
-	for <lists+freedreno@lfdr.de>; Thu,  3 Sep 2020 09:23:23 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 17A1A25C67F
+	for <lists+freedreno@lfdr.de>; Thu,  3 Sep 2020 18:16:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B01F56E192;
-	Thu,  3 Sep 2020 07:23:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93E6A6E1F7;
+	Thu,  3 Sep 2020 16:16:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-vk1-xa42.google.com (mail-vk1-xa42.google.com
- [IPv6:2607:f8b0:4864:20::a42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68CB76E18E;
- Thu,  3 Sep 2020 07:23:20 +0000 (UTC)
-Received: by mail-vk1-xa42.google.com with SMTP id c25so570826vkm.1;
- Thu, 03 Sep 2020 00:23:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=nYtPH/AGq9Arqr6Pnj4bZq+KucnVkSWBPEySgVn+z48=;
- b=kVliyIbaEUKHfO4xZWqE+52p0FTfiE73C1Dhz7+J11EpmW05Vb4VZ9f4Qt+b2O4RHN
- IR+F8tMYHxguugL1aOXsWLv8yr6I7M8o2IGDxbg8NzVxaLhqOvInhfgdoNU+CO34B04p
- 6UbNDtk/pPVbYhltWMeUM5bw5lnIk5Vmyp+HBE56MA6P29Ab2sBk6o8LCbGVlCLgwa9Z
- rDEhVIkbMKT6QqWek8lH2lC6kPXb0KhWvjfEs2AQdOEbpPjmaFtbQLSq20Tag+zYGwPo
- kyNgK7uZboEjdcTmaC9mJ5aNksjusZgvbZxTYbPXPtcqmfnXemtqxdUmkToKhzphuLGf
- FyoQ==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 203746E1F2
+ for <freedreno@lists.freedesktop.org>; Thu,  3 Sep 2020 16:16:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1599149782;
+ h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:mime-version:mime-version:
+ content-type:content-type: content-transfer-encoding:content-transfer-encoding;
+ bh=u3UKX1foVctwA0pjlmKCaupVmNxBUnqY8/QtNhjTAM4=;
+ b=RLRZtHgOUz+Ut3LpDmvYn/V7Hn6GgeuY8bt5gxWC+C+xkRn9Ag+VQ0YvR3eekdmxJS4Icv
+ M3uxFGsjeW4TSmwwgi31YrP6V17aIB696gUyPay8yEYhJTgEjEmxwOoti3jKq0usj3yiY8
+ e6tpW7AgKdAaihnEitJvhKwYIjsepr8=
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-340-TVv-OkHjPLSFitkmSrMxow-1; Thu, 03 Sep 2020 12:16:15 -0400
+X-MC-Unique: TVv-OkHjPLSFitkmSrMxow-1
+Received: by mail-qv1-f72.google.com with SMTP id bo17so2126568qvb.2
+ for <freedreno@lists.freedesktop.org>; Thu, 03 Sep 2020 09:16:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=nYtPH/AGq9Arqr6Pnj4bZq+KucnVkSWBPEySgVn+z48=;
- b=oeH1ACkkiBiVU0ofuFyI0a0OyiFhu8VFzfaxoyE7rx1x+vDugymW70Vnn9mdEOI0CO
- h2Y3t1hTvs714SEqdV5l9jVHFFjuLsDZIDMDH5BwC+0lN5fcGQzMOhcQO/kuEk8pD5CZ
- tmzu+7VYSsef2pAu46UsRV8jIsnYLSM6HMlNNFWYnipwe9sPIhWAjfLcHne0u42qAcTN
- F7P39PMqVN5nydgdbnl3AQG2JnP6AL0Nk+vZDbvLOd9C1XBkl5X3Im3lLDR9Jh4Xbt9A
- eFxOUciwKulIBMTAj9PS9IU1MhqIbx+eLruxAmNYauICdegXfNu27ysjnbz09qKHk8bY
- IU/A==
-X-Gm-Message-State: AOAM532Y91hIC7gQ54AMAIrwugI7xXaIJkM5JBPelRjL8eGxvZae277z
- RJw8zemJM8X8w3kUMGpyRxulTIoDDhYre9g6tWc=
-X-Google-Smtp-Source: ABdhPJzkeFXIQzqDgqXC99kkdDPH3UnC8CAmw5bH+NsVf2nsqOvneLOy0x2VfmXMLS2U68g+CkWma2gKwfqEGyfNlCs=
-X-Received: by 2002:a1f:2a48:: with SMTP id q69mr774030vkq.69.1599117799327;
- Thu, 03 Sep 2020 00:23:19 -0700 (PDT)
+ h=x-gm-message-state:message-id:subject:from:reply-to:to:date
+ :organization:user-agent:mime-version:content-transfer-encoding;
+ bh=u3UKX1foVctwA0pjlmKCaupVmNxBUnqY8/QtNhjTAM4=;
+ b=Y3GUEtK/Tv0CQFIP/JN2roMLXzgbf+lNXV5tQ6L0EMa8vn4qLpP0OWupJSxMPs7yfV
+ ACXHWOnmlzghG6v/MM/1BXgFmHEBqjIwQnBhgnP8ALxz8q9OHwOEdJuXjSz5HKRZTZX9
+ LXn8zXct+mx7grXvr6H+vpc/KZJAlhY/lsn5PJpmFiez/6zTQmJPdXsG0+GT0tCg84fr
+ 2je+LfwJu2eSRcTEVPZlGMf1mZfvSEMN6xXhZhJLhDFHYfloGKLmVnj7o0IdtqCJ6aEm
+ L8RTKOSFoK/oZE/n3pBNe/aCVdSJnszUqvWbKQtTZ3k9jMkHDLiz7ksKpUbmBsCeqJwA
+ bX9A==
+X-Gm-Message-State: AOAM531yTdOtR0PBOdy1Eu/fh4m+IQorUdLDfLrVXPRhlO9GoJtXvxZF
+ Ylygfo+4391Uuun2VaEMqwsXRtEmgYfVs8tcZydjmIUWYQFMTM247iqZ2HTYwktnwu5ib85oN62
+ rPdMU1itUk5KCvYYXCZvVLD2bTa6Y
+X-Received: by 2002:a37:4856:: with SMTP id v83mr3858273qka.213.1599149774538; 
+ Thu, 03 Sep 2020 09:16:14 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwnfAdAK5CNCb5UmSVJq15cU0SizGC7Yx7dV8yC6nzLLK6R0zfayileCjx+GmqCX6TZawwcfg==
+X-Received: by 2002:a37:4856:: with SMTP id v83mr3858162qka.213.1599149773275; 
+ Thu, 03 Sep 2020 09:16:13 -0700 (PDT)
+Received: from Whitewolf.lyude.net
+ (pool-108-49-102-102.bstnma.fios.verizon.net. [108.49.102.102])
+ by smtp.gmail.com with ESMTPSA id v14sm2295211qto.81.2020.09.03.09.16.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 03 Sep 2020 09:16:12 -0700 (PDT)
+Message-ID: <a171fea35e5dab03873876e221ab15b74ab24d62.camel@redhat.com>
+From: Lyude Paul <lyude@redhat.com>
+To: "events@lists.x.org" <events@lists.x.org>, 
+ "xorg-devel@lists.freedesktop.org"
+ <xorg-devel@lists.freedesktop.org>, "wayland-devel@lists.freedesktop.org"
+ <wayland-devel@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "mesa-dev@lists.freedesktop.org"
+ <mesa-dev@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "etnaviv@lists.freedesktop.org"
+ <etnaviv@lists.freedesktop.org>, "freedreno@lists.freedesktop.org"
+ <freedreno@lists.freedesktop.org>, "nouveau@lists.freedesktop.org"
+ <nouveau@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>
+Date: Thu, 03 Sep 2020 12:16:11 -0400
+Organization: Red Hat
+User-Agent: Evolution 3.36.5 (3.36.5-1.fc32)
 MIME-Version: 1.0
-References: <20200901154200.2451899-1-robdclark@gmail.com>
- <20200901154200.2451899-3-robdclark@gmail.com>
-In-Reply-To: <20200901154200.2451899-3-robdclark@gmail.com>
-From: =?UTF-8?Q?Kristian_H=C3=B8gsberg?= <hoegsberg@gmail.com>
-Date: Thu, 3 Sep 2020 00:23:08 -0700
-Message-ID: <CAOeoa-cbQv2pkpxhXMV++NY3MbouPP077UVPnp7fu3zjFxt8Uw@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Subject: Re: [Freedreno] [PATCH 2/3] drm/msm: Convert shrinker msgs to
- tracepoints
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
+X-Mimecast-Spam-Score: 0.001
+X-Mimecast-Originator: redhat.com
+Subject: [Freedreno] [RESEND] Requests For Proposals for hosting XDC2021 are
+ now open
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,109 +87,51 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Sean Paul <sean@poorly.run>,
- Daniel Vetter <daniel@ffwll.ch>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>
+Reply-To: lyude@redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Sep 1, 2020 at 8:41 AM Rob Clark <robdclark@gmail.com> wrote:
->
-> From: Rob Clark <robdclark@chromium.org>
->
-> This reduces the spam in dmesg when we start hitting the shrinker, and
-> replaces it with something we can put on a timeline while profiling or
-> debugging system issues.
+(Including a bunch more emails in the To: that got missed the first time)
 
-That is a good solution,
+Hello everyone!
 
-Reviewed-by: Kristian H. Kristensen <hoegsberg@google.com>
+The X.org board is soliciting proposals to host XDC in 2021. Since
+XDC2020 is being held virtually this year, we've decided to host in
+either North America or Europe. However, the board is open to other
+locations, especially if there's an interesting co-location with another
+conference.
 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/gpu/drm/msm/msm_gem_shrinker.c |  5 +++--
->  drivers/gpu/drm/msm/msm_gpu_trace.h    | 26 ++++++++++++++++++++++++++
->  2 files changed, 29 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-> index 722d61668a97..482576d7a39a 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-> @@ -6,6 +6,7 @@
->
->  #include "msm_drv.h"
->  #include "msm_gem.h"
-> +#include "msm_gpu_trace.h"
->
->  static bool msm_gem_shrinker_lock(struct drm_device *dev, bool *unlock)
->  {
-> @@ -87,7 +88,7 @@ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
->                 mutex_unlock(&dev->struct_mutex);
->
->         if (freed > 0)
-> -               pr_info_ratelimited("Purging %lu bytes\n", freed << PAGE_SHIFT);
-> +               trace_msm_gem_purge(freed << PAGE_SHIFT);
->
->         return freed;
->  }
-> @@ -123,7 +124,7 @@ msm_gem_shrinker_vmap(struct notifier_block *nb, unsigned long event, void *ptr)
->         *(unsigned long *)ptr += unmapped;
->
->         if (unmapped > 0)
-> -               pr_info_ratelimited("Purging %u vmaps\n", unmapped);
-> +               trace_msm_gem_purge_vmaps(unmapped);
->
->         return NOTIFY_DONE;
->  }
-> diff --git a/drivers/gpu/drm/msm/msm_gpu_trace.h b/drivers/gpu/drm/msm/msm_gpu_trace.h
-> index 07572ab179fa..1079fe551279 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu_trace.h
-> +++ b/drivers/gpu/drm/msm/msm_gpu_trace.h
-> @@ -114,6 +114,32 @@ TRACE_EVENT(msm_gmu_freq_change,
->                 TP_printk("freq=%u, perf_index=%u", __entry->freq, __entry->perf_index)
->  );
->
-> +
-> +TRACE_EVENT(msm_gem_purge,
-> +               TP_PROTO(u32 bytes),
-> +               TP_ARGS(bytes),
-> +               TP_STRUCT__entry(
-> +                       __field(u32, bytes)
-> +                       ),
-> +               TP_fast_assign(
-> +                       __entry->bytes = bytes;
-> +                       ),
-> +               TP_printk("Purging %u bytes", __entry->bytes)
-> +);
-> +
-> +
-> +TRACE_EVENT(msm_gem_purge_vmaps,
-> +               TP_PROTO(u32 unmapped),
-> +               TP_ARGS(unmapped),
-> +               TP_STRUCT__entry(
-> +                       __field(u32, unmapped)
-> +                       ),
-> +               TP_fast_assign(
-> +                       __entry->unmapped = unmapped;
-> +                       ),
-> +               TP_printk("Purging %u vmaps", __entry->unmapped)
-> +);
-> +
->  #endif
->
->  #undef TRACE_INCLUDE_PATH
-> --
-> 2.26.2
->
-> _______________________________________________
-> Freedreno mailing list
-> Freedreno@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/freedreno
+Of course though, due to the ongoing COVID-19 pandemic it's not yet
+clear whether or not it will be possible to host XDC2021 in person.
+Because of this, we would like to make it clear that sponsors should
+prepare for both the possibility of an in person conference, and the
+possibility of a virtual conference. We will work with organizers on
+coming up with a deadline for deciding whether or not we'll be going
+virtual, likely sometime around July.
+
+If you're considering hosting XDC, we've assembled a wiki page with
+what's generally expected and needed:
+
+https://www.x.org/wiki/Events/RFP/
+
+When submitting your proposal, please make sure to include at least the
+key information about the potential location in question, possible dates
+along with estimated costs. Proposals can be submitted to board at
+foundation.x.org until the deadline of November 1st. Additionally, an
+quirk early heads-up to the board if you're considering hosting would be
+appreciated, in case we need to adjust the schedule a bit. Also, earlier
+is better since there generally will be a bit of Q&A with organizers.
+
+And if you just have some questions about what organizing XDC entails,
+please feel free to chat with previous organizers, or someone from the
+board.
+-- 
+Sincerely,
+      Lyude Paul (she/her)
+      Software Engineer at Red Hat
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
