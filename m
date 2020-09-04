@@ -2,59 +2,31 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91E8C25CF41
-	for <lists+freedreno@lfdr.de>; Fri,  4 Sep 2020 04:03:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E904925D479
+	for <lists+freedreno@lfdr.de>; Fri,  4 Sep 2020 11:17:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01BC76EA67;
-	Fri,  4 Sep 2020 02:03:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92C0B6EB2E;
+	Fri,  4 Sep 2020 09:17:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3CA66EA66
- for <freedreno@lists.freedesktop.org>; Fri,  4 Sep 2020 02:03:35 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1599185015; h=Content-Transfer-Encoding: MIME-Version:
- References: In-Reply-To: Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=LstDX6xiLYnZhD0hGqb5VJ5fAqydLKT4PHp42tcf7eg=;
- b=KrH3idUCWR4rbb1KDZoOWlKw8ZfFfBgbB61B3v5MIMEAXlf9bQuUt9vhFTQ5bT/wg9bRjCZc
- uuCot2d1o1ftRrw2Fx4p7pXKB33AiEwk37Vb23dSF/eo627I9s7WUWVseNPs+BtCBSrSep68
- K5p5ey6zfCMITfC9/Wr0EP0B1ds=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
- 5f51a0779f3347551fcf581f (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 04 Sep 2020 02:03:35
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 7D5E5C433AF; Fri,  4 Sep 2020 02:03:34 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE,
- URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
-Received: from jordan-laptop.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id A077EC43387;
- Fri,  4 Sep 2020 02:03:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org A077EC43387
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=jcrouse@codeaurora.org
-From: Jordan Crouse <jcrouse@codeaurora.org>
-To: linux-arm-msm@vger.kernel.org
-Date: Thu,  3 Sep 2020 20:03:13 -0600
-Message-Id: <20200904020313.1810988-5-jcrouse@codeaurora.org>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200904020313.1810988-1-jcrouse@codeaurora.org>
-References: <20200904020313.1810988-1-jcrouse@codeaurora.org>
+X-Greylist: delayed 371 seconds by postgrey-1.36 at gabe;
+ Fri, 04 Sep 2020 09:17:34 UTC
+Received: from theia.8bytes.org (8bytes.org [81.169.241.247])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB91D6EB31;
+ Fri,  4 Sep 2020 09:17:34 +0000 (UTC)
+Received: by theia.8bytes.org (Postfix, from userid 1000)
+ id 4466F3D5; Fri,  4 Sep 2020 11:11:19 +0200 (CEST)
+Date: Fri, 4 Sep 2020 11:11:17 +0200
+From: Joerg Roedel <joro@8bytes.org>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <20200904091117.GH6714@8bytes.org>
+References: <20200817220238.603465-1-robdclark@gmail.com>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 4/4] drm/msm: Disable the RPTR shadow
+Content-Disposition: inline
+In-Reply-To: <20200817220238.603465-1-robdclark@gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Freedreno] [PATCH 00/20] iommu/arm-smmu + drm/msm: per-process
+ GPU pgtables
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,187 +39,66 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Shawn Guo <shawn.guo@linaro.org>, Jonathan Marek <jonathan@marek.ca>,
- David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
- Sharat Masetty <smasetty@codeaurora.org>, linux-kernel@vger.kernel.org,
+Cc: Wambui Karuga <wambui.karugax@gmail.com>, Takashi Iwai <tiwai@suse.de>,
+ Hanna Hawa <hannah@marvell.com>, Akhil P Oommen <akhilpo@codeaurora.org>,
  dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Emil Velikov <emil.velikov@collabora.com>, Eric Anholt <eric@anholt.net>,
- Rob Clark <robdclark@gmail.com>, Ben Dooks <ben.dooks@codethink.co.uk>,
- Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <kholk11@gmail.com>, Sean Paul <sean@poorly.run>,
- Brian Masney <masneyb@onstation.org>
+ Eric Anholt <eric@anholt.net>, Thierry Reding <thierry.reding@gmail.com>,
+ Vivek Gautam <vivek.gautam@codeaurora.org>,
+ AngeloGioacchino Del Regno <kholk11@gmail.com>, Will Deacon <will@kernel.org>,
+ Emil Velikov <emil.velikov@collabora.com>, Rob Clark <robdclark@chromium.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>, Sam Ravnborg <sam@ravnborg.org>,
+ Jon Hunter <jonathanh@nvidia.com>, Ben Dooks <ben.dooks@codethink.co.uk>,
+ Sibi Sankar <sibis@codeaurora.org>, Thierry Reding <treding@nvidia.com>,
+ Brian Masney <masneyb@onstation.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Joerg Roedel <jroedel@suse.de>,
+ linux-arm-msm@vger.kernel.org, Sharat Masetty <smasetty@codeaurora.org>,
+ Pritesh Raithatha <praithatha@nvidia.com>, Stephen Boyd <swboyd@chromium.org>,
+ Nicolin Chen <nicoleotsuka@gmail.com>, Jordan Crouse <jcrouse@codeaurora.org>,
+ John Stultz <john.stultz@linaro.org>, freedreno@lists.freedesktop.org,
+ "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Krishna Reddy <vdumpa@nvidia.com>, open list <linux-kernel@vger.kernel.org>,
+ iommu@lists.linux-foundation.org, Shawn Guo <shawn.guo@linaro.org>,
+ Robin Murphy <robin.murphy@arm.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Disable the RPTR shadow across all targets. It will be selectively
-re-enabled later for targets that need it.
+On Mon, Aug 17, 2020 at 03:01:25PM -0700, Rob Clark wrote:
+> Jordan Crouse (12):
+>   iommu/arm-smmu: Pass io-pgtable config to implementation specific
+>     function
+>   iommu/arm-smmu: Add support for split pagetables
+>   iommu/arm-smmu: Prepare for the adreno-smmu implementation
+>   iommu/arm-smmu-qcom: Add implementation for the adreno GPU SMMU
+>   dt-bindings: arm-smmu: Add compatible string for Adreno GPU SMMU
+>   drm/msm: Add a context pointer to the submitqueue
+>   drm/msm: Drop context arg to gpu->submit()
+>   drm/msm: Set the global virtual address range from the IOMMU domain
+>   drm/msm: Add support to create a local pagetable
+>   drm/msm: Add support for private address space instances
+>   drm/msm/a6xx: Add support for per-instance pagetables
+>   arm: dts: qcom: sm845: Set the compatible string for the GPU SMMU
+> 
+> Rob Clark (8):
+>   drm/msm: remove dangling submitqueue references
+>   iommu: add private interface for adreno-smmu
+>   drm/msm/gpu: add dev_to_gpu() helper
+>   drm/msm: set adreno_smmu as gpu's drvdata
+>   iommu/arm-smmu: constify some helpers
+>   arm: dts: qcom: sc7180: Set the compatible string for the GPU SMMU
+>   iommu/arm-smmu: add a way for implementations to influence SCTLR
+>   drm/msm: show process names in gem_describe
 
-Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
----
+Can the DRM parts be merged independently from the IOMMU parts or does
+this need to be queued together? If it needs to be together I defer the
+decission to Will through which tree this should go.
 
- drivers/gpu/drm/msm/adreno/a2xx_gpu.c   |  5 +++++
- drivers/gpu/drm/msm/adreno/a3xx_gpu.c   | 10 +++++++++
- drivers/gpu/drm/msm/adreno/a4xx_gpu.c   | 10 +++++++++
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c   | 11 ++++++++--
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c   |  7 +++++++
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 27 ++-----------------------
- 6 files changed, 43 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a2xx_gpu.c b/drivers/gpu/drm/msm/adreno/a2xx_gpu.c
-index 6021f8d9efd1..48fa49f69d6d 100644
---- a/drivers/gpu/drm/msm/adreno/a2xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a2xx_gpu.c
-@@ -164,6 +164,11 @@ static int a2xx_hw_init(struct msm_gpu *gpu)
- 	if (ret)
- 		return ret;
- 
-+	gpu_write(gpu, REG_AXXX_CP_RB_CNTL,
-+		MSM_GPU_RB_CNTL_DEFAULT | AXXX_CP_RB_CNTL_NO_UPDATE);
-+
-+	gpu_write(gpu, REG_AXXX_CP_RB_BASE, lower_32_bits(gpu->rb[0]->iova));
-+
- 	/* NOTE: PM4/micro-engine firmware registers look to be the same
- 	 * for a2xx and a3xx.. we could possibly push that part down to
- 	 * adreno_gpu base class.  Or push both PM4 and PFP but
-diff --git a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
-index 0a5ea9f56cb8..f6471145a7a6 100644
---- a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
-@@ -211,6 +211,16 @@ static int a3xx_hw_init(struct msm_gpu *gpu)
- 	if (ret)
- 		return ret;
- 
-+	/*
-+	 * Use the default ringbuffer size and block size but disable the RPTR
-+	 * shadow
-+	 */
-+	gpu_write(gpu, REG_AXXX_CP_RB_CNTL,
-+		MSM_GPU_RB_CNTL_DEFAULT | AXXX_CP_RB_CNTL_NO_UPDATE);
-+
-+	/* Set the ringbuffer address */
-+	gpu_write(gpu, REG_AXXX_CP_RB_BASE, lower_32_bits(gpu->rb[0]->iova));
-+
- 	/* setup access protection: */
- 	gpu_write(gpu, REG_A3XX_CP_PROTECT_CTRL, 0x00000007);
- 
-diff --git a/drivers/gpu/drm/msm/adreno/a4xx_gpu.c b/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
-index b9b26b2bf9c5..954753600625 100644
---- a/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
-@@ -267,6 +267,16 @@ static int a4xx_hw_init(struct msm_gpu *gpu)
- 	if (ret)
- 		return ret;
- 
-+	/*
-+	 * Use the default ringbuffer size and block size but disable the RPTR
-+	 * shadow
-+	 */
-+	gpu_write(gpu, REG_A4XX_CP_RB_CNTL,
-+		MSM_GPU_RB_CNTL_DEFAULT | AXXX_CP_RB_CNTL_NO_UPDATE);
-+
-+	/* Set the ringbuffer address */
-+	gpu_write(gpu, REG_A4XX_CP_RB_BASE, lower_32_bits(gpu->rb[0]->iova));
-+
- 	/* Load PM4: */
- 	ptr = (uint32_t *)(adreno_gpu->fw[ADRENO_FW_PM4]->data);
- 	len = adreno_gpu->fw[ADRENO_FW_PM4]->size / 4;
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index e718f964d590..ce3c0b5c167b 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -703,8 +703,6 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
- 	if (ret)
- 		return ret;
- 
--	a5xx_preempt_hw_init(gpu);
--
- 	if (!adreno_is_a510(adreno_gpu))
- 		a5xx_gpmu_ucode_init(gpu);
- 
-@@ -712,6 +710,15 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
- 	if (ret)
- 		return ret;
- 
-+	/* Set the ringbuffer address */
-+	gpu_write64(gpu, REG_A5XX_CP_RB_BASE, REG_A5XX_CP_RB_BASE_HI,
-+		gpu->rb[0]->iova);
-+
-+	gpu_write(gpu, REG_A5XX_CP_RB_CNTL,
-+		MSM_GPU_RB_CNTL_DEFAULT | AXXX_CP_RB_CNTL_NO_UPDATE);
-+
-+	a5xx_preempt_hw_init(gpu);
-+
- 	/* Disable the interrupts through the initial bringup stage */
- 	gpu_write(gpu, REG_A5XX_RBBM_INT_0_MASK, A5XX_INT_MASK);
- 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 406efaac95a7..74bc27eb4203 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -695,6 +695,13 @@ static int a6xx_hw_init(struct msm_gpu *gpu)
- 	if (ret)
- 		goto out;
- 
-+	/* Set the ringbuffer address */
-+	gpu_write64(gpu, REG_A6XX_CP_RB_BASE, REG_A6XX_CP_RB_BASE_HI,
-+		gpu->rb[0]->iova);
-+
-+	gpu_write(gpu, REG_A6XX_CP_RB_CNTL,
-+		MSM_GPU_RB_CNTL_DEFAULT | AXXX_CP_RB_CNTL_NO_UPDATE);
-+
- 	/* Always come up on rb 0 */
- 	a6xx_gpu->cur_ring = gpu->rb[0];
- 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index d2dbb6968cba..459f10a3710b 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -400,26 +400,6 @@ int adreno_hw_init(struct msm_gpu *gpu)
- 		ring->memptrs->rptr = 0;
- 	}
- 
--	/*
--	 * Setup REG_CP_RB_CNTL.  The same value is used across targets (with
--	 * the excpetion of A430 that disables the RPTR shadow) - the cacluation
--	 * for the ringbuffer size and block size is moved to msm_gpu.h for the
--	 * pre-processor to deal with and the A430 variant is ORed in here
--	 */
--	adreno_gpu_write(adreno_gpu, REG_ADRENO_CP_RB_CNTL,
--		MSM_GPU_RB_CNTL_DEFAULT |
--		(adreno_is_a430(adreno_gpu) ? AXXX_CP_RB_CNTL_NO_UPDATE : 0));
--
--	/* Setup ringbuffer address - use ringbuffer[0] for GPU init */
--	adreno_gpu_write64(adreno_gpu, REG_ADRENO_CP_RB_BASE,
--		REG_ADRENO_CP_RB_BASE_HI, gpu->rb[0]->iova);
--
--	if (!adreno_is_a430(adreno_gpu)) {
--		adreno_gpu_write64(adreno_gpu, REG_ADRENO_CP_RB_RPTR_ADDR,
--			REG_ADRENO_CP_RB_RPTR_ADDR_HI,
--			rbmemptr(gpu->rb[0], rptr));
--	}
--
- 	return 0;
- }
- 
-@@ -427,11 +407,8 @@ int adreno_hw_init(struct msm_gpu *gpu)
- static uint32_t get_rptr(struct adreno_gpu *adreno_gpu,
- 		struct msm_ringbuffer *ring)
- {
--	if (adreno_is_a430(adreno_gpu))
--		return ring->memptrs->rptr = adreno_gpu_read(
--			adreno_gpu, REG_ADRENO_CP_RB_RPTR);
--	else
--		return ring->memptrs->rptr;
-+	return ring->memptrs->rptr = adreno_gpu_read(
-+		adreno_gpu, REG_ADRENO_CP_RB_RPTR);
- }
- 
- struct msm_ringbuffer *adreno_active_ring(struct msm_gpu *gpu)
--- 
-2.25.1
-
+	Joerg
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
