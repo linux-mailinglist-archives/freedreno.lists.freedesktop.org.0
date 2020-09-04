@@ -1,32 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F23FF25CBCA
-	for <lists+freedreno@lfdr.de>; Thu,  3 Sep 2020 23:04:11 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7841425CF33
+	for <lists+freedreno@lfdr.de>; Fri,  4 Sep 2020 04:03:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6C916E934;
-	Thu,  3 Sep 2020 21:04:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3198B6E217;
+	Fri,  4 Sep 2020 02:03:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 862686E082;
- Thu,  3 Sep 2020 21:04:08 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EB1381045;
- Thu,  3 Sep 2020 14:04:07 -0700 (PDT)
-Received: from e121345-lin.cambridge.arm.com (e121345-lin.cambridge.arm.com
- [10.1.196.37])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 1D4DE3F68F;
- Thu,  3 Sep 2020 14:04:07 -0700 (PDT)
-From: Robin Murphy <robin.murphy@arm.com>
-To: robdclark@gmail.com,
-	sean@poorly.run
-Date: Thu,  3 Sep 2020 22:04:03 +0100
-Message-Id: <7914512e76103ca81d5e6edf8971508b5e8e17a6.1599166862.git.robin.murphy@arm.com>
-X-Mailer: git-send-email 2.28.0.dirty
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D4546E217
+ for <freedreno@lists.freedesktop.org>; Fri,  4 Sep 2020 02:03:24 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1599185004; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=HLRG701VY73XybmwQ/I+cBnN7Du1gCo7YJN50TYK7Es=;
+ b=xRnFsLvqec9U6Jt5wfPVUWPSEs5SOhpHHh7zBxzqCWS9/0qzNlsMPwPrgJovpE2+0tunhgpr
+ vKHFdMDo6elXmwLnuEDPDQB+ivTrIyTcRSQvkzE4+pHWCTKqWAyiIMGYJPC0zhK1W6355cTU
+ xWL5bAYnE8iIcEC8DOmvN2DJsPM=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
+ 5f51a06b380a624e4dc14817 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 04 Sep 2020 02:03:23
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 6E6F9C43449; Fri,  4 Sep 2020 02:03:22 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from jordan-laptop.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id BBFFCC433C9;
+ Fri,  4 Sep 2020 02:03:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org BBFFCC433C9
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=jcrouse@codeaurora.org
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: linux-arm-msm@vger.kernel.org
+Date: Thu,  3 Sep 2020 20:03:09 -0600
+Message-Id: <20200904020313.1810988-1-jcrouse@codeaurora.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm: Drop local dma_parms
+Subject: [Freedreno] [PATCH 0/4] drm/msm: Protect the RPTR shadow
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -39,47 +65,67 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
+Cc: Sean Paul <sean@poorly.run>, Wambui Karuga <wambui.karugax@gmail.com>,
+ Shawn Guo <shawn.guo@linaro.org>, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sharat Masetty <smasetty@codeaurora.org>, freedreno@lists.freedesktop.org,
+ Akhil P Oommen <akhilpo@codeaurora.org>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Emil Velikov <emil.velikov@collabora.com>, Eric Anholt <eric@anholt.net>,
+ Rob Clark <robdclark@gmail.com>, Ben Dooks <ben.dooks@codethink.co.uk>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <kholk11@gmail.com>,
+ Sam Ravnborg <sam@ravnborg.org>, linux-kernel@vger.kernel.org,
+ Brian Masney <masneyb@onstation.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Since commit 9495b7e92f71 ("driver core: platform: Initialize dma_parms
-for platform devices"), struct platform_device already provides a
-dma_parms structure, so we can save allocating another one.
+On Adreno GPUs there is an option to shadow the RPTR register in GPU accessible
+memory. The shadow memory allows the kernel driver to query the value of the
+RPTR for each ringbuffer even if it is preempted out or if the GPU is turned off
+during aggressive power management.
 
-Also the DMA segment size is simply a size, not a bitmask.
+There are risks to using the RPTR shadow. If it is in GPU accessible memory it
+could be read or written by any GPU operation. All versions of the GPU hardware
+except A650 requires the shadow to be in unprivileged memory which opens it
+to risk.
 
-Signed-off-by: Robin Murphy <robin.murphy@arm.com>
----
- drivers/gpu/drm/msm/msm_drv.c | 10 +---------
- 1 file changed, 1 insertion(+), 9 deletions(-)
+This series does two things. First, it marks as many buffers as possible as
+privileged. For a5xx these are some preemption buffers and on a650 this includes
+all global buffers (such as the ringbuffer and memstore). I've sent these
+patches before but they tie in well with this series so I've included them.
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 7d641c7e3514..2b73d29642b7 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -453,15 +453,7 @@ static int msm_drm_init(struct device *dev, struct drm_driver *drv)
- 	if (ret)
- 		goto err_msm_uninit;
- 
--	if (!dev->dma_parms) {
--		dev->dma_parms = devm_kzalloc(dev, sizeof(*dev->dma_parms),
--					      GFP_KERNEL);
--		if (!dev->dma_parms) {
--			ret = -ENOMEM;
--			goto err_msm_uninit;
--		}
--	}
--	dma_set_max_seg_size(dev, DMA_BIT_MASK(32));
-+	dma_set_max_seg_size(dev, UINT_MAX);
- 
- 	msm_gem_shrinker_init(ddev);
- 
+Then we disable the RPTR shadow across all targets. For all targets except for
+a5xx the RPTR shadow isn't needed so there isn't a loss of functionality. a5xx
+does need it for preemption so that has to be temporarily disabled.
+
+Later changes will re-enable the shadow for those targets that can safely
+mitigate the risks.
+
+Jordan Crouse (4):
+  drm/msm: Split the a5xx preemption record
+  drm/msm: Enable expanded apriv support for a650
+  drm/msm: Disable premption on all 5xx targets
+  drm/msm: Disable the RPTR shadow
+
+ drivers/gpu/drm/msm/adreno/a2xx_gpu.c     |  5 +++++
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c     | 10 +++++++++
+ drivers/gpu/drm/msm/adreno/a4xx_gpu.c     | 10 +++++++++
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c     | 14 +++++++++---
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.h     |  1 +
+ drivers/gpu/drm/msm/adreno/a5xx_preempt.c | 25 ++++++++++++++++-----
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 13 ++++++++++-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c   | 27 ++---------------------
+ drivers/gpu/drm/msm/msm_gpu.c             |  2 +-
+ drivers/gpu/drm/msm/msm_gpu.h             | 11 +++++++++
+ drivers/gpu/drm/msm/msm_ringbuffer.c      |  4 ++--
+ 11 files changed, 85 insertions(+), 37 deletions(-)
+
 -- 
-2.28.0.dirty
+2.25.1
 
 _______________________________________________
 Freedreno mailing list
