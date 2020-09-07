@@ -1,62 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4922525FBFD
-	for <lists+freedreno@lfdr.de>; Mon,  7 Sep 2020 16:24:22 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B83A1260157
+	for <lists+freedreno@lfdr.de>; Mon,  7 Sep 2020 19:03:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE1296E463;
-	Mon,  7 Sep 2020 14:24:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 269896E108;
+	Mon,  7 Sep 2020 17:03:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
- [IPv6:2a00:1450:4864:20::241])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33BEB6E463
- for <freedreno@lists.freedesktop.org>; Mon,  7 Sep 2020 14:24:19 +0000 (UTC)
-Received: by mail-lj1-x241.google.com with SMTP id c2so16296946ljj.12
- for <freedreno@lists.freedesktop.org>; Mon, 07 Sep 2020 07:24:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=c3o7vSrPtfVLY+L0kjQIwvaz2ovSHjf+IEqBu3OCb/o=;
- b=ZfsQVh5sOFI6WXpScSWpbNwdBgiRHlDc06CeoPETYDVo+zJ2ZfpvWawcA10tLMKKD9
- KXZ1Uvms4FAp8JxcirPU3z6GhpGTlnOK1EZ6D0+CZNjDsZm8WZFPHPlX9+1edSK5LOVb
- s4cXB5Rw1O8xiYBKLdol3oQMaZOCHO4uolymrxNK1Xv5zLDX55nfQDY7dZxoIfRxoTqr
- AvbaMT0+vfuRN3JXo1OAcDTmPRmS34ql8nFZKAiKqucLL5+UJ9MdfJMTZRAmqLDMkDEW
- WWS6JlMemfEFb6yXqAF9NK8gplj4KJ58tMQcA1mFVxOSQnSg9dvyflu+8f1BhLcNmLyx
- Gw7w==
+Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
+ [IPv6:2607:f8b0:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 000826E108;
+ Mon,  7 Sep 2020 17:03:51 +0000 (UTC)
+Received: by mail-pf1-x441.google.com with SMTP id d9so2612575pfd.3;
+ Mon, 07 Sep 2020 10:03:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=cBoeCpJIsgMagxrNvwqBCO9DZhUD6cpLapF30icLvGY=;
+ b=rIDLXekWW5zsnDsZr9rwwnGh7AcQsXpJmtxOGLnaYEaXJ/7Sz6Ets68fQu6vR6NDRT
+ bwJ03F4A8BzzUQbMMGeTQxqkNxfwrAgutSh4utFVl1D1DE9A/ODV+mnBppSqgNlzb+FR
+ XZ8eLkzwbRQ6piUSbAQELVuV5vVJ43hENOahvDVxXil873iSxkXI0UgDW4XNZEF2SHo8
+ LTC2bYDGLqTqPy1+T1ebpGf4nMO1sUv2+QHOBzQV+PtBW6eOBk4FMgGOm1sFnlmbKhvr
+ hwD0P3TADu3J7n7WZ4MP+3cmlYiqrgsUaiFdWTmDuiIU8Bl9dAuJTGcfZi/0u7J8FYXE
+ F3EA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=c3o7vSrPtfVLY+L0kjQIwvaz2ovSHjf+IEqBu3OCb/o=;
- b=hO9pPYcxLhHzuFioqtmMWjKJgu3KDJnBv2RhuVC+M0wym2JqTpkVXtBG1Pt0s4hvmg
- IxolGNR60Wxmvkz1+/S0TDddADngyzvbq8lTfsC6m6P8qVrnkaGxQX5NhEdA4Tz64CLS
- puprVurn1fdHJXtx/lieTxWcfvexiRiz6Xp1HaEwmsQpLCb8HlYE07W/OupewFVYuqgz
- OjciAczvQCcOAIBvCgjIvdumBSvggFBRKn2yIZMwwUI8+CcNW8mYPzgRGiPK+cf7JJdy
- fOajsi0E28iRFKWNfETXFB2pp5PzI/0HysV/CY/Ven3aKIj50e079x0dhmeLDNOz0x7d
- PL0w==
-X-Gm-Message-State: AOAM5339iSwSv7u+XXNy1g2ZOsFGuk2drpyGeApDSkS/UWecanRTkZ5Q
- N3UHdwWvFjNrbA5hIQPz7+g/Rg==
-X-Google-Smtp-Source: ABdhPJziSj5qaeVTYIzqn7mGp3GSDS6K4Y8Yf+iGVKSihjNsDajXJdMvFBL//9rql7id5+Q2WjAVlQ==
-X-Received: by 2002:a2e:97c1:: with SMTP id m1mr10319433ljj.289.1599488657317; 
- Mon, 07 Sep 2020 07:24:17 -0700 (PDT)
-Received: from [192.168.1.211] ([188.162.64.144])
- by smtp.gmail.com with ESMTPSA id t14sm7558507lfp.77.2020.09.07.07.24.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Sep 2020 07:24:16 -0700 (PDT)
-To: Jonathan Marek <jonathan@marek.ca>, freedreno@lists.freedesktop.org
-References: <20200904172859.25633-1-jonathan@marek.ca>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <87a45d1e-328b-99f5-4990-d4746a24c864@linaro.org>
-Date: Mon, 7 Sep 2020 17:24:14 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ bh=cBoeCpJIsgMagxrNvwqBCO9DZhUD6cpLapF30icLvGY=;
+ b=nAqylndO+S8s4c9uxHsEpXQ9auiWTysuhwyWrcWLefhNzb4XHfCte6Ipazymk67aW2
+ 2+w8RHkaHSeyhYMcluhCmrXObV47dnplaHMuwXohMv6bw+00n1/wjx2EIjGAMt/ml+39
+ 3KrtADt3s6iVxS2Y2W8gdUXzt5ng61iVwsBr6k+qVS4tn8+oZgQ2UrXxTgJZO0ImBnJx
+ 2og6ilB464WbzszxRN8/2VNadkPLC+olwwvgwWpzdQyapxbmi0JxEgwhUVWh4ElOFRBm
+ nMN0eUQvf1dQD5+eKUr4xSebU0VAzkdey3pGeOVNMa59LTX+wWBNMFZQkLd1hnpuXDVg
+ yoew==
+X-Gm-Message-State: AOAM532Xu2FOEGoS7NPyFbW13OSgPTpexaowNa76axxUAj/ItDo2fwfp
+ BmtDQwf/btWdvSpo2xXWh4/bmF3PWpQD6g==
+X-Google-Smtp-Source: ABdhPJxYfflcUtF+3SNgySp6Wk6HAI2DtYQFui4BIRaT7wEocOLQuuQWImDHVlvC2fujq7/dzSgg9Q==
+X-Received: by 2002:a63:6e01:: with SMTP id j1mr17237015pgc.147.1599498230690; 
+ Mon, 07 Sep 2020 10:03:50 -0700 (PDT)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ j18sm13027030pgm.30.2020.09.07.10.03.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 07 Sep 2020 10:03:49 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Mon,  7 Sep 2020 10:04:47 -0700
+Message-Id: <20200907170450.370122-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <20200904172859.25633-1-jonathan@marek.ca>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH 0/3] drm/msm/dsi: support SM8150 and SM8250
+Subject: [Freedreno] [PATCH 1/2] drm/msm/dpu: move vblank events to
+ complete_commit()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,59 +66,52 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
- David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Harigovindan P <harigovi@codeaurora.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Konrad Dybcio <konradybcio@gmail.com>, zhengbin <zhengbin13@huawei.com>,
- Jordan Crouse <jcrouse@codeaurora.org>, Rob Herring <robh+dt@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Krzysztof Wilczynski <kw@linux.com>,
- AngeloGioacchino Del Regno <kholk11@gmail.com>, Sean Paul <sean@poorly.run>,
- open list <linux-kernel@vger.kernel.org>
+Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Hongbo Yao <yaohongbo@huawei.com>,
+ open list <linux-kernel@vger.kernel.org>, Bernard <bernard@vivo.com>,
+ Sean Paul <sean@poorly.run>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Kalyan Thota <kalyan_t@codeaurora.org>,
+ Drew Davenport <ddavenport@chromium.org>, freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 04/09/2020 20:28, Jonathan Marek wrote:
-> Add support for SM8150 and SM8250 DSI.
-> 
-> Note I haven't tested SM8150 recently, but DSI is almost identical to SM8250.
+From: Rob Clark <robdclark@chromium.org>
 
-On SM8250:
-Tested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+We could get a vblank event racing with the current atomic commit,
+resulting in sending the pageflip event to userspace early, causing
+tearing.  On the other hand, complete_commit() ensures that the
+pending flush is complete.
 
-> 
-> Jonathan Marek (3):
->    drm/msm/dsi: remove unused clk_pre/clk_post in msm_dsi_dphy_timing
->    drm/msm/dsi: add DSI config for sm8150 and sm8250
->    drm/msm/dsi: add support for 7nm DSI PHY/PLL
-> 
->   .../devicetree/bindings/display/msm/dsi.txt   |   6 +-
->   drivers/gpu/drm/msm/Kconfig                   |   7 +
->   drivers/gpu/drm/msm/Makefile                  |   2 +
->   drivers/gpu/drm/msm/dsi/dsi.h                 |   2 +
->   drivers/gpu/drm/msm/dsi/dsi.xml.h             | 423 ++++++++
->   drivers/gpu/drm/msm/dsi/dsi_cfg.c             |   5 +-
->   drivers/gpu/drm/msm/dsi/dsi_cfg.h             |   2 +
->   drivers/gpu/drm/msm/dsi/phy/dsi_phy.c         | 102 ++
->   drivers/gpu/drm/msm/dsi/phy/dsi_phy.h         |   6 +-
->   drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c     | 255 +++++
->   drivers/gpu/drm/msm/dsi/pll/dsi_pll.c         |   4 +
->   drivers/gpu/drm/msm/dsi/pll/dsi_pll.h         |  10 +
->   drivers/gpu/drm/msm/dsi/pll/dsi_pll_7nm.c     | 902 ++++++++++++++++++
->   13 files changed, 1721 insertions(+), 5 deletions(-)
->   create mode 100644 drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
->   create mode 100644 drivers/gpu/drm/msm/dsi/pll/dsi_pll_7nm.c
-> 
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index c2729f71e2fa..89c0245b5de5 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -297,7 +297,6 @@ void dpu_crtc_vblank_callback(struct drm_crtc *crtc)
+ 		dpu_crtc->vblank_cb_time = ktime_get();
+ 	else
+ 		dpu_crtc->vblank_cb_count++;
+-	_dpu_crtc_complete_flip(crtc);
+ 	drm_crtc_handle_vblank(crtc);
+ 	trace_dpu_crtc_vblank_cb(DRMID(crtc));
+ }
+@@ -402,6 +401,7 @@ static void dpu_crtc_frame_event_cb(void *data, u32 event)
+ void dpu_crtc_complete_commit(struct drm_crtc *crtc)
+ {
+ 	trace_dpu_crtc_complete_commit(DRMID(crtc));
++	_dpu_crtc_complete_flip(crtc);
+ }
+ 
+ static void _dpu_crtc_setup_lm_bounds(struct drm_crtc *crtc,
 -- 
-With best wishes
-Dmitry
+2.26.2
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
