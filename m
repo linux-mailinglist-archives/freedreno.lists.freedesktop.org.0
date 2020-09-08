@@ -1,58 +1,52 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAE41261B26
-	for <lists+freedreno@lfdr.de>; Tue,  8 Sep 2020 20:57:23 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 52B5E261BF4
+	for <lists+freedreno@lfdr.de>; Tue,  8 Sep 2020 21:12:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2E766E062;
-	Tue,  8 Sep 2020 18:57:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D910A6E8B2;
+	Tue,  8 Sep 2020 19:12:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
- [IPv6:2607:f8b0:4864:20::541])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E03EA6E8B2
- for <freedreno@lists.freedesktop.org>; Tue,  8 Sep 2020 18:57:21 +0000 (UTC)
-Received: by mail-pg1-x541.google.com with SMTP id 34so178492pgo.13
- for <freedreno@lists.freedesktop.org>; Tue, 08 Sep 2020 11:57:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:content-transfer-encoding:in-reply-to:references
- :subject:from:cc:to:date:message-id:user-agent;
- bh=bZ0hdB3aDnQdw+HPiv6w6/rS4ctBv4+DDy7Q7mzZQJA=;
- b=kQSLq1W11bCof3VZGivNs9jhTs6eQXMNg151pVMeum5ivTvrGyNKTmBC8o3aAVTMCD
- fWHq03en9zOkEUNKYb6mITKGyBNqVTB2ceHUt93ApjVkk5vDvZP7SZyD5G3hpSk3mpff
- TpEU3uBAzAcI94SB+dVKpTJKqYy/8/3vpSWho=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:content-transfer-encoding
- :in-reply-to:references:subject:from:cc:to:date:message-id
- :user-agent;
- bh=bZ0hdB3aDnQdw+HPiv6w6/rS4ctBv4+DDy7Q7mzZQJA=;
- b=lz+ULPX/K7Vr1PIYE2kStqkJC55l0vohcUT0B7rxs+eaDdulAkpBg50KZfms0Li/Qf
- hctpG4HBALUBe/V4x8IQuuEhpJJ6Q4OshBxFwnofn2AbLSlhqb/NP3vuqFZIkf1Cy9b4
- JTiUzM6oRR42PFW5vZ1PY7Fe+4/F1Cjh2wsmujLh4A6HhYve5o0/T7ovaY7urLXOBoFG
- cHWcMPUizKT2AS8wyzr9AV3KJLlnX+hqCVUedW8BQ9OKrArPvGHsXIXJpvARTA0Plywc
- ZDYSXoXODGKK+uVq5aw63Y9+XOiHIWGK/oui7UCO20Tq1KNUKZVzavvsQWuma5/TaY11
- JPzA==
-X-Gm-Message-State: AOAM530ujJD/enhPBApgReZvx59/C6R5W6QCWADRFzFePTQCIUelc2xK
- d0P545oJog9VKXsnGlu04Opia244NQ7CjQ==
-X-Google-Smtp-Source: ABdhPJwf6IhPcHFN4xXP49f62bCdnIGRRPklRPb2u3kzC8iwzMNMbimK4omnPZ6atruNND3LgaRG1g==
-X-Received: by 2002:a63:b202:: with SMTP id x2mr126839pge.432.1599591441474;
- Tue, 08 Sep 2020 11:57:21 -0700 (PDT)
-Received: from chromium.org ([2620:15c:202:1:3e52:82ff:fe6c:83ab])
- by smtp.gmail.com with ESMTPSA id o6sm44291pju.25.2020.09.08.11.57.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2020 11:57:20 -0700 (PDT)
+X-Greylist: delayed 321 seconds by postgrey-1.36 at gabe;
+ Tue, 08 Sep 2020 19:12:16 UTC
+Received: from a27-18.smtp-out.us-west-2.amazonses.com
+ (a27-18.smtp-out.us-west-2.amazonses.com [54.240.27.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18EA16E062;
+ Tue,  8 Sep 2020 19:12:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+ s=zsmsymrwgfyinv5wlfyidntwsjeeldzt; d=codeaurora.org; t=1599592015;
+ h=MIME-Version:Content-Type:Content-Transfer-Encoding:Date:From:To:Cc:Subject:In-Reply-To:References:Message-ID;
+ bh=lWsMChywupzdHzp7I9YzcKd0Y+ARnhQXfU8/OA9aDl4=;
+ b=Qd3YPHq1Q0iig7uHqwxRH6H3jLI/CYplrHLvFKt2p6Yq6p2YCIZPgc4BDK1Cnm3Q
+ n5LMc4cOkuws+6Cv35zuJDYHxYQarsLonCybzwkvXd0LYkrC/GVBcFHk8neUr/xU9WA
+ 10N7yOEeS1r6uTNCMs3UQ6IOHxZLbysipQz1ybXI=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+ s=hsbnp7p3ensaochzwyq5wwmceodymuwv; d=amazonses.com; t=1599592015;
+ h=MIME-Version:Content-Type:Content-Transfer-Encoding:Date:From:To:Cc:Subject:In-Reply-To:References:Message-ID:Feedback-ID;
+ bh=lWsMChywupzdHzp7I9YzcKd0Y+ARnhQXfU8/OA9aDl4=;
+ b=CfyP9hTbRf3x1j6O53/dN5XmGZi5Ay4yNSA/vPbmU3aB8VpCDfrR+bBoOuPgGCF9
+ 8GuqikQOUbCZAZmNYo1ZGXLt/oWTc638XuK7BqGL7Kd6Mhd6FJNBSpwE5fvcs4iP0Ld
+ SjI2Nr24m2OoUoDPQSwahmYXEKrlv9YRQxfa6e4A=
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
 MIME-Version: 1.0
-In-Reply-To: <010101745aaf685e-49eb2897-ee17-40bf-89e8-2adebe8d022f-000000@us-west-2.amazonses.com>
-References: <010101745aaf685e-49eb2897-ee17-40bf-89e8-2adebe8d022f-000000@us-west-2.amazonses.com>
-From: Stephen Boyd <swboyd@chromium.org>
-To: Kuogee Hsieh <khsieh@codeaurora.org>, robdclark@gmail.com, sean@poorly.run
-Date: Tue, 08 Sep 2020 11:57:19 -0700
-Message-ID: <159959143931.454335.4137726843867018185@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.9.1
-Subject: Re: [Freedreno] [PATCH v5] drm/msm/dp: Add DP compliance tests on
- Snapdragon Chipsets
+Date: Tue, 8 Sep 2020 19:06:55 +0000
+From: abhinavk@codeaurora.org
+To: Rob Clark <robdclark@gmail.com>
+In-Reply-To: <20200907170450.370122-1-robdclark@gmail.com>
+References: <20200907170450.370122-1-robdclark@gmail.com>
+Message-ID: <010101746f1d259a-b9077f57-c120-4164-bbdc-a62318745db6-000000@us-west-2.amazonses.com>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+X-SES-Outgoing: 2020.09.08-54.240.27.18
+Feedback-ID: 1.us-west-2.CZuq2qbDmUIuT3qdvXlRHZZCpfZqZ4GtG9v3VKgRyF0=:AmazonSES
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dpu: move vblank events to
+ complete_commit()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,49 +59,61 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- abhinavk@codeaurora.org, khsieh@codeaurora.org, tanmay@codeaurora.org,
- daniel@ffwll.ch, aravindh@codeaurora.org, freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Hongbo Yao <yaohongbo@huawei.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bernard <bernard@vivo.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Kalyan Thota <kalyan_t@codeaurora.org>,
+ Drew Davenport <ddavenport@chromium.org>, Sean Paul <sean@poorly.run>,
+ linux-arm-msm-owner@vger.kernel.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2020-09-04 12:54:39)
-> add event thread to execute events serially from event queue. Also
-> timeout mode is supported  which allow an event be deferred to be
-> executed at later time. Both link and phy compliant tests had been
-> done successfully.
+On 2020-09-07 10:04, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
 > 
-> Changes in v2:
-> - Fix potential deadlock by removing redundant connect_mutex
-> - Check and enable link clock during modeset
-> - Drop unused code and fix function prototypes.
-> - set sink power to normal operation state (D0) before DPCD read
+> We could get a vblank event racing with the current atomic commit,
+> resulting in sending the pageflip event to userspace early, causing
+> tearing.  On the other hand, complete_commit() ensures that the
+> pending flush is complete.
 > 
-> Changes in v3:
-> - push idle pattern at main link before timing generator off
-> - add timeout handles for both connect and disconnect
-> 
-> Changes in v4:
-> - add ST_SUSPEND_PENDING to handles suspend/modeset test operations
-> - clear dp phy aux interrupt status when ERR_DPPHY_AUX error
-> - send segment addr during edid read
-> - clear bpp depth before MISC register write
-> 
-> Changes in v5:
-> - add ST_SUSPENDED to fix crash at resume
-> 
-> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
-> 
-> This patch depends-on following series:
-> https://lore.kernel.org/dri-devel/20200818051137.21478-1-tanmay@codeaurora.org/
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
 
-Can this be based on v12 of the patch series? v4 of this patch was based
-on v12, but this has regressed and gone back to v11.
-
-v12 is https://lkml.kernel.org/lkml/20200827211658.27479-1-tanmay@codeaurora.org/
+I checked our downstream code as well and yes we are not signaling
+page flips inside the vblank_cb and are doing it after 
+wait_for_commit_done
+This aligns with that.
+Hence,
+Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index c2729f71e2fa..89c0245b5de5 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -297,7 +297,6 @@ void dpu_crtc_vblank_callback(struct drm_crtc 
+> *crtc)
+>  		dpu_crtc->vblank_cb_time = ktime_get();
+>  	else
+>  		dpu_crtc->vblank_cb_count++;
+> -	_dpu_crtc_complete_flip(crtc);
+>  	drm_crtc_handle_vblank(crtc);
+>  	trace_dpu_crtc_vblank_cb(DRMID(crtc));
+>  }
+> @@ -402,6 +401,7 @@ static void dpu_crtc_frame_event_cb(void *data, u32 
+> event)
+>  void dpu_crtc_complete_commit(struct drm_crtc *crtc)
+>  {
+>  	trace_dpu_crtc_complete_commit(DRMID(crtc));
+> +	_dpu_crtc_complete_flip(crtc);
+>  }
+> 
+>  static void _dpu_crtc_setup_lm_bounds(struct drm_crtc *crtc,
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
