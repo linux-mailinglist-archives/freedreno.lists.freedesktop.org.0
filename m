@@ -1,56 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07D13261741
-	for <lists+freedreno@lfdr.de>; Tue,  8 Sep 2020 19:29:21 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id EAE41261B26
+	for <lists+freedreno@lfdr.de>; Tue,  8 Sep 2020 20:57:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1B756E200;
-	Tue,  8 Sep 2020 17:29:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2E766E062;
+	Tue,  8 Sep 2020 18:57:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 1079 seconds by postgrey-1.36 at gabe;
- Tue, 08 Sep 2020 17:29:18 UTC
-Received: from a27-56.smtp-out.us-west-2.amazonses.com
- (a27-56.smtp-out.us-west-2.amazonses.com [54.240.27.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 745346E200
- for <freedreno@lists.freedesktop.org>; Tue,  8 Sep 2020 17:29:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=zsmsymrwgfyinv5wlfyidntwsjeeldzt; d=codeaurora.org; t=1599585079;
- h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type;
- bh=63I/CWXUQwQ4/xw3SHOSh+a3A2fsvq0vypwFNw9Go4s=;
- b=Zm3/OSewRza2+fPSWMWx2F31LMRW/bhZ+uWs/23DPNb6P+5FvUI5ybS15m1+kuOC
- n4+PCoEUONK99IYlskETjUA1SlU6GE5m2khWtLaYWRq2w+BZWDV269m71IpGXo8FIZu
- Q8850O8j7S3aASeLhnuzD1uQ33KsPZX1lMw7XqwI=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=hsbnp7p3ensaochzwyq5wwmceodymuwv; d=amazonses.com; t=1599585079;
- h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:Feedback-ID;
- bh=63I/CWXUQwQ4/xw3SHOSh+a3A2fsvq0vypwFNw9Go4s=;
- b=D8mAho/SmqkbUNpAdt3ffSEQn1kG6UVELW62g6bF8tfGMgF0gh3CBzNtqAhii9Cn
- KYipjFL6aufvFRO1Cvl8xrwld8tYLb/pQZeckazNTgNtEB10zydJhJygkFn21XLmLEG
- I5yDaVGV9wwkHSqiTJYqN1oUeakagRQ+ORXqFxHc=
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 01565C433C6
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=jcrouse@codeaurora.org
-Date: Tue, 8 Sep 2020 17:11:19 +0000
-From: Jordan Crouse <jcrouse@codeaurora.org>
-To: linux-firmware@kernel.org
-Message-ID: <010101746eb34f46-7cc003e0-d25e-4471-a780-15d21789405e-000000@us-west-2.amazonses.com>
-Mail-Followup-To: linux-firmware@kernel.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org
+Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
+ [IPv6:2607:f8b0:4864:20::541])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E03EA6E8B2
+ for <freedreno@lists.freedesktop.org>; Tue,  8 Sep 2020 18:57:21 +0000 (UTC)
+Received: by mail-pg1-x541.google.com with SMTP id 34so178492pgo.13
+ for <freedreno@lists.freedesktop.org>; Tue, 08 Sep 2020 11:57:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:content-transfer-encoding:in-reply-to:references
+ :subject:from:cc:to:date:message-id:user-agent;
+ bh=bZ0hdB3aDnQdw+HPiv6w6/rS4ctBv4+DDy7Q7mzZQJA=;
+ b=kQSLq1W11bCof3VZGivNs9jhTs6eQXMNg151pVMeum5ivTvrGyNKTmBC8o3aAVTMCD
+ fWHq03en9zOkEUNKYb6mITKGyBNqVTB2ceHUt93ApjVkk5vDvZP7SZyD5G3hpSk3mpff
+ TpEU3uBAzAcI94SB+dVKpTJKqYy/8/3vpSWho=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:content-transfer-encoding
+ :in-reply-to:references:subject:from:cc:to:date:message-id
+ :user-agent;
+ bh=bZ0hdB3aDnQdw+HPiv6w6/rS4ctBv4+DDy7Q7mzZQJA=;
+ b=lz+ULPX/K7Vr1PIYE2kStqkJC55l0vohcUT0B7rxs+eaDdulAkpBg50KZfms0Li/Qf
+ hctpG4HBALUBe/V4x8IQuuEhpJJ6Q4OshBxFwnofn2AbLSlhqb/NP3vuqFZIkf1Cy9b4
+ JTiUzM6oRR42PFW5vZ1PY7Fe+4/F1Cjh2wsmujLh4A6HhYve5o0/T7ovaY7urLXOBoFG
+ cHWcMPUizKT2AS8wyzr9AV3KJLlnX+hqCVUedW8BQ9OKrArPvGHsXIXJpvARTA0Plywc
+ ZDYSXoXODGKK+uVq5aw63Y9+XOiHIWGK/oui7UCO20Tq1KNUKZVzavvsQWuma5/TaY11
+ JPzA==
+X-Gm-Message-State: AOAM530ujJD/enhPBApgReZvx59/C6R5W6QCWADRFzFePTQCIUelc2xK
+ d0P545oJog9VKXsnGlu04Opia244NQ7CjQ==
+X-Google-Smtp-Source: ABdhPJwf6IhPcHFN4xXP49f62bCdnIGRRPklRPb2u3kzC8iwzMNMbimK4omnPZ6atruNND3LgaRG1g==
+X-Received: by 2002:a63:b202:: with SMTP id x2mr126839pge.432.1599591441474;
+ Tue, 08 Sep 2020 11:57:21 -0700 (PDT)
+Received: from chromium.org ([2620:15c:202:1:3e52:82ff:fe6c:83ab])
+ by smtp.gmail.com with ESMTPSA id o6sm44291pju.25.2020.09.08.11.57.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Sep 2020 11:57:20 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-SES-Outgoing: 2020.09.08-54.240.27.56
-Feedback-ID: 1.us-west-2.CZuq2qbDmUIuT3qdvXlRHZZCpfZqZ4GtG9v3VKgRyF0=:AmazonSES
-Subject: [Freedreno] Adreno GPU microcode update
+In-Reply-To: <010101745aaf685e-49eb2897-ee17-40bf-89e8-2adebe8d022f-000000@us-west-2.amazonses.com>
+References: <010101745aaf685e-49eb2897-ee17-40bf-89e8-2adebe8d022f-000000@us-west-2.amazonses.com>
+From: Stephen Boyd <swboyd@chromium.org>
+To: Kuogee Hsieh <khsieh@codeaurora.org>, robdclark@gmail.com, sean@poorly.run
+Date: Tue, 08 Sep 2020 11:57:19 -0700
+Message-ID: <159959143931.454335.4137726843867018185@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
+Subject: Re: [Freedreno] [PATCH v5] drm/msm/dp: Add DP compliance tests on
+ Snapdragon Chipsets
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,35 +65,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ abhinavk@codeaurora.org, khsieh@codeaurora.org, tanmay@codeaurora.org,
+ daniel@ffwll.ch, aravindh@codeaurora.org, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The following changes since commit d5f9eea5a251d43412b07f5295d03e97b89ac4a5:
+Quoting Kuogee Hsieh (2020-09-04 12:54:39)
+> add event thread to execute events serially from event queue. Also
+> timeout mode is supported  which allow an event be deferred to be
+> executed at later time. Both link and phy compliant tests had been
+> done successfully.
+> 
+> Changes in v2:
+> - Fix potential deadlock by removing redundant connect_mutex
+> - Check and enable link clock during modeset
+> - Drop unused code and fix function prototypes.
+> - set sink power to normal operation state (D0) before DPCD read
+> 
+> Changes in v3:
+> - push idle pattern at main link before timing generator off
+> - add timeout handles for both connect and disconnect
+> 
+> Changes in v4:
+> - add ST_SUSPEND_PENDING to handles suspend/modeset test operations
+> - clear dp phy aux interrupt status when ERR_DPPHY_AUX error
+> - send segment addr during edid read
+> - clear bpp depth before MISC register write
+> 
+> Changes in v5:
+> - add ST_SUSPENDED to fix crash at resume
+> 
+> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+> 
+> This patch depends-on following series:
+> https://lore.kernel.org/dri-devel/20200818051137.21478-1-tanmay@codeaurora.org/
 
-  wl18xx: update firmware file 8.9.0.0.83 (2020-09-01 08:07:59 -0400)
+Can this be based on v12 of the patch series? v4 of this patch was based
+on v12, but this has regressed and gone back to v11.
 
-are available in the Git repository at:
-
-  https://github.com/CosmicPenguin/linux-firmware.git for-master
-
-for you to fetch changes up to f48fec44127f88ce83ea1bcaf5824de4146ca2f9:
-
-  qcom: Add updated a5xx and a6xx microcode (2020-09-08 10:03:36 -0600)
-
-----------------------------------------------------------------
-Jordan Crouse (1):
-      qcom: Add updated a5xx and a6xx microcode
-
- qcom/a530_pfp.fw | Bin 15876 -> 16144 bytes
- qcom/a630_sqe.fw | Bin 31316 -> 32056 bytes
- 2 files changed, 0 insertions(+), 0 deletions(-)
-
--- 
-The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
-a Linux Foundation Collaborative Project
+v12 is https://lkml.kernel.org/lkml/20200827211658.27479-1-tanmay@codeaurora.org/
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
