@@ -2,93 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA4702610C9
-	for <lists+freedreno@lfdr.de>; Tue,  8 Sep 2020 13:37:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07D13261741
+	for <lists+freedreno@lfdr.de>; Tue,  8 Sep 2020 19:29:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81E476E5C6;
-	Tue,  8 Sep 2020 11:37:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1B756E200;
+	Tue,  8 Sep 2020 17:29:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A22A76E5CA
- for <freedreno@lists.freedesktop.org>; Tue,  8 Sep 2020 11:37:17 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id c18so18709772wrm.9
- for <freedreno@lists.freedesktop.org>; Tue, 08 Sep 2020 04:37:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=I/sh0hf7RWpKTkHRG2sXo6X29i3mK1fyatkLVFjwPyY=;
- b=TRI4o8zL814YHGA/D/zYMJIAaCIYqFZ0mIpUDMLZUZN87cVGkWukeoAQibFqRSdTi0
- 6pbezBxBfFFSAjRUKWB8QJP5CHgs93NHYtFiS1nIDp648nb0kIv2ZVQ/RTs1fTwlNaec
- GPg0wCc5jkN3j+ma2gtmxo4nY/EYhDvIrUWKQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=I/sh0hf7RWpKTkHRG2sXo6X29i3mK1fyatkLVFjwPyY=;
- b=MAnI8OEKBqEnsymauFzp5Gx1SPzRrMcB0QX3J3x6itS9AUfh10lqb3+mZzowyoSrK4
- h8rE3K6+61ekqKzfzy52ASDBaDsUHaoER0EDsrjL1O8yT5M90kgYRTVflN7JnULMDXFw
- nKwYQka41yXEsc1oAfmHGbVzeLM2GpmV0BALnf1em5GOh21FO+OAIjkBo8Atx/Z3xfPX
- VKpq1CGjAhZ+TU7P7HjdDGomHvsr9xIY+O5kvypCd5NN3I9ZHJqDlhv1p1YYuVhhdYLp
- tHeK+G/Wocxy5Zd15+HuR6mVAZV5kfgXOyuCiXLhzleQ2slT3kyqVzuNej22mLQzjRp8
- qNoQ==
-X-Gm-Message-State: AOAM530Fh6jAIJFbqYWtu53wm6Ukbsqqyyjc2JfTm7tO4KMOkCUrm+js
- Iy4WO8iPx2/DmMpk+s9XlTb1RA==
-X-Google-Smtp-Source: ABdhPJyF2qwliIvI/LNW3ilYwO975TKwRXyUs29RK60LvcJNYZwaiKnp5x/7ZaLEGFTKwLjPhYZ/og==
-X-Received: by 2002:adf:fd01:: with SMTP id e1mr24749831wrr.44.1599565035147; 
- Tue, 08 Sep 2020 04:37:15 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id e18sm39103291wra.36.2020.09.08.04.37.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2020 04:37:14 -0700 (PDT)
-Date: Tue, 8 Sep 2020 13:37:12 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Gerd Hoffmann <kraxel@redhat.com>
-Message-ID: <20200908113712.GL2352366@phenom.ffwll.local>
-Mail-Followup-To: Gerd Hoffmann <kraxel@redhat.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@linux.ie>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Ben Skeggs <bskeggs@redhat.com>, Sandy Huang <hjc@rock-chips.com>,
- Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>,
- "moderated list:DRM DRIVERS FOR VIVANTE GPU IP"
- <etnaviv@lists.freedesktop.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, 
- "moderated list:ARM/Rockchip SoC support"
- <linux-arm-kernel@lists.infradead.org>, 
- "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
- "open list:DRM DRIVERS FOR NVIDIA TEGRA" <linux-tegra@vger.kernel.org>,
- "moderated list:DRM DRIVERS FOR XEN" <xen-devel@lists.xenproject.org>
-References: <20200907112425.15610-1-kraxel@redhat.com>
- <20200907112425.15610-2-kraxel@redhat.com>
- <CAKMK7uGjT73rh=9iuCKAXvC_CaOuygm8PgOQgofkTgH7wRysFw@mail.gmail.com>
- <20200908054858.um34wojjv6uhi7d3@sirius.home.kraxel.org>
- <20200908085544.GI2352366@phenom.ffwll.local>
- <20200908100253.b22sff23737l77bo@sirius.home.kraxel.org>
+X-Greylist: delayed 1079 seconds by postgrey-1.36 at gabe;
+ Tue, 08 Sep 2020 17:29:18 UTC
+Received: from a27-56.smtp-out.us-west-2.amazonses.com
+ (a27-56.smtp-out.us-west-2.amazonses.com [54.240.27.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 745346E200
+ for <freedreno@lists.freedesktop.org>; Tue,  8 Sep 2020 17:29:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+ s=zsmsymrwgfyinv5wlfyidntwsjeeldzt; d=codeaurora.org; t=1599585079;
+ h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type;
+ bh=63I/CWXUQwQ4/xw3SHOSh+a3A2fsvq0vypwFNw9Go4s=;
+ b=Zm3/OSewRza2+fPSWMWx2F31LMRW/bhZ+uWs/23DPNb6P+5FvUI5ybS15m1+kuOC
+ n4+PCoEUONK99IYlskETjUA1SlU6GE5m2khWtLaYWRq2w+BZWDV269m71IpGXo8FIZu
+ Q8850O8j7S3aASeLhnuzD1uQ33KsPZX1lMw7XqwI=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+ s=hsbnp7p3ensaochzwyq5wwmceodymuwv; d=amazonses.com; t=1599585079;
+ h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:Feedback-ID;
+ bh=63I/CWXUQwQ4/xw3SHOSh+a3A2fsvq0vypwFNw9Go4s=;
+ b=D8mAho/SmqkbUNpAdt3ffSEQn1kG6UVELW62g6bF8tfGMgF0gh3CBzNtqAhii9Cn
+ KYipjFL6aufvFRO1Cvl8xrwld8tYLb/pQZeckazNTgNtEB10zydJhJygkFn21XLmLEG
+ I5yDaVGV9wwkHSqiTJYqN1oUeakagRQ+ORXqFxHc=
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 01565C433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=jcrouse@codeaurora.org
+Date: Tue, 8 Sep 2020 17:11:19 +0000
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: linux-firmware@kernel.org
+Message-ID: <010101746eb34f46-7cc003e0-d25e-4471-a780-15d21789405e-000000@us-west-2.amazonses.com>
+Mail-Followup-To: linux-firmware@kernel.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200908100253.b22sff23737l77bo@sirius.home.kraxel.org>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
-Subject: Re: [Freedreno] [PATCH v4 1/1] drm: allow limiting the scatter list
- size.
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-SES-Outgoing: 2020.09.08-54.240.27.56
+Feedback-ID: 1.us-west-2.CZuq2qbDmUIuT3qdvXlRHZZCpfZqZ4GtG9v3VKgRyF0=:AmazonSES
+Subject: [Freedreno] Adreno GPU microcode update
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,76 +63,35 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
- David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>,
- Sandy Huang <hjc@rock-chips.com>, Thierry Reding <thierry.reding@gmail.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
- Ben Skeggs <bskeggs@redhat.com>, Russell King <linux+etnaviv@armlinux.org.uk>,
- "moderated list:DRM DRIVERS FOR XEN" <xen-devel@lists.xenproject.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- "moderated list:DRM DRIVERS FOR VIVANTE GPU IP"
- <etnaviv@lists.freedesktop.org>, Maxime Ripard <mripard@kernel.org>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- "open list:DRM DRIVERS FOR NVIDIA TEGRA" <linux-tegra@vger.kernel.org>,
- Sean Paul <sean@poorly.run>, "moderated list:ARM/Rockchip SoC support"
- <linux-arm-kernel@lists.infradead.org>,
- open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Lucas Stach <l.stach@pengutronix.de>
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Sep 08, 2020 at 12:02:53PM +0200, Gerd Hoffmann wrote:
-> > > > The comments I've found suggest very much not ... Or is that all very
-> > > > old stuff only that no one cares about anymore?
-> > > 
-> > > I think these days it is possible to override dma_ops per device, which
-> > > in turn allows virtio to deal with the quirks without the rest of the
-> > > kernel knowing about these details.
-> > > 
-> > > I also think virtio-gpu can drop the virtio_has_dma_quirk() checks, just
-> > > use the dma api path unconditionally and depend on virtio core having
-> > > setup dma_ops in a way that it JustWorks[tm].  I'll look into that next.
-> > 
-> > The comment above vring_use_dma_api() suggests that this has not yet
-> > happened, that's why I'm asking.
-> 
-> Hmm, wading through the code, seems it indeed happen yet, even though my
-> testing didn't show any issues.  Probably pure luck because devices and
-> cpus have the same memory view on x86.  Guess I need to try this on
-> ppc64 to see it actually failing ...
-> 
-> So dropping the virtio_has_dma_quirk() checks isn't going to fly.
-> 
-> Using dma_max_mapping_size() should be fine though.  It might use a
-> lower limit than needed for virtio, but it should not break things.
+The following changes since commit d5f9eea5a251d43412b07f5295d03e97b89ac4a5:
 
-Makes sense. On this patch here:
+  wl18xx: update firmware file 8.9.0.0.83 (2020-09-01 08:07:59 -0400)
 
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+are available in the Git repository at:
 
-And I guess would be good if virtio pushes a bit more towards using the
-dma api abstraction fully so we can get rid of these hacks. Virtio feels
-like a driver that really should be using dma-api and not dig around
-behind it because "it' makes stuff 0.5% faster" or so, since being
-virtualized it's already not the king of speed anyway :-)
+  https://github.com/CosmicPenguin/linux-firmware.git for-master
 
-Cheers, Daniel
+for you to fetch changes up to f48fec44127f88ce83ea1bcaf5824de4146ca2f9:
+
+  qcom: Add updated a5xx and a6xx microcode (2020-09-08 10:03:36 -0600)
+
+----------------------------------------------------------------
+Jordan Crouse (1):
+      qcom: Add updated a5xx and a6xx microcode
+
+ qcom/a530_pfp.fw | Bin 15876 -> 16144 bytes
+ qcom/a630_sqe.fw | Bin 31316 -> 32056 bytes
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+a Linux Foundation Collaborative Project
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
