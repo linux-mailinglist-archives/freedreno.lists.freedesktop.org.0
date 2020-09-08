@@ -1,42 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 345C9260638
-	for <lists+freedreno@lfdr.de>; Mon,  7 Sep 2020 23:23:52 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id AC47B260A51
+	for <lists+freedreno@lfdr.de>; Tue,  8 Sep 2020 07:49:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4D1E6E4FE;
-	Mon,  7 Sep 2020 21:23:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48FB06E588;
+	Tue,  8 Sep 2020 05:49:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 527 seconds by postgrey-1.36 at gabe;
- Mon, 07 Sep 2020 19:11:18 UTC
-Received: from mail-40134.protonmail.ch (mail-40134.protonmail.ch
- [185.70.40.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C07CB6E52F
- for <freedreno@lists.freedesktop.org>; Mon,  7 Sep 2020 19:11:18 +0000 (UTC)
-Date: Mon, 07 Sep 2020 19:02:24 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=connolly.tech;
- s=protonmail; t=1599505349;
- bh=VU8upJbsXlgcVevXq9bJo+njrd1Ivb0QGIDsJacy9fk=;
- h=Date:To:From:Cc:Reply-To:Subject:From;
- b=S6lWI4z5rnbnO5rtJNxtHiUAw1N9MAxzKxS62lde4X96nwNKMnkixLJhDo/YVKLKN
- +inrUYy0Us/T98bwXhE5l56c9x2RR3M5FFF4xog5v5XNGJcDjG9jS72nLiw+z9v9ot
- EizvaiiPRnmFv00BpQvQF/zm3KQI4uB+Tla2m0hM=
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
- iommu@lists.linux-foundation.org, linux-arm-msm@vger.kernel.org,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>
-From: Caleb Connolly <caleb@connolly.tech>
-Message-ID: <1eb7f10c-1504-158c-d25c-18a73b9a1607@connolly.tech>
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D9426E15F
+ for <freedreno@lists.freedesktop.org>; Tue,  8 Sep 2020 05:49:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1599544154;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=eQK1NPwmSWOx8INcFCnwK3inQ46y12Ng6QHkYnvGe3I=;
+ b=d7rHMyqTyYlVVcjqbIdrKfcJyaWiYQHSUE5x/TdbvBfpOl/jUxo7OqJ3kTJqkzZEGilUKR
+ yZZS/eO4M33Qmn0zkCFsB/UqId6zLwDAyJZ6nuQrsujpF8YUTljkStVqGVSwuvu0/r6qlQ
+ 2P2aCXD9mfrPXItYLXp7r8ao9hLoJeM=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-45-r-VulFGYMA-fjnnBfjljEg-1; Tue, 08 Sep 2020 01:49:07 -0400
+X-MC-Unique: r-VulFGYMA-fjnnBfjljEg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+ [10.5.11.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E448D425D1;
+ Tue,  8 Sep 2020 05:49:02 +0000 (UTC)
+Received: from sirius.home.kraxel.org (ovpn-112-56.ams2.redhat.com
+ [10.36.112.56])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 2C936811BE;
+ Tue,  8 Sep 2020 05:48:58 +0000 (UTC)
+Received: by sirius.home.kraxel.org (Postfix, from userid 1000)
+ id 0FDF617538; Tue,  8 Sep 2020 07:48:58 +0200 (CEST)
+Date: Tue, 8 Sep 2020 07:48:58 +0200
+From: Gerd Hoffmann <kraxel@redhat.com>
+To: Daniel Vetter <daniel@ffwll.ch>
+Message-ID: <20200908054858.um34wojjv6uhi7d3@sirius.home.kraxel.org>
+References: <20200907112425.15610-1-kraxel@redhat.com>
+ <20200907112425.15610-2-kraxel@redhat.com>
+ <CAKMK7uGjT73rh=9iuCKAXvC_CaOuygm8PgOQgofkTgH7wRysFw@mail.gmail.com>
 MIME-Version: 1.0
-X-Spam-Status: No, score=-1.2 required=10.0 tests=ALL_TRUSTED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF shortcircuit=no
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on
- mailout.protonmail.ch
-X-Mailman-Approved-At: Mon, 07 Sep 2020 21:23:49 +0000
-Subject: Re: [Freedreno] [PATCH v16 00/20] iommu/arm-smmu + drm/msm:
- per-process GPU pgtables
+Content-Disposition: inline
+In-Reply-To: <CAKMK7uGjT73rh=9iuCKAXvC_CaOuygm8PgOQgofkTgH7wRysFw@mail.gmail.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+Subject: Re: [Freedreno] [PATCH v4 1/1] drm: allow limiting the scatter list
+ size.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,175 +63,71 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Caleb Connolly <caleb@connolly.tech>
-Cc: Wambui Karuga <wambui.karugax@gmail.com>, Hanna Hawa <hannah@marvell.com>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Eric Anholt <eric@anholt.net>,
- Thierry Reding <thierry.reding@gmail.com>,
- Vivek Gautam <vivek.gautam@codeaurora.org>,
- AngeloGioacchino Del Regno <kholk11@gmail.com>,
- Emil Velikov <emil.velikov@collabora.com>, Rob Clark <robdclark@chromium.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, Ben Dooks <ben.dooks@codethink.co.uk>,
- Sibi Sankar <sibis@codeaurora.org>, Brian Masney <masneyb@onstation.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Joerg Roedel <jroedel@suse.de>,
- Sharat Masetty <smasetty@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
- Krishna Reddy <vdumpa@nvidia.com>, John Stultz <john.stultz@linaro.org>,
+Cc: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>,
+ Sandy Huang <hjc@rock-chips.com>, Thierry Reding <thierry.reding@gmail.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
+ Ben Skeggs <bskeggs@redhat.com>, Russell King <linux+etnaviv@armlinux.org.uk>,
+ "moderated list:DRM DRIVERS FOR XEN" <xen-devel@lists.xenproject.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ "moderated list:DRM DRIVERS FOR VIVANTE GPU IP"
+ <etnaviv@lists.freedesktop.org>, Maxime Ripard <mripard@kernel.org>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ "open list:DRM DRIVERS FOR NVIDIA TEGRA" <linux-tegra@vger.kernel.org>,
+ Sean Paul <sean@poorly.run>, "moderated list:ARM/Rockchip SoC support"
+ <linux-arm-kernel@lists.infradead.org>,
+ open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <seanpaul@chromium.org>,
- Shawn Guo <shawn.guo@linaro.org>, Jordan Crouse <jcrouse@codeaurora.org>
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Lucas Stach <l.stach@pengutronix.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-09-01 17:46, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
->
-> NOTE: I have re-ordered the series, and propose that we could merge this
->        series in the following order:
->
->         1) 01-11 - merge via drm / msm-next
->         2) 12-15 - merge via iommu, no dependency on msm-next pull req
->         3) 16-18 - patch 16 has a dependency on 02 and 04, so it would
->                    need to come post -rc1 or on following cycle, but I
->                    think it would be unlikely to conflict with other
->                    arm-smmu patches (other than Bjorn's smmu handover
->                    series?)
->         4) 19-20 - dt bits should be safe to land in any order without
->                    breaking anything
->
-> ----
->
-> This series adds an Adreno SMMU implementation to arm-smmu to allow GPU hardware
-> pagetable switching.
->
-> The Adreno GPU has built in capabilities to switch the TTBR0 pagetable during
-> runtime to allow each individual instance or application to have its own
-> pagetable.  In order to take advantage of the HW capabilities there are certain
-> requirements needed of the SMMU hardware.
->
-> This series adds support for an Adreno specific arm-smmu implementation. The new
-> implementation 1) ensures that the GPU domain is always assigned context bank 0,
-> 2) enables split pagetable support (TTBR1) so that the instance specific
-> pagetable can be swapped while the global memory remains in place and 3) shares
-> the current pagetable configuration with the GPU driver to allow it to create
-> its own io-pgtable instances.
->
-> The series then adds the drm/msm code to enable these features. For targets that
-> support it allocate new pagetables using the io-pgtable configuration shared by
-> the arm-smmu driver and swap them in during runtime.
->
-> This version of the series merges the previous patchset(s) [1] and [2]
-> with the following improvements:
->
-> v16: (Respin by Rob)
->    - Fix indentation
->    - Re-order series to split drm and iommu parts
-> v15: (Respin by Rob)
->    - Adjust dt bindings to keep SoC specific compatible (Doug)
->    - Add dts workaround for cheza fw limitation
->    - Add missing 'select IOMMU_IO_PGTABLE' (Guenter)
-> v14: (Respin by Rob)
->    - Minor update to 16/20 (only force ASID to zero in one place)
->    - Addition of sc7180 dtsi patch.
-> v13: (Respin by Rob)
->    - Switch to a private interface between adreno-smmu and GPU driver,
->      dropping the custom domain attr (Will Deacon)
->    - Rework the SCTLR.HUPCF patch to add new fields in smmu_domain->cfg
->      rather than adding new impl hook (Will Deacon)
->    - Drop for_each_cfg_sme() in favor of plain for() loop (Will Deacon)
->    - Fix context refcnt'ing issue which was causing problems with GPU
->      crash recover stress testing.
->    - Spiff up $debugfs/gem to show process information associated with
->      VMAs
-> v12:
->    - Nitpick cleanups in gpu/drm/msm/msm_iommu.c (Rob Clark)
->    - Reorg in gpu/drm/msm/msm_gpu.c (Rob Clark)
->    - Use the default asid for the context bank so that iommu_tlb_flush_all works
->    - Flush the UCHE after a page switch
->    - Add the SCTLR.HUPCF patch at the end of the series
-> v11:
->    - Add implementation specific get_attr/set_attr functions (per Rob Clark)
->    - Fix context bank allocation (per Bjorn Andersson)
-> v10:
->    - arm-smmu: add implementation hook to allocate context banks
->    - arm-smmu: Match the GPU domain by stream ID instead of compatible string
->    - arm-smmu: Make DOMAIN_ATTR_PGTABLE_CFG bi-directional. The leaf driver
->      queries the configuration to create a pagetable and then sends the newly
->      created configuration back to the smmu-driver to enable TTBR0
->    - drm/msm: Add context reference counting for submissions
->    - drm/msm: Use dummy functions to skip TLB operations on per-instance
->      pagetables
->
-> [1] https://lists.linuxfoundation.org/pipermail/iommu/2020-June/045653.html
-> [2] https://lists.linuxfoundation.org/pipermail/iommu/2020-June/045659.html
->
-> Jordan Crouse (12):
->    drm/msm: Add a context pointer to the submitqueue
->    drm/msm: Drop context arg to gpu->submit()
->    drm/msm: Set the global virtual address range from the IOMMU domain
->    drm/msm: Add support to create a local pagetable
->    drm/msm: Add support for private address space instances
->    drm/msm/a6xx: Add support for per-instance pagetables
->    iommu/arm-smmu: Pass io-pgtable config to implementation specific
->      function
->    iommu/arm-smmu: Add support for split pagetables
->    iommu/arm-smmu: Prepare for the adreno-smmu implementation
->    iommu/arm-smmu-qcom: Add implementation for the adreno GPU SMMU
->    dt-bindings: arm-smmu: Add compatible string for Adreno GPU SMMU
->    arm: dts: qcom: sm845: Set the compatible string for the GPU SMMU
->
-> Rob Clark (8):
->    drm/msm: Remove dangling submitqueue references
->    drm/msm: Add private interface for adreno-smmu
->    drm/msm/gpu: Add dev_to_gpu() helper
->    drm/msm: Set adreno_smmu as gpu's drvdata
->    drm/msm: Show process names in gem_describe
->    iommu/arm-smmu: Constify some helpers
->    iommu/arm-smmu: Add a way for implementations to influence SCTLR
->    arm: dts: qcom: sc7180: Set the compatible string for the GPU SMMU
->
->   .../devicetree/bindings/iommu/arm,smmu.yaml   |   9 +-
->   arch/arm64/boot/dts/qcom/sc7180.dtsi          |   2 +-
->   arch/arm64/boot/dts/qcom/sdm845-cheza.dtsi    |   9 +
->   arch/arm64/boot/dts/qcom/sdm845.dtsi          |   2 +-
->   drivers/gpu/drm/msm/Kconfig                   |   1 +
->   drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |  12 +-
->   drivers/gpu/drm/msm/adreno/a6xx_gpu.c         |  68 +++++-
->   drivers/gpu/drm/msm/adreno/a6xx_gpu.h         |   1 +
->   drivers/gpu/drm/msm/adreno/adreno_device.c    |  12 +-
->   drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  18 +-
->   drivers/gpu/drm/msm/adreno/adreno_gpu.h       |   3 +-
->   drivers/gpu/drm/msm/msm_drv.c                 |  16 +-
->   drivers/gpu/drm/msm/msm_drv.h                 |  25 +++
->   drivers/gpu/drm/msm/msm_gem.c                 |  25 ++-
->   drivers/gpu/drm/msm/msm_gem.h                 |   6 +
->   drivers/gpu/drm/msm/msm_gem_submit.c          |   8 +-
->   drivers/gpu/drm/msm/msm_gem_vma.c             |  10 +
->   drivers/gpu/drm/msm/msm_gpu.c                 |  41 +++-
->   drivers/gpu/drm/msm/msm_gpu.h                 |  21 +-
->   drivers/gpu/drm/msm/msm_gpummu.c              |   2 +-
->   drivers/gpu/drm/msm/msm_iommu.c               | 206 +++++++++++++++++-
->   drivers/gpu/drm/msm/msm_mmu.h                 |  16 +-
->   drivers/gpu/drm/msm/msm_ringbuffer.h          |   1 +
->   drivers/gpu/drm/msm/msm_submitqueue.c         |   7 +-
->   drivers/iommu/arm/arm-smmu/arm-smmu-impl.c    |   6 +-
->   drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c    | 155 ++++++++++++-
->   drivers/iommu/arm/arm-smmu/arm-smmu.c         | 100 ++++-----
->   drivers/iommu/arm/arm-smmu/arm-smmu.h         |  87 +++++++-
->   include/linux/adreno-smmu-priv.h              |  36 +++
->   29 files changed, 771 insertions(+), 134 deletions(-)
->   create mode 100644 include/linux/adreno-smmu-priv.h
->
-Tested in combination with 
-https://lore.kernel.org/linux-arm-msm/20200904155513.282067-1-bjorn.andersson@linaro.org/
+On Mon, Sep 07, 2020 at 03:53:02PM +0200, Daniel Vetter wrote:
+> On Mon, Sep 7, 2020 at 1:24 PM Gerd Hoffmann <kraxel@redhat.com> wrote:
+> >
+> > Add drm_device argument to drm_prime_pages_to_sg(), so we can
+> > call dma_max_mapping_size() to figure the segment size limit
+> > and call into __sg_alloc_table_from_pages() with the correct
+> > limit.
+> >
+> > This fixes virtio-gpu with sev.  Possibly it'll fix other bugs
+> > too given that drm seems to totaly ignore segment size limits
+> > so far ...
+> >
+> > v2: place max_segment in drm driver not gem object.
+> > v3: move max_segment next to the other gem fields.
+> > v4: just use dma_max_mapping_size().
+> >
+> > Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+> 
+> Uh, are you sure this works in all cases for virtio?
 
-Fixes booting on the OnePlus 6 (SDM845) with the display enabled.
+Sure, I've tested it ;)
 
+> The comments I've found suggest very much not ... Or is that all very
+> old stuff only that no one cares about anymore?
+
+I think these days it is possible to override dma_ops per device, which
+in turn allows virtio to deal with the quirks without the rest of the
+kernel knowing about these details.
+
+I also think virtio-gpu can drop the virtio_has_dma_quirk() checks, just
+use the dma api path unconditionally and depend on virtio core having
+setup dma_ops in a way that it JustWorks[tm].  I'll look into that next.
+
+take care,
+  Gerd
 
 _______________________________________________
 Freedreno mailing list
