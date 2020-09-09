@@ -2,71 +2,45 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A059262DA8
-	for <lists+freedreno@lfdr.de>; Wed,  9 Sep 2020 13:08:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA9FA263089
+	for <lists+freedreno@lfdr.de>; Wed,  9 Sep 2020 17:29:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC0546EE39;
-	Wed,  9 Sep 2020 11:08:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EF346EC20;
+	Wed,  9 Sep 2020 15:29:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
- [IPv6:2607:f8b0:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F412A6EE36
- for <freedreno@lists.freedesktop.org>; Wed,  9 Sep 2020 11:08:10 +0000 (UTC)
-Received: by mail-pf1-x441.google.com with SMTP id b124so1812786pfg.13
- for <freedreno@lists.freedesktop.org>; Wed, 09 Sep 2020 04:08:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=hHbPBPqCAjeHpFptYktHnZF2Ot4j4iCHuxaSsZ+eCnQ=;
- b=m4KHcZLZ3vphfXLl8Z6uPW+Z5xRc7prauxsfl0JLhrjWsiglWRJP4MpIyU91H/iLho
- zrypWq/9xIvYPiotVpXou3HNQ/xOAUSdnA0p1Aeb2P6B8wsSa9RZ/k3wQsg8i79uXKFf
- oqrgkMysLIqLInktyZ0qNeCahTkBgCR1FU+Sdh8z08fzYT7FIdiuUuOj/THP1lBYxblb
- crk/ICcFVagGGuLu1MtvSBSpBtzUON7VuahiwpKU9qQILtWVvIRGlEVE5GFGdKpbyIDw
- gFqItvEzQktmZxC+C5bsJupV5InVVkiOeLk+WlFuumCOeBab41igCm17UsYlleFsQ8ke
- LG/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=hHbPBPqCAjeHpFptYktHnZF2Ot4j4iCHuxaSsZ+eCnQ=;
- b=d1kTVirsBBksxEGacFl92Ts6Rduo+hG3S+Hx+CZTMySimXhLFHTdBVHRRACAQXY8Fs
- 2lQ4nUz9wGs/Bn0EFCvZK1J290OsJ/7ZCmLac1VIQIVW1EdnJOl8zCXaENJY3OrKr7QP
- xJiyEqZ4cwx9jEWOTbc23zyR5+e4SGB9kpFqx8CYqbJjHeyQouPvgy8vylmAqqPO3785
- 5wYfgIiydb8X2EwryCzetpu7qHLA0RNMeCP1IiNewQw7eGoUvy6tA0JweL9JJCSVJFEO
- JnoRFNy/srgv80W6ZPnuF3dxJwO/126WkaRiuCBR9RUPhOSTEtpf3m3MxiIzYU0ZWsM7
- Kh3g==
-X-Gm-Message-State: AOAM5332kP4+yjgl6XrGwN2BPjZUKZ/eoTtJNywLKrFpl12KzSCg6C10
- KP5fYcXpAghvW8gW0cgaoyX6lw==
-X-Google-Smtp-Source: ABdhPJy2EZv/VIxB9RnTfqRMANkRu2WWxpNJfCDbS9BRC+1+0r57LjDxgPFYplFTRs+2i65+o+pECA==
-X-Received: by 2002:a65:5849:: with SMTP id s9mr215399pgr.439.1599649690536;
- Wed, 09 Sep 2020 04:08:10 -0700 (PDT)
-Received: from localhost ([122.181.54.133])
- by smtp.gmail.com with ESMTPSA id w185sm2619035pfc.36.2020.09.09.04.08.09
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 09 Sep 2020 04:08:09 -0700 (PDT)
-Date: Wed, 9 Sep 2020 16:38:07 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: rnayak@codeaurora.org, Adrian Hunter <adrian.hunter@intel.com>,
- Andy Gross <agross@kernel.org>,
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0917A6EC20;
+ Wed,  9 Sep 2020 15:29:37 +0000 (UTC)
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7681822240;
+ Wed,  9 Sep 2020 15:29:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1599665377;
+ bh=TODrVcs9lgVCPiXcAEfLvUZlnsS84ktzJrcnCMX1MKg=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=FY4sgLDDXx1wg27+Ljvut8xHybpkWQIHYtUAsv96blD6Wh6IeNsMO5lKZ4mATR23F
+ G2JVLlILS5NoIvW+hUvsFBsE0SCBbOD4sJNMPWwIiH4P5TcKH/x0yYb7nfTfqm+lH0
+ ZCd5YGHXme1dc0s7OslYkmkiil92Mu448CHiBotA=
+Date: Wed, 09 Sep 2020 16:28:51 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Fabio Estevam <festevam@gmail.com>, rnayak@codeaurora.org,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
- Fabio Estevam <festevam@gmail.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>, Jiri Slaby <jirislaby@kernel.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Mark Brown <broonie@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>,
+ David Airlie <airlied@linux.ie>, Adrian Hunter <adrian.hunter@intel.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Qiang Yu <yuq825@gmail.com>,
+ Ulf Hansson <ulf.hansson@linaro.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Andy Gross <agross@kernel.org>, "Rafael J. Wysocki" <rjw@rjwysocki.net>,
+ Shawn Guo <shawnguo@kernel.org>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
- Qiang Yu <yuq825@gmail.com>, "Rafael J. Wysocki" <rjw@rjwysocki.net>,
- Rob Clark <robdclark@gmail.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Sean Paul <sean@poorly.run>,
- Shawn Guo <shawnguo@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>
-Message-ID: <20200909110807.aw3q4bqxis3ya5ci@vireshk-i7>
+ NXP Linux Team <linux-imx@nxp.com>
+In-Reply-To: <cover.1598594714.git.viresh.kumar@linaro.org>
 References: <cover.1598594714.git.viresh.kumar@linaro.org>
- <20200831110939.qnyugmhajkg36gzw@vireshk-i7>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200831110939.qnyugmhajkg36gzw@vireshk-i7>
-User-Agent: NeoMutt/20180716-391-311a52
+Message-Id: <159966533166.54485.703021491015822828.b4-ty@kernel.org>
 Subject: Re: [Freedreno] [PATCH V2 0/8] opp: Unconditionally call
  dev_pm_opp_of_remove_table()
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -86,53 +60,55 @@ Cc: Nishanth Menon <nm@ti.com>, Vincent Guittot <vincent.guittot@linaro.org>,
  Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
  Naresh Kamboju <naresh.kamboju@linaro.org>, linux-mmc@vger.kernel.org,
  Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
- linux-spi@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-spi@vger.kernel.org, linux-serial@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 31-08-20, 16:39, Viresh Kumar wrote:
-> On 28-08-20, 11:37, Viresh Kumar wrote:
-> > Hello,
-> > 
-> > This cleans up some of the user code around calls to
-> > dev_pm_opp_of_remove_table().
-> > 
-> > All the patches can be picked by respective maintainers directly except
-> > for the last patch, which needs the previous two to get merged first.
-> > 
-> > These are based for 5.9-rc1.
->  
-> > Viresh Kumar (8):
-> >   cpufreq: imx6q: Unconditionally call dev_pm_opp_of_remove_table()
-> >   drm/lima: Unconditionally call dev_pm_opp_of_remove_table()
-> >   drm/msm: Unconditionally call dev_pm_opp_of_remove_table()
-> >   mmc: sdhci-msm: Unconditionally call dev_pm_opp_of_remove_table()
-> >   spi: spi-geni-qcom: Unconditionally call dev_pm_opp_of_remove_table()
-> >   spi: spi-qcom-qspi: Unconditionally call dev_pm_opp_of_remove_table()
-> >   tty: serial: qcom_geni_serial: Unconditionally call
-> >     dev_pm_opp_of_remove_table()
-> >   qcom-geni-se: remove has_opp_table
+On Fri, 28 Aug 2020 11:37:45 +0530, Viresh Kumar wrote:
+> This cleans up some of the user code around calls to
+> dev_pm_opp_of_remove_table().
 > 
-> During testing by some of the Linaro folks on linux-next, we found out
-> that there was a bug in the OPP core (which makes the kernel crash in
-> some corner cases with these patches) for which I have sent a fix
-> today which should be part of 5.9-rc4:
+> All the patches can be picked by respective maintainers directly except
+> for the last patch, which needs the previous two to get merged first.
 > 
-> https://lore.kernel.org/lkml/922ff0759a16299e24cacfc981ac07914d8f1826.1598865786.git.viresh.kumar@linaro.org/
+> These are based for 5.9-rc1.
 > 
-> Please apply the patches over rc4 only once it comes out (I will
-> confirm by that time once the patch gets merged). Else you guys can
-> provide your Ack and I can take the patches through OPP tree.
+> [...]
 
-The fix got merged in 5.9-rc4, please apply the patches from this
-series in your trees and base them on rc4. Thanks.
+Applied to
 
--- 
-viresh
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
+
+Thanks!
+
+[1/2] spi: spi-geni-qcom: Unconditionally call dev_pm_opp_of_remove_table()
+      commit: 7d568edff5cb7968cc5f29e85da15f941b8070b8
+[2/2] spi: spi-qcom-qspi: Unconditionally call dev_pm_opp_of_remove_table()
+      commit: 062cf7fc927d2546b58ed128383e5c52f26a00a5
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
