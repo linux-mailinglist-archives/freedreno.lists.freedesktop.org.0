@@ -2,54 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55A3B26219C
-	for <lists+freedreno@lfdr.de>; Tue,  8 Sep 2020 23:00:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A059262DA8
+	for <lists+freedreno@lfdr.de>; Wed,  9 Sep 2020 13:08:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C6EF6E8B8;
-	Tue,  8 Sep 2020 21:00:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC0546EE39;
+	Wed,  9 Sep 2020 11:08:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 430 seconds by postgrey-1.36 at gabe;
- Tue, 08 Sep 2020 21:00:08 UTC
-Received: from a27-186.smtp-out.us-west-2.amazonses.com
- (a27-186.smtp-out.us-west-2.amazonses.com [54.240.27.186])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21B746E8B8;
- Tue,  8 Sep 2020 21:00:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=zsmsymrwgfyinv5wlfyidntwsjeeldzt; d=codeaurora.org; t=1599598378;
- h=MIME-Version:Content-Type:Content-Transfer-Encoding:Date:From:To:Cc:Subject:In-Reply-To:References:Message-ID;
- bh=8IKm0Isv5Oa5ar1k/NOTqlHxZ1ZhkdPDWFXYTLsl6GY=;
- b=Z15fknMzWFoM8MaTMQ7n1GjrgaLM38QA/6uMSlJ5BRSuE4SFzBSaSfyWBJevQfJX
- KesdOc6IU/6WvhsGe6RVsUPt8PadYirzuCJP2PPu7KUjZuMIw5SQ1Jr34WHWUpfB/No
- CWU3NnBEFKSpkdcTW5etPNagdSZIVBdix79NCvPQ=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=hsbnp7p3ensaochzwyq5wwmceodymuwv; d=amazonses.com; t=1599598378;
- h=MIME-Version:Content-Type:Content-Transfer-Encoding:Date:From:To:Cc:Subject:In-Reply-To:References:Message-ID:Feedback-ID;
- bh=8IKm0Isv5Oa5ar1k/NOTqlHxZ1ZhkdPDWFXYTLsl6GY=;
- b=nB4vUZAQZZA4cJOnljffViMMi/+amp9DTBMugw52A3UwqLoZGQJ3Y02lBPpzJcbA
- MCvlJRu7nvqhMsuF3sbSJf7oi2iu8wxorYoJ0aDY5ZhjoQoVXAlT9Vd34oYj5nIfHcv
- R3kc0igeCSNYhEc/OlVo6cf73siWH3isRUO0iQrE=
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
+ [IPv6:2607:f8b0:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F412A6EE36
+ for <freedreno@lists.freedesktop.org>; Wed,  9 Sep 2020 11:08:10 +0000 (UTC)
+Received: by mail-pf1-x441.google.com with SMTP id b124so1812786pfg.13
+ for <freedreno@lists.freedesktop.org>; Wed, 09 Sep 2020 04:08:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=hHbPBPqCAjeHpFptYktHnZF2Ot4j4iCHuxaSsZ+eCnQ=;
+ b=m4KHcZLZ3vphfXLl8Z6uPW+Z5xRc7prauxsfl0JLhrjWsiglWRJP4MpIyU91H/iLho
+ zrypWq/9xIvYPiotVpXou3HNQ/xOAUSdnA0p1Aeb2P6B8wsSa9RZ/k3wQsg8i79uXKFf
+ oqrgkMysLIqLInktyZ0qNeCahTkBgCR1FU+Sdh8z08fzYT7FIdiuUuOj/THP1lBYxblb
+ crk/ICcFVagGGuLu1MtvSBSpBtzUON7VuahiwpKU9qQILtWVvIRGlEVE5GFGdKpbyIDw
+ gFqItvEzQktmZxC+C5bsJupV5InVVkiOeLk+WlFuumCOeBab41igCm17UsYlleFsQ8ke
+ LG/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=hHbPBPqCAjeHpFptYktHnZF2Ot4j4iCHuxaSsZ+eCnQ=;
+ b=d1kTVirsBBksxEGacFl92Ts6Rduo+hG3S+Hx+CZTMySimXhLFHTdBVHRRACAQXY8Fs
+ 2lQ4nUz9wGs/Bn0EFCvZK1J290OsJ/7ZCmLac1VIQIVW1EdnJOl8zCXaENJY3OrKr7QP
+ xJiyEqZ4cwx9jEWOTbc23zyR5+e4SGB9kpFqx8CYqbJjHeyQouPvgy8vylmAqqPO3785
+ 5wYfgIiydb8X2EwryCzetpu7qHLA0RNMeCP1IiNewQw7eGoUvy6tA0JweL9JJCSVJFEO
+ JnoRFNy/srgv80W6ZPnuF3dxJwO/126WkaRiuCBR9RUPhOSTEtpf3m3MxiIzYU0ZWsM7
+ Kh3g==
+X-Gm-Message-State: AOAM5332kP4+yjgl6XrGwN2BPjZUKZ/eoTtJNywLKrFpl12KzSCg6C10
+ KP5fYcXpAghvW8gW0cgaoyX6lw==
+X-Google-Smtp-Source: ABdhPJy2EZv/VIxB9RnTfqRMANkRu2WWxpNJfCDbS9BRC+1+0r57LjDxgPFYplFTRs+2i65+o+pECA==
+X-Received: by 2002:a65:5849:: with SMTP id s9mr215399pgr.439.1599649690536;
+ Wed, 09 Sep 2020 04:08:10 -0700 (PDT)
+Received: from localhost ([122.181.54.133])
+ by smtp.gmail.com with ESMTPSA id w185sm2619035pfc.36.2020.09.09.04.08.09
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 09 Sep 2020 04:08:09 -0700 (PDT)
+Date: Wed, 9 Sep 2020 16:38:07 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: rnayak@codeaurora.org, Adrian Hunter <adrian.hunter@intel.com>,
+ Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
+ Fabio Estevam <festevam@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Mark Brown <broonie@kernel.org>,
+ NXP Linux Team <linux-imx@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Qiang Yu <yuq825@gmail.com>, "Rafael J. Wysocki" <rjw@rjwysocki.net>,
+ Rob Clark <robdclark@gmail.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Sean Paul <sean@poorly.run>,
+ Shawn Guo <shawnguo@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>
+Message-ID: <20200909110807.aw3q4bqxis3ya5ci@vireshk-i7>
+References: <cover.1598594714.git.viresh.kumar@linaro.org>
+ <20200831110939.qnyugmhajkg36gzw@vireshk-i7>
 MIME-Version: 1.0
-Date: Tue, 8 Sep 2020 20:52:58 +0000
-From: abhinavk@codeaurora.org
-To: Rob Clark <robdclark@gmail.com>
-In-Reply-To: <CAF6AEGsETZxbPEneBycbNBjGD7_OU7V=T8J0TByC_ZTv40q-Og@mail.gmail.com>
-References: <20200907170450.370122-1-robdclark@gmail.com>
- <20200907170450.370122-2-robdclark@gmail.com>
- <010101746f3f7667-5ee2e9e4-9b10-41e0-8bbc-65219583cb86-000000@us-west-2.amazonses.com>
- <CAF6AEGsETZxbPEneBycbNBjGD7_OU7V=T8J0TByC_ZTv40q-Og@mail.gmail.com>
-Message-ID: <010101746f7e3c3a-d3b1fd49-6f55-4c4b-aafb-697147c5045a-000000@us-west-2.amazonses.com>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-X-SES-Outgoing: 2020.09.08-54.240.27.186
-Feedback-ID: 1.us-west-2.CZuq2qbDmUIuT3qdvXlRHZZCpfZqZ4GtG9v3VKgRyF0=:AmazonSES
-Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/dpu: clean up some
- impossibilities
+Content-Disposition: inline
+In-Reply-To: <20200831110939.qnyugmhajkg36gzw@vireshk-i7>
+User-Agent: NeoMutt/20180716-391-311a52
+Subject: Re: [Freedreno] [PATCH V2 0/8] opp: Unconditionally call
+ dev_pm_opp_of_remove_table()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,246 +81,58 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Hongbo Yao <yaohongbo@huawei.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Sean Paul <sean@poorly.run>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Kalyan Thota <kalyan_t@codeaurora.org>,
- Drew Davenport <ddavenport@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- linux-arm-msm-owner@vger.kernel.org
+Cc: Nishanth Menon <nm@ti.com>, Vincent Guittot <vincent.guittot@linaro.org>,
+ lima@lists.freedesktop.org, linux-pm@vger.kernel.org,
+ Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Naresh Kamboju <naresh.kamboju@linaro.org>, linux-mmc@vger.kernel.org,
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-spi@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-09-08 13:11, Rob Clark wrote:
-> On Tue, Sep 8, 2020 at 12:44 PM <abhinavk@codeaurora.org> wrote:
->> 
->> On 2020-09-07 10:04, Rob Clark wrote:
->> > From: Rob Clark <robdclark@chromium.org>
->> >
->> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+On 31-08-20, 16:39, Viresh Kumar wrote:
+> On 28-08-20, 11:37, Viresh Kumar wrote:
+> > Hello,
+> > 
+> > This cleans up some of the user code around calls to
+> > dev_pm_opp_of_remove_table().
+> > 
+> > All the patches can be picked by respective maintainers directly except
+> > for the last patch, which needs the previous two to get merged first.
+> > 
+> > These are based for 5.9-rc1.
+>  
+> > Viresh Kumar (8):
+> >   cpufreq: imx6q: Unconditionally call dev_pm_opp_of_remove_table()
+> >   drm/lima: Unconditionally call dev_pm_opp_of_remove_table()
+> >   drm/msm: Unconditionally call dev_pm_opp_of_remove_table()
+> >   mmc: sdhci-msm: Unconditionally call dev_pm_opp_of_remove_table()
+> >   spi: spi-geni-qcom: Unconditionally call dev_pm_opp_of_remove_table()
+> >   spi: spi-qcom-qspi: Unconditionally call dev_pm_opp_of_remove_table()
+> >   tty: serial: qcom_geni_serial: Unconditionally call
+> >     dev_pm_opp_of_remove_table()
+> >   qcom-geni-se: remove has_opp_table
+> 
+> During testing by some of the Linaro folks on linux-next, we found out
+> that there was a bug in the OPP core (which makes the kernel crash in
+> some corner cases with these patches) for which I have sent a fix
+> today which should be part of 5.9-rc4:
+> 
+> https://lore.kernel.org/lkml/922ff0759a16299e24cacfc981ac07914d8f1826.1598865786.git.viresh.kumar@linaro.org/
+> 
+> Please apply the patches over rc4 only once it comes out (I will
+> confirm by that time once the patch gets merged). Else you guys can
+> provide your Ack and I can take the patches through OPP tree.
 
-Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
+The fix got merged in 5.9-rc4, please apply the patches from this
+series in your trees and base them on rc4. Thanks.
 
->> > ---
->> >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 81 ++++--------------------
->> >  1 file changed, 12 insertions(+), 69 deletions(-)
->> >
->> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->> > b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->> > index 89c0245b5de5..ad49b0e17fcb 100644
->> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->> > @@ -265,11 +265,6 @@ enum dpu_intf_mode dpu_crtc_get_intf_mode(struct
->> > drm_crtc *crtc)
->> >  {
->> >       struct drm_encoder *encoder;
->> >
->> > -     if (!crtc) {
->> > -             DPU_ERROR("invalid crtc\n");
->> > -             return INTF_MODE_NONE;
->> > -     }
->> > -
->> >       /*
->> >        * TODO: This function is called from dpu debugfs and as part of
->> > atomic
->> >        * check. When called from debugfs, the crtc->mutex must be held to
->> > @@ -500,12 +495,6 @@ static void dpu_crtc_atomic_begin(struct drm_crtc
->> > *crtc,
->> >       struct dpu_crtc_state *cstate;
->> >       struct drm_encoder *encoder;
->> >       struct drm_device *dev;
->> > -     unsigned long flags;
->> > -
->> > -     if (!crtc) {
->> > -             DPU_ERROR("invalid crtc\n");
->> > -             return;
->> > -     }
->> >
->> >       if (!crtc->state->enable) {
->> >               DPU_DEBUG("crtc%d -> enable %d, skip atomic_begin\n",
->> > @@ -521,15 +510,6 @@ static void dpu_crtc_atomic_begin(struct drm_crtc
->> > *crtc,
->> >
->> >       _dpu_crtc_setup_lm_bounds(crtc, crtc->state);
->> >
->> > -     if (dpu_crtc->event) {
->> > -             WARN_ON(dpu_crtc->event);
->> > -     } else {
->> > -             spin_lock_irqsave(&dev->event_lock, flags);
->> > -             dpu_crtc->event = crtc->state->event;
->> > -             crtc->state->event = NULL;
->> > -             spin_unlock_irqrestore(&dev->event_lock, flags);
->> > -     }
->> > -
->> >       /* encoder will trigger pending mask now */
->> >       drm_for_each_encoder_mask(encoder, crtc->dev,
->> > crtc->state->encoder_mask)
->> >               dpu_encoder_trigger_kickoff_pending(encoder);
->> > @@ -583,14 +563,11 @@ static void dpu_crtc_atomic_flush(struct drm_crtc
->> > *crtc,
->> >               return;
->> >       }
->> >
->> > -     if (dpu_crtc->event) {
->> > -             DPU_DEBUG("already received dpu_crtc->event\n");
->> > -     } else {
->> > -             spin_lock_irqsave(&dev->event_lock, flags);
->> > -             dpu_crtc->event = crtc->state->event;
->> > -             crtc->state->event = NULL;
->> > -             spin_unlock_irqrestore(&dev->event_lock, flags);
->> > -     }
->> > +     WARN_ON(dpu_crtc->event);
->> before the patch "move vblank events to complete_commit()", the 
->> dpu_crtc
->> events
->> were consumed in the _dpu_crtc_complete_flip(). So there was a chance
->> that if the vblank event
->> did not come in time before the next commit, dpu_crtc->event will not 
->> be
->> consumed.
->> 
->> But after the patch, _dpu_crtc_complete_flip() is being signaled in
->> dpu_crtc_complete_commit()
->> which will always happen, so is there any case where we will hit this
->> warning at all or will this
->> catch some other condition?
-> 
-> The core drm-atomic bits will reject an incoming atomic update if the
-> previous one has not completed, so other than a coding bug, this
-> WARN_ON() should not be hit..  it's only purpose is to make it very
-> obvious if someone breaks something :-)
-> 
-> BR,
-> -R
-> 
->> 
->> > +     spin_lock_irqsave(&dev->event_lock, flags);
->> > +     dpu_crtc->event = crtc->state->event;
->> > +     crtc->state->event = NULL;
->> > +     spin_unlock_irqrestore(&dev->event_lock, flags);
->> >
->> >       /*
->> >        * If no mixers has been allocated in dpu_crtc_atomic_check(),
->> > @@ -635,14 +612,7 @@ static void dpu_crtc_atomic_flush(struct drm_crtc
->> > *crtc,
->> >  static void dpu_crtc_destroy_state(struct drm_crtc *crtc,
->> >               struct drm_crtc_state *state)
->> >  {
->> > -     struct dpu_crtc_state *cstate;
->> > -
->> > -     if (!crtc || !state) {
->> > -             DPU_ERROR("invalid argument(s)\n");
->> > -             return;
->> > -     }
->> > -
->> > -     cstate = to_dpu_crtc_state(state);
->> > +     struct dpu_crtc_state *cstate = to_dpu_crtc_state(state);
->> >
->> >       DPU_DEBUG("crtc%d\n", crtc->base.id);
->> >
->> > @@ -731,14 +701,8 @@ static void dpu_crtc_reset(struct drm_crtc *crtc)
->> >   */
->> >  static struct drm_crtc_state *dpu_crtc_duplicate_state(struct drm_crtc
->> > *crtc)
->> >  {
->> > -     struct dpu_crtc_state *cstate, *old_cstate;
->> > -
->> > -     if (!crtc || !crtc->state) {
->> > -             DPU_ERROR("invalid argument(s)\n");
->> > -             return NULL;
->> > -     }
->> > +     struct dpu_crtc_state *cstate, *old_cstate =
->> > to_dpu_crtc_state(crtc->state);
->> >
->> > -     old_cstate = to_dpu_crtc_state(crtc->state);
->> >       cstate = kmemdup(old_cstate, sizeof(*old_cstate), GFP_KERNEL);
->> >       if (!cstate) {
->> >               DPU_ERROR("failed to allocate state\n");
->> > @@ -754,19 +718,12 @@ static struct drm_crtc_state
->> > *dpu_crtc_duplicate_state(struct drm_crtc *crtc)
->> >  static void dpu_crtc_disable(struct drm_crtc *crtc,
->> >                            struct drm_crtc_state *old_crtc_state)
->> >  {
->> > -     struct dpu_crtc *dpu_crtc;
->> > -     struct dpu_crtc_state *cstate;
->> > +     struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
->> > +     struct dpu_crtc_state *cstate = to_dpu_crtc_state(crtc->state);
->> >       struct drm_encoder *encoder;
->> >       unsigned long flags;
->> >       bool release_bandwidth = false;
->> >
->> > -     if (!crtc || !crtc->state) {
->> > -             DPU_ERROR("invalid crtc\n");
->> > -             return;
->> > -     }
->> > -     dpu_crtc = to_dpu_crtc(crtc);
->> > -     cstate = to_dpu_crtc_state(crtc->state);
->> > -
->> >       DRM_DEBUG_KMS("crtc%d\n", crtc->base.id);
->> >
->> >       /* Disable/save vblank irq handling */
->> > @@ -825,19 +782,13 @@ static void dpu_crtc_disable(struct drm_crtc
->> > *crtc,
->> >  static void dpu_crtc_enable(struct drm_crtc *crtc,
->> >               struct drm_crtc_state *old_crtc_state)
->> >  {
->> > -     struct dpu_crtc *dpu_crtc;
->> > +     struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
->> >       struct drm_encoder *encoder;
->> >       bool request_bandwidth = false;
->> >
->> > -     if (!crtc) {
->> > -             DPU_ERROR("invalid crtc\n");
->> > -             return;
->> > -     }
->> > -
->> >       pm_runtime_get_sync(crtc->dev->dev);
->> >
->> >       DRM_DEBUG_KMS("crtc%d\n", crtc->base.id);
->> > -     dpu_crtc = to_dpu_crtc(crtc);
->> >
->> >       drm_for_each_encoder_mask(encoder, crtc->dev,
->> > crtc->state->encoder_mask) {
->> >               /* in video mode, we hold an extra bandwidth reference
->> > @@ -873,9 +824,9 @@ struct plane_state {
->> >  static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
->> >               struct drm_crtc_state *state)
->> >  {
->> > -     struct dpu_crtc *dpu_crtc;
->> > +     struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
->> > +     struct dpu_crtc_state *cstate = to_dpu_crtc_state(state);
->> >       struct plane_state *pstates;
->> > -     struct dpu_crtc_state *cstate;
->> >
->> >       const struct drm_plane_state *pstate;
->> >       struct drm_plane *plane;
->> > @@ -889,16 +840,8 @@ static int dpu_crtc_atomic_check(struct drm_crtc
->> > *crtc,
->> >       int left_zpos_cnt = 0, right_zpos_cnt = 0;
->> >       struct drm_rect crtc_rect = { 0 };
->> >
->> > -     if (!crtc) {
->> > -             DPU_ERROR("invalid crtc\n");
->> > -             return -EINVAL;
->> > -     }
->> > -
->> >       pstates = kzalloc(sizeof(*pstates) * DPU_STAGE_MAX * 4, GFP_KERNEL);
->> >
->> > -     dpu_crtc = to_dpu_crtc(crtc);
->> > -     cstate = to_dpu_crtc_state(state);
->> > -
->> >       if (!state->enable || !state->active) {
->> >               DPU_DEBUG("crtc%d -> enable %d, active %d, skip atomic_check\n",
->> >                               crtc->base.id, state->enable, state->active);
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+-- 
+viresh
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
