@@ -1,42 +1,36 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 503E82662E6
-	for <lists+freedreno@lfdr.de>; Fri, 11 Sep 2020 18:07:15 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A2F326637E
+	for <lists+freedreno@lfdr.de>; Fri, 11 Sep 2020 18:18:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7A936EA9D;
-	Fri, 11 Sep 2020 16:07:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38DB26EAAA;
+	Fri, 11 Sep 2020 16:18:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC15B6EA9D;
- Fri, 11 Sep 2020 16:07:12 +0000 (UTC)
-Received: from willie-the-truck (236.31.169.217.in-addr.arpa [217.169.31.236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 3AFC2206CA;
- Fri, 11 Sep 2020 16:07:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599840432;
- bh=HMkToyAt+R5UW/0fJTeoIckq2g06NAPzV1gQYp89vEI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=rW40pgimHDCBZ3vHXEgiusgmWmT7c33pKGm3eMIMIJHF2eAVYvAbQbBax0f1VzpZL
- 7GRrVgdXVhGnr00ED/n/a2itqfP1aYXxYL8QXzDrhFZaI2IUqsJrt9zBMuVKFqYO6z
- OOd1Jf5FYqf9x4SCl57HVjpIsmhSc5NfoUhTu41w=
-Date: Fri, 11 Sep 2020 17:07:07 +0100
-From: Will Deacon <will@kernel.org>
-To: Robin Murphy <robin.murphy@arm.com>
-Message-ID: <20200911160706.GA20802@willie-the-truck>
-References: <cover.1599832685.git.saiprakash.ranjan@codeaurora.org>
- <010101747d912d9f-c8050b8d-1e81-4be0-ac35-b221f657b490-000000@us-west-2.amazonses.com>
- <c26b5317-f12d-8be9-be45-3307ce5efbfc@arm.com>
+X-Greylist: delayed 526 seconds by postgrey-1.36 at gabe;
+ Fri, 11 Sep 2020 16:18:01 UTC
+Received: from mail.z3ntu.xyz (mail.z3ntu.xyz [128.199.32.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8776D6EAAA;
+ Fri, 11 Sep 2020 16:18:01 +0000 (UTC)
+Received: from localhost.localdomain (80-110-125-173.cgn.dynamic.surfer.at
+ [80.110.125.173])
+ by mail.z3ntu.xyz (Postfix) with ESMTPSA id 26A75C18F3;
+ Fri, 11 Sep 2020 16:09:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=z3ntu.xyz; s=z3ntu;
+ t=1599840553; bh=beYe2pjCl3qn4jz1iKBarKru400MJtZulKL+2GMLrWU=;
+ h=From:To:Cc:Subject:Date;
+ b=Mn92EfctCWcVVDiCUTXOz6gLRQazMvjNTXVmfrrpKkoqyXGVWc7BGWA9BjORnwIJu
+ Smz7pT2mpF6JqgYTBpYRX00fV4N5AkdeFSNa/HhXj7N9bnPCoUQ1wJju8nOpGvKrkG
+ n79/Sq4UohDtR8UFI7hXyuMwjBIF0SA0N8clE4+M=
+From: Luca Weiss <luca@z3ntu.xyz>
+To: freedreno@lists.freedesktop.org
+Date: Fri, 11 Sep 2020 18:08:53 +0200
+Message-Id: <20200911160854.484114-1-luca@z3ntu.xyz>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <c26b5317-f12d-8be9-be45-3307ce5efbfc@arm.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCHv4 6/6] iommu: arm-smmu-impl: Remove unwanted
- extra blank lines
+Subject: [Freedreno] [PATCH] drm/msm/adreno: fix probe without iommu
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,25 +43,54 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- linux-arm-msm@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, iommu@lists.linux-foundation.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Akhil P Oommen <akhilpo@codeaurora.org>, dri-devel@lists.freedesktop.org,
- "Kristian H . Kristensen" <hoegsberg@google.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org
+Cc: Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Jordan Crouse <jcrouse@codeaurora.org>,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Luca Weiss <luca@z3ntu.xyz>, Rob Clark <robdclark@gmail.com>,
+ John Stultz <john.stultz@linaro.org>, ~postmarketos/upstreaming@lists.sr.ht,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
+ linux-kernel@vger.kernel.org, Brian Masney <masneyb@onstation.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Sep 11, 2020 at 05:03:06PM +0100, Robin Murphy wrote:
-> BTW am I supposed to have received 3 copies of everything? Because I did...
+The function iommu_domain_alloc returns NULL on platforms without IOMMU
+such as msm8974. This resulted in PTR_ERR(-ENODEV) being assigned to
+gpu->aspace so the correct code path wasn't taken.
 
-Yeah, this seems to be happening for all of Sai's emails :/
+Fixes: ccac7ce373c1 ("drm/msm: Refactor address space initialization")
+Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
+---
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-Will
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index 862dd35b27d3..6e8bef1a9ea2 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -189,10 +189,16 @@ struct msm_gem_address_space *
+ adreno_iommu_create_address_space(struct msm_gpu *gpu,
+ 		struct platform_device *pdev)
+ {
+-	struct iommu_domain *iommu = iommu_domain_alloc(&platform_bus_type);
+-	struct msm_mmu *mmu = msm_iommu_new(&pdev->dev, iommu);
++	struct iommu_domain *iommu;
++	struct msm_mmu *mmu;
+ 	struct msm_gem_address_space *aspace;
+ 
++	iommu = iommu_domain_alloc(&platform_bus_type);
++	if (!iommu)
++		return NULL;
++
++	mmu = msm_iommu_new(&pdev->dev, iommu);
++
+ 	aspace = msm_gem_address_space_create(mmu, "gpu", SZ_16M,
+ 		0xffffffff - SZ_16M);
+ 
+-- 
+2.28.0
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
