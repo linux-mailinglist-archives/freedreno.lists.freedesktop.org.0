@@ -1,66 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D22B0266A55
-	for <lists+freedreno@lfdr.de>; Fri, 11 Sep 2020 23:52:25 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 17F6B267B6D
+	for <lists+freedreno@lfdr.de>; Sat, 12 Sep 2020 18:32:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BD506E0D4;
-	Fri, 11 Sep 2020 21:52:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA4776E154;
+	Sat, 12 Sep 2020 16:32:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 410 seconds by postgrey-1.36 at gabe;
- Fri, 11 Sep 2020 21:52:24 UTC
-Received: from a27-21.smtp-out.us-west-2.amazonses.com
- (a27-21.smtp-out.us-west-2.amazonses.com [54.240.27.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04E216E0D4;
- Fri, 11 Sep 2020 21:52:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=gbvhytky6xpx7itkhb67ktsxbiwpnxix; d=codeaurora.org; t=1599860734;
- h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To;
- bh=ugAF6M/Vv/bl8EUYaXGQWHTNSpMHFIh6qv//R/9KMqM=;
- b=B3bFtElseyNrthFY9tnVLgc0RwXhIxb23lipSXnJjsRn0Kp4UkTmjYWfK8nRBxN1
- /IO1EtMiiNAcpHqo1rA0HtLJ/D7yz63nLpuLrjhwvtkAXmT9zWPzC7sE+Q9Y7JpZpfg
- fNwYXLsFMcPcM/qdIZqCR88VnuGaWdgGsddbdQSk=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=hsbnp7p3ensaochzwyq5wwmceodymuwv; d=amazonses.com; t=1599860734;
- h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Feedback-ID;
- bh=ugAF6M/Vv/bl8EUYaXGQWHTNSpMHFIh6qv//R/9KMqM=;
- b=J5NuOFdIrpW8xbTKwnMjW3XV1P1dhe2z3tJs2yF3GLO8QLfeW5aAfzrv6nl35O0b
- Zx9CA1j4VJAgCu/ylnxrTGxzUt10kvjBX5lljj2O7gdHtQMs4xU1u/2DghPUlSVX7u4
- 0bdEUo+wk7M+XCWZpP/GmNaPfhQxxo67oqy6oa6k=
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL, 
- URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 7004EC433C6
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=jcrouse@codeaurora.org
-Date: Fri, 11 Sep 2020 21:45:34 +0000
-From: Jordan Crouse <jcrouse@codeaurora.org>
-To: Luca Weiss <luca@z3ntu.xyz>
-Message-ID: <010101747f2178df-3200d9c0-89da-4ebc-b0b8-737b9eea9fb3-000000@us-west-2.amazonses.com>
-Mail-Followup-To: Luca Weiss <luca@z3ntu.xyz>, freedreno@lists.freedesktop.org,
- ~postmarketos/upstreaming@lists.sr.ht,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Jonathan Marek <jonathan@marek.ca>,
- Brian Masney <masneyb@onstation.org>,
- John Stultz <john.stultz@linaro.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20200911160854.484114-1-luca@z3ntu.xyz>
+Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
+ [IPv6:2607:f8b0:4864:20::544])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A337B6E137;
+ Sat, 12 Sep 2020 10:27:18 +0000 (UTC)
+Received: by mail-pg1-x544.google.com with SMTP id z17so409257pgc.4;
+ Sat, 12 Sep 2020 03:27:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=MDZ5tcssoN7AbeNjNp+bLVbRjIJciCMr92xa5Hx/HY4=;
+ b=nNZi/QPOo0AwKKxuth4gfBStBk+2tlBba7+k/2APtcsgykjdf9wSvxxN3TQLwVmlOz
+ figSwPN80C7NwjRwMaZVyVYCRZyAS0QTEv/r1woDUXTcxGX2NdsLZmL5lXa2pRDQa3K8
+ oIm/XR7pFMYBFziXhzpNimhFax9cD+dqmaq0YVqoGzs9qLigylhsDMJib5J3MA6+q6sU
+ X7mMzbx5NmFWjChZhaoMopScwe5HKKM+2JzAiMeo0KygmJRdKZPlliieCQF7vAzapiGk
+ 8MY0vhND/ectdugWWQQFdoiWvbcmisZxkXHLjvxQ7JwE0BRFVilm2ZnYmDTrzbsXKcd1
+ ZLLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=MDZ5tcssoN7AbeNjNp+bLVbRjIJciCMr92xa5Hx/HY4=;
+ b=UEKiFo3eOMGn2VfSTscuY+GJR/6oziudvz4ACzT4PfVxy1IdoX21sfQYsSDNQQqxsp
+ 9lPP54BcAdH+Cdt8TXLE0vlzYz1Q05ZDoOW2wuj2IrspjMFlfODKr8ZUZtM1op0W4J9D
+ 4dlo23c4YnoLve4CrOL63A0/IHFHwszpFHzYqXs3iF/T4gH5UQdVGIg2idwM6qVWqipx
+ TMe8F1bflDbLs0RaLo/VufT1JRSfJhXN+1v7ct8BINxaAffKVPlAPYF/1hOdfyTCtOjP
+ 2PCMnox9wiqY+57tR2dcxIgz3zN3SyJ0OMrQKyqypkwq7ZMG1h4wCC7fkspUv8IzyrzD
+ q87w==
+X-Gm-Message-State: AOAM533RfZfXsb1WLxm2jhRUYJYyhmvTEFaFCqTYHneEsJHSTRxMmdj2
+ ZthU+gSwLb6GdJc1qJuzaT8=
+X-Google-Smtp-Source: ABdhPJxxWnEKYjAbcCapguCSGmEUGdBpDiFLyNyEkVyiOZddIbZLkp/S9efbYDisB/iwqK5b/ZRk/w==
+X-Received: by 2002:aa7:961b:0:b029:13e:d13d:a140 with SMTP id
+ q27-20020aa7961b0000b029013ed13da140mr5964208pfg.40.1599906438045; 
+ Sat, 12 Sep 2020 03:27:18 -0700 (PDT)
+Received: from ZB-PF0YQ8ZU.360buyad.local
+ (f.a4.5177.ip4.static.sl-reverse.com. [119.81.164.15])
+ by smtp.gmail.com with ESMTPSA id g21sm4910276pfh.30.2020.09.12.03.27.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 12 Sep 2020 03:27:17 -0700 (PDT)
+From: Zhenzhong Duan <zhenzhong.duan@gmail.com>
+To: linux-kernel@vger.kernel.org
+Date: Sat, 12 Sep 2020 18:25:58 +0800
+Message-Id: <20200912102558.656-1-zhenzhong.duan@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200911160854.484114-1-luca@z3ntu.xyz>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-SES-Outgoing: 2020.09.11-54.240.27.21
-Feedback-ID: 1.us-west-2.CZuq2qbDmUIuT3qdvXlRHZZCpfZqZ4GtG9v3VKgRyF0=:AmazonSES
-Subject: Re: [Freedreno] [PATCH] drm/msm/adreno: fix probe without iommu
+X-Mailman-Approved-At: Sat, 12 Sep 2020 16:32:37 +0000
+Subject: [Freedreno] [PATCH] drm/msm/a6xx: fix a potential overflow issue
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,62 +67,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, John Stultz <john.stultz@linaro.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Sean Paul <sean@poorly.run>,
- Brian Masney <masneyb@onstation.org>
+Cc: freedreno@lists.freedesktop.org, jonathan@marek.ca, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, smasetty@codeaurora.org, jcrouse@codeaurora.org,
+ dri-devel@lists.freedesktop.org, robdclark@gmail.com, daniel@ffwll.ch,
+ sean@poorly.run, Zhenzhong Duan <zhenzhong.duan@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Sep 11, 2020 at 06:08:53PM +0200, Luca Weiss wrote:
-> The function iommu_domain_alloc returns NULL on platforms without IOMMU
-> such as msm8974. This resulted in PTR_ERR(-ENODEV) being assigned to
-> gpu->aspace so the correct code path wasn't taken.
-> 
-> Fixes: ccac7ce373c1 ("drm/msm: Refactor address space initialization")
-> Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
+It's allocating an array of a6xx_gpu_state_obj structure rathor than
+its pointers.
 
-Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
+This patch fix it.
 
-> ---
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> index 862dd35b27d3..6e8bef1a9ea2 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -189,10 +189,16 @@ struct msm_gem_address_space *
->  adreno_iommu_create_address_space(struct msm_gpu *gpu,
->  		struct platform_device *pdev)
->  {
-> -	struct iommu_domain *iommu = iommu_domain_alloc(&platform_bus_type);
-> -	struct msm_mmu *mmu = msm_iommu_new(&pdev->dev, iommu);
-> +	struct iommu_domain *iommu;
-> +	struct msm_mmu *mmu;
->  	struct msm_gem_address_space *aspace;
->  
-> +	iommu = iommu_domain_alloc(&platform_bus_type);
-> +	if (!iommu)
-> +		return NULL;
-> +
-> +	mmu = msm_iommu_new(&pdev->dev, iommu);
-> +
->  	aspace = msm_gem_address_space_create(mmu, "gpu", SZ_16M,
->  		0xffffffff - SZ_16M);
->  
-> -- 
-> 2.28.0
-> 
+Signed-off-by: Zhenzhong Duan <zhenzhong.duan@gmail.com>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+index b12f5b4..e9ede19 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+@@ -875,7 +875,7 @@ static void a6xx_get_indexed_registers(struct msm_gpu *gpu,
+ 	int i;
+ 
+ 	a6xx_state->indexed_regs = state_kcalloc(a6xx_state, count,
+-		sizeof(a6xx_state->indexed_regs));
++		sizeof(*a6xx_state->indexed_regs));
+ 	if (!a6xx_state->indexed_regs)
+ 		return;
+ 
 -- 
-The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
-a Linux Foundation Collaborative Project
+1.8.3.1
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
