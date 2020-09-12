@@ -1,54 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FB4C267BBD
-	for <lists+freedreno@lfdr.de>; Sat, 12 Sep 2020 20:25:00 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A84B267C60
+	for <lists+freedreno@lfdr.de>; Sat, 12 Sep 2020 22:50:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5E466E2ED;
-	Sat, 12 Sep 2020 18:24:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAF1C6E3AC;
+	Sat, 12 Sep 2020 20:50:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A89DD6E2ED;
- Sat, 12 Sep 2020 18:24:57 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id s12so14497656wrw.11;
- Sat, 12 Sep 2020 11:24:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=tGJ7MqBZLv0eAFVjI5IdEGfiU4O8rQsPVnooROi6laU=;
- b=YvrlhxZRmzgDhT6xrPgh7jVcpAHPv91I8p1bnd/Ybyjw2xx04UgOiVehjFNGf/zdTZ
- gQ0jfYsMN1aXiFy8ncXY7biHgcFJxBNKTva0qEOsfvL8Wferx6Qwexf2brdyU7OrgxxH
- SiZLYXvlXgmh+qUr+YWjq534h/vUUMwKEHCEUHPq/9hTK1JhyxmgYaHANgJTCLbXPfpL
- gSmlSA70QICucG4alPltitONxnLqXhXtk9Ajv/rr3h7FQ9XCLRPnOUi9WnHE+hUqJ9ga
- E9TSVq4k18EzfRW0xnSjlX2NRWcAABlN7ZoNDh2QRMCS4aHx8sUBJ6NGm5VTSqb7bMrP
- ldvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=tGJ7MqBZLv0eAFVjI5IdEGfiU4O8rQsPVnooROi6laU=;
- b=JChloIBjW2zOpVNl0Ri7PzT8rFVfT1JTAT7HJLjdLQDiahDUbARWDSpIk9yT8ylP2b
- wVjapPGLXlV5DN94txHLz3rUAQQry6g7mwj2XZ0xzfTfF+kPX4RcKrEElcTx4uqxUPUL
- m7RVpJpoKtr+DLEmydMeRQcosP+nuJJqgouhX3tr1x7Pzvg22lhx16BlwGDy6RPCFQaK
- etT/sr933/rxrzgDJs7UL99he9TQvDsSrO1o6Fms59UZ5qJagy7VVYbmTCP2Nqx7eUwD
- cYvPsi27YdAndEPAEj1zlkwHtsFZI8/5EPdmTVo23DfRt4iWyerU8VitlV/trKAIW0DY
- Nv9A==
-X-Gm-Message-State: AOAM531qK9v7esrer5W4MnI94//weBiVB9YMgzNOAQTD7lqydAtVtRoJ
- y7mWGTyeAvrO+7xWMafxpOM5bVjt3hC0vIoQZLE=
-X-Google-Smtp-Source: ABdhPJxnDbMbdSz2hPUfBzuQYfyUTosQbk+FaVCIPdDlwDrvWHXaJSinnkB//3oqC3oIBn+8QNJvFjyBHY+WTCVuogU=
-X-Received: by 2002:a5d:4a0c:: with SMTP id m12mr7873322wrq.83.1599935096172; 
- Sat, 12 Sep 2020 11:24:56 -0700 (PDT)
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 313036E3AC
+ for <freedreno@lists.freedesktop.org>; Sat, 12 Sep 2020 20:50:20 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1599943822; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=SJ037dPPCkh2NySgNvYN5vqZDCCm3gZlw6Je2jfTeI4=;
+ b=usGEl0yG33X8DWdnTWEk4XfC9L0bLf/loZMmhNgXcpb5rtDXDxQ1tYQ0xAuyFpMYk4PC9nta
+ /i6chVswBMbzSYY4IshWhtneJGRBZ4EIh5e2JbQ/mRPqe3dvchfL9WQkQLt7xlDjuo61gD54
+ vBxOFfyoxgfMxxugVHSbARHxuC0=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
+ 5f5d34669f3347551f6e0fea (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Sat, 12 Sep 2020 20:49:42
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 1DB38C43387; Sat, 12 Sep 2020 20:49:42 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from abhinavk-linux.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 7143AC433C6;
+ Sat, 12 Sep 2020 20:49:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 7143AC433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=abhinavk@codeaurora.org
+From: Abhinav Kumar <abhinavk@codeaurora.org>
+To: dri-devel@lists.freedesktop.org
+Date: Sat, 12 Sep 2020 13:49:27 -0700
+Message-Id: <20200912204932.21232-1-abhinavk@codeaurora.org>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-References: <20200827211658.27479-1-tanmay@codeaurora.org>
-In-Reply-To: <20200827211658.27479-1-tanmay@codeaurora.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Sat, 12 Sep 2020 11:25:52 -0700
-Message-ID: <CAF6AEGttutrtxntAeRDtb3Hf_0i4z+9+rWMuShTrPVwTUHKTdg@mail.gmail.com>
-To: Tanmay Shah <tanmay@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v12 0/5] Add support for DisplayPort driver
- on SnapDragon
+Subject: [Freedreno] [PATCH v6 0/5] Add audio support for MSM DisplayPort
+ driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,163 +67,66 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, khsieh@codeaurora.org,
- Sean Paul <seanpaul@chromium.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
- Daniel Vetter <daniel@ffwll.ch>, aravindh@codeaurora.org,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: vsujithk@codeaurora.org, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <abhinavk@codeaurora.org>, swboyd@chromium.org,
+ khsieh@codeaurora.org, robdclark@gmail.com, nganji@codeaurora.org,
+ seanpaul@chromium.org, tanmay@codeaurora.org, rohitkr@codeaurora.org,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org,
+ cychiang@chromium.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Fyi, I've pushed this series and the dp-compliance bits to msm-next-dp[1]
+This series adds audio support for DP on MSM chipsets. It leverages
+the hdmi-codec interface [1] to communicate between the Display Port
+driver and the audio subsystem. These changes depend on the series [2]
+and [3] which add Display Port support to MSM chipsets.
 
-I didn't include the dp audio series yet, which seems to need some
-minor rebasing.  (And a small request, when resending, cc
-freedreno@lists.freedesktop.org, so it shows up in the patchwork
-instance[2] I use)
+[1] https://patchwork.kernel.org/patch/11047883/
+[2] https://patchwork.kernel.org/project/dri-devel/list/?series=339847
+[3] https://patchwork.freedesktop.org/patch/390217/?series=79210&rev=8
 
-You might want to double check that I got the correct versions of the
-series, etc.  And that nothing else (other than audio) is missing.
 
-BR,
--R
+changes in v2:
+    - fix up a compilation issue on drm-next branch
 
-[1] https://gitlab.freedesktop.org/drm/msm/-/commits/msm-next-dp
-[2] https://patchwork.freedesktop.org/project/freedreno
+changes in v3:
+    - add support to synchronize DP driver and audio during shutdown
 
-On Thu, Aug 27, 2020 at 2:17 PM Tanmay Shah <tanmay@codeaurora.org> wrote:
->
-> These patches add Display-Port driver on SnapDragon/msm hardware.
-> This series also contains device-tree bindings for msm DP driver.
-> It also contains Makefile and Kconfig changes to compile msm DP driver.
->
-> The block diagram of DP driver is shown below:
->
->
->                  +-------------+
->                  |DRM FRAMEWORK|
->                  +------+------+
->                         |
->                    +----v----+
->                    | DP DRM  |
->                    +----+----+
->                         |
->                    +----v----+
->      +------------+|   DP    +----------++------+
->      +        +---+| DISPLAY |+---+      |      |
->      |        +    +-+-----+-+    |      |      |
->      |        |      |     |      |      |      |
->      |        |      |     |      |      |      |
->      |        |      |     |      |      |      |
->      v        v      v     v      v      v      v
->  +------+ +------+ +---+ +----+ +----+ +---+ +-----+
->  |  DP  | |  DP  | |DP | | DP | | DP | |DP | | DP  |
->  |PARSER| | HPD  | |AUX| |LINK| |CTRL| |PHY| |POWER|
->  +--+---+ +---+--+ +---+ +----+ +--+-+ +-+-+ +-----+
->     |                              |     |
->  +--v---+                         +v-----v+
->  |DEVICE|                         |  DP   |
->  | TREE |                         |CATALOG|
->  +------+                         +---+---+
->                                       |
->                                   +---v----+
->                                   |CTRL/PHY|
->                                   |   HW   |
->                                   +--------+
->
-> Changes in v12:
->
-> -- Add support of pm ops in display port driver
-> -- Clear bpp depth bits before writing to MISC register
-> -- Fix edid read
->
-> Previous change log:
-> https://lkml.kernel.org/lkml/20200818051137.21478-1-tanmay@codeaurora.org/
->
-> Chandan Uddaraju (4):
->   dt-bindings: msm/dp: add bindings of DP/DP-PLL driver for Snapdragon
->   drm: add constant N value in helper file
->   drm/msm/dp: add displayPort driver support
->   drm/msm/dp: add support for DP PLL driver
->
-> Jeykumar Sankaran (1):
->   drm/msm/dpu: add display port support in DPU
->
-> Tanmay Shah (1):
->   drm/msm/dp: Add Display Port HPD feature
->
->  drivers/gpu/drm/i915/display/intel_display.c  |    2 +-
->  drivers/gpu/drm/msm/Kconfig                   |    9 +
->  drivers/gpu/drm/msm/Makefile                  |   14 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |   27 +-
->  .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |    8 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   83 +-
->  drivers/gpu/drm/msm/dp/dp_aux.c               |  535 ++++++
->  drivers/gpu/drm/msm/dp/dp_aux.h               |   30 +
->  drivers/gpu/drm/msm/dp/dp_catalog.c           | 1045 ++++++++++
->  drivers/gpu/drm/msm/dp/dp_catalog.h           |  105 +
->  drivers/gpu/drm/msm/dp/dp_ctrl.c              | 1693 +++++++++++++++++
->  drivers/gpu/drm/msm/dp/dp_ctrl.h              |   35 +
->  drivers/gpu/drm/msm/dp/dp_display.c           | 1046 ++++++++++
->  drivers/gpu/drm/msm/dp/dp_display.h           |   31 +
->  drivers/gpu/drm/msm/dp/dp_drm.c               |  168 ++
->  drivers/gpu/drm/msm/dp/dp_drm.h               |   18 +
->  drivers/gpu/drm/msm/dp/dp_hpd.c               |   69 +
->  drivers/gpu/drm/msm/dp/dp_hpd.h               |   79 +
->  drivers/gpu/drm/msm/dp/dp_link.c              | 1214 ++++++++++++
->  drivers/gpu/drm/msm/dp/dp_link.h              |  132 ++
->  drivers/gpu/drm/msm/dp/dp_panel.c             |  486 +++++
->  drivers/gpu/drm/msm/dp/dp_panel.h             |   95 +
->  drivers/gpu/drm/msm/dp/dp_parser.c            |  267 +++
->  drivers/gpu/drm/msm/dp/dp_parser.h            |  138 ++
->  drivers/gpu/drm/msm/dp/dp_pll.c               |   99 +
->  drivers/gpu/drm/msm/dp/dp_pll.h               |   61 +
->  drivers/gpu/drm/msm/dp/dp_pll_10nm.c          |  930 +++++++++
->  drivers/gpu/drm/msm/dp/dp_pll_private.h       |   89 +
->  drivers/gpu/drm/msm/dp/dp_power.c             |  373 ++++
->  drivers/gpu/drm/msm/dp/dp_power.h             |  103 +
->  drivers/gpu/drm/msm/dp/dp_reg.h               |  518 +++++
->  drivers/gpu/drm/msm/msm_drv.c                 |    2 +
->  drivers/gpu/drm/msm/msm_drv.h                 |   59 +-
->  include/drm/drm_dp_helper.h                   |    1 +
->  34 files changed, 9545 insertions(+), 19 deletions(-)
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_aux.c
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_aux.h
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_catalog.c
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_catalog.h
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_ctrl.c
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_ctrl.h
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_display.c
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_display.h
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_drm.c
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_drm.h
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_hpd.c
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_hpd.h
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_link.c
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_link.h
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_panel.c
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_panel.h
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_parser.c
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_parser.h
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_pll.c
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_pll.h
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_pll_10nm.c
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_pll_private.h
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_power.c
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_power.h
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_reg.h
->
->
-> base-commit: d012a7190fc1fd72ed48911e77ca97ba4521bccd
-> --
-> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-> a Linux Foundation Collaborative Project
->
+changes in v4:
+    - rebase on top of latest patchset of dependency
+
+changes in v5:
+    - rebase on top of latest patchset of dependency
+    - fix crash when trying to play audio in DP suspend state
+
+changes in v6:
+	- rebase on top of latest patchset of dependency
+
+Abhinav Kumar (5):
+  drm/msm/dp: store dp_display in the driver data
+  drm/msm/dp: add audio support for Display Port on MSM
+  drm/msm/dp: add hook_plugged_cb hdmi-codec op for MSM DP driver
+  drm/msm/dp: signal the hotplug disconnect in the event handler
+  drm/msm/dp: wait for audio notification before disabling clocks
+
+ drivers/gpu/drm/msm/Makefile                |   3 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |   7 +
+ drivers/gpu/drm/msm/dp/dp_audio.c           | 638 ++++++++++++++++++++
+ drivers/gpu/drm/msm/dp/dp_audio.h           |  72 +++
+ drivers/gpu/drm/msm/dp/dp_catalog.c         | 192 ++++++
+ drivers/gpu/drm/msm/dp/dp_catalog.h         |  29 +
+ drivers/gpu/drm/msm/dp/dp_display.c         | 139 ++++-
+ drivers/gpu/drm/msm/dp/dp_display.h         |  12 +
+ 8 files changed, 1076 insertions(+), 16 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_audio.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_audio.h
+
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
