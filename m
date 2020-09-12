@@ -1,60 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17F6B267B6D
-	for <lists+freedreno@lfdr.de>; Sat, 12 Sep 2020 18:32:40 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FB4C267BBD
+	for <lists+freedreno@lfdr.de>; Sat, 12 Sep 2020 20:25:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA4776E154;
-	Sat, 12 Sep 2020 16:32:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5E466E2ED;
+	Sat, 12 Sep 2020 18:24:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A337B6E137;
- Sat, 12 Sep 2020 10:27:18 +0000 (UTC)
-Received: by mail-pg1-x544.google.com with SMTP id z17so409257pgc.4;
- Sat, 12 Sep 2020 03:27:18 -0700 (PDT)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A89DD6E2ED;
+ Sat, 12 Sep 2020 18:24:57 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id s12so14497656wrw.11;
+ Sat, 12 Sep 2020 11:24:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=MDZ5tcssoN7AbeNjNp+bLVbRjIJciCMr92xa5Hx/HY4=;
- b=nNZi/QPOo0AwKKxuth4gfBStBk+2tlBba7+k/2APtcsgykjdf9wSvxxN3TQLwVmlOz
- figSwPN80C7NwjRwMaZVyVYCRZyAS0QTEv/r1woDUXTcxGX2NdsLZmL5lXa2pRDQa3K8
- oIm/XR7pFMYBFziXhzpNimhFax9cD+dqmaq0YVqoGzs9qLigylhsDMJib5J3MA6+q6sU
- X7mMzbx5NmFWjChZhaoMopScwe5HKKM+2JzAiMeo0KygmJRdKZPlliieCQF7vAzapiGk
- 8MY0vhND/ectdugWWQQFdoiWvbcmisZxkXHLjvxQ7JwE0BRFVilm2ZnYmDTrzbsXKcd1
- ZLLQ==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=tGJ7MqBZLv0eAFVjI5IdEGfiU4O8rQsPVnooROi6laU=;
+ b=YvrlhxZRmzgDhT6xrPgh7jVcpAHPv91I8p1bnd/Ybyjw2xx04UgOiVehjFNGf/zdTZ
+ gQ0jfYsMN1aXiFy8ncXY7biHgcFJxBNKTva0qEOsfvL8Wferx6Qwexf2brdyU7OrgxxH
+ SiZLYXvlXgmh+qUr+YWjq534h/vUUMwKEHCEUHPq/9hTK1JhyxmgYaHANgJTCLbXPfpL
+ gSmlSA70QICucG4alPltitONxnLqXhXtk9Ajv/rr3h7FQ9XCLRPnOUi9WnHE+hUqJ9ga
+ E9TSVq4k18EzfRW0xnSjlX2NRWcAABlN7ZoNDh2QRMCS4aHx8sUBJ6NGm5VTSqb7bMrP
+ ldvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=MDZ5tcssoN7AbeNjNp+bLVbRjIJciCMr92xa5Hx/HY4=;
- b=UEKiFo3eOMGn2VfSTscuY+GJR/6oziudvz4ACzT4PfVxy1IdoX21sfQYsSDNQQqxsp
- 9lPP54BcAdH+Cdt8TXLE0vlzYz1Q05ZDoOW2wuj2IrspjMFlfODKr8ZUZtM1op0W4J9D
- 4dlo23c4YnoLve4CrOL63A0/IHFHwszpFHzYqXs3iF/T4gH5UQdVGIg2idwM6qVWqipx
- TMe8F1bflDbLs0RaLo/VufT1JRSfJhXN+1v7ct8BINxaAffKVPlAPYF/1hOdfyTCtOjP
- 2PCMnox9wiqY+57tR2dcxIgz3zN3SyJ0OMrQKyqypkwq7ZMG1h4wCC7fkspUv8IzyrzD
- q87w==
-X-Gm-Message-State: AOAM533RfZfXsb1WLxm2jhRUYJYyhmvTEFaFCqTYHneEsJHSTRxMmdj2
- ZthU+gSwLb6GdJc1qJuzaT8=
-X-Google-Smtp-Source: ABdhPJxxWnEKYjAbcCapguCSGmEUGdBpDiFLyNyEkVyiOZddIbZLkp/S9efbYDisB/iwqK5b/ZRk/w==
-X-Received: by 2002:aa7:961b:0:b029:13e:d13d:a140 with SMTP id
- q27-20020aa7961b0000b029013ed13da140mr5964208pfg.40.1599906438045; 
- Sat, 12 Sep 2020 03:27:18 -0700 (PDT)
-Received: from ZB-PF0YQ8ZU.360buyad.local
- (f.a4.5177.ip4.static.sl-reverse.com. [119.81.164.15])
- by smtp.gmail.com with ESMTPSA id g21sm4910276pfh.30.2020.09.12.03.27.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 12 Sep 2020 03:27:17 -0700 (PDT)
-From: Zhenzhong Duan <zhenzhong.duan@gmail.com>
-To: linux-kernel@vger.kernel.org
-Date: Sat, 12 Sep 2020 18:25:58 +0800
-Message-Id: <20200912102558.656-1-zhenzhong.duan@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=tGJ7MqBZLv0eAFVjI5IdEGfiU4O8rQsPVnooROi6laU=;
+ b=JChloIBjW2zOpVNl0Ri7PzT8rFVfT1JTAT7HJLjdLQDiahDUbARWDSpIk9yT8ylP2b
+ wVjapPGLXlV5DN94txHLz3rUAQQry6g7mwj2XZ0xzfTfF+kPX4RcKrEElcTx4uqxUPUL
+ m7RVpJpoKtr+DLEmydMeRQcosP+nuJJqgouhX3tr1x7Pzvg22lhx16BlwGDy6RPCFQaK
+ etT/sr933/rxrzgDJs7UL99he9TQvDsSrO1o6Fms59UZ5qJagy7VVYbmTCP2Nqx7eUwD
+ cYvPsi27YdAndEPAEj1zlkwHtsFZI8/5EPdmTVo23DfRt4iWyerU8VitlV/trKAIW0DY
+ Nv9A==
+X-Gm-Message-State: AOAM531qK9v7esrer5W4MnI94//weBiVB9YMgzNOAQTD7lqydAtVtRoJ
+ y7mWGTyeAvrO+7xWMafxpOM5bVjt3hC0vIoQZLE=
+X-Google-Smtp-Source: ABdhPJxnDbMbdSz2hPUfBzuQYfyUTosQbk+FaVCIPdDlwDrvWHXaJSinnkB//3oqC3oIBn+8QNJvFjyBHY+WTCVuogU=
+X-Received: by 2002:a5d:4a0c:: with SMTP id m12mr7873322wrq.83.1599935096172; 
+ Sat, 12 Sep 2020 11:24:56 -0700 (PDT)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Sat, 12 Sep 2020 16:32:37 +0000
-Subject: [Freedreno] [PATCH] drm/msm/a6xx: fix a potential overflow issue
+References: <20200827211658.27479-1-tanmay@codeaurora.org>
+In-Reply-To: <20200827211658.27479-1-tanmay@codeaurora.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Sat, 12 Sep 2020 11:25:52 -0700
+Message-ID: <CAF6AEGttutrtxntAeRDtb3Hf_0i4z+9+rWMuShTrPVwTUHKTdg@mail.gmail.com>
+To: Tanmay Shah <tanmay@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH v12 0/5] Add support for DisplayPort driver
+ on SnapDragon
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,41 +61,163 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, jonathan@marek.ca, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, smasetty@codeaurora.org, jcrouse@codeaurora.org,
- dri-devel@lists.freedesktop.org, robdclark@gmail.com, daniel@ffwll.ch,
- sean@poorly.run, Zhenzhong Duan <zhenzhong.duan@gmail.com>
+Cc: David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Stephen Boyd <swboyd@chromium.org>, khsieh@codeaurora.org,
+ Sean Paul <seanpaul@chromium.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Daniel Vetter <daniel@ffwll.ch>, aravindh@codeaurora.org,
+ freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-It's allocating an array of a6xx_gpu_state_obj structure rathor than
-its pointers.
+Fyi, I've pushed this series and the dp-compliance bits to msm-next-dp[1]
 
-This patch fix it.
+I didn't include the dp audio series yet, which seems to need some
+minor rebasing.  (And a small request, when resending, cc
+freedreno@lists.freedesktop.org, so it shows up in the patchwork
+instance[2] I use)
 
-Signed-off-by: Zhenzhong Duan <zhenzhong.duan@gmail.com>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+You might want to double check that I got the correct versions of the
+series, etc.  And that nothing else (other than audio) is missing.
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-index b12f5b4..e9ede19 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-@@ -875,7 +875,7 @@ static void a6xx_get_indexed_registers(struct msm_gpu *gpu,
- 	int i;
- 
- 	a6xx_state->indexed_regs = state_kcalloc(a6xx_state, count,
--		sizeof(a6xx_state->indexed_regs));
-+		sizeof(*a6xx_state->indexed_regs));
- 	if (!a6xx_state->indexed_regs)
- 		return;
- 
--- 
-1.8.3.1
+BR,
+-R
 
+[1] https://gitlab.freedesktop.org/drm/msm/-/commits/msm-next-dp
+[2] https://patchwork.freedesktop.org/project/freedreno
+
+On Thu, Aug 27, 2020 at 2:17 PM Tanmay Shah <tanmay@codeaurora.org> wrote:
+>
+> These patches add Display-Port driver on SnapDragon/msm hardware.
+> This series also contains device-tree bindings for msm DP driver.
+> It also contains Makefile and Kconfig changes to compile msm DP driver.
+>
+> The block diagram of DP driver is shown below:
+>
+>
+>                  +-------------+
+>                  |DRM FRAMEWORK|
+>                  +------+------+
+>                         |
+>                    +----v----+
+>                    | DP DRM  |
+>                    +----+----+
+>                         |
+>                    +----v----+
+>      +------------+|   DP    +----------++------+
+>      +        +---+| DISPLAY |+---+      |      |
+>      |        +    +-+-----+-+    |      |      |
+>      |        |      |     |      |      |      |
+>      |        |      |     |      |      |      |
+>      |        |      |     |      |      |      |
+>      v        v      v     v      v      v      v
+>  +------+ +------+ +---+ +----+ +----+ +---+ +-----+
+>  |  DP  | |  DP  | |DP | | DP | | DP | |DP | | DP  |
+>  |PARSER| | HPD  | |AUX| |LINK| |CTRL| |PHY| |POWER|
+>  +--+---+ +---+--+ +---+ +----+ +--+-+ +-+-+ +-----+
+>     |                              |     |
+>  +--v---+                         +v-----v+
+>  |DEVICE|                         |  DP   |
+>  | TREE |                         |CATALOG|
+>  +------+                         +---+---+
+>                                       |
+>                                   +---v----+
+>                                   |CTRL/PHY|
+>                                   |   HW   |
+>                                   +--------+
+>
+> Changes in v12:
+>
+> -- Add support of pm ops in display port driver
+> -- Clear bpp depth bits before writing to MISC register
+> -- Fix edid read
+>
+> Previous change log:
+> https://lkml.kernel.org/lkml/20200818051137.21478-1-tanmay@codeaurora.org/
+>
+> Chandan Uddaraju (4):
+>   dt-bindings: msm/dp: add bindings of DP/DP-PLL driver for Snapdragon
+>   drm: add constant N value in helper file
+>   drm/msm/dp: add displayPort driver support
+>   drm/msm/dp: add support for DP PLL driver
+>
+> Jeykumar Sankaran (1):
+>   drm/msm/dpu: add display port support in DPU
+>
+> Tanmay Shah (1):
+>   drm/msm/dp: Add Display Port HPD feature
+>
+>  drivers/gpu/drm/i915/display/intel_display.c  |    2 +-
+>  drivers/gpu/drm/msm/Kconfig                   |    9 +
+>  drivers/gpu/drm/msm/Makefile                  |   14 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |   27 +-
+>  .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |    8 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   83 +-
+>  drivers/gpu/drm/msm/dp/dp_aux.c               |  535 ++++++
+>  drivers/gpu/drm/msm/dp/dp_aux.h               |   30 +
+>  drivers/gpu/drm/msm/dp/dp_catalog.c           | 1045 ++++++++++
+>  drivers/gpu/drm/msm/dp/dp_catalog.h           |  105 +
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c              | 1693 +++++++++++++++++
+>  drivers/gpu/drm/msm/dp/dp_ctrl.h              |   35 +
+>  drivers/gpu/drm/msm/dp/dp_display.c           | 1046 ++++++++++
+>  drivers/gpu/drm/msm/dp/dp_display.h           |   31 +
+>  drivers/gpu/drm/msm/dp/dp_drm.c               |  168 ++
+>  drivers/gpu/drm/msm/dp/dp_drm.h               |   18 +
+>  drivers/gpu/drm/msm/dp/dp_hpd.c               |   69 +
+>  drivers/gpu/drm/msm/dp/dp_hpd.h               |   79 +
+>  drivers/gpu/drm/msm/dp/dp_link.c              | 1214 ++++++++++++
+>  drivers/gpu/drm/msm/dp/dp_link.h              |  132 ++
+>  drivers/gpu/drm/msm/dp/dp_panel.c             |  486 +++++
+>  drivers/gpu/drm/msm/dp/dp_panel.h             |   95 +
+>  drivers/gpu/drm/msm/dp/dp_parser.c            |  267 +++
+>  drivers/gpu/drm/msm/dp/dp_parser.h            |  138 ++
+>  drivers/gpu/drm/msm/dp/dp_pll.c               |   99 +
+>  drivers/gpu/drm/msm/dp/dp_pll.h               |   61 +
+>  drivers/gpu/drm/msm/dp/dp_pll_10nm.c          |  930 +++++++++
+>  drivers/gpu/drm/msm/dp/dp_pll_private.h       |   89 +
+>  drivers/gpu/drm/msm/dp/dp_power.c             |  373 ++++
+>  drivers/gpu/drm/msm/dp/dp_power.h             |  103 +
+>  drivers/gpu/drm/msm/dp/dp_reg.h               |  518 +++++
+>  drivers/gpu/drm/msm/msm_drv.c                 |    2 +
+>  drivers/gpu/drm/msm/msm_drv.h                 |   59 +-
+>  include/drm/drm_dp_helper.h                   |    1 +
+>  34 files changed, 9545 insertions(+), 19 deletions(-)
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_aux.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_aux.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_catalog.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_catalog.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_ctrl.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_ctrl.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_display.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_display.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_drm.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_drm.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_hpd.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_hpd.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_link.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_link.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_panel.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_panel.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_parser.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_parser.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_pll.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_pll.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_pll_10nm.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_pll_private.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_power.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_power.h
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_reg.h
+>
+>
+> base-commit: d012a7190fc1fd72ed48911e77ca97ba4521bccd
+> --
+> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+> a Linux Foundation Collaborative Project
+>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
