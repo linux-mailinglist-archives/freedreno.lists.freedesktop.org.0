@@ -1,58 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA494269420
-	for <lists+freedreno@lfdr.de>; Mon, 14 Sep 2020 19:51:25 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6354326990C
+	for <lists+freedreno@lfdr.de>; Tue, 15 Sep 2020 00:40:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C3716E525;
-	Mon, 14 Sep 2020 17:51:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5743D6E7FE;
+	Mon, 14 Sep 2020 22:40:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
  [104.130.122.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E49E6E525
- for <freedreno@lists.freedesktop.org>; Mon, 14 Sep 2020 17:51:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B8706E7EC
+ for <freedreno@lists.freedesktop.org>; Mon, 14 Sep 2020 22:40:46 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1600105882; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=9QmHcWXvGdFKIBQeux89IG8cd2AqI9c4ill+N7aDvAU=;
- b=j5Z5pD4niysY5D4dH9TSRdcC/qH/8K5alxPPxfZz7sJyZaudeYchkByEgg0K6epB4KcJDySn
- 8hCkPZ6xHEYgoKX9ENmaUQQI0tfc1KVcpD1Vt/dqxaDs36VLEwVib0TdGAXMQaeAv3ZecgRf
- yOYNcJvgIHqRubU5PYCYEB4dAe8=
+ s=smtp; t=1600123249; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=3trGlBAsrqKw/gr2Zpkc3eqT35HTCBYAGTjHtSXQM0Q=;
+ b=vXx0juhn3jHwOH8Rkcwc0WbtY39HsfqgWIco9Pk859w0WT9RSGSPn5KHA3uh8YRmN2PvONDE
+ 5ylysqVMutkFH8wzLBCZYzQQqvOJmaFCo8mXEOLruNN1sW89jvb9Zsr8tEdMcARjH0PVfOW8
+ uHwJd+rJCpb7wWx+8k1g3aL9cWY=
 X-Mailgun-Sending-Ip: 104.130.122.29
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n03.prod.us-west-2.postgun.com with SMTP id
- 5f5fad909bdf68cc03e9d64c (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 14 Sep 2020 17:51:12
+ smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
+ 5f5ff1604f13e63f04d4b781 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 14 Sep 2020 22:40:32
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id C8666C43385; Mon, 14 Sep 2020 17:51:11 +0000 (UTC)
+ id 31D4AC433FE; Mon, 14 Sep 2020 22:40:32 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: tanmay)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 53261C433C8;
- Mon, 14 Sep 2020 17:51:10 +0000 (UTC)
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from jordan-laptop.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 1351FC433CA;
+ Mon, 14 Sep 2020 22:40:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 1351FC433CA
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=jcrouse@codeaurora.org
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: linux-arm-msm@vger.kernel.org
+Date: Mon, 14 Sep 2020 16:40:20 -0600
+Message-Id: <20200914224023.1495082-1-jcrouse@codeaurora.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Date: Mon, 14 Sep 2020 10:51:10 -0700
-From: Tanmay Shah <tanmay@codeaurora.org>
-To: Rob Clark <robdclark@gmail.com>
-In-Reply-To: <CAF6AEGttutrtxntAeRDtb3Hf_0i4z+9+rWMuShTrPVwTUHKTdg@mail.gmail.com>
-References: <20200827211658.27479-1-tanmay@codeaurora.org>
- <CAF6AEGttutrtxntAeRDtb3Hf_0i4z+9+rWMuShTrPVwTUHKTdg@mail.gmail.com>
-Message-ID: <9dba5799c9569d0b7abb460cc983f559@codeaurora.org>
-X-Sender: tanmay@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH v12 0/5] Add support for DisplayPort driver
- on SnapDragon
+Subject: [Freedreno] [PATCH 0/3] drm/msm: Add support for the WHERE_AM_I
+ opcode
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,177 +68,66 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, khsieh@codeaurora.org,
- Sean Paul <seanpaul@chromium.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
- Daniel Vetter <daniel@ffwll.ch>, aravindh@codeaurora.org,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: Wambui Karuga <wambui.karugax@gmail.com>, Shawn Guo <shawn.guo@linaro.org>,
+ Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sharat Masetty <smasetty@codeaurora.org>, freedreno@lists.freedesktop.org,
+ Akhil P Oommen <akhilpo@codeaurora.org>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Emil Velikov <emil.velikov@collabora.com>, Eric Anholt <eric@anholt.net>,
+ Rob Clark <robdclark@gmail.com>, Ben Dooks <ben.dooks@codethink.co.uk>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <kholk11@gmail.com>, Sean Paul <sean@poorly.run>,
+ linux-kernel@vger.kernel.org, Brian Masney <masneyb@onstation.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-09-12 11:25, Rob Clark wrote:
-> Fyi, I've pushed this series and the dp-compliance bits to 
-> msm-next-dp[1]
-> 
-> I didn't include the dp audio series yet, which seems to need some
-> minor rebasing.  (And a small request, when resending, cc
-> freedreno@lists.freedesktop.org, so it shows up in the patchwork
-> instance[2] I use)
-> 
-> You might want to double check that I got the correct versions of the
-> series, etc.  And that nothing else (other than audio) is missing.
-> 
+The microcode in linux-firmware has been updated to 1.87.01 for a5xx
+1.77.01 for a6xx [1]. These microcode versions support a new opcode called
+WHERE_AM_I that takes the place of the hardware RPTR shadow and enables the
+microcode to update the RPTR shadow in privileged memory so it is protected
+against the user.
 
-Thanks Rob for pulling changes in msm-next-dp branch.
-I confirm that changes you pointed above are latest
-changes and nothing else is missing in driver.
-Sure, we will make sure to send changes in freedreno list as well.
+This patch series re-enables the RPTR shadow and preemption for a5xx and older
+versions of a6xx if the WHERE_AM_I opcode is available. Newer a6xx targets
+(starting with a650) have automatic privileged protection so the hardware RPTR
+shadow can be renabled for those targets too. If any of the needed dependencies
+aren't met then the RPTR shadow will remain disabled (along with preemption on
+5xx).
 
-Thanks.
+This stack is bsed on https://gitlab.freedesktop.org/drm/msm.git msm-next-pgtables
+as there are some minor dependencies on the reorganized code in the pgtable
+stack.
 
-> BR,
-> -R
-> 
-> [1] https://gitlab.freedesktop.org/drm/msm/-/commits/msm-next-dp
-> [2] https://patchwork.freedesktop.org/project/freedreno
-> 
-> On Thu, Aug 27, 2020 at 2:17 PM Tanmay Shah <tanmay@codeaurora.org> 
-> wrote:
->> 
->> These patches add Display-Port driver on SnapDragon/msm hardware.
->> This series also contains device-tree bindings for msm DP driver.
->> It also contains Makefile and Kconfig changes to compile msm DP 
->> driver.
->> 
->> The block diagram of DP driver is shown below:
->> 
->> 
->>                  +-------------+
->>                  |DRM FRAMEWORK|
->>                  +------+------+
->>                         |
->>                    +----v----+
->>                    | DP DRM  |
->>                    +----+----+
->>                         |
->>                    +----v----+
->>      +------------+|   DP    +----------++------+
->>      +        +---+| DISPLAY |+---+      |      |
->>      |        +    +-+-----+-+    |      |      |
->>      |        |      |     |      |      |      |
->>      |        |      |     |      |      |      |
->>      |        |      |     |      |      |      |
->>      v        v      v     v      v      v      v
->>  +------+ +------+ +---+ +----+ +----+ +---+ +-----+
->>  |  DP  | |  DP  | |DP | | DP | | DP | |DP | | DP  |
->>  |PARSER| | HPD  | |AUX| |LINK| |CTRL| |PHY| |POWER|
->>  +--+---+ +---+--+ +---+ +----+ +--+-+ +-+-+ +-----+
->>     |                              |     |
->>  +--v---+                         +v-----v+
->>  |DEVICE|                         |  DP   |
->>  | TREE |                         |CATALOG|
->>  +------+                         +---+---+
->>                                       |
->>                                   +---v----+
->>                                   |CTRL/PHY|
->>                                   |   HW   |
->>                                   +--------+
->> 
->> Changes in v12:
->> 
->> -- Add support of pm ops in display port driver
->> -- Clear bpp depth bits before writing to MISC register
->> -- Fix edid read
->> 
->> Previous change log:
->> https://lkml.kernel.org/lkml/20200818051137.21478-1-tanmay@codeaurora.org/
->> 
->> Chandan Uddaraju (4):
->>   dt-bindings: msm/dp: add bindings of DP/DP-PLL driver for Snapdragon
->>   drm: add constant N value in helper file
->>   drm/msm/dp: add displayPort driver support
->>   drm/msm/dp: add support for DP PLL driver
->> 
->> Jeykumar Sankaran (1):
->>   drm/msm/dpu: add display port support in DPU
->> 
->> Tanmay Shah (1):
->>   drm/msm/dp: Add Display Port HPD feature
->> 
->>  drivers/gpu/drm/i915/display/intel_display.c  |    2 +-
->>  drivers/gpu/drm/msm/Kconfig                   |    9 +
->>  drivers/gpu/drm/msm/Makefile                  |   14 +
->>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |   27 +-
->>  .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |    8 +
->>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   83 +-
->>  drivers/gpu/drm/msm/dp/dp_aux.c               |  535 ++++++
->>  drivers/gpu/drm/msm/dp/dp_aux.h               |   30 +
->>  drivers/gpu/drm/msm/dp/dp_catalog.c           | 1045 ++++++++++
->>  drivers/gpu/drm/msm/dp/dp_catalog.h           |  105 +
->>  drivers/gpu/drm/msm/dp/dp_ctrl.c              | 1693 
->> +++++++++++++++++
->>  drivers/gpu/drm/msm/dp/dp_ctrl.h              |   35 +
->>  drivers/gpu/drm/msm/dp/dp_display.c           | 1046 ++++++++++
->>  drivers/gpu/drm/msm/dp/dp_display.h           |   31 +
->>  drivers/gpu/drm/msm/dp/dp_drm.c               |  168 ++
->>  drivers/gpu/drm/msm/dp/dp_drm.h               |   18 +
->>  drivers/gpu/drm/msm/dp/dp_hpd.c               |   69 +
->>  drivers/gpu/drm/msm/dp/dp_hpd.h               |   79 +
->>  drivers/gpu/drm/msm/dp/dp_link.c              | 1214 ++++++++++++
->>  drivers/gpu/drm/msm/dp/dp_link.h              |  132 ++
->>  drivers/gpu/drm/msm/dp/dp_panel.c             |  486 +++++
->>  drivers/gpu/drm/msm/dp/dp_panel.h             |   95 +
->>  drivers/gpu/drm/msm/dp/dp_parser.c            |  267 +++
->>  drivers/gpu/drm/msm/dp/dp_parser.h            |  138 ++
->>  drivers/gpu/drm/msm/dp/dp_pll.c               |   99 +
->>  drivers/gpu/drm/msm/dp/dp_pll.h               |   61 +
->>  drivers/gpu/drm/msm/dp/dp_pll_10nm.c          |  930 +++++++++
->>  drivers/gpu/drm/msm/dp/dp_pll_private.h       |   89 +
->>  drivers/gpu/drm/msm/dp/dp_power.c             |  373 ++++
->>  drivers/gpu/drm/msm/dp/dp_power.h             |  103 +
->>  drivers/gpu/drm/msm/dp/dp_reg.h               |  518 +++++
->>  drivers/gpu/drm/msm/msm_drv.c                 |    2 +
->>  drivers/gpu/drm/msm/msm_drv.h                 |   59 +-
->>  include/drm/drm_dp_helper.h                   |    1 +
->>  34 files changed, 9545 insertions(+), 19 deletions(-)
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_aux.c
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_aux.h
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_catalog.c
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_catalog.h
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_ctrl.c
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_ctrl.h
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_display.c
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_display.h
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_drm.c
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_drm.h
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_hpd.c
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_hpd.h
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_link.c
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_link.h
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_panel.c
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_panel.h
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_parser.c
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_parser.h
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_pll.c
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_pll.h
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_pll_10nm.c
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_pll_private.h
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_power.c
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_power.h
->>  create mode 100644 drivers/gpu/drm/msm/dp/dp_reg.h
->> 
->> 
->> base-commit: d012a7190fc1fd72ed48911e77ca97ba4521bccd
->> --
->> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora 
->> Forum,
->> a Linux Foundation Collaborative Project
->> 
+Jordan
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/commit/?id=f48fec44127f88ce83ea1bcaf5824de4146ca2f9
+
+Jordan Crouse (3):
+  drm/msm: Allow a5xx to mark the RPTR shadow as privileged
+  drm/msm: a6xx: Use WHERE_AM_I for eligible targets
+  drm/msm: Get rid of the REG_ADRENO offsets
+
+ drivers/gpu/drm/msm/adreno/a2xx_gpu.c       |  65 +++++++++---
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c       |  77 +++++++++++---
+ drivers/gpu/drm/msm/adreno/a4xx_gpu.c       |  82 +++++++++++----
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c       | 108 ++++++++++++++++----
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.h       |  12 +++
+ drivers/gpu/drm/msm/adreno/a5xx_power.c     |   2 +-
+ drivers/gpu/drm/msm/adreno/a5xx_preempt.c   |   5 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c       | 100 +++++++++++++++---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h       |   9 ++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c     |  81 +--------------
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h     |  81 +--------------
+ drivers/gpu/drm/msm/adreno/adreno_pm4.xml.h |   1 +
+ drivers/gpu/drm/msm/msm_gpu.h               |   1 +
+ 13 files changed, 377 insertions(+), 247 deletions(-)
+
+-- 
+2.25.1
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
