@@ -2,39 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 719E726A91E
-	for <lists+freedreno@lfdr.de>; Tue, 15 Sep 2020 17:55:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84C9E26A92F
+	for <lists+freedreno@lfdr.de>; Tue, 15 Sep 2020 17:56:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0526C6E10A;
-	Tue, 15 Sep 2020 15:55:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 176EF6E11B;
+	Tue, 15 Sep 2020 15:56:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [IPv6:2001:4b98:dc2:55:216:3eff:fef7:d647])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 439396E109;
- Tue, 15 Sep 2020 15:55:11 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
- [62.78.145.57])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0FA56276;
- Tue, 15 Sep 2020 17:54:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1600185256;
- bh=XzPEATglwb8mJLD0DYu0V5mnVt9Rmyb4GFF3M0n1BQw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=k/TxRWDwAUeEA/mxOqDGy3dXpqZvHw1rgu/hfc6AZ+2kJHV8nY1aZQ1niwJxXM2on
- uMm8kF40aJQq8Y3LJa+B/xGzPCzryGwMdT5H5oWYJQ48rRZEb8n/CrAkn0VvMZEJAK
- zd/EMFYW53+dug8ySJGu6EPKXShM0dS8ZH8bQ3S8=
-Date: Tue, 15 Sep 2020 18:53:46 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <20200915155346.GA26029@pendragon.ideasonboard.com>
-References: <20200915145958.19993-1-tzimmermann@suse.de>
- <20200915145958.19993-21-tzimmermann@suse.de>
+Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
+ [104.130.122.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 104FE6E0F9
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Sep 2020 15:56:48 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1600185409; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=KAqcwpLF6tobbQr2ap8v0X5avkCGEtqCpBv6f1sQgr0=;
+ b=pYieruMWSQliF+XFJEkOQnjPFqYct5BSukbKI9VijUJ8dG3mcBzzxgmqsFGNE8Zmhnat3M+7
+ az7mrlF4LcRGiBPzx9tcBvIqk1xkhZaL/XdFw9IX7b94XlGyxAMky0pAsh5Bp62pERDxvS3N
+ oJz6w6PYbR1ehBp9/MtCKwypWQw=
+X-Mailgun-Sending-Ip: 104.130.122.29
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
+ 5f60e4409f3347551f318246 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 15 Sep 2020 15:56:48
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 51900C433C8; Tue, 15 Sep 2020 15:56:47 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from jordan-laptop.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 589D7C433CA;
+ Tue, 15 Sep 2020 15:56:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 589D7C433CA
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=jcrouse@codeaurora.org
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: linux-arm-msm@vger.kernel.org
+Date: Tue, 15 Sep 2020 09:56:38 -0600
+Message-Id: <20200915155638.1706161-1-jcrouse@codeaurora.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200915145958.19993-21-tzimmermann@suse.de>
-Subject: Re: [Freedreno] [PATCH v2 20/21] drm/xlnx: Initialize DRM driver
- instance with CMA helper macro
+Subject: [Freedreno] [PATCH] drm/msm: Fix the a650 hw_apriv check
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,92 +67,63 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: hamohammed.sa@gmail.com, heiko@sntech.de, andrey.grodzovsky@amd.com,
- airlied@linux.ie, nouveau@lists.freedesktop.org,
- joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org,
- michal.simek@xilinx.com, eric@anholt.net, thierry.reding@gmail.com,
- robdclark@gmail.com, krzk@kernel.org, sam@ravnborg.org,
- sumit.semwal@linaro.org, emil.velikov@collabora.com,
- linux-samsung-soc@vger.kernel.org, jy0922.shim@samsung.com,
- oleksandr_andrushchenko@epam.com, tomi.valkeinen@ti.com,
- linux-tegra@vger.kernel.org, linux@armlinux.org.uk,
- patrik.r.jakobsson@gmail.com, jonathanh@nvidia.com,
- linux-rockchip@lists.infradead.org, kgene@kernel.org, bskeggs@redhat.com,
- xen-devel@lists.xenproject.org, intel-gfx@lists.freedesktop.org,
- matthew.auld@intel.com, chunkuang.hu@kernel.org, andi.shyti@intel.com,
- daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, marek.olsak@amd.com,
- tianci.yin@amd.com, maarten.lankhorst@linux.intel.com,
- etnaviv@lists.freedesktop.org, jani.nikula@linux.intel.com,
- inki.dae@samsung.com, hdegoede@redhat.com, christian.gmeiner@gmail.com,
- linux-mediatek@lists.infradead.org, mripard@kernel.org, rodrigo.vivi@intel.com,
- matthias.bgg@gmail.com, evan.quan@amd.com, sean@poorly.run,
- linux-arm-kernel@lists.infradead.org, tvrtko.ursulin@linux.intel.com,
- amd-gfx@lists.freedesktop.org, chris@chris-wilson.co.uk, hyun.kwon@xilinx.com,
- rodrigosiqueiramelo@gmail.com, aaron.liu@amd.com, Felix.Kuehling@amd.com,
- xinhui.pan@amd.com, sw0312.kim@samsung.com, hjc@rock-chips.com,
- miaoqinglang@huawei.com, kyungmin.park@samsung.com, nirmoy.das@amd.com,
- p.zabel@pengutronix.de, alexander.deucher@amd.com, Hawking.Zhang@amd.com,
- freedreno@lists.freedesktop.org, christian.koenig@amd.com,
- l.stach@pengutronix.de
+Cc: Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ freedreno@lists.freedesktop.org, Sharat Masetty <smasetty@codeaurora.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Eric Anholt <eric@anholt.net>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Thomas,
+Commit 604234f33658 ("drm/msm: Enable expanded apriv support for a650")
+was checking the result of adreno_is_a650() before the gpu revision
+got probed in adreno_gpu_init() so it was always coming across as
+false. Snoop into the revision ID ahead of time to correctly set the
+hw_apriv flag so that it can be used by msm_gpu to properly setup
+global buffers.
 
-Thank you for the patch.
+Fixes: 604234f33658 ("drm/msm: Enable expanded apriv support for a650")
+Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
+---
 
-On Tue, Sep 15, 2020 at 04:59:57PM +0200, Thomas Zimmermann wrote:
-> The xlnx driver uses CMA helpers with default callback functions.
-> Initialize the driver structure with the rsp CMA helper macro. The
-> driver is being converted to use GEM object functions as part of
-> this change.
-> 
-> Two callbacks, .dumb_destroy and .gem_prime_import, were initialized
-> to their default implementations, so they are just kept empty now.
-> 
-> v2:
-> 	* initialize with DRM_GEM_CMA_DRIVER_OPS_WITH_DUMB_CREATE (Laurent)
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-
-> ---
->  drivers/gpu/drm/xlnx/zynqmp_dpsub.c | 14 +-------------
->  1 file changed, 1 insertion(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/xlnx/zynqmp_dpsub.c b/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
-> index 8e69303aad3f..f3ffc3703a0e 100644
-> --- a/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
-> +++ b/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
-> @@ -80,19 +80,7 @@ static struct drm_driver zynqmp_dpsub_drm_driver = {
->  	.driver_features		= DRIVER_MODESET | DRIVER_GEM |
->  					  DRIVER_ATOMIC,
->  
-> -	.prime_handle_to_fd		= drm_gem_prime_handle_to_fd,
-> -	.prime_fd_to_handle		= drm_gem_prime_fd_to_handle,
-> -	.gem_prime_export		= drm_gem_prime_export,
-> -	.gem_prime_import		= drm_gem_prime_import,
-> -	.gem_prime_get_sg_table		= drm_gem_cma_prime_get_sg_table,
-> -	.gem_prime_import_sg_table	= drm_gem_cma_prime_import_sg_table,
-> -	.gem_prime_vmap			= drm_gem_cma_prime_vmap,
-> -	.gem_prime_vunmap		= drm_gem_cma_prime_vunmap,
-> -	.gem_prime_mmap			= drm_gem_cma_prime_mmap,
-> -	.gem_free_object_unlocked	= drm_gem_cma_free_object,
-> -	.gem_vm_ops			= &drm_gem_cma_vm_ops,
-> -	.dumb_create			= zynqmp_dpsub_dumb_create,
-> -	.dumb_destroy			= drm_gem_dumb_destroy,
-> +	DRM_GEM_CMA_DRIVER_OPS_WITH_DUMB_CREATE(zynqmp_dpsub_dumb_create),
->  
->  	.fops				= &zynqmp_dpsub_drm_fops,
->  
-
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 74bc27eb4203..f3b6d93c207c 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -1048,6 +1048,8 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+ {
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	struct platform_device *pdev = priv->gpu_pdev;
++	struct adreno_platform_config *config = pdev->dev.platform_data;
++	const struct adreno_info *info;
+ 	struct device_node *node;
+ 	struct a6xx_gpu *a6xx_gpu;
+ 	struct adreno_gpu *adreno_gpu;
+@@ -1064,7 +1066,14 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+ 	adreno_gpu->registers = NULL;
+ 	adreno_gpu->reg_offsets = a6xx_register_offsets;
+ 
+-	if (adreno_is_a650(adreno_gpu))
++	/*
++	 * We need to know the platform type before calling into adreno_gpu_init
++	 * so that the hw_apriv flag can be correctly set. Snoop into the info
++	 * and grab the revision number
++	 */
++	info = adreno_info(config->rev);
++
++	if (info && info->revn == 650)
+ 		adreno_gpu->base.hw_apriv = true;
+ 
+ 	ret = adreno_gpu_init(dev, pdev, adreno_gpu, &funcs, 1);
 -- 
-Regards,
+2.25.1
 
-Laurent Pinchart
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
