@@ -2,84 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FD1026A15A
-	for <lists+freedreno@lfdr.de>; Tue, 15 Sep 2020 10:57:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7C1A26A76B
+	for <lists+freedreno@lfdr.de>; Tue, 15 Sep 2020 16:44:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DA6B6E219;
-	Tue, 15 Sep 2020 08:56:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EB0C6E354;
+	Tue, 15 Sep 2020 14:44:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94E9B89FCA;
- Tue, 15 Sep 2020 08:56:53 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 87BA2AFA9;
- Tue, 15 Sep 2020 08:57:07 +0000 (UTC)
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "airlied@linux.ie" <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>,
- "l.stach@pengutronix.de" <l.stach@pengutronix.de>,
- "christian.gmeiner@gmail.com" <christian.gmeiner@gmail.com>,
- "inki.dae@samsung.com" <inki.dae@samsung.com>,
- "jy0922.shim@samsung.com" <jy0922.shim@samsung.com>,
- "sw0312.kim@samsung.com" <sw0312.kim@samsung.com>,
- "kyungmin.park@samsung.com" <kyungmin.park@samsung.com>,
- "kgene@kernel.org" <kgene@kernel.org>, "krzk@kernel.org" <krzk@kernel.org>,
- "patrik.r.jakobsson@gmail.com" <patrik.r.jakobsson@gmail.com>,
- "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
- "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
- "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
- "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>,
- "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "robdclark@gmail.com" <robdclark@gmail.com>,
- "sean@poorly.run" <sean@poorly.run>, "bskeggs@redhat.com"
- <bskeggs@redhat.com>, "tomi.valkeinen@ti.com" <tomi.valkeinen@ti.com>,
- "eric@anholt.net" <eric@anholt.net>, "hjc@rock-chips.com"
- <hjc@rock-chips.com>, "heiko@sntech.de" <heiko@sntech.de>,
- "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
- "jonathanh@nvidia.com" <jonathanh@nvidia.com>,
- "rodrigosiqueiramelo@gmail.com" <rodrigosiqueiramelo@gmail.com>,
- "hamohammed.sa@gmail.com" <hamohammed.sa@gmail.com>,
- "hyun.kwon@xilinx.com" <hyun.kwon@xilinx.com>,
- "laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>,
- "michal.simek@xilinx.com" <michal.simek@xilinx.com>,
- "sumit.semwal@linaro.org" <sumit.semwal@linaro.org>,
- "evan.quan@amd.com" <evan.quan@amd.com>,
- "Hawking.Zhang@amd.com" <Hawking.Zhang@amd.com>,
- "tianci.yin@amd.com" <tianci.yin@amd.com>,
- "marek.olsak@amd.com" <marek.olsak@amd.com>,
- "hdegoede@redhat.com" <hdegoede@redhat.com>,
- "andrey.grodzovsky@amd.com" <andrey.grodzovsky@amd.com>,
- "Felix.Kuehling@amd.com" <Felix.Kuehling@amd.com>,
- "xinhui.pan@amd.com" <xinhui.pan@amd.com>,
- "aaron.liu@amd.com" <aaron.liu@amd.com>,
- "nirmoy.das@amd.com" <nirmoy.das@amd.com>,
- "chris@chris-wilson.co.uk" <chris@chris-wilson.co.uk>,
- "matthew.auld@intel.com" <matthew.auld@intel.com>,
- "abdiel.janulgue@linux.intel.com" <abdiel.janulgue@linux.intel.com>,
- "tvrtko.ursulin@linux.intel.com" <tvrtko.ursulin@linux.intel.com>,
- "andi.shyti@intel.com" <andi.shyti@intel.com>,
- "sam@ravnborg.org" <sam@ravnborg.org>,
- "miaoqinglang@huawei.com" <miaoqinglang@huawei.com>,
- "emil.velikov@collabora.com" <emil.velikov@collabora.com>
-References: <20200813083644.31711-1-tzimmermann@suse.de>
- <20200813083644.31711-19-tzimmermann@suse.de>
- <1fe5f918-2445-d2e6-a501-881e70929404@epam.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <ea91877b-6398-a398-4972-9794f7965662@suse.de>
-Date: Tue, 15 Sep 2020 10:56:46 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+Received: from mail-vk1-xa41.google.com (mail-vk1-xa41.google.com
+ [IPv6:2607:f8b0:4864:20::a41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0A5B6E354
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Sep 2020 14:44:46 +0000 (UTC)
+Received: by mail-vk1-xa41.google.com with SMTP id n193so868942vkf.12
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Sep 2020 07:44:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=zT4idoY3GXU6AKl9P1KDotBGRD6i9BlOD/Yn8HDxrN8=;
+ b=cZcT/XO2v6Dw0s2Q7AzR/zkwbrn4Ls20hHCTCwjhdEm4E90JV0hcQRXDXeZO0/79hQ
+ aF+uMGX1TJIcuD68ObaYkd9bA7Qdk0HFRWwA/rZBI/5tw6+sCym7qpOxSaA1MKQzKvA+
+ PKT/I2wOPNx697M0Kt0AyARG4MwGHIMriU4Y05nxMvOVLHijn/kzh8bV9Lmyfx5IX6ls
+ rO3tL24NeY+O0sTDx89AZcGI995Ai5XwqYKMrD8Arrvow+1WyE8b+lLmjZzvByom/hw5
+ jE0q04luXWatzViaRyWafy86MVsVozNRTnWLmGTUMkBfAricswHoyVpHKVc9XAVxLIke
+ RGNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=zT4idoY3GXU6AKl9P1KDotBGRD6i9BlOD/Yn8HDxrN8=;
+ b=YfrKkcjV4TLtLJ0526B20SWpQhIWtEIn2XbKU/gg8K9rYeKAy1wt6HcHVFIQz6MXjo
+ zlcAYSJzEzQ2w7yDk9xcAsESaprXCH6W3oUCCnKGgsoh2aihivCciheuwuUhrMH49k7P
+ +oaQ1e89SWTM8Vd9EU4DPY+DebEAVjSJ8BL8TbmdQ5GvOGWc39sTpiQxA8YM88p+C+Mg
+ nyUW4NhafgG2eSNGO8slEuBYQ/ZQNWdA+IGHO5+sJKaT4mBtg/uA9+ua3dM6GhvFOQ5J
+ bC5myIdWENJzQZLrNoSJpisEruqN6q+KZwbBwRY19UzkvbP4RR75C4PI+2h3de3bJbVZ
+ pHuQ==
+X-Gm-Message-State: AOAM532Pqhev3PlSVvvkdgMNFNlWWRcC6FJWIjrFnueV5C7LowOTzIgq
+ +s901cf3Mg7M3RIOToRjCQXtM4i7L+YswZHi4llPQw==
+X-Google-Smtp-Source: ABdhPJz9V+xdlRF8ie6wyANpoDEf4gTRpkJcbnRPg71Sjm27NaLv4OKg5H8hiYkDipcT92cxG4GzEtlmJZG5SuY43QQ=
+X-Received: by 2002:a1f:7882:: with SMTP id t124mr1612757vkc.22.1600181085580; 
+ Tue, 15 Sep 2020 07:44:45 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1fe5f918-2445-d2e6-a501-881e70929404@epam.com>
-Subject: Re: [Freedreno] [PATCH 18/20] drm/xen: Introduce GEM object
- functions
+References: <20200915140644.037604909@linuxfoundation.org>
+In-Reply-To: <20200915140644.037604909@linuxfoundation.org>
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Tue, 15 Sep 2020 20:14:34 +0530
+Message-ID: <CA+G9fYv5hvOYNdfX6F40aZPP9Vr6aEsP_-22gX2P+Q95TrfF-A@mail.gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [Freedreno] [PATCH 5.4 000/132] 5.4.66-rc1 review
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,287 +61,140 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "linux-samsung-soc@vger.kernel.org" <linux-samsung-soc@vger.kernel.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "etnaviv@lists.freedesktop.org" <etnaviv@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Content-Type: multipart/mixed; boundary="===============0199355281=="
+Cc: Sean Paul <sean@poorly.run>, freedreno <freedreno@lists.freedesktop.org>,
+ Ben Hutchings <ben.hutchings@codethink.co.uk>, pavel@denx.de,
+ dri-devel@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
+ linux- stable <stable@vger.kernel.org>, patches@kernelci.org,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Rob Clark <robdclark@gmail.com>, lkft-triage@lists.linaro.org,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Shuah Khan <shuah@kernel.org>,
+ Guenter Roeck <linux@roeck-us.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0199355281==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="PEKUmr8ZTfzNvLYko4DS4LvqUwNvZCpsP"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---PEKUmr8ZTfzNvLYko4DS4LvqUwNvZCpsP
-Content-Type: multipart/mixed; boundary="kA0kz2rRnYLjEYgqBQNbqkILRFPajOphI";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "airlied@linux.ie" <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>,
- "l.stach@pengutronix.de" <l.stach@pengutronix.de>,
- "christian.gmeiner@gmail.com" <christian.gmeiner@gmail.com>,
- "inki.dae@samsung.com" <inki.dae@samsung.com>,
- "jy0922.shim@samsung.com" <jy0922.shim@samsung.com>,
- "sw0312.kim@samsung.com" <sw0312.kim@samsung.com>,
- "kyungmin.park@samsung.com" <kyungmin.park@samsung.com>,
- "kgene@kernel.org" <kgene@kernel.org>, "krzk@kernel.org" <krzk@kernel.org>,
- "patrik.r.jakobsson@gmail.com" <patrik.r.jakobsson@gmail.com>,
- "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
- "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
- "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
- "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>,
- "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "robdclark@gmail.com" <robdclark@gmail.com>,
- "sean@poorly.run" <sean@poorly.run>, "bskeggs@redhat.com"
- <bskeggs@redhat.com>, "tomi.valkeinen@ti.com" <tomi.valkeinen@ti.com>,
- "eric@anholt.net" <eric@anholt.net>, "hjc@rock-chips.com"
- <hjc@rock-chips.com>, "heiko@sntech.de" <heiko@sntech.de>,
- "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
- "jonathanh@nvidia.com" <jonathanh@nvidia.com>,
- "rodrigosiqueiramelo@gmail.com" <rodrigosiqueiramelo@gmail.com>,
- "hamohammed.sa@gmail.com" <hamohammed.sa@gmail.com>,
- "hyun.kwon@xilinx.com" <hyun.kwon@xilinx.com>,
- "laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>,
- "michal.simek@xilinx.com" <michal.simek@xilinx.com>,
- "sumit.semwal@linaro.org" <sumit.semwal@linaro.org>,
- "evan.quan@amd.com" <evan.quan@amd.com>,
- "Hawking.Zhang@amd.com" <Hawking.Zhang@amd.com>,
- "tianci.yin@amd.com" <tianci.yin@amd.com>,
- "marek.olsak@amd.com" <marek.olsak@amd.com>,
- "hdegoede@redhat.com" <hdegoede@redhat.com>,
- "andrey.grodzovsky@amd.com" <andrey.grodzovsky@amd.com>,
- "Felix.Kuehling@amd.com" <Felix.Kuehling@amd.com>,
- "xinhui.pan@amd.com" <xinhui.pan@amd.com>,
- "aaron.liu@amd.com" <aaron.liu@amd.com>,
- "nirmoy.das@amd.com" <nirmoy.das@amd.com>,
- "chris@chris-wilson.co.uk" <chris@chris-wilson.co.uk>,
- "matthew.auld@intel.com" <matthew.auld@intel.com>,
- "abdiel.janulgue@linux.intel.com" <abdiel.janulgue@linux.intel.com>,
- "tvrtko.ursulin@linux.intel.com" <tvrtko.ursulin@linux.intel.com>,
- "andi.shyti@intel.com" <andi.shyti@intel.com>,
- "sam@ravnborg.org" <sam@ravnborg.org>,
- "miaoqinglang@huawei.com" <miaoqinglang@huawei.com>,
- "emil.velikov@collabora.com" <emil.velikov@collabora.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "etnaviv@lists.freedesktop.org" <etnaviv@lists.freedesktop.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-samsung-soc@vger.kernel.org" <linux-samsung-soc@vger.kernel.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Message-ID: <ea91877b-6398-a398-4972-9794f7965662@suse.de>
-Subject: Re: [PATCH 18/20] drm/xen: Introduce GEM object functions
-References: <20200813083644.31711-1-tzimmermann@suse.de>
- <20200813083644.31711-19-tzimmermann@suse.de>
- <1fe5f918-2445-d2e6-a501-881e70929404@epam.com>
-In-Reply-To: <1fe5f918-2445-d2e6-a501-881e70929404@epam.com>
-
---kA0kz2rRnYLjEYgqBQNbqkILRFPajOphI
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Hi
-
-Am 13.08.20 um 13:19 schrieb Oleksandr Andrushchenko:
-> Hi,
->=20
-> On 8/13/20 11:36 AM, Thomas Zimmermann wrote:
->> GEM object functions deprecate several similar callback interfaces in
->> struct drm_driver. This patch replaces the per-driver callbacks with
->> per-instance callbacks in xen. The only exception is gem_prime_mmap,
->> which is non-trivial to convert.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> ---
->>   drivers/gpu/drm/xen/xen_drm_front.c     | 12 +-----------
->>   drivers/gpu/drm/xen/xen_drm_front.h     |  2 ++
->>   drivers/gpu/drm/xen/xen_drm_front_gem.c | 15 +++++++++++++++
->>   3 files changed, 18 insertions(+), 11 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/xen/xen_drm_front.c b/drivers/gpu/drm/xen=
-/xen_drm_front.c
->> index 3e660fb111b3..bd9af1875af1 100644
->> --- a/drivers/gpu/drm/xen/xen_drm_front.c
->> +++ b/drivers/gpu/drm/xen/xen_drm_front.c
->> @@ -433,7 +433,7 @@ static int xen_drm_drv_dumb_create(struct drm_file=
- *filp,
->>   	return ret;
->>   }
->>  =20
->> -static void xen_drm_drv_free_object_unlocked(struct drm_gem_object *o=
-bj)
->> +void xen_drm_drv_free_object_unlocked(struct drm_gem_object *obj)
->=20
-> Can we please have naming consistent and name it as
->=20
-> xen_drm_front_drv_free_object_unlocked or any other name if this seems =
-to be too long,
->=20
-> but starting with xen_drm_front_ as the rest of exported functions?
-
-There already is a function with that name in drm_xen_front_gem.c. I'll
-move the callback function next to the object-function structure and
-rename it slightly.
-
-Best regards
-Thomas
-
->=20
-> With this,
->=20
-> Acked-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->=20
-> Thank you,
->=20
-> Oleksandr
->=20
->>   {
->>   	struct xen_drm_front_drm_info *drm_info =3D obj->dev->dev_private;
->>   	int idx;
->> @@ -481,22 +481,12 @@ static const struct file_operations xen_drm_dev_=
-fops =3D {
->>   	.mmap           =3D xen_drm_front_gem_mmap,
->>   };
->>  =20
->> -static const struct vm_operations_struct xen_drm_drv_vm_ops =3D {
->> -	.open           =3D drm_gem_vm_open,
->> -	.close          =3D drm_gem_vm_close,
->> -};
->> -
->>   static struct drm_driver xen_drm_driver =3D {
->>   	.driver_features           =3D DRIVER_GEM | DRIVER_MODESET | DRIVER=
-_ATOMIC,
->>   	.release                   =3D xen_drm_drv_release,
->> -	.gem_vm_ops                =3D &xen_drm_drv_vm_ops,
->> -	.gem_free_object_unlocked  =3D xen_drm_drv_free_object_unlocked,
->>   	.prime_handle_to_fd        =3D drm_gem_prime_handle_to_fd,
->>   	.prime_fd_to_handle        =3D drm_gem_prime_fd_to_handle,
->>   	.gem_prime_import_sg_table =3D xen_drm_front_gem_import_sg_table,
->> -	.gem_prime_get_sg_table    =3D xen_drm_front_gem_get_sg_table,
->> -	.gem_prime_vmap            =3D xen_drm_front_gem_prime_vmap,
->> -	.gem_prime_vunmap          =3D xen_drm_front_gem_prime_vunmap,
->>   	.gem_prime_mmap            =3D xen_drm_front_gem_prime_mmap,
->>   	.dumb_create               =3D xen_drm_drv_dumb_create,
->>   	.fops                      =3D &xen_drm_dev_fops,
->> diff --git a/drivers/gpu/drm/xen/xen_drm_front.h b/drivers/gpu/drm/xen=
-/xen_drm_front.h
->> index f92c258350ca..93e60c1db550 100644
->> --- a/drivers/gpu/drm/xen/xen_drm_front.h
->> +++ b/drivers/gpu/drm/xen/xen_drm_front.h
->> @@ -160,4 +160,6 @@ int xen_drm_front_page_flip(struct xen_drm_front_i=
-nfo *front_info,
->>   void xen_drm_front_on_frame_done(struct xen_drm_front_info *front_in=
-fo,
->>   				 int conn_idx, u64 fb_cookie);
->>  =20
->> +void xen_drm_drv_free_object_unlocked(struct drm_gem_object *obj);
->> +
->>   #endif /* __XEN_DRM_FRONT_H_ */
->> diff --git a/drivers/gpu/drm/xen/xen_drm_front_gem.c b/drivers/gpu/drm=
-/xen/xen_drm_front_gem.c
->> index f0b85e094111..7b315c08bcfc 100644
->> --- a/drivers/gpu/drm/xen/xen_drm_front_gem.c
->> +++ b/drivers/gpu/drm/xen/xen_drm_front_gem.c
->> @@ -56,6 +56,19 @@ static void gem_free_pages_array(struct xen_gem_obj=
-ect *xen_obj)
->>   	xen_obj->pages =3D NULL;
->>   }
->>  =20
->> +static const struct vm_operations_struct xen_drm_drv_vm_ops =3D {
->> +	.open           =3D drm_gem_vm_open,
->> +	.close          =3D drm_gem_vm_close,
->> +};
->> +
->> +static const struct drm_gem_object_funcs xen_drm_front_gem_object_fun=
-cs =3D {
->> +	.free =3D xen_drm_drv_free_object_unlocked,
->> +	.get_sg_table =3D xen_drm_front_gem_get_sg_table,
->> +	.vmap =3D xen_drm_front_gem_prime_vmap,
->> +	.vunmap =3D xen_drm_front_gem_prime_vunmap,
->> +	.vm_ops =3D &xen_drm_drv_vm_ops,
->> +};
->> +
->>   static struct xen_gem_object *gem_create_obj(struct drm_device *dev,=
-
->>   					     size_t size)
->>   {
->> @@ -66,6 +79,8 @@ static struct xen_gem_object *gem_create_obj(struct =
-drm_device *dev,
->>   	if (!xen_obj)
->>   		return ERR_PTR(-ENOMEM);
->>  =20
->> +	xen_obj->base.funcs =3D &xen_drm_front_gem_object_funcs;
->> +
->>   	ret =3D drm_gem_object_init(dev, &xen_obj->base, size);
->>   	if (ret < 0) {
->>   		kfree(xen_obj);
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---kA0kz2rRnYLjEYgqBQNbqkILRFPajOphI--
-
---PEKUmr8ZTfzNvLYko4DS4LvqUwNvZCpsP
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQFIBAEBCAAyFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl9ggdEUHHR6aW1tZXJt
-YW5uQHN1c2UuZGUACgkQaA3BHVMLeiPDBwf/f2Q/YJ8WXCfC3ehLZzwlJXNPSLdV
-RBu8TYn7lfxxUA4dxKgUAU8gtA/RhGAj6nStvS9xB/lBn3Pzea0Zgxyi9muLzrVj
-AAtdCLdz4ykNSJKXeHJFa2/gNzRETQYNok4p3aC2o7qLw1vUdb3U2GY3PzrEX+CR
-cF1iwAbanJ+/6sT1OATWLOSzjyZ4EkRCP6xclKm6wzrrATaBUeneBeDT0TW4OY1i
-0W8WRT7epjcXidinkJnDOtSXDzLRgl5eV5BnsTioD1vJ12ArZwkW0xG/wTTpNgMq
-Rs06mSE5osC1vjmNLl5TUYmtRzgLkOztpo+HyNQH5SwuMdM1wMCL8OkOVA==
-=swh3
------END PGP SIGNATURE-----
-
---PEKUmr8ZTfzNvLYko4DS4LvqUwNvZCpsP--
-
---===============0199355281==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
-
---===============0199355281==--
+T24gVHVlLCAxNSBTZXAgMjAyMCBhdCAxOTo1MCwgR3JlZyBLcm9haC1IYXJ0bWFuCjxncmVna2hA
+bGludXhmb3VuZGF0aW9uLm9yZz4gd3JvdGU6Cj4KPiBUaGlzIGlzIHRoZSBzdGFydCBvZiB0aGUg
+c3RhYmxlIHJldmlldyBjeWNsZSBmb3IgdGhlIDUuNC42NiByZWxlYXNlLgo+IFRoZXJlIGFyZSAx
+MzIgcGF0Y2hlcyBpbiB0aGlzIHNlcmllcywgYWxsIHdpbGwgYmUgcG9zdGVkIGFzIGEgcmVzcG9u
+c2UKPiB0byB0aGlzIG9uZS4gIElmIGFueW9uZSBoYXMgYW55IGlzc3VlcyB3aXRoIHRoZXNlIGJl
+aW5nIGFwcGxpZWQsIHBsZWFzZQo+IGxldCBtZSBrbm93Lgo+Cj4gUmVzcG9uc2VzIHNob3VsZCBi
+ZSBtYWRlIGJ5IFRodSwgMTcgU2VwIDIwMjAgMTQ6MDY6MTIgKzAwMDAuCj4gQW55dGhpbmcgcmVj
+ZWl2ZWQgYWZ0ZXIgdGhhdCB0aW1lIG1pZ2h0IGJlIHRvbyBsYXRlLgo+Cj4gVGhlIHdob2xlIHBh
+dGNoIHNlcmllcyBjYW4gYmUgZm91bmQgaW4gb25lIHBhdGNoIGF0Ogo+ICAgICAgICAgaHR0cHM6
+Ly93d3cua2VybmVsLm9yZy9wdWIvbGludXgva2VybmVsL3Y1Lngvc3RhYmxlLXJldmlldy9wYXRj
+aC01LjQuNjYtcmMxLmd6Cj4gb3IgaW4gdGhlIGdpdCB0cmVlIGFuZCBicmFuY2ggYXQ6Cj4gICAg
+ICAgICBnaXQ6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvc3RhYmxl
+L2xpbnV4LXN0YWJsZS1yYy5naXQgbGludXgtNS40LnkKPiBhbmQgdGhlIGRpZmZzdGF0IGNhbiBi
+ZSBmb3VuZCBiZWxvdy4KPgo+IHRoYW5rcywKPgo+IGdyZWcgay1oCj4KCmFybSBhbmQgYXJtNjQg
+YnVpbGQgYnJlYWtzIG9uIHN0YWJsZSByYyA1LjQuCgptYWtlIC1zayBLQlVJTERfQlVJTERfVVNF
+Uj1UdXhCdWlsZCAtQy9saW51eCAtajE2IEFSQ0g9YXJtCkNST1NTX0NPTVBJTEU9YXJtLWxpbnV4
+LWdudWVhYmloZi0gSE9TVENDPWdjYyBDQz0ic2NjYWNoZQphcm0tbGludXgtZ251ZWFiaWhmLWdj
+YyIgTz1idWlsZCB6SW1hZ2UKIwouLi9rZXJuZWwva3Byb2Jlcy5jOiBJbiBmdW5jdGlvbiDigJhr
+aWxsX2twcm9iZeKAmToKLi4va2VybmVsL2twcm9iZXMuYzoxMDgxOjMzOiB3YXJuaW5nOiBzdGF0
+ZW1lbnQgd2l0aCBubyBlZmZlY3QgWy1XdW51c2VkLXZhbHVlXQogMTA4MSB8ICNkZWZpbmUgZGlz
+YXJtX2twcm9iZV9mdHJhY2UocCkgKC1FTk9ERVYpCiAgICAgIHwgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBeCi4uL2tlcm5lbC9rcHJvYmVzLmM6MjExMzozOiBub3RlOiBpbiBleHBh
+bnNpb24gb2YgbWFjcm8g4oCYZGlzYXJtX2twcm9iZV9mdHJhY2XigJkKIDIxMTMgfCAgIGRpc2Fy
+bV9rcHJvYmVfZnRyYWNlKHApOwogICAgICB8ICAgXn5+fn5+fn5+fn5+fn5+fn5+fn4KIwojIG1h
+a2UgLXNrIEtCVUlMRF9CVUlMRF9VU0VSPVR1eEJ1aWxkIC1DL2xpbnV4IC1qMTYgQVJDSD1hcm0K
+Q1JPU1NfQ09NUElMRT1hcm0tbGludXgtZ251ZWFiaWhmLSBIT1NUQ0M9Z2NjIENDPSJzY2NhY2hl
+CmFybS1saW51eC1nbnVlYWJpaGYtZ2NjIiBPPWJ1aWxkIG1vZHVsZXMKIwouLi9kcml2ZXJzL2dw
+dS9kcm0vbXNtL2FkcmVuby9hNXh4X3ByZWVtcHQuYzogSW4gZnVuY3Rpb24g4oCYcHJlZW1wdF9p
+bml0X3JpbmfigJk6Ci4uL2RyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2E1eHhfcHJlZW1wdC5j
+OjIzNToyMTogZXJyb3I6CuKAmE1TTV9CT19NQVBfUFJJVuKAmSB1bmRlY2xhcmVkIChmaXJzdCB1
+c2UgaW4gdGhpcyBmdW5jdGlvbikKICAyMzUgfCAgIE1TTV9CT19VTkNBQ0hFRCB8IE1TTV9CT19N
+QVBfUFJJViwgZ3B1LT5hc3BhY2UsICZibywgJmlvdmEpOwogICAgICB8ICAgICAgICAgICAgICAg
+ICAgICAgXn5+fn5+fn5+fn5+fn5+Ci4uL2RyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2E1eHhf
+cHJlZW1wdC5jOjIzNToyMTogbm90ZTogZWFjaAp1bmRlY2xhcmVkIGlkZW50aWZpZXIgaXMgcmVw
+b3J0ZWQgb25seSBvbmNlIGZvciBlYWNoIGZ1bmN0aW9uIGl0CmFwcGVhcnMgaW4KbWFrZVs1XTog
+KioqIFsuLi9zY3JpcHRzL01ha2VmaWxlLmJ1aWxkOjI2NjoKZHJpdmVycy9ncHUvZHJtL21zbS9h
+ZHJlbm8vYTV4eF9wcmVlbXB0Lm9dIEVycm9yIDEKLi4vZHJpdmVycy9ncHUvZHJtL21zbS9hZHJl
+bm8vYTZ4eF9ncHUuYzogSW4gZnVuY3Rpb24g4oCYYTZ4eF9od19pbml04oCZOgouLi9kcml2ZXJz
+L2dwdS9kcm0vbXNtL2FkcmVuby9hNnh4X2dwdS5jOjQxNDo2OiBlcnJvcjogaW1wbGljaXQKZGVj
+bGFyYXRpb24gb2YgZnVuY3Rpb24g4oCYYWRyZW5vX2lzX2E2NDDigJk7IGRpZCB5b3UgbWVhbgri
+gJhhZHJlbm9faXNfYTU0MOKAmT8gWy1XZXJyb3I9aW1wbGljaXQtZnVuY3Rpb24tZGVjbGFyYXRp
+b25dCiAgNDE0IHwgIGlmIChhZHJlbm9faXNfYTY0MChhZHJlbm9fZ3B1KSB8fCBhZHJlbm9faXNf
+YTY1MChhZHJlbm9fZ3B1KSkgewogICAgICB8ICAgICAgXn5+fn5+fn5+fn5+fn4KICAgICAgfCAg
+ICAgIGFkcmVub19pc19hNTQwCi4uL2RyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2E2eHhfZ3B1
+LmM6NDE0OjM2OiBlcnJvcjogaW1wbGljaXQKZGVjbGFyYXRpb24gb2YgZnVuY3Rpb24g4oCYYWRy
+ZW5vX2lzX2E2NTDigJk7IGRpZCB5b3UgbWVhbgrigJhhZHJlbm9faXNfYTU0MOKAmT8gWy1XZXJy
+b3I9aW1wbGljaXQtZnVuY3Rpb24tZGVjbGFyYXRpb25dCiAgNDE0IHwgIGlmIChhZHJlbm9faXNf
+YTY0MChhZHJlbm9fZ3B1KSB8fCBhZHJlbm9faXNfYTY1MChhZHJlbm9fZ3B1KSkgewogICAgICB8
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXn5+fn5+fn5+fn5+fn4KICAgICAg
+fCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFkcmVub19pc19hNTQwCi4uL2Ry
+aXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2E2eHhfZ3B1LmM6NDE1OjE4OiBlcnJvcjoK4oCYUkVH
+X0E2WFhfR0JJRl9RU0JfU0lERTDigJkgdW5kZWNsYXJlZCAoZmlyc3QgdXNlIGluIHRoaXMgZnVu
+Y3Rpb24pCiAgNDE1IHwgICBncHVfd3JpdGUoZ3B1LCBSRUdfQTZYWF9HQklGX1FTQl9TSURFMCwg
+MHgwMDA3MTYyMCk7CiAgICAgIHwgICAgICAgICAgICAgICAgICBefn5+fn5+fn5+fn5+fn5+fn5+
+fn5+fgouLi9kcml2ZXJzL2dwdS9kcm0vbXNtL2FkcmVuby9hNnh4X2dwdS5jOjQxNToxODogbm90
+ZTogZWFjaCB1bmRlY2xhcmVkCmlkZW50aWZpZXIgaXMgcmVwb3J0ZWQgb25seSBvbmNlIGZvciBl
+YWNoIGZ1bmN0aW9uIGl0IGFwcGVhcnMgaW4KLi4vZHJpdmVycy9ncHUvZHJtL21zbS9hZHJlbm8v
+YTZ4eF9ncHUuYzo0MTY6MTg6IGVycm9yOgrigJhSRUdfQTZYWF9HQklGX1FTQl9TSURFMeKAmSB1
+bmRlY2xhcmVkIChmaXJzdCB1c2UgaW4gdGhpcyBmdW5jdGlvbikKICA0MTYgfCAgIGdwdV93cml0
+ZShncHUsIFJFR19BNlhYX0dCSUZfUVNCX1NJREUxLCAweDAwMDcxNjIwKTsKICAgICAgfCAgICAg
+ICAgICAgICAgICAgIF5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+Ci4uL2RyaXZlcnMvZ3B1L2RybS9t
+c20vYWRyZW5vL2E2eHhfZ3B1LmM6NDE3OjE4OiBlcnJvcjoK4oCYUkVHX0E2WFhfR0JJRl9RU0Jf
+U0lERTLigJkgdW5kZWNsYXJlZCAoZmlyc3QgdXNlIGluIHRoaXMgZnVuY3Rpb24pCiAgNDE3IHwg
+ICBncHVfd3JpdGUoZ3B1LCBSRUdfQTZYWF9HQklGX1FTQl9TSURFMiwgMHgwMDA3MTYyMCk7CiAg
+ICAgIHwgICAgICAgICAgICAgICAgICBefn5+fn5+fn5+fn5+fn5+fn5+fn5+fgouLi9kcml2ZXJz
+L2dwdS9kcm0vbXNtL2FkcmVuby9hNnh4X2dwdS5jOjQxODoxODogZXJyb3I6CuKAmFJFR19BNlhY
+X0dCSUZfUVNCX1NJREUz4oCZIHVuZGVjbGFyZWQgKGZpcnN0IHVzZSBpbiB0aGlzIGZ1bmN0aW9u
+KQogIDQxOCB8ICAgZ3B1X3dyaXRlKGdwdSwgUkVHX0E2WFhfR0JJRl9RU0JfU0lERTMsIDB4MDAw
+NzE2MjApOwogICAgICB8ICAgICAgICAgICAgICAgICAgXn5+fn5+fn5+fn5+fn5+fn5+fn5+fn4K
+Y2MxOiBzb21lIHdhcm5pbmdzIGJlaW5nIHRyZWF0ZWQgYXMgZXJyb3JzCm1ha2VbNV06ICoqKiBb
+Li4vc2NyaXB0cy9NYWtlZmlsZS5idWlsZDoyNjU6CmRyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5v
+L2E2eHhfZ3B1Lm9dIEVycm9yIDEKSW4gZmlsZSBpbmNsdWRlZCBmcm9tIC4uL2RyaXZlcnMvZ3B1
+L2RybS9tc20vbXNtX2dwdS5jOjc6Ci4uL2RyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2dwdS5jOiBJ
+biBmdW5jdGlvbiDigJhtc21fZ3B1X2luaXTigJk6Ci4uL2RyaXZlcnMvZ3B1L2RybS9tc20vbXNt
+X2dwdS5oOjMzMDoyMjogZXJyb3I6IOKAmE1TTV9CT19NQVBfUFJJVuKAmQp1bmRlY2xhcmVkIChm
+aXJzdCB1c2UgaW4gdGhpcyBmdW5jdGlvbikKICAzMzAgfCAgKCgoZ3B1KS0+aHdfYXByaXYgPyBN
+U01fQk9fTUFQX1BSSVYgOiAwKSB8IChmbGFncykpCiAgICAgIHwgICAgICAgICAgICAgICAgICAg
+ICAgXn5+fn5+fn5+fn5+fn5+Ci4uL2RyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2dwdS5jOjkzNToz
+OiBub3RlOiBpbiBleHBhbnNpb24gb2YgbWFjcm8K4oCYY2hlY2tfYXByaXbigJkKICA5MzUgfCAg
+IGNoZWNrX2Fwcml2KGdwdSwgTVNNX0JPX1VOQ0FDSEVEKSwgZ3B1LT5hc3BhY2UsICZncHUtPm1l
+bXB0cnNfYm8sCiAgICAgIHwgICBefn5+fn5+fn5+fgouLi9kcml2ZXJzL2dwdS9kcm0vbXNtL21z
+bV9ncHUuaDozMzA6MjI6IG5vdGU6IGVhY2ggdW5kZWNsYXJlZAppZGVudGlmaWVyIGlzIHJlcG9y
+dGVkIG9ubHkgb25jZSBmb3IgZWFjaCBmdW5jdGlvbiBpdCBhcHBlYXJzIGluCiAgMzMwIHwgICgo
+KGdwdSktPmh3X2Fwcml2ID8gTVNNX0JPX01BUF9QUklWIDogMCkgfCAoZmxhZ3MpKQogICAgICB8
+ICAgICAgICAgICAgICAgICAgICAgIF5+fn5+fn5+fn5+fn5+fgouLi9kcml2ZXJzL2dwdS9kcm0v
+bXNtL21zbV9ncHUuYzo5MzU6Mzogbm90ZTogaW4gZXhwYW5zaW9uIG9mIG1hY3JvCuKAmGNoZWNr
+X2Fwcml24oCZCiAgOTM1IHwgICBjaGVja19hcHJpdihncHUsIE1TTV9CT19VTkNBQ0hFRCksIGdw
+dS0+YXNwYWNlLCAmZ3B1LT5tZW1wdHJzX2JvLAogICAgICB8ICAgXn5+fn5+fn5+fn4KbWFrZVs1
+XTogKioqIFsuLi9zY3JpcHRzL01ha2VmaWxlLmJ1aWxkOjI2NjoKZHJpdmVycy9ncHUvZHJtL21z
+bS9tc21fZ3B1Lm9dIEVycm9yIDEKSW4gZmlsZSBpbmNsdWRlZCBmcm9tIC4uL2RyaXZlcnMvZ3B1
+L2RybS9tc20vbXNtX3JpbmdidWZmZXIuYzo4OgouLi9kcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9y
+aW5nYnVmZmVyLmM6IEluIGZ1bmN0aW9uIOKAmG1zbV9yaW5nYnVmZmVyX25ld+KAmToKLi4vZHJp
+dmVycy9ncHUvZHJtL21zbS9tc21fZ3B1Lmg6MzMwOjIyOiBlcnJvcjog4oCYTVNNX0JPX01BUF9Q
+UklW4oCZCnVuZGVjbGFyZWQgKGZpcnN0IHVzZSBpbiB0aGlzIGZ1bmN0aW9uKQogIDMzMCB8ICAo
+KChncHUpLT5od19hcHJpdiA/IE1TTV9CT19NQVBfUFJJViA6IDApIHwgKGZsYWdzKSkKICAgICAg
+fCAgICAgICAgICAgICAgICAgICAgICBefn5+fn5+fn5+fn5+fn4KLi4vZHJpdmVycy9ncHUvZHJt
+L21zbS9tc21fcmluZ2J1ZmZlci5jOjMwOjM6IG5vdGU6IGluIGV4cGFuc2lvbiBvZgptYWNybyDi
+gJhjaGVja19hcHJpduKAmQogICAzMCB8ICAgY2hlY2tfYXByaXYoZ3B1LCBNU01fQk9fV0MgfCBN
+U01fQk9fR1BVX1JFQURPTkxZKSwKICAgICAgfCAgIF5+fn5+fn5+fn5+Ci4uL2RyaXZlcnMvZ3B1
+L2RybS9tc20vbXNtX2dwdS5oOjMzMDoyMjogbm90ZTogZWFjaCB1bmRlY2xhcmVkCmlkZW50aWZp
+ZXIgaXMgcmVwb3J0ZWQgb25seSBvbmNlIGZvciBlYWNoIGZ1bmN0aW9uIGl0IGFwcGVhcnMgaW4K
+ICAzMzAgfCAgKCgoZ3B1KS0+aHdfYXByaXYgPyBNU01fQk9fTUFQX1BSSVYgOiAwKSB8IChmbGFn
+cykpCiAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgXn5+fn5+fn5+fn5+fn5+Ci4uL2RyaXZl
+cnMvZ3B1L2RybS9tc20vbXNtX3JpbmdidWZmZXIuYzozMDozOiBub3RlOiBpbiBleHBhbnNpb24g
+b2YKbWFjcm8g4oCYY2hlY2tfYXByaXbigJkKICAgMzAgfCAgIGNoZWNrX2Fwcml2KGdwdSwgTVNN
+X0JPX1dDIHwgTVNNX0JPX0dQVV9SRUFET05MWSksCiAgICAgIHwgICBefn5+fn5+fn5+fgptYWtl
+WzVdOiAqKiogWy4uL3NjcmlwdHMvTWFrZWZpbGUuYnVpbGQ6MjY1Ogpkcml2ZXJzL2dwdS9kcm0v
+bXNtL21zbV9yaW5nYnVmZmVyLm9dIEVycm9yIDEKbWFrZVs1XTogVGFyZ2V0ICdfX2J1aWxkJyBu
+b3QgcmVtYWRlIGJlY2F1c2Ugb2YgZXJyb3JzLgptYWtlWzRdOiAqKiogWy4uL3NjcmlwdHMvTWFr
+ZWZpbGUuYnVpbGQ6NTAwOiBkcml2ZXJzL2dwdS9kcm0vbXNtXSBFcnJvciAyCm1ha2VbNF06IFRh
+cmdldCAnX19idWlsZCcgbm90IHJlbWFkZSBiZWNhdXNlIG9mIGVycm9ycy4KbWFrZVszXTogKioq
+IFsuLi9zY3JpcHRzL01ha2VmaWxlLmJ1aWxkOjUwMDogZHJpdmVycy9ncHUvZHJtXSBFcnJvciAy
+Cm1ha2VbM106IFRhcmdldCAnX19idWlsZCcgbm90IHJlbWFkZSBiZWNhdXNlIG9mIGVycm9ycy4K
+bWFrZVsyXTogKioqIFsuLi9zY3JpcHRzL01ha2VmaWxlLmJ1aWxkOjUwMDogZHJpdmVycy9ncHVd
+IEVycm9yIDIKbWFrZVsyXTogVGFyZ2V0ICdfX2J1aWxkJyBub3QgcmVtYWRlIGJlY2F1c2Ugb2Yg
+ZXJyb3JzLgptYWtlWzFdOiAqKiogWy9saW51eC9NYWtlZmlsZToxNzI5OiBkcml2ZXJzXSBFcnJv
+ciAyCm1ha2VbMV06IFRhcmdldCAnbW9kdWxlcycgbm90IHJlbWFkZSBiZWNhdXNlIG9mIGVycm9y
+cy4KbWFrZTogKioqIFtNYWtlZmlsZToxNzk6IHN1Yi1tYWtlXSBFcnJvciAyCm1ha2U6IFRhcmdl
+dCAnbW9kdWxlcycgbm90IHJlbWFkZSBiZWNhdXNlIG9mIGVycm9ycy4KCgotLSAKTGluYXJvIExL
+RlQKaHR0cHM6Ly9sa2Z0LmxpbmFyby5vcmcKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vZnJlZWRyZW5vCg==
