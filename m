@@ -1,59 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B07D4269A76
-	for <lists+freedreno@lfdr.de>; Tue, 15 Sep 2020 02:34:12 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 97E0C269EFD
+	for <lists+freedreno@lfdr.de>; Tue, 15 Sep 2020 08:58:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 451B16E823;
-	Tue, 15 Sep 2020 00:34:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3961C6E83C;
+	Tue, 15 Sep 2020 06:58:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf41.google.com (mail-qv1-xf41.google.com
- [IPv6:2607:f8b0:4864:20::f41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08EB56E826
- for <freedreno@lists.freedesktop.org>; Tue, 15 Sep 2020 00:34:10 +0000 (UTC)
-Received: by mail-qv1-xf41.google.com with SMTP id cy2so962672qvb.0
- for <freedreno@lists.freedesktop.org>; Mon, 14 Sep 2020 17:34:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=AMXsdcZMtd3r1FAfIZIVxJFPK/4+jeZlRHiiC+6VWdk=;
- b=ROVNsuRWiqNko5m4zp2frC9gpRSRjLNxQ2XVgBVyG7ZkgUHlYq2dfKhGAeTtqctAla
- T568uN4UtbeHz76/tSras7chrithr6p88yF4RpgN3Q5nrJVVsGqiCGWqcm2FHUC4ta7Z
- 174HVWM7lKsoqMexzIvdMIYs2bLddMlpwr/TjHY053jSn83tRqpJfrcUh5/bbmFP5aAQ
- fk/wzSCnysKVOGZiEo2cgmDUhClOP8PXnQ4QxL8Aw7Wd8WeQW7BES/E0HDW8PEXSQXqI
- j2BSAzT+lMR+cb1wLOgtTRPNUCLT6+vsI/vQGjWIXmi1B1McVe+p3pbLQwl38nLxu8AC
- M1Dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=AMXsdcZMtd3r1FAfIZIVxJFPK/4+jeZlRHiiC+6VWdk=;
- b=pF3wN5YRXvZXaWAI034jXmY5MujDR8JbtYnIiv76NoWxUnkosX6uTlDjIWQmQhecF9
- S2V/qeWd8hWYGAq/9JymfA1CfpANmTL7R8FZGGFY3hiToZPC+jb0CD517fEV+X82Vy4V
- 8QD6OevyYVXcfuK5tI2BfHCSXcdCwSnK4QVMjewA6HEVa6yAaXTjotMWjy88MLrrUinI
- 69J9VsKixIKyApR3ysq3hC2yrObT/H9qkczyMqyMKt2Db95pVrqq0LEkGCZUkxbi83FI
- vF72veaUVLSQKUhUmlFUycbuBezAQ6+S6eEJuQkcb7/8o1VKyxTuAzA8bzRCF0V5Jjuc
- 4ojA==
-X-Gm-Message-State: AOAM533cGDBoAQ2b8jvy6XK5uF4DZM5bazAJq3zJXJGy5ExxqIbJLLwu
- ydSfitwrVKAWV1XjwsG/RsDTtg==
-X-Google-Smtp-Source: ABdhPJx7isSw104HWsxh6GBnxwl7osGdt42xeZrstCu8XtSctGKh5I5nX9suDSQ1TbA7by279WI5JA==
-X-Received: by 2002:a0c:9142:: with SMTP id q60mr16094189qvq.13.1600130049049; 
- Mon, 14 Sep 2020 17:34:09 -0700 (PDT)
-Received: from uller (ec2-34-197-84-77.compute-1.amazonaws.com. [34.197.84.77])
- by smtp.gmail.com with ESMTPSA id c13sm14830849qtq.5.2020.09.14.17.34.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Sep 2020 17:34:08 -0700 (PDT)
-Date: Tue, 15 Sep 2020 00:34:06 +0000
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Zhenzhong Duan <zhenzhong.duan@gmail.com>
-Message-ID: <20200915003406.GC471@uller>
-References: <20200912102558.656-1-zhenzhong.duan@gmail.com>
+Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
+ [104.130.122.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5612A6E092
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Sep 2020 06:58:33 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1600153119; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=TqpJbtJ5h/NOs90QzAjCnhYHSI+Sccp918FxJgx7Rwk=;
+ b=C8IjJWLDN1B5k694R/bhZQrMaVHFHkW5R1E9Cneyxb/N/ENun/qL9l4uvQZrh7ECnvq4AFmH
+ JcIfCw4cM0iJ21XlasmxHFGCMej7ZMh/INpBszPTT+AhA9vtbI2Y7yXXpCiSgdbo0JeDWQ2U
+ Ft3v+8sPuJjkl7Dt6i+2DkFulaw=
+X-Mailgun-Sending-Ip: 104.130.122.29
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n07.prod.us-west-2.postgun.com with SMTP id
+ 5f606613cc683673f9d2d33f (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 15 Sep 2020 06:58:27
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 43672C433FE; Tue, 15 Sep 2020 06:58:27 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: saiprakash.ranjan)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 1F9F1C433C8;
+ Tue, 15 Sep 2020 06:58:26 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200912102558.656-1-zhenzhong.duan@gmail.com>
-Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: fix a potential overflow issue
+Date: Tue, 15 Sep 2020 12:28:26 +0530
+From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+To: Robin Murphy <robin.murphy@arm.com>
+In-Reply-To: <a33160854744942f660fae691a4a30ec@codeaurora.org>
+References: <cover.1599832685.git.saiprakash.ranjan@codeaurora.org>
+ <010101747d912d9f-c8050b8d-1e81-4be0-ac35-b221f657b490-000000@us-west-2.amazonses.com>
+ <c26b5317-f12d-8be9-be45-3307ce5efbfc@arm.com>
+ <20200911160706.GA20802@willie-the-truck>
+ <010101747df8e9df-fad2f88d-e970-4753-a99a-2cfeeb1a29a9-000000@us-west-2.amazonses.com>
+ <7ff9b238-e203-059f-d793-1c44475c6aa2@arm.com>
+ <a33160854744942f660fae691a4a30ec@codeaurora.org>
+Message-ID: <e815cbc83d6c3d92168d817cf0b01cbb@codeaurora.org>
+X-Sender: saiprakash.ranjan@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCHv4 6/6] iommu: arm-smmu-impl: Remove unwanted
+ extra blank lines
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,46 +71,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, jcrouse@codeaurora.org, jonathan@marek.ca,
- airlied@linux.ie, linux-arm-msm@vger.kernel.org, smasetty@codeaurora.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, daniel@ffwll.ch, sean@poorly.run
-Content-Type: text/plain; charset="us-ascii"
+Cc: Will Deacon <will@kernel.org>, Akhil P Oommen <akhilpo@codeaurora.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ iommu@lists.linux-foundation.org,
+ "Kristian H . Kristensen" <hoegsberg@google.com>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat 12 Sep 10:25 UTC 2020, Zhenzhong Duan wrote:
+On 2020-09-11 22:20, Sai Prakash Ranjan wrote:
+> On 2020-09-11 22:04, Robin Murphy wrote:
+>> On 2020-09-11 17:21, Sai Prakash Ranjan wrote:
+>>> On 2020-09-11 21:37, Will Deacon wrote:
+>>>> On Fri, Sep 11, 2020 at 05:03:06PM +0100, Robin Murphy wrote:
+>>>>> BTW am I supposed to have received 3 copies of everything? Because 
+>>>>> I did...
+>>>> 
+>>>> Yeah, this seems to be happening for all of Sai's emails :/
+>>>> 
+>>> 
+>>> Sorry, I am not sure what went wrong as I only sent this once
+>>> and there are no recent changes to any of my configs, I'll
+>>> check it further.
+>> 
+>> Actually on closer inspection it appears to be "correct" behaviour.
+>> I'm still subscribed to LAKML and the IOMMU list on this account, but
+>> normally Office 365 deduplicates so aggressively that I have rules set
+>> up to copy list mails that I'm cc'ed on back to my inbox, in case they
+>> arrive first and cause the direct copy to get eaten - apparently
+>> there's something unique about your email setup that manages to defeat
+>> the deduplicator and make it deliver all 3 copies intact... :/
+>> 
+> 
+> No changes in my local setup atleast, but in the past we have
+> had cases with codeaurora mail acting weird or it could be my vpn,
+> will have to check.
+> 
 
-> It's allocating an array of a6xx_gpu_state_obj structure rathor than
-> its pointers.
-> 
-> This patch fix it.
-> 
+This was an issue with codeaurora servers and I am told that it is
+fixed now.
 
-Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+Thanks,
+Sai
 
-> Signed-off-by: Zhenzhong Duan <zhenzhong.duan@gmail.com>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> index b12f5b4..e9ede19 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> @@ -875,7 +875,7 @@ static void a6xx_get_indexed_registers(struct msm_gpu *gpu,
->  	int i;
->  
->  	a6xx_state->indexed_regs = state_kcalloc(a6xx_state, count,
-> -		sizeof(a6xx_state->indexed_regs));
-> +		sizeof(*a6xx_state->indexed_regs));
->  	if (!a6xx_state->indexed_regs)
->  		return;
->  
-> -- 
-> 1.8.3.1
-> 
+-- 
+QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a 
+member
+of Code Aurora Forum, hosted by The Linux Foundation
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
