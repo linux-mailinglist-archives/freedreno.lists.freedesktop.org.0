@@ -2,62 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3501926A940
-	for <lists+freedreno@lfdr.de>; Tue, 15 Sep 2020 18:02:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6505926AA12
+	for <lists+freedreno@lfdr.de>; Tue, 15 Sep 2020 18:49:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A415189A75;
-	Tue, 15 Sep 2020 16:02:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 203426E897;
+	Tue, 15 Sep 2020 16:49:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
- [IPv6:2607:f8b0:4864:20::843])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 011F46E10A
- for <freedreno@lists.freedesktop.org>; Tue, 15 Sep 2020 16:02:09 +0000 (UTC)
-Received: by mail-qt1-x843.google.com with SMTP id p65so3575249qtd.2
- for <freedreno@lists.freedesktop.org>; Tue, 15 Sep 2020 09:02:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=marek-ca.20150623.gappssmtp.com; s=20150623;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=qHGhBN6eHyO69pll+88g/3newfhKOBOeL1YWhiUfNUQ=;
- b=nqulYA+U+8v+m/92Wp/qSwp60FLL5ppEhy1d4NMu94BSSy3H2Ito9aUNKNk/I5IuqF
- 2AE4pe89kb9T8+IkNkK+64vp4Ge5nYKuazgHAAaffRYj3+8m1pVdgR+m3KzypTAW/i/a
- D+qqPTFpwVw9dtuMkdYgfEIt/mJbD2MVLHjG6KXwJEcwTt3v3mO4mgIqigOWTLfp6EXF
- GCJWtRwdXqf9EG8mvvOXTJjxHrzejopjiwSnY8eGV5haayXSY6V8wwuUdO+7Rg2gMf6/
- xNHcvBSDcXJNH23tzlQX6k57Dp56al2z38KUSiRqE+wjWji75xqAqd2o+uhYjNzFbOtt
- 92mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=qHGhBN6eHyO69pll+88g/3newfhKOBOeL1YWhiUfNUQ=;
- b=B6FjNNWLqYnCspcgEbzoSuDe5tI3KVIgWf48to+MPxaV9W3eVPLCxGEI+wPK64tb5s
- ak2l1tIysqimu0lwIUZ/iPDVukVaMV2Z/i1mDcvmc+xy6f9Mv3I2CsR/fhqxBJpQ6xD6
- x5oND6ni+MCau+vY2KrBYY9+iTGlrZ932OFA35iJiBs8MWaKyMLTKMeY/zuPVy9S5bfw
- 38oHP8UBOoHVG+/Pfd8/YQ2exUHvapg5bQGcg3jCiVZ9BTSRGt2m6q1AjSzBrFbqzcUY
- 2rQ2F2NGZYjBLHcCe6Ykfuq0bfSTzHaOzTNQc+5Xo2PjHhOc+2SusanTTOYxFf4TFgmD
- lzEg==
-X-Gm-Message-State: AOAM533RDexa2ZIIOCrKNkbeBkzsPTL0qTUWlBwFc9EZXnWoIBkTj4Fc
- /IPInwO74mjtFJMl4kO6Y8hR3w==
-X-Google-Smtp-Source: ABdhPJw6xKxWuntGSjSpo2t0XQrHAfXtHFl9zB7oY4bDRoJpWdY84ipY+jn9cSINhlirpBQ32z97ug==
-X-Received: by 2002:ac8:7188:: with SMTP id w8mr18494777qto.134.1600185729108; 
- Tue, 15 Sep 2020 09:02:09 -0700 (PDT)
-Received: from [192.168.0.189] ([147.253.86.153])
- by smtp.gmail.com with ESMTPSA id g37sm17775925qtk.76.2020.09.15.09.02.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Sep 2020 09:02:08 -0700 (PDT)
-To: Jordan Crouse <jcrouse@codeaurora.org>, linux-arm-msm@vger.kernel.org
-References: <20200915155638.1706161-1-jcrouse@codeaurora.org>
-From: Jonathan Marek <jonathan@marek.ca>
-Message-ID: <821c76c7-32dd-4914-817f-7f52843e9b1b@marek.ca>
-Date: Tue, 15 Sep 2020 12:01:03 -0400
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EA636E0E8;
+ Tue, 15 Sep 2020 16:15:00 +0000 (UTC)
+IronPort-SDR: 6ic9aYcZt9Nt136rVelO88SqUeOa9xkmbh0KagnNqg2vED77fde60vV4yOa3BMBsuVlwHNvSGK
+ KbDuRV+PeIbg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9745"; a="156718783"
+X-IronPort-AV: E=Sophos;i="5.76,430,1592895600"; d="scan'208";a="156718783"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2020 09:14:55 -0700
+IronPort-SDR: 1NweJQ/LUpVMZGR2CNL7idgXNRkgQYlVvGnbjzV+v3epVrjgQ3OHB8LQ+g+ZsKRvdD4MQ7Rl1b
+ B/J1ZOWPLOog==
+X-IronPort-AV: E=Sophos;i="5.76,430,1592895600"; d="scan'208";a="451484915"
+Received: from oshaham-mobl.ger.corp.intel.com (HELO [10.214.241.3])
+ ([10.214.241.3])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2020 09:14:31 -0700
+To: Thomas Zimmermann <tzimmermann@suse.de>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
+ linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, l.stach@pengutronix.de, christian.gmeiner@gmail.com,
+ inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, kgene@kernel.org, krzk@kernel.org,
+ patrik.r.jakobsson@gmail.com, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ chunkuang.hu@kernel.org, p.zabel@pengutronix.de, matthias.bgg@gmail.com,
+ robdclark@gmail.com, sean@poorly.run, bskeggs@redhat.com,
+ tomi.valkeinen@ti.com, eric@anholt.net, hjc@rock-chips.com, heiko@sntech.de,
+ thierry.reding@gmail.com, jonathanh@nvidia.com,
+ rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
+ oleksandr_andrushchenko@epam.com, hyun.kwon@xilinx.com,
+ laurent.pinchart@ideasonboard.com, michal.simek@xilinx.com,
+ sumit.semwal@linaro.org, evan.quan@amd.com, Hawking.Zhang@amd.com,
+ tianci.yin@amd.com, marek.olsak@amd.com, hdegoede@redhat.com,
+ andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com, xinhui.pan@amd.com,
+ aaron.liu@amd.com, nirmoy.das@amd.com, chris@chris-wilson.co.uk,
+ matthew.auld@intel.com, andi.shyti@intel.com, sam@ravnborg.org,
+ miaoqinglang@huawei.com, emil.velikov@collabora.com
+References: <20200915145958.19993-1-tzimmermann@suse.de>
+ <20200915145958.19993-7-tzimmermann@suse.de>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+Message-ID: <76e5eb2f-e324-8f56-866a-15b022abba8d@linux.intel.com>
+Date: Tue, 15 Sep 2020 17:14:27 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200915155638.1706161-1-jcrouse@codeaurora.org>
+In-Reply-To: <20200915145958.19993-7-tzimmermann@suse.de>
 Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH] drm/msm: Fix the a650 hw_apriv check
+X-Mailman-Approved-At: Tue, 15 Sep 2020 16:49:18 +0000
+Subject: Re: [Freedreno] [PATCH v2 06/21] drm/i915: Introduce GEM object
+ functions
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,65 +75,144 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Sean Paul <sean@poorly.run>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Eric Anholt <eric@anholt.net>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ xen-devel@lists.xenproject.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 9/15/20 11:56 AM, Jordan Crouse wrote:
-> Commit 604234f33658 ("drm/msm: Enable expanded apriv support for a650")
-> was checking the result of adreno_is_a650() before the gpu revision
-> got probed in adreno_gpu_init() so it was always coming across as
-> false. Snoop into the revision ID ahead of time to correctly set the
-> hw_apriv flag so that it can be used by msm_gpu to properly setup
-> global buffers.
+
+On 15/09/2020 15:59, Thomas Zimmermann wrote:
+> GEM object functions deprecate several similar callback interfaces in
+> struct drm_driver. This patch replaces the per-driver callbacks with
+> per-instance callbacks in i915.
 > 
-> Fixes: 604234f33658 ("drm/msm: Enable expanded apriv support for a650")
-> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
-
-Tested-by: Jonathan Marek <jonathan@marek.ca>
-
+> v2:
+> 	* move object-function instance to i915_gem_object.c (Jani)
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
+>   drivers/gpu/drm/i915/gem/i915_gem_object.c    | 21 ++++++++++++++++---
+>   drivers/gpu/drm/i915/gem/i915_gem_object.h    |  3 ---
+>   drivers/gpu/drm/i915/i915_drv.c               |  4 ----
+>   .../gpu/drm/i915/selftests/mock_gem_device.c  |  3 ---
+>   4 files changed, 18 insertions(+), 13 deletions(-)
 > 
->   drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 11 ++++++++++-
->   1 file changed, 10 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index 74bc27eb4203..f3b6d93c207c 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -1048,6 +1048,8 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
->   {
->   	struct msm_drm_private *priv = dev->dev_private;
->   	struct platform_device *pdev = priv->gpu_pdev;
-> +	struct adreno_platform_config *config = pdev->dev.platform_data;
-> +	const struct adreno_info *info;
->   	struct device_node *node;
->   	struct a6xx_gpu *a6xx_gpu;
->   	struct adreno_gpu *adreno_gpu;
-> @@ -1064,7 +1066,14 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
->   	adreno_gpu->registers = NULL;
->   	adreno_gpu->reg_offsets = a6xx_register_offsets;
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+> index c8421fd9d2dc..3389ac972d16 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+> @@ -39,9 +39,18 @@ static struct i915_global_object {
+>   	struct kmem_cache *slab_objects;
+>   } global;
 >   
-> -	if (adreno_is_a650(adreno_gpu))
-> +	/*
-> +	 * We need to know the platform type before calling into adreno_gpu_init
-> +	 * so that the hw_apriv flag can be correctly set. Snoop into the info
-> +	 * and grab the revision number
-> +	 */
-> +	info = adreno_info(config->rev);
+> +static const struct drm_gem_object_funcs i915_gem_object_funcs;
 > +
-> +	if (info && info->revn == 650)
->   		adreno_gpu->base.hw_apriv = true;
+>   struct drm_i915_gem_object *i915_gem_object_alloc(void)
+>   {
+> -	return kmem_cache_zalloc(global.slab_objects, GFP_KERNEL);
+> +	struct drm_i915_gem_object *obj;
+> +
+> +	obj = kmem_cache_zalloc(global.slab_objects, GFP_KERNEL);
+> +	if (!obj)
+> +		return NULL;
+> +	obj->base.funcs = &i915_gem_object_funcs;
+> +
+> +	return obj;
+>   }
 >   
->   	ret = adreno_gpu_init(dev, pdev, adreno_gpu, &funcs, 1);
+>   void i915_gem_object_free(struct drm_i915_gem_object *obj)
+> @@ -101,7 +110,7 @@ void i915_gem_object_set_cache_coherency(struct drm_i915_gem_object *obj,
+>   		!(obj->cache_coherent & I915_BO_CACHE_COHERENT_FOR_WRITE);
+>   }
+>   
+> -void i915_gem_close_object(struct drm_gem_object *gem, struct drm_file *file)
+> +static void i915_gem_close_object(struct drm_gem_object *gem, struct drm_file *file)
+>   {
+>   	struct drm_i915_gem_object *obj = to_intel_bo(gem);
+>   	struct drm_i915_file_private *fpriv = file->driver_priv;
+> @@ -264,7 +273,7 @@ static void __i915_gem_free_work(struct work_struct *work)
+>   	i915_gem_flush_free_objects(i915);
+>   }
+>   
+> -void i915_gem_free_object(struct drm_gem_object *gem_obj)
+> +static void i915_gem_free_object(struct drm_gem_object *gem_obj)
+>   {
+>   	struct drm_i915_gem_object *obj = to_intel_bo(gem_obj);
+>   	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+> @@ -403,6 +412,12 @@ int __init i915_global_objects_init(void)
+>   	return 0;
+>   }
+>   
+> +static const struct drm_gem_object_funcs i915_gem_object_funcs = {
+> +	.free = i915_gem_free_object,
+> +	.close = i915_gem_close_object,
+> +	.export = i915_gem_prime_export,
+> +};
+> +
+>   #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+>   #include "selftests/huge_gem_object.c"
+>   #include "selftests/huge_pages.c"
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+> index d46db8d8f38e..eaf3d4147be0 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+> @@ -38,9 +38,6 @@ void __i915_gem_object_release_shmem(struct drm_i915_gem_object *obj,
+>   
+>   int i915_gem_object_attach_phys(struct drm_i915_gem_object *obj, int align);
+>   
+> -void i915_gem_close_object(struct drm_gem_object *gem, struct drm_file *file);
+> -void i915_gem_free_object(struct drm_gem_object *obj);
+> -
+>   void i915_gem_flush_free_objects(struct drm_i915_private *i915);
+>   
+>   struct sg_table *
+> diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
+> index 94e00e450683..011a3fb41ece 100644
+> --- a/drivers/gpu/drm/i915/i915_drv.c
+> +++ b/drivers/gpu/drm/i915/i915_drv.c
+> @@ -1750,12 +1750,8 @@ static struct drm_driver driver = {
+>   	.lastclose = i915_driver_lastclose,
+>   	.postclose = i915_driver_postclose,
+>   
+> -	.gem_close_object = i915_gem_close_object,
+> -	.gem_free_object_unlocked = i915_gem_free_object,
+> -
+>   	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
+>   	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
+> -	.gem_prime_export = i915_gem_prime_export,
+>   	.gem_prime_import = i915_gem_prime_import,
+>   
+>   	.dumb_create = i915_gem_dumb_create,
+> diff --git a/drivers/gpu/drm/i915/selftests/mock_gem_device.c b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
+> index f127e633f7ca..9244b5d6fb01 100644
+> --- a/drivers/gpu/drm/i915/selftests/mock_gem_device.c
+> +++ b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
+> @@ -87,9 +87,6 @@ static struct drm_driver mock_driver = {
+>   	.name = "mock",
+>   	.driver_features = DRIVER_GEM,
+>   	.release = mock_device_release,
+> -
+> -	.gem_close_object = i915_gem_close_object,
+> -	.gem_free_object_unlocked = i915_gem_free_object,
+>   };
+>   
+>   static void release_dev(struct device *dev)
 > 
+
+Looks obviously fine.
+
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+
+Regards,
+
+Tvrtko
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
