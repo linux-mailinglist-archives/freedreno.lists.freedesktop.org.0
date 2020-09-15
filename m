@@ -2,38 +2,112 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41A1026A9FD
-	for <lists+freedreno@lfdr.de>; Tue, 15 Sep 2020 18:39:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A052F26AD0C
+	for <lists+freedreno@lfdr.de>; Tue, 15 Sep 2020 21:08:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D977E6E11B;
-	Tue, 15 Sep 2020 16:39:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3138C6E161;
+	Tue, 15 Sep 2020 19:08:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9406A6E891;
- Tue, 15 Sep 2020 16:39:44 +0000 (UTC)
-Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D5C65206BE;
- Tue, 15 Sep 2020 16:39:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600187984;
- bh=hOJ/X6IlY6zvowC02+em2HyjQAPJfpL+zBzL89NhQXI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=z/aEqQ3CK8xus7tv48u5o6vZ0BpoPlUe+0Pyuniv3KGdvf2YuEEb0OPkClZ/qu4Sa
- /mctumMZPvEU4JWYowXd5ZXWteD2SrTOub8hq3LNxmtPsGmzr7lkkRKMBmrdYIue5u
- IjgU60FekTpiI7oJo+Jv7DxZcQlbS+v4//IkkSug=
-Date: Tue, 15 Sep 2020 18:40:20 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Naresh Kamboju <naresh.kamboju@linaro.org>
-Message-ID: <20200915164020.GA43543@kroah.com>
-References: <20200915140644.037604909@linuxfoundation.org>
- <CA+G9fYv5hvOYNdfX6F40aZPP9Vr6aEsP_-22gX2P+Q95TrfF-A@mail.gmail.com>
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2047.outbound.protection.outlook.com [40.107.93.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F1776E8D7;
+ Tue, 15 Sep 2020 18:39:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RArpkZ/l/P0gBhyiVnFzlnK1+ltpu4x88FRuCdWtNwWkp98mExU2EARfU6VG5otrPM9YMztHQ/zNIMyLWyYeDSehv+5ddUu5QkXHHrPXqkcHNzmYi/ERU4FdoINvsO0vS4BwlbEdx7+wtX0wfgwsnyORrfNfHGuXiyS1GCBCOdPHP7YfyO9HbWENIeHr4NEhKRcC1qdLa1GgV9F9xiTcV35GTG9B98p17FI7Dcmdoy5O8kN2yk4QEPzW+msX7k0AmzfXVF4ub8AMUSXd/UHcD3pRDMGcul4U5uWl9czAi4Uclw9huD+9RW5oEjZtfYzlCedo3XonK4F5T9S6WNrTwA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4nIO+lhNFgioRkRyGhdB1I3Uj8gi/oxj23FCH5WSe8E=;
+ b=R8H8SkAXciLhrprBnQK3SHbWsJcLCXqoT+g20E1/ybgGhxqZtPiDOGOmY/LrTSxcpGB73tZW5v1PNPMcgwEzSZMJdunPyGyb+IohPUaPR8BO2oj2GZkHVfq647GrY3z9KniynTif8AVTOztHi1kEtPjQOLSScdWMVRNUP4xQLbCzGB+Kfj9GTwzzxOTbf1K+UAkqii38ibdb+kBBQr49WLJLJh8RjphzYqjDNYKUdZZhOGHIvovYgMzNgpj8qUJI3LwCXulrTIIc9F1n4FS+99hApKJrfmt6b9+AGfaSps5cJLpvUeMu5jyKWPcKjQLuB7YD69qLPjzISQqhD+zOhA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 149.199.60.83) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=xilinx.com;
+ dmarc=bestguesspass action=none header.from=xilinx.com; dkim=none (message
+ not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=xilinx.onmicrosoft.com; s=selector2-xilinx-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4nIO+lhNFgioRkRyGhdB1I3Uj8gi/oxj23FCH5WSe8E=;
+ b=Ft9IxLhrSyAZPH7YXskNwwHcjwsioZd1gYOVg7DJ49DbK3VXAIGTwQZq6Glqpt3+ujNcSgKehvmyZBDWmlOiekjX6vYBG7i/63A/aBX5gGzuEwyXfvt9wM1DbWvK0PScJ0JlBQD0msFJtI3bvUvSgDPCXYHOa2r5LaLrKnngICs=
+Received: from DM5PR06CA0035.namprd06.prod.outlook.com (2603:10b6:3:5d::21) by
+ MN2PR02MB6862.namprd02.prod.outlook.com (2603:10b6:208:1d4::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16; Tue, 15 Sep
+ 2020 18:39:12 +0000
+Received: from CY1NAM02FT041.eop-nam02.prod.protection.outlook.com
+ (2603:10b6:3:5d:cafe::2b) by DM5PR06CA0035.outlook.office365.com
+ (2603:10b6:3:5d::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16 via Frontend
+ Transport; Tue, 15 Sep 2020 18:39:12 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 149.199.60.83)
+ smtp.mailfrom=xilinx.com; vger.kernel.org; dkim=none (message not signed)
+ header.d=none;vger.kernel.org; dmarc=bestguesspass action=none
+ header.from=xilinx.com;
+Received-SPF: Pass (protection.outlook.com: domain of xilinx.com designates
+ 149.199.60.83 as permitted sender) receiver=protection.outlook.com;
+ client-ip=149.199.60.83; helo=xsj-pvapsmtpgw01;
+Received: from xsj-pvapsmtpgw01 (149.199.60.83) by
+ CY1NAM02FT041.mail.protection.outlook.com (10.152.74.156) with Microsoft SMTP
+ Server id 15.20.3370.16 via Frontend Transport; Tue, 15 Sep 2020 18:39:12
+ +0000
+Received: from [149.199.38.66] (port=33482 helo=smtp.xilinx.com)
+ by xsj-pvapsmtpgw01 with esmtp (Exim 4.90)
+ (envelope-from <hyun.kwon@xilinx.com>)
+ id 1kIFr8-00079j-0A; Tue, 15 Sep 2020 11:39:06 -0700
+Received: from [127.0.0.1] (helo=xsj-smtp-dlp2.xlnx.xilinx.com)
+ by smtp.xilinx.com with esmtp (Exim 4.63)
+ (envelope-from <hyun.kwon@xilinx.com>)
+ id 1kIFrD-0001kg-Qb; Tue, 15 Sep 2020 11:39:11 -0700
+Received: from xsj-pvapsmtp01 (smtp3.xilinx.com [149.199.38.66])
+ by xsj-smtp-dlp2.xlnx.xilinx.com (8.13.8/8.13.1) with ESMTP id 08FId9Zt008885; 
+ Tue, 15 Sep 2020 11:39:09 -0700
+Received: from [172.19.75.82] (helo=xsjsycl40.xilinx.com)
+ by xsj-pvapsmtp01 with esmtp (Exim 4.63)
+ (envelope-from <hyun.kwon@xilinx.com>)
+ id 1kIFrB-0001kJ-AL; Tue, 15 Sep 2020 11:39:09 -0700
+Received: by xsjsycl40.xilinx.com (Postfix, from userid 13638)
+ id 491F2352CB5; Tue, 15 Sep 2020 11:39:09 -0700 (PDT)
+Date: Tue, 15 Sep 2020 11:39:09 -0700
+From: Hyun Kwon <hyun.kwon@xilinx.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Message-ID: <20200915183909.GA2471550@xilinx.com>
+References: <20200915145958.19993-1-tzimmermann@suse.de>
+ <20200915145958.19993-21-tzimmermann@suse.de>
+ <20200915155346.GA26029@pendragon.ideasonboard.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CA+G9fYv5hvOYNdfX6F40aZPP9Vr6aEsP_-22gX2P+Q95TrfF-A@mail.gmail.com>
-Subject: Re: [Freedreno] [PATCH 5.4 000/132] 5.4.66-rc1 review
+In-Reply-To: <20200915155346.GA26029@pendragon.ideasonboard.com>
+X-RCIS-Action: ALLOW
+X-TM-AS-Product-Ver: IMSS-7.1.0.1224-8.2.0.1013-23620.005
+X-TM-AS-User-Approved-Sender: Yes;Yes
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4c65fab7-7d10-4b9a-748b-08d859a6a3fb
+X-MS-TrafficTypeDiagnostic: MN2PR02MB6862:
+X-Microsoft-Antispam-PRVS: <MN2PR02MB686297B0A5D949DD63A5E1D5D6200@MN2PR02MB6862.namprd02.prod.outlook.com>
+X-Auto-Response-Suppress: DR, RN, NRN, OOF, AutoReply
+X-MS-Oob-TLC-OOBClassifiers: OLM:157;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: azHD76tuOPuB48RIPJTmGE1GeguOaYooVgA1zfaOFcdq8MvHicW8zvBOOLEI7v5gvGiv/ru7NR+rNkmZPFHOALmKpoRinkan47/aYxnYbvK6VEwY/OAaIqXB9x/lZV06yan8U1lpw5LLFrWxbrNF7RDDiUXWcoZhlDIIqmoXRIxH2kk1gVeGVQxpil9Yqv5px4Xylh/WWh8og85pL+UeJMu8leYXUObrWsn3WgnSoYFYSTSbQFHNMLLNJCFl9A6QJq0jelg6HSpNYrgTXAMJxhf4AeNxHfvpX7fbhsxqChK+Uqg44tLfuYfzGP5FHI2EgX8VmfPRVNe+b1OAxcxv7BJf9nYTCE4oeoVql+sStizjqxSu/OZCr/zt8ApQWS/2m80VUw8QelAhhDh5SWCSKRUKgL4LYo9OHWt/g9Z7hOwMuPzuwZG8AKr0ULbHWlZB
+X-Forefront-Antispam-Report: CIP:149.199.60.83; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:xsj-pvapsmtpgw01; PTR:unknown-60-83.xilinx.com; CAT:NONE;
+ SFS:(346002)(136003)(39860400002)(376002)(396003)(46966005)(478600001)(36756003)(1076003)(6916009)(336012)(4326008)(186003)(26005)(6266002)(426003)(356005)(8936002)(83380400001)(2906002)(82740400003)(8676002)(82310400003)(7406005)(7366002)(7416002)(81166007)(70206006)(47076004)(966005)(70586007)(44832011)(42186006)(33656002)(316002)(2616005)(54906003)(5660300002);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: xilinx.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2020 18:39:12.2114 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c65fab7-7d10-4b9a-748b-08d859a6a3fb
+X-MS-Exchange-CrossTenant-Id: 657af505-d5df-48d0-8300-c31994686c5c
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c; Ip=[149.199.60.83];
+ Helo=[xsj-pvapsmtpgw01]
+X-MS-Exchange-CrossTenant-AuthSource: CY1NAM02FT041.eop-nam02.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR02MB6862
+X-Mailman-Approved-At: Tue, 15 Sep 2020 19:08:46 +0000
+Subject: Re: [Freedreno] [PATCH v2 20/21] drm/xlnx: Initialize DRM driver
+ instance with CMA helper macro
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,146 +120,130 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, freedreno <freedreno@lists.freedesktop.org>,
- Ben Hutchings <ben.hutchings@codethink.co.uk>, pavel@denx.de,
- dri-devel@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
- linux- stable <stable@vger.kernel.org>, patches@kernelci.org,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Rob Clark <robdclark@gmail.com>, lkft-triage@lists.linaro.org,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Shuah Khan <shuah@kernel.org>,
- Guenter Roeck <linux@roeck-us.net>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "hamohammed.sa@gmail.com" <hamohammed.sa@gmail.com>,
+ "airlied@linux.ie" <airlied@linux.ie>,
+ "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "chris@chris-wilson.co.uk" <chris@chris-wilson.co.uk>,
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "sam@ravnborg.org" <sam@ravnborg.org>,
+ "emil.velikov@collabora.com" <emil.velikov@collabora.com>,
+ "linux-samsung-soc@vger.kernel.org" <linux-samsung-soc@vger.kernel.org>,
+ "jy0922.shim@samsung.com" <jy0922.shim@samsung.com>,
+ "oleksandr_andrushchenko@epam.com" <oleksandr_andrushchenko@epam.com>,
+ "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
+ "krzk@kernel.org" <krzk@kernel.org>,
+ "jonathanh@nvidia.com" <jonathanh@nvidia.com>,
+ "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>,
+ "tomi.valkeinen@ti.com" <tomi.valkeinen@ti.com>,
+ Michal Simek <michals@xilinx.com>, "bskeggs@redhat.com" <bskeggs@redhat.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "marek.olsak@amd.com" <marek.olsak@amd.com>,
+ "matthew.auld@intel.com" <matthew.auld@intel.com>,
+ "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>,
+ "andi.shyti@intel.com" <andi.shyti@intel.com>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "tianci.yin@amd.com" <tianci.yin@amd.com>,
+ "nirmoy.das@amd.com" <nirmoy.das@amd.com>,
+ "etnaviv@lists.freedesktop.org" <etnaviv@lists.freedesktop.org>,
+ "hdegoede@redhat.com" <hdegoede@redhat.com>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ "evan.quan@amd.com" <evan.quan@amd.com>, "sean@poorly.run" <sean@poorly.run>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "tvrtko.ursulin@linux.intel.com" <tvrtko.ursulin@linux.intel.com>,
+ "rodrigosiqueiramelo@gmail.com" <rodrigosiqueiramelo@gmail.com>,
+ "aaron.liu@amd.com" <aaron.liu@amd.com>,
+ "Felix.Kuehling@amd.com" <Felix.Kuehling@amd.com>,
+ "xinhui.pan@amd.com" <xinhui.pan@amd.com>,
+ "sw0312.kim@samsung.com" <sw0312.kim@samsung.com>,
+ "hjc@rock-chips.com" <hjc@rock-chips.com>,
+ "kyungmin.park@samsung.com" <kyungmin.park@samsung.com>,
+ "miaoqinglang@huawei.com" <miaoqinglang@huawei.com>,
+ "kgene@kernel.org" <kgene@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>,
+ "Hawking.Zhang@amd.com" <Hawking.Zhang@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-T24gVHVlLCBTZXAgMTUsIDIwMjAgYXQgMDg6MTQ6MzRQTSArMDUzMCwgTmFyZXNoIEthbWJvanUg
-d3JvdGU6Cj4gT24gVHVlLCAxNSBTZXAgMjAyMCBhdCAxOTo1MCwgR3JlZyBLcm9haC1IYXJ0bWFu
-Cj4gPGdyZWdraEBsaW51eGZvdW5kYXRpb24ub3JnPiB3cm90ZToKPiA+Cj4gPiBUaGlzIGlzIHRo
-ZSBzdGFydCBvZiB0aGUgc3RhYmxlIHJldmlldyBjeWNsZSBmb3IgdGhlIDUuNC42NiByZWxlYXNl
-Lgo+ID4gVGhlcmUgYXJlIDEzMiBwYXRjaGVzIGluIHRoaXMgc2VyaWVzLCBhbGwgd2lsbCBiZSBw
-b3N0ZWQgYXMgYSByZXNwb25zZQo+ID4gdG8gdGhpcyBvbmUuICBJZiBhbnlvbmUgaGFzIGFueSBp
-c3N1ZXMgd2l0aCB0aGVzZSBiZWluZyBhcHBsaWVkLCBwbGVhc2UKPiA+IGxldCBtZSBrbm93Lgo+
-ID4KPiA+IFJlc3BvbnNlcyBzaG91bGQgYmUgbWFkZSBieSBUaHUsIDE3IFNlcCAyMDIwIDE0OjA2
-OjEyICswMDAwLgo+ID4gQW55dGhpbmcgcmVjZWl2ZWQgYWZ0ZXIgdGhhdCB0aW1lIG1pZ2h0IGJl
-IHRvbyBsYXRlLgo+ID4KPiA+IFRoZSB3aG9sZSBwYXRjaCBzZXJpZXMgY2FuIGJlIGZvdW5kIGlu
-IG9uZSBwYXRjaCBhdDoKPiA+ICAgICAgICAgaHR0cHM6Ly93d3cua2VybmVsLm9yZy9wdWIvbGlu
-dXgva2VybmVsL3Y1Lngvc3RhYmxlLXJldmlldy9wYXRjaC01LjQuNjYtcmMxLmd6Cj4gPiBvciBp
-biB0aGUgZ2l0IHRyZWUgYW5kIGJyYW5jaCBhdDoKPiA+ICAgICAgICAgZ2l0Oi8vZ2l0Lmtlcm5l
-bC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwvZ2l0L3N0YWJsZS9saW51eC1zdGFibGUtcmMuZ2l0
-IGxpbnV4LTUuNC55Cj4gPiBhbmQgdGhlIGRpZmZzdGF0IGNhbiBiZSBmb3VuZCBiZWxvdy4KPiA+
-Cj4gPiB0aGFua3MsCj4gPgo+ID4gZ3JlZyBrLWgKPiA+Cj4gCj4gYXJtIGFuZCBhcm02NCBidWls
-ZCBicmVha3Mgb24gc3RhYmxlIHJjIDUuNC4KPiAKPiBtYWtlIC1zayBLQlVJTERfQlVJTERfVVNF
-Uj1UdXhCdWlsZCAtQy9saW51eCAtajE2IEFSQ0g9YXJtCj4gQ1JPU1NfQ09NUElMRT1hcm0tbGlu
-dXgtZ251ZWFiaWhmLSBIT1NUQ0M9Z2NjIENDPSJzY2NhY2hlCj4gYXJtLWxpbnV4LWdudWVhYmlo
-Zi1nY2MiIE89YnVpbGQgekltYWdlCj4gIwo+IC4uL2tlcm5lbC9rcHJvYmVzLmM6IEluIGZ1bmN0
-aW9uIOKAmGtpbGxfa3Byb2Jl4oCZOgo+IC4uL2tlcm5lbC9rcHJvYmVzLmM6MTA4MTozMzogd2Fy
-bmluZzogc3RhdGVtZW50IHdpdGggbm8gZWZmZWN0IFstV3VudXNlZC12YWx1ZV0KPiAgMTA4MSB8
-ICNkZWZpbmUgZGlzYXJtX2twcm9iZV9mdHJhY2UocCkgKC1FTk9ERVYpCj4gICAgICAgfCAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIF4KPiAuLi9rZXJuZWwva3Byb2Jlcy5jOjIxMTM6
-Mzogbm90ZTogaW4gZXhwYW5zaW9uIG9mIG1hY3JvIOKAmGRpc2FybV9rcHJvYmVfZnRyYWNl4oCZ
-Cj4gIDIxMTMgfCAgIGRpc2FybV9rcHJvYmVfZnRyYWNlKHApOwo+ICAgICAgIHwgICBefn5+fn5+
-fn5+fn5+fn5+fn5+fgo+ICMKPiAjIG1ha2UgLXNrIEtCVUlMRF9CVUlMRF9VU0VSPVR1eEJ1aWxk
-IC1DL2xpbnV4IC1qMTYgQVJDSD1hcm0KPiBDUk9TU19DT01QSUxFPWFybS1saW51eC1nbnVlYWJp
-aGYtIEhPU1RDQz1nY2MgQ0M9InNjY2FjaGUKPiBhcm0tbGludXgtZ251ZWFiaWhmLWdjYyIgTz1i
-dWlsZCBtb2R1bGVzCj4gIwo+IC4uL2RyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2E1eHhfcHJl
-ZW1wdC5jOiBJbiBmdW5jdGlvbiDigJhwcmVlbXB0X2luaXRfcmluZ+KAmToKPiAuLi9kcml2ZXJz
-L2dwdS9kcm0vbXNtL2FkcmVuby9hNXh4X3ByZWVtcHQuYzoyMzU6MjE6IGVycm9yOgo+IOKAmE1T
-TV9CT19NQVBfUFJJVuKAmSB1bmRlY2xhcmVkIChmaXJzdCB1c2UgaW4gdGhpcyBmdW5jdGlvbikK
-PiAgIDIzNSB8ICAgTVNNX0JPX1VOQ0FDSEVEIHwgTVNNX0JPX01BUF9QUklWLCBncHUtPmFzcGFj
-ZSwgJmJvLCAmaW92YSk7Cj4gICAgICAgfCAgICAgICAgICAgICAgICAgICAgIF5+fn5+fn5+fn5+
-fn5+fgo+IC4uL2RyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2E1eHhfcHJlZW1wdC5jOjIzNToy
-MTogbm90ZTogZWFjaAo+IHVuZGVjbGFyZWQgaWRlbnRpZmllciBpcyByZXBvcnRlZCBvbmx5IG9u
-Y2UgZm9yIGVhY2ggZnVuY3Rpb24gaXQKPiBhcHBlYXJzIGluCj4gbWFrZVs1XTogKioqIFsuLi9z
-Y3JpcHRzL01ha2VmaWxlLmJ1aWxkOjI2NjoKPiBkcml2ZXJzL2dwdS9kcm0vbXNtL2FkcmVuby9h
-NXh4X3ByZWVtcHQub10gRXJyb3IgMQo+IC4uL2RyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2E2
-eHhfZ3B1LmM6IEluIGZ1bmN0aW9uIOKAmGE2eHhfaHdfaW5pdOKAmToKPiAuLi9kcml2ZXJzL2dw
-dS9kcm0vbXNtL2FkcmVuby9hNnh4X2dwdS5jOjQxNDo2OiBlcnJvcjogaW1wbGljaXQKPiBkZWNs
-YXJhdGlvbiBvZiBmdW5jdGlvbiDigJhhZHJlbm9faXNfYTY0MOKAmTsgZGlkIHlvdSBtZWFuCj4g
-4oCYYWRyZW5vX2lzX2E1NDDigJk/IFstV2Vycm9yPWltcGxpY2l0LWZ1bmN0aW9uLWRlY2xhcmF0
-aW9uXQo+ICAgNDE0IHwgIGlmIChhZHJlbm9faXNfYTY0MChhZHJlbm9fZ3B1KSB8fCBhZHJlbm9f
-aXNfYTY1MChhZHJlbm9fZ3B1KSkgewo+ICAgICAgIHwgICAgICBefn5+fn5+fn5+fn5+fgo+ICAg
-ICAgIHwgICAgICBhZHJlbm9faXNfYTU0MAo+IC4uL2RyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5v
-L2E2eHhfZ3B1LmM6NDE0OjM2OiBlcnJvcjogaW1wbGljaXQKPiBkZWNsYXJhdGlvbiBvZiBmdW5j
-dGlvbiDigJhhZHJlbm9faXNfYTY1MOKAmTsgZGlkIHlvdSBtZWFuCj4g4oCYYWRyZW5vX2lzX2E1
-NDDigJk/IFstV2Vycm9yPWltcGxpY2l0LWZ1bmN0aW9uLWRlY2xhcmF0aW9uXQo+ICAgNDE0IHwg
-IGlmIChhZHJlbm9faXNfYTY0MChhZHJlbm9fZ3B1KSB8fCBhZHJlbm9faXNfYTY1MChhZHJlbm9f
-Z3B1KSkgewo+ICAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBefn5+
-fn5+fn5+fn5+fgo+ICAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBh
-ZHJlbm9faXNfYTU0MAo+IC4uL2RyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2E2eHhfZ3B1LmM6
-NDE1OjE4OiBlcnJvcjoKPiDigJhSRUdfQTZYWF9HQklGX1FTQl9TSURFMOKAmSB1bmRlY2xhcmVk
-IChmaXJzdCB1c2UgaW4gdGhpcyBmdW5jdGlvbikKPiAgIDQxNSB8ICAgZ3B1X3dyaXRlKGdwdSwg
-UkVHX0E2WFhfR0JJRl9RU0JfU0lERTAsIDB4MDAwNzE2MjApOwo+ICAgICAgIHwgICAgICAgICAg
-ICAgICAgICBefn5+fn5+fn5+fn5+fn5+fn5+fn5+fgo+IC4uL2RyaXZlcnMvZ3B1L2RybS9tc20v
-YWRyZW5vL2E2eHhfZ3B1LmM6NDE1OjE4OiBub3RlOiBlYWNoIHVuZGVjbGFyZWQKPiBpZGVudGlm
-aWVyIGlzIHJlcG9ydGVkIG9ubHkgb25jZSBmb3IgZWFjaCBmdW5jdGlvbiBpdCBhcHBlYXJzIGlu
-Cj4gLi4vZHJpdmVycy9ncHUvZHJtL21zbS9hZHJlbm8vYTZ4eF9ncHUuYzo0MTY6MTg6IGVycm9y
-Ogo+IOKAmFJFR19BNlhYX0dCSUZfUVNCX1NJREUx4oCZIHVuZGVjbGFyZWQgKGZpcnN0IHVzZSBp
-biB0aGlzIGZ1bmN0aW9uKQo+ICAgNDE2IHwgICBncHVfd3JpdGUoZ3B1LCBSRUdfQTZYWF9HQklG
-X1FTQl9TSURFMSwgMHgwMDA3MTYyMCk7Cj4gICAgICAgfCAgICAgICAgICAgICAgICAgIF5+fn5+
-fn5+fn5+fn5+fn5+fn5+fn5+Cj4gLi4vZHJpdmVycy9ncHUvZHJtL21zbS9hZHJlbm8vYTZ4eF9n
-cHUuYzo0MTc6MTg6IGVycm9yOgo+IOKAmFJFR19BNlhYX0dCSUZfUVNCX1NJREUy4oCZIHVuZGVj
-bGFyZWQgKGZpcnN0IHVzZSBpbiB0aGlzIGZ1bmN0aW9uKQo+ICAgNDE3IHwgICBncHVfd3JpdGUo
-Z3B1LCBSRUdfQTZYWF9HQklGX1FTQl9TSURFMiwgMHgwMDA3MTYyMCk7Cj4gICAgICAgfCAgICAg
-ICAgICAgICAgICAgIF5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+Cj4gLi4vZHJpdmVycy9ncHUvZHJt
-L21zbS9hZHJlbm8vYTZ4eF9ncHUuYzo0MTg6MTg6IGVycm9yOgo+IOKAmFJFR19BNlhYX0dCSUZf
-UVNCX1NJREUz4oCZIHVuZGVjbGFyZWQgKGZpcnN0IHVzZSBpbiB0aGlzIGZ1bmN0aW9uKQo+ICAg
-NDE4IHwgICBncHVfd3JpdGUoZ3B1LCBSRUdfQTZYWF9HQklGX1FTQl9TSURFMywgMHgwMDA3MTYy
-MCk7Cj4gICAgICAgfCAgICAgICAgICAgICAgICAgIF5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+Cj4g
-Y2MxOiBzb21lIHdhcm5pbmdzIGJlaW5nIHRyZWF0ZWQgYXMgZXJyb3JzCj4gbWFrZVs1XTogKioq
-IFsuLi9zY3JpcHRzL01ha2VmaWxlLmJ1aWxkOjI2NToKPiBkcml2ZXJzL2dwdS9kcm0vbXNtL2Fk
-cmVuby9hNnh4X2dwdS5vXSBFcnJvciAxCj4gSW4gZmlsZSBpbmNsdWRlZCBmcm9tIC4uL2RyaXZl
-cnMvZ3B1L2RybS9tc20vbXNtX2dwdS5jOjc6Cj4gLi4vZHJpdmVycy9ncHUvZHJtL21zbS9tc21f
-Z3B1LmM6IEluIGZ1bmN0aW9uIOKAmG1zbV9ncHVfaW5pdOKAmToKPiAuLi9kcml2ZXJzL2dwdS9k
-cm0vbXNtL21zbV9ncHUuaDozMzA6MjI6IGVycm9yOiDigJhNU01fQk9fTUFQX1BSSVbigJkKPiB1
-bmRlY2xhcmVkIChmaXJzdCB1c2UgaW4gdGhpcyBmdW5jdGlvbikKPiAgIDMzMCB8ICAoKChncHUp
-LT5od19hcHJpdiA/IE1TTV9CT19NQVBfUFJJViA6IDApIHwgKGZsYWdzKSkKPiAgICAgICB8ICAg
-ICAgICAgICAgICAgICAgICAgIF5+fn5+fn5+fn5+fn5+fgo+IC4uL2RyaXZlcnMvZ3B1L2RybS9t
-c20vbXNtX2dwdS5jOjkzNTozOiBub3RlOiBpbiBleHBhbnNpb24gb2YgbWFjcm8KPiDigJhjaGVj
-a19hcHJpduKAmQo+ICAgOTM1IHwgICBjaGVja19hcHJpdihncHUsIE1TTV9CT19VTkNBQ0hFRCks
-IGdwdS0+YXNwYWNlLCAmZ3B1LT5tZW1wdHJzX2JvLAo+ICAgICAgIHwgICBefn5+fn5+fn5+fgo+
-IC4uL2RyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2dwdS5oOjMzMDoyMjogbm90ZTogZWFjaCB1bmRl
-Y2xhcmVkCj4gaWRlbnRpZmllciBpcyByZXBvcnRlZCBvbmx5IG9uY2UgZm9yIGVhY2ggZnVuY3Rp
-b24gaXQgYXBwZWFycyBpbgo+ICAgMzMwIHwgICgoKGdwdSktPmh3X2Fwcml2ID8gTVNNX0JPX01B
-UF9QUklWIDogMCkgfCAoZmxhZ3MpKQo+ICAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgXn5+
-fn5+fn5+fn5+fn5+Cj4gLi4vZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZ3B1LmM6OTM1OjM6IG5v
-dGU6IGluIGV4cGFuc2lvbiBvZiBtYWNybwo+IOKAmGNoZWNrX2Fwcml24oCZCj4gICA5MzUgfCAg
-IGNoZWNrX2Fwcml2KGdwdSwgTVNNX0JPX1VOQ0FDSEVEKSwgZ3B1LT5hc3BhY2UsICZncHUtPm1l
-bXB0cnNfYm8sCj4gICAgICAgfCAgIF5+fn5+fn5+fn5+Cj4gbWFrZVs1XTogKioqIFsuLi9zY3Jp
-cHRzL01ha2VmaWxlLmJ1aWxkOjI2NjoKPiBkcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9ncHUub10g
-RXJyb3IgMQo+IEluIGZpbGUgaW5jbHVkZWQgZnJvbSAuLi9kcml2ZXJzL2dwdS9kcm0vbXNtL21z
-bV9yaW5nYnVmZmVyLmM6ODoKPiAuLi9kcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9yaW5nYnVmZmVy
-LmM6IEluIGZ1bmN0aW9uIOKAmG1zbV9yaW5nYnVmZmVyX25ld+KAmToKPiAuLi9kcml2ZXJzL2dw
-dS9kcm0vbXNtL21zbV9ncHUuaDozMzA6MjI6IGVycm9yOiDigJhNU01fQk9fTUFQX1BSSVbigJkK
-PiB1bmRlY2xhcmVkIChmaXJzdCB1c2UgaW4gdGhpcyBmdW5jdGlvbikKPiAgIDMzMCB8ICAoKChn
-cHUpLT5od19hcHJpdiA/IE1TTV9CT19NQVBfUFJJViA6IDApIHwgKGZsYWdzKSkKPiAgICAgICB8
-ICAgICAgICAgICAgICAgICAgICAgIF5+fn5+fn5+fn5+fn5+fgo+IC4uL2RyaXZlcnMvZ3B1L2Ry
-bS9tc20vbXNtX3JpbmdidWZmZXIuYzozMDozOiBub3RlOiBpbiBleHBhbnNpb24gb2YKPiBtYWNy
-byDigJhjaGVja19hcHJpduKAmQo+ICAgIDMwIHwgICBjaGVja19hcHJpdihncHUsIE1TTV9CT19X
-QyB8IE1TTV9CT19HUFVfUkVBRE9OTFkpLAo+ICAgICAgIHwgICBefn5+fn5+fn5+fgo+IC4uL2Ry
-aXZlcnMvZ3B1L2RybS9tc20vbXNtX2dwdS5oOjMzMDoyMjogbm90ZTogZWFjaCB1bmRlY2xhcmVk
-Cj4gaWRlbnRpZmllciBpcyByZXBvcnRlZCBvbmx5IG9uY2UgZm9yIGVhY2ggZnVuY3Rpb24gaXQg
-YXBwZWFycyBpbgo+ICAgMzMwIHwgICgoKGdwdSktPmh3X2Fwcml2ID8gTVNNX0JPX01BUF9QUklW
-IDogMCkgfCAoZmxhZ3MpKQo+ICAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgXn5+fn5+fn5+
-fn5+fn5+Cj4gLi4vZHJpdmVycy9ncHUvZHJtL21zbS9tc21fcmluZ2J1ZmZlci5jOjMwOjM6IG5v
-dGU6IGluIGV4cGFuc2lvbiBvZgo+IG1hY3JvIOKAmGNoZWNrX2Fwcml24oCZCj4gICAgMzAgfCAg
-IGNoZWNrX2Fwcml2KGdwdSwgTVNNX0JPX1dDIHwgTVNNX0JPX0dQVV9SRUFET05MWSksCj4gICAg
-ICAgfCAgIF5+fn5+fn5+fn5+Cj4gbWFrZVs1XTogKioqIFsuLi9zY3JpcHRzL01ha2VmaWxlLmJ1
-aWxkOjI2NToKPiBkcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9yaW5nYnVmZmVyLm9dIEVycm9yIDEK
-PiBtYWtlWzVdOiBUYXJnZXQgJ19fYnVpbGQnIG5vdCByZW1hZGUgYmVjYXVzZSBvZiBlcnJvcnMu
-Cj4gbWFrZVs0XTogKioqIFsuLi9zY3JpcHRzL01ha2VmaWxlLmJ1aWxkOjUwMDogZHJpdmVycy9n
-cHUvZHJtL21zbV0gRXJyb3IgMgo+IG1ha2VbNF06IFRhcmdldCAnX19idWlsZCcgbm90IHJlbWFk
-ZSBiZWNhdXNlIG9mIGVycm9ycy4KPiBtYWtlWzNdOiAqKiogWy4uL3NjcmlwdHMvTWFrZWZpbGUu
-YnVpbGQ6NTAwOiBkcml2ZXJzL2dwdS9kcm1dIEVycm9yIDIKPiBtYWtlWzNdOiBUYXJnZXQgJ19f
-YnVpbGQnIG5vdCByZW1hZGUgYmVjYXVzZSBvZiBlcnJvcnMuCj4gbWFrZVsyXTogKioqIFsuLi9z
-Y3JpcHRzL01ha2VmaWxlLmJ1aWxkOjUwMDogZHJpdmVycy9ncHVdIEVycm9yIDIKPiBtYWtlWzJd
-OiBUYXJnZXQgJ19fYnVpbGQnIG5vdCByZW1hZGUgYmVjYXVzZSBvZiBlcnJvcnMuCj4gbWFrZVsx
-XTogKioqIFsvbGludXgvTWFrZWZpbGU6MTcyOTogZHJpdmVyc10gRXJyb3IgMgo+IG1ha2VbMV06
-IFRhcmdldCAnbW9kdWxlcycgbm90IHJlbWFkZSBiZWNhdXNlIG9mIGVycm9ycy4KPiBtYWtlOiAq
-KiogW01ha2VmaWxlOjE3OTogc3ViLW1ha2VdIEVycm9yIDIKPiBtYWtlOiBUYXJnZXQgJ21vZHVs
-ZXMnIG5vdCByZW1hZGUgYmVjYXVzZSBvZiBlcnJvcnMuCgpBaCwgd2lsbCBnbyBkcm9wIHRoYXQg
-cGF0Y2gsIHRoYW5rcyEKCmdyZWcgay1oCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJlZWRyZW5vQGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2ZyZWVkcmVubwo=
+Hi Tomas,
+
+Thanks for the patch.
+
+On Tue, Sep 15, 2020 at 08:53:46AM -0700, Laurent Pinchart wrote:
+> Hi Thomas,
+> 
+> Thank you for the patch.
+> 
+> On Tue, Sep 15, 2020 at 04:59:57PM +0200, Thomas Zimmermann wrote:
+> > The xlnx driver uses CMA helpers with default callback functions.
+> > Initialize the driver structure with the rsp CMA helper macro. The
+> > driver is being converted to use GEM object functions as part of
+> > this change.
+> > 
+> > Two callbacks, .dumb_destroy and .gem_prime_import, were initialized
+> > to their default implementations, so they are just kept empty now.
+> > 
+> > v2:
+> > 	* initialize with DRM_GEM_CMA_DRIVER_OPS_WITH_DUMB_CREATE (Laurent)
+> > 
+> > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> 
+> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> 
+
+Reviewed-by: Hyun Kwon <hyun.kwon@xilinx.com>
+
+Thanks,
+-hyun
+
+> > ---
+> >  drivers/gpu/drm/xlnx/zynqmp_dpsub.c | 14 +-------------
+> >  1 file changed, 1 insertion(+), 13 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/xlnx/zynqmp_dpsub.c b/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
+> > index 8e69303aad3f..f3ffc3703a0e 100644
+> > --- a/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
+> > +++ b/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
+> > @@ -80,19 +80,7 @@ static struct drm_driver zynqmp_dpsub_drm_driver = {
+> >  	.driver_features		= DRIVER_MODESET | DRIVER_GEM |
+> >  					  DRIVER_ATOMIC,
+> >  
+> > -	.prime_handle_to_fd		= drm_gem_prime_handle_to_fd,
+> > -	.prime_fd_to_handle		= drm_gem_prime_fd_to_handle,
+> > -	.gem_prime_export		= drm_gem_prime_export,
+> > -	.gem_prime_import		= drm_gem_prime_import,
+> > -	.gem_prime_get_sg_table		= drm_gem_cma_prime_get_sg_table,
+> > -	.gem_prime_import_sg_table	= drm_gem_cma_prime_import_sg_table,
+> > -	.gem_prime_vmap			= drm_gem_cma_prime_vmap,
+> > -	.gem_prime_vunmap		= drm_gem_cma_prime_vunmap,
+> > -	.gem_prime_mmap			= drm_gem_cma_prime_mmap,
+> > -	.gem_free_object_unlocked	= drm_gem_cma_free_object,
+> > -	.gem_vm_ops			= &drm_gem_cma_vm_ops,
+> > -	.dumb_create			= zynqmp_dpsub_dumb_create,
+> > -	.dumb_destroy			= drm_gem_dumb_destroy,
+> > +	DRM_GEM_CMA_DRIVER_OPS_WITH_DUMB_CREATE(zynqmp_dpsub_dumb_create),
+> >  
+> >  	.fops				= &zynqmp_dpsub_drm_fops,
+> >  
+> 
+> -- 
+> Regards,
+> 
+> Laurent Pinchart
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
