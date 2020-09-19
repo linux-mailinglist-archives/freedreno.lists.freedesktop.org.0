@@ -1,57 +1,35 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E860226E967
-	for <lists+freedreno@lfdr.de>; Fri, 18 Sep 2020 01:20:54 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 38557270F46
+	for <lists+freedreno@lfdr.de>; Sat, 19 Sep 2020 18:07:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C3616E424;
-	Thu, 17 Sep 2020 23:20:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC64B893E8;
+	Sat, 19 Sep 2020 16:07:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
- [104.130.122.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A38446E424
- for <freedreno@lists.freedesktop.org>; Thu, 17 Sep 2020 23:20:51 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1600384851; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=T7ysh9tpMGUKbj6iCLW+ji7IKFLZoCynE1RzCH7rHBw=;
- b=MCfyIc38yKhVTdonS1VNn+dkJ3u8B5ieRKrp55tHB3OP/QSvt+bf6UEkUgv9wMFqxYh2+YXG
- wAad4f6/USjuLQiDfApzGCjd7ytnP4HzBFacpaG8ohjYG1aeOP+6m+VSj7l8kKGzxgyzzjN5
- 44bVo2NizAQ1rq/kWfBhNfStK0c=
-X-Mailgun-Sending-Ip: 104.130.122.29
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n03.prod.us-west-2.postgun.com with SMTP id
- 5f63ef5136c8ce93e82fab7c (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 17 Sep 2020 23:20:49
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 8066BC433FF; Thu, 17 Sep 2020 23:20:49 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 82A8DC433CA;
- Thu, 17 Sep 2020 23:20:48 +0000 (UTC)
+Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 095966EDC0;
+ Sat, 19 Sep 2020 02:51:41 +0000 (UTC)
+Received: from DGGEMS403-HUB.china.huawei.com (unknown [172.30.72.58])
+ by Forcepoint Email with ESMTP id BBB30DF5AD78B628E014;
+ Sat, 19 Sep 2020 10:51:35 +0800 (CST)
+Received: from localhost.localdomain.localdomain (10.175.113.25) by
+ DGGEMS403-HUB.china.huawei.com (10.3.19.203) with Microsoft SMTP Server id
+ 14.3.487.0; Sat, 19 Sep 2020 10:51:26 +0800
+From: Qinglang Miao <miaoqinglang@huawei.com>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, David Airlie
+ <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Date: Sat, 19 Sep 2020 10:51:58 +0800
+Message-ID: <20200919025158.17264-1-miaoqinglang@huawei.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Date: Thu, 17 Sep 2020 16:20:48 -0700
-From: khsieh@codeaurora.org
-To: Stephen Boyd <swboyd@chromium.org>
-In-Reply-To: <20200917224425.2331583-1-swboyd@chromium.org>
-References: <20200917224425.2331583-1-swboyd@chromium.org>
-Message-ID: <e4dcf0230a9d2528862ce61aac0439cf@codeaurora.org>
-X-Sender: khsieh@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Sleep properly in
- dp_hpd_handler kthread
+X-Originating-IP: [10.175.113.25]
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Sat, 19 Sep 2020 16:07:06 +0000
+Subject: [Freedreno] [PATCH -next v2] drm/msm/dpu: Convert to
+ DEFINE_SHOW_ATTRIBUTE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,59 +42,196 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Douglas Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Tanmay Shah <tanmay@codeaurora.org>, freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, Qinglang
+ Miao <miaoqinglang@huawei.com>, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-09-17 15:44, Stephen Boyd wrote:
-> We shouldn't be waiting for an event here with a timeout of 100ms when
-> we're not in the 'timeout' arm of the if condition. Instead we should 
-> be
-> sleeping in the interruptible state (S) until something happens and we
-> need to wakeup. Right now this kthread is running almost all the time
-> because it sleeps for 100ms, wakes up, sees there's nothing to do, and
-> then starts the process all over again. Looking at top it shows up in
-> the D state (uninterruptible) because it uses wait_event_timeout(). FIx
-> this up.
-> 
-> Cc: Tanmay Shah <tanmay@codeaurora.org>
-> Cc: Kuogee Hsieh <khsieh@codeaurora.org>
-> Reported-by: Douglas Anderson <dianders@chromium.org>
-> Fixes: 8ede2ecc3e5e ("drm/msm/dp: Add DP compliance tests on
-> Snapdragon Chipsets")
-> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
-Reviewed-by: Kuogee Hsieh <khsieh@codeaurora.org>
-> ---
-> 
-> Based on msm-next-dp of https://gitlab.freedesktop.org/drm/msm.git
-> 
->  drivers/gpu/drm/msm/dp/dp_display.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c
-> b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 05a97e097edf..e175aa3fd3a9 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -970,9 +970,8 @@ static int hpd_event_thread(void *data)
->  				(dp_priv->event_pndx == dp_priv->event_gndx),
->  						EVENT_TIMEOUT);
->  		} else {
-> -			wait_event_timeout(dp_priv->event_q,
-> -				(dp_priv->event_pndx != dp_priv->event_gndx),
-> -						EVENT_TIMEOUT);
-> +			wait_event_interruptible(dp_priv->event_q,
-> +				(dp_priv->event_pndx != dp_priv->event_gndx));
->  		}
->  		spin_lock_irqsave(&dp_priv->event_lock, flag);
->  		todo = &dp_priv->event_list[dp_priv->event_gndx];
-> 
-> base-commit: 937f941ca06f2f3ab64baebf31be2c16d57ae7b8
+Use DEFINE_SHOW_ATTRIBUTE macro to simplify the code.
+
+Signed-off-by: Qinglang Miao <miaoqinglang@huawei.com>
+---
+v2: based on linux-next(20200917), and can be applied to
+    mainline cleanly now.
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c | 15 +---------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c     | 29 ++------------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c  | 15 ++--------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c      | 17 ++----------
+ 4 files changed, 8 insertions(+), 68 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
+index f1bc6a1af..84ea09d96 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
+@@ -288,19 +288,6 @@ static void dpu_disable_all_irqs(struct dpu_kms *dpu_kms)
+ }
+ 
+ #ifdef CONFIG_DEBUG_FS
+-#define DEFINE_DPU_DEBUGFS_SEQ_FOPS(__prefix)				\
+-static int __prefix ## _open(struct inode *inode, struct file *file)	\
+-{									\
+-	return single_open(file, __prefix ## _show, inode->i_private);	\
+-}									\
+-static const struct file_operations __prefix ## _fops = {		\
+-	.owner = THIS_MODULE,						\
+-	.open = __prefix ## _open,					\
+-	.release = single_release,					\
+-	.read = seq_read,						\
+-	.llseek = seq_lseek,						\
+-}
+-
+ static int dpu_debugfs_core_irq_show(struct seq_file *s, void *v)
+ {
+ 	struct dpu_irq *irq_obj = s->private;
+@@ -328,7 +315,7 @@ static int dpu_debugfs_core_irq_show(struct seq_file *s, void *v)
+ 	return 0;
+ }
+ 
+-DEFINE_DPU_DEBUGFS_SEQ_FOPS(dpu_debugfs_core_irq);
++DEFINE_SHOW_ATTRIBUTE(dpu_debugfs_core_irq);
+ 
+ void dpu_debugfs_core_irq_init(struct dpu_kms *dpu_kms,
+ 		struct dentry *parent)
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index 6169148b3..f56414a06 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -1177,23 +1177,7 @@ static int _dpu_debugfs_status_show(struct seq_file *s, void *data)
+ 	return 0;
+ }
+ 
+-static int _dpu_debugfs_status_open(struct inode *inode, struct file *file)
+-{
+-	return single_open(file, _dpu_debugfs_status_show, inode->i_private);
+-}
+-
+-#define DEFINE_DPU_DEBUGFS_SEQ_FOPS(__prefix)                          \
+-static int __prefix ## _open(struct inode *inode, struct file *file)	\
+-{									\
+-	return single_open(file, __prefix ## _show, inode->i_private);	\
+-}									\
+-static const struct file_operations __prefix ## _fops = {		\
+-	.owner = THIS_MODULE,						\
+-	.open = __prefix ## _open,					\
+-	.release = single_release,					\
+-	.read = seq_read,						\
+-	.llseek = seq_lseek,						\
+-}
++DEFINE_SHOW_ATTRIBUTE(_dpu_debugfs_status);
+ 
+ static int dpu_crtc_debugfs_state_show(struct seq_file *s, void *v)
+ {
+@@ -1210,25 +1194,18 @@ static int dpu_crtc_debugfs_state_show(struct seq_file *s, void *v)
+ 
+ 	return 0;
+ }
+-DEFINE_DPU_DEBUGFS_SEQ_FOPS(dpu_crtc_debugfs_state);
++DEFINE_SHOW_ATTRIBUTE(dpu_crtc_debugfs_state);
+ 
+ static int _dpu_crtc_init_debugfs(struct drm_crtc *crtc)
+ {
+ 	struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
+ 
+-	static const struct file_operations debugfs_status_fops = {
+-		.open =		_dpu_debugfs_status_open,
+-		.read =		seq_read,
+-		.llseek =	seq_lseek,
+-		.release =	single_release,
+-	};
+-
+ 	dpu_crtc->debugfs_root = debugfs_create_dir(dpu_crtc->name,
+ 			crtc->dev->primary->debugfs_root);
+ 
+ 	debugfs_create_file("status", 0400,
+ 			dpu_crtc->debugfs_root,
+-			dpu_crtc, &debugfs_status_fops);
++			dpu_crtc, &_dpu_debugfs_status_fops);
+ 	debugfs_create_file("state", 0600,
+ 			dpu_crtc->debugfs_root,
+ 			&dpu_crtc->base,
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index bd6def436..da192e275 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -1880,24 +1880,13 @@ static int _dpu_encoder_status_show(struct seq_file *s, void *data)
+ 	return 0;
+ }
+ 
+-static int _dpu_encoder_debugfs_status_open(struct inode *inode,
+-		struct file *file)
+-{
+-	return single_open(file, _dpu_encoder_status_show, inode->i_private);
+-}
++DEFINE_SHOW_ATTRIBUTE(_dpu_encoder_status);
+ 
+ static int _dpu_encoder_init_debugfs(struct drm_encoder *drm_enc)
+ {
+ 	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
+ 	int i;
+ 
+-	static const struct file_operations debugfs_status_fops = {
+-		.open =		_dpu_encoder_debugfs_status_open,
+-		.read =		seq_read,
+-		.llseek =	seq_lseek,
+-		.release =	single_release,
+-	};
+-
+ 	char name[DPU_NAME_SIZE];
+ 
+ 	if (!drm_enc->dev) {
+@@ -1913,7 +1902,7 @@ static int _dpu_encoder_init_debugfs(struct drm_encoder *drm_enc)
+ 
+ 	/* don't error check these */
+ 	debugfs_create_file("status", 0600,
+-		dpu_enc->debugfs_root, dpu_enc, &debugfs_status_fops);
++		dpu_enc->debugfs_root, dpu_enc, &_dpu_encoder_status_fops);
+ 
+ 	for (i = 0; i < dpu_enc->num_phys_encs; i++)
+ 		if (dpu_enc->phys_encs[i]->ops.late_register)
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 5abf0047c..0649d1dee 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -85,30 +85,17 @@ static int _dpu_danger_signal_status(struct seq_file *s,
+ 	return 0;
+ }
+ 
+-#define DEFINE_DPU_DEBUGFS_SEQ_FOPS(__prefix)				\
+-static int __prefix ## _open(struct inode *inode, struct file *file)	\
+-{									\
+-	return single_open(file, __prefix ## _show, inode->i_private);	\
+-}									\
+-static const struct file_operations __prefix ## _fops = {		\
+-	.owner = THIS_MODULE,						\
+-	.open = __prefix ## _open,					\
+-	.release = single_release,					\
+-	.read = seq_read,						\
+-	.llseek = seq_lseek,						\
+-}
+-
+ static int dpu_debugfs_danger_stats_show(struct seq_file *s, void *v)
+ {
+ 	return _dpu_danger_signal_status(s, true);
+ }
+-DEFINE_DPU_DEBUGFS_SEQ_FOPS(dpu_debugfs_danger_stats);
++DEFINE_SHOW_ATTRIBUTE(dpu_debugfs_danger_stats);
+ 
+ static int dpu_debugfs_safe_stats_show(struct seq_file *s, void *v)
+ {
+ 	return _dpu_danger_signal_status(s, false);
+ }
+-DEFINE_DPU_DEBUGFS_SEQ_FOPS(dpu_debugfs_safe_stats);
++DEFINE_SHOW_ATTRIBUTE(dpu_debugfs_safe_stats);
+ 
+ static void dpu_debugfs_danger_init(struct dpu_kms *dpu_kms,
+ 		struct dentry *parent)
+-- 
+2.23.0
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
