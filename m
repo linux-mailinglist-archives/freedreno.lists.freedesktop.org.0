@@ -2,39 +2,37 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 068202734EE
-	for <lists+freedreno@lfdr.de>; Mon, 21 Sep 2020 23:31:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE08527356F
+	for <lists+freedreno@lfdr.de>; Tue, 22 Sep 2020 00:03:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9472489CAC;
-	Mon, 21 Sep 2020 21:31:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D72B6E593;
+	Mon, 21 Sep 2020 22:03:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2858089CAC;
- Mon, 21 Sep 2020 21:31:06 +0000 (UTC)
-Received: from willie-the-truck (236.31.169.217.in-addr.arpa [217.169.31.236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 66E982388B;
- Mon, 21 Sep 2020 21:31:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600723865;
- bh=XfNnjrt9QUAoybG18+WUe4rxxAdluuzVFI5lzEiBxMY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=g7OaHGI7UCEkxkz8oHSGlOAlKnfBaBNbp0xu78Il4jeEba9yg4pjzT4wycXR4a2z/
- +Uu3Cm2gP9AgOLKDcEKEtDcZ3/N7KZjsVqkAvxjc6TlVrMsfdBmmUYCNEtqUDPyVEQ
- vL3MH+TSR2i8Mf+pUrLdU1SWb2Ni77RjmpAidDHQ=
-Date: Mon, 21 Sep 2020 22:30:57 +0100
-From: Will Deacon <will@kernel.org>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20200921213054.GA4270@willie-the-truck>
-References: <20200905200454.240929-1-robdclark@gmail.com>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C8C6F894D4;
+ Mon, 21 Sep 2020 22:03:51 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0A75E147A;
+ Mon, 21 Sep 2020 15:03:51 -0700 (PDT)
+Received: from [10.57.50.108] (unknown [10.57.50.108])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 300193F73B;
+ Mon, 21 Sep 2020 15:03:49 -0700 (PDT)
+To: Will Deacon <will@kernel.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+References: <cover.1599832685.git.saiprakash.ranjan@codeaurora.org>
+ <3b1beb6cf6a34a44b0ecff9ec5a2105b5ff91bd4.1599832685.git.saiprakash.ranjan@codeaurora.org>
+ <20200921180318.GG3141@willie-the-truck>
+From: Robin Murphy <robin.murphy@arm.com>
+Message-ID: <9646dd4f-f1e6-992d-b8a0-0f2c14fa9fe8@arm.com>
+Date: Mon, 21 Sep 2020 23:03:49 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101
+ Thunderbird/78.2.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200905200454.240929-1-robdclark@gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH v17 00/20] iommu/arm-smmu + drm/msm:
- per-process GPU pgtables
+In-Reply-To: <20200921180318.GG3141@willie-the-truck>
+Content-Language: en-GB
+Subject: Re: [Freedreno] [PATCHv4 1/6] iommu/io-pgtable-arm: Add support to
+ use system cache
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,47 +45,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Wambui Karuga <wambui.karugax@gmail.com>, Hanna Hawa <hannah@marvell.com>,
- Akhil P Oommen <akhilpo@codeaurora.org>, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Eric Anholt <eric@anholt.net>,
- Thierry Reding <thierry.reding@gmail.com>, Krishna Reddy <vdumpa@nvidia.com>,
- Vivek Gautam <vivek.gautam@codeaurora.org>,
- AngeloGioacchino Del Regno <kholk11@gmail.com>,
- Emil Velikov <emil.velikov@collabora.com>, Rob Clark <robdclark@chromium.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, Joerg Roedel <joro@8bytes.org>,
- Ben Dooks <ben.dooks@codethink.co.uk>, Sibi Sankar <sibis@codeaurora.org>,
- Thierry Reding <treding@nvidia.com>, Brian Masney <masneyb@onstation.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Joerg Roedel <jroedel@suse.de>,
- linux-arm-msm@vger.kernel.org, Sharat Masetty <smasetty@codeaurora.org>,
- Stephen Boyd <swboyd@chromium.org>, Jordan Crouse <jcrouse@codeaurora.org>,
- freedreno@lists.freedesktop.org,
- "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Douglas Anderson <dianders@chromium.org>,
- open list <linux-kernel@vger.kernel.org>, iommu@lists.linux-foundation.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Shawn Guo <shawn.guo@linaro.org>,
- Robin Murphy <robin.murphy@arm.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Akhil P Oommen <akhilpo@codeaurora.org>,
+ iommu@lists.linux-foundation.org,
+ "Kristian H . Kristensen" <hoegsberg@google.com>,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, Sep 05, 2020 at 01:04:06PM -0700, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
+On 2020-09-21 19:03, Will Deacon wrote:
+> On Fri, Sep 11, 2020 at 07:57:18PM +0530, Sai Prakash Ranjan wrote:
+>> Add a quirk IO_PGTABLE_QUIRK_SYS_CACHE to override the
+>> attributes set in TCR for the page table walker when
+>> using system cache.
 > 
-> NOTE: I have re-ordered the series, and propose that we could merge this
->       series in the following order:
+> I wonder if the panfrost folks can reuse this for the issue discussed
+> over at:
 > 
->        1) 01-11 - merge via drm / msm-next
->        2) 12-15 - merge via iommu, no dependency on msm-next pull req
+> https://lore.kernel.org/r/cover.1600213517.git.robin.murphy@arm.com
 
-Thanks, I've queued 12-15 in the smmu tree.
+Isn't this all hinged around the outer cacheability attribute, rather 
+than shareability (since these are nominally NC mappings and thus 
+already properly Osh)? The Panfrost issue is just about shareability 
+domains being a bit wonky; the cacheability attributes there are 
+actually reasonably normal (other than not having a non-cacheable type 
+at all, only a choice of allocation policies...)
 
-https://git.kernel.org/pub/scm/linux/kernel/git/will/linux.git/log/?h=for-joerg/arm-smmu/updates
+Robin.
 
-Will
+> However, Sai, your email setup went wrong when you posted this so you
+> probably need to repost now that you have that fixed.
+> 
+> Will
+> _______________________________________________
+> iommu mailing list
+> iommu@lists.linux-foundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/iommu
+> 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
