@@ -1,55 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 903122726F9
-	for <lists+freedreno@lfdr.de>; Mon, 21 Sep 2020 16:28:25 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id EF458272A31
+	for <lists+freedreno@lfdr.de>; Mon, 21 Sep 2020 17:32:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C88E6E373;
-	Mon, 21 Sep 2020 14:28:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FA076E503;
+	Mon, 21 Sep 2020 15:32:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com
- [IPv6:2a00:1450:4864:20::543])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D85B76E2E0
- for <freedreno@lists.freedesktop.org>; Mon, 21 Sep 2020 14:28:21 +0000 (UTC)
-Received: by mail-ed1-x543.google.com with SMTP id c8so13014915edv.5
- for <freedreno@lists.freedesktop.org>; Mon, 21 Sep 2020 07:28:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=VzVFv87gEs+DoQS8yQmlQI7hV0/JZ6iyGje6mT9KAwE=;
- b=r4E87SE8cRmNC5/QVPBZTvtY0WwQCAYq610H3TrqushG0vNVlKdRr1yDB+OGvjsEsh
- S3FMPazSyqly4DhCb4U7Daasb48nWMYCRokGTGWWDWr9Lzd6KgGSzsSL2bf8JN8hSUUg
- fRzGoMda0izTxUfQ1oDoraADyOixRpShNlZWwVuWp+90kzwtm6dXywXfCJwfHNYTDPPC
- BRvwUcCNbRJRVtNCA8XAXeWeF7BEiteuUSc0wY4jwhVuicLkHdBYv1A9LX7rLKMIuKyJ
- 4unfy8WbdjnYnXrOLoUKtowSivIVSvfiJ9L/35cPYAO2P/1sV7m+awpIj8vkbInTptyh
- hePw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=VzVFv87gEs+DoQS8yQmlQI7hV0/JZ6iyGje6mT9KAwE=;
- b=X/z2TefcDl+hfcxx1/rcxRfGPaK0MR4YJD8/vuN5UJfeafkbGMCelsneZrelWI73Hw
- zH55/4Ha6wlc3svsBOUC5OWuLhvuGvymEYdv2JDxfidjOrK6Zi+jh986bTDcdrnze3uG
- qERFNV70mCmG4TOi3LV82wt0XM47GV18d1x8q1ad1BKYXLXDawovKfC+M10hU/+mPeg5
- 0DvuTWOUC/IIsK6l4SS8L8xD1lriS5J+iui9rMtXP55VBFzsG2u1qUPcgh5pUgaS0L4R
- DX98UFUlRf5bqjuJS2SP9WBsINOF8FHiZK5eyHLIGPKwK+6M9ORnlXLpoTFWwpyvqH6c
- NxZw==
-X-Gm-Message-State: AOAM53397qbmrv9jgKDTPPKR6gL0GUbpCdP5uhyvCmZ4sKIgM4Hf6VIa
- 9gU8GMW167F0yQ9cckfvmLMGc40mqSuL9FlVZoH0jw==
-X-Google-Smtp-Source: ABdhPJxzM6EYIqImTXX3nZVDlcUVt4Reycl0v4NuDxz6VB7H68kqhbvAzdwYiX9PD8RD0OTNupjfeVlIQGuz17LfGtQ=
-X-Received: by 2002:aa7:d747:: with SMTP id a7mr51024393eds.304.1600698500267; 
- Mon, 21 Sep 2020 07:28:20 -0700 (PDT)
-MIME-Version: 1.0
-References: <4eaa69879014a406424b9702dd6574a305f4c98e.camel@igalia.com>
-In-Reply-To: <4eaa69879014a406424b9702dd6574a305f4c98e.camel@igalia.com>
-From: Jason Ekstrand <jason@jlekstrand.net>
-Date: Mon, 21 Sep 2020 09:28:09 -0500
-Message-ID: <CAOFGe97CpYKkNC3N=2kxCnFSSw5sQuQCEdkKGudCEL6em3YTGA@mail.gmail.com>
-To: =?UTF-8?Q?Samuel_Iglesias_Gons=C3=A1lvez?= <siglesias@igalia.com>
-Subject: Re: [Freedreno] [Mesa-dev] XDC 2020 feedback and comments
+X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
+ Mon, 21 Sep 2020 15:32:36 UTC
+Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A53C6E503
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Sep 2020 15:32:35 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1600702356; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=s7K9SEo1X6Ibc0tt1bXFMEPa50tfSsiMzV95wUizo+8=;
+ b=gybvFcMSx5c9XOTdIA8E/gmT7cz+kCARxYliqLuu5Nw5TY+yuWs/CMz4xav8awGpYbY0/jNF
+ OGKZaqo5QcxLRKQ//nfvpAFEAh91PKWt7B22GeAo1sMuGCYtipggs+G92n1B9pSYIEWHjhM0
+ JHxxZYNb5oN6Y3Y1Oa8Ws405UyM=
+X-Mailgun-Sending-Ip: 69.72.42.4
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
+ 5f68c6626b1937bb65913aa0 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 21 Sep 2020 15:27:30
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id C62EDC433CA; Mon, 21 Sep 2020 15:27:30 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from akhilpo-linux.qualcomm.com (unknown [202.46.22.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id D577EC433FE;
+ Mon, 21 Sep 2020 15:27:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org D577EC433FE
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=akhilpo@codeaurora.org
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+To: freedreno@lists.freedesktop.org
+Date: Mon, 21 Sep 2020 20:57:17 +0530
+Message-Id: <1600702038-10893-1-git-send-email-akhilpo@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH 1/2] drm/msm: Replace active_list with refcount
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,60 +65,171 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "xorg-devel@lists.freedesktop.org" <xorg-devel@lists.freedesktop.org>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "etnaviv@lists.freedesktop.org" <etnaviv@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "wayland-devel@lists.freedesktop.org" <wayland-devel@lists.freedesktop.org>,
- "board@foundation.x.org" <board@foundation.x.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "events@lists.x.org" <events@lists.x.org>,
- "mesa-dev@lists.freedesktop.org" <mesa-dev@lists.freedesktop.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: robdclark@gmail.com, jonathan@marek.ca, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dianders@chromium.org, jcrouse@codeaurora.org,
+ mka@chromium.org, dri-devel@freedesktop.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Rmlyc3Qgb2ZmLCBJIHRoaW5rIHlvdSBhbGwgZGlkIGEgZmFudGFzdGljIGpvYi4gIEkgZmVsdCB0
-aGF0IHRoaW5ncwpyYW4gdmVyeSBzbW9vdGhseSBhbmQsIGFzIGZhciBhcyB0aGUgdGFsa3MgdGhl
-bXNlbHZlcyBnbywgSSB0aGluayBpdAp3ZW50IGFsbW9zdCBhcyBzbW9vdGhseSBhcyBhbiBpbi1w
-ZXJzb24gWERDLiAgSSdtIHJlYWxseSBxdWl0ZQppbXByZXNzZWQuICBJIGRvIGhhdmUgYSBjb3Vw
-bGUgcGllY2VzIG9mIG1vcmUgbnVhbmNlZCBmZWVkYmFjazoKCiAxLiBJIHRoaW5rIHdlIHdlcmUg
-bWF5YmUgYSBiaXQgdG9vIHNjYXJlZCBvZiBvdmVybG9hZGluZyBqaXRzaS4KSGF2aW5nIG1vcmUg
-cGVvcGxlIGluIHRoZSBpbnN0YW5jZSBmb3IgcXVlc3Rpb25zIG1pZ2h0IGhhdmUgbWFkZSB0aGF0
-CnBvcnRpb24gZ28gYmV0dGVyLiAgQXMgaXQgd2FzLCB0aGVyZSB3YXMgb25seSBvbmUgb3IgdHdv
-IHRhbGtzIHRoYXQKaGFkIGFueSBsaXZlIHF1ZXN0aW9ucy4gIFRoYXQgc2FpZCwgdGhlcmUgYXJl
-IGEgZmV3IGFkdmFudGFnZXMgdG8KaGF2aW5nIHRoaW5ncyBmdW5uZWxlZCB0aHJvdWdoIElSQywg
-dGhlIG1vc3Qgb2J2aW91cyBvZiB3aGljaCBiZWluZwp0aGF0IHBlb3BsZSBjYW4gYXNrIHRoZWly
-IHF1ZXN0aW9uIG1pZC10YWxrIGFuZCBoYXZlIGl0IGhhbmRsZWQgYXQgdGhlCmVuZCBpbnN0ZWFk
-IG9mIGhhdmluZyB0byByZW1lbWJlciBpdCBmb3IgMjAgbWludXRlcy4KCiAyLiBJIHJlYWxseSBt
-aXNzIHRoZSBoYWxsd2F5IHRyYWNrLiAgT24gVGh1cnNkYXksIGFmdGVyIHRoZQpjb25mZXJlbmNl
-LCBCYXMsIENvbm5vciwgYW5kIEkgdXNlZCBqaXRzaSB0byBoYXZlIGEgY2hhdCBhYm91dApyYXkt
-dHJhY2luZy4gIFRoYXQgd2FzIHJlYWxseSBmdW4gYW5kIEkgd2lzaCBJJ2QgZG9uZSBzb21ldGhp
-bmcgbGlrZQp0aGF0IGV2ZXJ5IGRheSBvZiBYREMuICBNYXliZSBpdCdzIG15IG93biBmYXVsdCBm
-b3Igbm90IHNldHRpbmcgdXAKc2FpZCBjaGF0cyBidXQgSSB0aGluayBpdCBjb3VsZCBoYXZlIGJl
-ZW4gbWFkZSBtb3JlIGFjY2Vzc2libGUgKEkgaGFkCm5vIGlkZWEgaG93IHRvIGZvcmsgb2ZmIGEg
-aml0c2kgaW5zdGFuY2UpIGFuZC9vciBlbmNvdXJhZ2VkIHNvbWVob3cuCgotLUphc29uCgpPbiBN
-b24sIFNlcCAyMSwgMjAyMCBhdCAzOjA3IEFNIFNhbXVlbCBJZ2xlc2lhcyBHb25zw6FsdmV6Cjxz
-aWdsZXNpYXNAaWdhbGlhLmNvbT4gd3JvdGU6Cj4KPiBIaSBhbGwsCj4KPiBIdWdlIHRoYW5rcyBh
-Z2FpbiB0byB0aGUgZW50aXJlIHRlYW0gZnJvbSBJbnRlbCwgZm9yIHRoZWlyIGdyZWF0IHdvcmsK
-PiBvcmdhbml6aW5nIFhEQyAyMDIwLCBvdXIgZmlyc3QgdmlydHVhbCBjb25mZXJlbmNlIQo+Cj4g
-QXMgdXN1YWwgd2UncmUgbG9va2luZyBmb3IgZmVlZGJhY2sgb24gYm90aCBYREMgaXRzZWxmLCBh
-bmQgdGhlIENGUAo+IHByb2Nlc3MgYW5kIHByb2dyYW0gc2VsZWN0aW9uLiBCb3RoIGFib3V0IHdo
-YXQgd2FzIGdyZWF0IGFuZCBzaG91bGQgYmUKPiBrZXB0IGZvciBuZXh0IHllYXIncyBlZGl0aW9u
-LCBhbmQgd2hlcmUgdGhlcmUncyByb29tIGZvciBpbXByb3ZlbWVudC4KPgo+IFRoZSBib2FyZCBk
-b2VzIGtlZXAgc29tZSBub3RlcywgZm9yIHRob3NlIGludGVyZXN0ZWQgaW4gd2hhdCB3ZSBoYXZl
-Cj4gYWxyZWFkeToKPgo+IC0gWERDIG5vdGVzIGZvciBwcm9zcGVjdGl2ZSBvcmdhbml6ZXJzOgo+
-IGh0dHBzOi8vd3d3Lngub3JnL3dpa2kvRXZlbnRzL1JGUC8KPgo+IC0gQ0ZQIG5vdGVzOiBodHRw
-czovL3d3dy54Lm9yZy93aWtpL0V2ZW50cy9QYXBlcnNDb21taXR0ZWUvCj4KPiBJZiB5b3Ugd2Fu
-dCB0byBzZW5kIGluIHlvdXIgY29tbWVudHMgaW4gcHJpdmF0ZSwgcGxlYXNlIHNlbmQgdGhlbSB0
-bwo+IHRoZSBYLm9yZyBGb3VuZGF0aW9uIGJvYXJkOiBib2FyZEBmb3VuZGF0aW9uLngub3JnCj4K
-PiBDaGVlcnMsCj4KPiBTYW0KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwo+IG1lc2EtZGV2IG1haWxpbmcgbGlzdAo+IG1lc2EtZGV2QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vbWVzYS1kZXYKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KRnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
-Cg==
+In the case where we have a back-to-back submission that shares the same
+BO, this BO will be prematurely moved to inactive_list while retiring the
+first submit. But it will be still part of the second submit which is
+being processed by the GPU. Now, if the shrinker happens to be triggered at
+this point, it will result in premature purging of this BO.
+
+To fix this, we can replace the active_list with reference counting and
+move the BO to inactive list only when this count becomes zero.
+
+Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+---
+ drivers/gpu/drm/msm/msm_drv.h |  5 ++---
+ drivers/gpu/drm/msm/msm_gem.c | 30 ++++++++++++++++--------------
+ drivers/gpu/drm/msm/msm_gem.h |  4 +++-
+ drivers/gpu/drm/msm/msm_gpu.c | 11 +++++++----
+ 4 files changed, 28 insertions(+), 22 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index 3193274..28e3c8d 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -309,9 +309,8 @@ void msm_gem_put_vaddr(struct drm_gem_object *obj);
+ int msm_gem_madvise(struct drm_gem_object *obj, unsigned madv);
+ int msm_gem_sync_object(struct drm_gem_object *obj,
+ 		struct msm_fence_context *fctx, bool exclusive);
+-void msm_gem_move_to_active(struct drm_gem_object *obj,
+-		struct msm_gpu *gpu, bool exclusive, struct dma_fence *fence);
+-void msm_gem_move_to_inactive(struct drm_gem_object *obj);
++void msm_gem_active_get(struct drm_gem_object *obj, struct msm_gpu *gpu);
++void msm_gem_active_put(struct drm_gem_object *obj);
+ int msm_gem_cpu_prep(struct drm_gem_object *obj, uint32_t op, ktime_t *timeout);
+ int msm_gem_cpu_fini(struct drm_gem_object *obj);
+ void msm_gem_free_object(struct drm_gem_object *obj);
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index 76a6c52..accc106 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -743,33 +743,36 @@ int msm_gem_sync_object(struct drm_gem_object *obj,
+ 	return 0;
+ }
+ 
+-void msm_gem_move_to_active(struct drm_gem_object *obj,
+-		struct msm_gpu *gpu, bool exclusive, struct dma_fence *fence)
++void msm_gem_active_get(struct drm_gem_object *obj, struct msm_gpu *gpu)
+ {
+ 	struct msm_gem_object *msm_obj = to_msm_bo(obj);
++	WARN_ON(!mutex_is_locked(&obj->dev->struct_mutex));
+ 	WARN_ON(msm_obj->madv != MSM_MADV_WILLNEED);
++
+ 	msm_obj->gpu = gpu;
+-	if (exclusive)
+-		dma_resv_add_excl_fence(obj->resv, fence);
+-	else
+-		dma_resv_add_shared_fence(obj->resv, fence);
+ 	list_del_init(&msm_obj->mm_list);
+-	list_add_tail(&msm_obj->mm_list, &gpu->active_list);
++	atomic_inc(&msm_obj->active_count);
+ }
+ 
+-void msm_gem_move_to_inactive(struct drm_gem_object *obj)
++static void move_to_inactive(struct msm_gem_object *msm_obj)
+ {
+-	struct drm_device *dev = obj->dev;
++	struct drm_device *dev = msm_obj->base.dev;
+ 	struct msm_drm_private *priv = dev->dev_private;
+-	struct msm_gem_object *msm_obj = to_msm_bo(obj);
+-
+-	WARN_ON(!mutex_is_locked(&dev->struct_mutex));
+ 
+ 	msm_obj->gpu = NULL;
+-	list_del_init(&msm_obj->mm_list);
+ 	list_add_tail(&msm_obj->mm_list, &priv->inactive_list);
+ }
+ 
++void msm_gem_active_put(struct drm_gem_object *obj)
++{
++	struct msm_gem_object *msm_obj = to_msm_bo(obj);
++
++	WARN_ON(!mutex_is_locked(&obj->dev->struct_mutex));
++
++	if (atomic_dec_and_test(&msm_obj->active_count))
++		move_to_inactive(msm_obj);
++}
++
+ int msm_gem_cpu_prep(struct drm_gem_object *obj, uint32_t op, ktime_t *timeout)
+ {
+ 	bool write = !!(op & MSM_PREP_WRITE);
+@@ -1104,7 +1107,6 @@ static struct drm_gem_object *_msm_gem_new(struct drm_device *dev,
+ 	}
+ 
+ 	if (struct_mutex_locked) {
+-		WARN_ON(!mutex_is_locked(&dev->struct_mutex));
+ 		list_add_tail(&msm_obj->mm_list, &priv->inactive_list);
+ 	} else {
+ 		mutex_lock(&dev->struct_mutex);
+diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
+index 7b1c7a5..a1bf741 100644
+--- a/drivers/gpu/drm/msm/msm_gem.h
++++ b/drivers/gpu/drm/msm/msm_gem.h
+@@ -88,12 +88,14 @@ struct msm_gem_object {
+ 	struct mutex lock; /* Protects resources associated with bo */
+ 
+ 	char name[32]; /* Identifier to print for the debugfs files */
++
++	atomic_t active_count;
+ };
+ #define to_msm_bo(x) container_of(x, struct msm_gem_object, base)
+ 
+ static inline bool is_active(struct msm_gem_object *msm_obj)
+ {
+-	return msm_obj->gpu != NULL;
++	return atomic_read(&msm_obj->active_count);
+ }
+ 
+ static inline bool is_purgeable(struct msm_gem_object *msm_obj)
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index 29c8d73c..55d1648 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -698,8 +698,8 @@ static void retire_submit(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
+ 
+ 	for (i = 0; i < submit->nr_bos; i++) {
+ 		struct msm_gem_object *msm_obj = submit->bos[i].obj;
+-		/* move to inactive: */
+-		msm_gem_move_to_inactive(&msm_obj->base);
++
++		msm_gem_active_put(&msm_obj->base);
+ 		msm_gem_unpin_iova(&msm_obj->base, submit->aspace);
+ 		drm_gem_object_put_locked(&msm_obj->base);
+ 	}
+@@ -774,6 +774,7 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+ 
+ 	for (i = 0; i < submit->nr_bos; i++) {
+ 		struct msm_gem_object *msm_obj = submit->bos[i].obj;
++		struct drm_gem_object *drm_obj = &msm_obj->base;
+ 		uint64_t iova;
+ 
+ 		/* can't happen yet.. but when we add 2d support we'll have
+@@ -786,9 +787,11 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+ 		msm_gem_get_and_pin_iova(&msm_obj->base, submit->aspace, &iova);
+ 
+ 		if (submit->bos[i].flags & MSM_SUBMIT_BO_WRITE)
+-			msm_gem_move_to_active(&msm_obj->base, gpu, true, submit->fence);
++			dma_resv_add_excl_fence(drm_obj->resv, submit->fence);
+ 		else if (submit->bos[i].flags & MSM_SUBMIT_BO_READ)
+-			msm_gem_move_to_active(&msm_obj->base, gpu, false, submit->fence);
++			dma_resv_add_shared_fence(drm_obj->resv, submit->fence);
++
++		msm_gem_active_get(drm_obj, gpu);
+ 	}
+ 
+ 	gpu->funcs->submit(gpu, submit);
+-- 
+2.7.4
+
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
