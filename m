@@ -1,35 +1,43 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38557270F46
-	for <lists+freedreno@lfdr.de>; Sat, 19 Sep 2020 18:07:09 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 80682271D19
+	for <lists+freedreno@lfdr.de>; Mon, 21 Sep 2020 10:07:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC64B893E8;
-	Sat, 19 Sep 2020 16:07:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F5216E24D;
+	Mon, 21 Sep 2020 08:07:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 095966EDC0;
- Sat, 19 Sep 2020 02:51:41 +0000 (UTC)
-Received: from DGGEMS403-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id BBB30DF5AD78B628E014;
- Sat, 19 Sep 2020 10:51:35 +0800 (CST)
-Received: from localhost.localdomain.localdomain (10.175.113.25) by
- DGGEMS403-HUB.china.huawei.com (10.3.19.203) with Microsoft SMTP Server id
- 14.3.487.0; Sat, 19 Sep 2020 10:51:26 +0800
-From: Qinglang Miao <miaoqinglang@huawei.com>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, David Airlie
- <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Sat, 19 Sep 2020 10:51:58 +0800
-Message-ID: <20200919025158.17264-1-miaoqinglang@huawei.com>
-X-Mailer: git-send-email 2.20.1
+Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F0EC6E245;
+ Mon, 21 Sep 2020 08:07:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+ s=20170329; 
+ h=MIME-Version:Content-Type:Date:Cc:To:From:Subject:Message-ID;
+ bh=fDLgJXux/jRKs3pMveWM95iw4736sPWZKd6xbDbBR1s=; 
+ b=AFg8rJ8mI4p77lFEAjmTestdzWgZC5/suP0QGy767a/qDRvNU7q+RO25W/I1ct3Zg47ZkLyWudVChe0aYu0a6/tbiBrdfWbtChwBDnsTI+7NNqrhihhrJPA2sTWcEnMxa+SAcDiffJHhmXVsz1Xnw4idJFm15VMMI14AMxWfu3tExRijvGkVBc93VJ9SUrqe+D4yYQtqJin4KwB7HqXuobv86zOrSNd1kUOYmt2JrpuCkE2zT59sM87fZuSMbWGp+5EnlAlSg9J+FT4FBlI93BaDEtQ/OoMafesYmnmQyyP4GZAcJK4atCzp4fwCpdxMKamwEXfiwuf6U2XeAWhHkw==;
+Received: from 11.red-79-157-245.dynamicip.rima-tde.net ([79.157.245.11]
+ helo=fourier) by fanzine.igalia.com with esmtpsa 
+ (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
+ id 1kKGqq-0002IQ-OO; Mon, 21 Sep 2020 10:07:08 +0200
+Message-ID: <4eaa69879014a406424b9702dd6574a305f4c98e.camel@igalia.com>
+From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
+To: "events@lists.x.org" <events@lists.x.org>, 
+ "xorg-devel@lists.freedesktop.org"
+ <xorg-devel@lists.freedesktop.org>, "wayland-devel@lists.freedesktop.org"
+ <wayland-devel@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "mesa-dev@lists.freedesktop.org"
+ <mesa-dev@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "etnaviv@lists.freedesktop.org"
+ <etnaviv@lists.freedesktop.org>, "freedreno@lists.freedesktop.org"
+ <freedreno@lists.freedesktop.org>, "nouveau@lists.freedesktop.org"
+ <nouveau@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>
+Date: Mon, 21 Sep 2020 10:03:32 +0200
+User-Agent: Evolution 3.36.4-2 
 MIME-Version: 1.0
-X-Originating-IP: [10.175.113.25]
-X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Sat, 19 Sep 2020 16:07:06 +0000
-Subject: [Freedreno] [PATCH -next v2] drm/msm/dpu: Convert to
- DEFINE_SHOW_ATTRIBUTE
+Subject: [Freedreno] XDC 2020 feedback and comments
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,197 +50,80 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Qinglang
- Miao <miaoqinglang@huawei.com>, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "board@foundation.x.org" <board@foundation.x.org>
+Content-Type: multipart/mixed; boundary="===============1918460862=="
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Use DEFINE_SHOW_ATTRIBUTE macro to simplify the code.
 
-Signed-off-by: Qinglang Miao <miaoqinglang@huawei.com>
----
-v2: based on linux-next(20200917), and can be applied to
-    mainline cleanly now.
+--===============1918460862==
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-evhoVZFKP3ts0eEigqE1"
 
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c | 15 +---------
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c     | 29 ++------------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c  | 15 ++--------
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c      | 17 ++----------
- 4 files changed, 8 insertions(+), 68 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
-index f1bc6a1af..84ea09d96 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
-@@ -288,19 +288,6 @@ static void dpu_disable_all_irqs(struct dpu_kms *dpu_kms)
- }
- 
- #ifdef CONFIG_DEBUG_FS
--#define DEFINE_DPU_DEBUGFS_SEQ_FOPS(__prefix)				\
--static int __prefix ## _open(struct inode *inode, struct file *file)	\
--{									\
--	return single_open(file, __prefix ## _show, inode->i_private);	\
--}									\
--static const struct file_operations __prefix ## _fops = {		\
--	.owner = THIS_MODULE,						\
--	.open = __prefix ## _open,					\
--	.release = single_release,					\
--	.read = seq_read,						\
--	.llseek = seq_lseek,						\
--}
--
- static int dpu_debugfs_core_irq_show(struct seq_file *s, void *v)
- {
- 	struct dpu_irq *irq_obj = s->private;
-@@ -328,7 +315,7 @@ static int dpu_debugfs_core_irq_show(struct seq_file *s, void *v)
- 	return 0;
- }
- 
--DEFINE_DPU_DEBUGFS_SEQ_FOPS(dpu_debugfs_core_irq);
-+DEFINE_SHOW_ATTRIBUTE(dpu_debugfs_core_irq);
- 
- void dpu_debugfs_core_irq_init(struct dpu_kms *dpu_kms,
- 		struct dentry *parent)
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 6169148b3..f56414a06 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -1177,23 +1177,7 @@ static int _dpu_debugfs_status_show(struct seq_file *s, void *data)
- 	return 0;
- }
- 
--static int _dpu_debugfs_status_open(struct inode *inode, struct file *file)
--{
--	return single_open(file, _dpu_debugfs_status_show, inode->i_private);
--}
--
--#define DEFINE_DPU_DEBUGFS_SEQ_FOPS(__prefix)                          \
--static int __prefix ## _open(struct inode *inode, struct file *file)	\
--{									\
--	return single_open(file, __prefix ## _show, inode->i_private);	\
--}									\
--static const struct file_operations __prefix ## _fops = {		\
--	.owner = THIS_MODULE,						\
--	.open = __prefix ## _open,					\
--	.release = single_release,					\
--	.read = seq_read,						\
--	.llseek = seq_lseek,						\
--}
-+DEFINE_SHOW_ATTRIBUTE(_dpu_debugfs_status);
- 
- static int dpu_crtc_debugfs_state_show(struct seq_file *s, void *v)
- {
-@@ -1210,25 +1194,18 @@ static int dpu_crtc_debugfs_state_show(struct seq_file *s, void *v)
- 
- 	return 0;
- }
--DEFINE_DPU_DEBUGFS_SEQ_FOPS(dpu_crtc_debugfs_state);
-+DEFINE_SHOW_ATTRIBUTE(dpu_crtc_debugfs_state);
- 
- static int _dpu_crtc_init_debugfs(struct drm_crtc *crtc)
- {
- 	struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
- 
--	static const struct file_operations debugfs_status_fops = {
--		.open =		_dpu_debugfs_status_open,
--		.read =		seq_read,
--		.llseek =	seq_lseek,
--		.release =	single_release,
--	};
--
- 	dpu_crtc->debugfs_root = debugfs_create_dir(dpu_crtc->name,
- 			crtc->dev->primary->debugfs_root);
- 
- 	debugfs_create_file("status", 0400,
- 			dpu_crtc->debugfs_root,
--			dpu_crtc, &debugfs_status_fops);
-+			dpu_crtc, &_dpu_debugfs_status_fops);
- 	debugfs_create_file("state", 0600,
- 			dpu_crtc->debugfs_root,
- 			&dpu_crtc->base,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index bd6def436..da192e275 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -1880,24 +1880,13 @@ static int _dpu_encoder_status_show(struct seq_file *s, void *data)
- 	return 0;
- }
- 
--static int _dpu_encoder_debugfs_status_open(struct inode *inode,
--		struct file *file)
--{
--	return single_open(file, _dpu_encoder_status_show, inode->i_private);
--}
-+DEFINE_SHOW_ATTRIBUTE(_dpu_encoder_status);
- 
- static int _dpu_encoder_init_debugfs(struct drm_encoder *drm_enc)
- {
- 	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
- 	int i;
- 
--	static const struct file_operations debugfs_status_fops = {
--		.open =		_dpu_encoder_debugfs_status_open,
--		.read =		seq_read,
--		.llseek =	seq_lseek,
--		.release =	single_release,
--	};
--
- 	char name[DPU_NAME_SIZE];
- 
- 	if (!drm_enc->dev) {
-@@ -1913,7 +1902,7 @@ static int _dpu_encoder_init_debugfs(struct drm_encoder *drm_enc)
- 
- 	/* don't error check these */
- 	debugfs_create_file("status", 0600,
--		dpu_enc->debugfs_root, dpu_enc, &debugfs_status_fops);
-+		dpu_enc->debugfs_root, dpu_enc, &_dpu_encoder_status_fops);
- 
- 	for (i = 0; i < dpu_enc->num_phys_encs; i++)
- 		if (dpu_enc->phys_encs[i]->ops.late_register)
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 5abf0047c..0649d1dee 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -85,30 +85,17 @@ static int _dpu_danger_signal_status(struct seq_file *s,
- 	return 0;
- }
- 
--#define DEFINE_DPU_DEBUGFS_SEQ_FOPS(__prefix)				\
--static int __prefix ## _open(struct inode *inode, struct file *file)	\
--{									\
--	return single_open(file, __prefix ## _show, inode->i_private);	\
--}									\
--static const struct file_operations __prefix ## _fops = {		\
--	.owner = THIS_MODULE,						\
--	.open = __prefix ## _open,					\
--	.release = single_release,					\
--	.read = seq_read,						\
--	.llseek = seq_lseek,						\
--}
--
- static int dpu_debugfs_danger_stats_show(struct seq_file *s, void *v)
- {
- 	return _dpu_danger_signal_status(s, true);
- }
--DEFINE_DPU_DEBUGFS_SEQ_FOPS(dpu_debugfs_danger_stats);
-+DEFINE_SHOW_ATTRIBUTE(dpu_debugfs_danger_stats);
- 
- static int dpu_debugfs_safe_stats_show(struct seq_file *s, void *v)
- {
- 	return _dpu_danger_signal_status(s, false);
- }
--DEFINE_DPU_DEBUGFS_SEQ_FOPS(dpu_debugfs_safe_stats);
-+DEFINE_SHOW_ATTRIBUTE(dpu_debugfs_safe_stats);
- 
- static void dpu_debugfs_danger_init(struct dpu_kms *dpu_kms,
- 		struct dentry *parent)
--- 
-2.23.0
+--=-evhoVZFKP3ts0eEigqE1
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi all,
+
+Huge thanks again to the entire team from Intel, for their great work
+organizing XDC 2020, our first virtual conference!
+
+As usual we're looking for feedback on both XDC itself, and the CFP
+process and program selection. Both about what was great and should be
+kept for next year's edition, and where there's room for improvement.
+
+The board does keep some notes, for those interested in what we have
+already:
+
+- XDC notes for prospective organizers:=20
+https://www.x.org/wiki/Events/RFP/
+
+- CFP notes: https://www.x.org/wiki/Events/PapersCommittee/
+
+If you want to send in your comments in private, please send them to
+the X.org Foundation board: board@foundation.x.org
+
+Cheers,
+
+Sam
+
+--=-evhoVZFKP3ts0eEigqE1
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAl9oXlQACgkQf/S6MvF9
+w0PiNA/+Jj6uBmncvTzk2d85o0AkBPwReXMxso8OY4eO3wIF5OZxU9SlNUguRAKL
+o+1G26DR76H8CmbClqFlGdQAisyABN3TsHrfPiHvjAw+DQajktptD6zFgUH2PBhj
+KqceS/Fm/1Glcy4CJoQjo44e4XR03wDV4of93y/J6PKvxxk809EvRIC/PTbaSE7M
+CRJTZsCLJCr6C9JQtTg5VoQW9QAcruNq7PLZuDsOqM7lGeObupRQjCUd62DA4Qtq
+CR1LIqCkp8A6fdyQBJNljgNz46bexvg+8z1rrPsE6BhQco9hFsU70fUQK1JXTIGl
+s97bqNaO0kt0C0pgId452l9OfjCJMOzNJJktlMQMQE++j8ZrM7lNf03clzWfUy3s
+MHF7XjrGKqfOZU04zd302BCS9YawmNAc7rchOwFCVe9BtHoGZvkms0CrcoRgu63s
+tSNijUyPnVeHodlObtltZ2JRi8WgaBctMOmuEVGkhR57GF9vnv6rOcPVnVBUwOs9
+zdXepyalMddJ3xSnM6mvpQWMFcley1uuBVgdv5JkMPEOFHEbfXSFYP1oIICpRwDM
+ulcIniZpFNZ97ztElEoPvHnswoelUvKWpyln4uQ+Vx1G/S429CknqWKtl+Hfz468
+sA6n1lrT+1VVAtHoeLrZDpeinMlwTxj9f7XZlZ+ANeRul5C6FIY=
+=iiSO
+-----END PGP SIGNATURE-----
+
+--=-evhoVZFKP3ts0eEigqE1--
+
+
+--===============1918460862==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
+
+--===============1918460862==--
+
