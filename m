@@ -2,97 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53AEF273907
-	for <lists+freedreno@lfdr.de>; Tue, 22 Sep 2020 04:59:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0991273AA2
+	for <lists+freedreno@lfdr.de>; Tue, 22 Sep 2020 08:18:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECEA76E5D5;
-	Tue, 22 Sep 2020 02:59:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59F2A6E081;
+	Tue, 22 Sep 2020 06:18:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 306 seconds by postgrey-1.36 at gabe;
- Tue, 22 Sep 2020 02:59:30 UTC
-Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A8246E5D5
- for <freedreno@lists.freedesktop.org>; Tue, 22 Sep 2020 02:59:30 +0000 (UTC)
+Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F4B56E081
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Sep 2020 06:18:35 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1600743571; h=In-Reply-To: Content-Type: MIME-Version:
- References: Message-ID: Subject: Cc: To: From: Date: Sender;
- bh=pUPPVS4zNUydXtd2EWbezsMD7shiNeotafngrFYyveY=;
- b=gLPaD0/9VIi9KByCHnRYL4izGaT+AWrY+v8v2C1qkrj+hsB5OXCbsYh9vGwnr2sjm7CHDcag
- H0VBvL/lthmQSyOqawtpKSal8YN9N7Y3V+lKuYSW501VYt+eRsGUliOwiunfVlZ7jD+B9V9S
- NTPpNPwRL7K6juSPj2Ut+v+iDtE=
-X-Mailgun-Sending-Ip: 104.130.96.5
+ s=smtp; t=1600755515; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=Fm7wlYfhgVMZejk/GgfLZ8aRZKX8FVfC6swIamjl3hY=;
+ b=UjxsEX0+sCpWNVNGZZiPDmR3R6+i9UzfTpXWViVdV5XQ1EYXZ/xdw4oPdkUywDaHytByBmsn
+ m+Qtmo5IKlSe8U8ACHubFsolIutd0H6UZLHWtJIICzF/ZwuQioGdEKXqHOpx+QQ/Rx4dnp4i
+ jdZm0dE2XQN6VimMyADaSpMbIc4=
+X-Mailgun-Sending-Ip: 69.72.42.4
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n04.prod.us-east-1.postgun.com with SMTP id
- 5f69674b28e87a878bf8df60 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 22 Sep 2020 02:54:03
+ smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
+ 5f69973a36c8ce93e83b9ee3 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 22 Sep 2020 06:18:34
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id BBD89C433FF; Tue, 22 Sep 2020 02:54:02 +0000 (UTC)
+ id 25815C43395; Tue, 22 Sep 2020 06:18:34 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
  SPF_FAIL, 
  URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 9B635C433CB;
- Tue, 22 Sep 2020 02:53:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 9B635C433CB
+Received: from blr-ubuntu-253.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: saiprakash.ranjan)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 048F3C433C8;
+ Tue, 22 Sep 2020 06:18:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 048F3C433C8
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=jcrouse@codeaurora.org
-Date: Mon, 21 Sep 2020 20:53:55 -0600
-From: Jordan Crouse <jcrouse@codeaurora.org>
-To: Will Deacon <will@kernel.org>
-Message-ID: <20200922025355.GA23009@jcrouse1-lnx.qualcomm.com>
-Mail-Followup-To: Will Deacon <will@kernel.org>,
- Rob Clark <robdclark@gmail.com>, iommu@lists.linux-foundation.org,
- dri-devel@lists.freedesktop.org,
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Sibi Sankar <sibis@codeaurora.org>,
- Vivek Gautam <vivek.gautam@codeaurora.org>,
- Stephen Boyd <swboyd@chromium.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- Rob Clark <robdclark@chromium.org>,
- AngeloGioacchino Del Regno <kholk11@gmail.com>,
- Ben Dooks <ben.dooks@codethink.co.uk>,
- Brian Masney <masneyb@onstation.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, 
- Douglas Anderson <dianders@chromium.org>,
- Emil Velikov <emil.velikov@collabora.com>,
- Eric Anholt <eric@anholt.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Hanna Hawa <hannah@marvell.com>, Joerg Roedel <jroedel@suse.de>,
- Jonathan Marek <jonathan@marek.ca>,
- Krishna Reddy <vdumpa@nvidia.com>,
- "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>,
- open list <linux-kernel@vger.kernel.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Shawn Guo <shawn.guo@linaro.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Thierry Reding <treding@nvidia.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Wambui Karuga <wambui.karugax@gmail.com>
-References: <20200905200454.240929-1-robdclark@gmail.com>
- <20200921213054.GA4270@willie-the-truck>
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org; spf=fail
+ smtp.mailfrom=saiprakash.ranjan@codeaurora.org
+From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joro@8bytes.org>, Jordan Crouse <jcrouse@codeaurora.org>,
+ Rob Clark <robdclark@gmail.com>
+Date: Tue, 22 Sep 2020 11:48:13 +0530
+Message-Id: <cover.1600754909.git.saiprakash.ranjan@codeaurora.org>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200921213054.GA4270@willie-the-truck>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Freedreno] [PATCH v17 00/20] iommu/arm-smmu + drm/msm:
- per-process GPU pgtables
+Subject: [Freedreno] [PATCHv5 0/6] System Cache support for GPU and required
+ SMMU support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,57 +70,83 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Wambui Karuga <wambui.karugax@gmail.com>, Hanna Hawa <hannah@marvell.com>,
- Akhil P Oommen <akhilpo@codeaurora.org>, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Eric Anholt <eric@anholt.net>,
- Thierry Reding <thierry.reding@gmail.com>,
- Vivek Gautam <vivek.gautam@codeaurora.org>,
- AngeloGioacchino Del Regno <kholk11@gmail.com>,
- Emil Velikov <emil.velikov@collabora.com>, Rob Clark <robdclark@chromium.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, Joerg Roedel <joro@8bytes.org>,
- Rob Clark <robdclark@gmail.com>, Ben Dooks <ben.dooks@codethink.co.uk>,
- Sibi Sankar <sibis@codeaurora.org>, Thierry Reding <treding@nvidia.com>,
- Brian Masney <masneyb@onstation.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Joerg Roedel <jroedel@suse.de>,
- linux-arm-msm@vger.kernel.org, Sharat Masetty <smasetty@codeaurora.org>,
- Robin Murphy <robin.murphy@arm.com>, Stephen Boyd <swboyd@chromium.org>,
- Krishna Reddy <vdumpa@nvidia.com>,
- "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Douglas Anderson <dianders@chromium.org>,
- open list <linux-kernel@vger.kernel.org>, iommu@lists.linux-foundation.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Shawn Guo <shawn.guo@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ iommu@lists.linux-foundation.org, Akhil P Oommen <akhilpo@codeaurora.org>,
+ "Kristian H . Kristensen" <hoegsberg@google.com>,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Sep 21, 2020 at 10:30:57PM +0100, Will Deacon wrote:
-> On Sat, Sep 05, 2020 at 01:04:06PM -0700, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
-> > 
-> > NOTE: I have re-ordered the series, and propose that we could merge this
-> >       series in the following order:
-> > 
-> >        1) 01-11 - merge via drm / msm-next
-> >        2) 12-15 - merge via iommu, no dependency on msm-next pull req
-> 
-> Thanks, I've queued 12-15 in the smmu tree.
-> 
-> https://git.kernel.org/pub/scm/linux/kernel/git/will/linux.git/log/?h=for-joerg/arm-smmu/updates
-> 
-> Will
+Some hardware variants contain a system cache or the last level
+cache(llc). This cache is typically a large block which is shared
+by multiple clients on the SOC. GPU uses the system cache to cache
+both the GPU data buffers(like textures) as well the SMMU pagetables.
+This helps with improved render performance as well as lower power
+consumption by reducing the bus traffic to the system memory.
 
-Will, thanks for your help and patience in getting these merged. 
+The system cache architecture allows the cache to be split into slices
+which then be used by multiple SOC clients. This patch series is an
+effort to enable and use two of those slices perallocated for the GPU,
+one for the GPU data buffers and another for the GPU SMMU hardware
+pagetables.
 
-Jordan
+Patch 1 - Patch 4 adds system cache support in SMMU and GPU driver.
+Patch 5 and 6 are minor cleanups for arm-smmu impl.
 
+The series is based on top of https://gitlab.freedesktop.org/drm/msm/-/tree/msm-next-pgtables
+
+Changes in v5:
+ * Drop cleanup of blank lines since it was intentional (Robin)
+ * Rebase again on top of msm-next-pgtables as it moves pretty fast
+
+Changes in v4:
+ * Drop IOMMU_SYS_CACHE prot flag
+ * Rebase on top of https://gitlab.freedesktop.org/drm/msm/-/tree/msm-next-pgtables
+
+Changes in v3:
+ * Fix domain attribute setting to before iommu_attach_device()
+ * Fix few code style and checkpatch warnings
+ * Rebase on top of Jordan's latest split pagetables and per-instance
+   pagetables support
+
+Changes in v2:
+ * Addressed review comments and rebased on top of Jordan's split
+   pagetables series
+
+Sai Prakash Ranjan (4):
+  iommu/io-pgtable-arm: Add support to use system cache
+  iommu/arm-smmu: Add domain attribute for system cache
+  iommu: arm-smmu-impl: Use table to list QCOM implementations
+  iommu: arm-smmu-impl: Add a space before open parenthesis
+
+Sharat Masetty (2):
+  drm/msm: rearrange the gpu_rmw() function
+  drm/msm/a6xx: Add support for using system cache(LLC)
+
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 83 ++++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h      |  4 ++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c    | 17 +++++
+ drivers/gpu/drm/msm/msm_drv.c              |  8 +++
+ drivers/gpu/drm/msm/msm_drv.h              |  1 +
+ drivers/gpu/drm/msm/msm_gpu.h              |  5 +-
+ drivers/iommu/arm/arm-smmu/arm-smmu-impl.c | 14 ++--
+ drivers/iommu/arm/arm-smmu/arm-smmu.c      | 17 +++++
+ drivers/iommu/arm/arm-smmu/arm-smmu.h      |  1 +
+ drivers/iommu/io-pgtable-arm.c             |  7 +-
+ include/linux/io-pgtable.h                 |  4 ++
+ include/linux/iommu.h                      |  1 +
+ 12 files changed, 152 insertions(+), 10 deletions(-)
+
+
+base-commit: 115b1aca7a2a9c0649b1f5f6cffee6873c7efd89
 -- 
-The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
-a Linux Foundation Collaborative Project
+QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a member
+of Code Aurora Forum, hosted by The Linux Foundation
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
