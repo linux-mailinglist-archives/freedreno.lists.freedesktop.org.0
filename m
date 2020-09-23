@@ -2,68 +2,37 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E043275B23
-	for <lists+freedreno@lfdr.de>; Wed, 23 Sep 2020 17:06:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07564275BBC
+	for <lists+freedreno@lfdr.de>; Wed, 23 Sep 2020 17:25:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 310916E9D0;
-	Wed, 23 Sep 2020 15:06:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B479B6E943;
+	Wed, 23 Sep 2020 15:24:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2B586E077
- for <freedreno@lists.freedesktop.org>; Wed, 23 Sep 2020 15:06:29 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1600873591; h=In-Reply-To: Content-Type: MIME-Version:
- References: Message-ID: Subject: Cc: To: From: Date: Sender;
- bh=IaimSPUJbwscieRTas1qOVe4R5tD4hrlB8skTNUaUyU=;
- b=mGurv+D8U3dOxXfXBZw9EOs39zJsU7MpuRmBjsVQrDKrOsG6s6yXJO57xZwPXIToI8bqhCky
- W30oo47kzv2lguSffS8xotYb396rqH5Oa7uHYsrUtQzuaVWKnU3OMJFU8Vxf4WvYD7Ct0qp/
- DeRyxsJcTfXvhj4bsfHP4wfSe4Q=
-X-Mailgun-Sending-Ip: 69.72.42.4
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
- 5f6b647048c378a4cb6b8817 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 23 Sep 2020 15:06:24
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 16268C433F1; Wed, 23 Sep 2020 15:06:24 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL, 
- URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 3AD2AC433C8;
- Wed, 23 Sep 2020 15:06:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 3AD2AC433C8
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=jcrouse@codeaurora.org
-Date: Wed, 23 Sep 2020 09:06:19 -0600
-From: Jordan Crouse <jcrouse@codeaurora.org>
-To: Zhenzhong Duan <zhenzhong.duan@gmail.com>
-Message-ID: <20200923150618.GE31425@jcrouse1-lnx.qualcomm.com>
-Mail-Followup-To: Zhenzhong Duan <zhenzhong.duan@gmail.com>,
- linux-kernel@vger.kernel.org, robdclark@gmail.com, sean@poorly.run,
- airlied@linux.ie, daniel@ffwll.ch, smasetty@codeaurora.org,
- jonathan@marek.ca, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Markus.Elfring@web.de
-References: <20200914022949.129-1-zhenzhong.duan@gmail.com>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id EC5C86E928;
+ Wed, 23 Sep 2020 15:24:57 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 75450113E;
+ Wed, 23 Sep 2020 08:24:57 -0700 (PDT)
+Received: from [10.57.48.76] (unknown [10.57.48.76])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 739473F718;
+ Wed, 23 Sep 2020 08:24:55 -0700 (PDT)
+To: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>, Rob Clark <robdclark@gmail.com>
+References: <cover.1600754909.git.saiprakash.ranjan@codeaurora.org>
+ <f2d079d46cee22f09f6eb7e6f874a9eaa786ec2a.1600754909.git.saiprakash.ranjan@codeaurora.org>
+From: Robin Murphy <robin.murphy@arm.com>
+Message-ID: <d9b46e48-afa5-ceff-aee8-a75a95a3e459@arm.com>
+Date: Wed, 23 Sep 2020 16:24:53 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101
+ Thunderbird/78.2.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200914022949.129-1-zhenzhong.duan@gmail.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/a6xx: Fix a size determination
- in a6xx_get_indexed_registers()
+In-Reply-To: <f2d079d46cee22f09f6eb7e6f874a9eaa786ec2a.1600754909.git.saiprakash.ranjan@codeaurora.org>
+Content-Language: en-GB
+Subject: Re: [Freedreno] [PATCHv5 5/6] iommu: arm-smmu-impl: Use table to
+ list QCOM implementations
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,49 +45,66 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, jonathan@marek.ca, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, smasetty@codeaurora.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, Markus.Elfring@web.de, daniel@ffwll.ch, sean@poorly.run
-Content-Type: text/plain; charset="us-ascii"
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ iommu@lists.linux-foundation.org, Akhil P Oommen <akhilpo@codeaurora.org>,
+ "Kristian H . Kristensen" <hoegsberg@google.com>,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Sep 14, 2020 at 10:29:49AM +0800, Zhenzhong Duan wrote:
-> It's allocating an array of a6xx_gpu_state_obj structure rather than
-> its pointers.
+On 2020-09-22 07:18, Sai Prakash Ranjan wrote:
+> Use table and of_match_node() to match qcom implementation
+> instead of multiple of_device_compatible() calls for each
+> QCOM SMMU implementation.
 > 
-> Fixes: d6852b4b2d01 ("drm/msm/a6xx: Track and manage a6xx state memory")
-> Signed-off-by: Zhenzhong Duan <zhenzhong.duan@gmail.com>
-
-Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
+> Signed-off-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
 > ---
-> v2: Update commit message per Markus, thanks
+>   drivers/iommu/arm/arm-smmu/arm-smmu-impl.c | 12 ++++++++----
+>   1 file changed, 8 insertions(+), 4 deletions(-)
 > 
->  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> index b12f5b4..e9ede19 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> @@ -875,7 +875,7 @@ static void a6xx_get_indexed_registers(struct msm_gpu *gpu,
->  	int i;
->  
->  	a6xx_state->indexed_regs = state_kcalloc(a6xx_state, count,
-> -		sizeof(a6xx_state->indexed_regs));
-> +		sizeof(*a6xx_state->indexed_regs));
->  	if (!a6xx_state->indexed_regs)
->  		return;
->  
-> -- 
-> 1.8.3.1
-> 
+> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c b/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
+> index d199b4bff15d..ce78295cfa78 100644
+> --- a/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
+> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
+> @@ -9,6 +9,13 @@
+>   
+>   #include "arm-smmu.h"
+>   
+> +static const struct of_device_id __maybe_unused qcom_smmu_impl_of_match[] = {
+> +	{ .compatible = "qcom,sc7180-smmu-500" },
+> +	{ .compatible = "qcom,sdm845-smmu-500" },
+> +	{ .compatible = "qcom,sm8150-smmu-500" },
+> +	{ .compatible = "qcom,sm8250-smmu-500" },
+> +	{ }
+> +};
 
--- 
-The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
-a Linux Foundation Collaborative Project
+Can you push the table itself into arm-smmu-qcom? That way you'll be 
+free to add new SoCs willy-nilly without any possibility of conflicting 
+with anything else.
+
+Bonus points if you can fold in the Adreno variant and keep everything 
+together ;)
+
+Robin.
+
+>   static int arm_smmu_gr0_ns(int offset)
+>   {
+> @@ -217,10 +224,7 @@ struct arm_smmu_device *arm_smmu_impl_init(struct arm_smmu_device *smmu)
+>   	if (of_device_is_compatible(np, "nvidia,tegra194-smmu"))
+>   		return nvidia_smmu_impl_init(smmu);
+>   
+> -	if (of_device_is_compatible(np, "qcom,sdm845-smmu-500") ||
+> -	    of_device_is_compatible(np, "qcom,sc7180-smmu-500") ||
+> -	    of_device_is_compatible(np, "qcom,sm8150-smmu-500") ||
+> -	    of_device_is_compatible(np, "qcom,sm8250-smmu-500"))
+> +	if (of_match_node(qcom_smmu_impl_of_match, np))
+>   		return qcom_smmu_impl_init(smmu);
+>   
+>   	if (of_device_is_compatible(smmu->dev->of_node, "qcom,adreno-smmu"))
+> 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
