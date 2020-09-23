@@ -1,66 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D803C275FCD
-	for <lists+freedreno@lfdr.de>; Wed, 23 Sep 2020 20:28:28 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DF52276469
+	for <lists+freedreno@lfdr.de>; Thu, 24 Sep 2020 01:25:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BA8E6E9E6;
-	Wed, 23 Sep 2020 18:28:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC0756E082;
+	Wed, 23 Sep 2020 23:25:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 990426E955
- for <freedreno@lists.freedesktop.org>; Wed, 23 Sep 2020 18:28:23 +0000 (UTC)
+Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB88A6E082
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Sep 2020 23:25:03 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1600885703; h=Content-Transfer-Encoding: Content-Type:
- In-Reply-To: MIME-Version: Date: Message-ID: From: References: To:
- Subject: Sender; bh=HSmX8kpVwDUv15l7Sb/7/CBV4c0IJBor4yUGLVYSTNc=;
- b=c5WTZ+GCozNSfY68AXCV2Sxpi8IcApPzNurqPLBmctl5BL+vFa7IX2/6H0yaItS28SERgLDT
- NVLe7/7/A8YbqYTkiJzaiVWnJWf700jSl+2buOJYRyezZ6goZ/U+b/AUx3upGAqIiPzTtsC8
- X8QQ1grvHGGZ4YUW802wzKy+pA8=
-X-Mailgun-Sending-Ip: 69.72.42.4
+ s=smtp; t=1600903503; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=b2IYzLoqy+RT6Zl15hZRzCvo04WPMSa3Qlqf25e7kvM=;
+ b=rsnSaXIExjADVPscaytZQBHT4kl7fkTVMdYn5Fh+1CWqxU82FYcFeh8w6TdeFSjw7MSd+022
+ dDO9iag1j7ppR6wlHvcKHa/V+BJTl6dPfsz9TwERf7KvkIr7ciUphDmYAXs4ISXWUvAHsYsm
+ 4fDRZSGBL1JwukKIH3rxFmtsGX8=
+X-Mailgun-Sending-Ip: 104.130.96.5
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n04.prod.us-east-1.postgun.com with SMTP id
- 5f6b93c6588e0a98886f7fda (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 23 Sep 2020 18:28:22
+ smtp-out-n03.prod.us-west-2.postgun.com with SMTP id
+ 5f6bd94e51ea4325f325e177 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 23 Sep 2020 23:25:02
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id DA276C433C8; Wed, 23 Sep 2020 18:28:21 +0000 (UTC)
+ id ADA34C433C8; Wed, 23 Sep 2020 23:25:02 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- NICE_REPLY_A,SPF_FAIL,URIBL_BLOCKED autolearn=no autolearn_force=no
- version=3.4.0
-Received: from [192.168.1.7] (unknown [61.1.224.240])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: akhilpo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 9404CC433CA;
- Wed, 23 Sep 2020 18:28:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 9404CC433CA
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from abhinavk-linux.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 7BCE3C433CA;
+ Wed, 23 Sep 2020 23:25:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 7BCE3C433CA
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=akhilpo@codeaurora.org
-To: freedreno@lists.freedesktop.org, dri-devel@freedesktop.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- mka@chromium.org, jonathan@marek.ca, robdclark@gmail.com,
- dianders@chromium.org, Jordan Crouse <jcrouse@codeaurora.org>
-References: <1600786527-7343-1-git-send-email-akhilpo@codeaurora.org>
- <20200923145047.GB31425@jcrouse1-lnx.qualcomm.com>
-From: Akhil P Oommen <akhilpo@codeaurora.org>
-Message-ID: <df7a93b7-240f-bb52-9e3c-eeb346a4574e@codeaurora.org>
-Date: Wed, 23 Sep 2020 23:58:14 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.2.2
+ spf=fail smtp.mailfrom=abhinavk@codeaurora.org
+From: Abhinav Kumar <abhinavk@codeaurora.org>
+To: dri-devel@lists.freedesktop.org
+Date: Wed, 23 Sep 2020 16:24:48 -0700
+Message-Id: <20200923232448.24516-1-abhinavk@codeaurora.org>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-In-Reply-To: <20200923145047.GB31425@jcrouse1-lnx.qualcomm.com>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm: Fix premature purging of BO
+Subject: [Freedreno] [PATCH] drm/msm/dp: fix incorrect function prototype of
+ dp_debug_get()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,176 +67,42 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: kernel test robot <lkp@intel.com>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <abhinavk@codeaurora.org>, swboyd@chromium.org,
+ khsieh@codeaurora.org, robdclark@gmail.com, nganji@codeaurora.org,
+ seanpaul@chromium.org, tanmay@codeaurora.org, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 9/23/2020 8:20 PM, Jordan Crouse wrote:
-> On Tue, Sep 22, 2020 at 08:25:26PM +0530, Akhil P Oommen wrote:
->> In the case where we have a back-to-back submission that shares the same
->> BO, this BO will be prematurely moved to inactive_list while retiring the
->> first submit. But it will be still part of the second submit which is
->> being processed by the GPU. Now, if the shrinker happens to be triggered at
->> this point, it will result in a premature purging of this BO.
->>
->> To fix this, we need to refcount BO while doing submit and retire. Then,
->> it should be moved to inactive list when this refcount becomes 0.
->>
->> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
->> ---
->> Changes in v2:
->> 	1. Keep Active List around
->> 	2. Put back the deleted WARN_ON
->>
->>   drivers/gpu/drm/msm/msm_drv.h |  5 ++---
->>   drivers/gpu/drm/msm/msm_gem.c | 32 ++++++++++++++++----------------
->>   drivers/gpu/drm/msm/msm_gem.h |  4 +++-
->>   drivers/gpu/drm/msm/msm_gpu.c | 11 +++++++----
->>   4 files changed, 28 insertions(+), 24 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
->> index 3193274..28e3c8d 100644
->> --- a/drivers/gpu/drm/msm/msm_drv.h
->> +++ b/drivers/gpu/drm/msm/msm_drv.h
->> @@ -309,9 +309,8 @@ void msm_gem_put_vaddr(struct drm_gem_object *obj);
->>   int msm_gem_madvise(struct drm_gem_object *obj, unsigned madv);
->>   int msm_gem_sync_object(struct drm_gem_object *obj,
->>   		struct msm_fence_context *fctx, bool exclusive);
->> -void msm_gem_move_to_active(struct drm_gem_object *obj,
->> -		struct msm_gpu *gpu, bool exclusive, struct dma_fence *fence);
->> -void msm_gem_move_to_inactive(struct drm_gem_object *obj);
->> +void msm_gem_active_get(struct drm_gem_object *obj, struct msm_gpu *gpu);
->> +void msm_gem_active_put(struct drm_gem_object *obj);
->>   int msm_gem_cpu_prep(struct drm_gem_object *obj, uint32_t op, ktime_t *timeout);
->>   int msm_gem_cpu_fini(struct drm_gem_object *obj);
->>   void msm_gem_free_object(struct drm_gem_object *obj);
->> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
->> index 76a6c52..14e14ca 100644
->> --- a/drivers/gpu/drm/msm/msm_gem.c
->> +++ b/drivers/gpu/drm/msm/msm_gem.c
->> @@ -743,31 +743,31 @@ int msm_gem_sync_object(struct drm_gem_object *obj,
->>   	return 0;
->>   }
->>   
->> -void msm_gem_move_to_active(struct drm_gem_object *obj,
->> -		struct msm_gpu *gpu, bool exclusive, struct dma_fence *fence)
->> +void msm_gem_active_get(struct drm_gem_object *obj, struct msm_gpu *gpu)
->>   {
->>   	struct msm_gem_object *msm_obj = to_msm_bo(obj);
->> +	WARN_ON(!mutex_is_locked(&obj->dev->struct_mutex));
->>   	WARN_ON(msm_obj->madv != MSM_MADV_WILLNEED);
->> -	msm_obj->gpu = gpu;
->> -	if (exclusive)
->> -		dma_resv_add_excl_fence(obj->resv, fence);
->> -	else
->> -		dma_resv_add_shared_fence(obj->resv, fence);
->> -	list_del_init(&msm_obj->mm_list);
->> -	list_add_tail(&msm_obj->mm_list, &gpu->active_list);
->> +
->> +	if (!atomic_fetch_inc(&msm_obj->active_count)) {
->> +		msm_obj->gpu = gpu;
->> +		list_del_init(&msm_obj->mm_list);
->> +		list_add_tail(&msm_obj->mm_list, &gpu->active_list);
->> +	}
-> 
-> I'm not sure if all the renaming and reorganization are really needed here -
-> this is the meat of the change and it would have fit in reasonably well with the
-> existing function design.
-This happened due to the way I implemented the v1 patch. In the 
-hindsight, I think you are right.
+Fix the incorrect function prototype for dp_debug_get()
+in the dp_debug module to address compilation warning.
 
-Akhil.
-> 
->>   }
->>   
->> -void msm_gem_move_to_inactive(struct drm_gem_object *obj)
->> +void msm_gem_active_put(struct drm_gem_object *obj)
->>   {
->> -	struct drm_device *dev = obj->dev;
->> -	struct msm_drm_private *priv = dev->dev_private;
->>   	struct msm_gem_object *msm_obj = to_msm_bo(obj);
->> +	struct msm_drm_private *priv = obj->dev->dev_private;
->>   
->> -	WARN_ON(!mutex_is_locked(&dev->struct_mutex));
->> +	WARN_ON(!mutex_is_locked(&obj->dev->struct_mutex));
->>   
->> -	msm_obj->gpu = NULL;
->> -	list_del_init(&msm_obj->mm_list);
->> -	list_add_tail(&msm_obj->mm_list, &priv->inactive_list);
->> +	if (!atomic_dec_return(&msm_obj->active_count)) {
->> +		msm_obj->gpu = NULL;
->> +		list_del_init(&msm_obj->mm_list);
->> +		list_add_tail(&msm_obj->mm_list, &priv->inactive_list);
->> +	}
-> 
-> Same.
-> 
-> Jordan
->>   }
->>   
->>   int msm_gem_cpu_prep(struct drm_gem_object *obj, uint32_t op, ktime_t *timeout)
->> diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
->> index 7b1c7a5..a1bf741 100644
->> --- a/drivers/gpu/drm/msm/msm_gem.h
->> +++ b/drivers/gpu/drm/msm/msm_gem.h
->> @@ -88,12 +88,14 @@ struct msm_gem_object {
->>   	struct mutex lock; /* Protects resources associated with bo */
->>   
->>   	char name[32]; /* Identifier to print for the debugfs files */
->> +
->> +	atomic_t active_count;
->>   };
->>   #define to_msm_bo(x) container_of(x, struct msm_gem_object, base)
->>   
->>   static inline bool is_active(struct msm_gem_object *msm_obj)
->>   {
->> -	return msm_obj->gpu != NULL;
->> +	return atomic_read(&msm_obj->active_count);
->>   }
->>   
->>   static inline bool is_purgeable(struct msm_gem_object *msm_obj)
->> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
->> index 29c8d73c..55d1648 100644
->> --- a/drivers/gpu/drm/msm/msm_gpu.c
->> +++ b/drivers/gpu/drm/msm/msm_gpu.c
->> @@ -698,8 +698,8 @@ static void retire_submit(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
->>   
->>   	for (i = 0; i < submit->nr_bos; i++) {
->>   		struct msm_gem_object *msm_obj = submit->bos[i].obj;
->> -		/* move to inactive: */
->> -		msm_gem_move_to_inactive(&msm_obj->base);
->> +
->> +		msm_gem_active_put(&msm_obj->base);
->>   		msm_gem_unpin_iova(&msm_obj->base, submit->aspace);
->>   		drm_gem_object_put_locked(&msm_obj->base);
->>   	}
->> @@ -774,6 +774,7 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
->>   
->>   	for (i = 0; i < submit->nr_bos; i++) {
->>   		struct msm_gem_object *msm_obj = submit->bos[i].obj;
->> +		struct drm_gem_object *drm_obj = &msm_obj->base;
->>   		uint64_t iova;
->>   
->>   		/* can't happen yet.. but when we add 2d support we'll have
->> @@ -786,9 +787,11 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
->>   		msm_gem_get_and_pin_iova(&msm_obj->base, submit->aspace, &iova);
->>   
->>   		if (submit->bos[i].flags & MSM_SUBMIT_BO_WRITE)
->> -			msm_gem_move_to_active(&msm_obj->base, gpu, true, submit->fence);
->> +			dma_resv_add_excl_fence(drm_obj->resv, submit->fence);
->>   		else if (submit->bos[i].flags & MSM_SUBMIT_BO_READ)
->> -			msm_gem_move_to_active(&msm_obj->base, gpu, false, submit->fence);
->> +			dma_resv_add_shared_fence(drm_obj->resv, submit->fence);
->> +
->> +		msm_gem_active_get(drm_obj, gpu);
->>   	}
->>   
->>   	gpu->funcs->submit(gpu, submit);
->> -- 
->> 2.7.4
->>
-> 
+Fixes: f913454aae8e ("drm/msm/dp: move debugfs node to /sys/kernel/debug/dri/*/")
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
+---
+ drivers/gpu/drm/msm/dp/dp_debug.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_debug.h b/drivers/gpu/drm/msm/dp/dp_debug.h
+index 377e166fd0ea..7eaedfbb149c 100644
+--- a/drivers/gpu/drm/msm/dp/dp_debug.h
++++ b/drivers/gpu/drm/msm/dp/dp_debug.h
+@@ -60,7 +60,7 @@ void dp_debug_put(struct dp_debug *dp_debug);
+ static inline
+ struct dp_debug *dp_debug_get(struct device *dev, struct dp_panel *panel,
+ 		struct dp_usbpd *usbpd, struct dp_link *link,
+-		struct drm_connector **connector)
++		struct drm_connector **connector, struct drm_minor *minor)
+ {
+ 	return ERR_PTR(-EINVAL);
+ }
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
 _______________________________________________
 Freedreno mailing list
