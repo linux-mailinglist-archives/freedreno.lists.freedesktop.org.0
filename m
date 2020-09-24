@@ -1,57 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 271C62768F6
-	for <lists+freedreno@lfdr.de>; Thu, 24 Sep 2020 08:32:17 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B77527783C
+	for <lists+freedreno@lfdr.de>; Thu, 24 Sep 2020 20:06:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDA066EAAD;
-	Thu, 24 Sep 2020 06:32:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7EBF6E30F;
+	Thu, 24 Sep 2020 18:06:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x52a.google.com (mail-pg1-x52a.google.com
- [IPv6:2607:f8b0:4864:20::52a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 865E76EAAE
- for <freedreno@lists.freedesktop.org>; Thu, 24 Sep 2020 06:32:14 +0000 (UTC)
-Received: by mail-pg1-x52a.google.com with SMTP id y14so1268877pgf.12
- for <freedreno@lists.freedesktop.org>; Wed, 23 Sep 2020 23:32:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:content-transfer-encoding:in-reply-to:references
- :subject:from:cc:to:date:message-id:user-agent;
- bh=QLnDNKE2S3wzGcgxQbn94gD4gMx4cWe6gJ0q+mzRl+Q=;
- b=a33jq1KwBVdBeHZ6vJ/PJDssGM/nkkdTZuwG6vxdqOkbpjhTUyZn7nvYMusycvTeUg
- l5vP/b8Wg0uPEOnvQJMVKhMFtkTEAX9gNC7BWHHxSbvR14Dj/1CQhKacpHoQsGrKu6P2
- IHpi6jXMAW7JYNPevhxHBR022uVslkdWxU4/c=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:content-transfer-encoding
- :in-reply-to:references:subject:from:cc:to:date:message-id
- :user-agent;
- bh=QLnDNKE2S3wzGcgxQbn94gD4gMx4cWe6gJ0q+mzRl+Q=;
- b=dn1kQgvxZXF4kEDynqOuXlIw0tUgWOceNkd5GEDJ5llMIpvldhVO8STrF5GDvZCUna
- CrFXjuJ4lyMTYtt5DATAtG8KoSypY1CNmoiNbrXQDQBm6omxATG+d8Wx9TJ0KCfpoRna
- RDFrzMbDWFjkKx2d6hQjLFrGw43ry3Ur6yB+2UDybeJa8b6Og0Bc4r7xQbdOvqBEGzfk
- rqkrpN/LIEVea6XzET4LFcgCn1YlC+5SXBNLl32OdSaif9DhSc8vykdZ58rF6ViPk0yb
- wArE855fRvOmVO95QfEbCfbFsIsRAwT305axwon5ym04/HHegdfcJCdMF1hMQoz4f7VK
- xfcg==
-X-Gm-Message-State: AOAM532mOGYUAB1IITZ72qTFzB3gVIIekIVwRKNjZjszUmYkh1SPCGWm
- YLSHbnDIfdfZJOGHchcovw849Q==
-X-Google-Smtp-Source: ABdhPJzH1YjRbI7I1wZnL68bv9NNgPPGtLGQpYKz73xHcQIYGHEmTe5RXFL5RZ9shSJozYaiqwYClg==
-X-Received: by 2002:aa7:8a54:0:b029:142:2501:34f6 with SMTP id
- n20-20020aa78a540000b0290142250134f6mr3022588pfa.79.1600929134015; 
- Wed, 23 Sep 2020 23:32:14 -0700 (PDT)
-Received: from chromium.org ([2620:15c:202:1:3e52:82ff:fe6c:83ab])
- by smtp.gmail.com with ESMTPSA id i9sm1584716pfq.53.2020.09.23.23.32.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2020 23:32:13 -0700 (PDT)
+Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F28676E30F
+ for <freedreno@lists.freedesktop.org>; Thu, 24 Sep 2020 18:06:42 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1600970803; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=ALhUP7sAqZrosBEby/VQO6Cy4FEeZWO8qfo6Ml+PqXc=;
+ b=t2200eYaDvuBK3qBJCF8S3SJiVLalC4Uw+9s64Vvay5dxgMVK2PsegT2aCeTZPvPaNkAU+aK
+ IIaLRTMB7fbTXUkoJzrJ/tB/UJGstfshHmDSC3nU99s1wZpQmWgP5SlpWd+IMPYg2HPprgRO
+ frKLMck0B7+8i0cuZ3NYhy+mFS0=
+X-Mailgun-Sending-Ip: 104.130.96.5
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
+ 5f6ce02f1dcd99b9f253adf0 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 24 Sep 2020 18:06:39
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 57D64C433FE; Thu, 24 Sep 2020 18:06:39 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 8C519C433CA;
+ Thu, 24 Sep 2020 18:06:38 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <20200923232448.24516-1-abhinavk@codeaurora.org>
+Date: Thu, 24 Sep 2020 11:06:38 -0700
+From: abhinavk@codeaurora.org
+To: Stephen Boyd <swboyd@chromium.org>
+In-Reply-To: <160092913200.310579.7777419545906412437@swboyd.mtv.corp.google.com>
 References: <20200923232448.24516-1-abhinavk@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-To: Abhinav Kumar <abhinavk@codeaurora.org>, dri-devel@lists.freedesktop.org
-Date: Wed, 23 Sep 2020 23:32:12 -0700
-Message-ID: <160092913200.310579.7777419545906412437@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.9.1
+ <160092913200.310579.7777419545906412437@swboyd.mtv.corp.google.com>
+Message-ID: <9b14d270ac94a7b17e13a2d4ac86ffdc@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
 Subject: Re: [Freedreno] [PATCH] drm/msm/dp: fix incorrect function
  prototype of dp_debug_get()
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -67,28 +65,44 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: kernel test robot <lkp@intel.com>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <abhinavk@codeaurora.org>, khsieh@codeaurora.org,
- robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
- tanmay@codeaurora.org, aravindh@codeaurora.org,
+ tanmay@codeaurora.org, khsieh@codeaurora.org, seanpaul@chromium.org,
+ dri-devel@lists.freedesktop.org, aravindh@codeaurora.org,
  freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Abhinav Kumar (2020-09-23 16:24:48)
-> Fix the incorrect function prototype for dp_debug_get()
-> in the dp_debug module to address compilation warning.
+Hi Stephen
+
+Thanks for the review.
+
+On 2020-09-23 23:32, Stephen Boyd wrote:
+> Quoting Abhinav Kumar (2020-09-23 16:24:48)
+>> Fix the incorrect function prototype for dp_debug_get()
+>> in the dp_debug module to address compilation warning.
+>> 
+>> Fixes: f913454aae8e ("drm/msm/dp: move debugfs node to 
+>> /sys/kernel/debug/dri/*/")
+>> Reported-by: kernel test robot <lkp@intel.com>
+>> Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
+>> ---
 > 
-> Fixes: f913454aae8e ("drm/msm/dp: move debugfs node to /sys/kernel/debug/dri/*/")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
-> ---
+> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+> 
+> Will the compliance testing parts be moved out of debugfs at some 
+> point?
+> Just curious what the plan is there.
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+No, the video pattern compliance testing parts will remain in debugfs as 
+they use
+IGT as the userspace entity which is debugfs based for DP compliance 
+tests.
 
-Will the compliance testing parts be moved out of debugfs at some point?
-Just curious what the plan is there.
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
