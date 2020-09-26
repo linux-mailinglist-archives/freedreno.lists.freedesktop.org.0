@@ -1,35 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 490D4278F67
-	for <lists+freedreno@lfdr.de>; Fri, 25 Sep 2020 19:13:17 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E564279655
+	for <lists+freedreno@lfdr.de>; Sat, 26 Sep 2020 04:55:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC8C16ED62;
-	Fri, 25 Sep 2020 17:13:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 426346E10E;
+	Sat, 26 Sep 2020 02:55:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9529B6E090;
- Fri, 25 Sep 2020 03:44:21 +0000 (UTC)
-Received: from DGGEMS410-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 707EDE3898692EA7B039;
- Fri, 25 Sep 2020 11:44:18 +0800 (CST)
-Received: from localhost.localdomain (10.69.192.56) by
- DGGEMS410-HUB.china.huawei.com (10.3.19.210) with Microsoft SMTP Server id
- 14.3.487.0; Fri, 25 Sep 2020 11:44:15 +0800
-From: Tian Tao <tiantao6@hisilicon.com>
-To: <robdclark@gmail.com>, <sean@poorly.run>, <airlied@linux.ie>,
- <daniel@ffwll.ch>, <dhar@codeaurora.org>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>
-Date: Fri, 25 Sep 2020 11:41:48 +0800
-Message-ID: <1601005308-49706-1-git-send-email-tiantao6@hisilicon.com>
-X-Mailer: git-send-email 2.7.4
+Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 098E16E104
+ for <freedreno@lists.freedesktop.org>; Sat, 26 Sep 2020 02:55:19 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1601088920; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=dXOYbIBVSuh3lZq5g6RSPeYoOxQgoRVu5CrfkFSqGDQ=;
+ b=kC96K36kiTot7KdpydR0vXpU42GGP8FD+Nlc+25lOanZZbB7Af/yQOOY2I/ki+vcMFvvqUz0
+ +07VngXayQhvbpttyfBldO3rzLdxZIvEgomfADNPFnMB2kyUxpfscym0RnnVMcOzzsI4rJFD
+ TUAKB6P0dhGcyRlHYbCx2SQKVIc=
+X-Mailgun-Sending-Ip: 69.72.42.4
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
+ 5f6ead975fb64f6e37714198 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Sat, 26 Sep 2020 02:55:19
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id EAA72C433FE; Sat, 26 Sep 2020 02:55:18 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from abhinavk-linux.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 9B7F8C433C8;
+ Sat, 26 Sep 2020 02:55:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 9B7F8C433C8
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=abhinavk@codeaurora.org
+From: Abhinav Kumar <abhinavk@codeaurora.org>
+To: dri-devel@lists.freedesktop.org
+Date: Fri, 25 Sep 2020 19:55:12 -0700
+Message-Id: <20200926025512.15145-1-abhinavk@codeaurora.org>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-X-Originating-IP: [10.69.192.56]
-X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Fri, 25 Sep 2020 17:13:14 +0000
-Subject: [Freedreno] [PATCH] drm/msm: Add missing struct identifier
+Subject: [Freedreno] [PATCH v2] drm/msm/dp: fix incorrect function prototype
+ of dp_debug_get()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,51 +67,64 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: kernel test robot <lkp@intel.com>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <abhinavk@codeaurora.org>, swboyd@chromium.org,
+ khsieh@codeaurora.org, robdclark@gmail.com, nganji@codeaurora.org,
+ seanpaul@chromium.org, tanmay@codeaurora.org, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-fix warnings reported by make W=1
-drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:195: warning: cannot
-understand function prototype: 'const struct dpu_intr_reg
-dpu_intr_set[] = '
-drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:252: warning: cannot
-understand function prototype: 'const struct dpu_irq_type
-dpu_irq_map[] = '
+Fix the incorrect function prototype for dp_debug_get()
+in the dp_debug module to address compilation warning.
+Also add prototype for msm_dp_debugfs_init() for fixing compilation
+issue with other defconfigs.
 
-Signed-off-by: Tian Tao <tiantao6@hisilicon.com>
+changes in v2:
+	- add prototype for msm_dp_debugfs_init()
+
+Fixes: f913454aae8e ("drm/msm/dp: move debugfs node to /sys/kernel/debug/dri/*/")
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_debug.h | 2 +-
+ drivers/gpu/drm/msm/msm_drv.h     | 5 +++++
+ 2 files changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-index d84a84f..38482b1 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-@@ -190,7 +190,7 @@ struct dpu_irq_type {
- };
+diff --git a/drivers/gpu/drm/msm/dp/dp_debug.h b/drivers/gpu/drm/msm/dp/dp_debug.h
+index 377e166fd0ea..7eaedfbb149c 100644
+--- a/drivers/gpu/drm/msm/dp/dp_debug.h
++++ b/drivers/gpu/drm/msm/dp/dp_debug.h
+@@ -60,7 +60,7 @@ void dp_debug_put(struct dp_debug *dp_debug);
+ static inline
+ struct dp_debug *dp_debug_get(struct device *dev, struct dp_panel *panel,
+ 		struct dp_usbpd *usbpd, struct dp_link *link,
+-		struct drm_connector **connector)
++		struct drm_connector **connector, struct drm_minor *minor)
+ {
+ 	return ERR_PTR(-EINVAL);
+ }
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index 319327462b29..9f7849c4ece3 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -435,6 +435,11 @@ static inline void msm_dp_irq_postinstall(struct msm_dp *dp_display)
+ {
+ }
  
- /**
-- * List of DPU interrupt registers
-+ * struct dpu_intr_reg -  List of DPU interrupt registers
-  */
- static const struct dpu_intr_reg dpu_intr_set[] = {
- 	{
-@@ -246,8 +246,9 @@ static const struct dpu_intr_reg dpu_intr_set[] = {
- };
++static inline void msm_dp_debugfs_init(struct msm_dp *dp_display,
++		struct drm_minor *minor)
++{
++}
++
+ #endif
  
- /**
-- * IRQ mapping table - use for lookup an irq_idx in this table that have
-- *                     a matching interface type and instance index.
-+ * struct dpu_irq_type - IRQ mapping table use for lookup an irq_idx in this
-+ *			 table that have a matching interface type and
-+ *			 instance index.
-  */
- static const struct dpu_irq_type dpu_irq_map[] = {
- 	/* BEGIN MAP_RANGE: 0-31, INTR */
+ void __init msm_mdp_register(void);
 -- 
-2.7.4
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
 _______________________________________________
 Freedreno mailing list
