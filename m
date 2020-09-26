@@ -1,61 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63942279703
-	for <lists+freedreno@lfdr.de>; Sat, 26 Sep 2020 06:51:54 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id CC9B9279791
+	for <lists+freedreno@lfdr.de>; Sat, 26 Sep 2020 09:40:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84DF86E134;
-	Sat, 26 Sep 2020 04:51:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 828D46EDA6;
+	Sat, 26 Sep 2020 07:40:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8588D6E134
- for <freedreno@lists.freedesktop.org>; Sat, 26 Sep 2020 04:51:51 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1601095911; h=Content-Transfer-Encoding: MIME-Version:
- Message-Id: Date: Subject: Cc: To: From: Sender;
- bh=DTXwOW1hmbrLyDmXb2wq+4otAe5l4L0w+uetysGZBWs=;
- b=JdDuxZHfT/JM/geWBmGG+usobmzAHGGMp/QeIsFJAGfBOeIw+LKyARlhHAAOtgXBEMfLbLRJ
- w8ZElbC0kPh0rDX/UXSEszHb7XSu6dq0Nvq9JXPJwGr2ZbGgvLKghJ8wTn2YNan19Rm2Vq7e
- R7m1+4pFd0YGHyqVzkwqVNHzN2o=
-X-Mailgun-Sending-Ip: 104.130.96.5
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n03.prod.us-west-2.postgun.com with SMTP id
- 5f6ec8e663643dee62ceb425 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Sat, 26 Sep 2020 04:51:50
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id C07F5C433C8; Sat, 26 Sep 2020 04:51:50 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL, 
- URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-Received: from linuxdisplay-lab-04.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: tanmay)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 5C708C433CA;
- Sat, 26 Sep 2020 04:51:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 5C708C433CA
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=tanmay@codeaurora.org
-From: Tanmay Shah <tanmay@codeaurora.org>
-To: dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org
-Date: Fri, 25 Sep 2020 21:50:48 -0700
-Message-Id: <20200926045048.16175-1-tanmay@codeaurora.org>
-X-Mailer: git-send-email 2.27.0
+Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
+ [IPv6:2607:f8b0:4864:20::1041])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B49FE6EDA6
+ for <freedreno@lists.freedesktop.org>; Sat, 26 Sep 2020 07:40:03 +0000 (UTC)
+Received: by mail-pj1-x1041.google.com with SMTP id jw11so642793pjb.0
+ for <freedreno@lists.freedesktop.org>; Sat, 26 Sep 2020 00:40:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:content-transfer-encoding:in-reply-to:references
+ :subject:from:cc:to:date:message-id:user-agent;
+ bh=qRaxhiyZE90m+amIVHIeCMA0LL3BWUXSOy1qHRMz/HE=;
+ b=REsQD2UwdR9mJ2mZr8Lka7ng3h1M5e4t5YBSNhbSVEe4dBJq1XzPkdnga8WsA4blA7
+ enldgWNaqTvjHUwuEuZ8zTdyodiiex2GstukHEm8QqFfnaUL5b2Qp+86p01XKfBONkbv
+ 94+OWFKFNefSgIloF+EIod5O3TihXi4rkG8pA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:content-transfer-encoding
+ :in-reply-to:references:subject:from:cc:to:date:message-id
+ :user-agent;
+ bh=qRaxhiyZE90m+amIVHIeCMA0LL3BWUXSOy1qHRMz/HE=;
+ b=EktnTbySnvuy0MD1nPWSdwFqczdTSENA7JkW7LLQn+/1OJ+VTGdv5Fis4hbE4pmPet
+ ZYW3jRPXlX/bMlg1GfpiDfTG7dwCI7S/WPdHstF/Ic+eW7W04Lk3EynV/5qZcW1DaF9d
+ 9JG7VTfYVHKP8xluaDvn7A0Re01M33yM3LT0YvYReLDnS+6bHLsrW92+vcn57ehTdbjl
+ 9LPn7JIEYclF3E5Vb20G7itLUIbFD3kEI3njHCRTVUGlZ47G5EuwYrVVmL3zv/c1E2Bu
+ UkrTsABmj9PvaXZJ+eCg9ZKEQKmuaXgEglzF6cdsg027NNU1Mxl18EkpzSRJMo7R8j9z
+ ADug==
+X-Gm-Message-State: AOAM533cIcMDYpQq03G/XLhOEw2ma2FwzX3e0Zjmx23oTGCESl7hCAEm
+ 1ZFyVMYvax4Cz/1dmdnRbjsh7w==
+X-Google-Smtp-Source: ABdhPJx66j3Z3S4vye5sgwXdj+nfn5Pw1dqJE3BCIxshfgN+WI4IsNFGybEL3NUhX6uz2b9yZrS6uw==
+X-Received: by 2002:a17:90a:69e3:: with SMTP id
+ s90mr1129884pjj.130.1601106003310; 
+ Sat, 26 Sep 2020 00:40:03 -0700 (PDT)
+Received: from chromium.org ([2620:15c:202:1:3e52:82ff:fe6c:83ab])
+ by smtp.gmail.com with ESMTPSA id c12sm4540274pfj.164.2020.09.26.00.40.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 26 Sep 2020 00:40:02 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm/dp: DisplayPort PHY compliance tests
- fixup
+In-Reply-To: <20200926045048.16175-1-tanmay@codeaurora.org>
+References: <20200926045048.16175-1-tanmay@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+To: Tanmay Shah <tanmay@codeaurora.org>, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+Date: Sat, 26 Sep 2020 00:40:01 -0700
+Message-ID: <160110600102.310579.8458722739510072790@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: DisplayPort PHY compliance
+ tests fixup
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,107 +68,26 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, abhinavk@codeaurora.org, swboyd@chromium.org,
- khsieh@codeaurora.org, robdclark@gmail.com, seanpaul@chromium.org,
+ linux-kernel@vger.kernel.org, abhinavk@codeaurora.org, khsieh@codeaurora.org,
+ robdclark@gmail.com, seanpaul@chromium.org,
  Tanmay Shah <tanmay@codeaurora.org>, daniel@ffwll.ch, aravindh@codeaurora.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Bandwidth code was being used as test link rate. Fix this by converting
-bandwidth code to test link rate
+Quoting Tanmay Shah (2020-09-25 21:50:48)
+> Bandwidth code was being used as test link rate. Fix this by converting
+> bandwidth code to test link rate
+> 
+> Do not reset voltage and pre-emphasis level during IRQ HPD attention
+> interrupt. Also fix pre-emphasis parsing during test link status process
+> 
+> Signed-off-by: Tanmay Shah <tanmay@codeaurora.org>
+> ---
 
-Do not reset voltage and pre-emphasis level during IRQ HPD attention
-interrupt. Also fix pre-emphasis parsing during test link status process
-
-Signed-off-by: Tanmay Shah <tanmay@codeaurora.org>
----
- drivers/gpu/drm/msm/dp/dp_ctrl.c    |  3 ---
- drivers/gpu/drm/msm/dp/dp_display.c |  1 +
- drivers/gpu/drm/msm/dp/dp_link.c    | 12 +++++++++++-
- drivers/gpu/drm/msm/dp/dp_link.h    |  1 +
- 4 files changed, 13 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index 2e3e1917351f..872b12689e31 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1643,9 +1643,6 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
- 	if (rc)
- 		return rc;
- 
--	ctrl->link->phy_params.p_level = 0;
--	ctrl->link->phy_params.v_level = 0;
--
- 	while (--link_train_max_retries &&
- 		!atomic_read(&ctrl->dp_ctrl.aborted)) {
- 		rc = dp_ctrl_reinitialize_mainlink(ctrl);
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index e175aa3fd3a9..ae9989ece73f 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -335,6 +335,7 @@ static int dp_display_process_hpd_high(struct dp_display_private *dp)
- 	dp->dp_display.max_pclk_khz = DP_MAX_PIXEL_CLK_KHZ;
- 	dp->dp_display.max_dp_lanes = dp->parser->max_dp_lanes;
- 
-+	dp_link_reset_phy_params_vx_px(dp->link);
- 	rc = dp_ctrl_on_link(dp->ctrl);
- 	if (rc) {
- 		DRM_ERROR("failed to complete DP link training\n");
-diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
-index c811da515fb3..49d7fad36fc4 100644
---- a/drivers/gpu/drm/msm/dp/dp_link.c
-+++ b/drivers/gpu/drm/msm/dp/dp_link.c
-@@ -869,6 +869,9 @@ static int dp_link_parse_vx_px(struct dp_link_private *link)
- 		drm_dp_get_adjust_request_voltage(link->link_status, 0);
- 	link->dp_link.phy_params.p_level =
- 		drm_dp_get_adjust_request_pre_emphasis(link->link_status, 0);
-+
-+	link->dp_link.phy_params.p_level >>= DP_TRAIN_PRE_EMPHASIS_SHIFT;
-+
- 	DRM_DEBUG_DP("Requested: v_level = 0x%x, p_level = 0x%x\n",
- 			link->dp_link.phy_params.v_level,
- 			link->dp_link.phy_params.p_level);
-@@ -911,7 +914,8 @@ static int dp_link_process_phy_test_pattern_request(
- 			link->request.test_lane_count);
- 
- 	link->dp_link.link_params.num_lanes = link->request.test_lane_count;
--	link->dp_link.link_params.rate = link->request.test_link_rate;
-+	link->dp_link.link_params.rate =
-+		drm_dp_bw_code_to_link_rate(link->request.test_link_rate);
- 
- 	ret = dp_link_parse_vx_px(link);
- 
-@@ -1156,6 +1160,12 @@ int dp_link_adjust_levels(struct dp_link *dp_link, u8 *link_status)
- 	return 0;
- }
- 
-+void dp_link_reset_phy_params_vx_px(struct dp_link *dp_link)
-+{
-+	dp_link->phy_params.v_level = 0;
-+	dp_link->phy_params.p_level = 0;
-+}
-+
- u32 dp_link_get_test_bits_depth(struct dp_link *dp_link, u32 bpp)
- {
- 	u32 tbd;
-diff --git a/drivers/gpu/drm/msm/dp/dp_link.h b/drivers/gpu/drm/msm/dp/dp_link.h
-index 49811b6221e5..9dd4dd926530 100644
---- a/drivers/gpu/drm/msm/dp/dp_link.h
-+++ b/drivers/gpu/drm/msm/dp/dp_link.h
-@@ -135,6 +135,7 @@ static inline u32 dp_link_bit_depth_to_bpc(u32 tbd)
- 	}
- }
- 
-+void dp_link_reset_phy_params_vx_px(struct dp_link *dp_link);
- u32 dp_link_get_test_bits_depth(struct dp_link *dp_link, u32 bpp);
- int dp_link_process_request(struct dp_link *dp_link);
- int dp_link_get_colorimetry_config(struct dp_link *dp_link);
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
-
+Fixes: 8ede2ecc3e5e ("drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets")
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
