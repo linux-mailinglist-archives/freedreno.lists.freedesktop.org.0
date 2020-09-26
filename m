@@ -2,59 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC9B9279791
-	for <lists+freedreno@lfdr.de>; Sat, 26 Sep 2020 09:40:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36DCA279793
+	for <lists+freedreno@lfdr.de>; Sat, 26 Sep 2020 09:41:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 828D46EDA6;
-	Sat, 26 Sep 2020 07:40:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19D0F6EDB4;
+	Sat, 26 Sep 2020 07:41:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
- [IPv6:2607:f8b0:4864:20::1041])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B49FE6EDA6
- for <freedreno@lists.freedesktop.org>; Sat, 26 Sep 2020 07:40:03 +0000 (UTC)
-Received: by mail-pj1-x1041.google.com with SMTP id jw11so642793pjb.0
- for <freedreno@lists.freedesktop.org>; Sat, 26 Sep 2020 00:40:03 -0700 (PDT)
+Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
+ [IPv6:2607:f8b0:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83E9E6EDA6
+ for <freedreno@lists.freedesktop.org>; Sat, 26 Sep 2020 07:41:17 +0000 (UTC)
+Received: by mail-pf1-x443.google.com with SMTP id k8so5264697pfk.2
+ for <freedreno@lists.freedesktop.org>; Sat, 26 Sep 2020 00:41:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:content-transfer-encoding:in-reply-to:references
  :subject:from:cc:to:date:message-id:user-agent;
- bh=qRaxhiyZE90m+amIVHIeCMA0LL3BWUXSOy1qHRMz/HE=;
- b=REsQD2UwdR9mJ2mZr8Lka7ng3h1M5e4t5YBSNhbSVEe4dBJq1XzPkdnga8WsA4blA7
- enldgWNaqTvjHUwuEuZ8zTdyodiiex2GstukHEm8QqFfnaUL5b2Qp+86p01XKfBONkbv
- 94+OWFKFNefSgIloF+EIod5O3TihXi4rkG8pA=
+ bh=OaqWuxy2M9eImPpuAf5glJGxxD92OtFncd8r97AgYM4=;
+ b=O0dm9hMEqc1vEs0A9s9u8sPtT4XYPZ+egumnSlp7wUZCtw2BJSRbP/BmWpow8IJPxL
+ Xr4GAJvwYtoZjZdrGgwyAlfx6tFy5hmlmjfsBeeKYS9zlsvk3uFiD3LvQqHc/Uy+OV6p
+ nQ0seqgfAIQ5iuHLtYk83rKNW9diUkuC+45Zo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:content-transfer-encoding
  :in-reply-to:references:subject:from:cc:to:date:message-id
  :user-agent;
- bh=qRaxhiyZE90m+amIVHIeCMA0LL3BWUXSOy1qHRMz/HE=;
- b=EktnTbySnvuy0MD1nPWSdwFqczdTSENA7JkW7LLQn+/1OJ+VTGdv5Fis4hbE4pmPet
- ZYW3jRPXlX/bMlg1GfpiDfTG7dwCI7S/WPdHstF/Ic+eW7W04Lk3EynV/5qZcW1DaF9d
- 9JG7VTfYVHKP8xluaDvn7A0Re01M33yM3LT0YvYReLDnS+6bHLsrW92+vcn57ehTdbjl
- 9LPn7JIEYclF3E5Vb20G7itLUIbFD3kEI3njHCRTVUGlZ47G5EuwYrVVmL3zv/c1E2Bu
- UkrTsABmj9PvaXZJ+eCg9ZKEQKmuaXgEglzF6cdsg027NNU1Mxl18EkpzSRJMo7R8j9z
- ADug==
-X-Gm-Message-State: AOAM533cIcMDYpQq03G/XLhOEw2ma2FwzX3e0Zjmx23oTGCESl7hCAEm
- 1ZFyVMYvax4Cz/1dmdnRbjsh7w==
-X-Google-Smtp-Source: ABdhPJx66j3Z3S4vye5sgwXdj+nfn5Pw1dqJE3BCIxshfgN+WI4IsNFGybEL3NUhX6uz2b9yZrS6uw==
-X-Received: by 2002:a17:90a:69e3:: with SMTP id
- s90mr1129884pjj.130.1601106003310; 
- Sat, 26 Sep 2020 00:40:03 -0700 (PDT)
+ bh=OaqWuxy2M9eImPpuAf5glJGxxD92OtFncd8r97AgYM4=;
+ b=PEXM3fWHgzKqx6hDpyMKDHSXAwp0pKk+Vi3YktsTegX1Q6cI3bgx2Wy5OcBtTzim2R
+ zATKhgg5B9fTgIq1OYLKDr0U16d60sCbkUYkwq80IkWCW5xvnmxpAybDcdzNKJ99bctp
+ JEUSugzUgYIchWcarf7pYtQo//bxGfyC/c95zFpKrxFpElicx8Ot8DB8jU8bTLzGjzo9
+ Z5WZIH4AQEun9kqSzVlNLJJ3dOSpMz4L48wMM+yXVapU8VLiY5OKlNxzbaJLL6lu17PZ
+ yf1sGdVU2I9F/GeQbZnGhKG3puEItM1zJfduZdt4nF7lW/JV89//5gezSWVdb3lDXEM3
+ 7NLw==
+X-Gm-Message-State: AOAM533wVMkyx8HvyLmGDd86+HHQ5AOimGm/8cBnBb9vErWzTf9e3TQX
+ 9AMPcVw89knKH5Pk/KQd0UBuuw==
+X-Google-Smtp-Source: ABdhPJzEAKDRyk+rvxA2q8CkeH8Jl0KDYYDLphxH3dmvJ35XQzgM6LZvJ3fC1/ASAZVYwNv2FOMcew==
+X-Received: by 2002:a63:490d:: with SMTP id w13mr2027849pga.24.1601106077143; 
+ Sat, 26 Sep 2020 00:41:17 -0700 (PDT)
 Received: from chromium.org ([2620:15c:202:1:3e52:82ff:fe6c:83ab])
- by smtp.gmail.com with ESMTPSA id c12sm4540274pfj.164.2020.09.26.00.40.02
+ by smtp.gmail.com with ESMTPSA id m188sm4836662pfd.56.2020.09.26.00.41.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 26 Sep 2020 00:40:02 -0700 (PDT)
+ Sat, 26 Sep 2020 00:41:16 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200926045048.16175-1-tanmay@codeaurora.org>
-References: <20200926045048.16175-1-tanmay@codeaurora.org>
+In-Reply-To: <20200926025512.15145-1-abhinavk@codeaurora.org>
+References: <20200926025512.15145-1-abhinavk@codeaurora.org>
 From: Stephen Boyd <swboyd@chromium.org>
-To: Tanmay Shah <tanmay@codeaurora.org>, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-Date: Sat, 26 Sep 2020 00:40:01 -0700
-Message-ID: <160110600102.310579.8458722739510072790@swboyd.mtv.corp.google.com>
+To: Abhinav Kumar <abhinavk@codeaurora.org>, dri-devel@lists.freedesktop.org
+Date: Sat, 26 Sep 2020 00:41:15 -0700
+Message-ID: <160110607539.310579.6954031617378004352@swboyd.mtv.corp.google.com>
 User-Agent: alot/0.9.1
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: DisplayPort PHY compliance
- tests fixup
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: fix incorrect function
+ prototype of dp_debug_get()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,26 +65,30 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, abhinavk@codeaurora.org, khsieh@codeaurora.org,
- robdclark@gmail.com, seanpaul@chromium.org,
- Tanmay Shah <tanmay@codeaurora.org>, daniel@ffwll.ch, aravindh@codeaurora.org
+Cc: kernel test robot <lkp@intel.com>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <abhinavk@codeaurora.org>, khsieh@codeaurora.org,
+ robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
+ tanmay@codeaurora.org, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Tanmay Shah (2020-09-25 21:50:48)
-> Bandwidth code was being used as test link rate. Fix this by converting
-> bandwidth code to test link rate
+Quoting Abhinav Kumar (2020-09-25 19:55:12)
+> Fix the incorrect function prototype for dp_debug_get()
+> in the dp_debug module to address compilation warning.
+> Also add prototype for msm_dp_debugfs_init() for fixing compilation
+> issue with other defconfigs.
 > 
-> Do not reset voltage and pre-emphasis level during IRQ HPD attention
-> interrupt. Also fix pre-emphasis parsing during test link status process
+> changes in v2:
+>         - add prototype for msm_dp_debugfs_init()
 > 
-> Signed-off-by: Tanmay Shah <tanmay@codeaurora.org>
+> Fixes: f913454aae8e ("drm/msm/dp: move debugfs node to /sys/kernel/debug/dri/*/")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
 > ---
 
-Fixes: 8ede2ecc3e5e ("drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets")
 Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 _______________________________________________
 Freedreno mailing list
