@@ -2,58 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7368279914
-	for <lists+freedreno@lfdr.de>; Sat, 26 Sep 2020 14:52:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73ABB279C63
+	for <lists+freedreno@lfdr.de>; Sat, 26 Sep 2020 22:35:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DEAA6E21B;
-	Sat, 26 Sep 2020 12:52:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3911D6E075;
+	Sat, 26 Sep 2020 20:35:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0DD26E21D
- for <freedreno@lists.freedesktop.org>; Sat, 26 Sep 2020 12:52:02 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id e16so6886404wrm.2
- for <freedreno@lists.freedesktop.org>; Sat, 26 Sep 2020 05:52:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=foqK6d6PeFS41hCQFnmZHZLvMNZeja8GwkTNzpenNPE=;
- b=HZ5zxkP2mVnrLayUJOr3gUjOa49srhi8RntJAa++LZmdX4rp3uW0qGuZBgLxsOBB14
- qOJ8QQqciOxgx6cjavko9c0jfKNfSyAKC02HUBiwGszIzhTG9jf8O7Vmq7uTm/acLfPo
- 6G1n9WMFR0r/PxgAYrmlQZDp0lcqDTq4Q0D+2Vjg3GghubLw2PPsl8x9qOYkab1LTl7h
- 4k4YlEGyVYrCFXpDvdQ05hGKmVqqeJhaj6i0YS1a9vLC3aD40D7/1+V2wDmJ90K7GPw0
- W23gaq6402ta5qnpbhx4eISlTXdHEOleAHtnPofynlrq/zr0fuGyx5liHS7gm1f1t9Va
- 9YJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=foqK6d6PeFS41hCQFnmZHZLvMNZeja8GwkTNzpenNPE=;
- b=eOQF8P0ThwvBU7GRe2h5fU7FkxWqzFwdZM1zQ2xpP8ENr73tawGm0FTh3z1UdS3RW2
- Xm1bczf4jtm/+NY6yGLpQanhF5dZqRUWw7By1r4rutipEYPXLRbXCl9bVYHZHs18IbL6
- YiZMAtoRPOQJJahsyHq0GfRoAQ/F9XRnMIim4WQlsEX21aRmHJDWeV3hTtis0D4H62du
- VILgt/CvsQajs2zxYAZkuIyo2dL7120nyKE6XafGajzQygM9VOZp+drtZRTZXb5dgjji
- IeeYKDP2msSa0n8hAOqJC1C7T7Dl8aGUmMcgUDXl0qRQDFJ42i2MeHk4YALDnxL7B7P3
- K6mA==
-X-Gm-Message-State: AOAM5303+1NGJLWgr/1mXgaH2nsmAQNHteRPs/0BNv3S0Up66VQ0im2c
- xB9Br7PR51MnvOQKSxoyqo0=
-X-Google-Smtp-Source: ABdhPJzj57ykvAkR8sPQK4WXT9fZ19k0L75upjkVIzxAPQQFacUyUnq9zlGMYnqhP+HWrKhHLLJlLw==
-X-Received: by 2002:adf:cd05:: with SMTP id w5mr9428546wrm.62.1601124721243;
- Sat, 26 Sep 2020 05:52:01 -0700 (PDT)
-Received: from IcarusMOD.eternityproject.eu ([2.237.20.237])
- by smtp.gmail.com with ESMTPSA id a10sm2520451wmj.38.2020.09.26.05.52.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 26 Sep 2020 05:52:00 -0700 (PDT)
-From: kholk11@gmail.com
-To: robdclark@gmail.com
-Date: Sat, 26 Sep 2020 14:51:46 +0200
-Message-Id: <20200926125146.12859-8-kholk11@gmail.com>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20200926125146.12859-1-kholk11@gmail.com>
-References: <20200926125146.12859-1-kholk11@gmail.com>
+Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A00D26E075
+ for <freedreno@lists.freedesktop.org>; Sat, 26 Sep 2020 20:35:08 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1601152509; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=GCWwjWEfmmgYW2v0oU/ekR8qqnSHIjTtkkGegbeN01M=;
+ b=F9F0RWtL/APV8kTmX6pC9rCQDDa4WRVkafeAYLRQxi/LFEawS3iGUEJWwCVUjQJeOCyagfgh
+ qKjNMV5/BJdKsFBkiMhk3lvLDYqAqNDMOl0ZEDU5MkA4Fs70sFX+eIV1JCKvn9gqkOG1TLuS
+ ndZiq0RgMEJ/vzx4VdM6uOrdNKA=
+X-Mailgun-Sending-Ip: 69.72.42.4
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
+ 5f6fa5faa7eb63c698bf0673 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Sat, 26 Sep 2020 20:35:05
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 28099C433CB; Sat, 26 Sep 2020 20:35:05 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 52368C433CA;
+ Sat, 26 Sep 2020 20:35:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 52368C433CA
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=khsieh@codeaurora.org
+From: Kuogee Hsieh <khsieh@codeaurora.org>
+To: robdclark@gmail.com,
+	sean@poorly.run,
+	swboyd@chromium.org
+Date: Sat, 26 Sep 2020 13:34:54 -0700
+Message-Id: <20200926203454.13643-1-khsieh@codeaurora.org>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 7/7] drm/msm/a5xx: Disable UCHE global filter
+Subject: [Freedreno] [PATCH v2] drm/msm/dp: return correct connection status
+ after suspend
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,42 +69,219 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, marijns95@gmail.com,
- phone-devel@vger.kernel.org, airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- konradybcio@gmail.com, linux-kernel@vger.kernel.org, martin.botka1@gmail.com,
- jcrouse@codeaurora.org, daniel@ffwll.ch, kholk11@gmail.com, sean@poorly.run
+Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ abhinavk@codeaurora.org, khsieh@codeaurora.org, tanmay@codeaurora.org,
+ daniel@ffwll.ch, aravindh@codeaurora.org, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Konrad Dybcio <konradybcio@gmail.com>
+At dp_pm_resume, reinitialize both dp host controller and hpd block
+so that hpd connection can be detected at realtime by reading hpd state
+status register. Also hpd plug interrupt can be generated accordingly.
 
-Port over the command from downstream to prevent undefined
-behaviour.
+Changes in v2:
+-- use container_of to cast correct dp_display_private pointer
+   at both dp_pm_suspend and dp_pm_resume.
 
-Signed-off-by: Konrad Dybcio <konradybcio@gmail.com>
-Signed-off-by: AngeloGioacchino Del Regno <kholk11@gmail.com>
+Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
 ---
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/msm/dp/dp_catalog.c | 13 ++++++
+ drivers/gpu/drm/msm/dp/dp_catalog.h |  1 +
+ drivers/gpu/drm/msm/dp/dp_display.c | 67 ++++++++++++-----------------
+ drivers/gpu/drm/msm/dp/dp_reg.h     |  2 +
+ 4 files changed, 43 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index bdc852e7d979..71cd8a3a6bf1 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -722,6 +722,9 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
- 	    adreno_is_a512(adreno_gpu))
- 		gpu_rmw(gpu, REG_A5XX_RB_DBG_ECO_CNTL, 0, (1 << 9));
+diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
+index b15b4ce4ba35..63c5ada34c21 100644
+--- a/drivers/gpu/drm/msm/dp/dp_catalog.c
++++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
+@@ -572,6 +572,19 @@ void dp_catalog_ctrl_hpd_config(struct dp_catalog *dp_catalog)
+ 	dp_write_aux(catalog, REG_DP_DP_HPD_CTRL, DP_DP_HPD_CTRL_HPD_EN);
+ }
  
-+	/* Disable UCHE global filter as SP can invalidate/flush independently */
-+	gpu_write(gpu, 0x00000E81, BIT(29));
++u32 dp_catalog_hpd_get_state_status(struct dp_catalog *dp_catalog)
++{
++	struct dp_catalog_private *catalog = container_of(dp_catalog,
++				struct dp_catalog_private, dp_catalog);
++	u32 status = 0;
 +
- 	/* Enable USE_RETENTION_FLOPS */
- 	gpu_write(gpu, REG_A5XX_CP_CHICKEN_DBG, 0x02000000);
++	status = dp_read_aux(catalog, REG_DP_DP_HPD_INT_STATUS);
++	status >>= DP_DP_HPD_STATE_STATUS_BITS_SHIFT;
++	status &= DP_DP_HPD_STATE_STATUS_BITS_MASK;
++
++	return status;
++}
++
+ u32 dp_catalog_hpd_get_intr_status(struct dp_catalog *dp_catalog)
+ {
+ 	struct dp_catalog_private *catalog = container_of(dp_catalog,
+diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.h b/drivers/gpu/drm/msm/dp/dp_catalog.h
+index 4b7666f1fe6f..6d257dbebf29 100644
+--- a/drivers/gpu/drm/msm/dp/dp_catalog.h
++++ b/drivers/gpu/drm/msm/dp/dp_catalog.h
+@@ -97,6 +97,7 @@ void dp_catalog_ctrl_enable_irq(struct dp_catalog *dp_catalog, bool enable);
+ void dp_catalog_hpd_config_intr(struct dp_catalog *dp_catalog,
+ 			u32 intr_mask, bool en);
+ void dp_catalog_ctrl_hpd_config(struct dp_catalog *dp_catalog);
++u32 dp_catalog_hpd_get_state_status(struct dp_catalog *dp_catalog);
+ u32 dp_catalog_hpd_get_intr_status(struct dp_catalog *dp_catalog);
+ void dp_catalog_ctrl_phy_reset(struct dp_catalog *dp_catalog);
+ int dp_catalog_ctrl_update_vx_px(struct dp_catalog *dp_catalog, u8 v_level,
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index e175aa3fd3a9..431dff9de797 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -114,8 +114,6 @@ struct dp_display_private {
+ 	struct dp_event event_list[DP_EVENT_Q_MAX];
+ 	spinlock_t event_lock;
  
+-	struct completion resume_comp;
+-
+ 	struct dp_audio *audio;
+ };
+ 
+@@ -508,9 +506,6 @@ static int dp_hpd_plug_handle(struct dp_display_private *dp, u32 data)
+ 		return 0;
+ 	}
+ 
+-	if (state == ST_SUSPENDED)
+-		tout = DP_TIMEOUT_NONE;
+-
+ 	atomic_set(&dp->hpd_state, ST_CONNECT_PENDING);
+ 
+ 	hpd->hpd_high = 1;
+@@ -798,8 +793,6 @@ static int dp_display_enable(struct dp_display_private *dp, u32 data)
+ 	if (!rc)
+ 		dp_display->power_on = true;
+ 
+-	/* complete resume_comp regardless it is armed or not */
+-	complete(&dp->resume_comp);
+ 	return rc;
+ }
+ 
+@@ -1151,9 +1144,6 @@ static int dp_display_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	mutex_init(&dp->event_mutex);
+-
+-	init_completion(&dp->resume_comp);
+-
+ 	g_dp_display = &dp->dp_display;
+ 
+ 	/* Store DP audio handle inside DP display */
+@@ -1189,18 +1179,40 @@ static int dp_display_remove(struct platform_device *pdev)
+ 
+ static int dp_pm_resume(struct device *dev)
+ {
++	struct platform_device *pdev = to_platform_device(dev);
++	struct msm_dp *dp_display = platform_get_drvdata(pdev);
++	struct dp_display_private *dp;
++	u32 status;
++
++	dp = container_of(dp_display, struct dp_display_private, dp_display);
++
++	dp_display_host_init(dp);
++
++	dp_catalog_ctrl_hpd_config(dp->catalog);
++
++	status = dp_catalog_hpd_get_state_status(dp->catalog);
++
++	if (status) {
++		dp->dp_display.is_connected = true;
++	} else {
++		dp->dp_display.is_connected = false;
++		/* make sure next resume host_init be called */
++		dp->core_initialized = false;
++	}
++
+ 	return 0;
+ }
+ 
+ static int dp_pm_suspend(struct device *dev)
+ {
+ 	struct platform_device *pdev = to_platform_device(dev);
+-	struct dp_display_private *dp = platform_get_drvdata(pdev);
++	struct msm_dp *dp_display = platform_get_drvdata(pdev);
++	struct dp_display_private *dp;
+ 
+-	if (!dp) {
+-		DRM_ERROR("DP driver bind failed. Invalid driver data\n");
+-		return -EINVAL;
+-	}
++	dp = container_of(dp_display, struct dp_display_private, dp_display);
++
++	if (dp_display->power_on == true)
++		dp_display_disable(dp, 0);
+ 
+ 	atomic_set(&dp->hpd_state, ST_SUSPENDED);
+ 
+@@ -1317,19 +1329,6 @@ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
+ 	return 0;
+ }
+ 
+-static int dp_display_wait4resume_done(struct dp_display_private *dp)
+-{
+-	int ret = 0;
+-
+-	reinit_completion(&dp->resume_comp);
+-	if (!wait_for_completion_timeout(&dp->resume_comp,
+-				WAIT_FOR_RESUME_TIMEOUT_JIFFIES)) {
+-		DRM_ERROR("wait4resume_done timedout\n");
+-		ret = -ETIMEDOUT;
+-	}
+-	return ret;
+-}
+-
+ int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder)
+ {
+ 	int rc = 0;
+@@ -1359,14 +1358,6 @@ int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder)
+ 	}
+ 
+ 	state =  atomic_read(&dp_display->hpd_state);
+-	if (state == ST_SUSPENDED) {
+-		/* start link training */
+-		dp_add_event(dp_display, EV_HPD_PLUG_INT, 0, 0);
+-		mutex_unlock(&dp_display->event_mutex);
+-
+-		/* wait until dp interface is up */
+-		goto resume_done;
+-	}
+ 
+ 	dp_display_enable(dp_display, 0);
+ 
+@@ -1388,10 +1379,6 @@ int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder)
+ 	mutex_unlock(&dp_display->event_mutex);
+ 
+ 	return rc;
+-
+-resume_done:
+-	dp_display_wait4resume_done(dp_display);
+-	return rc;
+ }
+ 
+ int msm_dp_display_pre_disable(struct msm_dp *dp, struct drm_encoder *encoder)
+diff --git a/drivers/gpu/drm/msm/dp/dp_reg.h b/drivers/gpu/drm/msm/dp/dp_reg.h
+index 43042ff90a19..268602803d9a 100644
+--- a/drivers/gpu/drm/msm/dp/dp_reg.h
++++ b/drivers/gpu/drm/msm/dp/dp_reg.h
+@@ -32,6 +32,8 @@
+ #define DP_DP_IRQ_HPD_INT_ACK			(0x00000002)
+ #define DP_DP_HPD_REPLUG_INT_ACK		(0x00000004)
+ #define DP_DP_HPD_UNPLUG_INT_ACK		(0x00000008)
++#define DP_DP_HPD_STATE_STATUS_BITS_MASK	(0x0000000F)
++#define DP_DP_HPD_STATE_STATUS_BITS_SHIFT	(0x1C)
+ 
+ #define REG_DP_DP_HPD_INT_MASK			(0x0000000C)
+ #define DP_DP_HPD_PLUG_INT_MASK			(0x00000001)
+
+base-commit: 3c0f462da069af12211901ddf26f7e16e6951d9b
 -- 
-2.28.0
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
 _______________________________________________
 Freedreno mailing list
