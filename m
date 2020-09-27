@@ -2,53 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACD9A27A267
-	for <lists+freedreno@lfdr.de>; Sun, 27 Sep 2020 20:50:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89D1827A26B
+	for <lists+freedreno@lfdr.de>; Sun, 27 Sep 2020 20:55:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60AE489DBA;
-	Sun, 27 Sep 2020 18:50:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A67589E2A;
+	Sun, 27 Sep 2020 18:55:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 359E789DBA
- for <freedreno@lists.freedesktop.org>; Sun, 27 Sep 2020 18:50:52 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id k15so9411467wrn.10
- for <freedreno@lists.freedesktop.org>; Sun, 27 Sep 2020 11:50:52 -0700 (PDT)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4060E89E2A
+ for <freedreno@lists.freedesktop.org>; Sun, 27 Sep 2020 18:55:01 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id x23so4321752wmi.3
+ for <freedreno@lists.freedesktop.org>; Sun, 27 Sep 2020 11:55:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=g+t9R4EAtEIISULglZW0aLkA0SSVKLPzn9R1Q498LHQ=;
- b=FfJglfhij6sPHhMkXQYWrIyFodAjuGnK198UmhbKgvEU4nYuMphPdhTGhpPhIzXvTD
- heTAoND4AxD42O+xHl8M0e0c4gDmdtaJrlMHBh8ksBkiC+oFANGc7Jugcko0augs8lUf
- Qc0+TyQgEqN5kDUYtCWc4ufK3sQmmDpad/6XyUPDshBWiQlbpNCMvMk38Ni+3B9Vll6U
- CZEV4rsfW8Yx+ZJQZGfyhl/HmW/ifpDmtXAVlvF1n6WSxaPXm296SxyStdvjiHW5B/fo
- FAGqQdHNR2aunhQMS+KQJLd/mb4zgOZw9IVxqf9Db2t9C1VdCAvMpU6shpPoGiYZHqXo
- +U1A==
+ :cc; bh=brvQm4unB3hIW5ks3wpg170xx2FM0HklqjhCrETMSNw=;
+ b=JFzdOJLTF1KRTT0oZdkxEw5FHIUmpAjxRb6c+ecTjVsE1za0CU4dvy8wHmdQka+QCy
+ 2IhVbXv3DBsE4a5Wjm4vQR6v5LhmaFd+Rncmw3nIY6ES7Ta9Cg6mMB2hOtrDZXppot7W
+ RPe6NHvCxSOgwhWZeFKN6b0FdYiZ3CQwmLfcU+VzOjo/YWrh0mMTg/5MFX3rxZJuwKRY
+ jGBPj0D3rl9Sf9sBU3Z0vjfDmzXA51ER3Wy1e+g2kj8qGivJc8QIKEVoV9Hg0OGMMgr5
+ 6WmwiBwi03iYpYXjbIR4+CTzk6pq4wbDrwFQIXOTz4LKcGWd93dVAc1uMRCLQQlJ+dbP
+ DsvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=g+t9R4EAtEIISULglZW0aLkA0SSVKLPzn9R1Q498LHQ=;
- b=rK8fnDZh6dXMyySSqWrhj4EyeScQZdTJ9olM2jh5ajqBLQElb+Dms7x6jmGg5sSys/
- cnt348htIvBguSZeQBxolsqrKWIII70pY4IYMBYWZkQcquD2UQ4Zr6c+ouB+z2t0J3tA
- 6ftQY0t1E3soMlpFAR/E3J/4bDlnPgbrqctOpAT0f9Rn7SpqC8szgBSWqUOKDmvh6L7U
- uLEoY61GI2JFaW6OJzh7N4aPJ+kFjCkyFkYIrFfcFMVXcQ8dKmC32UNCnm89ryRAyTvf
- QdkuHDNdMiR5pHznsnSXXZytW6tTxvPO0A7NLktUsx26rRBOVGwUWXo5TbABMj2B2Jh8
- fHbw==
-X-Gm-Message-State: AOAM532FhU3y8fpi6dxRsCGwZjT84NMDiV1WpW3+qCdwaEwz3NYMkFmq
- sSKjlqDOeiOgX5Z+aXA1Q4cAuyPHF5yVVe0g6Uc=
-X-Google-Smtp-Source: ABdhPJwReFAlPBA6bUsKMfNlvNTagxLjBdCxdBbMVAxawsEUEhQO6mmWgIpDc1xFg1fg+gnJfmbaZCa5NF13iGOIXSI=
-X-Received: by 2002:adf:f382:: with SMTP id m2mr14295407wro.327.1601232650778; 
- Sun, 27 Sep 2020 11:50:50 -0700 (PDT)
+ bh=brvQm4unB3hIW5ks3wpg170xx2FM0HklqjhCrETMSNw=;
+ b=T1HYUlB7nZwQxMfn2HVmnKJQWfJ2YFG1Lb3zQT7SDZCRD04nIyQNM5tmOdsojuaNPd
+ ELI1SACf+EH0ObIyu0vJs4W0cya3/YjiB1/P25KzxeVScbdljA2WaMubHwIlP9Jizwg/
+ i0QqzrBytcCSrWXYzA7dQkGMuVBwntwF7lrzcB4/zRpVImdimwSeBE+17RwTzJH8ErCn
+ gMUaazi2Vil7Yx5aPi8m24gtHQ+BWuIMO9KvTvV2RLRTVfcQyie/QNekBzR9yDd9s75w
+ bIh8sl0XBi+rS8qhpKLPq0LZf/GREyL/qZl9p2vMjRN5zG1Gd7nlhvNxETdAtg/NGsTa
+ 4xug==
+X-Gm-Message-State: AOAM533tbxZP+87LnbZ/SGZKYBZDbbhZaa7p9FR+E6sGKW3jX2swRhrq
+ O1+2JyrMLJpMcEhYzvo1YCUW1942yCugrLxVKDQ=
+X-Google-Smtp-Source: ABdhPJyciMQiTeNvYglZLOHS2eTlNWi1mE4u3Eejs/H7XAjuqgHYQE8Xqkj+zDqXIj5Sr/dWauhAxw99yHdJ8k5ebFU=
+X-Received: by 2002:a7b:cf1a:: with SMTP id l26mr7872233wmg.164.1601232899846; 
+ Sun, 27 Sep 2020 11:54:59 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200926125146.12859-1-kholk11@gmail.com>
- <20200926125146.12859-8-kholk11@gmail.com>
-In-Reply-To: <20200926125146.12859-8-kholk11@gmail.com>
+ <20200926125146.12859-7-kholk11@gmail.com>
+In-Reply-To: <20200926125146.12859-7-kholk11@gmail.com>
 From: Rob Clark <robdclark@gmail.com>
-Date: Sun, 27 Sep 2020 11:51:54 -0700
-Message-ID: <CAF6AEGud+uR5J8aJ_FK544-nCuFVQ6AgbJGQPkxMm_RH-i37xg@mail.gmail.com>
+Date: Sun, 27 Sep 2020 11:56:03 -0700
+Message-ID: <CAF6AEGtZhnWqzP4YAh-zBX_kYXZWWx6a_deV8ONHfQ4af394ew@mail.gmail.com>
 To: AngeloGioacchino Del Regno <kholk11@gmail.com>
-Subject: Re: [Freedreno] [PATCH 7/7] drm/msm/a5xx: Disable UCHE global filter
+Subject: Re: [Freedreno] [PATCH 6/7] drm/msm/a5xx: Disable flat shading
+ optimization
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,28 +88,25 @@ On Sat, Sep 26, 2020 at 5:52 AM <kholk11@gmail.com> wrote:
 >  1 file changed, 3 insertions(+)
 >
 > diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> index bdc852e7d979..71cd8a3a6bf1 100644
+> index b2670af638a3..bdc852e7d979 100644
 > --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
 > +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> @@ -722,6 +722,9 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
->             adreno_is_a512(adreno_gpu))
->                 gpu_rmw(gpu, REG_A5XX_RB_DBG_ECO_CNTL, 0, (1 << 9));
+> @@ -759,6 +759,9 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
+>             adreno_is_a540(adreno_gpu))
+>                 gpu_write(gpu, REG_A5XX_UCHE_DBG_ECO_CNTL_2, bit);
 >
-> +       /* Disable UCHE global filter as SP can invalidate/flush independently */
-> +       gpu_write(gpu, 0x00000E81, BIT(29));
+> +       /* Disable All flat shading optimization */
+> +       gpu_rmw(gpu, 0x00000E60, 0, 0x1 << 10);
 
-Looks like this is REG_A5XX_UCHE_MODE_CNTL?  We should define a name
-for this, rather than open coding.
-
-(It's ok if you just add it to a5xx.xml.h, I can push a MR to add this
-to mesa a5xx.xml)
+Looks like VPC_DBG_ECO_CNTL.ALLFLATOPTDIS (based on downstream
+41582a1f24d2961094c556db788028b433d8476a)
 
 BR,
 -R
 
 > +
->         /* Enable USE_RETENTION_FLOPS */
->         gpu_write(gpu, REG_A5XX_CP_CHICKEN_DBG, 0x02000000);
+>         /* Protect registers from the CP */
+>         gpu_write(gpu, REG_A5XX_CP_PROTECT_CNTL, 0x00000007);
 >
 > --
 > 2.28.0
