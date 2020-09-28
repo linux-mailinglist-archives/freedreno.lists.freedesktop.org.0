@@ -1,60 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DE1B27B691
-	for <lists+freedreno@lfdr.de>; Mon, 28 Sep 2020 22:47:19 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 267F827B693
+	for <lists+freedreno@lfdr.de>; Mon, 28 Sep 2020 22:47:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38D6E6E156;
-	Mon, 28 Sep 2020 20:47:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD18789F33;
+	Mon, 28 Sep 2020 20:47:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
  [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71E916E156
- for <freedreno@lists.freedesktop.org>; Mon, 28 Sep 2020 20:47:17 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id b79so2485529wmb.4
- for <freedreno@lists.freedesktop.org>; Mon, 28 Sep 2020 13:47:17 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A33C6E15C
+ for <freedreno@lists.freedesktop.org>; Mon, 28 Sep 2020 20:47:18 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id k18so2484335wmj.5
+ for <freedreno@lists.freedesktop.org>; Mon, 28 Sep 2020 13:47:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=VAXek25jtpefT57W6f2ieoFbKeRkwzBYBFbfBYFgMFQ=;
- b=HlSmtN3qAsaXa66jR0vokh6Lz9EEULyPGeLoPDbJuZG8A783rEruOVWIMPC/D9rE2y
- 7AtWakZ9lNh23pv1qofxD6BlgbIhr/iQcl9dmaM/foNTI5xfaIVUAEk82IgFP+yGDvJ7
- HeUWIMNTOFCEtf3H7/GUC099cNuOCWcsBvJPprfKxG1tcxHQ/8uX2VWWL2HhI8vlqJ80
- sipSHx5TEb29x13VoAkRIFYMrRbwc016HGIJFvuOe1S2Twaio1ArGD+VQA22EpSFg5A6
- tJbduZznAi2i1ncWwIqR1moILvWGjX0YE9WnFL4CHBHhaWR6jV+mHBKOkOMsyuXLJmrr
- psyw==
+ bh=6ziMJA1iAl+X5B9d1htcymFy9Dzvpmo6/9Mbcbhl/So=;
+ b=lhhlipNfqHYh9MhQQuWjdQvaiskcbpYDeBDMStFVQFJNXP9Un8SFDdHt37qmpBDjgY
+ ckJ4yiJaWfpHgIfeAM+lHTY/fCdNo7ENInQAiL4Bsf6xuQdZInWhn0KqM1kkWnf6QkjI
+ EtNY+0NUgDwnUG3p3fWjaaE8+gibgaUbxM+1JXk7p0SfDqIMGaKjTAoUyw1hh2Kr3l1Y
+ mGc+4WUM/PJbOZKVzE7JrHR35LOWuGug6g24DAXtMfS2uIYoZ4Fz4a9e+fXKtowOjF+Y
+ UkGvsLI4CiCoOUyga5wGRpXcgFQXa8kXZuxSVcaWC4BlaXyOlHiVR0WQCCuyEZYfkoO3
+ 4/fA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=VAXek25jtpefT57W6f2ieoFbKeRkwzBYBFbfBYFgMFQ=;
- b=T+IaEuUqKSBJh6X905nXnJn2ox7/kM9/WrIO5Zi9QxwqpSPrntZ/kXOWa2rIfR21EM
- vGjM+EIquCfYWQ6yC+ArskjWLUpFtudfycchy+MTULF8liB+UqpqBCIrLG2ZZIX/u8lF
- Tjd88aAnWXkel4ZBHLHb7c9E5mgBQKM73NO2a4nKnNrzf2XK+PGAn82cvJUNuSn7vFfl
- QkbnaEgZUxZknsYGWhNLFsL57JuFVjV/kGAAu5dA+bIGv3v1Ain54o8DM6D64QrwMnAg
- yE+Z+jv7sts7x70ftrVINDbnenm5X67eKM2iBIOw09kVWtimWWciyjrulikvn1btke9R
- jsxw==
-X-Gm-Message-State: AOAM531x4woDUOTIqba6sfBC0YhA7FjPAuAdwoOoDY9YiN3YE+UE5YRn
- ULqhQRnSNqnwFok8bRXIjKQ=
-X-Google-Smtp-Source: ABdhPJxFk4WhCEHF6JvTPb5ulS5tFeC+UJl80+kXrcBNXujIWb6/7EsQcyj2AvgKCVDLY1SycuvcAQ==
-X-Received: by 2002:a7b:c397:: with SMTP id s23mr981783wmj.174.1601326035960; 
- Mon, 28 Sep 2020 13:47:15 -0700 (PDT)
+ bh=6ziMJA1iAl+X5B9d1htcymFy9Dzvpmo6/9Mbcbhl/So=;
+ b=KplFCt5KqhMg2GHelnFWOnbwZ2aeb76ACUsn0TuXgPUw+MNh9JEZ7KfgjUUDHHK1qa
+ nsTPQkQxBUXKEFoshG0LJHZzMH/pVCKF3r0D2C6EIWdmPofKN38FuPZV2dRO60eCpUeQ
+ bJ4nCX3LnHb/9ds0DiPjIXzTdoLGjKQfbDehipSPqLEO6qj4tAgymglnSIPGuhoEAssF
+ TdAVUa8oAf95OAIV3C9LlLVdbCyzcFssCnyRjuNH0f9p2B3cePq30rfPvWLP3WrKCGX/
+ FXRfur5jdE3FTi6YEKbQ5oYEXdclw/vUCtsczKD9pQqkYw6bEIpNbnqD/K+uGBhHVa3l
+ hj4w==
+X-Gm-Message-State: AOAM532bv+jzlVIxjBIhF45nKS5ymgMzIlDGuLgVDbPkgPjDIzL6O0d8
+ mRqQFAX/OAce4HatPk/QXNg=
+X-Google-Smtp-Source: ABdhPJwHLnaWduzznR4445DGO1uZiwlNxH5xDQYmlpXk/mmOnEUuf7Tpxrgpah5JChgfT7ZolOOVmg==
+X-Received: by 2002:a05:600c:2742:: with SMTP id
+ 2mr919838wmw.136.1601326037053; 
+ Mon, 28 Sep 2020 13:47:17 -0700 (PDT)
 Received: from IcarusMOD.eternityproject.eu ([2.237.20.237])
- by smtp.gmail.com with ESMTPSA id r206sm2677878wma.47.2020.09.28.13.47.14
+ by smtp.gmail.com with ESMTPSA id r206sm2677878wma.47.2020.09.28.13.47.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Sep 2020 13:47:15 -0700 (PDT)
+ Mon, 28 Sep 2020 13:47:16 -0700 (PDT)
 From: kholk11@gmail.com
 To: robdclark@gmail.com
-Date: Mon, 28 Sep 2020 22:47:06 +0200
-Message-Id: <20200928204709.45746-5-kholk11@gmail.com>
+Date: Mon, 28 Sep 2020 22:47:07 +0200
+Message-Id: <20200928204709.45746-6-kholk11@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200928204709.45746-1-kholk11@gmail.com>
 References: <20200928204709.45746-1-kholk11@gmail.com>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v2 4/7] drm/msm/a5xx: Reset VBIF before PC only
- on A510 and A530
+Subject: [Freedreno] [PATCH v2 5/7] drm/msm/a5xx: Fix VPC protect value in
+ gpu_write()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,44 +77,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: AngeloGioacchino Del Regno <kholk11@gmail.com>
+From: Konrad Dybcio <konradybcio@gmail.com>
 
-Resetting the VBIF before power collapse is done to avoid getting
-bogus FIFO entries during the suspend sequence or subsequent resume,
-but this is doable only on Adreno 510 and Adreno 530, as the other
-units will tendentially lock up.
-Especially on Adreno 508, the GPU will show lockups and very bad
-slownesses after processing the first frame.
+The upstream API for some reason uses logbase2 instead of
+just passing the argument as-is, whereas downstream CAF
+kernel does the latter.
 
-Avoiding to execute the RBBM SW Reset before suspend will stop the
-lockup issue from happening on at least Adreno 508/509/512.
+Hence, a mistake has been made when porting:
+4 is the value that's supposed to be passed, but
+log2(4) = 2. Changing the value to 16 (= 2^4) fixes
+the issue.
 
+Signed-off-by: Konrad Dybcio <konradybcio@gmail.com>
 Signed-off-by: AngeloGioacchino Del Regno <kholk11@gmail.com>
-Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
 ---
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index fd33a34961cc..6163c3b61a69 100644
+index 6163c3b61a69..448fded571d3 100644
 --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -1306,10 +1306,12 @@ static int a5xx_pm_suspend(struct msm_gpu *gpu)
+@@ -789,7 +789,7 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
  
- 	/*
- 	 * Reset the VBIF before power collapse to avoid issue with FIFO
--	 * entries
-+	 * entries on Adreno A510 and A530 (the others will tend to lock up)
- 	 */
--	gpu_write(gpu, REG_A5XX_RBBM_BLOCK_SW_RESET_CMD, 0x003C0000);
--	gpu_write(gpu, REG_A5XX_RBBM_BLOCK_SW_RESET_CMD, 0x00000000);
-+	if (adreno_is_a510(adreno_gpu) || adreno_is_a530(adreno_gpu)) {
-+		gpu_write(gpu, REG_A5XX_RBBM_BLOCK_SW_RESET_CMD, 0x003C0000);
-+		gpu_write(gpu, REG_A5XX_RBBM_BLOCK_SW_RESET_CMD, 0x00000000);
-+	}
+ 	/* VPC */
+ 	gpu_write(gpu, REG_A5XX_CP_PROTECT(14), ADRENO_PROTECT_RW(0xE68, 8));
+-	gpu_write(gpu, REG_A5XX_CP_PROTECT(15), ADRENO_PROTECT_RW(0xE70, 4));
++	gpu_write(gpu, REG_A5XX_CP_PROTECT(15), ADRENO_PROTECT_RW(0xE70, 16));
  
- 	return msm_gpu_pm_suspend(gpu);
- }
+ 	/* UCHE */
+ 	gpu_write(gpu, REG_A5XX_CP_PROTECT(16), ADRENO_PROTECT_RW(0xE80, 16));
 -- 
 2.28.0
 
