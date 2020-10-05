@@ -1,71 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C13E62837CE
-	for <lists+freedreno@lfdr.de>; Mon,  5 Oct 2020 16:29:53 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D5C682837E9
+	for <lists+freedreno@lfdr.de>; Mon,  5 Oct 2020 16:37:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 749D689DFC;
-	Mon,  5 Oct 2020 14:29:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86A8289CA1;
+	Mon,  5 Oct 2020 14:37:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9648489DFC
- for <freedreno@lists.freedesktop.org>; Mon,  5 Oct 2020 14:29:49 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1601908191; h=In-Reply-To: Content-Type: MIME-Version:
- References: Message-ID: Subject: Cc: To: From: Date: Sender;
- bh=iCAzjch+kt+mTNL+rkwZf4UMRj93yANN0E0yvLN4NkE=;
- b=u+LzXrckbtDoxRpzLMYvxd1ssprDjZHg5vcHpEGVNjMWQ9c3hq3u6xdvCaIiYlak74RSIzyP
- PhhBpDt/2eCZ2sEAUNo/6gOEpYLCQNYgA0ks6YVeF4zsQ6lZteki8VyMBSuTuzQX2bb7DpIr
- uqmqboYqJWGpT8cS+pz77la7kqU=
-X-Mailgun-Sending-Ip: 69.72.42.4
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
- 5f7b2dd9d63768e57bf0b201 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 05 Oct 2020 14:29:45
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 4ECEDC43382; Mon,  5 Oct 2020 14:29:44 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL, 
- URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 9A830C433CB;
- Mon,  5 Oct 2020 14:29:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 9A830C433CB
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=jcrouse@codeaurora.org
-Date: Mon, 5 Oct 2020 08:29:39 -0600
-From: Jordan Crouse <jcrouse@codeaurora.org>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20201005142939.GH4204@jcrouse1-lnx.qualcomm.com>
-Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
-References: <20201004192152.3298573-1-robdclark@gmail.com>
- <20201004192152.3298573-10-robdclark@gmail.com>
+Received: from mail-qv1-xf43.google.com (mail-qv1-xf43.google.com
+ [IPv6:2607:f8b0:4864:20::f43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD49889CB8
+ for <freedreno@lists.freedesktop.org>; Mon,  5 Oct 2020 14:37:18 +0000 (UTC)
+Received: by mail-qv1-xf43.google.com with SMTP id j10so6044160qvk.11
+ for <freedreno@lists.freedesktop.org>; Mon, 05 Oct 2020 07:37:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=marek-ca.20150623.gappssmtp.com; s=20150623;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=TRhkx8XpeN9CeF5cEhP4BTdxGRsLqYAybwrIXicVRyw=;
+ b=g4uOyk1vF6JnppHf+cmhEsdrx/imAVEV3qm6M88McCLKeyXHxx7dQLX3Qa6+f4K0My
+ aNEEKPeIc0OYkbFMLrhdHU7EAKGtr+5V3rWOURrXeVuY+9kAXkLzGYs+gyoANk/B3q7J
+ n2kpYVlQhvO+pwrtf723Te8oQxFZ5DAnXQD6maNxH0U0UbJC6mcC/1qsGeKTiTcOam4e
+ bgAigiy9gaLlOwc+8Br425/P/36ybGf7RRSXWxtMxRDCPHe7ISXPsahuQ07wFC86fonE
+ xRlhrFth4f+7+M04giaY74oUiXtfsI7Rlv0Byxnee/7HN5UvEO6V9AxChGotTH1S55ga
+ 3iIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=TRhkx8XpeN9CeF5cEhP4BTdxGRsLqYAybwrIXicVRyw=;
+ b=mkujUTQK0f0ATLc0zEmAcHS0huq2FJNlkgIFxaVLAEUSVtKC7EJY7lrLQZw4NGY0xn
+ egf3f2e56a0gSeT5Jt27dYt8IPqujwY0eoXO1XZMO2G4/7I8vA+J01/2KGF40m/+h9Az
+ s3QAjIgdv9j06K47qahehx5r4ZvB6FZryxIlI7iyqnnbMZIPV805zbjM4xeLCDztl0u7
+ Cq5RKKQZujfeGW+pQWTbmYO9Lv2GysACkLYMK7XUgTjSSJRiztDHbfS2SxfCrMob4Ol/
+ XQ7QTkRxNDP0BB224kYYJRVqE8J1Le1oH+9UAvRC/tb6ocURA1XoPkMgiD3c4QENmfkp
+ 54lQ==
+X-Gm-Message-State: AOAM531dzCoy4yBqTw3rPPW6gWsU0D1LBG/EGxrEqRO5g3m8H2v7lzic
+ IzZzVMGToJL9bCLRksgVeot3Ew==
+X-Google-Smtp-Source: ABdhPJyi+49wGLIUxrKIgGYZ337lCqeB0hW5hNuy6GwMzFj2CNJLAt9QKQKSeB3gCNxr0ID1rt688A==
+X-Received: by 2002:a0c:e788:: with SMTP id x8mr14075471qvn.27.1601908637734; 
+ Mon, 05 Oct 2020 07:37:17 -0700 (PDT)
+Received: from [192.168.0.189] ([147.253.86.153])
+ by smtp.gmail.com with ESMTPSA id g7sm435832qtc.19.2020.10.05.07.37.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 05 Oct 2020 07:37:16 -0700 (PDT)
+To: Christoph Hellwig <hch@infradead.org>
+References: <20201001002709.21361-1-jonathan@marek.ca>
+ <20201001002709.21361-3-jonathan@marek.ca>
+ <20201002075321.GA7547@infradead.org>
+ <b22fb797-67b0-a912-1d23-2b47c9a9e674@marek.ca>
+ <20201005082914.GA31702@infradead.org>
+From: Jonathan Marek <jonathan@marek.ca>
+Message-ID: <3e0b91be-e4a4-4ea5-7d58-6e71b8d51932@marek.ca>
+Date: Mon, 5 Oct 2020 10:35:43 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201004192152.3298573-10-robdclark@gmail.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Freedreno] [PATCH 09/14] drm/msm: Drop struct_mutex from the
- retire path
+In-Reply-To: <20201005082914.GA31702@infradead.org>
+Content-Language: en-US
+Subject: Re: [Freedreno] [PATCH 2/3] drm/msm: add DRM_MSM_GEM_SYNC_CACHE for
+ non-coherent cache maintenance
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,81 +75,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
+Cc: David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- Sean Paul <sean@poorly.run>, Daniel Vetter <daniel@ffwll.ch>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
+ Sean Paul <sean@poorly.run>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Oct 04, 2020 at 12:21:41PM -0700, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
+On 10/5/20 4:29 AM, Christoph Hellwig wrote:
+> On Fri, Oct 02, 2020 at 08:46:35AM -0400, Jonathan Marek wrote:
+>>>> +void msm_gem_sync_cache(struct drm_gem_object *obj, uint32_t flags,
+>>>> +		size_t range_start, size_t range_end)
+>>>> +{
+>>>> +	struct msm_gem_object *msm_obj = to_msm_bo(obj);
+>>>> +
+>>>> +	/* TODO: sync only the required range, and don't invalidate on clean */
+>>>> +
+>>>> +	if (flags & MSM_GEM_SYNC_CACHE_CLEAN)
+>>>> +		sync_for_device(msm_obj);
+>>>> +
+>>>> +	if (flags & MSM_GEM_SYNC_CACHE_INVALIDATE)
+>>>> +		sync_for_cpu(msm_obj);
+>>>
+>>> And make to these ones as well.  They are complete abuses of the DMA
+>>> API, and while we had to live with that for now to not cause regressions
+>>> they absoutely must not be exposed in a userspace ABI like this.
+>>>
+>>
+>> How do you propose that cached non-coherent memory be implemented? It is a
+>> useful feature for userspace.
 > 
-> Now that we are not relying on dev->struct_mutex to protect the
-> ring->submits lists, drop the struct_mutex lock.
+> If the driver is using the DMA API you need to use dma_alloc_noncoherent
+> and friends as of 5.10 (see the iommu list for the discussion).
+> 
+> If you use the raw IOMMU API (which I think the msm drm driver does) you
+> need to work with the maintainers to implement a cache synchronization
+> API that is not tied to the DMA API.
+> 
 
-Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
- 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/gpu/drm/msm/msm_gpu.c | 8 +-------
->  1 file changed, 1 insertion(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-> index c9ff19a75169..5e351d1c00e9 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.c
-> +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> @@ -707,7 +707,7 @@ static void retire_submit(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
->  
->  		msm_gem_active_put(&msm_obj->base);
->  		msm_gem_unpin_iova(&msm_obj->base, submit->aspace);
-> -		drm_gem_object_put_locked(&msm_obj->base);
-> +		drm_gem_object_put(&msm_obj->base);
->  	}
->  
->  	pm_runtime_mark_last_busy(&gpu->pdev->dev);
-> @@ -722,11 +722,8 @@ static void retire_submit(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
->  
->  static void retire_submits(struct msm_gpu *gpu)
->  {
-> -	struct drm_device *dev = gpu->dev;
->  	int i;
->  
-> -	WARN_ON(!mutex_is_locked(&dev->struct_mutex));
-> -
->  	/* Retire the commits starting with highest priority */
->  	for (i = 0; i < gpu->nr_rings; i++) {
->  		struct msm_ringbuffer *ring = gpu->rb[i];
-> @@ -756,15 +753,12 @@ static void retire_submits(struct msm_gpu *gpu)
->  static void retire_worker(struct work_struct *work)
->  {
->  	struct msm_gpu *gpu = container_of(work, struct msm_gpu, retire_work);
-> -	struct drm_device *dev = gpu->dev;
->  	int i;
->  
->  	for (i = 0; i < gpu->nr_rings; i++)
->  		update_fences(gpu, gpu->rb[i], gpu->rb[i]->memptrs->fence);
->  
-> -	mutex_lock(&dev->struct_mutex);
->  	retire_submits(gpu);
-> -	mutex_unlock(&dev->struct_mutex);
->  }
->  
->  /* call from irq handler to schedule work to retire bo's */
-> -- 
-> 2.26.2
-> 
-> _______________________________________________
-> Freedreno mailing list
-> Freedreno@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/freedreno
+The cache synchronization doesn't have anything to do with IOMMU (for 
+example: cache synchronization would be useful in cases where drm/msm 
+doesn't use IOMMU).
 
--- 
-The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
-a Linux Foundation Collaborative Project
+What is needed is to call arch_sync_dma_for_{cpu,device} (which is what 
+I went with initially, but then decided to re-use drm/msm's 
+sync_for_{cpu,device}). But you are also saying those functions aren't 
+for driver use, and I doubt IOMMU maintainers will want to add wrappers 
+for these functions just to satisfy this "not for driver use" requirement.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
