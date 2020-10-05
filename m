@@ -2,55 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FD96282E75
-	for <lists+freedreno@lfdr.de>; Mon,  5 Oct 2020 02:09:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7715F28305B
+	for <lists+freedreno@lfdr.de>; Mon,  5 Oct 2020 08:26:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47BC689C16;
-	Mon,  5 Oct 2020 00:09:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA57C6E094;
+	Mon,  5 Oct 2020 06:26:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31E7989C16;
- Mon,  5 Oct 2020 00:09:41 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id m6so7606580wrn.0;
- Sun, 04 Oct 2020 17:09:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=1ANfg3S5CC8bE/UKRRj/hwXpqbswu89gsCaaWsI1hDQ=;
- b=PxyPAEdNh2qvXFbWkKrPJ8KPmnWPmT2SKIgNwuRYb6MAJMExP204dfriEl7lNANvyM
- kCCkSVC0jEhQ8FFZ9A3AfzgoVrxvx1zas1vgNuzUqMbbYW4ft+FAQaPT6zHxDkUtkOTP
- BKLbMytpzm8gXlYZDx8qx1E7gRTrPNn2LzQLo1b+4rkh4RqoVIe6LrIrde3q+OyBUF0r
- D2GDsBqQChiQCDKtNEY1CC8u9+WpHdh4jSUZW3znxLcEUgFmObnlWyn2MFSWd+cEN8+I
- tcLnulGKwxsrUC0cMd2LIKC6Lla/3JlCEwaTC62nTsxY3+ynPHXC8si7l1P8g4zZPnOU
- 9+ow==
+Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
+ [IPv6:2607:f8b0:4864:20::1044])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F2C36E094
+ for <freedreno@lists.freedesktop.org>; Mon,  5 Oct 2020 06:26:36 +0000 (UTC)
+Received: by mail-pj1-x1044.google.com with SMTP id nl2so2103066pjb.1
+ for <freedreno@lists.freedesktop.org>; Sun, 04 Oct 2020 23:26:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=SKaQ5+8uUmRtIWBKZSxd+2jDGXEKN5QdEKsAPMYJkgg=;
+ b=hVUBIPjnHGOWjGUi1oUG2maCLkvuCE7pMNCmJn6gkaIVPZ8LdYKidM635ZHKQeHwr+
+ l2knVD95lg4NSfyju+W6598JCldz5UwtjNiq5Jw8H8LWwbCeS4VjYFXgNY9WYCMElFUg
+ 2atFKK1Z5tvYk+DhYbjVwhkBzLDgUhCcKGzBzX8j4fumt3o5pOmUeq9QqIeXEm7BnOnZ
+ a+C2Am6JbEg4Ha9fo3qOa+KC6LPN927a6o67oRVjFKDbmc9/uYW0fgX+Cks4uxcGs2HW
+ NWZrgF1TEebG01jSrJh4i4AjHHuHT+bSBFJDRKzAlvEWgDfpYYZ6UGBMMucpf0+sffjM
+ zsXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=1ANfg3S5CC8bE/UKRRj/hwXpqbswu89gsCaaWsI1hDQ=;
- b=j9a9hCWOJ7ZwHK83qEdzvtBnlrsKeoKIz+G3uTbjlThGW/OfgsHvLZB/iYvhlSZrAF
- AGHIpaSqK8pwUemM+SPcUx7Y8dDhknXICAGrmvOL+EqEt2lnDh2KWUjDg2ye6bM8TvDB
- 24u7AQ+FSvBNZyp/oS2BwoVitlyTO0jN53IVT958NRNJFmrv/nnVUMKyCBxr+fchNC22
- K1B3RlT4zgcD1z0ACnkSoWVbMsiDh0FB9M7iQ5t1hcUZe+T6Gx0M8EoNT9ioWmfuMBih
- vLsVF/XHPhiYDtO8bK6ckIPvDWehiC8Q/RY/QTgWvXyMtIkxOC35x3bWEOhXsc4dV6Dc
- htjQ==
-X-Gm-Message-State: AOAM531QKoZfQmcKIGJY3Xu3H/8VEMvZnMEKvRJXG2yU+c5NuQY97TXk
- D6kgtep4IGeuwOejZUKelryCb/0Yw1yh4fwuUmY=
-X-Google-Smtp-Source: ABdhPJxwaxtwbgp9uz+hPQ7cBIRm3omXtyo+Lk87n93lkMddrksV668Q71MQgWfc2epKqbRNNChU/GIZ6VBDT0u7sBI=
-X-Received: by 2002:a5d:4bcf:: with SMTP id l15mr14775799wrt.132.1601856579631; 
- Sun, 04 Oct 2020 17:09:39 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=SKaQ5+8uUmRtIWBKZSxd+2jDGXEKN5QdEKsAPMYJkgg=;
+ b=UH9jlmxnga9BXwX+zYsGnL8npy7ViknpglGBAh4hkEsB7XZlGjSO/NjHAsFsH7BtmI
+ k4EMtOADMAZUb0E74zlljHNSH2vNeaL8TJ/sgu4wIszso+JebcvUvBbViRYvA44NuT0p
+ Iix0zSkN5ZeV1y6ArYdawXv72ppz+E6hkDx+vm0fPTfnUt/SAjtL4krWbsfwWwcusZET
+ OZg4aVlQbeE8bvbn6NyQeyoP+FW87DR05VX9vljZXX9dYFQshfGEsuJ3ctDUq1BzgCgA
+ fcstjbix2F/ONrVIZMuNVfPT8Q3zCZPdbOgyPl5ZxuOznS9JGXmcUctq0u40Ye8nxN2U
+ Gnlw==
+X-Gm-Message-State: AOAM530Uk6eW0xzcvFVmdNx9+EX3kg+8N8XDCPu2KcZNNheiUoZi4uwM
+ xdWwre7gWIj0WZA2Mu8Af2O2aw==
+X-Google-Smtp-Source: ABdhPJzMX/4YpxutBiiXM2fWXSSduuaC0HQCvEVYpnrcJsYem70ESjGjA5g+ApA82zM/o6oW1zh/YQ==
+X-Received: by 2002:a17:90a:e282:: with SMTP id
+ d2mr104042pjz.159.1601879196092; 
+ Sun, 04 Oct 2020 23:26:36 -0700 (PDT)
+Received: from localhost ([122.181.54.133])
+ by smtp.gmail.com with ESMTPSA id j6sm10860110pfi.129.2020.10.04.23.26.34
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Sun, 04 Oct 2020 23:26:35 -0700 (PDT)
+Date: Mon, 5 Oct 2020 11:56:33 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: rnayak@codeaurora.org, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>
+Message-ID: <20201005062633.ejpehkpeuwksrx3e@vireshk-i7>
+References: <cover.1598594714.git.viresh.kumar@linaro.org>
+ <6e4110032f8711e8bb0acbeccfe66dec3b09d5c1.1598594714.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
-References: <20201004192152.3298573-1-robdclark@gmail.com>
- <20201004192152.3298573-5-robdclark@gmail.com>
- <CAKMK7uHrP1ijVORpW0xvMX4M_0HQpfzUk2bE576gpzSPug-M6A@mail.gmail.com>
-In-Reply-To: <CAKMK7uHrP1ijVORpW0xvMX4M_0HQpfzUk2bE576gpzSPug-M6A@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Sun, 4 Oct 2020 17:10:47 -0700
-Message-ID: <CAF6AEGv49O97YQXJeUYzxRDUTE8fhtRKeKT6RXaEcJUo79mXQw@mail.gmail.com>
-To: Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: [Freedreno] [PATCH 04/14] drm/msm: Add priv->mm_lock to protect
- active/inactive lists
+Content-Disposition: inline
+In-Reply-To: <6e4110032f8711e8bb0acbeccfe66dec3b09d5c1.1598594714.git.viresh.kumar@linaro.org>
+User-Agent: NeoMutt/20180716-391-311a52
+Subject: Re: [Freedreno] [PATCH V2 3/8] drm/msm: Unconditionally call
+ dev_pm_opp_of_remove_table()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,88 +71,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- Sean Paul <sean@poorly.run>, open list <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>
+Cc: Nishanth Menon <nm@ti.com>, Vincent Guittot <vincent.guittot@linaro.org>,
+ linux-pm@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
+ linux-arm-msm@vger.kernel.org, Naresh Kamboju <naresh.kamboju@linaro.org>,
+ Rafael Wysocki <rjw@rjwysocki.net>, Douglas Anderson <dianders@chromium.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Oct 4, 2020 at 3:15 PM Daniel Vetter <daniel@ffwll.ch> wrote:
->
-> On Sun, Oct 4, 2020 at 9:21 PM Rob Clark <robdclark@gmail.com> wrote:
-> >
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > Rather than relying on the big dev->struct_mutex hammer, introduce a
-> > more specific lock for protecting the bo lists.
-> >
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > ---
-> >  drivers/gpu/drm/msm/msm_debugfs.c      |  7 +++++++
-> >  drivers/gpu/drm/msm/msm_drv.c          |  1 +
-> >  drivers/gpu/drm/msm/msm_drv.h          | 13 +++++++++++-
-> >  drivers/gpu/drm/msm/msm_gem.c          | 28 +++++++++++++++-----------
-> >  drivers/gpu/drm/msm/msm_gem_shrinker.c | 12 +++++++++++
-> >  drivers/gpu/drm/msm/msm_gpu.h          |  5 ++++-
-> >  6 files changed, 52 insertions(+), 14 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_debugfs.c b/drivers/gpu/drm/msm/msm_debugfs.c
-> > index ee2e270f464c..64afbed89821 100644
-> > --- a/drivers/gpu/drm/msm/msm_debugfs.c
-> > +++ b/drivers/gpu/drm/msm/msm_debugfs.c
-> > @@ -112,6 +112,11 @@ static int msm_gem_show(struct drm_device *dev, struct seq_file *m)
-> >  {
-> >         struct msm_drm_private *priv = dev->dev_private;
-> >         struct msm_gpu *gpu = priv->gpu;
-> > +       int ret;
-> > +
-> > +       ret = mutex_lock_interruptible(&priv->mm_lock);
-> > +       if (ret)
-> > +               return ret;
-> >
-> >         if (gpu) {
-> >                 seq_printf(m, "Active Objects (%s):\n", gpu->name);
-> > @@ -121,6 +126,8 @@ static int msm_gem_show(struct drm_device *dev, struct seq_file *m)
-> >         seq_printf(m, "Inactive Objects:\n");
-> >         msm_gem_describe_objects(&priv->inactive_list, m);
-> >
-> > +       mutex_unlock(&priv->mm_lock);
-> > +
-> >         return 0;
-> >  }
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> > index 49685571dc0e..dc6efc089285 100644
-> > --- a/drivers/gpu/drm/msm/msm_drv.c
-> > +++ b/drivers/gpu/drm/msm/msm_drv.c
-> > @@ -441,6 +441,7 @@ static int msm_drm_init(struct device *dev, struct drm_driver *drv)
-> >         init_llist_head(&priv->free_list);
-> >
-> >         INIT_LIST_HEAD(&priv->inactive_list);
-> > +       mutex_init(&priv->mm_lock);
->
-> I highly recommend you drop a
->
-> fs_reclaim_acquire(GFP_KERNEL);
-> might_lock(&priv->mm_lock);
-> fs_reclaim_release(GFP_KERNEL);
->
-> in here to teach lockdep about your ordering against the shrinker.
-> Gives you full testing every boot, even if your shrinker never gets
-> called.
+On 28-08-20, 11:37, Viresh Kumar wrote:
+> dev_pm_opp_of_remove_table() doesn't report any errors when it fails to
+> find the OPP table with error -ENODEV (i.e. OPP table not present for
+> the device). And we can call dev_pm_opp_of_remove_table()
+> unconditionally here.
+> 
+> While at it, also create a label to put clkname.
+> 
+> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 
-Good idea..
+Can someone please apply this and the other drm patch (2/8) ?
 
-(tbf, I have tested this with android+lockdep which pretty is great
-shrinker exercise.. but immediate notification of future problems is a
-good plan)
-
-BR,
--R
+-- 
+viresh
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
