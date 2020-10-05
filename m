@@ -2,64 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F241283733
-	for <lists+freedreno@lfdr.de>; Mon,  5 Oct 2020 16:02:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BA59283771
+	for <lists+freedreno@lfdr.de>; Mon,  5 Oct 2020 16:15:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0AF689CCE;
-	Mon,  5 Oct 2020 14:02:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D996089CD5;
+	Mon,  5 Oct 2020 14:15:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37FF789CA2
- for <freedreno@lists.freedesktop.org>; Mon,  5 Oct 2020 14:02:08 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id v12so8918380wmh.3
- for <freedreno@lists.freedesktop.org>; Mon, 05 Oct 2020 07:02:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=Kw0jH99mH65cgbBf0cAKvt7u45o+bI69PtoRz7plT9I=;
- b=LKbavLR8ZdTnQm7tlmWwgndIQwhen8v8O8x1psZ+HIE2wmAD24D+bXj5NwsJAvyS/R
- MQkiaMJ/+ob1zWMVtrd+sEWT6BKvZocdCnxbzPsmOqi3r39+dbuF1VEaGtZJZGoHTneV
- 0F4uvulqQGo0uTF43vmMZxaBExbJ8UbT6Sb9k=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=Kw0jH99mH65cgbBf0cAKvt7u45o+bI69PtoRz7plT9I=;
- b=Omotk4sxGpoR7xd24HDu+lidwPAvlaJSU3WuSnjdNQb0p/QVJkCTmcE9B1ycHWZeM6
- sQYFPOLt+3+ZyGnzxeNzcDm49s+lMfoVDiCwG9su18QoTJ5+DoIHz7PIFzjQ8/JxsDY5
- nWohI9QEuSaY1CqXyuVMAfl1PCme7XOwcVJfEzldjDElVyR+dJv3ui52eQ97loLdh+LR
- WBAcOhbwVLo9L0TBT0Ia1zNLzNfOCaFEa+1ThO4NDrlgzbSpNOXJGz8OvrjSZ6g9oNpz
- xK57X40+9TVb05Jgv97OzO4ngsivz89DNGM7IaNeEjlVF+J78MXGIbpve5YNSnJ9izRB
- Mb+A==
-X-Gm-Message-State: AOAM533K0VhY2NNAQPjeWzweFcqEDaCOvPq2QXbB0udrerTIB8+KT5jW
- LRDeNlY9ecmgK9MST5f+q7AFIA==
-X-Google-Smtp-Source: ABdhPJxaKvPpL0rwdLNrB+ck47hYngpJ9D4J1RqIbGrDU+BZnsh9AH/S/PSgGf1teantMnWe2hZn8w==
-X-Received: by 2002:a1c:2905:: with SMTP id p5mr17734071wmp.187.1601906526822; 
- Mon, 05 Oct 2020 07:02:06 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id t15sm78967wrp.20.2020.10.05.07.02.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Oct 2020 07:02:05 -0700 (PDT)
-Date: Mon, 5 Oct 2020 16:02:03 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Hillf Danton <hdanton@sina.com>
-Message-ID: <20201005140203.GS438822@phenom.ffwll.local>
-Mail-Followup-To: Hillf Danton <hdanton@sina.com>,
- Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@chromium.org>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1580289CD5
+ for <freedreno@lists.freedesktop.org>; Mon,  5 Oct 2020 14:15:55 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1601907356; h=In-Reply-To: Content-Type: MIME-Version:
+ References: Message-ID: Subject: Cc: To: From: Date: Sender;
+ bh=7+9sy5387KDfKiSHXKJcAV2tR//pM2tEdkjRQAzZ5Yw=;
+ b=rXZH4zNAKVLtiQdAQjZA7Bhma1Rh9GkUrCFJnsX5r72/tcQFBQmncO/yf6nj9t83T03pclBZ
+ Zh43zc5XzJ5kKw8fPih8hRAETHvSREZMLzKDXHSA+fdFgTr7b+foZPQhqAGnYEdPa9i4vWW/
+ gdjxBWuzRfdei0IrfAjKjzOslFI=
+X-Mailgun-Sending-Ip: 69.72.42.4
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
+ 5f7b2a9683370fa1c1fa90b5 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 05 Oct 2020 14:15:50
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 6D9E7C433CB; Mon,  5 Oct 2020 14:15:50 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id C62D0C433C8;
+ Mon,  5 Oct 2020 14:15:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org C62D0C433C8
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=jcrouse@codeaurora.org
+Date: Mon, 5 Oct 2020 08:15:44 -0600
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <20201005141543.GA4204@jcrouse1-lnx.qualcomm.com>
+Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
+ dri-devel@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
+ David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
 References: <20201004192152.3298573-1-robdclark@gmail.com>
- <20201005092419.15608-1-hdanton@sina.com>
+ <20201004192152.3298573-3-robdclark@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20201005092419.15608-1-hdanton@sina.com>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
-Subject: Re: [Freedreno] [PATCH 13/14] drm/msm: Drop struct_mutex in
- shrinker path
+In-Reply-To: <20201004192152.3298573-3-robdclark@gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Freedreno] [PATCH 02/14] drm/msm: Drop chatty trace
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,68 +77,52 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ Sean Paul <sean@poorly.run>, Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Oct 05, 2020 at 05:24:19PM +0800, Hillf Danton wrote:
+On Sun, Oct 04, 2020 at 12:21:34PM -0700, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
 > 
-> On Sun,  4 Oct 2020 12:21:45
-> > From: Rob Clark <robdclark@chromium.org>
-> > 
-> > Now that the inactive_list is protected by mm_lock, and everything
-> > else on per-obj basis is protected by obj->lock, we no longer depend
-> > on struct_mutex.
-> > 
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > ---
-> >  drivers/gpu/drm/msm/msm_gem.c          |  1 -
-> >  drivers/gpu/drm/msm/msm_gem_shrinker.c | 54 --------------------------
-> >  2 files changed, 55 deletions(-)
-> > 
-> [...]
+> It is somewhat redundant with the gpu tracepoints, and anyways not too
+> useful to justify spamming the log when debug traces are enabled.
+
+Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
+
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>  drivers/gpu/drm/msm/msm_gpu.c | 1 -
+>  1 file changed, 1 deletion(-)
 > 
-> > @@ -71,13 +33,8 @@ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
-> >  {
-> >  	struct msm_drm_private *priv =
-> >  		container_of(shrinker, struct msm_drm_private, shrinker);
-> > -	struct drm_device *dev = priv->dev;
-> >  	struct msm_gem_object *msm_obj;
-> >  	unsigned long freed = 0;
-> > -	bool unlock;
-> > -
-> > -	if (!msm_gem_shrinker_lock(dev, &unlock))
-> > -		return SHRINK_STOP;
-> >  
-> >  	mutex_lock(&priv->mm_lock);
+> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+> index 55d16489d0f3..31fce3ac0cdc 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu.c
+> +++ b/drivers/gpu/drm/msm/msm_gpu.c
+> @@ -535,7 +535,6 @@ static void recover_worker(struct work_struct *work)
+>  
+>  static void hangcheck_timer_reset(struct msm_gpu *gpu)
+>  {
+> -	DBG("%s", gpu->name);
+>  	mod_timer(&gpu->hangcheck_timer,
+>  			round_jiffies_up(jiffies + DRM_MSM_HANGCHECK_JIFFIES));
+>  }
+> -- 
+> 2.26.2
 > 
-> Better if the change in behavior is documented that SHRINK_STOP will
-> no longer be needed.
+> _______________________________________________
+> Freedreno mailing list
+> Freedreno@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/freedreno
 
-btw I read through this and noticed you have your own obj lock, plus
-mutex_lock_nested. I strongly recommend to just cut over to dma_resv_lock
-for all object lock needs (soc drivers have been terrible with this
-unfortuntaly), and in the shrinker just use dma_resv_trylock instead of
-trying to play clever games outsmarting lockdep.
-
-I recently wrote an entire blog length rant on why I think
-mutex_lock_nested is too dangerous to be useful:
-
-https://blog.ffwll.ch/2020/08/lockdep-false-positives.html
-
-Not anything about this here, just general comment. The problem extends to
-shmem helpers and all that also having their own locks for everything.
--Daniel
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+a Linux Foundation Collaborative Project
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
