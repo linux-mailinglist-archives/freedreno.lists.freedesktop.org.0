@@ -1,73 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0109C284971
-	for <lists+freedreno@lfdr.de>; Tue,  6 Oct 2020 11:36:06 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BBFE284C6D
+	for <lists+freedreno@lfdr.de>; Tue,  6 Oct 2020 15:21:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DDC36E435;
-	Tue,  6 Oct 2020 09:36:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE3C26E048;
+	Tue,  6 Oct 2020 13:21:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E8EE6E14C
- for <freedreno@lists.freedesktop.org>; Tue,  6 Oct 2020 09:36:02 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id l15so1827369wmh.1
- for <freedreno@lists.freedesktop.org>; Tue, 06 Oct 2020 02:36:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=jfHRjgUc3yWmaMNP8V6npRHveQSEaYznJy9xDxqdq5Y=;
- b=V4AlHabOmn6H1w4iRNEGS0B70b8dv2DIEZuurCYdgOgzzKGxgOH6LDi0oU30jzagKc
- nRxT2MEZyLjf9RvcqMiFjcPOZKT5cchMQIVnFpIyJjAAlzwzNA+seFw9c0nwVP6J/wG+
- dE4STfKprpfEiAUbFdH0mQqVPGuDeexiySSD4=
+Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
+ [IPv6:2607:f8b0:4864:20::744])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F08246E048
+ for <freedreno@lists.freedesktop.org>; Tue,  6 Oct 2020 13:21:08 +0000 (UTC)
+Received: by mail-qk1-x744.google.com with SMTP id z6so8050166qkz.4
+ for <freedreno@lists.freedesktop.org>; Tue, 06 Oct 2020 06:21:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=marek-ca.20150623.gappssmtp.com; s=20150623;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=YRYuE1oST5rCsSRo3ftJBgKrW6I4XszeRlUEeyGTNfA=;
+ b=BFD//pwAX/64KPt0LEII7XnZhATo+5u4Ci1QUGZnXAvcyoZpf216nBIukB8S0lNR+o
+ /SBnsKFNycdO4FaqhrrvOl8q9yUCUD0kMtxCFrm+T3BuOtGJqNoq/vuatu/yUwFaui3W
+ wG/q9rVWqGvQF3DH1sF8weJvvvE2/FsOJioQK368BV9SL2poAmn8GeN+if4sevucB6tf
+ 8BV+2/e4V/R+9zg6ETBTYxp+Q6woapII4/lMg/2r2Ql9+NA7asVIWxgARtsMmyYoMq2K
+ YKB5J7l4MgFdsyryEbJBhC2DmC2IwuvI3od1/Cu2zgJfsaaVHr58x1zSeFV0fZQiWrdf
+ Hg/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=jfHRjgUc3yWmaMNP8V6npRHveQSEaYznJy9xDxqdq5Y=;
- b=aDn+rbiqzz98VVWC2PZ5jiKjdELqElAe8MPhB3Fq+hBf0pkiwHnIEMMvmtpzLCGAbn
- xiev1MaACZrjaaS5A1CF4xzeElkJf2C8ctuG+eTSpnJx5y2UMByDpoPGyH/l8qXYzP/a
- Gx2cOndYPtQG13Lstzg2LPAdSUgIz5l+aeyLJO9NukiaatBBY2mdZ7lAng235HE2phOc
- c+f0QemwFJ5tUQLYimlo+QIzq4n4OcZCRpBPmRhqPQ/u0yQFEOBn36w6HawESspUTP2s
- iWhbU2YCOKOZ4h4qRQyYUjVWinj++3hxyacoUFzQC7uA59eiLvp8MR2VhQvj4T+bjvjp
- mMqA==
-X-Gm-Message-State: AOAM530jcfV0nG97YoxiPbgpXYbDoZCoveoFDVM4NQ1NUeSkRwdPhnL+
- Edj8ugBJGGHen7WDBNgoY1qayw==
-X-Google-Smtp-Source: ABdhPJzEaJYL1QdJ5uR4JBld7BCAOyXdwCbFSfIsfUiUeAGtF+t3pE5ORpDjMh0kMl0i7jqARrQBkA==
-X-Received: by 2002:a7b:c95a:: with SMTP id i26mr4006324wml.25.1601976960896; 
- Tue, 06 Oct 2020 02:36:00 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id k15sm3880199wrv.90.2020.10.06.02.35.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Oct 2020 02:36:00 -0700 (PDT)
-Date: Tue, 6 Oct 2020 11:35:58 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20201006093558.GZ438822@phenom.ffwll.local>
-Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
- Hillf Danton <hdanton@sina.com>, Rob Clark <robdclark@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- David Airlie <airlied@linux.ie>,
- arm-msm <linux-arm-msm@vger.kernel.org>,
- "Kristian H . Kristensen" <hoegsberg@gmail.com>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Sean Paul <sean@poorly.run>
-References: <20201004192152.3298573-1-robdclark@gmail.com>
- <20201005092419.15608-1-hdanton@sina.com>
- <20201005140203.GS438822@phenom.ffwll.local>
- <CAOeoa-cqyb8NZJnJdY+A2H680+C4H0WzXhp-uYj8Fg093BqAnw@mail.gmail.com>
- <20201006004416.15040-1-hdanton@sina.com>
- <CAF6AEGvyEYFa-RLrxqgXjxhiLgc-rB+dbscboROPHGPxoC-RMw@mail.gmail.com>
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=YRYuE1oST5rCsSRo3ftJBgKrW6I4XszeRlUEeyGTNfA=;
+ b=NeCzv1xIKPpZSNqLfmn1oPWEKeWrXnmRqyLLF0xwn+T+iSpDpz+S/uqXXJEnem/ZR5
+ fsQLmAktWmXcApTqjlQUNxeOHdG+fgCDF66BTo5K+VOjOorPGmXDZDeSKmMNaQXQoIKd
+ Tu4jyxvLWfJ1lLbBBcyMClAxXm7RUgyA6ocG83hzMJr1bsn/FR3OkWoYB8m1yX+oUrOt
+ y0xDTjWkbCdzL+cexWxs42VuXv25xYPfNvBtdmvIfDUaqaPCGJLo4RYhBvIEArCWQdgT
+ MlnaOPylE67Sg6OoxXmU6F0of85BLMOAGo9RV5QQVOkGyG+w0/oFJf3jC3psPnf//7H/
+ jFag==
+X-Gm-Message-State: AOAM532xXYVx3dyiHBhVoRR6ZFMFogvCzZMaMW47EPocCmX8oK3znCE8
+ rzC6eKgDG4ESW1JCnJUHX7oZKA==
+X-Google-Smtp-Source: ABdhPJw4Z7YWS8t/L1IK8utu6wKe+vRmf2v1MdzI4qau8wJptX2TFHJ6aQoGZURrxgM6eCoWFpwqPw==
+X-Received: by 2002:a05:620a:1287:: with SMTP id
+ w7mr2490783qki.335.1601990468080; 
+ Tue, 06 Oct 2020 06:21:08 -0700 (PDT)
+Received: from [192.168.0.189] ([147.253.86.153])
+ by smtp.gmail.com with ESMTPSA id 192sm2477887qkm.110.2020.10.06.06.21.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 06 Oct 2020 06:21:07 -0700 (PDT)
+To: Christoph Hellwig <hch@infradead.org>
+References: <20201001002709.21361-1-jonathan@marek.ca>
+ <20201001002709.21361-3-jonathan@marek.ca>
+ <20201002075321.GA7547@infradead.org>
+ <b22fb797-67b0-a912-1d23-2b47c9a9e674@marek.ca>
+ <20201005082914.GA31702@infradead.org>
+ <3e0b91be-e4a4-4ea5-7d58-6e71b8d51932@marek.ca>
+ <20201006072306.GA12834@infradead.org>
+From: Jonathan Marek <jonathan@marek.ca>
+Message-ID: <148a1660-f0fc-7163-2240-6b94725342b5@marek.ca>
+Date: Tue, 6 Oct 2020 09:19:32 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAF6AEGvyEYFa-RLrxqgXjxhiLgc-rB+dbscboROPHGPxoC-RMw@mail.gmail.com>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
-Subject: Re: [Freedreno] [PATCH 13/14] drm/msm: Drop struct_mutex in
- shrinker path
+In-Reply-To: <20201006072306.GA12834@infradead.org>
+Content-Language: en-US
+Subject: Re: [Freedreno] [PATCH 2/3] drm/msm: add DRM_MSM_GEM_SYNC_CACHE for
+ non-coherent cache maintenance
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,139 +78,72 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Hillf Danton <hdanton@sina.com>,
- David Airlie <airlied@linux.ie>, arm-msm <linux-arm-msm@vger.kernel.org>,
- "Kristian H . Kristensen" <hoegsberg@gmail.com>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Sean Paul <sean@poorly.run>,
- freedreno <freedreno@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
+Cc: David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
+ Joerg Roedel <joro@8bytes.org>, open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Rob Clark <robdclark@gmail.com>, iommu@lists.linux-foundation.org,
+ Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Sean Paul <sean@poorly.run>, Robin Murphy <robin.murphy@arm.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Oct 05, 2020 at 08:40:12PM -0700, Rob Clark wrote:
-> On Mon, Oct 5, 2020 at 5:44 PM Hillf Danton <hdanton@sina.com> wrote:
-> >
-> >
-> > On Mon, 5 Oct 2020 18:17:01 Kristian H. Kristensen wrote:
-> > > On Mon, Oct 5, 2020 at 4:02 PM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > > >
-> > > > On Mon, Oct 05, 2020 at 05:24:19PM +0800, Hillf Danton wrote:
-> > > > >
-> > > > > On Sun,  4 Oct 2020 12:21:45
-> > > > > > From: Rob Clark <robdclark@chromium.org>
-> > > > > >
-> > > > > > Now that the inactive_list is protected by mm_lock, and everything
-> > > > > > else on per-obj basis is protected by obj->lock, we no longer depend
-> > > > > > on struct_mutex.
-> > > > > >
-> > > > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > > > > ---
-> > > > > >  drivers/gpu/drm/msm/msm_gem.c          |  1 -
-> > > > > >  drivers/gpu/drm/msm/msm_gem_shrinker.c | 54 --------------------------
-> > > > > >  2 files changed, 55 deletions(-)
-> > > > > >
-> > > > > [...]
-> > > > >
-> > > > > > @@ -71,13 +33,8 @@ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
-> > > > > >  {
-> > > > > >     struct msm_drm_private *priv =
-> > > > > >             container_of(shrinker, struct msm_drm_private, shrinker);
-> > > > > > -   struct drm_device *dev = priv->dev;
-> > > > > >     struct msm_gem_object *msm_obj;
-> > > > > >     unsigned long freed = 0;
-> > > > > > -   bool unlock;
-> > > > > > -
-> > > > > > -   if (!msm_gem_shrinker_lock(dev, &unlock))
-> > > > > > -           return SHRINK_STOP;
-> > > > > >
-> > > > > >     mutex_lock(&priv->mm_lock);
-> > > > >
-> > > > > Better if the change in behavior is documented that SHRINK_STOP will
-> > > > > no longer be needed.
-> > > >
-> > > > btw I read through this and noticed you have your own obj lock, plus
-> > > > mutex_lock_nested. I strongly recommend to just cut over to dma_resv_lock
-> > > > for all object lock needs (soc drivers have been terrible with this
-> > > > unfortuntaly), and in the shrinker just use dma_resv_trylock instead of
-> > > > trying to play clever games outsmarting lockdep.
-> >
-> > The trylock makes page reclaimers turn to their next target e.g. inode
-> > cache instead of waiting for the mutex to be released. It makes sense
-> > for instance in scenarios of mild memory pressure.
+On 10/6/20 3:23 AM, Christoph Hellwig wrote:
+> On Mon, Oct 05, 2020 at 10:35:43AM -0400, Jonathan Marek wrote:
+>> The cache synchronization doesn't have anything to do with IOMMU (for
+>> example: cache synchronization would be useful in cases where drm/msm
+>> doesn't use IOMMU).
 > 
-> is there some behind-the-scenes signalling for this, or is this just
-> down to what the shrinker callbacks return?  Generally when we get
-> into shrinking, there are a big set of purgable bo's to consider, so
-> the shrinker callback return wouldn't be considering just one
-> potentially lock contended bo (buffer object).  Ie failing one
-> trylock, we just move on to the next.
+> It has to do with doing DMA.  And we have two frameworks for doing DMA:
+> either the DMA API which is for general driver use, and which as part of
+> the design includes cache maintainance hidden behind the concept of
+> ownership transfers.  And we have the much more bare bones IOMMU API.
 > 
-> fwiw, what I've seen on the userspace bo cache vs shrinker (anything
-> that is shrinker potential is in userspace bo cache and
-> MADV(WONTNEED)) is that in steady state I see a very strong recycling
-> of bo's (which avoids allocating and mmap'ing or mapping to gpu a new
-> buffer object), so it is definitely a win in mmap/realloc bandwidth..
-> in steady state there is a lot of free and realloc of same-sized
-> buffers from frame to frame.
+> If people want to use the "raw" IOMMU API with not cache coherent
+> devices we'll need a cache maintainance API that goes along with it.
+> It could either be formally part of the IOMMU API or be separate.
 > 
-> But in transient situations like moving to new game level when there
-> is a heavy memory pressure and lots of freeing old
-> buffers/textures/etc and then allocating new ones, I see shrinker
-> kicking in hard (in android situations, not so much so with
-> traditional linux userspace)
+>> What is needed is to call arch_sync_dma_for_{cpu,device} (which is what I
+>> went with initially, but then decided to re-use drm/msm's
+>> sync_for_{cpu,device}). But you are also saying those functions aren't for
+>> driver use, and I doubt IOMMU maintainers will want to add wrappers for
+>> these functions just to satisfy this "not for driver use" requirement.
+> 
+> arch_sync_dma_for_{cpu,device} are low-level helpers (and not very
+> great ones at that).  The definitively should not be used by drivers.
+> They would be very useful buildblocks for a IOMMU cache maintainance
+> API.
+> 
+> Of course the best outcome would be if we could find a way for the MSM
+> drm driver to just use DMA API and not deal with the lower level
+> abstractions.  Do you remember why the driver went for use of the IOMMU
+> API?
+> 
 
-Yeah per-buffer trylock is fine. Trylock on the mm_lock (or anything else
-device-global, like struct_mutex and msm_gem_shrinker_lock) I think isn't
-fine, since if you're unlucky you're hogging a ton of memory and that's
-the only freeable resource in the system. Going to other shrinkers won't
-help when it's the gpu shrinker that has all the freeable memory.
+One example why drm/msm can't use DMA API is multiple page table support 
+(that is landing in 5.10), which is something that definitely couldn't 
+work with DMA API.
 
-Also other shrinkers (inode and all these) also do lots of per-object
-trylocking. I think there's a canonical threshold of shrinker rounds where
-you're supposed to try harder (if possible), but that doesn't apply to
-dma_resv_lock.
--Daniel
+Another one is being able to choose the address for mappings, which 
+AFAIK DMA API can't do (somewhat related to this: qcom hardware often 
+has ranges of allowed addresses, which the dma_mask mechanism fails to 
+represent, what I see is drivers using dma_mask as a "maximum address", 
+and since addresses are allocated from the top it generally works)
 
-> 
-> BR,
-> -R
-> 
-> >
-> > > >
-> > > > I recently wrote an entire blog length rant on why I think
-> > > > mutex_lock_nested is too dangerous to be useful:
-> > > >
-> > > > https://blog.ffwll.ch/2020/08/lockdep-false-positives.html
-> > > >
-> > > > Not anything about this here, just general comment. The problem extends to
-> > > > shmem helpers and all that also having their own locks for everything.
-> > >
-> > > This is definitely a tangible improvement though - very happy to see
-> > > msm_gem_shrinker_lock() go.
-> > >
-> > > Reviewed-by: Kristian H. Kristensen <hoegsberg@google.com>
-> > >
-> > > > -Daniel
-> > > > --
-> > > > Daniel Vetter
-> > > > Software Engineer, Intel Corporation
-> > > > http://blog.ffwll.ch
-> > > > _______________________________________________
-> > > > dri-devel mailing list
-> > > > dri-devel@lists.freedesktop.org
-> > > > https://lists.freedesktop.org/mailman/listinfo/dri-devel
-> >
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+But let us imagine drm/msm switches to using DMA API. a2xx GPUs have 
+their own very basic MMU (implemented by msm_gpummu.c), that will need 
+to implement dma_map_ops, which will have to call 
+arch_sync_dma_for_{cpu,device}. So drm/msm still needs to call 
+arch_sync_dma_for_{cpu,device} in that scenario.
 
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+
+
+
+
+
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
