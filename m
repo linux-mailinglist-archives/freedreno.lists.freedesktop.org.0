@@ -2,55 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84B5D284440
-	for <lists+freedreno@lfdr.de>; Tue,  6 Oct 2020 05:24:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0563284456
+	for <lists+freedreno@lfdr.de>; Tue,  6 Oct 2020 05:39:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8711B88007;
-	Tue,  6 Oct 2020 03:24:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C3486E296;
+	Tue,  6 Oct 2020 03:39:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
  [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 726866E288;
- Tue,  6 Oct 2020 03:24:14 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id z1so11743357wrt.3;
- Mon, 05 Oct 2020 20:24:14 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 604626E296;
+ Tue,  6 Oct 2020 03:39:05 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id z1so11764929wrt.3;
+ Mon, 05 Oct 2020 20:39:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=gm5Rf54gYnkxJnrNPTvtfxE73fL5jd+U+PmQSMJsRvc=;
- b=VZyb7PmpfJgybAomaVGcyJCByMa//i6iSgwkSgK+x1NvOl016eP/UXi506QBBORKTi
- tCGJ/E76dAYPiXqNrZrcErB7Q0xU10hnaOt03I7zxUaU9GF3j2X2NsQ6wYncvNlW2SWl
- HIEGE1PDKdy+6AbcACmRbTJTquq8RUUuZg7EQjXnUKSEnyO1qqiQKH2PIxexqvEWF8p4
- 5t7mKf1AWrQpG7txzTW454PA3VnGCs5h2D4yiORRiHTNTImQ9ZBXVSNk0Y7bjBPEUSf9
- ZGPV+OscToCX1ucGwRfs6q9vRP9iFwGykbHytukPTA7zVhlBcSGVNMcBKkEFJxzNWUBN
- +prg==
+ :cc; bh=FwIS/ZODNB8+XMrbGKPg2oqieogMxq8fh8uSfx5pWG4=;
+ b=B7FrGuJXPfKUlJ9l0jfWv+Ve6A7XPPa6fZLOk+MgTpYpy87opySF+VYBHXl8tAWkLq
+ T0Ajfb3FdHkB8xRyM9M8k4woBNNYq7XY4UWSMZxWK7q6R8ID3eRHMyGL0mPi/6n8KPjJ
+ 2oqXwKeIGY6tmS6L3ezN+eq/BTBxUA8NIi1NucgR5gDlda/jdgxTaBXDeWN8i1OyRmyN
+ Qi7kQ6nGab3FHvez86AuOAAvB8OymEcQB6rCnJMOzeBtk3XcfuK9wbr/GVdcmtMP4WL0
+ g5lAj4YiYVtYCScrJ2XPNLZoNI8SISpjm4U9gg8/o3NJ/4KkmLOjbWgttMYEgwWs0DHU
+ OfiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=gm5Rf54gYnkxJnrNPTvtfxE73fL5jd+U+PmQSMJsRvc=;
- b=AwV4v+0cXQfOewPrxZwMGzTXCoIPlUYBE1C2wmYIcu9suR+9mLSf1raUQWlG5zZ9IW
- axtuLUapZdjq35RHCdKDNWzwTCEizqnkzTv/0TPKY3uBTWgOdxZz9o8/Vdn+yIHAcSx7
- brBPmi1dFdfl0gnl7dYf0wt6QyWT9+jOYncdshp7J2u1E5UjaeH90R/79sRh7P/A2Mah
- BgIFsjxTJrsKpFMfJ8+bC6aN1f8J143rwy3rSKJ8TpUbZGUdH+jlf2SGIMmVezx9yPYT
- aHvukDpB9VS7rGTWrt1U8geTR4dDHnjFvVoGoWn4rgS2BXX4Nse7ErF/Kc8e0SE7/wLy
- WbGA==
-X-Gm-Message-State: AOAM533Vc8MFYlnEpux3WQ/VrQSdHDa9wK6jsCozmmIiVBIdetlNBhKG
- ZZUSwKnD9CbeqCnQX+AndgYzm3fWlfMEr0zba2U=
-X-Google-Smtp-Source: ABdhPJxMU6rAehG8uhyB/PTRpKBwU9ZZkYETuLsP9OyIut+i8rZ6MfrGcCOTvVIDW1IHzfNQuBUG9yIDHp1ndNOzhHM=
-X-Received: by 2002:a5d:640d:: with SMTP id z13mr2345446wru.28.1601954652929; 
- Mon, 05 Oct 2020 20:24:12 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=FwIS/ZODNB8+XMrbGKPg2oqieogMxq8fh8uSfx5pWG4=;
+ b=cC2BXbyVOFa4agwNU3YlyY0fj9/D/R3nJZ0/daneJJT/JxVnjgVvn4lvLUajLlJze5
+ HJjUipMcxuJR8AFK4CAogQaQR6Exv8QkNzalLzKQWfPb0DDIQLjCCUV+Q/s8gJpp1/Zm
+ 53O46Ucinj6Pe4SVfa5U/cB+Lo5Xl8h1e6F+2PrVeTzTY8B26UDzLN4FDpUElnEAa0RO
+ 2fgv0KQLFqml/qZVp99176yPXZjEJZq1xs94bRxLvYH631G514ra6wN8ZMhai8a36ECM
+ TAEMld0W05Bl0qddryeD6sk7K6KQdmxv4K4Smib4MFGr8Msw6zctq1MjoDw3/3s+9wj+
+ Slyw==
+X-Gm-Message-State: AOAM532B/YgeCb4z6Lzd71ZliUtXrwXVBe9mmYcYlL71WuPdiXFcotJJ
+ EM3BzoJIHWD62bnzE2gC4nPEXg8oj+ELmQS6wvE=
+X-Google-Smtp-Source: ABdhPJyUbdKz587egzViKBfukW+6sdOLD87D+e1o6XTSsYRkUVaQvH5UDDvnzcp5clV0wdx99mHgcD4zLyUIH+mnTcE=
+X-Received: by 2002:a5d:640d:: with SMTP id z13mr2391517wru.28.1601955544026; 
+ Mon, 05 Oct 2020 20:39:04 -0700 (PDT)
 MIME-Version: 1.0
 References: <20201004192152.3298573-1-robdclark@gmail.com>
- <CAOeoa-d4-KyuVjwPCBcau6yp6sxeeHN4K0cQzZ=H+OQVgHsLFw@mail.gmail.com>
- <CAKMK7uHeZptOKWKTanBB_c2ek2emNjs9fFCbTwgafS19rL1sww@mail.gmail.com>
-In-Reply-To: <CAKMK7uHeZptOKWKTanBB_c2ek2emNjs9fFCbTwgafS19rL1sww@mail.gmail.com>
+ <20201005092419.15608-1-hdanton@sina.com>
+ <20201005140203.GS438822@phenom.ffwll.local>
+ <CAOeoa-cqyb8NZJnJdY+A2H680+C4H0WzXhp-uYj8Fg093BqAnw@mail.gmail.com>
+ <20201006004416.15040-1-hdanton@sina.com>
+In-Reply-To: <20201006004416.15040-1-hdanton@sina.com>
 From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 5 Oct 2020 20:25:21 -0700
-Message-ID: <CAF6AEGu9riswKODKuftqtxkaM=qz9CmFoVgLn1j=yCJ-TuDXLA@mail.gmail.com>
-To: Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: [Freedreno] [PATCH 00/14] drm/msm: de-struct_mutex-ification
+Date: Mon, 5 Oct 2020 20:40:12 -0700
+Message-ID: <CAF6AEGvyEYFa-RLrxqgXjxhiLgc-rB+dbscboROPHGPxoC-RMw@mail.gmail.com>
+To: Hillf Danton <hdanton@sina.com>
+Subject: Re: [Freedreno] [PATCH 13/14] drm/msm: Drop struct_mutex in
+ shrinker path
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,90 +66,116 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
- Jonathan Marek <jonathan@marek.ca>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- =?UTF-8?Q?Kristian_H=C3=B8gsberg?= <hoegsberg@gmail.com>,
- open list <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Ben Dooks <ben.dooks@codethink.co.uk>, Sam Ravnborg <sam@ravnborg.org>,
- AngeloGioacchino Del Regno <kholk11@gmail.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- Emil Velikov <emil.velikov@collabora.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ freedreno <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ arm-msm <linux-arm-msm@vger.kernel.org>,
+ "Kristian H . Kristensen" <hoegsberg@gmail.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-T24gTW9uLCBPY3QgNSwgMjAyMCBhdCAxMToyMCBBTSBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3
-bGwuY2g+IHdyb3RlOgo+Cj4gT24gTW9uLCBPY3QgNSwgMjAyMCBhdCA2OjI0IFBNIEtyaXN0aWFu
-IEjDuGdzYmVyZyA8aG9lZ3NiZXJnQGdtYWlsLmNvbT4gd3JvdGU6Cj4gPgo+ID4gT24gU3VuLCBP
-Y3QgNCwgMjAyMCBhdCA5OjIxIFBNIFJvYiBDbGFyayA8cm9iZGNsYXJrQGdtYWlsLmNvbT4gd3Jv
-dGU6Cj4gPiA+Cj4gPiA+IEZyb206IFJvYiBDbGFyayA8cm9iZGNsYXJrQGNocm9taXVtLm9yZz4K
-PiA+ID4KPiA+ID4gVGhpcyBkb2Vzbid0IHJlbW92ZSAqYWxsKiB0aGUgc3RydWN0X211dGV4LCBi
-dXQgaXQgY292ZXJzIHRoZSB3b3JzdAo+ID4gPiBvZiBpdCwgaWUuIHNocmlua2VyL21hZHZpc2Uv
-ZnJlZS9yZXRpcmUuICBUaGUgc3VibWl0IHBhdGggc3RpbGwgdXNlcwo+ID4gPiBzdHJ1Y3RfbXV0
-ZXgsIGJ1dCBpdCBzdGlsbCBuZWVkcyAqc29tZXRoaW5nKiBzZXJpYWxpemUgYSBwb3J0aW9uIG9m
-Cj4gPiA+IHRoZSBzdWJtaXQgcGF0aCwgYW5kIGxvY2tfc3RhdCBtb3N0bHkganVzdCBzaG93cyB0
-aGUgbG9jayBjb250ZW50aW9uCj4gPiA+IHRoZXJlIGJlaW5nIHdpdGggb3RoZXIgc3VibWl0cy4g
-IEFuZCB0aGVyZSBhcmUgYSBmZXcgb3RoZXIgYml0cyBvZgo+ID4gPiBzdHJ1Y3RfbXV0ZXggdXNh
-Z2UgaW4gbGVzcyBjcml0aWNhbCBwYXRocyAoZGVidWdmcywgZXRjKS4gIEJ1dCB0aGlzCj4gPiA+
-IHNlZW1zIGxpa2UgYSByZWFzb25hYmxlIHN0ZXAgaW4gdGhlIHJpZ2h0IGRpcmVjdGlvbi4KPiA+
-Cj4gPiBXaGF0IGEgZ3JlYXQgcGF0Y2ggc2V0LiBEYW5pZWwgaGFzIHNvbWUgZ29vZCBwb2ludHMg
-YW5kIG5vdGhpbmcgdGhhdAo+ID4gcmVxdWlyZXMgYmlnIGNoYW5nZXMsIGJ1dCBvbiB0aGUgb3Ro
-ZXIgaGFuZCwgSSdtIG5vdCBzdXJlIGl0J3MKPiA+IHNvbWV0aGluZyB0aGF0IG5lZWRzIHRvIGJs
-b2NrIHRoaXMgc2V0IGVpdGhlci4KPgo+IFBlcnNvbmFsbHkgSSdkIHRocm93IHRoZSBsb2NrZGVw
-IHByaW1pbmcgb24gdG9wIHRvIG1ha2Ugc3VyZSB0aGlzCj4gc3RheXMgY29ycmVjdCAoaXQncyAz
-IGxpbmVzKSwgYnV0IHllcyBpbW8gdGhpcyBpcyBhbGwgZ29vZCB0byBnby4gSnVzdAo+IGZpZ3Vy
-ZWQgSSdsbCBzcHJpbmtsZSB0aGUgbGF0ZXN0IGluIHRlcm1zIG9mIGdlbSBsb2NraW5nIG92ZXIg
-dGhlCj4gc2VyaWVzIHdoaWxlIGl0J3MgaGVyZSA6LSkKClllYWgsIEknbGwgZGVmbiB0aHJvdyB0
-aGUgbG9ja2RlcCBwcmltaW5nIGludG8gdjIuLiBhbmQgSSd2ZSBnb3QgdXNpbmcKb2JqLT5yZXN2
-IGZvciBsb2NraW5nIG9uIHRoZSB0b2RvIGxpc3QgYnV0IGxvb2tzIGxpa2UgZW5vdWdoIGNodXJu
-CnRoYXQgaXQgd2lsbCBwcm9iYWJseSBiZSBpdCdzIG93biBzZXJpZXMgKGJ1dCBzZWVtcyBsaWtl
-IHRoZXJlIGlzIHJvb20KdG8gaW50cm9kdWNlIHNvbWUgbG9jay91bmxvY2sgaGVscGVycyB0aGF0
-IGRvbid0IHJlYWxseSBjaGFuZ2UKYW55dGhpbmcgYnV0IG1ha2UgYW4gb2JqLT5sb2NrIHRyYW5z
-aXRpb24gZWFzaWVyKQoKQlIsCi1SCgo+IC1EYW5pZWwKPgo+ID4gRWl0aGVyIHdheSwgZm9yIHRo
-ZSBzZXJpZXMKPiA+Cj4gPiBSZXZpZXdlZC1ieTogS3Jpc3RpYW4gSC4gS3Jpc3RlbnNlbiA8aG9l
-Z3NiZXJnQGdvb2dsZS5jb20+Cj4gPgo+ID4gPiBSb2IgQ2xhcmsgKDE0KToKPiA+ID4gICBkcm0v
-bXNtOiBVc2UgY29ycmVjdCBkcm1fZ2VtX29iamVjdF9wdXQoKSBpbiBmYWlsIGNhc2UKPiA+ID4g
-ICBkcm0vbXNtOiBEcm9wIGNoYXR0eSB0cmFjZQo+ID4gPiAgIGRybS9tc206IE1vdmUgdXBkYXRl
-X2ZlbmNlcygpCj4gPiA+ICAgZHJtL21zbTogQWRkIHByaXYtPm1tX2xvY2sgdG8gcHJvdGVjdCBh
-Y3RpdmUvaW5hY3RpdmUgbGlzdHMKPiA+ID4gICBkcm0vbXNtOiBEb2N1bWVudCBhbmQgcmVuYW1l
-IHByZWVtcHRfbG9jawo+ID4gPiAgIGRybS9tc206IFByb3RlY3QgcmluZy0+c3VibWl0cyB3aXRo
-IGl0J3Mgb3duIGxvY2sKPiA+ID4gICBkcm0vbXNtOiBSZWZjb3VudCBzdWJtaXRzCj4gPiA+ICAg
-ZHJtL21zbTogUmVtb3ZlIG9iai0+Z3B1Cj4gPiA+ICAgZHJtL21zbTogRHJvcCBzdHJ1Y3RfbXV0
-ZXggZnJvbSB0aGUgcmV0aXJlIHBhdGgKPiA+ID4gICBkcm0vbXNtOiBEcm9wIHN0cnVjdF9tdXRl
-eCBpbiBmcmVlX29iamVjdCgpIHBhdGgKPiA+ID4gICBkcm0vbXNtOiByZW1vdmUgbXNtX2dlbV9m
-cmVlX3dvcmsKPiA+ID4gICBkcm0vbXNtOiBkcm9wIHN0cnVjdF9tdXRleCBpbiBtYWR2aXNlIHBh
-dGgKPiA+ID4gICBkcm0vbXNtOiBEcm9wIHN0cnVjdF9tdXRleCBpbiBzaHJpbmtlciBwYXRoCj4g
-PiA+ICAgZHJtL21zbTogRG9uJ3QgaW1wbGljaXQtc3luYyBpZiBvbmx5IGEgc2luZ2xlIHJpbmcK
-PiA+ID4KPiA+ID4gIGRyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2E1eHhfZ3B1LmMgICAgIHwg
-IDQgKy0KPiA+ID4gIGRyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2E1eHhfcHJlZW1wdC5jIHwg
-MTIgKy0tCj4gPiA+ICBkcml2ZXJzL2dwdS9kcm0vbXNtL2FkcmVuby9hNnh4X2dwdS5jICAgICB8
-ICA0ICstCj4gPiA+ICBkcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9kZWJ1Z2ZzLmMgICAgICAgICB8
-ICA3ICsrCj4gPiA+ICBkcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9kcnYuYyAgICAgICAgICAgICB8
-IDE1ICstLS0KPiA+ID4gIGRyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2Rydi5oICAgICAgICAgICAg
-IHwgMTkgKysrLS0KPiA+ID4gIGRyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2dlbS5jICAgICAgICAg
-ICAgIHwgNzYgKysrKysrLS0tLS0tLS0tLS0tCj4gPiA+ICBkcml2ZXJzL2dwdS9kcm0vbXNtL21z
-bV9nZW0uaCAgICAgICAgICAgICB8IDUzICsrKysrKysrKy0tLS0KPiA+ID4gIGRyaXZlcnMvZ3B1
-L2RybS9tc20vbXNtX2dlbV9zaHJpbmtlci5jICAgIHwgNTggKystLS0tLS0tLS0tLS0KPiA+ID4g
-IGRyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2dlbV9zdWJtaXQuYyAgICAgIHwgMTcgKystLQo+ID4g
-PiAgZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZ3B1LmMgICAgICAgICAgICAgfCA5NiArKysrKysr
-KysrKysrKy0tLS0tLS0tLQo+ID4gPiAgZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZ3B1LmggICAg
-ICAgICAgICAgfCAgNSArLQo+ID4gPiAgZHJpdmVycy9ncHUvZHJtL21zbS9tc21fcmluZ2J1ZmZl
-ci5jICAgICAgfCAgMyArLQo+ID4gPiAgZHJpdmVycy9ncHUvZHJtL21zbS9tc21fcmluZ2J1ZmZl
-ci5oICAgICAgfCAxMyArKy0KPiA+ID4gIDE0IGZpbGVzIGNoYW5nZWQsIDE4OCBpbnNlcnRpb25z
-KCspLCAxOTQgZGVsZXRpb25zKC0pCj4gPiA+Cj4gPiA+IC0tCj4gPiA+IDIuMjYuMgo+ID4gPgo+
-ID4gPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+ID4g
-PiBGcmVlZHJlbm8gbWFpbGluZyBsaXN0Cj4gPiA+IEZyZWVkcmVub0BsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKPiA+ID4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9mcmVlZHJlbm8KPiA+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCj4gPiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4gPiBkcmktZGV2ZWxAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCj4gPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2RyaS1kZXZlbAo+Cj4KPgo+IC0tCj4gRGFuaWVsIFZldHRlcgo+IFNvZnR3YXJlIEVu
-Z2luZWVyLCBJbnRlbCBDb3Jwb3JhdGlvbgo+IGh0dHA6Ly9ibG9nLmZmd2xsLmNoCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5n
-IGxpc3QKRnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVubwo=
+On Mon, Oct 5, 2020 at 5:44 PM Hillf Danton <hdanton@sina.com> wrote:
+>
+>
+> On Mon, 5 Oct 2020 18:17:01 Kristian H. Kristensen wrote:
+> > On Mon, Oct 5, 2020 at 4:02 PM Daniel Vetter <daniel@ffwll.ch> wrote:
+> > >
+> > > On Mon, Oct 05, 2020 at 05:24:19PM +0800, Hillf Danton wrote:
+> > > >
+> > > > On Sun,  4 Oct 2020 12:21:45
+> > > > > From: Rob Clark <robdclark@chromium.org>
+> > > > >
+> > > > > Now that the inactive_list is protected by mm_lock, and everything
+> > > > > else on per-obj basis is protected by obj->lock, we no longer depend
+> > > > > on struct_mutex.
+> > > > >
+> > > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > > > > ---
+> > > > >  drivers/gpu/drm/msm/msm_gem.c          |  1 -
+> > > > >  drivers/gpu/drm/msm/msm_gem_shrinker.c | 54 --------------------------
+> > > > >  2 files changed, 55 deletions(-)
+> > > > >
+> > > > [...]
+> > > >
+> > > > > @@ -71,13 +33,8 @@ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+> > > > >  {
+> > > > >     struct msm_drm_private *priv =
+> > > > >             container_of(shrinker, struct msm_drm_private, shrinker);
+> > > > > -   struct drm_device *dev = priv->dev;
+> > > > >     struct msm_gem_object *msm_obj;
+> > > > >     unsigned long freed = 0;
+> > > > > -   bool unlock;
+> > > > > -
+> > > > > -   if (!msm_gem_shrinker_lock(dev, &unlock))
+> > > > > -           return SHRINK_STOP;
+> > > > >
+> > > > >     mutex_lock(&priv->mm_lock);
+> > > >
+> > > > Better if the change in behavior is documented that SHRINK_STOP will
+> > > > no longer be needed.
+> > >
+> > > btw I read through this and noticed you have your own obj lock, plus
+> > > mutex_lock_nested. I strongly recommend to just cut over to dma_resv_lock
+> > > for all object lock needs (soc drivers have been terrible with this
+> > > unfortuntaly), and in the shrinker just use dma_resv_trylock instead of
+> > > trying to play clever games outsmarting lockdep.
+>
+> The trylock makes page reclaimers turn to their next target e.g. inode
+> cache instead of waiting for the mutex to be released. It makes sense
+> for instance in scenarios of mild memory pressure.
+
+is there some behind-the-scenes signalling for this, or is this just
+down to what the shrinker callbacks return?  Generally when we get
+into shrinking, there are a big set of purgable bo's to consider, so
+the shrinker callback return wouldn't be considering just one
+potentially lock contended bo (buffer object).  Ie failing one
+trylock, we just move on to the next.
+
+fwiw, what I've seen on the userspace bo cache vs shrinker (anything
+that is shrinker potential is in userspace bo cache and
+MADV(WONTNEED)) is that in steady state I see a very strong recycling
+of bo's (which avoids allocating and mmap'ing or mapping to gpu a new
+buffer object), so it is definitely a win in mmap/realloc bandwidth..
+in steady state there is a lot of free and realloc of same-sized
+buffers from frame to frame.
+
+But in transient situations like moving to new game level when there
+is a heavy memory pressure and lots of freeing old
+buffers/textures/etc and then allocating new ones, I see shrinker
+kicking in hard (in android situations, not so much so with
+traditional linux userspace)
+
+BR,
+-R
+
+>
+> > >
+> > > I recently wrote an entire blog length rant on why I think
+> > > mutex_lock_nested is too dangerous to be useful:
+> > >
+> > > https://blog.ffwll.ch/2020/08/lockdep-false-positives.html
+> > >
+> > > Not anything about this here, just general comment. The problem extends to
+> > > shmem helpers and all that also having their own locks for everything.
+> >
+> > This is definitely a tangible improvement though - very happy to see
+> > msm_gem_shrinker_lock() go.
+> >
+> > Reviewed-by: Kristian H. Kristensen <hoegsberg@google.com>
+> >
+> > > -Daniel
+> > > --
+> > > Daniel Vetter
+> > > Software Engineer, Intel Corporation
+> > > http://blog.ffwll.ch
+> > > _______________________________________________
+> > > dri-devel mailing list
+> > > dri-devel@lists.freedesktop.org
+> > > https://lists.freedesktop.org/mailman/listinfo/dri-devel
+>
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
