@@ -2,34 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78234284370
-	for <lists+freedreno@lfdr.de>; Tue,  6 Oct 2020 02:44:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7944C28438D
+	for <lists+freedreno@lfdr.de>; Tue,  6 Oct 2020 02:53:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2218489B00;
-	Tue,  6 Oct 2020 00:44:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D029E6E21C;
+	Tue,  6 Oct 2020 00:53:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from r3-23.sinamail.sina.com.cn (r3-23.sinamail.sina.com.cn
- [202.108.3.23])
- by gabe.freedesktop.org (Postfix) with SMTP id 6729D89B00
- for <freedreno@lists.freedesktop.org>; Tue,  6 Oct 2020 00:44:32 +0000 (UTC)
-Received: from unknown (HELO localhost.localdomain)([123.123.27.212])
- by sina.com with ESMTP
- id 5F7BBDEA0000914C; Tue, 6 Oct 2020 08:44:28 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-X-SMAIL-MID: 49576154919458
-From: Hillf Danton <hdanton@sina.com>
-To: "Kristian H . Kristensen" <hoegsberg@gmail.com>
-Date: Tue,  6 Oct 2020 08:44:16 +0800
-Message-Id: <20201006004416.15040-1-hdanton@sina.com>
-In-Reply-To: <CAOeoa-cqyb8NZJnJdY+A2H680+C4H0WzXhp-uYj8Fg093BqAnw@mail.gmail.com>
-References: <20201004192152.3298573-1-robdclark@gmail.com>
- <20201005092419.15608-1-hdanton@sina.com>
- <20201005140203.GS438822@phenom.ffwll.local>
+Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
+ [IPv6:2607:f8b0:4864:20::1034])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1AE16E222
+ for <freedreno@lists.freedesktop.org>; Tue,  6 Oct 2020 00:53:08 +0000 (UTC)
+Received: by mail-pj1-x1034.google.com with SMTP id x5so82894pjv.3
+ for <freedreno@lists.freedesktop.org>; Mon, 05 Oct 2020 17:53:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:content-transfer-encoding:in-reply-to:references
+ :subject:from:cc:to:date:message-id:user-agent;
+ bh=VpS7X6EIHmnMVFG8t95f4eTiEJylc/0BC3yBDzUejrM=;
+ b=lOpQopCjyEt4Ltl65nTh/NLJY26jMqDTYMrllPZw2VWtPaPoICadSHYsF7DO7J7F63
+ oWM0C2zCCdV1kRPg20jntFj067/ze5WrdoZLZYQqkxwFqFL9fv8stApj7Hy9NxIstieO
+ 31uV38KLejd1JrJdu7x4DYuyK04uTmGBfbLuE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:content-transfer-encoding
+ :in-reply-to:references:subject:from:cc:to:date:message-id
+ :user-agent;
+ bh=VpS7X6EIHmnMVFG8t95f4eTiEJylc/0BC3yBDzUejrM=;
+ b=sXIlJgKCFZM+TxEjb5QcDkztCAuZHOEQNS33m/PSeJ45QymmmfRc3yUJgfHdQ2mNLI
+ oi5/rO5zUfyjJU41rTdjRhP2laLFlQZHQ3At03KraP9JpXxbttRIexPQqn2BTozgu3Gw
+ rNYRKuhDbIEBYlnsNN2Wzqhsx+lx0eZ1DuwRMncuPM1kaxTfuPVHpjL9FgQqueqo1mZd
+ RSmlna1GtEFKbiyOsEGC6J37KP6EsrueOmUQZApwWzTG3NPjeMpqPjuW5/cfOL7m1Rf+
+ oFSXSoxPis0qr41214wYwEmAMAz6EmfkYqckH6m/R/jxc5PMpCj/0fx9r+mSZkyMNeDE
+ bZsQ==
+X-Gm-Message-State: AOAM5325bKCgx9JYS1M6FLL4ISQRIlGgYktvNvX1vDUcdQ4mC1lEXjR7
+ uDvJJFGRPet2/bpX8KIKyuP0fw==
+X-Google-Smtp-Source: ABdhPJwcHOjVjxdDby4/cVjBb9nbVM6zGtxqizkwy+3JzYP2vBMd0N90sEUJqcd/RzTbya7as0iiVA==
+X-Received: by 2002:a17:90a:c302:: with SMTP id
+ g2mr1996266pjt.173.1601945588397; 
+ Mon, 05 Oct 2020 17:53:08 -0700 (PDT)
+Received: from chromium.org ([2620:15c:202:201:3e52:82ff:fe6c:83ab])
+ by smtp.gmail.com with ESMTPSA id b22sm806470pjz.27.2020.10.05.17.53.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 05 Oct 2020 17:53:07 -0700 (PDT)
 MIME-Version: 1.0
-Subject: Re: [Freedreno] [PATCH 13/14] drm/msm: Drop struct_mutex in
- shrinker path
+In-Reply-To: <0de13a805820e4d73b8f906682386845@codeaurora.org>
+References: <20201002220919.17245-1-khsieh@codeaurora.org>
+ <160169114309.310579.5033839844955785761@swboyd.mtv.corp.google.com>
+ <0de13a805820e4d73b8f906682386845@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+To: khsieh@codeaurora.org
+Date: Mon, 05 Oct 2020 17:53:06 -0700
+Message-ID: <160194558634.310579.5267169787902306024@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: fixes wrong connection state
+ caused by failure of link train
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,89 +68,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>, Hillf Danton <hdanton@sina.com>,
- David Airlie <airlied@linux.ie>, arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, abhinavk@codeaurora.org, robdclark@gmail.com,
+ tanmay@codeaurora.org, daniel@ffwll.ch, aravindh@codeaurora.org,
+ sean@poorly.run
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On Mon, 5 Oct 2020 18:17:01 Kristian H. Kristensen wrote:
-> On Mon, Oct 5, 2020 at 4:02 PM Daniel Vetter <daniel@ffwll.ch> wrote:
-> >
-> > On Mon, Oct 05, 2020 at 05:24:19PM +0800, Hillf Danton wrote:
-> > >
-> > > On Sun,  4 Oct 2020 12:21:45
-> > > > From: Rob Clark <robdclark@chromium.org>
-> > > >
-> > > > Now that the inactive_list is protected by mm_lock, and everything
-> > > > else on per-obj basis is protected by obj->lock, we no longer depend
-> > > > on struct_mutex.
-> > > >
-> > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > > ---
-> > > >  drivers/gpu/drm/msm/msm_gem.c          |  1 -
-> > > >  drivers/gpu/drm/msm/msm_gem_shrinker.c | 54 --------------------------
-> > > >  2 files changed, 55 deletions(-)
-> > > >
-> > > [...]
-> > >
-> > > > @@ -71,13 +33,8 @@ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
-> > > >  {
-> > > >     struct msm_drm_private *priv =
-> > > >             container_of(shrinker, struct msm_drm_private, shrinker);
-> > > > -   struct drm_device *dev = priv->dev;
-> > > >     struct msm_gem_object *msm_obj;
-> > > >     unsigned long freed = 0;
-> > > > -   bool unlock;
-> > > > -
-> > > > -   if (!msm_gem_shrinker_lock(dev, &unlock))
-> > > > -           return SHRINK_STOP;
-> > > >
-> > > >     mutex_lock(&priv->mm_lock);
-> > >
-> > > Better if the change in behavior is documented that SHRINK_STOP will
-> > > no longer be needed.
-> >
-> > btw I read through this and noticed you have your own obj lock, plus
-> > mutex_lock_nested. I strongly recommend to just cut over to dma_resv_lock
-> > for all object lock needs (soc drivers have been terrible with this
-> > unfortuntaly), and in the shrinker just use dma_resv_trylock instead of
-> > trying to play clever games outsmarting lockdep.
-
-The trylock makes page reclaimers turn to their next target e.g. inode
-cache instead of waiting for the mutex to be released. It makes sense
-for instance in scenarios of mild memory pressure.
-
-> >
-> > I recently wrote an entire blog length rant on why I think
-> > mutex_lock_nested is too dangerous to be useful:
-> >
-> > https://blog.ffwll.ch/2020/08/lockdep-false-positives.html
-> >
-> > Not anything about this here, just general comment. The problem extends to
-> > shmem helpers and all that also having their own locks for everything.
+Quoting khsieh@codeaurora.org (2020-10-05 11:02:10)
+> >> +       dp_del_event(dp_display, EV_DISCONNECT_PENDING_TIMEOUT);
+> >> +
+> >>         dp_display_disable(dp_display, 0);
+> >> 
+> >>         rc = dp_display_unprepare(dp);
+> >>         if (rc)
+> >>                 DRM_ERROR("DP display unprepare failed, rc=%d\n", rc);
+> >> 
+> >> -       dp_del_event(dp_display, EV_DISCONNECT_PENDING_TIMEOUT);
+> >> -
+> >>         state =  atomic_read(&dp_display->hpd_state);
+> >>         if (state == ST_DISCONNECT_PENDING) {
+> > 
+> > I don't understand the atomic nature of this hpd_state variable. Why is
+> > it an atomic variable? Is taking a spinlock bad? What is to prevent the
+> > atomic read here to not be interrupted and then this if condition check
+> > be invalid because the variable has been updated somewhere else?
+> hpd_state variable updated by multiple threads. however it was protected 
+> by mutex.
+> in theory, it should also work as u32. since it was declared as atomic 
+> from beginning
+> and it does not cause any negative effects, can we keep it as it is?
 > 
-> This is definitely a tangible improvement though - very happy to see
-> msm_gem_shrinker_lock() go.
-> 
-> Reviewed-by: Kristian H. Kristensen <hoegsberg@google.com>
-> 
-> > -Daniel
-> > --
-> > Daniel Vetter
-> > Software Engineer, Intel Corporation
-> > http://blog.ffwll.ch
-> > _______________________________________________
-> > dri-devel mailing list
-> > dri-devel@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/dri-devel
 
+It does cause negative effects by generating worse code for something
+that is already protected from concurrency by a mutex. Can we make it an
+enum and name the enum and then add a comment indicating that the
+'event_mutex' lock protects this variable?
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
