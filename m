@@ -2,63 +2,36 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDCE428473E
-	for <lists+freedreno@lfdr.de>; Tue,  6 Oct 2020 09:31:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45DD5284876
+	for <lists+freedreno@lfdr.de>; Tue,  6 Oct 2020 10:24:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F9E06E3F4;
-	Tue,  6 Oct 2020 07:31:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0535F89D58;
+	Tue,  6 Oct 2020 08:24:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B08F36E3F4
- for <freedreno@lists.freedesktop.org>; Tue,  6 Oct 2020 07:31:50 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1601969510; h=Content-Transfer-Encoding: Content-Type:
- In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
- Subject: Sender; bh=N+bINCl+jyO8AKUrPm7YEyCmsDsV2qLc0AEXeGwPE7M=;
- b=mDJSW8LQxfImCChyesz3wBRqoiiMlNWR2Stq79HhDHIOkhseXJVy7Va7eYYMRIYIzb2fal05
- amCtiWd+M0MMDPqbMK0kAQUEfDk8SYDiEKUNkOMT0pTe/d8/7C67TV9FrLbbzuFQ9P+4Nkmx
- T26LWoB8BygAQvVM1+sUYlnXlh8=
-X-Mailgun-Sending-Ip: 104.130.96.5
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n04.prod.us-east-1.postgun.com with SMTP id
- 5f7c1d65aad2c3cd1cd6cc70 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 06 Oct 2020 07:31:49
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id F38F3C43385; Tue,  6 Oct 2020 07:31:48 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- NICE_REPLY_A,SPF_FAIL,URIBL_BLOCKED autolearn=no autolearn_force=no
- version=3.4.0
-Received: from [192.168.0.118] (unknown [49.207.193.139])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: rnayak)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 1237EC433F1;
- Tue,  6 Oct 2020 07:31:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 1237EC433F1
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=rnayak@codeaurora.org
-To: Kuogee Hsieh <khsieh@codeaurora.org>, robdclark@gmail.com,
- sean@poorly.run, swboyd@chromium.org
-References: <20201003222652.32671-1-khsieh@codeaurora.org>
-From: Rajendra Nayak <rnayak@codeaurora.org>
-Message-ID: <717f90f2-4148-9fc0-c772-13f101f916a8@codeaurora.org>
-Date: Tue, 6 Oct 2020 13:01:41 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+Received: from mail3-167.sinamail.sina.com.cn (mail3-167.sinamail.sina.com.cn
+ [202.108.3.167])
+ by gabe.freedesktop.org (Postfix) with SMTP id B003D89D49
+ for <freedreno@lists.freedesktop.org>; Tue,  6 Oct 2020 08:24:36 +0000 (UTC)
+Received: from unknown (HELO localhost.localdomain)([123.123.27.212])
+ by sina.com with ESMTP
+ id 5F7C29BC000087BB; Tue, 6 Oct 2020 16:24:33 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+X-SMAIL-MID: 189489628917
+From: Hillf Danton <hdanton@sina.com>
+To: Rob Clark <robdclark@gmail.com>
+Date: Tue,  6 Oct 2020 16:24:19 +0800
+Message-Id: <20201006082419.2412-1-hdanton@sina.com>
+In-Reply-To: <CAF6AEGvyEYFa-RLrxqgXjxhiLgc-rB+dbscboROPHGPxoC-RMw@mail.gmail.com>
+References: <20201004192152.3298573-1-robdclark@gmail.com>
+ <20201005092419.15608-1-hdanton@sina.com>
+ <20201005140203.GS438822@phenom.ffwll.local>
+ <CAOeoa-cqyb8NZJnJdY+A2H680+C4H0WzXhp-uYj8Fg093BqAnw@mail.gmail.com>
+ <20201006004416.15040-1-hdanton@sina.com>
 MIME-Version: 1.0
-In-Reply-To: <20201003222652.32671-1-khsieh@codeaurora.org>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: add opp_table corner voting
- support base on dp_ink_clk rate
+Subject: Re: [Freedreno] [PATCH 13/14] drm/msm: Drop struct_mutex in
+ shrinker path
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,238 +44,121 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- abhinavk@codeaurora.org, tanmay@codeaurora.org, daniel@ffwll.ch,
- aravindh@codeaurora.org, freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>, Hillf Danton <hdanton@sina.com>,
+ David Airlie <airlied@linux.ie>, arm-msm <linux-arm-msm@vger.kernel.org>,
+ "Kristian H. Kristensen" <hoegsberg@gmail.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Dave Chinner <dchinner@redhat.com>, Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On 10/4/2020 3:56 AM, Kuogee Hsieh wrote:
-> Set link rate by using OPP set rate api so that CX level will be set
-> accordingly based on the link rate.
+On Mon, 5 Oct 2020 20:40:12 Rob Clark <robdclark@gmail.com> wrote:
+> On Mon, Oct 5, 2020 at 5:44 PM Hillf Danton <hdanton@sina.com> wrote:
+> > On Mon, 5 Oct 2020 18:17:01 Kristian H. Kristensen wrote:
+> > > On Mon, Oct 5, 2020 at 4:02 PM Daniel Vetter <daniel@ffwll.ch> wrote:
+> > > >
+> > > > On Mon, Oct 05, 2020 at 05:24:19PM +0800, Hillf Danton wrote:
+> > > > >
+> > > > > On Sun,  4 Oct 2020 12:21:45
+> > > > > > From: Rob Clark <robdclark@chromium.org>
+> > > > > >
+> > > > > > Now that the inactive_list is protected by mm_lock, and everything
+> > > > > > else on per-obj basis is protected by obj->lock, we no longer depend
+> > > > > > on struct_mutex.
+> > > > > >
+> > > > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > > > > > ---
+> > > > > >  drivers/gpu/drm/msm/msm_gem.c          |  1 -
+> > > > > >  drivers/gpu/drm/msm/msm_gem_shrinker.c | 54 --------------------------
+> > > > > >  2 files changed, 55 deletions(-)
+> > > > > >
+> > > > > [...]
+> > > > >
+> > > > > > @@ -71,13 +33,8 @@ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+> > > > > >  {
+> > > > > >     struct msm_drm_private *priv =
+> > > > > >             container_of(shrinker, struct msm_drm_private, shrinker);
+> > > > > > -   struct drm_device *dev = priv->dev;
+> > > > > >     struct msm_gem_object *msm_obj;
+> > > > > >     unsigned long freed = 0;
+> > > > > > -   bool unlock;
+> > > > > > -
+> > > > > > -   if (!msm_gem_shrinker_lock(dev, &unlock))
+> > > > > > -           return SHRINK_STOP;
+> > > > > >
+> > > > > >     mutex_lock(&priv->mm_lock);
+> > > > >
+> > > > > Better if the change in behavior is documented that SHRINK_STOP will
+> > > > > no longer be needed.
+> > > >
+> > > > btw I read through this and noticed you have your own obj lock, plus
+> > > > mutex_lock_nested. I strongly recommend to just cut over to dma_resv_lock
+> > > > for all object lock needs (soc drivers have been terrible with this
+> > > > unfortuntaly), and in the shrinker just use dma_resv_trylock instead of
+> > > > trying to play clever games outsmarting lockdep.
+> >
+> > The trylock makes page reclaimers turn to their next target e.g. inode
+> > cache instead of waiting for the mutex to be released. It makes sense
+> > for instance in scenarios of mild memory pressure.
 > 
-> Changes in v2:
-> -- remove dev from dp_ctrl_put() parameters
-> -- address review comments
+> is there some behind-the-scenes signalling for this, or is this just
+> down to what the shrinker callbacks return?
 
-This needs to go below '---' and should not be part of the
-change log.
+Lets see what Dave may have in his mind about your questions.
 
+> Generally when we get
+> into shrinking, there are a big set of purgable bo's to consider, so
+> the shrinker callback return wouldn't be considering just one
+> potentially lock contended bo (buffer object).  Ie failing one
+> trylock, we just move on to the next.
 > 
-> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
-> ---
->   drivers/gpu/drm/msm/dp/dp_ctrl.c    | 26 +++++++++++++++++
->   drivers/gpu/drm/msm/dp/dp_display.c |  2 +-
->   drivers/gpu/drm/msm/dp/dp_power.c   | 44 ++++++++++++++++++++++++++---
->   drivers/gpu/drm/msm/dp/dp_power.h   |  2 +-
->   4 files changed, 68 insertions(+), 6 deletions(-)
+> fwiw, what I've seen on the userspace bo cache vs shrinker (anything
+> that is shrinker potential is in userspace bo cache and
+> MADV(WONTNEED)) is that in steady state I see a very strong recycling
+> of bo's (which avoids allocating and mmap'ing or mapping to gpu a new
+> buffer object), so it is definitely a win in mmap/realloc bandwidth..
+> in steady state there is a lot of free and realloc of same-sized
+> buffers from frame to frame.
 > 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index 2e3e1917351f..6eb9cdad1421 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -10,6 +10,7 @@
->   #include <linux/delay.h>
->   #include <linux/phy/phy.h>
->   #include <linux/phy/phy-dp.h>
-> +#include <linux/pm_opp.h>
->   #include <drm/drm_fixed.h>
->   #include <drm/drm_dp_helper.h>
->   #include <drm/drm_print.h>
-> @@ -76,6 +77,8 @@ struct dp_ctrl_private {
->   	struct dp_parser *parser;
->   	struct dp_catalog *catalog;
->   
-> +	struct opp_table *opp_table;
-> +
->   	struct completion idle_comp;
->   	struct completion video_comp;
->   };
-> @@ -1836,6 +1839,7 @@ struct dp_ctrl *dp_ctrl_get(struct device *dev, struct dp_link *link,
->   			struct dp_parser *parser)
->   {
->   	struct dp_ctrl_private *ctrl;
-> +	int ret;
->   
->   	if (!dev || !panel || !aux ||
->   	    !link || !catalog) {
-> @@ -1849,6 +1853,19 @@ struct dp_ctrl *dp_ctrl_get(struct device *dev, struct dp_link *link,
->   		return ERR_PTR(-ENOMEM);
->   	}
->   
-> +	ctrl->opp_table = dev_pm_opp_set_clkname(dev, "ctrl_link");
-> +	if (IS_ERR(ctrl->opp_table)) {
-> +		dev_err(dev, "invalid DP OPP table in device tree\n");
-
-You do this regardless of an OPP table in DT, so for starters the error
-message is wrong. Secondly this can return you a -EPROBE_DEFER if the
-clock driver isn't ready yet.
-So the ideal thing to do here, is return a PTR_ERR(ctrl->opp_table)
-
-> +		ctrl->opp_table = NULL;
-> +	} else {
-> +		/* OPP table is optional */
-> +		ret = dev_pm_opp_of_add_table(dev);
-> +		if (ret && ret != -ENODEV) {
-> +			dev_pm_opp_put_clkname(ctrl->opp_table);
-> +			ctrl->opp_table = NULL;
-> +		}
-> +	}
-> +
->   	init_completion(&ctrl->idle_comp);
->   	init_completion(&ctrl->video_comp);
->   
-> @@ -1866,4 +1883,13 @@ struct dp_ctrl *dp_ctrl_get(struct device *dev, struct dp_link *link,
->   
->   void dp_ctrl_put(struct dp_ctrl *dp_ctrl)
->   {
-> +	struct dp_ctrl_private *ctrl;
-> +
-> +	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
-> +
-> +	if (ctrl->opp_table) {
-> +		dev_pm_opp_of_remove_table(ctrl->dev);
-> +		dev_pm_opp_put_clkname(ctrl->opp_table);
-> +		ctrl->opp_table = NULL;
-> +	}
->   }
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index e175aa3fd3a9..269f83550b46 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -698,7 +698,7 @@ static int dp_init_sub_modules(struct dp_display_private *dp)
->   		goto error;
->   	}
->   
-> -	dp->power = dp_power_get(dp->parser);
-> +	dp->power = dp_power_get(dev, dp->parser);
->   	if (IS_ERR(dp->power)) {
->   		rc = PTR_ERR(dp->power);
->   		DRM_ERROR("failed to initialize power, rc = %d\n", rc);
-> diff --git a/drivers/gpu/drm/msm/dp/dp_power.c b/drivers/gpu/drm/msm/dp/dp_power.c
-> index 17c1fc6a2d44..9c4ea00a5f2a 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_power.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_power.c
-> @@ -8,12 +8,14 @@
->   #include <linux/clk.h>
->   #include <linux/clk-provider.h>
->   #include <linux/regulator/consumer.h>
-> +#include <linux/pm_opp.h>
->   #include "dp_power.h"
->   #include "msm_drv.h"
->   
->   struct dp_power_private {
->   	struct dp_parser *parser;
->   	struct platform_device *pdev;
-> +	struct device *dev;
->   	struct clk *link_clk_src;
->   	struct clk *pixel_provider;
->   	struct clk *link_provider;
-> @@ -148,18 +150,51 @@ static int dp_power_clk_deinit(struct dp_power_private *power)
->   	return 0;
->   }
->   
-> +static int dp_power_clk_set_link_rate(struct dp_power_private *power,
-> +			struct dss_clk *clk_arry, int num_clk, int enable)
-> +{
-> +	u32 rate;
-> +	int i, rc = 0;
-> +
-> +	for (i = 0; i < num_clk; i++) {
-> +		if (clk_arry[i].clk) {
-> +			if (clk_arry[i].type == DSS_CLK_PCLK) {
-> +				if (enable)
-> +					rate = clk_arry[i].rate;
-> +				else
-> +					rate = 0;
-> +
-> +				rc = dev_pm_opp_set_rate(power->dev, rate);
-
-I am not sure how this is expected to work when you have multiple link clocks,
-since you can only associate one of them with the OPP table which ends up
-getting scaled when you do a dev_pm_opp_set_rate()
-Do you really have platforms which will have multiple link clocks?
-
-> +				if (rc)
-> +					break;
-> +			}
-> +
-> +		}
-> +	}
-> +	return rc;
-> +}
-> +
->   static int dp_power_clk_set_rate(struct dp_power_private *power,
->   		enum dp_pm_type module, bool enable)
->   {
->   	int rc = 0;
->   	struct dss_module_power *mp = &power->parser->mp[module];
->   
-> -	if (enable) {
-> -		rc = msm_dss_clk_set_rate(mp->clk_config, mp->num_clk);
-> +	if (module == DP_CTRL_PM) {
-> +		rc = dp_power_clk_set_link_rate(power, mp->clk_config, mp->num_clk, enable);
->   		if (rc) {
-> -			DRM_ERROR("failed to set clks rate.\n");
-> +			DRM_ERROR("failed to set link clks rate\n");
->   			return rc;
->   		}
-> +	} else {
-> +
-
-extra blank line
-
-> +		if (enable) {
-> +			rc = msm_dss_clk_set_rate(mp->clk_config, mp->num_clk);
-> +			if (rc) {
-> +				DRM_ERROR("failed to set clks rate\n");
-> +				return rc;
-> +			}
-> +		}
->   	}
->   
->   	rc = msm_dss_enable_clk(mp->clk_config, mp->num_clk, enable);
-> @@ -349,7 +384,7 @@ int dp_power_deinit(struct dp_power *dp_power)
->   	return 0;
->   }
->   
-> -struct dp_power *dp_power_get(struct dp_parser *parser)
-> +struct dp_power *dp_power_get(struct device *dev, struct dp_parser *parser)
->   {
->   	struct dp_power_private *power;
->   	struct dp_power *dp_power;
-> @@ -365,6 +400,7 @@ struct dp_power *dp_power_get(struct dp_parser *parser)
->   
->   	power->parser = parser;
->   	power->pdev = parser->pdev;
-> +	power->dev = dev;
->   
->   	dp_power = &power->dp_power;
->   
-> diff --git a/drivers/gpu/drm/msm/dp/dp_power.h b/drivers/gpu/drm/msm/dp/dp_power.h
-> index 76743d755833..7d0327bbc0d5 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_power.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_power.h
-> @@ -102,6 +102,6 @@ void dp_power_client_deinit(struct dp_power *power);
->    * methods to be called by the client to configure the power related
->    * modueles.
->    */
-> -struct dp_power *dp_power_get(struct dp_parser *parser);
-> +struct dp_power *dp_power_get(struct device *dev, struct dp_parser *parser);
->   
->   #endif /* _DP_POWER_H_ */
+> But in transient situations like moving to new game level when there
+> is a heavy memory pressure and lots of freeing old
+> buffers/textures/etc and then allocating new ones, I see shrinker
+> kicking in hard (in android situations, not so much so with
+> traditional linux userspace)
 > 
-> base-commit: d1ea914925856d397b0b3241428f20b945e31434
+> BR,
+> -R
+> 
+> >
+> > > >
+> > > > I recently wrote an entire blog length rant on why I think
+> > > > mutex_lock_nested is too dangerous to be useful:
+> > > >
+> > > > https://blog.ffwll.ch/2020/08/lockdep-false-positives.html
+> > > >
+> > > > Not anything about this here, just general comment. The problem extends to
+> > > > shmem helpers and all that also having their own locks for everything.
+> > >
+> > > This is definitely a tangible improvement though - very happy to see
+> > > msm_gem_shrinker_lock() go.
+> > >
+> > > Reviewed-by: Kristian H. Kristensen <hoegsberg@google.com>
+> > >
+> > > > -Daniel
+> > > > --
+> > > > Daniel Vetter
+> > > > Software Engineer, Intel Corporation
+> > > > http://blog.ffwll.ch
+> > > > _______________________________________________
+> > > > dri-devel mailing list
+> > > > dri-devel@lists.freedesktop.org
+> > > > https://lists.freedesktop.org/mailman/listinfo/dri-devel
 
-??
-
--- 
-QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a member
-of Code Aurora Forum, hosted by The Linux Foundation
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
