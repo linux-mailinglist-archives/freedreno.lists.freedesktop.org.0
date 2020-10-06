@@ -2,70 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BBFE284C6D
-	for <lists+freedreno@lfdr.de>; Tue,  6 Oct 2020 15:21:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E90F42852B5
+	for <lists+freedreno@lfdr.de>; Tue,  6 Oct 2020 21:56:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE3C26E048;
-	Tue,  6 Oct 2020 13:21:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A18F26E053;
+	Tue,  6 Oct 2020 19:56:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
- [IPv6:2607:f8b0:4864:20::744])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F08246E048
- for <freedreno@lists.freedesktop.org>; Tue,  6 Oct 2020 13:21:08 +0000 (UTC)
-Received: by mail-qk1-x744.google.com with SMTP id z6so8050166qkz.4
- for <freedreno@lists.freedesktop.org>; Tue, 06 Oct 2020 06:21:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=marek-ca.20150623.gappssmtp.com; s=20150623;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=YRYuE1oST5rCsSRo3ftJBgKrW6I4XszeRlUEeyGTNfA=;
- b=BFD//pwAX/64KPt0LEII7XnZhATo+5u4Ci1QUGZnXAvcyoZpf216nBIukB8S0lNR+o
- /SBnsKFNycdO4FaqhrrvOl8q9yUCUD0kMtxCFrm+T3BuOtGJqNoq/vuatu/yUwFaui3W
- wG/q9rVWqGvQF3DH1sF8weJvvvE2/FsOJioQK368BV9SL2poAmn8GeN+if4sevucB6tf
- 8BV+2/e4V/R+9zg6ETBTYxp+Q6woapII4/lMg/2r2Ql9+NA7asVIWxgARtsMmyYoMq2K
- YKB5J7l4MgFdsyryEbJBhC2DmC2IwuvI3od1/Cu2zgJfsaaVHr58x1zSeFV0fZQiWrdf
- Hg/Q==
+Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
+ [IPv6:2607:f8b0:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FB8A6E061
+ for <freedreno@lists.freedesktop.org>; Tue,  6 Oct 2020 19:56:08 +0000 (UTC)
+Received: by mail-pf1-x442.google.com with SMTP id d6so9651494pfn.9
+ for <freedreno@lists.freedesktop.org>; Tue, 06 Oct 2020 12:56:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:content-transfer-encoding:in-reply-to:references
+ :subject:from:cc:to:date:message-id:user-agent;
+ bh=S8eSQwblG7magE2M9UvC+xcdzDuh3S8sxyEB62q5+1g=;
+ b=le2hYmKsGwWNwVqNSwcjcTPzO5cuY3xEgiwXqiqs192Il24k51QSXPpXRaiTi9YzF7
+ 2rBNS7UVXRPw2mq8UkJlXkVOvAku8ULLpb07fQ1mR+Fwur0ESSIQ9O+PH5yKC5ribbg3
+ v4wUZBgjAY/3AoLBWgI0Q8yNTwQiYsny962Og=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=YRYuE1oST5rCsSRo3ftJBgKrW6I4XszeRlUEeyGTNfA=;
- b=NeCzv1xIKPpZSNqLfmn1oPWEKeWrXnmRqyLLF0xwn+T+iSpDpz+S/uqXXJEnem/ZR5
- fsQLmAktWmXcApTqjlQUNxeOHdG+fgCDF66BTo5K+VOjOorPGmXDZDeSKmMNaQXQoIKd
- Tu4jyxvLWfJ1lLbBBcyMClAxXm7RUgyA6ocG83hzMJr1bsn/FR3OkWoYB8m1yX+oUrOt
- y0xDTjWkbCdzL+cexWxs42VuXv25xYPfNvBtdmvIfDUaqaPCGJLo4RYhBvIEArCWQdgT
- MlnaOPylE67Sg6OoxXmU6F0of85BLMOAGo9RV5QQVOkGyG+w0/oFJf3jC3psPnf//7H/
- jFag==
-X-Gm-Message-State: AOAM532xXYVx3dyiHBhVoRR6ZFMFogvCzZMaMW47EPocCmX8oK3znCE8
- rzC6eKgDG4ESW1JCnJUHX7oZKA==
-X-Google-Smtp-Source: ABdhPJw4Z7YWS8t/L1IK8utu6wKe+vRmf2v1MdzI4qau8wJptX2TFHJ6aQoGZURrxgM6eCoWFpwqPw==
-X-Received: by 2002:a05:620a:1287:: with SMTP id
- w7mr2490783qki.335.1601990468080; 
- Tue, 06 Oct 2020 06:21:08 -0700 (PDT)
-Received: from [192.168.0.189] ([147.253.86.153])
- by smtp.gmail.com with ESMTPSA id 192sm2477887qkm.110.2020.10.06.06.21.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Oct 2020 06:21:07 -0700 (PDT)
-To: Christoph Hellwig <hch@infradead.org>
-References: <20201001002709.21361-1-jonathan@marek.ca>
- <20201001002709.21361-3-jonathan@marek.ca>
- <20201002075321.GA7547@infradead.org>
- <b22fb797-67b0-a912-1d23-2b47c9a9e674@marek.ca>
- <20201005082914.GA31702@infradead.org>
- <3e0b91be-e4a4-4ea5-7d58-6e71b8d51932@marek.ca>
- <20201006072306.GA12834@infradead.org>
-From: Jonathan Marek <jonathan@marek.ca>
-Message-ID: <148a1660-f0fc-7163-2240-6b94725342b5@marek.ca>
-Date: Tue, 6 Oct 2020 09:19:32 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+ h=x-gm-message-state:mime-version:content-transfer-encoding
+ :in-reply-to:references:subject:from:cc:to:date:message-id
+ :user-agent;
+ bh=S8eSQwblG7magE2M9UvC+xcdzDuh3S8sxyEB62q5+1g=;
+ b=R1nbYryxTWb3zHf7KynLU+aUnL9YPI2S+fi3UdmA6IhayBWW+PDD+5qlHkTgGIervE
+ z2HSU+UfkswiuVX5f6YmVa6zYUb83FxZia0VTQaySutRptxY1asbrQcgudU2C83kKHgS
+ SKoAZdyi4NPdvBcii/XDFNurB8BGqZgzYaoV3PC/A9VoQxp7RivyTd3E/r+NHQ65rMFN
+ BZAbs/hdxdciPx2G1qwF0sqlMhe1cYfLbZYvrLrZXGn9ogCXkjuEmhTF+oTXlWEtNsCN
+ cnLFtfDvHNdfvNfJC4moDKL25cR/9G0eQEQ9vmE647q12DDzWOtizND3NjdoX8j1zo31
+ MdtA==
+X-Gm-Message-State: AOAM531gY5TyU3VeB9Ide1jwhRbYHfSZyROB+GjkiuF89cbGYRR98rbz
+ vSO0FXK//cMO2SR5mryqT1wtYg==
+X-Google-Smtp-Source: ABdhPJwLqp/q9FllU9TkkqAftGyryDVyYi90GLXXKp/ilS3muE/yICdKxs6V2hpbi0Ht/CoKeIQ94g==
+X-Received: by 2002:a63:dc04:: with SMTP id s4mr3793212pgg.123.1602014167858; 
+ Tue, 06 Oct 2020 12:56:07 -0700 (PDT)
+Received: from chromium.org ([2620:15c:202:201:3e52:82ff:fe6c:83ab])
+ by smtp.gmail.com with ESMTPSA id j19sm4524361pfi.51.2020.10.06.12.56.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 Oct 2020 12:56:07 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20201006072306.GA12834@infradead.org>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH 2/3] drm/msm: add DRM_MSM_GEM_SYNC_CACHE for
- non-coherent cache maintenance
+In-Reply-To: <717f90f2-4148-9fc0-c772-13f101f916a8@codeaurora.org>
+References: <20201003222652.32671-1-khsieh@codeaurora.org>
+ <717f90f2-4148-9fc0-c772-13f101f916a8@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+To: Kuogee Hsieh <khsieh@codeaurora.org>,
+ Rajendra Nayak <rnayak@codeaurora.org>, robdclark@gmail.com, sean@poorly.run
+Date: Tue, 06 Oct 2020 12:56:05 -0700
+Message-ID: <160201416564.310579.6502664088674731743@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: add opp_table corner voting
+ support base on dp_ink_clk rate
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,72 +67,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
- Joerg Roedel <joro@8bytes.org>, open list <linux-kernel@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Rob Clark <robdclark@gmail.com>, iommu@lists.linux-foundation.org,
- Daniel Vetter <daniel@ffwll.ch>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sean Paul <sean@poorly.run>, Robin Murphy <robin.murphy@arm.com>
+Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ abhinavk@codeaurora.org, tanmay@codeaurora.org, daniel@ffwll.ch,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/6/20 3:23 AM, Christoph Hellwig wrote:
-> On Mon, Oct 05, 2020 at 10:35:43AM -0400, Jonathan Marek wrote:
->> The cache synchronization doesn't have anything to do with IOMMU (for
->> example: cache synchronization would be useful in cases where drm/msm
->> doesn't use IOMMU).
+Quoting Rajendra Nayak (2020-10-06 00:31:41)
 > 
-> It has to do with doing DMA.  And we have two frameworks for doing DMA:
-> either the DMA API which is for general driver use, and which as part of
-> the design includes cache maintainance hidden behind the concept of
-> ownership transfers.  And we have the much more bare bones IOMMU API.
+> On 10/4/2020 3:56 AM, Kuogee Hsieh wrote:
+> > Set link rate by using OPP set rate api so that CX level will be set
+> > accordingly based on the link rate.
+> > 
+> > Changes in v2:
+> > -- remove dev from dp_ctrl_put() parameters
+> > -- address review comments
 > 
-> If people want to use the "raw" IOMMU API with not cache coherent
-> devices we'll need a cache maintainance API that goes along with it.
-> It could either be formally part of the IOMMU API or be separate.
+> This needs to go below '---' and should not be part of the
+> change log.
+
+In drm tree they put this above the triple dash.
+
+> > diff --git a/drivers/gpu/drm/msm/dp/dp_power.h b/drivers/gpu/drm/msm/dp/dp_power.h
+> > index 76743d755833..7d0327bbc0d5 100644
+> > --- a/drivers/gpu/drm/msm/dp/dp_power.h
+> > +++ b/drivers/gpu/drm/msm/dp/dp_power.h
+> > @@ -102,6 +102,6 @@ void dp_power_client_deinit(struct dp_power *power);
+> >    * methods to be called by the client to configure the power related
+> >    * modueles.
+> >    */
+> > -struct dp_power *dp_power_get(struct dp_parser *parser);
+> > +struct dp_power *dp_power_get(struct device *dev, struct dp_parser *parser);
+> >   
+> >   #endif /* _DP_POWER_H_ */
+> > 
+> > base-commit: d1ea914925856d397b0b3241428f20b945e31434
 > 
->> What is needed is to call arch_sync_dma_for_{cpu,device} (which is what I
->> went with initially, but then decided to re-use drm/msm's
->> sync_for_{cpu,device}). But you are also saying those functions aren't for
->> driver use, and I doubt IOMMU maintainers will want to add wrappers for
->> these functions just to satisfy this "not for driver use" requirement.
-> 
-> arch_sync_dma_for_{cpu,device} are low-level helpers (and not very
-> great ones at that).  The definitively should not be used by drivers.
-> They would be very useful buildblocks for a IOMMU cache maintainance
-> API.
-> 
-> Of course the best outcome would be if we could find a way for the MSM
-> drm driver to just use DMA API and not deal with the lower level
-> abstractions.  Do you remember why the driver went for use of the IOMMU
-> API?
+> ??
 > 
 
-One example why drm/msm can't use DMA API is multiple page table support 
-(that is landing in 5.10), which is something that definitely couldn't 
-work with DMA API.
-
-Another one is being able to choose the address for mappings, which 
-AFAIK DMA API can't do (somewhat related to this: qcom hardware often 
-has ranges of allowed addresses, which the dma_mask mechanism fails to 
-represent, what I see is drivers using dma_mask as a "maximum address", 
-and since addresses are allocated from the top it generally works)
-
-But let us imagine drm/msm switches to using DMA API. a2xx GPUs have 
-their own very basic MMU (implemented by msm_gpummu.c), that will need 
-to implement dma_map_ops, which will have to call 
-arch_sync_dma_for_{cpu,device}. So drm/msm still needs to call 
-arch_sync_dma_for_{cpu,device} in that scenario.
-
-
-
-
-
-
-
+This commit is in linux-next as d1ea91492585 ("drm/msm/dp: fix incorrect
+function prototype of dp_debug_get()"). Seems fine.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
