@@ -2,44 +2,48 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E24C728568A
-	for <lists+freedreno@lfdr.de>; Wed,  7 Oct 2020 04:00:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57858285899
+	for <lists+freedreno@lfdr.de>; Wed,  7 Oct 2020 08:25:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A04DE6E079;
-	Wed,  7 Oct 2020 02:00:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02CF46E88D;
+	Wed,  7 Oct 2020 06:25:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 1305 seconds by postgrey-1.36 at gabe;
- Wed, 07 Oct 2020 00:31:59 UTC
-Received: from a27-67.smtp-out.us-west-2.amazonses.com
- (a27-67.smtp-out.us-west-2.amazonses.com [54.240.27.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEC406E844;
- Wed,  7 Oct 2020 00:31:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=2nz3jy4edhd5smbjctxaus57ph3tmkzv; d=squareup.com; t=1602029412;
- h=From:To:Cc:Subject:Date:Message-Id:Reply-To;
- bh=muKSLnvOgIDXZ5YdsvIDagaTt5Oh30c5xCs5kUab1yk=;
- b=IH1GMGASAWCWWpWUsmP2uMEmfwkH+ymrtKJMlPnEhZL8a/ONiiMAx4so8jc8XEPY
- ckrDwpj9VvSONR2MUfC0NJQ7VRuRqxd7lwX9VAqbkJjQRb0tTvAbDtBDS69fvRAg1S+
- jNf5Kl1xrKWMkCMVopp0tN/Bzo213dTLeXlf/L6c=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=hsbnp7p3ensaochzwyq5wwmceodymuwv; d=amazonses.com; t=1602029412;
- h=From:To:Cc:Subject:Date:Message-Id:Reply-To:Feedback-ID;
- bh=muKSLnvOgIDXZ5YdsvIDagaTt5Oh30c5xCs5kUab1yk=;
- b=iwVoXV2+EJVtY5/Z81dvaXDwmhB0ZfX1GhpwYDmj63SVhP3f4elF27iz4CG/XKXy
- s8pN/Fhi+vljQTLLu1i2Fl0pZL3ce5qo7i3kqTKyWcTDGUNMplg3q0vy7XAyrz/nmza
- /J60oSJnKk0ULImbMtdyyQLO5hjquiuv9tyoVdyU=
-From: benl-kernelpatches@squareup.com
-To: robdclark@gmail.com,
-	sean@poorly.run
-Date: Wed, 7 Oct 2020 00:10:12 +0000
-Message-ID: <010101750064e17e-3db0087e-fc37-494d-aac9-2c2b9b0a7c5b-000000@us-west-2.amazonses.com>
-X-Mailer: git-send-email 2.17.1
-X-SES-Outgoing: 2020.10.07-54.240.27.67
-Feedback-ID: 1.us-west-2.z+Qxlzaf/1x39VmnWQZn7Gs4WPNjZe3NO2QR/Gz0OyM=:AmazonSES
-X-Mailman-Approved-At: Wed, 07 Oct 2020 02:00:08 +0000
-Subject: [Freedreno] [PATCH] drm/msm/dsi: save PLL registers across first
- PHY reset
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C4F96E88D;
+ Wed,  7 Oct 2020 06:25:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=hGY4fKBH3lXrbLnK7loOw4AUvRukRocZITr25lF2ycI=; b=PNf5g8627c2NOMQqhvL0eUPUY9
+ pG18AoTA0MELpyOL/b9ay/ykTBDatHDGS3jlfCwIic9g3kmcO8E6ny88Ao5zGscnjagnX/WHNFZM5
+ eZ2NTCUXNprEyCfiCQ/EGzyj6MxRlkn48EyhjY9cX/mqtGmGzUcF/05YoWWqOT3az/7lCzZyLl22/
+ JnPVX/l/zI1jAPk8897xZBq8Pfmxbi5IX6xg+uZiAsB6ckYTKIB56aoRVnPqszsGMjoVPJQUTNCy1
+ 9FlS3lHhBHqvrySZFyfKyRFMIWGkyvr72addRKiyZPfjxgqJLXANCq04HlVz81s002Ig6I9P5Ekbx
+ glO7NLFQ==;
+Received: from hch by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat
+ Linux)) id 1kQ2t5-0006Rp-Uy; Wed, 07 Oct 2020 06:25:19 +0000
+Date: Wed, 7 Oct 2020 07:25:19 +0100
+From: Christoph Hellwig <hch@infradead.org>
+To: Jonathan Marek <jonathan@marek.ca>
+Message-ID: <20201007062519.GA23519@infradead.org>
+References: <20201001002709.21361-1-jonathan@marek.ca>
+ <20201001002709.21361-3-jonathan@marek.ca>
+ <20201002075321.GA7547@infradead.org>
+ <b22fb797-67b0-a912-1d23-2b47c9a9e674@marek.ca>
+ <20201005082914.GA31702@infradead.org>
+ <3e0b91be-e4a4-4ea5-7d58-6e71b8d51932@marek.ca>
+ <20201006072306.GA12834@infradead.org>
+ <148a1660-f0fc-7163-2240-6b94725342b5@marek.ca>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <148a1660-f0fc-7163-2240-6b94725342b5@marek.ca>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ casper.infradead.org. See http://www.infradead.org/rpr.html
+Subject: Re: [Freedreno] [PATCH 2/3] drm/msm: add DRM_MSM_GEM_SYNC_CACHE for
+ non-coherent cache maintenance
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,86 +56,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: benl@squareup.com
-Cc: Benjamin Li <benl@squareup.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Harigovindan P <harigovi@codeaurora.org>,
- dri-devel@lists.freedesktop.org, Konrad Dybcio <konradybcio@gmail.com>,
- zhengbin <zhengbin13@huawei.com>, Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <kholk11@gmail.com>,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-MIME-Version: 1.0
+Cc: David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
+ Joerg Roedel <joro@8bytes.org>, open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Christoph Hellwig <hch@infradead.org>, Rob Clark <robdclark@gmail.com>,
+ iommu@lists.linux-foundation.org, Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Sean Paul <sean@poorly.run>, Robin Murphy <robin.murphy@arm.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Benjamin Li <benl@squareup.com>
+On Tue, Oct 06, 2020 at 09:19:32AM -0400, Jonathan Marek wrote:
+> One example why drm/msm can't use DMA API is multiple page table support
+> (that is landing in 5.10), which is something that definitely couldn't work
+> with DMA API.
+> 
+> Another one is being able to choose the address for mappings, which AFAIK
+> DMA API can't do (somewhat related to this: qcom hardware often has ranges
+> of allowed addresses, which the dma_mask mechanism fails to represent, what
+> I see is drivers using dma_mask as a "maximum address", and since addresses
+> are allocated from the top it generally works)
 
-Take advantage of previously-added support for persisting PLL
-registers across DSI PHY disable/enable cycles (see 328e1a6
-'drm/msm/dsi: Save/Restore PLL status across PHY reset') to
-support persisting across the very first DSI PHY enable at
-boot.
-
-The bootloader may have left the PLL registers in a non-default
-state. For example, for dsi_pll_28nm.c on 8x16/8x39, the byte
-clock mux's power-on reset configuration is to bypass DIV1, but
-depending on bandwidth requirements[1] the bootloader may have
-set the DIV1 path.
-
-When the byte clock mux is registered with the generic clock
-framework at probe time, the framework reads & caches the value
-of the mux bit field (the initial clock parent). After PHY enable,
-when clk_set_rate is called on the byte clock, the framework
-assumes there is no need to reparent, and doesn't re-write the
-mux bit field. But PHY enable resets PLL registers, so the mux
-bit field actually silently reverted to the DIV1 bypass path.
-This causes the byte clock to be off by a factor of e.g. 2 for
-our tested WXGA panel.
-
-The above issue manifests as the display not working and a
-constant stream of FIFO/LP0 contention errors.
-
-[1] The specific requirement for triggering the DIV1 path (and
-thus this issue) on 28nm is a panel with pixel clock <116.7MHz
-(one-third the minimum VCO setting). FHD/1080p (~145MHz) is fine,
-WXGA/1280x800 (~75MHz) is not.
-
-Signed-off-by: Benjamin Li <benl@squareup.com>
----
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-index 009f5b843dd1..139b4a5aaf86 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-@@ -621,6 +621,22 @@ static int dsi_phy_driver_probe(struct platform_device *pdev)
- 		phy->pll = NULL;
- 	}
- 
-+	/*
-+	 * As explained in msm_dsi_phy_enable, resetting the DSI PHY (as done
-+	 * in dsi_mgr_phy_enable) silently changes its PLL registers to power-on
-+	 * defaults, but the generic clock framework manages and caches several
-+	 * of the PLL registers. It initializes these caches at registration
-+	 * time via register read.
-+	 *
-+	 * As a result, we need to save DSI PLL registers once at probe in order
-+	 * for the first call to msm_dsi_phy_enable to successfully bring PLL
-+	 * registers back in line with what the generic clock framework expects.
-+	 *
-+	 * Subsequent PLL restores during msm_dsi_phy_enable will always be
-+	 * paired with PLL saves in msm_dsi_phy_disable.
-+	 */
-+	msm_dsi_pll_save_state(phy->pll);
-+
- 	dsi_phy_disable_resource(phy);
- 
- 	platform_set_drvdata(pdev, phy);
--- 
-2.17.1
-
+That sounds like a good enough rason to use the IOMMU API.  I just
+wanted to make sure this really makes sense.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
