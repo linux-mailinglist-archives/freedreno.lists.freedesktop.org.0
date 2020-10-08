@@ -2,35 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17D1D2870A6
-	for <lists+freedreno@lfdr.de>; Thu,  8 Oct 2020 10:28:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4875F287AA5
+	for <lists+freedreno@lfdr.de>; Thu,  8 Oct 2020 19:09:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44B446EA35;
-	Thu,  8 Oct 2020 08:28:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F06F36EAA3;
+	Thu,  8 Oct 2020 17:09:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from theia.8bytes.org (8bytes.org [81.169.241.247])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25ABF6EA35;
- Thu,  8 Oct 2020 08:28:04 +0000 (UTC)
-Received: by theia.8bytes.org (Postfix, from userid 1000)
- id 5FA562FB; Thu,  8 Oct 2020 10:27:59 +0200 (CEST)
-Date: Thu, 8 Oct 2020 10:27:57 +0200
-From: Joerg Roedel <joro@8bytes.org>
-To: Christoph Hellwig <hch@infradead.org>
-Message-ID: <20201008082757.GB3107@8bytes.org>
-References: <20201001002709.21361-1-jonathan@marek.ca>
- <20201001002709.21361-3-jonathan@marek.ca>
- <20201002075321.GA7547@infradead.org>
- <b22fb797-67b0-a912-1d23-2b47c9a9e674@marek.ca>
- <20201005082914.GA31702@infradead.org>
- <3e0b91be-e4a4-4ea5-7d58-6e71b8d51932@marek.ca>
- <20201006072306.GA12834@infradead.org>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201006072306.GA12834@infradead.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH 2/3] drm/msm: add DRM_MSM_GEM_SYNC_CACHE for
- non-coherent cache maintenance
+Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2F026EAA3
+ for <freedreno@lists.freedesktop.org>; Thu,  8 Oct 2020 17:09:51 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1602176993; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=SUzsXiN/Zq3h2vTCY35MCXNwVadO6pN8K/R70OT/2Ko=;
+ b=Fe++1x0BwYeyCpJ4h5OT/xXE92zu/x4MshNXpALHSjBBN4s8JjOrbt+5rRWx4xZzyKSfjPjy
+ duZEFEUEaWcRA6lfm4tb34Fzl0ZPkN2rdyAj4CglsOmpQ4YXGOpcaaHFu/C13T5F14HLaIt+
+ LFJ/rqKH/hxPLyrOJ+8DU1H8wJQ=
+X-Mailgun-Sending-Ip: 104.130.96.5
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
+ 5f7f47be06d81bc48d3506bb (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 08 Oct 2020 17:09:18
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id EF12AC43382; Thu,  8 Oct 2020 17:09:17 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from akhilpo-linux.qualcomm.com (unknown [202.46.22.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 8968FC433CB;
+ Thu,  8 Oct 2020 17:09:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 8968FC433CB
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=akhilpo@codeaurora.org
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+To: freedreno@lists.freedesktop.org,
+	robh@kernel.org,
+	robdclark@gmail.com
+Date: Thu,  8 Oct 2020 22:39:06 +0530
+Message-Id: <1602176947-17385-1-git-send-email-akhilpo@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH 1/2] arm64: dts: qcom: sc7180: Add gpu cooling
+ support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,34 +66,110 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- freedreno@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Rob Clark <robdclark@gmail.com>, iommu@lists.linux-foundation.org,
- Daniel Vetter <daniel@ffwll.ch>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sean Paul <sean@poorly.run>, Robin Murphy <robin.murphy@arm.com>
+Cc: linux-arm-msm@vger.kernel.org, jcrouse@codeaurora.org, mka@chromium.org,
+ dri-devel@freedesktop.org, linux-kernel@vger.kernel.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Oct 06, 2020 at 08:23:06AM +0100, Christoph Hellwig wrote:
-> If people want to use the "raw" IOMMU API with not cache coherent
-> devices we'll need a cache maintainance API that goes along with it.
-> It could either be formally part of the IOMMU API or be separate.
+Add cooling-cells property and the cooling maps for the gpu tzones
+to support GPU cooling.
 
-The IOMMU-API does not care about the caching effects of DMA, is manages
-IO address spaces for devices. I also don't know how this would be going
-to be implemented, the IOMMU-API does not have the concept of handles
-for mapped ranges and does not care about CPU virtual addresses (which
-are needed for cache flushes) of the memory it maps into IO page-tables.
+Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+---
+ arch/arm64/boot/dts/qcom/sc7180.dtsi | 29 ++++++++++++++++++++++-------
+ 1 file changed, 22 insertions(+), 7 deletions(-)
 
-So I think a cache management API should be separate from the IOMMU-API.
+diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+index d46b383..40d6a28 100644
+--- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+@@ -2,7 +2,7 @@
+ /*
+  * SC7180 SoC device tree source
+  *
+- * Copyright (c) 2019, The Linux Foundation. All rights reserved.
++ * Copyright (c) 2019-20, The Linux Foundation. All rights reserved.
+  */
+ 
+ #include <dt-bindings/clock/qcom,dispcc-sc7180.h>
+@@ -1885,6 +1885,7 @@
+ 			iommus = <&adreno_smmu 0>;
+ 			operating-points-v2 = <&gpu_opp_table>;
+ 			qcom,gmu = <&gmu>;
++			#cooling-cells = <2>;
+ 
+ 			interconnects = <&gem_noc MASTER_GFX3D &mc_virt SLAVE_EBI1>;
+ 			interconnect-names = "gfx-mem";
+@@ -3825,16 +3826,16 @@
+ 		};
+ 
+ 		gpuss0-thermal {
+-			polling-delay-passive = <0>;
++			polling-delay-passive = <100>;
+ 			polling-delay = <0>;
+ 
+ 			thermal-sensors = <&tsens0 13>;
+ 
+ 			trips {
+ 				gpuss0_alert0: trip-point0 {
+-					temperature = <90000>;
++					temperature = <95000>;
+ 					hysteresis = <2000>;
+-					type = "hot";
++					type = "passive";
+ 				};
+ 
+ 				gpuss0_crit: gpuss0_crit {
+@@ -3843,19 +3844,26 @@
+ 					type = "critical";
+ 				};
+ 			};
++
++			cooling-maps {
++				map0 {
++					trip = <&gpuss0_alert0>;
++					cooling-device = <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++				};
++			};
+ 		};
+ 
+ 		gpuss1-thermal {
+-			polling-delay-passive = <0>;
++			polling-delay-passive = <100>;
+ 			polling-delay = <0>;
+ 
+ 			thermal-sensors = <&tsens0 14>;
+ 
+ 			trips {
+ 				gpuss1_alert0: trip-point0 {
+-					temperature = <90000>;
++					temperature = <95000>;
+ 					hysteresis = <2000>;
+-					type = "hot";
++					type = "passive";
+ 				};
+ 
+ 				gpuss1_crit: gpuss1_crit {
+@@ -3864,6 +3872,13 @@
+ 					type = "critical";
+ 				};
+ 			};
++
++			cooling-maps {
++				map0 {
++					trip = <&gpuss0_alert0>;
++					cooling-device = <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++				};
++			};
+ 		};
+ 
+ 		aoss1-thermal {
+-- 
+2.7.4
 
-Regards,
-
-	Joerg
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
