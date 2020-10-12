@@ -2,51 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CCC728BAF0
-	for <lists+freedreno@lfdr.de>; Mon, 12 Oct 2020 16:36:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39A2B28BAF9
+	for <lists+freedreno@lfdr.de>; Mon, 12 Oct 2020 16:40:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B70FC6E49C;
-	Mon, 12 Oct 2020 14:35:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CD866E497;
+	Mon, 12 Oct 2020 14:40:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
  [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 238AB6E49F
- for <freedreno@lists.freedesktop.org>; Mon, 12 Oct 2020 14:35:59 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id e23so10340667wme.2
- for <freedreno@lists.freedesktop.org>; Mon, 12 Oct 2020 07:35:59 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C0876E0AF
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Oct 2020 14:40:22 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id f21so17356129wml.3
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Oct 2020 07:40:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=date:from:to:cc:subject:message-id:mail-followup-to:references
  :mime-version:content-disposition:in-reply-to;
- bh=CS4OyMq4fS0Bhwsobzu7guLhX4olV/G/ClLkhuhMjgI=;
- b=fkxMwduPy7Mi/n+bV9EyV6Z1vJ1ek7B2dpi5Z+Cc1zoGQaPeAwtnD3hIUYpNwz8NNy
- grfTiephWpviO0XUTqemeoX5Fy0if/33WSQfHcs3Bnf5eC6FYLBpVWNoHVBL75gAP37l
- OLHc52gBx4Y8FnkvvzekCPn+IErOtdoHNRGKI=
+ bh=Sgxu8pwzEMgUUbjWBDrQW3ILYSpl7WdZp96R0DhO5Mc=;
+ b=XI3dCFkFiN+2pFpXGzPmSIRwuJuDv/y/2G9Cj9dJ5EghRoEEVwApSzVYeCtJxffgn5
+ skL+vGIevqPHDkBJSkAmpM2A1fHP5B8RcTb8FrQ1CweEk8h/tiOQmT7bbDlKQbpo7hXP
+ ndmRWBk0diEt7ZiV4Hc+RQVD5RBiDSm7v5vA0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id
  :mail-followup-to:references:mime-version:content-disposition
  :in-reply-to;
- bh=CS4OyMq4fS0Bhwsobzu7guLhX4olV/G/ClLkhuhMjgI=;
- b=tGydQ353zCMTAqDSfjRy+dTu09eZoBqyD0mlpKs4WeYxc7fMJgCFnZNGrUKB0+9/z0
- setxkZRpqVqLJ7bb/qKLMiSp8L48XzcJERWT5hWlqr8kqjQVtLIkkSN3XGNNKpzT7imK
- odQSM7aUU6k9NJ2cGiRfSp0wSEpnjxN73HWv2IhsxlCDwyLwOCfFzA/z8Ge4aoRTgOrT
- xbSEJHynpNoECpuWqxxje09izgyahB2ceqBgaz3f27XXHSNaySjsxUQUHSac83gUi67Z
- j1t8OGtjshHoA5uQip1wnaET3pK+lzIo+Wq049I7N/p4hCwEd6j0PSG+qTVKB8sKbShC
- wsDg==
-X-Gm-Message-State: AOAM533WTQ08q2IL9XXe+U6G+9SdMh2BsnGQKnX2/eyAn13ypNLCSRTN
- GF9TkXxIyaaoic9jKbaHf4b7cg==
-X-Google-Smtp-Source: ABdhPJxGVuL+rWFfcFuPZBFAL6pDzTxq2Ad70ao8xyHZW6uniXqiGrdMDz9Voec37zpOONepDpbVBQ==
-X-Received: by 2002:a7b:c8c9:: with SMTP id f9mr2895067wml.162.1602513357830; 
- Mon, 12 Oct 2020 07:35:57 -0700 (PDT)
+ bh=Sgxu8pwzEMgUUbjWBDrQW3ILYSpl7WdZp96R0DhO5Mc=;
+ b=AdrAzaucpxPx8mUp5vIkABbvipc9f8BdVEq8CrLFgnUeChaVVH+YPgCarWuAtcajed
+ VmgmDD1nGF/75j21K4KPw5JhmTQbyDQo5/mbbu3Xx9c3tvKv+8xAX5Uj7I7VVBdNjVw6
+ 5vTP7X9HhH14DVHhNMc4OooZWK+Yct92XZaKWvDTUmfgYc9tSkKH8asiCzkL/hEnZrAx
+ T0Si8vneH15e7XfpDFWsI33rFx6lVSlVcW3IKOVVfcq61dvoPiYPYUE3BsU0Upz7o9Dq
+ uYR7I9pnD0af4UJf0jurheVqvjXtR+yVWFrQYMmht3cwt4q5PmseZrSncrJKbiJrD5VZ
+ r0JQ==
+X-Gm-Message-State: AOAM532tF1fDQ+lGa4HiNNU1WEM3e8f4BBSNRLhVLp/jLYKYveBSpxfS
+ yN8u95QhQKykmTNB1Q9Z8/moKw==
+X-Google-Smtp-Source: ABdhPJxtuGldLayKaoOLNdhPXiIp8BIJ4bsOKgdiv6Dh9nEH8u2gHnOAjBdyITgyL7C1levJe7WYXg==
+X-Received: by 2002:a1c:8056:: with SMTP id b83mr11077306wmd.124.1602513620761; 
+ Mon, 12 Oct 2020 07:40:20 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id 30sm15869709wrs.84.2020.10.12.07.35.56
+ by smtp.gmail.com with ESMTPSA id v4sm23467980wmg.35.2020.10.12.07.40.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Oct 2020 07:35:56 -0700 (PDT)
-Date: Mon, 12 Oct 2020 16:35:55 +0200
+ Mon, 12 Oct 2020 07:40:20 -0700 (PDT)
+Date: Mon, 12 Oct 2020 16:40:18 +0200
 From: Daniel Vetter <daniel@ffwll.ch>
 To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20201012143555.GA438822@phenom.ffwll.local>
+Message-ID: <20201012144018.GB438822@phenom.ffwll.local>
 Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
  dri-devel@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>,
  Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
@@ -54,13 +54,13 @@ Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
  open list <linux-kernel@vger.kernel.org>
 References: <20201012020958.229288-1-robdclark@gmail.com>
- <20201012020958.229288-8-robdclark@gmail.com>
+ <20201012020958.229288-23-robdclark@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20201012020958.229288-8-robdclark@gmail.com>
+In-Reply-To: <20201012020958.229288-23-robdclark@gmail.com>
 X-Operating-System: Linux phenom 5.7.0-1-amd64 
-Subject: Re: [Freedreno] [PATCH v2 07/22] drm/msm: Do rpm get sooner in the
- submit path
+Subject: Re: [Freedreno] [PATCH v2 22/22] drm/msm: Don't implicit-sync if
+ only a single ring
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,71 +84,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Oct 11, 2020 at 07:09:34PM -0700, Rob Clark wrote:
+On Sun, Oct 11, 2020 at 07:09:49PM -0700, Rob Clark wrote:
 > From: Rob Clark <robdclark@chromium.org>
 > 
-> Unfortunately, due to an dev_pm_opp locking interaction with
-> mm->mmap_sem, we need to do pm get before aquiring obj locks,
-> otherwise we can have anger lockdep with the chain:
+> Any cross-device sync use-cases *must* use explicit sync.  And if there
+> is only a single ring (no-preemption), everything is FIFO order and
+> there is no need to implicit-sync.
+> 
+> Mesa should probably just always use MSM_SUBMIT_NO_IMPLICIT, as behavior
+> is undefined when fences are not used to synchronize buffer usage across
+> contexts (which is the only case where multiple different priority rings
+> could come into play).
 
-tbh this sounds like a bug in that subsystem, since it means we cannot use
-said subsystem in mmap handlers either.
+Uh does this mean msm is broken on dri2/3 and wayland? Or I'm I just
+confused by your commit message?
 
-So if you have some remapping unit or need to wake up your gpu to blt the
-buffer into system memory first, we're toast. That doesn't sound right. So
-maybe Cc: pm folks and figure out how to fix this long term properly? Imo
-not a good reason to hold up this patch set, since unwrangling mmap_sem
-tends to be work ...
+Since for these protocols we do expect implicit sync accross processes to
+work. Even across devices (and nvidia have actually provided quite a bunch
+of patches to make this work in i915 - ttm based drivers get this right,
+plus dumb scanout drivers using the right helpers also get this all
+right).
 -Daniel
 
 > 
->   opp_table_lock --> &mm->mmap_sem --> reservation_ww_class_mutex
-> 
-> For an explicit fencing userspace, the impact should be minimal
-> as we do all the fence waits before this point.  It could result
-> in some needless resumes in error cases, etc.
-> 
 > Signed-off-by: Rob Clark <robdclark@chromium.org>
 > ---
->  drivers/gpu/drm/msm/msm_gem_submit.c | 15 +++++++++++++--
->  1 file changed, 13 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/msm/msm_gem_submit.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-> index 002130d826aa..a9422d043bfe 100644
+> index 3151a0ca8904..c69803ea53c8 100644
 > --- a/drivers/gpu/drm/msm/msm_gem_submit.c
 > +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> @@ -744,11 +744,20 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+> @@ -277,7 +277,7 @@ static int submit_lock_objects(struct msm_gem_submit *submit)
+>  	return ret;
+>  }
 >  
->  	ret = submit_lookup_objects(submit, args, file);
+> -static int submit_fence_sync(struct msm_gem_submit *submit, bool no_implicit)
+> +static int submit_fence_sync(struct msm_gem_submit *submit, bool implicit_sync)
+>  {
+>  	int i, ret = 0;
+>  
+> @@ -297,7 +297,7 @@ static int submit_fence_sync(struct msm_gem_submit *submit, bool no_implicit)
+>  				return ret;
+>  		}
+>  
+> -		if (no_implicit)
+> +		if (!implicit_sync)
+>  			continue;
+>  
+>  		ret = msm_gem_sync_object(&msm_obj->base, submit->ring->fctx,
+> @@ -768,7 +768,8 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
 >  	if (ret)
-> -		goto out;
-> +		goto out_pre_pm;
+>  		goto out;
 >  
->  	ret = submit_lookup_cmds(submit, args, file);
+> -	ret = submit_fence_sync(submit, !!(args->flags & MSM_SUBMIT_NO_IMPLICIT));
+> +	ret = submit_fence_sync(submit, (gpu->nr_rings > 1) &&
+> +			!(args->flags & MSM_SUBMIT_NO_IMPLICIT));
 >  	if (ret)
-> -		goto out;
-> +		goto out_pre_pm;
-> +
-> +	/*
-> +	 * Thanks to dev_pm_opp opp_table_lock interactions with mm->mmap_sem
-> +	 * in the resume path, we need to to rpm get before we lock objs.
-> +	 * Which unfortunately might involve powering up the GPU sooner than
-> +	 * is necessary.  But at least in the explicit fencing case, we will
-> +	 * have already done all the fence waiting.
-> +	 */
-> +	pm_runtime_get_sync(&gpu->pdev->dev);
+>  		goto out;
 >  
->  	/* copy_*_user while holding a ww ticket upsets lockdep */
->  	ww_acquire_init(&submit->ticket, &reservation_ww_class);
-> @@ -825,6 +834,8 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
->  
->  
->  out:
-> +	pm_runtime_put(&gpu->pdev->dev);
-> +out_pre_pm:
->  	submit_cleanup(submit);
->  	if (has_ww_ticket)
->  		ww_acquire_fini(&submit->ticket);
 > -- 
 > 2.26.2
 > 
