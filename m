@@ -2,68 +2,42 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C689528CC39
-	for <lists+freedreno@lfdr.de>; Tue, 13 Oct 2020 13:08:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5604228CF5F
+	for <lists+freedreno@lfdr.de>; Tue, 13 Oct 2020 15:42:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DAF46E114;
-	Tue, 13 Oct 2020 11:08:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1D656E8EB;
+	Tue, 13 Oct 2020 13:42:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A5AF6E8BA
- for <freedreno@lists.freedesktop.org>; Tue, 13 Oct 2020 11:08:31 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id q5so21318381wmq.0
- for <freedreno@lists.freedesktop.org>; Tue, 13 Oct 2020 04:08:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=uvxObDwTo5Y8F/KuyP+1hkA480rLi769JHi4wPHoyZo=;
- b=OjLB26BnBY0bTsdHD3EzrtKyC81oM/0JTZCn6CLgyXf7zcDUfy5vEiXi3UDSzVmHDi
- +28SDYfaM8aC9c0gvCjcQjZSkVZiSn1tj4DX9sZ7XtG7z0O9zDzWRQtW0bl4JEUVlmj6
- oHncYXBeGhKdacVIldQq+ga8Rp+OxaRjm6pSI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=uvxObDwTo5Y8F/KuyP+1hkA480rLi769JHi4wPHoyZo=;
- b=lEr6sBKz/TWnnP9kasUVAKoEUWrlesVIH1GMAnlv+Joxx9mzC14f0rlmizZj3ubv2G
- txWJnNDr1Vu7hvWrewMXpn0ZX7EdGy5bsSotPIVHyMrjcIiZjRULiXu8jssqxIw678r0
- gPe5bP+hisR6rsoQwKcwiJ6TxDjtQcvGB+bc99lps3LapfjuIRmAhOtmihMMhLstkELU
- iRIkg2fQKOv+pH85NjGR/XTXZx8ATRGfEbjiYS0v63Jg5Yj+ZQqm7G8yhnpU+Ez4nbL8
- EmkCQMpM4ZPe/YVkyUQO3okMTaFpe9mbqe3IT9uRQgLJl0/Wz+KPYx9vQbWHTiwLZ72n
- eP5g==
-X-Gm-Message-State: AOAM530bbt/y9NKC+Tchhm8TTuv6c7lDD3LtKIPA7lQxUb+NqpAlDW19
- EJvJeTV2WPgIE1tMKoaLrGjQPA==
-X-Google-Smtp-Source: ABdhPJwdxWAoTqe7At2F5tTQxz1+7Sey1hlKtS1VILSfOid9lZqdcUgzZZ28B6xcbL7mDDIeJVxKpg==
-X-Received: by 2002:a1c:ddc2:: with SMTP id u185mr15579789wmg.21.1602587309567; 
- Tue, 13 Oct 2020 04:08:29 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id v11sm13304289wml.26.2020.10.13.04.08.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Oct 2020 04:08:28 -0700 (PDT)
-Date: Tue, 13 Oct 2020 13:08:26 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20201013110826.GD438822@phenom.ffwll.local>
-Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Rob Clark <robdclark@chromium.org>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20201012020958.229288-1-robdclark@gmail.com>
- <20201012020958.229288-23-robdclark@gmail.com>
- <20201012144018.GB438822@phenom.ffwll.local>
- <CAF6AEGuZ0QOCbJDTF=FsHsbJ9J5rqLLPJexk_EvX+SxPGFZLDQ@mail.gmail.com>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7FEA36E8EA;
+ Tue, 13 Oct 2020 13:42:42 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A164830E;
+ Tue, 13 Oct 2020 06:42:41 -0700 (PDT)
+Received: from [10.57.48.76] (unknown [10.57.48.76])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A63CD3F719;
+ Tue, 13 Oct 2020 06:42:39 -0700 (PDT)
+To: Christoph Hellwig <hch@infradead.org>, Jonathan Marek <jonathan@marek.ca>
+References: <20201001002709.21361-1-jonathan@marek.ca>
+ <20201001002709.21361-3-jonathan@marek.ca>
+ <20201002075321.GA7547@infradead.org>
+ <b22fb797-67b0-a912-1d23-2b47c9a9e674@marek.ca>
+ <20201005082914.GA31702@infradead.org>
+ <3e0b91be-e4a4-4ea5-7d58-6e71b8d51932@marek.ca>
+ <20201006072306.GA12834@infradead.org>
+ <148a1660-f0fc-7163-2240-6b94725342b5@marek.ca>
+ <20201007062519.GA23519@infradead.org>
+From: Robin Murphy <robin.murphy@arm.com>
+Message-ID: <c3baadae-8e20-86a6-44f5-4571a8d3035e@arm.com>
+Date: Tue, 13 Oct 2020 14:42:38 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAF6AEGuZ0QOCbJDTF=FsHsbJ9J5rqLLPJexk_EvX+SxPGFZLDQ@mail.gmail.com>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
-Subject: Re: [Freedreno] [PATCH v2 22/22] drm/msm: Don't implicit-sync if
- only a single ring
+In-Reply-To: <20201007062519.GA23519@infradead.org>
+Content-Language: en-GB
+Subject: Re: [Freedreno] [PATCH 2/3] drm/msm: add DRM_MSM_GEM_SYNC_CACHE for
+ non-coherent cache maintenance
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,124 +50,42 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- Sean Paul <sean@poorly.run>, open list <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+Cc: David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
+ Joerg Roedel <joro@8bytes.org>, open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Rob Clark <robdclark@gmail.com>, iommu@lists.linux-foundation.org,
+ Daniel Vetter <daniel@ffwll.ch>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
+ Sean Paul <sean@poorly.run>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Oct 12, 2020 at 08:07:38AM -0700, Rob Clark wrote:
-> On Mon, Oct 12, 2020 at 7:40 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> >
-> > On Sun, Oct 11, 2020 at 07:09:49PM -0700, Rob Clark wrote:
-> > > From: Rob Clark <robdclark@chromium.org>
-> > >
-> > > Any cross-device sync use-cases *must* use explicit sync.  And if there
-> > > is only a single ring (no-preemption), everything is FIFO order and
-> > > there is no need to implicit-sync.
-> > >
-> > > Mesa should probably just always use MSM_SUBMIT_NO_IMPLICIT, as behavior
-> > > is undefined when fences are not used to synchronize buffer usage across
-> > > contexts (which is the only case where multiple different priority rings
-> > > could come into play).
-> >
-> > Uh does this mean msm is broken on dri2/3 and wayland? Or I'm I just
-> > confused by your commit message?
+On 2020-10-07 07:25, Christoph Hellwig wrote:
+> On Tue, Oct 06, 2020 at 09:19:32AM -0400, Jonathan Marek wrote:
+>> One example why drm/msm can't use DMA API is multiple page table support
+>> (that is landing in 5.10), which is something that definitely couldn't work
+>> with DMA API.
+>>
+>> Another one is being able to choose the address for mappings, which AFAIK
+>> DMA API can't do (somewhat related to this: qcom hardware often has ranges
+>> of allowed addresses, which the dma_mask mechanism fails to represent, what
+>> I see is drivers using dma_mask as a "maximum address", and since addresses
+>> are allocated from the top it generally works)
 > 
-> No, I don't think so.  If there is only a single priority level
-> ringbuffer (ie. no preemption to higher priority ring) then everything
-> is inherently FIFO order.
+> That sounds like a good enough rason to use the IOMMU API.  I just
+> wanted to make sure this really makes sense.
 
-Well eventually you get a scheduler I guess/hope :-)
+I still think this situation would be best handled with a variant of 
+dma_ops_bypass that also guarantees to bypass SWIOTLB, and can be set 
+automatically when attaching to an unmanaged IOMMU domain. That way the 
+device driver can make DMA API calls in the appropriate places that do 
+the right thing either way, and only needs logic to decide whether to 
+use the returned DMA addresses directly or ignore them if it knows 
+they're overridden by its own IOMMU mapping.
 
-> For cases where we are sharing buffers with something external to drm,
-> explicit sync will be used.  And we don't implicit sync with display,
-> otherwise x11 (frontbuffer rendering) would not work
-
-Uh now I'm even more confused. The implicit sync fences in dma_resv are
-kinda for everyone. That's also why dma_resv with the common locking
-approach is a useful idea.
-
-So display should definitely support implicit sync, and iirc msm does have
-the helper hooked up.
-
-Wrt other subsystems, I guess passing dma_fence around somehow doesn't fit
-into v4l (the patches never landed), so v4l doesn't do any kind of sync
-right now. But this could be fixed. Not sure what else is going on.
-
-So I guess I still have no idea why you put that into the commit message.
-
-btw for what you're trying to do yourself, the way to do this is to
-allocate a fence timeline for your engine, compare fences, and no-op them
-all out if their own the same timeline.
--Daniel
-
-> 
-> BR,
-> -R
-> 
-> > Since for these protocols we do expect implicit sync accross processes to
-> > work. Even across devices (and nvidia have actually provided quite a bunch
-> > of patches to make this work in i915 - ttm based drivers get this right,
-> > plus dumb scanout drivers using the right helpers also get this all
-> > right).
-> > -Daniel
-> >
-> > >
-> > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > ---
-> > >  drivers/gpu/drm/msm/msm_gem_submit.c | 7 ++++---
-> > >  1 file changed, 4 insertions(+), 3 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-> > > index 3151a0ca8904..c69803ea53c8 100644
-> > > --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> > > +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> > > @@ -277,7 +277,7 @@ static int submit_lock_objects(struct msm_gem_submit *submit)
-> > >       return ret;
-> > >  }
-> > >
-> > > -static int submit_fence_sync(struct msm_gem_submit *submit, bool no_implicit)
-> > > +static int submit_fence_sync(struct msm_gem_submit *submit, bool implicit_sync)
-> > >  {
-> > >       int i, ret = 0;
-> > >
-> > > @@ -297,7 +297,7 @@ static int submit_fence_sync(struct msm_gem_submit *submit, bool no_implicit)
-> > >                               return ret;
-> > >               }
-> > >
-> > > -             if (no_implicit)
-> > > +             if (!implicit_sync)
-> > >                       continue;
-> > >
-> > >               ret = msm_gem_sync_object(&msm_obj->base, submit->ring->fctx,
-> > > @@ -768,7 +768,8 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
-> > >       if (ret)
-> > >               goto out;
-> > >
-> > > -     ret = submit_fence_sync(submit, !!(args->flags & MSM_SUBMIT_NO_IMPLICIT));
-> > > +     ret = submit_fence_sync(submit, (gpu->nr_rings > 1) &&
-> > > +                     !(args->flags & MSM_SUBMIT_NO_IMPLICIT));
-> > >       if (ret)
-> > >               goto out;
-> > >
-> > > --
-> > > 2.26.2
-> > >
-> >
-> > --
-> > Daniel Vetter
-> > Software Engineer, Intel Corporation
-> > http://blog.ffwll.ch
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Robin.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
