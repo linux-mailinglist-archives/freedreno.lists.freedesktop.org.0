@@ -1,64 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E508628D1F8
-	for <lists+freedreno@lfdr.de>; Tue, 13 Oct 2020 18:15:41 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C4D828D335
+	for <lists+freedreno@lfdr.de>; Tue, 13 Oct 2020 19:40:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2B476E8FC;
-	Tue, 13 Oct 2020 16:15:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C61F6E918;
+	Tue, 13 Oct 2020 17:40:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4643B6E8FC;
- Tue, 13 Oct 2020 16:15:40 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id e17so24730895wru.12;
- Tue, 13 Oct 2020 09:15:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=wL3Dm/7T9Aopd/k4LVvtqS/YBgshmRorMqwRcmxT0hk=;
- b=cCxCdK6uQ3V1e++IywUiyODU50GT3jcY9ut9z/tKFmD6ltLq/2Q5z1RrDtVd0HP8Dl
- rve31nT6N2aO+FVyyIVC1WMwynfulT3rhS8i1DwFtXNcBzjj3NywbusA1KwDRmOoyisx
- YO3rRPpLGFnFZACCjw9BLzVvh4afI4ZGDrBkmuBH+okfjYOq12dEyvO3BCsfX8AIZZxL
- jq1lhn0xTsJvsbNTq+SVCy9wMV37qhgPs9NenychlJ8YSV4boQD3CjIsd/XP3hYryP7e
- O7g2q+9gnfOvUMLiOL8L2OY++M4tMUR+atsv3csDNgY+MMsEvtscII4qFKUIRzVRWgBk
- PzwQ==
+Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
+ [IPv6:2607:f8b0:4864:20::643])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 889386E3EC
+ for <freedreno@lists.freedesktop.org>; Tue, 13 Oct 2020 17:40:41 +0000 (UTC)
+Received: by mail-pl1-x643.google.com with SMTP id o9so215549plx.10
+ for <freedreno@lists.freedesktop.org>; Tue, 13 Oct 2020 10:40:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=BgqdPWs6k36v3EWHSCP5rIGkH3M8a7CT3H5KDtj6quk=;
+ b=D1gwXHACQsx2PqfeXXFocSDuvYv2+rCbN8y3GlauYrnpzYBaqeF6LlMSWiWsI7DhEw
+ AHI7yLk23HAdzbup0c3EEgCntoVKaVXrspt86RkLh+rNrAJuCLAs7eyjaUsTcE0u7VxG
+ Fq09OAfg/M9T/nMBxrTXXKJ3uXfFx3z58onpU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=wL3Dm/7T9Aopd/k4LVvtqS/YBgshmRorMqwRcmxT0hk=;
- b=OlNRLtwtdawfLkZzJhsuGLgapzog8vDWBb/qj11SIE9QVrjNOR1DDbfpBM0nG5A8pQ
- O2/AWLJ/ShWI6nmSBNsm5eWF+E4cXBInc7mFeokcIVUZk1E1Lmn88zijUKgdepEUpoSv
- 0ilPHn5C/c08T09wP411wB6Rw9CJbPLkgJdRkJr+4Trtw6iIV/W0j8t/p4R1yD95pVG1
- 88y5G9NX34xAH0qlYj05FUvhK8nv80PPpOCd0t3xUYUMs2l29PBBcRKshWzYXEg94w+H
- WkehdGJHcxzJ8v2Qn81EgXwvsUaCFY6SXkJv6TREqGSZCZ4I0T+5IOdW9y9x4CJXz+Cr
- Nnwg==
-X-Gm-Message-State: AOAM532Lpjm8mamij+dsfN5XWbVdKmISdnpN7StD6KxydSkk4ZpCvs8G
- 5/5UAycUjrT282dYDyT68CGct1NHMJDj7ch5qss=
-X-Google-Smtp-Source: ABdhPJyvs299kAwlM7M2+hYEAp0nsjVH0AWp3dBdz5/H1ws+O43M178+q+kICgp4raqWULWyFNViWcJuwLlLpfQqU4U=
-X-Received: by 2002:a5d:640d:: with SMTP id z13mr480262wru.28.1602605738748;
- Tue, 13 Oct 2020 09:15:38 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=BgqdPWs6k36v3EWHSCP5rIGkH3M8a7CT3H5KDtj6quk=;
+ b=UEcoZV8C6ENv6wTsbSdMmb9va4deW5R/Gx8Ni0qeYsQJM/nmUr4PrMsNBgL+jRWtKb
+ U5jxg3XJWrhQnmVMrF0E4rfneQLZUPPU7I+C42n7hvlY3DCE6hUpXlqdRhMZTkcQ3rnV
+ 8vqO+yoUVw6Dgu1G4WxYNq+/u3Lfr8xvRs+axIa4inYeKY9GMmbZqysEFXXGjUvWbmie
+ v06xy5MxDpFErTnIiQn4WS+fIubIAqVVVDTeUftZyCBSEvUfcOvtOc/IGU6Sq+WokQ8D
+ VpwtDMBK9Q5Oexxn0II7O24TOnI9Dm32C57oeHYuS4lpbKUBJ1PtXo8WVOfnUkNrgPcE
+ HArw==
+X-Gm-Message-State: AOAM530fajS15cWX0FJI+lqfyp3/nk2LLQSeujw9zLNFRssoXYBThtUm
+ fWy04AdS0ty3cTKD1kvXb22LW7eB4r8cbQ==
+X-Google-Smtp-Source: ABdhPJxcQDym/jLS7CXIRriJ6p5w8ir5pH5scUs0e3tlaC0hn8R/ZsAouQVQx9h4pitkUsStjIXxvw==
+X-Received: by 2002:a17:90b:1b03:: with SMTP id
+ nu3mr863981pjb.64.1602610841134; 
+ Tue, 13 Oct 2020 10:40:41 -0700 (PDT)
+Received: from localhost ([2620:15c:202:1:f693:9fff:fef4:e70a])
+ by smtp.gmail.com with ESMTPSA id n3sm265870pgf.11.2020.10.13.10.40.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 13 Oct 2020 10:40:40 -0700 (PDT)
+Date: Tue, 13 Oct 2020 10:40:38 -0700
+From: mka@chromium.org
+To: Akhil P Oommen <akhilpo@codeaurora.org>
+Message-ID: <20201013174038.GA424420@google.com>
+References: <1602176947-17385-2-git-send-email-akhilpo@codeaurora.org>
+ <20201009183640.GB1292413@google.com>
+ <cab2105e-7a8c-988f-dcc1-056692a94e8b@codeaurora.org>
+ <20201012174035.GA44627@google.com>
+ <80ded484-a058-70fc-be9d-045be2933563@codeaurora.org>
 MIME-Version: 1.0
-References: <20201012020958.229288-1-robdclark@gmail.com>
- <20201012020958.229288-23-robdclark@gmail.com>
- <20201012144018.GB438822@phenom.ffwll.local>
- <CAF6AEGuZ0QOCbJDTF=FsHsbJ9J5rqLLPJexk_EvX+SxPGFZLDQ@mail.gmail.com>
- <20201013110826.GD438822@phenom.ffwll.local>
-In-Reply-To: <20201013110826.GD438822@phenom.ffwll.local>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 13 Oct 2020 09:15:27 -0700
-Message-ID: <CAF6AEGvYJS38JjFzJOA3w9W0W_G47DJYw2bi4GsC1qgo3dAZ0A@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>, 
- Rob Clark <robdclark@chromium.org>, Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@linux.ie>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
-Subject: Re: [Freedreno] [PATCH v2 22/22] drm/msm: Don't implicit-sync if
- only a single ring
+Content-Disposition: inline
+In-Reply-To: <80ded484-a058-70fc-be9d-045be2933563@codeaurora.org>
+Subject: Re: [Freedreno] [2/2] drm/msm: Add support for GPU cooling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,141 +68,90 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Oct 13, 2020 at 4:08 AM Daniel Vetter <daniel@ffwll.ch> wrote:
->
-> On Mon, Oct 12, 2020 at 08:07:38AM -0700, Rob Clark wrote:
-> > On Mon, Oct 12, 2020 at 7:40 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > >
-> > > On Sun, Oct 11, 2020 at 07:09:49PM -0700, Rob Clark wrote:
-> > > > From: Rob Clark <robdclark@chromium.org>
-> > > >
-> > > > Any cross-device sync use-cases *must* use explicit sync.  And if there
-> > > > is only a single ring (no-preemption), everything is FIFO order and
-> > > > there is no need to implicit-sync.
-> > > >
-> > > > Mesa should probably just always use MSM_SUBMIT_NO_IMPLICIT, as behavior
-> > > > is undefined when fences are not used to synchronize buffer usage across
-> > > > contexts (which is the only case where multiple different priority rings
-> > > > could come into play).
-> > >
-> > > Uh does this mean msm is broken on dri2/3 and wayland? Or I'm I just
-> > > confused by your commit message?
-> >
-> > No, I don't think so.  If there is only a single priority level
-> > ringbuffer (ie. no preemption to higher priority ring) then everything
-> > is inherently FIFO order.
->
-> Well eventually you get a scheduler I guess/hope :-)
+On Tue, Oct 13, 2020 at 07:23:34PM +0530, Akhil P Oommen wrote:
+> On 10/12/2020 11:10 PM, mka@chromium.org wrote:
+> > On Mon, Oct 12, 2020 at 07:03:51PM +0530, Akhil P Oommen wrote:
+> > > On 10/10/2020 12:06 AM, mka@chromium.org wrote:
+> > > > Hi Akhil,
+> > > > 
+> > > > On Thu, Oct 08, 2020 at 10:39:07PM +0530, Akhil P Oommen wrote:
+> > > > > Register GPU as a devfreq cooling device so that it can be passively
+> > > > > cooled by the thermal framework.
+> > > > > 
+> > > > > Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+> > > > > ---
+> > > > >    drivers/gpu/drm/msm/msm_gpu.c | 13 ++++++++++++-
+> > > > >    drivers/gpu/drm/msm/msm_gpu.h |  2 ++
+> > > > >    2 files changed, 14 insertions(+), 1 deletion(-)
+> > > > > 
+> > > > > diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+> > > > > index 55d1648..93ffd66 100644
+> > > > > --- a/drivers/gpu/drm/msm/msm_gpu.c
+> > > > > +++ b/drivers/gpu/drm/msm/msm_gpu.c
+> > > > > @@ -14,6 +14,7 @@
+> > > > >    #include <generated/utsrelease.h>
+> > > > >    #include <linux/string_helpers.h>
+> > > > >    #include <linux/devfreq.h>
+> > > > > +#include <linux/devfreq_cooling.h>
+> > > > >    #include <linux/devcoredump.h>
+> > > > >    #include <linux/sched/task.h>
+> > > > > @@ -107,9 +108,18 @@ static void msm_devfreq_init(struct msm_gpu *gpu)
+> > > > >    	if (IS_ERR(gpu->devfreq.devfreq)) {
+> > > > >    		DRM_DEV_ERROR(&gpu->pdev->dev, "Couldn't initialize GPU devfreq\n");
+> > > > >    		gpu->devfreq.devfreq = NULL;
+> > > > > +		return;
+> > > > >    	}
+> > > > >    	devfreq_suspend_device(gpu->devfreq.devfreq);
+> > > > > +
+> > > > > +	gpu->cooling = of_devfreq_cooling_register(gpu->pdev->dev.of_node,
+> > > > > +			gpu->devfreq.devfreq);
+> > > > > +	if (IS_ERR(gpu->cooling)) {
+> > > > > +		DRM_DEV_ERROR(&gpu->pdev->dev,
+> > > > > +				"Couldn't register GPU cooling device\n");
+> > > > > +		gpu->cooling = NULL;
+> > > > > +	}
+> > > > >    }
+> > > > >    static int enable_pwrrail(struct msm_gpu *gpu)
+> > > > > @@ -926,7 +936,6 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+> > > > >    	msm_devfreq_init(gpu);
+> > > > > -
+> Will remove this unintended change.
+> > > > >    	gpu->aspace = gpu->funcs->create_address_space(gpu, pdev);
+> > > > >    	if (gpu->aspace == NULL)
+> > > > > @@ -1005,4 +1014,6 @@ void msm_gpu_cleanup(struct msm_gpu *gpu)
+> > > > >    		gpu->aspace->mmu->funcs->detach(gpu->aspace->mmu);
+> > > > >    		msm_gem_address_space_put(gpu->aspace);
+> > > > >    	}
+> > > > > +
+> > > > > +	devfreq_cooling_unregister(gpu->cooling);
+> > > > 
+> > > > Resources should be released in reverse order, otherwise the cooling device
+> > > > could use resources that have already been freed.
+> > > > Why do you think this is not the correct order? If you are thinking
+> > > about devfreq struct, it is managed device resource.
+> > 
+> > I did not check specifically if changing the frequency really uses any of the
+> > resources that are released previously, In any case it's not a good idea to
+> > allow other parts of the kernel to use a half initialized/torn down device.
+> > Even if it isn't a problem today someone could change the driver to use any
+> > of these resources (or add a new one) in a frequency change, without even
+> > thinking about the cooling device, just (rightfully) asuming that things are
+> > set up and torn down in a sane order.
+> 'sane order' relative to what specifically here? Should we worry about freq
+> change at this point because we have already disabled gpu runtime pm and
+> devfreq?
 
-we do have one currently for some gens, but not others.. hence the
-check for # of rings.  (Ie. there is a ring per priority level, if
-only one ring, that means no preemption/scheduler)
-
-> > For cases where we are sharing buffers with something external to drm,
-> > explicit sync will be used.  And we don't implicit sync with display,
-> > otherwise x11 (frontbuffer rendering) would not work
->
-> Uh now I'm even more confused. The implicit sync fences in dma_resv are
-> kinda for everyone. That's also why dma_resv with the common locking
-> approach is a useful idea.
->
-> So display should definitely support implicit sync, and iirc msm does have
-> the helper hooked up.
-
-yup
-
-> Wrt other subsystems, I guess passing dma_fence around somehow doesn't fit
-> into v4l (the patches never landed), so v4l doesn't do any kind of sync
-> right now. But this could be fixed. Not sure what else is going on.
->
-> So I guess I still have no idea why you put that into the commit message.
->
-> btw for what you're trying to do yourself, the way to do this is to
-> allocate a fence timeline for your engine, compare fences, and no-op them
-> all out if their own the same timeline.
-
-we do that already (with a fence timeline per-ring, in the case of
-gens which support multiple rings / preemption).. this patch just
-short-circuits that in the case where we already knows the fences will
-of the same timeline
-
-BR,
--R
-
-> -Daniel
->
-> >
-> > BR,
-> > -R
-> >
-> > > Since for these protocols we do expect implicit sync accross processes to
-> > > work. Even across devices (and nvidia have actually provided quite a bunch
-> > > of patches to make this work in i915 - ttm based drivers get this right,
-> > > plus dumb scanout drivers using the right helpers also get this all
-> > > right).
-> > > -Daniel
-> > >
-> > > >
-> > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > > ---
-> > > >  drivers/gpu/drm/msm/msm_gem_submit.c | 7 ++++---
-> > > >  1 file changed, 4 insertions(+), 3 deletions(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-> > > > index 3151a0ca8904..c69803ea53c8 100644
-> > > > --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> > > > +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> > > > @@ -277,7 +277,7 @@ static int submit_lock_objects(struct msm_gem_submit *submit)
-> > > >       return ret;
-> > > >  }
-> > > >
-> > > > -static int submit_fence_sync(struct msm_gem_submit *submit, bool no_implicit)
-> > > > +static int submit_fence_sync(struct msm_gem_submit *submit, bool implicit_sync)
-> > > >  {
-> > > >       int i, ret = 0;
-> > > >
-> > > > @@ -297,7 +297,7 @@ static int submit_fence_sync(struct msm_gem_submit *submit, bool no_implicit)
-> > > >                               return ret;
-> > > >               }
-> > > >
-> > > > -             if (no_implicit)
-> > > > +             if (!implicit_sync)
-> > > >                       continue;
-> > > >
-> > > >               ret = msm_gem_sync_object(&msm_obj->base, submit->ring->fctx,
-> > > > @@ -768,7 +768,8 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
-> > > >       if (ret)
-> > > >               goto out;
-> > > >
-> > > > -     ret = submit_fence_sync(submit, !!(args->flags & MSM_SUBMIT_NO_IMPLICIT));
-> > > > +     ret = submit_fence_sync(submit, (gpu->nr_rings > 1) &&
-> > > > +                     !(args->flags & MSM_SUBMIT_NO_IMPLICIT));
-> > > >       if (ret)
-> > > >               goto out;
-> > > >
-> > > > --
-> > > > 2.26.2
-> > > >
-> > >
-> > > --
-> > > Daniel Vetter
-> > > Software Engineer, Intel Corporation
-> > > http://blog.ffwll.ch
->
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
-> _______________________________________________
-> Freedreno mailing list
-> Freedreno@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/freedreno
+GPU runtime PM and the devfreq being disabled is not evident from the context
+of the function. You are probably right that it's not a problem in practice,
+but why give reason for doubts in the first place if this could be avoided
+by following a common practice?
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
