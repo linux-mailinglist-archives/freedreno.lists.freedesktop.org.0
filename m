@@ -1,63 +1,38 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC4C928D7D2
-	for <lists+freedreno@lfdr.de>; Wed, 14 Oct 2020 03:09:36 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BCE128E0FA
+	for <lists+freedreno@lfdr.de>; Wed, 14 Oct 2020 15:04:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EECE89F2A;
-	Wed, 14 Oct 2020 01:09:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 295306EA78;
+	Wed, 14 Oct 2020 13:04:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
- [IPv6:2607:f8b0:4864:20::543])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CCD989F2A
- for <freedreno@lists.freedesktop.org>; Wed, 14 Oct 2020 01:09:34 +0000 (UTC)
-Received: by mail-pg1-x543.google.com with SMTP id r10so880018pgb.10
- for <freedreno@lists.freedesktop.org>; Tue, 13 Oct 2020 18:09:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=9cE95zlPZsaKlXQNDZXYurcJdISmy8f/niOuyr/FKyg=;
- b=KXNX/y4LRCP8H6b2wmZx5z4YDWt5lN1teIf4OdNO8UaNZNun4W0t8NUt5DcHYoYO3t
- 6+1+2qGFuZyYhq5qRrDGRrT7lpNBJi2Tn5rOsH6Gqck/KZYiv0CX9qSISRHuFU9uK3DP
- kUhvKkwc30JsaxgTXOOqCzA1oGA4n0Bu6vzpk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=9cE95zlPZsaKlXQNDZXYurcJdISmy8f/niOuyr/FKyg=;
- b=AjhBNptD0+SNLZqFmFtkD/ESV5BPRdlyKzri0ASLDD+rpazXn6PotgbgNr53TVU3qP
- QxYXYrrc+m5wgUB0xqnP1TM4jxtZNrZcgGZtW+42L5I3j28scoZcJcCaCZhlGFj3L8vw
- 56QSXJuEyWGJNpt9OHIPZL5QKF/EdNROKUJ5KNcbki+tl0XPIvafabQLsQqLB2vm8mIw
- Rs2+go5CTLrKXZzRXyuWJo0dsFcCR5IDUWJIfrQzMgWL7BKq28a29pTsvoDoidaTWoIP
- etry0F4pd620IkFM9ymX+055LXPATnuKlwSIz6QiECsfAuX1VvKjp1Kfb6GGD432nWLI
- D9zg==
-X-Gm-Message-State: AOAM533dUOquzWh8/yH6KW9FJkjNwv2uIGg2wJPy0MYvYj58kmQvGDId
- N1rf4MoeNBUe6rwsew9B6DpCOjwITwlc4A==
-X-Google-Smtp-Source: ABdhPJwsN1RpUizGjqjRP1QS1UdkTWH3aernthupnXlHlvZ9H/ZfUDdui6dOjwurwybPLRUx43YySQ==
-X-Received: by 2002:aa7:9884:0:b029:156:5806:b47f with SMTP id
- r4-20020aa798840000b02901565806b47fmr2232761pfl.4.1602637773656; 
- Tue, 13 Oct 2020 18:09:33 -0700 (PDT)
-Received: from localhost ([2620:15c:202:1:f693:9fff:fef4:e70a])
- by smtp.gmail.com with ESMTPSA id q8sm955717pfg.118.2020.10.13.18.09.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Oct 2020 18:09:33 -0700 (PDT)
-Date: Tue, 13 Oct 2020 18:09:31 -0700
-From: mka@chromium.org
-To: Akhil P Oommen <akhilpo@codeaurora.org>
-Message-ID: <20201014010931.GB424420@google.com>
-References: <1602176947-17385-2-git-send-email-akhilpo@codeaurora.org>
- <20201009183640.GB1292413@google.com>
- <cab2105e-7a8c-988f-dcc1-056692a94e8b@codeaurora.org>
- <20201012174035.GA44627@google.com>
- <80ded484-a058-70fc-be9d-045be2933563@codeaurora.org>
- <20201013174038.GA424420@google.com>
- <ae3ca3c7-fb80-e9fc-a76b-2add8969a178@codeaurora.org>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ae3ca3c7-fb80-e9fc-a76b-2add8969a178@codeaurora.org>
-Subject: Re: [Freedreno] [2/2] drm/msm: Add support for GPU cooling
+X-Greylist: delayed 364 seconds by postgrey-1.36 at gabe;
+ Wed, 14 Oct 2020 13:04:47 UTC
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE10A6EA78;
+ Wed, 14 Oct 2020 13:04:47 +0000 (UTC)
+Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
+ by alexa-out.qualcomm.com with ESMTP; 14 Oct 2020 05:58:42 -0700
+X-QCInternal: smtphost
+Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
+ by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 14 Oct 2020 05:58:41 -0700
+X-QCInternal: smtphost
+Received: from mkrishn-linux.qualcomm.com ([10.204.66.35])
+ by ironmsg01-blr.qualcomm.com with ESMTP; 14 Oct 2020 18:28:21 +0530
+Received: by mkrishn-linux.qualcomm.com (Postfix, from userid 438394)
+ id 5D0242141F; Wed, 14 Oct 2020 18:28:20 +0530 (IST)
+From: Krishna Manikandan <mkrishn@codeaurora.org>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Wed, 14 Oct 2020 18:28:16 +0530
+Message-Id: <1602680296-8965-1-git-send-email-mkrishn@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [v1] drm/msm: Fix race condition in msm driver with
+ async layer updates
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,115 +45,223 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@freedesktop.org
+Cc: Krishna Manikandan <mkrishn@codeaurora.org>, linux-kernel@vger.kernel.org,
+ dianders@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
+ kalyan_t@codeaurora.org, hoegsberg@chromium.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Oct 14, 2020 at 12:51:55AM +0530, Akhil P Oommen wrote:
-> On 10/13/2020 11:10 PM, mka@chromium.org wrote:
-> > On Tue, Oct 13, 2020 at 07:23:34PM +0530, Akhil P Oommen wrote:
-> > > On 10/12/2020 11:10 PM, mka@chromium.org wrote:
-> > > > On Mon, Oct 12, 2020 at 07:03:51PM +0530, Akhil P Oommen wrote:
-> > > > > On 10/10/2020 12:06 AM, mka@chromium.org wrote:
-> > > > > > Hi Akhil,
-> > > > > > 
-> > > > > > On Thu, Oct 08, 2020 at 10:39:07PM +0530, Akhil P Oommen wrote:
-> > > > > > > Register GPU as a devfreq cooling device so that it can be passively
-> > > > > > > cooled by the thermal framework.
-> > > > > > > 
-> > > > > > > Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
-> > > > > > > ---
-> > > > > > >     drivers/gpu/drm/msm/msm_gpu.c | 13 ++++++++++++-
-> > > > > > >     drivers/gpu/drm/msm/msm_gpu.h |  2 ++
-> > > > > > >     2 files changed, 14 insertions(+), 1 deletion(-)
-> > > > > > > 
-> > > > > > > diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-> > > > > > > index 55d1648..93ffd66 100644
-> > > > > > > --- a/drivers/gpu/drm/msm/msm_gpu.c
-> > > > > > > +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> > > > > > > @@ -14,6 +14,7 @@
-> > > > > > >     #include <generated/utsrelease.h>
-> > > > > > >     #include <linux/string_helpers.h>
-> > > > > > >     #include <linux/devfreq.h>
-> > > > > > > +#include <linux/devfreq_cooling.h>
-> > > > > > >     #include <linux/devcoredump.h>
-> > > > > > >     #include <linux/sched/task.h>
-> > > > > > > @@ -107,9 +108,18 @@ static void msm_devfreq_init(struct msm_gpu *gpu)
-> > > > > > >     	if (IS_ERR(gpu->devfreq.devfreq)) {
-> > > > > > >     		DRM_DEV_ERROR(&gpu->pdev->dev, "Couldn't initialize GPU devfreq\n");
-> > > > > > >     		gpu->devfreq.devfreq = NULL;
-> > > > > > > +		return;
-> > > > > > >     	}
-> > > > > > >     	devfreq_suspend_device(gpu->devfreq.devfreq);
-> > > > > > > +
-> > > > > > > +	gpu->cooling = of_devfreq_cooling_register(gpu->pdev->dev.of_node,
-> > > > > > > +			gpu->devfreq.devfreq);
-> > > > > > > +	if (IS_ERR(gpu->cooling)) {
-> > > > > > > +		DRM_DEV_ERROR(&gpu->pdev->dev,
-> > > > > > > +				"Couldn't register GPU cooling device\n");
-> > > > > > > +		gpu->cooling = NULL;
-> > > > > > > +	}
-> > > > > > >     }
-> > > > > > >     static int enable_pwrrail(struct msm_gpu *gpu)
-> > > > > > > @@ -926,7 +936,6 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
-> > > > > > >     	msm_devfreq_init(gpu);
-> > > > > > > -
-> > > Will remove this unintended change.
-> > > > > > >     	gpu->aspace = gpu->funcs->create_address_space(gpu, pdev);
-> > > > > > >     	if (gpu->aspace == NULL)
-> > > > > > > @@ -1005,4 +1014,6 @@ void msm_gpu_cleanup(struct msm_gpu *gpu)
-> > > > > > >     		gpu->aspace->mmu->funcs->detach(gpu->aspace->mmu);
-> > > > > > >     		msm_gem_address_space_put(gpu->aspace);
-> > > > > > >     	}
-> > > > > > > +
-> > > > > > > +	devfreq_cooling_unregister(gpu->cooling);
-> > > > > > 
-> > > > > > Resources should be released in reverse order, otherwise the cooling device
-> > > > > > could use resources that have already been freed.
-> > > > > > Why do you think this is not the correct order? If you are thinking
-> > > > > about devfreq struct, it is managed device resource.
-> > > > 
-> > > > I did not check specifically if changing the frequency really uses any of the
-> > > > resources that are released previously, In any case it's not a good idea to
-> > > > allow other parts of the kernel to use a half initialized/torn down device.
-> > > > Even if it isn't a problem today someone could change the driver to use any
-> > > > of these resources (or add a new one) in a frequency change, without even
-> > > > thinking about the cooling device, just (rightfully) asuming that things are
-> > > > set up and torn down in a sane order.
-> > > 'sane order' relative to what specifically here? Should we worry about freq
-> > > change at this point because we have already disabled gpu runtime pm and
-> > > devfreq?
-> > 
-> > GPU runtime PM and the devfreq being disabled is not evident from the context
-> > of the function. You are probably right that it's not a problem in practice,
-> > but why give reason for doubts in the first place if this could be avoided
-> > by following a common practice?
-> > _______________________________________________
-> > dri-devel mailing list
-> > dri-devel@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/dri-devel
-> > 
-> Other option I see is to create a managed device resource (devm) version of
-> the devfreq_cooling_register API and use that. Is that what you are trying
-> to suggest?
+When there are back to back commits with async cursor update,
+there is a case where second commit can program the DPU hw
+blocks while first didn't complete flushing config to HW.
 
-No, I was not thinking about a devm version, just manual reverse removal.
+Synchronize the compositions such that second commit waits
+until first commit flushes the composition.
 
-Actually you can even argue the you are using the right order, I saw the
-ring buffer and the address space are actually initialized after
-msm_devfreq_init(). That strikes me a bit odd, I guess the
-devfreq_suspend_device() in msm_devfreq_init() is supposed to prevent the
-devfreq from being active, however that is potentially racy, it could become
-active right after being created. I would have expected the devfreq to be
-created when everything else is ready, but I don't know this driver well,
-nor am I a devfreq expert, maybe there is a good reason for it ...
+This change also introduces per crtc commit lock, such that
+commits on different crtcs are not blocked by each other.
 
-In summary, the order you are using is consistent with the what the driver
-currently does, which might not be entirely correct, but that is beyond the
-scope of this patch.
+Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c |  1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h |  1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  | 26 ++++++++++++++++++++++++
+ drivers/gpu/drm/msm/msm_atomic.c         | 35 ++++++++++++++++++++++----------
+ drivers/gpu/drm/msm/msm_kms.h            |  5 +++++
+ 5 files changed, 57 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index c2729f7..9024719 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -1383,6 +1383,7 @@ struct drm_crtc *dpu_crtc_init(struct drm_device *dev, struct drm_plane *plane,
+ 
+ 	/* initialize event handling */
+ 	spin_lock_init(&dpu_crtc->event_lock);
++	mutex_init(&dpu_crtc->commit_lock);
+ 
+ 	DPU_DEBUG("%s: successfully initialized crtc\n", dpu_crtc->name);
+ 	return crtc;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+index cec3474..1eeb73d 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+@@ -169,6 +169,7 @@ struct dpu_crtc {
+ 
+ 	/* for handling internal event thread */
+ 	spinlock_t event_lock;
++	struct mutex commit_lock;
+ 
+ 	struct dpu_core_perf_params cur_perf;
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index c0a4d4e..f99ae7a 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -445,6 +445,30 @@ static void dpu_kms_wait_flush(struct msm_kms *kms, unsigned crtc_mask)
+ 		dpu_kms_wait_for_commit_done(kms, crtc);
+ }
+ 
++static void dpu_kms_commit_lock(struct msm_kms *kms, unsigned int crtc_mask)
++{
++	struct dpu_kms *dpu_kms = to_dpu_kms(kms);
++	struct drm_crtc *crtc;
++	struct dpu_crtc *dpu_crtc;
++
++	for_each_crtc_mask(dpu_kms->dev, crtc, crtc_mask) {
++		dpu_crtc = to_dpu_crtc(crtc);
++		mutex_lock(&dpu_crtc->commit_lock);
++	}
++}
++
++static void dpu_kms_commit_unlock(struct msm_kms *kms, unsigned int crtc_mask)
++{
++	struct dpu_kms *dpu_kms = to_dpu_kms(kms);
++	struct drm_crtc *crtc;
++	struct dpu_crtc *dpu_crtc;
++
++	for_each_crtc_mask(dpu_kms->dev, crtc, crtc_mask) {
++		dpu_crtc = to_dpu_crtc(crtc);
++		mutex_unlock(&dpu_crtc->commit_lock);
++	}
++}
++
+ static int _dpu_kms_initialize_dsi(struct drm_device *dev,
+ 				    struct msm_drm_private *priv,
+ 				    struct dpu_kms *dpu_kms)
+@@ -738,6 +762,8 @@ static const struct msm_kms_funcs kms_funcs = {
+ #ifdef CONFIG_DEBUG_FS
+ 	.debugfs_init    = dpu_kms_debugfs_init,
+ #endif
++	.commit_lock     = dpu_kms_commit_lock,
++	.commit_unlock   = dpu_kms_commit_unlock,
+ };
+ 
+ static void _dpu_kms_mmu_destroy(struct dpu_kms *dpu_kms)
+diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
+index 561bfa4..d33253f 100644
+--- a/drivers/gpu/drm/msm/msm_atomic.c
++++ b/drivers/gpu/drm/msm/msm_atomic.c
+@@ -55,16 +55,32 @@ static void vblank_put(struct msm_kms *kms, unsigned crtc_mask)
+ 	}
+ }
+ 
++static void msm_commit_lock(struct msm_kms *kms, unsigned int crtc_mask)
++{
++	if (kms->funcs->commit_lock)
++		kms->funcs->commit_lock(kms, crtc_mask);
++	else
++		mutex_lock(&kms->commit_lock);
++}
++
++static void msm_commit_unlock(struct msm_kms *kms, unsigned int crtc_mask)
++{
++	if (kms->funcs->commit_unlock)
++		kms->funcs->commit_unlock(kms, crtc_mask);
++	else
++		mutex_unlock(&kms->commit_lock);
++}
++
+ static void msm_atomic_async_commit(struct msm_kms *kms, int crtc_idx)
+ {
+ 	unsigned crtc_mask = BIT(crtc_idx);
+ 
+ 	trace_msm_atomic_async_commit_start(crtc_mask);
+ 
+-	mutex_lock(&kms->commit_lock);
++	msm_commit_lock(kms, crtc_mask);
+ 
+ 	if (!(kms->pending_crtc_mask & crtc_mask)) {
+-		mutex_unlock(&kms->commit_lock);
++		msm_commit_unlock(kms, crtc_mask);
+ 		goto out;
+ 	}
+ 
+@@ -79,7 +95,6 @@ static void msm_atomic_async_commit(struct msm_kms *kms, int crtc_idx)
+ 	 */
+ 	trace_msm_atomic_flush_commit(crtc_mask);
+ 	kms->funcs->flush_commit(kms, crtc_mask);
+-	mutex_unlock(&kms->commit_lock);
+ 
+ 	/*
+ 	 * Wait for flush to complete:
+@@ -90,9 +105,8 @@ static void msm_atomic_async_commit(struct msm_kms *kms, int crtc_idx)
+ 
+ 	vblank_put(kms, crtc_mask);
+ 
+-	mutex_lock(&kms->commit_lock);
+ 	kms->funcs->complete_commit(kms, crtc_mask);
+-	mutex_unlock(&kms->commit_lock);
++	msm_commit_unlock(kms, crtc_mask);
+ 	kms->funcs->disable_commit(kms);
+ 
+ out:
+@@ -189,12 +203,11 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
+ 	 * Ensure any previous (potentially async) commit has
+ 	 * completed:
+ 	 */
++	msm_commit_lock(kms, crtc_mask);
+ 	trace_msm_atomic_wait_flush_start(crtc_mask);
+ 	kms->funcs->wait_flush(kms, crtc_mask);
+ 	trace_msm_atomic_wait_flush_finish(crtc_mask);
+ 
+-	mutex_lock(&kms->commit_lock);
+-
+ 	/*
+ 	 * Now that there is no in-progress flush, prepare the
+ 	 * current update:
+@@ -232,7 +245,7 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
+ 		}
+ 
+ 		kms->funcs->disable_commit(kms);
+-		mutex_unlock(&kms->commit_lock);
++		msm_commit_unlock(kms, crtc_mask);
+ 
+ 		/*
+ 		 * At this point, from drm core's perspective, we
+@@ -260,7 +273,7 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
+ 	 */
+ 	trace_msm_atomic_flush_commit(crtc_mask);
+ 	kms->funcs->flush_commit(kms, crtc_mask);
+-	mutex_unlock(&kms->commit_lock);
++	msm_commit_unlock(kms, crtc_mask);
+ 
+ 	/*
+ 	 * Wait for flush to complete:
+@@ -271,9 +284,9 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
+ 
+ 	vblank_put(kms, crtc_mask);
+ 
+-	mutex_lock(&kms->commit_lock);
++	msm_commit_lock(kms, crtc_mask);
+ 	kms->funcs->complete_commit(kms, crtc_mask);
+-	mutex_unlock(&kms->commit_lock);
++	msm_commit_unlock(kms, crtc_mask);
+ 	kms->funcs->disable_commit(kms);
+ 
+ 	drm_atomic_helper_commit_hw_done(state);
+diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
+index 1cbef6b..f02e73e 100644
+--- a/drivers/gpu/drm/msm/msm_kms.h
++++ b/drivers/gpu/drm/msm/msm_kms.h
+@@ -126,6 +126,11 @@ struct msm_kms_funcs {
+ 	/* debugfs: */
+ 	int (*debugfs_init)(struct msm_kms *kms, struct drm_minor *minor);
+ #endif
++	/* commit lock for crtc */
++	void (*commit_lock)(struct msm_kms *kms, unsigned int crtc_mask);
++
++	/* commit unlock for crtc */
++	void (*commit_unlock)(struct msm_kms *kms, unsigned int crtc_mask);
+ };
+ 
+ struct msm_kms;
+-- 
+2.7.4
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
