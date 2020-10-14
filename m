@@ -2,37 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BCE128E0FA
-	for <lists+freedreno@lfdr.de>; Wed, 14 Oct 2020 15:04:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5184D28E14A
+	for <lists+freedreno@lfdr.de>; Wed, 14 Oct 2020 15:29:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 295306EA78;
-	Wed, 14 Oct 2020 13:04:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 139086EAA7;
+	Wed, 14 Oct 2020 13:29:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 364 seconds by postgrey-1.36 at gabe;
- Wed, 14 Oct 2020 13:04:47 UTC
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE10A6EA78;
- Wed, 14 Oct 2020 13:04:47 +0000 (UTC)
-Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
- by alexa-out.qualcomm.com with ESMTP; 14 Oct 2020 05:58:42 -0700
-X-QCInternal: smtphost
-Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
- by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 14 Oct 2020 05:58:41 -0700
-X-QCInternal: smtphost
-Received: from mkrishn-linux.qualcomm.com ([10.204.66.35])
- by ironmsg01-blr.qualcomm.com with ESMTP; 14 Oct 2020 18:28:21 +0530
-Received: by mkrishn-linux.qualcomm.com (Postfix, from userid 438394)
- id 5D0242141F; Wed, 14 Oct 2020 18:28:20 +0530 (IST)
-From: Krishna Manikandan <mkrishn@codeaurora.org>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Date: Wed, 14 Oct 2020 18:28:16 +0530
-Message-Id: <1602680296-8965-1-git-send-email-mkrishn@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-Subject: [Freedreno] [v1] drm/msm: Fix race condition in msm driver with
- async layer updates
+Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 311BA6EAA7
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Oct 2020 13:29:54 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1602682196; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
+ Subject: Sender; bh=rIC1SuV56SFchiZDRV34vNBmeGLmpoLkREQhbX7ZtSU=;
+ b=B1UohKEkCenflxqN4spNdkc9AAjhnPgA/lF3rGqj3x1mvfdfZLpu3+eejMUYADd5XSIDKNag
+ 0qcrFnD4qOHS7amSQRBFJOP/IxUyo823NqomPTBtndUMPysxJmrAlOAMqXthWz0pwKvxsK7o
+ x5zI6l2TAhVSw9vtRdhEhL6e+Jg=
+X-Mailgun-Sending-Ip: 69.72.42.4
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
+ 5f86fd3c42f9861fb14ad119 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 14 Oct 2020 13:29:32
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 3FB10C433FE; Wed, 14 Oct 2020 13:29:32 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ NICE_REPLY_A,SPF_FAIL,URIBL_BLOCKED autolearn=no autolearn_force=no
+ version=3.4.0
+Received: from [192.168.1.9] (unknown [117.210.180.193])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id F1AA7C433C9;
+ Wed, 14 Oct 2020 13:29:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org F1AA7C433C9
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=akhilpo@codeaurora.org
+To: Matthias Kaehlcke <mka@chromium.org>,
+ Doug Anderson <dianders@chromium.org>, manafm@codeaurora.org
+References: <1602176947-17385-1-git-send-email-akhilpo@codeaurora.org>
+ <CAD=FV=WjWv040TyBaqU8ZAuxGi-YpJ2tsVcUbOV4Htv=_-n8fA@mail.gmail.com>
+ <20201009165705.GA1292413@google.com>
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+Message-ID: <fc490021-b046-68c5-7ceb-9c63d3ff5650@codeaurora.org>
+Date: Wed, 14 Oct 2020 18:59:26 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.1
+MIME-Version: 1.0
+In-Reply-To: <20201009165705.GA1292413@google.com>
+Content-Language: en-US
+Subject: Re: [Freedreno] [PATCH 1/2] arm64: dts: qcom: sc7180: Add gpu
+ cooling support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,222 +73,95 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Krishna Manikandan <mkrishn@codeaurora.org>, linux-kernel@vger.kernel.org,
- dianders@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
- kalyan_t@codeaurora.org, hoegsberg@chromium.org
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>, dri-devel@freedesktop.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-When there are back to back commits with async cursor update,
-there is a case where second commit can program the DPU hw
-blocks while first didn't complete flushing config to HW.
+On 10/9/2020 10:27 PM, Matthias Kaehlcke wrote:
+> On Fri, Oct 09, 2020 at 08:05:10AM -0700, Doug Anderson wrote:
+>> Hi,
+>>
+>> On Thu, Oct 8, 2020 at 10:10 AM Akhil P Oommen <akhilpo@codeaurora.org> wrote:
+>>>
+>>> Add cooling-cells property and the cooling maps for the gpu tzones
+>>> to support GPU cooling.
+>>>
+>>> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+>>> ---
+>>>   arch/arm64/boot/dts/qcom/sc7180.dtsi | 29 ++++++++++++++++++++++-------
+>>>   1 file changed, 22 insertions(+), 7 deletions(-)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+>>> index d46b383..40d6a28 100644
+>>> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
+>>> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+>>> @@ -2,7 +2,7 @@
+>>>   /*
+>>>    * SC7180 SoC device tree source
+>>>    *
+>>> - * Copyright (c) 2019, The Linux Foundation. All rights reserved.
+>>> + * Copyright (c) 2019-20, The Linux Foundation. All rights reserved.
+>>>    */
+>>>
+>>>   #include <dt-bindings/clock/qcom,dispcc-sc7180.h>
+>>> @@ -1885,6 +1885,7 @@
+>>>                          iommus = <&adreno_smmu 0>;
+>>>                          operating-points-v2 = <&gpu_opp_table>;
+>>>                          qcom,gmu = <&gmu>;
+>>> +                       #cooling-cells = <2>;
+>>
+>> Presumably we should add this to the devicetree bindings, too?
+Yes, thanks for catching this. Will update in the next patch.
 
-Synchronize the compositions such that second commit waits
-until first commit flushes the composition.
+>>
+>>
+>>>                          interconnects = <&gem_noc MASTER_GFX3D &mc_virt SLAVE_EBI1>;
+>>>                          interconnect-names = "gfx-mem";
+>>> @@ -3825,16 +3826,16 @@
+>>>                  };
+>>>
+>>>                  gpuss0-thermal {
+>>> -                       polling-delay-passive = <0>;
+>>> +                       polling-delay-passive = <100>;
+>>
+>> Why did you make this change?  I'm pretty sure that we _don't_ want
+>> this since we're using interrupts for the thermal sensor.  See commit
+>> 22337b91022d ("arm64: dts: qcom: sc7180: Changed polling mode in
+>> Thermal-zones node").
+> 
+> I was going to ask the same, this shouldn't be needed.
+> 
+>>>                          polling-delay = <0>;
+>>>
+>>>                          thermal-sensors = <&tsens0 13>;
+>>>
+>>>                          trips {
+>>>                                  gpuss0_alert0: trip-point0 {
+>>> -                                       temperature = <90000>;
+>>> +                                       temperature = <95000>;
+>>>                                          hysteresis = <2000>;
+>>> -                                       type = "hot";
+>>> +                                       type = "passive";
+>>
+>> Matthias probably knows better, but I wonder if we should be making
+>> two passive trip levels like we do with CPU.  IIRC this is important
+>> if someone wants to be able to use this with IPA.
+> 
+> Yes, please introduce a second trip point and make both of them
+> 'passive'.
+> 
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> 
+Adding Manaf here.
 
-This change also introduces per crtc commit lock, such that
-commits on different crtcs are not blocked by each other.
-
-Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c |  1 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h |  1 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  | 26 ++++++++++++++++++++++++
- drivers/gpu/drm/msm/msm_atomic.c         | 35 ++++++++++++++++++++++----------
- drivers/gpu/drm/msm/msm_kms.h            |  5 +++++
- 5 files changed, 57 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index c2729f7..9024719 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -1383,6 +1383,7 @@ struct drm_crtc *dpu_crtc_init(struct drm_device *dev, struct drm_plane *plane,
- 
- 	/* initialize event handling */
- 	spin_lock_init(&dpu_crtc->event_lock);
-+	mutex_init(&dpu_crtc->commit_lock);
- 
- 	DPU_DEBUG("%s: successfully initialized crtc\n", dpu_crtc->name);
- 	return crtc;
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-index cec3474..1eeb73d 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-@@ -169,6 +169,7 @@ struct dpu_crtc {
- 
- 	/* for handling internal event thread */
- 	spinlock_t event_lock;
-+	struct mutex commit_lock;
- 
- 	struct dpu_core_perf_params cur_perf;
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index c0a4d4e..f99ae7a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -445,6 +445,30 @@ static void dpu_kms_wait_flush(struct msm_kms *kms, unsigned crtc_mask)
- 		dpu_kms_wait_for_commit_done(kms, crtc);
- }
- 
-+static void dpu_kms_commit_lock(struct msm_kms *kms, unsigned int crtc_mask)
-+{
-+	struct dpu_kms *dpu_kms = to_dpu_kms(kms);
-+	struct drm_crtc *crtc;
-+	struct dpu_crtc *dpu_crtc;
-+
-+	for_each_crtc_mask(dpu_kms->dev, crtc, crtc_mask) {
-+		dpu_crtc = to_dpu_crtc(crtc);
-+		mutex_lock(&dpu_crtc->commit_lock);
-+	}
-+}
-+
-+static void dpu_kms_commit_unlock(struct msm_kms *kms, unsigned int crtc_mask)
-+{
-+	struct dpu_kms *dpu_kms = to_dpu_kms(kms);
-+	struct drm_crtc *crtc;
-+	struct dpu_crtc *dpu_crtc;
-+
-+	for_each_crtc_mask(dpu_kms->dev, crtc, crtc_mask) {
-+		dpu_crtc = to_dpu_crtc(crtc);
-+		mutex_unlock(&dpu_crtc->commit_lock);
-+	}
-+}
-+
- static int _dpu_kms_initialize_dsi(struct drm_device *dev,
- 				    struct msm_drm_private *priv,
- 				    struct dpu_kms *dpu_kms)
-@@ -738,6 +762,8 @@ static const struct msm_kms_funcs kms_funcs = {
- #ifdef CONFIG_DEBUG_FS
- 	.debugfs_init    = dpu_kms_debugfs_init,
- #endif
-+	.commit_lock     = dpu_kms_commit_lock,
-+	.commit_unlock   = dpu_kms_commit_unlock,
- };
- 
- static void _dpu_kms_mmu_destroy(struct dpu_kms *dpu_kms)
-diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
-index 561bfa4..d33253f 100644
---- a/drivers/gpu/drm/msm/msm_atomic.c
-+++ b/drivers/gpu/drm/msm/msm_atomic.c
-@@ -55,16 +55,32 @@ static void vblank_put(struct msm_kms *kms, unsigned crtc_mask)
- 	}
- }
- 
-+static void msm_commit_lock(struct msm_kms *kms, unsigned int crtc_mask)
-+{
-+	if (kms->funcs->commit_lock)
-+		kms->funcs->commit_lock(kms, crtc_mask);
-+	else
-+		mutex_lock(&kms->commit_lock);
-+}
-+
-+static void msm_commit_unlock(struct msm_kms *kms, unsigned int crtc_mask)
-+{
-+	if (kms->funcs->commit_unlock)
-+		kms->funcs->commit_unlock(kms, crtc_mask);
-+	else
-+		mutex_unlock(&kms->commit_lock);
-+}
-+
- static void msm_atomic_async_commit(struct msm_kms *kms, int crtc_idx)
- {
- 	unsigned crtc_mask = BIT(crtc_idx);
- 
- 	trace_msm_atomic_async_commit_start(crtc_mask);
- 
--	mutex_lock(&kms->commit_lock);
-+	msm_commit_lock(kms, crtc_mask);
- 
- 	if (!(kms->pending_crtc_mask & crtc_mask)) {
--		mutex_unlock(&kms->commit_lock);
-+		msm_commit_unlock(kms, crtc_mask);
- 		goto out;
- 	}
- 
-@@ -79,7 +95,6 @@ static void msm_atomic_async_commit(struct msm_kms *kms, int crtc_idx)
- 	 */
- 	trace_msm_atomic_flush_commit(crtc_mask);
- 	kms->funcs->flush_commit(kms, crtc_mask);
--	mutex_unlock(&kms->commit_lock);
- 
- 	/*
- 	 * Wait for flush to complete:
-@@ -90,9 +105,8 @@ static void msm_atomic_async_commit(struct msm_kms *kms, int crtc_idx)
- 
- 	vblank_put(kms, crtc_mask);
- 
--	mutex_lock(&kms->commit_lock);
- 	kms->funcs->complete_commit(kms, crtc_mask);
--	mutex_unlock(&kms->commit_lock);
-+	msm_commit_unlock(kms, crtc_mask);
- 	kms->funcs->disable_commit(kms);
- 
- out:
-@@ -189,12 +203,11 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
- 	 * Ensure any previous (potentially async) commit has
- 	 * completed:
- 	 */
-+	msm_commit_lock(kms, crtc_mask);
- 	trace_msm_atomic_wait_flush_start(crtc_mask);
- 	kms->funcs->wait_flush(kms, crtc_mask);
- 	trace_msm_atomic_wait_flush_finish(crtc_mask);
- 
--	mutex_lock(&kms->commit_lock);
--
- 	/*
- 	 * Now that there is no in-progress flush, prepare the
- 	 * current update:
-@@ -232,7 +245,7 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
- 		}
- 
- 		kms->funcs->disable_commit(kms);
--		mutex_unlock(&kms->commit_lock);
-+		msm_commit_unlock(kms, crtc_mask);
- 
- 		/*
- 		 * At this point, from drm core's perspective, we
-@@ -260,7 +273,7 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
- 	 */
- 	trace_msm_atomic_flush_commit(crtc_mask);
- 	kms->funcs->flush_commit(kms, crtc_mask);
--	mutex_unlock(&kms->commit_lock);
-+	msm_commit_unlock(kms, crtc_mask);
- 
- 	/*
- 	 * Wait for flush to complete:
-@@ -271,9 +284,9 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
- 
- 	vblank_put(kms, crtc_mask);
- 
--	mutex_lock(&kms->commit_lock);
-+	msm_commit_lock(kms, crtc_mask);
- 	kms->funcs->complete_commit(kms, crtc_mask);
--	mutex_unlock(&kms->commit_lock);
-+	msm_commit_unlock(kms, crtc_mask);
- 	kms->funcs->disable_commit(kms);
- 
- 	drm_atomic_helper_commit_hw_done(state);
-diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
-index 1cbef6b..f02e73e 100644
---- a/drivers/gpu/drm/msm/msm_kms.h
-+++ b/drivers/gpu/drm/msm/msm_kms.h
-@@ -126,6 +126,11 @@ struct msm_kms_funcs {
- 	/* debugfs: */
- 	int (*debugfs_init)(struct msm_kms *kms, struct drm_minor *minor);
- #endif
-+	/* commit lock for crtc */
-+	void (*commit_lock)(struct msm_kms *kms, unsigned int crtc_mask);
-+
-+	/* commit unlock for crtc */
-+	void (*commit_unlock)(struct msm_kms *kms, unsigned int crtc_mask);
- };
- 
- struct msm_kms;
--- 
-2.7.4
+-Akhil.
 
 _______________________________________________
 Freedreno mailing list
