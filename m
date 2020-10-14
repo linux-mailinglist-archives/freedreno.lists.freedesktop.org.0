@@ -2,54 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 846C128E346
-	for <lists+freedreno@lfdr.de>; Wed, 14 Oct 2020 17:26:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53B5628E51E
+	for <lists+freedreno@lfdr.de>; Wed, 14 Oct 2020 19:11:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DFBE6EAAE;
-	Wed, 14 Oct 2020 15:26:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F226C6EB0D;
+	Wed, 14 Oct 2020 17:11:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48F4B6EAAA;
- Wed, 14 Oct 2020 15:25:58 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id n6so4307693wrm.13;
- Wed, 14 Oct 2020 08:25:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=YxBEZ2zwOvQ2OmfgqDWhyS8kAvpMsA83AdcbbwSb0EE=;
- b=ZAbFPWTQcSXPMYVBlmCH8uVilNTpEpqaXnTk/l4eTYe1Awp8Uwl8piKKbLJ1Eyxq5g
- GWM9HleNnX99p1uU/DahMgxpyJsHW0q2LBpDB9RRBaEiuZgWq6DBb/Wn69wj+v88GnnG
- Hm4xrXgEs873m2WQGe5LMS1rSRZWlcAL53JArHEZ49L38f5Djsoh0PGeNrykglNxoDeE
- lca5l7W4CcIaT50qHfCClXbgXBEA4R2ygx6JkIs03VwN/sJsTYYmNOGTk+yi3THqB6OH
- rXzS9wisOxT0mRtI5yoIJ9rFVbpgUHIDcAK+3QzwsmhQj5/XUnhts6DDN6J3sVKMC7ta
- 1qRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=YxBEZ2zwOvQ2OmfgqDWhyS8kAvpMsA83AdcbbwSb0EE=;
- b=mys9v72Ob2Fyq14AEJsg9BWNHo3bBefktCtmLVUp+jYPoVzpyCQGwqm4s2yRboKZF0
- ximh2mAqJjSQqLNQLPgMQaB/WOAs/8FFUqaLQLO3N1qGrfHa/AmFG6Au7vRFZk7eui5+
- 8RSqX1VNBEGntPnxmnR4f8eayv/gAEKHmtll8a2baxqw+oUG4688CJU6OMm8J2GAxJYb
- 1gnkfZNk/G6Qds2mH4alOB0sMOQQznrglW7G22RR4ldzPKu4hpecYeMo/bW0goI0gLUA
- jDuXSPlVvpXHXMsVxCzWrstINZbAt6DvrdVf/rrtsvWtJJ30PUkctDIF9aypH2P/dPBH
- lT5w==
-X-Gm-Message-State: AOAM532qVDDKCN7ZfWfToJW8M2BiFTVeJk0FTgHt7MWrCf/+1pNI2P9v
- TfXxAg8/1WgPEc6MtcDhU0Mr5QCqltRFooVtVVk=
-X-Google-Smtp-Source: ABdhPJxt0hbMDz45mCBTIX0MF07E2kkg25OjgQEakXS6TJkZaNMfzplAhXY+OSjSSksFO8J1W8Fb6qb0EV+aalIxPaY=
-X-Received: by 2002:a05:6000:1633:: with SMTP id
- v19mr5814473wrb.147.1602689156795; 
- Wed, 14 Oct 2020 08:25:56 -0700 (PDT)
+Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 801F86EAE1
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Oct 2020 17:11:28 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1602695493; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=QZJT98bSS0CNUibsQD6bEPyQItvZSmjw3Aa7k8V/78A=;
+ b=uKXroKwNsFqtV9LTT4llrVFgGSUer10h8FJ8PZfVU7icOo4NBAW8gEiBEcxqdz4P+HqdVhi/
+ DS1Um4Y6F5LbTZ1I7x1H3mhMdJG99vCzEtwnIDd4jQK5jOa5dvPLK95nR09RGUWDo/AYRicJ
+ MNIpM1pHcCpn4M6bDJ15H4tP6kU=
+X-Mailgun-Sending-Ip: 69.72.42.4
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n06.prod.us-east-1.postgun.com with SMTP id
+ 5f873131588858a3041a92ca (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 14 Oct 2020 17:11:13
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id B44C4C433FF; Wed, 14 Oct 2020 17:11:12 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 6FABBC433C9;
+ Wed, 14 Oct 2020 17:11:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 6FABBC433C9
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=khsieh@codeaurora.org
+From: Kuogee Hsieh <khsieh@codeaurora.org>
+To: robdclark@gmail.com,
+	sean@poorly.run,
+	swboyd@chromium.org
+Date: Wed, 14 Oct 2020 10:11:03 -0700
+Message-Id: <20201014171103.30098-1-khsieh@codeaurora.org>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-References: <1602680296-8965-1-git-send-email-mkrishn@codeaurora.org>
-In-Reply-To: <1602680296-8965-1-git-send-email-mkrishn@codeaurora.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 14 Oct 2020 08:25:45 -0700
-Message-ID: <CAF6AEGtQEbGVQdNPSaHy41gqsiLV19X8kxMVCRUy8y1SzjTZGw@mail.gmail.com>
-To: Krishna Manikandan <mkrishn@codeaurora.org>
-Subject: Re: [Freedreno] [v1] drm/msm: Fix race condition in msm driver with
- async layer updates
+Subject: [Freedreno] [PATCH v5] drm/msm/dp: return correct connection status
+ after suspend
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,241 +69,446 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Douglas Anderson <dianders@chromium.org>, Sean Paul <seanpaul@chromium.org>,
- Kalyan Thota <kalyan_t@codeaurora.org>,
- "Kristian H. Kristensen" <hoegsberg@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ abhinavk@codeaurora.org, khsieh@codeaurora.org, tanmay@codeaurora.org,
+ daniel@ffwll.ch, aravindh@codeaurora.org, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Oct 14, 2020 at 5:58 AM Krishna Manikandan
-<mkrishn@codeaurora.org> wrote:
->
-> When there are back to back commits with async cursor update,
-> there is a case where second commit can program the DPU hw
-> blocks while first didn't complete flushing config to HW.
->
-> Synchronize the compositions such that second commit waits
-> until first commit flushes the composition.
->
-> This change also introduces per crtc commit lock, such that
-> commits on different crtcs are not blocked by each other.
->
-> Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c |  1 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h |  1 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  | 26 ++++++++++++++++++++++++
->  drivers/gpu/drm/msm/msm_atomic.c         | 35 ++++++++++++++++++++++----------
->  drivers/gpu/drm/msm/msm_kms.h            |  5 +++++
->  5 files changed, 57 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> index c2729f7..9024719 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -1383,6 +1383,7 @@ struct drm_crtc *dpu_crtc_init(struct drm_device *dev, struct drm_plane *plane,
->
->         /* initialize event handling */
->         spin_lock_init(&dpu_crtc->event_lock);
-> +       mutex_init(&dpu_crtc->commit_lock);
->
->         DPU_DEBUG("%s: successfully initialized crtc\n", dpu_crtc->name);
->         return crtc;
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> index cec3474..1eeb73d 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> @@ -169,6 +169,7 @@ struct dpu_crtc {
->
->         /* for handling internal event thread */
->         spinlock_t event_lock;
-> +       struct mutex commit_lock;
->
->         struct dpu_core_perf_params cur_perf;
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index c0a4d4e..f99ae7a 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -445,6 +445,30 @@ static void dpu_kms_wait_flush(struct msm_kms *kms, unsigned crtc_mask)
->                 dpu_kms_wait_for_commit_done(kms, crtc);
->  }
->
-> +static void dpu_kms_commit_lock(struct msm_kms *kms, unsigned int crtc_mask)
-> +{
-> +       struct dpu_kms *dpu_kms = to_dpu_kms(kms);
-> +       struct drm_crtc *crtc;
-> +       struct dpu_crtc *dpu_crtc;
-> +
-> +       for_each_crtc_mask(dpu_kms->dev, crtc, crtc_mask) {
-> +               dpu_crtc = to_dpu_crtc(crtc);
-> +               mutex_lock(&dpu_crtc->commit_lock);
-> +       }
-> +}
-> +
-> +static void dpu_kms_commit_unlock(struct msm_kms *kms, unsigned int crtc_mask)
-> +{
-> +       struct dpu_kms *dpu_kms = to_dpu_kms(kms);
-> +       struct drm_crtc *crtc;
-> +       struct dpu_crtc *dpu_crtc;
-> +
-> +       for_each_crtc_mask(dpu_kms->dev, crtc, crtc_mask) {
-> +               dpu_crtc = to_dpu_crtc(crtc);
-> +               mutex_unlock(&dpu_crtc->commit_lock);
-> +       }
-> +}
-> +
->  static int _dpu_kms_initialize_dsi(struct drm_device *dev,
->                                     struct msm_drm_private *priv,
->                                     struct dpu_kms *dpu_kms)
-> @@ -738,6 +762,8 @@ static const struct msm_kms_funcs kms_funcs = {
->  #ifdef CONFIG_DEBUG_FS
->         .debugfs_init    = dpu_kms_debugfs_init,
->  #endif
-> +       .commit_lock     = dpu_kms_commit_lock,
-> +       .commit_unlock   = dpu_kms_commit_unlock,
->  };
->
->  static void _dpu_kms_mmu_destroy(struct dpu_kms *dpu_kms)
-> diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
-> index 561bfa4..d33253f 100644
-> --- a/drivers/gpu/drm/msm/msm_atomic.c
-> +++ b/drivers/gpu/drm/msm/msm_atomic.c
-> @@ -55,16 +55,32 @@ static void vblank_put(struct msm_kms *kms, unsigned crtc_mask)
->         }
->  }
->
-> +static void msm_commit_lock(struct msm_kms *kms, unsigned int crtc_mask)
-> +{
-> +       if (kms->funcs->commit_lock)
-> +               kms->funcs->commit_lock(kms, crtc_mask);
-> +       else
-> +               mutex_lock(&kms->commit_lock);
-> +}
-> +
-> +static void msm_commit_unlock(struct msm_kms *kms, unsigned int crtc_mask)
-> +{
-> +       if (kms->funcs->commit_unlock)
-> +               kms->funcs->commit_unlock(kms, crtc_mask);
-> +       else
-> +               mutex_unlock(&kms->commit_lock);
-> +}
+During suspend, dp host controller and hpd block are disabled due to
+both ahb and aux clock are disabled. Therefore hpd plug/unplug interrupts
+will not be generated. At dp_pm_resume(), reinitialize both dp host
+controller and hpd block so that hpd plug/unplug interrupts will be
+generated and handled by driver so that hpd connection state is updated
+correctly. This patch will fix link training flaky issues.
 
-Hi, I think the per-crtc commit-lock, and the updated
-locking/unlocking points are the right thing to do, but I don't think
-we need to touch dpu for this.  Just change kms->commit_lock to an
-array of mutexes, and drop the vfunc indirection.  All the same
-locking logic applies to mdp4/mdp5 as well (ie. don't touch the hw
-until it has flushed)
+Changes in v2:
+-- use container_of to cast correct dp_display_private pointer
+   at both dp_pm_suspend() and dp_pm_resume().
 
-BR,
--R
+Changes in v3:
+-- replace hpd_state atomic_t  with u32
 
-> +
->  static void msm_atomic_async_commit(struct msm_kms *kms, int crtc_idx)
->  {
->         unsigned crtc_mask = BIT(crtc_idx);
->
->         trace_msm_atomic_async_commit_start(crtc_mask);
->
-> -       mutex_lock(&kms->commit_lock);
-> +       msm_commit_lock(kms, crtc_mask);
->
->         if (!(kms->pending_crtc_mask & crtc_mask)) {
-> -               mutex_unlock(&kms->commit_lock);
-> +               msm_commit_unlock(kms, crtc_mask);
->                 goto out;
->         }
->
-> @@ -79,7 +95,6 @@ static void msm_atomic_async_commit(struct msm_kms *kms, int crtc_idx)
->          */
->         trace_msm_atomic_flush_commit(crtc_mask);
->         kms->funcs->flush_commit(kms, crtc_mask);
-> -       mutex_unlock(&kms->commit_lock);
->
->         /*
->          * Wait for flush to complete:
-> @@ -90,9 +105,8 @@ static void msm_atomic_async_commit(struct msm_kms *kms, int crtc_idx)
->
->         vblank_put(kms, crtc_mask);
->
-> -       mutex_lock(&kms->commit_lock);
->         kms->funcs->complete_commit(kms, crtc_mask);
-> -       mutex_unlock(&kms->commit_lock);
-> +       msm_commit_unlock(kms, crtc_mask);
->         kms->funcs->disable_commit(kms);
->
->  out:
-> @@ -189,12 +203,11 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
->          * Ensure any previous (potentially async) commit has
->          * completed:
->          */
-> +       msm_commit_lock(kms, crtc_mask);
->         trace_msm_atomic_wait_flush_start(crtc_mask);
->         kms->funcs->wait_flush(kms, crtc_mask);
->         trace_msm_atomic_wait_flush_finish(crtc_mask);
->
-> -       mutex_lock(&kms->commit_lock);
-> -
->         /*
->          * Now that there is no in-progress flush, prepare the
->          * current update:
-> @@ -232,7 +245,7 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
->                 }
->
->                 kms->funcs->disable_commit(kms);
-> -               mutex_unlock(&kms->commit_lock);
-> +               msm_commit_unlock(kms, crtc_mask);
->
->                 /*
->                  * At this point, from drm core's perspective, we
-> @@ -260,7 +273,7 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
->          */
->         trace_msm_atomic_flush_commit(crtc_mask);
->         kms->funcs->flush_commit(kms, crtc_mask);
-> -       mutex_unlock(&kms->commit_lock);
-> +       msm_commit_unlock(kms, crtc_mask);
->
->         /*
->          * Wait for flush to complete:
-> @@ -271,9 +284,9 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
->
->         vblank_put(kms, crtc_mask);
->
-> -       mutex_lock(&kms->commit_lock);
-> +       msm_commit_lock(kms, crtc_mask);
->         kms->funcs->complete_commit(kms, crtc_mask);
-> -       mutex_unlock(&kms->commit_lock);
-> +       msm_commit_unlock(kms, crtc_mask);
->         kms->funcs->disable_commit(kms);
->
->         drm_atomic_helper_commit_hw_done(state);
-> diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
-> index 1cbef6b..f02e73e 100644
-> --- a/drivers/gpu/drm/msm/msm_kms.h
-> +++ b/drivers/gpu/drm/msm/msm_kms.h
-> @@ -126,6 +126,11 @@ struct msm_kms_funcs {
->         /* debugfs: */
->         int (*debugfs_init)(struct msm_kms *kms, struct drm_minor *minor);
->  #endif
-> +       /* commit lock for crtc */
-> +       void (*commit_lock)(struct msm_kms *kms, unsigned int crtc_mask);
-> +
-> +       /* commit unlock for crtc */
-> +       void (*commit_unlock)(struct msm_kms *kms, unsigned int crtc_mask);
->  };
->
->  struct msm_kms;
-> --
-> 2.7.4
->
+Changes in v4
+-- call dp_display_host_deinit() at dp_pm_suspend()
+-- call dp_display_host_init() at msm_dp_display_enable()
+-- fix phy->init_count unbalance which causes link training failed
+
+Changes in v4
+--  add Fixes tag
+
+Fixes:  8ede2ecc3e5e (drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets)
+Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+---
+ drivers/gpu/drm/msm/dp/dp_catalog.c |  13 +++
+ drivers/gpu/drm/msm/dp/dp_catalog.h |   1 +
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    |   5 +
+ drivers/gpu/drm/msm/dp/dp_display.c | 144 +++++++++++++++-------------
+ drivers/gpu/drm/msm/dp/dp_reg.h     |   2 +
+ 5 files changed, 97 insertions(+), 68 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
+index b15b4ce4ba35..4963bfe6a472 100644
+--- a/drivers/gpu/drm/msm/dp/dp_catalog.c
++++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
+@@ -572,6 +572,19 @@ void dp_catalog_ctrl_hpd_config(struct dp_catalog *dp_catalog)
+ 	dp_write_aux(catalog, REG_DP_DP_HPD_CTRL, DP_DP_HPD_CTRL_HPD_EN);
+ }
+ 
++u32 dp_catalog_hpd_get_state_status(struct dp_catalog *dp_catalog)
++{
++	struct dp_catalog_private *catalog = container_of(dp_catalog,
++				struct dp_catalog_private, dp_catalog);
++	u32 status;
++
++	status = dp_read_aux(catalog, REG_DP_DP_HPD_INT_STATUS);
++	status >>= DP_DP_HPD_STATE_STATUS_BITS_SHIFT;
++	status &= DP_DP_HPD_STATE_STATUS_BITS_MASK;
++
++	return status;
++}
++
+ u32 dp_catalog_hpd_get_intr_status(struct dp_catalog *dp_catalog)
+ {
+ 	struct dp_catalog_private *catalog = container_of(dp_catalog,
+diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.h b/drivers/gpu/drm/msm/dp/dp_catalog.h
+index 4b7666f1fe6f..6d257dbebf29 100644
+--- a/drivers/gpu/drm/msm/dp/dp_catalog.h
++++ b/drivers/gpu/drm/msm/dp/dp_catalog.h
+@@ -97,6 +97,7 @@ void dp_catalog_ctrl_enable_irq(struct dp_catalog *dp_catalog, bool enable);
+ void dp_catalog_hpd_config_intr(struct dp_catalog *dp_catalog,
+ 			u32 intr_mask, bool en);
+ void dp_catalog_ctrl_hpd_config(struct dp_catalog *dp_catalog);
++u32 dp_catalog_hpd_get_state_status(struct dp_catalog *dp_catalog);
+ u32 dp_catalog_hpd_get_intr_status(struct dp_catalog *dp_catalog);
+ void dp_catalog_ctrl_phy_reset(struct dp_catalog *dp_catalog);
+ int dp_catalog_ctrl_update_vx_px(struct dp_catalog *dp_catalog, u8 v_level,
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index 2e3e1917351f..6bdaec778c4c 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -1400,6 +1400,8 @@ int dp_ctrl_host_init(struct dp_ctrl *dp_ctrl, bool flip)
+ void dp_ctrl_host_deinit(struct dp_ctrl *dp_ctrl)
+ {
+ 	struct dp_ctrl_private *ctrl;
++	struct dp_io *dp_io;
++	struct phy *phy;
+ 
+ 	if (!dp_ctrl) {
+ 		DRM_ERROR("Invalid input data\n");
+@@ -1407,8 +1409,11 @@ void dp_ctrl_host_deinit(struct dp_ctrl *dp_ctrl)
+ 	}
+ 
+ 	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
++	dp_io = &ctrl->parser->io;
++	phy = dp_io->phy;
+ 
+ 	dp_catalog_ctrl_enable_irq(ctrl->catalog, false);
++	phy_exit(phy);
+ 
+ 	DRM_DEBUG_DP("Host deinitialized successfully\n");
+ }
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index e175aa3fd3a9..cb92d0c61a2f 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -108,14 +108,12 @@ struct dp_display_private {
+ 	/* event related only access by event thread */
+ 	struct mutex event_mutex;
+ 	wait_queue_head_t event_q;
+-	atomic_t hpd_state;
++	u32 hpd_state;
+ 	u32 event_pndx;
+ 	u32 event_gndx;
+ 	struct dp_event event_list[DP_EVENT_Q_MAX];
+ 	spinlock_t event_lock;
+ 
+-	struct completion resume_comp;
+-
+ 	struct dp_audio *audio;
+ };
+ 
+@@ -366,6 +364,20 @@ static void dp_display_host_init(struct dp_display_private *dp)
+ 	dp->core_initialized = true;
+ }
+ 
++static void dp_display_host_deinit(struct dp_display_private *dp)
++{
++	if (!dp->core_initialized) {
++		DRM_DEBUG_DP("DP core not initialized\n");
++		return;
++	}
++
++	dp_ctrl_host_deinit(dp->ctrl);
++	dp_aux_deinit(dp->aux);
++	dp_power_deinit(dp->power);
++
++	dp->core_initialized = false;
++}
++
+ static int dp_display_usbpd_configure_cb(struct device *dev)
+ {
+ 	int rc = 0;
+@@ -490,7 +502,7 @@ static int dp_hpd_plug_handle(struct dp_display_private *dp, u32 data)
+ 
+ 	mutex_lock(&dp->event_mutex);
+ 
+-	state =  atomic_read(&dp->hpd_state);
++	state =  dp->hpd_state;
+ 	if (state == ST_SUSPEND_PENDING) {
+ 		mutex_unlock(&dp->event_mutex);
+ 		return 0;
+@@ -508,17 +520,14 @@ static int dp_hpd_plug_handle(struct dp_display_private *dp, u32 data)
+ 		return 0;
+ 	}
+ 
+-	if (state == ST_SUSPENDED)
+-		tout = DP_TIMEOUT_NONE;
+-
+-	atomic_set(&dp->hpd_state, ST_CONNECT_PENDING);
++	dp->hpd_state = ST_CONNECT_PENDING;
+ 
+ 	hpd->hpd_high = 1;
+ 
+ 	ret = dp_display_usbpd_configure_cb(&dp->pdev->dev);
+ 	if (ret) {	/* failed */
+ 		hpd->hpd_high = 0;
+-		atomic_set(&dp->hpd_state, ST_DISCONNECTED);
++		dp->hpd_state = ST_DISCONNECTED;
+ 	}
+ 
+ 	/* start sanity checking */
+@@ -539,10 +548,10 @@ static int dp_connect_pending_timeout(struct dp_display_private *dp, u32 data)
+ 
+ 	mutex_lock(&dp->event_mutex);
+ 
+-	state =  atomic_read(&dp->hpd_state);
++	state = dp->hpd_state;
+ 	if (state == ST_CONNECT_PENDING) {
+ 		dp_display_enable(dp, 0);
+-		atomic_set(&dp->hpd_state, ST_CONNECTED);
++		dp->hpd_state = ST_CONNECTED;
+ 	}
+ 
+ 	mutex_unlock(&dp->event_mutex);
+@@ -567,7 +576,7 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
+ 
+ 	mutex_lock(&dp->event_mutex);
+ 
+-	state = atomic_read(&dp->hpd_state);
++	state = dp->hpd_state;
+ 	if (state == ST_SUSPEND_PENDING) {
+ 		mutex_unlock(&dp->event_mutex);
+ 		return 0;
+@@ -585,7 +594,7 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
+ 		return 0;
+ 	}
+ 
+-	atomic_set(&dp->hpd_state, ST_DISCONNECT_PENDING);
++	dp->hpd_state = ST_DISCONNECT_PENDING;
+ 
+ 	/* disable HPD plug interrupt until disconnect is done */
+ 	dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_PLUG_INT_MASK
+@@ -620,10 +629,10 @@ static int dp_disconnect_pending_timeout(struct dp_display_private *dp, u32 data
+ 
+ 	mutex_lock(&dp->event_mutex);
+ 
+-	state =  atomic_read(&dp->hpd_state);
++	state =  dp->hpd_state;
+ 	if (state == ST_DISCONNECT_PENDING) {
+ 		dp_display_disable(dp, 0);
+-		atomic_set(&dp->hpd_state, ST_DISCONNECTED);
++		dp->hpd_state = ST_DISCONNECTED;
+ 	}
+ 
+ 	mutex_unlock(&dp->event_mutex);
+@@ -638,7 +647,7 @@ static int dp_irq_hpd_handle(struct dp_display_private *dp, u32 data)
+ 	mutex_lock(&dp->event_mutex);
+ 
+ 	/* irq_hpd can happen at either connected or disconnected state */
+-	state =  atomic_read(&dp->hpd_state);
++	state =  dp->hpd_state;
+ 	if (state == ST_SUSPEND_PENDING) {
+ 		mutex_unlock(&dp->event_mutex);
+ 		return 0;
+@@ -789,17 +798,10 @@ static int dp_display_enable(struct dp_display_private *dp, u32 data)
+ 
+ 	dp_display = g_dp_display;
+ 
+-	if (dp_display->power_on) {
+-		DRM_DEBUG_DP("Link already setup, return\n");
+-		return 0;
+-	}
+-
+ 	rc = dp_ctrl_on_stream(dp->ctrl);
+ 	if (!rc)
+ 		dp_display->power_on = true;
+ 
+-	/* complete resume_comp regardless it is armed or not */
+-	complete(&dp->resume_comp);
+ 	return rc;
+ }
+ 
+@@ -828,9 +830,6 @@ static int dp_display_disable(struct dp_display_private *dp, u32 data)
+ 
+ 	dp_display = g_dp_display;
+ 
+-	if (!dp_display->power_on)
+-		return -EINVAL;
+-
+ 	/* wait only if audio was enabled */
+ 	if (dp_display->audio_enabled) {
+ 		if (!wait_for_completion_timeout(&dp->audio_comp,
+@@ -1151,9 +1150,6 @@ static int dp_display_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	mutex_init(&dp->event_mutex);
+-
+-	init_completion(&dp->resume_comp);
+-
+ 	g_dp_display = &dp->dp_display;
+ 
+ 	/* Store DP audio handle inside DP display */
+@@ -1189,20 +1185,54 @@ static int dp_display_remove(struct platform_device *pdev)
+ 
+ static int dp_pm_resume(struct device *dev)
+ {
++	struct platform_device *pdev = to_platform_device(dev);
++	struct msm_dp *dp_display = platform_get_drvdata(pdev);
++	struct dp_display_private *dp;
++	u32 status;
++
++	dp = container_of(dp_display, struct dp_display_private, dp_display);
++
++	mutex_lock(&dp->event_mutex);
++
++	/* start from disconnected state */
++	dp->hpd_state = ST_DISCONNECTED;
++
++	/* turn on dp ctrl/phy */
++	dp_display_host_init(dp);
++
++	dp_catalog_ctrl_hpd_config(dp->catalog);
++
++	status = dp_catalog_hpd_get_state_status(dp->catalog);
++
++	if (status) {
++		dp->dp_display.is_connected = true;
++	} else {
++		dp->dp_display.is_connected = false;
++		/* make sure next resume host_init be called */
++		dp->core_initialized = false;
++	}
++
++	mutex_unlock(&dp->event_mutex);
++
+ 	return 0;
+ }
+ 
+ static int dp_pm_suspend(struct device *dev)
+ {
+ 	struct platform_device *pdev = to_platform_device(dev);
+-	struct dp_display_private *dp = platform_get_drvdata(pdev);
++	struct msm_dp *dp_display = platform_get_drvdata(pdev);
++	struct dp_display_private *dp;
+ 
+-	if (!dp) {
+-		DRM_ERROR("DP driver bind failed. Invalid driver data\n");
+-		return -EINVAL;
+-	}
++	dp = container_of(dp_display, struct dp_display_private, dp_display);
+ 
+-	atomic_set(&dp->hpd_state, ST_SUSPENDED);
++	mutex_lock(&dp->event_mutex);
++
++	if (dp->core_initialized == true)
++		dp_display_host_deinit(dp);
++
++	dp->hpd_state = ST_SUSPENDED;
++
++	mutex_unlock(&dp->event_mutex);
+ 
+ 	return 0;
+ }
+@@ -1317,19 +1347,6 @@ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
+ 	return 0;
+ }
+ 
+-static int dp_display_wait4resume_done(struct dp_display_private *dp)
+-{
+-	int ret = 0;
+-
+-	reinit_completion(&dp->resume_comp);
+-	if (!wait_for_completion_timeout(&dp->resume_comp,
+-				WAIT_FOR_RESUME_TIMEOUT_JIFFIES)) {
+-		DRM_ERROR("wait4resume_done timedout\n");
+-		ret = -ETIMEDOUT;
+-	}
+-	return ret;
+-}
+-
+ int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder)
+ {
+ 	int rc = 0;
+@@ -1344,6 +1361,8 @@ int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder)
+ 
+ 	mutex_lock(&dp_display->event_mutex);
+ 
++	dp_del_event(dp_display, EV_CONNECT_PENDING_TIMEOUT);
++
+ 	rc = dp_display_set_mode(dp, &dp_display->dp_mode);
+ 	if (rc) {
+ 		DRM_ERROR("Failed to perform a mode set, rc=%d\n", rc);
+@@ -1358,15 +1377,10 @@ int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder)
+ 		return rc;
+ 	}
+ 
+-	state =  atomic_read(&dp_display->hpd_state);
+-	if (state == ST_SUSPENDED) {
+-		/* start link training */
+-		dp_add_event(dp_display, EV_HPD_PLUG_INT, 0, 0);
+-		mutex_unlock(&dp_display->event_mutex);
++	state =  dp_display->hpd_state;
+ 
+-		/* wait until dp interface is up */
+-		goto resume_done;
+-	}
++	if (state == ST_SUSPEND_PENDING)
++		dp_display_host_init(dp_display);
+ 
+ 	dp_display_enable(dp_display, 0);
+ 
+@@ -1377,21 +1391,15 @@ int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder)
+ 		dp_display_unprepare(dp);
+ 	}
+ 
+-	dp_del_event(dp_display, EV_CONNECT_PENDING_TIMEOUT);
+-
+ 	if (state == ST_SUSPEND_PENDING)
+ 		dp_add_event(dp_display, EV_IRQ_HPD_INT, 0, 0);
+ 
+ 	/* completed connection */
+-	atomic_set(&dp_display->hpd_state, ST_CONNECTED);
++	dp_display->hpd_state = ST_CONNECTED;
+ 
+ 	mutex_unlock(&dp_display->event_mutex);
+ 
+ 	return rc;
+-
+-resume_done:
+-	dp_display_wait4resume_done(dp_display);
+-	return rc;
+ }
+ 
+ int msm_dp_display_pre_disable(struct msm_dp *dp, struct drm_encoder *encoder)
+@@ -1415,20 +1423,20 @@ int msm_dp_display_disable(struct msm_dp *dp, struct drm_encoder *encoder)
+ 
+ 	mutex_lock(&dp_display->event_mutex);
+ 
++	dp_del_event(dp_display, EV_DISCONNECT_PENDING_TIMEOUT);
++
+ 	dp_display_disable(dp_display, 0);
+ 
+ 	rc = dp_display_unprepare(dp);
+ 	if (rc)
+ 		DRM_ERROR("DP display unprepare failed, rc=%d\n", rc);
+ 
+-	dp_del_event(dp_display, EV_DISCONNECT_PENDING_TIMEOUT);
+-
+-	state =  atomic_read(&dp_display->hpd_state);
++	state =  dp_display->hpd_state;
+ 	if (state == ST_DISCONNECT_PENDING) {
+ 		/* completed disconnection */
+-		atomic_set(&dp_display->hpd_state, ST_DISCONNECTED);
++		dp_display->hpd_state = ST_DISCONNECTED;
+ 	} else {
+-		atomic_set(&dp_display->hpd_state, ST_SUSPEND_PENDING);
++		dp_display->hpd_state = ST_SUSPEND_PENDING;
+ 	}
+ 
+ 	mutex_unlock(&dp_display->event_mutex);
+diff --git a/drivers/gpu/drm/msm/dp/dp_reg.h b/drivers/gpu/drm/msm/dp/dp_reg.h
+index 43042ff90a19..268602803d9a 100644
+--- a/drivers/gpu/drm/msm/dp/dp_reg.h
++++ b/drivers/gpu/drm/msm/dp/dp_reg.h
+@@ -32,6 +32,8 @@
+ #define DP_DP_IRQ_HPD_INT_ACK			(0x00000002)
+ #define DP_DP_HPD_REPLUG_INT_ACK		(0x00000004)
+ #define DP_DP_HPD_UNPLUG_INT_ACK		(0x00000008)
++#define DP_DP_HPD_STATE_STATUS_BITS_MASK	(0x0000000F)
++#define DP_DP_HPD_STATE_STATUS_BITS_SHIFT	(0x1C)
+ 
+ #define REG_DP_DP_HPD_INT_MASK			(0x0000000C)
+ #define DP_DP_HPD_PLUG_INT_MASK			(0x00000001)
+
+base-commit: d1ea914925856d397b0b3241428f20b945e31434
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
