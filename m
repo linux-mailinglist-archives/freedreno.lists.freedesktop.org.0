@@ -2,56 +2,36 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5771228EE63
-	for <lists+freedreno@lfdr.de>; Thu, 15 Oct 2020 10:22:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DB9728EF38
+	for <lists+freedreno@lfdr.de>; Thu, 15 Oct 2020 11:15:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11FC86E0CC;
-	Thu, 15 Oct 2020 08:22:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99C3E6E120;
+	Thu, 15 Oct 2020 09:15:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x342.google.com (mail-ot1-x342.google.com
- [IPv6:2607:f8b0:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CAB36E0CC
- for <freedreno@lists.freedesktop.org>; Thu, 15 Oct 2020 08:22:51 +0000 (UTC)
-Received: by mail-ot1-x342.google.com with SMTP id f10so2164093otb.6
- for <freedreno@lists.freedesktop.org>; Thu, 15 Oct 2020 01:22:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=RbfF8nokdxqbUPmfp9WHmzX//GvXPuhhpFjfx5IA4wQ=;
- b=T9t6g+yo9ymX56V38aolG1A/9KAXyZikIasm30R3Ko9pDE6EYmLbKUHzK5HXSbKBO5
- qbeM9yPK6Oz+xJGZMEgWEmIggYkYMU2WT+lQRC32PoOW9lfmZBB0rJTUStrIGRbZDE7u
- 0WYfEqGYRzSUsx63jezpHV/KBj26eNgLxMvbQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=RbfF8nokdxqbUPmfp9WHmzX//GvXPuhhpFjfx5IA4wQ=;
- b=qMYo+5lMcy+QXyIUdN2S8zV4QJZPNp0WXUwuvLVLMCE98FYzaI9On6EhZjZ1/B9dNA
- FJOE+E+EIghCpfwPwuz0MrCwQoghsPZfj0+rtEnAMmpIvogr/yljk/Apx6pJCECLE6Zd
- TUEIvmxpYrf+cnLfebW/eFGIU8kGapy2OweSiKeUIXup2iHOeHRM12MKoHTRxw8LezDo
- N41NHqglKQ0OcP9VKi47XpJ0nmAyNAEy2xH/t7MXgBlgli/KUxVXmMnik3XzFoXN6DH0
- Dpzm2so38n/8lXOUVsAFGsQa02KGy+bTaHza+MnTFIQ4wBVn0qB/5F2Q/SqSOjtzrsFt
- FGfA==
-X-Gm-Message-State: AOAM533C1Dg+kumiXxfQGQjPzeU9CiMUffrzCk8pqx8eZ3JJag4pmOpP
- gwXDACL5stzpeYNvJQDfa9rZO9JfGqUAKeR4fm7jGg==
-X-Google-Smtp-Source: ABdhPJxXDNGfotqx0v5QajM2+CxwSI2ZMgsiK/moGuNgteF9MFJDikzgLrlsfcADZyubWdUn1wBehOQaLWfNouKU5kI=
-X-Received: by 2002:a05:6830:8b:: with SMTP id
- a11mr1814721oto.303.1602750170682; 
- Thu, 15 Oct 2020 01:22:50 -0700 (PDT)
-MIME-Version: 1.0
-References: <20201012020958.229288-1-robdclark@gmail.com>
- <20201012020958.229288-23-robdclark@gmail.com>
- <20201012144018.GB438822@phenom.ffwll.local>
- <CAF6AEGuZ0QOCbJDTF=FsHsbJ9J5rqLLPJexk_EvX+SxPGFZLDQ@mail.gmail.com>
- <20201013110826.GD438822@phenom.ffwll.local>
- <CAF6AEGvYJS38JjFzJOA3w9W0W_G47DJYw2bi4GsC1qgo3dAZ0A@mail.gmail.com>
-In-Reply-To: <CAF6AEGvYJS38JjFzJOA3w9W0W_G47DJYw2bi4GsC1qgo3dAZ0A@mail.gmail.com>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Thu, 15 Oct 2020 10:22:39 +0200
-Message-ID: <CAKMK7uGJ1+Vr-RCHX6=sMwTcOqMNySiHS2fNo8mke4Vraw4rvQ@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Subject: Re: [Freedreno] [PATCH v2 22/22] drm/msm: Don't implicit-sync if
- only a single ring
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E8526E120;
+ Thu, 15 Oct 2020 09:15:34 +0000 (UTC)
+Received: from ironmsg07-lv.qualcomm.com (HELO ironmsg07-lv.qulacomm.com)
+ ([10.47.202.151])
+ by alexa-out.qualcomm.com with ESMTP; 15 Oct 2020 02:15:34 -0700
+X-QCInternal: smtphost
+Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
+ by ironmsg07-lv.qulacomm.com with ESMTP/TLS/AES256-SHA;
+ 15 Oct 2020 02:15:32 -0700
+X-QCInternal: smtphost
+Received: from mkrishn-linux.qualcomm.com ([10.204.66.35])
+ by ironmsg02-blr.qualcomm.com with ESMTP; 15 Oct 2020 14:45:13 +0530
+Received: by mkrishn-linux.qualcomm.com (Postfix, from userid 438394)
+ id E4DC5214B6; Thu, 15 Oct 2020 14:45:11 +0530 (IST)
+From: Krishna Manikandan <mkrishn@codeaurora.org>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Thu, 15 Oct 2020 14:45:10 +0530
+Message-Id: <1602753310-22105-1-git-send-email-mkrishn@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [v2] drm/msm: Fix race condition in msm driver with
+ async layer updates
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,167 +44,169 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- Sean Paul <sean@poorly.run>, open list <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>
+Cc: Krishna Manikandan <mkrishn@codeaurora.org>, linux-kernel@vger.kernel.org,
+ dianders@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
+ kalyan_t@codeaurora.org, hoegsberg@chromium.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Oct 13, 2020 at 6:15 PM Rob Clark <robdclark@gmail.com> wrote:
->
-> On Tue, Oct 13, 2020 at 4:08 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> >
-> > On Mon, Oct 12, 2020 at 08:07:38AM -0700, Rob Clark wrote:
-> > > On Mon, Oct 12, 2020 at 7:40 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > > >
-> > > > On Sun, Oct 11, 2020 at 07:09:49PM -0700, Rob Clark wrote:
-> > > > > From: Rob Clark <robdclark@chromium.org>
-> > > > >
-> > > > > Any cross-device sync use-cases *must* use explicit sync.  And if there
-> > > > > is only a single ring (no-preemption), everything is FIFO order and
-> > > > > there is no need to implicit-sync.
-> > > > >
-> > > > > Mesa should probably just always use MSM_SUBMIT_NO_IMPLICIT, as behavior
-> > > > > is undefined when fences are not used to synchronize buffer usage across
-> > > > > contexts (which is the only case where multiple different priority rings
-> > > > > could come into play).
-> > > >
-> > > > Uh does this mean msm is broken on dri2/3 and wayland? Or I'm I just
-> > > > confused by your commit message?
-> > >
-> > > No, I don't think so.  If there is only a single priority level
-> > > ringbuffer (ie. no preemption to higher priority ring) then everything
-> > > is inherently FIFO order.
-> >
-> > Well eventually you get a scheduler I guess/hope :-)
->
-> we do have one currently for some gens, but not others.. hence the
-> check for # of rings.  (Ie. there is a ring per priority level, if
-> only one ring, that means no preemption/scheduler)
+When there are back to back commits with async cursor update,
+there is a case where second commit can program the DPU hw
+blocks while first didn't complete flushing config to HW.
 
-Even without preempt a scheduler is somewhat useful, if you have a
-very spammy client. Of course it assumes that everyone submits
-reasonably short workloads, otherwise nothing you can do.
+Synchronize the compositions such that second commit waits
+until first commit flushes the composition.
 
-> > > For cases where we are sharing buffers with something external to drm,
-> > > explicit sync will be used.  And we don't implicit sync with display,
-> > > otherwise x11 (frontbuffer rendering) would not work
-> >
-> > Uh now I'm even more confused. The implicit sync fences in dma_resv are
-> > kinda for everyone. That's also why dma_resv with the common locking
-> > approach is a useful idea.
-> >
-> > So display should definitely support implicit sync, and iirc msm does have
-> > the helper hooked up.
->
-> yup
->
-> > Wrt other subsystems, I guess passing dma_fence around somehow doesn't fit
-> > into v4l (the patches never landed), so v4l doesn't do any kind of sync
-> > right now. But this could be fixed. Not sure what else is going on.
-> >
-> > So I guess I still have no idea why you put that into the commit message.
-> >
-> > btw for what you're trying to do yourself, the way to do this is to
-> > allocate a fence timeline for your engine, compare fences, and no-op them
-> > all out if their own the same timeline.
->
-> we do that already (with a fence timeline per-ring, in the case of
-> gens which support multiple rings / preemption).. this patch just
-> short-circuits that in the case where we already knows the fences will
-> of the same timeline
+This change also introduces per crtc commit lock, such that
+commits on different crtcs are not blocked by each other.
 
-Ok so I think it's all good, no misunderstanding, but the commit
-message. I think if you delete the first sentence that cross-device
-sync must use explicit fences then it all makes sense and is
-consistent. Or clarify it that this is cross-engine sync with explicit
-internal synchronization, to differentiate it against cross-device
-sync (as seen by userspace, like different drm_device instances) and
-explicit dma_fence synchronization controlled by userspace.
--Daniel
+Changes in v2:
+	- Use an array of mutexes in kms to handle commit
+	  lock per crtc. (Rob Clark)
 
-> BR,
-> -R
->
-> > -Daniel
-> >
-> > >
-> > > BR,
-> > > -R
-> > >
-> > > > Since for these protocols we do expect implicit sync accross processes to
-> > > > work. Even across devices (and nvidia have actually provided quite a bunch
-> > > > of patches to make this work in i915 - ttm based drivers get this right,
-> > > > plus dumb scanout drivers using the right helpers also get this all
-> > > > right).
-> > > > -Daniel
-> > > >
-> > > > >
-> > > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > > > ---
-> > > > >  drivers/gpu/drm/msm/msm_gem_submit.c | 7 ++++---
-> > > > >  1 file changed, 4 insertions(+), 3 deletions(-)
-> > > > >
-> > > > > diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-> > > > > index 3151a0ca8904..c69803ea53c8 100644
-> > > > > --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> > > > > +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> > > > > @@ -277,7 +277,7 @@ static int submit_lock_objects(struct msm_gem_submit *submit)
-> > > > >       return ret;
-> > > > >  }
-> > > > >
-> > > > > -static int submit_fence_sync(struct msm_gem_submit *submit, bool no_implicit)
-> > > > > +static int submit_fence_sync(struct msm_gem_submit *submit, bool implicit_sync)
-> > > > >  {
-> > > > >       int i, ret = 0;
-> > > > >
-> > > > > @@ -297,7 +297,7 @@ static int submit_fence_sync(struct msm_gem_submit *submit, bool no_implicit)
-> > > > >                               return ret;
-> > > > >               }
-> > > > >
-> > > > > -             if (no_implicit)
-> > > > > +             if (!implicit_sync)
-> > > > >                       continue;
-> > > > >
-> > > > >               ret = msm_gem_sync_object(&msm_obj->base, submit->ring->fctx,
-> > > > > @@ -768,7 +768,8 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
-> > > > >       if (ret)
-> > > > >               goto out;
-> > > > >
-> > > > > -     ret = submit_fence_sync(submit, !!(args->flags & MSM_SUBMIT_NO_IMPLICIT));
-> > > > > +     ret = submit_fence_sync(submit, (gpu->nr_rings > 1) &&
-> > > > > +                     !(args->flags & MSM_SUBMIT_NO_IMPLICIT));
-> > > > >       if (ret)
-> > > > >               goto out;
-> > > > >
-> > > > > --
-> > > > > 2.26.2
-> > > > >
-> > > >
-> > > > --
-> > > > Daniel Vetter
-> > > > Software Engineer, Intel Corporation
-> > > > http://blog.ffwll.ch
-> >
-> > --
-> > Daniel Vetter
-> > Software Engineer, Intel Corporation
-> > http://blog.ffwll.ch
-> > _______________________________________________
-> > Freedreno mailing list
-> > Freedreno@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/freedreno
+Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
+---
+ drivers/gpu/drm/msm/msm_atomic.c | 32 +++++++++++++++++++-------------
+ drivers/gpu/drm/msm/msm_kms.h    |  6 ++++--
+ 2 files changed, 23 insertions(+), 15 deletions(-)
 
-
-
+diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
+index 561bfa4..f9bd472 100644
+--- a/drivers/gpu/drm/msm/msm_atomic.c
++++ b/drivers/gpu/drm/msm/msm_atomic.c
+@@ -61,10 +61,10 @@ static void msm_atomic_async_commit(struct msm_kms *kms, int crtc_idx)
+ 
+ 	trace_msm_atomic_async_commit_start(crtc_mask);
+ 
+-	mutex_lock(&kms->commit_lock);
++	mutex_lock(&kms->commit_lock[crtc_idx]);
+ 
+ 	if (!(kms->pending_crtc_mask & crtc_mask)) {
+-		mutex_unlock(&kms->commit_lock);
++		mutex_unlock(&kms->commit_lock[crtc_idx]);
+ 		goto out;
+ 	}
+ 
+@@ -79,7 +79,6 @@ static void msm_atomic_async_commit(struct msm_kms *kms, int crtc_idx)
+ 	 */
+ 	trace_msm_atomic_flush_commit(crtc_mask);
+ 	kms->funcs->flush_commit(kms, crtc_mask);
+-	mutex_unlock(&kms->commit_lock);
+ 
+ 	/*
+ 	 * Wait for flush to complete:
+@@ -90,9 +89,8 @@ static void msm_atomic_async_commit(struct msm_kms *kms, int crtc_idx)
+ 
+ 	vblank_put(kms, crtc_mask);
+ 
+-	mutex_lock(&kms->commit_lock);
+ 	kms->funcs->complete_commit(kms, crtc_mask);
+-	mutex_unlock(&kms->commit_lock);
++	mutex_unlock(&kms->commit_lock[crtc_idx]);
+ 	kms->funcs->disable_commit(kms);
+ 
+ out:
+@@ -171,6 +169,16 @@ static unsigned get_crtc_mask(struct drm_atomic_state *state)
+ 	return mask;
+ }
+ 
++static int get_crtc_id(struct msm_kms *kms, unsigned int crtc_mask)
++{
++	struct drm_crtc *crtc;
++
++	for_each_crtc_mask(kms->dev, crtc, crtc_mask)
++		return drm_crtc_index(crtc);
++
++	return 0;
++}
++
+ void msm_atomic_commit_tail(struct drm_atomic_state *state)
+ {
+ 	struct drm_device *dev = state->dev;
+@@ -180,6 +188,7 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
+ 	unsigned crtc_mask = get_crtc_mask(state);
+ 	bool async = kms->funcs->vsync_time &&
+ 			can_do_async(state, &async_crtc);
++	int crtc_idx = get_crtc_id(kms, crtc_mask);
+ 
+ 	trace_msm_atomic_commit_tail_start(async, crtc_mask);
+ 
+@@ -189,12 +198,11 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
+ 	 * Ensure any previous (potentially async) commit has
+ 	 * completed:
+ 	 */
++	mutex_lock(&kms->commit_lock[crtc_idx]);
+ 	trace_msm_atomic_wait_flush_start(crtc_mask);
+ 	kms->funcs->wait_flush(kms, crtc_mask);
+ 	trace_msm_atomic_wait_flush_finish(crtc_mask);
+ 
+-	mutex_lock(&kms->commit_lock);
+-
+ 	/*
+ 	 * Now that there is no in-progress flush, prepare the
+ 	 * current update:
+@@ -232,8 +240,7 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
+ 		}
+ 
+ 		kms->funcs->disable_commit(kms);
+-		mutex_unlock(&kms->commit_lock);
+-
++		mutex_unlock(&kms->commit_lock[crtc_idx]);
+ 		/*
+ 		 * At this point, from drm core's perspective, we
+ 		 * are done with the atomic update, so we can just
+@@ -260,8 +267,7 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
+ 	 */
+ 	trace_msm_atomic_flush_commit(crtc_mask);
+ 	kms->funcs->flush_commit(kms, crtc_mask);
+-	mutex_unlock(&kms->commit_lock);
+-
++	mutex_unlock(&kms->commit_lock[crtc_idx]);
+ 	/*
+ 	 * Wait for flush to complete:
+ 	 */
+@@ -271,9 +277,9 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
+ 
+ 	vblank_put(kms, crtc_mask);
+ 
+-	mutex_lock(&kms->commit_lock);
++	mutex_lock(&kms->commit_lock[crtc_idx]);
+ 	kms->funcs->complete_commit(kms, crtc_mask);
+-	mutex_unlock(&kms->commit_lock);
++	mutex_unlock(&kms->commit_lock[crtc_idx]);
+ 	kms->funcs->disable_commit(kms);
+ 
+ 	drm_atomic_helper_commit_hw_done(state);
+diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
+index 1cbef6b..2049847 100644
+--- a/drivers/gpu/drm/msm/msm_kms.h
++++ b/drivers/gpu/drm/msm/msm_kms.h
+@@ -155,7 +155,7 @@ struct msm_kms {
+ 	 * For async commit, where ->flush_commit() and later happens
+ 	 * from the crtc's pending_timer close to end of the frame:
+ 	 */
+-	struct mutex commit_lock;
++	struct mutex commit_lock[MAX_CRTCS];
+ 	unsigned pending_crtc_mask;
+ 	struct msm_pending_timer pending_timers[MAX_CRTCS];
+ };
+@@ -165,7 +165,9 @@ static inline void msm_kms_init(struct msm_kms *kms,
+ {
+ 	unsigned i;
+ 
+-	mutex_init(&kms->commit_lock);
++	for (i = 0; i < ARRAY_SIZE(kms->commit_lock); i++)
++		mutex_init(&kms->commit_lock[i]);
++
+ 	kms->funcs = funcs;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(kms->pending_timers); i++)
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.7.4
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
