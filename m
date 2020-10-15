@@ -2,59 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C98828E6E4
-	for <lists+freedreno@lfdr.de>; Wed, 14 Oct 2020 21:06:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FA9628ED44
+	for <lists+freedreno@lfdr.de>; Thu, 15 Oct 2020 08:55:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B89F6EAD6;
-	Wed, 14 Oct 2020 19:06:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E4276EC1B;
+	Thu, 15 Oct 2020 06:55:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A3396EB2D
- for <freedreno@lists.freedesktop.org>; Wed, 14 Oct 2020 18:37:04 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1602700624; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=IEIPMirYLglQtMG3ZhrXuMt9kWgfaS7lKvwY28y7CVA=;
- b=g2z51jmvfxb1rTMVYrjj9NSvn8uTUIH6B8AJUU01TiiBIVux9fMhYHj+A+h4hYpePO+cJjk+
- TzX1+/lbCHL0HUEyKgCES9vtazue9rK/UL9uta07OCxo0M9eDIK5iNiSTFF5S2Mr5PlrutoU
- 1GyJOpRvHeA1Twv2Diqqed0NxYc=
-X-Mailgun-Sending-Ip: 69.72.42.4
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
- 5f87454fe9e942744cad84a0 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 14 Oct 2020 18:37:03
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 6124FC433F1; Wed, 14 Oct 2020 18:37:02 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: manafm)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 45ACEC433CB;
- Wed, 14 Oct 2020 18:37:01 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD2856EC1B;
+ Thu, 15 Oct 2020 06:55:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=1vZhw/JrbB2T8GVpb8VuLYmLoPDb9JW5DiEoY3ZRNZg=; b=Fycf1JgekT0YbewfwlGQNRxEiq
+ pJjRTzJhLS2LSjjnsUqAEHFvAs/UjhL1lG9jsBd3BRTuTCNFToaNXo2Jz84l6buTUGtzQU8nrm/eS
+ CzQz4jTRPnPfl6blS+u/Oj+MCPFeCSsHgXEXjatO5/9CZiNqsLLyVUT9J8ASYh/VhLRkC5XOs/XhU
+ VZVovGpVYzsa6HeIWVSq3wwywNKJXx4TCv86aLhltul6lPWtqHfE3yGQGewNXjPK9o4VGbk6tZaVk
+ qnOgou5uPSrnmd8aow5y9SZoBcJEqRePqY2hkKbPUtKsr1abESVw4BjKI+PENYB37As7agZTH6gkH
+ /Tfpr9xg==;
+Received: from hch by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat
+ Linux)) id 1kSxAi-0004Aa-6Z; Thu, 15 Oct 2020 06:55:32 +0000
+Date: Thu, 15 Oct 2020 07:55:32 +0100
+From: Christoph Hellwig <hch@infradead.org>
+To: Robin Murphy <robin.murphy@arm.com>
+Message-ID: <20201015065532.GA15371@infradead.org>
+References: <20201001002709.21361-1-jonathan@marek.ca>
+ <20201001002709.21361-3-jonathan@marek.ca>
+ <20201002075321.GA7547@infradead.org>
+ <b22fb797-67b0-a912-1d23-2b47c9a9e674@marek.ca>
+ <20201005082914.GA31702@infradead.org>
+ <3e0b91be-e4a4-4ea5-7d58-6e71b8d51932@marek.ca>
+ <20201006072306.GA12834@infradead.org>
+ <148a1660-f0fc-7163-2240-6b94725342b5@marek.ca>
+ <20201007062519.GA23519@infradead.org>
+ <c3baadae-8e20-86a6-44f5-4571a8d3035e@arm.com>
 MIME-Version: 1.0
-Date: Thu, 15 Oct 2020 00:07:01 +0530
-From: manafm@codeaurora.org
-To: Akhil P Oommen <akhilpo@codeaurora.org>
-In-Reply-To: <fc490021-b046-68c5-7ceb-9c63d3ff5650@codeaurora.org>
-References: <1602176947-17385-1-git-send-email-akhilpo@codeaurora.org>
- <CAD=FV=WjWv040TyBaqU8ZAuxGi-YpJ2tsVcUbOV4Htv=_-n8fA@mail.gmail.com>
- <20201009165705.GA1292413@google.com>
- <fc490021-b046-68c5-7ceb-9c63d3ff5650@codeaurora.org>
-Message-ID: <a4be2cf9e51e4f40aae3f9a56989a42f@codeaurora.org>
-X-Sender: manafm@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-X-Mailman-Approved-At: Wed, 14 Oct 2020 19:06:14 +0000
-Subject: Re: [Freedreno] [PATCH 1/2] arm64: dts: qcom: sc7180: Add gpu
- cooling support
+Content-Disposition: inline
+In-Reply-To: <c3baadae-8e20-86a6-44f5-4571a8d3035e@arm.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ casper.infradead.org. See http://www.infradead.org/rpr.html
+Subject: Re: [Freedreno] [PATCH 2/3] drm/msm: add DRM_MSM_GEM_SYNC_CACHE for
+ non-coherent cache maintenance
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,143 +58,39 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Doug Anderson <dianders@chromium.org>, LKML <linux-kernel@vger.kernel.org>,
- Matthias Kaehlcke <mka@chromium.org>, dri-devel@freedesktop.org,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: Sean Paul <sean@poorly.run>, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Christoph Hellwig <hch@infradead.org>, iommu@lists.linux-foundation.org,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-10-14 18:59, Akhil P Oommen wrote:
-> On 10/9/2020 10:27 PM, Matthias Kaehlcke wrote:
->> On Fri, Oct 09, 2020 at 08:05:10AM -0700, Doug Anderson wrote:
->>> Hi,
->>> 
->>> On Thu, Oct 8, 2020 at 10:10 AM Akhil P Oommen 
->>> <akhilpo@codeaurora.org> wrote:
->>>> 
->>>> Add cooling-cells property and the cooling maps for the gpu tzones
->>>> to support GPU cooling.
->>>> 
->>>> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
->>>> ---
->>>>   arch/arm64/boot/dts/qcom/sc7180.dtsi | 29 
->>>> ++++++++++++++++++++++-------
->>>>   1 file changed, 22 insertions(+), 7 deletions(-)
->>>> 
->>>> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi 
->>>> b/arch/arm64/boot/dts/qcom/sc7180.dtsi
->>>> index d46b383..40d6a28 100644
->>>> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
->>>> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
->>>> @@ -2,7 +2,7 @@
->>>>   /*
->>>>    * SC7180 SoC device tree source
->>>>    *
->>>> - * Copyright (c) 2019, The Linux Foundation. All rights reserved.
->>>> + * Copyright (c) 2019-20, The Linux Foundation. All rights 
->>>> reserved.
->>>>    */
->>>> 
->>>>   #include <dt-bindings/clock/qcom,dispcc-sc7180.h>
->>>> @@ -1885,6 +1885,7 @@
->>>>                          iommus = <&adreno_smmu 0>;
->>>>                          operating-points-v2 = <&gpu_opp_table>;
->>>>                          qcom,gmu = <&gmu>;
->>>> +                       #cooling-cells = <2>;
->>> 
->>> Presumably we should add this to the devicetree bindings, too?
-> Yes, thanks for catching this. Will update in the next patch.
-> 
->>> 
->>> 
->>>>                          interconnects = <&gem_noc MASTER_GFX3D 
->>>> &mc_virt SLAVE_EBI1>;
->>>>                          interconnect-names = "gfx-mem";
->>>> @@ -3825,16 +3826,16 @@
->>>>                  };
->>>> 
->>>>                  gpuss0-thermal {
->>>> -                       polling-delay-passive = <0>;
->>>> +                       polling-delay-passive = <100>;
->>> 
->>> Why did you make this change?  I'm pretty sure that we _don't_ want
->>> this since we're using interrupts for the thermal sensor.  See commit
->>> 22337b91022d ("arm64: dts: qcom: sc7180: Changed polling mode in
->>> Thermal-zones node").
->> 
->> I was going to ask the same, this shouldn't be needed.
-As per our understanding unlike "polling-delay",  this delay property is 
-intended to activate polling thread on post trip threshold violation and 
-  it is irrespective of sensor is capable for trip interrupt or not.
-This polling is more of governor related. Below are the few references 
-from Documentation/code which tells polling-delay-passive is needed for 
-IPA for better IPA performance.
+On Tue, Oct 13, 2020 at 02:42:38PM +0100, Robin Murphy wrote:
+> I still think this situation would be best handled with a variant of
+> dma_ops_bypass that also guarantees to bypass SWIOTLB, and can be set
+> automatically when attaching to an unmanaged IOMMU domain.
 
-As per Power allocator documentations
+dma_ops_bypass should mostly do the right thing as-is.  swiotlb bouncing
+is triggered of two things:
 
-1. 
-https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/Documentation/driver-api/thermal/power_allocator.rst?h=v5.4.71#n264
+ 1) the dma_mask.  This is under control of the driver, and obviously
+    if it is too small for a legit reason we can't just proceed
+ 2) force_dma_unencrypted() - we'd need to do an opt-out here, either
+    by a flag or by being smart and looking for an attached iommu on
+    the device
 
-"The power allocator governor's PID controller works best if there is a
-periodic tick.  If you have a driver that calls
-`thermal_zone_device_update()` (or anything that ends up calling the
-governor's `throttle()` function) repetitively, the governor response
-won't be very good.  Note that this is not particular to this
-governor, step-wise will also misbehave if you call its throttle()
-faster than the normal thermal framework tick (due to interrupts for
-example) as it will overreact"
+> That way the
+> device driver can make DMA API calls in the appropriate places that do the
+> right thing either way, and only needs logic to decide whether to use the
+> returned DMA addresses directly or ignore them if it knows they're
+> overridden by its own IOMMU mapping.
 
-2. In Power allocator code, when  switch_on/control trip temp violation, 
-it is enabling passive counter to activate passive polling @ 
-https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/thermal/power_allocator.c?h=v5.4.71#n634
-
-3. while calculating derivative term, it is using passive_delay @
-  
-https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/thermal/power_allocator.c?h=v5.4.71#n243
-
-4. Sensor interrupt will work if temperature is fluctuating between 
-trip_temp and hysteresis. But say a case where we are not enabling 
-polling-delay-passive. In this case if  current temperature > 
-control_temp trip(2nd passive trip) and
-  temperature trend is still raising, then sensor high trip will be 
-disabled (OR configured for critical trip threshold). No more trip 
-interrupt from sensor until it reaches critical trip or falls below 
-control_temp hysteresis.
-  How  the governor re-evaluate its next mitigation without passive 
-polling thread  here ?
-
-I think the same is required for CPU thermal zone as well.
->> 
->>>>                          polling-delay = <0>;
->>>> 
->>>>                          thermal-sensors = <&tsens0 13>;
->>>> 
->>>>                          trips {
->>>>                                  gpuss0_alert0: trip-point0 {
->>>> -                                       temperature = <90000>;
->>>> +                                       temperature = <95000>;
->>>>                                          hysteresis = <2000>;
->>>> -                                       type = "hot";
->>>> +                                       type = "passive";
->>> 
->>> Matthias probably knows better, but I wonder if we should be making
->>> two passive trip levels like we do with CPU.  IIRC this is important
->>> if someone wants to be able to use this with IPA.
->> 
->> Yes, please introduce a second trip point and make both of them
->> 'passive'.
->> 
->> _______________________________________________
->> dri-devel mailing list
->> dri-devel@lists.freedesktop.org
->> https://lists.freedesktop.org/mailman/listinfo/dri-devel
->> 
-> Adding Manaf here.
-> 
-> -Akhil.
+I'd be happy to review patches for this.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
