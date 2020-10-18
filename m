@@ -1,43 +1,43 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C6E02919EA
-	for <lists+freedreno@lfdr.de>; Sun, 18 Oct 2020 21:21:52 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CDC8291A37
+	for <lists+freedreno@lfdr.de>; Sun, 18 Oct 2020 21:23:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B75D6E868;
-	Sun, 18 Oct 2020 19:21:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96DB96E86A;
+	Sun, 18 Oct 2020 19:23:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEFDC6E867;
- Sun, 18 Oct 2020 19:21:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3E926E86A;
+ Sun, 18 Oct 2020 19:23:38 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id CB09A223FB;
- Sun, 18 Oct 2020 19:21:48 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 033BE222E9;
+ Sun, 18 Oct 2020 19:23:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1603048909;
- bh=nuqZbPGaVQvwnOYngLLEZ2+zo7gLgzoSpyjicX9nkQg=;
+ s=default; t=1603049018;
+ bh=7V9wtvwdCQLMZ8tHmSfN2E3T9IbfUcLtzn8OQH3qIUU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=La1GPkUiII4vdEo81J7T/iRoYKxD13gQMSGoI92vxaATq85xCvKNxXSIETlH4EEUZ
- IOlzBum6y5KwDm8kEDvdCXiQMnU6r1Mj4wxWRroVqRIbK7vgoJlyDXfpV4yxbFz5S0
- n7/A7Jm2WmjkOXkhlHHZucHDvc1A0BA4fOaUv8pQ=
+ b=G82bLGJGsF5tJrduwf92TKIIyOT8/3L967HuC57mM8jB73ryfLAILKS2RyBMlyZmN
+ YN+fPGDIXkF3v2412u6f3/ubiwYEnSEQ1NezSslL1mTFtUtEPd5+P2ZRG5NHxPt9Jf
+ TQ1EyZmbO6gHoFvtdSnVHYhkO6Qc4+6kblNLCsZA=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sun, 18 Oct 2020 15:19:54 -0400
-Message-Id: <20201018192026.4053674-69-sashal@kernel.org>
+Date: Sun, 18 Oct 2020 15:22:04 -0400
+Message-Id: <20201018192231.4054535-53-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20201018192026.4053674-1-sashal@kernel.org>
-References: <20201018192026.4053674-1-sashal@kernel.org>
+In-Reply-To: <20201018192231.4054535-1-sashal@kernel.org>
+References: <20201018192231.4054535-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Subject: [Freedreno] [PATCH AUTOSEL 5.8 069/101] drm/msm/a6xx: fix a
- potential overflow issue
+Subject: [Freedreno] [PATCH AUTOSEL 5.4 53/80] drm/msm/a6xx: fix a potential
+ overflow issue
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,10 +75,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-index d6023ba8033c0..3bb567812b990 100644
+index 691c1a277d91b..dfcbb2b7cdda3 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-@@ -864,7 +864,7 @@ static void a6xx_get_indexed_registers(struct msm_gpu *gpu,
+@@ -834,7 +834,7 @@ static void a6xx_get_indexed_registers(struct msm_gpu *gpu,
  	int i;
  
  	a6xx_state->indexed_regs = state_kcalloc(a6xx_state, count,
