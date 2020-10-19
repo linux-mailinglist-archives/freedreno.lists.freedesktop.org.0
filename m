@@ -2,33 +2,34 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADB9529280A
-	for <lists+freedreno@lfdr.de>; Mon, 19 Oct 2020 15:19:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0961A292813
+	for <lists+freedreno@lfdr.de>; Mon, 19 Oct 2020 15:19:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 537876E985;
-	Mon, 19 Oct 2020 13:19:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4CB56E987;
+	Mon, 19 Oct 2020 13:19:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1869C6E985
- for <freedreno@lists.freedesktop.org>; Mon, 19 Oct 2020 13:19:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07D596E987
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Oct 2020 13:19:44 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1603113573; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=/ZGUMfp1A0aHVNO/vay/6ICqzhjKvdAharx01TPBxAI=;
- b=PX0A6SmWcvrnuyQYgPooHxswfbFNxceiVdBj77wA4OClA7C9YXnMZ++Hhh9Ewvrn5z56Mko7
- cs4kiRJfVeyHAN09XkSzHcfY5XrR7dzbE3BesXFRCxxa0J90xE9tmFmWudkN/142nNLi57xE
- 8bfymIEzgYftnJ8a3yJX6wpM96w=
+ s=smtp; t=1603113587; h=References: In-Reply-To: Message-Id: Date:
+ Subject: Cc: To: From: Sender;
+ bh=MYMyYtu3V2y4AMRiM+2FTNZJzA9IPSnr22pa2xfbQRE=;
+ b=cAbFWXzPx6PDP8XKogZy0hexNg+wzde7fjvZHPI5fQLzjwqAY5yvTLI8RtaYllkqBWWp3Eqo
+ JzmfHE455MgahPDgTh/3ELok4r0hlnAUYJOuFcrAwWToGssPyUihqioHSm2Fci0xMhzWnyqS
+ PjcEMcp5ZgUY0xTTT19UAHtpTdE=
 X-Mailgun-Sending-Ip: 69.72.42.4
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n04.prod.us-east-1.postgun.com with SMTP id
- 5f8d92633711fec7b102f053 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 19 Oct 2020 13:19:31
+ smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
+ 5f8d926552f4fccef025d0ed (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 19 Oct 2020 13:19:33
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 53B91C433F1; Mon, 19 Oct 2020 13:19:30 +0000 (UTC)
+ id E28A0C43382; Mon, 19 Oct 2020 13:19:32 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -38,20 +39,22 @@ X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
 Received: from akhilpo-linux.qualcomm.com (unknown [202.46.22.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: akhilpo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 73B34C433CB;
- Mon, 19 Oct 2020 13:19:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 73B34C433CB
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 9B808C43385;
+ Mon, 19 Oct 2020 13:19:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 9B808C43385
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  spf=fail smtp.mailfrom=akhilpo@codeaurora.org
 From: Akhil P Oommen <akhilpo@codeaurora.org>
 To: freedreno@lists.freedesktop.org
-Date: Mon, 19 Oct 2020 18:49:17 +0530
-Message-Id: <1603113558-23330-1-git-send-email-akhilpo@codeaurora.org>
+Date: Mon, 19 Oct 2020 18:49:18 +0530
+Message-Id: <1603113558-23330-2-git-send-email-akhilpo@codeaurora.org>
 X-Mailer: git-send-email 2.7.4
-Subject: [Freedreno] [PATCH 1/2] drm/msm: Implement shutdown callback for
- adreno
+In-Reply-To: <1603113558-23330-1-git-send-email-akhilpo@codeaurora.org>
+References: <1603113558-23330-1-git-send-email-akhilpo@codeaurora.org>
+Subject: [Freedreno] [PATCH 2/2] drm/msm: Fix duplicate gpu node in icc
+ summary
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,39 +76,148 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Implement the shutdown callback for adreno gpu platform device
-to safely shutdown it before a system reboot. This helps to avoid
-futher transactions from gpu after the smmu is moved to bypass mode.
+On targets with a6xx gpu, there is a duplicate gpu icc node listed in
+the interconnect summary. On these targets, calling
+dev_pm_opp_of_add_table() api initializes the icc nodes for gpu indirectly.
+So we should avoid using of_icc_get() api in the common probe path. To fix
+this, we can move of_icc_get() to target specific code where it is
+required.
 
 Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
 ---
- drivers/gpu/drm/msm/adreno/adreno_device.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c   | 21 +++++++++++++++++++--
+ drivers/gpu/drm/msm/adreno/a4xx_gpu.c   | 20 ++++++++++++++++++--
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 29 +----------------------------
+ 3 files changed, 38 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-index 58e03b2..87c8b03 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-@@ -475,6 +475,11 @@ static int adreno_remove(struct platform_device *pdev)
- 	return 0;
+diff --git a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+index f29c77d..93da668 100644
+--- a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+@@ -519,6 +519,8 @@ struct msm_gpu *a3xx_gpu_init(struct drm_device *dev)
+ 	struct msm_gpu *gpu;
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	struct platform_device *pdev = priv->gpu_pdev;
++	struct icc_path *ocmem_icc_path;
++	struct icc_path *icc_path;
+ 	int ret;
+ 
+ 	if (!pdev) {
+@@ -566,13 +568,28 @@ struct msm_gpu *a3xx_gpu_init(struct drm_device *dev)
+ 		goto fail;
+ 	}
+ 
++	icc_path = devm_of_icc_get(&pdev->dev, "gfx-mem");
++	ret = IS_ERR(icc_path);
++	if (ret)
++		goto fail;
++
++	ocmem_icc_path = devm_of_icc_get(&pdev->dev, "ocmem");
++	ret = IS_ERR(ocmem_icc_path);
++	if (ret) {
++		/* allow -ENODATA, ocmem icc is optional */
++		if (ret != -ENODATA)
++			goto fail;
++		ocmem_icc_path = NULL;
++	}
++
++
+ 	/*
+ 	 * Set the ICC path to maximum speed for now by multiplying the fastest
+ 	 * frequency by the bus width (8). We'll want to scale this later on to
+ 	 * improve battery life.
+ 	 */
+-	icc_set_bw(gpu->icc_path, 0, Bps_to_icc(gpu->fast_rate) * 8);
+-	icc_set_bw(gpu->ocmem_icc_path, 0, Bps_to_icc(gpu->fast_rate) * 8);
++	icc_set_bw(icc_path, 0, Bps_to_icc(gpu->fast_rate) * 8);
++	icc_set_bw(ocmem_icc_path, 0, Bps_to_icc(gpu->fast_rate) * 8);
+ 
+ 	return gpu;
+ 
+diff --git a/drivers/gpu/drm/msm/adreno/a4xx_gpu.c b/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
+index 2b93b33..c0be3a0 100644
+--- a/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
+@@ -648,6 +648,8 @@ struct msm_gpu *a4xx_gpu_init(struct drm_device *dev)
+ 	struct msm_gpu *gpu;
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	struct platform_device *pdev = priv->gpu_pdev;
++	struct icc_path *ocmem_icc_path;
++	struct icc_path *icc_path;
+ 	int ret;
+ 
+ 	if (!pdev) {
+@@ -694,13 +696,27 @@ struct msm_gpu *a4xx_gpu_init(struct drm_device *dev)
+ 		goto fail;
+ 	}
+ 
++	icc_path = devm_of_icc_get(&pdev->dev, "gfx-mem");
++	ret = IS_ERR(icc_path);
++	if (ret)
++		goto fail;
++
++	ocmem_icc_path = devm_of_icc_get(&pdev->dev, "ocmem");
++	ret = IS_ERR(ocmem_icc_path);
++	if (ret) {
++		/* allow -ENODATA, ocmem icc is optional */
++		if (ret != -ENODATA)
++			goto fail;
++		ocmem_icc_path = NULL;
++	}
++
+ 	/*
+ 	 * Set the ICC path to maximum speed for now by multiplying the fastest
+ 	 * frequency by the bus width (8). We'll want to scale this later on to
+ 	 * improve battery life.
+ 	 */
+-	icc_set_bw(gpu->icc_path, 0, Bps_to_icc(gpu->fast_rate) * 8);
+-	icc_set_bw(gpu->ocmem_icc_path, 0, Bps_to_icc(gpu->fast_rate) * 8);
++	icc_set_bw(icc_path, 0, Bps_to_icc(gpu->fast_rate) * 8);
++	icc_set_bw(ocmem_icc_path, 0, Bps_to_icc(gpu->fast_rate) * 8);
+ 
+ 	return gpu;
+ 
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index fd8f491..6e3b820 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -920,35 +920,8 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 
+ 	ret = msm_gpu_init(drm, pdev, &adreno_gpu->base, &funcs->base,
+ 			adreno_gpu->info->name, &adreno_gpu_config);
+-	if (ret)
+-		return ret;
+-
+-	/*
+-	 * The legacy case, before "interconnect-names", only has a
+-	 * single interconnect path which is equivalent to "gfx-mem"
+-	 */
+-	if (!of_find_property(dev->of_node, "interconnect-names", NULL)) {
+-		gpu->icc_path = of_icc_get(dev, NULL);
+-	} else {
+-		gpu->icc_path = of_icc_get(dev, "gfx-mem");
+-		gpu->ocmem_icc_path = of_icc_get(dev, "ocmem");
+-	}
+ 
+-	if (IS_ERR(gpu->icc_path)) {
+-		ret = PTR_ERR(gpu->icc_path);
+-		gpu->icc_path = NULL;
+-		return ret;
+-	}
+-
+-	if (IS_ERR(gpu->ocmem_icc_path)) {
+-		ret = PTR_ERR(gpu->ocmem_icc_path);
+-		gpu->ocmem_icc_path = NULL;
+-		/* allow -ENODATA, ocmem icc is optional */
+-		if (ret != -ENODATA)
+-			return ret;
+-	}
+-
+-	return 0;
++	return ret;
  }
  
-+static void adreno_shutdown(struct platform_device *pdev)
-+{
-+	pm_runtime_force_suspend(&pdev->dev);
-+}
-+
- static const struct of_device_id dt_match[] = {
- 	{ .compatible = "qcom,adreno" },
- 	{ .compatible = "qcom,adreno-3xx" },
-@@ -509,6 +514,7 @@ static const struct dev_pm_ops adreno_pm_ops = {
- static struct platform_driver adreno_driver = {
- 	.probe = adreno_probe,
- 	.remove = adreno_remove,
-+	.shutdown = adreno_shutdown,
- 	.driver = {
- 		.name = "adreno",
- 		.of_match_table = dt_match,
+ void adreno_gpu_cleanup(struct adreno_gpu *adreno_gpu)
 -- 
 2.7.4
 
