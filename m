@@ -1,35 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A84C0292254
-	for <lists+freedreno@lfdr.de>; Mon, 19 Oct 2020 08:03:48 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id EE2AD2927F2
+	for <lists+freedreno@lfdr.de>; Mon, 19 Oct 2020 15:14:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F40D88924C;
-	Mon, 19 Oct 2020 06:03:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EBF16E97F;
+	Mon, 19 Oct 2020 13:14:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6F8F8924C;
- Mon, 19 Oct 2020 06:03:45 +0000 (UTC)
-Received: from DGGEMS405-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 7427091F64E8CB318596;
- Mon, 19 Oct 2020 14:03:41 +0800 (CST)
-Received: from localhost.localdomain (10.69.192.56) by
- DGGEMS405-HUB.china.huawei.com (10.3.19.205) with Microsoft SMTP Server id
- 14.3.487.0; Mon, 19 Oct 2020 14:03:37 +0800
-From: Tian Tao <tiantao6@hisilicon.com>
-To: <robdclark@gmail.com>, <sean@poorly.run>, <airlied@linux.ie>,
- <daniel@ffwll.ch>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-Date: Mon, 19 Oct 2020 14:04:22 +0800
-Message-ID: <1603087462-37505-1-git-send-email-tiantao6@hisilicon.com>
+Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA5A26E97F
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Oct 2020 13:14:44 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1603113285; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=YWRFkB+XMT2TvJJHD+s7CUrnpfH9KpreuyKx59Umksw=;
+ b=KF3WUsb8CUQXqfTKVUeC0/K/m+MD4kazkNkRqVCvVCvcXlPdUao5B27GPIWtLJn55xI4+lit
+ 1G6fGoWgiHMGP5qgz3APDx4HewHB1uNigVYasHN5lrNSuImJQ4ylEhODpxaoERPQ/KyEbYLT
+ miCzzlZ0nrvSEo2LnpEsQy9QKg4=
+X-Mailgun-Sending-Ip: 69.72.42.4
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
+ 5f8d914252f4fccef02144b1 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 19 Oct 2020 13:14:42
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 1324CC43391; Mon, 19 Oct 2020 13:14:42 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from akhilpo-linux.qualcomm.com (unknown [202.46.22.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 9DC73C433F1;
+ Mon, 19 Oct 2020 13:14:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 9DC73C433F1
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=akhilpo@codeaurora.org
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+To: freedreno@lists.freedesktop.org,
+	devicetree@vger.kernel.org
+Date: Mon, 19 Oct 2020 18:44:26 +0530
+Message-Id: <1603113268-21161-1-git-send-email-akhilpo@codeaurora.org>
 X-Mailer: git-send-email 2.7.4
-MIME-Version: 1.0
-X-Originating-IP: [10.69.192.56]
-X-CFilter-Loop: Reflected
-Subject: [Freedreno] [PATCH] drm/msm: Remove redundant null check
+Subject: [Freedreno] [PATCH v2 1/3] drm/msm: Add support for GPU cooling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,41 +64,78 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: dianders@chromium.org, linux-arm-msm@vger.kernel.org, robdclark@gmail.com,
+ linux-kernel@vger.kernel.org, jcrouse@codeaurora.org, mka@chromium.org,
+ dri-devel@freedesktop.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-clk_prepare_enable() and clk_disable_unprepare() will check
-NULL clock parameter, so It is not necessary to add additional checks.
+Register GPU as a devfreq cooling device so that it can be passively
+cooled by the thermal framework.
 
-Signed-off-by: Tian Tao <tiantao6@hisilicon.com>
+Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
 ---
- drivers/gpu/drm/msm/msm_gpu.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+Changes in v2:
+	1. Update the dt bindings documentation
+
+ drivers/gpu/drm/msm/msm_gpu.c | 12 ++++++++++++
+ drivers/gpu/drm/msm/msm_gpu.h |  2 ++
+ 2 files changed, 14 insertions(+)
 
 diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 57ddc94..25bc654 100644
+index 55d1648..9f9db46 100644
 --- a/drivers/gpu/drm/msm/msm_gpu.c
 +++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -175,15 +175,12 @@ static int disable_clk(struct msm_gpu *gpu)
+@@ -14,6 +14,7 @@
+ #include <generated/utsrelease.h>
+ #include <linux/string_helpers.h>
+ #include <linux/devfreq.h>
++#include <linux/devfreq_cooling.h>
+ #include <linux/devcoredump.h>
+ #include <linux/sched/task.h>
  
- static int enable_axi(struct msm_gpu *gpu)
- {
--	if (gpu->ebi1_clk)
--		clk_prepare_enable(gpu->ebi1_clk);
--	return 0;
-+	return clk_prepare_enable(gpu->ebi1_clk);
+@@ -107,9 +108,18 @@ static void msm_devfreq_init(struct msm_gpu *gpu)
+ 	if (IS_ERR(gpu->devfreq.devfreq)) {
+ 		DRM_DEV_ERROR(&gpu->pdev->dev, "Couldn't initialize GPU devfreq\n");
+ 		gpu->devfreq.devfreq = NULL;
++		return;
+ 	}
+ 
+ 	devfreq_suspend_device(gpu->devfreq.devfreq);
++
++	gpu->cooling = of_devfreq_cooling_register(gpu->pdev->dev.of_node,
++			gpu->devfreq.devfreq);
++	if (IS_ERR(gpu->cooling)) {
++		DRM_DEV_ERROR(&gpu->pdev->dev,
++				"Couldn't register GPU cooling device\n");
++		gpu->cooling = NULL;
++	}
  }
  
- static int disable_axi(struct msm_gpu *gpu)
- {
--	if (gpu->ebi1_clk)
--		clk_disable_unprepare(gpu->ebi1_clk);
-+	clk_disable_unprepare(gpu->ebi1_clk);
- 	return 0;
+ static int enable_pwrrail(struct msm_gpu *gpu)
+@@ -1005,4 +1015,6 @@ void msm_gpu_cleanup(struct msm_gpu *gpu)
+ 		gpu->aspace->mmu->funcs->detach(gpu->aspace->mmu);
+ 		msm_gem_address_space_put(gpu->aspace);
+ 	}
++
++	devfreq_cooling_unregister(gpu->cooling);
  }
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index 6c9e1fd..9a8f20d 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -147,6 +147,8 @@ struct msm_gpu {
+ 	struct msm_gpu_state *crashstate;
+ 	/* True if the hardware supports expanded apriv (a650 and newer) */
+ 	bool hw_apriv;
++
++	struct thermal_cooling_device *cooling;
+ };
  
+ static inline struct msm_gpu *dev_to_gpu(struct device *dev)
 -- 
 2.7.4
 
