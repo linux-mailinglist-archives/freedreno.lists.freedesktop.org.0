@@ -1,57 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52EBB293A31
-	for <lists+freedreno@lfdr.de>; Tue, 20 Oct 2020 13:42:47 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E3AB293DF4
+	for <lists+freedreno@lfdr.de>; Tue, 20 Oct 2020 15:57:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 051266EC4E;
-	Tue, 20 Oct 2020 11:42:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 115996ECCB;
+	Tue, 20 Oct 2020 13:57:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc44.google.com (mail-oo1-xc44.google.com
- [IPv6:2607:f8b0:4864:20::c44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26A8D6EC4F
- for <freedreno@lists.freedesktop.org>; Tue, 20 Oct 2020 11:42:45 +0000 (UTC)
-Received: by mail-oo1-xc44.google.com with SMTP id f2so376514ooj.2
- for <freedreno@lists.freedesktop.org>; Tue, 20 Oct 2020 04:42:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=R+o8387W9/ZCn4LvR5U6YDN3Hh+8V5WW6tTBimBSuj0=;
- b=H4if/7cPRAnox8YksApTgg0t73vJQHSJOOVU5OQ9YHMpaBkWSqFKfMKJIuEozOz6Iw
- EA784/M765Tisiz8tfO+LZAFAgoIf/Qj060xxXjk1c7gM+UjG2ajoZ9BOsz3gtn/dm+f
- F9tIxwT4zJSGligcusWCJUFCe68BT/mXcn8Wk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=R+o8387W9/ZCn4LvR5U6YDN3Hh+8V5WW6tTBimBSuj0=;
- b=IgFO6O8x9moW27HBy9mpoXqiHvEXj3zPALRw69hmOMG2qXR5676JTjXRkwQnwYISp2
- T2HRGRp4u08HEzt57PvtQHKL3JQW/L7Ku+SaXXYtQXdg/rk/newjmI91KRSDqL+tDI4s
- Ogs9Bv3y4YDgpVKvPKwK3UP/qeXbwCGj/4ds/3D4VpTDHTmTZr2REBbxywP4CorZIjD/
- IrLmTZ/oKwgPS2ymijeGIpDSmSjDAb2V2X71y4wl1zXwNYHAYpbsMr+ox/g6PwBfhgZv
- MnOIqVjJORhi7BZxD82PxmTaXe969VydChQZbC9K8GrWixz3JkwtuqE6qov/CyFDR4uX
- 1MLQ==
-X-Gm-Message-State: AOAM531A+3hlaQoewsvrkW18NjKXVfnJ7QYNAUOiRmsSttXUjCMS63I6
- 1M3ng3rkbGaG6NEQ7rQjketZ1mtIjsZTElOsVrmfQQ==
-X-Google-Smtp-Source: ABdhPJz5jqm21tJbsKMZknC7WQ/UHndcHNg9KDxpoJgyyMcRMTewgrvULjlJHVJu7koXNwvWpY6/fG5Eck9+CfXJUFA=
-X-Received: by 2002:a4a:b503:: with SMTP id r3mr1486690ooo.28.1603194164455;
- Tue, 20 Oct 2020 04:42:44 -0700 (PDT)
+Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F6976ECCB
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Oct 2020 13:57:32 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1603202254; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: To:
+ Subject: Sender; bh=sFsR7M8X8a+NGk5pENhxehQ5yW7VE3tjrETpgs/Etbg=;
+ b=erfbFre9c6tfOExp10nxmbeTNodHDQFjcXrekD1Ime69JShNw6WtRfBgW9JLCGQ+xwbqooZC
+ qiqJSuV4jONDxZqTuGFtAeg/1svBntecIlGGjSRPhbKoWCyuIU3wvi+6Gmi+++75e5jGZqjj
+ VHK4A905u5pcBzAVJnnyzsc3QBg=
+X-Mailgun-Sending-Ip: 104.130.96.5
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
+ 5f8eecc13711fec7b1d5faf1 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 20 Oct 2020 13:57:21
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id D3A00C43385; Tue, 20 Oct 2020 13:57:20 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ NICE_REPLY_A,SPF_FAIL,URIBL_BLOCKED autolearn=no autolearn_force=no
+ version=3.4.0
+Received: from [192.168.1.9] (unknown [117.210.179.63])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 84A3AC433CB;
+ Tue, 20 Oct 2020 13:57:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 84A3AC433CB
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=akhilpo@codeaurora.org
+To: freedreno@lists.freedesktop.org, dri-devel@freedesktop.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ mka@chromium.org, robdclark@gmail.com, dianders@chromium.org
+References: <1603113558-23330-1-git-send-email-akhilpo@codeaurora.org>
+ <1603113558-23330-2-git-send-email-akhilpo@codeaurora.org>
+ <20201019145922.GB31882@jcrouse1-lnx.qualcomm.com>
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+Message-ID: <e9e72bd7-0048-6e9f-8ca0-f5163c1b05f5@codeaurora.org>
+Date: Tue, 20 Oct 2020 19:27:14 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.2
 MIME-Version: 1.0
-References: <20201012020958.229288-1-robdclark@gmail.com>
- <20201012020958.229288-8-robdclark@gmail.com>
- <20201012143555.GA438822@phenom.ffwll.local>
- <CAF6AEGstGtBswUUiyHxT2cCm8NwZekDnMzD0J_pQH37GwS=LiA@mail.gmail.com>
- <20201020090729.qgqish5kqamhvatj@vireshk-i7>
- <CAKMK7uHAgVUPHOPxDdt3LeAWqokxfuzqjZj4qqFkoKxFbRbRrg@mail.gmail.com>
- <20201020112413.xbk2vow2kgjky3pb@vireshk-i7>
-In-Reply-To: <20201020112413.xbk2vow2kgjky3pb@vireshk-i7>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Tue, 20 Oct 2020 13:42:33 +0200
-Message-ID: <CAKMK7uHYBCoBvTGyMHGMrt2YRrB7RFt+maWNRjApgz621hu8JA@mail.gmail.com>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-Subject: Re: [Freedreno] [PATCH v2 07/22] drm/msm: Do rpm get sooner in the
- submit path
+In-Reply-To: <20201019145922.GB31882@jcrouse1-lnx.qualcomm.com>
+Content-Language: en-US
+Subject: Re: [Freedreno] [PATCH 2/2] drm/msm: Fix duplicate gpu node in icc
+ summary
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,61 +74,180 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, "Menon, Nishanth" <nm@ti.com>,
- David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Oct 20, 2020 at 1:24 PM Viresh Kumar <viresh.kumar@linaro.org> wrote:
->
-> On 20-10-20, 12:56, Daniel Vetter wrote:
-> > Yeah that's bad practice. Generally you shouldn't need to hold locks
-> > in setup/teardown code, since there's no other thread which can
-> > possible hold a reference to anything your touching anymore. Ofc
-> > excluding quickly grabbing/dropping a lock to insert/remove objects
-> > into lists and stuff.
-> >
-> > The other reason is that especially with anything related to sysfs or
-> > debugfs, the locking dependencies you're pulling in are enormous: vfs
-> > locks pull in mm locks (due to mmap) and at that point there's pretty
-> > much nothing left you're allowed to hold while acquiring such a lock.
-> > For simple drivers this is no issue, but for fancy drivers (like gpu
-> > drivers) which need to interact with core mm) this means your
-> > subsystem is a major pain to use.
-> >
-> > Usually the correct fix is to only hold your subsystem locks in
-> > setup/teardown when absolutely required, and fix any data
-> > inconsistency issues by reordering your setup/teardown code: When you
-> > register as the last step and unregister as the first step, there's no
-> > need for any additional locking. And hence no need to call debugfs
-> > functions while holding your subsystem locks.
-> >
-> > The catch phrase I use for this is "don't solve object lifetime issues
-> > with locking". Instead use refcounting and careful ordering in
-> > setup/teardown code.
->
-> This is exactly what I have done in the OPP core, the locks were taken
-> only when really necessary, though as we have seen now I have missed
-> that at a single place and that should be fixed as well. Will do that,
-> thanks.
+On 10/19/2020 8:29 PM, Jordan Crouse wrote:
+> On Mon, Oct 19, 2020 at 06:49:18PM +0530, Akhil P Oommen wrote:
+>> On targets with a6xx gpu, there is a duplicate gpu icc node listed in
+>> the interconnect summary. On these targets, calling
+> 
+> This first sentence is confusing to me. I think the following few sentences do
+> a better job of explaining what you are trying to do.
+I can just remove that line.
+> 
+>> dev_pm_opp_of_add_table() api initializes the icc nodes for gpu indirectly.
+>> So we should avoid using of_icc_get() api in the common probe path. To fix
+>> this, we can move of_icc_get() to target specific code where it is
+>> required.
+> 
+>> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+>> ---
+>>   drivers/gpu/drm/msm/adreno/a3xx_gpu.c   | 21 +++++++++++++++++++--
+>>   drivers/gpu/drm/msm/adreno/a4xx_gpu.c   | 20 ++++++++++++++++++--
+>>   drivers/gpu/drm/msm/adreno/adreno_gpu.c | 29 +----------------------------
+>>   3 files changed, 38 insertions(+), 32 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+>> index f29c77d..93da668 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+>> @@ -519,6 +519,8 @@ struct msm_gpu *a3xx_gpu_init(struct drm_device *dev)
+>>   	struct msm_gpu *gpu;
+>>   	struct msm_drm_private *priv = dev->dev_private;
+>>   	struct platform_device *pdev = priv->gpu_pdev;
+>> +	struct icc_path *ocmem_icc_path;
+>> +	struct icc_path *icc_path;
+>>   	int ret;
+>>   
+>>   	if (!pdev) {
+>> @@ -566,13 +568,28 @@ struct msm_gpu *a3xx_gpu_init(struct drm_device *dev)
+>>   		goto fail;
+>>   	}
+>>   
+>> +	icc_path = devm_of_icc_get(&pdev->dev, "gfx-mem");
+>> +	ret = IS_ERR(icc_path);
+>> +	if (ret)
+>> +		goto fail;
+>> +
+>> +	ocmem_icc_path = devm_of_icc_get(&pdev->dev, "ocmem");
+>> +	ret = IS_ERR(ocmem_icc_path);
+>> +	if (ret) {
+>> +		/* allow -ENODATA, ocmem icc is optional */
+>> +		if (ret != -ENODATA)
+>> +			goto fail;
+>> +		ocmem_icc_path = NULL;
+>> +	}
+>> +
+>> +
+>>   	/*
+>>   	 * Set the ICC path to maximum speed for now by multiplying the fastest
+>>   	 * frequency by the bus width (8). We'll want to scale this later on to
+>>   	 * improve battery life.
+>>   	 */
+>> -	icc_set_bw(gpu->icc_path, 0, Bps_to_icc(gpu->fast_rate) * 8);
+>> -	icc_set_bw(gpu->ocmem_icc_path, 0, Bps_to_icc(gpu->fast_rate) * 8);
+>> +	icc_set_bw(icc_path, 0, Bps_to_icc(gpu->fast_rate) * 8);
+>> +	icc_set_bw(ocmem_icc_path, 0, Bps_to_icc(gpu->fast_rate) * 8);
+> 
+> This seems reasonable but I hope we can get somebody to sign off on a real a3xx
+> part.
+> 
+>>   
+>>   	return gpu;
+>>   
+>> diff --git a/drivers/gpu/drm/msm/adreno/a4xx_gpu.c b/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
+>> index 2b93b33..c0be3a0 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
+>> @@ -648,6 +648,8 @@ struct msm_gpu *a4xx_gpu_init(struct drm_device *dev)
+>>   	struct msm_gpu *gpu;
+>>   	struct msm_drm_private *priv = dev->dev_private;
+>>   	struct platform_device *pdev = priv->gpu_pdev;
+>> +	struct icc_path *ocmem_icc_path;
+>> +	struct icc_path *icc_path;
+>>   	int ret;
+>>   
+>>   	if (!pdev) {
+>> @@ -694,13 +696,27 @@ struct msm_gpu *a4xx_gpu_init(struct drm_device *dev)
+>>   		goto fail;
+>>   	}
+>>   
+>> +	icc_path = devm_of_icc_get(&pdev->dev, "gfx-mem");
+>> +	ret = IS_ERR(icc_path);
+>> +	if (ret)
+>> +		goto fail;
+>> +
+>> +	ocmem_icc_path = devm_of_icc_get(&pdev->dev, "ocmem");
+>> +	ret = IS_ERR(ocmem_icc_path);
+>> +	if (ret) {
+>> +		/* allow -ENODATA, ocmem icc is optional */
+>> +		if (ret != -ENODATA)
+>> +			goto fail;
+>> +		ocmem_icc_path = NULL;
+>> +	}
+>> +
+>>   	/*
+>>   	 * Set the ICC path to maximum speed for now by multiplying the fastest
+>>   	 * frequency by the bus width (8). We'll want to scale this later on to
+>>   	 * improve battery life.
+>>   	 */
+>> -	icc_set_bw(gpu->icc_path, 0, Bps_to_icc(gpu->fast_rate) * 8);
+>> -	icc_set_bw(gpu->ocmem_icc_path, 0, Bps_to_icc(gpu->fast_rate) * 8);
+>> +	icc_set_bw(icc_path, 0, Bps_to_icc(gpu->fast_rate) * 8);
+>> +	icc_set_bw(ocmem_icc_path, 0, Bps_to_icc(gpu->fast_rate) * 8);
+> 
+> Less confident we can find any 4xx fans to test this, but if a3xx works then so
+> should this (in theory).
+> 
+>>   	return gpu;
+>>   
+>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>> index fd8f491..6e3b820 100644
+>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>> @@ -920,35 +920,8 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+>>   
+>>   	ret = msm_gpu_init(drm, pdev, &adreno_gpu->base, &funcs->base,
+>>   			adreno_gpu->info->name, &adreno_gpu_config);
+>> -	if (ret)
+>> -		return ret;
+>> -
+>> -	/*
+>> -	 * The legacy case, before "interconnect-names", only has a
+>> -	 * single interconnect path which is equivalent to "gfx-mem"
+>> -	 */
+>> -	if (!of_find_property(dev->of_node, "interconnect-names", NULL)) {
+>> -		gpu->icc_path = of_icc_get(dev, NULL);
+>> -	} else {
+>> -		gpu->icc_path = of_icc_get(dev, "gfx-mem");
+>> -		gpu->ocmem_icc_path = of_icc_get(dev, "ocmem");
+>> -	}
+>>   
+>> -	if (IS_ERR(gpu->icc_path)) {
+>> -		ret = PTR_ERR(gpu->icc_path);
+>> -		gpu->icc_path = NULL;
+>> -		return ret;
+>> -	}
+>> -
+>> -	if (IS_ERR(gpu->ocmem_icc_path)) {
+>> -		ret = PTR_ERR(gpu->ocmem_icc_path);
+>> -		gpu->ocmem_icc_path = NULL;
+>> -		/* allow -ENODATA, ocmem icc is optional */
+>> -		if (ret != -ENODATA)
+>> -			return ret;
+>> -	}
+>> -
+>> -	return 0;
+>> +	return ret;
+> 
+> This could go even further:
+> 
+> return msm_gpu_init(...);
+> 
+Yep, we can do that. Thanks for the feedback.
 
-Excellent. If the fix is small enough can you push it into 5.10? That
-way drm/msm doesn't have to carry the temporary solution for 5.11 (the
-issue only pops up with the locking rework, which teaches lockdep a
-few more things about what's going on as a side effect).
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+--Akhil
+>>   }
+>>   
+>>   void adreno_gpu_cleanup(struct adreno_gpu *adreno_gpu)
+>> -- 
+>> 2.7.4
+>>
+> 
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
