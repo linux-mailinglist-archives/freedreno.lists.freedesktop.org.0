@@ -2,64 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFF28293A01
-	for <lists+freedreno@lfdr.de>; Tue, 20 Oct 2020 13:24:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52EBB293A31
+	for <lists+freedreno@lfdr.de>; Tue, 20 Oct 2020 13:42:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F3466E091;
-	Tue, 20 Oct 2020 11:24:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 051266EC4E;
+	Tue, 20 Oct 2020 11:42:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
- [IPv6:2607:f8b0:4864:20::642])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 419FD6E091
- for <freedreno@lists.freedesktop.org>; Tue, 20 Oct 2020 11:24:17 +0000 (UTC)
-Received: by mail-pl1-x642.google.com with SMTP id r10so871923plx.3
- for <freedreno@lists.freedesktop.org>; Tue, 20 Oct 2020 04:24:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=rTNS0r1ZbZNkLyFUEQ/iIWxtqaA40PYGtHZsuJiDCcM=;
- b=lmdA0vZcj+gZ1N8Z10STVszxUkjLEFOgixTZSc1eGkqCzwK1uhJ84SarFjT733XzT1
- lRIYiuu6c2to5PmKYINoXAr3CZgaHbvvrViof7FKOZVXy16u4Op+zo0G8PQqXnAolNnQ
- Ez4ynljhCkVMP6Z9EgoZ13aV5pDmU8pPr28YUsh8PJDrrPb8sFHBtNuhCUW1Nt+vpTZg
- Avw7ELL7Mo6Nfrp0aTI1LXdUgnv1+p3hRndqOaYdnZ8MDh6xsDiorg6hokf1rGCM4cJh
- bQjjzse/pqj5beP5D0fgow0PbmGCnAekWihGbD/fXvXyjig6FI7LSnOR1SKmYp5b9UMc
- IDYw==
+Received: from mail-oo1-xc44.google.com (mail-oo1-xc44.google.com
+ [IPv6:2607:f8b0:4864:20::c44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26A8D6EC4F
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Oct 2020 11:42:45 +0000 (UTC)
+Received: by mail-oo1-xc44.google.com with SMTP id f2so376514ooj.2
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Oct 2020 04:42:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=R+o8387W9/ZCn4LvR5U6YDN3Hh+8V5WW6tTBimBSuj0=;
+ b=H4if/7cPRAnox8YksApTgg0t73vJQHSJOOVU5OQ9YHMpaBkWSqFKfMKJIuEozOz6Iw
+ EA784/M765Tisiz8tfO+LZAFAgoIf/Qj060xxXjk1c7gM+UjG2ajoZ9BOsz3gtn/dm+f
+ F9tIxwT4zJSGligcusWCJUFCe68BT/mXcn8Wk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=rTNS0r1ZbZNkLyFUEQ/iIWxtqaA40PYGtHZsuJiDCcM=;
- b=J/RhyxzEbz6Q6Mlgvj5PUrFmfOpKUkQNaqMEB0fls/kasTFrly0nhZ8pMGsv8PMKF7
- 7A4O2vRXW3howNn3dGyhmw4CujzaSUQLGFUJEIIuNDcwq86f76n4GJd0EHbNzAlnBj3N
- GZdF+Q8tIogPmb1s1cuyyWpPD4KeCzF4N6p53O3uLcbdeBS2Um/JkAPOi6xlbgcf2Zft
- OmNkKLIuLSHo4+xZxhKox19GaM2NWfq1IcbBR9wqmkSOb7CmgAuJgAc5AMxOFHUrZxvn
- FMLkFSdboBOBx6yybCQ9VA1O9kKroQrJ/pWHp0amHsvrR9K9asZZOvTA7+XEkm6qrRpe
- jHtA==
-X-Gm-Message-State: AOAM530I3pMxGFRm7jUO0LSaW20kkDRP9NA4PMs+ZUnMA9UUti3r2A/W
- 2ju2a2Hblmhh5BdhWMIeYOzFnQ==
-X-Google-Smtp-Source: ABdhPJxiKN8vYDR35svXlvXCDZWliSZkknnCW89y9BP+j1N1wNwI4v+gtfsW8+8fhi+ND0fGzlcE+A==
-X-Received: by 2002:a17:902:ee8b:b029:d3:f156:eefc with SMTP id
- a11-20020a170902ee8bb02900d3f156eefcmr703577pld.19.1603193056837; 
- Tue, 20 Oct 2020 04:24:16 -0700 (PDT)
-Received: from localhost ([122.181.54.133])
- by smtp.gmail.com with ESMTPSA id y4sm1714126pjc.53.2020.10.20.04.24.14
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 20 Oct 2020 04:24:15 -0700 (PDT)
-Date: Tue, 20 Oct 2020 16:54:13 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Daniel Vetter <daniel@ffwll.ch>
-Message-ID: <20201020112413.xbk2vow2kgjky3pb@vireshk-i7>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=R+o8387W9/ZCn4LvR5U6YDN3Hh+8V5WW6tTBimBSuj0=;
+ b=IgFO6O8x9moW27HBy9mpoXqiHvEXj3zPALRw69hmOMG2qXR5676JTjXRkwQnwYISp2
+ T2HRGRp4u08HEzt57PvtQHKL3JQW/L7Ku+SaXXYtQXdg/rk/newjmI91KRSDqL+tDI4s
+ Ogs9Bv3y4YDgpVKvPKwK3UP/qeXbwCGj/4ds/3D4VpTDHTmTZr2REBbxywP4CorZIjD/
+ IrLmTZ/oKwgPS2ymijeGIpDSmSjDAb2V2X71y4wl1zXwNYHAYpbsMr+ox/g6PwBfhgZv
+ MnOIqVjJORhi7BZxD82PxmTaXe969VydChQZbC9K8GrWixz3JkwtuqE6qov/CyFDR4uX
+ 1MLQ==
+X-Gm-Message-State: AOAM531A+3hlaQoewsvrkW18NjKXVfnJ7QYNAUOiRmsSttXUjCMS63I6
+ 1M3ng3rkbGaG6NEQ7rQjketZ1mtIjsZTElOsVrmfQQ==
+X-Google-Smtp-Source: ABdhPJz5jqm21tJbsKMZknC7WQ/UHndcHNg9KDxpoJgyyMcRMTewgrvULjlJHVJu7koXNwvWpY6/fG5Eck9+CfXJUFA=
+X-Received: by 2002:a4a:b503:: with SMTP id r3mr1486690ooo.28.1603194164455;
+ Tue, 20 Oct 2020 04:42:44 -0700 (PDT)
+MIME-Version: 1.0
 References: <20201012020958.229288-1-robdclark@gmail.com>
  <20201012020958.229288-8-robdclark@gmail.com>
  <20201012143555.GA438822@phenom.ffwll.local>
  <CAF6AEGstGtBswUUiyHxT2cCm8NwZekDnMzD0J_pQH37GwS=LiA@mail.gmail.com>
  <20201020090729.qgqish5kqamhvatj@vireshk-i7>
  <CAKMK7uHAgVUPHOPxDdt3LeAWqokxfuzqjZj4qqFkoKxFbRbRrg@mail.gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAKMK7uHAgVUPHOPxDdt3LeAWqokxfuzqjZj4qqFkoKxFbRbRrg@mail.gmail.com>
-User-Agent: NeoMutt/20180716-391-311a52
+ <20201020112413.xbk2vow2kgjky3pb@vireshk-i7>
+In-Reply-To: <20201020112413.xbk2vow2kgjky3pb@vireshk-i7>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Tue, 20 Oct 2020 13:42:33 +0200
+Message-ID: <CAKMK7uHYBCoBvTGyMHGMrt2YRrB7RFt+maWNRjApgz621hu8JA@mail.gmail.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>
 Subject: Re: [Freedreno] [PATCH v2 07/22] drm/msm: Do rpm get sooner in the
  submit path
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -87,39 +77,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 20-10-20, 12:56, Daniel Vetter wrote:
-> Yeah that's bad practice. Generally you shouldn't need to hold locks
-> in setup/teardown code, since there's no other thread which can
-> possible hold a reference to anything your touching anymore. Ofc
-> excluding quickly grabbing/dropping a lock to insert/remove objects
-> into lists and stuff.
-> 
-> The other reason is that especially with anything related to sysfs or
-> debugfs, the locking dependencies you're pulling in are enormous: vfs
-> locks pull in mm locks (due to mmap) and at that point there's pretty
-> much nothing left you're allowed to hold while acquiring such a lock.
-> For simple drivers this is no issue, but for fancy drivers (like gpu
-> drivers) which need to interact with core mm) this means your
-> subsystem is a major pain to use.
-> 
-> Usually the correct fix is to only hold your subsystem locks in
-> setup/teardown when absolutely required, and fix any data
-> inconsistency issues by reordering your setup/teardown code: When you
-> register as the last step and unregister as the first step, there's no
-> need for any additional locking. And hence no need to call debugfs
-> functions while holding your subsystem locks.
-> 
-> The catch phrase I use for this is "don't solve object lifetime issues
-> with locking". Instead use refcounting and careful ordering in
-> setup/teardown code.
+On Tue, Oct 20, 2020 at 1:24 PM Viresh Kumar <viresh.kumar@linaro.org> wrote:
+>
+> On 20-10-20, 12:56, Daniel Vetter wrote:
+> > Yeah that's bad practice. Generally you shouldn't need to hold locks
+> > in setup/teardown code, since there's no other thread which can
+> > possible hold a reference to anything your touching anymore. Ofc
+> > excluding quickly grabbing/dropping a lock to insert/remove objects
+> > into lists and stuff.
+> >
+> > The other reason is that especially with anything related to sysfs or
+> > debugfs, the locking dependencies you're pulling in are enormous: vfs
+> > locks pull in mm locks (due to mmap) and at that point there's pretty
+> > much nothing left you're allowed to hold while acquiring such a lock.
+> > For simple drivers this is no issue, but for fancy drivers (like gpu
+> > drivers) which need to interact with core mm) this means your
+> > subsystem is a major pain to use.
+> >
+> > Usually the correct fix is to only hold your subsystem locks in
+> > setup/teardown when absolutely required, and fix any data
+> > inconsistency issues by reordering your setup/teardown code: When you
+> > register as the last step and unregister as the first step, there's no
+> > need for any additional locking. And hence no need to call debugfs
+> > functions while holding your subsystem locks.
+> >
+> > The catch phrase I use for this is "don't solve object lifetime issues
+> > with locking". Instead use refcounting and careful ordering in
+> > setup/teardown code.
+>
+> This is exactly what I have done in the OPP core, the locks were taken
+> only when really necessary, though as we have seen now I have missed
+> that at a single place and that should be fixed as well. Will do that,
+> thanks.
 
-This is exactly what I have done in the OPP core, the locks were taken
-only when really necessary, though as we have seen now I have missed
-that at a single place and that should be fixed as well. Will do that,
-thanks.
-
+Excellent. If the fix is small enough can you push it into 5.10? That
+way drm/msm doesn't have to carry the temporary solution for 5.11 (the
+issue only pops up with the locking rework, which teaches lockdep a
+few more things about what's going on as a side effect).
+-Daniel
 -- 
-viresh
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
