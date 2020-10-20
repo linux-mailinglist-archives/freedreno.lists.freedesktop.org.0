@@ -1,59 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0130D294503
-	for <lists+freedreno@lfdr.de>; Wed, 21 Oct 2020 00:16:01 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id CC73C29451B
+	for <lists+freedreno@lfdr.de>; Wed, 21 Oct 2020 00:24:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B05F16E02D;
-	Tue, 20 Oct 2020 22:15:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4A586E0AB;
+	Tue, 20 Oct 2020 22:24:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com
- [IPv6:2607:f8b0:4864:20::1042])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3DF36E02D
- for <freedreno@lists.freedesktop.org>; Tue, 20 Oct 2020 22:15:58 +0000 (UTC)
-Received: by mail-pj1-x1042.google.com with SMTP id l2so67727pjt.5
- for <freedreno@lists.freedesktop.org>; Tue, 20 Oct 2020 15:15:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:content-transfer-encoding:in-reply-to:references
- :subject:from:cc:to:date:message-id:user-agent;
- bh=Byl068bSjplKbL4+PGKJ1dC619S+qOz8jD1tUz0XwHk=;
- b=KE+PETcp6MXxJp2h7R+7wX6TA7o0bnwOzHNuKMnSSWmLWLDVi3exXozEpC2/oJlQN8
- +KRIahNRWZR0vRBqf05eo1Ca/0Copjo/AjJwsptmk2Bqoyw0eP6VNszY2u4x5ZaFVSkZ
- BbyHVYsoDxQI619GGH5gKMoNNbSkLn0vaviZk=
+Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
+ [IPv6:2607:f8b0:4864:20::1041])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D1106E02D;
+ Tue, 20 Oct 2020 22:24:31 +0000 (UTC)
+Received: by mail-pj1-x1041.google.com with SMTP id g16so83609pjv.3;
+ Tue, 20 Oct 2020 15:24:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=OmjtnWyk38ZBX1D8MavpXL10VCl/FwBII1zAmAlKY9s=;
+ b=Awop/oxHP1NDOcP0KnWp5FWHkrltx2DjbBqr7tobJcMxu4Ei7uqjExLbcyvm7SYfmD
+ aTC06k45zMNEUfhCm2PQwnTAsv1vwHUXXzO5sYSFgyj00L1rnJB1dv9MQUUcMmlc94wB
+ 23UuqEnat7si/49sUfgx87zNuyahxeqf0gWGKX27jUpi0eDf2wj+eJWxv1W6O7qeji2N
+ iy782NcFvHIrIR3HTQEXIr0RDMcFk+xzJt1oM599ZKmSniBgczX31zjhvC9itH9+imp4
+ 4Dz7so2eEpAvFfXxXVPWbn8aUJPALFL3sG8JebTcK4cIXCgdVCfnXYkUMG7elJqBd2pr
+ axug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:content-transfer-encoding
- :in-reply-to:references:subject:from:cc:to:date:message-id
- :user-agent;
- bh=Byl068bSjplKbL4+PGKJ1dC619S+qOz8jD1tUz0XwHk=;
- b=il/GcSI73bwcp8G410GoEGZjbEYYX2aWUSNIYt9gvjRegQn0qyLvX4EZ412oYXFRo3
- FE5DnQjjosoKR6sFp7Zl7La3RqM5t5dGfHLaWt0iPg0PRNlMZCgs8kdoOngpTG6Bq1aE
- 95DDStP3qEOVscncHHPZQNMYWC9abwE9427NEfD0Qi/F00G53QCgDP/ZQ9nHLPpAe4P9
- 4mJ0scp9HG7qa6Dio/Dj/YOsm4IyxDm9UpsNJOD7JsEs3sD0pwfUSmZ66wseKrZH1YaZ
- HTr2KiAfuI/FJGEyahp/sFEJEbm8bHeiuqolC9asJ9ZyUDalVuWOKZxBRmYzweIOHs4n
- 1PHw==
-X-Gm-Message-State: AOAM531tYJ3AgEir1i5cj+PTOVH6cebM7l5pzSx5y/wBymf+jYKeKOp8
- +31VCCwjMw7Ag2YTEzkwu19Pag==
-X-Google-Smtp-Source: ABdhPJyhGqquEURVzCUWjkxaXE1f4ZbyUwHjKWuvLzMw7wyKxAe9p8Ze3hRndsQEWKczhrZO5Thjvw==
-X-Received: by 2002:a17:902:b7c3:b029:d4:bc6e:8aae with SMTP id
- v3-20020a170902b7c3b02900d4bc6e8aaemr269153plz.12.1603232158094; 
- Tue, 20 Oct 2020 15:15:58 -0700 (PDT)
-Received: from chromium.org ([2620:15c:202:201:3e52:82ff:fe6c:83ab])
- by smtp.gmail.com with ESMTPSA id e196sm50988pfh.128.2020.10.20.15.15.57
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=OmjtnWyk38ZBX1D8MavpXL10VCl/FwBII1zAmAlKY9s=;
+ b=GUnIxPZOWp3vt5ig70uLg43vBPgKV6Jx4gU/Q6R8HGQEJz40mZUmM5HfgsqwP7esmO
+ laRmMmyLvq+wGn8XEbqGHmpWohSD6b+js/ejwgF7IIEEblpzFkni8O4Y2UU5grA48RGd
+ BKUeRwYt2+HXsjkyWHcCNgCq6pxlbhG8GU0TQZ/Oh9QMKDZVxjRv44u8LdkB0h4moM5f
+ ErkhvjI+DrWWSk71h+MqZipwIOli7vE+IB3pRWmhbm6lVgSYppFQlKHBHTwxzR/TCezS
+ 2ccae0xX8X+EAAXNC00cjf5w3PfVhpi2v14JMNwJEYPG0M9DWEz8FJQGc9r2PcK6XC6x
+ 4Rmw==
+X-Gm-Message-State: AOAM530/r99Om06kLnmAtfCzYEyKfMKeL9YU4g3laTUG6M72AHfC+Sqm
+ 7SF5nX+wEUllOh13mw/6+cB2a44w0CIk7w==
+X-Google-Smtp-Source: ABdhPJxIXbNsMsSh0dWfqwmYT1q1f863Oej76OZAU7iVStwx6Wktb0HzU61GvcvkkulTBDT3epizqA==
+X-Received: by 2002:a17:90a:6b0a:: with SMTP id
+ v10mr237477pjj.141.1603232669947; 
+ Tue, 20 Oct 2020 15:24:29 -0700 (PDT)
+Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
+ by smtp.gmail.com with ESMTPSA id c12sm147612pgd.57.2020.10.20.15.24.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Oct 2020 15:15:57 -0700 (PDT)
+ Tue, 20 Oct 2020 15:24:28 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue, 20 Oct 2020 15:26:00 -0700
+Message-Id: <20201020222600.264876-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <20201020165959.7441-1-khsieh@codeaurora.org>
-References: <20201020165959.7441-1-khsieh@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-To: Kuogee Hsieh <khsieh@codeaurora.org>, robdclark@gmail.com, sean@poorly.run
-Date: Tue, 20 Oct 2020 15:15:55 -0700
-Message-ID: <160323215566.884498.14018580767640192186@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.9.1
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: skip checking
- LINK_STATUS_UPDATED bit
+Subject: [Freedreno] [PATCH] drm/msm/atomic: Drop per-CRTC locks in reverse
+ order
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,95 +66,80 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- abhinavk@codeaurora.org, khsieh@codeaurora.org, tanmay@codeaurora.org,
- daniel@ffwll.ch, aravindh@codeaurora.org, freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ Krishna Manikandan <mkrishn@codeaurora.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
+ Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2020-10-20 09:59:59)
-> No need to check LINK_STATuS_UPDATED bit before
+From: Rob Clark <robdclark@chromium.org>
 
-LINK_STATUS_UPDATED?
+lockdep dislikes seeing locks unwound in a non-nested fashion.
 
-> return 6 bytes of link status during link training.
+Fixes: 37c2016e3608 ("drm/msm: Fix race condition in msm driver with async layer updates")
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/msm_atomic.c |  2 +-
+ drivers/gpu/drm/msm/msm_kms.h    |  4 ++++
+ include/drm/drm_crtc.h           | 10 ++++++++++
+ 3 files changed, 15 insertions(+), 1 deletion(-)
 
-Why?
+diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
+index b03d6ab6b19b..6a326761dc4a 100644
+--- a/drivers/gpu/drm/msm/msm_atomic.c
++++ b/drivers/gpu/drm/msm/msm_atomic.c
+@@ -67,7 +67,7 @@ static void unlock_crtcs(struct msm_kms *kms, unsigned int crtc_mask)
+ {
+ 	struct drm_crtc *crtc;
+ 
+-	for_each_crtc_mask(kms->dev, crtc, crtc_mask)
++	for_each_crtc_mask_reverse(kms->dev, crtc, crtc_mask)
+ 		mutex_unlock(&kms->commit_lock[drm_crtc_index(crtc)]);
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
+index 8d3e626c9fee..d8151a89e163 100644
+--- a/drivers/gpu/drm/msm/msm_kms.h
++++ b/drivers/gpu/drm/msm/msm_kms.h
+@@ -211,4 +211,8 @@ int dpu_mdss_init(struct drm_device *dev);
+ 	drm_for_each_crtc(crtc, dev) \
+ 		for_each_if (drm_crtc_mask(crtc) & (crtc_mask))
+ 
++#define for_each_crtc_mask_reverse(dev, crtc, crtc_mask) \
++	drm_for_each_crtc_reverse(crtc, dev) \
++		for_each_if (drm_crtc_mask(crtc) & (crtc_mask))
++
+ #endif /* __MSM_KMS_H__ */
+diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+index dfdb04619b0d..25f5958f2882 100644
+--- a/include/drm/drm_crtc.h
++++ b/include/drm/drm_crtc.h
+@@ -1274,4 +1274,14 @@ static inline struct drm_crtc *drm_crtc_find(struct drm_device *dev,
+ #define drm_for_each_crtc(crtc, dev) \
+ 	list_for_each_entry(crtc, &(dev)->mode_config.crtc_list, head)
+ 
++/**
++ * drm_for_each_crtc_reverse - iterate over all CRTCs in reverse order
++ * @crtc: a &struct drm_crtc as the loop cursor
++ * @dev: the &struct drm_device
++ *
++ * Iterate over all CRTCs of @dev.
++ */
++#define drm_for_each_crtc_reverse(crtc, dev) \
++	list_for_each_entry_reverse(crtc, &(dev)->mode_config.crtc_list, head)
++
+ #endif /* __DRM_CRTC_H__ */
+-- 
+2.26.2
 
-> This patch also fix phy compliance test link rate
-> conversion error.
-
-How?
-
-> 
-> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
-> ---
-
-Any Fixes: tag?
-
->  drivers/gpu/drm/msm/dp/dp_ctrl.c | 20 ++++++--------------
->  drivers/gpu/drm/msm/dp/dp_link.c | 24 +++++++++++-------------
->  2 files changed, 17 insertions(+), 27 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index 6bdaec778c4c..76e891c91c6e 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -1061,23 +1061,15 @@ static bool dp_ctrl_train_pattern_set(struct dp_ctrl_private *ctrl,
->  static int dp_ctrl_read_link_status(struct dp_ctrl_private *ctrl,
->                                     u8 *link_status)
->  {
-> -       int len = 0;
-> -       u32 const offset = DP_LANE_ALIGN_STATUS_UPDATED - DP_LANE0_1_STATUS;
-> -       u32 link_status_read_max_retries = 100;
-> -
-> -       while (--link_status_read_max_retries) {
-> -               len = drm_dp_dpcd_read_link_status(ctrl->aux,
-> -                       link_status);
-> -               if (len != DP_LINK_STATUS_SIZE) {
-> -                       DRM_ERROR("DP link status read failed, err: %d\n", len);
-> -                       return len;
-> -               }
-> +       int ret = 0, len;
->  
-> -               if (!(link_status[offset] & DP_LINK_STATUS_UPDATED))
-> -                       return 0;
-> +       len = drm_dp_dpcd_read_link_status(ctrl->aux, link_status);
-> +       if (len != DP_LINK_STATUS_SIZE) {
-> +               DRM_ERROR("DP link status read failed, err: %d\n", len);
-> +               ret = len;
-
-Could this be positive if the len is greater than 0 but not
-DP_LINK_STATUS_SIZE? Maybe the check should be len < 0? We certainly
-don't want to return some smaller size from this function, right?
-
->         }
->  
-> -       return -ETIMEDOUT;
-> +       return ret;
->  }
->  
->  static int dp_ctrl_link_train_1(struct dp_ctrl_private *ctrl,
-> diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
-> index c811da515fb3..58d65daae3b3 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_link.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_link.c
-> @@ -773,7 +773,8 @@ static int dp_link_process_link_training_request(struct dp_link_private *link)
->                         link->request.test_lane_count);
->  
->         link->dp_link.link_params.num_lanes = link->request.test_lane_count;
-> -       link->dp_link.link_params.rate = link->request.test_link_rate;
-> +       link->dp_link.link_params.rate =
-> +               drm_dp_bw_code_to_link_rate(link->request.test_link_rate);
-
-Why are we storing bw_code in test_link_rate? This looks very confusing.
-
->  
->         return 0;
->  }
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
