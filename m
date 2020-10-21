@@ -1,56 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A1A0294618
-	for <lists+freedreno@lfdr.de>; Wed, 21 Oct 2020 02:49:08 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 827672948D2
+	for <lists+freedreno@lfdr.de>; Wed, 21 Oct 2020 09:24:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 442236F46C;
-	Wed, 21 Oct 2020 00:49:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A1CB6E9B2;
+	Wed, 21 Oct 2020 07:24:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C76B76F46C
- for <freedreno@lists.freedesktop.org>; Wed, 21 Oct 2020 00:49:03 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1603241346; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=3XFNLBbM72ThQINa/MBg5gJYLpGf8UCxBG+6itIFgOM=;
- b=qz5OHyGiKA/rEcKZDmTMjl7qHTSNvE37S4yvuVLMBvD9zLtuKNrSyw/bDcT2MgBdhm9V6iHG
- LWYNhyvpmRmeLNUcQPzMXdELAbJ08DfQr6d4zmmvxiDdOXCNmXnQfe0hlB6l8T/2lRwpKuZd
- 4iMubvx0BUAos8z5je4ixw/FuzA=
-X-Mailgun-Sending-Ip: 104.130.96.5
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
- 5f8f855a588858a3047e8a06 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 21 Oct 2020 00:48:26
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 9EA6BC43382; Wed, 21 Oct 2020 00:48:25 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 69F87C433C9;
- Wed, 21 Oct 2020 00:48:24 +0000 (UTC)
+Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
+ [IPv6:2607:f8b0:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9775C6E9B8
+ for <freedreno@lists.freedesktop.org>; Wed, 21 Oct 2020 07:24:07 +0000 (UTC)
+Received: by mail-pf1-x443.google.com with SMTP id x13so948905pfa.9
+ for <freedreno@lists.freedesktop.org>; Wed, 21 Oct 2020 00:24:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=hAIhzFswDyObHC/AccJ2pW9tYMVZUmTRll6IsakeHDI=;
+ b=hcxqhkvAd7gaUVg+ADZjC/g5t7FunCEWj40dk9Jkh/xjioI52ZXAkwo5BMXN3dd6bK
+ 5yXuvLzPNM3xRKnqdyMdj4t+47mqUiHukE7zp03beKQSUIMlvPx4UIwK8I+FHjqcmJK+
+ m/BFHJXQmFjXQ8bMAZqWLhKkQs9XMJMwLfK9KLRTPTTK0VqGNT1ILV7h8O1faqdo/jo4
+ RnbVTYrqOhJJX40NnBh57Kvpk11HcrFZljb+h+jDOuMIAQLRZDKUntg+d0RwJGn2AWEH
+ 05nApZQVycKIsoa+R52Nh1RncFPKJRVeAHd/N+wiBZk7rXT5ryOvdRuVzz3Kc2MSGxVM
+ o+vQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=hAIhzFswDyObHC/AccJ2pW9tYMVZUmTRll6IsakeHDI=;
+ b=do+AXVvH2/2wM9UsKWLahrIzDAu4nSVHOJsVtX3hfePi2+aMy9Ly7oJxzxOBxOQXaO
+ RgtqzSRyEPl+enkucwK/4EgFcJ1EVOdJxl6Zc3/Zo75daTLutATSILw0UJzBxRQwdW/A
+ m9QSCuOb4+FMdWPJlEMlhHBKU21nn0ZgEFmjWPIMzrFi+epQgo37fd4f11nJCJN6FORl
+ XxcGFfp+D13uuKX14ej3PgXBWTKEVLUpszI9bNlnNLe7BmAHUDZ2KSeXc3GtkFe0uyuF
+ L9gI3gteeE2UBXtU3KGajW3gMGQVT8L/arNqEv01XSLh+TTz5JXpx3unzQmesNufFDjy
+ nRtQ==
+X-Gm-Message-State: AOAM532rHautnKLvwTO6F4uyHiaUKdyCFugSxukIvjmF4MB7r1gRK84U
+ phu9z8aCwwrN62nciWieNuKPgA==
+X-Google-Smtp-Source: ABdhPJxdvf151N9thd6CsPj2u4ESktngUMo7t9TYxraGbFVI19jZ698HL0h3xJRccblV6DfAzwc+Ng==
+X-Received: by 2002:aa7:84c6:0:b029:155:d56e:5191 with SMTP id
+ x6-20020aa784c60000b0290155d56e5191mr2068267pfn.41.1603265047189; 
+ Wed, 21 Oct 2020 00:24:07 -0700 (PDT)
+Received: from localhost ([122.181.54.133])
+ by smtp.gmail.com with ESMTPSA id o2sm1377845pgg.3.2020.10.21.00.24.05
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 21 Oct 2020 00:24:06 -0700 (PDT)
+Date: Wed, 21 Oct 2020 12:54:04 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: rnayak@codeaurora.org, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>
+Message-ID: <20201021072404.y43tjzd2ehclrejp@vireshk-i7>
+References: <cover.1598594714.git.viresh.kumar@linaro.org>
+ <6e4110032f8711e8bb0acbeccfe66dec3b09d5c1.1598594714.git.viresh.kumar@linaro.org>
+ <20201005062633.ejpehkpeuwksrx3e@vireshk-i7>
 MIME-Version: 1.0
-Date: Tue, 20 Oct 2020 17:48:24 -0700
-From: abhinavk@codeaurora.org
-To: Rob Clark <robdclark@gmail.com>
-In-Reply-To: <20201020222600.264876-1-robdclark@gmail.com>
-References: <20201020222600.264876-1-robdclark@gmail.com>
-Message-ID: <185473dc6ac6abc9a343db07a1031170@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH] drm/msm/atomic: Drop per-CRTC locks in
- reverse order
+Content-Disposition: inline
+In-Reply-To: <20201005062633.ejpehkpeuwksrx3e@vireshk-i7>
+User-Agent: NeoMutt/20180716-391-311a52
+Subject: Re: [Freedreno] [PATCH V2 3/8] drm/msm: Unconditionally call
+ dev_pm_opp_of_remove_table()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,85 +72,34 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Krishna Manikandan <mkrishn@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@linux.ie>, "open list:DRM
- DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- Sean Paul <sean@poorly.run>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>
+Cc: Nishanth Menon <nm@ti.com>, Vincent Guittot <vincent.guittot@linaro.org>,
+ linux-pm@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
+ linux-arm-msm@vger.kernel.org, Naresh Kamboju <naresh.kamboju@linaro.org>,
+ Rafael Wysocki <rjw@rjwysocki.net>, Douglas Anderson <dianders@chromium.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-10-20 15:26, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
+On 05-10-20, 11:56, Viresh Kumar wrote:
+> On 28-08-20, 11:37, Viresh Kumar wrote:
+> > dev_pm_opp_of_remove_table() doesn't report any errors when it fails to
+> > find the OPP table with error -ENODEV (i.e. OPP table not present for
+> > the device). And we can call dev_pm_opp_of_remove_table()
+> > unconditionally here.
+> > 
+> > While at it, also create a label to put clkname.
+> > 
+> > Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 > 
-> lockdep dislikes seeing locks unwound in a non-nested fashion.
-> 
-> Fixes: 37c2016e3608 ("drm/msm: Fix race condition in msm driver with
-> async layer updates")
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
-> ---
->  drivers/gpu/drm/msm/msm_atomic.c |  2 +-
->  drivers/gpu/drm/msm/msm_kms.h    |  4 ++++
->  include/drm/drm_crtc.h           | 10 ++++++++++
->  3 files changed, 15 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_atomic.c 
-> b/drivers/gpu/drm/msm/msm_atomic.c
-> index b03d6ab6b19b..6a326761dc4a 100644
-> --- a/drivers/gpu/drm/msm/msm_atomic.c
-> +++ b/drivers/gpu/drm/msm/msm_atomic.c
-> @@ -67,7 +67,7 @@ static void unlock_crtcs(struct msm_kms *kms,
-> unsigned int crtc_mask)
->  {
->  	struct drm_crtc *crtc;
-> 
-> -	for_each_crtc_mask(kms->dev, crtc, crtc_mask)
-> +	for_each_crtc_mask_reverse(kms->dev, crtc, crtc_mask)
->  		mutex_unlock(&kms->commit_lock[drm_crtc_index(crtc)]);
->  }
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_kms.h 
-> b/drivers/gpu/drm/msm/msm_kms.h
-> index 8d3e626c9fee..d8151a89e163 100644
-> --- a/drivers/gpu/drm/msm/msm_kms.h
-> +++ b/drivers/gpu/drm/msm/msm_kms.h
-> @@ -211,4 +211,8 @@ int dpu_mdss_init(struct drm_device *dev);
->  	drm_for_each_crtc(crtc, dev) \
->  		for_each_if (drm_crtc_mask(crtc) & (crtc_mask))
-> 
-> +#define for_each_crtc_mask_reverse(dev, crtc, crtc_mask) \
-> +	drm_for_each_crtc_reverse(crtc, dev) \
-> +		for_each_if (drm_crtc_mask(crtc) & (crtc_mask))
-> +
->  #endif /* __MSM_KMS_H__ */
-> diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
-> index dfdb04619b0d..25f5958f2882 100644
-> --- a/include/drm/drm_crtc.h
-> +++ b/include/drm/drm_crtc.h
-> @@ -1274,4 +1274,14 @@ static inline struct drm_crtc
-> *drm_crtc_find(struct drm_device *dev,
->  #define drm_for_each_crtc(crtc, dev) \
->  	list_for_each_entry(crtc, &(dev)->mode_config.crtc_list, head)
-> 
-> +/**
-> + * drm_for_each_crtc_reverse - iterate over all CRTCs in reverse order
-> + * @crtc: a &struct drm_crtc as the loop cursor
-> + * @dev: the &struct drm_device
-> + *
-> + * Iterate over all CRTCs of @dev.
-> + */
-> +#define drm_for_each_crtc_reverse(crtc, dev) \
-> +	list_for_each_entry_reverse(crtc, &(dev)->mode_config.crtc_list, 
-> head)
-> +
->  #endif /* __DRM_CRTC_H__ */
+> Can someone please apply this and the other drm patch (2/8) ?
+
+Rob/Rajendra, can someone please have a look at these patches ?
+
+-- 
+viresh
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
