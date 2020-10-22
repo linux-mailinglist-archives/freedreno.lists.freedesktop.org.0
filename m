@@ -1,76 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 660062957AA
-	for <lists+freedreno@lfdr.de>; Thu, 22 Oct 2020 07:10:33 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C003A295778
+	for <lists+freedreno@lfdr.de>; Thu, 22 Oct 2020 07:02:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 232696E34B;
-	Thu, 22 Oct 2020 05:10:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F5256E34B;
+	Thu, 22 Oct 2020 05:02:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
- [IPv6:2607:f8b0:4864:20::543])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8186D6E34B
- for <freedreno@lists.freedesktop.org>; Thu, 22 Oct 2020 05:10:31 +0000 (UTC)
-Received: by mail-pg1-x543.google.com with SMTP id t14so258458pgg.1
- for <freedreno@lists.freedesktop.org>; Wed, 21 Oct 2020 22:10:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=resent-from:resent-date:resent-message-id:resent-to:from:to:cc
- :subject:date:message-id:in-reply-to:references:mime-version
- :content-transfer-encoding;
- bh=xHZeI2yfFEkpCkFHmLsd7DtKmS2VipSIn1WAzrLDQFE=;
- b=Q+71l5+gMRjc6Jl+Gz3xDwkeTPAnJ8yCWlo2y2SYjbnQvHC3RQOnXN4AK5hKUy+Cqr
- NuEV2jkT1xIVvq/fdb+MqsxDokeOff0kJ+DMpwLC74heDEH6aDA9f1P83NE5PNEbzLYk
- 3DvU1SdqDlfEQV2C/tkbt7CPlyydac7x4oWIGcjaH1AkzUNUQBOlqd33VFbZpK41Qvib
- SnLBcbJYEjdP2wIogc/kRBc1ldN9BbiUnw2e5nzFQUVuS/h71aYJyu0hG2rMUGE+83FL
- mv62CM8oLaRT4q0BL8pWZQpI9qLtJOwyFMDbbf5HQL46PUMQDmjGZzQCMfTRJZWJFQTl
- ckmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:resent-from:resent-date:resent-message-id
- :resent-to:from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=xHZeI2yfFEkpCkFHmLsd7DtKmS2VipSIn1WAzrLDQFE=;
- b=Nren35Za4Z6gt5uBpBOYZGvG66l4eG0iBLeaWhPQr9cNrql0edF0SuA1RoidIqWLmm
- h9pYoxAI3Qb9dQyAJrCfHxoOF3XpZ+DgagTosFsxXsLQR1QaPHRrcGghUbFr5/glN76w
- CPZdhgkJx9PuPKHauaXvSQfSX8kuWtNHiv1vZh+/2EOkgeDps+1gf0k2d3veh8JKG57s
- +b6Syw9nVk7jlJ78sYRtPzr3vxwGGee8DrgGMB9fps4XJpudx+syI8FKvxl6i/T0S1A9
- XiS/5UomNIBXlC644/4WN09IKnz3LtJnKFeMC3NIcStZXReT7WtoeGnTuMPraPuIFhu6
- +awg==
-X-Gm-Message-State: AOAM532NhOB4i+Uh5c1N9+HZmP+THPXR5rx8MmUncrcz/vc77cqD+moZ
- bOWjAN8Ie2ME2HHP96UczyZfjxT11GGkRw==
-X-Google-Smtp-Source: ABdhPJxiOn/07IeoxsIPYqzQ+6FfWhguscGqt1VY0kHAwzvmn7Tw9fGLn5n0aEFcj78NRfq6Q8QK9g==
-X-Received: by 2002:a62:1844:0:b029:152:80d3:8647 with SMTP id
- 65-20020a6218440000b029015280d38647mr1004637pfy.18.1603343430551; 
- Wed, 21 Oct 2020 22:10:30 -0700 (PDT)
-Received: from localhost ([122.181.54.133])
- by smtp.gmail.com with ESMTPSA id a8sm568663pgt.1.2020.10.21.22.10.29
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 21 Oct 2020 22:10:30 -0700 (PDT)
-Resent-From: Viresh Kumar <viresh.kumar@linaro.org>
-Resent-Date: Thu, 22 Oct 2020 10:40:28 +0530
-Resent-Message-ID: <20201022051028.thvzt2foqmzyr7z7@vireshk-i7>
-Resent-To: freedreno@lists.freedesktop.org
-Received: from pop.gmail.com [74.125.68.109]
- by vireshk-i7 with POP3 (fetchmail-6.3.26)
- for <vireshk@localhost> (single-drop); Fri, 28 Aug 2020 11:39:28 +0530 (IST)
-Received: from localhost ([122.167.135.199])
- by smtp.gmail.com with ESMTPSA id e65sm96904pjk.45.2020.08.27.23.08.22
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 27 Aug 2020 23:08:23 -0700 (PDT)
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: rnayak@codeaurora.org, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
-Date: Fri, 28 Aug 2020 11:37:48 +0530
-Message-Id: <6e4110032f8711e8bb0acbeccfe66dec3b09d5c1.1598594714.git.viresh.kumar@linaro.org>
-X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
-In-Reply-To: <cover.1598594714.git.viresh.kumar@linaro.org>
-References: <cover.1598594714.git.viresh.kumar@linaro.org>
+Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88B436F3A1
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Oct 2020 05:01:58 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1603342919; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=dJeqbgvDoGJPUAJEY3w2PBoqGLK3m49Yhbog9DTT4pw=;
+ b=nE4DVfLjIhUk9+4+bh6ldZDlKM2c+1XYBBZiYsvGr25sPxcqOPewr0PSl7m67fR/kMXDDD1z
+ UTRNteieriGdoEWzH/FBY7fjkXKJ4t4K9IXMdpRaMrTcUTGrAN/qy/Pi8jwp/AI78/myQunM
+ KuCmS1dk84f1yEO0yKVkhlAYVIg=
+X-Mailgun-Sending-Ip: 69.72.42.4
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n07.prod.us-west-2.postgun.com with SMTP id
+ 5f91124406d81bc48dbdf1fa (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 22 Oct 2020 05:01:56
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 53FCCC433C9; Thu, 22 Oct 2020 05:01:56 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
+Received: from abhinavk-linux.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 59F6AC433CB;
+ Thu, 22 Oct 2020 05:01:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 59F6AC433CB
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=abhinavk@codeaurora.org
+From: Abhinav Kumar <abhinavk@codeaurora.org>
+To: dri-devel@lists.freedesktop.org
+Date: Wed, 21 Oct 2020 22:01:44 -0700
+Message-Id: <20201022050148.27105-1-abhinavk@codeaurora.org>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH V2 3/8] drm/msm: Unconditionally call
- dev_pm_opp_of_remove_table()
+Subject: [Freedreno] [PATCH 0/4] Add devcoredump support for DPU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,124 +65,61 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Nishanth Menon <nm@ti.com>, Vincent Guittot <vincent.guittot@linaro.org>,
- linux-pm@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Naresh Kamboju <naresh.kamboju@linaro.org>, Rafael Wysocki <rjw@rjwysocki.net>,
- Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
+ swboyd@chromium.org, khsieh@codeaurora.org, robdclark@gmail.com,
+ nganji@codeaurora.org, seanpaul@chromium.org, tanmay@codeaurora.org,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-dev_pm_opp_of_remove_table() doesn't report any errors when it fails to
-find the OPP table with error -ENODEV (i.e. OPP table not present for
-the device). And we can call dev_pm_opp_of_remove_table()
-unconditionally here.
+This series adds support to use devcoredump for DPU driver. It introduces
+the dpu_dbg module which assists in the capturing of register dumps during
+error scenarios. When a display related error happens, the dpu_dbg module
+captures all the relevant register dumps along with the snapshot of the drm
+atomic state and triggers a devcoredump.
 
-While at it, also create a label to put clkname.
+Abhinav Kumar (4):
+  drm: allow drm_atomic_print_state() to accept any drm_printer
+  disp/msm/dpu: add support to dump dpu registers
+  drm/msm: register the base address with dpu_dbg module
+  drm/msm/dpu: add dpu_dbg points across dpu driver
 
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+ drivers/gpu/drm/drm_atomic.c                  |  17 +-
+ drivers/gpu/drm/drm_atomic_uapi.c             |   4 +-
+ drivers/gpu/drm/drm_crtc_internal.h           |   4 +-
+ drivers/gpu/drm/msm/Makefile                  |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_dbg.c       | 316 ++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_dbg.h       | 273 +++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_dbg_util.c  | 313 +++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |  12 +-
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  |   5 +-
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |   5 +-
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c    |   6 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c   |   7 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c   |   5 +-
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c   |   6 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c   |   8 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c    |   7 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  12 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |   4 +-
+ drivers/gpu/drm/msm/dp/dp_catalog.c           |  12 +
+ drivers/gpu/drm/msm/dp/dp_catalog.h           |   4 +
+ drivers/gpu/drm/msm/dp/dp_display.c           |   2 +
+ drivers/gpu/drm/msm/dsi/dsi_host.c            |  10 +-
+ drivers/gpu/drm/msm/msm_drv.c                 |  30 +-
+ drivers/gpu/drm/msm/msm_drv.h                 |   3 +-
+ 25 files changed, 1045 insertions(+), 26 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_dbg.c
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_dbg.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_dbg_util.c
 
----
-V2:
-- Compare with -ENODEV only for failures.
-- Create new label to put clkname.
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 14 +++++---------
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h |  1 -
- drivers/gpu/drm/msm/dsi/dsi_host.c      |  8 ++------
- 3 files changed, 7 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index c0a4d4e16d82..c8287191951f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -1010,12 +1010,9 @@ static int dpu_bind(struct device *dev, struct device *master, void *data)
- 		return PTR_ERR(dpu_kms->opp_table);
- 	/* OPP table is optional */
- 	ret = dev_pm_opp_of_add_table(dev);
--	if (!ret) {
--		dpu_kms->has_opp_table = true;
--	} else if (ret != -ENODEV) {
-+	if (ret && ret != -ENODEV) {
- 		dev_err(dev, "invalid OPP table in device tree\n");
--		dev_pm_opp_put_clkname(dpu_kms->opp_table);
--		return ret;
-+		goto put_clkname;
- 	}
- 
- 	mp = &dpu_kms->mp;
-@@ -1037,8 +1034,8 @@ static int dpu_bind(struct device *dev, struct device *master, void *data)
- 	priv->kms = &dpu_kms->base;
- 	return ret;
- err:
--	if (dpu_kms->has_opp_table)
--		dev_pm_opp_of_remove_table(dev);
-+	dev_pm_opp_of_remove_table(dev);
-+put_clkname:
- 	dev_pm_opp_put_clkname(dpu_kms->opp_table);
- 	return ret;
- }
-@@ -1056,8 +1053,7 @@ static void dpu_unbind(struct device *dev, struct device *master, void *data)
- 	if (dpu_kms->rpm_enabled)
- 		pm_runtime_disable(&pdev->dev);
- 
--	if (dpu_kms->has_opp_table)
--		dev_pm_opp_of_remove_table(dev);
-+	dev_pm_opp_of_remove_table(dev);
- 	dev_pm_opp_put_clkname(dpu_kms->opp_table);
- }
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-index e140cd633071..8295979a7165 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-@@ -129,7 +129,6 @@ struct dpu_kms {
- 	bool rpm_enabled;
- 
- 	struct opp_table *opp_table;
--	bool has_opp_table;
- 
- 	struct dss_module_power mp;
- 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index b17ac6c27554..4335fe33250c 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -113,7 +113,6 @@ struct msm_dsi_host {
- 	struct clk *byte_intf_clk;
- 
- 	struct opp_table *opp_table;
--	bool has_opp_table;
- 
- 	u32 byte_clk_rate;
- 	u32 pixel_clk_rate;
-@@ -1891,9 +1890,7 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
- 		return PTR_ERR(msm_host->opp_table);
- 	/* OPP table is optional */
- 	ret = dev_pm_opp_of_add_table(&pdev->dev);
--	if (!ret) {
--		msm_host->has_opp_table = true;
--	} else if (ret != -ENODEV) {
-+	if (ret && ret != -ENODEV) {
- 		dev_err(&pdev->dev, "invalid OPP table in device tree\n");
- 		dev_pm_opp_put_clkname(msm_host->opp_table);
- 		return ret;
-@@ -1934,8 +1931,7 @@ void msm_dsi_host_destroy(struct mipi_dsi_host *host)
- 	mutex_destroy(&msm_host->cmd_mutex);
- 	mutex_destroy(&msm_host->dev_mutex);
- 
--	if (msm_host->has_opp_table)
--		dev_pm_opp_of_remove_table(&msm_host->pdev->dev);
-+	dev_pm_opp_of_remove_table(&msm_host->pdev->dev);
- 	dev_pm_opp_put_clkname(msm_host->opp_table);
- 	pm_runtime_disable(&msm_host->pdev->dev);
- }
 -- 
-2.25.0.rc1.19.g042ed3e048af
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
