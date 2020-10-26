@@ -1,75 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37CB92993A8
-	for <lists+freedreno@lfdr.de>; Mon, 26 Oct 2020 18:22:18 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id CDD002995FC
+	for <lists+freedreno@lfdr.de>; Mon, 26 Oct 2020 19:54:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F5E56EA3F;
-	Mon, 26 Oct 2020 17:22:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29F0E89BA1;
+	Mon, 26 Oct 2020 18:54:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 149F76EA3F
- for <freedreno@lists.freedesktop.org>; Mon, 26 Oct 2020 17:22:15 +0000 (UTC)
+Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BFF789B7B
+ for <freedreno@lists.freedesktop.org>; Mon, 26 Oct 2020 18:54:38 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1603732935; h=In-Reply-To: Content-Type: MIME-Version:
- References: Message-ID: Subject: Cc: To: From: Date: Sender;
- bh=+aOZQ/t6QGi1VJth3AWIBfLCnxWUxT0nkcXTfMK4Iow=;
- b=kumSmEJH1KxM0PwxXtt6623UKfEHEJfouZOR4CR9nJj7XnHi2HkkA53LWsTcWJE47Ga0Bi51
- lm97roUlR0s1U9lSiGfew2C8bPJZdF54AnEeXBxEafykjihCT7ylDL4Z9KJCwodAOiKNhSrR
- eD6YXtDmJYAbHNFYFnCCD0cmYMc=
-X-Mailgun-Sending-Ip: 104.130.96.5
+ s=smtp; t=1603738478; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=0+NAqJ+ZTi7Mq0hrkl43403Zc7yaG005VShAlWwuGZg=;
+ b=Lq8SAOFbtz+5NWFbbWEvN0EL08/YoQFFbhBYNnX8ZWbWTz6B7o42cgIlkUCT6xfNBp82oB9r
+ vQchvc1OH9DCDqcUyDcppk7V+hPFyyAFM6fQgInCEEjjGGBF+9eLOjjO3B9EoxtA/YYU3MJC
+ Fdc+sX1IPF4ohEH0nbP4STZ7kSs=
+X-Mailgun-Sending-Ip: 69.72.42.4
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
- 5f9705c68d1da1b307e2140d (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 26 Oct 2020 17:22:14
+ smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
+ 5f971b6d7c1cca52dbbdd4ba (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 26 Oct 2020 18:54:37
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 814DDC433FE; Mon, 26 Oct 2020 17:22:13 +0000 (UTC)
+ id 9589CC433A0; Mon, 26 Oct 2020 18:54:36 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
  SPF_FAIL, 
  URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
+Received: from jordan-laptop.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id A27F3C433CB;
- Mon, 26 Oct 2020 17:22:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org A27F3C433CB
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 12615C433CB;
+ Mon, 26 Oct 2020 18:54:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 12615C433CB
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  spf=fail smtp.mailfrom=jcrouse@codeaurora.org
-Date: Mon, 26 Oct 2020 11:22:08 -0600
 From: Jordan Crouse <jcrouse@codeaurora.org>
-To: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-Message-ID: <20201026172208.GB23509@jcrouse1-lnx.qualcomm.com>
-Mail-Followup-To: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Joerg Roedel <joro@8bytes.org>, Rob Clark <robdclark@gmail.com>,
- iommu@lists.linux-foundation.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- freedreno@lists.freedesktop.org,
- "Kristian H . Kristensen" <hoegsberg@google.com>,
- dri-devel@lists.freedesktop.org,
- Sharat Masetty <smasetty@codeaurora.org>
-References: <cover.1603448364.git.saiprakash.ranjan@codeaurora.org>
- <947f799846dd02501032af5e5ed4b42d12801c84.1603448364.git.saiprakash.ranjan@codeaurora.org>
+To: linux-arm-msm@vger.kernel.org
+Date: Mon, 26 Oct 2020 12:54:28 -0600
+Message-Id: <20201026185428.101443-1-jcrouse@codeaurora.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <947f799846dd02501032af5e5ed4b42d12801c84.1603448364.git.saiprakash.ranjan@codeaurora.org>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Freedreno] [PATCHv6 4/6] drm/msm/a6xx: Add support for using
- system cache(LLC)
+Subject: [Freedreno] [PATCH] drm/msm/a6xx: Add support for using system
+ cache on MMU500 based targets
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,258 +67,133 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Will Deacon <will@kernel.org>,
- Joerg Roedel <joro@8bytes.org>, iommu@lists.linux-foundation.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Akhil P Oommen <akhilpo@codeaurora.org>,
- linux-arm-msm@vger.kernel.org,
- "Kristian H . Kristensen" <hoegsberg@google.com>,
- Robin Murphy <robin.murphy@arm.com>, Sharat Masetty <smasetty@codeaurora.org>,
- linux-arm-kernel@lists.infradead.org
+Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ freedreno@lists.freedesktop.org, Sharat Masetty <smasetty@codeaurora.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Oct 26, 2020 at 05:24:03PM +0530, Sai Prakash Ranjan wrote:
-> From: Sharat Masetty <smasetty@codeaurora.org>
-> 
-> The last level system cache can be partitioned to 32 different
-> slices of which GPU has two slices preallocated. One slice is
-> used for caching GPU buffers and the other slice is used for
-> caching the GPU SMMU pagetables. This talks to the core system
-> cache driver to acquire the slice handles, configure the SCID's
-> to those slices and activates and deactivates the slices upon
-> GPU power collapse and restore.
-> 
-> Some support from the IOMMU driver is also needed to make use
-> of the system cache to set the right TCR attributes. GPU then
-> has the ability to override a few cacheability parameters which
-> it does to override write-allocate to write-no-allocate as the
-> GPU hardware does not benefit much from it.
-> 
-> DOMAIN_ATTR_SYS_CACHE is another domain level attribute used by the
-> IOMMU driver to set the right attributes to cache the hardware
-> pagetables into the system cache.
-> 
-> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
-> [saiprakash.ranjan: fix to set attr before device attach to iommu and rebase]
-> Signed-off-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+This is an extension to the series [1] to enable the System Cache (LLC) for
+Adreno a6xx targets.
 
-As with the previous patch this doesn't exactly need the IOMMU side changes
-outside of the update to the domain attribute enum.
+GPU targets with an MMU-500 attached have a slightly different process for
+enabling system cache. Use the compatible string on the IOMMU phandle
+to see if an MMU-500 is attached and modify the programming sequence
+accordingly.
 
-If the attribute didn't exist we would just lose no-write-allocate which is
-undesirable but not devastating.
+[1] https://patchwork.freedesktop.org/series/83037/
 
-Hopefully the arm-smmu changes are ready to go but I'm just trying to figure
-out a game plan to keep Sai from having to maintain these patches
-for another cycle.
+Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
+---
 
-Jordan
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 46 +++++++++++++++++++++------
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h |  1 +
+ 2 files changed, 37 insertions(+), 10 deletions(-)
 
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 83 +++++++++++++++++++++++++
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.h   |  4 ++
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 17 +++++
->  3 files changed, 104 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index 8915882e4444..151190ff62f7 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -8,7 +8,9 @@
->  #include "a6xx_gpu.h"
->  #include "a6xx_gmu.xml.h"
->  
-> +#include <linux/bitfield.h>
->  #include <linux/devfreq.h>
-> +#include <linux/soc/qcom/llcc-qcom.h>
->  
->  #define GPU_PAS_ID 13
->  
-> @@ -1022,6 +1024,79 @@ static irqreturn_t a6xx_irq(struct msm_gpu *gpu)
->  	return IRQ_HANDLED;
->  }
->  
-> +static void a6xx_llc_rmw(struct a6xx_gpu *a6xx_gpu, u32 reg, u32 mask, u32 or)
-> +{
-> +	return msm_rmw(a6xx_gpu->llc_mmio + (reg << 2), mask, or);
-> +}
-> +
-> +static void a6xx_llc_write(struct a6xx_gpu *a6xx_gpu, u32 reg, u32 value)
-> +{
-> +	return msm_writel(value, a6xx_gpu->llc_mmio + (reg << 2));
-> +}
-> +
-> +static void a6xx_llc_deactivate(struct a6xx_gpu *a6xx_gpu)
-> +{
-> +	llcc_slice_deactivate(a6xx_gpu->llc_slice);
-> +	llcc_slice_deactivate(a6xx_gpu->htw_llc_slice);
-> +}
-> +
-> +static void a6xx_llc_activate(struct a6xx_gpu *a6xx_gpu)
-> +{
-> +	u32 cntl1_regval = 0;
-> +
-> +	if (IS_ERR(a6xx_gpu->llc_mmio))
-> +		return;
-> +
-> +	if (!llcc_slice_activate(a6xx_gpu->llc_slice)) {
-> +		u32 gpu_scid = llcc_get_slice_id(a6xx_gpu->llc_slice);
-> +
-> +		gpu_scid &= 0x1f;
-> +		cntl1_regval = (gpu_scid << 0) | (gpu_scid << 5) | (gpu_scid << 10) |
-> +			       (gpu_scid << 15) | (gpu_scid << 20);
-> +	}
-> +
-> +	if (!llcc_slice_activate(a6xx_gpu->htw_llc_slice)) {
-> +		u32 gpuhtw_scid = llcc_get_slice_id(a6xx_gpu->htw_llc_slice);
-> +
-> +		gpuhtw_scid &= 0x1f;
-> +		cntl1_regval |= FIELD_PREP(GENMASK(29, 25), gpuhtw_scid);
-> +	}
-> +
-> +	if (cntl1_regval) {
-> +		/*
-> +		 * Program the slice IDs for the various GPU blocks and GPU MMU
-> +		 * pagetables
-> +		 */
-> +		a6xx_llc_write(a6xx_gpu, REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_1, cntl1_regval);
-> +
-> +		/*
-> +		 * Program cacheability overrides to not allocate cache lines on
-> +		 * a write miss
-> +		 */
-> +		a6xx_llc_rmw(a6xx_gpu, REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_0, 0xF, 0x03);
-> +	}
-> +}
-> +
-> +static void a6xx_llc_slices_destroy(struct a6xx_gpu *a6xx_gpu)
-> +{
-> +	llcc_slice_putd(a6xx_gpu->llc_slice);
-> +	llcc_slice_putd(a6xx_gpu->htw_llc_slice);
-> +}
-> +
-> +static void a6xx_llc_slices_init(struct platform_device *pdev,
-> +		struct a6xx_gpu *a6xx_gpu)
-> +{
-> +	a6xx_gpu->llc_mmio = msm_ioremap(pdev, "cx_mem", "gpu_cx");
-> +	if (IS_ERR(a6xx_gpu->llc_mmio))
-> +		return;
-> +
-> +	a6xx_gpu->llc_slice = llcc_slice_getd(LLCC_GPU);
-> +	a6xx_gpu->htw_llc_slice = llcc_slice_getd(LLCC_GPUHTW);
-> +
-> +	if (IS_ERR(a6xx_gpu->llc_slice) && IS_ERR(a6xx_gpu->htw_llc_slice))
-> +		a6xx_gpu->llc_mmio = ERR_PTR(-EINVAL);
-> +}
-> +
->  static int a6xx_pm_resume(struct msm_gpu *gpu)
->  {
->  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-> @@ -1038,6 +1113,8 @@ static int a6xx_pm_resume(struct msm_gpu *gpu)
->  
->  	msm_gpu_resume_devfreq(gpu);
->  
-> +	a6xx_llc_activate(a6xx_gpu);
-> +
->  	return 0;
->  }
->  
-> @@ -1048,6 +1125,8 @@ static int a6xx_pm_suspend(struct msm_gpu *gpu)
->  
->  	trace_msm_gpu_suspend(0);
->  
-> +	a6xx_llc_deactivate(a6xx_gpu);
-> +
->  	devfreq_suspend_device(gpu->devfreq.devfreq);
->  
->  	return a6xx_gmu_stop(a6xx_gpu);
-> @@ -1091,6 +1170,8 @@ static void a6xx_destroy(struct msm_gpu *gpu)
->  		drm_gem_object_put(a6xx_gpu->shadow_bo);
->  	}
->  
-> +	a6xx_llc_slices_destroy(a6xx_gpu);
-> +
->  	a6xx_gmu_remove(a6xx_gpu);
->  
->  	adreno_gpu_cleanup(adreno_gpu);
-> @@ -1209,6 +1290,8 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
->  	if (info && info->revn == 650)
->  		adreno_gpu->base.hw_apriv = true;
->  
-> +	a6xx_llc_slices_init(pdev, a6xx_gpu);
-> +
->  	ret = adreno_gpu_init(dev, pdev, adreno_gpu, &funcs, 1);
->  	if (ret) {
->  		a6xx_destroy(&(a6xx_gpu->base.base));
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> index 3eeebf6a754b..9e6079af679c 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> @@ -28,6 +28,10 @@ struct a6xx_gpu {
->  	uint32_t *shadow;
->  
->  	bool has_whereami;
-> +
-> +	void __iomem *llc_mmio;
-> +	void *llc_slice;
-> +	void *htw_llc_slice;
->  };
->  
->  #define to_a6xx_gpu(x) container_of(x, struct a6xx_gpu, base)
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> index fd8f491f2e48..86c4fe667225 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -16,6 +16,7 @@
->  #include <linux/soc/qcom/mdt_loader.h>
->  #include <soc/qcom/ocmem.h>
->  #include "adreno_gpu.h"
-> +#include "a6xx_gpu.h"
->  #include "msm_gem.h"
->  #include "msm_mmu.h"
->  
-> @@ -189,6 +190,8 @@ struct msm_gem_address_space *
->  adreno_iommu_create_address_space(struct msm_gpu *gpu,
->  		struct platform_device *pdev)
->  {
-> +	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-> +	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
->  	struct iommu_domain *iommu;
->  	struct msm_mmu *mmu;
->  	struct msm_gem_address_space *aspace;
-> @@ -198,7 +201,21 @@ adreno_iommu_create_address_space(struct msm_gpu *gpu,
->  	if (!iommu)
->  		return NULL;
->  
-> +	/*
-> +	 * This allows GPU to set the bus attributes required to use system
-> +	 * cache on behalf of the iommu page table walker.
-> +	 */
-> +	if (!IS_ERR(a6xx_gpu->htw_llc_slice)) {
-> +		int gpu_htw_llc = 1;
-> +
-> +		iommu_domain_set_attr(iommu, DOMAIN_ATTR_SYS_CACHE, &gpu_htw_llc);
-> +	}
-> +
->  	mmu = msm_iommu_new(&pdev->dev, iommu);
-> +	if (IS_ERR(mmu)) {
-> +		iommu_domain_free(iommu);
-> +		return ERR_CAST(mmu);
-> +	}
->  
->  	/*
->  	 * Use the aperture start or SZ_16M, whichever is greater. This will
-> -- 
-> QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a member
-> of Code Aurora Forum, hosted by The Linux Foundation
-> 
-
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 95c98c642876..b7737732fbb6 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -1042,6 +1042,8 @@ static void a6xx_llc_deactivate(struct a6xx_gpu *a6xx_gpu)
+ 
+ static void a6xx_llc_activate(struct a6xx_gpu *a6xx_gpu)
+ {
++	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
++	struct msm_gpu *gpu = &adreno_gpu->base;
+ 	u32 cntl1_regval = 0;
+ 
+ 	if (IS_ERR(a6xx_gpu->llc_mmio))
+@@ -1055,11 +1057,17 @@ static void a6xx_llc_activate(struct a6xx_gpu *a6xx_gpu)
+ 			       (gpu_scid << 15) | (gpu_scid << 20);
+ 	}
+ 
++	/*
++	 * For targets with a MMU500, activate the slice but don't program the
++	 * register.  The XBL will take care of that.
++	 */
+ 	if (!llcc_slice_activate(a6xx_gpu->htw_llc_slice)) {
+-		u32 gpuhtw_scid = llcc_get_slice_id(a6xx_gpu->htw_llc_slice);
++		if (!a6xx_gpu->have_mmu500) {
++			u32 gpuhtw_scid = llcc_get_slice_id(a6xx_gpu->htw_llc_slice);
+ 
+-		gpuhtw_scid &= 0x1f;
+-		cntl1_regval |= FIELD_PREP(GENMASK(29, 25), gpuhtw_scid);
++			gpuhtw_scid &= 0x1f;
++			cntl1_regval |= FIELD_PREP(GENMASK(29, 25), gpuhtw_scid);
++		}
+ 	}
+ 
+ 	if (cntl1_regval) {
+@@ -1067,13 +1075,20 @@ static void a6xx_llc_activate(struct a6xx_gpu *a6xx_gpu)
+ 		 * Program the slice IDs for the various GPU blocks and GPU MMU
+ 		 * pagetables
+ 		 */
+-		a6xx_llc_write(a6xx_gpu, REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_1, cntl1_regval);
+-
+-		/*
+-		 * Program cacheability overrides to not allocate cache lines on
+-		 * a write miss
+-		 */
+-		a6xx_llc_rmw(a6xx_gpu, REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_0, 0xF, 0x03);
++		if (a6xx_gpu->have_mmu500)
++			gpu_rmw(gpu, REG_A6XX_GBIF_SCACHE_CNTL1, GENMASK(24, 0),
++				cntl1_regval);
++		else {
++			a6xx_llc_write(a6xx_gpu,
++				REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_1, cntl1_regval);
++
++			/*
++			 * Program cacheability overrides to not allocate cache
++			 * lines on a write miss
++			 */
++			a6xx_llc_rmw(a6xx_gpu,
++				REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_0, 0xF, 0x03);
++		}
+ 	}
+ }
+ 
+@@ -1086,10 +1101,21 @@ static void a6xx_llc_slices_destroy(struct a6xx_gpu *a6xx_gpu)
+ static void a6xx_llc_slices_init(struct platform_device *pdev,
+ 		struct a6xx_gpu *a6xx_gpu)
+ {
++	struct device_node *phandle;
++
+ 	a6xx_gpu->llc_mmio = msm_ioremap(pdev, "cx_mem", "gpu_cx");
+ 	if (IS_ERR(a6xx_gpu->llc_mmio))
+ 		return;
+ 
++	/*
++	 * There is a different programming path for targets with an mmu500
++	 * attached, so detect if that is the case
++	 */
++	phandle = of_parse_phandle(pdev->dev.of_node, "iommus", 0);
++	a6xx_gpu->have_mmu500 = (phandle &&
++		of_device_is_compatible(phandle, "arm,mmu500"));
++	of_node_put(phandle);
++
+ 	a6xx_gpu->llc_slice = llcc_slice_getd(LLCC_GPU);
+ 	a6xx_gpu->htw_llc_slice = llcc_slice_getd(LLCC_GPUHTW);
+ 
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+index 9e6079af679c..e793d329e77b 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+@@ -32,6 +32,7 @@ struct a6xx_gpu {
+ 	void __iomem *llc_mmio;
+ 	void *llc_slice;
+ 	void *htw_llc_slice;
++	bool have_mmu500;
+ };
+ 
+ #define to_a6xx_gpu(x) container_of(x, struct a6xx_gpu, base)
 -- 
-The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
-a Linux Foundation Collaborative Project
+2.25.1
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
