@@ -2,34 +2,34 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DCAE29BADE
-	for <lists+freedreno@lfdr.de>; Tue, 27 Oct 2020 17:14:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3412E29C7BA
+	for <lists+freedreno@lfdr.de>; Tue, 27 Oct 2020 19:49:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17BA189B62;
-	Tue, 27 Oct 2020 16:14:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFF686EB82;
+	Tue, 27 Oct 2020 18:49:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA1F889B62
- for <freedreno@lists.freedesktop.org>; Tue, 27 Oct 2020 16:14:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE8C66EC15
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Oct 2020 18:49:09 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1603815277; h=Message-ID: Subject: Cc: To: From: Date:
- Content-Transfer-Encoding: Content-Type: MIME-Version: Sender;
- bh=DpMi3wZzYzZFIDmbhPw67VwM72fcMWlU80A+xtAhYJ4=;
- b=c4LNfLNXUW8lD5lBvCzV2d7E6Kjx/ilos1d9xF7notq9fEjPhIkHIHVwctAzO3vOAyYFRP2H
- rXwo/dxtcxv3/kPmFn9ZtO+0pI/NZEW43lQwoVk6tzfGUXywIW56vxGhdh00KwH6Zrstx9Eq
- VDtwbNzmTeSdyXBZSK0vvlM6OWA=
+ s=smtp; t=1603824549; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=onN6cnFqDOSCbb9Mxt8SddPJFHmruGIv8WFUjOBVlaQ=;
+ b=OXEbDdzlEJ6oVNm/MxGrhkl1Ztlg8SgZoA7mY5dRWBleWLMD0JhMoBkhcg0H0sqGWR+e0JgQ
+ n8TcPWMGF/EKa+XKR7yCBbH8l7sounhFRcFnMKRyW5vxsilZX8mtpvjXCL0SnHyusLSyN290
+ 1If69JAkdEnPSrWvWErzwJFHevM=
 X-Mailgun-Sending-Ip: 104.130.96.5
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
- 5f98476c83cdcf4c2fe5d440 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 27 Oct 2020 16:14:36
+ smtp-out-n06.prod.us-east-1.postgun.com with SMTP id
+ 5f986ba437949e554bb67f22 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 27 Oct 2020 18:49:08
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 7AC9DC38533; Tue, 27 Oct 2020 16:14:36 +0000 (UTC)
+ id 08DE8C433CB; Tue, 27 Oct 2020 18:49:08 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -37,19 +37,20 @@ X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
  URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: saiprakash.ranjan)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 876CDC3852B;
- Tue, 27 Oct 2020 16:14:34 +0000 (UTC)
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 34CFFC433C9;
+ Tue, 27 Oct 2020 18:49:07 +0000 (UTC)
 MIME-Version: 1.0
-Date: Tue, 27 Oct 2020 21:44:34 +0530
-From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-To: Robin Murphy <robin.murphy@arm.com>
-Message-ID: <6775698bb9ddd14f5ac9325aa093d884@codeaurora.org>
-X-Sender: saiprakash.ranjan@codeaurora.org
+Date: Tue, 27 Oct 2020 11:49:07 -0700
+From: abhinavk@codeaurora.org
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20201027102304.945424-1-dmitry.baryshkov@linaro.org>
+References: <20201027102304.945424-1-dmitry.baryshkov@linaro.org>
+Message-ID: <20ac1894035103cc989cbfad3f07d885@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
 User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: Add support for using system
- cache on MMU500 based targets
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: fix clock scaling on
+ non-sc7180 board
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,134 +63,61 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Jonathan Marek <jonathan@marek.ca>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Sharat Masetty <smasetty@codeaurora.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Jordan Crouse <jcrouse@codeaurora.org>,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Kalyan Thota <kalyan_t@codeaurora.org>, Sean Paul <sean@poorly.run>
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-10-27 21:10, Robin Murphy wrote:
-> On 2020-10-26 18:54, Jordan Crouse wrote:
->> This is an extension to the series [1] to enable the System Cache 
->> (LLC) for
->> Adreno a6xx targets.
->> 
->> GPU targets with an MMU-500 attached have a slightly different process 
->> for
->> enabling system cache. Use the compatible string on the IOMMU phandle
->> to see if an MMU-500 is attached and modify the programming sequence
->> accordingly.
->> 
->> [1] https://patchwork.freedesktop.org/series/83037/
->> 
->> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
->> ---
->> 
->>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 46 
->> +++++++++++++++++++++------
->>   drivers/gpu/drm/msm/adreno/a6xx_gpu.h |  1 +
->>   2 files changed, 37 insertions(+), 10 deletions(-)
->> 
->> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c 
->> b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> index 95c98c642876..b7737732fbb6 100644
->> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> @@ -1042,6 +1042,8 @@ static void a6xx_llc_deactivate(struct a6xx_gpu 
->> *a6xx_gpu)
->>     static void a6xx_llc_activate(struct a6xx_gpu *a6xx_gpu)
->>   {
->> +	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
->> +	struct msm_gpu *gpu = &adreno_gpu->base;
->>   	u32 cntl1_regval = 0;
->>     	if (IS_ERR(a6xx_gpu->llc_mmio))
->> @@ -1055,11 +1057,17 @@ static void a6xx_llc_activate(struct a6xx_gpu 
->> *a6xx_gpu)
->>   			       (gpu_scid << 15) | (gpu_scid << 20);
->>   	}
->>   +	/*
->> +	 * For targets with a MMU500, activate the slice but don't program 
->> the
->> +	 * register.  The XBL will take care of that.
->> +	 */
->>   	if (!llcc_slice_activate(a6xx_gpu->htw_llc_slice)) {
->> -		u32 gpuhtw_scid = llcc_get_slice_id(a6xx_gpu->htw_llc_slice);
->> +		if (!a6xx_gpu->have_mmu500) {
->> +			u32 gpuhtw_scid = llcc_get_slice_id(a6xx_gpu->htw_llc_slice);
->>   -		gpuhtw_scid &= 0x1f;
->> -		cntl1_regval |= FIELD_PREP(GENMASK(29, 25), gpuhtw_scid);
->> +			gpuhtw_scid &= 0x1f;
->> +			cntl1_regval |= FIELD_PREP(GENMASK(29, 25), gpuhtw_scid);
->> +		}
->>   	}
->>     	if (cntl1_regval) {
->> @@ -1067,13 +1075,20 @@ static void a6xx_llc_activate(struct a6xx_gpu 
->> *a6xx_gpu)
->>   		 * Program the slice IDs for the various GPU blocks and GPU MMU
->>   		 * pagetables
->>   		 */
->> -		a6xx_llc_write(a6xx_gpu, REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_1, 
->> cntl1_regval);
->> -
->> -		/*
->> -		 * Program cacheability overrides to not allocate cache lines on
->> -		 * a write miss
->> -		 */
->> -		a6xx_llc_rmw(a6xx_gpu, REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_0, 0xF, 
->> 0x03);
->> +		if (a6xx_gpu->have_mmu500)
->> +			gpu_rmw(gpu, REG_A6XX_GBIF_SCACHE_CNTL1, GENMASK(24, 0),
->> +				cntl1_regval);
->> +		else {
->> +			a6xx_llc_write(a6xx_gpu,
->> +				REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_1, cntl1_regval);
->> +
->> +			/*
->> +			 * Program cacheability overrides to not allocate cache
->> +			 * lines on a write miss
->> +			 */
->> +			a6xx_llc_rmw(a6xx_gpu,
->> +				REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_0, 0xF, 0x03);
->> +		}
->>   	}
->>   }
->>   @@ -1086,10 +1101,21 @@ static void a6xx_llc_slices_destroy(struct 
->> a6xx_gpu *a6xx_gpu)
->>   static void a6xx_llc_slices_init(struct platform_device *pdev,
->>   		struct a6xx_gpu *a6xx_gpu)
->>   {
->> +	struct device_node *phandle;
->> +
->>   	a6xx_gpu->llc_mmio = msm_ioremap(pdev, "cx_mem", "gpu_cx");
->>   	if (IS_ERR(a6xx_gpu->llc_mmio))
->>   		return;
->>   +	/*
->> +	 * There is a different programming path for targets with an mmu500
->> +	 * attached, so detect if that is the case
->> +	 */
->> +	phandle = of_parse_phandle(pdev->dev.of_node, "iommus", 0);
->> +	a6xx_gpu->have_mmu500 = (phandle &&
->> +		of_device_is_compatible(phandle, "arm,mmu500"));
+On 2020-10-27 03:23, Dmitry Baryshkov wrote:
+> c33b7c0389e1 ("drm/msm/dpu: add support for clk and bw scaling for
+> display") has added support for handling bandwidth voting in kms path 
+> in
+> addition to old mdss path. However this broke all other platforms since
+> _dpu_core_perf_crtc_update_bus() will now error out instead of properly
+> calculating bandwidth and core clocks. Fix
+> _dpu_core_perf_crtc_update_bus() to just skip bandwidth setting instead
+> of returning an error in case kms->num_paths == 0 (MDSS is used for
+> bandwidth management).
 > 
-> Note that this should never match, since the compatible string defined
-> by the binding is "arm,mmu-500" ;)
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Fixes: c33b7c0389e1 ("drm/msm/dpu: add support for clk and bw scaling
+> for display")
+> ---
+Looks fine to me, thanks for the fix.
+Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
 > 
-
-Hawk eye ;) I will fix it in the next version when I squash
-this with my series.
-
-Thanks,
-Sai
-
--- 
-QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a 
-member
-of Code Aurora Forum, hosted by The Linux Foundation
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+> index 393858ef8a83..37c8270681c2 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+> @@ -219,9 +219,6 @@ static int _dpu_core_perf_crtc_update_bus(struct
+> dpu_kms *kms,
+>  	int i, ret = 0;
+>  	u64 avg_bw;
+> 
+> -	if (!kms->num_paths)
+> -		return -EINVAL;
+> -
+>  	drm_for_each_crtc(tmp_crtc, crtc->dev) {
+>  		if (tmp_crtc->enabled &&
+>  			curr_client_type ==
+> @@ -239,6 +236,9 @@ static int _dpu_core_perf_crtc_update_bus(struct
+> dpu_kms *kms,
+>  		}
+>  	}
+> 
+> +	if (!kms->num_paths)
+> +		return 0;
+> +
+>  	avg_bw = perf.bw_ctl;
+>  	do_div(avg_bw, (kms->num_paths * 1000)); /*Bps_to_icc*/
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
