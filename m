@@ -2,59 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A3D0299847
-	for <lists+freedreno@lfdr.de>; Mon, 26 Oct 2020 21:56:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7166E29A538
+	for <lists+freedreno@lfdr.de>; Tue, 27 Oct 2020 08:08:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A507E6E153;
-	Mon, 26 Oct 2020 20:56:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 250476E34B;
+	Tue, 27 Oct 2020 07:08:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
- [IPv6:2607:f8b0:4864:20::541])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 226576EA65
- for <freedreno@lists.freedesktop.org>; Mon, 26 Oct 2020 20:56:10 +0000 (UTC)
-Received: by mail-pg1-x541.google.com with SMTP id h6so6751230pgk.4
- for <freedreno@lists.freedesktop.org>; Mon, 26 Oct 2020 13:56:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:content-transfer-encoding:in-reply-to:references
- :subject:from:cc:to:date:message-id:user-agent;
- bh=5HeFLa89GKRfQ1XZepG1+Qq8mgTYnKfDuFsFx2t5hik=;
- b=ZnwvKThmJJRc7XtDD9S148ZbXLzkCKb13MMwlf6PpcbaAKGllxcAeTrBPlQWXgTyTt
- Cx9vp+bKlaRXdjdLVvrUhc0kkbtvE1ETmzQbN2aQjvswcZDdCrMC7UgjyuftV57g4WTy
- wSkVDm1l6tdzpNw8nxONLM/sGb/ogqbo+ymcw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:content-transfer-encoding
- :in-reply-to:references:subject:from:cc:to:date:message-id
- :user-agent;
- bh=5HeFLa89GKRfQ1XZepG1+Qq8mgTYnKfDuFsFx2t5hik=;
- b=s51ip3Un4FFjYeyWZLchaLwxYygbKUZsdBXtzkIz6XlMkeYK0vrfGJowCzODloEhJs
- 9it9tad2gLBgjnUduJeHeUU8nu3r6FgXvYk0EsKFSI2GpauBIJP/HDhQHbbZ2+Cjf7Z+
- twrzC8X8on8vEUS/gF8B4YC0yFXvPqdtFl7RoFpCrHg5Y8mAwBwmr9XrKBRtcHS1GCOX
- M/zluqD0M2CJYVyeMKSX7dgRNNNTjIGW+DJQEVPij7XxsYhMBYRSH25++hxF8eZqDJqr
- Vh6nP/7OTWwtnzzYcX0LJa40QqTXEW33yYISyOFvr7ejEeZHLailSev1MGfKH/NuiCuv
- UEdg==
-X-Gm-Message-State: AOAM533mKpaz6mMK1N+IAFcRHlZzQjneb82fBL3U6m3W6YbgFVKBFHER
- m4ZfyOR5ZYQEuAruuft92G39pg==
-X-Google-Smtp-Source: ABdhPJxi7nbZgFH7nWutnr3b3SCmGRv6cRm4tL4fle6uvBxMr2G6t7oz6Oswhe2y151V4jCatLqa3A==
-X-Received: by 2002:a63:e705:: with SMTP id b5mr14922382pgi.230.1603745769694; 
- Mon, 26 Oct 2020 13:56:09 -0700 (PDT)
-Received: from chromium.org ([2620:15c:202:201:3e52:82ff:fe6c:83ab])
- by smtp.gmail.com with ESMTPSA id n19sm12588831pfu.24.2020.10.26.13.56.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Oct 2020 13:56:09 -0700 (PDT)
+Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 609D76EB1B
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Oct 2020 07:08:05 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1603782485; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=ahIMEJAF2HOCmKrnWEJ6rC/ZR2DgHhKiGOo7hQp4WiM=;
+ b=pH0mwhFH1VXLMqPcFp9gcX0W97lBCugQWuQ1GWlIZyIN4YXAoxSXwzSsnqW9ZNqQNg6IXeEJ
+ ukny+5WZSuOn0S4ZLZHOU7hXgPYG8y963aePmRVAoW9g4khKW64oJx52Hf6+PC0pKT1byRe4
+ EWcZnX1YF+Fkk+uupwkryM9UCkY=
+X-Mailgun-Sending-Ip: 69.72.42.4
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
+ 5f97c7541e4642bf753b7644 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 27 Oct 2020 07:08:04
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 914A2C43382; Tue, 27 Oct 2020 07:08:03 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: saiprakash.ranjan)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 51DD3C433CB;
+ Tue, 27 Oct 2020 07:08:02 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <20201026194110.3817470-3-arnd@kernel.org>
-References: <20201026194110.3817470-1-arnd@kernel.org>
- <20201026194110.3817470-3-arnd@kernel.org>
-From: Stephen Boyd <swboyd@chromium.org>
-To: Arnd Bergmann <arnd@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@linux.ie>, Jonathan Marek <jonathan@marek.ca>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-Date: Mon, 26 Oct 2020 13:56:07 -0700
-Message-ID: <160374576766.884498.794065087413944435@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.9.1
-Subject: Re: [Freedreno] [PATCH 3/4] drm/msm: fix -Woverride-init warning
+Date: Tue, 27 Oct 2020 12:38:02 +0530
+From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+To: Jordan Crouse <jcrouse@codeaurora.org>
+In-Reply-To: <20201026185428.101443-1-jcrouse@codeaurora.org>
+References: <20201026185428.101443-1-jcrouse@codeaurora.org>
+Message-ID: <d5050762b88d5d0d957ad5057f165b21@codeaurora.org>
+X-Sender: saiprakash.ranjan@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: Add support for using system
+ cache on MMU500 based targets
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,35 +64,149 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Krishna Manikandan <mkrishn@codeaurora.org>,
- Shubhashree Dhar <dhar@codeaurora.org>, Arnd Bergmann <arnd@arndb.de>,
- Raviteja Tamatam <travitej@codeaurora.org>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Kalyan Thota <kalyan_t@codeaurora.org>, freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Arnd Bergmann (2020-10-26 12:41:03)
-> From: Arnd Bergmann <arnd@arndb.de>
+On 2020-10-27 00:24, Jordan Crouse wrote:
+> This is an extension to the series [1] to enable the System Cache (LLC) 
+> for
+> Adreno a6xx targets.
 > 
-> There is one harmless duplicate initialization that causes a warning
-> with 'make W=1':
+> GPU targets with an MMU-500 attached have a slightly different process 
+> for
+> enabling system cache. Use the compatible string on the IOMMU phandle
+> to see if an MMU-500 is attached and modify the programming sequence
+> accordingly.
 > 
-> drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:122:19: warning: initialized field overwritten [-Woverride-init]
->   122 |  .max_linewidth = 4096,
->       |                   ^~~~
-> drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:122:19: note: (near initialization for 'sm8250_dpu_caps.max_linewidth')
+> [1] https://patchwork.freedesktop.org/series/83037/
 > 
-> Remove one of the two identical initializers to avoid the warning.
-> 
-> Fixes: af776a3e1c30 ("drm/msm/dpu: add SM8250 to hw catalog")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
 > ---
+> 
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 46 +++++++++++++++++++++------
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.h |  1 +
+>  2 files changed, 37 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index 95c98c642876..b7737732fbb6 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -1042,6 +1042,8 @@ static void a6xx_llc_deactivate(struct a6xx_gpu 
+> *a6xx_gpu)
+> 
+>  static void a6xx_llc_activate(struct a6xx_gpu *a6xx_gpu)
+>  {
+> +	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+> +	struct msm_gpu *gpu = &adreno_gpu->base;
+>  	u32 cntl1_regval = 0;
+> 
+>  	if (IS_ERR(a6xx_gpu->llc_mmio))
+> @@ -1055,11 +1057,17 @@ static void a6xx_llc_activate(struct a6xx_gpu 
+> *a6xx_gpu)
+>  			       (gpu_scid << 15) | (gpu_scid << 20);
+>  	}
+> 
+> +	/*
+> +	 * For targets with a MMU500, activate the slice but don't program 
+> the
+> +	 * register.  The XBL will take care of that.
+> +	 */
+>  	if (!llcc_slice_activate(a6xx_gpu->htw_llc_slice)) {
+> -		u32 gpuhtw_scid = llcc_get_slice_id(a6xx_gpu->htw_llc_slice);
+> +		if (!a6xx_gpu->have_mmu500) {
+> +			u32 gpuhtw_scid = llcc_get_slice_id(a6xx_gpu->htw_llc_slice);
+> 
+> -		gpuhtw_scid &= 0x1f;
+> -		cntl1_regval |= FIELD_PREP(GENMASK(29, 25), gpuhtw_scid);
+> +			gpuhtw_scid &= 0x1f;
+> +			cntl1_regval |= FIELD_PREP(GENMASK(29, 25), gpuhtw_scid);
+> +		}
+>  	}
+> 
+>  	if (cntl1_regval) {
+> @@ -1067,13 +1075,20 @@ static void a6xx_llc_activate(struct a6xx_gpu 
+> *a6xx_gpu)
+>  		 * Program the slice IDs for the various GPU blocks and GPU MMU
+>  		 * pagetables
+>  		 */
+> -		a6xx_llc_write(a6xx_gpu, REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_1, 
+> cntl1_regval);
+> -
+> -		/*
+> -		 * Program cacheability overrides to not allocate cache lines on
+> -		 * a write miss
+> -		 */
+> -		a6xx_llc_rmw(a6xx_gpu, REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_0, 0xF, 
+> 0x03);
+> +		if (a6xx_gpu->have_mmu500)
+> +			gpu_rmw(gpu, REG_A6XX_GBIF_SCACHE_CNTL1, GENMASK(24, 0),
+> +				cntl1_regval);
+> +		else {
+> +			a6xx_llc_write(a6xx_gpu,
+> +				REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_1, cntl1_regval);
+> +
+> +			/*
+> +			 * Program cacheability overrides to not allocate cache
+> +			 * lines on a write miss
+> +			 */
+> +			a6xx_llc_rmw(a6xx_gpu,
+> +				REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_0, 0xF, 0x03);
+> +		}
+>  	}
+>  }
+> 
+> @@ -1086,10 +1101,21 @@ static void a6xx_llc_slices_destroy(struct
+> a6xx_gpu *a6xx_gpu)
+>  static void a6xx_llc_slices_init(struct platform_device *pdev,
+>  		struct a6xx_gpu *a6xx_gpu)
+>  {
+> +	struct device_node *phandle;
+> +
+>  	a6xx_gpu->llc_mmio = msm_ioremap(pdev, "cx_mem", "gpu_cx");
+>  	if (IS_ERR(a6xx_gpu->llc_mmio))
+>  		return;
+> 
+> +	/*
+> +	 * There is a different programming path for targets with an mmu500
+> +	 * attached, so detect if that is the case
+> +	 */
+> +	phandle = of_parse_phandle(pdev->dev.of_node, "iommus", 0);
+> +	a6xx_gpu->have_mmu500 = (phandle &&
+> +		of_device_is_compatible(phandle, "arm,mmu500"));
+> +	of_node_put(phandle);
+> +
+>  	a6xx_gpu->llc_slice = llcc_slice_getd(LLCC_GPU);
+>  	a6xx_gpu->htw_llc_slice = llcc_slice_getd(LLCC_GPUHTW);
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> index 9e6079af679c..e793d329e77b 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> @@ -32,6 +32,7 @@ struct a6xx_gpu {
+>  	void __iomem *llc_mmio;
+>  	void *llc_slice;
+>  	void *htw_llc_slice;
+> +	bool have_mmu500;
+>  };
+> 
+>  #define to_a6xx_gpu(x) container_of(x, struct a6xx_gpu, base)
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Thanks Jordan for the patch.
+
+-- 
+QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a 
+member
+of Code Aurora Forum, hosted by The Linux Foundation
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
