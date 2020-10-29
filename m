@@ -1,61 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 053A029E5D0
-	for <lists+freedreno@lfdr.de>; Thu, 29 Oct 2020 09:08:20 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EEB729F0E7
+	for <lists+freedreno@lfdr.de>; Thu, 29 Oct 2020 17:14:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3CCB6E851;
-	Thu, 29 Oct 2020 08:08:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03E376E8D8;
+	Thu, 29 Oct 2020 16:14:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40C566E851
- for <freedreno@lists.freedesktop.org>; Thu, 29 Oct 2020 08:08:13 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1603958897; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=H308bgHtNMckRynOpOEBssH/vo6aQHBFl+tdwdPWVmU=;
- b=NvmzkIfXGoL6tPtg4kJ37sVO/0DkaL/2smtfP6jKa3pt28+M5LJcUXSImNfm/zZ5XGy4RSM+
- FgWIJ1wRsGX+LsqBdDdA2gzzJPMrBl0c0bunMxk3EwaD6+Clj+Sd3WPBbM2D3FGUdhEbZd25
- 7bghQA1aSCtsxQdGRIieyzXAa84=
-X-Mailgun-Sending-Ip: 69.72.42.4
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
- 5f9a784a99d22f6577cd806a (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 29 Oct 2020 08:07:38
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id ED29DC433FF; Thu, 29 Oct 2020 08:07:37 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL, 
- URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-Received: from akhilpo-linux.qualcomm.com (unknown [202.46.22.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: akhilpo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 6D05DC433C9;
- Thu, 29 Oct 2020 08:07:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 6D05DC433C9
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=akhilpo@codeaurora.org
-From: Akhil P Oommen <akhilpo@codeaurora.org>
-To: freedreno@lists.freedesktop.org,
-	devicetree@vger.kernel.org
-Date: Thu, 29 Oct 2020 13:37:21 +0530
-Message-Id: <1603958841-20233-3-git-send-email-akhilpo@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1603958841-20233-1-git-send-email-akhilpo@codeaurora.org>
-References: <1603958841-20233-1-git-send-email-akhilpo@codeaurora.org>
-Subject: [Freedreno] [PATCH v4 3/3] dt-bindings: drm/msm/gpu: Add cooling
- device support
+Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com
+ [IPv6:2607:f8b0:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57A106E8CD
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Oct 2020 16:14:40 +0000 (UTC)
+Received: by mail-ot1-x343.google.com with SMTP id j21so2772874ota.13
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Oct 2020 09:14:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=i6etDFeKtUj+RtB8Hig0oByEs1X05vnGUjehBWAxKJ0=;
+ b=JM8mmzrw2EIMWTSgXhoxYpNCZD/kbBIkLatmDmz6EvmNi2aHE4F5HWIEBMT2e9rVtj
+ vee/pN885rxskj/y1aYzLuGj96hMCkTeA2H/K/mcI8cd1j3f4cM0kyZJoUbF43HcTN45
+ RnviYKwKrR5iq9ojbuj7d/uUu290M4d1GlwPM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=i6etDFeKtUj+RtB8Hig0oByEs1X05vnGUjehBWAxKJ0=;
+ b=OiSJsS76Hmm6Q6u2O5m0enXIccPWFBKSWUQd6oQhLmN7G7AVe1QqTMjUr6r8vQo7MS
+ l0vtXDXf0qaFAWU/kI5QqegPQJAqnWS8p6ENW2NZqPCOtF2jRsD1Kw38CLThkx8vBqCO
+ o3IPc5wNuTyYakvTRfDPm9Q3FdbTLqfNWwR/T4+k+LmWBZsNo+gVck1i67GLe/8eJ8zp
+ gTzAKyxsKmK4ENHgIbLCWTNeHQokc1qTfN2Nrpu9Rk6KD/aL4yxHolv9Qx30SeI7pPP9
+ fqQaGVywYfnT48Kf+HYvBrrOXzzvMLMvng0oBizC9lDU5nP6MnGSqnl7fiizwmyRBbvj
+ ie6A==
+X-Gm-Message-State: AOAM530S4CzPLwudn/dDOWhjXP7y0eVfZSvmEzRJc0kFYGZ3WaYXvo75
+ 8sIhI3zrg1HecM2ElNTzXghwks3sEFQ/+0PJoZu56Q==
+X-Google-Smtp-Source: ABdhPJzPHzC8UIBm63CxXaV40WY8W+RrSlKqzKbRX+dYTIIbYWElVjSUdt4KiCZJrMjvPqNqDV5P/bOU4CfJH1rKOi0=
+X-Received: by 2002:a9d:6e81:: with SMTP id a1mr3667472otr.303.1603988079536; 
+ Thu, 29 Oct 2020 09:14:39 -0700 (PDT)
+MIME-Version: 1.0
+References: <20201023165136.561680-1-robdclark@gmail.com>
+ <20201023165136.561680-24-robdclark@gmail.com>
+ <d0fb714b99f13bea6000ecd17fba324433782ae5.camel@pengutronix.de>
+ <CAF6AEGsf=pJ5H4guvL-+AAkK0PwCZ5g9k3K=7UPYzFmr02ReoA@mail.gmail.com>
+ <20201026093405.GG401619@phenom.ffwll.local>
+In-Reply-To: <20201026093405.GG401619@phenom.ffwll.local>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Thu, 29 Oct 2020 17:14:28 +0100
+Message-ID: <CAKMK7uHK27hMu+zSR0O35gR-Nq-JDXpXWBFXPBcXUhOi_3AKnw@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>
+Subject: Re: [Freedreno] [PATCH v4 23/23] drm/msm: Don't implicit-sync if
+ only a single ring
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,58 +62,142 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robh@kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dianders@chromium.org, jcrouse@codeaurora.org,
- mka@chromium.org, robdclark@gmail.com, dri-devel@freedesktop.org
-MIME-Version: 1.0
+Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Sean Paul <sean@poorly.run>,
+ "Kristian H . Kristensen" <hoegsberg@google.com>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Lucas Stach <l.stach@pengutronix.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add cooling device support to gpu. A cooling device is bound to a
-thermal zone to allow thermal mitigation.
+On Mon, Oct 26, 2020 at 10:34 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+>
+> On Fri, Oct 23, 2020 at 08:49:14PM -0700, Rob Clark wrote:
+> > On Fri, Oct 23, 2020 at 11:20 AM Lucas Stach <l.stach@pengutronix.de> wrote:
+> > >
+> > > On Fr, 2020-10-23 at 09:51 -0700, Rob Clark wrote:
+> > > > From: Rob Clark <robdclark@chromium.org>
+> > > >
+> > > > If there is only a single ring (no-preemption), everything is FIFO order
+> > > > and there is no need to implicit-sync.
+> > > >
+> > > > Mesa should probably just always use MSM_SUBMIT_NO_IMPLICIT, as behavior
+> > > > is undefined when fences are not used to synchronize buffer usage across
+> > > > contexts (which is the only case where multiple different priority rings
+> > > > could come into play).
+> > >
+> > > Really, doesn't this break cross-device implicit sync? Okay, you may
+> > > not have many peripherals that rely on implicit sync on devices where
+> > > Adreno is usually found, but it seems rather heavy-handed.
+> > >
+> > > Wouldn't it be better to only ignore fences from your own ring context
+> > > in the implicit sync, like we do in the common DRM scheduler
+> > > (drm_sched_dependency_optimized)?
+> >
+> > we already do this.. as was discussed on an earlier iteration of this patchset
+> >
+> > But I'm not aware of any other non-gpu related implicit sync use-case
+> > (even on imx devices where display is decoupled from gpu).. I'll
+> > revert the patch if someone comes up with one, but otherwise lets let
+> > the implicit sync baggage die
+>
+> The thing is, dma_resv won't die, even if implicit sync is dead. We're
+> using internally for activity tracking and memory management. If you don't
+> set these, then we can't share generic code with msm, and I think everyone
+> inventing their own memory management is a bit a mistake.
+>
+> Now you only kill the implicit write sync stuff here, but I'm not sure
+> that's worth much since you still install all the read fences for
+> consistency. And if userspace doesn't want to be synced, they can set the
+> flag and do this on their own: I think you should be able to achieve
+> exactly the same thing in mesa.
+>
+> Aside: If you're worried about overhead, you can do O(1) submit if you
+> manage your ppgtt like amdgpu does.
 
-Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
----
- Documentation/devicetree/bindings/display/msm/gpu.txt | 7 +++++++
- 1 file changed, 7 insertions(+)
+So just remember a use-case which is maybe a bit yucky, but it is
+actually possible to implement race-free. If you have implicit sync.
 
-diff --git a/Documentation/devicetree/bindings/display/msm/gpu.txt b/Documentation/devicetree/bindings/display/msm/gpu.txt
-index 1af0ff1..090dcb3 100644
---- a/Documentation/devicetree/bindings/display/msm/gpu.txt
-+++ b/Documentation/devicetree/bindings/display/msm/gpu.txt
-@@ -39,6 +39,10 @@ Required properties:
-         a4xx Snapdragon SoCs. See
-         Documentation/devicetree/bindings/sram/qcom,ocmem.yaml.
- 
-+Optional properties:
-+- #cooling-cells: The value must be 2. For details, please refer
-+	Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml.
-+
- Example 3xx/4xx:
- 
- / {
-@@ -61,6 +65,7 @@ Example 3xx/4xx:
- 		power-domains = <&mmcc OXILICX_GDSC>;
- 		operating-points-v2 = <&gpu_opp_table>;
- 		iommus = <&gpu_iommu 0>;
-+		#cooling-cells = <2>;
- 	};
- 
- 	gpu_sram: ocmem@fdd00000 {
-@@ -98,6 +103,8 @@ Example a6xx (with GMU):
- 		reg = <0x5000000 0x40000>, <0x509e000 0x10>;
- 		reg-names = "kgsl_3d0_reg_memory", "cx_mem";
- 
-+		#cooling-cells = <2>;
-+
- 		/*
- 		 * Look ma, no clocks! The GPU clocks and power are
- 		 * controlled entirely by the GMU
+There's screen-capture tool in mplayer and obs which capture your
+compositor by running getfb2 in a loop. It works, and after some
+initial screaming I realized it does actually work race-free. If you
+have implicit sync.
+
+I really don't think you can sunset this, as much as you want to. And
+sunsetting it inconsistently is probably the worst.
+-Daniel
+
+> -Daniel
+>
+> >
+> > BR,
+> > -R
+> >
+> >
+> >
+> > >
+> > > Regards,
+> > > Lucas
+> > >
+> > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > > > Reviewed-by: Kristian H. Kristensen <hoegsberg@google.com>
+> > > > ---
+> > > >  drivers/gpu/drm/msm/msm_gem_submit.c | 7 ++++---
+> > > >  1 file changed, 4 insertions(+), 3 deletions(-)
+> > > >
+> > > > diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+> > > > index d04c349d8112..b6babc7f9bb8 100644
+> > > > --- a/drivers/gpu/drm/msm/msm_gem_submit.c
+> > > > +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+> > > > @@ -283,7 +283,7 @@ static int submit_lock_objects(struct msm_gem_submit *submit)
+> > > >       return ret;
+> > > >  }
+> > > >
+> > > > -static int submit_fence_sync(struct msm_gem_submit *submit, bool no_implicit)
+> > > > +static int submit_fence_sync(struct msm_gem_submit *submit, bool implicit_sync)
+> > > >  {
+> > > >       int i, ret = 0;
+> > > >
+> > > > @@ -303,7 +303,7 @@ static int submit_fence_sync(struct msm_gem_submit *submit, bool no_implicit)
+> > > >                               return ret;
+> > > >               }
+> > > >
+> > > > -             if (no_implicit)
+> > > > +             if (!implicit_sync)
+> > > >                       continue;
+> > > >
+> > > >               ret = msm_gem_sync_object(&msm_obj->base, submit->ring->fctx,
+> > > > @@ -774,7 +774,8 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+> > > >       if (ret)
+> > > >               goto out;
+> > > >
+> > > > -     ret = submit_fence_sync(submit, !!(args->flags & MSM_SUBMIT_NO_IMPLICIT));
+> > > > +     ret = submit_fence_sync(submit, (gpu->nr_rings > 1) &&
+> > > > +                     !(args->flags & MSM_SUBMIT_NO_IMPLICIT));
+> > > >       if (ret)
+> > > >               goto out;
+> > > >
+> > >
+> > _______________________________________________
+> > dri-devel mailing list
+> > dri-devel@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/dri-devel
+>
+> --
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
+
+
+
 -- 
-2.7.4
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
