@@ -2,56 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50B5529DE14
-	for <lists+freedreno@lfdr.de>; Thu, 29 Oct 2020 01:49:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF5F229E572
+	for <lists+freedreno@lfdr.de>; Thu, 29 Oct 2020 08:58:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D34A86E829;
-	Thu, 29 Oct 2020 00:49:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64D266E820;
+	Thu, 29 Oct 2020 07:58:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
- [IPv6:2607:f8b0:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC9F26E828
- for <freedreno@lists.freedesktop.org>; Thu, 29 Oct 2020 00:49:51 +0000 (UTC)
-Received: by mail-pf1-x443.google.com with SMTP id e15so904764pfh.6
- for <freedreno@lists.freedesktop.org>; Wed, 28 Oct 2020 17:49:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=QjqMc7l+70GPiHEtdcLDE2w5wxCubKj+e+9vvDhN4jw=;
- b=KWesP9d25XLLiCMeDoho0aDAfWKj5ghD7xuB9bZ/rz7fD2ZttLECup+c3B9hOey+de
- moHDsKZEfVZM/JNlZYMtKT3rx8fgMoLiz62UGRQXQk6zoHpZaStlCtIJNNz5EFLWD5o0
- zBTVsxNKNkaI6yNaolffTZybUeJVIAtd622/M=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=QjqMc7l+70GPiHEtdcLDE2w5wxCubKj+e+9vvDhN4jw=;
- b=OQGBPXp6LtTDKJ1Tyg0dvo021PnC6ZizmM9qrijZaCdkrWRUe5IYyIphtY4s7CRSP/
- VrCcTq/jutIcA4wVqY/Blt8NmO0VGnff6YB36Rak8eNhqZ5B0+Pekj0xe7s4E0k+hBYp
- IVQgeWIHJf3G4IIBsYAhubBhhUw70tbRJepYCFxTy7GzcBs3opn+vu0TS3rF7TtdsVIU
- 04DNyXJzF5uRXbDrgUQe0rugSFBYjMdocvREzum+F9/SqHTvuKc4AV1k5eAPlpHJQTFe
- 4qO330/feoDxuCgj66ibgv0dl5gD2R5vz8o9V5oXUyP6C8880GL9INfr2Q2euHb3fM/g
- MlGw==
-X-Gm-Message-State: AOAM53057BZroK0iW2cYSJAwqwNG1fBHwFm/6ZIc6ONcKn5Hrv5WL0Zi
- XNenVrbYGOYr5qn0LPNoSRI3Nw==
-X-Google-Smtp-Source: ABdhPJwEq/sau27VV7p4hVDzceI1BjScm1N5vyp0R9X8+H9CxHrUZkAC08SATGsvPL31v7pDv5VeSw==
-X-Received: by 2002:a63:f502:: with SMTP id w2mr1727045pgh.186.1603932591575; 
- Wed, 28 Oct 2020 17:49:51 -0700 (PDT)
-Received: from localhost ([2620:15c:202:1:f693:9fff:fef4:e70a])
- by smtp.gmail.com with ESMTPSA id 17sm789966pfj.49.2020.10.28.17.49.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Oct 2020 17:49:51 -0700 (PDT)
-Date: Wed, 28 Oct 2020 17:49:49 -0700
-From: mka@chromium.org
-To: Akhil P Oommen <akhilpo@codeaurora.org>
-Message-ID: <20201029004949.GB1855806@google.com>
-References: <1603892395-3570-3-git-send-email-akhilpo@codeaurora.org>
+Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87CB66E820
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Oct 2020 07:58:42 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1603958323; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
+ Subject: Sender; bh=TlU0fDOuXAQSqUNYC4Vl1Hk+7AlQn1pnRJi/r7LKsoc=;
+ b=Cn1+48Y38R4rznAYVutUwo/Ly+UBWlguvmgk+Q+DG9tjOrr7trhh1UC+A8aG8JNkIA/yV1jc
+ fGFbYCFhclmc52JkJtQkqWB7+BAgv5xiEq/X3whntSmjJV+dLON6KhKUGi0wTcbpwDB0mcrV
+ ZYpBf+mep4go9NcxHt/eZSuEf2I=
+X-Mailgun-Sending-Ip: 104.130.96.5
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
+ 5f9a762f95539f1aec00d5ca (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 29 Oct 2020 07:58:39
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 5295BC433CB; Thu, 29 Oct 2020 07:58:39 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-3.2 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ NICE_REPLY_A,SPF_FAIL,URIBL_BLOCKED autolearn=no autolearn_force=no
+ version=3.4.0
+Received: from [192.168.1.9] (unknown [61.3.76.235])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 63B9BC433FE;
+ Thu, 29 Oct 2020 07:58:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 63B9BC433FE
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=akhilpo@codeaurora.org
+To: mka@chromium.org
+References: <1603892395-3570-2-git-send-email-akhilpo@codeaurora.org>
+ <20201029003931.GA1855806@google.com>
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+Message-ID: <2919f377-4824-dc85-aa2c-c3ce252d437c@codeaurora.org>
+Date: Thu, 29 Oct 2020 13:28:33 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.3
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1603892395-3570-3-git-send-email-akhilpo@codeaurora.org>
+In-Reply-To: <20201029003931.GA1855806@google.com>
+Content-Language: en-US
 Subject: Re: [Freedreno] [v3,
- 3/3] dt-bindings: drm/msm/gpu: Add cooling device support
+ 2/3] arm64: dts: qcom: sc7180: Add gpu cooling support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,54 +74,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  dianders@chromium.org, linux-kernel@vger.kernel.org, dri-devel@freedesktop.org,
  freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Oct 28, 2020 at 07:09:54PM +0530, Akhil P Oommen wrote:
-> Add cooling device support to gpu. A cooling device is bound to a
-> thermal zone to allow thermal mitigation.
+On 10/29/2020 6:09 AM, mka@chromium.org wrote:
+> Hi Akhil,
 > 
-> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
-> ---
->  Documentation/devicetree/bindings/display/msm/gpu.txt | 7 +++++++
->  1 file changed, 7 insertions(+)
+> On Wed, Oct 28, 2020 at 07:09:53PM +0530, Akhil P Oommen wrote:
+>> Add cooling-cells property and the cooling maps for the gpu tzones
+>> to support GPU cooling.
+>>
+>> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+>> ---
+>>   arch/arm64/boot/dts/qcom/sc7180.dtsi | 30 +++++++++++++++++++++++-------
+>>   1 file changed, 23 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+>> index d46b383..a7ea029 100644
+>> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+>> @@ -2,7 +2,7 @@
+>>   /*
+>>    * SC7180 SoC device tree source
+>>    *
+>> - * Copyright (c) 2019, The Linux Foundation. All rights reserved.
+>> + * Copyright (c) 2019-20, The Linux Foundation. All rights reserved.
+>>    */
+>>   
+>>   #include <dt-bindings/clock/qcom,dispcc-sc7180.h>
+>> @@ -1886,6 +1886,8 @@
+>>   			operating-points-v2 = <&gpu_opp_table>;
+>>   			qcom,gmu = <&gmu>;
+>>   
+>> +			#cooling-cells = <2>;
+>> +
+>>   			interconnects = <&gem_noc MASTER_GFX3D &mc_virt SLAVE_EBI1>;
+>>   			interconnect-names = "gfx-mem";
+>>   
+>> @@ -3825,16 +3827,16 @@
+>>   		};
+>>   
+>>   		gpuss0-thermal {
+>> -			polling-delay-passive = <0>;
+>> +			polling-delay-passive = <100>;
+>>   			polling-delay = <0>;
+>>   
+>>   			thermal-sensors = <&tsens0 13>;
+>>   
+>>   			trips {
+>>   				gpuss0_alert0: trip-point0 {
+>> -					temperature = <90000>;
+>> +					temperature = <95000>;
+>>   					hysteresis = <2000>;
+>> -					type = "hot";
+>> +					type = "passive";
+>>   				};
+>>   
+>>   				gpuss0_crit: gpuss0_crit {
+>> @@ -3843,19 +3845,26 @@
+>>   					type = "critical";
+>>   				};
+>>   			};
+>> +
+>> +			cooling-maps {
+>> +				map0 {
+>> +					trip = <&gpuss0_alert0>;
+>> +					cooling-device = <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+>> +				};
+>> +			};
+>>   		};
+>>   
+>>   		gpuss1-thermal {
+>> -			polling-delay-passive = <0>;
+>> +			polling-delay-passive = <100>;
+>>   			polling-delay = <0>;
+>>   
+>>   			thermal-sensors = <&tsens0 14>;
+>>   
+>>   			trips {
+>>   				gpuss1_alert0: trip-point0 {
+>> -					temperature = <90000>;
+>> +					temperature = <95000>;
+>>   					hysteresis = <2000>;
+>> -					type = "hot";
+>> +					type = "passive";
+>>   				};
+>>   
+>>   				gpuss1_crit: gpuss1_crit {
+>> @@ -3864,6 +3873,13 @@
+>>   					type = "critical";
+>>   				};
+>>   			};
+>> +
+>> +			cooling-maps {
+>> +				map0 {
+>> +					trip = <&gpuss0_alert0>;
 > 
-> diff --git a/Documentation/devicetree/bindings/display/msm/gpu.txt b/Documentation/devicetree/bindings/display/msm/gpu.txt
-> index 1af0ff1..090dcb3 100644
-> --- a/Documentation/devicetree/bindings/display/msm/gpu.txt
-> +++ b/Documentation/devicetree/bindings/display/msm/gpu.txt
-> @@ -39,6 +39,10 @@ Required properties:
->          a4xx Snapdragon SoCs. See
->          Documentation/devicetree/bindings/sram/qcom,ocmem.yaml.
->  
-> +Optional properties:
-> +- #cooling-cells: The value must be 2. For details, please refer
-> +	Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml.
-> +
->  Example 3xx/4xx:
->  
->  / {
-> @@ -61,6 +65,7 @@ Example 3xx/4xx:
->  		power-domains = <&mmcc OXILICX_GDSC>;
->  		operating-points-v2 = <&gpu_opp_table>;
->  		iommus = <&gpu_iommu 0>;
-> +		#cooling-cells = <2>;
->  	};
->  
->  	gpu_sram: ocmem@fdd00000 {
-> @@ -98,6 +103,8 @@ Example a6xx (with GMU):
->  		reg = <0x5000000 0x40000>, <0x509e000 0x10>;
->  		reg-names = "kgsl_3d0_reg_memory", "cx_mem";
->  
-> +		#cooling-cells = <2>;
-> +
->  		/*
->  		 * Look ma, no clocks! The GPU clocks and power are
->  		 * controlled entirely by the GMU
+> Copy & paste error, this should be 'gpuss1_alert0'.
+aah! you are correct.
 
-Reviewed-by: Matthias Kaehlcke <mka@chromium.org>
+--Akhil
+> 
+>> +					cooling-device = <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+>> +				};
+>> +			};
+>>   		};
+>>   
+>>   		aoss1-thermal {
+> 
+> 
+> Other than the C&P error:
+> 
+> Reviewed-by: Matthias Kaehlcke <mka@chromium.org>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> 
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
