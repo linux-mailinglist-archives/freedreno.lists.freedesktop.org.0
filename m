@@ -1,66 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DD3029F48E
-	for <lists+freedreno@lfdr.de>; Thu, 29 Oct 2020 20:10:35 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D98929F668
+	for <lists+freedreno@lfdr.de>; Thu, 29 Oct 2020 21:48:46 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D1BD6E8E5;
-	Thu, 29 Oct 2020 19:10:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FBFB6E900;
+	Thu, 29 Oct 2020 20:48:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
- [IPv6:2607:f8b0:4864:20::543])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A6C86E8CF;
- Thu, 29 Oct 2020 19:04:14 +0000 (UTC)
-Received: by mail-pg1-x543.google.com with SMTP id n16so3104784pgv.13;
- Thu, 29 Oct 2020 12:04:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com
+ [IPv6:2607:f8b0:4864:20::52e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6724B6E900
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Oct 2020 20:48:44 +0000 (UTC)
+Received: by mail-pg1-x52e.google.com with SMTP id g12so3331227pgm.8
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Oct 2020 13:48:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=E/YO8QhrBtgOUHxaIDNankNBd/9HmVJuOo7AD36126w=;
- b=PLfkqocEdos35ZQHCQz/KTCSR/zMAv3dAbZfuP5kApLSMaTsx7PFKmmwIEBMuJFbFC
- qC9PdeAhCfMDVWkvy7mrzdhGx8oHpIjCVqULqOklNfRAXVfXVA2r8nPjl2mFopa9IxIp
- bGQIykKdYgDlBFjJHtGKn43D02lpYwtRVslmiIVm4XXBTr+RbE5XUwGb+k3LOCthAz7g
- cv6P2xhzPjSwC8fWDCToPqu0kJOxC3WT8a/sp7Xb7gq40x9A64votvET4rP2ylYSwn+a
- CNl1LQvuP93+p+ZbgI0roqCVTxygv6KD7V3x6aedt6LifnYrTC8MXqvj7SIP+7AR51fj
- OqLA==
+ bh=7jTNHive/FLwf9ZZT3i6CSw/O2mDxcoGdERzu325nls=;
+ b=S1eLSOvxPle2SWTXmcWkjdxAG8gKeMEQNERefUSZtQOj35IZKWi6zQ3XA/x7yozwz8
+ SuJqxRhbB4i6YZ/pUVv4PdoQ6A/WOXxwmF1BPT1/90DX/CA1WzuJ0SBOp9PqwSiCKXSH
+ F0G3QbbwVleLe5Wk2wNrW1vW/731JkCOacLvw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=E/YO8QhrBtgOUHxaIDNankNBd/9HmVJuOo7AD36126w=;
- b=I17UTYGbB76ZiQR0ys0gst+KpZxCGO96j4Mc9i+2oRRJJsSkmq36sXzRFaXMdW+o3f
- YhUUmiZw53oIhF0e0t68XXD32TxGTeIJB7RCms3mRy56Zmk7fcQc79tp6a528hmPjeB5
- 8+7fhOr7qieeTn5PkVTeJPsXQ7hTohyf2lFB3/C2enZOF354IAXUcXkA1abW6e1pY7wG
- I/3DiRAa1Jfc39/lmPKfw+ajOhHu8Yya/jT/evNLPGigQBECY/7r7c/D0WfHm1iGnArj
- 5PHTVhyHiAuLtbD7sxjzBQ/8XTVQkQ77N+jyqdOAC5Ow/+Ocw1a+6cI9qMjluxB6GFO/
- JOnw==
-X-Gm-Message-State: AOAM531SwASnV2Tt044698vydteI1DodOAXrZev7bwViNgkJp7Gf28lS
- 8VlF0+2zn46vkLIhJim0zNI=
-X-Google-Smtp-Source: ABdhPJw9nDFNuKk/faRep1zMYuYjpRmAzLiIeyJ73bCvjZKMjBLsJZ2uz8PYM+c8gd4OhgIEGjyrHA==
-X-Received: by 2002:a62:e113:0:b029:152:69aa:6a08 with SMTP id
- q19-20020a62e1130000b029015269aa6a08mr5770954pfh.14.1603998254180; 
- Thu, 29 Oct 2020 12:04:14 -0700 (PDT)
-Received: from my--box ([103.98.79.70])
- by smtp.gmail.com with ESMTPSA id ne17sm547478pjb.44.2020.10.29.12.04.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Oct 2020 12:04:13 -0700 (PDT)
-Date: Fri, 30 Oct 2020 00:34:08 +0530
-From: Deepak R Varma <mh12gx2825@gmail.com>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- outreachy-kernel@googlegroups.com
-Message-ID: <e196c426de9e12f149492a92c0a8d92b6106f27c.1603998014.git.mh12gx2825@gmail.com>
-References: <9ca2c2e4cbd9ebb282b90f742305fd9b481aacc2.1603998014.git.mh12gx2825@gmail.com>
+ bh=7jTNHive/FLwf9ZZT3i6CSw/O2mDxcoGdERzu325nls=;
+ b=ubuZRsm9wom3ihts67yuFHbuitXNZvGs+8uFvd+QS3RzWHlQGkfHkwUo0CHgaHW6g0
+ QsX2VXnDJCDWWVqHrszInoX3DLUVGriVChI1/vQ1I/AzwYb51yWkOPl+rqXDWVqM3O9k
+ g8H2IMotGgLjx8EaEY0JF73BY/0jidwXTIi5EazgCmfXnKc0FsqCBPVrArLoN3t3lu0N
+ OhbYewTYlXjjTnfUbMFolaVLOWZOeQ7MHDXmu2hua6bNaP2VxZH519AL+b9/uY/8IS7p
+ bvmQfQndyPoanM2+H/x1vRD+OH2e1nBAtGf2IpAhogXYA3BoBsmBB5mmeP4eVjI26rY5
+ r1vg==
+X-Gm-Message-State: AOAM533ahWgAraEvDqYAB/iMVSDXXLIcuz2ZZvgGXuxLVJSaZAATioOS
+ DUBI0zPgwfW7ttBZkPCFDsKeCA==
+X-Google-Smtp-Source: ABdhPJyNFMcPbWUco+Y+QNwEzgo/c6cxhTHy+B3buEgXZaS5imhK9G19CfKi/1d1jqh/zqA5P53RtQ==
+X-Received: by 2002:a17:90a:6984:: with SMTP id
+ s4mr1082688pjj.206.1604004524081; 
+ Thu, 29 Oct 2020 13:48:44 -0700 (PDT)
+Received: from localhost ([2620:15c:202:1:f693:9fff:fef4:e70a])
+ by smtp.gmail.com with ESMTPSA id e5sm808565pjd.0.2020.10.29.13.48.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 29 Oct 2020 13:48:43 -0700 (PDT)
+Date: Thu, 29 Oct 2020 13:48:42 -0700
+From: mka@chromium.org
+To: Akhil P Oommen <akhilpo@codeaurora.org>
+Message-ID: <20201029204842.GC1855806@google.com>
+References: <1603958841-20233-1-git-send-email-akhilpo@codeaurora.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <9ca2c2e4cbd9ebb282b90f742305fd9b481aacc2.1603998014.git.mh12gx2825@gmail.com>
-X-Mailman-Approved-At: Thu, 29 Oct 2020 19:10:32 +0000
-Subject: [Freedreno] [PATCH 2/2] drm: msm: adreno: improve code indentation
- & alignment
+In-Reply-To: <1603958841-20233-1-git-send-email-akhilpo@codeaurora.org>
+Subject: Re: [Freedreno] [v4,1/3] drm/msm: Add support for GPU cooling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,72 +64,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: mh12gx2825@gmail.com
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dianders@chromium.org, linux-kernel@vger.kernel.org, dri-devel@freedesktop.org,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Align instructions split across multiple lines as per the coding
-standards. Issue flagged by checkpatch script.
+On Thu, Oct 29, 2020 at 01:37:19PM +0530, Akhil P Oommen wrote:
+> Register GPU as a devfreq cooling device so that it can be passively
+> cooled by the thermal framework.
+> 
+> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+> Reviewed-by: Matthias Kaehlcke <mka@chromium.org>
 
-Signed-off-by: Deepak R Varma <mh12gx2825@gmail.com>
----
-Please note: This is a project task specific patch.
+Wait, I did not post a 'Reviewed-by' tag for this patch!
 
- drivers/gpu/drm/msm/adreno/a5xx_debugfs.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+I think the patch should be ok, but I'm still not super happy
+about the resource management involving devfreq in general (see
+discussion on https://patchwork.freedesktop.org/patch/394291/?series=82476&rev=1).
+It's not really something introduced by this patch, but if it ever
+gets fixed releasing the cooling device at the end of
+msm_gpu_cleanup() after everything else might cause trouble.
 
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_debugfs.c b/drivers/gpu/drm/msm/adreno/a5xx_debugfs.c
-index ffe1fb9be155..ac9296f314be 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_debugfs.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_debugfs.c
-@@ -20,7 +20,7 @@ static void pfp_print(struct msm_gpu *gpu, struct drm_printer *p)
- 	for (i = 0; i < 36; i++) {
- 		gpu_write(gpu, REG_A5XX_CP_PFP_STAT_ADDR, i);
- 		drm_printf(p, "  %02x: %08x\n", i,
--			gpu_read(gpu, REG_A5XX_CP_PFP_STAT_DATA));
-+			   gpu_read(gpu, REG_A5XX_CP_PFP_STAT_DATA));
- 	}
- }
- 
-@@ -33,7 +33,7 @@ static void me_print(struct msm_gpu *gpu, struct drm_printer *p)
- 	for (i = 0; i < 29; i++) {
- 		gpu_write(gpu, REG_A5XX_CP_ME_STAT_ADDR, i);
- 		drm_printf(p, "  %02x: %08x\n", i,
--			gpu_read(gpu, REG_A5XX_CP_ME_STAT_DATA));
-+			   gpu_read(gpu, REG_A5XX_CP_ME_STAT_DATA));
- 	}
- }
- 
-@@ -46,7 +46,7 @@ static void meq_print(struct msm_gpu *gpu, struct drm_printer *p)
- 
- 	for (i = 0; i < 64; i++) {
- 		drm_printf(p, "  %02x: %08x\n", i,
--			gpu_read(gpu, REG_A5XX_CP_MEQ_DBG_DATA));
-+			   gpu_read(gpu, REG_A5XX_CP_MEQ_DBG_DATA));
- 	}
- }
- 
-@@ -63,7 +63,7 @@ static void roq_print(struct msm_gpu *gpu, struct drm_printer *p)
- 		for (j = 0; j < 4; j++)
- 			val[j] = gpu_read(gpu, REG_A5XX_CP_ROQ_DBG_DATA);
- 		drm_printf(p, "  %02x: %08x %08x %08x %08x\n", i,
--			val[0], val[1], val[2], val[3]);
-+			   val[0], val[1], val[2], val[3]);
- 	}
- }
- 
-@@ -155,5 +155,5 @@ void a5xx_debugfs_init(struct msm_gpu *gpu, struct drm_minor *minor)
- 				 minor->debugfs_root, minor);
- 
- 	debugfs_create_file_unsafe("reset", S_IWUGO, minor->debugfs_root, dev,
--				&reset_fops);
-+				   &reset_fops);
- }
--- 
-2.25.1
+In summary, I'm supportive of landing this patch, but reluctant to
+'sign it off' because of the above.
 
+In any case:
+
+Tested-by: Matthias Kaehlcke <mka@chromium.org>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
