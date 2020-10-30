@@ -2,63 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C40392A072D
-	for <lists+freedreno@lfdr.de>; Fri, 30 Oct 2020 14:55:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA4292A0954
+	for <lists+freedreno@lfdr.de>; Fri, 30 Oct 2020 16:12:14 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EC276EDA3;
-	Fri, 30 Oct 2020 13:55:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74A666EDDE;
+	Fri, 30 Oct 2020 15:12:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x243.google.com (mail-lj1-x243.google.com
- [IPv6:2a00:1450:4864:20::243])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D99DC6EDD9
- for <freedreno@lists.freedesktop.org>; Fri, 30 Oct 2020 13:55:30 +0000 (UTC)
-Received: by mail-lj1-x243.google.com with SMTP id p15so6969652ljj.8
- for <freedreno@lists.freedesktop.org>; Fri, 30 Oct 2020 06:55:30 -0700 (PDT)
+Received: from mail-lj1-x244.google.com (mail-lj1-x244.google.com
+ [IPv6:2a00:1450:4864:20::244])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E3066EDDE
+ for <freedreno@lists.freedesktop.org>; Fri, 30 Oct 2020 15:12:12 +0000 (UTC)
+Received: by mail-lj1-x244.google.com with SMTP id 23so7251856ljv.7
+ for <freedreno@lists.freedesktop.org>; Fri, 30 Oct 2020 08:12:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=jEivHHHppW7lKJKSPaA2MJ5onUInG0PkEmmlb+QvN6w=;
- b=htnlI/L0D+pPOTdEbli9XM5YC/psfkjbq7r2oMpqoiWUyoGis/mQCEbr+t/EYnCc0C
- 979OuGH5bYgzBKnrAZ+6W/E9f8qxwnMYapNv/omy8Qu0E8Kl/hTiOV7lCqN6IO5UnunT
- NxcGVEHKW10cbrwjW1aZruyU5AZBiQMBUk4eqkDEuUAPTwx6I9fwI/lcf0DLlxKmAqd9
- h/2cux67cuo3A8zYwyrO1C8WkMGu+vQ+PZLLmHgnDcaDrSwwI/gadVOGF/UAbi1m0aHW
- VNdn7TuImE3850PXxcNtzDgyo/tY3iFAlD8ssbcY6jKuBtHYCWz7dSVAyVXroKxDXxL9
- DWMg==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=HmLApEco+rX8mEQowG+X3JrxaqslQdNzajS3RXlAwc4=;
+ b=Tqb7O5kk3DsDfwbCyi/N62cSbTRuKTlWvRDOrRX0UK94p5yx2nykHIfq3F83pRzD4m
+ CBnP5gDVH25wtvfCi2WXDdN2Y+eGpbOa0UF6EClN/a1EuS4jsF8amYFS5Y2QOlKWJ8tf
+ VVZ7wxL1YgWLRwqKaSWmI2CfH1+lxGwoUixJXMmCe7NxnpYilaBe5ufBKlnUFNXwoSFj
+ cFzuMsujm6jKIJR5jMaRCwoEfh3YTFGu36xe8FEkz4RHLMCqMOQ7h0CeAuu107yf6ngb
+ 06ijysHFIcmX9g4KNx9rK3vmkRombtOQhaPt+MzK9H4TG7Wn93OGrQ8027CBTkEV2wZO
+ T4BQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=jEivHHHppW7lKJKSPaA2MJ5onUInG0PkEmmlb+QvN6w=;
- b=bbLP4xGPPvuSLIxSYz/SWJg2n07mQmDDeDECwniy8R4dJjC0Lq6+DBjY9oCfCAfchr
- XOl+4toBlmB52ffexImHEU745ZK5ONBacZ1uA0en/X1mfiQG3XIvmkzDJfuN9qel1gMM
- 2mSpoYrf/hPtoOXNcsJEQ0NGK0eUS7eWk3SmTUyrYRskRgQcIIMFtNnFFIuHrTn0KCGP
- uuh9JpLDwCpML8savlsxBZdl/FJSuqYp7cKAAupHrLfcEcNPU8LoB50/DCvfWhrt4ZX0
- /4b+LX0VJQ1XAuTZU5gRuIAFqzd4vcj2jpLF0Y9YsYx0IW6/bN1QGCciDrS7AdJ2QwJl
- WrDw==
-X-Gm-Message-State: AOAM530SF0cvjIAxrKTiJrIDpGShfHxLDUhnmrARmUUDMPbXuf9bdPdL
- uMnaQYMojQ8sCn9FIYIdzzlUnA==
-X-Google-Smtp-Source: ABdhPJxcxVFBXD2WZ2FNbzFXyybMDQDLxJSVhSrScs29gB2Kab/Nk1XvOZiqO64RPpB7wOWcP8lo6Q==
-X-Received: by 2002:a05:651c:1343:: with SMTP id
- j3mr1071034ljb.336.1604066129156; 
- Fri, 30 Oct 2020 06:55:29 -0700 (PDT)
-Received: from [192.168.1.211] ([188.162.64.225])
- by smtp.gmail.com with ESMTPSA id b15sm696918ljp.117.2020.10.30.06.55.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 30 Oct 2020 06:55:28 -0700 (PDT)
-To: benl@squareup.com, robdclark@gmail.com, sean@poorly.run
-References: <010101750064e17e-3db0087e-fc37-494d-aac9-2c2b9b0a7c5b-000000@us-west-2.amazonses.com>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=HmLApEco+rX8mEQowG+X3JrxaqslQdNzajS3RXlAwc4=;
+ b=DJQQK+4eIEJJyZZ8G+yTWBRIN09355jrsi/g5cRHXaSD+BJ7arQCADsspNqXkl8GaM
+ vX/NFCZmlHLvuolLTEQvVmU3U3m90yTofkr/Ii3rnfSFS2/83tp+hiB+K/8oUWMcIAfM
+ HNVCryJIR/ygodgosWU4eMivimouKSwsqVAcGHcJnKLvx4TWRUxc7Jn3MbePPqBDxM7I
+ buIeSzMte43qxdJokJWzFZJhw9tD0Iai+FzT1Unqv449aHxV3Iui19WB9801+dcYqeQx
+ bmfay787HTiQyCjdsYbNC1jDjHDI/R5UPLI2jVSfU0G/Rgf4/nkugLDau51ppOCBFn3i
+ zD9w==
+X-Gm-Message-State: AOAM530Jka3vaSS60X2IRLFXQ/HADIdQSc7Elueq6fTCxM+FQ7Z1iyJi
+ A0IjzDiJ5ntQsGuIZVm5axIiTw==
+X-Google-Smtp-Source: ABdhPJz8Jf3qUgHHL0oIhqFyjGJF47n865tCXisEWtPQ4NvvEiiPTNTUXmZA8itu60q/kdRV0TymxA==
+X-Received: by 2002:a05:651c:1139:: with SMTP id
+ e25mr1238791ljo.63.1604070731032; 
+ Fri, 30 Oct 2020 08:12:11 -0700 (PDT)
+Received: from eriador.lan ([188.162.64.225])
+ by smtp.gmail.com with ESMTPSA id l16sm647269lfe.78.2020.10.30.08.12.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 30 Oct 2020 08:12:10 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <508ae9e2-5240-2f43-6c97-493bb7d9fbe8@linaro.org>
-Date: Fri, 30 Oct 2020 16:55:25 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.2.2
-MIME-Version: 1.0
+To: benl-kernelpatches@squareup.com
+Date: Fri, 30 Oct 2020 18:12:07 +0300
+Message-Id: <20201030151207.766857-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.28.0
 In-Reply-To: <010101750064e17e-3db0087e-fc37-494d-aac9-2c2b9b0a7c5b-000000@us-west-2.amazonses.com>
-Content-Language: en-GB
-Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: save PLL registers across
- first PHY reset
+References: <010101750064e17e-3db0087e-fc37-494d-aac9-2c2b9b0a7c5b-000000@us-west-2.amazonses.com>
+MIME-Version: 1.0
+Subject: [Freedreno] [PATCH] drm/msm/dsi: do not try reading 28nm vco rate
+ if it's not enabled
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,95 +68,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Anibal Limon <anibal.limon@linaro.org>,
- Harigovindan P <harigovi@codeaurora.org>, dri-devel@lists.freedesktop.org,
- Konrad Dybcio <konradybcio@gmail.com>, zhengbin <zhengbin13@huawei.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <kholk11@gmail.com>,
+Cc: sean@poorly.run, benl@squareup.com, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, harigovi@codeaurora.org,
+ dri-devel@lists.freedesktop.org, konradybcio@gmail.com, zhengbin13@huawei.com,
+ robdclark@gmail.com, daniel@ffwll.ch, kholk11@gmail.com,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hello,
+Reading VCO rate for this PLL can cause boot stalls, if it is not
+enabled. Guard clk_hw_get_rate with a call to
+dsi_pll_28nm_clk_is_enabled().
 
-On 07/10/2020 03:10, benl-kernelpatches@squareup.com wrote:
-> From: Benjamin Li <benl@squareup.com>
-> 
-> Take advantage of previously-added support for persisting PLL
-> registers across DSI PHY disable/enable cycles (see 328e1a6
-> 'drm/msm/dsi: Save/Restore PLL status across PHY reset') to
-> support persisting across the very first DSI PHY enable at
-> boot.
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/dsi/pll/dsi_pll_28nm.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Interesting enough, this breaks exactly on 8016. On DB410c with latest 
-bootloader and w/o splash screen this patch causes boot freeze. Without 
-this patch the board would successfully boot with display routed to HDMI.
-
-> The bootloader may have left the PLL registers in a non-default
-> state. For example, for dsi_pll_28nm.c on 8x16/8x39, the byte
-> clock mux's power-on reset configuration is to bypass DIV1, but
-> depending on bandwidth requirements[1] the bootloader may have
-> set the DIV1 path.
-> 
-> When the byte clock mux is registered with the generic clock
-> framework at probe time, the framework reads & caches the value
-> of the mux bit field (the initial clock parent). After PHY enable,
-> when clk_set_rate is called on the byte clock, the framework
-> assumes there is no need to reparent, and doesn't re-write the
-> mux bit field. But PHY enable resets PLL registers, so the mux
-> bit field actually silently reverted to the DIV1 bypass path.
-> This causes the byte clock to be off by a factor of e.g. 2 for
-> our tested WXGA panel.
-> 
-> The above issue manifests as the display not working and a
-> constant stream of FIFO/LP0 contention errors.
-> 
-> [1] The specific requirement for triggering the DIV1 path (and
-> thus this issue) on 28nm is a panel with pixel clock <116.7MHz
-> (one-third the minimum VCO setting). FHD/1080p (~145MHz) is fine,
-> WXGA/1280x800 (~75MHz) is not.
-> 
-> Signed-off-by: Benjamin Li <benl@squareup.com>
-> ---
->   drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 16 ++++++++++++++++
->   1 file changed, 16 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> index 009f5b843dd1..139b4a5aaf86 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> @@ -621,6 +621,22 @@ static int dsi_phy_driver_probe(struct platform_device *pdev)
->   		phy->pll = NULL;
->   	}
->   
-> +	/*
-> +	 * As explained in msm_dsi_phy_enable, resetting the DSI PHY (as done
-> +	 * in dsi_mgr_phy_enable) silently changes its PLL registers to power-on
-> +	 * defaults, but the generic clock framework manages and caches several
-> +	 * of the PLL registers. It initializes these caches at registration
-> +	 * time via register read.
-> +	 *
-> +	 * As a result, we need to save DSI PLL registers once at probe in order
-> +	 * for the first call to msm_dsi_phy_enable to successfully bring PLL
-> +	 * registers back in line with what the generic clock framework expects.
-> +	 *
-> +	 * Subsequent PLL restores during msm_dsi_phy_enable will always be
-> +	 * paired with PLL saves in msm_dsi_phy_disable.
-> +	 */
-> +	msm_dsi_pll_save_state(phy->pll);
-> +
->   	dsi_phy_disable_resource(phy);
->   
->   	platform_set_drvdata(pdev, phy);
-> 
-
-
+diff --git a/drivers/gpu/drm/msm/dsi/pll/dsi_pll_28nm.c b/drivers/gpu/drm/msm/dsi/pll/dsi_pll_28nm.c
+index 6dffd7f4a99b..37a1f996a588 100644
+--- a/drivers/gpu/drm/msm/dsi/pll/dsi_pll_28nm.c
++++ b/drivers/gpu/drm/msm/dsi/pll/dsi_pll_28nm.c
+@@ -447,7 +447,10 @@ static void dsi_pll_28nm_save_state(struct msm_dsi_pll *pll)
+ 	cached_state->postdiv1 =
+ 			pll_read(base + REG_DSI_28nm_PHY_PLL_POSTDIV1_CFG);
+ 	cached_state->byte_mux = pll_read(base + REG_DSI_28nm_PHY_PLL_VREG_CFG);
+-	cached_state->vco_rate = clk_hw_get_rate(&pll->clk_hw);
++	if (dsi_pll_28nm_clk_is_enabled(&pll->clk_hw))
++		cached_state->vco_rate = clk_hw_get_rate(&pll->clk_hw);
++	else
++		cached_state->vco_rate = 0;
+ }
+ 
+ static int dsi_pll_28nm_restore_state(struct msm_dsi_pll *pll)
 -- 
-With best wishes
-Dmitry
+2.28.0
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
