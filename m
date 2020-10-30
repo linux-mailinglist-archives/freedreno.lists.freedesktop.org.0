@@ -2,57 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF9DA29FA5F
-	for <lists+freedreno@lfdr.de>; Fri, 30 Oct 2020 02:12:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5604729FCF9
+	for <lists+freedreno@lfdr.de>; Fri, 30 Oct 2020 06:10:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30AE76E943;
-	Fri, 30 Oct 2020 01:12:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08B2A6E952;
+	Fri, 30 Oct 2020 05:10:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5361C6E943
- for <freedreno@lists.freedesktop.org>; Fri, 30 Oct 2020 01:12:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2EEB6E952
+ for <freedreno@lists.freedesktop.org>; Fri, 30 Oct 2020 05:09:49 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1604020358; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=rLqH04x7OKfH7f79UZd2BGTmUAb1ZvVeFCX4tIl5CAU=;
- b=POeiCGsnlyBv/e3vE+GKPxbcymEKn7lQYeQA+byOfMnLNcZSmdUnkBmx6b/sFHob46bVl+iB
- xyh6uvjBx8gsim6syA+gb0hfGaTX8DSheg2ZZK38jk3fRSYN6Da4kJ1b3EKKK+JDx/IC62+9
- 9/f6t6bTdrjL3jmBcTxV/mKFQxY=
+ s=smtp; t=1604034604; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
+ Subject: Sender; bh=i5EXSp5H1+wjz49bdX5MmWjfxCCpbPKZqpGfcNnScpk=;
+ b=Wm7Ke6KcQomnyLthyrVpKpftfU8MUUumKd2f/4I3LRRXbL4nygACnFIvvVlm5QiliUZeugxy
+ TsUiJuD4GfEYJ6bw0MRRZXLul/mUFRtnftPVxGanrrqDsZJEI30oC71s0a3iaS9faq9M+VEk
+ ETvrfRsxjs2AqAWvoNVjblc9JhQ=
 X-Mailgun-Sending-Ip: 69.72.42.4
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
- 5f9b6885aa9367276b743078 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 30 Oct 2020 01:12:37
+ smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
+ 5f9b9f9c5177b1c5f94d935c (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 30 Oct 2020 05:07:40
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 82AE7C433CB; Fri, 30 Oct 2020 01:12:37 +0000 (UTC)
+ id 9A52DC433C6; Fri, 30 Oct 2020 05:07:40 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id D526BC433C6;
- Fri, 30 Oct 2020 01:12:36 +0000 (UTC)
+X-Spam-Status: No, score=-3.2 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ NICE_REPLY_A,SPF_FAIL,URIBL_BLOCKED autolearn=no autolearn_force=no
+ version=3.4.0
+Received: from [192.168.1.9] (unknown [61.3.219.238])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 6E70BC433C6;
+ Fri, 30 Oct 2020 05:07:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 6E70BC433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=akhilpo@codeaurora.org
+To: mka@chromium.org
+References: <1603958841-20233-1-git-send-email-akhilpo@codeaurora.org>
+ <20201029204842.GC1855806@google.com>
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+Message-ID: <3d99a0e0-765d-0d89-37ed-0f0999580c1b@codeaurora.org>
+Date: Fri, 30 Oct 2020 10:37:34 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.3
 MIME-Version: 1.0
-Date: Thu, 29 Oct 2020 18:12:36 -0700
-From: abhinavk@codeaurora.org
-To: Daniel Vetter <daniel@ffwll.ch>
-In-Reply-To: <20201022103843.GW401619@phenom.ffwll.local>
-References: <20201022050148.27105-1-abhinavk@codeaurora.org>
- <20201022050148.27105-2-abhinavk@codeaurora.org>
- <20201022103843.GW401619@phenom.ffwll.local>
-Message-ID: <a932084d3eaa3f7b12e3010e40379c16@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH 1/4] drm: allow drm_atomic_print_state() to
- accept any drm_printer
+In-Reply-To: <20201029204842.GC1855806@google.com>
+Content-Language: en-US
+Subject: Re: [Freedreno] [v4,1/3] drm/msm: Add support for GPU cooling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,120 +70,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, tanmay@codeaurora.org, swboyd@chromium.org,
- khsieh@codeaurora.org, seanpaul@chromium.org, dri-devel@lists.freedesktop.org,
- aravindh@codeaurora.org, freedreno@lists.freedesktop.org
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dianders@chromium.org, linux-kernel@vger.kernel.org, dri-devel@freedesktop.org,
+ freedreno@lists.freedesktop.org
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-SGkgRGFuaWVsCgpPbiAyMDIwLTEwLTIyIDAzOjM4LCBEYW5pZWwgVmV0dGVyIHdyb3RlOgo+IE9u
-IFdlZCwgT2N0IDIxLCAyMDIwIGF0IDEwOjAxOjQ1UE0gLTA3MDAsIEFiaGluYXYgS3VtYXIgd3Jv
-dGU6Cj4+IEN1cnJlbnRseSBkcm1fYXRvbWljX3ByaW50X3N0YXRlKCkgaW50ZXJuYWxseSBhbGxv
-Y2F0ZXMgYW5kIHVzZXMgYQo+PiBkcm1faW5mbyBwcmludGVyLiBBbGxvdyBpdCB0byBhY2NlcHQg
-YW55IGRybV9wcmludGVyIHR5cGUgc28gdGhhdAo+PiB0aGUgQVBJIGNhbiBiZSBsZXZlcmFnZWQg
-ZXZlbiBmb3IgdGFraW5nIGRybSBzbmFwc2hvdC4KPj4gCj4+IFNpZ25lZC1vZmYtYnk6IEFiaGlu
-YXYgS3VtYXIgPGFiaGluYXZrQGNvZGVhdXJvcmEub3JnPgo+PiAtLS0KPj4gIGRyaXZlcnMvZ3B1
-L2RybS9kcm1fYXRvbWljLmMgICAgICAgIHwgMTcgKysrKysrKysrKysrLS0tLS0KPj4gIGRyaXZl
-cnMvZ3B1L2RybS9kcm1fYXRvbWljX3VhcGkuYyAgIHwgIDQgKysrLQo+PiAgZHJpdmVycy9ncHUv
-ZHJtL2RybV9jcnRjX2ludGVybmFsLmggfCAgNCArKystCj4+ICAzIGZpbGVzIGNoYW5nZWQsIDE4
-IGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0pCj4+IAo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2RybV9hdG9taWMuYyAKPj4gYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2F0b21pYy5j
-Cj4+IGluZGV4IDU4NTI3ZjE1MTk4NC4uZTcwNzlhNWY0MzljIDEwMDY0NAo+PiAtLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vZHJtX2F0b21pYy5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fYXRv
-bWljLmMKPj4gQEAgLTEsNiArMSw3IEBACj4+ICAvKgo+PiAgICogQ29weXJpZ2h0IChDKSAyMDE0
-IFJlZCBIYXQKPj4gICAqIENvcHlyaWdodCAoQykgMjAxNCBJbnRlbCBDb3JwLgo+PiArICogQ29w
-eXJpZ2h0IChjKSAyMDIwLCBUaGUgTGludXggRm91bmRhdGlvbi4gQWxsIHJpZ2h0cyByZXNlcnZl
-ZC4KPj4gICAqCj4+ICAgKiBQZXJtaXNzaW9uIGlzIGhlcmVieSBncmFudGVkLCBmcmVlIG9mIGNo
-YXJnZSwgdG8gYW55IHBlcnNvbiAKPj4gb2J0YWluaW5nIGEKPj4gICAqIGNvcHkgb2YgdGhpcyBz
-b2Z0d2FyZSBhbmQgYXNzb2NpYXRlZCBkb2N1bWVudGF0aW9uIGZpbGVzICh0aGUgCj4+ICJTb2Z0
-d2FyZSIpLAo+PiBAQCAtMTU0Myw5ICsxNTQ0LDkgQEAgaW50IF9fZHJtX2F0b21pY19oZWxwZXJf
-c2V0X2NvbmZpZyhzdHJ1Y3QgCj4+IGRybV9tb2RlX3NldCAqc2V0LAo+PiAgfQo+PiAgRVhQT1JU
-X1NZTUJPTChfX2RybV9hdG9taWNfaGVscGVyX3NldF9jb25maWcpOwo+PiAKPj4gLXZvaWQgZHJt
-X2F0b21pY19wcmludF9zdGF0ZShjb25zdCBzdHJ1Y3QgZHJtX2F0b21pY19zdGF0ZSAqc3RhdGUp
-Cj4+ICt2b2lkIGRybV9hdG9taWNfcHJpbnRfc3RhdGUoY29uc3Qgc3RydWN0IGRybV9hdG9taWNf
-c3RhdGUgKnN0YXRlLAo+PiArCQlzdHJ1Y3QgZHJtX3ByaW50ZXIgKnApCj4gCj4gUGxlYXNlIGFk
-ZCBhIG5pY2Uga2VybmVsZG9jIGZvciB0aGlzIG5ld2x5IGV4cG9ydGVkIGZ1bmN0aW9uLiAKPiBT
-cGVjaWZpY2FsbHkKPiB0aGlzIGtlcm5lbGRvYyBuZWVkcyB0byBpbmNsdWRlIGEgd2FybmluZyB0
-aGF0IHN0YXRlIHVwZGF0ZXMgYWZ0ZXIgY2FsbAo+IGRybV9hdG9taWNfc3RhdGVfaGVscGVyX2Nv
-bW1pdF9od19kb25lKCkgaXMgdW5zYWZlIHRvIHByaW50IHVzaW5nIHRoaXMKPiBmdW5jdGlvbiwg
-YmVjYXVzZSBpdCBsb29rcyBhdCB0aGUgbmV3IHN0YXRlIG9iamVjdHMuIE9ubHkgdGhlIG9sZCBz
-dGF0ZQo+IHN0cnVjdHVyZXMgd2lsbCBzdGF5IGxpa2UgdGhpcy4KPiAKPiBTbyBtYXliZSByZW5h
-bWUgdGhlIGZ1bmN0aW9uIHRvIHNheSBwcmludF9uZXdfc3RhdGUoKSB0byBtYWtlIHRoaXMKPiBj
-b21wbGV0ZWx5IGNsZWFyLiBUaGF0IHdheSB3ZSBjYW4gZXZlbnR1YWxseSBhZGQgYSBwcmludF9v
-bGRfc3RhdGUoKSAKPiB3aGVuCj4gbmVlZGVkLgo+IAo+IE90aGVyd2lzZSBJIHRoaW5rIHRoaXMg
-bWFrZXMgc2Vuc2UsIGFuZCBuaWNlbHkgYXZvaWRzIHRoZSBsb2NraW5nIGlzc3VlIAo+IG9mCj4g
-bG9va2luZyBhdCAtPnN0YXRlIHBvaW50ZXJzIHdpdGhvdXQgdGhlIHJpZ2h0IGxvY2tpbmcuCj4g
-LURhbmllbAo+IAoKVGhhbmtzIGZvciB0aGUgcmV2aWV3LCBJIGhhdmUgYWRkcmVzc2VkIHRoZXNl
-IGNvbW1lbnRzIGFuZCBwb3N0ZWQgYSBWMi4KLUFiaGluYXYKCj4+ICB7Cj4+IC0Jc3RydWN0IGRy
-bV9wcmludGVyIHAgPSBkcm1faW5mb19wcmludGVyKHN0YXRlLT5kZXYtPmRldik7Cj4+ICAJc3Ry
-dWN0IGRybV9wbGFuZSAqcGxhbmU7Cj4+ICAJc3RydWN0IGRybV9wbGFuZV9zdGF0ZSAqcGxhbmVf
-c3RhdGU7Cj4+ICAJc3RydWN0IGRybV9jcnRjICpjcnRjOwo+PiBAQCAtMTU1NCwxNyArMTU1NSwy
-MyBAQCB2b2lkIGRybV9hdG9taWNfcHJpbnRfc3RhdGUoY29uc3Qgc3RydWN0IAo+PiBkcm1fYXRv
-bWljX3N0YXRlICpzdGF0ZSkKPj4gIAlzdHJ1Y3QgZHJtX2Nvbm5lY3Rvcl9zdGF0ZSAqY29ubmVj
-dG9yX3N0YXRlOwo+PiAgCWludCBpOwo+PiAKPj4gKwlpZiAoIXApIHsKPj4gKwkJRFJNX0VSUk9S
-KCJpbnZhbGlkIGRybSBwcmludGVyXG4iKTsKPj4gKwkJcmV0dXJuOwo+PiArCX0KPj4gKwo+PiAg
-CURSTV9ERUJVR19BVE9NSUMoImNoZWNraW5nICVwXG4iLCBzdGF0ZSk7Cj4+IAo+PiAgCWZvcl9l
-YWNoX25ld19wbGFuZV9pbl9zdGF0ZShzdGF0ZSwgcGxhbmUsIHBsYW5lX3N0YXRlLCBpKQo+PiAt
-CQlkcm1fYXRvbWljX3BsYW5lX3ByaW50X3N0YXRlKCZwLCBwbGFuZV9zdGF0ZSk7Cj4+ICsJCWRy
-bV9hdG9taWNfcGxhbmVfcHJpbnRfc3RhdGUocCwgcGxhbmVfc3RhdGUpOwo+PiAKPj4gIAlmb3Jf
-ZWFjaF9uZXdfY3J0Y19pbl9zdGF0ZShzdGF0ZSwgY3J0YywgY3J0Y19zdGF0ZSwgaSkKPj4gLQkJ
-ZHJtX2F0b21pY19jcnRjX3ByaW50X3N0YXRlKCZwLCBjcnRjX3N0YXRlKTsKPj4gKwkJZHJtX2F0
-b21pY19jcnRjX3ByaW50X3N0YXRlKHAsIGNydGNfc3RhdGUpOwo+PiAKPj4gIAlmb3JfZWFjaF9u
-ZXdfY29ubmVjdG9yX2luX3N0YXRlKHN0YXRlLCBjb25uZWN0b3IsIGNvbm5lY3Rvcl9zdGF0ZSwg
-Cj4+IGkpCj4+IC0JCWRybV9hdG9taWNfY29ubmVjdG9yX3ByaW50X3N0YXRlKCZwLCBjb25uZWN0
-b3Jfc3RhdGUpOwo+PiArCQlkcm1fYXRvbWljX2Nvbm5lY3Rvcl9wcmludF9zdGF0ZShwLCBjb25u
-ZWN0b3Jfc3RhdGUpOwo+PiAgfQo+PiArRVhQT1JUX1NZTUJPTChkcm1fYXRvbWljX3ByaW50X3N0
-YXRlKTsKPj4gCj4+ICBzdGF0aWMgdm9pZCBfX2RybV9zdGF0ZV9kdW1wKHN0cnVjdCBkcm1fZGV2
-aWNlICpkZXYsIHN0cnVjdCAKPj4gZHJtX3ByaW50ZXIgKnAsCj4+ICAJCQkgICAgIGJvb2wgdGFr
-ZV9sb2NrcykKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fYXRvbWljX3VhcGku
-YyAKPj4gYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2F0b21pY191YXBpLmMKPj4gaW5kZXggMjVjMjY5
-YmM0NjgxLi5kOWFlODZjOTI2MDggMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1f
-YXRvbWljX3VhcGkuYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2F0b21pY191YXBpLmMK
-Pj4gQEAgLTIsNiArMiw3IEBACj4+ICAgKiBDb3B5cmlnaHQgKEMpIDIwMTQgUmVkIEhhdAo+PiAg
-ICogQ29weXJpZ2h0IChDKSAyMDE0IEludGVsIENvcnAuCj4+ICAgKiBDb3B5cmlnaHQgKEMpIDIw
-MTggSW50ZWwgQ29ycC4KPj4gKyAqIENvcHlyaWdodCAoYykgMjAyMCwgVGhlIExpbnV4IEZvdW5k
-YXRpb24uIEFsbCByaWdodHMgcmVzZXJ2ZWQuCj4+ICAgKgo+PiAgICogUGVybWlzc2lvbiBpcyBo
-ZXJlYnkgZ3JhbnRlZCwgZnJlZSBvZiBjaGFyZ2UsIHRvIGFueSBwZXJzb24gCj4+IG9idGFpbmlu
-ZyBhCj4+ICAgKiBjb3B5IG9mIHRoaXMgc29mdHdhcmUgYW5kIGFzc29jaWF0ZWQgZG9jdW1lbnRh
-dGlvbiBmaWxlcyAodGhlIAo+PiAiU29mdHdhcmUiKSwKPj4gQEAgLTEyOTQsNiArMTI5NSw3IEBA
-IGludCBkcm1fbW9kZV9hdG9taWNfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgCj4+ICpkZXYsCj4+
-ICAJc3RydWN0IGRybV9vdXRfZmVuY2Vfc3RhdGUgKmZlbmNlX3N0YXRlOwo+PiAgCWludCByZXQg
-PSAwOwo+PiAgCXVuc2lnbmVkIGludCBpLCBqLCBudW1fZmVuY2VzOwo+PiArCXN0cnVjdCBkcm1f
-cHJpbnRlciBwID0gZHJtX2luZm9fcHJpbnRlcihkZXYtPmRldik7Cj4+IAo+PiAgCS8qIGRpc2Fs
-bG93IGZvciBkcml2ZXJzIG5vdCBzdXBwb3J0aW5nIGF0b21pYzogKi8KPj4gIAlpZiAoIWRybV9j
-b3JlX2NoZWNrX2ZlYXR1cmUoZGV2LCBEUklWRVJfQVRPTUlDKSkKPj4gQEAgLTE0MTMsNyArMTQx
-NSw3IEBAIGludCBkcm1fbW9kZV9hdG9taWNfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgCj4+ICpk
-ZXYsCj4+ICAJCXJldCA9IGRybV9hdG9taWNfbm9uYmxvY2tpbmdfY29tbWl0KHN0YXRlKTsKPj4g
-IAl9IGVsc2Ugewo+PiAgCQlpZiAoZHJtX2RlYnVnX2VuYWJsZWQoRFJNX1VUX1NUQVRFKSkKPj4g
-LQkJCWRybV9hdG9taWNfcHJpbnRfc3RhdGUoc3RhdGUpOwo+PiArCQkJZHJtX2F0b21pY19wcmlu
-dF9zdGF0ZShzdGF0ZSwgJnApOwo+PiAKPj4gIAkJcmV0ID0gZHJtX2F0b21pY19jb21taXQoc3Rh
-dGUpOwo+PiAgCX0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fY3J0Y19pbnRl
-cm5hbC5oIAo+PiBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fY3J0Y19pbnRlcm5hbC5oCj4+IGluZGV4
-IGRhOTZiMmY2NGQ3ZS4uZDM0MjE1MzY2OTM2IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vZHJtX2NydGNfaW50ZXJuYWwuaAo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2NydGNf
-aW50ZXJuYWwuaAo+PiBAQCAtNSw2ICs1LDcgQEAKPj4gICAqICAgSmVzc2UgQmFybmVzIDxqZXNz
-ZS5iYXJuZXNAaW50ZWwuY29tPgo+PiAgICogQ29weXJpZ2h0IMKpIDIwMTQgSW50ZWwgQ29ycG9y
-YXRpb24KPj4gICAqICAgRGFuaWVsIFZldHRlciA8ZGFuaWVsLnZldHRlckBmZndsbC5jaD4KPj4g
-KyAqIENvcHlyaWdodCAoYykgMjAyMCwgVGhlIExpbnV4IEZvdW5kYXRpb24uIEFsbCByaWdodHMg
-cmVzZXJ2ZWQuCj4+ICAgKgo+PiAgICogUGVybWlzc2lvbiBpcyBoZXJlYnkgZ3JhbnRlZCwgZnJl
-ZSBvZiBjaGFyZ2UsIHRvIGFueSBwZXJzb24gCj4+IG9idGFpbmluZyBhCj4+ICAgKiBjb3B5IG9m
-IHRoaXMgc29mdHdhcmUgYW5kIGFzc29jaWF0ZWQgZG9jdW1lbnRhdGlvbiBmaWxlcyAodGhlIAo+
-PiAiU29mdHdhcmUiKSwKPj4gQEAgLTIzMyw3ICsyMzQsOCBAQCBpbnQgX19kcm1fYXRvbWljX2hl
-bHBlcl9kaXNhYmxlX3BsYW5lKHN0cnVjdCAKPj4gZHJtX3BsYW5lICpwbGFuZSwKPj4gIGludCBf
-X2RybV9hdG9taWNfaGVscGVyX3NldF9jb25maWcoc3RydWN0IGRybV9tb2RlX3NldCAqc2V0LAo+
-PiAgCQkJCSAgIHN0cnVjdCBkcm1fYXRvbWljX3N0YXRlICpzdGF0ZSk7Cj4+IAo+PiAtdm9pZCBk
-cm1fYXRvbWljX3ByaW50X3N0YXRlKGNvbnN0IHN0cnVjdCBkcm1fYXRvbWljX3N0YXRlICpzdGF0
-ZSk7Cj4+ICt2b2lkIGRybV9hdG9taWNfcHJpbnRfc3RhdGUoY29uc3Qgc3RydWN0IGRybV9hdG9t
-aWNfc3RhdGUgKnN0YXRlLAo+PiArCQlzdHJ1Y3QgZHJtX3ByaW50ZXIgKnApOwo+PiAKPj4gIC8q
-IGRybV9hdG9taWNfdWFwaS5jICovCj4+ICBpbnQgZHJtX2F0b21pY19jb25uZWN0b3JfY29tbWl0
-X2RwbXMoc3RydWN0IGRybV9hdG9taWNfc3RhdGUgKnN0YXRlLAo+PiAtLQo+PiBUaGUgUXVhbGNv
-bW0gSW5ub3ZhdGlvbiBDZW50ZXIsIEluYy4gaXMgYSBtZW1iZXIgb2YgdGhlIENvZGUgQXVyb3Jh
-IAo+PiBGb3J1bSwKPj4gYSBMaW51eCBGb3VuZGF0aW9uIENvbGxhYm9yYXRpdmUgUHJvamVjdAo+
-PiAKPj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4g
-ZHJpLWRldmVsIG1haWxpbmcgbGlzdAo+PiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRl
-dmVsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVk
-cmVubyBtYWlsaW5nIGxpc3QKRnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVubwo=
+On 10/30/2020 2:18 AM, mka@chromium.org wrote:
+> On Thu, Oct 29, 2020 at 01:37:19PM +0530, Akhil P Oommen wrote:
+>> Register GPU as a devfreq cooling device so that it can be passively
+>> cooled by the thermal framework.
+>>
+>> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+>> Reviewed-by: Matthias Kaehlcke <mka@chromium.org>
+> 
+> Wait, I did not post a 'Reviewed-by' tag for this patch!
+> 
+> I think the patch should be ok, but I'm still not super happy
+> about the resource management involving devfreq in general (see
+> discussion on https://patchwork.freedesktop.org/patch/394291/?series=82476&rev=1).
+> It's not really something introduced by this patch, but if it ever
+> gets fixed releasing the cooling device at the end of
+> msm_gpu_cleanup() after everything else might cause trouble.
+> 
+> In summary, I'm supportive of landing this patch, but reluctant to
+> 'sign it off' because of the above.
+> 
+> In any case:
+> 
+> Tested-by: Matthias Kaehlcke <mka@chromium.org>
+Sorry, Matthias. My mistake. You shared the reviewed tag for the 
+dt-bindings update. Will fix this ASAP. Thanks for verifying this.
+
+-Akhil.
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> 
+
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
