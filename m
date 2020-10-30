@@ -1,63 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5604729FCF9
-	for <lists+freedreno@lfdr.de>; Fri, 30 Oct 2020 06:10:06 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 924C82A009C
+	for <lists+freedreno@lfdr.de>; Fri, 30 Oct 2020 10:01:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08B2A6E952;
-	Fri, 30 Oct 2020 05:10:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2709A6ED14;
+	Fri, 30 Oct 2020 09:01:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2EEB6E952
- for <freedreno@lists.freedesktop.org>; Fri, 30 Oct 2020 05:09:49 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1604034604; h=Content-Transfer-Encoding: Content-Type:
- In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
- Subject: Sender; bh=i5EXSp5H1+wjz49bdX5MmWjfxCCpbPKZqpGfcNnScpk=;
- b=Wm7Ke6KcQomnyLthyrVpKpftfU8MUUumKd2f/4I3LRRXbL4nygACnFIvvVlm5QiliUZeugxy
- TsUiJuD4GfEYJ6bw0MRRZXLul/mUFRtnftPVxGanrrqDsZJEI30oC71s0a3iaS9faq9M+VEk
- ETvrfRsxjs2AqAWvoNVjblc9JhQ=
-X-Mailgun-Sending-Ip: 69.72.42.4
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
- 5f9b9f9c5177b1c5f94d935c (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 30 Oct 2020 05:07:40
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 9A52DC433C6; Fri, 30 Oct 2020 05:07:40 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-3.2 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- NICE_REPLY_A,SPF_FAIL,URIBL_BLOCKED autolearn=no autolearn_force=no
- version=3.4.0
-Received: from [192.168.1.9] (unknown [61.3.219.238])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: akhilpo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 6E70BC433C6;
- Fri, 30 Oct 2020 05:07:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 6E70BC433C6
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=akhilpo@codeaurora.org
-To: mka@chromium.org
-References: <1603958841-20233-1-git-send-email-akhilpo@codeaurora.org>
- <20201029204842.GC1855806@google.com>
-From: Akhil P Oommen <akhilpo@codeaurora.org>
-Message-ID: <3d99a0e0-765d-0d89-37ed-0f0999580c1b@codeaurora.org>
-Date: Fri, 30 Oct 2020 10:37:34 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.3
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EBBB6ED13
+ for <freedreno@lists.freedesktop.org>; Fri, 30 Oct 2020 09:01:00 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id s9so5554806wro.8
+ for <freedreno@lists.freedesktop.org>; Fri, 30 Oct 2020 02:01:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=lS9cLVa7ki23Q9hV5df0gycL8TDk+suWHefN1yZAvQI=;
+ b=bLdnNBx991+fEL6unEVZ8c1nk/xvgTVbXjcGKB4Q1eS8ZXJnv4P81WNLlCMOuLhg2k
+ 5tqLuwqfha9zMuCOR/TA3MM7zyxv6R0rOWeVT17ffLEMAtqLBJUOOacmfSchNaD+7hBx
+ S867tbVvqUZFuoI/p3WrDfaDtGzjnmGbF0xsU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=lS9cLVa7ki23Q9hV5df0gycL8TDk+suWHefN1yZAvQI=;
+ b=SEQkw8BYYe9zjR1PKfJLJ3dsAW+O/U0EdlKBzEzVuQqj/9PASpdKaBxkhcTCleK8q7
+ 0cGes3FDLAnDZMnUQqRT1tlJjUcPGGxK12W+LTOAHwilrXnSf2BcNJ4JkZzb271deuRj
+ MwZpabyccz5Sa3b911bg/+q1YBRwbkkSxcqg68x4o7DqhhGrr9+606/c+F1YHERfvQ3z
+ AeRxzeLylkpDRYaASytlOgQkbmu8HkkS/5tCIvjC/SjUqwqykL1vmzAJM6eA0FrjLN2o
+ NdGWe5qJTN33BwTjJSXgS8IIYO7RzrCheHuG2cJTjibpqMWXZiw5y3v3NZE9v8kF/sl2
+ W4hg==
+X-Gm-Message-State: AOAM5305F814UIS4U2Nl/TZTF0sUxQbsLZFUUd8lt691ib2OCNuvdQLj
+ G1MJh4Ay9F3ySQOP9DK1tfIGBg==
+X-Google-Smtp-Source: ABdhPJwQxYTb0APmo+jOySsAO8r2hc4ifYBDW46GYqt577jI7TaikEFfn1bTiE9MXKtJM6IQK25iZA==
+X-Received: by 2002:adf:ab05:: with SMTP id q5mr1682043wrc.32.1604048458831;
+ Fri, 30 Oct 2020 02:00:58 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id f17sm3978456wmh.10.2020.10.30.02.00.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 30 Oct 2020 02:00:58 -0700 (PDT)
+Date: Fri, 30 Oct 2020 10:00:56 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Abhinav Kumar <abhinavk@codeaurora.org>
+Message-ID: <20201030090056.GG401619@phenom.ffwll.local>
+References: <20201030010101.4345-1-abhinavk@codeaurora.org>
+ <20201030010101.4345-2-abhinavk@codeaurora.org>
 MIME-Version: 1.0
-In-Reply-To: <20201029204842.GC1855806@google.com>
-Content-Language: en-US
-Subject: Re: [Freedreno] [v4,1/3] drm/msm: Add support for GPU cooling
+Content-Disposition: inline
+In-Reply-To: <20201030010101.4345-2-abhinavk@codeaurora.org>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
+Subject: Re: [Freedreno] [PATCH v2 1/4] drm: allow drm_atomic_print_state()
+ to accept any drm_printer
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,47 +67,214 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dianders@chromium.org, linux-kernel@vger.kernel.org, dri-devel@freedesktop.org,
+Cc: kernel test robot <lkp@intel.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, khsieh@codeaurora.org,
+ robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
+ tanmay@codeaurora.org, daniel@ffwll.ch, aravindh@codeaurora.org,
  freedreno@lists.freedesktop.org
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/30/2020 2:18 AM, mka@chromium.org wrote:
-> On Thu, Oct 29, 2020 at 01:37:19PM +0530, Akhil P Oommen wrote:
->> Register GPU as a devfreq cooling device so that it can be passively
->> cooled by the thermal framework.
->>
->> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
->> Reviewed-by: Matthias Kaehlcke <mka@chromium.org>
-> 
-> Wait, I did not post a 'Reviewed-by' tag for this patch!
-> 
-> I think the patch should be ok, but I'm still not super happy
-> about the resource management involving devfreq in general (see
-> discussion on https://patchwork.freedesktop.org/patch/394291/?series=82476&rev=1).
-> It's not really something introduced by this patch, but if it ever
-> gets fixed releasing the cooling device at the end of
-> msm_gpu_cleanup() after everything else might cause trouble.
-> 
-> In summary, I'm supportive of landing this patch, but reluctant to
-> 'sign it off' because of the above.
-> 
-> In any case:
-> 
-> Tested-by: Matthias Kaehlcke <mka@chromium.org>
-Sorry, Matthias. My mistake. You shared the reviewed tag for the 
-dt-bindings update. Will fix this ASAP. Thanks for verifying this.
+On Thu, Oct 29, 2020 at 06:00:58PM -0700, Abhinav Kumar wrote:
+> Currently drm_atomic_print_state() internally allocates and uses a
+> drm_info printer. Allow it to accept any drm_printer type so that
+> the API can be leveraged even for taking drm snapshot.
+> =
 
--Akhil.
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
-> 
+> Rename the drm_atomic_print_state() to drm_atomic_print_new_state()
+> so that it reflects its functionality better.
+> =
 
+> changes in v2:
+> - Rename the function drm_atomic_print_state to
+>   drm_atomic_print_new_state and update the commit text
+> - Fix kbot errors
+> - Add kernel doc for the newly exported function
+> =
+
+> Reported-by: kernel test robot <lkp@intel.com>
+> Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
+> ---
+>  drivers/gpu/drm/drm_atomic.c                  | 29 +++++++++++++++----
+>  drivers/gpu/drm/drm_atomic_uapi.c             |  4 ++-
+>  drivers/gpu/drm/drm_crtc_internal.h           |  4 ++-
+>  .../gpu/drm/selftests/test-drm_framebuffer.c  |  1 +
+>  4 files changed, 31 insertions(+), 7 deletions(-)
+> =
+
+> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+> index 58527f151984..5df7b67ced78 100644
+> --- a/drivers/gpu/drm/drm_atomic.c
+> +++ b/drivers/gpu/drm/drm_atomic.c
+> @@ -1,6 +1,7 @@
+>  /*
+>   * Copyright (C) 2014 Red Hat
+>   * Copyright (C) 2014 Intel Corp.
+> + * Copyright (c) 2020, The Linux Foundation. All rights reserved.
+>   *
+>   * Permission is hereby granted, free of charge, to any person obtaining=
+ a
+>   * copy of this software and associated documentation files (the "Softwa=
+re"),
+> @@ -1543,9 +1544,21 @@ int __drm_atomic_helper_set_config(struct drm_mode=
+_set *set,
+>  }
+>  EXPORT_SYMBOL(__drm_atomic_helper_set_config);
+>  =
+
+> -void drm_atomic_print_state(const struct drm_atomic_state *state)
+> +/**
+> + * drm_atomic_print_new_state - prints drm atomic state
+> + * @state: atomic configuration to check
+> + * @p: drm printer
+> + *
+> + * This functions prints the drm atomic state snapshot using the drm pri=
+nter
+> + * which is passed to it. This snapshot can be used for debugging purpos=
+es.
+> + *
+> + * Note that this function looks into the new state objects and hence it=
+s not
+> + * safe to be used after the call to drm_atomic_helper_commit_hw_done().
+> + *
+
+Empty line here in the docs. With that removed.
+
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+
+> + */
+> +void drm_atomic_print_new_state(const struct drm_atomic_state *state,
+> +		struct drm_printer *p)
+>  {
+> -	struct drm_printer p =3D drm_info_printer(state->dev->dev);
+>  	struct drm_plane *plane;
+>  	struct drm_plane_state *plane_state;
+>  	struct drm_crtc *crtc;
+> @@ -1554,17 +1567,23 @@ void drm_atomic_print_state(const struct drm_atom=
+ic_state *state)
+>  	struct drm_connector_state *connector_state;
+>  	int i;
+>  =
+
+> +	if (!p) {
+> +		DRM_ERROR("invalid drm printer\n");
+> +		return;
+> +	}
+> +
+>  	DRM_DEBUG_ATOMIC("checking %p\n", state);
+>  =
+
+>  	for_each_new_plane_in_state(state, plane, plane_state, i)
+> -		drm_atomic_plane_print_state(&p, plane_state);
+> +		drm_atomic_plane_print_state(p, plane_state);
+>  =
+
+>  	for_each_new_crtc_in_state(state, crtc, crtc_state, i)
+> -		drm_atomic_crtc_print_state(&p, crtc_state);
+> +		drm_atomic_crtc_print_state(p, crtc_state);
+>  =
+
+>  	for_each_new_connector_in_state(state, connector, connector_state, i)
+> -		drm_atomic_connector_print_state(&p, connector_state);
+> +		drm_atomic_connector_print_state(p, connector_state);
+>  }
+> +EXPORT_SYMBOL(drm_atomic_print_new_state);
+>  =
+
+>  static void __drm_state_dump(struct drm_device *dev, struct drm_printer =
+*p,
+>  			     bool take_locks)
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
+ic_uapi.c
+> index 25c269bc4681..b4b3cb28a8ea 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -2,6 +2,7 @@
+>   * Copyright (C) 2014 Red Hat
+>   * Copyright (C) 2014 Intel Corp.
+>   * Copyright (C) 2018 Intel Corp.
+> + * Copyright (c) 2020, The Linux Foundation. All rights reserved.
+>   *
+>   * Permission is hereby granted, free of charge, to any person obtaining=
+ a
+>   * copy of this software and associated documentation files (the "Softwa=
+re"),
+> @@ -1294,6 +1295,7 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+>  	struct drm_out_fence_state *fence_state;
+>  	int ret =3D 0;
+>  	unsigned int i, j, num_fences;
+> +	struct drm_printer p =3D drm_info_printer(dev->dev);
+>  =
+
+>  	/* disallow for drivers not supporting atomic: */
+>  	if (!drm_core_check_feature(dev, DRIVER_ATOMIC))
+> @@ -1413,7 +1415,7 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+>  		ret =3D drm_atomic_nonblocking_commit(state);
+>  	} else {
+>  		if (drm_debug_enabled(DRM_UT_STATE))
+> -			drm_atomic_print_state(state);
+> +			drm_atomic_print_new_state(state, &p);
+>  =
+
+>  		ret =3D drm_atomic_commit(state);
+>  	}
+> diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_cr=
+tc_internal.h
+> index da96b2f64d7e..2bd56ec9fb0e 100644
+> --- a/drivers/gpu/drm/drm_crtc_internal.h
+> +++ b/drivers/gpu/drm/drm_crtc_internal.h
+> @@ -5,6 +5,7 @@
+>   *   Jesse Barnes <jesse.barnes@intel.com>
+>   * Copyright =A9 2014 Intel Corporation
+>   *   Daniel Vetter <daniel.vetter@ffwll.ch>
+> + * Copyright (c) 2020, The Linux Foundation. All rights reserved.
+>   *
+>   * Permission is hereby granted, free of charge, to any person obtaining=
+ a
+>   * copy of this software and associated documentation files (the "Softwa=
+re"),
+> @@ -233,7 +234,8 @@ int __drm_atomic_helper_disable_plane(struct drm_plan=
+e *plane,
+>  int __drm_atomic_helper_set_config(struct drm_mode_set *set,
+>  				   struct drm_atomic_state *state);
+>  =
+
+> -void drm_atomic_print_state(const struct drm_atomic_state *state);
+> +void drm_atomic_print_new_state(const struct drm_atomic_state *state,
+> +		struct drm_printer *p);
+>  =
+
+>  /* drm_atomic_uapi.c */
+>  int drm_atomic_connector_commit_dpms(struct drm_atomic_state *state,
+> diff --git a/drivers/gpu/drm/selftests/test-drm_framebuffer.c b/drivers/g=
+pu/drm/selftests/test-drm_framebuffer.c
+> index 2d29ea6f92e2..9296c68cbe71 100644
+> --- a/drivers/gpu/drm/selftests/test-drm_framebuffer.c
+> +++ b/drivers/gpu/drm/selftests/test-drm_framebuffer.c
+> @@ -8,6 +8,7 @@
+>  #include <drm/drm_device.h>
+>  #include <drm/drm_mode.h>
+>  #include <drm/drm_fourcc.h>
+> +#include <drm/drm_print.h>
+>  =
+
+>  #include "../drm_crtc_internal.h"
+>  =
+
+> -- =
+
+> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+> a Linux Foundation Collaborative Project
+> =
+
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
