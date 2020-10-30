@@ -1,60 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 924C82A009C
-	for <lists+freedreno@lfdr.de>; Fri, 30 Oct 2020 10:01:02 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 406CA2A0137
+	for <lists+freedreno@lfdr.de>; Fri, 30 Oct 2020 10:23:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2709A6ED14;
-	Fri, 30 Oct 2020 09:01:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA69E6ED25;
+	Fri, 30 Oct 2020 09:23:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EBBB6ED13
- for <freedreno@lists.freedesktop.org>; Fri, 30 Oct 2020 09:01:00 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id s9so5554806wro.8
- for <freedreno@lists.freedesktop.org>; Fri, 30 Oct 2020 02:01:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=lS9cLVa7ki23Q9hV5df0gycL8TDk+suWHefN1yZAvQI=;
- b=bLdnNBx991+fEL6unEVZ8c1nk/xvgTVbXjcGKB4Q1eS8ZXJnv4P81WNLlCMOuLhg2k
- 5tqLuwqfha9zMuCOR/TA3MM7zyxv6R0rOWeVT17ffLEMAtqLBJUOOacmfSchNaD+7hBx
- S867tbVvqUZFuoI/p3WrDfaDtGzjnmGbF0xsU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=lS9cLVa7ki23Q9hV5df0gycL8TDk+suWHefN1yZAvQI=;
- b=SEQkw8BYYe9zjR1PKfJLJ3dsAW+O/U0EdlKBzEzVuQqj/9PASpdKaBxkhcTCleK8q7
- 0cGes3FDLAnDZMnUQqRT1tlJjUcPGGxK12W+LTOAHwilrXnSf2BcNJ4JkZzb271deuRj
- MwZpabyccz5Sa3b911bg/+q1YBRwbkkSxcqg68x4o7DqhhGrr9+606/c+F1YHERfvQ3z
- AeRxzeLylkpDRYaASytlOgQkbmu8HkkS/5tCIvjC/SjUqwqykL1vmzAJM6eA0FrjLN2o
- NdGWe5qJTN33BwTjJSXgS8IIYO7RzrCheHuG2cJTjibpqMWXZiw5y3v3NZE9v8kF/sl2
- W4hg==
-X-Gm-Message-State: AOAM5305F814UIS4U2Nl/TZTF0sUxQbsLZFUUd8lt691ib2OCNuvdQLj
- G1MJh4Ay9F3ySQOP9DK1tfIGBg==
-X-Google-Smtp-Source: ABdhPJwQxYTb0APmo+jOySsAO8r2hc4ifYBDW46GYqt577jI7TaikEFfn1bTiE9MXKtJM6IQK25iZA==
-X-Received: by 2002:adf:ab05:: with SMTP id q5mr1682043wrc.32.1604048458831;
- Fri, 30 Oct 2020 02:00:58 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id f17sm3978456wmh.10.2020.10.30.02.00.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Oct 2020 02:00:58 -0700 (PDT)
-Date: Fri, 30 Oct 2020 10:00:56 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Abhinav Kumar <abhinavk@codeaurora.org>
-Message-ID: <20201030090056.GG401619@phenom.ffwll.local>
-References: <20201030010101.4345-1-abhinavk@codeaurora.org>
- <20201030010101.4345-2-abhinavk@codeaurora.org>
+Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 850B16ED26
+ for <freedreno@lists.freedesktop.org>; Fri, 30 Oct 2020 09:23:32 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1604049813; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=sp3VGRZxfTRi7zyMLplfiFQMyG0a61g9nkqFH0o13ZY=;
+ b=XMrCk23LKhctKyv7MFaTix+rOIXUYB3bAi8GDDXwerAcq5sk5qGvvTSjkZ7B4x3ULYRnQHb5
+ lU9F7rLMBJ7Ovou+u18sEdwTRUQEe0jUYqN9e74M2cXONLeet8HiroyqhHfEQvOQ/9FA4VYK
+ 9TIGowQy0xLAt8UXHPZQAbMfHaM=
+X-Mailgun-Sending-Ip: 104.130.96.5
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
+ 5f9bdb90902d6b255d2fab4b (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 30 Oct 2020 09:23:28
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 2CD8BC43387; Fri, 30 Oct 2020 09:23:28 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from blr-ubuntu-253.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: saiprakash.ranjan)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id EBBADC43382;
+ Fri, 30 Oct 2020 09:23:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org EBBADC43382
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org; spf=fail
+ smtp.mailfrom=saiprakash.ranjan@codeaurora.org
+From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joro@8bytes.org>, Jordan Crouse <jcrouse@codeaurora.org>,
+ Rob Clark <robdclark@gmail.com>
+Date: Fri, 30 Oct 2020 14:53:07 +0530
+Message-Id: <cover.1604048969.git.saiprakash.ranjan@codeaurora.org>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201030010101.4345-2-abhinavk@codeaurora.org>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
-Subject: Re: [Freedreno] [PATCH v2 1/4] drm: allow drm_atomic_print_state()
- to accept any drm_printer
+Subject: [Freedreno] [PATCHv7 0/7] System Cache support for GPU and required
+ SMMU support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,214 +70,97 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, khsieh@codeaurora.org,
- robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
- tanmay@codeaurora.org, daniel@ffwll.ch, aravindh@codeaurora.org,
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Akhil P Oommen <akhilpo@codeaurora.org>,
+ iommu@lists.linux-foundation.org,
+ "Kristian H . Kristensen" <hoegsberg@google.com>,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Oct 29, 2020 at 06:00:58PM -0700, Abhinav Kumar wrote:
-> Currently drm_atomic_print_state() internally allocates and uses a
-> drm_info printer. Allow it to accept any drm_printer type so that
-> the API can be leveraged even for taking drm snapshot.
-> =
+Some hardware variants contain a system cache or the last level
+cache(llc). This cache is typically a large block which is shared
+by multiple clients on the SOC. GPU uses the system cache to cache
+both the GPU data buffers(like textures) as well the SMMU pagetables.
+This helps with improved render performance as well as lower power
+consumption by reducing the bus traffic to the system memory.
 
-> Rename the drm_atomic_print_state() to drm_atomic_print_new_state()
-> so that it reflects its functionality better.
-> =
+The system cache architecture allows the cache to be split into slices
+which then be used by multiple SOC clients. This patch series is an
+effort to enable and use two of those slices preallocated for the GPU,
+one for the GPU data buffers and another for the GPU SMMU hardware
+pagetables.
 
-> changes in v2:
-> - Rename the function drm_atomic_print_state to
->   drm_atomic_print_new_state and update the commit text
-> - Fix kbot errors
-> - Add kernel doc for the newly exported function
-> =
+Patch 1 - Patch 5 adds system cache support in SMMU and GPU driver.
+Patch 6 and 7 are minor cleanups for arm-smmu impl.
 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
-> ---
->  drivers/gpu/drm/drm_atomic.c                  | 29 +++++++++++++++----
->  drivers/gpu/drm/drm_atomic_uapi.c             |  4 ++-
->  drivers/gpu/drm/drm_crtc_internal.h           |  4 ++-
->  .../gpu/drm/selftests/test-drm_framebuffer.c  |  1 +
->  4 files changed, 31 insertions(+), 7 deletions(-)
-> =
+Changes in v7:
+ * Squash Jordan's patch to support MMU500 targets
+ * Rebase on top of for-joerg/arm-smmu/updates and Jordan's short series for adreno-smmu impl
 
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index 58527f151984..5df7b67ced78 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -1,6 +1,7 @@
->  /*
->   * Copyright (C) 2014 Red Hat
->   * Copyright (C) 2014 Intel Corp.
-> + * Copyright (c) 2020, The Linux Foundation. All rights reserved.
->   *
->   * Permission is hereby granted, free of charge, to any person obtaining=
- a
->   * copy of this software and associated documentation files (the "Softwa=
-re"),
-> @@ -1543,9 +1544,21 @@ int __drm_atomic_helper_set_config(struct drm_mode=
-_set *set,
->  }
->  EXPORT_SYMBOL(__drm_atomic_helper_set_config);
->  =
+Changes in v6:
+ * Move table to arm-smmu-qcom (Robin)
 
-> -void drm_atomic_print_state(const struct drm_atomic_state *state)
-> +/**
-> + * drm_atomic_print_new_state - prints drm atomic state
-> + * @state: atomic configuration to check
-> + * @p: drm printer
-> + *
-> + * This functions prints the drm atomic state snapshot using the drm pri=
-nter
-> + * which is passed to it. This snapshot can be used for debugging purpos=
-es.
-> + *
-> + * Note that this function looks into the new state objects and hence it=
-s not
-> + * safe to be used after the call to drm_atomic_helper_commit_hw_done().
-> + *
+Changes in v5:
+ * Drop cleanup of blank lines since it was intentional (Robin)
+ * Rebase again on top of msm-next-pgtables as it moves pretty fast
 
-Empty line here in the docs. With that removed.
+Changes in v4:
+ * Drop IOMMU_SYS_CACHE prot flag
+ * Rebase on top of https://gitlab.freedesktop.org/drm/msm/-/tree/msm-next-pgtables
 
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+Changes in v3:
+ * Fix domain attribute setting to before iommu_attach_device()
+ * Fix few code style and checkpatch warnings
+ * Rebase on top of Jordan's latest split pagetables and per-instance
+   pagetables support
 
-> + */
-> +void drm_atomic_print_new_state(const struct drm_atomic_state *state,
-> +		struct drm_printer *p)
->  {
-> -	struct drm_printer p =3D drm_info_printer(state->dev->dev);
->  	struct drm_plane *plane;
->  	struct drm_plane_state *plane_state;
->  	struct drm_crtc *crtc;
-> @@ -1554,17 +1567,23 @@ void drm_atomic_print_state(const struct drm_atom=
-ic_state *state)
->  	struct drm_connector_state *connector_state;
->  	int i;
->  =
+Changes in v2:
+ * Addressed review comments and rebased on top of Jordan's split
+   pagetables series
 
-> +	if (!p) {
-> +		DRM_ERROR("invalid drm printer\n");
-> +		return;
-> +	}
-> +
->  	DRM_DEBUG_ATOMIC("checking %p\n", state);
->  =
+Jordan Crouse (1):
+  drm/msm/a6xx: Add support for using system cache on MMU500 based
+    targets
 
->  	for_each_new_plane_in_state(state, plane, plane_state, i)
-> -		drm_atomic_plane_print_state(&p, plane_state);
-> +		drm_atomic_plane_print_state(p, plane_state);
->  =
+Sai Prakash Ranjan (4):
+  iommu/io-pgtable-arm: Add support to use system cache
+  iommu/arm-smmu: Add domain attribute for system cache
+  iommu: arm-smmu-impl: Use table to list QCOM implementations
+  iommu: arm-smmu-impl: Add a space before open parenthesis
 
->  	for_each_new_crtc_in_state(state, crtc, crtc_state, i)
-> -		drm_atomic_crtc_print_state(&p, crtc_state);
-> +		drm_atomic_crtc_print_state(p, crtc_state);
->  =
+Sharat Masetty (2):
+  drm/msm: rearrange the gpu_rmw() function
+  drm/msm/a6xx: Add support for using system cache(LLC)
 
->  	for_each_new_connector_in_state(state, connector, connector_state, i)
-> -		drm_atomic_connector_print_state(&p, connector_state);
-> +		drm_atomic_connector_print_state(p, connector_state);
->  }
-> +EXPORT_SYMBOL(drm_atomic_print_new_state);
->  =
-
->  static void __drm_state_dump(struct drm_device *dev, struct drm_printer =
-*p,
->  			     bool take_locks)
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
-ic_uapi.c
-> index 25c269bc4681..b4b3cb28a8ea 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -2,6 +2,7 @@
->   * Copyright (C) 2014 Red Hat
->   * Copyright (C) 2014 Intel Corp.
->   * Copyright (C) 2018 Intel Corp.
-> + * Copyright (c) 2020, The Linux Foundation. All rights reserved.
->   *
->   * Permission is hereby granted, free of charge, to any person obtaining=
- a
->   * copy of this software and associated documentation files (the "Softwa=
-re"),
-> @@ -1294,6 +1295,7 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
->  	struct drm_out_fence_state *fence_state;
->  	int ret =3D 0;
->  	unsigned int i, j, num_fences;
-> +	struct drm_printer p =3D drm_info_printer(dev->dev);
->  =
-
->  	/* disallow for drivers not supporting atomic: */
->  	if (!drm_core_check_feature(dev, DRIVER_ATOMIC))
-> @@ -1413,7 +1415,7 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
->  		ret =3D drm_atomic_nonblocking_commit(state);
->  	} else {
->  		if (drm_debug_enabled(DRM_UT_STATE))
-> -			drm_atomic_print_state(state);
-> +			drm_atomic_print_new_state(state, &p);
->  =
-
->  		ret =3D drm_atomic_commit(state);
->  	}
-> diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_cr=
-tc_internal.h
-> index da96b2f64d7e..2bd56ec9fb0e 100644
-> --- a/drivers/gpu/drm/drm_crtc_internal.h
-> +++ b/drivers/gpu/drm/drm_crtc_internal.h
-> @@ -5,6 +5,7 @@
->   *   Jesse Barnes <jesse.barnes@intel.com>
->   * Copyright =A9 2014 Intel Corporation
->   *   Daniel Vetter <daniel.vetter@ffwll.ch>
-> + * Copyright (c) 2020, The Linux Foundation. All rights reserved.
->   *
->   * Permission is hereby granted, free of charge, to any person obtaining=
- a
->   * copy of this software and associated documentation files (the "Softwa=
-re"),
-> @@ -233,7 +234,8 @@ int __drm_atomic_helper_disable_plane(struct drm_plan=
-e *plane,
->  int __drm_atomic_helper_set_config(struct drm_mode_set *set,
->  				   struct drm_atomic_state *state);
->  =
-
-> -void drm_atomic_print_state(const struct drm_atomic_state *state);
-> +void drm_atomic_print_new_state(const struct drm_atomic_state *state,
-> +		struct drm_printer *p);
->  =
-
->  /* drm_atomic_uapi.c */
->  int drm_atomic_connector_commit_dpms(struct drm_atomic_state *state,
-> diff --git a/drivers/gpu/drm/selftests/test-drm_framebuffer.c b/drivers/g=
-pu/drm/selftests/test-drm_framebuffer.c
-> index 2d29ea6f92e2..9296c68cbe71 100644
-> --- a/drivers/gpu/drm/selftests/test-drm_framebuffer.c
-> +++ b/drivers/gpu/drm/selftests/test-drm_framebuffer.c
-> @@ -8,6 +8,7 @@
->  #include <drm/drm_device.h>
->  #include <drm/drm_mode.h>
->  #include <drm/drm_fourcc.h>
-> +#include <drm/drm_print.h>
->  =
-
->  #include "../drm_crtc_internal.h"
->  =
-
-> -- =
-
-> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-> a Linux Foundation Collaborative Project
-> =
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 109 +++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h      |   5 +
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c    |  17 ++++
+ drivers/gpu/drm/msm/msm_drv.c              |   8 ++
+ drivers/gpu/drm/msm/msm_drv.h              |   1 +
+ drivers/gpu/drm/msm/msm_gpu.h              |   5 +-
+ drivers/iommu/arm/arm-smmu/arm-smmu-impl.c |  11 +--
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c |  21 +++-
+ drivers/iommu/arm/arm-smmu/arm-smmu.c      |  17 ++++
+ drivers/iommu/arm/arm-smmu/arm-smmu.h      |   2 +-
+ drivers/iommu/io-pgtable-arm.c             |   7 +-
+ include/linux/io-pgtable.h                 |   4 +
+ include/linux/iommu.h                      |   1 +
+ 13 files changed, 188 insertions(+), 20 deletions(-)
 
 
--- =
+base-commit: f9081b8ff5934b8d69c748d0200e844cadd2c667
+prerequisite-patch-id: db09851f375ca5efde35f2e5c21b3959eed7d8a8
+prerequisite-patch-id: 55c6af17808c2047b67cdbd04af5541156ef496e
+prerequisite-patch-id: e82c1e678da701e112ac255ea966c6797d975692
+prerequisite-patch-id: f7978f5f2fb06528b7a1f75fa4255e386a30b91a
+-- 
+QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a member
+of Code Aurora Forum, hosted by The Linux Foundation
 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
