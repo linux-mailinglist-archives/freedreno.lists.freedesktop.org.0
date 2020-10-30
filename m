@@ -1,57 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 380D52A10A6
-	for <lists+freedreno@lfdr.de>; Fri, 30 Oct 2020 23:06:39 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5972C2A1182
+	for <lists+freedreno@lfdr.de>; Sat, 31 Oct 2020 00:23:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99C186E064;
-	Fri, 30 Oct 2020 22:06:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E7396EEAC;
+	Fri, 30 Oct 2020 23:23:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C32006ED20
- for <freedreno@lists.freedesktop.org>; Fri, 30 Oct 2020 22:06:36 +0000 (UTC)
+Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC3C36EEAC
+ for <freedreno@lists.freedesktop.org>; Fri, 30 Oct 2020 23:23:22 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1604095596; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=lGkiIC6aCmxVlnP+kS5/v1V4Xiy5BR0zSGoVebzuAD4=;
- b=E9guYytSgnxz+YfFRC4FZjFKfdVJlcOjC8LR5JWa5UuOByoIzCdTTfTHPmblsP3cFlxheByw
- r88fkmC8HN/a1VEza1O/Dejstv/5JlaXHnqDg78hg5W7NSwOCvKrL16Pb7BWyy/P0ORgX0xb
- IMqCOsIf2fmJkyaSpYzyI3O2aLM=
-X-Mailgun-Sending-Ip: 69.72.42.4
+ s=smtp; t=1604100203; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=BLdO/YyUeVr9H8mVh5lP1ZN3Iw/7BuwJ8Kl9rrPhSww=;
+ b=YbhmWzXa6sjUZB5GMcAbyk4PsTlVQK1HusUeylWvTcOBecpJVYxcrRtdm/KvDTc4tVLQwnMX
+ PwzVL+1Bqags9SI2GuA0mW3x5bDQPOiF/9udTqm/feg35GyXnC0FlFI4zp/njfLF6dyqVhBp
+ /UKDtVRBaYWVA4AAxultzqsMcy8=
+X-Mailgun-Sending-Ip: 104.130.96.5
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n04.prod.us-east-1.postgun.com with SMTP id
- 5f9c8e6b0875fb8daad516de (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 30 Oct 2020 22:06:35
+ smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
+ 5f9ca0551df7f5f83ce22213 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 30 Oct 2020 23:23:01
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id D73BBC43385; Fri, 30 Oct 2020 22:06:34 +0000 (UTC)
+ id DABEDC433FF; Fri, 30 Oct 2020 23:23:01 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
+Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id F1979C433C8;
- Fri, 30 Oct 2020 22:06:33 +0000 (UTC)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 4DACFC433C8;
+ Fri, 30 Oct 2020 23:23:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 4DACFC433C8
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=khsieh@codeaurora.org
+From: Kuogee Hsieh <khsieh@codeaurora.org>
+To: robdclark@gmail.com,
+	sean@poorly.run,
+	swboyd@chromium.org
+Date: Fri, 30 Oct 2020 16:22:53 -0700
+Message-Id: <20201030232253.11049-1-khsieh@codeaurora.org>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Date: Fri, 30 Oct 2020 15:06:33 -0700
-From: khsieh@codeaurora.org
-To: Stephen Boyd <swboyd@chromium.org>
-In-Reply-To: <160323215566.884498.14018580767640192186@swboyd.mtv.corp.google.com>
-References: <20201020165959.7441-1-khsieh@codeaurora.org>
- <160323215566.884498.14018580767640192186@swboyd.mtv.corp.google.com>
-Message-ID: <546018237be3f05b4eb33c916ed1d939@codeaurora.org>
-X-Sender: khsieh@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: skip checking
- LINK_STATUS_UPDATED bit
+Subject: [Freedreno] [PATCH] drm/msm/dp: deinitialize mainlink if link
+ training failedo
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,116 +68,150 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, abhinavk@codeaurora.org, robdclark@gmail.com,
- tanmay@codeaurora.org, daniel@ffwll.ch, aravindh@codeaurora.org,
- sean@poorly.run
+Cc: rnayak@codeaurora.org, airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ abhinavk@codeaurora.org, khsieh@codeaurora.org, tanmay@codeaurora.org,
+ daniel@ffwll.ch, aravindh@codeaurora.org, freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-10-20 15:15, Stephen Boyd wrote:
-> Quoting Kuogee Hsieh (2020-10-20 09:59:59)
->> No need to check LINK_STATuS_UPDATED bit before
-> 
-> LINK_STATUS_UPDATED?
-> 
->> return 6 bytes of link status during link training.
-> 
-> Why?
-> 
->> This patch also fix phy compliance test link rate
->> conversion error.
-> 
-> How?
-> 
->> 
->> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
->> ---
-> 
-> Any Fixes: tag?
-> 
->>  drivers/gpu/drm/msm/dp/dp_ctrl.c | 20 ++++++--------------
->>  drivers/gpu/drm/msm/dp/dp_link.c | 24 +++++++++++-------------
->>  2 files changed, 17 insertions(+), 27 deletions(-)
->> 
->> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c 
->> b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> index 6bdaec778c4c..76e891c91c6e 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> @@ -1061,23 +1061,15 @@ static bool dp_ctrl_train_pattern_set(struct 
->> dp_ctrl_private *ctrl,
->>  static int dp_ctrl_read_link_status(struct dp_ctrl_private *ctrl,
->>                                     u8 *link_status)
->>  {
->> -       int len = 0;
->> -       u32 const offset = DP_LANE_ALIGN_STATUS_UPDATED - 
->> DP_LANE0_1_STATUS;
->> -       u32 link_status_read_max_retries = 100;
->> -
->> -       while (--link_status_read_max_retries) {
->> -               len = drm_dp_dpcd_read_link_status(ctrl->aux,
->> -                       link_status);
->> -               if (len != DP_LINK_STATUS_SIZE) {
->> -                       DRM_ERROR("DP link status read failed, err: 
->> %d\n", len);
->> -                       return len;
->> -               }
->> +       int ret = 0, len;
->> 
->> -               if (!(link_status[offset] & DP_LINK_STATUS_UPDATED))
->> -                       return 0;
->> +       len = drm_dp_dpcd_read_link_status(ctrl->aux, link_status);
->> +       if (len != DP_LINK_STATUS_SIZE) {
->> +               DRM_ERROR("DP link status read failed, err: %d\n", 
->> len);
->> +               ret = len;
-> 
-> Could this be positive if the len is greater than 0 but not
-> DP_LINK_STATUS_SIZE? Maybe the check should be len < 0? We certainly
-> don't want to return some smaller size from this function, right?
-> 
+DP compo phy have to be enable to start link training. When
+link training failed phy need to be disabled so that next
+link trainng can be proceed smoothly at next plug in. This
+patch de initialize mainlink to disable phy if link training
+failed. This prevent system crash due to
+disp_cc_mdss_dp_link_intf_clk stuck at "off" state.  This patch
+also perform checking power_on flag at dp_display_enable() and
+dp_display_disable() to avoid crashing when unplug cable while
+display is off.
 
-no, it should be exactly the byte number requested to read.
-otherwise, it should be failed and will re read at next run.
+Fixes: fdaf9a5e3c15 (drm/msm/dp: fixes wrong connection state caused by failure of link train
 
->>         }
->> 
->> -       return -ETIMEDOUT;
->> +       return ret;
->>  }
->> 
->>  static int dp_ctrl_link_train_1(struct dp_ctrl_private *ctrl,
->> diff --git a/drivers/gpu/drm/msm/dp/dp_link.c 
->> b/drivers/gpu/drm/msm/dp/dp_link.c
->> index c811da515fb3..58d65daae3b3 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_link.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_link.c
->> @@ -773,7 +773,8 @@ static int 
->> dp_link_process_link_training_request(struct dp_link_private *link)
->>                         link->request.test_lane_count);
->> 
->>         link->dp_link.link_params.num_lanes = 
->> link->request.test_lane_count;
->> -       link->dp_link.link_params.rate = link->request.test_link_rate;
->> +       link->dp_link.link_params.rate =
->> +               
->> drm_dp_bw_code_to_link_rate(link->request.test_link_rate);
-> 
-> Why are we storing bw_code in test_link_rate? This looks very 
-> confusing.
+Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+---
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 34 +++++++++++++++++++++++++++--
+ drivers/gpu/drm/msm/dp/dp_display.c | 13 +++++++++++
+ 2 files changed, 45 insertions(+), 2 deletions(-)
 
-Test_link_rate contains link rate from dpcd read. it need to be convert 
-to real
-rate by timing 2.7Mb before start phy compliance test.
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index cee161c8ecc6..904698dfc7f7 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -1468,6 +1468,29 @@ static int dp_ctrl_reinitialize_mainlink(struct dp_ctrl_private *ctrl)
+ 	return ret;
+ }
+ 
++static int dp_ctrl_deinitialize_mainlink(struct dp_ctrl_private *ctrl)
++{
++	struct dp_io *dp_io;
++	struct phy *phy;
++	int ret = 0;
++
++	dp_io = &ctrl->parser->io;
++	phy = dp_io->phy;
++
++	dp_catalog_ctrl_mainlink_ctrl(ctrl->catalog, false);
++
++	dp_catalog_ctrl_reset(ctrl->catalog);
++
++	ret = dp_power_clk_enable(ctrl->power, DP_CTRL_PM, false);
++	if (ret)
++		DRM_ERROR("Failed to disable link clocks. ret=%d\n", ret);
++
++	phy_power_off(phy);
++	phy_exit(phy);
++
++	return -ECONNRESET;
++}
++
+ static int dp_ctrl_link_maintenance(struct dp_ctrl_private *ctrl)
+ {
+ 	int ret = 0;
+@@ -1648,8 +1671,7 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
+ 	if (rc)
+ 		return rc;
+ 
+-	while (--link_train_max_retries &&
+-		!atomic_read(&ctrl->dp_ctrl.aborted)) {
++	while (--link_train_max_retries) {
+ 		rc = dp_ctrl_reinitialize_mainlink(ctrl);
+ 		if (rc) {
+ 			DRM_ERROR("Failed to reinitialize mainlink. rc=%d\n",
+@@ -1664,6 +1686,9 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
+ 			break;
+ 		} else if (training_step == DP_TRAINING_1) {
+ 			/* link train_1 failed */
++			if (!dp_catalog_hpd_get_state_status(ctrl->catalog))
++				break;		/* link cable unplugged */
++
+ 			rc = dp_ctrl_link_rate_down_shift(ctrl);
+ 			if (rc < 0) { /* already in RBR = 1.6G */
+ 				if (cr.lane_0_1 & DP_LANE0_1_CR_DONE) {
+@@ -1683,6 +1708,9 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
+ 			}
+ 		} else if (training_step == DP_TRAINING_2) {
+ 			/* link train_2 failed, lower lane rate */
++			if (!dp_catalog_hpd_get_state_status(ctrl->catalog))
++				break;		/* link cable unplugged */
++
+ 			rc = dp_ctrl_link_lane_down_shift(ctrl);
+ 			if (rc < 0) {
+ 				/* end with failure */
+@@ -1703,6 +1731,8 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
+ 	 */
+ 	if (rc == 0)  /* link train successfully */
+ 		dp_ctrl_push_idle(dp_ctrl);
++	else
++		rc = dp_ctrl_deinitialize_mainlink(ctrl);
+ 
+ 	return rc;
+ }
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 3eb0d428abf7..13b66266cd69 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -529,6 +529,11 @@ static int dp_hpd_plug_handle(struct dp_display_private *dp, u32 data)
+ 	if (ret) {	/* link train failed */
+ 		hpd->hpd_high = 0;
+ 		dp->hpd_state = ST_DISCONNECTED;
++
++		if (ret == -ECONNRESET) { /* cable unplugged */
++			dp->core_initialized = false;
++		}
++
+ 	} else {
+ 		/* start sentinel checking in case of missing uevent */
+ 		dp_add_event(dp, EV_CONNECT_PENDING_TIMEOUT, 0, tout);
+@@ -794,6 +799,11 @@ static int dp_display_enable(struct dp_display_private *dp, u32 data)
+ 
+ 	dp_display = g_dp_display;
+ 
++	if (dp_display->power_on) {
++		DRM_DEBUG_DP("Link already setup, return\n");
++		return 0;
++	}
++
+ 	rc = dp_ctrl_on_stream(dp->ctrl);
+ 	if (!rc)
+ 		dp_display->power_on = true;
+@@ -826,6 +836,9 @@ static int dp_display_disable(struct dp_display_private *dp, u32 data)
+ 
+ 	dp_display = g_dp_display;
+ 
++	if (!dp_display->power_on)
++		return -EINVAL;
++
+ 	/* wait only if audio was enabled */
+ 	if (dp_display->audio_enabled) {
+ 		if (!wait_for_completion_timeout(&dp->audio_comp,
 
-> 
->> 
->>         return 0;
->>  }
+base-commit: fd4a29bed29b3d8f15942fdf77e7a0a52796d836
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
