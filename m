@@ -2,61 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4585C2A0421
-	for <lists+freedreno@lfdr.de>; Fri, 30 Oct 2020 12:29:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35A692A0696
+	for <lists+freedreno@lfdr.de>; Fri, 30 Oct 2020 14:38:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDD966EDA2;
-	Fri, 30 Oct 2020 11:29:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D67A76E9BA;
+	Fri, 30 Oct 2020 13:38:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1274F6EDA2
- for <freedreno@lists.freedesktop.org>; Fri, 30 Oct 2020 11:29:42 +0000 (UTC)
-Received: by mail-pf1-x442.google.com with SMTP id c20so4997964pfr.8
- for <freedreno@lists.freedesktop.org>; Fri, 30 Oct 2020 04:29:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=4HxPaBB/T+MWPxFKC66xXUgQz4AK1HDV8G0JyKuoUvg=;
- b=t7vRuGsiD6S8SDyDNJjlcW3D8hieb4F/x0gVxEUf+xkByh3UB9sW2pw96lzzu3r+Sc
- V+SrFY6wvz08PUUrq6THVAwF+cugG5vc8oomA26kUp17NY6M2ckqjULm3B3ZkGJnktkO
- SIMxL5zOIB5J87De1aG/WYEx0UOwzgz/lZ+JL09V4ibwDp+FKjA4hn/ylfabNvovQlWC
- eJuwEMYWUjgJtSKqSYdH2kNNfOPHbBtkMmOBTEkdqAAvKGu7FfzI/ujLEq9tQG2cMMBW
- BzHzVflFIBIa+S2SEGutzMb6ivLVH372Vwk41qbEWa56/vLDj0vJfm4tH/NsJnGO/xeM
- 2wvQ==
+Received: from mail-ot1-f68.google.com (mail-ot1-f68.google.com
+ [209.85.210.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9FCF6E9BA
+ for <freedreno@lists.freedesktop.org>; Fri, 30 Oct 2020 13:38:10 +0000 (UTC)
+Received: by mail-ot1-f68.google.com with SMTP id j21so5513649ota.13
+ for <freedreno@lists.freedesktop.org>; Fri, 30 Oct 2020 06:38:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=4HxPaBB/T+MWPxFKC66xXUgQz4AK1HDV8G0JyKuoUvg=;
- b=NT1jb8FS1Dld1IG8YLGgBkfsKZ7D+KsVoEnoKhT4rEF0qxQiwoAz4AciNKZN7eK0dc
- w8hRHAH7P7qNGVQQic0g5EjRFOZ1VwdUY/ALGT8CWwMvAa6C3iDHLcu5EX7v/7EQIvhe
- XGfSnFCyVySirYqIIcIpp1GfvTBflvJx4rpT/gvxfeAtQ4vl0VSJkCLKMjUNgNnHUuvN
- HNDbCOX4lpibItQfvCyABC3VlVC6oy3TKV+lwIACXN2gh3qkmXoWSjMooqZwYq3H8R5q
- j196OGjmtwl8s2zi3imt0GhXSFwh/VlqkY7f5k8VrcmPIAoQhZJkV/jkFbyw+7vSDJXc
- iSww==
-X-Gm-Message-State: AOAM531bvEc5q241KDIAl+pFvm3MZEltMWX1RR2Q2J3kUXjRlUViSXdv
- SGa1RRomCKyiwklV8L3CiqzX2Q==
-X-Google-Smtp-Source: ABdhPJxY5sNazMK40l9kvzCEB3G/fXCnzLJIOMT7lDEBOFXgft5gwM3ZPlv3KogMw+kWQKDSe2XldQ==
-X-Received: by 2002:a17:90b:3587:: with SMTP id
- mm7mr2453563pjb.234.1604057381701; 
- Fri, 30 Oct 2020 04:29:41 -0700 (PDT)
-Received: from localhost ([122.181.54.133])
- by smtp.gmail.com with ESMTPSA id 189sm5632707pfw.215.2020.10.30.04.29.40
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 30 Oct 2020 04:29:40 -0700 (PDT)
-Date: Fri, 30 Oct 2020 16:59:38 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Frank Lee <frank@allwinnertech.com>
-Message-ID: <20201030112938.uyqjvyfuklwjnmvc@vireshk-i7>
-References: <20201012135517.19468-1-frank@allwinnertech.com>
- <20201028060613.qva32sirae4dtj6x@vireshk-i7>
+ :mime-version:content-disposition:in-reply-to;
+ bh=+NTaR+FmsROaR0mc3AxOVyIyS9PM41eAe1X9dDcISGo=;
+ b=qcRrEMo9xjoPv2XfEuTfmsXV3y9rv+oA9ZjZg5cR5cfQSGq+5ukZ6IJJVM9S70Hkam
+ tnhrZeDPnAYjyGwRTYU/cV6GuRWa3h5xIEzN5wJFRyYzIz9lGyh+GUUgHEaAP8WffAVB
+ DuDKj3xhKkUpZv66VyLcBjxnVyF5JcMd41zmFENjlnAFJvxafKB2fprzLzIX0ayj7Y+9
+ EtJLMAybpraKH/Xd0dQW2uVVSD2q+vFd3LV/MxnlLbhob5G/cEC2rebQCKIf2kroCEQy
+ 3Rimjl/utF5ezHAoX9SRQqbl0u05S9gpHNoFn24Gk141T13YmIuG+14DwWWpO6WOIgI+
+ RcMg==
+X-Gm-Message-State: AOAM53222JHYGQYTs6HkOIo1nL1LUYg7Q2X1M7/4YCbzy13oDf8o+Qd7
+ nwQQnYbLOsShhAF971FSjw==
+X-Google-Smtp-Source: ABdhPJw2DwG/OKaEJ21EJ8MvBOaMf7vQ+RMEY20B0hdl2Y4TXBFZRVC5SVhlmh9eBGawREAWfV9uYg==
+X-Received: by 2002:a05:6830:154d:: with SMTP id
+ l13mr1814291otp.61.1604065090197; 
+ Fri, 30 Oct 2020 06:38:10 -0700 (PDT)
+Received: from xps15 (24-155-109-49.dyn.grandenetworks.net. [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id v21sm1315274ots.29.2020.10.30.06.38.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 30 Oct 2020 06:38:08 -0700 (PDT)
+Received: (nullmailer pid 3727265 invoked by uid 1000);
+ Fri, 30 Oct 2020 13:38:08 -0000
+Date: Fri, 30 Oct 2020 08:38:08 -0500
+From: Rob Herring <robh@kernel.org>
+To: Akhil P Oommen <akhilpo@codeaurora.org>
+Message-ID: <20201030133808.GA3727230@bogus>
+References: <1603958841-20233-1-git-send-email-akhilpo@codeaurora.org>
+ <1603958841-20233-3-git-send-email-akhilpo@codeaurora.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20201028060613.qva32sirae4dtj6x@vireshk-i7>
-User-Agent: NeoMutt/20180716-391-311a52
-Subject: Re: [Freedreno] [PATCH 0/3] Introduce devm_pm_opp_set_* API
+In-Reply-To: <1603958841-20233-3-git-send-email-akhilpo@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH v4 3/3] dt-bindings: drm/msm/gpu: Add
+ cooling device support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,40 +61,26 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: nm@ti.com, freedreno@lists.freedesktop.org, eric@anholt.net,
- airlied@linux.ie, vireshk@kernel.org, tiny.windzz@gmail.com,
- linux-pm@vger.kernel.org, rjw@rjwysocki.net, jcrouse@codeaurora.org,
- dri-devel@lists.freedesktop.org, gustavoars@kernel.org, sboyd@kernel.org,
- robdclark@gmail.com, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
- kholk11@gmail.com, sean@poorly.run, linux-kernel@vger.kernel.org,
- emil.velikov@collabora.com
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dianders@chromium.org, jcrouse@codeaurora.org,
+ mka@chromium.org, robdclark@gmail.com, dri-devel@freedesktop.org,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 28-10-20, 11:36, Viresh Kumar wrote:
-> On 12-10-20, 21:55, Frank Lee wrote:
-> > Hi, this patchset introduce devm_pm_opp_set_prop_name() and
-> > devm_pm_opp_set_supported_hw().
-> > 
-> > Yangtao Li (3):
-> >   opp: Add devres wrapper for dev_pm_opp_set_supported_hw
-> >   opp: Add devres wrapper for dev_pm_opp_set_prop_name
-> >   drm/msm: Convert to devm_pm_opp_set_supported_hw
-> > 
-> >  drivers/gpu/drm/msm/adreno/a5xx_gpu.c |  2 +-
-> >  drivers/opp/core.c                    | 80 +++++++++++++++++++++++++++
-> >  include/linux/pm_opp.h                | 14 +++++
-> >  3 files changed, 95 insertions(+), 1 deletion(-)
+On Thu, 29 Oct 2020 13:37:21 +0530, Akhil P Oommen wrote:
+> Add cooling device support to gpu. A cooling device is bound to a
+> thermal zone to allow thermal mitigation.
 > 
-> Applied. Thanks.
+> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+> ---
+>  Documentation/devicetree/bindings/display/msm/gpu.txt | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
 
-And I have dropped all of them based on the discussion we are having.
-Thanks.
-
--- 
-viresh
+Acked-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
