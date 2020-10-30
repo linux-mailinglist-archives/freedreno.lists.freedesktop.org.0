@@ -2,60 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 329D22A032A
-	for <lists+freedreno@lfdr.de>; Fri, 30 Oct 2020 11:47:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BC242A03F3
+	for <lists+freedreno@lfdr.de>; Fri, 30 Oct 2020 12:19:16 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D85196EDA2;
-	Fri, 30 Oct 2020 10:47:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B45F6EDBC;
+	Fri, 30 Oct 2020 11:19:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B79096ED99
- for <freedreno@lists.freedesktop.org>; Fri, 30 Oct 2020 10:47:31 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1604054851; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=VSDDXhZl2nxI6IAloLDnByNgL5/PQUcokBebruDQBaw=;
- b=VlIk5d38lcdEjPrx0URwe7j8uj1foVXTKvc5nn99Wdn4TvWG0COCA8WQOVq/4Ew8N5q/0Tj6
- qdKge2c6hNiY8iX3cP1FUcMRXc2j4iagQx0yQZYdLsPYbeL06gn39mmDQVDi4Ue+MpBpozoQ
- Y83yiHnoyIMhvAruy17S7L2kbhg=
-X-Mailgun-Sending-Ip: 104.130.96.5
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
- 5f9bef438335df16571b2021 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 30 Oct 2020 10:47:31
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id C05BEC43391; Fri, 30 Oct 2020 10:47:30 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL, 
- URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-Received: from akhilpo-linux.qualcomm.com (unknown [202.46.22.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: akhilpo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id E030FC433C6;
- Fri, 30 Oct 2020 10:47:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org E030FC433C6
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=akhilpo@codeaurora.org
-From: Akhil P Oommen <akhilpo@codeaurora.org>
-To: freedreno@lists.freedesktop.org,
-	devicetree@vger.kernel.org
-Date: Fri, 30 Oct 2020 16:17:12 +0530
-Message-Id: <1604054832-3114-3-git-send-email-akhilpo@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1604054832-3114-1-git-send-email-akhilpo@codeaurora.org>
-References: <1604054832-3114-1-git-send-email-akhilpo@codeaurora.org>
-Subject: [Freedreno] [PATCH v5 3/3] dt-bindings: drm/msm/gpu: Add cooling
- device support
+Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
+ [IPv6:2a00:1450:4864:20::542])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBD936EDBC;
+ Fri, 30 Oct 2020 11:19:13 +0000 (UTC)
+Received: by mail-ed1-x542.google.com with SMTP id t11so6161250edj.13;
+ Fri, 30 Oct 2020 04:19:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=0Bio/v4ZtLiE540NPLGsg4zm25sQfEKR1TzDT+ehFjU=;
+ b=QCqN2JeZ6j0DKHQQS+CXVkzwXNCyGppBlDRFLsJCyR2l9dE5eFsvnEHprWAVITNHe/
+ b50Q3kEgVDD6NwuI5vvun1/5aoLMKNHH51y7ZLfS1xhQ+D37ky96V5fQeosYD+GWrICj
+ d+CCE0RDtC32PSHk2wOC8lPM8MrktC1Cp8yLSN+NrL3hmuUwEC8jVFDPyQ0jwl4gfFV4
+ I5cpmUk1hOO+SkpJ7HNfSnGq1yy7UY3H5jYdk/NX4TlFhvKX1Z9d9Oxj+o3gf8WH20XY
+ uey60IW6twCqrClT/hVDpxRC10ZVYHM1axzHd4hPxiMUQ17T/vSBCFEkC8Wd3M0WaUIv
+ 8NTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=0Bio/v4ZtLiE540NPLGsg4zm25sQfEKR1TzDT+ehFjU=;
+ b=UasT21Qa+lLoKDslRrSouC9QwpwxPDqVQYBOhc4kjeNKsVkPmoVy9f2jk7jIZ8M1/R
+ Xkj6ayI1aOlpDepFUcq0SVg9TH2mjAFGlPdAeDaTc+iIAlAkREEFKJcCzDx9pzYny6Ii
+ uJhjZcTdB6y8Md2bqEdISRgYIOxJuyoxrYU3bjaucOfSzQ1V6UAtywJQKxV6dTpEl424
+ SO8bHc7Vc+Kaw1ksyCePcZ5YAd+jixYIFJdQVXB39txx2Kf/fI4IynWZFtR2UdPGRlAd
+ MVtwsVJbqXDnZdfom6ZzS9chAOKRsv0yfTjle7+2uMCXNoaX+vV7YDVzvamdOc691Fw3
+ vU/A==
+X-Gm-Message-State: AOAM5318MRevoXa7l09En07DBZt5Prg86rlHE6cd6aArGFZ2sUhTIwMp
+ 4KngOXOU80YTMlPLCSXzT9IQlD+jXzuTmPWSWfw=
+X-Google-Smtp-Source: ABdhPJwvqEm5pZuWmeOrmp8SDuL5ILCfj40cZZI7zsZuebllxG6q1P0isA2txHkQgJiWvHzXhJYWWc31Zq+h4UhXDNA=
+X-Received: by 2002:a50:9e82:: with SMTP id a2mr1681188edf.117.1604056752432; 
+ Fri, 30 Oct 2020 04:19:12 -0700 (PDT)
+MIME-Version: 1.0
+References: <20201012135517.19468-1-frank@allwinnertech.com>
+ <20201012135517.19468-3-frank@allwinnertech.com>
+ <20201028102942.zc5hgqpo2bfrn6in@vireshk-i7>
+ <CAEExFWvNgK2wbvmxZjsJR4g-VBq=ggsBLew77rzmNdkpqTRuDA@mail.gmail.com>
+ <20201028144628.qm2t2hbzmouqkciy@vireshk-i7>
+In-Reply-To: <20201028144628.qm2t2hbzmouqkciy@vireshk-i7>
+From: Frank Lee <tiny.windzz@gmail.com>
+Date: Fri, 30 Oct 2020 19:19:00 +0800
+Message-ID: <CAEExFWtYrT3psuLC0fd7cX2GrmPaYxqZK65OLUv+2s97ehz97g@mail.gmail.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+Subject: Re: [Freedreno] [PATCH 2/3] opp: Add devres wrapper for
+ dev_pm_opp_set_prop_name
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,60 +66,53 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robh@kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dianders@chromium.org, jcrouse@codeaurora.org,
- mka@chromium.org, robdclark@gmail.com, dri-devel@freedesktop.org
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Nishanth Menon <nm@ti.com>, freedreno@lists.freedesktop.org,
+ Frank Lee <frank@allwinnertech.com>, eric@anholt.net, airlied@linux.ie,
+ Viresh Kumar <vireshk@kernel.org>, Linux PM <linux-pm@vger.kernel.org>,
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>, jcrouse@codeaurora.org,
+ dri-devel@lists.freedesktop.org, gustavoars@kernel.org,
+ Stephen Boyd <sboyd@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ kholk11@gmail.com, Sean Paul <sean@poorly.run>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ emil.velikov@collabora.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add cooling device support to gpu. A cooling device is bound to a
-thermal zone to allow thermal mitigation.
-
-Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
-Reviewed-by: Matthias Kaehlcke <mka@chromium.org>
----
- Documentation/devicetree/bindings/display/msm/gpu.txt | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/display/msm/gpu.txt b/Documentation/devicetree/bindings/display/msm/gpu.txt
-index 1af0ff1..090dcb3 100644
---- a/Documentation/devicetree/bindings/display/msm/gpu.txt
-+++ b/Documentation/devicetree/bindings/display/msm/gpu.txt
-@@ -39,6 +39,10 @@ Required properties:
-         a4xx Snapdragon SoCs. See
-         Documentation/devicetree/bindings/sram/qcom,ocmem.yaml.
- 
-+Optional properties:
-+- #cooling-cells: The value must be 2. For details, please refer
-+	Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml.
-+
- Example 3xx/4xx:
- 
- / {
-@@ -61,6 +65,7 @@ Example 3xx/4xx:
- 		power-domains = <&mmcc OXILICX_GDSC>;
- 		operating-points-v2 = <&gpu_opp_table>;
- 		iommus = <&gpu_iommu 0>;
-+		#cooling-cells = <2>;
- 	};
- 
- 	gpu_sram: ocmem@fdd00000 {
-@@ -98,6 +103,8 @@ Example a6xx (with GMU):
- 		reg = <0x5000000 0x40000>, <0x509e000 0x10>;
- 		reg-names = "kgsl_3d0_reg_memory", "cx_mem";
- 
-+		#cooling-cells = <2>;
-+
- 		/*
- 		 * Look ma, no clocks! The GPU clocks and power are
- 		 * controlled entirely by the GMU
--- 
-2.7.4
-
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+T24gV2VkLCBPY3QgMjgsIDIwMjAgYXQgMTA6NDYgUE0gVmlyZXNoIEt1bWFyIDx2aXJlc2gua3Vt
+YXJAbGluYXJvLm9yZz4gd3JvdGU6Cj4KPiBPbiAyOC0xMC0yMCwgMTk6MDIsIEZyYW5rIExlZSB3
+cm90ZToKPiA+IE9uIFdlZCwgT2N0IDI4LCAyMDIwIGF0IDY6MjkgUE0gVmlyZXNoIEt1bWFyIDx2
+aXJlc2gua3VtYXJAbGluYXJvLm9yZz4gd3JvdGU6Cj4gPiA+Cj4gPiA+IE9uIDEyLTEwLTIwLCAy
+MTo1NSwgRnJhbmsgTGVlIHdyb3RlOgo+ID4gPiA+IEZyb206IFlhbmd0YW8gTGkgPHRpbnkud2lu
+ZHp6QGdtYWlsLmNvbT4KPiA+ID4gPgo+ID4gPiA+IEFkZCBkZXZyZXMgd3JhcHBlciBmb3IgZGV2
+X3BtX29wcF9zZXRfcHJvcF9uYW1lKCkgdG8gc2ltcGxpZnkgZHJpdmVyCj4gPiA+ID4gY29kZS4K
+PiA+ID4gPgo+ID4gPiA+IFNpZ25lZC1vZmYtYnk6IFlhbmd0YW8gTGkgPHRpbnkud2luZHp6QGdt
+YWlsLmNvbT4KPiA+ID4gPiBTaWduZWQtb2ZmLWJ5OiBZYW5ndGFvIExpIDxmcmFua0BhbGx3aW5u
+ZXJ0ZWNoLmNvbT4KPiA+ID4gPiAtLS0KPiA+ID4gPiAgZHJpdmVycy9vcHAvY29yZS5jICAgICB8
+IDM5ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKwo+ID4gPiA+ICBpbmNs
+dWRlL2xpbnV4L3BtX29wcC5oIHwgIDYgKysrKysrCj4gPiA+ID4gIDIgZmlsZXMgY2hhbmdlZCwg
+NDUgaW5zZXJ0aW9ucygrKQo+ID4gPgo+ID4gPiBPbiBhIHNlY29uZCB0aG91Z2h0IEkgYW0gbG9v
+a2luZyBhdCBkcm9wcGluZyB0aGlzIG9uZSBhcyB5b3UgaGF2ZW4ndAo+ID4gPiBhZGRlZCBhbnkg
+dXNlcnMgeWV0IGFuZCBJIGFtIGFmcmFpZCBpdCB3aWxsIHN0YXkgdW51c2VkLgo+ID4KPiA+IE5v
+dyBpdCBsb29rcyBsaWtlIHRoYXQgZGV2X3BtX29wcF9zZXRfcHJvcF9uYW1lKCkgaXMgdXNlZCBy
+ZWxhdGl2ZWx5IGxlc3MuCj4gPiBNYXliZSB3ZSBjYW4gd2FpdCB1bnRpbCBhIGNhbGxlciwgYW5k
+IHRoZW4gcGljayB1cCB0aGUgcGF0Y2guCj4KPiBJIGFtIGV2ZW4gd29uZGVyaW5nIGlmIHdlIHNo
+b3VsZCBiZSBhZGRpbmcgYW55IG9mIHRoZSBkZXZtXyogaGVscGVycwo+IGZvciBub3cgdG8gYmUg
+aG9uZXN0LiBFdmVuIGZvciB0aGUgb3RoZXIgb25lIHdlIGhhdmUgb25seSBvbmUgdXNlci4KPiBU
+aGVtIG1ham9yIHVzZXIgb2YgdGhlIE9QUCBjb3JlIGlzIHRoZSBDUFUgc3Vic3lzdGVtIGFuZCBp
+dCBpcyBuZXZlcgo+IGdvaW5nIHRvIHVzZSB0aGVzZSBkZXZtXyogaGVscGVycyBhcyB0aGUgQ1BV
+IGRldmljZSBkb2Vzbid0IGdldCBib3VuZAo+IHRvIGEgZHJpdmVyLCBpdCBpcyByYXRoZXIgYSBm
+YWtlIHBsYXRmb3JtIGRldmljZSB3aGljaCBnZXRzIHRoZQo+IGNwdWZyZXEgZHJpdmVycyBwcm9i
+ZWQuIFNvIHRoZSBvbmx5IHVzZXJzIG9mIHRoZXNlIGRldm1fKiBoZWxwZXJzIGlzCj4gZ29pbmcg
+dG8gYmUgbm9uLUNQVSBkZXZpY2VzLiBDb25zaWRlcmluZyB0aGF0IHdlIGhhdmUgb25seSBvbmUg
+dXNlcgo+IHJpZ2h0IG5vdywgaXQgbWF5IGJlIGJldHRlciB0byBqdXN0IGZpeCBpdCBpbnN0ZWFk
+IG9mIGFkZGluZyBhbnkgb2YKPiB0aGUgZGV2bV8qIGhlbHBlcnMuCgpHUFUgaXMgYWxzbyBhIHJl
+bGF0aXZlbHkgbGFyZ2UgbnVtYmVyIG9mIG9wcCBjb25zdW1lcnMuCk1vc3Qgb2YgdGhlIHRpbWUs
+IHRoZSBkZXZfcG1fb3BwX3NldF8qIGZ1bmN0aW9ucyB3aWxsIG9ubHkgYmUgc2V0IG9uY2UuCklm
+IGRvbid0IG5lZWQgdGhlIGRyaXZlciB0byBkeW5hbWljYWxseSBtYW5hZ2UgYW5kIHJlbGVhc2Ug
+dGhlIG9wcCwgaXQKbWF5IGJlIE9L77yfCgpZYW5ndGFvCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJlZWRyZW5v
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2ZyZWVkcmVubwo=
