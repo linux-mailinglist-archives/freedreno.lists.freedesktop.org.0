@@ -1,61 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6F052A32CA
-	for <lists+freedreno@lfdr.de>; Mon,  2 Nov 2020 19:21:49 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id BB1FD2A340E
+	for <lists+freedreno@lfdr.de>; Mon,  2 Nov 2020 20:29:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F5196E123;
-	Mon,  2 Nov 2020 18:21:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B9D46E50C;
+	Mon,  2 Nov 2020 19:29:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc41.google.com (mail-oo1-xc41.google.com
- [IPv6:2607:f8b0:4864:20::c41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBEA36E123
- for <freedreno@lists.freedesktop.org>; Mon,  2 Nov 2020 18:21:47 +0000 (UTC)
-Received: by mail-oo1-xc41.google.com with SMTP id n16so3584776ooj.2
- for <freedreno@lists.freedesktop.org>; Mon, 02 Nov 2020 10:21:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=xRQ0CcPYOKhYGnMLgxmXXhFo34bjmKd0lXwyZmV5goY=;
- b=pMjqPLADOae/tAXYMIGENJtu4YmHlq1z4uQT2H7/S8VZEulMPLPBOCVMkQLErEAkN5
- 7cWln7Ih2Toagjj9H1v1zRPCVbc0HJcUxAGANyLOn/FfBQIY6fVM625nfDDkQ8XVfYlt
- KzlErXfYI4xN/QyURH2sX/suWRpDJ85f/bVDNjh7qr0dt6UKRvOp5y5WCo0XYR/8cJWO
- 5+fYnIL1JeDTDm5ySd2ULLIZdPrwE1wGCXPAZRDjSps8bM/lpJsO0ZRExJn4bk8Fj8+q
- rxv/GTkNF5526s06R3YUsCDLmjcfYXyZzPtYUaUXIeIwIqzX+MfeT7RN0g5vZbeVsl/F
- N8JQ==
+Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
+ [IPv6:2607:f8b0:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BAB56E580
+ for <freedreno@lists.freedesktop.org>; Mon,  2 Nov 2020 19:29:30 +0000 (UTC)
+Received: by mail-pf1-x441.google.com with SMTP id y14so11988698pfp.13
+ for <freedreno@lists.freedesktop.org>; Mon, 02 Nov 2020 11:29:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:content-transfer-encoding:in-reply-to:references
+ :subject:from:cc:to:date:message-id:user-agent;
+ bh=uoOxuimGqR/XZohg3kDNnqLGh44Gb3rHGmhcimxdOOY=;
+ b=X/cJK6On7gCEku6gf7AommmoOsjU/a5tlIE4w3Lty5H00mkIV5rNXD2hV5drnpvER7
+ RuQ18vm1/trkX2my4c491xbgR8ybadobgs5JQu9jdUO4SKrwVCrwCmQKiE9mgwhrJdMR
+ byvh/r5+J24rf4ov9GZLSpFpLphkTvgaKkm0c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=xRQ0CcPYOKhYGnMLgxmXXhFo34bjmKd0lXwyZmV5goY=;
- b=OMrkmlHj85cAaLtYcq/t5oYFtZLRra6ExM/iXqQTHzYUEFcLEC/dz7n1HutVMKNMhy
- 2yFV+QEAKrE/PE8Nh+eIf876t8EJW2xlTtjHI6ZchK8DUn25yPTuUpF5Tf1HPAvEQbgo
- m/zg/URlNKZKKQXTBvtnzigW4xAcMbnJvtNuOIuIIv8xRnXeBV65GL+2NswEmHz9TI3x
- r46OR9Fftr6HC0Qp1GDzcPAiO2hlFdYmiCf8GoOv/enHESULYu5zVEPmBs9Mbm36d5+p
- j1P9DER1Fa4CFKsKJKHnrVtCrmFSNU8IaHRhDGasMjrz9Oi+hq+gO4rjT4f2BDuq+oza
- wxbw==
-X-Gm-Message-State: AOAM530BP5FZie2viKuznsP5tAWbxGD3PBs9k9C5ZACMr6mhBpUABPU1
- edRcIybwgHQC2BTfyHno4akmjw==
-X-Google-Smtp-Source: ABdhPJzMMVGvhuvlkpsuzCCvBxYHqtTOzTsVqRH582t2kvcDB0+hJcsYmcZrjoWbMCQ9LZ/9XEzZBg==
-X-Received: by 2002:a4a:d554:: with SMTP id q20mr12886552oos.23.1604341306983; 
- Mon, 02 Nov 2020 10:21:46 -0800 (PST)
-Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id b8sm3555544oov.29.2020.11.02.10.21.45
+ h=x-gm-message-state:mime-version:content-transfer-encoding
+ :in-reply-to:references:subject:from:cc:to:date:message-id
+ :user-agent;
+ bh=uoOxuimGqR/XZohg3kDNnqLGh44Gb3rHGmhcimxdOOY=;
+ b=jX2wokeWlIb6Yf/iiK9LUSLeqCnqmh8xEIYUx5QvvU2vNfvd2uh8z1vMoUrHR8JdbV
+ LNl1awCc1gmtRaIWOKlDqK9jOh9srGVQfuZpSFha493zKG4L3BHD7D9+78Dc0e4IEmLF
+ 6diK/j6J//rol2p9l2zUO/nsLTOY6fNEL4ejnIthRNGslHzx7LEB+cYl6El/UjhAZ3hA
+ RRomboFCweNhDXB8QzBzEEn6i34/dEWgf2Pe4nFA7rPxXEqGzMoUZHLJc6fvy8kULDPt
+ YtprG6pnep4xlwsuv36LTPzvZB68T8UAtxcF5rKLOR2czgedFsJB4Wb5oeG/1c5bcjZC
+ 28fw==
+X-Gm-Message-State: AOAM533bUxE0IKF5mjTfGIevi5N/H0w8c3A5gtAu0D01pBi9rMxzj0es
+ HuEvkruE/Oug7u09oXWvWJUyfg==
+X-Google-Smtp-Source: ABdhPJxVKt+kRsHzbnU0rETD6G/1efTmJN02g/NGxauAmXXTQrMIxC6/YcVUoL/EqVkPVsDTdrz6Ow==
+X-Received: by 2002:aa7:8548:0:b029:164:769a:353 with SMTP id
+ y8-20020aa785480000b0290164769a0353mr23105505pfn.45.1604345370040; 
+ Mon, 02 Nov 2020 11:29:30 -0800 (PST)
+Received: from chromium.org ([2620:15c:202:201:3e52:82ff:fe6c:83ab])
+ by smtp.gmail.com with ESMTPSA id j11sm14286248pfh.143.2020.11.02.11.29.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Nov 2020 10:21:46 -0800 (PST)
-Date: Mon, 2 Nov 2020 12:21:44 -0600
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <20201102182144.GK3151@builder.lan>
-References: <20201027102304.945424-1-dmitry.baryshkov@linaro.org>
+ Mon, 02 Nov 2020 11:29:29 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201027102304.945424-1-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: fix clock scaling on
- non-sc7180 board
+In-Reply-To: <20201030232324.11170-1-khsieh@codeaurora.org>
+References: <20201030232324.11170-1-khsieh@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+To: Kuogee Hsieh <khsieh@codeaurora.org>, robdclark@gmail.com, sean@poorly.run
+Date: Mon, 02 Nov 2020 11:29:28 -0800
+Message-ID: <160434536802.884498.16389146296525781476@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: promote irq_hpd handle to
+ handle link trainign correctly
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,65 +66,82 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Kalyan Thota <kalyan_t@codeaurora.org>, Sean Paul <sean@poorly.run>
+Cc: rnayak@codeaurora.org, airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ abhinavk@codeaurora.org, khsieh@codeaurora.org, tanmay@codeaurora.org,
+ daniel@ffwll.ch, aravindh@codeaurora.org, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue 27 Oct 05:23 CDT 2020, Dmitry Baryshkov wrote:
+Subject has a typo in "training".
 
-> c33b7c0389e1 ("drm/msm/dpu: add support for clk and bw scaling for
-> display") has added support for handling bandwidth voting in kms path in
-> addition to old mdss path. However this broke all other platforms since
-> _dpu_core_perf_crtc_update_bus() will now error out instead of properly
-> calculating bandwidth and core clocks. Fix
-> _dpu_core_perf_crtc_update_bus() to just skip bandwidth setting instead
-> of returning an error in case kms->num_paths == 0 (MDSS is used for
-> bandwidth management).
+Quoting Kuogee Hsieh (2020-10-30 16:23:24)
+> Some dongles, such as Apple, required link training done at irq_hpd
+
+s/required/require/
+
+> request instead of plugin request. This patch promote irq_hpd hanlder
+
+s/hanlder/handler/
+
+> to handle link training and setup hpd_state correctly.
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-
-Thanks Dmitry,
-Bjorn
-
-> Fixes: c33b7c0389e1 ("drm/msm/dpu: add support for clk and bw scaling for display")
+> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
+
+Any Fixes tag?
+
+>  drivers/gpu/drm/msm/dp/dp_display.c | 20 ++++++++++++++++++--
+>  1 file changed, 18 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> index 393858ef8a83..37c8270681c2 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> @@ -219,9 +219,6 @@ static int _dpu_core_perf_crtc_update_bus(struct dpu_kms *kms,
->  	int i, ret = 0;
->  	u64 avg_bw;
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 13b66266cd69..55627530957c 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -483,10 +485,24 @@ static int dp_display_usbpd_attention_cb(struct device *dev)
+>                 return -ENODEV;
+>         }
 >  
-> -	if (!kms->num_paths)
-> -		return -EINVAL;
-> -
->  	drm_for_each_crtc(tmp_crtc, crtc->dev) {
->  		if (tmp_crtc->enabled &&
->  			curr_client_type ==
-> @@ -239,6 +236,9 @@ static int _dpu_core_perf_crtc_update_bus(struct dpu_kms *kms,
->  		}
->  	}
->  
-> +	if (!kms->num_paths)
-> +		return 0;
+> +       hpd = dp->usbpd;
 > +
->  	avg_bw = perf.bw_ctl;
->  	do_div(avg_bw, (kms->num_paths * 1000)); /*Bps_to_icc*/
+>         /* check for any test request issued by sink */
+>         rc = dp_link_process_request(dp->link);
+> -       if (!rc)
+> -               dp_display_handle_irq_hpd(dp);
+> +       if (!rc) {
+> +               sink_request = dp->link->sink_request;
+> +               if (sink_request & DS_PORT_STATUS_CHANGED) {
+> +                       dp->hpd_state = ST_CONNECT_PENDING;
+> +                       hpd->hpd_high = 1;
+> +               }
+> +
+> +               rc = dp_display_handle_irq_hpd(dp);
+> +
+> +               if (rc && sink_request & DS_PORT_STATUS_CHANGED) {
+
+Can you add parenthesis around this?
+
+		if (rc && (sink_request & DS_PORT_STATUS_CHANGED)) {
+
+
+I honestly don't know what's going on in this patch. It talks about
+making link training happen during irq hpd handler but this is the
+attention handler and we're checking port status changed? This is
+related? The code is really not clear.
+
+> +                       hpd->hpd_high = 0;
+> +                       dp->hpd_state = ST_DISCONNECTED;
+> +               }
+> +       }
 >  
-> -- 
-> 2.28.0
+>         return rc;
+>  }
 > 
+> base-commit: 0e162b10644605428cd2596c12f8ed410cf9d2d9
+
+What commit is this?
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
