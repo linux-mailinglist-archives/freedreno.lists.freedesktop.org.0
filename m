@@ -1,58 +1,35 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AE6E2A35A0
-	for <lists+freedreno@lfdr.de>; Mon,  2 Nov 2020 21:59:53 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id AF3DB2A35E4
+	for <lists+freedreno@lfdr.de>; Mon,  2 Nov 2020 22:18:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D0536E3CE;
-	Mon,  2 Nov 2020 20:59:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60F4A6E3D2;
+	Mon,  2 Nov 2020 21:18:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14F4B6E3CE
- for <freedreno@lists.freedesktop.org>; Mon,  2 Nov 2020 20:59:51 +0000 (UTC)
-Received: by mail-pf1-x444.google.com with SMTP id j18so12241607pfa.0
- for <freedreno@lists.freedesktop.org>; Mon, 02 Nov 2020 12:59:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:content-transfer-encoding:in-reply-to:references
- :subject:from:cc:to:date:message-id:user-agent;
- bh=q5hRvg/6DcxtLnxjORl58B2jfVZHXF3KMM5lzOgdOn8=;
- b=WXN69DxJRYJaU89iA6C2pmGpQL77jy5U0jrVQodzYXRCCdAdOg9KwFE3ExQf0m4LHw
- xW51LYrHhEISI2WyLtV5h0ymbtc652jMW0sVwFZGuATC9s/0gqElIq6FJShqYlVee7yP
- NmmIyz4G6EWyvZ+upWJY8R9WH678D/3vZ2yA4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:content-transfer-encoding
- :in-reply-to:references:subject:from:cc:to:date:message-id
- :user-agent;
- bh=q5hRvg/6DcxtLnxjORl58B2jfVZHXF3KMM5lzOgdOn8=;
- b=HSeVeai8E4gsQAA1gY3GunKEa50n+OPifmXkSxKw7APG5o3lub+qiBOys82zcYZYyT
- 1FLffGMqYR+wwiRy7/mwnZPXxSzOo7wRyEraFsMpJ88B+t25LbOoy5u4wgs52T6JokP4
- q276o+qNaWn9a28k16mcJ1rTGA+s6qng3JONnbuFUljpA/Zrq9BxhcqFo0iEdOcLBeqG
- DKCq3Ls+w0iYSakaAwnyx+NkftEQE7h3iygWvvWNK9GNOrpqPhRJEx5UGU30AVSYCNvK
- NJpERYVzqIbbje2wStDZjCvBxqyglOjwLtJZ0z7OBopO+/hlp0j7nGvjX36uuq4T/70B
- R7Gw==
-X-Gm-Message-State: AOAM533wWJr+oPsX1gL4V1hWTQEads3B2NCeENlX17+GEcKkyh3urR0d
- t1OunGpM5qzvFD8B5z/4mKMpPg==
-X-Google-Smtp-Source: ABdhPJwnIySJ6epBGGGPfeprbUrDnqAx9bdhANANxFSbp8CC2E/eKgMoO1YKlBDE6hCkoXzIyXYzmw==
-X-Received: by 2002:a63:1e5e:: with SMTP id p30mr14585323pgm.159.1604350790604; 
- Mon, 02 Nov 2020 12:59:50 -0800 (PST)
-Received: from chromium.org ([2620:15c:202:201:3e52:82ff:fe6c:83ab])
- by smtp.gmail.com with ESMTPSA id w19sm10682371pff.76.2020.11.02.12.59.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Nov 2020 12:59:50 -0800 (PST)
+X-Greylist: delayed 593 seconds by postgrey-1.36 at gabe;
+ Mon, 02 Nov 2020 20:12:40 UTC
+Received: from relay05.th.seeweb.it (relay05.th.seeweb.it [5.144.164.166])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCFEE6E3B2
+ for <freedreno@lists.freedesktop.org>; Mon,  2 Nov 2020 20:12:40 +0000 (UTC)
+Received: from Marijn-Arch-PC.localdomain
+ (94-209-165-62.cable.dynamic.v4.ziggo.nl [94.209.165.62])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id E34CA3E7B1;
+ Mon,  2 Nov 2020 21:02:41 +0100 (CET)
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: robdclark@gmail.com
+Date: Mon,  2 Nov 2020 21:02:25 +0100
+Message-Id: <20201102200227.8876-1-marijn.suijten@somainline.org>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-In-Reply-To: <20201030232253.11049-1-khsieh@codeaurora.org>
-References: <20201030232253.11049-1-khsieh@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-To: Kuogee Hsieh <khsieh@codeaurora.org>, robdclark@gmail.com, sean@poorly.run
-Date: Mon, 02 Nov 2020 12:59:48 -0800
-Message-ID: <160435078857.884498.13223713108695196370@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.9.1
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: deinitialize mainlink if link
- training failedo
+X-Mailman-Approved-At: Mon, 02 Nov 2020 21:18:32 +0000
+Subject: [Freedreno] [PATCH] drm/msm: a5xx: Make preemption reset case
+ reentrant
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,187 +42,70 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: rnayak@codeaurora.org, airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+Cc: freedreno@lists.freedesktop.org,
+ AngeloGioacchino Del Regno <kholk11@gmail.com>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ konrad.dybcio@somainline.org, Konrad Dybcio <konradybcio@gmail.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- abhinavk@codeaurora.org, khsieh@codeaurora.org, tanmay@codeaurora.org,
- daniel@ffwll.ch, aravindh@codeaurora.org, freedreno@lists.freedesktop.org
+ Eric Anholt <eric@anholt.net>, Jordan Crouse <jcrouse@codeaurora.org>,
+ martin.botka@somainline.org, Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, phone-devel@vger.kernel.org,
+ Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2020-10-30 16:22:53)
-> DP compo phy have to be enable to start link training. When
-> link training failed phy need to be disabled so that next
-> link trainng can be proceed smoothly at next plug in. This
+nr_rings is reset to 1, but when this function is called for a second
+(and third!) time nr_rings > 1 is false, thus the else case is entered
+to set up a buffer for the RPTR shadow and consequently written to
+RB_RPTR_ADDR, hanging platforms without WHERE_AM_I firmware support.
 
-s/trainng/training/
+Restructure the condition in such a way that shadow buffer setup only
+ever happens when has_whereami is true; otherwise preemption is only
+finalized when the number of ring buffers has not been reset to 1 yet.
 
-> patch de initialize mainlink to disable phy if link training
+Fixes: 8907afb476ac ("drm/msm: Allow a5xx to mark the RPTR shadow as privileged")
+Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+Tested-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+---
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-s/de/de-/
+diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+index d6804a802355..9a202a7da131 100644
+--- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+@@ -755,12 +755,8 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
+ 	gpu_write(gpu, REG_A5XX_CP_RB_CNTL,
+ 		MSM_GPU_RB_CNTL_DEFAULT | AXXX_CP_RB_CNTL_NO_UPDATE);
+ 
+-	/* Disable preemption if WHERE_AM_I isn't available */
+-	if (!a5xx_gpu->has_whereami && gpu->nr_rings > 1) {
+-		a5xx_preempt_fini(gpu);
+-		gpu->nr_rings = 1;
+-	} else {
+-		/* Create a privileged buffer for the RPTR shadow */
++	/* Create a privileged buffer for the RPTR shadow */
++	if (a5xx_gpu->has_whereami) {
+ 		if (!a5xx_gpu->shadow_bo) {
+ 			a5xx_gpu->shadow = msm_gem_kernel_new(gpu->dev,
+ 				sizeof(u32) * gpu->nr_rings,
+@@ -774,6 +770,10 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
+ 
+ 		gpu_write64(gpu, REG_A5XX_CP_RB_RPTR_ADDR,
+ 			REG_A5XX_CP_RB_RPTR_ADDR_HI, shadowptr(a5xx_gpu, gpu->rb[0]));
++	} else if (gpu->nr_rings > 1) {
++		/* Disable preemption if WHERE_AM_I isn't available */
++		a5xx_preempt_fini(gpu);
++		gpu->nr_rings = 1;
+ 	}
+ 
+ 	a5xx_preempt_hw_init(gpu);
+-- 
+2.29.2
 
-> failed. This prevent system crash due to
-> disp_cc_mdss_dp_link_intf_clk stuck at "off" state.  This patch
-> also perform checking power_on flag at dp_display_enable() and
-> dp_display_disable() to avoid crashing when unplug cable while
-> display is off.
-> 
-> Fixes: fdaf9a5e3c15 (drm/msm/dp: fixes wrong connection state caused by failure of link train
-> 
-
-Drop newline please.
-
-> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
-> ---
-
-Can you send this as a patch series? There were three patches sent near
-each other and presumably they're related.
-
->  drivers/gpu/drm/msm/dp/dp_ctrl.c    | 34 +++++++++++++++++++++++++++--
->  drivers/gpu/drm/msm/dp/dp_display.c | 13 +++++++++++
->  2 files changed, 45 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index cee161c8ecc6..904698dfc7f7 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -1468,6 +1468,29 @@ static int dp_ctrl_reinitialize_mainlink(struct dp_ctrl_private *ctrl)
->         return ret;
->  }
->  
-> +static int dp_ctrl_deinitialize_mainlink(struct dp_ctrl_private *ctrl)
-> +{
-> +       struct dp_io *dp_io;
-> +       struct phy *phy;
-> +       int ret = 0;
-
-Please drop this initialization to 0.
-
-> +
-> +       dp_io = &ctrl->parser->io;
-> +       phy = dp_io->phy;
-> +
-> +       dp_catalog_ctrl_mainlink_ctrl(ctrl->catalog, false);
-> +
-> +       dp_catalog_ctrl_reset(ctrl->catalog);
-> +
-> +       ret = dp_power_clk_enable(ctrl->power, DP_CTRL_PM, false);
-
-As it's overwritten here.
-
-> +       if (ret)
-> +               DRM_ERROR("Failed to disable link clocks. ret=%d\n", ret);
-> +
-> +       phy_power_off(phy);
-> +       phy_exit(phy);
-> +
-> +       return -ECONNRESET;
-
-Isn't this an error for networking connections getting reset? Really it
-should return 0 because it didn't fail.
-
-> +}
-> +
->  static int dp_ctrl_link_maintenance(struct dp_ctrl_private *ctrl)
->  {
->         int ret = 0;
-> @@ -1648,8 +1671,7 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
->         if (rc)
->                 return rc;
->  
-> -       while (--link_train_max_retries &&
-> -               !atomic_read(&ctrl->dp_ctrl.aborted)) {
-> +       while (--link_train_max_retries) {
->                 rc = dp_ctrl_reinitialize_mainlink(ctrl);
->                 if (rc) {
->                         DRM_ERROR("Failed to reinitialize mainlink. rc=%d\n",
-> @@ -1664,6 +1686,9 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
->                         break;
->                 } else if (training_step == DP_TRAINING_1) {
->                         /* link train_1 failed */
-> +                       if (!dp_catalog_hpd_get_state_status(ctrl->catalog))
-> +                               break;          /* link cable unplugged */
-> +
->                         rc = dp_ctrl_link_rate_down_shift(ctrl);
->                         if (rc < 0) { /* already in RBR = 1.6G */
->                                 if (cr.lane_0_1 & DP_LANE0_1_CR_DONE) {
-> @@ -1683,6 +1708,9 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
->                         }
->                 } else if (training_step == DP_TRAINING_2) {
->                         /* link train_2 failed, lower lane rate */
-> +                       if (!dp_catalog_hpd_get_state_status(ctrl->catalog))
-
-Maybe make a function called dp_catalog_link_disconnected()? Then the
-comment isn't needed.
-
-> +                               break;          /* link cable unplugged */
-> +
->                         rc = dp_ctrl_link_lane_down_shift(ctrl);
->                         if (rc < 0) {
->                                 /* end with failure */
-> @@ -1703,6 +1731,8 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
->          */
->         if (rc == 0)  /* link train successfully */
->                 dp_ctrl_push_idle(dp_ctrl);
-> +       else
-> +               rc = dp_ctrl_deinitialize_mainlink(ctrl);
-
-So if it fails we deinitialize and then return success? Shouldn't we
-keep the error code from the link train attempt instead of overwrite it
-with (most likely) zero? I see that it returns -ECONNRESET but that's
-really odd and seeing this code here means you have to look at the
-function to figure out that it's still returning an error code. Please
-don't do that, just ignore the error code from this function.
-
->  
->         return rc;
->  }
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 3eb0d428abf7..13b66266cd69 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -529,6 +529,11 @@ static int dp_hpd_plug_handle(struct dp_display_private *dp, u32 data)
->         if (ret) {      /* link train failed */
->                 hpd->hpd_high = 0;
->                 dp->hpd_state = ST_DISCONNECTED;
-> +
-> +               if (ret == -ECONNRESET) { /* cable unplugged */
-> +                       dp->core_initialized = false;
-> +               }
-
-Style: Drop braces on single line if statements.
-
-> +
->         } else {
->                 /* start sentinel checking in case of missing uevent */
->                 dp_add_event(dp, EV_CONNECT_PENDING_TIMEOUT, 0, tout);
-> @@ -794,6 +799,11 @@ static int dp_display_enable(struct dp_display_private *dp, u32 data)
->  
->         dp_display = g_dp_display;
->  
-> +       if (dp_display->power_on) {
-> +               DRM_DEBUG_DP("Link already setup, return\n");
-> +               return 0;
-> +       }
-> +
->         rc = dp_ctrl_on_stream(dp->ctrl);
->         if (!rc)
->                 dp_display->power_on = true;
-> @@ -826,6 +836,9 @@ static int dp_display_disable(struct dp_display_private *dp, u32 data)
->  
->         dp_display = g_dp_display;
->  
-> +       if (!dp_display->power_on)
-> +               return -EINVAL;
-> +
->         /* wait only if audio was enabled */
->         if (dp_display->audio_enabled) {
->                 if (!wait_for_completion_timeout(&dp->audio_comp,
-> 
-> base-commit: fd4a29bed29b3d8f15942fdf77e7a0a52796d836
-
-What is this commit?
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
