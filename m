@@ -1,35 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF3DB2A35E4
-	for <lists+freedreno@lfdr.de>; Mon,  2 Nov 2020 22:18:34 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 30B052A35E7
+	for <lists+freedreno@lfdr.de>; Mon,  2 Nov 2020 22:20:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60F4A6E3D2;
-	Mon,  2 Nov 2020 21:18:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E84636E3D2;
+	Mon,  2 Nov 2020 21:19:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 593 seconds by postgrey-1.36 at gabe;
- Mon, 02 Nov 2020 20:12:40 UTC
-Received: from relay05.th.seeweb.it (relay05.th.seeweb.it [5.144.164.166])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCFEE6E3B2
- for <freedreno@lists.freedesktop.org>; Mon,  2 Nov 2020 20:12:40 +0000 (UTC)
-Received: from Marijn-Arch-PC.localdomain
- (94-209-165-62.cable.dynamic.v4.ziggo.nl [94.209.165.62])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id E34CA3E7B1;
- Mon,  2 Nov 2020 21:02:41 +0100 (CET)
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: robdclark@gmail.com
-Date: Mon,  2 Nov 2020 21:02:25 +0100
-Message-Id: <20201102200227.8876-1-marijn.suijten@somainline.org>
-X-Mailer: git-send-email 2.29.2
+Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
+ [IPv6:2607:f8b0:4864:20::544])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59CB36E3D2
+ for <freedreno@lists.freedesktop.org>; Mon,  2 Nov 2020 21:19:57 +0000 (UTC)
+Received: by mail-pg1-x544.google.com with SMTP id r186so11897985pgr.0
+ for <freedreno@lists.freedesktop.org>; Mon, 02 Nov 2020 13:19:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:content-transfer-encoding:in-reply-to:references
+ :subject:from:cc:to:date:message-id:user-agent;
+ bh=MmgoczohG/k+ZwjVQUASoG236fzfrYemlbvsaHENUT0=;
+ b=YTyfXrFe7avSZYrfT69J72tFfPArIv0rq/MD9TDv0mLzf6VGWkkmFcKLaIhBwmtYUV
+ OfI7prs1PEvecIN7s+lp+6dqs88D/AcB5zxmRQbRU5+T7LYqs5YcZXW2j/TeqUUSvLym
+ IX+z+LzhG5wJpNoytNzrqunBgNq55+SHD64dA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:content-transfer-encoding
+ :in-reply-to:references:subject:from:cc:to:date:message-id
+ :user-agent;
+ bh=MmgoczohG/k+ZwjVQUASoG236fzfrYemlbvsaHENUT0=;
+ b=uHUE5oYuR+QhjveBzxt9o1PBze2IMeukvsQjYQI9re0oYHwcDFpYCM7+wvBzq7d9dJ
+ 5Qji/CRHi5wK8aKv227Bt99Xk3k2jhsrdgpSHjU0X15/mcKxvd6dk0oc2iX/fVLgfDh/
+ ag3mhjETcz/7k4RHk5hCUstMF55YugrbA9COUlNru/gOBrqQF5jv1Zr00pWkCGp2PdMx
+ 71GaLASLMt1qM5z0ZjEDnlxDPP8kqPpmU4U0lMWwfKTuRpTiz+81TgpXPocG26uvmz8J
+ q9afWJzIiZ3SjBr1zSKgUMkSSjLOmoM3aAc2hDeD92DWzkic2fot6NJbrlxLh1PHnzm5
+ djqg==
+X-Gm-Message-State: AOAM532kzkvVsq9qvKqe4koDoXzLmaaG4q3UILVb5sGPZ2/2FTfBOReU
+ DZOc0mAfLqSqvzRjAxvgJIUzVQ==
+X-Google-Smtp-Source: ABdhPJxfOk0mmqX0RpZ2O0ZHRlCvjeMDUMHlxvxspXmVFF9ZtFhc0xavIb+wi6/woPUaiNH7hebN0g==
+X-Received: by 2002:a63:4f5f:: with SMTP id p31mr12022620pgl.158.1604351996950; 
+ Mon, 02 Nov 2020 13:19:56 -0800 (PST)
+Received: from chromium.org ([2620:15c:202:201:3e52:82ff:fe6c:83ab])
+ by smtp.gmail.com with ESMTPSA id u124sm15320487pfc.21.2020.11.02.13.19.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Nov 2020 13:19:56 -0800 (PST)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 02 Nov 2020 21:18:32 +0000
-Subject: [Freedreno] [PATCH] drm/msm: a5xx: Make preemption reset case
- reentrant
+In-Reply-To: <20201029205509.13192-1-abhinavk@codeaurora.org>
+References: <20201029205509.13192-1-abhinavk@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+To: Abhinav Kumar <abhinavk@codeaurora.org>, dri-devel@lists.freedesktop.org
+Date: Mon, 02 Nov 2020 13:19:54 -0800
+Message-ID: <160435199458.884498.6173218904854698184@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: do not notify audio subsystem
+ if sink doesn't support audio
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,70 +65,62 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- AngeloGioacchino Del Regno <kholk11@gmail.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- konrad.dybcio@somainline.org, Konrad Dybcio <konradybcio@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Eric Anholt <eric@anholt.net>, Jordan Crouse <jcrouse@codeaurora.org>,
- martin.botka@somainline.org, Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, phone-devel@vger.kernel.org,
- Sean Paul <sean@poorly.run>
+Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
+ khsieh@codeaurora.org, robdclark@gmail.com, nganji@codeaurora.org,
+ seanpaul@chromium.org, tanmay@codeaurora.org, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org, cychiang@chromium.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-nr_rings is reset to 1, but when this function is called for a second
-(and third!) time nr_rings > 1 is false, thus the else case is entered
-to set up a buffer for the RPTR shadow and consequently written to
-RB_RPTR_ADDR, hanging platforms without WHERE_AM_I firmware support.
+Quoting Abhinav Kumar (2020-10-29 13:55:09)
+> For sinks that do not support audio, there is no need to notify
+> audio subsystem of the connection event.
+> 
+> This will make sure that audio routes only to the primary display
+> when connected to such sinks.
+> 
 
-Restructure the condition in such a way that shadow buffer setup only
-ever happens when has_whereami is true; otherwise preemption is only
-finalized when the number of ring buffers has not been reset to 1 yet.
+Does this need a Fixes tag? Or it's just an optimization patch?
 
-Fixes: 8907afb476ac ("drm/msm: Allow a5xx to mark the RPTR shadow as privileged")
-Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-Tested-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
----
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+> Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 4a5735564be2..d970980b0ca5 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -555,8 +555,16 @@ static int dp_connect_pending_timeout(struct dp_display_private *dp, u32 data)
+>  static void dp_display_handle_plugged_change(struct msm_dp *dp_display,
+>                 bool plugged)
+>  {
+> -       if (dp_display->plugged_cb && dp_display->codec_dev)
+> -               dp_display->plugged_cb(dp_display->codec_dev, plugged);
+> +       struct dp_display_private *dp;
+> +
+> +       dp = container_of(g_dp_display,
 
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index d6804a802355..9a202a7da131 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -755,12 +755,8 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
- 	gpu_write(gpu, REG_A5XX_CP_RB_CNTL,
- 		MSM_GPU_RB_CNTL_DEFAULT | AXXX_CP_RB_CNTL_NO_UPDATE);
- 
--	/* Disable preemption if WHERE_AM_I isn't available */
--	if (!a5xx_gpu->has_whereami && gpu->nr_rings > 1) {
--		a5xx_preempt_fini(gpu);
--		gpu->nr_rings = 1;
--	} else {
--		/* Create a privileged buffer for the RPTR shadow */
-+	/* Create a privileged buffer for the RPTR shadow */
-+	if (a5xx_gpu->has_whereami) {
- 		if (!a5xx_gpu->shadow_bo) {
- 			a5xx_gpu->shadow = msm_gem_kernel_new(gpu->dev,
- 				sizeof(u32) * gpu->nr_rings,
-@@ -774,6 +770,10 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
- 
- 		gpu_write64(gpu, REG_A5XX_CP_RB_RPTR_ADDR,
- 			REG_A5XX_CP_RB_RPTR_ADDR_HI, shadowptr(a5xx_gpu, gpu->rb[0]));
-+	} else if (gpu->nr_rings > 1) {
-+		/* Disable preemption if WHERE_AM_I isn't available */
-+		a5xx_preempt_fini(gpu);
-+		gpu->nr_rings = 1;
- 	}
- 
- 	a5xx_preempt_hw_init(gpu);
--- 
-2.29.2
+What is g_dp_display? I guess this doesn't compile?
 
+> +                       struct dp_display_private, dp_display);
+> +
+> +       if (dp_display->plugged_cb && dp_display->codec_dev) {
+> +               /* notify audio subsystem only if sink supports audio */
+> +               if (dp->audio_supported)
+
+Can we combine this into the above if statement?
+
+> +                       dp_display->plugged_cb(dp_display->codec_dev, plugged);
+
+Then this isn't as nested.
+
+> +       }
+>  }
+>  
+>  static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
