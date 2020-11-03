@@ -1,60 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 763482A45B3
-	for <lists+freedreno@lfdr.de>; Tue,  3 Nov 2020 13:58:23 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 15D192A4B64
+	for <lists+freedreno@lfdr.de>; Tue,  3 Nov 2020 17:27:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA7116EC88;
-	Tue,  3 Nov 2020 12:58:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47DEA6ECB0;
+	Tue,  3 Nov 2020 16:27:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1FB36EC88
- for <freedreno@lists.freedesktop.org>; Tue,  3 Nov 2020 12:58:19 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1604408299; h=Content-Transfer-Encoding: MIME-Version:
- Message-Id: Date: Subject: Cc: To: From: Sender;
- bh=l5vV2ZlXF8y6CRsqUNbo4YItI4HCWM0SIqYCxVDjxsk=;
- b=e5xC0h9/RfrKcZrXuM9yclZ9LAQoRaBfng1oDAPWLzYbf9jMkcKMIsgAN1oIumfc2fY+5fps
- NH7Wi1HxA7BLkAgsU8+VRS7xfY2/iDlO3+uvwiOy8OadzrdGhRgBb0rjaAK/AprRHaO0aSEQ
- u//7ENNrk5N0TkiXnJ+cXbbyO8Y=
-X-Mailgun-Sending-Ip: 104.130.96.5
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
- 5fa153eb978460d05b44b46d (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 03 Nov 2020 12:58:19
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 118BCC433C6; Tue,  3 Nov 2020 01:10:33 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL, 
- URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-Received: from abhinavk-linux.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id B7CC9C433C6;
- Tue,  3 Nov 2020 01:10:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org B7CC9C433C6
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=abhinavk@codeaurora.org
-From: Abhinav Kumar <abhinavk@codeaurora.org>
-To: dri-devel@lists.freedesktop.org
-Date: Mon,  2 Nov 2020 17:10:23 -0800
-Message-Id: <20201103011023.21365-1-abhinavk@codeaurora.org>
-X-Mailer: git-send-email 2.23.0
+Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
+ [IPv6:2a00:1450:4864:20::241])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1231E6E41A;
+ Tue,  3 Nov 2020 03:44:17 +0000 (UTC)
+Received: by mail-lj1-x241.google.com with SMTP id v19so12527700lji.5;
+ Mon, 02 Nov 2020 19:44:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=PWQ8NTeZLFQdv/5YUa7psjB27IntvMdSU7mW9fezuLM=;
+ b=r9pCOorFPx1U7iOcPRDRhubqANLsHcFODnILtaTQPwKltnK37lGvUrbvOREwyet4YM
+ lSCA86a8gNjX3pW/KCcxc8aP1RDmE/d6yQlbWCdGrNV6Ci4byjlhEXV3ExRzbVeXtqlB
+ eb+Fc1WJxivbOmR8GFX7OFD07T6hfaZkZ8sCykMO88A9UC84i5EuAj//D/T0iyGne9Sq
+ PgWwx1g6QEoej/JbEvpm06UwrhbJcj8k5mtJBRfNKJeXj8RGUTeEpq0cVnJFTUgm1eTv
+ LhCAoIcfrNJZ/aeQuRZv46f/72WyTdf1rr2yW0rBn9dBI/XuLEJsl3Waje+P1nLHzLSS
+ Zf9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=PWQ8NTeZLFQdv/5YUa7psjB27IntvMdSU7mW9fezuLM=;
+ b=LgK/VAzw1EREPQA7/M+k0/Lj5O8rLiwZKTAXZtS9maLZO8ui8crKd0oOpCynaalf2j
+ 4I8+RmHtYP7K+qyYKqNJ8h70tu9J73a/dEX8PNVQDISx9eQTy6td3YzAbtl1XEj1J6+2
+ lKefzMtNUhlW52MjpSKRjJthoKAVQtgKNEpHL0psVxtk/9THZDkl0Tj3+KDFAJFDFwoK
+ W2JTdjMyyrmRBVW1Ql5QpHoCYNDqxh2ruePJMgZephi03hWZX9YiiT04RmDCK45D0k8m
+ 6YB08JORQ1x8B7IwzRBuNRiaYCl5JZD+vYeaxZ3J/9ktXvmGu8HIJIDnhBz990OmXxx7
+ cDvw==
+X-Gm-Message-State: AOAM530wPupMNatxkgwgYhjrCaoXqfSl51nI/h16t9vRJtyE2ayW6nfz
+ 7WJzHYoyI8T9MBrqPAiSYPQxQygJZIAtT8vnhmQ=
+X-Google-Smtp-Source: ABdhPJxhl/OwORCpXDTfvs2MFrtCDs/0VZHFQjX+F9UZYF2b2fzm3IRy1qfoFWu91md0M1ac8H7+zQabn+zz3vYW+kg=
+X-Received: by 2002:a2e:50a:: with SMTP id 10mr7332878ljf.55.1604375055534;
+ Mon, 02 Nov 2020 19:44:15 -0800 (PST)
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v2] drm/msm/dp: do not notify audio subsystem if
- sink doesn't support audio
+From: dev god <g0d3ph@gmail.com>
+Date: Tue, 3 Nov 2020 11:44:04 +0800
+Message-ID: <CAKWwwMhUPk3hAs6oPKHxvV7jVgHh4WP3bvZGYOkPaSF9fRRh9Q@mail.gmail.com>
+To: trivial@kernel.org, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, 
+ Kalyan Thota <kalyan_t@codeaurora.org>,
+ Drew Davenport <ddavenport@chromium.org>, 
+ Vara Reddy <varar@codeaurora.org>, Kuogee Hsieh <khsieh@codeaurora.org>, 
+ Zheng Bin <zhengbin13@huawei.com>, Chandan Uddaraju <chandanu@codeaurora.org>, 
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mailman-Approved-At: Tue, 03 Nov 2020 16:27:52 +0000
+Subject: [Freedreno] [PATCH] drivers: drm: fix msm_drv.h warning
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,57 +67,99 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
- swboyd@chromium.org, khsieh@codeaurora.org, robdclark@gmail.com,
- nganji@codeaurora.org, seanpaul@chromium.org, tanmay@codeaurora.org,
- aravindh@codeaurora.org, freedreno@lists.freedesktop.org,
- cychiang@chromium.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0334101497=="
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-For sinks that do not support audio, there is no need to notify
-audio subsystem of the connection event.
+--===============0334101497==
+Content-Type: multipart/alternative; boundary="000000000000458d0e05b32badd7"
 
-This will make sure that audio routes only to the primary display
-when connected to such sinks.
+--000000000000458d0e05b32badd7
+Content-Type: text/plain; charset="UTF-8"
 
-changes in v2:
-  - Added fixes tag
-  - Removed nested if condition and removed usage of global pointer
+Hi
 
-Fixes: d13e36d7d222 ("drm/msm/dp: add audio support for Display Port on MSM")
-Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
+fix implicit declaration of function error.
+
+>> drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:1229:7: error: implicit
+declaration of function 'msm_dp_display_pre_disable'
+[-Werror,-Wimplicit-function-declaration]
+                   if (msm_dp_display_pre_disable(priv->dp, drm_enc))
+                       ^
+   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:1229:7: note: did you mean
+'msm_dp_display_disable'?
+   drivers/gpu/drm/msm/msm_drv.h:420:19: note: 'msm_dp_display_disable'
+declared here
+   static inline int msm_dp_display_disable(struct msm_dp *dp,
+                     ^
+   1 error generated.
+
+Signed-off-by: Gah0 <g0d3ph@gmail.com>
+Reported-by: kernel test robot <lkp@intel.com>
 ---
- drivers/gpu/drm/msm/dp/dp_display.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 2f72817ca24f..3f59ba8fcde5 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -549,7 +549,14 @@ static int dp_connect_pending_timeout(struct dp_display_private *dp, u32 data)
- static void dp_display_handle_plugged_change(struct msm_dp *dp_display,
- 		bool plugged)
- {
--	if (dp_display->plugged_cb && dp_display->codec_dev)
-+	struct dp_display_private *dp;
-+
-+	dp = container_of(dp_display,
-+			struct dp_display_private, dp_display);
-+
-+	/* notify audio subsystem only if sink supports audio */
-+	if (dp_display->plugged_cb && dp_display->codec_dev &&
-+			dp->audio_supported)
- 		dp_display->plugged_cb(dp_display->codec_dev, plugged);
- }
- 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index f7f5c258b553..52d9a82fb64f 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -14,7 +14,7 @@
+ #include <drm/drm_file.h>
+ #include <drm/drm_probe_helper.h>
+
+-#include "msm_drv.h"
++#include "../../msm_drv.h"
+ #include "dpu_kms.h"
+ #include "dpu_hwio.h"
+ #include "dpu_hw_catalog.h"
 -- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+2.25.1
+
+--000000000000458d0e05b32badd7
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi<div><br></div><div><div>fix implicit declaration of fun=
+ction error.</div><div><br>&gt;&gt; drivers/gpu/drm/msm/disp/dpu1/dpu_encod=
+er.c:1229:7: error: implicit declaration of function &#39;msm_dp_display_pr=
+e_disable&#39; [-Werror,-Wimplicit-function-declaration]<br>=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (msm_dp_display_p=
+re_disable(priv-&gt;dp, drm_enc))<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^<br>=C2=A0 =C2=A0drivers/gpu/=
+drm/msm/disp/dpu1/dpu_encoder.c:1229:7: note: did you mean &#39;msm_dp_disp=
+lay_disable&#39;?<br>=C2=A0 =C2=A0drivers/gpu/drm/msm/msm_drv.h:420:19: not=
+e: &#39;msm_dp_display_disable&#39; declared here<br>=C2=A0 =C2=A0static in=
+line int msm_dp_display_disable(struct msm_dp *dp,<br>=C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^<br>=C2=A0 =C2=A01 =
+error generated.</div><div><br></div><div>Signed-off-by: Gah0 &lt;<a href=
+=3D"mailto:g0d3ph@gmail.com">g0d3ph@gmail.com</a>&gt;</div><div>Reported-by=
+:=C2=A0<span class=3D"gmail-il">kernel</span>=C2=A0<span class=3D"gmail-il"=
+>test</span>=C2=A0<span class=3D"gmail-il">robot</span>=C2=A0&lt;<a href=3D=
+"mailto:lkp@intel.com" target=3D"_blank">lkp@intel.com</a>&gt;<br>---<br>=
+=C2=A0drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 2 +-<br>=C2=A01 file ch=
+anged, 1 insertion(+), 1 deletion(-)<br><br>diff --git a/drivers/gpu/drm/ms=
+m/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c<br>=
+index f7f5c258b553..52d9a82fb64f 100644<br>--- a/drivers/gpu/drm/msm/disp/d=
+pu1/dpu_encoder.c<br>+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c<br>@=
+@ -14,7 +14,7 @@<br>=C2=A0#include &lt;drm/drm_file.h&gt;<br>=C2=A0#include=
+ &lt;drm/drm_probe_helper.h&gt;<br>=C2=A0<br>-#include &quot;msm_drv.h&quot=
+;<br>+#include &quot;../../msm_drv.h&quot;<br>=C2=A0#include &quot;dpu_kms.=
+h&quot;<br>=C2=A0#include &quot;dpu_hwio.h&quot;<br>=C2=A0#include &quot;dp=
+u_hw_catalog.h&quot;<br>-- <br>2.25.1</div></div></div>
+
+--000000000000458d0e05b32badd7--
+
+--===============0334101497==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
+
+--===============0334101497==--
