@@ -2,56 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFACD2A4D0F
-	for <lists+freedreno@lfdr.de>; Tue,  3 Nov 2020 18:34:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB7E62A5243
+	for <lists+freedreno@lfdr.de>; Tue,  3 Nov 2020 21:49:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A7C089DBA;
-	Tue,  3 Nov 2020 17:34:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9291D6E8CC;
+	Tue,  3 Nov 2020 20:49:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDE8889DBA
- for <freedreno@lists.freedesktop.org>; Tue,  3 Nov 2020 17:34:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69DA36E8CC
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Nov 2020 20:49:23 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1604424868; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=chZXK7LKaQWhsJngmSxlrn5Gd7QZePP6oMaO/PyNsGc=;
- b=cJjae8cO1W3IgqihsbjOHtwS0OVLDQfipE7Xf2r6fvLuC1FrJPEvgO70I9bj3Vxm/dpTEtjj
- CtuuhE+qSiGzWjSvu5RKf/8udpqNvKZKnnsNsnY4Yr0bQVIVPU57bZcyMuzkCiVvDA4zclNF
- wcb3aTX17i4gY+xvZf9+2A65SRg=
+ s=smtp; t=1604436563; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=v38VIvvqFPW9T8r0lWGRdQ5SsoAKhs1w4NYwSBxeq3U=;
+ b=mbhgCC+Pd0rV8h24yo8cqFPujSWOuwQS3HwTbwRs5l8GrZxznRJWhZhyLtG53DGAwDwmm3X7
+ regqbMc+2Aa4C/ACZ4GcuUturTgGYdeN+uISmnuVBUr81LUvdz6hojUDPpVXuCFYc1qGUGrX
+ bNKdZfgTknarqRQOpCHfDUQKuQY=
 X-Mailgun-Sending-Ip: 69.72.42.4
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
- 5fa194991037425ce1dcc2eb (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 03 Nov 2020 17:34:17
+ smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
+ 5fa1c2527b1a71d66858941a (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 03 Nov 2020 20:49:22
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 1D89FC43387; Tue,  3 Nov 2020 17:34:17 +0000 (UTC)
+ id 8565FC43443; Tue,  3 Nov 2020 20:49:21 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
+Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 9A700C433C9;
- Tue,  3 Nov 2020 17:34:15 +0000 (UTC)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id E7A5BC43443;
+ Tue,  3 Nov 2020 20:49:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org E7A5BC43443
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=khsieh@codeaurora.org
+From: Kuogee Hsieh <khsieh@codeaurora.org>
+To: dri-devel@lists.freedesktop.org, robdclark@gmail.com, sean@poorly.run,
+ swboyd@chromium.org
+Date: Tue,  3 Nov 2020 12:48:59 -0800
+Message-Id: <20201103204902.11899-1-khsieh@codeaurora.org>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Date: Tue, 03 Nov 2020 09:34:15 -0800
-From: khsieh@codeaurora.org
-To: Stephen Boyd <swboyd@chromium.org>
-In-Reply-To: <160435078857.884498.13223713108695196370@swboyd.mtv.corp.google.com>
-References: <20201030232253.11049-1-khsieh@codeaurora.org>
- <160435078857.884498.13223713108695196370@swboyd.mtv.corp.google.com>
-Message-ID: <e2d080eb8c5b0efaaa7e97ac19451f57@codeaurora.org>
-X-Sender: khsieh@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: deinitialize mainlink if link
- training failedo
+Subject: [Freedreno] [PATCH 0/3] fix dp link training failed at irq_hpd
+ request
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,219 +67,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, rnayak@codeaurora.org, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, abhinavk@codeaurora.org, robdclark@gmail.com,
- tanmay@codeaurora.org, daniel@ffwll.ch, aravindh@codeaurora.org,
- sean@poorly.run
+Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, abhinavk@codeaurora.org,
+ Kuogee Hsieh <khsieh@codeaurora.org>, tanmay@codeaurora.org, daniel@ffwll.ch,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-11-02 12:59, Stephen Boyd wrote:
-> Quoting Kuogee Hsieh (2020-10-30 16:22:53)
->> DP compo phy have to be enable to start link training. When
->> link training failed phy need to be disabled so that next
->> link trainng can be proceed smoothly at next plug in. This
-> 
-> s/trainng/training/
-> 
->> patch de initialize mainlink to disable phy if link training
-> 
-> s/de/de-/
-> 
->> failed. This prevent system crash due to
->> disp_cc_mdss_dp_link_intf_clk stuck at "off" state.  This patch
->> also perform checking power_on flag at dp_display_enable() and
->> dp_display_disable() to avoid crashing when unplug cable while
->> display is off.
->> 
->> Fixes: fdaf9a5e3c15 (drm/msm/dp: fixes wrong connection state caused 
->> by failure of link train
->> 
-> 
-> Drop newline please.
-> 
->> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
->> ---
-> 
-> Can you send this as a patch series? There were three patches sent near
-> each other and presumably they're related.
-> 
->>  drivers/gpu/drm/msm/dp/dp_ctrl.c    | 34 
->> +++++++++++++++++++++++++++--
->>  drivers/gpu/drm/msm/dp/dp_display.c | 13 +++++++++++
->>  2 files changed, 45 insertions(+), 2 deletions(-)
->> 
->> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c 
->> b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> index cee161c8ecc6..904698dfc7f7 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> @@ -1468,6 +1468,29 @@ static int dp_ctrl_reinitialize_mainlink(struct 
->> dp_ctrl_private *ctrl)
->>         return ret;
->>  }
->> 
->> +static int dp_ctrl_deinitialize_mainlink(struct dp_ctrl_private 
->> *ctrl)
->> +{
->> +       struct dp_io *dp_io;
->> +       struct phy *phy;
->> +       int ret = 0;
-> 
-> Please drop this initialization to 0.
-> 
->> +
->> +       dp_io = &ctrl->parser->io;
->> +       phy = dp_io->phy;
->> +
->> +       dp_catalog_ctrl_mainlink_ctrl(ctrl->catalog, false);
->> +
->> +       dp_catalog_ctrl_reset(ctrl->catalog);
->> +
->> +       ret = dp_power_clk_enable(ctrl->power, DP_CTRL_PM, false);
-> 
-> As it's overwritten here.
-> 
->> +       if (ret)
->> +               DRM_ERROR("Failed to disable link clocks. ret=%d\n", 
->> ret);
->> +
->> +       phy_power_off(phy);
->> +       phy_exit(phy);
->> +
->> +       return -ECONNRESET;
-> 
-> Isn't this an error for networking connections getting reset? Really it
-> should return 0 because it didn't fail.
-> 
->> +}
->> +
->>  static int dp_ctrl_link_maintenance(struct dp_ctrl_private *ctrl)
->>  {
->>         int ret = 0;
->> @@ -1648,8 +1671,7 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
->>         if (rc)
->>                 return rc;
->> 
->> -       while (--link_train_max_retries &&
->> -               !atomic_read(&ctrl->dp_ctrl.aborted)) {
->> +       while (--link_train_max_retries) {
->>                 rc = dp_ctrl_reinitialize_mainlink(ctrl);
->>                 if (rc) {
->>                         DRM_ERROR("Failed to reinitialize mainlink. 
->> rc=%d\n",
->> @@ -1664,6 +1686,9 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
->>                         break;
->>                 } else if (training_step == DP_TRAINING_1) {
->>                         /* link train_1 failed */
->> +                       if 
->> (!dp_catalog_hpd_get_state_status(ctrl->catalog))
->> +                               break;          /* link cable 
->> unplugged */
->> +
->>                         rc = dp_ctrl_link_rate_down_shift(ctrl);
->>                         if (rc < 0) { /* already in RBR = 1.6G */
->>                                 if (cr.lane_0_1 & DP_LANE0_1_CR_DONE) 
->> {
->> @@ -1683,6 +1708,9 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
->>                         }
->>                 } else if (training_step == DP_TRAINING_2) {
->>                         /* link train_2 failed, lower lane rate */
->> +                       if 
->> (!dp_catalog_hpd_get_state_status(ctrl->catalog))
-> 
-> Maybe make a function called dp_catalog_link_disconnected()? Then the
-> comment isn't needed.
-> 
->> +                               break;          /* link cable 
->> unplugged */
->> +
->>                         rc = dp_ctrl_link_lane_down_shift(ctrl);
->>                         if (rc < 0) {
->>                                 /* end with failure */
->> @@ -1703,6 +1731,8 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
->>          */
->>         if (rc == 0)  /* link train successfully */
->>                 dp_ctrl_push_idle(dp_ctrl);
->> +       else
->> +               rc = dp_ctrl_deinitialize_mainlink(ctrl);
-> 
-> So if it fails we deinitialize and then return success? Shouldn't we
-> keep the error code from the link train attempt instead of overwrite it
-> with (most likely) zero? I see that it returns -ECONNRESET but that's
-> really odd and seeing this code here means you have to look at the
-> function to figure out that it's still returning an error code. Please
-> don't do that, just ignore the error code from this function.
-> 
-There are two possible failure cases at plugin request, link training 
-failed  and read dpcd/edid failed.
-It does not need to enable phy/pll to perform aux read/write from/to 
-dpcd or edid.
-on the other hand, phy/pll need to be enabled to perform link training. 
-If link training failed,
-then phy/pll need to be disabled so that phy/pll can be enabled next 
-link training correctly.
-Link training failed error has to be propagated back to the top caller 
-so that dp_display_host_init()
-will be called again at next plugin request.
+Some dongle require link training be done at irq_hpd request. This serial
+patches address the issues so that DP/HDMI display can be lit up properlly.
+This serial Patch also fixes clock stuck at "off" state error caused by
+previous link training failed.
 
+Kuogee Hsieh (3):
+  drm/msm/dp: deinitialize mainlink if link training failed
+  drm/msm/dp: skip checking LINK_STATUS_UPDATED bit
+  drm/msm/dp: promote irq_hpd handle to handle link training correctly
 
->> 
->>         return rc;
->>  }
->> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c 
->> b/drivers/gpu/drm/msm/dp/dp_display.c
->> index 3eb0d428abf7..13b66266cd69 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->> @@ -529,6 +529,11 @@ static int dp_hpd_plug_handle(struct 
->> dp_display_private *dp, u32 data)
->>         if (ret) {      /* link train failed */
->>                 hpd->hpd_high = 0;
->>                 dp->hpd_state = ST_DISCONNECTED;
->> +
->> +               if (ret == -ECONNRESET) { /* cable unplugged */
->> +                       dp->core_initialized = false;
->> +               }
-> 
-> Style: Drop braces on single line if statements.
-> 
->> +
->>         } else {
->>                 /* start sentinel checking in case of missing uevent 
->> */
->>                 dp_add_event(dp, EV_CONNECT_PENDING_TIMEOUT, 0, tout);
->> @@ -794,6 +799,11 @@ static int dp_display_enable(struct 
->> dp_display_private *dp, u32 data)
->> 
->>         dp_display = g_dp_display;
->> 
->> +       if (dp_display->power_on) {
->> +               DRM_DEBUG_DP("Link already setup, return\n");
->> +               return 0;
->> +       }
->> +
->>         rc = dp_ctrl_on_stream(dp->ctrl);
->>         if (!rc)
->>                 dp_display->power_on = true;
->> @@ -826,6 +836,9 @@ static int dp_display_disable(struct 
->> dp_display_private *dp, u32 data)
->> 
->>         dp_display = g_dp_display;
->> 
->> +       if (!dp_display->power_on)
->> +               return -EINVAL;
->> +
->>         /* wait only if audio was enabled */
->>         if (dp_display->audio_enabled) {
->>                 if (!wait_for_completion_timeout(&dp->audio_comp,
->> 
->> base-commit: fd4a29bed29b3d8f15942fdf77e7a0a52796d836
-> 
-> What is this commit?
+ drivers/gpu/drm/msm/dp/dp_catalog.c |  2 +-
+ drivers/gpu/drm/msm/dp/dp_catalog.h |  2 +-
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 60 +++++++++++++++++++++--------
+ drivers/gpu/drm/msm/dp/dp_display.c | 40 ++++++++++++++++---
+ drivers/gpu/drm/msm/dp/dp_link.c    | 29 +++++++-------
+ drivers/gpu/drm/msm/dp/dp_panel.c   |  2 +-
+ 6 files changed, 96 insertions(+), 39 deletions(-)
+
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
