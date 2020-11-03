@@ -1,71 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF5422A3C29
-	for <lists+freedreno@lfdr.de>; Tue,  3 Nov 2020 06:47:22 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 763482A45B3
+	for <lists+freedreno@lfdr.de>; Tue,  3 Nov 2020 13:58:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BE036E027;
-	Tue,  3 Nov 2020 05:47:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA7116EC88;
+	Tue,  3 Nov 2020 12:58:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
- [IPv6:2607:f8b0:4864:20::644])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA4F76E32F
- for <freedreno@lists.freedesktop.org>; Tue,  3 Nov 2020 05:47:19 +0000 (UTC)
-Received: by mail-pl1-x644.google.com with SMTP id r10so8057853plx.3
- for <freedreno@lists.freedesktop.org>; Mon, 02 Nov 2020 21:47:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=wKHMeBJ7HB8kaIi/ChT9IdtHhkbmgmqmq8Ca+RXUM4Q=;
- b=VZXDHtEGHjAf7Yak4JNPB3TB6267NMXR+146A1bnK7feF1c8NNuDtcIOxiM8KgfJzT
- xUvCerLXHlXMloGzQsvccrQfo9/6cFgJA4EUGlSLDMoIxWkDTrAAlK8O30Fpmmlns5q6
- Vk14A9lFw3r4oHjvbJol59T8JlMPk2yGcOMxSZCqLKwqDy/ehXtMkPVF0X3fV7qWNyNh
- KWy+NBjZfxru3Ewddb74DtuiVi0KTyXlIbTfEQEmFEuePWiqP9C+/H6lbhK0hC2Sk+a8
- VoiVlHftgmOzumnygzFU1w+N1gwbmMDIS/Mqg0HHoz37fTkGTrzMPPFYkY2MD1+dW36q
- LLvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=wKHMeBJ7HB8kaIi/ChT9IdtHhkbmgmqmq8Ca+RXUM4Q=;
- b=W38C1SEc5xiWyh0RUw8IUUJFyGFa9fcUMsaJq9le5Ec0TqYWlM6DB1+kmonnTzG+Sv
- Kkw8ryNAO8nh9fiuReBkvSdw3WPK4lVeU/XCuwLSMbVcDNqAknbh+gHZlYmtKzeZup2E
- l1tSUUcbk9etGzD+IVAfVCq6Hk9NpD3cD/Ctnm6ACFBFViE+zE8ZXxexzyABWOq2iM8n
- X2O7gO5MN8hTw02s+8D4Cc5IgIAj0wSdXyM1SeN0HzTOLVFMjKGkRBKBriP67Y77nvxg
- FFh+713tn2EMn0vXGlzYIm8riUdffs7ygCLLaVUnC+74jsh3XQQd/Z/O+03pZ3d9psm5
- DsfQ==
-X-Gm-Message-State: AOAM530wZKlEV8Y99b7P/qhtsw6UPXz6D21qV+rEG6yVnH6DaeqSVEki
- 7OpRKTS0f4PPrf7tGtZc0000Pw==
-X-Google-Smtp-Source: ABdhPJwsNqhX2FzrkX0gNclVTETovDS95JPRUA8wffUnhM4f7cA1FnDx4jSTzq6/A2hFCWSnnSc4aQ==
-X-Received: by 2002:a17:902:8490:b029:d6:d165:fde with SMTP id
- c16-20020a1709028490b02900d6d1650fdemr6435454plo.73.1604382439293; 
- Mon, 02 Nov 2020 21:47:19 -0800 (PST)
-Received: from localhost ([122.172.12.172])
- by smtp.gmail.com with ESMTPSA id mt2sm1455427pjb.7.2020.11.02.21.47.17
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 02 Nov 2020 21:47:17 -0800 (PST)
-Date: Tue, 3 Nov 2020 11:17:15 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20201103054715.4l5j57pyjz6zd6ed@vireshk-i7>
-References: <20201012020958.229288-8-robdclark@gmail.com>
- <20201012143555.GA438822@phenom.ffwll.local>
- <CAF6AEGstGtBswUUiyHxT2cCm8NwZekDnMzD0J_pQH37GwS=LiA@mail.gmail.com>
- <20201020090729.qgqish5kqamhvatj@vireshk-i7>
- <CAKMK7uHAgVUPHOPxDdt3LeAWqokxfuzqjZj4qqFkoKxFbRbRrg@mail.gmail.com>
- <20201020112413.xbk2vow2kgjky3pb@vireshk-i7>
- <CAF6AEGsCj-AtFozn8d1xiNNFNbuMJ0UxS-eMhBVXiQ7rKahKnQ@mail.gmail.com>
- <20201022080644.2ck4okrxygmkuatn@vireshk-i7>
- <CAF6AEGv6RMCsK4yp-W2d1mVTMcEiiwFGAb+V8rYLhDdMhqP80Q@mail.gmail.com>
- <20201027113532.nriqqws7gdcu5su6@vireshk-i7>
+Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1FB36EC88
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Nov 2020 12:58:19 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1604408299; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=l5vV2ZlXF8y6CRsqUNbo4YItI4HCWM0SIqYCxVDjxsk=;
+ b=e5xC0h9/RfrKcZrXuM9yclZ9LAQoRaBfng1oDAPWLzYbf9jMkcKMIsgAN1oIumfc2fY+5fps
+ NH7Wi1HxA7BLkAgsU8+VRS7xfY2/iDlO3+uvwiOy8OadzrdGhRgBb0rjaAK/AprRHaO0aSEQ
+ u//7ENNrk5N0TkiXnJ+cXbbyO8Y=
+X-Mailgun-Sending-Ip: 104.130.96.5
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
+ 5fa153eb978460d05b44b46d (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 03 Nov 2020 12:58:19
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 118BCC433C6; Tue,  3 Nov 2020 01:10:33 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from abhinavk-linux.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id B7CC9C433C6;
+ Tue,  3 Nov 2020 01:10:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org B7CC9C433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=abhinavk@codeaurora.org
+From: Abhinav Kumar <abhinavk@codeaurora.org>
+To: dri-devel@lists.freedesktop.org
+Date: Mon,  2 Nov 2020 17:10:23 -0800
+Message-Id: <20201103011023.21365-1-abhinavk@codeaurora.org>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201027113532.nriqqws7gdcu5su6@vireshk-i7>
-User-Agent: NeoMutt/20180716-391-311a52
-Subject: Re: [Freedreno] [PATCH v2 07/22] drm/msm: Do rpm get sooner in the
- submit path
+Subject: [Freedreno] [PATCH v2] drm/msm/dp: do not notify audio subsystem if
+ sink doesn't support audio
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,187 +67,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, "Menon, Nishanth" <nm@ti.com>,
- David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
+ swboyd@chromium.org, khsieh@codeaurora.org, robdclark@gmail.com,
+ nganji@codeaurora.org, seanpaul@chromium.org, tanmay@codeaurora.org,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org,
+ cychiang@chromium.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 27-10-20, 17:05, Viresh Kumar wrote:
-> It isn't that straight forward unfortunately, we need to make sure the
-> table doesn't get allocated for the same device twice, so
-> find+allocate needs to happen within a locked region.
-> 
-> I have taken, not so straight forward, approach to fixing this issue,
-> lets see if this fixes it or not.
-> 
-> -------------------------8<-------------------------
-> 
-> diff --git a/drivers/opp/core.c b/drivers/opp/core.c
-> index 4ac4e7ce6b8b..6f4a73a6391f 100644
-> --- a/drivers/opp/core.c
-> +++ b/drivers/opp/core.c
-> @@ -29,6 +29,8 @@
->  LIST_HEAD(opp_tables);
->  /* Lock to allow exclusive modification to the device and opp lists */
->  DEFINE_MUTEX(opp_table_lock);
-> +/* Flag indicating that opp_tables list is being updated at the moment */
-> +static bool opp_tables_busy;
->  
->  static struct opp_device *_find_opp_dev(const struct device *dev,
->  					struct opp_table *opp_table)
-> @@ -1036,8 +1038,8 @@ static void _remove_opp_dev(struct opp_device *opp_dev,
->  	kfree(opp_dev);
->  }
->  
-> -static struct opp_device *_add_opp_dev_unlocked(const struct device *dev,
-> -						struct opp_table *opp_table)
-> +struct opp_device *_add_opp_dev(const struct device *dev,
-> +				struct opp_table *opp_table)
->  {
->  	struct opp_device *opp_dev;
->  
-> @@ -1048,7 +1050,9 @@ static struct opp_device *_add_opp_dev_unlocked(const struct device *dev,
->  	/* Initialize opp-dev */
->  	opp_dev->dev = dev;
->  
-> +	mutex_lock(&opp_table->lock);
->  	list_add(&opp_dev->node, &opp_table->dev_list);
-> +	mutex_unlock(&opp_table->lock);
->  
->  	/* Create debugfs entries for the opp_table */
->  	opp_debug_register(opp_dev, opp_table);
-> @@ -1056,18 +1060,6 @@ static struct opp_device *_add_opp_dev_unlocked(const struct device *dev,
->  	return opp_dev;
->  }
->  
-> -struct opp_device *_add_opp_dev(const struct device *dev,
-> -				struct opp_table *opp_table)
-> -{
-> -	struct opp_device *opp_dev;
-> -
-> -	mutex_lock(&opp_table->lock);
-> -	opp_dev = _add_opp_dev_unlocked(dev, opp_table);
-> -	mutex_unlock(&opp_table->lock);
-> -
-> -	return opp_dev;
-> -}
-> -
->  static struct opp_table *_allocate_opp_table(struct device *dev, int index)
->  {
->  	struct opp_table *opp_table;
-> @@ -1121,8 +1113,6 @@ static struct opp_table *_allocate_opp_table(struct device *dev, int index)
->  	INIT_LIST_HEAD(&opp_table->opp_list);
->  	kref_init(&opp_table->kref);
->  
-> -	/* Secure the device table modification */
-> -	list_add(&opp_table->node, &opp_tables);
->  	return opp_table;
->  
->  err:
-> @@ -1135,27 +1125,64 @@ void _get_opp_table_kref(struct opp_table *opp_table)
->  	kref_get(&opp_table->kref);
->  }
->  
-> +/*
-> + * We need to make sure that the OPP table for a device doesn't get added twice,
-> + * if this routine gets called in parallel with the same device pointer.
-> + *
-> + * The simplest way to enforce that is to perform everything (find existing
-> + * table and if not found, create a new one) under the opp_table_lock, so only
-> + * one creator gets access to the same. But that expands the critical section
-> + * under the lock and may end up causing circular dependencies with frameworks
-> + * like debugfs, interconnect or clock framework as they may be direct or
-> + * indirect users of OPP core.
-> + *
-> + * And for that reason we have to go for a bit tricky implementation here, which
-> + * uses the opp_tables_busy flag to indicate if another creator is in the middle
-> + * of adding an OPP table and others should wait for it to finish.
-> + */
->  static struct opp_table *_opp_get_opp_table(struct device *dev, int index)
->  {
->  	struct opp_table *opp_table;
->  
-> -	/* Hold our table modification lock here */
-> +again:
->  	mutex_lock(&opp_table_lock);
->  
->  	opp_table = _find_opp_table_unlocked(dev);
->  	if (!IS_ERR(opp_table))
->  		goto unlock;
->  
-> +	/*
-> +	 * The opp_tables list or an OPP table's dev_list is getting updated by
-> +	 * another user, wait for it to finish.
-> +	 */
-> +	if (unlikely(opp_tables_busy)) {
-> +		mutex_unlock(&opp_table_lock);
-> +		cpu_relax();
-> +		goto again;
-> +	}
-> +
-> +	opp_tables_busy = true;
->  	opp_table = _managed_opp(dev, index);
-> +
-> +	/* Drop the lock to reduce the size of critical section */
-> +	mutex_unlock(&opp_table_lock);
-> +
->  	if (opp_table) {
-> -		if (!_add_opp_dev_unlocked(dev, opp_table)) {
-> +		if (!_add_opp_dev(dev, opp_table)) {
->  			dev_pm_opp_put_opp_table(opp_table);
->  			opp_table = ERR_PTR(-ENOMEM);
->  		}
-> -		goto unlock;
-> +
-> +		mutex_lock(&opp_table_lock);
-> +	} else {
-> +		opp_table = _allocate_opp_table(dev, index);
-> +
-> +		mutex_lock(&opp_table_lock);
-> +		if (!IS_ERR(opp_table))
-> +			list_add(&opp_table->node, &opp_tables);
->  	}
->  
-> -	opp_table = _allocate_opp_table(dev, index);
-> +	opp_tables_busy = false;
->  
->  unlock:
->  	mutex_unlock(&opp_table_lock);
-> @@ -1181,6 +1208,10 @@ static void _opp_table_kref_release(struct kref *kref)
->  	struct opp_device *opp_dev, *temp;
->  	int i;
->  
-> +	/* Drop the lock as soon as we can */
-> +	list_del(&opp_table->node);
-> +	mutex_unlock(&opp_table_lock);
-> +
->  	_of_clear_opp_table(opp_table);
->  
->  	/* Release clk */
-> @@ -1208,10 +1239,7 @@ static void _opp_table_kref_release(struct kref *kref)
->  
->  	mutex_destroy(&opp_table->genpd_virt_dev_lock);
->  	mutex_destroy(&opp_table->lock);
-> -	list_del(&opp_table->node);
->  	kfree(opp_table);
-> -
-> -	mutex_unlock(&opp_table_lock);
->  }
->  
->  void dev_pm_opp_put_opp_table(struct opp_table *opp_table)
+For sinks that do not support audio, there is no need to notify
+audio subsystem of the connection event.
 
-Rob, Ping.
+This will make sure that audio routes only to the primary display
+when connected to such sinks.
 
+changes in v2:
+  - Added fixes tag
+  - Removed nested if condition and removed usage of global pointer
+
+Fixes: d13e36d7d222 ("drm/msm/dp: add audio support for Display Port on MSM")
+Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 2f72817ca24f..3f59ba8fcde5 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -549,7 +549,14 @@ static int dp_connect_pending_timeout(struct dp_display_private *dp, u32 data)
+ static void dp_display_handle_plugged_change(struct msm_dp *dp_display,
+ 		bool plugged)
+ {
+-	if (dp_display->plugged_cb && dp_display->codec_dev)
++	struct dp_display_private *dp;
++
++	dp = container_of(dp_display,
++			struct dp_display_private, dp_display);
++
++	/* notify audio subsystem only if sink supports audio */
++	if (dp_display->plugged_cb && dp_display->codec_dev &&
++			dp->audio_supported)
+ 		dp_display->plugged_cb(dp_display->codec_dev, plugged);
+ }
+ 
 -- 
-viresh
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
