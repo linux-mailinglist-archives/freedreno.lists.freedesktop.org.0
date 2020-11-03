@@ -2,56 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 935892A4C2F
-	for <lists+freedreno@lfdr.de>; Tue,  3 Nov 2020 18:03:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E8862A4CDB
+	for <lists+freedreno@lfdr.de>; Tue,  3 Nov 2020 18:30:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BBCA6E8C4;
-	Tue,  3 Nov 2020 17:03:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D4B76ECD9;
+	Tue,  3 Nov 2020 17:30:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95A096E8C4
- for <freedreno@lists.freedesktop.org>; Tue,  3 Nov 2020 17:03:06 +0000 (UTC)
+Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F8326E8D2
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Nov 2020 17:30:27 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1604422991; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=FOhbWz4gRfs3rCg5R5uOtLqn0IGJgDb4wNO+hqzeXBk=;
- b=HF3SYJ7/jaVHQ+oOzA5nbt8OdoRzZeSH4wgqnvT1+cPUzz9Gh5NkW2Yvc/h+h+g6ubkpw+2m
- xKOpYbtH7dbbEEpcuOTEfmuWsK0BPNEUVYIEQy96Wszg5xcMGZgrFHONc7eqAJDLczk22i8S
- 2HALpqhDx/lyeojPvd/6DPyYYc0=
-X-Mailgun-Sending-Ip: 104.130.96.5
+ s=smtp; t=1604424631; h=In-Reply-To: Content-Type: MIME-Version:
+ References: Message-ID: Subject: Cc: To: From: Date: Sender;
+ bh=C4CMFwI1HM31pHkchZgqYiU+8s6XN3zv2mGhUlUukhY=;
+ b=QL/Jv3BWBiMTewUhmpiuUHQ8Z51q1Y1bXoQgnTlGbFvk4pt46QU6W9n+744fYqOJXr6VKVRJ
+ zmrjiG7iHJgH5NRkshWeiHggiUvCvZ8rGvPddCgiChsJEfAGXmOuRQ8rnyxjUM81JwV8lPgM
+ 7ki1ABKmV6vxhbF5LPn0VQbBSYo=
+X-Mailgun-Sending-Ip: 69.72.42.4
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
- 5fa18d2e41e7c4fae75ebbb1 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 03 Nov 2020 17:02:38
+ smtp-out-n06.prod.us-east-1.postgun.com with SMTP id
+ 5fa1939650440018cbdf7b27 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 03 Nov 2020 17:29:58
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 070AAC43385; Tue,  3 Nov 2020 17:02:36 +0000 (UTC)
+ id AE8AFC433C6; Tue,  3 Nov 2020 17:29:57 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 079D6C433C8;
- Tue,  3 Nov 2020 17:02:35 +0000 (UTC)
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 2239EC433C6;
+ Tue,  3 Nov 2020 17:29:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 2239EC433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=jcrouse@codeaurora.org
+Date: Tue, 3 Nov 2020 10:29:52 -0700
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+Message-ID: <20201103172951.GB5934@jcrouse1-lnx.qualcomm.com>
+Mail-Followup-To: Marijn Suijten <marijn.suijten@somainline.org>,
+ robdclark@gmail.com, konrad.dybcio@somainline.org,
+ martin.botka@somainline.org, phone-devel@vger.kernel.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Konrad Dybcio <konradybcio@gmail.com>,
+ AngeloGioacchino Del Regno <kholk11@gmail.com>,
+ Eric Anholt <eric@anholt.net>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20201102200227.8876-1-marijn.suijten@somainline.org>
 MIME-Version: 1.0
-Date: Tue, 03 Nov 2020 09:02:35 -0800
-From: khsieh@codeaurora.org
-To: Stephen Boyd <swboyd@chromium.org>
-In-Reply-To: <160434536802.884498.16389146296525781476@swboyd.mtv.corp.google.com>
-References: <20201030232324.11170-1-khsieh@codeaurora.org>
- <160434536802.884498.16389146296525781476@swboyd.mtv.corp.google.com>
-Message-ID: <2e63aa17a3b81f452b972160365b1f64@codeaurora.org>
-X-Sender: khsieh@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: promote irq_hpd handle to
- handle link trainign correctly
+Content-Disposition: inline
+In-Reply-To: <20201102200227.8876-1-marijn.suijten@somainline.org>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Freedreno] [PATCH] drm/msm: a5xx: Make preemption reset case
+ reentrant
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,93 +81,79 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, rnayak@codeaurora.org, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, abhinavk@codeaurora.org, robdclark@gmail.com,
- tanmay@codeaurora.org, daniel@ffwll.ch, aravindh@codeaurora.org,
- sean@poorly.run
+Cc: freedreno@lists.freedesktop.org,
+ AngeloGioacchino Del Regno <kholk11@gmail.com>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ konrad.dybcio@somainline.org, Konrad Dybcio <konradybcio@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Eric Anholt <eric@anholt.net>, robdclark@gmail.com,
+ martin.botka@somainline.org, Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ phone-devel@vger.kernel.org, Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-11-02 11:29, Stephen Boyd wrote:
-> Subject has a typo in "training".
+On Mon, Nov 02, 2020 at 09:02:25PM +0100, Marijn Suijten wrote:
+> nr_rings is reset to 1, but when this function is called for a second
+> (and third!) time nr_rings > 1 is false, thus the else case is entered
+> to set up a buffer for the RPTR shadow and consequently written to
+> RB_RPTR_ADDR, hanging platforms without WHERE_AM_I firmware support.
 > 
-> Quoting Kuogee Hsieh (2020-10-30 16:23:24)
->> Some dongles, such as Apple, required link training done at irq_hpd
+> Restructure the condition in such a way that shadow buffer setup only
+> ever happens when has_whereami is true; otherwise preemption is only
+> finalized when the number of ring buffers has not been reset to 1 yet.
 > 
-> s/required/require/
-> 
->> request instead of plugin request. This patch promote irq_hpd hanlder
-> 
-> s/hanlder/handler/
-> 
->> to handle link training and setup hpd_state correctly.
->> 
->> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
->> ---
-> 
-> Any Fixes tag?
-> 
->>  drivers/gpu/drm/msm/dp/dp_display.c | 20 ++++++++++++++++++--
->>  1 file changed, 18 insertions(+), 2 deletions(-)
->> 
->> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c 
->> b/drivers/gpu/drm/msm/dp/dp_display.c
->> index 13b66266cd69..55627530957c 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->> @@ -483,10 +485,24 @@ static int dp_display_usbpd_attention_cb(struct 
->> device *dev)
->>                 return -ENODEV;
->>         }
->> 
->> +       hpd = dp->usbpd;
->> +
->>         /* check for any test request issued by sink */
->>         rc = dp_link_process_request(dp->link);
->> -       if (!rc)
->> -               dp_display_handle_irq_hpd(dp);
->> +       if (!rc) {
->> +               sink_request = dp->link->sink_request;
->> +               if (sink_request & DS_PORT_STATUS_CHANGED) {
->> +                       dp->hpd_state = ST_CONNECT_PENDING;
->> +                       hpd->hpd_high = 1;
->> +               }
->> +
->> +               rc = dp_display_handle_irq_hpd(dp);
->> +
->> +               if (rc && sink_request & DS_PORT_STATUS_CHANGED) {
-> 
-> Can you add parenthesis around this?
-> 
-> 		if (rc && (sink_request & DS_PORT_STATUS_CHANGED)) {
-> 
-> 
-> I honestly don't know what's going on in this patch. It talks about
-> making link training happen during irq hpd handler but this is the
-> attention handler and we're checking port status changed? This is
-> related? The code is really not clear.
-irq_hpd request is generated by sinker to ask host attention that 
-something has changed.
-POST_STATUS_CHNAGED bit set  by sinker to indicated link had loss of 
-sync. Therefore
-host need to restart link retaining to fix the link loss of sync 
-problem.
+> Fixes: 8907afb476ac ("drm/msm: Allow a5xx to mark the RPTR shadow as privileged")
+> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> Tested-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
 
+Way better. Thanks for doing this.
+
+Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
+
+> ---
+>  drivers/gpu/drm/msm/adreno/a5xx_gpu.c | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
 > 
->> +                       hpd->hpd_high = 0;
->> +                       dp->hpd_state = ST_DISCONNECTED;
->> +               }
->> +       }
->> 
->>         return rc;
->>  }
->> 
->> base-commit: 0e162b10644605428cd2596c12f8ed410cf9d2d9
+> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> index d6804a802355..9a202a7da131 100644
+> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> @@ -755,12 +755,8 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
+>  	gpu_write(gpu, REG_A5XX_CP_RB_CNTL,
+>  		MSM_GPU_RB_CNTL_DEFAULT | AXXX_CP_RB_CNTL_NO_UPDATE);
+>  
+> -	/* Disable preemption if WHERE_AM_I isn't available */
+> -	if (!a5xx_gpu->has_whereami && gpu->nr_rings > 1) {
+> -		a5xx_preempt_fini(gpu);
+> -		gpu->nr_rings = 1;
+> -	} else {
+> -		/* Create a privileged buffer for the RPTR shadow */
+> +	/* Create a privileged buffer for the RPTR shadow */
+> +	if (a5xx_gpu->has_whereami) {
+>  		if (!a5xx_gpu->shadow_bo) {
+>  			a5xx_gpu->shadow = msm_gem_kernel_new(gpu->dev,
+>  				sizeof(u32) * gpu->nr_rings,
+> @@ -774,6 +770,10 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
+>  
+>  		gpu_write64(gpu, REG_A5XX_CP_RB_RPTR_ADDR,
+>  			REG_A5XX_CP_RB_RPTR_ADDR_HI, shadowptr(a5xx_gpu, gpu->rb[0]));
+> +	} else if (gpu->nr_rings > 1) {
+> +		/* Disable preemption if WHERE_AM_I isn't available */
+> +		a5xx_preempt_fini(gpu);
+> +		gpu->nr_rings = 1;
+>  	}
+>  
+>  	a5xx_preempt_hw_init(gpu);
+> -- 
+> 2.29.2
 > 
-> What commit is this?
+
+-- 
+The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+a Linux Foundation Collaborative Project
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
