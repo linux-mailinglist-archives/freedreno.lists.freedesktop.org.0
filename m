@@ -1,71 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E374E2A5CDE
-	for <lists+freedreno@lfdr.de>; Wed,  4 Nov 2020 04:04:02 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id D9D202A6B94
+	for <lists+freedreno@lfdr.de>; Wed,  4 Nov 2020 18:24:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3821A6E926;
-	Wed,  4 Nov 2020 03:04:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 864406E1B2;
+	Wed,  4 Nov 2020 17:24:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BE896E926
- for <freedreno@lists.freedesktop.org>; Wed,  4 Nov 2020 03:04:00 +0000 (UTC)
-Received: by mail-pg1-x544.google.com with SMTP id g12so15314389pgm.8
- for <freedreno@lists.freedesktop.org>; Tue, 03 Nov 2020 19:04:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=M+7yANrvElG7vvXiOwG93dIUVBVs3AW4QD34DhOvCCI=;
- b=btFJkwgN45cTDxVtmE+Vf/+i4KTd+QJ7t7NUxCyZTE8m1tbcZbzqjNbBGYprvd57iN
- UShejiWVREUTlyzMsd8UIEC1n3FLdTx5oKihlzv2zQeOYrsmRCZgIbcc6awaLDRftLtE
- zXyerpEX+lcba+6EjdtoMaErPXzcXtWX9M4Y9iH8f2tOBVl07bUpcttN9jtz5woiWfKs
- E+NHYqOnfFZuFluN5f3wZdCPeP0xl5bojj8vXL3BjMJXkdIgBBDDevUeORWDZDPkDzVZ
- H2onAvXjL0GO/VwttnAAAPMr+4GLy0YLVKE1PsLXoA6a+UqtctBYVCJ+sIAt5sIl2M7Z
- d8QQ==
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F3826E15E;
+ Wed,  4 Nov 2020 17:24:51 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id n15so22971471wrq.2;
+ Wed, 04 Nov 2020 09:24:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=2t6bsOvcaKKa8aR9J8fbfDJiM/7JPVfDs636SBMVeQg=;
+ b=oqswMzax2NZZWri8s+7sGggS2Z+ar/36vEeNk36cbDsmy1CY3nBah1lCxd1L/24Kit
+ +eAnPGyMvdMn2c+CZxHiSavR4e8HpFo4WUOawJOnSTGxEUltgSv/M36sKB0PIickks8o
+ EqbPTlbU40dcDX5LeK7g21AnU0f0LLlOQp8hIv4yCQK6axPIarhcLoCBBQvPNUxtGH3T
+ 1XvlQLxcfJ8ywZof2f4IMr5RAvLFsULLg6fyyqsPoFe01tjO6aOj8j73YpSIOnLBlx4s
+ EOJMxrQbQ0cr9NPxHzMs3bu+4JV+WGcYelcvhTyBCTruWVbEpvYBF0JIvhA/xsD4ivpV
+ vY1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=M+7yANrvElG7vvXiOwG93dIUVBVs3AW4QD34DhOvCCI=;
- b=knOolZoND9EtfxcYU9fgd85sW5nFXhKdVjslljpEyUhvjF9JUotm7I+y8qEQx4M2Yj
- BaX7SirzQveK245pkwjWUmZQIKrZoA5EMTt62+9NvztPhHuSa9U5qlVVBCz9Mekr2fHs
- KCfxRO8LKbJ3wFJRFcuE79nqZR29m+oiQ38RjDyoZ1CKxFs+68/Czj8urzWwYfIi01Da
- 754/xXJytxtlq1FQcpDw96gLiRQjhH6x+hKbf2qsBfmHNAGePMagPKl73hq6DSNsn1UV
- Eu9Kp+khyzOMkn9hGWSLBcWs0T9gRxBQ/HHUeA9j1hVZAuZsWZM8MoxW2yM67/RzLmmY
- t/+g==
-X-Gm-Message-State: AOAM530q4+xG8xbejkJPJL16HzjTSDAciouzIxN1mH0UG8dLvJjrst2L
- v4c/PgHOMENDBnrL6wQQKM2gqA==
-X-Google-Smtp-Source: ABdhPJye/niTkH7khNS36zvZ3Ubb6lzZ6FDeMgMpWSwwwaQ4FeRK9FDZcZ/yYMErd1iByJeq4uoX+A==
-X-Received: by 2002:a17:90a:5882:: with SMTP id
- j2mr2156165pji.177.1604459039793; 
- Tue, 03 Nov 2020 19:03:59 -0800 (PST)
-Received: from localhost ([122.172.12.172])
- by smtp.gmail.com with ESMTPSA id n64sm491754pfn.134.2020.11.03.19.03.57
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 03 Nov 2020 19:03:58 -0800 (PST)
-Date: Wed, 4 Nov 2020 08:33:53 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20201104030353.ny7zvakgb4fsye6r@vireshk-i7>
-References: <CAF6AEGstGtBswUUiyHxT2cCm8NwZekDnMzD0J_pQH37GwS=LiA@mail.gmail.com>
- <20201020090729.qgqish5kqamhvatj@vireshk-i7>
- <CAKMK7uHAgVUPHOPxDdt3LeAWqokxfuzqjZj4qqFkoKxFbRbRrg@mail.gmail.com>
- <20201020112413.xbk2vow2kgjky3pb@vireshk-i7>
- <CAF6AEGsCj-AtFozn8d1xiNNFNbuMJ0UxS-eMhBVXiQ7rKahKnQ@mail.gmail.com>
- <20201022080644.2ck4okrxygmkuatn@vireshk-i7>
- <CAF6AEGv6RMCsK4yp-W2d1mVTMcEiiwFGAb+V8rYLhDdMhqP80Q@mail.gmail.com>
- <20201027113532.nriqqws7gdcu5su6@vireshk-i7>
- <20201103054715.4l5j57pyjz6zd6ed@vireshk-i7>
- <CAF6AEGtgUVXm6Wwod0FC38g91Q8CotLFSoC4NmXx7GzcA=1mOA@mail.gmail.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=2t6bsOvcaKKa8aR9J8fbfDJiM/7JPVfDs636SBMVeQg=;
+ b=YkNOKF+XZrREsttyyJdpRXS50hzXWzmuuu4goguYybL435TJVDh5qRl+V080YalWJi
+ nKnjI9NDPVyjAW8AHqX99Cq50DM2q/e/mX9sF+Zsf3btw1F/M/ovxFJUM2XJ4rf4t0HY
+ OisC3/6+8YsQ75TdqfgqJhaBA+3v1YDuwxbW7kh89TtOQpIfXD8LajIOswrB0CLEb6xL
+ KVWyVBHjko8bMi7aDtJLXeBV1BuAwUixgaROawZzXQ26bxKSMTy1xs5N6ahLlOfe/ojX
+ 6tAuMvvdW67u+7yP+etQO3Pot82VlLgGiMt/qs+TqoKJa6bJMXdABxalk/y0Bnmu21wk
+ Dg2Q==
+X-Gm-Message-State: AOAM530ZRq35bbUPJlEEN3h7EB6/CSFsxrLUitQLiJ/F5BUUtSO4QZq2
+ mDqKPsGLkLrVBcB6mWouqhxDQ8/qMcTVisvuG0I=
+X-Google-Smtp-Source: ABdhPJyCoTGhdf3bFvQiuuwVj6l+bkeSchp/yzLV6WBnd0fB4fTk+dADo/wtaXwoaSS9CpQtn69K1BCKxbfXS+Rrcb4=
+X-Received: by 2002:a5d:640d:: with SMTP id z13mr32281679wru.28.1604510690248; 
+ Wed, 04 Nov 2020 09:24:50 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAF6AEGtgUVXm6Wwod0FC38g91Q8CotLFSoC4NmXx7GzcA=1mOA@mail.gmail.com>
-User-Agent: NeoMutt/20180716-391-311a52
-Subject: Re: [Freedreno] [PATCH v2 07/22] drm/msm: Do rpm get sooner in the
- submit path
+References: <20201030010101.4345-1-abhinavk@codeaurora.org>
+ <20201030010101.4345-4-abhinavk@codeaurora.org>
+In-Reply-To: <20201030010101.4345-4-abhinavk@codeaurora.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 4 Nov 2020 09:26:24 -0800
+Message-ID: <CAF6AEGseHWb43jx0HzqL0aZSGMeijnXcv2eOi7oU9d8peAQOVA@mail.gmail.com>
+To: Abhinav Kumar <abhinavk@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH v2 3/4] drm/msm: register the base address
+ with dpu_dbg module
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,37 +62,115 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, "Menon, Nishanth" <nm@ti.com>,
- David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Stephen Boyd <swboyd@chromium.org>, Kuogee Hsieh <khsieh@codeaurora.org>,
+ nganji@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
+ Tanmay Shah <tanmay@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
+ aravindh@codeaurora.org, freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 03-11-20, 08:50, Rob Clark wrote:
-> sorry, it didn't apply cleanly (which I guess is due to some other
-> dependencies that need to be picked back to v5.4 product kernel), and
-> due to some other things I'm in middle of debugging I didn't have time
-> yet to switch to v5.10-rc or look at what else needs to
-> cherry-picked..
-> 
-> If you could, pushing a branch with this patch somewhere would be a
-> bit easier to work with (ie. fetch && cherry-pick is easier to deal
-> with than picking things from list)
+On Thu, Oct 29, 2020 at 6:01 PM Abhinav Kumar <abhinavk@codeaurora.org> wrote:
+>
+> Register the base address of various dpu sub-modules with the
+> dpu_dbg module so that it can be dumped out during error scenarios.
+>
+> changes in v2:
+>  - Fix an issue where the same dsi client was getting registered
+>    multiple times to the dpu_dbg module
+>
+> Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_dbg.c       |  4 +--
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c    |  6 ++++-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c   |  7 +++--
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c   |  5 +++-
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c   |  6 ++++-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c   |  8 +++++-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c    |  7 ++++-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       | 12 +++++++--
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |  4 ++-
+>  drivers/gpu/drm/msm/dp/dp_catalog.c           | 12 +++++++++
+>  drivers/gpu/drm/msm/dp/dp_catalog.h           |  4 +++
+>  drivers/gpu/drm/msm/dp/dp_display.c           |  2 ++
+>  drivers/gpu/drm/msm/dsi/dsi.c                 |  1 +
+>  drivers/gpu/drm/msm/dsi/dsi.h                 |  1 +
+>  drivers/gpu/drm/msm/dsi/dsi_host.c            | 15 ++++++++++-
+>  drivers/gpu/drm/msm/msm_drv.c                 | 26 ++++++++++++++++++-
+>  drivers/gpu/drm/msm/msm_drv.h                 |  3 ++-
+>  17 files changed, 108 insertions(+), 15 deletions(-)
+>
 
-It has been in linux-next for a few days. Here is the HEAD to pick
-from. There are few patches there since rc1.
+[snip]
 
-commit 203e29749cc0 ("opp: Allocate the OPP table outside of opp_table_lock")
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index f6fb0187388f..df505a3d53e8 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -17,8 +17,8 @@
+>  #include <drm/drm_prime.h>
+>  #include <drm/drm_of.h>
+>  #include <drm/drm_vblank.h>
+> -#include "dpu_dbg.h"
+>
+> +#include "dpu_dbg.h"
+>  #include "msm_drv.h"
+>  #include "msm_debugfs.h"
+>  #include "msm_fence.h"
+> @@ -166,6 +166,24 @@ void __iomem *msm_ioremap_quiet(struct platform_device *pdev, const char *name,
+>         return _msm_ioremap(pdev, name, dbgname, true);
+>  }
+>
+> +unsigned long msm_iomap_size(struct platform_device *pdev, const char *name)
+> +{
+> +       struct resource *res;
+> +
+> +       if (name)
+> +               res = platform_get_resource_byname(pdev, IORESOURCE_MEM, name);
+> +       else
+> +               res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> +
+> +       if (!res) {
+> +               dev_dbg(&pdev->dev, "failed to get memory resource: %s\n",
+> +                               name);
+> +               return 0;
+> +       }
+> +
+> +       return resource_size(res);
+> +}
+> +
+>  void msm_writel(u32 data, void __iomem *addr)
+>  {
+>         if (reglog)
+> @@ -535,6 +553,8 @@ static int msm_drm_init(struct device *dev, struct drm_driver *drv)
+>         if (ret)
+>                 goto err_msm_uninit;
+>
+> +       dpu_dbg_register_drm_dev(ddev);
+> +
+>         drm_mode_config_reset(ddev);
+>
+>  #ifdef CONFIG_DRM_FBDEV_EMULATION
+> @@ -1282,6 +1302,10 @@ static int msm_pdev_probe(struct platform_device *pdev)
+>         int ret;
+>
+>         if (get_mdp_ver(pdev)) {
+> +               ret = dpu_dbg_init(&pdev->dev);
+> +               if (ret)
+> +                       pr_err("dpu_dbg_init failed ret = %d\n", ret);
+> +
+>                 ret = add_display_components(&pdev->dev, &match);
+>                 if (ret)
+>                         return ret;
 
--- 
-viresh
+I'm a bit skeptical about where you are registering/initializing dpu
+dbg.. what happens on mdp4/mdp5 devices?
+
+BR,
+-R
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
