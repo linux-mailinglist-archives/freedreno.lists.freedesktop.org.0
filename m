@@ -2,54 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9D202A6B94
-	for <lists+freedreno@lfdr.de>; Wed,  4 Nov 2020 18:24:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DBB02A6E75
+	for <lists+freedreno@lfdr.de>; Wed,  4 Nov 2020 21:03:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 864406E1B2;
-	Wed,  4 Nov 2020 17:24:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97B3A6E220;
+	Wed,  4 Nov 2020 20:03:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F3826E15E;
- Wed,  4 Nov 2020 17:24:51 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id n15so22971471wrq.2;
- Wed, 04 Nov 2020 09:24:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=2t6bsOvcaKKa8aR9J8fbfDJiM/7JPVfDs636SBMVeQg=;
- b=oqswMzax2NZZWri8s+7sGggS2Z+ar/36vEeNk36cbDsmy1CY3nBah1lCxd1L/24Kit
- +eAnPGyMvdMn2c+CZxHiSavR4e8HpFo4WUOawJOnSTGxEUltgSv/M36sKB0PIickks8o
- EqbPTlbU40dcDX5LeK7g21AnU0f0LLlOQp8hIv4yCQK6axPIarhcLoCBBQvPNUxtGH3T
- 1XvlQLxcfJ8ywZof2f4IMr5RAvLFsULLg6fyyqsPoFe01tjO6aOj8j73YpSIOnLBlx4s
- EOJMxrQbQ0cr9NPxHzMs3bu+4JV+WGcYelcvhTyBCTruWVbEpvYBF0JIvhA/xsD4ivpV
- vY1Q==
+Received: from mail-oi1-f196.google.com (mail-oi1-f196.google.com
+ [209.85.167.196])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB3E76E220
+ for <freedreno@lists.freedesktop.org>; Wed,  4 Nov 2020 20:03:02 +0000 (UTC)
+Received: by mail-oi1-f196.google.com with SMTP id 9so23480154oir.5
+ for <freedreno@lists.freedesktop.org>; Wed, 04 Nov 2020 12:03:02 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=2t6bsOvcaKKa8aR9J8fbfDJiM/7JPVfDs636SBMVeQg=;
- b=YkNOKF+XZrREsttyyJdpRXS50hzXWzmuuu4goguYybL435TJVDh5qRl+V080YalWJi
- nKnjI9NDPVyjAW8AHqX99Cq50DM2q/e/mX9sF+Zsf3btw1F/M/ovxFJUM2XJ4rf4t0HY
- OisC3/6+8YsQ75TdqfgqJhaBA+3v1YDuwxbW7kh89TtOQpIfXD8LajIOswrB0CLEb6xL
- KVWyVBHjko8bMi7aDtJLXeBV1BuAwUixgaROawZzXQ26bxKSMTy1xs5N6ahLlOfe/ojX
- 6tAuMvvdW67u+7yP+etQO3Pot82VlLgGiMt/qs+TqoKJa6bJMXdABxalk/y0Bnmu21wk
- Dg2Q==
-X-Gm-Message-State: AOAM530ZRq35bbUPJlEEN3h7EB6/CSFsxrLUitQLiJ/F5BUUtSO4QZq2
- mDqKPsGLkLrVBcB6mWouqhxDQ8/qMcTVisvuG0I=
-X-Google-Smtp-Source: ABdhPJyCoTGhdf3bFvQiuuwVj6l+bkeSchp/yzLV6WBnd0fB4fTk+dADo/wtaXwoaSS9CpQtn69K1BCKxbfXS+Rrcb4=
-X-Received: by 2002:a5d:640d:: with SMTP id z13mr32281679wru.28.1604510690248; 
- Wed, 04 Nov 2020 09:24:50 -0800 (PST)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=oBqDX2AjknVBn06K8/u+vt1ooNK8RMqy/l2tyn5+RE8=;
+ b=A1MaKudTGyKBlZNLeFMUnTp0zYA6EM6yTPVFn0q3a9YSDSOEQb5mWmb1LedQ+sVcqr
+ TeiahZv5/1cNTpX/YvI/260QRyGagRGlqudOuXKNJnhTUIosnexk1UvhmHWKxlF6PprB
+ cYSX7n7AVpqASbf/lGcq8VrQMFrnoQG4rSOZOwyA58qNIZfgBPnRACUQ5PSH+9GtVj6E
+ 6sXzzhkh+1yhSSkSsWeIuMJFSjJnYIFsJUayjVPos1sw1ZZIWbyYNwG95a78aQkuIfG6
+ ztwhh5loigB55Q/KJJl2gl5IbPtrT8thpq9UOgF9T/k6uBIwFPfwJhxFHlPFeyBzpbfV
+ iS/A==
+X-Gm-Message-State: AOAM532gSTYNPVGlaW1zIxXbB0Mgb69VRdYzoqwAjzgNgB4YJaLqZfQ0
+ ROMCu5qISooG6b0MmicnS7XamO/Icw==
+X-Google-Smtp-Source: ABdhPJwScFjt5SJiTj7x04SzO5UJDiz4X8g4A1clj71IAewexTQOZdLGaJUnD77962i4rsrTIwSVtQ==
+X-Received: by 2002:aca:eb06:: with SMTP id j6mr3334409oih.144.1604520181850; 
+ Wed, 04 Nov 2020 12:03:01 -0800 (PST)
+Received: from xps15 (24-155-109-49.dyn.grandenetworks.net. [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id h8sm660259otm.72.2020.11.04.12.03.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 Nov 2020 12:03:01 -0800 (PST)
+Received: (nullmailer pid 4037168 invoked by uid 1000);
+ Wed, 04 Nov 2020 20:03:00 -0000
+Date: Wed, 4 Nov 2020 14:03:00 -0600
+From: Rob Herring <robh@kernel.org>
+To: Akhil P Oommen <akhilpo@codeaurora.org>
+Message-ID: <20201104200300.GA4036650@bogus>
+References: <1604054832-3114-1-git-send-email-akhilpo@codeaurora.org>
+ <1604054832-3114-3-git-send-email-akhilpo@codeaurora.org>
 MIME-Version: 1.0
-References: <20201030010101.4345-1-abhinavk@codeaurora.org>
- <20201030010101.4345-4-abhinavk@codeaurora.org>
-In-Reply-To: <20201030010101.4345-4-abhinavk@codeaurora.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 4 Nov 2020 09:26:24 -0800
-Message-ID: <CAF6AEGseHWb43jx0HzqL0aZSGMeijnXcv2eOi7oU9d8peAQOVA@mail.gmail.com>
-To: Abhinav Kumar <abhinavk@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v2 3/4] drm/msm: register the base address
- with dpu_dbg module
+Content-Disposition: inline
+In-Reply-To: <1604054832-3114-3-git-send-email-akhilpo@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH v5 3/3] dt-bindings: drm/msm/gpu: Add
+ cooling device support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,115 +60,32 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Kuogee Hsieh <khsieh@codeaurora.org>,
- nganji@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
- Tanmay Shah <tanmay@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
- aravindh@codeaurora.org, freedreno <freedreno@lists.freedesktop.org>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dianders@chromium.org, linux-kernel@vger.kernel.org, mka@chromium.org,
+ dri-devel@freedesktop.org, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Oct 29, 2020 at 6:01 PM Abhinav Kumar <abhinavk@codeaurora.org> wrote:
->
-> Register the base address of various dpu sub-modules with the
-> dpu_dbg module so that it can be dumped out during error scenarios.
->
-> changes in v2:
->  - Fix an issue where the same dsi client was getting registered
->    multiple times to the dpu_dbg module
->
-> Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
+On Fri, 30 Oct 2020 16:17:12 +0530, Akhil P Oommen wrote:
+> Add cooling device support to gpu. A cooling device is bound to a
+> thermal zone to allow thermal mitigation.
+> 
+> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+> Reviewed-by: Matthias Kaehlcke <mka@chromium.org>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_dbg.c       |  4 +--
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c    |  6 ++++-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c   |  7 +++--
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c   |  5 +++-
->  .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c   |  6 ++++-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c   |  8 +++++-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c    |  7 ++++-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       | 12 +++++++--
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |  4 ++-
->  drivers/gpu/drm/msm/dp/dp_catalog.c           | 12 +++++++++
->  drivers/gpu/drm/msm/dp/dp_catalog.h           |  4 +++
->  drivers/gpu/drm/msm/dp/dp_display.c           |  2 ++
->  drivers/gpu/drm/msm/dsi/dsi.c                 |  1 +
->  drivers/gpu/drm/msm/dsi/dsi.h                 |  1 +
->  drivers/gpu/drm/msm/dsi/dsi_host.c            | 15 ++++++++++-
->  drivers/gpu/drm/msm/msm_drv.c                 | 26 ++++++++++++++++++-
->  drivers/gpu/drm/msm/msm_drv.h                 |  3 ++-
->  17 files changed, 108 insertions(+), 15 deletions(-)
->
+>  Documentation/devicetree/bindings/display/msm/gpu.txt | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
 
-[snip]
 
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index f6fb0187388f..df505a3d53e8 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -17,8 +17,8 @@
->  #include <drm/drm_prime.h>
->  #include <drm/drm_of.h>
->  #include <drm/drm_vblank.h>
-> -#include "dpu_dbg.h"
->
-> +#include "dpu_dbg.h"
->  #include "msm_drv.h"
->  #include "msm_debugfs.h"
->  #include "msm_fence.h"
-> @@ -166,6 +166,24 @@ void __iomem *msm_ioremap_quiet(struct platform_device *pdev, const char *name,
->         return _msm_ioremap(pdev, name, dbgname, true);
->  }
->
-> +unsigned long msm_iomap_size(struct platform_device *pdev, const char *name)
-> +{
-> +       struct resource *res;
-> +
-> +       if (name)
-> +               res = platform_get_resource_byname(pdev, IORESOURCE_MEM, name);
-> +       else
-> +               res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +
-> +       if (!res) {
-> +               dev_dbg(&pdev->dev, "failed to get memory resource: %s\n",
-> +                               name);
-> +               return 0;
-> +       }
-> +
-> +       return resource_size(res);
-> +}
-> +
->  void msm_writel(u32 data, void __iomem *addr)
->  {
->         if (reglog)
-> @@ -535,6 +553,8 @@ static int msm_drm_init(struct device *dev, struct drm_driver *drv)
->         if (ret)
->                 goto err_msm_uninit;
->
-> +       dpu_dbg_register_drm_dev(ddev);
-> +
->         drm_mode_config_reset(ddev);
->
->  #ifdef CONFIG_DRM_FBDEV_EMULATION
-> @@ -1282,6 +1302,10 @@ static int msm_pdev_probe(struct platform_device *pdev)
->         int ret;
->
->         if (get_mdp_ver(pdev)) {
-> +               ret = dpu_dbg_init(&pdev->dev);
-> +               if (ret)
-> +                       pr_err("dpu_dbg_init failed ret = %d\n", ret);
-> +
->                 ret = add_display_components(&pdev->dev, &match);
->                 if (ret)
->                         return ret;
+Please add Acked-by/Reviewed-by tags when posting new versions. However,
+there's no need to repost patches *only* to add the tags. The upstream
+maintainer will do that for acks received on the version they apply.
 
-I'm a bit skeptical about where you are registering/initializing dpu
-dbg.. what happens on mdp4/mdp5 devices?
+If a tag was not added on purpose, please state why and what changed.
 
-BR,
--R
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
