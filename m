@@ -2,55 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF2EA2A6F44
-	for <lists+freedreno@lfdr.de>; Wed,  4 Nov 2020 21:56:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC75F2A75EA
+	for <lists+freedreno@lfdr.de>; Thu,  5 Nov 2020 04:06:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26B636E4EA;
-	Wed,  4 Nov 2020 20:56:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F4D26E0D7;
+	Thu,  5 Nov 2020 03:06:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 032C96E4EA
- for <freedreno@lists.freedesktop.org>; Wed,  4 Nov 2020 20:56:30 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id d142so3692882wmd.4
- for <freedreno@lists.freedesktop.org>; Wed, 04 Nov 2020 12:56:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=QMz5XuaiSl2y5K3brn4ts6zliBq11tCQumna2ZD9gwg=;
- b=SJZCCPmggjEI3WSwrNv12XAc3V0t974Tjot8SwxaA5JGO+QOStpAbOhFhtiOnvu3+b
- yDmvlIEjwUlHMqAk6tS7kx2Qn/mqVpTUdCuw5s3eGDyx7Vb24Qw2cFAfifbhXvThB0ZM
- BkWEexz8mfawPufJKrMmmu/9sSa/MRKxNzi89UxCf4muNRFC4TCnUGWO8tNRMdmsC8pg
- or8u3PCTPuOksBmF7KDKEUr48DlKDlLhC7Lh8g1wgErBO7P+nwB9Du48eX7kwvB8Xfmo
- vuVoztUap4U9Xp6HUDM0NntBsB2YTmI3MTxTeP6eeIIi68YzsWMwgNkaDJQqVN1B9jl2
- cznQ==
+Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
+ [IPv6:2607:f8b0:4864:20::542])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F2906E0D7
+ for <freedreno@lists.freedesktop.org>; Thu,  5 Nov 2020 03:06:51 +0000 (UTC)
+Received: by mail-pg1-x542.google.com with SMTP id t14so277493pgg.1
+ for <freedreno@lists.freedesktop.org>; Wed, 04 Nov 2020 19:06:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:content-transfer-encoding:in-reply-to:references
+ :subject:from:cc:to:date:message-id:user-agent;
+ bh=fqzol1toKOJ2RVn1yfN+uFz+FMegwGU92eH/lUKJAVI=;
+ b=A4fecVXEo5PihTIYzuZE0apzH31nKR2CH7ATTvax9pzG9s/4Shxgk71uTzHvyDo8WA
+ S+5F/z7RlKDa2+lOcjmZpNLEPrZJM3eQr60GhqkDvK9OCRFIDqgmajqaYqdR7+FhIGP6
+ x/MAWl41JRq5uPLqQJkrbM/RP9//84d1E6n9I=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=QMz5XuaiSl2y5K3brn4ts6zliBq11tCQumna2ZD9gwg=;
- b=ZOf9t1G0UYj+N5f9x4qlWReNW4jGuwpivXy8l3aosdmu8vzQ/fIzn/LA/r2VuVZHjV
- 8goqbWftikue1WAQdZVrz+9euPoUTTWFNOJhLzU/fIIOVAdcrfaSdAAdWPWNil6iAmz1
- 5jCpV0pzdpZ3wpRd9xRHkmV/amtYd6eR4KdUkBE7rKB0Nk96pZuTslHJKAB4ukofNY0p
- dqUekoDBT1VfU9Eui7IpETcYC5ng4VkSLSFOnYZPoJ2AlkIieih3AHcjghYZyv3bbKMH
- 4NzCamvUhkCvuDyu9gG26/VM0ioMz5pgleEiV3bWP2jNx8osjmaEfEAg6nqRdMeyyN8p
- Dp9A==
-X-Gm-Message-State: AOAM532kjjXpzXbyAtx6iP6M79Hlpzl9xyA3udgKio6OcawrPqsD2sW3
- 391gcnswn5uFnjd+nf4kgIwiMOhlmuRAcbJuMxY=
-X-Google-Smtp-Source: ABdhPJwZj9HwapeVTBuX6MbvmCI10ccxfb2V7iPfEujOr2zcUHGnUhcVOI4/pc/YpbPMBdEWvizQ7MVVagmsgcK7PJE=
-X-Received: by 2002:a7b:c145:: with SMTP id z5mr2246798wmi.164.1604523387717; 
- Wed, 04 Nov 2020 12:56:27 -0800 (PST)
+ h=x-gm-message-state:mime-version:content-transfer-encoding
+ :in-reply-to:references:subject:from:cc:to:date:message-id
+ :user-agent;
+ bh=fqzol1toKOJ2RVn1yfN+uFz+FMegwGU92eH/lUKJAVI=;
+ b=am6VeAbfG5iTXWSVZJEMYckH4uwo4iYh4S2rzKuTkiuaGbu9HKs0OYZFzIxraA3v57
+ u7iuH2kUNGESZmhhxpN6X+h1iahOoVGVYMH3/JFdREyen0D1qWli4Z6s9qVH8lflyZZq
+ DzPfdJG0SbAnGtlmV3lVBtt5T8rMgotSHo5YUd5DlDn1S16FPvb8azUaWXDyKxjHg4xu
+ arndNaob1+LULBcFORmEh66nAi1pnvgkk2FeFzNWG+xKXbQnH6qd+SSiHJeL3eBdiMuq
+ 9H+uFt5fMUlXN3RD/gc6nSjf90MQnie5LyXY4dTDp/G39AHh3DNGQmuGaOnuUZgD/rxU
+ Nxmg==
+X-Gm-Message-State: AOAM5311F5SeGXH7rrDgEaI3VEUBpszFRHO9knuOmMVVWjNlFmmgYrXR
+ 7/D8tr/FFYRg0DieJfbgGRydfQ==
+X-Google-Smtp-Source: ABdhPJwQqkKr0xcU/WoDFy1ySt/MLLEIAzvNmTX1lPIJkg74SuC9KzLPe0bDYookJJkiZfjHjZKOWw==
+X-Received: by 2002:a62:790f:0:b029:18a:ae57:353f with SMTP id
+ u15-20020a62790f0000b029018aae57353fmr369277pfc.78.1604545611022; 
+ Wed, 04 Nov 2020 19:06:51 -0800 (PST)
+Received: from chromium.org ([2620:15c:202:201:3e52:82ff:fe6c:83ab])
+ by smtp.gmail.com with ESMTPSA id t32sm239063pgl.0.2020.11.04.19.06.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 Nov 2020 19:06:50 -0800 (PST)
 MIME-Version: 1.0
-References: <1604054832-3114-1-git-send-email-akhilpo@codeaurora.org>
- <1604054832-3114-3-git-send-email-akhilpo@codeaurora.org>
- <20201104200300.GA4036650@bogus>
-In-Reply-To: <20201104200300.GA4036650@bogus>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 4 Nov 2020 12:58:02 -0800
-Message-ID: <CAF6AEGvj34MbnRS+A432AhOwMuL2BtTXJ+AD+zQ9w0_meV_-gw@mail.gmail.com>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [Freedreno] [PATCH v5 3/3] dt-bindings: drm/msm/gpu: Add
- cooling device support
+In-Reply-To: <20201103204902.11899-4-khsieh@codeaurora.org>
+References: <20201103204902.11899-1-khsieh@codeaurora.org>
+ <20201103204902.11899-4-khsieh@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+To: Kuogee Hsieh <khsieh@codeaurora.org>, dri-devel@lists.freedesktop.org,
+ robdclark@gmail.com, sean@poorly.run
+Date: Wed, 04 Nov 2020 19:06:47 -0800
+Message-ID: <160454560709.3965362.13891080172465271158@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
+Subject: Re: [Freedreno] [PATCH 3/3] drm/msm/dp: promote irq_hpd handle to
+ handle link training correctly
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,47 +68,29 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Douglas Anderson <dianders@chromium.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>, Matthias Kaehlcke <mka@chromium.org>,
- dri-devel@freedesktop.org, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, abhinavk@codeaurora.org,
+ Kuogee Hsieh <khsieh@codeaurora.org>, tanmay@codeaurora.org, daniel@ffwll.ch,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Nov 4, 2020 at 12:03 PM Rob Herring <robh@kernel.org> wrote:
->
-> On Fri, 30 Oct 2020 16:17:12 +0530, Akhil P Oommen wrote:
-> > Add cooling device support to gpu. A cooling device is bound to a
-> > thermal zone to allow thermal mitigation.
-> >
-> > Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
-> > Reviewed-by: Matthias Kaehlcke <mka@chromium.org>
-> > ---
-> >  Documentation/devicetree/bindings/display/msm/gpu.txt | 7 +++++++
-> >  1 file changed, 7 insertions(+)
-> >
->
->
-> Please add Acked-by/Reviewed-by tags when posting new versions. However,
-> there's no need to repost patches *only* to add the tags. The upstream
-> maintainer will do that for acks received on the version they apply.
->
-> If a tag was not added on purpose, please state why and what changed.
->
+Quoting Kuogee Hsieh (2020-11-03 12:49:02)
+> Some dongles require link training done at irq_hpd request instead
+> of plugin request. This patch promote irq_hpd handler to handle link
+> training and setup hpd_state correctly.
+> 
+>  Fixes: fdaf9a5e3c15 (drm/msm/dp: fixes wrong connection state caused by failure of link training)
 
+This fixes tag has a space before it incorrectly. Also, it should have
+quotes.
 
-Thanks Rob
+Fixes: fdaf9a5e3c15 ("drm/msm/dp: fixes wrong connection state caused by failure of link training")
 
-I've copied over your ack from the previous version.. but yes, it
-definitely makes my life easier when patch senders do this for me ;-)
-
-BR,
--R
+> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+> ---
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
