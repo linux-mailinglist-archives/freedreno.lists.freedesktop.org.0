@@ -1,66 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB6E32A9053
-	for <lists+freedreno@lfdr.de>; Fri,  6 Nov 2020 08:30:17 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 76E732A998E
+	for <lists+freedreno@lfdr.de>; Fri,  6 Nov 2020 17:38:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53D976E08A;
-	Fri,  6 Nov 2020 07:30:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27E7B6E059;
+	Fri,  6 Nov 2020 16:38:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F7EF6E08A
- for <freedreno@lists.freedesktop.org>; Fri,  6 Nov 2020 07:30:12 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1604647813; h=Content-Transfer-Encoding: Content-Type:
- In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
- Subject: Sender; bh=ZGXXuu6qBXSfftqrulNTywUK6S0YxZhWGm7WSxymbYY=;
- b=vah3pzOCWoOto6fFYFSa/p/keLXfdHZFnjoGZ5SV2pK4rZMBmvDTPPParo1vA/3I2PdqcDDt
- ge1WGG1dn0RlSb/GWMSuhMOc7Nu1vaRvXIqjq05zBwZGQdcjKMcfn4eVyVTlymxLP96Z4Zvc
- 1h4ri00sD5z/6GvtsWMDOOYUT20=
-X-Mailgun-Sending-Ip: 69.72.42.4
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
- 5fa4fb81257b36c43ed23af1 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 06 Nov 2020 07:30:09
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 86B72C433FE; Fri,  6 Nov 2020 07:30:09 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- NICE_REPLY_A,SPF_FAIL,URIBL_BLOCKED autolearn=no autolearn_force=no
- version=3.4.0
-Received: from [192.168.1.9] (unknown [117.210.190.231])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: akhilpo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 8529EC433C8;
- Fri,  6 Nov 2020 07:30:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 8529EC433C8
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=akhilpo@codeaurora.org
-To: Rob Clark <robdclark@gmail.com>, Rob Herring <robh@kernel.org>
-References: <1604054832-3114-1-git-send-email-akhilpo@codeaurora.org>
- <1604054832-3114-3-git-send-email-akhilpo@codeaurora.org>
- <20201104200300.GA4036650@bogus>
- <CAF6AEGvj34MbnRS+A432AhOwMuL2BtTXJ+AD+zQ9w0_meV_-gw@mail.gmail.com>
-From: Akhil P Oommen <akhilpo@codeaurora.org>
-Message-ID: <8c28fe20-fbcf-5076-fad8-107073df63a5@codeaurora.org>
-Date: Fri, 6 Nov 2020 13:00:01 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.3
+Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
+ [IPv6:2607:f8b0:4864:20::843])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D8EB6E059
+ for <freedreno@lists.freedesktop.org>; Fri,  6 Nov 2020 16:38:38 +0000 (UTC)
+Received: by mail-qt1-x843.google.com with SMTP id i7so1166837qti.6
+ for <freedreno@lists.freedesktop.org>; Fri, 06 Nov 2020 08:38:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=marek-ca.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=l//k+DSsx34Nc1jx/NivWPrPdB1Y2U4G87NDV4sY8fM=;
+ b=J+dH50Ir6c9uH6K2wDO7IcS4bmFe8lOV8q7+I16iVL9sjS3ctqlKrze3+q9Dn3fH/p
+ RpMwzXUMrzNbJyPmx+TInGqyYah2NJUHYeomnGj+eemuaR379i/7d8r5X8giuFbGhR7y
+ wrM6ajU8PG6oJDbIPQ9ERXxj/66peBmKJWpqMXvriAry6Z3WSgCMRWZe9tfZ3T9X9y9j
+ QTQwPL+nomvaHWeZlEFoV04dF9gYsCCXTk8CeYNMv10M/BfwBV6pZXPdNV9t7LDRtRoO
+ 6lEJFo7vdOQFlmWWaJ8vZA+GtzvCwj4m3nO1x+NSb0nhaMaTJE3zVpMpDnJ4erK0/xQF
+ ZzlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=l//k+DSsx34Nc1jx/NivWPrPdB1Y2U4G87NDV4sY8fM=;
+ b=mqmpp8OMWVGYpK61jcaKlT4hDDXFzQdnXYKMrhUzm3YoInckCgnaz9eMgIrMjIGYii
+ 9Ck1ToMYy26a2qMiYydFe5phF3jsdztGbuMNlAtaHoZwjfJg12RR78nkdub6Y7DOAe6Z
+ X+5pD5TmGr7L0WKOEbHnHo4vSIQoFZ4ga9Nag19p+bbxrwQeF8U5/XFGKMnAbnBjdpjg
+ /KEhz/uwBtpxuJU7TLDYsQcBVbGyn/7rVtNf668rTxWzkv7aef48gtD8qIKKaN+c3eQy
+ 3PW5IQqVmp5MqYG1q6R4VE1ymwV+N/ryt85ojB6yj1Y+l8okSuE3FlZE1L3Y9ymZxWdw
+ GTSg==
+X-Gm-Message-State: AOAM532Br52/ddApOH0hrYJiZ+3GqaagKdeLPecXitWdZlLSKZhWQBcU
+ Kzm1PbObRwwLVLc7d/nl23H929QBw6OITKec+RM=
+X-Google-Smtp-Source: ABdhPJxHUWgYZ4frcBST4WltJsrhWPJrimgJHKRjTXKm4KGGNoJ82BuMMEXhzlmb3W3E9MA/bng0Qg==
+X-Received: by 2002:ac8:5748:: with SMTP id 8mr2284612qtx.114.1604680717401;
+ Fri, 06 Nov 2020 08:38:37 -0800 (PST)
+Received: from localhost.localdomain
+ (modemcable068.184-131-66.mc.videotron.ca. [66.131.184.68])
+ by smtp.gmail.com with ESMTPSA id s3sm860000qkj.27.2020.11.06.08.38.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 06 Nov 2020 08:38:36 -0800 (PST)
+From: Jonathan Marek <jonathan@marek.ca>
+To: freedreno@lists.freedesktop.org
+Date: Fri,  6 Nov 2020 11:34:29 -0500
+Message-Id: <20201106163437.30836-1-jonathan@marek.ca>
+X-Mailer: git-send-email 2.26.1
 MIME-Version: 1.0
-In-Reply-To: <CAF6AEGvj34MbnRS+A432AhOwMuL2BtTXJ+AD+zQ9w0_meV_-gw@mail.gmail.com>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH v5 3/3] dt-bindings: drm/msm/gpu: Add
- cooling device support
+Subject: [Freedreno] [PATCH v2 0/5] drm/msm: support for host-cached BOs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,51 +66,53 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Douglas Anderson <dianders@chromium.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Matthias Kaehlcke <mka@chromium.org>, dri-devel@freedesktop.org,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: Sean Paul <sean@poorly.run>, Rob Clark <robdclark@gmail.com>,
+ David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ "open list:DMA MAPPING HELPERS" <iommu@lists.linux-foundation.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Shawn Guo <shawn.guo@linaro.org>,
+ Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>,
+ open list <linux-kernel@vger.kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/5/2020 2:28 AM, Rob Clark wrote:
-> On Wed, Nov 4, 2020 at 12:03 PM Rob Herring <robh@kernel.org> wrote:
->>
->> On Fri, 30 Oct 2020 16:17:12 +0530, Akhil P Oommen wrote:
->>> Add cooling device support to gpu. A cooling device is bound to a
->>> thermal zone to allow thermal mitigation.
->>>
->>> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
->>> Reviewed-by: Matthias Kaehlcke <mka@chromium.org>
->>> ---
->>>   Documentation/devicetree/bindings/display/msm/gpu.txt | 7 +++++++
->>>   1 file changed, 7 insertions(+)
->>>
->>
->>
->> Please add Acked-by/Reviewed-by tags when posting new versions. However,
->> there's no need to repost patches *only* to add the tags. The upstream
->> maintainer will do that for acks received on the version they apply.
->>
->> If a tag was not added on purpose, please state why and what changed.
->>
-> 
-> 
-> Thanks Rob
-> 
-> I've copied over your ack from the previous version.. but yes, it
-> definitely makes my life easier when patch senders do this for me ;-)
-> 
-> BR,
-> -R
-> 
-Robh, you Acked v4 after I shared v5 patches!!
+This is to support cached and cached-coherent memory types in vulkan.
 
--Akhil.
+v2:
+ - added patches 2/3 to enable using dma_ops_bypass
+ - changed DRM_MSM_GEM_SYNC_CACHE patch to use dma_sync_sg_for_device()
+   and dma_sync_sg_for_cpu(), and renamed sync flags.
+
+Not sure I did the right thing with for the dma_ops_bypass part,
+this is what I came up with reading the emails.
+
+Jonathan Marek (5):
+  drm/msm: add MSM_BO_CACHED_COHERENT
+  dma-direct: add dma_direct_bypass() to force direct ops
+  drm/msm: call dma_direct_bypass()
+  drm/msm: add DRM_MSM_GEM_SYNC_CACHE for non-coherent cache maintenance
+  drm/msm: bump up the uapi version
+
+ drivers/gpu/drm/msm/Kconfig                |  1 +
+ drivers/gpu/drm/msm/adreno/adreno_device.c |  1 +
+ drivers/gpu/drm/msm/msm_drv.c              | 32 +++++++++++++++++++---
+ drivers/gpu/drm/msm/msm_drv.h              |  3 ++
+ drivers/gpu/drm/msm/msm_gem.c              | 31 +++++++++++++++++++++
+ include/linux/dma-direct.h                 |  9 ++++++
+ include/uapi/drm/msm_drm.h                 | 25 +++++++++++++++--
+ kernel/dma/direct.c                        | 23 ++++++++++++++++
+ 8 files changed, 118 insertions(+), 7 deletions(-)
+
+-- 
+2.26.1
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
