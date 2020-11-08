@@ -1,32 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A39062AB4FC
-	for <lists+freedreno@lfdr.de>; Mon,  9 Nov 2020 11:33:00 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 50E2F2ABF3A
+	for <lists+freedreno@lfdr.de>; Mon,  9 Nov 2020 15:52:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4E3C898A4;
-	Mon,  9 Nov 2020 10:32:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5F2489939;
+	Mon,  9 Nov 2020 14:52:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5D688986D;
- Mon,  9 Nov 2020 10:32:51 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 2DD92AF2F;
- Mon,  9 Nov 2020 10:32:50 +0000 (UTC)
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: daniel@ffwll.ch, airlied@linux.ie, chunkuang.hu@kernel.org,
- p.zabel@pengutronix.de, robdclark@gmail.com, sean@poorly.run
-Date: Mon,  9 Nov 2020 11:32:42 +0100
-Message-Id: <20201109103242.19544-3-tzimmermann@suse.de>
+Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com
+ [IPv6:2a00:1450:4864:20::143])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1458089728;
+ Sun,  8 Nov 2020 22:37:45 +0000 (UTC)
+Received: by mail-lf1-x143.google.com with SMTP id s30so9713435lfc.4;
+ Sun, 08 Nov 2020 14:37:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=kCfJ2Jg/FRbU0HYZuU5nyJHXfw9uLTxJyOfF7KFa57E=;
+ b=MvhNV0Y5I33YbxT2Ln2NrfmREwh8lPFZ+3xU2EFtr2CAsZKR+wM35afUYsQBmrKDQk
+ LYt8VUWG/y9jOYIUakzX7JTDIaX0ID95B4xc+8Ye9cJHF/5lJPlPg8B9LCCYP/OCfpw4
+ OXeIBOX8so5xs5BNF5WC1D6ZOdQcB/uhGrxHX3YXOXQMd0q4POzkdj6MeckEc2C8s9Lt
+ ABnP2NIYf/9rKSSc9j/z8TcKsy0VtvKkG7w11jm0L5QYWQH/Y1VmRsNGpHGPbs+jQkoG
+ SyioOkj3E9EykvgsnwUDawY0P7JWEqRneiWIVhpVMAFYyJjq3FsGWSMCt664MsVeFgMV
+ b7Qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=kCfJ2Jg/FRbU0HYZuU5nyJHXfw9uLTxJyOfF7KFa57E=;
+ b=aNBPM2FdrpsfouBf4BPnoC+fS+QCfBwX/ZrULYiAcA8KD0NO2SqBldxMOo2oGnz2vz
+ UXtLL18fWTs4QVYG4LEpptMLOzeJGF9aqN8M49fUjZnYAVdWnptPX3JDYoYBFSaINLT5
+ tbyqw1Ov0ZxJBxwTrXWoEUHSEOMK1iSsqD3NPgbdzz9CGAMl2j8yizEfbV6G/co0FdVz
+ IpSfso4ZX8EppJooGwKWtRhgUTv+I4k0cJ74LW7EHOBKUdsSS6ts+giW16xf28dCXhrV
+ tO+z+SZwVdkhzZV2coFBZnhgvpWFacyQZrKHkrDYykLCQ6+Zw9KAJWZmFQYmiU024bmC
+ HrOg==
+X-Gm-Message-State: AOAM530wAG5sasvlwKWy7AsGfMCxXQcdC5Z8XBoWbBsiZZKK+JUPfTHV
+ BwfAGAjKKQZkeH4All065uI=
+X-Google-Smtp-Source: ABdhPJzuO6s0AWBQsGZ7IxbiJF3RrVQVDq0L03EJ0cQaiYYgIRSJQ5uljgZfXN2ou61c+TYUsgGFmQ==
+X-Received: by 2002:a19:4050:: with SMTP id n77mr4313723lfa.460.1604875063419; 
+ Sun, 08 Nov 2020 14:37:43 -0800 (PST)
+Received: from localhost.localdomain (h-155-4-221-112.NA.cust.bahnhof.se.
+ [155.4.221.112])
+ by smtp.gmail.com with ESMTPSA id b25sm1559932lff.48.2020.11.08.14.37.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 08 Nov 2020 14:37:42 -0800 (PST)
+From: Rikard Falkeborn <rikard.falkeborn@gmail.com>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Date: Sun,  8 Nov 2020 23:37:38 +0100
+Message-Id: <20201108223738.16535-1-rikard.falkeborn@gmail.com>
 X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20201109103242.19544-1-tzimmermann@suse.de>
-References: <20201109103242.19544-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 2/2] drm/mediatek: Use struct dma_buf_map in GEM
- vmap ops
+X-Mailman-Approved-At: Mon, 09 Nov 2020 14:52:04 +0000
+Subject: [Freedreno] [PATCH] drm/msm: dsi: Constify dsi_host_ops
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -39,128 +67,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Haneen Mohammed <hamohammed.sa@gmail.com>,
- =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>, Melissa Wen <melissa.srw@gmail.com>,
- Eric Anholt <eric@anholt.net>, Huang Rui <ray.huang@amd.com>,
- Gerd Hoffmann <kraxel@redhat.com>, Madhav Chauhan <madhav.chauhan@amd.com>,
- Sam Ravnborg <sam@ravnborg.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Emil Velikov <emil.velikov@collabora.com>, Rob Herring <robh@kernel.org>,
- xen-devel@lists.xenproject.org, lima@lists.freedesktop.org,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- linux-rockchip@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- Steven Price <steven.price@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Luben Tuikov <luben.tuikov@amd.com>, Ben Skeggs <bskeggs@redhat.com>,
- Russell King <linux+etnaviv@armlinux.org.uk>, Dave Airlie <airlied@redhat.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- etnaviv@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- Hans de Goede <hdegoede@redhat.com>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- spice-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- Arunpravin <apaneers@amd.com>, linux-arm-kernel@lists.infradead.org,
- Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>, Sandy Huang <hjc@rock-chips.com>,
- Nirmoy Das <Nirmoy.Das@amd.com>, Qiang Yu <yuq825@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Lucas Stach <l.stach@pengutronix.de>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Rikard Falkeborn <rikard.falkeborn@gmail.com>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Rml4ZXMgYSBidWlsZCBmYWlsdXJlIHdpdGggbWVkaWF0ZWsuCgpUaGlzIGNoYW5nZSB3YXMgc3Vw
-cG9zZWQgdG8gYmUgcGFydCBvZiBjb21taXQgNDlhM2Y1MWRmZWVlICgiZHJtL2dlbToKVXNlIHN0
-cnVjdCBkbWFfYnVmX21hcCBpbiBHRU0gdm1hcCBvcHMgYW5kIGNvbnZlcnQgR0VNIGJhY2tlbmRz
-IiksIGJ1dAptZWRpYXRlayB3YXMgZm9yZ290dGVuLgoKU2lnbmVkLW9mZi1ieTogVGhvbWFzIFpp
-bW1lcm1hbm4gPHR6aW1tZXJtYW5uQHN1c2UuZGU+CkZpeGVzOiA0OWEzZjUxZGZlZWUgKCJkcm0v
-Z2VtOiBVc2Ugc3RydWN0IGRtYV9idWZfbWFwIGluIEdFTSB2bWFwIG9wcyBhbmQgY29udmVydCBH
-RU0gYmFja2VuZHMiKQpDYzogVGhvbWFzIFppbW1lcm1hbm4gPHR6aW1tZXJtYW5uQHN1c2UuZGU+
-CkNjOiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+CkNjOiBEYXZp
-ZCBBaXJsaWUgPGFpcmxpZWRAbGludXguaWU+CkNjOiBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3
-bGwuY2g+CkNjOiBNYWFydGVuIExhbmtob3JzdCA8bWFhcnRlbi5sYW5raG9yc3RAbGludXguaW50
-ZWwuY29tPgpDYzogTWF4aW1lIFJpcGFyZCA8bXJpcGFyZEBrZXJuZWwub3JnPgpDYzogRGF2ZSBB
-aXJsaWUgPGFpcmxpZWRAcmVkaGF0LmNvbT4KQ2M6IEx1Y2FzIFN0YWNoIDxsLnN0YWNoQHBlbmd1
-dHJvbml4LmRlPgpDYzogUnVzc2VsbCBLaW5nIDxsaW51eCtldG5hdml2QGFybWxpbnV4Lm9yZy51
-az4KQ2M6IENocmlzdGlhbiBHbWVpbmVyIDxjaHJpc3RpYW4uZ21laW5lckBnbWFpbC5jb20+CkNj
-OiBRaWFuZyBZdSA8eXVxODI1QGdtYWlsLmNvbT4KQ2M6IEJlbiBTa2VnZ3MgPGJza2VnZ3NAcmVk
-aGF0LmNvbT4KQ2M6IFJvYiBIZXJyaW5nIDxyb2JoQGtlcm5lbC5vcmc+CkNjOiBUb21ldSBWaXpv
-c28gPHRvbWV1LnZpem9zb0Bjb2xsYWJvcmEuY29tPgpDYzogU3RldmVuIFByaWNlIDxzdGV2ZW4u
-cHJpY2VAYXJtLmNvbT4KQ2M6IEFseXNzYSBSb3Nlbnp3ZWlnIDxhbHlzc2Eucm9zZW56d2VpZ0Bj
-b2xsYWJvcmEuY29tPgpDYzogR2VyZCBIb2ZmbWFubiA8a3JheGVsQHJlZGhhdC5jb20+CkNjOiBB
-bGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+CkNjOiAiQ2hyaXN0aWFuIEvD
-tm5pZyIgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KQ2M6IFNhbmR5IEh1YW5nIDxoamNAcm9j
-ay1jaGlwcy5jb20+CkNjOiAiSGVpa28gU3TDvGJuZXIiIDxoZWlrb0BzbnRlY2guZGU+CkNjOiBI
-YW5zIGRlIEdvZWRlIDxoZGVnb2VkZUByZWRoYXQuY29tPgpDYzogU2VhbiBQYXVsIDxzZWFuQHBv
-b3JseS5ydW4+CkNjOiBFcmljIEFuaG9sdCA8ZXJpY0BhbmhvbHQubmV0PgpDYzogUm9kcmlnbyBT
-aXF1ZWlyYSA8cm9kcmlnb3NpcXVlaXJhbWVsb0BnbWFpbC5jb20+CkNjOiBNZWxpc3NhIFdlbiA8
-bWVsaXNzYS5zcndAZ21haWwuY29tPgpDYzogSGFuZWVuIE1vaGFtbWVkIDxoYW1vaGFtbWVkLnNh
-QGdtYWlsLmNvbT4KQ2M6IE9sZWtzYW5kciBBbmRydXNoY2hlbmtvIDxvbGVrc2FuZHJfYW5kcnVz
-aGNoZW5rb0BlcGFtLmNvbT4KQ2M6IFN1bWl0IFNlbXdhbCA8c3VtaXQuc2Vtd2FsQGxpbmFyby5v
-cmc+CkNjOiBFbWlsIFZlbGlrb3YgPGVtaWwudmVsaWtvdkBjb2xsYWJvcmEuY29tPgpDYzogTWFy
-ZWsgU3p5cHJvd3NraSA8bS5zenlwcm93c2tpQHNhbXN1bmcuY29tPgpDYzogQXJ1bnByYXZpbiA8
-YXBhbmVlcnNAYW1kLmNvbT4KQ2M6IEh1YW5nIFJ1aSA8cmF5Lmh1YW5nQGFtZC5jb20+CkNjOiBM
-dWJlbiBUdWlrb3YgPGx1YmVuLnR1aWtvdkBhbWQuY29tPgpDYzogTWFkaGF2IENoYXVoYW4gPG1h
-ZGhhdi5jaGF1aGFuQGFtZC5jb20+CkNjOiBOaXJtb3kgRGFzIDxOaXJtb3kuRGFzQGFtZC5jb20+
-CkNjOiBKYXNvbiBHdW50aG9ycGUgPGpnZ0B6aWVwZS5jYT4KQ2M6IFNhbSBSYXZuYm9yZyA8c2Ft
-QHJhdm5ib3JnLm9yZz4KQ2M6IENocmlzIFdpbHNvbiA8Y2hyaXNAY2hyaXMtd2lsc29uLmNvLnVr
-PgpDYzogZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpDYzogZXRuYXZpdkBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKQ2M6IGxpbWFAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCkNjOiBub3V2ZWF1
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpDYzogdmlydHVhbGl6YXRpb25AbGlzdHMubGludXgtZm91
-bmRhdGlvbi5vcmcKQ2M6IHNwaWNlLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpDYzogYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKQ2M6IGxpbnV4LWFybS1rZXJuZWxAbGlzdHMuaW5m
-cmFkZWFkLm9yZwpDYzogbGludXgtcm9ja2NoaXBAbGlzdHMuaW5mcmFkZWFkLm9yZwpDYzogeGVu
-LWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCi0tLQogZHJpdmVycy9ncHUvZHJtL21lZGlhdGVr
-L210a19kcm1fZ2VtLmMgfCAyMCArKysrKysrKysrKystLS0tLS0tLQogZHJpdmVycy9ncHUvZHJt
-L21lZGlhdGVrL210a19kcm1fZ2VtLmggfCAgNCArKy0tCiAyIGZpbGVzIGNoYW5nZWQsIDE0IGlu
-c2VydGlvbnMoKyksIDEwIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9tZWRpYXRlay9tdGtfZHJtX2dlbS5jIGIvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19k
-cm1fZ2VtLmMKaW5kZXggY2RkMWE2ZTYxNTY0Li4yOGEyZWUxMzM2ZWYgMTAwNjQ0Ci0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZHJtX2dlbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9tZWRpYXRlay9tdGtfZHJtX2dlbS5jCkBAIC0yNDAsMjMgKzI0MCwyNSBAQCBzdHJ1Y3QgZHJt
-X2dlbV9vYmplY3QgKm10a19nZW1fcHJpbWVfaW1wb3J0X3NnX3RhYmxlKHN0cnVjdCBkcm1fZGV2
-aWNlICpkZXYsCiAJcmV0dXJuICZtdGtfZ2VtLT5iYXNlOwogfQogCi12b2lkICptdGtfZHJtX2dl
-bV9wcmltZV92bWFwKHN0cnVjdCBkcm1fZ2VtX29iamVjdCAqb2JqKQoraW50IG10a19kcm1fZ2Vt
-X3ByaW1lX3ZtYXAoc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmosIHN0cnVjdCBkbWFfYnVmX21h
-cCAqbWFwKQogewogCXN0cnVjdCBtdGtfZHJtX2dlbV9vYmogKm10a19nZW0gPSB0b19tdGtfZ2Vt
-X29iaihvYmopOwotCXN0cnVjdCBzZ190YWJsZSAqc2d0OworCXN0cnVjdCBzZ190YWJsZSAqc2d0
-ID0gTlVMTDsKIAl1bnNpZ25lZCBpbnQgbnBhZ2VzOwogCiAJaWYgKG10a19nZW0tPmt2YWRkcikK
-LQkJcmV0dXJuIG10a19nZW0tPmt2YWRkcjsKKwkJZ290byBvdXQ7CiAKIAlzZ3QgPSBtdGtfZ2Vt
-X3ByaW1lX2dldF9zZ190YWJsZShvYmopOwogCWlmIChJU19FUlIoc2d0KSkKLQkJcmV0dXJuIE5V
-TEw7CisJCXJldHVybiBQVFJfRVJSKHNndCk7CiAKIAlucGFnZXMgPSBvYmotPnNpemUgPj4gUEFH
-RV9TSElGVDsKIAltdGtfZ2VtLT5wYWdlcyA9IGtjYWxsb2MobnBhZ2VzLCBzaXplb2YoKm10a19n
-ZW0tPnBhZ2VzKSwgR0ZQX0tFUk5FTCk7Ci0JaWYgKCFtdGtfZ2VtLT5wYWdlcykKLQkJZ290byBv
-dXQ7CisJaWYgKCFtdGtfZ2VtLT5wYWdlcykgeworCQlrZnJlZShzZ3QpOworCQlyZXR1cm4gLUVO
-T01FTTsKKwl9CiAKIAlkcm1fcHJpbWVfc2dfdG9fcGFnZV9hZGRyX2FycmF5cyhzZ3QsIG10a19n
-ZW0tPnBhZ2VzLCBOVUxMLCBucGFnZXMpOwogCkBAIC0yNjUsMTMgKzI2NywxNSBAQCB2b2lkICpt
-dGtfZHJtX2dlbV9wcmltZV92bWFwKHN0cnVjdCBkcm1fZ2VtX29iamVjdCAqb2JqKQogCiBvdXQ6
-CiAJa2ZyZWUoc2d0KTsKKwlkbWFfYnVmX21hcF9zZXRfdmFkZHIobWFwLCBtdGtfZ2VtLT5rdmFk
-ZHIpOwogCi0JcmV0dXJuIG10a19nZW0tPmt2YWRkcjsKKwlyZXR1cm4gMDsKIH0KIAotdm9pZCBt
-dGtfZHJtX2dlbV9wcmltZV92dW5tYXAoc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmosIHZvaWQg
-KnZhZGRyKQordm9pZCBtdGtfZHJtX2dlbV9wcmltZV92dW5tYXAoc3RydWN0IGRybV9nZW1fb2Jq
-ZWN0ICpvYmosIHN0cnVjdCBkbWFfYnVmX21hcCAqbWFwKQogewogCXN0cnVjdCBtdGtfZHJtX2dl
-bV9vYmogKm10a19nZW0gPSB0b19tdGtfZ2VtX29iaihvYmopOworCXZvaWQgKnZhZGRyID0gbWFw
-LT52YWRkcjsKIAogCWlmICghbXRrX2dlbS0+cGFnZXMpCiAJCXJldHVybjsKZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZHJtX2dlbS5oIGIvZHJpdmVycy9ncHUvZHJt
-L21lZGlhdGVrL210a19kcm1fZ2VtLmgKaW5kZXggZmY5Zjk3NmQ5ODA3Li42ZGE1Y2NiNGI5MzMg
-MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZHJtX2dlbS5oCisrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZHJtX2dlbS5oCkBAIC00NSw3ICs0NSw3IEBA
-IGludCBtdGtfZHJtX2dlbV9tbWFwX2J1ZihzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKm9iaiwKIHN0
-cnVjdCBzZ190YWJsZSAqbXRrX2dlbV9wcmltZV9nZXRfc2dfdGFibGUoc3RydWN0IGRybV9nZW1f
-b2JqZWN0ICpvYmopOwogc3RydWN0IGRybV9nZW1fb2JqZWN0ICptdGtfZ2VtX3ByaW1lX2ltcG9y
-dF9zZ190YWJsZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAogCQkJc3RydWN0IGRtYV9idWZfYXR0
-YWNobWVudCAqYXR0YWNoLCBzdHJ1Y3Qgc2dfdGFibGUgKnNnKTsKLXZvaWQgKm10a19kcm1fZ2Vt
-X3ByaW1lX3ZtYXAoc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmopOwotdm9pZCBtdGtfZHJtX2dl
-bV9wcmltZV92dW5tYXAoc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmosIHZvaWQgKnZhZGRyKTsK
-K2ludCBtdGtfZHJtX2dlbV9wcmltZV92bWFwKHN0cnVjdCBkcm1fZ2VtX29iamVjdCAqb2JqLCBz
-dHJ1Y3QgZG1hX2J1Zl9tYXAgKm1hcCk7Cit2b2lkIG10a19kcm1fZ2VtX3ByaW1lX3Z1bm1hcChz
-dHJ1Y3QgZHJtX2dlbV9vYmplY3QgKm9iaiwgc3RydWN0IGRtYV9idWZfbWFwICptYXApOwogCiAj
-ZW5kaWYKLS0gCjIuMjkuMgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJl
-ZWRyZW5vCg==
+The only usage of dsi_host_ops is to assign its address to the ops field
+in the mipi_dsi_host struct, which is a const pointer. Make it const to
+allow the compiler to put it in read-only memory.
+
+Signed-off-by: Rikard Falkeborn <rikard.falkeborn@gmail.com>
+---
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index 198db8d4cf3d..ab281cba0f08 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -1657,7 +1657,7 @@ static ssize_t dsi_host_transfer(struct mipi_dsi_host *host,
+ 	return ret;
+ }
+ 
+-static struct mipi_dsi_host_ops dsi_host_ops = {
++static const struct mipi_dsi_host_ops dsi_host_ops = {
+ 	.attach = dsi_host_attach,
+ 	.detach = dsi_host_detach,
+ 	.transfer = dsi_host_transfer,
+-- 
+2.29.2
+
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
