@@ -2,59 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50E2F2ABF3A
-	for <lists+freedreno@lfdr.de>; Mon,  9 Nov 2020 15:52:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8614A2AC83A
+	for <lists+freedreno@lfdr.de>; Mon,  9 Nov 2020 23:23:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5F2489939;
-	Mon,  9 Nov 2020 14:52:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CF3789668;
+	Mon,  9 Nov 2020 22:23:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com
- [IPv6:2a00:1450:4864:20::143])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1458089728;
- Sun,  8 Nov 2020 22:37:45 +0000 (UTC)
-Received: by mail-lf1-x143.google.com with SMTP id s30so9713435lfc.4;
- Sun, 08 Nov 2020 14:37:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=kCfJ2Jg/FRbU0HYZuU5nyJHXfw9uLTxJyOfF7KFa57E=;
- b=MvhNV0Y5I33YbxT2Ln2NrfmREwh8lPFZ+3xU2EFtr2CAsZKR+wM35afUYsQBmrKDQk
- LYt8VUWG/y9jOYIUakzX7JTDIaX0ID95B4xc+8Ye9cJHF/5lJPlPg8B9LCCYP/OCfpw4
- OXeIBOX8so5xs5BNF5WC1D6ZOdQcB/uhGrxHX3YXOXQMd0q4POzkdj6MeckEc2C8s9Lt
- ABnP2NIYf/9rKSSc9j/z8TcKsy0VtvKkG7w11jm0L5QYWQH/Y1VmRsNGpHGPbs+jQkoG
- SyioOkj3E9EykvgsnwUDawY0P7JWEqRneiWIVhpVMAFYyJjq3FsGWSMCt664MsVeFgMV
- b7Qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=kCfJ2Jg/FRbU0HYZuU5nyJHXfw9uLTxJyOfF7KFa57E=;
- b=aNBPM2FdrpsfouBf4BPnoC+fS+QCfBwX/ZrULYiAcA8KD0NO2SqBldxMOo2oGnz2vz
- UXtLL18fWTs4QVYG4LEpptMLOzeJGF9aqN8M49fUjZnYAVdWnptPX3JDYoYBFSaINLT5
- tbyqw1Ov0ZxJBxwTrXWoEUHSEOMK1iSsqD3NPgbdzz9CGAMl2j8yizEfbV6G/co0FdVz
- IpSfso4ZX8EppJooGwKWtRhgUTv+I4k0cJ74LW7EHOBKUdsSS6ts+giW16xf28dCXhrV
- tO+z+SZwVdkhzZV2coFBZnhgvpWFacyQZrKHkrDYykLCQ6+Zw9KAJWZmFQYmiU024bmC
- HrOg==
-X-Gm-Message-State: AOAM530wAG5sasvlwKWy7AsGfMCxXQcdC5Z8XBoWbBsiZZKK+JUPfTHV
- BwfAGAjKKQZkeH4All065uI=
-X-Google-Smtp-Source: ABdhPJzuO6s0AWBQsGZ7IxbiJF3RrVQVDq0L03EJ0cQaiYYgIRSJQ5uljgZfXN2ou61c+TYUsgGFmQ==
-X-Received: by 2002:a19:4050:: with SMTP id n77mr4313723lfa.460.1604875063419; 
- Sun, 08 Nov 2020 14:37:43 -0800 (PST)
-Received: from localhost.localdomain (h-155-4-221-112.NA.cust.bahnhof.se.
- [155.4.221.112])
- by smtp.gmail.com with ESMTPSA id b25sm1559932lff.48.2020.11.08.14.37.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 08 Nov 2020 14:37:42 -0800 (PST)
-From: Rikard Falkeborn <rikard.falkeborn@gmail.com>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Sun,  8 Nov 2020 23:37:38 +0100
-Message-Id: <20201108223738.16535-1-rikard.falkeborn@gmail.com>
-X-Mailer: git-send-email 2.29.2
+Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15FAF89650
+ for <freedreno@lists.freedesktop.org>; Mon,  9 Nov 2020 22:23:29 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1604960609; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=h4kLvDOrgWdJbJRz3YUB6R5KJh03EMAS6v5CqdFVeFw=;
+ b=Rk0158wj6qBNN99CIs3t6dnt6xam2by05/TvpIWvQSHw+NZwA7g9LxOFGUquMdgf//U/1d6V
+ XAmtqsa/IHhW2MFCyjkSdWwqKrM5B9dGwuXTb90+IRDxQqK0hlePwbwJJGRuhG1i55dDiVZK
+ J1KZSGicLJ/m6/IKD7WVlnNUfrU=
+X-Mailgun-Sending-Ip: 69.72.42.4
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
+ 5fa9c16061a7f890a6749026 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 09 Nov 2020 22:23:28
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 2AA23C43385; Mon,  9 Nov 2020 22:23:27 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
+Received: from jordan-laptop.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 255EBC433C6;
+ Mon,  9 Nov 2020 22:23:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 255EBC433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=jcrouse@codeaurora.org
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: linux-arm-msm@vger.kernel.org
+Date: Mon,  9 Nov 2020 15:23:16 -0700
+Message-Id: <20201109222319.2630557-1-jcrouse@codeaurora.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 09 Nov 2020 14:52:04 +0000
-Subject: [Freedreno] [PATCH] drm/msm: dsi: Constify dsi_host_ops
+Subject: [Freedreno] [RFC PATCH v1 0/3] iommu/arm-smmu: adreno-smmu page
+ fault handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,38 +66,54 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rikard Falkeborn <rikard.falkeborn@gmail.com>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Eric Anholt <eric@anholt.net>,
+ Sam Ravnborg <sam@ravnborg.org>, Emil Velikov <emil.velikov@collabora.com>,
+ Rob Clark <robdclark@chromium.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>, Will Deacon <will@kernel.org>,
+ Joerg Roedel <joro@8bytes.org>, iommu@lists.linux-foundation.org,
+ freedreno@lists.freedesktop.org, Sharat Masetty <smasetty@codeaurora.org>,
+ Krishna Reddy <vdumpa@nvidia.com>, Sean Paul <sean@poorly.run>,
+ linux-arm-kernel@lists.infradead.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Robin Murphy <robin.murphy@arm.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The only usage of dsi_host_ops is to assign its address to the ops field
-in the mipi_dsi_host struct, which is a const pointer. Make it const to
-allow the compiler to put it in read-only memory.
+This is an RFC to add an Adreno GPU specific handler for pagefaults. The first
+patch starts by wiring up report_iommu_fault for arm-smmu. The next patch adds
+a adreno-smmu-priv function hook to capture a handful of important debugging
+registers such as TTBR0, CONTEXTIDR, FSYNR0 and others. This is used by the
+third patch to print more detailed information on page fault such as the TTBR0
+for the pagetable that caused the fault and the source of the fault as
+determined by a combination of the FSYNR1 register and an internal GPU
+register.
 
-Signed-off-by: Rikard Falkeborn <rikard.falkeborn@gmail.com>
----
- drivers/gpu/drm/msm/dsi/dsi_host.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This code provides a solid base that we can expand on later for even more
+extensive GPU side page fault debugging capabilities.
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 198db8d4cf3d..ab281cba0f08 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -1657,7 +1657,7 @@ static ssize_t dsi_host_transfer(struct mipi_dsi_host *host,
- 	return ret;
- }
- 
--static struct mipi_dsi_host_ops dsi_host_ops = {
-+static const struct mipi_dsi_host_ops dsi_host_ops = {
- 	.attach = dsi_host_attach,
- 	.detach = dsi_host_detach,
- 	.transfer = dsi_host_transfer,
+Jordan Crouse (3):
+  iommu/arm-smmu: Add support for driver IOMMU fault handlers
+  drm/msm: Add an adreno-smmu-priv callback to get pagefault info
+  drm/msm: Improve the a6xx page fault handler
+
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c      |  4 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 76 +++++++++++++++++++++-
+ drivers/gpu/drm/msm/msm_iommu.c            | 11 +++-
+ drivers/gpu/drm/msm/msm_mmu.h              |  4 +-
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 19 ++++++
+ drivers/iommu/arm/arm-smmu/arm-smmu.c      | 16 ++++-
+ drivers/iommu/arm/arm-smmu/arm-smmu.h      |  2 +
+ include/linux/adreno-smmu-priv.h           | 31 ++++++++-
+ 8 files changed, 151 insertions(+), 12 deletions(-)
+
 -- 
-2.29.2
+2.25.1
 
 _______________________________________________
 Freedreno mailing list
