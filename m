@@ -2,40 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC76E2AD606
-	for <lists+freedreno@lfdr.de>; Tue, 10 Nov 2020 13:19:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 913D32ADE92
+	for <lists+freedreno@lfdr.de>; Tue, 10 Nov 2020 19:42:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BED589A9A;
-	Tue, 10 Nov 2020 12:19:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAED689AB2;
+	Tue, 10 Nov 2020 18:42:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BD5D89A98;
- Tue, 10 Nov 2020 12:19:02 +0000 (UTC)
-Received: from willie-the-truck (236.31.169.217.in-addr.arpa [217.169.31.236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 02DA820665;
- Tue, 10 Nov 2020 12:18:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1605010742;
- bh=BWpWOxjo3ugo55ThRY5WPAalknlbV0RrMHib3OTIbeM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DQCx3oM2JIIWIma00vDs477AjVO2VRJwU5Tqbi7R9+CdGhHxaNQCLbxqatPdqcVJQ
- OGSLx/l5gvJT9r8erNNMFfrH9ORo471Hfw9dE/Fsl5QoKNWbjNa1bWZTotE+4O5Vpt
- 3bn1qmKyMCzzUhA3JfczF58H6uSR9hm2UBGkJ/IE=
-Date: Tue, 10 Nov 2020 12:18:56 +0000
-From: Will Deacon <will@kernel.org>
-To: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-Message-ID: <20201110121855.GD16239@willie-the-truck>
-References: <cover.1604048969.git.saiprakash.ranjan@codeaurora.org>
- <1d4979c0dcf649c5717605c598067b4b225ab9de.1604048969.git.saiprakash.ranjan@codeaurora.org>
+Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
+ [IPv6:2607:f8b0:4864:20::541])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B576B89A9A;
+ Tue, 10 Nov 2020 18:42:19 +0000 (UTC)
+Received: by mail-pg1-x541.google.com with SMTP id w4so10968171pgg.13;
+ Tue, 10 Nov 2020 10:42:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=GYJulMYVVz3km1hFr9j5auoGSm9etW+t+ZZhfvbAr78=;
+ b=NBgSVBr7E6iqdcZ5ZI31StoYKlB3mK/JVERnjq5aL/8oPKM3j8L0WDogOlo6y3duB2
+ cVMUlPi2/n/xq5sEZDlOn2ASEcWMLsA2bBJGGSTvRtQtKEdRpDGIRMHfJWEb7zz5pwA7
+ Lj6BVaTbZeANF2kArNMILM4yaOPP6vOVaKsoxoY7leiECEmVqyyHzgfLUHR5B/xOXHcR
+ M+4aDTWKpINU3XAE0O/ok+fx7yHAlXNngsg2vZIer56kG8r0csesG6Y+TJ9kgq0LXdgD
+ c0B1WDMWuup5ZUYYH4ZK+6npvNA0F/KeH+5hQQ81Aru6jBBNKNJhIfQskp4Iq8Dml1Bb
+ CczA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=GYJulMYVVz3km1hFr9j5auoGSm9etW+t+ZZhfvbAr78=;
+ b=boTRvDDXe/jRMB/L7Of22BnXOEYiFRHodEiw7Xe1Ll1LfCA7IJ5us3JTxgX2JOKHbw
+ BjOHICA48MlRlottLDfrBVnoURWAe/e5mS+Ay9phczEu4yr7oRY1nuBpgab06MS13Bs9
+ GezjN1aWq2czWBoep2Z8F1MOSSpB57zWnukftectLpJa2Cp/DSRsCRF11Ql4LMeoMNZw
+ +vA+vT782EWpIDglh5e2+/8cSyZ1PYmZ307WnNOYTOnfLXhGjfzAr0yYTituERVfzx2x
+ vTRxhgIaAWep4LPUW6NUN0FG9BRWTHydMN6dvtDnQ3IY8Japg5RZykBBDJWx1STkBnMs
+ V8pw==
+X-Gm-Message-State: AOAM531D6ETy8WvywUIr3W6dGfjE5GWsRJudBZ5Vh79SeMwjbaYBvH7a
+ 6apoEOprZc5cFxlfz+jGQQfQB9hSyGc=
+X-Google-Smtp-Source: ABdhPJzkbAsbqdioecTbOedIn1DwNSC5H1j1b+kriaAsHiKjO3ha2VT8efFZwnlwZcjr19zv/Z0zaQ==
+X-Received: by 2002:a17:90b:19d6:: with SMTP id
+ nm22mr480088pjb.159.1605033738605; 
+ Tue, 10 Nov 2020 10:42:18 -0800 (PST)
+Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
+ by smtp.gmail.com with ESMTPSA id y19sm14357276pfn.147.2020.11.10.10.42.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 Nov 2020 10:42:17 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue, 10 Nov 2020 10:43:59 -0800
+Message-Id: <20201110184401.282982-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1d4979c0dcf649c5717605c598067b4b225ab9de.1604048969.git.saiprakash.ranjan@codeaurora.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCHv7 1/7] iommu/io-pgtable-arm: Add support to
- use system cache
+Subject: [Freedreno] [PATCH 1/2] drm/msm/a6xx: Clear shadow on suspend
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,75 +65,72 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Joerg Roedel <joro@8bytes.org>, Jordan Crouse <jcrouse@codeaurora.org>,
- iommu@lists.linux-foundation.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Akhil P Oommen <akhilpo@codeaurora.org>,
- dri-devel@lists.freedesktop.org,
- "Kristian H . Kristensen" <hoegsberg@google.com>,
- Robin Murphy <robin.murphy@arm.com>, linux-arm-kernel@lists.infradead.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <freedreno@lists.freedesktop.org>, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>,
+ open list <linux-kernel@vger.kernel.org>, Eric Anholt <eric@anholt.net>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Oct 30, 2020 at 02:53:08PM +0530, Sai Prakash Ranjan wrote:
-> Add a quirk IO_PGTABLE_QUIRK_SYS_CACHE to override the
-> attributes set in TCR for the page table walker when
-> using system cache.
-> 
-> Signed-off-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-> ---
->  drivers/iommu/io-pgtable-arm.c | 7 ++++++-
->  include/linux/io-pgtable.h     | 4 ++++
->  2 files changed, 10 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/iommu/io-pgtable-arm.c b/drivers/iommu/io-pgtable-arm.c
-> index a7a9bc08dcd1..a356caf1683a 100644
-> --- a/drivers/iommu/io-pgtable-arm.c
-> +++ b/drivers/iommu/io-pgtable-arm.c
-> @@ -761,7 +761,8 @@ arm_64_lpae_alloc_pgtable_s1(struct io_pgtable_cfg *cfg, void *cookie)
->  
->  	if (cfg->quirks & ~(IO_PGTABLE_QUIRK_ARM_NS |
->  			    IO_PGTABLE_QUIRK_NON_STRICT |
-> -			    IO_PGTABLE_QUIRK_ARM_TTBR1))
-> +			    IO_PGTABLE_QUIRK_ARM_TTBR1 |
-> +			    IO_PGTABLE_QUIRK_SYS_CACHE))
->  		return NULL;
->  
->  	data = arm_lpae_alloc_pgtable(cfg);
-> @@ -773,6 +774,10 @@ arm_64_lpae_alloc_pgtable_s1(struct io_pgtable_cfg *cfg, void *cookie)
->  		tcr->sh = ARM_LPAE_TCR_SH_IS;
->  		tcr->irgn = ARM_LPAE_TCR_RGN_WBWA;
->  		tcr->orgn = ARM_LPAE_TCR_RGN_WBWA;
-> +	} else if (cfg->quirks & IO_PGTABLE_QUIRK_SYS_CACHE) {
-> +		tcr->sh = ARM_LPAE_TCR_SH_OS;
-> +		tcr->irgn = ARM_LPAE_TCR_RGN_NC;
-> +		tcr->orgn = ARM_LPAE_TCR_RGN_WBWA;
+From: Rob Clark <robdclark@chromium.org>
 
-Given that this only applies in the case where then page-table walker is
-non-coherent, I think we'd be better off renaming the quirk to something
-like IO_PGTABLE_QUIRK_ARM_OUTER_WBWA and then rejecting it in the
-non-coherent case.
+Clear the shadow rptr on suspend.  Otherwise, when we resume, we can
+have a stale value until CP_WHERE_AM_I executes.  If we suspend near
+the ringbuffer wraparound point, this can lead to a chicken/egg
+situation where we are waiting for ringbuffer space to write the
+CP_WHERE_AM_I (or CP_INIT) packet, because we mistakenly believe that
+the ringbuffer is full (due to stale rptr value in the shadow).
 
->  	} else {
->  		tcr->sh = ARM_LPAE_TCR_SH_OS;
->  		tcr->irgn = ARM_LPAE_TCR_RGN_NC;
-> diff --git a/include/linux/io-pgtable.h b/include/linux/io-pgtable.h
-> index 4cde111e425b..86631f711e05 100644
-> --- a/include/linux/io-pgtable.h
-> +++ b/include/linux/io-pgtable.h
-> @@ -86,6 +86,9 @@ struct io_pgtable_cfg {
->  	 *
->  	 * IO_PGTABLE_QUIRK_ARM_TTBR1: (ARM LPAE format) Configure the table
->  	 *	for use in the upper half of a split address space.
-> +	 *
-> +	 * IO_PGTABLE_QUIRK_SYS_CACHE: Override the attributes set in TCR for
-> +	 *	the page table walker when using system cache.
+Fixes errors like:
 
-and then update this accordingly.
+  [drm:adreno_wait_ring [msm]] *ERROR* timeout waiting for space in ringbuffer 0
 
-Will
+in the resume path.
+
+Fixes: d3a569fccfa0 ("drm/msm: a6xx: Use WHERE_AM_I for eligible targets")
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 2f236aadfa9c..fcb0aabbc985 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -1043,12 +1043,21 @@ static int a6xx_pm_suspend(struct msm_gpu *gpu)
+ {
+ 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+ 	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
++	int i, ret;
+ 
+ 	trace_msm_gpu_suspend(0);
+ 
+ 	devfreq_suspend_device(gpu->devfreq.devfreq);
+ 
+-	return a6xx_gmu_stop(a6xx_gpu);
++	ret = a6xx_gmu_stop(a6xx_gpu);
++	if (ret)
++		return ret;
++
++	if (adreno_gpu->base.hw_apriv || a6xx_gpu->has_whereami)
++		for (i = 0; i < gpu->nr_rings; i++)
++			a6xx_gpu->shadow[i] = 0;
++
++	return 0;
+ }
+ 
+ static int a6xx_get_timestamp(struct msm_gpu *gpu, uint64_t *value)
+-- 
+2.28.0
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
