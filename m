@@ -1,62 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95D062AE7A1
-	for <lists+freedreno@lfdr.de>; Wed, 11 Nov 2020 05:51:01 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 566BD2AE89C
+	for <lists+freedreno@lfdr.de>; Wed, 11 Nov 2020 07:03:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 545D689A9F;
-	Wed, 11 Nov 2020 04:50:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F81F89BE8;
+	Wed, 11 Nov 2020 06:03:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x242.google.com (mail-oi1-x242.google.com
- [IPv6:2607:f8b0:4864:20::242])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C7BA89A9F
- for <freedreno@lists.freedesktop.org>; Wed, 11 Nov 2020 04:50:57 +0000 (UTC)
-Received: by mail-oi1-x242.google.com with SMTP id m13so777672oih.8
- for <freedreno@lists.freedesktop.org>; Tue, 10 Nov 2020 20:50:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=TgiY8fdn90Uls12wgNKgzxp/Onwmpb1Il5B5p1lyVJU=;
- b=VYELtnjAV5Ls0k8ZJfZ7zELRqNDR4/IyfkC7nMGABdnGpdE/Zb9PwJSfoGKyU92gq4
- 7UiACwrRNIlrGnDXh7NNg/dHqywhUpUiTH97Emo5n0MQ/QsUQfNb1lkeRe/4BZeWAKW9
- 5HbP/pl2a7ByW7MhaXMYXIgqX4pKvlIufMf9WOq182jsV7cCbhTBC0ukB46Zc191LFey
- BX8SF6f4cJdzGZ39ZM61Q2WktAgjlYYaJspMZjosGtj/3qA9+WDGkAj4MoH3qi7ysQ6J
- 9/krSDyGAmatCg5vZTv3xqVOKoGRIUTREQBkirg6ltpjdDKe8J5DE9uUYjU+SB1XyAX1
- vh7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=TgiY8fdn90Uls12wgNKgzxp/Onwmpb1Il5B5p1lyVJU=;
- b=Ce5nqAkpVzvnKEjGjO+/uOruy+TKYO3esyTrFMZdZ9AqLZ9QfD+1hxqGA8hTK12gHl
- iKk6lMwfQxNhr0OefTcrxDk5IEImxZ8wxvwrX/Tgpbs7UoiU6EWCpvPhgEx73aYM7WpL
- ZXfUFFFbwByLEquWJk+UmSaX+QIJR0VmXwta5gkvbvYOQmTkC38y4jpVT3S2tKooZ2/G
- TKCsMirLRND5MhpnQBUjHyRPTo9IfyoQzVRYwJlHZmVNPgJp2TSlTVYGJv3suSUK90iB
- rS0IdOSqC/GELLINf5S7YSQE8U3jQgadbiOu1nSthH3+9cC0WtLbXEtWZ/15cGK21L3n
- w+ew==
-X-Gm-Message-State: AOAM533YC2mlgV4oS563sURFzADpkejM/LaaDVq1MPKzmOMX8S0ZJ82B
- fiA9AoJjLKRo3j/k7cfUdlLETw==
-X-Google-Smtp-Source: ABdhPJwzPtqe2oFKM2VjVJi3f9w9NPihcWFT8lNK7ABdSE3qphYjo0s4kjlFgvKpRXgW+uj2DIxPeQ==
-X-Received: by 2002:aca:afd3:: with SMTP id y202mr968450oie.135.1605070256818; 
- Tue, 10 Nov 2020 20:50:56 -0800 (PST)
-Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id l19sm277147otp.65.2020.11.10.20.50.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Nov 2020 20:50:56 -0800 (PST)
-Date: Tue, 10 Nov 2020 22:50:54 -0600
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Akhil P Oommen <akhilpo@codeaurora.org>
-Message-ID: <20201111045054.GE173948@builder.lan>
-References: <1604054832-3114-1-git-send-email-akhilpo@codeaurora.org>
- <1604054832-3114-2-git-send-email-akhilpo@codeaurora.org>
+Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3570089BE8
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Nov 2020 06:02:47 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1605074616; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=19xKhDfznvGCGW+VmHaRPVkvoli1tFBpBhhWtoq6cRk=;
+ b=MvlAJfDfDsQDehJjSDfX1vIYztKluVNslFpEdMSRS7K4QdNRTNFOXZpXQfxC0p8pqp2wI37v
+ DUY+TPN+PY/mDelxnzT6Oi257KBSNnZBXJS9nXr5I71lWQizfaQpbTxXFnbZbkXiWmtVRMG/
+ sVXUE1erU3+tZWxFMVCo/18UtYg=
+X-Mailgun-Sending-Ip: 104.130.96.5
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n08.prod.us-west-2.postgun.com with SMTP id
+ 5fab7e8340d4446125b066fa (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 11 Nov 2020 06:02:43
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 3A441C43387; Wed, 11 Nov 2020 06:02:43 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: saiprakash.ranjan)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 1B6CAC433F0;
+ Wed, 11 Nov 2020 06:02:42 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1604054832-3114-2-git-send-email-akhilpo@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v5 2/3] arm64: dts: qcom: sc7180: Add gpu
- cooling support
+Date: Wed, 11 Nov 2020 11:32:42 +0530
+From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+To: Will Deacon <will@kernel.org>
+In-Reply-To: <20201110121855.GD16239@willie-the-truck>
+References: <cover.1604048969.git.saiprakash.ranjan@codeaurora.org>
+ <1d4979c0dcf649c5717605c598067b4b225ab9de.1604048969.git.saiprakash.ranjan@codeaurora.org>
+ <20201110121855.GD16239@willie-the-truck>
+Message-ID: <329542c0c09054a46fa8d6d8f92ad739@codeaurora.org>
+X-Sender: saiprakash.ranjan@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCHv7 1/7] iommu/io-pgtable-arm: Add support to
+ use system cache
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,121 +66,93 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dianders@chromium.org, jcrouse@codeaurora.org,
- mka@chromium.org, robdclark@gmail.com, dri-devel@freedesktop.org,
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Joerg Roedel <joro@8bytes.org>, Jordan Crouse <jcrouse@codeaurora.org>,
+ iommu@lists.linux-foundation.org, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Akhil P Oommen <akhilpo@codeaurora.org>,
+ dri-devel@lists.freedesktop.org, "Kristian H .
+ Kristensen" <hoegsberg@google.com>, Robin Murphy <robin.murphy@arm.com>,
+ linux-arm-kernel@lists.infradead.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri 30 Oct 05:47 CDT 2020, Akhil P Oommen wrote:
-
-> Add cooling-cells property and the cooling maps for the gpu tzones
-> to support GPU cooling.
+On 2020-11-10 17:48, Will Deacon wrote:
+> On Fri, Oct 30, 2020 at 02:53:08PM +0530, Sai Prakash Ranjan wrote:
+>> Add a quirk IO_PGTABLE_QUIRK_SYS_CACHE to override the
+>> attributes set in TCR for the page table walker when
+>> using system cache.
+>> 
+>> Signed-off-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+>> ---
+>>  drivers/iommu/io-pgtable-arm.c | 7 ++++++-
+>>  include/linux/io-pgtable.h     | 4 ++++
+>>  2 files changed, 10 insertions(+), 1 deletion(-)
+>> 
+>> diff --git a/drivers/iommu/io-pgtable-arm.c 
+>> b/drivers/iommu/io-pgtable-arm.c
+>> index a7a9bc08dcd1..a356caf1683a 100644
+>> --- a/drivers/iommu/io-pgtable-arm.c
+>> +++ b/drivers/iommu/io-pgtable-arm.c
+>> @@ -761,7 +761,8 @@ arm_64_lpae_alloc_pgtable_s1(struct io_pgtable_cfg 
+>> *cfg, void *cookie)
+>> 
+>>  	if (cfg->quirks & ~(IO_PGTABLE_QUIRK_ARM_NS |
+>>  			    IO_PGTABLE_QUIRK_NON_STRICT |
+>> -			    IO_PGTABLE_QUIRK_ARM_TTBR1))
+>> +			    IO_PGTABLE_QUIRK_ARM_TTBR1 |
+>> +			    IO_PGTABLE_QUIRK_SYS_CACHE))
+>>  		return NULL;
+>> 
+>>  	data = arm_lpae_alloc_pgtable(cfg);
+>> @@ -773,6 +774,10 @@ arm_64_lpae_alloc_pgtable_s1(struct 
+>> io_pgtable_cfg *cfg, void *cookie)
+>>  		tcr->sh = ARM_LPAE_TCR_SH_IS;
+>>  		tcr->irgn = ARM_LPAE_TCR_RGN_WBWA;
+>>  		tcr->orgn = ARM_LPAE_TCR_RGN_WBWA;
+>> +	} else if (cfg->quirks & IO_PGTABLE_QUIRK_SYS_CACHE) {
+>> +		tcr->sh = ARM_LPAE_TCR_SH_OS;
+>> +		tcr->irgn = ARM_LPAE_TCR_RGN_NC;
+>> +		tcr->orgn = ARM_LPAE_TCR_RGN_WBWA;
 > 
-> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
-> Reviewed-by: Matthias Kaehlcke <mka@chromium.org>
-> ---
->  arch/arm64/boot/dts/qcom/sc7180.dtsi | 30 +++++++++++++++++++++++-------
->  1 file changed, 23 insertions(+), 7 deletions(-)
+> Given that this only applies in the case where then page-table walker 
+> is
+> non-coherent, I think we'd be better off renaming the quirk to 
+> something
+> like IO_PGTABLE_QUIRK_ARM_OUTER_WBWA and then rejecting it in the
+> non-coherent case.
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> index d46b383..8e2000c 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> @@ -2,7 +2,7 @@
->  /*
->   * SC7180 SoC device tree source
->   *
-> - * Copyright (c) 2019, The Linux Foundation. All rights reserved.
-> + * Copyright (c) 2019-20, The Linux Foundation. All rights reserved.
 
-I took the liberty of spelling out 2020 here, as I applied this patch.
+Do you mean like below?
 
-Regards,
-Bjorn
+diff --git a/drivers/iommu/io-pgtable-arm.c 
+b/drivers/iommu/io-pgtable-arm.c
+index a7a9bc08dcd1..94de1f71db42 100644
+--- a/drivers/iommu/io-pgtable-arm.c
++++ b/drivers/iommu/io-pgtable-arm.c
+@@ -776,7 +776,10 @@ arm_64_lpae_alloc_pgtable_s1(struct io_pgtable_cfg 
+*cfg, void *cookie)
+         } else {
+                 tcr->sh = ARM_LPAE_TCR_SH_OS;
+                 tcr->irgn = ARM_LPAE_TCR_RGN_NC;
+-               tcr->orgn = ARM_LPAE_TCR_RGN_NC;
++               if (!(cfg->quirks & IO_PGTABLE_QUIRK_ARM_OUTER_WBWA))
++                       tcr->orgn = ARM_LPAE_TCR_RGN_NC;
++               else
++                       tcr->orgn = ARM_LPAE_TCR_RGN_WBWA;
+         }
 
->   */
->  
->  #include <dt-bindings/clock/qcom,dispcc-sc7180.h>
-> @@ -1886,6 +1886,8 @@
->  			operating-points-v2 = <&gpu_opp_table>;
->  			qcom,gmu = <&gmu>;
->  
-> +			#cooling-cells = <2>;
-> +
->  			interconnects = <&gem_noc MASTER_GFX3D &mc_virt SLAVE_EBI1>;
->  			interconnect-names = "gfx-mem";
->  
-> @@ -3825,16 +3827,16 @@
->  		};
->  
->  		gpuss0-thermal {
-> -			polling-delay-passive = <0>;
-> +			polling-delay-passive = <100>;
->  			polling-delay = <0>;
->  
->  			thermal-sensors = <&tsens0 13>;
->  
->  			trips {
->  				gpuss0_alert0: trip-point0 {
-> -					temperature = <90000>;
-> +					temperature = <95000>;
->  					hysteresis = <2000>;
-> -					type = "hot";
-> +					type = "passive";
->  				};
->  
->  				gpuss0_crit: gpuss0_crit {
-> @@ -3843,19 +3845,26 @@
->  					type = "critical";
->  				};
->  			};
-> +
-> +			cooling-maps {
-> +				map0 {
-> +					trip = <&gpuss0_alert0>;
-> +					cooling-device = <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-> +				};
-> +			};
->  		};
->  
->  		gpuss1-thermal {
-> -			polling-delay-passive = <0>;
-> +			polling-delay-passive = <100>;
->  			polling-delay = <0>;
->  
->  			thermal-sensors = <&tsens0 14>;
->  
->  			trips {
->  				gpuss1_alert0: trip-point0 {
-> -					temperature = <90000>;
-> +					temperature = <95000>;
->  					hysteresis = <2000>;
-> -					type = "hot";
-> +					type = "passive";
->  				};
->  
->  				gpuss1_crit: gpuss1_crit {
-> @@ -3864,6 +3873,13 @@
->  					type = "critical";
->  				};
->  			};
-> +
-> +			cooling-maps {
-> +				map0 {
-> +					trip = <&gpuss1_alert0>;
-> +					cooling-device = <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-> +				};
-> +			};
->  		};
->  
->  		aoss1-thermal {
-> -- 
-> 2.7.4
-> 
+         tg1 = cfg->quirks & IO_PGTABLE_QUIRK_ARM_TTBR1;
+
+
+Thanks,
+Sai
+
+-- 
+QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a 
+member
+of Code Aurora Forum, hosted by The Linux Foundation
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
