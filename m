@@ -2,20 +2,20 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 174642AEBFF
-	for <lists+freedreno@lfdr.de>; Wed, 11 Nov 2020 09:32:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1A102AEC04
+	for <lists+freedreno@lfdr.de>; Wed, 11 Nov 2020 09:32:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F4EB89FE8;
-	Wed, 11 Nov 2020 08:32:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B00C989FEC;
+	Wed, 11 Nov 2020 08:32:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from m176115.mail.qiye.163.com (m176115.mail.qiye.163.com
  [59.111.176.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EA2389FE8;
- Wed, 11 Nov 2020 08:32:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F20689FEA;
+ Wed, 11 Nov 2020 08:32:29 +0000 (UTC)
 Received: from ubuntu.localdomain (unknown [157.0.31.124])
- by m176115.mail.qiye.163.com (Hmail) with ESMTPA id 369C2666DDA;
- Wed, 11 Nov 2020 16:32:15 +0800 (CST)
+ by m176115.mail.qiye.163.com (Hmail) with ESMTPA id E00F76672D5;
+ Wed, 11 Nov 2020 16:32:26 +0800 (CST)
 From: Bernard Zhao <bernard@vivo.com>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
@@ -29,20 +29,20 @@ To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Jonathan Marek <jonathan@marek.ca>, Dave Airlie <airlied@redhat.com>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Wed, 11 Nov 2020 00:31:19 -0800
-Message-Id: <20201111083131.39817-3-bernard@vivo.com>
+Date: Wed, 11 Nov 2020 00:31:20 -0800
+Message-Id: <20201111083131.39817-4-bernard@vivo.com>
 X-Mailer: git-send-email 2.29.0
 In-Reply-To: <20201111083131.39817-1-bernard@vivo.com>
 References: <20201111083131.39817-1-bernard@vivo.com>
 MIME-Version: 1.0
 X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
- oVCBIfWUFZQhhNSkxPHk0YQk9LVkpNS05LQ0hOSE5OTk9VEwETFhoSFyQUDg9ZV1kWGg8SFR0UWU
+ oVCBIfWUFZTRlPTB8ZHh1IT0seVkpNS05LQ0hOT0xITkJVEwETFhoSFyQUDg9ZV1kWGg8SFR0UWU
  FZT0tIVUpKS0hKQ1VLWQY+
-X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6MQg6FDo6PT8pPxcrFghCCB5O
- NBUaCRlVSlVKTUtOS0NITkhNS0tOVTMWGhIXVRkeCRUaCR87DRINFFUYFBZFWVdZEgtZQVlKTkxV
- S1VISlVKSU9ZV1kIAVlBSEpOQjcG
-X-HM-Tid: 0a75b66f188a9373kuws369c2666dda
-Subject: [Freedreno] [PATCH 2/5] adreno/a3xx_gpu.c: add KERN_LEVEL to printk
+X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6Mgg6EBw4TT8vThcXSwg9CANJ
+ Sk0KC0lVSlVKTUtOS0NITk9MQ0hDVTMWGhIXVRkeCRUaCR87DRINFFUYFBZFWVdZEgtZQVlKTkxV
+ S1VISlVKSU9ZV1kIAVlBSE9DQzcG
+X-HM-Tid: 0a75b66f46949373kuwse00f76672d5
+Subject: [Freedreno] [PATCH 3/5] adreno/a4xx_gpu.c: add KERN_LEVEL to printk
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,14 +64,14 @@ Add KERN_LEVEL to printk.
 
 Signed-off-by: Bernard Zhao <bernard@vivo.com>
 ---
- drivers/gpu/drm/msm/adreno/a3xx_gpu.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/adreno/a4xx_gpu.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
-index f29c77d9cd42..64c9a9448f53 100644
---- a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
-@@ -356,7 +356,7 @@ static void a3xx_recover(struct msm_gpu *gpu)
+diff --git a/drivers/gpu/drm/msm/adreno/a4xx_gpu.c b/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
+index 2b93b33b05e4..2206b3b4b191 100644
+--- a/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
+@@ -355,7 +355,7 @@ static void a4xx_recover(struct msm_gpu *gpu)
  	adreno_dump_info(gpu);
  
  	for (i = 0; i < 8; i++) {
@@ -80,13 +80,22 @@ index f29c77d9cd42..64c9a9448f53 100644
  			gpu_read(gpu, REG_AXXX_CP_SCRATCH_REG0 + i));
  	}
  
-@@ -459,7 +459,7 @@ static const unsigned int a3xx_registers[] = {
- /* would be nice to not have to duplicate the _show() stuff with printk(): */
- static void a3xx_dump(struct msm_gpu *gpu)
+@@ -409,7 +409,7 @@ static irqreturn_t a4xx_irq(struct msm_gpu *gpu)
+ 
+ 	if (status & A4XX_INT0_CP_REG_PROTECT_FAULT) {
+ 		uint32_t reg = gpu_read(gpu, REG_A4XX_CP_PROTECT_STATUS);
+-		printk("CP | Protected mode error| %s | addr=%x\n",
++		printk(KERN_DEBUG "CP | Protected mode error| %s | addr=%x\n",
+ 			reg & (1 << 24) ? "WRITE" : "READ",
+ 			(reg & 0xFFFFF) >> 2);
+ 	}
+@@ -565,7 +565,7 @@ static struct msm_gpu_state *a4xx_gpu_state_get(struct msm_gpu *gpu)
+ 
+ static void a4xx_dump(struct msm_gpu *gpu)
  {
 -	printk("status:   %08x\n",
 +	printk(KERN_DEBUG "status:   %08x\n",
- 			gpu_read(gpu, REG_A3XX_RBBM_STATUS));
+ 			gpu_read(gpu, REG_A4XX_RBBM_STATUS));
  	adreno_dump(gpu);
  }
 -- 
