@@ -2,59 +2,42 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 301562AF7EC
-	for <lists+freedreno@lfdr.de>; Wed, 11 Nov 2020 19:31:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 015CB2B0205
+	for <lists+freedreno@lfdr.de>; Thu, 12 Nov 2020 10:35:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD5BB6E072;
-	Wed, 11 Nov 2020 18:31:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98A946E194;
+	Thu, 12 Nov 2020 09:35:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
- [IPv6:2607:f8b0:4864:20::642])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB71B6E09C
- for <freedreno@lists.freedesktop.org>; Wed, 11 Nov 2020 18:31:25 +0000 (UTC)
-Received: by mail-pl1-x642.google.com with SMTP id t18so1425416plo.0
- for <freedreno@lists.freedesktop.org>; Wed, 11 Nov 2020 10:31:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:content-transfer-encoding:in-reply-to:references
- :subject:from:cc:to:date:message-id:user-agent;
- bh=wD0jJ9X64mmDYkYQXCPtOUmFoXPMN4LsIkpG0z5TLc4=;
- b=XNGMe8UIGU4UjjWGJfO7UCoPXJ/HXS48uim2rwQL/5T5pZKMxDtsYw5UhdBzAsuzga
- hcXUEg5BuNcET3U8EHMparmQNn5KFUqSYuMDc1A4PXs0JlhU00TdoW4BTQAQ3/TzPV3r
- lFzbnk1EO2Hs3WEaDfpSjwnjXjwAYz6U2lXUQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:content-transfer-encoding
- :in-reply-to:references:subject:from:cc:to:date:message-id
- :user-agent;
- bh=wD0jJ9X64mmDYkYQXCPtOUmFoXPMN4LsIkpG0z5TLc4=;
- b=PnFq23pu5d+9Fz23wzu3QcU42e2ygMuajCUn3a7rJEHUU5wCr/OgntQ3NBH+lSS+7s
- 00P73so8VUL6ovrjBxkd8Zf9mA1zMV+TirptyNYc9wG6TDnqgqaNLpoaRV/vqOTc3PE2
- JNPk9sgZUGEY0unczclUv1uMIvQU3xw1Lk0G73mDTOJT6tSjMtc/5cwCTd8WMsg67h4+
- zNrqkYYc6ije2eR5bNGk/bQeV9zN3UY/emVihhiSLZQ0jodsfduAx8udkC4/AnomhMlB
- J+M+85O3odjA7wogTEmsQU0X3Qgxty8833nO1TKEfXdTVc7Ni1nJlPoxT9UoWkT0Ag5K
- bNnQ==
-X-Gm-Message-State: AOAM532Y0utc3tJocNxsUSPLALQM3ktBFfVkW+mUULnnpB+GTAmxrWif
- XHBL7EIvru7EdGyJH/nr1+WOqg==
-X-Google-Smtp-Source: ABdhPJy09cg46m0g6zOTsBCTeks5xXNo/nK4uXKQMsNVoEVAyVBE7tfR8Q5SwMX43YYdwEDvK5ynlQ==
-X-Received: by 2002:a17:90a:4dc3:: with SMTP id
- r3mr5029168pjl.155.1605119485287; 
- Wed, 11 Nov 2020 10:31:25 -0800 (PST)
-Received: from chromium.org ([2620:15c:202:201:3e52:82ff:fe6c:83ab])
- by smtp.gmail.com with ESMTPSA id h16sm3018890pjz.10.2020.11.11.10.31.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2020 10:31:24 -0800 (PST)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82B686E192;
+ Thu, 12 Nov 2020 09:35:54 +0000 (UTC)
+Received: from willie-the-truck (236.31.169.217.in-addr.arpa [217.169.31.236])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id C586621D40;
+ Thu, 12 Nov 2020 09:35:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1605173754;
+ bh=jZvtOR3PtNvquvOxsY83AMLM9eQ6NrPnFVAxESmIl28=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=cnKe4HJzQy1Z4Fa3OHn1PJ7Uh7RHRVdjgfXmxYJYHH7lF7Zi06HIbOiwghgMPlOHY
+ SyVnBkxOeiSY1fd2ZB7tBZAKbJWxOpB8nqD6afena+H2UTTmaZf6YJipCEisreDZso
+ YcX9r7FjcfOuOxk8SMu0snM+yi0uuhmEazJHAGdw=
+Date: Thu, 12 Nov 2020 09:35:48 +0000
+From: Will Deacon <will@kernel.org>
+To: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+Message-ID: <20201112093547.GA19049@willie-the-truck>
+References: <cover.1604048969.git.saiprakash.ranjan@codeaurora.org>
+ <a4e454630e57aedd9da6a4ba40c8e1c415bb6836.1604048969.git.saiprakash.ranjan@codeaurora.org>
+ <20201110121835.GC16239@willie-the-truck>
+ <b12284cce40225274c3b2d9aff7eed3a@codeaurora.org>
 MIME-Version: 1.0
-In-Reply-To: <1605081476-27098-1-git-send-email-tiantao6@hisilicon.com>
-References: <1605081476-27098-1-git-send-email-tiantao6@hisilicon.com>
-From: Stephen Boyd <swboyd@chromium.org>
-To: Tian Tao <tiantao6@hisilicon.com>, airlied@linux.ie, daniel@ffwll.ch,
- robdclark@gmail.com, sean@poorly.run
-Date: Wed, 11 Nov 2020 10:31:22 -0800
-Message-ID: <160511948264.60232.638230439536068079@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.9.1
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: remove duplicate include
- statement
+Content-Disposition: inline
+In-Reply-To: <b12284cce40225274c3b2d9aff7eed3a@codeaurora.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Freedreno] [PATCHv7 2/7] iommu/arm-smmu: Add domain attribute
+ for system cache
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,23 +50,118 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: tanmay@codeaurora.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- khsieh@codeaurora.org, abhinavk@codeaurora.org,
- freedreno@lists.freedesktop.org, chandanu@codeaurora.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Joerg Roedel <joro@8bytes.org>, Jordan Crouse <jcrouse@codeaurora.org>,
+ iommu@lists.linux-foundation.org, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Akhil P Oommen <akhilpo@codeaurora.org>,
+ dri-devel@lists.freedesktop.org,
+ "Kristian H . Kristensen" <hoegsberg@google.com>,
+ Robin Murphy <robin.murphy@arm.com>, linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Tian Tao (2020-11-10 23:57:56)
-> linux/rational.h is included more than once, Remove the one that isn't
-> necessary.
+On Wed, Nov 11, 2020 at 12:10:50PM +0530, Sai Prakash Ranjan wrote:
+> On 2020-11-10 17:48, Will Deacon wrote:
+> > On Fri, Oct 30, 2020 at 02:53:09PM +0530, Sai Prakash Ranjan wrote:
+> > > Add iommu domain attribute for using system cache aka last level
+> > > cache by client drivers like GPU to set right attributes for caching
+> > > the hardware pagetables into the system cache.
+> > > 
+> > > Signed-off-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+> > > ---
+> > >  drivers/iommu/arm/arm-smmu/arm-smmu.c | 17 +++++++++++++++++
+> > >  drivers/iommu/arm/arm-smmu/arm-smmu.h |  1 +
+> > >  include/linux/iommu.h                 |  1 +
+> > >  3 files changed, 19 insertions(+)
+> > > 
+> > > diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c
+> > > b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+> > > index b1cf8f0abc29..070d13f80c7e 100644
+> > > --- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
+> > > +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+> > > @@ -789,6 +789,9 @@ static int arm_smmu_init_domain_context(struct
+> > > iommu_domain *domain,
+> > >  	if (smmu_domain->non_strict)
+> > >  		pgtbl_cfg.quirks |= IO_PGTABLE_QUIRK_NON_STRICT;
+> > > 
+> > > +	if (smmu_domain->sys_cache)
+> > > +		pgtbl_cfg.quirks |= IO_PGTABLE_QUIRK_SYS_CACHE;
+> > > +
+> > >  	pgtbl_ops = alloc_io_pgtable_ops(fmt, &pgtbl_cfg, smmu_domain);
+> > >  	if (!pgtbl_ops) {
+> > >  		ret = -ENOMEM;
+> > > @@ -1520,6 +1523,9 @@ static int arm_smmu_domain_get_attr(struct
+> > > iommu_domain *domain,
+> > >  		case DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE:
+> > >  			*(int *)data = smmu_domain->non_strict;
+> > >  			return 0;
+> > > +		case DOMAIN_ATTR_SYS_CACHE:
+> > > +			*((int *)data) = smmu_domain->sys_cache;
+> > > +			return 0;
+> > >  		default:
+> > >  			return -ENODEV;
+> > >  		}
+> > > @@ -1551,6 +1557,17 @@ static int arm_smmu_domain_set_attr(struct
+> > > iommu_domain *domain,
+> > >  			else
+> > >  				smmu_domain->stage = ARM_SMMU_DOMAIN_S1;
+> > >  			break;
+> > > +		case DOMAIN_ATTR_SYS_CACHE:
+> > > +			if (smmu_domain->smmu) {
+> > > +				ret = -EPERM;
+> > > +				goto out_unlock;
+> > > +			}
+> > > +
+> > > +			if (*((int *)data))
+> > > +				smmu_domain->sys_cache = true;
+> > > +			else
+> > > +				smmu_domain->sys_cache = false;
+> > > +			break;
+> > >  		default:
+> > >  			ret = -ENODEV;
+> > >  		}
+> > > diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.h
+> > > b/drivers/iommu/arm/arm-smmu/arm-smmu.h
+> > > index 885840f3bec8..dfc44d806671 100644
+> > > --- a/drivers/iommu/arm/arm-smmu/arm-smmu.h
+> > > +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.h
+> > > @@ -373,6 +373,7 @@ struct arm_smmu_domain {
+> > >  	struct mutex			init_mutex; /* Protects smmu pointer */
+> > >  	spinlock_t			cb_lock; /* Serialises ATS1* ops and TLB syncs */
+> > >  	struct iommu_domain		domain;
+> > > +	bool				sys_cache;
+> > >  };
+> > > 
+> > >  struct arm_smmu_master_cfg {
+> > > diff --git a/include/linux/iommu.h b/include/linux/iommu.h
+> > > index b95a6f8db6ff..4f4bb9c6f8f6 100644
+> > > --- a/include/linux/iommu.h
+> > > +++ b/include/linux/iommu.h
+> > > @@ -118,6 +118,7 @@ enum iommu_attr {
+> > >  	DOMAIN_ATTR_FSL_PAMUV1,
+> > >  	DOMAIN_ATTR_NESTING,	/* two stages of translation */
+> > >  	DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE,
+> > > +	DOMAIN_ATTR_SYS_CACHE,
+> > 
+> > I think you're trying to make this look generic, but it's really not.
+> > If we need to funnel io-pgtable quirks through domain attributes, then I
+> > think we should be open about that and add something like
+> > DOMAIN_ATTR_IO_PGTABLE_CFG which could take a struct of page-table
+> > configuration data for the domain (this could just be quirks initially,
+> > but maybe it's worth extending to take ias, oas and page size)
+> > 
 > 
-> Signed-off-by: Tian Tao <tiantao6@hisilicon.com>
-> ---
+> Actually the initial versions used DOMAIN_ATTR_QCOM_SYS_CACHE
+> to make it QCOM specific and not generic, I don't see anyone else
+> using this attribute, would that work?
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+No -- I'd prefer to have _one_ domain attribute for funneling all the
+IP_PGTABLE_CFG data. Otherwise, we'll just end up with things like
+DOMAIN_ATTR_QCOM_SYS_CACHE_EXT or DOMAIN_ATTR_QCOM_QUIRKS later on.
+
+Will
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
