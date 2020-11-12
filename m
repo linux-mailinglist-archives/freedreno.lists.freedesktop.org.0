@@ -2,42 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 375662B022D
-	for <lists+freedreno@lfdr.de>; Thu, 12 Nov 2020 10:44:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B63F92B08D4
+	for <lists+freedreno@lfdr.de>; Thu, 12 Nov 2020 16:49:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E0396E1CF;
-	Thu, 12 Nov 2020 09:44:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C7296E084;
+	Thu, 12 Nov 2020 15:49:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C10B76E1C0;
- Thu, 12 Nov 2020 09:43:59 +0000 (UTC)
-Received: from willie-the-truck (236.31.169.217.in-addr.arpa [217.169.31.236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 131DA221FC;
- Thu, 12 Nov 2020 09:43:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1605174239;
- bh=PX0Rx6DcDiPgOuXIk7NQwtEU8lgYXlKPndWTh8AkZDM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=NJxlZKiQ5RXRwLtdPQ973uyiOTFXEykVI1DX9HmOJRvYKPh3u0K8Cszg6f/NljKSF
- diotEEHr2Um5xjKVUnh/nL6p3VIaEvbDAD+193gZDC62PiTc8QjnvFILYIx2E6JRCJ
- 4k4dUTiNPZZmeB5XqjVkNNvPYbl6OpWNP6NBWtzY=
-Date: Thu, 12 Nov 2020 09:43:53 +0000
-From: Will Deacon <will@kernel.org>
-To: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-Message-ID: <20201112094353.GB19049@willie-the-truck>
-References: <cover.1604048969.git.saiprakash.ranjan@codeaurora.org>
- <1d4979c0dcf649c5717605c598067b4b225ab9de.1604048969.git.saiprakash.ranjan@codeaurora.org>
- <20201110121855.GD16239@willie-the-truck>
- <329542c0c09054a46fa8d6d8f92ad739@codeaurora.org>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <329542c0c09054a46fa8d6d8f92ad739@codeaurora.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCHv7 1/7] iommu/io-pgtable-arm: Add support to
- use system cache
+Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 842D96E084
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Nov 2020 15:49:15 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1605196156; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=vNs3uxGZ5eCK5kSwG8OJZ00mbV0n4/PmvePlsm2ZrM4=;
+ b=Bi/0XH5muSnvpxEJkabYJ1Egc81TgB8epJVJZ2r/A4gmKL4e381v80I3cM+C1IrCvs9nA3AZ
+ ubGXT6XnpWf8hlkaOcuQaO7XIj+TuxOHEK84ZMjKvYaRVdSlX45u1Xn9fIRSQH8makQCYQPx
+ TK3/Fsv42EDOl5nLA6AmKkHmfMw=
+X-Mailgun-Sending-Ip: 104.130.96.5
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
+ 5fad597a24ba9b3b02a6ac14 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 12 Nov 2020 15:49:14
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 43B36C433F0; Thu, 12 Nov 2020 15:49:14 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from akhilpo-linux.qualcomm.com (unknown [202.46.22.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 5D42DC433C6;
+ Thu, 12 Nov 2020 15:49:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 5D42DC433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=akhilpo@codeaurora.org
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+To: freedreno@lists.freedesktop.org
+Date: Thu, 12 Nov 2020 21:19:04 +0530
+Message-Id: <1605196144-23516-1-git-send-email-akhilpo@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH] drm/msm: adreno: Make speed-bin support generic
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,84 +63,245 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Joerg Roedel <joro@8bytes.org>, Jordan Crouse <jcrouse@codeaurora.org>,
- iommu@lists.linux-foundation.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Akhil P Oommen <akhilpo@codeaurora.org>,
- dri-devel@lists.freedesktop.org,
- "Kristian H . Kristensen" <hoegsberg@google.com>,
- Robin Murphy <robin.murphy@arm.com>, linux-arm-kernel@lists.infradead.org
+Cc: dianders@chromium.org, linux-arm-msm@vger.kernel.org, robdclark@gmail.com,
+ linux-kernel@vger.kernel.org, jcrouse@codeaurora.org, mka@chromium.org,
+ dri-devel@freedesktop.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Nov 11, 2020 at 11:32:42AM +0530, Sai Prakash Ranjan wrote:
-> On 2020-11-10 17:48, Will Deacon wrote:
-> > On Fri, Oct 30, 2020 at 02:53:08PM +0530, Sai Prakash Ranjan wrote:
-> > > Add a quirk IO_PGTABLE_QUIRK_SYS_CACHE to override the
-> > > attributes set in TCR for the page table walker when
-> > > using system cache.
-> > > 
-> > > Signed-off-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-> > > ---
-> > >  drivers/iommu/io-pgtable-arm.c | 7 ++++++-
-> > >  include/linux/io-pgtable.h     | 4 ++++
-> > >  2 files changed, 10 insertions(+), 1 deletion(-)
-> > > 
-> > > diff --git a/drivers/iommu/io-pgtable-arm.c
-> > > b/drivers/iommu/io-pgtable-arm.c
-> > > index a7a9bc08dcd1..a356caf1683a 100644
-> > > --- a/drivers/iommu/io-pgtable-arm.c
-> > > +++ b/drivers/iommu/io-pgtable-arm.c
-> > > @@ -761,7 +761,8 @@ arm_64_lpae_alloc_pgtable_s1(struct
-> > > io_pgtable_cfg *cfg, void *cookie)
-> > > 
-> > >  	if (cfg->quirks & ~(IO_PGTABLE_QUIRK_ARM_NS |
-> > >  			    IO_PGTABLE_QUIRK_NON_STRICT |
-> > > -			    IO_PGTABLE_QUIRK_ARM_TTBR1))
-> > > +			    IO_PGTABLE_QUIRK_ARM_TTBR1 |
-> > > +			    IO_PGTABLE_QUIRK_SYS_CACHE))
-> > >  		return NULL;
-> > > 
-> > >  	data = arm_lpae_alloc_pgtable(cfg);
-> > > @@ -773,6 +774,10 @@ arm_64_lpae_alloc_pgtable_s1(struct
-> > > io_pgtable_cfg *cfg, void *cookie)
-> > >  		tcr->sh = ARM_LPAE_TCR_SH_IS;
-> > >  		tcr->irgn = ARM_LPAE_TCR_RGN_WBWA;
-> > >  		tcr->orgn = ARM_LPAE_TCR_RGN_WBWA;
-> > > +	} else if (cfg->quirks & IO_PGTABLE_QUIRK_SYS_CACHE) {
-> > > +		tcr->sh = ARM_LPAE_TCR_SH_OS;
-> > > +		tcr->irgn = ARM_LPAE_TCR_RGN_NC;
-> > > +		tcr->orgn = ARM_LPAE_TCR_RGN_WBWA;
-> > 
-> > Given that this only applies in the case where then page-table walker is
-> > non-coherent, I think we'd be better off renaming the quirk to something
-> > like IO_PGTABLE_QUIRK_ARM_OUTER_WBWA and then rejecting it in the
-> > non-coherent case.
-> > 
-> 
-> Do you mean like below?
-> 
-> diff --git a/drivers/iommu/io-pgtable-arm.c b/drivers/iommu/io-pgtable-arm.c
-> index a7a9bc08dcd1..94de1f71db42 100644
-> --- a/drivers/iommu/io-pgtable-arm.c
-> +++ b/drivers/iommu/io-pgtable-arm.c
-> @@ -776,7 +776,10 @@ arm_64_lpae_alloc_pgtable_s1(struct io_pgtable_cfg
-> *cfg, void *cookie)
->         } else {
->                 tcr->sh = ARM_LPAE_TCR_SH_OS;
->                 tcr->irgn = ARM_LPAE_TCR_RGN_NC;
-> -               tcr->orgn = ARM_LPAE_TCR_RGN_NC;
-> +               if (!(cfg->quirks & IO_PGTABLE_QUIRK_ARM_OUTER_WBWA))
-> +                       tcr->orgn = ARM_LPAE_TCR_RGN_NC;
-> +               else
-> +                       tcr->orgn = ARM_LPAE_TCR_RGN_WBWA;
+So far a530v2 gpu has support for detecting its supported opps
+based on a fuse value called speed-bin. This patch makes this
+support generic across gpu families. This is in preparation to
+extend speed-bin support to a6x family.
 
-Yes, but rejecting the quirk if the walker is coherent (I accidentally said
-"non-coherent" earlier on).
+Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+---
+This patch is rebased on top of msm-next-staging branch in rob's tree.
 
-Will
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c      | 34 --------------
+ drivers/gpu/drm/msm/adreno/adreno_device.c |  4 ++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c    | 71 ++++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  5 +++
+ 4 files changed, 80 insertions(+), 34 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+index 8fa5c91..7d42321 100644
+--- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+@@ -1531,38 +1531,6 @@ static const struct adreno_gpu_funcs funcs = {
+ 	.get_timestamp = a5xx_get_timestamp,
+ };
+ 
+-static void check_speed_bin(struct device *dev)
+-{
+-	struct nvmem_cell *cell;
+-	u32 val;
+-
+-	/*
+-	 * If the OPP table specifies a opp-supported-hw property then we have
+-	 * to set something with dev_pm_opp_set_supported_hw() or the table
+-	 * doesn't get populated so pick an arbitrary value that should
+-	 * ensure the default frequencies are selected but not conflict with any
+-	 * actual bins
+-	 */
+-	val = 0x80;
+-
+-	cell = nvmem_cell_get(dev, "speed_bin");
+-
+-	if (!IS_ERR(cell)) {
+-		void *buf = nvmem_cell_read(cell, NULL);
+-
+-		if (!IS_ERR(buf)) {
+-			u8 bin = *((u8 *) buf);
+-
+-			val = (1 << bin);
+-			kfree(buf);
+-		}
+-
+-		nvmem_cell_put(cell);
+-	}
+-
+-	dev_pm_opp_set_supported_hw(dev, &val, 1);
+-}
+-
+ struct msm_gpu *a5xx_gpu_init(struct drm_device *dev)
+ {
+ 	struct msm_drm_private *priv = dev->dev_private;
+@@ -1588,8 +1556,6 @@ struct msm_gpu *a5xx_gpu_init(struct drm_device *dev)
+ 
+ 	a5xx_gpu->lm_leakage = 0x4E001A;
+ 
+-	check_speed_bin(&pdev->dev);
+-
+ 	ret = adreno_gpu_init(dev, pdev, adreno_gpu, &funcs, 4);
+ 	if (ret) {
+ 		a5xx_destroy(&(a5xx_gpu->base.base));
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index 87c8b03..e0ff16c 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -18,6 +18,8 @@ bool snapshot_debugbus = false;
+ MODULE_PARM_DESC(snapshot_debugbus, "Include debugbus sections in GPU devcoredump (if not fused off)");
+ module_param_named(snapshot_debugbus, snapshot_debugbus, bool, 0600);
+ 
++const u32 a530v2_speedbins[] = {0, 1, 2, 3, 4, 5, 6, 7};
++
+ static const struct adreno_info gpulist[] = {
+ 	{
+ 		.rev   = ADRENO_REV(2, 0, 0, 0),
+@@ -163,6 +165,8 @@ static const struct adreno_info gpulist[] = {
+ 			ADRENO_QUIRK_FAULT_DETECT_MASK,
+ 		.init = a5xx_gpu_init,
+ 		.zapfw = "a530_zap.mdt",
++		.speedbins = a530v2_speedbins,
++		.speedbins_count = ARRAY_SIZE(a530v2_speedbins),
+ 	}, {
+ 		.rev = ADRENO_REV(5, 4, 0, 2),
+ 		.revn = 540,
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index f21561d..cdd0c11 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -14,6 +14,7 @@
+ #include <linux/pm_opp.h>
+ #include <linux/slab.h>
+ #include <linux/soc/qcom/mdt_loader.h>
++#include <linux/nvmem-consumer.h>
+ #include <soc/qcom/ocmem.h>
+ #include "adreno_gpu.h"
+ #include "msm_gem.h"
+@@ -891,6 +892,69 @@ void adreno_gpu_ocmem_cleanup(struct adreno_ocmem *adreno_ocmem)
+ 			   adreno_ocmem->hdl);
+ }
+ 
++static int adreno_set_supported_hw(struct device *dev,
++		struct adreno_gpu *adreno_gpu)
++{
++	u8 speedbins_count = adreno_gpu->info->speedbins_count;
++	const u32 *speedbins = adreno_gpu->info->speedbins;
++	struct nvmem_cell *cell;
++	u32 bin, i;
++	u32 val = 0;
++	void *buf, *opp_table;
++
++	cell = nvmem_cell_get(dev, "speed_bin");
++	/*
++	 * -ENOENT means that the platform doesn't support speedbin which is
++	 * fine
++	 */
++	if (PTR_ERR(cell) == -ENOENT)
++		return 0;
++	else if (IS_ERR(cell))
++		return PTR_ERR(cell);
++
++	/* A speedbin table is must if the platform supports speedbin */
++	if (!speedbins) {
++		DRM_DEV_ERROR(dev, "speed-bin table is missing\n");
++		return -ENOENT;
++	}
++
++	buf = nvmem_cell_read(cell, NULL);
++	if (IS_ERR(buf)) {
++		nvmem_cell_put(cell);
++		return PTR_ERR(buf);
++	}
++
++	bin = *((u32 *) buf);
++
++	for (i = 0; i < speedbins_count; i++) {
++		if (bin == speedbins[i]) {
++			val = (1 << i);
++			break;
++		}
++	}
++
++	kfree(buf);
++	nvmem_cell_put(cell);
++
++	if (!val) {
++		DRM_DEV_ERROR(dev, "missing support for speed-bin: %u\n", bin);
++		return -ENOENT;
++	}
++
++	opp_table = dev_pm_opp_set_supported_hw(dev, &val, 1);
++	if (IS_ERR(opp_table))
++		return PTR_ERR(opp_table);
++
++	adreno_gpu->opp_table = opp_table;
++	return 0;
++}
++
++static void adreno_put_supported_hw(struct opp_table *opp_table)
++{
++	if (opp_table)
++		dev_pm_opp_put_supported_hw(opp_table);
++}
++
+ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 		struct adreno_gpu *adreno_gpu,
+ 		const struct adreno_gpu_funcs *funcs, int nr_rings)
+@@ -899,6 +963,7 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 	struct adreno_platform_config *config = dev->platform_data;
+ 	struct msm_gpu_config adreno_gpu_config  = { 0 };
+ 	struct msm_gpu *gpu = &adreno_gpu->base;
++	int ret;
+ 
+ 	adreno_gpu->funcs = funcs;
+ 	adreno_gpu->info = adreno_info(config->rev);
+@@ -910,6 +975,10 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 
+ 	adreno_gpu_config.nr_rings = nr_rings;
+ 
++	ret = adreno_set_supported_hw(dev, adreno_gpu);
++	if (ret)
++		return ret;
++
+ 	adreno_get_pwrlevels(dev, gpu);
+ 
+ 	pm_runtime_set_autosuspend_delay(dev,
+@@ -936,4 +1005,6 @@ void adreno_gpu_cleanup(struct adreno_gpu *adreno_gpu)
+ 
+ 	icc_put(gpu->icc_path);
+ 	icc_put(gpu->ocmem_icc_path);
++
++	adreno_put_supported_hw(adreno_gpu->opp_table);
+ }
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index c3775f7..a756ad7 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -55,6 +55,7 @@ struct adreno_reglist {
+ };
+ 
+ extern const struct adreno_reglist a630_hwcg[], a640_hwcg[], a650_hwcg[];
++extern const u32 a618_speedbins[];
+ 
+ struct adreno_info {
+ 	struct adreno_rev rev;
+@@ -67,6 +68,8 @@ struct adreno_info {
+ 	const char *zapfw;
+ 	u32 inactive_period;
+ 	const struct adreno_reglist *hwcg;
++	const u32 *speedbins;
++	const u8 speedbins_count;
+ };
+ 
+ const struct adreno_info *adreno_info(struct adreno_rev rev);
+@@ -112,6 +115,8 @@ struct adreno_gpu {
+ 	 * code (a3xx_gpu.c) and stored in this common location.
+ 	 */
+ 	const unsigned int *reg_offsets;
++
++	struct opp_table *opp_table;
+ };
+ #define to_adreno_gpu(x) container_of(x, struct adreno_gpu, base)
+ 
+-- 
+2.7.4
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
