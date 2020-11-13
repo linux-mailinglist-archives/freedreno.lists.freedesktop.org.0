@@ -2,53 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AD812B0A1E
-	for <lists+freedreno@lfdr.de>; Thu, 12 Nov 2020 17:37:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0606E2B1C26
+	for <lists+freedreno@lfdr.de>; Fri, 13 Nov 2020 14:49:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF4076E2E1;
-	Thu, 12 Nov 2020 16:37:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E8686E4F9;
+	Fri, 13 Nov 2020 13:49:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6074D6E213
- for <freedreno@lists.freedesktop.org>; Thu, 12 Nov 2020 16:37:31 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id p8so6692816wrx.5
- for <freedreno@lists.freedesktop.org>; Thu, 12 Nov 2020 08:37:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=856+wuZ3br1mkt8SsqhtyD2C7s8L5Yj2DM9tF9JbCR4=;
- b=rToA2rjiTiGnpXYZPJTiG0pGT4UNEkaz+nlmrTtxoK9NcJDbO6ljBtxIypteTx+Hoc
- 4OLesTMbkHApWMtspZ+gWsMa934eQpiZ+V/mIuTXy8238dOpXI51bRigR7gS1SVyRpEp
- yxdAvFcQTXqOeubDrm0CH2Yz1rj6jw4m7K8iiu/5KQH17Z2jD5WmHmgOLejNCN8b5uaV
- AQ8FDh+U+JfuMdPVb5TxOyd08yxDwxuzoY4Q4CReYhfJJceZ8sMBfqmTHvjgF0bAbzBD
- 0zLsEWvXCGlEnbGZHFMGhHbs1YPgz8ZzYD2yzeG3GMZT/dL7/WLOW9gCeGhfZVCbrpNC
- NIJQ==
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86C756E4FB
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Nov 2020 13:49:44 +0000 (UTC)
+Received: by mail-wr1-x42f.google.com with SMTP id j7so9999965wrp.3
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Nov 2020 05:49:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=WyNuXCVQx1RiXbGVlsoSFjQskftsnSEq5QsbaFWLc8c=;
+ b=pUV4xAYSW0aqWu4AgWE4Gu2ONVq/tvb+WU7dXYssWQBu4ISundyt8NUCtc3f8rsBFW
+ Xzm7UqTQy9pLCI/Jxq8tXwTjvV9mAN0N/fYkswK2OI2Gd3vVh4RZq0Q7nx39lnCo67Cp
+ pEYP24JGpSOFpO59d+XKbaCuVBYmcsuh6Ya7jp7hTFthga1+7G1qtIzymeh3egKNH5FQ
+ RCyoD1ye0kCX5gf0nYlh2yzcpQYVHocfXme6+rV2peCwPODI6UKj/W9usL5uEjZfG+i7
+ 72xj5tJLfB+E0cwDCs2xg0uE3/2741OYcjK9rE93doNXXcVCb1DVU1qo7MiVcBCdgwGc
+ wpQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=856+wuZ3br1mkt8SsqhtyD2C7s8L5Yj2DM9tF9JbCR4=;
- b=Ax1n2VnUjorG8zpH/c+ifpGAH7YHPkfWqqHZGlMWQ0jXeJG/LRP2eHsgWsBKy1tksb
- EgsYkcUcQtRqwx6F+NmA3Lebetz9T6ivj4dwxuwQ0KQ49/nbuLBBX0p3pgB0Q1WR49N8
- 1vWBCS/7V5AL2aEKYX1cYleBzKnr61tDIXwGSG2DPN0Tm8QV8mKFvVqLSTwmZpQUlmuT
- 6i2uh9NTinuzibTJ4uz7HgH6E2RT4KSoys00UBZogGCkgpA+npt/vBJRpFrDj3G6jq73
- iBbEw7rAIqiS7ZAch5dNt9hZVgE7qAIckNXbvAobUZBNSeyFRl82kBRtcDumfzueiWT6
- hsQw==
-X-Gm-Message-State: AOAM531agINwKAeAOnHOTxS0Z09teH1Kv9zd7qqyY5Ii5TuYRmNdn8dz
- /2Fey0nNmMP/osRP4kli3aSaVBXK3Q3kn7hclC8=
-X-Google-Smtp-Source: ABdhPJynEFH36Z8T+0ra+y017A2jM4jxsUQt6xGrjuI/b2OTMBqOKgeAx9VEmjdg/N68ZQKKDLW0pDPu5uPlSAT7Dik=
-X-Received: by 2002:adf:a54d:: with SMTP id j13mr475613wrb.132.1605199049893; 
- Thu, 12 Nov 2020 08:37:29 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=WyNuXCVQx1RiXbGVlsoSFjQskftsnSEq5QsbaFWLc8c=;
+ b=DOJqlR+YzHaHJBZ8c31vMT0aqVCIHQyGTZy3BxmdUwKnucCBomCZULebFNPvuU0xsd
+ 2e/pmON8Hv+yKz1T2wBYZCD8oFBZuFn7P2bCJmc4rVPp1fVIVxOQysRN0Af8pAmxRpid
+ nH8nkreRJPR2MT4gnTDbayPcW6d4SfjOV1JWXyq+Ya2XrIGOb16z/JlKj/ZJcuB9mUpf
+ 3eqVnMiqdovqECPzcu5p3v7dTqf7fsIeKgfjxDX/2zp24u4V7R9e3q94caaasf7BdO+a
+ C2h9d2zDib9VAvFFiNVx5ZDqSXC5tleqk3hZsTjTGNc620ldNc9EcXwgNISB19X46MMV
+ zAgw==
+X-Gm-Message-State: AOAM532VDrX6ftwUo/7UBUl0e+MdnyTTwTDInHdLR2pgEgehVN0MwgYs
+ vgB5ioAkMQbfMAvD35QJcR5eWw==
+X-Google-Smtp-Source: ABdhPJzuhrz0RkDiGvF0LEw8t6raG5YB/yTSg1tZvfa/F31g8zu8pmDVbzFZxyxSqiLSK4ZsfQOcgg==
+X-Received: by 2002:adf:f808:: with SMTP id s8mr3615050wrp.257.1605275382853; 
+ Fri, 13 Nov 2020 05:49:42 -0800 (PST)
+Received: from dell.default ([91.110.221.159])
+ by smtp.gmail.com with ESMTPSA id t11sm4561614wrm.8.2020.11.13.05.49.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Nov 2020 05:49:42 -0800 (PST)
+From: Lee Jones <lee.jones@linaro.org>
+To: lee.jones@linaro.org
+Date: Fri, 13 Nov 2020 13:48:58 +0000
+Message-Id: <20201113134938.4004947-1-lee.jones@linaro.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <1605196144-23516-1-git-send-email-akhilpo@codeaurora.org>
-In-Reply-To: <1605196144-23516-1-git-send-email-akhilpo@codeaurora.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 12 Nov 2020 08:37:18 -0800
-Message-ID: <CAF6AEGutT0M9mu2NhUnqnvrqSNEUEqYJKS6Mt0vXwV+mPyQGMw@mail.gmail.com>
-To: Akhil P Oommen <akhilpo@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm: adreno: Make speed-bin support
- generic
+Subject: [Freedreno] [PATCH 00/40] [Set 7] Rid W=1 warnings from GPU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,261 +64,170 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Douglas Anderson <dianders@chromium.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, Matthias Kaehlcke <mka@chromium.org>,
- dri-devel@freedesktop.org, freedreno <freedreno@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
+ Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
+ Eric Anholt <eric@anholt.net>, Thierry Reding <thierry.reding@gmail.com>,
+ Sam Ravnborg <sam@ravnborg.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Jerome Brunet <jbrunet@baylibre.com>, lima@lists.freedesktop.org,
+ Kevin Hilman <khilman@baylibre.com>, amd-gfx@lists.freedesktop.org,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Luben Tuikov <luben.tuikov@amd.com>, Andres Rodriguez <andresx7@gmail.com>,
+ YT SHEN <yt.shen@mediatek.com>, Harry Wentland <harry.wentland@amd.com>,
+ linux-media@vger.kernel.org, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Leo Li <sunpeng.li@amd.com>,
+ linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
+ linux-mediatek@lists.infradead.org, Kalyan Thota <kalyan_t@codeaurora.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
+ John Clements <john.clements@amd.com>, linux-arm-kernel@lists.infradead.org,
+ Sean Paul <sean@poorly.run>, Jie Qiu <jie.qiu@mediatek.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, linux-kernel@vger.kernel.org,
+ Monk.liu@amd.com, Rob Clark <robdclark@gmail.com>, Qiang Yu <yuq825@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ freedreno@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Nov 12, 2020 at 7:49 AM Akhil P Oommen <akhilpo@codeaurora.org> wrote:
->
-> So far a530v2 gpu has support for detecting its supported opps
-> based on a fuse value called speed-bin. This patch makes this
-> support generic across gpu families. This is in preparation to
-> extend speed-bin support to a6x family.
->
-> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
-> ---
-> This patch is rebased on top of msm-next-staging branch in rob's tree.
->
->  drivers/gpu/drm/msm/adreno/a5xx_gpu.c      | 34 --------------
->  drivers/gpu/drm/msm/adreno/adreno_device.c |  4 ++
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c    | 71 ++++++++++++++++++++++++++++++
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  5 +++
->  4 files changed, 80 insertions(+), 34 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> index 8fa5c91..7d42321 100644
-> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> @@ -1531,38 +1531,6 @@ static const struct adreno_gpu_funcs funcs = {
->         .get_timestamp = a5xx_get_timestamp,
->  };
->
-> -static void check_speed_bin(struct device *dev)
-> -{
-> -       struct nvmem_cell *cell;
-> -       u32 val;
-> -
-> -       /*
-> -        * If the OPP table specifies a opp-supported-hw property then we have
-> -        * to set something with dev_pm_opp_set_supported_hw() or the table
-> -        * doesn't get populated so pick an arbitrary value that should
-> -        * ensure the default frequencies are selected but not conflict with any
-> -        * actual bins
-> -        */
-> -       val = 0x80;
-> -
-> -       cell = nvmem_cell_get(dev, "speed_bin");
-> -
-> -       if (!IS_ERR(cell)) {
-> -               void *buf = nvmem_cell_read(cell, NULL);
-> -
-> -               if (!IS_ERR(buf)) {
-> -                       u8 bin = *((u8 *) buf);
-> -
-> -                       val = (1 << bin);
-> -                       kfree(buf);
-> -               }
-> -
-> -               nvmem_cell_put(cell);
-> -       }
-> -
-> -       dev_pm_opp_set_supported_hw(dev, &val, 1);
-> -}
-> -
->  struct msm_gpu *a5xx_gpu_init(struct drm_device *dev)
->  {
->         struct msm_drm_private *priv = dev->dev_private;
-> @@ -1588,8 +1556,6 @@ struct msm_gpu *a5xx_gpu_init(struct drm_device *dev)
->
->         a5xx_gpu->lm_leakage = 0x4E001A;
->
-> -       check_speed_bin(&pdev->dev);
-> -
->         ret = adreno_gpu_init(dev, pdev, adreno_gpu, &funcs, 4);
->         if (ret) {
->                 a5xx_destroy(&(a5xx_gpu->base.base));
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> index 87c8b03..e0ff16c 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> @@ -18,6 +18,8 @@ bool snapshot_debugbus = false;
->  MODULE_PARM_DESC(snapshot_debugbus, "Include debugbus sections in GPU devcoredump (if not fused off)");
->  module_param_named(snapshot_debugbus, snapshot_debugbus, bool, 0600);
->
-> +const u32 a530v2_speedbins[] = {0, 1, 2, 3, 4, 5, 6, 7};
-> +
->  static const struct adreno_info gpulist[] = {
->         {
->                 .rev   = ADRENO_REV(2, 0, 0, 0),
-> @@ -163,6 +165,8 @@ static const struct adreno_info gpulist[] = {
->                         ADRENO_QUIRK_FAULT_DETECT_MASK,
->                 .init = a5xx_gpu_init,
->                 .zapfw = "a530_zap.mdt",
-> +               .speedbins = a530v2_speedbins,
-> +               .speedbins_count = ARRAY_SIZE(a530v2_speedbins),
->         }, {
->                 .rev = ADRENO_REV(5, 4, 0, 2),
->                 .revn = 540,
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> index f21561d..cdd0c11 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -14,6 +14,7 @@
->  #include <linux/pm_opp.h>
->  #include <linux/slab.h>
->  #include <linux/soc/qcom/mdt_loader.h>
-> +#include <linux/nvmem-consumer.h>
->  #include <soc/qcom/ocmem.h>
->  #include "adreno_gpu.h"
->  #include "msm_gem.h"
-> @@ -891,6 +892,69 @@ void adreno_gpu_ocmem_cleanup(struct adreno_ocmem *adreno_ocmem)
->                            adreno_ocmem->hdl);
->  }
->
-> +static int adreno_set_supported_hw(struct device *dev,
-> +               struct adreno_gpu *adreno_gpu)
-> +{
-> +       u8 speedbins_count = adreno_gpu->info->speedbins_count;
-> +       const u32 *speedbins = adreno_gpu->info->speedbins;
-> +       struct nvmem_cell *cell;
-> +       u32 bin, i;
-> +       u32 val = 0;
-> +       void *buf, *opp_table;
-> +
-> +       cell = nvmem_cell_get(dev, "speed_bin");
-> +       /*
-> +        * -ENOENT means that the platform doesn't support speedbin which is
-> +        * fine
-> +        */
-> +       if (PTR_ERR(cell) == -ENOENT)
-> +               return 0;
-> +       else if (IS_ERR(cell))
-> +               return PTR_ERR(cell);
-> +
-> +       /* A speedbin table is must if the platform supports speedbin */
-> +       if (!speedbins) {
-> +               DRM_DEV_ERROR(dev, "speed-bin table is missing\n");
-> +               return -ENOENT;
-
-Hmm, this means that hw which supports speed-bin, but for which we
-haven't yet added a speedbin table, will start failing.  Which seems
-not great.  Maybe it would be better to keep the DRM_DEV_ERROR() (so
-people realize something is missing), but return 0?
-
-Or do you think we could add the speed-bin tables for all supported hw
-immediately?
-
-BR,
--R
-
-> +       }
-> +
-> +       buf = nvmem_cell_read(cell, NULL);
-> +       if (IS_ERR(buf)) {
-> +               nvmem_cell_put(cell);
-> +               return PTR_ERR(buf);
-> +       }
-> +
-> +       bin = *((u32 *) buf);
-> +
-> +       for (i = 0; i < speedbins_count; i++) {
-> +               if (bin == speedbins[i]) {
-> +                       val = (1 << i);
-> +                       break;
-> +               }
-> +       }
-> +
-> +       kfree(buf);
-> +       nvmem_cell_put(cell);
-> +
-> +       if (!val) {
-> +               DRM_DEV_ERROR(dev, "missing support for speed-bin: %u\n", bin);
-> +               return -ENOENT;
-> +       }
-> +
-> +       opp_table = dev_pm_opp_set_supported_hw(dev, &val, 1);
-> +       if (IS_ERR(opp_table))
-> +               return PTR_ERR(opp_table);
-> +
-> +       adreno_gpu->opp_table = opp_table;
-> +       return 0;
-> +}
-> +
-> +static void adreno_put_supported_hw(struct opp_table *opp_table)
-> +{
-> +       if (opp_table)
-> +               dev_pm_opp_put_supported_hw(opp_table);
-> +}
-> +
->  int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->                 struct adreno_gpu *adreno_gpu,
->                 const struct adreno_gpu_funcs *funcs, int nr_rings)
-> @@ -899,6 +963,7 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->         struct adreno_platform_config *config = dev->platform_data;
->         struct msm_gpu_config adreno_gpu_config  = { 0 };
->         struct msm_gpu *gpu = &adreno_gpu->base;
-> +       int ret;
->
->         adreno_gpu->funcs = funcs;
->         adreno_gpu->info = adreno_info(config->rev);
-> @@ -910,6 +975,10 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->
->         adreno_gpu_config.nr_rings = nr_rings;
->
-> +       ret = adreno_set_supported_hw(dev, adreno_gpu);
-> +       if (ret)
-> +               return ret;
-> +
->         adreno_get_pwrlevels(dev, gpu);
->
->         pm_runtime_set_autosuspend_delay(dev,
-> @@ -936,4 +1005,6 @@ void adreno_gpu_cleanup(struct adreno_gpu *adreno_gpu)
->
->         icc_put(gpu->icc_path);
->         icc_put(gpu->ocmem_icc_path);
-> +
-> +       adreno_put_supported_hw(adreno_gpu->opp_table);
->  }
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> index c3775f7..a756ad7 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> @@ -55,6 +55,7 @@ struct adreno_reglist {
->  };
->
->  extern const struct adreno_reglist a630_hwcg[], a640_hwcg[], a650_hwcg[];
-> +extern const u32 a618_speedbins[];
->
->  struct adreno_info {
->         struct adreno_rev rev;
-> @@ -67,6 +68,8 @@ struct adreno_info {
->         const char *zapfw;
->         u32 inactive_period;
->         const struct adreno_reglist *hwcg;
-> +       const u32 *speedbins;
-> +       const u8 speedbins_count;
->  };
->
->  const struct adreno_info *adreno_info(struct adreno_rev rev);
-> @@ -112,6 +115,8 @@ struct adreno_gpu {
->          * code (a3xx_gpu.c) and stored in this common location.
->          */
->         const unsigned int *reg_offsets;
-> +
-> +       struct opp_table *opp_table;
->  };
->  #define to_adreno_gpu(x) container_of(x, struct adreno_gpu, base)
->
-> --
-> 2.7.4
->
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+VGhpcyBzZXQgaXMgcGFydCBvZiBhIGxhcmdlciBlZmZvcnQgYXR0ZW1wdGluZyB0byBjbGVhbi11
+cCBXPTEKa2VybmVsIGJ1aWxkcywgd2hpY2ggYXJlIGN1cnJlbnRseSBvdmVyd2hlbG1pbmdseSBy
+aWRkbGVkIHdpdGgKbmlnZ2x5IGxpdHRsZSB3YXJuaW5ncy4KClRoaXMgYnJpbmdzIHRoZSBydW5u
+aW5nIHRvdGFsIGZyb20gNTAwMCAoaW4gdjUuOSkgZG93biB0byAxNDAwIQoKSG9wZWZ1bGx5IG5v
+dCB0b28gbXVjaCBtb3JlIHRvIGdvIG5vdy4KCkxlZSBKb25lcyAoNDApOgogIGRybS9hbWQvaW5j
+bHVkZS92ZWdhMTBfaXBfb2Zmc2V0OiBNYXJrIF9CQVNFIHN0cnVjdHMgYXMgX19tYXliZV91bnVz
+ZWQKICBkcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rX2RwOiBNb3ZlCiAgICBEUF9WR0Ff
+TFZEU19DT05WRVJURVJfSURfezIsM30gdG8gd2hlcmUgdGhleSdyZSB1c2VkCiAgZHJtL2FtZC9k
+aXNwbGF5L2RjL2NvcmUvZGNfbGlua19kZGM6IE1vdmUgRFBfRFZJX0NPTlZFUlRFUl9JRF97NCw1
+fSB0bwogICAgd2hlcmUgdGhleSdyZSB1c2VkCiAgZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydjog
+TW92ZSAnYW1kZ3B1X2luZm9faW9jdGwoKSdzIHByb3RvdHlwZSB0bwogICAgc2hhcmVkIGhlYWRl
+cgogIGRybS9hbWQvYW1kZ3B1L2FtZGdwdV9yaW5nOiBGaXggbWlzbmFtaW5nIG9mIHBhcmFtICdt
+YXhfZHcnCiAgZHJtL21zbS9hZHJlbm8vYTZ4eF9ncHU6IFN0YXRpY2lzZSBsb2NhbCBmdW5jdGlv
+biAnYTZ4eF9pZGxlJwogIGRybS9tZWRpYXRlay9tdGtfZGlzcF9yZG1hOiBGaXggZm9ybWF0dGlu
+ZyBhbmQgc3VwcGx5IG1pc3Npbmcgc3RydWN0CiAgICBtZW1iZXIgZGVzY3JpcHRpb24KICBkcm0v
+YW1kL2FtZGdwdS9hbWRncHVfaWI6IEZpeCBzb21lIGluY29ycmVjdC9pbmNvbXBsZXRlIGZ1bmN0
+aW9uCiAgICBkb2N1bWVudGF0aW9uCiAgZHJtL21lZGlhdGVrL210a19kcm1fY3J0YzogRGVtb3Rl
+IHNlcmlvdXNseSBvdXQtb2YtZGF0ZSBzdHJ1Y3QgaGVhZGVyCiAgZHJtL21lZGlhdGVrL210a19k
+cm1fZHJ2OiBTdGF0aWNpc2UgbG9jYWwgZnVuY3Rpb24gaW52b2tlZCBieQogICAgcmVmZXJlbmNl
+CiAgZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BsbDogRml4IGtlcm5lbC1kb2MgZm9ybWF0dGluZywg
+bWlzc2luZyBhbmQKICAgIGV4dHJhIHBhcmFtcwogIGRybS9wbDExMS9wbDExMV9kaXNwbGF5OiBN
+YWtlIGxvY2FsIGZ1bmN0aW9uIHN0YXRpYwogIGRybS9wYW5lbC9wYW5lbC10cG8tdHBnMTEwOiBD
+b3JyZWN0IG1pc25hbWluZyBhbmQgc3VwcGx5IG1pc3NpbmcgcGFyYW0KICAgIGRlc2NyaXB0aW9u
+CiAgZHJtL21lc29uL21lc29uX3ZlbmM6IE1ha2UgbG9jYWwgZnVuY3Rpb24KICAgICdtZXNvbl92
+ZW5jX2hkbWlfZ2V0X2RtdF92bW9kZScgc3RhdGljCiAgZHJtL2xpbWEvbGltYV9kcnY6IERlbW90
+ZSBrZXJuZWwtZG9jIGZvcm1hdHRpbmcgYWJ1c2UKICBkcm0vYW1kL2FtZGdwdS9hbWRncHVfc3lu
+YzogRml4IG1pc25hbWVkLCBtaXNzaW5nIGFuZCBleHRyYSBwYXJhbQogICAgZGVzY3JpcHRpb25z
+CiAgZHJtL21lc29uL21lc29uX3ZjbGs6IE1ha2UgdHdvIGxvY2FsIGZ1bmN0aW9ucyBzdGF0aWMK
+ICBkcm0vbWVkaWF0ZWsvbXRrX2RwaTogUmVtb3ZlIHVudXNlZCBzdHJ1Y3QgZGVmaW5pdGlvbgog
+ICAgJ210a19kcGlfZW5jb2Rlcl9mdW5jcycKICBkcm0vYW1kL2FtZGdwdS9hbWRncHVfdnJhbV9t
+Z3I6IEFkZCBtaXNzaW5nIGRlc2NyaXB0aW9ucyBmb3IgJ2RldicgYW5kCiAgICAnZGlyJwogIGRy
+bS9wbDExMS9wbDExMV9kZWJ1Z2ZzOiBNYWtlIGxvY2FsIGZ1bmN0aW9uICdwbDExMV9kZWJ1Z2Zz
+X3JlZ3MoKScKICAgIHN0YXRpYwogIGRybS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0OiBNYWtlIGxv
+Y2FsIGZ1bmN0aW9uCiAgICAnYW1kZ3B1X3ZpcnRfdXBkYXRlX3ZmMnBmX3dvcmtfaXRlbSgpJyBz
+dGF0aWMKICBkcm0vYW1kL2FtZGdwdS9hbWRncHVfc2NoZWQ6IENvbnN1bWUgb3VyIG93biBoZWFk
+ZXIgY29udGFpbmluZwogICAgcHJvdG90eXBlcwogIGRybS9saW1hL2xpbWFfc2NoZWQ6IFJlbW92
+ZSB1bnVzZWQgYW5kIHVubmVjZXNzYXJ5IHZhcmlhYmxlICdyZXQnCiAgZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2lkczogU3VwcGx5IG1pc3NpbmcgZG9jcyBmb3IgJ2lkJyBhbmQgJ3ZtaHViJwogIGRy
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9kZWJ1Z2ZzOiBEZW1vdGUgb2J2aW91cyBhYnVzZSBvZiBrZXJu
+ZWwtZG9jCiAgICBmb3JtYXR0aW5nCiAgZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dtYzogRGVtb3Rl
+IG9uZSBhbmQgZml4IGFub3RoZXIgZnVuY3Rpb24gaGVhZGVyCiAgZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X3JhczogUmVtb3ZlIHVudXNlZCBmdW5jdGlvbgogICAgJ2FtZGdwdV9yYXNfZXJyb3JfY3Vy
+ZScKICBkcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzOiBNYWtlIGxvY2FsIGZ1bmN0aW9uCiAgICAn
+YW1kZ3B1X3Jhc19lcnJvcl9zdGF0dXNfcXVlcnknIHN0YXRpYwogIGRybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9jc2E6IFJlbW92ZSBzZXQgYnV0IHVudXNlZCB2YXJpYWJsZSAncicKICBkcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfdm1fY3B1OiBGaXggJ2FtZGdwdV92bV9jcHVfcHJlcGFyZSgpJ3MgZG9jLXJv
+dAogIGRybS9hbWQvYW1kZ3B1L2FtZGdwdV92bV9zZG1hOiBGaXggJ2FtZGdwdV92bV9zZG1hX3By
+ZXBhcmUoKSdzIGRvYy1yb3QKICBkcm0vbXNtL2Rpc3AvbWRwNS9tZHA1X2NydGM6IE1ha2UgbG9j
+YWwgZnVuY3Rpb24KICAgICdtZHA1X2NydGNfc2V0dXBfcGlwZWxpbmUoKScgc3RhdGljCiAgZHJt
+L2RybV9kcF9tc3RfdG9wb2xvZ3k6IFJlbW92ZSBzZXQgYnV0IG5ldmVyIHVzZWQgdmFyaWFibGUg
+J2xlbicKICBkcm0vbXNtL2Rpc3AvbWRwNS9tZHA1X2N0bDogRGVtb3RlIG5vbi1jb25mb3JtYW50
+IGtlcm5lbC1kb2MgaGVhZGVycwogIGRybS9tc20vZGlzcC9tZHA1L21kcDVfa21zOiBNYWtlIGxv
+Y2FsIGZ1bmN0aW9ucyAnbWRwNV97ZW4sZGlzfWFibGUoKScKICAgIHN0YXRpYwogIGRybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9md19hdHRlc3RhdGlvbjogQ29uc3VtZSBvdXIgb3duIGhlYWRlcgogICAg
+Y29udGFpbmluZyBwcm90b3R5cGVzCiAgZHJtL2FtZC9hbWRncHUvc211X3YxMV8wX2kyYzogUHJv
+dmlkZSBkZXNjcmlwdGlvbnMgZm9yICdjb250cm9sJyBhbmQKICAgICdkYXRhJyBwYXJhbXMKICBk
+cm0vbXNtL2Rpc3AvZHB1MS9kcHVfY29yZV9wZXJmOiBSZW1vdmUgc2V0IGJ1dCB1bnVzZWQgdmFy
+aWFibGUKICAgICdkcHVfY3N0YXRlJwogIGRybS9tc20vZGlzcC9kcHUxL2RwdV9lbmNvZGVyOiBS
+ZW1vdmUgYSBidW5jaCBvZiB1bnVzZWQgdmFyaWFibGVzCiAgZHJtL2FtZC9hbWRncHUvZ2Z4X3Y3
+XzA6IFJlbW92ZSB1bnVzZWQgc3RydWN0IGRlZmluaXRpb24KCiBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfY3NhLmMgICAgICAgfCAgMyArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2RlYnVnZnMuYyAgIHwgIDQgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9kcnYuYyAgICAgICB8ICA0ICstCiAuLi4vZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2Z3X2F0dGVzdGF0aW9uLmMgICAgfCAgMyArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2dtYy5jICAgICAgIHwgIDUgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9pYi5jICAgICAgICB8ICA2ICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfaWRzLmMgICAgICAgfCAgMiArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+a21zLmMgICAgICAgfCAgMSArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21z
+LmggICAgICAgfCAzMSArKysrKysrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3BsbC5jICAgICAgIHwgMTAgKy0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+cmFzLmMgICAgICAgfCAxMSArLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9y
+aW5nLmMgICAgICB8ICAyICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfc2No
+ZWQuYyAgICAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3N5bmMu
+YyAgICAgIHwgIDQgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmMg
+ICAgICB8ICAyICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm1fY3B1LmMg
+ICAgfCAgNCArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtX3NkbWEuYyAg
+IHwgIDQgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92cmFtX21nci5jICB8
+ICAyICsKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92N18wLmMgICAgICAgICB8ICA5
+IC0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y3XzAuaCAgICAgICAgIHwgIDEg
+LQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc211X3YxMV8wX2kyYy5jICAgIHwgIDMgKwog
+Li4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rX2RkYy5jIHwgIDQgKwogLi4u
+L2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rX2RwLmMgIHwgIDUgKysKIC4uLi9h
+bWQvZGlzcGxheS9pbmNsdWRlL2RkY19zZXJ2aWNlX3R5cGVzLmggICB8ICA4IC0tCiAuLi4vZ3B1
+L2RybS9hbWQvaW5jbHVkZS92ZWdhMTBfaXBfb2Zmc2V0LmggICAgfCA3NiArKysrKysrKystLS0t
+LS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jICAgICAgICAgfCAg
+NCArLQogZHJpdmVycy9ncHUvZHJtL2xpbWEvbGltYV9kcnYuYyAgICAgICAgICAgICAgIHwgIDIg
+Ky0KIGRyaXZlcnMvZ3B1L2RybS9saW1hL2xpbWFfc2NoZWQuYyAgICAgICAgICAgICB8ICAzICst
+CiBkcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2Rpc3BfcmRtYS5jICAgICAgfCAgNSArLQog
+ZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19kcGkuYyAgICAgICAgICAgIHwgIDkgLS0tCiBk
+cml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2RybV9jcnRjLmMgICAgICAgfCAgNCArLQogZHJp
+dmVycy9ncHUvZHJtL21lZGlhdGVrL210a19kcm1fZHJ2LmMgICAgICAgIHwgIDQgKy0KIGRyaXZl
+cnMvZ3B1L2RybS9tZXNvbi9tZXNvbl92Y2xrLmMgICAgICAgICAgICB8ICA4ICstCiBkcml2ZXJz
+L2dwdS9kcm0vbWVzb24vbWVzb25fdmVuYy5jICAgICAgICAgICAgfCAgNCArLQogZHJpdmVycy9n
+cHUvZHJtL21zbS9hZHJlbm8vYTZ4eF9ncHUuYyAgICAgICAgIHwgIDIgKy0KIGRyaXZlcnMvZ3B1
+L2RybS9tc20vZGlzcC9kcHUxL2RwdV9jb3JlX3BlcmYuYyB8ICAzIC0KIGRyaXZlcnMvZ3B1L2Ry
+bS9tc20vZGlzcC9kcHUxL2RwdV9lbmNvZGVyLmMgICB8IDEyICstLQogZHJpdmVycy9ncHUvZHJt
+L21zbS9kaXNwL21kcDUvbWRwNV9jcnRjLmMgICAgIHwgIDYgKy0KIGRyaXZlcnMvZ3B1L2RybS9t
+c20vZGlzcC9tZHA1L21kcDVfY3RsLmMgICAgICB8ICA2ICstCiBkcml2ZXJzL2dwdS9kcm0vbXNt
+L2Rpc3AvbWRwNS9tZHA1X2ttcy5jICAgICAgfCAgNCArLQogZHJpdmVycy9ncHUvZHJtL3BhbmVs
+L3BhbmVsLXRwby10cGcxMTAuYyAgICAgIHwgIDMgKy0KIGRyaXZlcnMvZ3B1L2RybS9wbDExMS9w
+bDExMV9kZWJ1Z2ZzLmMgICAgICAgICB8ICAyICstCiBkcml2ZXJzL2dwdS9kcm0vcGwxMTEvcGwx
+MTFfZGlzcGxheS5jICAgICAgICAgfCAgMiArLQogNDMgZmlsZXMgY2hhbmdlZCwgMTQ3IGluc2Vy
+dGlvbnMoKyksIDE0MiBkZWxldGlvbnMoLSkKIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmgKCkNjOiBBbGV4IERldWNoZXIgPGFsZXhhbmRl
+ci5kZXVjaGVyQGFtZC5jb20+CkNjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpDYzog
+QW5kcmVzIFJvZHJpZ3VleiA8YW5kcmVzeDdAZ21haWwuY29tPgpDYzogIkNocmlzdGlhbiBLw7Zu
+aWciIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+CkNjOiBDaHVuLUt1YW5nIEh1IDxjaHVua3Vh
+bmcuaHVAa2VybmVsLm9yZz4KQ2M6IERhbmllbCBWZXR0ZXIgPGRhbmllbEBmZndsbC5jaD4KQ2M6
+IERhdmlkIEFpcmxpZSA8YWlybGllZEBsaW51eC5pZT4KQ2M6IGRyaS1kZXZlbEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKQ2M6IEVyaWMgQW5ob2x0IDxlcmljQGFuaG9sdC5uZXQ+CkNjOiBGZWxpeCBL
+dWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4KQ2M6IGZyZWVkcmVub0BsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKQ2M6IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPgpD
+YzogSGF3a2luZyBaaGFuZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29tPgpDYzogSmVyb21lIEJydW5l
+dCA8amJydW5ldEBiYXlsaWJyZS5jb20+CkNjOiBKaWUgUWl1IDxqaWUucWl1QG1lZGlhdGVrLmNv
+bT4KQ2M6IEpvaG4gQ2xlbWVudHMgPGpvaG4uY2xlbWVudHNAYW1kLmNvbT4KQ2M6IEthbHlhbiBU
+aG90YSA8a2FseWFuX3RAY29kZWF1cm9yYS5vcmc+CkNjOiBLZXZpbiBIaWxtYW4gPGtoaWxtYW5A
+YmF5bGlicmUuY29tPgpDYzogTGVvIExpIDxzdW5wZW5nLmxpQGFtZC5jb20+CkNjOiBsaW1hQGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwpDYzogbGluYXJvLW1tLXNpZ0BsaXN0cy5saW5hcm8ub3JnCkNj
+OiBMaW51cyBXYWxsZWlqIDxsaW51cy53YWxsZWlqQGxpbmFyby5vcmc+CkNjOiBsaW51eC1hbWxv
+Z2ljQGxpc3RzLmluZnJhZGVhZC5vcmcKQ2M6IGxpbnV4LWFybS1rZXJuZWxAbGlzdHMuaW5mcmFk
+ZWFkLm9yZwpDYzogbGludXgtYXJtLW1zbUB2Z2VyLmtlcm5lbC5vcmcKQ2M6IGxpbnV4LW1lZGlh
+dGVrQGxpc3RzLmluZnJhZGVhZC5vcmcKQ2M6IGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZwpD
+YzogTHViZW4gVHVpa292IDxsdWJlbi50dWlrb3ZAYW1kLmNvbT4KQ2M6IE1hYXJ0ZW4gTGFua2hv
+cnN0IDxtYWFydGVuLmxhbmtob3JzdEBsaW51eC5pbnRlbC5jb20+CkNjOiBNYXJ0aW4gQmx1bWVu
+c3RpbmdsIDxtYXJ0aW4uYmx1bWVuc3RpbmdsQGdvb2dsZW1haWwuY29tPgpDYzogTWF0dGhpYXMg
+QnJ1Z2dlciA8bWF0dGhpYXMuYmdnQGdtYWlsLmNvbT4KQ2M6IE1heGltZSBSaXBhcmQgPG1yaXBh
+cmRAa2VybmVsLm9yZz4KQ2M6IE1vbmsubGl1QGFtZC5jb20KQ2M6IE5laWwgQXJtc3Ryb25nIDxu
+YXJtc3Ryb25nQGJheWxpYnJlLmNvbT4KQ2M6IFBoaWxpcHAgWmFiZWwgPHAuemFiZWxAcGVuZ3V0
+cm9uaXguZGU+CkNjOiBRaWFuZyBZdSA8eXVxODI1QGdtYWlsLmNvbT4KQ2M6IFJvYiBDbGFyayA8
+cm9iZGNsYXJrQGdtYWlsLmNvbT4KQ2M6IFNhbSBSYXZuYm9yZyA8c2FtQHJhdm5ib3JnLm9yZz4K
+Q2M6IFNlYW4gUGF1bCA8c2VhbkBwb29ybHkucnVuPgpDYzogU3VtaXQgU2Vtd2FsIDxzdW1pdC5z
+ZW13YWxAbGluYXJvLm9yZz4KQ2M6IFRoaWVycnkgUmVkaW5nIDx0aGllcnJ5LnJlZGluZ0BnbWFp
+bC5jb20+CkNjOiBUaG9tYXMgWmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3VzZS5kZT4KQ2M6IFlU
+IFNIRU4gPHl0LnNoZW5AbWVkaWF0ZWsuY29tPgotLSAKMi4yNS4xCgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpGcmVlZHJlbm8gbWFpbGluZyBsaXN0CkZy
+ZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9mcmVlZHJlbm8K
