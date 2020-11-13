@@ -1,60 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 146A32B1C3D
-	for <lists+freedreno@lfdr.de>; Fri, 13 Nov 2020 14:50:29 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4518F2B1C3F
+	for <lists+freedreno@lfdr.de>; Fri, 13 Nov 2020 14:50:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 490AD6E4FE;
-	Fri, 13 Nov 2020 13:50:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24ACD6E520;
+	Fri, 13 Nov 2020 13:50:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A71756E4FE
- for <freedreno@lists.freedesktop.org>; Fri, 13 Nov 2020 13:50:25 +0000 (UTC)
-Received: by mail-wm1-x341.google.com with SMTP id d142so8201283wmd.4
- for <freedreno@lists.freedesktop.org>; Fri, 13 Nov 2020 05:50:25 -0800 (PST)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE2E16E520
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Nov 2020 13:50:26 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id c17so9948375wrc.11
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Nov 2020 05:50:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=OFGPsQBWaqIstUovZEQuV7ZoQw1xUxoIPu10HqknCTI=;
- b=hDDNRtwmjy7UzVPZNCJaQ+bu+PRm7kW3v0HnLqD/oaFNjNOldbhgb4hKirvW7RQ3XG
- txtByjBe8inFiRzGvNE+0ZhuM7fV8Syu7RL2PxTSw2iQ4LD1FFAVBa7/GJ93TuAgl0XA
- ACpV0/PDpouzHfBWTiLt7rJyhWBmcfvQ9qFIvNY4YbDDotBVfQmZZoxQ8vEKkrAwZ3DS
- i3XKYmnsRMMZb3YU7tGhZTUDY4RrTNSSIqPhVlTAfqW/ZFop7DarUDsHz7+LSVLhD4vD
- hnfZR+RX+VS+Bxjl5AVbcbeSDW5bYjOBDFd4HsO95GvFkJNQ/mV9Ogq4rZyjmic5vcYi
- FTZw==
+ bh=B874/wtDOWYUimH8rXUdl9sC7ZHgpAhfTu7itpIsNws=;
+ b=FYPms3ZCfPub5iaespY6VDZIg/UmY32Kvxev64zmWZOrrM4041a5OdDqUOv0kfH8AR
+ 3C7hNCP7cHZ0v/h4e+8cnFjaoPM8bPL36QaZW1kHFqKjLzsUm9UKnD/r5GWAm4pm2JPF
+ m5GQZ7E6qKCbUWYUxZW5hhW5RsOh+iJOedQtBtLS26vz4XNap9+BnUufDta+Z+wuno/e
+ cezrhZqtIg08ewYF3AS7M96FkeJ4tPgEl4A+tx5pyJ207sxO1w/43KMcuKFKdyaKLigI
+ 6i9UleZKkZeYOU5nKl8O3JdsOZp+ZshJ7jnDF06QFnQyRtCjg1Swf0tfrvn0v6E8IYaH
+ nyqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=OFGPsQBWaqIstUovZEQuV7ZoQw1xUxoIPu10HqknCTI=;
- b=VaJcAjj85LNkMDvNLLem+Fw/AOJkJfuVthfApVSL8Qa94Xi3gZM1VpCZpJgfQL4tXr
- mfGvQDfxWckU/A5KuvwtoHWOu0hrHDsTY5v1JuGKT6CefEmn6ib4bZzAEyB8WPIg8f5k
- mB+SOfV5jyi9VSI8ncaaQLO1CD1xlZTmtAForMMreAbN77h7LCbTiMjg/nvGxZpffgYI
- EhzwKBoy780eIAihz5TdjwyCIIuP34b30YMXbEEt9RrwNeV8XZvdriRLWviIwIATaTEc
- qMtccLyPDNa3zFxnROgJrM5mFHagnFb+7Zz3MOWDF0T16gXShwhPMeSkuS+C/UY47x2z
- aTqA==
-X-Gm-Message-State: AOAM531VICeSgpo9Iwan1GYX0quvSItMHNWSmluAdirNVqogICPYZwJ2
- ajE8b42fCoUCWL52prs/gCxVjA==
-X-Google-Smtp-Source: ABdhPJyRl6lkCY0QwpZX7ubai9WllsidpusPMAw7vEARujcTCQ0A8ompo9Cv1/xtXRSuPmAwCaT85w==
-X-Received: by 2002:a1c:2cd7:: with SMTP id s206mr2533032wms.182.1605275424372; 
- Fri, 13 Nov 2020 05:50:24 -0800 (PST)
+ bh=B874/wtDOWYUimH8rXUdl9sC7ZHgpAhfTu7itpIsNws=;
+ b=VcEUtm7TXYhpszySZQOV2xTJFNK3ypdp5xBFjMsUJY85EmagLCdn2kx+/L35Dyb3QS
+ 7I/PecrL7k6Ls0U4B7IwymGiWUGvxNnjIzX6Epst6Rm+/U7JJqSpbIeM98jo9TVTZMxV
+ s5dMpbdLQFBp1Max5DmR0eKN8H87FvHk1FF87NOV17gkVmT8jHSRXNvrqx+J6rPChcNB
+ kVC2sPYy2dEQQqRGs7fdMh/6sB0eWT5RZY1vm8Zc6kT6+l7kjRzza7/NLF/QiFBf4h02
+ G76SLOG14Cs0rjPgVL5wzaALtuFMJuVEp6u8QV2x+ND3Lx+DxmNpYvvwOjlbi4MA4U+7
+ w0xg==
+X-Gm-Message-State: AOAM530ksQ962vVKR3jtdkeXgag28TbRrInQmj+bos8iQXMhzQ/m9BeQ
+ yTDGnaKPMKByhRjyfgpaJGnYqw==
+X-Google-Smtp-Source: ABdhPJzW0/tqfdT3UV2hYFMEgBNeQqVvBSA0yd4n3Fg74iGLfPp9MOAfA0L9PQmK+LV0ocjfEq32/A==
+X-Received: by 2002:adf:fb0f:: with SMTP id c15mr3487064wrr.86.1605275425504; 
+ Fri, 13 Nov 2020 05:50:25 -0800 (PST)
 Received: from dell.default ([91.110.221.159])
- by smtp.gmail.com with ESMTPSA id t11sm4561614wrm.8.2020.11.13.05.50.23
+ by smtp.gmail.com with ESMTPSA id t11sm4561614wrm.8.2020.11.13.05.50.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Nov 2020 05:50:23 -0800 (PST)
+ Fri, 13 Nov 2020 05:50:24 -0800 (PST)
 From: Lee Jones <lee.jones@linaro.org>
 To: lee.jones@linaro.org
-Date: Fri, 13 Nov 2020 13:49:32 +0000
-Message-Id: <20201113134938.4004947-35-lee.jones@linaro.org>
+Date: Fri, 13 Nov 2020 13:49:33 +0000
+Message-Id: <20201113134938.4004947-36-lee.jones@linaro.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20201113134938.4004947-1-lee.jones@linaro.org>
 References: <20201113134938.4004947-1-lee.jones@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 34/40] drm/msm/disp/mdp5/mdp5_ctl: Demote
- non-conformant kernel-doc headers
+Subject: [Freedreno] [PATCH 35/40] drm/msm/disp/mdp5/mdp5_kms: Make local
+ functions 'mdp5_{en, dis}able()' static
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,70 +67,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: freedreno@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Very little attempt has been made to document these functions.
-
-Fixes the following W=1 kernel build warning(s):
-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c:227: warning: Function parameter or member 'ctl' not described in 'mdp5_ctl_set_encoder_state'
- drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c:227: warning: Function parameter or member 'pipeline' not described in 'mdp5_ctl_set_encoder_state'
- drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c:227: warning: Function parameter or member 'enabled' not described in 'mdp5_ctl_set_encoder_state'
- drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c:227: warning: Excess function parameter 'enable' description in 'mdp5_ctl_set_encoder_state'
- drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c:529: warning: Function parameter or member 'ctl' not described in 'mdp5_ctl_commit'
- drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c:529: warning: Function parameter or member 'pipeline' not described in 'mdp5_ctl_commit'
- drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c:529: warning: Function parameter or member 'flush_mask' not described in 'mdp5_ctl_commit'
- drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c:529: warning: Function parameter or member 'start' not described in 'mdp5_ctl_commit'
-
-Cc: Rob Clark <robdclark@gmail.com>
-Cc: Sean Paul <sean@poorly.run>
-Cc: David Airlie <airlied@linux.ie>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org
-Signed-off-by: Lee Jones <lee.jones@linaro.org>
----
- drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c
-index 030279d7b64b7..b5c40f9773629 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c
-@@ -213,10 +213,10 @@ static void send_start_signal(struct mdp5_ctl *ctl)
- 	spin_unlock_irqrestore(&ctl->hw_lock, flags);
- }
- 
--/**
-+/*
-  * mdp5_ctl_set_encoder_state() - set the encoder state
-  *
-- * @enable: true, when encoder is ready for data streaming; false, otherwise.
-+ * @enabled: true, when encoder is ready for data streaming; false, otherwise.
-  *
-  * Note:
-  * This encoder state is needed to trigger START signal (data path kickoff).
-@@ -507,7 +507,7 @@ static void fix_for_single_flush(struct mdp5_ctl *ctl, u32 *flush_mask,
- 	}
- }
- 
--/**
-+/*
-  * mdp5_ctl_commit() - Register Flush
-  *
-  * The flush register is used to indicate several registers are all
--- 
-2.25.1
-
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+Rml4ZXMgdGhlIGZvbGxvd2luZyBXPTEga2VybmVsIGJ1aWxkIHdhcm5pbmcocyk6CgogZHJpdmVy
+cy9ncHUvZHJtL21zbS9kaXNwL21kcDUvbWRwNV9rbXMuYzoyOTk6NTogd2FybmluZzogbm8gcHJl
+dmlvdXMgcHJvdG90eXBlIGZvciDigJhtZHA1X2Rpc2FibGXigJkgWy1XbWlzc2luZy1wcm90b3R5
+cGVzXQogZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL21kcDUvbWRwNV9rbXMuYzozMTk6NTogd2Fy
+bmluZzogbm8gcHJldmlvdXMgcHJvdG90eXBlIGZvciDigJhtZHA1X2VuYWJsZeKAmSBbLVdtaXNz
+aW5nLXByb3RvdHlwZXNdCgpDYzogUm9iIENsYXJrIDxyb2JkY2xhcmtAZ21haWwuY29tPgpDYzog
+U2VhbiBQYXVsIDxzZWFuQHBvb3JseS5ydW4+CkNjOiBEYXZpZCBBaXJsaWUgPGFpcmxpZWRAbGlu
+dXguaWU+CkNjOiBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3bGwuY2g+CkNjOiBUaG9tYXMgWmlt
+bWVybWFubiA8dHppbW1lcm1hbm5Ac3VzZS5kZT4KQ2M6IGxpbnV4LWFybS1tc21Admdlci5rZXJu
+ZWwub3JnCkNjOiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCkNjOiBmcmVlZHJlbm9A
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnClNpZ25lZC1vZmYtYnk6IExlZSBKb25lcyA8bGVlLmpvbmVz
+QGxpbmFyby5vcmc+Ci0tLQogZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL21kcDUvbWRwNV9rbXMu
+YyB8IDQgKystLQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMo
+LSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvbWRwNS9tZHA1X2ttcy5j
+IGIvZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL21kcDUvbWRwNV9rbXMuYwppbmRleCBiM2VlY2Y4
+Njk0NzcxLi4xNWFlZDQ1MDIyYmM4IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rp
+c3AvbWRwNS9tZHA1X2ttcy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9tZHA1L21k
+cDVfa21zLmMKQEAgLTI5Niw3ICsyOTYsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IG1kcF9rbXNf
+ZnVuY3Mga21zX2Z1bmNzID0gewogCS5zZXRfaXJxbWFzayAgICAgICAgID0gbWRwNV9zZXRfaXJx
+bWFzaywKIH07CiAKLWludCBtZHA1X2Rpc2FibGUoc3RydWN0IG1kcDVfa21zICptZHA1X2ttcykK
+K3N0YXRpYyBpbnQgbWRwNV9kaXNhYmxlKHN0cnVjdCBtZHA1X2ttcyAqbWRwNV9rbXMpCiB7CiAJ
+REJHKCIiKTsKIApAQCAtMzE2LDcgKzMxNiw3IEBAIGludCBtZHA1X2Rpc2FibGUoc3RydWN0IG1k
+cDVfa21zICptZHA1X2ttcykKIAlyZXR1cm4gMDsKIH0KIAotaW50IG1kcDVfZW5hYmxlKHN0cnVj
+dCBtZHA1X2ttcyAqbWRwNV9rbXMpCitzdGF0aWMgaW50IG1kcDVfZW5hYmxlKHN0cnVjdCBtZHA1
+X2ttcyAqbWRwNV9rbXMpCiB7CiAJREJHKCIiKTsKIAotLSAKMi4yNS4xCgpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpGcmVlZHJlbm8gbWFpbGluZyBsaXN0
+CkZyZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9mcmVlZHJlbm8K
