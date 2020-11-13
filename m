@@ -2,56 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEC252B24DE
-	for <lists+freedreno@lfdr.de>; Fri, 13 Nov 2020 20:46:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F0212B27E1
+	for <lists+freedreno@lfdr.de>; Fri, 13 Nov 2020 23:08:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3DFB6E826;
-	Fri, 13 Nov 2020 19:46:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EA986E878;
+	Fri, 13 Nov 2020 22:08:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F0F26E825
- for <freedreno@lists.freedesktop.org>; Fri, 13 Nov 2020 19:46:47 +0000 (UTC)
+Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 778F36E878
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Nov 2020 22:08:48 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1605296807; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=XQR2DizaqucPQpeF3S73VOOHiAuFQxlGivhbcgxWTSo=;
- b=USLc8H0bpCRGu4TlyuUk3wDB+e2Pb7ZAiWIYtq5jScAA6SoJlWbtjBhoWBHLPC4CqP5PSrs3
- DakhuaAKqB180ZlDL6QyfEaZN8kbzIWJrxfcOiUc1x5AGhiP1uxUKDYeC72DhMGTuVGOdzmA
- iTsmyFUE4Z35XHrAKyLo3YY4aAY=
-X-Mailgun-Sending-Ip: 104.130.96.5
+ s=smtp; t=1605305330; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=v38VIvvqFPW9T8r0lWGRdQ5SsoAKhs1w4NYwSBxeq3U=;
+ b=vHudJ2Q3uEVkcMX6RqN9g7uQLpzs1p/dApgPVDoTz93K1x1y0ZvWOvssoZILd9gW2Wgmy45J
+ FAbdZgIyVo/Kd928hd3N3R3WQCZW1qBCjV1ajz1he+SzYgE3a5FV0R04OszWnMc7B4NWQTlW
+ OJ0e1POqYxB1RFWPrso503h/E6E=
+X-Mailgun-Sending-Ip: 69.72.42.4
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
- 5faee2a16c42d983b97f8d23 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 13 Nov 2020 19:46:41
+ smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
+ 5faf03d0ba0e43f3555266e2 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 13 Nov 2020 22:08:16
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id B1B79C433C8; Fri, 13 Nov 2020 19:46:40 +0000 (UTC)
+ id 5D19EC433F0; Fri, 13 Nov 2020 22:08:16 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 57163C433C6;
- Fri, 13 Nov 2020 19:46:40 +0000 (UTC)
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
+Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 0EBF2C433C6;
+ Fri, 13 Nov 2020 22:08:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 0EBF2C433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=khsieh@codeaurora.org
+From: Kuogee Hsieh <khsieh@codeaurora.org>
+To: dri-devel@lists.freedesktop.org, robdclark@gmail.com, sean@poorly.run,
+ swboyd@chromium.org
+Date: Fri, 13 Nov 2020 14:08:00 -0800
+Message-Id: <20201113220803.15033-1-khsieh@codeaurora.org>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Date: Fri, 13 Nov 2020 11:46:40 -0800
-From: abhinavk@codeaurora.org
-To: Lee Jones <lee.jones@linaro.org>
-In-Reply-To: <20201113134938.4004947-36-lee.jones@linaro.org>
-References: <20201113134938.4004947-1-lee.jones@linaro.org>
- <20201113134938.4004947-36-lee.jones@linaro.org>
-Message-ID: <cf160e1968c0473501e66e163c4c6beb@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH 35/40] drm/msm/disp/mdp5/mdp5_kms: Make
- local functions 'mdp5_{en, dis}able()' static
+Subject: [Freedreno] [PATCH v2 0/3] fix dp link training failed at irq_hpd
+ request
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,43 +67,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- freedreno@lists.freedesktop.org
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, abhinavk@codeaurora.org,
+ Kuogee Hsieh <khsieh@codeaurora.org>, tanmay@codeaurora.org, daniel@ffwll.ch,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-T24gMjAyMC0xMS0xMyAwNTo0OSwgTGVlIEpvbmVzIHdyb3RlOgo+IEZpeGVzIHRoZSBmb2xsb3dp
-bmcgVz0xIGtlcm5lbCBidWlsZCB3YXJuaW5nKHMpOgo+IAo+ICBkcml2ZXJzL2dwdS9kcm0vbXNt
-L2Rpc3AvbWRwNS9tZHA1X2ttcy5jOjI5OTo1OiB3YXJuaW5nOiBubyBwcmV2aW91cwo+IHByb3Rv
-dHlwZSBmb3Ig4oCYbWRwNV9kaXNhYmxl4oCZIFstV21pc3NpbmctcHJvdG90eXBlc10KPiAgZHJp
-dmVycy9ncHUvZHJtL21zbS9kaXNwL21kcDUvbWRwNV9rbXMuYzozMTk6NTogd2FybmluZzogbm8g
-cHJldmlvdXMKPiBwcm90b3R5cGUgZm9yIOKAmG1kcDVfZW5hYmxl4oCZIFstV21pc3NpbmctcHJv
-dG90eXBlc10KPiAKPiBDYzogUm9iIENsYXJrIDxyb2JkY2xhcmtAZ21haWwuY29tPgo+IENjOiBT
-ZWFuIFBhdWwgPHNlYW5AcG9vcmx5LnJ1bj4KPiBDYzogRGF2aWQgQWlybGllIDxhaXJsaWVkQGxp
-bnV4LmllPgo+IENjOiBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3bGwuY2g+Cj4gQ2M6IFRob21h
-cyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPgo+IENjOiBsaW51eC1hcm0tbXNtQHZn
-ZXIua2VybmVsLm9yZwo+IENjOiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gQ2M6
-IGZyZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBTaWduZWQtb2ZmLWJ5OiBMZWUgSm9u
-ZXMgPGxlZS5qb25lc0BsaW5hcm8ub3JnPgpSZXZpZXdlZC1ieTogQWJoaW5hdiBLdW1hciA8YWJo
-aW5hdmtAY29kZWF1cm9yYS5vcmc+Cj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9t
-ZHA1L21kcDVfa21zLmMgfCA0ICsrLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygr
-KSwgMiBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL21zbS9k
-aXNwL21kcDUvbWRwNV9rbXMuYwo+IGIvZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL21kcDUvbWRw
-NV9rbXMuYwo+IGluZGV4IGIzZWVjZjg2OTQ3NzEuLjE1YWVkNDUwMjJiYzggMTAwNjQ0Cj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL21kcDUvbWRwNV9rbXMuYwo+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9tc20vZGlzcC9tZHA1L21kcDVfa21zLmMKPiBAQCAtMjk2LDcgKzI5Niw3IEBA
-IHN0YXRpYyBjb25zdCBzdHJ1Y3QgbWRwX2ttc19mdW5jcyBrbXNfZnVuY3MgPSB7Cj4gIAkuc2V0
-X2lycW1hc2sgICAgICAgICA9IG1kcDVfc2V0X2lycW1hc2ssCj4gIH07Cj4gCj4gLWludCBtZHA1
-X2Rpc2FibGUoc3RydWN0IG1kcDVfa21zICptZHA1X2ttcykKPiArc3RhdGljIGludCBtZHA1X2Rp
-c2FibGUoc3RydWN0IG1kcDVfa21zICptZHA1X2ttcykKPiAgewo+ICAJREJHKCIiKTsKPiAKPiBA
-QCAtMzE2LDcgKzMxNiw3IEBAIGludCBtZHA1X2Rpc2FibGUoc3RydWN0IG1kcDVfa21zICptZHA1
-X2ttcykKPiAgCXJldHVybiAwOwo+ICB9Cj4gCj4gLWludCBtZHA1X2VuYWJsZShzdHJ1Y3QgbWRw
-NV9rbXMgKm1kcDVfa21zKQo+ICtzdGF0aWMgaW50IG1kcDVfZW5hYmxlKHN0cnVjdCBtZHA1X2tt
-cyAqbWRwNV9rbXMpCj4gIHsKPiAgCURCRygiIik7Cl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJlZWRyZW5vQGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2ZyZWVkcmVubwo=
+Some dongle require link training be done at irq_hpd request. This serial
+patches address the issues so that DP/HDMI display can be lit up properlly.
+This serial Patch also fixes clock stuck at "off" state error caused by
+previous link training failed.
+
+Kuogee Hsieh (3):
+  drm/msm/dp: deinitialize mainlink if link training failed
+  drm/msm/dp: skip checking LINK_STATUS_UPDATED bit
+  drm/msm/dp: promote irq_hpd handle to handle link training correctly
+
+ drivers/gpu/drm/msm/dp/dp_catalog.c |  2 +-
+ drivers/gpu/drm/msm/dp/dp_catalog.h |  2 +-
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 60 +++++++++++++++++++++--------
+ drivers/gpu/drm/msm/dp/dp_display.c | 40 ++++++++++++++++---
+ drivers/gpu/drm/msm/dp/dp_link.c    | 29 +++++++-------
+ drivers/gpu/drm/msm/dp/dp_panel.c   |  2 +-
+ 6 files changed, 96 insertions(+), 39 deletions(-)
+
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
