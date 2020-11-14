@@ -1,62 +1,31 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B3E32B2DD8
-	for <lists+freedreno@lfdr.de>; Sat, 14 Nov 2020 16:21:16 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 198492B2E65
+	for <lists+freedreno@lfdr.de>; Sat, 14 Nov 2020 17:21:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CC486E931;
-	Sat, 14 Nov 2020 15:21:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 648A889A9B;
+	Sat, 14 Nov 2020 16:21:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
- [IPv6:2607:f8b0:4864:20::743])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A5956E930
- for <freedreno@lists.freedesktop.org>; Sat, 14 Nov 2020 15:21:14 +0000 (UTC)
-Received: by mail-qk1-x743.google.com with SMTP id t191so12459517qka.4
- for <freedreno@lists.freedesktop.org>; Sat, 14 Nov 2020 07:21:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=marek-ca.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=8trkRjP9UFPyJqjxFvhkrNselLfEoUHaVtNBCoJ4XCk=;
- b=tAvkwqI5UxVZLosgiy2dth1kE1mcObUnNjCIF6g213uhCAWBHnRRh5fpxcrgw4xb3v
- FZ7NpmkKli8Co1oMfBaarPj3K76JK44Ml1lkgtKkBh09QtZQ3+zfv1uswWhXd61y4bQE
- j/X998FoLQ84iWpWlrUVOo/Q3OBuKZs9cqij5UWCtakg6o/hSjfI+DtG0TBdUATP99z1
- gRiqRqcuyqK46TknWsQIXmrU0QiaF+mSHY13qSlOKkOoJQg6DbBkqlrPmB0OQzbY/isO
- +v33fhTuN3YUdRVIzPhPZJQDAlEazj2T3f5zJHglATLeKtFoLgiRU9C+AwUzyYMLEkv2
- EkIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=8trkRjP9UFPyJqjxFvhkrNselLfEoUHaVtNBCoJ4XCk=;
- b=mvUPUCHPkQm4SOn7zgIuFMAmrppO55sqDlJ5ZZpP/JPZrhwEO6Kr3zQUcihAUjCygp
- kwqTWx04oDv+9TcWNXofhVkOLy4OjeBTFhsnlDvr8p7ZFk4yoEfbAsh+2PmIChKNuguk
- tQpy0Y6jbQHCuncl/XmlRCJOkB9bWr4xeJWY7kCVHiHxcTMBHiGfKLpb+VIT6iBQA6vg
- 85Me7HMJCVQjoCEtr3z5c5yJHmheg0JaQUQ9HHId9PxrC/B7imbvopbvZwDgv6/L+TYk
- Yo7CePalBTzYpDEkHMIlFJni0RRFO+28c/jRRBGG60Al6U3GBNqZFdGGJCbfiptB+kH7
- Y4tQ==
-X-Gm-Message-State: AOAM530q4alIfmxEiMza96/bv7+laWzHVreRqpkdZg+uHVsHZ6SeOTgS
- iHUjcswqMI01kxKHo0wfsFHKdFmMiq79i4HoxM0=
-X-Google-Smtp-Source: ABdhPJwk2smqvgptEJnw46UBkqHH5sjXfXDGxlkv1FFfTWhR+COGK7v2Bg8xIbe+LZRJgTPMlPpQFg==
-X-Received: by 2002:a37:de08:: with SMTP id h8mr6941400qkj.0.1605367273113;
- Sat, 14 Nov 2020 07:21:13 -0800 (PST)
-Received: from localhost.localdomain
- (modemcable068.184-131-66.mc.videotron.ca. [66.131.184.68])
- by smtp.gmail.com with ESMTPSA id h125sm8888368qkc.36.2020.11.14.07.21.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 14 Nov 2020 07:21:12 -0800 (PST)
-From: Jonathan Marek <jonathan@marek.ca>
-To: freedreno@lists.freedesktop.org,
-	hch@lst.de
-Date: Sat, 14 Nov 2020 10:17:13 -0500
-Message-Id: <20201114151717.5369-6-jonathan@marek.ca>
-X-Mailer: git-send-email 2.26.1
-In-Reply-To: <20201114151717.5369-1-jonathan@marek.ca>
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C30D489A9B
+ for <freedreno@lists.freedesktop.org>; Sat, 14 Nov 2020 16:21:14 +0000 (UTC)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 5B36B67373; Sat, 14 Nov 2020 17:21:10 +0100 (CET)
+Date: Sat, 14 Nov 2020 17:21:09 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Jonathan Marek <jonathan@marek.ca>
+Message-ID: <20201114162109.GA24411@lst.de>
 References: <20201114151717.5369-1-jonathan@marek.ca>
+ <20201114151717.5369-3-jonathan@marek.ca>
 MIME-Version: 1.0
-Subject: [Freedreno] [RESEND PATCH v2 5/5] drm/msm: bump up the uapi version
+Content-Disposition: inline
+In-Reply-To: <20201114151717.5369-3-jonathan@marek.ca>
+User-Agent: Mutt/1.5.17 (2007-11-01)
+Subject: Re: [Freedreno] [RESEND PATCH v2 2/5] dma-direct: add
+ dma_direct_bypass() to force direct ops
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,43 +38,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
+ "open list:DMA MAPPING HELPERS" <iommu@lists.linux-foundation.org>,
+ Robin Murphy <robin.murphy@arm.com>, hch@lst.de,
+ Marek Szyprowski <m.szyprowski@samsung.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Increase the minor version to indicate the presence of new features.
+On Sat, Nov 14, 2020 at 10:17:10AM -0500, Jonathan Marek wrote:
+> Add a function to force direct ops and disable swiotlb for a deivce.
 
-Signed-off-by: Jonathan Marek <jonathan@marek.ca>
----
- drivers/gpu/drm/msm/msm_drv.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+s/deivce/device/
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 3f17acdf6594..7230d3c0eee5 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -39,9 +39,10 @@
-  *           GEM object's debug name
-  * - 1.5.0 - Add SUBMITQUERY_QUERY ioctl
-  * - 1.6.0 - Syncobj support
-+ * - 1.7.0 - MSM_BO_CACHED_COHERENT and DRM_IOCTL_MSM_GEM_SYNC_CACHE
-  */
- #define MSM_VERSION_MAJOR	1
--#define MSM_VERSION_MINOR	6
-+#define MSM_VERSION_MINOR	7
- #define MSM_VERSION_PATCHLEVEL	0
- 
- static const struct drm_mode_config_funcs mode_config_funcs = {
--- 
-2.26.1
+> +#if IS_ENABLED(CONFIG_DMA_OPS_BYPASS) && !IS_ENABLED(CONFIG_ARCH_HAS_FORCE_DMA_UNENCRYPTED)
 
+overly long line.
+
+> +#if IS_ENABLED(CONFIG_DMA_OPS_BYPASS) && !IS_ENABLED(CONFIG_ARCH_HAS_FORCE_DMA_UNENCRYPTED)
+
+Again.
+
+> +int dma_direct_bypass(struct device *dev)
+> +{
+> +	int ret;
+> +
+> +	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(64));
+> +	if (ret)
+> +		return ret;
+> +
+> +	dev->bus_dma_limit = DMA_BIT_MASK(64);
+> +	dev->dma_ops_bypass = true;
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(dma_direct_bypass);
+
+But more importantly ARCH_HAS_FORCE_DMA_UNENCRYPTED is just a compile
+time flag.  With this you disable the functionality for all the usual
+x86, s390 and powerpc configs, while only a tiny number of systems
+for bounce buffering.  But I think you can just trivialy check
+force_dma_unencrypted instead.  We do not need an extra Kconfig symbol
+symbol for this trivial helper.
+
+Also the helper is misnamed and misplaced.  The semantics have nothing
+to do with dma-direct, the fact that is uses the ops bypass is an
+implementation detail.   It really fits into the iommu code, as it
+allows the driver to use the IOMMU API for IOVA management, while using
+the DMA API for cache management.  So it should be named to reflect
+that, and also grow a kerneldoc comment explaining how it will be used.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
