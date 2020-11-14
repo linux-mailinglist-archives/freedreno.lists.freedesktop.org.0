@@ -1,61 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAEED2B2CEA
-	for <lists+freedreno@lfdr.de>; Sat, 14 Nov 2020 12:47:17 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C9CB2B2DD3
+	for <lists+freedreno@lfdr.de>; Sat, 14 Nov 2020 16:21:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 472386E90E;
-	Sat, 14 Nov 2020 11:47:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A1F06E925;
+	Sat, 14 Nov 2020 15:21:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7F846E90F
- for <freedreno@lists.freedesktop.org>; Sat, 14 Nov 2020 11:47:14 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1605354435; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=2ACjG5AA5nsCiuFuVXOZWR9ZUdK6+vR84LMxY+8aTV0=;
- b=VKyE6zSLOKYY6JjI/e2cLw1LUo9/9qEEOY+nMMWLBBMb/8J5hGdmvJMKn2SPDlIv7A6RSeMJ
- w6hRv/JQ7LuACEm1WdibxV6vqO6uLxKlbxbX/MTiIlfEw5W6fNRHh4hM0kvaaVdwUZIs7n3R
- +0eS/mKtWG8Yd1vpC3zNPNVMAJQ=
-X-Mailgun-Sending-Ip: 104.130.96.5
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n07.prod.us-west-2.postgun.com with SMTP id
- 5fafc3bf37ede2253bc05360 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Sat, 14 Nov 2020 11:47:11
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 83DA4C433FE; Sat, 14 Nov 2020 11:47:11 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: saiprakash.ranjan)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 030CEC433C6;
- Sat, 14 Nov 2020 11:47:09 +0000 (UTC)
+Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
+ [IPv6:2607:f8b0:4864:20::744])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 743826E927
+ for <freedreno@lists.freedesktop.org>; Sat, 14 Nov 2020 15:21:03 +0000 (UTC)
+Received: by mail-qk1-x744.google.com with SMTP id r7so12474463qkf.3
+ for <freedreno@lists.freedesktop.org>; Sat, 14 Nov 2020 07:21:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=marek-ca.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mvYHfNLs//x0UCoGzcml3CX/lFayNp6bncJ+PAIIQPg=;
+ b=boEvE1jJkCl5kJSpNhQF7m+CWiLQrRnX4NgMtu+8CGdOfGnxn8Z0uaApWYc6uNYioP
+ zlrG6UqUkEuW6eFK1RNAC3KMpZdDwYuCxnUz+tX10junMhLMWHuEPBZwvbKd3qEOAfDL
+ Lp+EwFz9g5852MJSCOYd5xNh3eb0Gj+X/lo8govtalB2Z7KGNqGeSh0NVlwt93str0iM
+ X7NrX7VK8O4HdqKdrU/Ie/gEkzzq7ogWYGTGA9Nk2iNgeFaKI0eQuKp2NJHHkB2DMwjM
+ /FVfVPjuD3BQI5i+zz2ToqxgdC/tNc/AFBHseUfPVnsDyQIGJUKr/jLuT3OECxPQbXNh
+ spJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mvYHfNLs//x0UCoGzcml3CX/lFayNp6bncJ+PAIIQPg=;
+ b=AVTlMvKpNaJcIFf7knsDzDqeQasB4Mo8wHTnLEXQZuCtV+n5P+3Jii/P9n71LttBRx
+ dDzV5MBVfX6Zf/RNzEQPuQKgKMrCA+PGqqWLstyZJS6d+1vut5UQbvBmJxOdhMkTr1R8
+ aTgigP6MyW9AYMBcJ1uKZqG1UJvj3/FFIMeUBDxGWvbQ/eWgK/zgkom9N0uzwmRE9APb
+ GTIkK6tIv0FZGNIAcmpi+k1uf+4UEkJtVfZBE4yeqekI9pkTTX2RFsY29mm5rggR0OFt
+ GV5SmwbFRfYalxfdCbMkmLLZciNlmnKAaVJEHgQlTtzT68htXZb149EMBFj1/7cI6O9t
+ 6TVw==
+X-Gm-Message-State: AOAM531cpSlTS1+OfzxCIB8kYeh63wS8gl0Zo6mLSQdgMCca0/FhUPQQ
+ iv5ZsD35XS/Lx2iF0QmMWuWbI5h2eJO/zF+TsMc=
+X-Google-Smtp-Source: ABdhPJzYGqTlUKPKSmkhBmM3csDOKzxzLYFelg6G+ya85IQqawa27V6Kv716IjBszDX0515vEabeeg==
+X-Received: by 2002:a05:620a:2455:: with SMTP id
+ h21mr6867791qkn.123.1605367262284; 
+ Sat, 14 Nov 2020 07:21:02 -0800 (PST)
+Received: from localhost.localdomain
+ (modemcable068.184-131-66.mc.videotron.ca. [66.131.184.68])
+ by smtp.gmail.com with ESMTPSA id h125sm8888368qkc.36.2020.11.14.07.21.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 14 Nov 2020 07:21:01 -0800 (PST)
+From: Jonathan Marek <jonathan@marek.ca>
+To: freedreno@lists.freedesktop.org,
+	hch@lst.de
+Date: Sat, 14 Nov 2020 10:17:08 -0500
+Message-Id: <20201114151717.5369-1-jonathan@marek.ca>
+X-Mailer: git-send-email 2.26.1
 MIME-Version: 1.0
-Date: Sat, 14 Nov 2020 17:17:09 +0530
-From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-To: Will Deacon <will@kernel.org>
-In-Reply-To: <20201112093547.GA19049@willie-the-truck>
-References: <cover.1604048969.git.saiprakash.ranjan@codeaurora.org>
- <a4e454630e57aedd9da6a4ba40c8e1c415bb6836.1604048969.git.saiprakash.ranjan@codeaurora.org>
- <20201110121835.GC16239@willie-the-truck>
- <b12284cce40225274c3b2d9aff7eed3a@codeaurora.org>
- <20201112093547.GA19049@willie-the-truck>
-Message-ID: <17b1827f76efc277ae8a9dbfd82fe536@codeaurora.org>
-X-Sender: saiprakash.ranjan@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCHv7 2/7] iommu/arm-smmu: Add domain attribute
- for system cache
+Subject: [Freedreno] [RESEND PATCH v2 0/5] drm/msm: support for host-cached
+ BOs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,128 +69,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Joerg Roedel <joro@8bytes.org>, Jordan Crouse <jcrouse@codeaurora.org>,
- iommu@lists.linux-foundation.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Akhil P Oommen <akhilpo@codeaurora.org>,
- dri-devel@lists.freedesktop.org, "Kristian H .
- Kristensen" <hoegsberg@google.com>, Robin Murphy <robin.murphy@arm.com>,
- linux-arm-kernel@lists.infradead.org
+Cc: Sean Paul <sean@poorly.run>, Rob Clark <robdclark@gmail.com>,
+ David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ "open list:DMA MAPPING HELPERS" <iommu@lists.linux-foundation.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Shawn Guo <shawn.guo@linaro.org>,
+ Robin Murphy <robin.murphy@arm.com>, open list <linux-kernel@vger.kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-11-12 15:05, Will Deacon wrote:
-> On Wed, Nov 11, 2020 at 12:10:50PM +0530, Sai Prakash Ranjan wrote:
->> On 2020-11-10 17:48, Will Deacon wrote:
->> > On Fri, Oct 30, 2020 at 02:53:09PM +0530, Sai Prakash Ranjan wrote:
->> > > Add iommu domain attribute for using system cache aka last level
->> > > cache by client drivers like GPU to set right attributes for caching
->> > > the hardware pagetables into the system cache.
->> > >
->> > > Signed-off-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
->> > > ---
->> > >  drivers/iommu/arm/arm-smmu/arm-smmu.c | 17 +++++++++++++++++
->> > >  drivers/iommu/arm/arm-smmu/arm-smmu.h |  1 +
->> > >  include/linux/iommu.h                 |  1 +
->> > >  3 files changed, 19 insertions(+)
->> > >
->> > > diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c
->> > > b/drivers/iommu/arm/arm-smmu/arm-smmu.c
->> > > index b1cf8f0abc29..070d13f80c7e 100644
->> > > --- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
->> > > +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
->> > > @@ -789,6 +789,9 @@ static int arm_smmu_init_domain_context(struct
->> > > iommu_domain *domain,
->> > >  	if (smmu_domain->non_strict)
->> > >  		pgtbl_cfg.quirks |= IO_PGTABLE_QUIRK_NON_STRICT;
->> > >
->> > > +	if (smmu_domain->sys_cache)
->> > > +		pgtbl_cfg.quirks |= IO_PGTABLE_QUIRK_SYS_CACHE;
->> > > +
->> > >  	pgtbl_ops = alloc_io_pgtable_ops(fmt, &pgtbl_cfg, smmu_domain);
->> > >  	if (!pgtbl_ops) {
->> > >  		ret = -ENOMEM;
->> > > @@ -1520,6 +1523,9 @@ static int arm_smmu_domain_get_attr(struct
->> > > iommu_domain *domain,
->> > >  		case DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE:
->> > >  			*(int *)data = smmu_domain->non_strict;
->> > >  			return 0;
->> > > +		case DOMAIN_ATTR_SYS_CACHE:
->> > > +			*((int *)data) = smmu_domain->sys_cache;
->> > > +			return 0;
->> > >  		default:
->> > >  			return -ENODEV;
->> > >  		}
->> > > @@ -1551,6 +1557,17 @@ static int arm_smmu_domain_set_attr(struct
->> > > iommu_domain *domain,
->> > >  			else
->> > >  				smmu_domain->stage = ARM_SMMU_DOMAIN_S1;
->> > >  			break;
->> > > +		case DOMAIN_ATTR_SYS_CACHE:
->> > > +			if (smmu_domain->smmu) {
->> > > +				ret = -EPERM;
->> > > +				goto out_unlock;
->> > > +			}
->> > > +
->> > > +			if (*((int *)data))
->> > > +				smmu_domain->sys_cache = true;
->> > > +			else
->> > > +				smmu_domain->sys_cache = false;
->> > > +			break;
->> > >  		default:
->> > >  			ret = -ENODEV;
->> > >  		}
->> > > diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.h
->> > > b/drivers/iommu/arm/arm-smmu/arm-smmu.h
->> > > index 885840f3bec8..dfc44d806671 100644
->> > > --- a/drivers/iommu/arm/arm-smmu/arm-smmu.h
->> > > +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.h
->> > > @@ -373,6 +373,7 @@ struct arm_smmu_domain {
->> > >  	struct mutex			init_mutex; /* Protects smmu pointer */
->> > >  	spinlock_t			cb_lock; /* Serialises ATS1* ops and TLB syncs */
->> > >  	struct iommu_domain		domain;
->> > > +	bool				sys_cache;
->> > >  };
->> > >
->> > >  struct arm_smmu_master_cfg {
->> > > diff --git a/include/linux/iommu.h b/include/linux/iommu.h
->> > > index b95a6f8db6ff..4f4bb9c6f8f6 100644
->> > > --- a/include/linux/iommu.h
->> > > +++ b/include/linux/iommu.h
->> > > @@ -118,6 +118,7 @@ enum iommu_attr {
->> > >  	DOMAIN_ATTR_FSL_PAMUV1,
->> > >  	DOMAIN_ATTR_NESTING,	/* two stages of translation */
->> > >  	DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE,
->> > > +	DOMAIN_ATTR_SYS_CACHE,
->> >
->> > I think you're trying to make this look generic, but it's really not.
->> > If we need to funnel io-pgtable quirks through domain attributes, then I
->> > think we should be open about that and add something like
->> > DOMAIN_ATTR_IO_PGTABLE_CFG which could take a struct of page-table
->> > configuration data for the domain (this could just be quirks initially,
->> > but maybe it's worth extending to take ias, oas and page size)
->> >
->> 
->> Actually the initial versions used DOMAIN_ATTR_QCOM_SYS_CACHE
->> to make it QCOM specific and not generic, I don't see anyone else
->> using this attribute, would that work?
-> 
-> No -- I'd prefer to have _one_ domain attribute for funneling all the
-> IP_PGTABLE_CFG data. Otherwise, we'll just end up with things like
-> DOMAIN_ATTR_QCOM_SYS_CACHE_EXT or DOMAIN_ATTR_QCOM_QUIRKS later on.
-> 
+v2:
+ - added patches 2/3 to enable using dma_ops_bypass
+ - changed DRM_MSM_GEM_SYNC_CACHE patch to use dma_sync_sg_for_device()
+   and dma_sync_sg_for_cpu(), and renamed sync flags.
 
-Right, that makes sense. I will add this in next version.
+Not sure I did the right thing with for the dma_ops_bypass part,
+this is what I came up with reading the emails.
 
-Thanks,
-Sai
+Jonathan Marek (5):
+  drm/msm: add MSM_BO_CACHED_COHERENT
+  dma-direct: add dma_direct_bypass() to force direct ops
+  drm/msm: call dma_direct_bypass()
+  drm/msm: add DRM_MSM_GEM_SYNC_CACHE for non-coherent cache maintenance
+  drm/msm: bump up the uapi version
+
+ drivers/gpu/drm/msm/Kconfig                |  1 +
+ drivers/gpu/drm/msm/adreno/adreno_device.c |  1 +
+ drivers/gpu/drm/msm/msm_drv.c              | 32 +++++++++++++++++++---
+ drivers/gpu/drm/msm/msm_drv.h              |  3 ++
+ drivers/gpu/drm/msm/msm_gem.c              | 31 +++++++++++++++++++++
+ include/linux/dma-direct.h                 |  9 ++++++
+ include/uapi/drm/msm_drm.h                 | 25 +++++++++++++++--
+ kernel/dma/direct.c                        | 23 ++++++++++++++++
+ 8 files changed, 118 insertions(+), 7 deletions(-)
 
 -- 
-QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a 
-member
-of Code Aurora Forum, hosted by The Linux Foundation
+2.26.1
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
