@@ -2,59 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A37F2B4DB3
-	for <lists+freedreno@lfdr.de>; Mon, 16 Nov 2020 18:41:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCE682B4DDA
+	for <lists+freedreno@lfdr.de>; Mon, 16 Nov 2020 18:47:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E58A6EA02;
-	Mon, 16 Nov 2020 17:41:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 879D26E04A;
+	Mon, 16 Nov 2020 17:47:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 055496E9F8
- for <freedreno@lists.freedesktop.org>; Mon, 16 Nov 2020 17:41:51 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id c17so19628220wrc.11
- for <freedreno@lists.freedesktop.org>; Mon, 16 Nov 2020 09:41:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=W1MHY4aaGFabv01eWFz4IHQEmJmgXDktxmU/mwniRQM=;
- b=mpqKiv0z8EhJ1hkWKiD4s3yFbia9Nq2ccdMY5wK4NY+1NhTHbISUM0ZH3ZCHS26yIY
- 6O92czvRbWnbgPQe9WAFU9K/ifLShQgqoCdc7wLL0GhgXqzaJijOqVfYbvzNe6LIIrEV
- npClTG9jo/n4w5RaShICj+fD7GkqO5I7mu+U0V9gizrF3eBSNbo4+XqLYYmIaqdgUX9Q
- XQhvG0ntpPs8mW8I2RcJcfkUebZtEbvrmRX8nwIuOSrjkDv5t30hRk4VdnTEpzExNK9u
- h7JAg3+m/h/EUMPZYwgmbeUUW31PgTukkL+KomU9Y91HNvhWS1dYAqQp0E8FWX/P9HJ7
- 1nQQ==
+Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
+ [IPv6:2607:f8b0:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 470476E04A;
+ Mon, 16 Nov 2020 17:47:00 +0000 (UTC)
+Received: by mail-pf1-x442.google.com with SMTP id a18so14851307pfl.3;
+ Mon, 16 Nov 2020 09:47:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=AFQ+O37FNhcW/Av1cdzRedXy1kVAe5xo2SMJ3+HW4OM=;
+ b=vWXDOTfl59qP9fxCS19SyQrfmBfDGuSxJsaVaz5eSMb86AZtFklN7A6Zn5DpU2O62M
+ z/o81vZvXnRjoqLaklfBDjXWvMIsqijdjhliiP2DH/mnlR1dIhxQBNMgQFl307oQroa7
+ qrlWZqgHXNh56cfEOdscvePSzck8kpS4ztlZ/YQ3D9p08q5dIKSqy9Zw4SkM5jZtk2NX
+ gfJHMH1DSX/xkJgW0u64M+jdPEvSTEbt6+9VfLD3iOjhFPI7qilId9+q03ZqIQxuVnD7
+ lphI90AKiQvVDsX+mRf+DTegxdafRYX6l6nHIQ2p7rxYfLyiMa8bP+5CXzbkxidlTk+g
+ k7kA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=W1MHY4aaGFabv01eWFz4IHQEmJmgXDktxmU/mwniRQM=;
- b=Dos4zQcUIBYSArhjlCvdKlludNmF5HjdThe0W66wiju69iItfohtWxg+D7DEZ+PRwB
- xPJazE1XzrGj4jcE2QvDrOTVYpQGSUrl99+URltHCGZo9dznrypWfQ71Y4uwbkKjiCty
- eY8Gt9mhz9gCCzx2Q41NNnJyLvaVRZJA3Qi6RpJHC39YxqR173dceejSb3NLRJdNvZPg
- ZsWxc+V0gZVHjU9A2Vheix9YIDaldaLkzISyP0zDDTDTjoTTp0SB4Kzi4kie0F1XxmCI
- 5xdaEvFMNRzM+7Q9QNtGe2pTvbHH6Vst428z4OhAZphB+P4qQ0pGMUpGK90JJX3ui8Gc
- UU2Q==
-X-Gm-Message-State: AOAM532/k7VgQsL2ANm8isFpJXXP+YixnUsB4rrDihUO8L0RXaV4ib2M
- AeztL47gXXDzxlF3U4tKA+bAmA==
-X-Google-Smtp-Source: ABdhPJwZ0jSj+/r94Ojpe6Rg7ZSUOee9IJj4lYLdYAt/Xz4U6G4d3Gz4HVMuhx4NAwzNQfjCx3+8NA==
-X-Received: by 2002:adf:dc4b:: with SMTP id m11mr19844677wrj.328.1605548509721; 
- Mon, 16 Nov 2020 09:41:49 -0800 (PST)
-Received: from dell.default ([91.110.221.159])
- by smtp.gmail.com with ESMTPSA id n10sm24667224wrx.9.2020.11.16.09.41.48
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=AFQ+O37FNhcW/Av1cdzRedXy1kVAe5xo2SMJ3+HW4OM=;
+ b=VrD7NL2MftYEZFL6nVcS53T2SIaQrgAGw5AA8r/ue882A02vxLWw6m0x8grvI8Tw7z
+ gIVjv7IR8EByOnhtQhj5nThSvQi2Uhh1GfpmbqF+vJLzwidCHzbD59VvJhJjldXOI0W1
+ ABTSZHGA406nUOCCElRehxtVl1QzPQlGbfrnvhC4hDTAHcR/ycuekl48RgWgIecR7DcD
+ R5L8jZro1qQFGyK/ddRSf02evly+mRyVqQuHDc9n1Od4azQNhgxcDBTXJEvwCLCSddNN
+ BioJkedXulPli5MLLEhj8wJgGErbA0gTrlUmBP1ppgcfhs1MsIN5Hz8jndLkJ/Iy9rGV
+ jvxw==
+X-Gm-Message-State: AOAM533IFzPt0l61mEgmh2d3Rrsodt2ptafzJD3D0Xvnz7qi0mNZppQX
+ vibclUjjMVSWhJFBJQ6iEHMNKOn2GHk=
+X-Google-Smtp-Source: ABdhPJyeKY5m4SY+1T9gII+E3Bldj7+ODf6BYWuyVbLF75IPQWTx0NuLpLWGPvG4nF8DXKpCoWoR0A==
+X-Received: by 2002:a63:5421:: with SMTP id i33mr317880pgb.316.1605548819123; 
+ Mon, 16 Nov 2020 09:46:59 -0800 (PST)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ q16sm18422605pff.114.2020.11.16.09.46.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Nov 2020 09:41:49 -0800 (PST)
-From: Lee Jones <lee.jones@linaro.org>
-To: lee.jones@linaro.org
-Date: Mon, 16 Nov 2020 17:40:50 +0000
-Message-Id: <20201116174112.1833368-21-lee.jones@linaro.org>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20201116174112.1833368-1-lee.jones@linaro.org>
-References: <20201116174112.1833368-1-lee.jones@linaro.org>
+ Mon, 16 Nov 2020 09:46:57 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Mon, 16 Nov 2020 09:48:48 -0800
+Message-Id: <20201116174851.878426-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 20/42] drm/msm/disp/dpu1/dpu_encoder: Remove a
- bunch of unused variables
+Subject: [Freedreno] [PATCH v2 0/3] drm/msm: Shrinker fixes and opts
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,88 +65,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <abhinavk@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>,
+ "Kristian H. Kristensen" <hoegsberg@google.com>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Rml4ZXMgdGhlIGZvbGxvd2luZyBXPTEga2VybmVsIGJ1aWxkIHdhcm5pbmcocyk6CgogZHJpdmVy
-cy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X2VuY29kZXIuYzogSW4gZnVuY3Rpb24g4oCYZHB1
-X2VuY29kZXJfdmlydF9tb2RlX3NldOKAmToKIGRyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUx
-L2RwdV9lbmNvZGVyLmM6OTgxOjMxOiB3YXJuaW5nOiB2YXJpYWJsZSDigJhudW1fZHNwcOKAmSBz
-ZXQgYnV0IG5vdCB1c2VkIFstV3VudXNlZC1idXQtc2V0LXZhcmlhYmxlXQogZHJpdmVycy9ncHUv
-ZHJtL21zbS9kaXNwL2RwdTEvZHB1X2VuY29kZXIuYzo5NzY6MzA6IHdhcm5pbmc6IHZhcmlhYmxl
-IOKAmHRvcG9sb2d54oCZIHNldCBidXQgbm90IHVzZWQgWy1XdW51c2VkLWJ1dC1zZXQtdmFyaWFi
-bGVdCiBkcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfZW5jb2Rlci5jOiBJbiBmdW5j
-dGlvbiDigJhfZHB1X2VuY29kZXJfdmlydF9lbmFibGVfaGVscGVy4oCZOgogZHJpdmVycy9ncHUv
-ZHJtL21zbS9kaXNwL2RwdTEvZHB1X2VuY29kZXIuYzoxMDk5OjI2OiB3YXJuaW5nOiB2YXJpYWJs
-ZSDigJhwcml24oCZIHNldCBidXQgbm90IHVzZWQgWy1XdW51c2VkLWJ1dC1zZXQtdmFyaWFibGVd
-CiBkcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfZW5jb2Rlci5jOiBJbiBmdW5jdGlv
-biDigJhkcHVfZW5jb2Rlcl92aXJ0X2Rpc2FibGXigJk6CiBkcml2ZXJzL2dwdS9kcm0vbXNtL2Rp
-c3AvZHB1MS9kcHVfZW5jb2Rlci5jOjEyMTA6MTg6IHdhcm5pbmc6IHZhcmlhYmxlIOKAmGRwdV9r
-bXPigJkgc2V0IGJ1dCBub3QgdXNlZCBbLVd1bnVzZWQtYnV0LXNldC12YXJpYWJsZV0KCkNjOiBS
-b2IgQ2xhcmsgPHJvYmRjbGFya0BnbWFpbC5jb20+CkNjOiBTZWFuIFBhdWwgPHNlYW5AcG9vcmx5
-LnJ1bj4KQ2M6IERhdmlkIEFpcmxpZSA8YWlybGllZEBsaW51eC5pZT4KQ2M6IERhbmllbCBWZXR0
-ZXIgPGRhbmllbEBmZndsbC5jaD4KQ2M6IGxpbnV4LWFybS1tc21Admdlci5rZXJuZWwub3JnCkNj
-OiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCkNjOiBmcmVlZHJlbm9AbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnClNpZ25lZC1vZmYtYnk6IExlZSBKb25lcyA8bGVlLmpvbmVzQGxpbmFyby5v
-cmc+ClJldmlld2VkLWJ5OiBBYmhpbmF2IEt1bWFyIDxhYmhpbmF2a0Bjb2RlYXVyb3JhLm9yZz4K
-LS0tCiBkcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfZW5jb2Rlci5jIHwgMTIgKyst
-LS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAxMCBkZWxldGlvbnMo
-LSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfZW5jb2Rl
-ci5jIGIvZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X2VuY29kZXIuYwppbmRleCBm
-N2Y1YzI1OGI1NTM3Li4yODliZmI2ZjE4NjFjIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-bXNtL2Rpc3AvZHB1MS9kcHVfZW5jb2Rlci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlz
-cC9kcHUxL2RwdV9lbmNvZGVyLmMKQEAgLTk3MywxMiArOTczLDExIEBAIHN0YXRpYyB2b2lkIGRw
-dV9lbmNvZGVyX3ZpcnRfbW9kZV9zZXQoc3RydWN0IGRybV9lbmNvZGVyICpkcm1fZW5jLAogCXN0
-cnVjdCBkcm1fY3J0YyAqZHJtX2NydGM7CiAJc3RydWN0IGRwdV9jcnRjX3N0YXRlICpjc3RhdGU7
-CiAJc3RydWN0IGRwdV9nbG9iYWxfc3RhdGUgKmdsb2JhbF9zdGF0ZTsKLQlzdHJ1Y3QgbXNtX2Rp
-c3BsYXlfdG9wb2xvZ3kgdG9wb2xvZ3k7CiAJc3RydWN0IGRwdV9od19ibGsgKmh3X3BwW01BWF9D
-SEFOTkVMU19QRVJfRU5DXTsKIAlzdHJ1Y3QgZHB1X2h3X2JsayAqaHdfY3RsW01BWF9DSEFOTkVM
-U19QRVJfRU5DXTsKIAlzdHJ1Y3QgZHB1X2h3X2JsayAqaHdfbG1bTUFYX0NIQU5ORUxTX1BFUl9F
-TkNdOwogCXN0cnVjdCBkcHVfaHdfYmxrICpod19kc3BwW01BWF9DSEFOTkVMU19QRVJfRU5DXSA9
-IHsgTlVMTCB9OwotCWludCBudW1fbG0sIG51bV9jdGwsIG51bV9wcCwgbnVtX2RzcHA7CisJaW50
-IG51bV9sbSwgbnVtX2N0bCwgbnVtX3BwOwogCWludCBpLCBqOwogCiAJaWYgKCFkcm1fZW5jKSB7
-CkBAIC0xMDIwLDggKzEwMTksNiBAQCBzdGF0aWMgdm9pZCBkcHVfZW5jb2Rlcl92aXJ0X21vZGVf
-c2V0KHN0cnVjdCBkcm1fZW5jb2RlciAqZHJtX2VuYywKIAkJaWYgKGRybV9jcnRjLT5zdGF0ZS0+
-ZW5jb2Rlcl9tYXNrICYgZHJtX2VuY29kZXJfbWFzayhkcm1fZW5jKSkKIAkJCWJyZWFrOwogCi0J
-dG9wb2xvZ3kgPSBkcHVfZW5jb2Rlcl9nZXRfdG9wb2xvZ3koZHB1X2VuYywgZHB1X2ttcywgYWRq
-X21vZGUpOwotCiAJLyogUXVlcnkgcmVzb3VyY2UgdGhhdCBoYXZlIGJlZW4gcmVzZXJ2ZWQgaW4g
-YXRvbWljIGNoZWNrIHN0ZXAuICovCiAJbnVtX3BwID0gZHB1X3JtX2dldF9hc3NpZ25lZF9yZXNv
-dXJjZXMoJmRwdV9rbXMtPnJtLCBnbG9iYWxfc3RhdGUsCiAJCWRybV9lbmMtPmJhc2UuaWQsIERQ
-VV9IV19CTEtfUElOR1BPTkcsIGh3X3BwLApAQCAtMTAzMCw3ICsxMDI3LDcgQEAgc3RhdGljIHZv
-aWQgZHB1X2VuY29kZXJfdmlydF9tb2RlX3NldChzdHJ1Y3QgZHJtX2VuY29kZXIgKmRybV9lbmMs
-CiAJCWRybV9lbmMtPmJhc2UuaWQsIERQVV9IV19CTEtfQ1RMLCBod19jdGwsIEFSUkFZX1NJWkUo
-aHdfY3RsKSk7CiAJbnVtX2xtID0gZHB1X3JtX2dldF9hc3NpZ25lZF9yZXNvdXJjZXMoJmRwdV9r
-bXMtPnJtLCBnbG9iYWxfc3RhdGUsCiAJCWRybV9lbmMtPmJhc2UuaWQsIERQVV9IV19CTEtfTE0s
-IGh3X2xtLCBBUlJBWV9TSVpFKGh3X2xtKSk7Ci0JbnVtX2RzcHAgPSBkcHVfcm1fZ2V0X2Fzc2ln
-bmVkX3Jlc291cmNlcygmZHB1X2ttcy0+cm0sIGdsb2JhbF9zdGF0ZSwKKwlkcHVfcm1fZ2V0X2Fz
-c2lnbmVkX3Jlc291cmNlcygmZHB1X2ttcy0+cm0sIGdsb2JhbF9zdGF0ZSwKIAkJZHJtX2VuYy0+
-YmFzZS5pZCwgRFBVX0hXX0JMS19EU1BQLCBod19kc3BwLAogCQlBUlJBWV9TSVpFKGh3X2RzcHAp
-KTsKIApAQCAtMTA5Niw3ICsxMDkzLDYgQEAgc3RhdGljIHZvaWQgZHB1X2VuY29kZXJfdmlydF9t
-b2RlX3NldChzdHJ1Y3QgZHJtX2VuY29kZXIgKmRybV9lbmMsCiBzdGF0aWMgdm9pZCBfZHB1X2Vu
-Y29kZXJfdmlydF9lbmFibGVfaGVscGVyKHN0cnVjdCBkcm1fZW5jb2RlciAqZHJtX2VuYykKIHsK
-IAlzdHJ1Y3QgZHB1X2VuY29kZXJfdmlydCAqZHB1X2VuYyA9IE5VTEw7Ci0Jc3RydWN0IG1zbV9k
-cm1fcHJpdmF0ZSAqcHJpdjsKIAlpbnQgaTsKIAogCWlmICghZHJtX2VuYyB8fCAhZHJtX2VuYy0+
-ZGV2KSB7CkBAIC0xMTA0LDggKzExMDAsNiBAQCBzdGF0aWMgdm9pZCBfZHB1X2VuY29kZXJfdmly
-dF9lbmFibGVfaGVscGVyKHN0cnVjdCBkcm1fZW5jb2RlciAqZHJtX2VuYykKIAkJcmV0dXJuOwog
-CX0KIAotCXByaXYgPSBkcm1fZW5jLT5kZXYtPmRldl9wcml2YXRlOwotCiAJZHB1X2VuYyA9IHRv
-X2RwdV9lbmNvZGVyX3ZpcnQoZHJtX2VuYyk7CiAJaWYgKCFkcHVfZW5jIHx8ICFkcHVfZW5jLT5j
-dXJfbWFzdGVyKSB7CiAJCURQVV9FUlJPUigiaW52YWxpZCBkcHUgZW5jb2Rlci9tYXN0ZXJcbiIp
-OwpAQCAtMTIwNyw3ICsxMjAxLDYgQEAgc3RhdGljIHZvaWQgZHB1X2VuY29kZXJfdmlydF9kaXNh
-YmxlKHN0cnVjdCBkcm1fZW5jb2RlciAqZHJtX2VuYykKIHsKIAlzdHJ1Y3QgZHB1X2VuY29kZXJf
-dmlydCAqZHB1X2VuYyA9IE5VTEw7CiAJc3RydWN0IG1zbV9kcm1fcHJpdmF0ZSAqcHJpdjsKLQlz
-dHJ1Y3QgZHB1X2ttcyAqZHB1X2ttczsKIAlpbnQgaSA9IDA7CiAKIAlpZiAoIWRybV9lbmMpIHsK
-QEAgLTEyMjUsNyArMTIxOCw2IEBAIHN0YXRpYyB2b2lkIGRwdV9lbmNvZGVyX3ZpcnRfZGlzYWJs
-ZShzdHJ1Y3QgZHJtX2VuY29kZXIgKmRybV9lbmMpCiAJZHB1X2VuYy0+ZW5hYmxlZCA9IGZhbHNl
-OwogCiAJcHJpdiA9IGRybV9lbmMtPmRldi0+ZGV2X3ByaXZhdGU7Ci0JZHB1X2ttcyA9IHRvX2Rw
-dV9rbXMocHJpdi0+a21zKTsKIAogCXRyYWNlX2RwdV9lbmNfZGlzYWJsZShEUk1JRChkcm1fZW5j
-KSk7CiAKLS0gCjIuMjUuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJl
-ZWRyZW5vCg==
+From: Rob Clark <robdclark@chromium.org>
+
+The last patch is the main thing, motivated by some cases where we would
+spend a lot of time in msm_gem_shrinker_count().  First two are fixes I
+noticed along the way.
+
+Rob Clark (3):
+  drm/msm: Protect obj->active_count under obj lock
+  drm/msm/shrinker: We can vmap shrink active_list too
+  drm/msm/shrinker: Only iterate dontneed objs
+
+ drivers/gpu/drm/msm/msm_debugfs.c      |  3 +-
+ drivers/gpu/drm/msm/msm_drv.c          |  3 +-
+ drivers/gpu/drm/msm/msm_drv.h          |  8 ++--
+ drivers/gpu/drm/msm/msm_gem.c          | 45 ++++++++++++++++------
+ drivers/gpu/drm/msm/msm_gem.h          |  5 ++-
+ drivers/gpu/drm/msm/msm_gem_shrinker.c | 52 +++++++++++++++++++-------
+ drivers/gpu/drm/msm/msm_gpu.c          | 10 +++--
+ 7 files changed, 89 insertions(+), 37 deletions(-)
+
+-- 
+2.28.0
+
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
