@@ -2,34 +2,34 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CA1B2B4C88
-	for <lists+freedreno@lfdr.de>; Mon, 16 Nov 2020 18:20:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20E842B4C9E
+	for <lists+freedreno@lfdr.de>; Mon, 16 Nov 2020 18:25:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16AA089C60;
-	Mon, 16 Nov 2020 17:20:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C335089C85;
+	Mon, 16 Nov 2020 17:25:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DBBE89C5E
- for <freedreno@lists.freedesktop.org>; Mon, 16 Nov 2020 17:20:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9701489C85
+ for <freedreno@lists.freedesktop.org>; Mon, 16 Nov 2020 17:25:47 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1605547216; h=In-Reply-To: Content-Type: MIME-Version:
+ s=smtp; t=1605547552; h=In-Reply-To: Content-Type: MIME-Version:
  References: Message-ID: Subject: Cc: To: From: Date: Sender;
- bh=891TLTq9X1+ikAVna/l6QbpmQq9NUBJi7SHWorFz7n8=;
- b=w+yZroGzDemDBXl1TcQcwwrimsPaNCvTUrQ5sz5hB7/JAO1p/TXnYKVyPQ0iHQMqDDpdVEw9
- Ji8ci2KQ2jR4z2i0kqO98Q35yX9dkHPZx79qEg56RTkU9BV/6ygy5p2SOjdlx3HB6ajjktWz
- us+e6VzVX9WKPtJvqtKtmyTTgwU=
+ bh=ubwksu+2cE0DKBoNZBkN+tiTw5genF8NV37stNzyi/8=;
+ b=kCCiQVQOAg9jlZgqpRf5QTpeTQugCw9tqtMnepzYnvVK7RTEvIsxPKtDluh8kDbHdGn72xEw
+ qQ5NiYVdTywfxzXl9fMzYy0aVUlT+2Ujf6b8cQ5KWBf4mPBHw+NGdao6m0YkS9LE634aJfBd
+ Gx81QGN7GC7XjkC4g/1nseI4pRo=
 X-Mailgun-Sending-Ip: 69.72.42.4
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
- 5fb2b4cfc3c3b09004ccc78b (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 16 Nov 2020 17:20:14
+ smtp-out-n06.prod.us-east-1.postgun.com with SMTP id
+ 5fb2b60e25da3a0fa9343914 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 16 Nov 2020 17:25:33
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 37DCEC43460; Mon, 16 Nov 2020 17:20:14 +0000 (UTC)
+ id 36B5AC433C6; Mon, 16 Nov 2020 17:25:33 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -40,32 +40,33 @@ Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id A0641C433C6;
- Mon, 16 Nov 2020 17:20:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org A0641C433C6
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id DE1FFC433ED;
+ Mon, 16 Nov 2020 17:25:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org DE1FFC433ED
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  spf=fail smtp.mailfrom=jcrouse@codeaurora.org
-Date: Mon, 16 Nov 2020 10:20:09 -0700
+Date: Mon, 16 Nov 2020 10:25:27 -0700
 From: Jordan Crouse <jcrouse@codeaurora.org>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20201116172009.GB16856@jcrouse1-lnx.qualcomm.com>
-Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
+To: Jonathan Marek <jonathan@marek.ca>
+Message-ID: <20201116172527.GC16856@jcrouse1-lnx.qualcomm.com>
+Mail-Followup-To: Jonathan Marek <jonathan@marek.ca>,
+ freedreno@lists.freedesktop.org, hch@lst.de,
  David Airlie <airlied@linux.ie>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
  open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Sean Paul <sean@poorly.run>
-References: <20201114193010.753355-1-robdclark@gmail.com>
- <20201114193010.753355-4-robdclark@gmail.com>
+References: <20201114151717.5369-1-jonathan@marek.ca>
+ <20201114151717.5369-5-jonathan@marek.ca>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20201114193010.753355-4-robdclark@gmail.com>
+In-Reply-To: <20201114151717.5369-5-jonathan@marek.ca>
 User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Freedreno] [PATCH 3/3] drm/msm/shrinker: Only iterate dontneed
- objs
+Subject: Re: [Freedreno] [RESEND PATCH v2 4/5] drm/msm: add
+ DRM_MSM_GEM_SYNC_CACHE for non-coherent cache maintenance
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,218 +79,176 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
+Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- Sean Paul <sean@poorly.run>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org, hch@lst.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, Nov 14, 2020 at 11:30:10AM -0800, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
+On Sat, Nov 14, 2020 at 10:17:12AM -0500, Jonathan Marek wrote:
+> This makes it possible to use the non-coherent cached MSM_BO_CACHED mode,
+> which otherwise doesn't provide any method for cleaning/invalidating the
+> cache to sync with the device.
 > 
-> In situations where the GPU is mostly idle, all or nearly all buffer
-> objects will be in the inactive list.  But if the system is under memory
-> pressure (from something other than GPU), we could still get a lot of
-> shrinker calls.  Which results in traversing a list of thousands of objs
-> and in the end finding nothing to shrink.  Which isn't so efficient.
-> 
-> Instead split the inactive_list into two lists, one inactive objs which
-> are shrinkable, and a second one for those that are not.  This way we
-> can avoid traversing objs which we know are not shrinker candidates.
-> 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
 > ---
->  drivers/gpu/drm/msm/msm_debugfs.c      |  3 ++-
->  drivers/gpu/drm/msm/msm_drv.c          |  3 ++-
->  drivers/gpu/drm/msm/msm_drv.h          |  8 +++---
->  drivers/gpu/drm/msm/msm_gem.c          | 34 ++++++++++++++++++++------
->  drivers/gpu/drm/msm/msm_gem_shrinker.c |  7 +++---
->  5 files changed, 40 insertions(+), 15 deletions(-)
+>  drivers/gpu/drm/msm/msm_drv.c | 21 +++++++++++++++++++++
+>  drivers/gpu/drm/msm/msm_drv.h |  2 ++
+>  drivers/gpu/drm/msm/msm_gem.c | 23 +++++++++++++++++++++++
+>  include/uapi/drm/msm_drm.h    | 20 ++++++++++++++++++++
+>  4 files changed, 66 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/msm_debugfs.c b/drivers/gpu/drm/msm/msm_debugfs.c
-> index 64afbed89821..85ad0babc326 100644
-> --- a/drivers/gpu/drm/msm/msm_debugfs.c
-> +++ b/drivers/gpu/drm/msm/msm_debugfs.c
-> @@ -124,7 +124,8 @@ static int msm_gem_show(struct drm_device *dev, struct seq_file *m)
->  	}
->  
->  	seq_printf(m, "Inactive Objects:\n");
-> -	msm_gem_describe_objects(&priv->inactive_list, m);
-> +	msm_gem_describe_objects(&priv->inactive_dontneed, m);
-> +	msm_gem_describe_objects(&priv->inactive_willneed, m);
->  
->  	mutex_unlock(&priv->mm_lock);
->  
 > diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index 4d808769e6ed..39a54f364aa8 100644
+> index bae48afca82e..3f17acdf6594 100644
 > --- a/drivers/gpu/drm/msm/msm_drv.c
 > +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -465,7 +465,8 @@ static int msm_drm_init(struct device *dev, struct drm_driver *drv)
->  
->  	priv->wq = alloc_ordered_workqueue("msm", 0);
->  
-> -	INIT_LIST_HEAD(&priv->inactive_list);
-> +	INIT_LIST_HEAD(&priv->inactive_willneed);
-> +	INIT_LIST_HEAD(&priv->inactive_dontneed);
->  	mutex_init(&priv->mm_lock);
->  
->  	/* Teach lockdep about lock ordering wrt. shrinker: */
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-> index f869ed67b5da..ed18c5bed10f 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -175,8 +175,9 @@ struct msm_drm_private {
->  	struct msm_perf_state *perf;
->  
->  	/*
-> -	 * List of inactive GEM objects.  Every bo is either in the inactive_list
-> -	 * or gpu->active_list (for the gpu it is active on[1])
-> +	 * Lists of inactive GEM objects.  Every bo is either in one of the
-> +	 * inactive lists (depending on whether or not it is shrinkable) or
-> +	 * gpu->active_list (for the gpu it is active on[1])
->  	 *
->  	 * These lists are protected by mm_lock.  If struct_mutex is involved, it
->  	 * should be aquired prior to mm_lock.  One should *not* hold mm_lock in
-> @@ -185,7 +186,8 @@ struct msm_drm_private {
->  	 * [1] if someone ever added support for the old 2d cores, there could be
->  	 *     more than one gpu object
->  	 */
-> -	struct list_head inactive_list;
-> +	struct list_head inactive_willneed;  /* inactive + !shrinkable */
-> +	struct list_head inactive_dontneed;  /* inactive +  shrinkable */
->  	struct mutex mm_lock;
->  
->  	struct workqueue_struct *wq;
-> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-> index 2795288b0a95..de8d2cfada24 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.c
-> +++ b/drivers/gpu/drm/msm/msm_gem.c
-> @@ -17,6 +17,7 @@
->  #include "msm_gpu.h"
->  #include "msm_mmu.h"
->  
-> +static void update_inactive(struct msm_gem_object *msm_obj);
->  
->  static dma_addr_t physaddr(struct drm_gem_object *obj)
->  {
-> @@ -678,6 +679,12 @@ int msm_gem_madvise(struct drm_gem_object *obj, unsigned madv)
->  
->  	madv = msm_obj->madv;
->  
-> +	/* If the obj is inactive, we might need to move it
-> +	 * between inactive lists
-> +	 */
-> +	if (msm_obj->active_count == 0)
-> +		update_inactive(msm_obj);
-> +
->  	msm_gem_unlock(obj);
->  
->  	return (madv != __MSM_MADV_PURGED);
-> @@ -781,19 +788,31 @@ void msm_gem_active_get(struct drm_gem_object *obj, struct msm_gpu *gpu)
->  void msm_gem_active_put(struct drm_gem_object *obj)
->  {
->  	struct msm_gem_object *msm_obj = to_msm_bo(obj);
-> -	struct msm_drm_private *priv = obj->dev->dev_private;
->  
->  	might_sleep();
->  	WARN_ON(!msm_gem_is_locked(obj));
->  
->  	if (--msm_obj->active_count == 0) {
-> -		mutex_lock(&priv->mm_lock);
-> -		list_del_init(&msm_obj->mm_list);
-> -		list_add_tail(&msm_obj->mm_list, &priv->inactive_list);
-> -		mutex_unlock(&priv->mm_lock);
-> +		update_inactive(msm_obj);
->  	}
+> @@ -959,6 +959,26 @@ static int msm_ioctl_submitqueue_close(struct drm_device *dev, void *data,
+>  	return msm_submitqueue_remove(file->driver_priv, id);
 >  }
 >  
-> +static void update_inactive(struct msm_gem_object *msm_obj)
+> +static int msm_ioctl_gem_sync_cache(struct drm_device *dev, void *data,
+> +		struct drm_file *file)
 > +{
-> +	struct msm_drm_private *priv = msm_obj->base.dev->dev_private;
+> +	struct drm_msm_gem_sync_cache *args = data;
+> +	struct drm_gem_object *obj;
 > +
-> +	mutex_lock(&priv->mm_lock);
-> +	WARN_ON(msm_obj->active_count != 0);
+> +	if (args->flags & ~MSM_GEM_SYNC_CACHE_FLAGS)
+> +		return -EINVAL;
 > +
-> +	list_del_init(&msm_obj->mm_list);
-> +	if (msm_obj->madv == MSM_MADV_DONTNEED)
-> +		list_add_tail(&msm_obj->mm_list, &priv->inactive_willneed);
-> +	else
-> +		list_add_tail(&msm_obj->mm_list, &priv->inactive_dontneed);
+> +	obj = drm_gem_object_lookup(file, args->handle);
+> +	if (!obj)
+> +		return -ENOENT;
+> +
+> +	msm_gem_sync_cache(obj, args->flags, args->offset, args->end);
+> +
+> +	drm_gem_object_put(obj);
+> +
+> +	return 0;
+> +}
+> +
+>  static const struct drm_ioctl_desc msm_ioctls[] = {
+>  	DRM_IOCTL_DEF_DRV(MSM_GET_PARAM,    msm_ioctl_get_param,    DRM_RENDER_ALLOW),
+>  	DRM_IOCTL_DEF_DRV(MSM_GEM_NEW,      msm_ioctl_gem_new,      DRM_RENDER_ALLOW),
+> @@ -971,6 +991,7 @@ static const struct drm_ioctl_desc msm_ioctls[] = {
+>  	DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_NEW,   msm_ioctl_submitqueue_new,   DRM_RENDER_ALLOW),
+>  	DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_CLOSE, msm_ioctl_submitqueue_close, DRM_RENDER_ALLOW),
+>  	DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_QUERY, msm_ioctl_submitqueue_query, DRM_RENDER_ALLOW),
+> +	DRM_IOCTL_DEF_DRV(MSM_GEM_SYNC_CACHE,    msm_ioctl_gem_sync_cache,    DRM_RENDER_ALLOW),
+>  };
+>  
+>  static const struct vm_operations_struct vm_ops = {
+> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+> index 22ebecb28349..f170f843010e 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.h
+> +++ b/drivers/gpu/drm/msm/msm_drv.h
+> @@ -318,6 +318,8 @@ void msm_gem_active_get(struct drm_gem_object *obj, struct msm_gpu *gpu);
+>  void msm_gem_active_put(struct drm_gem_object *obj);
+>  int msm_gem_cpu_prep(struct drm_gem_object *obj, uint32_t op, ktime_t *timeout);
+>  int msm_gem_cpu_fini(struct drm_gem_object *obj);
+> +void msm_gem_sync_cache(struct drm_gem_object *obj, uint32_t flags,
+> +		size_t range_start, size_t range_end);
+>  void msm_gem_free_object(struct drm_gem_object *obj);
+>  int msm_gem_new_handle(struct drm_device *dev, struct drm_file *file,
+>  		uint32_t size, uint32_t flags, uint32_t *handle, char *name);
+> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+> index 3d8254b5de16..039738696f9a 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.c
+> +++ b/drivers/gpu/drm/msm/msm_gem.c
+> @@ -797,6 +797,29 @@ int msm_gem_cpu_fini(struct drm_gem_object *obj)
+>  	return 0;
+>  }
+>  
+> +void msm_gem_sync_cache(struct drm_gem_object *obj, uint32_t flags,
+> +		size_t range_start, size_t range_end)
+> +{
+> +	struct msm_gem_object *msm_obj = to_msm_bo(obj);
+> +	struct device *dev = msm_obj->base.dev->dev;
+> +
 
-Is the logic here inverted or is this just really confusing nomenclature? If it
-is correct a comment might help remind us whats happening.
+On a6xx targets with I/O coherency you can skip this (assuming that the IOMMU
+flag has been set for this buffer). I'm not sure if one of the other patches
+already does the bypass but I mention it here since this is the point of
+no-return.
 
 Jordan
 
+> +	/* exit early if get_pages() hasn't been called yet */
+> +	if (!msm_obj->pages)
+> +		return;
 > +
-> +	mutex_unlock(&priv->mm_lock);
+> +	/* TODO: sync only the specified range */
+> +
+> +	if (flags & MSM_GEM_SYNC_FOR_DEVICE) {
+> +		dma_sync_sg_for_device(dev, msm_obj->sgt->sgl,
+> +				msm_obj->sgt->nents, DMA_TO_DEVICE);
+> +	}
+> +
+> +	if (flags & MSM_GEM_SYNC_FOR_CPU) {
+> +		dma_sync_sg_for_cpu(dev, msm_obj->sgt->sgl,
+> +				msm_obj->sgt->nents, DMA_FROM_DEVICE);
+> +	}
 > +}
 > +
->  int msm_gem_cpu_prep(struct drm_gem_object *obj, uint32_t op, ktime_t *timeout)
->  {
->  	bool write = !!(op & MSM_PREP_WRITE);
-> @@ -1099,7 +1118,8 @@ static struct drm_gem_object *_msm_gem_new(struct drm_device *dev,
->  	}
+>  #ifdef CONFIG_DEBUG_FS
+>  static void describe_fence(struct dma_fence *fence, const char *type,
+>  		struct seq_file *m)
+> diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
+> index 474497e8743a..c8288f328528 100644
+> --- a/include/uapi/drm/msm_drm.h
+> +++ b/include/uapi/drm/msm_drm.h
+> @@ -319,6 +319,24 @@ struct drm_msm_submitqueue_query {
+>  	__u32 pad;
+>  };
 >  
->  	mutex_lock(&priv->mm_lock);
-> -	list_add_tail(&msm_obj->mm_list, &priv->inactive_list);
-> +	/* Initially obj is idle, obj->madv == WILLNEED: */
-> +	list_add_tail(&msm_obj->mm_list, &priv->inactive_willneed);
->  	mutex_unlock(&priv->mm_lock);
+> +/*
+> + * Host cache maintenance (relevant for MSM_BO_CACHED)
+> + * driver may both clean/invalidate (flush) for clean
+> + */
+> +
+> +#define MSM_GEM_SYNC_FOR_DEVICE		0x1
+> +#define MSM_GEM_SYNC_FOR_CPU		0x2
+> +
+> +#define MSM_GEM_SYNC_CACHE_FLAGS	(MSM_GEM_SYNC_FOR_DEVICE | \
+> +					 MSM_GEM_SYNC_FOR_CPU)
+> +
+> +struct drm_msm_gem_sync_cache {
+> +	__u32 handle;
+> +	__u32 flags;
+> +	__u64 offset;
+> +	__u64 end;      /* offset + size */
+> +};
+> +
+>  #define DRM_MSM_GET_PARAM              0x00
+>  /* placeholder:
+>  #define DRM_MSM_SET_PARAM              0x01
+> @@ -336,6 +354,7 @@ struct drm_msm_submitqueue_query {
+>  #define DRM_MSM_SUBMITQUEUE_NEW        0x0A
+>  #define DRM_MSM_SUBMITQUEUE_CLOSE      0x0B
+>  #define DRM_MSM_SUBMITQUEUE_QUERY      0x0C
+> +#define DRM_MSM_GEM_SYNC_CACHE         0x0D
 >  
->  	return obj;
-> @@ -1169,7 +1189,7 @@ struct drm_gem_object *msm_gem_import(struct drm_device *dev,
->  	msm_gem_unlock(obj);
+>  #define DRM_IOCTL_MSM_GET_PARAM        DRM_IOWR(DRM_COMMAND_BASE + DRM_MSM_GET_PARAM, struct drm_msm_param)
+>  #define DRM_IOCTL_MSM_GEM_NEW          DRM_IOWR(DRM_COMMAND_BASE + DRM_MSM_GEM_NEW, struct drm_msm_gem_new)
+> @@ -348,6 +367,7 @@ struct drm_msm_submitqueue_query {
+>  #define DRM_IOCTL_MSM_SUBMITQUEUE_NEW    DRM_IOWR(DRM_COMMAND_BASE + DRM_MSM_SUBMITQUEUE_NEW, struct drm_msm_submitqueue)
+>  #define DRM_IOCTL_MSM_SUBMITQUEUE_CLOSE  DRM_IOW (DRM_COMMAND_BASE + DRM_MSM_SUBMITQUEUE_CLOSE, __u32)
+>  #define DRM_IOCTL_MSM_SUBMITQUEUE_QUERY  DRM_IOW (DRM_COMMAND_BASE + DRM_MSM_SUBMITQUEUE_QUERY, struct drm_msm_submitqueue_query)
+> +#define DRM_IOCTL_MSM_GEM_SYNC_CACHE     DRM_IOW (DRM_COMMAND_BASE + DRM_MSM_GEM_SYNC_CACHE, struct drm_msm_gem_sync_cache)
 >  
->  	mutex_lock(&priv->mm_lock);
-> -	list_add_tail(&msm_obj->mm_list, &priv->inactive_list);
-> +	list_add_tail(&msm_obj->mm_list, &priv->inactive_willneed);
->  	mutex_unlock(&priv->mm_lock);
->  
->  	return obj;
-> diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-> index 9d51c1eb808d..81dfa57b6a0d 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-> @@ -19,7 +19,7 @@ msm_gem_shrinker_count(struct shrinker *shrinker, struct shrink_control *sc)
->  
->  	mutex_lock(&priv->mm_lock);
->  
-> -	list_for_each_entry(msm_obj, &priv->inactive_list, mm_list) {
-> +	list_for_each_entry(msm_obj, &priv->inactive_dontneed, mm_list) {
->  		if (!msm_gem_trylock(&msm_obj->base))
->  			continue;
->  		if (is_purgeable(msm_obj))
-> @@ -42,7 +42,7 @@ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
->  
->  	mutex_lock(&priv->mm_lock);
->  
-> -	list_for_each_entry(msm_obj, &priv->inactive_list, mm_list) {
-> +	list_for_each_entry(msm_obj, &priv->inactive_dontneed, mm_list) {
->  		if (freed >= sc->nr_to_scan)
->  			break;
->  		if (!msm_gem_trylock(&msm_obj->base))
-> @@ -96,7 +96,8 @@ msm_gem_shrinker_vmap(struct notifier_block *nb, unsigned long event, void *ptr)
->  	struct msm_drm_private *priv =
->  		container_of(nb, struct msm_drm_private, vmap_notifier);
->  	struct list_head *mm_lists[] = {
-> -		&priv->inactive_list,
-> +		&priv->inactive_dontneed,
-> +		&priv->inactive_willneed,
->  		priv->gpu ? &priv->gpu->active_list : NULL,
->  		NULL,
->  	};
+>  #if defined(__cplusplus)
+>  }
 > -- 
-> 2.28.0
+> 2.26.1
 > 
 > _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> Freedreno mailing list
+> Freedreno@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/freedreno
 
 -- 
 The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
