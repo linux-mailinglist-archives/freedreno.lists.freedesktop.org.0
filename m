@@ -1,54 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D01212B7025
-	for <lists+freedreno@lfdr.de>; Tue, 17 Nov 2020 21:35:00 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A8F42B71D5
+	for <lists+freedreno@lfdr.de>; Tue, 17 Nov 2020 23:53:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E87B6E067;
-	Tue, 17 Nov 2020 20:34:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 295EA6E153;
+	Tue, 17 Nov 2020 22:53:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD5A96E067
- for <freedreno@lists.freedesktop.org>; Tue, 17 Nov 2020 20:34:58 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1605645298; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=B5UuYlGm/Tc1iL48YeEinA+NtRG1i1qyUD8YV4GrWcw=;
- b=s9mx6bjLC1HasZuUZJ+wnLW8k3proxMOpni+YbiI8Wj1Af+Pr2O+PqHG44RmKtJI3kTDaYaZ
- pUKkGe1RwBaJiC9E9MQWI78ARO77Zma5jHbFSZ/6ZlSSAaihQY3NkhAAsND1P1d244h9PO0T
- i/iRUbh4AZvzC/8qJXn0nKnSL8k=
-X-Mailgun-Sending-Ip: 69.72.42.4
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
- 5fb433f18bd2e3c222bee77f (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 17 Nov 2020 20:34:57
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 49E2EC43460; Tue, 17 Nov 2020 20:34:57 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id DCB1BC433C6;
- Tue, 17 Nov 2020 20:34:56 +0000 (UTC)
+Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
+ [IPv6:2607:f8b0:4864:20::643])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAA106E157
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Nov 2020 22:53:03 +0000 (UTC)
+Received: by mail-pl1-x643.google.com with SMTP id k7so11116071plk.3
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Nov 2020 14:53:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:content-transfer-encoding:in-reply-to:references
+ :subject:from:cc:to:date:message-id:user-agent;
+ bh=Ce5mdOiUnXdpgxCp5xEN1C00ke4lV/R4t5KP7C9QieU=;
+ b=lpuXNOnoMJPZCqJXzeKrt0bjw4/lBl9bLgEmGMpS9SlE6ATrhwz3JE00zeefPVNRyE
+ SmBlnlNZNbh0M/9eC1gsvbObC5dvzN8ha7DagBcePbYJwkaNToAum5xcWOWe4M9GJVUH
+ MjjJWm6VpC2Z1Ato6DZxLnyIxWJllMJ8w39a8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:content-transfer-encoding
+ :in-reply-to:references:subject:from:cc:to:date:message-id
+ :user-agent;
+ bh=Ce5mdOiUnXdpgxCp5xEN1C00ke4lV/R4t5KP7C9QieU=;
+ b=FagA39F2wad8uU7lsuarT/Hd5ZSluWXoEp74tOujZlsF+26otj8XyP5cghzgdJEo30
+ It3w5TBXZJhBEhSV80K1xC/2FAf9k+FptyAwbBmVN16Yj4cI5YwQ3rthWeZY65IwADBk
+ p1nh9zJI9RDyqE2sgF6+mpgbGtdxryF+ExCKi2kCWcmu4ZYd6zTBAM1INOBvTjm2Vwi9
+ f9LsxtguzsC2Cp6DjBzrYonNhzq+J8XO4DstYMmGvkHxSBKuu8HC3KQXuv5cfjnRdUMy
+ eZibs6fCrmdHGwsqYmxisGcpzoL0C+366aXVFEHzFF893/UXPRTbU+biehzYy0pnhiy1
+ dkqQ==
+X-Gm-Message-State: AOAM53394YBm1o+Ip5NKIFsipbI/MLhFnxJVDanlVDnctMOIhEMmDq4Y
+ 7qRDDJDnKSAoO+O2hlDWEIADqg==
+X-Google-Smtp-Source: ABdhPJyjPQ5ZJcnbca+0zpUp5+RhAj0mYPzGqNb46PCd3r24FPJ1Ddl2hsvuztEftWzQK9r9fBJuPw==
+X-Received: by 2002:a17:90a:d486:: with SMTP id
+ s6mr1202521pju.115.1605653583407; 
+ Tue, 17 Nov 2020 14:53:03 -0800 (PST)
+Received: from chromium.org ([100.99.132.239])
+ by smtp.gmail.com with ESMTPSA id p7sm12688384pfn.83.2020.11.17.14.53.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Nov 2020 14:53:02 -0800 (PST)
 MIME-Version: 1.0
-Date: Tue, 17 Nov 2020 12:34:56 -0800
-From: abhinavk@codeaurora.org
-To: Stephen Boyd <swboyd@chromium.org>
-In-Reply-To: <20201117172608.2091648-1-swboyd@chromium.org>
+In-Reply-To: <71aebca216babf4010c92d4d1ce9a9b4@codeaurora.org>
 References: <20201117172608.2091648-1-swboyd@chromium.org>
-Message-ID: <71aebca216babf4010c92d4d1ce9a9b4@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
+ <71aebca216babf4010c92d4d1ce9a9b4@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+To: abhinavk@codeaurora.org
+Date: Tue, 17 Nov 2020 14:53:01 -0800
+Message-ID: <160565358127.60232.4382778730228368993@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
 Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Remove chatty vbif debug print
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,57 +70,83 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Rob Clark <robdclark@gmail.com>, kalyan_t@codeaurora.org,
  Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-11-17 09:26, Stephen Boyd wrote:
-> I don't know what this debug print is for but it is super chatty,
-> throwing 8 lines of debug prints in the logs every time we update a
-> plane. It looks like it has no value. Let's nuke it so we can get
-> better logs.
+Quoting abhinavk@codeaurora.org (2020-11-17 12:34:56)
+> On 2020-11-17 09:26, Stephen Boyd wrote:
+> > I don't know what this debug print is for but it is super chatty,
+> > throwing 8 lines of debug prints in the logs every time we update a
+> > plane. It looks like it has no value. Let's nuke it so we can get
+> > better logs.
+> > 
+> > Cc: Sean Paul <sean@poorly.run>
+> > Cc: Abhinav Kumar <abhinavk@codeaurora.org>
+> > Signed-off-by: Stephen Boyd <swboyd@chromium.org>
 > 
-> Cc: Sean Paul <sean@poorly.run>
-> Cc: Abhinav Kumar <abhinavk@codeaurora.org>
-> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
-
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c | 3 ---
->  1 file changed, 3 deletions(-)
+> > ---
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c | 3 ---
+> >  1 file changed, 3 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
+> > b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
+> > index 5e8c3f3e6625..5eb2b2ee09f5 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
+> > @@ -245,9 +245,6 @@ void dpu_vbif_set_qos_remap(struct dpu_kms 
+> > *dpu_kms,
+> >       forced_on = mdp->ops.setup_clk_force_ctrl(mdp, params->clk_ctrl, 
+> > true);
+> > 
+> >       for (i = 0; i < qos_tbl->npriority_lvl; i++) {
+> > -             DPU_DEBUG("vbif:%d xin:%d lvl:%d/%d\n",
+> > -                             params->vbif_idx, params->xin_id, i,
+> > -                             qos_tbl->priority_lvl[i]);
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
-> b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
-> index 5e8c3f3e6625..5eb2b2ee09f5 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
-> @@ -245,9 +245,6 @@ void dpu_vbif_set_qos_remap(struct dpu_kms 
-> *dpu_kms,
->  	forced_on = mdp->ops.setup_clk_force_ctrl(mdp, params->clk_ctrl, 
-> true);
+> Instead of getting rid of this print, we should optimize the caller of 
+> this.
+
+Does the print tell us anything? Right now it prints 8 lines where it
+feels like it could be trimmed down:
+
+           [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 lvl:0/3
+           [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 lvl:1/3
+           [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 lvl:2/4
+           [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 lvl:3/4
+           [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 lvl:4/5
+           [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 lvl:5/5
+           [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 lvl:6/6
+           [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 lvl:7/6
+
+maybe one line that combines the index into values?
+
+           [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 [3 3 4 4 5 5 6 6]
+
+But again I have no idea if this print is really useful. Maybe we can
+print it only if the value changes from what was already there?
+Basically move the print into dpu_hw_set_qos_remap() and then skip out
+early if nothing changed or print and modify the register.
+
+> This is what
+> we are doing in downstream. So we need to update the property only if we 
+> are switching from a RT client
+> to non-RT client for the plane and vice-versa. So we should try to do 
+> the same thing here.
 > 
->  	for (i = 0; i < qos_tbl->npriority_lvl; i++) {
-> -		DPU_DEBUG("vbif:%d xin:%d lvl:%d/%d\n",
-> -				params->vbif_idx, params->xin_id, i,
-> -				qos_tbl->priority_lvl[i]);
+>         is_rt = sde_crtc_is_rt_client(crtc, crtc->state);
+>         if (is_rt != psde->is_rt_pipe) {
+>                 psde->is_rt_pipe = is_rt;
+>                 pstate->dirty |= SDE_PLANE_DIRTY_QOS;
+>         }
+> 
+> 
+>         if (pstate->dirty & DPU_PLANE_DIRTY_QOS)
+>                 _dpu_plane_set_qos_remap(plane);
+> 
 
-Instead of getting rid of this print, we should optimize the caller of 
-this. This is what
-we are doing in downstream. So we need to update the property only if we 
-are switching from a RT client
-to non-RT client for the plane and vice-versa. So we should try to do 
-the same thing here.
-
-  	is_rt = sde_crtc_is_rt_client(crtc, crtc->state);
-  	if (is_rt != psde->is_rt_pipe) {
-  		psde->is_rt_pipe = is_rt;
-  		pstate->dirty |= SDE_PLANE_DIRTY_QOS;
-  	}
-
-
-  	if (pstate->dirty & DPU_PLANE_DIRTY_QOS)
-  		_dpu_plane_set_qos_remap(plane);
-
+Sounds great! Can you send the patch?
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
