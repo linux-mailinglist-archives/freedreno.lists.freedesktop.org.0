@@ -1,35 +1,35 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C4752B6F63
-	for <lists+freedreno@lfdr.de>; Tue, 17 Nov 2020 20:53:30 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id D01212B7025
+	for <lists+freedreno@lfdr.de>; Tue, 17 Nov 2020 21:35:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E1366E069;
-	Tue, 17 Nov 2020 19:53:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E87B6E067;
+	Tue, 17 Nov 2020 20:34:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CD226E069
- for <freedreno@lists.freedesktop.org>; Tue, 17 Nov 2020 19:53:27 +0000 (UTC)
+Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD5A96E067
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Nov 2020 20:34:58 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1605642808; h=Message-ID: References: In-Reply-To: Subject:
+ s=smtp; t=1605645298; h=Message-ID: References: In-Reply-To: Subject:
  Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=I8Uoa9WMfOpRw2GhOBpzrpwBUS+efGBMbXmJ+Bhf1nQ=;
- b=oDtEsomuYUAly7NPJkAIMHNwALzBqcV/U0JR4fkL75L1wPeoTM2Ek/8qI+ozRvLCU6t4r5zx
- Kd+yt6nc3UuwDRucdtF90Dapq9fAiDsm5HpmEqSnUJPOX15aZwJCrRw8LXwC2lVmglBRTXw7
- vJ/3URYC6bmWyHPuJFuqqsGeSlA=
-X-Mailgun-Sending-Ip: 104.130.96.5
+ MIME-Version: Sender; bh=B5UuYlGm/Tc1iL48YeEinA+NtRG1i1qyUD8YV4GrWcw=;
+ b=s9mx6bjLC1HasZuUZJ+wnLW8k3proxMOpni+YbiI8Wj1Af+Pr2O+PqHG44RmKtJI3kTDaYaZ
+ pUKkGe1RwBaJiC9E9MQWI78ARO77Zma5jHbFSZ/6ZlSSAaihQY3NkhAAsND1P1d244h9PO0T
+ i/iRUbh4AZvzC/8qJXn0nKnSL8k=
+X-Mailgun-Sending-Ip: 69.72.42.4
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n08.prod.us-east-1.postgun.com with SMTP id
- 5fb42a2ff2d9c8cbcadf29fb (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 17 Nov 2020 19:53:19
+ smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
+ 5fb433f18bd2e3c222bee77f (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 17 Nov 2020 20:34:57
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 98289C43460; Tue, 17 Nov 2020 19:53:18 +0000 (UTC)
+ id 49E2EC43460; Tue, 17 Nov 2020 20:34:57 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -38,19 +38,18 @@ X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
 Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 8327FC43462;
- Tue, 17 Nov 2020 19:53:17 +0000 (UTC)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id DCB1BC433C6;
+ Tue, 17 Nov 2020 20:34:56 +0000 (UTC)
 MIME-Version: 1.0
-Date: Tue, 17 Nov 2020 11:53:17 -0800
+Date: Tue, 17 Nov 2020 12:34:56 -0800
 From: abhinavk@codeaurora.org
-To: Chen Zhou <chenzhou10@huawei.com>
-In-Reply-To: <20201117025617.168259-1-chenzhou10@huawei.com>
-References: <20201117025617.168259-1-chenzhou10@huawei.com>
-Message-ID: <c33b123fb1893a3c972f724e4cd1ff08@codeaurora.org>
+To: Stephen Boyd <swboyd@chromium.org>
+In-Reply-To: <20201117172608.2091648-1-swboyd@chromium.org>
+References: <20201117172608.2091648-1-swboyd@chromium.org>
+Message-ID: <71aebca216babf4010c92d4d1ce9a9b4@codeaurora.org>
 X-Sender: abhinavk@codeaurora.org
 User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Fix error return code in
- dpu_mdss_init()
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Remove chatty vbif debug print
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,44 +62,61 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, freedreno@lists.freedesktop.org
+ Rob Clark <robdclark@gmail.com>, kalyan_t@codeaurora.org,
+ Sean Paul <sean@poorly.run>
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-11-16 18:56, Chen Zhou wrote:
-> Fix to return a negative error code from the error handling case
-> instead of 0 in function dpu_mdss_init(), as done elsewhere in this
-> function.
+On 2020-11-17 09:26, Stephen Boyd wrote:
+> I don't know what this debug print is for but it is super chatty,
+> throwing 8 lines of debug prints in the logs every time we update a
+> plane. It looks like it has no value. Let's nuke it so we can get
+> better logs.
 > 
-> Fixes: 070e64dc1bbc ("drm/msm/dpu: Convert to a chained irq chip")
-> Reported-by: Hulk Robot <hulkci@huawei.com>
-> Signed-off-by: Chen Zhou <chenzhou10@huawei.com>
-Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
+> Cc: Sean Paul <sean@poorly.run>
+> Cc: Abhinav Kumar <abhinavk@codeaurora.org>
+> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
+
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c | 3 ---
+>  1 file changed, 3 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
-> b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
-> index cd4078807db1..6e600b4ca995 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
-> @@ -297,8 +297,10 @@ int dpu_mdss_init(struct drm_device *dev)
->  		goto irq_domain_error;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
+> index 5e8c3f3e6625..5eb2b2ee09f5 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
+> @@ -245,9 +245,6 @@ void dpu_vbif_set_qos_remap(struct dpu_kms 
+> *dpu_kms,
+>  	forced_on = mdp->ops.setup_clk_force_ctrl(mdp, params->clk_ctrl, 
+> true);
 > 
->  	irq = platform_get_irq(pdev, 0);
-> -	if (irq < 0)
-> +	if (irq < 0) {
-> +		ret = irq;
->  		goto irq_error;
-> +	}
-> 
->  	irq_set_chained_handler_and_data(irq, dpu_mdss_irq,
->  					 dpu_mdss);
+>  	for (i = 0; i < qos_tbl->npriority_lvl; i++) {
+> -		DPU_DEBUG("vbif:%d xin:%d lvl:%d/%d\n",
+> -				params->vbif_idx, params->xin_id, i,
+> -				qos_tbl->priority_lvl[i]);
+
+Instead of getting rid of this print, we should optimize the caller of 
+this. This is what
+we are doing in downstream. So we need to update the property only if we 
+are switching from a RT client
+to non-RT client for the plane and vice-versa. So we should try to do 
+the same thing here.
+
+  	is_rt = sde_crtc_is_rt_client(crtc, crtc->state);
+  	if (is_rt != psde->is_rt_pipe) {
+  		psde->is_rt_pipe = is_rt;
+  		pstate->dirty |= SDE_PLANE_DIRTY_QOS;
+  	}
+
+
+  	if (pstate->dirty & DPU_PLANE_DIRTY_QOS)
+  		_dpu_plane_set_qos_remap(plane);
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
