@@ -2,59 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F7A02B6D93
-	for <lists+freedreno@lfdr.de>; Tue, 17 Nov 2020 19:40:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 115A42B6E1B
+	for <lists+freedreno@lfdr.de>; Tue, 17 Nov 2020 20:10:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECA8E89CAF;
-	Tue, 17 Nov 2020 18:40:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C64DD6E059;
+	Tue, 17 Nov 2020 19:10:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05E2D89DFD
- for <freedreno@lists.freedesktop.org>; Tue, 17 Nov 2020 18:40:27 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1605638429; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=5fVUQ4RZhfC6uKzplS5Am8Ct04LqSDuPya5cBpnXlww=;
- b=hheCEJn9TPS14HVFFbJsljCMtwXNtfpJQH9Fy0oRS2JX1bNzJ7APafpOpGATQpzeumXqSL7o
- swjzWeOwkPhOYrUvgb4GrUF5WslutGlcNEyuG9Ff4cq7sHYeOt93dAlhrnHzDXqSK6AtL4R1
- d269ca+Dt5OQRrYw7KMXm/rt8C0=
-X-Mailgun-Sending-Ip: 69.72.42.4
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
- 5fb419199a53d19da96e8bf1 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 17 Nov 2020 18:40:25
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 3EB0AC43465; Tue, 17 Nov 2020 18:40:25 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL, 
- URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-Received: from displaysanity13-linux.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 90C85C43462;
- Tue, 17 Nov 2020 18:40:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 90C85C43462
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=khsieh@codeaurora.org
-From: Kuogee Hsieh <khsieh@codeaurora.org>
-To: robdclark@gmail.com,
-	sean@poorly.run,
-	swboyd@chromium.org
-Date: Tue, 17 Nov 2020 10:40:15 -0800
-Message-Id: <1605638415-24776-1-git-send-email-khsieh@codeaurora.org>
-X-Mailer: git-send-email 1.9.1
-Subject: [Freedreno] [PATCH v2] drm/msm/dp: fix connect/disconnect handled
- at irq_hpd
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 871436E056;
+ Tue, 17 Nov 2020 19:10:15 +0000 (UTC)
+Received: by mail-qk1-x742.google.com with SMTP id k4so11799473qko.13;
+ Tue, 17 Nov 2020 11:10:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=TsBR4O6UFEDrBC3QEJ/nwbEoFCyB4eIoHpr56aXTsfk=;
+ b=GsvzR040TtBZt1H2pzpGYgQK2JtDqfB170AbwaLlW+/0pGI3hATIsEF7HnogecNQLH
+ +w7b4JBP8pifT4qUqvSzWRSQE7a1TeaLhUnQyih5MWdQSXh+FzDExXiUctair2ei64S4
+ 6eidSqCulIZZozacI6mRr1tOyllLWR1LxGw9Lbe7zkrvpSaLo1oOtSpPLlcSxAv30sSz
+ XL+0ZR9icp+zW2LnEYGnGP3TxHZymPBZqDHy6ww7YglssMgENMT5kCaWf9vyqs48QhEW
+ HUgyi2NrsNSEHo6/w0Oex63MiWwexSO/C89mOPaO3cGb7trZZGcP5V5zU9Qw8NGu96R5
+ DZ2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=TsBR4O6UFEDrBC3QEJ/nwbEoFCyB4eIoHpr56aXTsfk=;
+ b=ESyEVST7rom//GdjKzYpQaj0zyG01by974GLcFhFJkZqG3nCcEUIkojb8tXe1zaKUX
+ S7XmL4cN1GDvhOFa8r0pTendcJaZ4q9IXh6oXc7X/SeKoxs04yHXtoV1AU7cp9P4lXU2
+ WhOrrzNywRbrcNryGzbMwg4E8EZ//P4f6b9sguv2xHrMJ9HZG7BsI+Zc2URjzDosluw2
+ BwDHEkZi1GlLHCHW0w8LkUQLCLArATWgxGPjyLxINWcNicu4OqCcRdAk3t1MdRpjsInU
+ 1czL6cibunSD4w1QzlTGT11DiNdSNBEKkpdofHjPcq0/w+5TuoN6UW3FRZHUswVGgM2g
+ 2U5w==
+X-Gm-Message-State: AOAM5309OytzH9Bskeq18aqq+GffmBtTKnnhndUJvdDIs+usuYwWcHRb
+ SMW6y+Njn5iX9fJenwusQsse5BrQCnXMFO0OQog=
+X-Google-Smtp-Source: ABdhPJzr9HEwhoFCr9J6s5kAvFafaPoiG6qZ5glXIl+9IjEDCsUFwc4mr85AqIDxG83t8w6FX2QhVHKw3Z9NyBWqxxU=
+X-Received: by 2002:a37:5156:: with SMTP id f83mr1061398qkb.197.1605640214468; 
+ Tue, 17 Nov 2020 11:10:14 -0800 (PST)
+MIME-Version: 1.0
+References: <20201116174112.1833368-1-lee.jones@linaro.org>
+ <20201116174112.1833368-18-lee.jones@linaro.org>
+In-Reply-To: <20201116174112.1833368-18-lee.jones@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 17 Nov 2020 11:12:01 -0800
+Message-ID: <CAF6AEGs-6vYd1ytMToPfC+sd8yVuAptMGhFSXA9LG+L1X5HwhQ@mail.gmail.com>
+To: Lee Jones <lee.jones@linaro.org>
+Subject: Re: [Freedreno] [PATCH 17/42] drm/msm/disp/mdp5/mdp5_ctl: Demote
+ non-conformant kernel-doc headers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,198 +62,87 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: rnayak@codeaurora.org, airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- abhinavk@codeaurora.org, khsieh@codeaurora.org, tanmay@codeaurora.org,
- daniel@ffwll.ch, aravindh@codeaurora.org, freedreno@lists.freedesktop.org
-MIME-Version: 1.0
+Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Some usb type-c dongle use irq_hpd request to perform device connection
-and disconnection. This patch add handling of both connection and
-disconnection are based on the state of hpd_state and sink_count.
+On Mon, Nov 16, 2020 at 9:41 AM Lee Jones <lee.jones@linaro.org> wrote:
+>
+> Very little attempt has been made to document these functions.
+>
+> Fixes the following W=1 kernel build warning(s):
+>
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c:227: warning: Function parameter or member 'ctl' not described in 'mdp5_ctl_set_encoder_state'
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c:227: warning: Function parameter or member 'pipeline' not described in 'mdp5_ctl_set_encoder_state'
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c:227: warning: Function parameter or member 'enabled' not described in 'mdp5_ctl_set_encoder_state'
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c:227: warning: Excess function parameter 'enable' description in 'mdp5_ctl_set_encoder_state'
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c:529: warning: Function parameter or member 'ctl' not described in 'mdp5_ctl_commit'
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c:529: warning: Function parameter or member 'pipeline' not described in 'mdp5_ctl_commit'
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c:529: warning: Function parameter or member 'flush_mask' not described in 'mdp5_ctl_commit'
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c:529: warning: Function parameter or member 'start' not described in 'mdp5_ctl_commit'
+>
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Sean Paul <sean@poorly.run>
+> Cc: David Airlie <airlied@linux.ie>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: freedreno@lists.freedesktop.org
+> Signed-off-by: Lee Jones <lee.jones@linaro.org>
+> Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
 
-Changes in V2:
--- add dp_display_handle_port_ststus_changed()
--- fix kernel test robot complaint
+Thanks, this one I'll try to replace with actual doc fixes, but I'll
+pick up the rest (and possibly this one if I run out of time) in
+msm-next for v5.11 as soon as I switch back to my kernel hat (next day
+or two)
 
-Reported-by: kernel test robot <lkp@intel.com>
-Fixes: 26b8d66a399e ("drm/msm/dp: promote irq_hpd handle to handle link training correctly")
-Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 91 ++++++++++++++++++++++---------------
- 1 file changed, 54 insertions(+), 37 deletions(-)
+BR,
+-R
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index e9cb878..1a438d9 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -279,13 +279,25 @@ static void dp_display_send_hpd_event(struct msm_dp *dp_display)
- 	drm_helper_hpd_irq_event(connector->dev);
- }
- 
--static int dp_display_send_hpd_notification(struct dp_display_private *dp,
--					    bool hpd)
-+
-+static void dp_display_set_encoder_mode(struct dp_display_private *dp)
- {
--	static bool encoder_mode_set;
- 	struct msm_drm_private *priv = dp->dp_display.drm_dev->dev_private;
- 	struct msm_kms *kms = priv->kms;
-+	static bool encoder_mode_set;
-+
-+	if (!encoder_mode_set && dp->dp_display.encoder &&
-+				kms->funcs->set_encoder_mode) {
-+		kms->funcs->set_encoder_mode(kms,
-+				dp->dp_display.encoder, false);
-+
-+		encoder_mode_set = true;
-+	}
-+}
- 
-+static int dp_display_send_hpd_notification(struct dp_display_private *dp,
-+					    bool hpd)
-+{
- 	if ((hpd && dp->dp_display.is_connected) ||
- 			(!hpd && !dp->dp_display.is_connected)) {
- 		DRM_DEBUG_DP("HPD already %s\n", (hpd ? "on" : "off"));
-@@ -298,15 +310,6 @@ static int dp_display_send_hpd_notification(struct dp_display_private *dp,
- 
- 	dp->dp_display.is_connected = hpd;
- 
--	if (dp->dp_display.is_connected && dp->dp_display.encoder
--				&& !encoder_mode_set
--				&& kms->funcs->set_encoder_mode) {
--		kms->funcs->set_encoder_mode(kms,
--				dp->dp_display.encoder, false);
--		DRM_DEBUG_DP("set_encoder_mode() Completed\n");
--		encoder_mode_set = true;
--	}
--
- 	dp_display_send_hpd_event(&dp->dp_display);
- 
- 	return 0;
-@@ -342,7 +345,6 @@ static int dp_display_process_hpd_high(struct dp_display_private *dp)
- 
- 	dp_add_event(dp, EV_USER_NOTIFICATION, true, 0);
- 
--
- end:
- 	return rc;
- }
-@@ -359,6 +361,8 @@ static void dp_display_host_init(struct dp_display_private *dp)
- 	if (dp->usbpd->orientation == ORIENTATION_CC2)
- 		flip = true;
- 
-+	dp_display_set_encoder_mode(dp);
-+
- 	dp_power_init(dp->power, flip);
- 	dp_ctrl_host_init(dp->ctrl, flip);
- 	dp_aux_init(dp->aux);
-@@ -442,24 +446,42 @@ static void dp_display_handle_video_request(struct dp_display_private *dp)
- 	}
- }
- 
--static int dp_display_handle_irq_hpd(struct dp_display_private *dp)
-+static int dp_display_handle_port_ststus_changed(struct dp_display_private *dp)
- {
--	u32 sink_request;
--
--	sink_request = dp->link->sink_request;
-+	int rc = 0;
- 
--	if (sink_request & DS_PORT_STATUS_CHANGED) {
--		if (dp_display_is_sink_count_zero(dp)) {
--			DRM_DEBUG_DP("sink count is zero, nothing to do\n");
--			return -ENOTCONN;
-+	if (dp_display_is_sink_count_zero(dp)) {
-+		DRM_DEBUG_DP("sink count is zero, nothing to do\n");
-+		if (dp->hpd_state != ST_DISCONNECTED) {
-+			dp->hpd_state = ST_DISCONNECT_PENDING;
-+			dp_add_event(dp, EV_USER_NOTIFICATION, false, 0);
-+		}
-+	} else {
-+		if (dp->hpd_state == ST_DISCONNECTED) {
-+			dp->hpd_state = ST_CONNECT_PENDING;
-+			rc = dp_display_process_hpd_high(dp);
-+			if (rc)
-+				dp->hpd_state = ST_DISCONNECTED;
- 		}
-+	}
-+
-+	return rc;
-+}
-+
-+static int dp_display_handle_irq_hpd(struct dp_display_private *dp)
-+{
-+	u32 sink_request = dp->link->sink_request;
- 
--		return dp_display_process_hpd_high(dp);
-+	if (dp->hpd_state == ST_DISCONNECTED) {
-+		if (sink_request & DP_LINK_STATUS_UPDATED) {
-+			DRM_ERROR("Disconnected, no DP_LINK_STATUS_UPDATED\n");
-+			return -EINVAL;
-+		}
- 	}
- 
- 	dp_ctrl_handle_sink_request(dp->ctrl);
- 
--	if (dp->link->sink_request & DP_TEST_LINK_VIDEO_PATTERN)
-+	if (sink_request & DP_TEST_LINK_VIDEO_PATTERN)
- 		dp_display_handle_video_request(dp);
- 
- 	return 0;
-@@ -490,19 +512,10 @@ static int dp_display_usbpd_attention_cb(struct device *dev)
- 	rc = dp_link_process_request(dp->link);
- 	if (!rc) {
- 		sink_request = dp->link->sink_request;
--		if (sink_request & DS_PORT_STATUS_CHANGED) {
--			/* same as unplugged */
--			hpd->hpd_high = 0;
--			dp->hpd_state = ST_DISCONNECT_PENDING;
--			dp_add_event(dp, EV_USER_NOTIFICATION, false, 0);
--		}
--
--		rc = dp_display_handle_irq_hpd(dp);
--
--		if (!rc && (sink_request & DS_PORT_STATUS_CHANGED)) {
--			hpd->hpd_high = 1;
--			dp->hpd_state = ST_CONNECT_PENDING;
--		}
-+		if (sink_request & DS_PORT_STATUS_CHANGED)
-+			rc = dp_display_handle_port_ststus_changed(dp);
-+		else
-+			rc = dp_display_handle_irq_hpd(dp);
- 	}
- 
- 	return rc;
-@@ -668,6 +681,7 @@ static int dp_disconnect_pending_timeout(struct dp_display_private *dp, u32 data
- static int dp_irq_hpd_handle(struct dp_display_private *dp, u32 data)
- {
- 	u32 state;
-+	int ret;
- 
- 	mutex_lock(&dp->event_mutex);
- 
-@@ -678,7 +692,10 @@ static int dp_irq_hpd_handle(struct dp_display_private *dp, u32 data)
- 		return 0;
- 	}
- 
--	dp_display_usbpd_attention_cb(&dp->pdev->dev);
-+	ret = dp_display_usbpd_attention_cb(&dp->pdev->dev);
-+	if (ret == -ECONNRESET) { /* cable unplugged */
-+		dp->core_initialized = false;
-+	}
- 
- 	mutex_unlock(&dp->event_mutex);
- 
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
-
+> ---
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c
+> index 030279d7b64b7..b5c40f9773629 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c
+> @@ -213,10 +213,10 @@ static void send_start_signal(struct mdp5_ctl *ctl)
+>         spin_unlock_irqrestore(&ctl->hw_lock, flags);
+>  }
+>
+> -/**
+> +/*
+>   * mdp5_ctl_set_encoder_state() - set the encoder state
+>   *
+> - * @enable: true, when encoder is ready for data streaming; false, otherwise.
+> + * @enabled: true, when encoder is ready for data streaming; false, otherwise.
+>   *
+>   * Note:
+>   * This encoder state is needed to trigger START signal (data path kickoff).
+> @@ -507,7 +507,7 @@ static void fix_for_single_flush(struct mdp5_ctl *ctl, u32 *flush_mask,
+>         }
+>  }
+>
+> -/**
+> +/*
+>   * mdp5_ctl_commit() - Register Flush
+>   *
+>   * The flush register is used to indicate several registers are all
+> --
+> 2.25.1
+>
+> _______________________________________________
+> Freedreno mailing list
+> Freedreno@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/freedreno
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
