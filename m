@@ -2,35 +2,33 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C8B92B56C3
-	for <lists+freedreno@lfdr.de>; Tue, 17 Nov 2020 03:39:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 952882B57A8
+	for <lists+freedreno@lfdr.de>; Tue, 17 Nov 2020 04:06:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B99E46EA91;
-	Tue, 17 Nov 2020 02:39:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28D5A6E0CC;
+	Tue, 17 Nov 2020 03:06:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB0636EA91;
- Tue, 17 Nov 2020 02:37:11 +0000 (UTC)
-Received: from DGGEMS405-HUB.china.huawei.com (unknown [172.30.72.60])
- by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4CZqp85jgVzLn1R;
- Tue, 17 Nov 2020 10:36:48 +0800 (CST)
-Received: from euler.huawei.com (10.175.124.27) by
- DGGEMS405-HUB.china.huawei.com (10.3.19.205) with Microsoft SMTP Server id
- 14.3.487.0; Tue, 17 Nov 2020 10:36:55 +0800
-From: Wei Li <liwei391@huawei.com>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, David Airlie
- <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Rajesh Yadav
- <ryadav@codeaurora.org>, Sravanthi Kollukuduru <skolluku@codeaurora.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>
-Date: Tue, 17 Nov 2020 10:36:49 +0800
-Message-ID: <20201117023649.26657-1-liwei391@huawei.com>
-X-Mailer: git-send-email 2.17.1
+Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23B156E0DC;
+ Tue, 17 Nov 2020 02:51:46 +0000 (UTC)
+Received: from DGGEMS409-HUB.china.huawei.com (unknown [172.30.72.58])
+ by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4CZr713ZY4zkYgG;
+ Tue, 17 Nov 2020 10:51:25 +0800 (CST)
+Received: from localhost.localdomain.localdomain (10.175.113.25) by
+ DGGEMS409-HUB.china.huawei.com (10.3.19.209) with Microsoft SMTP Server id
+ 14.3.487.0; Tue, 17 Nov 2020 10:51:32 +0800
+From: Chen Zhou <chenzhou10@huawei.com>
+To: <robdclark@gmail.com>, <airlied@linux.ie>
+Date: Tue, 17 Nov 2020 10:56:17 +0800
+Message-ID: <20201117025617.168259-1-chenzhou10@huawei.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-X-Originating-IP: [10.175.124.27]
+X-Originating-IP: [10.175.113.25]
 X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Tue, 17 Nov 2020 02:39:06 +0000
-Subject: [Freedreno] [PATCH] drm/msm: Fix error return code in msm_drm_init()
+X-Mailman-Approved-At: Tue, 17 Nov 2020 03:06:06 +0000
+Subject: [Freedreno] [PATCH] drm/msm/dpu: Fix error return code in
+ dpu_mdss_init()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,38 +41,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- guohanjun@huawei.com
+Cc: chenzhou10@huawei.com, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-When it fail to create crtc_event kthread, it just jump to err_msm_uninit,
-while the 'ret' is not updated. So assign the return code before that.
+Fix to return a negative error code from the error handling case
+instead of 0 in function dpu_mdss_init(), as done elsewhere in this
+function.
 
-Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+Fixes: 070e64dc1bbc ("drm/msm/dpu: Convert to a chained irq chip")
 Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: Wei Li <liwei391@huawei.com>
+Signed-off-by: Chen Zhou <chenzhou10@huawei.com>
 ---
- drivers/gpu/drm/msm/msm_drv.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 49685571dc0e..37a373c5ced3 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -506,6 +506,7 @@ static int msm_drm_init(struct device *dev, struct drm_driver *drv)
- 			"crtc_event:%d", priv->event_thread[i].crtc_id);
- 		if (IS_ERR(priv->event_thread[i].worker)) {
- 			DRM_DEV_ERROR(dev, "failed to create crtc_event kthread\n");
-+			ret = PTR_ERR(priv->event_thread[i].worker);
- 			goto err_msm_uninit;
- 		}
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
+index cd4078807db1..6e600b4ca995 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
+@@ -297,8 +297,10 @@ int dpu_mdss_init(struct drm_device *dev)
+ 		goto irq_domain_error;
  
+ 	irq = platform_get_irq(pdev, 0);
+-	if (irq < 0)
++	if (irq < 0) {
++		ret = irq;
+ 		goto irq_error;
++	}
+ 
+ 	irq_set_chained_handler_and_data(irq, dpu_mdss_irq,
+ 					 dpu_mdss);
 -- 
-2.17.1
+2.20.1
 
 _______________________________________________
 Freedreno mailing list
