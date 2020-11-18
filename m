@@ -1,59 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A8F42B71D5
-	for <lists+freedreno@lfdr.de>; Tue, 17 Nov 2020 23:53:06 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C581B2B74DB
+	for <lists+freedreno@lfdr.de>; Wed, 18 Nov 2020 04:36:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 295EA6E153;
-	Tue, 17 Nov 2020 22:53:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DA616E0BE;
+	Wed, 18 Nov 2020 03:36:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
- [IPv6:2607:f8b0:4864:20::643])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAA106E157
- for <freedreno@lists.freedesktop.org>; Tue, 17 Nov 2020 22:53:03 +0000 (UTC)
-Received: by mail-pl1-x643.google.com with SMTP id k7so11116071plk.3
- for <freedreno@lists.freedesktop.org>; Tue, 17 Nov 2020 14:53:03 -0800 (PST)
+Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com
+ [IPv6:2607:f8b0:4864:20::1042])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C98C16E2B6
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Nov 2020 03:36:04 +0000 (UTC)
+Received: by mail-pj1-x1042.google.com with SMTP id gv24so324156pjb.3
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Nov 2020 19:36:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:content-transfer-encoding:in-reply-to:references
  :subject:from:cc:to:date:message-id:user-agent;
- bh=Ce5mdOiUnXdpgxCp5xEN1C00ke4lV/R4t5KP7C9QieU=;
- b=lpuXNOnoMJPZCqJXzeKrt0bjw4/lBl9bLgEmGMpS9SlE6ATrhwz3JE00zeefPVNRyE
- SmBlnlNZNbh0M/9eC1gsvbObC5dvzN8ha7DagBcePbYJwkaNToAum5xcWOWe4M9GJVUH
- MjjJWm6VpC2Z1Ato6DZxLnyIxWJllMJ8w39a8=
+ bh=diUqtZunx/UjcqbbhT4Je7Zj6fu6UKGAwXhMW5mk2Gk=;
+ b=AMLoDLL3GfVM1STbX9/xTk6VliNiJr0YwOLeAg7i54QP7EoCz7VMk955TElCpWmwiI
+ j9N2sIXacWcnmimKGbxoHCEXSLpD7ZmjhUwdUKU1vs/FXxsrdOrgIPsrl/2t60juYxcB
+ DDIALijMpGftZLW1UXskLBZsWao12HjQTBWXA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:content-transfer-encoding
  :in-reply-to:references:subject:from:cc:to:date:message-id
  :user-agent;
- bh=Ce5mdOiUnXdpgxCp5xEN1C00ke4lV/R4t5KP7C9QieU=;
- b=FagA39F2wad8uU7lsuarT/Hd5ZSluWXoEp74tOujZlsF+26otj8XyP5cghzgdJEo30
- It3w5TBXZJhBEhSV80K1xC/2FAf9k+FptyAwbBmVN16Yj4cI5YwQ3rthWeZY65IwADBk
- p1nh9zJI9RDyqE2sgF6+mpgbGtdxryF+ExCKi2kCWcmu4ZYd6zTBAM1INOBvTjm2Vwi9
- f9LsxtguzsC2Cp6DjBzrYonNhzq+J8XO4DstYMmGvkHxSBKuu8HC3KQXuv5cfjnRdUMy
- eZibs6fCrmdHGwsqYmxisGcpzoL0C+366aXVFEHzFF893/UXPRTbU+biehzYy0pnhiy1
- dkqQ==
-X-Gm-Message-State: AOAM53394YBm1o+Ip5NKIFsipbI/MLhFnxJVDanlVDnctMOIhEMmDq4Y
- 7qRDDJDnKSAoO+O2hlDWEIADqg==
-X-Google-Smtp-Source: ABdhPJyjPQ5ZJcnbca+0zpUp5+RhAj0mYPzGqNb46PCd3r24FPJ1Ddl2hsvuztEftWzQK9r9fBJuPw==
-X-Received: by 2002:a17:90a:d486:: with SMTP id
- s6mr1202521pju.115.1605653583407; 
- Tue, 17 Nov 2020 14:53:03 -0800 (PST)
+ bh=diUqtZunx/UjcqbbhT4Je7Zj6fu6UKGAwXhMW5mk2Gk=;
+ b=pN9Q7IDyU6m8/Ixh0Yu89EsioKI5XX6ar2ydGHSRhuriNzeptqNPmOS9BkplQ1Z/8j
+ vK2/8g4gW/FYSDwDPG3kgZsS+RTml6+vs4WL0Ht6T4KP9KueWmz4DAU2J+cvFeP6N8wD
+ U6gqf7CGW4X53UhiSRNZ/ap5DErhhmR1Q0Hh/I2bK97T39XmB1K5fi5NWqVzv7LbEPyJ
+ S4xXw2wqiIG9y2goP+d1Hrl6TnvtBsznPKj96EXMIJI/7UeTzJjl8h0Bwp7M5joa0hyV
+ cphwOoKelvH+E5ZCwGTlLoDOz4bdD9PEV3z0t1TMzNsHlYnwcYfWwpzi0xcIi/a95La2
+ tj1g==
+X-Gm-Message-State: AOAM533Z1SvRg55KVf0Us8Eqf1/ivKKMW3seMOBhVZxwHcRdTOteGKFd
+ GiMO8bF0gHmEISR54Zz5NntNBg==
+X-Google-Smtp-Source: ABdhPJzVAK808Ab1am3c1X01IMyQIjbNaSWWOanE2FByJ/Gy8QSGdvWbR0gR5vev+WfHCJmpFHn4jQ==
+X-Received: by 2002:a17:90b:805:: with SMTP id
+ bk5mr2230390pjb.78.1605670564250; 
+ Tue, 17 Nov 2020 19:36:04 -0800 (PST)
 Received: from chromium.org ([100.99.132.239])
- by smtp.gmail.com with ESMTPSA id p7sm12688384pfn.83.2020.11.17.14.53.02
+ by smtp.gmail.com with ESMTPSA id y25sm22603181pfn.44.2020.11.17.19.36.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Nov 2020 14:53:02 -0800 (PST)
+ Tue, 17 Nov 2020 19:36:03 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <71aebca216babf4010c92d4d1ce9a9b4@codeaurora.org>
-References: <20201117172608.2091648-1-swboyd@chromium.org>
- <71aebca216babf4010c92d4d1ce9a9b4@codeaurora.org>
+In-Reply-To: <1605638415-24776-1-git-send-email-khsieh@codeaurora.org>
+References: <1605638415-24776-1-git-send-email-khsieh@codeaurora.org>
 From: Stephen Boyd <swboyd@chromium.org>
-To: abhinavk@codeaurora.org
-Date: Tue, 17 Nov 2020 14:53:01 -0800
-Message-ID: <160565358127.60232.4382778730228368993@swboyd.mtv.corp.google.com>
+To: Kuogee Hsieh <khsieh@codeaurora.org>, robdclark@gmail.com, sean@poorly.run
+Date: Tue, 17 Nov 2020 19:36:02 -0800
+Message-ID: <160567056210.60232.5628804791726356039@swboyd.mtv.corp.google.com>
 User-Agent: alot/0.9.1
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Remove chatty vbif debug print
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: fix connect/disconnect
+ handled at irq_hpd
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,87 +66,30 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, kalyan_t@codeaurora.org,
- Sean Paul <sean@poorly.run>
+Cc: rnayak@codeaurora.org, airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ abhinavk@codeaurora.org, khsieh@codeaurora.org, tanmay@codeaurora.org,
+ daniel@ffwll.ch, aravindh@codeaurora.org, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting abhinavk@codeaurora.org (2020-11-17 12:34:56)
-> On 2020-11-17 09:26, Stephen Boyd wrote:
-> > I don't know what this debug print is for but it is super chatty,
-> > throwing 8 lines of debug prints in the logs every time we update a
-> > plane. It looks like it has no value. Let's nuke it so we can get
-> > better logs.
-> > 
-> > Cc: Sean Paul <sean@poorly.run>
-> > Cc: Abhinav Kumar <abhinavk@codeaurora.org>
-> > Signed-off-by: Stephen Boyd <swboyd@chromium.org>
+Quoting Kuogee Hsieh (2020-11-17 10:40:15)
+> Some usb type-c dongle use irq_hpd request to perform device connection
+> and disconnection. This patch add handling of both connection and
+> disconnection are based on the state of hpd_state and sink_count.
 > 
-> > ---
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c | 3 ---
-> >  1 file changed, 3 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
-> > b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
-> > index 5e8c3f3e6625..5eb2b2ee09f5 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
-> > @@ -245,9 +245,6 @@ void dpu_vbif_set_qos_remap(struct dpu_kms 
-> > *dpu_kms,
-> >       forced_on = mdp->ops.setup_clk_force_ctrl(mdp, params->clk_ctrl, 
-> > true);
-> > 
-> >       for (i = 0; i < qos_tbl->npriority_lvl; i++) {
-> > -             DPU_DEBUG("vbif:%d xin:%d lvl:%d/%d\n",
-> > -                             params->vbif_idx, params->xin_id, i,
-> > -                             qos_tbl->priority_lvl[i]);
+> Changes in V2:
+> -- add dp_display_handle_port_ststus_changed()
+> -- fix kernel test robot complaint
 > 
-> Instead of getting rid of this print, we should optimize the caller of 
-> this.
+> Reported-by: kernel test robot <lkp@intel.com>
+> Fixes: 26b8d66a399e ("drm/msm/dp: promote irq_hpd handle to handle link training correctly")
+> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+> ---
 
-Does the print tell us anything? Right now it prints 8 lines where it
-feels like it could be trimmed down:
-
-           [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 lvl:0/3
-           [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 lvl:1/3
-           [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 lvl:2/4
-           [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 lvl:3/4
-           [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 lvl:4/5
-           [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 lvl:5/5
-           [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 lvl:6/6
-           [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 lvl:7/6
-
-maybe one line that combines the index into values?
-
-           [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 [3 3 4 4 5 5 6 6]
-
-But again I have no idea if this print is really useful. Maybe we can
-print it only if the value changes from what was already there?
-Basically move the print into dpu_hw_set_qos_remap() and then skip out
-early if nothing changed or print and modify the register.
-
-> This is what
-> we are doing in downstream. So we need to update the property only if we 
-> are switching from a RT client
-> to non-RT client for the plane and vice-versa. So we should try to do 
-> the same thing here.
-> 
->         is_rt = sde_crtc_is_rt_client(crtc, crtc->state);
->         if (is_rt != psde->is_rt_pipe) {
->                 psde->is_rt_pipe = is_rt;
->                 pstate->dirty |= SDE_PLANE_DIRTY_QOS;
->         }
-> 
-> 
->         if (pstate->dirty & DPU_PLANE_DIRTY_QOS)
->                 _dpu_plane_set_qos_remap(plane);
-> 
-
-Sounds great! Can you send the patch?
+Tested-by: Stephen Boyd <swboyd@chromium.org>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
