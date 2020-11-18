@@ -2,57 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AC0D2B8541
-	for <lists+freedreno@lfdr.de>; Wed, 18 Nov 2020 21:03:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A63C2B8621
+	for <lists+freedreno@lfdr.de>; Wed, 18 Nov 2020 22:00:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C7686E44B;
-	Wed, 18 Nov 2020 20:03:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B857D6E46B;
+	Wed, 18 Nov 2020 21:00:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06B3F89F6B
- for <freedreno@lists.freedesktop.org>; Wed, 18 Nov 2020 20:03:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDC5A6E49B
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Nov 2020 21:00:47 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1605729834; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=NPmVss055K8CbLWs/1vukepUTozf+/2SWf1JuTKgk6s=;
- b=ZTkRuipxVmpgvJuhzz7LMF6jgcThfd4xiEbe+EQHQfXqAET8K07j0CcFFo7DTq0n82Ff/0TH
- OAv7a6GVF/Eaf7v+/tbCt7Kib32oXO6gbgR2RRX9zbCCExVPhdTtJw2oQEgiUqGopsx4X81k
- z+54yDFkE54adckZJLdazU/wds4=
+ s=smtp; t=1605733249; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=me3QojmUqbAKGblIUNKSiP+s5RvLfBpixFUxOedx0SM=;
+ b=lrN6dXQG8AxsANZBKcgvgigJjUCOwiEisux+6doudsP03+Zy8b3W2hSd+LOCg7BeaTzxYqqE
+ H3EPnUMmOJ50i8lT+01OBnuluK/mi/3U7gsM3JxxxU31IK/tigql63hx85xU8U8aC9YIKJdB
+ MN8Ato4kQvWlGfVwhpU2F3+dMLs=
 X-Mailgun-Sending-Ip: 104.130.96.5
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n08.prod.us-west-2.postgun.com with SMTP id
- 5fb57e29e714ea6501b479ac (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 18 Nov 2020 20:03:53
+ smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
+ 5fb58b68e9b70886220d8f4d (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 18 Nov 2020 21:00:24
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id E2EFBC43461; Wed, 18 Nov 2020 20:03:52 +0000 (UTC)
+ id A17A9C43461; Wed, 18 Nov 2020 21:00:23 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id ECEB4C433ED;
- Wed, 18 Nov 2020 20:03:51 +0000 (UTC)
-MIME-Version: 1.0
-Date: Wed, 18 Nov 2020 12:03:51 -0800
-From: abhinavk@codeaurora.org
-To: Rob Clark <robdclark@gmail.com>
-In-Reply-To: <CAF6AEGsDyvFVxAME1_VUprPKdrpEGdvP9XrQEG_-=1mRRcRBow@mail.gmail.com>
-References: <20201117172608.2091648-1-swboyd@chromium.org>
- <71aebca216babf4010c92d4d1ce9a9b4@codeaurora.org>
- <160565358127.60232.4382778730228368993@swboyd.mtv.corp.google.com>
- <CAF6AEGsDyvFVxAME1_VUprPKdrpEGdvP9XrQEG_-=1mRRcRBow@mail.gmail.com>
-Message-ID: <4c955afcc2eb28794a5bbcc0e1642592@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Remove chatty vbif debug print
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from displaysanity13-linux.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 279BAC433C6;
+ Wed, 18 Nov 2020 21:00:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 279BAC433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=khsieh@codeaurora.org
+From: Kuogee Hsieh <khsieh@codeaurora.org>
+To: robdclark@gmail.com,
+	sean@poorly.run,
+	swboyd@chromium.org
+Date: Wed, 18 Nov 2020 13:00:14 -0800
+Message-Id: <1605733214-14280-1-git-send-email-khsieh@codeaurora.org>
+X-Mailer: git-send-email 1.9.1
+Subject: [Freedreno] [PATCH v3] drm/msm/dp: fix connect/disconnect handled
+ at irq_hpd
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,108 +67,210 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Kalyan Thota <kalyan_t@codeaurora.org>,
- Sean Paul <sean@poorly.run>
+Cc: rnayak@codeaurora.org, airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ abhinavk@codeaurora.org, khsieh@codeaurora.org, tanmay@codeaurora.org,
+ daniel@ffwll.ch, aravindh@codeaurora.org, freedreno@lists.freedesktop.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Stephen
+Some usb type-c dongle use irq_hpd request to perform device connection
+and disconnection. This patch add handling of both connection and
+disconnection are based on the state of hpd_state and sink_count.
 
-On 2020-11-18 07:49, Rob Clark wrote:
-> On Tue, Nov 17, 2020 at 2:53 PM Stephen Boyd <swboyd@chromium.org> 
-> wrote:
->> 
->> Quoting abhinavk@codeaurora.org (2020-11-17 12:34:56)
->> > On 2020-11-17 09:26, Stephen Boyd wrote:
->> > > I don't know what this debug print is for but it is super chatty,
->> > > throwing 8 lines of debug prints in the logs every time we update a
->> > > plane. It looks like it has no value. Let's nuke it so we can get
->> > > better logs.
->> > >
->> > > Cc: Sean Paul <sean@poorly.run>
->> > > Cc: Abhinav Kumar <abhinavk@codeaurora.org>
->> > > Signed-off-by: Stephen Boyd <swboyd@chromium.org>
->> >
->> > > ---
->> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c | 3 ---
->> > >  1 file changed, 3 deletions(-)
->> > >
->> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
->> > > b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
->> > > index 5e8c3f3e6625..5eb2b2ee09f5 100644
->> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
->> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
->> > > @@ -245,9 +245,6 @@ void dpu_vbif_set_qos_remap(struct dpu_kms
->> > > *dpu_kms,
->> > >       forced_on = mdp->ops.setup_clk_force_ctrl(mdp, params->clk_ctrl,
->> > > true);
->> > >
->> > >       for (i = 0; i < qos_tbl->npriority_lvl; i++) {
->> > > -             DPU_DEBUG("vbif:%d xin:%d lvl:%d/%d\n",
->> > > -                             params->vbif_idx, params->xin_id, i,
->> > > -                             qos_tbl->priority_lvl[i]);
->> >
->> > Instead of getting rid of this print, we should optimize the caller of
->> > this.
->> 
->> Does the print tell us anything? Right now it prints 8 lines where it
->> feels like it could be trimmed down:
->> 
->>            [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 lvl:0/3
->>            [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 lvl:1/3
->>            [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 lvl:2/4
->>            [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 lvl:3/4
->>            [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 lvl:4/5
->>            [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 lvl:5/5
->>            [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 lvl:6/6
->>            [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 lvl:7/6
->> 
->> maybe one line that combines the index into values?
->> 
->>            [drm:dpu_vbif_set_qos_remap] vbif:0 xin:0 [3 3 4 4 5 5 6 6]
->> 
-> 
-> or possibly convert to a tracepoint (so it doesn't spam the drm_trace 
-> buffer)
-> 
-> BR,
-> -R
-> 
->> But again I have no idea if this print is really useful. Maybe we can
->> print it only if the value changes from what was already there?
->> Basically move the print into dpu_hw_set_qos_remap() and then skip out
->> early if nothing changed or print and modify the register.
->> 
->> > This is what
->> > we are doing in downstream. So we need to update the property only if we
->> > are switching from a RT client
->> > to non-RT client for the plane and vice-versa. So we should try to do
->> > the same thing here.
->> >
->> >         is_rt = sde_crtc_is_rt_client(crtc, crtc->state);
->> >         if (is_rt != psde->is_rt_pipe) {
->> >                 psde->is_rt_pipe = is_rt;
->> >                 pstate->dirty |= SDE_PLANE_DIRTY_QOS;
->> >         }
->> >
->> >
->> >         if (pstate->dirty & DPU_PLANE_DIRTY_QOS)
->> >                 _dpu_plane_set_qos_remap(plane);
->> >
->> 
->> Sounds great! Can you send the patch?
+Changes in V2:
+-- add dp_display_handle_port_ststus_changed()
+-- fix kernel test robot complaint
 
-Will finalize approach and send the patch in a day or two.
+Changes in V3:
+-- add encoder_mode_set into struct dp_display_private
 
-Thanks
+Reported-by: kernel test robot <lkp@intel.com>
+Fixes: 26b8d66a399e ("drm/msm/dp: promote irq_hpd handle to handle link training correctly")
+Tested-by: Stephen Boyd <swboyd@chromium.org>
+Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 92 ++++++++++++++++++++++---------------
+ 1 file changed, 55 insertions(+), 37 deletions(-)
 
-Abhinav
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index e9cb878..6e971d5 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -102,6 +102,8 @@ struct dp_display_private {
+ 	struct dp_display_mode dp_mode;
+ 	struct msm_dp dp_display;
+ 
++	bool encoder_mode_set;
++
+ 	/* wait for audio signaling */
+ 	struct completion audio_comp;
+ 
+@@ -279,13 +281,24 @@ static void dp_display_send_hpd_event(struct msm_dp *dp_display)
+ 	drm_helper_hpd_irq_event(connector->dev);
+ }
+ 
+-static int dp_display_send_hpd_notification(struct dp_display_private *dp,
+-					    bool hpd)
++
++static void dp_display_set_encoder_mode(struct dp_display_private *dp)
+ {
+-	static bool encoder_mode_set;
+ 	struct msm_drm_private *priv = dp->dp_display.drm_dev->dev_private;
+ 	struct msm_kms *kms = priv->kms;
+ 
++	if (!dp->encoder_mode_set && dp->dp_display.encoder &&
++				kms->funcs->set_encoder_mode) {
++		kms->funcs->set_encoder_mode(kms,
++				dp->dp_display.encoder, false);
++
++		dp->encoder_mode_set = true;
++	}
++}
++
++static int dp_display_send_hpd_notification(struct dp_display_private *dp,
++					    bool hpd)
++{
+ 	if ((hpd && dp->dp_display.is_connected) ||
+ 			(!hpd && !dp->dp_display.is_connected)) {
+ 		DRM_DEBUG_DP("HPD already %s\n", (hpd ? "on" : "off"));
+@@ -298,15 +311,6 @@ static int dp_display_send_hpd_notification(struct dp_display_private *dp,
+ 
+ 	dp->dp_display.is_connected = hpd;
+ 
+-	if (dp->dp_display.is_connected && dp->dp_display.encoder
+-				&& !encoder_mode_set
+-				&& kms->funcs->set_encoder_mode) {
+-		kms->funcs->set_encoder_mode(kms,
+-				dp->dp_display.encoder, false);
+-		DRM_DEBUG_DP("set_encoder_mode() Completed\n");
+-		encoder_mode_set = true;
+-	}
+-
+ 	dp_display_send_hpd_event(&dp->dp_display);
+ 
+ 	return 0;
+@@ -342,7 +346,6 @@ static int dp_display_process_hpd_high(struct dp_display_private *dp)
+ 
+ 	dp_add_event(dp, EV_USER_NOTIFICATION, true, 0);
+ 
+-
+ end:
+ 	return rc;
+ }
+@@ -359,6 +362,8 @@ static void dp_display_host_init(struct dp_display_private *dp)
+ 	if (dp->usbpd->orientation == ORIENTATION_CC2)
+ 		flip = true;
+ 
++	dp_display_set_encoder_mode(dp);
++
+ 	dp_power_init(dp->power, flip);
+ 	dp_ctrl_host_init(dp->ctrl, flip);
+ 	dp_aux_init(dp->aux);
+@@ -442,24 +447,42 @@ static void dp_display_handle_video_request(struct dp_display_private *dp)
+ 	}
+ }
+ 
+-static int dp_display_handle_irq_hpd(struct dp_display_private *dp)
++static int dp_display_handle_port_ststus_changed(struct dp_display_private *dp)
+ {
+-	u32 sink_request;
+-
+-	sink_request = dp->link->sink_request;
++	int rc = 0;
+ 
+-	if (sink_request & DS_PORT_STATUS_CHANGED) {
+-		if (dp_display_is_sink_count_zero(dp)) {
+-			DRM_DEBUG_DP("sink count is zero, nothing to do\n");
+-			return -ENOTCONN;
++	if (dp_display_is_sink_count_zero(dp)) {
++		DRM_DEBUG_DP("sink count is zero, nothing to do\n");
++		if (dp->hpd_state != ST_DISCONNECTED) {
++			dp->hpd_state = ST_DISCONNECT_PENDING;
++			dp_add_event(dp, EV_USER_NOTIFICATION, false, 0);
++		}
++	} else {
++		if (dp->hpd_state == ST_DISCONNECTED) {
++			dp->hpd_state = ST_CONNECT_PENDING;
++			rc = dp_display_process_hpd_high(dp);
++			if (rc)
++				dp->hpd_state = ST_DISCONNECTED;
+ 		}
++	}
++
++	return rc;
++}
++
++static int dp_display_handle_irq_hpd(struct dp_display_private *dp)
++{
++	u32 sink_request = dp->link->sink_request;
+ 
+-		return dp_display_process_hpd_high(dp);
++	if (dp->hpd_state == ST_DISCONNECTED) {
++		if (sink_request & DP_LINK_STATUS_UPDATED) {
++			DRM_ERROR("Disconnected, no DP_LINK_STATUS_UPDATED\n");
++			return -EINVAL;
++		}
+ 	}
+ 
+ 	dp_ctrl_handle_sink_request(dp->ctrl);
+ 
+-	if (dp->link->sink_request & DP_TEST_LINK_VIDEO_PATTERN)
++	if (sink_request & DP_TEST_LINK_VIDEO_PATTERN)
+ 		dp_display_handle_video_request(dp);
+ 
+ 	return 0;
+@@ -490,19 +513,10 @@ static int dp_display_usbpd_attention_cb(struct device *dev)
+ 	rc = dp_link_process_request(dp->link);
+ 	if (!rc) {
+ 		sink_request = dp->link->sink_request;
+-		if (sink_request & DS_PORT_STATUS_CHANGED) {
+-			/* same as unplugged */
+-			hpd->hpd_high = 0;
+-			dp->hpd_state = ST_DISCONNECT_PENDING;
+-			dp_add_event(dp, EV_USER_NOTIFICATION, false, 0);
+-		}
+-
+-		rc = dp_display_handle_irq_hpd(dp);
+-
+-		if (!rc && (sink_request & DS_PORT_STATUS_CHANGED)) {
+-			hpd->hpd_high = 1;
+-			dp->hpd_state = ST_CONNECT_PENDING;
+-		}
++		if (sink_request & DS_PORT_STATUS_CHANGED)
++			rc = dp_display_handle_port_ststus_changed(dp);
++		else
++			rc = dp_display_handle_irq_hpd(dp);
+ 	}
+ 
+ 	return rc;
+@@ -668,6 +682,7 @@ static int dp_disconnect_pending_timeout(struct dp_display_private *dp, u32 data
+ static int dp_irq_hpd_handle(struct dp_display_private *dp, u32 data)
+ {
+ 	u32 state;
++	int ret;
+ 
+ 	mutex_lock(&dp->event_mutex);
+ 
+@@ -678,7 +693,10 @@ static int dp_irq_hpd_handle(struct dp_display_private *dp, u32 data)
+ 		return 0;
+ 	}
+ 
+-	dp_display_usbpd_attention_cb(&dp->pdev->dev);
++	ret = dp_display_usbpd_attention_cb(&dp->pdev->dev);
++	if (ret == -ECONNRESET) { /* cable unplugged */
++		dp->core_initialized = false;
++	}
+ 
+ 	mutex_unlock(&dp->event_mutex);
+ 
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
