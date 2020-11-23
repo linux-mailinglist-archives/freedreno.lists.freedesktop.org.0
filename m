@@ -2,39 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id F01622C0EB3
-	for <lists+freedreno@lfdr.de>; Mon, 23 Nov 2020 16:21:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 559EA2C10DC
+	for <lists+freedreno@lfdr.de>; Mon, 23 Nov 2020 17:41:28 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FA9D89FCC;
-	Mon, 23 Nov 2020 15:21:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 099A56E045;
+	Mon, 23 Nov 2020 16:41:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29DAD89F92;
- Mon, 23 Nov 2020 15:21:53 +0000 (UTC)
-Received: from willie-the-truck (236.31.169.217.in-addr.arpa [217.169.31.236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8189720729;
- Mon, 23 Nov 2020 15:21:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606144912;
- bh=0jQICtTOb7H9wGgtrr19TvHCx5PbEKZVBHd7pBdsH6I=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=kZ0YudLPK19JiVmwZLOWrSlWft/GrXA+VdajRVzoW+6wkH58mEsubCatugV6yxDIW
- mIhkLWJVNKOEZW9Mqpz6yS3eL4orw9IivqCTFx/o8mxWdANUeU14PfvM7BHdLXbmBm
- R5tUybBstHOdJoj8a2BcQWRpy/eHvi0tR4tSowko=
-Date: Mon, 23 Nov 2020 15:21:47 +0000
-From: Will Deacon <will@kernel.org>
-To: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-Message-ID: <20201123152146.GE11033@willie-the-truck>
-References: <cover.1605621785.git.saiprakash.ranjan@codeaurora.org>
+Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47C526E045
+ for <freedreno@lists.freedesktop.org>; Mon, 23 Nov 2020 16:41:24 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1606149685; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=k1Ws3eLYJmyc8Z5gKvjwQtLfC/TAMUMLGzx+OItBEXk=;
+ b=N8PGXYp6IkAosZnsEoAP+dLid5D9Y8BHZoS2KbI7ypNeeu+sADdDBg3RIsXZpQ0REgnvS2Ui
+ m5ABFZgIL8Sca7ja/ATz1hsNkWslSS2Qbu5PpNPiRbTArUQiHBxwUsPcpq/fsE2f1yCG6CeQ
+ 3A8Jh6I//KKVzVY8Y02TwRApgQA=
+X-Mailgun-Sending-Ip: 104.130.96.5
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n09.prod.us-east-1.postgun.com with SMTP id
+ 5fbbe630d64ea0b70326e9e2 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 23 Nov 2020 16:41:20
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 1FD68C43462; Mon, 23 Nov 2020 16:41:19 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: saiprakash.ranjan)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 34592C433C6;
+ Mon, 23 Nov 2020 16:41:18 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <cover.1605621785.git.saiprakash.ranjan@codeaurora.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCHv8 0/8] System Cache support for GPU and
- required SMMU support
+Date: Mon, 23 Nov 2020 22:11:18 +0530
+From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+To: Will Deacon <will@kernel.org>
+In-Reply-To: <20201123150616.GB11033@willie-the-truck>
+References: <cover.1605621785.git.saiprakash.ranjan@codeaurora.org>
+ <699f30cd6b3d69cebbefd0e73850694b9852c5da.1605621785.git.saiprakash.ranjan@codeaurora.org>
+ <20201123150616.GB11033@willie-the-truck>
+Message-ID: <fa32d9c8f869a5d96729d534ec26490a@codeaurora.org>
+X-Sender: saiprakash.ranjan@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCHv8 1/8] iommu/io-pgtable-arm: Add support to
+ use system cache
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,38 +73,83 @@ Cc: linux-kernel@vger.kernel.org, Robin Murphy <robin.murphy@arm.com>,
  "Kristian H . Kristensen" <hoegsberg@google.com>,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Nov 17, 2020 at 08:00:39PM +0530, Sai Prakash Ranjan wrote:
-> Some hardware variants contain a system cache or the last level
-> cache(llc). This cache is typically a large block which is shared
-> by multiple clients on the SOC. GPU uses the system cache to cache
-> both the GPU data buffers(like textures) as well the SMMU pagetables.
-> This helps with improved render performance as well as lower power
-> consumption by reducing the bus traffic to the system memory.
+On 2020-11-23 20:36, Will Deacon wrote:
+> On Tue, Nov 17, 2020 at 08:00:40PM +0530, Sai Prakash Ranjan wrote:
+>> Add a quirk IO_PGTABLE_QUIRK_ARM_OUTER_WBWA to override
+>> the attributes set in TCR for the page table walker when
+>> using system cache.
+>> 
+>> Signed-off-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+>> ---
+>>  drivers/iommu/io-pgtable-arm.c | 10 ++++++++--
+>>  include/linux/io-pgtable.h     |  4 ++++
+>>  2 files changed, 12 insertions(+), 2 deletions(-)
+>> 
+>> diff --git a/drivers/iommu/io-pgtable-arm.c 
+>> b/drivers/iommu/io-pgtable-arm.c
+>> index a7a9bc08dcd1..7c9ea9d7874a 100644
+>> --- a/drivers/iommu/io-pgtable-arm.c
+>> +++ b/drivers/iommu/io-pgtable-arm.c
+>> @@ -761,7 +761,8 @@ arm_64_lpae_alloc_pgtable_s1(struct io_pgtable_cfg 
+>> *cfg, void *cookie)
+>> 
+>>  	if (cfg->quirks & ~(IO_PGTABLE_QUIRK_ARM_NS |
+>>  			    IO_PGTABLE_QUIRK_NON_STRICT |
+>> -			    IO_PGTABLE_QUIRK_ARM_TTBR1))
+>> +			    IO_PGTABLE_QUIRK_ARM_TTBR1 |
+>> +			    IO_PGTABLE_QUIRK_ARM_OUTER_WBWA))
+>>  		return NULL;
+>> 
+>>  	data = arm_lpae_alloc_pgtable(cfg);
+>> @@ -773,10 +774,15 @@ arm_64_lpae_alloc_pgtable_s1(struct 
+>> io_pgtable_cfg *cfg, void *cookie)
+>>  		tcr->sh = ARM_LPAE_TCR_SH_IS;
+>>  		tcr->irgn = ARM_LPAE_TCR_RGN_WBWA;
+>>  		tcr->orgn = ARM_LPAE_TCR_RGN_WBWA;
+>> +		if (cfg->quirks & IO_PGTABLE_QUIRK_ARM_OUTER_WBWA)
+>> +			goto out_free_data;
+>>  	} else {
+>>  		tcr->sh = ARM_LPAE_TCR_SH_OS;
+>>  		tcr->irgn = ARM_LPAE_TCR_RGN_NC;
+>> -		tcr->orgn = ARM_LPAE_TCR_RGN_NC;
+>> +		if (!(cfg->quirks & IO_PGTABLE_QUIRK_ARM_OUTER_WBWA))
+>> +			tcr->orgn = ARM_LPAE_TCR_RGN_NC;
+>> +		else
+>> +			tcr->orgn = ARM_LPAE_TCR_RGN_WBWA;
+>>  	}
+>> 
+>>  	tg1 = cfg->quirks & IO_PGTABLE_QUIRK_ARM_TTBR1;
+>> diff --git a/include/linux/io-pgtable.h b/include/linux/io-pgtable.h
+>> index 4cde111e425b..a9a2c59fab37 100644
+>> --- a/include/linux/io-pgtable.h
+>> +++ b/include/linux/io-pgtable.h
+>> @@ -86,6 +86,9 @@ struct io_pgtable_cfg {
+>>  	 *
+>>  	 * IO_PGTABLE_QUIRK_ARM_TTBR1: (ARM LPAE format) Configure the table
+>>  	 *	for use in the upper half of a split address space.
+>> +	 *
+>> +	 * IO_PGTABLE_QUIRK_ARM_OUTER_WBWA: Override the attributes set in 
+>> TCR for
+>> +	 *	the page table walker when using system cache.
 > 
-> The system cache architecture allows the cache to be split into slices
-> which then be used by multiple SOC clients. This patch series is an
-> effort to enable and use two of those slices preallocated for the GPU,
-> one for the GPU data buffers and another for the GPU SMMU hardware
-> pagetables.
+> Please can you reword this to say:
 > 
-> Patch 1 - Patch 6 adds system cache support in SMMU and GPU driver.
-> Patch 7 and 8 are minor cleanups for arm-smmu impl.
+>   "Override the outer-cacheability attributes set in the TCR for a 
+> non-coherent
+>    page-table walker."
 > 
-> Changes in v8:
->  * Introduce a generic domain attribute for pagetable config (Will)
->  * Rename quirk to more generic IO_PGTABLE_QUIRK_ARM_OUTER_WBWA (Will)
->  * Move non-strict mode to use new struct domain_attr_io_pgtbl_config (Will)
 
-Modulo some minor comments I've made, this looks good to me. What is the
-plan for merging it? I can take the IOMMU parts, but patches 4-6 touch the
-MSM GPU driver and I'd like to avoid conflicts with that.
+Sure, thanks.
 
-Will
+-- 
+QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a 
+member
+of Code Aurora Forum, hosted by The Linux Foundation
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
