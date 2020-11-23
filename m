@@ -1,61 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 833DB2C0418
-	for <lists+freedreno@lfdr.de>; Mon, 23 Nov 2020 12:20:06 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 101C82C0420
+	for <lists+freedreno@lfdr.de>; Mon, 23 Nov 2020 12:20:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA6F589EB7;
-	Mon, 23 Nov 2020 11:20:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B07C89FBC;
+	Mon, 23 Nov 2020 11:20:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CA0788007
- for <freedreno@lists.freedesktop.org>; Mon, 23 Nov 2020 11:19:49 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id 1so16862981wme.3
- for <freedreno@lists.freedesktop.org>; Mon, 23 Nov 2020 03:19:49 -0800 (PST)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D8D26E037
+ for <freedreno@lists.freedesktop.org>; Mon, 23 Nov 2020 11:20:12 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id g14so2999289wrm.13
+ for <freedreno@lists.freedesktop.org>; Mon, 23 Nov 2020 03:20:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=gKoITWdb0NAA2TK8pxTD/cxHUBVgW9vDIRLy1VQg+s8=;
- b=CCyxnCMqaD6iY/pHwlqr9sW8pQD8avE8KqZDp/baOaadch63BqfnmFUxC2u2xSnwXi
- JdKYp2wkcbJrzPIfpMoT6gtkHiai7DA2fnb3Ws2X24klPs4fyBX4jEyX8ZxxPfqHxDG+
- Vr1ZKgJ15buJstTI+jCKRRnmDMwLjmqcWMNXvRDm4BreDc2ty++tMdtvs82ZJINBUEyi
- /v+3eNY7PEWmWw5QzyOxBTpZ++zFTFv8a4GFEiy9xHCHE5PwKDw74pGHOziGcFNx47bV
- 7AjL24ldFFtcp5lNCyqo/6Y0Rf44GruO/z3TIyADZ2Tn8lmp7g9LNdt96ZB5rZUly6Ld
- Im/g==
+ bh=L1A6ShzSRHULt3G6Ke9LreeZL2K1GMKHsXViRU+yWaI=;
+ b=XC1icHQxTB5jacAoVkI3gjV1OSiGC+//Jf3F6glek/2GBxRYgE2yNAyO4F44L015/I
+ iQHkbcSVXSbFSfexxKIK3Uly4nKoNbPPjwtUhqkNP07ZCQxVKwNnbxla1nfhBKX00Yoe
+ SGnzZi03THb4xnvkePPGXeZ08ztRIwO2g3wa2CeiG1TfwNkznCf1gvCslTWp5EsyzASG
+ w7VDIMcwwG9kT8LIMDbEcJleoR3qSsEeJa8hDC1PddPNJ4BexzOdjGBTIb3dvJPu8mmD
+ GOKmAX3AolXdraBrtUXBskn8KYdgdFLoXD+peVxJfwqHfTydMh8v4BvcoyAzKN1719lb
+ TpmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=gKoITWdb0NAA2TK8pxTD/cxHUBVgW9vDIRLy1VQg+s8=;
- b=g9NJFTzI6Cdn6j9v3r0dVK+0RVDkCXBfvC2eSUdgSgqEIEIZs6rokg5hsDIQITS+yM
- CCXJBiExCVcCTwiKe9F7kBoB/KCu6XrdYVA8prQ+i+M9PcWXsa1r6mzzE0/WizkWyhD7
- nxF5JOrLKNvEao2W659/KhbN72AmZAqhc9VA3R4nWYTSvrZGNkwfIWKGgDzX8XrpjKuy
- 0TydjileQNzPcZv05q+97uJrjkntcZ0CDdz7+OTQY3iJ56x2nMvx/6Gs6QmhVjq1RsG2
- Dp1Fn4eLqgZWkPvxnqPVCJhgvsCLT9pggMkxuZyj2YabGaR0+qYupY5EuN8TzFghzk1m
- 6grQ==
-X-Gm-Message-State: AOAM532NuuiGNbcVm1365GmCUnA486De6R3GmtuZsLCTC6sWMvcJ20li
- Nf7x8Q64FBFhwlX7BopxqYD75A==
-X-Google-Smtp-Source: ABdhPJwFR9JH8+waSGmVuFK54gn5FZd4IubjIUGmE3hzei8uwpKEfY8VjOTl1bSxhPdXOJ9MukO0MQ==
-X-Received: by 2002:a1c:1bcb:: with SMTP id
- b194mr23539889wmb.139.1606130388099; 
- Mon, 23 Nov 2020 03:19:48 -0800 (PST)
+ bh=L1A6ShzSRHULt3G6Ke9LreeZL2K1GMKHsXViRU+yWaI=;
+ b=ce4SPxJ2FHnVdH9lcIHtz1JxQCduCf1ujj9y+vAITD4BZwEvr29Nyz8AfN79Pbmc97
+ BLB2fY/ewKJPMqkb7oYPLsnHCXb+ZwiiyYKm8wNbwCWDLCh1jjLSQw/Lr7444nH1mDx+
+ yC8dNL+XU9lOOKQ7HYjcJwURk327ObePxHjm7/kq2fv4guYPo3sqxX5ITML2Fszn8lEz
+ lAWNut2TWzcnI2C0xxIFpQ+Riwsj4pDn5/abq7URITHu1PPmxy0leQorIUe3SscDEU26
+ lHMjd8sl5F13vDFMTS+g+QNT775ma4Qge9niM3coQEhcXwUKxNyGZCaz8PffsKz77eAn
+ MVbw==
+X-Gm-Message-State: AOAM530VSYEtut6uok3i7Q7CSMs3XvWTRpsaX5ieZ9nABX+eWtsOnoio
+ kF4lFWg1puifSmjXEskCf0Nhyw==
+X-Google-Smtp-Source: ABdhPJz0+ceQe/Y2+pvKBwkjE9xITEVzXG9ujBWW3we5tH8y1dyudIKejmJLw6kMKEizjicMAXgLUA==
+X-Received: by 2002:a5d:6548:: with SMTP id z8mr11259177wrv.399.1606130406387; 
+ Mon, 23 Nov 2020 03:20:06 -0800 (PST)
 Received: from dell.default ([91.110.221.218])
- by smtp.gmail.com with ESMTPSA id n9sm16317290wmd.4.2020.11.23.03.19.46
+ by smtp.gmail.com with ESMTPSA id n9sm16317290wmd.4.2020.11.23.03.20.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Nov 2020 03:19:47 -0800 (PST)
+ Mon, 23 Nov 2020 03:20:05 -0800 (PST)
 From: Lee Jones <lee.jones@linaro.org>
 To: lee.jones@linaro.org
-Date: Mon, 23 Nov 2020 11:18:59 +0000
-Message-Id: <20201123111919.233376-21-lee.jones@linaro.org>
+Date: Mon, 23 Nov 2020 11:19:10 +0000
+Message-Id: <20201123111919.233376-32-lee.jones@linaro.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20201123111919.233376-1-lee.jones@linaro.org>
 References: <20201123111919.233376-1-lee.jones@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 20/40] drm/msm/disp/dpu1/dpu_hw_sspp: Fix
- kernel-doc formatting abuse
+Subject: [Freedreno] [PATCH 31/40] drm/msm/disp/dpu1/dpu_rm: Fix formatting
+ issues and supply 'global_state' description
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,10 +67,10 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Drew Davenport <ddavenport@chromium.org>,
  Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
@@ -80,49 +79,53 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 Fixes the following W=1 kernel build warning(s):
 
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c:240: warning: Function parameter or member 'ctx' not described in 'dpu_hw_sspp_setup_format'
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c:240: warning: Function parameter or member 'fmt' not described in 'dpu_hw_sspp_setup_format'
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c:240: warning: Function parameter or member 'flags' not described in 'dpu_hw_sspp_setup_format'
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c:240: warning: Function parameter or member 'rect_mode' not described in 'dpu_hw_sspp_setup_format'
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c:446: warning: Function parameter or member 'ctx' not described in 'dpu_hw_sspp_setup_rects'
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c:446: warning: Function parameter or member 'cfg' not described in 'dpu_hw_sspp_setup_rects'
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c:446: warning: Function parameter or member 'rect_index' not described in 'dpu_hw_sspp_setup_rects'
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c:247: warning: Excess function parameter 'Return' description in '_dpu_rm_check_lm_peer'
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c:283: warning: Function parameter or member 'global_state' not described in '_dpu_rm_check_lm_and_get_connected_blks'
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c:283: warning: Excess function parameter 'Return' description in '_dpu_rm_check_lm_and_get_connected_blks'
 
 Cc: Rob Clark <robdclark@gmail.com>
 Cc: Sean Paul <sean@poorly.run>
 Cc: David Airlie <airlied@linux.ie>
 Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Jonathan Marek <jonathan@marek.ca>
+Cc: Drew Davenport <ddavenport@chromium.org>
 Cc: linux-arm-msm@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org
 Cc: freedreno@lists.freedesktop.org
 Signed-off-by: Lee Jones <lee.jones@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-index c940b69435e16..2c2ca5335aa8c 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-@@ -231,7 +231,7 @@ static void _sspp_setup_csc10_opmode(struct dpu_hw_pipe *ctx,
- 	DPU_REG_WRITE(&ctx->hw, SSPP_VIG_CSC_10_OP_MODE + idx, opmode);
- }
- 
--/**
-+/*
-  * Setup source pixel format, flip,
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+index 0ae8a36ffcff3..fd2d104f0a91d 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+@@ -239,7 +239,7 @@ static bool _dpu_rm_needs_split_display(const struct msm_display_topology *top)
+  * @rm: dpu resource manager handle
+  * @primary_idx: index of primary mixer in rm->mixer_blks[]
+  * @peer_idx: index of other mixer in rm->mixer_blks[]
+- * @Return: true if rm->mixer_blks[peer_idx] is a peer of
++ * Return: true if rm->mixer_blks[peer_idx] is a peer of
+  *          rm->mixer_blks[primary_idx]
   */
- static void dpu_hw_sspp_setup_format(struct dpu_hw_pipe *ctx,
-@@ -437,7 +437,7 @@ static u32 _dpu_hw_sspp_get_scaler3_ver(struct dpu_hw_pipe *ctx)
- 	return dpu_hw_get_scaler3_ver(&ctx->hw, idx);
- }
- 
--/**
-+/*
-  * dpu_hw_sspp_setup_rects()
+ static bool _dpu_rm_check_lm_peer(struct dpu_rm *rm, int primary_idx,
+@@ -264,6 +264,7 @@ static bool _dpu_rm_check_lm_peer(struct dpu_rm *rm, int primary_idx,
+  *	proposed use case requirements, incl. hardwired dependent blocks like
+  *	pingpong
+  * @rm: dpu resource manager handle
++ * @global_state: resources shared across multiple kms objects
+  * @enc_id: encoder id requesting for allocation
+  * @lm_idx: index of proposed layer mixer in rm->mixer_blks[], function checks
+  *      if lm, and all other hardwired blocks connected to the lm (pp) is
+@@ -274,7 +275,7 @@ static bool _dpu_rm_check_lm_peer(struct dpu_rm *rm, int primary_idx,
+  *      mixer in rm->dspp_blks[].
+  * @reqs: input parameter, rm requirements for HW blocks needed in the
+  *      datapath.
+- * @Return: true if lm matches all requirements, false otherwise
++ * Return: true if lm matches all requirements, false otherwise
   */
- static void dpu_hw_sspp_setup_rects(struct dpu_hw_pipe *ctx,
+ static bool _dpu_rm_check_lm_and_get_connected_blks(struct dpu_rm *rm,
+ 		struct dpu_global_state *global_state,
 -- 
 2.25.1
 
