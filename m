@@ -1,57 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90F422C1798
-	for <lists+freedreno@lfdr.de>; Mon, 23 Nov 2020 22:23:40 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6211C2C1951
+	for <lists+freedreno@lfdr.de>; Tue, 24 Nov 2020 00:18:46 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 485FE6E0DA;
-	Mon, 23 Nov 2020 21:23:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E74B36E11A;
+	Mon, 23 Nov 2020 23:18:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 878C16E0DC
- for <freedreno@lists.freedesktop.org>; Mon, 23 Nov 2020 21:23:36 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1606166618; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=lQpDYY+11TFASEzr4WpQgNQgUN6/TRcIX2t5gwzRE4U=;
- b=taWDxnsQ0y4ydsgHkSntTpJXSKYWZIbrknkxfqB9sorB0BPpSBs1YoGggww/NMnH+9FVMnXb
- GLgXCRKwi61fXaQVkauM76U/FE2+TxW58gtC0hI0A7Lqxb2k5sFZ/Qw+lkINSadQgweUzynT
- s293tcAGHyIBu4phowqmPENspTo=
-X-Mailgun-Sending-Ip: 69.72.42.4
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n10.prod.us-west-2.postgun.com with SMTP id
- 5fbc284e77b63cdb340dd9d1 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 23 Nov 2020 21:23:26
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 61D8CC43465; Mon, 23 Nov 2020 21:23:26 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 49900C433C6;
- Mon, 23 Nov 2020 21:23:25 +0000 (UTC)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93CAD6E118;
+ Mon, 23 Nov 2020 23:18:42 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id p22so895306wmg.3;
+ Mon, 23 Nov 2020 15:18:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Nj+gdTH1StHuONWnTSTyqwU/3oIYDEHaKWBrfK50CQA=;
+ b=hP1StnKqpISni3iYelCRXg4UuZ+DrTjSYEs2bKb91lI7/LrJtOp+gaKC9NPGLGuhy4
+ JUic4G2gogQszL1j8P/ea5bdXK/03RIg/mAde9/9qewvsLJTYpk8VnR3gc3xj28TtP1n
+ e8eQEobTa1QpfsFkdJ3H8cp8Lw2Xhjo7IO2PSCympH4es68QbYgMvuNWMXx5Is7PTZA+
+ 8b6Y6IZTKWenvbYLm453/gviARCub4dwabSjN997hLWdcbDHc4Sal/h/tJ290Bu89I2E
+ ziJG78lXAn6iDgmZS+d+b9OebmPyDV1k2/0xtBE0//U0eoC7cE/R4OoaHwdPRKIqFH1+
+ UKpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Nj+gdTH1StHuONWnTSTyqwU/3oIYDEHaKWBrfK50CQA=;
+ b=FPXiSzkI8cx8m/5CUDde79qhKY9Q1Qn8gMg1ZQdS4/5L6UnDpkrvynXfOu+oRl66HP
+ j1Ge2iLB4WqetyavnS90qB5nFlUVOdB3cJsHd3G4N2WEGH+C957vDWH7N1zFQo9c0zVk
+ 8O8lU7KgwoZwxPdLGUD+iErO+7Z2zGXwSdbEAHEDo0CUmw7woLCmuSXqK4ppSBr8/HeE
+ L9QuVJYcADMb/y0NJhebe54AIYc43uiSi+5WcIZNfrp+FsYqINr0qfFxP4qxhtnUk/tZ
+ c4cr2OWzlBdnA2Ni9jlGpuDjApfa5aVtPbfZE5cGTBmlXoJiKw0vG/ZYgxMqKa+2p77S
+ Xbjg==
+X-Gm-Message-State: AOAM531GkbBRaZCQyhCxxgdRC18+TFt3VEctHbf+IPj6IqdvTuk1O87h
+ cmeNXRDeX9IQaLz0ZDRgLSZTRVGJFLjFEHlpR4E=
+X-Google-Smtp-Source: ABdhPJxbZx0kgnIaAnh7hLDsIUyOulsD+MqY+/sCRXSQRcguNLyZRSv25aU8ixwKqNHa0Tn7qKLMqza4GKhJ5RHw2jc=
+X-Received: by 2002:a7b:c145:: with SMTP id z5mr1168542wmi.164.1606173520987; 
+ Mon, 23 Nov 2020 15:18:40 -0800 (PST)
 MIME-Version: 1.0
-Date: Mon, 23 Nov 2020 13:23:25 -0800
-From: abhinavk@codeaurora.org
-To: Lee Jones <lee.jones@linaro.org>
-In-Reply-To: <20201123111919.233376-15-lee.jones@linaro.org>
-References: <20201123111919.233376-1-lee.jones@linaro.org>
- <20201123111919.233376-15-lee.jones@linaro.org>
-Message-ID: <56afb74961dab35946922ec5fed91502@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH 14/40] drm/msm/disp/dpu1/dpu_hw_catalog:
- Move definitions to the only place they are used
+References: <20201119214145.10182-1-abhinavk@codeaurora.org>
+In-Reply-To: <20201119214145.10182-1-abhinavk@codeaurora.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 23 Nov 2020 15:18:29 -0800
+Message-ID: <CAF6AEGsWVKCAE3CetZagbvRNZAU00FaoWSvaDxxOafNRY5dz1g@mail.gmail.com>
+To: Abhinav Kumar <abhinavk@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: update the qos remap only if
+ the client type changes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,146 +61,182 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Stephen Boyd <swboyd@chromium.org>, Kuogee Hsieh <khsieh@codeaurora.org>,
+ nganji@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
+ Tanmay Shah <tanmay@codeaurora.org>, aravindh@codeaurora.org,
+ freedreno <freedreno@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-T24gMjAyMC0xMS0yMyAwMzoxOCwgTGVlIEpvbmVzIHdyb3RlOgo+IFRoZXNlIHRhYmxlcyBhcmUg
-bm90IGxhcmdlIG9yIG92ZXJiZWFyaW5nLCBzbyBtb3ZpbmcgdGhlbSBpbnRvIHRoZQo+IHNvdXJj
-ZSBmaWxlIHNlZW1zIGxpa2UgdGhlIHJpZ2h0IHRoaW5nIHRvIGRvLiAgVGhlIGFsdGVybmF0aXZl
-IGlzIHRvCj4gdXNlIF9fbWF5YmVfdW51c2VkLCB3aGljaCBpcyB1bmRlc2lyYWJsZS4KPiAKPiBG
-aXhlcyB0aGUgZm9sbG93aW5nIFc9MSBrZXJuZWwgYnVpbGQgd2FybmluZyhzKToKPiAKPiAgSW4g
-ZmlsZSBpbmNsdWRlZCBmcm9tIAo+IGRyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9o
-d19jYXRhbG9nLmM6MTE6Cj4gIGRyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9od19j
-YXRhbG9nX2Zvcm1hdC5oOjc6MjM6IHdhcm5pbmc6Cj4g4oCYcWNvbV9jb21wcmVzc2VkX3N1cHBv
-cnRlZF9mb3JtYXRz4oCZIGRlZmluZWQgYnV0IG5vdCB1c2VkCj4gWy1XdW51c2VkLWNvbnN0LXZh
-cmlhYmxlPV0KPiAgNyB8IHN0YXRpYyBjb25zdCB1aW50MzJfdCBxY29tX2NvbXByZXNzZWRfc3Vw
-cG9ydGVkX2Zvcm1hdHNbXSA9IHsKPiAgfCBefn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+
-fn4KPiAgZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X2h3X2NhdGFsb2dfZm9ybWF0
-Lmg6NDg6MjM6IHdhcm5pbmc6Cj4g4oCYcGxhbmVfZm9ybWF0c195dXbigJkgZGVmaW5lZCBidXQg
-bm90IHVzZWQgWy1XdW51c2VkLWNvbnN0LXZhcmlhYmxlPV0KPiAgNDggfCBzdGF0aWMgY29uc3Qg
-dWludDMyX3QgcGxhbmVfZm9ybWF0c195dXZbXSA9IHsKPiAgfCBefn5+fn5+fn5+fn5+fn5+fgo+
-ICBkcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfaHdfY2F0YWxvZ19mb3JtYXQuaDox
-NzoyMzogd2FybmluZzoKPiDigJhwbGFuZV9mb3JtYXRz4oCZIGRlZmluZWQgYnV0IG5vdCB1c2Vk
-IFstV3VudXNlZC1jb25zdC12YXJpYWJsZT1dCj4gIDE3IHwgc3RhdGljIGNvbnN0IHVpbnQzMl90
-IHBsYW5lX2Zvcm1hdHNbXSA9IHsKPiAgfCBefn5+fn5+fn5+fn5+Cj4gCj4gQ2M6IFJvYiBDbGFy
-ayA8cm9iZGNsYXJrQGdtYWlsLmNvbT4KPiBDYzogU2VhbiBQYXVsIDxzZWFuQHBvb3JseS5ydW4+
-Cj4gQ2M6IERhdmlkIEFpcmxpZSA8YWlybGllZEBsaW51eC5pZT4KPiBDYzogRGFuaWVsIFZldHRl
-ciA8ZGFuaWVsQGZmd2xsLmNoPgo+IENjOiBsaW51eC1hcm0tbXNtQHZnZXIua2VybmVsLm9yZwo+
-IENjOiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gQ2M6IGZyZWVkcmVub0BsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKPiBTaWduZWQtb2ZmLWJ5OiBMZWUgSm9uZXMgPGxlZS5qb25lc0Bs
-aW5hcm8ub3JnPgpJIHRoaW5rIHRoaXMgaXMgcmVhc29uYWJsZSwKUmV2aWV3ZWQtYnk6IEFiaGlu
-YXYgS3VtYXIgPGFiaGluYXZrQGNvZGVhdXJvcmEub3JnPgo+IC0tLQo+ICAuLi4vZ3B1L2RybS9t
-c20vZGlzcC9kcHUxL2RwdV9od19jYXRhbG9nLmMgICAgfCA3NCArKysrKysrKysrKysrKystCj4g
-IC4uLi9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfaHdfY2F0YWxvZ19mb3JtYXQuaCB8IDg4IC0tLS0t
-LS0tLS0tLS0tLS0tLS0KPiAgZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X3BsYW5l
-LmMgICAgIHwgMTEgKystCj4gIDMgZmlsZXMgY2hhbmdlZCwgODMgaW5zZXJ0aW9ucygrKSwgOTAg
-ZGVsZXRpb25zKC0pCj4gIGRlbGV0ZSBtb2RlIDEwMDY0NCAKPiBkcml2ZXJzL2dwdS9kcm0vbXNt
-L2Rpc3AvZHB1MS9kcHVfaHdfY2F0YWxvZ19mb3JtYXQuaAo+IAo+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfaHdfY2F0YWxvZy5jCj4gYi9kcml2ZXJzL2dw
-dS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfaHdfY2F0YWxvZy5jCj4gaW5kZXggYTcwMDRmMTg1MjNi
-MC4uOWVkNmQwYzZjZDliMiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3Av
-ZHB1MS9kcHVfaHdfY2F0YWxvZy5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2Rw
-dTEvZHB1X2h3X2NhdGFsb2cuYwo+IEBAIC04LDcgKzgsNiBAQAo+ICAjaW5jbHVkZSA8bGludXgv
-cGxhdGZvcm1fZGV2aWNlLmg+Cj4gICNpbmNsdWRlICJkcHVfaHdfbWRzcy5oIgo+ICAjaW5jbHVk
-ZSAiZHB1X2h3X2NhdGFsb2cuaCIKPiAtI2luY2x1ZGUgImRwdV9od19jYXRhbG9nX2Zvcm1hdC5o
-Igo+ICAjaW5jbHVkZSAiZHB1X2ttcy5oIgo+IAo+ICAjZGVmaW5lIFZJR19NQVNLIFwKPiBAQCAt
-NjIsNiArNjEsNzkgQEAKPiAKPiAgI2RlZmluZSBTVFJDQVQoWCwgWSkgKFggWSkKPiAKPiArc3Rh
-dGljIGNvbnN0IHVpbnQzMl90IHBsYW5lX2Zvcm1hdHNbXSA9IHsKPiArCURSTV9GT1JNQVRfQVJH
-Qjg4ODgsCj4gKwlEUk1fRk9STUFUX0FCR1I4ODg4LAo+ICsJRFJNX0ZPUk1BVF9SR0JBODg4OCwK
-PiArCURSTV9GT1JNQVRfQkdSQTg4ODgsCj4gKwlEUk1fRk9STUFUX1hSR0I4ODg4LAo+ICsJRFJN
-X0ZPUk1BVF9SR0JYODg4OCwKPiArCURSTV9GT1JNQVRfQkdSWDg4ODgsCj4gKwlEUk1fRk9STUFU
-X1hCR1I4ODg4LAo+ICsJRFJNX0ZPUk1BVF9SR0I4ODgsCj4gKwlEUk1fRk9STUFUX0JHUjg4OCwK
-PiArCURSTV9GT1JNQVRfUkdCNTY1LAo+ICsJRFJNX0ZPUk1BVF9CR1I1NjUsCj4gKwlEUk1fRk9S
-TUFUX0FSR0IxNTU1LAo+ICsJRFJNX0ZPUk1BVF9BQkdSMTU1NSwKPiArCURSTV9GT1JNQVRfUkdC
-QTU1NTEsCj4gKwlEUk1fRk9STUFUX0JHUkE1NTUxLAo+ICsJRFJNX0ZPUk1BVF9YUkdCMTU1NSwK
-PiArCURSTV9GT1JNQVRfWEJHUjE1NTUsCj4gKwlEUk1fRk9STUFUX1JHQlg1NTUxLAo+ICsJRFJN
-X0ZPUk1BVF9CR1JYNTU1MSwKPiArCURSTV9GT1JNQVRfQVJHQjQ0NDQsCj4gKwlEUk1fRk9STUFU
-X0FCR1I0NDQ0LAo+ICsJRFJNX0ZPUk1BVF9SR0JBNDQ0NCwKPiArCURSTV9GT1JNQVRfQkdSQTQ0
-NDQsCj4gKwlEUk1fRk9STUFUX1hSR0I0NDQ0LAo+ICsJRFJNX0ZPUk1BVF9YQkdSNDQ0NCwKPiAr
-CURSTV9GT1JNQVRfUkdCWDQ0NDQsCj4gKwlEUk1fRk9STUFUX0JHUlg0NDQ0LAo+ICt9Owo+ICsK
-PiArc3RhdGljIGNvbnN0IHVpbnQzMl90IHBsYW5lX2Zvcm1hdHNfeXV2W10gPSB7Cj4gKwlEUk1f
-Rk9STUFUX0FSR0I4ODg4LAo+ICsJRFJNX0ZPUk1BVF9BQkdSODg4OCwKPiArCURSTV9GT1JNQVRf
-UkdCQTg4ODgsCj4gKwlEUk1fRk9STUFUX0JHUlg4ODg4LAo+ICsJRFJNX0ZPUk1BVF9CR1JBODg4
-OCwKPiArCURSTV9GT1JNQVRfWFJHQjg4ODgsCj4gKwlEUk1fRk9STUFUX1hCR1I4ODg4LAo+ICsJ
-RFJNX0ZPUk1BVF9SR0JYODg4OCwKPiArCURSTV9GT1JNQVRfUkdCODg4LAo+ICsJRFJNX0ZPUk1B
-VF9CR1I4ODgsCj4gKwlEUk1fRk9STUFUX1JHQjU2NSwKPiArCURSTV9GT1JNQVRfQkdSNTY1LAo+
-ICsJRFJNX0ZPUk1BVF9BUkdCMTU1NSwKPiArCURSTV9GT1JNQVRfQUJHUjE1NTUsCj4gKwlEUk1f
-Rk9STUFUX1JHQkE1NTUxLAo+ICsJRFJNX0ZPUk1BVF9CR1JBNTU1MSwKPiArCURSTV9GT1JNQVRf
-WFJHQjE1NTUsCj4gKwlEUk1fRk9STUFUX1hCR1IxNTU1LAo+ICsJRFJNX0ZPUk1BVF9SR0JYNTU1
-MSwKPiArCURSTV9GT1JNQVRfQkdSWDU1NTEsCj4gKwlEUk1fRk9STUFUX0FSR0I0NDQ0LAo+ICsJ
-RFJNX0ZPUk1BVF9BQkdSNDQ0NCwKPiArCURSTV9GT1JNQVRfUkdCQTQ0NDQsCj4gKwlEUk1fRk9S
-TUFUX0JHUkE0NDQ0LAo+ICsJRFJNX0ZPUk1BVF9YUkdCNDQ0NCwKPiArCURSTV9GT1JNQVRfWEJH
-UjQ0NDQsCj4gKwlEUk1fRk9STUFUX1JHQlg0NDQ0LAo+ICsJRFJNX0ZPUk1BVF9CR1JYNDQ0NCwK
-PiArCj4gKwlEUk1fRk9STUFUX05WMTIsCj4gKwlEUk1fRk9STUFUX05WMjEsCj4gKwlEUk1fRk9S
-TUFUX05WMTYsCj4gKwlEUk1fRk9STUFUX05WNjEsCj4gKwlEUk1fRk9STUFUX1ZZVVksCj4gKwlE
-Uk1fRk9STUFUX1VZVlksCj4gKwlEUk1fRk9STUFUX1lVWVYsCj4gKwlEUk1fRk9STUFUX1lWWVUs
-Cj4gKwlEUk1fRk9STUFUX1lVVjQyMCwKPiArCURSTV9GT1JNQVRfWVZVNDIwLAo+ICt9Owo+ICsK
-PiAgLyoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioKPiAgICogRFBVIHN1YiBibG9ja3MgY29uZmlnCj4gICAqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqLwo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfaHdfY2F0YWxvZ19mb3JtYXQu
-aAo+IGIvZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X2h3X2NhdGFsb2dfZm9ybWF0
-LmgKPiBkZWxldGVkIGZpbGUgbW9kZSAxMDA2NDQKPiBpbmRleCAzNzY2ZjBmZDBiZjA4Li4wMDAw
-MDAwMDAwMDAwCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X2h3X2Nh
-dGFsb2dfZm9ybWF0LmgKPiArKysgL2Rldi9udWxsCj4gQEAgLTEsODggKzAsMCBAQAo+IC0vKiBT
-UERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vbmx5ICovCj4gLS8qIENvcHlyaWdodCAo
-YykgMjAxNS0yMDE4LCBUaGUgTGludXggRm91bmRhdGlvbi4gQWxsIHJpZ2h0cyByZXNlcnZlZC4K
-PiAtICovCj4gLQo+IC0jaW5jbHVkZSAiZHB1X2h3X21kc3MuaCIKPiAtCj4gLXN0YXRpYyBjb25z
-dCB1aW50MzJfdCBxY29tX2NvbXByZXNzZWRfc3VwcG9ydGVkX2Zvcm1hdHNbXSA9IHsKPiAtCURS
-TV9GT1JNQVRfQUJHUjg4ODgsCj4gLQlEUk1fRk9STUFUX0FSR0I4ODg4LAo+IC0JRFJNX0ZPUk1B
-VF9YQkdSODg4OCwKPiAtCURSTV9GT1JNQVRfWFJHQjg4ODgsCj4gLQlEUk1fRk9STUFUX0JHUjU2
-NSwKPiAtCj4gLQlEUk1fRk9STUFUX05WMTIsCj4gLX07Cj4gLQo+IC1zdGF0aWMgY29uc3QgdWlu
-dDMyX3QgcGxhbmVfZm9ybWF0c1tdID0gewo+IC0JRFJNX0ZPUk1BVF9BUkdCODg4OCwKPiAtCURS
-TV9GT1JNQVRfQUJHUjg4ODgsCj4gLQlEUk1fRk9STUFUX1JHQkE4ODg4LAo+IC0JRFJNX0ZPUk1B
-VF9CR1JBODg4OCwKPiAtCURSTV9GT1JNQVRfWFJHQjg4ODgsCj4gLQlEUk1fRk9STUFUX1JHQlg4
-ODg4LAo+IC0JRFJNX0ZPUk1BVF9CR1JYODg4OCwKPiAtCURSTV9GT1JNQVRfWEJHUjg4ODgsCj4g
-LQlEUk1fRk9STUFUX1JHQjg4OCwKPiAtCURSTV9GT1JNQVRfQkdSODg4LAo+IC0JRFJNX0ZPUk1B
-VF9SR0I1NjUsCj4gLQlEUk1fRk9STUFUX0JHUjU2NSwKPiAtCURSTV9GT1JNQVRfQVJHQjE1NTUs
-Cj4gLQlEUk1fRk9STUFUX0FCR1IxNTU1LAo+IC0JRFJNX0ZPUk1BVF9SR0JBNTU1MSwKPiAtCURS
-TV9GT1JNQVRfQkdSQTU1NTEsCj4gLQlEUk1fRk9STUFUX1hSR0IxNTU1LAo+IC0JRFJNX0ZPUk1B
-VF9YQkdSMTU1NSwKPiAtCURSTV9GT1JNQVRfUkdCWDU1NTEsCj4gLQlEUk1fRk9STUFUX0JHUlg1
-NTUxLAo+IC0JRFJNX0ZPUk1BVF9BUkdCNDQ0NCwKPiAtCURSTV9GT1JNQVRfQUJHUjQ0NDQsCj4g
-LQlEUk1fRk9STUFUX1JHQkE0NDQ0LAo+IC0JRFJNX0ZPUk1BVF9CR1JBNDQ0NCwKPiAtCURSTV9G
-T1JNQVRfWFJHQjQ0NDQsCj4gLQlEUk1fRk9STUFUX1hCR1I0NDQ0LAo+IC0JRFJNX0ZPUk1BVF9S
-R0JYNDQ0NCwKPiAtCURSTV9GT1JNQVRfQkdSWDQ0NDQsCj4gLX07Cj4gLQo+IC1zdGF0aWMgY29u
-c3QgdWludDMyX3QgcGxhbmVfZm9ybWF0c195dXZbXSA9IHsKPiAtCURSTV9GT1JNQVRfQVJHQjg4
-ODgsCj4gLQlEUk1fRk9STUFUX0FCR1I4ODg4LAo+IC0JRFJNX0ZPUk1BVF9SR0JBODg4OCwKPiAt
-CURSTV9GT1JNQVRfQkdSWDg4ODgsCj4gLQlEUk1fRk9STUFUX0JHUkE4ODg4LAo+IC0JRFJNX0ZP
-Uk1BVF9YUkdCODg4OCwKPiAtCURSTV9GT1JNQVRfWEJHUjg4ODgsCj4gLQlEUk1fRk9STUFUX1JH
-Qlg4ODg4LAo+IC0JRFJNX0ZPUk1BVF9SR0I4ODgsCj4gLQlEUk1fRk9STUFUX0JHUjg4OCwKPiAt
-CURSTV9GT1JNQVRfUkdCNTY1LAo+IC0JRFJNX0ZPUk1BVF9CR1I1NjUsCj4gLQlEUk1fRk9STUFU
-X0FSR0IxNTU1LAo+IC0JRFJNX0ZPUk1BVF9BQkdSMTU1NSwKPiAtCURSTV9GT1JNQVRfUkdCQTU1
-NTEsCj4gLQlEUk1fRk9STUFUX0JHUkE1NTUxLAo+IC0JRFJNX0ZPUk1BVF9YUkdCMTU1NSwKPiAt
-CURSTV9GT1JNQVRfWEJHUjE1NTUsCj4gLQlEUk1fRk9STUFUX1JHQlg1NTUxLAo+IC0JRFJNX0ZP
-Uk1BVF9CR1JYNTU1MSwKPiAtCURSTV9GT1JNQVRfQVJHQjQ0NDQsCj4gLQlEUk1fRk9STUFUX0FC
-R1I0NDQ0LAo+IC0JRFJNX0ZPUk1BVF9SR0JBNDQ0NCwKPiAtCURSTV9GT1JNQVRfQkdSQTQ0NDQs
-Cj4gLQlEUk1fRk9STUFUX1hSR0I0NDQ0LAo+IC0JRFJNX0ZPUk1BVF9YQkdSNDQ0NCwKPiAtCURS
-TV9GT1JNQVRfUkdCWDQ0NDQsCj4gLQlEUk1fRk9STUFUX0JHUlg0NDQ0LAo+IC0KPiAtCURSTV9G
-T1JNQVRfTlYxMiwKPiAtCURSTV9GT1JNQVRfTlYyMSwKPiAtCURSTV9GT1JNQVRfTlYxNiwKPiAt
-CURSTV9GT1JNQVRfTlY2MSwKPiAtCURSTV9GT1JNQVRfVllVWSwKPiAtCURSTV9GT1JNQVRfVVlW
-WSwKPiAtCURSTV9GT1JNQVRfWVVZViwKPiAtCURSTV9GT1JNQVRfWVZZVSwKPiAtCURSTV9GT1JN
-QVRfWVVWNDIwLAo+IC0JRFJNX0ZPUk1BVF9ZVlU0MjAsCj4gLX07Cj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9wbGFuZS5jCj4gYi9kcml2ZXJzL2dwdS9k
-cm0vbXNtL2Rpc3AvZHB1MS9kcHVfcGxhbmUuYwo+IGluZGV4IDdlYTkwZDI1YTNiNjkuLmMwYjFk
-NzczNjllNTMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1
-X3BsYW5lLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfcGxhbmUu
-Ywo+IEBAIC0xOSw3ICsxOSw2IEBACj4gICNpbmNsdWRlICJkcHVfa21zLmgiCj4gICNpbmNsdWRl
-ICJkcHVfZm9ybWF0cy5oIgo+ICAjaW5jbHVkZSAiZHB1X2h3X3NzcHAuaCIKPiAtI2luY2x1ZGUg
-ImRwdV9od19jYXRhbG9nX2Zvcm1hdC5oIgo+ICAjaW5jbHVkZSAiZHB1X3RyYWNlLmgiCj4gICNp
-bmNsdWRlICJkcHVfY3J0Yy5oIgo+ICAjaW5jbHVkZSAiZHB1X3ZiaWYuaCIKPiBAQCAtNjMsNiAr
-NjIsMTYgQEAgZW51bSB7Cj4gCj4gICNkZWZpbmUgREVGQVVMVF9SRUZSRVNIX1JBVEUJNjAKPiAK
-PiArc3RhdGljIGNvbnN0IHVpbnQzMl90IHFjb21fY29tcHJlc3NlZF9zdXBwb3J0ZWRfZm9ybWF0
-c1tdID0gewo+ICsJRFJNX0ZPUk1BVF9BQkdSODg4OCwKPiArCURSTV9GT1JNQVRfQVJHQjg4ODgs
-Cj4gKwlEUk1fRk9STUFUX1hCR1I4ODg4LAo+ICsJRFJNX0ZPUk1BVF9YUkdCODg4OCwKPiArCURS
-TV9GT1JNQVRfQkdSNTY1LAo+ICsKPiArCURSTV9GT1JNQVRfTlYxMiwKPiArfTsKPiArCj4gIC8q
-Kgo+ICAgKiBlbnVtIGRwdV9wbGFuZV9xb3MgLSBEaWZmZXJlbnQgcW9zIGNvbmZpZ3VyYXRpb25z
-IGZvciBlYWNoIHBpcGUKPiAgICoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-ZnJlZWRyZW5vCg==
+On Thu, Nov 19, 2020 at 1:41 PM Abhinav Kumar <abhinavk@codeaurora.org> wrote:
+>
+> Update the qos remap only if the client type changes for the plane.
+> This will avoid unnecessary register programming and also avoid log
+> spam from the dpu_vbif_set_qos_remap() function.
+>
+> Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 17 +++++++++++++++++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h    |  7 +++++++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  2 ++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   | 12 ++++++++++--
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h   |  5 +++++
+>  5 files changed, 41 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index d4662e8184cc..3867da47c683 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -1037,6 +1037,23 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+>         return rc;
+>  }
+>
+> +void dpu_crtc_set_qos_dirty(struct drm_crtc *crtc)
+> +{
+> +       struct drm_plane *plane;
+> +       struct drm_plane_state *state;
+> +       struct dpu_plane_state *pstate;
+> +
+> +       drm_atomic_crtc_for_each_plane(plane, crtc) {
+> +               state = plane->state;
+> +               if (!state)
+> +                       continue;
+> +
+> +               pstate = to_dpu_plane_state(state);
+> +
+> +               pstate->dirty |= DPU_PLANE_DIRTY_QOS;
+> +       }
+> +}
+> +
+>  int dpu_crtc_vblank(struct drm_crtc *crtc, bool en)
+>  {
+>         struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+> index cec3474340e8..8ba11de605bc 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+> @@ -231,6 +231,13 @@ static inline int dpu_crtc_frame_pending(struct drm_crtc *crtc)
+>   */
+>  int dpu_crtc_vblank(struct drm_crtc *crtc, bool en);
+>
+> +/**
+> + * dpu_crtc_set_qos_dirty - update plane dirty flag to include
+> + * QoS reprogramming
+> + * @crtc: Pointer to drm crtc structure
+> + */
+> +void dpu_crtc_set_qos_dirty(struct drm_crtc *crtc);
+> +
+>  /**
+>   * dpu_crtc_vblank_callback - called on vblank irq, issues completion events
+>   * @crtc: Pointer to drm crtc object
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index f7f5c258b553..c2db9dd6ec67 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -1001,6 +1001,8 @@ static void dpu_encoder_virt_mode_set(struct drm_encoder *drm_enc,
+>
+>         trace_dpu_enc_mode_set(DRMID(drm_enc));
+>
+> +       dpu_crtc_set_qos_dirty(drm_enc->crtc);
+> +
+>         if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS && priv->dp)
+>                 msm_dp_display_mode_set(priv->dp, drm_enc, mode, adj_mode);
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index 7ea90d25a3b6..f91d31a31e14 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -1066,6 +1066,7 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
+>         struct dpu_plane_state *pstate = to_dpu_plane_state(state);
+>         struct drm_crtc *crtc = state->crtc;
+>         struct drm_framebuffer *fb = state->fb;
+> +       bool is_rt_pipe;
+>         const struct dpu_format *fmt =
+>                 to_dpu_format(msm_framebuffer_format(fb));
+>
+> @@ -1075,7 +1076,7 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
+>
+>         pstate->pending = true;
+>
+> -       pdpu->is_rt_pipe = (dpu_crtc_get_client_type(crtc) != NRT_CLIENT);
+> +       is_rt_pipe = (dpu_crtc_get_client_type(crtc) != NRT_CLIENT);
+>         _dpu_plane_set_qos_ctrl(plane, false, DPU_PLANE_QOS_PANIC_CTRL);
+>
+>         DPU_DEBUG_PLANE(pdpu, "FB[%u] " DRM_RECT_FP_FMT "->crtc%u " DRM_RECT_FMT
+> @@ -1181,8 +1182,15 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
+>                 _dpu_plane_set_ot_limit(plane, crtc);
+>         }
+>
+> -       _dpu_plane_set_qos_remap(plane);
+> +       if (is_rt_pipe != pdpu->is_rt_pipe) {
+> +               pdpu->is_rt_pipe = is_rt_pipe;
+> +               pstate->dirty |= DPU_PLANE_DIRTY_QOS;
+> +       }
+>
+> +       if (pstate->dirty & DPU_PLANE_DIRTY_QOS) {
+> +               _dpu_plane_set_qos_remap(plane);
+> +               pstate->dirty = 0x0;
+> +       }
+
+So in the end, this looks roughly like "set qos remap on modesets or
+switching between right/left pipe"?  Couldn't this be simpler if in
+plane->atomic_check() you do something like:
+
+   dpu_plane_state->needs_qos_remap = atomic_state->allow_modeset;
+
+and then in plane->atomic_update:
+
+    if (pstate->needs_qos_remap || (is_rt_pipe != pdpu->is_rt_pipe) {
+         pdpu->is_rt_pipe = is_rt_pipe;
+         _dpu_plane_set_qos_remap(plane)
+    }
+
+?
+
+BR,
+-R
+
+
+>         _dpu_plane_calc_bw(plane, fb);
+>
+>         _dpu_plane_calc_clk(plane);
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+> index ca83b8753d59..47abd3686a86 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+> @@ -14,11 +14,15 @@
+>  #include "dpu_hw_mdss.h"
+>  #include "dpu_hw_sspp.h"
+>
+> +/* dirty bits to update QOS */
+> +#define DPU_PLANE_DIRTY_QOS 0x1
+> +
+>  /**
+>   * struct dpu_plane_state: Define dpu extension of drm plane state object
+>   * @base:      base drm plane state object
+>   * @aspace:    pointer to address space for input/output buffers
+>   * @stage:     assigned by crtc blender
+> + * @dirty:     bitmask for which pipe h/w config functions need to be updated
+>   * @multirect_index: index of the rectangle of SSPP
+>   * @multirect_mode: parallel or time multiplex multirect mode
+>   * @pending:   whether the current update is still pending
+> @@ -32,6 +36,7 @@ struct dpu_plane_state {
+>         struct drm_plane_state base;
+>         struct msm_gem_address_space *aspace;
+>         enum dpu_stage stage;
+> +       uint32_t dirty;
+>         uint32_t multirect_index;
+>         uint32_t multirect_mode;
+>         bool pending;
+> --
+> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+> a Linux Foundation Collaborative Project
+>
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
