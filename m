@@ -1,61 +1,41 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 091CA2C05C3
-	for <lists+freedreno@lfdr.de>; Mon, 23 Nov 2020 13:30:23 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DB702C0E58
+	for <lists+freedreno@lfdr.de>; Mon, 23 Nov 2020 16:06:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EB0889CD3;
-	Mon, 23 Nov 2020 12:30:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C04066E03D;
+	Mon, 23 Nov 2020 15:06:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B05C089CD3
- for <freedreno@lists.freedesktop.org>; Mon, 23 Nov 2020 12:30:20 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id x13so7597237wmj.1
- for <freedreno@lists.freedesktop.org>; Mon, 23 Nov 2020 04:30:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=hQ9274cJRcisj/k1DnNRPg/AWzSpXOLuASkzuQMMEJk=;
- b=loC7jwFZZxCVRUrWK3gkEV+nGPQO8gNgJHe9CO8Ho/sjQ+3TR3d9I8PAGUmT32DpLd
- XF45t36teSRWCy5rRGkpKWWKho4bfob6jVR4z87QtSvdZY+PWwuEG6552uCFfZYGYwWM
- TeYvw5BHHdArvuLvMR6+jWWE7Gf3wl5/CHG1ip4kmRu8V0NI08HHBZtzJx2Nzs78Lifm
- ofQpQZSHatSAZOcoxUFcKOu45nQW820RNRa6+iq0oOol4VBdbXPNzbW6QVWqZLRfRJMu
- 8X1JkcflXcrN8J8rJ2VsTx30DouJ3eTevyQcQc/epohTycYBeGuQ+QjUC2P7tdgAjjFH
- IThw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=hQ9274cJRcisj/k1DnNRPg/AWzSpXOLuASkzuQMMEJk=;
- b=TedjrNHu1wSpOoOXVJtd9C8aGdnOYRykWYbgEtT6/gcJYVznfFFT1rBXMeWFXz6nSm
- lj8X7nVw7goEj0TB9hVW2IHncOtUBlKMVkOrJ2JTHykkd3X1uAcXqSU3bSCVGEkhbmNx
- oGvycUcpgiUB/LWtu2WJy71ZI6/vAd8F/XuXZX+3LzpupoZr2XNNyDoxZfhmx/kMr/Ni
- vHBDGv1tTbdpIDCRescbUUVB2xOLM7+TMzbodJ1JKco7gc+OtkFjbCk198qS8mfl/n3Y
- rH7yp05TxJx37ZDhdqMCR+IivWBD3g5hIUKoY7v00xeV2Ok34vHSomwq2y+qZlMcdzjd
- 9Zww==
-X-Gm-Message-State: AOAM531YQTnmw1xnhHBBJrgzEGmPTrFO1I9nwfRRIKd7dRDSh+J/sv9W
- vzpHkja3EmTPrpU40CVA6QSJ9Q==
-X-Google-Smtp-Source: ABdhPJyDOBP0tlstfPSopOHwDgmQuvftD21pkr092ilv2i4DAaBWKV4gEPJF2xEJaLrKvkQTiu1XiQ==
-X-Received: by 2002:a1c:9804:: with SMTP id a4mr23315406wme.158.1606134619163; 
- Mon, 23 Nov 2020 04:30:19 -0800 (PST)
-Received: from dell ([91.110.221.218])
- by smtp.gmail.com with ESMTPSA id q16sm19309395wrn.13.2020.11.23.04.30.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Nov 2020 04:30:18 -0800 (PST)
-Date: Mon, 23 Nov 2020 12:30:16 +0000
-From: Lee Jones <lee.jones@linaro.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Message-ID: <20201123123016.GA4716@dell>
-References: <20201123111919.233376-1-lee.jones@linaro.org>
- <feda98c5-a677-7bf5-c1e7-2bf311ba8097@amd.com>
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38AFB6E038;
+ Mon, 23 Nov 2020 15:06:23 +0000 (UTC)
+Received: from willie-the-truck (236.31.169.217.in-addr.arpa [217.169.31.236])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id B9C382067C;
+ Mon, 23 Nov 2020 15:06:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1606143983;
+ bh=XD8rVd28+XoVE6Niy838CzRctkhXNnkgWMtq4ss4S6A=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ZkN7pEpWrgc47kAtsM1YZxYjF7U4zxCaCMvaBrYkdn38WMmxqNq1bL0QllxbQ2OiI
+ HiVVgNoAN80zM6pFh8rptXYtwoSjorvo383HP4ZmKaNyKlLtUm4yYDEv7oHSU80qlV
+ JUo17ZMRS4dOVbS5+lSI0dfzFlfBTgeAD/kNhuHU=
+Date: Mon, 23 Nov 2020 15:06:17 +0000
+From: Will Deacon <will@kernel.org>
+To: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+Message-ID: <20201123150616.GB11033@willie-the-truck>
+References: <cover.1605621785.git.saiprakash.ranjan@codeaurora.org>
+ <699f30cd6b3d69cebbefd0e73850694b9852c5da.1605621785.git.saiprakash.ranjan@codeaurora.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <feda98c5-a677-7bf5-c1e7-2bf311ba8097@amd.com>
-Subject: Re: [Freedreno] [PATCH 00/40] [Set 8] Rid W=1 warnings from GPU
+In-Reply-To: <699f30cd6b3d69cebbefd0e73850694b9852c5da.1605621785.git.saiprakash.ranjan@codeaurora.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Freedreno] [PATCHv8 1/8] iommu/io-pgtable-arm: Add support to
+ use system cache
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,45 +48,79 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- Tao Zhou <tao.zhou1@amd.com>, dri-devel@lists.freedesktop.org,
- Sonny Jiang <sonny.jiang@amd.com>, Huang Rui <ray.huang@amd.com>,
- Qinglang Miao <miaoqinglang@huawei.com>, Likun Gao <Likun.Gao@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Jonathan Marek <jonathan@marek.ca>,
- amd-gfx@lists.freedesktop.org, Luben Tuikov <luben.tuikov@amd.com>,
- Ben Skeggs <bskeggs@redhat.com>, Jiansong Chen <Jiansong.Chen@amd.com>,
- linux-media@vger.kernel.org, Fritz Koenig <frkoenig@google.com>,
- linux-arm-msm@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Kalyan Thota <kalyan_t@codeaurora.org>, Sean Paul <sean@poorly.run>,
- linux-kernel@vger.kernel.org, Jerome Glisse <glisse@freedesktop.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Drew Davenport <ddavenport@chromium.org>, freedreno@lists.freedesktop.org,
- Hawking Zhang <Hawking.Zhang@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: linux-kernel@vger.kernel.org, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joro@8bytes.org>, Jordan Crouse <jcrouse@codeaurora.org>,
+ dri-devel@lists.freedesktop.org, Akhil P Oommen <akhilpo@codeaurora.org>,
+ Rob Clark <robdclark@gmail.com>, iommu@lists.linux-foundation.org,
+ "Kristian H . Kristensen" <hoegsberg@google.com>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-T24gTW9uLCAyMyBOb3YgMjAyMCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKCj4gT25seSBza2lt
-bWVkIG92ZXIgdGhlbSwgYnV0IG92ZXIgYWxsIGxvb2tzIHNhbmUgdG8gbWUuCj4gCj4gU2VyaWVz
-IGlzIEFja2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+
-CgpUaGFua3MgQ2hyaXN0aWFuLCBtdWNoIGFwcHJlY2lhdGVkLgoKPiBBbSAyMy4xMS4yMCB1bSAx
-MjoxOCBzY2hyaWViIExlZSBKb25lczoKPiA+IFRoaXMgc2V0IGlzIHBhcnQgb2YgYSBsYXJnZXIg
-ZWZmb3J0IGF0dGVtcHRpbmcgdG8gY2xlYW4tdXAgVz0xCj4gPiBrZXJuZWwgYnVpbGRzLCB3aGlj
-aCBhcmUgY3VycmVudGx5IG92ZXJ3aGVsbWluZ2x5IHJpZGRsZWQgd2l0aAo+ID4gbmlnZ2x5IGxp
-dHRsZSB3YXJuaW5ncy4KPiA+IAo+ID4gT25seSA5MDAgKGZyb20gNTAwMCkgdG8gZ28hCj4gPiAK
-PiA+IExlZSBKb25lcyAoNDApOgo+ID4gICAgZHJtL3JhZGVvbi9yYWRlb25fZGV2aWNlOiBDb25z
-dW1lIG91ciBvd24gaGVhZGVyIHdoZXJlIHRoZSBwcm90b3R5cGVzCj4gPiAgICAgIGFyZSBsb2Nh
-dGVkCj4gPiAgICBkcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtOiBBZGQgZGVzY3JpcHRpb24gZm9y
-ICdwYWdlX2ZsYWdzJwo+ID4gICAgZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2liOiBQcm92aWRlIGRv
-Y3MgZm9yICdhbWRncHVfaWJfc2NoZWR1bGUoKSdzCj4gPiAgICAgICdqb2InIHBhcmFtCj4gPiAg
-ICBkcm0vYW1kL2FtZGdwdS9hbWRncHVfdmlydDogQ29ycmVjdCBwb3NzaWJsZSBjb3B5L3Bhc3Rl
-IG9yIGRvYy1yb3QKPiA+ICAgICAgbWlzbmFtaW5nIGlzc3VlCj4gPiAgICBkcm0vYW1kL2FtZGdw
-dS9jaWtfaWg6IFN1cHBseSBkZXNjcmlwdGlvbiBmb3IgJ2loJyBpbgoKWy4uLl0KCi0tIApMZWUg
-Sm9uZXMgW+adjueQvOaWr10KU2VuaW9yIFRlY2huaWNhbCBMZWFkIC0gRGV2ZWxvcGVyIFNlcnZp
-Y2VzCkxpbmFyby5vcmcg4pSCIE9wZW4gc291cmNlIHNvZnR3YXJlIGZvciBBcm0gU29DcwpGb2xs
-b3cgTGluYXJvOiBGYWNlYm9vayB8IFR3aXR0ZXIgfCBCbG9nCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJlZWRy
-ZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVubwo=
+On Tue, Nov 17, 2020 at 08:00:40PM +0530, Sai Prakash Ranjan wrote:
+> Add a quirk IO_PGTABLE_QUIRK_ARM_OUTER_WBWA to override
+> the attributes set in TCR for the page table walker when
+> using system cache.
+> 
+> Signed-off-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+> ---
+>  drivers/iommu/io-pgtable-arm.c | 10 ++++++++--
+>  include/linux/io-pgtable.h     |  4 ++++
+>  2 files changed, 12 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/iommu/io-pgtable-arm.c b/drivers/iommu/io-pgtable-arm.c
+> index a7a9bc08dcd1..7c9ea9d7874a 100644
+> --- a/drivers/iommu/io-pgtable-arm.c
+> +++ b/drivers/iommu/io-pgtable-arm.c
+> @@ -761,7 +761,8 @@ arm_64_lpae_alloc_pgtable_s1(struct io_pgtable_cfg *cfg, void *cookie)
+>  
+>  	if (cfg->quirks & ~(IO_PGTABLE_QUIRK_ARM_NS |
+>  			    IO_PGTABLE_QUIRK_NON_STRICT |
+> -			    IO_PGTABLE_QUIRK_ARM_TTBR1))
+> +			    IO_PGTABLE_QUIRK_ARM_TTBR1 |
+> +			    IO_PGTABLE_QUIRK_ARM_OUTER_WBWA))
+>  		return NULL;
+>  
+>  	data = arm_lpae_alloc_pgtable(cfg);
+> @@ -773,10 +774,15 @@ arm_64_lpae_alloc_pgtable_s1(struct io_pgtable_cfg *cfg, void *cookie)
+>  		tcr->sh = ARM_LPAE_TCR_SH_IS;
+>  		tcr->irgn = ARM_LPAE_TCR_RGN_WBWA;
+>  		tcr->orgn = ARM_LPAE_TCR_RGN_WBWA;
+> +		if (cfg->quirks & IO_PGTABLE_QUIRK_ARM_OUTER_WBWA)
+> +			goto out_free_data;
+>  	} else {
+>  		tcr->sh = ARM_LPAE_TCR_SH_OS;
+>  		tcr->irgn = ARM_LPAE_TCR_RGN_NC;
+> -		tcr->orgn = ARM_LPAE_TCR_RGN_NC;
+> +		if (!(cfg->quirks & IO_PGTABLE_QUIRK_ARM_OUTER_WBWA))
+> +			tcr->orgn = ARM_LPAE_TCR_RGN_NC;
+> +		else
+> +			tcr->orgn = ARM_LPAE_TCR_RGN_WBWA;
+>  	}
+>  
+>  	tg1 = cfg->quirks & IO_PGTABLE_QUIRK_ARM_TTBR1;
+> diff --git a/include/linux/io-pgtable.h b/include/linux/io-pgtable.h
+> index 4cde111e425b..a9a2c59fab37 100644
+> --- a/include/linux/io-pgtable.h
+> +++ b/include/linux/io-pgtable.h
+> @@ -86,6 +86,9 @@ struct io_pgtable_cfg {
+>  	 *
+>  	 * IO_PGTABLE_QUIRK_ARM_TTBR1: (ARM LPAE format) Configure the table
+>  	 *	for use in the upper half of a split address space.
+> +	 *
+> +	 * IO_PGTABLE_QUIRK_ARM_OUTER_WBWA: Override the attributes set in TCR for
+> +	 *	the page table walker when using system cache.
+
+Please can you reword this to say:
+
+  "Override the outer-cacheability attributes set in the TCR for a non-coherent
+   page-table walker."
+
+Will
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
