@@ -1,65 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 293A52C1168
-	for <lists+freedreno@lfdr.de>; Mon, 23 Nov 2020 18:07:33 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C9522C1448
+	for <lists+freedreno@lfdr.de>; Mon, 23 Nov 2020 20:20:51 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C67186E05D;
-	Mon, 23 Nov 2020 17:07:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FB1E6E081;
+	Mon, 23 Nov 2020 19:20:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 700316E063
- for <freedreno@lists.freedesktop.org>; Mon, 23 Nov 2020 17:07:28 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1606151250; h=Content-Transfer-Encoding: MIME-Version:
- References: In-Reply-To: Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=xBQcg+Wcwhh18eydvFxaDQClwZpGMJnYWJxgECPLHjo=;
- b=p6qqUXW3j4NLYg8PfOII5MH2VseEHe06FDTYHazfuHQLLq23clF7QMkeDusyfhwfHOyUATqy
- mo4+Gq9jfN5GgXXZeF12/zFM1Cedul2kZiP1+jVGzTEzMI3Rgjj/63p0DhoUY0Knm2nUTxUq
- yly/8OuLK2GNLfqdyQzL1ztnwzc=
-X-Mailgun-Sending-Ip: 69.72.42.4
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n03.prod.us-west-2.postgun.com with SMTP id
- 5fbbec4677b63cdb34278260 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 23 Nov 2020 17:07:18
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 52536C43223; Mon, 23 Nov 2020 17:07:18 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL, 
- URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-Received: from blr-ubuntu-253.qualcomm.com
- (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: saiprakash.ranjan)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 66CC4C43462;
- Mon, 23 Nov 2020 17:07:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 66CC4C43462
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org; spf=fail
- smtp.mailfrom=saiprakash.ranjan@codeaurora.org
-From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Joerg Roedel <joro@8bytes.org>, Jordan Crouse <jcrouse@codeaurora.org>,
- Rob Clark <robdclark@gmail.com>
-Date: Mon, 23 Nov 2020 22:36:01 +0530
-Message-Id: <bc6218a81ee48ac320a3046f7f88b981dab1cd15.1606150259.git.saiprakash.ranjan@codeaurora.org>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <cover.1606150259.git.saiprakash.ranjan@codeaurora.org>
-References: <cover.1606150259.git.saiprakash.ranjan@codeaurora.org>
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D896A6E07D;
+ Mon, 23 Nov 2020 19:20:45 +0000 (UTC)
+Received: by mail-wr1-x436.google.com with SMTP id e7so2185043wrv.6;
+ Mon, 23 Nov 2020 11:20:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=qywik7ZeoNLjOI/OiRzyEWbv5L3UmV1jd3xo8upxDsg=;
+ b=D3LUaTo9sjQT2psf9iOfR5Q+w/hWOKbYJIrGkOwrSKId0+dXBhN2JbAKZrdU51cvlB
+ 2TH/BH6AH3DKIlQMdVT/V8i+l/yJ0ztIDwjnuj5ekXsttMcEx45j51pC0OifHlxSPhYg
+ Vk+onO+4dhk/KXF75P7ZKjh+voUOJ9oSQjQwUJDgxbPMNzzW/mCkzUromNJl14ewjTbQ
+ hnFhD+OP+mQd1nGunov0a3cqO2Ge91PFnaB9BUbjoIR7Xh+5gqsSdXq8Qw6VGchsGoGF
+ 0vJhoOfb411RYFqRARv8q6FJ4UVj/X+YELsIA4bt6jG6BaYQDZlj6Yq4zmlmJcnYBMzK
+ BWSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=qywik7ZeoNLjOI/OiRzyEWbv5L3UmV1jd3xo8upxDsg=;
+ b=VMPFVFL+j5KYOvQ3J8lfazXe+3C+zxwp52ASXgsRqUM/G3HW2YIahoU/8u+UtqCvLY
+ gjQm1leb9jYXsSgeMzra3sb8INZ6sCzn/DL9QVXpZXN53PNciARDLlOiihXvz7nJth56
+ uMsJQfh+tCBOX/hrou0fWBpk+LKibcBO4nJGp5IM1ABXX/2fk5+rPdA/vU+C/Jw9aS7C
+ 4/MRCyB0pQrsHqlo6DZMaBEYI9Q9SNHVX1dns1n5KhfFwAcOeROW2txKt7lti6HyHYJh
+ y3yeRhnMyji9G0XYEKRSKYzRPu1ocx0JbSCIcGBRvAdN3vAqTqNn7gkXdNGsssR6+eZb
+ ZgTA==
+X-Gm-Message-State: AOAM531EcK/K1kkJmXXzbYk+5vByRtTYAcqpjW0cInAQRCukP6xA/PBa
+ PXLAkUS+PX3Pdgs+QxFDxpQCcmWllC1gtYZS/wY=
+X-Google-Smtp-Source: ABdhPJy8N53HXm9IuUy+KZQkqOt4/pj9ITZPgRIZbKk5Hw32UENtsWfsI7ELNiEQlwY8TBRX7HEq8kOv+802Ag6uHEw=
+X-Received: by 2002:adf:a54d:: with SMTP id j13mr1337431wrb.132.1606159244462; 
+ Mon, 23 Nov 2020 11:20:44 -0800 (PST)
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCHv9 8/8] iommu: arm-smmu-impl: Add a space before
- open parenthesis
+References: <cover.1605621785.git.saiprakash.ranjan@codeaurora.org>
+ <20201123152146.GE11033@willie-the-truck>
+ <50b68f2bdf9413b896fbe816ba4ddbc9@codeaurora.org>
+In-Reply-To: <50b68f2bdf9413b896fbe816ba4ddbc9@codeaurora.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 23 Nov 2020 11:22:31 -0800
+Message-ID: <CAF6AEGse=WBAC1WbTi6aD5_m1_NBg91f=veYm-7V=Uds7NA0Lw@mail.gmail.com>
+To: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+Subject: Re: [Freedreno] [PATCHv8 0/8] System Cache support for GPU and
+ required SMMU support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,43 +63,87 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- linux-arm-msm@vger.kernel.org, Akhil P Oommen <akhilpo@codeaurora.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- iommu@lists.linux-foundation.org,
+Cc: Will Deacon <will@kernel.org>, freedreno <freedreno@lists.freedesktop.org>,
+ Joerg Roedel <joro@8bytes.org>, Akhil P Oommen <akhilpo@codeaurora.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>,
+ "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
  "Kristian H . Kristensen" <hoegsberg@google.com>,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Fix the checkpatch warning for space required before the open
-parenthesis.
+On Mon, Nov 23, 2020 at 9:01 AM Sai Prakash Ranjan
+<saiprakash.ranjan@codeaurora.org> wrote:
+>
+> On 2020-11-23 20:51, Will Deacon wrote:
+> > On Tue, Nov 17, 2020 at 08:00:39PM +0530, Sai Prakash Ranjan wrote:
+> >> Some hardware variants contain a system cache or the last level
+> >> cache(llc). This cache is typically a large block which is shared
+> >> by multiple clients on the SOC. GPU uses the system cache to cache
+> >> both the GPU data buffers(like textures) as well the SMMU pagetables.
+> >> This helps with improved render performance as well as lower power
+> >> consumption by reducing the bus traffic to the system memory.
+> >>
+> >> The system cache architecture allows the cache to be split into slices
+> >> which then be used by multiple SOC clients. This patch series is an
+> >> effort to enable and use two of those slices preallocated for the GPU,
+> >> one for the GPU data buffers and another for the GPU SMMU hardware
+> >> pagetables.
+> >>
+> >> Patch 1 - Patch 6 adds system cache support in SMMU and GPU driver.
+> >> Patch 7 and 8 are minor cleanups for arm-smmu impl.
+> >>
+> >> Changes in v8:
+> >>  * Introduce a generic domain attribute for pagetable config (Will)
+> >>  * Rename quirk to more generic IO_PGTABLE_QUIRK_ARM_OUTER_WBWA (Will)
+> >>  * Move non-strict mode to use new struct domain_attr_io_pgtbl_config
+> >> (Will)
+> >
+> > Modulo some minor comments I've made, this looks good to me. What is
+> > the
+> > plan for merging it? I can take the IOMMU parts, but patches 4-6 touch
+> > the
+> > MSM GPU driver and I'd like to avoid conflicts with that.
+> >
+>
+> SMMU bits are pretty much independent and GPU relies on the domain
+> attribute
+> and the quirk exposed, so as long as SMMU changes go in first it should
+> be good.
+> Rob?
 
-Signed-off-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-Acked-by: Will Deacon <will@kernel.org>
----
- drivers/iommu/arm/arm-smmu/arm-smmu-impl.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I suppose one option would be to split out the patch that adds the
+attribute into it's own patch, and merge that both thru drm and iommu?
 
-diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c b/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
-index 26e2734eb4d7..136872e77195 100644
---- a/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
-+++ b/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
-@@ -12,7 +12,7 @@
- 
- static int arm_smmu_gr0_ns(int offset)
- {
--	switch(offset) {
-+	switch (offset) {
- 	case ARM_SMMU_GR0_sCR0:
- 	case ARM_SMMU_GR0_sACR:
- 	case ARM_SMMU_GR0_sGFSR:
--- 
-QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a member
-of Code Aurora Forum, hosted by The Linux Foundation
+If Will/Robin dislike that approach, I'll pick up the parts of the drm
+patches which don't depend on the new attribute for v5.11 and the rest
+for v5.12.. or possibly a second late v5.11 pull req if airlied
+doesn't hate me too much for it.
 
+Going forward, I think we will have one or two more co-dependent
+series, like the smmu iova fault handler improvements that Jordan
+posted.  So I would like to hear how Will and Robin prefer to handle
+those.
+
+BR,
+-R
+
+
+> Thanks,
+> Sai
+>
+> --
+> QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a
+> member
+> of Code Aurora Forum, hosted by The Linux Foundation
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
