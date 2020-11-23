@@ -2,59 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 090632C041F
-	for <lists+freedreno@lfdr.de>; Mon, 23 Nov 2020 12:20:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5215E2C0428
+	for <lists+freedreno@lfdr.de>; Mon, 23 Nov 2020 12:20:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29F8C89FA5;
-	Mon, 23 Nov 2020 11:20:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 841666E02C;
+	Mon, 23 Nov 2020 11:20:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CECEA89F9F
- for <freedreno@lists.freedesktop.org>; Mon, 23 Nov 2020 11:20:12 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id u12so18263731wrt.0
- for <freedreno@lists.freedesktop.org>; Mon, 23 Nov 2020 03:20:12 -0800 (PST)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF7EA89FC9
+ for <freedreno@lists.freedesktop.org>; Mon, 23 Nov 2020 11:20:16 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id r17so18257108wrw.1
+ for <freedreno@lists.freedesktop.org>; Mon, 23 Nov 2020 03:20:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=2t9iqbRyeuX0nirNEosiONRTy+C0oDlGXG3WbFusG7M=;
- b=Jn6Pi1XsJmL/ENpTrqWl/cVPr3vx0YNgOS0FywSmCPK1bAfC/IFmtCJGaN1r4k7BPl
- szGNkuRtsjmCJUE4tSBByndiNoSA+Oa1/oqY1J45rr5PEg9SSAJwW4W14yhlNhz5EwlD
- PJPDHisOPu6iE5F75An6OB8dlNoOqbIRkRTE22eV0voFuHwP+yBoJvGLbBiMuhAZojcj
- ZvlfzkekMQi4qdyEAh/Feoz3IQNQWf72JA/ezIoa4uROSkTgnTdmkdh2f+va2s5ccagb
- KeFpsyv9L87nppTo0afKj9dr5gd3fawB1oKsvlHi2icTPnhdmq62KKssY26CgNbwUL9e
- u43Q==
+ bh=3XQiSvdHNX/l8zTX1wnsdbanAAcRSnCZFK2InbUgz80=;
+ b=ITMcw66kMNj6+a35t560vvLEJp9Qh3wX0OAmVSouJIPLLOsp/LcrYRXMqRiNL1IzWp
+ N88RAF/OA4LP2xGceSDMEdHSP4NCSNn2TSIa0J52t70m0+Cd5Jd5qhoE/KLjniNY96Du
+ CEvjpeHeTWD7XQHNXEmghRGM3nQKcrWOIa0NHPPChpU0y7QnN4rLW1ESzUI0kG2lNCsk
+ L/FNUM/285Cq7SZpdjddlkjFfHPPQV3ZKYnfwp4fh//vsODzAD4+0ePc8TkDFkGMZaPl
+ dpKkd1zjRHALp6PHoTEqjG2Nt7KRy4F4csBhN90NqRTLGFbhiEeIGjVPQO9wWpcoy6jh
+ eW7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=2t9iqbRyeuX0nirNEosiONRTy+C0oDlGXG3WbFusG7M=;
- b=iKcGX97cyn1DAax2xqUPdq1teGc7UEL/k6B64dML+rihMJ2/CCcpRnRwlsLmxScMaF
- Zj7/NxWyodqXcsM4RaEQPT4gzNsFltU44rSNQoUXzdvc3H44IJdkZoiw6dCikCU3P/gh
- 3u5A/wnnqThq58Q4L6b2COZOJkyvajIFzO/9yvB75LTh5gZr2vW6YWmtvednF2NUEJPf
- P6aexpwSKo92o0euOavRZ5hdgRsP141TU0wXJPbx5vDF6m4HYiZY4u62XcY1WANZc3sp
- kAVMLIxerhQWBQrXkZVwWxPRhJ0vpmvT0GMI056J6kXkh8L5rNp5PdR1GgOvK1uojaEr
- tfOw==
-X-Gm-Message-State: AOAM530fzmNuGXgsdwXk0RUErj1Is4G4qAoBtojO9hs2XrrGih9YnWmz
- k+iuNB0retRNxa99YlQa5igyRA==
-X-Google-Smtp-Source: ABdhPJxAa7z5x3+CcaJFNBIR42ujVfPJC43gdl9BpgeYhYwm4UnICya36UGyV1RT4iTouygxQ8UUDw==
-X-Received: by 2002:adf:f5c8:: with SMTP id k8mr31439775wrp.2.1606130411509;
- Mon, 23 Nov 2020 03:20:11 -0800 (PST)
+ bh=3XQiSvdHNX/l8zTX1wnsdbanAAcRSnCZFK2InbUgz80=;
+ b=E0x842tb+KSkHXLmy0EY1VnS98lf/gKt6TXcf0pf6APAqLaPTjCyKlNMigbjN5lVwj
+ VfOCyS4bwqQ95sRqGTHDtTvOzNG9JaXl9XmRjCrhcTUA/eGxc1JHsykkT8WJ6C0/eB5E
+ kVkCMcP7hVjIRL6SFxYv9nXzmHILkaKU3c5B80k8orPIVg99j1bpkr/QDshfAGgVFebF
+ Emt+AA8fkYerkjKQNAiIWVjA5+uN/SfgJrlb8o3yGRRlOKDDK5ug+GExoKVbI7j5M3po
+ 5kR6yGW2N1q+QdrCjb2JEExezgDb0SPfNpQc/veA94Peij5Z5+5IZElWJ3dL8SrGZMqO
+ +iYw==
+X-Gm-Message-State: AOAM531NPM/64unTfU5mWreYROvDu1mnbXJVbUZB5HtrN332n1VgmkqM
+ l0Y+ZVUqAZDHjaedow+qLCnKDA==
+X-Google-Smtp-Source: ABdhPJxT9cxp1U8EXv22g8t43yc2F9riiqF+zpYFisUPqziMGnHw1PIj+Zfqh0lCo7aiBznqqCCdbw==
+X-Received: by 2002:adf:e80b:: with SMTP id o11mr30535225wrm.409.1606130415390; 
+ Mon, 23 Nov 2020 03:20:15 -0800 (PST)
 Received: from dell.default ([91.110.221.218])
- by smtp.gmail.com with ESMTPSA id n9sm16317290wmd.4.2020.11.23.03.20.10
+ by smtp.gmail.com with ESMTPSA id n9sm16317290wmd.4.2020.11.23.03.20.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Nov 2020 03:20:10 -0800 (PST)
+ Mon, 23 Nov 2020 03:20:14 -0800 (PST)
 From: Lee Jones <lee.jones@linaro.org>
 To: lee.jones@linaro.org
-Date: Mon, 23 Nov 2020 11:19:14 +0000
-Message-Id: <20201123111919.233376-36-lee.jones@linaro.org>
+Date: Mon, 23 Nov 2020 11:19:17 +0000
+Message-Id: <20201123111919.233376-39-lee.jones@linaro.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20201123111919.233376-1-lee.jones@linaro.org>
 References: <20201123111919.233376-1-lee.jones@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 35/40] drm/msm/disp/dpu1/dpu_plane: Fix some
- spelling and missing function param descriptions
+Subject: [Freedreno] [PATCH 38/40] drm/msm/msm_drv: Make '_msm_ioremap()'
+ static
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,81 +70,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Kalyan Thota <kalyan_t@codeaurora.org>,
- Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Fixes the following W=1 kernel build warning(s):
-
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c:152: warning: Function parameter or member 'plane' not described in '_dpu_plane_calc_bw'
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c:152: warning: Function parameter or member 'fb' not described in '_dpu_plane_calc_bw'
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c:152: warning: Excess function parameter 'Plane' description in '_dpu_plane_calc_bw'
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c:200: warning: Function parameter or member 'plane' not described in '_dpu_plane_calc_clk'
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c:200: warning: Excess function parameter 'Plane' description in '_dpu_plane_calc_clk'
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c:232: warning: Function parameter or member 'src_width' not described in '_dpu_plane_calc_fill_level'
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c:232: warning: Excess function parameter 'src_wdith' description in '_dpu_plane_calc_fill_level'
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c:1060: warning: Function parameter or member 'error' not described in 'dpu_plane_set_error'
-
-Cc: Rob Clark <robdclark@gmail.com>
-Cc: Sean Paul <sean@poorly.run>
-Cc: David Airlie <airlied@linux.ie>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Kalyan Thota <kalyan_t@codeaurora.org>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org
-Signed-off-by: Lee Jones <lee.jones@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index c0b1d77369e53..cf0084d7cc7c9 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -142,7 +142,8 @@ static struct dpu_kms *_dpu_plane_get_kms(struct drm_plane *plane)
- 
- /**
-  * _dpu_plane_calc_bw - calculate bandwidth required for a plane
-- * @Plane: Pointer to drm plane.
-+ * @plane: Pointer to drm plane.
-+ * @fb:   Pointer to framebuffer associated with the given plane
-  * Result: Updates calculated bandwidth in the plane state.
-  * BW Equation: src_w * src_h * bpp * fps * (v_total / v_dest)
-  * Prefill BW Equation: line src bytes * line_time
-@@ -192,7 +193,7 @@ static void _dpu_plane_calc_bw(struct drm_plane *plane,
- 
- /**
-  * _dpu_plane_calc_clk - calculate clock required for a plane
-- * @Plane: Pointer to drm plane.
-+ * @plane: Pointer to drm plane.
-  * Result: Updates calculated clock in the plane state.
-  * Clock equation: dst_w * v_total * fps * (src_h / dst_h)
-  */
-@@ -224,7 +225,7 @@ static void _dpu_plane_calc_clk(struct drm_plane *plane)
-  * _dpu_plane_calc_fill_level - calculate fill level of the given source format
-  * @plane:		Pointer to drm plane
-  * @fmt:		Pointer to source buffer format
-- * @src_wdith:		width of source buffer
-+ * @src_width:		width of source buffer
-  * Return: fill level corresponding to the source buffer/format or 0 if error
-  */
- static int _dpu_plane_calc_fill_level(struct drm_plane *plane,
-@@ -1055,6 +1056,7 @@ void dpu_plane_flush(struct drm_plane *plane)
- /**
-  * dpu_plane_set_error: enable/disable error condition
-  * @plane: pointer to drm_plane structure
-+ * @error: error value to set
-  */
- void dpu_plane_set_error(struct drm_plane *plane, bool error)
- {
--- 
-2.25.1
-
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+Rml4ZXMgdGhlIGZvbGxvd2luZyBXPTEga2VybmVsIGJ1aWxkIHdhcm5pbmcocyk6CgogZHJpdmVy
+cy9ncHUvZHJtL21zbS9tc21fZHJ2LmM6MTI0OjE1OiB3YXJuaW5nOiBubyBwcmV2aW91cyBwcm90
+b3R5cGUgZm9yIOKAmF9tc21faW9yZW1hcOKAmSBbLVdtaXNzaW5nLXByb3RvdHlwZXNdCgpDYzog
+Um9iIENsYXJrIDxyb2JkY2xhcmtAZ21haWwuY29tPgpDYzogU2VhbiBQYXVsIDxzZWFuQHBvb3Js
+eS5ydW4+CkNjOiBEYXZpZCBBaXJsaWUgPGFpcmxpZWRAbGludXguaWU+CkNjOiBEYW5pZWwgVmV0
+dGVyIDxkYW5pZWxAZmZ3bGwuY2g+CkNjOiBsaW51eC1hcm0tbXNtQHZnZXIua2VybmVsLm9yZwpD
+YzogZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpDYzogZnJlZWRyZW5vQGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwpTaWduZWQtb2ZmLWJ5OiBMZWUgSm9uZXMgPGxlZS5qb25lc0BsaW5hcm8u
+b3JnPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2Rydi5jIHwgNCArKy0tCiAxIGZpbGUg
+Y2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9tc20vbXNtX2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZHJ2
+LmMKaW5kZXggNGQ1ODY2OGI4MDg1My4uZWRjOTllM2IwZWNhNyAxMDA2NDQKLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL21zbS9tc21fZHJ2LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZHJ2
+LmMKQEAgLTEyMSw4ICsxMjEsOCBAQCBzdHJ1Y3QgY2xrICptc21fY2xrX2dldChzdHJ1Y3QgcGxh
+dGZvcm1fZGV2aWNlICpwZGV2LCBjb25zdCBjaGFyICpuYW1lKQogCXJldHVybiBjbGs7CiB9CiAK
+LXZvaWQgX19pb21lbSAqX21zbV9pb3JlbWFwKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYs
+IGNvbnN0IGNoYXIgKm5hbWUsCi0JCQkgICBjb25zdCBjaGFyICpkYmduYW1lLCBib29sIHF1aWV0
+KQorc3RhdGljIHZvaWQgX19pb21lbSAqX21zbV9pb3JlbWFwKHN0cnVjdCBwbGF0Zm9ybV9kZXZp
+Y2UgKnBkZXYsIGNvbnN0IGNoYXIgKm5hbWUsCisJCQkJICBjb25zdCBjaGFyICpkYmduYW1lLCBi
+b29sIHF1aWV0KQogewogCXN0cnVjdCByZXNvdXJjZSAqcmVzOwogCXVuc2lnbmVkIGxvbmcgc2l6
+ZTsKLS0gCjIuMjUuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRy
+ZW5vCg==
