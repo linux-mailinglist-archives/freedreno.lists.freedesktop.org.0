@@ -1,35 +1,35 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 559EA2C10DC
-	for <lists+freedreno@lfdr.de>; Mon, 23 Nov 2020 17:41:28 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D8142C10E7
+	for <lists+freedreno@lfdr.de>; Mon, 23 Nov 2020 17:42:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 099A56E045;
-	Mon, 23 Nov 2020 16:41:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 291456E04B;
+	Mon, 23 Nov 2020 16:42:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47C526E045
- for <freedreno@lists.freedesktop.org>; Mon, 23 Nov 2020 16:41:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CB646E051
+ for <freedreno@lists.freedesktop.org>; Mon, 23 Nov 2020 16:42:31 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1606149685; h=Message-ID: References: In-Reply-To: Subject:
+ s=smtp; t=1606149752; h=Message-ID: References: In-Reply-To: Subject:
  Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=k1Ws3eLYJmyc8Z5gKvjwQtLfC/TAMUMLGzx+OItBEXk=;
- b=N8PGXYp6IkAosZnsEoAP+dLid5D9Y8BHZoS2KbI7ypNeeu+sADdDBg3RIsXZpQ0REgnvS2Ui
- m5ABFZgIL8Sca7ja/ATz1hsNkWslSS2Qbu5PpNPiRbTArUQiHBxwUsPcpq/fsE2f1yCG6CeQ
- 3A8Jh6I//KKVzVY8Y02TwRApgQA=
+ MIME-Version: Sender; bh=BA4PcbiZ9C47lYPVovvBsIy3njEFvvWJDKuQ323HHlM=;
+ b=D5KUr6Pxwlj7sq1QDvvI50g5sUMsr1nBIEjskScyw2q27tn7q+Ezupvyx7UzlveT1Bej8kWq
+ ty8Sk/DbtIPK9L96NXflpi2UcrwaZs+EHliL3Kj/0gx4Ez4r7eVRtC3KqM/QtWpSH6KP/fkA
+ B9SYPJUryc9leqxGAEBRr09FmeA=
 X-Mailgun-Sending-Ip: 104.130.96.5
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n09.prod.us-east-1.postgun.com with SMTP id
- 5fbbe630d64ea0b70326e9e2 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 23 Nov 2020 16:41:20
+ smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
+ 5fbbe675fa67d9becfa517b5 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 23 Nov 2020 16:42:29
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 1FD68C43462; Mon, 23 Nov 2020 16:41:19 +0000 (UTC)
+ id C72A0C43468; Mon, 23 Nov 2020 16:42:28 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -39,21 +39,21 @@ Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
  (Authenticated sender: saiprakash.ranjan)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 34592C433C6;
- Mon, 23 Nov 2020 16:41:18 +0000 (UTC)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 9AFA6C433C6;
+ Mon, 23 Nov 2020 16:42:27 +0000 (UTC)
 MIME-Version: 1.0
-Date: Mon, 23 Nov 2020 22:11:18 +0530
+Date: Mon, 23 Nov 2020 22:12:27 +0530
 From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
 To: Will Deacon <will@kernel.org>
-In-Reply-To: <20201123150616.GB11033@willie-the-truck>
+In-Reply-To: <20201123151857.GC11033@willie-the-truck>
 References: <cover.1605621785.git.saiprakash.ranjan@codeaurora.org>
- <699f30cd6b3d69cebbefd0e73850694b9852c5da.1605621785.git.saiprakash.ranjan@codeaurora.org>
- <20201123150616.GB11033@willie-the-truck>
-Message-ID: <fa32d9c8f869a5d96729d534ec26490a@codeaurora.org>
+ <3dfbc9d6d4489ca90361fac4e64586434331792f.1605621785.git.saiprakash.ranjan@codeaurora.org>
+ <20201123151857.GC11033@willie-the-truck>
+Message-ID: <0907c051561caa178365730c2ca8bccf@codeaurora.org>
 X-Sender: saiprakash.ranjan@codeaurora.org
 User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCHv8 1/8] iommu/io-pgtable-arm: Add support to
- use system cache
+Subject: Re: [Freedreno] [PATCHv8 2/8] iommu/arm-smmu: Add domain attribute
+ for pagetable configuration
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,73 +78,116 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-11-23 20:36, Will Deacon wrote:
-> On Tue, Nov 17, 2020 at 08:00:40PM +0530, Sai Prakash Ranjan wrote:
->> Add a quirk IO_PGTABLE_QUIRK_ARM_OUTER_WBWA to override
->> the attributes set in TCR for the page table walker when
->> using system cache.
+On 2020-11-23 20:48, Will Deacon wrote:
+> On Tue, Nov 17, 2020 at 08:00:41PM +0530, Sai Prakash Ranjan wrote:
+>> Add iommu domain attribute for pagetable configuration which
+>> initially will be used to set quirks like for system cache aka
+>> last level cache to be used by client drivers like GPU to set
+>> right attributes for caching the hardware pagetables into the
+>> system cache and later can be extended to include other page
+>> table configuration data.
 >> 
 >> Signed-off-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
 >> ---
->>  drivers/iommu/io-pgtable-arm.c | 10 ++++++++--
->>  include/linux/io-pgtable.h     |  4 ++++
->>  2 files changed, 12 insertions(+), 2 deletions(-)
+>>  drivers/iommu/arm/arm-smmu/arm-smmu.c | 25 +++++++++++++++++++++++++
+>>  drivers/iommu/arm/arm-smmu/arm-smmu.h |  1 +
+>>  include/linux/io-pgtable.h            |  4 ++++
+>>  include/linux/iommu.h                 |  1 +
+>>  4 files changed, 31 insertions(+)
 >> 
->> diff --git a/drivers/iommu/io-pgtable-arm.c 
->> b/drivers/iommu/io-pgtable-arm.c
->> index a7a9bc08dcd1..7c9ea9d7874a 100644
->> --- a/drivers/iommu/io-pgtable-arm.c
->> +++ b/drivers/iommu/io-pgtable-arm.c
->> @@ -761,7 +761,8 @@ arm_64_lpae_alloc_pgtable_s1(struct io_pgtable_cfg 
->> *cfg, void *cookie)
+>> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c 
+>> b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+>> index 0f28a8614da3..7b05782738e2 100644
+>> --- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
+>> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+>> @@ -789,6 +789,9 @@ static int arm_smmu_init_domain_context(struct 
+>> iommu_domain *domain,
+>>  	if (smmu_domain->non_strict)
+>>  		pgtbl_cfg.quirks |= IO_PGTABLE_QUIRK_NON_STRICT;
 >> 
->>  	if (cfg->quirks & ~(IO_PGTABLE_QUIRK_ARM_NS |
->>  			    IO_PGTABLE_QUIRK_NON_STRICT |
->> -			    IO_PGTABLE_QUIRK_ARM_TTBR1))
->> +			    IO_PGTABLE_QUIRK_ARM_TTBR1 |
->> +			    IO_PGTABLE_QUIRK_ARM_OUTER_WBWA))
->>  		return NULL;
->> 
->>  	data = arm_lpae_alloc_pgtable(cfg);
->> @@ -773,10 +774,15 @@ arm_64_lpae_alloc_pgtable_s1(struct 
->> io_pgtable_cfg *cfg, void *cookie)
->>  		tcr->sh = ARM_LPAE_TCR_SH_IS;
->>  		tcr->irgn = ARM_LPAE_TCR_RGN_WBWA;
->>  		tcr->orgn = ARM_LPAE_TCR_RGN_WBWA;
->> +		if (cfg->quirks & IO_PGTABLE_QUIRK_ARM_OUTER_WBWA)
->> +			goto out_free_data;
->>  	} else {
->>  		tcr->sh = ARM_LPAE_TCR_SH_OS;
->>  		tcr->irgn = ARM_LPAE_TCR_RGN_NC;
->> -		tcr->orgn = ARM_LPAE_TCR_RGN_NC;
->> +		if (!(cfg->quirks & IO_PGTABLE_QUIRK_ARM_OUTER_WBWA))
->> +			tcr->orgn = ARM_LPAE_TCR_RGN_NC;
->> +		else
->> +			tcr->orgn = ARM_LPAE_TCR_RGN_WBWA;
->>  	}
->> 
->>  	tg1 = cfg->quirks & IO_PGTABLE_QUIRK_ARM_TTBR1;
->> diff --git a/include/linux/io-pgtable.h b/include/linux/io-pgtable.h
->> index 4cde111e425b..a9a2c59fab37 100644
->> --- a/include/linux/io-pgtable.h
->> +++ b/include/linux/io-pgtable.h
->> @@ -86,6 +86,9 @@ struct io_pgtable_cfg {
->>  	 *
->>  	 * IO_PGTABLE_QUIRK_ARM_TTBR1: (ARM LPAE format) Configure the table
->>  	 *	for use in the upper half of a split address space.
->> +	 *
->> +	 * IO_PGTABLE_QUIRK_ARM_OUTER_WBWA: Override the attributes set in 
->> TCR for
->> +	 *	the page table walker when using system cache.
+>> +	if (smmu_domain->pgtbl_cfg.quirks)
+>> +		pgtbl_cfg.quirks |= smmu_domain->pgtbl_cfg.quirks;
+>> +
+>>  	pgtbl_ops = alloc_io_pgtable_ops(fmt, &pgtbl_cfg, smmu_domain);
+>>  	if (!pgtbl_ops) {
+>>  		ret = -ENOMEM;
+>> @@ -1511,6 +1514,12 @@ static int arm_smmu_domain_get_attr(struct 
+>> iommu_domain *domain,
+>>  		case DOMAIN_ATTR_NESTING:
+>>  			*(int *)data = (smmu_domain->stage == ARM_SMMU_DOMAIN_NESTED);
+>>  			return 0;
+>> +		case DOMAIN_ATTR_IO_PGTABLE_CFG: {
+>> +			struct domain_attr_io_pgtbl_cfg *pgtbl_cfg = data;
+>> +			*pgtbl_cfg = smmu_domain->pgtbl_cfg;
+>> +
+>> +			return 0;
+>> +		}
+>>  		default:
+>>  			return -ENODEV;
+>>  		}
+>> @@ -1551,6 +1560,22 @@ static int arm_smmu_domain_set_attr(struct 
+>> iommu_domain *domain,
+>>  			else
+>>  				smmu_domain->stage = ARM_SMMU_DOMAIN_S1;
+>>  			break;
+>> +		case DOMAIN_ATTR_IO_PGTABLE_CFG: {
+>> +			struct domain_attr_io_pgtbl_cfg *pgtbl_cfg = data;
+>> +
+>> +			if (smmu_domain->smmu) {
+>> +				ret = -EPERM;
+>> +				goto out_unlock;
+>> +			}
+>> +
+>> +			if (!pgtbl_cfg) {
 > 
-> Please can you reword this to say:
-> 
->   "Override the outer-cacheability attributes set in the TCR for a 
-> non-coherent
->    page-table walker."
+> Do we really need to check this? If somebody passed us a NULL pointer 
+> then
+> they have a bug and we don't check this for other domain attributes 
+> afaict.
 > 
 
-Sure, thanks.
+True, I'll drop it.
+
+>> +				ret = -ENODEV;
+>> +				goto out_unlock;
+>> +			}
+>> +
+>> +			smmu_domain->pgtbl_cfg = *pgtbl_cfg;
+>> +			break;
+>> +		}
+>>  		default:
+>>  			ret = -ENODEV;
+>>  		}
+>> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.h 
+>> b/drivers/iommu/arm/arm-smmu/arm-smmu.h
+>> index 04288b6fc619..18fbed376afb 100644
+>> --- a/drivers/iommu/arm/arm-smmu/arm-smmu.h
+>> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.h
+>> @@ -364,6 +364,7 @@ enum arm_smmu_domain_stage {
+>>  struct arm_smmu_domain {
+>>  	struct arm_smmu_device		*smmu;
+>>  	struct io_pgtable_ops		*pgtbl_ops;
+>> +	struct domain_attr_io_pgtbl_cfg	pgtbl_cfg;
+>>  	const struct iommu_flush_ops	*flush_ops;
+>>  	struct arm_smmu_cfg		cfg;
+>>  	enum arm_smmu_domain_stage	stage;
+>> diff --git a/include/linux/io-pgtable.h b/include/linux/io-pgtable.h
+>> index a9a2c59fab37..686b37d48743 100644
+>> --- a/include/linux/io-pgtable.h
+>> +++ b/include/linux/io-pgtable.h
+>> @@ -212,6 +212,10 @@ struct io_pgtable {
+>> 
+>>  #define io_pgtable_ops_to_pgtable(x) container_of((x), struct 
+>> io_pgtable, ops)
+>> 
+>> +struct domain_attr_io_pgtbl_cfg {
+>> +	unsigned long quirks;
+>> +};
+> 
+> nit: Can you rename this to 'struct io_pgtable_domain_attr' please?
+> 
+
+Done, thanks.
 
 -- 
 QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a 
