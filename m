@@ -1,44 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9594D2C23DF
-	for <lists+freedreno@lfdr.de>; Tue, 24 Nov 2020 12:10:37 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id E74BC2C269F
+	for <lists+freedreno@lfdr.de>; Tue, 24 Nov 2020 13:57:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B2246E226;
-	Tue, 24 Nov 2020 11:10:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A669A6E3F7;
+	Tue, 24 Nov 2020 12:57:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6A126E226;
- Tue, 24 Nov 2020 11:10:34 +0000 (UTC)
-Received: from willie-the-truck (236.31.169.217.in-addr.arpa [217.169.31.236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E99E52073C;
- Tue, 24 Nov 2020 11:10:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606216234;
- bh=2uK6gknCKN4AYaBsRSYNpCUpw9VdB72lt/njxbxA6GA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=W2t4y8oN8c0g38vhBQq66MuAcmgMMFWcHRYuxyuRtuX8qaVsF+C1CKqA9RJfInMj1
- qZff1xDjS64XFMDr0/sXiHg0S+ie8s1dELjmSWS9eDscf4ptO9IGUHDT3JkTNVJlbk
- uKw/lXPS1M5h4yLJHyV+JPEHYysKkMbXjwvEYBvU=
-Date: Tue, 24 Nov 2020 11:10:28 +0000
-From: Will Deacon <will@kernel.org>
-To: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-Message-ID: <20201124111027.GA13151@willie-the-truck>
-References: <cover.1605621785.git.saiprakash.ranjan@codeaurora.org>
- <20201123152146.GE11033@willie-the-truck>
- <50b68f2bdf9413b896fbe816ba4ddbc9@codeaurora.org>
- <CAF6AEGse=WBAC1WbTi6aD5_m1_NBg91f=veYm-7V=Uds7NA0Lw@mail.gmail.com>
- <1c665e33d1d27263fb5056c16d30b827@codeaurora.org>
+Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E96646E22B
+ for <freedreno@lists.freedesktop.org>; Tue, 24 Nov 2020 12:57:49 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1606222670; h=Message-ID: Subject: Cc: To: From: Date:
+ Content-Type: MIME-Version: Sender;
+ bh=p3o5O2rDOoKz7JnE/QmTS9ZiRoVNLotQeymZMjfvd8Y=;
+ b=F3xTIGtBd2e22RA25sfjjdplH7cTpz/TavdfnivHxnEa4OWDmRUJoiLLBRexppEwQmJHgHHZ
+ Ds5AR9a19mtWnW3sy3acW95X0MY17f6oONttgunYdv1c+6RxPUJWwd/6uXS6ZavM9jU6nCBp
+ bVX8+Ec9JnD1Cl6XRBhjgoy5pGU=
+X-Mailgun-Sending-Ip: 69.72.42.4
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
+ 5fbd03479e87e16352e1d70a (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 24 Nov 2020 12:57:43
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 6F870C43461; Tue, 24 Nov 2020 12:57:42 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: kalyan_t)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 366ACC433ED;
+ Tue, 24 Nov 2020 12:57:41 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1c665e33d1d27263fb5056c16d30b827@codeaurora.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCHv8 0/8] System Cache support for GPU and
- required SMMU support
+Content-Type: multipart/mixed;
+ boundary="=_b2b938fb10d812d8faa8fd415ac40fd7"
+Date: Tue, 24 Nov 2020 18:27:41 +0530
+From: kalyan_t@codeaurora.org
+To: Amit Pundir <amit.pundir@linaro.org>
+Message-ID: <5b07a7be8d136392dc7f93933a7ee68e@codeaurora.org>
+X-Sender: kalyan_t@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH 3/3] drm/msm/dpu: add support for clk and bw
+ scaling for display
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,78 +63,162 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
- Jordan Crouse <jcrouse@codeaurora.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
- "list@263.net:IOMMU DRIVERS , Joerg Roedel <joro@8bytes.org>,
- " <iommu@lists.linux-foundation.org>,
- "Kristian H . Kristensen" <hoegsberg@google.com>,
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Krishna Manikandan <mkrishn@codeaurora.org>,
+ Raviteja Tamatam <travitej@codeaurora.org>,
  linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ Jeykumar Sankaran <jsanka@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
+ nganji@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
+ abhinavk@codeaurora.org, John Stultz <john.stultz@linaro.org>, "Kristian H.
+ Kristensen" <hoegsberg@chromium.org>,
  freedreno <freedreno@lists.freedesktop.org>,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Georgi Djakov <georgi.djakov@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Nov 24, 2020 at 09:32:54AM +0530, Sai Prakash Ranjan wrote:
-> On 2020-11-24 00:52, Rob Clark wrote:
-> > On Mon, Nov 23, 2020 at 9:01 AM Sai Prakash Ranjan
-> > <saiprakash.ranjan@codeaurora.org> wrote:
-> > > 
-> > > On 2020-11-23 20:51, Will Deacon wrote:
-> > > > On Tue, Nov 17, 2020 at 08:00:39PM +0530, Sai Prakash Ranjan wrote:
-> > > >> Some hardware variants contain a system cache or the last level
-> > > >> cache(llc). This cache is typically a large block which is shared
-> > > >> by multiple clients on the SOC. GPU uses the system cache to cache
-> > > >> both the GPU data buffers(like textures) as well the SMMU pagetables.
-> > > >> This helps with improved render performance as well as lower power
-> > > >> consumption by reducing the bus traffic to the system memory.
-> > > >>
-> > > >> The system cache architecture allows the cache to be split into slices
-> > > >> which then be used by multiple SOC clients. This patch series is an
-> > > >> effort to enable and use two of those slices preallocated for the GPU,
-> > > >> one for the GPU data buffers and another for the GPU SMMU hardware
-> > > >> pagetables.
-> > > >>
-> > > >> Patch 1 - Patch 6 adds system cache support in SMMU and GPU driver.
-> > > >> Patch 7 and 8 are minor cleanups for arm-smmu impl.
-> > > >>
-> > > >> Changes in v8:
-> > > >>  * Introduce a generic domain attribute for pagetable config (Will)
-> > > >>  * Rename quirk to more generic IO_PGTABLE_QUIRK_ARM_OUTER_WBWA (Will)
-> > > >>  * Move non-strict mode to use new struct domain_attr_io_pgtbl_config
-> > > >> (Will)
-> > > >
-> > > > Modulo some minor comments I've made, this looks good to me. What is
-> > > > the
-> > > > plan for merging it? I can take the IOMMU parts, but patches 4-6 touch
-> > > > the
-> > > > MSM GPU driver and I'd like to avoid conflicts with that.
-> > > >
-> > > 
-> > > SMMU bits are pretty much independent and GPU relies on the domain
-> > > attribute
-> > > and the quirk exposed, so as long as SMMU changes go in first it
-> > > should
-> > > be good.
-> > > Rob?
-> > 
-> > I suppose one option would be to split out the patch that adds the
-> > attribute into it's own patch, and merge that both thru drm and iommu?
-> > 
+--=_b2b938fb10d812d8faa8fd415ac40fd7
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+
+On 2020-11-08 23:25, Amit Pundir wrote:
+> On Tue, 4 Aug 2020 at 21:09, Rob Clark <robdclark@gmail.com> wrote:
+>> 
+>> On Thu, Jul 16, 2020 at 4:36 AM Kalyan Thota <kalyan_t@codeaurora.org> 
+>> wrote:
+>> >
+>> > This change adds support to scale src clk and bandwidth as
+>> > per composition requirements.
+>> >
+>> > Interconnect registration for bw has been moved to mdp
+>> > device node from mdss to facilitate the scaling.
+>> >
+>> > Changes in v1:
+>> >  - Address armv7 compilation issues with the patch (Rob)
+>> >
+>> > Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
+>> 
+>> Reviewed-by: Rob Clark <robdclark@chromium.org>
+>> 
 > 
-> Ok I can split out domain attr and quirk into its own patch if Will is
-> fine with that approach.
+> Hi Kalyan, Rob,
+> 
+> This patch broke the display on the PocoF1 phone
+> (sdm845-xiaomi-beryllium.dts) running AOSP.
+> I can boot to UI but the display is frozen soon after that and
+> dmesg is full of following errors:
+> 
+> [drm:dpu_core_perf_crtc_update:397] [dpu error]crtc-65: failed to
+> update bus bw vote
+> [drm:dpu_core_perf_crtc_check:203] [dpu error]exceeds bandwidth:
+> 7649746kb > 6800000kb
+> [drm:dpu_crtc_atomic_check:969] [dpu error]crtc65 failed performance 
+> check -7
+> [drm:dpu_core_perf_crtc_check:203] [dpu error]exceeds bandwidth:
+> 7649746kb > 6800000kb
+> [drm:dpu_crtc_atomic_check:969] [dpu error]crtc65 failed performance 
+> check -7
+> [drm:dpu_core_perf_crtc_check:203] [dpu error]exceeds bandwidth:
+> 7649746kb > 6800000kb
+> [drm:dpu_crtc_atomic_check:969] [dpu error]crtc65 failed performance 
+> check -7
+> 
+> Here is the full dmesg https://pastebin.ubuntu.com/p/PcSdNgMnYw/.
+> Georgi pointed out following patch but it didn't help,
+> https://lore.kernel.org/dri-devel/20201027102304.945424-1-dmitry.baryshkov@linaro.org/
+> Am I missing any other followup fix?
+> 
+> Regards,
+> Amit Pundir
+> __
 
-Why don't I just queue the first two patches on their own branch and we
-both pull that?
+Hi Amit,
 
-Will
+Apologies for the delay.
+
+I have gone through the logs and referred to the below panel file for 
+the timings.
+https://github.com/Matheus-Garbelini/Kernel-Sphinx-Pocophone-F1/blob/master/arch/arm64/boot/dts/qcom/dsi-panel-tianma-fhd-nt36672a-video.dtsi
+
+if the above is correct file, then below could be the possible root 
+cause.
+
+The panel back porch and pw is less and it is causing the prefill bw 
+requirement to shoot up per layer as currently we are not considering 
+front porch in the calculation. can you please try the attached patch in 
+the email as a solution and provide me the feedback, i'll post it as a 
+formal change.
+
+Thanks,
+Kalyan
+
+_____________________________________________
+> Freedreno mailing list
+> Freedreno@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/freedreno
+
+--=_b2b938fb10d812d8faa8fd415ac40fd7
+Content-Transfer-Encoding: base64
+Content-Type: text/x-diff;
+ name=0001-drm-msm-dpu-consider-front-porch-in-the-prefill-calc.patch
+Content-Disposition: attachment;
+ filename=0001-drm-msm-dpu-consider-front-porch-in-the-prefill-calc.patch;
+ size=2297
+
+RnJvbSAwMjhmYjQ3Y2NjNWEzZjhmOGU1MTUxM2JkMjcxOWFhMTRjNjhhYzA5IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWx5YW4gVGhvdGEgPGthbHlhbl90QGNvZGVhdXJvcmEub3Jn
+PgpEYXRlOiBUdWUsIDI0IE5vdiAyMDIwIDAyOjM5OjUyIC0wODAwClN1YmplY3Q6IFtQQVRDSF0g
+ZHJtOiBtc206IGRwdTogY29uc2lkZXIgZnJvbnQgcG9yY2ggaW4gdGhlIHByZWZpbGwKIGNhbGN1
+bGF0aW9uCgpJbiBjYXNlIG9mIHBhbmVscyB3aXRoIGxvdyB2ZXJ0aWNhbCBiYWNrIHBvcmNoIGFu
+ZCBwdywKdGhlIHByZWZpbGwgYncgd2lsbCBpbmNyZWFzZSBhcyB3ZSB3aWxsIGhhdmUgbGVzcyB0
+aW1lIHRvIGZldGNoCmFuZCBmaWxsIGFsbCB0aGUgaHcgbGF0ZW5jeSBidWZmZXJzLgoKZm9yIGV4
+OiBod19sYXRuZWN5X2xpbmVzID0gMjQsIGFuZCBpZiB2YnArcHcgPSAxMCB0aGVuIHdlIG5lZWQg
+dG8KZmV0Y2ggMjQgbGluZXMgb2YgZGF0YSBpbiAxMCBsaW5lIHRpbWVzLiBUaGlzIHdpbGwgaW5j
+cmVhc2UgcHJlZmlsbApidyByZXF1aXJlbWVudC4KCkRQVSBodyBjYW4gZmV0Y2ggZGF0YSBkdXJp
+bmcgZnJvbnQgcG9yY2ggYWxzbyBwcm92aWRlZCBwcmVmZXRjaCBpcwplbmFibGVkLiBVc2UgZnJv
+bnQgcG9yY2ggYWxzbyBpbnRvIHRoZSBwcmVmaWxsIGNhbHVjdWxhdGlvbiBhcwpkcml2ZXIgZW5h
+YmxlcyBwcmVmZXRjaCBpZiB0aGUgYmxhbmtpbmcgaXMgbm90IHN1ZmZpY2llbnQgdG8gZmlsbAp0
+aGUgbGF0ZW5jeSBsaW5lcy4KClNpZ25lZC1vZmYtYnk6IEthbHlhbiBUaG90YSA8a2FseWFuX3RA
+Y29kZWF1cm9yYS5vcmc+Ci0tLQogZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X3Bs
+YW5lLmMgfCAxMSArKysrKysrKystLQogMSBmaWxlIGNoYW5nZWQsIDkgaW5zZXJ0aW9ucygrKSwg
+MiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1
+MS9kcHVfcGxhbmUuYyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9wbGFuZS5j
+CmluZGV4IDdlYTkwZDIuLjMxNWI5OTkgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tc20v
+ZGlzcC9kcHUxL2RwdV9wbGFuZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUx
+L2RwdV9wbGFuZS5jCkBAIC0xNTEsNyArMTUxLDcgQEAgc3RhdGljIHZvaWQgX2RwdV9wbGFuZV9j
+YWxjX2J3KHN0cnVjdCBkcm1fcGxhbmUgKnBsYW5lLAogCXU2NCBwbGFuZV9idzsKIAl1MzIgaHdf
+bGF0ZW5jeV9saW5lczsKIAl1NjQgc2NhbGVfZmFjdG9yOwotCWludCB2YnAsIHZwdzsKKwlpbnQg
+dmJwLCB2cHcsIHZmcDsKIAogCXBzdGF0ZSA9IHRvX2RwdV9wbGFuZV9zdGF0ZShwbGFuZS0+c3Rh
+dGUpOwogCW1vZGUgPSAmcGxhbmUtPnN0YXRlLT5jcnRjLT5tb2RlOwpAQCAtMTY0LDYgKzE2NCw3
+IEBAIHN0YXRpYyB2b2lkIF9kcHVfcGxhbmVfY2FsY19idyhzdHJ1Y3QgZHJtX3BsYW5lICpwbGFu
+ZSwKIAlmcHMgPSBkcm1fbW9kZV92cmVmcmVzaChtb2RlKTsKIAl2YnAgPSBtb2RlLT52dG90YWwg
+LSBtb2RlLT52c3luY19lbmQ7CiAJdnB3ID0gbW9kZS0+dnN5bmNfZW5kIC0gbW9kZS0+dnN5bmNf
+c3RhcnQ7CisJdmZwID0gbW9kZS0+dnN5bmNfc3RhcnQgLSBtb2RlLT52ZGlzcGxheTsKIAlod19s
+YXRlbmN5X2xpbmVzID0gIGRwdV9rbXMtPmNhdGFsb2ctPnBlcmYubWluX3ByZWZpbGxfbGluZXM7
+CiAJc2NhbGVfZmFjdG9yID0gc3JjX2hlaWdodCA+IGRzdF9oZWlnaHQgPwogCQltdWx0X2ZyYWMo
+c3JjX2hlaWdodCwgMSwgZHN0X2hlaWdodCkgOiAxOwpAQCAtMTc2LDcgKzE3NywxMyBAQCBzdGF0
+aWMgdm9pZCBfZHB1X3BsYW5lX2NhbGNfYncoc3RydWN0IGRybV9wbGFuZSAqcGxhbmUsCiAJCXNy
+Y193aWR0aCAqIGh3X2xhdGVuY3lfbGluZXMgKiBmcHMgKiBmbXQtPmJwcCAqCiAJCXNjYWxlX2Zh
+Y3RvciAqIG1vZGUtPnZ0b3RhbDsKIAotCWRvX2RpdihwbGFuZV9wcmVmaWxsX2J3LCAodmJwK3Zw
+dykpOworCWlmICgodmJwK3ZwdykgPiBod19sYXRlbmN5X2xpbmVzKQorCQlkb19kaXYocGxhbmVf
+cHJlZmlsbF9idywgKHZicCt2cHcpKTsKKwllbHNlIGlmICgodmJwK3Zwdyt2ZnApIDwgaHdfbGF0
+ZW5jeV9saW5lcykKKwkJZG9fZGl2KHBsYW5lX3ByZWZpbGxfYncsICh2YnArdnB3K3ZmcCkpOwor
+CWVsc2UKKwkJZG9fZGl2KHBsYW5lX3ByZWZpbGxfYncsIGh3X2xhdGVuY3lfbGluZXMpOworCiAK
+IAlwc3RhdGUtPnBsYW5lX2ZldGNoX2J3ID0gbWF4KHBsYW5lX2J3LCBwbGFuZV9wcmVmaWxsX2J3
+KTsKIH0KLS0gCjIuNy40Cgo=
+--=_b2b938fb10d812d8faa8fd415ac40fd7
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
+
+--=_b2b938fb10d812d8faa8fd415ac40fd7--
