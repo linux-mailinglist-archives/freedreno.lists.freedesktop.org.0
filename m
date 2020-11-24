@@ -2,53 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 045582C2C09
-	for <lists+freedreno@lfdr.de>; Tue, 24 Nov 2020 16:56:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D39E22C3064
+	for <lists+freedreno@lfdr.de>; Tue, 24 Nov 2020 20:03:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAC856E479;
-	Tue, 24 Nov 2020 15:56:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DFA06E51C;
+	Tue, 24 Nov 2020 19:03:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb44.google.com (mail-yb1-xb44.google.com
- [IPv6:2607:f8b0:4864:20::b44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAF5A6E479
- for <freedreno@lists.freedesktop.org>; Tue, 24 Nov 2020 15:56:16 +0000 (UTC)
-Received: by mail-yb1-xb44.google.com with SMTP id 2so19664108ybc.12
- for <freedreno@lists.freedesktop.org>; Tue, 24 Nov 2020 07:56:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C70116E51A;
+ Tue, 24 Nov 2020 19:03:53 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id z7so7622887wrn.3;
+ Tue, 24 Nov 2020 11:03:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=S2P83nucK526s4MeAO3ef03SmJgQO9NwAX+ho/0bpag=;
- b=LEiwANAT5RKxUwb530+GU3ngUHfpY4CcH/7rZbALhW6cVviuWshxGFiHTP+cl0CdRW
- Pls7iBNclidkQ5F04YYBuCVqnF9fohJH7zAu0kaOtMBIJaGPq3uPW6BUzQKgEOQoenUu
- AbN7w68UNr6flX4vz+agTyomqgPJYU0EkrBkNjxOBnJ0oL2AnZ+ZnidxKLBmC1ranT4L
- ooj3sv+Eh3pe8uy+14LYseKtBe+c91Kt1w+ZFoP8xebYef9yzUqJTcLf0qWZWX9gF6qt
- rqKFYKccZtfNV818+JRRz/40qHqcMaDBfoET3sqoC2YeKIomy8e6vrAJ49mBQbNCS16V
- XoSQ==
+ :cc; bh=Kf8N/OmqZHAolew6L+ymXRNdjbnvIjwkoc3J3zrIO6o=;
+ b=e4XPfFafIyuCJA3/oM5IEkO0sIKvTxq5TB/vBw5VApjZmswLIR+ss8JeVCBQc3S0YB
+ utaTXD2KgvRBJSQYloFRQA3bwyim1R63U6DlE/t1zLaFkVf6C4xghKml39Z5tUdk8KE0
+ FOyMsVp/6YNj0a+F4KKDzno65iOfoowVa0154Sled8pW+rU69gDbIGFGIs379KCmm2Bn
+ ZxHpjoYkCCIPHBCgz4Q2ODoHHTiIRw2fRYAmW7CNSCRm8Dk2TSpWbBjoFGOb5k2sn5Wb
+ xzKdxqm90TYqRiKn+hjfi33FMMy2DdVYzrfu8Tg/n3hBDZ3JwSpF8wCnmejQd5TfPZa2
+ 1Tww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=S2P83nucK526s4MeAO3ef03SmJgQO9NwAX+ho/0bpag=;
- b=El/lPG3iFlfnxlfM4loTaJC/K4Nn4aC8zhmIBWMp56TiG6pS8bGnOPWkkd1sAkh20H
- vck6csDd3j5midIqDQB6906TQk5AqQndl8Xx4bYyvuezMSpL65BURzau9G7MZtmtOwOk
- EpL7CeErnKgjRwNIRADJmsvLLqlo0MyWCAG0aWbctzg/z7skUEPNKcS2ntITdK2nFs+S
- nUxtxzmaBvvC03wvtGvNHVtUJnU446MPegJ5s8/MRF8Bdu+/Q8+hTT2aNTicJvLgJ+Qu
- m4OIezmSRunCv9jhqEPR0YQkTskebSk1i2VroG9H0H2zdhOjMBVs0nOlGL1YJJGo3jjj
- s8Ew==
-X-Gm-Message-State: AOAM533mOkj9EpdllJC0VURKqwF0Pt6AGbH5MTF3uVOfYdMI+iA5Xlpp
- u31yeu0s1k7T0IhQwEIYxBM/SOy+XSCl89oPzA99/g==
-X-Google-Smtp-Source: ABdhPJw0wHy+GWOIUwTLlmESRTmLRZ/Jnp1OSuSOAtoxUCEZYv5ocbmTHY84rAlt1NUxwHAItTPdwVgoCeM1V0Ar0sY=
-X-Received: by 2002:a25:7481:: with SMTP id p123mr6036490ybc.167.1606233375845; 
- Tue, 24 Nov 2020 07:56:15 -0800 (PST)
+ bh=Kf8N/OmqZHAolew6L+ymXRNdjbnvIjwkoc3J3zrIO6o=;
+ b=JhsdsSwOmw8GSyQt/DO7FokPKernJe9ZG7ncdSSeMte4xmHh77BfS+toktWpIGiVIt
+ o+Em01UXnuCDIRMz8yokccFDQuF8F1Sz4IGbIzK4qP4tWtf4XLU06ClnIQRgScJpFcIT
+ 6Pi2PF6QxAcBGu9NfYT2mDbt1E2hSjxou10JrbKm9AuderjTPEdMxn7Cgsl7eCbeCgEF
+ Uv/t3VUDgLGWstZA9RT8XJ3bF6s+SdlVBG1DT4sTc0y/KFLttuvPtGoaQrQGlt8I9Ekq
+ qrGSL6hbG6HWGZaZlwk7izRYdbmabMWHRJVzsLoBSUh+CaVFzDYTzaYFB7IxFwkGtwAe
+ u76A==
+X-Gm-Message-State: AOAM531by1Dv8mXo+FNdTqAW+xkRq6MXaKbiFAseV2ojg9nJ5C40QAHQ
+ +iPJM31E/JZkb09s05ExCxL/sGG4DdIs/Nb79nM=
+X-Google-Smtp-Source: ABdhPJwW1Dno1QctDapnpNYSFC4x+KGmIfQzh+3Rg5OpwpAmPAHWb0eqXoADDsWEL4IzwAxlcJmhREL9yr7VY0C/XTc=
+X-Received: by 2002:adf:f6c7:: with SMTP id y7mr6621316wrp.147.1606244632292; 
+ Tue, 24 Nov 2020 11:03:52 -0800 (PST)
 MIME-Version: 1.0
-References: <5b07a7be8d136392dc7f93933a7ee68e@codeaurora.org>
-In-Reply-To: <5b07a7be8d136392dc7f93933a7ee68e@codeaurora.org>
-From: Amit Pundir <amit.pundir@linaro.org>
-Date: Tue, 24 Nov 2020 21:25:40 +0530
-Message-ID: <CAMi1Hd2vY0OaD=_3E_JBTCPkLGHq9CFOrOQ=OM9eVg=dJ6hbZg@mail.gmail.com>
-To: Kalyan Thota <kalyan_t@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH 3/3] drm/msm/dpu: add support for clk and bw
- scaling for display
+References: <cover.1605621785.git.saiprakash.ranjan@codeaurora.org>
+ <20201123152146.GE11033@willie-the-truck>
+ <50b68f2bdf9413b896fbe816ba4ddbc9@codeaurora.org>
+ <CAF6AEGse=WBAC1WbTi6aD5_m1_NBg91f=veYm-7V=Uds7NA0Lw@mail.gmail.com>
+ <1c665e33d1d27263fb5056c16d30b827@codeaurora.org>
+ <20201124111027.GA13151@willie-the-truck>
+In-Reply-To: <20201124111027.GA13151@willie-the-truck>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 24 Nov 2020 11:05:39 -0800
+Message-ID: <CAF6AEGuZ2YbY=ATFBX1KJw=LwhcpH8n+zzxckTHPwwopi6mOqw@mail.gmail.com>
+To: Will Deacon <will@kernel.org>
+Subject: Re: [Freedreno] [PATCHv8 0/8] System Cache support for GPU and
+ required SMMU support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,114 +66,84 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Krishna Manikandan <mkrishn@codeaurora.org>,
- Raviteja Tamatam <travitej@codeaurora.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Douglas Anderson <dianders@chromium.org>,
- Jeykumar Sankaran <jsanka@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
- nganji@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
- abhinavk@codeaurora.org, John Stultz <john.stultz@linaro.org>,
- "Kristian H. Kristensen" <hoegsberg@chromium.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>, "list@263.net:IOMMU DRIVERS ,
+ Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
+ "Kristian H . Kristensen" <hoegsberg@google.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, Dave Airlie <airlied@gmail.com>,
  freedreno <freedreno@lists.freedesktop.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Georgi Djakov <georgi.djakov@linaro.org>
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Kalyan,
-
-On Tue, 24 Nov 2020 at 18:27, <kalyan_t@codeaurora.org> wrote:
+On Tue, Nov 24, 2020 at 3:10 AM Will Deacon <will@kernel.org> wrote:
 >
-> On 2020-11-08 23:25, Amit Pundir wrote:
-> > On Tue, 4 Aug 2020 at 21:09, Rob Clark <robdclark@gmail.com> wrote:
-> >>
-> >> On Thu, Jul 16, 2020 at 4:36 AM Kalyan Thota <kalyan_t@codeaurora.org>
-> >> wrote:
-> >> >
-> >> > This change adds support to scale src clk and bandwidth as
-> >> > per composition requirements.
-> >> >
-> >> > Interconnect registration for bw has been moved to mdp
-> >> > device node from mdss to facilitate the scaling.
-> >> >
-> >> > Changes in v1:
-> >> >  - Address armv7 compilation issues with the patch (Rob)
-> >> >
-> >> > Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
-> >>
-> >> Reviewed-by: Rob Clark <robdclark@chromium.org>
-> >>
+> On Tue, Nov 24, 2020 at 09:32:54AM +0530, Sai Prakash Ranjan wrote:
+> > On 2020-11-24 00:52, Rob Clark wrote:
+> > > On Mon, Nov 23, 2020 at 9:01 AM Sai Prakash Ranjan
+> > > <saiprakash.ranjan@codeaurora.org> wrote:
+> > > >
+> > > > On 2020-11-23 20:51, Will Deacon wrote:
+> > > > > On Tue, Nov 17, 2020 at 08:00:39PM +0530, Sai Prakash Ranjan wrote:
+> > > > >> Some hardware variants contain a system cache or the last level
+> > > > >> cache(llc). This cache is typically a large block which is shared
+> > > > >> by multiple clients on the SOC. GPU uses the system cache to cache
+> > > > >> both the GPU data buffers(like textures) as well the SMMU pagetables.
+> > > > >> This helps with improved render performance as well as lower power
+> > > > >> consumption by reducing the bus traffic to the system memory.
+> > > > >>
+> > > > >> The system cache architecture allows the cache to be split into slices
+> > > > >> which then be used by multiple SOC clients. This patch series is an
+> > > > >> effort to enable and use two of those slices preallocated for the GPU,
+> > > > >> one for the GPU data buffers and another for the GPU SMMU hardware
+> > > > >> pagetables.
+> > > > >>
+> > > > >> Patch 1 - Patch 6 adds system cache support in SMMU and GPU driver.
+> > > > >> Patch 7 and 8 are minor cleanups for arm-smmu impl.
+> > > > >>
+> > > > >> Changes in v8:
+> > > > >>  * Introduce a generic domain attribute for pagetable config (Will)
+> > > > >>  * Rename quirk to more generic IO_PGTABLE_QUIRK_ARM_OUTER_WBWA (Will)
+> > > > >>  * Move non-strict mode to use new struct domain_attr_io_pgtbl_config
+> > > > >> (Will)
+> > > > >
+> > > > > Modulo some minor comments I've made, this looks good to me. What is
+> > > > > the
+> > > > > plan for merging it? I can take the IOMMU parts, but patches 4-6 touch
+> > > > > the
+> > > > > MSM GPU driver and I'd like to avoid conflicts with that.
+> > > > >
+> > > >
+> > > > SMMU bits are pretty much independent and GPU relies on the domain
+> > > > attribute
+> > > > and the quirk exposed, so as long as SMMU changes go in first it
+> > > > should
+> > > > be good.
+> > > > Rob?
+> > >
+> > > I suppose one option would be to split out the patch that adds the
+> > > attribute into it's own patch, and merge that both thru drm and iommu?
+> > >
 > >
-> > Hi Kalyan, Rob,
-> >
-> > This patch broke the display on the PocoF1 phone
-> > (sdm845-xiaomi-beryllium.dts) running AOSP.
-> > I can boot to UI but the display is frozen soon after that and
-> > dmesg is full of following errors:
-> >
-> > [drm:dpu_core_perf_crtc_update:397] [dpu error]crtc-65: failed to
-> > update bus bw vote
-> > [drm:dpu_core_perf_crtc_check:203] [dpu error]exceeds bandwidth:
-> > 7649746kb > 6800000kb
-> > [drm:dpu_crtc_atomic_check:969] [dpu error]crtc65 failed performance
-> > check -7
-> > [drm:dpu_core_perf_crtc_check:203] [dpu error]exceeds bandwidth:
-> > 7649746kb > 6800000kb
-> > [drm:dpu_crtc_atomic_check:969] [dpu error]crtc65 failed performance
-> > check -7
-> > [drm:dpu_core_perf_crtc_check:203] [dpu error]exceeds bandwidth:
-> > 7649746kb > 6800000kb
-> > [drm:dpu_crtc_atomic_check:969] [dpu error]crtc65 failed performance
-> > check -7
-> >
-> > Here is the full dmesg https://pastebin.ubuntu.com/p/PcSdNgMnYw/.
-> > Georgi pointed out following patch but it didn't help,
-> > https://lore.kernel.org/dri-devel/20201027102304.945424-1-dmitry.baryshkov@linaro.org/
-> > Am I missing any other followup fix?
-> >
-> > Regards,
-> > Amit Pundir
-> > __
+> > Ok I can split out domain attr and quirk into its own patch if Will is
+> > fine with that approach.
 >
-> Hi Amit,
->
-> Apologies for the delay.
+> Why don't I just queue the first two patches on their own branch and we
+> both pull that?
 
-No worries at all.
+Ok, that works for me.  I normally base msm-next on -rc1 but I guess
+as long as we base the branch on the older or our two -next branches,
+that should work out nicely
 
->
-> I have gone through the logs and referred to the below panel file for
-> the timings.
-> https://github.com/Matheus-Garbelini/Kernel-Sphinx-Pocophone-F1/blob/master/arch/arm64/boot/dts/qcom/dsi-panel-tianma-fhd-nt36672a-video.dtsi
->
-> if the above is correct file, then below could be the possible root
-> cause.
->
-> The panel back porch and pw is less and it is causing the prefill bw
-> requirement to shoot up per layer as currently we are not considering
-> front porch in the calculation. can you please try the attached patch in
-> the email as a solution and provide me the feedback, i'll post it as a
-> formal change.
-
-The attached patch worked for me. Thanks a lot for looking closely
-into this issue.
-
-Regards,
-Amit Pundir
-
->
-> Thanks,
-> Kalyan
->
-> _____________________________________________
-> > Freedreno mailing list
-> > Freedreno@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/freedreno
+BR,
+-R
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
