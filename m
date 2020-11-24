@@ -2,32 +2,45 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BB242C3350
-	for <lists+freedreno@lfdr.de>; Tue, 24 Nov 2020 22:43:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36D9F2C33AA
+	for <lists+freedreno@lfdr.de>; Tue, 24 Nov 2020 23:06:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E0206E0BC;
-	Tue, 24 Nov 2020 21:43:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E88766E15E;
+	Tue, 24 Nov 2020 22:06:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AAA16E0A6;
- Tue, 24 Nov 2020 21:43:39 +0000 (UTC)
-Received: from willie-the-truck (236.31.169.217.in-addr.arpa [217.169.31.236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 59B54206E5;
- Tue, 24 Nov 2020 21:43:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606254218;
- bh=i6hbvXSQGJaCxcemC8oeN03qQ1XDrz8RB9bbPy6ICHk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=2o5Kf7D1A5gTiV8Nhz1O+8BEQi/wWC34FzTS5PI3TQQZffxbXmWetS43a7L52YofA
- KWSYuuapjz1kmlStNLltWbt79U8cNM/VUtLsX7fa9Zj5pHGuEU8z8L2GSmtyFijpKM
- mFULM7VSP0LZjXlRQml8/M2XHFMwVBmMHN4lmqng=
-Date: Tue, 24 Nov 2020 21:43:33 +0000
-From: Will Deacon <will@kernel.org>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20201124214332.GC14252@willie-the-truck>
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [IPv6:2a00:1450:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76B0B6E15E;
+ Tue, 24 Nov 2020 22:06:32 +0000 (UTC)
+Received: by mail-wm1-x336.google.com with SMTP id c198so363247wmd.0;
+ Tue, 24 Nov 2020 14:06:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=3Figoe8Zer72GbW0+hvjATZnj5NO6h5Raa/lqkNpArQ=;
+ b=jc/+571ztrybLm+BOwSaoY7pl4esZi+3r3UODwY6Ge1iKKDOPYMx6lwyjDb88+QxAm
+ YenolkYfmfPpLhA+w6f5e/1qbkphU0EepCGWU8xLQofles6qPv/nl1DVGk3z/O344be2
+ xZ4VTY9dIj8j0z06kpnm6uvyCYG0fueUt3pqqxnOQZOhr0yQC2AGyWdPqSnRt2aIQ7AK
+ Yl6yzAnF27oIa9mypy+3ntdIaN0uZyoNxQ4gsk6uBoeWwZDiwqmQTkTpVjAUR4RIRjew
+ /P7O7b2lv+JiKkgOoyw+doXLWoWCzR0WMJ/OvmJBZhf0GMXiUMhm2cryo2QoYDH5qYKW
+ q3sQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=3Figoe8Zer72GbW0+hvjATZnj5NO6h5Raa/lqkNpArQ=;
+ b=f0ccF9m8OqYiFjZgBzIWVTmu095dWAaJGwIYRETVMNKpOfHrIg96lNi7zc8rs8B3ir
+ SCmCv0DXV2txAA7CC7peYc3FTgU9LN7y2HxwoJvYydLsS7dAcoe68JYaG0hpRFl8UrfO
+ VtpCXMNOQnmEbjJA3adsrgzkf8PfEIGQlZcJcgRjB73PBxaF5CJ1+MuzOUpO7mKvfxNk
+ xZ1+AeZTG7WzMc+p9KiNDFsg10MoNewz6ITp6SyS96d0B4DvQFqLd4coQGK5EzzXOIiD
+ K4rDNm4WTgcciOYCQB3Qorz7yXlqtnJE27w8ni97M2IvIH00PpigqmkhtaeNT29Ywcn1
+ 399Q==
+X-Gm-Message-State: AOAM5305IuUTiNVKl6Vp7KzIBw9nla/2XN3qpsUOYBbBRCs61b/Jp0lx
+ HsHAos6xUApSqd5fDwngvslH3vDco9B3T8DkUZM=
+X-Google-Smtp-Source: ABdhPJwxbj4hO3UhcOcUoC6jldq1SY0wj0dG1MEboORgvbHGRin3UXGunv67sZajYqm+JEM/JctmCGooiJvj2pLsGak=
+X-Received: by 2002:a7b:c00b:: with SMTP id c11mr470472wmb.175.1606255591078; 
+ Tue, 24 Nov 2020 14:06:31 -0800 (PST)
+MIME-Version: 1.0
 References: <cover.1605621785.git.saiprakash.ranjan@codeaurora.org>
  <20201123152146.GE11033@willie-the-truck>
  <50b68f2bdf9413b896fbe816ba4ddbc9@codeaurora.org>
@@ -35,10 +48,12 @@ References: <cover.1605621785.git.saiprakash.ranjan@codeaurora.org>
  <1c665e33d1d27263fb5056c16d30b827@codeaurora.org>
  <20201124111027.GA13151@willie-the-truck>
  <CAF6AEGuZ2YbY=ATFBX1KJw=LwhcpH8n+zzxckTHPwwopi6mOqw@mail.gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAF6AEGuZ2YbY=ATFBX1KJw=LwhcpH8n+zzxckTHPwwopi6mOqw@mail.gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+ <20201124214332.GC14252@willie-the-truck>
+In-Reply-To: <20201124214332.GC14252@willie-the-truck>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 24 Nov 2020 14:08:17 -0800
+Message-ID: <CAF6AEGvu2Hdnw=ia8Ffmr1LPvkQNKpVVBM9xMNUKCn9uDcWWAg@mail.gmail.com>
+To: Will Deacon <will@kernel.org>
 Subject: Re: [Freedreno] [PATCHv8 0/8] System Cache support for GPU and
  required SMMU support
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -70,46 +85,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Nov 24, 2020 at 11:05:39AM -0800, Rob Clark wrote:
-> On Tue, Nov 24, 2020 at 3:10 AM Will Deacon <will@kernel.org> wrote:
-> > On Tue, Nov 24, 2020 at 09:32:54AM +0530, Sai Prakash Ranjan wrote:
-> > > On 2020-11-24 00:52, Rob Clark wrote:
-> > > > On Mon, Nov 23, 2020 at 9:01 AM Sai Prakash Ranjan
-> > > > <saiprakash.ranjan@codeaurora.org> wrote:
-> > > > > On 2020-11-23 20:51, Will Deacon wrote:
-> > > > > > Modulo some minor comments I've made, this looks good to me. What is
-> > > > > > the
-> > > > > > plan for merging it? I can take the IOMMU parts, but patches 4-6 touch
-> > > > > > the
-> > > > > > MSM GPU driver and I'd like to avoid conflicts with that.
+On Tue, Nov 24, 2020 at 1:43 PM Will Deacon <will@kernel.org> wrote:
+>
+> On Tue, Nov 24, 2020 at 11:05:39AM -0800, Rob Clark wrote:
+> > On Tue, Nov 24, 2020 at 3:10 AM Will Deacon <will@kernel.org> wrote:
+> > > On Tue, Nov 24, 2020 at 09:32:54AM +0530, Sai Prakash Ranjan wrote:
+> > > > On 2020-11-24 00:52, Rob Clark wrote:
+> > > > > On Mon, Nov 23, 2020 at 9:01 AM Sai Prakash Ranjan
+> > > > > <saiprakash.ranjan@codeaurora.org> wrote:
+> > > > > > On 2020-11-23 20:51, Will Deacon wrote:
+> > > > > > > Modulo some minor comments I've made, this looks good to me. What is
+> > > > > > > the
+> > > > > > > plan for merging it? I can take the IOMMU parts, but patches 4-6 touch
+> > > > > > > the
+> > > > > > > MSM GPU driver and I'd like to avoid conflicts with that.
+> > > > > > >
 > > > > > >
+> > > > > > SMMU bits are pretty much independent and GPU relies on the domain
+> > > > > > attribute
+> > > > > > and the quirk exposed, so as long as SMMU changes go in first it
+> > > > > > should
+> > > > > > be good.
+> > > > > > Rob?
 > > > > >
-> > > > > SMMU bits are pretty much independent and GPU relies on the domain
-> > > > > attribute
-> > > > > and the quirk exposed, so as long as SMMU changes go in first it
-> > > > > should
-> > > > > be good.
-> > > > > Rob?
+> > > > > I suppose one option would be to split out the patch that adds the
+> > > > > attribute into it's own patch, and merge that both thru drm and iommu?
+> > > > >
 > > > >
-> > > > I suppose one option would be to split out the patch that adds the
-> > > > attribute into it's own patch, and merge that both thru drm and iommu?
-> > > >
+> > > > Ok I can split out domain attr and quirk into its own patch if Will is
+> > > > fine with that approach.
 > > >
-> > > Ok I can split out domain attr and quirk into its own patch if Will is
-> > > fine with that approach.
+> > > Why don't I just queue the first two patches on their own branch and we
+> > > both pull that?
 > >
-> > Why don't I just queue the first two patches on their own branch and we
-> > both pull that?
-> 
-> Ok, that works for me.  I normally base msm-next on -rc1 but I guess
-> as long as we base the branch on the older or our two -next branches,
-> that should work out nicely
+> > Ok, that works for me.  I normally base msm-next on -rc1 but I guess
+> > as long as we base the branch on the older or our two -next branches,
+> > that should work out nicely
+>
+> Turns out we're getting a v10 of Sai's stuff, so I've asked him to split
+> patch two up anyway. Then I'll make a branch based on -rc1 that we can
+> both pull.
 
-Turns out we're getting a v10 of Sai's stuff, so I've asked him to split
-patch two up anyway. Then I'll make a branch based on -rc1 that we can
-both pull.
+Sounds good, thx
 
-Will
+BR,
+-R
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
