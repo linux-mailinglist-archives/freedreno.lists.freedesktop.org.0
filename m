@@ -2,64 +2,40 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5BE12C3985
-	for <lists+freedreno@lfdr.de>; Wed, 25 Nov 2020 08:02:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEE002C3D42
+	for <lists+freedreno@lfdr.de>; Wed, 25 Nov 2020 11:09:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74BEF6E832;
-	Wed, 25 Nov 2020 07:02:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3D6E6E88F;
+	Wed, 25 Nov 2020 10:09:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46BDE6E832
- for <freedreno@lists.freedesktop.org>; Wed, 25 Nov 2020 07:02:02 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1606287723; h=Content-Transfer-Encoding: MIME-Version:
- References: In-Reply-To: Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=xBQcg+Wcwhh18eydvFxaDQClwZpGMJnYWJxgECPLHjo=;
- b=IH7CiCzH9FMtB2pebfLZK/gwQ5pMDxC/GHmohLWC7LnLZ+fEGhheQ+1UrIOCtshito8vY+0S
- nEOX2yuWK4YEhISEzMH64NTLsayNJXkT8yBIZ0oJcU12rU0TQqLyE55rXhIib83dhUU+UB8W
- ZUNBbuZOTA9LwURXutPYJ91ZwXw=
-X-Mailgun-Sending-Ip: 69.72.42.4
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n07.prod.us-west-2.postgun.com with SMTP id
- 5fbe0141eb04c00160d4ed9c (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 25 Nov 2020 07:01:21
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 2F5D3C43467; Wed, 25 Nov 2020 07:01:21 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL, 
- URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-Received: from blr-ubuntu-253.qualcomm.com
- (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: saiprakash.ranjan)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 61F42C433ED;
- Wed, 25 Nov 2020 07:01:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 61F42C433ED
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org; spf=fail
- smtp.mailfrom=saiprakash.ranjan@codeaurora.org
-From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Joerg Roedel <joro@8bytes.org>, Jordan Crouse <jcrouse@codeaurora.org>,
- Rob Clark <robdclark@gmail.com>
-Date: Wed, 25 Nov 2020 12:30:18 +0530
-Message-Id: <0b4c3718a87992f11340a1cdd99fd746c647e485.1606287059.git.saiprakash.ranjan@codeaurora.org>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <cover.1606287059.git.saiprakash.ranjan@codeaurora.org>
-References: <cover.1606287059.git.saiprakash.ranjan@codeaurora.org>
-MIME-Version: 1.0
-Subject: [Freedreno] [PATCHv10 9/9] iommu: arm-smmu-impl: Add a space before
- open parenthesis
+X-Greylist: delayed 364 seconds by postgrey-1.36 at gabe;
+ Wed, 25 Nov 2020 10:09:29 UTC
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C66E6E88C;
+ Wed, 25 Nov 2020 10:09:29 +0000 (UTC)
+Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
+ by alexa-out.qualcomm.com with ESMTP; 25 Nov 2020 02:03:23 -0800
+X-QCInternal: smtphost
+Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
+ by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 25 Nov 2020 02:03:21 -0800
+X-QCInternal: smtphost
+Received: from kalyant-linux.qualcomm.com ([10.204.66.210])
+ by ironmsg02-blr.qualcomm.com with ESMTP; 25 Nov 2020 15:32:46 +0530
+Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
+ id 2578917AA; Wed, 25 Nov 2020 02:02:45 -0800 (PST)
+From: Kalyan Thota <kalyan_t@codeaurora.org>
+To: y@qualcomm.com, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+Date: Wed, 25 Nov 2020 02:02:40 -0800
+Message-Id: <1606298560-3003-1-git-send-email-kalyan_t@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <y>
+References: <y>
+Subject: [Freedreno] [v1] drm/msm/dpu: consider vertical front porch in the
+ prefill bw calculation
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,41 +48,75 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- linux-arm-msm@vger.kernel.org, Akhil P Oommen <akhilpo@codeaurora.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- iommu@lists.linux-foundation.org, Kristian H Kristensen <hoegsberg@google.com>,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Cc: amit.pundir@linaro.org, mkrishn@codeaurora.org, travitej@codeaurora.org,
+ dianders@chromium.org, abhinavk@codeaurora.org, linux-kernel@vger.kernel.org,
+ robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
+ Kalyan Thota <kalyan_t@codeaurora.org>, ddavenport@chromium.org,
+ hoegsberg@chromium.org, swboyd@chromium.org, sumit.semwal@linaro.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Fix the checkpatch warning for space required before the open
-parenthesis.
+In case of panels with low vertical back porch, the prefill bw
+requirement will be high as we will have less time(vbp+pw) to
+fetch and fill the hw latency buffers before start of first line
+in active period.
 
-Signed-off-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-Acked-by: Will Deacon <will@kernel.org>
+For ex:
+Say hw_latency_line_buffers = 24, and if blanking vbp+pw = 10
+Here we need to fetch 24 lines of data in 10 line times.
+This will increase the bw to the ratio of linebuffers to blanking.
+
+DPU hw can also fetch data during vertical front porch provided
+interface prefetch is enabled. Use vfp in the prefill calculation
+as dpu driver enables prefetch if the blanking is not sufficient
+to fill the latency lines.
+
+Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
 ---
- drivers/iommu/arm/arm-smmu/arm-smmu-impl.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c b/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
-index 26e2734eb4d7..136872e77195 100644
---- a/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
-+++ b/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
-@@ -12,7 +12,7 @@
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+index 7ea90d2..315b999 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+@@ -151,7 +151,7 @@ static void _dpu_plane_calc_bw(struct drm_plane *plane,
+ 	u64 plane_bw;
+ 	u32 hw_latency_lines;
+ 	u64 scale_factor;
+-	int vbp, vpw;
++	int vbp, vpw, vfp;
  
- static int arm_smmu_gr0_ns(int offset)
- {
--	switch(offset) {
-+	switch (offset) {
- 	case ARM_SMMU_GR0_sCR0:
- 	case ARM_SMMU_GR0_sACR:
- 	case ARM_SMMU_GR0_sGFSR:
+ 	pstate = to_dpu_plane_state(plane->state);
+ 	mode = &plane->state->crtc->mode;
+@@ -164,6 +164,7 @@ static void _dpu_plane_calc_bw(struct drm_plane *plane,
+ 	fps = drm_mode_vrefresh(mode);
+ 	vbp = mode->vtotal - mode->vsync_end;
+ 	vpw = mode->vsync_end - mode->vsync_start;
++	vfp = mode->vsync_start - mode->vdisplay;
+ 	hw_latency_lines =  dpu_kms->catalog->perf.min_prefill_lines;
+ 	scale_factor = src_height > dst_height ?
+ 		mult_frac(src_height, 1, dst_height) : 1;
+@@ -176,7 +177,13 @@ static void _dpu_plane_calc_bw(struct drm_plane *plane,
+ 		src_width * hw_latency_lines * fps * fmt->bpp *
+ 		scale_factor * mode->vtotal;
+ 
+-	do_div(plane_prefill_bw, (vbp+vpw));
++	if ((vbp+vpw) > hw_latency_lines)
++		do_div(plane_prefill_bw, (vbp+vpw));
++	else if ((vbp+vpw+vfp) < hw_latency_lines)
++		do_div(plane_prefill_bw, (vbp+vpw+vfp));
++	else
++		do_div(plane_prefill_bw, hw_latency_lines);
++
+ 
+ 	pstate->plane_fetch_bw = max(plane_bw, plane_prefill_bw);
+ }
 -- 
-QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a member
-of Code Aurora Forum, hosted by The Linux Foundation
+2.7.4
 
 _______________________________________________
 Freedreno mailing list
