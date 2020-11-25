@@ -1,61 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36D9F2C33AA
-	for <lists+freedreno@lfdr.de>; Tue, 24 Nov 2020 23:06:35 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 463892C38BA
+	for <lists+freedreno@lfdr.de>; Wed, 25 Nov 2020 06:36:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E88766E15E;
-	Tue, 24 Nov 2020 22:06:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD30E6E817;
+	Wed, 25 Nov 2020 05:36:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [IPv6:2a00:1450:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76B0B6E15E;
- Tue, 24 Nov 2020 22:06:32 +0000 (UTC)
-Received: by mail-wm1-x336.google.com with SMTP id c198so363247wmd.0;
- Tue, 24 Nov 2020 14:06:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=3Figoe8Zer72GbW0+hvjATZnj5NO6h5Raa/lqkNpArQ=;
- b=jc/+571ztrybLm+BOwSaoY7pl4esZi+3r3UODwY6Ge1iKKDOPYMx6lwyjDb88+QxAm
- YenolkYfmfPpLhA+w6f5e/1qbkphU0EepCGWU8xLQofles6qPv/nl1DVGk3z/O344be2
- xZ4VTY9dIj8j0z06kpnm6uvyCYG0fueUt3pqqxnOQZOhr0yQC2AGyWdPqSnRt2aIQ7AK
- Yl6yzAnF27oIa9mypy+3ntdIaN0uZyoNxQ4gsk6uBoeWwZDiwqmQTkTpVjAUR4RIRjew
- /P7O7b2lv+JiKkgOoyw+doXLWoWCzR0WMJ/OvmJBZhf0GMXiUMhm2cryo2QoYDH5qYKW
- q3sQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=3Figoe8Zer72GbW0+hvjATZnj5NO6h5Raa/lqkNpArQ=;
- b=f0ccF9m8OqYiFjZgBzIWVTmu095dWAaJGwIYRETVMNKpOfHrIg96lNi7zc8rs8B3ir
- SCmCv0DXV2txAA7CC7peYc3FTgU9LN7y2HxwoJvYydLsS7dAcoe68JYaG0hpRFl8UrfO
- VtpCXMNOQnmEbjJA3adsrgzkf8PfEIGQlZcJcgRjB73PBxaF5CJ1+MuzOUpO7mKvfxNk
- xZ1+AeZTG7WzMc+p9KiNDFsg10MoNewz6ITp6SyS96d0B4DvQFqLd4coQGK5EzzXOIiD
- K4rDNm4WTgcciOYCQB3Qorz7yXlqtnJE27w8ni97M2IvIH00PpigqmkhtaeNT29Ywcn1
- 399Q==
-X-Gm-Message-State: AOAM5305IuUTiNVKl6Vp7KzIBw9nla/2XN3qpsUOYBbBRCs61b/Jp0lx
- HsHAos6xUApSqd5fDwngvslH3vDco9B3T8DkUZM=
-X-Google-Smtp-Source: ABdhPJwxbj4hO3UhcOcUoC6jldq1SY0wj0dG1MEboORgvbHGRin3UXGunv67sZajYqm+JEM/JctmCGooiJvj2pLsGak=
-X-Received: by 2002:a7b:c00b:: with SMTP id c11mr470472wmb.175.1606255591078; 
- Tue, 24 Nov 2020 14:06:31 -0800 (PST)
+Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61EAF6E817
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Nov 2020 05:36:07 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1606282568; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=Xc6AQ2BlPFKF4pdCQbur4GhZDY1bKsnq8i+dYz5snuw=;
+ b=PauBXCK57cKFQ3YA5T6BLx1d8QSXggHd8G+Z+srRQeHHQty3e2ndcG6ixT6pBCLvJdv6UsZm
+ ibK9lugg9Gqf9JoWClL8d3/oznJP/OlcIEtlnQmA7XxtuPU4B6N5SURMAPi62C8Cc5r45WVs
+ pxSGsdvhpkolmTy/jIR9q6G1y8o=
+X-Mailgun-Sending-Ip: 69.72.42.4
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
+ 5fbded44d64ea0b70331d085 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 25 Nov 2020 05:36:04
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 2132DC43463; Wed, 25 Nov 2020 05:36:04 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: saiprakash.ranjan)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 208DCC433ED;
+ Wed, 25 Nov 2020 05:36:03 +0000 (UTC)
 MIME-Version: 1.0
-References: <cover.1605621785.git.saiprakash.ranjan@codeaurora.org>
- <20201123152146.GE11033@willie-the-truck>
- <50b68f2bdf9413b896fbe816ba4ddbc9@codeaurora.org>
- <CAF6AEGse=WBAC1WbTi6aD5_m1_NBg91f=veYm-7V=Uds7NA0Lw@mail.gmail.com>
- <1c665e33d1d27263fb5056c16d30b827@codeaurora.org>
- <20201124111027.GA13151@willie-the-truck>
- <CAF6AEGuZ2YbY=ATFBX1KJw=LwhcpH8n+zzxckTHPwwopi6mOqw@mail.gmail.com>
- <20201124214332.GC14252@willie-the-truck>
-In-Reply-To: <20201124214332.GC14252@willie-the-truck>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 24 Nov 2020 14:08:17 -0800
-Message-ID: <CAF6AEGvu2Hdnw=ia8Ffmr1LPvkQNKpVVBM9xMNUKCn9uDcWWAg@mail.gmail.com>
+Date: Wed, 25 Nov 2020 11:06:02 +0530
+From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
 To: Will Deacon <will@kernel.org>
-Subject: Re: [Freedreno] [PATCHv8 0/8] System Cache support for GPU and
- required SMMU support
+In-Reply-To: <20201124213917.GA14252@willie-the-truck>
+References: <cover.1606150259.git.saiprakash.ranjan@codeaurora.org>
+ <47f8e9760a7fba8b58ea89c9add96f5615f97014.1606150259.git.saiprakash.ranjan@codeaurora.org>
+ <20201124213917.GA14252@willie-the-truck>
+Message-ID: <d4c7f311fbea91bb63d3b0eb164cf0d3@codeaurora.org>
+X-Sender: saiprakash.ranjan@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCHv9 3/8] iommu/arm-smmu: Move non-strict mode
+ to use io_pgtable_domain_attr
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,68 +66,100 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, "list@263.net:IOMMU DRIVERS ,
- Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
+Cc: linux-kernel@vger.kernel.org, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joro@8bytes.org>, Jordan Crouse <jcrouse@codeaurora.org>,
+ dri-devel@lists.freedesktop.org, Akhil P Oommen <akhilpo@codeaurora.org>,
+ Rob Clark <robdclark@gmail.com>, iommu@lists.linux-foundation.org,
  "Kristian H . Kristensen" <hoegsberg@google.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, Dave Airlie <airlied@gmail.com>,
- freedreno <freedreno@lists.freedesktop.org>,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>
-Content-Type: text/plain; charset="us-ascii"
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Nov 24, 2020 at 1:43 PM Will Deacon <will@kernel.org> wrote:
->
-> On Tue, Nov 24, 2020 at 11:05:39AM -0800, Rob Clark wrote:
-> > On Tue, Nov 24, 2020 at 3:10 AM Will Deacon <will@kernel.org> wrote:
-> > > On Tue, Nov 24, 2020 at 09:32:54AM +0530, Sai Prakash Ranjan wrote:
-> > > > On 2020-11-24 00:52, Rob Clark wrote:
-> > > > > On Mon, Nov 23, 2020 at 9:01 AM Sai Prakash Ranjan
-> > > > > <saiprakash.ranjan@codeaurora.org> wrote:
-> > > > > > On 2020-11-23 20:51, Will Deacon wrote:
-> > > > > > > Modulo some minor comments I've made, this looks good to me. What is
-> > > > > > > the
-> > > > > > > plan for merging it? I can take the IOMMU parts, but patches 4-6 touch
-> > > > > > > the
-> > > > > > > MSM GPU driver and I'd like to avoid conflicts with that.
-> > > > > > >
-> > > > > >
-> > > > > > SMMU bits are pretty much independent and GPU relies on the domain
-> > > > > > attribute
-> > > > > > and the quirk exposed, so as long as SMMU changes go in first it
-> > > > > > should
-> > > > > > be good.
-> > > > > > Rob?
-> > > > >
-> > > > > I suppose one option would be to split out the patch that adds the
-> > > > > attribute into it's own patch, and merge that both thru drm and iommu?
-> > > > >
-> > > >
-> > > > Ok I can split out domain attr and quirk into its own patch if Will is
-> > > > fine with that approach.
-> > >
-> > > Why don't I just queue the first two patches on their own branch and we
-> > > both pull that?
-> >
-> > Ok, that works for me.  I normally base msm-next on -rc1 but I guess
-> > as long as we base the branch on the older or our two -next branches,
-> > that should work out nicely
->
-> Turns out we're getting a v10 of Sai's stuff, so I've asked him to split
-> patch two up anyway. Then I'll make a branch based on -rc1 that we can
-> both pull.
+On 2020-11-25 03:09, Will Deacon wrote:
+> On Mon, Nov 23, 2020 at 10:35:56PM +0530, Sai Prakash Ranjan wrote:
+>> Now that we have a struct io_pgtable_domain_attr with quirks,
+>> use that for non_strict mode as well thereby removing the need
+>> for more members of arm_smmu_domain in the future.
+>> 
+>> Signed-off-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+>> ---
+>>  drivers/iommu/arm/arm-smmu/arm-smmu.c | 8 +++-----
+>>  drivers/iommu/arm/arm-smmu/arm-smmu.h | 1 -
+>>  2 files changed, 3 insertions(+), 6 deletions(-)
+>> 
+>> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c 
+>> b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+>> index 4b9b10fe50ed..f56f266ebdf7 100644
+>> --- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
+>> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+>> @@ -786,9 +786,6 @@ static int arm_smmu_init_domain_context(struct 
+>> iommu_domain *domain,
+>>  			goto out_clear_smmu;
+>>  	}
+>> 
+>> -	if (smmu_domain->non_strict)
+>> -		pgtbl_cfg.quirks |= IO_PGTABLE_QUIRK_NON_STRICT;
+>> -
+>>  	if (smmu_domain->pgtbl_cfg.quirks)
+>>  		pgtbl_cfg.quirks |= smmu_domain->pgtbl_cfg.quirks;
+>> 
+>> @@ -1527,7 +1524,8 @@ static int arm_smmu_domain_get_attr(struct 
+>> iommu_domain *domain,
+>>  	case IOMMU_DOMAIN_DMA:
+>>  		switch (attr) {
+>>  		case DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE:
+>> -			*(int *)data = smmu_domain->non_strict;
+>> +			if (smmu_domain->pgtbl_cfg.quirks & IO_PGTABLE_QUIRK_NON_STRICT)
+>> +				*(int *)data = smmu_domain->pgtbl_cfg.quirks;
+> 
+> I still don't think this is right :(
+> We need to set *data to 1 or 0 depending on whether or not the 
+> non-strict
+> quirk is set, i.e:
+> 
+> 	bool non_strict = smmu_domain->pgtbl_cfg.quirks & 
+> IO_PGTABLE_QUIRK_NON_STRICT;
+> 	*(int *)data = non_strict;
+> 
+> Your code above leaves *data uninitialised if non_strict is not set.
 
-Sounds good, thx
+Ugh sorry, I should have looked at this some more before hurrying up
+to post, will fix it.
 
-BR,
--R
+> 
+>>  			return 0;
+>>  		default:
+>>  			return -ENODEV;
+>> @@ -1578,7 +1576,7 @@ static int arm_smmu_domain_set_attr(struct 
+>> iommu_domain *domain,
+>>  	case IOMMU_DOMAIN_DMA:
+>>  		switch (attr) {
+>>  		case DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE:
+>> -			smmu_domain->non_strict = *(int *)data;
+>> +			smmu_domain->pgtbl_cfg.quirks |= IO_PGTABLE_QUIRK_NON_STRICT;
+> 
+> And this is broken because if *data is 0, then you _set_ the quirk, 
+> which is
+> the opposite of what we should be doing.
+> 
+> In other words, although the implementation has changed, the semantics 
+> have
+> not.
+> 
+
+Will fix this to have quirk set only when *data = 1 and unset in case of 
+0.
+
+Thanks,
+Sai
+
+-- 
+QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a 
+member
+of Code Aurora Forum, hosted by The Linux Foundation
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
