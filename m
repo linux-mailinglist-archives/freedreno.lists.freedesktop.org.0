@@ -2,34 +2,34 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 463892C38BA
-	for <lists+freedreno@lfdr.de>; Wed, 25 Nov 2020 06:36:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A8172C3962
+	for <lists+freedreno@lfdr.de>; Wed, 25 Nov 2020 07:58:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD30E6E817;
-	Wed, 25 Nov 2020 05:36:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35DCF6E833;
+	Wed, 25 Nov 2020 06:58:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61EAF6E817
- for <freedreno@lists.freedesktop.org>; Wed, 25 Nov 2020 05:36:07 +0000 (UTC)
+Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAD656E836
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Nov 2020 06:58:31 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1606282568; h=Message-ID: References: In-Reply-To: Subject:
+ s=smtp; t=1606287514; h=Message-ID: References: In-Reply-To: Subject:
  Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=Xc6AQ2BlPFKF4pdCQbur4GhZDY1bKsnq8i+dYz5snuw=;
- b=PauBXCK57cKFQ3YA5T6BLx1d8QSXggHd8G+Z+srRQeHHQty3e2ndcG6ixT6pBCLvJdv6UsZm
- ibK9lugg9Gqf9JoWClL8d3/oznJP/OlcIEtlnQmA7XxtuPU4B6N5SURMAPi62C8Cc5r45WVs
- pxSGsdvhpkolmTy/jIR9q6G1y8o=
-X-Mailgun-Sending-Ip: 69.72.42.4
+ MIME-Version: Sender; bh=LrICIdDLfpZKH7ljsAEC0wOYB0ntNG1+5ilRwexAuoU=;
+ b=YgQ8bQz7+khyQbS0+LahEtuMsgrElUQeL3RW57h9SWd3ScqNgFHNEqVhyxtTBHSa5yZsXmsd
+ 9BA+Ry7/t8DtCUqK8SxIjJXlGKTq5YU7LQPaE2sduCoHWIwUvnrLajy89btyrMkwUn2eUevC
+ 9XIMhohhz5WLhuT2wwUBRZSgATg=
+X-Mailgun-Sending-Ip: 104.130.96.5
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
- 5fbded44d64ea0b70331d085 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 25 Nov 2020 05:36:04
+ smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
+ 5fbe008d77b63cdb345e8b99 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 25 Nov 2020 06:58:21
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 2132DC43463; Wed, 25 Nov 2020 05:36:04 +0000 (UTC)
+ id 052FEC433ED; Wed, 25 Nov 2020 06:58:21 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -39,21 +39,21 @@ Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
  (Authenticated sender: saiprakash.ranjan)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 208DCC433ED;
- Wed, 25 Nov 2020 05:36:03 +0000 (UTC)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 03716C433C6;
+ Wed, 25 Nov 2020 06:58:18 +0000 (UTC)
 MIME-Version: 1.0
-Date: Wed, 25 Nov 2020 11:06:02 +0530
+Date: Wed, 25 Nov 2020 12:28:18 +0530
 From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
 To: Will Deacon <will@kernel.org>
-In-Reply-To: <20201124213917.GA14252@willie-the-truck>
+In-Reply-To: <20201124214134.GB14252@willie-the-truck>
 References: <cover.1606150259.git.saiprakash.ranjan@codeaurora.org>
- <47f8e9760a7fba8b58ea89c9add96f5615f97014.1606150259.git.saiprakash.ranjan@codeaurora.org>
- <20201124213917.GA14252@willie-the-truck>
-Message-ID: <d4c7f311fbea91bb63d3b0eb164cf0d3@codeaurora.org>
+ <122e7b3050c51ee2e3637fca0b3967b4c3dc2bac.1606150259.git.saiprakash.ranjan@codeaurora.org>
+ <20201124214134.GB14252@willie-the-truck>
+Message-ID: <b56ec844e2c059d0c6d8de3424a0cce7@codeaurora.org>
 X-Sender: saiprakash.ranjan@codeaurora.org
 User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCHv9 3/8] iommu/arm-smmu: Move non-strict mode
- to use io_pgtable_domain_attr
+Subject: Re: [Freedreno] [PATCHv9 2/8] iommu/arm-smmu: Add domain attribute
+ for pagetable configuration
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,80 +78,32 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-11-25 03:09, Will Deacon wrote:
-> On Mon, Nov 23, 2020 at 10:35:56PM +0530, Sai Prakash Ranjan wrote:
->> Now that we have a struct io_pgtable_domain_attr with quirks,
->> use that for non_strict mode as well thereby removing the need
->> for more members of arm_smmu_domain in the future.
+On 2020-11-25 03:11, Will Deacon wrote:
+> On Mon, Nov 23, 2020 at 10:35:55PM +0530, Sai Prakash Ranjan wrote:
+>> Add iommu domain attribute for pagetable configuration which
+>> initially will be used to set quirks like for system cache aka
+>> last level cache to be used by client drivers like GPU to set
+>> right attributes for caching the hardware pagetables into the
+>> system cache and later can be extended to include other page
+>> table configuration data.
 >> 
 >> Signed-off-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
 >> ---
->>  drivers/iommu/arm/arm-smmu/arm-smmu.c | 8 +++-----
->>  drivers/iommu/arm/arm-smmu/arm-smmu.h | 1 -
->>  2 files changed, 3 insertions(+), 6 deletions(-)
->> 
->> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c 
->> b/drivers/iommu/arm/arm-smmu/arm-smmu.c
->> index 4b9b10fe50ed..f56f266ebdf7 100644
->> --- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
->> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
->> @@ -786,9 +786,6 @@ static int arm_smmu_init_domain_context(struct 
->> iommu_domain *domain,
->>  			goto out_clear_smmu;
->>  	}
->> 
->> -	if (smmu_domain->non_strict)
->> -		pgtbl_cfg.quirks |= IO_PGTABLE_QUIRK_NON_STRICT;
->> -
->>  	if (smmu_domain->pgtbl_cfg.quirks)
->>  		pgtbl_cfg.quirks |= smmu_domain->pgtbl_cfg.quirks;
->> 
->> @@ -1527,7 +1524,8 @@ static int arm_smmu_domain_get_attr(struct 
->> iommu_domain *domain,
->>  	case IOMMU_DOMAIN_DMA:
->>  		switch (attr) {
->>  		case DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE:
->> -			*(int *)data = smmu_domain->non_strict;
->> +			if (smmu_domain->pgtbl_cfg.quirks & IO_PGTABLE_QUIRK_NON_STRICT)
->> +				*(int *)data = smmu_domain->pgtbl_cfg.quirks;
+>>  drivers/iommu/arm/arm-smmu/arm-smmu.c | 20 ++++++++++++++++++++
+>>  drivers/iommu/arm/arm-smmu/arm-smmu.h |  1 +
+>>  include/linux/io-pgtable.h            |  4 ++++
+>>  include/linux/iommu.h                 |  1 +
+>>  4 files changed, 26 insertions(+)
 > 
-> I still don't think this is right :(
-> We need to set *data to 1 or 0 depending on whether or not the 
-> non-strict
-> quirk is set, i.e:
+> Given that we're heading for a v10 to address my comments on patch 3,
+> then I guess you may as well split this into two patches so that I can
+> share just the atttibute with Rob rather than the driver parts.
 > 
-> 	bool non_strict = smmu_domain->pgtbl_cfg.quirks & 
-> IO_PGTABLE_QUIRK_NON_STRICT;
-> 	*(int *)data = non_strict;
-> 
-> Your code above leaves *data uninitialised if non_strict is not set.
-
-Ugh sorry, I should have looked at this some more before hurrying up
-to post, will fix it.
-
-> 
->>  			return 0;
->>  		default:
->>  			return -ENODEV;
->> @@ -1578,7 +1576,7 @@ static int arm_smmu_domain_set_attr(struct 
->> iommu_domain *domain,
->>  	case IOMMU_DOMAIN_DMA:
->>  		switch (attr) {
->>  		case DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE:
->> -			smmu_domain->non_strict = *(int *)data;
->> +			smmu_domain->pgtbl_cfg.quirks |= IO_PGTABLE_QUIRK_NON_STRICT;
-> 
-> And this is broken because if *data is 0, then you _set_ the quirk, 
-> which is
-> the opposite of what we should be doing.
-> 
-> In other words, although the implementation has changed, the semantics 
-> have
-> not.
+> Please keep it all as one series though, with the common parts at the
+> beginning, and I'll figure it out.
 > 
 
-Will fix this to have quirk set only when *data = 1 and unset in case of 
-0.
+Ok I will split up and send v10.
 
 Thanks,
 Sai
