@@ -2,60 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A4842C598C
-	for <lists+freedreno@lfdr.de>; Thu, 26 Nov 2020 17:50:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BC782C598B
+	for <lists+freedreno@lfdr.de>; Thu, 26 Nov 2020 17:50:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF15E6E957;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F9B16E8F5;
 	Thu, 26 Nov 2020 16:50:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
  [IPv6:2a00:1450:4864:20::643])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0F816E844;
- Thu, 26 Nov 2020 08:28:45 +0000 (UTC)
-Received: by mail-ej1-x643.google.com with SMTP id gj5so1644608ejb.8;
- Thu, 26 Nov 2020 00:28:45 -0800 (PST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52BE06E946;
+ Thu, 26 Nov 2020 13:02:31 +0000 (UTC)
+Received: by mail-ej1-x643.google.com with SMTP id mc24so2824615ejb.6;
+ Thu, 26 Nov 2020 05:02:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=RE/xM2EQ4ie5bNoZ/Tgb5zG1vYn52jD8l8KkGA0b1e0=;
- b=uO5tVeJ5ECYefjP3f7fZrFkdPo9iSKs/GZ1Y3MtaYMfsumcb6QESFMhE2U60qIFvBS
- RlOLkmRqHN+Z2qdDYu1Pm1C9blFEFGFwBNx5n4JKMkn9hemTqPpnzBlwfcc+1FaIGs14
- /oOn9AiSD6XBJlUkKohXeSYAyDaqeO06JGr2bhx+5LEg1p1k0FTZxzVEdifZocJX1H2O
- SPSJWhT1Zk8FVjf6SLpIe7AOwzxNnFQ6F1lpPo2TwaPYXOmur6qzeJuOVgw97+RJ5aK1
- pecvc1W5KsaDPt/G3BvUThZisxIKnnG85fUIpVyRcCURIrYlSmVV+gCjZ1IxuQ+RNqFa
- 2XkQ==
+ bh=QY7dh3vckMKD6ltiTnksJuU8XWzuwGJAwKPsT1GH95k=;
+ b=fESxPUs/SuTDJqRxWAuiI526aY/jWEhn8FEf/I+/puc7bZSLa+Ekx6q2XHo8F3N4Gk
+ McczI6dT0/kWPHOJhHgQCpa7dB7e7YAAsorvgmYAjw+TJQR1MSfbuZ8F0N72mMImeSj+
+ WaMTOCPpx85Yrx1srZ0Duxpq0l/KOoZ+JoIzrWmBCLCG8+DW0KcPH1XRdNeo1l1AT7Jz
+ vyvz+EJ9/a9Ti3FrVWzo1DSXG0nzUwoKaWSiOMyVJGRteeLZoE9/Vd0g1d1A1CnOTBch
+ iefGXSd562MU1daLguSxVuSYz48gbB4cw9V2VrpWT1ohWxBZWfHUGKX7gVMhZayptsdN
+ 6tkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=RE/xM2EQ4ie5bNoZ/Tgb5zG1vYn52jD8l8KkGA0b1e0=;
- b=iI05CddaSMpyTVYMwZc8Dy0XriwDu/ysZNTyKWPZkNCBmUckFzHnP7bQAE9Y1muXFs
- G4Oad1jzz/yvssSzPq48l/nrOCd1JaGTMpGFFpnfLNVz8f+71rheEh9eH93YaGQOkgJY
- Z3l2ULfmFRTpKqRgpaa3ZwyHRTUI1psK7XgFBmVIAq6TQttp+BCXjIC3fmw0rKoTB+p/
- D1o34UND18c7A/pmy/og+yCh6bI+5iFuCR2/DONGOFV/Ntvzc4Ce4i10SOGJtbe2luOJ
- gUQUBgJpBTmyOXSkzv4X150MyY1WcdZNag0FIIqqT1nDjO6tiiSME890VhWwcS2/XFX2
- 5btg==
-X-Gm-Message-State: AOAM531s3PMBan82t7aUy9HlXaSF9XeuVR3Rilks5Snwm5LAZjSVG1FG
- +NlIq3dsYnZwXCP/Bgf7aVU=
-X-Google-Smtp-Source: ABdhPJwohLHG1zO5BWX7ZH3w7w1t09xLT1Zg+Cwc6CXMtDUe43P0939oWKeWv4fPOb2+J7MvN8F9FA==
-X-Received: by 2002:a17:906:b0f:: with SMTP id
- u15mr1686801ejg.109.1606379324217; 
- Thu, 26 Nov 2020 00:28:44 -0800 (PST)
+ bh=QY7dh3vckMKD6ltiTnksJuU8XWzuwGJAwKPsT1GH95k=;
+ b=oS+kMS/v0J4xRbF65bKBJPaQ+JbgPiWPR+FpAE8U3Hf5Ao4dhpWm69JsE1WNd72thb
+ oNmeDmbN4WriShDWCo9JBdNkIImp1I5NPqoEehPYkECLUCyucHD7smPFbyJ7iHJJJT8w
+ zN8TtDoc2G3vDAN9vpG+7pMe+yQ0u1w/okXpuxnF7B4BBWnOrVviR0npd46B6Mehj8TC
+ RKhiO8G/Vm7Rr9BDJZwaxgobD/RI37mOjqxxFtW+2QOdbx+95x/iBkCpBDnr6rIcrwHn
+ FRZWBUQMkqsQzgj4KdtWzpMd51L9z9XBY7ILvmfqrCUqb6OadZZpxWmiyiI7+Tk9tfvC
+ FQpQ==
+X-Gm-Message-State: AOAM533IOoA4uj4CLSAiyhgVKV+yG8Ejy1zmrdgvk5wAf4/hEooWgyaQ
+ ooJVh5SAlV8xJJ0e3U9bfao=
+X-Google-Smtp-Source: ABdhPJwVFv4wBEiQMW6J55O5DFXO9OXLz5XqS6hm2ntps1LABNFAjygVJ6W5qcIzFMtXZIXRJo5khQ==
+X-Received: by 2002:a17:906:7c56:: with SMTP id
+ g22mr2526763ejp.282.1606395749956; 
+ Thu, 26 Nov 2020 05:02:29 -0800 (PST)
 Received: from localhost (178-169-161-196.razgrad.ddns.bulsat.com.
  [178.169.161.196])
- by smtp.gmail.com with ESMTPSA id u23sm2581647ejy.87.2020.11.26.00.28.42
+ by smtp.gmail.com with ESMTPSA id t11sm3030276ejx.68.2020.11.26.05.02.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Nov 2020 00:28:43 -0800 (PST)
+ Thu, 26 Nov 2020 05:02:29 -0800 (PST)
 From: Iskren Chernev <iskren.chernev@gmail.com>
 To: Rob Clark <robdclark@gmail.com>,
 	Sean Paul <sean@poorly.run>
-Date: Thu, 26 Nov 2020 10:28:17 +0200
-Message-Id: <20201126082817.1242995-1-iskren.chernev@gmail.com>
+Date: Thu, 26 Nov 2020 15:02:23 +0200
+Message-Id: <20201126130223.1663853-1-iskren.chernev@gmail.com>
 X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
 X-Mailman-Approved-At: Thu, 26 Nov 2020 16:50:44 +0000
-Subject: [Freedreno] [PATCH] drm/msm: Fix use-after-free in msm_gem with
+Subject: [Freedreno] [PATCH v2] drm/msm: Fix use-after-free in msm_gem with
  carveout
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,16 +80,20 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 When using gem with vram carveout the page allocation is managed via
-drm_mm. The necessary drm_mm_node is allocated in add_vma, but it freed
-before the drm_mm_node has been deallocated leading to use-after-free on
-every single vram allocation.
+drm_mm. The necessary drm_mm_node is allocated in add_vma, but it is
+referenced in msm_gem_object as well. It is freed before the drm_mm_node
+has been deallocated leading to use-after-free on every single vram
+allocation.
 
-Currently put_iova is called before free_object.
+Currently put_iova is called before put_pages in both
+msm_gem_free_object and msm_gem_purge:
 
 	put_iova -> del_vma -> kfree(vma) // vma holds drm_mm_node
-
-	free_object -> put_pages -> put_pages_vram
-				 -> drm_mm_remove_node
+	/* later */
+	put_pages -> put_pages_vram -> drm_mm_remove_node(
+						msm_obj->vram_node)
+				 	// vram_node is a ref to
+					// drm_mm_node; in _msm_gem_new
 
 It looks like del_vma does nothing else other than freeing the vma
 object and removing it from it's list, so delaying the deletion should
@@ -98,17 +102,29 @@ be harmless.
 This patch splits put_iova in put_iova_spaces and put_iova_vmas, so the
 vma can be freed after the mm_node has been deallocated with the mm.
 
+Note: The breaking commit separated the vma allocation from within
+msm_gem_object to outside, so the vram_node reference became outside the
+msm_gem_object allocation, and freeing order was therefore overlooked.
+
+Fixes: 4b85f7f5cf7 ("drm/msm: support for an arbitrary number of address spaces")
 Signed-off-by: Iskren Chernev <iskren.chernev@gmail.com>
 ---
+v1: https://lkml.org/lkml/2020/11/26/130
+
+Changes in v2:
+- patch now compiles (oops)
+- improve commit message
+- add fixes tag
+
  drivers/gpu/drm/msm/msm_gem.c | 27 ++++++++++++++++++++++-----
  1 file changed, 22 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index 15715a156620f..b83247202ea5d 100644
+index 15715a156620f..dfe6387c62c86 100644
 --- a/drivers/gpu/drm/msm/msm_gem.c
 +++ b/drivers/gpu/drm/msm/msm_gem.c
 @@ -355,18 +355,31 @@ static void del_vma(struct msm_gem_vma *vma)
- 
+
  /* Called with msm_obj locked */
  static void
 -put_iova(struct drm_gem_object *obj)
@@ -117,9 +133,9 @@ index 15715a156620f..b83247202ea5d 100644
  	struct msm_gem_object *msm_obj = to_msm_bo(obj);
 -	struct msm_gem_vma *vma, *tmp;
 +	struct msm_gem_vma *vma;
- 
+
  	WARN_ON(!msm_gem_is_locked(obj));
- 
+
 -	list_for_each_entry_safe(vma, tmp, &msm_obj->vmas, list) {
 +	list_for_each_entry(vma, &msm_obj->vmas, list) {
  		if (vma->aspace) {
@@ -136,7 +152,7 @@ index 15715a156620f..b83247202ea5d 100644
 +	struct msm_gem_object *msm_obj = to_msm_bo(obj);
 +	struct msm_gem_vma *vma, *tmp;
 +
-+	WARN_ON(!mutex_is_locked(&msm_obj->lock));
++	WARN_ON(!msm_gem_is_locked(obj));
 +
 +	list_for_each_entry_safe(vma, tmp, &msm_obj->vmas, list) {
  		del_vma(vma);
@@ -145,40 +161,40 @@ index 15715a156620f..b83247202ea5d 100644
 @@ -688,12 +701,14 @@ void msm_gem_purge(struct drm_gem_object *obj)
  	WARN_ON(!is_purgeable(msm_obj));
  	WARN_ON(obj->import_attach);
- 
+
 -	put_iova(obj);
 +	put_iova_spaces(obj);
- 
+
  	msm_gem_vunmap(obj);
- 
+
  	put_pages(obj);
- 
+
 +	put_iova_vmas(obj);
 +
  	msm_obj->madv = __MSM_MADV_PURGED;
- 
+
  	drm_vma_node_unmap(&obj->vma_node, dev->anon_inode->i_mapping);
 @@ -942,7 +957,7 @@ void msm_gem_free_object(struct drm_gem_object *obj)
- 
+
  	msm_gem_lock(obj);
- 
+
 -	put_iova(obj);
 +	put_iova_spaces(obj);
- 
+
  	if (obj->import_attach) {
  		WARN_ON(msm_obj->vaddr);
 @@ -965,6 +980,8 @@ void msm_gem_free_object(struct drm_gem_object *obj)
  		msm_gem_unlock(obj);
  	}
- 
-+	put_iova_vma(obj);
+
++	put_iova_vmas(obj);
 +
  	drm_gem_object_release(obj);
- 
+
  	kfree(msm_obj);
 
 base-commit: 6147c83fd749d19a0d3ccc2f64d12138ab010b47
--- 
+--
 2.29.2
 
 _______________________________________________
