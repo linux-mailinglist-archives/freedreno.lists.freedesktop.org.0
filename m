@@ -2,61 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BC782C598B
-	for <lists+freedreno@lfdr.de>; Thu, 26 Nov 2020 17:50:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F6F92C65FE
+	for <lists+freedreno@lfdr.de>; Fri, 27 Nov 2020 13:51:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F9B16E8F5;
-	Thu, 26 Nov 2020 16:50:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24EF56ED05;
+	Fri, 27 Nov 2020 12:51:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
- [IPv6:2a00:1450:4864:20::643])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52BE06E946;
- Thu, 26 Nov 2020 13:02:31 +0000 (UTC)
-Received: by mail-ej1-x643.google.com with SMTP id mc24so2824615ejb.6;
- Thu, 26 Nov 2020 05:02:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=QY7dh3vckMKD6ltiTnksJuU8XWzuwGJAwKPsT1GH95k=;
- b=fESxPUs/SuTDJqRxWAuiI526aY/jWEhn8FEf/I+/puc7bZSLa+Ekx6q2XHo8F3N4Gk
- McczI6dT0/kWPHOJhHgQCpa7dB7e7YAAsorvgmYAjw+TJQR1MSfbuZ8F0N72mMImeSj+
- WaMTOCPpx85Yrx1srZ0Duxpq0l/KOoZ+JoIzrWmBCLCG8+DW0KcPH1XRdNeo1l1AT7Jz
- vyvz+EJ9/a9Ti3FrVWzo1DSXG0nzUwoKaWSiOMyVJGRteeLZoE9/Vd0g1d1A1CnOTBch
- iefGXSd562MU1daLguSxVuSYz48gbB4cw9V2VrpWT1ohWxBZWfHUGKX7gVMhZayptsdN
- 6tkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=QY7dh3vckMKD6ltiTnksJuU8XWzuwGJAwKPsT1GH95k=;
- b=oS+kMS/v0J4xRbF65bKBJPaQ+JbgPiWPR+FpAE8U3Hf5Ao4dhpWm69JsE1WNd72thb
- oNmeDmbN4WriShDWCo9JBdNkIImp1I5NPqoEehPYkECLUCyucHD7smPFbyJ7iHJJJT8w
- zN8TtDoc2G3vDAN9vpG+7pMe+yQ0u1w/okXpuxnF7B4BBWnOrVviR0npd46B6Mehj8TC
- RKhiO8G/Vm7Rr9BDJZwaxgobD/RI37mOjqxxFtW+2QOdbx+95x/iBkCpBDnr6rIcrwHn
- FRZWBUQMkqsQzgj4KdtWzpMd51L9z9XBY7ILvmfqrCUqb6OadZZpxWmiyiI7+Tk9tfvC
- FQpQ==
-X-Gm-Message-State: AOAM533IOoA4uj4CLSAiyhgVKV+yG8Ejy1zmrdgvk5wAf4/hEooWgyaQ
- ooJVh5SAlV8xJJ0e3U9bfao=
-X-Google-Smtp-Source: ABdhPJwVFv4wBEiQMW6J55O5DFXO9OXLz5XqS6hm2ntps1LABNFAjygVJ6W5qcIzFMtXZIXRJo5khQ==
-X-Received: by 2002:a17:906:7c56:: with SMTP id
- g22mr2526763ejp.282.1606395749956; 
- Thu, 26 Nov 2020 05:02:29 -0800 (PST)
-Received: from localhost (178-169-161-196.razgrad.ddns.bulsat.com.
- [178.169.161.196])
- by smtp.gmail.com with ESMTPSA id t11sm3030276ejx.68.2020.11.26.05.02.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Nov 2020 05:02:29 -0800 (PST)
-From: Iskren Chernev <iskren.chernev@gmail.com>
-To: Rob Clark <robdclark@gmail.com>,
-	Sean Paul <sean@poorly.run>
-Date: Thu, 26 Nov 2020 15:02:23 +0200
-Message-Id: <20201126130223.1663853-1-iskren.chernev@gmail.com>
-X-Mailer: git-send-email 2.29.2
-MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 26 Nov 2020 16:50:44 +0000
-Subject: [Freedreno] [PATCH v2] drm/msm: Fix use-after-free in msm_gem with
- carveout
+Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 598E76ED14
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Nov 2020 12:51:22 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1606481483; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=TaRZz9Bdo7Lgel06rJK7JrsCK6fVn7n/WrN3GD5UE3s=;
+ b=OrW6x4wEq+axiLs4z/Eof9av6+1jZ6/sj7I3Y2AWP8NucJzxPmkLoqFlFExqMjTUdrYfnXYr
+ tRBTwmLwPbngo6pPmWdeERdieuTW+YUdb+Go+51KduRl8cIJgCy05uxP223/2NtO5tG3HdJ3
+ XcMjk2dwF7z+z9c5f7fNn/EXM4E=
+X-Mailgun-Sending-Ip: 104.130.96.5
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
+ 5fc0f61aeb04c001605cee20 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 27 Nov 2020 12:50:34
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 45BDBC433C6; Fri, 27 Nov 2020 12:50:34 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from akhilpo-linux.qualcomm.com (unknown [202.46.22.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id ED286C433ED;
+ Fri, 27 Nov 2020 12:50:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org ED286C433ED
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=akhilpo@codeaurora.org
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+To: freedreno@lists.freedesktop.org,
+	devicetree@vger.kernel.org
+Date: Fri, 27 Nov 2020 18:19:44 +0530
+Message-Id: <1606481386-22867-1-git-send-email-akhilpo@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH v2 1/3] drm/msm: adreno: Make speed-bin support
+ generic
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,133 +65,246 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Iskren Chernev <iskren.chernev@gmail.com>,
- ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: robh@kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dianders@chromium.org, jcrouse@codeaurora.org,
+ mka@chromium.org, robdclark@gmail.com, dri-devel@freedesktop.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-When using gem with vram carveout the page allocation is managed via
-drm_mm. The necessary drm_mm_node is allocated in add_vma, but it is
-referenced in msm_gem_object as well. It is freed before the drm_mm_node
-has been deallocated leading to use-after-free on every single vram
-allocation.
+So far a530v2 gpu has support for detecting its supported opps
+based on a fuse value called speed-bin. This patch makes this
+support generic across gpu families. This is in preparation to
+extend speed-bin support to a6x family.
 
-Currently put_iova is called before put_pages in both
-msm_gem_free_object and msm_gem_purge:
-
-	put_iova -> del_vma -> kfree(vma) // vma holds drm_mm_node
-	/* later */
-	put_pages -> put_pages_vram -> drm_mm_remove_node(
-						msm_obj->vram_node)
-				 	// vram_node is a ref to
-					// drm_mm_node; in _msm_gem_new
-
-It looks like del_vma does nothing else other than freeing the vma
-object and removing it from it's list, so delaying the deletion should
-be harmless.
-
-This patch splits put_iova in put_iova_spaces and put_iova_vmas, so the
-vma can be freed after the mm_node has been deallocated with the mm.
-
-Note: The breaking commit separated the vma allocation from within
-msm_gem_object to outside, so the vram_node reference became outside the
-msm_gem_object allocation, and freeing order was therefore overlooked.
-
-Fixes: 4b85f7f5cf7 ("drm/msm: support for an arbitrary number of address spaces")
-Signed-off-by: Iskren Chernev <iskren.chernev@gmail.com>
+Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
 ---
-v1: https://lkml.org/lkml/2020/11/26/130
+Changes from v1:
+	1. Added the changes to support a618 sku to the series.
+	2. Avoid failing probe in case of an unsupported sku. (Rob)
 
-Changes in v2:
-- patch now compiles (oops)
-- improve commit message
-- add fixes tag
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c      | 34 --------------
+ drivers/gpu/drm/msm/adreno/adreno_device.c |  4 ++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c    | 71 ++++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  5 +++
+ 4 files changed, 80 insertions(+), 34 deletions(-)
 
- drivers/gpu/drm/msm/msm_gem.c | 27 ++++++++++++++++++++++-----
- 1 file changed, 22 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index 15715a156620f..dfe6387c62c86 100644
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -355,18 +355,31 @@ static void del_vma(struct msm_gem_vma *vma)
-
- /* Called with msm_obj locked */
- static void
--put_iova(struct drm_gem_object *obj)
-+put_iova_spaces(struct drm_gem_object *obj)
+diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+index 8fa5c91..7d42321 100644
+--- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+@@ -1531,38 +1531,6 @@ static const struct adreno_gpu_funcs funcs = {
+ 	.get_timestamp = a5xx_get_timestamp,
+ };
+ 
+-static void check_speed_bin(struct device *dev)
+-{
+-	struct nvmem_cell *cell;
+-	u32 val;
+-
+-	/*
+-	 * If the OPP table specifies a opp-supported-hw property then we have
+-	 * to set something with dev_pm_opp_set_supported_hw() or the table
+-	 * doesn't get populated so pick an arbitrary value that should
+-	 * ensure the default frequencies are selected but not conflict with any
+-	 * actual bins
+-	 */
+-	val = 0x80;
+-
+-	cell = nvmem_cell_get(dev, "speed_bin");
+-
+-	if (!IS_ERR(cell)) {
+-		void *buf = nvmem_cell_read(cell, NULL);
+-
+-		if (!IS_ERR(buf)) {
+-			u8 bin = *((u8 *) buf);
+-
+-			val = (1 << bin);
+-			kfree(buf);
+-		}
+-
+-		nvmem_cell_put(cell);
+-	}
+-
+-	dev_pm_opp_set_supported_hw(dev, &val, 1);
+-}
+-
+ struct msm_gpu *a5xx_gpu_init(struct drm_device *dev)
  {
- 	struct msm_gem_object *msm_obj = to_msm_bo(obj);
--	struct msm_gem_vma *vma, *tmp;
-+	struct msm_gem_vma *vma;
-
- 	WARN_ON(!msm_gem_is_locked(obj));
-
--	list_for_each_entry_safe(vma, tmp, &msm_obj->vmas, list) {
-+	list_for_each_entry(vma, &msm_obj->vmas, list) {
- 		if (vma->aspace) {
- 			msm_gem_purge_vma(vma->aspace, vma);
- 			msm_gem_close_vma(vma->aspace, vma);
- 		}
+ 	struct msm_drm_private *priv = dev->dev_private;
+@@ -1588,8 +1556,6 @@ struct msm_gpu *a5xx_gpu_init(struct drm_device *dev)
+ 
+ 	a5xx_gpu->lm_leakage = 0x4E001A;
+ 
+-	check_speed_bin(&pdev->dev);
+-
+ 	ret = adreno_gpu_init(dev, pdev, adreno_gpu, &funcs, 4);
+ 	if (ret) {
+ 		a5xx_destroy(&(a5xx_gpu->base.base));
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index 87c8b03..e0ff16c 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -18,6 +18,8 @@ bool snapshot_debugbus = false;
+ MODULE_PARM_DESC(snapshot_debugbus, "Include debugbus sections in GPU devcoredump (if not fused off)");
+ module_param_named(snapshot_debugbus, snapshot_debugbus, bool, 0600);
+ 
++const u32 a530v2_speedbins[] = {0, 1, 2, 3, 4, 5, 6, 7};
++
+ static const struct adreno_info gpulist[] = {
+ 	{
+ 		.rev   = ADRENO_REV(2, 0, 0, 0),
+@@ -163,6 +165,8 @@ static const struct adreno_info gpulist[] = {
+ 			ADRENO_QUIRK_FAULT_DETECT_MASK,
+ 		.init = a5xx_gpu_init,
+ 		.zapfw = "a530_zap.mdt",
++		.speedbins = a530v2_speedbins,
++		.speedbins_count = ARRAY_SIZE(a530v2_speedbins),
+ 	}, {
+ 		.rev = ADRENO_REV(5, 4, 0, 2),
+ 		.revn = 540,
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index f21561d..b342fa4 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -14,6 +14,7 @@
+ #include <linux/pm_opp.h>
+ #include <linux/slab.h>
+ #include <linux/soc/qcom/mdt_loader.h>
++#include <linux/nvmem-consumer.h>
+ #include <soc/qcom/ocmem.h>
+ #include "adreno_gpu.h"
+ #include "msm_gem.h"
+@@ -891,6 +892,69 @@ void adreno_gpu_ocmem_cleanup(struct adreno_ocmem *adreno_ocmem)
+ 			   adreno_ocmem->hdl);
+ }
+ 
++static int adreno_set_supported_hw(struct device *dev,
++		struct adreno_gpu *adreno_gpu)
++{
++	u8 speedbins_count = adreno_gpu->info->speedbins_count;
++	const u32 *speedbins = adreno_gpu->info->speedbins;
++	struct nvmem_cell *cell;
++	u32 bin, i;
++	u32 val = 0;
++	void *buf, *opp_table;
++
++	cell = nvmem_cell_get(dev, "speed_bin");
++	/*
++	 * -ENOENT means that the platform doesn't support speedbin which is
++	 * fine
++	 */
++	if (PTR_ERR(cell) == -ENOENT)
++		return 0;
++	else if (IS_ERR(cell))
++		return PTR_ERR(cell);
++
++	if (!speedbins)
++		goto done;
++
++	buf = nvmem_cell_read(cell, NULL);
++	if (IS_ERR(buf)) {
++		nvmem_cell_put(cell);
++		return PTR_ERR(buf);
 +	}
++
++	bin = *((u32 *) buf);
++
++	for (i = 0; i < speedbins_count; i++) {
++		if (bin == speedbins[i]) {
++			val = (1 << i);
++			break;
++		}
++	}
++
++	kfree(buf);
++done:
++	nvmem_cell_put(cell);
++
++	if (!val) {
++		DRM_DEV_ERROR(dev,
++				"missing support for speed-bin: %u. Some OPPs may not be supported by hardware",
++				bin);
++		val = ~0U;
++	}
++
++	opp_table = dev_pm_opp_set_supported_hw(dev, &val, 1);
++	if (IS_ERR(opp_table))
++		return PTR_ERR(opp_table);
++
++	adreno_gpu->opp_table = opp_table;
++	return 0;
 +}
 +
-+/* Called with msm_obj locked */
-+static void
-+put_iova_vmas(struct drm_gem_object *obj)
++static void adreno_put_supported_hw(struct opp_table *opp_table)
 +{
-+	struct msm_gem_object *msm_obj = to_msm_bo(obj);
-+	struct msm_gem_vma *vma, *tmp;
++	if (opp_table)
++		dev_pm_opp_put_supported_hw(opp_table);
++}
 +
-+	WARN_ON(!msm_gem_is_locked(obj));
+ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 		struct adreno_gpu *adreno_gpu,
+ 		const struct adreno_gpu_funcs *funcs, int nr_rings)
+@@ -899,6 +963,7 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 	struct adreno_platform_config *config = dev->platform_data;
+ 	struct msm_gpu_config adreno_gpu_config  = { 0 };
+ 	struct msm_gpu *gpu = &adreno_gpu->base;
++	int ret;
+ 
+ 	adreno_gpu->funcs = funcs;
+ 	adreno_gpu->info = adreno_info(config->rev);
+@@ -910,6 +975,10 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 
+ 	adreno_gpu_config.nr_rings = nr_rings;
+ 
++	ret = adreno_set_supported_hw(dev, adreno_gpu);
++	if (ret)
++		return ret;
 +
-+	list_for_each_entry_safe(vma, tmp, &msm_obj->vmas, list) {
- 		del_vma(vma);
- 	}
+ 	adreno_get_pwrlevels(dev, gpu);
+ 
+ 	pm_runtime_set_autosuspend_delay(dev,
+@@ -936,4 +1005,6 @@ void adreno_gpu_cleanup(struct adreno_gpu *adreno_gpu)
+ 
+ 	icc_put(gpu->icc_path);
+ 	icc_put(gpu->ocmem_icc_path);
++
++	adreno_put_supported_hw(adreno_gpu->opp_table);
  }
-@@ -688,12 +701,14 @@ void msm_gem_purge(struct drm_gem_object *obj)
- 	WARN_ON(!is_purgeable(msm_obj));
- 	WARN_ON(obj->import_attach);
-
--	put_iova(obj);
-+	put_iova_spaces(obj);
-
- 	msm_gem_vunmap(obj);
-
- 	put_pages(obj);
-
-+	put_iova_vmas(obj);
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index c3775f7..a756ad7 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -55,6 +55,7 @@ struct adreno_reglist {
+ };
+ 
+ extern const struct adreno_reglist a630_hwcg[], a640_hwcg[], a650_hwcg[];
++extern const u32 a618_speedbins[];
+ 
+ struct adreno_info {
+ 	struct adreno_rev rev;
+@@ -67,6 +68,8 @@ struct adreno_info {
+ 	const char *zapfw;
+ 	u32 inactive_period;
+ 	const struct adreno_reglist *hwcg;
++	const u32 *speedbins;
++	const u8 speedbins_count;
+ };
+ 
+ const struct adreno_info *adreno_info(struct adreno_rev rev);
+@@ -112,6 +115,8 @@ struct adreno_gpu {
+ 	 * code (a3xx_gpu.c) and stored in this common location.
+ 	 */
+ 	const unsigned int *reg_offsets;
 +
- 	msm_obj->madv = __MSM_MADV_PURGED;
-
- 	drm_vma_node_unmap(&obj->vma_node, dev->anon_inode->i_mapping);
-@@ -942,7 +957,7 @@ void msm_gem_free_object(struct drm_gem_object *obj)
-
- 	msm_gem_lock(obj);
-
--	put_iova(obj);
-+	put_iova_spaces(obj);
-
- 	if (obj->import_attach) {
- 		WARN_ON(msm_obj->vaddr);
-@@ -965,6 +980,8 @@ void msm_gem_free_object(struct drm_gem_object *obj)
- 		msm_gem_unlock(obj);
- 	}
-
-+	put_iova_vmas(obj);
-+
- 	drm_gem_object_release(obj);
-
- 	kfree(msm_obj);
-
-base-commit: 6147c83fd749d19a0d3ccc2f64d12138ab010b47
---
-2.29.2
++	struct opp_table *opp_table;
+ };
+ #define to_adreno_gpu(x) container_of(x, struct adreno_gpu, base)
+ 
+-- 
+2.7.4
 
 _______________________________________________
 Freedreno mailing list
