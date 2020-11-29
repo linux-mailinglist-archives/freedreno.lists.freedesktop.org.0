@@ -1,68 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0123A2C6603
-	for <lists+freedreno@lfdr.de>; Fri, 27 Nov 2020 13:51:42 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 629022C7A75
+	for <lists+freedreno@lfdr.de>; Sun, 29 Nov 2020 19:10:51 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BC3E6ED9B;
-	Fri, 27 Nov 2020 12:51:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50D066E226;
+	Sun, 29 Nov 2020 18:10:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 512046ED9B
- for <freedreno@lists.freedesktop.org>; Fri, 27 Nov 2020 12:51:38 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1606481499; h=Content-Transfer-Encoding: Content-Type:
- In-Reply-To: MIME-Version: Date: Message-ID: From: References: To:
- Subject: Sender; bh=WHbaN/YSS58W8h44ACpjS+mxo40IHUsHLFwLcUssmDM=;
- b=ttM3VjXXJN7uKtHr5kpz6Qgdl6LCgRjQ2zcQwsX6UPEYb+SIFNZY/eZZxFeKnnMqISUzCqOO
- dC5xkaZxMmnbFg2nC8UDr+XEawRsw6xKHj/kNw7O3bE/7BkhzeK399zpyXNxHxe88WK2iUkB
- jjQOC1ccsOzA0EBxW7RvlEjyIwo=
-X-Mailgun-Sending-Ip: 69.72.42.4
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n08.prod.us-west-2.postgun.com with SMTP id
- 5fc0f64b0c9500dc7bda1539 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 27 Nov 2020 12:51:23
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 2E42BC433C6; Fri, 27 Nov 2020 12:51:23 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- NICE_REPLY_A,SPF_FAIL,URIBL_BLOCKED autolearn=no autolearn_force=no
- version=3.4.0
-Received: from [192.168.1.9] (unknown [61.2.39.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: akhilpo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 5B610C433ED;
- Fri, 27 Nov 2020 12:51:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 5B610C433ED
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=akhilpo@codeaurora.org
-To: freedreno@lists.freedesktop.org, dri-devel@freedesktop.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- mka@chromium.org, robdclark@gmail.com, dianders@chromium.org
-References: <1605196144-23516-1-git-send-email-akhilpo@codeaurora.org>
- <20201112163527.GC2661@jcrouse1-lnx.qualcomm.com>
- <8c215bdf-b739-4b30-6cb0-fa521fde2784@codeaurora.org>
- <20201116171416.GA16856@jcrouse1-lnx.qualcomm.com>
-From: Akhil P Oommen <akhilpo@codeaurora.org>
-Message-ID: <58b2f84d-e8f6-cc6d-7b5d-77d85e08877c@codeaurora.org>
-Date: Fri, 27 Nov 2020 18:21:16 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
+ [IPv6:2607:f8b0:4864:20::542])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08C896E221;
+ Sun, 29 Nov 2020 18:10:48 +0000 (UTC)
+Received: by mail-pg1-x542.google.com with SMTP id o4so6299525pgj.0;
+ Sun, 29 Nov 2020 10:10:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=EVR6Dei8Bnt3OCxC95LBwIuM/4G2sFcsm8vaAAg9zHw=;
+ b=pLbgtMYF6C4LhXbvtthI4VE4GeH7PSNJTDAReVjFExXzpHh9hosl9/odkNkV8cZcrw
+ h6VVppYcTosIljKdoD3kiKU0YX/qPgzuZfq7ZcDsj8bs7QE1RJngAiyvogjZ3sr7y0yL
+ xgWvv+MEQ/6UQGIrPoFDhBrqwtuGIJ1eAMWkrDMWc61qzy1vuYYyYU5tHe04T3jjSwER
+ kCBH5Ygx0/uKXWSKacL1u32RRU/DL4njb62ZAE7h5iX9tSeCjugKGn0/fsV4B1G89s+a
+ KMd0FnmXwMDszqCCl8iGZXB47Z6SQ6q9unAnX2/vRMolOwnjTD1W8BtTMxwimExAdjIe
+ LawQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=EVR6Dei8Bnt3OCxC95LBwIuM/4G2sFcsm8vaAAg9zHw=;
+ b=lrNmzYKEhVipFD//xuzLOS/BlUT2WpvpUGJemUMY6UJMUg5PKXm+lo1g+npDdE9gVI
+ geStOKZ6WN9CEPuD6Df67LbUrFO//fJI7Byb9Ho0yX6Q5fy2KiVxtItULnYd3TuPbOmP
+ 185xAXcI4atd6Y32YNPVoCiSDBi3Hw6Mt9I0BD8y/fxNKGKOlMm9JETKFq0U8MvmnPL4
+ c7PqVq94FiFVZoq89aVU29WKYZE4n+4z9Hkvsy3fdDNYWVOp5y9LKOrE4o/SdbSK/iK8
+ 788N6zpCyyuDBPJ1sJgwuN2lPFmVWv6DteTCa0gIEpzZFf9j3YgEhtjX/4tVtZCKTDuw
+ MKdg==
+X-Gm-Message-State: AOAM5320laBkFsMEdpWiJC0ZDk0poDStgddYheblNikinVKmk1kEbV3o
+ 2mGqPs36Sq7fyXPhGIxlx2AlWMOAuWM=
+X-Google-Smtp-Source: ABdhPJzn7CuP2SUe4fgH+BNUk3eUTnzgiUKfmd5REq9zmWNXr/V2XilbUSU9UY5tJ6B4x0F0B4Y7rg==
+X-Received: by 2002:a17:90a:5905:: with SMTP id
+ k5mr21915670pji.198.1606673446893; 
+ Sun, 29 Nov 2020 10:10:46 -0800 (PST)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ bf3sm5142567pjb.45.2020.11.29.10.10.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 29 Nov 2020 10:10:45 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Sun, 29 Nov 2020 10:12:40 -0800
+Message-Id: <20201129181243.1091742-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-In-Reply-To: <20201116171416.GA16856@jcrouse1-lnx.qualcomm.com>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH] drm/msm: adreno: Make speed-bin support
- generic
+Subject: [Freedreno] [PATCH] msm/mdp5: Fix some kernel-doc warnings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,263 +66,68 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ Lee Jones <lee.jones@linaro.org>, open list <linux-kernel@vger.kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/16/2020 10:44 PM, Jordan Crouse wrote:
-> On Mon, Nov 16, 2020 at 07:40:03PM +0530, Akhil P Oommen wrote:
->> On 11/12/2020 10:05 PM, Jordan Crouse wrote:
->>> On Thu, Nov 12, 2020 at 09:19:04PM +0530, Akhil P Oommen wrote:
->>>> So far a530v2 gpu has support for detecting its supported opps
->>>> based on a fuse value called speed-bin. This patch makes this
->>>> support generic across gpu families. This is in preparation to
->>>> extend speed-bin support to a6x family.
->>>>
->>>> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
->>>> ---
->>>> This patch is rebased on top of msm-next-staging branch in rob's tree.
->>>>
->>>>   drivers/gpu/drm/msm/adreno/a5xx_gpu.c      | 34 --------------
->>>>   drivers/gpu/drm/msm/adreno/adreno_device.c |  4 ++
->>>>   drivers/gpu/drm/msm/adreno/adreno_gpu.c    | 71 ++++++++++++++++++++++++++++++
->>>>   drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  5 +++
->>>>   4 files changed, 80 insertions(+), 34 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
->>>> index 8fa5c91..7d42321 100644
->>>> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
->>>> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
->>>> @@ -1531,38 +1531,6 @@ static const struct adreno_gpu_funcs funcs = {
->>>>   	.get_timestamp = a5xx_get_timestamp,
->>>>   };
->>>> -static void check_speed_bin(struct device *dev)
->>>> -{
->>>> -	struct nvmem_cell *cell;
->>>> -	u32 val;
->>>> -
->>>> -	/*
->>>> -	 * If the OPP table specifies a opp-supported-hw property then we have
->>>> -	 * to set something with dev_pm_opp_set_supported_hw() or the table
->>>> -	 * doesn't get populated so pick an arbitrary value that should
->>>> -	 * ensure the default frequencies are selected but not conflict with any
->>>> -	 * actual bins
->>>> -	 */
->>>> -	val = 0x80;
->>>> -
->>>> -	cell = nvmem_cell_get(dev, "speed_bin");
->>>> -
->>>> -	if (!IS_ERR(cell)) {
->>>> -		void *buf = nvmem_cell_read(cell, NULL);
->>>> -
->>>> -		if (!IS_ERR(buf)) {
->>>> -			u8 bin = *((u8 *) buf);
->>>> -
->>>> -			val = (1 << bin);
->>>> -			kfree(buf);
->>>> -		}
->>>> -
->>>> -		nvmem_cell_put(cell);
->>>> -	}
->>>> -
->>>> -	dev_pm_opp_set_supported_hw(dev, &val, 1);
->>>> -}
->>>> -
->>>>   struct msm_gpu *a5xx_gpu_init(struct drm_device *dev)
->>>>   {
->>>>   	struct msm_drm_private *priv = dev->dev_private;
->>>> @@ -1588,8 +1556,6 @@ struct msm_gpu *a5xx_gpu_init(struct drm_device *dev)
->>>>   	a5xx_gpu->lm_leakage = 0x4E001A;
->>>> -	check_speed_bin(&pdev->dev);
->>>> -
->>>>   	ret = adreno_gpu_init(dev, pdev, adreno_gpu, &funcs, 4);
->>>>   	if (ret) {
->>>>   		a5xx_destroy(&(a5xx_gpu->base.base));
->>>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
->>>> index 87c8b03..e0ff16c 100644
->>>> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
->>>> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
->>>> @@ -18,6 +18,8 @@ bool snapshot_debugbus = false;
->>>>   MODULE_PARM_DESC(snapshot_debugbus, "Include debugbus sections in GPU devcoredump (if not fused off)");
->>>>   module_param_named(snapshot_debugbus, snapshot_debugbus, bool, 0600);
->>>> +const u32 a530v2_speedbins[] = {0, 1, 2, 3, 4, 5, 6, 7};
->>>> +
->>>>   static const struct adreno_info gpulist[] = {
->>>>   	{
->>>>   		.rev   = ADRENO_REV(2, 0, 0, 0),
->>>> @@ -163,6 +165,8 @@ static const struct adreno_info gpulist[] = {
->>>>   			ADRENO_QUIRK_FAULT_DETECT_MASK,
->>>>   		.init = a5xx_gpu_init,
->>>>   		.zapfw = "a530_zap.mdt",
->>>> +		.speedbins = a530v2_speedbins,
->>>> +		.speedbins_count = ARRAY_SIZE(a530v2_speedbins),
->>>>   	}, {
->>>>   		.rev = ADRENO_REV(5, 4, 0, 2),
->>>>   		.revn = 540,
->>>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
->>>> index f21561d..cdd0c11 100644
->>>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
->>>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
->>>> @@ -14,6 +14,7 @@
->>>>   #include <linux/pm_opp.h>
->>>>   #include <linux/slab.h>
->>>>   #include <linux/soc/qcom/mdt_loader.h>
->>>> +#include <linux/nvmem-consumer.h>
->>>>   #include <soc/qcom/ocmem.h>
->>>>   #include "adreno_gpu.h"
->>>>   #include "msm_gem.h"
->>>> @@ -891,6 +892,69 @@ void adreno_gpu_ocmem_cleanup(struct adreno_ocmem *adreno_ocmem)
->>>>   			   adreno_ocmem->hdl);jjjj
->>>>   }
->>>> +static int adreno_set_supported_hw(struct device *dev,
->>>> +		struct adreno_gpu *adreno_gpu)
->>>> +{
->>>> +	u8 speedbins_count = adreno_gpu->info->speedbins_count;
->>>> +	const u32 *speedbins = adreno_gpu->info->speedbins;
->>>
->>> We don't need to make this generic and put it in the table. Just call the
->>> function from the target specific code and pass the speedbin array and size from
->>> there.
->>>
->> I didn't get you entirely. Do you mean we should avoid keeping speedbin
->> array in the adreno_gpu->info table?
-> 
-> Exactly.
-> 
-> Jordan
-But why duplicate this code if it can be made generic? Could you please 
-check the v2 version?
+From: Rob Clark <robdclark@chromium.org>
 
--Akhil.
-> 
->> -Akhil.
->>>> +	struct nvmem_cell *cell;
->>>> +	u32 bin, i;
->>>> +	u32 val = 0;
->>>> +	void *buf, *opp_table;
->>>> +
->>>> +	cell = nvmem_cell_get(dev, "speed_bin");
->>>> +	/*
->>>> +	 * -ENOENT means that the platform doesn't support speedbin which is
->>>> +	 * fine
->>>> +	 */
->>>> +	if (PTR_ERR(cell) == -ENOENT)
->>>> +		return 0;
->>>> +	else if (IS_ERR(cell))
->>>> +		return PTR_ERR(cell);
->>>> +
->>>> +	/* A speedbin table is must if the platform supports speedbin */
->>>> +	if (!speedbins) {
->>>> +		DRM_DEV_ERROR(dev, "speed-bin table is missing\n");
->>>> +		return -ENOENT;
->>>> +	}
->>>> +
->>>> +	buf = nvmem_cell_read(cell, NULL);
->>>> +	if (IS_ERR(buf)) {
->>>> +		nvmem_cell_put(cell);
->>>> +		return PTR_ERR(buf);
->>>> +	}
->>>> +
->>>> +	bin = *((u32 *) buf);
->>>> +
->>>> +	for (i = 0; i < speedbins_count; i++) {
->>>> +		if (bin == speedbins[i]) {
->>>> +			val = (1 << i);
->>>> +			break;
->>>> +		}
->>>> +	}
->>>> +
->>>> +	kfree(buf);
->>>> +	nvmem_cell_put(cell);
->>>> +
->>>> +	if (!val) {
->>>> +		DRM_DEV_ERROR(dev, "missing support for speed-bin: %u\n", bin);
->>>> +		return -ENOENT;
->>>> +	}
->>>> +
->>>> +	opp_table = dev_pm_opp_set_supported_hw(dev, &val, 1);
->>>> +	if (IS_ERR(opp_table))
->>>> +		return PTR_ERR(opp_table);
->>>> +
->>>> +	adreno_gpu->opp_table = opp_table;
->>>> +	return 0;
->>>> +}
->>>> +
->>>> +static void adreno_put_supported_hw(struct opp_table *opp_table)
->>>> +{
->>>> +	if (opp_table)
->>>> +		dev_pm_opp_put_supported_hw(opp_table);
->>>> +}
->>>> +
->>>>   int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->>>>   		struct adreno_gpu *adreno_gpu,
->>>>   		const struct adreno_gpu_funcs *funcs, int nr_rings)
->>>> @@ -899,6 +963,7 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->>>>   	struct adreno_platform_config *config = dev->platform_data;
->>>>   	struct msm_gpu_config adreno_gpu_config  = { 0 };
->>>>   	struct msm_gpu *gpu = &adreno_gpu->base;
->>>> +	int ret;
->>>>   	adreno_gpu->funcs = funcs;
->>>>   	adreno_gpu->info = adreno_info(config->rev);
->>>> @@ -910,6 +975,10 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->>>>   	adreno_gpu_config.nr_rings = nr_rings;
->>>> +	ret = adreno_set_supported_hw(dev, adreno_gpu);
->>>> +	if (ret)
->>>> +		return ret;
->>>
->>> This bit should be in the target specific code
->>>> +
->>>>   	adreno_get_pwrlevels(dev, gpu);
->>>>   	pm_runtime_set_autosuspend_delay(dev,
->>>> @@ -936,4 +1005,6 @@ void adreno_gpu_cleanup(struct adreno_gpu *adreno_gpu)
->>>>   	icc_put(gpu->icc_path);
->>>>   	icc_put(gpu->ocmem_icc_path);
->>>> +
->>>> +	adreno_put_supported_hw(adreno_gpu->opp_table);
->>>
->>> And this bit too, though it would be easier to just call the put function
->>> directly without having a intermediate function.  Also the OPP function should
->>> be NULL aware but thats a different story.
->>>
->>> Jordan
->>>>   }
->>>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
->>>> index c3775f7..a756ad7 100644
->>>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
->>>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
->>>> @@ -55,6 +55,7 @@ struct adreno_reglist {
->>>>   };
->>>>   extern const struct adreno_reglist a630_hwcg[], a640_hwcg[], a650_hwcg[];
->>>> +extern const u32 a618_speedbins[];
->>>>   struct adreno_info {
->>>>   	struct adreno_rev rev;
->>>> @@ -67,6 +68,8 @@ struct adreno_info {
->>>>   	const char *zapfw;
->>>>   	u32 inactive_period;
->>>>   	const struct adreno_reglist *hwcg;
->>>> +	const u32 *speedbins;
->>>> +	const u8 speedbins_count;
->>>>   };
->>>>   const struct adreno_info *adreno_info(struct adreno_rev rev);
->>>> @@ -112,6 +115,8 @@ struct adreno_gpu {
->>>>   	 * code (a3xx_gpu.c) and stored in this common location.
->>>>   	 */
->>>>   	const unsigned int *reg_offsets;
->>>> +
->>>> +	struct opp_table *opp_table;
->>>>   };
->>>>   #define to_adreno_gpu(x) container_of(x, struct adreno_gpu, base)
->>>> -- 
->>>> 2.7.4
->>>>
->>>
->>
->> _______________________________________________
->> Freedreno mailing list
->> Freedreno@lists.freedesktop.org
->> https://lists.freedesktop.org/mailman/listinfo/freedreno
-> 
+Fixes the following W=1 kernel build warning(s):
+
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c:227: warning: Function parameter or member 'ctl' not described in 'mdp5_ctl_set_encoder_state'
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c:227: warning: Function parameter or member 'pipeline' not described in 'mdp5_ctl_set_encoder_state'
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c:227: warning: Function parameter or member 'enabled' not described in 'mdp5_ctl_set_encoder_state'
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c:227: warning: Excess function parameter 'enable' description in 'mdp5_ctl_set_encoder_state'
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c:529: warning: Function parameter or member 'ctl' not described in 'mdp5_ctl_commit'
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c:529: warning: Function parameter or member 'pipeline' not described in 'mdp5_ctl_commit'
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c:529: warning: Function parameter or member 'flush_mask' not described in 'mdp5_ctl_commit'
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c:529: warning: Function parameter or member 'start' not described in 'mdp5_ctl_commit'
+
+Cc: Lee Jones <lee.jones@linaro.org>
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c
+index 030279d7b64b..81b0c7cf954e 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c
+@@ -216,7 +216,9 @@ static void send_start_signal(struct mdp5_ctl *ctl)
+ /**
+  * mdp5_ctl_set_encoder_state() - set the encoder state
+  *
+- * @enable: true, when encoder is ready for data streaming; false, otherwise.
++ * @ctl:      the CTL instance
++ * @pipeline: the encoder's INTF + MIXER configuration
++ * @enabled:  true, when encoder is ready for data streaming; false, otherwise.
+  *
+  * Note:
+  * This encoder state is needed to trigger START signal (data path kickoff).
+@@ -510,6 +512,13 @@ static void fix_for_single_flush(struct mdp5_ctl *ctl, u32 *flush_mask,
+ /**
+  * mdp5_ctl_commit() - Register Flush
+  *
++ * @ctl:        the CTL instance
++ * @pipeline:   the encoder's INTF + MIXER configuration
++ * @flush_mask: bitmask of display controller hw blocks to flush
++ * @start:      if true, immediately update flush registers and set START
++ *              bit, otherwise accumulate flush_mask bits until we are
++ *              ready to START
++ *
+  * The flush register is used to indicate several registers are all
+  * programmed, and are safe to update to the back copy of the double
+  * buffered registers.
+-- 
+2.28.0
 
 _______________________________________________
 Freedreno mailing list
