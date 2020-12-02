@@ -1,62 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB2C82CB103
-	for <lists+freedreno@lfdr.de>; Wed,  2 Dec 2020 00:44:15 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F8D72CC0D3
+	for <lists+freedreno@lfdr.de>; Wed,  2 Dec 2020 16:30:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B9D66E97B;
-	Tue,  1 Dec 2020 23:44:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF5556EA51;
+	Wed,  2 Dec 2020 15:30:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
- Tue, 01 Dec 2020 23:44:13 UTC
-Received: from a2.mail.mailgun.net (a2.mail.mailgun.net [198.61.254.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5A166E97B
- for <freedreno@lists.freedesktop.org>; Tue,  1 Dec 2020 23:44:13 +0000 (UTC)
+Received: from m42-5.mailgun.net (m42-5.mailgun.net [69.72.42.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C9D36EA4F
+ for <freedreno@lists.freedesktop.org>; Wed,  2 Dec 2020 15:30:24 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1606866253; h=Content-Transfer-Encoding: MIME-Version:
- Message-Id: Date: Subject: Cc: To: From: Sender;
- bh=3rL7U0qdTsIIcXyxf1/RHzP8bXxg6fIWp4fpYRQmTZc=;
- b=ta1JqzHQv2D6n9amubzuxk2hvs514jM1DAJIvx1gBZ/Etn6inGqH1hiVWzFRctDVXTqWHrvG
- OctclIk7lTiLIRuwhe+KpuwK4kgh3A/6nlotdBEePMg3J0Hn/OYfd0DeRGw3uTG0Ed9KQ9J5
- SDuuBoJP1BJUMszWma6aGRuGwJg=
-X-Mailgun-Sending-Ip: 198.61.254.61
+ s=smtp; t=1606923025; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: Cc: References: To:
+ Subject: Sender; bh=5rUeJ6LWlxgf2QHCG6p9Jcm7Xnd4H8U2FkW6B8MHO1E=;
+ b=EWkJCPJFyCS/s+BACZLN38Y/dfxinzQzd6KD7fuzCVrZYgeeOkfwxX0Wspl3c1Tl4WvfXgxN
+ MIm2uJXIgsU680g3q8YHAcOKFS5g03o0dTiTmf+xTTYqRThCUW2iPOkEOb6g7VxO25fj7wa3
+ DocKMObfJRsc82YZZY5qhPHF9+Q=
+X-Mailgun-Sending-Ip: 69.72.42.5
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n08.prod.us-east-1.postgun.com with SMTP id
- 5fc6d417f2eedd90842a7d06 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 01 Dec 2020 23:39:03
+ smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
+ 5fc7b30991ec4b75c2481406 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 02 Dec 2020 15:30:17
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 5EF8EC43461; Tue,  1 Dec 2020 23:39:02 +0000 (UTC)
+ id 915CFC43464; Wed,  2 Dec 2020 15:30:16 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL, 
- URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-Received: from abhinavk-linux.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id E22B6C433C6;
- Tue,  1 Dec 2020 23:39:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org E22B6C433C6
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ NICE_REPLY_A,SPF_FAIL,URIBL_BLOCKED autolearn=no autolearn_force=no
+ version=3.4.0
+Received: from [192.168.1.10] (unknown [117.217.239.80])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 3958DC433ED;
+ Wed,  2 Dec 2020 15:30:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 3958DC433ED
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=abhinavk@codeaurora.org
-From: Abhinav Kumar <abhinavk@codeaurora.org>
-To: dri-devel@lists.freedesktop.org
-Date: Tue,  1 Dec 2020 15:38:55 -0800
-Message-Id: <20201201233855.13624-1-abhinavk@codeaurora.org>
-X-Mailer: git-send-email 2.23.0
+ spf=fail smtp.mailfrom=akhilpo@codeaurora.org
+To: Jordan Crouse <jcrouse@codeaurora.org>
+References: <1606481386-22867-1-git-send-email-akhilpo@codeaurora.org>
+ <20201130170231.GF16856@jcrouse1-lnx.qualcomm.com>
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+Message-ID: <1911b3dc-407d-01a0-e4f2-72c0e331236b@codeaurora.org>
+Date: Wed, 2 Dec 2020 21:00:09 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v2] drm/msm/dpu: update the qos remap only if
- the client type changes
+In-Reply-To: <20201130170231.GF16856@jcrouse1-lnx.qualcomm.com>
+Content-Language: en-US
+Subject: Re: [Freedreno] [PATCH v2 1/3] drm/msm: adreno: Make speed-bin
+ support generic
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,108 +71,261 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
- swboyd@chromium.org, khsieh@codeaurora.org, robdclark@gmail.com,
- nganji@codeaurora.org, seanpaul@chromium.org, tanmay@codeaurora.org,
- aravindh@codeaurora.org, freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: devicetree@vger.kernel.org, robh@kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dianders@chromium.org, robdclark@gmail.com,
+ mka@chromium.org, dri-devel@freedesktop.org, freedreno@lists.freedesktop.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Update the qos remap only if the client type changes for the plane.
-This will avoid unnecessary register programming and also avoid log
-spam from the dpu_vbif_set_qos_remap() function.
+<< Resending since Jordan wasn't in the CC list >>
 
-changes in v2:
- - get rid of the dirty flag and simplify the logic to call
-   _dpu_plane_set_qos_remap()
+On 11/30/2020 10:32 PM, Jordan Crouse wrote:
+> On Fri, Nov 27, 2020 at 06:19:44PM +0530, Akhil P Oommen wrote:
+>> So far a530v2 gpu has support for detecting its supported opps
+>> based on a fuse value called speed-bin. This patch makes this
+>> support generic across gpu families. This is in preparation to
+>> extend speed-bin support to a6x family.
+>>
+>> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+>> ---
+>> Changes from v1:
+>> 	1. Added the changes to support a618 sku to the series.
+>> 	2. Avoid failing probe in case of an unsupported sku. (Rob)
+>>
+>>   drivers/gpu/drm/msm/adreno/a5xx_gpu.c      | 34 --------------
+>>   drivers/gpu/drm/msm/adreno/adreno_device.c |  4 ++
+>>   drivers/gpu/drm/msm/adreno/adreno_gpu.c    | 71 ++++++++++++++++++++++++++++++
+>>   drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  5 +++
+>>   4 files changed, 80 insertions(+), 34 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+>> index 8fa5c91..7d42321 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+>> @@ -1531,38 +1531,6 @@ static const struct adreno_gpu_funcs funcs = {
+>>   	.get_timestamp = a5xx_get_timestamp,
+>>   };
+>>   
+>> -static void check_speed_bin(struct device *dev)
+>> -{
+>> -	struct nvmem_cell *cell;
+>> -	u32 val;
+>> -
+>> -	/*
+>> -	 * If the OPP table specifies a opp-supported-hw property then we have
+>> -	 * to set something with dev_pm_opp_set_supported_hw() or the table
+>> -	 * doesn't get populated so pick an arbitrary value that should
+>> -	 * ensure the default frequencies are selected but not conflict with any
+>> -	 * actual bins
+>> -	 */
+>> -	val = 0x80;
+>> -
+>> -	cell = nvmem_cell_get(dev, "speed_bin");
+>> -
+>> -	if (!IS_ERR(cell)) {
+>> -		void *buf = nvmem_cell_read(cell, NULL);
+>> -
+>> -		if (!IS_ERR(buf)) {
+>> -			u8 bin = *((u8 *) buf);
+>> -
+>> -			val = (1 << bin);
+>> -			kfree(buf);
+>> -		}
+>> -
+>> -		nvmem_cell_put(cell);
+>> -	}
+>> -
+>> -	dev_pm_opp_set_supported_hw(dev, &val, 1);
+>> -}
+>> -
+>>   struct msm_gpu *a5xx_gpu_init(struct drm_device *dev)
+>>   {
+>>   	struct msm_drm_private *priv = dev->dev_private;
+>> @@ -1588,8 +1556,6 @@ struct msm_gpu *a5xx_gpu_init(struct drm_device *dev)
+>>   
+>>   	a5xx_gpu->lm_leakage = 0x4E001A;
+>>   
+>> -	check_speed_bin(&pdev->dev);
+>> -
+>>   	ret = adreno_gpu_init(dev, pdev, adreno_gpu, &funcs, 4);
+>>   	if (ret) {
+>>   		a5xx_destroy(&(a5xx_gpu->base.base));
+>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+>> index 87c8b03..e0ff16c 100644
+>> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
+>> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+>> @@ -18,6 +18,8 @@ bool snapshot_debugbus = false;
+>>   MODULE_PARM_DESC(snapshot_debugbus, "Include debugbus sections in GPU devcoredump (if not fused off)");
+>>   module_param_named(snapshot_debugbus, snapshot_debugbus, bool, 0600);
+>>   
+>> +const u32 a530v2_speedbins[] = {0, 1, 2, 3, 4, 5, 6, 7};
+>> +
+>>   static const struct adreno_info gpulist[] = {
+>>   	{
+>>   		.rev   = ADRENO_REV(2, 0, 0, 0),
+>> @@ -163,6 +165,8 @@ static const struct adreno_info gpulist[] = {
+>>   			ADRENO_QUIRK_FAULT_DETECT_MASK,
+>>   		.init = a5xx_gpu_init,
+>>   		.zapfw = "a530_zap.mdt",
+>> +		.speedbins = a530v2_speedbins,
+>> +		.speedbins_count = ARRAY_SIZE(a530v2_speedbins),
+>>   	}, {
+>>   		.rev = ADRENO_REV(5, 4, 0, 2),
+>>   		.revn = 540,
+>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>> index f21561d..b342fa4 100644
+>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>> @@ -14,6 +14,7 @@
+>>   #include <linux/pm_opp.h>
+>>   #include <linux/slab.h>
+>>   #include <linux/soc/qcom/mdt_loader.h>
+>> +#include <linux/nvmem-consumer.h>
+>>   #include <soc/qcom/ocmem.h>
+>>   #include "adreno_gpu.h"
+>>   #include "msm_gem.h"
+>> @@ -891,6 +892,69 @@ void adreno_gpu_ocmem_cleanup(struct adreno_ocmem *adreno_ocmem)
+>>   			   adreno_ocmem->hdl);
+>>   }
+>>   
+>> +static int adreno_set_supported_hw(struct device *dev,
+>> +		struct adreno_gpu *adreno_gpu)
+>> +{
+>> +	u8 speedbins_count = adreno_gpu->info->speedbins_count;
+>> +	const u32 *speedbins = adreno_gpu->info->speedbins;
+>> +	struct nvmem_cell *cell;
+>> +	u32 bin, i;
+>> +	u32 val = 0;
+>> +	void *buf, *opp_table;
+>> +
+>> +	cell = nvmem_cell_get(dev, "speed_bin");
+>> +	/*
+>> +	 * -ENOENT means that the platform doesn't support speedbin which is
+>> +	 * fine
+>> +	 */
+>> +	if (PTR_ERR(cell) == -ENOENT)
+>> +		return 0;
+>> +	else if (IS_ERR(cell))
+>> +		return PTR_ERR(cell);
+>> +
+>> +	if (!speedbins)
+>> +		goto done;
+>> +
+>> +	buf = nvmem_cell_read(cell, NULL);
+>> +	if (IS_ERR(buf)) {
+>> +		nvmem_cell_put(cell);
+>> +		return PTR_ERR(buf);
+>> +	}
+>> +
+>> +	bin = *((u32 *) buf);
+>> +
+>> +	for (i = 0; i < speedbins_count; i++) {
+>> +		if (bin == speedbins[i]) {
+>> +			val = (1 << i);
+>> +			break;
+>> +		}
+>> +	}
+>> +
+>> +	kfree(buf);
+>> +done:
+>> +	nvmem_cell_put(cell);
+>> +
+>> +	if (!val) {
+>> +		DRM_DEV_ERROR(dev,
+>> +				"missing support for speed-bin: %u. Some OPPs may not be supported by hardware",
+>> +				bin);
+>> +		val = ~0U;
+>> +	}
+>> +
+>> +	opp_table = dev_pm_opp_set_supported_hw(dev, &val, 1);
+>> +	if (IS_ERR(opp_table))
+>> +		return PTR_ERR(opp_table);
+>> +
+>> +	adreno_gpu->opp_table = opp_table;
+>> +	return 0;
+>> +}
+>> +
+>> +static void adreno_put_supported_hw(struct opp_table *opp_table)
+>> +{
+>> +	if (opp_table)
+>> +		dev_pm_opp_put_supported_hw(opp_table);
+>> +}
+>> +
+>>   int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+>>   		struct adreno_gpu *adreno_gpu,
+>>   		const struct adreno_gpu_funcs *funcs, int nr_rings)
+>> @@ -899,6 +963,7 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+>>   	struct adreno_platform_config *config = dev->platform_data;
+>>   	struct msm_gpu_config adreno_gpu_config  = { 0 };
+>>   	struct msm_gpu *gpu = &adreno_gpu->base;
+>> +	int ret;
+>>   
+>>   	adreno_gpu->funcs = funcs;
+>>   	adreno_gpu->info = adreno_info(config->rev);
+>> @@ -910,6 +975,10 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+>>   
+>>   	adreno_gpu_config.nr_rings = nr_rings;
+>>   
+>> +	ret = adreno_set_supported_hw(dev, adreno_gpu);
+>> +	if (ret)
+>> +		return ret;
+>> +
+> 
+> I still don't understand why we are doing this here instead of a5xx_gpu.c and
+> a6xx_gpu.c.
+> 
+> Jordan
 
-Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 17 +++++++++++++++--
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h |  2 ++
- 2 files changed, 17 insertions(+), 2 deletions(-)
+Could you please clarify why you prefer so?
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index 7ea90d25a3b6..8f9e9293969e 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -937,6 +937,7 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
- {
- 	int ret = 0, min_scale;
- 	struct dpu_plane *pdpu = to_dpu_plane(plane);
-+	struct dpu_plane_state *pstate = to_dpu_plane_state(state);
- 	const struct drm_crtc_state *crtc_state = NULL;
- 	const struct dpu_format *fmt;
- 	struct drm_rect src, dst, fb_rect = { 0 };
-@@ -1009,6 +1010,8 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
- 		return -E2BIG;
- 	}
- 
-+	pstate->needs_qos_remap = drm_atomic_crtc_needs_modeset(crtc_state);
-+
- 	return 0;
- }
- 
-@@ -1066,6 +1069,7 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
- 	struct dpu_plane_state *pstate = to_dpu_plane_state(state);
- 	struct drm_crtc *crtc = state->crtc;
- 	struct drm_framebuffer *fb = state->fb;
-+	bool is_rt_pipe, update_qos_remap;
- 	const struct dpu_format *fmt =
- 		to_dpu_format(msm_framebuffer_format(fb));
- 
-@@ -1075,7 +1079,7 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
- 
- 	pstate->pending = true;
- 
--	pdpu->is_rt_pipe = (dpu_crtc_get_client_type(crtc) != NRT_CLIENT);
-+	is_rt_pipe = (dpu_crtc_get_client_type(crtc) != NRT_CLIENT);
- 	_dpu_plane_set_qos_ctrl(plane, false, DPU_PLANE_QOS_PANIC_CTRL);
- 
- 	DPU_DEBUG_PLANE(pdpu, "FB[%u] " DRM_RECT_FP_FMT "->crtc%u " DRM_RECT_FMT
-@@ -1181,7 +1185,16 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
- 		_dpu_plane_set_ot_limit(plane, crtc);
- 	}
- 
--	_dpu_plane_set_qos_remap(plane);
-+	update_qos_remap = (is_rt_pipe != pdpu->is_rt_pipe) ||
-+			pstate->needs_qos_remap;
-+
-+	if (update_qos_remap) {
-+		if (is_rt_pipe != pdpu->is_rt_pipe)
-+			pdpu->is_rt_pipe = is_rt_pipe;
-+		else if (pstate->needs_qos_remap)
-+			pstate->needs_qos_remap = false;
-+		_dpu_plane_set_qos_remap(plane);
-+	}
- 
- 	_dpu_plane_calc_bw(plane, fb);
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-index ca83b8753d59..13a983fa8213 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-@@ -19,6 +19,7 @@
-  * @base:	base drm plane state object
-  * @aspace:	pointer to address space for input/output buffers
-  * @stage:	assigned by crtc blender
-+ * @needs_qos_remap: qos remap settings need to be updated
-  * @multirect_index: index of the rectangle of SSPP
-  * @multirect_mode: parallel or time multiplex multirect mode
-  * @pending:	whether the current update is still pending
-@@ -32,6 +33,7 @@ struct dpu_plane_state {
- 	struct drm_plane_state base;
- 	struct msm_gem_address_space *aspace;
- 	enum dpu_stage stage;
-+	bool needs_qos_remap;
- 	uint32_t multirect_index;
- 	uint32_t multirect_mode;
- 	bool pending;
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+-Akhil
+> 
+>>   	adreno_get_pwrlevels(dev, gpu);
+>>   
+>>   	pm_runtime_set_autosuspend_delay(dev,
+>> @@ -936,4 +1005,6 @@ void adreno_gpu_cleanup(struct adreno_gpu *adreno_gpu)
+>>   
+>>   	icc_put(gpu->icc_path);
+>>   	icc_put(gpu->ocmem_icc_path);
+>> +
+>> +	adreno_put_supported_hw(adreno_gpu->opp_table);
+>>   }
+>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+>> index c3775f7..a756ad7 100644
+>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+>> @@ -55,6 +55,7 @@ struct adreno_reglist {
+>>   };
+>>   
+>>   extern const struct adreno_reglist a630_hwcg[], a640_hwcg[], a650_hwcg[];
+>> +extern const u32 a618_speedbins[];
+>>   
+>>   struct adreno_info {
+>>   	struct adreno_rev rev;
+>> @@ -67,6 +68,8 @@ struct adreno_info {
+>>   	const char *zapfw;
+>>   	u32 inactive_period;
+>>   	const struct adreno_reglist *hwcg;
+>> +	const u32 *speedbins;
+>> +	const u8 speedbins_count;
+>>   };
+>>   
+>>   const struct adreno_info *adreno_info(struct adreno_rev rev);
+>> @@ -112,6 +115,8 @@ struct adreno_gpu {
+>>   	 * code (a3xx_gpu.c) and stored in this common location.
+>>   	 */
+>>   	const unsigned int *reg_offsets;
+>> +
+>> +	struct opp_table *opp_table;
+>>   };
+>>   #define to_adreno_gpu(x) container_of(x, struct adreno_gpu, base)
+>>   
+>> -- 
+>> 2.7.4
+>>
+> 
 
 _______________________________________________
 Freedreno mailing list
