@@ -2,65 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CA432D74F5
-	for <lists+freedreno@lfdr.de>; Fri, 11 Dec 2020 12:55:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78CE92D9784
+	for <lists+freedreno@lfdr.de>; Mon, 14 Dec 2020 12:41:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32BE76EDBF;
-	Fri, 11 Dec 2020 11:55:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36DDA6E1B5;
+	Mon, 14 Dec 2020 11:41:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-15.mailgun.net (m43-15.mailgun.net [69.72.43.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B30E6EDB9
- for <freedreno@lists.freedesktop.org>; Fri, 11 Dec 2020 11:55:39 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1607687739; h=Content-Transfer-Encoding: Content-Type:
- In-Reply-To: MIME-Version: Date: Message-ID: References: Cc: To: From:
- Subject: Sender; bh=LbzVKyGNu6jrpSMBFsyu/k8NnfRGSOIzaxBOw2v4+d4=;
- b=ncC0GLxk+htUvTvHWTTFd11qkagTpejizobOvWOhBaizHClQJzdlBqol8bnuBQCqTUdLjVCm
- nG4xgF93oKeLHF7ddkK8eg+RUeyItfgPoy8FesgehbjvEM68npeZiAMkkJjszc3mp/wCDMzw
- SLMFM+HZ6cp2f034IRkWwNWk7ho=
-X-Mailgun-Sending-Ip: 69.72.43.15
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n09.prod.us-west-2.postgun.com with SMTP id
- 5fd35e3afa3411972b26d509 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 11 Dec 2020 11:55:38
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 51B61C43469; Fri, 11 Dec 2020 11:55:38 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- NICE_REPLY_A,SPF_FAIL,URIBL_BLOCKED autolearn=no autolearn_force=no
- version=3.4.0
-Received: from [192.168.1.3] (unknown [117.210.189.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: akhilpo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 2D217C43462;
- Fri, 11 Dec 2020 11:55:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 2D217C43462
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=akhilpo@codeaurora.org
-From: Akhil P Oommen <akhilpo@codeaurora.org>
-To: freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- Rob Herring <robh@kernel.org>, Jordan Crouse <jcrouse@codeaurora.org>,
- Rob Clark <robdclark@gmail.com>
-References: <1607337728-11398-1-git-send-email-akhilpo@codeaurora.org>
- <1607337728-11398-2-git-send-email-akhilpo@codeaurora.org>
-Message-ID: <ca0f14be-83cd-157c-8773-939fbb63bdf0@codeaurora.org>
-Date: Fri, 11 Dec 2020 17:25:31 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.1
-MIME-Version: 1.0
-In-Reply-To: <1607337728-11398-2-git-send-email-akhilpo@codeaurora.org>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH v3 2/2] arm: dts: sc7180: Add support for
- gpu fuse
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1006E6E1B5;
+ Mon, 14 Dec 2020 11:41:44 +0000 (UTC)
+Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
+ by alexa-out.qualcomm.com with ESMTP; 14 Dec 2020 03:41:43 -0800
+X-QCInternal: smtphost
+Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
+ by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 14 Dec 2020 03:41:41 -0800
+X-QCInternal: smtphost
+Received: from kalyant-linux.qualcomm.com ([10.204.66.210])
+ by ironmsg02-blr.qualcomm.com with ESMTP; 14 Dec 2020 17:11:13 +0530
+Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
+ id 297D23F37; Mon, 14 Dec 2020 03:41:12 -0800 (PST)
+From: Kalyan Thota <kalyan_t@codeaurora.org>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Mon, 14 Dec 2020 03:41:06 -0800
+Message-Id: <1607946066-16276-1-git-send-email-kalyan_t@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [v1] drm/msm/disp/dpu1: turn off vblank irqs
+ aggressively in dpu driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,112 +43,190 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, mka@chromium.org, dri-devel@freedesktop.org,
- linux-kernel@vger.kernel.org, dianders@chromium.org
+Cc: mkrishn@codeaurora.org, dianders@chromium.org, abhinavk@codeaurora.org,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com, seanpaul@chromium.org,
+ Kalyan Thota <kalyan_t@codeaurora.org>, ddavenport@chromium.org,
+ hoegsberg@chromium.org, swboyd@chromium.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 12/7/2020 4:12 PM, Akhil P Oommen wrote:
-> Add support for gpu fuse to help identify the supported opps.
-> 
-> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
-> ---
->   arch/arm64/boot/dts/qcom/sc7180.dtsi | 22 ++++++++++++++++++++++
->   1 file changed, 22 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> index 6678f1e..8cae3eb 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> @@ -675,6 +675,11 @@
->   				reg = <0x25b 0x1>;
->   				bits = <1 3>;
->   			};
-> +
-> +			gpu_speed_bin: gpu_speed_bin@1d2 {
-> +				reg = <0x1d2 0x2>;
-> +				bits = <5 8>;
-> +			};
->   		};
->   
->   		sdhc_1: sdhci@7c4000 {
-> @@ -1907,52 +1912,69 @@
->   			operating-points-v2 = <&gpu_opp_table>;
->   			qcom,gmu = <&gmu>;
->   
-> +			nvmem-cells = <&gpu_speed_bin>;
-> +			nvmem-cell-names = "speed_bin";
-> +
->   			interconnects = <&gem_noc MASTER_GFX3D 0 &mc_virt SLAVE_EBI1 0>;
->   			interconnect-names = "gfx-mem";
->   
->   			gpu_opp_table: opp-table {
->   				compatible = "operating-points-v2";
->   
-> +				opp-825000000 {
-> +					opp-hz = /bits/ 64 <825000000>;
-> +					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
-> +					opp-peak-kBps = <8532000>;
-> +					opp-supported-hw = <0x04>;
-> +				};
-> +
->   				opp-800000000 {
->   					opp-hz = /bits/ 64 <800000000>;
->   					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
->   					opp-peak-kBps = <8532000>;
-> +					opp-supported-hw = <0x07>;
->   				};
->   
->   				opp-650000000 {
->   					opp-hz = /bits/ 64 <650000000>;
->   					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
->   					opp-peak-kBps = <7216000>;
-> +					opp-supported-hw = <0x07>;
->   				};
->   
->   				opp-565000000 {
->   					opp-hz = /bits/ 64 <565000000>;
->   					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
->   					opp-peak-kBps = <5412000>;
-> +					opp-supported-hw = <0x07>;
->   				};
->   
->   				opp-430000000 {
->   					opp-hz = /bits/ 64 <430000000>;
->   					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
->   					opp-peak-kBps = <5412000>;
-> +					opp-supported-hw = <0x07>;
->   				};
->   
->   				opp-355000000 {
->   					opp-hz = /bits/ 64 <355000000>;
->   					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
->   					opp-peak-kBps = <3072000>;
-> +					opp-supported-hw = <0x07>;
->   				};
->   
->   				opp-267000000 {
->   					opp-hz = /bits/ 64 <267000000>;
->   					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
->   					opp-peak-kBps = <3072000>;
-> +					opp-supported-hw = <0x07>;
->   				};
->   
->   				opp-180000000 {
->   					opp-hz = /bits/ 64 <180000000>;
->   					opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
->   					opp-peak-kBps = <1804000>;
-> +					opp-supported-hw = <0x07>;
->   				};
->   			};
->   		};
-> 
+Turn off vblank irqs immediately as soon as drm_vblank_put is
+requested so that there are no irqs triggered during idle state.
 
-A gentle ping.
+This will reduce cpu wakeups and help in power saving. The change
+also enable driver timestamp for vblanks.
 
--Akhil.
+Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 69 +++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 15 +++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  6 +++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |  4 ++
+ 4 files changed, 94 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index d4662e8..a4a5733 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -65,6 +65,73 @@ static void dpu_crtc_destroy(struct drm_crtc *crtc)
+ 	kfree(dpu_crtc);
+ }
+ 
++static struct drm_encoder *get_encoder_from_crtc(struct drm_crtc *crtc)
++{
++	struct drm_device *dev = crtc->dev;
++	struct drm_encoder *encoder;
++
++	drm_for_each_encoder(encoder, dev)
++		if (encoder->crtc == crtc)
++			return encoder;
++
++	return NULL;
++}
++
++static bool dpu_crtc_get_scanout_position(struct drm_crtc *crtc,
++					   bool in_vblank_irq,
++					   int *vpos, int *hpos,
++					   ktime_t *stime, ktime_t *etime,
++					   const struct drm_display_mode *mode)
++{
++	unsigned int pipe = crtc->index;
++	struct drm_encoder *encoder;
++	int line, vsw, vbp, vactive_start, vactive_end, vfp_end;
++
++
++	encoder = get_encoder_from_crtc(crtc);
++	if (!encoder) {
++		DRM_ERROR("no encoder found for crtc %d\n", pipe);
++		return false;
++	}
++
++	vsw = mode->crtc_vsync_end - mode->crtc_vsync_start;
++	vbp = mode->crtc_vtotal - mode->crtc_vsync_end;
++
++	/*
++	 * the line counter is 1 at the start of the VSYNC pulse and VTOTAL at
++	 * the end of VFP. Translate the porch values relative to the line
++	 * counter positions.
++	 */
++
++	vactive_start = vsw + vbp + 1;
++
++	vactive_end = vactive_start + mode->crtc_vdisplay;
++
++	/* last scan line before VSYNC */
++	vfp_end = mode->crtc_vtotal;
++
++	if (stime)
++		*stime = ktime_get();
++
++	line = dpu_encoder_get_linecount(encoder);
++
++	if (line < vactive_start)
++		line -= vactive_start;
++	else if (line > vactive_end)
++		line = line - vfp_end - vactive_start;
++	else
++		line -= vactive_start;
++
++	*vpos = line;
++	*hpos = 0;
++
++	if (etime)
++		*etime = ktime_get();
++
++	return true;
++}
++
++
+ static void _dpu_crtc_setup_blend_cfg(struct dpu_crtc_mixer *mixer,
+ 		struct dpu_plane_state *pstate, struct dpu_format *format)
+ {
+@@ -1243,6 +1310,7 @@ static const struct drm_crtc_funcs dpu_crtc_funcs = {
+ 	.early_unregister = dpu_crtc_early_unregister,
+ 	.enable_vblank  = msm_crtc_enable_vblank,
+ 	.disable_vblank = msm_crtc_disable_vblank,
++	.get_vblank_timestamp = drm_crtc_vblank_helper_get_vblank_timestamp,
+ };
+ 
+ static const struct drm_crtc_helper_funcs dpu_crtc_helper_funcs = {
+@@ -1251,6 +1319,7 @@ static const struct drm_crtc_helper_funcs dpu_crtc_helper_funcs = {
+ 	.atomic_check = dpu_crtc_atomic_check,
+ 	.atomic_begin = dpu_crtc_atomic_begin,
+ 	.atomic_flush = dpu_crtc_atomic_flush,
++	.get_scanout_position = dpu_crtc_get_scanout_position,
+ };
+ 
+ /* initialize crtc */
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index f7f5c25..6c7c7fd 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -425,6 +425,21 @@ int dpu_encoder_helper_unregister_irq(struct dpu_encoder_phys *phys_enc,
+ 	return 0;
+ }
+ 
++int dpu_encoder_get_linecount(struct drm_encoder *drm_enc)
++{
++	struct dpu_encoder_virt *dpu_enc = NULL;
++	struct dpu_encoder_phys *phys = NULL;
++	int linecount = 0;
++
++	dpu_enc = to_dpu_encoder_virt(drm_enc);
++	phys = dpu_enc ? dpu_enc->cur_master : NULL;
++
++	if (phys && phys->ops.get_line_count)
++		linecount = phys->ops.get_line_count(phys);
++
++	return linecount;
++}
++
+ void dpu_encoder_get_hw_resources(struct drm_encoder *drm_enc,
+ 				  struct dpu_encoder_hw_resources *hw_res)
+ {
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+index b491346..2c4804c 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+@@ -156,5 +156,11 @@ void dpu_encoder_prepare_commit(struct drm_encoder *drm_enc);
+  */
+ void dpu_encoder_set_idle_timeout(struct drm_encoder *drm_enc,
+ 							u32 idle_timeout);
++/**
++ * dpu_encoder_get_linecount - get interface line count for the encoder.
++ * @drm_enc:    Pointer to previously created drm encoder structure
++ */
++
++int dpu_encoder_get_linecount(struct drm_encoder *drm_enc);
+ 
+ #endif /* __DPU_ENCODER_H__ */
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 374b0e8..49bd0729 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -14,6 +14,7 @@
+ 
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_file.h>
++#include <drm/drm_vblank.h>
+ 
+ #include "msm_drv.h"
+ #include "msm_mmu.h"
+@@ -1020,6 +1021,9 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+ 	 */
+ 	dev->mode_config.allow_fb_modifiers = true;
+ 
++	/* Disable vblank irqs aggressively for power-saving */
++	dev->vblank_disable_immediate = true;
++
+ 	/*
+ 	 * _dpu_kms_drm_obj_init should create the DRM related objects
+ 	 * i.e. CRTCs, planes, encoders, connectors and so forth
+-- 
+2.7.4
 
 _______________________________________________
 Freedreno mailing list
