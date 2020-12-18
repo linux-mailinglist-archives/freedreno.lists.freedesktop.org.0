@@ -2,36 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5F3A2DE0F5
-	for <lists+freedreno@lfdr.de>; Fri, 18 Dec 2020 11:27:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF0152DE88B
+	for <lists+freedreno@lfdr.de>; Fri, 18 Dec 2020 18:54:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B2726E087;
-	Fri, 18 Dec 2020 10:27:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 813F28928B;
+	Fri, 18 Dec 2020 17:54:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E4746E087;
- Fri, 18 Dec 2020 10:27:40 +0000 (UTC)
-Received: from ironmsg07-lv.qualcomm.com (HELO ironmsg07-lv.qulacomm.com)
- ([10.47.202.151])
- by alexa-out.qualcomm.com with ESMTP; 18 Dec 2020 02:27:40 -0800
-X-QCInternal: smtphost
-Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
- by ironmsg07-lv.qulacomm.com with ESMTP/TLS/AES256-SHA;
- 18 Dec 2020 02:27:38 -0800
-X-QCInternal: smtphost
-Received: from kalyant-linux.qualcomm.com ([10.204.66.210])
- by ironmsg01-blr.qualcomm.com with ESMTP; 18 Dec 2020 15:57:10 +0530
-Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
- id 903563F56; Fri, 18 Dec 2020 02:27:09 -0800 (PST)
-From: Kalyan Thota <kalyan_t@codeaurora.org>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Date: Fri, 18 Dec 2020 02:27:07 -0800
-Message-Id: <1608287227-17685-1-git-send-email-kalyan_t@codeaurora.org>
+Received: from so254-31.mailgun.net (so254-31.mailgun.net [198.61.254.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A9DC892F3
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Dec 2020 17:54:04 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1608314047; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=YYl290DkREy/lRtl2VM9orfBQXbhw1Z4uAXWYwa7zm0=;
+ b=OADjz2OCcAvwPqucuRLnG9QC+TsdLnTXZ9mz3N9tyP6w2XjWUTkMQ4rkXqum2jyKqshvKRwv
+ 4k62OxfP31MFdjkZo1Zu2OB5GIW3akPAhxDNbJM2MqY4+HU9oZlpGfQp45hlZCCa0wIxYYs8
+ rA2MXKT9nC62O+nqrjtA20qHbn8=
+X-Mailgun-Sending-Ip: 198.61.254.31
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n09.prod.us-east-1.postgun.com with SMTP id
+ 5fdcecb50564dfefcd272daf (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 18 Dec 2020 17:53:57
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id C01C5C43464; Fri, 18 Dec 2020 17:53:56 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 5B805C433CA;
+ Fri, 18 Dec 2020 17:53:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 5B805C433CA
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=khsieh@codeaurora.org
+From: Kuogee Hsieh <khsieh@codeaurora.org>
+To: robdclark@gmail.com,
+	sean@poorly.run,
+	swboyd@chromium.org
+Date: Fri, 18 Dec 2020 09:53:40 -0800
+Message-Id: <1608314020-26791-1-git-send-email-khsieh@codeaurora.org>
 X-Mailer: git-send-email 2.7.4
-Subject: [Freedreno] [v2] drm/msm/disp/dpu1: turn off vblank irqs
- aggressively in dpu driver
+Subject: [Freedreno] [PATCH] drm/msm/dp: postpone irq_hpd event during
+ connection pending state
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,282 +67,74 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: mkrishn@codeaurora.org, dianders@chromium.org, abhinavk@codeaurora.org,
- linux-kernel@vger.kernel.org, robdclark@gmail.com, seanpaul@chromium.org,
- Kalyan Thota <kalyan_t@codeaurora.org>, ddavenport@chromium.org,
- hoegsberg@chromium.org, swboyd@chromium.org
+Cc: rnayak@codeaurora.org, airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ abhinavk@codeaurora.org, khsieh@codeaurora.org, tanmay@codeaurora.org,
+ daniel@ffwll.ch, aravindh@codeaurora.org, freedreno@lists.freedesktop.org
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Set the flag vblank_disable_immediate = true to turn off vblank irqs
-immediately as soon as drm_vblank_put is requested so that there are
-no irqs triggered during idle state. This will reduce cpu wakeups
-and help in power saving.
+irq_hpd event can only be executed at connected state. Therefore
+irq_hpd event should be postponed if it happened at connection
+pending state. This patch also make sure both link rate and lane
+are valid before start link training.
 
-To enable vblank_disable_immediate flag the underlying KMS driver
-needs to support high precision vblank timestamping and also a
-reliable way of providing vblank counter which is incrementing
-at the leading edge of vblank.
-
-This patch also brings in changes to support vblank_disable_immediate
-requirement in dpu driver.
-
-Changes in v1:
- - Specify reason to add vblank timestamp support. (Rob)
- - Add changes to provide vblank counter from dpu driver.
-
-Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
+Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           | 80 ++++++++++++++++++++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        | 30 ++++++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h        | 11 +++
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h   |  1 +
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   | 17 +++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  5 ++
- 6 files changed, 144 insertions(+)
+ drivers/gpu/drm/msm/dp/dp_display.c |  7 +++++++
+ drivers/gpu/drm/msm/dp/dp_panel.c   | 12 +++++++++---
+ 2 files changed, 16 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index d4662e8..9a80981 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -65,6 +65,83 @@ static void dpu_crtc_destroy(struct drm_crtc *crtc)
- 	kfree(dpu_crtc);
- }
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 6e971d5..3bc7ed2 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -693,6 +693,13 @@ static int dp_irq_hpd_handle(struct dp_display_private *dp, u32 data)
+ 		return 0;
+ 	}
  
-+static struct drm_encoder *get_encoder_from_crtc(struct drm_crtc *crtc)
-+{
-+	struct drm_device *dev = crtc->dev;
-+	struct drm_encoder *encoder;
-+
-+	drm_for_each_encoder(encoder, dev)
-+		if (encoder->crtc == crtc)
-+			return encoder;
-+
-+	return NULL;
-+}
-+
-+static u32 dpu_crtc_get_vblank_counter(struct drm_crtc *crtc)
-+{
-+	struct drm_encoder *encoder;
-+
-+	encoder = get_encoder_from_crtc(crtc);
-+	if (!encoder) {
-+		DRM_ERROR("no encoder found for crtc %d\n", crtc->index);
-+		return false;
++	if (state == ST_CONNECT_PENDING) {
++		/* wait until ST_CONNECTED */
++		dp_add_event(dp, EV_IRQ_HPD_INT, 0, 1); /* delay = 1 */
++		mutex_unlock(&dp->event_mutex);
++		return 0;
 +	}
 +
-+	return dpu_encoder_get_frame_count(encoder);
-+}
-+
-+static bool dpu_crtc_get_scanout_position(struct drm_crtc *crtc,
-+					   bool in_vblank_irq,
-+					   int *vpos, int *hpos,
-+					   ktime_t *stime, ktime_t *etime,
-+					   const struct drm_display_mode *mode)
-+{
-+	unsigned int pipe = crtc->index;
-+	struct drm_encoder *encoder;
-+	int line, vsw, vbp, vactive_start, vactive_end, vfp_end;
-+
-+	encoder = get_encoder_from_crtc(crtc);
-+	if (!encoder) {
-+		DRM_ERROR("no encoder found for crtc %d\n", pipe);
-+		return false;
+ 	ret = dp_display_usbpd_attention_cb(&dp->pdev->dev);
+ 	if (ret == -ECONNRESET) { /* cable unplugged */
+ 		dp->core_initialized = false;
+diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+index 97dca3e..d1780bc 100644
+--- a/drivers/gpu/drm/msm/dp/dp_panel.c
++++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+@@ -167,12 +167,18 @@ int dp_panel_read_sink_caps(struct dp_panel *dp_panel,
+ 	panel = container_of(dp_panel, struct dp_panel_private, dp_panel);
+ 
+ 	rc = dp_panel_read_dpcd(dp_panel);
++	if (rc) {
++		DRM_ERROR("read dpcd failed %d\n", rc);
++		return rc;
 +	}
 +
-+	vsw = mode->crtc_vsync_end - mode->crtc_vsync_start;
-+	vbp = mode->crtc_vtotal - mode->crtc_vsync_end;
-+
-+	/*
-+	 * the line counter is 1 at the start of the VSYNC pulse and VTOTAL at
-+	 * the end of VFP. Translate the porch values relative to the line
-+	 * counter positions.
-+	 */
-+
-+	vactive_start = vsw + vbp + 1;
-+	vactive_end = vactive_start + mode->crtc_vdisplay;
-+
-+	/* last scan line before VSYNC */
-+	vfp_end = mode->crtc_vtotal;
-+
-+	if (stime)
-+		*stime = ktime_get();
-+
-+	line = dpu_encoder_get_linecount(encoder);
-+
-+	if (line < vactive_start)
-+		line -= vactive_start;
-+	else if (line > vactive_end)
-+		line = line - vfp_end - vactive_start;
-+	else
-+		line -= vactive_start;
-+
-+	*vpos = line;
-+	*hpos = 0;
-+
-+	if (etime)
-+		*etime = ktime_get();
-+
-+	return true;
-+}
-+
- static void _dpu_crtc_setup_blend_cfg(struct dpu_crtc_mixer *mixer,
- 		struct dpu_plane_state *pstate, struct dpu_format *format)
- {
-@@ -1243,6 +1320,8 @@ static const struct drm_crtc_funcs dpu_crtc_funcs = {
- 	.early_unregister = dpu_crtc_early_unregister,
- 	.enable_vblank  = msm_crtc_enable_vblank,
- 	.disable_vblank = msm_crtc_disable_vblank,
-+	.get_vblank_timestamp = drm_crtc_vblank_helper_get_vblank_timestamp,
-+	.get_vblank_counter = dpu_crtc_get_vblank_counter,
- };
- 
- static const struct drm_crtc_helper_funcs dpu_crtc_helper_funcs = {
-@@ -1251,6 +1330,7 @@ static const struct drm_crtc_helper_funcs dpu_crtc_helper_funcs = {
- 	.atomic_check = dpu_crtc_atomic_check,
- 	.atomic_begin = dpu_crtc_atomic_begin,
- 	.atomic_flush = dpu_crtc_atomic_flush,
-+	.get_scanout_position = dpu_crtc_get_scanout_position,
- };
- 
- /* initialize crtc */
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index f7f5c25..5cd3f31 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -425,6 +425,36 @@ int dpu_encoder_helper_unregister_irq(struct dpu_encoder_phys *phys_enc,
- 	return 0;
- }
- 
-+int dpu_encoder_get_frame_count(struct drm_encoder *drm_enc)
-+{
-+	struct dpu_encoder_virt *dpu_enc;
-+	struct dpu_encoder_phys *phys;
-+	int framecount = 0;
-+
-+	dpu_enc = to_dpu_encoder_virt(drm_enc);
-+	phys = dpu_enc ? dpu_enc->cur_master : NULL;
-+
-+	if (phys && phys->ops.get_frame_count)
-+		framecount = phys->ops.get_frame_count(phys);
-+
-+	return framecount;
-+}
-+
-+int dpu_encoder_get_linecount(struct drm_encoder *drm_enc)
-+{
-+	struct dpu_encoder_virt *dpu_enc;
-+	struct dpu_encoder_phys *phys;
-+	int linecount = 0;
-+
-+	dpu_enc = to_dpu_encoder_virt(drm_enc);
-+	phys = dpu_enc ? dpu_enc->cur_master : NULL;
-+
-+	if (phys && phys->ops.get_line_count)
-+		linecount = phys->ops.get_line_count(phys);
-+
-+	return linecount;
-+}
-+
- void dpu_encoder_get_hw_resources(struct drm_encoder *drm_enc,
- 				  struct dpu_encoder_hw_resources *hw_res)
- {
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-index b491346..99a5d73 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-@@ -156,5 +156,16 @@ void dpu_encoder_prepare_commit(struct drm_encoder *drm_enc);
-  */
- void dpu_encoder_set_idle_timeout(struct drm_encoder *drm_enc,
- 							u32 idle_timeout);
-+/**
-+ * dpu_encoder_get_linecount - get interface line count for the encoder.
-+ * @drm_enc:    Pointer to previously created drm encoder structure
-+ */
-+int dpu_encoder_get_linecount(struct drm_encoder *drm_enc);
-+
-+/**
-+ * dpu_encoder_get_frame_count - get interface frame count for the encoder.
-+ * @drm_enc:    Pointer to previously created drm encoder structure
-+ */
-+int dpu_encoder_get_frame_count(struct drm_encoder *drm_enc);
- 
- #endif /* __DPU_ENCODER_H__ */
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-index f8f2515..ecbc4be 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-@@ -143,6 +143,7 @@ struct dpu_encoder_phys_ops {
- 	void (*prepare_idle_pc)(struct dpu_encoder_phys *phys_enc);
- 	void (*restore)(struct dpu_encoder_phys *phys);
- 	int (*get_line_count)(struct dpu_encoder_phys *phys);
-+	int (*get_frame_count)(struct dpu_encoder_phys *phys);
- };
- 
- /**
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-index 9a69fad..f983595 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-@@ -658,6 +658,22 @@ static int dpu_encoder_phys_vid_get_line_count(
- 	return phys_enc->hw_intf->ops.get_line_count(phys_enc->hw_intf);
- }
- 
-+static int dpu_encoder_phys_vid_get_frame_count(
-+		struct dpu_encoder_phys *phys_enc)
-+{
-+	struct intf_status s = {0};
-+
-+	if (!dpu_encoder_phys_vid_is_master(phys_enc))
+ 	bw_code = drm_dp_link_rate_to_bw_code(dp_panel->link_info.rate);
+-	if (rc || !is_link_rate_valid(bw_code) ||
++	if (!is_link_rate_valid(bw_code) ||
+ 			!is_lane_count_valid(dp_panel->link_info.num_lanes) ||
+ 			(bw_code > dp_panel->max_bw_code)) {
+-		DRM_ERROR("read dpcd failed %d\n", rc);
+-		return rc;
++		DRM_ERROR("Illegal link rate=%d lane=%d\n", dp_panel->link_info.rate,
++				dp_panel->link_info.num_lanes);
 +		return -EINVAL;
-+
-+	if (!phys_enc->hw_intf || !phys_enc->hw_intf->ops.get_status)
-+		return -EINVAL;
-+
-+	phys_enc->hw_intf->ops.get_status(phys_enc->hw_intf, &s);
-+
-+	return s.frame_count;
-+}
-+
- static void dpu_encoder_phys_vid_init_ops(struct dpu_encoder_phys_ops *ops)
- {
- 	ops->is_master = dpu_encoder_phys_vid_is_master;
-@@ -676,6 +692,7 @@ static void dpu_encoder_phys_vid_init_ops(struct dpu_encoder_phys_ops *ops)
- 	ops->handle_post_kickoff = dpu_encoder_phys_vid_handle_post_kickoff;
- 	ops->needs_single_flush = dpu_encoder_phys_vid_needs_single_flush;
- 	ops->get_line_count = dpu_encoder_phys_vid_get_line_count;
-+	ops->get_frame_count = dpu_encoder_phys_vid_get_frame_count;
- }
+ 	}
  
- struct dpu_encoder_phys *dpu_encoder_phys_vid_init(
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 374b0e8..764a773 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -14,6 +14,7 @@
- 
- #include <drm/drm_crtc.h>
- #include <drm/drm_file.h>
-+#include <drm/drm_vblank.h>
- 
- #include "msm_drv.h"
- #include "msm_mmu.h"
-@@ -1020,6 +1021,10 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
- 	 */
- 	dev->mode_config.allow_fb_modifiers = true;
- 
-+	dev->max_vblank_count = 0;
-+	/* Disable vblank irqs aggressively for power-saving */
-+	dev->vblank_disable_immediate = true;
-+
- 	/*
- 	 * _dpu_kms_drm_obj_init should create the DRM related objects
- 	 * i.e. CRTCs, planes, encoders, connectors and so forth
+ 	if (dp_panel->dfp_present) {
 -- 
-2.7.4
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
 _______________________________________________
 Freedreno mailing list
