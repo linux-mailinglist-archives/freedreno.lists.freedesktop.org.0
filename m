@@ -2,57 +2,41 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7588B2E0F1E
-	for <lists+freedreno@lfdr.de>; Tue, 22 Dec 2020 20:54:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33CF92E11A3
+	for <lists+freedreno@lfdr.de>; Wed, 23 Dec 2020 03:16:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 340B489ED3;
-	Tue, 22 Dec 2020 19:54:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 229AF6E88A;
+	Wed, 23 Dec 2020 02:16:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-15.mailgun.net (m43-15.mailgun.net [69.72.43.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B5126E270
- for <freedreno@lists.freedesktop.org>; Tue, 22 Dec 2020 19:54:33 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1608666873; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=V8JRmC+JTwqXprUHV8OtTLYn1V/i01VrBgl64H9grZ4=;
- b=dvmKq9YO2h08RPtPw8Zi/yS5gjDIpzwfh1cJ1iVQjRtJq5PifhQuIrotqrYwCDOoyQ9nBdyO
- 8cquQ+ttTzVwoFrV/iby4mc+SCJaJY1nW93FDVsY84F8V4gtyoo8A6AQnnqnb512v/7WEbCX
- hoxSyFwR+jg+HHuvmKHISov+FZA=
-X-Mailgun-Sending-Ip: 69.72.43.15
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
- 5fe24ef8da47198188ed48de (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 22 Dec 2020 19:54:32
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 42255C43462; Tue, 22 Dec 2020 19:54:32 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: isaacm)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id D42DFC433C6;
- Tue, 22 Dec 2020 19:54:29 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 772F56E884;
+ Wed, 23 Dec 2020 02:16:46 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5F4C4225AC;
+ Wed, 23 Dec 2020 02:16:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1608689806;
+ bh=v0oZvUtokxvo39/NdM+fLn468wX5yHrFHPEcQw3Zl2U=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=oxNQ7v1YSxh1C1Jh/fDOPHOJUvil3tGgR7nc8laYELaI+3yY+cRYd291AqkmHfadB
+ DgkviNIBpq8AqNTdH9ottx56C7AkXSJv135oE7YyDDCrr7I2lB1KXLBcyzSPBgFlF1
+ mSoVntPEqx9w4NgXaml/kxhB/QQtmLHtjFZHw6a2qy3OvtGi7CJzNNUR9fpwwLf+rR
+ eikQdptedpKYHiCTmg6qq9r+jhP2AWHAhh8wot51AC2j+X47g5kmghPLTKq28Z7t6z
+ 1O+NFsEI4FOmGLpA2WIoiUrXEMqN20gJsnpMPQSPskBLzqINrDAiV6bd/B3UjOv3Dl
+ PT9ZlJSE3C5QA==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Tue, 22 Dec 2020 21:13:04 -0500
+Message-Id: <20201223021626.2790791-15-sashal@kernel.org>
+X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20201223021626.2790791-1-sashal@kernel.org>
+References: <20201223021626.2790791-1-sashal@kernel.org>
 MIME-Version: 1.0
-Date: Tue, 22 Dec 2020 11:54:29 -0800
-From: isaacm@codeaurora.org
-To: Robin Murphy <robin.murphy@arm.com>
-In-Reply-To: <4f388512-c3df-e9fc-ebd4-624ab36a6858@arm.com>
-References: <1608597876-32367-1-git-send-email-isaacm@codeaurora.org>
- <1608597876-32367-2-git-send-email-isaacm@codeaurora.org>
- <4f388512-c3df-e9fc-ebd4-624ab36a6858@arm.com>
-Message-ID: <8b48b371811a170053e2ca810ab63abf@codeaurora.org>
-X-Sender: isaacm@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH v2 1/7] iommu/io-pgtable: Introduce dynamic
- io-pgtable fmt registration
+X-stable: review
+X-Patchwork-Hint: Ignore
+Subject: [Freedreno] [PATCH AUTOSEL 5.10 015/217] drm/msm: Fix race
+ condition in msm driver with async layer updates
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,452 +49,177 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel-team@android.com, will@kernel.org, pdaly@codeaurora.org,
- linux-arm-msm@vger.kernel.org, joro@8bytes.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- pratikp@codeaurora.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ Krishna Manikandan <mkrishn@codeaurora.org>, Sasha Levin <sashal@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2020-12-22 11:27, Robin Murphy wrote:
-> On 2020-12-22 00:44, Isaac J. Manjarres wrote:
->> The io-pgtable code constructs an array of init functions for each
->> page table format at compile time. This is not ideal, as this
->> increases the footprint of the io-pgtable code, as well as prevents
->> io-pgtable formats from being built as kernel modules.
->> 
->> In preparation for modularizing the io-pgtable formats, switch to a
->> dynamic registration scheme, where each io-pgtable format can register
->> their init functions with the io-pgtable code at boot or module
->> insertion time.
->> 
->> Signed-off-by: Isaac J. Manjarres <isaacm@codeaurora.org>
->> ---
->>   drivers/iommu/io-pgtable-arm-v7s.c | 34 +++++++++++++-
->>   drivers/iommu/io-pgtable-arm.c     | 90 
->> ++++++++++++++++++++++++++----------
->>   drivers/iommu/io-pgtable.c         | 94 
->> ++++++++++++++++++++++++++++++++------
->>   include/linux/io-pgtable.h         | 51 +++++++++++++--------
->>   4 files changed, 209 insertions(+), 60 deletions(-)
->> 
->> diff --git a/drivers/iommu/io-pgtable-arm-v7s.c 
->> b/drivers/iommu/io-pgtable-arm-v7s.c
->> index 1d92ac9..89aad2f 100644
->> --- a/drivers/iommu/io-pgtable-arm-v7s.c
->> +++ b/drivers/iommu/io-pgtable-arm-v7s.c
->> @@ -28,6 +28,7 @@
->>   #include <linux/iommu.h>
->>   #include <linux/kernel.h>
->>   #include <linux/kmemleak.h>
->> +#include <linux/module.h>
->>   #include <linux/sizes.h>
->>   #include <linux/slab.h>
->>   #include <linux/spinlock.h>
->> @@ -835,7 +836,8 @@ static struct io_pgtable 
->> *arm_v7s_alloc_pgtable(struct io_pgtable_cfg *cfg,
->>   	return NULL;
->>   }
->>   -struct io_pgtable_init_fns io_pgtable_arm_v7s_init_fns = {
->> +static struct io_pgtable_init_fns io_pgtable_arm_v7s_init_fns = {
->> +	.fmt	= ARM_V7S,
->>   	.alloc	= arm_v7s_alloc_pgtable,
->>   	.free	= arm_v7s_free_pgtable,
->>   };
->> @@ -982,5 +984,33 @@ static int __init arm_v7s_do_selftests(void)
->>   	pr_info("self test ok\n");
->>   	return 0;
->>   }
->> -subsys_initcall(arm_v7s_do_selftests);
->> +#else
->> +static int arm_v7s_do_selftests(void)
->> +{
->> +	return 0;
->> +}
->>   #endif
->> +
->> +static int __init arm_v7s_init(void)
->> +{
->> +	int ret;
->> +
->> +	ret = io_pgtable_ops_register(&io_pgtable_arm_v7s_init_fns);
->> +	if (ret < 0) {
->> +		pr_err("Failed to register ARM V7S format\n");
-> 
-> Super-nit: I think "v7s" should probably be lowercase there. Also
-> general consistency WRT to showing the error code and whether or not
-> to abbreviate "format" would be nice.
-> 
-Ok, I can fix this accordingly.
+From: Krishna Manikandan <mkrishn@codeaurora.org>
 
->> +		return ret;
->> +	}
->> +
->> +	ret = arm_v7s_do_selftests();
->> +	if (ret < 0)
->> +		io_pgtable_ops_unregister(&io_pgtable_arm_v7s_init_fns);
->> +
->> +	return ret;
->> +}
->> +core_initcall(arm_v7s_init);
->> +
->> +static void __exit arm_v7s_exit(void)
->> +{
->> +	io_pgtable_ops_unregister(&io_pgtable_arm_v7s_init_fns);
->> +}
->> +module_exit(arm_v7s_exit);
->> diff --git a/drivers/iommu/io-pgtable-arm.c 
->> b/drivers/iommu/io-pgtable-arm.c
->> index 87def58..ff0ea2f 100644
->> --- a/drivers/iommu/io-pgtable-arm.c
->> +++ b/drivers/iommu/io-pgtable-arm.c
->> @@ -13,6 +13,7 @@
->>   #include <linux/bitops.h>
->>   #include <linux/io-pgtable.h>
->>   #include <linux/kernel.h>
->> +#include <linux/module.h>
->>   #include <linux/sizes.h>
->>   #include <linux/slab.h>
->>   #include <linux/types.h>
->> @@ -1043,29 +1044,32 @@ arm_mali_lpae_alloc_pgtable(struct 
->> io_pgtable_cfg *cfg, void *cookie)
->>   	return NULL;
->>   }
->>   -struct io_pgtable_init_fns io_pgtable_arm_64_lpae_s1_init_fns = {
->> -	.alloc	= arm_64_lpae_alloc_pgtable_s1,
->> -	.free	= arm_lpae_free_pgtable,
->> -};
->> -
->> -struct io_pgtable_init_fns io_pgtable_arm_64_lpae_s2_init_fns = {
->> -	.alloc	= arm_64_lpae_alloc_pgtable_s2,
->> -	.free	= arm_lpae_free_pgtable,
->> -};
->> -
->> -struct io_pgtable_init_fns io_pgtable_arm_32_lpae_s1_init_fns = {
->> -	.alloc	= arm_32_lpae_alloc_pgtable_s1,
->> -	.free	= arm_lpae_free_pgtable,
->> -};
->> -
->> -struct io_pgtable_init_fns io_pgtable_arm_32_lpae_s2_init_fns = {
->> -	.alloc	= arm_32_lpae_alloc_pgtable_s2,
->> -	.free	= arm_lpae_free_pgtable,
->> -};
->> -
->> -struct io_pgtable_init_fns io_pgtable_arm_mali_lpae_init_fns = {
->> -	.alloc	= arm_mali_lpae_alloc_pgtable,
->> -	.free	= arm_lpae_free_pgtable,
->> +static struct io_pgtable_init_fns io_pgtable_arm_lpae_init_fns[] = {
->> +	{
->> +		.fmt	= ARM_32_LPAE_S1,
->> +		.alloc	= arm_32_lpae_alloc_pgtable_s1,
->> +		.free	= arm_lpae_free_pgtable,
->> +	},
->> +	{
->> +		.fmt	= ARM_32_LPAE_S2,
->> +		.alloc	= arm_32_lpae_alloc_pgtable_s2,
->> +		.free	= arm_lpae_free_pgtable,
->> +	},
->> +	{
->> +		.fmt	= ARM_64_LPAE_S1,
->> +		.alloc	= arm_64_lpae_alloc_pgtable_s1,
->> +		.free	= arm_lpae_free_pgtable,
->> +	},
->> +	{
->> +		.fmt	= ARM_64_LPAE_S2,
->> +		.alloc	= arm_64_lpae_alloc_pgtable_s2,
->> +		.free	= arm_lpae_free_pgtable,
->> +	},
->> +	{
->> +		.fmt	= ARM_MALI_LPAE,
->> +		.alloc	= arm_mali_lpae_alloc_pgtable,
->> +		.free	= arm_lpae_free_pgtable,
->> +	},
->>   };
->>     #ifdef CONFIG_IOMMU_IO_PGTABLE_LPAE_SELFTEST
->> @@ -1250,5 +1254,43 @@ static int __init arm_lpae_do_selftests(void)
->>   	pr_info("selftest: completed with %d PASS %d FAIL\n", pass, fail);
->>   	return fail ? -EFAULT : 0;
->>   }
->> -subsys_initcall(arm_lpae_do_selftests);
->> +#else
->> +static int __init arm_lpae_do_selftests(void)
->> +{
->> +	return 0;
->> +}
->>   #endif
->> +
->> +static int __init arm_lpae_init(void)
->> +{
->> +	int ret, i;
->> +
->> +	for (i = 0; i < ARRAY_SIZE(io_pgtable_arm_lpae_init_fns); i++) {
->> +		ret = io_pgtable_ops_register(&io_pgtable_arm_lpae_init_fns[i]);
->> +		if (ret < 0) {
->> +			pr_err("Failed to register ARM LPAE fmt: %d\n");
->> +			goto err_io_pgtable_register;
->> +		}
->> +	}
->> +
->> +	ret = arm_lpae_do_selftests();
->> +	if (ret < 0)
->> +		goto err_io_pgtable_register;
->> +
->> +	return 0;
->> +
->> +err_io_pgtable_register:
->> +	for (i = i - 1; i >= 0; i--)
-> 
-> Personally I find "while (i--)" a bit clearer for this kind of
-> unwinding, but maybe post-decrement isn't to everyone's taste.
-> 
-I'm not particularly attached to the current approach, so a while loop
-is okay with me :).
+[ Upstream commit b3d91800d9ac35014e0349292273a6fa7938d402 ]
 
->> +		io_pgtable_ops_unregister(&io_pgtable_arm_lpae_init_fns[i]);
->> +	return ret;
->> +}
->> +core_initcall(arm_lpae_init);
->> +
->> +static void __exit arm_lpae_exit(void)
->> +{
->> +	int i;
->> +
->> +	for (i = 0; i < ARRAY_SIZE(io_pgtable_arm_lpae_init_fns); i++)
->> +		io_pgtable_ops_unregister(&io_pgtable_arm_lpae_init_fns[i]);
->> +}
->> +module_exit(arm_lpae_exit);
->> diff --git a/drivers/iommu/io-pgtable.c b/drivers/iommu/io-pgtable.c
->> index 94394c8..2c6eb2e 100644
->> --- a/drivers/iommu/io-pgtable.c
->> +++ b/drivers/iommu/io-pgtable.c
->> @@ -10,33 +10,45 @@
->>   #include <linux/bug.h>
->>   #include <linux/io-pgtable.h>
->>   #include <linux/kernel.h>
->> +#include <linux/rwlock.h>
->> +#include <linux/slab.h>
->>   #include <linux/types.h>
->>   -static const struct io_pgtable_init_fns *
->> -io_pgtable_init_table[IO_PGTABLE_NUM_FMTS] = {
->> -#ifdef CONFIG_IOMMU_IO_PGTABLE_LPAE
->> -	[ARM_32_LPAE_S1] = &io_pgtable_arm_32_lpae_s1_init_fns,
->> -	[ARM_32_LPAE_S2] = &io_pgtable_arm_32_lpae_s2_init_fns,
->> -	[ARM_64_LPAE_S1] = &io_pgtable_arm_64_lpae_s1_init_fns,
->> -	[ARM_64_LPAE_S2] = &io_pgtable_arm_64_lpae_s2_init_fns,
->> -	[ARM_MALI_LPAE] = &io_pgtable_arm_mali_lpae_init_fns,
->> -#endif
->> -#ifdef CONFIG_IOMMU_IO_PGTABLE_ARMV7S
->> -	[ARM_V7S] = &io_pgtable_arm_v7s_init_fns,
->> -#endif
->> +struct io_pgtable_init_fns_node {
->> +	struct io_pgtable_init_fns *fns;
->> +	struct list_head list;
->>   };
->>   +static LIST_HEAD(io_pgtable_init_fns_list);
->> +static DEFINE_RWLOCK(io_pgtable_init_fns_list_lock);
->> +
->> +static struct io_pgtable_init_fns *io_pgtable_get_init_fns(enum 
->> io_pgtable_fmt fmt)
->> +{
->> +	struct io_pgtable_init_fns_node *iter;
->> +	struct io_pgtable_init_fns *fns = NULL;
->> +
->> +	read_lock(&io_pgtable_init_fns_list_lock);
->> +	list_for_each_entry(iter, &io_pgtable_init_fns_list, list)
->> +		if (iter->fns->fmt == fmt) {
->> +			fns = iter->fns;
->> +			break;
->> +		}
->> +	read_unlock(&io_pgtable_init_fns_list_lock);
->> +
->> +	return fns;
->> +}
-> 
-> I think it would be a lot easier to stick with a simple array indexed
-> by enum - that way you can just set/clear/test entries without needing
-> to worry about locking. Basically just remove the const and the
-> initialisers from the existing one ;)
-> 
-> (and if you think you're concerned about memory, consider that just
-> the list head plus lock is already half the size of the table)
-> 
-> Other than that, I think this all looks pretty promising - I'd suggest
-> sending a non-RFC after rc1 so that it gets everyone's proper
-> attention.
-> 
-> Thanks,
-> Robin.
-> 
+When there are back to back commits with async cursor update,
+there is a case where second commit can program the DPU hw
+blocks while first didn't complete flushing config to HW.
 
-Thanks for all of the feedback! With respect to the comment about 
-keeping the current array,
-don't we need some sort of lock to protect access to the data structure 
-(e.g. concurrent access
-if adding two ops for the same format)? Or do you mean that we should 
-use atomic operations to
-handle this cleanly?
+Synchronize the compositions such that second commit waits
+until first commit flushes the composition.
 
-Thanks,
-Isaac
->> +
->>   struct io_pgtable_ops *alloc_io_pgtable_ops(enum io_pgtable_fmt fmt,
->>   					    struct io_pgtable_cfg *cfg,
->>   					    void *cookie)
->>   {
->>   	struct io_pgtable *iop;
->> -	const struct io_pgtable_init_fns *fns;
->> +	struct io_pgtable_init_fns *fns;
->>     	if (fmt >= IO_PGTABLE_NUM_FMTS)
->>   		return NULL;
->>   -	fns = io_pgtable_init_table[fmt];
->> +	fns = io_pgtable_get_init_fns(fmt);
->>   	if (!fns)
->>   		return NULL;
->>   @@ -59,12 +71,64 @@ EXPORT_SYMBOL_GPL(alloc_io_pgtable_ops);
->>   void free_io_pgtable_ops(struct io_pgtable_ops *ops)
->>   {
->>   	struct io_pgtable *iop;
->> +	struct io_pgtable_init_fns *fns;
->>     	if (!ops)
->>   		return;
->>     	iop = io_pgtable_ops_to_pgtable(ops);
->>   	io_pgtable_tlb_flush_all(iop);
->> -	io_pgtable_init_table[iop->fmt]->free(iop);
->> +	fns = io_pgtable_get_init_fns(iop->fmt);
->> +	if (fns)
->> +		fns->free(iop);
->>   }
->>   EXPORT_SYMBOL_GPL(free_io_pgtable_ops);
->> +
->> +int io_pgtable_ops_register(struct io_pgtable_init_fns *init_fns)
->> +{
->> +	struct io_pgtable_init_fns_node *iter, *fns_node;
->> +	int ret = 0;
->> +
->> +	if (!init_fns || init_fns->fmt >= IO_PGTABLE_NUM_FMTS ||
->> +	    !init_fns->alloc || !init_fns->free)
->> +		return -EINVAL;
->> +
->> +	fns_node = kzalloc(sizeof(*fns_node), GFP_KERNEL);
->> +	if (!fns_node)
->> +		return -ENOMEM;
->> +
->> +	write_lock(&io_pgtable_init_fns_list_lock);
->> +	list_for_each_entry(iter, &io_pgtable_init_fns_list, list)
->> +		if (iter->fns->fmt == init_fns->fmt) {
->> +			ret = -EEXIST;
->> +			kfree(fns_node);
->> +			break;
->> +		}
->> +
->> +	if (!ret) {
->> +		fns_node->fns = init_fns;
->> +		INIT_LIST_HEAD(&fns_node->list);
->> +		list_add_tail(&fns_node->list, &io_pgtable_init_fns_list);
->> +	}
->> +	write_unlock(&io_pgtable_init_fns_list_lock);
->> +	return ret;
->> +}
->> +EXPORT_SYMBOL_GPL(io_pgtable_ops_register);
->> +
->> +void io_pgtable_ops_unregister(struct io_pgtable_init_fns *init_fns)
->> +{
->> +	struct io_pgtable_init_fns_node *iter, *tmp;
->> +
->> +	if (!init_fns)
->> +		return;
->> +
->> +	write_lock(&io_pgtable_init_fns_list_lock);
->> +	list_for_each_entry_safe(iter, tmp, &io_pgtable_init_fns_list, list)
->> +		if (iter->fns == init_fns) {
->> +			list_del(&iter->list);
->> +			kfree(iter);
->> +			break;
->> +		}
->> +	write_unlock(&io_pgtable_init_fns_list_lock);
->> +}
->> +EXPORT_SYMBOL_GPL(io_pgtable_ops_unregister);
->> diff --git a/include/linux/io-pgtable.h b/include/linux/io-pgtable.h
->> index ea727eb..45b367ce 100644
->> --- a/include/linux/io-pgtable.h
->> +++ b/include/linux/io-pgtable.h
->> @@ -163,6 +163,38 @@ struct io_pgtable_ops {
->>   };
->>     /**
->> + * struct io_pgtable_init_fns - Alloc/free a set of page tables for a
->> + *                              particular format.
->> + *
->> + * @fmt:   The page table format.
->> + * @alloc: Allocate a set of page tables described by cfg.
->> + * @free:  Free the page tables associated with iop.
->> + */
->> +struct io_pgtable_init_fns {
->> +	enum io_pgtable_fmt fmt;
->> +	struct io_pgtable *(*alloc)(struct io_pgtable_cfg *cfg, void 
->> *cookie);
->> +	void (*free)(struct io_pgtable *iop);
->> +};
->> +
->> +/**
->> + * io_pgtable_ops_register() - Register the page table routines for a 
->> page table
->> + *                             format.
->> + *
->> + * @init_fns: The functions for allocating and freeing the page 
->> tables of
->> + *            a particular format.
->> + */
->> +int io_pgtable_ops_register(struct io_pgtable_init_fns *init_fns);
->> +
->> +/**
->> + * io_pgtable_ops_unregister() - Unregister the page table routines 
->> for a page
->> + *                               table format.
->> + *
->> + * @init_fns: The functions for allocating and freeing the page 
->> tables of
->> + *            a particular format.
->> + */
->> +void io_pgtable_ops_unregister(struct io_pgtable_init_fns *init_fns);
->> +
->> +/**
->>    * alloc_io_pgtable_ops() - Allocate a page table allocator for use 
->> by an IOMMU.
->>    *
->>    * @fmt:    The page table format.
->> @@ -233,23 +265,4 @@ io_pgtable_tlb_add_page(struct io_pgtable *iop,
->>   		iop->cfg.tlb->tlb_add_page(gather, iova, granule, iop->cookie);
->>   }
->>   -/**
->> - * struct io_pgtable_init_fns - Alloc/free a set of page tables for a
->> - *                              particular format.
->> - *
->> - * @alloc: Allocate a set of page tables described by cfg.
->> - * @free:  Free the page tables associated with iop.
->> - */
->> -struct io_pgtable_init_fns {
->> -	struct io_pgtable *(*alloc)(struct io_pgtable_cfg *cfg, void 
->> *cookie);
->> -	void (*free)(struct io_pgtable *iop);
->> -};
->> -
->> -extern struct io_pgtable_init_fns io_pgtable_arm_32_lpae_s1_init_fns;
->> -extern struct io_pgtable_init_fns io_pgtable_arm_32_lpae_s2_init_fns;
->> -extern struct io_pgtable_init_fns io_pgtable_arm_64_lpae_s1_init_fns;
->> -extern struct io_pgtable_init_fns io_pgtable_arm_64_lpae_s2_init_fns;
->> -extern struct io_pgtable_init_fns io_pgtable_arm_v7s_init_fns;
->> -extern struct io_pgtable_init_fns io_pgtable_arm_mali_lpae_init_fns;
->> -
->>   #endif /* __IO_PGTABLE_H */
->> 
-> 
-> _______________________________________________
-> linux-arm-kernel mailing list
-> linux-arm-kernel@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
+This change also introduces per crtc commit lock, such that
+commits on different crtcs are not blocked by each other.
+
+Changes in v2:
+	- Use an array of mutexes in kms to handle commit
+	  lock per crtc. (Rob Clark)
+
+Changes in v3:
+	- Add wrapper functions to handle lock and unlock of
+	  commit_lock for each crtc. (Rob Clark)
+
+Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
+Reviewed-by: Rob Clark <robdclark@gmail.com>
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/msm/msm_atomic.c | 37 +++++++++++++++++++++-----------
+ drivers/gpu/drm/msm/msm_kms.h    |  6 ++++--
+ 2 files changed, 28 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
+index 561bfa48841c3..575e9af9b6fc9 100644
+--- a/drivers/gpu/drm/msm/msm_atomic.c
++++ b/drivers/gpu/drm/msm/msm_atomic.c
+@@ -55,16 +55,32 @@ static void vblank_put(struct msm_kms *kms, unsigned crtc_mask)
+ 	}
+ }
+ 
++static void lock_crtcs(struct msm_kms *kms, unsigned int crtc_mask)
++{
++	struct drm_crtc *crtc;
++
++	for_each_crtc_mask(kms->dev, crtc, crtc_mask)
++		mutex_lock(&kms->commit_lock[drm_crtc_index(crtc)]);
++}
++
++static void unlock_crtcs(struct msm_kms *kms, unsigned int crtc_mask)
++{
++	struct drm_crtc *crtc;
++
++	for_each_crtc_mask(kms->dev, crtc, crtc_mask)
++		mutex_unlock(&kms->commit_lock[drm_crtc_index(crtc)]);
++}
++
+ static void msm_atomic_async_commit(struct msm_kms *kms, int crtc_idx)
+ {
+ 	unsigned crtc_mask = BIT(crtc_idx);
+ 
+ 	trace_msm_atomic_async_commit_start(crtc_mask);
+ 
+-	mutex_lock(&kms->commit_lock);
++	lock_crtcs(kms, crtc_mask);
+ 
+ 	if (!(kms->pending_crtc_mask & crtc_mask)) {
+-		mutex_unlock(&kms->commit_lock);
++		unlock_crtcs(kms, crtc_mask);
+ 		goto out;
+ 	}
+ 
+@@ -79,7 +95,6 @@ static void msm_atomic_async_commit(struct msm_kms *kms, int crtc_idx)
+ 	 */
+ 	trace_msm_atomic_flush_commit(crtc_mask);
+ 	kms->funcs->flush_commit(kms, crtc_mask);
+-	mutex_unlock(&kms->commit_lock);
+ 
+ 	/*
+ 	 * Wait for flush to complete:
+@@ -90,9 +105,8 @@ static void msm_atomic_async_commit(struct msm_kms *kms, int crtc_idx)
+ 
+ 	vblank_put(kms, crtc_mask);
+ 
+-	mutex_lock(&kms->commit_lock);
+ 	kms->funcs->complete_commit(kms, crtc_mask);
+-	mutex_unlock(&kms->commit_lock);
++	unlock_crtcs(kms, crtc_mask);
+ 	kms->funcs->disable_commit(kms);
+ 
+ out:
+@@ -189,12 +203,11 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
+ 	 * Ensure any previous (potentially async) commit has
+ 	 * completed:
+ 	 */
++	lock_crtcs(kms, crtc_mask);
+ 	trace_msm_atomic_wait_flush_start(crtc_mask);
+ 	kms->funcs->wait_flush(kms, crtc_mask);
+ 	trace_msm_atomic_wait_flush_finish(crtc_mask);
+ 
+-	mutex_lock(&kms->commit_lock);
+-
+ 	/*
+ 	 * Now that there is no in-progress flush, prepare the
+ 	 * current update:
+@@ -232,8 +245,7 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
+ 		}
+ 
+ 		kms->funcs->disable_commit(kms);
+-		mutex_unlock(&kms->commit_lock);
+-
++		unlock_crtcs(kms, crtc_mask);
+ 		/*
+ 		 * At this point, from drm core's perspective, we
+ 		 * are done with the atomic update, so we can just
+@@ -260,8 +272,7 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
+ 	 */
+ 	trace_msm_atomic_flush_commit(crtc_mask);
+ 	kms->funcs->flush_commit(kms, crtc_mask);
+-	mutex_unlock(&kms->commit_lock);
+-
++	unlock_crtcs(kms, crtc_mask);
+ 	/*
+ 	 * Wait for flush to complete:
+ 	 */
+@@ -271,9 +282,9 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
+ 
+ 	vblank_put(kms, crtc_mask);
+ 
+-	mutex_lock(&kms->commit_lock);
++	lock_crtcs(kms, crtc_mask);
+ 	kms->funcs->complete_commit(kms, crtc_mask);
+-	mutex_unlock(&kms->commit_lock);
++	unlock_crtcs(kms, crtc_mask);
+ 	kms->funcs->disable_commit(kms);
+ 
+ 	drm_atomic_helper_commit_hw_done(state);
+diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
+index 1cbef6b200b70..2049847b66428 100644
+--- a/drivers/gpu/drm/msm/msm_kms.h
++++ b/drivers/gpu/drm/msm/msm_kms.h
+@@ -155,7 +155,7 @@ struct msm_kms {
+ 	 * For async commit, where ->flush_commit() and later happens
+ 	 * from the crtc's pending_timer close to end of the frame:
+ 	 */
+-	struct mutex commit_lock;
++	struct mutex commit_lock[MAX_CRTCS];
+ 	unsigned pending_crtc_mask;
+ 	struct msm_pending_timer pending_timers[MAX_CRTCS];
+ };
+@@ -165,7 +165,9 @@ static inline void msm_kms_init(struct msm_kms *kms,
+ {
+ 	unsigned i;
+ 
+-	mutex_init(&kms->commit_lock);
++	for (i = 0; i < ARRAY_SIZE(kms->commit_lock); i++)
++		mutex_init(&kms->commit_lock[i]);
++
+ 	kms->funcs = funcs;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(kms->pending_timers); i++)
+-- 
+2.27.0
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
