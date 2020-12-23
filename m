@@ -1,42 +1,42 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33CF92E11A3
-	for <lists+freedreno@lfdr.de>; Wed, 23 Dec 2020 03:16:50 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 892A82E11DD
+	for <lists+freedreno@lfdr.de>; Wed, 23 Dec 2020 03:18:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 229AF6E88A;
-	Wed, 23 Dec 2020 02:16:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 370CD6E8AF;
+	Wed, 23 Dec 2020 02:18:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 772F56E884;
- Wed, 23 Dec 2020 02:16:46 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5F4C4225AC;
- Wed, 23 Dec 2020 02:16:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E13686E8B1;
+ Wed, 23 Dec 2020 02:18:22 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id CF66022D73;
+ Wed, 23 Dec 2020 02:18:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1608689806;
+ s=k20201202; t=1608689902;
  bh=v0oZvUtokxvo39/NdM+fLn468wX5yHrFHPEcQw3Zl2U=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=oxNQ7v1YSxh1C1Jh/fDOPHOJUvil3tGgR7nc8laYELaI+3yY+cRYd291AqkmHfadB
- DgkviNIBpq8AqNTdH9ottx56C7AkXSJv135oE7YyDDCrr7I2lB1KXLBcyzSPBgFlF1
- mSoVntPEqx9w4NgXaml/kxhB/QQtmLHtjFZHw6a2qy3OvtGi7CJzNNUR9fpwwLf+rR
- eikQdptedpKYHiCTmg6qq9r+jhP2AWHAhh8wot51AC2j+X47g5kmghPLTKq28Z7t6z
- 1O+NFsEI4FOmGLpA2WIoiUrXEMqN20gJsnpMPQSPskBLzqINrDAiV6bd/B3UjOv3Dl
- PT9ZlJSE3C5QA==
+ b=ERMGB+INolDH0LFM6an/mDK7Qc2PnpkcEYUzHJY79GUWN/BX/ofcuQOPSmlnItunH
+ Pa5PeOWgvqWLoRBMurNv15VQV7uKy4P1e8h+7nGVPZWUjnKBfJG3OuxKrsLZg3J8i7
+ ZNW80s6wlAJUGp7m/3QPI5B57FDR4QnMnCYpi0u7F7fGPfxMAGU2ewyCQsr/H/yklk
+ w4ckRUt/DFba+7w0QNg/mE59Jz1iFQD1Vqz2+JQpEg+NLOSlpkPD6GgONMPetdTw13
+ +eqKlSDAF4efgKx7L0d3jroAG1PvxlPeLsogrrUFJ7nhSSpE1GFUOl9pjzpK9n2aoo
+ 6MVOXOH5Q3kgA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Tue, 22 Dec 2020 21:13:04 -0500
-Message-Id: <20201223021626.2790791-15-sashal@kernel.org>
+Date: Tue, 22 Dec 2020 21:16:10 -0500
+Message-Id: <20201223021813.2791612-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20201223021626.2790791-1-sashal@kernel.org>
-References: <20201223021626.2790791-1-sashal@kernel.org>
+In-Reply-To: <20201223021813.2791612-1-sashal@kernel.org>
+References: <20201223021813.2791612-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Subject: [Freedreno] [PATCH AUTOSEL 5.10 015/217] drm/msm: Fix race
- condition in msm driver with async layer updates
+Subject: [Freedreno] [PATCH AUTOSEL 5.4 007/130] drm/msm: Fix race condition
+ in msm driver with async layer updates
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
