@@ -1,42 +1,38 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 892A82E11DD
-	for <lists+freedreno@lfdr.de>; Wed, 23 Dec 2020 03:18:25 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4678A2E1C75
+	for <lists+freedreno@lfdr.de>; Wed, 23 Dec 2020 14:05:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 370CD6E8AF;
-	Wed, 23 Dec 2020 02:18:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F10336E0A0;
+	Wed, 23 Dec 2020 13:05:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E13686E8B1;
- Wed, 23 Dec 2020 02:18:22 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id CF66022D73;
- Wed, 23 Dec 2020 02:18:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1608689902;
- bh=v0oZvUtokxvo39/NdM+fLn468wX5yHrFHPEcQw3Zl2U=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ERMGB+INolDH0LFM6an/mDK7Qc2PnpkcEYUzHJY79GUWN/BX/ofcuQOPSmlnItunH
- Pa5PeOWgvqWLoRBMurNv15VQV7uKy4P1e8h+7nGVPZWUjnKBfJG3OuxKrsLZg3J8i7
- ZNW80s6wlAJUGp7m/3QPI5B57FDR4QnMnCYpi0u7F7fGPfxMAGU2ewyCQsr/H/yklk
- w4ckRUt/DFba+7w0QNg/mE59Jz1iFQD1Vqz2+JQpEg+NLOSlpkPD6GgONMPetdTw13
- +eqKlSDAF4efgKx7L0d3jroAG1PvxlPeLsogrrUFJ7nhSSpE1GFUOl9pjzpK9n2aoo
- 6MVOXOH5Q3kgA==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Tue, 22 Dec 2020 21:16:10 -0500
-Message-Id: <20201223021813.2791612-7-sashal@kernel.org>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20201223021813.2791612-1-sashal@kernel.org>
-References: <20201223021813.2791612-1-sashal@kernel.org>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1956C6E0A0;
+ Wed, 23 Dec 2020 13:05:31 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5D5B330E;
+ Wed, 23 Dec 2020 05:05:30 -0800 (PST)
+Received: from [10.57.34.90] (unknown [10.57.34.90])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7B1333F66E;
+ Wed, 23 Dec 2020 05:05:28 -0800 (PST)
+To: isaacm@codeaurora.org
+References: <1608597876-32367-1-git-send-email-isaacm@codeaurora.org>
+ <1608597876-32367-4-git-send-email-isaacm@codeaurora.org>
+ <3b0c191d-3fd0-73db-c1e3-4a80aa7953d7@arm.com>
+ <e47f14b81d90772346ef28c9a7fd3365@codeaurora.org>
+From: Robin Murphy <robin.murphy@arm.com>
+Message-ID: <b86f5972-2e9c-20bd-eee3-ee3ea53d5fe6@arm.com>
+Date: Wed, 23 Dec 2020 13:05:25 +0000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Subject: [Freedreno] [PATCH AUTOSEL 5.4 007/130] drm/msm: Fix race condition
- in msm driver with async layer updates
+In-Reply-To: <e47f14b81d90772346ef28c9a7fd3365@codeaurora.org>
+Content-Language: en-GB
+Subject: Re: [Freedreno] [PATCH v2 3/7] iommu/arm-smmu: Add dependency on
+ io-pgtable format modules
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,178 +45,58 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Krishna Manikandan <mkrishn@codeaurora.org>, Sasha Levin <sashal@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: kernel-team@android.com, will@kernel.org, pdaly@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, joro@8bytes.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ pratikp@codeaurora.org
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Krishna Manikandan <mkrishn@codeaurora.org>
-
-[ Upstream commit b3d91800d9ac35014e0349292273a6fa7938d402 ]
-
-When there are back to back commits with async cursor update,
-there is a case where second commit can program the DPU hw
-blocks while first didn't complete flushing config to HW.
-
-Synchronize the compositions such that second commit waits
-until first commit flushes the composition.
-
-This change also introduces per crtc commit lock, such that
-commits on different crtcs are not blocked by each other.
-
-Changes in v2:
-	- Use an array of mutexes in kms to handle commit
-	  lock per crtc. (Rob Clark)
-
-Changes in v3:
-	- Add wrapper functions to handle lock and unlock of
-	  commit_lock for each crtc. (Rob Clark)
-
-Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
-Reviewed-by: Rob Clark <robdclark@gmail.com>
-Signed-off-by: Rob Clark <robdclark@chromium.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/msm/msm_atomic.c | 37 +++++++++++++++++++++-----------
- drivers/gpu/drm/msm/msm_kms.h    |  6 ++++--
- 2 files changed, 28 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
-index 561bfa48841c3..575e9af9b6fc9 100644
---- a/drivers/gpu/drm/msm/msm_atomic.c
-+++ b/drivers/gpu/drm/msm/msm_atomic.c
-@@ -55,16 +55,32 @@ static void vblank_put(struct msm_kms *kms, unsigned crtc_mask)
- 	}
- }
- 
-+static void lock_crtcs(struct msm_kms *kms, unsigned int crtc_mask)
-+{
-+	struct drm_crtc *crtc;
-+
-+	for_each_crtc_mask(kms->dev, crtc, crtc_mask)
-+		mutex_lock(&kms->commit_lock[drm_crtc_index(crtc)]);
-+}
-+
-+static void unlock_crtcs(struct msm_kms *kms, unsigned int crtc_mask)
-+{
-+	struct drm_crtc *crtc;
-+
-+	for_each_crtc_mask(kms->dev, crtc, crtc_mask)
-+		mutex_unlock(&kms->commit_lock[drm_crtc_index(crtc)]);
-+}
-+
- static void msm_atomic_async_commit(struct msm_kms *kms, int crtc_idx)
- {
- 	unsigned crtc_mask = BIT(crtc_idx);
- 
- 	trace_msm_atomic_async_commit_start(crtc_mask);
- 
--	mutex_lock(&kms->commit_lock);
-+	lock_crtcs(kms, crtc_mask);
- 
- 	if (!(kms->pending_crtc_mask & crtc_mask)) {
--		mutex_unlock(&kms->commit_lock);
-+		unlock_crtcs(kms, crtc_mask);
- 		goto out;
- 	}
- 
-@@ -79,7 +95,6 @@ static void msm_atomic_async_commit(struct msm_kms *kms, int crtc_idx)
- 	 */
- 	trace_msm_atomic_flush_commit(crtc_mask);
- 	kms->funcs->flush_commit(kms, crtc_mask);
--	mutex_unlock(&kms->commit_lock);
- 
- 	/*
- 	 * Wait for flush to complete:
-@@ -90,9 +105,8 @@ static void msm_atomic_async_commit(struct msm_kms *kms, int crtc_idx)
- 
- 	vblank_put(kms, crtc_mask);
- 
--	mutex_lock(&kms->commit_lock);
- 	kms->funcs->complete_commit(kms, crtc_mask);
--	mutex_unlock(&kms->commit_lock);
-+	unlock_crtcs(kms, crtc_mask);
- 	kms->funcs->disable_commit(kms);
- 
- out:
-@@ -189,12 +203,11 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
- 	 * Ensure any previous (potentially async) commit has
- 	 * completed:
- 	 */
-+	lock_crtcs(kms, crtc_mask);
- 	trace_msm_atomic_wait_flush_start(crtc_mask);
- 	kms->funcs->wait_flush(kms, crtc_mask);
- 	trace_msm_atomic_wait_flush_finish(crtc_mask);
- 
--	mutex_lock(&kms->commit_lock);
--
- 	/*
- 	 * Now that there is no in-progress flush, prepare the
- 	 * current update:
-@@ -232,8 +245,7 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
- 		}
- 
- 		kms->funcs->disable_commit(kms);
--		mutex_unlock(&kms->commit_lock);
--
-+		unlock_crtcs(kms, crtc_mask);
- 		/*
- 		 * At this point, from drm core's perspective, we
- 		 * are done with the atomic update, so we can just
-@@ -260,8 +272,7 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
- 	 */
- 	trace_msm_atomic_flush_commit(crtc_mask);
- 	kms->funcs->flush_commit(kms, crtc_mask);
--	mutex_unlock(&kms->commit_lock);
--
-+	unlock_crtcs(kms, crtc_mask);
- 	/*
- 	 * Wait for flush to complete:
- 	 */
-@@ -271,9 +282,9 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
- 
- 	vblank_put(kms, crtc_mask);
- 
--	mutex_lock(&kms->commit_lock);
-+	lock_crtcs(kms, crtc_mask);
- 	kms->funcs->complete_commit(kms, crtc_mask);
--	mutex_unlock(&kms->commit_lock);
-+	unlock_crtcs(kms, crtc_mask);
- 	kms->funcs->disable_commit(kms);
- 
- 	drm_atomic_helper_commit_hw_done(state);
-diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
-index 1cbef6b200b70..2049847b66428 100644
---- a/drivers/gpu/drm/msm/msm_kms.h
-+++ b/drivers/gpu/drm/msm/msm_kms.h
-@@ -155,7 +155,7 @@ struct msm_kms {
- 	 * For async commit, where ->flush_commit() and later happens
- 	 * from the crtc's pending_timer close to end of the frame:
- 	 */
--	struct mutex commit_lock;
-+	struct mutex commit_lock[MAX_CRTCS];
- 	unsigned pending_crtc_mask;
- 	struct msm_pending_timer pending_timers[MAX_CRTCS];
- };
-@@ -165,7 +165,9 @@ static inline void msm_kms_init(struct msm_kms *kms,
- {
- 	unsigned i;
- 
--	mutex_init(&kms->commit_lock);
-+	for (i = 0; i < ARRAY_SIZE(kms->commit_lock); i++)
-+		mutex_init(&kms->commit_lock[i]);
-+
- 	kms->funcs = funcs;
- 
- 	for (i = 0; i < ARRAY_SIZE(kms->pending_timers); i++)
--- 
-2.27.0
-
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+T24gMjAyMC0xMi0yMiAxOTo0OSwgaXNhYWNtQGNvZGVhdXJvcmEub3JnIHdyb3RlOgo+IE9uIDIw
+MjAtMTItMjIgMTE6MjcsIFJvYmluIE11cnBoeSB3cm90ZToKPj4gT24gMjAyMC0xMi0yMiAwMDo0
+NCwgSXNhYWMgSi4gTWFuamFycmVzIHdyb3RlOgo+Pj4gVGhlIFNNTVUgZHJpdmVyIGRlcGVuZHMg
+b24gdGhlIGF2YWlsYWJpbGl0eSBvZiB0aGUgQVJNIExQQUUgYW5kCj4+PiBBUk0gVjdTIGlvLXBn
+dGFibGUgZm9ybWF0IGNvZGUgdG8gd29yayBwcm9wZXJseS4gSW4gcHJlcGFyYXRpb24KPj4KPj4g
+Tml0OiB3ZSBkb24ndCByZWFsbHkgZGVwZW5kIG9uIHY3cyAtIHdlICpjYW4qIHVzZSBpdCBpZiBp
+dCdzCj4+IGF2YWlsYWJsZSwgYWRkcmVzcyBjb25zdHJhaW50cyBhcmUgc3VpdGFibGUsIGFuZCB0
+aGUgU01NVQo+PiBpbXBsZW1lbnRhdGlvbiBhY3R1YWxseSBzdXBwb3J0cyBpdCAobWFueSBkb24n
+dCksIGJ1dCB3ZSBjYW4gc3RpbGwKPj4gcXVpdGUgaGFwcGlseSBub3QgdXNlIGl0IGV2ZW4gc28u
+IExQQUUgaXMgbWFuZGF0b3J5IGluIHRoZQo+PiBhcmNoaXRlY3R1cmUgc28gdGhhdCdzIG91ciBv
+bmx5IGhhcmQgcmVxdWlyZW1lbnQsIGVtYm9kaWVkIGluIHRoZQo+PiBrY29uZmlnIHNlbGVjdC4K
+Pj4KPj4gVGhpcyBkb2VzIG1lYW4gdGhlcmUgbWF5IHRlY2huaWNhbGx5IHN0aWxsIGJlIGEgY29y
+bmVyIGNhc2UgaW52b2x2aW5nCj4+IEFSTV9TTU1VPXkgYW5kIElPX1BHVEFCTEVfQVJNX1Y3Uz1t
+LCBidXQgYXQgd29yc3QgaXQncyBub3cgYSBydW50aW1lCj4+IGZhaWx1cmUgcmF0aGVyIHRoYW4g
+YSBidWlsZCBlcnJvciwgc28gdW5sZXNzIGFuZCB1bnRpbCBhbnlvbmUKPj4gZGVtb25zdHJhdGVz
+IHRoYXQgaXQgYWN0dWFsbHkgbWF0dGVycyBJIGRvbid0IGZlZWwgcGFydGljdWxhcmx5Cj4+IGlu
+Y2xpbmVkIHRvIGdpdmUgaXQgbXVjaCB0aG91Z2h0Lgo+Pgo+PiBSb2Jpbi4KPj4KPiBPa2F5LCBJ
+J2xsIGZpeCB1cCB0aGUgY29tbWl0IG1lc3NhZ2UsIGFzIHdlbGwgYXMgdGhlIGNvZGUsIHNvIHRo
+YXQgaXQKPiBvbmx5IGRlcGVuZHMgb24gaW8tcGd0YWJsZS1hcm0uCgpXZWxsLCBJSVVDIGl0IHdv
+dWxkIG1ha2Ugc2Vuc2UgdG8ga2VlcCB0aGUgc29mdGRlcCBmb3Igd2hlbiB0aGUgdjdzIAptb2R1
+bGUgKmlzKiBwcmVzZW50OyBJIGp1c3Qgd2FudGVkIHRvIGNsYXJpZnkgdGhhdCBpdCdzIG1vcmUg
+b2YgYSAKbmljZS10by1oYXZlIHJhdGhlciB0aGFuIGEgbmVjZXNzaXR5LgoKUm9iaW4uCgo+IFRo
+YW5rcywKPiBJc2FhYwo+Pj4gZm9yIGhhdmluZyB0aGUgaW8tcGd0YWJsZSBmb3JtYXRzIGFzIG1v
+ZHVsZXMsIGFkZCBhICJwcmUiCj4+PiBkZXBlbmRlbmN5IHdpdGggTU9EVUxFX1NPRlRERVAoKSB0
+byBlbnN1cmUgdGhhdCB0aGUgaW8tcGd0YWJsZQo+Pj4gZm9ybWF0IG1vZHVsZXMgYXJlIGxvYWRl
+ZCBiZWZvcmUgbG9hZGluZyB0aGUgQVJNIFNNTVUgZHJpdmVyIG1vZHVsZS4KPj4+Cj4+PiBTaWdu
+ZWQtb2ZmLWJ5OiBJc2FhYyBKLiBNYW5qYXJyZXMgPGlzYWFjbUBjb2RlYXVyb3JhLm9yZz4KPj4+
+IC0tLQo+Pj4gwqAgZHJpdmVycy9pb21tdS9hcm0vYXJtLXNtbXUvYXJtLXNtbXUuYyB8IDEgKwo+
+Pj4gwqAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspCj4+Pgo+Pj4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvaW9tbXUvYXJtL2FybS1zbW11L2FybS1zbW11LmMgCj4+PiBiL2RyaXZlcnMvaW9t
+bXUvYXJtL2FybS1zbW11L2FybS1zbW11LmMKPj4+IGluZGV4IGQ4YzZiZmQuLmE3MjY0OWYgMTAw
+NjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2lvbW11L2FybS9hcm0tc21tdS9hcm0tc21tdS5jCj4+PiAr
+KysgYi9kcml2ZXJzL2lvbW11L2FybS9hcm0tc21tdS9hcm0tc21tdS5jCj4+PiBAQCAtMjM1MSwz
+ICsyMzUxLDQgQEAgTU9EVUxFX0RFU0NSSVBUSU9OKCJJT01NVSBBUEkgZm9yIEFSTSAKPj4+IGFy
+Y2hpdGVjdGVkIFNNTVUgaW1wbGVtZW50YXRpb25zIik7Cj4+PiDCoCBNT0RVTEVfQVVUSE9SKCJX
+aWxsIERlYWNvbiA8d2lsbEBrZXJuZWwub3JnPiIpOwo+Pj4gwqAgTU9EVUxFX0FMSUFTKCJwbGF0
+Zm9ybTphcm0tc21tdSIpOwo+Pj4gwqAgTU9EVUxFX0xJQ0VOU0UoIkdQTCB2MiIpOwo+Pj4gK01P
+RFVMRV9TT0ZUREVQKCJwcmU6IGlvLXBndGFibGUtYXJtIGlvLXBndGFibGUtYXJtLXY3cyIpOwo+
+Pj4KPj4KPj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+Pj4gbGludXgtYXJtLWtlcm5lbCBtYWlsaW5nIGxpc3QKPj4gbGludXgtYXJtLWtlcm5lbEBsaXN0
+cy5pbmZyYWRlYWQub3JnCj4+IGh0dHA6Ly9saXN0cy5pbmZyYWRlYWQub3JnL21haWxtYW4vbGlz
+dGluZm8vbGludXgtYXJtLWtlcm5lbApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwpGcmVlZHJlbm8gbWFpbGluZyBsaXN0CkZyZWVkcmVub0BsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9mcmVlZHJlbm8K
