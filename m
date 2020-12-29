@@ -1,62 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87FD52E6B03
-	for <lists+freedreno@lfdr.de>; Mon, 28 Dec 2020 22:32:46 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id E229C2E6D0D
+	for <lists+freedreno@lfdr.de>; Tue, 29 Dec 2020 02:49:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 475E1894E0;
-	Mon, 28 Dec 2020 21:32:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B574892FA;
+	Tue, 29 Dec 2020 01:49:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7F9C894E0;
- Mon, 28 Dec 2020 21:32:43 +0000 (UTC)
-Received: by mail-ej1-x62a.google.com with SMTP id x16so15854487ejj.7;
- Mon, 28 Dec 2020 13:32:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=I2WBbrkH2ONKXlEDHonkPj8AaAP1q8vzoVqaiWZLsUg=;
- b=veLKfrSGWbd3LTDOY5lt4PaP9PCYEgPTlIz7EUcvX42ydY/0lOFux5IcfuXUUiCf3d
- CQmpJn8IWQb5uhTloPCLp1XDkrdLUGCLWAVrS3UcoJy+B4HJ+DIoEyc8jz3eToiojC8u
- xE7Tavg902Qm9pudVd65nwEOfozvvnK1gDo0qxWZM/3lWZI9erklKix71m8qWH3yuDGW
- UNbJVaqORU1hMGPcKOq7Rzmcnn58RNzzTx9GxnCAV3vmylUTTVFSZFmVNs4gtS0R3QNb
- NKOK+806eu/RExhwim19mLzDir/YB7c/mGy+/CCImBwkFIbm1j9+azL0qusKQrbPlNIn
- FB+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=I2WBbrkH2ONKXlEDHonkPj8AaAP1q8vzoVqaiWZLsUg=;
- b=UqXAb2PgtcDZCRkdcqBrKKj8Qh4/4Z3z9YGMce9jmlkUOAQQljKA3yPsVBIv0XB6aP
- ndW+ST+h5szI/8gx8Vk2FmmapIH9RUgzQaEJ7kgIhIXPfWLHpcbS8hBx9v7U7jttygJi
- 9Qk9L5QKFOdclZ61vfftEugE7Nzl4Inmeshl7b64T8CCoJrph0aIl6AiXGI0CMgCfgMn
- n8Gb2v42Yf4yKtpvxwZgi8SvuuMTP+RhkAzEGo87IGc4QjEuON+hyW3QYVl9Gi/n1s0X
- MlVkZDXehEy4OPtoTOgvPU3+OV/UQYs7v1HeL40hfZ6yCLfMmAYKD499RWgNBb1mM993
- zc2Q==
-X-Gm-Message-State: AOAM532dQrpRbqo4B9Y92Frsu0WxFXEHclYVvQHI7L0exJTqh1kBobU5
- fkTZ7ZHfScTQ/wL9sRmH7xA=
-X-Google-Smtp-Source: ABdhPJxt3v098h+osXmQY1LyoTMKKWPimAzb7g00fZLrEQdCMwrw5lSl3gm4oc39Np0J8+Q2c8SyGw==
-X-Received: by 2002:a17:906:e94c:: with SMTP id
- jw12mr44293726ejb.56.1609191162587; 
- Mon, 28 Dec 2020 13:32:42 -0800 (PST)
-Received: from localhost (178-169-161-196.razgrad.ddns.bulsat.com.
- [178.169.161.196])
- by smtp.gmail.com with ESMTPSA id dg10sm14625072edb.63.2020.12.28.13.32.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Dec 2020 13:32:42 -0800 (PST)
-From: Iskren Chernev <iskren.chernev@gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Date: Mon, 28 Dec 2020 23:31:31 +0200
-Message-Id: <20201228213131.2316293-2-iskren.chernev@gmail.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20201228213131.2316293-1-iskren.chernev@gmail.com>
-References: <20201228213131.2316293-1-iskren.chernev@gmail.com>
-MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 2/2] drm/msm: Ensure get_pages is called when
- locked
+Received: from so254-31.mailgun.net (so254-31.mailgun.net [198.61.254.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2ECB892FA
+ for <freedreno@lists.freedesktop.org>; Tue, 29 Dec 2020 01:49:16 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1609206558; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=N8vblr7WLA9MBowjRomnjKEqPtQ1SL9FvyoDvOUsoR4=;
+ b=jMI3yzhtGkYBK1yO9osTMyDesy0yg02ZPneyiZBlarJMy3XjSkuhZlsUn2nvHxxJh6XwdEJO
+ nr+b7Xwuve1QckoJ2kLK6Oblz5a94nbOmyj0xJIR6bPdssJnPtlx0LRzu/GzQW341BIh6le+
+ B6UPbXpJOLG8OouX/ql96mLiuN4=
+X-Mailgun-Sending-Ip: 198.61.254.31
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
+ 5fea8b15db8e07fa6c94811a (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 29 Dec 2020 01:49:09
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 83FF2C43469; Tue, 29 Dec 2020 01:49:09 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
+Received: from isaacm-linux.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: isaacm)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 6F1E3C433C6;
+ Tue, 29 Dec 2020 01:49:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 6F1E3C433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=isaacm@codeaurora.org
+From: "Isaac J. Manjarres" <isaacm@codeaurora.org>
+To: will@kernel.org, robin.murphy@arm.com, joro@8bytes.org,
+ robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
+ steven.price@arm.com, alyssa.rosenzweig@collabora.com, robh@kernel.org,
+ tomeu.vizoso@collabora.com
+Date: Mon, 28 Dec 2020 17:48:54 -0800
+Message-Id: <1609206541-14562-1-git-send-email-isaacm@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH 0/7] iommu: Permit modular builds of io-pgtable
+ drivers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,51 +67,77 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- "Kristian H . Kristensen" <hoegsberg@google.com>,
- ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
- Iskren Chernev <iskren.chernev@gmail.com>, Sean Paul <sean@poorly.run>
+Cc: "Isaac J. Manjarres" <isaacm@codeaurora.org>,
+ freedreno@lists.freedesktop.org, pdaly@codeaurora.org, pratikp@codeaurora.org,
+ dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
+ kernel-team@android.com, linux-arm-kernel@lists.infradead.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-get_pages is only called in a locked context. Add a WARN_ON to make sure
-it stays that way.
+The goal of the Generic Kernel Image (GKI) effort is to have a common
+kernel image that works across multiple Android devices. This involves
+generating a kernel image that has core features integrated into it,
+while SoC specific functionality can be added to the kernel for the
+device as a module.
 
-Signed-off-by: Iskren Chernev <iskren.chernev@gmail.com>
----
- drivers/gpu/drm/msm/msm_gem.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Along with modularizing IOMMU drivers, this also means building the
+io-pgtable code as modules, which allows for SoC vendors to only include
+the io-pgtable implementations that they use. For example, GKI for arm64
+must include support for both the IOMMU ARM LPAE/V7S formats at the
+moment. Having the code for both formats as modules allows SoC vendors
+to only provide the page table format that they use, along with their
+IOMMU driver.
 
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index c658deb31eb5d..9d10739c4eb2d 100644
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -96,6 +96,8 @@ static struct page **get_pages(struct drm_gem_object *obj)
- {
- 	struct msm_gem_object *msm_obj = to_msm_bo(obj);
- 
-+	WARN_ON(!msm_gem_is_locked(obj));
-+
- 	if (!msm_obj->pages) {
- 		struct drm_device *dev = obj->dev;
- 		struct page **p;
-@@ -1129,8 +1131,9 @@ static struct drm_gem_object *_msm_gem_new(struct drm_device *dev,
- 
- 		to_msm_bo(obj)->vram_node = &vma->node;
- 
--
-+		msm_gem_lock(obj);
- 		pages = get_pages(obj);
-+		msm_gem_unlock(obj);
- 		if (IS_ERR(pages)) {
- 			ret = PTR_ERR(pages);
- 			goto fail;
+The patches are split into 4 parts:
+
+1) Modularizing io-pgtable-arm[-v7s].c, while leaving the io-pgtable.c
+code as part of the core kernel, requires removing the references to
+the ARM LPAE and ARM V7S io-pgtable init functions, and using a
+dynamic method for formats to register their io-pgtable init functions.
+
+2) Taking references to the io-pgtable format drivers to ensure that they
+cannot be unloaded while in use.
+
+3) Adding pre MODULE_SOFTDEP() dependencies to drivers in the kernel
+that are tristate, and invoke [alloc/free]_io_pgtable_ops(). This makes
+it so that the io-pgtable format drivers are loaded before the driver
+that needs them.
+
+4) Changing the Kconfig options for the ARM LPAE nad ARM V7S to tristate
+and allowing the io-pgtable code to be enabled without having to select
+either page table format. The reason for doing this is so that a kernel
+can be built, such that it only provides the interface for io-pgtable
+formats to be registered as modules, as would be the case for the GKI.
+
+Thanks,
+Isaac
+
+Isaac J. Manjarres (7):
+  iommu/io-pgtable: Introduce dynamic io-pgtable format registration
+  iommu/io-pgtable: Add refcounting for io-pgtable format modules
+  iommu/arm-smmu: Add dependency on io-pgtable format modules
+  iommu/arm-smmu-v3: Add dependency on io-pgtable-arm format module
+  drm/msm: Add dependency on io-pgtable-arm format module
+  drm/panfrost: Add dependency on io-pgtable-arm format module
+  iommu/io-pgtable-arm: Allow building modular io-pgtable formats
+
+ drivers/gpu/drm/msm/msm_drv.c               |   1 +
+ drivers/gpu/drm/panfrost/panfrost_drv.c     |   1 +
+ drivers/iommu/Kconfig                       |  11 +--
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c |   1 +
+ drivers/iommu/arm/arm-smmu/arm-smmu.c       |   1 +
+ drivers/iommu/io-pgtable-arm-v7s.c          |  36 +++++++++-
+ drivers/iommu/io-pgtable-arm.c              | 104 +++++++++++++++++++++-------
+ drivers/iommu/io-pgtable.c                  |  54 ++++++++++-----
+ include/linux/io-pgtable.h                  |  52 +++++++++-----
+ 9 files changed, 196 insertions(+), 65 deletions(-)
+
 -- 
-2.29.2
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
 _______________________________________________
 Freedreno mailing list
