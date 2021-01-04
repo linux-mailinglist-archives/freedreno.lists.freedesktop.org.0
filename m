@@ -2,63 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F22212E9B93
-	for <lists+freedreno@lfdr.de>; Mon,  4 Jan 2021 18:01:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB30A2E9B9D
+	for <lists+freedreno@lfdr.de>; Mon,  4 Jan 2021 18:01:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9556F89FF6;
-	Mon,  4 Jan 2021 17:01:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64CBB6E040;
+	Mon,  4 Jan 2021 17:01:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
- [IPv6:2607:f8b0:4864:20::102e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A54CC895C1
- for <freedreno@lists.freedesktop.org>; Mon,  4 Jan 2021 07:19:13 +0000 (UTC)
-Received: by mail-pj1-x102e.google.com with SMTP id lb18so9523725pjb.5
- for <freedreno@lists.freedesktop.org>; Sun, 03 Jan 2021 23:19:13 -0800 (PST)
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [IPv6:2607:f8b0:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAA9F89B7B
+ for <freedreno@lists.freedesktop.org>; Mon,  4 Jan 2021 07:29:12 +0000 (UTC)
+Received: by mail-pl1-x636.google.com with SMTP id 4so14091370plk.5
+ for <freedreno@lists.freedesktop.org>; Sun, 03 Jan 2021 23:29:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=vXX8xe2A/FeRiUPzOKt0JcPzE3KP7HXla4w8NsLDWnc=;
- b=YuGFCAwzc6s0ZWTmT9gJ9dm8xm/iUjFtuUFJRPZZY/029s2KACTxdL3ZqUZrKeogJd
- Ck/BTqRIjMB5kEpsoEnDNSlIu8hBVdh25KA2kWlSOtZFYtONWP6o3CVkb5qpfF4QvDQs
- 2KANTHMNVLyC/f2JaJ5cZrDJAWRoXsbRxpH9aBuvbWlZ29OSySy90D7abge4FuootsRW
- WO3nv55h3wwq+1JvIQSL/NTB6Pq5v++NLIQBDpBwCAxWyT9uh0p0tan5aq359RYmBvW9
- H4ZJZnDoyu8st82avvR/1WjDPqeisur7dfMRBYvklu+jNS3TNFshPHX/wRWrZGdhzEtL
- hdCQ==
+ bh=6Zvxtbmv5cjWfnu1yO+roj3Dc1+V/ym+utFrtEq4q1w=;
+ b=yUnt4D9QZPzTzHiQfNHCY4vTXTpeUS/UUfHnzvHnrTWEugOOWnaZGI954o2u3qkZuY
+ fImRZTEb3rwAFcY1KurJl4B9HCpMlf1QRzxWRG67NvMSD0ZjvVwZvCrN7dmy+kMV7xG+
+ yQ7zW1YERjJQVLO3Ba4i4zHq1VMVq5CCSlT+yHhOja2+p6brdVyQnzIVtgOQLb0qN1cM
+ fWEQvPM/g0d0JCo8yoeZI6QjtX3OaB47hiPe7pIic6MgwP6hltnXkl4DxNtTLExxU+Je
+ DGAHwsSoJapNF2ij8MvE/M4u1Qt9idjEjKXj6uQiJOBUlB93wOX9oaiaQZaA8BMQfEyx
+ D22w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=vXX8xe2A/FeRiUPzOKt0JcPzE3KP7HXla4w8NsLDWnc=;
- b=ccguWsv4ifTskw0Rl768bfJtjYf2hCTydLPlzTcxvosRYnm4jlTafsUCFkEas9UKs9
- 4zP/P1CSgIdqSz3ANB3byQAaH1e4LHNy6b9xs/kg2OAwIB6IkBGd8sCc8HKVcBU7GSm1
- WQ5QOh4v6wBCimyMwNidJZqso67ZShd9Za3AW6BrbCVIF8FnOMk7Ka3q4NVgvXt/RdeE
- Mxi6zzcaZwbLdKvYNgoME+OrV4sK6XhDgUZ82kQabkph+vAAFWlBGLB65HPX9GM4IqAA
- y0MrI6hSmTYlm6NqI5Ji9JRbonGmcQW1Tjbgf3er+2Nc6Ck4aHVj9zZy6mJXaq9f0SJI
- zK0A==
-X-Gm-Message-State: AOAM530BaPnPmAgQBh/pq2LSW6luspBnllW2QVdeB72w9JqbMLMOJlei
- Yob0NtzJQqgRy3ekUGv3I7VrGQ==
-X-Google-Smtp-Source: ABdhPJwvlRfdZmhb4sgIhlIMCp7GSIzc4CGLSDAZCiWizmME24cJXa5sePE9JLIPSO8GE4a2CzO61w==
-X-Received: by 2002:a17:902:9f88:b029:dc:292d:37c5 with SMTP id
- g8-20020a1709029f88b02900dc292d37c5mr46034848plq.26.1609744753253; 
- Sun, 03 Jan 2021 23:19:13 -0800 (PST)
+ bh=6Zvxtbmv5cjWfnu1yO+roj3Dc1+V/ym+utFrtEq4q1w=;
+ b=jLoWlKJjfNH0ebKseFc9N5IbzsamVhX2f7UpuKZssZ8V36O8KaUreG2J7ZCdjb3dsp
+ 9mszH9TyVO48D1GQ1yfGcd6koH9oFQz4e/u4ex+KGO+xP9niobM7mID1XD2T/rbg4MoV
+ xSvNRVUv0mdFKsJfiE8bx6XykWstyCu389xVkcGzpfr2lB0/cltlxkhn+xYnOE1zbzHY
+ 4C88HWGQvSnVEik7Oy63FrYrY0QV4urHfF+Fx1a7s3t96JG7pbpUEDM1QZ1eE9itpc9P
+ gXIbxBkQ6Xbjq/tUAgfg8Et0068omxl3Laymr9dwj4ClXpQguQgLb4NFP2KzSVW6koZ5
+ CIPw==
+X-Gm-Message-State: AOAM530jHwJZaoHlvu1k5AncZ6URNdvxeWWROVtuE9bW7mLrC+tIcPxL
+ r1VfsxZK8gFHRhmYbd2g4H8+Dg==
+X-Google-Smtp-Source: ABdhPJwV300N5jYEvScTM6CF7cxYiELUrIBZ9hm6pD5g6IeJYKyQcCAUKuneByouRbQaXtOx/PQf3g==
+X-Received: by 2002:a17:902:59dc:b029:da:84c7:f175 with SMTP id
+ d28-20020a17090259dcb02900da84c7f175mr48374386plj.75.1609745352302; 
+ Sun, 03 Jan 2021 23:29:12 -0800 (PST)
 Received: from localhost ([122.172.20.109])
- by smtp.gmail.com with ESMTPSA id h12sm45986820pgk.70.2021.01.03.23.19.12
+ by smtp.gmail.com with ESMTPSA id o9sm21032135pjw.9.2021.01.03.23.29.11
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 03 Jan 2021 23:19:12 -0800 (PST)
-Date: Mon, 4 Jan 2021 12:49:10 +0530
+ Sun, 03 Jan 2021 23:29:11 -0800 (PST)
+Date: Mon, 4 Jan 2021 12:59:09 +0530
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: Yangtao Li <tiny.windzz@gmail.com>
-Message-ID: <20210104071910.2a2otwxyniu7c22z@vireshk-i7>
+Message-ID: <20210104072909.7bdkvckkmddsgqnj@vireshk-i7>
 References: <20210101165507.19486-1-tiny.windzz@gmail.com>
- <20210101165507.19486-8-tiny.windzz@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210101165507.19486-8-tiny.windzz@gmail.com>
+In-Reply-To: <20210101165507.19486-1-tiny.windzz@gmail.com>
 User-Agent: NeoMutt/20180716-391-311a52
 X-Mailman-Approved-At: Mon, 04 Jan 2021 17:01:51 +0000
-Subject: Re: [Freedreno] [PATCH 07/31] serial: qcom_geni_serial: convert to
- use devm_pm_opp_* API
+Subject: Re: [Freedreno] [PATCH 00/31] Introduce devm_pm_opp_* API
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,99 +103,18 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 01-01-21, 16:54, Yangtao Li wrote:
-> Use devm_pm_opp_* API to simplify code, and we don't need
-> to make opp_table glabal.
+> Hi,
 > 
-> Let's remove opp_table from geni_se later.
-> 
-> Signed-off-by: Yangtao Li <tiny.windzz@gmail.com>
-> ---
->  drivers/tty/serial/qcom_geni_serial.c | 23 +++++++++--------------
->  1 file changed, 9 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/tty/serial/qcom_geni_serial.c b/drivers/tty/serial/qcom_geni_serial.c
-> index 5aada7ebae35..36a92df8ec11 100644
-> --- a/drivers/tty/serial/qcom_geni_serial.c
-> +++ b/drivers/tty/serial/qcom_geni_serial.c
-> @@ -1352,6 +1352,7 @@ static int qcom_geni_serial_probe(struct platform_device *pdev)
->  	int irq;
->  	bool console = false;
->  	struct uart_driver *drv;
-> +	struct opp_table *opp_table;
->  
->  	if (of_device_is_compatible(pdev->dev.of_node, "qcom,geni-debug-uart"))
->  		console = true;
-> @@ -1433,13 +1434,13 @@ static int qcom_geni_serial_probe(struct platform_device *pdev)
->  	if (of_property_read_bool(pdev->dev.of_node, "cts-rts-swap"))
->  		port->cts_rts_swap = true;
->  
-> -	port->se.opp_table = dev_pm_opp_set_clkname(&pdev->dev, "se");
-> -	if (IS_ERR(port->se.opp_table))
-> -		return PTR_ERR(port->se.opp_table);
-> +	opp_table = devm_pm_opp_set_clkname(&pdev->dev, "se");
-> +	if (IS_ERR(opp_table))
-> +		return PTR_ERR(opp_table);
->  	/* OPP table is optional */
-> -	ret = dev_pm_opp_of_add_table(&pdev->dev);
-> +	ret = devm_pm_opp_of_add_table(&pdev->dev);
->  	if (ret) {
-> -		dev_pm_opp_put_clkname(port->se.opp_table);
-> +		devm_pm_opp_put_clkname(&pdev->dev, opp_table);
+> This patchset add devm_pm_opp_set_clkname, devm_pm_opp_put_clkname,
+> devm_pm_opp_set_regulators, devm_pm_opp_put_regulators,
+> devm_pm_opp_set_supported_hw, devm_pm_opp_of_add_table and
+> devm_pm_opp_register_notifier.
 
-We shouldn't be doing this here, i.e. put_clkname. Even when the OPP
-table isn't present, this driver calls dev_pm_opp_set_rate() which
-behaves like clk_set_rate() in this case and so the clk name is still
-required by the OPP core.
+You can't put so many names in the cclist, we are getting failure
+messages while replying to your patches now.
 
->  		if (ret != -ENODEV) {
->  			dev_err(&pdev->dev, "invalid OPP table in device tree\n");
->  			return ret;
-> @@ -1453,7 +1454,7 @@ static int qcom_geni_serial_probe(struct platform_device *pdev)
->  
->  	ret = uart_add_one_port(drv, uport);
->  	if (ret)
-> -		goto err;
-> +		return ret;
->  
->  	irq_set_status_flags(uport->irq, IRQ_NOAUTOEN);
->  	ret = devm_request_irq(uport->dev, uport->irq, qcom_geni_serial_isr,
-> @@ -1461,7 +1462,7 @@ static int qcom_geni_serial_probe(struct platform_device *pdev)
->  	if (ret) {
->  		dev_err(uport->dev, "Failed to get IRQ ret %d\n", ret);
->  		uart_remove_one_port(drv, uport);
-> -		goto err;
-> +		return ret;
->  	}
->  
->  	/*
-> @@ -1478,15 +1479,11 @@ static int qcom_geni_serial_probe(struct platform_device *pdev)
->  		if (ret) {
->  			device_init_wakeup(&pdev->dev, false);
->  			uart_remove_one_port(drv, uport);
-> -			goto err;
-> +			return ret;
->  		}
->  	}
->  
->  	return 0;
-> -err:
-> -	dev_pm_opp_of_remove_table(&pdev->dev);
-> -	dev_pm_opp_put_clkname(port->se.opp_table);
-> -	return ret;
->  }
->  
->  static int qcom_geni_serial_remove(struct platform_device *pdev)
-> @@ -1494,8 +1491,6 @@ static int qcom_geni_serial_remove(struct platform_device *pdev)
->  	struct qcom_geni_serial_port *port = platform_get_drvdata(pdev);
->  	struct uart_driver *drv = port->private_data.drv;
->  
-> -	dev_pm_opp_of_remove_table(&pdev->dev);
-> -	dev_pm_opp_put_clkname(port->se.opp_table);
->  	dev_pm_clear_wake_irq(&pdev->dev);
->  	device_init_wakeup(&pdev->dev, false);
->  	uart_remove_one_port(drv, &port->uport);
-> -- 
-> 2.25.1
+Put all people you want to inform in the bcc section and only the
+important ones in to/cc list.
 
 -- 
 viresh
