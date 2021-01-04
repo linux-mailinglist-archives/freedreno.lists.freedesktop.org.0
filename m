@@ -1,64 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D0582E90F0
-	for <lists+freedreno@lfdr.de>; Mon,  4 Jan 2021 08:28:02 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B71FD2E9139
+	for <lists+freedreno@lfdr.de>; Mon,  4 Jan 2021 08:40:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD54989B8F;
-	Mon,  4 Jan 2021 07:28:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F06089B33;
+	Mon,  4 Jan 2021 07:40:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
- [IPv6:2607:f8b0:4864:20::1031])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCF1789B95
- for <freedreno@lists.freedesktop.org>; Mon,  4 Jan 2021 07:27:59 +0000 (UTC)
-Received: by mail-pj1-x1031.google.com with SMTP id m5so10364457pjv.5
- for <freedreno@lists.freedesktop.org>; Sun, 03 Jan 2021 23:27:59 -0800 (PST)
+Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
+ [IPv6:2607:f8b0:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B641F89B20
+ for <freedreno@lists.freedesktop.org>; Mon,  4 Jan 2021 07:40:34 +0000 (UTC)
+Received: by mail-pl1-x62a.google.com with SMTP id q4so14098841plr.7
+ for <freedreno@lists.freedesktop.org>; Sun, 03 Jan 2021 23:40:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=FV11oIRk+TS/pD/8cNBoW/mAuSHG2JQfCawYOikAwtE=;
- b=ztavayUlJb9IYhviZXLVPDXytXrfD2aw4hqUXe6JBxG3R1ObnfA5+HWwIajvVgpWj9
- 1on2MgzPWWQMeg/0X/G2jJ1qzOz+W3rBCLo5GgkVhRObxgG4TCdpqWJI0+y++DkIYNJE
- h8NG4lDrCZxE3VBlzQ83b0I/rV6xqWOPBYYG40rNoNzEbUZeBeGqY21yf6eE86nGddgq
- pIJl9l5S3NGgr5PCZlM83o3tQ+0n2BlWb3lcdEhyU2eaLqyyn7vNNK3THK4N7YZz/lyE
- ngMTXHgpzuWDcqsjiW3miMdFq4mnvkjU1tUf/2n79EJ0sHez/qLW/VyfVOGOJ7sBUHoC
- IO0g==
+ bh=gkO4wZs2FgdAnD1CSmbghKQqG0ttWfnbDgOBZn/+SK0=;
+ b=D6+RF/PzRVYdDbp9mVXRZkgt05lZoa0HdRGJaUPrO11l6JEOewUo9sGrnKJp0JNgxX
+ 4POzjUouMSaEkJq2p27xDPvg+5ijWyEmdf5pnItczrPqK51OZNq7N5eq6OIoVluRZbjF
+ creiG91y37GlocoV+MNhmAx4dcHTrwnsIEG6/A6vysRbuchsfHe7/gGt/dBIgmpS2Wzw
+ /e70y98Vovryj6fJVpAteYFt6iBaZlm3OKQOKIEBLSkkk515hA6eKIcl+kncJbYdnATE
+ DVyx+eTJWdSzWYY1JNH1ppkIdH3q1uEt2C2YgSlh24A3+oyYw+8NCHxgIKFT1XAj/Cxz
+ BZfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=FV11oIRk+TS/pD/8cNBoW/mAuSHG2JQfCawYOikAwtE=;
- b=RCvcDrM8SU9X2RUk/DBvMxS+KOT82lS3rfDcwi51vMMoCZvZLua9GkhrE+8waBZpd7
- XGekZT0gNUCcflgP2IqC0mFr60aianvig4umMUBW9+WsqJqQ1t/yt05+20QkKXTAFSh1
- ztBUv14kOMKKAuylDL9K9R5AYIeoDkzcqXsSd7JAwCTDwRsxLL+tpA2F32J92bPKqYhJ
- JF7AbaEclqzn2GAUvfPdtawbrE2b3bzk9L/QnWwhCRrjVunfHUoBKwG/JBDXXhcyHxZM
- oQCOLH9mcadBfLhcSqjnGD8tFEEUnxI+muHM6XxqZhrGjjNVqXvWzQxj/u6WAtyLMoHg
- K6JQ==
-X-Gm-Message-State: AOAM5336ozR8K4liKKIjQSHjTM/PJU9/jBVQirvD+JThH59XGdt4aMU0
- qVMQez2rMwKAcbLlJad4iiPxuw==
-X-Google-Smtp-Source: ABdhPJz+3zSxoQuv088o2E7z4G5iPXrMvcrUmHufPvXe/YbO6D9/ZpI0OF0DVfbjBZBJFqdSEZ/lbQ==
-X-Received: by 2002:a17:902:e9d2:b029:db:d4f6:b581 with SMTP id
- 18-20020a170902e9d2b02900dbd4f6b581mr47937489plk.34.1609745279376; 
- Sun, 03 Jan 2021 23:27:59 -0800 (PST)
+ bh=gkO4wZs2FgdAnD1CSmbghKQqG0ttWfnbDgOBZn/+SK0=;
+ b=pCu/B+CCms3SyRpaodsA3VoVtFwbafUtoRBCeKraBQzoPB8uaIlATafuzPjCXDy5JB
+ KaaDf2+/918juW+7xGmMQlgQ4QPImOGJr3nujpPR7B+a/25UwXp18KrssJW6/ZXcYeEv
+ bSt4BVHYMyzzPkK47mFGXNejCXY/TDQH0aL3HO+RAQgchjCTdMYXNhmJigTDFPBpDulM
+ WyBzVU2GJtWl5rSXQYS2tY6+Dcc4+UX1w9/o8yPgEdB2uCuxibaIwevCg7Ma2ODlKmaB
+ eUg5uMf6yCwa93S76AgjhUduahV8HAyAuTTmUOS77YWhFauygGJHEH+xUmufhcTdR6Y+
+ A6xQ==
+X-Gm-Message-State: AOAM533g4Hj0lEctjwSJfE40GlGlOA9muYRmc7VLd9rJKky/QzRRA3Ep
+ Usk2TJ3PHmCxdjJ8zuEoDkMEVw==
+X-Google-Smtp-Source: ABdhPJyzODUMq/AyS4aF5tDIj0lxzfRVSiJgpUf3lUkc6Hi0IU7ZVuxe+GHkfVxWnfCCseGDVj9amA==
+X-Received: by 2002:a17:90a:4817:: with SMTP id
+ a23mr28191220pjh.16.1609746034333; 
+ Sun, 03 Jan 2021 23:40:34 -0800 (PST)
 Received: from localhost ([122.172.20.109])
- by smtp.gmail.com with ESMTPSA id a31sm59943909pgb.93.2021.01.03.23.27.58
+ by smtp.gmail.com with ESMTPSA id b18sm55749806pfi.173.2021.01.03.23.40.33
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 03 Jan 2021 23:27:58 -0800 (PST)
-Date: Mon, 4 Jan 2021 12:57:56 +0530
+ Sun, 03 Jan 2021 23:40:33 -0800 (PST)
+Date: Mon, 4 Jan 2021 13:10:31 +0530
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: Yangtao Li <tiny.windzz@gmail.com>
-Message-ID: <20210104072756.xdvsryok3sxdiytg@vireshk-i7>
-References: <20210101165507.19486-1-tiny.windzz@gmail.com>
- <20210101165507.19486-8-tiny.windzz@gmail.com>
- <20210104071910.2a2otwxyniu7c22z@vireshk-i7>
+Message-ID: <20210104074031.k7njtbjot4r22flb@vireshk-i7>
+References: <20210103035706.24168-1-tiny.windzz@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210104071910.2a2otwxyniu7c22z@vireshk-i7>
+In-Reply-To: <20210103035706.24168-1-tiny.windzz@gmail.com>
 User-Agent: NeoMutt/20180716-391-311a52
-Subject: Re: [Freedreno] [PATCH 07/31] serial: qcom_geni_serial: convert to
- use devm_pm_opp_* API
+Subject: Re: [Freedreno] [PATCH 31/31] PM / devfreq: convert to
+ devm_pm_opp_register_notifier and remove unused API
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,55 +81,17 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Dropped lots of people from cc list
-
-On 04-01-21, 12:49, Viresh Kumar wrote:
-> On 01-01-21, 16:54, Yangtao Li wrote:
-> > Use devm_pm_opp_* API to simplify code, and we don't need
-> > to make opp_table glabal.
-> > 
-> > Let's remove opp_table from geni_se later.
-> > 
-> > Signed-off-by: Yangtao Li <tiny.windzz@gmail.com>
-> > ---
-> >  drivers/tty/serial/qcom_geni_serial.c | 23 +++++++++--------------
-> >  1 file changed, 9 insertions(+), 14 deletions(-)
-> > 
-> > diff --git a/drivers/tty/serial/qcom_geni_serial.c b/drivers/tty/serial/qcom_geni_serial.c
-> > index 5aada7ebae35..36a92df8ec11 100644
-> > --- a/drivers/tty/serial/qcom_geni_serial.c
-> > +++ b/drivers/tty/serial/qcom_geni_serial.c
-> > @@ -1352,6 +1352,7 @@ static int qcom_geni_serial_probe(struct platform_device *pdev)
-> >  	int irq;
-> >  	bool console = false;
-> >  	struct uart_driver *drv;
-> > +	struct opp_table *opp_table;
-> >  
-> >  	if (of_device_is_compatible(pdev->dev.of_node, "qcom,geni-debug-uart"))
-> >  		console = true;
-> > @@ -1433,13 +1434,13 @@ static int qcom_geni_serial_probe(struct platform_device *pdev)
-> >  	if (of_property_read_bool(pdev->dev.of_node, "cts-rts-swap"))
-> >  		port->cts_rts_swap = true;
-> >  
-> > -	port->se.opp_table = dev_pm_opp_set_clkname(&pdev->dev, "se");
-> > -	if (IS_ERR(port->se.opp_table))
-> > -		return PTR_ERR(port->se.opp_table);
-> > +	opp_table = devm_pm_opp_set_clkname(&pdev->dev, "se");
-> > +	if (IS_ERR(opp_table))
-> > +		return PTR_ERR(opp_table);
-> >  	/* OPP table is optional */
-> > -	ret = dev_pm_opp_of_add_table(&pdev->dev);
-> > +	ret = devm_pm_opp_of_add_table(&pdev->dev);
-> >  	if (ret) {
-> > -		dev_pm_opp_put_clkname(port->se.opp_table);
-> > +		devm_pm_opp_put_clkname(&pdev->dev, opp_table);
+On 03-01-21, 03:57, Yangtao Li wrote:
+>  Use devm_pm_opp_* API to simplify code.
 > 
-> We shouldn't be doing this here, i.e. put_clkname. Even when the OPP
-> table isn't present, this driver calls dev_pm_opp_set_rate() which
-> behaves like clk_set_rate() in this case and so the clk name is still
-> required by the OPP core.
+> Signed-off-by: Yangtao Li <tiny.windzz@gmail.com>
+> ---
+>  drivers/devfreq/devfreq.c | 66 +--------------------------------------
+>  include/linux/devfreq.h   | 23 --------------
+>  2 files changed, 1 insertion(+), 88 deletions(-)
 
-The same problem is there with multiple patches, fix them all please.
+Remove the unused stuff in a separate patch and let this layer keep
+doing the devm thing, I don't think others would need it.
 
 -- 
 viresh
