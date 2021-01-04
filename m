@@ -1,42 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A31592E9B9B
-	for <lists+freedreno@lfdr.de>; Mon,  4 Jan 2021 18:01:54 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D90A22E9CBB
+	for <lists+freedreno@lfdr.de>; Mon,  4 Jan 2021 19:07:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD73B6E037;
-	Mon,  4 Jan 2021 17:01:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9567189FC3;
+	Mon,  4 Jan 2021 18:07:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA4A889F3B;
- Mon,  4 Jan 2021 14:05:32 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E752D207BC;
- Mon,  4 Jan 2021 14:05:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1609769132;
- bh=79TsA1bA8DKt3n7SY5XnXtm3knysfw0cfWKMLdkrzAc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=iHN9zNRZrzzhE+ofXqwGY3v8yznfietvgJMSpIw+/Hb+3GY0GuhJL7mLLW9bt9kcZ
- PxcqgpZD5FhAKNG8I5jGEXGBvLQpBmco8xGjMnaIc4EebNiLVje0BlJWOj45JL0/PB
- vxtEJY5OhIuVTA6E/Lui4XNWCjztT9yf7D3//WPmqcmmDQBgRTjNFYUHE+LDDdYS2G
- vDbXQowhqqzHV+4MYe0UswMc695n3mCySu0MBMSim5Ss3EsWmxmlkITnnS4eNLG3ZK
- qcONCWIJbRc577IYCOT74XxUKKbK+estp/16xd1zq3Gyj1t5BuDxRAMQebZh9HQ2Px
- ydgmSJ/nP9dUA==
-Date: Mon, 4 Jan 2021 14:05:06 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Yangtao Li <tiny.windzz@gmail.com>
-Message-ID: <20210104140506.GF5645@sirena.org.uk>
-References: <20210101165507.19486-1-tiny.windzz@gmail.com>
- <20210101165507.19486-15-tiny.windzz@gmail.com>
+Received: from m43-15.mailgun.net (m43-15.mailgun.net [69.72.43.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D50B089FC3
+ for <freedreno@lists.freedesktop.org>; Mon,  4 Jan 2021 18:07:14 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1609783637; h=In-Reply-To: Content-Type: MIME-Version:
+ References: Message-ID: Subject: Cc: To: From: Date: Sender;
+ bh=txD1kK7c713c8W+M5K8v2Z4O5yjXvJH0xxaYw03By20=;
+ b=IG/7sc8LQtrDiZcfe9RjJp9OYA+nDGaP1iNRk+jJlbJNrkLypoBg44DNV5mWhvcfBOWyoW5E
+ SA1l4/iRaKBmUEjvQfxSZBFWXUQXmlm1D3NqHy0fkjnfcqz1kGOQFYLSRyNWyDnwhUWFRtKr
+ aSrAMuUOPWSkJrlPdzn7OpgZuko=
+X-Mailgun-Sending-Ip: 69.72.43.15
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
+ 5ff3594ed3eb3c36b4a96f3e (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 04 Jan 2021 18:07:10
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 1A58FC43463; Mon,  4 Jan 2021 18:07:10 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id E3803C433CA;
+ Mon,  4 Jan 2021 18:07:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org E3803C433CA
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=jcrouse@codeaurora.org
+Date: Mon, 4 Jan 2021 11:07:04 -0700
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: Akhil P Oommen <akhilpo@codeaurora.org>
+Message-ID: <20210104180704.GA26690@jcrouse1-lnx.qualcomm.com>
+Mail-Followup-To: Akhil P Oommen <akhilpo@codeaurora.org>,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, dri-devel@freedesktop.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ mka@chromium.org, robdclark@gmail.com, dianders@chromium.org
+References: <1607337728-11398-1-git-send-email-akhilpo@codeaurora.org>
 MIME-Version: 1.0
-In-Reply-To: <20210101165507.19486-15-tiny.windzz@gmail.com>
-X-Cookie: Stupidity is its own reward.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Mailman-Approved-At: Mon, 04 Jan 2021 17:01:51 +0000
-Subject: Re: [Freedreno] [PATCH 14/31] spi: spi-qcom-qspi: convert to use
- devm_pm_opp_* API
+Content-Disposition: inline
+In-Reply-To: <1607337728-11398-1-git-send-email-akhilpo@codeaurora.org>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Freedreno] [PATCH v3 1/2] drm/msm: Add speed-bin support to
+ a618 gpu
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,81 +75,200 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: nm@ti.com, ulf.hansson@linaro.org, gustavoars@kernel.org,
- jirislaby@kernel.org, airlied@linux.ie, linux-mmc@vger.kernel.org,
- stanimir.varbanov@linaro.org, tanmay@codeaurora.org,
- bjorn.andersson@linaro.org, natechancellor@gmail.com, eric@anholt.net,
- thierry.reding@gmail.com, tongtiangen@huawei.com, groeck@chromium.org,
- marijn.suijten@somainline.org, digetx@gmail.com, steven.price@arm.com,
- festevam@gmail.com, mka@chromium.org, chandanu@codeaurora.org,
- emil.velikov@collabora.com, robh@kernel.org, linux-samsung-soc@vger.kernel.org,
- jonathan@marek.ca, harigovi@codeaurora.org, adrian.hunter@intel.com,
- vireshk@kernel.org, linux-pm@vger.kernel.org, kyungmin.park@samsung.com,
- krzk@kernel.org, jonathanh@nvidia.com, cw00.choi@samsung.com,
- myungjoo.ham@samsung.com, alyssa.rosenzweig@collabora.com,
- linux-serial@vger.kernel.org, airlied@redhat.com, smasetty@codeaurora.org,
- linux-imx@nxp.com, freedreno@lists.freedesktop.org, kernel@pengutronix.de,
- tzimmermann@suse.de, linux-arm-msm@vger.kernel.org, s.hauer@pengutronix.de,
- linux-spi@vger.kernel.org, linux-media@vger.kernel.org,
- abhinavk@codeaurora.org, akhilpo@codeaurora.org, khsieh@codeaurora.org,
- lima@lists.freedesktop.org, jcrouse@codeaurora.org, rikard.falkeborn@gmail.com,
- kalyan_t@codeaurora.org, linux-tegra@vger.kernel.org, varar@codeaurora.org,
- jsanka@codeaurora.org, mchehab@kernel.org, sean@poorly.run,
- linux-arm-kernel@lists.infradead.org, dianders@chromium.org,
- akashast@codeaurora.org, rnayak@codeaurora.org, parashar@codeaurora.org,
- tomeu.vizoso@collabora.com, sboyd@kernel.org, gregkh@linuxfoundation.org,
- dri-devel@lists.freedesktop.org, rjw@rjwysocki.net, agross@kernel.org,
- linux-kernel@vger.kernel.org, robdclark@gmail.com, miaoqinglang@huawei.com,
- hoegsberg@google.com, yuq825@gmail.com, daniel@ffwll.ch,
- ddavenport@chromium.org, masneyb@onstation.org, shawnguo@kernel.org,
- georgi.djakov@linaro.org, lukasz.luba@arm.com
-Content-Type: multipart/mixed; boundary="===============1377172171=="
+Cc: devicetree@vger.kernel.org, robh@kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dianders@chromium.org, robdclark@gmail.com,
+ mka@chromium.org, dri-devel@freedesktop.org, freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Mon, Dec 07, 2020 at 04:12:07PM +0530, Akhil P Oommen wrote:
+> Some GPUs support different max frequencies depending on the platform.
+> To identify the correct variant, we should check the gpu speedbin
+> fuse value. Add support for this speedbin detection to a6xx family
+> along with the required fuse details for a618 gpu.
+> 
+> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+> ---
+> Changes from v2:
+> 	1. Made the changes a6xx specific to save space.
+> Changes from v1:
+> 	1. Added the changes to support a618 sku to the series.
+> 	2. Avoid failing probe in case of an unsupported sku. (Rob)
+> 
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 74 +++++++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.h |  2 +
+>  2 files changed, 76 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index 1306618..6304578 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -10,10 +10,13 @@
+>  
+>  #include <linux/bitfield.h>
+>  #include <linux/devfreq.h>
+> +#include <linux/nvmem-consumer.h>
+>  #include <linux/soc/qcom/llcc-qcom.h>
+>  
+>  #define GPU_PAS_ID 13
+>  
+> +const u32 a618_speedbins[] = {0, 169, 174};
 
---===============1377172171==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4VrXvz3cwkc87Wze"
-Content-Disposition: inline
+This still feels too generic to me - this could easily be something like:
 
+static u32 a618_get_speed_bin(int rev)
+{
+	if (rev == 0)
+		return 0;
+	else if (rev == 169)
+		return 1;
+	else if (rev == 174)
+		return 2;
+	
+	return UINT_MAX;
+}
 
---4VrXvz3cwkc87Wze
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I know Akhil can see a future where there might be other "pro" targets but it is
+unclear to me when those will see upstream support and even if they do a
+handful of inline-able functions still seem better to me than a group of const
+arrays.
 
-On Fri, Jan 01, 2021 at 04:54:50PM +0000, Yangtao Li wrote:
-> Use devm_pm_opp_* API to simplify code, and remove opp_table
-> from qcom_qspi.
+> +
+>  static inline bool _a6xx_check_idle(struct msm_gpu *gpu)
+>  {
+>  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+> @@ -1208,6 +1211,10 @@ static void a6xx_destroy(struct msm_gpu *gpu)
+>  	a6xx_gmu_remove(a6xx_gpu);
+>  
+>  	adreno_gpu_cleanup(adreno_gpu);
+> +
+> +	if (a6xx_gpu->opp_table)
+> +		dev_pm_opp_put_supported_hw(a6xx_gpu->opp_table);
+> +
+>  	kfree(a6xx_gpu);
+>  }
+>  
+> @@ -1264,6 +1271,67 @@ static uint32_t a6xx_get_rptr(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+>  	return ring->memptrs->rptr = gpu_read(gpu, REG_A6XX_CP_RB_RPTR);
+>  }
+>  
+> +static u32 fuse_to_supp_hw(struct device *dev, u32 revn, u32 fuse)
+> +{
+> +	int i;
+> +
+> +	if (revn == 618) {
+> +		for (i = 0; i < ARRAY_SIZE(a618_speedbins); i++) {
+> +			if (fuse == a618_speedbins[i])
+> +				return  (1 << i);
+> +		}
+> +	}
 
-Acked-by: Mark Brown <broonie@kernel.org>
+u32 val = UINT_MAX;
 
---4VrXvz3cwkc87Wze
-Content-Type: application/pgp-signature; name="signature.asc"
+if (revn == 618)
+	val = a618_get_speed_bin(fuse);
 
------BEGIN PGP SIGNATURE-----
+if (val == UINT_MAX)
+	DRM_DEV_ERROR(dev, "Missing support for speed-bin %u. Some OPPs may not
+	be supported by hardware", fuse);
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/zIJEACgkQJNaLcl1U
-h9DFeQf+IHePH8ftvRUXVVunMDt5ucIZpHjc+KGKU8AM3jyZ+Xyy7jpftefB54+O
-D0zp7MZ5qmBT4HlKD4cibZcvesuW18PPYrUMXVV3H8MuTBZMfvl+XDsWm0NvMjE+
-mG+w8bSqPUM9Mjo5wa7UN8bbEjHzNtPZt0lUNfN+k0NGXJ3XhN5WtH3eGXQAPaIn
-o5aKfPOue5R/hIy2XhK9W7VLqa8NwnhL7tCfYme/Eto/F4ygM/JVeTwdMOeKe3Gi
-SeDV7n7fe5oPecANOGYXE6gdO2c7oAcJl36gxh2rjpz/yGyCykjmHBxU/YdSV3Jk
-T8oGZSZjqmlT+HfPp7aRXPMXmf3ncQ==
-=ApdX
------END PGP SIGNATURE-----
+return val;
 
---4VrXvz3cwkc87Wze--
+> +
+> +	DRM_DEV_ERROR(dev,
+> +			"missing support for speed-bin: %u. Some OPPs may not be supported by hardware",
+> +			fuse);
+> +	return ~0U;
+> +}
+> +
+> +static int a6xx_set_supported_hw(struct device *dev, struct a6xx_gpu *a6xx_gpu,
+> +		u32 revn)
+> +{
+> +
+> +	struct opp_table *opp_table;
+> +	struct nvmem_cell *cell;
+> +	u32 supp_hw = ~0U;
+> +	void *buf;
+> +
+> +	cell = nvmem_cell_get(dev, "speed_bin");
+> +	/*
+> +	 * -ENOENT means that the platform doesn't support speedbin which is
+> +	 * fine
+> +	 */
+> +	if (PTR_ERR(cell) == -ENOENT)
+> +		return 0;
+> +	else if (IS_ERR(cell)) {
+> +		DRM_DEV_ERROR(dev,
+> +				"failed to read speed-bin. Some OPPs may not be supported by hardware");
+> +		goto done;
+> +	}
+> +
+> +	buf = nvmem_cell_read(cell, NULL);
+> +	if (IS_ERR(buf)) {
+> +		nvmem_cell_put(cell);
+> +		DRM_DEV_ERROR(dev,
+> +				"failed to read speed-bin. Some OPPs may not be supported by hardware");
+> +		goto done;
+> +	}
+> +
+> +	supp_hw = fuse_to_supp_hw(dev, revn, *((u32 *) buf));
+> +
+> +	kfree(buf);
+> +	nvmem_cell_put(cell);
+> +
+> +done:
+> +	opp_table = dev_pm_opp_set_supported_hw(dev, &supp_hw, 1);
+> +	if (IS_ERR(opp_table))
+> +		return PTR_ERR(opp_table);
+> +
+> +	a6xx_gpu->opp_table = opp_table;
+> +	return 0;
+> +}
 
---===============1377172171==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Beyond the comments above, I think the rest of this is reasonable.
 
+Jordan
+
+> +
+>  static const struct adreno_gpu_funcs funcs = {
+>  	.base = {
+>  		.get_param = adreno_get_param,
+> @@ -1325,6 +1393,12 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+>  
+>  	a6xx_llc_slices_init(pdev, a6xx_gpu);
+>  
+> +	ret = a6xx_set_supported_hw(&pdev->dev, a6xx_gpu, info->revn);
+> +	if (ret) {
+> +		a6xx_destroy(&(a6xx_gpu->base.base));
+> +		return ERR_PTR(ret);
+> +	}
+> +
+>  	ret = adreno_gpu_init(dev, pdev, adreno_gpu, &funcs, 1);
+>  	if (ret) {
+>  		a6xx_destroy(&(a6xx_gpu->base.base));
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> index e793d32..ce0610c 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> @@ -33,6 +33,8 @@ struct a6xx_gpu {
+>  	void *llc_slice;
+>  	void *htw_llc_slice;
+>  	bool have_mmu500;
+> +
+> +	struct opp_table *opp_table;
+>  };
+>  
+>  #define to_a6xx_gpu(x) container_of(x, struct a6xx_gpu, base)
+> -- 
+> 2.7.4
+> 
+
+-- 
+The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+a Linux Foundation Collaborative Project
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
-
---===============1377172171==--
