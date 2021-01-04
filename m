@@ -1,51 +1,29 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 323182E9D3C
-	for <lists+freedreno@lfdr.de>; Mon,  4 Jan 2021 19:42:26 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D62A52E9E32
+	for <lists+freedreno@lfdr.de>; Mon,  4 Jan 2021 20:31:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A07B089F4A;
-	Mon,  4 Jan 2021 18:42:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9016489FFD;
+	Mon,  4 Jan 2021 19:31:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44C8D8994D;
- Mon,  4 Jan 2021 18:06:32 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id y17so33088939wrr.10;
- Mon, 04 Jan 2021 10:06:32 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=Y4OzI0Gift9qAQwCOItPNRXBZiGMCN5H3dDmQ5W7k7k=;
- b=TOLHf7iZMfTKsux/XyYKa9eHyMRxJxFhGEFCCuQx+zeSEs3RQnvcGESZWUl0gSI7r3
- vOUB2/YENKI3xoyo3gWEAIoPOivMwCQsqeKy+ThQgnFCANesAssARSKJUbVegMYn/vo/
- 5CwlJCmP3E4dBkWbzBi4kOb1HeQeyEqtkhAt6vn9ds8bXJW8WnQOcnai6ncrjWnTX9DS
- Ocq28KjA4rHCANB5fb0H9hLixPM44y7MpFaD7tux95XQ7fCh5+zwizymBE1QkZsmH1iI
- eC7L5OOHEVCegiS46Ryjbo+hnoBlv5HAw3uTpm7LZvm7zSaWk4+mKEaYoKQ2p5Jqj56y
- kMdQ==
-X-Gm-Message-State: AOAM531KxtH/HE8W6VyxeA55f8qcWPwecr0+6N2z7sQpcvQIffBjA4MA
- Qb7G7J0HVHNWlvoOg0PqpHo=
-X-Google-Smtp-Source: ABdhPJwSJr+8sc9s0gJbtsMMAxXbPISgkriOlKIqFLVyMTanzET3gDdnClIP2ae3HciFRhbuw7YS/g==
-X-Received: by 2002:adf:9e47:: with SMTP id v7mr44312549wre.185.1609783591011; 
- Mon, 04 Jan 2021 10:06:31 -0800 (PST)
-Received: from kozik-lap (adsl-84-226-167-205.adslplus.ch. [84.226.167.205])
- by smtp.googlemail.com with ESMTPSA id b7sm86189365wrv.47.2021.01.04.10.06.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Jan 2021 10:06:29 -0800 (PST)
-Date: Mon, 4 Jan 2021 19:06:27 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Yangtao Li <tiny.windzz@gmail.com>
-Message-ID: <20210104180627.GA27043@kozik-lap>
-References: <20210103035415.23600-1-tiny.windzz@gmail.com>
+Received: from relay01.th.seeweb.it (relay01.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9223689FFD;
+ Mon,  4 Jan 2021 19:31:56 +0000 (UTC)
+Received: from localhost.localdomain (abaf53.neoplus.adsl.tpnet.pl
+ [83.6.169.53])
+ by m-r1.th.seeweb.it (Postfix) with ESMTPA id 1BCEA20014;
+ Mon,  4 Jan 2021 20:31:48 +0100 (CET)
+From: Konrad Dybcio <konrad.dybcio@somainline.org>
+To: phone-devel@vger.kernel.org
+Date: Mon,  4 Jan 2021 20:30:41 +0100
+Message-Id: <20210104193044.80591-1-konrad.dybcio@somainline.org>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210103035415.23600-1-tiny.windzz@gmail.com>
-X-Mailman-Approved-At: Mon, 04 Jan 2021 18:42:22 +0000
-Subject: Re: [Freedreno] [PATCH 25/31] memory: tegra30: convert to use
- devm_pm_opp_* API
+Subject: [Freedreno] [PATCH] drm/msm: Only enable A6xx LLCC code on A6xx
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,51 +36,92 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: nm@ti.com, ulf.hansson@linaro.org, gustavoars@kernel.org,
- jirislaby@kernel.org, airlied@linux.ie, linux-mmc@vger.kernel.org,
- stanimir.varbanov@linaro.org, tanmay@codeaurora.org,
- bjorn.andersson@linaro.org, natechancellor@gmail.com, eric@anholt.net,
- thierry.reding@gmail.com, tongtiangen@huawei.com, groeck@chromium.org,
- marijn.suijten@somainline.org, digetx@gmail.com, steven.price@arm.com,
- festevam@gmail.com, mka@chromium.org, chandanu@codeaurora.org,
- emil.velikov@collabora.com, robh@kernel.org, linux-samsung-soc@vger.kernel.org,
- jonathan@marek.ca, harigovi@codeaurora.org, adrian.hunter@intel.com,
- vireshk@kernel.org, linux-pm@vger.kernel.org, kyungmin.park@samsung.com,
- miaoqinglang@huawei.com, jonathanh@nvidia.com, cw00.choi@samsung.com,
- myungjoo.ham@samsung.com, alyssa.rosenzweig@collabora.com,
- linux-serial@vger.kernel.org, airlied@redhat.com, smasetty@codeaurora.org,
- linux-imx@nxp.com, freedreno@lists.freedesktop.org, kernel@pengutronix.de,
- tzimmermann@suse.de, linux-arm-msm@vger.kernel.org, s.hauer@pengutronix.de,
- linux-spi@vger.kernel.org, linux-media@vger.kernel.org,
- abhinavk@codeaurora.org, akhilpo@codeaurora.org, khsieh@codeaurora.org,
- lima@lists.freedesktop.org, jcrouse@codeaurora.org, broonie@kernel.org,
- rikard.falkeborn@gmail.com, kalyan_t@codeaurora.org,
- linux-tegra@vger.kernel.org, varar@codeaurora.org, jsanka@codeaurora.org,
- mchehab@kernel.org, sean@poorly.run, linux-arm-kernel@lists.infradead.org,
- dianders@chromium.org, akashast@codeaurora.org, rnayak@codeaurora.org,
- parashar@codeaurora.org, tomeu.vizoso@collabora.com, sboyd@kernel.org,
- gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org, rjw@rjwysocki.net,
- agross@kernel.org, linux-kernel@vger.kernel.org, robdclark@gmail.com,
- hoegsberg@google.com, yuq825@gmail.com, daniel@ffwll.ch,
- ddavenport@chromium.org, masneyb@onstation.org, shawnguo@kernel.org,
- georgi.djakov@linaro.org, lukasz.luba@arm.com
+Cc: freedreno@lists.freedesktop.org,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>, Dave Airlie <airlied@redhat.com>,
+ Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Sharat Masetty <smasetty@codeaurora.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ martin.botka@somainline.org, ~postmarketos/upstreaming@lists.sr.ht,
+ Daniel Vetter <daniel@ffwll.ch>, angelogioacchino.delregno@somainline.org,
+ marijn.suijten@somainline.org, Shawn Guo <shawn.guo@linaro.org>,
+ Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Jan 03, 2021 at 03:54:15AM +0000, Yangtao Li wrote:
-> Use devm_pm_opp_* API to simplify code.
-> 
-> Signed-off-by: Yangtao Li <tiny.windzz@gmail.com>
-> ---
->  drivers/memory/tegra/tegra30-emc.c | 29 +++++++++--------------------
->  1 file changed, 9 insertions(+), 20 deletions(-)
+Using this code on A5xx (and probably older too) causes a
+smmu bug.
 
-Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
+Fixes: 474dadb8b0d5 ("drm/msm/a6xx: Add support for using system cache(LLC)")
+Signed-off-by: Konrad Dybcio <konrad.dybcio@somainline.org>
+Tested-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+---
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 21 ++++++++++++---------
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h |  5 +++++
+ 2 files changed, 17 insertions(+), 9 deletions(-)
 
-Best regards,
-Krzysztof
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index 6cf9975e951e..f09175698827 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -191,8 +191,6 @@ adreno_iommu_create_address_space(struct msm_gpu *gpu,
+ 		struct platform_device *pdev)
+ {
+ 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+-	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+-	struct io_pgtable_domain_attr pgtbl_cfg;
+ 	struct iommu_domain *iommu;
+ 	struct msm_mmu *mmu;
+ 	struct msm_gem_address_space *aspace;
+@@ -202,13 +200,18 @@ adreno_iommu_create_address_space(struct msm_gpu *gpu,
+ 	if (!iommu)
+ 		return NULL;
+ 
+-	/*
+-	 * This allows GPU to set the bus attributes required to use system
+-	 * cache on behalf of the iommu page table walker.
+-	 */
+-	if (!IS_ERR(a6xx_gpu->htw_llc_slice)) {
+-		pgtbl_cfg.quirks = IO_PGTABLE_QUIRK_ARM_OUTER_WBWA;
+-		iommu_domain_set_attr(iommu, DOMAIN_ATTR_IO_PGTABLE_CFG, &pgtbl_cfg);
++
++	if (adreno_is_a6xx(adreno_gpu)) {
++		struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
++		struct io_pgtable_domain_attr pgtbl_cfg;
++		/*
++		* This allows GPU to set the bus attributes required to use system
++		* cache on behalf of the iommu page table walker.
++		*/
++		if (!IS_ERR(a6xx_gpu->htw_llc_slice)) {
++			pgtbl_cfg.quirks = IO_PGTABLE_QUIRK_ARM_OUTER_WBWA;
++			iommu_domain_set_attr(iommu, DOMAIN_ATTR_IO_PGTABLE_CFG, &pgtbl_cfg);
++		}
+ 	}
+ 
+ 	mmu = msm_iommu_new(&pdev->dev, iommu);
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index 4574d85c5680..08421fa54a50 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -226,6 +226,11 @@ static inline int adreno_is_a540(struct adreno_gpu *gpu)
+ 	return gpu->revn == 540;
+ }
+ 
++static inline bool adreno_is_a6xx(struct adreno_gpu *gpu)
++{
++	return ((gpu->revn < 700 && gpu->revn > 599));
++}
++
+ static inline int adreno_is_a618(struct adreno_gpu *gpu)
+ {
+        return gpu->revn == 618;
+-- 
+2.29.2
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
