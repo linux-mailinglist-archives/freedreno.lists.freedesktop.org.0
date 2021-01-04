@@ -2,51 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CCE62E9D3B
-	for <lists+freedreno@lfdr.de>; Mon,  4 Jan 2021 19:42:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F23292E9D3A
+	for <lists+freedreno@lfdr.de>; Mon,  4 Jan 2021 19:42:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A50C089F55;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FF6689F49;
 	Mon,  4 Jan 2021 18:42:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0742B89FC3;
- Mon,  4 Jan 2021 18:03:49 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id 91so33070305wrj.7;
- Mon, 04 Jan 2021 10:03:48 -0800 (PST)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0429D89FD1;
+ Mon,  4 Jan 2021 18:04:24 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id i9so33098371wrc.4;
+ Mon, 04 Jan 2021 10:04:23 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=h59iCiKuH4MXgrWgjRBSHuWSpOxsm5xD8Y4CubrF3xU=;
- b=Bvrve/W0KMOXYwL4/64fiaeJtAocyYvVPQYM1CPQauYLbaK15EfKK0cYnxR6UBpyPw
- Xp+9GVWk7q1p3sT0No7khXIEd4aQ4F/PxEFZsdSf8H8WfpIF10x7y+ru4JlwHvywLT96
- O0bZJ/P5r9jrFrB9z/Eu4phm5o+cYSjZyFecJQq+tGhVsbqL8skBbERX3LPbFgYaY07a
- nyBTVuUpui96oTSxfT4ESULTUf+fJCzzJ+glEXynnk+hkYkWQdUp8mvkzkbX1lBII3fi
- JGYVQh4POhclawW+t8H/+Qb+deCGXlwbOEb3OzQR4xG1s1KM8Ot1v9XnAHncIAUFNlDN
- ZU4Q==
-X-Gm-Message-State: AOAM530lICAAwSLTbboQSC+VKeocfy56Dfx0vC0VjnO777n7Pjf2eNFR
- QQ8oM8WLgJE4yYjc0EtcdMA=
-X-Google-Smtp-Source: ABdhPJxrRN4zoC9ySCl3+E0igqJkr5f1LUevrs1pugc92rcCWGC8YwtDgiDHvDzkbPEnhGyP6UumfQ==
-X-Received: by 2002:a5d:58fb:: with SMTP id f27mr71674294wrd.22.1609783427686; 
- Mon, 04 Jan 2021 10:03:47 -0800 (PST)
+ bh=8S8tewe09/62eDjPpJs3D9zBgFXWZxFQJnjRUdAAWOw=;
+ b=fr6y99dnuY3ckZyMyQBZEzpZmPa5SV4+ykPBySZJZ26LO2VnjIlSxdWBwMz3ljkbMW
+ HSXnNrpm6gOUnSHjJMnoK6K6Eydbs67IJwbuRmkxG8h7JXTkMhNFN0arA7dQlnzvdGv5
+ ZMMQALZa5sO0HFoxdN4wxhtFl+T8AnyFjC/HicYdXzx3D4lueM32vu0OFALFaKd8xb1j
+ TZqfQVP63OzGvipJHLya5FWfXwu2OnEd1ut8oWLR90PqJBgriI4o+fckda6ylq0T0OSO
+ lND18/k07zN8k2aoZShl6s+GPPYysILhGNFelDb4bhop+k5wB5/ZJIRgm6z074MJ8T1p
+ d4kg==
+X-Gm-Message-State: AOAM533b5jEf8qusnY29EsSHf4EWVargLXuKdBCXcx71jfPZQoMOk5KR
+ DUOKsM+aTXvs8OWiVJti2pg=
+X-Google-Smtp-Source: ABdhPJxsweZqjcEuUey7yOzQqRsXiMdAFnIN0VPVz/rrVT7WWjb1mgbbACPLDub4i58vK3KdWgdMWQ==
+X-Received: by 2002:a05:6000:ce:: with SMTP id
+ q14mr79938608wrx.277.1609783462724; 
+ Mon, 04 Jan 2021 10:04:22 -0800 (PST)
 Received: from kozik-lap (adsl-84-226-167-205.adslplus.ch. [84.226.167.205])
- by smtp.googlemail.com with ESMTPSA id w8sm92329342wrl.91.2021.01.04.10.03.45
+ by smtp.googlemail.com with ESMTPSA id c4sm142108wmf.19.2021.01.04.10.04.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Jan 2021 10:03:46 -0800 (PST)
-Date: Mon, 4 Jan 2021 19:03:43 +0100
+ Mon, 04 Jan 2021 10:04:21 -0800 (PST)
+Date: Mon, 4 Jan 2021 19:04:19 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Yangtao Li <tiny.windzz@gmail.com>
-Message-ID: <20210104180343.GA26189@kozik-lap>
+Message-ID: <20210104180419.GB26189@kozik-lap>
 References: <20210101165507.19486-1-tiny.windzz@gmail.com>
- <20210101165507.19486-23-tiny.windzz@gmail.com>
+ <20210101165507.19486-24-tiny.windzz@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210101165507.19486-23-tiny.windzz@gmail.com>
+In-Reply-To: <20210101165507.19486-24-tiny.windzz@gmail.com>
 X-Mailman-Approved-At: Mon, 04 Jan 2021 18:42:22 +0000
-Subject: Re: [Freedreno] [PATCH 22/31] memory: samsung: exynos5422-dmc: fix
- return error in exynos5_init_freq_table
+Subject: Re: [Freedreno] [PATCH 23/31] memory: samsung: exynos5422-dmc:
+ convert to use devm_pm_opp_* API
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,18 +93,15 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Jan 01, 2021 at 04:54:58PM +0000, Yangtao Li wrote:
-> We can't always return -EINVAL, let's fix it.
+On Fri, Jan 01, 2021 at 04:54:59PM +0000, Yangtao Li wrote:
+> Use devm_pm_opp_* API to simplify code.
 > 
 > Signed-off-by: Yangtao Li <tiny.windzz@gmail.com>
 > ---
->  drivers/memory/samsung/exynos5422-dmc.c | 10 +++++++---
->  1 file changed, 7 insertions(+), 3 deletions(-)
+>  drivers/memory/samsung/exynos5422-dmc.c | 21 +++++----------------
+>  1 file changed, 5 insertions(+), 16 deletions(-)
 
 Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
-
-I see that the next patch depends on it so feel free to take it via PM
-tree. Otherwise let me know.
 
 Best regards,
 Krzysztof
