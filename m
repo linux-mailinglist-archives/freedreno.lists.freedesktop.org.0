@@ -2,32 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D23B2E8DAE
-	for <lists+freedreno@lfdr.de>; Sun,  3 Jan 2021 19:00:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D0582E90F0
+	for <lists+freedreno@lfdr.de>; Mon,  4 Jan 2021 08:28:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD6BE8935B;
-	Sun,  3 Jan 2021 18:00:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD54989B8F;
+	Mon,  4 Jan 2021 07:28:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from vps5.brixit.nl (vps5.brixit.nl [192.81.221.234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B778E8935B;
- Sun,  3 Jan 2021 18:00:16 +0000 (UTC)
-Received: from [192.168.20.102] (unknown [77.239.252.99])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by vps5.brixit.nl (Postfix) with ESMTPSA id 10F7160815;
- Sun,  3 Jan 2021 18:00:12 +0000 (UTC)
-To: Iskren Chernev <iskren.chernev@gmail.com>, Rob Clark <robdclark@gmail.com>
-References: <20210102202437.1630365-1-iskren.chernev@gmail.com>
-From: Alexey Minnekhanov <alexeymin@postmarketos.org>
-Message-ID: <d2333f2e-1227-3f37-ac22-4a2a0a02acb4@postmarketos.org>
-Date: Sun, 3 Jan 2021 21:01:02 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
+ [IPv6:2607:f8b0:4864:20::1031])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCF1789B95
+ for <freedreno@lists.freedesktop.org>; Mon,  4 Jan 2021 07:27:59 +0000 (UTC)
+Received: by mail-pj1-x1031.google.com with SMTP id m5so10364457pjv.5
+ for <freedreno@lists.freedesktop.org>; Sun, 03 Jan 2021 23:27:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=FV11oIRk+TS/pD/8cNBoW/mAuSHG2JQfCawYOikAwtE=;
+ b=ztavayUlJb9IYhviZXLVPDXytXrfD2aw4hqUXe6JBxG3R1ObnfA5+HWwIajvVgpWj9
+ 1on2MgzPWWQMeg/0X/G2jJ1qzOz+W3rBCLo5GgkVhRObxgG4TCdpqWJI0+y++DkIYNJE
+ h8NG4lDrCZxE3VBlzQ83b0I/rV6xqWOPBYYG40rNoNzEbUZeBeGqY21yf6eE86nGddgq
+ pIJl9l5S3NGgr5PCZlM83o3tQ+0n2BlWb3lcdEhyU2eaLqyyn7vNNK3THK4N7YZz/lyE
+ ngMTXHgpzuWDcqsjiW3miMdFq4mnvkjU1tUf/2n79EJ0sHez/qLW/VyfVOGOJ7sBUHoC
+ IO0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=FV11oIRk+TS/pD/8cNBoW/mAuSHG2JQfCawYOikAwtE=;
+ b=RCvcDrM8SU9X2RUk/DBvMxS+KOT82lS3rfDcwi51vMMoCZvZLua9GkhrE+8waBZpd7
+ XGekZT0gNUCcflgP2IqC0mFr60aianvig4umMUBW9+WsqJqQ1t/yt05+20QkKXTAFSh1
+ ztBUv14kOMKKAuylDL9K9R5AYIeoDkzcqXsSd7JAwCTDwRsxLL+tpA2F32J92bPKqYhJ
+ JF7AbaEclqzn2GAUvfPdtawbrE2b3bzk9L/QnWwhCRrjVunfHUoBKwG/JBDXXhcyHxZM
+ oQCOLH9mcadBfLhcSqjnGD8tFEEUnxI+muHM6XxqZhrGjjNVqXvWzQxj/u6WAtyLMoHg
+ K6JQ==
+X-Gm-Message-State: AOAM5336ozR8K4liKKIjQSHjTM/PJU9/jBVQirvD+JThH59XGdt4aMU0
+ qVMQez2rMwKAcbLlJad4iiPxuw==
+X-Google-Smtp-Source: ABdhPJz+3zSxoQuv088o2E7z4G5iPXrMvcrUmHufPvXe/YbO6D9/ZpI0OF0DVfbjBZBJFqdSEZ/lbQ==
+X-Received: by 2002:a17:902:e9d2:b029:db:d4f6:b581 with SMTP id
+ 18-20020a170902e9d2b02900dbd4f6b581mr47937489plk.34.1609745279376; 
+ Sun, 03 Jan 2021 23:27:59 -0800 (PST)
+Received: from localhost ([122.172.20.109])
+ by smtp.gmail.com with ESMTPSA id a31sm59943909pgb.93.2021.01.03.23.27.58
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Sun, 03 Jan 2021 23:27:58 -0800 (PST)
+Date: Mon, 4 Jan 2021 12:57:56 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Yangtao Li <tiny.windzz@gmail.com>
+Message-ID: <20210104072756.xdvsryok3sxdiytg@vireshk-i7>
+References: <20210101165507.19486-1-tiny.windzz@gmail.com>
+ <20210101165507.19486-8-tiny.windzz@gmail.com>
+ <20210104071910.2a2otwxyniu7c22z@vireshk-i7>
 MIME-Version: 1.0
-In-Reply-To: <20210102202437.1630365-1-iskren.chernev@gmail.com>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH] drm/msm: Fix MSM_INFO_GET_IOVA with carveout
+Content-Disposition: inline
+In-Reply-To: <20210104071910.2a2otwxyniu7c22z@vireshk-i7>
+User-Agent: NeoMutt/20180716-391-311a52
+Subject: Re: [Freedreno] [PATCH 07/31] serial: qcom_geni_serial: convert to
+ use devm_pm_opp_* API
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,76 +71,70 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, ~postmarketos/upstreaming@lists.sr.ht,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
+Cc: linux-samsung-soc@vger.kernel.org, lima@lists.freedesktop.org,
+ linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-spi@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-tegra@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-I've tested all recent GPU bring-up patches on msm8974pro samsung-klte 
-(a330v2) and with this patch everything is OK. But without this we're 
-getting the following in dmesg while running kmscube (which is rendering 
-nothing except black screen):
+Dropped lots of people from cc list
 
-[   94.969272] msm fd900000.mdss: [drm:hangcheck_handler [msm]] *ERROR* 
-A330: hangcheck detected gpu lockup rb 0!
-[   94.970184] msm fd900000.mdss: [drm:hangcheck_handler [msm]] *ERROR* 
-A330:     completed fence: 0
-[   94.970873] msm fd900000.mdss: [drm:hangcheck_handler [msm]] *ERROR* 
-A330:     submitted fence: 1
-[   94.971600] msm fd900000.mdss: [drm:recover_worker [msm]] *ERROR* 
-A330: hangcheck recover!
-[   94.972329] msm fd900000.mdss: [drm:recover_worker [msm]] *ERROR* 
-A330: offending task: kmscube (kmscube)
-[   94.974101] revision: 330 (3.3.0.2)
-[   94.974117] rb 0: fence:    0/1
-[   94.974129] rptr:     36
-[   94.974139] rb wptr:  36
-[   94.974148] CP_SCRATCH_REG0: 0
-[   94.974159] CP_SCRATCH_REG1: 0
-[   94.974169] CP_SCRATCH_REG2: 0
-[   94.974178] CP_SCRATCH_REG3: 0
-[   94.974188] CP_SCRATCH_REG4: 0
-[   94.974198] CP_SCRATCH_REG5: 0
-[   94.974208] CP_SCRATCH_REG6: 10
-[   94.974218] CP_SCRATCH_REG7: 12
+On 04-01-21, 12:49, Viresh Kumar wrote:
+> On 01-01-21, 16:54, Yangtao Li wrote:
+> > Use devm_pm_opp_* API to simplify code, and we don't need
+> > to make opp_table glabal.
+> > 
+> > Let's remove opp_table from geni_se later.
+> > 
+> > Signed-off-by: Yangtao Li <tiny.windzz@gmail.com>
+> > ---
+> >  drivers/tty/serial/qcom_geni_serial.c | 23 +++++++++--------------
+> >  1 file changed, 9 insertions(+), 14 deletions(-)
+> > 
+> > diff --git a/drivers/tty/serial/qcom_geni_serial.c b/drivers/tty/serial/qcom_geni_serial.c
+> > index 5aada7ebae35..36a92df8ec11 100644
+> > --- a/drivers/tty/serial/qcom_geni_serial.c
+> > +++ b/drivers/tty/serial/qcom_geni_serial.c
+> > @@ -1352,6 +1352,7 @@ static int qcom_geni_serial_probe(struct platform_device *pdev)
+> >  	int irq;
+> >  	bool console = false;
+> >  	struct uart_driver *drv;
+> > +	struct opp_table *opp_table;
+> >  
+> >  	if (of_device_is_compatible(pdev->dev.of_node, "qcom,geni-debug-uart"))
+> >  		console = true;
+> > @@ -1433,13 +1434,13 @@ static int qcom_geni_serial_probe(struct platform_device *pdev)
+> >  	if (of_property_read_bool(pdev->dev.of_node, "cts-rts-swap"))
+> >  		port->cts_rts_swap = true;
+> >  
+> > -	port->se.opp_table = dev_pm_opp_set_clkname(&pdev->dev, "se");
+> > -	if (IS_ERR(port->se.opp_table))
+> > -		return PTR_ERR(port->se.opp_table);
+> > +	opp_table = devm_pm_opp_set_clkname(&pdev->dev, "se");
+> > +	if (IS_ERR(opp_table))
+> > +		return PTR_ERR(opp_table);
+> >  	/* OPP table is optional */
+> > -	ret = dev_pm_opp_of_add_table(&pdev->dev);
+> > +	ret = devm_pm_opp_of_add_table(&pdev->dev);
+> >  	if (ret) {
+> > -		dev_pm_opp_put_clkname(port->se.opp_table);
+> > +		devm_pm_opp_put_clkname(&pdev->dev, opp_table);
+> 
+> We shouldn't be doing this here, i.e. put_clkname. Even when the OPP
+> table isn't present, this driver calls dev_pm_opp_set_rate() which
+> behaves like clk_set_rate() in this case and so the clk name is still
+> required by the OPP core.
 
-So indeed partial revert of "if" condition fixes gpu at least on msm8974.
+The same problem is there with multiple patches, fix them all please.
 
-Tested-by: Alexey Minnekhanov <alexeymin@postmarketos.org>
-
-On 1/2/21 11:24 PM, Iskren Chernev wrote:
-> The msm_gem_get_iova should be guarded with gpu != NULL and not aspace
-> != NULL, because aspace is NULL when using vram carveout.
-> 
-> Fixes: 933415e24bd0d ("drm/msm: Add support for private address space instances")
-> 
-> Signed-off-by: Iskren Chernev <iskren.chernev@gmail.com>
-> ---
->   drivers/gpu/drm/msm/msm_drv.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index c5e61cb3356df..c1953fb079133 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -775,9 +775,10 @@ static int msm_ioctl_gem_info_iova(struct drm_device *dev,
->   		struct drm_file *file, struct drm_gem_object *obj,
->   		uint64_t *iova)
->   {
-> +	struct msm_drm_private *priv = dev->dev_private;
->   	struct msm_file_private *ctx = file->driver_priv;
->   
-> -	if (!ctx->aspace)
-> +	if (!priv->gpu)
->   		return -EINVAL;
->   
->   	/*
-> 
+-- 
+viresh
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
