@@ -1,63 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B09D32E9B9C
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FB3A2E9B99
 	for <lists+freedreno@lfdr.de>; Mon,  4 Jan 2021 18:01:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64A5C6E030;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C7E06E02F;
 	Mon,  4 Jan 2021 17:01:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com
- [IPv6:2607:f8b0:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4F2F89B38
- for <freedreno@lists.freedesktop.org>; Mon,  4 Jan 2021 07:30:46 +0000 (UTC)
-Received: by mail-pf1-x429.google.com with SMTP id m6so15963085pfm.6
- for <freedreno@lists.freedesktop.org>; Sun, 03 Jan 2021 23:30:46 -0800 (PST)
+Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
+ [IPv6:2607:f8b0:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E324289B7B
+ for <freedreno@lists.freedesktop.org>; Mon,  4 Jan 2021 07:32:49 +0000 (UTC)
+Received: by mail-pf1-x42b.google.com with SMTP id x126so15954079pfc.7
+ for <freedreno@lists.freedesktop.org>; Sun, 03 Jan 2021 23:32:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=7x+ya3WlDYOlVbzunORT/RgtZi0Bw4k+NgmHAp25z4c=;
- b=WK0hoec2dEzKke+5KHU9JJOZX6GvW3D8DZ/jbKYdzXUAhDpyeTNlQuW/r2gOIuxxzz
- FGTPuLxLDK3piKlDdhjpxwPB2AfzjEDnu0aaCENgjCdUfQ0/xMGKvzQMD7KsBaJEmWRF
- gvw9A0Mwnq/9ilJVR401IyxPTbullL2eD9n84L3t2H3KjXqRKJQ/Bpa7Mm8m9PX8qTzD
- KC8oR20XP3SXsXHtcMIjmh6GdfDaoTqtRuouS9gkf/uEsP06ecifEAfU29rfpoMT6xym
- K9fiCTuvtMIb9me9wnluF4yzaW1ZY4WsHSK4ven/vl9LD05j/3tR1dkak46f5OClKtJT
- 5EJg==
+ bh=iRXPtY20D9orDIjb5tCwjmiIuDnS2goRBPjGMkiKUgk=;
+ b=pYf9Tvqk/nYS1dsljbZYs4vnYyryXc1zZ8aFgpievKkuU/vwdqhMSLPp187p4iUzvk
+ x97na1Zr5IZqGb1yry5b1l7NH6i0R3i19c2LMJof78NSIQ7AWfPL3L1gxGcKVpgpzzsW
+ 4LeiX2fUqlrZ4Lz3w8Dvgi/c43rEQRfyiHraEypHkBhucquIxrMWVhKoMbQkiMYxph+J
+ cm/G2VFuGAfBI4oP322CJDvK17BbrTSHsAmuYQ8CKg2k9eDvZbTP5bqMJUpiEY7/iJSv
+ p3pG+kTNMXRK2Yb9ytNFinssZq3pA2LVDEgeVCk9ox/hswNS46iqvElLD/oJZH9VD7bG
+ d23w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=7x+ya3WlDYOlVbzunORT/RgtZi0Bw4k+NgmHAp25z4c=;
- b=dtRh6RZHONZRGYOe6Kxykflpc3cPbeK3KgX8J2VRch8i04x9zrQXesa8GyQJ5ofsU8
- HnrN8D/RIxaUI851tk+kjCpkTs1NUZG0vgmnmPJ6n0OpqaWSxhjQF0bvrrLP6yGKHkSn
- 0Omxm/oRMudPMuddYAy+eB5jTpEoHPYySxmdzA2STtRafM4FMe5jq3lT2ZGH278Anxos
- WMEwDLceNqjvFyeyQbxqpT+wjRfer8SN+Dz/8iwjKH3BPo8m4B3ySQm7tJz0MHmEberZ
- bOP0uTH3b1RvPVbKleCF6i6WiQSkdkuVFtCUy9BsW7t21mYpn1o4DxR/wkmXSRLSL3c3
- 40qQ==
-X-Gm-Message-State: AOAM531dJ5t4f2Ri+3wAlVsUe4iqXQuw85a1tMpRkZcYwM/tnqTZ44qN
- 7MGj2/q9zcDug98FXTaqrAD04Q==
-X-Google-Smtp-Source: ABdhPJw8EZ4eSCzESWNyniO8jgscATypf3SyqMk99sQMoYX+wFrC0dRQGUi39G/8m/OrT7kMrwuZRA==
-X-Received: by 2002:a63:5805:: with SMTP id m5mr42352866pgb.352.1609745446550; 
- Sun, 03 Jan 2021 23:30:46 -0800 (PST)
+ bh=iRXPtY20D9orDIjb5tCwjmiIuDnS2goRBPjGMkiKUgk=;
+ b=LzbTKV28Fs9e7kiDkTu6UlbS1ctqPpmr2e2kLMbHcVplNkKFlcuamAqNjwhUFpIEYs
+ bgaB6zX5iGHUUcqP3lwKKZK6sPOBoPvUTSCpLvi9wfY6IZZuaMGL7xrmcsvVozlWS5sq
+ +RElD1L87+Cvsugy0PSOgGuEuQteDQehANHXH+20MfLnYIO+uhXuLQuhd41/mZp98o58
+ IAkX2yvLF5/gnxcVKTe7q71ZfE1JpUJOvpoK7XCtHKtfChlmGZZEytK//Mu0pKUf98vd
+ KFizD3ko2pIbet2HO43PjHwxEgiSB0Bqf3QkDobZVsi+2k76U5O1T78Cu9pa4k2dGPlc
+ uHaQ==
+X-Gm-Message-State: AOAM532e22yyCDxrHN39WxPlu9jComgoqv+tmXLUZt7jMJI6V6QVQkLa
+ wFohEUA+sTdy/yHM2/fNKERNmQ==
+X-Google-Smtp-Source: ABdhPJxg1RuXm4l0IeX5T2nfNwUfb9eKCIJWL14v0Jtf8jWZLkym1C7f5dh7jOgWjIh5IRoQRH0klg==
+X-Received: by 2002:aa7:9388:0:b029:19e:648:6480 with SMTP id
+ t8-20020aa793880000b029019e06486480mr39127516pfe.21.1609745569526; 
+ Sun, 03 Jan 2021 23:32:49 -0800 (PST)
 Received: from localhost ([122.172.20.109])
- by smtp.gmail.com with ESMTPSA id dw16sm19867854pjb.35.2021.01.03.23.30.45
+ by smtp.gmail.com with ESMTPSA id e5sm54143912pfc.76.2021.01.03.23.32.48
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 03 Jan 2021 23:30:45 -0800 (PST)
-Date: Mon, 4 Jan 2021 13:00:44 +0530
+ Sun, 03 Jan 2021 23:32:48 -0800 (PST)
+Date: Mon, 4 Jan 2021 13:02:46 +0530
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: Yangtao Li <tiny.windzz@gmail.com>
-Message-ID: <20210104073044.pqrkprqsh3qetgwe@vireshk-i7>
+Message-ID: <20210104073246.vub5fhfwfdbwxkdx@vireshk-i7>
 References: <20210101165507.19486-1-tiny.windzz@gmail.com>
- <20210101165507.19486-2-tiny.windzz@gmail.com>
+ <20210101165507.19486-19-tiny.windzz@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210101165507.19486-2-tiny.windzz@gmail.com>
+In-Reply-To: <20210101165507.19486-19-tiny.windzz@gmail.com>
 User-Agent: NeoMutt/20180716-391-311a52
 X-Mailman-Approved-At: Mon, 04 Jan 2021 17:01:51 +0000
-Subject: Re: [Freedreno] [PATCH 01/31] opp: Add devres wrapper for
- dev_pm_opp_set_clkname and dev_pm_opp_put_clkname
+Subject: Re: [Freedreno] [PATCH 18/31] drm/lima: remove unneeded
+ devm_devfreq_remove_device()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,19 +105,29 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 01-01-21, 16:54, Yangtao Li wrote:
-> +/**
-> + * devm_pm_opp_put_clkname() - Releases resources blocked for clk.
-> + * @dev: Device for which we do this operation.
-> + * @opp_table: OPP table returned from devm_pm_opp_set_clkname().
-> + */
-> +void devm_pm_opp_put_clkname(struct device *dev, struct opp_table *opp_table)
-> +{
-> +	devm_release_action(dev, devm_pm_opp_clkname_release, opp_table);
-> +}
-> +EXPORT_SYMBOL_GPL(devm_pm_opp_put_clkname);
+> There is no need to manually release devm related resources.
+> 
+> Signed-off-by: Yangtao Li <tiny.windzz@gmail.com>
+> ---
+>  drivers/gpu/drm/lima/lima_devfreq.c | 5 -----
+>  1 file changed, 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/lima/lima_devfreq.c b/drivers/gpu/drm/lima/lima_devfreq.c
+> index d5937cf86504..7690c5c69f9f 100644
+> --- a/drivers/gpu/drm/lima/lima_devfreq.c
+> +++ b/drivers/gpu/drm/lima/lima_devfreq.c
+> @@ -94,11 +94,6 @@ void lima_devfreq_fini(struct lima_device *ldev)
+>  		devfreq_cooling_unregister(devfreq->cooling);
+>  		devfreq->cooling = NULL;
+>  	}
+> -
+> -	if (devfreq->devfreq) {
+> -		devm_devfreq_remove_device(ldev->dev, devfreq->devfreq);
+> -		devfreq->devfreq = NULL;
+> -	}
+>  }
 
-We shouldn't be needing changes like this, please drop them for all
-patches.
+Why is this part of this patchset ?
 
 -- 
 viresh
