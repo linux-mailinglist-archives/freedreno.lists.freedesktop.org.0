@@ -1,35 +1,35 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 309132EA608
-	for <lists+freedreno@lfdr.de>; Tue,  5 Jan 2021 08:37:10 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C56B2EA606
+	for <lists+freedreno@lfdr.de>; Tue,  5 Jan 2021 08:37:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDE6389F77;
-	Tue,  5 Jan 2021 07:37:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF71289FFD;
+	Tue,  5 Jan 2021 07:37:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from so254-31.mailgun.net (so254-31.mailgun.net [198.61.254.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1C756E048
- for <freedreno@lists.freedesktop.org>; Tue,  5 Jan 2021 07:37:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50BF489FF9
+ for <freedreno@lists.freedesktop.org>; Tue,  5 Jan 2021 07:37:04 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1609832227; h=References: In-Reply-To: Message-Id: Date:
+ s=smtp; t=1609832224; h=References: In-Reply-To: Message-Id: Date:
  Subject: Cc: To: From: Sender;
- bh=/egNfhQEhRiQ0oQC1YiS2fcI4kZV6K6eHG0Gh3v4tCQ=;
- b=S96n4EfxETTAvBRuriNiFuJG440QwAMMBFekznZIdXEEolrWsSjh0el5XsnOJ+Rh7/eJkPPW
- OSSve9rq3UDn4ErWvi0V8TlwlwuxmXpzCVPTMe+U4MAh8VCb1cAeXJ5cqkv8Tb9oGzQA65Dt
- /1u+RYxvc9S24MxyX7zTVLzs5zE=
+ bh=0T+xlGHJP2wMYpgxmfrGKe+ecRzlLCw68x3Rb2S7kVs=;
+ b=wQdGbGVqppuPAm+bC5HNWYTgVqXNje21rLDC/lIBXD8rpJWfh3AyHH1Pdqu5m94sGLEmxCMH
+ oJIp7MRmr6GpJ2eKkRqTJooz/8dN4jkl3u+UZTONK8cFAmi+q85TUcOJsGFrNcpMuirhYF6f
+ 3BkLSwvTTIOoumfFSGlu3FrzMJ0=
 X-Mailgun-Sending-Ip: 198.61.254.31
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
- 5ff4171d584481b01b7b8770 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 05 Jan 2021 07:37:01
+ smtp-out-n09.prod.us-east-1.postgun.com with SMTP id
+ 5ff4171f584481b01b7b8bfa (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 05 Jan 2021 07:37:03
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 366C1C43467; Tue,  5 Jan 2021 07:37:01 +0000 (UTC)
+ id EB0F3C43464; Tue,  5 Jan 2021 07:37:02 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -39,9 +39,9 @@ Received: from isaacm-linux.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: isaacm)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 438FEC43464;
- Tue,  5 Jan 2021 07:36:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 438FEC43464
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 63A46C433CA;
+ Tue,  5 Jan 2021 07:37:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 63A46C433CA
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
@@ -51,13 +51,13 @@ To: will@kernel.org, robin.murphy@arm.com, joro@8bytes.org,
  robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
  steven.price@arm.com, alyssa.rosenzweig@collabora.com, robh@kernel.org,
  tomeu.vizoso@collabora.com
-Date: Mon,  4 Jan 2021 23:36:41 -0800
-Message-Id: <1609832205-10055-4-git-send-email-isaacm@codeaurora.org>
+Date: Mon,  4 Jan 2021 23:36:42 -0800
+Message-Id: <1609832205-10055-5-git-send-email-isaacm@codeaurora.org>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1609832205-10055-1-git-send-email-isaacm@codeaurora.org>
 References: <1609832205-10055-1-git-send-email-isaacm@codeaurora.org>
-Subject: [Freedreno] [PATCH RESEND 3/7] iommu/arm-smmu: Add dependency on
- io-pgtable format modules
+Subject: [Freedreno] [PATCH RESEND 4/7] iommu/arm-smmu-v3: Add dependency on
+ io-pgtable-arm format module
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,29 +80,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The SMMU driver depends on the availability of the ARM LPAE
-io-pgtable format code to work properly. In preparation
-for having the io-pgtable formats as modules, add a "pre"
-dependency with MODULE_SOFTDEP() to ensure that the ARM LPAE
-io-pgtable format module is loaded before loading the ARM SMMU
-driver module. Also, add a dependency on the ARMv7 short descriptor
-io-pgtable format, so that it can be loaded before the SMMU driver
-module, if available.
+The SMMUv3 driver depends on the availability of the ARM LPAE io-pgtable
+format code to work properly. In preparation for having the io-pgtable
+formats as modules, add a "pre" dependency with MODULE_SOFTDEP() to
+ensure that the io-pgtable-arm format module is loaded before loading
+the ARM SMMUv3 driver module.
 
 Signed-off-by: Isaac J. Manjarres <isaacm@codeaurora.org>
 ---
- drivers/iommu/arm/arm-smmu/arm-smmu.c | 1 +
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/arm-smmu/arm-smmu.c
-index d8c6bfd..a72649f 100644
---- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
-+++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
-@@ -2351,3 +2351,4 @@ MODULE_DESCRIPTION("IOMMU API for ARM architected SMMU implementations");
+diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+index 8ca7415..c498ac8 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
++++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+@@ -3650,3 +3650,4 @@ MODULE_DESCRIPTION("IOMMU API for ARM architected SMMUv3 implementations");
  MODULE_AUTHOR("Will Deacon <will@kernel.org>");
- MODULE_ALIAS("platform:arm-smmu");
+ MODULE_ALIAS("platform:arm-smmu-v3");
  MODULE_LICENSE("GPL v2");
-+MODULE_SOFTDEP("pre: io-pgtable-arm io-pgtable-arm-v7s");
++MODULE_SOFTDEP("pre: io-pgtable-arm");
 -- 
 The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
 a Linux Foundation Collaborative Project
