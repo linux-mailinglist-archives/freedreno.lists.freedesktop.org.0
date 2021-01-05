@@ -1,59 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EB582EB04E
-	for <lists+freedreno@lfdr.de>; Tue,  5 Jan 2021 17:41:37 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 904332EB42B
+	for <lists+freedreno@lfdr.de>; Tue,  5 Jan 2021 21:29:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3139B89BA1;
-	Tue,  5 Jan 2021 16:41:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FAAE6E081;
+	Tue,  5 Jan 2021 20:29:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 831116E056;
- Tue,  5 Jan 2021 16:33:49 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 83C64113E;
- Tue,  5 Jan 2021 08:33:48 -0800 (PST)
-Received: from [192.168.1.179] (unknown [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 647673F70D;
- Tue,  5 Jan 2021 08:33:37 -0800 (PST)
-To: Yangtao Li <tiny.windzz@gmail.com>, myungjoo.ham@samsung.com,
- kyungmin.park@samsung.com, cw00.choi@samsung.com, krzk@kernel.org,
- shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
- festevam@gmail.com, linux-imx@nxp.com, digetx@gmail.com,
- thierry.reding@gmail.com, jonathanh@nvidia.com, yuq825@gmail.com,
- airlied@linux.ie, daniel@ffwll.ch, robdclark@gmail.com, sean@poorly.run,
- robh@kernel.org, tomeu.vizoso@collabora.com,
- alyssa.rosenzweig@collabora.com, stanimir.varbanov@linaro.org,
- agross@kernel.org, bjorn.andersson@linaro.org, mchehab@kernel.org,
- lukasz.luba@arm.com, adrian.hunter@intel.com, ulf.hansson@linaro.org,
- vireshk@kernel.org, nm@ti.com, sboyd@kernel.org, broonie@kernel.org,
- gregkh@linuxfoundation.org, jirislaby@kernel.org, rjw@rjwysocki.net,
- jcrouse@codeaurora.org, hoegsberg@google.com, eric@anholt.net,
- tzimmermann@suse.de, marijn.suijten@somainline.org, gustavoars@kernel.org,
- emil.velikov@collabora.com, jonathan@marek.ca, akhilpo@codeaurora.org,
- smasetty@codeaurora.org, airlied@redhat.com, masneyb@onstation.org,
- kalyan_t@codeaurora.org, tanmay@codeaurora.org, ddavenport@chromium.org,
- jsanka@codeaurora.org, rnayak@codeaurora.org, tongtiangen@huawei.com,
- miaoqinglang@huawei.com, khsieh@codeaurora.org, abhinavk@codeaurora.org,
- chandanu@codeaurora.org, groeck@chromium.org, varar@codeaurora.org,
- mka@chromium.org, harigovi@codeaurora.org, rikard.falkeborn@gmail.com,
- natechancellor@gmail.com, georgi.djakov@linaro.org, akashast@codeaurora.org,
- parashar@codeaurora.org, dianders@chromium.org
-References: <20210101165507.19486-1-tiny.windzz@gmail.com>
- <20210101165507.19486-20-tiny.windzz@gmail.com>
-From: Steven Price <steven.price@arm.com>
-Message-ID: <63e5e2ae-0baf-cbd1-b2eb-43fac89acb7c@arm.com>
-Date: Tue, 5 Jan 2021 16:33:32 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 648DE89F4A;
+ Tue,  5 Jan 2021 19:59:42 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id 23so1240915lfg.10;
+ Tue, 05 Jan 2021 11:59:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+ :subject:to:cc;
+ bh=w3y172ugq1A8+DfHjAatLK3oOwXsMQTLgHeUXaHnUCU=;
+ b=tBCWlgeIGyCHy0ayfKSb2hKeKiEoFzcgiAtzEEfHQ70m4TqSwGsZqX3Xnx4VJJnvbt
+ n0OP+1QygM+MIfVv5A7Ue/siY9qUR3JrwvKGHP2W3QTyiHhYMLJ6zdE5Ged8pj1n+RjK
+ Bb3lYAmgD2urDHD+97GcmaR9/cYTYUc3lvg36iKQWZkukTkf+xsDRudzvwcq2WaBpdlE
+ x0mE68kMXoFvZrIZWNkF8AnSu3p+LzNJVWTcYgez90NbFkWXHh7/NpKY2fPkuOEA7ZKB
+ w1aIj7VtjxtrBSQz6IaOTRs86szJNL8Gutp0tvolPIaAjingl3R6BlglT66Kk2USW+JA
+ gNew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+ :from:date:message-id:subject:to:cc;
+ bh=w3y172ugq1A8+DfHjAatLK3oOwXsMQTLgHeUXaHnUCU=;
+ b=dgTZH0/tC1nYNRCgpcOuY5TTv+H0if9RmBhmFYaPlQY6ejziRuQ5JKi1oq8ozCYVO5
+ rAEKfQ2Z6jfcJixMkTRfA4QpdIgSVxRc5DOzHFRH8hHmMkpqF1cS4QTHQkZTLLc3yqNa
+ fgHWMFOBdppb+jMIf6Oit7uwXccZMxPeAyNTC+QvgCnIXNOWPefhmNKdIgc0vvhov9L3
+ NKhlJz2RCI61CWuoJ5A5nt8qRhi0JIYWHzUcsCpg1AALRJSq4Nw0AUzkQzcKRZ75sVA/
+ vFPy1Cit3d5c7KcnTwSUtSU9LvVmoHVDZvNy08FEIuBkqz3wjoYFFkg3flcfr8YZhyxk
+ 2NiA==
+X-Gm-Message-State: AOAM533CGhtW2KiPDsUhF88Qj/GrhVhqkaFmtDrzUX5ev04djSgaFX7d
+ b0KTCk7NNBjZd6OsYoOsO8r1OzM1iMEnkFh4Fo8=
+X-Google-Smtp-Source: ABdhPJxefm71gCAP6d5oS17blFAwFnEd9spoEWiCV79bTaAMdk7JG8QCTPTs9zQB67DoNESWvQ4nEkOaTe/eEP/zqxs=
+X-Received: by 2002:a2e:8156:: with SMTP id t22mr509678ljg.263.1609876780665; 
+ Tue, 05 Jan 2021 11:59:40 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20210101165507.19486-20-tiny.windzz@gmail.com>
-Content-Language: en-GB
-X-Mailman-Approved-At: Tue, 05 Jan 2021 16:41:34 +0000
-Subject: Re: [Freedreno] [PATCH 19/31] drm/panfrost: convert to use
- devm_pm_opp_* API
+References: <20210103035540.23886-1-tiny.windzz@gmail.com>
+ <CAGTfZH37=e4RgdR4xg-3s9-pRjqunHi2jfPQqQgVWkxW94GwOA@mail.gmail.com>
+In-Reply-To: <CAGTfZH37=e4RgdR4xg-3s9-pRjqunHi2jfPQqQgVWkxW94GwOA@mail.gmail.com>
+From: Chanwoo Choi <cwchoi00@gmail.com>
+Date: Wed, 6 Jan 2021 04:59:04 +0900
+Message-ID: <CAGTfZH0kg=-MLrvEb+oHkaAuS3mV+o+Oia=wUCf=n2v7s1oXMg@mail.gmail.com>
+To: Yangtao Li <tiny.windzz@gmail.com>
+X-Mailman-Approved-At: Tue, 05 Jan 2021 20:29:19 +0000
+Subject: Re: [Freedreno] [PATCH 28/31] PM / devfreq: imx8m-ddrc: convert to
+ use devm_pm_opp_* API
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,131 +64,141 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-samsung-soc@vger.kernel.org, lima@lists.freedesktop.org,
- linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-spi@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-tegra@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
+Reply-To: cwchoi00@gmail.com
+Cc: Nishanth Menon <nm@ti.com>, Ulf Hansson <ulf.hansson@linaro.org>,
+ gustavoars@kernel.org, jirislaby@kernel.org, David Airlie <airlied@linux.ie>,
+ linux-mmc@vger.kernel.org, Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+ tanmay@codeaurora.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ natechancellor@gmail.com, eric@anholt.net,
+ Thierry Reding <thierry.reding@gmail.com>, tongtiangen@huawei.com,
+ Guenter Roeck <groeck@chromium.org>, marijn.suijten@somainline.org,
+ Dmitry Osipenko <digetx@gmail.com>, steven.price@arm.com, festevam@gmail.com,
+ Matthias Kaehlcke <mka@chromium.org>, chandanu@codeaurora.org,
+ emil.velikov@collabora.com, Rob Herring <robh@kernel.org>,
+ linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
+ Jonathan Marek <jonathan@marek.ca>, harigovi@codeaurora.org,
+ adrian.hunter@intel.com, Viresh Kumar <vireshk@kernel.org>,
+ Linux PM list <linux-pm@vger.kernel.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>, MyungJoo Ham <myungjoo.ham@samsung.com>,
+ alyssa.rosenzweig@collabora.com, linux-serial@vger.kernel.org,
+ airlied@redhat.com, smasetty@codeaurora.org, dl-linux-imx <linux-imx@nxp.com>,
+ freedreno@lists.freedesktop.org, kernel@pengutronix.de, tzimmermann@suse.de,
+ linux-arm-msm@vger.kernel.org, s.hauer@pengutronix.de,
+ linux-spi@vger.kernel.org, linux-media@vger.kernel.org,
+ abhinavk@codeaurora.org, akhilpo@codeaurora.org, khsieh@codeaurora.org,
+ lima@lists.freedesktop.org, jcrouse@codeaurora.org,
+ Mark Brown <broonie@kernel.org>, rikard.falkeborn@gmail.com,
+ kalyan_t@codeaurora.org, linux-tegra@vger.kernel.org, varar@codeaurora.org,
+ jsanka@codeaurora.org, mchehab@kernel.org, sean@poorly.run,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ Doug Anderson <dianders@chromium.org>, akashast@codeaurora.org,
+ rnayak@codeaurora.org, parashar@codeaurora.org, tomeu.vizoso@collabora.com,
+ Stephen Boyd <sboyd@kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>, agross@kernel.org,
+ linux-kernel <linux-kernel@vger.kernel.org>, robdclark@gmail.com,
+ miaoqinglang@huawei.com, hoegsberg@google.com, yuq825@gmail.com,
+ Daniel Vetter <daniel@ffwll.ch>, ddavenport@chromium.org,
+ masneyb@onstation.org, Shawn Guo <shawnguo@kernel.org>,
+ Georgi Djakov <georgi.djakov@linaro.org>, Lukasz Luba <lukasz.luba@arm.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 01/01/2021 16:54, Yangtao Li wrote:
-> Use devm_pm_opp_* API to simplify code, and remove opp_table
-> from panfrost_devfreq.
-> 
-> Signed-off-by: Yangtao Li <tiny.windzz@gmail.com>
+Hi Yangtao,
 
-Reviewed-by: Steven Price <steven.price@arm.com>
+On Tue, Jan 5, 2021 at 1:13 PM Chanwoo Choi <cwchoi00@gmail.com> wrote:
+>
+> On Sun, Jan 3, 2021 at 12:58 PM Yangtao Li <tiny.windzz@gmail.com> wrote:
+> >
+> > Use devm_pm_opp_* API to simplify code.
+> >
+> > Signed-off-by: Yangtao Li <tiny.windzz@gmail.com>
+> > ---
+> >  drivers/devfreq/imx8m-ddrc.c | 15 ++-------------
+> >  1 file changed, 2 insertions(+), 13 deletions(-)
+> >
+> > diff --git a/drivers/devfreq/imx8m-ddrc.c b/drivers/devfreq/imx8m-ddrc.c
+> > index bc82d3653bff..9383d6e5538b 100644
+> > --- a/drivers/devfreq/imx8m-ddrc.c
+> > +++ b/drivers/devfreq/imx8m-ddrc.c
+> > @@ -370,11 +370,6 @@ static int imx8m_ddrc_check_opps(struct device *dev)
+> >         return 0;
+> >  }
+> >
+> > -static void imx8m_ddrc_exit(struct device *dev)
+> > -{
+> > -       dev_pm_opp_of_remove_table(dev);
+> > -}
+> > -
+> >  static int imx8m_ddrc_probe(struct platform_device *pdev)
+> >  {
+> >         struct device *dev = &pdev->dev;
+> > @@ -419,7 +414,7 @@ static int imx8m_ddrc_probe(struct platform_device *pdev)
+> >                 return ret;
+> >         }
+> >
+> > -       ret = dev_pm_opp_of_add_table(dev);
+> > +       ret = devm_pm_opp_of_add_table(dev);
+> >         if (ret < 0) {
+> >                 dev_err(dev, "failed to get OPP table\n");
+> >                 return ret;
+> > @@ -427,12 +422,11 @@ static int imx8m_ddrc_probe(struct platform_device *pdev)
+> >
+> >         ret = imx8m_ddrc_check_opps(dev);
+> >         if (ret < 0)
+> > -               goto err;
+> > +               return ret;
+> >
+> >         priv->profile.polling_ms = 1000;
+> >         priv->profile.target = imx8m_ddrc_target;
+> >         priv->profile.get_dev_status = imx8m_ddrc_get_dev_status;
+> > -       priv->profile.exit = imx8m_ddrc_exit;
+> >         priv->profile.get_cur_freq = imx8m_ddrc_get_cur_freq;
+> >         priv->profile.initial_freq = clk_get_rate(priv->dram_core);
+> >
+> > @@ -441,13 +435,8 @@ static int imx8m_ddrc_probe(struct platform_device *pdev)
+> >         if (IS_ERR(priv->devfreq)) {
+> >                 ret = PTR_ERR(priv->devfreq);
+> >                 dev_err(dev, "failed to add devfreq device: %d\n", ret);
+> > -               goto err;
+> >         }
+> >
+> > -       return 0;
+> > -
+> > -err:
+> > -       dev_pm_opp_of_remove_table(dev);
+> >         return ret;
+>
+> devm_devfreq_add_device() doesn't return any integer value.
+> Even if devm_devfreq_add_device() returns the right devfreq instance,
+> the 'ret' value  is not the return value of  devm_devfreq_add_device().
+>
+> On this patch, 'ret' value of 'return ret' is from imx8m_ddrc_check_opps().
+> Surely, it is well working with this modification. But, it is not code
+> for exception handling.
+> So, we need to remain the following codes:
+>
+>     return 0;
+> err:
+>     return ret;
+>
 
-> ---
->   drivers/gpu/drm/panfrost/panfrost_devfreq.c | 34 ++++++---------------
->   drivers/gpu/drm/panfrost/panfrost_devfreq.h |  1 -
->   2 files changed, 10 insertions(+), 25 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_devfreq.c b/drivers/gpu/drm/panfrost/panfrost_devfreq.c
-> index f44d28fad085..c42fa9eb43b1 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_devfreq.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_devfreq.c
-> @@ -92,25 +92,26 @@ int panfrost_devfreq_init(struct panfrost_device *pfdev)
->   	struct thermal_cooling_device *cooling;
->   	struct panfrost_devfreq *pfdevfreq = &pfdev->pfdevfreq;
->   
-> -	opp_table = dev_pm_opp_set_regulators(dev, pfdev->comp->supply_names,
-> +	opp_table = devm_pm_opp_set_regulators(dev, pfdev->comp->supply_names,
->   					      pfdev->comp->num_supplies);
->   	if (IS_ERR(opp_table)) {
->   		ret = PTR_ERR(opp_table);
->   		/* Continue if the optional regulator is missing */
->   		if (ret != -ENODEV) {
->   			DRM_DEV_ERROR(dev, "Couldn't set OPP regulators\n");
-> -			goto err_fini;
-> +			return ret;
->   		}
-> -	} else {
-> -		pfdevfreq->regulators_opp_table = opp_table;
->   	}
->   
-> -	ret = dev_pm_opp_of_add_table(dev);
-> +	ret = devm_pm_opp_of_add_table(dev);
->   	if (ret) {
-> +		if (!IS_ERR(opp_table))
-> +			devm_pm_opp_put_regulators(dev, opp_table);
-> +
->   		/* Optional, continue without devfreq */
->   		if (ret == -ENODEV)
->   			ret = 0;
-> -		goto err_fini;
-> +		return ret;
->   	}
->   	pfdevfreq->opp_of_table_added = true;
->   
-> @@ -121,10 +122,8 @@ int panfrost_devfreq_init(struct panfrost_device *pfdev)
->   	cur_freq = clk_get_rate(pfdev->clock);
->   
->   	opp = devfreq_recommended_opp(dev, &cur_freq, 0);
-> -	if (IS_ERR(opp)) {
-> -		ret = PTR_ERR(opp);
-> -		goto err_fini;
-> -	}
-> +	if (IS_ERR(opp))
-> +		return PTR_ERR(opp);
->   
->   	panfrost_devfreq_profile.initial_freq = cur_freq;
->   	dev_pm_opp_put(opp);
-> @@ -133,8 +132,7 @@ int panfrost_devfreq_init(struct panfrost_device *pfdev)
->   					  DEVFREQ_GOV_SIMPLE_ONDEMAND, NULL);
->   	if (IS_ERR(devfreq)) {
->   		DRM_DEV_ERROR(dev, "Couldn't initialize GPU devfreq\n");
-> -		ret = PTR_ERR(devfreq);
-> -		goto err_fini;
-> +		return PTR_ERR(devfreq);
->   	}
->   	pfdevfreq->devfreq = devfreq;
->   
-> @@ -145,10 +143,6 @@ int panfrost_devfreq_init(struct panfrost_device *pfdev)
->   		pfdevfreq->cooling = cooling;
->   
->   	return 0;
-> -
-> -err_fini:
-> -	panfrost_devfreq_fini(pfdev);
-> -	return ret;
->   }
->   
->   void panfrost_devfreq_fini(struct panfrost_device *pfdev)
-> @@ -159,14 +153,6 @@ void panfrost_devfreq_fini(struct panfrost_device *pfdev)
->   		devfreq_cooling_unregister(pfdevfreq->cooling);
->   		pfdevfreq->cooling = NULL;
->   	}
-> -
-> -	if (pfdevfreq->opp_of_table_added) {
-> -		dev_pm_opp_of_remove_table(&pfdev->pdev->dev);
-> -		pfdevfreq->opp_of_table_added = false;
-> -	}
-> -
-> -	dev_pm_opp_put_regulators(pfdevfreq->regulators_opp_table);
-> -	pfdevfreq->regulators_opp_table = NULL;
->   }
->   
->   void panfrost_devfreq_resume(struct panfrost_device *pfdev)
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_devfreq.h b/drivers/gpu/drm/panfrost/panfrost_devfreq.h
-> index db6ea48e21f9..a51854cc8c06 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_devfreq.h
-> +++ b/drivers/gpu/drm/panfrost/panfrost_devfreq.h
-> @@ -15,7 +15,6 @@ struct panfrost_device;
->   
->   struct panfrost_devfreq {
->   	struct devfreq *devfreq;
-> -	struct opp_table *regulators_opp_table;
->   	struct thermal_cooling_device *cooling;
->   	bool opp_of_table_added;
->   
-> 
+'err' is not necessary. You better to edit it as following:
 
+if (IS_ERR(priv->devfreq)) {
+    dev_err(dev, "failed to add devfreq device: %d\n", ret);
+    return PTR_ERR(priv->devfreq);
+}
+
+return 0;
+
+-- 
+Best Regards,
+Chanwoo Choi
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
