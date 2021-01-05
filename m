@@ -1,78 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 097302E9F5D
-	for <lists+freedreno@lfdr.de>; Mon,  4 Jan 2021 22:11:51 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 00DEB2EA603
+	for <lists+freedreno@lfdr.de>; Tue,  5 Jan 2021 08:37:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B35616E041;
-	Mon,  4 Jan 2021 21:11:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3F0D89F5F;
+	Tue,  5 Jan 2021 07:37:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-15.mailgun.net (m43-15.mailgun.net [69.72.43.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18F3D6E041
- for <freedreno@lists.freedesktop.org>; Mon,  4 Jan 2021 21:11:43 +0000 (UTC)
+Received: from so254-31.mailgun.net (so254-31.mailgun.net [198.61.254.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E45289F5F
+ for <freedreno@lists.freedesktop.org>; Tue,  5 Jan 2021 07:36:58 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1609794708; h=In-Reply-To: Content-Type: MIME-Version:
- References: Message-ID: Subject: Cc: To: From: Date: Sender;
- bh=SxYhreFDurE32zowaC/ojf+ypHTOFxwG+tjqvQX4SIU=;
- b=VXfWwj+w6kCZ4Bro1/CYxVm+Rkn3BN6OzFYDqPryg3Y80NkkEMwp75wAwJk5ywlBVCoQl/Di
- cRQR6spVpfsfBE5UjzGtPNysIF/lNKCCogK0h4n+xMEZt63DBkIeTFHGgGzEuFFuRZLFQgbg
- zxSU15Clh+rCAg/o9kjfLV6ymsI=
-X-Mailgun-Sending-Ip: 69.72.43.15
+ s=smtp; t=1609832219; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=N8vblr7WLA9MBowjRomnjKEqPtQ1SL9FvyoDvOUsoR4=;
+ b=A+Pj2CQLVChPLS8NvYZJP5Pnr7UYn8SUFumxuNUm/xtKacmPBwSSuC9CYubE4kl8n/gYcFmz
+ dUDANg9GzN9u4OQGewpNZJuXvAiRcd5sB45LdBRDFRsLNG+xvRjxxydU9cY1RjxdxI0k7XxY
+ nxdaK7eH/bm37MwhxkgAK/EfHZs=
+X-Mailgun-Sending-Ip: 198.61.254.31
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
- 5ff38478b4d9fe55c1af27e4 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 04 Jan 2021 21:11:20
+ smtp-out-n06.prod.us-east-1.postgun.com with SMTP id
+ 5ff41717b4d9fe55c1226f38 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 05 Jan 2021 07:36:55
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 65D13C43465; Mon,  4 Jan 2021 21:11:19 +0000 (UTC)
+ id 048BFC43464; Tue,  5 Jan 2021 07:36:54 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL, 
- URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
+Received: from isaacm-linux.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 6FBF7C433C6;
- Mon,  4 Jan 2021 21:11:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 6FBF7C433C6
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: isaacm)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 136C9C433CA;
+ Tue,  5 Jan 2021 07:36:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 136C9C433CA
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=jcrouse@codeaurora.org
-Date: Mon, 4 Jan 2021 14:11:13 -0700
-From: Jordan Crouse <jcrouse@codeaurora.org>
-To: Konrad Dybcio <konrad.dybcio@somainline.org>
-Message-ID: <20210104211113.GA29638@jcrouse1-lnx.qualcomm.com>
-Mail-Followup-To: Konrad Dybcio <konrad.dybcio@somainline.org>,
- phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- martin.botka@somainline.org,
- angelogioacchino.delregno@somainline.org,
- marijn.suijten@somainline.org, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Jonathan Marek <jonathan@marek.ca>,
- Dave Airlie <airlied@redhat.com>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- Shawn Guo <shawn.guo@linaro.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20210104193044.80591-1-konrad.dybcio@somainline.org>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210104193044.80591-1-konrad.dybcio@somainline.org>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Freedreno] [PATCH] drm/msm: Only enable A6xx LLCC code on A6xx
+ spf=fail smtp.mailfrom=isaacm@codeaurora.org
+From: "Isaac J. Manjarres" <isaacm@codeaurora.org>
+To: will@kernel.org, robin.murphy@arm.com, joro@8bytes.org,
+ robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
+ steven.price@arm.com, alyssa.rosenzweig@collabora.com, robh@kernel.org,
+ tomeu.vizoso@collabora.com
+Date: Mon,  4 Jan 2021 23:36:38 -0800
+Message-Id: <1609832205-10055-1-git-send-email-isaacm@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH RESEND 0/7] iommu: Permit modular builds of
+ io-pgtable drivers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,101 +67,78 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Shawn Guo <shawn.guo@linaro.org>, Dave Airlie <airlied@redhat.com>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Sharat Masetty <smasetty@codeaurora.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
- martin.botka@somainline.org, ~postmarketos/upstreaming@lists.sr.ht,
- Daniel Vetter <daniel@ffwll.ch>, angelogioacchino.delregno@somainline.org,
- marijn.suijten@somainline.org, phone-devel@vger.kernel.org,
- Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
+Cc: "Isaac J. Manjarres" <isaacm@codeaurora.org>,
+ freedreno@lists.freedesktop.org, pdaly@codeaurora.org, pratikp@codeaurora.org,
+ dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
+ kernel-team@android.com, linux-arm-kernel@lists.infradead.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jan 04, 2021 at 08:30:41PM +0100, Konrad Dybcio wrote:
-> Using this code on A5xx (and probably older too) causes a
-> smmu bug.
-> 
-> Fixes: 474dadb8b0d5 ("drm/msm/a6xx: Add support for using system cache(LLC)")
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@somainline.org>
-> Tested-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+The goal of the Generic Kernel Image (GKI) effort is to have a common
+kernel image that works across multiple Android devices. This involves
+generating a kernel image that has core features integrated into it,
+while SoC specific functionality can be added to the kernel for the
+device as a module.
 
-Yep, I can see how this would be not ideal.
+Along with modularizing IOMMU drivers, this also means building the
+io-pgtable code as modules, which allows for SoC vendors to only include
+the io-pgtable implementations that they use. For example, GKI for arm64
+must include support for both the IOMMU ARM LPAE/V7S formats at the
+moment. Having the code for both formats as modules allows SoC vendors
+to only provide the page table format that they use, along with their
+IOMMU driver.
 
-Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
+The patches are split into 4 parts:
 
-> ---
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 21 ++++++++++++---------
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h |  5 +++++
->  2 files changed, 17 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> index 6cf9975e951e..f09175698827 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -191,8 +191,6 @@ adreno_iommu_create_address_space(struct msm_gpu *gpu,
->  		struct platform_device *pdev)
->  {
->  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-> -	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
-> -	struct io_pgtable_domain_attr pgtbl_cfg;
->  	struct iommu_domain *iommu;
->  	struct msm_mmu *mmu;
->  	struct msm_gem_address_space *aspace;
-> @@ -202,13 +200,18 @@ adreno_iommu_create_address_space(struct msm_gpu *gpu,
->  	if (!iommu)
->  		return NULL;
->  
-> -	/*
-> -	 * This allows GPU to set the bus attributes required to use system
-> -	 * cache on behalf of the iommu page table walker.
-> -	 */
-> -	if (!IS_ERR(a6xx_gpu->htw_llc_slice)) {
-> -		pgtbl_cfg.quirks = IO_PGTABLE_QUIRK_ARM_OUTER_WBWA;
-> -		iommu_domain_set_attr(iommu, DOMAIN_ATTR_IO_PGTABLE_CFG, &pgtbl_cfg);
-> +
-> +	if (adreno_is_a6xx(adreno_gpu)) {
-> +		struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
-> +		struct io_pgtable_domain_attr pgtbl_cfg;
-> +		/*
-> +		* This allows GPU to set the bus attributes required to use system
-> +		* cache on behalf of the iommu page table walker.
-> +		*/
-> +		if (!IS_ERR(a6xx_gpu->htw_llc_slice)) {
-> +			pgtbl_cfg.quirks = IO_PGTABLE_QUIRK_ARM_OUTER_WBWA;
-> +			iommu_domain_set_attr(iommu, DOMAIN_ATTR_IO_PGTABLE_CFG, &pgtbl_cfg);
-> +		}
->  	}
->  
->  	mmu = msm_iommu_new(&pdev->dev, iommu);
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> index 4574d85c5680..08421fa54a50 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> @@ -226,6 +226,11 @@ static inline int adreno_is_a540(struct adreno_gpu *gpu)
->  	return gpu->revn == 540;
->  }
->  
-> +static inline bool adreno_is_a6xx(struct adreno_gpu *gpu)
-> +{
-> +	return ((gpu->revn < 700 && gpu->revn > 599));
-> +}
-> +
->  static inline int adreno_is_a618(struct adreno_gpu *gpu)
->  {
->         return gpu->revn == 618;
-> -- 
-> 2.29.2
-> 
+1) Modularizing io-pgtable-arm[-v7s].c, while leaving the io-pgtable.c
+code as part of the core kernel, requires removing the references to
+the ARM LPAE and ARM V7S io-pgtable init functions, and using a
+dynamic method for formats to register their io-pgtable init functions.
+
+2) Taking references to the io-pgtable format drivers to ensure that they
+cannot be unloaded while in use.
+
+3) Adding pre MODULE_SOFTDEP() dependencies to drivers in the kernel
+that are tristate, and invoke [alloc/free]_io_pgtable_ops(). This makes
+it so that the io-pgtable format drivers are loaded before the driver
+that needs them.
+
+4) Changing the Kconfig options for the ARM LPAE nad ARM V7S to tristate
+and allowing the io-pgtable code to be enabled without having to select
+either page table format. The reason for doing this is so that a kernel
+can be built, such that it only provides the interface for io-pgtable
+formats to be registered as modules, as would be the case for the GKI.
+
+Thanks,
+Isaac
+
+Isaac J. Manjarres (7):
+  iommu/io-pgtable: Introduce dynamic io-pgtable format registration
+  iommu/io-pgtable: Add refcounting for io-pgtable format modules
+  iommu/arm-smmu: Add dependency on io-pgtable format modules
+  iommu/arm-smmu-v3: Add dependency on io-pgtable-arm format module
+  drm/msm: Add dependency on io-pgtable-arm format module
+  drm/panfrost: Add dependency on io-pgtable-arm format module
+  iommu/io-pgtable-arm: Allow building modular io-pgtable formats
+
+ drivers/gpu/drm/msm/msm_drv.c               |   1 +
+ drivers/gpu/drm/panfrost/panfrost_drv.c     |   1 +
+ drivers/iommu/Kconfig                       |  11 +--
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c |   1 +
+ drivers/iommu/arm/arm-smmu/arm-smmu.c       |   1 +
+ drivers/iommu/io-pgtable-arm-v7s.c          |  36 +++++++++-
+ drivers/iommu/io-pgtable-arm.c              | 104 +++++++++++++++++++++-------
+ drivers/iommu/io-pgtable.c                  |  54 ++++++++++-----
+ include/linux/io-pgtable.h                  |  52 +++++++++-----
+ 9 files changed, 196 insertions(+), 65 deletions(-)
 
 -- 
-The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
 a Linux Foundation Collaborative Project
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
