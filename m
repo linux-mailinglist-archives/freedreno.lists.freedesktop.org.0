@@ -1,63 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C9892EA60E
-	for <lists+freedreno@lfdr.de>; Tue,  5 Jan 2021 08:37:13 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B39222EAF7F
+	for <lists+freedreno@lfdr.de>; Tue,  5 Jan 2021 16:56:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F17D56E049;
-	Tue,  5 Jan 2021 07:37:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F40E6E1F1;
+	Tue,  5 Jan 2021 15:56:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-31.mailgun.net (so254-31.mailgun.net [198.61.254.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F1CA6E056
- for <freedreno@lists.freedesktop.org>; Tue,  5 Jan 2021 07:37:10 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1609832230; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=rpqI5hDm0c8EMztfmP5ol3o97td4NOlV5r9gOI8P84E=;
- b=ERxy0NEMNRaklxAZ5UxdRK3wBlFoKkzCNvmeRPZrh/jAcHwiZr9uBdhRg1yvc/+jwYceBRmb
- myMZUBUyxlXtRgbluXTAsTGh/loGjBGFl2Owy7aLup/L+NYphehSmjabLxCxTEVT/HCQys80
- hTKTapGPVDOQyBfn+6iUSparlf4=
-X-Mailgun-Sending-Ip: 198.61.254.31
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n09.prod.us-east-1.postgun.com with SMTP id
- 5ff41725584481b01b7b99f6 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 05 Jan 2021 07:37:09
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id EA39CC43463; Tue,  5 Jan 2021 07:37:08 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
-Received: from isaacm-linux.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: isaacm)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 3123AC433ED;
- Tue,  5 Jan 2021 07:37:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 3123AC433ED
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=isaacm@codeaurora.org
-From: "Isaac J. Manjarres" <isaacm@codeaurora.org>
-To: will@kernel.org, robin.murphy@arm.com, joro@8bytes.org,
- robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
- steven.price@arm.com, alyssa.rosenzweig@collabora.com, robh@kernel.org,
- tomeu.vizoso@collabora.com
-Date: Mon,  4 Jan 2021 23:36:45 -0800
-Message-Id: <1609832205-10055-8-git-send-email-isaacm@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1609832205-10055-1-git-send-email-isaacm@codeaurora.org>
-References: <1609832205-10055-1-git-send-email-isaacm@codeaurora.org>
-Subject: [Freedreno] [PATCH RESEND 7/7] iommu/io-pgtable-arm: Allow building
- modular io-pgtable formats
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8375189CD9;
+ Tue,  5 Jan 2021 03:47:54 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id m12so69495169lfo.7;
+ Mon, 04 Jan 2021 19:47:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+ :subject:to:cc;
+ bh=h3dbOszFbt6OQaWtwfejouXLhmx5RSkLak0dmAl0EsE=;
+ b=X2HIPa+2nYHaUq4baszZeg/1lPwfRlrkiazbu8bWAZ/4KVDEZZ8UJLHkCiHzu5BoPv
+ +d1r6dGtLI/e5iSeLti/uFDhKLFXF3tY06Jdc3OuTB+60jcWy7nbxvR/X/sbuy5Z2y0a
+ zy9Qm2wdvLKFzbzpL5PwnIXh21X/23EVG7mYWxKtxfix082rS5faNNu/pQ57no+v4JD+
+ BaQRjUTLWwn1bDT7po749l/CDI6APyFbpmhm4QydCPb2EdRw7tEUospHsYRRgYR6FHym
+ oOmjm0bgU9pTqMTv2DoYi3myavoG+000acurgbb4dfthX9S8jl7kSgIjjgmMtRlfqb7V
+ Jf3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+ :from:date:message-id:subject:to:cc;
+ bh=h3dbOszFbt6OQaWtwfejouXLhmx5RSkLak0dmAl0EsE=;
+ b=pl9xiQKOuIXk7Jr4skx443LMCa1gO28aHpOMCY/U+OD1N4SXVGjRNaVEh/KnpRklxQ
+ ULEGXc5w3XdKlk1JScQe2xO7j21KUKxHvTYv+BywHuyJwsPGwvWjhAuudZ6ozwQe2oax
+ byuljt8gKi5sHeW3jog4q3lePEvGSgPWTs4UzU8z7BVVnJo7sQU6+mu9/rVjdwj5wiw6
+ mUOG/isko2O5I4YxNF7cTcfaUM0eAHODVe1K888fhJH2S0TkQ3cL8+aMxPN1sgux2W3T
+ 5KFAMFtRu8XIFGyHiQo0UVJVGp0YsGcot1opATvZjUqeCEf5scZsCv6mOaAiGeP0NL2X
+ 57vA==
+X-Gm-Message-State: AOAM5316qr55gV4EqoAIlclLLizIvRZFDGfO+kj4hlMha5FwWUlX3VPj
+ FmMin5EpFRxS+L4+6q7oC09WR4G8rpC2iWHeN6I=
+X-Google-Smtp-Source: ABdhPJycvDA2y0kJZnyrX/YoD11eP5GdGX7X4MHU9HChkkRYsRnd6ay+qNKHQmx0en+WU3/yCpN8x9PBPa2srmvjcdU=
+X-Received: by 2002:a19:6b0d:: with SMTP id d13mr32595793lfa.63.1609818472823; 
+ Mon, 04 Jan 2021 19:47:52 -0800 (PST)
+MIME-Version: 1.0
+References: <20210103035445.23696-1-tiny.windzz@gmail.com>
+In-Reply-To: <20210103035445.23696-1-tiny.windzz@gmail.com>
+From: Chanwoo Choi <cwchoi00@gmail.com>
+Date: Tue, 5 Jan 2021 12:47:16 +0900
+Message-ID: <CAGTfZH0sLh=8XhBVOzUr9qO2w_=jp-OuWoh5vgNpnmXq6EzYHA@mail.gmail.com>
+To: Yangtao Li <tiny.windzz@gmail.com>
+X-Mailman-Approved-At: Tue, 05 Jan 2021 15:56:44 +0000
+Subject: Re: [Freedreno] [PATCH 26/31] PM / devfreq: tegra30: convert to use
+ devm_pm_opp_* API
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,84 +63,134 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Isaac J. Manjarres" <isaacm@codeaurora.org>,
- freedreno@lists.freedesktop.org, pdaly@codeaurora.org, pratikp@codeaurora.org,
- dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
- kernel-team@android.com, linux-arm-kernel@lists.infradead.org
-MIME-Version: 1.0
+Reply-To: cwchoi00@gmail.com
+Cc: Nishanth Menon <nm@ti.com>, Ulf Hansson <ulf.hansson@linaro.org>,
+ gustavoars@kernel.org, jirislaby@kernel.org, David Airlie <airlied@linux.ie>,
+ linux-mmc@vger.kernel.org, stanimir.varbanov@linaro.org, tanmay@codeaurora.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, natechancellor@gmail.com,
+ eric@anholt.net, Thierry Reding <thierry.reding@gmail.com>,
+ tongtiangen@huawei.com, Guenter Roeck <groeck@chromium.org>,
+ marijn.suijten@somainline.org, Dmitry Osipenko <digetx@gmail.com>,
+ steven.price@arm.com, festevam@gmail.com, Matthias Kaehlcke <mka@chromium.org>,
+ chandanu@codeaurora.org, emil.velikov@collabora.com,
+ Rob Herring <robh@kernel.org>,
+ linux-samsung-soc <linux-samsung-soc@vger.kernel.org>, jonathan@marek.ca,
+ harigovi@codeaurora.org, adrian.hunter@intel.com,
+ Viresh Kumar <vireshk@kernel.org>, Linux PM list <linux-pm@vger.kernel.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>, MyungJoo Ham <myungjoo.ham@samsung.com>,
+ alyssa.rosenzweig@collabora.com, linux-serial@vger.kernel.org,
+ airlied@redhat.com, smasetty@codeaurora.org, dl-linux-imx <linux-imx@nxp.com>,
+ freedreno@lists.freedesktop.org, kernel@pengutronix.de, tzimmermann@suse.de,
+ linux-arm-msm@vger.kernel.org, s.hauer@pengutronix.de,
+ linux-spi@vger.kernel.org, linux-media@vger.kernel.org,
+ abhinavk@codeaurora.org, akhilpo@codeaurora.org, khsieh@codeaurora.org,
+ lima@lists.freedesktop.org, jcrouse@codeaurora.org,
+ Mark Brown <broonie@kernel.org>, rikard.falkeborn@gmail.com,
+ kalyan_t@codeaurora.org, linux-tegra@vger.kernel.org, varar@codeaurora.org,
+ jsanka@codeaurora.org, mchehab@kernel.org, sean@poorly.run,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ Doug Anderson <dianders@chromium.org>, akashast@codeaurora.org,
+ rnayak@codeaurora.org, parashar@codeaurora.org, tomeu.vizoso@collabora.com,
+ Stephen Boyd <sboyd@kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>, agross@kernel.org,
+ linux-kernel <linux-kernel@vger.kernel.org>, robdclark@gmail.com,
+ miaoqinglang@huawei.com, hoegsberg@google.com, yuq825@gmail.com,
+ daniel@ffwll.ch, ddavenport@chromium.org, masneyb@onstation.org,
+ Shawn Guo <shawnguo@kernel.org>, Georgi Djakov <georgi.djakov@linaro.org>,
+ Lukasz Luba <lukasz.luba@arm.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Now that everything is in place for modular io-pgtable formats,
-allow the ARM LPAE and ARMV7S io-pgtable formats to be built
-as modules, and allow the io-pgtable framework to be enabled,
-without having to explicitly enable an io-pgtable format.
+Hi,
 
-Signed-off-by: Isaac J. Manjarres <isaacm@codeaurora.org>
----
- drivers/iommu/Kconfig              | 11 +++++++----
- drivers/iommu/io-pgtable-arm-v7s.c |  2 ++
- drivers/iommu/io-pgtable-arm.c     |  2 ++
- 3 files changed, 11 insertions(+), 4 deletions(-)
+On Sun, Jan 3, 2021 at 12:57 PM Yangtao Li <tiny.windzz@gmail.com> wrote:
+>
+> Use devm_pm_opp_* API to simplify code, and remove opp_table
+> from tegra_devfreq.
+>
+> Signed-off-by: Yangtao Li <tiny.windzz@gmail.com>
+> ---
+>  drivers/devfreq/tegra30-devfreq.c | 21 +++++++--------------
+>  1 file changed, 7 insertions(+), 14 deletions(-)
+>
+> diff --git a/drivers/devfreq/tegra30-devfreq.c b/drivers/devfreq/tegra30-devfreq.c
+> index 117cad7968ab..4984cb91e9ea 100644
+> --- a/drivers/devfreq/tegra30-devfreq.c
+> +++ b/drivers/devfreq/tegra30-devfreq.c
+> @@ -178,7 +178,6 @@ struct tegra_devfreq_soc_data {
+>
+>  struct tegra_devfreq {
+>         struct devfreq          *devfreq;
+> -       struct opp_table        *opp_table;
+>
+>         struct reset_control    *reset;
+>         struct clk              *clock;
+> @@ -794,6 +793,7 @@ static int tegra_devfreq_probe(struct platform_device *pdev)
+>         struct tegra_devfreq_device *dev;
+>         struct tegra_devfreq *tegra;
+>         struct devfreq *devfreq;
+> +       struct opp_tabl *opp_table;
 
-diff --git a/drivers/iommu/Kconfig b/drivers/iommu/Kconfig
-index 192ef8f..d3c4e9a 100644
---- a/drivers/iommu/Kconfig
-+++ b/drivers/iommu/Kconfig
-@@ -25,12 +25,15 @@ if IOMMU_SUPPORT
- 
- menu "Generic IOMMU Pagetable Support"
- 
--# Selected by the actual pagetable implementations
- config IOMMU_IO_PGTABLE
--	bool
-+	bool "IOMMU Pagetable support"
-+	help
-+	  Enable support for using IOMMU pagetables. This option enables
-+	  the generic IOMMU pagetable framework for registering IOMMU
-+	  pagetable formats, as well as managing IOMMU pagetable instances.
- 
- config IOMMU_IO_PGTABLE_LPAE
--	bool "ARMv7/v8 Long Descriptor Format"
-+	tristate "ARMv7/v8 Long Descriptor Format"
- 	select IOMMU_IO_PGTABLE
- 	depends on ARM || ARM64 || (COMPILE_TEST && !GENERIC_ATOMIC64)
- 	help
-@@ -49,7 +52,7 @@ config IOMMU_IO_PGTABLE_LPAE_SELFTEST
- 	  If unsure, say N here.
- 
- config IOMMU_IO_PGTABLE_ARMV7S
--	bool "ARMv7/v8 Short Descriptor Format"
-+	tristate "ARMv7/v8 Short Descriptor Format"
- 	select IOMMU_IO_PGTABLE
- 	depends on ARM || ARM64 || COMPILE_TEST
- 	help
-diff --git a/drivers/iommu/io-pgtable-arm-v7s.c b/drivers/iommu/io-pgtable-arm-v7s.c
-index 7e81135..69dbf86 100644
---- a/drivers/iommu/io-pgtable-arm-v7s.c
-+++ b/drivers/iommu/io-pgtable-arm-v7s.c
-@@ -1014,3 +1014,5 @@ static void __exit arm_v7s_exit(void)
- 	io_pgtable_ops_unregister(ARM_V7S);
- }
- module_exit(arm_v7s_exit);
-+
-+MODULE_LICENSE("GPL v2");
-diff --git a/drivers/iommu/io-pgtable-arm.c b/drivers/iommu/io-pgtable-arm.c
-index 8ed52a0..8d4805f 100644
---- a/drivers/iommu/io-pgtable-arm.c
-+++ b/drivers/iommu/io-pgtable-arm.c
-@@ -1306,3 +1306,5 @@ static void __exit arm_lpae_exit(void)
- 		io_pgtable_ops_unregister(arm_lpae_init_fns_table[i].fmt);
- }
- module_exit(arm_lpae_exit);
-+
-+MODULE_LICENSE("GPL v2");
+opp_tabl -> opp_table. It will make the build error. Please do build
+test at least.
+
+>         unsigned int i;
+>         long rate;
+>         int err;
+> @@ -841,25 +841,25 @@ static int tegra_devfreq_probe(struct platform_device *pdev)
+>                 return err;
+>         }
+>
+> -       tegra->opp_table = dev_pm_opp_set_supported_hw(&pdev->dev,
+> -                                                      &hw_version, 1);
+> -       err = PTR_ERR_OR_ZERO(tegra->opp_table);
+> +       opp_table = devm_pm_opp_set_supported_hw(&pdev->dev,
+> +                                                &hw_version, 1);
+> +       err = PTR_ERR_OR_ZERO(opp_table);
+>         if (err) {
+>                 dev_err(&pdev->dev, "Failed to set supported HW: %d\n", err);
+>                 return err;
+>         }
+>
+> -       err = dev_pm_opp_of_add_table(&pdev->dev);
+> +       err = devm_pm_opp_of_add_table(&pdev->dev);
+>         if (err) {
+>                 dev_err(&pdev->dev, "Failed to add OPP table: %d\n", err);
+> -               goto put_hw;
+> +               return err;
+>         }
+>
+>         err = clk_prepare_enable(tegra->clock);
+>         if (err) {
+>                 dev_err(&pdev->dev,
+>                         "Failed to prepare and enable ACTMON clock\n");
+> -               goto remove_table;
+> +               return err;
+>         }
+>
+>         err = reset_control_reset(tegra->reset);
+> @@ -917,10 +917,6 @@ static int tegra_devfreq_probe(struct platform_device *pdev)
+>         reset_control_reset(tegra->reset);
+>  disable_clk:
+>         clk_disable_unprepare(tegra->clock);
+> -remove_table:
+> -       dev_pm_opp_of_remove_table(&pdev->dev);
+> -put_hw:
+> -       dev_pm_opp_put_supported_hw(tegra->opp_table);
+
+You might remove the 'devm_pm_opp_remove_all_dynamic(&pdev->dev)
+under ' remove_opp' goto statement.kkkk
+
+
+(snip)
 -- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
-
+Best Regards,
+Chanwoo Choi
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
