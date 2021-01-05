@@ -2,56 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 086872EAF7C
-	for <lists+freedreno@lfdr.de>; Tue,  5 Jan 2021 16:56:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EB582EB04E
+	for <lists+freedreno@lfdr.de>; Tue,  5 Jan 2021 17:41:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A482E6E1CF;
-	Tue,  5 Jan 2021 15:56:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3139B89BA1;
+	Tue,  5 Jan 2021 16:41:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E6CF89E47;
- Tue,  5 Jan 2021 05:37:23 +0000 (UTC)
-Received: by mail-lf1-x135.google.com with SMTP id m25so69834899lfc.11;
- Mon, 04 Jan 2021 21:37:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:reply-to:from:date:message-id
- :subject:to:cc;
- bh=BJ/BPOn4zLwcKVC4z1IVu61Cm54JUVzrqo0fobfeksQ=;
- b=M2Es2CYFztXBLoaAP1ExQ7Vg6pKuoSXUrIU64+JTXYurORjVHO4RUkWy9a4XEoyOmG
- p+VIGZyFQ/Ing35CuPyPBd6B4LN5jbTFWoeaA6uNlz16qXwUa5QLGdINIx92MIRiXt7L
- Zr2800UU5QComKFAIo/5zErU+/CEX/4DxD1wTH9rYHenrgCp8KW1mnHqhljdneV9CceE
- iqZGVqZc1D9tzQGGs54/GpfLBIPz2RVk4vGUsoB8JaGKT8svSxHoGEdC1W3xaidDname
- k13zeTaPJz88q5qUalH7p2qGQftucEcvNP+dpZhBsrFsu193HiFOUS2RkJzRrsvQmy5X
- /6uQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
- :from:date:message-id:subject:to:cc;
- bh=BJ/BPOn4zLwcKVC4z1IVu61Cm54JUVzrqo0fobfeksQ=;
- b=iJryQniGAJ/bIKIzi9bVvoD/sWPgWDjWNpZ5oSNX1+EqO9cQOu83XCt8GpHDufhjyu
- bWC1umZrhlh20Z5vETU1pVAX50HEj2r1u1Hmukd7kToN8ALnkvgOiLVhsMi/hNz59bqj
- JwpWB8c3dFqXiz6rq9lgHczj/JbFMfd1Tq7Ryzpf1+7GTKVhXTDAc4AMVi7vzFpD9dK0
- S+o4gqkbxeicu1nUI1z8Py33OFOBaDTjGAD5es759H96BXTboKdxGPzPdVceF6ysVD96
- HBstii0mCmxE18SEUtrSPYgCKd57dXuvTJY+cGHPNLnsP9LTG0K0vZF6MdYgeJ3uggK1
- Se7g==
-X-Gm-Message-State: AOAM531hC15Y8xAP0vJMxZyiGkg8wVyfsIDXo+SPf9dtfrM1As0yssM0
- 6N3UmpNkxOfiRGOFE5i++X3iYq4JyVRigk6/hwg=
-X-Google-Smtp-Source: ABdhPJxBh2b69EQE0oS8msD6rntMrwUkYVv9SESod0vmy4ovFZpV4FPqGzA4LTLOdctSMhxU1bPsvxj13MHhmKM2D30=
-X-Received: by 2002:a05:6512:2e9:: with SMTP id
- m9mr32046955lfq.118.1609825041442; 
- Mon, 04 Jan 2021 21:37:21 -0800 (PST)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 831116E056;
+ Tue,  5 Jan 2021 16:33:49 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 83C64113E;
+ Tue,  5 Jan 2021 08:33:48 -0800 (PST)
+Received: from [192.168.1.179] (unknown [172.31.20.19])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 647673F70D;
+ Tue,  5 Jan 2021 08:33:37 -0800 (PST)
+To: Yangtao Li <tiny.windzz@gmail.com>, myungjoo.ham@samsung.com,
+ kyungmin.park@samsung.com, cw00.choi@samsung.com, krzk@kernel.org,
+ shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
+ festevam@gmail.com, linux-imx@nxp.com, digetx@gmail.com,
+ thierry.reding@gmail.com, jonathanh@nvidia.com, yuq825@gmail.com,
+ airlied@linux.ie, daniel@ffwll.ch, robdclark@gmail.com, sean@poorly.run,
+ robh@kernel.org, tomeu.vizoso@collabora.com,
+ alyssa.rosenzweig@collabora.com, stanimir.varbanov@linaro.org,
+ agross@kernel.org, bjorn.andersson@linaro.org, mchehab@kernel.org,
+ lukasz.luba@arm.com, adrian.hunter@intel.com, ulf.hansson@linaro.org,
+ vireshk@kernel.org, nm@ti.com, sboyd@kernel.org, broonie@kernel.org,
+ gregkh@linuxfoundation.org, jirislaby@kernel.org, rjw@rjwysocki.net,
+ jcrouse@codeaurora.org, hoegsberg@google.com, eric@anholt.net,
+ tzimmermann@suse.de, marijn.suijten@somainline.org, gustavoars@kernel.org,
+ emil.velikov@collabora.com, jonathan@marek.ca, akhilpo@codeaurora.org,
+ smasetty@codeaurora.org, airlied@redhat.com, masneyb@onstation.org,
+ kalyan_t@codeaurora.org, tanmay@codeaurora.org, ddavenport@chromium.org,
+ jsanka@codeaurora.org, rnayak@codeaurora.org, tongtiangen@huawei.com,
+ miaoqinglang@huawei.com, khsieh@codeaurora.org, abhinavk@codeaurora.org,
+ chandanu@codeaurora.org, groeck@chromium.org, varar@codeaurora.org,
+ mka@chromium.org, harigovi@codeaurora.org, rikard.falkeborn@gmail.com,
+ natechancellor@gmail.com, georgi.djakov@linaro.org, akashast@codeaurora.org,
+ parashar@codeaurora.org, dianders@chromium.org
+References: <20210101165507.19486-1-tiny.windzz@gmail.com>
+ <20210101165507.19486-20-tiny.windzz@gmail.com>
+From: Steven Price <steven.price@arm.com>
+Message-ID: <63e5e2ae-0baf-cbd1-b2eb-43fac89acb7c@arm.com>
+Date: Tue, 5 Jan 2021 16:33:32 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <20210103035706.24168-1-tiny.windzz@gmail.com>
-In-Reply-To: <20210103035706.24168-1-tiny.windzz@gmail.com>
-From: Chanwoo Choi <cwchoi00@gmail.com>
-Date: Tue, 5 Jan 2021 14:36:44 +0900
-Message-ID: <CAGTfZH0s0iiR1jaebU8KyJ7mdvZMOUQXfmuxGh0PJ_v0diXtfA@mail.gmail.com>
-To: Yangtao Li <tiny.windzz@gmail.com>
-X-Mailman-Approved-At: Tue, 05 Jan 2021 15:56:44 +0000
-Subject: Re: [Freedreno] [PATCH 31/31] PM / devfreq: convert to
- devm_pm_opp_register_notifier and remove unused API
+In-Reply-To: <20210101165507.19486-20-tiny.windzz@gmail.com>
+Content-Language: en-GB
+X-Mailman-Approved-At: Tue, 05 Jan 2021 16:41:34 +0000
+Subject: Re: [Freedreno] [PATCH 19/31] drm/panfrost: convert to use
+ devm_pm_opp_* API
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,150 +66,131 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: cwchoi00@gmail.com
-Cc: Nishanth Menon <nm@ti.com>, Ulf Hansson <ulf.hansson@linaro.org>,
- gustavoars@kernel.org, jirislaby@kernel.org, David Airlie <airlied@linux.ie>,
- linux-mmc@vger.kernel.org, stanimir.varbanov@linaro.org, tanmay@codeaurora.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, natechancellor@gmail.com,
- eric@anholt.net, Thierry Reding <thierry.reding@gmail.com>,
- tongtiangen@huawei.com, Guenter Roeck <groeck@chromium.org>,
- marijn.suijten@somainline.org, Dmitry Osipenko <digetx@gmail.com>,
- steven.price@arm.com, festevam@gmail.com, Matthias Kaehlcke <mka@chromium.org>,
- chandanu@codeaurora.org, emil.velikov@collabora.com,
- Rob Herring <robh@kernel.org>,
- linux-samsung-soc <linux-samsung-soc@vger.kernel.org>, jonathan@marek.ca,
- harigovi@codeaurora.org, adrian.hunter@intel.com,
- Viresh Kumar <vireshk@kernel.org>, Linux PM list <linux-pm@vger.kernel.org>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- Chanwoo Choi <cw00.choi@samsung.com>, MyungJoo Ham <myungjoo.ham@samsung.com>,
- alyssa.rosenzweig@collabora.com, linux-serial@vger.kernel.org,
- airlied@redhat.com, smasetty@codeaurora.org, dl-linux-imx <linux-imx@nxp.com>,
- freedreno@lists.freedesktop.org, kernel@pengutronix.de, tzimmermann@suse.de,
- linux-arm-msm@vger.kernel.org, s.hauer@pengutronix.de,
- linux-spi@vger.kernel.org, linux-media@vger.kernel.org,
- abhinavk@codeaurora.org, akhilpo@codeaurora.org, khsieh@codeaurora.org,
- lima@lists.freedesktop.org, jcrouse@codeaurora.org,
- Mark Brown <broonie@kernel.org>, rikard.falkeborn@gmail.com,
- kalyan_t@codeaurora.org, linux-tegra@vger.kernel.org, varar@codeaurora.org,
- jsanka@codeaurora.org, mchehab@kernel.org, sean@poorly.run,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- Doug Anderson <dianders@chromium.org>, akashast@codeaurora.org,
- rnayak@codeaurora.org, parashar@codeaurora.org, tomeu.vizoso@collabora.com,
- Stephen Boyd <sboyd@kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- "Rafael J. Wysocki" <rjw@rjwysocki.net>, agross@kernel.org,
- linux-kernel <linux-kernel@vger.kernel.org>, robdclark@gmail.com,
- miaoqinglang@huawei.com, hoegsberg@google.com, yuq825@gmail.com,
- daniel@ffwll.ch, ddavenport@chromium.org, masneyb@onstation.org,
- Shawn Guo <shawnguo@kernel.org>, Georgi Djakov <georgi.djakov@linaro.org>,
- Lukasz Luba <lukasz.luba@arm.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: linux-samsung-soc@vger.kernel.org, lima@lists.freedesktop.org,
+ linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-spi@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-tegra@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Jan 3, 2021 at 12:59 PM Yangtao Li <tiny.windzz@gmail.com> wrote:
->
->  Use devm_pm_opp_* API to simplify code.
->
+On 01/01/2021 16:54, Yangtao Li wrote:
+> Use devm_pm_opp_* API to simplify code, and remove opp_table
+> from panfrost_devfreq.
+> 
 > Signed-off-by: Yangtao Li <tiny.windzz@gmail.com>
+
+Reviewed-by: Steven Price <steven.price@arm.com>
+
 > ---
->  drivers/devfreq/devfreq.c | 66 +--------------------------------------
->  include/linux/devfreq.h   | 23 --------------
->  2 files changed, 1 insertion(+), 88 deletions(-)
->
-> diff --git a/drivers/devfreq/devfreq.c b/drivers/devfreq/devfreq.c
-> index 6aa10de792b3..f593f30529ec 100644
-> --- a/drivers/devfreq/devfreq.c
-> +++ b/drivers/devfreq/devfreq.c
-> @@ -2004,40 +2004,6 @@ struct dev_pm_opp *devfreq_recommended_opp(struct device *dev,
->  }
->  EXPORT_SYMBOL(devfreq_recommended_opp);
->
-> -/**
-> - * devfreq_register_opp_notifier() - Helper function to get devfreq notified
-> - *                                  for any changes in the OPP availability
-> - *                                  changes
-> - * @dev:       The devfreq user device. (parent of devfreq)
-> - * @devfreq:   The devfreq object.
-> - */
-> -int devfreq_register_opp_notifier(struct device *dev, struct devfreq *devfreq)
-> -{
-> -       return dev_pm_opp_register_notifier(dev, &devfreq->nb);
-> -}
-> -EXPORT_SYMBOL(devfreq_register_opp_notifier);
+>   drivers/gpu/drm/panfrost/panfrost_devfreq.c | 34 ++++++---------------
+>   drivers/gpu/drm/panfrost/panfrost_devfreq.h |  1 -
+>   2 files changed, 10 insertions(+), 25 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_devfreq.c b/drivers/gpu/drm/panfrost/panfrost_devfreq.c
+> index f44d28fad085..c42fa9eb43b1 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_devfreq.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_devfreq.c
+> @@ -92,25 +92,26 @@ int panfrost_devfreq_init(struct panfrost_device *pfdev)
+>   	struct thermal_cooling_device *cooling;
+>   	struct panfrost_devfreq *pfdevfreq = &pfdev->pfdevfreq;
+>   
+> -	opp_table = dev_pm_opp_set_regulators(dev, pfdev->comp->supply_names,
+> +	opp_table = devm_pm_opp_set_regulators(dev, pfdev->comp->supply_names,
+>   					      pfdev->comp->num_supplies);
+>   	if (IS_ERR(opp_table)) {
+>   		ret = PTR_ERR(opp_table);
+>   		/* Continue if the optional regulator is missing */
+>   		if (ret != -ENODEV) {
+>   			DRM_DEV_ERROR(dev, "Couldn't set OPP regulators\n");
+> -			goto err_fini;
+> +			return ret;
+>   		}
+> -	} else {
+> -		pfdevfreq->regulators_opp_table = opp_table;
+>   	}
+>   
+> -	ret = dev_pm_opp_of_add_table(dev);
+> +	ret = devm_pm_opp_of_add_table(dev);
+>   	if (ret) {
+> +		if (!IS_ERR(opp_table))
+> +			devm_pm_opp_put_regulators(dev, opp_table);
+> +
+>   		/* Optional, continue without devfreq */
+>   		if (ret == -ENODEV)
+>   			ret = 0;
+> -		goto err_fini;
+> +		return ret;
+>   	}
+>   	pfdevfreq->opp_of_table_added = true;
+>   
+> @@ -121,10 +122,8 @@ int panfrost_devfreq_init(struct panfrost_device *pfdev)
+>   	cur_freq = clk_get_rate(pfdev->clock);
+>   
+>   	opp = devfreq_recommended_opp(dev, &cur_freq, 0);
+> -	if (IS_ERR(opp)) {
+> -		ret = PTR_ERR(opp);
+> -		goto err_fini;
+> -	}
+> +	if (IS_ERR(opp))
+> +		return PTR_ERR(opp);
+>   
+>   	panfrost_devfreq_profile.initial_freq = cur_freq;
+>   	dev_pm_opp_put(opp);
+> @@ -133,8 +132,7 @@ int panfrost_devfreq_init(struct panfrost_device *pfdev)
+>   					  DEVFREQ_GOV_SIMPLE_ONDEMAND, NULL);
+>   	if (IS_ERR(devfreq)) {
+>   		DRM_DEV_ERROR(dev, "Couldn't initialize GPU devfreq\n");
+> -		ret = PTR_ERR(devfreq);
+> -		goto err_fini;
+> +		return PTR_ERR(devfreq);
+>   	}
+>   	pfdevfreq->devfreq = devfreq;
+>   
+> @@ -145,10 +143,6 @@ int panfrost_devfreq_init(struct panfrost_device *pfdev)
+>   		pfdevfreq->cooling = cooling;
+>   
+>   	return 0;
 > -
-> -/**
-> - * devfreq_unregister_opp_notifier() - Helper function to stop getting devfreq
-> - *                                    notified for any changes in the OPP
-> - *                                    availability changes anymore.
-> - * @dev:       The devfreq user device. (parent of devfreq)
-> - * @devfreq:   The devfreq object.
-> - *
-> - * At exit() callback of devfreq_dev_profile, this must be included if
-> - * devfreq_recommended_opp is used.
-> - */
-> -int devfreq_unregister_opp_notifier(struct device *dev, struct devfreq *devfreq)
-> -{
-> -       return dev_pm_opp_unregister_notifier(dev, &devfreq->nb);
-> -}
-> -EXPORT_SYMBOL(devfreq_unregister_opp_notifier);
+> -err_fini:
+> -	panfrost_devfreq_fini(pfdev);
+> -	return ret;
+>   }
+>   
+>   void panfrost_devfreq_fini(struct panfrost_device *pfdev)
+> @@ -159,14 +153,6 @@ void panfrost_devfreq_fini(struct panfrost_device *pfdev)
+>   		devfreq_cooling_unregister(pfdevfreq->cooling);
+>   		pfdevfreq->cooling = NULL;
+>   	}
 > -
-> -static void devm_devfreq_opp_release(struct device *dev, void *res)
-> -{
-> -       devfreq_unregister_opp_notifier(dev, *(struct devfreq **)res);
-> -}
+> -	if (pfdevfreq->opp_of_table_added) {
+> -		dev_pm_opp_of_remove_table(&pfdev->pdev->dev);
+> -		pfdevfreq->opp_of_table_added = false;
+> -	}
 > -
->  /**
->   * devm_devfreq_register_opp_notifier() - Resource-managed
->   *                                       devfreq_register_opp_notifier()
-> @@ -2047,40 +2013,10 @@ static void devm_devfreq_opp_release(struct device *dev, void *res)
->  int devm_devfreq_register_opp_notifier(struct device *dev,
->                                        struct devfreq *devfreq)
->  {
-> -       struct devfreq **ptr;
-> -       int ret;
-> -
-> -       ptr = devres_alloc(devm_devfreq_opp_release, sizeof(*ptr), GFP_KERNEL);
-> -       if (!ptr)
-> -               return -ENOMEM;
-> -
-> -       ret = devfreq_register_opp_notifier(dev, devfreq);
-> -       if (ret) {
-> -               devres_free(ptr);
-> -               return ret;
-> -       }
-> -
-> -       *ptr = devfreq;
-> -       devres_add(dev, ptr);
-> -
-> -       return 0;
-> +       return devm_pm_opp_register_notifier(dev, &devfreq->nb);
->  }
->  EXPORT_SYMBOL(devm_devfreq_register_opp_notifier);
->
-> -/**
-> - * devm_devfreq_unregister_opp_notifier() - Resource-managed
-> - *                                         devfreq_unregister_opp_notifier()
-> - * @dev:       The devfreq user device. (parent of devfreq)
-> - * @devfreq:   The devfreq object.
-> - */
-> -void devm_devfreq_unregister_opp_notifier(struct device *dev,
-> -                                        struct devfreq *devfreq)
-> -{
-> -       WARN_ON(devres_release(dev, devm_devfreq_opp_release,
-> -                              devm_devfreq_dev_match, devfreq));
-> -}
-> -EXPORT_SYMBOL(devm_devfreq_unregister_opp_notifier);
+> -	dev_pm_opp_put_regulators(pfdevfreq->regulators_opp_table);
+> -	pfdevfreq->regulators_opp_table = NULL;
+>   }
+>   
+>   void panfrost_devfreq_resume(struct panfrost_device *pfdev)
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_devfreq.h b/drivers/gpu/drm/panfrost/panfrost_devfreq.h
+> index db6ea48e21f9..a51854cc8c06 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_devfreq.h
+> +++ b/drivers/gpu/drm/panfrost/panfrost_devfreq.h
+> @@ -15,7 +15,6 @@ struct panfrost_device;
+>   
+>   struct panfrost_devfreq {
+>   	struct devfreq *devfreq;
+> -	struct opp_table *regulators_opp_table;
+>   	struct thermal_cooling_device *cooling;
+>   	bool opp_of_table_added;
+>   
+> 
 
-Need to support devm_devfreq_unregister_opp_notifier()
-because sometimes, the user wants to release the resource by himself.
-
-(snip)
-
-Best Regards,
-Chanwoo Choi
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
