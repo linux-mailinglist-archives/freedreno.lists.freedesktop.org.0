@@ -2,55 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7FB72EC99A
-	for <lists+freedreno@lfdr.de>; Thu,  7 Jan 2021 05:50:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 267D32ED549
+	for <lists+freedreno@lfdr.de>; Thu,  7 Jan 2021 18:18:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D34089A0F;
-	Thu,  7 Jan 2021 04:50:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AA7D6E4CB;
+	Thu,  7 Jan 2021 17:18:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-31.mailgun.net (so254-31.mailgun.net [198.61.254.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B000089AAE
- for <freedreno@lists.freedesktop.org>; Thu,  7 Jan 2021 04:50:19 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1609995019; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=/idK/qn/qYwK24YxIeFblcenK6sv0rtJO1umkF2y1L0=;
- b=pOuAcim1hk0gzHGZgcJQx4hwm8u2QgXA5EnsMVruMYsAuQrBwmZ0iQnNyRNc+SA3+daUqEF6
- //KvHWI1JTEOimumw0POJi0auj4F4mrJ/oKgXubSEB8IUAq34Y5tE7Qn0Ezez0IynPuE2tLm
- RKGNSw2nnr2ZtHM+3X47s+SnTDc=
-X-Mailgun-Sending-Ip: 198.61.254.31
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n06.prod.us-east-1.postgun.com with SMTP id
- 5ff69309570e7133a2ff9de1 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 07 Jan 2021 04:50:17
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 6DCBCC43465; Thu,  7 Jan 2021 04:50:16 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: saiprakash.ranjan)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 12866C433CA;
- Thu,  7 Jan 2021 04:50:14 +0000 (UTC)
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [IPv6:2a00:1450:4864:20::432])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 103846E4B6;
+ Thu,  7 Jan 2021 17:18:12 +0000 (UTC)
+Received: by mail-wr1-x432.google.com with SMTP id a12so6373023wrv.8;
+ Thu, 07 Jan 2021 09:18:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=xFzg996wZghRDMljRiUDGgbxiUKBLaZNfvfWsKyW/2c=;
+ b=O/R+YVTkjwuKfy5YWvgsyEfgiPoH29vHtCLfdXluhXXDQMecR7hA02HYW+phgP5FYf
+ +rsTzDsrfDY8eQYb8LyKk+xV1LNc0tuVEWT3KNzaBp/CW3BTRimzApYGGgUuzM6BGc9h
+ xKdBo+utOMeFzYJ5tSOuZBPdMvi52ufJHp/ZThMp8s4n6yF2Qd6kwtUIgbP+z6lX3nrD
+ 1/zvka84oezzVer77cNZY8C4+JnWxPovPfjxWvghOMBGpNAEvKplFCuuX0sScDxFtIAo
+ jeTOwCiMe/CJ+56CMrh121XfXrV76LIggms0SkQS4SvrdJdJnqkgo6oydFaT5d0H19o5
+ BJCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=xFzg996wZghRDMljRiUDGgbxiUKBLaZNfvfWsKyW/2c=;
+ b=WcuYnWp1p0zkOu72KZqU3h5YrbASX2dzyd/vOwGhjH8/x1k3+n3TKx4YlrM26ijwfJ
+ 4artW7+S8g4r7RZL2DQRHim1NFohnntWeIel2gjUTMsleYuzSkIztyR7OhBpRNvy7DMo
+ nNJ5DW1klcKzpTDraN854mwF5/0SGG4iLbwfowEvzl9c6Yr0xn1+ziVIfb4gVyNxqy9z
+ w1XBijJqSRpl+k+DlftHdatHI/NST7ESThl3tX0WkOVuQGt8Op3PWG635i/bM7mscO0Z
+ yrwVLFiRAKXQJUiJdkG3o9r6b4FTe+s3SPVUVtTmrQvZ8XflW3kh2JKowzfBKbCHYSPd
+ M1Ow==
+X-Gm-Message-State: AOAM533ESvl6GwhpLgF4o1lD2iGpJRUsKgcFcONVnNvdBAOmorkmD97l
+ RIPUdrPZyRs5wPUuGQqib9npLtvSkv2L/5DwcpU=
+X-Google-Smtp-Source: ABdhPJz/iMez31ElhUqyL+2r7iU5UeEAm0l66rJM1+cGzIhU1tpyYXo3Hi1iqH1RN+pFBNtJxM9eBcIe2Kge97Aq9S0=
+X-Received: by 2002:a5d:54cc:: with SMTP id x12mr10040275wrv.132.1610039890761; 
+ Thu, 07 Jan 2021 09:18:10 -0800 (PST)
 MIME-Version: 1.0
-Date: Thu, 07 Jan 2021 10:20:14 +0530
-From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-To: Konrad Dybcio <konrad.dybcio@somainline.org>
-In-Reply-To: <20210104193044.80591-1-konrad.dybcio@somainline.org>
-References: <20210104193044.80591-1-konrad.dybcio@somainline.org>
-Message-ID: <8847b190c9d03afd731881689d9b28d3@codeaurora.org>
-X-Sender: saiprakash.ranjan@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH] drm/msm: Only enable A6xx LLCC code on A6xx
+References: <20210102202437.1630365-1-iskren.chernev@gmail.com>
+In-Reply-To: <20210102202437.1630365-1-iskren.chernev@gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 7 Jan 2021 09:20:29 -0800
+Message-ID: <CAF6AEGt868msEPdZwJTB3YQppwNLaavSsDm1mGznCu1jsSPxCQ@mail.gmail.com>
+To: Iskren Chernev <iskren.chernev@gmail.com>
+Subject: Re: [Freedreno] [PATCH] drm/msm: Fix MSM_INFO_GET_IOVA with carveout
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,105 +60,60 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Shawn Guo <shawn.guo@linaro.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>, Dave Airlie <airlied@redhat.com>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Sharat Masetty <smasetty@codeaurora.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
- martin.botka@somainline.org, ~postmarketos/upstreaming@lists.sr.ht,
- Daniel Vetter <daniel@ffwll.ch>, angelogioacchino.delregno@somainline.org,
- marijn.suijten@somainline.org, phone-devel@vger.kernel.org,
- Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>, ~postmarketos/upstreaming@lists.sr.ht,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-01-05 01:00, Konrad Dybcio wrote:
-> Using this code on A5xx (and probably older too) causes a
-> smmu bug.
-> 
-> Fixes: 474dadb8b0d5 ("drm/msm/a6xx: Add support for using system 
-> cache(LLC)")
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@somainline.org>
-> Tested-by: AngeloGioacchino Del Regno 
-> <angelogioacchino.delregno@somainline.org>
+On Sat, Jan 2, 2021 at 12:26 PM Iskren Chernev <iskren.chernev@gmail.com> wrote:
+>
+> The msm_gem_get_iova should be guarded with gpu != NULL and not aspace
+> != NULL, because aspace is NULL when using vram carveout.
+>
+> Fixes: 933415e24bd0d ("drm/msm: Add support for private address space instances")
+>
+> Signed-off-by: Iskren Chernev <iskren.chernev@gmail.com>
 > ---
-
-Reviewed-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 21 ++++++++++++---------
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h |  5 +++++
->  2 files changed, 17 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> index 6cf9975e951e..f09175698827 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -191,8 +191,6 @@ adreno_iommu_create_address_space(struct msm_gpu 
-> *gpu,
->  		struct platform_device *pdev)
+>  drivers/gpu/drm/msm/msm_drv.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index c5e61cb3356df..c1953fb079133 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -775,9 +775,10 @@ static int msm_ioctl_gem_info_iova(struct drm_device *dev,
+>                 struct drm_file *file, struct drm_gem_object *obj,
+>                 uint64_t *iova)
 >  {
->  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-> -	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
-> -	struct io_pgtable_domain_attr pgtbl_cfg;
->  	struct iommu_domain *iommu;
->  	struct msm_mmu *mmu;
->  	struct msm_gem_address_space *aspace;
-> @@ -202,13 +200,18 @@ adreno_iommu_create_address_space(struct msm_gpu 
-> *gpu,
->  	if (!iommu)
->  		return NULL;
-> 
-> -	/*
-> -	 * This allows GPU to set the bus attributes required to use system
-> -	 * cache on behalf of the iommu page table walker.
-> -	 */
-> -	if (!IS_ERR(a6xx_gpu->htw_llc_slice)) {
-> -		pgtbl_cfg.quirks = IO_PGTABLE_QUIRK_ARM_OUTER_WBWA;
-> -		iommu_domain_set_attr(iommu, DOMAIN_ATTR_IO_PGTABLE_CFG, 
-> &pgtbl_cfg);
-> +
-> +	if (adreno_is_a6xx(adreno_gpu)) {
-> +		struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
-> +		struct io_pgtable_domain_attr pgtbl_cfg;
-> +		/*
-> +		* This allows GPU to set the bus attributes required to use system
-> +		* cache on behalf of the iommu page table walker.
-> +		*/
-> +		if (!IS_ERR(a6xx_gpu->htw_llc_slice)) {
-> +			pgtbl_cfg.quirks = IO_PGTABLE_QUIRK_ARM_OUTER_WBWA;
-> +			iommu_domain_set_attr(iommu, DOMAIN_ATTR_IO_PGTABLE_CFG, 
-> &pgtbl_cfg);
-> +		}
->  	}
-> 
->  	mmu = msm_iommu_new(&pdev->dev, iommu);
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> index 4574d85c5680..08421fa54a50 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> @@ -226,6 +226,11 @@ static inline int adreno_is_a540(struct adreno_gpu 
-> *gpu)
->  	return gpu->revn == 540;
->  }
-> 
-> +static inline bool adreno_is_a6xx(struct adreno_gpu *gpu)
-> +{
-> +	return ((gpu->revn < 700 && gpu->revn > 599));
-> +}
-> +
->  static inline int adreno_is_a618(struct adreno_gpu *gpu)
->  {
->         return gpu->revn == 618;
+> +       struct msm_drm_private *priv = dev->dev_private;
+>         struct msm_file_private *ctx = file->driver_priv;
+>
+> -       if (!ctx->aspace)
+> +       if (!priv->gpu)
+>                 return -EINVAL;
 
--- 
-QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a 
-member
-of Code Aurora Forum, hosted by The Linux Foundation
+Does this actually work?  It seems like you would hit a null ptr deref
+in msm_gem_init_vma().. and in general I think a lot of code paths
+would be surprised by a null address space, so this seems like a risky
+idea.
+
+Maybe instead we should be creating an address space for the vram carveout?
+
+BR,
+-R
+
+
+>         /*
+> --
+> 2.29.2
+>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
