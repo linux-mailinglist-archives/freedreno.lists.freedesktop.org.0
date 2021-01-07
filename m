@@ -2,53 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EADEE2ED574
-	for <lists+freedreno@lfdr.de>; Thu,  7 Jan 2021 18:24:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A83982EE6DF
+	for <lists+freedreno@lfdr.de>; Thu,  7 Jan 2021 21:31:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 199C36E4CB;
-	Thu,  7 Jan 2021 17:24:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 651006E513;
+	Thu,  7 Jan 2021 20:31:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5D886E48C;
- Thu,  7 Jan 2021 17:24:37 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id e25so6235714wme.0;
- Thu, 07 Jan 2021 09:24:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=KMvmEFBpjy2So792rxW7fyxN8VfuxztLpgDX8jgcy6g=;
- b=ry1v3bCYDlpd2lmszzoxlNXPjCZ2xQdciyO/IvfSSz4lAU8CddtrK78CtbZxzYt8Lk
- 52R/W8yqwNTtRPdn/lWQ+/H7BRfL+fe37DtNZA3XuXZr4+78RJRnKOTx3aKlW7MdCeaU
- y4JZYt+SrOXX0QsJKEGyRoP6UsYmjY1ocGDHdXyNE3iz2Dal+e5npt/tUOQAQgq3Siim
- kLaGP0wdqbWZEABtmAYctA43t9R8LyMGurVvvKLuha9R+SZe72SouUEyQGVlYUkYMWeD
- /3gPrWRa5B9FFU6H1M99v5jawKbG50WZmrmnZhhI55f13Crxz70f5x2b9JxXFYJ3nY0o
- PG6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=KMvmEFBpjy2So792rxW7fyxN8VfuxztLpgDX8jgcy6g=;
- b=D7l0dSmPYUiBlOvEPkYnntHU7ynTBNQYKqrxao6H2/VzDdWDXeiq8LC1e2XwezUjEC
- DkzZiHa7ELYU8TKENr11n+f5AGSHhkTSYf587LscS4n0xqrSDuiMxyyImoT1T9uQQuVb
- 1D51kbw1eFg3VKiwb8oQcdPQq3qChYvDpzDfpwgXfcS8jy6rewGDpclEu1WEEHVrbn9C
- o4qkKm+5AYXmycGY1eKXkbztVQbRsT24JZL0JkabGAhBQn1GsrF4YP3Opargc9MBK16K
- beJlzGYjvZBkG++xiVu6vwycr1+RGiVYbM15PbRTHbVcjqW9PX4gYnv9ukixpFGlUnNU
- 0rtg==
-X-Gm-Message-State: AOAM530lHKQBRQoW3Ew+RkgG1LJILVRhu2R9UdUVq5BdccQMrI6PNyyi
- GK8gUT+FtXgxwrq8EZ6NLxb1uTNP3yde1yAy5cI=
-X-Google-Smtp-Source: ABdhPJxy4Gz9DrRlqVSC+vptof6zKhnSJC7xeTi8iOASRVcGnhavBZazzRnX/a1jbGitOVKzKmABDLKRQXJLlyuiuAw=
-X-Received: by 2002:a7b:c0c8:: with SMTP id s8mr8930405wmh.123.1610040276433; 
- Thu, 07 Jan 2021 09:24:36 -0800 (PST)
-MIME-Version: 1.0
-References: <20210104193044.80591-1-konrad.dybcio@somainline.org>
- <8847b190c9d03afd731881689d9b28d3@codeaurora.org>
-In-Reply-To: <8847b190c9d03afd731881689d9b28d3@codeaurora.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 7 Jan 2021 09:26:54 -0800
-Message-ID: <CAF6AEGu0Sv6nYNDn0z61pXRjNyFLpLw5S4_O3opmrQ-UVNR_MA@mail.gmail.com>
-To: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm: Only enable A6xx LLCC code on A6xx
+Received: from so254-31.mailgun.net (so254-31.mailgun.net [198.61.254.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C6656E513
+ for <freedreno@lists.freedesktop.org>; Thu,  7 Jan 2021 20:31:07 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1610051468; h=References: In-Reply-To: Message-Id: Date:
+ Subject: Cc: To: From: Sender;
+ bh=HKXiE4EIARlxSb69CPfrXWUblNHeeOj/MYiY8/mGMYo=;
+ b=Lr0FPjl0ALx5UlttwcX3TUZk1y83/3bD8qYMhJA4uakz2hn45BTpiJuS1+tenWmBCaHxclGc
+ L9pM49HfcNbzk9rzFGSuSgksyfiY1ZcF67qSvuQu406vSilrFC6TPSO3gtMUKlCgNHg8n9gi
+ cEx2Xv9/FeQTOvzyyfvhL4ngke4=
+X-Mailgun-Sending-Ip: 198.61.254.31
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n10.prod.us-east-1.postgun.com with SMTP id
+ 5ff76f83efc4a0d0ba28bd81 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 07 Jan 2021 20:30:59
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id AFAE1C43466; Thu,  7 Jan 2021 20:30:58 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
+Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 7EA9EC433C6;
+ Thu,  7 Jan 2021 20:30:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 7EA9EC433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=khsieh@codeaurora.org
+From: Kuogee Hsieh <khsieh@codeaurora.org>
+To: dri-devel@lists.freedesktop.org, robdclark@gmail.com, sean@poorly.run,
+ swboyd@chromium.org
+Date: Thu,  7 Jan 2021 12:30:23 -0800
+Message-Id: <1610051425-20632-1-git-send-email-khsieh@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <y>
+References: <y>
+Subject: [Freedreno] [PATCH 0/2] *** fix missing unplug interrupt problem ***
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,123 +67,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- Shawn Guo <shawn.guo@linaro.org>, Dave Airlie <airlied@redhat.com>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, martin.botka@somainline.org,
- ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
- angelogioacchino.delregno@somainline.org, marijn.suijten@somainline.org,
- phone-devel@vger.kernel.org, Sean Paul <sean@poorly.run>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, abhinavk@codeaurora.org,
+ Kuogee Hsieh <khsieh@codeaurora.org>, tanmay@codeaurora.org, daniel@ffwll.ch,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jan 6, 2021 at 8:50 PM Sai Prakash Ranjan
-<saiprakash.ranjan@codeaurora.org> wrote:
->
-> On 2021-01-05 01:00, Konrad Dybcio wrote:
-> > Using this code on A5xx (and probably older too) causes a
-> > smmu bug.
-> >
-> > Fixes: 474dadb8b0d5 ("drm/msm/a6xx: Add support for using system
-> > cache(LLC)")
-> > Signed-off-by: Konrad Dybcio <konrad.dybcio@somainline.org>
-> > Tested-by: AngeloGioacchino Del Regno
-> > <angelogioacchino.delregno@somainline.org>
-> > ---
->
-> Reviewed-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
->
-> >  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 21 ++++++++++++---------
-> >  drivers/gpu/drm/msm/adreno/adreno_gpu.h |  5 +++++
-> >  2 files changed, 17 insertions(+), 9 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > index 6cf9975e951e..f09175698827 100644
-> > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > @@ -191,8 +191,6 @@ adreno_iommu_create_address_space(struct msm_gpu
-> > *gpu,
-> >               struct platform_device *pdev)
-> >  {
-> >       struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-> > -     struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
-> > -     struct io_pgtable_domain_attr pgtbl_cfg;
-> >       struct iommu_domain *iommu;
-> >       struct msm_mmu *mmu;
-> >       struct msm_gem_address_space *aspace;
-> > @@ -202,13 +200,18 @@ adreno_iommu_create_address_space(struct msm_gpu
-> > *gpu,
-> >       if (!iommu)
-> >               return NULL;
-> >
-> > -     /*
-> > -      * This allows GPU to set the bus attributes required to use system
-> > -      * cache on behalf of the iommu page table walker.
-> > -      */
-> > -     if (!IS_ERR(a6xx_gpu->htw_llc_slice)) {
-> > -             pgtbl_cfg.quirks = IO_PGTABLE_QUIRK_ARM_OUTER_WBWA;
-> > -             iommu_domain_set_attr(iommu, DOMAIN_ATTR_IO_PGTABLE_CFG,
-> > &pgtbl_cfg);
-> > +
-> > +     if (adreno_is_a6xx(adreno_gpu)) {
-> > +             struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
-> > +             struct io_pgtable_domain_attr pgtbl_cfg;
-> > +             /*
-> > +             * This allows GPU to set the bus attributes required to use system
-> > +             * cache on behalf of the iommu page table walker.
-> > +             */
-> > +             if (!IS_ERR(a6xx_gpu->htw_llc_slice)) {
-> > +                     pgtbl_cfg.quirks = IO_PGTABLE_QUIRK_ARM_OUTER_WBWA;
-> > +                     iommu_domain_set_attr(iommu, DOMAIN_ATTR_IO_PGTABLE_CFG,
-> > &pgtbl_cfg);
-> > +             }
 
-I'm applying for -fixes as this is an obvious problem..  But kinda
-thinking that we should try to move it into an a6xx specific
-create_address_space() (or wrapper for the generic fxn)
+Both AUX_SW_RESET and DP_SW_RESET clear pending HPD interrupts.
+Therefore irq_hpd handler should not issues either aux or sw reset
+to avoid following unplug interrupt be cleared accidentally.
 
-Sai/Jordan, could I talk one of you into trying to clean this up
-better for next cycle?
+Kuogee Hsieh (2):
+  drm/msm/dp: postpone irq_hpd event during connection pending state
+  drm/msm/dp: unplug interrupt missed after irq_hpd handler
 
-BR,
--R
+ drivers/gpu/drm/msm/dp/dp_aux.c     |  7 -------
+ drivers/gpu/drm/msm/dp/dp_catalog.c | 24 ++++++++++++++++++++++++
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 15 ++++++++++-----
+ drivers/gpu/drm/msm/dp/dp_display.c |  7 +++++++
+ drivers/gpu/drm/msm/dp/dp_panel.c   | 12 +++++++++---
+ 5 files changed, 50 insertions(+), 15 deletions(-)
 
-> >       }
-> >
-> >       mmu = msm_iommu_new(&pdev->dev, iommu);
-> > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> > b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> > index 4574d85c5680..08421fa54a50 100644
-> > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> > @@ -226,6 +226,11 @@ static inline int adreno_is_a540(struct adreno_gpu
-> > *gpu)
-> >       return gpu->revn == 540;
-> >  }
-> >
-> > +static inline bool adreno_is_a6xx(struct adreno_gpu *gpu)
-> > +{
-> > +     return ((gpu->revn < 700 && gpu->revn > 599));
-> > +}
-> > +
-> >  static inline int adreno_is_a618(struct adreno_gpu *gpu)
-> >  {
-> >         return gpu->revn == 618;
->
-> --
-> QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a
-> member
-> of Code Aurora Forum, hosted by The Linux Foundation
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
