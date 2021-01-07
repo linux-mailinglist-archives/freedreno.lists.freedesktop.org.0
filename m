@@ -2,62 +2,49 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73C4E2EE6E9
-	for <lists+freedreno@lfdr.de>; Thu,  7 Jan 2021 21:31:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69BAD2EE7F9
+	for <lists+freedreno@lfdr.de>; Thu,  7 Jan 2021 22:52:44 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C24B6E520;
-	Thu,  7 Jan 2021 20:31:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D279D6E529;
+	Thu,  7 Jan 2021 21:52:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-31.mailgun.net (so254-31.mailgun.net [198.61.254.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D14196E520
- for <freedreno@lists.freedesktop.org>; Thu,  7 Jan 2021 20:31:28 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1610051490; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=rGtiyIUQzSQUfcYufCkTsN6R9TU5i6mxMo6AQakOfqs=;
- b=PRxCxRoEwtPIk9TJrDVNYM/u3alDs4QMLmZ3TiOsMGRMPHwwRHuxwv7PqPRsioyALG3/abuM
- cJWwuZLS/1nwDyGftcE7e5BuigmOCQOWNM3COenCosW25fWe8kz/6r4KwEE6mWEOpELcQ9iN
- RCKmXsDW0+vr3b1bQa1oqsmPuaw=
-X-Mailgun-Sending-Ip: 198.61.254.31
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
- 5ff76f92661021aa283e79da (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 07 Jan 2021 20:31:14
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id BF4DFC43462; Thu,  7 Jan 2021 20:31:14 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL, 
- URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 402E1C433CA;
- Thu,  7 Jan 2021 20:31:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 402E1C433CA
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=khsieh@codeaurora.org
-From: Kuogee Hsieh <khsieh@codeaurora.org>
-To: dri-devel@lists.freedesktop.org, robdclark@gmail.com, sean@poorly.run,
- swboyd@chromium.org
-Date: Thu,  7 Jan 2021 12:30:25 -0800
-Message-Id: <1610051425-20632-3-git-send-email-khsieh@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1610051425-20632-1-git-send-email-khsieh@codeaurora.org>
-References: <y>
- <1610051425-20632-1-git-send-email-khsieh@codeaurora.org>
-Subject: [Freedreno] [PATCH 2/2] drm/msm/dp: unplug interrupt missed after
- irq_hpd handler
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [IPv6:2a00:1450:4864:20::432])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4F556E4B7;
+ Thu,  7 Jan 2021 21:52:41 +0000 (UTC)
+Received: by mail-wr1-x432.google.com with SMTP id t30so7090572wrb.0;
+ Thu, 07 Jan 2021 13:52:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=jBwDEco46WJrZ4/CdIGCsb6+UYHdqspvbvO5PyUFa+8=;
+ b=qf9+wJXVL0hedizSsg83AjGvVuKjH/bAq226wJ8sK+mhwN4xirQytTbCmwECupbprn
+ 7eJvY57EbEoUI8wRBH51hBKdBlaK6Klqs2D7ye188Yy1NuzppB7zVhjrN8sPiNNTVoxf
+ Scg775uxaWZf2kqC066zboogy6sYyWwH5Fbcq/CjD3GVtNVNsy1aJZeXL4/VwOOq8DEo
+ 1L+Tic5n5I/+GjolhPj3ta7vs20LIZ7Bh1Ij+FVUnMZLOor6S/L/DPnV+3fFVL+x/LV4
+ tGHHsngOh4Z6H+63O44u0d/impVrn6fEPsh6VspkVuuXlU1O64uWBjYYI0ppmfcDx7z9
+ eXOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=jBwDEco46WJrZ4/CdIGCsb6+UYHdqspvbvO5PyUFa+8=;
+ b=STrUnoo6HNPcwfqeuqkx/9ZyKFja20x64DDrOPfChvdsZt8dhxCqu77rsanNgeW9+r
+ 0V9dAofAsWyHyhu83Bwr8tgpD5mL0oMyi3BXsKVQb3MSWaPmKz031Gf0DOevInBvZkOy
+ i2NPp13eQJys5Ee81YXWxPXfcF7DcMdlEyvf9x1WyW6Z9osUe15PqiRZYST3ax6bt0wY
+ mDtIViEkDzd598exPjnwufVhOcFgZWuUdfAi95jNASpK5tWzTGp+DMgY4ZVr8/ExV4nv
+ Zy7mqGKHU9wreqaoOaghhoRcn9VICUlMvegs1TQ8AQ1ZSLDcRg4IoPB7WUmCf+CwcYvB
+ X9lQ==
+X-Gm-Message-State: AOAM530aiDSfFmYQOsmM1y8nhRVUziwJSsnLdl6uxd3QqzI6DSgk7jzU
+ xUEyO2DzISXrdWNRRiMRr1nxb/cnMJxMjOHI89o4DcsA
+X-Google-Smtp-Source: ABdhPJwYcBtCcsJ3K5mBMg+ivUv+S2pcnin4WMfDGyw3yeGfJ0Xm1I2+hC7pXlosZuqWI4YgOt53wRrPA/Z7D5oJhLE=
+X-Received: by 2002:adf:a3c1:: with SMTP id m1mr641279wrb.28.1610056360377;
+ Thu, 07 Jan 2021 13:52:40 -0800 (PST)
+MIME-Version: 1.0
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 7 Jan 2021 13:54:59 -0800
+Message-ID: <CAF6AEGtWMhzyD6kejmViZeZ+zfJxRvfq-R2t_zA+DcDiTxsYRQ@mail.gmail.com>
+To: Dave Airlie <airlied@gmail.com>
+Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2021-01-07
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,153 +57,61 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, abhinavk@codeaurora.org,
- Kuogee Hsieh <khsieh@codeaurora.org>, tanmay@codeaurora.org, daniel@ffwll.ch,
- aravindh@codeaurora.org, freedreno@lists.freedesktop.org
-MIME-Version: 1.0
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-There is HPD unplug interrupts missed at scenario of an irq_hpd
-followed by unplug interrupts with around 10 ms in between.
-Since both AUX_SW_RESET and DP_SW_RESET clear pending HPD interrupts,
-irq_hpd handler should not issues either aux or sw reset to avoid
-following unplug interrupt be cleared accidentally.
+Hi Dave,
 
-Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
----
- drivers/gpu/drm/msm/dp/dp_aux.c     |  7 -------
- drivers/gpu/drm/msm/dp/dp_catalog.c | 24 ++++++++++++++++++++++++
- drivers/gpu/drm/msm/dp/dp_ctrl.c    | 15 ++++++++++-----
- 3 files changed, 34 insertions(+), 12 deletions(-)
+A few misc fixes
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
-index 19b35ae..1c6e1d2 100644
---- a/drivers/gpu/drm/msm/dp/dp_aux.c
-+++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-@@ -336,7 +336,6 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux *dp_aux,
- 	ssize_t ret;
- 	int const aux_cmd_native_max = 16;
- 	int const aux_cmd_i2c_max = 128;
--	int const retry_count = 5;
- 	struct dp_aux_private *aux = container_of(dp_aux,
- 		struct dp_aux_private, dp_aux);
- 
-@@ -378,12 +377,6 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux *dp_aux,
- 	ret = dp_aux_cmd_fifo_tx(aux, msg);
- 
- 	if (ret < 0) {
--		if (aux->native) {
--			aux->retry_cnt++;
--			if (!(aux->retry_cnt % retry_count))
--				dp_catalog_aux_update_cfg(aux->catalog);
--			dp_catalog_aux_reset(aux->catalog);
--		}
- 		usleep_range(400, 500); /* at least 400us to next try */
- 		goto unlock_exit;
- 	}
-diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
-index 44f0c57..9c0ce98 100644
---- a/drivers/gpu/drm/msm/dp/dp_catalog.c
-+++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
-@@ -190,6 +190,18 @@ int dp_catalog_aux_clear_hw_interrupts(struct dp_catalog *dp_catalog)
- 	return 0;
- }
- 
-+/**
-+ * dp_catalog_aux_reset() - reset AUX controller
-+ *
-+ * @aux: DP catalog structure
-+ *
-+ * return: void
-+ *
-+ * This function reset AUX controller
-+ *
-+ * NOTE: reset AUX controller will also clear any pending HPD related interrupts
-+ * 
-+ */
- void dp_catalog_aux_reset(struct dp_catalog *dp_catalog)
- {
- 	u32 aux_ctrl;
-@@ -483,6 +495,18 @@ int dp_catalog_ctrl_set_pattern(struct dp_catalog *dp_catalog,
- 	return 0;
- }
- 
-+/**
-+ * dp_catalog_ctrl_reset() - reset DP controller
-+ *
-+ * @aux: DP catalog structure
-+ *
-+ * return: void
-+ *
-+ * This function reset DP controller
-+ *
-+ * NOTE: reset DP controller will also clear any pending HPD related interrupts
-+ * 
-+ */
- void dp_catalog_ctrl_reset(struct dp_catalog *dp_catalog)
- {
- 	u32 sw_reset;
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index e3462f5..f96c415 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1296,7 +1296,8 @@ static int dp_ctrl_setup_main_link(struct dp_ctrl_private *ctrl,
- 	 * transitioned to PUSH_IDLE. In order to start transmitting
- 	 * a link training pattern, we have to first do soft reset.
- 	 */
--	dp_catalog_ctrl_reset(ctrl->catalog);
-+	if (*training_step != DP_TRAINING_NONE)
-+		dp_catalog_ctrl_reset(ctrl->catalog);
- 
- 	ret = dp_ctrl_link_train(ctrl, cr, training_step);
- 
-@@ -1491,15 +1492,18 @@ static int dp_ctrl_deinitialize_mainlink(struct dp_ctrl_private *ctrl)
- 	return 0;
- }
- 
-+static void dp_ctrl_link_idle_reset(struct dp_ctrl_private *ctrl)
-+{
-+	dp_ctrl_push_idle(&ctrl->dp_ctrl);
-+	dp_catalog_ctrl_reset(ctrl->catalog);
-+}
-+
- static int dp_ctrl_link_maintenance(struct dp_ctrl_private *ctrl)
- {
- 	int ret = 0;
- 	struct dp_cr_status cr;
- 	int training_step = DP_TRAINING_NONE;
- 
--	dp_ctrl_push_idle(&ctrl->dp_ctrl);
--	dp_catalog_ctrl_reset(ctrl->catalog);
--
- 	ctrl->dp_ctrl.pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
- 
- 	ret = dp_ctrl_setup_main_link(ctrl, &cr, &training_step);
-@@ -1626,6 +1630,7 @@ void dp_ctrl_handle_sink_request(struct dp_ctrl *dp_ctrl)
- 
- 	if (sink_request & DP_TEST_LINK_TRAINING) {
- 		dp_link_send_test_response(ctrl->link);
-+		dp_ctrl_link_idle_reset(ctrl);
- 		if (dp_ctrl_link_maintenance(ctrl)) {
- 			DRM_ERROR("LM failed: TEST_LINK_TRAINING\n");
- 			return;
-@@ -1679,7 +1684,7 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
- 			break;
- 		}
- 
--		training_step = DP_TRAINING_NONE;
-+		training_step = DP_TRAINING_1;
- 		rc = dp_ctrl_setup_main_link(ctrl, &cr, &training_step);
- 		if (rc == 0) {
- 			/* training completed successfully */
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+The following changes since commit e319a1b956f785f618611857cd946dca2bb68542:
 
+  drm/msm: add IOMMU_SUPPORT dependency (2020-12-05 08:25:52 -0800)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/msm.git drm-msm-fixes-2021-01-07
+
+for you to fetch changes up to 00fd44a1a4700718d5d962432b55c09820f7e709:
+
+  drm/msm: Only enable A6xx LLCC code on A6xx (2021-01-07 09:23:05 -0800)
+
+----------------------------------------------------------------
+Craig Tatlor (1):
+      drm/msm: Call msm_init_vram before binding the gpu
+
+Iskren Chernev (3):
+      drm/msm: Fix null dereference in _msm_gem_new
+      drm/msm: Ensure get_pages is called when locked
+      drm/msm: Add modparam to allow vram carveout
+
+Konrad Dybcio (1):
+      drm/msm: Only enable A6xx LLCC code on A6xx
+
+Kuogee Hsieh (1):
+      drm/msm/dp: postpone irq_hpd event during connection pending state
+
+Rob Clark (1):
+      drm/msm: Fix WARN_ON() splat in _free_object()
+
+ drivers/gpu/drm/msm/adreno/a2xx_gpu.c      |  6 ++++--
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c      |  6 ++++--
+ drivers/gpu/drm/msm/adreno/a4xx_gpu.c      |  6 ++++--
+ drivers/gpu/drm/msm/adreno/adreno_device.c |  4 ++++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c    | 21 ++++++++++++---------
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  6 ++++++
+ drivers/gpu/drm/msm/dp/dp_display.c        |  7 +++++++
+ drivers/gpu/drm/msm/dp/dp_panel.c          | 12 +++++++++---
+ drivers/gpu/drm/msm/msm_drv.c              |  8 ++++----
+ drivers/gpu/drm/msm/msm_gem.c              | 13 +++++++++----
+ 10 files changed, 63 insertions(+), 26 deletions(-)
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
