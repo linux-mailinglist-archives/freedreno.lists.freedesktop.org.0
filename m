@@ -2,53 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB0F42EE8C4
-	for <lists+freedreno@lfdr.de>; Thu,  7 Jan 2021 23:34:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F25B2EEECC
+	for <lists+freedreno@lfdr.de>; Fri,  8 Jan 2021 09:54:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 847CB6E55E;
-	Thu,  7 Jan 2021 22:34:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9FAB6E7DA;
+	Fri,  8 Jan 2021 08:54:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [IPv6:2a00:1450:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F2D66E55E;
- Thu,  7 Jan 2021 22:34:22 +0000 (UTC)
-Received: by mail-wm1-x32c.google.com with SMTP id g25so5696408wmh.1;
- Thu, 07 Jan 2021 14:34:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=5h5f4k/7Y5BLMbqGtHy+4oMGbAtdYGA2ZXVid79BVKY=;
- b=HUpwWq10RcjyHZqCnGb/EYqKvCcD1qS3cbr4FJNM0745wJxF6syd2xwl6YfqaWqQWs
- voCVfb4ixVXzxDBgiRqv2BdrPH7mTqu/fR09+0njGyp65jh610zIVR4yhLddFGRg6kFc
- /Ff0akoVNdCi2B8xb+IWYW3OvrkW3t7Aocy7u3hE8rds4Cn/uj8xo3qFpHAqBgdFFEIp
- qIc9NT6J9W5ZM8S6WwtaB4USBKj8DFxFLIcbmggGoSAtxpHm6CjTnK8FW6Zr1jDA+f+w
- Hy3ctJCapL6ich5EJwaZMR1LHs+6xCDZ4Bla73V2qtyLzb63vUy6p5lWMXYkL22za69i
- XI1A==
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1D3C6E7F1
+ for <freedreno@lists.freedesktop.org>; Fri,  8 Jan 2021 08:54:35 +0000 (UTC)
+Received: by mail-wr1-x430.google.com with SMTP id i9so8216699wrc.4
+ for <freedreno@lists.freedesktop.org>; Fri, 08 Jan 2021 00:54:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=QuR+JC6c/wr5a0vkmt1t5u+qCj+GkMz9/HxZNyt+DCY=;
+ b=KEf3i2omZZwrv0pr+7ro9gc/I89DER1jlACD56wRz+nifPEPj/IDE1iVZjK6PfEWRp
+ T2Yp7xx77cl1Rkn9p9GNx3ycylyqogHS2bd3s7GAyh3B47HzMJgsYbdhoQ3oO83UK6oy
+ t0Dh4CL5Im4j98rEF4M9bSpgiysANPmfWfh6E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=5h5f4k/7Y5BLMbqGtHy+4oMGbAtdYGA2ZXVid79BVKY=;
- b=dtz56Mx06aFkfLbiJY4ZpaZn8T9aDgM0jTiCatS3c83zeU9dMf59BT5u0Yqrxkoq7H
- oK7oDLedo5Zr72jzSEOfYM50EW2eA0eOTaoJFzRcpCq5Sh/QMru9WazckLhBCO4PEYUG
- UtSINqrzsZK4Ax9A5fFrPBATf3jpYeWR4sSOMtdacbMEOSQfHp5QlztPyqVfbsWGJQiS
- f2w5Kb4An3EW8kxFJWZR8QuAVbyc9ou7F8niE/We/qcOqYhzBSJ5qux+nXmPof3s5Fsw
- x5rvlg3JwtXNm8Bd/NCOUYZmEiAzE4dq4AVD/KkuJO6H2xVdIIXu58H77n0/4W97MyUm
- QpYw==
-X-Gm-Message-State: AOAM5332CJivgM6Lj9+YgoJIcrj+AQS6L4Bjrm1ymmauRoW8E2kJxLbk
- KYB8zskGYciXIXX7BfxxErgo1wtdrgcYwjMdfvo=
-X-Google-Smtp-Source: ABdhPJzwN3w3vxCtrqqaHbyIihZjgDGzLQJ1TNyS3Ov2G46nAQoIMjcS8+RXA6CBbUmFUz24Egqu/WF+rdrw1SslT4E=
-X-Received: by 2002:a1c:1d85:: with SMTP id d127mr537631wmd.49.1610058860895; 
- Thu, 07 Jan 2021 14:34:20 -0800 (PST)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=QuR+JC6c/wr5a0vkmt1t5u+qCj+GkMz9/HxZNyt+DCY=;
+ b=gxsiq9pKd6z7Q0BtcH1xEOrfPYwElbwiKWLDZbek1PloJ18qO16kpTzXEU02QQldhI
+ 3KI6wheLvbjo5g6hq/4PWkwMX0rw8X7t5N6jWIBG3UGqQfjVhx0z+SNopWgNPI5Wj6ZE
+ G/0hE9EfY1/pqEdk+R0+/0ta3CleB/n8JeJhJ1RPsaQljEE8OKRI9NghmqHKdom8s0Re
+ J22tZLj26BLzbIhPuo3MnRFUGSeqUm0ysGVfKbbFMoxIIhTK9cpu6Ecs6hJwjZUVQ2A4
+ d0AWi0UAmykrpPYV9y97bkPQfeqLrMYnUM2jKeF4zfleI8Wo/fHZBWp33A5xYXoOK8JD
+ YPvw==
+X-Gm-Message-State: AOAM533S1uoKCjrBGkRDuLROoX5Yv7trr5eT5GlckCjqoiXTmQHUWh43
+ ofXsUhVo/iqd5q3W0MLqsN0oQQ==
+X-Google-Smtp-Source: ABdhPJyNbFAVIbTd+XR5DzXliuhYX2RzBzptCc19XAuMuO9iVGMPScn3uS27BR0GrpdpehHcfqNU7Q==
+X-Received: by 2002:adf:f58a:: with SMTP id f10mr2697031wro.338.1610096074512; 
+ Fri, 08 Jan 2021 00:54:34 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id l11sm12317188wrt.23.2021.01.08.00.54.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 08 Jan 2021 00:54:33 -0800 (PST)
+Date: Fri, 8 Jan 2021 09:54:31 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <X/gdxzT+o8BcsoY9@phenom.ffwll.local>
+References: <CAF6AEGtWMhzyD6kejmViZeZ+zfJxRvfq-R2t_zA+DcDiTxsYRQ@mail.gmail.com>
 MIME-Version: 1.0
-References: <20210102202437.1630365-1-iskren.chernev@gmail.com>
- <CAF6AEGt868msEPdZwJTB3YQppwNLaavSsDm1mGznCu1jsSPxCQ@mail.gmail.com>
-In-Reply-To: <CAF6AEGt868msEPdZwJTB3YQppwNLaavSsDm1mGznCu1jsSPxCQ@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 7 Jan 2021 14:36:39 -0800
-Message-ID: <CAF6AEGvoG4DUSrsEBpsZV-gc42XnhvgqPWXvwa1SMMk1JoF15w@mail.gmail.com>
-To: Iskren Chernev <iskren.chernev@gmail.com>
-Subject: Re: [Freedreno] [PATCH] drm/msm: Fix MSM_INFO_GET_IOVA with carveout
+Content-Disposition: inline
+In-Reply-To: <CAF6AEGtWMhzyD6kejmViZeZ+zfJxRvfq-R2t_zA+DcDiTxsYRQ@mail.gmail.com>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
+Subject: Re: [Freedreno] [pull] drm/msm: drm-msm-fixes-2021-01-07
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,70 +65,74 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: freedreno <freedreno@lists.freedesktop.org>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, ~postmarketos/upstreaming@lists.sr.ht,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, Dave Airlie <airlied@gmail.com>,
+ Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jan 7, 2021 at 9:20 AM Rob Clark <robdclark@gmail.com> wrote:
->
-> On Sat, Jan 2, 2021 at 12:26 PM Iskren Chernev <iskren.chernev@gmail.com> wrote:
-> >
-> > The msm_gem_get_iova should be guarded with gpu != NULL and not aspace
-> > != NULL, because aspace is NULL when using vram carveout.
-> >
-> > Fixes: 933415e24bd0d ("drm/msm: Add support for private address space instances")
-> >
-> > Signed-off-by: Iskren Chernev <iskren.chernev@gmail.com>
-> > ---
-> >  drivers/gpu/drm/msm/msm_drv.c | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> > index c5e61cb3356df..c1953fb079133 100644
-> > --- a/drivers/gpu/drm/msm/msm_drv.c
-> > +++ b/drivers/gpu/drm/msm/msm_drv.c
-> > @@ -775,9 +775,10 @@ static int msm_ioctl_gem_info_iova(struct drm_device *dev,
-> >                 struct drm_file *file, struct drm_gem_object *obj,
-> >                 uint64_t *iova)
-> >  {
-> > +       struct msm_drm_private *priv = dev->dev_private;
-> >         struct msm_file_private *ctx = file->driver_priv;
-> >
-> > -       if (!ctx->aspace)
-> > +       if (!priv->gpu)
-> >                 return -EINVAL;
->
-> Does this actually work?  It seems like you would hit a null ptr deref
-> in msm_gem_init_vma().. and in general I think a lot of code paths
-> would be surprised by a null address space, so this seems like a risky
-> idea.
+On Thu, Jan 07, 2021 at 01:54:59PM -0800, Rob Clark wrote:
+> Hi Dave,
+> 
+> A few misc fixes
+> 
+> The following changes since commit e319a1b956f785f618611857cd946dca2bb68542:
+> 
+>   drm/msm: add IOMMU_SUPPORT dependency (2020-12-05 08:25:52 -0800)
+> 
+> are available in the Git repository at:
+> 
+>   https://gitlab.freedesktop.org/drm/msm.git drm-msm-fixes-2021-01-07
 
-oh, actually, I suppose it is ok, since in the vram carveout case we
-create the vma up front when the gem obj is created..
+Applied, thanks.
+-Daniel
 
-(still, it does seem a bit fragile.. and easy for folks testing on
-devices not using vram carvout to break.. hmm..)
+> 
+> for you to fetch changes up to 00fd44a1a4700718d5d962432b55c09820f7e709:
+> 
+>   drm/msm: Only enable A6xx LLCC code on A6xx (2021-01-07 09:23:05 -0800)
+> 
+> ----------------------------------------------------------------
+> Craig Tatlor (1):
+>       drm/msm: Call msm_init_vram before binding the gpu
+> 
+> Iskren Chernev (3):
+>       drm/msm: Fix null dereference in _msm_gem_new
+>       drm/msm: Ensure get_pages is called when locked
+>       drm/msm: Add modparam to allow vram carveout
+> 
+> Konrad Dybcio (1):
+>       drm/msm: Only enable A6xx LLCC code on A6xx
+> 
+> Kuogee Hsieh (1):
+>       drm/msm/dp: postpone irq_hpd event during connection pending state
+> 
+> Rob Clark (1):
+>       drm/msm: Fix WARN_ON() splat in _free_object()
+> 
+>  drivers/gpu/drm/msm/adreno/a2xx_gpu.c      |  6 ++++--
+>  drivers/gpu/drm/msm/adreno/a3xx_gpu.c      |  6 ++++--
+>  drivers/gpu/drm/msm/adreno/a4xx_gpu.c      |  6 ++++--
+>  drivers/gpu/drm/msm/adreno/adreno_device.c |  4 ++++
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c    | 21 ++++++++++++---------
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  6 ++++++
+>  drivers/gpu/drm/msm/dp/dp_display.c        |  7 +++++++
+>  drivers/gpu/drm/msm/dp/dp_panel.c          | 12 +++++++++---
+>  drivers/gpu/drm/msm/msm_drv.c              |  8 ++++----
+>  drivers/gpu/drm/msm/msm_gem.c              | 13 +++++++++----
+>  10 files changed, 63 insertions(+), 26 deletions(-)
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 
-BR,
--R
-
-> Maybe instead we should be creating an address space for the vram carveout?
->
-> BR,
-> -R
->
->
-> >         /*
-> > --
-> > 2.29.2
-> >
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
