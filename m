@@ -2,34 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AA242F0196
-	for <lists+freedreno@lfdr.de>; Sat,  9 Jan 2021 17:32:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7CEA2F0BC5
+	for <lists+freedreno@lfdr.de>; Mon, 11 Jan 2021 05:24:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FE0D6E03A;
-	Sat,  9 Jan 2021 16:31:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F02A489A8B;
+	Mon, 11 Jan 2021 04:24:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay03.th.seeweb.it (relay03.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::164])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03B9F89F35
- for <freedreno@lists.freedesktop.org>; Sat,  9 Jan 2021 13:51:17 +0000 (UTC)
-Received: from IcarusMOD.eternityproject.eu (unknown [2.237.20.237])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from m43-15.mailgun.net (m43-15.mailgun.net [69.72.43.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AAA789A8B
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Jan 2021 04:24:19 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1610339060; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=YjLVjY//RNNWhBt038pBhnPhk7W2XO47G1a0lqsYg4I=;
+ b=pgJsI2I7V2PSS21DnValkw4DpFae0jd1uOJYQ67Ep3acmkjshDBnXpe6lI0DsqLZZywTujjQ
+ oNJmXA5We+9XK4e4MzxTndcSmeI1fGitCYUUCmUtBdKdtSqpRGktHj1cJBDGPaCN9XxRFXLs
+ Dbo/Co7zpbSg3l7AFSmAv4DJshE=
+X-Mailgun-Sending-Ip: 69.72.43.15
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n09.prod.us-east-1.postgun.com with SMTP id
+ 5ffbd2ef8fb3cda82f6ccffc (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 11 Jan 2021 04:24:15
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id F0916C43469; Mon, 11 Jan 2021 04:24:13 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 65DDB1F570;
- Sat,  9 Jan 2021 14:51:15 +0100 (CET)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
-To: linux-arm-msm@vger.kernel.org
-Date: Sat,  9 Jan 2021 14:51:12 +0100
-Message-Id: <20210109135112.147759-6-angelogioacchino.delregno@somainline.org>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20210109135112.147759-1-angelogioacchino.delregno@somainline.org>
-References: <20210109135112.147759-1-angelogioacchino.delregno@somainline.org>
+ (Authenticated sender: saiprakash.ranjan)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id A8D5CC433C6;
+ Mon, 11 Jan 2021 04:24:12 +0000 (UTC)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Sat, 09 Jan 2021 16:31:58 +0000
-Subject: [Freedreno] [PATCH 5/5] drm/msm/dsi_pll_10nm: Convert pr_err prints
- to DRM_DEV_ERROR
+Date: Mon, 11 Jan 2021 09:54:12 +0530
+From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+To: Rob Clark <robdclark@gmail.com>
+In-Reply-To: <CAF6AEGsd5B0R7H1noO+=LByx4zkdVvu1LALZWnevGbMRj76m2w@mail.gmail.com>
+References: <CAF6AEGu0Sv6nYNDn0z61pXRjNyFLpLw5S4_O3opmrQ-UVNR_MA@mail.gmail.com>
+ <20210108122601.14993-1-saiprakash.ranjan@codeaurora.org>
+ <fa091855-8096-6377-e173-ce1cd02f74ec@somainline.org>
+ <43c8779bc5f03be2e8072c6484dfcabb@codeaurora.org>
+ <CAF6AEGsd5B0R7H1noO+=LByx4zkdVvu1LALZWnevGbMRj76m2w@mail.gmail.com>
+Message-ID: <73609df52188588bf7d023e16a706a7a@codeaurora.org>
+X-Sender: saiprakash.ranjan@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH] drm/msm: Only enable A6xx LLCC code on A6xx
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,77 +67,103 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, freedreno@lists.freedesktop.org,
- konrad.dybcio@somainline.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, robdclark@gmail.com,
- martin.botka@somainline.org, daniel@ffwll.ch,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- marijn.suijten@somainline.org, phone-devel@vger.kernel.org, sean@poorly.run
-Content-Type: text/plain; charset="us-ascii"
+Cc: freedreno <freedreno@lists.freedesktop.org>, phone-devel@vger.kernel.org,
+ Dave Airlie <airlied@redhat.com>, Jonathan <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>, martin.botka@somainline.org,
+ ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
+ angelogioacchino.delregno@somainline.org, marijn.suijten@somainline.org,
+ Shawn Guo <shawn.guo@linaro.org>, Sean Paul <sean@poorly.run>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-DRM_DEV_ERROR should be used across this entire source: convert the
-pr_err prints to the first as a cleanup.
+Hi Rob,
 
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
----
- drivers/gpu/drm/msm/dsi/pll/dsi_pll_10nm.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+On 2021-01-08 22:16, Rob Clark wrote:
+> On Fri, Jan 8, 2021 at 6:05 AM Sai Prakash Ranjan
+> <saiprakash.ranjan@codeaurora.org> wrote:
+>> 
+>> On 2021-01-08 19:09, Konrad Dybcio wrote:
+>> >> Konrad, can you please test this below change without your change?
+>> >
+>> > This brings no difference, a BUG still happens. We're still calling
+>> > to_a6xx_gpu on ANY device that's probed! Too bad it won't turn my A330
+>> > into an A640..
+>> >
+>> > Also, relying on disabling LLCC in the config is out of question as it
+>> > makes the arm32 kernel not compile with DRM/MSM and it just removes
+>> > the functionality on devices with a6xx.. (unless somebody removes the
+>> > dependency on it, which in my opinion is even worse and will cause
+>> > more problems for developers!).
+>> >
+>> 
+>> Disabling LLCC is not the suggestion, I was under the impression that
+>> was the cause here for the smmu bug. Anyways, the check for llc slice
+>> in case llcc is disabled is not correct as well. I will send a patch 
+>> for
+>> that as well.
+>> 
+>> > The bigger question is how and why did that piece of code ever make it
+>> > to adreno_gpu.c and not a6xx_gpu.c?
+>> >
+>> 
+>> My mistake, I will move it.
+> 
+> Thanks, since we don't have kernel-CI coverage for gpu, and there
+> probably isn't one person who has all the different devices supported
+> (or enough hours in the day to test them all), it is probably
+> better/safer to keep things in the backend code that is specific to a
+> given generation.
+> 
 
-diff --git a/drivers/gpu/drm/msm/dsi/pll/dsi_pll_10nm.c b/drivers/gpu/drm/msm/dsi/pll/dsi_pll_10nm.c
-index df3e4584dfd7..f1091c023836 100644
---- a/drivers/gpu/drm/msm/dsi/pll/dsi_pll_10nm.c
-+++ b/drivers/gpu/drm/msm/dsi/pll/dsi_pll_10nm.c
-@@ -342,6 +342,7 @@ static int dsi_pll_10nm_vco_set_rate(struct clk_hw *hw, unsigned long rate,
- 
- static int dsi_pll_10nm_lock_status(struct dsi_pll_10nm *pll)
- {
-+	struct device *dev = &pll->pdev->dev;
- 	int rc;
- 	u32 status = 0;
- 	u32 const delay_us = 100;
-@@ -354,8 +355,8 @@ static int dsi_pll_10nm_lock_status(struct dsi_pll_10nm *pll)
- 				       delay_us,
- 				       timeout_us);
- 	if (rc)
--		pr_err("DSI PLL(%d) lock failed, status=0x%08x\n",
--		       pll->id, status);
-+		DRM_DEV_ERROR(dev, "DSI PLL(%d) lock failed, status=0x%08x\n",
-+			      pll->id, status);
- 
- 	return rc;
- }
-@@ -402,6 +403,7 @@ static int dsi_pll_10nm_vco_prepare(struct clk_hw *hw)
- {
- 	struct msm_dsi_pll *pll = hw_clk_to_pll(hw);
- 	struct dsi_pll_10nm *pll_10nm = to_pll_10nm(pll);
-+	struct device *dev = &pll_10nm->pdev->dev;
- 	int rc;
- 
- 	dsi_pll_enable_pll_bias(pll_10nm);
-@@ -410,7 +412,7 @@ static int dsi_pll_10nm_vco_prepare(struct clk_hw *hw)
- 
- 	rc = dsi_pll_10nm_vco_set_rate(hw,pll_10nm->vco_current_rate, 0);
- 	if (rc) {
--		pr_err("vco_set_rate failed, rc=%d\n", rc);
-+		DRM_DEV_ERROR(dev, "vco_set_rate failed, rc=%d\n", rc);
- 		return rc;
- 	}
- 
-@@ -427,7 +429,7 @@ static int dsi_pll_10nm_vco_prepare(struct clk_hw *hw)
- 	/* Check for PLL lock */
- 	rc = dsi_pll_10nm_lock_status(pll_10nm);
- 	if (rc) {
--		pr_err("PLL(%d) lock failed\n", pll_10nm->id);
-+		DRM_DEV_ERROR(dev, "PLL(%d) lock failed\n", pll_10nm->id);
- 		goto error;
- 	}
- 
+Agreed, I will post this change soon and will introduce some feature
+check as well because we will need it for iommu prot flag as per 
+discussion
+here - 
+https://lore.kernel.org/lkml/20210108181830.GA5457@willie-the-truck/
+
+>> > To solve it in a cleaner way I propose to move it to an a6xx-specific
+>> > file, or if it's going to be used with next-gen GPUs, perhaps manage
+>> > calling of this code via an adreno quirk/feature in adreno_device.c.
+>> > Now that I think about it, A5xx GPMU en/disable could probably managed
+>> > like that, instead of using tons of if-statements for each GPU model
+>> > that has it..
+>> >
+>> > While we're at it, do ALL (and I truly do mean ALL, including the
+>> > low-end ones, this will be important later on) A6xx GPUs make use of
+>> > that feature?
+>> >
+>> 
+>> I do not have a list of all A6XX GPUs with me currently, but from what
+>> I know, A618, A630, A640, A650 has the support.
+>> 
+> 
+> From the PoV of bringing up new a6xx, we should probably consider that
+> some of them may not *yet* have LLCC enabled.  I have an 8cx laptop
+> and once I find time to get the display working, the next step would
+> be bringing up a680.. and I'd probably like to start without LLCC..
+> 
+
+Right, once I move the LLCC code to a6xx specific address space 
+creation,
+without LLCC slices for GPU specified in qcom llcc driver, we will not
+be using it.
+
+Thanks,
+Sai
+
 -- 
-2.29.2
-
+QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a 
+member
+of Code Aurora Forum, hosted by The Linux Foundation
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
