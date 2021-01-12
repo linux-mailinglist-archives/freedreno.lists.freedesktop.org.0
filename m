@@ -2,36 +2,29 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F5FA2F37D9
-	for <lists+freedreno@lfdr.de>; Tue, 12 Jan 2021 19:03:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67CF92F3A27
+	for <lists+freedreno@lfdr.de>; Tue, 12 Jan 2021 20:26:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DC3489C86;
-	Tue, 12 Jan 2021 18:02:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0017789F01;
+	Tue, 12 Jan 2021 19:26:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay02.th.seeweb.it (relay02.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A17789C96
- for <freedreno@lists.freedesktop.org>; Tue, 12 Jan 2021 18:02:58 +0000 (UTC)
+Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it [5.144.164.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0268389F01
+ for <freedreno@lists.freedesktop.org>; Tue, 12 Jan 2021 19:26:49 +0000 (UTC)
 Received: from IcarusMOD.eternityproject.eu (unknown [2.237.20.237])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 489341F665;
- Tue, 12 Jan 2021 19:02:55 +0100 (CET)
-To: linux-arm-msm@vger.kernel.org
-References: <20210109133736.143469-1-angelogioacchino.delregno@somainline.org>
- <20210109133736.143469-10-angelogioacchino.delregno@somainline.org>
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 215183E7BE;
+ Tue, 12 Jan 2021 20:26:47 +0100 (CET)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
-Message-ID: <bdc67afc-3736-5497-c43f-5165c55e0354@somainline.org>
-Date: Tue, 12 Jan 2021 19:02:54 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+To: linux-arm-msm@vger.kernel.org
+Date: Tue, 12 Jan 2021 20:26:25 +0100
+Message-Id: <20210112192632.502897-1-angelogioacchino.delregno@somainline.org>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-In-Reply-To: <20210109133736.143469-10-angelogioacchino.delregno@somainline.org>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH 9/9] drm/msm/dpu: Fix timeout issues on
- command mode panels
+Subject: [Freedreno] [PATCH v2 0/7] Qualcomm DRM DPU fixes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,51 +40,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Cc: freedreno@lists.freedesktop.org, konrad.dybcio@somainline.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  robdclark@gmail.com, martin.botka@somainline.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
  marijn.suijten@somainline.org, phone-devel@vger.kernel.org, sean@poorly.run
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Il 09/01/21 14:37, AngeloGioacchino Del Regno ha scritto:
-> In function dpu_encoder_phys_cmd_wait_for_commit_done we are always
-> checking if the relative CTL is started by waiting for an interrupt
-> to fire: it is fine to do that, but then sometimes we call this
-> function while the CTL is up and has never been put down, but that
-> interrupt gets raised only when the CTL gets a state change from
-> 0 to 1 (disabled to enabled), so we're going to wait for something
-> that will never happen on its own.
-> 
-> Solving this while avoiding to restart the CTL is actually possible
-> and can be done by just checking if it is already up and running
-> when the wait_for_commit_done function is called: in this case, so,
-> if the CTL was already running, we can say that the commit is done
-> if the command transmission is complete (in other terms, if the
-> interface has been flushed).
-> 
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c | 3 +++
->   1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-> index 2311e98480b9..0624864da343 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-> @@ -695,6 +695,9 @@ static int dpu_encoder_phys_cmd_wait_for_commit_done(
->   	if (!dpu_encoder_phys_cmd_is_master(phys_enc))
->   		return 0;
->   
-> +	if (phys_enc->hw_ctl->ops.is_started)
-> +		return dpu_encoder_phys_cmd_wait_for_tx_complete(phys_enc);
-> +
->   	return _dpu_encoder_phys_cmd_wait_for_ctl_start(phys_enc);
->   }
->   
-> 
+This patch series brings some fixes to the Qualcomm DPU driver, aim is
+to get it prepared for "legacy" SoCs (like MSM8998, SDM630/660) and to
+finally get command-mode displays working on this driver.
 
-Sorry, this patch is obviously faulty, Took it from the wrong local 
-tree. I will send a V2.
+The series was tested against MSM8998 (the commit that introduces it to
+the hw-catalog is not included in this series, as it needs to be cleaned
+up a little more) and specifically on:
+- Sony Xperia XZ Premium (MSM8998), 4K dual-dsi LCD display, command-mode
+- F(x)Tec Pro1 (MSM8998), single-dsi OLED display, video-mode
+
+... And it obviously worked just perfect!
+
+Changes in v2:
+- Dropped patches "drm/msm/dpu: Add a function to retrieve the current CTL status"
+  and "drm/msm/dpu: Fix timeout issues on command mode panels" as the
+  second patch was wrong.
+- Fixed patch apply issues on latest linux-next and 5.11-rcX
+
+AngeloGioacchino Del Regno (7):
+  drm/msm/dpu: Fix VBIF_XINL_QOS_LVL_REMAP_000 register offset
+  drm/msm/dpu: Move DPU_SSPP_QOS_8LVL bit to SDM845 and SC7180 masks
+  drm/msm/dpu: Add prog_fetch_lines_worst_case to INTF_BLK macro
+  drm/msm/dpu: Allow specifying features and sblk in DSPP_BLK macro
+  drm/msm/dpu: Disable autorefresh in command mode
+  drm/msm/dpu: Correctly configure vsync tearcheck for command mode
+  drm/msm/dpu: Remove unused call in wait_for_commit_done
+
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  | 90 +++++++++++++++----
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 49 +++++-----
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c   | 26 ++++++
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h   | 14 +++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_vbif.c   |  9 +-
+ 5 files changed, 147 insertions(+), 41 deletions(-)
+
+-- 
+2.29.2
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
