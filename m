@@ -2,33 +2,32 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B46D2F3A24
-	for <lists+freedreno@lfdr.de>; Tue, 12 Jan 2021 20:26:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA5332F3A28
+	for <lists+freedreno@lfdr.de>; Tue, 12 Jan 2021 20:26:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47F1C89DE3;
-	Tue, 12 Jan 2021 19:26:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F9F089DE1;
+	Tue, 12 Jan 2021 19:26:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F1C989F33;
- Tue, 12 Jan 2021 19:26:50 +0000 (UTC)
+Received: from relay07.th.seeweb.it (relay07.th.seeweb.it [5.144.164.168])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DFB189DE3
+ for <freedreno@lists.freedesktop.org>; Tue, 12 Jan 2021 19:26:50 +0000 (UTC)
 Received: from IcarusMOD.eternityproject.eu (unknown [2.237.20.237])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id AF5323EB54;
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id EE4AC3EB8B;
  Tue, 12 Jan 2021 20:26:48 +0100 (CET)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
 To: linux-arm-msm@vger.kernel.org
-Date: Tue, 12 Jan 2021 20:26:31 +0100
-Message-Id: <20210112192632.502897-7-angelogioacchino.delregno@somainline.org>
+Date: Tue, 12 Jan 2021 20:26:32 +0100
+Message-Id: <20210112192632.502897-8-angelogioacchino.delregno@somainline.org>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210112192632.502897-1-angelogioacchino.delregno@somainline.org>
 References: <20210112192632.502897-1-angelogioacchino.delregno@somainline.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v2 6/7] drm/msm/dpu: Correctly configure vsync
- tearcheck for command mode
+Subject: [Freedreno] [PATCH v2 7/7] drm/msm/dpu: Remove unused call in
+ wait_for_commit_done
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,49 +50,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-When configuring the tearcheck, the parameters for the engine were
-being set mostly as they should've been, but then it wasn't getting
-configured to get the vsync indication from the TE GPIO input
-because it was assumed that autorefresh could be enabled:
-since a previous commit makes sure to disable the autorefresh bit
-when committing to the cmd engine, it is now safe to just enable
-the vsync pin input at tearcheck setup time (instead of erroneously
-never enabling it).
-
-Also, set the right sync_cfg_height to enable the DPU auto-generated
-TE signal in order to avoid stalls in the event that we miss one
-external TE signal: this will still trigger recovery mechanisms in
-case the display is really unreachable.
+The call to dpu_encoder_phys_cmd_prepare_for_kickoff is useless as
+it's unused because the serialize_wait4pp variable is never set to
+true by .. anything, literally: remove the call.
+While at it, also reduce indentation by inverting the check for
+dpu_encoder_phys_cmd_is_master.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c | 11 ++++-------
- 1 file changed, 4 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-index 4d3481baaead..665eb1d4cb8a 100644
+index 665eb1d4cb8a..b2be39b9144e 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-@@ -372,15 +372,12 @@ static void dpu_encoder_phys_cmd_tearcheck_config(
- 	tc_cfg.vsync_count = vsync_hz /
- 				(mode->vtotal * drm_mode_vrefresh(mode));
+@@ -685,20 +685,15 @@ static int dpu_encoder_phys_cmd_wait_for_tx_complete(
+ static int dpu_encoder_phys_cmd_wait_for_commit_done(
+ 		struct dpu_encoder_phys *phys_enc)
+ {
+-	int rc = 0;
+ 	struct dpu_encoder_phys_cmd *cmd_enc;
  
--	/* enable external TE after kickoff to avoid premature autorefresh */
--	tc_cfg.hw_vsync_mode = 0;
+ 	cmd_enc = to_dpu_encoder_phys_cmd(phys_enc);
+ 
+ 	/* only required for master controller */
+-	if (dpu_encoder_phys_cmd_is_master(phys_enc))
+-		rc = _dpu_encoder_phys_cmd_wait_for_ctl_start(phys_enc);
 -
- 	/*
--	 * By setting sync_cfg_height to near max register value, we essentially
--	 * disable dpu hw generated TE signal, since hw TE will arrive first.
--	 * Only caveat is if due to error, we hit wrap-around.
-+	 * Set the sync_cfg_height to twice vtotal so that if we lose a
-+	 * TE event coming from the display TE pin we won't stall immediately
- 	 */
--	tc_cfg.sync_cfg_height = 0xFFF0;
-+	tc_cfg.hw_vsync_mode = 1;
-+	tc_cfg.sync_cfg_height = mode->vtotal * 2;
- 	tc_cfg.vsync_init_val = mode->vdisplay;
- 	tc_cfg.sync_threshold_start = DEFAULT_TEARCHECK_SYNC_THRESH_START;
- 	tc_cfg.sync_threshold_continue = DEFAULT_TEARCHECK_SYNC_THRESH_CONTINUE;
+-	/* required for both controllers */
+-	if (!rc && cmd_enc->serialize_wait4pp)
+-		dpu_encoder_phys_cmd_prepare_for_kickoff(phys_enc);
++	if (!dpu_encoder_phys_cmd_is_master(phys_enc))
++		return 0;
+ 
+-	return rc;
++	return _dpu_encoder_phys_cmd_wait_for_ctl_start(phys_enc);
+ }
+ 
+ static int dpu_encoder_phys_cmd_wait_for_vblank(
 -- 
 2.29.2
 
