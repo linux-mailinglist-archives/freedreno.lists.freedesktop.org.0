@@ -2,61 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B6F72F53FE
-	for <lists+freedreno@lfdr.de>; Wed, 13 Jan 2021 21:22:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CB1E2F5407
+	for <lists+freedreno@lfdr.de>; Wed, 13 Jan 2021 21:23:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EE3489259;
-	Wed, 13 Jan 2021 20:22:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A559889259;
+	Wed, 13 Jan 2021 20:23:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
- [IPv6:2607:f8b0:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 630AE89259
- for <freedreno@lists.freedesktop.org>; Wed, 13 Jan 2021 20:22:13 +0000 (UTC)
-Received: by mail-pl1-x62e.google.com with SMTP id q4so1713152plr.7
- for <freedreno@lists.freedesktop.org>; Wed, 13 Jan 2021 12:22:13 -0800 (PST)
+Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com
+ [IPv6:2607:f8b0:4864:20::436])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9B3789259
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Jan 2021 20:23:09 +0000 (UTC)
+Received: by mail-pf1-x436.google.com with SMTP id b3so1960599pft.3
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Jan 2021 12:23:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:content-transfer-encoding:in-reply-to:references
  :subject:from:cc:to:date:message-id:user-agent;
- bh=uYdhB/IsYvawJycPiJl/5+j+upKU06AcD0VCLNhUlaw=;
- b=Rnw8wZNgL/NU7d2j/IIT/v+xRriznTX2qmL+omKVWccZWTvuTw7vDiomDS6UqXCVtu
- RDi9A8BkpwgPlvTPdfZPVe2go7pOrs5TIR1bdHo9kHujsG0rM7sKTOUJ+lm0Y8jnkZBb
- VFVtI49gAXxI3why8VhPZj/v+9SFTgJJD2Q6U=
+ bh=WGQke6zLtAv2uygLrV72K2fh5rxYEfT4Z5bBr6us6zY=;
+ b=GJamghzOgKRi6utXXwuDtzHOkAu2Z4OLQceAsd+a656nZEdDzGd1MbCXgrXzVxggk5
+ J81AlFPqw/YnRpvHiMXESmZOmirpd4Q+2zAZGxFpEFm5rZ2QTQHqkaW/KtB1+CJAESo7
+ 3GL3+pyz3IJBgxWo1tt4XncPohFynFLlT1X7M=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:content-transfer-encoding
  :in-reply-to:references:subject:from:cc:to:date:message-id
  :user-agent;
- bh=uYdhB/IsYvawJycPiJl/5+j+upKU06AcD0VCLNhUlaw=;
- b=MxckprurpD/zlaQ7fhJNKi1vqUjcCdNfMEt6RPScTW3+HL2VM9mLCvCagHyuXzY3Ta
- U7mQItfLZ3LRpQuU+GL+oLOuXZ3nKFhUmjQwJAuUTi6rPgB5XGEf0R9ysuzmHB+UrXfb
- XhkNDFAsqBa2kAlg89u2GFJmNMNRE7Hdrq9BPAgckqj/Rg9mqXJ7Ai6oqRc9J/eKXfbJ
- PD9iHjlqzvPSFL0E9cqn42uMDaMEagDQCTbangnN41hkjruqdJtYdQKPSC0hsslALaUg
- WDRBSphloRXKkC/RxawddWElTwD/w6bT3i4hacOgWuUNv9osOmx6PgAOTO6bmtzZhTiG
- dkvQ==
-X-Gm-Message-State: AOAM533anrSAr1NuKx3sNuPkjPabuHZ/j18ZhHyOKudoIcoq/Mx9HWzi
- T5MW7Rw50CG2r7pcZCgi+x1k/A==
-X-Google-Smtp-Source: ABdhPJyBYSOo7yqM0F3+0FagAGnq8EmkmQDZ6U/aCeqO+pjCFDUxsNUGyXyAWMpF2WReDekTNDdTcQ==
-X-Received: by 2002:a17:90a:8985:: with SMTP id
- v5mr1011035pjn.27.1610569332989; 
- Wed, 13 Jan 2021 12:22:12 -0800 (PST)
+ bh=WGQke6zLtAv2uygLrV72K2fh5rxYEfT4Z5bBr6us6zY=;
+ b=Rqnay90l0iF7VdUHgYYiAu22bdVFxH42Z9NEZVLPWhASggP0zK7E/XFhP8IDh0veNi
+ yCyePAnJdFgWlMi6qsEoFlDWl1Sp2i9BMwVGWC4j5MmCnF7U+U+QlfynOTyBnYI3n+Tc
+ YQefzYRma0Nh96BHO9BBREP6IDCDF9XQlF5u8j98RsVBXxpVEC1ZiLN7OFvHbQj8x9ix
+ ndrjuZeRxHQKRRUOTvnRbLlAm8IBiW0AMHKK9HcTzn/opUyinNfY8ZO+DZGUTet4EuAC
+ qEcVQzIAlRgvTQvZ1f+qE0tA3euSw8lCV3D+Njexe6T09fCLEejF2ar7JYqBxS4t1eto
+ O6tw==
+X-Gm-Message-State: AOAM530EYQgnk4jav3Boswxk29DMbELcdqn6G8d4v/YZbWQ1huEha2Aj
+ 3y0Gp0OgeHcA5FnnxQreUwjsQg==
+X-Google-Smtp-Source: ABdhPJwUyxpvweLYeLkKvIIGRSlxt5wm3sy5MANlUgFTrlD92c4nskgH/ugzEIpRdVCdfTcbf33UIw==
+X-Received: by 2002:a65:648c:: with SMTP id e12mr3735220pgv.123.1610569389573; 
+ Wed, 13 Jan 2021 12:23:09 -0800 (PST)
 Received: from chromium.org ([2620:15c:202:201:3e52:82ff:fe6c:83ab])
- by smtp.gmail.com with ESMTPSA id l197sm3488968pfd.97.2021.01.13.12.22.12
+ by smtp.gmail.com with ESMTPSA id ay21sm3725318pjb.1.2021.01.13.12.23.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Jan 2021 12:22:12 -0800 (PST)
+ Wed, 13 Jan 2021 12:23:09 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <17a116011ae60194834210a4a0c877b3@codeaurora.org>
+In-Reply-To: <e7e1e5f8808fc35a3bed9e6291c76460@codeaurora.org>
 References: <y> <1610051425-20632-1-git-send-email-khsieh@codeaurora.org>
- <1610051425-20632-2-git-send-email-khsieh@codeaurora.org>
- <161039491877.3661239.1387205899512360969@swboyd.mtv.corp.google.com>
- <17a116011ae60194834210a4a0c877b3@codeaurora.org>
+ <1610051425-20632-3-git-send-email-khsieh@codeaurora.org>
+ <161039484176.3661239.14240346276437866761@swboyd.mtv.corp.google.com>
+ <e7e1e5f8808fc35a3bed9e6291c76460@codeaurora.org>
 From: Stephen Boyd <swboyd@chromium.org>
 To: khsieh@codeaurora.org
-Date: Wed, 13 Jan 2021 12:22:10 -0800
-Message-ID: <161056933099.3661239.9450322359293035316@swboyd.mtv.corp.google.com>
+Date: Wed, 13 Jan 2021 12:23:07 -0800
+Message-ID: <161056938760.3661239.7140156995833982843@swboyd.mtv.corp.google.com>
 User-Agent: alot/0.9.1
-Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dp: postpone irq_hpd event
- during connection pending state
+Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/dp: unplug interrupt missed
+ after irq_hpd handler
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,24 +78,101 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting khsieh@codeaurora.org (2021-01-13 09:44:24)
-> On 2021-01-11 11:55, Stephen Boyd wrote:
-> > Quoting Kuogee Hsieh (2021-01-07 12:30:24)
-> >> irq_hpd event can only be executed at connected state. Therefore
-> >> irq_hpd event should be postponed if it happened at connection
-> >> pending state. This patch also make sure both link rate and lane
+Quoting khsieh@codeaurora.org (2021-01-13 09:48:25)
+> On 2021-01-11 11:54, Stephen Boyd wrote:
+> > Quoting Kuogee Hsieh (2021-01-07 12:30:25)
+> >> There is HPD unplug interrupts missed at scenario of an irq_hpd
+> >> followed by unplug interrupts with around 10 ms in between.
+> >> Since both AUX_SW_RESET and DP_SW_RESET clear pending HPD interrupts,
+> >> irq_hpd handler should not issues either aux or sw reset to avoid
+> >> following unplug interrupt be cleared accidentally.
 > > 
-> > Why does it happen at connection pending state?
-> plug in need two state to complete it.
-> advance to connection pending state once link training completed and 
-> sent uevent notification to frame work.
-> transition to connected state after frame work provided resolution 
-> timing and start transmit video panel.
-> Therefore irq_hpd should not be handled if it occurred before connected 
-> state.
+> > So the problem is that we're resetting the DP aux phy in the middle of
+> > the HPD state machine transitioning states?
+> > 
+> yes, after reset aux, hw clear pending hpd interrupts
+> >> 
+> >> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+> >> ---
+> >> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c 
+> >> b/drivers/gpu/drm/msm/dp/dp_catalog.c
+> >> index 44f0c57..9c0ce98 100644
+> >> --- a/drivers/gpu/drm/msm/dp/dp_catalog.c
+> >> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
+> >> @@ -190,6 +190,18 @@ int dp_catalog_aux_clear_hw_interrupts(struct 
+> >> dp_catalog *dp_catalog)
+> >>         return 0;
+> >>  }
+> >> 
+> >> +/**
+> >> + * dp_catalog_aux_reset() - reset AUX controller
+> >> + *
+> >> + * @aux: DP catalog structure
+> >> + *
+> >> + * return: void
+> >> + *
+> >> + * This function reset AUX controller
+> >> + *
+> >> + * NOTE: reset AUX controller will also clear any pending HPD related 
+> >> interrupts
+> >> + *
+> >> + */
+> >>  void dp_catalog_aux_reset(struct dp_catalog *dp_catalog)
+> >>  {
+> >>         u32 aux_ctrl;
+> >> @@ -483,6 +495,18 @@ int dp_catalog_ctrl_set_pattern(struct dp_catalog 
+> >> *dp_catalog,
+> >>         return 0;
+> >>  }
+> >> 
+> >> +/**
+> >> + * dp_catalog_ctrl_reset() - reset DP controller
+> >> + *
+> >> + * @aux: DP catalog structure
+> > 
+> > It's called dp_catalog though.
+> registers access are through dp_catalog_xxxx
 
-Sure that's what's going on in the patch but you didn't answer my
-question. Why does irq_hpd happen before connected state?
+Agreed. The variable is not called 'aux' though, it's called
+'dp_catalog'.
+
+> > 
+> >> + *
+> >> + * return: void
+> >> + *
+> >> + * This function reset DP controller
+> > 
+> > resets the
+> > 
+> >> + *
+> >> + * NOTE: reset DP controller will also clear any pending HPD related 
+> >> interrupts
+> >> + *
+> >> + */
+> >>  void dp_catalog_ctrl_reset(struct dp_catalog *dp_catalog)
+
+Right here.
+
+> >>  {
+> >>         u32 sw_reset;
+> >> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c 
+> >> b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> >> index e3462f5..f96c415 100644
+> >> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> >> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> >> @@ -1296,7 +1296,8 @@ static int dp_ctrl_setup_main_link(struct 
+> >> dp_ctrl_private *ctrl,
+> >>          * transitioned to PUSH_IDLE. In order to start transmitting
+> >>          * a link training pattern, we have to first do soft reset.
+> >>          */
+> >> -       dp_catalog_ctrl_reset(ctrl->catalog);
+> >> +       if (*training_step != DP_TRAINING_NONE)
+> > 
+> > Can we check for the positive value instead? i.e.
+> > DP_TRAINING_1/DP_TRAINING_2
+> > 
+
+Any answer?
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
