@@ -2,61 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC04C2F52EB
-	for <lists+freedreno@lfdr.de>; Wed, 13 Jan 2021 20:01:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AFFF2F53FD
+	for <lists+freedreno@lfdr.de>; Wed, 13 Jan 2021 21:21:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70EAC6E870;
-	Wed, 13 Jan 2021 19:01:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE32689259;
+	Wed, 13 Jan 2021 20:21:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-31.mailgun.net (so254-31.mailgun.net [198.61.254.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 289E36E870
- for <freedreno@lists.freedesktop.org>; Wed, 13 Jan 2021 19:01:26 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1610564489; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=2qvIDKz7dSKSYNdFgaxyYw/xVvDnRfMTjpt+R3u9K2U=;
- b=uvw26eUiWxf7hLKbj/B/r60mTejxKWwSDXE9M06ZplBMnGuUlfIRyKE9EWdIT7kEsGfC4vJz
- GaBdZWFM99FAaSU8qlQoV85AewZAq3k5iBuG0Y6/SVlmGCCeJp7k2ERfPJTvpG8h3L1JSlzb
- 1WsPxXrfANnTGY+p4poB6S+ybNA=
-X-Mailgun-Sending-Ip: 198.61.254.31
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n10.prod.us-east-1.postgun.com with SMTP id
- 5fff435df1be2d22c404338d (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 13 Jan 2021 19:00:45
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 0DEA0C43463; Wed, 13 Jan 2021 19:00:45 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL, 
- URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 6FD27C433C6;
- Wed, 13 Jan 2021 19:00:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 6FD27C433C6
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=khsieh@codeaurora.org
-From: Kuogee Hsieh <khsieh@codeaurora.org>
-To: dri-devel@lists.freedesktop.org, robdclark@gmail.com, sean@poorly.run,
- swboyd@chromium.org
-Date: Wed, 13 Jan 2021 11:00:00 -0800
-Message-Id: <1610564400-29788-3-git-send-email-khsieh@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1610564400-29788-1-git-send-email-khsieh@codeaurora.org>
-References: <1610564400-29788-1-git-send-email-khsieh@codeaurora.org>
-Subject: [Freedreno] [PATCH v2 2/2] drm/msm/dp: unplug interrupt missed
- after irq_hpd handler
+Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
+ [IPv6:2607:f8b0:4864:20::102e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5588289259
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Jan 2021 20:21:20 +0000 (UTC)
+Received: by mail-pj1-x102e.google.com with SMTP id y12so1823724pji.1
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Jan 2021 12:21:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:content-transfer-encoding:in-reply-to:references
+ :subject:from:cc:to:date:message-id:user-agent;
+ bh=u6R4AQJwna1Zvnrc86J9azzfneuprQEtwwFsQuVc3og=;
+ b=iGXcSZ3vf/7+lrMXeBvMLEppSiK1QOGxXONM1Ag/hWB8KQDBSrKEAAFvMTVAdX8mo2
+ 904o7LBICMF1rvrHUaBQjuc6HXgMDjU58eUM9Bo7IEbtvn1CjU0CPmJprq1EE7mt5lrJ
+ kMGx+WtjLTWHCgokFZwc9UoaNZ94W7yzydDh4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:content-transfer-encoding
+ :in-reply-to:references:subject:from:cc:to:date:message-id
+ :user-agent;
+ bh=u6R4AQJwna1Zvnrc86J9azzfneuprQEtwwFsQuVc3og=;
+ b=ZG+aTOepiQvKZWu8XE0j1DLGw7ilyKxxI7vi7nOnMEydeTB+jaFbadu+rYgHhKMoQ8
+ M7JkLa7PNbQsMovXZ1RCx6zDNt0nzd9ThPFemFqB0Lyfp49tXJjxgcIoCombVRF+T6Wz
+ jncMyqlSnzeYBEOk29KN/otAsMXIcRaVxrh7vntLm7BPs0eXacr7QLTQAGBQYWBAi3I9
+ wsTWWzmDo1r6CJQi+flVEsb6vW11Ag3U3oK0/s2pHfP+sGP1aGKrjOnNv9L3uENdSGIy
+ mgOhlGsBufa1MT+q8F1NawHcPfgRXtGMmXAklRCuir0iZ7HS0Vky13fr4cEV9PWDlGrG
+ 7Vxw==
+X-Gm-Message-State: AOAM530oodVPyGgwt+QJl35GmPhbn1fQIf7AzCNnIDGuUh6Nhh/dAW0/
+ aDdR9JSnex12qRVmlZFrCDCnAA==
+X-Google-Smtp-Source: ABdhPJxcze093Ox1ieIVbzxnheFHDjdf8Jr9Y7KtYj1RjSs7J3v7DkFm1CU87BqHfMy/L0UhxaPWgA==
+X-Received: by 2002:a17:90a:3e4f:: with SMTP id
+ t15mr1038628pjm.57.1610569279973; 
+ Wed, 13 Jan 2021 12:21:19 -0800 (PST)
+Received: from chromium.org ([2620:15c:202:201:3e52:82ff:fe6c:83ab])
+ by smtp.gmail.com with ESMTPSA id g26sm3323866pfo.35.2021.01.13.12.21.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 13 Jan 2021 12:21:19 -0800 (PST)
+MIME-Version: 1.0
+In-Reply-To: <17a116011ae60194834210a4a0c877b3@codeaurora.org>
+References: <y> <1610051425-20632-1-git-send-email-khsieh@codeaurora.org>
+ <1610051425-20632-2-git-send-email-khsieh@codeaurora.org>
+ <161039491877.3661239.1387205899512360969@swboyd.mtv.corp.google.com>
+ <17a116011ae60194834210a4a0c877b3@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+To: khsieh@codeaurora.org
+Date: Wed, 13 Jan 2021 12:21:17 -0800
+Message-ID: <161056927774.3661239.6186577459996584479@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dp: postpone irq_hpd event
+ during connection pending state
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,178 +69,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, abhinavk@codeaurora.org,
- Kuogee Hsieh <khsieh@codeaurora.org>, tanmay@codeaurora.org, daniel@ffwll.ch,
- aravindh@codeaurora.org, freedreno@lists.freedesktop.org
-MIME-Version: 1.0
+Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, abhinavk@codeaurora.org, robdclark@gmail.com,
+ tanmay@codeaurora.org, daniel@ffwll.ch, aravindh@codeaurora.org,
+ sean@poorly.run
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-There is HPD unplug interrupts missed at scenario of an irq_hpd
-followed by unplug interrupts with around 10 ms in between.
-Since both AUX_SW_RESET and DP_SW_RESET clear pending HPD interrupts,
-irq_hpd handler should not issues either aux or sw reset to avoid
-following unplug interrupt be cleared accidentally. This patch
-also postpone handling of irq_hpd until connected state if it
-happened at connection pending state.
+Quoting khsieh@codeaurora.org (2021-01-13 09:44:24)
+> On 2021-01-11 11:55, Stephen Boyd wrote:
+> > Quoting Kuogee Hsieh (2021-01-07 12:30:24)
+> >> irq_hpd event can only be executed at connected state. Therefore
+> >> irq_hpd event should be postponed if it happened at connection
+> >> pending state. This patch also make sure both link rate and lane
+> > 
+> > Why does it happen at connection pending state?
+> plug in need two state to complete it.
+> advance to connection pending state once link training completed and 
+> sent uevent notification to frame work.
+> transition to connected state after frame work provided resolution 
+> timing and start transmit video panel.
+> Therefore irq_hpd should not be handled if it occurred before connected 
+> state.
+> > 
+> >> are valid before start link training.
+> > 
+> > Can this part about link rate and lane being valid be split off into
+> > another patch?
+> > 
+> ok, i will spilt this patch into two.
+> I will merge irq_hpd event part into 2nd patch (drm/msm/dp: unplug 
+> interrupt missed after irq_hpd handler).
 
-Changes in V2:
--- add postpone handling of irq_hpd until connected state
--- check DP_TRAINING_1 instead of DP_TRAINING_NONE
+It looks like Rob already picked this patch up
 
-Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
----
- drivers/gpu/drm/msm/dp/dp_aux.c     |  7 -------
- drivers/gpu/drm/msm/dp/dp_catalog.c | 24 ++++++++++++++++++++++++
- drivers/gpu/drm/msm/dp/dp_ctrl.c    | 15 ++++++++++-----
- drivers/gpu/drm/msm/dp/dp_display.c |  7 +++++++
- 4 files changed, 41 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
-index 19b35ae..1c6e1d2 100644
---- a/drivers/gpu/drm/msm/dp/dp_aux.c
-+++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-@@ -336,7 +336,6 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux *dp_aux,
- 	ssize_t ret;
- 	int const aux_cmd_native_max = 16;
- 	int const aux_cmd_i2c_max = 128;
--	int const retry_count = 5;
- 	struct dp_aux_private *aux = container_of(dp_aux,
- 		struct dp_aux_private, dp_aux);
- 
-@@ -378,12 +377,6 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux *dp_aux,
- 	ret = dp_aux_cmd_fifo_tx(aux, msg);
- 
- 	if (ret < 0) {
--		if (aux->native) {
--			aux->retry_cnt++;
--			if (!(aux->retry_cnt % retry_count))
--				dp_catalog_aux_update_cfg(aux->catalog);
--			dp_catalog_aux_reset(aux->catalog);
--		}
- 		usleep_range(400, 500); /* at least 400us to next try */
- 		goto unlock_exit;
- 	}
-diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
-index 44f0c57..b1a9b1b 100644
---- a/drivers/gpu/drm/msm/dp/dp_catalog.c
-+++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
-@@ -190,6 +190,18 @@ int dp_catalog_aux_clear_hw_interrupts(struct dp_catalog *dp_catalog)
- 	return 0;
- }
- 
-+/**
-+ * dp_catalog_aux_reset() - reset AUX controller
-+ *
-+ * @aux: DP catalog structure
-+ *
-+ * return: void
-+ *
-+ * This function reset AUX controller
-+ *
-+ * NOTE: reset AUX controller will also clear any pending HPD related interrupts
-+ * 
-+ */
- void dp_catalog_aux_reset(struct dp_catalog *dp_catalog)
- {
- 	u32 aux_ctrl;
-@@ -483,6 +495,18 @@ int dp_catalog_ctrl_set_pattern(struct dp_catalog *dp_catalog,
- 	return 0;
- }
- 
-+/**
-+ * dp_catalog_ctrl_reset() - reset DP controller
-+ *
-+ * @dp_catalog: DP catalog structure
-+ *
-+ * return: void
-+ *
-+ * This function reset the DP controller
-+ *
-+ * NOTE: reset DP controller will also clear any pending HPD related interrupts
-+ * 
-+ */
- void dp_catalog_ctrl_reset(struct dp_catalog *dp_catalog)
- {
- 	u32 sw_reset;
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index e3462f5..5ac155d 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1296,7 +1296,8 @@ static int dp_ctrl_setup_main_link(struct dp_ctrl_private *ctrl,
- 	 * transitioned to PUSH_IDLE. In order to start transmitting
- 	 * a link training pattern, we have to first do soft reset.
- 	 */
--	dp_catalog_ctrl_reset(ctrl->catalog);
-+	if (*training_step == DP_TRAINING_1)
-+		dp_catalog_ctrl_reset(ctrl->catalog);
- 
- 	ret = dp_ctrl_link_train(ctrl, cr, training_step);
- 
-@@ -1491,15 +1492,18 @@ static int dp_ctrl_deinitialize_mainlink(struct dp_ctrl_private *ctrl)
- 	return 0;
- }
- 
-+static void dp_ctrl_link_idle_reset(struct dp_ctrl_private *ctrl)
-+{
-+	dp_ctrl_push_idle(&ctrl->dp_ctrl);
-+	dp_catalog_ctrl_reset(ctrl->catalog);
-+}
-+
- static int dp_ctrl_link_maintenance(struct dp_ctrl_private *ctrl)
- {
- 	int ret = 0;
- 	struct dp_cr_status cr;
- 	int training_step = DP_TRAINING_NONE;
- 
--	dp_ctrl_push_idle(&ctrl->dp_ctrl);
--	dp_catalog_ctrl_reset(ctrl->catalog);
--
- 	ctrl->dp_ctrl.pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
- 
- 	ret = dp_ctrl_setup_main_link(ctrl, &cr, &training_step);
-@@ -1626,6 +1630,7 @@ void dp_ctrl_handle_sink_request(struct dp_ctrl *dp_ctrl)
- 
- 	if (sink_request & DP_TEST_LINK_TRAINING) {
- 		dp_link_send_test_response(ctrl->link);
-+		dp_ctrl_link_idle_reset(ctrl);
- 		if (dp_ctrl_link_maintenance(ctrl)) {
- 			DRM_ERROR("LM failed: TEST_LINK_TRAINING\n");
- 			return;
-@@ -1679,7 +1684,7 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
- 			break;
- 		}
- 
--		training_step = DP_TRAINING_NONE;
-+		training_step = DP_TRAINING_1;
- 		rc = dp_ctrl_setup_main_link(ctrl, &cr, &training_step);
- 		if (rc == 0) {
- 			/* training completed successfully */
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 6e971d5..3bc7ed2 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -693,6 +693,13 @@ static int dp_irq_hpd_handle(struct dp_display_private *dp, u32 data)
- 		return 0;
- 	}
- 
-+	if (state == ST_CONNECT_PENDING) {
-+		/* wait until ST_CONNECTED */
-+		dp_add_event(dp, EV_IRQ_HPD_INT, 0, 1); /* delay = 1 */
-+		mutex_unlock(&dp->event_mutex);
-+		return 0;
-+	}
-+
- 	ret = dp_display_usbpd_attention_cb(&dp->pdev->dev);
- 	if (ret == -ECONNRESET) { /* cable unplugged */
- 		dp->core_initialized = false;
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
-
+https://gitlab.freedesktop.org/drm/msm/-/commit/2b5f09cadfc576817c0450e01d454f750909b103
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
