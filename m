@@ -1,54 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D21D62FBC87
-	for <lists+freedreno@lfdr.de>; Tue, 19 Jan 2021 17:35:02 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E7172FBCB2
+	for <lists+freedreno@lfdr.de>; Tue, 19 Jan 2021 17:40:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 426D889BFB;
-	Tue, 19 Jan 2021 16:35:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE2E66E42D;
+	Tue, 19 Jan 2021 16:40:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6756A89BD5;
- Tue, 19 Jan 2021 16:34:59 +0000 (UTC)
-Received: by mail-wr1-x42f.google.com with SMTP id g10so1977770wrx.1;
- Tue, 19 Jan 2021 08:34:59 -0800 (PST)
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34A51892C9;
+ Tue, 19 Jan 2021 16:40:51 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id a12so20355266wrv.8;
+ Tue, 19 Jan 2021 08:40:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=K8CPP2LxVCRfQvw6Mvjys75AeJM/eD3BKflYmxoWy0Y=;
- b=o1yKY9vqL6lFysCAxbW+xr3OKTjSrN23zZNZQGQmNyYbKZLPk8YFBfDeLqPv26DiXr
- 2VF6UVwFeLFe4FapelSdLdb+NHLIKGOL+xkosdRkeMWtKB0HyGTIJAPIoety7SncPydT
- 1GcBMv4NY+lCmT1syZQzGopFwsEji7sLL70imchf5o27JB5r7Vc3lFj/23oFPYJxidNo
- YXRN9Kx877+qX6/hvvUFxhJMxzoVUd2f642bkirLANEreHDMS+T8KzQBHKabs1ghUYiE
- cB1jpGPPVdIN4XzGNOZpo9rYCEB6EWV+VsplMOrjE6vivFRc0lpSlOIl0hGX8mkWLzxh
- 9dCQ==
+ :cc; bh=JzUrICd+hooqRjrH4nA7JLp0t3EGkemoaYLuTuXnI4U=;
+ b=HVtaBGDhj++pFjZhcrVW2JENvon1UmMl4mWKuz/rRLw9dCo+1QO/OGIC4/jbmsENC2
+ /po9MAwU9Uk3FRJlJg/yxyHaHeXWdF88J8VnwxwnVelGzfwSUnul1ytWukLQmXr2uRp0
+ btapII2NSt7HRg+P8K/PDD5GjeuF/hzEy+awNRRfOFKxEvBMs3hyGYf7n2/M+t4IA491
+ 60xTMn5zsD+D9Ra825dls5WOz3AccyPzCS9qi1wLmlKNZOxXt6HUHtoYMu/9EO7ckAHP
+ jpmS+9OpW0sglKPFx497NaBCawWhzQJDS264hzTFryr62CP0RrtX2HgKRidLzHX2bR1T
+ KlqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=K8CPP2LxVCRfQvw6Mvjys75AeJM/eD3BKflYmxoWy0Y=;
- b=Vhl5baiOZGNQ3NMpb0vIcof0Egg2ngIIqfa6Cxjanu9KJbB+GLoaTaAxhBIvPdOJzO
- n3v4C7fAkuZSP3K0HR8ws9tL9ckKR9NrS7rvOlnE/4Bcrl5ZoZj1znQbZgzlzJf9aSmZ
- gTEVIMho5LSazBcQM9xGA8fStAOWW59gwxdFrp2kxnD4nXlBjhh2pdcslGsxomrQ0A3t
- LkEcADPiQlXSckVpkMOM+gT6FIV4oIh635+9kMIZGAmrwe2YNJEQObCtK+TWkGFo5m2w
- 6jpW8IOzSabGKQMJxfdTyhIaAoDzSSzA1CcBY+cld1p7sqzCPns0tlp4ubcsIff2xjsq
- XDMg==
-X-Gm-Message-State: AOAM530lLZLz0RM7LlOm9ttiv0/rQR2BMw1GgLjhmvUtsMzA3gEsYN7v
- 9mgcyQ+7scdNENSSQkwnRsowbtDs+Tv+WLkHakc=
-X-Google-Smtp-Source: ABdhPJwlH+KuLj1j8ERMqIwHoWH5x4ZSIo4tLJR/GfYt0+5JVb5lagtVPPAe7FqFO7LhiKHxCUkzcDq5sfNgwRNhEFQ=
-X-Received: by 2002:a5d:688d:: with SMTP id h13mr5464908wru.28.1611074098001; 
- Tue, 19 Jan 2021 08:34:58 -0800 (PST)
+ bh=JzUrICd+hooqRjrH4nA7JLp0t3EGkemoaYLuTuXnI4U=;
+ b=BQS6p+pyBqnLQf3put9kCyQ0dvAt3sAwcbYMDk990Ti+8i7OvoMnMyrnMkio/MTvrt
+ O2isyEcdejKs7LmVTXwJOmcx5Oy7YPmoyYKVAgn2EGW6U2Z8LUedBWB1TFPIQvLIY2cP
+ Dj5+E2KYrOQW3BeItb0J+77IaxLtagLEiojlItihIi81O61Krd/VRiNLCK6YfJl7xhhT
+ ICIsaM0Q1ehVKGcyA49noVNGR6uZ2p8POJuGY90/BgMrnUakoqf7MVhem2zRi/e77MAB
+ HMyI9qMW0VPb9WJeYf4RrUiFQoCFAoRT3zJK9wmn9DmvSgj3DiDcRX/mDVVWxmaGGDMj
+ XyLA==
+X-Gm-Message-State: AOAM53279KQU/Upvl7xF61KWNmLmLCFjssTkhOo7OvikNHSrAGjpo2Uo
+ 3heVloGWv6SLVo4FxhiCuDt/cNY6nlVo2qHMEz4=
+X-Google-Smtp-Source: ABdhPJy2Cc8Lk+LvvPdZkBTuX3hMcqJqJSB7yqMbf4dh4mMCT1sUbUEbFs7xmtbSZcrza1gehyh/lEaCNcEfBuIAyIo=
+X-Received: by 2002:adf:db51:: with SMTP id f17mr5361743wrj.83.1611074449917; 
+ Tue, 19 Jan 2021 08:40:49 -0800 (PST)
 MIME-Version: 1.0
 References: <CAOMZO5D_dDTOgDZNy-NkQSPTiKhmrNKjEiqFWGX4rbZr2grDxQ@mail.gmail.com>
  <CAOMZO5DbgM6kPbNsu2XJcZsRauwey9UttSomquY8L4eyDLtZgw@mail.gmail.com>
  <CAOMZO5CP=xW8kFZpQxb35odUBs_9+-EDawENHeCLmVoMEYOnMA@mail.gmail.com>
  <CAKMK7uFmY7u84QOSrWy_qRDQQAzEP-97ALmP2e9N+9mXiwWA8Q@mail.gmail.com>
-In-Reply-To: <CAKMK7uFmY7u84QOSrWy_qRDQQAzEP-97ALmP2e9N+9mXiwWA8Q@mail.gmail.com>
+ <CAF6AEGuEeaSMyjVQXV-2WAJ6FamrqYc=TF8_EFQo27r+X8_gdg@mail.gmail.com>
+In-Reply-To: <CAF6AEGuEeaSMyjVQXV-2WAJ6FamrqYc=TF8_EFQo27r+X8_gdg@mail.gmail.com>
 From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 19 Jan 2021 08:34:44 -0800
-Message-ID: <CAF6AEGuEeaSMyjVQXV-2WAJ6FamrqYc=TF8_EFQo27r+X8_gdg@mail.gmail.com>
+Date: Tue, 19 Jan 2021 08:43:14 -0800
+Message-ID: <CAF6AEGvxdLCLDfhnY9M4-R6U3CvH6eqJBUs=xB6ycDQf2F=JOw@mail.gmail.com>
 To: Daniel Vetter <daniel@ffwll.ch>
 Subject: Re: [Freedreno] Reboot crash at msm_atomic_commit_tail
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -63,9 +64,9 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sascha Hauer <kernel@pengutronix.de>, Jonathan Marek <jonathan@marek.ca>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>,
+Cc: Krishna Manikandan <mkrishn@codeaurora.org>,
+ Sascha Hauer <kernel@pengutronix.de>, Jonathan Marek <jonathan@marek.ca>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
  DRI mailing list <dri-devel@lists.freedesktop.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
  Jordan Crouse <jcrouse@codeaurora.org>, Fabio Estevam <festevam@gmail.com>,
@@ -75,97 +76,101 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jan 18, 2021 at 11:00 PM Daniel Vetter <daniel@ffwll.ch> wrote:
+forgot to CC Krishna
+
+On Tue, Jan 19, 2021 at 8:34 AM Rob Clark <robdclark@gmail.com> wrote:
 >
-> On Mon, Jan 18, 2021 at 11:00 PM Fabio Estevam <festevam@gmail.com> wrote:
+> On Mon, Jan 18, 2021 at 11:00 PM Daniel Vetter <daniel@ffwll.ch> wrote:
 > >
-> > On Mon, Jan 18, 2021 at 6:44 PM Fabio Estevam <festevam@gmail.com> wrote:
+> > On Mon, Jan 18, 2021 at 11:00 PM Fabio Estevam <festevam@gmail.com> wrote:
 > > >
-> > > Adding some more folks in case anyone has any suggestions to fix this
-> > > reboot hang.
+> > > On Mon, Jan 18, 2021 at 6:44 PM Fabio Estevam <festevam@gmail.com> wrote:
+> > > >
+> > > > Adding some more folks in case anyone has any suggestions to fix this
+> > > > reboot hang.
+> > >
+> > > Not sure if this is a valid fix, but the change below makes reboot
+> > > works correctly.
+> > >
+> > > kmscube still works.
+> > >
+> > > --- a/drivers/gpu/drm/msm/msm_atomic.c
+> > > +++ b/drivers/gpu/drm/msm/msm_atomic.c
+> > > @@ -207,8 +207,12 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
+> > >         struct msm_kms *kms = priv->kms;
+> > >         struct drm_crtc *async_crtc = NULL;
+> > >         unsigned crtc_mask = get_crtc_mask(state);
+> > > -       bool async = kms->funcs->vsync_time &&
+> > > -                       can_do_async(state, &async_crtc);
+> > > +       bool async;
+> > > +
+> > > +       if (!kms)
+> > > +               return;
 > >
-> > Not sure if this is a valid fix, but the change below makes reboot
-> > works correctly.
+> > That looks a bit like a hack papering over the real issue.
 > >
-> > kmscube still works.
+> > From your report it sounds like earlier kernels worked, did you
+> > attempt bisecting? Also for regressions put regressions into the
+> > subject, it's the magic work that gets much more attention.
+>
+> the root issue is how are we doing KMS stuff on imx (where drm/msm is
+> only used for gpu).. which I think is this commit:
+>
+> ----------
+> commit 9d5cbf5fe46e350715389d89d0c350d83289a102
+> Author:     Krishna Manikandan <mkrishn@codeaurora.org>
+> AuthorDate: Mon Jun 1 16:33:22 2020 +0530
+> Commit:     Rob Clark <robdclark@chromium.org>
+> CommitDate: Tue Aug 18 08:09:01 2020 -0700
+>
+>     drm/msm: add shutdown support for display platform_driver
+>
+>     Define shutdown callback for display drm driver,
+>     so as to disable all the CRTCS when shutdown
+>     notification is received by the driver.
+>
+>     This change will turn off the timing engine so
+>     that no display transactions are requested
+>     while mmu translations are getting disabled
+>     during reboot sequence.
+>
+>     Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
+>
+>     Changes in v2:
+>             - Remove NULL check from msm_pdev_shutdown (Stephen Boyd)
+>             - Change commit text to reflect when this issue
+>               was uncovered (Sai Prakash Ranjan)
+>
+>     Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ----------
+>
+> I suppose we should do the drm_atomic_helper_shutdown() conditionally?
+>  Or the helper should bail if there is no kms?
+>
+> BR,
+> -R
+>
+> > -Daniel
 > >
-> > --- a/drivers/gpu/drm/msm/msm_atomic.c
-> > +++ b/drivers/gpu/drm/msm/msm_atomic.c
-> > @@ -207,8 +207,12 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
-> >         struct msm_kms *kms = priv->kms;
-> >         struct drm_crtc *async_crtc = NULL;
-> >         unsigned crtc_mask = get_crtc_mask(state);
-> > -       bool async = kms->funcs->vsync_time &&
-> > -                       can_do_async(state, &async_crtc);
-> > +       bool async;
-> > +
-> > +       if (!kms)
-> > +               return;
->
-> That looks a bit like a hack papering over the real issue.
->
-> From your report it sounds like earlier kernels worked, did you
-> attempt bisecting? Also for regressions put regressions into the
-> subject, it's the magic work that gets much more attention.
-
-the root issue is how are we doing KMS stuff on imx (where drm/msm is
-only used for gpu).. which I think is this commit:
-
-----------
-commit 9d5cbf5fe46e350715389d89d0c350d83289a102
-Author:     Krishna Manikandan <mkrishn@codeaurora.org>
-AuthorDate: Mon Jun 1 16:33:22 2020 +0530
-Commit:     Rob Clark <robdclark@chromium.org>
-CommitDate: Tue Aug 18 08:09:01 2020 -0700
-
-    drm/msm: add shutdown support for display platform_driver
-
-    Define shutdown callback for display drm driver,
-    so as to disable all the CRTCS when shutdown
-    notification is received by the driver.
-
-    This change will turn off the timing engine so
-    that no display transactions are requested
-    while mmu translations are getting disabled
-    during reboot sequence.
-
-    Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
-
-    Changes in v2:
-            - Remove NULL check from msm_pdev_shutdown (Stephen Boyd)
-            - Change commit text to reflect when this issue
-              was uncovered (Sai Prakash Ranjan)
-
-    Signed-off-by: Rob Clark <robdclark@chromium.org>
-----------
-
-I suppose we should do the drm_atomic_helper_shutdown() conditionally?
- Or the helper should bail if there is no kms?
-
-BR,
--R
-
-> -Daniel
->
-> > +
-> > +       async = kms->funcs->vsync_time && can_do_async(state, &async_crtc);
+> > > +
+> > > +       async = kms->funcs->vsync_time && can_do_async(state, &async_crtc);
+> > >
+> > >         trace_msm_atomic_commit_tail_start(async, crtc_mask);
+> > >
+> > > Any comments?
+> > >
+> > > Thanks
+> > > _______________________________________________
+> > > dri-devel mailing list
+> > > dri-devel@lists.freedesktop.org
+> > > https://lists.freedesktop.org/mailman/listinfo/dri-devel
 > >
-> >         trace_msm_atomic_commit_tail_start(async, crtc_mask);
 > >
-> > Any comments?
 > >
-> > Thanks
-> > _______________________________________________
-> > dri-devel mailing list
-> > dri-devel@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/dri-devel
->
->
->
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+> > --
+> > Daniel Vetter
+> > Software Engineer, Intel Corporation
+> > http://blog.ffwll.ch
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
