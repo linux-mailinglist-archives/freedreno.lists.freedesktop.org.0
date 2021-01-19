@@ -1,57 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC6042FBD4D
-	for <lists+freedreno@lfdr.de>; Tue, 19 Jan 2021 18:17:17 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 095B02FBDC6
+	for <lists+freedreno@lfdr.de>; Tue, 19 Jan 2021 18:36:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76F136E434;
-	Tue, 19 Jan 2021 17:17:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7677B6E430;
+	Tue, 19 Jan 2021 17:36:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67CEB6E434;
- Tue, 19 Jan 2021 17:17:15 +0000 (UTC)
-Received: by mail-wm1-x32d.google.com with SMTP id j18so485991wmi.3;
- Tue, 19 Jan 2021 09:17:15 -0800 (PST)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79E8A6E877;
+ Tue, 19 Jan 2021 17:36:05 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id q12so3200004lfo.12;
+ Tue, 19 Jan 2021 09:36:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=jDfcg2jk9678vyfqCi9ZzgnTVl/KKx8sZFeEAsCjw7o=;
- b=n6mHkIO//wutRmgNX4lr/ciwWVZy+6JuZYKJ54L0qY7sVfHWbm36v11++Ad5anXmFD
- 3oNOk7JyYktLq/I28e2Fxd5Z0H6/ZVgYMdN0+bT660khO0u7FohlpvyK+5t3deGPvj4A
- GBcUDzfshD8u1jZchiNHxqb+EhBym+eqhwBY9UwAcwIJD6bjAqwkQyYD37/gZtxOcpfa
- JLC1vYhK8c2sO7hYFVqg/F0lq4jGl8c8AtCJ3V9h7qP2LyjrM4BLbDbBTvpeq/ze39Le
- 4JWZUuPvxbbOo7+oFAp69YBVUWOOJaG7ttadmG5Qjy1U8UH57rxea3WAUVEvqqxfgmto
- jnIQ==
+ :cc; bh=cpa7qj8j8t1b99X3gJalSPyPYHAME5E11qdbpk6J29U=;
+ b=biHxfiVfBA5cdRJYZcZP3rrYKTcEEoXy16XiI+WZfZ9COOTsBfPAG+rfpglr0U0dxj
+ gkujjPMwaErsATynxIwxcAdaAd8mDJvFqZKdLiFR2wM5RsCS5fr4avOZ1zsbAuZ9DKre
+ z6OAHlQg7duBvlEWLSJcXG7Tvvg0L9lUJ+8DCI7x94saQSo+gVBvySgg+3gN0LPn10kn
+ ovK+oSpxdpq1Msl6nuMcxDBCT+G/qywF/YS9TCamstoUdw8XXAsR48OEBEu8VdX/8yrT
+ xcfRgr78bbgLMnULCPLNujE5HxDEUcu+L0P7YdkCCk+DunaalfELt5RGBrOmtGAwMkVg
+ 56LQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=jDfcg2jk9678vyfqCi9ZzgnTVl/KKx8sZFeEAsCjw7o=;
- b=qukrhR265y8nMxHNcmjQ2x5tw1wI5DuEZv2AUZPRuVnT1EqBSoWHk+rVVApMKetQh+
- lhIIhXimvCj/TzgMlGJauvZ8JnrbmXFnoeOxUTuIcyQc7PS2lrXHyus7I2rt7tfgYbbn
- /9j7Y/5J6OqfKHEAtQFPpGmWihk4CZXR8htR5gGkkRSl7Ip2DtZIW/dScL5Sn/Aqpoy/
- JyPEoeI8mB1u9qkV7uS2MwlmnA/5XOszCfrExJKyBzLsGK57tCLxbzdlYZOLfKCI02hO
- Q5DfgIB5m1ugBIanS4J5WvTedmr5CeAISK3oVPD15DrqIu5K1XJHePFR5Vye8Hxr3gWp
- IJ5Q==
-X-Gm-Message-State: AOAM532b4ZXBQAzdSVMOvhYH6dpXEaTNtQJNB0TTS6bwN9f6i0FG2ols
- rmNMu1xMjYF5D96ihFqT2d5AUG0kIChKLnVO2rU=
-X-Google-Smtp-Source: ABdhPJz4KcPi8xUUZdVpgsj5Q5Kzuwx0SeRT9GeZatHgWdKcTyuECS3DhM1wGV42sCO5C+PU0ZdZZ/DHYtuXPLe38ks=
-X-Received: by 2002:a1c:1b51:: with SMTP id b78mr580821wmb.123.1611076634087; 
- Tue, 19 Jan 2021 09:17:14 -0800 (PST)
+ bh=cpa7qj8j8t1b99X3gJalSPyPYHAME5E11qdbpk6J29U=;
+ b=r6zJzGnWPoMmVehkaljv7UfxdjEFfn5oUlwp5ADRb7YtfchXgEPO5HiTnCp/rgDrEy
+ gzBgfjBHtoo6f9ZWtU4EWsoeqc5DOa82QsviXboxgaxFY8EjYTv7U+l7HMAarzBcFkhV
+ IDApGb6OzwKb43c0wISEvWbtsq5fPia8X4euwPL7TH7SuGWK9gUOOiaATsw393IkOXMv
+ qWfJk1+1Q2iYvKp775chmq9lOrKMSOuYEaJcayjzJ3nbEPiMNcZIg7szBldCaWi9U1rn
+ 9CQU5IjELQXN8wXENR+K4kw4cgYvqgQ4WyhNTEJTr2AV1aQyv+7Dd2gUmwS6qy7odsGN
+ 1shg==
+X-Gm-Message-State: AOAM531Bfkn5BgvIdLo/Je52EJuMO3fGGjZ8g93Pkk8eGINtq2lBYIRM
+ d0aLDGSGU9ICcMqLPq4QZrt6Ktvay1l0rY8SQqY=
+X-Google-Smtp-Source: ABdhPJxtQVNwVVqHbUTeniHS7Dy+Dv09fBZWdA3vll3qvuBDpEa3znmGifppvKS+fNoAadzrqTchY0q+IXO21bs5G84=
+X-Received: by 2002:ac2:57d2:: with SMTP id k18mr2222253lfo.500.1611077763936; 
+ Tue, 19 Jan 2021 09:36:03 -0800 (PST)
 MIME-Version: 1.0
-References: <1608597876-32367-1-git-send-email-isaacm@codeaurora.org>
- <1608597876-32367-6-git-send-email-isaacm@codeaurora.org>
- <CAF6AEGunsv5r_DmNsMbYwa4KQxRmK9J+5Bd12LYG4pQ=hrCe4Q@mail.gmail.com>
- <20210118213909.GA17971@willie-the-truck>
-In-Reply-To: <20210118213909.GA17971@willie-the-truck>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 19 Jan 2021 09:19:38 -0800
-Message-ID: <CAF6AEGutrOnL6dG41ddK37w_RgyV1HHJE_Hyw1t3DAdMtJZfrQ@mail.gmail.com>
-To: Will Deacon <will@kernel.org>
-Subject: Re: [Freedreno] [PATCH v2 5/7] drm/msm: Add dependency on
- io-pgtable-arm format module
+References: <CAOMZO5D_dDTOgDZNy-NkQSPTiKhmrNKjEiqFWGX4rbZr2grDxQ@mail.gmail.com>
+ <CAOMZO5DbgM6kPbNsu2XJcZsRauwey9UttSomquY8L4eyDLtZgw@mail.gmail.com>
+ <CAOMZO5CP=xW8kFZpQxb35odUBs_9+-EDawENHeCLmVoMEYOnMA@mail.gmail.com>
+ <CAKMK7uFmY7u84QOSrWy_qRDQQAzEP-97ALmP2e9N+9mXiwWA8Q@mail.gmail.com>
+ <CAF6AEGuEeaSMyjVQXV-2WAJ6FamrqYc=TF8_EFQo27r+X8_gdg@mail.gmail.com>
+ <CAF6AEGvxdLCLDfhnY9M4-R6U3CvH6eqJBUs=xB6ycDQf2F=JOw@mail.gmail.com>
+In-Reply-To: <CAF6AEGvxdLCLDfhnY9M4-R6U3CvH6eqJBUs=xB6ycDQf2F=JOw@mail.gmail.com>
+From: Fabio Estevam <festevam@gmail.com>
+Date: Tue, 19 Jan 2021 14:35:51 -0300
+Message-ID: <CAOMZO5CWQevgbwJPX8zmhZboX1id3c2ScYG-EsjimMUTi3ccxg@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>
+Subject: Re: [Freedreno] Reboot crash at msm_atomic_commit_tail
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,46 +65,27 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Isaac J. Manjarres" <isaacm@codeaurora.org>,
- Android Kernel Team <kernel-team@android.com>, pdaly@codeaurora.org,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
- Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
- Pratik Patel <pratikp@codeaurora.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>, Robin Murphy <robin.murphy@arm.com>
+Cc: Krishna Manikandan <mkrishn@codeaurora.org>,
+ Sascha Hauer <kernel@pengutronix.de>, Jonathan Marek <jonathan@marek.ca>,
+ Sean Paul <sean@poorly.run>,
+ DRI mailing list <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jan 18, 2021 at 1:39 PM Will Deacon <will@kernel.org> wrote:
->
-> On Mon, Jan 18, 2021 at 01:16:03PM -0800, Rob Clark wrote:
-> > On Mon, Dec 21, 2020 at 4:44 PM Isaac J. Manjarres
-> > <isaacm@codeaurora.org> wrote:
-> > >
-> > > The MSM DRM driver depends on the availability of the ARM LPAE io-pgtable
-> > > format code to work properly. In preparation for having the io-pgtable
-> > > formats as modules, add a "pre" dependency with MODULE_SOFTDEP() to
-> > > ensure that the io-pgtable-arm format module is loaded before loading
-> > > the MSM DRM driver module.
-> > >
-> > > Signed-off-by: Isaac J. Manjarres <isaacm@codeaurora.org>
-> >
-> > Thanks, I've queued this up locally
->
-> I don't plan to make the io-pgtable code modular, so please drop this patch.
->
-> https://lore.kernel.org/r/20210106123428.GA1798@willie-the-truck
+Hi Rob,
 
-Ok, done. Thanks
+On Tue, Jan 19, 2021 at 1:40 PM Rob Clark <robdclark@gmail.com> wrote:
 
-BR,
--R
+> > I suppose we should do the drm_atomic_helper_shutdown() conditionally?
+
+This suggestion works, thanks. I will submit a patch shortly.
+
+Thanks
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
