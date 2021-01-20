@@ -1,75 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAF382FD489
-	for <lists+freedreno@lfdr.de>; Wed, 20 Jan 2021 16:53:07 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 15B302FD535
+	for <lists+freedreno@lfdr.de>; Wed, 20 Jan 2021 17:16:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60B596E090;
-	Wed, 20 Jan 2021 15:53:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8C236E0C5;
+	Wed, 20 Jan 2021 16:16:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
- [66.111.4.229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 157C06E2DE;
- Wed, 20 Jan 2021 13:50:33 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailnew.nyi.internal (Postfix) with ESMTP id 544A5580616;
- Wed, 20 Jan 2021 08:50:31 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Wed, 20 Jan 2021 08:50:31 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=sDxhL51Vhfp7bMJtc05jY3INv15
- IU8xKUsLjHr0xiOU=; b=e6RAvVNPXxx7n+xiZF1cUAYNfJs5LTR6PfLc0CImUdL
- LlXQ2amT0WEqGAlHTdvKd/rcGDF9tSdtsirQSEbuQ3kwVZPiCkw1rM45GLgnvgPm
- Z4AsvGXKTlP7JsOul0AAUpaxlPAIY0gsrLwL9MiYoYuMQ6L6TO3yzgXJyxnZRvp+
- jtbY428Tzk+iEi5DuF8gexjpBHwznO/my3ickth/O3fCvFWfKEcF6MqEAd4+26aI
- ltp/+9yq6CB5vfxYtjqmtlBszlAGV3LvzyYzkBIp/5m62bEJ7/gvtET2/W1vfPsg
- vY4oRDFmYVdvqYxQCwBv7aNKZ4xfO67HgJeBjDQpS+Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=sDxhL5
- 1Vhfp7bMJtc05jY3INv15IU8xKUsLjHr0xiOU=; b=LikqJHGPtkrNylI5xzansd
- wjJ/KJ/R7Dq22hms9Md8biwwcNcdgUs/TtLHDiHdLWd/KIyZNBRPQyEEuZqOAVQH
- Zq59rIAwtrVdT/8xqrz21GDUEkDYGNlS2+2VlDDnQMqXZW2egzoG0Z70QoZsOgpH
- Cv+G0h3ZqaTJuyO4BYEoteVvzAOlKtK1B98G73tE5c5NwbRRkCgLWGFAWw/fAa69
- zKxmdFUnM/ToyfHDRec9Q6ytEXmtIFW+kY42SZebw6yv+4kH64ts8JA31fa6TubI
- bDGw4zZCK5hUm4lShfikDy9nGwJ5aG1okt63wGVtgRstD+gcvL8O6zoqeehmfcBA
- ==
-X-ME-Sender: <xms:IzUIYJyjBDk2-Ewegnc7Hq9GTD5alDyksFm78hquneKLxSpMAnTx1Q>
- <xme:IzUIYJTtvdXHIq0wdouB0Fd3H_6WXJmFuESX5TuHXHnInWmwdGIT1NvWqzSGAlwXW
- 1oyxaEoJrSKjHXk9Us>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledruddvgdehkecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepofgrgihimhgv
- ucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtth
- gvrhhnpeejuddvhfekkefhtdegiefhledutdevtdfhkedtleefjefgleduhfetudevjeeh
- hfenucffohhmrghinhepfhhrvggvuggvshhkthhophdrohhrghenucfkphepledtrdekle
- drieekrdejieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhr
- ohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:IzUIYDV4IfnGFU_2lyw5XqL3TvmYbBA4AR__TrkA3iaokM7PmfRegg>
- <xmx:IzUIYLg4_zBtXiAWqlVE93JYhTgicZgHFCMWYuPvMc-sOMKhU-l4IA>
- <xmx:IzUIYLA6hD-5ZjG_K5igYUbzbL45QJq6qsO7iotuwoTsiB2nPVOYfQ>
- <xmx:JzUIYFrYN58bP-OKW0NJDZug9puVlgOcLOhe106KSpR_QIyNqvm3rQ>
-Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
- [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id 4410A24005A;
- Wed, 20 Jan 2021 08:50:27 -0500 (EST)
-Date: Wed, 20 Jan 2021 14:50:26 +0100
-From: Maxime Ripard <maxime@cerno.tech>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <20210120135026.np2ivojt5vnvyota@gilmour>
-References: <20210115125703.1315064-1-maxime@cerno.tech>
- <20210115125703.1315064-10-maxime@cerno.tech>
- <YAIHFTYiry6ebUsY@pendragon.ideasonboard.com>
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [IPv6:2a00:1450:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C655B6E0C5
+ for <freedreno@lists.freedesktop.org>; Wed, 20 Jan 2021 16:16:16 +0000 (UTC)
+Received: by mail-wm1-x334.google.com with SMTP id y187so3333759wmd.3
+ for <freedreno@lists.freedesktop.org>; Wed, 20 Jan 2021 08:16:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=SvG9Qr2zxUy5HyLVR4TgZLHsdMEzZtUjpB7xdPk8iSo=;
+ b=foNTPOf8c+UYplpTCoGSwxPK1EmUKrmf6sJTjd2gLaS7nJjsQn6xbawNYYd+tezQc+
+ arbDC0ePsRaAkkz6RBjrAZLdietm994fw6geddCUB9SCUzhGOO+eVLDcbU0PKqx7a7Jx
+ TrmCc5OeB7DUkLFGkGLxer9QJ3uCZVbnERwHXa7+JvnSoDK5YzB1fQ3M/d9hDpZ1jnz+
+ emVXR8AMPOA0YekeKssClkox+UUiBWalTiiCz9vIXbQK0i0AW/CuL4tdLWUgqR5kY5pF
+ MawgMrEPME9I4C7QyJwFRSamTPwMHse0025M+fWLHmdvNbPgZrhAqn+KBYDeCrFhtFZt
+ 7OwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=SvG9Qr2zxUy5HyLVR4TgZLHsdMEzZtUjpB7xdPk8iSo=;
+ b=B8wScRJkMSsJgEOMU7tLwxJ12E6E72PduCHaD5/jpbNBiUTI7xxZY9tIPBtRCMC4fy
+ AFLL5aYAbF2LXV6uW7ojCw/aCqKJE7gdAGI2Ojnlsfe2SGFIMhzb64CAP/z/D6bdN41t
+ OBUFaEsoQN+DT593aAbSQZ0HHAWDL3nwnGYgH/1BM09w/emzfXIySIwHVuJ25U3biaD9
+ 44Q0nLw+6q5UluhwngVwaLdLq1JkwtHq5tOmchm4qdboX8FiWFXgvjlijo6QRbiREeYQ
+ Vci0MwhFyJXglb6f//CwTLyMxqMRBM93/J7LkX89Fibv0uXHw7ayKepotccWe+EaHs1S
+ 1Gzg==
+X-Gm-Message-State: AOAM5304M/khvMJBTYnWoHa2/3m5LPzAARNy0LJg306S0O8XzI6nE/O8
+ ttMlQ9e81RUL5o1bm/2SoRQBAodAIBCiGi62LNk=
+X-Google-Smtp-Source: ABdhPJyUmdsXwHY6xIrZFhH9Qci48NyQWyQe8RwEA6yHxrd8yfk5o2NElr9E1IQrNnrG0TCdTmxXvSXJCW2uIQTPMss=
+X-Received: by 2002:a1c:7d8e:: with SMTP id y136mr5244762wmc.94.1611159375225; 
+ Wed, 20 Jan 2021 08:16:15 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <YAIHFTYiry6ebUsY@pendragon.ideasonboard.com>
-X-Mailman-Approved-At: Wed, 20 Jan 2021 15:53:05 +0000
-Subject: Re: [Freedreno] [PATCH 10/10] drm: Use state helper instead of the
- plane state pointer
+References: <cover.1610366113.git.saiprakash.ranjan@codeaurora.org>
+ <c5848b1c15765c8d6db7de2305baac856e818f12.1610366113.git.saiprakash.ranjan@codeaurora.org>
+In-Reply-To: <c5848b1c15765c8d6db7de2305baac856e818f12.1610366113.git.saiprakash.ranjan@codeaurora.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 20 Jan 2021 08:18:40 -0800
+Message-ID: <CAF6AEGszGhdKKq+tW0hKxiE22_+9MUh1hXg3p+7XDo_G51pmSg@mail.gmail.com>
+To: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/a6xx: Create an A6XX GPU
+ specific address space
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,228 +62,200 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Haneen Mohammed <hamohammed.sa@gmail.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- Liviu Dudau <liviu.dudau@arm.com>, dri-devel@lists.freedesktop.org,
- Sandy Huang <hjc@rock-chips.com>, Paul Cercueil <paul@crapouillou.net>,
- linux-tegra@vger.kernel.org, Chen-Yu Tsai <wens@csie.org>,
- Thierry Reding <thierry.reding@gmail.com>, Rob Clark <robdclark@gmail.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- Daniel Vetter <daniel.vetter@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
- Michal Simek <michal.simek@xilinx.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Marek Vasut <marex@denx.de>, Yannick Fertre <yannick.fertre@st.com>,
- linux-samsung-soc@vger.kernel.org, Joonyoung Shim <jy0922.shim@samsung.com>,
- linux-rockchip@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
- Alexey Brodkin <abrodkin@synopsys.com>, Russell King <linux@armlinux.org.uk>,
- Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- Roland Scheidegger <sroland@vmware.com>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- VMware Graphics <linux-graphics-maintainer@vmware.com>,
- NXP Linux Team <linux-imx@nxp.com>, linux-arm-msm@vger.kernel.org,
- Philippe Cornu <philippe.cornu@st.com>, Dave Airlie <airlied@redhat.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- virtualization@lists.linux-foundation.org, Hyun Kwon <hyun.kwon@xilinx.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Chen Feng <puck.chen@hisilicon.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Alison Wang <alison.wang@nxp.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-renesas-soc@vger.kernel.org, Inki Dae <inki.dae@samsung.com>,
- Hans de Goede <hdegoede@redhat.com>, linux-mediatek@lists.infradead.org,
- John Stultz <john.stultz@linaro.org>, Stefan Agner <stefan@agner.ch>,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
- Edmund Dea <edmund.j.dea@intel.com>, Sean Paul <sean@poorly.run>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org, Melissa Wen <melissa.srw@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jernej Skrabec <jernej.skrabec@siol.net>, freedreno@lists.freedesktop.org,
- Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
- Tomi Valkeinen <tomba@kernel.org>, Boris Brezillon <bbrezillon@kernel.org>,
- Jyri Sarha <jyri.sarha@iki.fi>, linux-stm32@st-md-mailman.stormreply.com,
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, linux-kernel@vger.kernel.org,
- Vincent Abriou <vincent.abriou@st.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- spice-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Kevin Hilman <khilman@baylibre.com>, Tian Tao <tiantao6@hisilicon.com>,
- Shawn Guo <shawnguo@kernel.org>, Brian Starkey <brian.starkey@arm.com>,
- Lucas Stach <l.stach@pengutronix.de>
-Content-Type: multipart/mixed; boundary="===============0588098916=="
+Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>,
+ Kristian H Kristensen <hoegsberg@google.com>, Daniel Vetter <daniel@ffwll.ch>,
+ angelogioacchino.delregno@somainline.org,
+ freedreno <freedreno@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Mon, Jan 11, 2021 at 4:04 AM Sai Prakash Ranjan
+<saiprakash.ranjan@codeaurora.org> wrote:
+>
+> A6XX GPUs have support for last level cache(LLC) also known
+> as system cache and need to set the bus attributes to
+> use it. Currently we use a generic adreno iommu address space
+> implementation which are also used by older GPU generations
+> which do not have LLC and might introduce issues accidentally
+> and is not clean in a way that anymore additions of GPUs
+> supporting LLC would have to be guarded under ifdefs. So keep
+> the generic code separate and make the address space creation
+> A6XX specific. We also have a helper to set the llc attributes
+> so that if the newer GPU generations do support them, we can
+> use it instead of open coding domain attribute setting for each
+> GPU.
+>
+> Signed-off-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 46 ++++++++++++++++++++++++-
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 23 +++++--------
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h |  7 ++--
+>  3 files changed, 55 insertions(+), 21 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index 3b798e883f82..3c7ad51732bb 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -1239,6 +1239,50 @@ static unsigned long a6xx_gpu_busy(struct msm_gpu *gpu)
+>         return (unsigned long)busy_time;
+>  }
+>
+> +static struct msm_gem_address_space *
+> +a6xx_create_address_space(struct msm_gpu *gpu, struct platform_device *pdev)
+> +{
+> +       struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+> +       struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+> +       struct iommu_domain *iommu;
+> +       struct msm_mmu *mmu;
+> +       struct msm_gem_address_space *aspace;
+> +       u64 start, size;
+> +
+> +       iommu = iommu_domain_alloc(&platform_bus_type);
+> +       if (!iommu)
+> +               return NULL;
+> +
+> +       /*
+> +        * This allows GPU to set the bus attributes required to use system
+> +        * cache on behalf of the iommu page table walker.
+> +        */
+> +       if (!IS_ERR_OR_NULL(a6xx_gpu->htw_llc_slice))
+> +               adreno_set_llc_attributes(iommu);
+> +
+> +       mmu = msm_iommu_new(&pdev->dev, iommu);
+> +       if (IS_ERR(mmu)) {
+> +               iommu_domain_free(iommu);
+> +               return ERR_CAST(mmu);
+> +       }
+> +
+> +       /*
+> +        * Use the aperture start or SZ_16M, whichever is greater. This will
+> +        * ensure that we align with the allocated pagetable range while still
+> +        * allowing room in the lower 32 bits for GMEM and whatnot
+> +        */
+> +       start = max_t(u64, SZ_16M, iommu->geometry.aperture_start);
+> +       size = iommu->geometry.aperture_end - start + 1;
+> +
+> +       aspace = msm_gem_address_space_create(mmu, "gpu",
+> +               start & GENMASK_ULL(48, 0), size);
+> +
+> +       if (IS_ERR(aspace) && !IS_ERR(mmu))
+> +               mmu->funcs->destroy(mmu);
+> +
+> +       return aspace;
+> +}
+> +
+>  static struct msm_gem_address_space *
+>  a6xx_create_private_address_space(struct msm_gpu *gpu)
+>  {
+> @@ -1285,7 +1329,7 @@ static const struct adreno_gpu_funcs funcs = {
+>                 .gpu_state_get = a6xx_gpu_state_get,
+>                 .gpu_state_put = a6xx_gpu_state_put,
+>  #endif
+> -               .create_address_space = adreno_iommu_create_address_space,
+> +               .create_address_space = a6xx_create_address_space,
+>                 .create_private_address_space = a6xx_create_private_address_space,
+>                 .get_rptr = a6xx_get_rptr,
+>         },
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> index b35914de1b27..0f184c3dd9d9 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -186,11 +186,18 @@ int adreno_zap_shader_load(struct msm_gpu *gpu, u32 pasid)
+>         return zap_shader_load_mdt(gpu, adreno_gpu->info->zapfw, pasid);
+>  }
+>
+> +void adreno_set_llc_attributes(struct iommu_domain *iommu)
+> +{
+> +       struct io_pgtable_domain_attr pgtbl_cfg;
+> +
+> +       pgtbl_cfg.quirks = IO_PGTABLE_QUIRK_ARM_OUTER_WBWA;
 
---===============0588098916==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="j7svqftvzagigb3f"
-Content-Disposition: inline
+btw, since quirks is the only field in the struct currently, this is
+ok.  But better practice to do something like:
 
+        struct io_pgtable_domain_attr pgtbl_cfg = {
+                .quirks = IO_PGTABLE_QUIRK_ARM_OUTER_WBWA,
+        };
 
---j7svqftvzagigb3f
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+which will zero-initialize any additional fields which might be added
+later, rather than inherit random garbage from the stack.
 
-Hi Laurent,
+BR,
+-R
 
-On Fri, Jan 15, 2021 at 11:20:21PM +0200, Laurent Pinchart wrote:
-> Hi Maxime,
->=20
-> Thank you for the patch.
->=20
-> On Fri, Jan 15, 2021 at 01:57:02PM +0100, Maxime Ripard wrote:
-> > Many drivers reference the plane->state pointer in order to get the
-> > current plane state in their atomic_update or atomic_disable hooks,
->=20
-> Please don't use the word "current", it's ambiguous. Do you mean old
-> state or new state ?
-
-It's kind of the point I was trying to make: plane->state is the current
-state of the plane, but it's definitely ambiguous and it's fairly easy
-to be confused when working over several hooks.
-
-> > which would be the new plane state in the global atomic state since
-> > _swap_state happened when those hooks are run.
->=20
-> Is this relevant ? drm_atomic_helper_swap_state() doesn't change the
-> old_state and new_state pointers in drm_atomic_state as far as I can
-> tell.
-
-No, but it does change the plane->state pointer: before swap_state it's
-the old state, after swap_state it's the new state
-
-> > Use the drm_atomic_get_new_plane_state helper to get that state to make=
- it
-> > more obvious.
-> >=20
-> > This was made using the coccinelle script below:
-> >=20
-> > @ plane_atomic_func @
-> > identifier helpers;
-> > identifier func;
-> > @@
-> >=20
-> > (
-> >  static const struct drm_plane_helper_funcs helpers =3D {
-> >  	...,
-> >  	.atomic_disable =3D func,
-> > 	...,
-> >  };
-> > |
-> >  static const struct drm_plane_helper_funcs helpers =3D {
-> >  	...,
-> >  	.atomic_update =3D func,
-> > 	...,
-> >  };
-> > )
-> >=20
-> > @ adds_new_state @
-> > identifier plane_atomic_func.func;
-> > identifier plane, state;
-> > identifier new_state;
-> > @@
-> >=20
-> >  func(struct drm_plane *plane, struct drm_atomic_state *state)
-> >  {
-> >  	...
-> > -	struct drm_plane_state *new_state =3D plane->state;
-> > +	struct drm_plane_state *new_state =3D drm_atomic_get_new_plane_state(=
-state, plane);
-> > 	...
-> >  }
-> >=20
-> > @ include depends on adds_new_state @
-> > @@
-> >=20
-> >  #include <drm/drm_atomic.h>
-> >=20
-> > @ no_include depends on !include && adds_new_state @
-> > @@
-> >=20
-> > + #include <drm/drm_atomic.h>
-> >   #include <drm/...>
-> >=20
-> > Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-> > ---
->=20
-> [snip]
->=20
-> >  drivers/gpu/drm/omapdrm/omap_plane.c            | 6 ++++--
-> >  drivers/gpu/drm/rcar-du/rcar_du_plane.c         | 3 ++-
-> >  drivers/gpu/drm/rcar-du/rcar_du_vsp.c           | 3 ++-
-> >  drivers/gpu/drm/xlnx/zynqmp_disp.c              | 3 ++-
->=20
-> [snip]
->=20
-> > diff --git a/drivers/gpu/drm/omapdrm/omap_plane.c b/drivers/gpu/drm/oma=
-pdrm/omap_plane.c
-> > index cd8cf7c786b5..021a94de84a1 100644
-> > --- a/drivers/gpu/drm/omapdrm/omap_plane.c
-> > +++ b/drivers/gpu/drm/omapdrm/omap_plane.c
-> > @@ -44,7 +44,8 @@ static void omap_plane_atomic_update(struct drm_plane=
- *plane,
-> >  {
-> >  	struct omap_drm_private *priv =3D plane->dev->dev_private;
-> >  	struct omap_plane *omap_plane =3D to_omap_plane(plane);
-> > -	struct drm_plane_state *new_state =3D plane->state;
->=20
-> This seems to imply that you're interested in the new state.
-
-Well, to be fair, the variable is only called "state" before this series
-and it's one of the previous patch that renames it to new_state and
-makes it a more obvious.
-
-Otherwise, state =3D plane->state is fairly confusing and error-prone.
-With that change you would make it really obvious
-
-> > +	struct drm_plane_state *new_state =3D drm_atomic_get_new_plane_state(=
-state,
-> > +									   plane);
->=20
-> Does this really make things more obvious ?
-
-I guess you're better at remembering this than I am then :)
-
-The discussion on whether it's more obvious or not aside, accessing the
-->state pointer directly has some culprits, see:
-
-https://dri.freedesktop.org/docs/drm/gpu/todo.html#plumb-drm-atomic-state-a=
-ll-over
-
-Maxime
-
---j7svqftvzagigb3f
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYAg1IgAKCRDj7w1vZxhR
-xW+rAQCaKXuyQvbRubp33hPCkdAY/LXaD+3TQwLv2j7AhTFUtAD/aLv/q1HqwcEO
-ZfMJ4deD5+JElSu70qt5AOEI/9JMPAg=
-=q+gU
------END PGP SIGNATURE-----
-
---j7svqftvzagigb3f--
-
---===============0588098916==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> +       iommu_domain_set_attr(iommu, DOMAIN_ATTR_IO_PGTABLE_CFG, &pgtbl_cfg);
+> +}
+> +
+>  struct msm_gem_address_space *
+>  adreno_iommu_create_address_space(struct msm_gpu *gpu,
+>                 struct platform_device *pdev)
+>  {
+> -       struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+>         struct iommu_domain *iommu;
+>         struct msm_mmu *mmu;
+>         struct msm_gem_address_space *aspace;
+> @@ -200,20 +207,6 @@ adreno_iommu_create_address_space(struct msm_gpu *gpu,
+>         if (!iommu)
+>                 return NULL;
+>
+> -       if (adreno_is_a6xx(adreno_gpu)) {
+> -               struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+> -               struct io_pgtable_domain_attr pgtbl_cfg;
+> -
+> -               /*
+> -                * This allows GPU to set the bus attributes required to use system
+> -                * cache on behalf of the iommu page table walker.
+> -                */
+> -               if (!IS_ERR_OR_NULL(a6xx_gpu->htw_llc_slice)) {
+> -                       pgtbl_cfg.quirks = IO_PGTABLE_QUIRK_ARM_OUTER_WBWA;
+> -                       iommu_domain_set_attr(iommu, DOMAIN_ATTR_IO_PGTABLE_CFG, &pgtbl_cfg);
+> -               }
+> -       }
+> -
+>         mmu = msm_iommu_new(&pdev->dev, iommu);
+>         if (IS_ERR(mmu)) {
+>                 iommu_domain_free(iommu);
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> index b3d9a333591b..2a3d049b46b5 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> @@ -212,11 +212,6 @@ static inline int adreno_is_a540(struct adreno_gpu *gpu)
+>         return gpu->revn == 540;
+>  }
+>
+> -static inline bool adreno_is_a6xx(struct adreno_gpu *gpu)
+> -{
+> -       return ((gpu->revn < 700 && gpu->revn > 599));
+> -}
+> -
+>  static inline int adreno_is_a618(struct adreno_gpu *gpu)
+>  {
+>         return gpu->revn == 618;
+> @@ -278,6 +273,8 @@ struct msm_gem_address_space *
+>  adreno_iommu_create_address_space(struct msm_gpu *gpu,
+>                 struct platform_device *pdev);
+>
+> +void adreno_set_llc_attributes(struct iommu_domain *iommu);
+> +
+>  /*
+>   * For a5xx and a6xx targets load the zap shader that is used to pull the GPU
+>   * out of secure mode
+> --
+> QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a member
+> of Code Aurora Forum, hosted by The Linux Foundation
+>
+> _______________________________________________
+> Freedreno mailing list
+> Freedreno@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/freedreno
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
-
---===============0588098916==--
