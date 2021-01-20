@@ -1,62 +1,40 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49A1B2FCA6B
-	for <lists+freedreno@lfdr.de>; Wed, 20 Jan 2021 06:24:06 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 54F2E2FCEB4
+	for <lists+freedreno@lfdr.de>; Wed, 20 Jan 2021 12:04:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 040066E135;
-	Wed, 20 Jan 2021 05:24:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C214880C6;
+	Wed, 20 Jan 2021 11:04:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
- Wed, 20 Jan 2021 05:24:04 UTC
-Received: from m42-8.mailgun.net (m42-8.mailgun.net [69.72.42.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8658A6E135
- for <freedreno@lists.freedesktop.org>; Wed, 20 Jan 2021 05:24:04 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1611120244; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=elqg9TnQqVo3z+rjCzoXTDJ/nWUGnhtMTJRsONyCrT4=;
- b=S1ORf9TU1pZdj/0+Wx9Sqz9zLosAfZpc8ioOjUupuov/UgcRqwMlBQHyNspBCO3RDdpuuFhQ
- oPliggoz1Ky5pW71jIgDiq/gb9tVkIAZffCLqP3X16kAYTsqrz6w6LOVtvDUEAlKMtX/Glpq
- Pp1u/KrKX3xn0iaRdDVfrWT/xJ8=
-X-Mailgun-Sending-Ip: 69.72.42.8
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
- 6007bd3cf94f20d8b73cc04d (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 20 Jan 2021 05:18:52
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 040BFC43462; Wed, 20 Jan 2021 05:18:52 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Received: from relay01.th.seeweb.it (relay01.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A71B2880C6
+ for <freedreno@lists.freedesktop.org>; Wed, 20 Jan 2021 11:04:20 +0000 (UTC)
+Received: from IcarusMOD.eternityproject.eu (unknown [2.237.20.237])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- (Authenticated sender: saiprakash.ranjan)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 52F8BC43464;
- Wed, 20 Jan 2021 05:18:50 +0000 (UTC)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id B0A541F648;
+ Wed, 20 Jan 2021 12:04:17 +0100 (CET)
+To: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Rob Clark <robdclark@gmail.com>, Jordan Crouse <jcrouse@codeaurora.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>
+References: <cover.1610366113.git.saiprakash.ranjan@codeaurora.org>
+ <c5848b1c15765c8d6db7de2305baac856e818f12.1610366113.git.saiprakash.ranjan@codeaurora.org>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+Message-ID: <1120efd2-151b-4643-9a57-c15c46ab6e16@somainline.org>
+Date: Wed, 20 Jan 2021 12:04:17 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-Date: Wed, 20 Jan 2021 10:48:50 +0530
-From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Joerg Roedel <joro@8bytes.org>, Jordan Crouse <jcrouse@codeaurora.org>, Rob
- Clark <robdclark@gmail.com>, Akhil P Oommen <akhilpo@codeaurora.org>,
- isaacm@codeaurora.org
-In-Reply-To: <cover.1610372717.git.saiprakash.ranjan@codeaurora.org>
-References: <cover.1610372717.git.saiprakash.ranjan@codeaurora.org>
-Message-ID: <3e6ec220c07bcf91fae0985e1798f7a1@codeaurora.org>
-X-Sender: saiprakash.ranjan@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH 0/3] iommu/drm/msm: Allow non-coherent
- masters to use system cache
+In-Reply-To: <c5848b1c15765c8d6db7de2305baac856e818f12.1610366113.git.saiprakash.ranjan@codeaurora.org>
+Content-Language: en-US
+Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/a6xx: Create an A6XX GPU
+ specific address space
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,62 +47,216 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
- Kristian H Kristensen <hoegsberg@google.com>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno <freedreno@lists.freedesktop.org>,
- linux-arm-kernel@lists.infradead.org
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Kristian H Kristensen <hoegsberg@google.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-01-11 19:45, Sai Prakash Ranjan wrote:
-> commit ecd7274fb4cd ("iommu: Remove unused IOMMU_SYS_CACHE_ONLY flag")
-> removed unused IOMMU_SYS_CACHE_ONLY prot flag and along with it went
-> the memory type setting required for the non-coherent masters to use
-> system cache. Now that system cache support for GPU is added, we will
-> need to set the right PTE attribute for GPU buffers to be sys cached.
-> Without this, the system cache lines are not allocated for GPU.
+Il 11/01/21 13:04, Sai Prakash Ranjan ha scritto:
+> A6XX GPUs have support for last level cache(LLC) also known
+> as system cache and need to set the bus attributes to
+> use it. Currently we use a generic adreno iommu address space
+> implementation which are also used by older GPU generations
+> which do not have LLC and might introduce issues accidentally
+> and is not clean in a way that anymore additions of GPUs
+> supporting LLC would have to be guarded under ifdefs. So keep
+> the generic code separate and make the address space creation
+> A6XX specific. We also have a helper to set the llc attributes
+> so that if the newer GPU generations do support them, we can
+> use it instead of open coding domain attribute setting for each
+> GPU.
 > 
-> So the patches in this series introduces a new prot flag IOMMU_LLC,
-> renames IO_PGTABLE_QUIRK_ARM_OUTER_WBWA to IO_PGTABLE_QUIRK_PTW_LLC
-> and makes GPU the user of this protection flag.
+
+Hello!
+
+> Signed-off-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+> ---
+>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 46 ++++++++++++++++++++++++-
+>   drivers/gpu/drm/msm/adreno/adreno_gpu.c | 23 +++++--------
+>   drivers/gpu/drm/msm/adreno/adreno_gpu.h |  7 ++--
+>   3 files changed, 55 insertions(+), 21 deletions(-)
 > 
-> The series slightly depends on following 2 patches posted earlier and
-> is based on msm-next branch:
->  * https://lore.kernel.org/patchwork/patch/1363008/
->  * https://lore.kernel.org/patchwork/patch/1363010/
-> 
-> Sai Prakash Ranjan (3):
->   iommu/io-pgtable: Rename last-level cache quirk to
->     IO_PGTABLE_QUIRK_PTW_LLC
->   iommu/io-pgtable-arm: Add IOMMU_LLC page protection flag
->   drm/msm: Use IOMMU_LLC page protection flag to map gpu buffers
-> 
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 3 +++
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 2 +-
->  drivers/gpu/drm/msm/msm_iommu.c         | 3 +++
->  drivers/gpu/drm/msm/msm_mmu.h           | 4 ++++
->  drivers/iommu/io-pgtable-arm.c          | 9 ++++++---
->  include/linux/io-pgtable.h              | 6 +++---
->  include/linux/iommu.h                   | 6 ++++++
->  7 files changed, 26 insertions(+), 7 deletions(-)
-> 
-> 
-> base-commit: 00fd44a1a4700718d5d962432b55c09820f7e709
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index 3b798e883f82..3c7ad51732bb 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -1239,6 +1239,50 @@ static unsigned long a6xx_gpu_busy(struct msm_gpu *gpu)
+>   	return (unsigned long)busy_time;
+>   }
+>   
+> +static struct msm_gem_address_space *
+> +a6xx_create_address_space(struct msm_gpu *gpu, struct platform_device *pdev)
+> +{
+> +	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+> +	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+> +	struct iommu_domain *iommu;
+> +	struct msm_mmu *mmu;
+> +	struct msm_gem_address_space *aspace;
+> +	u64 start, size;
+> +
+> +	iommu = iommu_domain_alloc(&platform_bus_type);
+> +	if (!iommu)
+> +		return NULL;
+> +
+> +	/*
+> +	 * This allows GPU to set the bus attributes required to use system
+> +	 * cache on behalf of the iommu page table walker.
+> +	 */
+> +	if (!IS_ERR_OR_NULL(a6xx_gpu->htw_llc_slice))
+> +		adreno_set_llc_attributes(iommu);
+> +
+> +	mmu = msm_iommu_new(&pdev->dev, iommu);
+> +	if (IS_ERR(mmu)) {
+> +		iommu_domain_free(iommu);
+> +		return ERR_CAST(mmu);
+> +	}
+> +
+> +	/*
+> +	 * Use the aperture start or SZ_16M, whichever is greater. This will
+> +	 * ensure that we align with the allocated pagetable range while still
+> +	 * allowing room in the lower 32 bits for GMEM and whatnot
+> +	 */
+> +	start = max_t(u64, SZ_16M, iommu->geometry.aperture_start);
+> +	size = iommu->geometry.aperture_end - start + 1;
+> +
+> +	aspace = msm_gem_address_space_create(mmu, "gpu",
+> +		start & GENMASK_ULL(48, 0), size);
+> +
+> +	if (IS_ERR(aspace) && !IS_ERR(mmu))
+> +		mmu->funcs->destroy(mmu);
+> +
+> +	return aspace;
+> +}
+> +
+
+I get what you're trying to do - yes the intentions are good, however...
+you are effectively duplicating code 1:1, as this *is* the same as
+function adreno_iommu_create_address_space.
+
+I don't see adding two lines to a function as a valid justification to
+duplicate all the rest: perhaps, you may want to find another way to do
+this;
+
+Here's one of the many ideas, perhaps you could:
+1. Introduce a "generic feature" to signal LLCC support (perhaps in
+    struct adreno_info ?)
+2. If LLCC is supported, and LLCC slices are initialized, set the LLCC
+    attributes on the IOMMU. Of course this would mean passing the init
+    state of the slices (maybe just a bool would be fine) back to the
+    generic adreno_gpu.c
+
+This, unless you tell me that the entire function is going to be a6xx
+specific, but that doesn't seem to be the case at all.
+
+Concerns are that when an hypotetical Adreno A7XX comes and perhaps also
+uses the LLCC slices, this function will be duplicated yet another time.
+
+>   static struct msm_gem_address_space *
+>   a6xx_create_private_address_space(struct msm_gpu *gpu)
+>   {
+> @@ -1285,7 +1329,7 @@ static const struct adreno_gpu_funcs funcs = {
+>   		.gpu_state_get = a6xx_gpu_state_get,
+>   		.gpu_state_put = a6xx_gpu_state_put,
+>   #endif
+> -		.create_address_space = adreno_iommu_create_address_space,
+> +		.create_address_space = a6xx_create_address_space,
+>   		.create_private_address_space = a6xx_create_private_address_space,
+>   		.get_rptr = a6xx_get_rptr,
+>   	},
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> index b35914de1b27..0f184c3dd9d9 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -186,11 +186,18 @@ int adreno_zap_shader_load(struct msm_gpu *gpu, u32 pasid)
+>   	return zap_shader_load_mdt(gpu, adreno_gpu->info->zapfw, pasid);
+>   }
+>   
+> +void adreno_set_llc_attributes(struct iommu_domain *iommu)
+
+Since this function is relative to the iommu part of this driver, I
+think that it would be appropriate to give it the same prefix as all
+the other functions that are "working in this context".
+Hint: adreno_iommu_set_llc_attributes
+Alternatively, this two lines function may just be a static inline in
+the header....
 
 
-Gentle Ping!
+But then, what are we talking about, here?
+Since you should stop code duplication and bring everything back in
+here (in a generic way!!!), then this helper would be of no use, at all,
+because then you would be just "throwing" these two lines back in the
+function adreno_iommu_create_address_space....
 
-Thanks,
-Sai
 
--- 
-QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a 
-member
-of Code Aurora Forum, hosted by The Linux Foundation
+> +{
+> +	struct io_pgtable_domain_attr pgtbl_cfg;
+> +
+> +	pgtbl_cfg.quirks = IO_PGTABLE_QUIRK_ARM_OUTER_WBWA;
+> +	iommu_domain_set_attr(iommu, DOMAIN_ATTR_IO_PGTABLE_CFG, &pgtbl_cfg);
+> +}
+> +
+>   struct msm_gem_address_space *
+>   adreno_iommu_create_address_space(struct msm_gpu *gpu,
+>   		struct platform_device *pdev)
+>   {
+> -	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+>   	struct iommu_domain *iommu;
+>   	struct msm_mmu *mmu;
+>   	struct msm_gem_address_space *aspace;
+> @@ -200,20 +207,6 @@ adreno_iommu_create_address_space(struct msm_gpu *gpu,
+>   	if (!iommu)
+>   		return NULL;
+>   
+> -	if (adreno_is_a6xx(adreno_gpu)) {
+> -		struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+> -		struct io_pgtable_domain_attr pgtbl_cfg;
+> -
+> -		/*
+> -		 * This allows GPU to set the bus attributes required to use system
+> -		 * cache on behalf of the iommu page table walker.
+> -		 */
+> -		if (!IS_ERR_OR_NULL(a6xx_gpu->htw_llc_slice)) {
+> -			pgtbl_cfg.quirks = IO_PGTABLE_QUIRK_ARM_OUTER_WBWA;
+> -			iommu_domain_set_attr(iommu, DOMAIN_ATTR_IO_PGTABLE_CFG, &pgtbl_cfg);
+> -		}
+> -	}
+> -
+>   	mmu = msm_iommu_new(&pdev->dev, iommu);
+>   	if (IS_ERR(mmu)) {
+>   		iommu_domain_free(iommu);
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> index b3d9a333591b..2a3d049b46b5 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> @@ -212,11 +212,6 @@ static inline int adreno_is_a540(struct adreno_gpu *gpu)
+>   	return gpu->revn == 540;
+>   }
+>   
+> -static inline bool adreno_is_a6xx(struct adreno_gpu *gpu)
+> -{
+> -	return ((gpu->revn < 700 && gpu->revn > 599));
+> -}
+> -
+>   static inline int adreno_is_a618(struct adreno_gpu *gpu)
+>   {
+>          return gpu->revn == 618;
+> @@ -278,6 +273,8 @@ struct msm_gem_address_space *
+>   adreno_iommu_create_address_space(struct msm_gpu *gpu,
+>   		struct platform_device *pdev);
+>   
+> +void adreno_set_llc_attributes(struct iommu_domain *iommu);
+> +
+>   /*
+>    * For a5xx and a6xx targets load the zap shader that is used to pull the GPU
+>    * out of secure mode
+> 
+
+Regards,
+- Angelo
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
