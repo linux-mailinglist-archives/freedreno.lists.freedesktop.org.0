@@ -1,41 +1,44 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88AC72FF86D
-	for <lists+freedreno@lfdr.de>; Fri, 22 Jan 2021 00:07:59 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id BC970300274
+	for <lists+freedreno@lfdr.de>; Fri, 22 Jan 2021 13:07:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36D1689363;
-	Thu, 21 Jan 2021 23:07:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3F346E9BC;
+	Fri, 22 Jan 2021 12:07:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F222D6E979;
- Thu, 21 Jan 2021 23:04:03 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
- [62.78.145.57])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2451050E;
- Fri, 22 Jan 2021 00:04:01 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1611270241;
- bh=T5NVDr46xcwrXL27T8VCCkqqocibkcaVgjkVgGiO8ZY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Y8cyClLX8kCaKU5wMc7DQBaagAtpgNWmTZ3+p386BcnpRP0PMgaNeQ9iuSFglc0Sw
- yxD8mSPCVAnyIXOWj5xsNFm7Htaoj3caG3DKUBN0MGRlEjztlQ48iKJbFja/DHFBKL
- ztANltlmDf+im+ixzdUmFqsBKC+TOLRQSVr+juDg=
-Date: Fri, 22 Jan 2021 01:03:42 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 161D66E965;
+ Fri, 22 Jan 2021 12:07:30 +0000 (UTC)
+IronPort-SDR: zE1sXM3dTW4VcOVQpfulhGQ53fPayYeO9Inkhz6XWIg0cmrcx7vLazhnZMuUVtwi4wUtrODIg/
+ 6AoLp3RN74Lw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9871"; a="243514008"
+X-IronPort-AV: E=Sophos;i="5.79,366,1602572400"; d="scan'208";a="243514008"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jan 2021 04:07:28 -0800
+IronPort-SDR: LI7d1B/P80MeyJkVkKXKN7OEzVq/WmfB9ZPT+CyMbHq5Dbr0B1vmeqlILwhcjOQ2ieQXgKqBA2
+ BA4zdrJP78EQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.79,366,1602572400"; d="scan'208";a="427949436"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
+ by orsmga001.jf.intel.com with SMTP; 22 Jan 2021 04:07:22 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 22 Jan 2021 14:07:22 +0200
+Date: Fri, 22 Jan 2021 14:07:22 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
 To: Maxime Ripard <maxime@cerno.tech>
-Message-ID: <YAoITqHbG1UeiAHV@pendragon.ideasonboard.com>
+Message-ID: <YAq/+udQfTwdamQ0@intel.com>
 References: <20210121163537.1466118-1-maxime@cerno.tech>
- <20210121163537.1466118-9-maxime@cerno.tech>
+ <20210121163537.1466118-6-maxime@cerno.tech>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210121163537.1466118-9-maxime@cerno.tech>
-X-Mailman-Approved-At: Thu, 21 Jan 2021 23:07:57 +0000
-Subject: Re: [Freedreno] [PATCH v2 09/11] drm/atomic: Pass the full state to
- planes atomic disable and update
+In-Reply-To: <20210121163537.1466118-6-maxime@cerno.tech>
+X-Patchwork-Hint: comment
+Subject: Re: [Freedreno] [PATCH v2 06/11] drm: Use state helper instead of
+ plane state pointer in atomic_check
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,256 +51,204 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Xinliang Liu <xinliang.liu@linaro.org>, dri-devel@lists.freedesktop.org,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- linux-samsung-soc@vger.kernel.org, Vincent Abriou <vincent.abriou@st.com>,
- Michal Simek <michal.simek@xilinx.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- NXP Linux Team <linux-imx@nxp.com>,
- VMware Graphics <linux-graphics-maintainer@vmware.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Roland Scheidegger <sroland@vmware.com>,
- Inki Dae <inki.dae@samsung.com>, Sean Paul <sean@poorly.run>,
- Hyun Kwon <hyun.kwon@xilinx.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- linux-kernel@vger.kernel.org, Pengutronix Kernel Team <kernel@pengutronix.de>,
- freedreno@lists.freedesktop.org, Zack Rusin <zackr@vmware.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- David Airlie <airlied@linux.ie>, Edmund Dea <edmund.j.dea@intel.com>,
- virtualization@lists.linux-foundation.org, Eric Anholt <eric@anholt.net>,
- Thierry Reding <thierry.reding@gmail.com>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Mihail Atanassov <mihail.atanassov@arm.com>,
- Fabio Estevam <festevam@gmail.com>, Alexey Brodkin <abrodkin@synopsys.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, linux-rockchip@lists.infradead.org,
- "James \(Qian\) Wang" <james.qian.wang@arm.com>,
- Dave Airlie <airlied@redhat.com>, Alexandre Torgue <alexandre.torgue@st.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- John Stultz <john.stultz@linaro.org>, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
- Boris Brezillon <bbrezillon@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
- Yannick Fertre <yannick.fertre@st.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Kevin Hilman <khilman@baylibre.com>, Brian Starkey <brian.starkey@arm.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>,
- Neil Armstrong <narmstrong@baylibre.com>, Stefan Agner <stefan@agner.ch>,
- Melissa Wen <melissa.srw@gmail.com>, linux-tegra@vger.kernel.org,
- Gerd Hoffmann <kraxel@redhat.com>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Sam Ravnborg <sam@ravnborg.org>, Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Chen Feng <puck.chen@hisilicon.com>,
- Alison Wang <alison.wang@nxp.com>, spice-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Tomi Valkeinen <tomba@kernel.org>,
- Philippe Cornu <philippe.cornu@st.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Tian Tao <tiantao6@hisilicon.com>, Shawn Guo <shawnguo@kernel.org>,
- Liviu Dudau <liviu.dudau@arm.com>, Nicolas Ferre <nicolas.ferre@microchip.com>,
- Paul Cercueil <paul@crapouillou.net>, Marek Vasut <marex@denx.de>,
- linux-renesas-soc@vger.kernel.org, Joonyoung Shim <jy0922.shim@samsung.com>,
- Russell King <linux@armlinux.org.uk>, Thomas Zimmermann <tzimmermann@suse.de>,
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Tomi Valkeinen <tomba@kernel.org>, David Airlie <airlied@linux.ie>,
+ freedreno@lists.freedesktop.org, Sascha Hauer <s.hauer@pengutronix.de>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Hans de Goede <hdegoede@redhat.com>, linux-mediatek@lists.infradead.org,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Jernej Skrabec <jernej.skrabec@siol.net>, linux-mips@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Jyri Sarha <jyri.sarha@iki.fi>, Lucas Stach <l.stach@pengutronix.de>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+ Jyri Sarha <jyri.sarha@iki.fi>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, NXP Linux Team <linux-imx@nxp.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org,
+ Daniel Vetter <daniel.vetter@intel.com>, Sean Paul <sean@poorly.run>,
+ Shawn Guo <shawnguo@kernel.org>, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Maxime,
+On Thu, Jan 21, 2021 at 05:35:31PM +0100, Maxime Ripard wrote:
+> Many drivers reference the plane->state pointer in order to get the
+> current plane state in their atomic_check hook, which would be the old
+> plane state in the global atomic state since _swap_state hasn't happened
+> when atomic_check is run.
+> =
 
-Thank you for the patch.
+> Use the drm_atomic_get_old_plane_state helper to get that state to make
+> it more obvious.
+> =
 
-On Thu, Jan 21, 2021 at 05:35:34PM +0100, Maxime Ripard wrote:
-> The current atomic helpers have either their object state being passed as
-> an argument or the full atomic state.
-> 
-> The former is the pattern that was done at first, before switching to the
-> latter for new hooks or when it was needed.
-> 
-> Let's convert the remaining helpers to provide a consistent interface,
-> this time with the planes atomic_update and atomic_disable.
-> 
-> The conversion was done using the coccinelle script below, built tested on
-> all the drivers.
-> 
-> @@
-> identifier plane, plane_state;
-> symbol state;
-> @@
-> 
->  struct drm_plane_helper_funcs {
->  	...
-> 	void (*atomic_update)(struct drm_plane *plane,
-> -			      struct drm_plane_state *plane_state);
-> +			      struct drm_atomic_state *state);
->  	...
->  }
-> 
-> @@
-> identifier plane, plane_state;
-> symbol state;
-> @@
-> 
->  struct drm_plane_helper_funcs {
-> 	...
-> 	void (*atomic_disable)(struct drm_plane *plane,
-> -			       struct drm_plane_state *plane_state);
-> +			       struct drm_atomic_state *state);
-> 	...
->  }
-> 
+> This was made using the coccinelle script below:
+> =
+
 > @ plane_atomic_func @
 > identifier helpers;
 > identifier func;
 > @@
-> 
-> (
->  static const struct drm_plane_helper_funcs helpers = {
->  	...,
->  	.atomic_update = func,
+> =
+
+> static struct drm_plane_helper_funcs helpers =3D {
 > 	...,
->  };
-> |
->  static const struct drm_plane_helper_funcs helpers = {
->  	...,
->  	.atomic_disable = func,
+> 	.atomic_check =3D func,
 > 	...,
->  };
-> )
-> 
-> @@
-> struct drm_plane_helper_funcs *FUNCS;
-> identifier f;
-> identifier crtc_state;
-> identifier plane, plane_state, state;
-> expression e;
-> @@
-> 
->  f(struct drm_crtc_state *crtc_state)
->  {
->  	...
->  	struct drm_atomic_state *state = e;
->  	<+...
-> (
-> -	FUNCS->atomic_disable(plane, plane_state)
-> +	FUNCS->atomic_disable(plane, state)
-> |
-> -	FUNCS->atomic_update(plane, plane_state)
-> +	FUNCS->atomic_update(plane, state)
-> )
->  	...+>
->  }
-> 
-> @@
+> };
+> =
+
+> @ replaces_old_state @
 > identifier plane_atomic_func.func;
-> identifier plane;
-> symbol state;
+> identifier plane, state, plane_state;
 > @@
-> 
->  func(struct drm_plane *plane,
-> -    struct drm_plane_state *state)
-> +    struct drm_plane_state *old_plane_state)
->  {
-> 	<...
-> -	state
-> +	old_plane_state
-> 	...>
->  }
-> 
-> @ ignores_old_state @
-> identifier plane_atomic_func.func;
-> identifier plane, old_state;
-> @@
-> 
->  func(struct drm_plane *plane, struct drm_plane_state *old_state)
->  {
-> 	... when != old_state
->  }
-> 
-> @ adds_old_state depends on plane_atomic_func && !ignores_old_state @
-> identifier plane_atomic_func.func;
-> identifier plane, plane_state;
-> @@
-> 
->  func(struct drm_plane *plane, struct drm_plane_state *plane_state)
->  {
-> +	struct drm_plane_state *plane_state = drm_atomic_get_old_plane_state(state, plane);
->  	...
->  }
-> 
-> @ depends on plane_atomic_func @
-> identifier plane_atomic_func.func;
-> identifier plane, plane_state;
-> @@
-> 
->  func(struct drm_plane *plane,
-> -     struct drm_plane_state *plane_state
-> +     struct drm_atomic_state *state
->      )
->  { ... }
-> 
-> @ include depends on adds_old_state @
-> @@
-> 
->  #include <drm/drm_atomic.h>
-> 
-> @ no_include depends on !include && adds_old_state @
-> @@
-> 
-> + #include <drm/drm_atomic.h>
->   #include <drm/...>
-> 
-> @@
-> identifier plane_atomic_func.func;
-> identifier plane, state;
-> identifier plane_state;
-> @@
-> 
+> =
+
 >  func(struct drm_plane *plane, struct drm_atomic_state *state) {
 >  	...
->  	struct drm_plane_state *plane_state = drm_atomic_get_old_plane_state(state, plane);
->  	<+...
-> -	plane_state->state
-> +	state
->  	...+>
+> -	struct drm_plane_state *plane_state =3D plane->state;
+> +	struct drm_plane_state *plane_state =3D drm_atomic_get_old_plane_state(=
+state, plane);
+>  	...
 >  }
-> 
+> =
+
+> @@
+> identifier plane_atomic_func.func;
+> identifier plane, state, plane_state;
+> @@
+> =
+
+>  func(struct drm_plane *plane, struct drm_atomic_state *state) {
+>  	struct drm_plane_state *plane_state =3D drm_atomic_get_old_plane_state(=
+state, plane);
+>  	...
+> -	plane->state
+> +	plane_state
+>  	...
+
+We don't need the <... ...> style here? It's been a while since
+I did any serious cocci so I'm getting a bit rusty on the details...
+
+Otherwise looks great
+Reviewed-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+
+>  }
+> =
+
+> @ adds_old_state @
+> identifier plane_atomic_func.func;
+> identifier plane, state;
+> @@
+> =
+
+>  func(struct drm_plane *plane, struct drm_atomic_state *state) {
+> +	struct drm_plane_state *old_plane_state =3D drm_atomic_get_old_plane_st=
+ate(state, plane);
+>  	...
+> -	plane->state
+> +	old_plane_state
+>  	...
+>  }
+> =
+
+> @ include depends on adds_old_state || replaces_old_state @
+> @@
+> =
+
+>  #include <drm/drm_atomic.h>
+> =
+
+> @ no_include depends on !include && (adds_old_state || replaces_old_state=
+) @
+> @@
+> =
+
+> + #include <drm/drm_atomic.h>
+>   #include <drm/...>
+> =
+
 > Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-> 
 > ---
-> 
-> Changes from v1:
->   - Reintroduce the old_plane_state check in zynqmp_disp_crtc_atomic_disable
-> ---
->  drivers/gpu/drm/drm_atomic_helper.c               |  8 ++++----
->  drivers/gpu/drm/drm_simple_kms_helper.c           |  4 +++-
->  drivers/gpu/drm/mxsfb/mxsfb_kms.c                 |  6 ++++--
->  drivers/gpu/drm/omapdrm/omap_plane.c              |  4 ++--
->  drivers/gpu/drm/rcar-du/rcar_du_plane.c           |  4 +++-
->  drivers/gpu/drm/rcar-du/rcar_du_vsp.c             |  4 +++-
->  drivers/gpu/drm/tidss/tidss_plane.c               |  4 ++--
->  drivers/gpu/drm/tilcdc/tilcdc_plane.c             |  2 +-
->  drivers/gpu/drm/xlnx/zynqmp_disp.c                | 15 ++++++++-------
->  include/drm/drm_modeset_helper_vtables.h          |  4 ++--
+>  drivers/gpu/drm/imx/ipuv3-plane.c          | 3 ++-
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c | 4 +++-
+>  drivers/gpu/drm/tilcdc/tilcdc_plane.c      | 3 ++-
+>  3 files changed, 7 insertions(+), 3 deletions(-)
+> =
 
-For these,
+> diff --git a/drivers/gpu/drm/imx/ipuv3-plane.c b/drivers/gpu/drm/imx/ipuv=
+3-plane.c
+> index b5f6123850bb..6484592e3f86 100644
+> --- a/drivers/gpu/drm/imx/ipuv3-plane.c
+> +++ b/drivers/gpu/drm/imx/ipuv3-plane.c
+> @@ -341,7 +341,8 @@ static int ipu_plane_atomic_check(struct drm_plane *p=
+lane,
+>  {
+>  	struct drm_plane_state *new_state =3D drm_atomic_get_new_plane_state(st=
+ate,
+>  									   plane);
+> -	struct drm_plane_state *old_state =3D plane->state;
+> +	struct drm_plane_state *old_state =3D drm_atomic_get_old_plane_state(st=
+ate,
+> +									   plane);
+>  	struct drm_crtc_state *crtc_state;
+>  	struct device *dev =3D plane->dev->dev;
+>  	struct drm_framebuffer *fb =3D new_state->fb;
+> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/drm=
+/msm/disp/mdp5/mdp5_plane.c
+> index 4aac6217a5ad..6ce6ce09fecc 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
+> @@ -406,12 +406,14 @@ static int mdp5_plane_atomic_check_with_state(struc=
+t drm_crtc_state *crtc_state,
+>  static int mdp5_plane_atomic_check(struct drm_plane *plane,
+>  				   struct drm_atomic_state *state)
+>  {
+> +	struct drm_plane_state *old_plane_state =3D drm_atomic_get_old_plane_st=
+ate(state,
+> +										 plane);
+>  	struct drm_plane_state *new_plane_state =3D drm_atomic_get_new_plane_st=
+ate(state,
+>  										 plane);
+>  	struct drm_crtc *crtc;
+>  	struct drm_crtc_state *crtc_state;
+>  =
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> -	crtc =3D new_plane_state->crtc ? new_plane_state->crtc : plane->state->=
+crtc;
+> +	crtc =3D new_plane_state->crtc ? new_plane_state->crtc : old_plane_stat=
+e->crtc;
+>  	if (!crtc)
+>  		return 0;
+>  =
 
->  58 files changed, 211 insertions(+), 123 deletions(-)
+> diff --git a/drivers/gpu/drm/tilcdc/tilcdc_plane.c b/drivers/gpu/drm/tilc=
+dc/tilcdc_plane.c
+> index ebdd42dcaf82..c86258132432 100644
+> --- a/drivers/gpu/drm/tilcdc/tilcdc_plane.c
+> +++ b/drivers/gpu/drm/tilcdc/tilcdc_plane.c
+> @@ -26,7 +26,8 @@ static int tilcdc_plane_atomic_check(struct drm_plane *=
+plane,
+>  	struct drm_plane_state *new_state =3D drm_atomic_get_new_plane_state(st=
+ate,
+>  									   plane);
+>  	struct drm_crtc_state *crtc_state;
+> -	struct drm_plane_state *old_state =3D plane->state;
+> +	struct drm_plane_state *old_state =3D drm_atomic_get_old_plane_state(st=
+ate,
+> +									   plane);
+>  	unsigned int pitch;
+>  =
 
--- 
-Regards,
+>  	if (!new_state->crtc)
+> -- =
 
-Laurent Pinchart
+> 2.29.2
+> =
+
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+
+-- =
+
+Ville Syrj=E4l=E4
+Intel
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
