@@ -1,46 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC8C830247B
-	for <lists+freedreno@lfdr.de>; Mon, 25 Jan 2021 12:52:54 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 172AB303076
+	for <lists+freedreno@lfdr.de>; Tue, 26 Jan 2021 00:49:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8B3A6E07B;
-	Mon, 25 Jan 2021 11:52:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9878C6E14D;
+	Mon, 25 Jan 2021 23:49:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F3B289C9B;
- Mon, 25 Jan 2021 11:52:51 +0000 (UTC)
-IronPort-SDR: 7UKOBn+32+mZxlffqn0PkSGEHWl+ahxlxBHCF4dYem4R7ZfQRr89ENA0pAeEHXL6q8yveVZCqO
- hReFdjPk1OZg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9874"; a="198488809"
-X-IronPort-AV: E=Sophos;i="5.79,373,1602572400"; d="scan'208";a="198488809"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jan 2021 03:52:51 -0800
-IronPort-SDR: 48DaYsnvHv+gYU3iB0lIM7aytVWrCoDavD2mjf0kyTM07tuyUD4vfRcB0epq/cCvtOYMGfxoLJ
- ZQzg2k7suibA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.79,373,1602572400"; d="scan'208";a="472167193"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
- by fmsmga001.fm.intel.com with SMTP; 25 Jan 2021 03:52:39 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 25 Jan 2021 13:52:38 +0200
-Date: Mon, 25 Jan 2021 13:52:38 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Maxime Ripard <maxime@cerno.tech>
-Message-ID: <YA6xBuECFjzjY7gG@intel.com>
-References: <20210121163537.1466118-1-maxime@cerno.tech>
- <20210121163537.1466118-8-maxime@cerno.tech>
- <YArBy2DKdCct5cYW@intel.com>
- <20210125105218.kv63vjbxz5b35hdo@gilmour>
+Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
+ [IPv6:2607:f8b0:4864:20::52b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AB416E23D
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Jan 2021 23:49:04 +0000 (UTC)
+Received: by mail-pg1-x52b.google.com with SMTP id r38so4137429pgk.13
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Jan 2021 15:49:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=cuvqgCacX4Pb/J8emd8ASYQj+aaRXfkyo5/tJUTXC18=;
+ b=LvIzG2oiZ4fahhXWU/Hl16GJoovvy1FodGhzRZkhCPyPmFR19R6r1WEoZrBUzLtIMM
+ QnTuqHFjlL4l5yPZWzb/BVOd4vaakKa63tFoLObC5jY+g4UzkqDJBZVBH9En3d5sFUYn
+ fdo0AQZ6EtqeWqTx4+L0QXmfvUYGKyCPwHLvI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=cuvqgCacX4Pb/J8emd8ASYQj+aaRXfkyo5/tJUTXC18=;
+ b=KQUMIy2gaHChRaRjPDic6ppdsVUAqpY9jBs8T7gPJOxa7venIlXpIPQzqDgydJy1Yp
+ lbYAEbLG0G43siy+jirljFVruYglHiPcSdZXPIXGTsNruBiatltiIpcVMLYxm/yJvuIq
+ ZWXUiQztcKiA1Lh0kFR8shAeXNhjePLHF2rDQ/F5CwSI6aBYWTrWGZsArV35FLQGGncx
+ an9DjfrpGeyrn6yeZGh0fTimKyjlOZrsL/vjUUu4pKS4e558C3rpNuEBHzb34lZTfZHX
+ viNY0ppkXdAWRiidVdOnIms+5/K7ekhHZbfcbP3BKeyRvVTJuRpoBiAqbkCyZcMlzXtW
+ tciw==
+X-Gm-Message-State: AOAM533fVrXIoQPXxXUD3yFTD3Go+xgg3KY/VLUOyhUKZglK2zTaGDbv
+ UKQp4+MzlYJLJuBke6ECDxy1JA==
+X-Google-Smtp-Source: ABdhPJzO6lwEiB9rHDjl2mcIoIHLun1mZSg9GDhVd7nQPhP25HL0bRXA4RqsiCg8fZUxTOaI377yHw==
+X-Received: by 2002:a62:9248:0:b029:1ae:8b24:34c8 with SMTP id
+ o69-20020a6292480000b02901ae8b2434c8mr2565829pfd.67.1611618543734; 
+ Mon, 25 Jan 2021 15:49:03 -0800 (PST)
+Received: from smtp.gmail.com ([2620:15c:202:201:1066:b437:97cd:2278])
+ by smtp.gmail.com with ESMTPSA id i1sm18747306pfb.54.2021.01.25.15.49.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 Jan 2021 15:49:03 -0800 (PST)
+From: Stephen Boyd <swboyd@chromium.org>
+To: Rob Clark <robdclark@gmail.com>
+Date: Mon, 25 Jan 2021 15:49:01 -0800
+Message-Id: <20210125234901.2730699-1-swboyd@chromium.org>
+X-Mailer: git-send-email 2.30.0.280.ga3ce27912f-goog
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210125105218.kv63vjbxz5b35hdo@gilmour>
-X-Patchwork-Hint: comment
-Subject: Re: [Freedreno] [PATCH v2 08/11] drm: Rename plane->state variables
- in atomic update and disable
+Subject: [Freedreno] [PATCH] drm/msm/kms: Make a lock_class_key for each
+ crtc mutex
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,147 +63,107 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- Liviu Dudau <liviu.dudau@arm.com>, dri-devel@lists.freedesktop.org,
- linux-mips@vger.kernel.org, Paul Cercueil <paul@crapouillou.net>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Daniel Vetter <daniel.vetter@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- Marek Vasut <marex@denx.de>, linux-samsung-soc@vger.kernel.org,
- Joonyoung Shim <jy0922.shim@samsung.com>, linux-rockchip@lists.infradead.org,
- Kevin Hilman <khilman@baylibre.com>, Russell King <linux@armlinux.org.uk>,
- Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, Sandy Huang <hjc@rock-chips.com>,
- NXP Linux Team <linux-imx@nxp.com>, Chen Feng <puck.chen@hisilicon.com>,
- Dave Airlie <airlied@redhat.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- Alison Wang <alison.wang@nxp.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-mediatek@lists.infradead.org, Vincent Abriou <vincent.abriou@st.com>,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, Sean Paul <sean@poorly.run>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Tomi Valkeinen <tomba@kernel.org>,
- Jyri Sarha <jyri.sarha@iki.fi>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Philippe Cornu <philippe.cornu@st.com>, linux-kernel@vger.kernel.org,
- Yannick Fertre <yannick.fertre@st.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Tian Tao <tiantao6@hisilicon.com>,
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Krishna Manikandan <mkrishn@codeaurora.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jan 25, 2021 at 11:52:18AM +0100, Maxime Ripard wrote:
-> Hi Ville,
-> =
+Lockdep complains about an AA deadlock when rebooting the device.
 
-> On Fri, Jan 22, 2021 at 02:15:07PM +0200, Ville Syrj=E4l=E4 wrote:
-> > On Thu, Jan 21, 2021 at 05:35:33PM +0100, Maxime Ripard wrote:
-> > > Some drivers are storing the plane->state pointer in atomic_update and
-> > > atomic_disable in a variable simply called state, while the state pas=
-sed
-> > > as an argument is called old_state.
-> > > =
+============================================
+WARNING: possible recursive locking detected
+5.4.91 #1 Not tainted
+--------------------------------------------
+reboot/5213 is trying to acquire lock:
+ffffff80d13391b0 (&kms->commit_lock[i]){+.+.}, at: lock_crtcs+0x60/0xa4
 
-> > > In order to ease subsequent reworks and to avoid confusing or
-> > > inconsistent names, let's rename those variables to new_state.
-> > > =
+but task is already holding lock:
+ffffff80d1339110 (&kms->commit_lock[i]){+.+.}, at: lock_crtcs+0x60/0xa4
 
-> > > This was done using the following coccinelle script, plus some manual
-> > > changes for mtk and tegra.
-> > > =
+other info that might help us debug this:
+Possible unsafe locking scenario:
 
-> > > @ plane_atomic_func @
-> > > identifier helpers;
-> > > identifier func;
-> > > @@
-> > > =
+CPU0
+----
+lock(&kms->commit_lock[i]);
+lock(&kms->commit_lock[i]);
 
-> > > (
-> > >  static const struct drm_plane_helper_funcs helpers =3D {
-> > >  	...,
-> > >  	.atomic_disable =3D func,
-> > > 	...,
-> > >  };
-> > > |
-> > >  static const struct drm_plane_helper_funcs helpers =3D {
-> > >  	...,
-> > >  	.atomic_update =3D func,
-> > > 	...,
-> > >  };
-> > > )
-> > > =
+*** DEADLOCK ***
 
-> > > @ moves_new_state_old_state @
-> > > identifier plane_atomic_func.func;
-> > > identifier plane;
-> > > symbol old_state;
-> > > symbol state;
-> > > @@
-> > > =
+May be due to missing lock nesting notation
 
-> > >  func(struct drm_plane *plane, struct drm_plane_state *old_state)
-> > >  {
-> > >  	...
-> > > -	struct drm_plane_state *state =3D plane->state;
-> > > +	struct drm_plane_state *new_state =3D plane->state;
-> > > 	...
-> > >  }
-> > > =
+6 locks held by reboot/5213:
+__arm64_sys_reboot+0x148/0x2a0
+device_shutdown+0x10c/0x2c4
+drm_atomic_helper_shutdown+0x48/0xfc
+modeset_lock+0x120/0x24c
+lock_crtcs+0x60/0xa4
 
-> > > @ depends on moves_new_state_old_state @
-> > > identifier plane_atomic_func.func;
-> > > identifier plane;
-> > > identifier old_state;
-> > > symbol state;
-> > > @@
-> > > =
+stack backtrace:
+CPU: 4 PID: 5213 Comm: reboot Not tainted 5.4.91 #1
+Hardware name: Google Pompom (rev1) with LTE (DT)
+Call trace:
+dump_backtrace+0x0/0x1dc
+show_stack+0x24/0x30
+dump_stack+0xfc/0x1a8
+__lock_acquire+0xcd0/0x22b8
+lock_acquire+0x1ec/0x240
+__mutex_lock_common+0xe0/0xc84
+mutex_lock_nested+0x48/0x58
+lock_crtcs+0x60/0xa4
+msm_atomic_commit_tail+0x348/0x570
+commit_tail+0xdc/0x178
+drm_atomic_helper_commit+0x160/0x168
+drm_atomic_commit+0x68/0x80
 
-> > >  func(struct drm_plane *plane, struct drm_plane_state *old_state)
-> > >  {
-> > >  	<...
-> > > -	state
-> > > +	new_state
-> > > 	...>
-> > =
+This is because lockdep thinks all the locks taken in lock_crtcs() are
+the same lock, when they actually aren't. That's because we call
+mutex_init() in msm_kms_init() and that assigns on static key for every
+lock initialized in this loop. Let's allocate a dynamic number of
+lock_class_keys and assign them to each lock so that lockdep can figure
+out an AA deadlock isn't possible here.
 
-> > Was going to say that this migh eat something else, but I guess
-> > the dependency prevents that?
-> =
+Fixes: b3d91800d9ac ("drm/msm: Fix race condition in msm driver with async layer updates")
+Cc: Krishna Manikandan <mkrishn@codeaurora.org>
+Signed-off-by: Stephen Boyd <swboyd@chromium.org>
+---
+ drivers/gpu/drm/msm/msm_kms.h | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-> Yeah, the dependency takes care of this
-> =
+diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
+index d8151a89e163..4735251a394d 100644
+--- a/drivers/gpu/drm/msm/msm_kms.h
++++ b/drivers/gpu/drm/msm/msm_kms.h
+@@ -157,6 +157,7 @@ struct msm_kms {
+ 	 * from the crtc's pending_timer close to end of the frame:
+ 	 */
+ 	struct mutex commit_lock[MAX_CRTCS];
++	struct lock_class_key commit_lock_keys[MAX_CRTCS];
+ 	unsigned pending_crtc_mask;
+ 	struct msm_pending_timer pending_timers[MAX_CRTCS];
+ };
+@@ -166,8 +167,11 @@ static inline int msm_kms_init(struct msm_kms *kms,
+ {
+ 	unsigned i, ret;
+ 
+-	for (i = 0; i < ARRAY_SIZE(kms->commit_lock); i++)
+-		mutex_init(&kms->commit_lock[i]);
++	for (i = 0; i < ARRAY_SIZE(kms->commit_lock); i++) {
++		lockdep_register_key(&kms->commit_lock_keys[i]);
++		__mutex_init(&kms->commit_lock[i], "&kms->commit_lock[i]",
++			     &kms->commit_lock_keys[i]);
++	}
+ 
+ 	kms->funcs = funcs;
+ 
 
-> > Another way to avoid that I suppose would be to declare 'state'
-> > as
-> > symbol moves_new_state_old_state.state;
-> > =
+base-commit: 19c329f6808995b142b3966301f217c831e7cf31
+-- 
+https://chromeos.dev
 
-> > That would probably make the intent a bit more obvious, even with
-> > the dependency. Or does a dependency somehow automagically imply
-> > that?
-> =
-
-> I'm not sure if it does, but it's a symbol here not an identifier or an
-> expression, so here moves_new_state_old_state.state would always resolve
-> to state (and only state) anyway
-
-Hm. Right. OK, cocci bits look good to me. Variable naming
-bikeshed I'll leave to others :)
-
-Reviewed-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-
--- =
-
-Ville Syrj=E4l=E4
-Intel
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
