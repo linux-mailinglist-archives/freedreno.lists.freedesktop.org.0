@@ -1,44 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB9C830029F
-	for <lists+freedreno@lfdr.de>; Fri, 22 Jan 2021 13:15:23 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 39CBB30231C
+	for <lists+freedreno@lfdr.de>; Mon, 25 Jan 2021 10:07:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D90889F07;
-	Fri, 22 Jan 2021 12:15:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFE916E046;
+	Mon, 25 Jan 2021 09:07:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8271389F07;
- Fri, 22 Jan 2021 12:15:20 +0000 (UTC)
-IronPort-SDR: i0oqqhbJTUokpYJZ1yVsgm/RaC9AlYRyNhTi1Z54UM0ieHvbXhKy97G8q3q1Q1KQyFONw0fvLf
- C4i9VDNntZuQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9871"; a="179518454"
-X-IronPort-AV: E=Sophos;i="5.79,366,1602572400"; d="scan'208";a="179518454"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jan 2021 04:15:19 -0800
-IronPort-SDR: vxhEFHoBM4hXws2Gfq3XVEXWbVHJjZt+mKNZqWwfpNFtZ+x/7C1X0hk8QBjs48BMnxsKHMbW17
- KXS9hV06ZNpw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.79,366,1602572400"; d="scan'208";a="467909062"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
- by fmsmga001.fm.intel.com with SMTP; 22 Jan 2021 04:15:08 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 22 Jan 2021 14:15:07 +0200
-Date: Fri, 22 Jan 2021 14:15:07 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Maxime Ripard <maxime@cerno.tech>
-Message-ID: <YArBy2DKdCct5cYW@intel.com>
+Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
+ [66.111.4.221])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2323B6E046;
+ Mon, 25 Jan 2021 09:07:50 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 8B7505806D9;
+ Mon, 25 Jan 2021 04:07:48 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute6.internal (MEProxy); Mon, 25 Jan 2021 04:07:48 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm1; bh=JiTUH6NbhECvc0BAfVIYFzk8Pbx
+ ygiTICPCrQkvqTSs=; b=mOVG3LwoCHMVO1OCxS7SRLBDZp/kcDvrWYp20pQUxHF
+ B3+oAHD93iFsZpiUnOmpqnFuOE8Ohm5oAKE9cx/mG91aqv+fVhcSC1k1YisgY3K8
+ oUdHU5oLeJzRQYIyYjOO7zzvhCrKmw+a8m+f+vbwHiShvuWElLlQ9HMz8lczZZYA
+ SeTKM5Lq/7UhNYJD7hlCaf8niMZPAKeTVjj0UPqm6SckBaG1b+W8beTSDTPOBaU6
+ V9gVF/GdpSYKJmB7HHsl/A2FUtgu0bB0Gmf1bS5qXOmdGnJl1c1Oa8BOJmsHusB6
+ HIfyK4q/IJqUEjTnXDN7VTXsBR+coYCI6qhxjDMavpA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=JiTUH6
+ NbhECvc0BAfVIYFzk8PbxygiTICPCrQkvqTSs=; b=c7ArYP6TU8pLfNGg1E1pEc
+ KabWCdPnPVNCeoYYhXkxhoIwypP234hG7gDRGdhHxy5WUwm3SyU5IWUKOPwdcz+K
+ niWbcw4xhq84tCPwk9JZxGvryXu9PVMDthjKh0NKJs/oI21S7mPSVCY6v965Zotf
+ BPTEJ3oDXMV0cg+V7oKf4YTHacsjdIbUdbr9INxEXDGgiiWSqyY0OZsqot32+DLL
+ sdvFTdPoAWuYw0C9tvUB/HQiAnvfnab/5Ooe+qYUllJUritDNfiN9Qs6NXXn2fhq
+ ZNV5wWAoLEzruIS1Cg19Q1FhYjkCYAS2PRoQsNuHKvyFcmVMZq/8E6L2d8ZHkzeA
+ ==
+X-ME-Sender: <xms:YooOYPFSGIu89Kgs9BAoaIPvFOf2LHOAYDlWnh0P4OmZs5089oY5qA>
+ <xme:YooOYMXyAdCpU7lmzFUEsyEv7CUh2Cv1tbKJlyX53EPy_o1E1pPA4tCzlPLa2axVm
+ hTOZ_Kmx9Vy0LC1f-4>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvddvgdduvdejucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddunecuhfhrohhmpeforgigihhm
+ vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
+ htvghrnhepuddvudfhkeekhefgffetffelgffftdehffduffegveetffehueeivddvjedv
+ gfevnecukfhppeeltddrkeelrdeikedrjeeinecuvehluhhsthgvrhfuihiivgeptdenuc
+ frrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:YooOYBK07eshggnGeuMT97QR_46r2s9gfTqQW-1j5-U87_TFZhvoEg>
+ <xmx:YooOYNFDeeUjD4mJnHZOSBxey_bHEAVe5qIwMbYMBtdBy24DWIQsCw>
+ <xmx:YooOYFVqf6b59gJSLl6aZAjzb0TL78pRq-5tPTB1vpRfjqC9YTxG3g>
+ <xmx:ZIoOYGvaHC3xi9OZuNeQH3r1_ByPhKhcLh221NI8ZGJUux18bUH2Xw>
+Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
+ [90.89.68.76])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 552DE24005A;
+ Mon, 25 Jan 2021 04:07:46 -0500 (EST)
+Date: Mon, 25 Jan 2021 10:07:44 +0100
+From: Maxime Ripard <maxime@cerno.tech>
+To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Message-ID: <20210125090744.txiofqzevcoturyl@gilmour>
 References: <20210121163537.1466118-1-maxime@cerno.tech>
- <20210121163537.1466118-8-maxime@cerno.tech>
+ <20210121163537.1466118-6-maxime@cerno.tech>
+ <YAq/+udQfTwdamQ0@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210121163537.1466118-8-maxime@cerno.tech>
-X-Patchwork-Hint: comment
-Subject: Re: [Freedreno] [PATCH v2 08/11] drm: Rename plane->state variables
- in atomic update and disable
+In-Reply-To: <YAq/+udQfTwdamQ0@intel.com>
+Subject: Re: [Freedreno] [PATCH v2 06/11] drm: Use state helper instead of
+ plane state pointer in atomic_check
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,126 +80,116 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: , Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- Liviu Dudau <liviu.dudau@arm.com>, dri-devel@lists.freedesktop.org,
- linux-mips@vger.kernel.org, Paul Cercueil <paul@crapouillou.net>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Daniel Vetter <daniel.vetter@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- Marek Vasut <marex@denx.de>, linux-samsung-soc@vger.kernel.org,
- Joonyoung Shim <jy0922.shim@samsung.com>, linux-rockchip@lists.infradead.org,
- Kevin Hilman <khilman@baylibre.com>, Russell King <linux@armlinux.org.uk>,
- Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, Sandy Huang <hjc@rock-chips.com>,
- NXP Linux Team <linux-imx@nxp.com>, Chen Feng <puck.chen@hisilicon.com>,
- Dave Airlie <airlied@redhat.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- Alison Wang <alison.wang@nxp.com>,
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Tomi Valkeinen <tomba@kernel.org>, David Airlie <airlied@linux.ie>,
+ freedreno@lists.freedesktop.org, Sascha Hauer <s.hauer@pengutronix.de>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-mediatek@lists.infradead.org, Vincent Abriou <vincent.abriou@st.com>,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, Sean Paul <sean@poorly.run>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Tomi Valkeinen <tomba@kernel.org>,
- Jyri Sarha <jyri.sarha@iki.fi>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Philippe Cornu <philippe.cornu@st.com>, linux-kernel@vger.kernel.org,
- Yannick Fertre <yannick.fertre@st.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Tian Tao <tiantao6@hisilicon.com>,
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ Jyri Sarha <jyri.sarha@iki.fi>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, NXP Linux Team <linux-imx@nxp.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org,
+ Daniel Vetter <daniel.vetter@intel.com>, Sean Paul <sean@poorly.run>,
+ Shawn Guo <shawnguo@kernel.org>, linux-arm-kernel@lists.infradead.org
+Content-Type: multipart/mixed; boundary="===============1236116449=="
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jan 21, 2021 at 05:35:33PM +0100, Maxime Ripard wrote:
-> Some drivers are storing the plane->state pointer in atomic_update and
-> atomic_disable in a variable simply called state, while the state passed
-> as an argument is called old_state.
-> =
 
-> In order to ease subsequent reworks and to avoid confusing or
-> inconsistent names, let's rename those variables to new_state.
-> =
+--===============1236116449==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="vtqax52knlanow52"
+Content-Disposition: inline
 
-> This was done using the following coccinelle script, plus some manual
-> changes for mtk and tegra.
-> =
 
-> @ plane_atomic_func @
-> identifier helpers;
-> identifier func;
-> @@
-> =
+--vtqax52knlanow52
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> (
->  static const struct drm_plane_helper_funcs helpers =3D {
->  	...,
->  	.atomic_disable =3D func,
-> 	...,
->  };
-> |
->  static const struct drm_plane_helper_funcs helpers =3D {
->  	...,
->  	.atomic_update =3D func,
-> 	...,
->  };
-> )
-> =
+Hi Ville,
 
-> @ moves_new_state_old_state @
-> identifier plane_atomic_func.func;
-> identifier plane;
-> symbol old_state;
-> symbol state;
-> @@
-> =
+On Fri, Jan 22, 2021 at 02:07:22PM +0200, Ville Syrj=E4l=E4 wrote:
+> On Thu, Jan 21, 2021 at 05:35:31PM +0100, Maxime Ripard wrote:
+> > Many drivers reference the plane->state pointer in order to get the
+> > current plane state in their atomic_check hook, which would be the old
+> > plane state in the global atomic state since _swap_state hasn't happened
+> > when atomic_check is run.
+> >=20
+> > Use the drm_atomic_get_old_plane_state helper to get that state to make
+> > it more obvious.
+> >=20
+> > This was made using the coccinelle script below:
+> >=20
+> > @ plane_atomic_func @
+> > identifier helpers;
+> > identifier func;
+> > @@
+> >=20
+> > static struct drm_plane_helper_funcs helpers =3D {
+> > 	...,
+> > 	.atomic_check =3D func,
+> > 	...,
+> > };
+> >=20
+> > @ replaces_old_state @
+> > identifier plane_atomic_func.func;
+> > identifier plane, state, plane_state;
+> > @@
+> >=20
+> >  func(struct drm_plane *plane, struct drm_atomic_state *state) {
+> >  	...
+> > -	struct drm_plane_state *plane_state =3D plane->state;
+> > +	struct drm_plane_state *plane_state =3D drm_atomic_get_old_plane_stat=
+e(state, plane);
+> >  	...
+> >  }
+> >=20
+> > @@
+> > identifier plane_atomic_func.func;
+> > identifier plane, state, plane_state;
+> > @@
+> >=20
+> >  func(struct drm_plane *plane, struct drm_atomic_state *state) {
+> >  	struct drm_plane_state *plane_state =3D drm_atomic_get_old_plane_stat=
+e(state, plane);
+> >  	...
+> > -	plane->state
+> > +	plane_state
+> >  	...
+>=20
+> We don't need the <... ...> style here? It's been a while since
+> I did any serious cocci so I'm getting a bit rusty on the details...
 
->  func(struct drm_plane *plane, struct drm_plane_state *old_state)
->  {
->  	...
-> -	struct drm_plane_state *state =3D plane->state;
-> +	struct drm_plane_state *new_state =3D plane->state;
-> 	...
->  }
-> =
+You're right, I've changed it and caught some more users (ingenic). I'll up=
+date it.
 
-> @ depends on moves_new_state_old_state @
-> identifier plane_atomic_func.func;
-> identifier plane;
-> identifier old_state;
-> symbol state;
-> @@
-> =
+> Otherwise looks great
+> Reviewed-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
 
->  func(struct drm_plane *plane, struct drm_plane_state *old_state)
->  {
->  	<...
-> -	state
-> +	new_state
-> 	...>
+Thanks!
+Maxime
 
-Was going to say that this migh eat something else, but I guess
-the dependency prevents that?
+--vtqax52knlanow52
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Another way to avoid that I suppose would be to declare 'state'
-as
-symbol moves_new_state_old_state.state;
+-----BEGIN PGP SIGNATURE-----
 
-That would probably make the intent a bit more obvious, even with
-the dependency. Or does a dependency somehow automagically imply
-that?
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYA6KYAAKCRDj7w1vZxhR
+xV4jAP9wskueG1EvM6VdG/WWEqFcTANGURoA1xviblkDem9ahwD8DirdDfSOI4th
+FvH1xXFS9wLlQezjAobLpjrzR/4RLQc=
+=0SF+
+-----END PGP SIGNATURE-----
 
--- =
+--vtqax52knlanow52--
 
-Ville Syrj=E4l=E4
-Intel
+--===============1236116449==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
+
+--===============1236116449==--
