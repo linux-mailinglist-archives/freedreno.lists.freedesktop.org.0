@@ -1,52 +1,52 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 172AB303076
-	for <lists+freedreno@lfdr.de>; Tue, 26 Jan 2021 00:49:07 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 72C8330318E
+	for <lists+freedreno@lfdr.de>; Tue, 26 Jan 2021 03:01:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9878C6E14D;
-	Mon, 25 Jan 2021 23:49:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 235FB6E3CE;
+	Tue, 26 Jan 2021 02:01:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
- [IPv6:2607:f8b0:4864:20::52b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AB416E23D
- for <freedreno@lists.freedesktop.org>; Mon, 25 Jan 2021 23:49:04 +0000 (UTC)
-Received: by mail-pg1-x52b.google.com with SMTP id r38so4137429pgk.13
- for <freedreno@lists.freedesktop.org>; Mon, 25 Jan 2021 15:49:04 -0800 (PST)
+Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
+ [IPv6:2607:f8b0:4864:20::102d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84A7A6E3F9
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Jan 2021 02:01:20 +0000 (UTC)
+Received: by mail-pj1-x102d.google.com with SMTP id gx1so911354pjb.1
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Jan 2021 18:01:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
  bh=cuvqgCacX4Pb/J8emd8ASYQj+aaRXfkyo5/tJUTXC18=;
- b=LvIzG2oiZ4fahhXWU/Hl16GJoovvy1FodGhzRZkhCPyPmFR19R6r1WEoZrBUzLtIMM
- QnTuqHFjlL4l5yPZWzb/BVOd4vaakKa63tFoLObC5jY+g4UzkqDJBZVBH9En3d5sFUYn
- fdo0AQZ6EtqeWqTx4+L0QXmfvUYGKyCPwHLvI=
+ b=Q1nyIoOg9cA/NbhZwjGDZ1yfAR40idBgrI8GJtJYQD0Jy5i4RP5cMAnGe8d3sup0X9
+ TtInhbmtjpHx5/vQC6JZ25GsSIDxUgJkKpRCryJVAUzjjG39MnQ33CfJtSDKLYdgc6du
+ MQ9XR+oahIBNnUJIEzG9uyxkdZI3aRmVXxjRU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
  bh=cuvqgCacX4Pb/J8emd8ASYQj+aaRXfkyo5/tJUTXC18=;
- b=KQUMIy2gaHChRaRjPDic6ppdsVUAqpY9jBs8T7gPJOxa7venIlXpIPQzqDgydJy1Yp
- lbYAEbLG0G43siy+jirljFVruYglHiPcSdZXPIXGTsNruBiatltiIpcVMLYxm/yJvuIq
- ZWXUiQztcKiA1Lh0kFR8shAeXNhjePLHF2rDQ/F5CwSI6aBYWTrWGZsArV35FLQGGncx
- an9DjfrpGeyrn6yeZGh0fTimKyjlOZrsL/vjUUu4pKS4e558C3rpNuEBHzb34lZTfZHX
- viNY0ppkXdAWRiidVdOnIms+5/K7ekhHZbfcbP3BKeyRvVTJuRpoBiAqbkCyZcMlzXtW
- tciw==
-X-Gm-Message-State: AOAM533fVrXIoQPXxXUD3yFTD3Go+xgg3KY/VLUOyhUKZglK2zTaGDbv
- UKQp4+MzlYJLJuBke6ECDxy1JA==
-X-Google-Smtp-Source: ABdhPJzO6lwEiB9rHDjl2mcIoIHLun1mZSg9GDhVd7nQPhP25HL0bRXA4RqsiCg8fZUxTOaI377yHw==
-X-Received: by 2002:a62:9248:0:b029:1ae:8b24:34c8 with SMTP id
- o69-20020a6292480000b02901ae8b2434c8mr2565829pfd.67.1611618543734; 
- Mon, 25 Jan 2021 15:49:03 -0800 (PST)
+ b=nkXzg+YmaVF5fYUKvG0bSPF+GVTPKqx+Xf0sUilXGlfQOgzFjDJ+eh+GZ4y003SGkP
+ JALkJq9h4a8Rvk7H3aosUeVK5osqM/BGDSJXzqsuvqS3Z5Tq8WG8YD4NObaRWpwzKsMa
+ 8LuIzUoh+5/oKG1uJpRRKheXjHT/SD9efA6lQ7ND7QpC76R8eb1XWLlLUangl0zTg8T+
+ 65hI9NNkCHXOKeSwR38HciuwvMLmHtSbMaZEZqrQxMrnlhCazKyDW80WmIHSHGg1Xcvm
+ ZtVgGpqL1K/um7Qya0mPpjzrtpEaxjYHZeQfyD5K7dN/Fhcn0F6MsYtTgNvQnGGh6DOg
+ reJg==
+X-Gm-Message-State: AOAM531CV7OwxEZIc0hBpGlyPQGgPOPaFlre31Fyxa5edJ54ww6K7WQ8
+ IlCnDTNyqW3d/rpZa0JHT0JlpQ==
+X-Google-Smtp-Source: ABdhPJw/S2YrtvvvxKvJJZka0jRnlXv6swbqbI0W46SZnmLlTUVuNP8AiVQFCtSIVh74m6nO4eXWsQ==
+X-Received: by 2002:a17:90a:f318:: with SMTP id
+ ca24mr3337732pjb.30.1611626480086; 
+ Mon, 25 Jan 2021 18:01:20 -0800 (PST)
 Received: from smtp.gmail.com ([2620:15c:202:201:1066:b437:97cd:2278])
- by smtp.gmail.com with ESMTPSA id i1sm18747306pfb.54.2021.01.25.15.49.02
+ by smtp.gmail.com with ESMTPSA id n2sm16975028pfu.42.2021.01.25.18.01.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 Jan 2021 15:49:03 -0800 (PST)
+ Mon, 25 Jan 2021 18:01:19 -0800 (PST)
 From: Stephen Boyd <swboyd@chromium.org>
 To: Rob Clark <robdclark@gmail.com>
-Date: Mon, 25 Jan 2021 15:49:01 -0800
-Message-Id: <20210125234901.2730699-1-swboyd@chromium.org>
+Date: Mon, 25 Jan 2021 18:01:13 -0800
+Message-Id: <20210126020117.2753615-1-swboyd@chromium.org>
 X-Mailer: git-send-email 2.30.0.280.ga3ce27912f-goog
 MIME-Version: 1.0
 Subject: [Freedreno] [PATCH] drm/msm/kms: Make a lock_class_key for each
