@@ -2,43 +2,34 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 262E4303E8E
-	for <lists+freedreno@lfdr.de>; Tue, 26 Jan 2021 14:24:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AA4A3042B0
+	for <lists+freedreno@lfdr.de>; Tue, 26 Jan 2021 16:35:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B729E6E42C;
-	Tue, 26 Jan 2021 13:24:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5833D89D9A;
+	Tue, 26 Jan 2021 15:35:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1FA46E42C;
- Tue, 26 Jan 2021 13:24:55 +0000 (UTC)
-IronPort-SDR: 3jggMRwRq58De0zrwRXO2+p1J/gxR3HUv8ddGx7J9uK/TaapUeUqTkTVwMLHlfrvzn21orOzYi
- dSSXMw8PRgHw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9875"; a="243979561"
-X-IronPort-AV: E=Sophos;i="5.79,375,1602572400"; d="scan'208";a="243979561"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2021 05:24:53 -0800
-IronPort-SDR: g4Zswe3qz4zMid/EyEG5xz4WWhFPriWd/t2t5KrG0ShP0j9WNEEJayXNCJQTEkRkM2/IHRNzgx
- zk+bb8SSGplQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.79,375,1602572400"; d="scan'208";a="369103591"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
- by orsmga002.jf.intel.com with SMTP; 26 Jan 2021 05:24:36 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 26 Jan 2021 15:24:35 +0200
-Date: Tue, 26 Jan 2021 15:24:35 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Maxime Ripard <maxime@cerno.tech>
-Message-ID: <YBAYE4YH4bgURmuf@intel.com>
-References: <20210121163537.1466118-1-maxime@cerno.tech>
- <20210121163537.1466118-10-maxime@cerno.tech>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210121163537.1466118-10-maxime@cerno.tech>
-X-Patchwork-Hint: comment
-Subject: Re: [Freedreno] [PATCH v2 10/11] drm: Use state helper instead of
- the plane state pointer
+X-Greylist: delayed 305 seconds by postgrey-1.36 at gabe;
+ Tue, 26 Jan 2021 09:56:45 UTC
+Received: from out30-131.freemail.mail.aliyun.com
+ (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 588CF89CA0
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Jan 2021 09:56:45 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R211e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e01424;
+ MF=abaci-bugfix@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
+ TI=SMTPD_---0UMyf0qW_1611654680; 
+Received: from
+ j63c13417.sqa.eu95.tbsite.net(mailfrom:abaci-bugfix@linux.alibaba.com
+ fp:SMTPD_---0UMyf0qW_1611654680) by smtp.aliyun-inc.com(127.0.0.1);
+ Tue, 26 Jan 2021 17:51:33 +0800
+From: Jiapeng Zhong <abaci-bugfix@linux.alibaba.com>
+To: robdclark@gmail.com
+Date: Tue, 26 Jan 2021 17:51:19 +0800
+Message-Id: <1611654679-102885-1-git-send-email-abaci-bugfix@linux.alibaba.com>
+X-Mailer: git-send-email 1.8.3.1
+X-Mailman-Approved-At: Tue, 26 Jan 2021 15:35:34 +0000
+Subject: [Freedreno] [PATCH] drm/msm: remove redundant NULL check
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,119 +42,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Haneen Mohammed <hamohammed.sa@gmail.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- Liviu Dudau <liviu.dudau@arm.com>, dri-devel@lists.freedesktop.org,
- Russell King <linux@armlinux.org.uk>, Paul Cercueil <paul@crapouillou.net>,
- Thierry Reding <thierry.reding@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- Daniel Vetter <daniel.vetter@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
- Jerome Brunet <jbrunet@baylibre.com>, Marek Vasut <marex@denx.de>,
- linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- Joonyoung Shim <jy0922.shim@samsung.com>, linux-rockchip@lists.infradead.org,
- Alexey Brodkin <abrodkin@synopsys.com>, Michal Simek <michal.simek@xilinx.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- Roland Scheidegger <sroland@vmware.com>,
- Xinliang Liu <xinliang.liu@linaro.org>, Chen-Yu Tsai <wens@csie.org>,
- VMware Graphics <linux-graphics-maintainer@vmware.com>,
- NXP Linux Team <linux-imx@nxp.com>, Chen Feng <puck.chen@hisilicon.com>,
- Dave Airlie <airlied@redhat.com>, Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- Alison Wang <alison.wang@nxp.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-mips@vger.kernel.org, Hans de Goede <hdegoede@redhat.com>,
- linux-tegra@vger.kernel.org, virtualization@lists.linux-foundation.org,
- linux-mediatek@lists.infradead, Hyun Kwon <hyun.kwon@xilinx.com>,
- Philippe Cornu <philippe.cornu@st.com>, Sandy Huang <hjc@rock-chips.com>,
- Yannick Fertre <yannick.fertre@st.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, christian.koenig@amd.com,
+ linaro-mm-sig@lists.linaro.org, daniel@ffwll.ch,
+ Jiapeng Zhong <abaci-bugfix@linux.alibaba.com>, sean@poorly.run,
+ sumit.semwal@linaro.org, linux-media@vger.kernel.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jan 21, 2021 at 05:35:35PM +0100, Maxime Ripard wrote:
-> Many drivers reference the plane->state pointer in order to get the
-> current plane state in their atomic_update or atomic_disable hooks,
-> which would be the new plane state in the global atomic state since
-> _swap_state happened when those hooks are run.
-> =
+Fix below warnings reported by coccicheck:
+./drivers/gpu/drm/msm/msm_gem.c:991:3-9: WARNING: NULL check before some
+freeing functions is not needed.
 
-> Use the drm_atomic_get_new_plane_state helper to get that state to make it
-> more obvious.
-> =
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Jiapeng Zhong <abaci-bugfix@linux.alibaba.com>
+---
+ drivers/gpu/drm/msm/msm_gem.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-> This was made using the coccinelle script below:
-> =
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index 9d10739..4f1f1a0 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -987,8 +987,7 @@ void msm_gem_free_object(struct drm_gem_object *obj)
+ 		/* Don't drop the pages for imported dmabuf, as they are not
+ 		 * ours, just free the array we allocated:
+ 		 */
+-		if (msm_obj->pages)
+-			kvfree(msm_obj->pages);
++		kvfree(msm_obj->pages);
+ 
+ 		put_iova_vmas(obj);
+ 
+-- 
+1.8.3.1
 
-> @ plane_atomic_func @
-> identifier helpers;
-> identifier func;
-> @@
-> =
-
-> (
->  static const struct drm_plane_helper_funcs helpers =3D {
->  	...,
->  	.atomic_disable =3D func,
-> 	...,
->  };
-> |
->  static const struct drm_plane_helper_funcs helpers =3D {
->  	...,
->  	.atomic_update =3D func,
-> 	...,
->  };
-> )
-> =
-
-> @ adds_new_state @
-> identifier plane_atomic_func.func;
-> identifier plane, state;
-> identifier new_state;
-> @@
-> =
-
->  func(struct drm_plane *plane, struct drm_atomic_state *state)
->  {
->  	...
-> -	struct drm_plane_state *new_state =3D plane->state;
-> +	struct drm_plane_state *new_state =3D drm_atomic_get_new_plane_state(st=
-ate, plane);
-> 	...
->  }
-> =
-
-> @ include depends on adds_new_state @
-> @@
-> =
-
->  #include <drm/drm_atomic.h>
-> =
-
-> @ no_include depends on !include && adds_new_state @
-> @@
-> =
-
-> + #include <drm/drm_atomic.h>
->   #include <drm/...>
-> =
-
-> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-
-Looks great.
-
-Reviewed-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-
--- =
-
-Ville Syrj=E4l=E4
-Intel
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
