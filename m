@@ -2,58 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B28C305F87
-	for <lists+freedreno@lfdr.de>; Wed, 27 Jan 2021 16:26:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFD7C30680A
+	for <lists+freedreno@lfdr.de>; Thu, 28 Jan 2021 00:39:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C45686E838;
-	Wed, 27 Jan 2021 15:26:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19AA66E19C;
+	Wed, 27 Jan 2021 23:39:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [IPv6:2a00:1450:4864:20::52a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EECCB6E83C;
- Wed, 27 Jan 2021 15:26:11 +0000 (UTC)
-Received: by mail-ed1-x52a.google.com with SMTP id s11so2918913edd.5;
- Wed, 27 Jan 2021 07:26:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com
+ [IPv6:2607:f8b0:4864:20::1035])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DC3689CA1
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Jan 2021 23:39:50 +0000 (UTC)
+Received: by mail-pj1-x1035.google.com with SMTP id e9so2721511pjj.0
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Jan 2021 15:39:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=anholt-net.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=pProH2wUvDU/L6Oy5JoRN6CX/iVYV45okQ7VNurEBHI=;
- b=DA56AqEE1dVOWdLv4UMqlIoVhbx4+hUcBmOZGbV2UT1agSTJfJjaXzJt/OLn3274Tc
- eQNjHgaT25fZlC8G/WdWj20PJbYv4VojU7z+p6iXWYM9a0L6r8SyO0K3XOSQ8p9yoOuC
- H4BoBcQOsca+capI7VR+/O6AoGwauoTJokQjv13BlZ2U7S73SaROA5GKcx1W/T2Pgy4S
- KqMJtKGI8Gi2S1ktoVOa4sh1bi68li0lgCTusB/4yQn7v1luS5iVigHuYBpwyhjSZbia
- kQQT2WB7LyZ8bxcRClubqHLOd4vmpKcc1k5mfMAuipbum0b3oBc3mRyEnhFRQTp1aPRL
- CW7Q==
+ bh=jzve5vckTHg7fjAKwv7GG9vOPjfc2/ZvoO6K92nijE8=;
+ b=NCbiN+r97dsaQLltyBZ3gaFJvwPrqLjBmRpgTqLR5d0JdfmmTKkn3qb5HPPNGsuxH8
+ KMEhEk/Tq9aQUJDeN5hXdSE8SSNmeJiUeEjSI0kfFkg12aXeWKG4sFu6f5g/6nR/5jsv
+ 3XrPdUe5XslusmQBZHpFQo9ld8goUvS3tRB6lKevCH0q0nQH5K4zPeUNITIycPeS5421
+ 74c0IkxDd4kGJjdR/bHDHY/MKnV2p3mWMwcIIkizPfZNrOxBXoJZDDHuD/lf47Fk7i/Q
+ kf9QcmCMEalpaxdAvtt+XSjXwQgde29Qq4WRV6NHGMrjOBVzYOmIrAvyZRyok1MPZjEO
+ SuGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=pProH2wUvDU/L6Oy5JoRN6CX/iVYV45okQ7VNurEBHI=;
- b=oACa+u+UVT/OZs0IOV1n18b/vvxr4LCzZLUdgUgSYK8BfKq7XD5TIhxWz5Y/FLhJFg
- 2AWTgdPR8tCuubVNBlI/+45GGM+n38UWCcUM6lq9qv9zAvZ8F5QXMOZcCt+RZujAnF3c
- HtTeYvfB9V3Z8DbdVvznmnrs85fPMwcX5HNyXUVL0fU4We9s38/5S8HIqgwrA7LZaon3
- WO66k3zFrEoXlyPNngjeW2i8ANAfxsSnk7/o7sg5DajFPqLYjUCDMQu3ziSoeuk+csSx
- mX7XkKg2y3JK895kZSZJektXYIZMOjoJobp69GYsX1FVOfUR1ItBWnpWxT71ks21DHUS
- YScg==
-X-Gm-Message-State: AOAM532IJEIz0y8/I6hTJqmv/PFBfA6LFKlLlf0zsW3Bx8Jdk+qkXdNR
- JqFNE0Qo2eBekMfbILpjLjI=
-X-Google-Smtp-Source: ABdhPJyou9+WGYqXXV8lZe5yc1353A+y2zdvINKmaSI37Hv9KVGyud7cCZrN5EF+nrh/ZqGEcbPbIw==
-X-Received: by 2002:a05:6402:149a:: with SMTP id
- e26mr9856788edv.254.1611761170607; 
- Wed, 27 Jan 2021 07:26:10 -0800 (PST)
-Received: from localhost (178-169-161-196.razgrad.ddns.bulsat.com.
- [178.169.161.196])
- by smtp.gmail.com with ESMTPSA id s18sm1547750edw.66.2021.01.27.07.26.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Jan 2021 07:26:09 -0800 (PST)
-From: Iskren Chernev <iskren.chernev@gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Date: Wed, 27 Jan 2021 17:24:40 +0200
-Message-Id: <20210127152442.533468-1-iskren.chernev@gmail.com>
+ bh=jzve5vckTHg7fjAKwv7GG9vOPjfc2/ZvoO6K92nijE8=;
+ b=NdCVQgPWAeejROBOV9TuZpSDBh+YXOJn2KI+gz9yi6esN7qWX4OB5D5nkpNhH2Vyzr
+ aIb+ZWf1Ffox1HdbsEisdPhr5K/f/yDPGzwz5JAhCH+iUXuGyEc9mxkutuL/29TDdyhm
+ dTvg2jS1wKoHG2EfwRMgEKx1ixk+a6tIHQw1rC7VEu2BNoyKG+n2BJiLTbkNjFNe6nZa
+ YlL82GCSZkoiFj8mGhLDQp4du82rD13+Ic++2vhhNGWjRUvBle1QuCBxFZi7M43N1kKG
+ SuinwH6dvfteWRt3TSqQ3mtR9pHBd+jeRmqMPWxBOFpVg11WuABPogN2G16CzUWS8Uxf
+ H+fQ==
+X-Gm-Message-State: AOAM533XmGt6gm2uMRrDoD1PgCSKVyAPeVFbK5oVZAlLxcWKbKaOq2Lh
+ 86228CEYqpEhZeyqwQy+Zybchw==
+X-Google-Smtp-Source: ABdhPJyHdm4XvhFRofA7zneDyE3OCrjBFMuISqye3D0wUdgRQrhC7p6IojeYcxRmgEJXAxvXuWO4Tw==
+X-Received: by 2002:a17:90a:4a0e:: with SMTP id
+ e14mr8264413pjh.200.1611790790011; 
+ Wed, 27 Jan 2021 15:39:50 -0800 (PST)
+Received: from wildbow.anholt.net ([75.164.105.146])
+ by smtp.gmail.com with ESMTPSA id q2sm3282382pfj.32.2021.01.27.15.39.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 Jan 2021 15:39:49 -0800 (PST)
+From: Eric Anholt <eric@anholt.net>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Jordan Crouse <jcrouse@codeaurora.org>
+Date: Wed, 27 Jan 2021 15:39:44 -0800
+Message-Id: <20210127233946.1286386-1-eric@anholt.net>
 X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm/mdp5: Fix wait-for-commit for cmd panels
+Subject: [Freedreno] [PATCH 1/3] drm/msm: Fix race of GPU init vs timestamp
+ power management.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,52 +69,119 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@linux.ie>, Lee Jones <lee.jones@linaro.org>,
- dri-devel@lists.freedesktop.org, Brian Masney <masneyb@onstation.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>, linux-kernel@vger.kernel.org,
- Iskren Chernev <iskren.chernev@gmail.com>,
- ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Emil Velikov <emil.velikov@collabora.com>, Sean Paul <sean@poorly.run>,
- Maxime Ripard <maxime@cerno.tech>
+Cc: Eric Anholt <eric@anholt.net>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Before the offending commit in msm_atomic_commit_tail wait_flush was
-called once per frame, after the commit was submitted. After it
-wait_flush is also called at the beginning to ensure previous
-potentially async commits are done.
+We were using the same force-poweron bit in the two codepaths, so they
+could race to have one of them lose GPU power early.
 
-For cmd panels the source of wait_flush is a ping-pong irq notifying
-a completion. The completion needs to be notified with complete_all so
-multiple waiting parties (new async committers) can proceed.
-
-Signed-off-by: Iskren Chernev <iskren.chernev@gmail.com>
-Suggested-by: Rob Clark <robdclark@gmail.com>
-Fixes: 2d99ced787e3d ("drm/msm: async commit support")
+Signed-off-by: Eric Anholt <eric@anholt.net>
+Cc: stable@vger.kernel.org # v5.9
 ---
- drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 25 ++++++++++++++++++++++---
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  8 ++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c |  4 ++--
+ 3 files changed, 32 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
-index 0c8f9f88301fa..f5d71b2740793 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
-@@ -1180,7 +1180,7 @@ static void mdp5_crtc_pp_done_irq(struct mdp_irq *irq, uint32_t irqstatus)
- 	struct mdp5_crtc *mdp5_crtc = container_of(irq, struct mdp5_crtc,
- 								pp_done);
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 78836b4fb98e..378dc7f190c3 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -264,6 +264,16 @@ int _a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state, char
+ 		}
+ 		name = "GPU_SET";
+ 		break;
++	case GMU_OOB_PERFCOUNTER_SET:
++		if (gmu->legacy) {
++			request = GMU_OOB_PERFCOUNTER_REQUEST;
++			ack = GMU_OOB_PERFCOUNTER_ACK;
++		} else {
++			request = GMU_OOB_PERFCOUNTER_REQUEST_NEW;
++			ack = GMU_OOB_PERFCOUNTER_ACK_NEW;
++		}
++		name = "PERFCOUNTER";
++		break;
+ 	case GMU_OOB_BOOT_SLUMBER:
+ 		request = GMU_OOB_BOOT_SLUMBER_REQUEST;
+ 		ack = GMU_OOB_BOOT_SLUMBER_ACK;
+@@ -302,9 +312,14 @@ int _a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state, char
+ void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
+ {
+ 	if (!gmu->legacy) {
+-		WARN_ON(state != GMU_OOB_GPU_SET);
+-		gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
+-			1 << GMU_OOB_GPU_SET_CLEAR_NEW);
++		if (state == GMU_OOB_GPU_SET) {
++			gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
++				1 << GMU_OOB_GPU_SET_CLEAR_NEW);
++		} else {
++			WARN_ON(state != GMU_OOB_PERFCOUNTER_SET);
++			gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
++				1 << GMU_OOB_PERFCOUNTER_CLEAR_NEW);
++		}
+ 		return;
+ 	}
  
--	complete(&mdp5_crtc->pp_completion);
-+	complete_all(&mdp5_crtc->pp_completion);
+@@ -313,6 +328,10 @@ void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
+ 		gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
+ 			1 << GMU_OOB_GPU_SET_CLEAR);
+ 		break;
++	case GMU_OOB_PERFCOUNTER_SET:
++		gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
++			1 << GMU_OOB_PERFCOUNTER_CLEAR);
++		break;
+ 	case GMU_OOB_BOOT_SLUMBER:
+ 		gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
+ 			1 << GMU_OOB_BOOT_SLUMBER_CLEAR);
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+index c6d2bced8e5d..9fa278de2106 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+@@ -156,6 +156,7 @@ enum a6xx_gmu_oob_state {
+ 	GMU_OOB_BOOT_SLUMBER = 0,
+ 	GMU_OOB_GPU_SET,
+ 	GMU_OOB_DCVS_SET,
++	GMU_OOB_PERFCOUNTER_SET,
+ };
+ 
+ /* These are the interrupt / ack bits for each OOB request that are set
+@@ -190,6 +191,13 @@ enum a6xx_gmu_oob_state {
+ #define GMU_OOB_GPU_SET_ACK_NEW		31
+ #define GMU_OOB_GPU_SET_CLEAR_NEW	31
+ 
++#define GMU_OOB_PERFCOUNTER_REQUEST	17
++#define GMU_OOB_PERFCOUNTER_ACK		25
++#define GMU_OOB_PERFCOUNTER_CLEAR	25
++
++#define GMU_OOB_PERFCOUNTER_REQUEST_NEW	28
++#define GMU_OOB_PERFCOUNTER_ACK_NEW	30
++#define GMU_OOB_PERFCOUNTER_CLEAR_NEW	30
+ 
+ void a6xx_hfi_init(struct a6xx_gmu *gmu);
+ int a6xx_hfi_start(struct a6xx_gmu *gmu, int boot_state);
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index c8a9010c1a1d..7424a70b9d35 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -1177,12 +1177,12 @@ static int a6xx_get_timestamp(struct msm_gpu *gpu, uint64_t *value)
+ 	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+ 
+ 	/* Force the GPU power on so we can read this register */
+-	a6xx_gmu_set_oob(&a6xx_gpu->gmu, GMU_OOB_GPU_SET);
++	a6xx_gmu_set_oob(&a6xx_gpu->gmu, GMU_OOB_PERFCOUNTER_SET);
+ 
+ 	*value = gpu_read64(gpu, REG_A6XX_RBBM_PERFCTR_CP_0_LO,
+ 		REG_A6XX_RBBM_PERFCTR_CP_0_HI);
+ 
+-	a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_GPU_SET);
++	a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_PERFCOUNTER_SET);
+ 	return 0;
  }
  
- static void mdp5_crtc_wait_for_pp_done(struct drm_crtc *crtc)
-
-base-commit: 59fa6a163ffabc1bf25c5e0e33899e268a96d3cc
 -- 
 2.30.0
 
