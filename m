@@ -2,62 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9454430680D
-	for <lists+freedreno@lfdr.de>; Thu, 28 Jan 2021 00:39:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEFA0306960
+	for <lists+freedreno@lfdr.de>; Thu, 28 Jan 2021 02:06:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 818176E8B4;
-	Wed, 27 Jan 2021 23:39:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 414116E47A;
+	Thu, 28 Jan 2021 01:06:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
- [IPv6:2607:f8b0:4864:20::1029])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 632266E896
- for <freedreno@lists.freedesktop.org>; Wed, 27 Jan 2021 23:39:52 +0000 (UTC)
-Received: by mail-pj1-x1029.google.com with SMTP id md11so2465882pjb.0
- for <freedreno@lists.freedesktop.org>; Wed, 27 Jan 2021 15:39:52 -0800 (PST)
+Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
+ [IPv6:2607:f8b0:4864:20::435])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 553836E52C
+ for <freedreno@lists.freedesktop.org>; Thu, 28 Jan 2021 01:06:13 +0000 (UTC)
+Received: by mail-pf1-x435.google.com with SMTP id j12so2851785pfj.12
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Jan 2021 17:06:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=anholt-net.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=j6gSRxsto0OoacCmW8vC/THw0ezOInI46XhFUQdIUUY=;
- b=WrW11JHrwi6Rdu7L6Q0QlMcHzDZThKa7X1xOGpXGqHzIwBKNyT72EfMYRT8+0qcGUS
- 2h/aeWkka+tpwufNG6SRP/YMZlWsKhfjVEYiSstpI4WoEKYqKoQ22jaN2lwkQwtbAwnd
- YZoF4NBrseF44FzdJ2Ga9l7qa574QkriSRrjBU+RREnOMv1GS511CqfaDbWPshpo7J17
- sX1elhBBTiT2tC52KBhLpVNrzUSebc+ygHRRR1/1rypakMQc6MqTsRfINPggB97VKw6f
- aXNw461c8ZaTafjIRyUJM27l3teO15r79v+9HXNesSAmUgKY2rQEg9LQYd95WKMJrlnN
- 4Zfw==
+ bh=EJUwe7eMuDu5MPo35bBZd/x3+Zix9aZq5WRFYcAAkeY=;
+ b=DiWp8KYt5Znr/rvSeyXCW6osdS6mvoap0fQlvuSSmW3dglXKl5r3v+lCwZ44i0kaB4
+ TKZ0lEf8aRsyEjhwj3hlBEQI1Dta/cuIHZn96U6fy74pWIdxV6vMudSUZRdHRfQekjoX
+ Sd/GUxJeefyN7AaXBCowsRj8pNPxVBwVOKDmtE71JtKnobxt6BJGG+pN4NAh3XyvGzUy
+ xs7SMvBInHNZrq6TqOpbyrkZH9rSIqk2Syrh9EosiOfLMGszxqtsH+dtvl2SCfRX8agZ
+ GKOnDsPMO/CmVFgyFfHG57vpEOavZ2BlyWHFqnqm/rjWoUZ1LVII62i+aVl8L6GXKhpe
+ 4Igg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=j6gSRxsto0OoacCmW8vC/THw0ezOInI46XhFUQdIUUY=;
- b=kMWe4TPLEA0fJ0zu3yVy9umOn3Zl+uvjy8dBaZ3ATFfjb+yhkMM3njMXPsG28ssp55
- E56gmcXpdeVKhIi5jXVqRNqCPHymlomxo0a7T1zI8/hydvcMu8ckHtF4X7Bt3F9SniBx
- MLVz3ts57hbTH62hG638QC+U6zEJEAJIRwe9uz3thXNfmT231r3xkz5liIJmlNzEkFeR
- 8l974DZ3xGesRpsfIJRZAYcFcAInzkIFAzHrfG5Z1ilnWoS3nxAPvVIZydIGPHptIjVg
- LOJw5w2Aq+4E9AmKNMwN62Ga/6YT7sz8ovHUIctZECCU1UHoJ8xefxMNGlfoSjcg/JPx
- haiw==
-X-Gm-Message-State: AOAM533nzwJzDt/ZKazTAqZ3HYLhUfKNm+Qbn8ddAoyBVxBpech03M65
- 5SI8yKn932jZ5mjHkC4HFsPrYkh300qViQcR
-X-Google-Smtp-Source: ABdhPJwXUYZTfEbe+4zg85+r5OVqPcneWX18LvbJMdFx5D72DChr1EkljueMW7FbUAExa9EKXfWeTA==
-X-Received: by 2002:a17:90a:7e8d:: with SMTP id
- j13mr8206360pjl.37.1611790792005; 
- Wed, 27 Jan 2021 15:39:52 -0800 (PST)
+ bh=EJUwe7eMuDu5MPo35bBZd/x3+Zix9aZq5WRFYcAAkeY=;
+ b=Zun3Q9eQu/eUedSS+hjbY+jsNZIE8YhhBTazpnoVfn7rqBsU8tvJiRrXQkiqbYaWi6
+ +hX17IPAE2ZBFeJG5b8scPy+coqZgRzaN1aDHXiF+6U9anc0gmSl6qJI7r7TyPoWvhT5
+ l7/9MFsvjK0jiVmy4uWiLAHC4BHCRMkONETLtmaUdYxU+Lu7lYUqp96qfh7y3XLNlGQK
+ FF9FoxvmVSQ6NLFNXxX1r9LSVwaTKa9knGNrRAv9plc2YHTvjM7Owfh9soTHtsyMTHvO
+ bkN7hcAC0vGhpZzVdARvCTNj0pl7sBzeKsPHdOSdUwi54l2w43Phf4SWThtKA1bxoS2G
+ Gb+A==
+X-Gm-Message-State: AOAM53120dzsOjJQlowhJoGZp2QvoxQi/7fzxPgIKqGd2L59zW4TynDJ
+ wr3JEvrVWuXpN7q3jbx9U6EkQw==
+X-Google-Smtp-Source: ABdhPJxfnz7w1IHs4rzbgSFzzSBXJLEt5EvmsFtrCim08VUS5Um3rcnq0NGm7NQW+8tJbzT8uOVQrA==
+X-Received: by 2002:a65:6119:: with SMTP id z25mr13897584pgu.17.1611795972847; 
+ Wed, 27 Jan 2021 17:06:12 -0800 (PST)
 Received: from wildbow.anholt.net ([75.164.105.146])
- by smtp.gmail.com with ESMTPSA id q2sm3282382pfj.32.2021.01.27.15.39.51
+ by smtp.gmail.com with ESMTPSA id 124sm3598229pfd.59.2021.01.27.17.06.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 Jan 2021 15:39:51 -0800 (PST)
+ Wed, 27 Jan 2021 17:06:12 -0800 (PST)
 From: Eric Anholt <eric@anholt.net>
 To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>, Jordan Crouse <jcrouse@codeaurora.org>
-Date: Wed, 27 Jan 2021 15:39:46 -0800
-Message-Id: <20210127233946.1286386-3-eric@anholt.net>
+Date: Wed, 27 Jan 2021 17:05:14 -0800
+Message-Id: <20210128010514.1419622-1-eric@anholt.net>
 X-Mailer: git-send-email 2.30.0
-In-Reply-To: <20210127233946.1286386-1-eric@anholt.net>
-References: <20210127233946.1286386-1-eric@anholt.net>
+In-Reply-To: <20210127233946.1286386-3-eric@anholt.net>
+References: <20210127233946.1286386-3-eric@anholt.net>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 3/3] drm/msm: Clean up GMU OOB set/clear
+Subject: [Freedreno] [PATCH 3/3 v2] drm/msm: Clean up GMU OOB set/clear
  handling.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,12 +81,16 @@ code table-driven.
 
 Signed-off-by: Eric Anholt <eric@anholt.net>
 ---
+
+Previous version hadn't been rebased off of a bit of debug code I had,
+so it wouldn't cleanly apply.
+
  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 124 +++++++++++++-------------
  drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  55 ++++--------
  2 files changed, 77 insertions(+), 102 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 378dc7f190c3..c497e0942141 100644
+index b3318f86aabc..9066e98eb8ef 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
 @@ -245,47 +245,66 @@ static int a6xx_gmu_hfi_start(struct a6xx_gmu *gmu)
@@ -133,7 +136,7 @@ index 378dc7f190c3..c497e0942141 100644
 +};
 +
  /* Trigger a OOB (out of band) request to the GMU */
- int _a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state, char *file, int line)
+ int a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
  {
  	int ret;
  	u32 val;
@@ -190,16 +193,16 @@ index 378dc7f190c3..c497e0942141 100644
  	}
  
  	/* Trigger the equested OOB operation */
-@@ -299,7 +318,7 @@ int _a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state, char
+@@ -298,7 +317,7 @@ int a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
+ 	if (ret)
  		DRM_DEV_ERROR(gmu->dev,
- 			"%s:%d Timeout waiting for GMU OOB set %s: 0x%x\n",
- 			file, line,
+ 			"Timeout waiting for GMU OOB set %s: 0x%x\n",
 -				name,
 +				a6xx_gmu_oob_bits[state].name,
  				gmu_read(gmu, REG_A6XX_GMU_GMU2HOST_INTR_INFO));
  
  	/* Clear the acknowledge interrupt */
-@@ -311,36 +330,17 @@ int _a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state, char
+@@ -310,36 +329,17 @@ int a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
  /* Clear a pending OOB state in the GMU */
  void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
  {
