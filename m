@@ -2,62 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEFA0306960
-	for <lists+freedreno@lfdr.de>; Thu, 28 Jan 2021 02:06:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5E23307B15
+	for <lists+freedreno@lfdr.de>; Thu, 28 Jan 2021 17:36:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 414116E47A;
-	Thu, 28 Jan 2021 01:06:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54B6388A72;
+	Thu, 28 Jan 2021 16:36:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
- [IPv6:2607:f8b0:4864:20::435])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 553836E52C
- for <freedreno@lists.freedesktop.org>; Thu, 28 Jan 2021 01:06:13 +0000 (UTC)
-Received: by mail-pf1-x435.google.com with SMTP id j12so2851785pfj.12
- for <freedreno@lists.freedesktop.org>; Wed, 27 Jan 2021 17:06:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=anholt-net.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=EJUwe7eMuDu5MPo35bBZd/x3+Zix9aZq5WRFYcAAkeY=;
- b=DiWp8KYt5Znr/rvSeyXCW6osdS6mvoap0fQlvuSSmW3dglXKl5r3v+lCwZ44i0kaB4
- TKZ0lEf8aRsyEjhwj3hlBEQI1Dta/cuIHZn96U6fy74pWIdxV6vMudSUZRdHRfQekjoX
- Sd/GUxJeefyN7AaXBCowsRj8pNPxVBwVOKDmtE71JtKnobxt6BJGG+pN4NAh3XyvGzUy
- xs7SMvBInHNZrq6TqOpbyrkZH9rSIqk2Syrh9EosiOfLMGszxqtsH+dtvl2SCfRX8agZ
- GKOnDsPMO/CmVFgyFfHG57vpEOavZ2BlyWHFqnqm/rjWoUZ1LVII62i+aVl8L6GXKhpe
- 4Igg==
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2ED4988A72;
+ Thu, 28 Jan 2021 16:36:39 +0000 (UTC)
+Received: by mail-wr1-x42c.google.com with SMTP id a1so6071331wrq.6;
+ Thu, 28 Jan 2021 08:36:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=J2pSAMeacjhYY4VRhMqQHxTTL1fklZ6z+iWFWs9oc44=;
+ b=DfyF+mGipz5IdxF0ZOYjV1X5y0NhM+SOJq5KMmh/tOITvOfGsVqH7mnosOyCJImEZd
+ FtBe1YewLQdbLECZtW/y9+LdRAzEKft/cvY+VcT2aa3dYM9QGb+Y9Ug/tuNe8kTsQ4G6
+ 4OENy1oWjIETJvqYS+t3BZhEx9hK+mtD1RChRRV7z1uXewJcUJwuan6e2AmcKLfUaPEp
+ YpnfAr4m15Xk9hO/dpbw1yHiIkPKA3P4zBfCjIjwaohZkcv4f3Lf/PwULvA8kkdhHFWt
+ AyjECcPpT6pYecRegWNU+T/M1VkQrxl5I3N4yEtazuUBjfixPBvspwgEYB/T1H1GMNKe
+ KYsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=EJUwe7eMuDu5MPo35bBZd/x3+Zix9aZq5WRFYcAAkeY=;
- b=Zun3Q9eQu/eUedSS+hjbY+jsNZIE8YhhBTazpnoVfn7rqBsU8tvJiRrXQkiqbYaWi6
- +hX17IPAE2ZBFeJG5b8scPy+coqZgRzaN1aDHXiF+6U9anc0gmSl6qJI7r7TyPoWvhT5
- l7/9MFsvjK0jiVmy4uWiLAHC4BHCRMkONETLtmaUdYxU+Lu7lYUqp96qfh7y3XLNlGQK
- FF9FoxvmVSQ6NLFNXxX1r9LSVwaTKa9knGNrRAv9plc2YHTvjM7Owfh9soTHtsyMTHvO
- bkN7hcAC0vGhpZzVdARvCTNj0pl7sBzeKsPHdOSdUwi54l2w43Phf4SWThtKA1bxoS2G
- Gb+A==
-X-Gm-Message-State: AOAM53120dzsOjJQlowhJoGZp2QvoxQi/7fzxPgIKqGd2L59zW4TynDJ
- wr3JEvrVWuXpN7q3jbx9U6EkQw==
-X-Google-Smtp-Source: ABdhPJxfnz7w1IHs4rzbgSFzzSBXJLEt5EvmsFtrCim08VUS5Um3rcnq0NGm7NQW+8tJbzT8uOVQrA==
-X-Received: by 2002:a65:6119:: with SMTP id z25mr13897584pgu.17.1611795972847; 
- Wed, 27 Jan 2021 17:06:12 -0800 (PST)
-Received: from wildbow.anholt.net ([75.164.105.146])
- by smtp.gmail.com with ESMTPSA id 124sm3598229pfd.59.2021.01.27.17.06.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 Jan 2021 17:06:12 -0800 (PST)
-From: Eric Anholt <eric@anholt.net>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Jordan Crouse <jcrouse@codeaurora.org>
-Date: Wed, 27 Jan 2021 17:05:14 -0800
-Message-Id: <20210128010514.1419622-1-eric@anholt.net>
-X-Mailer: git-send-email 2.30.0
-In-Reply-To: <20210127233946.1286386-3-eric@anholt.net>
-References: <20210127233946.1286386-3-eric@anholt.net>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=J2pSAMeacjhYY4VRhMqQHxTTL1fklZ6z+iWFWs9oc44=;
+ b=s56Os+MGyHz3E/o9ULZ3W7GoDIbytlFg7qU0UFplkZ+CIzo5be7i+j4SE96QreSH91
+ UIHvsZlRLH9pvoIPwJbZ6DA+61Dln+YVUOaNWelpWi8b1ZEYxmo70gRJiGDqdE96RSla
+ 1rJ0J64beSm7M5PgDC3/K6vOYGHg3Q5Ml+E/tV5L4A0IFO8fep6atU2AICf4CX5fNC0C
+ y3noiJQFNQ6MPM7Qp/KmUGHKlZ+b8XyDm6qYvYSijeawJh1507jZyAEkLJlHQEqwb1Er
+ E5qQqMJ/s4gS7BKuXRDyopUDYVDFjZIL9DfGiUMvnrO5nEy6Ow7LPJrjI2uRr60c4PLo
+ xhJQ==
+X-Gm-Message-State: AOAM530u/VQjkq0j1x6Rjzx52iu53y00NCTIr9KlbhVUqVjrfZm9yjzk
+ CO5nM38sBSa7PagNCI7yGUJVpoD2rfTNL6j9lW8=
+X-Google-Smtp-Source: ABdhPJzjtBIb9f3OwWrVVcmu1w4hFEFvKvi6v9SGkeHvpkhMmefwW5PwFRm8PwjbmSGh1qpzbdv0JI+bmeA6hVyKa/w=
+X-Received: by 2002:adf:dd07:: with SMTP id a7mr17587399wrm.83.1611851797734; 
+ Thu, 28 Jan 2021 08:36:37 -0800 (PST)
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 3/3 v2] drm/msm: Clean up GMU OOB set/clear
- handling.
+References: <20210125234901.2730699-1-swboyd@chromium.org>
+In-Reply-To: <20210125234901.2730699-1-swboyd@chromium.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 28 Jan 2021 08:39:12 -0800
+Message-ID: <CAF6AEGu1WHbzV5pazm2w7t7XzSeHJgTvip4FHdpqTm+SnLEpLQ@mail.gmail.com>
+To: Stephen Boyd <swboyd@chromium.org>
+Subject: Re: [Freedreno] [PATCH] drm/msm/kms: Make a lock_class_key for each
+ crtc mutex
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,259 +61,117 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eric Anholt <eric@anholt.net>, linux-kernel@vger.kernel.org
+Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Krishna Manikandan <mkrishn@codeaurora.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Now that the bug is fixed in the minimal way for stable, go make the
-code table-driven.
+On Mon, Jan 25, 2021 at 3:49 PM Stephen Boyd <swboyd@chromium.org> wrote:
+>
+> Lockdep complains about an AA deadlock when rebooting the device.
+>
+> ============================================
+> WARNING: possible recursive locking detected
+> 5.4.91 #1 Not tainted
+> --------------------------------------------
+> reboot/5213 is trying to acquire lock:
+> ffffff80d13391b0 (&kms->commit_lock[i]){+.+.}, at: lock_crtcs+0x60/0xa4
+>
+> but task is already holding lock:
+> ffffff80d1339110 (&kms->commit_lock[i]){+.+.}, at: lock_crtcs+0x60/0xa4
+>
+> other info that might help us debug this:
+> Possible unsafe locking scenario:
+>
+> CPU0
+> ----
+> lock(&kms->commit_lock[i]);
+> lock(&kms->commit_lock[i]);
+>
+> *** DEADLOCK ***
+>
+> May be due to missing lock nesting notation
+>
+> 6 locks held by reboot/5213:
+> __arm64_sys_reboot+0x148/0x2a0
+> device_shutdown+0x10c/0x2c4
+> drm_atomic_helper_shutdown+0x48/0xfc
+> modeset_lock+0x120/0x24c
+> lock_crtcs+0x60/0xa4
+>
+> stack backtrace:
+> CPU: 4 PID: 5213 Comm: reboot Not tainted 5.4.91 #1
+> Hardware name: Google Pompom (rev1) with LTE (DT)
+> Call trace:
+> dump_backtrace+0x0/0x1dc
+> show_stack+0x24/0x30
+> dump_stack+0xfc/0x1a8
+> __lock_acquire+0xcd0/0x22b8
+> lock_acquire+0x1ec/0x240
+> __mutex_lock_common+0xe0/0xc84
+> mutex_lock_nested+0x48/0x58
+> lock_crtcs+0x60/0xa4
+> msm_atomic_commit_tail+0x348/0x570
+> commit_tail+0xdc/0x178
+> drm_atomic_helper_commit+0x160/0x168
+> drm_atomic_commit+0x68/0x80
+>
+> This is because lockdep thinks all the locks taken in lock_crtcs() are
+> the same lock, when they actually aren't. That's because we call
+> mutex_init() in msm_kms_init() and that assigns on static key for every
 
-Signed-off-by: Eric Anholt <eric@anholt.net>
----
+nit, s/on/one/ ?
 
-Previous version hadn't been rebased off of a bit of debug code I had,
-so it wouldn't cleanly apply.
+BR,
+-R
 
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 124 +++++++++++++-------------
- drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  55 ++++--------
- 2 files changed, 77 insertions(+), 102 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index b3318f86aabc..9066e98eb8ef 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -245,47 +245,66 @@ static int a6xx_gmu_hfi_start(struct a6xx_gmu *gmu)
- 	return ret;
- }
- 
-+struct a6xx_gmu_oob_bits {
-+	int set, ack, set_new, ack_new;
-+	const char *name;
-+};
-+
-+/* These are the interrupt / ack bits for each OOB request that are set
-+ * in a6xx_gmu_set_oob and a6xx_clear_oob
-+ */
-+static const struct a6xx_gmu_oob_bits a6xx_gmu_oob_bits[] = {
-+	[GMU_OOB_GPU_SET] = {
-+		.name = "GPU_SET",
-+		.set = 16,
-+		.ack = 24,
-+		.set_new = 30,
-+		.ack_new = 31,
-+	},
-+
-+	[GMU_OOB_PERFCOUNTER_SET] = {
-+		.name = "PERFCOUNTER",
-+		.set = 17,
-+		.ack = 25,
-+		.set_new = 28,
-+		.ack_new = 30,
-+	},
-+
-+	[GMU_OOB_BOOT_SLUMBER] = {
-+		.name = "BOOT_SLUMBER",
-+		.set = 22,
-+		.ack = 30,
-+	},
-+
-+	[GMU_OOB_DCVS_SET] = {
-+		.name = "GPU_DCVS",
-+		.set = 23,
-+		.ack = 31,
-+	},
-+};
-+
- /* Trigger a OOB (out of band) request to the GMU */
- int a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
- {
- 	int ret;
- 	u32 val;
- 	int request, ack;
--	const char *name;
- 
--	switch (state) {
--	case GMU_OOB_GPU_SET:
--		if (gmu->legacy) {
--			request = GMU_OOB_GPU_SET_REQUEST;
--			ack = GMU_OOB_GPU_SET_ACK;
--		} else {
--			request = GMU_OOB_GPU_SET_REQUEST_NEW;
--			ack = GMU_OOB_GPU_SET_ACK_NEW;
--		}
--		name = "GPU_SET";
--		break;
--	case GMU_OOB_PERFCOUNTER_SET:
--		if (gmu->legacy) {
--			request = GMU_OOB_PERFCOUNTER_REQUEST;
--			ack = GMU_OOB_PERFCOUNTER_ACK;
--		} else {
--			request = GMU_OOB_PERFCOUNTER_REQUEST_NEW;
--			ack = GMU_OOB_PERFCOUNTER_ACK_NEW;
--		}
--		name = "PERFCOUNTER";
--		break;
--	case GMU_OOB_BOOT_SLUMBER:
--		request = GMU_OOB_BOOT_SLUMBER_REQUEST;
--		ack = GMU_OOB_BOOT_SLUMBER_ACK;
--		name = "BOOT_SLUMBER";
--		break;
--	case GMU_OOB_DCVS_SET:
--		request = GMU_OOB_DCVS_REQUEST;
--		ack = GMU_OOB_DCVS_ACK;
--		name = "GPU_DCVS";
--		break;
--	default:
-+	if (state >= ARRAY_SIZE(a6xx_gmu_oob_bits))
- 		return -EINVAL;
-+
-+	if (gmu->legacy) {
-+		request = a6xx_gmu_oob_bits[state].set;
-+		ack = a6xx_gmu_oob_bits[state].ack;
-+	} else {
-+		request = a6xx_gmu_oob_bits[state].set_new;
-+		ack = a6xx_gmu_oob_bits[state].ack_new;
-+		if (!request || !ack) {
-+			DRM_DEV_ERROR(gmu->dev,
-+				      "Invalid non-legacy GMU request %s\n",
-+				      a6xx_gmu_oob_bits[state].name);
-+			return -EINVAL;
-+		}
- 	}
- 
- 	/* Trigger the equested OOB operation */
-@@ -298,7 +317,7 @@ int a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
- 	if (ret)
- 		DRM_DEV_ERROR(gmu->dev,
- 			"Timeout waiting for GMU OOB set %s: 0x%x\n",
--				name,
-+				a6xx_gmu_oob_bits[state].name,
- 				gmu_read(gmu, REG_A6XX_GMU_GMU2HOST_INTR_INFO));
- 
- 	/* Clear the acknowledge interrupt */
-@@ -310,36 +329,17 @@ int a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
- /* Clear a pending OOB state in the GMU */
- void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
- {
--	if (!gmu->legacy) {
--		if (state == GMU_OOB_GPU_SET) {
--			gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
--				1 << GMU_OOB_GPU_SET_CLEAR_NEW);
--		} else {
--			WARN_ON(state != GMU_OOB_PERFCOUNTER_SET);
--			gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
--				1 << GMU_OOB_PERFCOUNTER_CLEAR_NEW);
--		}
-+	int bit;
-+
-+	if (state >= ARRAY_SIZE(a6xx_gmu_oob_bits))
- 		return;
--	}
- 
--	switch (state) {
--	case GMU_OOB_GPU_SET:
--		gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
--			1 << GMU_OOB_GPU_SET_CLEAR);
--		break;
--	case GMU_OOB_PERFCOUNTER_SET:
--		gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
--			1 << GMU_OOB_PERFCOUNTER_CLEAR);
--		break;
--	case GMU_OOB_BOOT_SLUMBER:
--		gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
--			1 << GMU_OOB_BOOT_SLUMBER_CLEAR);
--		break;
--	case GMU_OOB_DCVS_SET:
--		gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
--			1 << GMU_OOB_DCVS_CLEAR);
--		break;
--	}
-+	if (gmu->legacy)
-+		bit = a6xx_gmu_oob_bits[state].ack;
-+	else
-+		bit = a6xx_gmu_oob_bits[state].ack_new;
-+
-+	gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET, bit);
- }
- 
- /* Enable CPU control of SPTP power power collapse */
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-index 9fa278de2106..71dfa60070cc 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-@@ -153,52 +153,27 @@ static inline void gmu_write_rscc(struct a6xx_gmu *gmu, u32 offset, u32 value)
-  */
- 
- enum a6xx_gmu_oob_state {
-+	/*
-+	 * Let the GMU know that a boot or slumber operation has started. The value in
-+	 * REG_A6XX_GMU_BOOT_SLUMBER_OPTION lets the GMU know which operation we are
-+	 * doing
-+	 */
- 	GMU_OOB_BOOT_SLUMBER = 0,
-+	/*
-+	 * Let the GMU know to not turn off any GPU registers while the CPU is in a
-+	 * critical section
-+	 */
- 	GMU_OOB_GPU_SET,
-+	/*
-+	 * Set a new power level for the GPU when the CPU is doing frequency scaling
-+	 */
- 	GMU_OOB_DCVS_SET,
-+	/*
-+	 * Used to keep the GPU on for CPU-side reads of performance counters.
-+	 */
- 	GMU_OOB_PERFCOUNTER_SET,
- };
- 
--/* These are the interrupt / ack bits for each OOB request that are set
-- * in a6xx_gmu_set_oob and a6xx_clear_oob
-- */
--
--/*
-- * Let the GMU know that a boot or slumber operation has started. The value in
-- * REG_A6XX_GMU_BOOT_SLUMBER_OPTION lets the GMU know which operation we are
-- * doing
-- */
--#define GMU_OOB_BOOT_SLUMBER_REQUEST	22
--#define GMU_OOB_BOOT_SLUMBER_ACK	30
--#define GMU_OOB_BOOT_SLUMBER_CLEAR	30
--
--/*
-- * Set a new power level for the GPU when the CPU is doing frequency scaling
-- */
--#define GMU_OOB_DCVS_REQUEST	23
--#define GMU_OOB_DCVS_ACK	31
--#define GMU_OOB_DCVS_CLEAR	31
--
--/*
-- * Let the GMU know to not turn off any GPU registers while the CPU is in a
-- * critical section
-- */
--#define GMU_OOB_GPU_SET_REQUEST	16
--#define GMU_OOB_GPU_SET_ACK	24
--#define GMU_OOB_GPU_SET_CLEAR	24
--
--#define GMU_OOB_GPU_SET_REQUEST_NEW	30
--#define GMU_OOB_GPU_SET_ACK_NEW		31
--#define GMU_OOB_GPU_SET_CLEAR_NEW	31
--
--#define GMU_OOB_PERFCOUNTER_REQUEST	17
--#define GMU_OOB_PERFCOUNTER_ACK		25
--#define GMU_OOB_PERFCOUNTER_CLEAR	25
--
--#define GMU_OOB_PERFCOUNTER_REQUEST_NEW	28
--#define GMU_OOB_PERFCOUNTER_ACK_NEW	30
--#define GMU_OOB_PERFCOUNTER_CLEAR_NEW	30
--
- void a6xx_hfi_init(struct a6xx_gmu *gmu);
- int a6xx_hfi_start(struct a6xx_gmu *gmu, int boot_state);
- void a6xx_hfi_stop(struct a6xx_gmu *gmu);
--- 
-2.30.0
-
+> lock initialized in this loop. Let's allocate a dynamic number of
+> lock_class_keys and assign them to each lock so that lockdep can figure
+> out an AA deadlock isn't possible here.
+>
+> Fixes: b3d91800d9ac ("drm/msm: Fix race condition in msm driver with async layer updates")
+> Cc: Krishna Manikandan <mkrishn@codeaurora.org>
+> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
+> ---
+>  drivers/gpu/drm/msm/msm_kms.h | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
+> index d8151a89e163..4735251a394d 100644
+> --- a/drivers/gpu/drm/msm/msm_kms.h
+> +++ b/drivers/gpu/drm/msm/msm_kms.h
+> @@ -157,6 +157,7 @@ struct msm_kms {
+>          * from the crtc's pending_timer close to end of the frame:
+>          */
+>         struct mutex commit_lock[MAX_CRTCS];
+> +       struct lock_class_key commit_lock_keys[MAX_CRTCS];
+>         unsigned pending_crtc_mask;
+>         struct msm_pending_timer pending_timers[MAX_CRTCS];
+>  };
+> @@ -166,8 +167,11 @@ static inline int msm_kms_init(struct msm_kms *kms,
+>  {
+>         unsigned i, ret;
+>
+> -       for (i = 0; i < ARRAY_SIZE(kms->commit_lock); i++)
+> -               mutex_init(&kms->commit_lock[i]);
+> +       for (i = 0; i < ARRAY_SIZE(kms->commit_lock); i++) {
+> +               lockdep_register_key(&kms->commit_lock_keys[i]);
+> +               __mutex_init(&kms->commit_lock[i], "&kms->commit_lock[i]",
+> +                            &kms->commit_lock_keys[i]);
+> +       }
+>
+>         kms->funcs = funcs;
+>
+>
+> base-commit: 19c329f6808995b142b3966301f217c831e7cf31
+> --
+> https://chromeos.dev
+>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
