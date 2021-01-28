@@ -2,55 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1C2C307BCC
-	for <lists+freedreno@lfdr.de>; Thu, 28 Jan 2021 18:09:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6479307E5E
+	for <lists+freedreno@lfdr.de>; Thu, 28 Jan 2021 19:47:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48F4F6E213;
-	Thu, 28 Jan 2021 17:09:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 739FD6E98A;
+	Thu, 28 Jan 2021 18:47:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
- [IPv6:2607:f8b0:4864:20::1036])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC8F86E97D
- for <freedreno@lists.freedesktop.org>; Thu, 28 Jan 2021 17:09:31 +0000 (UTC)
-Received: by mail-pj1-x1036.google.com with SMTP id u4so4688991pjn.4
- for <freedreno@lists.freedesktop.org>; Thu, 28 Jan 2021 09:09:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Caeg7nYwaddfpIiPW5mxXkI5Uu5RyM5KiedwozcikZE=;
- b=kGtze5/3GwcFT/3AZJdHcIB/QLvFpXnGQDkmArbs1mPGaWFZbQVBP94u4R1R2EOsMP
- TUdOJgh9WWTeeo+RaM/ooYtexVP4OhHdYheiJxnY3IK3NLZODE3Kgl+/eFaGEqgA9FLH
- VqPClTFEwbTiPnCWg3pSt1Y4wX/fU/ApCQ/DY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Caeg7nYwaddfpIiPW5mxXkI5Uu5RyM5KiedwozcikZE=;
- b=Y6UwWZmx4G3YOnImo0l/qOVCRJWYlItzEBJwG+aJoZeWrR8mRLO8AGYun0N+O5uydG
- XR5OMhbSiK/y6o62LMp7inpv96AFBxgA6jNt17YCQrYQVWieDnpF8Ru/YxI9TAWE0u2u
- ByvN6eKPJopjOYTdjeRGeJ0MGRIolSCxMMS8XSIrJ2RQxTXEeMB8bPSEr7fk4qkPL9Rt
- TLkYtoBoOw5C52tBnFdfHmfBlXEKUDCak5RFFYnoQW5aNP3pcrEUsH5lUbfRQLXDwRm5
- afUjNdLoS92qjFq0hhvt7XxoInJIp19YeHz9LcyoPacnrdXCwwq5buBHICeKdIO68gUl
- jBzQ==
-X-Gm-Message-State: AOAM53133fr0yxgXt/zZIbX365LZovooiqYIsoSsiyuAjFmPwHRSGkby
- 0yW74iSY23mg5xWIUq8F+OOLXA==
-X-Google-Smtp-Source: ABdhPJx8LgNkd+vhvNVmZP/hGk1wrPuOEDEr0UPTwSrG07Y/l+KC0OifbYbxPLWeRwD4h8M6vZSoYA==
-X-Received: by 2002:a17:902:a412:b029:db:cf5a:8427 with SMTP id
- p18-20020a170902a412b02900dbcf5a8427mr503854plq.48.1611853771413; 
- Thu, 28 Jan 2021 09:09:31 -0800 (PST)
-Received: from smtp.gmail.com ([2620:15c:202:201:304c:5453:303a:8268])
- by smtp.gmail.com with ESMTPSA id g22sm6206654pfu.200.2021.01.28.09.09.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Jan 2021 09:09:30 -0800 (PST)
-From: Stephen Boyd <swboyd@chromium.org>
-To: Rob Clark <robdclark@gmail.com>
-Date: Thu, 28 Jan 2021 09:09:29 -0800
-Message-Id: <20210128170929.3339941-1-swboyd@chromium.org>
-X-Mailer: git-send-email 2.30.0.280.ga3ce27912f-goog
+Received: from m42-8.mailgun.net (m42-8.mailgun.net [69.72.42.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E895F6E98A
+ for <freedreno@lists.freedesktop.org>; Thu, 28 Jan 2021 18:47:17 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1611859639; h=In-Reply-To: Content-Type: MIME-Version:
+ References: Message-ID: Subject: Cc: To: From: Date: Sender;
+ bh=b0ntJB4qfOgKJiEtDgMOm5VkaY7ULbHbLFdGGfjh+FQ=;
+ b=bQOoAeNYOJVF0ZNM+ADMJ2+UYjpKqSsCG1O5NcJtwvZqH6ra1XgM72AoS3B9BZULfn6DFSF4
+ CM1R0zOcipKSTnySWfiK3KcKXGbI5cDkLn4SQe5aB9H5jjHB0Q65NiiH2CSDSzdq8XmcsXF6
+ 4kzsWutBdtS6tOp/gg13u77GcjU=
+X-Mailgun-Sending-Ip: 69.72.42.8
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n03.prod.us-west-2.postgun.com with SMTP id
+ 601306ab9137d6636dc9b5a2 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 28 Jan 2021 18:47:07
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 7528DC43466; Thu, 28 Jan 2021 18:47:07 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id D21A1C43461;
+ Thu, 28 Jan 2021 18:47:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org D21A1C43461
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=jcrouse@codeaurora.org
+Date: Thu, 28 Jan 2021 11:47:03 -0700
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: Eric Anholt <eric@anholt.net>
+Message-ID: <20210128184702.GB29306@jcrouse1-lnx.qualcomm.com>
+Mail-Followup-To: Eric Anholt <eric@anholt.net>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20210127233946.1286386-1-eric@anholt.net>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCHv2] drm/msm/kms: Make a lock_class_key for each
- crtc mutex
+Content-Disposition: inline
+In-Reply-To: <20210127233946.1286386-1-eric@anholt.net>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Freedreno] [PATCH 1/3] drm/msm: Fix race of GPU init vs
+ timestamp power management.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,111 +75,137 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Krishna Manikandan <mkrishn@codeaurora.org>
+ Rob Clark <robdclark@gmail.com>, stable@vger.kernel.org,
+ Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Lockdep complains about an AA deadlock when rebooting the device.
+On Wed, Jan 27, 2021 at 03:39:44PM -0800, Eric Anholt wrote:
+> We were using the same force-poweron bit in the two codepaths, so they
+> could race to have one of them lose GPU power early.
+> 
+> Signed-off-by: Eric Anholt <eric@anholt.net>
+> Cc: stable@vger.kernel.org # v5.9
 
-============================================
-WARNING: possible recursive locking detected
-5.4.91 #1 Not tainted
---------------------------------------------
-reboot/5213 is trying to acquire lock:
-ffffff80d13391b0 (&kms->commit_lock[i]){+.+.}, at: lock_crtcs+0x60/0xa4
+You can add:
+Fixes: 4b565ca5a2cb ("drm/msm: Add A6XX device support")
 
-but task is already holding lock:
-ffffff80d1339110 (&kms->commit_lock[i]){+.+.}, at: lock_crtcs+0x60/0xa4
+Because that was my ugly.
 
-other info that might help us debug this:
-Possible unsafe locking scenario:
+Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
 
-CPU0
-----
-lock(&kms->commit_lock[i]);
-lock(&kms->commit_lock[i]);
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 25 ++++++++++++++++++++++---
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  8 ++++++++
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c |  4 ++--
+>  3 files changed, 32 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> index 78836b4fb98e..378dc7f190c3 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> @@ -264,6 +264,16 @@ int _a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state, char
+>  		}
+>  		name = "GPU_SET";
+>  		break;
+> +	case GMU_OOB_PERFCOUNTER_SET:
+> +		if (gmu->legacy) {
+> +			request = GMU_OOB_PERFCOUNTER_REQUEST;
+> +			ack = GMU_OOB_PERFCOUNTER_ACK;
+> +		} else {
+> +			request = GMU_OOB_PERFCOUNTER_REQUEST_NEW;
+> +			ack = GMU_OOB_PERFCOUNTER_ACK_NEW;
+> +		}
+> +		name = "PERFCOUNTER";
+> +		break;
+>  	case GMU_OOB_BOOT_SLUMBER:
+>  		request = GMU_OOB_BOOT_SLUMBER_REQUEST;
+>  		ack = GMU_OOB_BOOT_SLUMBER_ACK;
+> @@ -302,9 +312,14 @@ int _a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state, char
+>  void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
+>  {
+>  	if (!gmu->legacy) {
+> -		WARN_ON(state != GMU_OOB_GPU_SET);
+> -		gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
+> -			1 << GMU_OOB_GPU_SET_CLEAR_NEW);
+> +		if (state == GMU_OOB_GPU_SET) {
+> +			gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
+> +				1 << GMU_OOB_GPU_SET_CLEAR_NEW);
+> +		} else {
+> +			WARN_ON(state != GMU_OOB_PERFCOUNTER_SET);
+> +			gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
+> +				1 << GMU_OOB_PERFCOUNTER_CLEAR_NEW);
+> +		}
+>  		return;
+>  	}
+>  
+> @@ -313,6 +328,10 @@ void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
+>  		gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
+>  			1 << GMU_OOB_GPU_SET_CLEAR);
+>  		break;
+> +	case GMU_OOB_PERFCOUNTER_SET:
+> +		gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
+> +			1 << GMU_OOB_PERFCOUNTER_CLEAR);
+> +		break;
+>  	case GMU_OOB_BOOT_SLUMBER:
+>  		gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
+>  			1 << GMU_OOB_BOOT_SLUMBER_CLEAR);
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+> index c6d2bced8e5d..9fa278de2106 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+> @@ -156,6 +156,7 @@ enum a6xx_gmu_oob_state {
+>  	GMU_OOB_BOOT_SLUMBER = 0,
+>  	GMU_OOB_GPU_SET,
+>  	GMU_OOB_DCVS_SET,
+> +	GMU_OOB_PERFCOUNTER_SET,
+>  };
+>  
+>  /* These are the interrupt / ack bits for each OOB request that are set
+> @@ -190,6 +191,13 @@ enum a6xx_gmu_oob_state {
+>  #define GMU_OOB_GPU_SET_ACK_NEW		31
+>  #define GMU_OOB_GPU_SET_CLEAR_NEW	31
+>  
+> +#define GMU_OOB_PERFCOUNTER_REQUEST	17
+> +#define GMU_OOB_PERFCOUNTER_ACK		25
+> +#define GMU_OOB_PERFCOUNTER_CLEAR	25
+> +
+> +#define GMU_OOB_PERFCOUNTER_REQUEST_NEW	28
+> +#define GMU_OOB_PERFCOUNTER_ACK_NEW	30
+> +#define GMU_OOB_PERFCOUNTER_CLEAR_NEW	30
+>  
+>  void a6xx_hfi_init(struct a6xx_gmu *gmu);
+>  int a6xx_hfi_start(struct a6xx_gmu *gmu, int boot_state);
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index c8a9010c1a1d..7424a70b9d35 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -1177,12 +1177,12 @@ static int a6xx_get_timestamp(struct msm_gpu *gpu, uint64_t *value)
+>  	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+>  
+>  	/* Force the GPU power on so we can read this register */
+> -	a6xx_gmu_set_oob(&a6xx_gpu->gmu, GMU_OOB_GPU_SET);
+> +	a6xx_gmu_set_oob(&a6xx_gpu->gmu, GMU_OOB_PERFCOUNTER_SET);
+>  
+>  	*value = gpu_read64(gpu, REG_A6XX_RBBM_PERFCTR_CP_0_LO,
+>  		REG_A6XX_RBBM_PERFCTR_CP_0_HI);
+>  
+> -	a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_GPU_SET);
+> +	a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_PERFCOUNTER_SET);
+>  	return 0;
+>  }
+>  
+> -- 
+> 2.30.0
+> 
 
-*** DEADLOCK ***
-
-May be due to missing lock nesting notation
-
-6 locks held by reboot/5213:
-__arm64_sys_reboot+0x148/0x2a0
-device_shutdown+0x10c/0x2c4
-drm_atomic_helper_shutdown+0x48/0xfc
-modeset_lock+0x120/0x24c
-lock_crtcs+0x60/0xa4
-
-stack backtrace:
-CPU: 4 PID: 5213 Comm: reboot Not tainted 5.4.91 #1
-Hardware name: Google Pompom (rev1) with LTE (DT)
-Call trace:
-dump_backtrace+0x0/0x1dc
-show_stack+0x24/0x30
-dump_stack+0xfc/0x1a8
-__lock_acquire+0xcd0/0x22b8
-lock_acquire+0x1ec/0x240
-__mutex_lock_common+0xe0/0xc84
-mutex_lock_nested+0x48/0x58
-lock_crtcs+0x60/0xa4
-msm_atomic_commit_tail+0x348/0x570
-commit_tail+0xdc/0x178
-drm_atomic_helper_commit+0x160/0x168
-drm_atomic_commit+0x68/0x80
-
-This is because lockdep thinks all the locks taken in lock_crtcs() are
-the same lock, when they actually aren't. That's because we call
-mutex_init() in msm_kms_init() and that assigns one static key for every
-lock initialized in this loop. Let's allocate a dynamic number of
-lock_class_keys and assign them to each lock so that lockdep can figure
-out an AA deadlock isn't possible here.
-
-Fixes: b3d91800d9ac ("drm/msm: Fix race condition in msm driver with async layer updates")
-Cc: Krishna Manikandan <mkrishn@codeaurora.org>
-Signed-off-by: Stephen Boyd <swboyd@chromium.org>
----
-
-Changes from v1:
- * Fixed typo in commit text
-
- drivers/gpu/drm/msm/msm_kms.h | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
-index d8151a89e163..4735251a394d 100644
---- a/drivers/gpu/drm/msm/msm_kms.h
-+++ b/drivers/gpu/drm/msm/msm_kms.h
-@@ -157,6 +157,7 @@ struct msm_kms {
- 	 * from the crtc's pending_timer close to end of the frame:
- 	 */
- 	struct mutex commit_lock[MAX_CRTCS];
-+	struct lock_class_key commit_lock_keys[MAX_CRTCS];
- 	unsigned pending_crtc_mask;
- 	struct msm_pending_timer pending_timers[MAX_CRTCS];
- };
-@@ -166,8 +167,11 @@ static inline int msm_kms_init(struct msm_kms *kms,
- {
- 	unsigned i, ret;
- 
--	for (i = 0; i < ARRAY_SIZE(kms->commit_lock); i++)
--		mutex_init(&kms->commit_lock[i]);
-+	for (i = 0; i < ARRAY_SIZE(kms->commit_lock); i++) {
-+		lockdep_register_key(&kms->commit_lock_keys[i]);
-+		__mutex_init(&kms->commit_lock[i], "&kms->commit_lock[i]",
-+			     &kms->commit_lock_keys[i]);
-+	}
- 
- 	kms->funcs = funcs;
- 
-
-base-commit: 19c329f6808995b142b3966301f217c831e7cf31
 -- 
-https://chromeos.dev
-
+The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+a Linux Foundation Collaborative Project
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
