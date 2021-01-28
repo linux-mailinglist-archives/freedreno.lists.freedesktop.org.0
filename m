@@ -1,61 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19058307E9B
-	for <lists+freedreno@lfdr.de>; Thu, 28 Jan 2021 20:17:31 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 63FC4307FC5
+	for <lists+freedreno@lfdr.de>; Thu, 28 Jan 2021 21:41:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFF726E9CF;
-	Thu, 28 Jan 2021 19:17:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDA196EA2B;
+	Thu, 28 Jan 2021 20:41:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF4E26E8C3
- for <freedreno@lists.freedesktop.org>; Thu, 28 Jan 2021 19:17:28 +0000 (UTC)
-Received: by mail-ej1-x631.google.com with SMTP id w1so9410007ejf.11
- for <freedreno@lists.freedesktop.org>; Thu, 28 Jan 2021 11:17:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=anholt-net.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=vBlLsqLNkUpR+0kFKtDaYzD8qh6gqBF4/l+RbWGbI1g=;
- b=rMpUjADQ8XyHks7VPikWy0z20Wn35ZyhvSp7sB0PtetVbCKw+y0DBhWyM8iMdLFjzi
- 2/ZCQppwfhCNhkMBAw7504NQg91ydUdX3yxfegSISvFPTQmSfTN3pc/PqkB+cvcE7+lg
- mzmZNlLsh8oh4K2HGEPwDCP+NYGbrW0kIwnFLT0Yr80xz/QvS7nLTt81bjaIssaE5NuN
- x6kMvnIq8EY2HqvUg86PdXGXWOnflPfbOzYkD9vuEXbU5tdRw5sqBfM0XE2Zs7U41yiw
- P1fJJKGvb6gN8/HzmAPCoRyX0gwSCIUqGnchnXlFBrSrXvkHaQTrMYqqSiSZE4WHZ01Z
- EZBg==
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAB276EA23;
+ Thu, 28 Jan 2021 20:41:04 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id z6so6705515wrq.10;
+ Thu, 28 Jan 2021 12:41:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=eZQDBDX7ysZjWH15k/VD+oczZr4PH6075utJ1xgiXgY=;
+ b=oHlkxnKaIiOGZACS9UxXHxQTNSI7Cf3kAEv/slmvz6Fr6NiFpmgruxfX4MNyTwkasB
+ QYt4Sbp/LClgIHBtTOO4s/5Uqy5bSHlA42pmWC8og0ee5189WTurNXFr2P4RzcomIong
+ 1/XFeLRQMFdH/v8QAZ3J5KM6uki8FjmqPKj+M12CVNCm+QghYs4NKDF+z0M/TRUhZqg1
+ CgUK9ZcnQYBG0T/c+iRTtaR6wn7EErMTDKGXXQYWa4oczFCR61YH0rmK/xOisN5q65We
+ Mqd8EPEqgHiO35rl8Fe61apwXy+FKSFIL5ES5Wz2/ocpzoqu6faCNFqpR+5Xsy2Z9KdN
+ /dUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=vBlLsqLNkUpR+0kFKtDaYzD8qh6gqBF4/l+RbWGbI1g=;
- b=OKxMPlG+UJSyoIhj9xG1/1w2JFdNjgJFgMfj+ekqtvy/NvGl0+hScK8azEsGRJ//I/
- 7E7I0pU4pftFuiJzXQ+4wRWStzvmcn0FFUYhNAJpypJv/JlKZ/XCNFOZzGfUB0nyTfeW
- pv+xGPIrz43gsnvO7/u1dOebnzt0Sf6u2oaB79Bs7aOhQZQGlyXdzqTVO/YvU3acGz7t
- xzUWysJcRKAqdE9VtwjmjZUa/tjpmJfRpi3PO+KeoI/K3T9aqfpAlbOqJzdxaFsl2Rvn
- CvE8IEr1hlQtuZrW0UJF7Fc6bVVsQ2VeHsO9YlWue3PoACl9LHQ0ypJmjQC7P+fZRvAN
- 6x7A==
-X-Gm-Message-State: AOAM530IvQN6xRqQzTLxh5t2dX/vhTZPO//RFtKqkRKf3n+ItnLEhpll
- Qy2BG3jJPnbNoKYeQThLuXUPGGCrCQqYXR3tBMu7kg==
-X-Google-Smtp-Source: ABdhPJylhLH79XRqp3ubuYFwgvceaUjciBEqidoB3QEfdehv8e73FrLQPduYYbkQSR/8XQg8gdwQWoFiQVTseSaaSDE=
-X-Received: by 2002:a17:906:5857:: with SMTP id
- h23mr874420ejs.465.1611861447457; 
- Thu, 28 Jan 2021 11:17:27 -0800 (PST)
+ :message-id:subject:to:cc;
+ bh=eZQDBDX7ysZjWH15k/VD+oczZr4PH6075utJ1xgiXgY=;
+ b=U5/DvtekLFfIMhSwJWHRvwf6LIs/ipqM6rtwFXUtn4x6nR/a/21C4jYP+ncmkjdMTq
+ +06T8WUZBEsyXKMhLteV72W9O7105D3c4/+ZOG3odTra9rSKXl28YDlGUHC/E1vOueLR
+ imlF1xvEXC9el5oOE9mocEzbJNISLqLFul39GQKAh8YMr797Op74frvq7WPX95sBNdxr
+ a88oxoGG6IWlS8M0QfVGRwvrqe+qvMGqCg2oJYpnrVuIlJeogZMr0/WRNgegTQtZCC0U
+ X0GxAPpAw267luppgPdgECZptXtS/zR6UZ6ZwBzoyxl2KpeYDAlPEHieUJXpgOBkfID8
+ MsAQ==
+X-Gm-Message-State: AOAM5334ku9I8diuaS27m4naGr8LeBRFDRykKCwtUDvvW+DnW4R95ksf
+ XPCJY3VfXgrLyz0ojE4OOMrQjOPcVrZIIx4bVUY=
+X-Google-Smtp-Source: ABdhPJwlenfZHCOiOfMruxm3X3cs5f9FZfYo4d1ePGXG/fE7YrlvrE++5B7mIUl2kqjHSrrwt81TWvaGodsyTveDQsM=
+X-Received: by 2002:adf:f749:: with SMTP id z9mr855909wrp.327.1611866463544;
+ Thu, 28 Jan 2021 12:41:03 -0800 (PST)
 MIME-Version: 1.0
 References: <20210127233946.1286386-1-eric@anholt.net>
- <20210128184702.GB29306@jcrouse1-lnx.qualcomm.com>
-In-Reply-To: <20210128184702.GB29306@jcrouse1-lnx.qualcomm.com>
-From: Eric Anholt <eric@anholt.net>
-Date: Thu, 28 Jan 2021 11:17:16 -0800
-Message-ID: <CADaigPVF=Ti4tLYTUsK+0Gi6GbK9ADOuFf4tCYftmVZ96gJLxg@mail.gmail.com>
-To: Eric Anholt <eric@anholt.net>,
- DRI Development <dri-devel@lists.freedesktop.org>, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
-Subject: Re: [Freedreno] [PATCH 1/3] drm/msm: Fix race of GPU init vs
- timestamp power management.
+ <20210127233946.1286386-2-eric@anholt.net>
+In-Reply-To: <20210127233946.1286386-2-eric@anholt.net>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 28 Jan 2021 12:40:52 -0800
+Message-ID: <CAF6AEGuXeU18cUKGogtJD7O4SPUgFVQZcw3H-MDXNR5HAXcgFw@mail.gmail.com>
+To: Eric Anholt <eric@anholt.net>
+Subject: Re: [Freedreno] [PATCH 2/3] drm/msm: Fix races managing the OOB
+ state for timestamp vs timestamps.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,30 +62,64 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>, stable <stable@vger.kernel.org>,
+ Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jan 28, 2021 at 10:52 AM Jordan Crouse <jcrouse@codeaurora.org> wrote:
+On Wed, Jan 27, 2021 at 3:39 PM Eric Anholt <eric@anholt.net> wrote:
 >
-> On Wed, Jan 27, 2021 at 03:39:44PM -0800, Eric Anholt wrote:
-> > We were using the same force-poweron bit in the two codepaths, so they
-> > could race to have one of them lose GPU power early.
-> >
-> > Signed-off-by: Eric Anholt <eric@anholt.net>
-> > Cc: stable@vger.kernel.org # v5.9
->
-> You can add:
-> Fixes: 4b565ca5a2cb ("drm/msm: Add A6XX device support")
->
-> Because that was my ugly.
->
-> Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
+> Now that we're not racing with GPU setup, also fix races of timestamps
+> against other timestamps.  In CI, we were seeing this path trigger
+> timeouts on setting the GMU bit, especially on the first set of tests
+> right after boot (it's probably easier to lose the race than one might
+> think, given that we start many tests in parallel, and waiting for NFS
+> to page in code probably means that lots of tests hit the same point
+> of screen init at the same time).
 
-I only pointed it at 5.9 because it looked like it would probably
-conflict against older branches.  I can add the fixes tag if you'd
-like, though.
+Could you add the error msg to the commit msg, to make it more easily
+searchable?
+
+BR,
+-R
+
+> Signed-off-by: Eric Anholt <eric@anholt.net>
+> Cc: stable@vger.kernel.org # v5.9
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index 7424a70b9d35..e8f0b5325a7f 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -1175,6 +1175,9 @@ static int a6xx_get_timestamp(struct msm_gpu *gpu, uint64_t *value)
+>  {
+>         struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+>         struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+> +       static DEFINE_MUTEX(perfcounter_oob);
+> +
+> +       mutex_lock(&perfcounter_oob);
+>
+>         /* Force the GPU power on so we can read this register */
+>         a6xx_gmu_set_oob(&a6xx_gpu->gmu, GMU_OOB_PERFCOUNTER_SET);
+> @@ -1183,6 +1186,7 @@ static int a6xx_get_timestamp(struct msm_gpu *gpu, uint64_t *value)
+>                 REG_A6XX_RBBM_PERFCTR_CP_0_HI);
+>
+>         a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_PERFCOUNTER_SET);
+> +       mutex_unlock(&perfcounter_oob);
+>         return 0;
+>  }
+>
+> --
+> 2.30.0
+>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
