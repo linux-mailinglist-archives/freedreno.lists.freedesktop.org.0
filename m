@@ -1,68 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F4FC307E6B
-	for <lists+freedreno@lfdr.de>; Thu, 28 Jan 2021 19:48:59 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 19058307E9B
+	for <lists+freedreno@lfdr.de>; Thu, 28 Jan 2021 20:17:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7A536E210;
-	Thu, 28 Jan 2021 18:48:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFF726E9CF;
+	Thu, 28 Jan 2021 19:17:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m42-8.mailgun.net (m42-8.mailgun.net [69.72.42.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACF1E6E9DD
- for <freedreno@lists.freedesktop.org>; Thu, 28 Jan 2021 18:48:55 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1611859737; h=In-Reply-To: Content-Type: MIME-Version:
- References: Message-ID: Subject: Cc: To: From: Date: Sender;
- bh=FaK/JjFQ0RyB36pwXra+jhWTB7hpipF52d8CsHGV79I=;
- b=vhKTuPvaxlQUlQbczUDuCPa7/wszHv3QD/s+1zastBA/i5GK/Bh8frtZT1rYWQZFAi7s22ih
- 2ndVWcGUFWZ7N/7udU8C3heC5kRZvDYu4e8UutHNBT90r8kOOMU2zx0BJMuJFAipAfIYdEhV
- B1g0rg3EFrH4GE+FYatTDBFrIjw=
-X-Mailgun-Sending-Ip: 69.72.42.8
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n06.prod.us-east-1.postgun.com with SMTP id
- 60130714e325600642a6321c (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 28 Jan 2021 18:48:52
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 2391DC43465; Thu, 28 Jan 2021 18:48:52 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL, 
- URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 48C56C433C6;
- Thu, 28 Jan 2021 18:48:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 48C56C433C6
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=jcrouse@codeaurora.org
-Date: Thu, 28 Jan 2021 11:48:47 -0700
-From: Jordan Crouse <jcrouse@codeaurora.org>
-To: Eric Anholt <eric@anholt.net>
-Message-ID: <20210128184847.GD29306@jcrouse1-lnx.qualcomm.com>
-Mail-Followup-To: Eric Anholt <eric@anholt.net>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
-References: <20210127233946.1286386-1-eric@anholt.net>
- <20210127233946.1286386-3-eric@anholt.net>
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [IPv6:2a00:1450:4864:20::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF4E26E8C3
+ for <freedreno@lists.freedesktop.org>; Thu, 28 Jan 2021 19:17:28 +0000 (UTC)
+Received: by mail-ej1-x631.google.com with SMTP id w1so9410007ejf.11
+ for <freedreno@lists.freedesktop.org>; Thu, 28 Jan 2021 11:17:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=anholt-net.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
+ bh=vBlLsqLNkUpR+0kFKtDaYzD8qh6gqBF4/l+RbWGbI1g=;
+ b=rMpUjADQ8XyHks7VPikWy0z20Wn35ZyhvSp7sB0PtetVbCKw+y0DBhWyM8iMdLFjzi
+ 2/ZCQppwfhCNhkMBAw7504NQg91ydUdX3yxfegSISvFPTQmSfTN3pc/PqkB+cvcE7+lg
+ mzmZNlLsh8oh4K2HGEPwDCP+NYGbrW0kIwnFLT0Yr80xz/QvS7nLTt81bjaIssaE5NuN
+ x6kMvnIq8EY2HqvUg86PdXGXWOnflPfbOzYkD9vuEXbU5tdRw5sqBfM0XE2Zs7U41yiw
+ P1fJJKGvb6gN8/HzmAPCoRyX0gwSCIUqGnchnXlFBrSrXvkHaQTrMYqqSiSZE4WHZ01Z
+ EZBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to;
+ bh=vBlLsqLNkUpR+0kFKtDaYzD8qh6gqBF4/l+RbWGbI1g=;
+ b=OKxMPlG+UJSyoIhj9xG1/1w2JFdNjgJFgMfj+ekqtvy/NvGl0+hScK8azEsGRJ//I/
+ 7E7I0pU4pftFuiJzXQ+4wRWStzvmcn0FFUYhNAJpypJv/JlKZ/XCNFOZzGfUB0nyTfeW
+ pv+xGPIrz43gsnvO7/u1dOebnzt0Sf6u2oaB79Bs7aOhQZQGlyXdzqTVO/YvU3acGz7t
+ xzUWysJcRKAqdE9VtwjmjZUa/tjpmJfRpi3PO+KeoI/K3T9aqfpAlbOqJzdxaFsl2Rvn
+ CvE8IEr1hlQtuZrW0UJF7Fc6bVVsQ2VeHsO9YlWue3PoACl9LHQ0ypJmjQC7P+fZRvAN
+ 6x7A==
+X-Gm-Message-State: AOAM530IvQN6xRqQzTLxh5t2dX/vhTZPO//RFtKqkRKf3n+ItnLEhpll
+ Qy2BG3jJPnbNoKYeQThLuXUPGGCrCQqYXR3tBMu7kg==
+X-Google-Smtp-Source: ABdhPJylhLH79XRqp3ubuYFwgvceaUjciBEqidoB3QEfdehv8e73FrLQPduYYbkQSR/8XQg8gdwQWoFiQVTseSaaSDE=
+X-Received: by 2002:a17:906:5857:: with SMTP id
+ h23mr874420ejs.465.1611861447457; 
+ Thu, 28 Jan 2021 11:17:27 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210127233946.1286386-3-eric@anholt.net>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Freedreno] [PATCH 3/3] drm/msm: Clean up GMU OOB set/clear
- handling.
+References: <20210127233946.1286386-1-eric@anholt.net>
+ <20210128184702.GB29306@jcrouse1-lnx.qualcomm.com>
+In-Reply-To: <20210128184702.GB29306@jcrouse1-lnx.qualcomm.com>
+From: Eric Anholt <eric@anholt.net>
+Date: Thu, 28 Jan 2021 11:17:16 -0800
+Message-ID: <CADaigPVF=Ti4tLYTUsK+0Gi6GbK9ADOuFf4tCYftmVZ96gJLxg@mail.gmail.com>
+To: Eric Anholt <eric@anholt.net>,
+ DRI Development <dri-devel@lists.freedesktop.org>, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
+Subject: Re: [Freedreno] [PATCH 1/3] drm/msm: Fix race of GPU init vs
+ timestamp power management.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,268 +68,30 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jan 27, 2021 at 03:39:46PM -0800, Eric Anholt wrote:
-> Now that the bug is fixed in the minimal way for stable, go make the
-> code table-driven.
-> 
-> Signed-off-by: Eric Anholt <eric@anholt.net>
+On Thu, Jan 28, 2021 at 10:52 AM Jordan Crouse <jcrouse@codeaurora.org> wrote:
+>
+> On Wed, Jan 27, 2021 at 03:39:44PM -0800, Eric Anholt wrote:
+> > We were using the same force-poweron bit in the two codepaths, so they
+> > could race to have one of them lose GPU power early.
+> >
+> > Signed-off-by: Eric Anholt <eric@anholt.net>
+> > Cc: stable@vger.kernel.org # v5.9
+>
+> You can add:
+> Fixes: 4b565ca5a2cb ("drm/msm: Add A6XX device support")
+>
+> Because that was my ugly.
+>
+> Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
 
-There shouldn't be too many more OOB bits, but this is a good cleanup
-regardless.
-
-Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
-
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 124 +++++++++++++-------------
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  55 ++++--------
->  2 files changed, 77 insertions(+), 102 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> index 378dc7f190c3..c497e0942141 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> @@ -245,47 +245,66 @@ static int a6xx_gmu_hfi_start(struct a6xx_gmu *gmu)
->  	return ret;
->  }
->  
-> +struct a6xx_gmu_oob_bits {
-> +	int set, ack, set_new, ack_new;
-> +	const char *name;
-> +};
-> +
-> +/* These are the interrupt / ack bits for each OOB request that are set
-> + * in a6xx_gmu_set_oob and a6xx_clear_oob
-> + */
-> +static const struct a6xx_gmu_oob_bits a6xx_gmu_oob_bits[] = {
-> +	[GMU_OOB_GPU_SET] = {
-> +		.name = "GPU_SET",
-> +		.set = 16,
-> +		.ack = 24,
-> +		.set_new = 30,
-> +		.ack_new = 31,
-> +	},
-> +
-> +	[GMU_OOB_PERFCOUNTER_SET] = {
-> +		.name = "PERFCOUNTER",
-> +		.set = 17,
-> +		.ack = 25,
-> +		.set_new = 28,
-> +		.ack_new = 30,
-> +	},
-> +
-> +	[GMU_OOB_BOOT_SLUMBER] = {
-> +		.name = "BOOT_SLUMBER",
-> +		.set = 22,
-> +		.ack = 30,
-> +	},
-> +
-> +	[GMU_OOB_DCVS_SET] = {
-> +		.name = "GPU_DCVS",
-> +		.set = 23,
-> +		.ack = 31,
-> +	},
-> +};
-> +
->  /* Trigger a OOB (out of band) request to the GMU */
->  int _a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state, char *file, int line)
->  {
->  	int ret;
->  	u32 val;
->  	int request, ack;
-> -	const char *name;
->  
-> -	switch (state) {
-> -	case GMU_OOB_GPU_SET:
-> -		if (gmu->legacy) {
-> -			request = GMU_OOB_GPU_SET_REQUEST;
-> -			ack = GMU_OOB_GPU_SET_ACK;
-> -		} else {
-> -			request = GMU_OOB_GPU_SET_REQUEST_NEW;
-> -			ack = GMU_OOB_GPU_SET_ACK_NEW;
-> -		}
-> -		name = "GPU_SET";
-> -		break;
-> -	case GMU_OOB_PERFCOUNTER_SET:
-> -		if (gmu->legacy) {
-> -			request = GMU_OOB_PERFCOUNTER_REQUEST;
-> -			ack = GMU_OOB_PERFCOUNTER_ACK;
-> -		} else {
-> -			request = GMU_OOB_PERFCOUNTER_REQUEST_NEW;
-> -			ack = GMU_OOB_PERFCOUNTER_ACK_NEW;
-> -		}
-> -		name = "PERFCOUNTER";
-> -		break;
-> -	case GMU_OOB_BOOT_SLUMBER:
-> -		request = GMU_OOB_BOOT_SLUMBER_REQUEST;
-> -		ack = GMU_OOB_BOOT_SLUMBER_ACK;
-> -		name = "BOOT_SLUMBER";
-> -		break;
-> -	case GMU_OOB_DCVS_SET:
-> -		request = GMU_OOB_DCVS_REQUEST;
-> -		ack = GMU_OOB_DCVS_ACK;
-> -		name = "GPU_DCVS";
-> -		break;
-> -	default:
-> +	if (state >= ARRAY_SIZE(a6xx_gmu_oob_bits))
->  		return -EINVAL;
-> +
-> +	if (gmu->legacy) {
-> +		request = a6xx_gmu_oob_bits[state].set;
-> +		ack = a6xx_gmu_oob_bits[state].ack;
-> +	} else {
-> +		request = a6xx_gmu_oob_bits[state].set_new;
-> +		ack = a6xx_gmu_oob_bits[state].ack_new;
-> +		if (!request || !ack) {
-> +			DRM_DEV_ERROR(gmu->dev,
-> +				      "Invalid non-legacy GMU request %s\n",
-> +				      a6xx_gmu_oob_bits[state].name);
-> +			return -EINVAL;
-> +		}
->  	}
->  
->  	/* Trigger the equested OOB operation */
-> @@ -299,7 +318,7 @@ int _a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state, char
->  		DRM_DEV_ERROR(gmu->dev,
->  			"%s:%d Timeout waiting for GMU OOB set %s: 0x%x\n",
->  			file, line,
-> -				name,
-> +				a6xx_gmu_oob_bits[state].name,
->  				gmu_read(gmu, REG_A6XX_GMU_GMU2HOST_INTR_INFO));
->  
->  	/* Clear the acknowledge interrupt */
-> @@ -311,36 +330,17 @@ int _a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state, char
->  /* Clear a pending OOB state in the GMU */
->  void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
->  {
-> -	if (!gmu->legacy) {
-> -		if (state == GMU_OOB_GPU_SET) {
-> -			gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
-> -				1 << GMU_OOB_GPU_SET_CLEAR_NEW);
-> -		} else {
-> -			WARN_ON(state != GMU_OOB_PERFCOUNTER_SET);
-> -			gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
-> -				1 << GMU_OOB_PERFCOUNTER_CLEAR_NEW);
-> -		}
-> +	int bit;
-> +
-> +	if (state >= ARRAY_SIZE(a6xx_gmu_oob_bits))
->  		return;
-> -	}
->  
-> -	switch (state) {
-> -	case GMU_OOB_GPU_SET:
-> -		gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
-> -			1 << GMU_OOB_GPU_SET_CLEAR);
-> -		break;
-> -	case GMU_OOB_PERFCOUNTER_SET:
-> -		gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
-> -			1 << GMU_OOB_PERFCOUNTER_CLEAR);
-> -		break;
-> -	case GMU_OOB_BOOT_SLUMBER:
-> -		gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
-> -			1 << GMU_OOB_BOOT_SLUMBER_CLEAR);
-> -		break;
-> -	case GMU_OOB_DCVS_SET:
-> -		gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
-> -			1 << GMU_OOB_DCVS_CLEAR);
-> -		break;
-> -	}
-> +	if (gmu->legacy)
-> +		bit = a6xx_gmu_oob_bits[state].ack;
-> +	else
-> +		bit = a6xx_gmu_oob_bits[state].ack_new;
-> +
-> +	gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET, bit);
->  }
->  
->  /* Enable CPU control of SPTP power power collapse */
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-> index 9fa278de2106..71dfa60070cc 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-> @@ -153,52 +153,27 @@ static inline void gmu_write_rscc(struct a6xx_gmu *gmu, u32 offset, u32 value)
->   */
->  
->  enum a6xx_gmu_oob_state {
-> +	/*
-> +	 * Let the GMU know that a boot or slumber operation has started. The value in
-> +	 * REG_A6XX_GMU_BOOT_SLUMBER_OPTION lets the GMU know which operation we are
-> +	 * doing
-> +	 */
->  	GMU_OOB_BOOT_SLUMBER = 0,
-> +	/*
-> +	 * Let the GMU know to not turn off any GPU registers while the CPU is in a
-> +	 * critical section
-> +	 */
->  	GMU_OOB_GPU_SET,
-> +	/*
-> +	 * Set a new power level for the GPU when the CPU is doing frequency scaling
-> +	 */
->  	GMU_OOB_DCVS_SET,
-> +	/*
-> +	 * Used to keep the GPU on for CPU-side reads of performance counters.
-> +	 */
->  	GMU_OOB_PERFCOUNTER_SET,
->  };
->  
-> -/* These are the interrupt / ack bits for each OOB request that are set
-> - * in a6xx_gmu_set_oob and a6xx_clear_oob
-> - */
-> -
-> -/*
-> - * Let the GMU know that a boot or slumber operation has started. The value in
-> - * REG_A6XX_GMU_BOOT_SLUMBER_OPTION lets the GMU know which operation we are
-> - * doing
-> - */
-> -#define GMU_OOB_BOOT_SLUMBER_REQUEST	22
-> -#define GMU_OOB_BOOT_SLUMBER_ACK	30
-> -#define GMU_OOB_BOOT_SLUMBER_CLEAR	30
-> -
-> -/*
-> - * Set a new power level for the GPU when the CPU is doing frequency scaling
-> - */
-> -#define GMU_OOB_DCVS_REQUEST	23
-> -#define GMU_OOB_DCVS_ACK	31
-> -#define GMU_OOB_DCVS_CLEAR	31
-> -
-> -/*
-> - * Let the GMU know to not turn off any GPU registers while the CPU is in a
-> - * critical section
-> - */
-> -#define GMU_OOB_GPU_SET_REQUEST	16
-> -#define GMU_OOB_GPU_SET_ACK	24
-> -#define GMU_OOB_GPU_SET_CLEAR	24
-> -
-> -#define GMU_OOB_GPU_SET_REQUEST_NEW	30
-> -#define GMU_OOB_GPU_SET_ACK_NEW		31
-> -#define GMU_OOB_GPU_SET_CLEAR_NEW	31
-> -
-> -#define GMU_OOB_PERFCOUNTER_REQUEST	17
-> -#define GMU_OOB_PERFCOUNTER_ACK		25
-> -#define GMU_OOB_PERFCOUNTER_CLEAR	25
-> -
-> -#define GMU_OOB_PERFCOUNTER_REQUEST_NEW	28
-> -#define GMU_OOB_PERFCOUNTER_ACK_NEW	30
-> -#define GMU_OOB_PERFCOUNTER_CLEAR_NEW	30
-> -
->  void a6xx_hfi_init(struct a6xx_gmu *gmu);
->  int a6xx_hfi_start(struct a6xx_gmu *gmu, int boot_state);
->  void a6xx_hfi_stop(struct a6xx_gmu *gmu);
-> -- 
-> 2.30.0
-> 
-
--- 
-The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
-a Linux Foundation Collaborative Project
+I only pointed it at 5.9 because it looked like it would probably
+conflict against older branches.  I can add the fixes tag if you'd
+like, though.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
