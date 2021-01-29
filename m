@@ -2,56 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 373BB3089E5
-	for <lists+freedreno@lfdr.de>; Fri, 29 Jan 2021 16:31:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B39083090C3
+	for <lists+freedreno@lfdr.de>; Sat, 30 Jan 2021 00:53:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D34E46EB62;
-	Fri, 29 Jan 2021 15:31:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58C3A6EC6B;
+	Fri, 29 Jan 2021 23:53:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 101CA6EABE
- for <freedreno@lists.freedesktop.org>; Fri, 29 Jan 2021 10:16:24 +0000 (UTC)
-Received: by mail-pf1-x442.google.com with SMTP id j12so5933559pfj.12
- for <freedreno@lists.freedesktop.org>; Fri, 29 Jan 2021 02:16:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=0EVHMn1baZvQLJLGxCuW7aI/+62Jj0sfPfF7kM8sXVg=;
- b=eLMJBLcdnSpeb2uDEumlUhtkgf83mSKXsbhjUF3e8gZWgl2Ja3kYicWY7e72x0+CAg
- WW1LQ7qQjlnNSW9MJxgyYB+lu6qvg3jTshj2R37lqCMgBJr2Z/BAnqQOc6KGhm/RX4be
- GE5GJUEYc8P0/EubtAb6difG07L6NAxPAp+Ig=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=0EVHMn1baZvQLJLGxCuW7aI/+62Jj0sfPfF7kM8sXVg=;
- b=TD3I39F/7qsh5ZlO5Xu24CQqY9SxfdKurXu1pEU1qOvtMbVO2NHGJchB0LKdZlbKfX
- kSNONZB8DIcTNjwNJzTkt+nWd2SC2PjdIPo3tXQLd3TunkhfZL30HPGJQAtPOHy0pdPA
- gUcUhNTBOlUDdG3kOYX0rGNsT/9u9XaRg8ZREg0xliF3GRdyWFefJGiOAzMcY8+FzPhb
- xe8KAnsNfp7YzBzOmq7cOXHtYs+7XzoaDW2Zwwec5NvRAhBkO2bHgeL/Al34cZwKUE4G
- CBqNONxcZSLaiNCtVVuoail2tPyWGJrwBKAIc8eDxfM8RgXwxuH2R+sr3evKXX1NL8SO
- pemQ==
-X-Gm-Message-State: AOAM5307YlpMbUu4DFdnYJGAlme2o/FrZz1hIqYm989jYbLIBk/+re60
- tpHbXeOKiBMd5K6PfE2lPW4NkQ==
-X-Google-Smtp-Source: ABdhPJwKOYUPsux7DRsNvdfjJEJ/mslvZ47fOQUY0EgVE9lTzc/KmhVJmZHLLd+cEdrXaIOjUv9CJQ==
-X-Received: by 2002:a63:1047:: with SMTP id 7mr4043761pgq.292.1611915383690;
- Fri, 29 Jan 2021 02:16:23 -0800 (PST)
-Received: from judyhsiao-p920.tpe.corp.google.com
- ([2401:fa00:1:10:2991:e2d5:3583:ab3f])
- by smtp.gmail.com with ESMTPSA id r194sm8486165pfr.168.2021.01.29.02.16.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 Jan 2021 02:16:22 -0800 (PST)
-From: Judy Hsiao <judyhsiao@chromium.org>
-To: Rob Clark <robdclark@gmail.com>
-Date: Fri, 29 Jan 2021 18:16:03 +0800
-Message-Id: <20210129101603.3151367-1-judyhsiao@chromium.org>
-X-Mailer: git-send-email 2.30.0.365.g02bc693789-goog
+X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
+ Fri, 29 Jan 2021 23:53:27 UTC
+Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
+ [104.130.122.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 979046EC6B
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Jan 2021 23:53:27 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1611964407; h=In-Reply-To: Content-Type: MIME-Version:
+ References: Message-ID: Subject: Cc: To: From: Date: Sender;
+ bh=HUNiHIQmr/npCagMU/t/LtTySsZ+JNwCBw3sxHTxVDE=;
+ b=GsPaxzqitKn4SvJXVPZ0Xpl5Y5Viq3dI9midqlpHMBvGVYdoHkUd4xCe/dhcQNmpFlRF6CWP
+ E86ncWzZmu1rjDrb80hkcJilak6tuAFLFiAWTZhY29TvZ53RBAS8xvEepa6feA2iWxrbXywG
+ XsU4Ry/0PgTJQCYZievia0Rahog=
+X-Mailgun-Sending-Ip: 104.130.122.29
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
+ 60149ec08f2d32c2c57125da (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 29 Jan 2021 23:48:16
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 006F7C433CA; Fri, 29 Jan 2021 23:48:15 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 53D46C433C6;
+ Fri, 29 Jan 2021 23:48:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 53D46C433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=jcrouse@codeaurora.org
+Date: Fri, 29 Jan 2021 16:48:11 -0700
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: Eric Anholt <eric@anholt.net>
+Message-ID: <20210129234811.GA1612@jcrouse1-lnx.qualcomm.com>
+Mail-Followup-To: Eric Anholt <eric@anholt.net>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
+References: <20210127233946.1286386-1-eric@anholt.net>
+ <20210128184702.GB29306@jcrouse1-lnx.qualcomm.com>
+ <CADaigPVF=Ti4tLYTUsK+0Gi6GbK9ADOuFf4tCYftmVZ96gJLxg@mail.gmail.com>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Fri, 29 Jan 2021 15:31:28 +0000
-Subject: [Freedreno] [PATCH v2] drm/msm/dp: trigger unplug event in
- msm_dp_display_disable
+Content-Disposition: inline
+In-Reply-To: <CADaigPVF=Ti4tLYTUsK+0Gi6GbK9ADOuFf4tCYftmVZ96gJLxg@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Freedreno] [PATCH 1/3] drm/msm: Fix race of GPU init vs
+ timestamp power management.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,63 +80,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Judy Hsiao <judyhsiao@google.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Tanmay Shah <tanmay@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
- Kuogee Hsieh <khsieh@codeaurora.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
- Judy Hsiao <judyhsiao@chromium.org>,
- Chandan Uddaraju <chandanu@codeaurora.org>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ LKML <linux-kernel@vger.kernel.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Rob Clark <robdclark@gmail.com>, stable@vger.kernel.org,
+ Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Judy Hsiao <judyhsiao@google.com>
+On Thu, Jan 28, 2021 at 11:17:16AM -0800, Eric Anholt wrote:
+> On Thu, Jan 28, 2021 at 10:52 AM Jordan Crouse <jcrouse@codeaurora.org> wrote:
+> >
+> > On Wed, Jan 27, 2021 at 03:39:44PM -0800, Eric Anholt wrote:
+> > > We were using the same force-poweron bit in the two codepaths, so they
+> > > could race to have one of them lose GPU power early.
+> > >
+> > > Signed-off-by: Eric Anholt <eric@anholt.net>
+> > > Cc: stable@vger.kernel.org # v5.9
+> >
+> > You can add:
+> > Fixes: 4b565ca5a2cb ("drm/msm: Add A6XX device support")
+> >
+> > Because that was my ugly.
+> >
+> > Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
+> 
+> I only pointed it at 5.9 because it looked like it would probably
+> conflict against older branches.  I can add the fixes tag if you'd
+> like, though.
 
-1. Trigger the unplug event in msm_dp_display_disable() to shutdown audio
-   properly.
-2. Reset the completion before signal the disconnect event.
+Fair enough. It is a good bug to fix but not if there are a lot of conflicts to
+deal with.
 
-Fixes: 158b9aa74479 ("drm/msm/dp: wait for audio notification before disabling clocks")
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-Tested-by: Stephen Boyd <swboyd@chromium.org>
-Signed-off-by: Judy Hsiao <judyhsiao@chromium.org>
----
- v2:
- - --to the correct maintainers.
+Jordan
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 
- drivers/gpu/drm/msm/dp/dp_display.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 3bc7ed21de286..81f6794a25100 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -651,8 +651,8 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
- 	dp_add_event(dp, EV_DISCONNECT_PENDING_TIMEOUT, 0, DP_TIMEOUT_5_SECOND);
- 
- 	/* signal the disconnect event early to ensure proper teardown */
--	dp_display_handle_plugged_change(g_dp_display, false);
- 	reinit_completion(&dp->audio_comp);
-+	dp_display_handle_plugged_change(g_dp_display, false);
- 
- 	dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_PLUG_INT_MASK |
- 					DP_DP_IRQ_HPD_INT_MASK, true);
-@@ -890,6 +890,9 @@ static int dp_display_disable(struct dp_display_private *dp, u32 data)
- 
- 	/* wait only if audio was enabled */
- 	if (dp_display->audio_enabled) {
-+		/* signal the disconnect event */
-+		reinit_completion(&dp->audio_comp);
-+		dp_display_handle_plugged_change(dp_display, false);
- 		if (!wait_for_completion_timeout(&dp->audio_comp,
- 				HZ * 5))
- 			DRM_ERROR("audio comp timeout\n");
 -- 
-2.30.0.365.g02bc693789-goog
-
+The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+a Linux Foundation Collaborative Project
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
