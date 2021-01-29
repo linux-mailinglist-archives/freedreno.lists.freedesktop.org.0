@@ -2,62 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4B36308021
-	for <lists+freedreno@lfdr.de>; Thu, 28 Jan 2021 22:03:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B14D308727
+	for <lists+freedreno@lfdr.de>; Fri, 29 Jan 2021 09:53:46 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0AB76EA32;
-	Thu, 28 Jan 2021 21:03:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40AD56EA86;
+	Fri, 29 Jan 2021 08:53:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com
- [IPv6:2607:f8b0:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC32E6EA32
- for <freedreno@lists.freedesktop.org>; Thu, 28 Jan 2021 21:03:44 +0000 (UTC)
-Received: by mail-pg1-x529.google.com with SMTP id b21so5111102pgk.7
- for <freedreno@lists.freedesktop.org>; Thu, 28 Jan 2021 13:03:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=anholt-net.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=wM2/b7QFWaQQI4UJf7JjD4AI6NPu+8JRBfTf4GHnnsg=;
- b=doC8UKoWa4GMZ92u8rldyh0wh50138AQWo3u4p2HuifyPY3rPX0T0RVm7hVy3y8L8+
- ZyvfIhWN836wYF17L8Jh3ShPACzXnZy4/vX51GOSXEjB5UeUPn5xBgH7LTNLYqkIHl6w
- WDQMHVl+hW86iOMw47NGgoKDLLeIsQ76zLNPIjuaIs2Pkhgpv0GLywLLQMSY69QN+Mog
- aIKTiAkFVwpnv9hPp56OcNkD9S3HMKwI1JLF3mQ8+O/BFknY4gacckxg0jUnyUn76nGp
- 50KAuvE0NUoI1p6Pb2vF2jQ46LIj+6x9cii+TKPYNcvAR7SDmlsuXokeqS3r74Qrkf2E
- n5sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=wM2/b7QFWaQQI4UJf7JjD4AI6NPu+8JRBfTf4GHnnsg=;
- b=PhN9XCSOld7YJjfYQA3hg/MEckuvU0mNkLY7GuQ81fFmEwc9CT3VHuK8iWRMGGq+E5
- qb6kv1JXFhA05xqDC8wQjxbuaSiL/69bPTJBV41u0yTiFiMhprDwoKSfhBk7RuHfv6eg
- deam+RZZz/ZQrHbwEouE2fHZ8D6GmwtdxgDZUZboYeSNfLHRNLyyLVZBaDQvGz8ApxBH
- KpGfbyoyQZzvVzvCZ6oWnFCxviOseIkB43kROz4ZfVyRca90eB2L0GsL0Vnz3lHvABRi
- gz/FIsSVuYr0hTZMmjVO/2LSeBVrohrd4+ah6A5WXPJfZ8pmzG0ZARk71dSiUYL/F6Qp
- QOlw==
-X-Gm-Message-State: AOAM532VscsUVehbECDTr2BySTNQgCCqdFW6ZQ2GhTyHsC9PR8J3QbwK
- gx1j5ZATxFkqRFnCq6HNJCRoxg==
-X-Google-Smtp-Source: ABdhPJze8ftVIa3bHsD35Xx0ylWBIT4/Eb83ZaXV//7B+Jzg0MRyuN8BNExk16VtA7m097XshVzsIA==
-X-Received: by 2002:a63:5453:: with SMTP id e19mr1241358pgm.439.1611867824523; 
- Thu, 28 Jan 2021 13:03:44 -0800 (PST)
-Received: from wildbow.anholt.net ([75.164.105.146])
- by smtp.gmail.com with ESMTPSA id l2sm6753295pga.65.2021.01.28.13.03.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Jan 2021 13:03:43 -0800 (PST)
-From: Eric Anholt <eric@anholt.net>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Jordan Crouse <jcrouse@codeaurora.org>
-Date: Thu, 28 Jan 2021 13:03:32 -0800
-Message-Id: <20210128210332.1690609-4-eric@anholt.net>
-X-Mailer: git-send-email 2.30.0
-In-Reply-To: <20210128210332.1690609-1-eric@anholt.net>
-References: <20210128210332.1690609-1-eric@anholt.net>
+Received: from m42-8.mailgun.net (m42-8.mailgun.net [69.72.42.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F15E96E3F2
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Jan 2021 08:53:41 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1611910423; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=STGozSZ37Si3ST7RDdvcPgDXokZS/m9htVu1Sw/iTbU=;
+ b=dnY1clpZO7m0NK1IthX9SEpj5wydAvt1mCgcwd9gtHHU2dgiDmMcOpT1K5DLI4ZKLiA17r02
+ KpZ3bPuvLwcxV6u1SE/NU5OB1h34WiIo4g68ijDL4SKR8TsGelq9RHF/w4r6iTa42yFLQbqk
+ kr5XipfYt5uuPevAbzoWFMbiOk4=
+X-Mailgun-Sending-Ip: 69.72.42.8
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
+ 6013cd122d0fc4bcc5096d2b (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 29 Jan 2021 08:53:38
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id CE57FC43467; Fri, 29 Jan 2021 08:53:37 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: saiprakash.ranjan)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id D7FEAC433CA;
+ Fri, 29 Jan 2021 08:53:36 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v3 3/3] drm/msm: Clean up GMU OOB set/clear
- handling.
+Date: Fri, 29 Jan 2021 14:23:36 +0530
+From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joro@8bytes.org>, Jordan Crouse <jcrouse@codeaurora.org>, Rob
+ Clark <robdclark@gmail.com>, Akhil P Oommen <akhilpo@codeaurora.org>,
+ isaacm@codeaurora.org
+In-Reply-To: <3e6ec220c07bcf91fae0985e1798f7a1@codeaurora.org>
+References: <cover.1610372717.git.saiprakash.ranjan@codeaurora.org>
+ <3e6ec220c07bcf91fae0985e1798f7a1@codeaurora.org>
+Message-ID: <92a5f6fde47ac1d26745920587256437@codeaurora.org>
+X-Sender: saiprakash.ranjan@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH 0/3] iommu/drm/msm: Allow non-coherent
+ masters to use system cache
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,256 +68,66 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eric Anholt <eric@anholt.net>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
+ Kristian H Kristensen <hoegsberg@google.com>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ linux-arm-kernel@lists.infradead.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Now that the bug is fixed in the minimal way for stable, go make the
-code table-driven.
+On 2021-01-20 10:48, Sai Prakash Ranjan wrote:
+> On 2021-01-11 19:45, Sai Prakash Ranjan wrote:
+>> commit ecd7274fb4cd ("iommu: Remove unused IOMMU_SYS_CACHE_ONLY flag")
+>> removed unused IOMMU_SYS_CACHE_ONLY prot flag and along with it went
+>> the memory type setting required for the non-coherent masters to use
+>> system cache. Now that system cache support for GPU is added, we will
+>> need to set the right PTE attribute for GPU buffers to be sys cached.
+>> Without this, the system cache lines are not allocated for GPU.
+>> 
+>> So the patches in this series introduces a new prot flag IOMMU_LLC,
+>> renames IO_PGTABLE_QUIRK_ARM_OUTER_WBWA to IO_PGTABLE_QUIRK_PTW_LLC
+>> and makes GPU the user of this protection flag.
+>> 
+>> The series slightly depends on following 2 patches posted earlier and
+>> is based on msm-next branch:
+>>  * https://lore.kernel.org/patchwork/patch/1363008/
+>>  * https://lore.kernel.org/patchwork/patch/1363010/
+>> 
+>> Sai Prakash Ranjan (3):
+>>   iommu/io-pgtable: Rename last-level cache quirk to
+>>     IO_PGTABLE_QUIRK_PTW_LLC
+>>   iommu/io-pgtable-arm: Add IOMMU_LLC page protection flag
+>>   drm/msm: Use IOMMU_LLC page protection flag to map gpu buffers
+>> 
+>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 3 +++
+>>  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 2 +-
+>>  drivers/gpu/drm/msm/msm_iommu.c         | 3 +++
+>>  drivers/gpu/drm/msm/msm_mmu.h           | 4 ++++
+>>  drivers/iommu/io-pgtable-arm.c          | 9 ++++++---
+>>  include/linux/io-pgtable.h              | 6 +++---
+>>  include/linux/iommu.h                   | 6 ++++++
+>>  7 files changed, 26 insertions(+), 7 deletions(-)
+>> 
+>> 
+>> base-commit: 00fd44a1a4700718d5d962432b55c09820f7e709
+> 
+> 
+> Gentle Ping!
+> 
 
-Signed-off-by: Eric Anholt <eric@anholt.net>
-Reviewed-by: Jordan Crouse <jcrouse@codeaurora.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 124 +++++++++++++-------------
- drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  55 ++++--------
- 2 files changed, 77 insertions(+), 102 deletions(-)
+Gentle Ping!!
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index b3318f86aabc..9066e98eb8ef 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -245,47 +245,66 @@ static int a6xx_gmu_hfi_start(struct a6xx_gmu *gmu)
- 	return ret;
- }
- 
-+struct a6xx_gmu_oob_bits {
-+	int set, ack, set_new, ack_new;
-+	const char *name;
-+};
-+
-+/* These are the interrupt / ack bits for each OOB request that are set
-+ * in a6xx_gmu_set_oob and a6xx_clear_oob
-+ */
-+static const struct a6xx_gmu_oob_bits a6xx_gmu_oob_bits[] = {
-+	[GMU_OOB_GPU_SET] = {
-+		.name = "GPU_SET",
-+		.set = 16,
-+		.ack = 24,
-+		.set_new = 30,
-+		.ack_new = 31,
-+	},
-+
-+	[GMU_OOB_PERFCOUNTER_SET] = {
-+		.name = "PERFCOUNTER",
-+		.set = 17,
-+		.ack = 25,
-+		.set_new = 28,
-+		.ack_new = 30,
-+	},
-+
-+	[GMU_OOB_BOOT_SLUMBER] = {
-+		.name = "BOOT_SLUMBER",
-+		.set = 22,
-+		.ack = 30,
-+	},
-+
-+	[GMU_OOB_DCVS_SET] = {
-+		.name = "GPU_DCVS",
-+		.set = 23,
-+		.ack = 31,
-+	},
-+};
-+
- /* Trigger a OOB (out of band) request to the GMU */
- int a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
- {
- 	int ret;
- 	u32 val;
- 	int request, ack;
--	const char *name;
- 
--	switch (state) {
--	case GMU_OOB_GPU_SET:
--		if (gmu->legacy) {
--			request = GMU_OOB_GPU_SET_REQUEST;
--			ack = GMU_OOB_GPU_SET_ACK;
--		} else {
--			request = GMU_OOB_GPU_SET_REQUEST_NEW;
--			ack = GMU_OOB_GPU_SET_ACK_NEW;
--		}
--		name = "GPU_SET";
--		break;
--	case GMU_OOB_PERFCOUNTER_SET:
--		if (gmu->legacy) {
--			request = GMU_OOB_PERFCOUNTER_REQUEST;
--			ack = GMU_OOB_PERFCOUNTER_ACK;
--		} else {
--			request = GMU_OOB_PERFCOUNTER_REQUEST_NEW;
--			ack = GMU_OOB_PERFCOUNTER_ACK_NEW;
--		}
--		name = "PERFCOUNTER";
--		break;
--	case GMU_OOB_BOOT_SLUMBER:
--		request = GMU_OOB_BOOT_SLUMBER_REQUEST;
--		ack = GMU_OOB_BOOT_SLUMBER_ACK;
--		name = "BOOT_SLUMBER";
--		break;
--	case GMU_OOB_DCVS_SET:
--		request = GMU_OOB_DCVS_REQUEST;
--		ack = GMU_OOB_DCVS_ACK;
--		name = "GPU_DCVS";
--		break;
--	default:
-+	if (state >= ARRAY_SIZE(a6xx_gmu_oob_bits))
- 		return -EINVAL;
-+
-+	if (gmu->legacy) {
-+		request = a6xx_gmu_oob_bits[state].set;
-+		ack = a6xx_gmu_oob_bits[state].ack;
-+	} else {
-+		request = a6xx_gmu_oob_bits[state].set_new;
-+		ack = a6xx_gmu_oob_bits[state].ack_new;
-+		if (!request || !ack) {
-+			DRM_DEV_ERROR(gmu->dev,
-+				      "Invalid non-legacy GMU request %s\n",
-+				      a6xx_gmu_oob_bits[state].name);
-+			return -EINVAL;
-+		}
- 	}
- 
- 	/* Trigger the equested OOB operation */
-@@ -298,7 +317,7 @@ int a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
- 	if (ret)
- 		DRM_DEV_ERROR(gmu->dev,
- 			"Timeout waiting for GMU OOB set %s: 0x%x\n",
--				name,
-+				a6xx_gmu_oob_bits[state].name,
- 				gmu_read(gmu, REG_A6XX_GMU_GMU2HOST_INTR_INFO));
- 
- 	/* Clear the acknowledge interrupt */
-@@ -310,36 +329,17 @@ int a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
- /* Clear a pending OOB state in the GMU */
- void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
- {
--	if (!gmu->legacy) {
--		if (state == GMU_OOB_GPU_SET) {
--			gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
--				1 << GMU_OOB_GPU_SET_CLEAR_NEW);
--		} else {
--			WARN_ON(state != GMU_OOB_PERFCOUNTER_SET);
--			gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
--				1 << GMU_OOB_PERFCOUNTER_CLEAR_NEW);
--		}
-+	int bit;
-+
-+	if (state >= ARRAY_SIZE(a6xx_gmu_oob_bits))
- 		return;
--	}
- 
--	switch (state) {
--	case GMU_OOB_GPU_SET:
--		gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
--			1 << GMU_OOB_GPU_SET_CLEAR);
--		break;
--	case GMU_OOB_PERFCOUNTER_SET:
--		gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
--			1 << GMU_OOB_PERFCOUNTER_CLEAR);
--		break;
--	case GMU_OOB_BOOT_SLUMBER:
--		gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
--			1 << GMU_OOB_BOOT_SLUMBER_CLEAR);
--		break;
--	case GMU_OOB_DCVS_SET:
--		gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET,
--			1 << GMU_OOB_DCVS_CLEAR);
--		break;
--	}
-+	if (gmu->legacy)
-+		bit = a6xx_gmu_oob_bits[state].ack;
-+	else
-+		bit = a6xx_gmu_oob_bits[state].ack_new;
-+
-+	gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET, bit);
- }
- 
- /* Enable CPU control of SPTP power power collapse */
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-index 9fa278de2106..71dfa60070cc 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-@@ -153,52 +153,27 @@ static inline void gmu_write_rscc(struct a6xx_gmu *gmu, u32 offset, u32 value)
-  */
- 
- enum a6xx_gmu_oob_state {
-+	/*
-+	 * Let the GMU know that a boot or slumber operation has started. The value in
-+	 * REG_A6XX_GMU_BOOT_SLUMBER_OPTION lets the GMU know which operation we are
-+	 * doing
-+	 */
- 	GMU_OOB_BOOT_SLUMBER = 0,
-+	/*
-+	 * Let the GMU know to not turn off any GPU registers while the CPU is in a
-+	 * critical section
-+	 */
- 	GMU_OOB_GPU_SET,
-+	/*
-+	 * Set a new power level for the GPU when the CPU is doing frequency scaling
-+	 */
- 	GMU_OOB_DCVS_SET,
-+	/*
-+	 * Used to keep the GPU on for CPU-side reads of performance counters.
-+	 */
- 	GMU_OOB_PERFCOUNTER_SET,
- };
- 
--/* These are the interrupt / ack bits for each OOB request that are set
-- * in a6xx_gmu_set_oob and a6xx_clear_oob
-- */
--
--/*
-- * Let the GMU know that a boot or slumber operation has started. The value in
-- * REG_A6XX_GMU_BOOT_SLUMBER_OPTION lets the GMU know which operation we are
-- * doing
-- */
--#define GMU_OOB_BOOT_SLUMBER_REQUEST	22
--#define GMU_OOB_BOOT_SLUMBER_ACK	30
--#define GMU_OOB_BOOT_SLUMBER_CLEAR	30
--
--/*
-- * Set a new power level for the GPU when the CPU is doing frequency scaling
-- */
--#define GMU_OOB_DCVS_REQUEST	23
--#define GMU_OOB_DCVS_ACK	31
--#define GMU_OOB_DCVS_CLEAR	31
--
--/*
-- * Let the GMU know to not turn off any GPU registers while the CPU is in a
-- * critical section
-- */
--#define GMU_OOB_GPU_SET_REQUEST	16
--#define GMU_OOB_GPU_SET_ACK	24
--#define GMU_OOB_GPU_SET_CLEAR	24
--
--#define GMU_OOB_GPU_SET_REQUEST_NEW	30
--#define GMU_OOB_GPU_SET_ACK_NEW		31
--#define GMU_OOB_GPU_SET_CLEAR_NEW	31
--
--#define GMU_OOB_PERFCOUNTER_REQUEST	17
--#define GMU_OOB_PERFCOUNTER_ACK		25
--#define GMU_OOB_PERFCOUNTER_CLEAR	25
--
--#define GMU_OOB_PERFCOUNTER_REQUEST_NEW	28
--#define GMU_OOB_PERFCOUNTER_ACK_NEW	30
--#define GMU_OOB_PERFCOUNTER_CLEAR_NEW	30
--
- void a6xx_hfi_init(struct a6xx_gmu *gmu);
- int a6xx_hfi_start(struct a6xx_gmu *gmu, int boot_state);
- void a6xx_hfi_stop(struct a6xx_gmu *gmu);
+Thanks,
+Sai
+
 -- 
-2.30.0
-
+QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a 
+member
+of Code Aurora Forum, hosted by The Linux Foundation
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
