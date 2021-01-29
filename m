@@ -1,41 +1,49 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DC86308732
-	for <lists+freedreno@lfdr.de>; Fri, 29 Jan 2021 10:05:26 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id F106430875A
+	for <lists+freedreno@lfdr.de>; Fri, 29 Jan 2021 10:31:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74F066E3F2;
-	Fri, 29 Jan 2021 09:05:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9253C6EAAB;
+	Fri, 29 Jan 2021 09:31:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9911F6E3F2;
- Fri, 29 Jan 2021 09:05:23 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 04F8464E02;
- Fri, 29 Jan 2021 09:05:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1611911122;
- bh=/HEREiD9FXEQ02w0iDsYdpZV46bpzXWuTWwUnZCuy+g=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=T2Y4mkH4w077yIZlxHUVZE0D4RLQbzNe5OiDenFlQlsPGBt8ss4Zj5rDF9fgoTP6k
- xu/Bzo1XE71GsYZvBptwDuXs+wrULWcJy59bKBfcuSW6zcG3ZRJG1gBozI/YJrugAl
- MMUMZtS57yD2ctcrz9XePHff3N9cgreQyEruAzA8ACCzWDRviQd8aygMSvYmgMRvSG
- 44NQVC9cG3gE5XfiE0NYf8UuiODbFhBNGAYIMViLeyZGqQOYDg+cJCQNDfEsJDe6dK
- TV+HEKx68IBMweLIWECiO0hHiD7/CetE8nlx5WYoMeZIT1q53s9cIc6Eou5QJxr8Hl
- dY2QCJu/TSm3Q==
-Date: Fri, 29 Jan 2021 09:05:16 +0000
-From: Will Deacon <will@kernel.org>
-To: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-Message-ID: <20210129090516.GB3998@willie-the-truck>
-References: <cover.1610372717.git.saiprakash.ranjan@codeaurora.org>
- <3f589e7de3f9fa93e84c83420c5270c546a0c368.1610372717.git.saiprakash.ranjan@codeaurora.org>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <3f589e7de3f9fa93e84c83420c5270c546a0c368.1610372717.git.saiprakash.ranjan@codeaurora.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH 2/3] iommu/io-pgtable-arm: Add IOMMU_LLC
- page protection flag
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B57436EAAB;
+ Fri, 29 Jan 2021 09:30:59 +0000 (UTC)
+Received: from localhost.localdomain (unknown [124.16.141.241])
+ by APP-01 (Coremail) with SMTP id qwCowACXn1u41RNgfKdXAA--.27490S2;
+ Fri, 29 Jan 2021 17:30:32 +0800 (CST)
+From: Xu Wang <vulab@iscas.ac.cn>
+To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
+ kalyan_t@codeaurora.org, jcrouse@codeaurora.org, eric@anholt.net,
+ tanmay@codeaurora.org, miaoqinglang@huawei.com, ddavenport@chromium.org,
+ jsanka@codeaurora.org, rnayak@codeaurora.org, tongtiangen@huawei.com
+Date: Fri, 29 Jan 2021 09:30:29 +0000
+Message-Id: <20210129093029.53183-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.17.1
+X-CM-TRANSID: qwCowACXn1u41RNgfKdXAA--.27490S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7GF4DWF4rGF4UZr13GF18AFb_yoW3XFb_uF
+ 15ZFnaqr17CF90vr1xZ3yfZryjy343uF40g3Z2qa4ayFy2vr1DG3sIvw18Xr17uF47JFn8
+ Aa1xJrWFywsrXjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUbskYjsxI4VWkCwAYFVCjjxCrM7AC8VAFwI0_Xr0_Wr1l1xkIjI8I
+ 6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+ 8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0
+ cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+ A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+ w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F4UJVW0ow
+ Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkI
+ wI1lc2xSY4AK67AK6r4fMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI
+ 8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AK
+ xVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI
+ 8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_WFyUJVCq3wCI42IY6I8E
+ 87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
+ IFyTuYvjxU7Ta0DUUUU
+X-Originating-IP: [124.16.141.241]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCQkQA102Z56qBAAAsv
+Subject: [Freedreno] [PATCH] drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c: Remove
+ unneeded semicolon
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,76 +56,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: isaacm@codeaurora.org, freedreno <freedreno@lists.freedesktop.org>,
- David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
- Joerg Roedel <joro@8bytes.org>, Jordan Crouse <jcrouse@codeaurora.org>,
- iommu@lists.linux-foundation.org, Akhil P Oommen <akhilpo@codeaurora.org>,
- Sean Paul <sean@poorly.run>, Rob Clark <robdclark@gmail.com>,
- Kristian H Kristensen <hoegsberg@google.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Robin Murphy <robin.murphy@arm.com>, linux-arm-kernel@lists.infradead.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jan 11, 2021 at 07:45:04PM +0530, Sai Prakash Ranjan wrote:
-> Add a new page protection flag IOMMU_LLC which can be used
-> by non-coherent masters to set cacheable memory attributes
-> for an outer level of cache called as last-level cache or
-> system cache. Initial user of this page protection flag is
-> the adreno gpu and then can later be used by other clients
-> such as video where this can be used for per-buffer based
-> mapping.
-> 
-> Signed-off-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-> ---
->  drivers/iommu/io-pgtable-arm.c | 3 +++
->  include/linux/iommu.h          | 6 ++++++
->  2 files changed, 9 insertions(+)
-> 
-> diff --git a/drivers/iommu/io-pgtable-arm.c b/drivers/iommu/io-pgtable-arm.c
-> index 7439ee7fdcdb..ebe653ef601b 100644
-> --- a/drivers/iommu/io-pgtable-arm.c
-> +++ b/drivers/iommu/io-pgtable-arm.c
-> @@ -415,6 +415,9 @@ static arm_lpae_iopte arm_lpae_prot_to_pte(struct arm_lpae_io_pgtable *data,
->  		else if (prot & IOMMU_CACHE)
->  			pte |= (ARM_LPAE_MAIR_ATTR_IDX_CACHE
->  				<< ARM_LPAE_PTE_ATTRINDX_SHIFT);
-> +		else if (prot & IOMMU_LLC)
-> +			pte |= (ARM_LPAE_MAIR_ATTR_IDX_INC_OCACHE
-> +				<< ARM_LPAE_PTE_ATTRINDX_SHIFT);
->  	}
->  
->  	if (prot & IOMMU_CACHE)
-> diff --git a/include/linux/iommu.h b/include/linux/iommu.h
-> index ffaa389ea128..1f82057df531 100644
-> --- a/include/linux/iommu.h
-> +++ b/include/linux/iommu.h
-> @@ -31,6 +31,12 @@
->   * if the IOMMU page table format is equivalent.
->   */
->  #define IOMMU_PRIV	(1 << 5)
-> +/*
-> + * Non-coherent masters can use this page protection flag to set cacheable
-> + * memory attributes for only a transparent outer level of cache, also known as
-> + * the last-level or system cache.
-> + */
-> +#define IOMMU_LLC	(1 << 6)
+fix semicolon.cocci warnings:
+drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c:752:2-3: Unneeded semicolon
 
-On reflection, I'm a bit worried about exposing this because I think it will
-introduce a mismatched virtual alias with the CPU (we don't even have a MAIR
-set up for this memory type). Now, we also have that issue for the PTW, but
-since we always use cache maintenance (i.e. the streaming API) for
-publishing the page-tables to a non-coheren walker, it works out. However,
-if somebody expects IOMMU_LLC to be coherent with a DMA API coherent
-allocation, then they're potentially in for a nasty surprise due to the
-mismatched outer-cacheability attributes.
+Signed-off-by: Xu Wang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-So I can take patch (1) as a trivial rename, but unfortunately I think this
-needs more thought before exposing it beyond the PTW.
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 374b0e8471e6..5a8e3e1fc48c 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -749,7 +749,7 @@ static void _dpu_kms_set_encoder_mode(struct msm_kms *kms,
+ 	case DRM_MODE_ENCODER_TMDS:
+ 		info.num_of_h_tiles = 1;
+ 		break;
+-	};
++	}
+ 
+ 	rc = dpu_encoder_setup(encoder->dev, encoder, &info);
+ 	if (rc)
+-- 
+2.17.1
 
-Will
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
