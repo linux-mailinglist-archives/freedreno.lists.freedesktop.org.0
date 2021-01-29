@@ -2,46 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1540308786
-	for <lists+freedreno@lfdr.de>; Fri, 29 Jan 2021 10:44:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 373BB3089E5
+	for <lists+freedreno@lfdr.de>; Fri, 29 Jan 2021 16:31:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E1726EAAC;
-	Fri, 29 Jan 2021 09:44:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D34E46EB62;
+	Fri, 29 Jan 2021 15:31:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTP id A90BA6EAAC;
- Fri, 29 Jan 2021 09:44:40 +0000 (UTC)
-Received: from localhost.localdomain (unknown [124.16.141.241])
- by APP-01 (Coremail) with SMTP id qwCowAC3p1jz2BNgctNXAA--.47743S2;
- Fri, 29 Jan 2021 17:44:22 +0800 (CST)
-From: Xu Wang <vulab@iscas.ac.cn>
-To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
- khsieh@codeaurora.org, swboyd@chromium.org, tanmay@codeaurora.org,
- lee.jones@linaro.org, chandanu@codeaurora.org
-Date: Fri, 29 Jan 2021 09:44:16 +0000
-Message-Id: <20210129094416.53601-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: qwCowAC3p1jz2BNgctNXAA--.47743S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrtF4UZrW8Jr17Jw4xJr1kXwb_yoWxtrcE9r
- 4SqFnxXr12kFn0kF17ArW0vF1Sya4Y9F48ZF1vq3ySyry7tr18ZryI9rWkWF1xCF17JF1q
- yanxXr15Ar4fJjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUbsAYjsxI4VWkCwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
- 6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
- 8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0
- cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
- A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
- w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F4UJVW0ow
- Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkI
- wI1lc2xSY4AK67AK6r4fMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI
- 8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AK
- xVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI
- 8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Wr1j6rW3Jr1lIxAIcVC2
- z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
- UI43ZEXa7IU8bdbUUUUUU==
-X-Originating-IP: [124.16.141.241]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCwoQA1z4jxOLhgAAsn
-Subject: [Freedreno] [PATCH] drm/msm/dp/dp_ctrl: Remove unneeded semicolon
+Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
+ [IPv6:2607:f8b0:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 101CA6EABE
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Jan 2021 10:16:24 +0000 (UTC)
+Received: by mail-pf1-x442.google.com with SMTP id j12so5933559pfj.12
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Jan 2021 02:16:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=0EVHMn1baZvQLJLGxCuW7aI/+62Jj0sfPfF7kM8sXVg=;
+ b=eLMJBLcdnSpeb2uDEumlUhtkgf83mSKXsbhjUF3e8gZWgl2Ja3kYicWY7e72x0+CAg
+ WW1LQ7qQjlnNSW9MJxgyYB+lu6qvg3jTshj2R37lqCMgBJr2Z/BAnqQOc6KGhm/RX4be
+ GE5GJUEYc8P0/EubtAb6difG07L6NAxPAp+Ig=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=0EVHMn1baZvQLJLGxCuW7aI/+62Jj0sfPfF7kM8sXVg=;
+ b=TD3I39F/7qsh5ZlO5Xu24CQqY9SxfdKurXu1pEU1qOvtMbVO2NHGJchB0LKdZlbKfX
+ kSNONZB8DIcTNjwNJzTkt+nWd2SC2PjdIPo3tXQLd3TunkhfZL30HPGJQAtPOHy0pdPA
+ gUcUhNTBOlUDdG3kOYX0rGNsT/9u9XaRg8ZREg0xliF3GRdyWFefJGiOAzMcY8+FzPhb
+ xe8KAnsNfp7YzBzOmq7cOXHtYs+7XzoaDW2Zwwec5NvRAhBkO2bHgeL/Al34cZwKUE4G
+ CBqNONxcZSLaiNCtVVuoail2tPyWGJrwBKAIc8eDxfM8RgXwxuH2R+sr3evKXX1NL8SO
+ pemQ==
+X-Gm-Message-State: AOAM5307YlpMbUu4DFdnYJGAlme2o/FrZz1hIqYm989jYbLIBk/+re60
+ tpHbXeOKiBMd5K6PfE2lPW4NkQ==
+X-Google-Smtp-Source: ABdhPJwKOYUPsux7DRsNvdfjJEJ/mslvZ47fOQUY0EgVE9lTzc/KmhVJmZHLLd+cEdrXaIOjUv9CJQ==
+X-Received: by 2002:a63:1047:: with SMTP id 7mr4043761pgq.292.1611915383690;
+ Fri, 29 Jan 2021 02:16:23 -0800 (PST)
+Received: from judyhsiao-p920.tpe.corp.google.com
+ ([2401:fa00:1:10:2991:e2d5:3583:ab3f])
+ by smtp.gmail.com with ESMTPSA id r194sm8486165pfr.168.2021.01.29.02.16.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 29 Jan 2021 02:16:22 -0800 (PST)
+From: Judy Hsiao <judyhsiao@chromium.org>
+To: Rob Clark <robdclark@gmail.com>
+Date: Fri, 29 Jan 2021 18:16:03 +0800
+Message-Id: <20210129101603.3151367-1-judyhsiao@chromium.org>
+X-Mailer: git-send-email 2.30.0.365.g02bc693789-goog
+MIME-Version: 1.0
+X-Mailman-Approved-At: Fri, 29 Jan 2021 15:31:28 +0000
+Subject: [Freedreno] [PATCH v2] drm/msm/dp: trigger unplug event in
+ msm_dp_display_disable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,37 +64,62 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-MIME-Version: 1.0
+Cc: freedreno@lists.freedesktop.org, Judy Hsiao <judyhsiao@google.com>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Tanmay Shah <tanmay@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
+ Kuogee Hsieh <khsieh@codeaurora.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
+ Judy Hsiao <judyhsiao@chromium.org>,
+ Chandan Uddaraju <chandanu@codeaurora.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-fix semicolon.cocci warnings:
-drivers/gpu/drm/msm/dp/dp_ctrl.c:1161:2-3: Unneeded semicolon
+From: Judy Hsiao <judyhsiao@google.com>
 
-Signed-off-by: Xu Wang <vulab@iscas.ac.cn>
+1. Trigger the unplug event in msm_dp_display_disable() to shutdown audio
+   properly.
+2. Reset the completion before signal the disconnect event.
+
+Fixes: 158b9aa74479 ("drm/msm/dp: wait for audio notification before disabling clocks")
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Tested-by: Stephen Boyd <swboyd@chromium.org>
+Signed-off-by: Judy Hsiao <judyhsiao@chromium.org>
 ---
- drivers/gpu/drm/msm/dp/dp_ctrl.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ v2:
+ - --to the correct maintainers.
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index e3462f5d96d7..61ed67beed5a 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1158,7 +1158,7 @@ static int dp_ctrl_link_rate_down_shift(struct dp_ctrl_private *ctrl)
- 	default:
- 		ret = -EINVAL;
- 		break;
--	};
-+	}
+ drivers/gpu/drm/msm/dp/dp_display.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 3bc7ed21de286..81f6794a25100 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -651,8 +651,8 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
+ 	dp_add_event(dp, EV_DISCONNECT_PENDING_TIMEOUT, 0, DP_TIMEOUT_5_SECOND);
  
- 	if (!ret)
- 		DRM_DEBUG_DP("new rate=0x%x\n", ctrl->link->link_params.rate);
+ 	/* signal the disconnect event early to ensure proper teardown */
+-	dp_display_handle_plugged_change(g_dp_display, false);
+ 	reinit_completion(&dp->audio_comp);
++	dp_display_handle_plugged_change(g_dp_display, false);
+ 
+ 	dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_PLUG_INT_MASK |
+ 					DP_DP_IRQ_HPD_INT_MASK, true);
+@@ -890,6 +890,9 @@ static int dp_display_disable(struct dp_display_private *dp, u32 data)
+ 
+ 	/* wait only if audio was enabled */
+ 	if (dp_display->audio_enabled) {
++		/* signal the disconnect event */
++		reinit_completion(&dp->audio_comp);
++		dp_display_handle_plugged_change(dp_display, false);
+ 		if (!wait_for_completion_timeout(&dp->audio_comp,
+ 				HZ * 5))
+ 			DRM_ERROR("audio comp timeout\n");
 -- 
-2.17.1
+2.30.0.365.g02bc693789-goog
 
 _______________________________________________
 Freedreno mailing list
