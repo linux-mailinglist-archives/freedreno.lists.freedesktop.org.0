@@ -2,54 +2,39 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58A0A309E62
-	for <lists+freedreno@lfdr.de>; Sun, 31 Jan 2021 20:47:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7178F309F48
+	for <lists+freedreno@lfdr.de>; Sun, 31 Jan 2021 23:53:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C60AB6E087;
-	Sun, 31 Jan 2021 19:47:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16D4D6E134;
+	Sun, 31 Jan 2021 22:53:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [IPv6:2a00:1450:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CABF6E069;
- Sun, 31 Jan 2021 19:47:56 +0000 (UTC)
-Received: by mail-wm1-x334.google.com with SMTP id 190so10873118wmz.0;
- Sun, 31 Jan 2021 11:47:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=H6wXPb6paYLXQl2pKsLEiIISXfXS8Hhcf27+U5ECNao=;
- b=UL6u9v++SVqEzWWq9c2IkrsMhf/Y2G1hktNz+etSCKnNhwzy6ljwWfgBOp1Enf30Fw
- yuB5ny4xWdX+XQK0LD7OF1X9qMM6AxajVBvLpy72hTpzltOqnIFyrcZpgI7wkALlB5Jo
- Pg3jpoR6CURyXPXRJOP9H3hcTvDycn+tIqHBoDkY8fUN0JJMP2shi16aAOKzhZtbMcZ0
- t4d/g/DNCkGs8WuMgT11L30CfQ8e1Fu5Q2JAZrMC48/iXll3VjHG6he8m9x/+qpzZbfR
- FeSBo/0cx4e5IvLgjmlNHwif9UUMC/49OFgSieWzV67INAg6qp4Mgqt1PeVgdlnbaWU1
- vvQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=H6wXPb6paYLXQl2pKsLEiIISXfXS8Hhcf27+U5ECNao=;
- b=H2zskAE7z/Hdx0XC6VxN9/Poq1YRHXouUh30lLgTDi8QHORJZg8w3bAiyE30gyGOpH
- 0/WbL6xHl0gABDgfexIKL7v96y/VraFdJvQqyLTon9fs9rRSb/ev2PUfcKqWsXeR04fe
- cTAGStYtWFzlL6zdTw9NIS/4/s91bio4kgBHpEfmQLMuGVwD2FXg4aEVf71jaWbSuzzF
- 0R4SIul65n90LaxjxPNf+f4CbLdbwOo3erPwscjbRdjF9maPzNFErXWbLqKlXUrA/2Nq
- u19zaF/HyOw7iRP0bY1SnvaE0n+uoynRzi/OVE7GasMQDIKN1Xz5Q/LIHij9L6gBPUFK
- A2Hg==
-X-Gm-Message-State: AOAM533WoH9wcbDwCbVWNUoTID4JO4iORvjjhu/ocb2t1BhBWpvh2u/p
- ReBHMog5D75ujSdhKDp0nQnLlLlELncSkzxDEf4=
-X-Google-Smtp-Source: ABdhPJxd6a+y2rJ9k825JiSPM8mEOyTrNoapVicPm39kXx0f+YJCfL63uiL+RjJBa8SkSBvsse6ESUUDXkBY6B03OvY=
-X-Received: by 2002:a7b:c45a:: with SMTP id l26mr12019059wmi.164.1612122474995; 
- Sun, 31 Jan 2021 11:47:54 -0800 (PST)
+Received: from onstation.org (onstation.org [52.200.56.107])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EAA86E134;
+ Sun, 31 Jan 2021 22:53:34 +0000 (UTC)
+Received: from localhost (c-98-239-145-235.hsd1.wv.comcast.net
+ [98.239.145.235])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested) (Authenticated sender: masneyb)
+ by onstation.org (Postfix) with ESMTPSA id 3A72B3F0B3;
+ Sun, 31 Jan 2021 22:53:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=onstation.org;
+ s=default; t=1612133612;
+ bh=zBA2yPYI5rqrcZZX1WyKJXmK/xwJfSI0vnhAopp38lQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Ii5/ljccGSGrgtlADn5zOAj21GGPnpw4RRDjpazsXOUkwjZaqsawZWC4VsO99bEH3
+ ff4Hu+ztI9Z5B3A2/CaZZhFdtWTL4hTA/ixFXpPItkWXJdGdadWUCjh6bUlGU4Byts
+ imNHm+yQuGvAEQmsCq0cyIgTRn8YtN/Rphb/MhzA=
+Date: Sun, 31 Jan 2021 17:53:30 -0500
+From: Brian Masney <masneyb@onstation.org>
+To: Iskren Chernev <iskren.chernev@gmail.com>
+Message-ID: <20210131225330.GA7982@onstation.org>
+References: <20210127152442.533468-1-iskren.chernev@gmail.com>
 MIME-Version: 1.0
-References: <20210109135112.147759-1-angelogioacchino.delregno@somainline.org>
- <20210109135112.147759-4-angelogioacchino.delregno@somainline.org>
-In-Reply-To: <20210109135112.147759-4-angelogioacchino.delregno@somainline.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Sun, 31 Jan 2021 11:50:29 -0800
-Message-ID: <CAF6AEGvDzdgDy7Znw6dQCV7Z=YxnF2_XsqkV+7BT+oY777TqHA@mail.gmail.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
-Subject: Re: [Freedreno] [PATCH 3/5] drm/msm/dsi_pll_10nm: Fix bad VCO rate
- calculation and prescaler
+Content-Disposition: inline
+In-Reply-To: <20210127152442.533468-1-iskren.chernev@gmail.com>
+Subject: Re: [Freedreno] [PATCH] drm/msm/mdp5: Fix wait-for-commit for cmd
+ panels
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,137 +47,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Douglas Anderson <dianders@chromium.org>, martin.botka@somainline.org,
- Abhinav Kumar <abhinavk@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
- marijn.suijten@somainline.org, phone-devel@vger.kernel.org,
- Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@linux.ie>, Lee Jones <lee.jones@linaro.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Abhinav Kumar <abhinavk@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ ~postmarketos/upstreaming@lists.sr.ht, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-arm-msm@vger.kernel.org, Emil Velikov <emil.velikov@collabora.com>,
+ Sean Paul <sean@poorly.run>, Maxime Ripard <maxime@cerno.tech>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, Jan 9, 2021 at 5:51 AM AngeloGioacchino Del Regno
-<angelogioacchino.delregno@somainline.org> wrote:
->
-> The VCO rate was being miscalculated due to a big overlook during
-> the process of porting this driver from downstream to upstream:
-> here we are really recalculating the rate of the VCO by reading
-> the appropriate registers and returning a real frequency, while
-> downstream the driver was doing something entirely different.
->
-> In our case here, the recalculated rate was wrong, as it was then
-> given back to the set_rate function, which was erroneously doing
-> a division on the fractional value, based on the prescaler being
-> either enabled or disabled: this was actually producing a bug for
-> which the final VCO rate was being doubled, causing very obvious
-> issues when trying to drive a DSI panel because the actual divider
-> value was multiplied by two!
->
-> To make things work properly, remove the multiplication of the
-> reference clock by two from function dsi_pll_calc_dec_frac and
-> account for the prescaler enablement in the vco_recalc_rate (if
-> the prescaler is enabled, then the hardware will divide the rate
-> by two).
->
-> This will make the vco_recalc_rate function to pass the right
-> frequency to the (clock framework) set_rate function when called,
-> which will - in turn - program the right values in both the
-> DECIMAL_DIV_START_1 and the FRAC_DIV_START_{LOW/MID/HIGH}_1
-> registers, finally making the PLL to output the right clock.
->
-> Also, while at it, remove the prescaler TODO by also adding the
-> possibility of disabling the prescaler on the PLL (it is in the
-> PLL_ANALOG_CONTROLS_ONE register).
-> Of course, both prescaler-ON and OFF cases were tested.
+On Wed, Jan 27, 2021 at 05:24:40PM +0200, Iskren Chernev wrote:
+> Before the offending commit in msm_atomic_commit_tail wait_flush was
+> called once per frame, after the commit was submitted. After it
+> wait_flush is also called at the beginning to ensure previous
+> potentially async commits are done.
+> 
+> For cmd panels the source of wait_flush is a ping-pong irq notifying
+> a completion. The completion needs to be notified with complete_all so
+> multiple waiting parties (new async committers) can proceed.
+> 
+> Signed-off-by: Iskren Chernev <iskren.chernev@gmail.com>
+> Suggested-by: Rob Clark <robdclark@gmail.com>
+> Fixes: 2d99ced787e3d ("drm/msm: async commit support")
 
-This somehow breaks things on sc7180 (display gets stuck at first
-frame of splash screen).  (This is a setup w/ an ti-sn65dsi86 dsi->eDP
-bridge)
+Nice job tracking down this fix!
 
-Also, something (I assume DSI related) that I was testing on
-msm-next-staging seems to have effected the colors on the panel (ie.
-they are more muted).. which seems to persist across reboots (ie. when
-switching back to a good kernel), and interestingly if I reboot from a
-good kernel I see part of the login prompt (or whatever was previously
-on-screen) in the firmware ui screen !?!  (so maybe somehow triggered
-the display to think it is in PSR mode??)
+Reviewed-by: Brian Masney <masneyb@onstation.org>
+Tested-by: Brian Masney <masneyb@onstation.org>
 
-Not sure if that is caused by these patches, but if I can figure out
-how to get the panel back to normal I can bisect.  I think for now
-I'll drop this series.  Possibly it could be a
-two-wrongs-makes-a-right situation that had things working before, but
-I think someone from qcom who knows the DSI IP should take a look.
-
-BR,
--R
-
-
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
-> ---
->  drivers/gpu/drm/msm/dsi/pll/dsi_pll_10nm.c | 22 +++++++++-------------
->  1 file changed, 9 insertions(+), 13 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/dsi/pll/dsi_pll_10nm.c b/drivers/gpu/drm/msm/dsi/pll/dsi_pll_10nm.c
-> index 8b66e852eb36..5be562dfbf06 100644
-> --- a/drivers/gpu/drm/msm/dsi/pll/dsi_pll_10nm.c
-> +++ b/drivers/gpu/drm/msm/dsi/pll/dsi_pll_10nm.c
-> @@ -165,11 +165,7 @@ static void dsi_pll_calc_dec_frac(struct dsi_pll_10nm *pll)
->
->         pll_freq = pll->vco_current_rate;
->
-> -       if (config->disable_prescaler)
-> -               divider = fref;
-> -       else
-> -               divider = fref * 2;
-> -
-> +       divider = fref;
->         multiplier = 1 << config->frac_bits;
->         dec_multiple = div_u64(pll_freq * multiplier, divider);
->         dec = div_u64_rem(dec_multiple, multiplier, &frac);
-> @@ -266,9 +262,11 @@ static void dsi_pll_ssc_commit(struct dsi_pll_10nm *pll)
->
->  static void dsi_pll_config_hzindep_reg(struct dsi_pll_10nm *pll)
->  {
-> +       struct dsi_pll_config *config = &pll->pll_configuration;
->         void __iomem *base = pll->mmio;
-> +       u32 val = config->disable_prescaler ? 0x0 : 0x80;
->
-> -       pll_write(base + REG_DSI_10nm_PHY_PLL_ANALOG_CONTROLS_ONE, 0x80);
-> +       pll_write(base + REG_DSI_10nm_PHY_PLL_ANALOG_CONTROLS_ONE, val);
->         pll_write(base + REG_DSI_10nm_PHY_PLL_ANALOG_CONTROLS_TWO, 0x03);
->         pll_write(base + REG_DSI_10nm_PHY_PLL_ANALOG_CONTROLS_THREE, 0x00);
->         pll_write(base + REG_DSI_10nm_PHY_PLL_DSM_DIVIDER, 0x00);
-> @@ -499,17 +497,15 @@ static unsigned long dsi_pll_10nm_vco_recalc_rate(struct clk_hw *hw,
->         frac |= ((pll_read(base + REG_DSI_10nm_PHY_PLL_FRAC_DIV_START_HIGH_1) &
->                   0x3) << 16);
->
-> -       /*
-> -        * TODO:
-> -        *      1. Assumes prescaler is disabled
-> -        */
->         multiplier = 1 << config->frac_bits;
-> -       pll_freq = dec * (ref_clk * 2);
-> -       tmp64 = (ref_clk * 2 * frac);
-> +       pll_freq = dec * ref_clk;
-> +       tmp64 = ref_clk * frac;
->         pll_freq += div_u64(tmp64, multiplier);
-> -
->         vco_rate = pll_freq;
->
-> +       if (config->disable_prescaler)
-> +               vco_rate = div_u64(vco_rate, 2);
-> +
->         DBG("DSI PLL%d returning vco rate = %lu, dec = %x, frac = %x",
->             pll_10nm->id, (unsigned long)vco_rate, dec, frac);
->
-> --
-> 2.29.2
->
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
