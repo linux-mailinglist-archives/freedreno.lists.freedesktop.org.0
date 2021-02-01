@@ -1,50 +1,32 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 323C4309F67
-	for <lists+freedreno@lfdr.de>; Mon,  1 Feb 2021 00:15:07 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B79C030A1B0
+	for <lists+freedreno@lfdr.de>; Mon,  1 Feb 2021 06:56:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FC1F6E134;
-	Sun, 31 Jan 2021 23:15:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA9F86E3F0;
+	Mon,  1 Feb 2021 05:56:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 534 seconds by postgrey-1.36 at gabe;
- Sun, 31 Jan 2021 23:15:04 UTC
-Received: from mail.z3ntu.xyz (mail.z3ntu.xyz [128.199.32.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 467E86E134;
- Sun, 31 Jan 2021 23:15:04 +0000 (UTC)
-Received: by mail.z3ntu.xyz (Postfix, from userid 182)
- id 6E05EC1BE5; Sun, 31 Jan 2021 23:06:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=z3ntu.xyz; s=z3ntu;
- t=1612134368; bh=ZcNE+YqUbFE7ilb2fMS+PExd3K0uSxm8CKC9+sqOxqI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=nqigVK+ACcfP6sHau6sKVzu/t3JOyrt4Mt6eSSF478B6kaM4hbdGj0cO6fjIEvoCt
- dwVDvVxwJYxnu4sE59NQeUdFCNmhtqw/Psw/Yi6CDpLjUJX0GGZiIsSbKfM0wWO29R
- dosaZpjq+JyC2QbEJHjJPOLSa2hZdN78rGBkfArw=
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on arch-vps
-X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=ALL_TRUSTED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
- PDS_OTHER_BAD_TLD,URIBL_BLOCKED autolearn=no autolearn_force=no
- version=3.4.4
-Received: from g550jk.localnet (80-110-106-213.cgn.dynamic.surfer.at
- [80.110.106.213])
- by mail.z3ntu.xyz (Postfix) with ESMTPSA id 29673C1BDD;
- Sun, 31 Jan 2021 23:06:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=z3ntu.xyz; s=z3ntu;
- t=1612134362; bh=ZcNE+YqUbFE7ilb2fMS+PExd3K0uSxm8CKC9+sqOxqI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=P+jxQO2i9OTmHF2los3Da52AJ1CD+bg6SSnGdH4SsZ7unxE0cYr9VPx01GTKErHab
- aByOXK/nI9vwnyZ+Hqquf6uc3rFWN9KRL1aAdve6ef7FfzchB+GsRuZX0QT6yVTTGS
- YmiozrIwJnxsZ/30GSXRkXNPAajuYnuJqEATRi6o=
-From: Luca Weiss <luca@z3ntu.xyz>
-To: Rob Clark <robdclark@gmail.com>, ~postmarketos/upstreaming@lists.sr.ht
-Date: Mon, 01 Feb 2021 00:06:01 +0100
-Message-ID: <2117852.HdQyuLfLX8@g550jk>
-In-Reply-To: <20210127152442.533468-1-iskren.chernev@gmail.com>
+Received: from vps5.brixit.nl (vps5.brixit.nl [192.81.221.234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE7206E3F0;
+ Mon,  1 Feb 2021 05:56:16 +0000 (UTC)
+Received: from [192.168.20.102] (unknown [77.239.252.99])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by vps5.brixit.nl (Postfix) with ESMTPSA id A5E7C60618;
+ Mon,  1 Feb 2021 05:56:13 +0000 (UTC)
+To: Iskren Chernev <iskren.chernev@gmail.com>, Rob Clark <robdclark@gmail.com>
 References: <20210127152442.533468-1-iskren.chernev@gmail.com>
+From: Alexey Minnekhanov <alexeymin@postmarketos.org>
+Message-ID: <666723e2-0d5f-3f7e-3607-f9df0ffbd1c6@postmarketos.org>
+Date: Mon, 1 Feb 2021 08:57:12 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
+In-Reply-To: <20210127152442.533468-1-iskren.chernev@gmail.com>
+Content-Language: en-US
 Subject: Re: [Freedreno] [PATCH] drm/msm/mdp5: Fix wait-for-commit for cmd
  panels
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -59,49 +41,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@linux.ie>, Lee Jones <lee.jones@linaro.org>,
- dri-devel@lists.freedesktop.org, Brian Masney <masneyb@onstation.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>, linux-kernel@vger.kernel.org,
- Iskren Chernev <iskren.chernev@gmail.com>,
- ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Emil Velikov <emil.velikov@collabora.com>, Sean Paul <sean@poorly.run>,
- Maxime Ripard <maxime@cerno.tech>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Abhinav Kumar <abhinavk@codeaurora.org>, ~postmarketos/upstreaming@lists.sr.ht,
+ Daniel Vetter <daniel@ffwll.ch>, Lee Jones <lee.jones@linaro.org>,
+ Brian Masney <masneyb@onstation.org>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Iskren,
 
-On Mittwoch, 27. J=E4nner 2021 16:24:40 CET Iskren Chernev wrote:
+On 1/27/21 6:24 PM, Iskren Chernev wrote:
 > Before the offending commit in msm_atomic_commit_tail wait_flush was
 > called once per frame, after the commit was submitted. After it
 > wait_flush is also called at the beginning to ensure previous
 > potentially async commits are done.
-> =
-
+> 
 > For cmd panels the source of wait_flush is a ping-pong irq notifying
 > a completion. The completion needs to be notified with complete_all so
 > multiple waiting parties (new async committers) can proceed.
-> =
-
+> 
 > Signed-off-by: Iskren Chernev <iskren.chernev@gmail.com>
 > Suggested-by: Rob Clark <robdclark@gmail.com>
 > Fixes: 2d99ced787e3d ("drm/msm: async commit support")
-> ---
+> 
 
-I've tested this now on fairphone-fp2 and lge-nexus5-hammerhead, works grea=
-t!
+Tested on msm8974pro samsung-klte, finally got 60 fps instead of 13
+in kmscube.
 
-Tested-by: Luca Weiss <luca@z3ntu.xyz>
-
-Regards
-Luca
-
-
+Tested-by: Alexey Minnekhanov <alexeymin@postmarketos.org>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
