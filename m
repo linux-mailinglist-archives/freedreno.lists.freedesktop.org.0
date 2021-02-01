@@ -1,34 +1,38 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B79C030A1B0
-	for <lists+freedreno@lfdr.de>; Mon,  1 Feb 2021 06:56:19 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B12B30A509
+	for <lists+freedreno@lfdr.de>; Mon,  1 Feb 2021 11:11:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA9F86E3F0;
-	Mon,  1 Feb 2021 05:56:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E282D89122;
+	Mon,  1 Feb 2021 10:11:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from vps5.brixit.nl (vps5.brixit.nl [192.81.221.234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE7206E3F0;
- Mon,  1 Feb 2021 05:56:16 +0000 (UTC)
-Received: from [192.168.20.102] (unknown [77.239.252.99])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay05.th.seeweb.it (relay05.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::166])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BE7E89122
+ for <freedreno@lists.freedesktop.org>; Mon,  1 Feb 2021 10:11:34 +0000 (UTC)
+Received: from IcarusMOD.eternityproject.eu (unknown [2.237.20.237])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by vps5.brixit.nl (Postfix) with ESMTPSA id A5E7C60618;
- Mon,  1 Feb 2021 05:56:13 +0000 (UTC)
-To: Iskren Chernev <iskren.chernev@gmail.com>, Rob Clark <robdclark@gmail.com>
-References: <20210127152442.533468-1-iskren.chernev@gmail.com>
-From: Alexey Minnekhanov <alexeymin@postmarketos.org>
-Message-ID: <666723e2-0d5f-3f7e-3607-f9df0ffbd1c6@postmarketos.org>
-Date: Mon, 1 Feb 2021 08:57:12 +0300
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 4C1473E7DE;
+ Mon,  1 Feb 2021 11:11:31 +0100 (CET)
+To: Rob Clark <robdclark@gmail.com>
+References: <20210109135112.147759-1-angelogioacchino.delregno@somainline.org>
+ <20210109135112.147759-4-angelogioacchino.delregno@somainline.org>
+ <CAF6AEGvDzdgDy7Znw6dQCV7Z=YxnF2_XsqkV+7BT+oY777TqHA@mail.gmail.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+Message-ID: <8f8c7c37-f7b2-f763-19e1-d89e5c454ab4@somainline.org>
+Date: Mon, 1 Feb 2021 11:11:30 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <20210127152442.533468-1-iskren.chernev@gmail.com>
+In-Reply-To: <CAF6AEGvDzdgDy7Znw6dQCV7Z=YxnF2_XsqkV+7BT+oY777TqHA@mail.gmail.com>
 Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH] drm/msm/mdp5: Fix wait-for-commit for cmd
- panels
+Subject: Re: [Freedreno] [PATCH 3/5] drm/msm/dsi_pll_10nm: Fix bad VCO rate
+ calculation and prescaler
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,36 +45,185 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Abhinav Kumar <abhinavk@codeaurora.org>, ~postmarketos/upstreaming@lists.sr.ht,
- Daniel Vetter <daniel@ffwll.ch>, Lee Jones <lee.jones@linaro.org>,
- Brian Masney <masneyb@onstation.org>
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Douglas Anderson <dianders@chromium.org>, martin.botka@somainline.org,
+ Abhinav Kumar <abhinavk@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
+ marijn.suijten@somainline.org, phone-devel@vger.kernel.org,
+ Sean Paul <sean@poorly.run>
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On 1/27/21 6:24 PM, Iskren Chernev wrote:
-> Before the offending commit in msm_atomic_commit_tail wait_flush was
-> called once per frame, after the commit was submitted. After it
-> wait_flush is also called at the beginning to ensure previous
-> potentially async commits are done.
+Il 31/01/21 20:50, Rob Clark ha scritto:
+> On Sat, Jan 9, 2021 at 5:51 AM AngeloGioacchino Del Regno
+> <angelogioacchino.delregno@somainline.org> wrote:
+>>
+>> The VCO rate was being miscalculated due to a big overlook during
+>> the process of porting this driver from downstream to upstream:
+>> here we are really recalculating the rate of the VCO by reading
+>> the appropriate registers and returning a real frequency, while
+>> downstream the driver was doing something entirely different.
+>>
+>> In our case here, the recalculated rate was wrong, as it was then
+>> given back to the set_rate function, which was erroneously doing
+>> a division on the fractional value, based on the prescaler being
+>> either enabled or disabled: this was actually producing a bug for
+>> which the final VCO rate was being doubled, causing very obvious
+>> issues when trying to drive a DSI panel because the actual divider
+>> value was multiplied by two!
+>>
+>> To make things work properly, remove the multiplication of the
+>> reference clock by two from function dsi_pll_calc_dec_frac and
+>> account for the prescaler enablement in the vco_recalc_rate (if
+>> the prescaler is enabled, then the hardware will divide the rate
+>> by two).
+>>
+>> This will make the vco_recalc_rate function to pass the right
+>> frequency to the (clock framework) set_rate function when called,
+>> which will - in turn - program the right values in both the
+>> DECIMAL_DIV_START_1 and the FRAC_DIV_START_{LOW/MID/HIGH}_1
+>> registers, finally making the PLL to output the right clock.
+>>
+>> Also, while at it, remove the prescaler TODO by also adding the
+>> possibility of disabling the prescaler on the PLL (it is in the
+>> PLL_ANALOG_CONTROLS_ONE register).
+>> Of course, both prescaler-ON and OFF cases were tested.
 > 
-> For cmd panels the source of wait_flush is a ping-pong irq notifying
-> a completion. The completion needs to be notified with complete_all so
-> multiple waiting parties (new async committers) can proceed.
-> 
-> Signed-off-by: Iskren Chernev <iskren.chernev@gmail.com>
-> Suggested-by: Rob Clark <robdclark@gmail.com>
-> Fixes: 2d99ced787e3d ("drm/msm: async commit support")
+> This somehow breaks things on sc7180 (display gets stuck at first
+> frame of splash screen).  (This is a setup w/ an ti-sn65dsi86 dsi->eDP
+> bridge)
 > 
 
-Tested on msm8974pro samsung-klte, finally got 60 fps instead of 13
-in kmscube.
+First frame of the splash means that something is "a bit" wrong...
+...like the DSI clock is a little off.
 
-Tested-by: Alexey Minnekhanov <alexeymin@postmarketos.org>
+I don't have such hardware, otherwise I would've tried... but what you
+describe is a bit strange.
+Is there any other older qcom platform using this chip? Any other
+non-qcom platform? Is the driver for the SN65DSI86 surely fine?
+Anyway, as you know, I would never propose untested patches nor
+partially working ones for any reason: I'm sorry that this happened.
+
+In any case, just to be perfectly transparent, while being here waiting
+for review, this patch series got tested on more smartphones, even ones
+that I don't personally own, with different displays.
+
+For your reference, here's a list (all MSM8998..):
+- OnePlus 5               (1920x1080)
+- F(x)Tec Pro 1           (2160x1080)
+- Sony Xperia XZ1 Compact (1280x720)
+- Sony Xperia XZ1         (1920x1080)
+- Sony Xperia XZ Premium  (3840x2160)
+
+
+> Also, something (I assume DSI related) that I was testing on
+> msm-next-staging seems to have effected the colors on the panel (ie.
+> they are more muted).. which seems to persist across reboots (ie. when
+
+So much "fun". This makes me think something about the PCC block doing
+the wrong thing (getting misconfigured).
+
+> switching back to a good kernel), and interestingly if I reboot from a
+> good kernel I see part of the login prompt (or whatever was previously
+> on-screen) in the firmware ui screen !?!  (so maybe somehow triggered
+> the display to think it is in PSR mode??)
+> 
+
+ From a fast read, the SN65DSI86 is on I2C.. giving it a wrong dsi clock
+cannot produce (logically, at least) this, so I say that it is very
+unlikely for this to be a consequence of the 10nm pll fixes...
+
+...unless the bootloader is not configuring the DSI rates, but that's
+also veeeeery unlikely (it always does, or it always does not).
+
+> Not sure if that is caused by these patches, but if I can figure out
+> how to get the panel back to normal I can bisect.  I think for now
+> I'll drop this series.  Possibly it could be a
+> two-wrongs-makes-a-right situation that had things working before, but
+> I think someone from qcom who knows the DSI IP should take a look.
+> 
+
+I would be happy if someone from Qualcomm takes a look: after all, there
+is no documentation and they're the only ones that can verify this kind
+of stuff. Please, Qualcomm.
+
+Besides that, if there's anything I can help with to solve this riddle,
+I'm here for you.
+
+Yours,
+-- Angelo
+
+> BR,
+> -R
+> 
+> 
+>> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+>> ---
+>>   drivers/gpu/drm/msm/dsi/pll/dsi_pll_10nm.c | 22 +++++++++-------------
+>>   1 file changed, 9 insertions(+), 13 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dsi/pll/dsi_pll_10nm.c b/drivers/gpu/drm/msm/dsi/pll/dsi_pll_10nm.c
+>> index 8b66e852eb36..5be562dfbf06 100644
+>> --- a/drivers/gpu/drm/msm/dsi/pll/dsi_pll_10nm.c
+>> +++ b/drivers/gpu/drm/msm/dsi/pll/dsi_pll_10nm.c
+>> @@ -165,11 +165,7 @@ static void dsi_pll_calc_dec_frac(struct dsi_pll_10nm *pll)
+>>
+>>          pll_freq = pll->vco_current_rate;
+>>
+>> -       if (config->disable_prescaler)
+>> -               divider = fref;
+>> -       else
+>> -               divider = fref * 2;
+>> -
+>> +       divider = fref;
+>>          multiplier = 1 << config->frac_bits;
+>>          dec_multiple = div_u64(pll_freq * multiplier, divider);
+>>          dec = div_u64_rem(dec_multiple, multiplier, &frac);
+>> @@ -266,9 +262,11 @@ static void dsi_pll_ssc_commit(struct dsi_pll_10nm *pll)
+>>
+>>   static void dsi_pll_config_hzindep_reg(struct dsi_pll_10nm *pll)
+>>   {
+>> +       struct dsi_pll_config *config = &pll->pll_configuration;
+>>          void __iomem *base = pll->mmio;
+>> +       u32 val = config->disable_prescaler ? 0x0 : 0x80;
+>>
+>> -       pll_write(base + REG_DSI_10nm_PHY_PLL_ANALOG_CONTROLS_ONE, 0x80);
+>> +       pll_write(base + REG_DSI_10nm_PHY_PLL_ANALOG_CONTROLS_ONE, val);
+>>          pll_write(base + REG_DSI_10nm_PHY_PLL_ANALOG_CONTROLS_TWO, 0x03);
+>>          pll_write(base + REG_DSI_10nm_PHY_PLL_ANALOG_CONTROLS_THREE, 0x00);
+>>          pll_write(base + REG_DSI_10nm_PHY_PLL_DSM_DIVIDER, 0x00);
+>> @@ -499,17 +497,15 @@ static unsigned long dsi_pll_10nm_vco_recalc_rate(struct clk_hw *hw,
+>>          frac |= ((pll_read(base + REG_DSI_10nm_PHY_PLL_FRAC_DIV_START_HIGH_1) &
+>>                    0x3) << 16);
+>>
+>> -       /*
+>> -        * TODO:
+>> -        *      1. Assumes prescaler is disabled
+>> -        */
+>>          multiplier = 1 << config->frac_bits;
+>> -       pll_freq = dec * (ref_clk * 2);
+>> -       tmp64 = (ref_clk * 2 * frac);
+>> +       pll_freq = dec * ref_clk;
+>> +       tmp64 = ref_clk * frac;
+>>          pll_freq += div_u64(tmp64, multiplier);
+>> -
+>>          vco_rate = pll_freq;
+>>
+>> +       if (config->disable_prescaler)
+>> +               vco_rate = div_u64(vco_rate, 2);
+>> +
+>>          DBG("DSI PLL%d returning vco rate = %lu, dec = %x, frac = %x",
+>>              pll_10nm->id, (unsigned long)vco_rate, dec, frac);
+>>
+>> --
+>> 2.29.2
+>>
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
