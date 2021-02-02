@@ -1,36 +1,36 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BAE030B7CD
-	for <lists+freedreno@lfdr.de>; Tue,  2 Feb 2021 07:26:39 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4213130B7CF
+	for <lists+freedreno@lfdr.de>; Tue,  2 Feb 2021 07:29:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADB2E6E8CA;
-	Tue,  2 Feb 2021 06:26:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E24F36E85B;
+	Tue,  2 Feb 2021 06:28:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
  [104.130.122.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FCF46E8CA
- for <freedreno@lists.freedesktop.org>; Tue,  2 Feb 2021 06:26:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C88376E85B
+ for <freedreno@lists.freedesktop.org>; Tue,  2 Feb 2021 06:28:54 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1612247196; h=Message-ID: References: In-Reply-To: Subject:
+ s=smtp; t=1612247337; h=Message-ID: References: In-Reply-To: Subject:
  Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
  MIME-Version: Sender; bh=z7Jt7mLpbCjEtcnUQ9bOehTzH3Sk9XSsW7oxWAsa7AE=;
- b=wmD3WgjHNJPtZHSaP/BfXCfosY7iLyE586QQ9pOeEuLgTMQV1fFkOUFiJ15n5zruVSoFU/uZ
- oVo++uhvm11jEhnNHuGV4kF0I2pLExQOoBtZEHVnumlCVyta9bBx1F3ZAjwNzUNhfQHAPOB9
- a5cK7NP6rm80IOcubfJE82pB9d4=
+ b=OZSyKs4yMt3+5KJNZruuP4u+w93MpCb52Kf1hnb/4ILZsB7wiw74Lx+M1AOfWZdGc++m9YDr
+ +lwvsQidUqZG7dufjC9MRsZPeP8/iBq8UHzC3BTRW+ve94gSaZ2SDO8c73iw1shxTevRmFHZ
+ Iu17+nEjq9xhWb9R02WZwDW2rK8=
 X-Mailgun-Sending-Ip: 104.130.122.29
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
- 6018f095f71e8b9934df4187 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 02 Feb 2021 06:26:29
+ smtp-out-n06.prod.us-east-1.postgun.com with SMTP id
+ 6018f11e8f2d32c2c5f91579 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 02 Feb 2021 06:28:46
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 1A749C43464; Tue,  2 Feb 2021 06:26:29 +0000 (UTC)
+ id 120A6C43465; Tue,  2 Feb 2021 06:28:46 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -40,12 +40,13 @@ Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
  (Authenticated sender: saiprakash.ranjan)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 9D118C433C6;
- Tue,  2 Feb 2021 06:26:27 +0000 (UTC)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 9DB9DC433C6;
+ Tue,  2 Feb 2021 06:28:44 +0000 (UTC)
 MIME-Version: 1.0
-Date: Tue, 02 Feb 2021 11:56:27 +0530
+Date: Tue, 02 Feb 2021 11:58:44 +0530
 From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-To: Rob Clark <robdclark@gmail.com>
+To: Rob Clark <robdclark@gmail.com>, Jordan Crouse <jcrouse@codeaurora.org>,
+ Will Deacon <will@kernel.org>
 In-Reply-To: <20210201182016.GA21629@jcrouse1-lnx.qualcomm.com>
 References: <cover.1610372717.git.saiprakash.ranjan@codeaurora.org>
  <3f589e7de3f9fa93e84c83420c5270c546a0c368.1610372717.git.saiprakash.ranjan@codeaurora.org>
@@ -54,7 +55,7 @@ References: <cover.1610372717.git.saiprakash.ranjan@codeaurora.org>
  <20210201111556.GA7172@willie-the-truck>
  <CAF6AEGsARmkAFsjaQLfa2miMgeijo183MWDKGtW_ti-UCpzBqA@mail.gmail.com>
  <20210201182016.GA21629@jcrouse1-lnx.qualcomm.com>
-Message-ID: <7e9aade14d0b7f69285852ade4a5a9f4@codeaurora.org>
+Message-ID: <dc95c4d32691a588a7f660e3b20dd33e@codeaurora.org>
 X-Sender: saiprakash.ranjan@codeaurora.org
 User-Agent: Roundcube Webmail/1.3.9
 Subject: Re: [Freedreno] [PATCH 2/3] iommu/io-pgtable-arm: Add IOMMU_LLC
@@ -73,15 +74,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: "Isaac J. Manjarres" <isaacm@codeaurora.org>,
  freedreno <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
- Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, Joerg Roedel <joro@8bytes.org>,
  Akhil P Oommen <akhilpo@codeaurora.org>,
  dri-devel <dri-devel@lists.freedesktop.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Sean Paul <sean@poorly.run>, "list@263.net:IOMMU DRIVERS , 
- Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
+ Sean Paul <sean@poorly.run>, "list@263.net:IOMMU DRIVERS , Joerg Roedel
+ <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
  Kristian H Kristensen <hoegsberg@google.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, linux-arm-kernel@lists.infradead.org
+ Robin Murphy <robin.murphy@arm.com>, "moderated
+ list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
