@@ -1,65 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D27D530CDF7
-	for <lists+freedreno@lfdr.de>; Tue,  2 Feb 2021 22:36:14 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id AAB3130CF5D
+	for <lists+freedreno@lfdr.de>; Tue,  2 Feb 2021 23:52:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 721336E9A6;
-	Tue,  2 Feb 2021 21:36:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5546A6E0E8;
+	Tue,  2 Feb 2021 22:52:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69C6E6E9A6;
- Tue,  2 Feb 2021 21:36:12 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id a16so2743362wmm.0;
- Tue, 02 Feb 2021 13:36:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=u7YwChCFCmx7GzSkTHX1KsXA0x16yyNQloyNQVAkEuk=;
- b=m51K8ii4QQ+qoG6JIDj9R/YWGGg0l/iOAczNPitgSnBtMvc0VJbLR0XFGgIto1KLBo
- QsqOvAc6HapUTknKd4kv9dTtjyncuSvxWv0MkyLWDhaH5FHcWQSvYDaZOp9pczNXI5Sg
- OJlnwWF1tXHF5L94250z+zOltpUHoMd8IJStl9JYyV7V69lSH+yh6aMIAdG5X2joWPRl
- eK+AzBvwDoYzJwD/wZR/gA/8Vf45yyrrirTptkvxYY0o+G/yyvw5EHqtOAbiIgYNsoJe
- M0IWdqY27ZxbkWiyioDRN0LAw5QQMa/8fPicD0K13Llnjw/gHkPMJkPnb9RwO8wuPtj7
- 7USQ==
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 091346E0E8
+ for <freedreno@lists.freedesktop.org>; Tue,  2 Feb 2021 22:52:37 +0000 (UTC)
+Received: by mail-oi1-x22d.google.com with SMTP id h6so24669415oie.5
+ for <freedreno@lists.freedesktop.org>; Tue, 02 Feb 2021 14:52:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=pNHGdQEaVulKLdur3mjFN7uexHDN43kmskAHi1/+zFQ=;
+ b=vx3xy7M7W49bwfASPWL/L07EpcKrPO21vevHAK6m2umHBS0ZyUTODZpSpBmtT0fPTt
+ 4Lj/9sxxi+FfzYtjRg12f9Oq6J8cWTFNjgZTY5sYrI6zibG7seKEOmgPrH/9aQqzBFtx
+ aklLmA3rqnMRNAb1wm0IZVIuNpvW+0ZcfyjHXHDUpAAkpNXWTBe7Ozsln2Ks5Spen5ok
+ cWJpa4o0G6c+mwrs/OjssBUvIdQJi1jFp8d7TjLZfUug0eHmoM6SFqXphJ2/mZis5TAy
+ kI4Ys8mEC9MfUFxc/cPKtbyGYePwuvox9ibIT9u6GPHbfq0hqZEefJimipRToC6xdhpb
+ CYMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=u7YwChCFCmx7GzSkTHX1KsXA0x16yyNQloyNQVAkEuk=;
- b=tTuHF+pewqKkAOXw7VkUQV5/3Oas/RKi0wCkG723oO6UOO5B0tm4Wlt8jNTd9qDuIt
- YEqNfZERvqywUfZwqJohI8caKcaOcszIcePcp1fDUfunAvltGB7/QAG6oN57Xgqioa8P
- aoENXRCdLI9d1E//933tyYXPlbYENt7N8dhSqpRhS7/HF13nicz0TDuM8nNdID1mQLqG
- 14Qj6GMfKIorIdhfDSuo+IjIKrURiQfzmYrEIwqziFK82NAOU2ypIOvBVNR4TmW3KopQ
- +wXYgB/eNSfZEanvMdwOacW85LiYOa6X8Mz8puXe0mMS+iU73FpBisvOHeSUMoAkrkv1
- ivRQ==
-X-Gm-Message-State: AOAM532mN3R+Jwc5F3WGtUIW/VDAJh3mbKsdFR2rSTyhjo4oBRe7IUW4
- SPe+pgq3UYPxwwI2VXQxEmyL5HHwA2wlbbUZxOg=
-X-Google-Smtp-Source: ABdhPJwu9RoFvMLEGWbawWPiJHdzW2KJ/fX+VI3SCRJ52NzHm0MZ6fYdakbPQzNUTStq9FMVe3H/QGgS9RDYaksVwEI=
-X-Received: by 2002:a7b:c45a:: with SMTP id l26mr9356wmi.164.1612301770881;
- Tue, 02 Feb 2021 13:36:10 -0800 (PST)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=pNHGdQEaVulKLdur3mjFN7uexHDN43kmskAHi1/+zFQ=;
+ b=CJTHWLKVFLKDhy3DMRUL9SZCmuYGl6F8Z+0LTVKetmMjJTyEGUZ41yslfVlTxbNHlU
+ 5MPVkMbgQtm9w0UwBb2LMw3qcVqVNuGE96GldxPM54agpsI5nsnS9+nyaCIEv7IEIOn8
+ qq9MinguM+oWUTn5X5j08LP8XzpjHUPfE6MC1ckgubISNMiegsNCx0jDsjVLfOAcWcGj
+ 6lLs0rkzcXlPy1Jj7EUhQm4u35adYLYStFKpcx2ik4xMSH6PDeyniuPH1d+yFI0ZNsEd
+ OnGyDntXZYhu0DrnkDnGt+vwYZE76eFSlA9sOv1LgUAVLUWY1XrwpuXscwGhFl5y8QtJ
+ Dodw==
+X-Gm-Message-State: AOAM531eD1jQMLb2y/aUFv1w7H0OE8iwySpz6+WbEbWahoxHzueW8Mdn
+ QqJE6Nuv1Mm3VF4WOuPeITGdrA==
+X-Google-Smtp-Source: ABdhPJzOuTSR3c8QMeugNJGnaTsE04C3G6eyUc0ji1QK8vTBm3Acse8JcdjUyPcvpuGXlwSnU6Nq5Q==
+X-Received: by 2002:aca:4454:: with SMTP id r81mr57784oia.129.1612306357220;
+ Tue, 02 Feb 2021 14:52:37 -0800 (PST)
+Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
+ [104.57.184.186])
+ by smtp.gmail.com with ESMTPSA id b7sm75747oib.53.2021.02.02.14.52.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 02 Feb 2021 14:52:36 -0800 (PST)
+Date: Tue, 2 Feb 2021 16:52:34 -0600
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Akhil P Oommen <akhilpo@codeaurora.org>
+Message-ID: <YBnXshYzJmNpmuEW@builder.lan>
+References: <1610129731-4875-1-git-send-email-akhilpo@codeaurora.org>
+ <1610129731-4875-2-git-send-email-akhilpo@codeaurora.org>
 MIME-Version: 1.0
-References: <20210109135112.147759-1-angelogioacchino.delregno@somainline.org>
- <20210109135112.147759-4-angelogioacchino.delregno@somainline.org>
- <CAF6AEGvDzdgDy7Znw6dQCV7Z=YxnF2_XsqkV+7BT+oY777TqHA@mail.gmail.com>
- <8f8c7c37-f7b2-f763-19e1-d89e5c454ab4@somainline.org>
- <CAF6AEGsQp4xHpH2brUdHmAX1ic2k88EFJRVVWDRxWXUqF9njfw@mail.gmail.com>
- <CAF6AEGueo71HVBcLW2Mtu5GQ=9HgwL43WczUGLuTk2JWLoH=ew@mail.gmail.com>
- <CAF6AEGspvnwRrXurmRvvRhr8dsFRc6fNnLsSo52Te0rHXtj4jA@mail.gmail.com>
- <CAF6AEGsDL-qRyXWftTgzHGn=UTvz=rcyEUcJv+oGtVXCkYibug@mail.gmail.com>
- <e338e4bd-0e8c-9199-caa1-93945ed2b94b@somainline.org>
- <CAF6AEGsm4nzU4rJsKFSShb4s6GCi93=+kzcETngQkoC3KD1sqw@mail.gmail.com>
- <3e3e5555-ddeb-c706-0566-7427e71ad761@somainline.org>
- <CAF6AEGtg2_CNTMMY4adSxiA8Z0=VSYFy7HaK3w_a2rhokmY2Zg@mail.gmail.com>
-In-Reply-To: <CAF6AEGtg2_CNTMMY4adSxiA8Z0=VSYFy7HaK3w_a2rhokmY2Zg@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 2 Feb 2021 13:35:59 -0800
-Message-ID: <CAF6AEGurHVQUhNBzkb8iVxHKrFf1sThyUC0mCDHBoEDnVOTk=w@mail.gmail.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
-Subject: Re: [Freedreno] [PATCH 3/5] drm/msm/dsi_pll_10nm: Fix bad VCO rate
- calculation and prescaler
+Content-Disposition: inline
+In-Reply-To: <1610129731-4875-2-git-send-email-akhilpo@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH v4 2/2] arm: dts: sc7180: Add support for
+ gpu fuse
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,169 +69,119 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Stephen Boyd <swboyd@chromium.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Douglas Anderson <dianders@chromium.org>, martin.botka@somainline.org,
- Abhinav Kumar <abhinavk@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
- marijn.suijten@somainline.org, phone-devel@vger.kernel.org,
- Sean Paul <sean@poorly.run>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, jcrouse@codeaurora.org, mka@chromium.org,
+ robdclark@gmail.com, dri-devel@freedesktop.org,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Feb 2, 2021 at 11:08 AM Rob Clark <robdclark@gmail.com> wrote:
->
-> On Tue, Feb 2, 2021 at 10:46 AM AngeloGioacchino Del Regno
-> <angelogioacchino.delregno@somainline.org> wrote:
-> >
-> > Il 02/02/21 19:45, Rob Clark ha scritto:
-> > > On Tue, Feb 2, 2021 at 6:32 AM AngeloGioacchino Del Regno
-> > > <angelogioacchino.delregno@somainline.org> wrote:
-> > >>
-> > >> Il 01/02/21 18:31, Rob Clark ha scritto:
-> > >>> fwiw, this is the clk_summary diff with and without this patch:
-> > >>>
-> > >>> ------------------
-> > >>> 270,282c270,282
-> > >>> <     dsi0_pll_out_div_clk              1        1        0
-> > >>> 887039941          0     0  50000         Y
-> > >>> <        dsi0_pll_post_out_div_clk       0        0        0
-> > >>> 221759985          0     0  50000         Y
-> > >>> <        dsi0_pll_bit_clk               2        2        0
-> > >>> 887039941          0     0  50000         Y
-> > >>> <           dsi0_pclk_mux               1        1        0
-> > >>> 887039941          0     0  50000         Y
-> > >>> <              dsi0_phy_pll_out_dsiclk       1        1        0
-> > >>> 147839991          0     0  50000         Y
-> > >>> <                 disp_cc_mdss_pclk0_clk_src       1        1        0
-> > >>>     147839991          0     0  50000         Y
-> > >>> <                    disp_cc_mdss_pclk0_clk       1        1        0
-> > >>>    147839991          0     0  50000         Y
-> > >>> <           dsi0_pll_by_2_bit_clk       0        0        0
-> > >>> 443519970          0     0  50000         Y
-> > >>> <           dsi0_phy_pll_out_byteclk       1        1        0
-> > >>> 110879992          0     0  50000         Y
-> > >>> <              disp_cc_mdss_byte0_clk_src       2        2        0
-> > >>> 110879992          0     0  50000         Y
-> > >>> <                 disp_cc_mdss_byte0_div_clk_src       1        1
-> > >>>     0    55439996          0     0  50000         Y
-> > >>> <                    disp_cc_mdss_byte0_intf_clk       1        1
-> > >>>     0    55439996          0     0  50000         Y
-> > >>> <                 disp_cc_mdss_byte0_clk       1        1        0
-> > >>> 110879992          0     0  50000         Y
-> > >>> ---
-> > >>>>       dsi0_pll_out_div_clk              1        1        0   887039978          0     0  50000         Y
-> > >>>>          dsi0_pll_post_out_div_clk       0        0        0   221759994          0     0  50000         Y
-> > >>>>          dsi0_pll_bit_clk               2        2        0   887039978          0     0  50000         Y
-> > >>>>             dsi0_pclk_mux               1        1        0   887039978          0     0  50000         Y
-> > >>>>                dsi0_phy_pll_out_dsiclk       1        1        0   147839997          0     0  50000         Y
-> > >>>>                   disp_cc_mdss_pclk0_clk_src       1        1        0   147839997          0     0  50000         Y
-> > >>>>                      disp_cc_mdss_pclk0_clk       1        1        0   147839997          0     0  50000         Y
-> > >>>>             dsi0_pll_by_2_bit_clk       0        0        0   443519989          0     0  50000         Y
-> > >>>>             dsi0_phy_pll_out_byteclk       1        1        0   110879997          0     0  50000         Y
-> > >>>>                disp_cc_mdss_byte0_clk_src       2        2        0   110879997          0     0  50000         Y
-> > >>>>                   disp_cc_mdss_byte0_div_clk_src       1        1        0    55439999          0     0  50000         Y
-> > >>>>                      disp_cc_mdss_byte0_intf_clk       1        1        0    55439999          0     0  50000         Y
-> > >>>>                   disp_cc_mdss_byte0_clk       1        1        0   110879997          0     0  50000         Y
-> > >>> ------------------
-> > >>>
-> > >>>
-> > >>
-> > >> This is almost exactly what I saw on my devices as well, you get a
-> > >> difference of "just some Hz" (which can be totally ignored), because
-> > >> of how the calculation is done now.
-> > >>
-> > >> Thing is, what you see as PIXEL and BYTE clocks *before* the change is
-> > >> Linux thinking that your DSI is at that frequency, while the PLL will
-> > >> output *half* the rate, which is exactly what the patch fixes.
-> > >>
-> > >> "Fun" story is: the Xperia XZ1 (8998) and XZ (8996) have got the same
-> > >> display... by lowering the DSI rate on the MSM8996 phone by half, I
-> > >> get the same *identical* issues as the 8998 one without this patch.
-> > >> The clocks all match between one and another, because.. it's.. the same
-> > >> display, after all.
-> > >>
-> > >> It is because of the aforementioned test that I have raised doubts about
-> > >> the TI chip driver (or anything else really).. but then, anything is
-> > >> possible.
-> > >
-> > > It does look like, *so far* the TI bridge chip is only used on qc
-> > > platforms (according to grep'ing dts), so I suppose I can't rule out
-> > > bugs which cancel each other out.  Although there are various other
-> > > bridges used (for ex, the sdm845 rb3 board has some dsi->hdmi bridge)
-> > >
-> >
-> > Argh...
-> >
-> > > I guess it would be useful if we could measure the clk somehow to
-> > > confirm that it is running at the rate we think it is..
-> > >
-> >
-> > I totally agree with you on this, I actually wanted to do it the proper
-> > way, but then these clocks are really too high for my cheap oscilloscope
-> > and I couldn't... :(
->
-> Ok, there might actually be a way to do this.. there is a testclock
-> utility (added sboyd who wrote it in CC):
->
-> https://chromium.googlesource.com/chromiumos/overlays/board-overlays/+/refs/heads/main/chipset-qc845/dev-util/testclock/files/testclock.py
->
-> there is a similar thing for sc7180.. for other devices, I guess it
-> would require some porting..
->
-> Looking at disp_cc_mdss_byte0_clk and disp_cc_mdss_pclk0_clk on
-> sc7180, the rates returned by testclock roughly match what is in
-> clk_summary, ie. within rounding error
->
+On Fri 08 Jan 12:15 CST 2021, Akhil P Oommen wrote:
 
-So Doug Anderson pointed out that we can actually read the DSI clock
-from the bridge, if we put it in "automatic" mode, from him:
+Please align the $subject prefix with other changes in the same file.
+I fixed it up while picking up the patch this time.
 
-1. Boot up.
-2. i2cget -f -y 2 0x2d 0x12 # reads calculated rate that we programmed
-3. i2cset -f -y 2 0x2d 0x12 0 # switch to automatic mode
-4. i2cget -f -y 2 0x2d 0x12 # reads measured rate; repeat this a bunch
-and it should go up/down by 1 since measurement isn't perfect.
+Regards,
+Bjorn
 
-What I see without this patch:
-
-localhost ~ # i2cget -f -y 2 0x2d 0x12
-0x58
-localhost ~ # i2cset -f -y 2 0x2d 0x12 0
-localhost ~ # i2cget -f -y 2 0x2d 0x12
-0x58
-localhost ~ # i2cget -f -y 2 0x2d 0x12
-0x59
-localhost ~ # i2cget -f -y 2 0x2d 0x12
-0x58
-localhost ~ # i2cget -f -y 2 0x2d 0x12
-0x58
-localhost ~ # i2cget -f -y 2 0x2d 0x12
-0x58
-localhost ~ #
-
-And with this patch:
-
-localhost ~ # i2cget -f -y 2 0x2d 0x12
-0x58
-localhost ~ # i2cset -f -y 2 0x2d 0x12 0
-localhost ~ # i2cget -f -y 2 0x2d 0x12
-0xb1
-localhost ~ # i2cget -f -y 2 0x2d 0x12
-0xb2
-localhost ~ # i2cget -f -y 2 0x2d 0x12
-0xb2
-localhost ~ #
-
-So this patch is doubling the rate
-
-BR,
--R
+> Add support for gpu fuse to help identify the supported opps.
+> 
+> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+> ---
+>  arch/arm64/boot/dts/qcom/sc7180.dtsi | 22 ++++++++++++++++++++++
+>  1 file changed, 22 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> index 6678f1e..8cae3eb 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> @@ -675,6 +675,11 @@
+>  				reg = <0x25b 0x1>;
+>  				bits = <1 3>;
+>  			};
+> +
+> +			gpu_speed_bin: gpu_speed_bin@1d2 {
+> +				reg = <0x1d2 0x2>;
+> +				bits = <5 8>;
+> +			};
+>  		};
+>  
+>  		sdhc_1: sdhci@7c4000 {
+> @@ -1907,52 +1912,69 @@
+>  			operating-points-v2 = <&gpu_opp_table>;
+>  			qcom,gmu = <&gmu>;
+>  
+> +			nvmem-cells = <&gpu_speed_bin>;
+> +			nvmem-cell-names = "speed_bin";
+> +
+>  			interconnects = <&gem_noc MASTER_GFX3D 0 &mc_virt SLAVE_EBI1 0>;
+>  			interconnect-names = "gfx-mem";
+>  
+>  			gpu_opp_table: opp-table {
+>  				compatible = "operating-points-v2";
+>  
+> +				opp-825000000 {
+> +					opp-hz = /bits/ 64 <825000000>;
+> +					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
+> +					opp-peak-kBps = <8532000>;
+> +					opp-supported-hw = <0x04>;
+> +				};
+> +
+>  				opp-800000000 {
+>  					opp-hz = /bits/ 64 <800000000>;
+>  					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
+>  					opp-peak-kBps = <8532000>;
+> +					opp-supported-hw = <0x07>;
+>  				};
+>  
+>  				opp-650000000 {
+>  					opp-hz = /bits/ 64 <650000000>;
+>  					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
+>  					opp-peak-kBps = <7216000>;
+> +					opp-supported-hw = <0x07>;
+>  				};
+>  
+>  				opp-565000000 {
+>  					opp-hz = /bits/ 64 <565000000>;
+>  					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
+>  					opp-peak-kBps = <5412000>;
+> +					opp-supported-hw = <0x07>;
+>  				};
+>  
+>  				opp-430000000 {
+>  					opp-hz = /bits/ 64 <430000000>;
+>  					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
+>  					opp-peak-kBps = <5412000>;
+> +					opp-supported-hw = <0x07>;
+>  				};
+>  
+>  				opp-355000000 {
+>  					opp-hz = /bits/ 64 <355000000>;
+>  					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
+>  					opp-peak-kBps = <3072000>;
+> +					opp-supported-hw = <0x07>;
+>  				};
+>  
+>  				opp-267000000 {
+>  					opp-hz = /bits/ 64 <267000000>;
+>  					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
+>  					opp-peak-kBps = <3072000>;
+> +					opp-supported-hw = <0x07>;
+>  				};
+>  
+>  				opp-180000000 {
+>  					opp-hz = /bits/ 64 <180000000>;
+>  					opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
+>  					opp-peak-kBps = <1804000>;
+> +					opp-supported-hw = <0x07>;
+>  				};
+>  			};
+>  		};
+> -- 
+> 2.7.4
+> 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
