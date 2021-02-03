@@ -1,66 +1,47 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 436E530E181
-	for <lists+freedreno@lfdr.de>; Wed,  3 Feb 2021 18:54:45 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 38C0830E519
+	for <lists+freedreno@lfdr.de>; Wed,  3 Feb 2021 22:46:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D931A6EB15;
-	Wed,  3 Feb 2021 17:54:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D49FE6E57E;
+	Wed,  3 Feb 2021 21:46:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
- [104.130.122.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 929086EB15
- for <freedreno@lists.freedesktop.org>; Wed,  3 Feb 2021 17:54:41 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1612374882; h=Content-Transfer-Encoding: Content-Type:
- In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
- Subject: Sender; bh=skd9G4BcflC/QWV4zSXi1f5Z3sAt9lA/5vhec0dO9FM=;
- b=YKppzFL/yI0QvpI/krQr7P75MWYwQX2moigSqq8a/F5SK5wSYnW6lSzhqf/4v1EIlNUD9iPm
- FCF+ct2uy3+5sUQUGpO4/+6VyuxIiyoYWVjRZ6BqFbRKHqlIQ8LJrUdXq8RMrA9QLU3AGiPB
- MYk45FM2AGSgUg+y3KhrPnPkA3o=
-X-Mailgun-Sending-Ip: 104.130.122.29
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
- 601ae35b84d0ac8967a1fadc (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 03 Feb 2021 17:54:35
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 0027BC433C6; Wed,  3 Feb 2021 17:54:34 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-3.1 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- NICE_REPLY_A,SPF_FAIL,URIBL_BLOCKED autolearn=no autolearn_force=no
- version=3.4.0
-Received: from [192.168.1.105] (unknown [117.210.176.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: akhilpo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 7D02EC433ED;
- Wed,  3 Feb 2021 17:54:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 7D02EC433ED
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=akhilpo@codeaurora.org
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-References: <1610129731-4875-1-git-send-email-akhilpo@codeaurora.org>
- <1610129731-4875-2-git-send-email-akhilpo@codeaurora.org>
- <YBnXshYzJmNpmuEW@builder.lan>
-From: Akhil P Oommen <akhilpo@codeaurora.org>
-Message-ID: <af88628d-08ca-a2f3-c8f3-91732366760f@codeaurora.org>
-Date: Wed, 3 Feb 2021 23:24:27 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B93D6E57E;
+ Wed,  3 Feb 2021 21:46:19 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id EFFBE64DA3;
+ Wed,  3 Feb 2021 21:46:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1612388778;
+ bh=t9q36+UozJsJ0NMC2j5rVcV+pwE4hj88IGjV6WTPNUo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=uVRuQ5P0IfFTsuCtMSN892U6rEqrIfX9TVmgXodJDinRCg5OkM9Co88RgxyBq3rmJ
+ O1HkbK7cKkulp25CDBWLst0L8JbCrIbj9RZ2I3zHtl7ISsV3+3Xpwe2YdEHmqESL8B
+ n3KtHxLGn0iPYvsF4A4J7y0VYF7TycoLYNNOgb0y03Lc9skcbp8DdrHCOt1R8K6jqG
+ 5OJdLRid3AWksbYRNL/FyX/t09EMZzgUtuvsXVH/eAZDPQHXygnGPxNCy+yzvqANxP
+ XgiZ6rgkWPPgE8bta9cwEBqe6erV6gX23odAuK6lYsgo/L1wSwUDQXgSdhT7ENA+kK
+ RNVV1TErPzzyQ==
+Date: Wed, 3 Feb 2021 21:46:12 +0000
+From: Will Deacon <will@kernel.org>
+To: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+Message-ID: <20210203214612.GB19847@willie-the-truck>
+References: <cover.1610372717.git.saiprakash.ranjan@codeaurora.org>
+ <3f589e7de3f9fa93e84c83420c5270c546a0c368.1610372717.git.saiprakash.ranjan@codeaurora.org>
+ <20210129090516.GB3998@willie-the-truck>
+ <5d23fce629323bcda71594010824aad0@codeaurora.org>
+ <20210201111556.GA7172@willie-the-truck>
+ <CAF6AEGsARmkAFsjaQLfa2miMgeijo183MWDKGtW_ti-UCpzBqA@mail.gmail.com>
+ <20210201182016.GA21629@jcrouse1-lnx.qualcomm.com>
+ <7e9aade14d0b7f69285852ade4a5a9f4@codeaurora.org>
 MIME-Version: 1.0
-In-Reply-To: <YBnXshYzJmNpmuEW@builder.lan>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH v4 2/2] arm: dts: sc7180: Add support for
- gpu fuse
+Content-Disposition: inline
+In-Reply-To: <7e9aade14d0b7f69285852ade4a5a9f4@codeaurora.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Freedreno] [PATCH 2/3] iommu/io-pgtable-arm: Add IOMMU_LLC
+ page protection flag
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,129 +54,92 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, mka@chromium.org, dri-devel@freedesktop.org,
- freedreno@lists.freedesktop.org
+Cc: "Isaac J. Manjarres" <isaacm@codeaurora.org>,
+ freedreno <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Joerg Roedel <joro@8bytes.org>, "list@263.net:IOMMU DRIVERS ,
+ Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Kristian H Kristensen <hoegsberg@google.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2/3/2021 4:22 AM, Bjorn Andersson wrote:
-> On Fri 08 Jan 12:15 CST 2021, Akhil P Oommen wrote:
+On Tue, Feb 02, 2021 at 11:56:27AM +0530, Sai Prakash Ranjan wrote:
+> On 2021-02-01 23:50, Jordan Crouse wrote:
+> > On Mon, Feb 01, 2021 at 08:20:44AM -0800, Rob Clark wrote:
+> > > On Mon, Feb 1, 2021 at 3:16 AM Will Deacon <will@kernel.org> wrote:
+> > > > On Fri, Jan 29, 2021 at 03:12:59PM +0530, Sai Prakash Ranjan wrote:
+> > > > > On 2021-01-29 14:35, Will Deacon wrote:
+> > > > > > On Mon, Jan 11, 2021 at 07:45:04PM +0530, Sai Prakash Ranjan wrote:
+> > > > > > > +#define IOMMU_LLC        (1 << 6)
+> > > > > >
+> > > > > > On reflection, I'm a bit worried about exposing this because I think it
+> > > > > > will
+> > > > > > introduce a mismatched virtual alias with the CPU (we don't even have a
+> > > > > > MAIR
+> > > > > > set up for this memory type). Now, we also have that issue for the PTW,
+> > > > > > but
+> > > > > > since we always use cache maintenance (i.e. the streaming API) for
+> > > > > > publishing the page-tables to a non-coheren walker, it works out.
+> > > > > > However,
+> > > > > > if somebody expects IOMMU_LLC to be coherent with a DMA API coherent
+> > > > > > allocation, then they're potentially in for a nasty surprise due to the
+> > > > > > mismatched outer-cacheability attributes.
+> > > > > >
+> > > > >
+> > > > > Can't we add the syscached memory type similar to what is done on android?
+> > > >
+> > > > Maybe. How does the GPU driver map these things on the CPU side?
+> > > 
+> > > Currently we use writecombine mappings for everything, although there
+> > > are some cases that we'd like to use cached (but have not merged
+> > > patches that would give userspace a way to flush/invalidate)
+> > > 
+> > 
+> > LLC/system cache doesn't have a relationship with the CPU cache.  Its
+> > just a
+> > little accelerator that sits on the connection from the GPU to DDR and
+> > caches
+> > accesses. The hint that Sai is suggesting is used to mark the buffers as
+> > 'no-write-allocate' to prevent GPU write operations from being cached in
+> > the LLC
+> > which a) isn't interesting and b) takes up cache space for read
+> > operations.
+> > 
+> > Its easiest to think of the LLC as a bonus accelerator that has no cost
+> > for
+> > us to use outside of the unfortunate per buffer hint.
+> > 
+> > We do have to worry about the CPU cache w.r.t I/O coherency (which is a
+> > different hint) and in that case we have all of concerns that Will
+> > identified.
+> > 
 > 
-> Please align the $subject prefix with other changes in the same file.
-> I fixed it up while picking up the patch this time.
-> 
-Will take of this in future. Thanks, Bjorn.
+> For mismatched outer cacheability attributes which Will mentioned, I was
+> referring to [1] in android kernel.
 
--Akhil.
+I've lost track of the conversation here :/
 
-> Regards,
-> Bjorn
-> 
->> Add support for gpu fuse to help identify the supported opps.
->>
->> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
->> ---
->>   arch/arm64/boot/dts/qcom/sc7180.dtsi | 22 ++++++++++++++++++++++
->>   1 file changed, 22 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
->> index 6678f1e..8cae3eb 100644
->> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
->> @@ -675,6 +675,11 @@
->>   				reg = <0x25b 0x1>;
->>   				bits = <1 3>;
->>   			};
->> +
->> +			gpu_speed_bin: gpu_speed_bin@1d2 {
->> +				reg = <0x1d2 0x2>;
->> +				bits = <5 8>;
->> +			};
->>   		};
->>   
->>   		sdhc_1: sdhci@7c4000 {
->> @@ -1907,52 +1912,69 @@
->>   			operating-points-v2 = <&gpu_opp_table>;
->>   			qcom,gmu = <&gmu>;
->>   
->> +			nvmem-cells = <&gpu_speed_bin>;
->> +			nvmem-cell-names = "speed_bin";
->> +
->>   			interconnects = <&gem_noc MASTER_GFX3D 0 &mc_virt SLAVE_EBI1 0>;
->>   			interconnect-names = "gfx-mem";
->>   
->>   			gpu_opp_table: opp-table {
->>   				compatible = "operating-points-v2";
->>   
->> +				opp-825000000 {
->> +					opp-hz = /bits/ 64 <825000000>;
->> +					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
->> +					opp-peak-kBps = <8532000>;
->> +					opp-supported-hw = <0x04>;
->> +				};
->> +
->>   				opp-800000000 {
->>   					opp-hz = /bits/ 64 <800000000>;
->>   					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
->>   					opp-peak-kBps = <8532000>;
->> +					opp-supported-hw = <0x07>;
->>   				};
->>   
->>   				opp-650000000 {
->>   					opp-hz = /bits/ 64 <650000000>;
->>   					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
->>   					opp-peak-kBps = <7216000>;
->> +					opp-supported-hw = <0x07>;
->>   				};
->>   
->>   				opp-565000000 {
->>   					opp-hz = /bits/ 64 <565000000>;
->>   					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
->>   					opp-peak-kBps = <5412000>;
->> +					opp-supported-hw = <0x07>;
->>   				};
->>   
->>   				opp-430000000 {
->>   					opp-hz = /bits/ 64 <430000000>;
->>   					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
->>   					opp-peak-kBps = <5412000>;
->> +					opp-supported-hw = <0x07>;
->>   				};
->>   
->>   				opp-355000000 {
->>   					opp-hz = /bits/ 64 <355000000>;
->>   					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
->>   					opp-peak-kBps = <3072000>;
->> +					opp-supported-hw = <0x07>;
->>   				};
->>   
->>   				opp-267000000 {
->>   					opp-hz = /bits/ 64 <267000000>;
->>   					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
->>   					opp-peak-kBps = <3072000>;
->> +					opp-supported-hw = <0x07>;
->>   				};
->>   
->>   				opp-180000000 {
->>   					opp-hz = /bits/ 64 <180000000>;
->>   					opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
->>   					opp-peak-kBps = <1804000>;
->> +					opp-supported-hw = <0x07>;
->>   				};
->>   			};
->>   		};
->> -- 
->> 2.7.4
->>
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
-> 
+When the GPU has a buffer mapped with IOMMU_LLC, is the buffer also mapped
+into the CPU and with what attributes? Rob said "writecombine for
+everything" -- does that mean ioremap_wc() / MEMREMAP_WC?
 
+Finally, we need to be careful when we use the word "hint" as "allocation
+hint" has a specific meaning in the architecture, and if we only mismatch on
+those then we're actually ok. But I think IOMMU_LLC is more than just a
+hint, since it actually drives eviction policy (i.e. it enables writeback).
+
+Sorry for the pedantry, but I just want to make sure we're all talking
+about the same things!
+
+Cheers,
+
+Will
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
