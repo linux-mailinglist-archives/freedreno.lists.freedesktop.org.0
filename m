@@ -2,61 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98B7530E108
-	for <lists+freedreno@lfdr.de>; Wed,  3 Feb 2021 18:29:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 436E530E181
+	for <lists+freedreno@lfdr.de>; Wed,  3 Feb 2021 18:54:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 631046EB15;
-	Wed,  3 Feb 2021 17:29:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D931A6EB15;
+	Wed,  3 Feb 2021 17:54:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0479D6E9E2;
- Wed,  3 Feb 2021 17:29:23 +0000 (UTC)
-Received: by mail-wm1-x333.google.com with SMTP id y187so425771wmd.3;
- Wed, 03 Feb 2021 09:29:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=uPH5OblyFFbedYn9+BQ26mKadiTtGkT9N+onb3xhOy0=;
- b=K7IF/1gBBgpBlOlysJowcvI5gConMGam7j5lBs6jvW5iYqlAy1gmVQioHW+423xm/+
- Xffo1lnixMCvC63Mrn8E1dktjlq2miahH5y2ca2eCn/MAZbALPdmms6/ULBU10EtZEvA
- WrqRZ+OLMqJTpv8FvNJx4J8zcbpGHbbebnm1lk6Q2EPjnAXO+8mrsT2FoFXn1J3wIoRG
- BQAHQEceY/fnF78a4argjeueeCVj8iksR7F/OohUXzqXdUOR3ime8ZsgJe47Hi67KNRr
- KrN7I/TLvo3pqO7UvvIWrDKtT8WT9PE5FfRgSvB6Lt6Ene/ZgGvBd9K7lOuG6VRTrurh
- CKHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=uPH5OblyFFbedYn9+BQ26mKadiTtGkT9N+onb3xhOy0=;
- b=QAJ1kFk8WYypi/Kw174Y0eKPPRXe3dBQhojjRpcqsuU/hrpKoPc5M2FwNQURCH8BVA
- 8a8iFM0KXVS8ZO5e0xwoUFqDUCmJu5ObJ2dnMm+3IDUoWrwNdXcraL/w8mCu72XAZ1dP
- ULhCBnwSBW4ZWksRr3AgsVIRfM1QcAiN/yopGag0dc76sqpbAO3e/OdIMKL2uS5OcXDO
- D6ZGRZ+A/AA6ekr8UvJFw+yko5q0Z18deoRGMqDVCKfx5Yu+3sDD8hdvQiCPMd2KmPPU
- 2gndFC8754J83S3PToQEkqLK4BKbeyuzfSW4UqNyC3/p9pV4hx3OSoMWodBFecGAreC0
- wnCQ==
-X-Gm-Message-State: AOAM531WugiGReqRExMPQUHNxXiMnwICWMpmODuKcs/Gd+TXca8/vvdg
- UFLQmypOVHm9miiBIQWcOWC3wO2Xbf/49Q7xaVI=
-X-Google-Smtp-Source: ABdhPJyuP59odfKVpAoppRDyEDedpUtAuo6qlMEYp84tlozuyrhH0Wad4rt6OCQy5dw+aR5JaDJk5ZoeS3INPdPMwNA=
-X-Received: by 2002:a1c:8002:: with SMTP id b2mr3887677wmd.94.1612373361611;
- Wed, 03 Feb 2021 09:29:21 -0800 (PST)
+Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
+ [104.130.122.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 929086EB15
+ for <freedreno@lists.freedesktop.org>; Wed,  3 Feb 2021 17:54:41 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1612374882; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
+ Subject: Sender; bh=skd9G4BcflC/QWV4zSXi1f5Z3sAt9lA/5vhec0dO9FM=;
+ b=YKppzFL/yI0QvpI/krQr7P75MWYwQX2moigSqq8a/F5SK5wSYnW6lSzhqf/4v1EIlNUD9iPm
+ FCF+ct2uy3+5sUQUGpO4/+6VyuxIiyoYWVjRZ6BqFbRKHqlIQ8LJrUdXq8RMrA9QLU3AGiPB
+ MYk45FM2AGSgUg+y3KhrPnPkA3o=
+X-Mailgun-Sending-Ip: 104.130.122.29
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
+ 601ae35b84d0ac8967a1fadc (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 03 Feb 2021 17:54:35
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 0027BC433C6; Wed,  3 Feb 2021 17:54:34 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-3.1 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ NICE_REPLY_A,SPF_FAIL,URIBL_BLOCKED autolearn=no autolearn_force=no
+ version=3.4.0
+Received: from [192.168.1.105] (unknown [117.210.176.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 7D02EC433ED;
+ Wed,  3 Feb 2021 17:54:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 7D02EC433ED
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=akhilpo@codeaurora.org
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+References: <1610129731-4875-1-git-send-email-akhilpo@codeaurora.org>
+ <1610129731-4875-2-git-send-email-akhilpo@codeaurora.org>
+ <YBnXshYzJmNpmuEW@builder.lan>
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+Message-ID: <af88628d-08ca-a2f3-c8f3-91732366760f@codeaurora.org>
+Date: Wed, 3 Feb 2021 23:24:27 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.0
 MIME-Version: 1.0
-References: <20210125234901.2730699-1-swboyd@chromium.org>
- <YBlz8Go2DseRWuOa@phenom.ffwll.local>
- <CAF6AEGuWhGuzxsBquj-WLSwa83r+zO7jAQ9ten2m+2KtoGpYSw@mail.gmail.com>
- <YBp2h2cVXrF6lBno@phenom.ffwll.local>
-In-Reply-To: <YBp2h2cVXrF6lBno@phenom.ffwll.local>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 3 Feb 2021 09:29:09 -0800
-Message-ID: <CAF6AEGvTrfYYTfReGbAm9zcBNhjZvX0tko4kZUeQcyNZv4cM6w@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>, Stephen Boyd <swboyd@chromium.org>, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, 
- Krishna Manikandan <mkrishn@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm/kms: Make a lock_class_key for each
- crtc mutex
+In-Reply-To: <YBnXshYzJmNpmuEW@builder.lan>
+Content-Language: en-US
+Subject: Re: [Freedreno] [PATCH v4 2/2] arm: dts: sc7180: Add support for
+ gpu fuse
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,211 +73,129 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mka@chromium.org, dri-devel@freedesktop.org,
+ freedreno@lists.freedesktop.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Feb 3, 2021 at 2:10 AM Daniel Vetter <daniel@ffwll.ch> wrote:
->
-> On Tue, Feb 02, 2021 at 08:51:25AM -0800, Rob Clark wrote:
-> > On Tue, Feb 2, 2021 at 7:46 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > >
-> > > On Mon, Jan 25, 2021 at 03:49:01PM -0800, Stephen Boyd wrote:
-> > > > Lockdep complains about an AA deadlock when rebooting the device.
-> > > >
-> > > > ============================================
-> > > > WARNING: possible recursive locking detected
-> > > > 5.4.91 #1 Not tainted
-> > > > --------------------------------------------
-> > > > reboot/5213 is trying to acquire lock:
-> > > > ffffff80d13391b0 (&kms->commit_lock[i]){+.+.}, at: lock_crtcs+0x60/0xa4
-> > > >
-> > > > but task is already holding lock:
-> > > > ffffff80d1339110 (&kms->commit_lock[i]){+.+.}, at: lock_crtcs+0x60/0xa4
-> > > >
-> > > > other info that might help us debug this:
-> > > > Possible unsafe locking scenario:
-> > > >
-> > > > CPU0
-> > > > ----
-> > > > lock(&kms->commit_lock[i]);
-> > > > lock(&kms->commit_lock[i]);
-> > > >
-> > > > *** DEADLOCK ***
-> > > >
-> > > > May be due to missing lock nesting notation
-> > > >
-> > > > 6 locks held by reboot/5213:
-> > > > __arm64_sys_reboot+0x148/0x2a0
-> > > > device_shutdown+0x10c/0x2c4
-> > > > drm_atomic_helper_shutdown+0x48/0xfc
-> > > > modeset_lock+0x120/0x24c
-> > > > lock_crtcs+0x60/0xa4
-> > > >
-> > > > stack backtrace:
-> > > > CPU: 4 PID: 5213 Comm: reboot Not tainted 5.4.91 #1
-> > > > Hardware name: Google Pompom (rev1) with LTE (DT)
-> > > > Call trace:
-> > > > dump_backtrace+0x0/0x1dc
-> > > > show_stack+0x24/0x30
-> > > > dump_stack+0xfc/0x1a8
-> > > > __lock_acquire+0xcd0/0x22b8
-> > > > lock_acquire+0x1ec/0x240
-> > > > __mutex_lock_common+0xe0/0xc84
-> > > > mutex_lock_nested+0x48/0x58
-> > > > lock_crtcs+0x60/0xa4
-> > > > msm_atomic_commit_tail+0x348/0x570
-> > > > commit_tail+0xdc/0x178
-> > > > drm_atomic_helper_commit+0x160/0x168
-> > > > drm_atomic_commit+0x68/0x80
-> > > >
-> > > > This is because lockdep thinks all the locks taken in lock_crtcs() are
-> > > > the same lock, when they actually aren't. That's because we call
-> > > > mutex_init() in msm_kms_init() and that assigns on static key for every
-> > > > lock initialized in this loop. Let's allocate a dynamic number of
-> > > > lock_class_keys and assign them to each lock so that lockdep can figure
-> > > > out an AA deadlock isn't possible here.
-> > > >
-> > > > Fixes: b3d91800d9ac ("drm/msm: Fix race condition in msm driver with async layer updates")
-> > > > Cc: Krishna Manikandan <mkrishn@codeaurora.org>
-> > > > Signed-off-by: Stephen Boyd <swboyd@chromium.org>
-> > >
-> > > This smells like throwing more bad after initial bad code ...
-> > >
-> > > First a rant: https://blog.ffwll.ch/2020/08/lockdep-false-positives.html
->
-> Some technical on the patch itself: I think you want
-> mutex_lock_nested(crtc->lock, drm_crtc_index(crtc)), not your own locking
-> classes hand-rolled. It's defacto the same, but much more obviously
-> correct since self-documenting.
+On 2/3/2021 4:22 AM, Bjorn Andersson wrote:
+> On Fri 08 Jan 12:15 CST 2021, Akhil P Oommen wrote:
+> 
+> Please align the $subject prefix with other changes in the same file.
+> I fixed it up while picking up the patch this time.
+> 
+Will take of this in future. Thanks, Bjorn.
 
-hmm, yeah, that is a bit cleaner.. but this patch is already on
-msm-next, maybe I'll add a patch on top to change it
+-Akhil.
 
-> > > Yes I know the locking you're doing here is correct, but that goes to the
-> > > second issue: Why is this needed? atomic_async_update helpers are supposed
-> > > to take care of ordering fun like this, if they're not, we need to address
-> > > things there. The problem that
-> >
-> > Maybe a better solution would be helper awareness of hw that has
-> > double-buffered state and flush bits.. ie. something that looks a bit
-> > more like the internal kms fxn ptrs. Currently the locking is
-> > protecting something that the atomic helpers are not aware of, ie.
-> > we've already written previous cursor updates to hw and are just
-> > waiting until close to vblank to write the flush bits
-> >
-> > But, we've been over this before. I'd tried various approaches.. the
-> > current scheme replaces seanpaul's earlier attempts to do it the
-> > "helper" way.  The current implementation does the best job of
-> > avoiding fps drops when the legacy cursor uapi is in play.  (And yes,
-> > legacy cursor + atomic ioctls is maybe not the greatest, but it is
-> > what it is.)
->
-> I didn't read enough of the context and got confused, the flush handling
-> looks all reasonable and obviously needs some locks to avoid races with
-> updates.
->
-> It still looks a bit strange that you need multi-crtc locks for cursor
-> (generally this stuff is supposed to be solved with ordering) and why the
-> async helpers don't work since msm has something that's pretty close
-> itself. Atomic+cursor is a bit nasty, but if every driver hacks this
-> together themselves then there's not much chance of this ever really
-> working well across the board. And aside from the flush bit instead of
-> automatic double buffering (which you're just emulating) there's not
-> really anything special with msm afaics. So pretty sure that if this
-> doesn't work for msm, it doesn't work anywhere else.
+> Regards,
+> Bjorn
+> 
+>> Add support for gpu fuse to help identify the supported opps.
+>>
+>> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+>> ---
+>>   arch/arm64/boot/dts/qcom/sc7180.dtsi | 22 ++++++++++++++++++++++
+>>   1 file changed, 22 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+>> index 6678f1e..8cae3eb 100644
+>> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+>> @@ -675,6 +675,11 @@
+>>   				reg = <0x25b 0x1>;
+>>   				bits = <1 3>;
+>>   			};
+>> +
+>> +			gpu_speed_bin: gpu_speed_bin@1d2 {
+>> +				reg = <0x1d2 0x2>;
+>> +				bits = <5 8>;
+>> +			};
+>>   		};
+>>   
+>>   		sdhc_1: sdhci@7c4000 {
+>> @@ -1907,52 +1912,69 @@
+>>   			operating-points-v2 = <&gpu_opp_table>;
+>>   			qcom,gmu = <&gmu>;
+>>   
+>> +			nvmem-cells = <&gpu_speed_bin>;
+>> +			nvmem-cell-names = "speed_bin";
+>> +
+>>   			interconnects = <&gem_noc MASTER_GFX3D 0 &mc_virt SLAVE_EBI1 0>;
+>>   			interconnect-names = "gfx-mem";
+>>   
+>>   			gpu_opp_table: opp-table {
+>>   				compatible = "operating-points-v2";
+>>   
+>> +				opp-825000000 {
+>> +					opp-hz = /bits/ 64 <825000000>;
+>> +					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
+>> +					opp-peak-kBps = <8532000>;
+>> +					opp-supported-hw = <0x04>;
+>> +				};
+>> +
+>>   				opp-800000000 {
+>>   					opp-hz = /bits/ 64 <800000000>;
+>>   					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
+>>   					opp-peak-kBps = <8532000>;
+>> +					opp-supported-hw = <0x07>;
+>>   				};
+>>   
+>>   				opp-650000000 {
+>>   					opp-hz = /bits/ 64 <650000000>;
+>>   					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
+>>   					opp-peak-kBps = <7216000>;
+>> +					opp-supported-hw = <0x07>;
+>>   				};
+>>   
+>>   				opp-565000000 {
+>>   					opp-hz = /bits/ 64 <565000000>;
+>>   					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
+>>   					opp-peak-kBps = <5412000>;
+>> +					opp-supported-hw = <0x07>;
+>>   				};
+>>   
+>>   				opp-430000000 {
+>>   					opp-hz = /bits/ 64 <430000000>;
+>>   					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
+>>   					opp-peak-kBps = <5412000>;
+>> +					opp-supported-hw = <0x07>;
+>>   				};
+>>   
+>>   				opp-355000000 {
+>>   					opp-hz = /bits/ 64 <355000000>;
+>>   					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
+>>   					opp-peak-kBps = <3072000>;
+>> +					opp-supported-hw = <0x07>;
+>>   				};
+>>   
+>>   				opp-267000000 {
+>>   					opp-hz = /bits/ 64 <267000000>;
+>>   					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
+>>   					opp-peak-kBps = <3072000>;
+>> +					opp-supported-hw = <0x07>;
+>>   				};
+>>   
+>>   				opp-180000000 {
+>>   					opp-hz = /bits/ 64 <180000000>;
+>>   					opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
+>>   					opp-peak-kBps = <1804000>;
+>> +					opp-supported-hw = <0x07>;
+>>   				};
+>>   			};
+>>   		};
+>> -- 
+>> 2.7.4
+>>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> 
 
-I did dig out a hub/keyboard/mouse for the one mtk device I have to
-see how it behaves with cursor updates.. the fps drops are pretty
-bad.. roughly the same as they were with msm prior to the current
-"defer the flush bits" scheme.  Maybe I'm just more picky than others.
-
-Better helper support for this sort of hw would be useful, since I
-think it is not uncommon.  (At least omap is similar, I didn't really
-look at mtk/rockchip.)  If I had a clone to handle the display side of
-things, my clone would work on that ;-)
-
-BR,
--R
-
-> -Daniel
->
-> >
-> > BR,
-> > -R
-> >
-> > >
-> > > commit b3d91800d9ac35014e0349292273a6fa7938d402
-> > > Author: Krishna Manikandan <mkrishn@codeaurora.org>
-> > > Date:   Fri Oct 16 19:40:43 2020 +0530
-> > >
-> > >     drm/msm: Fix race condition in msm driver with async layer updates
-> > >
-> > > is _the_ reason we have drm_crtc_commit to track stuff, and Maxime has
-> > > recently rolled out a pile of changes to vc4 to use these things
-> > > correctly. Hacking some glorious hand-rolled locking for synchronization
-> > > of updates really should be the exception for kms drivers, not the rule.
-> > > And this one here doesn't look like an exception by far (the one legit I
-> > > know of is the locking issues amdgpu has between atomic_commit_tail and
-> > > gpu reset, and that one is really nasty, so not going to get fixed in
-> > > helpers, ever).
-> > >
-> > > Cheers, Daniel
-> > >
-> > > > ---
-> > > >  drivers/gpu/drm/msm/msm_kms.h | 8 ++++++--
-> > > >  1 file changed, 6 insertions(+), 2 deletions(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
-> > > > index d8151a89e163..4735251a394d 100644
-> > > > --- a/drivers/gpu/drm/msm/msm_kms.h
-> > > > +++ b/drivers/gpu/drm/msm/msm_kms.h
-> > > > @@ -157,6 +157,7 @@ struct msm_kms {
-> > > >        * from the crtc's pending_timer close to end of the frame:
-> > > >        */
-> > > >       struct mutex commit_lock[MAX_CRTCS];
-> > > > +     struct lock_class_key commit_lock_keys[MAX_CRTCS];
-> > > >       unsigned pending_crtc_mask;
-> > > >       struct msm_pending_timer pending_timers[MAX_CRTCS];
-> > > >  };
-> > > > @@ -166,8 +167,11 @@ static inline int msm_kms_init(struct msm_kms *kms,
-> > > >  {
-> > > >       unsigned i, ret;
-> > > >
-> > > > -     for (i = 0; i < ARRAY_SIZE(kms->commit_lock); i++)
-> > > > -             mutex_init(&kms->commit_lock[i]);
-> > > > +     for (i = 0; i < ARRAY_SIZE(kms->commit_lock); i++) {
-> > > > +             lockdep_register_key(&kms->commit_lock_keys[i]);
-> > > > +             __mutex_init(&kms->commit_lock[i], "&kms->commit_lock[i]",
-> > > > +                          &kms->commit_lock_keys[i]);
-> > > > +     }
-> > > >
-> > > >       kms->funcs = funcs;
-> > > >
-> > > >
-> > > > base-commit: 19c329f6808995b142b3966301f217c831e7cf31
-> > > > --
-> > > > https://chromeos.dev
-> > > >
-> > > > _______________________________________________
-> > > > dri-devel mailing list
-> > > > dri-devel@lists.freedesktop.org
-> > > > https://lists.freedesktop.org/mailman/listinfo/dri-devel
-> > >
-> > > --
-> > > Daniel Vetter
-> > > Software Engineer, Intel Corporation
-> > > http://blog.ffwll.ch
-> > _______________________________________________
-> > dri-devel mailing list
-> > dri-devel@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/dri-devel
->
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
