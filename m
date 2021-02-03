@@ -2,46 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38C0830E519
-	for <lists+freedreno@lfdr.de>; Wed,  3 Feb 2021 22:46:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6318830E54E
+	for <lists+freedreno@lfdr.de>; Wed,  3 Feb 2021 22:58:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D49FE6E57E;
-	Wed,  3 Feb 2021 21:46:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2BCA6EC05;
+	Wed,  3 Feb 2021 21:58:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B93D6E57E;
- Wed,  3 Feb 2021 21:46:19 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id EFFBE64DA3;
- Wed,  3 Feb 2021 21:46:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612388778;
- bh=t9q36+UozJsJ0NMC2j5rVcV+pwE4hj88IGjV6WTPNUo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=uVRuQ5P0IfFTsuCtMSN892U6rEqrIfX9TVmgXodJDinRCg5OkM9Co88RgxyBq3rmJ
- O1HkbK7cKkulp25CDBWLst0L8JbCrIbj9RZ2I3zHtl7ISsV3+3Xpwe2YdEHmqESL8B
- n3KtHxLGn0iPYvsF4A4J7y0VYF7TycoLYNNOgb0y03Lc9skcbp8DdrHCOt1R8K6jqG
- 5OJdLRid3AWksbYRNL/FyX/t09EMZzgUtuvsXVH/eAZDPQHXygnGPxNCy+yzvqANxP
- XgiZ6rgkWPPgE8bta9cwEBqe6erV6gX23odAuK6lYsgo/L1wSwUDQXgSdhT7ENA+kK
- RNVV1TErPzzyQ==
-Date: Wed, 3 Feb 2021 21:46:12 +0000
-From: Will Deacon <will@kernel.org>
-To: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-Message-ID: <20210203214612.GB19847@willie-the-truck>
-References: <cover.1610372717.git.saiprakash.ranjan@codeaurora.org>
- <3f589e7de3f9fa93e84c83420c5270c546a0c368.1610372717.git.saiprakash.ranjan@codeaurora.org>
- <20210129090516.GB3998@willie-the-truck>
- <5d23fce629323bcda71594010824aad0@codeaurora.org>
- <20210201111556.GA7172@willie-the-truck>
- <CAF6AEGsARmkAFsjaQLfa2miMgeijo183MWDKGtW_ti-UCpzBqA@mail.gmail.com>
- <20210201182016.GA21629@jcrouse1-lnx.qualcomm.com>
- <7e9aade14d0b7f69285852ade4a5a9f4@codeaurora.org>
+Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
+ [IPv6:2607:f8b0:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC7AD6EC06
+ for <freedreno@lists.freedesktop.org>; Wed,  3 Feb 2021 21:58:31 +0000 (UTC)
+Received: by mail-pf1-x433.google.com with SMTP id t29so696892pfg.11
+ for <freedreno@lists.freedesktop.org>; Wed, 03 Feb 2021 13:58:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:content-transfer-encoding:in-reply-to:references
+ :subject:from:to:date:message-id:user-agent;
+ bh=NZyBJaM1wJYJrM3N9nWdphIUZzNaZF7K0cw+Alsw60s=;
+ b=YuOUTknzG6QCCWY+6/9xwyK6R03ljdXy/eo0oFI/N+6GwosnDa5CyqQSfRHomVRq5Y
+ /QU7kuuwvyKHdo8lw5/0kfKeynARxii+bcfHMWHLjs9pAUBAC1hEJdjvZFQ4lTU08YcK
+ JPPSVfydjzgAxHpwSzs/Slc3zbOWlaxSXZv/8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:content-transfer-encoding
+ :in-reply-to:references:subject:from:to:date:message-id:user-agent;
+ bh=NZyBJaM1wJYJrM3N9nWdphIUZzNaZF7K0cw+Alsw60s=;
+ b=bHvJnC+lK+OMo9C/GIdbDwoGIsFQ//pavtVHg0Uge190JTL63KBN1675OqGEib402y
+ BWj4DXCk1TIBRE9HYk/RyfWHAGWbRdGvlDnrOH1CePJjPKCl44HQoMzpnLKN2Y8Cqg6U
+ ajx+unRIKq5pWZNOyxooZl2cQ+sq1BnnNXdxY4Exkm3QZaibtUX3KWj+/eIGqrwBbbRe
+ iSOBFFX1CMkailqgwXE6odf8Y8GrBqIOMos0tgDUL2XS7OaqG38dbJ2Ps2LjozsGz42s
+ cyLr71iqwOViLVPFaq1NoZRzSKDGYEV5jdyL/1o7roDJ0IyP+2Dvg7jeDn7jT7kS2sdf
+ j02w==
+X-Gm-Message-State: AOAM532/SMCXXi1egVkIa2FWbnX9MbqIubqaTOUhg/nb8ae9jAjOEySY
+ PoK5Xrt+StiBd8BWeDqz76WwHg==
+X-Google-Smtp-Source: ABdhPJzk7PmvKQQrV2P9s6wrj8xy2r8VnWspZmZ4jUzlRnhKwjl19rpVf2Q70wAcSJtijokb8iTr1w==
+X-Received: by 2002:a65:6207:: with SMTP id d7mr6025724pgv.92.1612389511562;
+ Wed, 03 Feb 2021 13:58:31 -0800 (PST)
+Received: from chromium.org ([2620:15c:202:201:3571:bd6e:ee19:b59f])
+ by smtp.gmail.com with ESMTPSA id o20sm3953813pgn.6.2021.02.03.13.58.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 03 Feb 2021 13:58:30 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <7e9aade14d0b7f69285852ade4a5a9f4@codeaurora.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH 2/3] iommu/io-pgtable-arm: Add IOMMU_LLC
- page protection flag
+In-Reply-To: <CAF6AEGvTrfYYTfReGbAm9zcBNhjZvX0tko4kZUeQcyNZv4cM6w@mail.gmail.com>
+References: <20210125234901.2730699-1-swboyd@chromium.org>
+ <YBlz8Go2DseRWuOa@phenom.ffwll.local>
+ <CAF6AEGuWhGuzxsBquj-WLSwa83r+zO7jAQ9ten2m+2KtoGpYSw@mail.gmail.com>
+ <YBp2h2cVXrF6lBno@phenom.ffwll.local>
+ <CAF6AEGvTrfYYTfReGbAm9zcBNhjZvX0tko4kZUeQcyNZv4cM6w@mail.gmail.com>
+From: Stephen Boyd <swboyd@chromium.org>
+To: Krishna Manikandan <mkrishn@codeaurora.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Rob Clark <robdclark@gmail.com>, dri-devel <dri-devel@lists.freedesktop.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>
+Date: Wed, 03 Feb 2021 13:58:28 -0800
+Message-ID: <161238950899.76967.16385691346035591773@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
+Subject: Re: [Freedreno] [PATCH] drm/msm/kms: Make a lock_class_key for each
+ crtc mutex
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,92 +72,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Isaac J. Manjarres" <isaacm@codeaurora.org>,
- freedreno <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Joerg Roedel <joro@8bytes.org>, "list@263.net:IOMMU DRIVERS ,
- Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Kristian H Kristensen <hoegsberg@google.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Feb 02, 2021 at 11:56:27AM +0530, Sai Prakash Ranjan wrote:
-> On 2021-02-01 23:50, Jordan Crouse wrote:
-> > On Mon, Feb 01, 2021 at 08:20:44AM -0800, Rob Clark wrote:
-> > > On Mon, Feb 1, 2021 at 3:16 AM Will Deacon <will@kernel.org> wrote:
-> > > > On Fri, Jan 29, 2021 at 03:12:59PM +0530, Sai Prakash Ranjan wrote:
-> > > > > On 2021-01-29 14:35, Will Deacon wrote:
-> > > > > > On Mon, Jan 11, 2021 at 07:45:04PM +0530, Sai Prakash Ranjan wrote:
-> > > > > > > +#define IOMMU_LLC        (1 << 6)
-> > > > > >
-> > > > > > On reflection, I'm a bit worried about exposing this because I think it
-> > > > > > will
-> > > > > > introduce a mismatched virtual alias with the CPU (we don't even have a
-> > > > > > MAIR
-> > > > > > set up for this memory type). Now, we also have that issue for the PTW,
-> > > > > > but
-> > > > > > since we always use cache maintenance (i.e. the streaming API) for
-> > > > > > publishing the page-tables to a non-coheren walker, it works out.
-> > > > > > However,
-> > > > > > if somebody expects IOMMU_LLC to be coherent with a DMA API coherent
-> > > > > > allocation, then they're potentially in for a nasty surprise due to the
-> > > > > > mismatched outer-cacheability attributes.
-> > > > > >
-> > > > >
-> > > > > Can't we add the syscached memory type similar to what is done on android?
+Quoting Rob Clark (2021-02-03 09:29:09)
+> On Wed, Feb 3, 2021 at 2:10 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+> >
+> > On Tue, Feb 02, 2021 at 08:51:25AM -0800, Rob Clark wrote:
+> > > On Tue, Feb 2, 2021 at 7:46 AM Daniel Vetter <daniel@ffwll.ch> wrote:
 > > > >
-> > > > Maybe. How does the GPU driver map these things on the CPU side?
-> > > 
-> > > Currently we use writecombine mappings for everything, although there
-> > > are some cases that we'd like to use cached (but have not merged
-> > > patches that would give userspace a way to flush/invalidate)
-> > > 
-> > 
-> > LLC/system cache doesn't have a relationship with the CPU cache.  Its
-> > just a
-> > little accelerator that sits on the connection from the GPU to DDR and
-> > caches
-> > accesses. The hint that Sai is suggesting is used to mark the buffers as
-> > 'no-write-allocate' to prevent GPU write operations from being cached in
-> > the LLC
-> > which a) isn't interesting and b) takes up cache space for read
-> > operations.
-> > 
-> > Its easiest to think of the LLC as a bonus accelerator that has no cost
-> > for
-> > us to use outside of the unfortunate per buffer hint.
-> > 
-> > We do have to worry about the CPU cache w.r.t I/O coherency (which is a
-> > different hint) and in that case we have all of concerns that Will
-> > identified.
-> > 
+> > > > On Mon, Jan 25, 2021 at 03:49:01PM -0800, Stephen Boyd wrote:
+> > > > > This is because lockdep thinks all the locks taken in lock_crtcs() are
+> > > > > the same lock, when they actually aren't. That's because we call
+> > > > > mutex_init() in msm_kms_init() and that assigns on static key for every
+> > > > > lock initialized in this loop. Let's allocate a dynamic number of
+> > > > > lock_class_keys and assign them to each lock so that lockdep can figure
+> > > > > out an AA deadlock isn't possible here.
+> > > > >
+> > > > > Fixes: b3d91800d9ac ("drm/msm: Fix race condition in msm driver with async layer updates")
+> > > > > Cc: Krishna Manikandan <mkrishn@codeaurora.org>
+> > > > > Signed-off-by: Stephen Boyd <swboyd@chromium.org>
+> > > >
+> > > > This smells like throwing more bad after initial bad code ...
+> > > >
+> > > > First a rant: https://blog.ffwll.ch/2020/08/lockdep-false-positives.html
+> >
+> > Some technical on the patch itself: I think you want
+> > mutex_lock_nested(crtc->lock, drm_crtc_index(crtc)), not your own locking
+> > classes hand-rolled. It's defacto the same, but much more obviously
+> > correct since self-documenting.
 > 
-> For mismatched outer cacheability attributes which Will mentioned, I was
-> referring to [1] in android kernel.
+> hmm, yeah, that is a bit cleaner.. but this patch is already on
+> msm-next, maybe I'll add a patch on top to change it
 
-I've lost track of the conversation here :/
-
-When the GPU has a buffer mapped with IOMMU_LLC, is the buffer also mapped
-into the CPU and with what attributes? Rob said "writecombine for
-everything" -- does that mean ioremap_wc() / MEMREMAP_WC?
-
-Finally, we need to be careful when we use the word "hint" as "allocation
-hint" has a specific meaning in the architecture, and if we only mismatch on
-those then we're actually ok. But I think IOMMU_LLC is more than just a
-hint, since it actually drives eviction policy (i.e. it enables writeback).
-
-Sorry for the pedantry, but I just want to make sure we're all talking
-about the same things!
-
-Cheers,
-
-Will
+How many CRTCs are there? The subclass number tops out at 8, per
+MAX_LOCKDEP_SUBCLASSES so if we have more than that many bits possible
+then it will fail.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
