@@ -1,46 +1,34 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 382F5310EF4
-	for <lists+freedreno@lfdr.de>; Fri,  5 Feb 2021 18:43:58 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 22CAE310F5C
+	for <lists+freedreno@lfdr.de>; Fri,  5 Feb 2021 19:02:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9D756F49E;
-	Fri,  5 Feb 2021 17:43:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE2C76F49F;
+	Fri,  5 Feb 2021 18:02:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from merlin.infradead.org (merlin.infradead.org
- [IPv6:2001:8b0:10b:1231::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 494416F49E;
- Fri,  5 Feb 2021 17:43:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=merlin.20170209; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:MIME-Version:Date:Message-ID:From:References:To:Subject:Sender:
- Reply-To:Cc:Content-ID:Content-Description;
- bh=08/9eUYrON8JjgNfSMvnJtGPuDDsOmQbDO2HePIMB/Q=; b=ebzoSt+d2x4Dn+mrVLeczYcm2O
- PyJ1PE4gCqwN0xjgVnEQsl3+4UXMZK7M+KeoKbdsFQH3qfNvFgyOw8WqMxbnzufp2c2p3XbabtPOl
- cwvBvy1rDIAoZ0roobw6O4AGPu37ol+D2tlfLxW8AzZCsztgkaq6uZZsUD2EwNNw7b1aZOpbK0oS5
- eLRNo6+hrS8Q9NTyyzg/Bzu0Ay3LusTcbpd2PFln1F8UQOIk616M5thi14c4pNu5jYPCHjBJJKnY6
- SjfK1KXbyHh9VVXKzfwmL0BOUZa+sGS92978yOE2o76pjWtiGHBdxnBUtSxAhBbOCJdU6GK81s5w2
- eumII7jw==;
-Received: from [2601:1c0:6280:3f0::aec2]
- by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1l8595-000862-PJ; Fri, 05 Feb 2021 17:43:52 +0000
-To: Bhaskar Chowdhury <unixbhaskar@gmail.com>, robdclark@gmail.com,
- sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch, jonathan@marek.ca,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20210205084758.354509-1-unixbhaskar@gmail.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <638f6e0c-cf14-a113-b1cf-5d07299c7332@infradead.org>
-Date: Fri, 5 Feb 2021 09:43:46 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
-MIME-Version: 1.0
-In-Reply-To: <20210205084758.354509-1-unixbhaskar@gmail.com>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH] drivers: gpu: drm: msn: disp: dpu1: Fixed
- couple of spellings in the file dpu_hw_top.h
+X-Greylist: delayed 304 seconds by postgrey-1.36 at gabe;
+ Wed, 03 Feb 2021 01:50:54 UTC
+Received: from out30-130.freemail.mail.aliyun.com
+ (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D3C86E25A
+ for <freedreno@lists.freedesktop.org>; Wed,  3 Feb 2021 01:50:53 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R201e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04394; MF=yang.lee@linux.alibaba.com;
+ NM=1; PH=DS; RN=8; SR=0; TI=SMTPD_---0UNj9ALU_1612316747; 
+Received: from
+ j63c13417.sqa.eu95.tbsite.net(mailfrom:yang.lee@linux.alibaba.com
+ fp:SMTPD_---0UNj9ALU_1612316747) by smtp.aliyun-inc.com(127.0.0.1);
+ Wed, 03 Feb 2021 09:45:48 +0800
+From: Yang Li <yang.lee@linux.alibaba.com>
+To: airlied@linux.ie
+Date: Wed,  3 Feb 2021 09:45:46 +0800
+Message-Id: <1612316746-66494-1-git-send-email-yang.lee@linux.alibaba.com>
+X-Mailer: git-send-email 1.8.3.1
+X-Mailman-Approved-At: Fri, 05 Feb 2021 18:02:19 +0000
+Subject: [Freedreno] [PATCH] drm/msm/dpu: remove unneeded semicolon
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,54 +41,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: sean@poorly.run, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Yang Li <yang.lee@linux.alibaba.com>, daniel@ffwll.ch,
+ freedreno@lists.freedesktop.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2/5/21 12:47 AM, Bhaskar Chowdhury wrote:
-> 
-> 
-> s/confguration/configuration/
-> s/Regsiters/Registers/
-> 
-> Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h
-> index 8018fff5667a..3aa10c89ca1b 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h
-> @@ -30,7 +30,7 @@ struct traffic_shaper_cfg {
-> 
->  /**
->   * struct split_pipe_cfg - pipe configuration for dual display panels
-> - * @en        : Enable/disable dual pipe confguration
-> + * @en        : Enable/disable dual pipe configuration
->   * @mode      : Panel interface mode
->   * @intf      : Interface id for main control path
->   * @split_flush_en: Allows both the paths to be flushed when master path is
-> @@ -76,7 +76,7 @@ struct dpu_vsync_source_cfg {
->   * @setup_traffic_shaper : programs traffic shaper control
->   */
->  struct dpu_hw_mdp_ops {
-> -	/** setup_split_pipe() : Regsiters are not double buffered, thisk
-> +	/** setup_split_pipe() : Registers are not double buffered, thisk
+Eliminate the following coccicheck warning:
+./drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c:752:2-3: Unneeded semicolon
 
-	                                                            this
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
->  	 * function should be called before timing control enable
->  	 * @mdp  : mdp top context driver
->  	 * @cfg  : upper and lower part of pipe configuration
-> --
-> 2.30.0
-> 
-
-
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 374b0e8..5a8e3e1 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -749,7 +749,7 @@ static void _dpu_kms_set_encoder_mode(struct msm_kms *kms,
+ 	case DRM_MODE_ENCODER_TMDS:
+ 		info.num_of_h_tiles = 1;
+ 		break;
+-	};
++	}
+ 
+ 	rc = dpu_encoder_setup(encoder->dev, encoder, &info);
+ 	if (rc)
 -- 
-~Randy
+1.8.3.1
 
 _______________________________________________
 Freedreno mailing list
