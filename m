@@ -1,72 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94E3C30F5FC
-	for <lists+freedreno@lfdr.de>; Thu,  4 Feb 2021 16:18:03 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B72C0310058
+	for <lists+freedreno@lfdr.de>; Thu,  4 Feb 2021 23:54:16 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF4E86EDD4;
-	Thu,  4 Feb 2021 15:18:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 627616EE87;
+	Thu,  4 Feb 2021 22:54:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC3CD6EDD2
- for <freedreno@lists.freedesktop.org>; Thu,  4 Feb 2021 15:18:00 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id b3so3954674wrj.5
- for <freedreno@lists.freedesktop.org>; Thu, 04 Feb 2021 07:18:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=lpfJPe/1tU+7DzTf4KYc1pV9RSxza5H3pS4oizaxjuc=;
- b=HcCeGBGJsMKx9yLKPrbfI+qpmPRZoIkJQeDpi0L9B/qg48Sp9HqgwH4gNJpK0bECyq
- zk+eFwNrB0sB4xpAcFmrm++/3Fk1dfCl0mOyOPMG4vdT1nynBruqqtQCIzsMGQP14+aN
- fpa6ojnGDSvQaNthY/dZXaE3//+3Ry3GIwJpE=
+Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
+ [IPv6:2607:f8b0:4864:20::432])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 961656EE87;
+ Thu,  4 Feb 2021 22:54:14 +0000 (UTC)
+Received: by mail-pf1-x432.google.com with SMTP id q20so3040398pfu.8;
+ Thu, 04 Feb 2021 14:54:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mdTwxZRVmDjNbDvFpGlHxe4YobP1MixFfZCkGPsWCxs=;
+ b=qCSC/wVatdr4qz/USj4a8Cm09DUro653to4ZGejSPTfuHxXsMrHxCpCtDgsbgoNr/1
+ Ticsyi1hD+0BKN2I+9oXDvYMJ5zcjTeCNxuhh050tDGo0pjzwAqt3iqLyq8fecaAyC9G
+ ajJZEjYBlywf0SoTCwmZasrQgz46PGLYOiXeVQhrKIUdg5MRmuz2+iB8xgPCMIIzKrQL
+ NyLGgw+LptN0tSEWvy1mSY5m+EdfJXy4tcdcJ1VDz+fhtK+IfO4o9FDtRkjt9exsQjnU
+ Vu08fGozzk5eMj+v9QII9BhCTy3V8Vqi4SzwFkBzBSiSRzkpg18s9NQ74qyK8+hIZ0Ji
+ HxpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=lpfJPe/1tU+7DzTf4KYc1pV9RSxza5H3pS4oizaxjuc=;
- b=gG1W87g4xm1Ir/8wcuvoFeNf0eI7lvbNpfV9ahSVYWMAWzrquLwGSFi9kk/SDsNkLx
- 373t5i8D/uZ2v50VEFuH5iWQf65ztsiKDKv5V/QEpMg0iog/fX48yhCgY6gX1dvKlIGU
- 7d0KW3XWSdkbFJha+d9Imw2IS4YXBkFwgB5x3ZQ2TyS9XNSwRIfCzgbd+wqaskGn1v5h
- 6Mylm0em5+0La9dHW5OOOeMZIMUSfiRc91B9UPdM9y1pbaxk9StgLKzUbAagbNvSgk4J
- cu7AgD5tV7N4ze1n4KTHf7Ds+biFtaa08zHFeS2s6pJoLkKhoVd/C+9q5S9W6YrOGgdg
- zQdw==
-X-Gm-Message-State: AOAM5309CpEi8LWVEaDSmdPBcu99BRw5KMSYCtNcCf+s54M1c0blbBd6
- At377hXBRiN21BGIeBvnkrQI6Q==
-X-Google-Smtp-Source: ABdhPJyBIQIVsMcklYb+yXnw0qimDfJH83/YxKcR6iv94o3WNC66b1hbf14zmpSAbgwo++Gvnf8wLA==
-X-Received: by 2002:adf:dd45:: with SMTP id u5mr9836389wrm.392.1612451879310; 
- Thu, 04 Feb 2021 07:17:59 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id w15sm8097023wrp.15.2021.02.04.07.17.58
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mdTwxZRVmDjNbDvFpGlHxe4YobP1MixFfZCkGPsWCxs=;
+ b=BEEAy7p6ZQ9q3UG4nKutpnhzSRrpmH98ncZ4/ogp3CsZ8xaQh5b0AUaKMc6PZwey+X
+ 59idK6u9xBhqyiXcoV6EritkskwQQJISVTEeprj+m6ZBcQUcMl7iTbvDHH9fmZFlQZeT
+ ulFp3zSdXoKtHue8F33AoCeYIVWMRZDYAAPQy3L9xR/ehZX3ENyae80xPImBr1TdOroz
+ xXMwzMIdp1nHwCVtAiqrRZaz8sJpZIwNOU3Y+WYSy2QzdaL/qCcQsv6ieFPmnc8jKYKc
+ LpdEVPbeaJzBVdu4ozjRT0r0FZXEiIH7hSavfqLTXWs5tsvaAyVlKE5WPUfw2Q1o9mOV
+ crfA==
+X-Gm-Message-State: AOAM533c6jvAAyb0EfKCmPaXBMQ2xbF4ZfxotTLpM4TFoW9i02OFXwgI
+ crVx/kEeY8rN5iv25Gjvw8rEY/0p1/0Z4A==
+X-Google-Smtp-Source: ABdhPJxvN4byxugjYm4+2KCdf2189pKaG5B0yxje7rgqJb8Kx9C6qDRtFqbmjRmwrty6MCrhIrxolQ==
+X-Received: by 2002:a63:7051:: with SMTP id a17mr1248360pgn.26.1612479253528; 
+ Thu, 04 Feb 2021 14:54:13 -0800 (PST)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ b65sm7277488pfg.3.2021.02.04.14.54.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Feb 2021 07:17:58 -0800 (PST)
-Date: Thu, 4 Feb 2021 16:17:56 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <YBwQJPepkIS39Grc@phenom.ffwll.local>
-Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
- Stephen Boyd <swboyd@chromium.org>,
- Krishna Manikandan <mkrishn@codeaurora.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>
-References: <20210125234901.2730699-1-swboyd@chromium.org>
- <YBlz8Go2DseRWuOa@phenom.ffwll.local>
- <CAF6AEGuWhGuzxsBquj-WLSwa83r+zO7jAQ9ten2m+2KtoGpYSw@mail.gmail.com>
- <YBp2h2cVXrF6lBno@phenom.ffwll.local>
- <CAF6AEGvTrfYYTfReGbAm9zcBNhjZvX0tko4kZUeQcyNZv4cM6w@mail.gmail.com>
- <161238950899.76967.16385691346035591773@swboyd.mtv.corp.google.com>
- <CAF6AEGtFpjpYoY_iu8F2z-RMJ=0+tBYo-akKJ1JbgKagBuQWtA@mail.gmail.com>
+ Thu, 04 Feb 2021 14:54:12 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Thu,  4 Feb 2021 14:56:49 -0800
+Message-Id: <20210204225650.1284384-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAF6AEGtFpjpYoY_iu8F2z-RMJ=0+tBYo-akKJ1JbgKagBuQWtA@mail.gmail.com>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
-Subject: Re: [Freedreno] [PATCH] drm/msm/kms: Make a lock_class_key for each
- crtc mutex
+Subject: [Freedreno] [PATCH] drm/msm: Fix legacy relocs path
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,77 +65,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Krishna Manikandan <mkrishn@codeaurora.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
+ "Kristian H. Kristensen" <hoegsberg@google.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
+ Emil Velikov <emil.velikov@collabora.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Feb 03, 2021 at 02:11:09PM -0800, Rob Clark wrote:
-> On Wed, Feb 3, 2021 at 1:58 PM Stephen Boyd <swboyd@chromium.org> wrote:
-> >
-> > Quoting Rob Clark (2021-02-03 09:29:09)
-> > > On Wed, Feb 3, 2021 at 2:10 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > > >
-> > > > On Tue, Feb 02, 2021 at 08:51:25AM -0800, Rob Clark wrote:
-> > > > > On Tue, Feb 2, 2021 at 7:46 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > > > > >
-> > > > > > On Mon, Jan 25, 2021 at 03:49:01PM -0800, Stephen Boyd wrote:
-> > > > > > > This is because lockdep thinks all the locks taken in lock_crtcs() are
-> > > > > > > the same lock, when they actually aren't. That's because we call
-> > > > > > > mutex_init() in msm_kms_init() and that assigns on static key for every
-> > > > > > > lock initialized in this loop. Let's allocate a dynamic number of
-> > > > > > > lock_class_keys and assign them to each lock so that lockdep can figure
-> > > > > > > out an AA deadlock isn't possible here.
-> > > > > > >
-> > > > > > > Fixes: b3d91800d9ac ("drm/msm: Fix race condition in msm driver with async layer updates")
-> > > > > > > Cc: Krishna Manikandan <mkrishn@codeaurora.org>
-> > > > > > > Signed-off-by: Stephen Boyd <swboyd@chromium.org>
-> > > > > >
-> > > > > > This smells like throwing more bad after initial bad code ...
-> > > > > >
-> > > > > > First a rant: https://blog.ffwll.ch/2020/08/lockdep-false-positives.html
-> > > >
-> > > > Some technical on the patch itself: I think you want
-> > > > mutex_lock_nested(crtc->lock, drm_crtc_index(crtc)), not your own locking
-> > > > classes hand-rolled. It's defacto the same, but much more obviously
-> > > > correct since self-documenting.
-> > >
-> > > hmm, yeah, that is a bit cleaner.. but this patch is already on
-> > > msm-next, maybe I'll add a patch on top to change it
-> >
-> > How many CRTCs are there? The subclass number tops out at 8, per
-> > MAX_LOCKDEP_SUBCLASSES so if we have more than that many bits possible
-> > then it will fail.
+From: Rob Clark <robdclark@chromium.org>
 
-Hm good point, tbh the mutex_lock_nested annotations isn't super awesome
-either, it would be kinda neat if we could put that annotation into
-mutex_lock_init fairly statically (and at that point we could allos resize
-the array fairly easily I think at runtime).
+In moving code around, we ended up using the same pointer to
+copy_from_user() the relocs tables as we used for the cmd table
+entry, which is clearly not right.  This went unnoticed because
+modern mesa on non-ancent kernels does not actually use relocs.
+But this broke ancient mesa on modern kernels.
 
-The nice thing with the nesting index is just that it makes it a bit more
-obvious that there's a static nesting going on and why it's ok.
--Daniel
+Reported-by: Emil Velikov <emil.velikov@collabora.com>
+Fixes: 20224d715a88 ("drm/msm/submit: Move copy_from_user ahead of locking bos")
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/msm_gem_submit.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> conveniently MAX_CRTCS is 8.. realistically I don't *think* you'd ever
-> see more than 2 or 3
-> 
-> BR,
-> -R
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
-
+diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+index d04c349d8112..5480852bdeda 100644
+--- a/drivers/gpu/drm/msm/msm_gem_submit.c
++++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+@@ -198,6 +198,8 @@ static int submit_lookup_cmds(struct msm_gem_submit *submit,
+ 		submit->cmd[i].idx  = submit_cmd.submit_idx;
+ 		submit->cmd[i].nr_relocs = submit_cmd.nr_relocs;
+ 
++		userptr = u64_to_user_ptr(submit_cmd.relocs);
++
+ 		sz = array_size(submit_cmd.nr_relocs,
+ 				sizeof(struct drm_msm_gem_submit_reloc));
+ 		/* check for overflow: */
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.29.2
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
