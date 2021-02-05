@@ -2,61 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01A80310503
-	for <lists+freedreno@lfdr.de>; Fri,  5 Feb 2021 07:41:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46484310AE4
+	for <lists+freedreno@lfdr.de>; Fri,  5 Feb 2021 13:08:28 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D91E6E198;
-	Fri,  5 Feb 2021 06:41:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D970A6F415;
+	Fri,  5 Feb 2021 12:08:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from so15.mailgun.net (so15.mailgun.net [198.61.254.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E07C36E198
- for <freedreno@lists.freedesktop.org>; Fri,  5 Feb 2021 06:41:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B35C46E049
+ for <freedreno@lists.freedesktop.org>; Fri,  5 Feb 2021 12:08:25 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1612507296; h=Content-Transfer-Encoding: Content-Type:
- In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
- Subject: Sender; bh=Pq6SFpYB7bZzneOPuiPx50qEYnSet0KQsUNB8GY6yTU=;
- b=cbsiWYFd1FJupIahMntdB1heAzvrxrc5aYvXzCl7e1M9OF0ZHgVS408pfB7E4JXfoNNq8Me5
- sjrjFI7OYYYd7x2wXz0Lfs57VKd4q17wfSoJH2RNIcQjoAO3fE4YM9M2RGLzMokgh7jkNf7t
- MfmMk0jZ5Vh+esP0/X7oamRc4MY=
+ s=smtp; t=1612526905; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=jfqR04OojBMDuGxs+SKledWITYRZ9/XMsQMvFZFDfyg=;
+ b=p0mUCchpybL8ytpnxDOxdqEGrVRolz7HL1nCBdMgbQV9bamRa+BaL9RC0jZOOfcKJ7OFTUJR
+ gYnfagIvSDdvYqOdEsZ5UO7FsRa0xHVeiZ/1gcQpljY/q6moQyxyHmG4o/TM8GBRVT9p3+kn
+ 4ehMZJdHjG9t3hK1hr7Aadvv6wo=
 X-Mailgun-Sending-Ip: 198.61.254.15
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
  smtp-out-n07.prod.us-west-2.postgun.com with SMTP id
- 601ce88f34db06ef796f19b5 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 05 Feb 2021 06:41:19
+ 601d353834db06ef796eb088 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 05 Feb 2021 12:08:24
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 6A151C43464; Fri,  5 Feb 2021 06:41:19 +0000 (UTC)
+ id D66EAC433C6; Fri,  5 Feb 2021 12:08:24 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.2 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- NICE_REPLY_A,SPF_FAIL,URIBL_BLOCKED autolearn=no autolearn_force=no
- version=3.4.0
-Received: from [192.168.1.105] (unknown [61.1.238.129])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: akhilpo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 59B2AC433CA;
- Fri,  5 Feb 2021 06:41:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 59B2AC433CA
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=akhilpo@codeaurora.org
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
-References: <20210204225650.1284384-1-robdclark@gmail.com>
-From: Akhil P Oommen <akhilpo@codeaurora.org>
-Message-ID: <dc2fb87e-67f0-4fa9-c920-515a6609a04d@codeaurora.org>
-Date: Fri, 5 Feb 2021 12:11:10 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: saiprakash.ranjan)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 7A201C433ED;
+ Fri,  5 Feb 2021 12:08:22 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <20210204225650.1284384-1-robdclark@gmail.com>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH] drm/msm: Fix legacy relocs path
+Date: Fri, 05 Feb 2021 17:38:22 +0530
+From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+To: Will Deacon <will@kernel.org>
+In-Reply-To: <20210203214612.GB19847@willie-the-truck>
+References: <cover.1610372717.git.saiprakash.ranjan@codeaurora.org>
+ <3f589e7de3f9fa93e84c83420c5270c546a0c368.1610372717.git.saiprakash.ranjan@codeaurora.org>
+ <20210129090516.GB3998@willie-the-truck>
+ <5d23fce629323bcda71594010824aad0@codeaurora.org>
+ <20210201111556.GA7172@willie-the-truck>
+ <CAF6AEGsARmkAFsjaQLfa2miMgeijo183MWDKGtW_ti-UCpzBqA@mail.gmail.com>
+ <20210201182016.GA21629@jcrouse1-lnx.qualcomm.com>
+ <7e9aade14d0b7f69285852ade4a5a9f4@codeaurora.org>
+ <20210203214612.GB19847@willie-the-truck>
+Message-ID: <4988e2ef35f76a0c2f1fe3f66f023a3b@codeaurora.org>
+X-Sender: saiprakash.ranjan@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH 2/3] iommu/io-pgtable-arm: Add IOMMU_LLC
+ page protection flag
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,51 +72,111 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- "Kristian H. Kristensen" <hoegsberg@google.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- Emil Velikov <emil.velikov@collabora.com>
+Cc: "Isaac J. Manjarres" <isaacm@codeaurora.org>,
+ freedreno <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Joerg Roedel <joro@8bytes.org>, "list@263.net:IOMMU DRIVERS , 
+ Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Kristian H Kristensen <hoegsberg@google.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, linux-arm-kernel@lists.infradead.org
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2/5/2021 4:26 AM, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
+On 2021-02-04 03:16, Will Deacon wrote:
+> On Tue, Feb 02, 2021 at 11:56:27AM +0530, Sai Prakash Ranjan wrote:
+>> On 2021-02-01 23:50, Jordan Crouse wrote:
+>> > On Mon, Feb 01, 2021 at 08:20:44AM -0800, Rob Clark wrote:
+>> > > On Mon, Feb 1, 2021 at 3:16 AM Will Deacon <will@kernel.org> wrote:
+>> > > > On Fri, Jan 29, 2021 at 03:12:59PM +0530, Sai Prakash Ranjan wrote:
+>> > > > > On 2021-01-29 14:35, Will Deacon wrote:
+>> > > > > > On Mon, Jan 11, 2021 at 07:45:04PM +0530, Sai Prakash Ranjan wrote:
+>> > > > > > > +#define IOMMU_LLC        (1 << 6)
+>> > > > > >
+>> > > > > > On reflection, I'm a bit worried about exposing this because I think it
+>> > > > > > will
+>> > > > > > introduce a mismatched virtual alias with the CPU (we don't even have a
+>> > > > > > MAIR
+>> > > > > > set up for this memory type). Now, we also have that issue for the PTW,
+>> > > > > > but
+>> > > > > > since we always use cache maintenance (i.e. the streaming API) for
+>> > > > > > publishing the page-tables to a non-coheren walker, it works out.
+>> > > > > > However,
+>> > > > > > if somebody expects IOMMU_LLC to be coherent with a DMA API coherent
+>> > > > > > allocation, then they're potentially in for a nasty surprise due to the
+>> > > > > > mismatched outer-cacheability attributes.
+>> > > > > >
+>> > > > >
+>> > > > > Can't we add the syscached memory type similar to what is done on android?
+>> > > >
+>> > > > Maybe. How does the GPU driver map these things on the CPU side?
+>> > >
+>> > > Currently we use writecombine mappings for everything, although there
+>> > > are some cases that we'd like to use cached (but have not merged
+>> > > patches that would give userspace a way to flush/invalidate)
+>> > >
+>> >
+>> > LLC/system cache doesn't have a relationship with the CPU cache.  Its
+>> > just a
+>> > little accelerator that sits on the connection from the GPU to DDR and
+>> > caches
+>> > accesses. The hint that Sai is suggesting is used to mark the buffers as
+>> > 'no-write-allocate' to prevent GPU write operations from being cached in
+>> > the LLC
+>> > which a) isn't interesting and b) takes up cache space for read
+>> > operations.
+>> >
+>> > Its easiest to think of the LLC as a bonus accelerator that has no cost
+>> > for
+>> > us to use outside of the unfortunate per buffer hint.
+>> >
+>> > We do have to worry about the CPU cache w.r.t I/O coherency (which is a
+>> > different hint) and in that case we have all of concerns that Will
+>> > identified.
+>> >
+>> 
+>> For mismatched outer cacheability attributes which Will mentioned, I 
+>> was
+>> referring to [1] in android kernel.
 > 
-> In moving code around, we ended up using the same pointer to
-> copy_from_user() the relocs tables as we used for the cmd table
-> entry, which is clearly not right.  This went unnoticed because
-> modern mesa on non-ancent kernels does not actually use relocs.
-> But this broke ancient mesa on modern kernels.
+> I've lost track of the conversation here :/
 > 
-> Reported-by: Emil Velikov <emil.velikov@collabora.com>
-> Fixes: 20224d715a88 ("drm/msm/submit: Move copy_from_user ahead of locking bos")
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->   drivers/gpu/drm/msm/msm_gem_submit.c | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-> index d04c349d8112..5480852bdeda 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> @@ -198,6 +198,8 @@ static int submit_lookup_cmds(struct msm_gem_submit *submit,
->   		submit->cmd[i].idx  = submit_cmd.submit_idx;
->   		submit->cmd[i].nr_relocs = submit_cmd.nr_relocs;
->   
-> +		userptr = u64_to_user_ptr(submit_cmd.relocs);
-> +
->   		sz = array_size(submit_cmd.nr_relocs,
->   				sizeof(struct drm_msm_gem_submit_reloc));
->   		/* check for overflow: */
+> When the GPU has a buffer mapped with IOMMU_LLC, is the buffer also 
+> mapped
+> into the CPU and with what attributes? Rob said "writecombine for
+> everything" -- does that mean ioremap_wc() / MEMREMAP_WC?
 > 
 
-Reviewed-by: Akhil P Oommen <akhilpo@codeaurora.org>
+Rob answered this.
 
--Akhil.
+> Finally, we need to be careful when we use the word "hint" as 
+> "allocation
+> hint" has a specific meaning in the architecture, and if we only 
+> mismatch on
+> those then we're actually ok. But I think IOMMU_LLC is more than just a
+> hint, since it actually drives eviction policy (i.e. it enables 
+> writeback).
+> 
+> Sorry for the pedantry, but I just want to make sure we're all talking
+> about the same things!
+> 
+
+Sorry for the confusion which probably was caused by my mentioning of
+android, NWA(no write allocate) is an allocation hint which we can 
+ignore
+for now as it is not introduced yet in upstream.
+
+Thanks,
+Sai
+
+-- 
+QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a 
+member
+of Code Aurora Forum, hosted by The Linux Foundation
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
