@@ -1,57 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7568A310146
-	for <lists+freedreno@lfdr.de>; Fri,  5 Feb 2021 01:05:38 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 01A80310503
+	for <lists+freedreno@lfdr.de>; Fri,  5 Feb 2021 07:41:39 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EA876EEAD;
-	Fri,  5 Feb 2021 00:05:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D91E6E198;
+	Fri,  5 Feb 2021 06:41:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
- [104.130.122.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1DB36E159
- for <freedreno@lists.freedesktop.org>; Fri,  5 Feb 2021 00:05:35 +0000 (UTC)
+Received: from so15.mailgun.net (so15.mailgun.net [198.61.254.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E07C36E198
+ for <freedreno@lists.freedesktop.org>; Fri,  5 Feb 2021 06:41:33 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1612483536; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=OymwwLKe/n8QLaeKpafE8CF0mbQotflC2A51yd5T2eY=;
- b=s1Ccv5gitng2SA6+EPTOqL4WSoiV1ZhV7ODyiX7BsOwklvrwU5bgAFQVe01TDIHopiKzo+YA
- BsSHGImLUBqPqSx0Q3+7D8nJQkA8G7iJ3DnTioARjuz2DbHii7+tV64FyXYxbILeSe/QMPRZ
- 6rfY/ozGWL/1iLRuB7MoInAGA88=
-X-Mailgun-Sending-Ip: 104.130.122.29
+ s=smtp; t=1612507296; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
+ Subject: Sender; bh=Pq6SFpYB7bZzneOPuiPx50qEYnSet0KQsUNB8GY6yTU=;
+ b=cbsiWYFd1FJupIahMntdB1heAzvrxrc5aYvXzCl7e1M9OF0ZHgVS408pfB7E4JXfoNNq8Me5
+ sjrjFI7OYYYd7x2wXz0Lfs57VKd4q17wfSoJH2RNIcQjoAO3fE4YM9M2RGLzMokgh7jkNf7t
+ MfmMk0jZ5Vh+esP0/X7oamRc4MY=
+X-Mailgun-Sending-Ip: 198.61.254.15
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
- 601c8bcb5d0f3847870a3fb8 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 05 Feb 2021 00:05:31
+ smtp-out-n07.prod.us-west-2.postgun.com with SMTP id
+ 601ce88f34db06ef796f19b5 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 05 Feb 2021 06:41:19
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 8B8A8C433CA; Fri,  5 Feb 2021 00:05:30 +0000 (UTC)
+ id 6A151C43464; Fri,  5 Feb 2021 06:41:19 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id ACB74C433C6;
- Fri,  5 Feb 2021 00:05:28 +0000 (UTC)
+X-Spam-Status: No, score=-3.2 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ NICE_REPLY_A,SPF_FAIL,URIBL_BLOCKED autolearn=no autolearn_force=no
+ version=3.4.0
+Received: from [192.168.1.105] (unknown [61.1.238.129])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 59B2AC433CA;
+ Fri,  5 Feb 2021 06:41:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 59B2AC433CA
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=akhilpo@codeaurora.org
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+References: <20210204225650.1284384-1-robdclark@gmail.com>
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+Message-ID: <dc2fb87e-67f0-4fa9-c920-515a6609a04d@codeaurora.org>
+Date: Fri, 5 Feb 2021 12:11:10 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.0
 MIME-Version: 1.0
-Date: Thu, 04 Feb 2021 16:05:28 -0800
-From: abhinavk@codeaurora.org
-To: Konrad Dybcio <konrad.dybcio@somainline.org>
-In-Reply-To: <20210203231537.77851-1-konrad.dybcio@somainline.org>
-References: <20210203231537.77851-1-konrad.dybcio@somainline.org>
-Message-ID: <5ad25d1c5ee33060338a57b61c973c9a@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH] drm/msm/disp/mdp5: mdp5_cfg: Fix msm8974v2
- max_clk
+In-Reply-To: <20210204225650.1284384-1-robdclark@gmail.com>
+Content-Language: en-US
+Subject: Re: [Freedreno] [PATCH] drm/msm: Fix legacy relocs path
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,42 +69,51 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: AngeloGioacchino Del Regno <kholk11@gmail.com>,
- freedreno@lists.freedesktop.org, Shawn Guo <shawn.guo@linaro.org>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Jordan Crouse <jcrouse@codeaurora.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
- phone-devel@vger.kernel.org, Sean Paul <sean@poorly.run>
+Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ "Kristian H. Kristensen" <hoegsberg@google.com>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
+ Emil Velikov <emil.velikov@collabora.com>
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-02-03 15:15, Konrad Dybcio wrote:
-> The maximum mdp clock rate on msm8974v2 is 320MHz. Fix it.
+On 2/5/2021 4:26 AM, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
 > 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@somainline.org>
-Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
+> In moving code around, we ended up using the same pointer to
+> copy_from_user() the relocs tables as we used for the cmd table
+> entry, which is clearly not right.  This went unnoticed because
+> modern mesa on non-ancent kernels does not actually use relocs.
+> But this broke ancient mesa on modern kernels.
+> 
+> Reported-by: Emil Velikov <emil.velikov@collabora.com>
+> Fixes: 20224d715a88 ("drm/msm/submit: Move copy_from_user ahead of locking bos")
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
 > ---
->  drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>   drivers/gpu/drm/msm/msm_gem_submit.c | 2 ++
+>   1 file changed, 2 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-> b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-> index dfffd9cf0613..bd07d2e1ad90 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-> @@ -177,7 +177,7 @@ static const struct mdp5_cfg_hw msm8x74v2_config = 
-> {
->  			[3] = INTF_HDMI,
->  		},
->  	},
-> -	.max_clk = 200000000,
-> +	.max_clk = 320000000,
->  };
+> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+> index d04c349d8112..5480852bdeda 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+> @@ -198,6 +198,8 @@ static int submit_lookup_cmds(struct msm_gem_submit *submit,
+>   		submit->cmd[i].idx  = submit_cmd.submit_idx;
+>   		submit->cmd[i].nr_relocs = submit_cmd.nr_relocs;
+>   
+> +		userptr = u64_to_user_ptr(submit_cmd.relocs);
+> +
+>   		sz = array_size(submit_cmd.nr_relocs,
+>   				sizeof(struct drm_msm_gem_submit_reloc));
+>   		/* check for overflow: */
 > 
->  static const struct mdp5_cfg_hw apq8084_config = {
+
+Reviewed-by: Akhil P Oommen <akhilpo@codeaurora.org>
+
+-Akhil.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
