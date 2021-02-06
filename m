@@ -1,59 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CA853115DA
-	for <lists+freedreno@lfdr.de>; Fri,  5 Feb 2021 23:50:12 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B2E84311794
+	for <lists+freedreno@lfdr.de>; Sat,  6 Feb 2021 01:05:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1B9D6F51C;
-	Fri,  5 Feb 2021 22:50:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5384D6F52A;
+	Sat,  6 Feb 2021 00:05:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
- [IPv6:2607:f8b0:4864:20::102c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33C626F51C
- for <freedreno@lists.freedesktop.org>; Fri,  5 Feb 2021 22:50:10 +0000 (UTC)
-Received: by mail-pj1-x102c.google.com with SMTP id my11so7275325pjb.1
- for <freedreno@lists.freedesktop.org>; Fri, 05 Feb 2021 14:50:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:content-transfer-encoding:in-reply-to:references
- :subject:from:cc:to:date:message-id:user-agent;
- bh=gKCMWJy86du3XdDODHHkwDL4EqHeNQp1OLhPf7Jz0/g=;
- b=DeXiiiz5Xu4mcDBbUqmfnVGscCw+wn6NsdbMyjAgmzY0DOwxWhcYOd/PnXNYyBohsH
- kYceKhwQiG+aY1UbhHj+Kxmycp6RYnmrSDn4qOIt132V+xkdfuUzzL1LBYYDUIerwPc1
- txnAFI8K2L0gYegSqTqvFwLAFkxZc02oP87Ok=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:content-transfer-encoding
- :in-reply-to:references:subject:from:cc:to:date:message-id
- :user-agent;
- bh=gKCMWJy86du3XdDODHHkwDL4EqHeNQp1OLhPf7Jz0/g=;
- b=Lf2JRieG43cDj8UJHo3E9heEkKHklooc5a3wtcxvtXPNm3UTg0tI/DhCgPB//BvUYS
- 3O/LCcECAV8lIGfyCviv+XAQUckuTLFkIduPEC1LWliV1atu39rUjtLABVNJtnX3mTLx
- 5fmGAz8I7cJmHLreQcntVeVPYSw/sgit6cCjrxCKPtb8fxYTr+YsLtzVhkIQ6dO3ozal
- NWtjVqCK+7w4CNTQ4rDr7A9mayoF5soSpAnK3VbWQjkSqQXiOa1O4QfEdLQ1TQGjCEyv
- mYAA0InfYbcXAFz9f91qIVOBWVBe8XIEL68rp1xIvIKQckNNsANU6UBvwXiP54PX6yXQ
- Z33g==
-X-Gm-Message-State: AOAM533Sn6SmqEFGi2G+2CAs2dX16eIgMP0hDr8jkQ5UabK5nnMQZycp
- vwXtUCcq0EfldI6Co4TXRb1zZw==
-X-Google-Smtp-Source: ABdhPJwGvnWZVMON25jxMBQujRQW8J9vouiPFt6BaQnmk2Wd20tbSiNga0UjbYPbrvJYFU44SNIh9w==
-X-Received: by 2002:a17:90a:8b15:: with SMTP id
- y21mr5929152pjn.82.1612565409676; 
- Fri, 05 Feb 2021 14:50:09 -0800 (PST)
-Received: from chromium.org ([2620:15c:202:201:3d74:5f76:aaaa:6cb8])
- by smtp.gmail.com with ESMTPSA id s126sm6639348pfs.81.2021.02.05.14.50.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Feb 2021 14:50:09 -0800 (PST)
+Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
+ [104.130.122.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32B8B6F525
+ for <freedreno@lists.freedesktop.org>; Sat,  6 Feb 2021 00:05:02 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1612569902; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=+/uIP87vJEaaYUqbVLHKGTP87A5yWxtIFnA2Yl8Y65Y=;
+ b=kM4CZe6SwjaiQ3FXMqpb32KP36afwBPACSFqD7pkR4jq9BiG5krUyJeeAdedPYR1goAgWkcd
+ bqbmPBuOqfifYJzQgENzUd0RT5Ns8p4wu6M2ExxAOjiRe0i6mMK23Xcj9mId/iClH1bSzxFL
+ 0A9iAYXGDbVOd05FmV5Qpk2B1Zs=
+X-Mailgun-Sending-Ip: 104.130.122.29
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
+ 601ddd2d8e43a988b7a034d0 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Sat, 06 Feb 2021 00:05:01
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id AB4A3C43467; Sat,  6 Feb 2021 00:05:00 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id EA5EEC433ED;
+ Sat,  6 Feb 2021 00:04:59 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <1612557878-19743-1-git-send-email-khsieh@codeaurora.org>
-References: <1612557878-19743-1-git-send-email-khsieh@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-To: Kuogee Hsieh <khsieh@codeaurora.org>, robdclark@gmail.com, sean@poorly.run
-Date: Fri, 05 Feb 2021 14:50:07 -0800
-Message-ID: <161256540764.76967.2035577896654812758@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.9.1
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: reset dp controller only at
- boot up and pm_resume
+Date: Fri, 05 Feb 2021 16:04:59 -0800
+From: abhinavk@codeaurora.org
+To: Yang Li <yang.lee@linux.alibaba.com>
+In-Reply-To: <1612321727-25156-1-git-send-email-yang.lee@linux.alibaba.com>
+References: <1612321727-25156-1-git-send-email-yang.lee@linux.alibaba.com>
+Message-ID: <4efdd6c16dacc1909c9253c355c3c810@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: remove unneeded semicolon
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,30 +63,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- abhinavk@codeaurora.org, khsieh@codeaurora.org, tanmay@codeaurora.org,
- daniel@ffwll.ch, aravindh@codeaurora.org, freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, robdclark@gmail.com, daniel@ffwll.ch,
+ sean@poorly.run
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2021-02-05 12:44:38)
-> DP_SW_RESET is the global SW reset that is used to initialize DP
-> controller. If DP_SW_RESET executed during connection setup,
-> two HPD related side effects may occurred,
-> 1) pending HPD interrupts cleared unexpected
-> 2) re start debounce logic which trigger another interrupt
-> This patch only issue DP_SW_RESET at boot up and pm_resume.
-> This patch also reinit video_comp before configure dp controller
-> to avoid missing VIDEO_READY interrupt.
+On 2021-02-02 19:08, Yang Li wrote:
+> Eliminate the following coccicheck warning:
+> ./drivers/gpu/drm/msm/dp/dp_ctrl.c:1161:2-3: Unneeded semicolon
 > 
-> Fixes: 9fc418430c65 ("drm/msm/dp: unplug interrupt missed after irq_hpd handler")
-> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+> Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
 > ---
-
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c 
+> b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> index e3462f5..61ed67b 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -1158,7 +1158,7 @@ static int dp_ctrl_link_rate_down_shift(struct
+> dp_ctrl_private *ctrl)
+>  	default:
+>  		ret = -EINVAL;
+>  		break;
+> -	};
+> +	}
+> 
+>  	if (!ret)
+>  		DRM_DEBUG_DP("new rate=0x%x\n", ctrl->link->link_params.rate);
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
