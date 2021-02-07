@@ -1,50 +1,50 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1446A312169
-	for <lists+freedreno@lfdr.de>; Sun,  7 Feb 2021 06:13:47 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id CB01731268A
+	for <lists+freedreno@lfdr.de>; Sun,  7 Feb 2021 19:06:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3BBE6E570;
-	Sun,  7 Feb 2021 05:13:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12D7A6E201;
+	Sun,  7 Feb 2021 18:06:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 406 seconds by postgrey-1.36 at gabe;
- Sun, 07 Feb 2021 05:13:44 UTC
-Received: from smtprelay.hostedemail.com (smtprelay0028.hostedemail.com
- [216.40.44.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5D6C6E570
- for <freedreno@lists.freedesktop.org>; Sun,  7 Feb 2021 05:13:44 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
- [10.5.19.251])
- by smtpgrave05.hostedemail.com (Postfix) with ESMTP id DE05418025C1F
- for <freedreno@lists.freedesktop.org>; Sun,  7 Feb 2021 05:06:58 +0000 (UTC)
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay03.hostedemail.com (Postfix) with ESMTP id A2B6A837F24A;
- Sun,  7 Feb 2021 05:06:57 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Spam-Summary: 50, 3, 0, , d41d8cd98f00b204, joe@perches.com, ,
- RULES_HIT:41:355:379:599:968:973:982:988:989:1260:1261:1277:1311:1313:1314:1345:1359:1437:1515:1516:1518:1534:1542:1593:1594:1711:1730:1747:1777:1792:1801:2197:2199:2393:2504:2559:2562:2828:3138:3139:3140:3141:3142:3353:3622:3865:3866:3867:3870:3871:3872:3874:4250:4321:4605:5007:6119:7208:7652:7903:9113:9121:10004:10400:10848:11026:11232:11233:11657:11658:11783:11876:11914:12043:12294:12297:12346:12438:12555:12740:12895:12986:13439:13894:14181:14659:14721:21080:21221:21451:21611:21627:21740:21990:30054:30070:30091,
- 0, RBL:none, CacheIP:none, Bayesian:0.5, 0.5, 0.5, Netcheck:none,
- DomainCache:0, MSF:not bulk, SPF:, MSBL:0, DNSBL:none, Custom_rules:0:0:0,
- LFtime:1, LUA_SUMMARY:none
-X-HE-Tag: hat01_1d0aa7e275f3
-X-Filterd-Recvd-Size: 3113
-Received: from [192.168.1.159] (unknown [47.151.137.21])
- (Authenticated sender: joe@perches.com)
- by omf17.hostedemail.com (Postfix) with ESMTPA;
- Sun,  7 Feb 2021 05:06:55 +0000 (UTC)
-Message-ID: <8943f0acd2944144b21b5796c07e79ff5e707aaf.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>, 
- Andrew Morton <akpm@linux-foundation.org>
-Date: Sat, 06 Feb 2021 21:06:54 -0800
-In-Reply-To: <20210207041858.3317171-1-swboyd@chromium.org>
-References: <20210207041858.3317171-1-swboyd@chromium.org>
-User-Agent: Evolution 3.38.1-1 
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C7F86E1F3;
+ Sun,  7 Feb 2021 18:06:02 +0000 (UTC)
+Received: by mail-wr1-x42b.google.com with SMTP id m13so14510536wro.12;
+ Sun, 07 Feb 2021 10:06:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=54n6BaQ+bXyUY9n7V2psnQU0SFJKuMhVDij/J+OY0uU=;
+ b=kaQSml3XKmw/2KsxMTej5+99BzITwIojbWxDW63n9cglhIPRNjyYs+u8CeOZFDDN5d
+ jl0PLCHYf/e9Y+52OaG4vMwnkBO52pUVbG7xBzEreJZ4EKyEMVno+YDLTpJfbt66vbbs
+ Q18Jxl93fXXJtF/AGodJSWhzV9FTgNGvg2gveYfk5svrxyVflFTLxh1z8+Pa0jQIxdpC
+ EI1oI3co1jBG/Of4FMhCcuXDJ2Vn32xdBVqSixtPf5d5xgwFZL1NWX1KycySKMFH3Yfs
+ 1JDqhIEshDey3pw0iyLNyyaRV3yZSjlVJxpQA1tr/CW6sACUSQzZYHpOaWVv/j1TBQ8N
+ S3yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=54n6BaQ+bXyUY9n7V2psnQU0SFJKuMhVDij/J+OY0uU=;
+ b=SBTBh46H+5xIk0Lt7V9X6rjHaB/zBfReMMh/sygwIIjLPZekcSO7ooUFgq/HDuzANS
+ 0UggvzBnS1+Pl6Xw2vCfebyGpASiHQ/xb+UVIQspiIm02CZaO59aMjSTDr49kWL+12Sf
+ 5grXta/4/YLmSa0KzIYXjsiRdQLsyZwfAETppJFnWbgXDI9w2NysFpXGyfBbib48jWQM
+ N54FPFWQQZLUUHcH7mKohd905ahbFrdm2xKSEHIPJDbVhQGq7n3jc1fr6tZliFWjvdAg
+ Xa9vvsmxo/TcCSOv+eIiDSk/qFhHKqUgjkFkV858UfIWClmJng5qBWU3aRF/4bIKqEph
+ ymdw==
+X-Gm-Message-State: AOAM532ceHOBs6AApEpSQvxGe05Q2GduKmf0I6c7LilHMRqNJaXlaQc/
+ GR4jUsVy01Kx2ziFpZj5fqHrcTUh/rKzb1D45EU=
+X-Google-Smtp-Source: ABdhPJwYnsksXoMsxGMYpPJIE+kCSxQFgn0Tyr7i9QmE43Ij34+M6kWRsfnpkdQmkjVv5bOtwGlQ9HnhSgZlR3qexWI=
+X-Received: by 2002:adf:f749:: with SMTP id z9mr15702978wrp.327.1612721161047; 
+ Sun, 07 Feb 2021 10:06:01 -0800 (PST)
 MIME-Version: 1.0
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Add a missing semi-colon
+From: Rob Clark <robdclark@gmail.com>
+Date: Sun, 7 Feb 2021 10:08:38 -0800
+Message-ID: <CAF6AEGvh3tvLz_xtk=4x9xUfo2h2s4xkniOvC7HyLO2jrXnXkw@mail.gmail.com>
+To: Dave Airlie <airlied@gmail.com>
+Subject: [Freedreno] [pull] drm/msm: msm-next for 5.12
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,82 +57,149 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Kuogee Hsieh <khsieh@codeaurora.org>, Lee Jones <lee.jones@linaro.org>,
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 2021-02-06 at 20:18 -0800, Stephen Boyd wrote:
-> A missing semicolon here causes my external display to stop working.
-> Indeed, missing the semicolon on the return statement leads to
-> dp_panel_update_tu_timings() not existing because the compiler thinks
-> it's part of the return statement of a void function, so it must not be
-> important.
-> =
+Hi Dave,
 
-> =A0=A0$ ./scripts/bloat-o-meter before.o after.o
-> =A0=A0add/remove: 1/1 grow/shrink: 0/1 up/down: 7400/-7540 (-140)
-> =A0=A0Function                                     old     new   delta
-> =A0=A0dp_panel_update_tu_timings                     -    7400   +7400
-> =A0=A0_dp_ctrl_calc_tu.constprop                 18024   17900    -124
-> =A0=A0dp_panel_update_tu_timings.constprop        7416       -   -7416
-> =A0=A0Total: Before=3D54440, After=3D54300, chg -0.26%
-> =
+This time around:
 
-> Add a semicolon so this function works like it used to.
-[]
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp=
-_ctrl.c
-[]
-> @@ -631,7 +631,7 @@ static void _dp_ctrl_calc_tu(struct dp_tu_calc_input =
-*in,
-> =A0
-> =
+* a6xx speedbin support
+* a508, a509, a512 support
+* various a5xx fixes
+* various dpu fixes
+* qseed3lite support for sm8250
+* dsi fix for msm8994
+* mdp5 fix for framerate bug with cmd mode panels
+* a6xx GMU OOB race fixes that were showing up in CI
+* various addition and removal of semicolons
+* gem submit fix for legacy userspace relocs path
 
-> =A0	tu =3D kzalloc(sizeof(*tu), GFP_KERNEL);
-> =A0	if (!tu)
-> -		return
-> +		return;
-> =A0
-> =
+The following changes since commit 6ee1d745b7c9fd573fba142a2efdad76a9f1cb04:
 
-> =A0	dp_panel_update_tu_timings(in, tu);
+  Linux 5.11-rc5 (2021-01-24 16:47:14 -0800)
 
-Wow, that's really unfortunate that dp_panel_update_tu_timings
-is also void.
+are available in the Git repository at:
 
-Perhaps this as YA checkpatch warning:
+  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-next-2021-02-07
 
----
- scripts/checkpatch.pl | 6 ++++++
- 1 file changed, 6 insertions(+)
+for you to fetch changes up to 182b4a2d251305201b6f9cae29067f7112f05835:
 
-diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
-index 9a549b009d2f..6df13e5a1557 100755
---- a/scripts/checkpatch.pl
-+++ b/scripts/checkpatch.pl
-@@ -3674,6 +3674,12 @@ sub process {
- 			}
- 		}
- =
+  drm/msm/dp: Add a missing semi-colon (2021-02-07 09:57:04 -0800)
 
-+# check only a c90 keyword on the line (except else)
-+		if ($sline =3D~ /^\+\s*($c90_Keywords)\s*$/ && $1 ne 'else') {
-+			WARN("BARE_KEYWORD",
-+				 "'$1' as the only word on a line is not good style\n" . $herecurr);
-+		}
-+
- # check multi-line statement indentation matches previous line
- 		if ($perl_version_ok &&
- 		    $prevline =3D~ /^\+([ \t]*)((?:$c90_Keywords(?:\s+if)\s*)|(?:$Declar=
-e\s*)?(?:$Ident|\(\s*\*\s*$Ident\s*\))\s*|(?:\*\s*)*$Lval\s*=3D\s*$Ident\s*=
-)\(.*(\&\&|\|\||,)\s*$/) {
+----------------------------------------------------------------
+Akhil P Oommen (1):
+      drm/msm: Add speed-bin support to a618 gpu
 
+AngeloGioacchino Del Regno (16):
+      drm/msm/a5xx: Allow all patchid for A540 chip
+      drm/msm/a5xx: Remove overwriting A5XX_PC_DBG_ECO_CNTL register
+      drm/msm/a5xx: Separate A5XX_PC_DBG_ECO_CNTL write from main branch
+      drm/msm/a5xx: Add support for Adreno 508, 509, 512 GPUs
+      drm/msm/a5xx: Reset VBIF before PC only on A510 and A530
+      drm/msm/dpu: Fix VBIF_XINL_QOS_LVL_REMAP_000 register offset
+      drm/msm/dpu: Move DPU_SSPP_QOS_8LVL bit to SDM845 and SC7180 masks
+      drm/msm/dpu: Add prog_fetch_lines_worst_case to INTF_BLK macro
+      drm/msm/dpu: Allow specifying features and sblk in DSPP_BLK macro
+      drm/msm/dpu: Disable autorefresh in command mode
+      drm/msm/dpu: Correctly configure vsync tearcheck for command mode
+      drm/msm/dpu: Remove unused call in wait_for_commit_done
+      drm/msm/dsi_pll_10nm: Fix dividing the same numbers twice
+      drm/msm/dsi_pll_10nm: Solve TODO for multiplier frac_bits assignment
+      drm/msm/dsi_pll_10nm: Fix variable usage for pll_lockdet_rate
+      drm/msm/dsi_pll_10nm: Convert pr_err prints to DRM_DEV_ERROR
 
+Bernard Zhao (1):
+      drm/msm: remove unneeded variable: "rc"
+
+Dmitry Baryshkov (1):
+      drm/msm/dpu1: add support for qseed3lite used on sm8250
+
+Eric Anholt (3):
+      drm/msm: Fix race of GPU init vs timestamp power management.
+      drm/msm: Fix races managing the OOB state for timestamp vs timestamps.
+      drm/msm: Clean up GMU OOB set/clear handling.
+
+Iskren Chernev (2):
+      drm/msm: Fix MSM_INFO_GET_IOVA with carveout
+      drm/msm/mdp5: Fix wait-for-commit for cmd panels
+
+Jiapeng Zhong (1):
+      drm/msm: remove redundant NULL check
+
+Judy Hsiao (1):
+      drm/msm/dp: trigger unplug event in msm_dp_display_disable
+
+Konrad Dybcio (5):
+      drm/msm/a5xx: Fix VPC protect value in gpu_write()
+      drm/msm/a5xx: Disable flat shading optimization
+      drm/msm/a5xx: Disable UCHE global filter
+      drm/msm/dsi: Correct io_start for MSM8994 (20nm PHY)
+      drm/msm/disp/mdp5: mdp5_cfg: Fix msm8974v2 max_clk
+
+Kuogee Hsieh (2):
+      drm/msm/dp: unplug interrupt missed after irq_hpd handler
+      drm/msm/dp: reset dp controller only at boot up and pm_resume
+
+Rob Clark (1):
+      drm/msm: Fix legacy relocs path
+
+Sai Prakash Ranjan (2):
+      drm/msm: Add proper checks for GPU LLCC support
+      drm/msm/a6xx: Create an A6XX GPU specific address space
+
+Stephen Boyd (2):
+      drm/msm/kms: Make a lock_class_key for each crtc mutex
+      drm/msm/dp: Add a missing semi-colon
+
+Xu Wang (2):
+      drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c: Remove unneeded semicolon
+      drm/msm/dp/dp_ctrl: Remove unneeded semicolon
+
+ drivers/gpu/drm/msm/adreno/a5xx.xml.h              |   2 +
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c              | 195 ++++++++++++++++++---
+ drivers/gpu/drm/msm/adreno/a5xx_power.c            |   4 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              | 105 ++++++-----
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h              |  49 ++----
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c              | 139 ++++++++++++++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h              |   2 +
+ drivers/gpu/drm/msm/adreno/adreno_device.c         |  54 +++++-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c            |  23 +--
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h            |  22 ++-
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c   |  90 ++++++++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  87 ++++++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c    |  26 +++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h    |  14 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c        |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h        |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c        |  73 +++++++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h        |   3 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_vbif.c        |   9 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          |   1 +
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c           |   2 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c          |   2 +-
+ drivers/gpu/drm/msm/dp/dp_aux.c                    |   7 -
+ drivers/gpu/drm/msm/dp/dp_catalog.c                |  24 +++
+ drivers/gpu/drm/msm/dp/dp_ctrl.c                   |  15 +-
+ drivers/gpu/drm/msm/dp/dp_ctrl.h                   |   2 +-
+ drivers/gpu/drm/msm/dp/dp_display.c                |  24 ++-
+ drivers/gpu/drm/msm/dp/dp_panel.c                  |   3 +-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c         |   2 +-
+ drivers/gpu/drm/msm/dsi/pll/dsi_pll_10nm.c         |  21 +--
+ drivers/gpu/drm/msm/msm_drv.c                      |   3 +-
+ drivers/gpu/drm/msm/msm_gem.c                      |   3 +-
+ drivers/gpu/drm/msm/msm_gem_submit.c               |   2 +
+ drivers/gpu/drm/msm/msm_kms.h                      |   8 +-
+ 36 files changed, 803 insertions(+), 219 deletions(-)
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
