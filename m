@@ -2,35 +2,34 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E2F6315A56
-	for <lists+freedreno@lfdr.de>; Wed, 10 Feb 2021 00:57:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89DBE315BA3
+	for <lists+freedreno@lfdr.de>; Wed, 10 Feb 2021 01:52:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39EEA6EC06;
-	Tue,  9 Feb 2021 23:57:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 346BC6E150;
+	Wed, 10 Feb 2021 00:52:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
- [104.130.122.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0FD26EC06
- for <freedreno@lists.freedesktop.org>; Tue,  9 Feb 2021 23:57:36 +0000 (UTC)
+Received: from so15.mailgun.net (so15.mailgun.net [198.61.254.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 320D06E150
+ for <freedreno@lists.freedesktop.org>; Wed, 10 Feb 2021 00:52:15 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1612915058; h=Content-Transfer-Encoding: MIME-Version:
+ s=smtp; t=1612918335; h=Content-Transfer-Encoding: MIME-Version:
  Message-Id: Date: Subject: Cc: To: From: Sender;
- bh=m4sOxKBKLmTi6eZIh2OP00gB5CPUIiEGD54N02UPzOI=;
- b=Ugu/K8giDpzxPSyIYJ2IlIMvEARSCfv0PpsoApehBKwGCaQ0mav6APYydHx8yZO3iYWFKoUV
- 0/3u8ATQjzhvOwLXef0RUaixUK1aON/976w5lAyG1Jd9mVaBtFP3MV89xsaj5Vj2vyPaI3w9
- V/Lde96JbX6abY6JuW0xR85vZes=
-X-Mailgun-Sending-Ip: 104.130.122.29
+ bh=G0bvWlEKDqiOlYHdB6eeD3MkQ8Vhf15qZJwu8KOQLB8=;
+ b=kUMPN1GIuCun/7Qt+6uQ1cZuk6baquwKD8JlBD3YE39HBz49jnWEVjrOl+l/Ut2jXhv2SCG0
+ 7GgPyasmpcZrRG8m2HwzgWLzngsa9XciPtQVMt6VQD5YyQyE7E5cvGeeuWOCuNqMrhIdNCMl
+ 175FX9yntO08BreAfxAowRPuZS4=
+X-Mailgun-Sending-Ip: 198.61.254.15
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
- 60232164f112b7872c40c471 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 09 Feb 2021 23:57:24
+ smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
+ 60232e3e81f6c45dce293861 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 10 Feb 2021 00:52:14
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 70C4CC43465; Tue,  9 Feb 2021 23:57:24 +0000 (UTC)
+ id 8A002C43461; Wed, 10 Feb 2021 00:52:13 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -41,21 +40,21 @@ Received: from jordan-laptop.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 315C8C433CA;
- Tue,  9 Feb 2021 23:57:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 315C8C433CA
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 6B253C43461;
+ Wed, 10 Feb 2021 00:52:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 6B253C43461
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  spf=fail smtp.mailfrom=jcrouse@codeaurora.org
 From: Jordan Crouse <jcrouse@codeaurora.org>
 To: linux-arm-msm@vger.kernel.org
-Date: Tue,  9 Feb 2021 16:57:17 -0700
-Message-Id: <20210209235717.768010-1-jcrouse@codeaurora.org>
+Date: Tue,  9 Feb 2021 17:52:05 -0700
+Message-Id: <20210210005205.783377-1-jcrouse@codeaurora.org>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm: a6xx: Make sure the SQE microcode is
- safe
+Subject: [Freedreno] [PATCH v2] drm/msm: a6xx: Make sure the SQE microcode
+ is safe
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,17 +83,19 @@ Most a6xx targets have security issues that were fixed with new versions
 of the microcode(s). Make sure that we are booting with a safe version of
 the microcode for the target and print a message and error if not.
 
+v2: Add more informative error messages and fix typos
+
 Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
 ---
 
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 67 +++++++++++++++++++++------
- 1 file changed, 54 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 77 ++++++++++++++++++++++-----
+ 1 file changed, 64 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index ba8e9d3cf0fe..cfb0d5f63784 100644
+index ba8e9d3cf0fe..064b7face504 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -522,28 +522,61 @@ static int a6xx_cp_init(struct msm_gpu *gpu)
+@@ -522,28 +522,73 @@ static int a6xx_cp_init(struct msm_gpu *gpu)
  	return a6xx_idle(gpu, ring) ? 0 : -EINVAL;
  }
  
@@ -107,6 +108,7 @@ index ba8e9d3cf0fe..cfb0d5f63784 100644
  		struct drm_gem_object *obj)
  {
 +	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
++	struct msm_gpu *gpu = &adreno_gpu->base;
  	u32 *buf = msm_gem_get_vaddr(obj);
 +	bool ret = false;
  
@@ -142,40 +144,49 @@ index ba8e9d3cf0fe..cfb0d5f63784 100644
 +		 * in
 +		 */
 +		if ((((buf[0] & 0xf) == 0xa) && (buf[2] & 0xf) >= 1) ||
-+			(buf[0] & 0xfff) > 0x190) {
++			(buf[0] & 0xfff) >= 0x190) {
 +			a6xx_gpu->has_whereami = true;
 +			ret = true;
++			goto out;
 +		}
+ 
++		DRM_DEV_ERROR(&gpu->pdev->dev,
++			"a630 SQE ucode is too old. Have version %x need at least %x\n",
++			buf[0] & 0xfff, 0x190);
 +	}  else {
 +		/*
 +		 * a650 tier targets don't need whereami but still need to be
 +		 * equal to or newer than 1.95 for other security fixes
 +		 */
-+		if (adreno_is_a640(adreno_gpu)) {
-+			if ((buf[0] & 0xfff) >= 0x195)
++		if (adreno_is_a650(adreno_gpu)) {
++			if ((buf[0] & 0xfff) >= 0x195) {
 +				ret = true;
++				goto out;
++			}
++
++			DRM_DEV_ERROR(&gpu->pdev->dev,
++				"a650 SQE ucode is too old. Have version %x need at least %x\n",
++				buf[0] & 0xfff, 0x195);
 +		}
 +
 +		/*
 +		 * When a660 is added those targets should return true here
-+		 * since those have all the critiical security fixes built in
++		 * since those have all the critical security fixes built in
 +		 * from the start
 +		 */
 +	}
- 
++out:
  	msm_gem_put_vaddr(obj);
 +	return ret;
  }
  
  static int a6xx_ucode_init(struct msm_gpu *gpu)
-@@ -566,7 +599,15 @@ static int a6xx_ucode_init(struct msm_gpu *gpu)
+@@ -566,7 +611,13 @@ static int a6xx_ucode_init(struct msm_gpu *gpu)
  		}
  
  		msm_gem_object_set_name(a6xx_gpu->sqe_bo, "sqefw");
 -		a6xx_ucode_check_version(a6xx_gpu, a6xx_gpu->sqe_bo);
 +		if (!a6xx_ucode_check_version(a6xx_gpu, a6xx_gpu->sqe_bo)) {
-+			DRM_DEV_ERROR(&gpu->pdev->dev,
-+				"SQE ucode version is too old. It is likely unsafe\n");
 +			msm_gem_unpin_iova(a6xx_gpu->sqe_bo, gpu->aspace);
 +			drm_gem_object_put(a6xx_gpu->sqe_bo);
 +
