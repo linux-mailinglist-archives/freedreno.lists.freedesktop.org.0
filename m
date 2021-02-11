@@ -1,73 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 467F3318F54
-	for <lists+freedreno@lfdr.de>; Thu, 11 Feb 2021 17:02:47 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 438933191E8
+	for <lists+freedreno@lfdr.de>; Thu, 11 Feb 2021 19:11:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E98166E45C;
-	Thu, 11 Feb 2021 16:02:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC8C86E48D;
+	Thu, 11 Feb 2021 18:11:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so15.mailgun.net (so15.mailgun.net [198.61.254.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74BA76E45C
- for <freedreno@lists.freedesktop.org>; Thu, 11 Feb 2021 16:02:44 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1613059364; h=In-Reply-To: Content-Type: MIME-Version:
- References: Message-ID: Subject: Cc: To: From: Date: Sender;
- bh=dND8Fw/N2yqIwZD3O288QSZRIeAgRKtIgjzd8mBfxKs=;
- b=HoP678qD4WsrkqJ2I5G28UdKb2Rn1H2hcDDXiiEuBtCTlHfxYfr1C0HTiXk3HmZYwkWmE+NB
- n6ElfDkF5aDoMeGKkck6SBv19AiH6vXB7TGvqHN89WMGqWBb+CYx/04rMXWleIecImCReDxd
- j2nuuo1xKjhBNw5CCDkJP438UFI=
-X-Mailgun-Sending-Ip: 198.61.254.15
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n04.prod.us-east-1.postgun.com with SMTP id
- 602555233919dfb455636b10 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 11 Feb 2021 16:02:43
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id E8422C43462; Thu, 11 Feb 2021 16:02:42 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL, 
- URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-Received: from jcrouse1-lnx.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: jcrouse)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id BF261C433C6;
- Thu, 11 Feb 2021 16:02:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org BF261C433C6
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=jcrouse@codeaurora.org
-Date: Thu, 11 Feb 2021 09:02:37 -0700
-From: Jordan Crouse <jcrouse@codeaurora.org>
-To: Akhil P Oommen <akhilpo@codeaurora.org>
-Message-ID: <20210211160237.GB26503@jcrouse1-lnx.qualcomm.com>
-Mail-Followup-To: Akhil P Oommen <akhilpo@codeaurora.org>,
- linux-arm-msm@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@linux.ie>, Eric Anholt <eric@anholt.net>,
- Jonathan Marek <jonathan@marek.ca>, Rob Clark <robdclark@gmail.com>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Sean Paul <sean@poorly.run>,
- Sharat Masetty <smasetty@codeaurora.org>,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20210210005205.783377-1-jcrouse@codeaurora.org>
- <8aa916f9-238a-779c-bcaf-51bfb2b761d2@codeaurora.org>
+Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
+ [IPv6:2607:f8b0:4864:20::82e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 443246E48C
+ for <freedreno@lists.freedesktop.org>; Thu, 11 Feb 2021 18:11:00 +0000 (UTC)
+Received: by mail-qt1-x82e.google.com with SMTP id n28so4806640qtv.12
+ for <freedreno@lists.freedesktop.org>; Thu, 11 Feb 2021 10:11:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=marek-ca.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=p28ioQ+e9LHUnarIWjsDgJkyQXx4nxF9gGosol0T7po=;
+ b=UwYtniy3iBeG53LcuIBx4wjxwoQHKPU4Rgm85/PHBTfohw6DR1WNz1AUBjcFHrv8o8
+ 5aHqWY1QUFKouKZNBF31XFBq6huTUxNT3ZWBGLWz1iq+e67yKhZCVuQkaKU25nTTXuuH
+ PQKGNQFOGQw9gjLBXbstpBc0tYnm4HNA46wwOi6A0fCQU0/5fDOJrAzzHzl7M158yYeP
+ 0kll2nrz6zJ21fEHJmOEucqxuscULxP9wrO0PiVteogiepbqc51Ty8+Yfk18UfPb+n7B
+ Pvt7mF9A+zzs9okPKsZSiAbqnO0zo1+Nk6pFjs21PZC26vRHduZD9m8qTsysHSojdLTu
+ V77Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=p28ioQ+e9LHUnarIWjsDgJkyQXx4nxF9gGosol0T7po=;
+ b=ErfeoRSTnlrZrhAJdtwANCDMEGQLG9dI3091mWP2t4ND3ZrJ9QkhGC9Ii+G0o7Birf
+ LovRHlxEmaOsT9r2xldJcWjUGL6F6JnDSdfyjwXcxjF0o6un+e029BX1sE7HPdSW42tz
+ H1kmpF9Bt+l+u6RiCUTE2EVIx9sjmeGoEnz0gB0WCCmX205xEvH+GoUhLtOvEVp8PJQy
+ qsPK3V9kfn2UEgao95lUDeYI/QHnVpa1ZKy07zAJ+LvotQ6jMgvJd+sbnZnEZeWwmPTI
+ jY+60yPMdPKtSq6ht9L0s+/9lQhgNNgc8ZG1dILA5kpMyETxgNJvxTYl4YrPTfhwoW7X
+ AIlg==
+X-Gm-Message-State: AOAM533ca67DIPae/2J6ERTRS5rfzCwhKDyvjhcBNarNbM/XVgOEQmKn
+ 7W45X7fQ9vNBniJ4Aeu+tc/GDQ==
+X-Google-Smtp-Source: ABdhPJxmKNRv94AJ/XLaNW2w9nibweQfdsOQu8zjlxout63qljBv8i0xys4lG7QLNdpAy0qCg/HNlQ==
+X-Received: by 2002:ac8:51c7:: with SMTP id d7mr8575626qtn.302.1613067058455; 
+ Thu, 11 Feb 2021 10:10:58 -0800 (PST)
+Received: from localhost.localdomain
+ (modemcable068.184-131-66.mc.videotron.ca. [66.131.184.68])
+ by smtp.gmail.com with ESMTPSA id 11sm4615412qkm.25.2021.02.11.10.10.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Feb 2021 10:10:57 -0800 (PST)
+From: Jonathan Marek <jonathan@marek.ca>
+To: linux-arm-msm@vger.kernel.org
+Date: Thu, 11 Feb 2021 13:09:57 -0500
+Message-Id: <20210211181002.22922-1-jonathan@marek.ca>
+X-Mailer: git-send-email 2.26.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <8aa916f9-238a-779c-bcaf-51bfb2b761d2@codeaurora.org>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Freedreno] [PATCH v2] drm/msm: a6xx: Make sure the SQE
- microcode is safe
+Subject: [Freedreno] [PATCH 0/2] arm64: dts: qcom: sm8250: fix display nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,144 +66,42 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Sharat Masetty <smasetty@codeaurora.org>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Eric Anholt <eric@anholt.net>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Tanmay Shah <tanmay@codeaurora.org>,
+ Rajendra Nayak <rnayak@codeaurora.org>, Rob Herring <robh+dt@kernel.org>,
+ Eric Anholt <eric@anholt.net>, David Airlie <airlied@linux.ie>,
+ Sean Paul <sean@poorly.run>, open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Drew Davenport <ddavenport@chromium.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>, Andy Gross <agross@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Qinglang Miao <miaoqinglang@huawei.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Kalyan Thota <kalyan_t@codeaurora.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ tongtiangen <tongtiangen@huawei.com>,
+ Jeykumar Sankaran <jsanka@codeaurora.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Feb 11, 2021 at 06:50:28PM +0530, Akhil P Oommen wrote:
-> On 2/10/2021 6:22 AM, Jordan Crouse wrote:
-> >Most a6xx targets have security issues that were fixed with new versions
-> >of the microcode(s). Make sure that we are booting with a safe version of
-> >the microcode for the target and print a message and error if not.
-> >
-> >v2: Add more informative error messages and fix typos
-> >
-> >Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
-> >---
-> >
-> >  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 77 ++++++++++++++++++++++-----
-> >  1 file changed, 64 insertions(+), 13 deletions(-)
-> >
-> >diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >index ba8e9d3cf0fe..064b7face504 100644
-> >--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >@@ -522,28 +522,73 @@ static int a6xx_cp_init(struct msm_gpu *gpu)
-> >  	return a6xx_idle(gpu, ring) ? 0 : -EINVAL;
-> >  }
-> >-static void a6xx_ucode_check_version(struct a6xx_gpu *a6xx_gpu,
-> >+/*
-> >+ * Check that the microcode version is new enough to include several key
-> >+ * security fixes. Return true if the ucode is safe.
-> >+ */
-> >+static bool a6xx_ucode_check_version(struct a6xx_gpu *a6xx_gpu,
-> >  		struct drm_gem_object *obj)
-> >  {
-> >+	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
-> >+	struct msm_gpu *gpu = &adreno_gpu->base;
-> >  	u32 *buf = msm_gem_get_vaddr(obj);
-> >+	bool ret = false;
-> >  	if (IS_ERR(buf))
-> >-		return;
-> >+		return false;
-> >  	/*
-> >-	 * If the lowest nibble is 0xa that is an indication that this microcode
-> >-	 * has been patched. The actual version is in dword [3] but we only care
-> >-	 * about the patchlevel which is the lowest nibble of dword [3]
-> >-	 *
-> >-	 * Otherwise check that the firmware is greater than or equal to 1.90
-> >-	 * which was the first version that had this fix built in
-> >+	 * Targets up to a640 (a618, a630 and a640) need to check for a
-> >+	 * microcode version that is patched to support the whereami opcode or
-> >+	 * one that is new enough to include it by default.
-> >  	 */
-> >-	if (((buf[0] & 0xf) == 0xa) && (buf[2] & 0xf) >= 1)
-> >-		a6xx_gpu->has_whereami = true;
-> >-	else if ((buf[0] & 0xfff) > 0x190)
-> >-		a6xx_gpu->has_whereami = true;
-> >+	if (adreno_is_a618(adreno_gpu) || adreno_is_a630(adreno_gpu) ||
-> >+		adreno_is_a640(adreno_gpu)) {
-> >+		/*
-> >+		 * If the lowest nibble is 0xa that is an indication that this
-> >+		 * microcode has been patched. The actual version is in dword
-> >+		 * [3] but we only care about the patchlevel which is the lowest
-> >+		 * nibble of dword [3]
-> >+		 *
-> >+		 * Otherwise check that the firmware is greater than or equal
-> >+		 * to 1.90 which was the first version that had this fix built
-> >+		 * in
-> >+		 */
-> >+		if ((((buf[0] & 0xf) == 0xa) && (buf[2] & 0xf) >= 1) ||
-> >+			(buf[0] & 0xfff) >= 0x190) {
-> >+			a6xx_gpu->has_whereami = true;
-> >+			ret = true;
-> >+			goto out;
-> >+		}
-> >+		DRM_DEV_ERROR(&gpu->pdev->dev,
-> >+			"a630 SQE ucode is too old. Have version %x need at least %x\n",
-> >+			buf[0] & 0xfff, 0x190);
-> >+	}  else {
-> >+		/*
-> >+		 * a650 tier targets don't need whereami but still need to be
-> >+		 * equal to or newer than 1.95 for other security fixes
-> >+		 */
-> >+		if (adreno_is_a650(adreno_gpu)) {
-> >+			if ((buf[0] & 0xfff) >= 0x195) {
-> >+				ret = true;
-> >+				goto out;
-> >+			}
-> >+
-> >+			DRM_DEV_ERROR(&gpu->pdev->dev,
-> >+				"a650 SQE ucode is too old. Have version %x need at least %x\n",
-> >+				buf[0] & 0xfff, 0x195);
-> >+		}
-> >+
-> >+		/*
-> >+		 * When a660 is added those targets should return true here
-> >+		 * since those have all the critical security fixes built in
-> >+		 * from the start
-> >+		 */
-> Or we can just initialize 'ret' as true.
+Add sm8150/sm8250 compatibles to drm/msm and fix the sm8250
+display nodes.
 
-I thought about it and I think I want to force an accept list here instead of
-letting new targets get by with an implicit pass.
+Jonathan Marek (2):
+  drm/msm: add compatibles for sm8150/sm8250 display
+  arm64: dts: qcom: sm8250: fix display nodes
 
-Jordan
-
-> -Akhil
-> >+	}
-> >+out:
-> >  	msm_gem_put_vaddr(obj);
-> >+	return ret;
-> >  }
-> >  static int a6xx_ucode_init(struct msm_gpu *gpu)
-> >@@ -566,7 +611,13 @@ static int a6xx_ucode_init(struct msm_gpu *gpu)
-> >  		}
-> >  		msm_gem_object_set_name(a6xx_gpu->sqe_bo, "sqefw");
-> >-		a6xx_ucode_check_version(a6xx_gpu, a6xx_gpu->sqe_bo);
-> >+		if (!a6xx_ucode_check_version(a6xx_gpu, a6xx_gpu->sqe_bo)) {
-> >+			msm_gem_unpin_iova(a6xx_gpu->sqe_bo, gpu->aspace);
-> >+			drm_gem_object_put(a6xx_gpu->sqe_bo);
-> >+
-> >+			a6xx_gpu->sqe_bo = NULL;
-> >+			return -EPERM;
-> >+		}
-> >  	}
-> >  	gpu_write64(gpu, REG_A6XX_CP_SQE_INSTR_BASE_LO,
-> >
-> 
+ .../devicetree/bindings/display/msm/dpu.txt   |  4 +--
+ arch/arm64/boot/dts/qcom/sm8250.dtsi          | 34 +++++--------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  2 ++
+ drivers/gpu/drm/msm/msm_drv.c                 |  6 ++--
+ 4 files changed, 16 insertions(+), 30 deletions(-)
 
 -- 
-The Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
-a Linux Foundation Collaborative Project
+2.26.1
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
