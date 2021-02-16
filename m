@@ -1,68 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 298BC31CFD8
-	for <lists+freedreno@lfdr.de>; Tue, 16 Feb 2021 19:06:26 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C6EE31D160
+	for <lists+freedreno@lfdr.de>; Tue, 16 Feb 2021 21:10:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1C6789D52;
-	Tue, 16 Feb 2021 18:06:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1740A6E983;
+	Tue, 16 Feb 2021 20:10:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com
- [IPv6:2607:f8b0:4864:20::832])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC76B89F4A
- for <freedreno@lists.freedesktop.org>; Tue, 16 Feb 2021 18:06:23 +0000 (UTC)
-Received: by mail-qt1-x832.google.com with SMTP id g24so5176738qts.2
- for <freedreno@lists.freedesktop.org>; Tue, 16 Feb 2021 10:06:23 -0800 (PST)
+Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
+ [IPv6:2607:f8b0:4864:20::82e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D8346E980
+ for <freedreno@lists.freedesktop.org>; Tue, 16 Feb 2021 20:10:32 +0000 (UTC)
+Received: by mail-qt1-x82e.google.com with SMTP id v10so7973628qtq.7
+ for <freedreno@lists.freedesktop.org>; Tue, 16 Feb 2021 12:10:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=marek-ca.20150623.gappssmtp.com; s=20150623;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=jY9iK1+FYhqLlmeOaaKNMJnRWWpPl1FPPGfZFgnoHOA=;
- b=J61crQvmK+qVVsBKTRgxh97TUx35Xd9UngcxEIQ/FyDCnqG3ntUYW6zNuklrBgg7x5
- ShKstpDoEWs9PStyAOU+UKjYTs6+5LthtKz9Rg4OdVpGi0Zv3SkYd4HXkdhQvm/NfgdN
- YprLyz0UaIbY8olus8ju7DrI7UfbrWx/hAZi2BXnPFnU3f2VZ0si/d2X/sfJdfLviiKA
- 1Euhj4lzODbXo/VEV3LvfmPFEY+nKCsAGI51foeMn1jiL289OS7qcCHVaz2+jPqSiPSx
- MLnSqIDr8fokhb3RBdL+sZA+blwRG/leGdFtkBDxvvrvwBFPcR65/tRVe+4aKs9CI2Ai
- JhSw==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=NKwlbcTtgnB6BisI4Bvy7S6GuugskOb7r/1I3tSO040=;
+ b=Fwl1w0m1yyz+DUSfQ+nlbFIh9wxR18vvObIsEy0qzWgUdgqJGtnC9sOxTr8SCTD9aP
+ 66sIMMCN3NX1kJMC2FelE5qc7mO1YvdAR8UDTULWi0w1uUFtDPwcrwJrCdUD8Bd1H2RD
+ ce3CYes027o9rz0lBqy9FMu1rJXSbFPANa8l0U2XazTDJVAKB7Xx+t2CkaaVR/AsGl6x
+ Gt9fDIFh4os3sf+Wmx+Zxd4XcTG83lwVhc63v/f1GKq480aLQuyO5eya3GABj+ffsfrA
+ 8oDIl9Grj7LZlSxJBEtTnKeJm+pkYd23mNw5cd0+xGKnR4WQpd//b6q7BfOJe3JXMO4T
+ U7VQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=jY9iK1+FYhqLlmeOaaKNMJnRWWpPl1FPPGfZFgnoHOA=;
- b=H1Wr3oZUKsQ63vZhqrd6xlZrpa2oACL31iKpTFmP36hxHe6uHoC0v8l7RKEp8hjrmT
- pVNJaMWzT/BCWWsj8BbxfYbbew8BRJM1sm0Pl7U/Dnk9LEQNnL5Cj+j/ZIVsx9tb46Eu
- CqHxC/Jo7H0GpNAQJxLXmcXg1cF4oCln+uGo/9HOzk5FiamAZOcJJ8GC0dEckU8wG7a6
- VuhwHQwz8ExDL+VZ1aICh6h0NBzpHGkcjvFUG3oKU0+8MpOsTsKo8tNYWrk2BA5Dii2m
- 4XSgEXFBHTjBmCUQGXANDyYESmfONlnpZe+YQpgesvys6eegAvp7Y8UK7DuZlSAlSmx9
- pg3w==
-X-Gm-Message-State: AOAM533rAHSntvMGq7mnxxHT/+T9/oifpWsnZsLfZJlxBEBV53tvJgMP
- CmpGzq9dh1DfEsDs1IQ8fSSoMQ==
-X-Google-Smtp-Source: ABdhPJwokn1VAbBbWme8hbQKD48AY7keANjDwy6xiTFqQEmNtcyAGSGs2OgTmgYhB+BvFCvS44aLWw==
-X-Received: by 2002:a05:622a:216:: with SMTP id
- b22mr19554660qtx.163.1613498782789; 
- Tue, 16 Feb 2021 10:06:22 -0800 (PST)
-Received: from [192.168.0.189] (modemcable068.184-131-66.mc.videotron.ca.
- [66.131.184.68])
- by smtp.gmail.com with ESMTPSA id x6sm3255622qkj.118.2021.02.16.10.06.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Feb 2021 10:06:22 -0800 (PST)
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20210215161537.14696-1-jonathan@marek.ca>
- <20210215161537.14696-2-jonathan@marek.ca>
- <CAA8EJpo_Fs8Wj6zjH6BQqm=mG=qcGt3_JMj4nK-vsKCzr8tn1g@mail.gmail.com>
+ bh=NKwlbcTtgnB6BisI4Bvy7S6GuugskOb7r/1I3tSO040=;
+ b=Xc0M1DXWcWiow4jSh4VA4xRcOMFz7TRpDxrCWzvG3yanqGtKL4tuXuIKsxI1+CXfCG
+ XNgFNeojQJgbljT7zaVXVZ5pNT0fL+Rs6IWas8ojRxcaUZRol7RfIAU2N/VBjIOca28j
+ yms4TFuDkJOSZSON9xi0R9Z9kFmhWEUiZMvKQLmc6Bhb3wIGqKmzlLnMrm3IKt0zz4hh
+ 7VOhDwiSgfvCbXydi/eFoM8IM/1Jl0QX/iZb5P9+RuuyiRLsOYSrlyhbhMXP0iGo6GqB
+ Wd9gBPPaXEO0EYqUpuhm9fa6BO7V3H9ywdFKvmt1EJYSa4n3viLCzuPukAh9MlhQp++e
+ ZY6Q==
+X-Gm-Message-State: AOAM531CWuejZN6nOGNsSsW8Kj6+vC6snyDJs4qjKAtgcTmL4+Nqx1yC
+ xKNgowP3rlAnuvsVdPd1O/9niRqUlOT9a3CimFw=
+X-Google-Smtp-Source: ABdhPJx0vhTIMA5ITSYJJ7UNmZPzb2lwEoYHxSg9A1Z0cAvYN5MflzYoDldlCk79CRVDHsPiwZ9t1g==
+X-Received: by 2002:ac8:7383:: with SMTP id t3mr19902693qtp.242.1613506231455; 
+ Tue, 16 Feb 2021 12:10:31 -0800 (PST)
+Received: from localhost.localdomain
+ (modemcable068.184-131-66.mc.videotron.ca. [66.131.184.68])
+ by smtp.gmail.com with ESMTPSA id 16sm13451423qtp.38.2021.02.16.12.10.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 16 Feb 2021 12:10:30 -0800 (PST)
 From: Jonathan Marek <jonathan@marek.ca>
-Message-ID: <29231c68-0cc4-9d8a-8cb1-791511780bcd@marek.ca>
-Date: Tue, 16 Feb 2021 13:05:34 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+To: freedreno@lists.freedesktop.org
+Date: Tue, 16 Feb 2021 15:09:07 -0500
+Message-Id: <20210216200909.19039-1-jonathan@marek.ca>
+X-Mailer: git-send-email 2.26.1
 MIME-Version: 1.0
-In-Reply-To: <CAA8EJpo_Fs8Wj6zjH6BQqm=mG=qcGt3_JMj4nK-vsKCzr8tn1g@mail.gmail.com>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm: add compatibles for
- sm8150/sm8250 display
+Subject: [Freedreno] [PATCH] drm/msm/a6xx: fix for kernels without
+ CONFIG_NVMEM
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,122 +67,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, Rajendra Nayak <rnayak@codeaurora.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, David Airlie <airlied@linux.ie>,
+Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ David Airlie <airlied@linux.ie>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, Tanmay Shah <tanmay@codeaurora.org>,
- open list <linux-kernel@vger.kernel.org>, Eric Anholt <eric@anholt.net>,
- Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- tongtiangen <tongtiangen@huawei.com>, Qinglang Miao <miaoqinglang@huawei.com>,
- Daniel Vetter <daniel@ffwll.ch>, Kalyan Thota <kalyan_t@codeaurora.org>,
- Drew Davenport <ddavenport@chromium.org>,
- Jeykumar Sankaran <jsanka@codeaurora.org>, Sean Paul <sean@poorly.run>
+ Akhil P Oommen <akhilpo@codeaurora.org>, Eric Anholt <eric@anholt.net>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>, open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2/16/21 11:54 AM, Dmitry Baryshkov wrote:
-> On Mon, 15 Feb 2021 at 19:25, Jonathan Marek <jonathan@marek.ca> wrote:
->>
->> The driver already has support for sm8150/sm8250, but the compatibles were
->> never added.
->>
->> Also inverse the non-mdp4 condition in add_display_components() to avoid
->> having to check every new compatible in the condition.
->>
->> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
->> ---
->>   Documentation/devicetree/bindings/display/msm/dpu.txt | 4 ++--
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c               | 2 ++
->>   drivers/gpu/drm/msm/msm_drv.c                         | 6 +++---
->>   3 files changed, 7 insertions(+), 5 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/display/msm/dpu.txt b/Documentation/devicetree/bindings/display/msm/dpu.txt
->> index 551ae26f60da..5763f43200a0 100644
->> --- a/Documentation/devicetree/bindings/display/msm/dpu.txt
->> +++ b/Documentation/devicetree/bindings/display/msm/dpu.txt
->> @@ -8,7 +8,7 @@ The DPU display controller is found in SDM845 SoC.
->>
->>   MDSS:
->>   Required properties:
->> -- compatible:  "qcom,sdm845-mdss", "qcom,sc7180-mdss"
->> +- compatible:  "qcom,sdm845-mdss", "qcom,sc7180-mdss", "qcom,sm8150-mdss", "qcom,sm8250-mdss"
->>   - reg: physical base address and length of contoller's registers.
->>   - reg-names: register region names. The following region is required:
->>     * "mdss"
->> @@ -41,7 +41,7 @@ Optional properties:
->>
->>   MDP:
->>   Required properties:
->> -- compatible: "qcom,sdm845-dpu", "qcom,sc7180-dpu"
->> +- compatible: "qcom,sdm845-dpu", "qcom,sc7180-dpu", "qcom,sm8150-dpu", "qcom,sm8250-dpu"
->>   - reg: physical base address and length of controller's registers.
->>   - reg-names : register region names. The following region is required:
->>     * "mdp"
-> 
-> These two chunks should probably go to the separate patch 'dt-bindings:...'.
-> 
+Ignore nvmem_cell_get() EOPNOTSUPP error in the same way as a ENOENT error,
+to fix the case where the kernel was compiled without CONFIG_NVMEM.
 
-In this case I think its better to have this change in the same patch, 
-but maybe one of the Robs will disagree.
+Fixes: fe7952c629da ("drm/msm: Add speed-bin support to a618 gpu")
+Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-> Also, could you please pinpoint the reason for adding more
-> compatibility strings, while they map to the same internal data?
-> I think we might want instead to use some generic name for the dpu
-> block, like "qcom,dpu" or "qcom,mdp-dpu" instead of specifying the
-> platform name.
-> 
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index ba8e9d3cf0fe..7fe5d97606aa 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -1356,10 +1356,10 @@ static int a6xx_set_supported_hw(struct device *dev, struct a6xx_gpu *a6xx_gpu,
+ 
+ 	cell = nvmem_cell_get(dev, "speed_bin");
+ 	/*
+-	 * -ENOENT means that the platform doesn't support speedbin which is
+-	 * fine
++	 * -ENOENT means no speed bin in device tree,
++	 * -EOPNOTSUPP means kernel was built without CONFIG_NVMEM
+ 	 */
+-	if (PTR_ERR(cell) == -ENOENT)
++	if (PTR_ERR(cell) == -ENOENT || PTR_ERR(cell) == -EOPNOTSUPP)
+ 		return 0;
+ 	else if (IS_ERR(cell)) {
+ 		DRM_DEV_ERROR(dev,
+-- 
+2.26.1
 
-sdm845 and sc7180 aren't using generic compatibles, this is just being 
-consistent with that.
-
-> 
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->> index 5a8e3e1fc48c..fff12a4c8bfc 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->> @@ -1219,6 +1219,8 @@ static const struct dev_pm_ops dpu_pm_ops = {
->>   static const struct of_device_id dpu_dt_match[] = {
->>          { .compatible = "qcom,sdm845-dpu", },
->>          { .compatible = "qcom,sc7180-dpu", },
->> +       { .compatible = "qcom,sm8150-dpu", },
->> +       { .compatible = "qcom,sm8250-dpu", },
->>          {}
->>   };
->>   MODULE_DEVICE_TABLE(of, dpu_dt_match);
->> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
->> index 94525ac76d4e..928f13d4bfbc 100644
->> --- a/drivers/gpu/drm/msm/msm_drv.c
->> +++ b/drivers/gpu/drm/msm/msm_drv.c
->> @@ -1185,9 +1185,7 @@ static int add_display_components(struct device *dev,
->>           * Populate the children devices, find the MDP5/DPU node, and then add
->>           * the interfaces to our components list.
->>           */
->> -       if (of_device_is_compatible(dev->of_node, "qcom,mdss") ||
->> -           of_device_is_compatible(dev->of_node, "qcom,sdm845-mdss") ||
->> -           of_device_is_compatible(dev->of_node, "qcom,sc7180-mdss")) {
->> +       if (!of_device_is_compatible(dev->of_node, "qcom,mdp4")) {
->>                  ret = of_platform_populate(dev->of_node, NULL, NULL, dev);
->>                  if (ret) {
->>                          DRM_DEV_ERROR(dev, "failed to populate children devices\n");
->> @@ -1320,6 +1318,8 @@ static const struct of_device_id dt_match[] = {
->>          { .compatible = "qcom,mdss", .data = (void *)KMS_MDP5 },
->>          { .compatible = "qcom,sdm845-mdss", .data = (void *)KMS_DPU },
->>          { .compatible = "qcom,sc7180-mdss", .data = (void *)KMS_DPU },
->> +       { .compatible = "qcom,sm8150-mdss", .data = (void *)KMS_DPU },
->> +       { .compatible = "qcom,sm8250-mdss", .data = (void *)KMS_DPU },
->>          {}
->>   };
->>   MODULE_DEVICE_TABLE(of, dt_match);
->> --
->> 2.26.1
->>
-> 
-> 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
