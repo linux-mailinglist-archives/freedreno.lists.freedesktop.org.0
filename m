@@ -2,54 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D32231D1E6
-	for <lists+freedreno@lfdr.de>; Tue, 16 Feb 2021 22:16:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DBEE31D326
+	for <lists+freedreno@lfdr.de>; Wed, 17 Feb 2021 01:06:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA28F6E993;
-	Tue, 16 Feb 2021 21:16:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01E776E4AD;
+	Wed, 17 Feb 2021 00:06:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
- [IPv6:2607:f8b0:4864:20::735])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A96386E993
- for <freedreno@lists.freedesktop.org>; Tue, 16 Feb 2021 21:16:11 +0000 (UTC)
-Received: by mail-qk1-x735.google.com with SMTP id t63so10900166qkc.1
- for <freedreno@lists.freedesktop.org>; Tue, 16 Feb 2021 13:16:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B6946E4AD;
+ Wed, 17 Feb 2021 00:06:05 +0000 (UTC)
+Received: by mail-wm1-x333.google.com with SMTP id o15so337657wmq.5;
+ Tue, 16 Feb 2021 16:06:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=4rk2wwMnoEYPma2xWk6NuZcb3jVPhgKDLBkofVU2y60=;
- b=R+8pOfYFLSejFXP4jPbZWyn2LCtTqjsa107yazeTQYzIiH+LeuXV8YusgV1w2LW7Gj
- IWuN/sQJoxWt9kjU2m1A0IEY/6wlvACZVnyqcaPH2km5k9LUt8ts3M4OHj1XvYTTZZkW
- rjW38aeg7HxP9QhTVv54x2qt3u/WscEX2iM4yrYjSBhupKyYIaqkdMFpaqnoJFYmXprV
- I1zgweu48q+ye18tY0/BN4DBJsh6ih3x8VrOP9uPC0i1KXV2RJOFuixu9mdTmoQ7YBIn
- GrOIyR0KjHr0uLL9E/aZBqPOXAQgTx/K0/q/9ZXIgZ1bQe7IAfzyHzIn4DlXmhcrZm82
- xH+Q==
+ :cc; bh=XQqpqg6jSzHG83op6n6dlIe74aKdQKtD9br7jGebjUw=;
+ b=UNKYNkYO0LfnOS/TsdDDmSB9Njy/d4xhqsOEFDi91kfNRXvsy9i6E8+4Xs92EgAxrN
+ A1mTLusx49wda93oKOT4RMx3bTUrvcfaxgEIVSl4XHMpTCil4glWs2iSvfVr6iyHKXLY
+ Cs3dzbnSF0QEr0+Yfb3rpnUKydrhYi0froutx0YA6PhN7nufa3O/d8GEkwyJi14OZyoY
+ LPqCtTMhSX0iuggc8z3bs+/YFWNh0wleqLw4d/WPK9zt3+dzWJ/ZK15W/jP72Vlc58zy
+ flMdpeoSr2Yy4bBq1kNlxT1f0Tp+kyHAq0D70zPfgamSvqXRq7+hwONx4HJFfZQJ/5tq
+ jrPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=4rk2wwMnoEYPma2xWk6NuZcb3jVPhgKDLBkofVU2y60=;
- b=R8p1iaEEe8ccF2jRE0WoqLWs0LvADevXFMAbtVu6INXd/orI4JP9tiVrxhyuOrQmLN
- ai0nq/BplFBZ4aXTMGh3tVNPbfJPfAO7zVlfQSdSRxKzQNB6A9DbsYJRn+o5OyAW99Zk
- W68aPJTcuKYaJhB3ndtIco1Jj/XPIGBkU3+GcGtXIh8HnYoZ/gpdGG0aLnjizO3w/P/W
- KiE1p9Ao6XOMr7TmvOa3toFLRHrXjKUHAYNeubpxYwk8l5krX/H1l2q5l9DEiou5uRzS
- FetCzp+CCXHLOhcu3bgHh0eOzYrVnpjZtTtXDdHf/1VzLKlapappCD57e02cS7MMXdka
- WQWQ==
-X-Gm-Message-State: AOAM531Y/CE3CV2oJnTpmaBbmZk5aTc4zXKy7yeaiQt2G/qr79lQp7Sl
- uUH7RsA750Tgs0E76GNlMGFo+3QZNK7z1UFHSCFPMw==
-X-Google-Smtp-Source: ABdhPJw7adO/lfGbSQKSW3fwASRPbVhGElhbv5piVyBRNIk/XQd9cjcJFShG12gleW/Aq/SWUeiZazbBtAYlBzPhYXo=
-X-Received: by 2002:a37:a9d6:: with SMTP id
- s205mr22217992qke.162.1613510170667; 
- Tue, 16 Feb 2021 13:16:10 -0800 (PST)
+ bh=XQqpqg6jSzHG83op6n6dlIe74aKdQKtD9br7jGebjUw=;
+ b=pI9kEYLdBIr6Yaq4qGrULiNKmTLTvnoRzox0G7B+g6PnT1lvv7LIWhrg9I1iXRUTAS
+ VBLODA3CRMwNgwR7RBT/FVu0exxIL4ViSU0zIieh1lFFykIUoFh7gXhoLvf2ji1O2cJA
+ 64bFmnXaPZSFe5wc9O8HXDadYkJoDac+XK0Zfa3XIt8JvYH2rr4wEGN/hc8rxyVA9Jc1
+ fTg9lvsuF85jgtLrqNPbrj6p9kWWQE4gvH4ADF0alxFGETk0BxHsvEXU+rmAFK08E1zA
+ ea4bpXbWKI4AWl50r2GjAc1d7tyaLZ6u7QtREAEtbw2r1C3J3x0gaJ42SG/PhFFOBkqV
+ 41JA==
+X-Gm-Message-State: AOAM533/TXxJe+7zgtcKYqjba6i9i7U8GfEeMUTT1ZFydkF/pe9DSrYQ
+ KJvT/Mm54eKO9teVaGPB3xnqZK38xRU/HNchFWk=
+X-Google-Smtp-Source: ABdhPJx/2suxGtJCRIigMjkQD6gjPWjzXEgtH7zFIY7Pf5+83ly/26LyReNhpwl+41tqGRJB5Zunt+GbkMx4vOPFL70=
+X-Received: by 2002:a7b:c149:: with SMTP id z9mr4975291wmi.164.1613520364006; 
+ Tue, 16 Feb 2021 16:06:04 -0800 (PST)
 MIME-Version: 1.0
 References: <20210215161537.14696-1-jonathan@marek.ca>
  <20210215161537.14696-2-jonathan@marek.ca>
  <CAA8EJpo_Fs8Wj6zjH6BQqm=mG=qcGt3_JMj4nK-vsKCzr8tn1g@mail.gmail.com>
  <29231c68-0cc4-9d8a-8cb1-791511780bcd@marek.ca>
 In-Reply-To: <29231c68-0cc4-9d8a-8cb1-791511780bcd@marek.ca>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 17 Feb 2021 00:15:59 +0300
-Message-ID: <CAA8EJpq27u54eusDEgkLBfkWd0Cp+rQq6Jh-LOYYG3CXM2U3Gw@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 16 Feb 2021 16:08:56 -0800
+Message-ID: <CAF6AEGtyiD6vtYrgkB4X+B00=ew09_7bZA3ketZsZ2+M7aFR+w@mail.gmail.com>
 To: Jonathan Marek <jonathan@marek.ca>
 Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm: add compatibles for
  sm8150/sm8250 display
@@ -67,23 +66,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
  <freedreno@lists.freedesktop.org>, Rajendra Nayak <rnayak@codeaurora.org>,
+ Drew Davenport <ddavenport@chromium.org>,
  "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
  <devicetree@vger.kernel.org>, David Airlie <airlied@linux.ie>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, Tanmay Shah <tanmay@codeaurora.org>,
- open list <linux-kernel@vger.kernel.org>, Eric Anholt <eric@anholt.net>,
- Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- tongtiangen <tongtiangen@huawei.com>, Qinglang Miao <miaoqinglang@huawei.com>,
- Daniel Vetter <daniel@ffwll.ch>, Kalyan Thota <kalyan_t@codeaurora.org>,
- Drew Davenport <ddavenport@chromium.org>,
+ open list <linux-kernel@vger.kernel.org>, Tanmay Shah <tanmay@codeaurora.org>,
+ Eric Anholt <eric@anholt.net>, Jordan Crouse <jcrouse@codeaurora.org>,
+ Rob Herring <robh+dt@kernel.org>, tongtiangen <tongtiangen@huawei.com>,
+ Qinglang Miao <miaoqinglang@huawei.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Kalyan Thota <kalyan_t@codeaurora.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Jeykumar Sankaran <jsanka@codeaurora.org>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 16 Feb 2021 at 21:06, Jonathan Marek <jonathan@marek.ca> wrote:
+On Tue, Feb 16, 2021 at 10:06 AM Jonathan Marek <jonathan@marek.ca> wrote:
 >
 > On 2/16/21 11:54 AM, Dmitry Baryshkov wrote:
 > > On Mon, 15 Feb 2021 at 19:25, Jonathan Marek <jonathan@marek.ca> wrote:
@@ -129,7 +129,14 @@ On Tue, 16 Feb 2021 at 21:06, Jonathan Marek <jonathan@marek.ca> wrote:
 >
 > In this case I think its better to have this change in the same patch,
 > but maybe one of the Robs will disagree.
->
+
+I *think* typically the reason to split dt bindings into their own
+patch is that devicetree@ list isn't interested in reviewing driver
+changes, just binding changes..
+
+In this case since it is just adding a compatible I think it is ok..
+(or at least ok by me, but maybe other-Rob disagrees ;-))
+
 > > Also, could you please pinpoint the reason for adding more
 > > compatibility strings, while they map to the same internal data?
 > > I think we might want instead to use some generic name for the dpu
@@ -140,11 +147,13 @@ On Tue, 16 Feb 2021 at 21:06, Jonathan Marek <jonathan@marek.ca> wrote:
 > sdm845 and sc7180 aren't using generic compatibles, this is just being
 > consistent with that.
 
-Well, I suppose the common case is to use the 'first compatible' entry
-if the entities are compatible. The generic compatibles is a proposal,
-not an affirmation. Please excuse me if it sounded in a different way.
+It is good to have a device specific compatible up front, even if we
+fallback to the more generic one for matching.. just in case we find a
+reason for needing it later
 
->
+BR,
+-R
+
 > >
 > >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
 > >> index 5a8e3e1fc48c..fff12a4c8bfc 100644
@@ -188,12 +197,6 @@ not an affirmation. Please excuse me if it sounded in a different way.
 > >>
 > >
 > >
-
-
-
--- 
-With best wishes
-Dmitry
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
