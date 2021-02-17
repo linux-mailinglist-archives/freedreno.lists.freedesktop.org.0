@@ -1,66 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB20531DAED
-	for <lists+freedreno@lfdr.de>; Wed, 17 Feb 2021 14:49:31 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6974A31DDC3
+	for <lists+freedreno@lfdr.de>; Wed, 17 Feb 2021 17:59:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3656589F75;
-	Wed, 17 Feb 2021 13:49:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CB0D6E12C;
+	Wed, 17 Feb 2021 16:59:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
- Wed, 17 Feb 2021 13:49:28 UTC
-Received: from z11.mailgun.us (z11.mailgun.us [104.130.96.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A30F589F75
- for <freedreno@lists.freedesktop.org>; Wed, 17 Feb 2021 13:49:28 +0000 (UTC)
+Received: from m42-2.mailgun.net (m42-2.mailgun.net [69.72.42.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D68FC6E12C
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Feb 2021 16:58:57 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1613569768; h=Content-Transfer-Encoding: Content-Type:
- In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
- Subject: Sender; bh=i3iesGdy+pkNo/AAesysK0K/0TAtTpZXxzrfQ7O+hzQ=;
- b=sCTYLNlcUHEw41IZROlw+feAaTWVAW3Zhn5B16KZxQTYYihD4/hw7Np106Y1NLu8mlWgDZpr
- WJOh4yAjRq0YaGOih0oaEeqxkZPh3T/W1Onlsh4x50cCJY+tcE9dWUaCFpI9OiEvBn1m/OAN
- lNUPMQ0F9kYyW9VAiKszPAbcELk=
-X-Mailgun-Sending-Ip: 104.130.96.11
+ s=smtp; t=1613581138; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=B5AXYKuDNSG0opzkSoixITlEQXeGyUfALGQ8770qpOg=;
+ b=ioWmAsV1sK2FpnzNrzVwb6kJwFpZEhQ72gmqkescTsGTX881fVRV2ZGmbcly6VqCOHwxAMNR
+ AyMlAbiMyjXaioQ/o94HlfJak15WyhjM3gAaP68kMAa/1em39XJB8IDDNHH5y4bjIMk2mKZU
+ 58ILkwbXOnAyjppVi4pA8VWVbWs=
+X-Mailgun-Sending-Ip: 69.72.42.2
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
- 602d1db9666e232b3833913c (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 17 Feb 2021 13:44:25
+ smtp-out-n07.prod.us-west-2.postgun.com with SMTP id
+ 602d4b4d666e232b383231a2 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 17 Feb 2021 16:58:53
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 56B68C43464; Wed, 17 Feb 2021 13:44:25 +0000 (UTC)
+ id 32986C43462; Wed, 17 Feb 2021 16:58:53 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- NICE_REPLY_A,SPF_FAIL,URIBL_BLOCKED autolearn=no autolearn_force=no
- version=3.4.0
-Received: from [192.168.1.105] (unknown [117.217.237.23])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: akhilpo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 8F835C433C6;
- Wed, 17 Feb 2021 13:44:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 8F835C433C6
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id CC7FCC433CA;
+ Wed, 17 Feb 2021 16:58:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org CC7FCC433CA
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=akhilpo@codeaurora.org
-To: Rob Clark <robdclark@gmail.com>, Jonathan Marek <jonathan@marek.ca>
-References: <20210216200909.19039-1-jonathan@marek.ca>
- <CAF6AEGv53nnzqMgTfSA6t2YpHx1dDW8UqnH9Gw0w3p8bf0mTLw@mail.gmail.com>
-From: Akhil P Oommen <akhilpo@codeaurora.org>
-Message-ID: <775436ba-c94a-ab22-d65b-b2391047ec65@codeaurora.org>
-Date: Wed, 17 Feb 2021 19:14:16 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-MIME-Version: 1.0
-In-Reply-To: <CAF6AEGv53nnzqMgTfSA6t2YpHx1dDW8UqnH9Gw0w3p8bf0mTLw@mail.gmail.com>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: fix for kernels without
- CONFIG_NVMEM
+ spf=fail smtp.mailfrom=khsieh@codeaurora.org
+From: Kuogee Hsieh <khsieh@codeaurora.org>
+To: robdclark@gmail.com,
+	sean@poorly.run,
+	swboyd@chromium.org
+Date: Wed, 17 Feb 2021 08:58:42 -0800
+Message-Id: <1613581122-8473-1-git-send-email-khsieh@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH] drm/msm/dp: add support of HBR3 link rate
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,72 +66,85 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- David Airlie <airlied@linux.ie>, freedreno <freedreno@lists.freedesktop.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Eric Anholt <eric@anholt.net>, Jordan Crouse <jcrouse@codeaurora.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sean Paul <sean@poorly.run>
+Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ abhinavk@codeaurora.org, khsieh@codeaurora.org, tanmay@codeaurora.org,
+ daniel@ffwll.ch, aravindh@codeaurora.org, freedreno@lists.freedesktop.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2/17/2021 8:36 AM, Rob Clark wrote:
-> On Tue, Feb 16, 2021 at 12:10 PM Jonathan Marek <jonathan@marek.ca> wrote:
->>
->> Ignore nvmem_cell_get() EOPNOTSUPP error in the same way as a ENOENT error,
->> to fix the case where the kernel was compiled without CONFIG_NVMEM.
->>
->> Fixes: fe7952c629da ("drm/msm: Add speed-bin support to a618 gpu")
->> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
->> ---
->>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 6 +++---
->>   1 file changed, 3 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> index ba8e9d3cf0fe..7fe5d97606aa 100644
->> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> @@ -1356,10 +1356,10 @@ static int a6xx_set_supported_hw(struct device *dev, struct a6xx_gpu *a6xx_gpu,
->>
->>          cell = nvmem_cell_get(dev, "speed_bin");
->>          /*
->> -        * -ENOENT means that the platform doesn't support speedbin which is
->> -        * fine
->> +        * -ENOENT means no speed bin in device tree,
->> +        * -EOPNOTSUPP means kernel was built without CONFIG_NVMEM
-> 
-> very minor nit, it would be nice to at least preserve the gist of the
-> "which is fine" (ie. some variation of "this is an optional thing and
-> things won't catch fire without it" ;-))
-> 
-> (which is, I believe, is true, hopefully Akhil could confirm.. if not
-> we should have a harder dependency on CONFIG_NVMEM..)
-IIRC, if the gpu opp table in the DT uses the 'opp-supported-hw' 
-property, we will see some error during boot up if we don't call 
-dev_pm_opp_set_supported_hw(). So calling "nvmem_cell_get(dev, 
-"speed_bin")" is a way to test this.
+Add hbr3_hbr2 voltage and pre-emphasis swing table to support
+HBR3 link rate
 
-If there is no other harm, we can put a hard dependency on CONFIG_NVMEM.
+Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+---
+ drivers/gpu/drm/msm/dp/dp_panel.c   |  4 ----
+ drivers/phy/qualcomm/phy-qcom-qmp.c | 24 ++++++++++++++++++++++--
+ 2 files changed, 22 insertions(+), 6 deletions(-)
 
--Akhil.
-> 
-> BR,
-> -R
-> 
->>           */
->> -       if (PTR_ERR(cell) == -ENOENT)
->> +       if (PTR_ERR(cell) == -ENOENT || PTR_ERR(cell) == -EOPNOTSUPP)
->>                  return 0;
->>          else if (IS_ERR(cell)) {
->>                  DRM_DEV_ERROR(dev,
->> --
->> 2.26.1
->>
+diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+index 9cc8166..63112fa 100644
+--- a/drivers/gpu/drm/msm/dp/dp_panel.c
++++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+@@ -76,10 +76,6 @@ static int dp_panel_read_dpcd(struct dp_panel *dp_panel)
+ 	if (link_info->num_lanes > dp_panel->max_dp_lanes)
+ 		link_info->num_lanes = dp_panel->max_dp_lanes;
+ 
+-	/* Limit support upto HBR2 until HBR3 support is added */
+-	if (link_info->rate >= (drm_dp_bw_code_to_link_rate(DP_LINK_BW_5_4)))
+-		link_info->rate = drm_dp_bw_code_to_link_rate(DP_LINK_BW_5_4);
+-
+ 	DRM_DEBUG_DP("version: %d.%d\n", major, minor);
+ 	DRM_DEBUG_DP("link_rate=%d\n", link_info->rate);
+ 	DRM_DEBUG_DP("lane_count=%d\n", link_info->num_lanes);
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp.c b/drivers/phy/qualcomm/phy-qcom-qmp.c
+index 0939a9e..cc5ef59 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qmp.c
++++ b/drivers/phy/qualcomm/phy-qcom-qmp.c
+@@ -2965,6 +2965,21 @@ static void qcom_qmp_phy_dp_aux_init(struct qmp_phy *qphy)
+ 	       qphy->pcs + QSERDES_V3_DP_PHY_AUX_INTERRUPT_MASK);
+ }
+ 
++
++static u8 const qmp_dp_v3_pre_emphasis_hbr3_hbr2[4][4] = {
++        {0x00, 0x0C, 0x15, 0x1A},
++        {0x02, 0x0E, 0x16, 0xFF},
++        {0x02, 0x11, 0xFF, 0xFF},
++        {0x04, 0xFF, 0xFF, 0xFF}
++};
++
++static u8 const qmp_dp_v3_voltage_swing_hbr3_hbr2[4][4] = {
++        {0x02, 0x12, 0x16, 0x1A},
++        {0x09, 0x19, 0x1F, 0xFF},
++        {0x10, 0x1F, 0xFF, 0xFF},
++        {0x1F, 0xFF, 0xFF, 0xFF}
++};
++
+ static const u8 qmp_dp_v3_pre_emphasis_hbr_rbr[4][4] = {
+ 	{ 0x00, 0x0c, 0x14, 0x19 },
+ 	{ 0x00, 0x0b, 0x12, 0xff },
+@@ -3000,8 +3015,13 @@ static void qcom_qmp_phy_configure_dp_tx(struct qmp_phy *qphy)
+ 		drvr_en = 0x10;
+ 	}
+ 
+-	voltage_swing_cfg = qmp_dp_v3_voltage_swing_hbr_rbr[v_level][p_level];
+-	pre_emphasis_cfg = qmp_dp_v3_pre_emphasis_hbr_rbr[v_level][p_level];
++	if (dp_opts->link_rate <= 2700) {
++		voltage_swing_cfg = qmp_dp_v3_voltage_swing_hbr_rbr[v_level][p_level];
++		pre_emphasis_cfg = qmp_dp_v3_pre_emphasis_hbr_rbr[v_level][p_level];
++	} else {
++		voltage_swing_cfg = qmp_dp_v3_voltage_swing_hbr3_hbr2[v_level][p_level];
++		pre_emphasis_cfg = qmp_dp_v3_pre_emphasis_hbr3_hbr2[v_level][p_level];
++	}
+ 
+ 	/* TODO: Move check to config check */
+ 	if (voltage_swing_cfg == 0xFF && pre_emphasis_cfg == 0xFF)
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
 _______________________________________________
 Freedreno mailing list
