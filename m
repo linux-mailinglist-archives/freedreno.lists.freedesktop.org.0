@@ -2,57 +2,38 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 893C631E2ED
-	for <lists+freedreno@lfdr.de>; Thu, 18 Feb 2021 00:10:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5703C31E513
+	for <lists+freedreno@lfdr.de>; Thu, 18 Feb 2021 05:14:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 089336E988;
-	Wed, 17 Feb 2021 23:10:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF4936E9F5;
+	Thu, 18 Feb 2021 04:14:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from z11.mailgun.us (z11.mailgun.us [104.130.96.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9EED6E9ED
- for <freedreno@lists.freedesktop.org>; Wed, 17 Feb 2021 23:10:11 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1613603412; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=E6xBGuNYRN5HDClpt7HT2d4wSVDsbV4Q9yzw+0QE02E=;
- b=p8QtKDmi7q6SRNRHjv0Se9XXuAOdcnI+0NnGchuAeD1ibFMh2N4rCb2na97vQ4yHiiFM9rgi
- JnvaEkvFOdhwA8ThKAhnjo2v4ltzrQxpzOHb9QE5zeWu3ml/nS65ONqMimQASRDHCjKkgI1D
- 5cW+JvwVdhrknATpDxNP+H+kHqU=
-X-Mailgun-Sending-Ip: 104.130.96.11
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
- 602da24d666e232b3891f460 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 17 Feb 2021 23:10:05
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 16EDAC43465; Wed, 17 Feb 2021 23:10:05 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
-Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id B49D6C433C6;
- Wed, 17 Feb 2021 23:10:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org B49D6C433C6
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=khsieh@codeaurora.org
-From: Kuogee Hsieh <khsieh@codeaurora.org>
-To: robdclark@gmail.com,
-	sean@poorly.run,
-	swboyd@chromium.org
-Date: Wed, 17 Feb 2021 15:09:57 -0800
-Message-Id: <1613603397-21179-1-git-send-email-khsieh@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-Subject: [Freedreno] [PATCH 2/2] drm/msm/dp: Drop limit link rate at HBR2
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 811A96E9F5;
+ Thu, 18 Feb 2021 04:14:19 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1600160C40;
+ Thu, 18 Feb 2021 04:14:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1613621659;
+ bh=KZqCNysaKUxYDBTFhnyoUzBwd6wRpQem0qnWTk5rvC4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=mrO6b+qe960a1bhW86+pSm8oCnN6gXl8AKSeqKXOFSjqF9FwuJGcy3/LL4L/iAhZD
+ 7VRbaD/kDq7R5mmCZxLuVy21jIGsamaZwKrjueom/WCTpZyL/Pr0Jo1UyztkZw+x/q
+ S3BzoY2CgvaCn3e8ikg17iTVmi4ojWKBSQq1VaVGPUJ8eoCrlgOtdfSD/oTZzavD25
+ aj5qIyBhvGKyExXeWzN2OfRC52ogyerDOmmIsAXpxaNqmCjoos0oiZrf7mvJvFK+p7
+ nweGSFBdSMjjTsw2oNd8CzkKAxRHmzkOIGuKsZ1YOinwdvKy0GLlT92i6/qvVp1pWq
+ zJ9+fCeD4oXDg==
+Date: Thu, 18 Feb 2021 09:44:14 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Stephen Boyd <swboyd@chromium.org>
+Message-ID: <20210218041414.GT2774@vkoul-mobl.Dlink>
+References: <1613581122-8473-1-git-send-email-khsieh@codeaurora.org>
+ <161358337887.1254594.12898848287081049541@swboyd.mtv.corp.google.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <161358337887.1254594.12898848287081049541@swboyd.mtv.corp.google.com>
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: add support of HBR3 link rate
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,43 +46,104 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- abhinavk@codeaurora.org, khsieh@codeaurora.org, tanmay@codeaurora.org,
- daniel@ffwll.ch, aravindh@codeaurora.org, freedreno@lists.freedesktop.org
-MIME-Version: 1.0
+Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, abhinavk@codeaurora.org,
+ Kuogee Hsieh <khsieh@codeaurora.org>, robdclark@gmail.com,
+ tanmay@codeaurora.org, daniel@ffwll.ch, aravindh@codeaurora.org,
+ sean@poorly.run
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Drop limit link rate at HBR2 to support link rate
-upto HBR3.
+On 17-02-21, 09:36, Stephen Boyd wrote:
+> Quoting Kuogee Hsieh (2021-02-17 08:58:42)
+> > Add hbr3_hbr2 voltage and pre-emphasis swing table to support
+> > HBR3 link rate
+> > 
+> > Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+> > ---
+> >  drivers/gpu/drm/msm/dp/dp_panel.c   |  4 ----
+> >  drivers/phy/qualcomm/phy-qcom-qmp.c | 24 ++++++++++++++++++++++--
+> 
+> This spans to subsystems so at least you should run get_maintainers and
+> include phy maintainers. Maybe it should be split into two patches too
+> so it can go via different trees.
 
-Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
----
- drivers/gpu/drm/msm/dp/dp_panel.c | 4 ----
- 1 file changed, 4 deletions(-)
+different patches for different subsytem unless we risk breaking bisect
+should be general approach...
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-index 9cc8166..63112fa 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.c
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-@@ -76,10 +76,6 @@ static int dp_panel_read_dpcd(struct dp_panel *dp_panel)
- 	if (link_info->num_lanes > dp_panel->max_dp_lanes)
- 		link_info->num_lanes = dp_panel->max_dp_lanes;
- 
--	/* Limit support upto HBR2 until HBR3 support is added */
--	if (link_info->rate >= (drm_dp_bw_code_to_link_rate(DP_LINK_BW_5_4)))
--		link_info->rate = drm_dp_bw_code_to_link_rate(DP_LINK_BW_5_4);
--
- 	DRM_DEBUG_DP("version: %d.%d\n", major, minor);
- 	DRM_DEBUG_DP("link_rate=%d\n", link_info->rate);
- 	DRM_DEBUG_DP("lane_count=%d\n", link_info->num_lanes);
+> 
+> >  2 files changed, 22 insertions(+), 6 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+> > index 9cc8166..63112fa 100644
+> > --- a/drivers/gpu/drm/msm/dp/dp_panel.c
+> > +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+> > @@ -76,10 +76,6 @@ static int dp_panel_read_dpcd(struct dp_panel *dp_panel)
+> >         if (link_info->num_lanes > dp_panel->max_dp_lanes)
+> >                 link_info->num_lanes = dp_panel->max_dp_lanes;
+> >  
+> > -       /* Limit support upto HBR2 until HBR3 support is added */
+> > -       if (link_info->rate >= (drm_dp_bw_code_to_link_rate(DP_LINK_BW_5_4)))
+> > -               link_info->rate = drm_dp_bw_code_to_link_rate(DP_LINK_BW_5_4);
+> > -
+> >         DRM_DEBUG_DP("version: %d.%d\n", major, minor);
+> >         DRM_DEBUG_DP("link_rate=%d\n", link_info->rate);
+> >         DRM_DEBUG_DP("lane_count=%d\n", link_info->num_lanes);
+> > diff --git a/drivers/phy/qualcomm/phy-qcom-qmp.c b/drivers/phy/qualcomm/phy-qcom-qmp.c
+> > index 0939a9e..cc5ef59 100644
+> > --- a/drivers/phy/qualcomm/phy-qcom-qmp.c
+> > +++ b/drivers/phy/qualcomm/phy-qcom-qmp.c
+> > @@ -2965,6 +2965,21 @@ static void qcom_qmp_phy_dp_aux_init(struct qmp_phy *qphy)
+> >                qphy->pcs + QSERDES_V3_DP_PHY_AUX_INTERRUPT_MASK);
+> >  }
+> >  
+> > +
+> > +static u8 const qmp_dp_v3_pre_emphasis_hbr3_hbr2[4][4] = {
+> 
+> Should be static const u8 qmp_dp...
+> 
+> > +        {0x00, 0x0C, 0x15, 0x1A},
+> > +        {0x02, 0x0E, 0x16, 0xFF},
+> > +        {0x02, 0x11, 0xFF, 0xFF},
+> > +        {0x04, 0xFF, 0xFF, 0xFF}
+> > +};
+> > +
+> > +static u8 const qmp_dp_v3_voltage_swing_hbr3_hbr2[4][4] = {
+> 
+> Same.
+> 
+> > +        {0x02, 0x12, 0x16, 0x1A},
+> 
+> Please add a space after { and before } and use lowercase hex to match
+> the qmp_dp_v3_pre_emphasis_hbr_rbr design.
+> 
+> > +        {0x09, 0x19, 0x1F, 0xFF},
+> > +        {0x10, 0x1F, 0xFF, 0xFF},
+> > +        {0x1F, 0xFF, 0xFF, 0xFF}
+> > +};
+> > +
+> >  static const u8 qmp_dp_v3_pre_emphasis_hbr_rbr[4][4] = {
+> >         { 0x00, 0x0c, 0x14, 0x19 },
+> >         { 0x00, 0x0b, 0x12, 0xff },
+> > @@ -3000,8 +3015,13 @@ static void qcom_qmp_phy_configure_dp_tx(struct qmp_phy *qphy)
+> >                 drvr_en = 0x10;
+> >         }
+> >  
+> > -       voltage_swing_cfg = qmp_dp_v3_voltage_swing_hbr_rbr[v_level][p_level];
+> > -       pre_emphasis_cfg = qmp_dp_v3_pre_emphasis_hbr_rbr[v_level][p_level];
+> > +       if (dp_opts->link_rate <= 2700) {
+> > +               voltage_swing_cfg = qmp_dp_v3_voltage_swing_hbr_rbr[v_level][p_level];
+> > +               pre_emphasis_cfg = qmp_dp_v3_pre_emphasis_hbr_rbr[v_level][p_level];
+> > +       } else {
+> > +               voltage_swing_cfg = qmp_dp_v3_voltage_swing_hbr3_hbr2[v_level][p_level];
+> > +               pre_emphasis_cfg = qmp_dp_v3_pre_emphasis_hbr3_hbr2[v_level][p_level];
+> > +       }
+
 -- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
-
+~Vinod
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
