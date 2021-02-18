@@ -1,60 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F9C331EC0A
-	for <lists+freedreno@lfdr.de>; Thu, 18 Feb 2021 17:11:43 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5667731EC82
+	for <lists+freedreno@lfdr.de>; Thu, 18 Feb 2021 17:49:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18DF56EA40;
-	Thu, 18 Feb 2021 16:11:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7FEF6E84E;
+	Thu, 18 Feb 2021 16:49:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E22216EA40;
- Thu, 18 Feb 2021 16:11:40 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id m1so4462762wml.2;
- Thu, 18 Feb 2021 08:11:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=VaWGH3cwhYh4BHCCROkHu3HMiH4QPakbevCqWXhdWA0=;
- b=hFnnBqj9UW61LvYtGFegNLB36V2195NF7+wnGBwgStAQEW261MqLko2ZdH5P2A2A1o
- R1ViL1XLbuEHNWYzAgG0zibxxJUBnEt0ilN5CsURh6UnuVpaYjvwxKX6P8lv3j1WGyaV
- 6MVXGyhQe+M7X/sE6bQ7vPqgBnaORWZIz04QcsMVMQaS9HkMwllYdCPoqWPcetK/9dx0
- GO2ShJEhcUYDn2ha4uowl0LUBSxztnVpG9Cn23Xi6d+7HsvvQrMAE9h+hwSg6oVb3rsV
- X73ybvREldXEkialUtf6aJj2DcinWwP/xm7FMpTgAJHMkuB5L+1GQz4byElvzWSAOQjX
- 9Atw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=VaWGH3cwhYh4BHCCROkHu3HMiH4QPakbevCqWXhdWA0=;
- b=rbgZlieoW3W2jo3gOx0a5fJAINMakliLUKBUNLKbLhnKT82/W33Vbhw2WhXTiqIMjz
- zBsWMjOJhA0Af6ksmP8p/kHsDWD4jdRQkkgIPlHrRQFQfV7rV59pudux1/O9MzpIqret
- laThJju4+8xzTEznkZOOHdhblcUvYhHMj/I1eDNoTZorPx7DJLvcJcYPj/jbm9A2ItT0
- MK/X3/Cc0dNvMZ6ohEtI5a7ZAPk2tOOKcFmJORwzx2moPWAwKkCveXdl6cXwXJpbB8ig
- 3aki9bKHtAljAujte8ETVaGoJqPT4huBSSQDFqdB+Bk8Vkp8k052e8P+hozCMrDTX0Kb
- IoCw==
-X-Gm-Message-State: AOAM532s5Gdx2WbGkIqXZ/7nUPfBT3F8Zwoa/Huu4P0VFTzoNG37Gstv
- cRz1Oh38pFj0fa7lWmaVSxw29LyQyts7A842QyX/lYSiJw4=
-X-Google-Smtp-Source: ABdhPJyFfpJXKxitmCOiwGNdIXY0rjTqKs7a0eRS4jHbH+qoQNaC2dKm1C7sSOxGr7QEumgYzRmb7lsHMqNooH7QjWM=
-X-Received: by 2002:a7b:ce90:: with SMTP id q16mr4300588wmj.123.1613664699499; 
- Thu, 18 Feb 2021 08:11:39 -0800 (PST)
+X-Greylist: delayed 840 seconds by postgrey-1.36 at gabe;
+ Thu, 18 Feb 2021 16:49:23 UTC
+Received: from wnew2-smtp.messagingengine.com (wnew2-smtp.messagingengine.com
+ [64.147.123.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09CC66E84E
+ for <freedreno@lists.freedesktop.org>; Thu, 18 Feb 2021 16:49:23 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+ by mailnew.west.internal (Postfix) with ESMTP id DF1EFE1F;
+ Thu, 18 Feb 2021 11:35:18 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute6.internal (MEProxy); Thu, 18 Feb 2021 11:35:21 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm2; bh=9glu1NqYQ89GMrISno2hyWbjb5g
+ /OTCuIq2T05YOits=; b=G6pm+BxV6Dh9oiD6SJUz1xXNJ7zPPCZpBW9AEchzgQY
+ SsCnHwIhIZleE9PczJeaxSABPuNfyZNS1u3Zj2kDGJdZzYOuF3md0m5GftSNoeev
+ ZavMKbuw+WSPSBcY4VpVTBkV/ddPDz1xHbCCETt+RAuJ3CD0g/aAsRM9ST0bJ2+t
+ +6ifUhzBy+1w+NmK0Bu03Ar0ji4npJeGmU9jySby/2b7puTSkKn/YECDpUC+LyuL
+ 6Guj5EkOzfnyrZ7fuCEdeNrI7VmN9ZSWN6LpeNmu5/FnzVAUNcjxOj673ayo+RK2
+ 5fiMH3d3rCy4RcepJW9kS8GD2lNioOxaP+2WrEFLkFQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=9glu1N
+ qYQ89GMrISno2hyWbjb5g/OTCuIq2T05YOits=; b=F8tizhTRDZ1QmkV4IX/nKz
+ GFGeeljOv0nlv95ycFp0ze5k8JaZwhxcx+uGwtKUsVGuJaf3wBvlVHShQ6AEUuUa
+ nYa/M+CR3Q7nQv96fSu/CfaeIwuzJxRKrhn2B8yNMcGRvghgtZ0Vp/RbSek1ItaO
+ Huq8VE54K1HbMzSfgJ/qk4vTktg7KPqCaeXhHlIBqpyMVIsKqMHjMXcuPGS+ft/T
+ 80Nr4qrm62gEv7vJ1wWgcbm6pcoegFAPfttgQ+bfSTEtA0b5vB4AgmFNGzLe9Jjp
+ 2mDgst8VHznkjEYhvASc+FuMU+CJuXELKFptery4MIiY6qnvOy5wsWIYxYIQt8qA
+ ==
+X-ME-Sender: <xms:Q5cuYNHGf4DP6s5Yrk94g87bEt9maVsvZUvIZ5_OSwOa3ygXsvSckA>
+ <xme:Q5cuYCWJqVHxc0TBvW8RaM0wSdODYkxfn4yClOKahSKwcF7ZJMIFzdXO9brx_KJON
+ wVOak8LO-iBIzeTj3U>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrjeeggdekjecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepofgrgihimhgv
+ ucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtth
+ gvrhhnpeelkeeghefhuddtleejgfeljeffheffgfeijefhgfeufefhtdevteegheeiheeg
+ udenucfkphepledtrdekledrieekrdejieenucevlhhushhtvghrufhiiigvpedtnecurf
+ grrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
+X-ME-Proxy: <xmx:Q5cuYPL64pGtEXDOIjB2LytBtepgEjTDIlirUSWB4Z_2bk7CHwRyNw>
+ <xmx:Q5cuYDGxFYNq90q1Kozd9_sE8xI5mkNSdlmaFJwB_t_-qpDhKS53yA>
+ <xmx:Q5cuYDU83mA2iruvPx6pKrkqUS3fSvQrhe9kV_x71Rp0kdmagu5q-g>
+ <xmx:RpcuYHmzfxpDFq6rYEjERoNkSWa7GUcR73y9VFLtc6uo7hgIIot_W0suCF8>
+Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
+ [90.89.68.76])
+ by mail.messagingengine.com (Postfix) with ESMTPA id DE99E24005C;
+ Thu, 18 Feb 2021 11:35:14 -0500 (EST)
+Date: Thu, 18 Feb 2021 17:35:12 +0100
+From: Maxime Ripard <maxime@cerno.tech>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <20210218163512.arnmixdkygysxrqk@gilmour>
+References: <20210211081636.28311-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-References: <20210216200909.19039-1-jonathan@marek.ca>
- <CAF6AEGv53nnzqMgTfSA6t2YpHx1dDW8UqnH9Gw0w3p8bf0mTLw@mail.gmail.com>
- <775436ba-c94a-ab22-d65b-b2391047ec65@codeaurora.org>
- <20210217190820.GA2229@jcrouse1-lnx.qualcomm.com>
- <CAF6AEGsHws23ozeJ8G23LFQ8J=CVVrx5xvkSgBuE_uSwT4YurQ@mail.gmail.com>
- <74d1277e-295f-0996-91c3-05cfce8d3a0e@marek.ca>
- <e4b62857-bd4d-cca6-0d6b-b9cc960b52a2@codeaurora.org>
-In-Reply-To: <e4b62857-bd4d-cca6-0d6b-b9cc960b52a2@codeaurora.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 18 Feb 2021 08:11:27 -0800
-Message-ID: <CAF6AEGsWCrkOgMVxnx53k8b_o7xy3KWv9VaNRoY44+4GfXtWdg@mail.gmail.com>
-To: Akhil P Oommen <akhilpo@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: fix for kernels without
- CONFIG_NVMEM
+In-Reply-To: <20210211081636.28311-1-tzimmermann@suse.de>
+Subject: Re: [Freedreno] [PATCH v2] drm/gem: Move drm_gem_fb_prepare_fb() to
+ GEM atomic helpers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,129 +80,77 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- freedreno <freedreno@lists.freedesktop.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Eric Anholt <eric@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: linaro-mm-sig@lists.linaro.org, linux-aspeed@lists.ozlabs.org,
+ airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+ maarten.lankhorst@linux.intel.com, linux-mips@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ daniel@ffwll.ch, xen-devel@lists.xenproject.org, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, freedreno@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Content-Type: multipart/mixed; boundary="===============1862734031=="
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Feb 18, 2021 at 4:28 AM Akhil P Oommen <akhilpo@codeaurora.org> wrote:
->
-> On 2/18/2021 2:05 AM, Jonathan Marek wrote:
-> > On 2/17/21 3:18 PM, Rob Clark wrote:
-> >> On Wed, Feb 17, 2021 at 11:08 AM Jordan Crouse
-> >> <jcrouse@codeaurora.org> wrote:
-> >>>
-> >>> On Wed, Feb 17, 2021 at 07:14:16PM +0530, Akhil P Oommen wrote:
-> >>>> On 2/17/2021 8:36 AM, Rob Clark wrote:
-> >>>>> On Tue, Feb 16, 2021 at 12:10 PM Jonathan Marek <jonathan@marek.ca>
-> >>>>> wrote:
-> >>>>>>
-> >>>>>> Ignore nvmem_cell_get() EOPNOTSUPP error in the same way as a
-> >>>>>> ENOENT error,
-> >>>>>> to fix the case where the kernel was compiled without CONFIG_NVMEM.
-> >>>>>>
-> >>>>>> Fixes: fe7952c629da ("drm/msm: Add speed-bin support to a618 gpu")
-> >>>>>> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
-> >>>>>> ---
-> >>>>>>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 6 +++---
-> >>>>>>   1 file changed, 3 insertions(+), 3 deletions(-)
-> >>>>>>
-> >>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >>>>>> b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >>>>>> index ba8e9d3cf0fe..7fe5d97606aa 100644
-> >>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >>>>>> @@ -1356,10 +1356,10 @@ static int a6xx_set_supported_hw(struct
-> >>>>>> device *dev, struct a6xx_gpu *a6xx_gpu,
-> >>>>>>
-> >>>>>>          cell = nvmem_cell_get(dev, "speed_bin");
-> >>>>>>          /*
-> >>>>>> -        * -ENOENT means that the platform doesn't support
-> >>>>>> speedbin which is
-> >>>>>> -        * fine
-> >>>>>> +        * -ENOENT means no speed bin in device tree,
-> >>>>>> +        * -EOPNOTSUPP means kernel was built without CONFIG_NVMEM
-> >>>>>
-> >>>>> very minor nit, it would be nice to at least preserve the gist of the
-> >>>>> "which is fine" (ie. some variation of "this is an optional thing and
-> >>>>> things won't catch fire without it" ;-))
-> >>>>>
-> >>>>> (which is, I believe, is true, hopefully Akhil could confirm.. if not
-> >>>>> we should have a harder dependency on CONFIG_NVMEM..)
-> >>>> IIRC, if the gpu opp table in the DT uses the 'opp-supported-hw'
-> >>>> property,
-> >>>> we will see some error during boot up if we don't call
-> >>>> dev_pm_opp_set_supported_hw(). So calling "nvmem_cell_get(dev,
-> >>>> "speed_bin")"
-> >>>> is a way to test this.
-> >>>>
-> >>>> If there is no other harm, we can put a hard dependency on
-> >>>> CONFIG_NVMEM.
-> >>>
-> >>> I'm not sure if we want to go this far given the squishiness about
-> >>> module
-> >>> dependencies. As far as I know we are the only driver that uses this
-> >>> seriously
-> >>> on QCOM SoCs and this is only needed for certain targets. I don't
-> >>> know if we
-> >>> want to force every target to build NVMEM and QFPROM on our behalf.
-> >>> But maybe
-> >>> I'm just saying that because Kconfig dependencies tend to break my
-> >>> brain (and
-> >>> then Arnd has to send a patch to fix it).
-> >>>
-> >>
-> >> Hmm, good point.. looks like CONFIG_NVMEM itself doesn't have any
-> >> other dependencies, so I suppose it wouldn't be the end of the world
-> >> to select that.. but I guess we don't want to require QFPROM
-> >>
-> >> I guess at the end of the day, what is the failure mode if you have a
-> >> speed-bin device, but your kernel config misses QFPROM (and possibly
-> >> NVMEM)?  If the result is just not having the highest clk rate(s)
->
-> Atleast on sc7180's gpu, using an unsupported FMAX breaks gmu. It won't
-> be very obvious what went wrong when this happens!
 
-Ugg, ok..
+--===============1862734031==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="qyrmapmaovukaths"
+Content-Disposition: inline
 
-I suppose we could select NVMEM, but not QFPROM, and then the case
-where QFPROM is not enabled on platforms that have the speed-bin field
-in DT will fail gracefully and all other platforms would continue on
-happily?
 
-BR,
--R
+--qyrmapmaovukaths
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
->
-> >> available, that isn't the end of the world.  But if it makes things
-> >> not-work, that is sub-optimal.  Generally, especially on ARM, kconfig
-> >> seems to be way harder than it should be to build a kernel that works,
-> >> if we could somehow not add to that problem (for both people with a6xx
-> >> and older gens) that would be nice ;-)
-> >>
-> >
-> > There is a "imply" kconfig option which solves exactly this problem.
-> > (you would "imply NVMEM" instead of "select NVMEM". then it would be
-> > possible to disable NVMEM but it would get enabled by default)
-> >
-> >> BR,
-> >> -R
-> >>
-> > _______________________________________________
-> > dri-devel mailing list
-> > dri-devel@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/dri-devel
->
+Hi,
+
+On Thu, Feb 11, 2021 at 09:16:36AM +0100, Thomas Zimmermann wrote:
+> diff --git a/include/drm/drm_gem_framebuffer_helper.h b/include/drm/drm_gem_framebuffer_helper.h
+> index 6b013154911d..495d174d9989 100644
+> --- a/include/drm/drm_gem_framebuffer_helper.h
+> +++ b/include/drm/drm_gem_framebuffer_helper.h
+> @@ -9,9 +9,11 @@ struct drm_framebuffer;
+>  struct drm_framebuffer_funcs;
+>  struct drm_gem_object;
+>  struct drm_mode_fb_cmd2;
+> +#if 0
+>  struct drm_plane;
+>  struct drm_plane_state;
+>  struct drm_simple_display_pipe;
+> +#endif
+
+That's probably not what you meant?
+
+With that fixed,
+Acked-by: Maxime Ripard <mripard@kernel.org>
+
+Thanks!
+Maxime
+
+--qyrmapmaovukaths
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYC6XQAAKCRDj7w1vZxhR
+xeYjAQDBp12JMmHuiBCHQBmWyl9fGbmCMg6R9psxq9edd+0vigD+MjBWZAmh8A1d
+2S0DtBQtnfgH07vDxZs1Eb8jJZ+x/QQ=
+=WmxA
+-----END PGP SIGNATURE-----
+
+--qyrmapmaovukaths--
+
+--===============1862734031==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
+
+--===============1862734031==--
