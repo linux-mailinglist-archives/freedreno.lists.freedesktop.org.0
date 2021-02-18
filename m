@@ -1,39 +1,75 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5703C31E513
-	for <lists+freedreno@lfdr.de>; Thu, 18 Feb 2021 05:14:22 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 61B8631E9BC
+	for <lists+freedreno@lfdr.de>; Thu, 18 Feb 2021 13:28:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF4936E9F5;
-	Thu, 18 Feb 2021 04:14:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0753089EB1;
+	Thu, 18 Feb 2021 12:28:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 811A96E9F5;
- Thu, 18 Feb 2021 04:14:19 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1600160C40;
- Thu, 18 Feb 2021 04:14:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1613621659;
- bh=KZqCNysaKUxYDBTFhnyoUzBwd6wRpQem0qnWTk5rvC4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=mrO6b+qe960a1bhW86+pSm8oCnN6gXl8AKSeqKXOFSjqF9FwuJGcy3/LL4L/iAhZD
- 7VRbaD/kDq7R5mmCZxLuVy21jIGsamaZwKrjueom/WCTpZyL/Pr0Jo1UyztkZw+x/q
- S3BzoY2CgvaCn3e8ikg17iTVmi4ojWKBSQq1VaVGPUJ8eoCrlgOtdfSD/oTZzavD25
- aj5qIyBhvGKyExXeWzN2OfRC52ogyerDOmmIsAXpxaNqmCjoos0oiZrf7mvJvFK+p7
- nweGSFBdSMjjTsw2oNd8CzkKAxRHmzkOIGuKsZ1YOinwdvKy0GLlT92i6/qvVp1pWq
- zJ9+fCeD4oXDg==
-Date: Thu, 18 Feb 2021 09:44:14 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Stephen Boyd <swboyd@chromium.org>
-Message-ID: <20210218041414.GT2774@vkoul-mobl.Dlink>
-References: <1613581122-8473-1-git-send-email-khsieh@codeaurora.org>
- <161358337887.1254594.12898848287081049541@swboyd.mtv.corp.google.com>
+Received: from z11.mailgun.us (z11.mailgun.us [104.130.96.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26A6E89EB1
+ for <freedreno@lists.freedesktop.org>; Thu, 18 Feb 2021 12:28:55 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1613651336; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: To:
+ Subject: Sender; bh=WEzANxiP3GHuNQy3hHp2JvLyxuMJKQC5W5/UU/dl9I4=;
+ b=ogj+WmnZ7ocg360aA4CeSDC/DcFChyUfd8CVt2KF4NQb1lZu37hebL1A+gzshuZDEYiKj+gA
+ UcNuc/qZZGwclqV2UTStrUwAHlJBXiWyraQnPMflWK9S1gJTwUfnNz3TeY96I5C4jZJj/0sm
+ Uqapmi5U0WCPHDQurN1qE8g9ZZE=
+X-Mailgun-Sending-Ip: 104.130.96.11
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
+ 602e5d82e68a5ebff89bf3bd (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 18 Feb 2021 12:28:50
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id CBB7BC433C6; Thu, 18 Feb 2021 12:28:49 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ NICE_REPLY_A,SPF_FAIL,URIBL_BLOCKED autolearn=no autolearn_force=no
+ version=3.4.0
+Received: from [192.168.1.105] (unknown [117.217.236.228])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 03C19C433C6;
+ Thu, 18 Feb 2021 12:28:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 03C19C433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=akhilpo@codeaurora.org
+To: Jonathan Marek <jonathan@marek.ca>, Rob Clark <robdclark@gmail.com>,
+ freedreno <freedreno@lists.freedesktop.org>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Eric Anholt <eric@anholt.net>, Sharat Masetty <smasetty@codeaurora.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20210216200909.19039-1-jonathan@marek.ca>
+ <CAF6AEGv53nnzqMgTfSA6t2YpHx1dDW8UqnH9Gw0w3p8bf0mTLw@mail.gmail.com>
+ <775436ba-c94a-ab22-d65b-b2391047ec65@codeaurora.org>
+ <20210217190820.GA2229@jcrouse1-lnx.qualcomm.com>
+ <CAF6AEGsHws23ozeJ8G23LFQ8J=CVVrx5xvkSgBuE_uSwT4YurQ@mail.gmail.com>
+ <74d1277e-295f-0996-91c3-05cfce8d3a0e@marek.ca>
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+Message-ID: <e4b62857-bd4d-cca6-0d6b-b9cc960b52a2@codeaurora.org>
+Date: Thu, 18 Feb 2021 17:58:42 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <161358337887.1254594.12898848287081049541@swboyd.mtv.corp.google.com>
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: add support of HBR3 link rate
+In-Reply-To: <74d1277e-295f-0996-91c3-05cfce8d3a0e@marek.ca>
+Content-Language: en-US
+Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: fix for kernels without
+ CONFIG_NVMEM
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,105 +82,82 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, abhinavk@codeaurora.org,
- Kuogee Hsieh <khsieh@codeaurora.org>, robdclark@gmail.com,
- tanmay@codeaurora.org, daniel@ffwll.ch, aravindh@codeaurora.org,
- sean@poorly.run
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 17-02-21, 09:36, Stephen Boyd wrote:
-> Quoting Kuogee Hsieh (2021-02-17 08:58:42)
-> > Add hbr3_hbr2 voltage and pre-emphasis swing table to support
-> > HBR3 link rate
-> > 
-> > Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
-> > ---
-> >  drivers/gpu/drm/msm/dp/dp_panel.c   |  4 ----
-> >  drivers/phy/qualcomm/phy-qcom-qmp.c | 24 ++++++++++++++++++++++--
-> 
-> This spans to subsystems so at least you should run get_maintainers and
-> include phy maintainers. Maybe it should be split into two patches too
-> so it can go via different trees.
-
-different patches for different subsytem unless we risk breaking bisect
-should be general approach...
-
-> 
-> >  2 files changed, 22 insertions(+), 6 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-> > index 9cc8166..63112fa 100644
-> > --- a/drivers/gpu/drm/msm/dp/dp_panel.c
-> > +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-> > @@ -76,10 +76,6 @@ static int dp_panel_read_dpcd(struct dp_panel *dp_panel)
-> >         if (link_info->num_lanes > dp_panel->max_dp_lanes)
-> >                 link_info->num_lanes = dp_panel->max_dp_lanes;
-> >  
-> > -       /* Limit support upto HBR2 until HBR3 support is added */
-> > -       if (link_info->rate >= (drm_dp_bw_code_to_link_rate(DP_LINK_BW_5_4)))
-> > -               link_info->rate = drm_dp_bw_code_to_link_rate(DP_LINK_BW_5_4);
-> > -
-> >         DRM_DEBUG_DP("version: %d.%d\n", major, minor);
-> >         DRM_DEBUG_DP("link_rate=%d\n", link_info->rate);
-> >         DRM_DEBUG_DP("lane_count=%d\n", link_info->num_lanes);
-> > diff --git a/drivers/phy/qualcomm/phy-qcom-qmp.c b/drivers/phy/qualcomm/phy-qcom-qmp.c
-> > index 0939a9e..cc5ef59 100644
-> > --- a/drivers/phy/qualcomm/phy-qcom-qmp.c
-> > +++ b/drivers/phy/qualcomm/phy-qcom-qmp.c
-> > @@ -2965,6 +2965,21 @@ static void qcom_qmp_phy_dp_aux_init(struct qmp_phy *qphy)
-> >                qphy->pcs + QSERDES_V3_DP_PHY_AUX_INTERRUPT_MASK);
-> >  }
-> >  
-> > +
-> > +static u8 const qmp_dp_v3_pre_emphasis_hbr3_hbr2[4][4] = {
-> 
-> Should be static const u8 qmp_dp...
-> 
-> > +        {0x00, 0x0C, 0x15, 0x1A},
-> > +        {0x02, 0x0E, 0x16, 0xFF},
-> > +        {0x02, 0x11, 0xFF, 0xFF},
-> > +        {0x04, 0xFF, 0xFF, 0xFF}
-> > +};
-> > +
-> > +static u8 const qmp_dp_v3_voltage_swing_hbr3_hbr2[4][4] = {
-> 
-> Same.
-> 
-> > +        {0x02, 0x12, 0x16, 0x1A},
-> 
-> Please add a space after { and before } and use lowercase hex to match
-> the qmp_dp_v3_pre_emphasis_hbr_rbr design.
-> 
-> > +        {0x09, 0x19, 0x1F, 0xFF},
-> > +        {0x10, 0x1F, 0xFF, 0xFF},
-> > +        {0x1F, 0xFF, 0xFF, 0xFF}
-> > +};
-> > +
-> >  static const u8 qmp_dp_v3_pre_emphasis_hbr_rbr[4][4] = {
-> >         { 0x00, 0x0c, 0x14, 0x19 },
-> >         { 0x00, 0x0b, 0x12, 0xff },
-> > @@ -3000,8 +3015,13 @@ static void qcom_qmp_phy_configure_dp_tx(struct qmp_phy *qphy)
-> >                 drvr_en = 0x10;
-> >         }
-> >  
-> > -       voltage_swing_cfg = qmp_dp_v3_voltage_swing_hbr_rbr[v_level][p_level];
-> > -       pre_emphasis_cfg = qmp_dp_v3_pre_emphasis_hbr_rbr[v_level][p_level];
-> > +       if (dp_opts->link_rate <= 2700) {
-> > +               voltage_swing_cfg = qmp_dp_v3_voltage_swing_hbr_rbr[v_level][p_level];
-> > +               pre_emphasis_cfg = qmp_dp_v3_pre_emphasis_hbr_rbr[v_level][p_level];
-> > +       } else {
-> > +               voltage_swing_cfg = qmp_dp_v3_voltage_swing_hbr3_hbr2[v_level][p_level];
-> > +               pre_emphasis_cfg = qmp_dp_v3_pre_emphasis_hbr3_hbr2[v_level][p_level];
-> > +       }
-
--- 
-~Vinod
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+T24gMi8xOC8yMDIxIDI6MDUgQU0sIEpvbmF0aGFuIE1hcmVrIHdyb3RlOgo+IE9uIDIvMTcvMjEg
+MzoxOCBQTSwgUm9iIENsYXJrIHdyb3RlOgo+PiBPbiBXZWQsIEZlYiAxNywgMjAyMSBhdCAxMTow
+OCBBTSBKb3JkYW4gQ3JvdXNlIAo+PiA8amNyb3VzZUBjb2RlYXVyb3JhLm9yZz4gd3JvdGU6Cj4+
+Pgo+Pj4gT24gV2VkLCBGZWIgMTcsIDIwMjEgYXQgMDc6MTQ6MTZQTSArMDUzMCwgQWtoaWwgUCBP
+b21tZW4gd3JvdGU6Cj4+Pj4gT24gMi8xNy8yMDIxIDg6MzYgQU0sIFJvYiBDbGFyayB3cm90ZToK
+Pj4+Pj4gT24gVHVlLCBGZWIgMTYsIDIwMjEgYXQgMTI6MTAgUE0gSm9uYXRoYW4gTWFyZWsgPGpv
+bmF0aGFuQG1hcmVrLmNhPiAKPj4+Pj4gd3JvdGU6Cj4+Pj4+Pgo+Pj4+Pj4gSWdub3JlIG52bWVt
+X2NlbGxfZ2V0KCkgRU9QTk9UU1VQUCBlcnJvciBpbiB0aGUgc2FtZSB3YXkgYXMgYSAKPj4+Pj4+
+IEVOT0VOVCBlcnJvciwKPj4+Pj4+IHRvIGZpeCB0aGUgY2FzZSB3aGVyZSB0aGUga2VybmVsIHdh
+cyBjb21waWxlZCB3aXRob3V0IENPTkZJR19OVk1FTS4KPj4+Pj4+Cj4+Pj4+PiBGaXhlczogZmU3
+OTUyYzYyOWRhICgiZHJtL21zbTogQWRkIHNwZWVkLWJpbiBzdXBwb3J0IHRvIGE2MTggZ3B1IikK
+Pj4+Pj4+IFNpZ25lZC1vZmYtYnk6IEpvbmF0aGFuIE1hcmVrIDxqb25hdGhhbkBtYXJlay5jYT4K
+Pj4+Pj4+IC0tLQo+Pj4+Pj4gwqAgZHJpdmVycy9ncHUvZHJtL21zbS9hZHJlbm8vYTZ4eF9ncHUu
+YyB8IDYgKysrLS0tCj4+Pj4+PiDCoCAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAz
+IGRlbGV0aW9ucygtKQo+Pj4+Pj4KPj4+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+bXNtL2FkcmVuby9hNnh4X2dwdS5jIAo+Pj4+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2FkcmVu
+by9hNnh4X2dwdS5jCj4+Pj4+PiBpbmRleCBiYThlOWQzY2YwZmUuLjdmZTVkOTc2MDZhYSAxMDA2
+NDQKPj4+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2E2eHhfZ3B1LmMKPj4+
+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2E2eHhfZ3B1LmMKPj4+Pj4+IEBA
+IC0xMzU2LDEwICsxMzU2LDEwIEBAIHN0YXRpYyBpbnQgYTZ4eF9zZXRfc3VwcG9ydGVkX2h3KHN0
+cnVjdCAKPj4+Pj4+IGRldmljZSAqZGV2LCBzdHJ1Y3QgYTZ4eF9ncHUgKmE2eHhfZ3B1LAo+Pj4+
+Pj4KPj4+Pj4+IMKgwqDCoMKgwqDCoMKgwqAgY2VsbCA9IG52bWVtX2NlbGxfZ2V0KGRldiwgInNw
+ZWVkX2JpbiIpOwo+Pj4+Pj4gwqDCoMKgwqDCoMKgwqDCoCAvKgo+Pj4+Pj4gLcKgwqDCoMKgwqDC
+oMKgICogLUVOT0VOVCBtZWFucyB0aGF0IHRoZSBwbGF0Zm9ybSBkb2Vzbid0IHN1cHBvcnQgCj4+
+Pj4+PiBzcGVlZGJpbiB3aGljaCBpcwo+Pj4+Pj4gLcKgwqDCoMKgwqDCoMKgICogZmluZQo+Pj4+
+Pj4gK8KgwqDCoMKgwqDCoMKgICogLUVOT0VOVCBtZWFucyBubyBzcGVlZCBiaW4gaW4gZGV2aWNl
+IHRyZWUsCj4+Pj4+PiArwqDCoMKgwqDCoMKgwqAgKiAtRU9QTk9UU1VQUCBtZWFucyBrZXJuZWwg
+d2FzIGJ1aWx0IHdpdGhvdXQgQ09ORklHX05WTUVNCj4+Pj4+Cj4+Pj4+IHZlcnkgbWlub3Igbml0
+LCBpdCB3b3VsZCBiZSBuaWNlIHRvIGF0IGxlYXN0IHByZXNlcnZlIHRoZSBnaXN0IG9mIHRoZQo+
+Pj4+PiAid2hpY2ggaXMgZmluZSIgKGllLiBzb21lIHZhcmlhdGlvbiBvZiAidGhpcyBpcyBhbiBv
+cHRpb25hbCB0aGluZyBhbmQKPj4+Pj4gdGhpbmdzIHdvbid0IGNhdGNoIGZpcmUgd2l0aG91dCBp
+dCIgOy0pKQo+Pj4+Pgo+Pj4+PiAod2hpY2ggaXMsIEkgYmVsaWV2ZSwgaXMgdHJ1ZSwgaG9wZWZ1
+bGx5IEFraGlsIGNvdWxkIGNvbmZpcm0uLiBpZiBub3QKPj4+Pj4gd2Ugc2hvdWxkIGhhdmUgYSBo
+YXJkZXIgZGVwZW5kZW5jeSBvbiBDT05GSUdfTlZNRU0uLikKPj4+PiBJSVJDLCBpZiB0aGUgZ3B1
+IG9wcCB0YWJsZSBpbiB0aGUgRFQgdXNlcyB0aGUgJ29wcC1zdXBwb3J0ZWQtaHcnIAo+Pj4+IHBy
+b3BlcnR5LAo+Pj4+IHdlIHdpbGwgc2VlIHNvbWUgZXJyb3IgZHVyaW5nIGJvb3QgdXAgaWYgd2Ug
+ZG9uJ3QgY2FsbAo+Pj4+IGRldl9wbV9vcHBfc2V0X3N1cHBvcnRlZF9odygpLiBTbyBjYWxsaW5n
+ICJudm1lbV9jZWxsX2dldChkZXYsIAo+Pj4+ICJzcGVlZF9iaW4iKSIKPj4+PiBpcyBhIHdheSB0
+byB0ZXN0IHRoaXMuCj4+Pj4KPj4+PiBJZiB0aGVyZSBpcyBubyBvdGhlciBoYXJtLCB3ZSBjYW4g
+cHV0IGEgaGFyZCBkZXBlbmRlbmN5IG9uIAo+Pj4+IENPTkZJR19OVk1FTS4KPj4+Cj4+PiBJJ20g
+bm90IHN1cmUgaWYgd2Ugd2FudCB0byBnbyB0aGlzIGZhciBnaXZlbiB0aGUgc3F1aXNoaW5lc3Mg
+YWJvdXQgCj4+PiBtb2R1bGUKPj4+IGRlcGVuZGVuY2llcy4gQXMgZmFyIGFzIEkga25vdyB3ZSBh
+cmUgdGhlIG9ubHkgZHJpdmVyIHRoYXQgdXNlcyB0aGlzIAo+Pj4gc2VyaW91c2x5Cj4+PiBvbiBR
+Q09NIFNvQ3MgYW5kIHRoaXMgaXMgb25seSBuZWVkZWQgZm9yIGNlcnRhaW4gdGFyZ2V0cy4gSSBk
+b24ndCAKPj4+IGtub3cgaWYgd2UKPj4+IHdhbnQgdG8gZm9yY2UgZXZlcnkgdGFyZ2V0IHRvIGJ1
+aWxkIE5WTUVNIGFuZCBRRlBST00gb24gb3VyIGJlaGFsZi4gCj4+PiBCdXQgbWF5YmUKPj4+IEkn
+bSBqdXN0IHNheWluZyB0aGF0IGJlY2F1c2UgS2NvbmZpZyBkZXBlbmRlbmNpZXMgdGVuZCB0byBi
+cmVhayBteSAKPj4+IGJyYWluIChhbmQKPj4+IHRoZW4gQXJuZCBoYXMgdG8gc2VuZCBhIHBhdGNo
+IHRvIGZpeCBpdCkuCj4+Pgo+Pgo+PiBIbW0sIGdvb2QgcG9pbnQuLiBsb29rcyBsaWtlIENPTkZJ
+R19OVk1FTSBpdHNlbGYgZG9lc24ndCBoYXZlIGFueQo+PiBvdGhlciBkZXBlbmRlbmNpZXMsIHNv
+IEkgc3VwcG9zZSBpdCB3b3VsZG4ndCBiZSB0aGUgZW5kIG9mIHRoZSB3b3JsZAo+PiB0byBzZWxl
+Y3QgdGhhdC4uIGJ1dCBJIGd1ZXNzIHdlIGRvbid0IHdhbnQgdG8gcmVxdWlyZSBRRlBST00KPj4K
+Pj4gSSBndWVzcyBhdCB0aGUgZW5kIG9mIHRoZSBkYXksIHdoYXQgaXMgdGhlIGZhaWx1cmUgbW9k
+ZSBpZiB5b3UgaGF2ZSBhCj4+IHNwZWVkLWJpbiBkZXZpY2UsIGJ1dCB5b3VyIGtlcm5lbCBjb25m
+aWcgbWlzc2VzIFFGUFJPTSAoYW5kIHBvc3NpYmx5Cj4+IE5WTUVNKT/CoCBJZiB0aGUgcmVzdWx0
+IGlzIGp1c3Qgbm90IGhhdmluZyB0aGUgaGlnaGVzdCBjbGsgcmF0ZShzKQoKQXRsZWFzdCBvbiBz
+YzcxODAncyBncHUsIHVzaW5nIGFuIHVuc3VwcG9ydGVkIEZNQVggYnJlYWtzIGdtdS4gSXQgd29u
+J3QgCmJlIHZlcnkgb2J2aW91cyB3aGF0IHdlbnQgd3Jvbmcgd2hlbiB0aGlzIGhhcHBlbnMhCgot
+QWtoaWwuCgo+PiBhdmFpbGFibGUsIHRoYXQgaXNuJ3QgdGhlIGVuZCBvZiB0aGUgd29ybGQuwqAg
+QnV0IGlmIGl0IG1ha2VzIHRoaW5ncwo+PiBub3Qtd29yaywgdGhhdCBpcyBzdWItb3B0aW1hbC7C
+oCBHZW5lcmFsbHksIGVzcGVjaWFsbHkgb24gQVJNLCBrY29uZmlnCj4+IHNlZW1zIHRvIGJlIHdh
+eSBoYXJkZXIgdGhhbiBpdCBzaG91bGQgYmUgdG8gYnVpbGQgYSBrZXJuZWwgdGhhdCB3b3JrcywK
+Pj4gaWYgd2UgY291bGQgc29tZWhvdyBub3QgYWRkIHRvIHRoYXQgcHJvYmxlbSAoZm9yIGJvdGgg
+cGVvcGxlIHdpdGggYTZ4eAo+PiBhbmQgb2xkZXIgZ2VucykgdGhhdCB3b3VsZCBiZSBuaWNlIDst
+KQo+Pgo+IAo+IFRoZXJlIGlzIGEgImltcGx5IiBrY29uZmlnIG9wdGlvbiB3aGljaCBzb2x2ZXMg
+ZXhhY3RseSB0aGlzIHByb2JsZW0uIAo+ICh5b3Ugd291bGQgImltcGx5IE5WTUVNIiBpbnN0ZWFk
+IG9mICJzZWxlY3QgTlZNRU0iLiB0aGVuIGl0IHdvdWxkIGJlIAo+IHBvc3NpYmxlIHRvIGRpc2Fi
+bGUgTlZNRU0gYnV0IGl0IHdvdWxkIGdldCBlbmFibGVkIGJ5IGRlZmF1bHQpCj4gCj4+IEJSLAo+
+PiAtUgo+Pgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+Cj4gZHJpLWRldmVsIG1haWxpbmcgbGlzdAo+IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1k
+ZXZlbAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJl
+ZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5vCg==
