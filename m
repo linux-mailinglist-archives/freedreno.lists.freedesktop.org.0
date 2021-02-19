@@ -1,58 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFF9231F2B6
-	for <lists+freedreno@lfdr.de>; Fri, 19 Feb 2021 00:02:35 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 99AE531F784
+	for <lists+freedreno@lfdr.de>; Fri, 19 Feb 2021 11:45:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B3286E88C;
-	Thu, 18 Feb 2021 23:02:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F8A56E8B6;
+	Fri, 19 Feb 2021 10:45:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x532.google.com (mail-pg1-x532.google.com
- [IPv6:2607:f8b0:4864:20::532])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9C496E88C
- for <freedreno@lists.freedesktop.org>; Thu, 18 Feb 2021 23:02:32 +0000 (UTC)
-Received: by mail-pg1-x532.google.com with SMTP id n10so2202899pgl.10
- for <freedreno@lists.freedesktop.org>; Thu, 18 Feb 2021 15:02:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:content-transfer-encoding:in-reply-to:references
- :subject:from:cc:to:date:message-id:user-agent;
- bh=vapw8v9gd6gzUZfgZWeHcnI7BY6UOi1UlhquxFwuYA8=;
- b=myyxUgL8UCCIqyF9TebzT62kDycJr1y+iVGqSe8euO0ZH6L0wL44ljB1lRBO2DwHFa
- pvcC4/CkIpCKc+n23ZHRreytCuqUSGCi268XsZZ6pRIUauZYc4IdG4pv6tWXXocLUIaW
- H918ZYZifVJj+zdvqTI+5BJzJUa91CWz8qH3s=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:content-transfer-encoding
- :in-reply-to:references:subject:from:cc:to:date:message-id
- :user-agent;
- bh=vapw8v9gd6gzUZfgZWeHcnI7BY6UOi1UlhquxFwuYA8=;
- b=iZaUwE5scx8hBM1CmkXzi+/Bb2XDJdwGwJHjrW2TaDoxSSXhEFnchFWzkW4mBzOJJt
- ZAI+VZ+gCsm21PeU9m4Knz7jxCrzfhUcIEMMUfgp/UeIypgKIFMFZbOlONzwwdJTAAUF
- zg1eLXjP2YuWGp8grMIZy4ZRTAoY95dqAMXqSp+oVJwefZscRgoopfRdt15wfXaM8Kbp
- JkEXekyfYKoYMuv9c8SaTDEbG6ViOnKookYAv5mJEoXrY0aFOrbOAJ8aAAz2EJZMO9my
- w1yKWSACOuluo27PP7eukdTKJWhstueqLed/eAKUNECKAxDl8KM1IXZi+h2tdks39i25
- jt+g==
-X-Gm-Message-State: AOAM533xMhXvUC4nW2VCSza+VIhvkSwrFtaxmaKA28DU/7rK5W9ecLs8
- +SF07fSGyp1dD/yZDZZaetxikA==
-X-Google-Smtp-Source: ABdhPJy9l/n+BZwpzPMU732tYNzMsXY8ijKjjyCt211yBXiRCWRp4d87GdOMQSntjHwy7ERugFHcDg==
-X-Received: by 2002:a63:1409:: with SMTP id u9mr5796112pgl.312.1613689352388; 
- Thu, 18 Feb 2021 15:02:32 -0800 (PST)
-Received: from chromium.org ([2620:15c:202:201:e561:d87c:c8df:56e2])
- by smtp.gmail.com with ESMTPSA id c18sm6566737pgm.88.2021.02.18.15.02.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Feb 2021 15:02:31 -0800 (PST)
+Received: from z11.mailgun.us (z11.mailgun.us [104.130.96.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03D6B6EAD6
+ for <freedreno@lists.freedesktop.org>; Fri, 19 Feb 2021 10:44:58 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1613731500; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
+ Subject: Sender; bh=PHtSozV1wqFYDIra8avEfQv4FUHfL153zH8ugwPj86E=;
+ b=pwSyMcc1O2az+cU59tQ+YK2uqJr4fimLiANCFdP0LfwOTUfuevXsVoyxA3g3HHsRm01PIF8S
+ AI8pz2GHeqDqDnZ/tXLWOoj/nC+v5/MyGVAEmrATJ4I3CjRVXnzb14ro4+eq5gzfrt5m2aD5
+ aw7xpKeTCL5pM9/MEqSQC1sA8aM=
+X-Mailgun-Sending-Ip: 104.130.96.11
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n04.prod.us-east-1.postgun.com with SMTP id
+ 602f969aad2d186f4b118dad (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 19 Feb 2021 10:44:42
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id BA35AC43466; Fri, 19 Feb 2021 10:44:41 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ NICE_REPLY_A,SPF_FAIL,URIBL_BLOCKED autolearn=no autolearn_force=no
+ version=3.4.0
+Received: from [192.168.1.105] (unknown [117.217.236.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 0D5F1C433ED;
+ Fri, 19 Feb 2021 10:44:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 0D5F1C433ED
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=akhilpo@codeaurora.org
+To: Rob Clark <robdclark@gmail.com>
+References: <20210216200909.19039-1-jonathan@marek.ca>
+ <CAF6AEGv53nnzqMgTfSA6t2YpHx1dDW8UqnH9Gw0w3p8bf0mTLw@mail.gmail.com>
+ <775436ba-c94a-ab22-d65b-b2391047ec65@codeaurora.org>
+ <20210217190820.GA2229@jcrouse1-lnx.qualcomm.com>
+ <CAF6AEGsHws23ozeJ8G23LFQ8J=CVVrx5xvkSgBuE_uSwT4YurQ@mail.gmail.com>
+ <74d1277e-295f-0996-91c3-05cfce8d3a0e@marek.ca>
+ <e4b62857-bd4d-cca6-0d6b-b9cc960b52a2@codeaurora.org>
+ <CAF6AEGsWCrkOgMVxnx53k8b_o7xy3KWv9VaNRoY44+4GfXtWdg@mail.gmail.com>
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+Message-ID: <757b557a-b5f6-6018-caa4-34bffb1b60b7@codeaurora.org>
+Date: Fri, 19 Feb 2021 16:14:34 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <1613681704-12539-1-git-send-email-khsieh@codeaurora.org>
-References: <1613681704-12539-1-git-send-email-khsieh@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-To: Kuogee Hsieh <khsieh@codeaurora.org>, robdclark@gmail.com, sean@poorly.run
-Date: Thu, 18 Feb 2021 15:02:30 -0800
-Message-ID: <161368935031.1254594.14384765673800900954@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.9.1
-Subject: Re: [Freedreno] [PATCH v2 2/2] drm/msm/dp: add supported max link
- rate specified from dtsi
+In-Reply-To: <CAF6AEGsWCrkOgMVxnx53k8b_o7xy3KWv9VaNRoY44+4GfXtWdg@mail.gmail.com>
+Content-Language: en-US
+Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: fix for kernels without
+ CONFIG_NVMEM
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,38 +77,134 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- abhinavk@codeaurora.org, khsieh@codeaurora.org, tanmay@codeaurora.org,
- daniel@ffwll.ch, aravindh@codeaurora.org, freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Eric Anholt <eric@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Sean Paul <sean@poorly.run>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2021-02-18 12:55:04)
-> Allow supported link rate to be limited to the value specified at
-> dtsi. If it is not specified, then link rate is derived from dpcd
-> directly. Below are examples,
-> link-rate = <162000> for max link rate limited at 1.62G
-> link-rate = <270000> for max link rate limited at 2.7G
-> link-rate = <540000> for max link rate limited at 5.4G
-> link-rate = <810000> for max link rate limited at 8.1G
+On 2/18/2021 9:41 PM, Rob Clark wrote:
+> On Thu, Feb 18, 2021 at 4:28 AM Akhil P Oommen <akhilpo@codeaurora.org> wrote:
+>>
+>> On 2/18/2021 2:05 AM, Jonathan Marek wrote:
+>>> On 2/17/21 3:18 PM, Rob Clark wrote:
+>>>> On Wed, Feb 17, 2021 at 11:08 AM Jordan Crouse
+>>>> <jcrouse@codeaurora.org> wrote:
+>>>>>
+>>>>> On Wed, Feb 17, 2021 at 07:14:16PM +0530, Akhil P Oommen wrote:
+>>>>>> On 2/17/2021 8:36 AM, Rob Clark wrote:
+>>>>>>> On Tue, Feb 16, 2021 at 12:10 PM Jonathan Marek <jonathan@marek.ca>
+>>>>>>> wrote:
+>>>>>>>>
+>>>>>>>> Ignore nvmem_cell_get() EOPNOTSUPP error in the same way as a
+>>>>>>>> ENOENT error,
+>>>>>>>> to fix the case where the kernel was compiled without CONFIG_NVMEM.
+>>>>>>>>
+>>>>>>>> Fixes: fe7952c629da ("drm/msm: Add speed-bin support to a618 gpu")
+>>>>>>>> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+>>>>>>>> ---
+>>>>>>>>    drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 6 +++---
+>>>>>>>>    1 file changed, 3 insertions(+), 3 deletions(-)
+>>>>>>>>
+>>>>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>>>>>>>> b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>>>>>>>> index ba8e9d3cf0fe..7fe5d97606aa 100644
+>>>>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>>>>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>>>>>>>> @@ -1356,10 +1356,10 @@ static int a6xx_set_supported_hw(struct
+>>>>>>>> device *dev, struct a6xx_gpu *a6xx_gpu,
+>>>>>>>>
+>>>>>>>>           cell = nvmem_cell_get(dev, "speed_bin");
+>>>>>>>>           /*
+>>>>>>>> -        * -ENOENT means that the platform doesn't support
+>>>>>>>> speedbin which is
+>>>>>>>> -        * fine
+>>>>>>>> +        * -ENOENT means no speed bin in device tree,
+>>>>>>>> +        * -EOPNOTSUPP means kernel was built without CONFIG_NVMEM
+>>>>>>>
+>>>>>>> very minor nit, it would be nice to at least preserve the gist of the
+>>>>>>> "which is fine" (ie. some variation of "this is an optional thing and
+>>>>>>> things won't catch fire without it" ;-))
+>>>>>>>
+>>>>>>> (which is, I believe, is true, hopefully Akhil could confirm.. if not
+>>>>>>> we should have a harder dependency on CONFIG_NVMEM..)
+>>>>>> IIRC, if the gpu opp table in the DT uses the 'opp-supported-hw'
+>>>>>> property,
+>>>>>> we will see some error during boot up if we don't call
+>>>>>> dev_pm_opp_set_supported_hw(). So calling "nvmem_cell_get(dev,
+>>>>>> "speed_bin")"
+>>>>>> is a way to test this.
+>>>>>>
+>>>>>> If there is no other harm, we can put a hard dependency on
+>>>>>> CONFIG_NVMEM.
+>>>>>
+>>>>> I'm not sure if we want to go this far given the squishiness about
+>>>>> module
+>>>>> dependencies. As far as I know we are the only driver that uses this
+>>>>> seriously
+>>>>> on QCOM SoCs and this is only needed for certain targets. I don't
+>>>>> know if we
+>>>>> want to force every target to build NVMEM and QFPROM on our behalf.
+>>>>> But maybe
+>>>>> I'm just saying that because Kconfig dependencies tend to break my
+>>>>> brain (and
+>>>>> then Arnd has to send a patch to fix it).
+>>>>>
+>>>>
+>>>> Hmm, good point.. looks like CONFIG_NVMEM itself doesn't have any
+>>>> other dependencies, so I suppose it wouldn't be the end of the world
+>>>> to select that.. but I guess we don't want to require QFPROM
+>>>>
+>>>> I guess at the end of the day, what is the failure mode if you have a
+>>>> speed-bin device, but your kernel config misses QFPROM (and possibly
+>>>> NVMEM)?  If the result is just not having the highest clk rate(s)
+>>
+>> Atleast on sc7180's gpu, using an unsupported FMAX breaks gmu. It won't
+>> be very obvious what went wrong when this happens!
 > 
-> Changes in V2:
-> -- allow supported max link rate specified from dtsi
+> Ugg, ok..
+> 
+> I suppose we could select NVMEM, but not QFPROM, and then the case
+> where QFPROM is not enabled on platforms that have the speed-bin field
+> in DT will fail gracefully and all other platforms would continue on
+> happily?
+> 
+> BR,
+> -R
 
-Please don't roll this into the patch that removes the limit. The
-previous version of this patch was fine. The part that lowers the limit
-back down should be another patch.
+Sounds good to me.
 
-We rejected link-rate in DT before and we should reject it upstream
-again. As far as I can tell, the maximum link rate should be determined
-based on the panel or the type-c port on the board. The dp controller
-can always achieve HBR3, so limiting it at the dp controller is
-incorrect. The driver should query the endpoints to figure out if they
-want to limit the link rate. Is that done automatically sometimes by
-intercepting the DPCD?
+-Akhil.
+
+> 
+>>
+>>>> available, that isn't the end of the world.  But if it makes things
+>>>> not-work, that is sub-optimal.  Generally, especially on ARM, kconfig
+>>>> seems to be way harder than it should be to build a kernel that works,
+>>>> if we could somehow not add to that problem (for both people with a6xx
+>>>> and older gens) that would be nice ;-)
+>>>>
+>>>
+>>> There is a "imply" kconfig option which solves exactly this problem.
+>>> (you would "imply NVMEM" instead of "select NVMEM". then it would be
+>>> possible to disable NVMEM but it would get enabled by default)
+>>>
+>>>> BR,
+>>>> -R
+>>>>
+>>> _______________________________________________
+>>> dri-devel mailing list
+>>> dri-devel@lists.freedesktop.org
+>>> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+>>
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
