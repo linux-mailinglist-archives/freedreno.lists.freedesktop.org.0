@@ -2,35 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5E65321A99
-	for <lists+freedreno@lfdr.de>; Mon, 22 Feb 2021 15:55:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C2B3321BC6
+	for <lists+freedreno@lfdr.de>; Mon, 22 Feb 2021 16:46:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EB276E511;
-	Mon, 22 Feb 2021 14:55:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACF536E94E;
+	Mon, 22 Feb 2021 15:45:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B9CD6E910;
- Mon, 22 Feb 2021 09:02:03 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E44FBAFC1;
- Mon, 22 Feb 2021 09:02:01 +0000 (UTC)
-To: Maxime Ripard <maxime@cerno.tech>
-References: <20210219120032.260676-1-maxime@cerno.tech>
- <20210219120032.260676-2-maxime@cerno.tech>
- <51bb5aaf-f771-020b-9a48-77d8679de6a2@suse.de>
- <20210219151235.dsv4mujqyrzndhsn@gilmour>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <2abb00b3-23d2-e652-4194-a10fbf171b88@suse.de>
-Date: Mon, 22 Feb 2021 10:01:56 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+Received: from m42-2.mailgun.net (m42-2.mailgun.net [69.72.42.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BA6C6E56D
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Feb 2021 15:45:56 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1614008758; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
+ Subject: Sender; bh=asa9kp6uP1fJ1Sa9rpHMwvSsBmLN0SjGdb4bzNCCcf0=;
+ b=SahjalBJX+u8vdjWCCcI/iaSgsXPE7xrv121voL4zEwwpZ4dmgGep7BFbwcV3Fw3r4qvQ1L0
+ U9fpB4tdAFVpDo3as1DeOmrs/nhMx2JHF4b0tCPutOmWeTavmrAQQZrCS6tT3XFCOsG/2lER
+ cl7xr+9A/XK43OJw/emBuZ7vPaA=
+X-Mailgun-Sending-Ip: 69.72.42.2
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
+ 6033d1ac994664385908dc6e (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 22 Feb 2021 15:45:48
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 49702C43462; Mon, 22 Feb 2021 15:45:48 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ NICE_REPLY_A,SPF_FAIL,URIBL_BLOCKED autolearn=no autolearn_force=no
+ version=3.4.0
+Received: from [192.168.1.105] (unknown [117.217.233.114])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 77F5DC433CA;
+ Mon, 22 Feb 2021 15:45:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 77F5DC433CA
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=akhilpo@codeaurora.org
+To: Rob Clark <robdclark@gmail.com>
+References: <20210216200909.19039-1-jonathan@marek.ca>
+ <CAF6AEGv53nnzqMgTfSA6t2YpHx1dDW8UqnH9Gw0w3p8bf0mTLw@mail.gmail.com>
+ <775436ba-c94a-ab22-d65b-b2391047ec65@codeaurora.org>
+ <20210217190820.GA2229@jcrouse1-lnx.qualcomm.com>
+ <CAF6AEGsHws23ozeJ8G23LFQ8J=CVVrx5xvkSgBuE_uSwT4YurQ@mail.gmail.com>
+ <74d1277e-295f-0996-91c3-05cfce8d3a0e@marek.ca>
+ <e4b62857-bd4d-cca6-0d6b-b9cc960b52a2@codeaurora.org>
+ <CAF6AEGsWCrkOgMVxnx53k8b_o7xy3KWv9VaNRoY44+4GfXtWdg@mail.gmail.com>
+ <757b557a-b5f6-6018-caa4-34bffb1b60b7@codeaurora.org>
+ <CAF6AEGv-A5=4z7ZO-SytmivZTfKPYxhAjmRLVsQnrT7_pYCDtQ@mail.gmail.com>
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+Message-ID: <0f057c99-ec94-f3e3-796f-b73a609f735d@codeaurora.org>
+Date: Mon, 22 Feb 2021 21:15:39 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <20210219151235.dsv4mujqyrzndhsn@gilmour>
-X-Mailman-Approved-At: Mon, 22 Feb 2021 14:55:49 +0000
-Subject: Re: [Freedreno] [PATCH v3 02/11] drm: Rename plane atomic_check
- state names
+In-Reply-To: <CAF6AEGv-A5=4z7ZO-SytmivZTfKPYxhAjmRLVsQnrT7_pYCDtQ@mail.gmail.com>
+Content-Language: en-US
+Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: fix for kernels without
+ CONFIG_NVMEM
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,242 +79,129 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Heiko_St=c3=bcbner?= <heiko@sntech.de>,
- Xinliang Liu <xinliang.liu@linaro.org>, dri-devel@lists.freedesktop.org,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- linux-samsung-soc@vger.kernel.org, Kevin Hilman <khilman@baylibre.com>,
- Michal Simek <michal.simek@xilinx.com>, NXP Linux Team <linux-imx@nxp.com>,
- VMware Graphics <linux-graphics-maintainer@vmware.com>,
- Leo Li <sunpeng.li@amd.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Roland Scheidegger <sroland@vmware.com>, Inki Dae <inki.dae@samsung.com>,
- Sean Paul <sean@poorly.run>, Hyun Kwon <hyun.kwon@xilinx.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, linux-kernel@vger.kernel.org,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
- Zack Rusin <zackr@vmware.com>, Gerd Hoffmann <kraxel@redhat.com>,
- David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- Edmund Dea <edmund.j.dea@intel.com>, virtualization@lists.linux-foundation.org,
- Eric Anholt <eric@anholt.net>, Thierry Reding <thierry.reding@gmail.com>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Mihail Atanassov <mihail.atanassov@arm.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- linux-rockchip@lists.infradead.org,
- "James \(Qian\) Wang" <james.qian.wang@arm.com>,
- Ben Skeggs <bskeggs@redhat.com>, Dave Airlie <airlied@redhat.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, John Stultz <john.stultz@linaro.org>,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>, Yannick Fertre <yannick.fertre@st.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Brian Starkey <brian.starkey@arm.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>,
- Neil Armstrong <narmstrong@baylibre.com>, Stefan Agner <stefan@agner.ch>,
- Melissa Wen <melissa.srw@gmail.com>, linux-tegra@vger.kernel.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Fabio Estevam <festevam@gmail.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, amd-gfx@lists.freedesktop.org,
- Chen-Yu Tsai <wens@csie.org>, Harry Wentland <harry.wentland@amd.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Chen Feng <puck.chen@hisilicon.com>,
- Alison Wang <alison.wang@nxp.com>, spice-devel@lists.freedesktop.org,
- Tomi Valkeinen <tomba@kernel.org>, Philippe Cornu <philippe.cornu@st.com>,
- Vincent Abriou <vincent.abriou@st.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Tian Tao <tiantao6@hisilicon.com>, Shawn Guo <shawnguo@kernel.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Paul Cercueil <paul@crapouillou.net>,
- linux-renesas-soc@vger.kernel.org, Joonyoung Shim <jy0922.shim@samsung.com>,
- Russell King <linux@armlinux.org.uk>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-mediatek@lists.infradead.org,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Jernej Skrabec <jernej.skrabec@siol.net>, linux-mips@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Jyri Sarha <jyri.sarha@iki.fi>, Lucas Stach <l.stach@pengutronix.de>
-Content-Type: multipart/mixed; boundary="===============0962993082=="
+Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Eric Anholt <eric@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Sean Paul <sean@poorly.run>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0962993082==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="w1lSYWSR69EiDDUmRFseCwFhMSFWd2baX"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---w1lSYWSR69EiDDUmRFseCwFhMSFWd2baX
-Content-Type: multipart/mixed; boundary="sEqTb7DLvEQPgunNTOiF1zujXM8e72iqO";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Maxime Ripard <maxime@cerno.tech>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Daniel Vetter <daniel.vetter@intel.com>, David Airlie <airlied@linux.ie>,
- dri-devel@lists.freedesktop.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, "James (Qian) Wang"
- <james.qian.wang@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Mihail Atanassov <mihail.atanassov@arm.com>,
- Brian Starkey <brian.starkey@arm.com>, Russell King <linux@armlinux.org.uk>,
- Dave Airlie <airlied@redhat.com>, Inki Dae <inki.dae@samsung.com>,
- Joonyoung Shim <jy0922.shim@samsung.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Stefan Agner <stefan@agner.ch>,
- Alison Wang <alison.wang@nxp.com>, Xinliang Liu <xinliang.liu@linaro.org>,
- Tian Tao <tiantao6@hisilicon.com>, John Stultz <john.stultz@linaro.org>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Chen Feng <puck.chen@hisilicon.com>,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Lucas Stach <l.stach@pengutronix.de>, Philipp Zabel
- <p.zabel@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- Paul Cercueil <paul@crapouillou.net>,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- Edmund Dea <edmund.j.dea@intel.com>, Chun-Kuang Hu
- <chunkuang.hu@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Neil Armstrong <narmstrong@baylibre.com>, Kevin Hilman
- <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Ben Skeggs <bskeggs@redhat.com>, Tomi Valkeinen <tomba@kernel.org>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=c3=bcbner?=
- <heiko@sntech.de>, Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Vincent Abriou <vincent.abriou@st.com>,
- Yannick Fertre <yannick.fertre@st.com>,
- Philippe Cornu <philippe.cornu@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>, Chen-Yu Tsai <wens@csie.org>,
- Jernej Skrabec <jernej.skrabec@siol.net>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Jyri Sarha <jyri.sarha@iki.fi>,
- Eric Anholt <eric@anholt.net>,
- Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
- Melissa Wen <melissa.srw@gmail.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>,
- VMware Graphics <linux-graphics-maintainer@vmware.com>,
- Roland Scheidegger <sroland@vmware.com>, Zack Rusin <zackr@vmware.com>,
- Hyun Kwon <hyun.kwon@xilinx.com>, Michal Simek <michal.simek@xilinx.com>,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org,
- spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-tegra@vger.kernel.org
-Message-ID: <2abb00b3-23d2-e652-4194-a10fbf171b88@suse.de>
-Subject: Re: [PATCH v3 02/11] drm: Rename plane atomic_check state names
-References: <20210219120032.260676-1-maxime@cerno.tech>
- <20210219120032.260676-2-maxime@cerno.tech>
- <51bb5aaf-f771-020b-9a48-77d8679de6a2@suse.de>
- <20210219151235.dsv4mujqyrzndhsn@gilmour>
-In-Reply-To: <20210219151235.dsv4mujqyrzndhsn@gilmour>
-
---sEqTb7DLvEQPgunNTOiF1zujXM8e72iqO
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-
-
-Am 19.02.21 um 16:12 schrieb Maxime Ripard:
-> Hi Thomas,
->=20
-> Thanks for your review!
->=20
-> On Fri, Feb 19, 2021 at 03:49:22PM +0100, Thomas Zimmermann wrote:
->>> diff --git a/drivers/gpu/drm/imx/ipuv3-plane.c b/drivers/gpu/drm/imx/=
-ipuv3-plane.c
->>> index 075508051b5f..1873a155bb26 100644
->>> --- a/drivers/gpu/drm/imx/ipuv3-plane.c
->>> +++ b/drivers/gpu/drm/imx/ipuv3-plane.c
->>> @@ -337,12 +337,12 @@ static const struct drm_plane_funcs ipu_plane_f=
-uncs =3D {
->>>    };
->>>    static int ipu_plane_atomic_check(struct drm_plane *plane,
->>> -				  struct drm_plane_state *state)
->>> +				  struct drm_plane_state *new_state)
+On 2/19/2021 9:30 PM, Rob Clark wrote:
+> On Fri, Feb 19, 2021 at 2:44 AM Akhil P Oommen <akhilpo@codeaurora.org> wrote:
 >>
->> This function uses a different naming convention then the others?
+>> On 2/18/2021 9:41 PM, Rob Clark wrote:
+>>> On Thu, Feb 18, 2021 at 4:28 AM Akhil P Oommen <akhilpo@codeaurora.org> wrote:
+>>>>
+>>>> On 2/18/2021 2:05 AM, Jonathan Marek wrote:
+>>>>> On 2/17/21 3:18 PM, Rob Clark wrote:
+>>>>>> On Wed, Feb 17, 2021 at 11:08 AM Jordan Crouse
+>>>>>> <jcrouse@codeaurora.org> wrote:
+>>>>>>>
+>>>>>>> On Wed, Feb 17, 2021 at 07:14:16PM +0530, Akhil P Oommen wrote:
+>>>>>>>> On 2/17/2021 8:36 AM, Rob Clark wrote:
+>>>>>>>>> On Tue, Feb 16, 2021 at 12:10 PM Jonathan Marek <jonathan@marek.ca>
+>>>>>>>>> wrote:
+>>>>>>>>>>
+>>>>>>>>>> Ignore nvmem_cell_get() EOPNOTSUPP error in the same way as a
+>>>>>>>>>> ENOENT error,
+>>>>>>>>>> to fix the case where the kernel was compiled without CONFIG_NVMEM.
+>>>>>>>>>>
+>>>>>>>>>> Fixes: fe7952c629da ("drm/msm: Add speed-bin support to a618 gpu")
+>>>>>>>>>> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+>>>>>>>>>> ---
+>>>>>>>>>>     drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 6 +++---
+>>>>>>>>>>     1 file changed, 3 insertions(+), 3 deletions(-)
+>>>>>>>>>>
+>>>>>>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>>>>>>>>>> b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>>>>>>>>>> index ba8e9d3cf0fe..7fe5d97606aa 100644
+>>>>>>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>>>>>>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>>>>>>>>>> @@ -1356,10 +1356,10 @@ static int a6xx_set_supported_hw(struct
+>>>>>>>>>> device *dev, struct a6xx_gpu *a6xx_gpu,
+>>>>>>>>>>
+>>>>>>>>>>            cell = nvmem_cell_get(dev, "speed_bin");
+>>>>>>>>>>            /*
+>>>>>>>>>> -        * -ENOENT means that the platform doesn't support
+>>>>>>>>>> speedbin which is
+>>>>>>>>>> -        * fine
+>>>>>>>>>> +        * -ENOENT means no speed bin in device tree,
+>>>>>>>>>> +        * -EOPNOTSUPP means kernel was built without CONFIG_NVMEM
+>>>>>>>>>
+>>>>>>>>> very minor nit, it would be nice to at least preserve the gist of the
+>>>>>>>>> "which is fine" (ie. some variation of "this is an optional thing and
+>>>>>>>>> things won't catch fire without it" ;-))
+>>>>>>>>>
+>>>>>>>>> (which is, I believe, is true, hopefully Akhil could confirm.. if not
+>>>>>>>>> we should have a harder dependency on CONFIG_NVMEM..)
+>>>>>>>> IIRC, if the gpu opp table in the DT uses the 'opp-supported-hw'
+>>>>>>>> property,
+>>>>>>>> we will see some error during boot up if we don't call
+>>>>>>>> dev_pm_opp_set_supported_hw(). So calling "nvmem_cell_get(dev,
+>>>>>>>> "speed_bin")"
+>>>>>>>> is a way to test this.
+>>>>>>>>
+>>>>>>>> If there is no other harm, we can put a hard dependency on
+>>>>>>>> CONFIG_NVMEM.
+>>>>>>>
+>>>>>>> I'm not sure if we want to go this far given the squishiness about
+>>>>>>> module
+>>>>>>> dependencies. As far as I know we are the only driver that uses this
+>>>>>>> seriously
+>>>>>>> on QCOM SoCs and this is only needed for certain targets. I don't
+>>>>>>> know if we
+>>>>>>> want to force every target to build NVMEM and QFPROM on our behalf.
+>>>>>>> But maybe
+>>>>>>> I'm just saying that because Kconfig dependencies tend to break my
+>>>>>>> brain (and
+>>>>>>> then Arnd has to send a patch to fix it).
+>>>>>>>
+>>>>>>
+>>>>>> Hmm, good point.. looks like CONFIG_NVMEM itself doesn't have any
+>>>>>> other dependencies, so I suppose it wouldn't be the end of the world
+>>>>>> to select that.. but I guess we don't want to require QFPROM
+>>>>>>
+>>>>>> I guess at the end of the day, what is the failure mode if you have a
+>>>>>> speed-bin device, but your kernel config misses QFPROM (and possibly
+>>>>>> NVMEM)?  If the result is just not having the highest clk rate(s)
+>>>>
+>>>> Atleast on sc7180's gpu, using an unsupported FMAX breaks gmu. It won't
+>>>> be very obvious what went wrong when this happens!
+>>>
+>>> Ugg, ok..
+>>>
+>>> I suppose we could select NVMEM, but not QFPROM, and then the case
+>>> where QFPROM is not enabled on platforms that have the speed-bin field
+>>> in DT will fail gracefully and all other platforms would continue on
+>>> happily?
+>>>
+>>> BR,
+>>> -R
 >>
->>>    {
->>>    	struct drm_plane_state *old_state =3D plane->state;
->=20
-> So, the function already had a variable named old_state, so I was
-> actually trying to make the drivers consistent here: having one variabl=
-e
-> with old_state and new_plane_state felt weird.
->=20
-> The heuristic is thus to use the convention of the driver if one exists=
+>> Sounds good to me.
+>>
+> 
+> You probably should do a quick test with NVMEM enabled but QFPROM
+> disabled to confirm my theory, but I *think* that should work
+> 
+> BR,
+> -R
+> 
 
-> already, and if there's none pick new_plane_state.
->=20
-> It makes it indeed inconsistent across drivers, but it felt more natura=
-l
-> to be consistent within a single driver.
+I tried it on an sc7180 device. The suggested combo (CONFIG_NVMEM + no 
+CONFIG_QCOM_QFPROM) makes the gpu probe fail with error "failed to read 
+speed-bin. Some OPPs may not be supported by hardware". This is good 
+enough clue for the developer that he should fix the broken speedbin 
+detection.
 
-Makes sense.
-
->=20
-> Maxime
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=FCrnberg, Germany
-(HRB 36809, AG N=FCrnberg)
-Gesch=E4ftsf=FChrer: Felix Imend=F6rffer
-
-
---sEqTb7DLvEQPgunNTOiF1zujXM8e72iqO--
-
---w1lSYWSR69EiDDUmRFseCwFhMSFWd2baX
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmAzcwQFAwAAAAAACgkQlh/E3EQov+BQ
-PRAApEdNgQ+vqv+VzwVCbZGvaYSJtb908qPub+x6G/TOtgTxy8nU/+4qswCNV1TRb47fJcScii5P
-muJ5755oRh4YUO4NVEtX8GKHOgjfCwpAUXuwlWMs7HX4yxmi5IlBj1w5nsFNF88DhVuB+2AEFXkd
-ata8+bV5tpBKfULJcNvMYIG/sYzusZAf2m8hmCGpNKXC5Y1MkdVAaNzoZDmjOMdvyC8YVmiyuQYm
-XH6RqvBNEdrVf8QpbecMX946GtVx/ZYhheMzeojAjs6BSN56nkEbFyeDTDZy5Dj2exfMb7r4c2Md
-yXh3NGjtYAZc9AYFG5Gm23hEioOh1NeLQm5V2YA7FxtDqonl3w1pTvIBSdb/6tBAPFUWfiMOZIkI
-FgBteGCFHY7zTITnY+R0RGDY6oFZApyVwiXtxj2bybCEyBG7dHBAJ7ga+tRvT7fG5T94Q6y1cyKj
-v86blGFaPEZYZfeRbwrKbmwq/fbT6/OFH7eZLxzn5fLH1NJora6NM5gDXssJ77KwbVhbra2uzHuB
-uzpM8wC0JU7YFsd8boCIoxlST7QHttvFX8pSd///+Hub0U1/QXZPfQ4t0J1AheysqA/onDRoyd8U
-k3hPMvUtSmZwZSAGSO/6jzkR1Tki5qIgqmKJ6VDh8w7gpWSnDWkXcPiQlrNo4sWJnQQgDrL11BMb
-e3E=
-=cO2r
------END PGP SIGNATURE-----
-
---w1lSYWSR69EiDDUmRFseCwFhMSFWd2baX--
-
---===============0962993082==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-Akhil.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
-
---===============0962993082==--
