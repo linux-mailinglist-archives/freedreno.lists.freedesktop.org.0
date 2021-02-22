@@ -1,35 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAC483212D5
-	for <lists+freedreno@lfdr.de>; Mon, 22 Feb 2021 10:12:59 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 202743214A3
+	for <lists+freedreno@lfdr.de>; Mon, 22 Feb 2021 12:01:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 871F46E91C;
-	Mon, 22 Feb 2021 09:12:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 608896E0D6;
+	Mon, 22 Feb 2021 11:01:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D4E76E91C;
- Mon, 22 Feb 2021 09:12:57 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A0DFEAD6B;
- Mon, 22 Feb 2021 09:12:55 +0000 (UTC)
-To: Maxime Ripard <maxime@cerno.tech>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Daniel Vetter <daniel.vetter@intel.com>, David Airlie <airlied@linux.ie>
-References: <20210219120032.260676-1-maxime@cerno.tech>
- <20210219120032.260676-6-maxime@cerno.tech>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <e6e8191d-08d9-7144-bb1a-ddaa6c21eccb@suse.de>
-Date: Mon, 22 Feb 2021 10:12:49 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+Received: from mail-vs1-xe2f.google.com (mail-vs1-xe2f.google.com
+ [IPv6:2607:f8b0:4864:20::e2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 655B26E0D6
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Feb 2021 11:01:00 +0000 (UTC)
+Received: by mail-vs1-xe2f.google.com with SMTP id n8so2132737vso.3
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Feb 2021 03:01:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=bgFHY4hV1gsz8pgEmyxYxqT5LdN1M6Rn37TYsGGZMr0=;
+ b=QGOfC1OxJtyzhn/Dqh9x46vUR0wedl0F6e2YLebzF7a2LSj9jBLLI0PtMzqfOTNvY2
+ 1zISBI7qQJRWsEByoOWAsCA5uT/NmuX1iJutbxhkjBxxCMp5FaU1olopGZcY/zpbiVb7
+ 5aTe64cskNMRi/sSIcu/D8s1yj6PVS08su5Es=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=bgFHY4hV1gsz8pgEmyxYxqT5LdN1M6Rn37TYsGGZMr0=;
+ b=rh5gWsrLOLTquQrZy3i86wPzQy8ysGXW0/fkDGEMaRB5mUgtNSGOxSDNR6Ohm5o/V1
+ 44Hs3dfcrlLOAaL8joSSxWDM6kamZ6aHwW7g4xB4gybTyU2DoTP5l8ML/LHeJUlU1fuE
+ GtS81xaMcXkn+XNOTJI2kYLIjQIDiS9XWzQD2vSYrnVBWghOdmgrCFPIqH4+3ECawNBQ
+ GzxWaFm/X04uY9+GchZnQeTrKtR1fBSqE++lSuvz2mOfVudJIZpnoYdSpgXSIuWTtzYW
+ xPavX0bbkeL/mWCBwXf4H9S6YakQoIIto8m8OYec1KNkgjtEzD7Ge0Fjcc8hndhVXGqy
+ w5HA==
+X-Gm-Message-State: AOAM533a0A7kVpXq7HUcPVsdmeaVWMYLIMBLcO76mUeNLwWI06ljuDWc
+ Sy/C1qDLCLcE78aAZq/8nfyLVQhwfL9DMGYEvLg9XA==
+X-Google-Smtp-Source: ABdhPJxtvbO7yc7JIxcXC+vdsfZmlOTELtCIG4dyQr0KPt0s8Qz9jqkc/ShnqA459sEHTxSt78vabRBPoAMMyMx2ZKQ=
+X-Received: by 2002:a67:8945:: with SMTP id l66mr12716289vsd.48.1613991659266; 
+ Mon, 22 Feb 2021 03:00:59 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20210219120032.260676-6-maxime@cerno.tech>
-Subject: Re: [Freedreno] [PATCH v3 06/11] drm: Use state helper instead of
- plane state pointer in atomic_check
+References: <20210211113309.1.I629b2366a6591410359c7fcf6d385b474b705ca2@changeid>
+ <YDKvm1QmdJtJbaN6@pendragon.ideasonboard.com>
+ <CGME20210222053139eucas1p2661f94e218ae4c553e031ffa2e7b0cb3@eucas1p2.samsung.com>
+ <CANMq1KALq+C2GD2uRohKpwvkDC05-fHyo=_WoHwnsKNjgcSfEQ@mail.gmail.com>
+ <a804b8eb-3c79-4753-670c-cd5c2dfbc3a4@samsung.com>
+In-Reply-To: <a804b8eb-3c79-4753-670c-cd5c2dfbc3a4@samsung.com>
+From: Nicolas Boichat <drinkcat@chromium.org>
+Date: Mon, 22 Feb 2021 19:00:48 +0800
+Message-ID: <CANMq1KCUX-8FXb+3WH=dHOU6C0YAMPsMCsH3DLGdiJKdvpHShQ@mail.gmail.com>
+To: Andrzej Hajda <a.hajda@samsung.com>
+Subject: Re: [Freedreno] [PATCH] drm/dsi: Add _NO_ to MIPI_DSI_* flags
+ disabling features
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,364 +62,204 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, freedreno@lists.freedesktop.org,
- Philipp Zabel <p.zabel@pengutronix.de>, Tomi Valkeinen <tomba@kernel.org>,
- Fabio Estevam <festevam@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Jyri Sarha <jyri.sarha@iki.fi>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Paul Cercueil <paul@crapouillou.net>,
- Rob Clark <robdclark@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- linux-mips@vger.kernel.org, Shawn Guo <shawnguo@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org
-Content-Type: multipart/mixed; boundary="===============2101539538=="
+Cc: Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Sam Ravnborg <sam@ravnborg.org>, Emil Velikov <emil.velikov@collabora.com>,
+ linux-samsung-soc@vger.kernel.org, Joonyoung Shim <jy0922.shim@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ Rikard Falkeborn <rikard.falkeborn@gmail.com>,
+ "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Sean Paul <sean@poorly.run>,
+ Xin Ji <xji@analogixsemi.com>,
+ linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
+ Jernej Skrabec <jernej.skrabec@siol.net>,
+ Rajendra Nayak <rnayak@codeaurora.org>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ lkml <linux-kernel@vger.kernel.org>, Robert Foss <robert.foss@linaro.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============2101539538==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="bA4SvHs6ElR5ovhly3dcssOpYX97W9uHZ"
+On Mon, Feb 22, 2021 at 3:21 PM Andrzej Hajda <a.hajda@samsung.com> wrote:
+>
+> Hi Nicolas,
+>
+> W dniu 22.02.2021 o 06:31, Nicolas Boichat pisze:
+> > On Mon, Feb 22, 2021 at 3:08 AM Laurent Pinchart
+> > <laurent.pinchart@ideasonboard.com> wrote:
+> >> Hi Nicolas,
+> >>
+> >> Thank you for the patch.
+> >>
+> >> On Thu, Feb 11, 2021 at 11:33:55AM +0800, Nicolas Boichat wrote:
+> >>> Many of the DSI flags have names opposite to their actual effects,
+> >>> e.g. MIPI_DSI_MODE_EOT_PACKET means that EoT packets will actually
+> >>> be disabled. Fix this by including _NO_ in the flag names, e.g.
+> >>> MIPI_DSI_MODE_NO_EOT_PACKET.
+> >>>
+> >>> Signed-off-by: Nicolas Boichat <drinkcat@chromium.org>
+> >> This looks good to me, it increases readability.
+> >>
+> >> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> >>
+> >> Please however see the end of the mail for a comment.
+>
+>
+> Reviewed-by: Andrzej Hajda <andrzej.hajda@samsung.com>
+>
+> And comment at the end.
+>
+> >>
+> >>> ---
+> >>> I considered adding _DISABLE_ instead, but that'd make the
+> >>> flag names a big too long.
+> >>>
+> >>> Generated with:
+> >>> flag=MIPI_DSI_MODE_VIDEO_HFP; git grep $flag | cut -f1 -d':' | \
+> >>>    xargs -I{} sed -i -e "s/$flag/MIPI_DSI_MODE_VIDEO_NO_HFP/" {}
+> >>> flag=MIPI_DSI_MODE_VIDEO_HBP; git grep $flag | cut -f1 -d':' | \
+> >>>    xargs -I{} sed -i -e "s/$flag/MIPI_DSI_MODE_VIDEO_NO_HBP/" {}
+> >>> flag=MIPI_DSI_MODE_VIDEO_HSA; git grep $flag | cut -f1 -d':' | \
+> >>>    xargs -I{} sed -i -e "s/$flag/MIPI_DSI_MODE_VIDEO_NO_HSA/" {}
+> >>> flag=MIPI_DSI_MODE_EOT_PACKET; git grep $flag | cut -f1 -d':' | \
+> >>>    xargs -I{} sed -i -e "s/$flag/MIPI_DSI_MODE_NO_EOT_PACKET/" {}
+> >>> (then minor format changes)
+> >> Ever tried coccinelle ? :-)
+> > Fun project for next time ,-)
+> >
+> >>>   drivers/gpu/drm/bridge/adv7511/adv7533.c             | 2 +-
+> >>>   drivers/gpu/drm/bridge/analogix/anx7625.c            | 2 +-
+> >>>   drivers/gpu/drm/bridge/cdns-dsi.c                    | 4 ++--
+> >>>   drivers/gpu/drm/bridge/tc358768.c                    | 2 +-
+> >>>   drivers/gpu/drm/exynos/exynos_drm_dsi.c              | 8 ++++----
+> >>>   drivers/gpu/drm/mcde/mcde_dsi.c                      | 2 +-
+> >>>   drivers/gpu/drm/mediatek/mtk_dsi.c                   | 2 +-
+> >>>   drivers/gpu/drm/msm/dsi/dsi_host.c                   | 8 ++++----
+> >>>   drivers/gpu/drm/panel/panel-asus-z00t-tm5p5-n35596.c | 2 +-
+> >>>   drivers/gpu/drm/panel/panel-dsi-cm.c                 | 2 +-
+> >>>   drivers/gpu/drm/panel/panel-elida-kd35t133.c         | 2 +-
+> >>>   drivers/gpu/drm/panel/panel-khadas-ts050.c           | 2 +-
+> >>>   drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c   | 2 +-
+> >>>   drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c   | 2 +-
+> >>>   drivers/gpu/drm/panel/panel-novatek-nt35510.c        | 2 +-
+> >>>   drivers/gpu/drm/panel/panel-osd-osd101t2587-53ts.c   | 2 +-
+> >>>   drivers/gpu/drm/panel/panel-samsung-s6d16d0.c        | 2 +-
+> >>>   drivers/gpu/drm/panel/panel-samsung-s6e63j0x03.c     | 2 +-
+> >>>   drivers/gpu/drm/panel/panel-samsung-s6e63m0-dsi.c    | 2 +-
+> >>>   drivers/gpu/drm/panel/panel-samsung-s6e8aa0.c        | 4 ++--
+> >>>   drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c      | 2 +-
+> >>>   drivers/gpu/drm/panel/panel-simple.c                 | 2 +-
+> >>>   drivers/gpu/drm/panel/panel-sony-acx424akp.c         | 2 +-
+> >>>   drivers/gpu/drm/panel/panel-xinpeng-xpp055c272.c     | 2 +-
+> >>>   include/drm/drm_mipi_dsi.h                           | 8 ++++----
+> >>>   25 files changed, 36 insertions(+), 36 deletions(-)
+> >>>
+> >>> []
+> >>> diff --git a/include/drm/drm_mipi_dsi.h b/include/drm/drm_mipi_dsi.h
+> >>> index 360e6377e84b..ba91cf22af51 100644
+> >>> --- a/include/drm/drm_mipi_dsi.h
+> >>> +++ b/include/drm/drm_mipi_dsi.h
+> >>> @@ -119,15 +119,15 @@ struct mipi_dsi_host *of_find_mipi_dsi_host_by_node(struct device_node *node);
+> >>>   /* enable hsync-end packets in vsync-pulse and v-porch area */
+> >>>   #define MIPI_DSI_MODE_VIDEO_HSE              BIT(4)
+> >> We're mixing bits that enable a feature and bits that disable a feature.
+> >> Are these bits defined in the DSI spec, or internal to DRM ? In the
+> >> latter case, would it make sense to standardize on one "polarity" ? That
+> >> would be a more intrusive change in drivers though.
+> > Yes, that'd require auditing every single code path and reverse the
+> > logic as needed. I'm not volunteering for that ,-P (hopefully the
+> > current change is still an improvement).
+> >
+> > Hopefully real DSI experts can comment (Andrzej?), I think the default
+> > are sensible settings?
+>
+> Hehe, "real DSI expert" :), ok I've read spec few times :)
+>
+> If I remember correctly the spec did not prioritizes these modes, specs
+> are publicly available if somebody want to check it feel free.
+>
+> These values were taken from defaults for Exynos DSI, as nobody at the
+> time has better idea.
+>
+> We could try to optimize it by looking for example in different dsi
+> hosts defaults, or maybe dsi devices, but I am not sure if it is worth time.
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---bA4SvHs6ElR5ovhly3dcssOpYX97W9uHZ
-Content-Type: multipart/mixed; boundary="T21ZT6yBrcVRcvT4wXPsDlU1t0XHXxb84";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Maxime Ripard <maxime@cerno.tech>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Daniel Vetter <daniel.vetter@intel.com>, David Airlie <airlied@linux.ie>
-Cc: dri-devel@lists.freedesktop.org,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Daniel Vetter <daniel@ffwll.ch>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- Paul Cercueil <paul@crapouillou.net>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Jyri Sarha <jyri.sarha@iki.fi>,
- Tomi Valkeinen <tomba@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Message-ID: <e6e8191d-08d9-7144-bb1a-ddaa6c21eccb@suse.de>
-Subject: Re: [PATCH v3 06/11] drm: Use state helper instead of plane state
- pointer in atomic_check
-References: <20210219120032.260676-1-maxime@cerno.tech>
- <20210219120032.260676-6-maxime@cerno.tech>
-In-Reply-To: <20210219120032.260676-6-maxime@cerno.tech>
+Little git grep experiment:
+# git grep compatible -- drivers/gpu/drm/panel | wc -l
+219 panels in total
 
---T21ZT6yBrcVRcvT4wXPsDlU1t0XHXxb84
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
+# sed -n 's/.*\(MIPI_DSI[^ \t]*\).*/\1/p' include/drm/drm_mipi_dsi.h |
+xargs -I{} sh -c 'echo -n {}:; git grep {} | wc -l'
+MIPI_DSI_MODE_VIDEO:68
+MIPI_DSI_MODE_VIDEO_BURST:23
+MIPI_DSI_MODE_VIDEO_SYNC_PULSE:20
+MIPI_DSI_MODE_VIDEO_AUTO_VERT:1
+MIPI_DSI_MODE_VIDEO_HSE:6
+MIPI_DSI_MODE_VIDEO_NO_HFP:1
+MIPI_DSI_MODE_VIDEO_NO_HBP:1
+MIPI_DSI_MODE_VIDEO_NO_HSA:1
+MIPI_DSI_MODE_VSYNC_FLUSH:1
+MIPI_DSI_MODE_NO_EOT_PACKET:16
+MIPI_DSI_CLOCK_NON_CONTINUOUS:19
+MIPI_DSI_MODE_LPM:54
 
+At least, there is no regret flipping the polarity for
+MIPI_DSI_MODE_VIDEO_NO_HFP/HBP/HSA.
 
+I guess we could consider flipping the default for MIPI_DSI_MODE_VIDEO
+and MIPI_DSI_MODE_LPM (some drivers set the flags in code, instead of
+a structure, so I think MIPI_DSI_MODE_VIDEO is almost always set).
 
-Am 19.02.21 um 13:00 schrieb Maxime Ripard:
-> Many drivers reference the plane->state pointer in order to get the
-> current plane state in their atomic_check hook, which would be the old
-> plane state in the global atomic state since _swap_state hasn't happene=
-d
-> when atomic_check is run.
->=20
-> Use the drm_atomic_get_old_plane_state helper to get that state to make=
+Still not volunteering ,-P
 
-> it more obvious.
->=20
-> This was made using the coccinelle script below:
->=20
-> @ plane_atomic_func @
-> identifier helpers;
-> identifier func;
-> @@
->=20
-> static struct drm_plane_helper_funcs helpers =3D {
-> 	...,
-> 	.atomic_check =3D func,
-> 	...,
-> };
->=20
-> @ replaces_old_state @
-> identifier plane_atomic_func.func;
-> identifier plane, state, plane_state;
-> @@
->=20
->   func(struct drm_plane *plane, struct drm_atomic_state *state) {
->   	...
-> -	struct drm_plane_state *plane_state =3D plane->state;
-> +	struct drm_plane_state *plane_state =3D drm_atomic_get_old_plane_stat=
-e(state, plane);
->   	...
->   }
->=20
-> @@
-> identifier plane_atomic_func.func;
-> identifier plane, state, plane_state;
-> @@
->=20
->   func(struct drm_plane *plane, struct drm_atomic_state *state) {
->   	struct drm_plane_state *plane_state =3D drm_atomic_get_old_plane_sta=
-te(state, plane);
->   	<...
-> -	plane->state
-> +	plane_state
->   	...>
->   }
->=20
-> @ adds_old_state @
-> identifier plane_atomic_func.func;
-> identifier plane, state;
-> @@
->=20
->   func(struct drm_plane *plane, struct drm_atomic_state *state) {
-> +	struct drm_plane_state *old_plane_state =3D drm_atomic_get_old_plane_=
-state(state, plane);
->   	<...
-> -	plane->state
-> +	old_plane_state
->   	...>
->   }
->=20
-> @ include depends on adds_old_state || replaces_old_state @
-> @@
->=20
->   #include <drm/drm_atomic.h>
->=20
-> @ no_include depends on !include && (adds_old_state || replaces_old_sta=
-te) @
-> @@
->=20
-> + #include <drm/drm_atomic.h>
->    #include <drm/...>
->=20
-> Reviewed-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-However, I find 'old plane state' somewhat confusing in this context,=20
-because it's actually the current plane state. Would it make sense to=20
-use drm_atomic_get_existing_plane_state() instead?
-
-Best regards
-Thomas
-
->=20
-> ---
->=20
-> Changes from v2:
->    - s/.../<.../ in the coccinelle script as suggested by Ville
-> ---
->   drivers/gpu/drm/imx/ipuv3-plane.c          |  3 ++-
->   drivers/gpu/drm/ingenic/ingenic-drm-drv.c  | 16 +++++++++-------
->   drivers/gpu/drm/ingenic/ingenic-ipu.c      |  8 +++++---
->   drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c |  4 +++-
->   drivers/gpu/drm/tilcdc/tilcdc_plane.c      |  3 ++-
->   5 files changed, 21 insertions(+), 13 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/imx/ipuv3-plane.c b/drivers/gpu/drm/imx/ip=
-uv3-plane.c
-> index b5f6123850bb..6484592e3f86 100644
-> --- a/drivers/gpu/drm/imx/ipuv3-plane.c
-> +++ b/drivers/gpu/drm/imx/ipuv3-plane.c
-> @@ -341,7 +341,8 @@ static int ipu_plane_atomic_check(struct drm_plane =
-*plane,
->   {
->   	struct drm_plane_state *new_state =3D drm_atomic_get_new_plane_state=
-(state,
->   									   plane);
-> -	struct drm_plane_state *old_state =3D plane->state;
-> +	struct drm_plane_state *old_state =3D drm_atomic_get_old_plane_state(=
-state,
-> +									   plane);
->   	struct drm_crtc_state *crtc_state;
->   	struct device *dev =3D plane->dev->dev;
->   	struct drm_framebuffer *fb =3D new_state->fb;
-> diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/dr=
-m/ingenic/ingenic-drm-drv.c
-> index e6d7d0a04ddb..c022d9f1e737 100644
-> --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> @@ -361,11 +361,13 @@ static void ingenic_drm_crtc_atomic_flush(struct =
-drm_crtc *crtc,
->   static int ingenic_drm_plane_atomic_check(struct drm_plane *plane,
->   					  struct drm_atomic_state *state)
->   {
-> +	struct drm_plane_state *old_plane_state =3D drm_atomic_get_old_plane_=
-state(state,
-> +										 plane);
->   	struct drm_plane_state *new_plane_state =3D drm_atomic_get_new_plane=
-_state(state,
->   										 plane);
->   	struct ingenic_drm *priv =3D drm_device_get_priv(plane->dev);
->   	struct drm_crtc_state *crtc_state;
-> -	struct drm_crtc *crtc =3D new_plane_state->crtc ?: plane->state->crtc=
-;
-> +	struct drm_crtc *crtc =3D new_plane_state->crtc ?: old_plane_state->c=
-rtc;
->   	int ret;
->  =20
->   	if (!crtc)
-> @@ -399,12 +401,12 @@ static int ingenic_drm_plane_atomic_check(struct =
-drm_plane *plane,
->   	 * its position, size or depth.
->   	 */
->   	if (priv->soc_info->has_osd &&
-> -	    (!plane->state->fb || !new_plane_state->fb ||
-> -	     plane->state->crtc_x !=3D new_plane_state->crtc_x ||
-> -	     plane->state->crtc_y !=3D new_plane_state->crtc_y ||
-> -	     plane->state->crtc_w !=3D new_plane_state->crtc_w ||
-> -	     plane->state->crtc_h !=3D new_plane_state->crtc_h ||
-> -	     plane->state->fb->format->format !=3D new_plane_state->fb->forma=
-t->format))
-> +	    (!old_plane_state->fb || !new_plane_state->fb ||
-> +	     old_plane_state->crtc_x !=3D new_plane_state->crtc_x ||
-> +	     old_plane_state->crtc_y !=3D new_plane_state->crtc_y ||
-> +	     old_plane_state->crtc_w !=3D new_plane_state->crtc_w ||
-> +	     old_plane_state->crtc_h !=3D new_plane_state->crtc_h ||
-> +	     old_plane_state->fb->format->format !=3D new_plane_state->fb->fo=
-rmat->format))
->   		crtc_state->mode_changed =3D true;
->  =20
->   	return 0;
-> diff --git a/drivers/gpu/drm/ingenic/ingenic-ipu.c b/drivers/gpu/drm/in=
-genic/ingenic-ipu.c
-> index 1e1b0fe095bd..3d072b25e1c4 100644
-> --- a/drivers/gpu/drm/ingenic/ingenic-ipu.c
-> +++ b/drivers/gpu/drm/ingenic/ingenic-ipu.c
-> @@ -516,11 +516,13 @@ static void ingenic_ipu_plane_atomic_update(struc=
-t drm_plane *plane,
->   static int ingenic_ipu_plane_atomic_check(struct drm_plane *plane,
->   					  struct drm_atomic_state *state)
->   {
-> +	struct drm_plane_state *old_plane_state =3D drm_atomic_get_old_plane_=
-state(state,
-> +										 plane);
->   	struct drm_plane_state *new_plane_state =3D drm_atomic_get_new_plane=
-_state(state,
->   										 plane);
->   	unsigned int num_w, denom_w, num_h, denom_h, xres, yres, max_w, max_=
-h;
->   	struct ingenic_ipu *ipu =3D plane_to_ingenic_ipu(plane);
-> -	struct drm_crtc *crtc =3D new_plane_state->crtc ?: plane->state->crtc=
-;
-> +	struct drm_crtc *crtc =3D new_plane_state->crtc ?: old_plane_state->c=
-rtc;
->   	struct drm_crtc_state *crtc_state;
->  =20
->   	if (!crtc)
-> @@ -531,7 +533,7 @@ static int ingenic_ipu_plane_atomic_check(struct dr=
-m_plane *plane,
->   		return -EINVAL;
->  =20
->   	/* Request a full modeset if we are enabling or disabling the IPU. *=
-/
-> -	if (!plane->state->crtc ^ !new_plane_state->crtc)
-> +	if (!old_plane_state->crtc ^ !new_plane_state->crtc)
->   		crtc_state->mode_changed =3D true;
->  =20
->   	if (!new_plane_state->crtc ||
-> @@ -552,7 +554,7 @@ static int ingenic_ipu_plane_atomic_check(struct dr=
-m_plane *plane,
->   	if (((new_plane_state->src_w >> 16) & 1) || (new_plane_state->crtc_w=
- & 1))
->   		return -EINVAL;
->  =20
-> -	if (!osd_changed(new_plane_state, plane->state))
-> +	if (!osd_changed(new_plane_state, old_plane_state))
->   		return 0;
->  =20
->   	crtc_state->mode_changed =3D true;
-> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/d=
-rm/msm/disp/mdp5/mdp5_plane.c
-> index 4aac6217a5ad..6ce6ce09fecc 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-> @@ -406,12 +406,14 @@ static int mdp5_plane_atomic_check_with_state(str=
-uct drm_crtc_state *crtc_state,
->   static int mdp5_plane_atomic_check(struct drm_plane *plane,
->   				   struct drm_atomic_state *state)
->   {
-> +	struct drm_plane_state *old_plane_state =3D drm_atomic_get_old_plane_=
-state(state,
-> +										 plane);
->   	struct drm_plane_state *new_plane_state =3D drm_atomic_get_new_plane=
-_state(state,
->   										 plane);
->   	struct drm_crtc *crtc;
->   	struct drm_crtc_state *crtc_state;
->  =20
-> -	crtc =3D new_plane_state->crtc ? new_plane_state->crtc : plane->state=
-->crtc;
-> +	crtc =3D new_plane_state->crtc ? new_plane_state->crtc : old_plane_st=
-ate->crtc;
->   	if (!crtc)
->   		return 0;
->  =20
-> diff --git a/drivers/gpu/drm/tilcdc/tilcdc_plane.c b/drivers/gpu/drm/ti=
-lcdc/tilcdc_plane.c
-> index ebdd42dcaf82..c86258132432 100644
-> --- a/drivers/gpu/drm/tilcdc/tilcdc_plane.c
-> +++ b/drivers/gpu/drm/tilcdc/tilcdc_plane.c
-> @@ -26,7 +26,8 @@ static int tilcdc_plane_atomic_check(struct drm_plane=
- *plane,
->   	struct drm_plane_state *new_state =3D drm_atomic_get_new_plane_state=
-(state,
->   									   plane);
->   	struct drm_crtc_state *crtc_state;
-> -	struct drm_plane_state *old_state =3D plane->state;
-> +	struct drm_plane_state *old_state =3D drm_atomic_get_old_plane_state(=
-state,
-> +									   plane);
->   	unsigned int pitch;
->  =20
->   	if (!new_state->crtc)
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---T21ZT6yBrcVRcvT4wXPsDlU1t0XHXxb84--
-
---bA4SvHs6ElR5ovhly3dcssOpYX97W9uHZ
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmAzdZIFAwAAAAAACgkQlh/E3EQov+Bt
-3RAAuzu2QHRjNFDr4YQycCsXHtjg+DRC0mXzgKji6uZ2SI9+V0lohPR7dPKiHnxNa31Ubl64UItO
-BiLZzhjWa7VDJ51FEs7AdLjK0cKoG9LxtpNwxE4JwZzaX0GvTHN3R50nZCvSMFbNRfB3iVIwHJOA
-x9+SprTyBISsO8xTQVho2WMrDs7Nt0dTZBnrOIqBOnvhKcCx85T0VPgxzhIt7fB0O0xp8Bzb9wwT
-56HOPcrsL8ef40bEtnvr5+VrY4dkUV57kshq28scPAimL2hZF+JyncOxlmi9viuM4z63iB5lCJRA
-8RqttH1sQUxtzL5UhqTPkvQPcCpsl2czblAdyPlHYm5Sns3oL+n9mnG3l0GwEFlW/QYHFKhEXM+t
-rgleR1VspJon8k7mipoD4/b/me5AFhgpPEYHk8/iO5h+i45ChBaTbUk7BL+wSuSFRUMayAZvG+tx
-9d22LMMPIhiKK1WhDaVFetLvyIPzrh4sAa6WBAIoMFqo24jqHNxGddojGxGwN+BfYufOfyvF3kv7
-cRtjTOgmDSqSqsHvD114bf+t96jBjkmF2SghKNb0Yc/bkdqkLANhO6H2BLEp6QNzBhtfEzyLKvAb
-ZwuxN+q4I0CNUhmha5inPZ514kJoovXIzXfvxlOY7p+RgF/ETY6waru/KKzgQ3bgHqiV4hyZskXl
-8TQ=
-=wrum
------END PGP SIGNATURE-----
-
---bA4SvHs6ElR5ovhly3dcssOpYX97W9uHZ--
-
---===============2101539538==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+>
+> This solution is good for me.
+>
+>
+> Regards
+>
+> Andrzej
+>
+>
+> >
+> >
+> >>>   /* disable hfront-porch area */
+> >>> -#define MIPI_DSI_MODE_VIDEO_HFP              BIT(5)
+> >>> +#define MIPI_DSI_MODE_VIDEO_NO_HFP   BIT(5)
+> >>>   /* disable hback-porch area */
+> >>> -#define MIPI_DSI_MODE_VIDEO_HBP              BIT(6)
+> >>> +#define MIPI_DSI_MODE_VIDEO_NO_HBP   BIT(6)
+> >>>   /* disable hsync-active area */
+> >>> -#define MIPI_DSI_MODE_VIDEO_HSA              BIT(7)
+> >>> +#define MIPI_DSI_MODE_VIDEO_NO_HSA   BIT(7)
+> >>>   /* flush display FIFO on vsync pulse */
+> >>>   #define MIPI_DSI_MODE_VSYNC_FLUSH    BIT(8)
+> >>>   /* disable EoT packets in HS mode */
+> >>> -#define MIPI_DSI_MODE_EOT_PACKET     BIT(9)
+> >>> +#define MIPI_DSI_MODE_NO_EOT_PACKET  BIT(9)
+> >>>   /* device supports non-continuous clock behavior (DSI spec 5.6.1) */
+> >>>   #define MIPI_DSI_CLOCK_NON_CONTINUOUS        BIT(10)
+> >>>   /* transmit data in low power */
+> >> --
+> >> Regards,
+> >>
+> >> Laurent Pinchart
+> > _______________________________________________
+> > dri-devel mailing list
+> > dri-devel@lists.freedesktop.org
+> > https://protect2.fireeye.com/v1/url?k=e6f0d6d2-b96befef-e6f15d9d-0cc47a31309a-f4be6a0935319c2d&q=1&e=5e175166-1972-4f28-a483-e9a65c07e25f&u=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Fdri-devel
+> >
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
-
---===============2101539538==--
