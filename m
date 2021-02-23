@@ -2,72 +2,41 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D64A3322C91
-	for <lists+freedreno@lfdr.de>; Tue, 23 Feb 2021 15:41:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E240D322CBD
+	for <lists+freedreno@lfdr.de>; Tue, 23 Feb 2021 15:49:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C0AD6E9C3;
-	Tue, 23 Feb 2021 14:41:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 826FA6E83B;
+	Tue, 23 Feb 2021 14:49:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
- [66.111.4.221])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52BD76E9C6;
- Tue, 23 Feb 2021 14:41:27 +0000 (UTC)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailnew.nyi.internal (Postfix) with ESMTP id 8A11E580292;
- Tue, 23 Feb 2021 09:41:22 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Tue, 23 Feb 2021 09:41:22 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm2; bh=W5Ow9fvH75ZU0EulrQV4vENorU9
- mrOKzv5PjfArajy8=; b=GU22XeFWKMGcAZu6NWqRYgkFYnXryfc3+rlB2tk1nhN
- zH1yO4BroV86D8Wj+siHaUgnYeJECPYuoxUrrb83MoTFpzJSJphB7CNYaw5EteJZ
- Rfe2uUFGY6BHcoPSg4DF4SQKrsvwPDYYdobiTIUwMYND4GTIu0kbe2QDQrUJz9Ys
- XL+8v06HcJxiYtSVO/5pD1twtzjjYfm8ikS3vacu5DbMHaCdJ/0Bb0eQOCqUJ+xJ
- NIaaer0XVasP54dsztAiOD81TbYaNwUKzT83ztyWAR6aGwJqfbXvuoSxWKtBKTYP
- sX/HgxIZrBTwnzz8GG1ss6/7GOr1ivxZ14BClrGyHWQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=W5Ow9f
- vH75ZU0EulrQV4vENorU9mrOKzv5PjfArajy8=; b=qgr4AecZXNy49Pwwcr3zO7
- TdV+JR/XzKNcIDbvGOHn1gyMulZmqUgjZE15uY4QiiJDSs5yNTNDlDvrT8aqmBBw
- m+TXy7tppkYi/athZQuOT688uMOAKQ7dD0wKr2fATxKmEcNhGq/hRsEf67pAYWel
- CW2ClVZEj/WtvMd8w9vOaLZF4/vbQKAGVKEf5TRK7VzsxG4xPY/90O6t9lIKeVT/
- 1DcSLdifDN3mbzrRQzXSpVMVk4u14TpKcyvkgpa1j+tLel53b9ATvGlQIXWSFb9A
- HU6MQUGYedLJ6xeOJ9x1CoCFAY6BRqNMM/TVvqlknPHnkpZPBT690jCUju/aYCIQ
- ==
-X-ME-Sender: <xms:DxQ1YHcwLkacrL4buHESnYHKnUzjsYIPVVlJYBMfFvRDM6MqeiMrAw>
- <xme:DxQ1YNINX6ny7m8oyXghU1wTT_mRfZ_k9-vxor2IQNCD8oH5QjnGopn2JvmXfufFs
- FrwJdNAWEr_OSJSzjU>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrkeehgdeijecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesghdtreertddtudenucfhrhhomhepofgrgihimhgv
- ucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtth
- gvrhhnpeduvdduhfekkeehgffftefflefgffdtheffudffgeevteffheeuiedvvdejvdfg
- veenucfkphepledtrdekledrieekrdejieenucevlhhushhtvghrufhiiigvpedtnecurf
- grrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:DxQ1YNaDoP46QK6II2Npge5z11oEm9Qdi527yfK1TS9XQKwgMuLiVQ>
- <xmx:DxQ1YAtTvX9P0b2VSBPnZpGywjzTaKaYjRz8OjAsZ4ZT-xr086WGuA>
- <xmx:DxQ1YCtHW6OQizQezuGIpR8i1BG7bAFrv_z_qt-lNwGn9thFMHtHFQ>
- <xmx:EhQ1YGbmP5bQbsmz_bNtZPrY7XxwA4fy1g0NHauspJh91sPMYVo-bw>
-Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
- [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id 74C8124005D;
- Tue, 23 Feb 2021 09:41:19 -0500 (EST)
-Date: Tue, 23 Feb 2021 15:41:17 +0100
-From: Maxime Ripard <maxime@cerno.tech>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <20210223144117.6lhuizr2zrutbkzi@gilmour>
-References: <20210219120032.260676-1-maxime@cerno.tech>
- <20210219120032.260676-6-maxime@cerno.tech>
- <e6e8191d-08d9-7144-bb1a-ddaa6c21eccb@suse.de>
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD63B6E83B;
+ Tue, 23 Feb 2021 14:49:35 +0000 (UTC)
+IronPort-SDR: BoqfWG33OPFLA5i9yv/hlFwO2kFzpOCj2VEaj3lMOLaR2RB3phpaFCVouDwvokYMaMcPL3dig0
+ pHunAGVLObWQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9903"; a="182339759"
+X-IronPort-AV: E=Sophos;i="5.81,200,1610438400"; d="scan'208";a="182339759"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2021 06:49:35 -0800
+IronPort-SDR: ysBhO+VHCeZJheQHhE4IO3P+32Wfl9YrV97tKizhglxPl9r9CEeixC5hOWBGMS4LHFNyjgigSR
+ 6uVLWCIPvmNQ==
+X-IronPort-AV: E=Sophos;i="5.81,200,1610438400"; d="scan'208";a="423650236"
+Received: from mmgoodso-mobl3.amr.corp.intel.com (HELO intel.com)
+ ([10.212.211.76])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2021 06:49:30 -0800
+Date: Tue, 23 Feb 2021 09:49:29 -0500
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Lyude Paul <lyude@redhat.com>
+Message-ID: <YDUV+SU7bSyfFqvw@intel.com>
+References: <20210219215326.2227596-1-lyude@redhat.com>
+ <20210219215326.2227596-20-lyude@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <e6e8191d-08d9-7144-bb1a-ddaa6c21eccb@suse.de>
-Subject: Re: [Freedreno] [PATCH v3 06/11] drm: Use state helper instead of
- plane state pointer in atomic_check
+Content-Disposition: inline
+In-Reply-To: <20210219215326.2227596-20-lyude@redhat.com>
+Subject: Re: [Freedreno] [Intel-gfx] [PATCH 19/30] drm/dp: Pass drm_dp_aux
+ to drm_dp_link_train_clock_recovery_delay()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,150 +49,178 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- linux-mips@vger.kernel.org, Paul Cercueil <paul@crapouillou.net>,
- Daniel Vetter <daniel.vetter@intel.com>, Fabio Estevam <festevam@gmail.com>,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- NXP Linux Team <linux-imx@nxp.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Shawn Guo <shawnguo@kernel.org>, Sean Paul <sean@poorly.run>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org, Tomi Valkeinen <tomba@kernel.org>,
- Jyri Sarha <jyri.sarha@iki.fi>, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============0278126124=="
+Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
+ Oleg Vasilev <oleg.vasilev@intel.com>, Tanmay Shah <tanmay@codeaurora.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Lee Jones <lee.jones@linaro.org>, Chandan Uddaraju <chandanu@codeaurora.org>,
+ Emil Velikov <emil.velikov@collabora.com>,
+ Michal Simek <michal.simek@xilinx.com>, amd-gfx@lists.freedesktop.org,
+ Luben Tuikov <luben.tuikov@amd.com>,
+ Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ intel-gfx@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
+ Stephen Boyd <swboyd@chromium.org>, Kuogee Hsieh <khsieh@codeaurora.org>,
+ dri-devel@lists.freedesktop.org,
+ "moderated list:ARM/ZYNQ ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Hyun Kwon <hyun.kwon@xilinx.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Fri, Feb 19, 2021 at 04:53:15PM -0500, Lyude Paul wrote:
+> So that we can start using drm_dbg_*() in
+> drm_dp_link_train_clock_recovery_delay().
+> 
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
 
---===============0278126124==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="etokcv6rtvultpe4"
-Content-Disposition: inline
+I wonder if we could have a drm_dp so we encapsulate both aux and dpcd
+related information...
+
+But this one already solves the issue...
+
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 
 
---etokcv6rtvultpe4
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-Hi Thomas,
-
-On Mon, Feb 22, 2021 at 10:12:49AM +0100, Thomas Zimmermann wrote:
-> Am 19.02.21 um 13:00 schrieb Maxime Ripard:
-> > Many drivers reference the plane->state pointer in order to get the
-> > current plane state in their atomic_check hook, which would be the old
-> > plane state in the global atomic state since _swap_state hasn't happened
-> > when atomic_check is run.
-> >=20
-> > Use the drm_atomic_get_old_plane_state helper to get that state to make
-> > it more obvious.
-> >=20
-> > This was made using the coccinelle script below:
-> >=20
-> > @ plane_atomic_func @
-> > identifier helpers;
-> > identifier func;
-> > @@
-> >=20
-> > static struct drm_plane_helper_funcs helpers =3D {
-> > 	...,
-> > 	.atomic_check =3D func,
-> > 	...,
-> > };
-> >=20
-> > @ replaces_old_state @
-> > identifier plane_atomic_func.func;
-> > identifier plane, state, plane_state;
-> > @@
-> >=20
-> >   func(struct drm_plane *plane, struct drm_atomic_state *state) {
-> >   	...
-> > -	struct drm_plane_state *plane_state =3D plane->state;
-> > +	struct drm_plane_state *plane_state =3D drm_atomic_get_old_plane_stat=
-e(state, plane);
-> >   	...
-> >   }
-> >=20
-> > @@
-> > identifier plane_atomic_func.func;
-> > identifier plane, state, plane_state;
-> > @@
-> >=20
-> >   func(struct drm_plane *plane, struct drm_atomic_state *state) {
-> >   	struct drm_plane_state *plane_state =3D drm_atomic_get_old_plane_sta=
-te(state, plane);
-> >   	<...
-> > -	plane->state
-> > +	plane_state
-> >   	...>
-> >   }
-> >=20
-> > @ adds_old_state @
-> > identifier plane_atomic_func.func;
-> > identifier plane, state;
-> > @@
-> >=20
-> >   func(struct drm_plane *plane, struct drm_atomic_state *state) {
-> > +	struct drm_plane_state *old_plane_state =3D drm_atomic_get_old_plane_=
-state(state, plane);
-> >   	<...
-> > -	plane->state
-> > +	old_plane_state
-> >   	...>
-> >   }
-> >=20
-> > @ include depends on adds_old_state || replaces_old_state @
-> > @@
-> >=20
-> >   #include <drm/drm_atomic.h>
-> >=20
-> > @ no_include depends on !include && (adds_old_state || replaces_old_sta=
-te) @
-> > @@
-> >=20
-> > + #include <drm/drm_atomic.h>
-> >    #include <drm/...>
-> >=20
-> > Reviewed-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> > Signed-off-by: Maxime Ripard <maxime@cerno.tech>
->=20
-> Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
->=20
-> However, I find 'old plane state' somewhat confusing in this context,
-> because it's actually the current plane state. Would it make sense to use
-> drm_atomic_get_existing_plane_state() instead?
-
-drm_atomic_get_existing_plane_state is deprecated nowadays, in favour of ei=
-ther
-drm_atomic_get_old_plane_state or drm_atomic_get_new_plane_state
-
-Maxime
-
---etokcv6rtvultpe4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYDUUDQAKCRDj7w1vZxhR
-xRvbAP9dHjMFrJJN6sPJ07XtwTqAGn3EfEWhkDvhKpwZr1R6KQEAq1fU0dcu291f
-xFwjCPWCaX5tqUHCQKox185muDdxKgU=
-=fkaC
------END PGP SIGNATURE-----
-
---etokcv6rtvultpe4--
-
---===============0278126124==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/atombios_dp.c              | 2 +-
+>  drivers/gpu/drm/drm_dp_helper.c                       | 3 ++-
+>  drivers/gpu/drm/i915/display/intel_dp_link_training.c | 2 +-
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c                      | 2 +-
+>  drivers/gpu/drm/msm/edp/edp_ctrl.c                    | 2 +-
+>  drivers/gpu/drm/radeon/atombios_dp.c                  | 2 +-
+>  drivers/gpu/drm/xlnx/zynqmp_dp.c                      | 2 +-
+>  include/drm/drm_dp_helper.h                           | 4 +++-
+>  8 files changed, 11 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_dp.c b/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
+> index 6d35da65e09f..4468f9d6b4dd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
+> @@ -611,7 +611,7 @@ amdgpu_atombios_dp_link_train_cr(struct amdgpu_atombios_dp_link_train_info *dp_i
+>  	dp_info->tries = 0;
+>  	voltage = 0xff;
+>  	while (1) {
+> -		drm_dp_link_train_clock_recovery_delay(dp_info->dpcd);
+> +		drm_dp_link_train_clock_recovery_delay(dp_info->aux, dp_info->dpcd);
+>  
+>  		if (drm_dp_dpcd_read_link_status(dp_info->aux,
+>  						 dp_info->link_status) <= 0) {
+> diff --git a/drivers/gpu/drm/drm_dp_helper.c b/drivers/gpu/drm/drm_dp_helper.c
+> index 194e0c273809..ce08eb3bface 100644
+> --- a/drivers/gpu/drm/drm_dp_helper.c
+> +++ b/drivers/gpu/drm/drm_dp_helper.c
+> @@ -132,7 +132,8 @@ u8 drm_dp_get_adjust_request_post_cursor(const u8 link_status[DP_LINK_STATUS_SIZ
+>  }
+>  EXPORT_SYMBOL(drm_dp_get_adjust_request_post_cursor);
+>  
+> -void drm_dp_link_train_clock_recovery_delay(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+> +void drm_dp_link_train_clock_recovery_delay(const struct drm_dp_aux *aux,
+> +					    const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+>  {
+>  	unsigned long rd_interval = dpcd[DP_TRAINING_AUX_RD_INTERVAL] &
+>  					 DP_TRAINING_AUX_RD_MASK;
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> index 892d7db7d94f..222073d46bdb 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> @@ -441,7 +441,7 @@ static void intel_dp_link_training_clock_recovery_delay(struct intel_dp *intel_d
+>  							enum drm_dp_phy dp_phy)
+>  {
+>  	if (dp_phy == DP_PHY_DPRX)
+> -		drm_dp_link_train_clock_recovery_delay(intel_dp->dpcd);
+> +		drm_dp_link_train_clock_recovery_delay(&intel_dp->aux, intel_dp->dpcd);
+>  	else
+>  		drm_dp_lttpr_link_train_clock_recovery_delay();
+>  }
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> index 36b39c381b3f..2501a6b326a3 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -1103,7 +1103,7 @@ static int dp_ctrl_link_train_1(struct dp_ctrl_private *ctrl,
+>  	tries = 0;
+>  	old_v_level = ctrl->link->phy_params.v_level;
+>  	for (tries = 0; tries < maximum_retries; tries++) {
+> -		drm_dp_link_train_clock_recovery_delay(ctrl->panel->dpcd);
+> +		drm_dp_link_train_clock_recovery_delay(ctrl->aux, ctrl->panel->dpcd);
+>  
+>  		ret = dp_ctrl_read_link_status(ctrl, link_status);
+>  		if (ret)
+> diff --git a/drivers/gpu/drm/msm/edp/edp_ctrl.c b/drivers/gpu/drm/msm/edp/edp_ctrl.c
+> index 57af3d8b6699..6501598448b4 100644
+> --- a/drivers/gpu/drm/msm/edp/edp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/edp/edp_ctrl.c
+> @@ -608,7 +608,7 @@ static int edp_start_link_train_1(struct edp_ctrl *ctrl)
+>  	tries = 0;
+>  	old_v_level = ctrl->v_level;
+>  	while (1) {
+> -		drm_dp_link_train_clock_recovery_delay(ctrl->dpcd);
+> +		drm_dp_link_train_clock_recovery_delay(ctrl->drm_aux, ctrl->dpcd);
+>  
+>  		rlen = drm_dp_dpcd_read_link_status(ctrl->drm_aux, link_status);
+>  		if (rlen < DP_LINK_STATUS_SIZE) {
+> diff --git a/drivers/gpu/drm/radeon/atombios_dp.c b/drivers/gpu/drm/radeon/atombios_dp.c
+> index c50c504bad50..299b9d8da376 100644
+> --- a/drivers/gpu/drm/radeon/atombios_dp.c
+> +++ b/drivers/gpu/drm/radeon/atombios_dp.c
+> @@ -680,7 +680,7 @@ static int radeon_dp_link_train_cr(struct radeon_dp_link_train_info *dp_info)
+>  	dp_info->tries = 0;
+>  	voltage = 0xff;
+>  	while (1) {
+> -		drm_dp_link_train_clock_recovery_delay(dp_info->dpcd);
+> +		drm_dp_link_train_clock_recovery_delay(dp_info->aux, dp_info->dpcd);
+>  
+>  		if (drm_dp_dpcd_read_link_status(dp_info->aux,
+>  						 dp_info->link_status) <= 0) {
+> diff --git a/drivers/gpu/drm/xlnx/zynqmp_dp.c b/drivers/gpu/drm/xlnx/zynqmp_dp.c
+> index 8272eee03adc..5cc295d8ba9f 100644
+> --- a/drivers/gpu/drm/xlnx/zynqmp_dp.c
+> +++ b/drivers/gpu/drm/xlnx/zynqmp_dp.c
+> @@ -713,7 +713,7 @@ static int zynqmp_dp_link_train_cr(struct zynqmp_dp *dp)
+>  		if (ret)
+>  			return ret;
+>  
+> -		drm_dp_link_train_clock_recovery_delay(dp->dpcd);
+> +		drm_dp_link_train_clock_recovery_delay(&dp->aux, dp->dpcd);
+>  		ret = drm_dp_dpcd_read_link_status(&dp->aux, link_status);
+>  		if (ret < 0)
+>  			return ret;
+> diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
+> index 45ec74862212..e4681665231e 100644
+> --- a/include/drm/drm_dp_helper.h
+> +++ b/include/drm/drm_dp_helper.h
+> @@ -29,6 +29,7 @@
+>  #include <drm/drm_connector.h>
+>  
+>  struct drm_device;
+> +struct drm_dp_aux;
+>  
+>  /*
+>   * Unless otherwise noted, all values are from the DP 1.1a spec.  Note that
+> @@ -1475,7 +1476,8 @@ u8 drm_dp_get_adjust_request_post_cursor(const u8 link_status[DP_LINK_STATUS_SIZ
+>  #define DP_LTTPR_COMMON_CAP_SIZE	8
+>  #define DP_LTTPR_PHY_CAP_SIZE		3
+>  
+> -void drm_dp_link_train_clock_recovery_delay(const u8 dpcd[DP_RECEIVER_CAP_SIZE]);
+> +void drm_dp_link_train_clock_recovery_delay(const struct drm_dp_aux *aux,
+> +					    const u8 dpcd[DP_RECEIVER_CAP_SIZE]);
+>  void drm_dp_lttpr_link_train_clock_recovery_delay(void);
+>  void drm_dp_link_train_channel_eq_delay(const u8 dpcd[DP_RECEIVER_CAP_SIZE]);
+>  void drm_dp_lttpr_link_train_channel_eq_delay(const u8 caps[DP_LTTPR_PHY_CAP_SIZE]);
+> -- 
+> 2.29.2
+> 
+> _______________________________________________
+> Intel-gfx mailing list
+> Intel-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
-
---===============0278126124==--
