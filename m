@@ -2,55 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECA31324B37
-	for <lists+freedreno@lfdr.de>; Thu, 25 Feb 2021 08:28:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 924863254C5
+	for <lists+freedreno@lfdr.de>; Thu, 25 Feb 2021 18:51:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82AD16EC4D;
-	Thu, 25 Feb 2021 07:28:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F9996E24E;
+	Thu, 25 Feb 2021 17:51:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from z11.mailgun.us (z11.mailgun.us [104.130.96.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8083C6EC4D
- for <freedreno@lists.freedesktop.org>; Thu, 25 Feb 2021 07:28:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFAEB6ECAA
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Feb 2021 17:51:47 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1614238132; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=rweQPpVnh7qp98De6bJw+H/FQNc1D6OQQm8bGdcfHy8=;
- b=gxf+ruRxupFAILwF3LXDxrMni0KdLJFfkynAljZpfphdIxWglL9ssJY6K2IQqUarvJL1p672
- ZSAYecP+Jj7Ns7m+onqBPr4oKuFliJDSpB7A3PAzhOyywAFMhoHi1/CvSTyEXjTI3QryBJkr
- wDIR2iEvfKUGoAD+ObucNvtAGYo=
+ s=smtp; t=1614275508; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=qTG3mvnqJBIqCXZxdGCueL+fT4ZSQKHYrTQ6ux1Z2Qk=;
+ b=cD+yxD/A+LV9oGjNvpDz9EaNWX+hjFn5qZAxYqAjSQx0qTWBw9a/HUA4oPsxuhtIFGfVaHSW
+ HXks4uapEgx3NkDBcedwf31fgyuH0Pr59LKk4i47h5643z7nnfwWj2dzz9pWIth4D9ZgYIVj
+ jgPtuCsrcw9P16YykXtoDrCn0yE=
 X-Mailgun-Sending-Ip: 104.130.96.11
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
- 603751a6090a774287953b1f (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 25 Feb 2021 07:28:38
+ smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
+ 6037e3b17f306299bfc960f2 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 25 Feb 2021 17:51:45
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 83051C433C6; Thu, 25 Feb 2021 07:28:38 +0000 (UTC)
+ id A0BACC4346D; Thu, 25 Feb 2021 17:51:44 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id DFB27C433CA;
- Thu, 25 Feb 2021 07:28:37 +0000 (UTC)
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
+Received: from jordan-laptop.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jcrouse)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 4D3FFC433CA;
+ Thu, 25 Feb 2021 17:51:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 4D3FFC433CA
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=jcrouse@codeaurora.org
+From: Jordan Crouse <jcrouse@codeaurora.org>
+To: linux-arm-msm@vger.kernel.org
+Date: Thu, 25 Feb 2021 10:51:32 -0700
+Message-Id: <20210225175135.91922-1-jcrouse@codeaurora.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Date: Wed, 24 Feb 2021 23:28:37 -0800
-From: abhinavk@codeaurora.org
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20210224230143.1216118-1-dmitry.baryshkov@linaro.org>
-References: <20210224230143.1216118-1-dmitry.baryshkov@linaro.org>
-Message-ID: <74ec836c951c2eec2d978ba75ac8a7d7@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH] drm/msm/dsi_pll_7nm: Solve TODO for
- multiplier frac_bits assignment
+Subject: [Freedreno] [PATCH v3 0/3] iommu/arm-smmu: adreno-smmu page fault
+ handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,58 +66,62 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- dri-devel@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Eric Anholt <eric@anholt.net>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Will Deacon <will@kernel.org>,
+ Rob Clark <robdclark@chromium.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>, Joerg Roedel <joro@8bytes.org>,
+ Rob Clark <robdclark@gmail.com>, Sharat Masetty <smasetty@codeaurora.org>,
+ Nicolin Chen <nicoleotsuka@gmail.com>, Krishna Reddy <vdumpa@nvidia.com>,
+ John Stultz <john.stultz@linaro.org>, Sean Paul <sean@poorly.run>,
+ linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, iommu@lists.linux-foundation.org,
+ "Kristian H. Kristensen" <hoegsberg@google.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Robin Murphy <robin.murphy@arm.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dmitry
+(resending for the 5.13 cycle)
 
-Thanks for the patch.
+This is a stack to add an Adreno GPU specific handler for pagefaults. The first
+patch starts by wiring up report_iommu_fault for arm-smmu. The next patch adds
+a adreno-smmu-priv function hook to capture a handful of important debugging
+registers such as TTBR0, CONTEXTIDR, FSYNR0 and others. This is used by the
+third patch to print more detailed information on page fault such as the TTBR0
+for the pagetable that caused the fault and the source of the fault as
+determined by a combination of the FSYNR1 register and an internal GPU
+register.
 
-On 2021-02-24 15:01, Dmitry Baryshkov wrote:
-> The number of fractional registers bits is known and already set in
-> the frac_bits variable of the dsi_pll_config struct here in 7nm:
-> remove the TODO by simply using that variable. This is a copy of
-> 196145eb1af1 ("drm/msm/dsi_pll_10nm: Solve TODO for multiplier 
-> frac_bits
-> assignment").
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
-> ---
->  drivers/gpu/drm/msm/dsi/pll/dsi_pll_7nm.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/pll/dsi_pll_7nm.c
-> b/drivers/gpu/drm/msm/dsi/pll/dsi_pll_7nm.c
-> index c1f6708367ae..0458eda15114 100644
-> --- a/drivers/gpu/drm/msm/dsi/pll/dsi_pll_7nm.c
-> +++ b/drivers/gpu/drm/msm/dsi/pll/dsi_pll_7nm.c
-> @@ -509,6 +509,7 @@ static unsigned long
-> dsi_pll_7nm_vco_recalc_rate(struct clk_hw *hw,
->  {
->  	struct msm_dsi_pll *pll = hw_clk_to_pll(hw);
->  	struct dsi_pll_7nm *pll_7nm = to_pll_7nm(pll);
-> +	struct dsi_pll_config *config = &pll_7nm->pll_configuration;
->  	void __iomem *base = pll_7nm->mmio;
->  	u64 ref_clk = pll_7nm->vco_ref_clk_rate;
->  	u64 vco_rate = 0x0;
-> @@ -529,9 +530,8 @@ static unsigned long
-> dsi_pll_7nm_vco_recalc_rate(struct clk_hw *hw,
->  	/*
->  	 * TODO:
->  	 *	1. Assumes prescaler is disabled
-> -	 *	2. Multiplier is 2^18. it should be 2^(num_of_frac_bits)
->  	 */
-> -	multiplier = 1 << 18;
-> +	multiplier = 1 << config->frac_bits;
->  	pll_freq = dec * (ref_clk * 2);
->  	tmp64 = (ref_clk * 2 * frac);
->  	pll_freq += div_u64(tmp64, multiplier);
+This code provides a solid base that we can expand on later for even more
+extensive GPU side page fault debugging capabilities.
+
+v3: Always clear FSR even if the target driver is going to handle resume
+v2: Fix comment wording and function pointer check per Rob Clark
+
+Jordan Crouse (3):
+  iommu/arm-smmu: Add support for driver IOMMU fault handlers
+  drm/msm: Add an adreno-smmu-priv callback to get pagefault info
+  drm/msm: Improve the a6xx page fault handler
+
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c      |  4 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 76 +++++++++++++++++++++-
+ drivers/gpu/drm/msm/msm_iommu.c            | 11 +++-
+ drivers/gpu/drm/msm/msm_mmu.h              |  4 +-
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 19 ++++++
+ drivers/iommu/arm/arm-smmu/arm-smmu.c      |  9 ++-
+ drivers/iommu/arm/arm-smmu/arm-smmu.h      |  2 +
+ include/linux/adreno-smmu-priv.h           | 31 ++++++++-
+ 8 files changed, 145 insertions(+), 11 deletions(-)
+
+-- 
+2.25.1
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
