@@ -1,43 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EAF63279DB
-	for <lists+freedreno@lfdr.de>; Mon,  1 Mar 2021 09:49:28 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id BB29B327A31
+	for <lists+freedreno@lfdr.de>; Mon,  1 Mar 2021 09:59:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21FBD6E519;
-	Mon,  1 Mar 2021 08:49:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 568926E51A;
+	Mon,  1 Mar 2021 08:59:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E1876E519;
- Mon,  1 Mar 2021 08:49:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
- References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
- Content-Type:Content-ID:Content-Description;
- bh=xjnrpEXxWqN295Q5FQN/MKyM59zP4it+2k/oCX23gCw=; b=GUTHjhjVLRbJTH2y8N0f5pXfQt
- BpcjyqebHUSqkrTfxo9sNnMxsXXi553XjQV00V9WvEhU+FZoA+NR+7JFRo7V+AcJrTEM2A0/NWoUY
- UQcG1jJvPEvJ62t0+skQ3GOQwTgz9bkJrgJ5bnVxZaxWSLvpKWL69ICJDko8VZPR7xnOkfCwL79i7
- gSKcArm/UWJvBLWZ3LQ2LKR9uhK0zIeUIiMijW/QfWAXEvydnu+GXr4VH9gDQxN7matDN8yNDTwzc
- mzOmEyht23pCYSJg+mpQkr9XEd1UDX2UeQck2jKCZcJqclZ3cNse2Oooee5h2NDsQSuznxuuEfST1
- vhs+o1kA==;
-Received: from [2001:4bb8:19b:e4b7:cdf9:733f:4874:8eb4] (helo=localhost)
- by casper.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
- id 1lGeES-00FUwW-Vk; Mon, 01 Mar 2021 08:48:50 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Li Yang <leoyang.li@nxp.com>
-Date: Mon,  1 Mar 2021 09:42:57 +0100
-Message-Id: <20210301084257.945454-18-hch@lst.de>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20210301084257.945454-1-hch@lst.de>
-References: <20210301084257.945454-1-hch@lst.de>
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D12A6E50B
+ for <freedreno@lists.freedesktop.org>; Mon,  1 Mar 2021 08:59:48 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id 2so13946691ljr.5
+ for <freedreno@lists.freedesktop.org>; Mon, 01 Mar 2021 00:59:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=AYs79IPnRt3qtzNnShKWZ7vyowWc2VUelHvdooVHnZg=;
+ b=kcf6kcitYZpg70CypoUp8KXILwBgfW62DpbNjWslqlp4qw62fI7tzmXjPZQCmQxMc8
+ y7E4AtX2Fmm4bNLcfXcEPW4KygtdDIAQoh7/Gppn2wuQW/GKYs0Umn4Wm46XccGHSmBe
+ jy7uA45XkN8GMGoDoJDciHZsVQhSFIR5XDAoh0rW972s2s04adtjid+35nHXnoln8MA8
+ FxCO26S/5xLKeLnx947E7nXZn0Rnap1zKbmn2OkkQ+VOi8uxBgu0gE1sSxomW3gthjJM
+ ufu7iyDDX3VZgWZtHNc17YGxcgin7Xk21+hnZeVkHrui+fqknKWQ+8YcQvAzXeWUB5vl
+ a9WQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=AYs79IPnRt3qtzNnShKWZ7vyowWc2VUelHvdooVHnZg=;
+ b=Sv194gSCH2WAnAonM5M4mdy1B574llOiHirjZN5orWXoFCmZIlmFdWHMRKENe9keRU
+ a+T3//P/N6bBBkjY/q335DELP7afSnkLGXgwYAR+vuahTkMK8II4lUR+MMb7xLZdPUe+
+ SJEwsLOClxYgvt9398+J8G69pxh3O8OzSZK6T0YOtZLtqQsNz2dnJy+OGNqXJDcU+hcG
+ p0syfZEcGMzHfQpswW3cOsB/+UwASuSlgjlGVklI78idDduIsABX5WNkDffDhpceDSXI
+ khfpPMa4ASR3hdzvD/5FFPCzWJ7nMplOczEm2K4eTlWNnsjNFW4UVs/4hxjOMPz3Iwvc
+ qgug==
+X-Gm-Message-State: AOAM530+CaWdxDS/GP0x0fBHWLU7y7T/IXr9KPaBwbAMBJBjZGn4Gg+K
+ Iq9+g+qkerpSuyudwfbfjsVejkl83K15Vi78WdqUqg==
+X-Google-Smtp-Source: ABdhPJyj3pw+C0NXHPjoJdDWHXn0vLK/WBMS4zWE5j9GGEZHyMLzxq+OeogebxlDuBb2zgJuFq1OMvgpJB8dxst6o6c=
+X-Received: by 2002:a2e:9754:: with SMTP id f20mr6463797ljj.200.1614589186573; 
+ Mon, 01 Mar 2021 00:59:46 -0800 (PST)
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- casper.infradead.org. See http://www.infradead.org/rpr.html
-Subject: [Freedreno] [PATCH 17/17] iommu: remove iommu_domain_set_attr
+References: <20210211113309.1.I629b2366a6591410359c7fcf6d385b474b705ca2@changeid>
+In-Reply-To: <20210211113309.1.I629b2366a6591410359c7fcf6d385b474b705ca2@changeid>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Mon, 1 Mar 2021 09:59:35 +0100
+Message-ID: <CACRpkdbQa3BZwgtp3=061cu+y+4qkMqtXQhXH_VuHB3KcLyDCA@mail.gmail.com>
+To: Nicolas Boichat <drinkcat@chromium.org>
+Subject: Re: [Freedreno] [PATCH] drm/dsi: Add _NO_ to MIPI_DSI_* flags
+ disabling features
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,121 +61,136 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, kvm@vger.kernel.org,
- Michael Ellerman <mpe@ellerman.id.au>, linuxppc-dev@lists.ozlabs.org,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- iommu@lists.linux-foundation.org, netdev@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, David Woodhouse <dwmw2@infradead.org>,
- linux-arm-kernel@lists.infradead.org, Lu Baolu <baolu.lu@linux.intel.com>
+Cc: Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
+ Andrzej Hajda <a.hajda@samsung.com>, Thierry Reding <thierry.reding@gmail.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Sam Ravnborg <sam@ravnborg.org>, Emil Velikov <emil.velikov@collabora.com>,
+ linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
+ Joonyoung Shim <jy0922.shim@samsung.com>, Rob Clark <robdclark@gmail.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Jonas Karlman <jonas@kwiboo.se>,
+ MSM <linux-arm-msm@vger.kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Inki Dae <inki.dae@samsung.com>,
+ Jordan Crouse <jcrouse@codeaurora.org>,
+ "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+ Rikard Falkeborn <rikard.falkeborn@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Sean Paul <sean@poorly.run>,
+ Xin Ji <xji@analogixsemi.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Jernej Skrabec <jernej.skrabec@siol.net>,
+ Rajendra Nayak <rnayak@codeaurora.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Robert Foss <robert.foss@linaro.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- drivers/iommu/iommu.c | 17 -----------------
- include/linux/iommu.h | 27 ---------------------------
- 2 files changed, 44 deletions(-)
+On Thu, Feb 11, 2021 at 4:34 AM Nicolas Boichat <drinkcat@chromium.org> wrote:
 
-diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index 8490aefd4b41f8..b04e6cefe8520d 100644
---- a/drivers/iommu/iommu.c
-+++ b/drivers/iommu/iommu.c
-@@ -2668,23 +2668,6 @@ bool iommu_dma_use_flush_queue(struct iommu_domain *domain)
- }
- EXPORT_SYMBOL_GPL(iommu_dma_use_flush_queue);
- 
--int iommu_domain_set_attr(struct iommu_domain *domain,
--			  enum iommu_attr attr, void *data)
--{
--	int ret = 0;
--
--	switch (attr) {
--	default:
--		if (domain->ops->domain_set_attr == NULL)
--			return -EINVAL;
--
--		ret = domain->ops->domain_set_attr(domain, attr, data);
--	}
--
--	return ret;
--}
--EXPORT_SYMBOL_GPL(iommu_domain_set_attr);
--
- int iommu_domain_enable_nesting(struct iommu_domain *domain)
- {
- 	if (!domain->ops->domain_enable_nesting)
-diff --git a/include/linux/iommu.h b/include/linux/iommu.h
-index 39d3ed4d2700ac..62535f563aa491 100644
---- a/include/linux/iommu.h
-+++ b/include/linux/iommu.h
-@@ -97,20 +97,6 @@ enum iommu_cap {
- 	IOMMU_CAP_NOEXEC,		/* IOMMU_NOEXEC flag */
- };
- 
--/*
-- * Following constraints are specifc to FSL_PAMUV1:
-- *  -aperture must be power of 2, and naturally aligned
-- *  -number of windows must be power of 2, and address space size
-- *   of each window is determined by aperture size / # of windows
-- *  -the actual size of the mapped region of a window must be power
-- *   of 2 starting with 4KB and physical address must be naturally
-- *   aligned.
-- */
--
--enum iommu_attr {
--	DOMAIN_ATTR_MAX,
--};
--
- /* These are the possible reserved region types */
- enum iommu_resv_type {
- 	/* Memory regions which must be mapped 1:1 at all times */
-@@ -194,7 +180,6 @@ struct iommu_iotlb_gather {
-  * @device_group: find iommu group for a particular device
-  * @dma_use_flush_queue: Returns %true if a DMA flush queue is used
-  * @dma_enable_flush_queue: Try to enable the DMA flush queue
-- * @domain_set_attr: Change domain attributes
-  * @domain_enable_nesting: Enable nesting
-  * @domain_set_pgtable_attr: Set io page table attributes
-  * @get_resv_regions: Request list of reserved regions for a device
-@@ -247,8 +232,6 @@ struct iommu_ops {
- 	struct iommu_group *(*device_group)(struct device *dev);
- 	bool (*dma_use_flush_queue)(struct iommu_domain *domain);
- 	void (*dma_enable_flush_queue)(struct iommu_domain *domain);
--	int (*domain_set_attr)(struct iommu_domain *domain,
--			       enum iommu_attr attr, void *data);
- 	int (*domain_enable_nesting)(struct iommu_domain *domain);
- 	int (*domain_set_pgtable_attr)(struct iommu_domain *domain,
- 			struct io_pgtable_domain_attr *pgtbl_cfg);
-@@ -498,11 +481,7 @@ extern struct iommu_domain *iommu_group_default_domain(struct iommu_group *);
- bool iommu_dma_use_flush_queue(struct iommu_domain *domain);
- int iommu_domain_set_pgtable_attr(struct iommu_domain *domain,
- 		struct io_pgtable_domain_attr *pgtbl_cfg);
--extern int iommu_domain_set_attr(struct iommu_domain *domain, enum iommu_attr,
--				 void *data);
- int iommu_domain_enable_nesting(struct iommu_domain *domain);
--int iommu_domain_set_pgtable_attr(struct iommu_domain *domain,
--		struct io_pgtable_domain_attr *pgtbl_cfg);
- 
- extern int report_iommu_fault(struct iommu_domain *domain, struct device *dev,
- 			      unsigned long iova, int flags);
-@@ -869,12 +848,6 @@ static inline int iommu_group_id(struct iommu_group *group)
- 	return -ENODEV;
- }
- 
--static inline int iommu_domain_set_attr(struct iommu_domain *domain,
--					enum iommu_attr attr, void *data)
--{
--	return -EINVAL;
--}
--
- static inline int  iommu_device_register(struct iommu_device *iommu)
- {
- 	return -ENODEV;
--- 
-2.29.2
+> Many of the DSI flags have names opposite to their actual effects,
+> e.g. MIPI_DSI_MODE_EOT_PACKET means that EoT packets will actually
+> be disabled. Fix this by including _NO_ in the flag names, e.g.
+> MIPI_DSI_MODE_NO_EOT_PACKET.
 
+Unless someone like me interpreted it literally...
+
+Like in these:
+
+>  drivers/gpu/drm/mcde/mcde_dsi.c                      | 2 +-
+>  drivers/gpu/drm/panel/panel-novatek-nt35510.c        | 2 +-
+>  drivers/gpu/drm/panel/panel-samsung-s6d16d0.c        | 2 +-
+>  drivers/gpu/drm/panel/panel-sony-acx424akp.c         | 2 +-
+
+> diff --git a/drivers/gpu/drm/mcde/mcde_dsi.c b/drivers/gpu/drm/mcde/mcde_dsi.c
+> index 2314c8122992..f4cdc3cfd7d0 100644
+> --- a/drivers/gpu/drm/mcde/mcde_dsi.c
+> +++ b/drivers/gpu/drm/mcde/mcde_dsi.c
+> @@ -760,7 +760,7 @@ static void mcde_dsi_start(struct mcde_dsi *d)
+>                 DSI_MCTL_MAIN_DATA_CTL_BTA_EN |
+>                 DSI_MCTL_MAIN_DATA_CTL_READ_EN |
+>                 DSI_MCTL_MAIN_DATA_CTL_REG_TE_EN;
+> -       if (d->mdsi->mode_flags & MIPI_DSI_MODE_EOT_PACKET)
+> +       if (d->mdsi->mode_flags & MIPI_DSI_MODE_NO_EOT_PACKET)
+>                 val |= DSI_MCTL_MAIN_DATA_CTL_HOST_EOT_GEN;
+
+If you read the code you can see that this is interpreted as inserting
+an EOT packet, so here you need to change the logic such:
+
+if (!d->mdsi->mode_flags & MIPI_DSI_MODE_NO_EOT_PACKET)
+    val |= DSI_MCTL_MAIN_DATA_CTL_HOST_EOT_GEN;
+
+This will make sure the host generates the EOT packet in HS mode
+*unless* the flag is set.
+
+(I checked the data sheet.)
+
+> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt35510.c b/drivers/gpu/drm/panel/panel-novatek-nt35510.c
+> index b9a0e56f33e2..9d9334656803 100644
+> --- a/drivers/gpu/drm/panel/panel-novatek-nt35510.c
+> +++ b/drivers/gpu/drm/panel/panel-novatek-nt35510.c
+> @@ -899,7 +899,7 @@ static int nt35510_probe(struct mipi_dsi_device *dsi)
+>         dsi->hs_rate = 349440000;
+>         dsi->lp_rate = 9600000;
+>         dsi->mode_flags = MIPI_DSI_CLOCK_NON_CONTINUOUS |
+> -               MIPI_DSI_MODE_EOT_PACKET;
+> +               MIPI_DSI_MODE_NO_EOT_PACKET;
+
+Here you should just delete the MIPI_DSI_MODE_EOT_PACKET
+flag because this was used with the MCDE driver which interpret the
+flag literally.
+
+> diff --git a/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c b/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
+> index 4aac0d1573dd..b04b9975e9b2 100644
+> --- a/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
+> +++ b/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
+> @@ -186,7 +186,7 @@ static int s6d16d0_probe(struct mipi_dsi_device *dsi)
+>          */
+>         dsi->mode_flags =
+>                 MIPI_DSI_CLOCK_NON_CONTINUOUS |
+> -               MIPI_DSI_MODE_EOT_PACKET;
+> +               MIPI_DSI_MODE_NO_EOT_PACKET;
+
+Same, just delete the flag.
+
+> --- a/drivers/gpu/drm/panel/panel-samsung-s6e63m0-dsi.c
+> +++ b/drivers/gpu/drm/panel/panel-samsung-s6e63m0-dsi.c
+> @@ -97,7 +97,7 @@ static int s6e63m0_dsi_probe(struct mipi_dsi_device *dsi)
+>         dsi->hs_rate = 349440000;
+>         dsi->lp_rate = 9600000;
+>         dsi->mode_flags = MIPI_DSI_MODE_VIDEO |
+> -               MIPI_DSI_MODE_EOT_PACKET |
+> +               MIPI_DSI_MODE_NO_EOT_PACKET |
+>                 MIPI_DSI_MODE_VIDEO_BURST;
+
+Same, just delete the flag.
+
+> diff --git a/drivers/gpu/drm/panel/panel-sony-acx424akp.c b/drivers/gpu/drm/panel/panel-sony-acx424akp.c
+> index 065efae213f5..6b706cbf2f9c 100644
+> --- a/drivers/gpu/drm/panel/panel-sony-acx424akp.c
+> +++ b/drivers/gpu/drm/panel/panel-sony-acx424akp.c
+> @@ -450,7 +450,7 @@ static int acx424akp_probe(struct mipi_dsi_device *dsi)
+>         else
+>                 dsi->mode_flags =
+>                         MIPI_DSI_CLOCK_NON_CONTINUOUS |
+> -                       MIPI_DSI_MODE_EOT_PACKET;
+> +                       MIPI_DSI_MODE_NO_EOT_PACKET;
+
+Same, just delete the flag.
+
+These are all just semantic bugs due to the ambiguity of the flags, it is
+possible to provide a Fixes: flag for each file using this flag the wrong way
+but I dunno if it's worth it.
+
+Yours,
+Linus Walleij
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
