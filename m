@@ -1,65 +1,37 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E106132D5DC
-	for <lists+freedreno@lfdr.de>; Thu,  4 Mar 2021 16:06:25 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E31F32D67B
+	for <lists+freedreno@lfdr.de>; Thu,  4 Mar 2021 16:25:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 545736E0E9;
-	Thu,  4 Mar 2021 15:06:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 748996EA32;
+	Thu,  4 Mar 2021 15:25:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x42e.google.com (mail-pf1-x42e.google.com
- [IPv6:2607:f8b0:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 645286E0DC;
- Thu,  4 Mar 2021 15:06:23 +0000 (UTC)
-Received: by mail-pf1-x42e.google.com with SMTP id a188so1703810pfb.4;
- Thu, 04 Mar 2021 07:06:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=/QrIaJJECqAQuVCu6ecLBggrZjnStxzCneNlAu9rQH0=;
- b=WNrllo6qutFLtKmW2zMn9wyg58xipjSAugZEZVwBPLSd5w6dwxFM/fup2Vjfwx9NA0
- 7+y+dS5WOKHFqlsZg/BPmT/boSCvksDlz1+HSCjWJ0OOli1cfXyC4KG3R2SxyLpP2yU0
- JJY/U1O8I//nVi2vBqFJuI4/+Z70tJHzxs0xj2U2bMMsrfk1B9DrNXa5IbzwXgiuoE/z
- FVoo3Cul2tkebCvyEVoxB9T/wtCM5W/FVi9clMKAe2iD6r+y84XgeizcKAXJg8n0+8dI
- iAPOxLlQzQGrpicjAYGG0iGhVHbObg/8FD2hkfzqbTz4PDgtR76CDUHMyk5C7KnbqD1x
- BypA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=/QrIaJJECqAQuVCu6ecLBggrZjnStxzCneNlAu9rQH0=;
- b=ixOkU8VH+TEbbCSnyfpDKGQrsiHB0V4IZ7cW/VakMKgoNvYQ4jkZ+XlJCcxXtkPogt
- M3QljBBlXu53PLcbbKRYJdAXPCgCmAmQbtf1ELRwSANwPFO3lemRBQB7sPpk1ipEEzyx
- 3DXZqlrRzm7GAyaqNMZ9+Ju7SQXhY9pxTRIGVoQfsKvprAKb3dK8m95KKjwc2oIxkf8u
- uKZOu75tinvTkhqIkeUH8QbpF2ccA5X4NfOPdoFp4thv2psmIljzXMBcuQeAVDnBoJJa
- x5XUxu88n7lt0qHEkwc/Z3pZJiV0jZ49PbdBfxhHAJgN0SMnz5ms45SfAAHguFqQSu/c
- 8aaw==
-X-Gm-Message-State: AOAM533zd7DiL1Ogkqhhkp1duEDW22Cfq8F/q8Mu5v0WlHGJDHdmY6fj
- moWhoi/z/zA37aVtIt5X+IvtUbI308muVw==
-X-Google-Smtp-Source: ABdhPJyhYfIzEnbnLJQBpi6jN7iB+nLoCLGnVtstYnd8ZUUyttHXqjaIk2Afe9h8M1lyqLaJ3yZ/bw==
-X-Received: by 2002:a62:2746:0:b029:1ec:df4a:3a8 with SMTP id
- n67-20020a6227460000b02901ecdf4a03a8mr4199041pfn.15.1614870382377; 
- Thu, 04 Mar 2021 07:06:22 -0800 (PST)
-Received: from [172.30.1.19] ([14.32.163.5])
- by smtp.gmail.com with ESMTPSA id a9sm9838656pjq.17.2021.03.04.07.06.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Mar 2021 07:06:21 -0800 (PST)
-To: Daniel Lezcano <daniel.lezcano@linaro.org>, kyungmin.park@samsung.com,
- myungjoo.ham@samsung.com
-References: <20210304125034.28404-1-daniel.lezcano@linaro.org>
-From: Chanwoo Choi <cwchoi00@gmail.com>
-Message-ID: <97e495cb-c685-e163-0909-0311530a5332@gmail.com>
-Date: Fri, 5 Mar 2021 00:06:13 +0900
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D00BC6EA30;
+ Thu,  4 Mar 2021 15:25:35 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D51141FB;
+ Thu,  4 Mar 2021 07:25:34 -0800 (PST)
+Received: from [10.57.48.219] (unknown [10.57.48.219])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2435D3F766;
+ Thu,  4 Mar 2021 07:25:32 -0800 (PST)
+To: Christoph Hellwig <hch@lst.de>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Li Yang <leoyang.li@nxp.com>
+References: <20210301084257.945454-1-hch@lst.de>
+ <20210301084257.945454-15-hch@lst.de>
+From: Robin Murphy <robin.murphy@arm.com>
+Message-ID: <1658805c-ed28-b650-7385-a56fab3383e3@arm.com>
+Date: Thu, 4 Mar 2021 15:25:27 +0000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <20210304125034.28404-1-daniel.lezcano@linaro.org>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH] devfreq: Register devfreq as a cooling
- device
+In-Reply-To: <20210301084257.945454-15-hch@lst.de>
+Content-Language: en-GB
+Subject: Re: [Freedreno] [PATCH 14/17] iommu: remove
+ DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,192 +44,431 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Herring <robh@kernel.org>,
- "moderated list:DRM DRIVERS FOR LIMA" <lima@lists.freedesktop.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>, linux-pm@vger.kernel.org,
- David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- linux-kernel@vger.kernel.org,
- "open list:DRM DRIVERS FOR LIMA" <dri-devel@lists.freedesktop.org>,
- Steven Price <steven.price@arm.com>, Chanwoo Choi <cw00.choi@samsung.com>,
- Rob Clark <robdclark@gmail.com>, Qiang Yu <yuq825@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- Sean Paul <sean@poorly.run>,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: kvm@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>,
+ linux-arm-msm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ iommu@lists.linux-foundation.org, netdev@vger.kernel.org,
+ freedreno@lists.freedesktop.org, David Woodhouse <dwmw2@infradead.org>,
+ linux-arm-kernel@lists.infradead.org
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-SGkgRGFuaWVsLAoKQXMgTHVrYXN6J3MgY29tbWVudCwgYWN0dWFsbHkgc29tZSBkZXZmcmVxIGRl
-dmljZXMgbGlrZSBtZW1vcnkgYnVzCm1pZ2h0IG5vdCBhZmZlY3QgdGhlIHRoZXJtYWwgY3JpdGlj
-YWxseS4gSW4gdGhlIG1haW5saW5lLAp0aGVyZSBhcmUgZm91ciB0eXBlcyBkZXZmcmVxIGFzIGZv
-bGxvd2luZzoKMS4gR1BVCjIuIFVGUyBTdG9yYWdlCjMuIERNQyAoTWVtb3J5IENvbnRyb2xsZXIp
-CjQuIE1lbW9yeSBidXMgbGlrZSBBTUJBIEFYSQoKSSB0aGluayB0aGF0IHlvdSBjYW4gc3BlY2lm
-eSB0aGlzIGRldmZyZXEgZGV2aWNlIHdpbGwgYmUgdXNlZApmb3IgY29vbGluZyBkZXZpY2UgYnkg
-ZWRpdGluZyB0aGUgZGV2ZnJlcV9kZXZfcHJvZmlsZSBzdHJ1Y3R1cmUuCgpkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9kZXZmcmVxL2RldmZyZXEuYyBiL2RyaXZlcnMvZGV2ZnJlcS9kZXZmcmVxLmMKaW5k
-ZXggYmYzMDQ3ODk2ZTQxLi43Nzk2NmExN2QwM2YgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZGV2ZnJl
-cS9kZXZmcmVxLmMKKysrIGIvZHJpdmVycy9kZXZmcmVxL2RldmZyZXEuYwpAQCAtOTM1LDYgKzkz
-NSwxMyBAQCBzdHJ1Y3QgZGV2ZnJlcSAqZGV2ZnJlcV9hZGRfZGV2aWNlKHN0cnVjdCBkZXZpY2Ug
-KmRldiwKCiAgICAgICAgIG11dGV4X3VubG9jaygmZGV2ZnJlcV9saXN0X2xvY2spOwoKKyAgICAg
-ICBpZiAoZGV2ZnJlcS0+cHJvZmlsZS0+aXNfY29vbGluZ19kZXZpY2UpIHsKKyAgICAgICAgICAg
-ICAgIGRldmZyZXEtPmNkZXYgPSBkZXZmcmVxX2Nvb2xpbmdfZW1fcmVnaXN0ZXIoZGV2ZnJlcSwg
-TlVMTCk7CisgICAgICAgICAgICAgICBpZiAoSVNfRVJSKGRldmZyZXEtPmNkZXYpKQorICAgICAg
-ICAgICAgICAgICAgICAgICBkZXZfaW5mbyhkZXYsCisgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIkZhaWxlZCB0byByZWdpc3RlciBkZXZmcmVxIGNvb2xpbmcgCmRldmljZVxuIik7Cisg
-ICAgICAgfQorCiAgICAgICAgIHJldHVybiBkZXZmcmVxOwoKICBlcnJfaW5pdDoKZGlmZiAtLWdp
-dCBhL2luY2x1ZGUvbGludXgvZGV2ZnJlcS5oIGIvaW5jbHVkZS9saW51eC9kZXZmcmVxLmgKaW5k
-ZXggMjZlYTA4NTBiZTliLi4yNmRjNjlmMTA0N2IgMTAwNjQ0Ci0tLSBhL2luY2x1ZGUvbGludXgv
-ZGV2ZnJlcS5oCisrKyBiL2luY2x1ZGUvbGludXgvZGV2ZnJlcS5oCkBAIC0xMDMsNiArMTAzLDcg
-QEAgc3RydWN0IGRldmZyZXFfZGV2X3Byb2ZpbGUgewogICAgICAgICB1bnNpZ25lZCBsb25nIGlu
-aXRpYWxfZnJlcTsKICAgICAgICAgdW5zaWduZWQgaW50IHBvbGxpbmdfbXM7CiAgICAgICAgIGVu
-dW0gZGV2ZnJlcV90aW1lciB0aW1lcjsKKyAgICAgICBib29sIGlzX2Nvb2xpbmdfZGV2aWNlOwoK
-ICAgICAgICAgaW50ICgqdGFyZ2V0KShzdHJ1Y3QgZGV2aWNlICpkZXYsIHVuc2lnbmVkIGxvbmcg
-KmZyZXEsIHUzMiBmbGFncyk7CiAgICAgICAgIGludCAoKmdldF9kZXZfc3RhdHVzKShzdHJ1Y3Qg
-ZGV2aWNlICpkZXYsCgoKVGhhbmtzCkNoYW53b28gQ2hvaQoKT24gMjEuIDMuIDQuIOyYpO2bhCA5
-OjUwLCBEYW5pZWwgTGV6Y2FubyB3cm90ZToKPiBDdXJyZW50bHkgdGhlIGRlZmF1bHQgYmVoYXZp
-b3IgaXMgdG8gbWFudWFsbHkgaGF2aW5nIHRoZSBkZXZmcmVxCj4gYmFja2VuZCB0byByZWdpc3Rl
-ciB0aGVtc2VsdmVzIGFzIGEgZGV2ZnJlcSBjb29saW5nIGRldmljZS4KPiAKPiBUaGVyZSBhcmUg
-bm8gc28gbWFueSBhbmQgYWN0dWFsbHkgaXQgbWFrZXMgbW9yZSBzZW5zZSB0byByZWdpc3RlciB0
-aGUKPiBkZXZmcmVxIGRldmljZSB3aGVuIGFkZGluZyBpdC4KPiAKPiBDb25zZXF1ZW50bHksIGV2
-ZXJ5IGRldmZyZXEgYmVjb21lcyBhIGNvb2xpbmcgZGV2aWNlIGxpa2UgY3B1ZnJlcSBpcy4KPiAK
-PiBIYXZpbmcgYSBkZXZmcmVxIGJlaW5nIHJlZ2lzdGVyZWQgYXMgYSBjb29saW5nIGRldmljZSBj
-YW4gbm90IG1pdGlnYXRlCj4gYSB0aGVybWFsIHpvbmUgaWYgaXQgaXMgbm90IGJvdW5kIHRvIHRo
-aXMgb25lLiBUaHVzLCB0aGUgY3VycmVudAo+IGNvbmZpZ3VyYXRpb25zIGFyZSBub3QgaW1wYWN0
-ZWQgYnkgdGhpcyBjaGFuZ2UuCj4gCj4gU2lnbmVkLW9mZi1ieTogRGFuaWVsIExlemNhbm8gPGRh
-bmllbC5sZXpjYW5vQGxpbmFyby5vcmc+Cj4gLS0tCj4gICBkcml2ZXJzL2RldmZyZXEvZGV2ZnJl
-cS5jICAgICAgICAgICAgICAgICAgIHwgIDggKysrKysrKysKPiAgIGRyaXZlcnMvZ3B1L2RybS9s
-aW1hL2xpbWFfZGV2ZnJlcS5jICAgICAgICAgfCAxMyAtLS0tLS0tLS0tLS0tCj4gICBkcml2ZXJz
-L2dwdS9kcm0vbGltYS9saW1hX2RldmZyZXEuaCAgICAgICAgIHwgIDIgLS0KPiAgIGRyaXZlcnMv
-Z3B1L2RybS9tc20vbXNtX2dwdS5jICAgICAgICAgICAgICAgfCAxMSAtLS0tLS0tLS0tLQo+ICAg
-ZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZ3B1LmggICAgICAgICAgICAgICB8ICAyIC0tCj4gICBk
-cml2ZXJzL2dwdS9kcm0vcGFuZnJvc3QvcGFuZnJvc3RfZGV2ZnJlcS5jIHwgMTMgLS0tLS0tLS0t
-LS0tLQo+ICAgaW5jbHVkZS9saW51eC9kZXZmcmVxLmggICAgICAgICAgICAgICAgICAgICB8ICAz
-ICsrKwo+ICAgNyBmaWxlcyBjaGFuZ2VkLCAxMSBpbnNlcnRpb25zKCspLCA0MSBkZWxldGlvbnMo
-LSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9kZXZmcmVxL2RldmZyZXEuYyBiL2RyaXZlcnMv
-ZGV2ZnJlcS9kZXZmcmVxLmMKPiBpbmRleCBiNmQ2M2YwMmQyOTMuLjE5MTQ5YjMxYjAwMCAxMDA2
-NDQKPiAtLS0gYS9kcml2ZXJzL2RldmZyZXEvZGV2ZnJlcS5jCj4gKysrIGIvZHJpdmVycy9kZXZm
-cmVxL2RldmZyZXEuYwo+IEBAIC0xMSw2ICsxMSw3IEBACj4gICAjaW5jbHVkZSA8bGludXgva21v
-ZC5oPgo+ICAgI2luY2x1ZGUgPGxpbnV4L3NjaGVkLmg+Cj4gICAjaW5jbHVkZSA8bGludXgvZGVi
-dWdmcy5oPgo+ICsjaW5jbHVkZSA8bGludXgvZGV2ZnJlcV9jb29saW5nLmg+Cj4gICAjaW5jbHVk
-ZSA8bGludXgvZXJybm8uaD4KPiAgICNpbmNsdWRlIDxsaW51eC9lcnIuaD4KPiAgICNpbmNsdWRl
-IDxsaW51eC9pbml0Lmg+Cj4gQEAgLTI2LDYgKzI3LDcgQEAKPiAgICNpbmNsdWRlIDxsaW51eC9o
-cnRpbWVyLmg+Cj4gICAjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAgICNpbmNsdWRlIDxsaW51eC9w
-bV9xb3MuaD4KPiArI2luY2x1ZGUgPGxpbnV4L3RoZXJtYWwuaD4KPiAgICNpbmNsdWRlIDxsaW51
-eC91bml0cy5oPgo+ICAgI2luY2x1ZGUgImdvdmVybm9yLmgiCj4gICAKPiBAQCAtOTM1LDYgKzkz
-NywxMCBAQCBzdHJ1Y3QgZGV2ZnJlcSAqZGV2ZnJlcV9hZGRfZGV2aWNlKHN0cnVjdCBkZXZpY2Ug
-KmRldiwKPiAgIAo+ICAgCW11dGV4X3VubG9jaygmZGV2ZnJlcV9saXN0X2xvY2spOwo+ICAgCj4g
-KwlkZXZmcmVxLT5jZGV2ID0gZGV2ZnJlcV9jb29saW5nX2VtX3JlZ2lzdGVyKGRldmZyZXEsIE5V
-TEwpOwo+ICsJaWYgKElTX0VSUihkZXZmcmVxLT5jZGV2KSkKPiArCQlkZXZfaW5mbyhkZXYsICJG
-YWlsZWQgdG8gcmVnaXN0ZXIgZGV2ZnJlcSBjb29saW5nIGRldmljZVxuIik7Cj4gKwo+ICAgCXJl
-dHVybiBkZXZmcmVxOwo+ICAgCj4gICBlcnJfaW5pdDoKPiBAQCAtOTYwLDYgKzk2Niw4IEBAIGlu
-dCBkZXZmcmVxX3JlbW92ZV9kZXZpY2Uoc3RydWN0IGRldmZyZXEgKmRldmZyZXEpCj4gICAJaWYg
-KCFkZXZmcmVxKQo+ICAgCQlyZXR1cm4gLUVJTlZBTDsKPiAgIAo+ICsJdGhlcm1hbF9jb29saW5n
-X2RldmljZV91bnJlZ2lzdGVyKGRldmZyZXEtPmNkZXYpOwo+ICsKPiAgIAlpZiAoZGV2ZnJlcS0+
-Z292ZXJub3IpIHsKPiAgIAkJZGV2ZnJlcS0+Z292ZXJub3ItPmV2ZW50X2hhbmRsZXIoZGV2ZnJl
-cSwKPiAgIAkJCQkJCSBERVZGUkVRX0dPVl9TVE9QLCBOVUxMKTsKPiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2xpbWEvbGltYV9kZXZmcmVxLmMgYi9kcml2ZXJzL2dwdS9kcm0vbGltYS9s
-aW1hX2RldmZyZXEuYwo+IGluZGV4IDU2ODZhZDRhYWY3Yy4uYTY5NmVmZjE2NDJjIDEwMDY0NAo+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9saW1hL2xpbWFfZGV2ZnJlcS5jCj4gKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2xpbWEvbGltYV9kZXZmcmVxLmMKPiBAQCAtNyw3ICs3LDYgQEAKPiAgICAqLwo+
-ICAgI2luY2x1ZGUgPGxpbnV4L2Nsay5oPgo+ICAgI2luY2x1ZGUgPGxpbnV4L2RldmZyZXEuaD4K
-PiAtI2luY2x1ZGUgPGxpbnV4L2RldmZyZXFfY29vbGluZy5oPgo+ICAgI2luY2x1ZGUgPGxpbnV4
-L2RldmljZS5oPgo+ICAgI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAgI2lu
-Y2x1ZGUgPGxpbnV4L3BtX29wcC5oPgo+IEBAIC05MCwxMSArODksNiBAQCB2b2lkIGxpbWFfZGV2
-ZnJlcV9maW5pKHN0cnVjdCBsaW1hX2RldmljZSAqbGRldikKPiAgIHsKPiAgIAlzdHJ1Y3QgbGlt
-YV9kZXZmcmVxICpkZXZmcmVxID0gJmxkZXYtPmRldmZyZXE7Cj4gICAKPiAtCWlmIChkZXZmcmVx
-LT5jb29saW5nKSB7Cj4gLQkJZGV2ZnJlcV9jb29saW5nX3VucmVnaXN0ZXIoZGV2ZnJlcS0+Y29v
-bGluZyk7Cj4gLQkJZGV2ZnJlcS0+Y29vbGluZyA9IE5VTEw7Cj4gLQl9Cj4gLQo+ICAgCWlmIChk
-ZXZmcmVxLT5kZXZmcmVxKSB7Cj4gICAJCWRldm1fZGV2ZnJlcV9yZW1vdmVfZGV2aWNlKGxkZXYt
-PmRldiwgZGV2ZnJlcS0+ZGV2ZnJlcSk7Cj4gICAJCWRldmZyZXEtPmRldmZyZXEgPSBOVUxMOwo+
-IEBAIC0xMTAsNyArMTA0LDYgQEAgdm9pZCBsaW1hX2RldmZyZXFfZmluaShzdHJ1Y3QgbGltYV9k
-ZXZpY2UgKmxkZXYpCj4gICAKPiAgIGludCBsaW1hX2RldmZyZXFfaW5pdChzdHJ1Y3QgbGltYV9k
-ZXZpY2UgKmxkZXYpCj4gICB7Cj4gLQlzdHJ1Y3QgdGhlcm1hbF9jb29saW5nX2RldmljZSAqY29v
-bGluZzsKPiAgIAlzdHJ1Y3QgZGV2aWNlICpkZXYgPSBsZGV2LT5kZXY7Cj4gICAJc3RydWN0IG9w
-cF90YWJsZSAqb3BwX3RhYmxlOwo+ICAgCXN0cnVjdCBkZXZmcmVxICpkZXZmcmVxOwo+IEBAIC0x
-NzMsMTIgKzE2Niw2IEBAIGludCBsaW1hX2RldmZyZXFfaW5pdChzdHJ1Y3QgbGltYV9kZXZpY2Ug
-KmxkZXYpCj4gICAKPiAgIAlsZGV2ZnJlcS0+ZGV2ZnJlcSA9IGRldmZyZXE7Cj4gICAKPiAtCWNv
-b2xpbmcgPSBvZl9kZXZmcmVxX2Nvb2xpbmdfcmVnaXN0ZXIoZGV2LT5vZl9ub2RlLCBkZXZmcmVx
-KTsKPiAtCWlmIChJU19FUlIoY29vbGluZykpCj4gLQkJZGV2X2luZm8oZGV2LCAiRmFpbGVkIHRv
-IHJlZ2lzdGVyIGNvb2xpbmcgZGV2aWNlXG4iKTsKPiAtCWVsc2UKPiAtCQlsZGV2ZnJlcS0+Y29v
-bGluZyA9IGNvb2xpbmc7Cj4gLQo+ICAgCXJldHVybiAwOwo+ICAgCj4gICBlcnJfZmluaToKPiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2xpbWEvbGltYV9kZXZmcmVxLmggYi9kcml2ZXJz
-L2dwdS9kcm0vbGltYS9saW1hX2RldmZyZXEuaAo+IGluZGV4IDJkOWIzMDA4Y2U3Ny4uYzQzYTIw
-NjllNWQzIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9saW1hL2xpbWFfZGV2ZnJlcS5o
-Cj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2xpbWEvbGltYV9kZXZmcmVxLmgKPiBAQCAtOSw3ICs5
-LDYgQEAKPiAgIAo+ICAgc3RydWN0IGRldmZyZXE7Cj4gICBzdHJ1Y3Qgb3BwX3RhYmxlOwo+IC1z
-dHJ1Y3QgdGhlcm1hbF9jb29saW5nX2RldmljZTsKPiAgIAo+ICAgc3RydWN0IGxpbWFfZGV2aWNl
-Owo+ICAgCj4gQEAgLTE3LDcgKzE2LDYgQEAgc3RydWN0IGxpbWFfZGV2ZnJlcSB7Cj4gICAJc3Ry
-dWN0IGRldmZyZXEgKmRldmZyZXE7Cj4gICAJc3RydWN0IG9wcF90YWJsZSAqY2xrbmFtZV9vcHBf
-dGFibGU7Cj4gICAJc3RydWN0IG9wcF90YWJsZSAqcmVndWxhdG9yc19vcHBfdGFibGU7Cj4gLQlz
-dHJ1Y3QgdGhlcm1hbF9jb29saW5nX2RldmljZSAqY29vbGluZzsKPiAgIAo+ICAgCWt0aW1lX3Qg
-YnVzeV90aW1lOwo+ICAgCWt0aW1lX3QgaWRsZV90aW1lOwo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vbXNtL21zbV9ncHUuYyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2dwdS5jCj4g
-aW5kZXggYWI3YzE2N2IwNjIzLi5kN2Y4MGViZmU5ZGYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL21zbS9tc21fZ3B1LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9ncHUu
-Ywo+IEBAIC0xNCw3ICsxNCw2IEBACj4gICAjaW5jbHVkZSA8Z2VuZXJhdGVkL3V0c3JlbGVhc2Uu
-aD4KPiAgICNpbmNsdWRlIDxsaW51eC9zdHJpbmdfaGVscGVycy5oPgo+ICAgI2luY2x1ZGUgPGxp
-bnV4L2RldmZyZXEuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L2RldmZyZXFfY29vbGluZy5oPgo+ICAg
-I2luY2x1ZGUgPGxpbnV4L2RldmNvcmVkdW1wLmg+Cj4gICAjaW5jbHVkZSA8bGludXgvc2NoZWQv
-dGFzay5oPgo+ICAgCj4gQEAgLTExMiwxNCArMTExLDYgQEAgc3RhdGljIHZvaWQgbXNtX2RldmZy
-ZXFfaW5pdChzdHJ1Y3QgbXNtX2dwdSAqZ3B1KQo+ICAgCX0KPiAgIAo+ICAgCWRldmZyZXFfc3Vz
-cGVuZF9kZXZpY2UoZ3B1LT5kZXZmcmVxLmRldmZyZXEpOwo+IC0KPiAtCWdwdS0+Y29vbGluZyA9
-IG9mX2RldmZyZXFfY29vbGluZ19yZWdpc3RlcihncHUtPnBkZXYtPmRldi5vZl9ub2RlLAo+IC0J
-CQlncHUtPmRldmZyZXEuZGV2ZnJlcSk7Cj4gLQlpZiAoSVNfRVJSKGdwdS0+Y29vbGluZykpIHsK
-PiAtCQlEUk1fREVWX0VSUk9SKCZncHUtPnBkZXYtPmRldiwKPiAtCQkJCSJDb3VsZG4ndCByZWdp
-c3RlciBHUFUgY29vbGluZyBkZXZpY2VcbiIpOwo+IC0JCWdwdS0+Y29vbGluZyA9IE5VTEw7Cj4g
-LQl9Cj4gICB9Cj4gICAKPiAgIHN0YXRpYyBpbnQgZW5hYmxlX3B3cnJhaWwoc3RydWN0IG1zbV9n
-cHUgKmdwdSkKPiBAQCAtMTA1Niw2ICsxMDQ3LDQgQEAgdm9pZCBtc21fZ3B1X2NsZWFudXAoc3Ry
-dWN0IG1zbV9ncHUgKmdwdSkKPiAgIAlpZiAoZ3B1LT53b3JrZXIpIHsKPiAgIAkJa3RocmVhZF9k
-ZXN0cm95X3dvcmtlcihncHUtPndvcmtlcik7Cj4gICAJfQo+IC0KPiAtCWRldmZyZXFfY29vbGlu
-Z191bnJlZ2lzdGVyKGdwdS0+Y29vbGluZyk7Cj4gICB9Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9tc20vbXNtX2dwdS5oIGIvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZ3B1LmgKPiBp
-bmRleCBkN2NkMDJjZDIxMDkuLjkzNDE5MzY4YmFjOCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vbXNtL21zbV9ncHUuaAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2dwdS5o
-Cj4gQEAgLTE1NSw4ICsxNTUsNiBAQCBzdHJ1Y3QgbXNtX2dwdSB7Cj4gICAJc3RydWN0IG1zbV9n
-cHVfc3RhdGUgKmNyYXNoc3RhdGU7Cj4gICAJLyogVHJ1ZSBpZiB0aGUgaGFyZHdhcmUgc3VwcG9y
-dHMgZXhwYW5kZWQgYXByaXYgKGE2NTAgYW5kIG5ld2VyKSAqLwo+ICAgCWJvb2wgaHdfYXByaXY7
-Cj4gLQo+IC0Jc3RydWN0IHRoZXJtYWxfY29vbGluZ19kZXZpY2UgKmNvb2xpbmc7Cj4gICB9Owo+
-ICAgCj4gICBzdGF0aWMgaW5saW5lIHN0cnVjdCBtc21fZ3B1ICpkZXZfdG9fZ3B1KHN0cnVjdCBk
-ZXZpY2UgKmRldikKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3BhbmZyb3N0L3BhbmZy
-b3N0X2RldmZyZXEuYyBiL2RyaXZlcnMvZ3B1L2RybS9wYW5mcm9zdC9wYW5mcm9zdF9kZXZmcmVx
-LmMKPiBpbmRleCA1NmIzZjU5MzU3MDMuLjJjYjYzMDBkZTFmMSAxMDA2NDQKPiAtLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vcGFuZnJvc3QvcGFuZnJvc3RfZGV2ZnJlcS5jCj4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL3BhbmZyb3N0L3BhbmZyb3N0X2RldmZyZXEuYwo+IEBAIC0zLDcgKzMsNiBAQAo+ICAg
-Cj4gICAjaW5jbHVkZSA8bGludXgvY2xrLmg+Cj4gICAjaW5jbHVkZSA8bGludXgvZGV2ZnJlcS5o
-Pgo+IC0jaW5jbHVkZSA8bGludXgvZGV2ZnJlcV9jb29saW5nLmg+Cj4gICAjaW5jbHVkZSA8bGlu
-dXgvcGxhdGZvcm1fZGV2aWNlLmg+Cj4gICAjaW5jbHVkZSA8bGludXgvcG1fb3BwLmg+Cj4gICAK
-PiBAQCAtOTAsNyArODksNiBAQCBpbnQgcGFuZnJvc3RfZGV2ZnJlcV9pbml0KHN0cnVjdCBwYW5m
-cm9zdF9kZXZpY2UgKnBmZGV2KQo+ICAgCXN0cnVjdCBkZXZpY2UgKmRldiA9ICZwZmRldi0+cGRl
-di0+ZGV2Owo+ICAgCXN0cnVjdCBkZXZmcmVxICpkZXZmcmVxOwo+ICAgCXN0cnVjdCBvcHBfdGFi
-bGUgKm9wcF90YWJsZTsKPiAtCXN0cnVjdCB0aGVybWFsX2Nvb2xpbmdfZGV2aWNlICpjb29saW5n
-Owo+ICAgCXN0cnVjdCBwYW5mcm9zdF9kZXZmcmVxICpwZmRldmZyZXEgPSAmcGZkZXYtPnBmZGV2
-ZnJlcTsKPiAgIAo+ICAgCW9wcF90YWJsZSA9IGRldl9wbV9vcHBfc2V0X3JlZ3VsYXRvcnMoZGV2
-LCBwZmRldi0+Y29tcC0+c3VwcGx5X25hbWVzLAo+IEBAIC0xMzksMTIgKzEzNyw2IEBAIGludCBw
-YW5mcm9zdF9kZXZmcmVxX2luaXQoc3RydWN0IHBhbmZyb3N0X2RldmljZSAqcGZkZXYpCj4gICAJ
-fQo+ICAgCXBmZGV2ZnJlcS0+ZGV2ZnJlcSA9IGRldmZyZXE7Cj4gICAKPiAtCWNvb2xpbmcgPSBk
-ZXZmcmVxX2Nvb2xpbmdfZW1fcmVnaXN0ZXIoZGV2ZnJlcSwgTlVMTCk7Cj4gLQlpZiAoSVNfRVJS
-KGNvb2xpbmcpKQo+IC0JCURSTV9ERVZfSU5GTyhkZXYsICJGYWlsZWQgdG8gcmVnaXN0ZXIgY29v
-bGluZyBkZXZpY2VcbiIpOwo+IC0JZWxzZQo+IC0JCXBmZGV2ZnJlcS0+Y29vbGluZyA9IGNvb2xp
-bmc7Cj4gLQo+ICAgCXJldHVybiAwOwo+ICAgCj4gICBlcnJfZmluaToKPiBAQCAtMTU2LDExICsx
-NDgsNiBAQCB2b2lkIHBhbmZyb3N0X2RldmZyZXFfZmluaShzdHJ1Y3QgcGFuZnJvc3RfZGV2aWNl
-ICpwZmRldikKPiAgIHsKPiAgIAlzdHJ1Y3QgcGFuZnJvc3RfZGV2ZnJlcSAqcGZkZXZmcmVxID0g
-JnBmZGV2LT5wZmRldmZyZXE7Cj4gICAKPiAtCWlmIChwZmRldmZyZXEtPmNvb2xpbmcpIHsKPiAt
-CQlkZXZmcmVxX2Nvb2xpbmdfdW5yZWdpc3RlcihwZmRldmZyZXEtPmNvb2xpbmcpOwo+IC0JCXBm
-ZGV2ZnJlcS0+Y29vbGluZyA9IE5VTEw7Cj4gLQl9Cj4gLQo+ICAgCWlmIChwZmRldmZyZXEtPm9w
-cF9vZl90YWJsZV9hZGRlZCkgewo+ICAgCQlkZXZfcG1fb3BwX29mX3JlbW92ZV90YWJsZSgmcGZk
-ZXYtPnBkZXYtPmRldik7Cj4gICAJCXBmZGV2ZnJlcS0+b3BwX29mX3RhYmxlX2FkZGVkID0gZmFs
-c2U7Cj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvbGludXgvZGV2ZnJlcS5oIGIvaW5jbHVkZS9saW51
-eC9kZXZmcmVxLmgKPiBpbmRleCAyNmVhMDg1MGJlOWIuLjY5MGJkNGFmZmUxOCAxMDA2NDQKPiAt
-LS0gYS9pbmNsdWRlL2xpbnV4L2RldmZyZXEuaAo+ICsrKyBiL2luY2x1ZGUvbGludXgvZGV2ZnJl
-cS5oCj4gQEAgLTE5OCw2ICsxOTgsOSBAQCBzdHJ1Y3QgZGV2ZnJlcSB7Cj4gICAKPiAgIAlzdHJ1
-Y3Qgc3JjdV9ub3RpZmllcl9oZWFkIHRyYW5zaXRpb25fbm90aWZpZXJfbGlzdDsKPiAgIAo+ICsJ
-LyogUG9pbnRlciB0byB0aGUgY29vbGluZyBkZXZpY2UgaWYgdXNlZCBmb3IgdGhlcm1hbCBtaXRp
-Z2F0aW9uICovCj4gKwlzdHJ1Y3QgdGhlcm1hbF9jb29saW5nX2RldmljZSAqY2RldjsKPiArCj4g
-ICAJc3RydWN0IG5vdGlmaWVyX2Jsb2NrIG5iX21pbjsKPiAgIAlzdHJ1Y3Qgbm90aWZpZXJfYmxv
-Y2sgbmJfbWF4Owo+ICAgfTsKPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-ZnJlZWRyZW5vCg==
+On 2021-03-01 08:42, Christoph Hellwig wrote:
+> Use explicit methods for setting and querying the information instead.
+
+Now that everyone's using iommu-dma, is there any point in bouncing this 
+through the drivers at all? Seems like it would make more sense for the 
+x86 drivers to reflect their private options back to iommu_dma_strict 
+(and allow Intel's caching mode to override it as well), then have 
+iommu_dma_init_domain just test !iommu_dma_strict && 
+domain->ops->flush_iotlb_all.
+
+Robin.
+
+> Also remove the now unused iommu_domain_get_attr functionality.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>   drivers/iommu/amd/iommu.c                   | 23 ++-------
+>   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 47 ++++++-----------
+>   drivers/iommu/arm/arm-smmu/arm-smmu.c       | 56 +++++----------------
+>   drivers/iommu/dma-iommu.c                   |  8 ++-
+>   drivers/iommu/intel/iommu.c                 | 27 ++--------
+>   drivers/iommu/iommu.c                       | 19 +++----
+>   include/linux/iommu.h                       | 17 ++-----
+>   7 files changed, 51 insertions(+), 146 deletions(-)
+> 
+> diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
+> index a69a8b573e40d0..37a8e51db17656 100644
+> --- a/drivers/iommu/amd/iommu.c
+> +++ b/drivers/iommu/amd/iommu.c
+> @@ -1771,24 +1771,11 @@ static struct iommu_group *amd_iommu_device_group(struct device *dev)
+>   	return acpihid_device_group(dev);
+>   }
+>   
+> -static int amd_iommu_domain_get_attr(struct iommu_domain *domain,
+> -		enum iommu_attr attr, void *data)
+> +static bool amd_iommu_dma_use_flush_queue(struct iommu_domain *domain)
+>   {
+> -	switch (domain->type) {
+> -	case IOMMU_DOMAIN_UNMANAGED:
+> -		return -ENODEV;
+> -	case IOMMU_DOMAIN_DMA:
+> -		switch (attr) {
+> -		case DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE:
+> -			*(int *)data = !amd_iommu_unmap_flush;
+> -			return 0;
+> -		default:
+> -			return -ENODEV;
+> -		}
+> -		break;
+> -	default:
+> -		return -EINVAL;
+> -	}
+> +	if (domain->type != IOMMU_DOMAIN_DMA)
+> +		return false;
+> +	return !amd_iommu_unmap_flush;
+>   }
+>   
+>   /*****************************************************************************
+> @@ -2257,7 +2244,7 @@ const struct iommu_ops amd_iommu_ops = {
+>   	.release_device = amd_iommu_release_device,
+>   	.probe_finalize = amd_iommu_probe_finalize,
+>   	.device_group = amd_iommu_device_group,
+> -	.domain_get_attr = amd_iommu_domain_get_attr,
+> +	.dma_use_flush_queue = amd_iommu_dma_use_flush_queue,
+>   	.get_resv_regions = amd_iommu_get_resv_regions,
+>   	.put_resv_regions = generic_iommu_put_resv_regions,
+>   	.is_attach_deferred = amd_iommu_is_attach_deferred,
+> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> index 8594b4a8304375..bf96172e8c1f71 100644
+> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> @@ -2449,33 +2449,21 @@ static struct iommu_group *arm_smmu_device_group(struct device *dev)
+>   	return group;
+>   }
+>   
+> -static int arm_smmu_domain_get_attr(struct iommu_domain *domain,
+> -				    enum iommu_attr attr, void *data)
+> +static bool arm_smmu_dma_use_flush_queue(struct iommu_domain *domain)
+>   {
+>   	struct arm_smmu_domain *smmu_domain = to_smmu_domain(domain);
+>   
+> -	switch (domain->type) {
+> -	case IOMMU_DOMAIN_UNMANAGED:
+> -		switch (attr) {
+> -		case DOMAIN_ATTR_NESTING:
+> -			*(int *)data = (smmu_domain->stage == ARM_SMMU_DOMAIN_NESTED);
+> -			return 0;
+> -		default:
+> -			return -ENODEV;
+> -		}
+> -		break;
+> -	case IOMMU_DOMAIN_DMA:
+> -		switch (attr) {
+> -		case DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE:
+> -			*(int *)data = smmu_domain->non_strict;
+> -			return 0;
+> -		default:
+> -			return -ENODEV;
+> -		}
+> -		break;
+> -	default:
+> -		return -EINVAL;
+> -	}
+> +	if (domain->type != IOMMU_DOMAIN_DMA)
+> +		return false;
+> +	return smmu_domain->non_strict;
+> +}
+> +
+> +
+> +static void arm_smmu_dma_enable_flush_queue(struct iommu_domain *domain)
+> +{
+> +	if (domain->type != IOMMU_DOMAIN_DMA)
+> +		return;
+> +	to_smmu_domain(domain)->non_strict = true;
+>   }
+>   
+>   static int arm_smmu_domain_set_attr(struct iommu_domain *domain,
+> @@ -2505,13 +2493,7 @@ static int arm_smmu_domain_set_attr(struct iommu_domain *domain,
+>   		}
+>   		break;
+>   	case IOMMU_DOMAIN_DMA:
+> -		switch(attr) {
+> -		case DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE:
+> -			smmu_domain->non_strict = *(int *)data;
+> -			break;
+> -		default:
+> -			ret = -ENODEV;
+> -		}
+> +		ret = -ENODEV;
+>   		break;
+>   	default:
+>   		ret = -EINVAL;
+> @@ -2619,7 +2601,8 @@ static struct iommu_ops arm_smmu_ops = {
+>   	.probe_device		= arm_smmu_probe_device,
+>   	.release_device		= arm_smmu_release_device,
+>   	.device_group		= arm_smmu_device_group,
+> -	.domain_get_attr	= arm_smmu_domain_get_attr,
+> +	.dma_use_flush_queue	= arm_smmu_dma_use_flush_queue,
+> +	.dma_enable_flush_queue	= arm_smmu_dma_enable_flush_queue,
+>   	.domain_set_attr	= arm_smmu_domain_set_attr,
+>   	.of_xlate		= arm_smmu_of_xlate,
+>   	.get_resv_regions	= arm_smmu_get_resv_regions,
+> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+> index d8c6bfde6a6158..e7893e96f5177a 100644
+> --- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
+> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+> @@ -1481,42 +1481,20 @@ static struct iommu_group *arm_smmu_device_group(struct device *dev)
+>   	return group;
+>   }
+>   
+> -static int arm_smmu_domain_get_attr(struct iommu_domain *domain,
+> -				    enum iommu_attr attr, void *data)
+> +static bool arm_smmu_dma_use_flush_queue(struct iommu_domain *domain)
+>   {
+>   	struct arm_smmu_domain *smmu_domain = to_smmu_domain(domain);
+>   
+> -	switch(domain->type) {
+> -	case IOMMU_DOMAIN_UNMANAGED:
+> -		switch (attr) {
+> -		case DOMAIN_ATTR_NESTING:
+> -			*(int *)data = (smmu_domain->stage == ARM_SMMU_DOMAIN_NESTED);
+> -			return 0;
+> -		case DOMAIN_ATTR_IO_PGTABLE_CFG: {
+> -			struct io_pgtable_domain_attr *pgtbl_cfg = data;
+> -			*pgtbl_cfg = smmu_domain->pgtbl_cfg;
+> +	if (domain->type != IOMMU_DOMAIN_DMA)
+> +		return false;
+> +	return smmu_domain->pgtbl_cfg.quirks & IO_PGTABLE_QUIRK_NON_STRICT;
+> +}
+>   
+> -			return 0;
+> -		}
+> -		default:
+> -			return -ENODEV;
+> -		}
+> -		break;
+> -	case IOMMU_DOMAIN_DMA:
+> -		switch (attr) {
+> -		case DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE: {
+> -			bool non_strict = smmu_domain->pgtbl_cfg.quirks &
+> -					  IO_PGTABLE_QUIRK_NON_STRICT;
+> -			*(int *)data = non_strict;
+> -			return 0;
+> -		}
+> -		default:
+> -			return -ENODEV;
+> -		}
+> -		break;
+> -	default:
+> -		return -EINVAL;
+> -	}
+> +static void arm_smmu_dma_enable_flush_queue(struct iommu_domain *domain)
+> +{
+> +	if (domain->type != IOMMU_DOMAIN_DMA)
+> +		return;
+> +	to_smmu_domain(domain)->pgtbl_cfg.quirks |= IO_PGTABLE_QUIRK_NON_STRICT;
+>   }
+>   
+>   static int arm_smmu_domain_set_attr(struct iommu_domain *domain,
+> @@ -1557,16 +1535,7 @@ static int arm_smmu_domain_set_attr(struct iommu_domain *domain,
+>   		}
+>   		break;
+>   	case IOMMU_DOMAIN_DMA:
+> -		switch (attr) {
+> -		case DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE:
+> -			if (*(int *)data)
+> -				smmu_domain->pgtbl_cfg.quirks |= IO_PGTABLE_QUIRK_NON_STRICT;
+> -			else
+> -				smmu_domain->pgtbl_cfg.quirks &= ~IO_PGTABLE_QUIRK_NON_STRICT;
+> -			break;
+> -		default:
+> -			ret = -ENODEV;
+> -		}
+> +		ret = -ENODEV;
+>   		break;
+>   	default:
+>   		ret = -EINVAL;
+> @@ -1631,7 +1600,8 @@ static struct iommu_ops arm_smmu_ops = {
+>   	.probe_device		= arm_smmu_probe_device,
+>   	.release_device		= arm_smmu_release_device,
+>   	.device_group		= arm_smmu_device_group,
+> -	.domain_get_attr	= arm_smmu_domain_get_attr,
+> +	.dma_use_flush_queue	= arm_smmu_dma_use_flush_queue,
+> +	.dma_enable_flush_queue	= arm_smmu_dma_enable_flush_queue,
+>   	.domain_set_attr	= arm_smmu_domain_set_attr,
+>   	.of_xlate		= arm_smmu_of_xlate,
+>   	.get_resv_regions	= arm_smmu_get_resv_regions,
+> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+> index 9ab6ee22c11088..d3fe5aad9d6ecf 100644
+> --- a/drivers/iommu/dma-iommu.c
+> +++ b/drivers/iommu/dma-iommu.c
+> @@ -305,8 +305,8 @@ static void iommu_dma_flush_iotlb_all(struct iova_domain *iovad)
+>   	cookie = container_of(iovad, struct iommu_dma_cookie, iovad);
+>   	domain = cookie->fq_domain;
+>   	/*
+> -	 * The IOMMU driver supporting DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE
+> -	 * implies that ops->flush_iotlb_all must be non-NULL.
+> +	 * The IOMMU driver supporting a DMA flush queue implies that
+> +	 * ops->flush_iotlb_all must be non-NULL.
+>   	 */
+>   	domain->ops->flush_iotlb_all(domain);
+>   }
+> @@ -329,7 +329,6 @@ static int iommu_dma_init_domain(struct iommu_domain *domain, dma_addr_t base,
+>   	struct iommu_dma_cookie *cookie = domain->iova_cookie;
+>   	unsigned long order, base_pfn;
+>   	struct iova_domain *iovad;
+> -	int attr;
+>   
+>   	if (!cookie || cookie->type != IOMMU_DMA_IOVA_COOKIE)
+>   		return -EINVAL;
+> @@ -365,8 +364,7 @@ static int iommu_dma_init_domain(struct iommu_domain *domain, dma_addr_t base,
+>   
+>   	init_iova_domain(iovad, 1UL << order, base_pfn);
+>   
+> -	if (!cookie->fq_domain && !iommu_domain_get_attr(domain,
+> -			DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE, &attr) && attr) {
+> +	if (!cookie->fq_domain && iommu_dma_use_flush_queue(domain)) {
+>   		if (init_iova_flush_queue(iovad, iommu_dma_flush_iotlb_all,
+>   					  iommu_dma_entry_dtor))
+>   			pr_warn("iova flush queue initialization failed\n");
+> diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
+> index ee0932307d646b..eaa80c33f4bc91 100644
+> --- a/drivers/iommu/intel/iommu.c
+> +++ b/drivers/iommu/intel/iommu.c
+> @@ -5453,13 +5453,13 @@ intel_iommu_domain_set_attr(struct iommu_domain *domain,
+>   	return ret;
+>   }
+>   
+> -static bool domain_use_flush_queue(void)
+> +static bool intel_iommu_dma_use_flush_queue(struct iommu_domain *domain)
+>   {
+>   	struct dmar_drhd_unit *drhd;
+>   	struct intel_iommu *iommu;
+>   	bool r = true;
+>   
+> -	if (intel_iommu_strict)
+> +	if (domain->type != IOMMU_DOMAIN_DMA || intel_iommu_strict)
+>   		return false;
+>   
+>   	/*
+> @@ -5483,27 +5483,6 @@ static bool domain_use_flush_queue(void)
+>   	return r;
+>   }
+>   
+> -static int
+> -intel_iommu_domain_get_attr(struct iommu_domain *domain,
+> -			    enum iommu_attr attr, void *data)
+> -{
+> -	switch (domain->type) {
+> -	case IOMMU_DOMAIN_UNMANAGED:
+> -		return -ENODEV;
+> -	case IOMMU_DOMAIN_DMA:
+> -		switch (attr) {
+> -		case DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE:
+> -			*(int *)data = domain_use_flush_queue();
+> -			return 0;
+> -		default:
+> -			return -ENODEV;
+> -		}
+> -		break;
+> -	default:
+> -		return -EINVAL;
+> -	}
+> -}
+> -
+>   /*
+>    * Check that the device does not live on an external facing PCI port that is
+>    * marked as untrusted. Such devices should not be able to apply quirks and
+> @@ -5576,7 +5555,7 @@ const struct iommu_ops intel_iommu_ops = {
+>   	.capable		= intel_iommu_capable,
+>   	.domain_alloc		= intel_iommu_domain_alloc,
+>   	.domain_free		= intel_iommu_domain_free,
+> -	.domain_get_attr        = intel_iommu_domain_get_attr,
+> +	.dma_use_flush_queue	= intel_iommu_dma_use_flush_queue,
+>   	.domain_set_attr	= intel_iommu_domain_set_attr,
+>   	.attach_dev		= intel_iommu_attach_device,
+>   	.detach_dev		= intel_iommu_detach_device,
+> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+> index 23daaea7883b75..0f12c4d58cdc42 100644
+> --- a/drivers/iommu/iommu.c
+> +++ b/drivers/iommu/iommu.c
+> @@ -1512,12 +1512,8 @@ static int iommu_group_alloc_default_domain(struct bus_type *bus,
+>   	if (!group->domain)
+>   		group->domain = dom;
+>   
+> -	if (!iommu_dma_strict) {
+> -		int attr = 1;
+> -		iommu_domain_set_attr(dom,
+> -				      DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE,
+> -				      &attr);
+> -	}
+> +	if (!iommu_dma_strict && dom->ops->dma_enable_flush_queue)
+> +		dom->ops->dma_enable_flush_queue(dom);
+>   
+>   	return 0;
+>   }
+> @@ -2664,14 +2660,13 @@ static int __init iommu_init(void)
+>   }
+>   core_initcall(iommu_init);
+>   
+> -int iommu_domain_get_attr(struct iommu_domain *domain,
+> -			  enum iommu_attr attr, void *data)
+> +bool iommu_dma_use_flush_queue(struct iommu_domain *domain)
+>   {
+> -	if (!domain->ops->domain_get_attr)
+> -		return -EINVAL;
+> -	return domain->ops->domain_get_attr(domain, attr, data);
+> +	if (!domain->ops->dma_use_flush_queue)
+> +		return false;
+> +	return domain->ops->dma_use_flush_queue(domain);
+>   }
+> -EXPORT_SYMBOL_GPL(iommu_domain_get_attr);
+> +EXPORT_SYMBOL_GPL(iommu_dma_use_flush_queue);
+>   
+>   int iommu_domain_set_attr(struct iommu_domain *domain,
+>   			  enum iommu_attr attr, void *data)
+> diff --git a/include/linux/iommu.h b/include/linux/iommu.h
+> index c15a8658daad64..f30de33c6ff56e 100644
+> --- a/include/linux/iommu.h
+> +++ b/include/linux/iommu.h
+> @@ -108,7 +108,6 @@ enum iommu_cap {
+>   
+>   enum iommu_attr {
+>   	DOMAIN_ATTR_NESTING,	/* two stages of translation */
+> -	DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE,
+>   	DOMAIN_ATTR_IO_PGTABLE_CFG,
+>   	DOMAIN_ATTR_MAX,
+>   };
+> @@ -194,7 +193,8 @@ struct iommu_iotlb_gather {
+>    * @probe_finalize: Do final setup work after the device is added to an IOMMU
+>    *                  group and attached to the groups domain
+>    * @device_group: find iommu group for a particular device
+> - * @domain_get_attr: Query domain attributes
+> + * @dma_use_flush_queue: Returns %true if a DMA flush queue is used
+> + * @dma_enable_flush_queue: Try to enable the DMA flush queue
+>    * @domain_set_attr: Change domain attributes
+>    * @get_resv_regions: Request list of reserved regions for a device
+>    * @put_resv_regions: Free list of reserved regions for a device
+> @@ -244,8 +244,8 @@ struct iommu_ops {
+>   	void (*release_device)(struct device *dev);
+>   	void (*probe_finalize)(struct device *dev);
+>   	struct iommu_group *(*device_group)(struct device *dev);
+> -	int (*domain_get_attr)(struct iommu_domain *domain,
+> -			       enum iommu_attr attr, void *data);
+> +	bool (*dma_use_flush_queue)(struct iommu_domain *domain);
+> +	void (*dma_enable_flush_queue)(struct iommu_domain *domain);
+>   	int (*domain_set_attr)(struct iommu_domain *domain,
+>   			       enum iommu_attr attr, void *data);
+>   
+> @@ -491,8 +491,7 @@ extern int iommu_page_response(struct device *dev,
+>   extern int iommu_group_id(struct iommu_group *group);
+>   extern struct iommu_domain *iommu_group_default_domain(struct iommu_group *);
+>   
+> -extern int iommu_domain_get_attr(struct iommu_domain *domain, enum iommu_attr,
+> -				 void *data);
+> +bool iommu_dma_use_flush_queue(struct iommu_domain *domain);
+>   extern int iommu_domain_set_attr(struct iommu_domain *domain, enum iommu_attr,
+>   				 void *data);
+>   
+> @@ -861,12 +860,6 @@ static inline int iommu_group_id(struct iommu_group *group)
+>   	return -ENODEV;
+>   }
+>   
+> -static inline int iommu_domain_get_attr(struct iommu_domain *domain,
+> -					enum iommu_attr attr, void *data)
+> -{
+> -	return -EINVAL;
+> -}
+> -
+>   static inline int iommu_domain_set_attr(struct iommu_domain *domain,
+>   					enum iommu_attr attr, void *data)
+>   {
+> 
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
