@@ -2,63 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF42B32B8E2
-	for <lists+freedreno@lfdr.de>; Wed,  3 Mar 2021 16:19:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAC6732C39C
+	for <lists+freedreno@lfdr.de>; Thu,  4 Mar 2021 01:22:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A03689650;
-	Wed,  3 Mar 2021 15:19:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E9F26E446;
+	Thu,  4 Mar 2021 00:22:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com
- [IPv6:2607:f8b0:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E1E86E81E
- for <freedreno@lists.freedesktop.org>; Wed,  3 Mar 2021 04:01:25 +0000 (UTC)
-Received: by mail-pf1-x429.google.com with SMTP id q204so14259640pfq.10
- for <freedreno@lists.freedesktop.org>; Tue, 02 Mar 2021 20:01:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to
- :user-agent; bh=Sf0sHmQlDAnRMVroNklxTV9sD5YAM/nZAMHjs+CyJB4=;
- b=DqjN4DryIrwYkAZERDCNYsxYTCg/FgOx9g1tN3t7SP5NtBAhKPdo3lCnaiNnrvavBj
- ydQv0eborD4BkC3Y+XzqoGy8aiCKnHRP/JylIcwHTxxvnmHfiNck3OubW7XBEGVgwM/E
- eyPJ8aPDHdCm58TuvDHH1oXt8LBXlpvuzLeu0uEQYnF2tpIuFpM9aTgmkMnNPRxOhiUp
- 6urTlvt4r1gJIWV2+KwsuriqRhtODU56xJwHEbD5X45GvkFali3XUBHAsbusiBqISTAG
- QjqQrRgogRk0iqTBD5b5SIRJMgViOx9k1dBWLNi6KV3Q8WtSrwTaeC9YwaQEP5fqZsTD
- H6ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to:user-agent;
- bh=Sf0sHmQlDAnRMVroNklxTV9sD5YAM/nZAMHjs+CyJB4=;
- b=tem1gBT2CypfDZyoNbZpujDYyzNd+jF0H1s3Mv7Sw8CPdgybfuk/CVX/Y7PuLC7AgG
- IW2QtV8OL8RAN/8QIxTMZhe6FPvcIfskQ7YUAYfrOV+lyBdb7B123+R0s3bhQL8/scG3
- QF3GFjqapfV7cW54LUbMqRyCbScgT3B5W1Aamy6BsnLlUu37TV61KHD5TZio5WqvgnXI
- qh34YWwUVwH6ALToE8EGVcLOwyrozm457fFm7M9/8N3TC4ounlLtMtAEQ6hUDdfX8p69
- K2398ORrBw5xzitVvnFh+fX3egR+VtvDGHciuTpxdlD8tj9CE/Pd930EUDFdRx89f7qQ
- w/vQ==
-X-Gm-Message-State: AOAM532SvOYDwEhhx/OVu4Ky94kNPZ4NkvYPgNZSWtexfzTYslJ8PSkI
- /8PkK5qOmo27aF9Ey915IUVDjA==
-X-Google-Smtp-Source: ABdhPJyoXDxfKpU/1wXB2PIFN0nnkGXEo3xzDutxggeVYQFsmIzt54/Cnp3VafjpSiT43J+plIUXXQ==
-X-Received: by 2002:a63:4a44:: with SMTP id j4mr20987404pgl.199.1614744084943; 
- Tue, 02 Mar 2021 20:01:24 -0800 (PST)
-Received: from localhost ([122.171.124.15])
- by smtp.gmail.com with ESMTPSA id e1sm4992656pjt.10.2021.03.02.20.01.23
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 02 Mar 2021 20:01:24 -0800 (PST)
-Date: Wed, 3 Mar 2021 09:31:19 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <20210303040119.hpeybankxph4fyuj@vireshk-i7>
-References: <20210101165507.19486-1-tiny.windzz@gmail.com>
- <6bd6730c-6f4e-df93-65cd-93fa4785a8d8@gmail.com>
- <c7a246a4-ab25-a193-f74a-98351780135e@gmail.com>
+Received: from z11.mailgun.us (z11.mailgun.us [104.130.96.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A85A6E446
+ for <freedreno@lists.freedesktop.org>; Thu,  4 Mar 2021 00:22:19 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1614817339; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=2aRVPyBEMl+RGf7YTiFr6GVO3CZ1fdkjT1ey8/UYb4U=;
+ b=cSpNNeYbGLawWVlJ3GBqdKku0NiUSbOSs/rKKGeGNUn89iZRHYLWE6eTrcDkdVXjhtI880SE
+ Ng/c5XWw2KmouGkzPzy7bBXtYFOrr4Cne99ck4qkhjdpr7asUVvNUdYCQOWkv+cGessGvdUf
+ tq7gvtnEWypQsyKDW7fR6EpH2V0=
+X-Mailgun-Sending-Ip: 104.130.96.11
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
+ 60402838e5eea4c43b1d3e63 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 04 Mar 2021 00:22:16
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 85937C5382B; Thu,  4 Mar 2021 00:22:16 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 9F75EC2E895;
+ Thu,  4 Mar 2021 00:22:12 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <c7a246a4-ab25-a193-f74a-98351780135e@gmail.com>
-User-Agent: NeoMutt/20180716-391-311a52
-X-Mailman-Approved-At: Wed, 03 Mar 2021 15:19:47 +0000
-Subject: Re: [Freedreno] [PATCH 00/31] Introduce devm_pm_opp_* API
+Date: Wed, 03 Mar 2021 16:22:12 -0800
+From: abhinavk@codeaurora.org
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20210301214152.1805737-1-dmitry.baryshkov@linaro.org>
+References: <20210301214152.1805737-1-dmitry.baryshkov@linaro.org>
+Message-ID: <d4ded333eb80ac51d416bd48cd5483c3@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH] gpu/drm/msm: fix shutdown hook in case GPU
+ components failed to bind
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,53 +63,110 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: nm@ti.com, ulf.hansson@linaro.org, gustavoars@kernel.org,
- jirislaby@kernel.org, airlied@linux.ie, linux-mmc@vger.kernel.org,
- stanimir.varbanov@linaro.org, tanmay@codeaurora.org,
- bjorn.andersson@linaro.org, natechancellor@gmail.com, eric@anholt.net,
- thierry.reding@gmail.com, tongtiangen@huawei.com, groeck@chromium.org,
- marijn.suijten@somainline.org, steven.price@arm.com, festevam@gmail.com,
- mka@chromium.org, chandanu@codeaurora.org, emil.velikov@collabora.com,
- robh@kernel.org, linux-samsung-soc@vger.kernel.org, jonathan@marek.ca,
- cw00.choi@samsung.com, adrian.hunter@intel.com, vireshk@kernel.org,
- linux-pm@vger.kernel.org, kyungmin.park@samsung.com, krzk@kernel.org,
- jonathanh@nvidia.com, Yangtao Li <tiny.windzz@gmail.com>,
- myungjoo.ham@samsung.com, alyssa.rosenzweig@collabora.com,
- linux-serial@vger.kernel.org, airlied@redhat.com, smasetty@codeaurora.org,
- linux-imx@nxp.com, freedreno@lists.freedesktop.org, kernel@pengutronix.de,
- tzimmermann@suse.de, linux-arm-msm@vger.kernel.org, s.hauer@pengutronix.de,
- linux-spi@vger.kernel.org, linux-media@vger.kernel.org,
- abhinavk@codeaurora.org, akhilpo@codeaurora.org, khsieh@codeaurora.org,
- lima@lists.freedesktop.org, jcrouse@codeaurora.org, broonie@kernel.org,
- rikard.falkeborn@gmail.com, kalyan_t@codeaurora.org,
- linux-tegra@vger.kernel.org, varar@codeaurora.org, jsanka@codeaurora.org,
- mchehab@kernel.org, sean@poorly.run, linux-arm-kernel@lists.infradead.org,
- dianders@chromium.org, akashast@codeaurora.org, rnayak@codeaurora.org,
- parashar@codeaurora.org, tomeu.vizoso@collabora.com, sboyd@kernel.org,
- gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org, rjw@rjwysocki.net,
- agross@kernel.org, harigovi@codeaurora.org, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, miaoqinglang@huawei.com, hoegsberg@google.com,
- yuq825@gmail.com, daniel@ffwll.ch, ddavenport@chromium.org,
- masneyb@onstation.org, shawnguo@kernel.org, georgi.djakov@linaro.org,
- lukasz.luba@arm.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
+ Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-T24gMDItMDMtMjEsIDE2OjQwLCBEbWl0cnkgT3NpcGVua28gd3JvdGU6Cj4gMjAuMDEuMjAyMSAx
-OTowMSwgRG1pdHJ5IE9zaXBlbmtvINC/0LjRiNC10YI6Cj4gPiAwMS4wMS4yMDIxIDE5OjU0LCBZ
-YW5ndGFvIExpINC/0LjRiNC10YI6Cj4gPj4gSGksCj4gPj4KPiA+PiBUaGlzIHBhdGNoc2V0IGFk
-ZCBkZXZtX3BtX29wcF9zZXRfY2xrbmFtZSwgZGV2bV9wbV9vcHBfcHV0X2Nsa25hbWUsCj4gPj4g
-ZGV2bV9wbV9vcHBfc2V0X3JlZ3VsYXRvcnMsIGRldm1fcG1fb3BwX3B1dF9yZWd1bGF0b3JzLAo+
-ID4+IGRldm1fcG1fb3BwX3NldF9zdXBwb3J0ZWRfaHcsIGRldm1fcG1fb3BwX29mX2FkZF90YWJs
-ZSBhbmQKPiA+PiBkZXZtX3BtX29wcF9yZWdpc3Rlcl9ub3RpZmllci4KPiA+IAo+ID4gSGVsbG8g
-WWFuZ3RhbywKPiA+IAo+ID4gVGhhbmsgeW91IGZvciB5b3VyIGVmZm9ydCwgbG9va2luZyBmb3J3
-YXJkIHRvIHYyIQo+IAo+IFlhbmd0YW8sIGNvdWxkIHlvdSBwbGVhc2UgbGV0IG1lIGtub3cgd2hh
-dCBpcyB0aGUgc3RhdHVzIG9mIHRoaXMgc2VyaWVzPwo+IFdpbGwgeW91IGJlIGFibGUgdG8gbWFr
-ZSBhIHYyIGFueXRpbWUgc29vbj8KCkRtaXRyeSwgaWYgWWFuZ3RhbyBkb2Vzbid0IHJlcGx5IGJh
-Y2sgdGhpcyB3ZWVrIHdpdGggYSBwcm9wb3NhbCwgcGxlYXNlIGdvIGFoZWFkCmFuZCByZXNwaW4g
-dGhlIHBhdGNoZXMgeW91cnNlbGYuIFRoYW5rcy4KCi0tIAp2aXJlc2gKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlzdApG
-cmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5vCg==
+On 2021-03-01 13:41, Dmitry Baryshkov wrote:
+> if GPU components have failed to bind, shutdown callback would fail 
+> with
+> the following backtrace. Add safeguard check to stop that oops from
+> happening and allow the board to reboot.
+> 
+> [   66.617046] Unable to handle kernel NULL pointer dereference at
+> virtual address 0000000000000000
+> [   66.626066] Mem abort info:
+> [   66.628939]   ESR = 0x96000006
+> [   66.632088]   EC = 0x25: DABT (current EL), IL = 32 bits
+> [   66.637542]   SET = 0, FnV = 0
+> [   66.640688]   EA = 0, S1PTW = 0
+> [   66.643924] Data abort info:
+> [   66.646889]   ISV = 0, ISS = 0x00000006
+> [   66.650832]   CM = 0, WnR = 0
+> [   66.653890] user pgtable: 4k pages, 48-bit VAs, 
+> pgdp=0000000107f81000
+> [   66.660505] [0000000000000000] pgd=0000000100bb2003,
+> p4d=0000000100bb2003, pud=0000000100897003, pmd=0000000000000000
+> [   66.671398] Internal error: Oops: 96000006 [#1] PREEMPT SMP
+> [   66.677115] Modules linked in:
+> [   66.680261] CPU: 6 PID: 352 Comm: reboot Not tainted
+> 5.11.0-rc2-00309-g79e3faa756b2 #38
+> [   66.688473] Hardware name: Qualcomm Technologies, Inc. Robotics RB5 
+> (DT)
+> [   66.695347] pstate: 60400005 (nZCv daif +PAN -UAO -TCO BTYPE=--)
+> [   66.701507] pc : msm_atomic_commit_tail+0x78/0x4e0
+> [   66.706437] lr : commit_tail+0xa4/0x184
+> [   66.710381] sp : ffff8000108f3af0
+> [   66.713791] x29: ffff8000108f3af0 x28: ffff418c44337000
+> [   66.719242] x27: 0000000000000000 x26: ffff418c40a24490
+> [   66.724693] x25: ffffd3a842a4f1a0 x24: 0000000000000008
+> [   66.730146] x23: ffffd3a84313f030 x22: ffff418c444ce000
+> [   66.735598] x21: ffff418c408a4980 x20: 0000000000000000
+> [   66.741049] x19: 0000000000000000 x18: ffff800010710fbc
+> [   66.746500] x17: 000000000000000c x16: 0000000000000001
+> [   66.751954] x15: 0000000000010008 x14: 0000000000000068
+> [   66.757405] x13: 0000000000000001 x12: 0000000000000000
+> [   66.762855] x11: 0000000000000001 x10: 00000000000009b0
+> [   66.768306] x9 : ffffd3a843192000 x8 : ffff418c44337000
+> [   66.773757] x7 : 0000000000000000 x6 : 00000000a401b34e
+> [   66.779210] x5 : 00ffffffffffffff x4 : 0000000000000000
+> [   66.784660] x3 : 0000000000000000 x2 : ffff418c444ce000
+> [   66.790111] x1 : ffffd3a841dce530 x0 : ffff418c444cf000
+> [   66.795563] Call trace:
+> [   66.798075]  msm_atomic_commit_tail+0x78/0x4e0
+> [   66.802633]  commit_tail+0xa4/0x184
+> [   66.806217]  drm_atomic_helper_commit+0x160/0x390
+> [   66.811051]  drm_atomic_commit+0x4c/0x60
+> [   66.815082]  drm_atomic_helper_disable_all+0x1f4/0x210
+> [   66.820355]  drm_atomic_helper_shutdown+0x80/0x130
+> [   66.825276]  msm_pdev_shutdown+0x14/0x20
+> [   66.829303]  platform_shutdown+0x28/0x40
+> [   66.833330]  device_shutdown+0x158/0x330
+> [   66.837357]  kernel_restart+0x40/0xa0
+> [   66.841122]  __do_sys_reboot+0x228/0x250
+> [   66.845148]  __arm64_sys_reboot+0x28/0x34
+> [   66.849264]  el0_svc_common.constprop.0+0x74/0x190
+> [   66.854187]  do_el0_svc+0x24/0x90
+> [   66.857595]  el0_svc+0x14/0x20
+> [   66.860739]  el0_sync_handler+0x1a4/0x1b0
+> [   66.864858]  el0_sync+0x174/0x180
+> [   66.868269] Code: 1ac020a0 2a000273 eb02007f 54ffff01 (f9400285)
+> [   66.874525] ---[ end trace 20dedb2a3229fec8 ]---
+> 
+> Fixes: 9d5cbf5fe46e ("drm/msm: add shutdown support for display
+> platform_driver")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
+> ---
+>  drivers/gpu/drm/msm/msm_atomic.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_atomic.c 
+> b/drivers/gpu/drm/msm/msm_atomic.c
+> index 6a326761dc4a..2fd0cf6421ad 100644
+> --- a/drivers/gpu/drm/msm/msm_atomic.c
+> +++ b/drivers/gpu/drm/msm/msm_atomic.c
+> @@ -207,7 +207,12 @@ void msm_atomic_commit_tail(struct 
+> drm_atomic_state *state)
+>  	struct msm_kms *kms = priv->kms;
+>  	struct drm_crtc *async_crtc = NULL;
+>  	unsigned crtc_mask = get_crtc_mask(state);
+> -	bool async = kms->funcs->vsync_time &&
+> +	bool async;
+> +
+> +	if (!kms)
+> +		return;
+> +
+> +	async = kms->funcs->vsync_time &&
+>  			can_do_async(state, &async_crtc);
+> 
+>  	trace_msm_atomic_commit_tail_start(async, crtc_mask);
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
