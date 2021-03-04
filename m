@@ -2,36 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E31F32D67B
-	for <lists+freedreno@lfdr.de>; Thu,  4 Mar 2021 16:25:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5336A32D6C5
+	for <lists+freedreno@lfdr.de>; Thu,  4 Mar 2021 16:35:44 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 748996EA32;
-	Thu,  4 Mar 2021 15:25:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF5B86EA1B;
+	Thu,  4 Mar 2021 15:35:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id D00BC6EA30;
- Thu,  4 Mar 2021 15:25:35 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D51141FB;
- Thu,  4 Mar 2021 07:25:34 -0800 (PST)
-Received: from [10.57.48.219] (unknown [10.57.48.219])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2435D3F766;
- Thu,  4 Mar 2021 07:25:32 -0800 (PST)
-To: Christoph Hellwig <hch@lst.de>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Li Yang <leoyang.li@nxp.com>
-References: <20210301084257.945454-1-hch@lst.de>
- <20210301084257.945454-15-hch@lst.de>
-From: Robin Murphy <robin.murphy@arm.com>
-Message-ID: <1658805c-ed28-b650-7385-a56fab3383e3@arm.com>
-Date: Thu, 4 Mar 2021 15:25:27 +0000
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-MIME-Version: 1.0
-In-Reply-To: <20210301084257.945454-15-hch@lst.de>
-Content-Language: en-GB
-Subject: Re: [Freedreno] [PATCH 14/17] iommu: remove
- DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [IPv6:2a00:1450:4864:20::431])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C43F6EA1C
+ for <freedreno@lists.freedesktop.org>; Thu,  4 Mar 2021 12:50:59 +0000 (UTC)
+Received: by mail-wr1-x431.google.com with SMTP id f12so23718286wrx.8
+ for <freedreno@lists.freedesktop.org>; Thu, 04 Mar 2021 04:50:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id;
+ bh=T4drX2OHz8WsU2B+DyV2cYvNY39nMQirtfdi2mTuSOg=;
+ b=aT1zbGeyGacOaJcwjnuOmLSK6neJHxSZln7SpxKQYeYLkoMFu4fvwf2ZIQvJ8ZXsNL
+ UyrBq4ll7SJEQgIJsoZ3gq05uAYhMnOjY2YM8EiSyhlPEpOz5In6kuKRsDTeMaFbiuyU
+ aRlT+7rzGU0HqwpGo04vyPLaHPeLAbHBkApowFty6WvQ6p/IFUxKRevPINH2x7bCXPMM
+ 58GD8mOxaTzQreXLjLiKGM3uREA5CgURdllKVkQxCPvTlt7OX0xe7rywzsTmogYKm6fG
+ 2oPM9ZobJWjD6c2SAt2Onxh7NjxtOYeCyViyk2hlgJHkQ0MbzopK4irrvutohf941nTw
+ lEEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=T4drX2OHz8WsU2B+DyV2cYvNY39nMQirtfdi2mTuSOg=;
+ b=lR1NA7Y72QAajeD4653bk3Xm6su/aQhgcH2YjkbkLatlpFM/1mY+51v+z4rgD6tsF7
+ 2ypujakZSBoEkVEfFVfZWiLp6P/9FHEWHyJ2SrgafAZVtKzHLmQryDxigD5VGqJ89+6y
+ zRhnYfzvTkrwcoaKWStTxRbU7dxmzC8b6fAd0RY7TD6HX3mlKQzJIDP9j2bDBAy2aaoa
+ dX5ZJo++hnHqpA7nDp6HWBCtdWab6aYt4zLfcoJBtblTW41DYFVMsf86dUCNTiOGp04m
+ +0XDoIpmoiOtPPnEWNxJ6yPeY1V9z3ZVju6Kth8zsS8CCeoemksMZXy06VQTU84mvDSE
+ 6D5g==
+X-Gm-Message-State: AOAM532/wmRUagvIx9/DgZIC72ptKcUtATb6T7fZ7/FimUTYAjDu41cx
+ d8HYbHenvUy664gOcgrfdG27Lg==
+X-Google-Smtp-Source: ABdhPJzGo4COvZK7kDu3+r40eNKlVccn5YfL70YriZdNoTBFiRhALzWFMjin8vjSY9WX/vCfmJQxIQ==
+X-Received: by 2002:a5d:620d:: with SMTP id y13mr3986716wru.88.1614862257577; 
+ Thu, 04 Mar 2021 04:50:57 -0800 (PST)
+Received: from localhost.localdomain
+ (lns-bzn-59-82-252-144-192.adsl.proxad.net. [82.252.144.192])
+ by smtp.gmail.com with ESMTPSA id z2sm19688850wrm.0.2021.03.04.04.50.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 04 Mar 2021 04:50:56 -0800 (PST)
+From: Daniel Lezcano <daniel.lezcano@linaro.org>
+To: cwchoi00@gmail.com,
+	kyungmin.park@samsung.com,
+	myungjoo.ham@samsung.com
+Date: Thu,  4 Mar 2021 13:50:33 +0100
+Message-Id: <20210304125034.28404-1-daniel.lezcano@linaro.org>
+X-Mailer: git-send-email 2.17.1
+X-Mailman-Approved-At: Thu, 04 Mar 2021 15:35:41 +0000
+Subject: [Freedreno] [PATCH] devfreq: Register devfreq as a cooling device
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,430 +65,262 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: kvm@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>,
- linux-arm-msm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- iommu@lists.linux-foundation.org, netdev@vger.kernel.org,
- freedreno@lists.freedesktop.org, David Woodhouse <dwmw2@infradead.org>,
- linux-arm-kernel@lists.infradead.org
+Cc: Rob Herring <robh@kernel.org>,
+ "moderated list:DRM DRIVERS FOR LIMA" <lima@lists.freedesktop.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>, linux-pm@vger.kernel.org,
+ David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ linux-kernel@vger.kernel.org,
+ "open list:DRM DRIVERS FOR LIMA" <dri-devel@lists.freedesktop.org>,
+ Steven Price <steven.price@arm.com>, Chanwoo Choi <cw00.choi@samsung.com>,
+ Rob Clark <robdclark@gmail.com>, Qiang Yu <yuq825@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
+ Sean Paul <sean@poorly.run>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-03-01 08:42, Christoph Hellwig wrote:
-> Use explicit methods for setting and querying the information instead.
+Currently the default behavior is to manually having the devfreq
+backend to register themselves as a devfreq cooling device.
 
-Now that everyone's using iommu-dma, is there any point in bouncing this 
-through the drivers at all? Seems like it would make more sense for the 
-x86 drivers to reflect their private options back to iommu_dma_strict 
-(and allow Intel's caching mode to override it as well), then have 
-iommu_dma_init_domain just test !iommu_dma_strict && 
-domain->ops->flush_iotlb_all.
+There are no so many and actually it makes more sense to register the
+devfreq device when adding it.
 
-Robin.
+Consequently, every devfreq becomes a cooling device like cpufreq is.
 
-> Also remove the now unused iommu_domain_get_attr functionality.
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->   drivers/iommu/amd/iommu.c                   | 23 ++-------
->   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 47 ++++++-----------
->   drivers/iommu/arm/arm-smmu/arm-smmu.c       | 56 +++++----------------
->   drivers/iommu/dma-iommu.c                   |  8 ++-
->   drivers/iommu/intel/iommu.c                 | 27 ++--------
->   drivers/iommu/iommu.c                       | 19 +++----
->   include/linux/iommu.h                       | 17 ++-----
->   7 files changed, 51 insertions(+), 146 deletions(-)
-> 
-> diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-> index a69a8b573e40d0..37a8e51db17656 100644
-> --- a/drivers/iommu/amd/iommu.c
-> +++ b/drivers/iommu/amd/iommu.c
-> @@ -1771,24 +1771,11 @@ static struct iommu_group *amd_iommu_device_group(struct device *dev)
->   	return acpihid_device_group(dev);
->   }
->   
-> -static int amd_iommu_domain_get_attr(struct iommu_domain *domain,
-> -		enum iommu_attr attr, void *data)
-> +static bool amd_iommu_dma_use_flush_queue(struct iommu_domain *domain)
->   {
-> -	switch (domain->type) {
-> -	case IOMMU_DOMAIN_UNMANAGED:
-> -		return -ENODEV;
-> -	case IOMMU_DOMAIN_DMA:
-> -		switch (attr) {
-> -		case DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE:
-> -			*(int *)data = !amd_iommu_unmap_flush;
-> -			return 0;
-> -		default:
-> -			return -ENODEV;
-> -		}
-> -		break;
-> -	default:
-> -		return -EINVAL;
-> -	}
-> +	if (domain->type != IOMMU_DOMAIN_DMA)
-> +		return false;
-> +	return !amd_iommu_unmap_flush;
->   }
->   
->   /*****************************************************************************
-> @@ -2257,7 +2244,7 @@ const struct iommu_ops amd_iommu_ops = {
->   	.release_device = amd_iommu_release_device,
->   	.probe_finalize = amd_iommu_probe_finalize,
->   	.device_group = amd_iommu_device_group,
-> -	.domain_get_attr = amd_iommu_domain_get_attr,
-> +	.dma_use_flush_queue = amd_iommu_dma_use_flush_queue,
->   	.get_resv_regions = amd_iommu_get_resv_regions,
->   	.put_resv_regions = generic_iommu_put_resv_regions,
->   	.is_attach_deferred = amd_iommu_is_attach_deferred,
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> index 8594b4a8304375..bf96172e8c1f71 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> @@ -2449,33 +2449,21 @@ static struct iommu_group *arm_smmu_device_group(struct device *dev)
->   	return group;
->   }
->   
-> -static int arm_smmu_domain_get_attr(struct iommu_domain *domain,
-> -				    enum iommu_attr attr, void *data)
-> +static bool arm_smmu_dma_use_flush_queue(struct iommu_domain *domain)
->   {
->   	struct arm_smmu_domain *smmu_domain = to_smmu_domain(domain);
->   
-> -	switch (domain->type) {
-> -	case IOMMU_DOMAIN_UNMANAGED:
-> -		switch (attr) {
-> -		case DOMAIN_ATTR_NESTING:
-> -			*(int *)data = (smmu_domain->stage == ARM_SMMU_DOMAIN_NESTED);
-> -			return 0;
-> -		default:
-> -			return -ENODEV;
-> -		}
-> -		break;
-> -	case IOMMU_DOMAIN_DMA:
-> -		switch (attr) {
-> -		case DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE:
-> -			*(int *)data = smmu_domain->non_strict;
-> -			return 0;
-> -		default:
-> -			return -ENODEV;
-> -		}
-> -		break;
-> -	default:
-> -		return -EINVAL;
-> -	}
-> +	if (domain->type != IOMMU_DOMAIN_DMA)
-> +		return false;
-> +	return smmu_domain->non_strict;
-> +}
-> +
-> +
-> +static void arm_smmu_dma_enable_flush_queue(struct iommu_domain *domain)
-> +{
-> +	if (domain->type != IOMMU_DOMAIN_DMA)
-> +		return;
-> +	to_smmu_domain(domain)->non_strict = true;
->   }
->   
->   static int arm_smmu_domain_set_attr(struct iommu_domain *domain,
-> @@ -2505,13 +2493,7 @@ static int arm_smmu_domain_set_attr(struct iommu_domain *domain,
->   		}
->   		break;
->   	case IOMMU_DOMAIN_DMA:
-> -		switch(attr) {
-> -		case DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE:
-> -			smmu_domain->non_strict = *(int *)data;
-> -			break;
-> -		default:
-> -			ret = -ENODEV;
-> -		}
-> +		ret = -ENODEV;
->   		break;
->   	default:
->   		ret = -EINVAL;
-> @@ -2619,7 +2601,8 @@ static struct iommu_ops arm_smmu_ops = {
->   	.probe_device		= arm_smmu_probe_device,
->   	.release_device		= arm_smmu_release_device,
->   	.device_group		= arm_smmu_device_group,
-> -	.domain_get_attr	= arm_smmu_domain_get_attr,
-> +	.dma_use_flush_queue	= arm_smmu_dma_use_flush_queue,
-> +	.dma_enable_flush_queue	= arm_smmu_dma_enable_flush_queue,
->   	.domain_set_attr	= arm_smmu_domain_set_attr,
->   	.of_xlate		= arm_smmu_of_xlate,
->   	.get_resv_regions	= arm_smmu_get_resv_regions,
-> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/arm-smmu/arm-smmu.c
-> index d8c6bfde6a6158..e7893e96f5177a 100644
-> --- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
-> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
-> @@ -1481,42 +1481,20 @@ static struct iommu_group *arm_smmu_device_group(struct device *dev)
->   	return group;
->   }
->   
-> -static int arm_smmu_domain_get_attr(struct iommu_domain *domain,
-> -				    enum iommu_attr attr, void *data)
-> +static bool arm_smmu_dma_use_flush_queue(struct iommu_domain *domain)
->   {
->   	struct arm_smmu_domain *smmu_domain = to_smmu_domain(domain);
->   
-> -	switch(domain->type) {
-> -	case IOMMU_DOMAIN_UNMANAGED:
-> -		switch (attr) {
-> -		case DOMAIN_ATTR_NESTING:
-> -			*(int *)data = (smmu_domain->stage == ARM_SMMU_DOMAIN_NESTED);
-> -			return 0;
-> -		case DOMAIN_ATTR_IO_PGTABLE_CFG: {
-> -			struct io_pgtable_domain_attr *pgtbl_cfg = data;
-> -			*pgtbl_cfg = smmu_domain->pgtbl_cfg;
-> +	if (domain->type != IOMMU_DOMAIN_DMA)
-> +		return false;
-> +	return smmu_domain->pgtbl_cfg.quirks & IO_PGTABLE_QUIRK_NON_STRICT;
-> +}
->   
-> -			return 0;
-> -		}
-> -		default:
-> -			return -ENODEV;
-> -		}
-> -		break;
-> -	case IOMMU_DOMAIN_DMA:
-> -		switch (attr) {
-> -		case DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE: {
-> -			bool non_strict = smmu_domain->pgtbl_cfg.quirks &
-> -					  IO_PGTABLE_QUIRK_NON_STRICT;
-> -			*(int *)data = non_strict;
-> -			return 0;
-> -		}
-> -		default:
-> -			return -ENODEV;
-> -		}
-> -		break;
-> -	default:
-> -		return -EINVAL;
-> -	}
-> +static void arm_smmu_dma_enable_flush_queue(struct iommu_domain *domain)
-> +{
-> +	if (domain->type != IOMMU_DOMAIN_DMA)
-> +		return;
-> +	to_smmu_domain(domain)->pgtbl_cfg.quirks |= IO_PGTABLE_QUIRK_NON_STRICT;
->   }
->   
->   static int arm_smmu_domain_set_attr(struct iommu_domain *domain,
-> @@ -1557,16 +1535,7 @@ static int arm_smmu_domain_set_attr(struct iommu_domain *domain,
->   		}
->   		break;
->   	case IOMMU_DOMAIN_DMA:
-> -		switch (attr) {
-> -		case DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE:
-> -			if (*(int *)data)
-> -				smmu_domain->pgtbl_cfg.quirks |= IO_PGTABLE_QUIRK_NON_STRICT;
-> -			else
-> -				smmu_domain->pgtbl_cfg.quirks &= ~IO_PGTABLE_QUIRK_NON_STRICT;
-> -			break;
-> -		default:
-> -			ret = -ENODEV;
-> -		}
-> +		ret = -ENODEV;
->   		break;
->   	default:
->   		ret = -EINVAL;
-> @@ -1631,7 +1600,8 @@ static struct iommu_ops arm_smmu_ops = {
->   	.probe_device		= arm_smmu_probe_device,
->   	.release_device		= arm_smmu_release_device,
->   	.device_group		= arm_smmu_device_group,
-> -	.domain_get_attr	= arm_smmu_domain_get_attr,
-> +	.dma_use_flush_queue	= arm_smmu_dma_use_flush_queue,
-> +	.dma_enable_flush_queue	= arm_smmu_dma_enable_flush_queue,
->   	.domain_set_attr	= arm_smmu_domain_set_attr,
->   	.of_xlate		= arm_smmu_of_xlate,
->   	.get_resv_regions	= arm_smmu_get_resv_regions,
-> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-> index 9ab6ee22c11088..d3fe5aad9d6ecf 100644
-> --- a/drivers/iommu/dma-iommu.c
-> +++ b/drivers/iommu/dma-iommu.c
-> @@ -305,8 +305,8 @@ static void iommu_dma_flush_iotlb_all(struct iova_domain *iovad)
->   	cookie = container_of(iovad, struct iommu_dma_cookie, iovad);
->   	domain = cookie->fq_domain;
->   	/*
-> -	 * The IOMMU driver supporting DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE
-> -	 * implies that ops->flush_iotlb_all must be non-NULL.
-> +	 * The IOMMU driver supporting a DMA flush queue implies that
-> +	 * ops->flush_iotlb_all must be non-NULL.
->   	 */
->   	domain->ops->flush_iotlb_all(domain);
->   }
-> @@ -329,7 +329,6 @@ static int iommu_dma_init_domain(struct iommu_domain *domain, dma_addr_t base,
->   	struct iommu_dma_cookie *cookie = domain->iova_cookie;
->   	unsigned long order, base_pfn;
->   	struct iova_domain *iovad;
-> -	int attr;
->   
->   	if (!cookie || cookie->type != IOMMU_DMA_IOVA_COOKIE)
->   		return -EINVAL;
-> @@ -365,8 +364,7 @@ static int iommu_dma_init_domain(struct iommu_domain *domain, dma_addr_t base,
->   
->   	init_iova_domain(iovad, 1UL << order, base_pfn);
->   
-> -	if (!cookie->fq_domain && !iommu_domain_get_attr(domain,
-> -			DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE, &attr) && attr) {
-> +	if (!cookie->fq_domain && iommu_dma_use_flush_queue(domain)) {
->   		if (init_iova_flush_queue(iovad, iommu_dma_flush_iotlb_all,
->   					  iommu_dma_entry_dtor))
->   			pr_warn("iova flush queue initialization failed\n");
-> diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-> index ee0932307d646b..eaa80c33f4bc91 100644
-> --- a/drivers/iommu/intel/iommu.c
-> +++ b/drivers/iommu/intel/iommu.c
-> @@ -5453,13 +5453,13 @@ intel_iommu_domain_set_attr(struct iommu_domain *domain,
->   	return ret;
->   }
->   
-> -static bool domain_use_flush_queue(void)
-> +static bool intel_iommu_dma_use_flush_queue(struct iommu_domain *domain)
->   {
->   	struct dmar_drhd_unit *drhd;
->   	struct intel_iommu *iommu;
->   	bool r = true;
->   
-> -	if (intel_iommu_strict)
-> +	if (domain->type != IOMMU_DOMAIN_DMA || intel_iommu_strict)
->   		return false;
->   
->   	/*
-> @@ -5483,27 +5483,6 @@ static bool domain_use_flush_queue(void)
->   	return r;
->   }
->   
-> -static int
-> -intel_iommu_domain_get_attr(struct iommu_domain *domain,
-> -			    enum iommu_attr attr, void *data)
-> -{
-> -	switch (domain->type) {
-> -	case IOMMU_DOMAIN_UNMANAGED:
-> -		return -ENODEV;
-> -	case IOMMU_DOMAIN_DMA:
-> -		switch (attr) {
-> -		case DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE:
-> -			*(int *)data = domain_use_flush_queue();
-> -			return 0;
-> -		default:
-> -			return -ENODEV;
-> -		}
-> -		break;
-> -	default:
-> -		return -EINVAL;
-> -	}
-> -}
-> -
->   /*
->    * Check that the device does not live on an external facing PCI port that is
->    * marked as untrusted. Such devices should not be able to apply quirks and
-> @@ -5576,7 +5555,7 @@ const struct iommu_ops intel_iommu_ops = {
->   	.capable		= intel_iommu_capable,
->   	.domain_alloc		= intel_iommu_domain_alloc,
->   	.domain_free		= intel_iommu_domain_free,
-> -	.domain_get_attr        = intel_iommu_domain_get_attr,
-> +	.dma_use_flush_queue	= intel_iommu_dma_use_flush_queue,
->   	.domain_set_attr	= intel_iommu_domain_set_attr,
->   	.attach_dev		= intel_iommu_attach_device,
->   	.detach_dev		= intel_iommu_detach_device,
-> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-> index 23daaea7883b75..0f12c4d58cdc42 100644
-> --- a/drivers/iommu/iommu.c
-> +++ b/drivers/iommu/iommu.c
-> @@ -1512,12 +1512,8 @@ static int iommu_group_alloc_default_domain(struct bus_type *bus,
->   	if (!group->domain)
->   		group->domain = dom;
->   
-> -	if (!iommu_dma_strict) {
-> -		int attr = 1;
-> -		iommu_domain_set_attr(dom,
-> -				      DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE,
-> -				      &attr);
-> -	}
-> +	if (!iommu_dma_strict && dom->ops->dma_enable_flush_queue)
-> +		dom->ops->dma_enable_flush_queue(dom);
->   
->   	return 0;
->   }
-> @@ -2664,14 +2660,13 @@ static int __init iommu_init(void)
->   }
->   core_initcall(iommu_init);
->   
-> -int iommu_domain_get_attr(struct iommu_domain *domain,
-> -			  enum iommu_attr attr, void *data)
-> +bool iommu_dma_use_flush_queue(struct iommu_domain *domain)
->   {
-> -	if (!domain->ops->domain_get_attr)
-> -		return -EINVAL;
-> -	return domain->ops->domain_get_attr(domain, attr, data);
-> +	if (!domain->ops->dma_use_flush_queue)
-> +		return false;
-> +	return domain->ops->dma_use_flush_queue(domain);
->   }
-> -EXPORT_SYMBOL_GPL(iommu_domain_get_attr);
-> +EXPORT_SYMBOL_GPL(iommu_dma_use_flush_queue);
->   
->   int iommu_domain_set_attr(struct iommu_domain *domain,
->   			  enum iommu_attr attr, void *data)
-> diff --git a/include/linux/iommu.h b/include/linux/iommu.h
-> index c15a8658daad64..f30de33c6ff56e 100644
-> --- a/include/linux/iommu.h
-> +++ b/include/linux/iommu.h
-> @@ -108,7 +108,6 @@ enum iommu_cap {
->   
->   enum iommu_attr {
->   	DOMAIN_ATTR_NESTING,	/* two stages of translation */
-> -	DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE,
->   	DOMAIN_ATTR_IO_PGTABLE_CFG,
->   	DOMAIN_ATTR_MAX,
->   };
-> @@ -194,7 +193,8 @@ struct iommu_iotlb_gather {
->    * @probe_finalize: Do final setup work after the device is added to an IOMMU
->    *                  group and attached to the groups domain
->    * @device_group: find iommu group for a particular device
-> - * @domain_get_attr: Query domain attributes
-> + * @dma_use_flush_queue: Returns %true if a DMA flush queue is used
-> + * @dma_enable_flush_queue: Try to enable the DMA flush queue
->    * @domain_set_attr: Change domain attributes
->    * @get_resv_regions: Request list of reserved regions for a device
->    * @put_resv_regions: Free list of reserved regions for a device
-> @@ -244,8 +244,8 @@ struct iommu_ops {
->   	void (*release_device)(struct device *dev);
->   	void (*probe_finalize)(struct device *dev);
->   	struct iommu_group *(*device_group)(struct device *dev);
-> -	int (*domain_get_attr)(struct iommu_domain *domain,
-> -			       enum iommu_attr attr, void *data);
-> +	bool (*dma_use_flush_queue)(struct iommu_domain *domain);
-> +	void (*dma_enable_flush_queue)(struct iommu_domain *domain);
->   	int (*domain_set_attr)(struct iommu_domain *domain,
->   			       enum iommu_attr attr, void *data);
->   
-> @@ -491,8 +491,7 @@ extern int iommu_page_response(struct device *dev,
->   extern int iommu_group_id(struct iommu_group *group);
->   extern struct iommu_domain *iommu_group_default_domain(struct iommu_group *);
->   
-> -extern int iommu_domain_get_attr(struct iommu_domain *domain, enum iommu_attr,
-> -				 void *data);
-> +bool iommu_dma_use_flush_queue(struct iommu_domain *domain);
->   extern int iommu_domain_set_attr(struct iommu_domain *domain, enum iommu_attr,
->   				 void *data);
->   
-> @@ -861,12 +860,6 @@ static inline int iommu_group_id(struct iommu_group *group)
->   	return -ENODEV;
->   }
->   
-> -static inline int iommu_domain_get_attr(struct iommu_domain *domain,
-> -					enum iommu_attr attr, void *data)
-> -{
-> -	return -EINVAL;
-> -}
-> -
->   static inline int iommu_domain_set_attr(struct iommu_domain *domain,
->   					enum iommu_attr attr, void *data)
->   {
-> 
+Having a devfreq being registered as a cooling device can not mitigate
+a thermal zone if it is not bound to this one. Thus, the current
+configurations are not impacted by this change.
+
+Signed-off-by: Daniel Lezcano <daniel.lezcano@linaro.org>
+---
+ drivers/devfreq/devfreq.c                   |  8 ++++++++
+ drivers/gpu/drm/lima/lima_devfreq.c         | 13 -------------
+ drivers/gpu/drm/lima/lima_devfreq.h         |  2 --
+ drivers/gpu/drm/msm/msm_gpu.c               | 11 -----------
+ drivers/gpu/drm/msm/msm_gpu.h               |  2 --
+ drivers/gpu/drm/panfrost/panfrost_devfreq.c | 13 -------------
+ include/linux/devfreq.h                     |  3 +++
+ 7 files changed, 11 insertions(+), 41 deletions(-)
+
+diff --git a/drivers/devfreq/devfreq.c b/drivers/devfreq/devfreq.c
+index b6d63f02d293..19149b31b000 100644
+--- a/drivers/devfreq/devfreq.c
++++ b/drivers/devfreq/devfreq.c
+@@ -11,6 +11,7 @@
+ #include <linux/kmod.h>
+ #include <linux/sched.h>
+ #include <linux/debugfs.h>
++#include <linux/devfreq_cooling.h>
+ #include <linux/errno.h>
+ #include <linux/err.h>
+ #include <linux/init.h>
+@@ -26,6 +27,7 @@
+ #include <linux/hrtimer.h>
+ #include <linux/of.h>
+ #include <linux/pm_qos.h>
++#include <linux/thermal.h>
+ #include <linux/units.h>
+ #include "governor.h"
+ 
+@@ -935,6 +937,10 @@ struct devfreq *devfreq_add_device(struct device *dev,
+ 
+ 	mutex_unlock(&devfreq_list_lock);
+ 
++	devfreq->cdev = devfreq_cooling_em_register(devfreq, NULL);
++	if (IS_ERR(devfreq->cdev))
++		dev_info(dev, "Failed to register devfreq cooling device\n");
++
+ 	return devfreq;
+ 
+ err_init:
+@@ -960,6 +966,8 @@ int devfreq_remove_device(struct devfreq *devfreq)
+ 	if (!devfreq)
+ 		return -EINVAL;
+ 
++	thermal_cooling_device_unregister(devfreq->cdev);
++
+ 	if (devfreq->governor) {
+ 		devfreq->governor->event_handler(devfreq,
+ 						 DEVFREQ_GOV_STOP, NULL);
+diff --git a/drivers/gpu/drm/lima/lima_devfreq.c b/drivers/gpu/drm/lima/lima_devfreq.c
+index 5686ad4aaf7c..a696eff1642c 100644
+--- a/drivers/gpu/drm/lima/lima_devfreq.c
++++ b/drivers/gpu/drm/lima/lima_devfreq.c
+@@ -7,7 +7,6 @@
+  */
+ #include <linux/clk.h>
+ #include <linux/devfreq.h>
+-#include <linux/devfreq_cooling.h>
+ #include <linux/device.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_opp.h>
+@@ -90,11 +89,6 @@ void lima_devfreq_fini(struct lima_device *ldev)
+ {
+ 	struct lima_devfreq *devfreq = &ldev->devfreq;
+ 
+-	if (devfreq->cooling) {
+-		devfreq_cooling_unregister(devfreq->cooling);
+-		devfreq->cooling = NULL;
+-	}
+-
+ 	if (devfreq->devfreq) {
+ 		devm_devfreq_remove_device(ldev->dev, devfreq->devfreq);
+ 		devfreq->devfreq = NULL;
+@@ -110,7 +104,6 @@ void lima_devfreq_fini(struct lima_device *ldev)
+ 
+ int lima_devfreq_init(struct lima_device *ldev)
+ {
+-	struct thermal_cooling_device *cooling;
+ 	struct device *dev = ldev->dev;
+ 	struct opp_table *opp_table;
+ 	struct devfreq *devfreq;
+@@ -173,12 +166,6 @@ int lima_devfreq_init(struct lima_device *ldev)
+ 
+ 	ldevfreq->devfreq = devfreq;
+ 
+-	cooling = of_devfreq_cooling_register(dev->of_node, devfreq);
+-	if (IS_ERR(cooling))
+-		dev_info(dev, "Failed to register cooling device\n");
+-	else
+-		ldevfreq->cooling = cooling;
+-
+ 	return 0;
+ 
+ err_fini:
+diff --git a/drivers/gpu/drm/lima/lima_devfreq.h b/drivers/gpu/drm/lima/lima_devfreq.h
+index 2d9b3008ce77..c43a2069e5d3 100644
+--- a/drivers/gpu/drm/lima/lima_devfreq.h
++++ b/drivers/gpu/drm/lima/lima_devfreq.h
+@@ -9,7 +9,6 @@
+ 
+ struct devfreq;
+ struct opp_table;
+-struct thermal_cooling_device;
+ 
+ struct lima_device;
+ 
+@@ -17,7 +16,6 @@ struct lima_devfreq {
+ 	struct devfreq *devfreq;
+ 	struct opp_table *clkname_opp_table;
+ 	struct opp_table *regulators_opp_table;
+-	struct thermal_cooling_device *cooling;
+ 
+ 	ktime_t busy_time;
+ 	ktime_t idle_time;
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index ab7c167b0623..d7f80ebfe9df 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -14,7 +14,6 @@
+ #include <generated/utsrelease.h>
+ #include <linux/string_helpers.h>
+ #include <linux/devfreq.h>
+-#include <linux/devfreq_cooling.h>
+ #include <linux/devcoredump.h>
+ #include <linux/sched/task.h>
+ 
+@@ -112,14 +111,6 @@ static void msm_devfreq_init(struct msm_gpu *gpu)
+ 	}
+ 
+ 	devfreq_suspend_device(gpu->devfreq.devfreq);
+-
+-	gpu->cooling = of_devfreq_cooling_register(gpu->pdev->dev.of_node,
+-			gpu->devfreq.devfreq);
+-	if (IS_ERR(gpu->cooling)) {
+-		DRM_DEV_ERROR(&gpu->pdev->dev,
+-				"Couldn't register GPU cooling device\n");
+-		gpu->cooling = NULL;
+-	}
+ }
+ 
+ static int enable_pwrrail(struct msm_gpu *gpu)
+@@ -1056,6 +1047,4 @@ void msm_gpu_cleanup(struct msm_gpu *gpu)
+ 	if (gpu->worker) {
+ 		kthread_destroy_worker(gpu->worker);
+ 	}
+-
+-	devfreq_cooling_unregister(gpu->cooling);
+ }
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index d7cd02cd2109..93419368bac8 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -155,8 +155,6 @@ struct msm_gpu {
+ 	struct msm_gpu_state *crashstate;
+ 	/* True if the hardware supports expanded apriv (a650 and newer) */
+ 	bool hw_apriv;
+-
+-	struct thermal_cooling_device *cooling;
+ };
+ 
+ static inline struct msm_gpu *dev_to_gpu(struct device *dev)
+diff --git a/drivers/gpu/drm/panfrost/panfrost_devfreq.c b/drivers/gpu/drm/panfrost/panfrost_devfreq.c
+index 56b3f5935703..2cb6300de1f1 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_devfreq.c
++++ b/drivers/gpu/drm/panfrost/panfrost_devfreq.c
+@@ -3,7 +3,6 @@
+ 
+ #include <linux/clk.h>
+ #include <linux/devfreq.h>
+-#include <linux/devfreq_cooling.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_opp.h>
+ 
+@@ -90,7 +89,6 @@ int panfrost_devfreq_init(struct panfrost_device *pfdev)
+ 	struct device *dev = &pfdev->pdev->dev;
+ 	struct devfreq *devfreq;
+ 	struct opp_table *opp_table;
+-	struct thermal_cooling_device *cooling;
+ 	struct panfrost_devfreq *pfdevfreq = &pfdev->pfdevfreq;
+ 
+ 	opp_table = dev_pm_opp_set_regulators(dev, pfdev->comp->supply_names,
+@@ -139,12 +137,6 @@ int panfrost_devfreq_init(struct panfrost_device *pfdev)
+ 	}
+ 	pfdevfreq->devfreq = devfreq;
+ 
+-	cooling = devfreq_cooling_em_register(devfreq, NULL);
+-	if (IS_ERR(cooling))
+-		DRM_DEV_INFO(dev, "Failed to register cooling device\n");
+-	else
+-		pfdevfreq->cooling = cooling;
+-
+ 	return 0;
+ 
+ err_fini:
+@@ -156,11 +148,6 @@ void panfrost_devfreq_fini(struct panfrost_device *pfdev)
+ {
+ 	struct panfrost_devfreq *pfdevfreq = &pfdev->pfdevfreq;
+ 
+-	if (pfdevfreq->cooling) {
+-		devfreq_cooling_unregister(pfdevfreq->cooling);
+-		pfdevfreq->cooling = NULL;
+-	}
+-
+ 	if (pfdevfreq->opp_of_table_added) {
+ 		dev_pm_opp_of_remove_table(&pfdev->pdev->dev);
+ 		pfdevfreq->opp_of_table_added = false;
+diff --git a/include/linux/devfreq.h b/include/linux/devfreq.h
+index 26ea0850be9b..690bd4affe18 100644
+--- a/include/linux/devfreq.h
++++ b/include/linux/devfreq.h
+@@ -198,6 +198,9 @@ struct devfreq {
+ 
+ 	struct srcu_notifier_head transition_notifier_list;
+ 
++	/* Pointer to the cooling device if used for thermal mitigation */
++	struct thermal_cooling_device *cdev;
++
+ 	struct notifier_block nb_min;
+ 	struct notifier_block nb_max;
+ };
+-- 
+2.17.1
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
