@@ -2,38 +2,31 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0E3F32CFD9
-	for <lists+freedreno@lfdr.de>; Thu,  4 Mar 2021 10:41:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF4C332D1A1
+	for <lists+freedreno@lfdr.de>; Thu,  4 Mar 2021 12:19:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FDBD6E243;
-	Thu,  4 Mar 2021 09:41:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78BA26EA19;
+	Thu,  4 Mar 2021 11:19:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 769E36E23D;
- Thu,  4 Mar 2021 09:41:00 +0000 (UTC)
-Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
- by alexa-out.qualcomm.com with ESMTP; 04 Mar 2021 01:40:59 -0800
-X-QCInternal: smtphost
-Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
- by ironmsg08-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 04 Mar 2021 01:40:58 -0800
-X-QCInternal: smtphost
-Received: from kalyant-linux.qualcomm.com ([10.204.66.210])
- by ironmsg02-blr.qualcomm.com with ESMTP; 04 Mar 2021 15:10:31 +0530
-Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
- id C62D63D38; Thu,  4 Mar 2021 01:40:31 -0800 (PST)
-From: Kalyan Thota <kalyan_t@codeaurora.org>
-To: y@qualcomm.com, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
-Date: Thu,  4 Mar 2021 01:40:29 -0800
-Message-Id: <1614850829-31802-1-git-send-email-kalyan_t@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <y>
-References: <y>
-Subject: [Freedreno] [v1] drm/msm/disp/dpu1: fix warning reported by kernel
- bot in dpu driver
+X-Greylist: delayed 555 seconds by postgrey-1.36 at gabe;
+ Thu, 04 Mar 2021 11:19:26 UTC
+Received: from theia.8bytes.org (8bytes.org [81.169.241.247])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DAFB6EA19;
+ Thu,  4 Mar 2021 11:19:26 +0000 (UTC)
+Received: by theia.8bytes.org (Postfix, from userid 1000)
+ id A5EF3321; Thu,  4 Mar 2021 12:10:08 +0100 (CET)
+Date: Thu, 4 Mar 2021 12:10:04 +0100
+From: Joerg Roedel <joro@8bytes.org>
+To: Christoph Hellwig <hch@lst.de>
+Message-ID: <20210304111004.GA26414@8bytes.org>
+References: <20210301084257.945454-1-hch@lst.de>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20210301084257.945454-1-hch@lst.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Freedreno] cleanup unused or almost unused IOMMU APIs and the
+ FSL PAMU driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,55 +39,46 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: mkrishn@codeaurora.org, dianders@chromium.org, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, Kalyan Thota <kalyan_t@codeaurora.org>,
- dan.carpenter@oracle.com
-MIME-Version: 1.0
+Cc: freedreno@lists.freedesktop.org, kvm@vger.kernel.org,
+ Will Deacon <will@kernel.org>, Michael Ellerman <mpe@ellerman.id.au>,
+ dri-devel@lists.freedesktop.org, Li Yang <leoyang.li@nxp.com>,
+ iommu@lists.linux-foundation.org, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, virtualization@lists.linux-foundation.org,
+ linuxppc-dev@lists.ozlabs.org, David Woodhouse <dwmw2@infradead.org>,
+ linux-arm-kernel@lists.infradead.org, Lu Baolu <baolu.lu@linux.intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Fix a warning, pointing to an early deference of a variable before
-check. This bug was introduced in the following commit.
+On Mon, Mar 01, 2021 at 09:42:40AM +0100, Christoph Hellwig wrote:
+> Diffstat:
+>  arch/powerpc/include/asm/fsl_pamu_stash.h   |   12 
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c     |    2 
+>  drivers/iommu/amd/iommu.c                   |   23 
+>  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c |   85 ---
+>  drivers/iommu/arm/arm-smmu/arm-smmu.c       |  122 +---
+>  drivers/iommu/dma-iommu.c                   |    8 
+>  drivers/iommu/fsl_pamu.c                    |  264 ----------
+>  drivers/iommu/fsl_pamu.h                    |   10 
+>  drivers/iommu/fsl_pamu_domain.c             |  694 ++--------------------------
+>  drivers/iommu/fsl_pamu_domain.h             |   46 -
+>  drivers/iommu/intel/iommu.c                 |   55 --
+>  drivers/iommu/iommu.c                       |   75 ---
+>  drivers/soc/fsl/qbman/qman_portal.c         |   56 --
+>  drivers/vfio/vfio_iommu_type1.c             |   31 -
+>  drivers/vhost/vdpa.c                        |   10 
+>  include/linux/iommu.h                       |   81 ---
+>  16 files changed, 214 insertions(+), 1360 deletions(-)
 
-commit 4259ff7ae509
-("drm/msm/dpu: add support for pcc color block in dpu driver")
+Nice cleanup, thanks. The fsl_pamu driver and interface has always been
+a little bit of an alien compared to other IOMMU drivers. I am inclined
+to merge this after -rc3 is out, given some reviews. Can you also please
+add changelogs to the last three patches?
 
-Reported-by: kernel test robot <lkp@intel.com>
-Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
-Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+Thanks,
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
-index a7a2453..0f9974c 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
-@@ -26,10 +26,16 @@ static void dpu_setup_dspp_pcc(struct dpu_hw_dspp *ctx,
- 		struct dpu_hw_pcc_cfg *cfg)
- {
- 
--	u32 base = ctx->cap->sblk->pcc.base;
-+	u32 base;
- 
--	if (!ctx || !base) {
--		DRM_ERROR("invalid ctx %pK pcc base 0x%x\n", ctx, base);
-+	if (!ctx) {
-+		DRM_ERROR("invalid dspp ctx %pK\n", ctx);
-+		return;
-+	}
-+
-+	base = ctx->cap->sblk->pcc.base;
-+	if (!base) {
-+		DRM_ERROR("invalid pcc base 0x%x\n", base);
- 		return;
- 	}
- 
--- 
-2.7.4
-
+	Joerg
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
