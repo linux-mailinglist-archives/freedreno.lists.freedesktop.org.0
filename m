@@ -1,56 +1,39 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAC6732C39C
-	for <lists+freedreno@lfdr.de>; Thu,  4 Mar 2021 01:22:21 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A0E3F32CFD9
+	for <lists+freedreno@lfdr.de>; Thu,  4 Mar 2021 10:41:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E9F26E446;
-	Thu,  4 Mar 2021 00:22:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FDBD6E243;
+	Thu,  4 Mar 2021 09:41:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from z11.mailgun.us (z11.mailgun.us [104.130.96.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A85A6E446
- for <freedreno@lists.freedesktop.org>; Thu,  4 Mar 2021 00:22:19 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1614817339; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=2aRVPyBEMl+RGf7YTiFr6GVO3CZ1fdkjT1ey8/UYb4U=;
- b=cSpNNeYbGLawWVlJ3GBqdKku0NiUSbOSs/rKKGeGNUn89iZRHYLWE6eTrcDkdVXjhtI880SE
- Ng/c5XWw2KmouGkzPzy7bBXtYFOrr4Cne99ck4qkhjdpr7asUVvNUdYCQOWkv+cGessGvdUf
- tq7gvtnEWypQsyKDW7fR6EpH2V0=
-X-Mailgun-Sending-Ip: 104.130.96.11
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
- 60402838e5eea4c43b1d3e63 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 04 Mar 2021 00:22:16
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 85937C5382B; Thu,  4 Mar 2021 00:22:16 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 9F75EC2E895;
- Thu,  4 Mar 2021 00:22:12 +0000 (UTC)
-MIME-Version: 1.0
-Date: Wed, 03 Mar 2021 16:22:12 -0800
-From: abhinavk@codeaurora.org
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20210301214152.1805737-1-dmitry.baryshkov@linaro.org>
-References: <20210301214152.1805737-1-dmitry.baryshkov@linaro.org>
-Message-ID: <d4ded333eb80ac51d416bd48cd5483c3@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH] gpu/drm/msm: fix shutdown hook in case GPU
- components failed to bind
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 769E36E23D;
+ Thu,  4 Mar 2021 09:41:00 +0000 (UTC)
+Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
+ by alexa-out.qualcomm.com with ESMTP; 04 Mar 2021 01:40:59 -0800
+X-QCInternal: smtphost
+Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
+ by ironmsg08-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 04 Mar 2021 01:40:58 -0800
+X-QCInternal: smtphost
+Received: from kalyant-linux.qualcomm.com ([10.204.66.210])
+ by ironmsg02-blr.qualcomm.com with ESMTP; 04 Mar 2021 15:10:31 +0530
+Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
+ id C62D63D38; Thu,  4 Mar 2021 01:40:31 -0800 (PST)
+From: Kalyan Thota <kalyan_t@codeaurora.org>
+To: y@qualcomm.com, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+Date: Thu,  4 Mar 2021 01:40:29 -0800
+Message-Id: <1614850829-31802-1-git-send-email-kalyan_t@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <y>
+References: <y>
+Subject: [Freedreno] [v1] drm/msm/disp/dpu1: fix warning reported by kernel
+ bot in dpu driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,109 +46,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
- Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+Cc: mkrishn@codeaurora.org, dianders@chromium.org, linux-kernel@vger.kernel.org,
+ robdclark@gmail.com, Kalyan Thota <kalyan_t@codeaurora.org>,
+ dan.carpenter@oracle.com
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-03-01 13:41, Dmitry Baryshkov wrote:
-> if GPU components have failed to bind, shutdown callback would fail 
-> with
-> the following backtrace. Add safeguard check to stop that oops from
-> happening and allow the board to reboot.
-> 
-> [   66.617046] Unable to handle kernel NULL pointer dereference at
-> virtual address 0000000000000000
-> [   66.626066] Mem abort info:
-> [   66.628939]   ESR = 0x96000006
-> [   66.632088]   EC = 0x25: DABT (current EL), IL = 32 bits
-> [   66.637542]   SET = 0, FnV = 0
-> [   66.640688]   EA = 0, S1PTW = 0
-> [   66.643924] Data abort info:
-> [   66.646889]   ISV = 0, ISS = 0x00000006
-> [   66.650832]   CM = 0, WnR = 0
-> [   66.653890] user pgtable: 4k pages, 48-bit VAs, 
-> pgdp=0000000107f81000
-> [   66.660505] [0000000000000000] pgd=0000000100bb2003,
-> p4d=0000000100bb2003, pud=0000000100897003, pmd=0000000000000000
-> [   66.671398] Internal error: Oops: 96000006 [#1] PREEMPT SMP
-> [   66.677115] Modules linked in:
-> [   66.680261] CPU: 6 PID: 352 Comm: reboot Not tainted
-> 5.11.0-rc2-00309-g79e3faa756b2 #38
-> [   66.688473] Hardware name: Qualcomm Technologies, Inc. Robotics RB5 
-> (DT)
-> [   66.695347] pstate: 60400005 (nZCv daif +PAN -UAO -TCO BTYPE=--)
-> [   66.701507] pc : msm_atomic_commit_tail+0x78/0x4e0
-> [   66.706437] lr : commit_tail+0xa4/0x184
-> [   66.710381] sp : ffff8000108f3af0
-> [   66.713791] x29: ffff8000108f3af0 x28: ffff418c44337000
-> [   66.719242] x27: 0000000000000000 x26: ffff418c40a24490
-> [   66.724693] x25: ffffd3a842a4f1a0 x24: 0000000000000008
-> [   66.730146] x23: ffffd3a84313f030 x22: ffff418c444ce000
-> [   66.735598] x21: ffff418c408a4980 x20: 0000000000000000
-> [   66.741049] x19: 0000000000000000 x18: ffff800010710fbc
-> [   66.746500] x17: 000000000000000c x16: 0000000000000001
-> [   66.751954] x15: 0000000000010008 x14: 0000000000000068
-> [   66.757405] x13: 0000000000000001 x12: 0000000000000000
-> [   66.762855] x11: 0000000000000001 x10: 00000000000009b0
-> [   66.768306] x9 : ffffd3a843192000 x8 : ffff418c44337000
-> [   66.773757] x7 : 0000000000000000 x6 : 00000000a401b34e
-> [   66.779210] x5 : 00ffffffffffffff x4 : 0000000000000000
-> [   66.784660] x3 : 0000000000000000 x2 : ffff418c444ce000
-> [   66.790111] x1 : ffffd3a841dce530 x0 : ffff418c444cf000
-> [   66.795563] Call trace:
-> [   66.798075]  msm_atomic_commit_tail+0x78/0x4e0
-> [   66.802633]  commit_tail+0xa4/0x184
-> [   66.806217]  drm_atomic_helper_commit+0x160/0x390
-> [   66.811051]  drm_atomic_commit+0x4c/0x60
-> [   66.815082]  drm_atomic_helper_disable_all+0x1f4/0x210
-> [   66.820355]  drm_atomic_helper_shutdown+0x80/0x130
-> [   66.825276]  msm_pdev_shutdown+0x14/0x20
-> [   66.829303]  platform_shutdown+0x28/0x40
-> [   66.833330]  device_shutdown+0x158/0x330
-> [   66.837357]  kernel_restart+0x40/0xa0
-> [   66.841122]  __do_sys_reboot+0x228/0x250
-> [   66.845148]  __arm64_sys_reboot+0x28/0x34
-> [   66.849264]  el0_svc_common.constprop.0+0x74/0x190
-> [   66.854187]  do_el0_svc+0x24/0x90
-> [   66.857595]  el0_svc+0x14/0x20
-> [   66.860739]  el0_sync_handler+0x1a4/0x1b0
-> [   66.864858]  el0_sync+0x174/0x180
-> [   66.868269] Code: 1ac020a0 2a000273 eb02007f 54ffff01 (f9400285)
-> [   66.874525] ---[ end trace 20dedb2a3229fec8 ]---
-> 
-> Fixes: 9d5cbf5fe46e ("drm/msm: add shutdown support for display
-> platform_driver")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
-> ---
->  drivers/gpu/drm/msm/msm_atomic.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_atomic.c 
-> b/drivers/gpu/drm/msm/msm_atomic.c
-> index 6a326761dc4a..2fd0cf6421ad 100644
-> --- a/drivers/gpu/drm/msm/msm_atomic.c
-> +++ b/drivers/gpu/drm/msm/msm_atomic.c
-> @@ -207,7 +207,12 @@ void msm_atomic_commit_tail(struct 
-> drm_atomic_state *state)
->  	struct msm_kms *kms = priv->kms;
->  	struct drm_crtc *async_crtc = NULL;
->  	unsigned crtc_mask = get_crtc_mask(state);
-> -	bool async = kms->funcs->vsync_time &&
-> +	bool async;
-> +
-> +	if (!kms)
-> +		return;
-> +
-> +	async = kms->funcs->vsync_time &&
->  			can_do_async(state, &async_crtc);
-> 
->  	trace_msm_atomic_commit_tail_start(async, crtc_mask);
+Fix a warning, pointing to an early deference of a variable before
+check. This bug was introduced in the following commit.
+
+commit 4259ff7ae509
+("drm/msm/dpu: add support for pcc color block in dpu driver")
+
+Reported-by: kernel test robot <lkp@intel.com>
+Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
+index a7a2453..0f9974c 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
+@@ -26,10 +26,16 @@ static void dpu_setup_dspp_pcc(struct dpu_hw_dspp *ctx,
+ 		struct dpu_hw_pcc_cfg *cfg)
+ {
+ 
+-	u32 base = ctx->cap->sblk->pcc.base;
++	u32 base;
+ 
+-	if (!ctx || !base) {
+-		DRM_ERROR("invalid ctx %pK pcc base 0x%x\n", ctx, base);
++	if (!ctx) {
++		DRM_ERROR("invalid dspp ctx %pK\n", ctx);
++		return;
++	}
++
++	base = ctx->cap->sblk->pcc.base;
++	if (!base) {
++		DRM_ERROR("invalid pcc base 0x%x\n", base);
+ 		return;
+ 	}
+ 
+-- 
+2.7.4
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
