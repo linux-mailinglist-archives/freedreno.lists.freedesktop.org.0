@@ -1,76 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C12632E99A
-	for <lists+freedreno@lfdr.de>; Fri,  5 Mar 2021 13:34:17 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 856B432ED5F
+	for <lists+freedreno@lfdr.de>; Fri,  5 Mar 2021 15:46:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E06036EB68;
-	Fri,  5 Mar 2021 12:34:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 104A06EB97;
+	Fri,  5 Mar 2021 14:46:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 18605 seconds by postgrey-1.36 at gabe;
- Fri, 05 Mar 2021 12:34:14 UTC
-Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F27EE6EB68
- for <freedreno@lists.freedesktop.org>; Fri,  5 Mar 2021 12:34:14 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 1257K2HL190956;
- Fri, 5 Mar 2021 07:24:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2020-01-29;
- bh=uWmflhu+h7bxWvzYHXWilSvhq8wM4VlKGBtw0ZO98GE=;
- b=Co5n8q5d4nCOFDtoCmJEao6xe7PnBVNddOxTgwpaGTg131MA86/8QfODNy1pq06yV+S9
- L1likEHoa3PofpwhKYe2TpwZ3zpaUOvcm/gtxFvGwO/Pnxp4uqvsRUtLTz2oTR1PPRhO
- GDuueCMRTEV5rBBX3Hpu3rQoH416qO2f2H9bukNb1LKszcy/c0QVEtPwyvLqDwWWRjOQ
- oivhCtl2S2PA6WGQCpHIrUfVfdvToC6j7EFWpEtWjUHw/Mi7mLMJezJHxK/hlNTxLyme
- 459SRTutzM4asoP9NLOzFlSXf8/+Snuj4dsGQzMHUnZxyfAC1CA31s363jgxCjhNmy5W CQ== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by userp2120.oracle.com with ESMTP id 36yeqn9f0g-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 05 Mar 2021 07:24:03 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 1257F9CT130759;
- Fri, 5 Mar 2021 07:24:02 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
- by userp3030.oracle.com with ESMTP id 370011wara-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 05 Mar 2021 07:24:02 +0000
-Received: from abhmp0010.oracle.com (abhmp0010.oracle.com [141.146.116.16])
- by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 1257O0Hp017150;
- Fri, 5 Mar 2021 07:24:00 GMT
-Received: from kadam (/102.36.221.92) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Thu, 04 Mar 2021 23:23:59 -0800
-Date: Fri, 5 Mar 2021 10:23:50 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Stephen Boyd <swboyd@chromium.org>
-Message-ID: <20210305072350.GF2222@kadam>
-References: <1614907912-6880-1-git-send-email-abhinavk@codeaurora.org>
- <161492735848.1478170.885416005935439120@swboyd.mtv.corp.google.com>
+Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com
+ [IPv6:2607:f8b0:4864:20::731])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 210FF6EB52
+ for <freedreno@lists.freedesktop.org>; Fri,  5 Mar 2021 14:46:06 +0000 (UTC)
+Received: by mail-qk1-x731.google.com with SMTP id l132so2148372qke.7
+ for <freedreno@lists.freedesktop.org>; Fri, 05 Mar 2021 06:46:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=1y/3OThWLETFyGdIs2GM7bY5FBTWrwVWxjtUJk7Af1U=;
+ b=KIrwsOeh/7pz4aR4vESLCMaliowa+XM5t3gHAg5vRVK0IgIPkDyKPBQW8wECY/MSDB
+ MrXn1Bmq9Yx+Jz69Qu4bb9fg0CX6uEhhMWZ95LNLSJgRT20x2DhgGBAbz8JWlhnIowoM
+ VZFBBW5XnajDdRSTATdU4LM5Y9jKNPiNdNsoQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=1y/3OThWLETFyGdIs2GM7bY5FBTWrwVWxjtUJk7Af1U=;
+ b=bDCGygT/u71bioyrlwxVuUpPYSbBeHkDb9kOuZjYPxy7BALE0MhsUQD2vbxl8n5c4u
+ 43FYXBPLqHvI2H712eAG3NXSxBhZsZhv9FrfvDQWMcZIVpZGHEWC6G0ZF32uLqQ4cgxq
+ 63FVVPzXy3efUQapvNepVb+uQTE8r6p1oozy1ka4sEZMPE36OPLJfym7FY+lRZs+Atcu
+ jnls7SPtqJhYNx5ati/nqBz2Q4IiIjsS5H8PiWLDtxYhdweAYvBCkh0aefn9pFUc6Dfl
+ QcfsOyGaYL8NFA7FfwiMF3CFcfMTjyX8/EMVdsKBG5VnzJ+3QX9+cMJ/vVjjkgu8Yrc+
+ rMSw==
+X-Gm-Message-State: AOAM533ezukN4n9lWeOrBkCGs09qZTmQJ63NS3wq194JdKiwZqYCcs76
+ VW52urQ6vbrS72d7R48MdOgVoYiOUcqJYg==
+X-Google-Smtp-Source: ABdhPJxJyXGcH71BUADe8JpmjBzSRHToLTZtnkuj8wktrdz6d51kUlEpW8pOKc5kcVbqtA0pT5vniQ==
+X-Received: by 2002:a37:4d09:: with SMTP id a9mr9326871qkb.256.1614955564956; 
+ Fri, 05 Mar 2021 06:46:04 -0800 (PST)
+Received: from mail-yb1-f175.google.com (mail-yb1-f175.google.com.
+ [209.85.219.175])
+ by smtp.gmail.com with ESMTPSA id g21sm1899340qkk.72.2021.03.05.06.46.03
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 05 Mar 2021 06:46:04 -0800 (PST)
+Received: by mail-yb1-f175.google.com with SMTP id d9so2212048ybq.1
+ for <freedreno@lists.freedesktop.org>; Fri, 05 Mar 2021 06:46:03 -0800 (PST)
+X-Received: by 2002:a25:d3c5:: with SMTP id
+ e188mr14649712ybf.345.1614955563317; 
+ Fri, 05 Mar 2021 06:46:03 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <161492735848.1478170.885416005935439120@swboyd.mtv.corp.google.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-IMR: 1
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9913
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- mlxscore=0 phishscore=0
- malwarescore=0 spamscore=0 mlxlogscore=999 suspectscore=0 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2103050033
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9913
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- lowpriorityscore=0 clxscore=1011
- priorityscore=1501 mlxlogscore=999 suspectscore=0 malwarescore=0
- impostorscore=0 bulkscore=0 adultscore=0 mlxscore=0 phishscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2103050033
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Fix warnings reported by kbot
- in DP driver
+References: <20210227002603.3260599-1-dianders@chromium.org>
+ <20210226162521.1.Ib5ae69a80704c3a2992100b9b5bac1a6cc470249@changeid>
+ <6ce9f5b8-50b4-e655-f6c5-4e095c1d7e19@linaro.org>
+In-Reply-To: <6ce9f5b8-50b4-e655-f6c5-4e095c1d7e19@linaro.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 5 Mar 2021 06:45:51 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=Uq1sVDuJxy3N3C0i-FOMPKiJ5cUoJbh6WDoGfGHXXNDQ@mail.gmail.com>
+Message-ID: <CAD=FV=Uq1sVDuJxy3N3C0i-FOMPKiJ5cUoJbh6WDoGfGHXXNDQ@mail.gmail.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [Freedreno] [PATCH 1/3] drm/msm: Fix speed-bin support not to
+ access outside valid memory
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,101 +72,183 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: tanmay@codeaurora.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, khsieh@codeaurora.org, robdclark@gmail.com,
- nganji@codeaurora.org, seanpaul@chromium.org,
- Abhinav Kumar <abhinavk@codeaurora.org>, aravindh@codeaurora.org,
- freedreno@lists.freedesktop.org
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ Ulf Hansson <ulf.hansson@linaro.org>, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Stephen Boyd <swboyd@chromium.org>, Eric Anholt <eric@anholt.net>,
+ Rob Clark <robdclark@gmail.com>, Akhil P Oommen <akhilpo@codeaurora.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Niklas Cassel <niklas.cassel@linaro.org>,
+ Jorge Ramirez-Ortiz <jorge.ramirez-ortiz@linaro.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
+ LKML <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Mar 04, 2021 at 10:55:58PM -0800, Stephen Boyd wrote:
-> > @@ -368,44 +368,21 @@ static int dp_debug_init(struct dp_debug *dp_debug, struct drm_minor *minor)
-> >         int rc = 0;
-> >         struct dp_debug_private *debug = container_of(dp_debug,
-> >                         struct dp_debug_private, dp_debug);
-> > -       struct dentry *file;
-> > -       struct dentry *test_active;
-> > -       struct dentry *test_data, *test_type;
-> >  
-> > -       file = debugfs_create_file("dp_debug", 0444, minor->debugfs_root,
-> > +       debugfs_create_file("dp_debug", 0444, minor->debugfs_root,
-> >                         debug, &dp_debug_fops);
-> > -       if (IS_ERR_OR_NULL(file)) {
-> > -               rc = PTR_ERR(file);
-> > -               DRM_ERROR("[%s] debugfs create file failed, rc=%d\n",
-> > -                                 DEBUG_NAME, rc);
-> > -       }
-> >  
-> > -       test_active = debugfs_create_file("msm_dp_test_active", 0444,
-> > +       debugfs_create_file("msm_dp_test_active", 0444,
-> >                         minor->debugfs_root,
-> >                         debug, &test_active_fops);
-> > -       if (IS_ERR_OR_NULL(test_active)) {
-> > -               rc = PTR_ERR(test_active);
-> > -               DRM_ERROR("[%s] debugfs test_active failed, rc=%d\n",
-> > -                                 DEBUG_NAME, rc);
-> > -       }
-> >  
-> > -       test_data = debugfs_create_file("msm_dp_test_data", 0444,
-> > +       debugfs_create_file("msm_dp_test_data", 0444,
-> >                         minor->debugfs_root,
-> >                         debug, &dp_test_data_fops);
-> > -       if (IS_ERR_OR_NULL(test_data)) {
-> > -               rc = PTR_ERR(test_data);
-> > -               DRM_ERROR("[%s] debugfs test_data failed, rc=%d\n",
-> > -                                 DEBUG_NAME, rc);
-> > -       }
-> >  
-> > -       test_type = debugfs_create_file("msm_dp_test_type", 0444,
-> > +       debugfs_create_file("msm_dp_test_type", 0444,
-> >                         minor->debugfs_root,
-> >                         debug, &dp_test_type_fops);
-> > -       if (IS_ERR_OR_NULL(test_type)) {
-> > -               rc = PTR_ERR(test_type);
-> > -               DRM_ERROR("[%s] debugfs test_type failed, rc=%d\n",
-> > -                                 DEBUG_NAME, rc);
-> > -       }
-> 
-> Debugfs failures.
+Hi,
 
-[ Update.  I misunderstood what you were saying, and initially thought
-  you were critiquing the patch instead of the commit message.  The
-  patch looks okay.  Probably a lot of maintainers would prefer it
-  broken multiple chunks with one patch per class of warning.  But I
-  already wrote this email and I love the sound of my own voice so I'm
-  sending it.  - dan ]
+On Fri, Mar 5, 2021 at 2:28 AM Srinivas Kandagatla
+<srinivas.kandagatla@linaro.org> wrote:
+>
+>
+>
+> On 27/02/2021 00:26, Douglas Anderson wrote:
+> > When running the latest kernel on an sc7180 with KASAN I got this
+> > splat:
+> >    BUG: KASAN: slab-out-of-bounds in a6xx_gpu_init+0x618/0x644
+> >    Read of size 4 at addr ffffff8088f36100 by task kworker/7:1/58
+> >    CPU: 7 PID: 58 Comm: kworker/7:1 Not tainted 5.11.0+ #3
+> >    Hardware name: Google Lazor (rev1 - 2) with LTE (DT)
+> >    Workqueue: events deferred_probe_work_func
+> >    Call trace:
+> >     dump_backtrace+0x0/0x3a8
+> >     show_stack+0x24/0x30
+> >     dump_stack+0x174/0x1e0
+> >     print_address_description+0x70/0x2e4
+> >     kasan_report+0x178/0x1bc
+> >     __asan_report_load4_noabort+0x44/0x50
+> >     a6xx_gpu_init+0x618/0x644
+> >     adreno_bind+0x26c/0x438
+> >
+> > This is because the speed bin is defined like this:
+> >    gpu_speed_bin: gpu_speed_bin@1d2 {
+> >      reg = <0x1d2 0x2>;
+> >      bits = <5 8>;
+> >    };
+> >
+> > As you can see the "length" is 2 bytes. That means that the nvmem
+> > subsystem allocates only 2 bytes. The GPU code, however, was casting
+> > the pointer allocated by nvmem to a (u32 *) and dereferencing. That's
+> > not so good.
+> >
+> > Let's fix this to just use the nvmem_cell_read_u16() accessor function
+> > which simplifies things and also gets rid of the splat.
+> >
+> > Let's also put an explicit conversion from little endian in place just
+> > to make things clear. The nvmem subsystem today is assuming little
+> > endian and this makes it clear. Specifically, the way the above sc7180
+> > cell is interpreted:
+> >
+> > NVMEM:
+> >   +--------+--------+--------+--------+--------+
+> >   | ...... | 0x1d3  | 0x1d2  | ...... | 0x000  |
+> >   +--------+--------+--------+--------+--------+
+> >                ^       ^
+> >               msb     lsb
+> >
+> > You can see that the least significant data is at the lower address
+> > which is little endian.
+> >
+> > NOTE: someone who is truly paying attention might wonder about me
+> > picking the "u16" version of this accessor instead of the "u8" (since
+> > the value is 8 bits big) or the u32 version (just for fun). At the
+> > moment you need to pick the accessor that exactly matches the length
+> > the cell was specified as in the device tree. Hopefully future
+> > patches to the nvmem subsystem will fix this.
+> >
+> > Fixes: fe7952c629da ("drm/msm: Add speed-bin support to a618 gpu")
+> > Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> > ---
+> >
+> >   drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 31 +++++++--------------------
+> >   1 file changed, 8 insertions(+), 23 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > index ba8e9d3cf0fe..0e2024defd79 100644
+> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > @@ -1350,35 +1350,20 @@ static int a6xx_set_supported_hw(struct device *dev, struct a6xx_gpu *a6xx_gpu,
+> >               u32 revn)
+> >   {
+> >       struct opp_table *opp_table;
+> > -     struct nvmem_cell *cell;
+> >       u32 supp_hw = UINT_MAX;
+> > -     void *buf;
+> > -
+> > -     cell = nvmem_cell_get(dev, "speed_bin");
+> > -     /*
+> > -      * -ENOENT means that the platform doesn't support speedbin which is
+> > -      * fine
+> > -      */
+> > -     if (PTR_ERR(cell) == -ENOENT)
+> > -             return 0;
+> > -     else if (IS_ERR(cell)) {
+> > -             DRM_DEV_ERROR(dev,
+> > -                             "failed to read speed-bin. Some OPPs may not be supported by hardware");
+> > -             goto done;
+> > -     }
+> > +     u16 speedbin;
+> > +     int ret;
+> >
+> > -     buf = nvmem_cell_read(cell, NULL);
+>
+> I think the issue here is not passing len pointer which should return
+> how many bytes the cell is!
+>
+> Then from there we can decide to do le16_to_cpu or le32_to_cpu or not!
+> This will also future proof the code to handle speed_bins of different
+> sizes!
 
-The Smatch warning for this was that the error handling was slightly
-off because debugfs_create_file() doesn't return NULL these days.  But
-really these functions are not supposed to be error checked in the
-normal case.
+I think what you're saying is that you want to copy/paste this code
+(or something similar) everywhere that accesses an nvmem cell.  Is
+that correct?  ...or maybe you can suggest some smaller / shorter code
+that I'm missing?
 
-If you do a `git grep -w debugfs_create_file` there are 1472 callers
-and only 192 check.  This is partly because Greg went through and did a
-mass delete of error handling.
+---
 
-The way that debugfs works is if you fail to create a directory then
-the debugfs_create_file will check if the root is an error pointer.  So
-passing it "handles" errors itself.
+{
+  struct nvmem_cell *cell;
+  ssize_t len;
+  char *ret;
+  int i;
 
-The one time where I've seen that checking for errors is essential is
-if they driver dereferences the "test_data" dentry itself.  That's
-pretty uncommon.
+  *data = 0;
 
-[ So probably the commit message for this chunk should be:
+  cell = nvmem_cell_get(dev, cname);
+  if (IS_ERR(cell)) {
+    if (PTR_ERR(cell) != -EPROBE_DEFER)
+      dev_err(dev, "undefined cell %s\n", cname);
+    return PTR_ERR(cell);
+  }
 
-  Delete unnecessary debugfs error handling
+  ret = nvmem_cell_read(cell, &len);
+  nvmem_cell_put(cell);
+  if (IS_ERR(ret)) {
+    dev_err(dev, "can't read cell %s\n", cname);
+    return PTR_ERR(ret);
+  }
 
-  Debugfs functions are not supposed to be checked in the normal case
-  so delete this code.  Also it silences a Smatch warning that we're
-  checking for NULL when these functions only return error pointers.  ]
+  for (i = 0; i < len; i++)
+    *data |= ret[i] << (8 * i);
 
-regards,
-dan carpenter
+  kfree(ret);
+  dev_dbg(dev, "efuse read(%s) = %x, bytes %zd\n", cname, *data, len);
 
+  return 0;
+}
+
+---
+
+The above code is from cpr_read_efuse() in "cpr.c".  I mentioned in
+the cover letter that I thought about doing this and decided it wasn't
+a great idea.  There should be _some_ function in the nvmem core that
+says: there's an integer that's 32-bits or less stored in nvmem.
+Please read it for me.  If you don't think we can use one of the
+existing functions for that, would you be opposed to me creating a new
+one?
+
+---
+
+In any case, while we discuss what we should do long term, I still
+hope that Rob can merge this patch since it fixes the bug.
+
+-Doug
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
