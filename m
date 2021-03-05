@@ -2,67 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCF4B32EFA7
-	for <lists+freedreno@lfdr.de>; Fri,  5 Mar 2021 17:07:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEB3732F08F
+	for <lists+freedreno@lfdr.de>; Fri,  5 Mar 2021 18:03:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D8386E195;
-	Fri,  5 Mar 2021 16:07:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 610806E221;
+	Fri,  5 Mar 2021 17:03:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 710166EB65
- for <freedreno@lists.freedesktop.org>; Fri,  5 Mar 2021 16:07:39 +0000 (UTC)
-Received: by mail-wr1-x42e.google.com with SMTP id u16so2672144wrt.1
- for <freedreno@lists.freedesktop.org>; Fri, 05 Mar 2021 08:07:39 -0800 (PST)
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [IPv6:2a00:1450:4864:20::431])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF79E6E13C
+ for <freedreno@lists.freedesktop.org>; Fri,  5 Mar 2021 17:03:55 +0000 (UTC)
+Received: by mail-wr1-x431.google.com with SMTP id 7so2880982wrz.0
+ for <freedreno@lists.freedesktop.org>; Fri, 05 Mar 2021 09:03:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=Mjl6hJjekqFaDb+AnxU/CQV4FSFVeXgbpPI17kodW8k=;
- b=o3OQoy/B4bmnX00XY/fyDCeAt45512fmNcWP5RkZ+Vbmo3icV77RlzyVFpga84fw95
- vGd6DBE9GlJTxVjpu9OConw1mXcj11aRpBnGt4/JWpj6Fyy+Q/SlSw4Nv6avst8qRMj+
- btkpS026U9ooEfWQWXnInrPgZV+g+W3pqolkQv7EB0FBxEZlUaZkkCrTSDIUVsFhu3wo
- E2YA/SFDcPWdUgVElWyuVVAkRuTza4CQkOdGIxzGgpPwB9v2k2Nr9yLILPiU60parmYv
- RlVCxtjATvfApMrL+XCxIm8Luh/oNcIKNORgVIgt9S6UYT1UGFmtx+/2Cf4DU+556LTa
- 6nxw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=RsjSwA8oB0o8PW0ry99uhxTdXQdH9BOaf5mimdTgeO0=;
+ b=oNEKdz6xPt7rWWlY08YTlqJ+lKrJjFhTuySIUMQ0e+4R72ftmlHWkmFwbJE/yj/0L9
+ KQMDY7H55bE4DUmCGgWXZyl+eFIMBmfgbneFavsgAAhHFKhJqgZ0E2SRJFr8EYlYdBX3
+ HLYPLXCO66AqeADhGbMjohltUr1f+KTc3M9FN9QB1IMSKfgOS5XfD/kaKEdd5SRqmln3
+ ckKfK0l4tR15SPjWq+QWJuU49+H+lNH4Fuxx/IhwJfx6LBmYllz+9uOYVE1kgQg8wMgQ
+ DUzBop11GMlwrMWg2owHd0e46fK8c8XFG/ErkGfIy15tj6hntwGkhRBFjr1eyuGxUJT6
+ 9Pjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=Mjl6hJjekqFaDb+AnxU/CQV4FSFVeXgbpPI17kodW8k=;
- b=m9fNrgRa3+lJH9X+2c1S6ke4yYwVQ2xwuto//f/PzBkWRZO7gYVDqEsWLWRF8FGmoM
- s6nw3QIQ5c1mPrSJscFPzxAvmGL6UeHdpTrA88g98tKxnos1zKIsbDxEPs5UrPSZSVNo
- LHJjID8Fc/4KTbkHuY4s/V2BC+ImLHts1uSxhpfeNRTdqsJ9ra2h53S1AklM4QR6DcfY
- V4JlYDVQpeK/dJr55s7mT3EPg2gW0TbIIEYRMOwRFRE4rjvLUoD85QjIS86q1eQMTFD5
- c/PmfLrrGILpdzXXEuQ5RemTOSOgrwdgBy8H5Y23/NCE11EKWb2ca6TQs6HHsONYTORL
- EQhg==
-X-Gm-Message-State: AOAM531wN3xjHkpQVbJ17N2AhBqT2CQhHTG9VFx8u/FsSqDXn0zUbCxk
- +oYASpfjl3iHlTHR7mi9bGdiZA==
-X-Google-Smtp-Source: ABdhPJyvxqdI5ggYZI747djzgnK5I3Woui++yasSfP7TiMwRTupegbiaavwx5OV0jZcx7bkboFBbvA==
-X-Received: by 2002:a05:6000:188b:: with SMTP id
- a11mr9931064wri.151.1614960457955; 
- Fri, 05 Mar 2021 08:07:37 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id c11sm5367818wrm.67.2021.03.05.08.07.36
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 05 Mar 2021 08:07:37 -0800 (PST)
-To: Doug Anderson <dianders@chromium.org>
-References: <20210227002603.3260599-1-dianders@chromium.org>
- <20210226162521.1.Ib5ae69a80704c3a2992100b9b5bac1a6cc470249@changeid>
- <6ce9f5b8-50b4-e655-f6c5-4e095c1d7e19@linaro.org>
- <CAD=FV=Uq1sVDuJxy3N3C0i-FOMPKiJ5cUoJbh6WDoGfGHXXNDQ@mail.gmail.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <bc8e9959-bd2e-c168-347b-9d409ce7e3b7@linaro.org>
-Date: Fri, 5 Mar 2021 16:07:35 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <CAD=FV=Uq1sVDuJxy3N3C0i-FOMPKiJ5cUoJbh6WDoGfGHXXNDQ@mail.gmail.com>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH 1/3] drm/msm: Fix speed-bin support not to
- access outside valid memory
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=RsjSwA8oB0o8PW0ry99uhxTdXQdH9BOaf5mimdTgeO0=;
+ b=t/dyejjTUonF32nw7ib+VMpiaehFa63bJJ+vGk/I68MiQP8IaSoPTX9q0i2DPO3b2z
+ eP90UB12GIWup+7crlF3h6KykacbO1cGEOTdGkPfiR4iF34LVUL6o5PgO4NiWUq/UgMi
+ Zl1d3Nx2WC6u8SS5YNz8zIyGI9csxNKWYu+2QzrwYFWMrjxb9PTeUuCmhPavY1V2mrW1
+ DSRJ7fn5TjdwgU1rjj/c4kQlVvjDOkJsJv6b9/z0yhHdoq/i3uaCUKHQcEpRyE0xIqO8
+ MkFKL3nSeaEuL9DaROitAjrBTnc2L2DHKFxqeBJe60gCLjFUnwXqZBevGmU22hCpFtrh
+ 82jw==
+X-Gm-Message-State: AOAM531Fhcfgq3GMuo4mrMMbq/EhEU71O1FPILzw8ePsyM9Yp75J57HO
+ Z7T5FQlbgQca4/PfIGMTidZqOg==
+X-Google-Smtp-Source: ABdhPJydYEppXPz3sewV0+dccHxbmeBJKVjPuVHQAf0k543BYpWsmppZxZNmbBiyB1toc0Djs2GAuA==
+X-Received: by 2002:a5d:68cd:: with SMTP id p13mr10821095wrw.247.1614963833977; 
+ Fri, 05 Mar 2021 09:03:53 -0800 (PST)
+Received: from localhost.localdomain
+ (lns-bzn-59-82-252-141-80.adsl.proxad.net. [82.252.141.80])
+ by smtp.gmail.com with ESMTPSA id p17sm4760934wmq.47.2021.03.05.09.03.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 05 Mar 2021 09:03:53 -0800 (PST)
+From: Daniel Lezcano <daniel.lezcano@linaro.org>
+To: cwchoi00@gmail.com
+Date: Fri,  5 Mar 2021 18:03:36 +0100
+Message-Id: <20210305170338.13647-3-daniel.lezcano@linaro.org>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20210305170338.13647-1-daniel.lezcano@linaro.org>
+References: <20210305170338.13647-1-daniel.lezcano@linaro.org>
+Subject: [Freedreno] [PATCH v2 3/4] devfreq/drivers/msm: Use devfreq cooling
+ device registration
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,202 +66,92 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- Ulf Hansson <ulf.hansson@linaro.org>, Jonathan Marek <jonathan@marek.ca>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Jordan Crouse <jcrouse@codeaurora.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Eric Anholt <eric@anholt.net>,
- Rob Clark <robdclark@gmail.com>, Akhil P Oommen <akhilpo@codeaurora.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Niklas Cassel <niklas.cassel@linaro.org>,
- Jorge Ramirez-Ortiz <jorge.ramirez-ortiz@linaro.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
- LKML <linux-kernel@vger.kernel.org>
+Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <freedreno@lists.freedesktop.org>, linux-pm@vger.kernel.org,
+ David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ linux-kernel@vger.kernel.org,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ steven.price@arm.com, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
+ lukasz.luba@arm.com
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+The devfreq core code is able to register the devfreq device as a
+cooling device if the 'is_cooling_device' flag is set in the profile.
 
+Use this flag and remove the cooling device registering code.
 
-On 05/03/2021 14:45, Doug Anderson wrote:
-> Hi,
-> 
-> On Fri, Mar 5, 2021 at 2:28 AM Srinivas Kandagatla
-> <srinivas.kandagatla@linaro.org> wrote:
->>
->>
->>
->> On 27/02/2021 00:26, Douglas Anderson wrote:
->>> When running the latest kernel on an sc7180 with KASAN I got this
->>> splat:
->>>     BUG: KASAN: slab-out-of-bounds in a6xx_gpu_init+0x618/0x644
->>>     Read of size 4 at addr ffffff8088f36100 by task kworker/7:1/58
->>>     CPU: 7 PID: 58 Comm: kworker/7:1 Not tainted 5.11.0+ #3
->>>     Hardware name: Google Lazor (rev1 - 2) with LTE (DT)
->>>     Workqueue: events deferred_probe_work_func
->>>     Call trace:
->>>      dump_backtrace+0x0/0x3a8
->>>      show_stack+0x24/0x30
->>>      dump_stack+0x174/0x1e0
->>>      print_address_description+0x70/0x2e4
->>>      kasan_report+0x178/0x1bc
->>>      __asan_report_load4_noabort+0x44/0x50
->>>      a6xx_gpu_init+0x618/0x644
->>>      adreno_bind+0x26c/0x438
->>>
->>> This is because the speed bin is defined like this:
->>>     gpu_speed_bin: gpu_speed_bin@1d2 {
->>>       reg = <0x1d2 0x2>;
->>>       bits = <5 8>;
->>>     };
->>>
->>> As you can see the "length" is 2 bytes. That means that the nvmem
->>> subsystem allocates only 2 bytes. The GPU code, however, was casting
->>> the pointer allocated by nvmem to a (u32 *) and dereferencing. That's
->>> not so good.
->>>
->>> Let's fix this to just use the nvmem_cell_read_u16() accessor function
->>> which simplifies things and also gets rid of the splat.
->>>
->>> Let's also put an explicit conversion from little endian in place just
->>> to make things clear. The nvmem subsystem today is assuming little
->>> endian and this makes it clear. Specifically, the way the above sc7180
->>> cell is interpreted:
->>>
->>> NVMEM:
->>>    +--------+--------+--------+--------+--------+
->>>    | ...... | 0x1d3  | 0x1d2  | ...... | 0x000  |
->>>    +--------+--------+--------+--------+--------+
->>>                 ^       ^
->>>                msb     lsb
->>>
->>> You can see that the least significant data is at the lower address
->>> which is little endian.
->>>
->>> NOTE: someone who is truly paying attention might wonder about me
->>> picking the "u16" version of this accessor instead of the "u8" (since
->>> the value is 8 bits big) or the u32 version (just for fun). At the
->>> moment you need to pick the accessor that exactly matches the length
->>> the cell was specified as in the device tree. Hopefully future
->>> patches to the nvmem subsystem will fix this.
->>>
->>> Fixes: fe7952c629da ("drm/msm: Add speed-bin support to a618 gpu")
->>> Signed-off-by: Douglas Anderson <dianders@chromium.org>
->>> ---
->>>
->>>    drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 31 +++++++--------------------
->>>    1 file changed, 8 insertions(+), 23 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>> index ba8e9d3cf0fe..0e2024defd79 100644
->>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>> @@ -1350,35 +1350,20 @@ static int a6xx_set_supported_hw(struct device *dev, struct a6xx_gpu *a6xx_gpu,
->>>                u32 revn)
->>>    {
->>>        struct opp_table *opp_table;
->>> -     struct nvmem_cell *cell;
->>>        u32 supp_hw = UINT_MAX;
->>> -     void *buf;
->>> -
->>> -     cell = nvmem_cell_get(dev, "speed_bin");
->>> -     /*
->>> -      * -ENOENT means that the platform doesn't support speedbin which is
->>> -      * fine
->>> -      */
->>> -     if (PTR_ERR(cell) == -ENOENT)
->>> -             return 0;
->>> -     else if (IS_ERR(cell)) {
->>> -             DRM_DEV_ERROR(dev,
->>> -                             "failed to read speed-bin. Some OPPs may not be supported by hardware");
->>> -             goto done;
->>> -     }
->>> +     u16 speedbin;
->>> +     int ret;
->>>
->>> -     buf = nvmem_cell_read(cell, NULL);
->>
->> I think the issue here is not passing len pointer which should return
->> how many bytes the cell is!
->>
->> Then from there we can decide to do le16_to_cpu or le32_to_cpu or not!
->> This will also future proof the code to handle speed_bins of different
->> sizes!
-> 
-> I think what you're saying is that you want to copy/paste this code
-> (or something similar) everywhere that accesses an nvmem cell.  Is
-> that correct?  ...or maybe you can suggest some smaller / shorter code
-> that I'm missing?
-> 
+Tested on dragonboard 845c
 
-It depends what the consumer is doing! If it is already aware of what 
-size of data its expecting then you can use nvmem_cell_read_u8/16/32/64 
-variants, however it wants to do bit more with the data then 
-nvmem_cell_read() should give more flexibility!
+Signed-off-by: Daniel Lezcano <daniel.lezcano@linaro.org>
+---
+ drivers/gpu/drm/msm/msm_gpu.c | 12 +-----------
+ drivers/gpu/drm/msm/msm_gpu.h |  2 --
+ 2 files changed, 1 insertion(+), 13 deletions(-)
 
-> ---
-> 
-> {
->    struct nvmem_cell *cell;
->    ssize_t len;
->    char *ret;
->    int i;
-> 
->    *data = 0;
-> 
->    cell = nvmem_cell_get(dev, cname);
->    if (IS_ERR(cell)) {
->      if (PTR_ERR(cell) != -EPROBE_DEFER)
->        dev_err(dev, "undefined cell %s\n", cname);
->      return PTR_ERR(cell);
->    }
-> 
->    ret = nvmem_cell_read(cell, &len);
->    nvmem_cell_put(cell);
->    if (IS_ERR(ret)) {
->      dev_err(dev, "can't read cell %s\n", cname);
->      return PTR_ERR(ret);
->    }
-> 
->    for (i = 0; i < len; i++)
->      *data |= ret[i] << (8 * i);
-> 
->    kfree(ret);
->    dev_dbg(dev, "efuse read(%s) = %x, bytes %zd\n", cname, *data, len);
-> 
->    return 0;
-> }
-> 
-> ---
-> 
-> The above code is from cpr_read_efuse() in "cpr.c".  I mentioned in
-> the cover letter that I thought about doing this and decided it wasn't
-> a great idea.  There should be _some_ function in the nvmem core that
-> says: there's an integer that's 32-bits or less stored in nvmem.
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index ab7c167b0623..eade94271a60 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -14,7 +14,6 @@
+ #include <generated/utsrelease.h>
+ #include <linux/string_helpers.h>
+ #include <linux/devfreq.h>
+-#include <linux/devfreq_cooling.h>
+ #include <linux/devcoredump.h>
+ #include <linux/sched/task.h>
+ 
+@@ -82,6 +81,7 @@ static struct devfreq_dev_profile msm_devfreq_profile = {
+ 	.target = msm_devfreq_target,
+ 	.get_dev_status = msm_devfreq_get_dev_status,
+ 	.get_cur_freq = msm_devfreq_get_cur_freq,
++	.is_cooling_device = true,
+ };
+ 
+ static void msm_devfreq_init(struct msm_gpu *gpu)
+@@ -112,14 +112,6 @@ static void msm_devfreq_init(struct msm_gpu *gpu)
+ 	}
+ 
+ 	devfreq_suspend_device(gpu->devfreq.devfreq);
+-
+-	gpu->cooling = of_devfreq_cooling_register(gpu->pdev->dev.of_node,
+-			gpu->devfreq.devfreq);
+-	if (IS_ERR(gpu->cooling)) {
+-		DRM_DEV_ERROR(&gpu->pdev->dev,
+-				"Couldn't register GPU cooling device\n");
+-		gpu->cooling = NULL;
+-	}
+ }
+ 
+ static int enable_pwrrail(struct msm_gpu *gpu)
+@@ -1056,6 +1048,4 @@ void msm_gpu_cleanup(struct msm_gpu *gpu)
+ 	if (gpu->worker) {
+ 		kthread_destroy_worker(gpu->worker);
+ 	}
+-
+-	devfreq_cooling_unregister(gpu->cooling);
+ }
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index d7cd02cd2109..93419368bac8 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -155,8 +155,6 @@ struct msm_gpu {
+ 	struct msm_gpu_state *crashstate;
+ 	/* True if the hardware supports expanded apriv (a650 and newer) */
+ 	bool hw_apriv;
+-
+-	struct thermal_cooling_device *cooling;
+ };
+ 
+ static inline struct msm_gpu *dev_to_gpu(struct device *dev)
+-- 
+2.17.1
 
-There is no such helper function other than using the above snippet to do.
-
-> Please read it for me.  If you don't think we can use one of the
-> existing functions for that, would you be opposed to me creating a new
-> one?
-
-I have no issue in adding a new helper function in nvmem to allow such 
-thing!
-
-> 
-> ---
-> 
-> In any case, while we discuss what we should do long term, I still
-> hope that Rob can merge this patch since it fixes the bug.
-
-Yes, I agree this definitely fixes the mentioned bug!
-> 
-> -Doug
-> 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
