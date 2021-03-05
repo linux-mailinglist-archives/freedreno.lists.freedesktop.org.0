@@ -2,58 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEB3732F08F
-	for <lists+freedreno@lfdr.de>; Fri,  5 Mar 2021 18:03:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D94532F2D0
+	for <lists+freedreno@lfdr.de>; Fri,  5 Mar 2021 19:38:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 610806E221;
-	Fri,  5 Mar 2021 17:03:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF6996E2B8;
+	Fri,  5 Mar 2021 18:38:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF79E6E13C
- for <freedreno@lists.freedesktop.org>; Fri,  5 Mar 2021 17:03:55 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id 7so2880982wrz.0
- for <freedreno@lists.freedesktop.org>; Fri, 05 Mar 2021 09:03:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=RsjSwA8oB0o8PW0ry99uhxTdXQdH9BOaf5mimdTgeO0=;
- b=oNEKdz6xPt7rWWlY08YTlqJ+lKrJjFhTuySIUMQ0e+4R72ftmlHWkmFwbJE/yj/0L9
- KQMDY7H55bE4DUmCGgWXZyl+eFIMBmfgbneFavsgAAhHFKhJqgZ0E2SRJFr8EYlYdBX3
- HLYPLXCO66AqeADhGbMjohltUr1f+KTc3M9FN9QB1IMSKfgOS5XfD/kaKEdd5SRqmln3
- ckKfK0l4tR15SPjWq+QWJuU49+H+lNH4Fuxx/IhwJfx6LBmYllz+9uOYVE1kgQg8wMgQ
- DUzBop11GMlwrMWg2owHd0e46fK8c8XFG/ErkGfIy15tj6hntwGkhRBFjr1eyuGxUJT6
- 9Pjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=RsjSwA8oB0o8PW0ry99uhxTdXQdH9BOaf5mimdTgeO0=;
- b=t/dyejjTUonF32nw7ib+VMpiaehFa63bJJ+vGk/I68MiQP8IaSoPTX9q0i2DPO3b2z
- eP90UB12GIWup+7crlF3h6KykacbO1cGEOTdGkPfiR4iF34LVUL6o5PgO4NiWUq/UgMi
- Zl1d3Nx2WC6u8SS5YNz8zIyGI9csxNKWYu+2QzrwYFWMrjxb9PTeUuCmhPavY1V2mrW1
- DSRJ7fn5TjdwgU1rjj/c4kQlVvjDOkJsJv6b9/z0yhHdoq/i3uaCUKHQcEpRyE0xIqO8
- MkFKL3nSeaEuL9DaROitAjrBTnc2L2DHKFxqeBJe60gCLjFUnwXqZBevGmU22hCpFtrh
- 82jw==
-X-Gm-Message-State: AOAM531Fhcfgq3GMuo4mrMMbq/EhEU71O1FPILzw8ePsyM9Yp75J57HO
- Z7T5FQlbgQca4/PfIGMTidZqOg==
-X-Google-Smtp-Source: ABdhPJydYEppXPz3sewV0+dccHxbmeBJKVjPuVHQAf0k543BYpWsmppZxZNmbBiyB1toc0Djs2GAuA==
-X-Received: by 2002:a5d:68cd:: with SMTP id p13mr10821095wrw.247.1614963833977; 
- Fri, 05 Mar 2021 09:03:53 -0800 (PST)
-Received: from localhost.localdomain
- (lns-bzn-59-82-252-141-80.adsl.proxad.net. [82.252.141.80])
- by smtp.gmail.com with ESMTPSA id p17sm4760934wmq.47.2021.03.05.09.03.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Mar 2021 09:03:53 -0800 (PST)
-From: Daniel Lezcano <daniel.lezcano@linaro.org>
-To: cwchoi00@gmail.com
-Date: Fri,  5 Mar 2021 18:03:36 +0100
-Message-Id: <20210305170338.13647-3-daniel.lezcano@linaro.org>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210305170338.13647-1-daniel.lezcano@linaro.org>
-References: <20210305170338.13647-1-daniel.lezcano@linaro.org>
-Subject: [Freedreno] [PATCH v2 3/4] devfreq/drivers/msm: Use devfreq cooling
- device registration
+Received: from z11.mailgun.us (z11.mailgun.us [104.130.96.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A0786E2B8
+ for <freedreno@lists.freedesktop.org>; Fri,  5 Mar 2021 18:38:19 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1614969502; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=osjZTzJLJWcqCLVpSskqeQnmz4nbllh1a3JglbqZKiI=;
+ b=uTtSnaG2OM8DQvloMkARrzCKpxoCeyFfx8OBUrraTDv9/VraIeROwJ5ntefCDbFB2PVmqc7M
+ WswrRTV9nWXXEo7UO35ebs7haBsry9Vrt9uBiIS2/q7R4/31LERDfGQcEjyip6X+/KD/Q1cH
+ j0tZrkP2cQvWxiV/5n3UEXvh9b8=
+X-Mailgun-Sending-Ip: 104.130.96.11
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
+ 60427a98c862e1b9fdaf139e (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 05 Mar 2021 18:38:16
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id E8715C43461; Fri,  5 Mar 2021 18:38:15 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id C04E1C433C6;
+ Fri,  5 Mar 2021 18:38:14 +0000 (UTC)
+MIME-Version: 1.0
+Date: Fri, 05 Mar 2021 10:38:14 -0800
+From: abhinavk@codeaurora.org
+To: Dan Carpenter <dan.carpenter@oracle.com>
+In-Reply-To: <20210305072350.GF2222@kadam>
+References: <1614907912-6880-1-git-send-email-abhinavk@codeaurora.org>
+ <161492735848.1478170.885416005935439120@swboyd.mtv.corp.google.com>
+ <20210305072350.GF2222@kadam>
+Message-ID: <4dc46ac4940a0c9d070f04088df58c81@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Fix warnings reported by kbot
+ in DP driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,92 +65,113 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, linux-pm@vger.kernel.org,
- David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- linux-kernel@vger.kernel.org,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- steven.price@arm.com, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
- lukasz.luba@arm.com
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, khsieh@codeaurora.org, robdclark@gmail.com,
+ nganji@codeaurora.org, seanpaul@chromium.org, tanmay@codeaurora.org,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The devfreq core code is able to register the devfreq device as a
-cooling device if the 'is_cooling_device' flag is set in the profile.
+Hi Stephen
 
-Use this flag and remove the cooling device registering code.
+Thanks for the review.
+I will break this up into patches according to the class of warning to 
+show the warning in the commit text
+and resend the patches.
 
-Tested on dragonboard 845c
-
-Signed-off-by: Daniel Lezcano <daniel.lezcano@linaro.org>
----
- drivers/gpu/drm/msm/msm_gpu.c | 12 +-----------
- drivers/gpu/drm/msm/msm_gpu.h |  2 --
- 2 files changed, 1 insertion(+), 13 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index ab7c167b0623..eade94271a60 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -14,7 +14,6 @@
- #include <generated/utsrelease.h>
- #include <linux/string_helpers.h>
- #include <linux/devfreq.h>
--#include <linux/devfreq_cooling.h>
- #include <linux/devcoredump.h>
- #include <linux/sched/task.h>
- 
-@@ -82,6 +81,7 @@ static struct devfreq_dev_profile msm_devfreq_profile = {
- 	.target = msm_devfreq_target,
- 	.get_dev_status = msm_devfreq_get_dev_status,
- 	.get_cur_freq = msm_devfreq_get_cur_freq,
-+	.is_cooling_device = true,
- };
- 
- static void msm_devfreq_init(struct msm_gpu *gpu)
-@@ -112,14 +112,6 @@ static void msm_devfreq_init(struct msm_gpu *gpu)
- 	}
- 
- 	devfreq_suspend_device(gpu->devfreq.devfreq);
--
--	gpu->cooling = of_devfreq_cooling_register(gpu->pdev->dev.of_node,
--			gpu->devfreq.devfreq);
--	if (IS_ERR(gpu->cooling)) {
--		DRM_DEV_ERROR(&gpu->pdev->dev,
--				"Couldn't register GPU cooling device\n");
--		gpu->cooling = NULL;
--	}
- }
- 
- static int enable_pwrrail(struct msm_gpu *gpu)
-@@ -1056,6 +1048,4 @@ void msm_gpu_cleanup(struct msm_gpu *gpu)
- 	if (gpu->worker) {
- 		kthread_destroy_worker(gpu->worker);
- 	}
--
--	devfreq_cooling_unregister(gpu->cooling);
- }
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index d7cd02cd2109..93419368bac8 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -155,8 +155,6 @@ struct msm_gpu {
- 	struct msm_gpu_state *crashstate;
- 	/* True if the hardware supports expanded apriv (a650 and newer) */
- 	bool hw_apriv;
--
--	struct thermal_cooling_device *cooling;
- };
- 
- static inline struct msm_gpu *dev_to_gpu(struct device *dev)
--- 
-2.17.1
-
+Abhinav
+On 2021-03-04 23:23, Dan Carpenter wrote:
+> On Thu, Mar 04, 2021 at 10:55:58PM -0800, Stephen Boyd wrote:
+>> > @@ -368,44 +368,21 @@ static int dp_debug_init(struct dp_debug *dp_debug, struct drm_minor *minor)
+>> >         int rc = 0;
+>> >         struct dp_debug_private *debug = container_of(dp_debug,
+>> >                         struct dp_debug_private, dp_debug);
+>> > -       struct dentry *file;
+>> > -       struct dentry *test_active;
+>> > -       struct dentry *test_data, *test_type;
+>> >
+>> > -       file = debugfs_create_file("dp_debug", 0444, minor->debugfs_root,
+>> > +       debugfs_create_file("dp_debug", 0444, minor->debugfs_root,
+>> >                         debug, &dp_debug_fops);
+>> > -       if (IS_ERR_OR_NULL(file)) {
+>> > -               rc = PTR_ERR(file);
+>> > -               DRM_ERROR("[%s] debugfs create file failed, rc=%d\n",
+>> > -                                 DEBUG_NAME, rc);
+>> > -       }
+>> >
+>> > -       test_active = debugfs_create_file("msm_dp_test_active", 0444,
+>> > +       debugfs_create_file("msm_dp_test_active", 0444,
+>> >                         minor->debugfs_root,
+>> >                         debug, &test_active_fops);
+>> > -       if (IS_ERR_OR_NULL(test_active)) {
+>> > -               rc = PTR_ERR(test_active);
+>> > -               DRM_ERROR("[%s] debugfs test_active failed, rc=%d\n",
+>> > -                                 DEBUG_NAME, rc);
+>> > -       }
+>> >
+>> > -       test_data = debugfs_create_file("msm_dp_test_data", 0444,
+>> > +       debugfs_create_file("msm_dp_test_data", 0444,
+>> >                         minor->debugfs_root,
+>> >                         debug, &dp_test_data_fops);
+>> > -       if (IS_ERR_OR_NULL(test_data)) {
+>> > -               rc = PTR_ERR(test_data);
+>> > -               DRM_ERROR("[%s] debugfs test_data failed, rc=%d\n",
+>> > -                                 DEBUG_NAME, rc);
+>> > -       }
+>> >
+>> > -       test_type = debugfs_create_file("msm_dp_test_type", 0444,
+>> > +       debugfs_create_file("msm_dp_test_type", 0444,
+>> >                         minor->debugfs_root,
+>> >                         debug, &dp_test_type_fops);
+>> > -       if (IS_ERR_OR_NULL(test_type)) {
+>> > -               rc = PTR_ERR(test_type);
+>> > -               DRM_ERROR("[%s] debugfs test_type failed, rc=%d\n",
+>> > -                                 DEBUG_NAME, rc);
+>> > -       }
+>> 
+>> Debugfs failures.
+> 
+> [ Update.  I misunderstood what you were saying, and initially thought
+>   you were critiquing the patch instead of the commit message.  The
+>   patch looks okay.  Probably a lot of maintainers would prefer it
+>   broken multiple chunks with one patch per class of warning.  But I
+>   already wrote this email and I love the sound of my own voice so I'm
+>   sending it.  - dan ]
+> 
+> The Smatch warning for this was that the error handling was slightly
+> off because debugfs_create_file() doesn't return NULL these days.  But
+> really these functions are not supposed to be error checked in the
+> normal case.
+> 
+> If you do a `git grep -w debugfs_create_file` there are 1472 callers
+> and only 192 check.  This is partly because Greg went through and did a
+> mass delete of error handling.
+> 
+> The way that debugfs works is if you fail to create a directory then
+> the debugfs_create_file will check if the root is an error pointer.  So
+> passing it "handles" errors itself.
+> 
+> The one time where I've seen that checking for errors is essential is
+> if they driver dereferences the "test_data" dentry itself.  That's
+> pretty uncommon.
+> 
+> [ So probably the commit message for this chunk should be:
+> 
+>   Delete unnecessary debugfs error handling
+> 
+>   Debugfs functions are not supposed to be checked in the normal case
+>   so delete this code.  Also it silences a Smatch warning that we're
+>   checking for NULL when these functions only return error pointers.  ]
+> 
+> regards,
+> dan carpenter
+> 
+> _______________________________________________
+> Freedreno mailing list
+> Freedreno@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/freedreno
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
