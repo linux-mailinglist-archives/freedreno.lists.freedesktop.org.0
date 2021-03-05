@@ -2,34 +2,34 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0497232F3A5
-	for <lists+freedreno@lfdr.de>; Fri,  5 Mar 2021 20:17:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C67E32F3AD
+	for <lists+freedreno@lfdr.de>; Fri,  5 Mar 2021 20:17:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D07F56EC23;
-	Fri,  5 Mar 2021 19:17:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E58E16EC28;
+	Fri,  5 Mar 2021 19:17:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from m42-2.mailgun.net (m42-2.mailgun.net [69.72.42.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F26C66EC24
- for <freedreno@lists.freedesktop.org>; Fri,  5 Mar 2021 19:17:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80EC56EC2A
+ for <freedreno@lists.freedesktop.org>; Fri,  5 Mar 2021 19:17:39 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1614971854; h=References: In-Reply-To: Message-Id: Date:
+ s=smtp; t=1614971865; h=References: In-Reply-To: Message-Id: Date:
  Subject: Cc: To: From: Sender;
- bh=sDcKWD9OFSQiSe3X6JjAwqGBeAWyF8ycO02Wzq243Yw=;
- b=GB3REp9+t6LNaibpYanprq1eTAV7PtPUMrr8jJb0NeI/aZjMlNvjhvBWaS+d1NF4H47TvoXj
- /0FJUrnETROVkeUXo4O/E5x0FtuRLEIHXo8FYzVFBD1nipET0rrMPaSNidzk2mTbs7ohe7X3
- 86VzFo3jWebqNtk50x8khdyxDEo=
+ bh=4yj4BLUjKC2+C0TFQ3euq+M9GNFyVABLQZ+Lu8m9ayY=;
+ b=wib7+hXjg8ndA/MuN4oCezS8592UFqMunu/SsTBScZEeEbxSkhV8OeS39r7b6ljq+RXUW8o1
+ M+gQSg+RpcUlQQ8DKY3kYcPoqIUFO3MyRa7TNcFpWyjCdgzvDvfMtJO0bBt/V8XWjMWLprPk
+ bz22InBqJfGeoizDLIkHlo9rrDY=
 X-Mailgun-Sending-Ip: 69.72.42.2
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
- 604283cc7b648e24363bae55 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 05 Mar 2021 19:17:32
+ smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
+ 604283cf81003345dc928972 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 05 Mar 2021 19:17:35
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 42E04C433CA; Fri,  5 Mar 2021 19:17:32 +0000 (UTC)
+ id C4BB5C433ED; Fri,  5 Mar 2021 19:17:34 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -40,22 +40,22 @@ Received: from abhinavk-linux.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 0AD45C433CA;
- Fri,  5 Mar 2021 19:17:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 0AD45C433CA
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 66324C433CA;
+ Fri,  5 Mar 2021 19:17:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 66324C433CA
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  spf=fail smtp.mailfrom=abhinavk@codeaurora.org
 From: Abhinav Kumar <abhinavk@codeaurora.org>
 To: dri-devel@lists.freedesktop.org
-Date: Fri,  5 Mar 2021 11:17:18 -0800
-Message-Id: <1614971839-2686-2-git-send-email-abhinavk@codeaurora.org>
+Date: Fri,  5 Mar 2021 11:17:19 -0800
+Message-Id: <1614971839-2686-3-git-send-email-abhinavk@codeaurora.org>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1614971839-2686-1-git-send-email-abhinavk@codeaurora.org>
 References: <1614971839-2686-1-git-send-email-abhinavk@codeaurora.org>
-Subject: [Freedreno] [PATCH 2/3] drm/msm/dp: Fix incorrect NULL check kbot
- warnings in DP driver
+Subject: [Freedreno] [PATCH 3/3] drm/msm/dp: delete unnecessary debugfs
+ error handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,35 +79,83 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Fix an incorrect NULL check reported by kbot in the MSM DP driver
+Currently the error checking logic in the dp_debug module could
+pass zero to PTR_ERR and it causes the below kbot warnings:
 
-smatch warnings:
-drivers/gpu/drm/msm/dp/dp_hpd.c:37 dp_hpd_connect()
-error: we previously assumed 'hpd_priv->dp_cb' could be null
-(see line 37)
+drivers/gpu/drm/msm/dp/dp_debug.c:378 dp_debug_init()
+warn: passing zero to 'PTR_ERR'
+drivers/gpu/drm/msm/dp/dp_debug.c:387 dp_debug_init()
+warn: passing zero to 'PTR_ERR'
+drivers/gpu/drm/msm/dp/dp_debug.c:396 dp_debug_init()
+warn: passing zero to 'PTR_ERR'
+drivers/gpu/drm/msm/dp/dp_debug.c:405 dp_debug_init()
+warn: passing zero to 'PTR_ERR'
+
+Debugfs functions are not supposed to be checked in the normal
+case so delete this code.  Also it silences the above Smatch
+warnings that we're checking for NULL when these functions only
+return error pointers.
 
 Reported-by: kernel test robot <lkp@intel.com>
 Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
 Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
 ---
- drivers/gpu/drm/msm/dp/dp_hpd.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_debug.c | 31 ++++---------------------------
+ 1 file changed, 4 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_hpd.c b/drivers/gpu/drm/msm/dp/dp_hpd.c
-index 5b8fe3202..e1c90fa 100644
---- a/drivers/gpu/drm/msm/dp/dp_hpd.c
-+++ b/drivers/gpu/drm/msm/dp/dp_hpd.c
-@@ -34,8 +34,8 @@ int dp_hpd_connect(struct dp_usbpd *dp_usbpd, bool hpd)
+diff --git a/drivers/gpu/drm/msm/dp/dp_debug.c b/drivers/gpu/drm/msm/dp/dp_debug.c
+index 6c6998f..2f6247e 100644
+--- a/drivers/gpu/drm/msm/dp/dp_debug.c
++++ b/drivers/gpu/drm/msm/dp/dp_debug.c
+@@ -368,44 +368,21 @@ static int dp_debug_init(struct dp_debug *dp_debug, struct drm_minor *minor)
+ 	int rc = 0;
+ 	struct dp_debug_private *debug = container_of(dp_debug,
+ 			struct dp_debug_private, dp_debug);
+-	struct dentry *file;
+-	struct dentry *test_active;
+-	struct dentry *test_data, *test_type;
  
- 	dp_usbpd->hpd_high = hpd;
+-	file = debugfs_create_file("dp_debug", 0444, minor->debugfs_root,
++	debugfs_create_file("dp_debug", 0444, minor->debugfs_root,
+ 			debug, &dp_debug_fops);
+-	if (IS_ERR_OR_NULL(file)) {
+-		rc = PTR_ERR(file);
+-		DRM_ERROR("[%s] debugfs create file failed, rc=%d\n",
+-				  DEBUG_NAME, rc);
+-	}
  
--	if (!hpd_priv->dp_cb && !hpd_priv->dp_cb->configure
--				&& !hpd_priv->dp_cb->disconnect) {
-+	if (!hpd_priv->dp_cb || !hpd_priv->dp_cb->configure
-+				|| !hpd_priv->dp_cb->disconnect) {
- 		pr_err("hpd dp_cb not initialized\n");
- 		return -EINVAL;
- 	}
+-	test_active = debugfs_create_file("msm_dp_test_active", 0444,
++	debugfs_create_file("msm_dp_test_active", 0444,
+ 			minor->debugfs_root,
+ 			debug, &test_active_fops);
+-	if (IS_ERR_OR_NULL(test_active)) {
+-		rc = PTR_ERR(test_active);
+-		DRM_ERROR("[%s] debugfs test_active failed, rc=%d\n",
+-				  DEBUG_NAME, rc);
+-	}
+ 
+-	test_data = debugfs_create_file("msm_dp_test_data", 0444,
++	debugfs_create_file("msm_dp_test_data", 0444,
+ 			minor->debugfs_root,
+ 			debug, &dp_test_data_fops);
+-	if (IS_ERR_OR_NULL(test_data)) {
+-		rc = PTR_ERR(test_data);
+-		DRM_ERROR("[%s] debugfs test_data failed, rc=%d\n",
+-				  DEBUG_NAME, rc);
+-	}
+ 
+-	test_type = debugfs_create_file("msm_dp_test_type", 0444,
++	debugfs_create_file("msm_dp_test_type", 0444,
+ 			minor->debugfs_root,
+ 			debug, &dp_test_type_fops);
+-	if (IS_ERR_OR_NULL(test_type)) {
+-		rc = PTR_ERR(test_type);
+-		DRM_ERROR("[%s] debugfs test_type failed, rc=%d\n",
+-				  DEBUG_NAME, rc);
+-	}
+ 
+ 	debug->root = minor->debugfs_root;
+ 
 -- 
 The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
 a Linux Foundation Collaborative Project
