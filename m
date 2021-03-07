@@ -2,57 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6501E32FFEE
-	for <lists+freedreno@lfdr.de>; Sun,  7 Mar 2021 10:45:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C1F7330400
+	for <lists+freedreno@lfdr.de>; Sun,  7 Mar 2021 19:51:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D19A26E588;
-	Sun,  7 Mar 2021 09:45:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AC516E252;
+	Sun,  7 Mar 2021 18:51:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C32446E58E
- for <freedreno@lists.freedesktop.org>; Sun,  7 Mar 2021 09:45:37 +0000 (UTC)
-Received: by mail-wr1-x42b.google.com with SMTP id h98so8075396wrh.11
- for <freedreno@lists.freedesktop.org>; Sun, 07 Mar 2021 01:45:37 -0800 (PST)
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75B136E7D3
+ for <freedreno@lists.freedesktop.org>; Sun,  7 Mar 2021 18:51:44 +0000 (UTC)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ w203-20020a1c49d40000b029010c706d0642so7384977wma.0
+ for <freedreno@lists.freedesktop.org>; Sun, 07 Mar 2021 10:51:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
  bh=RsjSwA8oB0o8PW0ry99uhxTdXQdH9BOaf5mimdTgeO0=;
- b=cEZv1N9MT1tvcp5XXBU/gC/3IF30iDxLCSKZoGWnZBDvfMPIl/dDWocdAT518rBLib
- z9GfFnD7Vw4DdcLo6XWQ69SwwDSUG75kHjUnPLaR9OU6WdnNycO7Y8roscN1sMew0W9T
- n8yaXirXJTt640L5dqM2zyhVlDKbypVDKJQaCWeDlzBGnB0Kgf9RSTU5UjKuiLHebEyY
- ks0eFoAg7C0H4/gHHMtVmELgLhiqLCw6imgeP39zDlV+mzjWx5brsNRbSimT+hhXNZbn
- eXtGNYNgtSSGjIQJgD4xKtTyeRERc0I4pQTAdASh53z2pnWyPnR0IeaLzGxLmbuU9/CF
- jyqw==
+ b=oWBnZ4aSczd7y5RxPFRzRlQVEwdtlC9a7PJ+FC4zThsk6IkpQmng+VE49/LomHtJMo
+ KTXaLq3/6N4DkZfdmxylKLJBC9GmFaqke08d4pIGBWKxDWIz/16PL5zXFXcrBhi85x92
+ KrSgTVisjIQZRkKc6FnfU2NqKTyPV1RI4VtdCr9bhiIEBCv4u+OkZ4UEG7SyIhN22L7D
+ 2InRHmS/NTCjCJ+uNOEcNKLnTrUYdn4vei5v2JFTFA6c0mJYcFPj/TUQgaJ6bc2cMxf7
+ bnrIhRfc8/EG7XJOp+tmPoVNBtn7WvepMRAfMS/xyy34bbLze1EvaURKwm++PtpDcIcS
+ O6Ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
  bh=RsjSwA8oB0o8PW0ry99uhxTdXQdH9BOaf5mimdTgeO0=;
- b=OYZqwVS1uSiXaZnbGAcKnIR8BOtFCSw0RgIZrLfUHvRwj0PFxtFBmvJW5wvmx3yepp
- RjYUHqF3WQklxksp3JlyHi9I+yqTnHXpOTTdD9j824gFRiNbEiZjt65/d3u90h8N+Vjp
- W1ECxf0RJS/jOSlQXvz2VJqnQF9hLuSaQjGLAhQcdAsAVbdZUJTU45qU9inHG+31SoFS
- fRUHuPGS6jDSXehCcF04E76KN9Vf7kfyilVWu7pqUEpf1nY5u4nDstn4Gp7OOP2+UOE1
- vpuNlDS+LoiOQTGl0TJACUDa83T7rDLN9IF5nylgOyKRyVVvVVfiSQ8sGoLsoqHhej3z
- +HCQ==
-X-Gm-Message-State: AOAM532WLBoD+sJZw5TMYf/WAaBAt6cm7tZnlLmzOKShbIKI8nXEpP9g
- 7AtC+i71PSGF3SPje7vGfI4/9g==
-X-Google-Smtp-Source: ABdhPJwXs/r34f0ulXMj7OuQIK3/3Xk18RKjsq+HUnzr5igiGn4bAPSoScW19dqf/oqDuniL3Vtm2Q==
-X-Received: by 2002:adf:a59a:: with SMTP id g26mr17670383wrc.271.1615110336310; 
- Sun, 07 Mar 2021 01:45:36 -0800 (PST)
+ b=PqyTyLTa4zFNbr4KclCGrlMPwhGOy2i3dY9Jlqru/cTdEfuft1relgLwI1pgQ21Lz1
+ 0b0qbVXMc7tziAFiWqMDcRPI5rB9JcHTAghauCSxuF5Vx+Ohdd8zYLVDZfzJSJoP2Y48
+ U4YSX6pB/Vf2i77Vyr7hxO+rzpskZQSeoFJeXp++tZEu2Hw86TM/u1m2OgeM9/xHyKkz
+ A53/CZ8wPPtclDM3eo075rLZQ2TLDYe/OtcgtFro2t33AyeZaONtfN+jTYf8P9DctK/3
+ DAMKJ8CJEkDlUiPDGxA+nUWtkZl9z8SLYFCwAlTNMXifGlxd8i7zqXBEiTIxOsTMek6Z
+ 2uig==
+X-Gm-Message-State: AOAM533HdWSp2+IDu96FCtO1Z6mqhdtZLwfam6QsPw/HZq0CoSMuN76p
+ tNgD4A33XQ//d581U0wTzSNmOA==
+X-Google-Smtp-Source: ABdhPJyiWxW4LLC9cR5FfZEHHAga+VfDDG2o+o5y28Fnu6rWugw1VUFr3FMW44bTF7Odac0y9zFPjw==
+X-Received: by 2002:a1c:66c4:: with SMTP id
+ a187mr18790206wmc.164.1615143102905; 
+ Sun, 07 Mar 2021 10:51:42 -0800 (PST)
 Received: from localhost.localdomain
  (lns-bzn-59-82-252-141-80.adsl.proxad.net. [82.252.141.80])
- by smtp.gmail.com with ESMTPSA id z7sm12790737wrt.70.2021.03.07.01.45.35
+ by smtp.gmail.com with ESMTPSA id v5sm14842965wmh.2.2021.03.07.10.51.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 07 Mar 2021 01:45:35 -0800 (PST)
+ Sun, 07 Mar 2021 10:51:42 -0800 (PST)
 From: Daniel Lezcano <daniel.lezcano@linaro.org>
 To: cwchoi00@gmail.com
-Date: Sun,  7 Mar 2021 10:45:16 +0100
-Message-Id: <20210307094519.9032-2-daniel.lezcano@linaro.org>
+Date: Sun,  7 Mar 2021 19:51:35 +0100
+Message-Id: <20210307185137.24925-2-daniel.lezcano@linaro.org>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210307094519.9032-1-daniel.lezcano@linaro.org>
-References: <20210307094519.9032-1-daniel.lezcano@linaro.org>
-Subject: [Freedreno] [PATCH v3 2/4] devfreq/drivers/msm: Use devfreq cooling
+In-Reply-To: <20210307185137.24925-1-daniel.lezcano@linaro.org>
+References: <20210307185137.24925-1-daniel.lezcano@linaro.org>
+Subject: [Freedreno] [PATCH v4 2/4] devfreq/drivers/msm: Use devfreq cooling
  device registration
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
