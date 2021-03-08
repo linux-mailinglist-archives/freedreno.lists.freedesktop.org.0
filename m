@@ -1,60 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B167E330A16
-	for <lists+freedreno@lfdr.de>; Mon,  8 Mar 2021 10:16:59 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id AE74F330A2C
+	for <lists+freedreno@lfdr.de>; Mon,  8 Mar 2021 10:19:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E51E46E83A;
-	Mon,  8 Mar 2021 09:16:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F4B86E841;
+	Mon,  8 Mar 2021 09:19:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AB656E839
- for <freedreno@lists.freedesktop.org>; Mon,  8 Mar 2021 09:16:55 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id e23so5582395wmh.3
- for <freedreno@lists.freedesktop.org>; Mon, 08 Mar 2021 01:16:55 -0800 (PST)
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B91BC6E83D
+ for <freedreno@lists.freedesktop.org>; Mon,  8 Mar 2021 09:19:37 +0000 (UTC)
+Received: by mail-wm1-x32f.google.com with SMTP id e23so5587057wmh.3
+ for <freedreno@lists.freedesktop.org>; Mon, 08 Mar 2021 01:19:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=RsjSwA8oB0o8PW0ry99uhxTdXQdH9BOaf5mimdTgeO0=;
- b=bmwiWxXQpx0aH8Y1JRfU8sVz6lNXkdW+JYsyQlgEy0bY+Nx1Y22jgkg4FuOS24lhxP
- Yv1qvhP0veJ0owMDf0OKjWw/tpAAd6Tnll4Gq6wd4f8ClVzRx7AD3x2ugGbYrLDaqXUH
- h6+0vDlChooXIjty/kPzBjmRgCj1+rEgoA+rBL8b4sCoF2E8CBdt0efAT1EYcBeRQ0jP
- jMxwwZOSiMIEpkoiK983ccXCgTWdR5nts2w6ebWOKSlmM+XvgGfILljcDBU8L7iOuxTq
- D+ZQlnIjJJ3GZh1roccD5vjQ8U9/zZx73/HUYMtPSiqB2fsLM0NbtekxiDOT1JlQlxP3
- pzlg==
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=hEOGgoBFFfBcRYu8R+ZFzD5oTYtm/qga63LL53Ov/bU=;
+ b=evLEsiqayrflm8/aMCMFF1KGm9tCqy5TgmLozN1pf5OV8v3XOrrOZ7dusez6ueByqx
+ QbfNJbn3Tb6TelmwrFWDd4WHxalQui+FvvMLcnchyO2FEC0WH66rXpO7Bg5MqXxBzX+Z
+ cc9Pr7PgNkEy1bM1xcbTqIIGCmKoaS4GNgx3Ck/1lpofYRw8U2M/EjDO4iJe0z6SkwP7
+ NEfv8QFCktFfq07V+8oK+WYbUu5K7JfqkfwOCUZH8ZfaC1XQzqb4v836tecMta/an5NF
+ q1zYSc8uWIE/dnLOv0rAgqCp8RZ+/3Pe/2mlOOfPdm/KIfJDoR0E3DqxqFiDR11IYcOx
+ uh1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=RsjSwA8oB0o8PW0ry99uhxTdXQdH9BOaf5mimdTgeO0=;
- b=Zq7d9T2/9zRYoJcjPDLN+uavVF5pOmWP4i04KSFm22Q7Tj4EZNVYWJyTn7rsv0aGML
- mpYrRbqo9s5ndbNvZFLAEAKg6iNLQzDSqN2WjUA6DJt6fQ7w7O8u0Pk74alTpUsW0pX9
- ehd1w1J1bLKKgyDIK5T+lWJ1So3vYab3v2UMoAD6BHh4g5YknhWmECT2CZaNl5K3IE0c
- WQnJOdUPPpOxZpHHemr453awmk1b/fFr8V0N1ce7L2yZAU57TLSFxmhuGPQ3rG1kh4c3
- Uki9KviD+70uIwP8UAuIl91ky5/kRYR9mG7+Qv9jvb4jGP7CDPCDQgHBhiPuRd0UMFz8
- CS6Q==
-X-Gm-Message-State: AOAM533hg9vut8avRAlvjSI/dYZgDi/GG2VlUsFGgGNucf67fFgx5ZHb
- PFfRelf1rJmC07sQ9/za1gVl8Q==
-X-Google-Smtp-Source: ABdhPJyXmk/GrvY73uxMs03lrK95AjRrd1DPNUVnKDEIlv4aPEsJZUVLsh7710m12FbolStrlOiCvg==
-X-Received: by 2002:a05:600c:35c1:: with SMTP id
- r1mr21400665wmq.143.1615195014041; 
- Mon, 08 Mar 2021 01:16:54 -0800 (PST)
-Received: from localhost.localdomain
- (lns-bzn-59-82-252-141-80.adsl.proxad.net. [82.252.141.80])
- by smtp.gmail.com with ESMTPSA id i17sm6068135wrp.77.2021.03.08.01.16.52
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=hEOGgoBFFfBcRYu8R+ZFzD5oTYtm/qga63LL53Ov/bU=;
+ b=OEW7P1T6kohRHGTJvBkBIl6dSim0K1eLDh2xgKWDL5tIb55eQK1P8KMVmkgL1kI63k
+ idNUIAnQjf5oSbjogug4R1o7xqXLPu//tq6tpd+xP9Xy4KlQEvitSL4ThGJlIks8oA05
+ Zq0yfNNf2ivAbHL06PmfCoh5lgO8BRFlyepHMaaTiR1gPn8+6vKi1pNWGV8X3gxxl+LD
+ LmNirfuctkX6UuX8vxylQv3rXVWO5hSfxeUNtX1ThZcu/iK/zjVVKXx33WCSHvII9KGA
+ riSgERaM8dDl8WasYYFBUfZnA6UW/d0BA/39V5rSzgn5OZ6nJRTz9iDBc0kRktWsdPoZ
+ EH0g==
+X-Gm-Message-State: AOAM533gJiq8Ty8KOqYnwWhS8HOI09fXWDz/TxvXbRPTaylAUSICzQXi
+ Bf6wN08QGz40BkwP3OHWbcK8HA==
+X-Google-Smtp-Source: ABdhPJySpXzmJ3MCPU31zc4PaUGqi7NmkyvQv0pK/pj0WvYnEHQRAY6VwjmHVQ6JfBzbPkybjDafLg==
+X-Received: by 2002:a1c:400b:: with SMTP id n11mr20979920wma.167.1615195176468; 
+ Mon, 08 Mar 2021 01:19:36 -0800 (PST)
+Received: from dell ([91.110.221.130])
+ by smtp.gmail.com with ESMTPSA id i11sm17599389wro.53.2021.03.08.01.19.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Mar 2021 01:16:53 -0800 (PST)
-From: Daniel Lezcano <daniel.lezcano@linaro.org>
-To: cwchoi00@gmail.com
-Date: Mon,  8 Mar 2021 10:16:43 +0100
-Message-Id: <20210308091646.28096-2-daniel.lezcano@linaro.org>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210308091646.28096-1-daniel.lezcano@linaro.org>
-References: <20210308091646.28096-1-daniel.lezcano@linaro.org>
-Subject: [Freedreno] [PATCH v5 2/4] PM / devfreq: msm: Use devfreq cooling
- device registration
+ Mon, 08 Mar 2021 01:19:35 -0800 (PST)
+Date: Mon, 8 Mar 2021 09:19:32 +0000
+From: Lee Jones <lee.jones@linaro.org>
+To: Roland Scheidegger <sroland@vmware.com>
+Message-ID: <20210308091932.GB4931@dell>
+References: <20210303134319.3160762-1-lee.jones@linaro.org>
+ <16d4300e-bf29-1e85-317b-53d257890cb9@vmware.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <16d4300e-bf29-1e85-317b-53d257890cb9@vmware.com>
+Subject: Re: [Freedreno] [RESEND 00/53] Rid GPU from W=1 warnings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,93 +68,39 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, linux-pm@vger.kernel.org,
- David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- linux-kernel@vger.kernel.org,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- steven.price@arm.com, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
- lukasz.luba@arm.com
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Qinglang Miao <miaoqinglang@huawei.com>,
+ Anthony Koo <Anthony.Koo@amd.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Jeremy Kolb <jkolb@brandeis.edu>, amd-gfx@lists.freedesktop.org,
+ Rob Clark <rob.clark@linaro.org>,
+ VMware Graphics <linux-graphics-maintainer@vmware.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Dave Airlie <airlied@redhat.com>,
+ Harry Wentland <harry.wentland@amd.com>, linux-media@vger.kernel.org,
+ Lyude Paul <lyude@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Leo Li <sunpeng.li@amd.com>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
+ Sean Paul <sean@poorly.run>, Kuogee Hsieh <khsieh@codeaurora.org>,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Colin Ian King <colin.king@canonical.com>, freedreno@lists.freedesktop.org,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Zack Rusin <zackr@vmware.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The devfreq core code is able to register the devfreq device as a
-cooling device if the 'is_cooling_device' flag is set in the profile.
-
-Use this flag and remove the cooling device registering code.
-
-Tested on dragonboard 845c
-
-Signed-off-by: Daniel Lezcano <daniel.lezcano@linaro.org>
----
- drivers/gpu/drm/msm/msm_gpu.c | 12 +-----------
- drivers/gpu/drm/msm/msm_gpu.h |  2 --
- 2 files changed, 1 insertion(+), 13 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index ab7c167b0623..eade94271a60 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -14,7 +14,6 @@
- #include <generated/utsrelease.h>
- #include <linux/string_helpers.h>
- #include <linux/devfreq.h>
--#include <linux/devfreq_cooling.h>
- #include <linux/devcoredump.h>
- #include <linux/sched/task.h>
- 
-@@ -82,6 +81,7 @@ static struct devfreq_dev_profile msm_devfreq_profile = {
- 	.target = msm_devfreq_target,
- 	.get_dev_status = msm_devfreq_get_dev_status,
- 	.get_cur_freq = msm_devfreq_get_cur_freq,
-+	.is_cooling_device = true,
- };
- 
- static void msm_devfreq_init(struct msm_gpu *gpu)
-@@ -112,14 +112,6 @@ static void msm_devfreq_init(struct msm_gpu *gpu)
- 	}
- 
- 	devfreq_suspend_device(gpu->devfreq.devfreq);
--
--	gpu->cooling = of_devfreq_cooling_register(gpu->pdev->dev.of_node,
--			gpu->devfreq.devfreq);
--	if (IS_ERR(gpu->cooling)) {
--		DRM_DEV_ERROR(&gpu->pdev->dev,
--				"Couldn't register GPU cooling device\n");
--		gpu->cooling = NULL;
--	}
- }
- 
- static int enable_pwrrail(struct msm_gpu *gpu)
-@@ -1056,6 +1048,4 @@ void msm_gpu_cleanup(struct msm_gpu *gpu)
- 	if (gpu->worker) {
- 		kthread_destroy_worker(gpu->worker);
- 	}
--
--	devfreq_cooling_unregister(gpu->cooling);
- }
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index d7cd02cd2109..93419368bac8 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -155,8 +155,6 @@ struct msm_gpu {
- 	struct msm_gpu_state *crashstate;
- 	/* True if the hardware supports expanded apriv (a650 and newer) */
- 	bool hw_apriv;
--
--	struct thermal_cooling_device *cooling;
- };
- 
- static inline struct msm_gpu *dev_to_gpu(struct device *dev)
--- 
-2.17.1
-
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+T24gRnJpLCAwNSBNYXIgMjAyMSwgUm9sYW5kIFNjaGVpZGVnZ2VyIHdyb3RlOgoKPiBUaGUgdm13
+Z2Z4IG9uZXMgbG9vayBhbGwgZ29vZCB0byBtZSwgc28gZm9yCj4gMjMtNTM6IFJldmlld2VkLWJ5
+OiBSb2xhbmQgU2NoZWlkZWdnZXIgPHNyb2xhbmRAdm13YXJlLmNvbT4KPiBUaGF0IHNhaWQsIHRo
+ZXkgd2VyZSBhbHJlYWR5IHNpZ25lZCBvZmYgYnkgWmFjaywgc28gbm90IHN1cmUgd2hhdAo+IGhh
+cHBlbmVkIGhlcmUuCgpZZXMsIHRoZXkgd2VyZSBhY2NlcHRlZCBhdCBvbmUgcG9pbnQsIHRoZW4g
+ZHJvcHBlZCB3aXRob3V0IGEgcmVhc29uLgoKU2luY2UgSSByZWJhc2VkIG9udG8gdGhlIGxhdGVz
+dCAtbmV4dCwgSSBoYWQgdG8gcGx1Y2sgdGhlbSBiYWNrIG91dCBvZgphIHByZXZpb3VzIG9uZS4K
+Ci0tIApMZWUgSm9uZXMgW+adjueQvOaWr10KU2VuaW9yIFRlY2huaWNhbCBMZWFkIC0gRGV2ZWxv
+cGVyIFNlcnZpY2VzCkxpbmFyby5vcmcg4pSCIE9wZW4gc291cmNlIHNvZnR3YXJlIGZvciBBcm0g
+U29DcwpGb2xsb3cgTGluYXJvOiBGYWNlYm9vayB8IFR3aXR0ZXIgfCBCbG9nCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxp
+c3QKRnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVubwo=
