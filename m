@@ -2,65 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44052331F68
-	for <lists+freedreno@lfdr.de>; Tue,  9 Mar 2021 07:40:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 417A93329ED
+	for <lists+freedreno@lfdr.de>; Tue,  9 Mar 2021 16:15:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1E206E487;
-	Tue,  9 Mar 2021 06:40:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6B8E6E907;
+	Tue,  9 Mar 2021 15:15:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m42-2.mailgun.net (m42-2.mailgun.net [69.72.42.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF6156E487
- for <freedreno@lists.freedesktop.org>; Tue,  9 Mar 2021 06:40:48 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1615272050; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=EhG3KsTQoCjy4nAe8WbAaYFX/7mUkiPY+Ifi3+SDrmg=;
- b=Lh+2lcHwsect1sGt5pHFsEonKyFlvL1ItVGUZA4Zaio0uuylMWvKirHJiXzcaTqko2HA20+l
- tq4naHYgpzG/Y+EzROSXFLL5Qvy5X3dqHfGLvAnI2GVnS/yMPOOZuBwfhNcOCUzer3rHHehg
- QyWf7Tk6o5H7tQAy8xNKsAD+Rz4=
-X-Mailgun-Sending-Ip: 69.72.42.2
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
- 6047186e81003345dcab220a (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 09 Mar 2021 06:40:46
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 56C35C43464; Tue,  9 Mar 2021 06:40:45 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: saiprakash.ranjan)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 1D56AC433CA;
- Tue,  9 Mar 2021 06:40:44 +0000 (UTC)
+Received: from mail-qk1-x730.google.com (mail-qk1-x730.google.com
+ [IPv6:2607:f8b0:4864:20::730])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12AC589F35
+ for <freedreno@lists.freedesktop.org>; Tue,  9 Mar 2021 15:15:02 +0000 (UTC)
+Received: by mail-qk1-x730.google.com with SMTP id z128so13266897qkc.12
+ for <freedreno@lists.freedesktop.org>; Tue, 09 Mar 2021 07:15:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=7MrPV8J5TBwRP2XTDenNEVDLqEA1C2gDo3lt+AylHJg=;
+ b=kzpPHQlBIF4+6LV5REOgk4hd860I5fwmqU2hco2bMJsl2jvOVyhLCi3cxyUg+gYSnI
+ S/3f0zavZsXfo583h+EDFc5NEFVxC/Bo6PIR/GQqOI9hawIfiNAeh9I53XsHUkUnPhtH
+ ccqY6z9XUAB4/cGr2/ut5puxovjwn+g7GjjtqIulLitEP6myj0ItoWZEd1yrGczd4nWm
+ /FJsGw3wXtNGtq75Xl2otJgxhFs3twc1MfwsBYHmBOru8ykOTRJxtPTdaNvx1Htaw3Yr
+ fTTWMpyUv8LdTN641FtKq8sjmNGXYWiAREFq0QVHWlSZvbgj8uNNZMVJOw3z+am6bxiH
+ xIew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=7MrPV8J5TBwRP2XTDenNEVDLqEA1C2gDo3lt+AylHJg=;
+ b=klRhs8hhYdA9dwF59DK3v4gCK/FatzY8nD9/mUqv6R15UrV54bPR4t2V4wSXh7opyy
+ 2VB0SFc1lV1c3YJ1dz5SiGze6T0u5iLLw/g+gadhJ0is4iEF8zzHXtU+X2uT8kSzIeg+
+ gddj0HcOKe66ctUW8cGcl+fEFPokOSK5Rmd0f3DgUzQG/vwjvtY8WNs6NNu9px6+HeXJ
+ SKdRrBMf5E16FMPd7qNnh6Teo1cxlZFOLkLPxIXZuRUzSEYfE+pPE3A0eMkUO3MUmpUS
+ 1poRUNPkEbpE0XSCLeHfBYhqMTSdQGEjpbIxPnhKJBnSTLbVcluaNt5+eMVUR6dd90fB
+ rN5w==
+X-Gm-Message-State: AOAM532UhHVGJoGtx212sEadUjQycL8MygAyc3WmhKyTNgyX5ojMzq3d
+ UEzhPeCIwrBsD3OyfpuEDEgMMLiNzKaQvHbUUM/7KQ==
+X-Google-Smtp-Source: ABdhPJzVlEwNEHQWahsLhzstfMLZXkIj/+jRZQzIdcrvUeWVyWtSBn6T9++RBPWw8oTT696f0ki1+UBA3Fas0/UT2Jc=
+X-Received: by 2002:a37:8cd:: with SMTP id 196mr24729622qki.434.1615302896316; 
+ Tue, 09 Mar 2021 07:14:56 -0800 (PST)
 MIME-Version: 1.0
-Date: Tue, 09 Mar 2021 12:10:44 +0530
-From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-To: Will Deacon <will@kernel.org>
-In-Reply-To: <4988e2ef35f76a0c2f1fe3f66f023a3b@codeaurora.org>
-References: <cover.1610372717.git.saiprakash.ranjan@codeaurora.org>
- <3f589e7de3f9fa93e84c83420c5270c546a0c368.1610372717.git.saiprakash.ranjan@codeaurora.org>
- <20210129090516.GB3998@willie-the-truck>
- <5d23fce629323bcda71594010824aad0@codeaurora.org>
- <20210201111556.GA7172@willie-the-truck>
- <CAF6AEGsARmkAFsjaQLfa2miMgeijo183MWDKGtW_ti-UCpzBqA@mail.gmail.com>
- <20210201182016.GA21629@jcrouse1-lnx.qualcomm.com>
- <7e9aade14d0b7f69285852ade4a5a9f4@codeaurora.org>
- <20210203214612.GB19847@willie-the-truck>
- <4988e2ef35f76a0c2f1fe3f66f023a3b@codeaurora.org>
-Message-ID: <9362873a3bcf37cdd073a6128f29c683@codeaurora.org>
-X-Sender: saiprakash.ranjan@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH 2/3] iommu/io-pgtable-arm: Add IOMMU_LLC
- page protection flag
+References: <20210224224751.1215018-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20210224224751.1215018-1-dmitry.baryshkov@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 9 Mar 2021 18:14:45 +0300
+Message-ID: <CAA8EJppWYvE6=TeQVExZB33-yUx+3YCQh4sde=xywyfKucRkEw@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: fix check-before-set in the
+ 7nm dsi_pll code
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,119 +61,98 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Isaac J. Manjarres" <isaacm@codeaurora.org>,
- freedreno <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Joerg Roedel <joro@8bytes.org>, "list@263.net:IOMMU DRIVERS , 
- Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Kristian H Kristensen <hoegsberg@google.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, linux-arm-kernel@lists.infradead.org
+Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Jonathan Marek <jonathan@marek.ca>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+Rob,
 
-On 2021-02-05 17:38, Sai Prakash Ranjan wrote:
-> On 2021-02-04 03:16, Will Deacon wrote:
->> On Tue, Feb 02, 2021 at 11:56:27AM +0530, Sai Prakash Ranjan wrote:
->>> On 2021-02-01 23:50, Jordan Crouse wrote:
->>> > On Mon, Feb 01, 2021 at 08:20:44AM -0800, Rob Clark wrote:
->>> > > On Mon, Feb 1, 2021 at 3:16 AM Will Deacon <will@kernel.org> wrote:
->>> > > > On Fri, Jan 29, 2021 at 03:12:59PM +0530, Sai Prakash Ranjan wrote:
->>> > > > > On 2021-01-29 14:35, Will Deacon wrote:
->>> > > > > > On Mon, Jan 11, 2021 at 07:45:04PM +0530, Sai Prakash Ranjan wrote:
->>> > > > > > > +#define IOMMU_LLC        (1 << 6)
->>> > > > > >
->>> > > > > > On reflection, I'm a bit worried about exposing this because I think it
->>> > > > > > will
->>> > > > > > introduce a mismatched virtual alias with the CPU (we don't even have a
->>> > > > > > MAIR
->>> > > > > > set up for this memory type). Now, we also have that issue for the PTW,
->>> > > > > > but
->>> > > > > > since we always use cache maintenance (i.e. the streaming API) for
->>> > > > > > publishing the page-tables to a non-coheren walker, it works out.
->>> > > > > > However,
->>> > > > > > if somebody expects IOMMU_LLC to be coherent with a DMA API coherent
->>> > > > > > allocation, then they're potentially in for a nasty surprise due to the
->>> > > > > > mismatched outer-cacheability attributes.
->>> > > > > >
->>> > > > >
->>> > > > > Can't we add the syscached memory type similar to what is done on android?
->>> > > >
->>> > > > Maybe. How does the GPU driver map these things on the CPU side?
->>> > >
->>> > > Currently we use writecombine mappings for everything, although there
->>> > > are some cases that we'd like to use cached (but have not merged
->>> > > patches that would give userspace a way to flush/invalidate)
->>> > >
->>> >
->>> > LLC/system cache doesn't have a relationship with the CPU cache.  Its
->>> > just a
->>> > little accelerator that sits on the connection from the GPU to DDR and
->>> > caches
->>> > accesses. The hint that Sai is suggesting is used to mark the buffers as
->>> > 'no-write-allocate' to prevent GPU write operations from being cached in
->>> > the LLC
->>> > which a) isn't interesting and b) takes up cache space for read
->>> > operations.
->>> >
->>> > Its easiest to think of the LLC as a bonus accelerator that has no cost
->>> > for
->>> > us to use outside of the unfortunate per buffer hint.
->>> >
->>> > We do have to worry about the CPU cache w.r.t I/O coherency (which is a
->>> > different hint) and in that case we have all of concerns that Will
->>> > identified.
->>> >
->>> 
->>> For mismatched outer cacheability attributes which Will mentioned, I 
->>> was
->>> referring to [1] in android kernel.
->> 
->> I've lost track of the conversation here :/
->> 
->> When the GPU has a buffer mapped with IOMMU_LLC, is the buffer also 
->> mapped
->> into the CPU and with what attributes? Rob said "writecombine for
->> everything" -- does that mean ioremap_wc() / MEMREMAP_WC?
->> 
-> 
-> Rob answered this.
-> 
->> Finally, we need to be careful when we use the word "hint" as 
->> "allocation
->> hint" has a specific meaning in the architecture, and if we only 
->> mismatch on
->> those then we're actually ok. But I think IOMMU_LLC is more than just 
->> a
->> hint, since it actually drives eviction policy (i.e. it enables 
->> writeback).
->> 
->> Sorry for the pedantry, but I just want to make sure we're all talking
->> about the same things!
->> 
-> 
-> Sorry for the confusion which probably was caused by my mentioning of
-> android, NWA(no write allocate) is an allocation hint which we can 
-> ignore
-> for now as it is not introduced yet in upstream.
-> 
+Any feedback on this? The patches were sent about two weeks ago.
 
-Any chance of taking this forward? We do not want to miss out on small 
-fps
-gain when the product gets released.
+On Thu, 25 Feb 2021 at 01:47, Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> Fix setting min/max DSI PLL rate for the V4.1 7nm DSI PLL (used on
+> sm8250). Current code checks for pll->type before it is set (as it is
+> set in the msm_dsi_pll_init() after calling device-specific functions.
+>
+> Cc: Jonathan Marek <jonathan@marek.ca>
+> Fixes: 1ef7c99d145c ("drm/msm/dsi: add support for 7nm DSI PHY/PLL")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/dsi/pll/dsi_pll.c     | 2 +-
+>  drivers/gpu/drm/msm/dsi/pll/dsi_pll.h     | 6 ++++--
+>  drivers/gpu/drm/msm/dsi/pll/dsi_pll_7nm.c | 5 +++--
+>  3 files changed, 8 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/dsi/pll/dsi_pll.c b/drivers/gpu/drm/msm/dsi/pll/dsi_pll.c
+> index a45fe95aff49..3dc65877fa10 100644
+> --- a/drivers/gpu/drm/msm/dsi/pll/dsi_pll.c
+> +++ b/drivers/gpu/drm/msm/dsi/pll/dsi_pll.c
+> @@ -163,7 +163,7 @@ struct msm_dsi_pll *msm_dsi_pll_init(struct platform_device *pdev,
+>                 break;
+>         case MSM_DSI_PHY_7NM:
+>         case MSM_DSI_PHY_7NM_V4_1:
+> -               pll = msm_dsi_pll_7nm_init(pdev, id);
+> +               pll = msm_dsi_pll_7nm_init(pdev, type, id);
+>                 break;
+>         default:
+>                 pll = ERR_PTR(-ENXIO);
+> diff --git a/drivers/gpu/drm/msm/dsi/pll/dsi_pll.h b/drivers/gpu/drm/msm/dsi/pll/dsi_pll.h
+> index 3405982a092c..bbecb1de5678 100644
+> --- a/drivers/gpu/drm/msm/dsi/pll/dsi_pll.h
+> +++ b/drivers/gpu/drm/msm/dsi/pll/dsi_pll.h
+> @@ -117,10 +117,12 @@ msm_dsi_pll_10nm_init(struct platform_device *pdev, int id)
+>  }
+>  #endif
+>  #ifdef CONFIG_DRM_MSM_DSI_7NM_PHY
+> -struct msm_dsi_pll *msm_dsi_pll_7nm_init(struct platform_device *pdev, int id);
+> +struct msm_dsi_pll *msm_dsi_pll_7nm_init(struct platform_device *pdev,
+> +                                       enum msm_dsi_phy_type type, int id);
+>  #else
+>  static inline struct msm_dsi_pll *
+> -msm_dsi_pll_7nm_init(struct platform_device *pdev, int id)
+> +msm_dsi_pll_7nm_init(struct platform_device *pdev,
+> +                                       enum msm_dsi_phy_type type, int id)
+>  {
+>         return ERR_PTR(-ENODEV);
+>  }
+> diff --git a/drivers/gpu/drm/msm/dsi/pll/dsi_pll_7nm.c b/drivers/gpu/drm/msm/dsi/pll/dsi_pll_7nm.c
+> index 93bf142e4a4e..c1f6708367ae 100644
+> --- a/drivers/gpu/drm/msm/dsi/pll/dsi_pll_7nm.c
+> +++ b/drivers/gpu/drm/msm/dsi/pll/dsi_pll_7nm.c
+> @@ -852,7 +852,8 @@ static int pll_7nm_register(struct dsi_pll_7nm *pll_7nm)
+>         return ret;
+>  }
+>
+> -struct msm_dsi_pll *msm_dsi_pll_7nm_init(struct platform_device *pdev, int id)
+> +struct msm_dsi_pll *msm_dsi_pll_7nm_init(struct platform_device *pdev,
+> +                                       enum msm_dsi_phy_type type, int id)
+>  {
+>         struct dsi_pll_7nm *pll_7nm;
+>         struct msm_dsi_pll *pll;
+> @@ -885,7 +886,7 @@ struct msm_dsi_pll *msm_dsi_pll_7nm_init(struct platform_device *pdev, int id)
+>         pll = &pll_7nm->base;
+>         pll->min_rate = 1000000000UL;
+>         pll->max_rate = 3500000000UL;
+> -       if (pll->type == MSM_DSI_PHY_7NM_V4_1) {
+> +       if (type == MSM_DSI_PHY_7NM_V4_1) {
+>                 pll->min_rate = 600000000UL;
+>                 pll->max_rate = (unsigned long)5000000000ULL;
+>                 /* workaround for max rate overflowing on 32-bit builds: */
+> --
+> 2.30.0
+>
 
-Thanks,
-Sai
+
 -- 
-QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a 
-member
-of Code Aurora Forum, hosted by The Linux Foundation
+With best wishes
+Dmitry
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
