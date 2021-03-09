@@ -2,116 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 942803319F3
-	for <lists+freedreno@lfdr.de>; Mon,  8 Mar 2021 23:07:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44052331F68
+	for <lists+freedreno@lfdr.de>; Tue,  9 Mar 2021 07:40:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B19B6E894;
-	Mon,  8 Mar 2021 22:07:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1E206E487;
+	Tue,  9 Mar 2021 06:40:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr770051.outbound.protection.outlook.com [40.107.77.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71E366E893;
- Mon,  8 Mar 2021 22:07:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RyI6IWSRcNcUE+hcgv+Uc/wbfoC12Anr+LakUuAUjl7Z5CIAGS3u5uS7aO7T5bA12muesVwHxQQ/ijwluhvkhXzT+6N8gwfBkZG+ny2q44dlyiuEAlkLULWkmYyzbqBToHh/E4edNcTr6uc7I4IG8JyHDQgU3soUhmd2VBEovK90Ms+oKjSzqB+df/5DqukKVWnrYH7JX2X3HIkfropWnbkHGZuaXHTc+EBkCI/9KdLaS29uUrdM+pkT6LGqMnGY7X8YEo/PvjAX20M8JjHvlUOQNj2hK7gAZT8tGk+SjMRKKJ3oOvtzioVPCi/o7nnb+KIsd9NnXzGUWxQwQmFamQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9W6LUZcP7D6wWuMPOkB+gbx5ZOq0RmiI0VU6ZcyA6o0=;
- b=X/cv8A3lKwKk1h8MD+yqAG1Hv5ALiHk6AzQ3W0STCyb0Nb3fGZyBsrX3KV5o5RJkDAGVaDLAMTi7+c71mpTAqQVjDfbGgr1Bf86Upi1wsdOll4Mb0NGmMhAGh7lpsIwrXe0hO/qpManlILEZ8N2RYOXsI4VmWTNIZp7Yn+DWrz+TnjhF2dLrkTsLjRnQ4mbmDlCzrlWanKSpsOUPI0b3204e/+hY5yTuPUB25Q4WHSgtDzugLdff+X96vSkSK5Mwjk5SK/AEW7yybFIpwOKWc4zfyGFVirgjhEEO+zdwEjOXHl+c8bBjaav1pzXzGWqPCma9sDvNZE+boTnapSZC0Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9W6LUZcP7D6wWuMPOkB+gbx5ZOq0RmiI0VU6ZcyA6o0=;
- b=wFSu5W0PmSEEaMYv3ushkkxNnZG954o8/1x+TpSQNU4dT9/mufycwGNJTh6IHRUAl4M6337nAuTjgKHv6Rl41CoBfGL4leunYK3hXOarcQXPVTH2447m8QoZp7JoyFzwmyhFYtHY8PGyIJy9ia/EXsZTGUQYiYjhx9UvY04BjkU=
-Authentication-Results: rosenzweig.io; dkim=none (message not signed)
- header.d=none;rosenzweig.io; dmarc=none action=none header.from=amd.com;
-Received: from MW3PR12MB4379.namprd12.prod.outlook.com (2603:10b6:303:5e::11)
- by MW2PR12MB2348.namprd12.prod.outlook.com (2603:10b6:907:e::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.25; Mon, 8 Mar
- 2021 22:06:57 +0000
-Received: from MW3PR12MB4379.namprd12.prod.outlook.com
- ([fe80::8c0c:5b9b:fec6:e12b]) by MW3PR12MB4379.namprd12.prod.outlook.com
- ([fe80::8c0c:5b9b:fec6:e12b%3]) with mapi id 15.20.3912.027; Mon, 8 Mar 2021
- 22:06:57 +0000
-From: Harry Wentland <harry.wentland@amd.com>
-To: Xorg Members List <members@x.org>
-Message-ID: <191dfbd8-b58f-46ee-0159-4c8250812a2a@amd.com>
-Date: Mon, 8 Mar 2021 17:06:33 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
-Content-Language: en-US
-X-Originating-IP: [198.200.67.155]
-X-ClientProxiedBy: YTXPR0101CA0048.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:1::25) To MW3PR12MB4379.namprd12.prod.outlook.com
- (2603:10b6:303:5e::11)
+Received: from m42-2.mailgun.net (m42-2.mailgun.net [69.72.42.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF6156E487
+ for <freedreno@lists.freedesktop.org>; Tue,  9 Mar 2021 06:40:48 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1615272050; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=EhG3KsTQoCjy4nAe8WbAaYFX/7mUkiPY+Ifi3+SDrmg=;
+ b=Lh+2lcHwsect1sGt5pHFsEonKyFlvL1ItVGUZA4Zaio0uuylMWvKirHJiXzcaTqko2HA20+l
+ tq4naHYgpzG/Y+EzROSXFLL5Qvy5X3dqHfGLvAnI2GVnS/yMPOOZuBwfhNcOCUzer3rHHehg
+ QyWf7Tk6o5H7tQAy8xNKsAD+Rz4=
+X-Mailgun-Sending-Ip: 69.72.42.2
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
+ 6047186e81003345dcab220a (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 09 Mar 2021 06:40:46
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 56C35C43464; Tue,  9 Mar 2021 06:40:45 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: saiprakash.ranjan)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 1D56AC433CA;
+ Tue,  9 Mar 2021 06:40:44 +0000 (UTC)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.1.193] (198.200.67.155) by
- YTXPR0101CA0048.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::25) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.26 via Frontend
- Transport; Mon, 8 Mar 2021 22:06:36 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: c41c5239-803a-44d9-b739-08d8e27e7cad
-X-MS-TrafficTypeDiagnostic: MW2PR12MB2348:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB2348DAE6BFEC36513574C99F8C939@MW2PR12MB2348.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: shNaz+7euXHyLAaFiYLmfo7Q+JLhbWlY1i5wRMWbwrWte2ygP6V7ulhEkKVyjBI55paW7UDvUrJAGRZfeR2O79k8jDujvOgs2XVTXgXqNejKIJeC3ELviinK0+wgqeFQdarYTHA4t+1MRo85NZt0E0tyXRMiA6VrSU+g9eGTFfSqTeTyjoArRGn1W57K5jep/9/QInMsnZnfLUgDkz4CccTkHNY5sjjZUaUpO8wxnYdcMvcpf+m78DdbQIUBD+N5jcHQxF1I0HNuA95JuX9UPWadKzS5b/0fuKG1gXAf4XvMBaHyfoD3k7hXeB/A1gvtw/1BzvEcfVsXT8K4AHsJxB9AXNgrLGxRgwpGBc5RAbjHBzsFudxicFP+o7FJxG1kTqyfIcfL2ghS+0M0fQrjdV784v4phXdiAPpIHLD/SIVifyhec1V9sHafk89WjwHhDQqQFxnA/BT+n+47Kldl6cxLTO41erWSGwTfnCqbTm63wkkBnPMKQdPsLFdXugiM+TzeB0ApfcysnR2yYLOHEvEbOAchwk5a+031u+OK1r1fWaoeKV+bHgYZslwZDFtleRIZAuuB1chlFseRUaHcEK/QeneypS0jfzkTSHTYT8UmU/SuhBVVnfg+gicGBg55hzJN0ZaqbLicN8UL76EF1ANDQ/d6m3gEIQNKfMkSd9vXigJjZ4Jk/xmhoFhodqyT
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW3PR12MB4379.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(396003)(346002)(366004)(376002)(136003)(316002)(36756003)(44832011)(6486002)(956004)(52116002)(16576012)(31696002)(86362001)(54906003)(2616005)(6666004)(31686004)(7336002)(66946007)(66476007)(26005)(7406005)(7276002)(5660300002)(186003)(966005)(6916009)(478600001)(8676002)(4326008)(8936002)(2906002)(83380400001)(66556008)(7416002)(7366002)(16526019)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?d3pwZEF6Yk5BbGs3aHhZaXhrR3VxTVJGNHYxblF0YzNiZU92ejUwR2JwZ3Z5?=
- =?utf-8?B?Zk5CTnYxS2JlZHRkbzh5MCtlcGhoNG1lc3laZlp5bHFrM21JQ0E4MExDTFh6?=
- =?utf-8?B?STl4Uk1UbWlrWlQ1bHh1VWVPRmtRNTFCcXpUMmlFRVhXUVZuUHZoRVFkcm5O?=
- =?utf-8?B?SXZBQXhBSlZsOFZTRFh4SVF2a1F2dkpqc05kMWlmOVdscnhDcXc1U1VFYzRw?=
- =?utf-8?B?WWhHVmN2SGQwb2lnVWJFMUxmNWxsNC9ONWo2TjNxTGlNM2NGMDJFNzZ0UFJD?=
- =?utf-8?B?c1RsL0p2TUxXUVI3THF6RU1xa0Y0OVFnaXFzMkhaditFQXVMZ3RVYzRLVVpr?=
- =?utf-8?B?NFpsclRNbDIwdnVZSlpTNzA2Z1R3STlya05DWGUrVEs1Ni9YTS83NzNaY2lk?=
- =?utf-8?B?d21lWXpja1FzS0VUNWlhakdBZTNyb2t6ODdPeE1iNUdOTk1GMkNGUCtnYjQz?=
- =?utf-8?B?aURmSXRaTy9IYWZPZDlCR0J2NFBrcWpMSUU3ZTY2dG9rWXQrSmpUOTJSMUJa?=
- =?utf-8?B?TGRFaXJ0SU00S3ZHZTBiSnhpZElMem44V0ZERXg0NzZUejNhbGJWWEt0YUdx?=
- =?utf-8?B?TjRtREd3dm5ZOU03eXRheENPM01xazh5Tk55ZnVLcWZHUWd2VjJDNUgxbEJX?=
- =?utf-8?B?Z2pTcG81N0pxOVRndW0zK2lZMENENFVqZjVKaXdCSm9RaTB0RG9UYjNVelZD?=
- =?utf-8?B?Wml6SW5uRlZwM2pZNXNIYTdEVzJQOTVpQnViR1REc1ZlVUxOUWJ1N1h6WFVC?=
- =?utf-8?B?M3E5VFlyT0xob0NPRHNILzl1WlBBRFFGb1Q2VmJkbEZWQnhjM1lGc2EyVUhN?=
- =?utf-8?B?QmNYS0VvdjRwU25mSnJaa1Jrc01hRFBvbkVpQkNjZTVXQmoySjJldTZ4TnhV?=
- =?utf-8?B?bFNseXFOUmtSUkpjWStCYXZwa1g2RVYyR1NSVjNXKysxR011MFgzNnRpOTly?=
- =?utf-8?B?L3FHRFZGR0hqUkVnL1Y1WWxPQ1ZSTUU3cjB5akl0b3VoNzBta3Q2ZlBlRjJL?=
- =?utf-8?B?OVdZS1FHR3JYd1doUGJKOHZUMmJZUWV5UTRTQmJwemhwMG04ZkZsTE1IVkN4?=
- =?utf-8?B?T1c1UWN0OTN6VmhVOERkUUI4TzdNcGpyS0lmWmhneXlpak02aEMwN3p1MHlG?=
- =?utf-8?B?K29MdHB4OHY0TXp1UFQ0NUxVZUlEbExDSnIxNEFRdm1BODhYd3MzRWdpUkVs?=
- =?utf-8?B?ZXF4VWE4di9TU2RXbVFKc1lkRy84bzlFQ1BjMFl3ZUJIdzlXQ1VxL0RiMnlO?=
- =?utf-8?B?OS9qdm9rZURVVmtybmJ6cDVUcmRpbjdZd2pNY1htYUI0SnA5OVpuZGo4RTZo?=
- =?utf-8?B?NTdhRzQ2aGZkUHlFSWtyaFprUlpDS3NPQkZYOVpKVWlxSnl6WXFld3Z2SUpw?=
- =?utf-8?B?L2hqYnh1VkZidUdELzFpbHJDcVlORTNhUFFvRlQ5WVp5cTFpeTNQK0hWUTF2?=
- =?utf-8?B?dTJsMUY3d2xnRkp0dlFFWTU3c3pKNGRDZHFZNVp5S0phTVBuV0tnUGpYeGxk?=
- =?utf-8?B?cG1XbjErVTB0VW90L0VLK3ozMEhubGJoZFFWY0FTTkdjV2dQMFFsM2E0WlY4?=
- =?utf-8?B?aWprZW9BZ2E3QWhzVXkwelgrZE84RjV3Z0RkN3hMelJqakVPQ1IvMElZa0dL?=
- =?utf-8?B?VDdGWWxWbFRSb1hNdUtSOHE5aDRJRjJnR2srTFpNZUYvSXdFdlo5cmZ3L2tL?=
- =?utf-8?B?QTRrZk1PT2o4ZzJKazRNcG9EVURLKzJoTExYbmlnLy9Ec3pEalU1a2NUcENQ?=
- =?utf-8?Q?rYR2DKRSISq5xAjxU3NYLy11GBIvJ8h3jTKLg05?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c41c5239-803a-44d9-b739-08d8e27e7cad
-X-MS-Exchange-CrossTenant-AuthSource: MW3PR12MB4379.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2021 22:06:56.1776 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zjZLckJncA4XK98JH8m+o4YAaaHhRIL8KE0d1WHi7BTsWrDaJ4+6uzrMep+WABwRWazIcPUDLhUWxSEjC2Asug==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2348
-Subject: [Freedreno] 2021 X.Org Foundation Membership renewal ENDS on
- THURSDAY Mar 11
+Date: Tue, 09 Mar 2021 12:10:44 +0530
+From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+To: Will Deacon <will@kernel.org>
+In-Reply-To: <4988e2ef35f76a0c2f1fe3f66f023a3b@codeaurora.org>
+References: <cover.1610372717.git.saiprakash.ranjan@codeaurora.org>
+ <3f589e7de3f9fa93e84c83420c5270c546a0c368.1610372717.git.saiprakash.ranjan@codeaurora.org>
+ <20210129090516.GB3998@willie-the-truck>
+ <5d23fce629323bcda71594010824aad0@codeaurora.org>
+ <20210201111556.GA7172@willie-the-truck>
+ <CAF6AEGsARmkAFsjaQLfa2miMgeijo183MWDKGtW_ti-UCpzBqA@mail.gmail.com>
+ <20210201182016.GA21629@jcrouse1-lnx.qualcomm.com>
+ <7e9aade14d0b7f69285852ade4a5a9f4@codeaurora.org>
+ <20210203214612.GB19847@willie-the-truck>
+ <4988e2ef35f76a0c2f1fe3f66f023a3b@codeaurora.org>
+Message-ID: <9362873a3bcf37cdd073a6128f29c683@codeaurora.org>
+X-Sender: saiprakash.ranjan@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH 2/3] iommu/io-pgtable-arm: Add IOMMU_LLC
+ page protection flag
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,54 +73,119 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "xorg-devel@lists.freedesktop.org" <xorg-devel@lists.freedesktop.org>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "etnaviv@lists.freedesktop.org" <etnaviv@lists.freedesktop.org>,
- dri-devel@lists.freedesktop.org,
- "wayland-devel@lists.freedesktop.org" <wayland-devel@lists.freedesktop.org>,
- "X.Org Foundation Board" <board@foundation.x.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "mesa-dev@lists.freedesktop.org" <mesa-dev@lists.freedesktop.org>,
- elections <elections@x.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
+Cc: "Isaac J. Manjarres" <isaacm@codeaurora.org>,
+ freedreno <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Joerg Roedel <joro@8bytes.org>, "list@263.net:IOMMU DRIVERS , 
+ Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Kristian H Kristensen <hoegsberg@google.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, linux-arm-kernel@lists.infradead.org
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The nomination period for the 2021 X.Org Foundation Board of Directors 
-Election closed yesterday and the election is rapidly approaching. We 
-currently only see membership renewals for 59 people.
+Hi,
 
-If you have not renewed your membership please do so by Thursday, Mar 11 
-at https://members.x.org.
+On 2021-02-05 17:38, Sai Prakash Ranjan wrote:
+> On 2021-02-04 03:16, Will Deacon wrote:
+>> On Tue, Feb 02, 2021 at 11:56:27AM +0530, Sai Prakash Ranjan wrote:
+>>> On 2021-02-01 23:50, Jordan Crouse wrote:
+>>> > On Mon, Feb 01, 2021 at 08:20:44AM -0800, Rob Clark wrote:
+>>> > > On Mon, Feb 1, 2021 at 3:16 AM Will Deacon <will@kernel.org> wrote:
+>>> > > > On Fri, Jan 29, 2021 at 03:12:59PM +0530, Sai Prakash Ranjan wrote:
+>>> > > > > On 2021-01-29 14:35, Will Deacon wrote:
+>>> > > > > > On Mon, Jan 11, 2021 at 07:45:04PM +0530, Sai Prakash Ranjan wrote:
+>>> > > > > > > +#define IOMMU_LLC        (1 << 6)
+>>> > > > > >
+>>> > > > > > On reflection, I'm a bit worried about exposing this because I think it
+>>> > > > > > will
+>>> > > > > > introduce a mismatched virtual alias with the CPU (we don't even have a
+>>> > > > > > MAIR
+>>> > > > > > set up for this memory type). Now, we also have that issue for the PTW,
+>>> > > > > > but
+>>> > > > > > since we always use cache maintenance (i.e. the streaming API) for
+>>> > > > > > publishing the page-tables to a non-coheren walker, it works out.
+>>> > > > > > However,
+>>> > > > > > if somebody expects IOMMU_LLC to be coherent with a DMA API coherent
+>>> > > > > > allocation, then they're potentially in for a nasty surprise due to the
+>>> > > > > > mismatched outer-cacheability attributes.
+>>> > > > > >
+>>> > > > >
+>>> > > > > Can't we add the syscached memory type similar to what is done on android?
+>>> > > >
+>>> > > > Maybe. How does the GPU driver map these things on the CPU side?
+>>> > >
+>>> > > Currently we use writecombine mappings for everything, although there
+>>> > > are some cases that we'd like to use cached (but have not merged
+>>> > > patches that would give userspace a way to flush/invalidate)
+>>> > >
+>>> >
+>>> > LLC/system cache doesn't have a relationship with the CPU cache.  Its
+>>> > just a
+>>> > little accelerator that sits on the connection from the GPU to DDR and
+>>> > caches
+>>> > accesses. The hint that Sai is suggesting is used to mark the buffers as
+>>> > 'no-write-allocate' to prevent GPU write operations from being cached in
+>>> > the LLC
+>>> > which a) isn't interesting and b) takes up cache space for read
+>>> > operations.
+>>> >
+>>> > Its easiest to think of the LLC as a bonus accelerator that has no cost
+>>> > for
+>>> > us to use outside of the unfortunate per buffer hint.
+>>> >
+>>> > We do have to worry about the CPU cache w.r.t I/O coherency (which is a
+>>> > different hint) and in that case we have all of concerns that Will
+>>> > identified.
+>>> >
+>>> 
+>>> For mismatched outer cacheability attributes which Will mentioned, I 
+>>> was
+>>> referring to [1] in android kernel.
+>> 
+>> I've lost track of the conversation here :/
+>> 
+>> When the GPU has a buffer mapped with IOMMU_LLC, is the buffer also 
+>> mapped
+>> into the CPU and with what attributes? Rob said "writecombine for
+>> everything" -- does that mean ioremap_wc() / MEMREMAP_WC?
+>> 
+> 
+> Rob answered this.
+> 
+>> Finally, we need to be careful when we use the word "hint" as 
+>> "allocation
+>> hint" has a specific meaning in the architecture, and if we only 
+>> mismatch on
+>> those then we're actually ok. But I think IOMMU_LLC is more than just 
+>> a
+>> hint, since it actually drives eviction policy (i.e. it enables 
+>> writeback).
+>> 
+>> Sorry for the pedantry, but I just want to make sure we're all talking
+>> about the same things!
+>> 
+> 
+> Sorry for the confusion which probably was caused by my mentioning of
+> android, NWA(no write allocate) is an allocation hint which we can 
+> ignore
+> for now as it is not introduced yet in upstream.
+> 
 
-The nominated candidates will be announced a week from yesterday.
-
-There were some hickups with our earlier emails and we realize some of 
-you may have not received them. To ensure you receive this email we're 
-BCCing any member that has been registered as a member in the last 2 years.
-
-** Election Schedule **
-
-Nomination period Start: Mon 22nd February
-Nomination period End: Sun 7th March
-Deadline of X.Org membership application or renewal: Thu 11th March
-Publication of Candidates & start of Candidate QA: Mon 15th March
-Election Planned Start: Mon 22nd March anywhere on earth
-Election Planned End: Sun 4th April anywhere on earth
-
-** Election Committee **
-
-  * Eric Anholt
-  * Mark Filion
-  * Keith Packard
-  * Harry Wentland
+Any chance of taking this forward? We do not want to miss out on small 
+fps
+gain when the product gets released.
 
 Thanks,
-Harry Wentland,
-on behalf of the X.Org elections committee
+Sai
+-- 
+QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a 
+member
+of Code Aurora Forum, hosted by The Linux Foundation
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
