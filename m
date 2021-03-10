@@ -1,45 +1,38 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD12C333AC2
-	for <lists+freedreno@lfdr.de>; Wed, 10 Mar 2021 11:56:01 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 804EF3346F2
+	for <lists+freedreno@lfdr.de>; Wed, 10 Mar 2021 19:40:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BC876E165;
-	Wed, 10 Mar 2021 10:56:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F0E489DD2;
+	Wed, 10 Mar 2021 18:40:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2120A6E165;
- Wed, 10 Mar 2021 10:55:59 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0375464FBA;
- Wed, 10 Mar 2021 10:55:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615373758;
- bh=l5F4mRFTlCcuvK65v3+ubAAIjsEOKjTToYBZnVrSV8Q=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Snrq3o6NQfFy8T13bWkjeS0t+DUxWxLJ7ItwwsFvYQUN059elyy12JfOlinrWY9b9
- HZXz58NlMVNMAanXaV4jMPtH+wZ63zpj4onuFCjkYAw0y6Itf99qSovicg/AvxjLlu
- dC1gGgjIjClyM+tZEQc82j0YPmrepv2haKqVn9pXRXBSHMvhcAemlq17an5DZjsRLD
- GavAs3RvhjKvztQsc6QzDP7siwQGDfGWNWfSNCMIjao9k51gQwMEycEcBk2+iaZ2FD
- GfnBGnq0Lliwgyj+ZV+DmU7+2pHmPC7dDWTA6KQMdLwYszXdvPO5XE4k7J4bo7MxuP
- Ok+UecEar6NwQ==
-Date: Wed, 10 Mar 2021 10:55:51 +0000
-From: Will Deacon <will@kernel.org>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5C12A89DD2;
+ Wed, 10 Mar 2021 18:40:07 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 837CE1FB;
+ Wed, 10 Mar 2021 10:40:06 -0800 (PST)
+Received: from [10.57.52.136] (unknown [10.57.52.136])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0A6053F800;
+ Wed, 10 Mar 2021 10:40:03 -0800 (PST)
 To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20210310105550.GA29270@willie-the-truck>
 References: <20210301084257.945454-1-hch@lst.de>
- <20210301084257.945454-17-hch@lst.de>
- <d567ad5c-5f89-effa-7260-88c6d86b4695@arm.com>
- <CAF6AEGtTs-=aO-Ntp0Qn6mYDSv4x0-q3y217QxU7kZ6H1b1fiQ@mail.gmail.com>
- <20210305100012.GB22536@willie-the-truck>
- <20210310085806.GB5928@lst.de>
+ <20210301084257.945454-15-hch@lst.de>
+ <1658805c-ed28-b650-7385-a56fab3383e3@arm.com> <20210310091501.GC5928@lst.de>
+ <20210310092533.GA6819@lst.de>
+From: Robin Murphy <robin.murphy@arm.com>
+Message-ID: <fdacf87a-be14-c92c-4084-1d1dd4fc7766@arm.com>
+Date: Wed, 10 Mar 2021 18:39:57 +0000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210310085806.GB5928@lst.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH 16/17] iommu: remove
- DOMAIN_ATTR_IO_PGTABLE_CFG
+In-Reply-To: <20210310092533.GA6819@lst.de>
+Content-Language: en-GB
+Subject: Re: [Freedreno] [PATCH 14/17] iommu: remove
+ DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,39 +45,235 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>, kvm@vger.kernel.org,
- Michael Ellerman <mpe@ellerman.id.au>, Joerg Roedel <joro@8bytes.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Li Yang <leoyang.li@nxp.com>,
- Rob Clark <robdclark@gmail.com>,
- "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
- Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
- David Woodhouse <dwmw2@infradead.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- virtualization@lists.linux-foundation.org, Robin Murphy <robin.murphy@arm.com>,
- netdev@vger.kernel.org,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>
-Content-Type: text/plain; charset="us-ascii"
+Cc: kvm@vger.kernel.org, Will Deacon <will@kernel.org>,
+ Joerg Roedel <joro@8bytes.org>, linuxppc-dev@lists.ozlabs.org,
+ dri-devel@lists.freedesktop.org, Li Yang <leoyang.li@nxp.com>,
+ iommu@lists.linux-foundation.org, netdev@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Michael Ellerman <mpe@ellerman.id.au>,
+ virtualization@lists.linux-foundation.org, freedreno@lists.freedesktop.org,
+ David Woodhouse <dwmw2@infradead.org>, linux-arm-msm@vger.kernel.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Mar 10, 2021 at 09:58:06AM +0100, Christoph Hellwig wrote:
-> On Fri, Mar 05, 2021 at 10:00:12AM +0000, Will Deacon wrote:
-> > > But one thing I'm not sure about is whether
-> > > IO_PGTABLE_QUIRK_ARM_OUTER_WBWA is something that other devices
-> > > *should* be using as well, but just haven't gotten around to yet.
-> > 
-> > The intention is certainly that this would be a place to collate per-domain
-> > pgtable quirks, so I'd prefer not to tie that to the GPU.
+On 2021-03-10 09:25, Christoph Hellwig wrote:
+> On Wed, Mar 10, 2021 at 10:15:01AM +0100, Christoph Hellwig wrote:
+>> On Thu, Mar 04, 2021 at 03:25:27PM +0000, Robin Murphy wrote:
+>>> On 2021-03-01 08:42, Christoph Hellwig wrote:
+>>>> Use explicit methods for setting and querying the information instead.
+>>>
+>>> Now that everyone's using iommu-dma, is there any point in bouncing this
+>>> through the drivers at all? Seems like it would make more sense for the x86
+>>> drivers to reflect their private options back to iommu_dma_strict (and
+>>> allow Intel's caching mode to override it as well), then have
+>>> iommu_dma_init_domain just test !iommu_dma_strict &&
+>>> domain->ops->flush_iotlb_all.
+>>
+>> Hmm.  I looked at this, and kill off ->dma_enable_flush_queue for
+>> the ARM drivers and just looking at iommu_dma_strict seems like a
+>> very clear win.
+>>
+>> OTOH x86 is a little more complicated.  AMD and intel defaul to lazy
+>> mode, so we'd have to change the global iommu_dma_strict if they are
+>> initialized.  Also Intel has not only a "static" option to disable
+>> lazy mode, but also a "dynamic" one where it iterates structure.  So
+>> I think on the get side we're stuck with the method, but it still
+>> simplifies the whole thing.
 > 
-> So the overall consensus is to just keep this as-is for now?
+> Actually... Just mirroring the iommu_dma_strict value into
+> struct iommu_domain should solve all of that with very little
+> boilerplate code.
 
-Yes, please. If it doesn't see wider adoption then we can revisit it.
+Yes, my initial thought was to directly replace the attribute with a
+common flag at iommu_domain level, but since in all cases the behaviour
+is effectively global rather than actually per-domain, it seemed
+reasonable to take it a step further. This passes compile-testing for
+arm64 and x86, what do you think?
 
-Will
+Robin.
+
+----->8-----
+Subject: [PATCH] iommu: Consolidate strict invalidation handling
+
+Now that everyone is using iommu-dma, the global invalidation policy
+really doesn't need to be woven through several parts of the core API
+and individual drivers, we can just look it up directly at the one point
+that we now make the flush queue decision. If the x86 drivers reflect
+their internal options and overrides back to iommu_dma_strict, that can
+become the canonical source.
+
+Signed-off-by: Robin Murphy <robin.murphy@arm.com>
+---
+  drivers/iommu/amd/iommu.c   |  2 ++
+  drivers/iommu/dma-iommu.c   |  8 +-------
+  drivers/iommu/intel/iommu.c | 12 ++++++++++++
+  drivers/iommu/iommu.c       | 35 +++++++++++++++++++++++++++--------
+  include/linux/iommu.h       |  2 ++
+  5 files changed, 44 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
+index a69a8b573e40..1db29e59d468 100644
+--- a/drivers/iommu/amd/iommu.c
++++ b/drivers/iommu/amd/iommu.c
+@@ -1856,6 +1856,8 @@ int __init amd_iommu_init_dma_ops(void)
+  	else
+  		pr_info("Lazy IO/TLB flushing enabled\n");
+  
++	iommu_set_dma_strict(amd_iommu_unmap_flush);
++
+  	return 0;
+  
+  }
+diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+index af765c813cc8..789a950cc125 100644
+--- a/drivers/iommu/dma-iommu.c
++++ b/drivers/iommu/dma-iommu.c
+@@ -304,10 +304,6 @@ static void iommu_dma_flush_iotlb_all(struct iova_domain *iovad)
+  
+  	cookie = container_of(iovad, struct iommu_dma_cookie, iovad);
+  	domain = cookie->fq_domain;
+-	/*
+-	 * The IOMMU driver supporting DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE
+-	 * implies that ops->flush_iotlb_all must be non-NULL.
+-	 */
+  	domain->ops->flush_iotlb_all(domain);
+  }
+  
+@@ -334,7 +330,6 @@ static int iommu_dma_init_domain(struct iommu_domain *domain, dma_addr_t base,
+  	struct iommu_dma_cookie *cookie = domain->iova_cookie;
+  	unsigned long order, base_pfn;
+  	struct iova_domain *iovad;
+-	int attr;
+  
+  	if (!cookie || cookie->type != IOMMU_DMA_IOVA_COOKIE)
+  		return -EINVAL;
+@@ -371,8 +366,7 @@ static int iommu_dma_init_domain(struct iommu_domain *domain, dma_addr_t base,
+  	init_iova_domain(iovad, 1UL << order, base_pfn);
+  
+  	if (!cookie->fq_domain && (!dev || !dev_is_untrusted(dev)) &&
+-	    !iommu_domain_get_attr(domain, DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE, &attr) &&
+-	    attr) {
++	    domain->ops->flush_iotlb_all && !iommu_get_dma_strict()) {
+  		if (init_iova_flush_queue(iovad, iommu_dma_flush_iotlb_all,
+  					  iommu_dma_entry_dtor))
+  			pr_warn("iova flush queue initialization failed\n");
+diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
+index b5c746f0f63b..f5b452cd1266 100644
+--- a/drivers/iommu/intel/iommu.c
++++ b/drivers/iommu/intel/iommu.c
+@@ -4377,6 +4377,17 @@ int __init intel_iommu_init(void)
+  
+  	down_read(&dmar_global_lock);
+  	for_each_active_iommu(iommu, drhd) {
++		if (!intel_iommu_strict && cap_caching_mode(iommu->cap)) {
++			/*
++			 * The flush queue implementation does not perform page-selective
++			 * invalidations that are required for efficient TLB flushes in
++			 * virtual environments. The benefit of batching is likely to be
++			 * much lower than the overhead of synchronizing the virtual and
++			 * physical IOMMU page-tables.
++			 */
++			pr_warn("IOMMU batching is disabled due to virtualization");
++			intel_iommu_strict = 1;
++		}
+  		iommu_device_sysfs_add(&iommu->iommu, NULL,
+  				       intel_iommu_groups,
+  				       "%s", iommu->name);
+@@ -4384,6 +4395,7 @@ int __init intel_iommu_init(void)
+  	}
+  	up_read(&dmar_global_lock);
+  
++	iommu_set_dma_strict(intel_iommu_strict);
+  	bus_set_iommu(&pci_bus_type, &intel_iommu_ops);
+  	if (si_domain && !hw_pass_through)
+  		register_memory_notifier(&intel_iommu_memory_nb);
+diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+index 2f3399203813..80afcf50cd3c 100644
+--- a/drivers/iommu/iommu.c
++++ b/drivers/iommu/iommu.c
+@@ -69,6 +69,7 @@ static const char * const iommu_group_resv_type_string[] = {
+  };
+  
+  #define IOMMU_CMD_LINE_DMA_API		BIT(0)
++#define IOMMU_CMD_LINE_STRICT		BIT(1)
+  
+  static void iommu_set_cmd_line_dma_api(void)
+  {
+@@ -80,6 +81,16 @@ static bool iommu_cmd_line_dma_api(void)
+  	return !!(iommu_cmd_line & IOMMU_CMD_LINE_DMA_API);
+  }
+  
++static void iommu_set_cmd_line_strict(void)
++{
++	iommu_cmd_line |= IOMMU_CMD_LINE_STRICT;
++}
++
++static bool iommu_cmd_line_strict(void)
++{
++	return !!(iommu_cmd_line & IOMMU_CMD_LINE_STRICT);
++}
++
+  static int iommu_alloc_default_domain(struct iommu_group *group,
+  				      struct device *dev);
+  static struct iommu_domain *__iommu_domain_alloc(struct bus_type *bus,
+@@ -337,10 +348,25 @@ early_param("iommu.passthrough", iommu_set_def_domain_type);
+  
+  static int __init iommu_dma_setup(char *str)
+  {
+-	return kstrtobool(str, &iommu_dma_strict);
++	int ret = kstrtobool(str, &iommu_dma_strict);
++
++	if (!ret)
++		iommu_set_cmd_line_strict();
++	return ret;
+  }
+  early_param("iommu.strict", iommu_dma_setup);
+  
++void iommu_set_dma_strict(bool val)
++{
++	if (val || !iommu_cmd_line_strict())
++		iommu_dma_strict = val;
++}
++
++bool iommu_get_dma_strict(void)
++{
++	return iommu_dma_strict;
++}
++
+  static ssize_t iommu_group_attr_show(struct kobject *kobj,
+  				     struct attribute *__attr, char *buf)
+  {
+@@ -1520,13 +1546,6 @@ static int iommu_group_alloc_default_domain(struct bus_type *bus,
+  	if (!group->domain)
+  		group->domain = dom;
+  
+-	if (!iommu_dma_strict) {
+-		int attr = 1;
+-		iommu_domain_set_attr(dom,
+-				      DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE,
+-				      &attr);
+-	}
+-
+  	return 0;
+  }
+  
+diff --git a/include/linux/iommu.h b/include/linux/iommu.h
+index eb5e3f14c5ad..11bbfa273d98 100644
+--- a/include/linux/iommu.h
++++ b/include/linux/iommu.h
+@@ -495,6 +495,8 @@ extern int iommu_domain_get_attr(struct iommu_domain *domain, enum iommu_attr,
+  				 void *data);
+  extern int iommu_domain_set_attr(struct iommu_domain *domain, enum iommu_attr,
+  				 void *data);
++extern void iommu_set_dma_strict(bool val);
++extern bool iommu_get_dma_strict(void);
+  
+  /* Window handling function prototypes */
+  extern int iommu_domain_window_enable(struct iommu_domain *domain, u32 wnd_nr,
+-- 
+2.21.0.dirty
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
