@@ -2,55 +2,33 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D9CE33ACB3
-	for <lists+freedreno@lfdr.de>; Mon, 15 Mar 2021 08:52:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9E3833AD85
+	for <lists+freedreno@lfdr.de>; Mon, 15 Mar 2021 09:33:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 093A2897EB;
-	Mon, 15 Mar 2021 07:52:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7357089C48;
+	Mon, 15 Mar 2021 08:33:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B2CC897EB
- for <freedreno@lists.freedesktop.org>; Mon, 15 Mar 2021 07:52:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1615794760;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=M3VcyCK15wuo7OnaOdUlq2bza4tGVkBBmoXXTmML6Bg=;
- b=gQYNCcJDq6jNQBDml8OiKNd03KM/MieEqftCwZDFSK1YN0P22L7Gly+2SoB0etwh2K8XkL
- axR19P0bX2KIvJqTIEEHIzEX+UMUkC+ZcB33jsujtfgVdC5L7Lea6GUcVDQmKYxwuMP6S7
- q9HiHZrTpJ2jkCUhDVpoDzSPFOeCBg4=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-425-QbWxkMulMV6r7TYiz1r-2A-1; Mon, 15 Mar 2021 03:52:35 -0400
-X-MC-Unique: QbWxkMulMV6r7TYiz1r-2A-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 57C5983DD26;
- Mon, 15 Mar 2021 07:52:33 +0000 (UTC)
-Received: from [10.36.112.254] (ovpn-112-254.ams2.redhat.com [10.36.112.254])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B094410023BE;
- Mon, 15 Mar 2021 07:52:29 +0000 (UTC)
-To: Christoph Hellwig <hch@lst.de>
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D0E089C48;
+ Mon, 15 Mar 2021 08:33:51 +0000 (UTC)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id D619068C4E; Mon, 15 Mar 2021 09:33:47 +0100 (CET)
+Date: Mon, 15 Mar 2021 09:33:47 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Robin Murphy <robin.murphy@arm.com>
+Message-ID: <20210315083347.GA28445@lst.de>
 References: <20210301084257.945454-1-hch@lst.de>
- <20210301084257.945454-16-hch@lst.de>
- <3e8f1078-9222-0017-3fa8-4d884dbc848e@redhat.com>
- <20210314155813.GA788@lst.de>
-From: Auger Eric <eric.auger@redhat.com>
-Message-ID: <3a1194de-a053-84dd-3d6a-bff8e01ebcd3@redhat.com>
-Date: Mon, 15 Mar 2021 08:52:28 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
+ <20210301084257.945454-15-hch@lst.de>
+ <1658805c-ed28-b650-7385-a56fab3383e3@arm.com> <20210310091501.GC5928@lst.de>
+ <20210310092533.GA6819@lst.de> <fdacf87a-be14-c92c-4084-1d1dd4fc7766@arm.com>
+ <20210311082609.GA6990@lst.de> <dff8eb80-8f74-972b-17e9-496c1fc0396f@arm.com>
 MIME-Version: 1.0
-In-Reply-To: <20210314155813.GA788@lst.de>
-Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-Subject: Re: [Freedreno] [PATCH 15/17] iommu: remove DOMAIN_ATTR_NESTING
+Content-Disposition: inline
+In-Reply-To: <dff8eb80-8f74-972b-17e9-496c1fc0396f@arm.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
+Subject: Re: [Freedreno] [PATCH 14/17] iommu: remove
+ DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,38 +45,41 @@ Cc: kvm@vger.kernel.org, Will Deacon <will@kernel.org>,
  Joerg Roedel <joro@8bytes.org>, linuxppc-dev@lists.ozlabs.org,
  dri-devel@lists.freedesktop.org, Li Yang <leoyang.li@nxp.com>,
  iommu@lists.linux-foundation.org, netdev@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Michael Ellerman <mpe@ellerman.id.au>,
+ David Woodhouse <dwmw2@infradead.org>, linux-arm-kernel@lists.infradead.org,
+ Michael Ellerman <mpe@ellerman.id.au>,
  virtualization@lists.linux-foundation.org, freedreno@lists.freedesktop.org,
- David Woodhouse <dwmw2@infradead.org>, linux-arm-msm@vger.kernel.org
+ Christoph Hellwig <hch@lst.de>, linux-arm-msm@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Christoph,
-
-On 3/14/21 4:58 PM, Christoph Hellwig wrote:
-> On Sun, Mar 14, 2021 at 11:44:52AM +0100, Auger Eric wrote:
->> As mentionned by Robin, there are series planning to use
->> DOMAIN_ATTR_NESTING to get info about the nested caps of the iommu (ARM
->> and Intel):
+On Fri, Mar 12, 2021 at 04:18:24PM +0000, Robin Murphy wrote:
+>> Let me know what you think of the version here:
 >>
->> [Patch v8 00/10] vfio: expose virtual Shared Virtual Addressing to VMs
->> patches 1, 2, 3
+>> http://git.infradead.org/users/hch/misc.git/shortlog/refs/heads/iommu-cleanup
 >>
->> Is the plan to introduce a new domain_get_nesting_info ops then?
-> 
-> The plan as usual would be to add it the series adding that support.
-> Not sure what the merge plans are - if the series is ready to be
-> merged I could rebase on top of it, otherwise that series will need
-> to add the method.
-OK I think your series may be upstreamed first.
+>> I'll happily switch the patch to you as the author if you're fine with
+>> that as well.
+>
+> I still have reservations about removing the attribute API entirely and 
+> pretending that io_pgtable_cfg is anything other than a SoC-specific 
+> private interface,
 
-Thanks
+I think a private inteface would make more sense.  For now I've just
+condensed it down to a generic set of quirk bits and dropped the
+attrs structure, which seems like an ok middle ground for now.  That
+being said I wonder why that quirk isn't simply set in the device
+tree?
 
-Eric
-> 
+> but the reworked patch on its own looks reasonable to 
+> me, thanks! (I wasn't too convinced about the iommu_cmd_line wrappers 
+> either...) Just iommu_get_dma_strict() needs an export since the SMMU 
+> drivers can be modular - I consciously didn't add that myself since I was 
+> mistakenly thinking only iommu-dma would call it.
 
+Fixed.  Can I get your signoff for the patch?  Then I'll switch it to
+over to being attributed to you.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
