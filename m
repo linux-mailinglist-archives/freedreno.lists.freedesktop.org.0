@@ -2,59 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3874333AA3F
-	for <lists+freedreno@lfdr.de>; Mon, 15 Mar 2021 05:06:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D9CE33ACB3
+	for <lists+freedreno@lfdr.de>; Mon, 15 Mar 2021 08:52:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42186892B0;
-	Mon, 15 Mar 2021 04:06:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 093A2897EB;
+	Mon, 15 Mar 2021 07:52:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
- [IPv6:2607:f8b0:4864:20::52b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25D83892B0
- for <freedreno@lists.freedesktop.org>; Mon, 15 Mar 2021 04:06:45 +0000 (UTC)
-Received: by mail-pg1-x52b.google.com with SMTP id p21so19689749pgl.12
- for <freedreno@lists.freedesktop.org>; Sun, 14 Mar 2021 21:06:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=eI7ImkOM7sKEYOwpNZ2uQyL8ht6ELC4KAuDJxGH26WM=;
- b=TsLroBKaOE0Ndal3uYSavlIbCvocBVruTCmOQbtWNCTqZn34fuCTFqFvPlo8zLD9fM
- IO6v4CAcDC/jXHA7xn0roPtBnzHafVGRYUD8lfwBtTMxKxCleNiFo9fJ8rFHjAAcLLRG
- n0IBxgxySYh/5P9qNs36aern3PGV0Kb7uyoKAm7WyekwifeK1ct2o4JPyQ1IQo4HlwZ+
- 40l1RBYIIqEDnveIIc7V/s/pxU7Eti6u2Sl5TecW4wLjWWQTpWhk9UCZrL8vgho1h49/
- F2BmsDsOvuWGdJf6nM5P+UwNGUZyT5QM3C9s++AMz77q/FQEl28vDvRZAA/JnZ/kvkbJ
- LAKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=eI7ImkOM7sKEYOwpNZ2uQyL8ht6ELC4KAuDJxGH26WM=;
- b=JSfd9E1uNLoLrpjYfuqboMBG0yWNf0Jb+dtOM+mO8oX7TEKMZ0I9oDcPrH3yTRsY/f
- PydTvrhcVuljb7bug5PdybcnAD3GZkiyaLsORCnkREDlhvcO7R2ajU8PF4H07PMQhKRu
- /v628jGfNL4uzp0cYAuujqvbRJiVxFEdi8vGLKX4FXUEIyhYts6C6hN0aPYjuLuR9wDf
- 0ynwSRgW9K/Xg+auz+Ga2oYwEyuKgf4jWinrJFu4LflYZwD7gNok8Q2HEJSj7WdFN1ja
- UwEJts0XV++TJK/2QXnAS8B9WmhNaZqCpTItSy1oxZQlqNC0tFG+jIyiBrezrn2ePvEV
- 1wJQ==
-X-Gm-Message-State: AOAM532VTvyG2vBoWW2VLskViZUD2RJGHqUxD2aOWRiPRfswIfWBm+DD
- o+AilrgJ1/Qi5Zk2rTS18suh5A==
-X-Google-Smtp-Source: ABdhPJzvcR9VDnxHyvgDVLMJYlxMP0Ms95A2JMyXTXyYfG5+umOTG/XVCk6roapJ92EyCnrv/2+ArQ==
-X-Received: by 2002:a63:1957:: with SMTP id 23mr3255166pgz.196.1615781204730; 
- Sun, 14 Mar 2021 21:06:44 -0700 (PDT)
-Received: from localhost ([122.171.124.15])
- by smtp.gmail.com with ESMTPSA id l20sm12327033pfd.82.2021.03.14.21.06.43
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 14 Mar 2021 21:06:44 -0700 (PDT)
-Date: Mon, 15 Mar 2021 09:36:42 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <20210315040642.mw6jz7nalhthbwlr@vireshk-i7>
-References: <20210314163408.22292-1-digetx@gmail.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B2CC897EB
+ for <freedreno@lists.freedesktop.org>; Mon, 15 Mar 2021 07:52:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1615794760;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=M3VcyCK15wuo7OnaOdUlq2bza4tGVkBBmoXXTmML6Bg=;
+ b=gQYNCcJDq6jNQBDml8OiKNd03KM/MieEqftCwZDFSK1YN0P22L7Gly+2SoB0etwh2K8XkL
+ axR19P0bX2KIvJqTIEEHIzEX+UMUkC+ZcB33jsujtfgVdC5L7Lea6GUcVDQmKYxwuMP6S7
+ q9HiHZrTpJ2jkCUhDVpoDzSPFOeCBg4=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-425-QbWxkMulMV6r7TYiz1r-2A-1; Mon, 15 Mar 2021 03:52:35 -0400
+X-MC-Unique: QbWxkMulMV6r7TYiz1r-2A-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+ [10.5.11.22])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 57C5983DD26;
+ Mon, 15 Mar 2021 07:52:33 +0000 (UTC)
+Received: from [10.36.112.254] (ovpn-112-254.ams2.redhat.com [10.36.112.254])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B094410023BE;
+ Mon, 15 Mar 2021 07:52:29 +0000 (UTC)
+To: Christoph Hellwig <hch@lst.de>
+References: <20210301084257.945454-1-hch@lst.de>
+ <20210301084257.945454-16-hch@lst.de>
+ <3e8f1078-9222-0017-3fa8-4d884dbc848e@redhat.com>
+ <20210314155813.GA788@lst.de>
+From: Auger Eric <eric.auger@redhat.com>
+Message-ID: <3a1194de-a053-84dd-3d6a-bff8e01ebcd3@redhat.com>
+Date: Mon, 15 Mar 2021 08:52:28 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210314163408.22292-1-digetx@gmail.com>
-User-Agent: NeoMutt/20180716-391-311a52
-Subject: Re: [Freedreno] [PATCH v3 00/15] Introduce devm_pm_opp_* API
+In-Reply-To: <20210314155813.GA788@lst.de>
+Content-Language: en-US
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+Subject: Re: [Freedreno] [PATCH 15/17] iommu: remove DOMAIN_ATTR_NESTING
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,55 +63,42 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Nishanth Menon <nm@ti.com>, Ulf Hansson <ulf.hansson@linaro.org>,
- Yangtao Li <tiny.windzz@gmail.com>,
- Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- linux-spi@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
- Rob Herring <robh@kernel.org>, linux-samsung-soc@vger.kernel.org,
- lima@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Viresh Kumar <vireshk@kernel.org>, Steven Price <steven.price@arm.com>,
- Andy Gross <agross@kernel.org>,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- linux-serial@vger.kernel.org, linux-media@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, linux-tegra@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Sean Paul <sean@poorly.run>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>, Stephen Boyd <sboyd@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-mmc@vger.kernel.org,
- Adrian Hunter <adrian.hunter@intel.com>, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Qiang Yu <yuq825@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- Lukasz Luba <lukasz.luba@arm.com>
+Cc: kvm@vger.kernel.org, Will Deacon <will@kernel.org>,
+ Joerg Roedel <joro@8bytes.org>, linuxppc-dev@lists.ozlabs.org,
+ dri-devel@lists.freedesktop.org, Li Yang <leoyang.li@nxp.com>,
+ iommu@lists.linux-foundation.org, netdev@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Michael Ellerman <mpe@ellerman.id.au>,
+ virtualization@lists.linux-foundation.org, freedreno@lists.freedesktop.org,
+ David Woodhouse <dwmw2@infradead.org>, linux-arm-msm@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 14-03-21, 19:33, Dmitry Osipenko wrote:
-> This series adds resource-managed OPP API helpers and makes drivers
-> to use them.
-> 
-> Changelog:
-> 
-> v3: - Dropped dev_pm_opp_register_notifier().
-> 
->     - Changed return type of the devm helpers from opp_table pointer
->       to errno.
-> 
->     - Corrected drm/msm patch which missed to remove opp_put_supported_hw()
->       from a6xx_gpu. Note that the a5xx_gpu driver was missing the
->       opp_put_supported_hw() at all.
-> 
->     - Corrected spelling of the ack from Mark Brown.
+Hi Christoph,
 
-Applied all patches except 11/15.
+On 3/14/21 4:58 PM, Christoph Hellwig wrote:
+> On Sun, Mar 14, 2021 at 11:44:52AM +0100, Auger Eric wrote:
+>> As mentionned by Robin, there are series planning to use
+>> DOMAIN_ATTR_NESTING to get info about the nested caps of the iommu (ARM
+>> and Intel):
+>>
+>> [Patch v8 00/10] vfio: expose virtual Shared Virtual Addressing to VMs
+>> patches 1, 2, 3
+>>
+>> Is the plan to introduce a new domain_get_nesting_info ops then?
+> 
+> The plan as usual would be to add it the series adding that support.
+> Not sure what the merge plans are - if the series is ready to be
+> merged I could rebase on top of it, otherwise that series will need
+> to add the method.
+OK I think your series may be upstreamed first.
 
-Thanks.
+Thanks
 
--- 
-viresh
+Eric
+> 
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
