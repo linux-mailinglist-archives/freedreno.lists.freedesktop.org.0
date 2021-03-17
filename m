@@ -1,61 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96A1C33F325
-	for <lists+freedreno@lfdr.de>; Wed, 17 Mar 2021 15:40:56 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id D068033F334
+	for <lists+freedreno@lfdr.de>; Wed, 17 Mar 2021 15:41:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2164F6E5C6;
-	Wed, 17 Mar 2021 14:40:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 009A16E7E5;
+	Wed, 17 Mar 2021 14:41:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 794C86E5C8
- for <freedreno@lists.freedesktop.org>; Wed, 17 Mar 2021 14:40:52 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id n16so3345036lfb.4
- for <freedreno@lists.freedesktop.org>; Wed, 17 Mar 2021 07:40:52 -0700 (PDT)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBC476E5C8
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Mar 2021 14:40:53 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id q25so3320505lfc.8
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Mar 2021 07:40:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=VZ0geH6BqMBlmbQ30iyES93D0PKaLEePFxddTMOy9xQ=;
- b=no1y5QTnePloWF6Kf5NJI+KW4hcc8iSa7md8U/h+236ztkxrCWmLM76BfogRg1Ve16
- ic8UeNY3CQvCIj7LBtJihb+1OVqWASBOHdzCyKDLDy2js/EZ90sO55MK70CNPfwgfQ0a
- L2Ye9KT0n0j0ihVSz+W9IqJqF/4X+TVYMGXigMPr7xBd603Q3UKwoLSy1ZnSjHuDVLX3
- wB6Ft/pYSwnaePxzAXT2IVJjEc4Pd7OaiabwwFxAGW3m7GcKKh/1U4ti1HXk8/Lz0stZ
- FzhGd5BZYHT9Drn7Av/GitUBhlueIZEfh1k7Yi53NqZX4V+p+Ljn4mSKTUE5WiRPZfgn
- zoPQ==
+ bh=UAQa/+HPZGb9w4gbaD2aOLSU7WxeXPAw6Cdwe97w/Q4=;
+ b=eXP/TledxAPTdTLVmvjWNrnuZ/q0OFDG8H8Gqxj0LKAqVsIpvu5tTqTIgswDK3CeS0
+ JWDh9i/7xcJi3WcsKO/Tlly97uR125Ij5vcDkA3bTqdgv2HHcVGvyDYlKZLOC4thwk7Q
+ UpKymK7LwNVk9U2XQM4tBKconFpeO8znWGb7iTxgc/lPPDH7U8LYareV88zndg+UAwnv
+ UYCxmNTVmvb5F9KfQ7LCvpGlyFyQJLBSwVuI39YvhjVqPqnth0tmnMlKFhiDMqllriGY
+ j1cbGp/4XM/2T1BmXPbL5nDwPsyjsvEIgqjoTkZ0f3KIDIW+nQShkGozV3lXxoT6Fr4W
+ 3Q2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=VZ0geH6BqMBlmbQ30iyES93D0PKaLEePFxddTMOy9xQ=;
- b=KKCQ4sd/lL4NZlfUfOVvxmKb1HqpTnSLF3rfCksgYpQ5Wt1uZrBy7oFKmMhvnUjXdO
- SMBDEPy2YBnd4e8BegjpTdojOO/0Sa/Lph2qlaQ3UlfmU7E0Zxmmzz6Tzj11mUskB9GZ
- xhYdoHnBHJWWIHvraQREWMDF8PGoKOcePNZxFSmXTSeRH4q2CrgfiMWDFeM6tdde4vZ5
- zkJReCVoEm3u/ApBepmU6CDzorvXwW16Oo1JmBTlFmR7PIpDhi1OPqvQoEpSjA59AiPJ
- /Ei3oeAJ/wLac5yVOX43MildfDKr8/6aiCKJrhZjE0WtigO03C47j2Pf0hZL8hs1UrX6
- +5iw==
-X-Gm-Message-State: AOAM531w5jy/myjzUBAq2Y1m/l6QuhZx7c8ZsJnIBa6MHcrqMDsPeZo0
- 3OQ4P9No8oL+8oSAeKd28iJ0kg==
-X-Google-Smtp-Source: ABdhPJw5jus2v3pxW594CEk+SrRrg9htGKBQ1CbmXj1XxLuT4EdAEgnqIByVfE0lXaRf41wydng6qw==
-X-Received: by 2002:a19:44:: with SMTP id 65mr2673123lfa.104.1615992050905;
- Wed, 17 Mar 2021 07:40:50 -0700 (PDT)
+ bh=UAQa/+HPZGb9w4gbaD2aOLSU7WxeXPAw6Cdwe97w/Q4=;
+ b=JyDHcByd+KmjFKYgPHJV2D4b/F1FGPcX8IzVKYQyo9tEdiS+hsG60aTHHVp4LcwLJf
+ x7BjMJtDYv8rk+2ncOBpmw9WpKgY0lxd7mttk8pcCQjnZFBYO99MYHpc7qCXewnVatFJ
+ FTiOQEcc8T5beYWt5n5TExiPVMmbvxT7eKbKZcX1fGe11pol7C0bmZst3MFGhxaS1h2j
+ 5FCqGrAv8Oh5sK8Sd3MFc16hcEdoSt+j/s1cRWDfuw7BfKcxxC11wY/fCLla4GQaxByC
+ 57PcjFY/JPFQ/LElJKP7+vt5Iz4TkkFpBnuBRRtzo5Ub3Vu1z1UQQ18xyXjMvkPYh9oh
+ Vy9w==
+X-Gm-Message-State: AOAM532JemB9xbQAU/jOKMJX7N0iHeMM2oB2OpmgY8UN1a8/xGZKIsKS
+ gQJwXs0+clFhHB7azHl1fpw6Ng==
+X-Google-Smtp-Source: ABdhPJw4euHwBGmi07h52o4jzm1u82sY8Mak58T89zORmZtairSuAVrS4Ctn8CvJZPTrJNViVGwA8A==
+X-Received: by 2002:ac2:5e6a:: with SMTP id a10mr2559303lfr.181.1615992052285; 
+ Wed, 17 Mar 2021 07:40:52 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id q8sm1484309lfc.223.2021.03.17.07.40.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Mar 2021 07:40:50 -0700 (PDT)
+ Wed, 17 Mar 2021 07:40:51 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Jonathan Marek <jonathan@marek.ca>,
  Michael Turquette <mturquette@baylibre.com>
-Date: Wed, 17 Mar 2021 17:40:22 +0300
-Message-Id: <20210317144039.556409-10-dmitry.baryshkov@linaro.org>
+Date: Wed, 17 Mar 2021 17:40:23 +0300
+Message-Id: <20210317144039.556409-11-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210317144039.556409-1-dmitry.baryshkov@linaro.org>
 References: <20210317144039.556409-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v1 09/26] arm64: dts: qcom: sm8250: assign DSI
+Subject: [Freedreno] [PATCH v1 10/26] arm64: dts: qcom: sdm845: assign DSI
  clock source parents
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,32 +82,32 @@ Assign DSI clock source parents to DSI PHY clocks.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- arch/arm64/boot/dts/qcom/sm8250.dtsi | 6 ++++++
+ arch/arm64/boot/dts/qcom/sdm845.dtsi | 6 ++++++
  1 file changed, 6 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-index 947e1accae3a..b6ed94497e8a 100644
---- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-@@ -2445,6 +2445,9 @@ dsi0: dsi@ae94000 {
+diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
+index 454f794af547..2166549382c1 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
+@@ -4113,6 +4113,9 @@ dsi0: dsi@ae94000 {
+ 					      "core",
  					      "iface",
  					      "bus";
- 
 +				assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK_SRC>, <&dispcc DISP_CC_MDSS_PCLK0_CLK_SRC>;
 +				assigned-clock-parents = <&dsi0_phy 0>, <&dsi0_phy 1>;
 +
  				operating-points-v2 = <&dsi_opp_table>;
- 				power-domains = <&rpmhpd SM8250_MMCX>;
+ 				power-domains = <&rpmhpd SDM845_CX>;
  
-@@ -2512,6 +2515,9 @@ dsi1: dsi@ae96000 {
+@@ -4179,6 +4182,9 @@ dsi1: dsi@ae96000 {
+ 					      "core",
  					      "iface",
  					      "bus";
- 
 +				assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE1_CLK_SRC>, <&dispcc DISP_CC_MDSS_PCLK1_CLK_SRC>;
 +				assigned-clock-parents = <&dsi1_phy 0>, <&dsi1_phy 1>;
 +
  				operating-points-v2 = <&dsi_opp_table>;
- 				power-domains = <&rpmhpd SM8250_MMCX>;
+ 				power-domains = <&rpmhpd SDM845_CX>;
  
 -- 
 2.30.2
