@@ -2,61 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4A3C33FF85
-	for <lists+freedreno@lfdr.de>; Thu, 18 Mar 2021 07:27:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE31A3403FB
+	for <lists+freedreno@lfdr.de>; Thu, 18 Mar 2021 11:55:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 178666E094;
-	Thu, 18 Mar 2021 06:27:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36BFD6E8DB;
+	Thu, 18 Mar 2021 10:55:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf2c.google.com (mail-qv1-xf2c.google.com
- [IPv6:2607:f8b0:4864:20::f2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDD666E092;
- Thu, 18 Mar 2021 06:27:14 +0000 (UTC)
-Received: by mail-qv1-xf2c.google.com with SMTP id x16so2691123qvk.3;
- Wed, 17 Mar 2021 23:27:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D84D6E107
+ for <freedreno@lists.freedesktop.org>; Thu, 18 Mar 2021 10:55:05 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id n138so3838102lfa.3
+ for <freedreno@lists.freedesktop.org>; Thu, 18 Mar 2021 03:55:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=LNT32jP7JgS237wrtS8YnRoKTooTz5SRowW1DWksDxM=;
- b=OvJV+tg9cEFf0tEjIixqrWyXv9B3ROsCHelq8dmjgbAQDe4cF0R/AWxEcQx9GbnzfU
- +WBzPtzfNN08nteo4nR9Qb8IgAB/Vbp42NCB/auQt3XGIquVkWimOcf7fdEFswB+Qk5L
- TSODw3mSqf33LC8kvG1XibPB/lhRSvFbmmdbecB7ddl+A90kf6nA8vYvVOPMylL6D+0d
- auQ+XydzUUPDl6qlz4KSyRppzDPHFDmm1Zga6462akRlIogecqu69oAJC5FBzySSxt8g
- LC8UXfjdcMuNofVvxN/9yXHFRBvMxSzOBkaPQlR9f60l3S8MoBMGHccFgDPfSAkS+GJH
- I24g==
+ bh=c1PjxkJWRqZH9Itgha41YGjrgemxzg/sWl+7Uk4MUXE=;
+ b=t0DFqimi3isfDhx/V5eIsDPMDk/202h7dNwHp8feagKuHmr81mfBNAZD3Ua9uYCqTk
+ Rk07oobZbjl/frYTn+tWu3IAdfDK5A/7Z3yKOwSnW1ZLN+I2SMcZLvhb7YipCks2ADlT
+ Bl/C33QVwRjiNLg0lCrKOpMNcqwwNrX5bbAngr/cFp6XA/fZ3XwpDhLnSWvHs02kf7ey
+ D7x+jauGD5VgD3qUZN4SzjHmcjKWGhggPPuVrGu7vlGQAcsCcaP3JBcV73G4Y7RKYHaA
+ oN9Y5Er7K1TT7kxj3D+CP+SfEb+1heNnTFA9YGEy7J0CIbUWBe/p2MqCovuaUqO8qlxn
+ bCuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=LNT32jP7JgS237wrtS8YnRoKTooTz5SRowW1DWksDxM=;
- b=XM/R5AuYlKgtoAS+S7aWM10KyfFG8kDTD3AedF4UlfSrxxi0dGmQcC42jp8P0pnHEj
- 1ZVP/E18MazoHwQPZeG0HacLekp4waKbj7QBqZ4TX9Y+V/YfVkn0G0RWfSdrZSlXKPiB
- jdwb77lttTpYSSRERcnHBoA7r9hBhRlzQHWghqDrukf6nfVA9nCCIcyrtg9pVYsoFwdO
- nKlVO5eIgzCve/3/pOhVUg05bo/RoqCIqHAwgogXk7verPNeZSbjvLdnLnxbE5QEBll7
- o5eV8JaFSS6vCQHH6DMNQLQ7NlPlVVFKTmYU865URQMgBu9E92r1EdD5UgwoNCoRkRwr
- oLwA==
-X-Gm-Message-State: AOAM5305HuCsbRzrNNHeh3lF+N50NSqRnZw6tqWp7aDGu9NoQEFEq8L1
- wqy79wpz3TVuInsSz6PYU/0=
-X-Google-Smtp-Source: ABdhPJxXtydecwAhlh8IEYYSOjOAHHi0Mx6IE05vvj2WBXSc8tIQDKtpj8c4E8Ww4Ldziy9qf/+iyA==
-X-Received: by 2002:a05:6214:18e5:: with SMTP id
- ep5mr2959617qvb.32.1616048833952; 
- Wed, 17 Mar 2021 23:27:13 -0700 (PDT)
-Received: from localhost.localdomain ([37.19.198.26])
- by smtp.gmail.com with ESMTPSA id 124sm1050782qke.107.2021.03.17.23.27.08
+ bh=c1PjxkJWRqZH9Itgha41YGjrgemxzg/sWl+7Uk4MUXE=;
+ b=JTpfRStxSWuOgsJO1oNFIrEQJgNPApUwdsTigsqGck0spY7KXYLWo5OeMx7yHo52VI
+ PrwBQcZCAYE3xOnR+QEQsZjMbD9tEo4FbGadqoDvkSV2irvCylc7+3tSQsEEMrVXb3vU
+ n6FhaYRDXDo4LPpmo5nAbx2tDf6cHBoNFsg8p5vcpWKGe7gxDX2cbcP91P0rRglsOwNn
+ c5hGIun6GeZj3TYLUV3t+wmt92xJN8x3wvEEwxQ9KeCsTqZ6Sf3T1mBWUzPLy0eq7hJT
+ qbCn3IEXfcq5Q2tfxwOYcxAhQm1PmznngWIQp031BJWT9NsqjzUmhAJGGDE35LJB++hE
+ W2LA==
+X-Gm-Message-State: AOAM532+fh/rojuIergtIVVO9M54aLCObjMjD9Kj8B0P33sOj2csVHco
+ 7i8sunHku5SHX80ttUn4pnTqjw==
+X-Google-Smtp-Source: ABdhPJy5DFNkpcJO3HWxt+NbsIqKlrwbQRcnKhDAF24WkxblOuK7JpO9m+TJryIBSuRJ/X5VMOuTOg==
+X-Received: by 2002:a19:5213:: with SMTP id m19mr4960818lfb.203.1616064903653; 
+ Thu, 18 Mar 2021 03:55:03 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id i18sm182110lfl.22.2021.03.18.03.55.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Mar 2021 23:27:13 -0700 (PDT)
-From: Bhaskar Chowdhury <unixbhaskar@gmail.com>
-To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
- khsieh@codeaurora.org, tanmay@codeaurora.org, chandanu@codeaurora.org,
- swboyd@chromium.org, unixbhaskar@gmail.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Date: Thu, 18 Mar 2021 11:56:50 +0530
-Message-Id: <20210318062650.19886-1-unixbhaskar@gmail.com>
-X-Mailer: git-send-email 2.20.1
+ Thu, 18 Mar 2021 03:55:02 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Jonathan Marek <jonathan@marek.ca>
+Date: Thu, 18 Mar 2021 13:54:35 +0300
+Message-Id: <20210318105435.2011222-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm/dp: Fixed couple of typos
+Subject: [Freedreno] [PATCH] drm/msm/dpu: enable DPU_SSPP_QOS_8LVL for SM8250
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,43 +65,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: rdunlap@infradead.org
+Cc: Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-s/modueles/modules/ ....two different places
+SM8250 platform has a 8-Levels VIG QoS setting. This setting was missed
+due to bad interaction with b8dab65b5ac3 ("drm/msm/dpu: Move
+DPU_SSPP_QOS_8LVL bit to SDM845 and SC7180 masks"), which was applied in
+parallel.
 
-Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+Fixes: d21fc5dfc3df ("drm/msm/dpu1: add support for qseed3lite used on sm8250")
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/dp/dp_power.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_power.h b/drivers/gpu/drm/msm/dp/dp_power.h
-index 7d0327bbc0d5..e3f959ffae12 100644
---- a/drivers/gpu/drm/msm/dp/dp_power.h
-+++ b/drivers/gpu/drm/msm/dp/dp_power.h
-@@ -88,7 +88,7 @@ int dp_power_client_init(struct dp_power *power);
-  * return: 0 for success, error for failure.
-  *
-  * This API will de-initialize the DisplayPort's clocks and regulator
-- * modueles.
-+ * modules.
-  */
- void dp_power_client_deinit(struct dp_power *power);
-
-@@ -100,7 +100,7 @@ void dp_power_client_deinit(struct dp_power *power);
-  *
-  * This API will configure the DisplayPort's power module and provides
-  * methods to be called by the client to configure the power related
-- * modueles.
-+ * modules.
-  */
- struct dp_power *dp_power_get(struct device *dev, struct dp_parser *parser);
-
---
-2.20.1
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index bffe5969ed7e..f21f630af476 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -22,7 +22,7 @@
+ 	(VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED4))
+ 
+ #define VIG_SM8250_MASK \
+-	(VIG_MASK | BIT(DPU_SSPP_SCALER_QSEED3LITE))
++	(VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED3LITE))
+ 
+ #define DMA_SDM845_MASK \
+ 	(BIT(DPU_SSPP_SRC) | BIT(DPU_SSPP_QOS) | BIT(DPU_SSPP_QOS_8LVL) |\
+-- 
+2.30.2
 
 _______________________________________________
 Freedreno mailing list
