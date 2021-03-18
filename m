@@ -1,54 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDE9833F9FD
-	for <lists+freedreno@lfdr.de>; Wed, 17 Mar 2021 21:32:52 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C4A3C33FF85
+	for <lists+freedreno@lfdr.de>; Thu, 18 Mar 2021 07:27:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 907FA6E02B;
-	Wed, 17 Mar 2021 20:32:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 178666E094;
+	Thu, 18 Mar 2021 06:27:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B1456E03C
- for <freedreno@lists.freedesktop.org>; Wed, 17 Mar 2021 20:32:50 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id
- v24-20020a9d69d80000b02901b9aec33371so3074058oto.2
- for <freedreno@lists.freedesktop.org>; Wed, 17 Mar 2021 13:32:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=IHCnunVxEHDcq+HTDx4ulePq7olKHfoa4KrEracuGEE=;
- b=F3jWDKeZzOEZZV+TtU/QAqYOuYjLzlwHXLJOUphmL/VTnC00lws/xyjCQFL1MFzEIq
- cOmU8WIgXcWr8H47lTCo4CJ6guTqcA2xR8IVXUiA4RT0KOFJNwKrTI7IziG13bdXuDmh
- 1mV45jQA3sCOkiQ18AaiLVLPMdYLhTJRLR/3I=
+Received: from mail-qv1-xf2c.google.com (mail-qv1-xf2c.google.com
+ [IPv6:2607:f8b0:4864:20::f2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDD666E092;
+ Thu, 18 Mar 2021 06:27:14 +0000 (UTC)
+Received: by mail-qv1-xf2c.google.com with SMTP id x16so2691123qvk.3;
+ Wed, 17 Mar 2021 23:27:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=LNT32jP7JgS237wrtS8YnRoKTooTz5SRowW1DWksDxM=;
+ b=OvJV+tg9cEFf0tEjIixqrWyXv9B3ROsCHelq8dmjgbAQDe4cF0R/AWxEcQx9GbnzfU
+ +WBzPtzfNN08nteo4nR9Qb8IgAB/Vbp42NCB/auQt3XGIquVkWimOcf7fdEFswB+Qk5L
+ TSODw3mSqf33LC8kvG1XibPB/lhRSvFbmmdbecB7ddl+A90kf6nA8vYvVOPMylL6D+0d
+ auQ+XydzUUPDl6qlz4KSyRppzDPHFDmm1Zga6462akRlIogecqu69oAJC5FBzySSxt8g
+ LC8UXfjdcMuNofVvxN/9yXHFRBvMxSzOBkaPQlR9f60l3S8MoBMGHccFgDPfSAkS+GJH
+ I24g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=IHCnunVxEHDcq+HTDx4ulePq7olKHfoa4KrEracuGEE=;
- b=DrTaO8B3Ow3ba3s12Pr0cakMGmF3SxWkT877Pjy5LpFZAL5sEW6DXfEuv8i8CHmC1I
- bUs9iDtvPzsxpmzsyiPMuUmsQhnyT4Da3rhntwV0sSrcMpOxlezKqZqdrlfvN2030BJ4
- ZE5w/+O+V5J4MBXdl8wOg31qr1XQojmY8px6dqVD4yBiqPEskfC9srjMULjZeyvHHzwH
- l2Hc5CYnl5r9CLhWp+xuzxWkbySh0VydheSN1qRxTbcTu5LIXzcq1B9VX/mndOmK2+Xq
- kSXkSqc3f0YZqI98hHqpc6h4K0j2LC0HTOlKz33rLQfjuQo+LuCfvjxtzz36uzgbComt
- 9pMw==
-X-Gm-Message-State: AOAM533A12ZqLkazxopCRNb5c2Aq7hoiWsnvFSv5MiFPzBPpfpyHWMtX
- GsnKhuY6e1jsOODDo87+/eJFJP2JxVkWwmtlOL3AIQ==
-X-Google-Smtp-Source: ABdhPJwpaKtWZD5ndm43ILhNLn5AjG91euFm+8cd3zhFc4Jg9VKRXCNzX5CQhv6Shjqegj6++qTq+qWnq/5dHW2jDuI=
-X-Received: by 2002:a9d:6481:: with SMTP id g1mr4590503otl.303.1616013169521; 
- Wed, 17 Mar 2021 13:32:49 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=LNT32jP7JgS237wrtS8YnRoKTooTz5SRowW1DWksDxM=;
+ b=XM/R5AuYlKgtoAS+S7aWM10KyfFG8kDTD3AedF4UlfSrxxi0dGmQcC42jp8P0pnHEj
+ 1ZVP/E18MazoHwQPZeG0HacLekp4waKbj7QBqZ4TX9Y+V/YfVkn0G0RWfSdrZSlXKPiB
+ jdwb77lttTpYSSRERcnHBoA7r9hBhRlzQHWghqDrukf6nfVA9nCCIcyrtg9pVYsoFwdO
+ nKlVO5eIgzCve/3/pOhVUg05bo/RoqCIqHAwgogXk7verPNeZSbjvLdnLnxbE5QEBll7
+ o5eV8JaFSS6vCQHH6DMNQLQ7NlPlVVFKTmYU865URQMgBu9E92r1EdD5UgwoNCoRkRwr
+ oLwA==
+X-Gm-Message-State: AOAM5305HuCsbRzrNNHeh3lF+N50NSqRnZw6tqWp7aDGu9NoQEFEq8L1
+ wqy79wpz3TVuInsSz6PYU/0=
+X-Google-Smtp-Source: ABdhPJxXtydecwAhlh8IEYYSOjOAHHi0Mx6IE05vvj2WBXSc8tIQDKtpj8c4E8Ww4Ldziy9qf/+iyA==
+X-Received: by 2002:a05:6214:18e5:: with SMTP id
+ ep5mr2959617qvb.32.1616048833952; 
+ Wed, 17 Mar 2021 23:27:13 -0700 (PDT)
+Received: from localhost.localdomain ([37.19.198.26])
+ by smtp.gmail.com with ESMTPSA id 124sm1050782qke.107.2021.03.17.23.27.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 17 Mar 2021 23:27:13 -0700 (PDT)
+From: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
+ khsieh@codeaurora.org, tanmay@codeaurora.org, chandanu@codeaurora.org,
+ swboyd@chromium.org, unixbhaskar@gmail.com, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Date: Thu, 18 Mar 2021 11:56:50 +0530
+Message-Id: <20210318062650.19886-1-unixbhaskar@gmail.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-References: <20210303134319.3160762-1-lee.jones@linaro.org>
- <16d4300e-bf29-1e85-317b-53d257890cb9@vmware.com> <20210308091932.GB4931@dell>
- <YEobySvG0zPs9xhc@phenom.ffwll.local> <20210311135152.GT701493@dell>
- <20210317081729.GH701493@dell>
-In-Reply-To: <20210317081729.GH701493@dell>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Wed, 17 Mar 2021 21:32:38 +0100
-Message-ID: <CAKMK7uEibsgXXTEM1d2CGSswp-koouPSouseP_rwLHTdpxfRpw@mail.gmail.com>
-To: Lee Jones <lee.jones@linaro.org>
-Subject: Re: [Freedreno] [RESEND 00/53] Rid GPU from W=1 warnings
+Subject: [Freedreno] [PATCH] drm/msm/dp: Fixed couple of typos
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,79 +69,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- Nouveau Dev <nouveau@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Qinglang Miao <miaoqinglang@huawei.com>, Anthony Koo <Anthony.Koo@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Jeremy Kolb <jkolb@brandeis.edu>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Rob Clark <rob.clark@linaro.org>,
- VMware Graphics <linux-graphics-maintainer@vmware.com>,
- Ben Skeggs <bskeggs@redhat.com>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Dave Airlie <airlied@redhat.com>, Harry Wentland <harry.wentland@amd.com>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
- Lyude Paul <lyude@redhat.com>, Leo Li <sunpeng.li@amd.com>,
- Roland Scheidegger <sroland@vmware.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Sean Paul <sean@poorly.run>, Kuogee Hsieh <khsieh@codeaurora.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Rob Clark <robdclark@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- Colin Ian King <colin.king@canonical.com>,
- freedreno <freedreno@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Zack Rusin <zackr@vmware.com>
+Cc: rdunlap@infradead.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Mar 17, 2021 at 9:17 AM Lee Jones <lee.jones@linaro.org> wrote:
->
-> On Thu, 11 Mar 2021, Lee Jones wrote:
->
-> > On Thu, 11 Mar 2021, Daniel Vetter wrote:
-> >
-> > > On Mon, Mar 08, 2021 at 09:19:32AM +0000, Lee Jones wrote:
-> > > > On Fri, 05 Mar 2021, Roland Scheidegger wrote:
-> > > >
-> > > > > The vmwgfx ones look all good to me, so for
-> > > > > 23-53: Reviewed-by: Roland Scheidegger <sroland@vmware.com>
-> > > > > That said, they were already signed off by Zack, so not sure what
-> > > > > happened here.
-> > > >
-> > > > Yes, they were accepted at one point, then dropped without a reason.
-> > > >
-> > > > Since I rebased onto the latest -next, I had to pluck them back out of
-> > > > a previous one.
-> > >
-> > > They should show up in linux-next again. We merge patches for next merge
-> > > window even during the current merge window, but need to make sure they
-> > > don't pollute linux-next. Occasionally the cut off is wrong so patches
-> > > show up, and then get pulled again.
-> > >
-> > > Unfortunately especially the 5.12 merge cycle was very wobbly due to some
-> > > confusion here. But your patches should all be in linux-next again (they
-> > > are queued up for 5.13 in drm-misc-next, I checked that).
-> > >
-> > > Sorry for the confusion here.
-> >
-> > Oh, I see.  Well so long as they don't get dropped, I'll be happy.
-> >
-> > Thanks for the explanation Daniel
->
-> After rebasing today, all of my GPU patches have remained.  Would
-> someone be kind enough to check that everything is still in order
-> please?
+s/modueles/modules/ ....two different places
 
-It's still broken somehow. I've kiced Maxime and Maarten again,
-they're also on this thread.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+---
+ drivers/gpu/drm/msm/dp/dp_power.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_power.h b/drivers/gpu/drm/msm/dp/dp_power.h
+index 7d0327bbc0d5..e3f959ffae12 100644
+--- a/drivers/gpu/drm/msm/dp/dp_power.h
++++ b/drivers/gpu/drm/msm/dp/dp_power.h
+@@ -88,7 +88,7 @@ int dp_power_client_init(struct dp_power *power);
+  * return: 0 for success, error for failure.
+  *
+  * This API will de-initialize the DisplayPort's clocks and regulator
+- * modueles.
++ * modules.
+  */
+ void dp_power_client_deinit(struct dp_power *power);
+
+@@ -100,7 +100,7 @@ void dp_power_client_deinit(struct dp_power *power);
+  *
+  * This API will configure the DisplayPort's power module and provides
+  * methods to be called by the client to configure the power related
+- * modueles.
++ * modules.
+  */
+ struct dp_power *dp_power_get(struct device *dev, struct dp_parser *parser);
+
+--
+2.20.1
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
