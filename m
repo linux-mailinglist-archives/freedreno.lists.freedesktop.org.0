@@ -2,45 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3CE4340CD2
-	for <lists+freedreno@lfdr.de>; Thu, 18 Mar 2021 19:22:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FAA9340ECB
+	for <lists+freedreno@lfdr.de>; Thu, 18 Mar 2021 21:05:42 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1DDF6E954;
-	Thu, 18 Mar 2021 18:22:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D408F6E95A;
+	Thu, 18 Mar 2021 20:05:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04FBB6E954;
- Thu, 18 Mar 2021 18:22:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:MIME-Version:Date:Message-ID:From:References:To:Subject:Sender:
- Reply-To:Cc:Content-ID:Content-Description;
- bh=S9hxfnnZSFMfcMrf6bjIrxOqUzvx5VJvhFrIa36oBsA=; b=fY16BKpFfFkJVHeFR1WsjzrKBO
- jxaJiM6Gvteh+TcN7aH2Y8/LX766eVyxGW2L0D6VoHJdeCyCFNQ9+PMV1zqT15JCuC4BnkmxhD3l5
- ZHGj9ngr34tEwDqlU8Mb875p1YK+yRRADP0xtG4404D2du/xqh0v+BYauKFvBp4Ptk7ruRI5xn00Z
- PJMJMR3cR/7MQuyD8gfxayhnBXWYm2xTnWmd5oQz8pb1rLF7BSSk8PWEDmdL/GiQXLzHvSorptkDh
- Sm1lNFrvinmuv9mNv9vcFlrtsSFrFX02Ay65Q+lNyjnffGnuaWjE7aAlXVpihXk56RZLUGaU5bXr6
- KDGlPfNA==;
-Received: from [2601:1c0:6280:3f0::9757]
- by casper.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
- id 1lMxHT-003LNP-Ma; Thu, 18 Mar 2021 18:22:02 +0000
-To: Bhaskar Chowdhury <unixbhaskar@gmail.com>, robdclark@gmail.com,
- sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch, khsieh@codeaurora.org,
- tanmay@codeaurora.org, chandanu@codeaurora.org, swboyd@chromium.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20210318062650.19886-1-unixbhaskar@gmail.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <d3facf30-2a60-46f2-caa0-af63d3a52dd1@infradead.org>
-Date: Thu, 18 Mar 2021 11:21:55 -0700
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 933FB6E961
+ for <freedreno@lists.freedesktop.org>; Thu, 18 Mar 2021 20:05:39 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id z25so9088664lja.3
+ for <freedreno@lists.freedesktop.org>; Thu, 18 Mar 2021 13:05:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=q6PUygLd2CXnygyW6bbcAwIFdQAJc7wY0uz9i6YRMS0=;
+ b=DtivWm1nvHqukfWwBGl4J3c0hQqnc0JsIjWj5R0TYAwuPrZoYwFZcc2a0V1GLyZI9P
+ Qh5P9znKxGvJTkdApwli9nR+ug98QG8eP/eNKE9TaLYtCAGn79L/alcPpfGcOIAj8Crx
+ 79Dcwiu3WFQW5rnu8dx7q744DpDahY0qUXCs7Kcx5HcL/W+ABMMD2i9s3UOB6Xu8jTRA
+ S5Z2u018BC7V6DuT7aeDGIqijVge8vwhtluFerJYq3AKTNA44TR28hkgJc20+R4dwDOK
+ l1lNl+jnxO/Y4pOhBw6vZzHSiUvYyqiG9OAi6YQpw0wPFP0kYQWRSwIrRDGPjSN5O8a5
+ c9pQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=q6PUygLd2CXnygyW6bbcAwIFdQAJc7wY0uz9i6YRMS0=;
+ b=fIgc1jstQ6LU+/ArTiK9ybUl8bz2S3XGBlCxg9tDGyWwes3g9Bp1KjOPO6Omyj+Iku
+ x555QmcdY+mabjCvwUOYQDeVK+ceIqOFy07vB9MP70pln8WUP3rO/sLu0tHHQQ8ubvhZ
+ qiRLYrfQUTXV5wNFBal3gUWsUYHwJJ0ZDr22NpgGNok4tqqcolibpktRhFBCD5yioZdI
+ K0rFvgXBjyWLUZVkezVs+arBgvKTnscK2FtEC9J0lCSYZiED3zbbGnb4BgGk+dajNRec
+ TJllLyX5LvHcEd83XaNeZjncLFc2Pun0CXkUOhYQBXyLAut12TQphd++KlYN+gi+7+x3
+ Yb/w==
+X-Gm-Message-State: AOAM533CraIs/PxriilU8LUTdcG3vXdjOywWXOZppcy7eGZtR7w1Z4tx
+ QKVUY0sd75Ee3S8uFDKhgljfAtcLjgH7pg==
+X-Google-Smtp-Source: ABdhPJxcOJr/aMUfBKt/Y/rK28TCbP0BBmj4XsdjXBJTN8Si5Ans5n49zdCt4gfieQeUk+b0F5JSLA==
+X-Received: by 2002:a2e:88d6:: with SMTP id a22mr6523479ljk.289.1616097937524; 
+ Thu, 18 Mar 2021 13:05:37 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id q17sm346659lfm.168.2021.03.18.13.05.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 18 Mar 2021 13:05:37 -0700 (PDT)
+To: Rob Clark <robdclark@gmail.com>
+References: <20210301214152.1805737-1-dmitry.baryshkov@linaro.org>
+ <CAF6AEGsN4s_wF0kHx4Y=vMM3AMTCewE4oiBdaxguVAku_nkODw@mail.gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <b0f44785-b56b-5451-9e7a-e75821d34563@linaro.org>
+Date: Thu, 18 Mar 2021 23:05:36 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <20210318062650.19886-1-unixbhaskar@gmail.com>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Fixed couple of typos
+In-Reply-To: <CAF6AEGsN4s_wF0kHx4Y=vMM3AMTCewE4oiBdaxguVAku_nkODw@mail.gmail.com>
+Content-Language: en-GB
+Subject: Re: [Freedreno] [PATCH] gpu/drm/msm: fix shutdown hook in case GPU
+ components failed to bind
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,50 +71,63 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 3/17/21 11:26 PM, Bhaskar Chowdhury wrote:
-> s/modueles/modules/ ....two different places
-> 
-> Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+On 17/03/2021 19:25, Rob Clark wrote:
+> On Mon, Mar 1, 2021 at 1:41 PM Dmitry Baryshkov
+> <dmitry.baryshkov@linaro.org> wrote:
+>>
+>> if GPU components have failed to bind, shutdown callback would fail with
+>> the following backtrace. Add safeguard check to stop that oops from
+>> happening and allow the board to reboot.
 
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
+[skipped]
 
-> ---
->  drivers/gpu/drm/msm/dp/dp_power.h | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>> diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
+>> index 6a326761dc4a..2fd0cf6421ad 100644
+>> --- a/drivers/gpu/drm/msm/msm_atomic.c
+>> +++ b/drivers/gpu/drm/msm/msm_atomic.c
+>> @@ -207,7 +207,12 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
+>>          struct msm_kms *kms = priv->kms;
+>>          struct drm_crtc *async_crtc = NULL;
+>>          unsigned crtc_mask = get_crtc_mask(state);
+>> -       bool async = kms->funcs->vsync_time &&
+>> +       bool async;
+>> +
+>> +       if (!kms)
+>> +               return;
 > 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_power.h b/drivers/gpu/drm/msm/dp/dp_power.h
-> index 7d0327bbc0d5..e3f959ffae12 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_power.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_power.h
-> @@ -88,7 +88,7 @@ int dp_power_client_init(struct dp_power *power);
->   * return: 0 for success, error for failure.
->   *
->   * This API will de-initialize the DisplayPort's clocks and regulator
-> - * modueles.
-> + * modules.
->   */
->  void dp_power_client_deinit(struct dp_power *power);
+> I think we could instead just check for null priv->kms in
+> msm_pdev_shutdown() and not call drm_atomic_helper_shutdown()?
+
+
+Good idea. Sending v2.
+
 > 
-> @@ -100,7 +100,7 @@ void dp_power_client_deinit(struct dp_power *power);
->   *
->   * This API will configure the DisplayPort's power module and provides
->   * methods to be called by the client to configure the power related
-> - * modueles.
-> + * modules.
->   */
->  struct dp_power *dp_power_get(struct device *dev, struct dp_parser *parser);
+> BR,
+> -R
 > 
-> --
+>> +
+>> +       async = kms->funcs->vsync_time &&
+>>                          can_do_async(state, &async_crtc);
+>>
+>>          trace_msm_atomic_commit_tail_start(async, crtc_mask);
+>> --
+>> 2.30.1
+>>
 
 
 -- 
-~Randy
-
+With best wishes
+Dmitry
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
