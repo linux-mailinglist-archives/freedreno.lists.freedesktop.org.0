@@ -2,53 +2,38 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEE92341BF9
-	for <lists+freedreno@lfdr.de>; Fri, 19 Mar 2021 13:09:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1AA9341D6F
+	for <lists+freedreno@lfdr.de>; Fri, 19 Mar 2021 13:54:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BE346E9D1;
-	Fri, 19 Mar 2021 12:09:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C4986E9FC;
+	Fri, 19 Mar 2021 12:54:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 415926E1B7;
- Fri, 19 Mar 2021 12:09:34 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id f26so11647076ljp.8;
- Fri, 19 Mar 2021 05:09:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=18bTTO0LtwICbrkP34GrvIGuHznNwuNg3xqUSgF99tc=;
- b=krXIlNUaCpuROQ+GF9uP7tqYm/TKa59pFpDaW/tG31pw1/nGkFVZAc3/LYKvmDZ7Co
- tO8cxGx7i+5PlvhSjOEanYzOwdNjV8xGxat+4GByGCL1EtpbtVtyYTE+BrAcmeoSaOms
- SAp7cEEmP7VW6/oSZHeEjUScKXb4qoiZmfX2H18JilsWyku5VuNip+Di6vLeveciIoNV
- jnEGraLrnrJ5GZqlm6HXgXcitKt457x/qxUYPjupiUPUrghRn8UrHkhcMuc8qynYgfoB
- c/gqZDTzq/QkWdR+nl2BrUNbZ373+xl/em9glkMdb3N92Eh+Bo1C6x7/OQO4QzbnrSWd
- fBTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=18bTTO0LtwICbrkP34GrvIGuHznNwuNg3xqUSgF99tc=;
- b=qu63ouxJypHQWZ15Pn7dfHYbBT7bmQG8DpcTP7Jtb535dN3BhyPFaM6D+0DdR9M9S8
- sgkA6cBY/3E1YxuVxVCkHzCJsr10HvQSschBCwePARlSk3MnesgNFznpsl/Yc7keikpr
- Wmmj9liC1MqKFqcN51UgV+6IIQb2zI/19yap/YNJPRmtSs49oLCpD/A1l7zsKn1QfdRm
- 02/1Ncgc4SGPt79D8blgSfBe5eUIX3OnR6XLICxdsMc0ihxXKicxAhU821BcSlG82Ir4
- TZ1HqNZWt0/hzZRecMaY5kopFVzxUy+cvSnn/fRt2kMu1Epk2xOCfXo6GDuMQk1HjZ69
- 1kqw==
-X-Gm-Message-State: AOAM531xK2ylANQzcnEPoWpLdkdOMWnJMlc/p8qWWH9gwhqWg6u0xIDX
- V82Rv2kbnn+8uRSZtOdrDQBr1uoHWncow9DsUQY=
-X-Google-Smtp-Source: ABdhPJxAMl+1VGuVaz1i/a22x+BQXeUsFJPe7kkmKAow3hjInbsN2y19OX/Bcwo8apqd7Ifvp0zVlbHNol4cukHZnXw=
-X-Received: by 2002:a2e:9a0c:: with SMTP id o12mr701936lji.121.1616155772644; 
- Fri, 19 Mar 2021 05:09:32 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210301214152.1805737-1-dmitry.baryshkov@linaro.org>
-In-Reply-To: <20210301214152.1805737-1-dmitry.baryshkov@linaro.org>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Fri, 19 Mar 2021 09:09:21 -0300
-Message-ID: <CAOMZO5Br85sf+ndiOWzeG7DgpqVHpXtnNGZLsVMOpBC5eVE2Aw@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH] gpu/drm/msm: fix shutdown hook in case GPU
- components failed to bind
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5177E6E9FC;
+ Fri, 19 Mar 2021 12:54:35 +0000 (UTC)
+Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
+ by alexa-out.qualcomm.com with ESMTP; 19 Mar 2021 05:54:34 -0700
+X-QCInternal: smtphost
+Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
+ by ironmsg08-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 19 Mar 2021 05:54:32 -0700
+X-QCInternal: smtphost
+Received: from kalyant-linux.qualcomm.com ([10.204.66.210])
+ by ironmsg01-blr.qualcomm.com with ESMTP; 19 Mar 2021 18:24:09 +0530
+Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
+ id 879904309; Fri, 19 Mar 2021 05:54:08 -0700 (PDT)
+From: Kalyan Thota <kalyan_t@codeaurora.org>
+To: y@qualcomm.com, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+Date: Fri, 19 Mar 2021 05:54:06 -0700
+Message-Id: <1616158446-19290-1-git-send-email-kalyan_t@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <y>
+References: <y>
+Subject: [Freedreno] [v1] drm/msm/disp/dpu1: fix display underruns during
+ modeset.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,49 +46,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, Jonathan Marek <jonathan@marek.ca>,
- Stephen Boyd <sboyd@kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- DRI mailing list <dri-devel@lists.freedesktop.org>,
- David Airlie <airlied@linux.ie>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
+Cc: mkrishn@codeaurora.org, robdclark@gmail.com, dianders@chromium.org,
+ linux-kernel@vger.kernel.org, Kalyan Thota <kalyan_t@codeaurora.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
+During crtc disable, display perf structures are reset to 0
+which includes state varibles which are immutable. On crtc
+enable, we use the same structures and they don't refelect
+the actual values
 
-On Mon, Mar 1, 2021 at 6:41 PM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
+1) Fix is to avoid updating the state structures during disable.
+2) Reset the perf structures during atomic check when there is no
+modeset enable.
 
-> diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
-> index 6a326761dc4a..2fd0cf6421ad 100644
-> --- a/drivers/gpu/drm/msm/msm_atomic.c
-> +++ b/drivers/gpu/drm/msm/msm_atomic.c
-> @@ -207,7 +207,12 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
->         struct msm_kms *kms = priv->kms;
->         struct drm_crtc *async_crtc = NULL;
->         unsigned crtc_mask = get_crtc_mask(state);
-> -       bool async = kms->funcs->vsync_time &&
-> +       bool async;
-> +
-> +       if (!kms)
-> +               return;
-> +
-> +       async = kms->funcs->vsync_time &&
->                         can_do_async(state, &async_crtc);
+Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 1 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      | 1 +
+ 2 files changed, 1 insertion(+), 1 deletion(-)
 
-I also see the same issue on a i.MX53:
-https://lists.freedesktop.org/archives/freedreno/2021-January/009369.html
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+index 37c8270..b4cd479 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+@@ -382,7 +382,6 @@ int dpu_core_perf_crtc_update(struct drm_crtc *crtc,
+ 	} else {
+ 		DPU_DEBUG("crtc=%d disable\n", crtc->base.id);
+ 		memset(old, 0, sizeof(*old));
+-		memset(new, 0, sizeof(*new));
+ 		update_bus = true;
+ 		update_clk = true;
+ 	}
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index 9a80981..a821e2c 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -912,6 +912,7 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+ 	if (!state->enable || !state->active) {
+ 		DPU_DEBUG("crtc%d -> enable %d, active %d, skip atomic_check\n",
+ 				crtc->base.id, state->enable, state->active);
++		memset(&cstate->new_perf, 0, sizeof(cstate->new_perf));
+ 		goto end;
+ 	}
+ 
+-- 
+2.7.4
 
-Then I got a different suggestion from Rob. Please check:
-
-https://www.spinics.net/lists/dri-devel/msg286648.html
-and
-https://www.spinics.net/lists/dri-devel/msg286649.html
-
-Does this series fix the issue in your platform too?
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
