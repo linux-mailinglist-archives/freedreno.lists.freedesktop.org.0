@@ -1,55 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC6FF3420EE
-	for <lists+freedreno@lfdr.de>; Fri, 19 Mar 2021 16:27:07 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id BF5F03421D0
+	for <lists+freedreno@lfdr.de>; Fri, 19 Mar 2021 17:25:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CF7E6EA4F;
-	Fri, 19 Mar 2021 15:27:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B89E6EA57;
+	Fri, 19 Mar 2021 16:25:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6ACCB6EA5D;
- Fri, 19 Mar 2021 15:27:03 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id 61so9495602wrm.12;
- Fri, 19 Mar 2021 08:27:03 -0700 (PDT)
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A42A6EA55;
+ Fri, 19 Mar 2021 16:25:10 +0000 (UTC)
+Received: by mail-lj1-x22a.google.com with SMTP id y1so12668391ljm.10;
+ Fri, 19 Mar 2021 09:25:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Gvh5IzYHTObqHI3vd7r3li3yWFFbiFLNzISSaMCoxao=;
- b=qgeeSL4tmHxIIKsIXPSCoDU2YZv1gkDExJKE+OCC0cdBvQRcB5tZypCVIGfnDMF6+w
- t+gm2pQfScCzkJVlbNC3BLzNFMSjzKh0j2EJnL37uh6tCE0sj6r2kJa9chr9oe/mtjqt
- pn22G6leatJ1E+XkLkSGuE/r5AdiSHtG1toUUtaAd9MRHbTWDmGbhqfKSiNpvgs6v0/7
- RXoFG3qM63RF8oL6ImkbprgourT/0zt7HrCwPP9eKmctRVOP+68wtbVjvd9lUDWpdWS2
- p7O2iObAJ0aiE2KPtK9hu+huhTsFH9fFgfjo//ek2vV9azebyVsoWvgBAA8abSY6+u6M
- aJOg==
+ :cc; bh=yCCM8CQ1dvYbSyF1A8EHUz19x9S3I8O51vY5/vvcKrY=;
+ b=LPbOR+wXdoYdBIv2JmdGiIkS436gn955TAYmRFFGSbZwQDMkyjSApzADHpLw6TE4xp
+ 0XJZZY/3wq3yR4XseZJQsPppjhOgLKBEj992Icq5W5cIugsCAK4ajqCvp0VhmcTLq17F
+ DJPYgGr9+AwjvqgeOEHe3gp4kljZFMQMy4sVGpJ8SyEqmxzG9OZ5w21ESq0Di9jFMlcs
+ ox8MNcE3/k3SrejODu3kOarryEf6ye5hCrzvCH3JuhGgvL3dw1wMSZAWwu1KtLpVPtS4
+ H9i+zPaXADnA/QkCZT3/rd8vfTxBd61VrGJHYInzYOcbAdJCK14AuRCaC5xuuZM9kbRj
+ tEyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=Gvh5IzYHTObqHI3vd7r3li3yWFFbiFLNzISSaMCoxao=;
- b=DFetI2YerVSFcKXVrEaafAka6Fmwsd8fs4ZGCEDrX+rNJ/DIoNAdgYalm6Nias3jvy
- tI1EhMbyzndZgwdHvGQZ5lJdiWcpweQ8Z52O6RAyzG7Vd57jZZT9Iw9CdHdspk9sPhtZ
- kJ2xTAznZT50XK8Jb/Kfya6hvvCtON6KO2mprds9pEaJ/APvrKvhtlCio1ITQVwONT5p
- vVIe1Fza9bFXAjRlu5pGC617lJ5uE46sdDj1eAONHPBBdw0w/GqHhU5akFEPqYHSLsrl
- Pe7XQ/Qe/094Xk/onDTbllawG98syZPEzedQLzKb3pyivQjkMOY18Pc9KHGTdZaB2yXb
- k/Pg==
-X-Gm-Message-State: AOAM530cp3zoEuHDF6WBWaHCq2JxfgkFHAP2WoRE4dfpBsAjpiGcbSPT
- wM/AeQvyAYS63T7Ee+GyrgvSCVQqJZoCCoJKbm0=
-X-Google-Smtp-Source: ABdhPJzEhz8Z9xqP3e4t7/ZysEmGfcbBrY+UUjoLI5+CPNKPmNo7GHtQxga++FhVy5w6xi2tsM+UoN2ps7L+a49zduQ=
-X-Received: by 2002:adf:fb42:: with SMTP id c2mr5121562wrs.83.1616167622087;
- Fri, 19 Mar 2021 08:27:02 -0700 (PDT)
+ bh=yCCM8CQ1dvYbSyF1A8EHUz19x9S3I8O51vY5/vvcKrY=;
+ b=nfdgejwl+y84DBHNviEl/LoD+8irb1hZesajA0caI8+Zu/F1st34oFb/9tVhEUWT6s
+ dIeyva9anPuEMcQ296Iwo8kDXpvb2Wp+uvpO02EaZAw6uknbgA064vkSV6pkQGpGwSwo
+ mzfXzJIazvE+31ikfnv4D+khMozoUyVJdMZcBS88Ah1DHxW/Ke1xeTCqUS561JU6FRZ4
+ XZxCl4Ez21Cl43BBVCR5hLBPJiZeWs09P0o/0x3h4kKUxqIYvLZmPW/0oYvpeGN407pi
+ v9tqBN2h3GDldZFGFTWPgJIWyQtIFbCJh32Timw2n0S5ybi+RS2bB0OKLHD32hL3TeAV
+ wDDQ==
+X-Gm-Message-State: AOAM531qqHNrbk9zmTxvDCDx66aqjQEQca4VyvzE417tTVKgfVjQzrmS
+ 5fpBFqt04vnuNk+dtO77nZoB6As9YR5yG7sMVmM=
+X-Google-Smtp-Source: ABdhPJxBGOgZX+y25IYwJRCofcYgJ1nsbcuBORQ6uKQ5uORlyrNsTwta/NrVMVP8TixVEj6cUx8Xdfxh5AfwdJN5iwM=
+X-Received: by 2002:a2e:87c6:: with SMTP id v6mr1425827ljj.490.1616171107531; 
+ Fri, 19 Mar 2021 09:25:07 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210301214152.1805737-1-dmitry.baryshkov@linaro.org>
  <CAOMZO5Br85sf+ndiOWzeG7DgpqVHpXtnNGZLsVMOpBC5eVE2Aw@mail.gmail.com>
  <CAF6AEGtYJegOPt4dju5wyzp+WEhXdKyeUbkoO-oDzSC2aR_9ZQ@mail.gmail.com>
  <CAOMZO5Bd68TtZ=-X_Gg7n9W4BsdAhbQAO2JhjMQvwtjdoWsn2A@mail.gmail.com>
 In-Reply-To: <CAOMZO5Bd68TtZ=-X_Gg7n9W4BsdAhbQAO2JhjMQvwtjdoWsn2A@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 19 Mar 2021 08:30:13 -0700
-Message-ID: <CAF6AEGtj22ut=YsL4So6NtoC06swtQcCh24rZs_aryq2SYdQbA@mail.gmail.com>
-To: Fabio Estevam <festevam@gmail.com>
+From: Fabio Estevam <festevam@gmail.com>
+Date: Fri, 19 Mar 2021 13:24:55 -0300
+Message-ID: <CAOMZO5A7wgKUMGjjG-w89EPQ1h0+aWFOpUPbDvGGeVL3Z6dm3w@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>
 Subject: Re: [Freedreno] [PATCH] gpu/drm/msm: fix shutdown hook in case GPU
  components failed to bind
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -75,27 +75,17 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Mar 19, 2021 at 8:13 AM Fabio Estevam <festevam@gmail.com> wrote:
->
-> Hi Rob,
->
-> On Fri, Mar 19, 2021 at 11:44 AM Rob Clark <robdclark@gmail.com> wrote:
->
-> > I think that might not help if something fails to probe due to (for
-> > example) a missing dependency, so !priv->kms is probably a better
-> > check to cover both cases.  But the 2nd patch makes a good point, that
-> > the suspend/resume path probably needs the same treatment
->
+On Fri, Mar 19, 2021 at 12:13 PM Fabio Estevam <festevam@gmail.com> wrote:
+
 > Thanks for the feedback.
 > I will follow the same approach for fixing the suspend/resume path then.
 >
 > Let me test it and then I will re-submit Dmitry's patch and the one
 > for suspend/resume as part of a patch series.
 
-Thanks,
+This approach works here for the suspend/resume path too.
 
-BR,
--R
+I have just submitted the series, thanks.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
