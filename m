@@ -1,61 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFF39341748
-	for <lists+freedreno@lfdr.de>; Fri, 19 Mar 2021 09:24:38 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id EEE92341BF9
+	for <lists+freedreno@lfdr.de>; Fri, 19 Mar 2021 13:09:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 097B36E99E;
-	Fri, 19 Mar 2021 08:24:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BE346E9D1;
+	Fri, 19 Mar 2021 12:09:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 520CA6E99C
- for <freedreno@lists.freedesktop.org>; Fri, 19 Mar 2021 08:24:36 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id b9so8284758ejc.11
- for <freedreno@lists.freedesktop.org>; Fri, 19 Mar 2021 01:24:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=/33rrW6tAmVtxRYoiv0PK1lc5LAomei+z6FwtqsCisM=;
- b=T7L8hIGs4NLk/w7APaYDVvRcg3YuQAFMJ6VNnBtnkcgSafK23nyyVPEa6rAZ67DJa6
- pie6iammssw0VfjfNCtarEdfEjG4/U/n5u9AndJt0nPoS1aaj14s4oeZ4Mm8nVAPYNhF
- LWenRGRbEwS6ghyOL9m7rQnbW+Z6j9A4nqz2CMJYsHK7Uko4usWy0g03vRKHG8x2kKaF
- gVQA8ZliD3ZV5sE0fA9ypKCbfpjp2zKol0C01DZbjSGXr608SKX5AnAtdQz09PXvWxTD
- vzEUkxtsjdLRYM5gkzSBJ//Vd39nmkCvOJV8bUkQAlBGVLVXdJ443a6A4mX2jpRRD1da
- LFnw==
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 415926E1B7;
+ Fri, 19 Mar 2021 12:09:34 +0000 (UTC)
+Received: by mail-lj1-x22d.google.com with SMTP id f26so11647076ljp.8;
+ Fri, 19 Mar 2021 05:09:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=18bTTO0LtwICbrkP34GrvIGuHznNwuNg3xqUSgF99tc=;
+ b=krXIlNUaCpuROQ+GF9uP7tqYm/TKa59pFpDaW/tG31pw1/nGkFVZAc3/LYKvmDZ7Co
+ tO8cxGx7i+5PlvhSjOEanYzOwdNjV8xGxat+4GByGCL1EtpbtVtyYTE+BrAcmeoSaOms
+ SAp7cEEmP7VW6/oSZHeEjUScKXb4qoiZmfX2H18JilsWyku5VuNip+Di6vLeveciIoNV
+ jnEGraLrnrJ5GZqlm6HXgXcitKt457x/qxUYPjupiUPUrghRn8UrHkhcMuc8qynYgfoB
+ c/gqZDTzq/QkWdR+nl2BrUNbZ373+xl/em9glkMdb3N92Eh+Bo1C6x7/OQO4QzbnrSWd
+ fBTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=/33rrW6tAmVtxRYoiv0PK1lc5LAomei+z6FwtqsCisM=;
- b=B1qL+zpVGqg+JS0oow3oUjc8liBPggMRK09uv4KgzAAa5WWxcv3ZlH58/F2onhtYCQ
- n1Sbv+xdoTS7zfu/ghik10vBI9HQFGh3nNMtAUnDK6S1zcQ24tqh9nhIXBu/PzN+2LyD
- 4DhMjzK56odzVgrD/DjKZ+SDHZ4G9zzQgRmPmrJCNS8ovq24bsFgF+qf/eKLJkAiICFI
- vy/q8Bi0V6OPJpnrnb/DU6OvjHRbpLheBcAG2iGjXO6DoRENz4/vKPpmBnMO9F67RESX
- 4xcPjmh+spC3EJFKnwyFeBtoVcX0k5JwCjLBjC0FFEqGrNfQoo+mqlZLwdsf8Yftih8y
- 9/3A==
-X-Gm-Message-State: AOAM530/pwOwQgYp1APtd/k8wud0if9AtSOuLTP70HbObhl+A5BC8Pav
- aaP5YLfT5DVz21xdJOloGDiFOQ==
-X-Google-Smtp-Source: ABdhPJz4KtR18bMDuxRNEmf8p/BopcQ1r7GqooWJY89cgdQHi6TZvOcC58gMxtYYchvEDHkZqRUIDQ==
-X-Received: by 2002:a17:906:71c3:: with SMTP id
- i3mr2938932ejk.391.1616142274996; 
- Fri, 19 Mar 2021 01:24:34 -0700 (PDT)
-Received: from dell.default ([91.110.221.194])
- by smtp.gmail.com with ESMTPSA id b18sm3273727ejb.77.2021.03.19.01.24.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Mar 2021 01:24:34 -0700 (PDT)
-From: Lee Jones <lee.jones@linaro.org>
-To: lee.jones@linaro.org
-Date: Fri, 19 Mar 2021 08:24:12 +0000
-Message-Id: <20210319082428.3294591-4-lee.jones@linaro.org>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210319082428.3294591-1-lee.jones@linaro.org>
-References: <20210319082428.3294591-1-lee.jones@linaro.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=18bTTO0LtwICbrkP34GrvIGuHznNwuNg3xqUSgF99tc=;
+ b=qu63ouxJypHQWZ15Pn7dfHYbBT7bmQG8DpcTP7Jtb535dN3BhyPFaM6D+0DdR9M9S8
+ sgkA6cBY/3E1YxuVxVCkHzCJsr10HvQSschBCwePARlSk3MnesgNFznpsl/Yc7keikpr
+ Wmmj9liC1MqKFqcN51UgV+6IIQb2zI/19yap/YNJPRmtSs49oLCpD/A1l7zsKn1QfdRm
+ 02/1Ncgc4SGPt79D8blgSfBe5eUIX3OnR6XLICxdsMc0ihxXKicxAhU821BcSlG82Ir4
+ TZ1HqNZWt0/hzZRecMaY5kopFVzxUy+cvSnn/fRt2kMu1Epk2xOCfXo6GDuMQk1HjZ69
+ 1kqw==
+X-Gm-Message-State: AOAM531xK2ylANQzcnEPoWpLdkdOMWnJMlc/p8qWWH9gwhqWg6u0xIDX
+ V82Rv2kbnn+8uRSZtOdrDQBr1uoHWncow9DsUQY=
+X-Google-Smtp-Source: ABdhPJxAMl+1VGuVaz1i/a22x+BQXeUsFJPe7kkmKAow3hjInbsN2y19OX/Bcwo8apqd7Ifvp0zVlbHNol4cukHZnXw=
+X-Received: by 2002:a2e:9a0c:: with SMTP id o12mr701936lji.121.1616155772644; 
+ Fri, 19 Mar 2021 05:09:32 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 03/19] drm/msm/dp/dp_display: Remove unused
- variable 'hpd'
+References: <20210301214152.1805737-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20210301214152.1805737-1-dmitry.baryshkov@linaro.org>
+From: Fabio Estevam <festevam@gmail.com>
+Date: Fri, 19 Mar 2021 09:09:21 -0300
+Message-ID: <CAOMZO5Br85sf+ndiOWzeG7DgpqVHpXtnNGZLsVMOpBC5eVE2Aw@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH] gpu/drm/msm: fix shutdown hook in case GPU
+ components failed to bind
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,40 +61,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Kuogee Hsieh <khsieh@codeaurora.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <freedreno@lists.freedesktop.org>, Jonathan Marek <jonathan@marek.ca>,
+ Stephen Boyd <sboyd@kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ DRI mailing list <dri-devel@lists.freedesktop.org>,
+ David Airlie <airlied@linux.ie>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Rml4ZXMgdGhlIGZvbGxvd2luZyBXPTEga2VybmVsIGJ1aWxkIHdhcm5pbmcocyk6CgogZHJpdmVy
-cy9ncHUvZHJtL21zbS9kcC9kcF9kaXNwbGF5LmM6IEluIGZ1bmN0aW9uIOKAmGRwX2Rpc3BsYXlf
-dXNicGRfYXR0ZW50aW9uX2Ni4oCZOgogZHJpdmVycy9ncHUvZHJtL21zbS9kcC9kcF9kaXNwbGF5
-LmM6NDk2OjE5OiB3YXJuaW5nOiB2YXJpYWJsZSDigJhocGTigJkgc2V0IGJ1dCBub3QgdXNlZCBb
-LVd1bnVzZWQtYnV0LXNldC12YXJpYWJsZV0KCkNjOiBSb2IgQ2xhcmsgPHJvYmRjbGFya0BnbWFp
-bC5jb20+CkNjOiBTZWFuIFBhdWwgPHNlYW5AcG9vcmx5LnJ1bj4KQ2M6IERhdmlkIEFpcmxpZSA8
-YWlybGllZEBsaW51eC5pZT4KQ2M6IERhbmllbCBWZXR0ZXIgPGRhbmllbEBmZndsbC5jaD4KQ2M6
-IEt1b2dlZSBIc2llaCA8a2hzaWVoQGNvZGVhdXJvcmEub3JnPgpDYzogbGludXgtYXJtLW1zbUB2
-Z2VyLmtlcm5lbC5vcmcKQ2M6IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKQ2M6IGZy
-ZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKU2lnbmVkLW9mZi1ieTogTGVlIEpvbmVzIDxs
-ZWUuam9uZXNAbGluYXJvLm9yZz4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vbXNtL2RwL2RwX2Rpc3Bs
-YXkuYyB8IDMgLS0tCiAxIGZpbGUgY2hhbmdlZCwgMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vbXNtL2RwL2RwX2Rpc3BsYXkuYyBiL2RyaXZlcnMvZ3B1L2RybS9t
-c20vZHAvZHBfZGlzcGxheS5jCmluZGV4IDVhMzlkYTZlMWVhZjIuLjMxYmYyYTQwYTllYjIgMTAw
-NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tc20vZHAvZHBfZGlzcGxheS5jCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9tc20vZHAvZHBfZGlzcGxheS5jCkBAIC00OTMsNyArNDkzLDYgQEAgc3RhdGlj
-IGludCBkcF9kaXNwbGF5X3VzYnBkX2F0dGVudGlvbl9jYihzdHJ1Y3QgZGV2aWNlICpkZXYpCiAJ
-aW50IHJjID0gMDsKIAl1MzIgc2lua19yZXF1ZXN0OwogCXN0cnVjdCBkcF9kaXNwbGF5X3ByaXZh
-dGUgKmRwOwotCXN0cnVjdCBkcF91c2JwZCAqaHBkOwogCiAJaWYgKCFkZXYpIHsKIAkJRFJNX0VS
-Uk9SKCJpbnZhbGlkIGRldlxuIik7CkBAIC01MDcsOCArNTA2LDYgQEAgc3RhdGljIGludCBkcF9k
-aXNwbGF5X3VzYnBkX2F0dGVudGlvbl9jYihzdHJ1Y3QgZGV2aWNlICpkZXYpCiAJCXJldHVybiAt
-RU5PREVWOwogCX0KIAotCWhwZCA9IGRwLT51c2JwZDsKLQogCS8qIGNoZWNrIGZvciBhbnkgdGVz
-dCByZXF1ZXN0IGlzc3VlZCBieSBzaW5rICovCiAJcmMgPSBkcF9saW5rX3Byb2Nlc3NfcmVxdWVz
-dChkcC0+bGluayk7CiAJaWYgKCFyYykgewotLSAKMi4yNy4wCgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpGcmVlZHJlbm8gbWFpbGluZyBsaXN0CkZyZWVk
-cmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9mcmVlZHJlbm8K
+Hi Dmitry,
+
+On Mon, Mar 1, 2021 at 6:41 PM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+
+> diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
+> index 6a326761dc4a..2fd0cf6421ad 100644
+> --- a/drivers/gpu/drm/msm/msm_atomic.c
+> +++ b/drivers/gpu/drm/msm/msm_atomic.c
+> @@ -207,7 +207,12 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
+>         struct msm_kms *kms = priv->kms;
+>         struct drm_crtc *async_crtc = NULL;
+>         unsigned crtc_mask = get_crtc_mask(state);
+> -       bool async = kms->funcs->vsync_time &&
+> +       bool async;
+> +
+> +       if (!kms)
+> +               return;
+> +
+> +       async = kms->funcs->vsync_time &&
+>                         can_do_async(state, &async_crtc);
+
+I also see the same issue on a i.MX53:
+https://lists.freedesktop.org/archives/freedreno/2021-January/009369.html
+
+Then I got a different suggestion from Rob. Please check:
+
+https://www.spinics.net/lists/dri-devel/msg286648.html
+and
+https://www.spinics.net/lists/dri-devel/msg286649.html
+
+Does this series fix the issue in your platform too?
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
