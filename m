@@ -1,91 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3292E3423C4
-	for <lists+freedreno@lfdr.de>; Fri, 19 Mar 2021 18:55:24 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 97340342910
+	for <lists+freedreno@lfdr.de>; Sat, 20 Mar 2021 00:11:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D86B66EA61;
-	Fri, 19 Mar 2021 17:55:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53D836EB0D;
+	Fri, 19 Mar 2021 23:11:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8329A6EA69
- for <freedreno@lists.freedesktop.org>; Fri, 19 Mar 2021 17:55:22 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id g25so5947969wmh.0
- for <freedreno@lists.freedesktop.org>; Fri, 19 Mar 2021 10:55:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=H4E5zo6M+sGFb9jJfPuBMekAUt72xfRBAZEVdNXvosI=;
- b=HkWCKtqano6hr83mTvHPNb1mTJD7j++xG4i3V1pZc+fMnH//eWACXOeqWIMYDAyiqD
- CWBkqUiJ1zmtZ3OlxFIY9DcUS/euNcLz8nxn4AxgvZ1rE5qJAgMaRKnutzlS1iCHVLZf
- S1ATj65HkMPVN9VP3K+xuo111cO9NYWhg1scM=
+Received: from mail-qv1-xf33.google.com (mail-qv1-xf33.google.com
+ [IPv6:2607:f8b0:4864:20::f33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A488A6EB0B
+ for <freedreno@lists.freedesktop.org>; Fri, 19 Mar 2021 23:10:58 +0000 (UTC)
+Received: by mail-qv1-xf33.google.com with SMTP id t16so5849736qvr.12
+ for <freedreno@lists.freedesktop.org>; Fri, 19 Mar 2021 16:10:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=7EuZmmo91nl6huegeyFuO2PiUXV9nzZOyWpFg59NAqE=;
+ b=TDSloJVVt/I8eDwWDYUXCksx1aBtsUfY+B1qBO9c6yy6IUkL+X3Vk8u3mQ25bRE0sL
+ xftu+bGP8qFIT2FgoOfFfKm4dBELCuFE3xnYFkaZff2We+jAYkqFSF9ysPeZjggzset+
+ ocPc11dxbFUhsI9gYwJdlvXRYazxvPEkGDaA0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=H4E5zo6M+sGFb9jJfPuBMekAUt72xfRBAZEVdNXvosI=;
- b=WhUUtSv7WxfHkZxk/goIka1gDS3ZCg35RIlwbqxqtax48HrsJxIpXWkMVHS0H8nR+Q
- t7udVUmRgf6W4DCQQzuyaK3lZHl8yHfS59QUc85ZuLLKjA/PqFr7Z7Cp/7AxygTfTgvr
- iZx1J0T4pmKWrwv9d0uDtYqNI3nX2NOjtAvVOPGKE3ngKAUPFG7RRek9/WhSJ/xEGeLM
- BMzxlD2OlBwIAU05k77wIIi+43/0ghT9z1O0Z7WysphA0BJ9V9yb1pSJxI1HiX7tvRVl
- 2aFjxsHWlp2z/VOQS/8IEsGR6MpGWv+ITL0Z1nEhQ9h5rfI1rMR/XJc9zCSO+0BPt78r
- P1Vg==
-X-Gm-Message-State: AOAM530rRElNOXj4HEScWoAhqsGQUaS2HPcUmdllLOsk1HlGqfIiT+ys
- V20BFBph1yrowFLKg0M5bT76YA==
-X-Google-Smtp-Source: ABdhPJznH8/2o31By7revAgfT3dpRwhrdpC+rY/yFumwMUBtQGtz1iOu7IVxYDezg1HGlBR9UX23fg==
-X-Received: by 2002:a7b:c0c3:: with SMTP id s3mr4743813wmh.11.1616176521069;
- Fri, 19 Mar 2021 10:55:21 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id s3sm7109143wmd.21.2021.03.19.10.55.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Mar 2021 10:55:20 -0700 (PDT)
-Date: Fri, 19 Mar 2021 18:55:18 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Lee Jones <lee.jones@linaro.org>
-Message-ID: <YFTlhh1ZSFffO+Nr@phenom.ffwll.local>
-Mail-Followup-To: Lee Jones <lee.jones@linaro.org>,
- Roland Scheidegger <sroland@vmware.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Anthony Koo <Anthony.Koo@amd.com>, Ben Skeggs <bskeggs@redhat.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Colin Ian King <colin.king@canonical.com>,
- Dave Airlie <airlied@redhat.com>, David Airlie <airlied@linux.ie>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Harry Wentland <harry.wentland@amd.com>,
- Jeremy Kolb <jkolb@brandeis.edu>,
- Kuogee Hsieh <khsieh@codeaurora.org>, Leo Li <sunpeng.li@amd.com>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
- Lyude Paul <lyude@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Nouveau Dev <nouveau@lists.freedesktop.org>,
- Qinglang Miao <miaoqinglang@huawei.com>,
- Rob Clark <rob.clark@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Sumit Semwal <sumit.semwal@linaro.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- VMware Graphics <linux-graphics-maintainer@vmware.com>,
- Zack Rusin <zackr@vmware.com>
-References: <20210303134319.3160762-1-lee.jones@linaro.org>
- <16d4300e-bf29-1e85-317b-53d257890cb9@vmware.com>
- <20210308091932.GB4931@dell> <YEobySvG0zPs9xhc@phenom.ffwll.local>
- <20210311135152.GT701493@dell> <20210317081729.GH701493@dell>
- <CAKMK7uEibsgXXTEM1d2CGSswp-koouPSouseP_rwLHTdpxfRpw@mail.gmail.com>
- <CAKMK7uHkJGDL8k3FfAqAM78honZR0euMcacW8UpdPZfS1J-7cA@mail.gmail.com>
- <20210319082407.GG2916463@dell>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=7EuZmmo91nl6huegeyFuO2PiUXV9nzZOyWpFg59NAqE=;
+ b=r0UcyeSuiZrLjZCjee+Z8c2w37vrV40K0bBp9VIh6P6OVZtG8AdbsjITi1S+NCi1QJ
+ +vBtM39SlYB0k4Gt7PQ+aqeES9euHzQujtZCT1mApPboyiwmNu2n6V4RsMlOtngIElAX
+ mUPac9kIatayiRKL9LhCDkOVUI7jsNcp/eg08Xb7Xu215eRVAgIs5/bT+UZ8NsViuu1p
+ mY7Z8JZ8JkbyK23Ca0UDEKuuQ4Cxz2d16M4XuLsL5jOtn00VnekVMzrEFb+coPhcCeLr
+ JEbbthb2YX1jCJmhwf/JrFy8d3TrjEgLhTviEuUTXTqXBTfKLoyo3sfxwF0OhmSlrX/q
+ NbsQ==
+X-Gm-Message-State: AOAM533aOt2Ixx63YOsmBA13nH7y3ayn1Kg0EJB0kmPDN+QApMZ4FvhC
+ 6sy/be66aIuki9j8hW/WVchSoYjgnCPJNA==
+X-Google-Smtp-Source: ABdhPJxrJ3F8zi+N1Ou7mHyUYoX7Hrji6mJfD2gBVEbBJBtjqqEiPbF/gc/FkHVDEj6Cu0vnmhTV/g==
+X-Received: by 2002:a0c:e9c7:: with SMTP id q7mr11562667qvo.7.1616195457154;
+ Fri, 19 Mar 2021 16:10:57 -0700 (PDT)
+Received: from mail-yb1-f175.google.com (mail-yb1-f175.google.com.
+ [209.85.219.175])
+ by smtp.gmail.com with ESMTPSA id n3sm4722077qtd.93.2021.03.19.16.10.56
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 19 Mar 2021 16:10:56 -0700 (PDT)
+Received: by mail-yb1-f175.google.com with SMTP id v107so7125751ybi.0
+ for <freedreno@lists.freedesktop.org>; Fri, 19 Mar 2021 16:10:56 -0700 (PDT)
+X-Received: by 2002:a25:ab54:: with SMTP id u78mr10033101ybi.276.1616195455835; 
+ Fri, 19 Mar 2021 16:10:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210319082407.GG2916463@dell>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
-Subject: Re: [Freedreno] [RESEND 00/53] Rid GPU from W=1 warnings
+References: <1616158446-19290-1-git-send-email-kalyan_t@codeaurora.org>
+In-Reply-To: <1616158446-19290-1-git-send-email-kalyan_t@codeaurora.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 19 Mar 2021 16:10:43 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=XdBOZYuCVUjhAnEu0sKOmEHaCpA69v=BjQoM9gGQFjTg@mail.gmail.com>
+Message-ID: <CAD=FV=XdBOZYuCVUjhAnEu0sKOmEHaCpA69v=BjQoM9gGQFjTg@mail.gmail.com>
+To: Kalyan Thota <kalyan_t@codeaurora.org>
+Subject: Re: [Freedreno] [v1] drm/msm/disp/dpu1: fix display underruns
+ during modeset.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,98 +69,46 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- Nouveau Dev <nouveau@lists.freedesktop.org>,
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, mkrishn@codeaurora.org,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Qinglang Miao <miaoqinglang@huawei.com>, Anthony Koo <Anthony.Koo@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Jeremy Kolb <jkolb@brandeis.edu>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Rob Clark <rob.clark@linaro.org>,
- VMware Graphics <linux-graphics-maintainer@vmware.com>,
- Ben Skeggs <bskeggs@redhat.com>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Dave Airlie <airlied@redhat.com>, Harry Wentland <harry.wentland@amd.com>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
- Lyude Paul <lyude@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Leo Li <sunpeng.li@amd.com>, Roland Scheidegger <sroland@vmware.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Sean Paul <sean@poorly.run>, Kuogee Hsieh <khsieh@codeaurora.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Colin Ian King <colin.king@canonical.com>,
- freedreno <freedreno@lists.freedesktop.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Zack Rusin <zackr@vmware.com>
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ freedreno <freedreno@lists.freedesktop.org>, y@qualcomm.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Mar 19, 2021 at 08:24:07AM +0000, Lee Jones wrote:
-> On Thu, 18 Mar 2021, Daniel Vetter wrote:
-> 
-> > On Wed, Mar 17, 2021 at 9:32 PM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > >
-> > > On Wed, Mar 17, 2021 at 9:17 AM Lee Jones <lee.jones@linaro.org> wrote:
-> > > >
-> > > > On Thu, 11 Mar 2021, Lee Jones wrote:
-> > > >
-> > > > > On Thu, 11 Mar 2021, Daniel Vetter wrote:
-> > > > >
-> > > > > > On Mon, Mar 08, 2021 at 09:19:32AM +0000, Lee Jones wrote:
-> > > > > > > On Fri, 05 Mar 2021, Roland Scheidegger wrote:
-> > > > > > >
-> > > > > > > > The vmwgfx ones look all good to me, so for
-> > > > > > > > 23-53: Reviewed-by: Roland Scheidegger <sroland@vmware.com>
-> > > > > > > > That said, they were already signed off by Zack, so not sure what
-> > > > > > > > happened here.
-> > > > > > >
-> > > > > > > Yes, they were accepted at one point, then dropped without a reason.
-> > > > > > >
-> > > > > > > Since I rebased onto the latest -next, I had to pluck them back out of
-> > > > > > > a previous one.
-> > > > > >
-> > > > > > They should show up in linux-next again. We merge patches for next merge
-> > > > > > window even during the current merge window, but need to make sure they
-> > > > > > don't pollute linux-next. Occasionally the cut off is wrong so patches
-> > > > > > show up, and then get pulled again.
-> > > > > >
-> > > > > > Unfortunately especially the 5.12 merge cycle was very wobbly due to some
-> > > > > > confusion here. But your patches should all be in linux-next again (they
-> > > > > > are queued up for 5.13 in drm-misc-next, I checked that).
-> > > > > >
-> > > > > > Sorry for the confusion here.
-> > > > >
-> > > > > Oh, I see.  Well so long as they don't get dropped, I'll be happy.
-> > > > >
-> > > > > Thanks for the explanation Daniel
-> > > >
-> > > > After rebasing today, all of my GPU patches have remained.  Would
-> > > > someone be kind enough to check that everything is still in order
-> > > > please?
-> > >
-> > > It's still broken somehow. I've kiced Maxime and Maarten again,
-> > > they're also on this thread.
-> > 
-> > You're patches have made it into drm-next meanwhile, so they should
-> > show up in linux-next through that tree at least. Except if that one
-> > also has some trouble.
-> 
-> Thanks for letting me know.
-> 
-> I see some patches made it back in, others didn't.
-> 
-> I'll resend the stragglers - bear with.
+Hi,
 
-The vmwgfx ones should all be back, the others I guess just werent ever
-applied. I'll vacuum them all up if you resend. Apologies for the wobbly
-ride.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+On Fri, Mar 19, 2021 at 5:54 AM Kalyan Thota <kalyan_t@codeaurora.org> wrote:
+>
+> During crtc disable, display perf structures are reset to 0
+> which includes state varibles which are immutable. On crtc
+> enable, we use the same structures and they don't refelect
+> the actual values
+>
+> 1) Fix is to avoid updating the state structures during disable.
+> 2) Reset the perf structures during atomic check when there is no
+> modeset enable.
+>
+> Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 1 -
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      | 1 +
+>  2 files changed, 1 insertion(+), 1 deletion(-)
+
+I think Stephen was the one who originally noticed this and reported it, so:
+
+Reported-by: Stephen Boyd <swboyd@chromium.org>
+
+Seems to work for me. I got into the state where it was doing a
+modeset at reboot (could see the underflow color for a period of time
+when this happened). I added your patch and it looks better.
+
+Tested-by: Douglas Anderson <dianders@chromium.org>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
