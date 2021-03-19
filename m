@@ -2,38 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1AA9341D6F
-	for <lists+freedreno@lfdr.de>; Fri, 19 Mar 2021 13:54:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51BED341FED
+	for <lists+freedreno@lfdr.de>; Fri, 19 Mar 2021 15:44:51 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C4986E9FC;
-	Fri, 19 Mar 2021 12:54:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 153F36EA33;
+	Fri, 19 Mar 2021 14:44:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5177E6E9FC;
- Fri, 19 Mar 2021 12:54:35 +0000 (UTC)
-Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
- by alexa-out.qualcomm.com with ESMTP; 19 Mar 2021 05:54:34 -0700
-X-QCInternal: smtphost
-Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
- by ironmsg08-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 19 Mar 2021 05:54:32 -0700
-X-QCInternal: smtphost
-Received: from kalyant-linux.qualcomm.com ([10.204.66.210])
- by ironmsg01-blr.qualcomm.com with ESMTP; 19 Mar 2021 18:24:09 +0530
-Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
- id 879904309; Fri, 19 Mar 2021 05:54:08 -0700 (PDT)
-From: Kalyan Thota <kalyan_t@codeaurora.org>
-To: y@qualcomm.com, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
-Date: Fri, 19 Mar 2021 05:54:06 -0700
-Message-Id: <1616158446-19290-1-git-send-email-kalyan_t@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <y>
-References: <y>
-Subject: [Freedreno] [v1] drm/msm/disp/dpu1: fix display underruns during
- modeset.
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 561E96EA33;
+ Fri, 19 Mar 2021 14:44:49 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id t9so9357135wrn.11;
+ Fri, 19 Mar 2021 07:44:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=aoA5tf0GuXXI+tYehfknPh/CinyOHHXvGycSwmOWV6U=;
+ b=SE6jiw6/KOeKjqbFrwXeOcbFgAIAeL20+UhrXgkSZwYcieoXo7X/q//43L48nDoQln
+ j48/V+x0E4hLlO8V7ZS/YCtmvsh60EVI7AEek6nK6Ffyz0GkFeSF+ER+0zZy06/vAF8e
+ d853rMAvzi5sp61lUG6vGFhPR5iuRooCya6LuVpEKjuhZ1YHzkQnsyxmyicQxoLj0ort
+ PdOAiXlaOBlK4buQrtQtf38QTE+BFdLXcnKgQaZqJGBdeqD8UegJvj/F7sDRTWHysuoV
+ X+sUCJw7YjF9xAyqN0sych61qoaTfwhtuF9AAAJ4QYdJse8MsTI19CBrxvtsQ/dn1J3N
+ u2dw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=aoA5tf0GuXXI+tYehfknPh/CinyOHHXvGycSwmOWV6U=;
+ b=EpmNXVnsZpCFYhXPagC/uLpPoyOH5QHSVkjiGPWLhO/nosyW+nRolgvtXCXH0te385
+ oQ05wDrKkPP6tYtQsNi7XBVnJWck51t96+YBrCFVRHJ8MhuMK4BHtE0RgBkoU929Qk3G
+ wsLKtYHd4VZCTGimYH2k8MfwxGSh3ZPxuOpO8xWGaSSkqZ3EKsO0naNiIzHumqmafgHI
+ Pddrtwcc/MaiiF6J0OoWoznb0+UOu/WyMobf9MUnvWFm4e2AsuDb6BDZW4p7qkOA5gO4
+ 7BaNtur5mkKf45Dm4tWjESrgai7QTeaRDkLoc/vxz/X8BJwXbDMsZ3CRJP+o3+dgiagH
+ XojQ==
+X-Gm-Message-State: AOAM530QrXtsbzts8F8/NebHJFEY+f/mLSLcXwrkQbLA9fDdRLxngUiH
+ XSzt5t7m+XVvSA5L4UjSemjVWg8aZ2SbEApsftw=
+X-Google-Smtp-Source: ABdhPJwF/ZP1XE3jOliuzyxtyE+s2gp3DriuVOeO6ryYMPBGwclLGu7uPtr4UPvtTrHfi2aafpOocaR4c9e3ATavNEo=
+X-Received: by 2002:adf:f587:: with SMTP id f7mr4928235wro.147.1616165087988; 
+ Fri, 19 Mar 2021 07:44:47 -0700 (PDT)
+MIME-Version: 1.0
+References: <20210301214152.1805737-1-dmitry.baryshkov@linaro.org>
+ <CAOMZO5Br85sf+ndiOWzeG7DgpqVHpXtnNGZLsVMOpBC5eVE2Aw@mail.gmail.com>
+In-Reply-To: <CAOMZO5Br85sf+ndiOWzeG7DgpqVHpXtnNGZLsVMOpBC5eVE2Aw@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 19 Mar 2021 07:47:59 -0700
+Message-ID: <CAF6AEGtYJegOPt4dju5wyzp+WEhXdKyeUbkoO-oDzSC2aR_9ZQ@mail.gmail.com>
+To: Fabio Estevam <festevam@gmail.com>
+Subject: Re: [Freedreno] [PATCH] gpu/drm/msm: fix shutdown hook in case GPU
+ components failed to bind
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,56 +62,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: mkrishn@codeaurora.org, robdclark@gmail.com, dianders@chromium.org,
- linux-kernel@vger.kernel.org, Kalyan Thota <kalyan_t@codeaurora.org>
-MIME-Version: 1.0
+Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <freedreno@lists.freedesktop.org>, Jonathan Marek <jonathan@marek.ca>,
+ Stephen Boyd <sboyd@kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ DRI mailing list <dri-devel@lists.freedesktop.org>,
+ David Airlie <airlied@linux.ie>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-During crtc disable, display perf structures are reset to 0
-which includes state varibles which are immutable. On crtc
-enable, we use the same structures and they don't refelect
-the actual values
+On Fri, Mar 19, 2021 at 5:09 AM Fabio Estevam <festevam@gmail.com> wrote:
+>
+> Hi Dmitry,
+>
+> On Mon, Mar 1, 2021 at 6:41 PM Dmitry Baryshkov
+> <dmitry.baryshkov@linaro.org> wrote:
+>
+> > diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
+> > index 6a326761dc4a..2fd0cf6421ad 100644
+> > --- a/drivers/gpu/drm/msm/msm_atomic.c
+> > +++ b/drivers/gpu/drm/msm/msm_atomic.c
+> > @@ -207,7 +207,12 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
+> >         struct msm_kms *kms = priv->kms;
+> >         struct drm_crtc *async_crtc = NULL;
+> >         unsigned crtc_mask = get_crtc_mask(state);
+> > -       bool async = kms->funcs->vsync_time &&
+> > +       bool async;
+> > +
+> > +       if (!kms)
+> > +               return;
+> > +
+> > +       async = kms->funcs->vsync_time &&
+> >                         can_do_async(state, &async_crtc);
+>
+> I also see the same issue on a i.MX53:
+> https://lists.freedesktop.org/archives/freedreno/2021-January/009369.html
+>
+> Then I got a different suggestion from Rob. Please check:
+>
+> https://www.spinics.net/lists/dri-devel/msg286648.html
+> and
+> https://www.spinics.net/lists/dri-devel/msg286649.html
+>
+> Does this series fix the issue in your platform too?
 
-1) Fix is to avoid updating the state structures during disable.
-2) Reset the perf structures during atomic check when there is no
-modeset enable.
+I think that might not help if something fails to probe due to (for
+example) a missing dependency, so !priv->kms is probably a better
+check to cover both cases.  But the 2nd patch makes a good point, that
+the suspend/resume path probably needs the same treatment
 
-Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 1 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      | 1 +
- 2 files changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-index 37c8270..b4cd479 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-@@ -382,7 +382,6 @@ int dpu_core_perf_crtc_update(struct drm_crtc *crtc,
- 	} else {
- 		DPU_DEBUG("crtc=%d disable\n", crtc->base.id);
- 		memset(old, 0, sizeof(*old));
--		memset(new, 0, sizeof(*new));
- 		update_bus = true;
- 		update_clk = true;
- 	}
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 9a80981..a821e2c 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -912,6 +912,7 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
- 	if (!state->enable || !state->active) {
- 		DPU_DEBUG("crtc%d -> enable %d, active %d, skip atomic_check\n",
- 				crtc->base.id, state->enable, state->active);
-+		memset(&cstate->new_perf, 0, sizeof(cstate->new_perf));
- 		goto end;
- 	}
- 
--- 
-2.7.4
-
+BR,
+-R
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
