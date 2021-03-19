@@ -2,58 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 085D6340ECE
-	for <lists+freedreno@lfdr.de>; Thu, 18 Mar 2021 21:05:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2AC2341744
+	for <lists+freedreno@lfdr.de>; Fri, 19 Mar 2021 09:24:16 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0FD76E95F;
-	Thu, 18 Mar 2021 20:05:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB5E96E42C;
+	Fri, 19 Mar 2021 08:24:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2A8F6E969
- for <freedreno@lists.freedesktop.org>; Thu, 18 Mar 2021 20:05:46 +0000 (UTC)
-Received: by mail-lj1-x22f.google.com with SMTP id 16so9061544ljc.11
- for <freedreno@lists.freedesktop.org>; Thu, 18 Mar 2021 13:05:46 -0700 (PDT)
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [IPv6:2a00:1450:4864:20::534])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEB1A6E42A
+ for <freedreno@lists.freedesktop.org>; Fri, 19 Mar 2021 08:24:11 +0000 (UTC)
+Received: by mail-ed1-x534.google.com with SMTP id b16so9756875eds.7
+ for <freedreno@lists.freedesktop.org>; Fri, 19 Mar 2021 01:24:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=qTXdrqQiFvhXV8lyxgPO5t48QTulHRLpGAEUMWT2zU4=;
- b=HWoaahEvCeXbu0+bl01gv6FeUi1se5CvWc9FFOc6UMz1ziLDJNLjL3QU9G7LXyLaoj
- 4a/ASg9Pdlu0q7nA1q/F9T6m1tGJ4E6i2+I9oIejhQXzTKI+Qr8T+IPjJaGBt8NcbWv1
- 5Y39xEiGWg0hMnxNM9YJ7pgz/bf0YJQHFn9SKnP/o6PPvebw/12r39SFUHz83LGHtGUo
- tUoMqelioSOL96TVIpKx7imN7jPe0tAJpuqqlly1MmK+rURXGL8S79E0YMUHkkFH6YuI
- msuLF6D3KSlg6dwcfddgyD8Nvbm60TOe4XQb3qu5mSN8D++qP3aWRPpGXwjbNGPt+fhj
- kCPg==
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=i3ME3RZycqfcfKl/INYO3mj0pc2g5bpS8vxgj1H2Zho=;
+ b=P+5LihIKwLgCsx10OfJIAw04qzyiTgtZ+9mVR3WckS2IOAidGoGZL3ddGFqeTyiWrx
+ HFNLGJkkIgVaAyVKZXa3FE1/nuP6JHJbyOdedNBMMzQp/iT+6gDLy1aJtYevlvk92o+g
+ FOiw14Uq3K23+15kZQxvtt3z0iFriNPPHzkntAqWaThhUj0y5bOV/LkWWvM5vboi3NL6
+ nruXC6lGYs+ze7MJBrOuFwiI1j/aNoW14FE/UHwTmaxsYLtiY6iwiT8Nknb+edBW42sw
+ /gW2YDfE/zZkyFLp5hFpuBA/KGScPE/fy3K2x45r7r5KCQ161p+ccfRVEUZjHFsRSn6F
+ rnRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=qTXdrqQiFvhXV8lyxgPO5t48QTulHRLpGAEUMWT2zU4=;
- b=OUK5MbVvwG49BrPH+S+o0MkSG7NXXQp6yeKVjvr59bNsnggc8epXxRJ1YApf7u+K6m
- ZKQiG7LfNPOTWgBRXpTCd/M2MMzuNQoThxDPP8ArSyGYTJKFZZzO9B6lHftCkkDoQNYy
- ZMYxjyKTh7RLHzSVi8TbdMwkccaz+eSKxT2ceqN/ijeiFr5b1ivRSwp5qeRvuj9tvUtU
- gWzgZ0W0d7c+TEe+AW0ciapW38EuFboxgpMXXL5Sb+LhiaS9eHcdxA1qatKhY73cU22E
- 3bdGaHf6iQtKUv4aJ1v/MdiXqaXxNNzw7Cp6irbY0ESpcyoIBBh9bCGWXJyiUvamiGdk
- ZoRA==
-X-Gm-Message-State: AOAM533E5kzyglUxFRbK9YMzTjQTitAEY3dWP3EB8Y7WHblKfzSuO+Y9
- mHhrOeh5cgm9jVMCxnEs592mkg==
-X-Google-Smtp-Source: ABdhPJzt7XEvaO4FtiUNuRdZBuNaTu7njdvwZX04GZHhtYg/aMEARKEfhmAqpkSb2DSkVNX7HdBt+w==
-X-Received: by 2002:a2e:8ec6:: with SMTP id e6mr6521709ljl.257.1616097945231; 
- Thu, 18 Mar 2021 13:05:45 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id e20sm354062lfc.20.2021.03.18.13.05.44
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=i3ME3RZycqfcfKl/INYO3mj0pc2g5bpS8vxgj1H2Zho=;
+ b=t5hsgXP2ZZmg373VRu8j4DjOAtIK8x5H7nuA4mlrOrEZrZYErNW/TT4IEuNPwnuUzP
+ CO7iwjbsqNTisTPTnyaCqn0nOd+pt97TS54ZRU5ryTTFD8xusr0n6JK0mHcKR3T5gXxA
+ 9z2upKOeX0k22qabGW5GCymg+qo5M4GwoiPZukh36j3mZy4KgQ3NSnGGB1EvijNcl3n8
+ RCBqm7UZ16OnhKI4jK0UnFhWr/gye3BbUSTQctqOdwOQla0hB61CbnzowCzwaRDoHPon
+ aZp8VF/hOPva7F7lfMary4N9U7r9z8rDAjgjwavX0UqneX1UfGkefTaZG8TEmdq937/6
+ Kf+w==
+X-Gm-Message-State: AOAM53228VPaUbsHOxF9CxcmtbgoadY05HH9WfD1IR6ffDDe811z9tY5
+ wu1kX2meNh0UkD5sqBHAw70u0w==
+X-Google-Smtp-Source: ABdhPJwvsynmGTO200msXpOq0tH3ulqN/PugQIqOCYp1LVOxM4bgeagMgSBC0AYVkGV7Fb9kcROngA==
+X-Received: by 2002:a05:6402:17af:: with SMTP id
+ j15mr8214688edy.50.1616142250503; 
+ Fri, 19 Mar 2021 01:24:10 -0700 (PDT)
+Received: from dell ([91.110.221.194])
+ by smtp.gmail.com with ESMTPSA id gb4sm3185084ejc.122.2021.03.19.01.24.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Mar 2021 13:05:44 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Jonathan Marek <jonathan@marek.ca>
-Date: Thu, 18 Mar 2021 23:05:44 +0300
-Message-Id: <20210318200544.2244007-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.30.2
+ Fri, 19 Mar 2021 01:24:10 -0700 (PDT)
+Date: Fri, 19 Mar 2021 08:24:07 +0000
+From: Lee Jones <lee.jones@linaro.org>
+To: Daniel Vetter <daniel@ffwll.ch>
+Message-ID: <20210319082407.GG2916463@dell>
+References: <20210303134319.3160762-1-lee.jones@linaro.org>
+ <16d4300e-bf29-1e85-317b-53d257890cb9@vmware.com>
+ <20210308091932.GB4931@dell> <YEobySvG0zPs9xhc@phenom.ffwll.local>
+ <20210311135152.GT701493@dell> <20210317081729.GH701493@dell>
+ <CAKMK7uEibsgXXTEM1d2CGSswp-koouPSouseP_rwLHTdpxfRpw@mail.gmail.com>
+ <CAKMK7uHkJGDL8k3FfAqAM78honZR0euMcacW8UpdPZfS1J-7cA@mail.gmail.com>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v2] gpu/drm/msm: fix shutdown hook in case GPU
- components failed to bind
+Content-Disposition: inline
+In-Reply-To: <CAKMK7uHkJGDL8k3FfAqAM78honZR0euMcacW8UpdPZfS1J-7cA@mail.gmail.com>
+Subject: Re: [Freedreno] [RESEND 00/53] Rid GPU from W=1 warnings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,98 +73,76 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: David Airlie <airlied@linux.ie>,
+ Nouveau Dev <nouveau@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Qinglang Miao <miaoqinglang@huawei.com>, Anthony Koo <Anthony.Koo@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Jeremy Kolb <jkolb@brandeis.edu>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Rob Clark <rob.clark@linaro.org>,
+ VMware Graphics <linux-graphics-maintainer@vmware.com>,
+ Ben Skeggs <bskeggs@redhat.com>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Dave Airlie <airlied@redhat.com>, Harry Wentland <harry.wentland@amd.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
+ Lyude Paul <lyude@redhat.com>, Leo Li <sunpeng.li@amd.com>,
+ Roland Scheidegger <sroland@vmware.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Sean Paul <sean@poorly.run>, Kuogee Hsieh <khsieh@codeaurora.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Colin Ian King <colin.king@canonical.com>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Zack Rusin <zackr@vmware.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-if GPU components have failed to bind, shutdown callback would fail with
-the following backtrace. Add safeguard check to stop that oops from
-happening and allow the board to reboot.
-
-[   66.617046] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
-[   66.626066] Mem abort info:
-[   66.628939]   ESR = 0x96000006
-[   66.632088]   EC = 0x25: DABT (current EL), IL = 32 bits
-[   66.637542]   SET = 0, FnV = 0
-[   66.640688]   EA = 0, S1PTW = 0
-[   66.643924] Data abort info:
-[   66.646889]   ISV = 0, ISS = 0x00000006
-[   66.650832]   CM = 0, WnR = 0
-[   66.653890] user pgtable: 4k pages, 48-bit VAs, pgdp=0000000107f81000
-[   66.660505] [0000000000000000] pgd=0000000100bb2003, p4d=0000000100bb2003, pud=0000000100897003, pmd=0000000000000000
-[   66.671398] Internal error: Oops: 96000006 [#1] PREEMPT SMP
-[   66.677115] Modules linked in:
-[   66.680261] CPU: 6 PID: 352 Comm: reboot Not tainted 5.11.0-rc2-00309-g79e3faa756b2 #38
-[   66.688473] Hardware name: Qualcomm Technologies, Inc. Robotics RB5 (DT)
-[   66.695347] pstate: 60400005 (nZCv daif +PAN -UAO -TCO BTYPE=--)
-[   66.701507] pc : msm_atomic_commit_tail+0x78/0x4e0
-[   66.706437] lr : commit_tail+0xa4/0x184
-[   66.710381] sp : ffff8000108f3af0
-[   66.713791] x29: ffff8000108f3af0 x28: ffff418c44337000
-[   66.719242] x27: 0000000000000000 x26: ffff418c40a24490
-[   66.724693] x25: ffffd3a842a4f1a0 x24: 0000000000000008
-[   66.730146] x23: ffffd3a84313f030 x22: ffff418c444ce000
-[   66.735598] x21: ffff418c408a4980 x20: 0000000000000000
-[   66.741049] x19: 0000000000000000 x18: ffff800010710fbc
-[   66.746500] x17: 000000000000000c x16: 0000000000000001
-[   66.751954] x15: 0000000000010008 x14: 0000000000000068
-[   66.757405] x13: 0000000000000001 x12: 0000000000000000
-[   66.762855] x11: 0000000000000001 x10: 00000000000009b0
-[   66.768306] x9 : ffffd3a843192000 x8 : ffff418c44337000
-[   66.773757] x7 : 0000000000000000 x6 : 00000000a401b34e
-[   66.779210] x5 : 00ffffffffffffff x4 : 0000000000000000
-[   66.784660] x3 : 0000000000000000 x2 : ffff418c444ce000
-[   66.790111] x1 : ffffd3a841dce530 x0 : ffff418c444cf000
-[   66.795563] Call trace:
-[   66.798075]  msm_atomic_commit_tail+0x78/0x4e0
-[   66.802633]  commit_tail+0xa4/0x184
-[   66.806217]  drm_atomic_helper_commit+0x160/0x390
-[   66.811051]  drm_atomic_commit+0x4c/0x60
-[   66.815082]  drm_atomic_helper_disable_all+0x1f4/0x210
-[   66.820355]  drm_atomic_helper_shutdown+0x80/0x130
-[   66.825276]  msm_pdev_shutdown+0x14/0x20
-[   66.829303]  platform_shutdown+0x28/0x40
-[   66.833330]  device_shutdown+0x158/0x330
-[   66.837357]  kernel_restart+0x40/0xa0
-[   66.841122]  __do_sys_reboot+0x228/0x250
-[   66.845148]  __arm64_sys_reboot+0x28/0x34
-[   66.849264]  el0_svc_common.constprop.0+0x74/0x190
-[   66.854187]  do_el0_svc+0x24/0x90
-[   66.857595]  el0_svc+0x14/0x20
-[   66.860739]  el0_sync_handler+0x1a4/0x1b0
-[   66.864858]  el0_sync+0x174/0x180
-[   66.868269] Code: 1ac020a0 2a000273 eb02007f 54ffff01 (f9400285)
-[   66.874525] ---[ end trace 20dedb2a3229fec8 ]---
-
-Fixes: 9d5cbf5fe46e ("drm/msm: add shutdown support for display platform_driver")
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/msm_drv.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 94525ac76d4e..fd2ac54caf9f 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -1311,6 +1311,10 @@ static int msm_pdev_remove(struct platform_device *pdev)
- static void msm_pdev_shutdown(struct platform_device *pdev)
- {
- 	struct drm_device *drm = platform_get_drvdata(pdev);
-+	struct msm_drm_private *priv = drm ? drm->dev_private : NULL;
-+
-+	if (!priv || !priv->kms)
-+		return;
- 
- 	drm_atomic_helper_shutdown(drm);
- }
--- 
-2.30.2
-
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+T24gVGh1LCAxOCBNYXIgMjAyMSwgRGFuaWVsIFZldHRlciB3cm90ZToKCj4gT24gV2VkLCBNYXIg
+MTcsIDIwMjEgYXQgOTozMiBQTSBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3bGwuY2g+IHdyb3Rl
+Ogo+ID4KPiA+IE9uIFdlZCwgTWFyIDE3LCAyMDIxIGF0IDk6MTcgQU0gTGVlIEpvbmVzIDxsZWUu
+am9uZXNAbGluYXJvLm9yZz4gd3JvdGU6Cj4gPiA+Cj4gPiA+IE9uIFRodSwgMTEgTWFyIDIwMjEs
+IExlZSBKb25lcyB3cm90ZToKPiA+ID4KPiA+ID4gPiBPbiBUaHUsIDExIE1hciAyMDIxLCBEYW5p
+ZWwgVmV0dGVyIHdyb3RlOgo+ID4gPiA+Cj4gPiA+ID4gPiBPbiBNb24sIE1hciAwOCwgMjAyMSBh
+dCAwOToxOTozMkFNICswMDAwLCBMZWUgSm9uZXMgd3JvdGU6Cj4gPiA+ID4gPiA+IE9uIEZyaSwg
+MDUgTWFyIDIwMjEsIFJvbGFuZCBTY2hlaWRlZ2dlciB3cm90ZToKPiA+ID4gPiA+ID4KPiA+ID4g
+PiA+ID4gPiBUaGUgdm13Z2Z4IG9uZXMgbG9vayBhbGwgZ29vZCB0byBtZSwgc28gZm9yCj4gPiA+
+ID4gPiA+ID4gMjMtNTM6IFJldmlld2VkLWJ5OiBSb2xhbmQgU2NoZWlkZWdnZXIgPHNyb2xhbmRA
+dm13YXJlLmNvbT4KPiA+ID4gPiA+ID4gPiBUaGF0IHNhaWQsIHRoZXkgd2VyZSBhbHJlYWR5IHNp
+Z25lZCBvZmYgYnkgWmFjaywgc28gbm90IHN1cmUgd2hhdAo+ID4gPiA+ID4gPiA+IGhhcHBlbmVk
+IGhlcmUuCj4gPiA+ID4gPiA+Cj4gPiA+ID4gPiA+IFllcywgdGhleSB3ZXJlIGFjY2VwdGVkIGF0
+IG9uZSBwb2ludCwgdGhlbiBkcm9wcGVkIHdpdGhvdXQgYSByZWFzb24uCj4gPiA+ID4gPiA+Cj4g
+PiA+ID4gPiA+IFNpbmNlIEkgcmViYXNlZCBvbnRvIHRoZSBsYXRlc3QgLW5leHQsIEkgaGFkIHRv
+IHBsdWNrIHRoZW0gYmFjayBvdXQgb2YKPiA+ID4gPiA+ID4gYSBwcmV2aW91cyBvbmUuCj4gPiA+
+ID4gPgo+ID4gPiA+ID4gVGhleSBzaG91bGQgc2hvdyB1cCBpbiBsaW51eC1uZXh0IGFnYWluLiBX
+ZSBtZXJnZSBwYXRjaGVzIGZvciBuZXh0IG1lcmdlCj4gPiA+ID4gPiB3aW5kb3cgZXZlbiBkdXJp
+bmcgdGhlIGN1cnJlbnQgbWVyZ2Ugd2luZG93LCBidXQgbmVlZCB0byBtYWtlIHN1cmUgdGhleQo+
+ID4gPiA+ID4gZG9uJ3QgcG9sbHV0ZSBsaW51eC1uZXh0LiBPY2Nhc2lvbmFsbHkgdGhlIGN1dCBv
+ZmYgaXMgd3Jvbmcgc28gcGF0Y2hlcwo+ID4gPiA+ID4gc2hvdyB1cCwgYW5kIHRoZW4gZ2V0IHB1
+bGxlZCBhZ2Fpbi4KPiA+ID4gPiA+Cj4gPiA+ID4gPiBVbmZvcnR1bmF0ZWx5IGVzcGVjaWFsbHkg
+dGhlIDUuMTIgbWVyZ2UgY3ljbGUgd2FzIHZlcnkgd29iYmx5IGR1ZSB0byBzb21lCj4gPiA+ID4g
+PiBjb25mdXNpb24gaGVyZS4gQnV0IHlvdXIgcGF0Y2hlcyBzaG91bGQgYWxsIGJlIGluIGxpbnV4
+LW5leHQgYWdhaW4gKHRoZXkKPiA+ID4gPiA+IGFyZSBxdWV1ZWQgdXAgZm9yIDUuMTMgaW4gZHJt
+LW1pc2MtbmV4dCwgSSBjaGVja2VkIHRoYXQpLgo+ID4gPiA+ID4KPiA+ID4gPiA+IFNvcnJ5IGZv
+ciB0aGUgY29uZnVzaW9uIGhlcmUuCj4gPiA+ID4KPiA+ID4gPiBPaCwgSSBzZWUuICBXZWxsIHNv
+IGxvbmcgYXMgdGhleSBkb24ndCBnZXQgZHJvcHBlZCwgSSdsbCBiZSBoYXBweS4KPiA+ID4gPgo+
+ID4gPiA+IFRoYW5rcyBmb3IgdGhlIGV4cGxhbmF0aW9uIERhbmllbAo+ID4gPgo+ID4gPiBBZnRl
+ciByZWJhc2luZyB0b2RheSwgYWxsIG9mIG15IEdQVSBwYXRjaGVzIGhhdmUgcmVtYWluZWQuICBX
+b3VsZAo+ID4gPiBzb21lb25lIGJlIGtpbmQgZW5vdWdoIHRvIGNoZWNrIHRoYXQgZXZlcnl0aGlu
+ZyBpcyBzdGlsbCBpbiBvcmRlcgo+ID4gPiBwbGVhc2U/Cj4gPgo+ID4gSXQncyBzdGlsbCBicm9r
+ZW4gc29tZWhvdy4gSSd2ZSBraWNlZCBNYXhpbWUgYW5kIE1hYXJ0ZW4gYWdhaW4sCj4gPiB0aGV5
+J3JlIGFsc28gb24gdGhpcyB0aHJlYWQuCj4gCj4gWW91J3JlIHBhdGNoZXMgaGF2ZSBtYWRlIGl0
+IGludG8gZHJtLW5leHQgbWVhbndoaWxlLCBzbyB0aGV5IHNob3VsZAo+IHNob3cgdXAgaW4gbGlu
+dXgtbmV4dCB0aHJvdWdoIHRoYXQgdHJlZSBhdCBsZWFzdC4gRXhjZXB0IGlmIHRoYXQgb25lCj4g
+YWxzbyBoYXMgc29tZSB0cm91YmxlLgoKVGhhbmtzIGZvciBsZXR0aW5nIG1lIGtub3cuCgpJIHNl
+ZSBzb21lIHBhdGNoZXMgbWFkZSBpdCBiYWNrIGluLCBvdGhlcnMgZGlkbid0LgoKSSdsbCByZXNl
+bmQgdGhlIHN0cmFnZ2xlcnMgLSBiZWFyIHdpdGguCgotLSAKTGVlIEpvbmVzIFvmnY7nkLzmlq9d
+ClNlbmlvciBUZWNobmljYWwgTGVhZCAtIERldmVsb3BlciBTZXJ2aWNlcwpMaW5hcm8ub3JnIOKU
+giBPcGVuIHNvdXJjZSBzb2Z0d2FyZSBmb3IgQXJtIFNvQ3MKRm9sbG93IExpbmFybzogRmFjZWJv
+b2sgfCBUd2l0dGVyIHwgQmxvZwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwpGcmVlZHJlbm8gbWFpbGluZyBsaXN0CkZyZWVkcmVub0BsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9m
+cmVlZHJlbm8K
