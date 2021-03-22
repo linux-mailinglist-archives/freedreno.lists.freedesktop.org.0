@@ -2,57 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D291343D87
-	for <lists+freedreno@lfdr.de>; Mon, 22 Mar 2021 11:12:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80983344070
+	for <lists+freedreno@lfdr.de>; Mon, 22 Mar 2021 13:06:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D89A89C69;
-	Mon, 22 Mar 2021 10:12:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2A9C6E453;
+	Mon, 22 Mar 2021 12:06:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com
- [IPv6:2607:f8b0:4864:20::832])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A1EF89C69
- for <freedreno@lists.freedesktop.org>; Mon, 22 Mar 2021 10:12:21 +0000 (UTC)
-Received: by mail-qt1-x832.google.com with SMTP id s2so11840708qtx.10
- for <freedreno@lists.freedesktop.org>; Mon, 22 Mar 2021 03:12:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=S+QsdQNn2B2kiESOyuIxExVIMJAPoMZsfZxGW7eBGps=;
- b=VPAD+tfOdONIolCc6FSoAzupF71767JDnGba2LOXuvdrr5FGJ6Yp8lk5ZcDR9xHoF6
- XX9QTi2j1AYC5GzVsg8k3olZpZvmOzRhLCPMnomfobP1ez4sJucCVePAy1OmceyJFUfm
- G9y4tVRyGru4X1z7YLQKcQkdtr0gl2n9Ws8GBEw0rmt7c3MUMhaGqg39vSzyuik9T4ch
- S2YpXfeIHYDnUQfJkB3ivB3iwEX6WIaKCGiCfRfGlBWt2AjZhEmu+sVk6ca4JFrd5XoM
- yQLH1Pj9ZupSsILm9TKRtKP2fgkYQBXTV4NP3Hvl+xKbf1pHJvT93BxvP9qRFa/Uc179
- 6yyw==
+Received: from mail-qk1-x736.google.com (mail-qk1-x736.google.com
+ [IPv6:2607:f8b0:4864:20::736])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF6776E453;
+ Mon, 22 Mar 2021 12:06:20 +0000 (UTC)
+Received: by mail-qk1-x736.google.com with SMTP id x14so10173839qki.10;
+ Mon, 22 Mar 2021 05:06:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=cBJ4mk8tWYLUMjPIwRJW0iTCZ8TzYegwS1Rmxpud8ns=;
+ b=fneby5oySa+iQmMjwqvA/8Zy9ZdeQ95LMmiY9BaZXP+rHq+ZK2whvceaK3VdZspvpZ
+ p5L6NwemEzA9YnhA6Y52/Po8XM8PzIoUvlahUeqdTMvZk2olmFrbjKflx++dgyP1j2Jn
+ S4NwW5eO2JTkGGttDQ9+wvg5INZDLWGWHUkWasQfuKSEy19Tu3QqAvlNcb45pG2XhYo5
+ 9RZVHoAfHTeDy4Fm+5+IVFDA5e6Z+R7las8y6t6IE2EXZGMz+NWFIPclRqaDZZnSjVZb
+ 579RDTKS0sFOpf2RUFtf60Cyq5uQUuYCUPAy1RlIXMv5bmQ60tpqA9Vr149Y4n5YQrDd
+ YWCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=S+QsdQNn2B2kiESOyuIxExVIMJAPoMZsfZxGW7eBGps=;
- b=l8JtjM4ZNxroJ3Xi10Q9/OXzeJUC8IHGi5g0qHEVceKQd72DCYLRgzT2nPYZGV2cYm
- kj3Yselk3uL+BJUorUdku23VWZ9rp7WLzKyQOSrNY28Pgn/ND+FL+7OQw9WxhsHptHC5
- zCKGoIzJOqRD+5r4Y8fXa48e9IihnQujoz35HoQl7B6VEeoWRWnMSUhFSyzRW4qEblOJ
- 3NvT7gzGPDerbLez4pQ0TgiIZuRWIdxNczOSu/mq8b8gv6dH8M1LOJe11/y0mfNtR+Q8
- WLeZuHMCaqhhZarl5DHUBpi3iXWMcFzgCo3/nv0GoajQ51w03i24PUS4ylC8k9MTi3Td
- aAlw==
-X-Gm-Message-State: AOAM5320Jtor2uTO/168n5aS6RDKPEYASlJjNPa3/WWDwt7y4/fcVsKz
- 2b/ZclSXwUtUt182WDojEnoHOkp2XatQU24AQ1lqvg==
-X-Google-Smtp-Source: ABdhPJx1AQb1oUdzdK2w2rNiyUv2k9lWEkPEf8c5bnagcjUYYrp7KNc2xIGRL3p2NgqT7UUKfybvWPIGQAmFn6IwrWA=
-X-Received: by 2002:aed:2ee7:: with SMTP id k94mr8679480qtd.135.1616407940343; 
- Mon, 22 Mar 2021 03:12:20 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=cBJ4mk8tWYLUMjPIwRJW0iTCZ8TzYegwS1Rmxpud8ns=;
+ b=EZTV20Oyt+Np7+9ERkH0sXMGToD02vvwU8AxGvtjPNYhOSw0oM0mAWQR8yqVa/AQSn
+ QwgIX4Ieh/ygVpwZXn0yMIgZG03Haqjs5DJv0Gd09ynnEv22qOR1ibXVYnVlddBtfyqu
+ zsRkbPtJMMfOXZsz71OMroageUMJkjRz9Y6iWADjaAteOU9qthiPPN+qIq4yUuCuyhUU
+ wtw7lvJbTAc4WVWMj0nBz5egZGpguGhcq/SAJADWQnffCq9tFm/WdqWVSaEZY9FBmKx/
+ +mD/jtfjg/jgveXlG8UL02JonQgSBGgBdvBBzxpELs2eizsnYaC+EOEToT+vdmzx+r5v
+ JkEg==
+X-Gm-Message-State: AOAM533FfWVZ60woSbire8ATt8aZVcwksQsSVQCiyPkOh5GXrbKYW5gs
+ Rv4oY2pA6DUXh8HsukwM7FU=
+X-Google-Smtp-Source: ABdhPJwhR3Rxo+499Fg5WOTkk0H6k+NnyfKQY5fnQs+6kyOvMH1K1ZTw9vhEl5ZylwjFkA+h6BGXDg==
+X-Received: by 2002:a37:a211:: with SMTP id l17mr10673818qke.195.1616414780127; 
+ Mon, 22 Mar 2021 05:06:20 -0700 (PDT)
+Received: from localhost.localdomain ([143.244.44.200])
+ by smtp.gmail.com with ESMTPSA id n140sm10677702qka.124.2021.03.22.05.06.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Mar 2021 05:06:19 -0700 (PDT)
+From: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
+ viresh.kumar@linaro.org, dsterba@suse.com, eric@anholt.net,
+ rnayak@codeaurora.org, unixbhaskar@gmail.com, huawei@kernel.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Mon, 22 Mar 2021 17:36:01 +0530
+Message-Id: <20210322120601.2086438-1-unixbhaskar@gmail.com>
+X-Mailer: git-send-email 2.31.0
 MIME-Version: 1.0
-References: <20210301214152.1805737-1-dmitry.baryshkov@linaro.org>
- <CAOMZO5Br85sf+ndiOWzeG7DgpqVHpXtnNGZLsVMOpBC5eVE2Aw@mail.gmail.com>
- <CAF6AEGtYJegOPt4dju5wyzp+WEhXdKyeUbkoO-oDzSC2aR_9ZQ@mail.gmail.com>
- <CAOMZO5Bd68TtZ=-X_Gg7n9W4BsdAhbQAO2JhjMQvwtjdoWsn2A@mail.gmail.com>
- <CAOMZO5A7wgKUMGjjG-w89EPQ1h0+aWFOpUPbDvGGeVL3Z6dm3w@mail.gmail.com>
-In-Reply-To: <CAOMZO5A7wgKUMGjjG-w89EPQ1h0+aWFOpUPbDvGGeVL3Z6dm3w@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 22 Mar 2021 13:12:09 +0300
-Message-ID: <CAA8EJprRCgXyqYiJBWz+q1jbwYbg8m2v=40kmB9ChgOJvaF9Cg@mail.gmail.com>
-To: Fabio Estevam <festevam@gmail.com>
-Subject: Re: [Freedreno] [PATCH] gpu/drm/msm: fix shutdown hook in case GPU
- components failed to bind
+Subject: [Freedreno] [PATCH] drm/msm/dpu: Fix a typo
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,36 +68,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, Jonathan Marek <jonathan@marek.ca>,
- Stephen Boyd <sboyd@kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- DRI mailing list <dri-devel@lists.freedesktop.org>,
- David Airlie <airlied@linux.ie>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
+Cc: rdunlap@infradead.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 19 Mar 2021 at 19:25, Fabio Estevam <festevam@gmail.com> wrote:
->
-> On Fri, Mar 19, 2021 at 12:13 PM Fabio Estevam <festevam@gmail.com> wrote:
->
-> > Thanks for the feedback.
-> > I will follow the same approach for fixing the suspend/resume path then.
-> >
-> > Let me test it and then I will re-submit Dmitry's patch and the one
-> > for suspend/resume as part of a patch series.
->
-> This approach works here for the suspend/resume path too.
->
-> I have just submitted the series, thanks.
 
-Thank you!
+s/poiner/pointer/
 
--- 
-With best wishes
-Dmitry
+Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+index d6717d6672f7..a448eb039334 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+@@ -258,7 +258,7 @@ void dpu_kms_encoder_enable(struct drm_encoder *encoder);
+
+ /**
+  * dpu_kms_get_clk_rate() - get the clock rate
+- * @dpu_kms:  poiner to dpu_kms structure
++ * @dpu_kms:  pointer to dpu_kms structure
+  * @clock_name: clock name to get the rate
+  *
+  * Return: current clock rate
+--
+2.31.0
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
