@@ -2,60 +2,45 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80983344070
-	for <lists+freedreno@lfdr.de>; Mon, 22 Mar 2021 13:06:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A46DB344F5A
+	for <lists+freedreno@lfdr.de>; Mon, 22 Mar 2021 19:58:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2A9C6E453;
-	Mon, 22 Mar 2021 12:06:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6241B6E595;
+	Mon, 22 Mar 2021 18:58:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x736.google.com (mail-qk1-x736.google.com
- [IPv6:2607:f8b0:4864:20::736])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF6776E453;
- Mon, 22 Mar 2021 12:06:20 +0000 (UTC)
-Received: by mail-qk1-x736.google.com with SMTP id x14so10173839qki.10;
- Mon, 22 Mar 2021 05:06:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=cBJ4mk8tWYLUMjPIwRJW0iTCZ8TzYegwS1Rmxpud8ns=;
- b=fneby5oySa+iQmMjwqvA/8Zy9ZdeQ95LMmiY9BaZXP+rHq+ZK2whvceaK3VdZspvpZ
- p5L6NwemEzA9YnhA6Y52/Po8XM8PzIoUvlahUeqdTMvZk2olmFrbjKflx++dgyP1j2Jn
- S4NwW5eO2JTkGGttDQ9+wvg5INZDLWGWHUkWasQfuKSEy19Tu3QqAvlNcb45pG2XhYo5
- 9RZVHoAfHTeDy4Fm+5+IVFDA5e6Z+R7las8y6t6IE2EXZGMz+NWFIPclRqaDZZnSjVZb
- 579RDTKS0sFOpf2RUFtf60Cyq5uQUuYCUPAy1RlIXMv5bmQ60tpqA9Vr149Y4n5YQrDd
- YWCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=cBJ4mk8tWYLUMjPIwRJW0iTCZ8TzYegwS1Rmxpud8ns=;
- b=EZTV20Oyt+Np7+9ERkH0sXMGToD02vvwU8AxGvtjPNYhOSw0oM0mAWQR8yqVa/AQSn
- QwgIX4Ieh/ygVpwZXn0yMIgZG03Haqjs5DJv0Gd09ynnEv22qOR1ibXVYnVlddBtfyqu
- zsRkbPtJMMfOXZsz71OMroageUMJkjRz9Y6iWADjaAteOU9qthiPPN+qIq4yUuCuyhUU
- wtw7lvJbTAc4WVWMj0nBz5egZGpguGhcq/SAJADWQnffCq9tFm/WdqWVSaEZY9FBmKx/
- +mD/jtfjg/jgveXlG8UL02JonQgSBGgBdvBBzxpELs2eizsnYaC+EOEToT+vdmzx+r5v
- JkEg==
-X-Gm-Message-State: AOAM533FfWVZ60woSbire8ATt8aZVcwksQsSVQCiyPkOh5GXrbKYW5gs
- Rv4oY2pA6DUXh8HsukwM7FU=
-X-Google-Smtp-Source: ABdhPJwhR3Rxo+499Fg5WOTkk0H6k+NnyfKQY5fnQs+6kyOvMH1K1ZTw9vhEl5ZylwjFkA+h6BGXDg==
-X-Received: by 2002:a37:a211:: with SMTP id l17mr10673818qke.195.1616414780127; 
- Mon, 22 Mar 2021 05:06:20 -0700 (PDT)
-Received: from localhost.localdomain ([143.244.44.200])
- by smtp.gmail.com with ESMTPSA id n140sm10677702qka.124.2021.03.22.05.06.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Mar 2021 05:06:19 -0700 (PDT)
-From: Bhaskar Chowdhury <unixbhaskar@gmail.com>
-To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
- viresh.kumar@linaro.org, dsterba@suse.com, eric@anholt.net,
- rnayak@codeaurora.org, unixbhaskar@gmail.com, huawei@kernel.org,
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2325F6E593;
+ Mon, 22 Mar 2021 18:58:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:To:Subject:Sender:
+ Reply-To:Cc:Content-ID:Content-Description;
+ bh=EDEFJDZ99EPzhVmwaQu38D2Z521MorJ947ogN0j39Wk=; b=gdovrSPy4OwiUpMluUjNxjPbml
+ puAnHwHKUyMTK10zo7yYhV7r8rh7Q1qdrvMnSjLmOCAisumXT11bfEk/tfTEiOr2IAwiNtUZY47k+
+ oEukIBh7x54y7mZq2aDfZDpvzIRIPrBZhXzoKCu1u/qGv7d6FBdVsFFRda9JwZMr+6UvHFesxeF4a
+ Fv6qgMAV1z9XROC1MVWegIxSIIYxFcUQIkfpAB4JLJ+2UWvJJYZEGFfEZwQMcucWFBmZpINY47QCO
+ duJMS34d3uekar3BHZ0yrpZJQR1+kpqH2URK+ugH/5+B7gw5v8mnTtFDu20Amuwor9pmhsEQlHeZk
+ pNoAO+IQ==;
+Received: from [2601:1c0:6280:3f0::3ba4]
+ by casper.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
+ id 1lOPkY-008whK-S2; Mon, 22 Mar 2021 18:58:15 +0000
+To: Bhaskar Chowdhury <unixbhaskar@gmail.com>, robdclark@gmail.com,
+ sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch, viresh.kumar@linaro.org,
+ dsterba@suse.com, eric@anholt.net, rnayak@codeaurora.org, huawei@kernel.org,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Mon, 22 Mar 2021 17:36:01 +0530
-Message-Id: <20210322120601.2086438-1-unixbhaskar@gmail.com>
-X-Mailer: git-send-email 2.31.0
+References: <20210322120601.2086438-1-unixbhaskar@gmail.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <57ae0aab-1a1a-fada-9aef-42373d0018f1@infradead.org>
+Date: Mon, 22 Mar 2021 11:57:58 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm/dpu: Fix a typo
+In-Reply-To: <20210322120601.2086438-1-unixbhaskar@gmail.com>
+Content-Language: en-US
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Fix a typo
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,35 +53,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: rdunlap@infradead.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 3/22/21 5:06 AM, Bhaskar Chowdhury wrote:
+> 
+> s/poiner/pointer/
+> 
+> Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
 
-s/poiner/pointer/
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
 
-Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+> index d6717d6672f7..a448eb039334 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+> @@ -258,7 +258,7 @@ void dpu_kms_encoder_enable(struct drm_encoder *encoder);
+> 
+>  /**
+>   * dpu_kms_get_clk_rate() - get the clock rate
+> - * @dpu_kms:  poiner to dpu_kms structure
+> + * @dpu_kms:  pointer to dpu_kms structure
+>   * @clock_name: clock name to get the rate
+>   *
+>   * Return: current clock rate
+> --
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-index d6717d6672f7..a448eb039334 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-@@ -258,7 +258,7 @@ void dpu_kms_encoder_enable(struct drm_encoder *encoder);
 
- /**
-  * dpu_kms_get_clk_rate() - get the clock rate
-- * @dpu_kms:  poiner to dpu_kms structure
-+ * @dpu_kms:  pointer to dpu_kms structure
-  * @clock_name: clock name to get the rate
-  *
-  * Return: current clock rate
---
-2.31.0
+-- 
+~Randy
 
 _______________________________________________
 Freedreno mailing list
