@@ -1,40 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94D68343C7A
-	for <lists+freedreno@lfdr.de>; Mon, 22 Mar 2021 10:17:53 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D291343D87
+	for <lists+freedreno@lfdr.de>; Mon, 22 Mar 2021 11:12:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 988A689C8F;
-	Mon, 22 Mar 2021 09:17:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D89A89C69;
+	Mon, 22 Mar 2021 10:12:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75BCC89A0F;
- Mon, 22 Mar 2021 09:17:48 +0000 (UTC)
-Received: from ironmsg07-lv.qualcomm.com (HELO ironmsg07-lv.qulacomm.com)
- ([10.47.202.151])
- by alexa-out.qualcomm.com with ESMTP; 22 Mar 2021 02:17:48 -0700
-X-QCInternal: smtphost
-Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
- by ironmsg07-lv.qulacomm.com with ESMTP/TLS/AES256-SHA;
- 22 Mar 2021 02:17:46 -0700
-X-QCInternal: smtphost
-Received: from kalyant-linux.qualcomm.com ([10.204.66.210])
- by ironmsg02-blr.qualcomm.com with ESMTP; 22 Mar 2021 14:47:14 +0530
-Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
- id 831DB4315; Mon, 22 Mar 2021 02:17:13 -0700 (PDT)
-From: Kalyan Thota <kalyan_t@codeaurora.org>
-To: y@qualcomm.com, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
-Date: Mon, 22 Mar 2021 02:17:12 -0700
-Message-Id: <1616404632-13693-1-git-send-email-kalyan_t@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <y>
-References: <y>
-Subject: [Freedreno] [v1] drm/msm/disp/dpu1: icc path needs to be set before
- dpu runtime resume
+Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com
+ [IPv6:2607:f8b0:4864:20::832])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A1EF89C69
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Mar 2021 10:12:21 +0000 (UTC)
+Received: by mail-qt1-x832.google.com with SMTP id s2so11840708qtx.10
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Mar 2021 03:12:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=S+QsdQNn2B2kiESOyuIxExVIMJAPoMZsfZxGW7eBGps=;
+ b=VPAD+tfOdONIolCc6FSoAzupF71767JDnGba2LOXuvdrr5FGJ6Yp8lk5ZcDR9xHoF6
+ XX9QTi2j1AYC5GzVsg8k3olZpZvmOzRhLCPMnomfobP1ez4sJucCVePAy1OmceyJFUfm
+ G9y4tVRyGru4X1z7YLQKcQkdtr0gl2n9Ws8GBEw0rmt7c3MUMhaGqg39vSzyuik9T4ch
+ S2YpXfeIHYDnUQfJkB3ivB3iwEX6WIaKCGiCfRfGlBWt2AjZhEmu+sVk6ca4JFrd5XoM
+ yQLH1Pj9ZupSsILm9TKRtKP2fgkYQBXTV4NP3Hvl+xKbf1pHJvT93BxvP9qRFa/Uc179
+ 6yyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=S+QsdQNn2B2kiESOyuIxExVIMJAPoMZsfZxGW7eBGps=;
+ b=l8JtjM4ZNxroJ3Xi10Q9/OXzeJUC8IHGi5g0qHEVceKQd72DCYLRgzT2nPYZGV2cYm
+ kj3Yselk3uL+BJUorUdku23VWZ9rp7WLzKyQOSrNY28Pgn/ND+FL+7OQw9WxhsHptHC5
+ zCKGoIzJOqRD+5r4Y8fXa48e9IihnQujoz35HoQl7B6VEeoWRWnMSUhFSyzRW4qEblOJ
+ 3NvT7gzGPDerbLez4pQ0TgiIZuRWIdxNczOSu/mq8b8gv6dH8M1LOJe11/y0mfNtR+Q8
+ WLeZuHMCaqhhZarl5DHUBpi3iXWMcFzgCo3/nv0GoajQ51w03i24PUS4ylC8k9MTi3Td
+ aAlw==
+X-Gm-Message-State: AOAM5320Jtor2uTO/168n5aS6RDKPEYASlJjNPa3/WWDwt7y4/fcVsKz
+ 2b/ZclSXwUtUt182WDojEnoHOkp2XatQU24AQ1lqvg==
+X-Google-Smtp-Source: ABdhPJx1AQb1oUdzdK2w2rNiyUv2k9lWEkPEf8c5bnagcjUYYrp7KNc2xIGRL3p2NgqT7UUKfybvWPIGQAmFn6IwrWA=
+X-Received: by 2002:aed:2ee7:: with SMTP id k94mr8679480qtd.135.1616407940343; 
+ Mon, 22 Mar 2021 03:12:20 -0700 (PDT)
+MIME-Version: 1.0
+References: <20210301214152.1805737-1-dmitry.baryshkov@linaro.org>
+ <CAOMZO5Br85sf+ndiOWzeG7DgpqVHpXtnNGZLsVMOpBC5eVE2Aw@mail.gmail.com>
+ <CAF6AEGtYJegOPt4dju5wyzp+WEhXdKyeUbkoO-oDzSC2aR_9ZQ@mail.gmail.com>
+ <CAOMZO5Bd68TtZ=-X_Gg7n9W4BsdAhbQAO2JhjMQvwtjdoWsn2A@mail.gmail.com>
+ <CAOMZO5A7wgKUMGjjG-w89EPQ1h0+aWFOpUPbDvGGeVL3Z6dm3w@mail.gmail.com>
+In-Reply-To: <CAOMZO5A7wgKUMGjjG-w89EPQ1h0+aWFOpUPbDvGGeVL3Z6dm3w@mail.gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Mon, 22 Mar 2021 13:12:09 +0300
+Message-ID: <CAA8EJprRCgXyqYiJBWz+q1jbwYbg8m2v=40kmB9ChgOJvaF9Cg@mail.gmail.com>
+To: Fabio Estevam <festevam@gmail.com>
+Subject: Re: [Freedreno] [PATCH] gpu/drm/msm: fix shutdown hook in case GPU
+ components failed to bind
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,80 +65,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: mkrishn@codeaurora.org, hywu@google.com, dianders@chromium.org,
- linux-kernel@vger.kernel.org, mka@google.com, robdclark@gmail.com,
- midean@google.com, Kalyan Thota <kalyan_t@codeaurora.org>,
- Kalyan Thota <kalyant@codeaurora.org>
-MIME-Version: 1.0
+Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <freedreno@lists.freedesktop.org>, Jonathan Marek <jonathan@marek.ca>,
+ Stephen Boyd <sboyd@kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ DRI mailing list <dri-devel@lists.freedesktop.org>,
+ David Airlie <airlied@linux.ie>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Kalyan Thota <kalyant@codeaurora.org>
+On Fri, 19 Mar 2021 at 19:25, Fabio Estevam <festevam@gmail.com> wrote:
+>
+> On Fri, Mar 19, 2021 at 12:13 PM Fabio Estevam <festevam@gmail.com> wrote:
+>
+> > Thanks for the feedback.
+> > I will follow the same approach for fixing the suspend/resume path then.
+> >
+> > Let me test it and then I will re-submit Dmitry's patch and the one
+> > for suspend/resume as part of a patch series.
+>
+> This approach works here for the suspend/resume path too.
+>
+> I have just submitted the series, thanks.
 
-DPU runtime resume will request for a min vote on the AXI bus as
-it is a necessary step before turning ON the AXI clock.
+Thank you!
 
-The change does below
-1) Move the icc path set before requesting runtime get_sync.
-2) remove the dependency of hw catalog for min ib vote
-as it is initialized at a later point.
-
-Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index ed636f1..cab387f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -44,6 +44,8 @@
- #define DPU_DEBUGFS_DIR "msm_dpu"
- #define DPU_DEBUGFS_HWMASKNAME "hw_log_mask"
- 
-+#define MIN_IB_BW	400000000ULL /* Min ib vote 400MB */
-+
- static int dpu_kms_hw_init(struct msm_kms *kms);
- static void _dpu_kms_mmu_destroy(struct dpu_kms *dpu_kms);
- 
-@@ -932,6 +934,9 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
- 		DPU_DEBUG("REG_DMA is not defined");
- 	}
- 
-+	if (of_device_is_compatible(dev->dev->of_node, "qcom,sc7180-mdss"))
-+		dpu_kms_parse_data_bus_icc_path(dpu_kms);
-+
- 	pm_runtime_get_sync(&dpu_kms->pdev->dev);
- 
- 	dpu_kms->core_rev = readl_relaxed(dpu_kms->mmio + 0x0);
-@@ -1037,9 +1042,6 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
- 
- 	dpu_vbif_init_memtypes(dpu_kms);
- 
--	if (of_device_is_compatible(dev->dev->of_node, "qcom,sc7180-mdss"))
--		dpu_kms_parse_data_bus_icc_path(dpu_kms);
--
- 	pm_runtime_put_sync(&dpu_kms->pdev->dev);
- 
- 	return 0;
-@@ -1196,10 +1198,10 @@ static int __maybe_unused dpu_runtime_resume(struct device *dev)
- 
- 	ddev = dpu_kms->dev;
- 
-+	WARN_ON(!(dpu_kms->num_paths));
- 	/* Min vote of BW is required before turning on AXI clk */
- 	for (i = 0; i < dpu_kms->num_paths; i++)
--		icc_set_bw(dpu_kms->path[i], 0,
--			dpu_kms->catalog->perf.min_dram_ib);
-+		icc_set_bw(dpu_kms->path[i], 0, Bps_to_icc(MIN_IB_BW));
- 
- 	rc = msm_dss_enable_clk(mp->clk_config, mp->num_clk, true);
- 	if (rc) {
 -- 
-2.7.4
-
+With best wishes
+Dmitry
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
