@@ -2,59 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC339347B6A
-	for <lists+freedreno@lfdr.de>; Wed, 24 Mar 2021 16:01:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C26D347BF0
+	for <lists+freedreno@lfdr.de>; Wed, 24 Mar 2021 16:19:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9CD76EC54;
-	Wed, 24 Mar 2021 15:01:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26B4F6EA1E;
+	Wed, 24 Mar 2021 15:19:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 238A16EC6D
- for <freedreno@lists.freedesktop.org>; Wed, 24 Mar 2021 15:01:04 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id o10so32457178lfb.9
- for <freedreno@lists.freedesktop.org>; Wed, 24 Mar 2021 08:01:04 -0700 (PDT)
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1E166EA1C
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Mar 2021 15:19:07 +0000 (UTC)
+Received: by mail-lf1-x136.google.com with SMTP id b14so19283218lfv.8
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Mar 2021 08:19:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=AET1QWQCuGDwvguQyzk6xCA72n9Vcrqjv6IU3ip+Y3E=;
- b=gPqmJSWZ0695O/tVTGFbsaPlONQ8hS2be7mGgtrqHUEKwDsGIYR72EiezurjB5tt/h
- RL3lTPw5peMqUEWhbYpgs0kng1T+WS+IQ9IaptY0CrpWm27lrhIDK6BC/+NkJDjbHRVS
- RxYsiQBsknToVG+spJAOj5s8yrVBKKT1PISnJcEbkNwyrcT5PBSKyl8GslP6OcUZzeQy
- H6+KP0JNCIcSFzLf59HSTkV1BTYWN3Bv59LUigQ7/IM2bkRanttEKPmxJ8uV/3NkIc0y
- sQ8PaKiQyE8yOddcNYhV7hxR6yzh2CzxKCsyUMDH90HDjLnQq6setE3xjg1b8CeT1VSl
- LTmQ==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=tk201XK0GsgCw2z2W2qK3LFMVQT+0BnMz/tqU+2avqI=;
+ b=u9N/Sj5afQG8CJSXVMiyXWwyTqjsexPwrnBD7G3Y+pkl4ZCYhlNcg7DXojl0swbOnK
+ IBgyjzy7J9RGN7OKBGx0D0zELukt+Q94oTCjeMOpAqj07ZUUXeCuZf1hA49OswEgZEOH
+ oqv7N+MjOdkpfwaxSVPJae3QQYseoUFj51PTv2Kl21GGE6sMxSP7BWDwN6OTHyIWUJrj
+ 7mgE8hD96osLkTOqmdZfwdsAAmsem56lV3pwPN+FRU4I28CRExn8LVOe/5SBdyCvyyae
+ M/x2xwEVJFcjw6YlUPGCcEAMphxtFg1Ujz7zKMUBK/nwlABeYi5bZCv0aA3Iv5BwGlIY
+ A2Rg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=AET1QWQCuGDwvguQyzk6xCA72n9Vcrqjv6IU3ip+Y3E=;
- b=ppRDvaA8iXUQQPNqPlbhzWQpgG/qEUfpinOF5veWjeNwh/jtbT5ZFQl31iYfn3irhk
- JtlzAPG7YLzlpBUzctRhu3astTVsg6ESXY7wr7TsnywuaJv50HnUHc9/ZjYXQXdsAik1
- qTnmuz+SRbjJwhva1PgUOjAXQjF5nWQcmOnHdNoxvSXmAcxOpPuVDjqBGEHxyTY9usp3
- krhfaDD5ksrHd/mrwHZWzCXhEsCjUdkgSprEqr2Ag67R1JC/kMTFCZgCvMLereOrLn3A
- 8FMI2t7SnL+EA5aHdMnSt8B7Zpbaa1hgcd/Zi018rLdjHOq+DbfzqK37B3MvTQi/OMRh
- dvjw==
-X-Gm-Message-State: AOAM532YiFTTilIyeV2GRtG5IYIAIvQwMrMVKrq6CmhBcPhMKsjX+msB
- tM44mGKc5weVghOz++ujLc8gGQ==
-X-Google-Smtp-Source: ABdhPJwy3TuCN5KIkqI6hd0f+p6WRaqdqjWO8JOAo7ZD4wxVSO4J/VqRHx/CBR7QVo6+/mniT6wH/Q==
-X-Received: by 2002:a19:946:: with SMTP id 67mr2408949lfj.74.1616598057304;
- Wed, 24 Mar 2021 08:00:57 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=tk201XK0GsgCw2z2W2qK3LFMVQT+0BnMz/tqU+2avqI=;
+ b=glRXKFmS4qSKlx+jNdaorM/BnWTDFEzxQNb4Gn3/bxW1wRak1fhIuZ5tVeiYflV/7D
+ P5QMHgKi0JsoE/lYGwCDz9EKkkz5K7HanvDSPOzjRfjrZnKs8IPTVfBGyr3W7yJbmVKi
+ NTY+h72MH1P65IIb8yhZZc+L6gCpN55H+SiSEygbG7gJNg/0e1+lf7CTSyL4T51iXkSR
+ dhYv5ercSytRHFt2zTO9xzTFAqo9M1kPnOBd5IogorZVowPfpOabFT5km5xTh53i78wV
+ vsw3bZTPUZE0KB0hUB59CFgSG9wN24+17CvrvWusEcWnHvCx2G/h4Tiv5TF+pNw0fEun
+ utPw==
+X-Gm-Message-State: AOAM532Kv6UJ7oi0OwM/4621fxUSsvdvTzTCo8R36pbXOCU1TdpnZMGx
+ cVJhHNVrKCXgO5As3ZLR3iWSbA==
+X-Google-Smtp-Source: ABdhPJzubbcVNRPYMGpCD+9JZnn8dZ+ory2gYhWQAdH1sr669SIMX31yypo+z5GBv3rmF8Oj+5eOhg==
+X-Received: by 2002:ac2:4e8c:: with SMTP id o12mr2300931lfr.400.1616599146090; 
+ Wed, 24 Mar 2021 08:19:06 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id p5sm252463lfe.154.2021.03.24.08.00.55
+ by smtp.gmail.com with ESMTPSA id d22sm255199lfm.267.2021.03.24.08.19.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Mar 2021 08:00:55 -0700 (PDT)
+ Wed, 24 Mar 2021 08:19:05 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Jonathan Marek <jonathan@marek.ca>
-Date: Wed, 24 Mar 2021 18:00:24 +0300
-Message-Id: <20210324150024.2768215-22-dmitry.baryshkov@linaro.org>
+ Jonathan Marek <jonathan@marek.ca>,
+ Michael Turquette <mturquette@baylibre.com>
+Date: Wed, 24 Mar 2021 18:18:18 +0300
+Message-Id: <20210324151846.2774204-1-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210324150024.2768215-1-dmitry.baryshkov@linaro.org>
-References: <20210324150024.2768215-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 21/21] drm/msm/dpu: call hw_intr ops directly
+Subject: [Freedreno] [PATCH v2 00/28] drm/msm/dsi: refactor MSM DSI PHY/PLL
+ drivers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,457 +69,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+ linux-clk@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Replace dpu_hw_intr callbacks with direct functions calls.
+Restructure MSM DSI PHY drivers. What started as an attempt to grok the
+overcomplicated PHY drivers, has lead up to the idea of merging PHY and
+PLL code, reducing abstractions, code duplication, dropping dead code,
+etc.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c  |  27 ++-
- .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c |  36 ++--
- .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h | 180 +++++++++---------
- 3 files changed, 111 insertions(+), 132 deletions(-)
+The patches were mainly tested on RB5 (sm8250, 7nm) and DB410c (apq8016,
+28nm-lp) and lightly tested on RB3 (sdm845, 10nm).
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
-index 84ea09d9692f..57c5485c0213 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
-@@ -47,7 +47,7 @@ static void dpu_core_irq_callback_handler(void *arg, int irq_idx)
- 	 * NOTE: dpu_core_irq_callback_handler is protected by top-level
- 	 *       spinlock, so it is safe to clear any interrupt status here.
- 	 */
--	dpu_kms->hw_intr->ops.clear_intr_status_nolock(
-+	dpu_hw_intr_clear_intr_status_nolock(
- 			dpu_kms->hw_intr,
- 			irq_idx);
- }
-@@ -55,10 +55,10 @@ static void dpu_core_irq_callback_handler(void *arg, int irq_idx)
- int dpu_core_irq_idx_lookup(struct dpu_kms *dpu_kms,
- 		enum dpu_intr_type intr_type, u32 instance_idx)
- {
--	if (!dpu_kms->hw_intr || !dpu_kms->hw_intr->ops.irq_idx_lookup)
-+	if (!dpu_kms->hw_intr)
- 		return -EINVAL;
- 
--	return dpu_kms->hw_intr->ops.irq_idx_lookup(intr_type,
-+	return dpu_hw_intr_irq_idx_lookup(intr_type,
- 			instance_idx);
- }
- 
-@@ -89,7 +89,7 @@ static int _dpu_core_irq_enable(struct dpu_kms *dpu_kms, int irq_idx)
- 	trace_dpu_core_irq_enable_idx(irq_idx, enable_count);
- 
- 	if (atomic_inc_return(&dpu_kms->irq_obj.enable_counts[irq_idx]) == 1) {
--		ret = dpu_kms->hw_intr->ops.enable_irq(
-+		ret = dpu_hw_intr_enable_irq(
- 				dpu_kms->hw_intr,
- 				irq_idx);
- 		if (ret)
-@@ -152,7 +152,7 @@ static int _dpu_core_irq_disable(struct dpu_kms *dpu_kms, int irq_idx)
- 	trace_dpu_core_irq_disable_idx(irq_idx, enable_count);
- 
- 	if (atomic_dec_return(&dpu_kms->irq_obj.enable_counts[irq_idx]) == 0) {
--		ret = dpu_kms->hw_intr->ops.disable_irq(
-+		ret = dpu_hw_intr_disable_irq(
- 				dpu_kms->hw_intr,
- 				irq_idx);
- 		if (ret)
-@@ -185,8 +185,7 @@ int dpu_core_irq_disable(struct dpu_kms *dpu_kms, int *irq_idxs, u32 irq_count)
- 
- u32 dpu_core_irq_read(struct dpu_kms *dpu_kms, int irq_idx, bool clear)
- {
--	if (!dpu_kms->hw_intr ||
--			!dpu_kms->hw_intr->ops.get_interrupt_status)
-+	if (!dpu_kms->hw_intr)
- 		return 0;
- 
- 	if (irq_idx < 0) {
-@@ -195,7 +194,7 @@ u32 dpu_core_irq_read(struct dpu_kms *dpu_kms, int irq_idx, bool clear)
- 		return 0;
- 	}
- 
--	return dpu_kms->hw_intr->ops.get_interrupt_status(dpu_kms->hw_intr,
-+	return dpu_hw_intr_get_interrupt_status(dpu_kms->hw_intr,
- 			irq_idx, clear);
- }
- 
-@@ -273,18 +272,18 @@ int dpu_core_irq_unregister_callback(struct dpu_kms *dpu_kms, int irq_idx,
- 
- static void dpu_clear_all_irqs(struct dpu_kms *dpu_kms)
- {
--	if (!dpu_kms->hw_intr || !dpu_kms->hw_intr->ops.clear_all_irqs)
-+	if (!dpu_kms->hw_intr)
- 		return;
- 
--	dpu_kms->hw_intr->ops.clear_all_irqs(dpu_kms->hw_intr);
-+	dpu_hw_intr_clear_all_irqs(dpu_kms->hw_intr);
- }
- 
- static void dpu_disable_all_irqs(struct dpu_kms *dpu_kms)
- {
--	if (!dpu_kms->hw_intr || !dpu_kms->hw_intr->ops.disable_all_irqs)
-+	if (!dpu_kms->hw_intr)
- 		return;
- 
--	dpu_kms->hw_intr->ops.disable_all_irqs(dpu_kms->hw_intr);
-+	dpu_hw_intr_disable_all_irqs(dpu_kms->hw_intr);
- }
- 
- #ifdef CONFIG_DEBUG_FS
-@@ -383,7 +382,7 @@ irqreturn_t dpu_core_irq(struct dpu_kms *dpu_kms)
- 	 * Individual interrupt status bit will only get stored if it
- 	 * is enabled.
- 	 */
--	dpu_kms->hw_intr->ops.get_interrupt_statuses(dpu_kms->hw_intr);
-+	dpu_hw_intr_get_interrupt_statuses(dpu_kms->hw_intr);
- 
- 	/*
- 	 * Dispatch to HW driver to handle interrupt lookup that is being
-@@ -393,7 +392,7 @@ irqreturn_t dpu_core_irq(struct dpu_kms *dpu_kms)
- 	 * callback, and do the interrupt status clearing once the registered
- 	 * callback is finished.
- 	 */
--	dpu_kms->hw_intr->ops.dispatch_irqs(
-+	dpu_hw_intr_dispatch_irqs(
- 			dpu_kms->hw_intr,
- 			dpu_core_irq_callback_handler,
- 			dpu_kms);
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-index 5c521de71567..a2db9807b41d 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-@@ -755,7 +755,7 @@ static const struct dpu_irq_type dpu_irq_map[] = {
- 	{ DPU_IRQ_TYPE_RESERVED, 0, 0, 9},
- };
- 
--static int dpu_hw_intr_irqidx_lookup(enum dpu_intr_type intr_type,
-+int dpu_hw_intr_irq_idx_lookup(enum dpu_intr_type intr_type,
- 		u32 instance_idx)
- {
- 	int i;
-@@ -771,7 +771,7 @@ static int dpu_hw_intr_irqidx_lookup(enum dpu_intr_type intr_type,
- 	return -EINVAL;
- }
- 
--static void dpu_hw_intr_dispatch_irq(struct dpu_hw_intr *intr,
-+void dpu_hw_intr_dispatch_irqs(struct dpu_hw_intr *intr,
- 		void (*cbfunc)(void *, int),
- 		void *arg)
- {
-@@ -825,7 +825,7 @@ static void dpu_hw_intr_dispatch_irq(struct dpu_hw_intr *intr,
- 				if (cbfunc)
- 					cbfunc(arg, irq_idx);
- 				else
--					intr->ops.clear_intr_status_nolock(
-+					dpu_hw_intr_clear_intr_status_nolock(
- 							intr, irq_idx);
- 
- 				/*
-@@ -839,7 +839,7 @@ static void dpu_hw_intr_dispatch_irq(struct dpu_hw_intr *intr,
- 	spin_unlock_irqrestore(&intr->irq_lock, irq_flags);
- }
- 
--static int dpu_hw_intr_enable_irq(struct dpu_hw_intr *intr, int irq_idx)
-+int dpu_hw_intr_enable_irq(struct dpu_hw_intr *intr, int irq_idx)
- {
- 	int reg_idx;
- 	unsigned long irq_flags;
-@@ -886,7 +886,7 @@ static int dpu_hw_intr_enable_irq(struct dpu_hw_intr *intr, int irq_idx)
- 	return 0;
- }
- 
--static int dpu_hw_intr_disable_irq_nolock(struct dpu_hw_intr *intr, int irq_idx)
-+int dpu_hw_intr_disable_irq_nolock(struct dpu_hw_intr *intr, int irq_idx)
- {
- 	int reg_idx;
- 	const struct dpu_intr_reg *reg;
-@@ -930,7 +930,7 @@ static int dpu_hw_intr_disable_irq_nolock(struct dpu_hw_intr *intr, int irq_idx)
- 	return 0;
- }
- 
--static int dpu_hw_intr_disable_irq(struct dpu_hw_intr *intr, int irq_idx)
-+int dpu_hw_intr_disable_irq(struct dpu_hw_intr *intr, int irq_idx)
- {
- 	unsigned long irq_flags;
- 
-@@ -949,7 +949,7 @@ static int dpu_hw_intr_disable_irq(struct dpu_hw_intr *intr, int irq_idx)
- 	return 0;
- }
- 
--static int dpu_hw_intr_clear_irqs(struct dpu_hw_intr *intr)
-+int dpu_hw_intr_clear_all_irqs(struct dpu_hw_intr *intr)
- {
- 	int i;
- 
-@@ -968,7 +968,7 @@ static int dpu_hw_intr_clear_irqs(struct dpu_hw_intr *intr)
- 	return 0;
- }
- 
--static int dpu_hw_intr_disable_irqs(struct dpu_hw_intr *intr)
-+int dpu_hw_intr_disable_all_irqs(struct dpu_hw_intr *intr)
- {
- 	int i;
- 
-@@ -987,7 +987,7 @@ static int dpu_hw_intr_disable_irqs(struct dpu_hw_intr *intr)
- 	return 0;
- }
- 
--static void dpu_hw_intr_get_interrupt_statuses(struct dpu_hw_intr *intr)
-+void dpu_hw_intr_get_interrupt_statuses(struct dpu_hw_intr *intr)
- {
- 	int i;
- 	u32 enable_mask;
-@@ -1023,7 +1023,7 @@ static void dpu_hw_intr_get_interrupt_statuses(struct dpu_hw_intr *intr)
- 	spin_unlock_irqrestore(&intr->irq_lock, irq_flags);
- }
- 
--static void dpu_hw_intr_clear_intr_status_nolock(struct dpu_hw_intr *intr,
-+void dpu_hw_intr_clear_intr_status_nolock(struct dpu_hw_intr *intr,
- 		int irq_idx)
- {
- 	int reg_idx;
-@@ -1039,7 +1039,7 @@ static void dpu_hw_intr_clear_intr_status_nolock(struct dpu_hw_intr *intr,
- 	wmb();
- }
- 
--static u32 dpu_hw_intr_get_interrupt_status(struct dpu_hw_intr *intr,
-+u32 dpu_hw_intr_get_interrupt_status(struct dpu_hw_intr *intr,
- 		int irq_idx, bool clear)
- {
- 	int reg_idx;
-@@ -1072,19 +1072,6 @@ static u32 dpu_hw_intr_get_interrupt_status(struct dpu_hw_intr *intr,
- 	return intr_status;
- }
- 
--static void __setup_intr_ops(struct dpu_hw_intr_ops *ops)
--{
--	ops->irq_idx_lookup = dpu_hw_intr_irqidx_lookup;
--	ops->enable_irq = dpu_hw_intr_enable_irq;
--	ops->disable_irq = dpu_hw_intr_disable_irq;
--	ops->dispatch_irqs = dpu_hw_intr_dispatch_irq;
--	ops->clear_all_irqs = dpu_hw_intr_clear_irqs;
--	ops->disable_all_irqs = dpu_hw_intr_disable_irqs;
--	ops->get_interrupt_statuses = dpu_hw_intr_get_interrupt_statuses;
--	ops->clear_intr_status_nolock = dpu_hw_intr_clear_intr_status_nolock;
--	ops->get_interrupt_status = dpu_hw_intr_get_interrupt_status;
--}
--
- static void __intr_offset(struct dpu_mdss_cfg *m,
- 		void __iomem *addr, struct dpu_hw_blk_reg_map *hw)
- {
-@@ -1106,7 +1093,6 @@ struct dpu_hw_intr *dpu_hw_intr_init(void __iomem *addr,
- 		return ERR_PTR(-ENOMEM);
- 
- 	__intr_offset(m, addr, &intr->hw);
--	__setup_intr_ops(&intr->ops);
- 
- 	intr->irq_idx_tbl_size = ARRAY_SIZE(dpu_irq_map);
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
-index fc9c98617281..17b0f7a862a5 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
-@@ -77,99 +77,94 @@ enum dpu_intr_type {
- struct dpu_hw_intr;
- 
- /**
-- * Interrupt operations.
-+ * dpu_hw_intr_irq_idx_lookup - Lookup IRQ index on the HW interrupt type
-+ *                 Used for all irq related ops
-+ * @intr_type:		Interrupt type defined in dpu_intr_type
-+ * @instance_idx:	HW interrupt block instance
-+ * @return:		irq_idx or -EINVAL for lookup fail
-  */
--struct dpu_hw_intr_ops {
--	/**
--	 * irq_idx_lookup - Lookup IRQ index on the HW interrupt type
--	 *                 Used for all irq related ops
--	 * @intr_type:		Interrupt type defined in dpu_intr_type
--	 * @instance_idx:	HW interrupt block instance
--	 * @return:		irq_idx or -EINVAL for lookup fail
--	 */
--	int (*irq_idx_lookup)(
--			enum dpu_intr_type intr_type,
--			u32 instance_idx);
--
--	/**
--	 * enable_irq - Enable IRQ based on lookup IRQ index
--	 * @intr:	HW interrupt handle
--	 * @irq_idx:	Lookup irq index return from irq_idx_lookup
--	 * @return:	0 for success, otherwise failure
--	 */
--	int (*enable_irq)(
--			struct dpu_hw_intr *intr,
--			int irq_idx);
--
--	/**
--	 * disable_irq - Disable IRQ based on lookup IRQ index
--	 * @intr:	HW interrupt handle
--	 * @irq_idx:	Lookup irq index return from irq_idx_lookup
--	 * @return:	0 for success, otherwise failure
--	 */
--	int (*disable_irq)(
--			struct dpu_hw_intr *intr,
--			int irq_idx);
--
--	/**
--	 * clear_all_irqs - Clears all the interrupts (i.e. acknowledges
--	 *                  any asserted IRQs). Useful during reset.
--	 * @intr:	HW interrupt handle
--	 * @return:	0 for success, otherwise failure
--	 */
--	int (*clear_all_irqs)(
--			struct dpu_hw_intr *intr);
--
--	/**
--	 * disable_all_irqs - Disables all the interrupts. Useful during reset.
--	 * @intr:	HW interrupt handle
--	 * @return:	0 for success, otherwise failure
--	 */
--	int (*disable_all_irqs)(
--			struct dpu_hw_intr *intr);
--
--	/**
--	 * dispatch_irqs - IRQ dispatcher will call the given callback
--	 *                 function when a matching interrupt status bit is
--	 *                 found in the irq mapping table.
--	 * @intr:	HW interrupt handle
--	 * @cbfunc:	Callback function pointer
--	 * @arg:	Argument to pass back during callback
--	 */
--	void (*dispatch_irqs)(
--			struct dpu_hw_intr *intr,
--			void (*cbfunc)(void *arg, int irq_idx),
--			void *arg);
--
--	/**
--	 * get_interrupt_statuses - Gets and store value from all interrupt
--	 *                          status registers that are currently fired.
--	 * @intr:	HW interrupt handle
--	 */
--	void (*get_interrupt_statuses)(
--			struct dpu_hw_intr *intr);
--
--	/**
--	 * clear_intr_status_nolock() - clears the HW interrupts without lock
--	 * @intr:	HW interrupt handle
--	 * @irq_idx:	Lookup irq index return from irq_idx_lookup
--	 */
--	void (*clear_intr_status_nolock)(
--			struct dpu_hw_intr *intr,
--			int irq_idx);
--
--	/**
--	 * get_interrupt_status - Gets HW interrupt status, and clear if set,
--	 *                        based on given lookup IRQ index.
--	 * @intr:	HW interrupt handle
--	 * @irq_idx:	Lookup irq index return from irq_idx_lookup
--	 * @clear:	True to clear irq after read
--	 */
--	u32 (*get_interrupt_status)(
--			struct dpu_hw_intr *intr,
--			int irq_idx,
--			bool clear);
--};
-+int dpu_hw_intr_irq_idx_lookup(
-+		enum dpu_intr_type intr_type,
-+		u32 instance_idx);
-+
-+/**
-+ * dpu_hw_intr_enable_irq - Enable IRQ based on lookup IRQ index
-+ * @intr:	HW interrupt handle
-+ * @irq_idx:	Lookup irq index return from irq_idx_lookup
-+ * @return:	0 for success, otherwise failure
-+ */
-+int dpu_hw_intr_enable_irq(
-+		struct dpu_hw_intr *intr,
-+		int irq_idx);
-+
-+/**
-+ * dpu_hw_intr_disable_irq - Disable IRQ based on lookup IRQ index
-+ * @intr:	HW interrupt handle
-+ * @irq_idx:	Lookup irq index return from irq_idx_lookup
-+ * @return:	0 for success, otherwise failure
-+ */
-+int dpu_hw_intr_disable_irq(
-+		struct dpu_hw_intr *intr,
-+		int irq_idx);
-+
-+/**
-+ * dpu_hw_intr_clear_all_irqs - Clears all the interrupts (i.e. acknowledges
-+ *                  any asserted IRQs). Useful during reset.
-+ * @intr:	HW interrupt handle
-+ * @return:	0 for success, otherwise failure
-+ */
-+int dpu_hw_intr_clear_all_irqs(
-+		struct dpu_hw_intr *intr);
-+
-+/**
-+ * dpu_hw_intr_disable_all_irqs - Disables all the interrupts. Useful during reset.
-+ * @intr:	HW interrupt handle
-+ * @return:	0 for success, otherwise failure
-+ */
-+int dpu_hw_intr_disable_all_irqs(
-+		struct dpu_hw_intr *intr);
-+
-+/**
-+ * dpu_hw_intr_dispatch_irqs - IRQ dispatcher will call the given callback
-+ *                 function when a matching interrupt status bit is
-+ *                 found in the irq mapping table.
-+ * @intr:	HW interrupt handle
-+ * @cbfunc:	Callback function pointer
-+ * @arg:	Argument to pass back during callback
-+ */
-+void dpu_hw_intr_dispatch_irqs(
-+		struct dpu_hw_intr *intr,
-+		void dpu_hw_intr_cbfunc(void *arg, int irq_idx),
-+		void *arg);
-+
-+/**
-+ * dpu_hw_intr_get_interrupt_statuses - Gets and store value from all interrupt
-+ *                          status registers that are currently fired.
-+ * @intr:	HW interrupt handle
-+ */
-+void dpu_hw_intr_get_interrupt_statuses(
-+		struct dpu_hw_intr *intr);
-+
-+/**
-+ * dpu_hw_intr_clear_intr_status_nolock() - clears the HW interrupts without lock
-+ * @intr:	HW interrupt handle
-+ * @irq_idx:	Lookup irq index return from irq_idx_lookup
-+ */
-+void dpu_hw_intr_clear_intr_status_nolock(
-+		struct dpu_hw_intr *intr,
-+		int irq_idx);
-+
-+/**
-+ * dpu_hw_intr_get_interrupt_status - Gets HW interrupt status, and clear if set,
-+ *                        based on given lookup IRQ index.
-+ * @intr:	HW interrupt handle
-+ * @irq_idx:	Lookup irq index return from irq_idx_lookup
-+ * @clear:	True to clear irq after read
-+ */
-+u32 dpu_hw_intr_get_interrupt_status(
-+		struct dpu_hw_intr *intr,
-+		int irq_idx,
-+		bool clear);
- 
- /**
-  * struct dpu_hw_intr: hw interrupts handling data structure
-@@ -182,7 +177,6 @@ struct dpu_hw_intr_ops {
-  */
- struct dpu_hw_intr {
- 	struct dpu_hw_blk_reg_map hw;
--	struct dpu_hw_intr_ops ops;
- 	u32 *cache_irq_mask;
- 	u32 *save_irq_status;
- 	u32 irq_idx_tbl_size;
--- 
-2.30.2
+External dependency for sm8250: https://lore.kernel.org/linux-arm-msm/20210317144039.556409-10-dmitry.baryshkov@linaro.org/
+
+The patch 'clk: fixed: add devm helper for clk_hw_register_fixed_factor()'
+is already a part of mainline as of 5.12-rc1, but is included here for
+completeness to fix compilation issues (as msm-next is based on 5.11-rc5).
+
+Changes since v1:
+ - Rebase on top of msm/msm-next
+ - Reorder patches to follow logical sequence
+ - Add sc7180 clocks assignment
+ - Drop sm8250 clocks assignment, as respective file is not updated in
+   msm/msm-next
+
+Changes since RFC:
+ - Reorder patches to move global clock patches in the beginning and
+   dtsi patches where they are required.
+ - remove msm_dsi_phy_set_src_pll() and guess src_pll_id using PHY usecase.
+
+The following changes since commit 627dc55c273dab308303a5217bd3e767d7083ddb:
+
+  drm/msm/disp/dpu1: icc path needs to be set before dpu runtime resume (2021-03-22 18:52:34 -0700)
+
+are available in the Git repository at:
+
+  https://git.linaro.org/people/dmitry.baryshkov/kernel.git dsi-phy-2
+
+for you to fetch changes up to 0fec912264e9ee8f0ebbad12e2711843d7d9e0ac:
+
+  drm/msm/dsi: stop passing src_pll_id to the phy_enable call (2021-03-24 18:14:39 +0300)
+
+----------------------------------------------------------------
+Daniel Palmer (1):
+      clk: fixed: add devm helper for clk_hw_register_fixed_factor()
+
+Dmitry Baryshkov (27):
+      clk: mux: provide devm_clk_hw_register_mux()
+      clk: divider: add devm_clk_hw_register_divider
+      drm/msm/dsi: replace PHY's init callback with configurable data
+      drm/msm/dsi: fuse dsi_pll_* code into dsi_phy_* code
+      drm/msm/dsi: drop multiple pll enable_seq support
+      drm/msm/dsi: move all PLL callbacks into PHY config struct
+      drm/msm/dsi: drop global msm_dsi_phy_type enumaration
+      drm/msm/dsi: move min/max PLL rate to phy config
+      drm/msm/dsi: remove msm_dsi_pll_set_usecase
+      drm/msm/dsi: stop setting clock parents manually
+      arm64: dts: qcom: sdm845: assign DSI clock source parents
+      arm64: dts: qcom: sc7180: assign DSI clock source parents
+      drm/msm/dsi: push provided clocks handling into a generic code
+      drm/msm/dsi: use devm_clk_*register to registe DSI PHY clocks
+      drm/msm/dsi: use devm_of_clk_add_hw_provider
+      drm/msm/dsi: make save/restore_state phy-level functions
+      drm/msm/dsi: drop vco_delay setting from 7nm, 10nm, 14nm drivers
+      drm/msm/dpu: simplify vco_delay handling in dsi_phy_28nm driver
+      drm/msi/dsi: inline msm_dsi_pll_helper_clk_prepare/unprepare
+      drm/msm/dsi: make save_state/restore_state callbacks accept msm_dsi_phy
+      drm/msm/dsi: drop msm_dsi_pll abstracton
+      drm/msm/dsi: drop PLL accessor functions
+      drm/msm/dsi: move ioremaps to dsi_phy_driver_probe
+      drm/msm/dsi: remove duplicate fields from dsi_pll_Nnm instances
+      drm/msm/dsi: remove temp data from global pll structure
+      drm/msm/dsi: inline msm_dsi_phy_set_src_pll
+      drm/msm/dsi: stop passing src_pll_id to the phy_enable call
+
+ arch/arm64/boot/dts/qcom/sc7180.dtsi            |    3 +
+ arch/arm64/boot/dts/qcom/sdm845.dtsi            |    6 +
+ drivers/clk/clk-fixed-factor.c                  |   39 +-
+ drivers/clk/clk-mux.c                           |   35 +
+ drivers/gpu/drm/msm/Kconfig                     |    8 -
+ drivers/gpu/drm/msm/Makefile                    |    9 -
+ drivers/gpu/drm/msm/dsi/dsi.h                   |   58 +-
+ drivers/gpu/drm/msm/dsi/dsi_host.c              |   51 --
+ drivers/gpu/drm/msm/dsi/dsi_manager.c           |   29 +-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c           |  150 ++--
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h           |   41 +-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c      |  745 ++++++++++++++-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c      |  939 ++++++++++++++++++-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c      |   16 +-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c      |  654 +++++++++++++-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c |  479 +++++++++-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c       |  772 +++++++++++++++-
+ drivers/gpu/drm/msm/dsi/pll/dsi_pll.c           |  184 ----
+ drivers/gpu/drm/msm/dsi/pll/dsi_pll.h           |  132 ---
+ drivers/gpu/drm/msm/dsi/pll/dsi_pll_10nm.c      |  881 ------------------
+ drivers/gpu/drm/msm/dsi/pll/dsi_pll_14nm.c      | 1096 -----------------------
+ drivers/gpu/drm/msm/dsi/pll/dsi_pll_28nm.c      |  643 -------------
+ drivers/gpu/drm/msm/dsi/pll/dsi_pll_28nm_8960.c |  526 -----------
+ drivers/gpu/drm/msm/dsi/pll/dsi_pll_7nm.c       |  913 -------------------
+ include/linux/clk-provider.h                    |   34 +-
+ 25 files changed, 3722 insertions(+), 4721 deletions(-)
+ delete mode 100644 drivers/gpu/drm/msm/dsi/pll/dsi_pll.c
+ delete mode 100644 drivers/gpu/drm/msm/dsi/pll/dsi_pll.h
+ delete mode 100644 drivers/gpu/drm/msm/dsi/pll/dsi_pll_10nm.c
+ delete mode 100644 drivers/gpu/drm/msm/dsi/pll/dsi_pll_14nm.c
+ delete mode 100644 drivers/gpu/drm/msm/dsi/pll/dsi_pll_28nm.c
+ delete mode 100644 drivers/gpu/drm/msm/dsi/pll/dsi_pll_28nm_8960.c
+ delete mode 100644 drivers/gpu/drm/msm/dsi/pll/dsi_pll_7nm.c
+
 
 _______________________________________________
 Freedreno mailing list
