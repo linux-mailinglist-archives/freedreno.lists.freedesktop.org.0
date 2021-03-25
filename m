@@ -1,59 +1,49 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B5C434943C
-	for <lists+freedreno@lfdr.de>; Thu, 25 Mar 2021 15:37:05 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EC6B349814
+	for <lists+freedreno@lfdr.de>; Thu, 25 Mar 2021 18:33:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA0A46ED91;
-	Thu, 25 Mar 2021 14:37:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9004D6EDD7;
+	Thu, 25 Mar 2021 17:33:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com
- [IPv6:2607:f8b0:4864:20::d42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EF7A6ED91
- for <freedreno@lists.freedesktop.org>; Thu, 25 Mar 2021 14:37:03 +0000 (UTC)
-Received: by mail-io1-xd42.google.com with SMTP id r193so2121707ior.9
- for <freedreno@lists.freedesktop.org>; Thu, 25 Mar 2021 07:37:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cosmicpenguin-net.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=G3cOV8DtVL9po2vtJRX7EdJuczfbIOHklG7/OvU7p9I=;
- b=lf1dMrmMF5QvhZ1+B7SmvRDk7M8p1OD8InFdZqiFJNjSdBajqnrICrLJtsoRnsn8wy
- Rkdcl6L0XvIHo580Q9zUvZu6EnKKy+Dfhka4ZNUDwoxLo0MWvw36tiGCFkLZyOZuAU6k
- gj8aG0KJkkmWnrwekqkTaHAQEqIUgkgaVRXqo5gJQGn6Vm2lHnmDMkHdI5k2c+vlLMiF
- dps7xn+vmbb5f2/qOGZx3tPmmTuBoipgjmEUdws5MnIQ+5t7qpIJxlBjRlJG79lZMDlD
- nSQPUYTanpxjvhN9AUT6iHLVTk08z+qVk7M21WQvxQcLMja3kS25PQCU2gEBPWvjkRb7
- B5oQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=G3cOV8DtVL9po2vtJRX7EdJuczfbIOHklG7/OvU7p9I=;
- b=pK7fNelPKJyM3Eq2qnVEDL6Vw9+59Ar2GfsCAJ7GYjtQh5SA2jREMz+iw3pawqKCSe
- NBVuoxjHRxf0kcddxKejgQgga7eG4BrkKANJzD/QkYd5FrwZdH/Wqhxf2AoTlGP7cceM
- H9dbj0rphcbYW2IP8y0Pa8110iVOXfhUZMk1sLUUr5H4WYMVv3KSNjmKNZZjM+vhoixA
- VNoU2o2ClSYH17xfYG2o78j3660V5w4M9Oct/Gc7ohGelZGd+AHaWG387CsQXHB9BmU0
- 373sLayaNbU/V0h+BknT7+24/uhUfwnHgp9qwKb9Yq30a1gHkAPH8hJGM2rds2xzef2J
- 46dA==
-X-Gm-Message-State: AOAM531yleS7o3BMZpC8PxOZgUC6ZbnV+Ico9zEtgfFjYeLvsqPpJRh2
- BDoHTZqujwznCGeYMl2XgrTORA==
-X-Google-Smtp-Source: ABdhPJyN8CG8Dj/tyOUZgYG6FC1ZRwDa9neTBVcT/5MlZ8wzGsR93KrVS08fPYwlV/8lr9GyMLGmEQ==
-X-Received: by 2002:a02:ce8d:: with SMTP id y13mr7737038jaq.29.1616683022413; 
- Thu, 25 Mar 2021 07:37:02 -0700 (PDT)
-Received: from jordan-laptop.lan (c-71-237-100-236.hsd1.co.comcast.net.
- [71.237.100.236])
- by smtp.gmail.com with ESMTPSA id g8sm2501023ile.44.2021.03.25.07.37.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Mar 2021 07:37:01 -0700 (PDT)
-From: Jordan Crouse <jordan@cosmicpenguin.net>
-To: linux-kernel@vger.kernel.org
-Date: Thu, 25 Mar 2021 08:37:00 -0600
-Message-Id: <20210325143700.1490518-1-jordan@cosmicpenguin.net>
-X-Mailer: git-send-email 2.25.1
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AF1F6E02F;
+ Thu, 25 Mar 2021 17:33:18 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0A18261A28;
+ Thu, 25 Mar 2021 17:33:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1616693597;
+ bh=qGpX3MaAi6iipXhij0xGuclaojia9d6LXGpZk4lS3FA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=OpgdYXmTWs8MRabNzxRiFlKzCDpQS5h96vnrJxN9G4TZvg0WRGitBgXLTk+GnnXil
+ f8b5nAYnfp30PmCcOMovoLPgDhNtradrGc8Y6FhFhQ36jubqzqqO6zBwewg68FYuJf
+ Jv7k7kjnmjdLlFV3ePCk4UFG8Vd9Clf1rwUIugVfKpJsBtO7/w+BaxYqHIGJ7eDHwI
+ mCIthIJWR0FmNz1DYmj+Kqua1EmULEJwj1xk8HRopvlZ1bKjcDSPYNKMZbYPYp8xr5
+ TB9H5N62ZZMc3cBLXsUHr1mLRfZ6+pM2RtMNb99RhaB1IXnJpl6MiGYMIdbKb9KY+r
+ w0OsMID+O3r1w==
+Date: Thu, 25 Mar 2021 17:33:11 +0000
+From: Will Deacon <will@kernel.org>
+To: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+Message-ID: <20210325173311.GA15504@willie-the-truck>
+References: <3f589e7de3f9fa93e84c83420c5270c546a0c368.1610372717.git.saiprakash.ranjan@codeaurora.org>
+ <20210129090516.GB3998@willie-the-truck>
+ <5d23fce629323bcda71594010824aad0@codeaurora.org>
+ <20210201111556.GA7172@willie-the-truck>
+ <CAF6AEGsARmkAFsjaQLfa2miMgeijo183MWDKGtW_ti-UCpzBqA@mail.gmail.com>
+ <20210201182016.GA21629@jcrouse1-lnx.qualcomm.com>
+ <7e9aade14d0b7f69285852ade4a5a9f4@codeaurora.org>
+ <20210203214612.GB19847@willie-the-truck>
+ <4988e2ef35f76a0c2f1fe3f66f023a3b@codeaurora.org>
+ <9362873a3bcf37cdd073a6128f29c683@codeaurora.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] mailmap: Update email address for Jordan Crouse
+Content-Disposition: inline
+In-Reply-To: <9362873a3bcf37cdd073a6128f29c683@codeaurora.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Freedreno] [PATCH 2/3] iommu/io-pgtable-arm: Add IOMMU_LLC
+ page protection flag
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,39 +56,114 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Kees Cook <keescook@chromium.org>, Jonathan Corbet <corbet@lwn.net>,
- Alexander Lobakin <alobakin@pm.me>, Miguel Ojeda <ojeda@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, freedreno@lists.freedesktop.org
+Cc: "Isaac J. Manjarres" <isaacm@codeaurora.org>,
+ David Airlie <airlied@linux.ie>, Sean Paul <sean@poorly.run>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>, "list@263.net:IOMMU DRIVERS ,
+ Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
+ Kristian H Kristensen <hoegsberg@google.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ linux-arm-kernel@lists.infradead.org, Robin Murphy <robin.murphy@arm.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-jcrouse at codeaurora.org ha started bouncing. Redirect to a
-more permanent address.
+On Tue, Mar 09, 2021 at 12:10:44PM +0530, Sai Prakash Ranjan wrote:
+> On 2021-02-05 17:38, Sai Prakash Ranjan wrote:
+> > On 2021-02-04 03:16, Will Deacon wrote:
+> > > On Tue, Feb 02, 2021 at 11:56:27AM +0530, Sai Prakash Ranjan wrote:
+> > > > On 2021-02-01 23:50, Jordan Crouse wrote:
+> > > > > On Mon, Feb 01, 2021 at 08:20:44AM -0800, Rob Clark wrote:
+> > > > > > On Mon, Feb 1, 2021 at 3:16 AM Will Deacon <will@kernel.org> wrote:
+> > > > > > > On Fri, Jan 29, 2021 at 03:12:59PM +0530, Sai Prakash Ranjan wrote:
+> > > > > > > > On 2021-01-29 14:35, Will Deacon wrote:
+> > > > > > > > > On Mon, Jan 11, 2021 at 07:45:04PM +0530, Sai Prakash Ranjan wrote:
+> > > > > > > > > > +#define IOMMU_LLC        (1 << 6)
+> > > > > > > > >
+> > > > > > > > > On reflection, I'm a bit worried about exposing this because I think it
+> > > > > > > > > will
+> > > > > > > > > introduce a mismatched virtual alias with the CPU (we don't even have a
+> > > > > > > > > MAIR
+> > > > > > > > > set up for this memory type). Now, we also have that issue for the PTW,
+> > > > > > > > > but
+> > > > > > > > > since we always use cache maintenance (i.e. the streaming API) for
+> > > > > > > > > publishing the page-tables to a non-coheren walker, it works out.
+> > > > > > > > > However,
+> > > > > > > > > if somebody expects IOMMU_LLC to be coherent with a DMA API coherent
+> > > > > > > > > allocation, then they're potentially in for a nasty surprise due to the
+> > > > > > > > > mismatched outer-cacheability attributes.
+> > > > > > > > >
+> > > > > > > >
+> > > > > > > > Can't we add the syscached memory type similar to what is done on android?
+> > > > > > >
+> > > > > > > Maybe. How does the GPU driver map these things on the CPU side?
+> > > > > >
+> > > > > > Currently we use writecombine mappings for everything, although there
+> > > > > > are some cases that we'd like to use cached (but have not merged
+> > > > > > patches that would give userspace a way to flush/invalidate)
+> > > > > >
+> > > > >
+> > > > > LLC/system cache doesn't have a relationship with the CPU cache.  Its
+> > > > > just a
+> > > > > little accelerator that sits on the connection from the GPU to DDR and
+> > > > > caches
+> > > > > accesses. The hint that Sai is suggesting is used to mark the buffers as
+> > > > > 'no-write-allocate' to prevent GPU write operations from being cached in
+> > > > > the LLC
+> > > > > which a) isn't interesting and b) takes up cache space for read
+> > > > > operations.
+> > > > >
+> > > > > Its easiest to think of the LLC as a bonus accelerator that has no cost
+> > > > > for
+> > > > > us to use outside of the unfortunate per buffer hint.
+> > > > >
+> > > > > We do have to worry about the CPU cache w.r.t I/O coherency (which is a
+> > > > > different hint) and in that case we have all of concerns that Will
+> > > > > identified.
+> > > > >
+> > > > 
+> > > > For mismatched outer cacheability attributes which Will
+> > > > mentioned, I was
+> > > > referring to [1] in android kernel.
+> > > 
+> > > I've lost track of the conversation here :/
+> > > 
+> > > When the GPU has a buffer mapped with IOMMU_LLC, is the buffer also
+> > > mapped
+> > > into the CPU and with what attributes? Rob said "writecombine for
+> > > everything" -- does that mean ioremap_wc() / MEMREMAP_WC?
+> > > 
+> > 
+> > Rob answered this.
+> > 
+> > > Finally, we need to be careful when we use the word "hint" as
+> > > "allocation
+> > > hint" has a specific meaning in the architecture, and if we only
+> > > mismatch on
+> > > those then we're actually ok. But I think IOMMU_LLC is more than
+> > > just a
+> > > hint, since it actually drives eviction policy (i.e. it enables
+> > > writeback).
+> > > 
+> > > Sorry for the pedantry, but I just want to make sure we're all talking
+> > > about the same things!
+> > > 
+> > 
+> > Sorry for the confusion which probably was caused by my mentioning of
+> > android, NWA(no write allocate) is an allocation hint which we can
+> > ignore
+> > for now as it is not introduced yet in upstream.
+> > 
+> 
+> Any chance of taking this forward? We do not want to miss out on small fps
+> gain when the product gets released.
 
-Signed-off-by: Jordan Crouse <jordan@cosmicpenguin.net>
----
+Do we have a solution to the mismatched virtual alias?
 
- .mailmap | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/.mailmap b/.mailmap
-index 85b93cdefc87..8c489cb1d1ce 100644
---- a/.mailmap
-+++ b/.mailmap
-@@ -165,6 +165,7 @@ Johan Hovold <johan@kernel.org> <jhovold@gmail.com>
- Johan Hovold <johan@kernel.org> <johan@hovoldconsulting.com>
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
- John Stultz <johnstul@us.ibm.com>
-+Jordan Crouse <jordan@cosmicpenguin.net> <jcrouse@codeaurora.org>
- <josh@joshtriplett.org> <josh@freedesktop.org>
- <josh@joshtriplett.org> <josh@kernel.org>
- <josh@joshtriplett.org> <josht@linux.vnet.ibm.com>
--- 
-2.25.1
-
+Will
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
