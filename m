@@ -2,50 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCD2C349B43
-	for <lists+freedreno@lfdr.de>; Thu, 25 Mar 2021 21:52:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35569349BA2
+	for <lists+freedreno@lfdr.de>; Thu, 25 Mar 2021 22:28:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AED56E0C6;
-	Thu, 25 Mar 2021 20:52:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D057C6EE4A;
+	Thu, 25 Mar 2021 21:28:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE8AE6E0C6;
- Thu, 25 Mar 2021 20:52:05 +0000 (UTC)
-Received: by mail-wm1-x32d.google.com with SMTP id
- d8-20020a1c1d080000b029010f15546281so3820721wmd.4; 
- Thu, 25 Mar 2021 13:52:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=bYspDUN33apg0LraByMLCJKAyWJ3G5vDe8LyXsNfZRY=;
- b=XdqNvHvtj2wwZghDS0ZrF5SEObW3kGDNluXnssbsGIIJbHZpqhyIisxSc1KYVDonmi
- GLE9j2z+P2P8x89LmxVPdJ2fv/Ypb9NNJHGpwJ/AG3gbr/x7gC6eHxq9U/AZ8Q6dO54z
- X/1LYwdpp9lCf2m7/z6gp00EyVB1GycjuzcI11nxPAlwlqI2EOPpIV9UfBgD8CewamP3
- iIkQdr9knbaCgyBVi+stQslK39Jp7Of6q4NWQ4ugZJUdLdyEqHxRzCLrd42UnnXG5CX1
- Ril/kC2Yxf1gsk6jJjfvJl57/8pSdHNnaVhesSha4FRgaMoBY3dO4Fu3siZIJX7AHkJ4
- 1Qwg==
+Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
+ [IPv6:2607:f8b0:4864:20::430])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55AF16EE4A
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Mar 2021 21:28:24 +0000 (UTC)
+Received: by mail-pf1-x430.google.com with SMTP id x126so3335984pfc.13
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Mar 2021 14:28:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Ar68jm2yqLLP/HtYyEXI6uh/AJB1y8cS7PMCnpcIT0Y=;
+ b=TEhkRsQE/1x3MCeVcTv1S4X5n9NVnMa/jFa1XAMbvGy39rpRV1ols2bNLEAqx+w+h5
+ g2Q8Cf5S/EzPjEVGrOQzwY+XfoaFuzar68pfaJd/vxur40Pn9WtqXa1pHKYOkFb2L6Ii
+ ZRPcqJ7LOVPXZga+/NH+evnqAMK2sye1eGuMg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=bYspDUN33apg0LraByMLCJKAyWJ3G5vDe8LyXsNfZRY=;
- b=QDAtG8GOVBptDOHk3G2/v1P6mCLWHGpPjJV4k+PoORoLf0YxokICIRX70kNUMLnuKK
- PRPjWyAmmM7V8eXNCaATwGsdXpPooV7hlOo7E1/u5WcDGj1y7TEtP7QwPz4bwm1iNhI3
- 7KEbZNmI6w/xi6cmReXsISwrLedZ8/0GRmLxcNaYOn1J84eD4qeh2LjMwTG7tW4enShl
- ysdECwJKLZwigJCiwlpEzMzXVerf25rmc+ud4o3pu7Qj15U8nfxej427XsUbbe50ZQiv
- si9oBSRKTomoUMx7oROAJzdHV8Lp/S+HcOCoMnq/cw8OI65zm8kaGZ+v6DiaCAnDVIno
- ZTaQ==
-X-Gm-Message-State: AOAM53178RXA1jgGgP71lKWvATU4TaVTO1rRYCd8J6bppG7be/TqvOro
- M7CKLuiqEavpX+vg9ksad8cmowcEk5p2pzDmJlo=
-X-Google-Smtp-Source: ABdhPJwSBd9Il6DJf6VK0zFKB/+y7G1sSZMcI3jwvMolZAQKlXZlx2+PVU1MtRcxj2RheR+K74bk/HYi4yOdHC700eE=
-X-Received: by 2002:a1c:66c4:: with SMTP id a187mr9794034wmc.164.1616705524328; 
- Thu, 25 Mar 2021 13:52:04 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Ar68jm2yqLLP/HtYyEXI6uh/AJB1y8cS7PMCnpcIT0Y=;
+ b=G/VJ3HHh1Vqf9Cwpbph4zAjnsbb5mqq256WQdhfOWfLyNyUxvz9s2eFjhA1OZcECdP
+ A7Z6FubovjSEwS1TeYDM+wFnOFJaR3z6M0/ELmtIoKto6oGkxXr762T4hHArRm/xTsEv
+ 0RqkCgL4Vi6PCN11FWpcbFSELnZU87dlkJsBfpxdDuu9t+TfKhdalaZy5ryh6ofRXAzo
+ o/JBve56ovxTD7qCBa9Nxx40DnZirzgK1GlTODANOrcxXQNDUsbrtXjTZh+YDF+fc3w1
+ eFCF3B1o0qM3sXw1u0955fv8Ka2o8Jf9/RRiBPAOS94th+FauI2kBPJjqPtAujORAVaY
+ aLxg==
+X-Gm-Message-State: AOAM533SHLT12eGpdwb0GDFqtxrMkugIbfq/zOntlQfYskfUYorsjBoG
+ STeclZuYtoGAbzZe+6mzzsSg7Q==
+X-Google-Smtp-Source: ABdhPJxb+M1K271yeV8ZJZrouwWTafpUJhJVRUBFQFGmitdZRBmwSGYAIxMD8Z4uVYOLg333mONJ/Q==
+X-Received: by 2002:a17:902:dad2:b029:e5:e7da:cbb0 with SMTP id
+ q18-20020a170902dad2b02900e5e7dacbb0mr11705640plx.66.1616707703977; 
+ Thu, 25 Mar 2021 14:28:23 -0700 (PDT)
+Received: from smtp.gmail.com ([2620:15c:202:201:18a3:238:26c5:1521])
+ by smtp.gmail.com with ESMTPSA id e21sm5880792pgv.74.2021.03.25.14.28.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Mar 2021 14:28:23 -0700 (PDT)
+From: Stephen Boyd <swboyd@chromium.org>
+To: Rob Clark <robdclark@gmail.com>,
+	Sean Paul <sean@poorly.run>
+Date: Thu, 25 Mar 2021 14:28:22 -0700
+Message-Id: <20210325212822.3663144-1-swboyd@chromium.org>
+X-Mailer: git-send-email 2.31.0.291.g576ba9dcdaf-goog
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 25 Mar 2021 13:55:18 -0700
-Message-ID: <CAF6AEGuZ1gpy4o-2wsLxhY_nRMEt95GTUPhDeS1ad20X4jasVg@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Subject: [Freedreno] [pull] drm/msm: drm-msm-next-2021-02-07 for v5.12-rc5
+Subject: [Freedreno] [PATCH] drm/msm: Set drvdata to NULL when
+ msm_drm_init() fails
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,79 +64,58 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>, jordan@cosmicpenguin.net,
- dri-devel <dri-devel@lists.freedesktop.org>, Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org,
+ Krishna Manikandan <mkrishn@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Fabio Estevam <festevam@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave & Daniel,
+We should set the platform device's driver data to NULL here so that
+code doesn't assume the struct drm_device pointer is valid when it could
+have been destroyed. The lifetime of this pointer is managed by a kref
+but when msm_drm_init() fails we call drm_dev_put() on the pointer which
+will free the pointer's memory. This driver uses the component model, so
+there's sort of two "probes" in this file, one for the platform device
+i.e. msm_pdev_probe() and one for the component i.e. msm_drm_bind(). The
+msm_drm_bind() code is using the platform device's driver data to store
+struct drm_device so the two functions are intertwined.
 
-(resend without missing list cc's)
+This relationship becomes a problem for msm_pdev_shutdown() when it
+tests the NULL-ness of the pointer to see if it should call
+drm_atomic_helper_shutdown(). The NULL test is a proxy check for if the
+pointer has been freed by kref_put(). If the drm_device has been
+destroyed, then we shouldn't call the shutdown helper, and we know that
+is the case if msm_drm_init() failed, therefore set the driver data to
+NULL so that this pointer liveness is tracked properly.
 
-A few fixes for v5.12
+Fixes: 9d5cbf5fe46e ("drm/msm: add shutdown support for display platform_driver")
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Fabio Estevam <festevam@gmail.com>
+Cc: Krishna Manikandan <mkrishn@codeaurora.org>
+Signed-off-by: Stephen Boyd <swboyd@chromium.org>
+---
+ drivers/gpu/drm/msm/msm_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-The following changes since commit 182b4a2d251305201b6f9cae29067f7112f05835:
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index a5c6b8c23336..196907689c82 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -570,6 +570,7 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
+ 	kfree(priv);
+ err_put_drm_dev:
+ 	drm_dev_put(ddev);
++	platform_set_drvdata(pdev, NULL);
+ 	return ret;
+ }
+ 
+-- 
+https://chromeos.dev
 
-  drm/msm/dp: Add a missing semi-colon (2021-02-07 09:57:04 -0800)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/msm.git drm-msm-next-2021-02-07
-
-for you to fetch changes up to 627dc55c273dab308303a5217bd3e767d7083ddb:
-
-  drm/msm/disp/dpu1: icc path needs to be set before dpu runtime
-resume (2021-03-22 18:52:34 -0700)
-
-----------------------------------------------------------------
-Dmitry Baryshkov (4):
-      drm/msm/dsi: fix check-before-set in the 7nm dsi_pll code
-      drm/msm/dsi_pll_7nm: Solve TODO for multiplier frac_bits assignment
-      drm/msm/dsi_pll_7nm: Fix variable usage for pll_lockdet_rate
-      drm/msm: fix shutdown hook in case GPU components failed to bind
-
-Douglas Anderson (1):
-      drm/msm: Fix speed-bin support not to access outside valid memory
-
-Fabio Estevam (1):
-      drm/msm: Fix suspend/resume on i.MX5
-
-Jonathan Marek (1):
-      drm/msm: fix a6xx_gmu_clear_oob
-
-Jordan Crouse (1):
-      drm/msm: a6xx: Make sure the SQE microcode is safe
-
-Kalyan Thota (1):
-      drm/msm/disp/dpu1: icc path needs to be set before dpu runtime resume
-
-Konrad Dybcio (1):
-      drm/msm/adreno: a5xx_power: Don't apply A540 lm_setup to other GPUs
-
-Rob Clark (1):
-      drm/msm: Ratelimit invalid-fence message
-
-Stephen Boyd (2):
-      drm/msm/kms: Use nested locking for crtc lock instead of custom classes
-      drm/msm/dp: Restore aux retry tuning logic
-
- drivers/gpu/drm/msm/adreno/a5xx_power.c   |   2 +-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c     |   2 +-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 108 ++++++++++++++++++++----------
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c   |  12 ++--
- drivers/gpu/drm/msm/dp/dp_aux.c           |   7 ++
- drivers/gpu/drm/msm/dsi/pll/dsi_pll.c     |   2 +-
- drivers/gpu/drm/msm/dsi/pll/dsi_pll.h     |   6 +-
- drivers/gpu/drm/msm/dsi/pll/dsi_pll_7nm.c |  11 +--
- drivers/gpu/drm/msm/msm_atomic.c          |   7 +-
- drivers/gpu/drm/msm/msm_drv.c             |  12 ++++
- drivers/gpu/drm/msm/msm_fence.c           |   2 +-
- drivers/gpu/drm/msm/msm_kms.h             |   8 +--
- 12 files changed, 119 insertions(+), 60 deletions(-)
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
