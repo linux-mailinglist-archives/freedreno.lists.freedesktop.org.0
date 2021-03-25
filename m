@@ -2,47 +2,48 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDDEE349B37
-	for <lists+freedreno@lfdr.de>; Thu, 25 Mar 2021 21:49:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCD2C349B43
+	for <lists+freedreno@lfdr.de>; Thu, 25 Mar 2021 21:52:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F3EE89E08;
-	Thu, 25 Mar 2021 20:49:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AED56E0C6;
+	Thu, 25 Mar 2021 20:52:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 015AE89E08
- for <freedreno@lists.freedesktop.org>; Thu, 25 Mar 2021 20:49:23 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id o16so3685781wrn.0
- for <freedreno@lists.freedesktop.org>; Thu, 25 Mar 2021 13:49:23 -0700 (PDT)
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE8AE6E0C6;
+ Thu, 25 Mar 2021 20:52:05 +0000 (UTC)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ d8-20020a1c1d080000b029010f15546281so3820721wmd.4; 
+ Thu, 25 Mar 2021 13:52:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:from:date:message-id:subject:to:cc;
- bh=VwYVwBu9Zmvg36BeUPTeaGddjln1nZxLz9LCUgNWe7M=;
- b=FasUerrM1Wt0gJ4o9m6rFixDtNDYZC/5gKERWn/1xjcDYro48HD7IIIHH3h1B1p2/R
- uwy7vqxRPh2saZV4pPFxVdAoWEtl/7Ci59aYjih/dH81eSgAOmnjZUp5EO/mtvBwSYN3
- SnL59FlFtZU11BqNAn1mt9u2FCWL/VP3V8zlV+sgQ7d0XF0MrEu4ns6ONk2ECp/rl/9E
- ovFldTXM0P92aOmMQvZu/IK+i2rQ/X20aY/UwKCEk6H8NJHyt49lvyydKl9lfPgNh8CJ
- QGQxzb6BiPJa7phza6+6RqQceDBLowoB6MuKWBuMF+HpeUNXsBOwF7FpKMVeeTsjpETM
- C2mg==
+ bh=bYspDUN33apg0LraByMLCJKAyWJ3G5vDe8LyXsNfZRY=;
+ b=XdqNvHvtj2wwZghDS0ZrF5SEObW3kGDNluXnssbsGIIJbHZpqhyIisxSc1KYVDonmi
+ GLE9j2z+P2P8x89LmxVPdJ2fv/Ypb9NNJHGpwJ/AG3gbr/x7gC6eHxq9U/AZ8Q6dO54z
+ X/1LYwdpp9lCf2m7/z6gp00EyVB1GycjuzcI11nxPAlwlqI2EOPpIV9UfBgD8CewamP3
+ iIkQdr9knbaCgyBVi+stQslK39Jp7Of6q4NWQ4ugZJUdLdyEqHxRzCLrd42UnnXG5CX1
+ Ril/kC2Yxf1gsk6jJjfvJl57/8pSdHNnaVhesSha4FRgaMoBY3dO4Fu3siZIJX7AHkJ4
+ 1Qwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=VwYVwBu9Zmvg36BeUPTeaGddjln1nZxLz9LCUgNWe7M=;
- b=Fwz1eE9WuVVzcGmM+7Qb8p13A/kW2/jM+0PnZCply05UqR7XP3mOX34UNLnpW1FbSF
- UkE0vJCSBONIh5KWTFiTOsoonUEFwTTMh3W15+vHpyU1SceIIp//wLsniqPHQPGda4wS
- K0lCWD5CJUDp1y2JbN6EbD5cKoZDVM/oKs8RcktNT+zi7BmQQ+YVF8jd045JJArNFb5y
- 09bY4uRHgkIWqXUpAIHcwTPtiMhmSAmwPU3EU3trQmJrRcAyhdrneo5+OPoS6PvwLsTF
- p7iYrCHOiBl66PC5ySxRc8aisdGVDOy83QEI9Nu4482p8WK+0r7N4J+XMgCWeEYLyyJA
- Sc2g==
-X-Gm-Message-State: AOAM532cNvCaQ3Ho+rwIWJmbrkQq4DNWrZ2qRw8tZdP9wY8XdRvF7VjY
- kbuLJsOF+0kWYWBsy7lVciifO71z57Rr0tzlMxI=
-X-Google-Smtp-Source: ABdhPJxqwuu6U9HyyF7877yc5qzqGUa/DxzfcXDzHCMibsHodC1dZp0+0Y4D9ekferfakhDkEyrGdKx0xDftmyezvLk=
-X-Received: by 2002:adf:d0c3:: with SMTP id z3mr10984429wrh.28.1616705362347; 
- Thu, 25 Mar 2021 13:49:22 -0700 (PDT)
+ bh=bYspDUN33apg0LraByMLCJKAyWJ3G5vDe8LyXsNfZRY=;
+ b=QDAtG8GOVBptDOHk3G2/v1P6mCLWHGpPjJV4k+PoORoLf0YxokICIRX70kNUMLnuKK
+ PRPjWyAmmM7V8eXNCaATwGsdXpPooV7hlOo7E1/u5WcDGj1y7TEtP7QwPz4bwm1iNhI3
+ 7KEbZNmI6w/xi6cmReXsISwrLedZ8/0GRmLxcNaYOn1J84eD4qeh2LjMwTG7tW4enShl
+ ysdECwJKLZwigJCiwlpEzMzXVerf25rmc+ud4o3pu7Qj15U8nfxej427XsUbbe50ZQiv
+ si9oBSRKTomoUMx7oROAJzdHV8Lp/S+HcOCoMnq/cw8OI65zm8kaGZ+v6DiaCAnDVIno
+ ZTaQ==
+X-Gm-Message-State: AOAM53178RXA1jgGgP71lKWvATU4TaVTO1rRYCd8J6bppG7be/TqvOro
+ M7CKLuiqEavpX+vg9ksad8cmowcEk5p2pzDmJlo=
+X-Google-Smtp-Source: ABdhPJwSBd9Il6DJf6VK0zFKB/+y7G1sSZMcI3jwvMolZAQKlXZlx2+PVU1MtRcxj2RheR+K74bk/HYi4yOdHC700eE=
+X-Received: by 2002:a1c:66c4:: with SMTP id a187mr9794034wmc.164.1616705524328; 
+ Thu, 25 Mar 2021 13:52:04 -0700 (PDT)
 MIME-Version: 1.0
 From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 25 Mar 2021 13:52:36 -0700
-Message-ID: <CAF6AEGtGMcZzvA79FmQ-nPM8Cb+Lhi2OQpzsTicKBvQtoPrhpg@mail.gmail.com>
+Date: Thu, 25 Mar 2021 13:55:18 -0700
+Message-ID: <CAF6AEGuZ1gpy4o-2wsLxhY_nRMEt95GTUPhDeS1ad20X4jasVg@mail.gmail.com>
 To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
 Subject: [Freedreno] [pull] drm/msm: drm-msm-next-2021-02-07 for v5.12-rc5
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -57,14 +58,18 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, freedreno <freedreno@lists.freedesktop.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>, jordan@cosmicpenguin.net
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>, jordan@cosmicpenguin.net,
+ dri-devel <dri-devel@lists.freedesktop.org>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 Hi Dave & Daniel,
+
+(resend without missing list cc's)
 
 A few fixes for v5.12
 
