@@ -2,61 +2,136 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D82C53487FD
-	for <lists+freedreno@lfdr.de>; Thu, 25 Mar 2021 05:39:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA8F73493D3
+	for <lists+freedreno@lfdr.de>; Thu, 25 Mar 2021 15:14:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86A6D898EA;
-	Thu, 25 Mar 2021 04:39:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 886166EB61;
+	Thu, 25 Mar 2021 14:14:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
- [IPv6:2607:f8b0:4864:20::102b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 485E7897E4
- for <freedreno@lists.freedesktop.org>; Thu, 25 Mar 2021 04:39:14 +0000 (UTC)
-Received: by mail-pj1-x102b.google.com with SMTP id
- j6-20020a17090adc86b02900cbfe6f2c96so410064pjv.1
- for <freedreno@lists.freedesktop.org>; Wed, 24 Mar 2021 21:39:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:content-transfer-encoding:in-reply-to:references
- :subject:from:cc:to:date:message-id:user-agent;
- bh=lqtjDfDMRVrpsCVybPd2ASGnB4nenRyEa0GnMoEEPwY=;
- b=b5jMeiV+ocRjjNz5omI21Ydi/8N5u+2EQ2NfpVZXwQVBsmXzn1PzgxlQ0hDT7vJbXv
- G62/4zcvb8CKiJIbAzIppqFu6rSJTbgJXElWUg6fBBjnffhHdqbvqss+t1ToOrZs2cqm
- v5rmgR0zZNs2/1AUY0zKSfKajVNbnHAshggOI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:content-transfer-encoding
- :in-reply-to:references:subject:from:cc:to:date:message-id
- :user-agent;
- bh=lqtjDfDMRVrpsCVybPd2ASGnB4nenRyEa0GnMoEEPwY=;
- b=CcsOsWBPzRn2IMFJnWANmzvEaYs5ASeOEqgRvLvLStxW4iq6CtWX6MJK3OQarPt3PF
- efJ4gwcfFVW0ByMlLjwdsedtadfOqsqXUMv0zSK5y2Vzhfymftfuj+N8cGl8KYwOr03o
- kV+SUVGE6IIOY6mtTI+iUQsDw7Jo02kXCAvNUHnFSdaUwh4ocbWye0+vvg5oCoEtkHGv
- nvUOuWVALDDZW3yPvRMPAhbG/fxNYrv/ykEMm6juUlP0m9Xe/v6RtS0CUE14j/lOPKKJ
- kmt/x59UUMqrcHRMyx3QCPGpkmebG/XIG76bMvZLdtUgH+tPbSD3lcr5/I6cbIdGRiAF
- emug==
-X-Gm-Message-State: AOAM532w8cxoBStRAHGImbMdQ6Tq7fPyxoY5sFfPIBncAWyXMYEr2T27
- 6ivGLCgWUjwl6LlPg1/d1OzIKQ==
-X-Google-Smtp-Source: ABdhPJycAkp6+8nMtAx+aLtk0wJ9huxG4982NBY/lWZC+yW47viKbLHWAYy7tBkt6DpjDE8D1OZXKA==
-X-Received: by 2002:a17:90a:5103:: with SMTP id
- t3mr7021407pjh.68.1616647153731; 
- Wed, 24 Mar 2021 21:39:13 -0700 (PDT)
-Received: from chromium.org ([2620:15c:202:201:84ac:62f7:16a8:ccc7])
- by smtp.gmail.com with ESMTPSA id h6sm4291699pfb.157.2021.03.24.21.39.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Mar 2021 21:39:12 -0700 (PDT)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 734086EB1A;
+ Thu, 25 Mar 2021 06:12:50 +0000 (UTC)
+IronPort-SDR: O5vHPuyvUFJ+S+CGfYVjji/PJKDpaZeo51zCzUE94VXQp/rvFCyWkYRWJwbgso7Tm6JGVZCru3
+ OddnxRgTEnMA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9933"; a="170207665"
+X-IronPort-AV: E=Sophos;i="5.81,276,1610438400"; d="scan'208";a="170207665"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Mar 2021 23:12:50 -0700
+IronPort-SDR: E0vFGGjy+DUsAz+Oujfd4GGRGpvbSkRqnWJ7A1SBBgr2wppmYlZ4JKLP8ePHTcHOT9nm00TUWI
+ 4Ba9ilIF8QTA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.81,276,1610438400"; d="scan'208";a="442614320"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by fmsmga002.fm.intel.com with ESMTP; 24 Mar 2021 23:12:50 -0700
+Received: from fmsmsx609.amr.corp.intel.com (10.18.126.89) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2106.2; Wed, 24 Mar 2021 23:12:49 -0700
+Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
+ fmsmsx609.amr.corp.intel.com (10.18.126.89) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2
+ via Frontend Transport; Wed, 24 Mar 2021 23:12:49 -0700
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.170)
+ by edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2106.2; Wed, 24 Mar 2021 23:12:39 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Z0r478CVXw2L+j/aNquHWBZpGwpVcm9/Z1Szdqo0mJRXsOD5hPZBtoT7er0Dim2g+5Z2UhO/3F5czH/pyA5jQd4ZJ7pqZUMy7JKnx0vmXZWB1e+Nw8tDQyhoZCSjzB+1yrRPXTLhz5X1jwCULLpfywoMDdm6MJm0M5aZmROVWht1NjYA66GfPTspKJNQ0o7UwWhd6mfzaoR4Dbtq+bzvLzJQgbF/0cuQt6MBvtKO6mzyCiR8W/dtTx/lygukHPSjAjGDU9jwbrF9MRNM9s/yqORnEhNE173S5jtu2VeshM+fgR0GMbNglUQdaXDtICFet6QyaUh4UUWSLEkKj1XryQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Pi0b3jsOWgjL2XHyeLI3OJwpWRO1HIbOcmD8uZvLYcg=;
+ b=WaG0NTbCgVwl0x1NllYye/zVB0yWWZFM1wA6J/Aa6QcNFmE/KkfGeSIOtluP7KiL5GXZy9zXHb83h+9JVOfeeQKgNLH/Y8xbH2vSF7C8XngkJ0ycw1+eby/+r9z4a4ZCwr3qdYewlTq6XCN7a6kMdYvmYTj63DR1Z3ttD2a7MfhRORvxH2k+hl/U5u58SDS+lQYrIStw4UWapVsN/+eNdUtnwbt7TEK7dvbBe56kRwpI9pTu1sZKa6yLc6JEkdAKWjo+8AEh8MCjwo33dDm/HE5EIdgImC3/ix78hS0VIbTHPPtzJclMqUlJV+aJcjICAyIaQW7GF3nElID61+Cd+Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
+ s=selector2-intel-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Pi0b3jsOWgjL2XHyeLI3OJwpWRO1HIbOcmD8uZvLYcg=;
+ b=pJHe0AzoX+57T1YOOhuoaaJKSnCYfrAQnYlRZa5TEHe4cgWiMXPTBZ8aRTB5pJM5MBzqxriac0jyEhn+aj0VfDGQsjjimAwSQdmkzkr2SMnvkGZRzijEsYLjZ1eI8Hwn2FIkyTSiSOdoL1N0OW1hStnZdvqNTpTylayNuaF82Xo=
+Received: from MWHPR11MB1886.namprd11.prod.outlook.com (2603:10b6:300:110::9)
+ by MWHPR11MB1821.namprd11.prod.outlook.com (2603:10b6:300:10f::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.18; Thu, 25 Mar
+ 2021 06:12:38 +0000
+Received: from MWHPR11MB1886.namprd11.prod.outlook.com
+ ([fe80::75b0:a8e9:60cb:7a29]) by MWHPR11MB1886.namprd11.prod.outlook.com
+ ([fe80::75b0:a8e9:60cb:7a29%9]) with mapi id 15.20.3977.026; Thu, 25 Mar 2021
+ 06:12:38 +0000
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: Auger Eric <eric.auger@redhat.com>, Christoph Hellwig <hch@lst.de>
+Thread-Topic: [PATCH 15/17] iommu: remove DOMAIN_ATTR_NESTING
+Thread-Index: AQHXDnfEED2hcP0W6EKGzzYVGS5lRKqDYTAAgABXjYCAAQqdAIAPmsSQ
+Date: Thu, 25 Mar 2021 06:12:37 +0000
+Message-ID: <MWHPR11MB188688125518D050E384658F8C629@MWHPR11MB1886.namprd11.prod.outlook.com>
+References: <20210301084257.945454-1-hch@lst.de>
+ <20210301084257.945454-16-hch@lst.de>
+ <3e8f1078-9222-0017-3fa8-4d884dbc848e@redhat.com>
+ <20210314155813.GA788@lst.de>
+ <3a1194de-a053-84dd-3d6a-bff8e01ebcd3@redhat.com>
+In-Reply-To: <3a1194de-a053-84dd-3d6a-bff8e01ebcd3@redhat.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-version: 11.5.1.3
+dlp-product: dlpe-windows
+dlp-reaction: no-action
+authentication-results: redhat.com; dkim=none (message not signed)
+ header.d=none;redhat.com; dmarc=none action=none header.from=intel.com;
+x-originating-ip: [192.198.147.219]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 5bba3d53-44ef-4931-3635-08d8ef54fd63
+x-ms-traffictypediagnostic: MWHPR11MB1821:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MWHPR11MB18210272479FD443962635D78C629@MWHPR11MB1821.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: +7WOZPtG/yQR8z0EWCDGhG3FLjpVszRezZqeIoyHmwTXVB8EKKIM8pC8vs8BMN3ggAyikBpi3SYox6/IfpAH+cwkif4oUUkn1DBY6xAcAI0NHREtLwgd975fw1A9F9GpDUIhjqjAT4/SRtI+vHg+H1XMOWEyKY+eYtKFS2g2oVjOBtMdJ32xAozhwiX7ZU035313cYlhuvgcJveOtp6lY+dEb8HumvABoTCkg6iVpiK/wYxBX8r/m59nyrs588FVKe6tqJjCLJZD/AZtmBB5sNeurforivnWTgdjZaNdpujaTXErgHVoGnWiSetpRBulD+evLSDpmVMjmzjQJtWnKPf8uP6TociDRjVvrstwT6Ub4YoOKhHSj65CmwmYg3+KsTn1iQ0fpWIpd0urOcM4NKIrzlyIWSQSf8brMBvnxG5EsH+D6wmjsFKLU5K9IklL+ilF9EdGmpQSVLIMYcLD63XGm57LxpocZo4AZHkW6e8Z270K6aASjtq0zHmL0KSLLRpV9LSChyLHopYq3N4bMWmrqimNZ9Mz1/0pnVSpPzVyT/T8oCfyB8igocQba2QxX6LmTTWhC5hcht6JYyF+qGIQNJx9QPDc4KHSMPk/vfKDH+JhXzhrQ0AqK33oC9OSOUQmodEiLGloeh6WA9Y/E7ygqxtiJK8ejS3LztKtUTo=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR11MB1886.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(396003)(346002)(136003)(376002)(39860400002)(366004)(478600001)(2906002)(5660300002)(316002)(33656002)(6506007)(7696005)(4326008)(26005)(71200400001)(9686003)(110136005)(54906003)(7416002)(53546011)(86362001)(64756008)(8676002)(52536014)(66556008)(38100700001)(55016002)(76116006)(66946007)(107886003)(66446008)(8936002)(186003)(66476007);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?fI3+iw3lagEA6pai5XRwccmrYzfA59IuBxbaVqcy0CGQh3DP3ixrrFMRWiqg?=
+ =?us-ascii?Q?lgAWEUb4HS6HTNguCq3d8VHcREDTGIFDBsDuuBXo+SqGAWQWAOV1MyQwQGLu?=
+ =?us-ascii?Q?wDJaUGv+L/zsFCUe3F9DwkgZuQH3L+a/YBfmJ/YZlufRKzwYvl5qcqGUMrR0?=
+ =?us-ascii?Q?pYThh3dn8EczfENxen8pGKazZADYAYtNrosbTFQXWJQuHFE4tAqOoVe0PuFz?=
+ =?us-ascii?Q?Y1QXVsk9Zm1o0ZklYxzwiUH5Y5n7EOWVdztSddWTGcOqoj3nG8QKQvismJWX?=
+ =?us-ascii?Q?NnVdZjJ+GhbymuS6u3has78XnNB7QsrFxucPS1NX8fLbmtHCkRjsY7WpSXF+?=
+ =?us-ascii?Q?iqH6sPDGPk1I0MlqAAlEDMZKMnLqsWNbJkcV0MwISmd69gk5cbt5KVGEBMna?=
+ =?us-ascii?Q?vM5nsx+vo1QmMvJBVZ1n5f5aEWoONBJcmTnJo/kZFq9lAKARsMeW707qz1Qj?=
+ =?us-ascii?Q?js8Tg51U5CAtbSq4IKSSkHcame3VEq7iUDIb9U7dvRUqjjGRT9Ef3YEsvP3r?=
+ =?us-ascii?Q?s9SVaxsmjgzoFcqB7N5Xw2iCJFlkMCO91UttRzDQRRzcdNHy8AcxobtPUOnR?=
+ =?us-ascii?Q?W9+XqtTVp7rHuKfZLGygaq7n1+tICjJ23ouZeBt0lN8JHMLr91mf+oo6SlQf?=
+ =?us-ascii?Q?5TqtIFkUwsBPT4kpkIdZ9YRgHCiX5xw/AJTesJW2G0KJmj6EZYYvSjvpMwSG?=
+ =?us-ascii?Q?08Q4MZ+vc2esLVB9lKeuHsUWI6EN/dRfgSSD0TBDHu8MoheBesJOeBHRUW96?=
+ =?us-ascii?Q?R8XtrcpgHvbLEHQUNLmAAzDqDcARWbDraxrkMzZsjGMeLC1n/SfBft090cEZ?=
+ =?us-ascii?Q?PZx8a/WSfNSH9RPv35fmjkXsmlweBbkDSTEEjBN1ih5RkxgHUy7mAIejMzuZ?=
+ =?us-ascii?Q?qkoNM8Gtta+xKmT7rAXu0PuwYMfAFFFTZd27jX7Xvqk84bV49xNj3TI1hecZ?=
+ =?us-ascii?Q?M57Fc227flJz04oxNesvhNf9v2LCGU7MlVVhOeFMmqFpnuEy3fR/ESNpXRWk?=
+ =?us-ascii?Q?w6fAD3jlvnLBz2Jpuv/cPSn1KH/pTgezhWs2kJ7BklTE+4EjPZsUEjpa/arM?=
+ =?us-ascii?Q?8CYM5irwQrY7u0lfUOzFKxUmmtljQqrPeuirrI1yj8cMCZ9YinOBxM2Xi5pv?=
+ =?us-ascii?Q?M/E1bwwwDBc/SgweDf0DC4ETAXgOKTsYIy+3eHE414gbuyOkitz9embLqgv4?=
+ =?us-ascii?Q?bz59GCCIA8MGfPZRpZ2CfTRqKXHRh586iv7T3ALnzB1fDLzF/sucTVegdeWg?=
+ =?us-ascii?Q?pms1vTlhTlfiI0xcwZYBq1qGZxgCeu3kPk7jeUCUv3q7D+566p1N3/EZ3aBL?=
+ =?us-ascii?Q?5ELP8YpBRmwyBgr10ilTAZmg?=
 MIME-Version: 1.0
-In-Reply-To: <CAF6AEGsRKPn-pLtP8dmG+_VSH1TbyaW10HHtaOT10Xc3D+DMTg@mail.gmail.com>
-References: <20210318200544.2244007-1-dmitry.baryshkov@linaro.org>
- <161663694524.3012082.11889553997747135632@swboyd.mtv.corp.google.com>
- <CAF6AEGsRKPn-pLtP8dmG+_VSH1TbyaW10HHtaOT10Xc3D+DMTg@mail.gmail.com>
-From: Stephen Boyd <swboyd@chromium.org>
-To: Rob Clark <robdclark@gmail.com>
-Date: Wed, 24 Mar 2021 21:39:11 -0700
-Message-ID: <161664715135.3012082.16581922607390567861@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.9.1
-Subject: Re: [Freedreno] [PATCH v2] gpu/drm/msm: fix shutdown hook in case
- GPU components failed to bind
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR11MB1886.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5bba3d53-44ef-4931-3635-08d8ef54fd63
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Mar 2021 06:12:37.9104 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: g+9tx8yupAxEaBVTaXN+YMN+Gjh+DKeandfmUv2hiw/T4C1FrVED7BMCGrAdhj15oS8+rSSZsVH3NORAabP2Aw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR11MB1821
+X-OriginatorOrg: intel.com
+X-Mailman-Approved-At: Thu, 25 Mar 2021 14:14:00 +0000
+Subject: Re: [Freedreno] [PATCH 15/17] iommu: remove DOMAIN_ATTR_NESTING
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,117 +144,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
+Cc: "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>, "Liu,
+ Yi L" <yi.l.liu@intel.com>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ Will Deacon <will@kernel.org>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Li Yang <leoyang.li@nxp.com>,
+ "iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "virtualization@lists.linux-foundation.org"
+ <virtualization@lists.linux-foundation.org>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>, David
+ Woodhouse <dwmw2@infradead.org>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Rob Clark (2021-03-24 20:09:37)
-> On Wed, Mar 24, 2021 at 6:49 PM Stephen Boyd <swboyd@chromium.org> wrote:
-> >
-> > Quoting Dmitry Baryshkov (2021-03-18 13:05:44)
-> > > if GPU components have failed to bind, shutdown callback would fail with
-> > > the following backtrace. Add safeguard check to stop that oops from
-> > > happening and allow the board to reboot.
-> > [...]
-> > > diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> > > index 94525ac76d4e..fd2ac54caf9f 100644
-> > > --- a/drivers/gpu/drm/msm/msm_drv.c
-> > > +++ b/drivers/gpu/drm/msm/msm_drv.c
-> > > @@ -1311,6 +1311,10 @@ static int msm_pdev_remove(struct platform_device *pdev)
-> > >  static void msm_pdev_shutdown(struct platform_device *pdev)
-> > >  {
-> > >         struct drm_device *drm = platform_get_drvdata(pdev);
-> > > +       struct msm_drm_private *priv = drm ? drm->dev_private : NULL;
-> > > +
-> > > +       if (!priv || !priv->kms)
-> > > +               return;
-> > >
-> >
-> > I see a problem where if I don't get a backlight probing then my
-> > graphics card doesn't appear but this driver is still bound. I was
-> > hoping this patch would fix it but it doesn't. I have slab poisoning
-> > enabled so sometimes the 'priv' pointer is 0x6b6b6b6b6b6b6b6b meaning it
-> > got all freed.
-> >
-> > I found that the 'drm' pointer here is pointing at junk. The
-> > msm_drm_init() function calls drm_dev_put() on the error path and that
-> > will destroy the drm pointer but it doesn't update this platform drivers
-> > drvdata. Do we need another patch that sets the drvdata to NULL on
-> > msm_drm_init() failing? One last note, I'm seeing this on 5.4 so maybe I
-> > missed something and the drvdata has been set to NULL somewhere else
-> > upstream. I sort of doubt it though.
+> From: Auger Eric
+> Sent: Monday, March 15, 2021 3:52 PM
+> To: Christoph Hellwig <hch@lst.de>
+> Cc: kvm@vger.kernel.org; Will Deacon <will@kernel.org>; linuxppc-
+> dev@lists.ozlabs.org; dri-devel@lists.freedesktop.org; Li Yang
+> <leoyang.li@nxp.com>; iommu@lists.linux-foundation.org;
 > 
-> the hw that I guess you are running on should work pretty well w/
-> upstream kernel.. but I don't think there is any important delta
-> between upstream and the 5.4 based kernel that you are running that
-> would fix this..
+> Hi Christoph,
 > 
-> so *probably* you are right..
+> On 3/14/21 4:58 PM, Christoph Hellwig wrote:
+> > On Sun, Mar 14, 2021 at 11:44:52AM +0100, Auger Eric wrote:
+> >> As mentionned by Robin, there are series planning to use
+> >> DOMAIN_ATTR_NESTING to get info about the nested caps of the iommu
+> (ARM
+> >> and Intel):
+> >>
+> >> [Patch v8 00/10] vfio: expose virtual Shared Virtual Addressing to VMs
+> >> patches 1, 2, 3
+> >>
+> >> Is the plan to introduce a new domain_get_nesting_info ops then?
+> >
+> > The plan as usual would be to add it the series adding that support.
+> > Not sure what the merge plans are - if the series is ready to be
+> > merged I could rebase on top of it, otherwise that series will need
+> > to add the method.
+> OK I think your series may be upstreamed first.
+> 
 
-linux-next is failing like this today for me on Lazor right after the
-screen turns on. I'll have to figure out what's wrong before checking
-upstream.
+Agree. The vSVA series is still undergoing a refactor according to Jason's
+comment thus won't be ready in short term. It's better to let this one
+go in first.
 
-[   10.734752] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000080
-[   10.744482] Mem abort info:
-[   10.747462]   ESR = 0x96000006
-[   10.750644]   EC = 0x25: DABT (current EL), IL = 32 bits
-[   10.756125]   SET = 0, FnV = 0
-[   10.759290]   EA = 0, S1PTW = 0
-[   10.762543] Data abort info:
-[   10.765519]   ISV = 0, ISS = 0x00000006
-[   10.769485]   CM = 0, WnR = 0
-[   10.772553] user pgtable: 4k pages, 39-bit VAs, pgdp=0000000123474000
-[   10.779212] [0000000000000080] pgd=0800000123475003, p4d=0800000123475003, pud=0800000123475003, pmd=0000000000000000
-[   10.790128] Internal error: Oops: 96000006 [#1] PREEMPT SMP
-[   10.795856] Modules linked in: ath10k_snoc qmi_helpers ath10k_core ath mac80211 cfg80211 r8152 mii joydev
-[   10.805705] CPU: 5 PID: 1576 Comm: DrmThread Not tainted 5.12.0-rc4-next-20210324+ #13
-[   10.813832] Hardware name: Google Lazor (rev3+) with KB Backlight (DT)
-[   10.820535] pstate: 80400009 (Nzcv daif +PAN -UAO -TCO BTYPE=--)
-[   10.826703] pc : dpu_plane_atomic_update+0x80/0xcb8
-[   10.831730] lr : dpu_plane_restore+0x5c/0x88
-[   10.836117] sp : ffffffc012963920
-[   10.839521] x29: ffffffc0129639c0 x28: ffffffed5c9ad000 
-[   10.844979] x27: ffffffed5c736000 x26: ffffffed5ca3f000 
-[   10.850443] x25: ffffffed5c736000 x24: 0000000000000000 
-[   10.855903] x23: 0000000000000000 x22: ffffff80ad007400 
-[   10.861361] x21: ffffff8085193808 x20: 0000000000000000 
-[   10.866818] x19: ffffff8085193800 x18: 0000000000000008 
-[   10.872274] x17: 0000000000800000 x16: 0000000020000000 
-[   10.877738] x15: 0000000000000001 x14: 0000000000000000 
-[   10.883201] x13: ffffff80852324a8 x12: 0000000000000008 
-[   10.888657] x11: ffffffed5c3b7890 x10: 0000000000000000 
-[   10.894112] x9 : 0000000000000000 x8 : 0000000000000000 
-[   10.899570] x7 : 0000000000004000 x6 : 0000000000010000 
-[   10.905026] x5 : 0000000000040000 x4 : 0000000000000800 
-[   10.910482] x3 : 0000000000000000 x2 : 0000000000020041 
-[   10.915946] x1 : ffffff80ad2e2600 x0 : ffffff8085193800 
-[   10.921402] Call trace:
-[   10.923923]  dpu_plane_atomic_update+0x80/0xcb8
-[   10.928585]  dpu_plane_restore+0x5c/0x88
-[   10.932620]  dpu_crtc_atomic_flush+0xd4/0x1a0
-[   10.937105]  drm_atomic_helper_commit_planes+0x1b4/0x1e0
-[   10.942565]  msm_atomic_commit_tail+0x2d4/0x670
-[   10.947223]  commit_tail+0xac/0x148
-[   10.950814]  drm_atomic_helper_commit+0x104/0x10c
-[   10.955653]  drm_atomic_commit+0x58/0x68
-[   10.959686]  drm_mode_atomic_ioctl+0x438/0x51c
-[   10.964261]  drm_ioctl_kernel+0xa8/0x124
-[   10.968295]  drm_ioctl+0x24c/0x3ec
-[   10.971800]  drm_compat_ioctl+0xe0/0xf4
-[   10.975745]  __arm64_compat_sys_ioctl+0xcc/0x104
-[   10.980499]  el0_svc_common+0xa4/0x128
-[   10.984358]  do_el0_svc_compat+0x2c/0x38
-[   10.988395]  el0_svc_compat+0x20/0x30
-[   10.992164]  el0_sync_compat_handler+0xc0/0xf0
-[   10.996734]  el0_sync_compat+0x174/0x180
-[   11.000774] Code: d0003d61 91204821 52800020 97fe8c65 (39420288)
+Thanks
+Kevin
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
