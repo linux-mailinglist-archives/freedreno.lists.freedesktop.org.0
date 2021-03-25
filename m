@@ -1,61 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C47B348656
-	for <lists+freedreno@lfdr.de>; Thu, 25 Mar 2021 02:20:52 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id F327534868A
+	for <lists+freedreno@lfdr.de>; Thu, 25 Mar 2021 02:49:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 248BB6EB08;
-	Thu, 25 Mar 2021 01:20:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A63926EB0F;
+	Thu, 25 Mar 2021 01:49:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com
- [IPv6:2607:f8b0:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C4346EB07;
- Thu, 25 Mar 2021 01:20:50 +0000 (UTC)
-Received: by mail-pf1-x429.google.com with SMTP id g15so337525pfq.3;
- Wed, 24 Mar 2021 18:20:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=jvtHjsud/eM8BNoD46gfeLSLPrxRYWFWJgTEw76kwZE=;
- b=heyt2LSrQop8eSn+OWytP9J9XRU5yVkQNgnO4rgolg7d1Dd6Ng2YDGalVIYWrF03/o
- vanw1HyX7rjg9QFtCUE6bFAd7RoMLx0FUo3GxVQaNtofKzXQRgGtkl5/dYoUVO2L2p7o
- 760JX+pBjX3CqH5sCfiNju/ltPw9Q84KEbWDDnJgfUBLrCKR03UCWYTU8v+FqHQMsFcH
- CC40b8AFPHXfarT4U7I0/Q+bVkc+ZhVfmaY8cZuzoiK9F9VNt6QZ0uM3s5CzxW4fWBVP
- f2bg11+ew1haET4l/pBYTEBpVj3KLmwHOh6xl/5zM0siFZXxKp0fLC+mnvxgBGsFts1s
- 0Y/g==
+Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
+ [IPv6:2607:f8b0:4864:20::430])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8A0F6EB0F
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Mar 2021 01:49:07 +0000 (UTC)
+Received: by mail-pf1-x430.google.com with SMTP id q5so364124pfh.10
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Mar 2021 18:49:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:content-transfer-encoding:in-reply-to:references
+ :subject:from:cc:to:date:message-id:user-agent;
+ bh=lTT11oRd2IP/7R9HW0QYaEhU1Zlu1DFDIzRADDCnLQQ=;
+ b=Z+z2A1yAfmKe+FCUbdH4KIOqFTHUUfHCkPioKvw+4xukLDm9HfIDtt02qZwkXLM/SK
+ ND1RSq9RFZF3e2qR+20GVfw3hsd6gQ3zn0Q2XZVOLjqr/OmTdYw3vScyzdWZWEhGC9rH
+ TlLUDd8ocYtWZsjnlzybGhQpOat8bCD3oD5gg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=jvtHjsud/eM8BNoD46gfeLSLPrxRYWFWJgTEw76kwZE=;
- b=N/yQOkPKUK9Yq3h8Laq2gxLTgdlU75nRthLmsjEkQRU2l9fNmxuiLvV4lppJ/J8cPz
- aSvbVaXBL5SNBMknwlLcbTWvBqqDINnpilaMizfniAh/F0MNkLIra12pkc38xEYq3Gyu
- 1GKlR0R1avs/zRe8CXEAKJurxjR4gv+5pc0Q5B+vzWmA4oTjZlnKdwav6MqzpxgifKjH
- FGTzpSypJv8yXMFGtacjIkvk8Qbndkxzzj3xSUcnn8jq7Otsj/K/ODd6C7EyuDX9C/Dj
- /YQq5LIO9RycYvU/9ckKQXHMkr/Mg6qxJZNwWz8HB9WPhIavW+9g2tK2hY1W48xBwJkd
- uQ6A==
-X-Gm-Message-State: AOAM530hjzJr9BFShsYyEuVh6CkC2+3/IzzXRksCCGExokOFD24q0/qD
- ovpKOeZF6pUXX6XII0Ht9fwo2cH6vpw=
-X-Google-Smtp-Source: ABdhPJwIVevPtK6crQOEjQ+xBQahy7onoSNQlgYFzsPUBQrKZduUNsy4TN/GmLA7EKTII0kZ+wGrkw==
-X-Received: by 2002:a05:6a00:2a3:b029:1f2:f7f0:adf0 with SMTP id
- q3-20020a056a0002a3b02901f2f7f0adf0mr5506830pfs.33.1616635248965; 
- Wed, 24 Mar 2021 18:20:48 -0700 (PDT)
-Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
- by smtp.gmail.com with ESMTPSA id 25sm3756923pfh.199.2021.03.24.18.20.47
+ h=x-gm-message-state:mime-version:content-transfer-encoding
+ :in-reply-to:references:subject:from:cc:to:date:message-id
+ :user-agent;
+ bh=lTT11oRd2IP/7R9HW0QYaEhU1Zlu1DFDIzRADDCnLQQ=;
+ b=N0hcdfydcM/s2+HvSEpbCBYUrHqa723PP+E5D+IWiaKkAKQ4wMPMzyoZnQxfVyTbFA
+ DGw8HvtuuIgmOyz1CwvZUykjUm2WY4iMqZjHqRDx7gjCavRgfgQ7hNAbYAWlETO86VvV
+ u1BwZiIZmsdUijq17eIwqIw6Ng5uCI/Gk1uVbxDio87ze1AGVcjrCwULHvX1MaNcImIX
+ mcjA5RFSeZIU3iFcJWwisrLVcI+uCZ0qsIVjx+1729khX9mvjhqp1AwZNEFWNg5ZKT4L
+ xKx2LZ2QiFS4Rm8UwOFkrw68GmUEfGj/FoyGPUMjAXL0Wzw2esLSflS6NnUzUM+Pnran
+ +tug==
+X-Gm-Message-State: AOAM5338UAuL1vZ1LhwN3FDV3vG14xsSx06T3ktAotJZ3eIZWEt7TUz9
+ Ig7hqItQk3kkfSAAkvtZk8LlmA==
+X-Google-Smtp-Source: ABdhPJyy21bCd9n+vhHQdGXzdNqyTIFIwyuAXQ2gaSqWta5/XpKxeLBm8XOfJtheWbAiseDrIDousQ==
+X-Received: by 2002:a63:5924:: with SMTP id n36mr5562187pgb.183.1616636947460; 
+ Wed, 24 Mar 2021 18:49:07 -0700 (PDT)
+Received: from chromium.org ([2620:15c:202:201:84ac:62f7:16a8:ccc7])
+ by smtp.gmail.com with ESMTPSA id s26sm3750220pfd.5.2021.03.24.18.49.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Mar 2021 18:20:47 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Wed, 24 Mar 2021 18:23:53 -0700
-Message-Id: <20210325012358.1759770-3-robdclark@gmail.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20210325012358.1759770-1-robdclark@gmail.com>
-References: <20210325012358.1759770-1-robdclark@gmail.com>
+ Wed, 24 Mar 2021 18:49:06 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 2/2] drm/msm: Add param for userspace to query
- suspend count
+In-Reply-To: <20210318200544.2244007-1-dmitry.baryshkov@linaro.org>
+References: <20210318200544.2244007-1-dmitry.baryshkov@linaro.org>
+From: Stephen Boyd <swboyd@chromium.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Jonathan Marek <jonathan@marek.ca>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>
+Date: Wed, 24 Mar 2021 18:49:05 -0700
+Message-ID: <161663694524.3012082.11889553997747135632@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
+Subject: Re: [Freedreno] [PATCH v2] gpu/drm/msm: fix shutdown hook in case
+ GPU components failed to bind
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,107 +67,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, Jonathan Marek <jonathan@marek.ca>,
- David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Jordan Crouse <jcrouse@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Akhil P Oommen <akhilpo@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
- Dave Airlie <airlied@redhat.com>, Sean Paul <sean@poorly.run>,
- open list <linux-kernel@vger.kernel.org>
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+Quoting Dmitry Baryshkov (2021-03-18 13:05:44)
+> if GPU components have failed to bind, shutdown callback would fail with
+> the following backtrace. Add safeguard check to stop that oops from
+> happening and allow the board to reboot.
+[...]
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index 94525ac76d4e..fd2ac54caf9f 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -1311,6 +1311,10 @@ static int msm_pdev_remove(struct platform_device *pdev)
+>  static void msm_pdev_shutdown(struct platform_device *pdev)
+>  {
+>         struct drm_device *drm = platform_get_drvdata(pdev);
+> +       struct msm_drm_private *priv = drm ? drm->dev_private : NULL;
+> +
+> +       if (!priv || !priv->kms)
+> +               return;
+>  
 
-Performance counts, and ALWAYS_ON counters used for capturing GPU
-timestamps, lose their state across suspend/resume cycles.  Userspace
-tooling for performance monitoring needs to be aware of this.  For
-example, after a suspend userspace needs to recalibrate it's offset
-between CPU and GPU time.
+I see a problem where if I don't get a backlight probing then my
+graphics card doesn't appear but this driver is still bound. I was
+hoping this patch would fix it but it doesn't. I have slab poisoning
+enabled so sometimes the 'priv' pointer is 0x6b6b6b6b6b6b6b6b meaning it
+got all freed.
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 3 +++
- drivers/gpu/drm/msm/msm_drv.c           | 1 +
- drivers/gpu/drm/msm/msm_gpu.c           | 2 ++
- drivers/gpu/drm/msm/msm_gpu.h           | 2 ++
- include/uapi/drm/msm_drm.h              | 1 +
- 5 files changed, 9 insertions(+)
+I found that the 'drm' pointer here is pointing at junk. The
+msm_drm_init() function calls drm_dev_put() on the error path and that
+will destroy the drm pointer but it doesn't update this platform drivers
+drvdata. Do we need another patch that sets the drvdata to NULL on
+msm_drm_init() failing? One last note, I'm seeing this on 5.4 so maybe I
+missed something and the drvdata has been set to NULL somewhere else
+upstream. I sort of doubt it though.
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index f09175698827..e473b7c9ff7f 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -280,6 +280,9 @@ int adreno_get_param(struct msm_gpu *gpu, uint32_t param, uint64_t *value)
- 	case MSM_PARAM_FAULTS:
- 		*value = gpu->global_faults;
- 		return 0;
-+	case MSM_PARAM_SUSPENDS:
-+		*value = gpu->suspend_count;
-+		return 0;
- 	default:
- 		DBG("%s: invalid param: %u", gpu->name, param);
- 		return -EINVAL;
+---8<----
 diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index b29e439eb299..4f9fa0189a07 100644
+index c842a270806d..895d74aa8834 100644
 --- a/drivers/gpu/drm/msm/msm_drv.c
 +++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -39,6 +39,7 @@
-  *           GEM object's debug name
-  * - 1.5.0 - Add SUBMITQUERY_QUERY ioctl
-  * - 1.6.0 - Syncobj support
-+ * - 1.7.0 - Add MSM_PARAM_SUSPENDS to access suspend count
-  */
- #define MSM_VERSION_MAJOR	1
- #define MSM_VERSION_MINOR	6
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 7bdb01f202f4..ab888d83b887 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -256,6 +256,8 @@ int msm_gpu_pm_suspend(struct msm_gpu *gpu)
- 	if (ret)
- 		return ret;
- 
-+	gpu->suspend_count++;
-+
- 	return 0;
+@@ -577,6 +577,7 @@ static int msm_drm_init(struct device *dev, struct drm_driver *drv)
+ 	kfree(priv);
+ err_put_drm_dev:
+ 	drm_dev_put(ddev);
++	platform_set_drvdata(pdev, NULL);
+ 	return ret;
  }
- 
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index d7cd02cd2109..18baf935e143 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -152,6 +152,8 @@ struct msm_gpu {
- 		ktime_t time;
- 	} devfreq;
- 
-+	uint32_t suspend_count;
-+
- 	struct msm_gpu_state *crashstate;
- 	/* True if the hardware supports expanded apriv (a650 and newer) */
- 	bool hw_apriv;
-diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
-index a6c1f3eb2623..5596d7c37f9e 100644
---- a/include/uapi/drm/msm_drm.h
-+++ b/include/uapi/drm/msm_drm.h
-@@ -76,6 +76,7 @@ struct drm_msm_timespec {
- #define MSM_PARAM_NR_RINGS   0x07
- #define MSM_PARAM_PP_PGTABLE 0x08  /* => 1 for per-process pagetables, else 0 */
- #define MSM_PARAM_FAULTS     0x09
-+#define MSM_PARAM_SUSPENDS   0x0a
- 
- struct drm_msm_param {
- 	__u32 pipe;           /* in, MSM_PIPE_x */
--- 
-2.29.2
-
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
