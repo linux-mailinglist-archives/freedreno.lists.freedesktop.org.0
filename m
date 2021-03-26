@@ -2,49 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 278F8349E3E
-	for <lists+freedreno@lfdr.de>; Fri, 26 Mar 2021 01:54:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5D67349E7B
+	for <lists+freedreno@lfdr.de>; Fri, 26 Mar 2021 02:17:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D82A6EE95;
-	Fri, 26 Mar 2021 00:54:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 559D16EE97;
+	Fri, 26 Mar 2021 01:17:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15BE46EE94;
- Fri, 26 Mar 2021 00:54:44 +0000 (UTC)
-Received: by mail-wm1-x333.google.com with SMTP id k128so2118645wmk.4;
- Thu, 25 Mar 2021 17:54:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=YuBwH1yrwebF7YZ6NybwekcKLEftOt6WeljGm7H4DDg=;
- b=JGegx6GQf4y5/ogeQ1Xy/BwSsztBssUrPHuyQ+aiS/vdP+FTBXcxY62BuhK6meFdy+
- sDeVoSkiZ0k4a8xDCoVio7bemOrg7zF0ewEy4mZNwwLJpDl3n7TywbTpBvjwN74fmjKV
- 7Nh4rAom4G0hwVZwOLnkSd9pIPNBWcfxSHow7lsjrC48zZfHNkVGsgVhBgiMYIJQUmbR
- LIdbmzUkv9Cpsv3EM7GMApFZo+KZMQVM+C4+8drmsaD0tVB8pe13BmYjJQ6tnueAazKP
- fdg4nOK5zPHwi9Qnyk/mONnaSfPVpkvT057/8y5iRJqrt31W3T1YUXgWl19NedjSKts0
- bllw==
+Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
+ [IPv6:2607:f8b0:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67ADE6EE99
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Mar 2021 01:17:30 +0000 (UTC)
+Received: by mail-pl1-x635.google.com with SMTP id l1so110775plg.12
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Mar 2021 18:17:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:content-transfer-encoding:in-reply-to:references
+ :subject:from:cc:to:date:message-id:user-agent;
+ bh=J8nMLjAEeKpV02aUXHe43+I2wZF8cyZVnRX+KUOYqss=;
+ b=cQhkxLDX3nfXrkWTIxByCJ4xpoDKyM+27Txt7k5RBYAWHPGDhWWVlsBwOwNencRKz/
+ Q2i6Cln6j2qCOHTzvLLP0Kc6mdXJfSQNrNG3hV2Lv69JaILutM8Gp5OboWcWt3j8Yc92
+ ftttjrTuBnhcKtjGGvJeQrGhq8aXAM9g+IWXc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=YuBwH1yrwebF7YZ6NybwekcKLEftOt6WeljGm7H4DDg=;
- b=J8Wn9qr1Iln/a79Gtpe7U5WzV0EHIHxhj4o2AuB/A42qNDMJbrCmSyhJWKpIGVEaAr
- 8zXyZHAH9nCMFrHyJVVeX+g7IKbc3+bL/Yo3fSW/qUGZErcOs6777elkt48H6DGRbIHH
- xy71GZdmm8bldr6TK24pnlZxcjqgZEp44tpcAleuu1WYku042P/aKND25ZRlcOF5NuA0
- 4q+J4cEaRvipTFA9qIyRRApNX/nLALGG7Q7ECb4fS0BtCG9a4MQAqfC30x4tY0LozMF+
- tNIR3H1SdKCLH6g1xhng+8dUV9hWXfodY3O4p5baOcpk0rPz/pitQrgZvlRUpM0Dr4d6
- XlMQ==
-X-Gm-Message-State: AOAM530OSdLO9QjDoqQ0g7n1Sh+HWM4RJc0QDoljnDIwJGQCmdaGSI6z
- U2dgQcAYP0xZB9MWBY2Y2NBuuCXHBHZePCNF9eWRFCUyuAc=
-X-Google-Smtp-Source: ABdhPJySjv2fOKFXb/unIYRFsUJMvBttGq7FJPdo71XAwOdq0KZm1mAm+csV/a/aLFrziqQozHhoMVGroVUZtwke9Mw=
-X-Received: by 2002:a1c:4b15:: with SMTP id y21mr10634934wma.94.1616720082628; 
- Thu, 25 Mar 2021 17:54:42 -0700 (PDT)
+ h=x-gm-message-state:mime-version:content-transfer-encoding
+ :in-reply-to:references:subject:from:cc:to:date:message-id
+ :user-agent;
+ bh=J8nMLjAEeKpV02aUXHe43+I2wZF8cyZVnRX+KUOYqss=;
+ b=S5h8dF43UUKWhTOa93YaPB6F5VRGke3ca3ddf2qab1aUwA/bIhr9wHkzHXR3ldkZOA
+ jQ6aAwMFXWeP31gFuh/ZSSgac7Z5l4sbLmi2H3K0CSJ0aRJ37rzDhxHuD/r3ouHg+czj
+ C7VWDULZ8kZ11E38X+bdGikJQd3UEFA9lDe0h3RNa5iCRTM2FpgifLDvoxcYSp0mNLIG
+ ixCxHsslm+052qjxJGyEcFMGiyOLOR0rr1OR9Kr84BVAozYBuPzb/wvSyMBaKehXesMa
+ KfWwgKZd+EdNqtKRaN6r4nw7H8TG4QSSU5idodgo9bpXorDjgg1pMAFObhWapCTQdnkP
+ WO2Q==
+X-Gm-Message-State: AOAM532bHR2+/bp7QmTaGNv3G4PjwXQFfsyEW+Qv0AoSoD8gJbKnzgzV
+ yY9WVvDSVB6fJNpk/Rgpl3OfrA==
+X-Google-Smtp-Source: ABdhPJw7n1WJkB8t3PJN5A8OrPXJszf8d70/YXB8F0M2+OC2bcrP01DdXIMGtmX33dBgo78OsqXA9g==
+X-Received: by 2002:a17:90a:c249:: with SMTP id
+ d9mr11398591pjx.104.1616721450015; 
+ Thu, 25 Mar 2021 18:17:30 -0700 (PDT)
+Received: from chromium.org ([2620:15c:202:201:18a3:238:26c5:1521])
+ by smtp.gmail.com with ESMTPSA id u17sm6642910pgl.80.2021.03.25.18.17.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Mar 2021 18:17:29 -0700 (PDT)
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 25 Mar 2021 17:57:56 -0700
-Message-ID: <CAF6AEGvmiMKRms_NVavD=NA_jbuexZUcqqL35ke7umqpp-TxMw@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2021-02-25 for v5.12-rc5
+In-Reply-To: <1614971839-2686-1-git-send-email-abhinavk@codeaurora.org>
+References: <1614971839-2686-1-git-send-email-abhinavk@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+To: Abhinav Kumar <abhinavk@codeaurora.org>, dri-devel@lists.freedesktop.org
+Date: Thu, 25 Mar 2021 18:17:27 -0700
+Message-ID: <161672144775.3012082.15468817158271994036@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
+Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/dp: Fix indentation kbot
+ warnings in DP driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,79 +66,32 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>, jordan@cosmicpenguin.net,
- dri-devel <dri-devel@lists.freedesktop.org>, Sean Paul <sean@poorly.run>
+Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
+ khsieh@codeaurora.org, robdclark@gmail.com, nganji@codeaurora.org,
+ seanpaul@chromium.org, tanmay@codeaurora.org, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org, dan.carpenter@oracle.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave & Daniel,
+Quoting Abhinav Kumar (2021-03-05 11:17:17)
+> Fix a couple of indentation warnings reported by
+> kbot across MSM DP driver:
+> 
+> New smatch warnings:
+> drivers/gpu/drm/msm/dp/dp_debug.c:229 dp_test_data_show()
+> warn: inconsistent indenting
+> 
+> drivers/gpu/drm/msm/dp/dp_power.c:203 dp_power_clk_enable()
+> warn: inconsistent indenting
+> 
+> Reported-by: kernel test robot <lkp@intel.com>
+> Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+> Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
+> ---
 
-(resending one more time without git tag copy/paste fail)
-
-A few fixes for v5.12
-
-The following changes since commit 182b4a2d251305201b6f9cae29067f7112f05835:
-
-  drm/msm/dp: Add a missing semi-colon (2021-02-07 09:57:04 -0800)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/msm.git drm-msm-fixes-2021-02-25
-
-for you to fetch changes up to 627dc55c273dab308303a5217bd3e767d7083ddb:
-
-  drm/msm/disp/dpu1: icc path needs to be set before dpu runtime
-resume (2021-03-22 18:52:34 -0700)
-
-----------------------------------------------------------------
-Dmitry Baryshkov (4):
-      drm/msm/dsi: fix check-before-set in the 7nm dsi_pll code
-      drm/msm/dsi_pll_7nm: Solve TODO for multiplier frac_bits assignment
-      drm/msm/dsi_pll_7nm: Fix variable usage for pll_lockdet_rate
-      drm/msm: fix shutdown hook in case GPU components failed to bind
-
-Douglas Anderson (1):
-      drm/msm: Fix speed-bin support not to access outside valid memory
-
-Fabio Estevam (1):
-      drm/msm: Fix suspend/resume on i.MX5
-
-Jonathan Marek (1):
-      drm/msm: fix a6xx_gmu_clear_oob
-
-Jordan Crouse (1):
-      drm/msm: a6xx: Make sure the SQE microcode is safe
-
-Kalyan Thota (1):
-      drm/msm/disp/dpu1: icc path needs to be set before dpu runtime resume
-
-Konrad Dybcio (1):
-      drm/msm/adreno: a5xx_power: Don't apply A540 lm_setup to other GPUs
-
-Rob Clark (1):
-      drm/msm: Ratelimit invalid-fence message
-
-Stephen Boyd (2):
-      drm/msm/kms: Use nested locking for crtc lock instead of custom classes
-      drm/msm/dp: Restore aux retry tuning logic
-
- drivers/gpu/drm/msm/adreno/a5xx_power.c   |   2 +-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c     |   2 +-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 108 ++++++++++++++++++++----------
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c   |  12 ++--
- drivers/gpu/drm/msm/dp/dp_aux.c           |   7 ++
- drivers/gpu/drm/msm/dsi/pll/dsi_pll.c     |   2 +-
- drivers/gpu/drm/msm/dsi/pll/dsi_pll.h     |   6 +-
- drivers/gpu/drm/msm/dsi/pll/dsi_pll_7nm.c |  11 +--
- drivers/gpu/drm/msm/msm_atomic.c          |   7 +-
- drivers/gpu/drm/msm/msm_drv.c             |  12 ++++
- drivers/gpu/drm/msm/msm_fence.c           |   2 +-
- drivers/gpu/drm/msm/msm_kms.h             |   8 +--
- 12 files changed, 119 insertions(+), 60 deletions(-)
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
