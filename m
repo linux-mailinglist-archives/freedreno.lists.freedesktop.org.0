@@ -1,63 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8507B34B669
-	for <lists+freedreno@lfdr.de>; Sat, 27 Mar 2021 12:03:21 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E66134B65E
+	for <lists+freedreno@lfdr.de>; Sat, 27 Mar 2021 12:03:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8DA56E448;
-	Sat, 27 Mar 2021 11:03:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B477E6E3E3;
+	Sat, 27 Mar 2021 11:03:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 990066E3EE
- for <freedreno@lists.freedesktop.org>; Sat, 27 Mar 2021 11:03:13 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id a198so11498052lfd.7
- for <freedreno@lists.freedesktop.org>; Sat, 27 Mar 2021 04:03:13 -0700 (PDT)
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49EEC6E3F4
+ for <freedreno@lists.freedesktop.org>; Sat, 27 Mar 2021 11:03:14 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id n138so11516877lfa.3
+ for <freedreno@lists.freedesktop.org>; Sat, 27 Mar 2021 04:03:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=821JPadqceS+s/0RcZV8FtCTa+nAVDnEcGJf+djq6mQ=;
- b=npIsBaY3sU7Mr4s72ru0F/USbmW/sqXdFE28eIzij/ipeEl7r+TuzEYlxafAM4nhNr
- bajNwD8tluV0eCPf8hxSvPJKyJomuGRHSbFJdliulvG0opI3tMJXOphCd+0SaLe7P+G0
- QL8MtSMbEiFoEEiKxSJGQxsGijjRV/eyfLXP/0GeFn8y+EBpW6wm/0YV7Pqc9s7IqFar
- vxsNfvsZ29wp18vmnds1/X0ClgNEdtyT89MmP41obAs0ECFKkPQIX//XROP50a2/XZ2T
- 3yYiBXL/YHPkobmUaShWaHJKrBiiadXoEjWI7WvGnfoJNX0TRKVq1w4KTs00i0UUYhv6
- klDw==
+ bh=9T3V1Iuh/pWUZcOYqOHZd87B2nHY2V8k/rzwsRWGTYg=;
+ b=apuB+DXG4PiOIq/SciIJCGwhZYrYIdKcqJDY8/b0wFZeuf5oxptyUYQfqnb76j1Lkf
+ Mj4srTMtdgtQFEX/zPD4+dfENsGeEc3WArddcjjmLFdwysgeQK4zS9S/Kt8hVV/uN5zz
+ lR93teqcoR/I0dvApRhBtTpvNa3jKY8tmOALcBFthnfTsNzfYdipzWHMxh6RxQwDF0Ts
+ MN8UkMO8qacgeyuuF1Klq6AXs650onYTXDEKazDedmG+P5q5MOoZ4NTeiNaXMsDrc7Ei
+ hW1jETROjoCDLUkrE+/EDNlcy1DEN3asMNLkN79OeVtrzthpN7yJDnQL3oW9NpzLwtmy
+ cIqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=821JPadqceS+s/0RcZV8FtCTa+nAVDnEcGJf+djq6mQ=;
- b=tTiMZ6envYFCUIiFbc/YY7UEfKQ9jZ/uoMxldSFyU43wFus4oi4OydJy4cB9zxCjIL
- MDdrgQqMNkW7ptghvcExtVEJjse3GUrPHYaUrTBJSCKm89IIdEDcQ0Pt2qMqh0ickuH4
- yZqyXfaQLHTpfQ60h6mCrKVZSf27ptDVycwPLRSXEGi9CFDj0HxBwm94+B1jHDpkvjEA
- TAObvZBU45p691DCzjpuGRYozhtHcm4S76YlTL1l4/+uGjTOttsGBqM0l+booqLcJHQ4
- JAC4uq8WuaP4zF6FVE2I+zPDnqxjedf/n7+ZYwMKL76b8y8jfL64D+PsK+Ix7CZwui6f
- SYZA==
-X-Gm-Message-State: AOAM530a9X7lGGnHCdlirRSA89SUM+q0sDr15/VEzEZvxvMrgoWv8cqg
- dGPK+dExhqTrwtamUeu5706LyA==
-X-Google-Smtp-Source: ABdhPJzcQNTnymZds/VNl4DYZ1qZoGyLcC8/xJRrpDSS+RMUG4IU064W1LZj9TKHDl7MzfoE60tkzw==
-X-Received: by 2002:ac2:47ef:: with SMTP id b15mr10544704lfp.615.1616842991985; 
- Sat, 27 Mar 2021 04:03:11 -0700 (PDT)
+ bh=9T3V1Iuh/pWUZcOYqOHZd87B2nHY2V8k/rzwsRWGTYg=;
+ b=pH6zlK9aWAHHI6h1LlV5Q828E1fK2x0MQB7ZhjSoi5pLA2cOL36BKl3Yei8+c9RWNc
+ Fhwjd5L3xdTIUn+fpmd3mxbFFLwhePni1xHIqAma7j4Jp4+6YY4xCoSrZ35IziMCXNm5
+ hvPiam4t/+BVKRDIBg/lurhPlheRB/lIDeiDFt/ArnBrtzo5ays4QMymqXWA2Xww6qL3
+ DJlzSSas2V7NUTNyGtaN+4QYtLRpX9s9/OM20v4X2BdIgpKEZJxpAxiH1/+LJvtBrB8k
+ IVWSrEtgxUMWVL58+uETUAUpFWeNW3ubTW1kpMKtWIe7vnScGAt80JzmS17zVEj65nkG
+ ZA3Q==
+X-Gm-Message-State: AOAM530EAXvk6vH7XV6j9f212ilq5ANBpg48BwBER7NXADkf88qaS17w
+ DTjNljD6Fi4nCgUgm6GC5eVV8A==
+X-Google-Smtp-Source: ABdhPJyLe9a2Htb0XqQw4eSEfWnWqtf73+tfSWyg6jvRxQbOhMmP3o04BnvBzVN5fGDCp9ygZNby0Q==
+X-Received: by 2002:a05:6512:3b9a:: with SMTP id
+ g26mr10992553lfv.560.1616842992707; 
+ Sat, 27 Mar 2021 04:03:12 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id a8sm1513801ljn.96.2021.03.27.04.03.11
+ by smtp.gmail.com with ESMTPSA id a8sm1513801ljn.96.2021.03.27.04.03.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 27 Mar 2021 04:03:11 -0700 (PDT)
+ Sat, 27 Mar 2021 04:03:12 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <abhinavk@codeaurora.org>,
  Jonathan Marek <jonathan@marek.ca>,
  Michael Turquette <mturquette@baylibre.com>
-Date: Sat, 27 Mar 2021 14:02:41 +0300
-Message-Id: <20210327110305.3289784-2-dmitry.baryshkov@linaro.org>
+Date: Sat, 27 Mar 2021 14:02:42 +0300
+Message-Id: <20210327110305.3289784-3-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210327110305.3289784-1-dmitry.baryshkov@linaro.org>
 References: <20210327110305.3289784-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v3 01/25] clk: fixed: add devm helper for
- clk_hw_register_fixed_factor()
+Subject: [Freedreno] [PATCH v3 02/25] clk: mux: provide
+ devm_clk_hw_register_mux()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,133 +72,108 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
- Daniel Palmer <daniel@0x0f.com>, dri-devel@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org, linux-clk@vger.kernel.org
+ dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+ linux-clk@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Daniel Palmer <daniel@0x0f.com>
+Add devm_clk_hw_register_mux() - devres-managed version of
+clk_hw_register_mux().
 
-Add a devm helper for clk_hw_register_fixed_factor() so that drivers that internally
-register fixed factor clocks for things like dividers don't need to manually unregister
-them on remove or if probe fails.
-
-Signed-off-by: Daniel Palmer <daniel@0x0f.com>
-Link: https://lore.kernel.org/r/20210211052206.2955988-4-daniel@0x0f.com
-Signed-off-by: Stephen Boyd <sboyd@kernel.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
 ---
- drivers/clk/clk-fixed-factor.c | 39 ++++++++++++++++++++++++++++------
- include/linux/clk-provider.h   |  4 +++-
- 2 files changed, 36 insertions(+), 7 deletions(-)
+ drivers/clk/clk-mux.c        | 35 +++++++++++++++++++++++++++++++++++
+ include/linux/clk-provider.h | 13 +++++++++++++
+ 2 files changed, 48 insertions(+)
 
-diff --git a/drivers/clk/clk-fixed-factor.c b/drivers/clk/clk-fixed-factor.c
-index 910e6e74ae90..4f7bf3929d6d 100644
---- a/drivers/clk/clk-fixed-factor.c
-+++ b/drivers/clk/clk-fixed-factor.c
-@@ -64,10 +64,16 @@ const struct clk_ops clk_fixed_factor_ops = {
- };
- EXPORT_SYMBOL_GPL(clk_fixed_factor_ops);
+diff --git a/drivers/clk/clk-mux.c b/drivers/clk/clk-mux.c
+index e54e79714818..20582aae7a35 100644
+--- a/drivers/clk/clk-mux.c
++++ b/drivers/clk/clk-mux.c
+@@ -8,6 +8,7 @@
+  */
  
-+static void devm_clk_hw_register_fixed_factor_release(struct device *dev, void *res)
+ #include <linux/clk-provider.h>
++#include <linux/device.h>
+ #include <linux/module.h>
+ #include <linux/slab.h>
+ #include <linux/io.h>
+@@ -206,6 +207,40 @@ struct clk_hw *__clk_hw_register_mux(struct device *dev, struct device_node *np,
+ }
+ EXPORT_SYMBOL_GPL(__clk_hw_register_mux);
+ 
++static void devm_clk_hw_release_mux(struct device *dev, void *res)
 +{
-+	clk_hw_unregister_fixed_factor(&((struct clk_fixed_factor *)res)->hw);
++	clk_hw_unregister_mux(*(struct clk_hw **)res);
 +}
 +
- static struct clk_hw *
- __clk_hw_register_fixed_factor(struct device *dev, struct device_node *np,
- 		const char *name, const char *parent_name, int index,
--		unsigned long flags, unsigned int mult, unsigned int div)
-+		unsigned long flags, unsigned int mult, unsigned int div,
-+		bool devm)
- {
- 	struct clk_fixed_factor *fix;
- 	struct clk_init_data init = { };
-@@ -75,7 +81,15 @@ __clk_hw_register_fixed_factor(struct device *dev, struct device_node *np,
- 	struct clk_hw *hw;
- 	int ret;
- 
--	fix = kmalloc(sizeof(*fix), GFP_KERNEL);
-+	/* You can't use devm without a dev */
-+	if (devm && !dev)
-+		return ERR_PTR(-EINVAL);
-+
-+	if (devm)
-+		fix = devres_alloc(devm_clk_hw_register_fixed_factor_release,
-+				sizeof(*fix), GFP_KERNEL);
-+	else
-+		fix = kmalloc(sizeof(*fix), GFP_KERNEL);
- 	if (!fix)
- 		return ERR_PTR(-ENOMEM);
- 
-@@ -99,9 +113,13 @@ __clk_hw_register_fixed_factor(struct device *dev, struct device_node *np,
- 	else
- 		ret = of_clk_hw_register(np, hw);
- 	if (ret) {
--		kfree(fix);
-+		if (devm)
-+			devres_free(fix);
-+		else
-+			kfree(fix);
- 		hw = ERR_PTR(ret);
--	}
-+	} else if (devm)
-+		devres_add(dev, fix);
- 
- 	return hw;
- }
-@@ -111,7 +129,7 @@ struct clk_hw *clk_hw_register_fixed_factor(struct device *dev,
- 		unsigned int mult, unsigned int div)
- {
- 	return __clk_hw_register_fixed_factor(dev, NULL, name, parent_name, -1,
--					      flags, mult, div);
-+					      flags, mult, div, false);
- }
- EXPORT_SYMBOL_GPL(clk_hw_register_fixed_factor);
- 
-@@ -153,6 +171,15 @@ void clk_hw_unregister_fixed_factor(struct clk_hw *hw)
- }
- EXPORT_SYMBOL_GPL(clk_hw_unregister_fixed_factor);
- 
-+struct clk_hw *devm_clk_hw_register_fixed_factor(struct device *dev,
-+		const char *name, const char *parent_name, unsigned long flags,
-+		unsigned int mult, unsigned int div)
++struct clk_hw *__devm_clk_hw_register_mux(struct device *dev, struct device_node *np,
++		const char *name, u8 num_parents,
++		const char * const *parent_names,
++		const struct clk_hw **parent_hws,
++		const struct clk_parent_data *parent_data,
++		unsigned long flags, void __iomem *reg, u8 shift, u32 mask,
++		u8 clk_mux_flags, u32 *table, spinlock_t *lock)
 +{
-+	return __clk_hw_register_fixed_factor(dev, NULL, name, parent_name, -1,
-+			flags, mult, div, true);
-+}
-+EXPORT_SYMBOL_GPL(devm_clk_hw_register_fixed_factor);
++	struct clk_hw **ptr, *hw;
 +
- #ifdef CONFIG_OF
- static const struct of_device_id set_rate_parent_matches[] = {
- 	{ .compatible = "allwinner,sun4i-a10-pll3-2x-clk" },
-@@ -185,7 +212,7 @@ static struct clk_hw *_of_fixed_factor_clk_setup(struct device_node *node)
- 		flags |= CLK_SET_RATE_PARENT;
- 
- 	hw = __clk_hw_register_fixed_factor(NULL, node, clk_name, NULL, 0,
--					    flags, mult, div);
-+					    flags, mult, div, false);
- 	if (IS_ERR(hw)) {
- 		/*
- 		 * Clear OF_POPULATED flag so that clock registration can be
++	ptr = devres_alloc(devm_clk_hw_release_mux, sizeof(*ptr), GFP_KERNEL);
++	if (!ptr)
++		return ERR_PTR(-ENOMEM);
++
++	hw = __clk_hw_register_mux(dev, np, name, num_parents, parent_names, parent_hws,
++				       parent_data, flags, reg, shift, mask,
++				       clk_mux_flags, table, lock);
++
++	if (!IS_ERR(hw)) {
++		*ptr = hw;
++		devres_add(dev, ptr);
++	} else {
++		devres_free(ptr);
++	}
++
++	return hw;
++}
++EXPORT_SYMBOL_GPL(__devm_clk_hw_register_mux);
++
+ struct clk *clk_register_mux_table(struct device *dev, const char *name,
+ 		const char * const *parent_names, u8 num_parents,
+ 		unsigned long flags, void __iomem *reg, u8 shift, u32 mask,
 diff --git a/include/linux/clk-provider.h b/include/linux/clk-provider.h
-index e4316890661a..58f6fe866ae9 100644
+index 58f6fe866ae9..3eb15e0262f5 100644
 --- a/include/linux/clk-provider.h
 +++ b/include/linux/clk-provider.h
-@@ -941,7 +941,9 @@ struct clk_hw *clk_hw_register_fixed_factor(struct device *dev,
- 		const char *name, const char *parent_name, unsigned long flags,
- 		unsigned int mult, unsigned int div);
- void clk_hw_unregister_fixed_factor(struct clk_hw *hw);
--
-+struct clk_hw *devm_clk_hw_register_fixed_factor(struct device *dev,
-+		const char *name, const char *parent_name, unsigned long flags,
-+		unsigned int mult, unsigned int div);
- /**
-  * struct clk_fractional_divider - adjustable fractional divider clock
-  *
+@@ -868,6 +868,13 @@ struct clk_hw *__clk_hw_register_mux(struct device *dev, struct device_node *np,
+ 		const struct clk_parent_data *parent_data,
+ 		unsigned long flags, void __iomem *reg, u8 shift, u32 mask,
+ 		u8 clk_mux_flags, u32 *table, spinlock_t *lock);
++struct clk_hw *__devm_clk_hw_register_mux(struct device *dev, struct device_node *np,
++		const char *name, u8 num_parents,
++		const char * const *parent_names,
++		const struct clk_hw **parent_hws,
++		const struct clk_parent_data *parent_data,
++		unsigned long flags, void __iomem *reg, u8 shift, u32 mask,
++		u8 clk_mux_flags, u32 *table, spinlock_t *lock);
+ struct clk *clk_register_mux_table(struct device *dev, const char *name,
+ 		const char * const *parent_names, u8 num_parents,
+ 		unsigned long flags, void __iomem *reg, u8 shift, u32 mask,
+@@ -902,6 +909,12 @@ struct clk *clk_register_mux_table(struct device *dev, const char *name,
+ 	__clk_hw_register_mux((dev), NULL, (name), (num_parents), NULL, NULL, \
+ 			      (parent_data), (flags), (reg), (shift),	      \
+ 			      BIT((width)) - 1, (clk_mux_flags), NULL, (lock))
++#define devm_clk_hw_register_mux(dev, name, parent_names, num_parents, flags, reg, \
++			    shift, width, clk_mux_flags, lock)		      \
++	__devm_clk_hw_register_mux((dev), NULL, (name), (num_parents),	      \
++			      (parent_names), NULL, NULL, (flags), (reg),     \
++			      (shift), BIT((width)) - 1, (clk_mux_flags),     \
++			      NULL, (lock))
+ 
+ int clk_mux_val_to_index(struct clk_hw *hw, u32 *table, unsigned int flags,
+ 			 unsigned int val);
 -- 
 2.30.2
 
