@@ -2,62 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88B6C34CF90
-	for <lists+freedreno@lfdr.de>; Mon, 29 Mar 2021 14:01:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 379EE34CF91
+	for <lists+freedreno@lfdr.de>; Mon, 29 Mar 2021 14:01:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B62B16E40B;
-	Mon, 29 Mar 2021 12:01:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95C596E417;
+	Mon, 29 Mar 2021 12:01:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BD766E40F
- for <freedreno@lists.freedesktop.org>; Mon, 29 Mar 2021 12:01:02 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id 12so7634764lfq.13
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 172E56E40F
+ for <freedreno@lists.freedesktop.org>; Mon, 29 Mar 2021 12:01:03 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id g8so17994257lfv.12
  for <freedreno@lists.freedesktop.org>; Mon, 29 Mar 2021 05:01:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=P9Nv+6xnEu0zvg+j8CWyLr5RnYQX009vcZ1IcsZuglc=;
- b=dCytlg3NJtzf0BpAz8mXT7plQHDmHXz1C4hl6Y9i80ei+NgRYcYg/f90iCRvocOt90
- URY/Gh6xzPVyPKLt5MtLKD+GW7kdG8L/gHbj11PSOd/+t46LYRn7rSyDunXVkVBhAo4x
- UdcdGJ3MJAxSPb3uhpn2m99OmglOQ0seBL2B8dHvKWQ7hJHkSs8PzWgMC245xOEBB+Ij
- 66J+ILAqnnW660AjnKTLgti1Zm18RaeRrtQ/NUvF209pPf0KQdAwFEq30Dj71jFVgdGX
- 1+Ih90QSivp1dEnvC0jhXtr9/NXpBHyNImI+ufcE6ej8wWtRkYlM6tey8IhQj9mxj1Er
- IBig==
+ bh=TnkWF/fJb3+MN0k+LniOlBuYB58LfW58mHqJqX+URIE=;
+ b=YWvnaqdDXdIvbYpFm/slhDkvN3LNK4FN0Q/Aj1+TPdF1Z+zz0FJSdlGM17Z1UoaQ0i
+ e4825ouP+bSWh86Lc7qeL5qi1kd5J8p/H9sgDVqIizNxJYX/GVfpylSUTj05LhNbsdMy
+ kfwbU9bzZmGvNrvrmp3VkgCQOVNBzBgS65PpLUgUqIXuBmd0oCjs+zJ0Xf6ntmf/xu9L
+ 0YPxkK23VFjUIi0+K5MldB/rLDyYdPckzEQT+bVAemiCTZBLBxAvtMY1HxO/kUiVEOqk
+ vZgBNdADKEM2BAbzIJxi+UvJv2z2N+EhAXLiH5G4N0EpCxhmdmrXqZA2oTmCqZOXTTaD
+ h1EQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=P9Nv+6xnEu0zvg+j8CWyLr5RnYQX009vcZ1IcsZuglc=;
- b=YgTBDQVsBe171oluHJQbTxmhl4BZwJtSCwJHwvLT2ORFvDbAwwt0CFkSf/tBcElvsm
- CAbhgekTyIlszRBbT586YzKURLzgXfBQqJBFduD1TAV8u1pdjYpWSo+HOoz3QafI546h
- 8erVFDXCi0eMhjKm919iliCFpnCw45POnQbYPxhb/KxNgf9zyb8lm0KlybWJpvj0bpAf
- 4tZtb1Wl0cQFQ/mZGuK6mqMmCkereXqiTjJAIdaRpbYp1AGx+MskPz+lhoIIU2qBKOC8
- AEqfBwA/0TAN68/unlI10zJ5tdXBxfYDq4UJ1Yo5NwSDvqOy+lZIH8nSJ7jmywhSsgsE
- +/6w==
-X-Gm-Message-State: AOAM532RgIjkrUyEbH1Fp2SKHr7CxKr4Ts9YIwuetLcR14hS+XnLGNYP
- D6ORyhKvhzrl4k++ttawUYOIZg==
-X-Google-Smtp-Source: ABdhPJxDLhW+4HyPAHsCfvVj9qn2mczR+WcByy1R74ybzUcyU+zlg8SYPcMP7mVdKzXHX4iIoAJIBA==
-X-Received: by 2002:a19:c14a:: with SMTP id r71mr15979614lff.358.1617019260867; 
- Mon, 29 Mar 2021 05:01:00 -0700 (PDT)
+ bh=TnkWF/fJb3+MN0k+LniOlBuYB58LfW58mHqJqX+URIE=;
+ b=QBSLDo0BbAlYWTa8otk8dQ1K73Oi8TrjCOWgExtcRJWRMpRx3vpjKnLRpjVIU3cl9J
+ XDKTPrP8pmXVBRLEUBGS2FwE8D9CEn6dRT+/9l6tdDb3VvFOrz+bSEvl1SwNZkJAkALy
+ FvSm7qcqKPGPWN8dqTJLPynr6eDN5vDcxWFruetSfD/az318L3WVMU/aCHpnrD1o9LMY
+ fVYINMJ3OalvZVYQXpcwG0gjyQrdjPpj6WwjcRAYl3tdpbWQrhWQaWjalBk1c2DV0Ikg
+ FW7dd88duYCo3EK2VX3hCWWDJuzhQNxdl0EKrd9ENHrdgGq1kzA+KjG2pypjZtCba64c
+ CYAQ==
+X-Gm-Message-State: AOAM531Up0tAUXKci7KbukYENVLfTe1eUSeLSHUSq2jgqcHBusEeVNLH
+ juQ1uSMAx2KZomGcFWQ8iatnWg==
+X-Google-Smtp-Source: ABdhPJzvvEcuDdin+Rl6Z1zLKQZ88UPWFkNSXMU6UzLLhPOlRygjEWDdGE4qOxIihheaK6HYJSsBgQ==
+X-Received: by 2002:ac2:4dbb:: with SMTP id h27mr16954400lfe.634.1617019261533; 
+ Mon, 29 Mar 2021 05:01:01 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id d8sm2415240ljc.129.2021.03.29.05.01.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Mar 2021 05:01:00 -0700 (PDT)
+ Mon, 29 Mar 2021 05:01:01 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Rob Herring <robh+dt@kernel.org>
-Date: Mon, 29 Mar 2021 15:00:50 +0300
-Message-Id: <20210329120051.3401567-4-dmitry.baryshkov@linaro.org>
+Date: Mon, 29 Mar 2021 15:00:51 +0300
+Message-Id: <20210329120051.3401567-5-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210329120051.3401567-1-dmitry.baryshkov@linaro.org>
 References: <20210329120051.3401567-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v4 3/4] drm/msm: add compatibles for
- sm8150/sm8250 display
+Subject: [Freedreno] [PATCH v4 4/4] arm64: dts: qcom: sm8250: fix display
+ nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,56 +81,36 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Jonathan Marek <jonathan@marek.ca>
 
-The driver already has support for sm8150/sm8250, but the compatibles were
-never added.
-
-Also inverse the non-mdp4 condition in add_display_components() to avoid
-having to check every new compatible in the condition.
+ - Use sm8250 compatibles instead of sdm845 compatibles
 
 Signed-off-by: Jonathan Marek <jonathan@marek.ca>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 2 ++
- drivers/gpu/drm/msm/msm_drv.c           | 6 +++---
- 2 files changed, 5 insertions(+), 3 deletions(-)
+ arch/arm64/boot/dts/qcom/sm8250.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 5a8e3e1fc48c..fff12a4c8bfc 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -1219,6 +1219,8 @@ static const struct dev_pm_ops dpu_pm_ops = {
- static const struct of_device_id dpu_dt_match[] = {
- 	{ .compatible = "qcom,sdm845-dpu", },
- 	{ .compatible = "qcom,sc7180-dpu", },
-+	{ .compatible = "qcom,sm8150-dpu", },
-+	{ .compatible = "qcom,sm8250-dpu", },
- 	{}
- };
- MODULE_DEVICE_TABLE(of, dpu_dt_match);
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 94525ac76d4e..928f13d4bfbc 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -1185,9 +1185,7 @@ static int add_display_components(struct device *dev,
- 	 * Populate the children devices, find the MDP5/DPU node, and then add
- 	 * the interfaces to our components list.
- 	 */
--	if (of_device_is_compatible(dev->of_node, "qcom,mdss") ||
--	    of_device_is_compatible(dev->of_node, "qcom,sdm845-mdss") ||
--	    of_device_is_compatible(dev->of_node, "qcom,sc7180-mdss")) {
-+	if (!of_device_is_compatible(dev->of_node, "qcom,mdp4")) {
- 		ret = of_platform_populate(dev->of_node, NULL, NULL, dev);
- 		if (ret) {
- 			DRM_DEV_ERROR(dev, "failed to populate children devices\n");
-@@ -1320,6 +1318,8 @@ static const struct of_device_id dt_match[] = {
- 	{ .compatible = "qcom,mdss", .data = (void *)KMS_MDP5 },
- 	{ .compatible = "qcom,sdm845-mdss", .data = (void *)KMS_DPU },
- 	{ .compatible = "qcom,sc7180-mdss", .data = (void *)KMS_DPU },
-+	{ .compatible = "qcom,sm8150-mdss", .data = (void *)KMS_DPU },
-+	{ .compatible = "qcom,sm8250-mdss", .data = (void *)KMS_DPU },
- 	{}
- };
- MODULE_DEVICE_TABLE(of, dt_match);
+diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+index 32f0d6a82457..693ac533f9b6 100644
+--- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+@@ -2323,7 +2323,7 @@ usb_2_dwc3: dwc3@a800000 {
+ 		};
+ 
+ 		mdss: mdss@ae00000 {
+-			compatible = "qcom,sdm845-mdss";
++			compatible = "qcom,sm8250-mdss";
+ 			reg = <0 0x0ae00000 0 0x1000>;
+ 			reg-names = "mdss";
+ 
+@@ -2355,7 +2355,7 @@ mdss: mdss@ae00000 {
+ 			ranges;
+ 
+ 			mdss_mdp: mdp@ae01000 {
+-				compatible = "qcom,sdm845-dpu";
++				compatible = "qcom,sm8250-dpu";
+ 				reg = <0 0x0ae01000 0 0x8f000>,
+ 				      <0 0x0aeb0000 0 0x2008>;
+ 				reg-names = "mdp", "vbif";
 -- 
 2.30.2
 
