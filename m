@@ -2,61 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B6E734C490
-	for <lists+freedreno@lfdr.de>; Mon, 29 Mar 2021 09:08:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30EF434CF8C
+	for <lists+freedreno@lfdr.de>; Mon, 29 Mar 2021 14:01:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AF696E301;
-	Mon, 29 Mar 2021 07:08:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABC2A6E406;
+	Mon, 29 Mar 2021 12:01:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 659696E28B;
- Mon, 29 Mar 2021 07:08:36 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id h13so13016064eds.5;
- Mon, 29 Mar 2021 00:08:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=nsgDV40GpgMjdMBehMLStcFSCLaYlMp03YLRRXFE+RA=;
- b=VxMZ7dSGQEdi8XOeWO1BicR5PJXdG9cKLNO6DN3n22tMui9UBI2ot+5PlRjW6qjCKv
- kkBbSAt5V7Y3j3LRRAHs9H5M1AASRp+Z0Hk5xJi1S4YuPya4yGJbKEyVjLVJwaF7yUSG
- 0dSr68sCJPigikcaTg4rQNISm5kZwfHkO1AA63bJmhSuCZoeaHbDHPH+bG98njKUO51r
- DWrZ9E5rabkL5rid66HlEq5PRQ6BbxQFNZiGztlvB/wDoo+FZaaKJ62YGqEi6DgrVzKY
- XHDB4llTrEMZTZoCXYzTSsygURQ0muMvLDFU3XRquFpzxTG+7rsX+wseLGmMjJiteyf9
- vZhg==
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A52896E400
+ for <freedreno@lists.freedesktop.org>; Mon, 29 Mar 2021 12:01:00 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id i26so17968376lfl.1
+ for <freedreno@lists.freedesktop.org>; Mon, 29 Mar 2021 05:01:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=698miHjU8QPhMxdIPGrSpPRcB7+3WbXHAvlZkfluOik=;
+ b=JX7qOGz4nkZ3ZR2P1A12dPwaRnK7Z96XKYj2kghAv5gksNFJBA2r/3AOGUSXL0m9Vw
+ LvvFg4RIMkZZaeRw9KIVLvml2OT80eNHCLKfb2ZD/Bns4Gy1WgwtABXE+RAHaVmM4aQh
+ +Y1Ma34HJhiYos+FpWGkj5h/F2u5dPBluAlEiDpFpUmBxci1Dk0P1u1DfR9MQsoK2o5d
+ FawN080nMrYMI4XH6Yr4Veeq0Fh27vaVJjEVDhGfvN/KNlL4mrwXF6ldWqyD8T7Kpx2I
+ fWUPb1ipcn/Ng6nwXjp2fpFaLcj+KG3DsC9S5u55n16oCppKhY5HC6JfBsycJAMV0CvQ
+ lt+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=nsgDV40GpgMjdMBehMLStcFSCLaYlMp03YLRRXFE+RA=;
- b=ZHJhLHJAH5p5ORFWsw4heTjKWRJ/ZeN+b7b4XoLCHpV2bUfGhqby//OrRJ7n7iJZwI
- G2IGjR8guE8GFuMzdDuz3gyMEh0LwLj6b1ES3w83frw1HRfJeFHjy9/qlw2hOTJKi4t1
- XTLSucVWdLGBe698XUz6yk434nCKwTo0Jo2rzDKTKR++95RvNX+k8WULYHjLUrPZe9mZ
- T1jZPIboVseSnV5D4y+2OqYtdTfLiGgqlg2rBdeupCg+msW0n3paOWUO3c0k8p0nrN+W
- 81Lh1Q8BIHN17NqEgqZ9+h4eeLQ/lrCkaLe1/lELbMH7oiVOQCJaZYlZ4MrKthX2LJN8
- rxTA==
-X-Gm-Message-State: AOAM533RbQ6QICig4fXluK11w9HdQQhcKGizx1me2JgJcSfliy6wdD1Y
- 1wwR8r9TBtLZNhOjuvek+K10VtI+7vI=
-X-Google-Smtp-Source: ABdhPJwEJT/07GJdbFQtJ2P6vX8qiUN2z0P2wCX/J/CoVqW4cmKzRx2ZrUQ7oHNCPgeOgptcmNi0Rw==
-X-Received: by 2002:a05:6402:31a7:: with SMTP id
- dj7mr27411505edb.33.1617001715049; 
- Mon, 29 Mar 2021 00:08:35 -0700 (PDT)
-Received: from localhost ([62.96.65.119])
- by smtp.gmail.com with ESMTPSA id n16sm8443196edr.42.2021.03.29.00.08.33
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=698miHjU8QPhMxdIPGrSpPRcB7+3WbXHAvlZkfluOik=;
+ b=GB5rpTRZTVOUFLmxHIXkWjS8DnK8erXVo2SlpR49hzgY5VLB5h6IjLKnSEHj9/nau5
+ pfHnqpsrpw+PnJkKqo//O8KuHNzcvzdXiakbPidCjmHUGNo3mCKtdVuY1xNrFUoO6Z8G
+ 3gzxeNZIi2DjN1EQ9COAQICxm+OpDboDh1tq5BzApPv8hU5r4Ts82wUH0TMJezHdc4eR
+ FE55oenriXya3qjNP02i+S8eapH2pwmCLXDqiD1fZTnzsYh0MfoUcHet1PyXkoRtrcW9
+ CCek+ez2z484SPBz9tCjr87MML5vERfU1tO90e6ae3I/e+iEf77p9phdGa1Ttps3uAJA
+ 3QCA==
+X-Gm-Message-State: AOAM530mW7EMd6ihGfmQpCQ6Ttu4vFfVjA8HzjrbobS8PfU6e93igrQV
+ 1sIMPGjvD5m3YSysOdRVhOyZdw==
+X-Google-Smtp-Source: ABdhPJxkbGirUfUXLXHbx1tMMrtYXyaTiDNA3VzlnSUVOzrnIafiD0+3ZIvqyBDxW0111g8SajWY1A==
+X-Received: by 2002:a05:6512:ce:: with SMTP id
+ c14mr16346063lfp.64.1617019258780; 
+ Mon, 29 Mar 2021 05:00:58 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id d8sm2415240ljc.129.2021.03.29.05.00.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Mar 2021 00:08:34 -0700 (PDT)
-Date: Mon, 29 Mar 2021 09:08:59 +0200
-From: Thierry Reding <thierry.reding@gmail.com>
-To: Lyude Paul <lyude@redhat.com>
-Message-ID: <YGF9C284EOaf/WZP@orome.fritz.box>
-References: <20210326203807.105754-1-lyude@redhat.com>
- <20210326203807.105754-6-lyude@redhat.com>
+ Mon, 29 Mar 2021 05:00:58 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Rob Herring <robh+dt@kernel.org>
+Date: Mon, 29 Mar 2021 15:00:47 +0300
+Message-Id: <20210329120051.3401567-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-In-Reply-To: <20210326203807.105754-6-lyude@redhat.com>
-User-Agent: Mutt/2.0.6 (98f8cb83) (2021-03-06)
-Subject: Re: [Freedreno] [PATCH v2 05/20] drm/dp: Add backpointer to
- drm_device in drm_dp_aux
+Subject: [Freedreno] [PATCH v4 0/4] arm64: dts: qcom: sm8250: fix display
+ nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,118 +69,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- nouveau@lists.freedesktop.org,
- Guido =?utf-8?Q?G=C3=BCnther?= <agx@sigxcpu.org>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Oleg Vasilev <oleg.vasilev@intel.com>, dri-devel@lists.freedesktop.org,
- Andrzej Hajda <a.hajda@samsung.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Sam Ravnborg <sam@ravnborg.org>,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Tomi Valkeinen <tomi.valkeinen@ti.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Michal Simek <michal.simek@xilinx.com>, amd-gfx@lists.freedesktop.org,
- Jonathan Hunter <jonathanh@nvidia.com>, Vasily Khoruzhick <anarsoul@gmail.com>,
- "Jerry \(Fangzhi\) Zuo" <Jerry.Zuo@amd.com>,
- Luben Tuikov <luben.tuikov@amd.com>, Ben Skeggs <bskeggs@redhat.com>,
- Swapnil Jakhade <sjakhade@cadence.com>,
- Harry Wentland <harry.wentland@amd.com>, Imre Deak <imre.deak@intel.com>,
- "moderated list:ARM/ZYNQ ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
- Daniel Vetter <daniel@ffwll.ch>, Jonas Karlman <jonas@kwiboo.se>,
- Leo Li <sunpeng.li@amd.com>, Lucas De Marchi <lucas.demarchi@intel.com>,
- intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Joe Perches <joe@perches.com>,
- Yuti Amonkar <yamonkar@cadence.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- "open list:DRM DRIVERS FOR NVIDIA TEGRA" <linux-tegra@vger.kernel.org>,
- Mikita Lipski <mikita.lipski@amd.com>, Sean Paul <sean@poorly.run>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Matt Roper <matthew.d.roper@intel.com>,
- Jernej Skrabec <jernej.skrabec@siol.net>, Chris Park <Chris.Park@amd.com>,
- Eryk Brol <eryk.brol@amd.com>, Hyun Kwon <hyun.kwon@xilinx.com>,
- Jyri Sarha <jsarha@ti.com>, open list <linux-kernel@vger.kernel.org>,
- Robert Foss <robert.foss@linaro.org>, Julia Lawall <Julia.Lawall@inria.fr>,
- Rob Clark <robdclark@gmail.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>, Andy Yan <andy.yan@rock-chips.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Content-Type: multipart/mixed; boundary="===============1858551495=="
+Cc: devicetree@vger.kernel.org, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+This is a series of patches developed by Jonathan Marek, and picked up
+to split them, so that dts fixes can be picked up into stable branch
 
---===============1858551495==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="S4O2kq+aHqU/5PJ1"
-Content-Disposition: inline
+Add sm8150/sm8250 compatibles to drm/msm and fix the sm8250
+display nodes.
 
+v2: do not remove mmcx-supply from dispcc node
+v3: remove references to dp_phy (missed this in v2, sorry for the spam)
+v4: split patches to let fixes be picked up into stable branch
 
---S4O2kq+aHqU/5PJ1
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+----------------------------------------------------------------
+Jonathan Marek (4):
+      arm64: dts: qcom: sm8250: fix display nodes
+      dt-bindings: msm/disp: add compatibles for sm8150/sm8250 display
+      drm/msm: add compatibles for sm8150/sm8250 display
+      arm64: dts: qcom: sm8250: fix display nodes
 
-On Fri, Mar 26, 2021 at 04:37:52PM -0400, Lyude Paul wrote:
-> This is something that we've wanted for a while now: the ability to
-> actually look up the respective drm_device for a given drm_dp_aux struct.
-> This will also allow us to transition over to using the drm_dbg_*() helpe=
-rs
-> for debug message printing, as we'll finally have a drm_device to referen=
-ce
-> for doing so.
->=20
-> Note that there is one limitation with this - because some DP AUX adapters
-> exist as platform devices which are initialized independently of their
-> respective DRM devices, one cannot rely on drm_dp_aux->drm_dev to always =
-be
-> non-NULL until drm_dp_aux_register() has been called. We make sure to poi=
-nt
-> this out in the documentation for struct drm_dp_aux.
->=20
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> ---
-[...]
->  drivers/gpu/drm/tegra/dpaux.c                            | 1 +
-[...]
+ Documentation/devicetree/bindings/display/msm/dpu.txt |  4 ++--
+ arch/arm64/boot/dts/qcom/sm8250.dtsi                  | 31 ++++++++-----------------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c               |  2 ++
+ drivers/gpu/drm/msm/msm_drv.c                         |  6 +++---
+ 4 files changed, 15 insertions(+), 28 deletions(-)
 
-Acked-by: Thierry Reding <treding@nvidia.com>
-
---S4O2kq+aHqU/5PJ1
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmBhfQgACgkQ3SOs138+
-s6HzSQ/9Eo9S9xJvfEMo3ZsjRgZiCwhHpK8p3ntNKOfVV0ipfpeo8vw4YguhWC10
-loGRu6CMa+hJqNW3xt/Bhjsj3Wu15gLGcW2igvKlQIr8aNWpssLD3lNELgd2ousG
-82a+SF/3ljYs/060sFVCTK782CM+kNBw0ODjoohQjNoO++D1Rr2T0oq85DR8SKcu
-K+dCQR1V/D7bwL9d2/M9UHM4i9hlOkGUKkFOre0x9FyFeOAAXu4q7dfOg9FCkcU/
-4nIFE8mzWkW4o/fNLiF757dB2llZXxOl+pXNOBye31oslqZxGI6tkJQsvof4sODq
-s9Eo0qjPjR0rIXZDkVJCScM7yOH2PrzCiVQFTLutTBVuJ6vDd3dmnyzOzRMeqU8h
-CRcPTECPt3lP77XvqptSH/qdGiylAy0nnIwbw+9/Q7ZZ4KQM6e9pcj/fiSqOocdv
-bz044P8GPgO18yExiKM4xun4K9t6vJ6MckuHTZEG+16DrRsj6ybdxjBosdBiDN2T
-OyusX77/sl2KXr9fHW+tWwrDavb7GJ8jpJzZqyxUJa5Tb/ZeVzoScwiSfsLV62Nb
-JXM8KHUhdfKqOa9Yefaf2O4yGFwcF6PLpKlTPw73PlNqEyhxEBLDqFgb5q2pEXLF
-uo9LCn/Bju7B/15eqK58g9OAN7no8PxXCmaiO7y6w4fjqsFPTjI=
-=4qxj
------END PGP SIGNATURE-----
-
---S4O2kq+aHqU/5PJ1--
-
---===============1858551495==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
-
---===============1858551495==--
