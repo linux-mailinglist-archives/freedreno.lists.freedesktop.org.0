@@ -1,63 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3573F34D833
-	for <lists+freedreno@lfdr.de>; Mon, 29 Mar 2021 21:29:19 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 29E6634D9C2
+	for <lists+freedreno@lfdr.de>; Mon, 29 Mar 2021 23:55:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C39C36E506;
-	Mon, 29 Mar 2021 19:29:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5E5B6E1BC;
+	Mon, 29 Mar 2021 21:55:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x534.google.com (mail-pg1-x534.google.com
- [IPv6:2607:f8b0:4864:20::534])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A57BE6E506
- for <freedreno@lists.freedesktop.org>; Mon, 29 Mar 2021 19:29:16 +0000 (UTC)
-Received: by mail-pg1-x534.google.com with SMTP id m7so10054560pgj.8
- for <freedreno@lists.freedesktop.org>; Mon, 29 Mar 2021 12:29:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:content-transfer-encoding:in-reply-to:references
- :subject:from:cc:to:date:message-id:user-agent;
- bh=jeFzlMEdccDF7Qt+dm5jLoV1df3/X2IPz/2VrJ7mbME=;
- b=exFMnH8xjMUVUgVY66V5i8Xn2XL/uVytTE4/F2QC6Zkj1C4L9IMkrfDC9lUIeYVXnH
- 3Q6Pd6FNYahec4OyqemEPfopKmlc/FDAuAMJnugE7Ep7/3vkDqyUwGa3cJHU6OoNz2kQ
- iw6itbkxz42n3XnWBr8lPI+OX2BrNamXfHL2g=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:content-transfer-encoding
- :in-reply-to:references:subject:from:cc:to:date:message-id
- :user-agent;
- bh=jeFzlMEdccDF7Qt+dm5jLoV1df3/X2IPz/2VrJ7mbME=;
- b=Mhg/K4Xj+DVKxxoaEC6/w6HyZ1l0/PjoUIDaU2BTlQU0mz4hgZwmjToRG6VW16PZDe
- Ar0KOx5gqDOd3jVzhmpXsWtFosAjzLtuFWLxymXLZQJ7xmAQMzWuz7/ba1uB0zmzy3LA
- 2c58dr91DIWy/rFHbliPT1H9LWAuLoIiyQBUPcsUeZXyJIOnRYSHuoT64lXRFicKkRfu
- XD3tO3iSYySTI14DqtMTP106sz6fy5JvTXmvpY5RjF2aTuOc0oLHCovSl0TeraImMMKa
- CZIQQJqdYUkL3iN+oYyAmpmmxVqGw1s94QHOIXpW4NOxfsDFZgp3jvg32RNBo9F1zdt+
- M9fA==
-X-Gm-Message-State: AOAM531vL8LvMfXNoDIHen0XcSjLkoXirBPpt6tspWjwqFqtUfaMC08R
- ldevCGEDidGKS1N+s+Ov+kW3uA==
-X-Google-Smtp-Source: ABdhPJzpjW4LArmS0MewXwBVMlVp8N5xROEOFLhzj8Opd36ePYrxamWZ2tpcFs23OIFdquryams5Iw==
-X-Received: by 2002:a65:61a4:: with SMTP id i4mr25471889pgv.39.1617046156268; 
- Mon, 29 Mar 2021 12:29:16 -0700 (PDT)
-Received: from chromium.org ([2620:15c:202:201:4091:2b37:966b:1fca])
- by smtp.gmail.com with ESMTPSA id 205sm18073002pfc.201.2021.03.29.12.29.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Mar 2021 12:29:15 -0700 (PDT)
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D152F6E1BC
+ for <freedreno@lists.freedesktop.org>; Mon, 29 Mar 2021 21:55:22 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1617054925; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=335V7rJ+Y2NdV4wGUVCcawe7h/FTEkG0olXdzWQzh6s=;
+ b=crBQ0GLuyqpfeEJb/wadli7RWWoxgp5upJ2L2kqD51szyXmc1V2Awt9Yj4F+ucT1FPaWFZbJ
+ uGvpOBvqUHV6kv93I7Ypthu9MhGlXPrdUPRe+3CCEG7mJyXuNqeE2ddKVmVSnamc5oiJm7k8
+ zmIiyr+SiWWImFlNTUoqYyZcfT0=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
+ 60624cbd3f4005d075282854 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 29 Mar 2021 21:55:09
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 189DCC43463; Mon, 29 Mar 2021 21:55:09 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id B0545C433CA;
+ Mon, 29 Mar 2021 21:55:07 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <20210329120051.3401567-5-dmitry.baryshkov@linaro.org>
-References: <20210329120051.3401567-1-dmitry.baryshkov@linaro.org>
- <20210329120051.3401567-5-dmitry.baryshkov@linaro.org>
-From: Stephen Boyd <swboyd@chromium.org>
-To: Andy Gross <agross@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Sean Paul <sean@poorly.run>
-Date: Mon, 29 Mar 2021 12:29:14 -0700
-Message-ID: <161704615451.3012082.15618069383141056363@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.9.1
-Subject: Re: [Freedreno] [PATCH v4 4/4] arm64: dts: qcom: sm8250: fix
- display nodes
+Date: Mon, 29 Mar 2021 14:55:07 -0700
+From: abhinavk@codeaurora.org
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20210327110305.3289784-2-dmitry.baryshkov@linaro.org>
+References: <20210327110305.3289784-1-dmitry.baryshkov@linaro.org>
+ <20210327110305.3289784-2-dmitry.baryshkov@linaro.org>
+Message-ID: <1f62eb178bb36111801521de6eeddad1@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v3 01/25] clk: fixed: add devm helper for
+ clk_hw_register_fixed_factor()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,28 +64,154 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Jonathan Marek <jonathan@marek.ca>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
+ Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Michael Turquette <mturquette@baylibre.com>, Daniel Palmer <daniel@0x0f.com>,
+ dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ linux-clk@vger.kernel.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2021-03-29 05:00:51)
-> From: Jonathan Marek <jonathan@marek.ca>
+On 2021-03-27 04:02, Dmitry Baryshkov wrote:
+> From: Daniel Palmer <daniel@0x0f.com>
 > 
->  - Use sm8250 compatibles instead of sdm845 compatibles
+> Add a devm helper for clk_hw_register_fixed_factor() so that drivers
+> that internally
+> register fixed factor clocks for things like dividers don't need to
+> manually unregister
+> them on remove or if probe fails.
 > 
-
-Does it need the " - " prefix?
-
-> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+> Signed-off-by: Daniel Palmer <daniel@0x0f.com>
+> Link: 
+> https://lore.kernel.org/r/20210211052206.2955988-4-daniel@0x0f.com
+> Signed-off-by: Stephen Boyd <sboyd@kernel.org>
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
 > ---
-
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+>  drivers/clk/clk-fixed-factor.c | 39 ++++++++++++++++++++++++++++------
+>  include/linux/clk-provider.h   |  4 +++-
+>  2 files changed, 36 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/clk/clk-fixed-factor.c 
+> b/drivers/clk/clk-fixed-factor.c
+> index 910e6e74ae90..4f7bf3929d6d 100644
+> --- a/drivers/clk/clk-fixed-factor.c
+> +++ b/drivers/clk/clk-fixed-factor.c
+> @@ -64,10 +64,16 @@ const struct clk_ops clk_fixed_factor_ops = {
+>  };
+>  EXPORT_SYMBOL_GPL(clk_fixed_factor_ops);
+> 
+> +static void devm_clk_hw_register_fixed_factor_release(struct device
+> *dev, void *res)
+> +{
+> +	clk_hw_unregister_fixed_factor(&((struct clk_fixed_factor 
+> *)res)->hw);
+> +}
+> +
+>  static struct clk_hw *
+>  __clk_hw_register_fixed_factor(struct device *dev, struct device_node 
+> *np,
+>  		const char *name, const char *parent_name, int index,
+> -		unsigned long flags, unsigned int mult, unsigned int div)
+> +		unsigned long flags, unsigned int mult, unsigned int div,
+> +		bool devm)
+>  {
+>  	struct clk_fixed_factor *fix;
+>  	struct clk_init_data init = { };
+> @@ -75,7 +81,15 @@ __clk_hw_register_fixed_factor(struct device *dev,
+> struct device_node *np,
+>  	struct clk_hw *hw;
+>  	int ret;
+> 
+> -	fix = kmalloc(sizeof(*fix), GFP_KERNEL);
+> +	/* You can't use devm without a dev */
+> +	if (devm && !dev)
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	if (devm)
+> +		fix = devres_alloc(devm_clk_hw_register_fixed_factor_release,
+> +				sizeof(*fix), GFP_KERNEL);
+> +	else
+> +		fix = kmalloc(sizeof(*fix), GFP_KERNEL);
+>  	if (!fix)
+>  		return ERR_PTR(-ENOMEM);
+> 
+> @@ -99,9 +113,13 @@ __clk_hw_register_fixed_factor(struct device *dev,
+> struct device_node *np,
+>  	else
+>  		ret = of_clk_hw_register(np, hw);
+>  	if (ret) {
+> -		kfree(fix);
+> +		if (devm)
+> +			devres_free(fix);
+> +		else
+> +			kfree(fix);
+>  		hw = ERR_PTR(ret);
+> -	}
+> +	} else if (devm)
+> +		devres_add(dev, fix);
+> 
+>  	return hw;
+>  }
+> @@ -111,7 +129,7 @@ struct clk_hw *clk_hw_register_fixed_factor(struct
+> device *dev,
+>  		unsigned int mult, unsigned int div)
+>  {
+>  	return __clk_hw_register_fixed_factor(dev, NULL, name, parent_name, 
+> -1,
+> -					      flags, mult, div);
+> +					      flags, mult, div, false);
+>  }
+>  EXPORT_SYMBOL_GPL(clk_hw_register_fixed_factor);
+> 
+> @@ -153,6 +171,15 @@ void clk_hw_unregister_fixed_factor(struct clk_hw 
+> *hw)
+>  }
+>  EXPORT_SYMBOL_GPL(clk_hw_unregister_fixed_factor);
+> 
+> +struct clk_hw *devm_clk_hw_register_fixed_factor(struct device *dev,
+> +		const char *name, const char *parent_name, unsigned long flags,
+> +		unsigned int mult, unsigned int div)
+> +{
+> +	return __clk_hw_register_fixed_factor(dev, NULL, name, parent_name, 
+> -1,
+> +			flags, mult, div, true);
+> +}
+> +EXPORT_SYMBOL_GPL(devm_clk_hw_register_fixed_factor);
+> +
+>  #ifdef CONFIG_OF
+>  static const struct of_device_id set_rate_parent_matches[] = {
+>  	{ .compatible = "allwinner,sun4i-a10-pll3-2x-clk" },
+> @@ -185,7 +212,7 @@ static struct clk_hw
+> *_of_fixed_factor_clk_setup(struct device_node *node)
+>  		flags |= CLK_SET_RATE_PARENT;
+> 
+>  	hw = __clk_hw_register_fixed_factor(NULL, node, clk_name, NULL, 0,
+> -					    flags, mult, div);
+> +					    flags, mult, div, false);
+>  	if (IS_ERR(hw)) {
+>  		/*
+>  		 * Clear OF_POPULATED flag so that clock registration can be
+> diff --git a/include/linux/clk-provider.h 
+> b/include/linux/clk-provider.h
+> index e4316890661a..58f6fe866ae9 100644
+> --- a/include/linux/clk-provider.h
+> +++ b/include/linux/clk-provider.h
+> @@ -941,7 +941,9 @@ struct clk_hw *clk_hw_register_fixed_factor(struct
+> device *dev,
+>  		const char *name, const char *parent_name, unsigned long flags,
+>  		unsigned int mult, unsigned int div);
+>  void clk_hw_unregister_fixed_factor(struct clk_hw *hw);
+> -
+> +struct clk_hw *devm_clk_hw_register_fixed_factor(struct device *dev,
+> +		const char *name, const char *parent_name, unsigned long flags,
+> +		unsigned int mult, unsigned int div);
+>  /**
+>   * struct clk_fractional_divider - adjustable fractional divider clock
+>   *
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
