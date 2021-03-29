@@ -1,48 +1,48 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E32B834CF8E
-	for <lists+freedreno@lfdr.de>; Mon, 29 Mar 2021 14:01:04 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C57134CF8F
+	for <lists+freedreno@lfdr.de>; Mon, 29 Mar 2021 14:01:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BCFD6E400;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BFE66E40D;
 	Mon, 29 Mar 2021 12:01:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EF036E400
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD3116E40D
  for <freedreno@lists.freedesktop.org>; Mon, 29 Mar 2021 12:01:01 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id m12so17989986lfq.10
- for <freedreno@lists.freedesktop.org>; Mon, 29 Mar 2021 05:01:00 -0700 (PDT)
+Received: by mail-lf1-x12a.google.com with SMTP id v15so18021630lfq.5
+ for <freedreno@lists.freedesktop.org>; Mon, 29 Mar 2021 05:01:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=Za3WAfwBQn5CB64f8uczux74fVXb0Y3lBUEXrhz1In0=;
- b=gOVs1Qg5jxqVjvbB1dL4XeliN7Umgx2BmvIcGEGk+aqxaWQ8IYeIONbfcCVXvGyw0G
- Mql/vEuEq+/BAVOeKt+ftMMUlLAk1T8moHbn473oIu/n+AK5MykF7pwHPGwK+RMZxsAB
- G5SyU/EFuOscIDC6zt5WceesYqfsrjpwzfiTRxFtQojIb0DBtvW/dVdpEP4gDrugschL
- oUfI695c0jAb25MvhuK9Uy0F/3MN6XDDxSV0BBkHXSqioeRpckf8bHVkD3exDgFYMenL
- lkNj6/LTmavc01xLvkbHXRRjXtEPSNjiI+XMhg7OjzZsZebu9YdwKQ9uoSLUyjmtfAA0
- uqjA==
+ bh=+8Q0oXrMBUUF8CE7R5pzSgMMnLMfJKLpBWJdMeU+Kvg=;
+ b=ybO0/FULhnEnk5jpC9ukACgruWaHDTR/3rHmAizO7AhGugRK389MP30cORWXKeUYi2
+ 1hjj515agYgf3pHDPu5B8WSDZS2741SndfQqIPO7yb/7Yr3n/iEUNTTj7jz6K1SpFafp
+ O+TVpO80XRUt0ocfidTLtI1DU/3kHfmplHnUs3EgGvj6jbGaLEkCkHUJaHZq1LtJX6ST
+ NTz1yXSg1dnBakqhCIptoXiDM3e0be58I/2TndMFTjwSoEJhtEDBzVeQ6aEx7kPOoiqB
+ L2/7yNLa/OBMgCANrB/pz2xMpits59r2h6DtiZlCsbOedAovb6MtYpEPuyHTMwMQioYI
+ wKNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Za3WAfwBQn5CB64f8uczux74fVXb0Y3lBUEXrhz1In0=;
- b=cc5T3bsWdCfLG4QnDD7K74GIBIiga3iVK+y1xbW+0Yrac/BcO98ZeWK256DqCGUG3t
- selti3dUsFMGSmaHPpGW7/DUMTGEINYF0ReXpJvSs3/Ek9yFjM5OZvpKmTPNShBq6SoN
- yp1ehPKn2ThtOXfxfUu5hK01gFEy3NCzRI0UqlP7uQacIUOFWPmMr+YuK0e9Fb/OuVyT
- IZzRKnSACA6wM5fTVR4N8T117q2osJcxhR9MMxsvHoxaPO7GNzxfLOsqNHQ6YsE1hok4
- JRknDdGwh7fWZQnV6dsh36mOcsO84UOpf9XG5jtIdRdyvS6zpfZoNWyEl03wtbOJpnLJ
- Wohw==
-X-Gm-Message-State: AOAM531+P3AuIgCGcPWYg8HKjBkcWxN7KBb1z5gl2k4LiYOVkUdAE556
- 6MQ9TmOPgCAF6XXAu1f8zTVTCQ==
-X-Google-Smtp-Source: ABdhPJy0iFeUUIiWAXivUm9466cQaaBmV/h5zJ2kWH4R1YJ2r/1HiavyeTSWFvYvloEFlPgvxHM16w==
-X-Received: by 2002:a19:224d:: with SMTP id i74mr16390665lfi.224.1617019259451; 
- Mon, 29 Mar 2021 05:00:59 -0700 (PDT)
+ bh=+8Q0oXrMBUUF8CE7R5pzSgMMnLMfJKLpBWJdMeU+Kvg=;
+ b=toMCPsXodPwpshSfQS1N2NT3e1cw2fjGVhC6FHrlQKa9c03MagW6acX+egCNHL56wm
+ GEc3BU9lmQIpu7z6Y3/E0qZkhOpMmJd1nmAndXxJKwHEdA9FluRh4qQC9yqME1OgnjxF
+ WZuAgxZ4F3zP7cHT6/n7tPhoGwMJCz6ngYJK3rJnCNeLWxyDIPOn9jkDqogsIQ2dlR1n
+ NyaiRRIk5kFQ6HR+yMBv5ILDwebcBwHCkZZj5+NPhutaBuJCyslkg8OXi7q7Ffsx5Vat
+ IzQ70JTSYlTOOY2pAPbyb1/14rCZd+Pn3LcOyPAeSM3DqQz+WmrE/JPvIlt5bkAnlBQm
+ uwyg==
+X-Gm-Message-State: AOAM530qNjLGmqE//eFacZgT7ks7JokDIFelx9IMKDQGpYpg82VY0U32
+ bYC2nE/8DU7T9DloYVhE6u7YxA==
+X-Google-Smtp-Source: ABdhPJxWupiJN7PDS7xB8mTiJz/syDuiuIqkK2JJW59ERweoBfkxm+NI/T7VPNHg+minbdRReJDZHw==
+X-Received: by 2002:a19:520b:: with SMTP id m11mr15874260lfb.42.1617019260144; 
+ Mon, 29 Mar 2021 05:01:00 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id d8sm2415240ljc.129.2021.03.29.05.00.58
+ by smtp.gmail.com with ESMTPSA id d8sm2415240ljc.129.2021.03.29.05.00.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Mon, 29 Mar 2021 05:00:59 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
@@ -50,14 +50,14 @@ To: Andy Gross <agross@kernel.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Rob Herring <robh+dt@kernel.org>
-Date: Mon, 29 Mar 2021 15:00:48 +0300
-Message-Id: <20210329120051.3401567-2-dmitry.baryshkov@linaro.org>
+Date: Mon, 29 Mar 2021 15:00:49 +0300
+Message-Id: <20210329120051.3401567-3-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210329120051.3401567-1-dmitry.baryshkov@linaro.org>
 References: <20210329120051.3401567-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v4 1/4] arm64: dts: qcom: sm8250: fix display
- nodes
+Subject: [Freedreno] [PATCH v4 2/4] dt-bindings: msm/disp: add compatibles
+ for sm8150/sm8250 display
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,9 +71,9 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: devicetree@vger.kernel.org, Jonathan Marek <jonathan@marek.ca>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+ Rob Herring <robh@kernel.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
@@ -81,78 +81,39 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Jonathan Marek <jonathan@marek.ca>
 
-Apply these fixes to the newly added sm8250 display ndoes
- - Remove "notused" interconnect (which apparently was blindly copied from
-   my old patches)
- - Use dispcc node example from dt-bindings, removing clocks which aren't
-   documented or used by the driver and fixing the region size.
+The driver already has support for sm8150/sm8250, but the compatibles were
+never added.
 
-Fixes: 7c1dffd471b1 ("arm64: dts: qcom: sm8250.dtsi: add display system nodes")
 Signed-off-by: Jonathan Marek <jonathan@marek.ca>
-[DB: compatibility changes split into separate patch]
+Acked-by: Rob Herring <robh@kernel.org>
+[DB: split dt-bindings into separate patch]
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- arch/arm64/boot/dts/qcom/sm8250.dtsi | 27 ++++++---------------------
- 1 file changed, 6 insertions(+), 21 deletions(-)
+ Documentation/devicetree/bindings/display/msm/dpu.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-index 947e1accae3a..32f0d6a82457 100644
---- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-@@ -2327,10 +2327,9 @@ mdss: mdss@ae00000 {
- 			reg = <0 0x0ae00000 0 0x1000>;
- 			reg-names = "mdss";
+diff --git a/Documentation/devicetree/bindings/display/msm/dpu.txt b/Documentation/devicetree/bindings/display/msm/dpu.txt
+index 551ae26f60da..5763f43200a0 100644
+--- a/Documentation/devicetree/bindings/display/msm/dpu.txt
++++ b/Documentation/devicetree/bindings/display/msm/dpu.txt
+@@ -8,7 +8,7 @@ The DPU display controller is found in SDM845 SoC.
  
--			interconnects = <&gem_noc MASTER_AMPSS_M0 &config_noc SLAVE_DISPLAY_CFG>,
--					<&mmss_noc MASTER_MDP_PORT0 &mc_virt SLAVE_EBI_CH0>,
-+			interconnects = <&mmss_noc MASTER_MDP_PORT0 &mc_virt SLAVE_EBI_CH0>,
- 					<&mmss_noc MASTER_MDP_PORT1 &mc_virt SLAVE_EBI_CH0>;
--			interconnect-names = "notused", "mdp0-mem", "mdp1-mem";
-+			interconnect-names = "mdp0-mem", "mdp1-mem";
+ MDSS:
+ Required properties:
+-- compatible:  "qcom,sdm845-mdss", "qcom,sc7180-mdss"
++- compatible:  "qcom,sdm845-mdss", "qcom,sc7180-mdss", "qcom,sm8150-mdss", "qcom,sm8250-mdss"
+ - reg: physical base address and length of contoller's registers.
+ - reg-names: register region names. The following region is required:
+   * "mdss"
+@@ -41,7 +41,7 @@ Optional properties:
  
- 			power-domains = <&dispcc MDSS_GDSC>;
- 
-@@ -2580,7 +2579,7 @@ opp-358000000 {
- 
- 		dispcc: clock-controller@af00000 {
- 			compatible = "qcom,sm8250-dispcc";
--			reg = <0 0x0af00000 0 0x20000>;
-+			reg = <0 0x0af00000 0 0x10000>;
- 			mmcx-supply = <&mmcx_reg>;
- 			clocks = <&rpmhcc RPMH_CXO_CLK>,
- 				 <&dsi0_phy 0>,
-@@ -2588,28 +2587,14 @@ dispcc: clock-controller@af00000 {
- 				 <&dsi1_phy 0>,
- 				 <&dsi1_phy 1>,
- 				 <0>,
--				 <0>,
--				 <0>,
--				 <0>,
--				 <0>,
--				 <0>,
--				 <0>,
--				 <0>,
--				 <&sleep_clk>;
-+				 <0>;
- 			clock-names = "bi_tcxo",
- 				      "dsi0_phy_pll_out_byteclk",
- 				      "dsi0_phy_pll_out_dsiclk",
- 				      "dsi1_phy_pll_out_byteclk",
- 				      "dsi1_phy_pll_out_dsiclk",
--				      "dp_link_clk_divsel_ten",
--				      "dp_vco_divided_clk_src_mux",
--				      "dptx1_phy_pll_link_clk",
--				      "dptx1_phy_pll_vco_div_clk",
--				      "dptx2_phy_pll_link_clk",
--				      "dptx2_phy_pll_vco_div_clk",
--				      "edp_phy_pll_link_clk",
--				      "edp_phy_pll_vco_div_clk",
--				      "sleep_clk";
-+				      "dp_phy_pll_link_clk",
-+				      "dp_phy_pll_vco_div_clk";
- 			#clock-cells = <1>;
- 			#reset-cells = <1>;
- 			#power-domain-cells = <1>;
+ MDP:
+ Required properties:
+-- compatible: "qcom,sdm845-dpu", "qcom,sc7180-dpu"
++- compatible: "qcom,sdm845-dpu", "qcom,sc7180-dpu", "qcom,sm8150-dpu", "qcom,sm8250-dpu"
+ - reg: physical base address and length of controller's registers.
+ - reg-names : register region names. The following region is required:
+   * "mdp"
 -- 
 2.30.2
 
