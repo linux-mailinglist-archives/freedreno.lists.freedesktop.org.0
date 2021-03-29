@@ -2,55 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06D4734D65E
-	for <lists+freedreno@lfdr.de>; Mon, 29 Mar 2021 19:55:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DFC534D813
+	for <lists+freedreno@lfdr.de>; Mon, 29 Mar 2021 21:27:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F87C6E49D;
-	Mon, 29 Mar 2021 17:55:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEC656E4D4;
+	Mon, 29 Mar 2021 19:27:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA96E6E497
- for <freedreno@lists.freedesktop.org>; Mon, 29 Mar 2021 17:55:52 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id bx7so15169426edb.12
- for <freedreno@lists.freedesktop.org>; Mon, 29 Mar 2021 10:55:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=anholt-net.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=6MnTmV7Ubg2sTi3Xa2Quc7eX0k5n11budl3ddfjJpTQ=;
- b=gJtMzc9yrdH/AglObhliCl1eLVPtYjBzEmGKhMs9v04xve8sR8xROi3HbQURzWGDBs
- x8hjM/XW/JAvIauCyjxGZxqaSPBn0pcf+T7fLRHs7eObNBz2kPQmyxHodjG+nu+2gJZy
- FIVdwhqEuY1c/omIMQ0qtK55Vk+CN/qmkvUprAWKV84JmQMF9rzoH+lH0KmtH7NZN+W6
- fxLZuGFGvtrYKg/jzLgyYqQQ+6MAMaONyDWHCjxn3cfuCalDKFQDPkJYCBBcW6SuypKs
- wssZhiDV5SEqInSyh8F8f74PMu8fBNBcKYbISCWdYueBbiapEn7mxGLyhaKBuVsq+1Nt
- 6gpQ==
+Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
+ [IPv6:2607:f8b0:4864:20::1030])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFD456E4D4
+ for <freedreno@lists.freedesktop.org>; Mon, 29 Mar 2021 19:27:40 +0000 (UTC)
+Received: by mail-pj1-x1030.google.com with SMTP id t18so6499822pjs.3
+ for <freedreno@lists.freedesktop.org>; Mon, 29 Mar 2021 12:27:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:content-transfer-encoding:in-reply-to:references
+ :subject:from:cc:to:date:message-id:user-agent;
+ bh=KLlTAo4el/DFnNk+LNHJMO2kyu5BygdFuXHahiqxgP8=;
+ b=VG9vKllJLEVGDoxMzgj9Ca/pHGciCQYIlbDtMvtq/UxPIoZJ7ECu6spWARntl5zsf/
+ A8CFT16NL16g6h6qu6ZLx46tgg/KuMMZjqPKuBS6XcMnfxNXsZM1MfytkYVabIG6ZKDm
+ PR3r01+kpuLeiEDca5bMktPktb/vRqeV0WdlY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=6MnTmV7Ubg2sTi3Xa2Quc7eX0k5n11budl3ddfjJpTQ=;
- b=c0HoqGaOjz+tJ+T1NuG0UYqKvEz0HPBCqrvcayJp8vu3FV7Pq2bFF5660gis2Mh4Vv
- f08M0u/GJzy4y3xzI24nTdlcXo0BssDyidMr5FG5nV2hEGVurN/uGgCf+Il3nc6yJZq2
- zkabIHh27gYT2z7JiTu/WdLBCEMNTCCvLGeWnJcDd8vy1CFxNFrbbnsEvMou1zTbtGxq
- K5XQaH/7NmLPHCj1V//uelqUTLVhD1z0/FHEKm+jogTI0tFf8QOJsQvWFeSGprY0/yHU
- At0hK/OWQd5K9EeDfWkkHt+Y7gi+yQWjUnTGv1gWTmVBDmULI4Kb0Pj5VmX0azuSIK58
- XCaQ==
-X-Gm-Message-State: AOAM530KPaDQX/I4zZvGmk8CiEnD4QL/J6AM7LZqIJqAay+9F2fDuA5z
- EIfltzYMeZ7LsqgsTvdiD1R7N0HmkwjM/1x7rFEcXA==
-X-Google-Smtp-Source: ABdhPJyyEm9oNlLOtY/Bv1/0xqF/9Vl1Ci9LBjhH/1QbEkuGJ2ahfATbkAxlMF/PRkZVCCe8dvKLypvNECTtIrpoWYA=
-X-Received: by 2002:aa7:d588:: with SMTP id r8mr29436114edq.88.1617040551435; 
- Mon, 29 Mar 2021 10:55:51 -0700 (PDT)
+ h=x-gm-message-state:mime-version:content-transfer-encoding
+ :in-reply-to:references:subject:from:cc:to:date:message-id
+ :user-agent;
+ bh=KLlTAo4el/DFnNk+LNHJMO2kyu5BygdFuXHahiqxgP8=;
+ b=uSrUnfV9dRs4RIQJTA8uXTuSqU9gV6H0phgXXLSkK9k8mJeILmLdPzj4MCCscfnOFQ
+ 9bU9qP32VFzV2WB0A0QI4zZH0AjOfLbkTFKX8AolUNY89z99WJsCXeXqsE1smQrX2VsV
+ kmP+sFHrfysoPGCDCf3j94pLqMRhmkFQHcD6PDCJMaNuQwTiLbc7I4raEV3einjQxYoF
+ hEjLc++cf4xO6iPl9PGdwaUmBdWKFt95/jq52as+OeDBTMh5LswW7CmfURO/dTUXzqHd
+ NC3kutrxtOWPHoUhQqWxwe/L+kJC6QEpsGKe6LNnpj52PyQzifhE3x+sMU7iYReZj51C
+ +Mxg==
+X-Gm-Message-State: AOAM533Jlil9oNWw3s1LfbSCMVJCbH7c9YOITbQYfRH9DTH3Rz0J4/2l
+ jgKi1goUeS+9GSKR0h7E21K6nw==
+X-Google-Smtp-Source: ABdhPJw1DhTcHAq11BdM7UZT1sQLUgR3VEzIOVIqTPbRMpjGdU3juswhlMA73YA6oU55nTpMohAISA==
+X-Received: by 2002:a17:90b:4b08:: with SMTP id
+ lx8mr616674pjb.135.1617046060512; 
+ Mon, 29 Mar 2021 12:27:40 -0700 (PDT)
+Received: from chromium.org ([2620:15c:202:201:4091:2b37:966b:1fca])
+ by smtp.gmail.com with ESMTPSA id j3sm305291pjf.36.2021.03.29.12.27.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Mar 2021 12:27:40 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210326231303.3071950-1-eric@anholt.net>
- <20210329144729.GB4203@willie-the-truck>
-In-Reply-To: <20210329144729.GB4203@willie-the-truck>
-From: Eric Anholt <eric@anholt.net>
-Date: Mon, 29 Mar 2021 10:55:40 -0700
-Message-ID: <CADaigPV0yHFUnGt_ncsS=wBHCMyex_wp=PVAibxSaAMEs8GS=Q@mail.gmail.com>
-To: Will Deacon <will@kernel.org>
-Subject: Re: [Freedreno] [PATCH 1/2] iommu/arm-smmu-qcom: Skip the TTBR1
- quirk for db820c.
+In-Reply-To: <20210329120051.3401567-4-dmitry.baryshkov@linaro.org>
+References: <20210329120051.3401567-1-dmitry.baryshkov@linaro.org>
+ <20210329120051.3401567-4-dmitry.baryshkov@linaro.org>
+From: Stephen Boyd <swboyd@chromium.org>
+To: Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Sean Paul <sean@poorly.run>
+Date: Mon, 29 Mar 2021 12:27:38 -0700
+Message-ID: <161704605849.3012082.9945764472677336582@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
+Subject: Re: [Freedreno] [PATCH v4 3/4] drm/msm: add compatibles for
+ sm8150/sm8250 display
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,36 +71,29 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Joerg Roedel <joro@8bytes.org>, Jordan Crouse <jcrouse@codeaurora.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Sean Paul <sean@poorly.run>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Robin Murphy <robin.murphy@arm.com>
+Cc: devicetree@vger.kernel.org, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Mar 29, 2021 at 7:47 AM Will Deacon <will@kernel.org> wrote:
->
-> On Fri, Mar 26, 2021 at 04:13:02PM -0700, Eric Anholt wrote:
-> > db820c wants to use the qcom smmu path to get HUPCF set (which keeps
-> > the GPU from wedging and then sometimes wedging the kernel after a
-> > page fault), but it doesn't have separate pagetables support yet in
-> > drm/msm so we can't go all the way to the TTBR1 path.
->
-> What do you mean by "doesn't have separate pagetables support yet"? The
-> compatible string doesn't feel like the right way to determine this.
+Quoting Dmitry Baryshkov (2021-03-29 05:00:50)
+> From: Jonathan Marek <jonathan@marek.ca>
+> 
+> The driver already has support for sm8150/sm8250, but the compatibles were
+> never added.
+> 
+> Also inverse the non-mdp4 condition in add_display_components() to avoid
+> having to check every new compatible in the condition.
+> 
+> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
 
-In my past experience with DT, software looking at the (existing)
-board-specific compatibles has been a typical mechanism used to
-resolve something like this "ok, but you need to actually get down to
-what board is involved here to figure out how to play along with the
-rest of Linux that later attaches to other DT nodes".  Do you have a
-preferred mechanism here?
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
