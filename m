@@ -2,62 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7BDE34DD91
-	for <lists+freedreno@lfdr.de>; Tue, 30 Mar 2021 03:31:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7951E34DD95
+	for <lists+freedreno@lfdr.de>; Tue, 30 Mar 2021 03:34:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D5D46E7EF;
-	Tue, 30 Mar 2021 01:31:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26A8E6E7EF;
+	Tue, 30 Mar 2021 01:34:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
- [IPv6:2607:f8b0:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 109206E7F1
- for <freedreno@lists.freedesktop.org>; Tue, 30 Mar 2021 01:31:50 +0000 (UTC)
-Received: by mail-pl1-x629.google.com with SMTP id y2so5297319plg.5
- for <freedreno@lists.freedesktop.org>; Mon, 29 Mar 2021 18:31:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:content-transfer-encoding:in-reply-to:references
- :subject:from:cc:to:date:message-id:user-agent;
- bh=VqsB/KspzBLfleMt3X13JmN72hr7Ivn8/G3NW35scDU=;
- b=oRBLwNnRiMTNEnj51Rq5J4ROOQVEMOXQc65rWkdsGb61Eb9XiBO4U7R1oLHxuk76VD
- FyfJin7DBYDeLTSb9LU1SeGd6S74jUTts+u9bUreWZZ35CKoPhBAcb6P0SNGXH3k5YD/
- bOK85QLLJDWXsqtcSwXKaBRpouNUpmItdFAHg=
+Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
+ [IPv6:2607:f8b0:4864:20::102c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E24C56E7EF
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Mar 2021 01:34:14 +0000 (UTC)
+Received: by mail-pj1-x102c.google.com with SMTP id
+ j6-20020a17090adc86b02900cbfe6f2c96so6837764pjv.1
+ for <freedreno@lists.freedesktop.org>; Mon, 29 Mar 2021 18:34:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=8A8If7oybmQFoEyCFbbgw0aizc2xKMTrL9mIp4UPDLA=;
+ b=jitl4f2XQUctjdUPCCbZajr3dY4HcAUyftf12BZnk9gT+ExyOyrfn1aeoQJ97WZv0F
+ OziPeisSf7nfUL7Vir9BOCH2pJ0XxVwB1H8xsIXQFZDnO6OkQaoxXASHwwKGvO2wAjMm
+ FPgUiUBYn8zXhTWWhrZ1y2FlZIk7LUO6kXJ4vzAp+pxcg48qeGgblFHxoorxNK5OTqDa
+ Ar76TxInftkgSBm46CJTsBm13wEPwKxMK42wjPYLc84bsm3TsVTGaSD88tANdPWVNzT/
+ 34zNyPZ5NkE8fqvKkZ/LalogOaGJB456iDWehYkIyhzq495DhRaEeJd5KxIRH928s9LT
+ Cyrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:content-transfer-encoding
- :in-reply-to:references:subject:from:cc:to:date:message-id
- :user-agent;
- bh=VqsB/KspzBLfleMt3X13JmN72hr7Ivn8/G3NW35scDU=;
- b=rDOuoZQWCl8c8vyy8jAdUKyf6MnM1hiuVYQebln5DL3yvZ0RuvN0wFQtjsg5tWlfzR
- DY5bCWx9HKsVRaRBeftpYCFDLSgd0pVfErq2dP2+3zNI+0PCKRcWl/GKS757CbH5t4iE
- Y7ynSNbRkdqoB3/GRBQIkoJdYRfEshRZSI6fnxL374Bn7x8y319BNC78iELjVSfr1NjK
- O31/8Dj8JMNLmzWrYomvkCfhmVQU6l3jan5u0r5lEaWuZwfyM7xNjAUX/h6DWRxUfO6z
- RPzi0j79GK8uy92Bkr7DtfWFazWdT8rsCj8/nEj61LoCS8qn8R1JFIU5Ch8oHytLTcI7
- xZeg==
-X-Gm-Message-State: AOAM532inVgMjFHJtXf5xmoC5UYiI5tntEaxAtWowX4pLYNwzIL8cZeA
- tOU4hJhkSSaU6ykJQh7WS6Ou0A==
-X-Google-Smtp-Source: ABdhPJzTWrDchk39egDoT3Ebv23CG0wZ+YVzjMmD32zht97vToqfNhx8RT3pByjL1TOX4a53kpISlA==
-X-Received: by 2002:a17:903:22c2:b029:e7:1f02:434c with SMTP id
- y2-20020a17090322c2b02900e71f02434cmr19483596plg.73.1617067909560; 
- Mon, 29 Mar 2021 18:31:49 -0700 (PDT)
-Received: from chromium.org ([2620:15c:202:201:4091:2b37:966b:1fca])
- by smtp.gmail.com with ESMTPSA id k5sm18792164pfg.215.2021.03.29.18.31.48
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=8A8If7oybmQFoEyCFbbgw0aizc2xKMTrL9mIp4UPDLA=;
+ b=VZPXb1bQMuKKJnluC1FDpb+qLIlTjaG5jV68wukwAmxxMH0xbso5lubj4NbiQvve7f
+ ZErcgfm5WHLFApRsVdsco2Ryf8x/bG/gCde5IXLRdtaEN/D7CcRm5mPizviwZ+CxRg+l
+ 4PcBsddicDiOc2alB+UsZ9nWVPMvIyJcQ0UmpDtdu7F6CkYNc8Qio3wHGK0/RgdnkN64
+ 2wfJnS++d0lXX/aFRT/CRCSdN6f/szQqmv11IHZMbHlLBKd0F6hcyxzuGJ1haaZLYwRK
+ UVcJ0ufGhvxGPURDWXz7rEeTNTncy77FnBZ1lCUd9AJs+D19RoL3dUgbzNdUdb4Yk8Q/
+ z2ww==
+X-Gm-Message-State: AOAM5310TH/8+K1e6XhC2y8RjV/fLrnEEIeKMfRQlBPBCMXhXB8BxOBQ
+ oNdDk+TimuT54+rPc6AgipnuGA==
+X-Google-Smtp-Source: ABdhPJzYWn5sEsuZHqydzJcwoR+ebQ0R+EoGQlVFKwWjvoaLyMtIay73TxhsG1977KSK5uO/wF6Mig==
+X-Received: by 2002:a17:90a:a603:: with SMTP id
+ c3mr1821365pjq.107.1617068054533; 
+ Mon, 29 Mar 2021 18:34:14 -0700 (PDT)
+Received: from localhost.localdomain ([2601:1c2:680:1319:692:26ff:feda:3a81])
+ by smtp.gmail.com with ESMTPSA id
+ k27sm16752258pfg.95.2021.03.29.18.34.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Mar 2021 18:31:49 -0700 (PDT)
+ Mon, 29 Mar 2021 18:34:13 -0700 (PDT)
+From: John Stultz <john.stultz@linaro.org>
+To: lkml <linux-kernel@vger.kernel.org>
+Date: Tue, 30 Mar 2021 01:34:08 +0000
+Message-Id: <20210330013408.2532048-1-john.stultz@linaro.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20210327110305.3289784-1-dmitry.baryshkov@linaro.org>
-References: <20210327110305.3289784-1-dmitry.baryshkov@linaro.org>
-From: Stephen Boyd <swboyd@chromium.org>
-To: Abhinav Kumar <abhinavk@codeaurora.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jonathan Marek <jonathan@marek.ca>,
- Michael Turquette <mturquette@baylibre.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
-Date: Mon, 29 Mar 2021 18:31:47 -0700
-Message-ID: <161706790759.3012082.10513147344813330034@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.9.1
-Subject: Re: [Freedreno] [PATCH v3 00/25] drm/msm/dsi: refactor MSM DSI
- PHY/PLL drivers
+Subject: [Freedreno] [PATCH] drm/msm: Fix removal of valid error case when
+ checking speed_bin
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,56 +68,68 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org, linux-clk@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, Jordan Crouse <jcrouse@codeaurora.org>,
+ linux-arm-msm@vger.kernel.org, Douglas Anderson <dianders@chromium.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Eric Anholt <eric@anholt.net>,
+ Rob Clark <robdclark@gmail.com>, John Stultz <john.stultz@linaro.org>,
+ YongQin Liu <yongqin.liu@linaro.org>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2021-03-27 04:02:40)
-> Restructure MSM DSI PHY drivers. What started as an attempt to grok the
-> overcomplicated PHY drivers, has lead up to the idea of merging PHY and
-> PLL code, reducing abstractions, code duplication, dropping dead code,
-> etc.
-> 
-> The patches were mainly tested on RB5 (sm8250, 7nm) and DB410c (apq8016,
-> 28nm-lp) and lightly tested on RB3 (sdm845, 10nm).
-> 
-> The patch 'clk: fixed: add devm helper for clk_hw_register_fixed_factor()'
-> is already a part of mainline as of 5.12-rc1, but is included here for
-> completeness to fix compilation issues (as msm-next is based on 5.11-rc5).
-> 
-> Changes since v2:
->  - Drop the 'stop setting clock parents manually' patch for now together
->    with the dtsi changes. Unlike the rest of patchset it provides
->    functional changes and might require additional discussion.
->    The patchset will be resubmitted later.
-> 
-> Changes since v1:
->  - Rebase on top of msm/msm-next
->  - Reorder patches to follow logical sequence
->  - Add sc7180 clocks assignment
->  - Drop sm8250 clocks assignment, as respective file is not updated in
->    msm/msm-next
-> 
-> Changes since RFC:
->  - Reorder patches to move global clock patches in the beginning and
->    dtsi patches where they are required.
->  - remove msm_dsi_phy_set_src_pll() and guess src_pll_id using PHY usecase.
-> 
-> The following changes since commit 627dc55c273dab308303a5217bd3e767d7083ddb:
-> 
->   drm/msm/disp/dpu1: icc path needs to be set before dpu runtime resume (2021-03-22 18:52:34 -0700)
-> 
-> are available in the Git repository at:
-> 
->   https://git.linaro.org/people/dmitry.baryshkov/kernel.git dsi-phy-3
+Commit 7bf168c8fe8c  ("drm/msm: Fix speed-bin support not to
+access outside valid memory"), reworked the nvmem reading of
+"speed_bin", but in doing so dropped handling of the -ENOENT
+case which was previously documented as "fine".
 
-I tested this on sc7180 lazor and the display comes up
+That change resulted in the db845c board display to fail to
+start, with the following error:
 
-Tested-by: Stephen Boyd <swboyd@chromium.org>
+adreno 5000000.gpu: [drm:a6xx_gpu_init] *ERROR* failed to read speed-bin (-2). Some OPPs may not be supported by hardware
+
+Thus, this patch simply re-adds the ENOENT handling so the lack
+of the speed_bin entry isn't fatal for display, and gets things
+working on db845c.
+
+Cc: Rob Clark <robdclark@gmail.com>
+Cc: Sean Paul <sean@poorly.run>
+Cc: Jordan Crouse <jcrouse@codeaurora.org>
+Cc: Eric Anholt <eric@anholt.net>
+Cc: Douglas Anderson <dianders@chromium.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org
+Cc: Bjorn Andersson <bjorn.andersson@linaro.org>
+Cc: YongQin Liu <yongqin.liu@linaro.org>
+Reported-by: YongQin Liu <yongqin.liu@linaro.org>
+Fixes: 7bf168c8fe8c  ("drm/msm: Fix speed-bin support not to access outside valid memory")
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 690409ca8a186..cb2df8736ca85 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -1406,7 +1406,13 @@ static int a6xx_set_supported_hw(struct device *dev, struct a6xx_gpu *a6xx_gpu,
+ 	int ret;
+ 
+ 	ret = nvmem_cell_read_u16(dev, "speed_bin", &speedbin);
+-	if (ret) {
++	/*
++	 * -ENOENT means that the platform doesn't support speedbin which is
++	 * fine
++	 */
++	if (ret == -ENOENT) {
++		return 0;
++	} else if (ret) {
+ 		DRM_DEV_ERROR(dev,
+ 			      "failed to read speed-bin (%d). Some OPPs may not be supported by hardware",
+ 			      ret);
+-- 
+2.25.1
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
