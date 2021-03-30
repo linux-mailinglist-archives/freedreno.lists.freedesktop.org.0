@@ -1,41 +1,41 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E43934E744
-	for <lists+freedreno@lfdr.de>; Tue, 30 Mar 2021 14:16:04 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B4C9834E755
+	for <lists+freedreno@lfdr.de>; Tue, 30 Mar 2021 14:17:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F21D6E8BD;
-	Tue, 30 Mar 2021 12:16:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68BA06E8C0;
+	Tue, 30 Mar 2021 12:17:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1747A6E8BF;
- Tue, 30 Mar 2021 12:16:02 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7EF476023F;
- Tue, 30 Mar 2021 12:15:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71B506E8BD;
+ Tue, 30 Mar 2021 12:17:12 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id CCFD861613;
+ Tue, 30 Mar 2021 12:17:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1617106561;
- bh=bw8KBo/NNqB097evsMkXsyFAnnqW6iPTNtBok4bird8=;
+ s=k20201202; t=1617106632;
+ bh=R1A+HSQkC8e4xAjjBa78+nl1HCzgHqTXI4btq91BvAY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=QQpwu09zdg1APUNJpuxQhrkAfEgb8Xx8xBXTFO5/bqrnCy7nUn9ZszN5WLb+sq6vo
- 5UJCLWYDMVJjHKt1uBKBD6MMh1tpUC2/ZJUxkV8BiHWJrvRd361XyyytEj+6Li42BI
- tfxcD7Rdfa0dzL9ZkwRo0SzzQKJrMa88AgwyNDnuPLKRwADNMLnkiOXhBm9+lE1tBR
- rdun4d9sUp5EgfOD94h55VT+FoWTTMYz/Myrov9kU9g5f+P8nfcOj+TX3m+W0J04yq
- y4bdrKMyq4yHZ4rqf7cqV7h7YmIgfRkPLJ7ViI7cikjVljJ7l7h/CdSxY5MyPkvqqz
- V8lAE4+4RFo3g==
-Date: Tue, 30 Mar 2021 13:15:56 +0100
+ b=c25S81BmNCVGy2OObw4tONoA0BojMCxtSOklHDKSIj3LBTHzA1/vu4ULOtdwrhaKd
+ WDRfAnsEctJcADLUnZE7e4rCMh20iy3euLeexNN3WbVyaj2Jtsudf1lTE+dAEff4Na
+ EbBkVoLWPCMK4kXmg1lZUi472g/zewPckNo6IUv1xppwSMzqP67IcdaAjBBbbJIPdj
+ bAU/Cefcsji1sn251Az9hG84M4pKR8GSzh27H1MZGWktXOEdnAXajGUbYVkL8ZQkNK
+ 2pHZBINx71bFOqfhE2/GG/OPglg0+vCFbhdOxQ2PvsQfLAlsrPgsJIVJGbkCeEVtuv
+ jx7d9GgoKNuyg==
+Date: Tue, 30 Mar 2021 13:17:06 +0100
 From: Will Deacon <will@kernel.org>
 To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20210330121555.GC5908@willie-the-truck>
+Message-ID: <20210330121706.GD5908@willie-the-truck>
 References: <20210316153825.135976-1-hch@lst.de>
- <20210316153825.135976-4-hch@lst.de>
+ <20210316153825.135976-5-hch@lst.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210316153825.135976-4-hch@lst.de>
+In-Reply-To: <20210316153825.135976-5-hch@lst.de>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH 03/18] iommu/fsl_pamu: remove support for
- setting DOMAIN_ATTR_GEOMETRY
+Subject: Re: [Freedreno] [PATCH 04/18] iommu/fsl_pamu: merge
+ iommu_alloc_dma_domain into fsl_pamu_domain_alloc
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,27 +61,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Mar 16, 2021 at 04:38:09PM +0100, Christoph Hellwig wrote:
-> The default geometry is the same as the one set by qman_port given
-> that FSL_PAMU depends on having 64-bit physical and thus DMA addresses.
-> 
-> Remove the support to update the geometry and remove the now pointless
-> geom_size field.
+On Tue, Mar 16, 2021 at 04:38:10PM +0100, Christoph Hellwig wrote:
+> Keep the functionality to allocate the domain together.
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
 > Acked-by: Li Yang <leoyang.li@nxp.com>
 > ---
->  drivers/iommu/fsl_pamu_domain.c     | 55 +++--------------------------
->  drivers/iommu/fsl_pamu_domain.h     |  6 ----
->  drivers/soc/fsl/qbman/qman_portal.c | 12 -------
->  3 files changed, 5 insertions(+), 68 deletions(-)
-
-Took me a minute to track down the other magic '36' which ends up in
-aperture_end, but I found it eventually so:
+>  drivers/iommu/fsl_pamu_domain.c | 34 ++++++++++-----------------------
+>  1 file changed, 10 insertions(+), 24 deletions(-)
 
 Acked-by: Will Deacon <will@kernel.org>
-
-(It does make me wonder what all this glue was intended to be used for)
 
 Will
 _______________________________________________
