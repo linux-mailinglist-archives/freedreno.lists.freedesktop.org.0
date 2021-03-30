@@ -2,72 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B743634EC9D
-	for <lists+freedreno@lfdr.de>; Tue, 30 Mar 2021 17:35:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E76334ED16
+	for <lists+freedreno@lfdr.de>; Tue, 30 Mar 2021 18:03:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F51D6E925;
-	Tue, 30 Mar 2021 15:35:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B51E96E931;
+	Tue, 30 Mar 2021 16:03:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F4D66E925;
- Tue, 30 Mar 2021 15:35:34 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id DD75223A6;
- Tue, 30 Mar 2021 11:35:31 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute6.internal (MEProxy); Tue, 30 Mar 2021 11:35:32 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm2; bh=FtYc42a6moG7QOyHDjvIAF34l5j
- YgoXhjKeBBMCpSAY=; b=pkLri1415Rs9PAS8cVC5uxc9wKysAoRoiGCxU30K16z
- KbTcy8MwEaYglaAR9p2G1F5+WkVDhdvnSHQyAJUtrh4I3JGMs5EfYu9tinq3SP0Z
- iwSMHPPZYwbD83DL63ca605FGHlyJ6fLtgFiHPCK/3sdvVrdE3oY8Hubch4IwRoU
- qC9ykOslhnA6sDqsHTPNeBPyeo3exCEze56tmYPz0z3SepF9T0+axzoyvlCTU47j
- qp8WLcTIXrF+dgY3lKR3naQiPfec343KOn5lJmFpsHFGd7h1WVdJb+AkpgMdLez+
- NMte+nHG9ufc3z5vyfKynqOAOVjEiZ1Rm+Fh+yyrLig==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=FtYc42
- a6moG7QOyHDjvIAF34l5jYgoXhjKeBBMCpSAY=; b=jW5b26byLCV+AjIt/u+F15
- ZRpj0bqnKrUjnNGB4MI2KPYNNlngsRHZ/pWfvq/zgcepIQG8w8NCyKi+LpkDkTu6
- eNrR3quV6sGek9Rq9DR3n/OS9tqVUXlK+o6xAsbshSKXkHCt7tvc3UMDyLvy2l2s
- +nrYoflD4HJBor+0pbvlLuZykeWwJsXPs/LxCVSeBdw/euHytiDqvlujEJ1Vxm6s
- 8b7BPDL+OfPjFL+07GZR32A8SwUw09jWAb9LHKUNqg5OVLA80jVvDah4QDOxT4Ho
- JYVLXcrqlgODDnhCu91oiIh6cW+AoaTFNJY3ZZm2Y0huMJt6FG+SFvgyDNlpr0Sg
- ==
-X-ME-Sender: <xms:QUVjYAd1SfHuwoVOJUc6SubhtvxHUlddWymUgbDwPD8XlERIDespYw>
- <xme:QUVjYCM61feyDIQU8vnKKeGRUeEgXSUgM3NaAff8FiREQr0GFyTFxJvbOMjdanPTA
- QUnWvEp-fNlhnwgKT8>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudeitddgleduucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
- vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
- htvghrnhepleekgeehhfdutdeljefgleejffehfffgieejhffgueefhfdtveetgeehieeh
- gedunecukfhppeeltddrkeelrdeikedrjeeinecuvehluhhsthgvrhfuihiivgeptdenuc
- frrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:QUVjYBiLqQEDRU58uZ8DHqiCT1LmioKoO_by12zvb99ZjKnLtqfnWg>
- <xmx:QUVjYF81K1fwXSkYuT7zCIgHflJM6YgRoJE2FsiP6Ly6XkPbFPArJA>
- <xmx:QUVjYMvXMMGAGLGYi7hJGPdaPaVnmvJ6owO8QnnkU3oEFxDkP9YSWg>
- <xmx:Q0VjYAgqKil7BAqk7OdU4rtMyTzYd2mUQaId-_h1jRM1axCPRhaXaw>
-Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
- [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id 7C1E11080057;
- Tue, 30 Mar 2021 11:35:29 -0400 (EDT)
-Date: Tue, 30 Mar 2021 17:35:27 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Stephen Boyd <swboyd@chromium.org>
-Message-ID: <20210330153527.gw33t4o2b35wwzbg@gilmour>
-References: <20210219120032.260676-1-maxime@cerno.tech>
- <20210219120032.260676-10-maxime@cerno.tech>
- <161706912161.3012082.17313817257247946143@swboyd.mtv.corp.google.com>
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFE9689FCA;
+ Tue, 30 Mar 2021 16:03:55 +0000 (UTC)
+Received: by mail-wr1-x42e.google.com with SMTP id b9so16729813wrt.8;
+ Tue, 30 Mar 2021 09:03:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=6oj2QpU+iRP2QcXpQSoeLL823H9nv69wn1Ubcw3X/Kc=;
+ b=oGf3rAc09tWox8W/AuayHxD57BYJkHett6R/hVoRJQkI/dsuvVQsdL+66QBQPYbZO8
+ 7THhwdyV51H945ZoxJJ5jgoQE1adMP2x6g1L6OVgqjahcsNzGiHVTu6IA/7mHr+IJoTe
+ G2IRldQQOICbaa1RBtBbDZfRIbW4FXgw9hnfwAzpMP4E4foZcweEiry54xruXlagP21k
+ XcoOokxVvs+Qse2Rf6Tt4VeNyK1jyyBHKCIvomFRhW/IRq3T5TGpU3ZuLfmOfUUI5hQs
+ P/3sUmpZ5wxSwYnZxo9dJhApM9eLAmfB4ezalW1zrr0WOpAGs8ZoUsMpZDJ6ZjUb1W2R
+ qWCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=6oj2QpU+iRP2QcXpQSoeLL823H9nv69wn1Ubcw3X/Kc=;
+ b=VqbMs5FhB5WXwhYKBPJsTf9LSE1oLamBE9T2UTuxO5XUFjnUHjfVgf/hv4ThH8Cza3
+ jEoxvW3tQV/3v6MAXvzPIhpO/I4itVx8IjOyhkxo8ux7HxxmuAxZKAqczPneH1Peamvp
+ VFykyoFX6fmh1tCx90ZqmEw0IC9AYQ4k+fSZd9F6e5NPYaSIlnBo4avU9MEe6asJ4WpM
+ mtF4v80IejbXgD2nKWDYm4VjmXN95HRuYmReUv9EL+3GnrpMR9pKVCjy+iRHGQ6bMgfk
+ QGaUOUhIhYv5vBOA3HpoZsT5KZobZMfwPFfELPfU5p7nr8TNp/nOIN+Q9iVhZUY+Bj6n
+ s/2g==
+X-Gm-Message-State: AOAM5338WH+tBjNlEF/xGktGLq3cM1A2I9UG39pJtAtT2C9qG8Wg1RAi
+ bokAdzCl8VAVE4HxdtDd+g5KOn0Dhx5xTmxhK/8=
+X-Google-Smtp-Source: ABdhPJyIo4QMtpT4Jjy6Aso1yAaVwCCbPHuaf9YAguVzhh4oj3SzRFzxG8rjYLqc6NicwaW7b/FSImz48Hamu6fJQ0Y=
+X-Received: by 2002:adf:d0c3:: with SMTP id z3mr35756480wrh.28.1617120234562; 
+ Tue, 30 Mar 2021 09:03:54 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <161706912161.3012082.17313817257247946143@swboyd.mtv.corp.google.com>
-Subject: Re: [Freedreno] [PATCH v3 10/11] drm: Use state helper instead of
- the plane state pointer
+References: <20210326231303.3071950-1-eric@anholt.net>
+ <20210329144729.GB4203@willie-the-truck>
+ <CAF6AEGugpEk396DVtWX=W+uf3p-wcgBfCSpSLWGQJE1vKpJ4aw@mail.gmail.com>
+ <20210330093432.GB5281@willie-the-truck>
+ <CAF6AEGvCCWvmRBhzY4MsdzgwfJ+GF2AUOS-_NTyhM8wtnDzY2Q@mail.gmail.com>
+ <20210330153050.GB6567@willie-the-truck>
+In-Reply-To: <20210330153050.GB6567@willie-the-truck>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 30 Mar 2021 09:07:18 -0700
+Message-ID: <CAF6AEGs+gUZ+5kmyA0Xz4jz8QJRgLVfaWmvQzuwXZBBG4xAr5w@mail.gmail.com>
+To: Will Deacon <will@kernel.org>
+Subject: Re: [Freedreno] [PATCH 1/2] iommu/arm-smmu-qcom: Skip the TTBR1
+ quirk for db820c.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,153 +66,61 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Daniel Vetter <daniel.vetter@intel.com>, freedreno@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============2057127829=="
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, freedreno <freedreno@lists.freedesktop.org>,
+ Joerg Roedel <joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Eric Anholt <eric@anholt.net>, Jordan Crouse <jcrouse@codeaurora.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Tue, Mar 30, 2021 at 8:31 AM Will Deacon <will@kernel.org> wrote:
+>
+> On Tue, Mar 30, 2021 at 08:03:36AM -0700, Rob Clark wrote:
+> > On Tue, Mar 30, 2021 at 2:34 AM Will Deacon <will@kernel.org> wrote:
+> > >
+> > > On Mon, Mar 29, 2021 at 09:02:50PM -0700, Rob Clark wrote:
+> > > > On Mon, Mar 29, 2021 at 7:47 AM Will Deacon <will@kernel.org> wrote:
+> > > > >
+> > > > > On Fri, Mar 26, 2021 at 04:13:02PM -0700, Eric Anholt wrote:
+> > > > > > db820c wants to use the qcom smmu path to get HUPCF set (which keeps
+> > > > > > the GPU from wedging and then sometimes wedging the kernel after a
+> > > > > > page fault), but it doesn't have separate pagetables support yet in
+> > > > > > drm/msm so we can't go all the way to the TTBR1 path.
+> > > > >
+> > > > > What do you mean by "doesn't have separate pagetables support yet"? The
+> > > > > compatible string doesn't feel like the right way to determine this.
+> > > >
+> > > > the compatible string identifies what it is, not what the sw
+> > > > limitations are, so in that regard it seems right to me..
+> > >
+> > > Well it depends on what "doesn't have separate pagetables support yet"
+> > > means. I can't tell if it's a hardware issue, a firmware issue or a driver
+> > > issue.
+> >
+> > Just a driver issue (and the fact that currently we don't have
+> > physical access to a device... debugging a5xx per-process-pgtables by
+> > pushing untested things to the CI farm is kind of a difficult way to
+> > work)
+>
+> But then in that case, this is using the compatible string to identify a
+> driver issue, no?
+>
 
---===============2057127829==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="yzekckmcck6rsmon"
-Content-Disposition: inline
+Well, I suppose yes.. but OTOH it is keeping the problem out of the
+dtb.  Once per-process pgtables works for a5xx, there would be no dtb
+change, just a change to the quirk behavior in arm-smmu-qcom.
 
-
---yzekckmcck6rsmon
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hi Stephen,
-
-On Mon, Mar 29, 2021 at 06:52:01PM -0700, Stephen Boyd wrote:
-> Trimming Cc list way down, sorry if that's too much.
->=20
-> Quoting Maxime Ripard (2021-02-19 04:00:30)
-> > Many drivers reference the plane->state pointer in order to get the
-> > current plane state in their atomic_update or atomic_disable hooks,
-> > which would be the new plane state in the global atomic state since
-> > _swap_state happened when those hooks are run.
->=20
-> Does this mean drm_atomic_helper_swap_state()?
-
-Yep. Previous to that call in drm_atomic_helper_commit, plane->state is
-the state currently programmed in the hardware, so the old state (that's
-the case you have with atomic_check for example)
-
-Once drm_atomic_helper_swap_state has run, plane->state is now the state
-that needs to be programmed into the hardware, so the new state.
-
-> > Use the drm_atomic_get_new_plane_state helper to get that state to make=
- it
-> > more obvious.
-> >=20
-> > This was made using the coccinelle script below:
-> >=20
-> > @ plane_atomic_func @
-> > identifier helpers;
-> > identifier func;
-> > @@
-> >=20
-> > (
-> >  static const struct drm_plane_helper_funcs helpers =3D {
-> >         ...,
-> >         .atomic_disable =3D func,
-> >         ...,
-> >  };
-> > |
-> >  static const struct drm_plane_helper_funcs helpers =3D {
-> >         ...,
-> >         .atomic_update =3D func,
-> >         ...,
-> >  };
-> > )
-> >=20
-> > @ adds_new_state @
-> > identifier plane_atomic_func.func;
-> > identifier plane, state;
-> > identifier new_state;
-> > @@
-> >=20
-> >  func(struct drm_plane *plane, struct drm_atomic_state *state)
-> >  {
-> >         ...
-> > -       struct drm_plane_state *new_state =3D plane->state;
-> > +       struct drm_plane_state *new_state =3D drm_atomic_get_new_plane_=
-state(state, plane);
-> >         ...
-> >  }
-> >=20
-> > @ include depends on adds_new_state @
-> > @@
-> >=20
-> >  #include <drm/drm_atomic.h>
-> >=20
-> > @ no_include depends on !include && adds_new_state @
-> > @@
-> >=20
-> > + #include <drm/drm_atomic.h>
-> >   #include <drm/...>
-> >=20
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c       | 3 ++-
-> >  drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c      | 4 +++-
-> >  drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c      | 3 ++-
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/dr=
-m/msm/disp/dpu1/dpu_plane.c
-> > index 31071f9e21d7..e8ce72fe54a4 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > @@ -1244,7 +1244,8 @@ static void dpu_plane_atomic_update(struct drm_pl=
-ane *plane,
-> >                                 struct drm_atomic_state *state)
-> >  {
-> >         struct dpu_plane *pdpu =3D to_dpu_plane(plane);
-> > -       struct drm_plane_state *new_state =3D plane->state;
-> > +       struct drm_plane_state *new_state =3D drm_atomic_get_new_plane_=
-state(state,
-> > +                                                                      =
-    plane);
-> > =20
-> >         pdpu->is_error =3D false;
-> > =20
->=20
-> This is oopsing for me. It turns out that 'new_state' is NULL. According
-> to the comments drm_atomic_get_new_plane_state() can return NULL if the
-> plane isn't part of the global state. I haven't looked much further but
-> wanted to report it here in case that type of return value makes sense.
-
-Yeah, it can return NULL, but in this case I'm not really sure how we
-could end up with a plane_state that isn't in the global state, but
-somehow with the associated plane atomic_update call being run :/
-
-Maxime
-
---yzekckmcck6rsmon
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYGNFPwAKCRDj7w1vZxhR
-xT66AQCBwUC3/zX2ho+dPE63dTDnJVeTqhxvdKRAtI6bFvZwdAD5Ad+Acvl+oElk
-wpeNhdIrOTyHieNNht1KzaQ5EkO4fwU=
-=Elec
------END PGP SIGNATURE-----
-
---yzekckmcck6rsmon--
-
---===============2057127829==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+BR,
+-R
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
-
---===============2057127829==--
