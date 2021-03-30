@@ -2,42 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D35B34E9B4
-	for <lists+freedreno@lfdr.de>; Tue, 30 Mar 2021 15:58:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A549134EB59
+	for <lists+freedreno@lfdr.de>; Tue, 30 Mar 2021 17:00:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0D8B6E900;
-	Tue, 30 Mar 2021 13:58:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43FC16E911;
+	Tue, 30 Mar 2021 15:00:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 221F86E8FE;
- Tue, 30 Mar 2021 13:58:08 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 68E7D619BD;
- Tue, 30 Mar 2021 13:58:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1617112687;
- bh=hYRhNMLlTmRS49zqmK73a4rY3ELSUI6jQmXx6ZVo0cc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=NxQyKHu5yHesTmxq2PlalF5XHUJ/+Rz412pFuRTbOozoN7Mb60JpgX7hut5OdEhIO
- 3lhluE7Xa6MpXg3B8jJjwxAjN02v/8u9IIZbCapDIo4/QtFBPU0zmQmESgHa2t7Seu
- 6BfPY0dg5NZYx/R7AOola1TbKI9OxKnLxPZP+rpYYr6+R5Ndgmvd/j0LAJoV9qX48G
- HdxYp8mDmAdckAQuEcf27Px7bJMTyHZRvvOYlBEvaxIhQdMxNFZle45RAuCX5K6jbI
- VaV9P5LlYytyR5H+pRG+Kw1836+9tx7uFAyXMe0zIdPnrbYLEXjvHvSEw1AHvXRIao
- Ee9HUuuOMjrmw==
-Date: Tue, 30 Mar 2021 14:58:02 +0100
-From: Will Deacon <will@kernel.org>
-To: Robin Murphy <robin.murphy@arm.com>
-Message-ID: <20210330135801.GA6187@willie-the-truck>
-References: <20210316153825.135976-1-hch@lst.de>
- <20210316153825.135976-17-hch@lst.de>
- <20210330131149.GP5908@willie-the-truck>
- <a6952aa7-4d7e-54f0-339e-e15f88596dcc@arm.com>
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [IPv6:2a00:1450:4864:20::432])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F1006E912;
+ Tue, 30 Mar 2021 15:00:14 +0000 (UTC)
+Received: by mail-wr1-x432.google.com with SMTP id o16so16609777wrn.0;
+ Tue, 30 Mar 2021 08:00:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=eyleulbhx+njoqqH6BwP+l7pCWQF8y0aALwi12vfKYM=;
+ b=fCSzzlhwIZRxnh8WlrLMYbm5+Njdfj6dEm0bHf8r+xDzYIMacTSD3i3NQycSovzuSj
+ EVXrsaeA+8Q6clda2Fzt4qondyXdQQukQijU645yfl1pKwDdMg7e0hWT+6yAAVSUFuAI
+ +Wy1BnSqMiT25Xv8Eh/rM+OWoPrHHNKMd1huKxUhZX3A1kI+9r4cSt2vualljOOYrzRq
+ mNNZkNSVQQuKhfEkIKegbY/PcTiIj000vuo7Lx+eJ97k/smtTH32v+AczD0ypz4/NGG5
+ TXj0QNsAfH8tw3UI0GxZAqJ4Z4+5VzZoZJMbwM+UPAScRykVfUXfpx69lKfy1ADRVNE5
+ lX5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=eyleulbhx+njoqqH6BwP+l7pCWQF8y0aALwi12vfKYM=;
+ b=KZ6lcDN/QVSH3eYVC8hT0UkpSIhAlXhiDfgjA2PY7UtqhnhkEBbd6E+5NUs5bCk1QF
+ kmgRr3DXN0Vpw1yg6DpUStJlO017Pza8ShuWNjRTWq/wRY8PwU6GgSm8DrU0lIZlNtUQ
+ m5Y2bdYJf0vWZdC4waVT1HNS2nghKtybT6SX0/Eexc57m7jwfxOAswT3UU5XLBZ6ZL46
+ CiVeGO7KSoIuGbIDyfEkiQQni4xT056Q69fhi+5O/FIrNA19dQwBDCMelg/DYr1Ko8TF
+ DhFnxBA1gaifACUj4LJaX2zqwHfGQHkL3wYiAyRByYt4JjNZmL3fX2LIQ9OCVH626Eig
+ 0cZA==
+X-Gm-Message-State: AOAM5324UQT3qXUar3iqFLoPgrpv+nrx/yqvUA+t7EjF7qZz2wy/p600
+ rtJcPUqZwven0sAr+V6um2DfAFzdgVTECfk7Uns=
+X-Google-Smtp-Source: ABdhPJwtCDJtqvJEY4d1K+b5/Nk9wM8y2m8HXX6bF4f+S6YTvz+OX7rJ6BNzGHpGdn+v7GZmGIK8aRudda7rzHLsgwk=
+X-Received: by 2002:adf:d0c3:: with SMTP id z3mr35449048wrh.28.1617116413088; 
+ Tue, 30 Mar 2021 08:00:13 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <a6952aa7-4d7e-54f0-339e-e15f88596dcc@arm.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH 16/18] iommu: remove
- DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE
+References: <20210326231303.3071950-1-eric@anholt.net>
+ <20210329144729.GB4203@willie-the-truck>
+ <CAF6AEGugpEk396DVtWX=W+uf3p-wcgBfCSpSLWGQJE1vKpJ4aw@mail.gmail.com>
+ <20210330093432.GB5281@willie-the-truck>
+In-Reply-To: <20210330093432.GB5281@willie-the-truck>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 30 Mar 2021 08:03:36 -0700
+Message-ID: <CAF6AEGvCCWvmRBhzY4MsdzgwfJ+GF2AUOS-_NTyhM8wtnDzY2Q@mail.gmail.com>
+To: Will Deacon <will@kernel.org>
+Subject: Re: [Freedreno] [PATCH 1/2] iommu/arm-smmu-qcom: Skip the TTBR1
+ quirk for db820c.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,81 +64,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, kvm@vger.kernel.org,
- Michael Ellerman <mpe@ellerman.id.au>, Joerg Roedel <joro@8bytes.org>,
- linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
- Li Yang <leoyang.li@nxp.com>, iommu@lists.linux-foundation.org,
- netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- virtualization@lists.linux-foundation.org,
- David Woodhouse <dwmw2@infradead.org>, Christoph Hellwig <hch@lst.de>,
- linux-arm-kernel@lists.infradead.org, Lu Baolu <baolu.lu@linux.intel.com>
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, freedreno <freedreno@lists.freedesktop.org>,
+ Joerg Roedel <joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Eric Anholt <eric@anholt.net>, Jordan Crouse <jcrouse@codeaurora.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Mar 30, 2021 at 02:19:38PM +0100, Robin Murphy wrote:
-> On 2021-03-30 14:11, Will Deacon wrote:
-> > On Tue, Mar 16, 2021 at 04:38:22PM +0100, Christoph Hellwig wrote:
-> > > From: Robin Murphy <robin.murphy@arm.com>
-> > > 
-> > > Instead make the global iommu_dma_strict paramete in iommu.c canonical by
-> > > exporting helpers to get and set it and use those directly in the drivers.
-> > > 
-> > > This make sure that the iommu.strict parameter also works for the AMD and
-> > > Intel IOMMU drivers on x86.  As those default to lazy flushing a new
-> > > IOMMU_CMD_LINE_STRICT is used to turn the value into a tristate to
-> > > represent the default if not overriden by an explicit parameter.
-> > > 
-> > > Signed-off-by: Robin Murphy <robin.murphy@arm.com>.
-> > > [ported on top of the other iommu_attr changes and added a few small
-> > >   missing bits]
-> > > Signed-off-by: Christoph Hellwig <hch@lst.de>
-> > > ---
-> > >   drivers/iommu/amd/iommu.c                   | 23 +-------
-> > >   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 50 +---------------
-> > >   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h |  1 -
-> > >   drivers/iommu/arm/arm-smmu/arm-smmu.c       | 27 +--------
-> > >   drivers/iommu/dma-iommu.c                   |  9 +--
-> > >   drivers/iommu/intel/iommu.c                 | 64 ++++-----------------
-> > >   drivers/iommu/iommu.c                       | 27 ++++++---
-> > >   include/linux/iommu.h                       |  4 +-
-> > >   8 files changed, 40 insertions(+), 165 deletions(-)
-> > 
-> > I really like this cleanup, but I can't help wonder if it's going in the
-> > wrong direction. With SoCs often having multiple IOMMU instances and a
-> > distinction between "trusted" and "untrusted" devices, then having the
-> > flush-queue enabled on a per-IOMMU or per-domain basis doesn't sound
-> > unreasonable to me, but this change makes it a global property.
-> 
-> The intent here was just to streamline the existing behaviour of stuffing a
-> global property into a domain attribute then pulling it out again in the
-> illusion that it was in any way per-domain. We're still checking
-> dev_is_untrusted() before making an actual decision, and it's not like we
-> can't add more factors at that point if we want to.
+On Tue, Mar 30, 2021 at 2:34 AM Will Deacon <will@kernel.org> wrote:
+>
+> On Mon, Mar 29, 2021 at 09:02:50PM -0700, Rob Clark wrote:
+> > On Mon, Mar 29, 2021 at 7:47 AM Will Deacon <will@kernel.org> wrote:
+> > >
+> > > On Fri, Mar 26, 2021 at 04:13:02PM -0700, Eric Anholt wrote:
+> > > > db820c wants to use the qcom smmu path to get HUPCF set (which keeps
+> > > > the GPU from wedging and then sometimes wedging the kernel after a
+> > > > page fault), but it doesn't have separate pagetables support yet in
+> > > > drm/msm so we can't go all the way to the TTBR1 path.
+> > >
+> > > What do you mean by "doesn't have separate pagetables support yet"? The
+> > > compatible string doesn't feel like the right way to determine this.
+> >
+> > the compatible string identifies what it is, not what the sw
+> > limitations are, so in that regard it seems right to me..
+>
+> Well it depends on what "doesn't have separate pagetables support yet"
+> means. I can't tell if it's a hardware issue, a firmware issue or a driver
+> issue.
 
-Like I say, the cleanup is great. I'm just wondering whether there's a
-better way to express the complicated logic to decide whether or not to use
-the flush queue than what we end up with:
+Just a driver issue (and the fact that currently we don't have
+physical access to a device... debugging a5xx per-process-pgtables by
+pushing untested things to the CI farm is kind of a difficult way to
+work)
 
-	if (!cookie->fq_domain && (!dev || !dev_is_untrusted(dev)) &&
-	    domain->ops->flush_iotlb_all && !iommu_get_dma_strict())
-
-which is mixing up globals, device properties and domain properties. The
-result is that the driver code ends up just using the global to determine
-whether or not to pass IO_PGTABLE_QUIRK_NON_STRICT to the page-table code,
-which is a departure from the current way of doing things.
-
-> > For example, see the recent patch from Lu Baolu:
-> > 
-> > https://lore.kernel.org/r/20210225061454.2864009-1-baolu.lu@linux.intel.com
-> 
-> Erm, this patch is based on that one, it's right there in the context :/
-
-Ah, sorry, I didn't spot that! I was just trying to illustrate that this
-is per-device.
-
-Will
+BR,
+-R
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
