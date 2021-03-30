@@ -1,35 +1,35 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB08134DCB5
-	for <lists+freedreno@lfdr.de>; Tue, 30 Mar 2021 02:01:42 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A43E534DCC0
+	for <lists+freedreno@lfdr.de>; Tue, 30 Mar 2021 02:03:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F7686E5A2;
-	Tue, 30 Mar 2021 00:01:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67A9B6E5AE;
+	Tue, 30 Mar 2021 00:03:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63C316E59F
- for <freedreno@lists.freedesktop.org>; Tue, 30 Mar 2021 00:01:35 +0000 (UTC)
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33AAF6E5A5
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Mar 2021 00:03:45 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1617062499; h=Message-ID: References: In-Reply-To: Subject:
+ s=smtp; t=1617062625; h=Message-ID: References: In-Reply-To: Subject:
  Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=jVBSUgu+pFEDHXWSRsZb2UnG++J0IAwLqxbV86v1OcY=;
- b=CWf9/IlaiDLUlF5np+Zi1BfDndId7hb2NHQqvrc529YnekpB93exwoiV8MVPHGnWvkd55IpL
- WRtK6mHyRlyL6bEejpbQ12MIWYOU7Yl4WXlezB09+vDTDYUuRfmcTeEQbsnHi+Wgf/g2XRU4
- WRudpzA2Np6r/zxWidjEMa5gYJ0=
-X-Mailgun-Sending-Ip: 198.61.254.9
+ MIME-Version: Sender; bh=q/vwPUUGGKX2Gce1dd+LAqI10B98dw9Nic2zaw+7SS4=;
+ b=RE9irB1RNJiQTEr3wiTWApoZrcxMAFeeykEq3d/C5oZILjBuGdrwH4iD/c3AhbnQ/KadWpA7
+ 4NZrOg5oX3uZ0st6pFP1dWEp+eCSf9g2p+jP+RkhmYlFIAqFduTaUspQF54yH3VHjGJb3JBm
+ LCerZ8I8o8yfCBdWqcxgn2UyOzo=
+X-Mailgun-Sending-Ip: 69.72.43.7
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
- 60626a4987ce1fbb56751080 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 30 Mar 2021 00:01:13
+ smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
+ 60626adf876af85fc414d891 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 30 Mar 2021 00:03:43
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 9B84AC433C6; Tue, 30 Mar 2021 00:01:12 +0000 (UTC)
+ id BCF67C433CA; Tue, 30 Mar 2021 00:03:43 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -38,20 +38,20 @@ X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
 Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 8FFACC433ED;
- Tue, 30 Mar 2021 00:01:11 +0000 (UTC)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 03AA1C433C6;
+ Tue, 30 Mar 2021 00:03:42 +0000 (UTC)
 MIME-Version: 1.0
-Date: Mon, 29 Mar 2021 17:01:11 -0700
+Date: Mon, 29 Mar 2021 17:03:42 -0700
 From: abhinavk@codeaurora.org
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20210327110305.3289784-16-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20210327110305.3289784-17-dmitry.baryshkov@linaro.org>
 References: <20210327110305.3289784-1-dmitry.baryshkov@linaro.org>
- <20210327110305.3289784-16-dmitry.baryshkov@linaro.org>
-Message-ID: <d09bbd7d79f8d99fc906e22be56d8d0f@codeaurora.org>
+ <20210327110305.3289784-17-dmitry.baryshkov@linaro.org>
+Message-ID: <e7f9bb4fe6f5830569627649b9e5fac8@codeaurora.org>
 X-Sender: abhinavk@codeaurora.org
 User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH v3 15/25] drm/msm/dsi: drop vco_delay
- setting from 7nm, 10nm, 14nm drivers
+Subject: Re: [Freedreno] [PATCH v3 16/25] drm/msm/dpu: simplify vco_delay
+ handling in dsi_phy_28nm driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,87 +76,58 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 2021-03-27 04:02, Dmitry Baryshkov wrote:
-> These drivers do not use vco_delay variable, so drop it from all of
-> them.
+> Instead of setting the variable and then using it just in the one 
+> place,
+> determine vco_delay directly at the PLL configuration time.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+The subject line should still be "drm/msm/dsi" and not "drm/msm/dpu".
+Once thats fixed, please apply
 Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
 > ---
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c | 3 ---
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c | 4 ----
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c  | 3 ---
->  3 files changed, 10 deletions(-)
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c | 12 ++++--------
+>  1 file changed, 4 insertions(+), 8 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-> b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-> index e0df12a841b2..bfb96d87d1d7 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-> @@ -99,7 +99,6 @@ struct dsi_pll_10nm {
->  	/* protects REG_DSI_10nm_PHY_CMN_CLK_CFG0 register */
->  	spinlock_t postdiv_lock;
-> 
-> -	int vco_delay;
->  	struct dsi_pll_config pll_configuration;
->  	struct dsi_pll_regs reg_setup;
-> 
-> @@ -771,8 +770,6 @@ static int dsi_pll_10nm_init(struct msm_dsi_phy 
-> *phy)
->  	pll = &pll_10nm->base;
->  	pll->cfg = phy->cfg;
-> 
-> -	pll_10nm->vco_delay = 1;
-> -
->  	ret = pll_10nm_register(pll_10nm, phy->provided_clocks->hws);
->  	if (ret) {
->  		DRM_DEV_ERROR(&pdev->dev, "failed to register PLL: %d\n", ret);
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
-> b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
-> index 7fe7c8348b42..434d02ffa7fe 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
-> @@ -122,8 +122,6 @@ struct dsi_pll_14nm {
->  	void __iomem *phy_cmn_mmio;
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
+> b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
+> index 3e9b7949b038..ed369eb18e9d 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
+> @@ -72,8 +72,6 @@ struct dsi_pll_28nm {
+>  	struct platform_device *pdev;
 >  	void __iomem *mmio;
 > 
 > -	int vco_delay;
 > -
->  	struct dsi_pll_input in;
->  	struct dsi_pll_output out;
+>  	struct pll_28nm_cached_state cached_state;
+>  };
 > 
-> @@ -1012,8 +1010,6 @@ static int dsi_pll_14nm_init(struct msm_dsi_phy 
+> @@ -212,8 +210,10 @@ static int dsi_pll_28nm_clk_set_rate(struct
+> clk_hw *hw, unsigned long rate,
+>  	pll_write(base + REG_DSI_28nm_PHY_PLL_SDM_CFG4, 0x00);
+> 
+>  	/* Add hardware recommended delay for correct PLL configuration */
+> -	if (pll_28nm->vco_delay)
+> -		udelay(pll_28nm->vco_delay);
+> +	if (pll->cfg->quirks & DSI_PHY_28NM_QUIRK_PHY_LP)
+> +		udelay(1000);
+> +	else
+> +		udelay(1);
+> 
+>  	pll_write(base + REG_DSI_28nm_PHY_PLL_REFCLK_CFG, refclk_cfg);
+>  	pll_write(base + REG_DSI_28nm_PHY_PLL_PWRGEN_CFG, 0x00);
+> @@ -580,10 +580,6 @@ static int dsi_pll_28nm_init(struct msm_dsi_phy 
 > *phy)
->  	pll = &pll_14nm->base;
+> 
+>  	pll = &pll_28nm->base;
 >  	pll->cfg = phy->cfg;
+> -	if (phy->cfg->quirks & DSI_PHY_28NM_QUIRK_PHY_LP)
+> -		pll_28nm->vco_delay = 1000;
+> -	else
+> -		pll_28nm->vco_delay = 1;
 > 
-> -	pll_14nm->vco_delay = 1;
-> -
->  	ret = pll_14nm_register(pll_14nm, phy->provided_clocks->hws);
+>  	ret = pll_28nm_register(pll_28nm, phy->provided_clocks->hws);
 >  	if (ret) {
->  		DRM_DEV_ERROR(&pdev->dev, "failed to register PLL: %d\n", ret);
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> index e6c8040e1bd3..f760904efac9 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> @@ -99,7 +99,6 @@ struct dsi_pll_7nm {
->  	/* protects REG_DSI_7nm_PHY_CMN_CLK_CFG0 register */
->  	spinlock_t postdiv_lock;
-> 
-> -	int vco_delay;
->  	struct dsi_pll_config pll_configuration;
->  	struct dsi_pll_regs reg_setup;
-> 
-> @@ -796,8 +795,6 @@ static int dsi_pll_7nm_init(struct msm_dsi_phy 
-> *phy)
->  	pll = &pll_7nm->base;
->  	pll->cfg = phy->cfg;
-> 
-> -	pll_7nm->vco_delay = 1;
-> -
->  	ret = pll_7nm_register(pll_7nm, phy->provided_clocks->hws);
->  	if (ret) {
->  		DRM_DEV_ERROR(&pdev->dev, "failed to register PLL: %d\n", ret);
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
