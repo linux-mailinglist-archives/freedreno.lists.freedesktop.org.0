@@ -1,57 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A549134EB59
-	for <lists+freedreno@lfdr.de>; Tue, 30 Mar 2021 17:00:16 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6231834EBE1
+	for <lists+freedreno@lfdr.de>; Tue, 30 Mar 2021 17:15:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43FC16E911;
-	Tue, 30 Mar 2021 15:00:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EFFD6E917;
+	Tue, 30 Mar 2021 15:15:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [IPv6:2a00:1450:4864:20::432])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F1006E912;
- Tue, 30 Mar 2021 15:00:14 +0000 (UTC)
-Received: by mail-wr1-x432.google.com with SMTP id o16so16609777wrn.0;
- Tue, 30 Mar 2021 08:00:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+Received: from mail-qt1-x82c.google.com (mail-qt1-x82c.google.com
+ [IPv6:2607:f8b0:4864:20::82c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B6A56E917
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Mar 2021 15:15:05 +0000 (UTC)
+Received: by mail-qt1-x82c.google.com with SMTP id j7so12132360qtx.5
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Mar 2021 08:15:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=eyleulbhx+njoqqH6BwP+l7pCWQF8y0aALwi12vfKYM=;
- b=fCSzzlhwIZRxnh8WlrLMYbm5+Njdfj6dEm0bHf8r+xDzYIMacTSD3i3NQycSovzuSj
- EVXrsaeA+8Q6clda2Fzt4qondyXdQQukQijU645yfl1pKwDdMg7e0hWT+6yAAVSUFuAI
- +Wy1BnSqMiT25Xv8Eh/rM+OWoPrHHNKMd1huKxUhZX3A1kI+9r4cSt2vualljOOYrzRq
- mNNZkNSVQQuKhfEkIKegbY/PcTiIj000vuo7Lx+eJ97k/smtTH32v+AczD0ypz4/NGG5
- TXj0QNsAfH8tw3UI0GxZAqJ4Z4+5VzZoZJMbwM+UPAScRykVfUXfpx69lKfy1ADRVNE5
- lX5g==
+ :cc; bh=cJ+YJYx4OZR4pIjZNdx26kpeAL+vxeQN6P+Ncit8r0s=;
+ b=GbCYv1WSjk/ew5BC7x/ek5Wk2nKYhMN1fPHHdbT0dXhA8sLDDAsvmkroYbEa1UY8pV
+ t325S1USzc4yVtmH5R+gvgAKF4w2om2JhomKV4Iaf538mB2Gfj/Jm/mw8aG8EVfwF/SD
+ ZZthbDH/iclBvd6Stp0tcsKmZ3GOpPd77CGCc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=eyleulbhx+njoqqH6BwP+l7pCWQF8y0aALwi12vfKYM=;
- b=KZ6lcDN/QVSH3eYVC8hT0UkpSIhAlXhiDfgjA2PY7UtqhnhkEBbd6E+5NUs5bCk1QF
- kmgRr3DXN0Vpw1yg6DpUStJlO017Pza8ShuWNjRTWq/wRY8PwU6GgSm8DrU0lIZlNtUQ
- m5Y2bdYJf0vWZdC4waVT1HNS2nghKtybT6SX0/Eexc57m7jwfxOAswT3UU5XLBZ6ZL46
- CiVeGO7KSoIuGbIDyfEkiQQni4xT056Q69fhi+5O/FIrNA19dQwBDCMelg/DYr1Ko8TF
- DhFnxBA1gaifACUj4LJaX2zqwHfGQHkL3wYiAyRByYt4JjNZmL3fX2LIQ9OCVH626Eig
- 0cZA==
-X-Gm-Message-State: AOAM5324UQT3qXUar3iqFLoPgrpv+nrx/yqvUA+t7EjF7qZz2wy/p600
- rtJcPUqZwven0sAr+V6um2DfAFzdgVTECfk7Uns=
-X-Google-Smtp-Source: ABdhPJwtCDJtqvJEY4d1K+b5/Nk9wM8y2m8HXX6bF4f+S6YTvz+OX7rJ6BNzGHpGdn+v7GZmGIK8aRudda7rzHLsgwk=
-X-Received: by 2002:adf:d0c3:: with SMTP id z3mr35449048wrh.28.1617116413088; 
- Tue, 30 Mar 2021 08:00:13 -0700 (PDT)
+ bh=cJ+YJYx4OZR4pIjZNdx26kpeAL+vxeQN6P+Ncit8r0s=;
+ b=oUe+TnzrvgissHoqxeScCq7J03Y2aPFucJAKwRrhDtQbdMu3mI0b2poxfMlXs4sH6h
+ rMhY4AZ0irORIY9Yb1p0wguj2SIylZfoHxFSDEZT0pR56BOF8Iwh9zwAnChKJjK708CB
+ 2XC6fnoKu7x1uHob0WAR536/FWBPl+MRrfQEXEZjNlvmdCapLpIPuzy8dAYEaoKJSsGB
+ C9L4xbZ/eBYdOuva47BfZvhuAk0oOfJFBoeKvl1SpeZJ10F3kNe6AiBsXLyaAbXKlWg6
+ YtgQGO128BrR3KRFrwbe32UBcD3cFx6azh5jBIPJvIbXc6FSL2b0/SRXhENp172/u6gp
+ lvQQ==
+X-Gm-Message-State: AOAM532d17zmVu/0a91QGGZJR0dmFkrzNVkRabIEAktcfAivW0ZkAouN
+ lcCzP5ilUJit61RasB5Xf4D1Y3Ad53vVOQ==
+X-Google-Smtp-Source: ABdhPJw5AdufkypxPLRUDb6EZ3OC/d+1yaO6qPIk7ywDi1WL0JJTMAjfCysiiBzHT6pKda2f/uji7g==
+X-Received: by 2002:ac8:7dc2:: with SMTP id c2mr27809341qte.341.1617117304056; 
+ Tue, 30 Mar 2021 08:15:04 -0700 (PDT)
+Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com.
+ [209.85.219.179])
+ by smtp.gmail.com with ESMTPSA id 18sm16689044qkr.90.2021.03.30.08.15.03
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 30 Mar 2021 08:15:03 -0700 (PDT)
+Received: by mail-yb1-f179.google.com with SMTP id m132so17815199ybf.2
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Mar 2021 08:15:03 -0700 (PDT)
+X-Received: by 2002:a25:4092:: with SMTP id
+ n140mr36653500yba.276.1617117302924; 
+ Tue, 30 Mar 2021 08:15:02 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210326231303.3071950-1-eric@anholt.net>
- <20210329144729.GB4203@willie-the-truck>
- <CAF6AEGugpEk396DVtWX=W+uf3p-wcgBfCSpSLWGQJE1vKpJ4aw@mail.gmail.com>
- <20210330093432.GB5281@willie-the-truck>
-In-Reply-To: <20210330093432.GB5281@willie-the-truck>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 30 Mar 2021 08:03:36 -0700
-Message-ID: <CAF6AEGvCCWvmRBhzY4MsdzgwfJ+GF2AUOS-_NTyhM8wtnDzY2Q@mail.gmail.com>
-To: Will Deacon <will@kernel.org>
-Subject: Re: [Freedreno] [PATCH 1/2] iommu/arm-smmu-qcom: Skip the TTBR1
- quirk for db820c.
+References: <20210330013408.2532048-1-john.stultz@linaro.org>
+In-Reply-To: <20210330013408.2532048-1-john.stultz@linaro.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Tue, 30 Mar 2021 08:14:51 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=XbwNmmeoZOSso3Kz1mP40ONo0hDvn6KP8zZsdg9uPcNg@mail.gmail.com>
+Message-ID: <CAD=FV=XbwNmmeoZOSso3Kz1mP40ONo0hDvn6KP8zZsdg9uPcNg@mail.gmail.com>
+To: John Stultz <john.stultz@linaro.org>
+Subject: Re: [Freedreno] [PATCH] drm/msm: Fix removal of valid error case
+ when checking speed_bin
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,49 +70,52 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, freedreno <freedreno@lists.freedesktop.org>,
- Joerg Roedel <joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Eric Anholt <eric@anholt.net>, Jordan Crouse <jcrouse@codeaurora.org>,
- Rob Herring <robh+dt@kernel.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>, lkml <linux-kernel@vger.kernel.org>,
+ Eric Anholt <eric@anholt.net>, Rob Clark <robdclark@gmail.com>,
+ YongQin Liu <yongqin.liu@linaro.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Mar 30, 2021 at 2:34 AM Will Deacon <will@kernel.org> wrote:
->
-> On Mon, Mar 29, 2021 at 09:02:50PM -0700, Rob Clark wrote:
-> > On Mon, Mar 29, 2021 at 7:47 AM Will Deacon <will@kernel.org> wrote:
-> > >
-> > > On Fri, Mar 26, 2021 at 04:13:02PM -0700, Eric Anholt wrote:
-> > > > db820c wants to use the qcom smmu path to get HUPCF set (which keeps
-> > > > the GPU from wedging and then sometimes wedging the kernel after a
-> > > > page fault), but it doesn't have separate pagetables support yet in
-> > > > drm/msm so we can't go all the way to the TTBR1 path.
-> > >
-> > > What do you mean by "doesn't have separate pagetables support yet"? The
-> > > compatible string doesn't feel like the right way to determine this.
-> >
-> > the compatible string identifies what it is, not what the sw
-> > limitations are, so in that regard it seems right to me..
->
-> Well it depends on what "doesn't have separate pagetables support yet"
-> means. I can't tell if it's a hardware issue, a firmware issue or a driver
-> issue.
+Hi,
 
-Just a driver issue (and the fact that currently we don't have
-physical access to a device... debugging a5xx per-process-pgtables by
-pushing untested things to the CI farm is kind of a difficult way to
-work)
+On Mon, Mar 29, 2021 at 6:34 PM John Stultz <john.stultz@linaro.org> wrote:
+>
+> Commit 7bf168c8fe8c  ("drm/msm: Fix speed-bin support not to
+> access outside valid memory"), reworked the nvmem reading of
+> "speed_bin", but in doing so dropped handling of the -ENOENT
+> case which was previously documented as "fine".
+>
+> That change resulted in the db845c board display to fail to
+> start, with the following error:
+>
+> adreno 5000000.gpu: [drm:a6xx_gpu_init] *ERROR* failed to read speed-bin (-2). Some OPPs may not be supported by hardware
+>
+> Thus, this patch simply re-adds the ENOENT handling so the lack
+> of the speed_bin entry isn't fatal for display, and gets things
+> working on db845c.
+>
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Sean Paul <sean@poorly.run>
+> Cc: Jordan Crouse <jcrouse@codeaurora.org>
+> Cc: Eric Anholt <eric@anholt.net>
+> Cc: Douglas Anderson <dianders@chromium.org>
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: freedreno@lists.freedesktop.org
+> Cc: Bjorn Andersson <bjorn.andersson@linaro.org>
+> Cc: YongQin Liu <yongqin.liu@linaro.org>
+> Reported-by: YongQin Liu <yongqin.liu@linaro.org>
+> Fixes: 7bf168c8fe8c  ("drm/msm: Fix speed-bin support not to access outside valid memory")
+> Signed-off-by: John Stultz <john.stultz@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
 
-BR,
--R
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
