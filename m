@@ -1,63 +1,76 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6231834EBE1
-	for <lists+freedreno@lfdr.de>; Tue, 30 Mar 2021 17:15:07 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 061E634EBF7
+	for <lists+freedreno@lfdr.de>; Tue, 30 Mar 2021 17:19:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EFFD6E917;
-	Tue, 30 Mar 2021 15:15:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94C646E91E;
+	Tue, 30 Mar 2021 15:19:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x82c.google.com (mail-qt1-x82c.google.com
- [IPv6:2607:f8b0:4864:20::82c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B6A56E917
- for <freedreno@lists.freedesktop.org>; Tue, 30 Mar 2021 15:15:05 +0000 (UTC)
-Received: by mail-qt1-x82c.google.com with SMTP id j7so12132360qtx.5
- for <freedreno@lists.freedesktop.org>; Tue, 30 Mar 2021 08:15:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=cJ+YJYx4OZR4pIjZNdx26kpeAL+vxeQN6P+Ncit8r0s=;
- b=GbCYv1WSjk/ew5BC7x/ek5Wk2nKYhMN1fPHHdbT0dXhA8sLDDAsvmkroYbEa1UY8pV
- t325S1USzc4yVtmH5R+gvgAKF4w2om2JhomKV4Iaf538mB2Gfj/Jm/mw8aG8EVfwF/SD
- ZZthbDH/iclBvd6Stp0tcsKmZ3GOpPd77CGCc=
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [IPv6:2a00:1450:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AC5B6E91E
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Mar 2021 15:19:15 +0000 (UTC)
+Received: by mail-wm1-x334.google.com with SMTP id d191so8590155wmd.2
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Mar 2021 08:19:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=hCfGCExGZ032atZREFMuWQJ4hKJ6Pjl2rDpU87CxNjI=;
+ b=d0tnXFEBbBdt3KAHMvZjgIVuPuUhTN5DpIRb16zr9Wk5NxGjXgpPfg14g44/A2DAeX
+ 0xH1xn8QdIWzGlu8Ghy6X5ovM6ayJD5ysiyMKXYOPHyLblqh1+i75rYM6w9+edrv+0ei
+ jWP8gNuHMEB6Atp2OLtz6mkl0vofFczh8/mP/H5WPiMNg728lZoiDJKH8usabY4Sth8u
+ 7kgCg0JF0ybA0kgZvQ7ww95DwgsEXt+/XMHHgB2ANxE1zNrC8sssFlvNJvmCt6BS5+ed
+ 70/r6Eyxo7jcpJglZI/KMfaaLFBQyepOVVmKurGUAFmC82jpSGDcy9EbVcRinorFzDET
+ 0Apw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=cJ+YJYx4OZR4pIjZNdx26kpeAL+vxeQN6P+Ncit8r0s=;
- b=oUe+TnzrvgissHoqxeScCq7J03Y2aPFucJAKwRrhDtQbdMu3mI0b2poxfMlXs4sH6h
- rMhY4AZ0irORIY9Yb1p0wguj2SIylZfoHxFSDEZT0pR56BOF8Iwh9zwAnChKJjK708CB
- 2XC6fnoKu7x1uHob0WAR536/FWBPl+MRrfQEXEZjNlvmdCapLpIPuzy8dAYEaoKJSsGB
- C9L4xbZ/eBYdOuva47BfZvhuAk0oOfJFBoeKvl1SpeZJ10F3kNe6AiBsXLyaAbXKlWg6
- YtgQGO128BrR3KRFrwbe32UBcD3cFx6azh5jBIPJvIbXc6FSL2b0/SRXhENp172/u6gp
- lvQQ==
-X-Gm-Message-State: AOAM532d17zmVu/0a91QGGZJR0dmFkrzNVkRabIEAktcfAivW0ZkAouN
- lcCzP5ilUJit61RasB5Xf4D1Y3Ad53vVOQ==
-X-Google-Smtp-Source: ABdhPJw5AdufkypxPLRUDb6EZ3OC/d+1yaO6qPIk7ywDi1WL0JJTMAjfCysiiBzHT6pKda2f/uji7g==
-X-Received: by 2002:ac8:7dc2:: with SMTP id c2mr27809341qte.341.1617117304056; 
- Tue, 30 Mar 2021 08:15:04 -0700 (PDT)
-Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com.
- [209.85.219.179])
- by smtp.gmail.com with ESMTPSA id 18sm16689044qkr.90.2021.03.30.08.15.03
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Mar 2021 08:15:03 -0700 (PDT)
-Received: by mail-yb1-f179.google.com with SMTP id m132so17815199ybf.2
- for <freedreno@lists.freedesktop.org>; Tue, 30 Mar 2021 08:15:03 -0700 (PDT)
-X-Received: by 2002:a25:4092:: with SMTP id
- n140mr36653500yba.276.1617117302924; 
- Tue, 30 Mar 2021 08:15:02 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=hCfGCExGZ032atZREFMuWQJ4hKJ6Pjl2rDpU87CxNjI=;
+ b=rOHcSU2Rz5q9bDMXywfElx8TVQbqVHqlf1BY/TPCXIHT9XwBTxRmNMg1KbUi7VFSUH
+ eBfvTOjqjrl9GZqa2ku/M2w+D4OJm3JhaKoyAO8Mr2nnwrK57gU7bZQbSkqCNw4Cb5jE
+ FvvUuVD7Eed1wL8YJ06SelyUaV2JbbCR+5maioiVbp0kUCLQKn2tuACj0HGFWbmQLZ02
+ xFivRDg2C/MZbexpTJ/jR9TFtQkYByXa0+ZsceAqAEWpkpqz2hTX503UBzVqK8C1kCQM
+ 8BOCJ2iDa5RbQZwyS5aorAdTRP82fXVu1WignM7Mzs3nkq3o+PpOmNPCLt2nPLcOxuEu
+ CxaQ==
+X-Gm-Message-State: AOAM531YdGXEXjgA40qHjcbxd5jSP1gTgarSn6ToO1//2Y8sACp4J6dO
+ mova7FXEOFblQX0tcmRL+jLzFA==
+X-Google-Smtp-Source: ABdhPJyYgKkqcDOow6JJ62djXw3iIsO/j+KvsfseIB+9/rwYszatw8KxsjLaOFanM+fL7Q88Q/+L0w==
+X-Received: by 2002:a1c:5f54:: with SMTP id t81mr4641496wmb.84.1617117553836; 
+ Tue, 30 Mar 2021 08:19:13 -0700 (PDT)
+Received: from dell ([91.110.221.217])
+ by smtp.gmail.com with ESMTPSA id n1sm41945988wro.36.2021.03.30.08.19.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 30 Mar 2021 08:19:13 -0700 (PDT)
+Date: Tue, 30 Mar 2021 16:19:11 +0100
+From: Lee Jones <lee.jones@linaro.org>
+To: linux-kernel@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx@lists.freedesktop.org, Anthony Koo <Anthony.Koo@amd.com>,
+ Ben Skeggs <bskeggs@redhat.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Colin Ian King <colin.king@canonical.com>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Jeremy Kolb <jkolb@brandeis.edu>,
+ Kuogee Hsieh <khsieh@codeaurora.org>, Leo Li <sunpeng.li@amd.com>,
+ linaro-mm-sig@lists.linaro.org, linux-arm-msm@vger.kernel.org,
+ linux-media@vger.kernel.org, Lyude Paul <lyude@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, nouveau@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <20210330151911.GL2916463@dell>
+References: <20210319082428.3294591-1-lee.jones@linaro.org>
+ <20210324103611.GJ2916463@dell>
 MIME-Version: 1.0
-References: <20210330013408.2532048-1-john.stultz@linaro.org>
-In-Reply-To: <20210330013408.2532048-1-john.stultz@linaro.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 30 Mar 2021 08:14:51 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=XbwNmmeoZOSso3Kz1mP40ONo0hDvn6KP8zZsdg9uPcNg@mail.gmail.com>
-Message-ID: <CAD=FV=XbwNmmeoZOSso3Kz1mP40ONo0hDvn6KP8zZsdg9uPcNg@mail.gmail.com>
-To: John Stultz <john.stultz@linaro.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm: Fix removal of valid error case
- when checking speed_bin
+Content-Disposition: inline
+In-Reply-To: <20210324103611.GJ2916463@dell>
+Subject: Re: [Freedreno] [RESEND 00/19] Rid GPU from W=1 warnings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,53 +83,21 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, lkml <linux-kernel@vger.kernel.org>,
- Eric Anholt <eric@anholt.net>, Rob Clark <robdclark@gmail.com>,
- YongQin Liu <yongqin.liu@linaro.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-
-On Mon, Mar 29, 2021 at 6:34 PM John Stultz <john.stultz@linaro.org> wrote:
->
-> Commit 7bf168c8fe8c  ("drm/msm: Fix speed-bin support not to
-> access outside valid memory"), reworked the nvmem reading of
-> "speed_bin", but in doing so dropped handling of the -ENOENT
-> case which was previously documented as "fine".
->
-> That change resulted in the db845c board display to fail to
-> start, with the following error:
->
-> adreno 5000000.gpu: [drm:a6xx_gpu_init] *ERROR* failed to read speed-bin (-2). Some OPPs may not be supported by hardware
->
-> Thus, this patch simply re-adds the ENOENT handling so the lack
-> of the speed_bin entry isn't fatal for display, and gets things
-> working on db845c.
->
-> Cc: Rob Clark <robdclark@gmail.com>
-> Cc: Sean Paul <sean@poorly.run>
-> Cc: Jordan Crouse <jcrouse@codeaurora.org>
-> Cc: Eric Anholt <eric@anholt.net>
-> Cc: Douglas Anderson <dianders@chromium.org>
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: freedreno@lists.freedesktop.org
-> Cc: Bjorn Andersson <bjorn.andersson@linaro.org>
-> Cc: YongQin Liu <yongqin.liu@linaro.org>
-> Reported-by: YongQin Liu <yongqin.liu@linaro.org>
-> Fixes: 7bf168c8fe8c  ("drm/msm: Fix speed-bin support not to access outside valid memory")
-> Signed-off-by: John Stultz <john.stultz@linaro.org>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
-
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+T24gV2VkLCAyNCBNYXIgMjAyMSwgTGVlIEpvbmVzIHdyb3RlOgoKPiBEYW5pZWwsCj4gCj4gPiBN
+SU1FLVZlcnNpb246IDEuMAo+ID4gQ29udGVudC1UeXBlOiB0ZXh0L3BsYWluOyBjaGFyc2V0PVVU
+Ri04Cj4gPiBDb250ZW50LVRyYW5zZmVyLUVuY29kaW5nOiA4Yml0Cj4gPiAKPiA+IFRoaXMgaXMg
+YSByZXNlbmQgb2YgdGhlIHJlbWFpbmluZyBwYXRjaGVzLgo+ID4gCj4gPiBBbGwgb2YgdGhlc2Ug
+cGF0Y2hlcyBoYXZlIGJlZW4gc2VudCBiZWZvcmUuCj4gCj4gQXJlIHlvdSBzdGlsbCBrZWVuIHRv
+ICdob292ZXIgdGhlc2UgdXAnPwo+IAo+IEp1c3QgbGVhdmUgdGhlIG9uZSB0aGF0IHJlcXVpcmVz
+IHdvcmsgYW5kIHRha2UgdGhlIHJlc3QgcGVyaGFwcz8KCkhvdyB3b3VsZCB5b3UgbGlrZSBtZSB0
+byBwcm9jZWVkIHdpdGggdGhpcz8KCi0tIApMZWUgSm9uZXMgW+adjueQvOaWr10KU2VuaW9yIFRl
+Y2huaWNhbCBMZWFkIC0gRGV2ZWxvcGVyIFNlcnZpY2VzCkxpbmFyby5vcmcg4pSCIE9wZW4gc291
+cmNlIHNvZnR3YXJlIGZvciBBcm0gU29DcwpGb2xsb3cgTGluYXJvOiBGYWNlYm9vayB8IFR3aXR0
+ZXIgfCBCbG9nCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVubwo=
