@@ -1,59 +1,39 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E76334ED16
-	for <lists+freedreno@lfdr.de>; Tue, 30 Mar 2021 18:03:59 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 62C4E34EDC9
+	for <lists+freedreno@lfdr.de>; Tue, 30 Mar 2021 18:28:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B51E96E931;
-	Tue, 30 Mar 2021 16:03:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 167346E93D;
+	Tue, 30 Mar 2021 16:28:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFE9689FCA;
- Tue, 30 Mar 2021 16:03:55 +0000 (UTC)
-Received: by mail-wr1-x42e.google.com with SMTP id b9so16729813wrt.8;
- Tue, 30 Mar 2021 09:03:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=6oj2QpU+iRP2QcXpQSoeLL823H9nv69wn1Ubcw3X/Kc=;
- b=oGf3rAc09tWox8W/AuayHxD57BYJkHett6R/hVoRJQkI/dsuvVQsdL+66QBQPYbZO8
- 7THhwdyV51H945ZoxJJ5jgoQE1adMP2x6g1L6OVgqjahcsNzGiHVTu6IA/7mHr+IJoTe
- G2IRldQQOICbaa1RBtBbDZfRIbW4FXgw9hnfwAzpMP4E4foZcweEiry54xruXlagP21k
- XcoOokxVvs+Qse2Rf6Tt4VeNyK1jyyBHKCIvomFRhW/IRq3T5TGpU3ZuLfmOfUUI5hQs
- P/3sUmpZ5wxSwYnZxo9dJhApM9eLAmfB4ezalW1zrr0WOpAGs8ZoUsMpZDJ6ZjUb1W2R
- qWCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=6oj2QpU+iRP2QcXpQSoeLL823H9nv69wn1Ubcw3X/Kc=;
- b=VqbMs5FhB5WXwhYKBPJsTf9LSE1oLamBE9T2UTuxO5XUFjnUHjfVgf/hv4ThH8Cza3
- jEoxvW3tQV/3v6MAXvzPIhpO/I4itVx8IjOyhkxo8ux7HxxmuAxZKAqczPneH1Peamvp
- VFykyoFX6fmh1tCx90ZqmEw0IC9AYQ4k+fSZd9F6e5NPYaSIlnBo4avU9MEe6asJ4WpM
- mtF4v80IejbXgD2nKWDYm4VjmXN95HRuYmReUv9EL+3GnrpMR9pKVCjy+iRHGQ6bMgfk
- QGaUOUhIhYv5vBOA3HpoZsT5KZobZMfwPFfELPfU5p7nr8TNp/nOIN+Q9iVhZUY+Bj6n
- s/2g==
-X-Gm-Message-State: AOAM5338WH+tBjNlEF/xGktGLq3cM1A2I9UG39pJtAtT2C9qG8Wg1RAi
- bokAdzCl8VAVE4HxdtDd+g5KOn0Dhx5xTmxhK/8=
-X-Google-Smtp-Source: ABdhPJyIo4QMtpT4Jjy6Aso1yAaVwCCbPHuaf9YAguVzhh4oj3SzRFzxG8rjYLqc6NicwaW7b/FSImz48Hamu6fJQ0Y=
-X-Received: by 2002:adf:d0c3:: with SMTP id z3mr35756480wrh.28.1617120234562; 
- Tue, 30 Mar 2021 09:03:54 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210326231303.3071950-1-eric@anholt.net>
- <20210329144729.GB4203@willie-the-truck>
- <CAF6AEGugpEk396DVtWX=W+uf3p-wcgBfCSpSLWGQJE1vKpJ4aw@mail.gmail.com>
- <20210330093432.GB5281@willie-the-truck>
- <CAF6AEGvCCWvmRBhzY4MsdzgwfJ+GF2AUOS-_NTyhM8wtnDzY2Q@mail.gmail.com>
- <20210330153050.GB6567@willie-the-truck>
-In-Reply-To: <20210330153050.GB6567@willie-the-truck>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 30 Mar 2021 09:07:18 -0700
-Message-ID: <CAF6AEGs+gUZ+5kmyA0Xz4jz8QJRgLVfaWmvQzuwXZBBG4xAr5w@mail.gmail.com>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 749676E93D;
+ Tue, 30 Mar 2021 16:28:27 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 79B92D6E;
+ Tue, 30 Mar 2021 09:28:26 -0700 (PDT)
+Received: from [10.57.24.208] (unknown [10.57.24.208])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C45EC3F719;
+ Tue, 30 Mar 2021 09:28:22 -0700 (PDT)
 To: Will Deacon <will@kernel.org>
-Subject: Re: [Freedreno] [PATCH 1/2] iommu/arm-smmu-qcom: Skip the TTBR1
- quirk for db820c.
+References: <20210316153825.135976-1-hch@lst.de>
+ <20210316153825.135976-17-hch@lst.de>
+ <20210330131149.GP5908@willie-the-truck>
+ <a6952aa7-4d7e-54f0-339e-e15f88596dcc@arm.com>
+ <20210330135801.GA6187@willie-the-truck>
+From: Robin Murphy <robin.murphy@arm.com>
+Message-ID: <578d6aa5-4239-f5d7-2e9f-686b18e52bba@arm.com>
+Date: Tue, 30 Mar 2021 17:28:19 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.0
+MIME-Version: 1.0
+In-Reply-To: <20210330135801.GA6187@willie-the-truck>
+Content-Language: en-GB
+Subject: Re: [Freedreno] [PATCH 16/18] iommu: remove
+ DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,60 +46,96 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, freedreno <freedreno@lists.freedesktop.org>,
- Joerg Roedel <joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Eric Anholt <eric@anholt.net>, Jordan Crouse <jcrouse@codeaurora.org>,
- Rob Herring <robh+dt@kernel.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>
-Content-Type: text/plain; charset="us-ascii"
+Cc: freedreno@lists.freedesktop.org, kvm@vger.kernel.org,
+ Michael Ellerman <mpe@ellerman.id.au>, Joerg Roedel <joro@8bytes.org>,
+ linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
+ Li Yang <leoyang.li@nxp.com>, iommu@lists.linux-foundation.org,
+ netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ virtualization@lists.linux-foundation.org,
+ David Woodhouse <dwmw2@infradead.org>, Christoph Hellwig <hch@lst.de>,
+ linux-arm-kernel@lists.infradead.org, Lu Baolu <baolu.lu@linux.intel.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Mar 30, 2021 at 8:31 AM Will Deacon <will@kernel.org> wrote:
->
-> On Tue, Mar 30, 2021 at 08:03:36AM -0700, Rob Clark wrote:
-> > On Tue, Mar 30, 2021 at 2:34 AM Will Deacon <will@kernel.org> wrote:
-> > >
-> > > On Mon, Mar 29, 2021 at 09:02:50PM -0700, Rob Clark wrote:
-> > > > On Mon, Mar 29, 2021 at 7:47 AM Will Deacon <will@kernel.org> wrote:
-> > > > >
-> > > > > On Fri, Mar 26, 2021 at 04:13:02PM -0700, Eric Anholt wrote:
-> > > > > > db820c wants to use the qcom smmu path to get HUPCF set (which keeps
-> > > > > > the GPU from wedging and then sometimes wedging the kernel after a
-> > > > > > page fault), but it doesn't have separate pagetables support yet in
-> > > > > > drm/msm so we can't go all the way to the TTBR1 path.
-> > > > >
-> > > > > What do you mean by "doesn't have separate pagetables support yet"? The
-> > > > > compatible string doesn't feel like the right way to determine this.
-> > > >
-> > > > the compatible string identifies what it is, not what the sw
-> > > > limitations are, so in that regard it seems right to me..
-> > >
-> > > Well it depends on what "doesn't have separate pagetables support yet"
-> > > means. I can't tell if it's a hardware issue, a firmware issue or a driver
-> > > issue.
-> >
-> > Just a driver issue (and the fact that currently we don't have
-> > physical access to a device... debugging a5xx per-process-pgtables by
-> > pushing untested things to the CI farm is kind of a difficult way to
-> > work)
->
-> But then in that case, this is using the compatible string to identify a
-> driver issue, no?
->
+On 2021-03-30 14:58, Will Deacon wrote:
+> On Tue, Mar 30, 2021 at 02:19:38PM +0100, Robin Murphy wrote:
+>> On 2021-03-30 14:11, Will Deacon wrote:
+>>> On Tue, Mar 16, 2021 at 04:38:22PM +0100, Christoph Hellwig wrote:
+>>>> From: Robin Murphy <robin.murphy@arm.com>
+>>>>
+>>>> Instead make the global iommu_dma_strict paramete in iommu.c canonical by
+>>>> exporting helpers to get and set it and use those directly in the drivers.
+>>>>
+>>>> This make sure that the iommu.strict parameter also works for the AMD and
+>>>> Intel IOMMU drivers on x86.  As those default to lazy flushing a new
+>>>> IOMMU_CMD_LINE_STRICT is used to turn the value into a tristate to
+>>>> represent the default if not overriden by an explicit parameter.
+>>>>
+>>>> Signed-off-by: Robin Murphy <robin.murphy@arm.com>.
+>>>> [ported on top of the other iommu_attr changes and added a few small
+>>>>    missing bits]
+>>>> Signed-off-by: Christoph Hellwig <hch@lst.de>
+>>>> ---
+>>>>    drivers/iommu/amd/iommu.c                   | 23 +-------
+>>>>    drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 50 +---------------
+>>>>    drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h |  1 -
+>>>>    drivers/iommu/arm/arm-smmu/arm-smmu.c       | 27 +--------
+>>>>    drivers/iommu/dma-iommu.c                   |  9 +--
+>>>>    drivers/iommu/intel/iommu.c                 | 64 ++++-----------------
+>>>>    drivers/iommu/iommu.c                       | 27 ++++++---
+>>>>    include/linux/iommu.h                       |  4 +-
+>>>>    8 files changed, 40 insertions(+), 165 deletions(-)
+>>>
+>>> I really like this cleanup, but I can't help wonder if it's going in the
+>>> wrong direction. With SoCs often having multiple IOMMU instances and a
+>>> distinction between "trusted" and "untrusted" devices, then having the
+>>> flush-queue enabled on a per-IOMMU or per-domain basis doesn't sound
+>>> unreasonable to me, but this change makes it a global property.
+>>
+>> The intent here was just to streamline the existing behaviour of stuffing a
+>> global property into a domain attribute then pulling it out again in the
+>> illusion that it was in any way per-domain. We're still checking
+>> dev_is_untrusted() before making an actual decision, and it's not like we
+>> can't add more factors at that point if we want to.
+> 
+> Like I say, the cleanup is great. I'm just wondering whether there's a
+> better way to express the complicated logic to decide whether or not to use
+> the flush queue than what we end up with:
+> 
+> 	if (!cookie->fq_domain && (!dev || !dev_is_untrusted(dev)) &&
+> 	    domain->ops->flush_iotlb_all && !iommu_get_dma_strict())
+> 
+> which is mixing up globals, device properties and domain properties. The
+> result is that the driver code ends up just using the global to determine
+> whether or not to pass IO_PGTABLE_QUIRK_NON_STRICT to the page-table code,
+> which is a departure from the current way of doing things.
 
-Well, I suppose yes.. but OTOH it is keeping the problem out of the
-dtb.  Once per-process pgtables works for a5xx, there would be no dtb
-change, just a change to the quirk behavior in arm-smmu-qcom.
+But previously, SMMU only ever saw the global policy piped through the 
+domain attribute by iommu_group_alloc_default_domain(), so there's no 
+functional change there.
 
-BR,
--R
+Obviously some of the above checks could be factored out into some kind 
+of iommu_use_flush_queue() helper that IOMMU drivers can also call if 
+they need to keep in sync. Or maybe we just allow iommu-dma to set 
+IO_PGTABLE_QUIRK_NON_STRICT directly via iommu_set_pgtable_quirks() if 
+we're treating that as a generic thing now.
+
+>>> For example, see the recent patch from Lu Baolu:
+>>>
+>>> https://lore.kernel.org/r/20210225061454.2864009-1-baolu.lu@linux.intel.com
+>>
+>> Erm, this patch is based on that one, it's right there in the context :/
+> 
+> Ah, sorry, I didn't spot that! I was just trying to illustrate that this
+> is per-device.
+
+Sure, I understand - and I'm just trying to bang home that despite 
+appearances it's never actually been treated as such for SMMU, so 
+anything that's wrong after this change was already wrong before.
+
+Robin.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
