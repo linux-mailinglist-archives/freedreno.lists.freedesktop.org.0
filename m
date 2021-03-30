@@ -2,40 +2,40 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E561F34E7F3
-	for <lists+freedreno@lfdr.de>; Tue, 30 Mar 2021 14:54:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C23434E814
+	for <lists+freedreno@lfdr.de>; Tue, 30 Mar 2021 14:58:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DB686E8CD;
-	Tue, 30 Mar 2021 12:54:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 077C589FC5;
+	Tue, 30 Mar 2021 12:58:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AF3C6E8C4;
- Tue, 30 Mar 2021 12:54:04 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id DBEC161955;
- Tue, 30 Mar 2021 12:54:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3FBB89FC5;
+ Tue, 30 Mar 2021 12:58:23 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 57D72619BC;
+ Tue, 30 Mar 2021 12:58:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1617108844;
- bh=MUsAReQl36x7SR3EX7iZh5BEyF4eEO7patp68iu3zYw=;
+ s=k20201202; t=1617109102;
+ bh=5U0XNBMr1VJpT/QJQ4fWikCzjX4441gkw/Sdm3D+wWo=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=RvhuDRnnjbhKmZxor1XvWHCMInipWXvRtxAnhtWSHyskQigqXOQJZBpmkmtBZyI42
- Hzk9YR+zXiAqh+GqCuQsV/e9VwUlbbLL2WBWuGxyEgIjksxNm4QjWpE80+c+eJgjxa
- CDgfI0Go46YGTQMxgFvBCCBuNUOdQ5A9e4RX4fJZrV2JQkPw15LXMK/zAx+kh0z7vL
- kyRwRMIu/q/vE1ATdrsCa4384znPHm83guJWxqP2Cv0dXtUc4fw5FRdDw0Q8vG1MD6
- rhCut5ZrQW9EjJtIgqABXSUdPcCMBGGg98+FfQp3aOd/QWoqSzA6/B7VI2jDOm1MH1
- 7esynnh6eCt1Q==
-Date: Tue, 30 Mar 2021 13:53:58 +0100
+ b=DWN42kSzKc2/IQeLw9I9cnky9VKE8OZrRaxIp7imnahbv7MAIlCPAQOEf/2y5NMu8
+ vScKgy/fFSn0Fhoux7qMTY9sZe6WF6VjaMVEZkplEDgA2afh3x+8zYKKjzvGPJlt06
+ TgRQsOK9uVedQAZ/Jp8IqZ6ws7Nvou7AeWe16C/mwxZuyO+gjDcTWK3EQ4Q5CObwBj
+ VbEcwCuxV+jbp7XKHFFopVyoBz4U9/TzMTSXuOeSy23hSGo2eadFh3veqGUn4ZV7xt
+ 6x9TFJiXvd7XE2fRBfyVs8VtDECvjUN4E+dczmX3kEuavFttoE7YeIPf2oxaLtcDm7
+ ZIQdoQHPZqTlA==
+Date: Tue, 30 Mar 2021 13:58:17 +0100
 From: Will Deacon <will@kernel.org>
 To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20210330125358.GJ5908@willie-the-truck>
+Message-ID: <20210330125816.GK5908@willie-the-truck>
 References: <20210316153825.135976-1-hch@lst.de>
- <20210316153825.135976-11-hch@lst.de>
+ <20210316153825.135976-12-hch@lst.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210316153825.135976-11-hch@lst.de>
+In-Reply-To: <20210316153825.135976-12-hch@lst.de>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH 10/18] iommu/fsl_pamu: enable the liodn when
- attaching a device
+Subject: Re: [Freedreno] [PATCH 11/18] iommu/fsl_pamu: remove the snoop_id
+ field
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,24 +61,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Mar 16, 2021 at 04:38:16PM +0100, Christoph Hellwig wrote:
-> Instead of a separate call to enable all devices from the list, just
-> enablde the liodn one the device is attached to the iommu domain.
-
-(typos: "enablde" and "one" probably needs to be "once"?)
-
-> This also remove the DOMAIN_ATTR_FSL_PAMU_ENABLE iommu_attr.
+On Tue, Mar 16, 2021 at 04:38:17PM +0100, Christoph Hellwig wrote:
+> The snoop_id is always set to ~(u32)0.
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
 > Acked-by: Li Yang <leoyang.li@nxp.com>
 > ---
->  drivers/iommu/fsl_pamu_domain.c     | 47 ++---------------------------
->  drivers/iommu/fsl_pamu_domain.h     | 10 ------
->  drivers/soc/fsl/qbman/qman_portal.c | 11 -------
->  include/linux/iommu.h               |  1 -
->  4 files changed, 3 insertions(+), 66 deletions(-)
+>  drivers/iommu/fsl_pamu_domain.c | 5 ++---
+>  drivers/iommu/fsl_pamu_domain.h | 1 -
+>  2 files changed, 2 insertions(+), 4 deletions(-)
+
+pamu_config_ppaace() takes quite a few useless parameters at this stage,
+but anyway:
 
 Acked-by: Will Deacon <will@kernel.org>
+
+Do you know if this driver is actually useful? Once the complexity has been
+stripped back, the stubs and default values really stand out.
 
 Will
 _______________________________________________
