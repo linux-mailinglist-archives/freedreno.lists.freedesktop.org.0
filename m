@@ -2,60 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7951E34DD95
-	for <lists+freedreno@lfdr.de>; Tue, 30 Mar 2021 03:34:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D6B534DDCB
+	for <lists+freedreno@lfdr.de>; Tue, 30 Mar 2021 03:52:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26A8E6E7EF;
-	Tue, 30 Mar 2021 01:34:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2244A6E7FA;
+	Tue, 30 Mar 2021 01:52:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
- [IPv6:2607:f8b0:4864:20::102c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E24C56E7EF
- for <freedreno@lists.freedesktop.org>; Tue, 30 Mar 2021 01:34:14 +0000 (UTC)
-Received: by mail-pj1-x102c.google.com with SMTP id
- j6-20020a17090adc86b02900cbfe6f2c96so6837764pjv.1
- for <freedreno@lists.freedesktop.org>; Mon, 29 Mar 2021 18:34:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=8A8If7oybmQFoEyCFbbgw0aizc2xKMTrL9mIp4UPDLA=;
- b=jitl4f2XQUctjdUPCCbZajr3dY4HcAUyftf12BZnk9gT+ExyOyrfn1aeoQJ97WZv0F
- OziPeisSf7nfUL7Vir9BOCH2pJ0XxVwB1H8xsIXQFZDnO6OkQaoxXASHwwKGvO2wAjMm
- FPgUiUBYn8zXhTWWhrZ1y2FlZIk7LUO6kXJ4vzAp+pxcg48qeGgblFHxoorxNK5OTqDa
- Ar76TxInftkgSBm46CJTsBm13wEPwKxMK42wjPYLc84bsm3TsVTGaSD88tANdPWVNzT/
- 34zNyPZ5NkE8fqvKkZ/LalogOaGJB456iDWehYkIyhzq495DhRaEeJd5KxIRH928s9LT
- Cyrw==
+Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
+ [IPv6:2607:f8b0:4864:20::1031])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 293C16E7FA
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Mar 2021 01:52:04 +0000 (UTC)
+Received: by mail-pj1-x1031.google.com with SMTP id
+ x7-20020a17090a2b07b02900c0ea793940so8626004pjc.2
+ for <freedreno@lists.freedesktop.org>; Mon, 29 Mar 2021 18:52:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:content-transfer-encoding:in-reply-to:references
+ :subject:from:cc:to:date:message-id:user-agent;
+ bh=+Cpe14PwtL8vIUpx0dzGsw3Ka3M5f1GgIApZ0rRvA/g=;
+ b=oIp3r0zJ4FEkjG/TIz3OMayXIb3PX9+/n1mCnMVGrWZSbWvbO5suX5t3s3oJMBAefp
+ kGfwCG0FpEIFzFWq+aF80ldxe8US/FdLKz/DnS+P7Cl0rdlML39ht1/w31VYPGa+6naq
+ WRUkqdlp81lqC1baoM8Qe5Ey4jfwxQUYRdWSI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=8A8If7oybmQFoEyCFbbgw0aizc2xKMTrL9mIp4UPDLA=;
- b=VZPXb1bQMuKKJnluC1FDpb+qLIlTjaG5jV68wukwAmxxMH0xbso5lubj4NbiQvve7f
- ZErcgfm5WHLFApRsVdsco2Ryf8x/bG/gCde5IXLRdtaEN/D7CcRm5mPizviwZ+CxRg+l
- 4PcBsddicDiOc2alB+UsZ9nWVPMvIyJcQ0UmpDtdu7F6CkYNc8Qio3wHGK0/RgdnkN64
- 2wfJnS++d0lXX/aFRT/CRCSdN6f/szQqmv11IHZMbHlLBKd0F6hcyxzuGJ1haaZLYwRK
- UVcJ0ufGhvxGPURDWXz7rEeTNTncy77FnBZ1lCUd9AJs+D19RoL3dUgbzNdUdb4Yk8Q/
- z2ww==
-X-Gm-Message-State: AOAM5310TH/8+K1e6XhC2y8RjV/fLrnEEIeKMfRQlBPBCMXhXB8BxOBQ
- oNdDk+TimuT54+rPc6AgipnuGA==
-X-Google-Smtp-Source: ABdhPJzYWn5sEsuZHqydzJcwoR+ebQ0R+EoGQlVFKwWjvoaLyMtIay73TxhsG1977KSK5uO/wF6Mig==
-X-Received: by 2002:a17:90a:a603:: with SMTP id
- c3mr1821365pjq.107.1617068054533; 
- Mon, 29 Mar 2021 18:34:14 -0700 (PDT)
-Received: from localhost.localdomain ([2601:1c2:680:1319:692:26ff:feda:3a81])
- by smtp.gmail.com with ESMTPSA id
- k27sm16752258pfg.95.2021.03.29.18.34.13
+ h=x-gm-message-state:mime-version:content-transfer-encoding
+ :in-reply-to:references:subject:from:cc:to:date:message-id
+ :user-agent;
+ bh=+Cpe14PwtL8vIUpx0dzGsw3Ka3M5f1GgIApZ0rRvA/g=;
+ b=sj7JCdcM80CU0XkiAOabTESoJP1eEzB/VRoFu3IBbNu3OR4QNHcuoYpUxBDlELL7wV
+ QeUOnS2mPou3U4vu7pZFZvAPfVvyn+SByFBOW9/2mNVexF6ul/EYWsBaFUSQWALixJQZ
+ YtlsW7DaOw6gwuSjg7u7dax4Vnr+nY3YSdhjC24z/cE41rWcK0qYv6vI2Yilm2t3uPJJ
+ zVBNsxpTEVAw/tYw4S/FIEsNYkq6KmYrOF0XB6moltKkhJLBoqNabNQGYfvo+nRh+AYH
+ aRWtLW/LZJLkvrFrv1t5J7rPRbrt40zNOFxgjbd+N4naqTpBzf5cTd6JtdHMpDIleT/F
+ li7A==
+X-Gm-Message-State: AOAM5302epGbIifzMaXparxT+Oxkd64y8xJN7mcPnHXKfbgbNd9wtR7a
+ NcFAamUwcBMm/82zkN6kPcDCWA==
+X-Google-Smtp-Source: ABdhPJyvaXWUQUyIW3y2W3D2lyK/Nk8RADybL4nEpzcpJxiDOoLQLbonvJydNGKL5kjDt5jh0FqtLA==
+X-Received: by 2002:a17:902:eac5:b029:e6:34e2:8378 with SMTP id
+ p5-20020a170902eac5b02900e634e28378mr30720652pld.35.1617069123644; 
+ Mon, 29 Mar 2021 18:52:03 -0700 (PDT)
+Received: from chromium.org ([2620:15c:202:201:4091:2b37:966b:1fca])
+ by smtp.gmail.com with ESMTPSA id bg16sm893875pjb.43.2021.03.29.18.52.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Mar 2021 18:34:13 -0700 (PDT)
-From: John Stultz <john.stultz@linaro.org>
-To: lkml <linux-kernel@vger.kernel.org>
-Date: Tue, 30 Mar 2021 01:34:08 +0000
-Message-Id: <20210330013408.2532048-1-john.stultz@linaro.org>
-X-Mailer: git-send-email 2.25.1
+ Mon, 29 Mar 2021 18:52:03 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm: Fix removal of valid error case when
- checking speed_bin
+In-Reply-To: <20210219120032.260676-10-maxime@cerno.tech>
+References: <20210219120032.260676-1-maxime@cerno.tech>
+ <20210219120032.260676-10-maxime@cerno.tech>
+From: Stephen Boyd <swboyd@chromium.org>
+To: Maxime Ripard <maxime@cerno.tech>
+Date: Mon, 29 Mar 2021 18:52:01 -0700
+Message-ID: <161706912161.3012082.17313817257247946143@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
+Subject: Re: [Freedreno] [PATCH v3 10/11] drm: Use state helper instead of
+ the plane state pointer
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,68 +68,116 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Jordan Crouse <jcrouse@codeaurora.org>,
- linux-arm-msm@vger.kernel.org, Douglas Anderson <dianders@chromium.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Eric Anholt <eric@anholt.net>,
- Rob Clark <robdclark@gmail.com>, John Stultz <john.stultz@linaro.org>,
- YongQin Liu <yongqin.liu@linaro.org>, Sean Paul <sean@poorly.run>
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Daniel Vetter <daniel.vetter@intel.com>, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Commit 7bf168c8fe8c  ("drm/msm: Fix speed-bin support not to
-access outside valid memory"), reworked the nvmem reading of
-"speed_bin", but in doing so dropped handling of the -ENOENT
-case which was previously documented as "fine".
+Trimming Cc list way down, sorry if that's too much.
 
-That change resulted in the db845c board display to fail to
-start, with the following error:
+Quoting Maxime Ripard (2021-02-19 04:00:30)
+> Many drivers reference the plane->state pointer in order to get the
+> current plane state in their atomic_update or atomic_disable hooks,
+> which would be the new plane state in the global atomic state since
+> _swap_state happened when those hooks are run.
 
-adreno 5000000.gpu: [drm:a6xx_gpu_init] *ERROR* failed to read speed-bin (-2). Some OPPs may not be supported by hardware
+Does this mean drm_atomic_helper_swap_state()?
 
-Thus, this patch simply re-adds the ENOENT handling so the lack
-of the speed_bin entry isn't fatal for display, and gets things
-working on db845c.
+> 
+> Use the drm_atomic_get_new_plane_state helper to get that state to make it
+> more obvious.
+> 
+> This was made using the coccinelle script below:
+> 
+> @ plane_atomic_func @
+> identifier helpers;
+> identifier func;
+> @@
+> 
+> (
+>  static const struct drm_plane_helper_funcs helpers = {
+>         ...,
+>         .atomic_disable = func,
+>         ...,
+>  };
+> |
+>  static const struct drm_plane_helper_funcs helpers = {
+>         ...,
+>         .atomic_update = func,
+>         ...,
+>  };
+> )
+> 
+> @ adds_new_state @
+> identifier plane_atomic_func.func;
+> identifier plane, state;
+> identifier new_state;
+> @@
+> 
+>  func(struct drm_plane *plane, struct drm_atomic_state *state)
+>  {
+>         ...
+> -       struct drm_plane_state *new_state = plane->state;
+> +       struct drm_plane_state *new_state = drm_atomic_get_new_plane_state(state, plane);
+>         ...
+>  }
+> 
+> @ include depends on adds_new_state @
+> @@
+> 
+>  #include <drm/drm_atomic.h>
+> 
+> @ no_include depends on !include && adds_new_state @
+> @@
+> 
+> + #include <drm/drm_atomic.h>
+>   #include <drm/...>
+> 
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c       | 3 ++-
+>  drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c      | 4 +++-
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c      | 3 ++-
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index 31071f9e21d7..e8ce72fe54a4 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -1244,7 +1244,8 @@ static void dpu_plane_atomic_update(struct drm_plane *plane,
+>                                 struct drm_atomic_state *state)
+>  {
+>         struct dpu_plane *pdpu = to_dpu_plane(plane);
+> -       struct drm_plane_state *new_state = plane->state;
+> +       struct drm_plane_state *new_state = drm_atomic_get_new_plane_state(state,
+> +                                                                          plane);
+>  
+>         pdpu->is_error = false;
+>  
 
-Cc: Rob Clark <robdclark@gmail.com>
-Cc: Sean Paul <sean@poorly.run>
-Cc: Jordan Crouse <jcrouse@codeaurora.org>
-Cc: Eric Anholt <eric@anholt.net>
-Cc: Douglas Anderson <dianders@chromium.org>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: freedreno@lists.freedesktop.org
-Cc: Bjorn Andersson <bjorn.andersson@linaro.org>
-Cc: YongQin Liu <yongqin.liu@linaro.org>
-Reported-by: YongQin Liu <yongqin.liu@linaro.org>
-Fixes: 7bf168c8fe8c  ("drm/msm: Fix speed-bin support not to access outside valid memory")
-Signed-off-by: John Stultz <john.stultz@linaro.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+This is oopsing for me. It turns out that 'new_state' is NULL. According
+to the comments drm_atomic_get_new_plane_state() can return NULL if the
+plane isn't part of the global state. I haven't looked much further but
+wanted to report it here in case that type of return value makes sense.
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 690409ca8a186..cb2df8736ca85 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -1406,7 +1406,13 @@ static int a6xx_set_supported_hw(struct device *dev, struct a6xx_gpu *a6xx_gpu,
- 	int ret;
+If I revert this patch from linux-next my display works and doesn't
+crash the system. Or I can check for NULL in the if below and it also
+works.
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+index df7f3d3afd8b..f31b89531f6a 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+@@ -1251,7 +1251,7 @@ static void dpu_plane_atomic_update(struct drm_plane *plane,
  
- 	ret = nvmem_cell_read_u16(dev, "speed_bin", &speedbin);
--	if (ret) {
-+	/*
-+	 * -ENOENT means that the platform doesn't support speedbin which is
-+	 * fine
-+	 */
-+	if (ret == -ENOENT) {
-+		return 0;
-+	} else if (ret) {
- 		DRM_DEV_ERROR(dev,
- 			      "failed to read speed-bin (%d). Some OPPs may not be supported by hardware",
- 			      ret);
--- 
-2.25.1
-
+ 	DPU_DEBUG_PLANE(pdpu, "\n");
+ 
+-	if (!new_state->visible) {
++	if (new_state && !new_state->visible) {
+ 		_dpu_plane_atomic_disable(plane);
+ 	} else {
+ 		dpu_plane_sspp_atomic_update(plane);
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
