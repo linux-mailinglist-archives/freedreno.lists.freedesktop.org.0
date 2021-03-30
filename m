@@ -1,67 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DF7834F10D
-	for <lists+freedreno@lfdr.de>; Tue, 30 Mar 2021 20:35:05 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id EAECE34F148
+	for <lists+freedreno@lfdr.de>; Tue, 30 Mar 2021 20:56:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E5B96E950;
-	Tue, 30 Mar 2021 18:35:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DC7689DFE;
+	Tue, 30 Mar 2021 18:56:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
- [IPv6:2607:f8b0:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A8326E950
- for <freedreno@lists.freedesktop.org>; Tue, 30 Mar 2021 18:35:03 +0000 (UTC)
-Received: by mail-ot1-x336.google.com with SMTP id
- g8-20020a9d6c480000b02901b65ca2432cso16516974otq.3
- for <freedreno@lists.freedesktop.org>; Tue, 30 Mar 2021 11:35:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kali.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=7htaQKxbftoYBoBRvo6Fw3o/xGPBC8mf4mLzA2dc/4o=;
- b=Ft5K1BDKQVSaTIL9aJRJ/hHCgyhttM6MmqYsQMbiLPuOd2RI52tQyVuF0WSh1DgmT0
- jQONm6nzuGp4Jg11PZc07nR1wdwndptUnGbXhDajnM9XKugPZ50Gz9PgR2cvm0eOer80
- yO8N6RxphvKTM098kSf/P/lKulCSAzDjTGFVr9XbbOPGJsLnLamWtsfU5EEv71VZZ+vd
- zWmVYbudtEgS5wW4IRzsUcFhP8mPcS3ODLRX/9hSNHY8f/UGlzbQTYYfAbcqLkrCYccP
- It6xI8BpDhRk6cDXlAoHpf1epj6vcxco20xdEDUFbPM7AEu7jJeNLKVnbQNixtHR89O0
- cTDQ==
+Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
+ [IPv6:2607:f8b0:4864:20::102c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E11C89DFE
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Mar 2021 18:56:18 +0000 (UTC)
+Received: by mail-pj1-x102c.google.com with SMTP id ha17so8239951pjb.2
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Mar 2021 11:56:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:content-transfer-encoding:in-reply-to:references
+ :subject:from:cc:to:date:message-id:user-agent;
+ bh=A1Cm9DKwzI8CvORdDIEy1/TIc9c8R+sdsGDmBgQsdac=;
+ b=bmpKFJU8/TpETST1kxi1bOPIfxziXa9chsB5tnTM+0YDM/puKEhUGNgzKasiHR/al8
+ f6JJuCL4TJ5Uc823xq+xSgwBzRniXNw7aCv2lWnJF02QEKfZMNPLcSMK7E1SbJqmvsC/
+ 075H8wWeQG61RXZBG1R7XQ1jPgXIChh6ZKIHw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=7htaQKxbftoYBoBRvo6Fw3o/xGPBC8mf4mLzA2dc/4o=;
- b=l0TC/Hz2LLkhdtCjPILFfnGj0LJw/gqJH/jsZX4K4ITp5NpMP4sfYRj7zQvaDOQcen
- TIL83I2H315Mh7lBTfYMR7TSV2LRJ6Wtg/UoS6ziESLv4iW7gRW9DyXeVwEZLKswsb+6
- WAFPcOmie2h8EegeDDNi3Ydcq5nLaYJ7rcTEGZdhLoHEsvz6Hv7jKjY8nr2E49+X1kP2
- jiShNwY1L18LFFTs15dq60iKNaf6C9zT9fyk0ir5pACYSRNOAiGV0UiC9VM85guW1uI/
- aikUHVho3TO82HWIwIVyfhJ7UZO24ir3H8KpkBVEmmbUkvtzddJzv1HplbXvbDfJEVJ3
- ZWEQ==
-X-Gm-Message-State: AOAM532gCf8BcDC4vu4BDBpitubzt4bEmqeV1YQ5rShfkg7rAYnBs1dW
- +NFweIkmO5Vnv1P2s72qcuP4VQ==
-X-Google-Smtp-Source: ABdhPJxm/HKy8G9IahnJtm9yGlmSCpqOeKz1dBEhVN8GGToPwn+I+VZJQQyGDe8lEGomZ9Kyg1y2uw==
-X-Received: by 2002:a9d:4811:: with SMTP id c17mr29460104otf.206.1617129302172; 
- Tue, 30 Mar 2021 11:35:02 -0700 (PDT)
-Received: from MacBook-Pro.hackershack.net
- (cpe-173-173-107-246.satx.res.rr.com. [173.173.107.246])
- by smtp.gmail.com with ESMTPSA id g2sm5232437otn.32.2021.03.30.11.35.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Mar 2021 11:35:01 -0700 (PDT)
-To: Kalyan Thota <kalyan_t@codeaurora.org>, y@qualcomm.com,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-References: <y> <1616404632-13693-1-git-send-email-kalyan_t@codeaurora.org>
-From: Steev Klimaszewski <steev@kali.org>
-Message-ID: <823f7f00-444e-8e22-e8d0-2ced97e4c291@kali.org>
-Date: Tue, 30 Mar 2021 13:34:59 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.9.0
+ h=x-gm-message-state:mime-version:content-transfer-encoding
+ :in-reply-to:references:subject:from:cc:to:date:message-id
+ :user-agent;
+ bh=A1Cm9DKwzI8CvORdDIEy1/TIc9c8R+sdsGDmBgQsdac=;
+ b=kjFathiHlOfa2wr9YNQkeSf8JgNliQScgDMmqBMDejcEdW82xdiCy1seLRaYZPHCqm
+ rbua3d5MSSP2LBg4gqUFLuW/k9TaMB0Bd4EYA0zqB9ZEmCjNWk99Mq5Vh90s3d3TAZZk
+ o54hv9rAGQ3c3KYArEkE8Ew+gpys3eM64yfN73yBV8WktyscLdPBfY43tSfA3R6qkKBG
+ iuFuULQLFV5OeTVqngsp50jWbR4rVO9USAqEmSveqU/ZJ4LOxFyN8jwTHQesUPipgHKg
+ DFpQedykpI/cCAFxFDO0/ueTtDDzefHx8tiy2oX9WWIIF0F5AVLlQi8OpKcQrc0Jre+t
+ PzBw==
+X-Gm-Message-State: AOAM533ZpLthc94CTJwfAEXg0bxIwio27JRT0M1GLJScPxLcJpu6Yvf5
+ rLKuJJZTe8Yt9vhSI6gtWhVOzA==
+X-Google-Smtp-Source: ABdhPJx6ssFA3V35D5q1Icohe6M7TsyX+5kBYa9lFs9XO/Eaik1VuChmrs8OYk5LP8unOTL2xOnZqg==
+X-Received: by 2002:a17:90a:a618:: with SMTP id
+ c24mr5718708pjq.108.1617130577746; 
+ Tue, 30 Mar 2021 11:56:17 -0700 (PDT)
+Received: from chromium.org ([2620:15c:202:201:c8c2:b814:df0f:253f])
+ by smtp.gmail.com with ESMTPSA id x4sm20545016pfn.134.2021.03.30.11.56.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 30 Mar 2021 11:56:17 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1616404632-13693-1-git-send-email-kalyan_t@codeaurora.org>
-Content-Language: en-US
-Subject: Re: [Freedreno] [v1] drm/msm/disp/dpu1: icc path needs to be set
- before dpu runtime resume
+In-Reply-To: <20210330153527.gw33t4o2b35wwzbg@gilmour>
+References: <20210219120032.260676-1-maxime@cerno.tech>
+ <20210219120032.260676-10-maxime@cerno.tech>
+ <161706912161.3012082.17313817257247946143@swboyd.mtv.corp.google.com>
+ <20210330153527.gw33t4o2b35wwzbg@gilmour>
+From: Stephen Boyd <swboyd@chromium.org>
+To: Maxime Ripard <maxime@cerno.tech>
+Date: Tue, 30 Mar 2021 11:56:15 -0700
+Message-ID: <161713057558.2260335.5422873422021430866@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
+Subject: Re: [Freedreno] [PATCH v3 10/11] drm: Use state helper instead of
+ the plane state pointer
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,136 +69,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: mkrishn@codeaurora.org, hywu@google.com, dianders@chromium.org,
- linux-kernel@vger.kernel.org, mka@google.com, robdclark@gmail.com,
- midean@google.com, Kalyan Thota <kalyant@codeaurora.org>
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Daniel Vetter <daniel.vetter@intel.com>, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Quoting Maxime Ripard (2021-03-30 08:35:27)
+> Hi Stephen,
+> 
+> On Mon, Mar 29, 2021 at 06:52:01PM -0700, Stephen Boyd wrote:
+> > Trimming Cc list way down, sorry if that's too much.
+> > 
+> > Quoting Maxime Ripard (2021-02-19 04:00:30)
+> > > Many drivers reference the plane->state pointer in order to get the
+> > > current plane state in their atomic_update or atomic_disable hooks,
+> > > which would be the new plane state in the global atomic state since
+> > > _swap_state happened when those hooks are run.
+> > 
+> > Does this mean drm_atomic_helper_swap_state()?
+> 
+> Yep. Previous to that call in drm_atomic_helper_commit, plane->state is
+> the state currently programmed in the hardware, so the old state (that's
+> the case you have with atomic_check for example)
+> 
+> Once drm_atomic_helper_swap_state has run, plane->state is now the state
+> that needs to be programmed into the hardware, so the new state.
 
-On 3/22/21 4:17 AM, Kalyan Thota wrote:
-> From: Kalyan Thota <kalyant@codeaurora.org>
->
-> DPU runtime resume will request for a min vote on the AXI bus as
-> it is a necessary step before turning ON the AXI clock.
->
-> The change does below
-> 1) Move the icc path set before requesting runtime get_sync.
-> 2) remove the dependency of hw catalog for min ib vote
-> as it is initialized at a later point.
->
-> Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 12 +++++++-----
->  1 file changed, 7 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index ed636f1..cab387f 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -44,6 +44,8 @@
->  #define DPU_DEBUGFS_DIR "msm_dpu"
->  #define DPU_DEBUGFS_HWMASKNAME "hw_log_mask"
->  
-> +#define MIN_IB_BW	400000000ULL /* Min ib vote 400MB */
-> +
->  static int dpu_kms_hw_init(struct msm_kms *kms);
->  static void _dpu_kms_mmu_destroy(struct dpu_kms *dpu_kms);
->  
-> @@ -932,6 +934,9 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->  		DPU_DEBUG("REG_DMA is not defined");
->  	}
->  
-> +	if (of_device_is_compatible(dev->dev->of_node, "qcom,sc7180-mdss"))
-> +		dpu_kms_parse_data_bus_icc_path(dpu_kms);
-> +
->  	pm_runtime_get_sync(&dpu_kms->pdev->dev);
->  
->  	dpu_kms->core_rev = readl_relaxed(dpu_kms->mmio + 0x0);
-> @@ -1037,9 +1042,6 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->  
->  	dpu_vbif_init_memtypes(dpu_kms);
->  
-> -	if (of_device_is_compatible(dev->dev->of_node, "qcom,sc7180-mdss"))
-> -		dpu_kms_parse_data_bus_icc_path(dpu_kms);
-> -
->  	pm_runtime_put_sync(&dpu_kms->pdev->dev);
->  
->  	return 0;
-> @@ -1196,10 +1198,10 @@ static int __maybe_unused dpu_runtime_resume(struct device *dev)
->  
->  	ddev = dpu_kms->dev;
->  
-> +	WARN_ON(!(dpu_kms->num_paths));
->  	/* Min vote of BW is required before turning on AXI clk */
->  	for (i = 0; i < dpu_kms->num_paths; i++)
-> -		icc_set_bw(dpu_kms->path[i], 0,
-> -			dpu_kms->catalog->perf.min_dram_ib);
-> +		icc_set_bw(dpu_kms->path[i], 0, Bps_to_icc(MIN_IB_BW));
->  
->  	rc = msm_dss_enable_clk(mp->clk_config, mp->num_clk, true);
->  	if (rc) {
-
-With this patch now applied to 5.12-rc5, I am seeing the following when
-booting the Lenovo Yoga C630 -
-
-Mar 30 13:16:03 c630 kernel: [    2.038491] ------------[ cut here ]------------
-Mar 30 13:16:03 c630 kernel: [    2.038495] WARNING: CPU: 3 PID: 125 at drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c:1196 dpu_runtime_resume+0xc0/0xf0 [msm]
-Mar 30 13:16:03 c630 kernel: [    2.038551] Modules linked in: ti_sn65dsi86 i2c_hid_of crct10dif_ce msm rtc_pm8xxx llcc_qcom ocmem drm_kms_helper i2c_qcom_geni phy_qcom_qusb2 ipa(+) qcom_common qcom_glink_smem qmi_helpers mdt_loader panel_simple drm pwm_bl
-Mar 30 13:16:03 c630 kernel: [    2.038599] CPU: 3 PID: 125 Comm: kworker/3:1 Not tainted 5.12.0-rc5 #1
-Mar 30 13:16:03 c630 kernel: [    2.038605] Hardware name: LENOVO 81JL/LNVNB161216, BIOS 9UCN33WW(V2.06) 06/ 4/2019
-Mar 30 13:16:03 c630 kernel: [    2.038610] Workqueue: events deferred_probe_work_func
-Mar 30 13:16:03 c630 kernel: [    2.038621] pstate: 60400005 (nZCv daif +PAN -UAO -TCO BTYPE=--)
-Mar 30 13:16:03 c630 kernel: [    2.038627] pc : dpu_runtime_resume+0xc0/0xf0 [msm]
-Mar 30 13:16:03 c630 kernel: [    2.038674] lr : pm_generic_runtime_resume+0x30/0x50
-Mar 30 13:16:03 c630 kernel: [    2.038683] sp : ffff800010b9b7e0
-Mar 30 13:16:03 c630 kernel: [    2.038685] x29: ffff800010b9b7e0 x28: 0000000000000000 
-Mar 30 13:16:03 c630 kernel: [    2.038692] x27: 0000000000000000 x26: ffff6b42c0c16cf4 
-Mar 30 13:16:03 c630 kernel: [    2.038698] x25: 000000007965f7df x24: 0000000000000001 
-Mar 30 13:16:03 c630 kernel: [    2.038705] x23: ffff6b42c0a34180 x22: ffffda2e0cc5b3d0 
-Mar 30 13:16:03 c630 kernel: [    2.038712] x21: ffffda2e0b3ed6a0 x20: ffff6b42c6845000 
-Mar 30 13:16:03 c630 kernel: [    2.038718] x19: ffff6b42c6851080 x18: ffffda2e0cce1220 
-Mar 30 13:16:03 c630 kernel: [    2.038725] x17: ffffda2e0cce1238 x16: ffffda2e0b23e5f0 
-Mar 30 13:16:03 c630 kernel: [    2.038731] x15: 0000000040000000 x14: 0000000000000000 
-Mar 30 13:16:03 c630 kernel: [    2.038738] x13: ffff6b42c5f0b5b0 x12: 0000000000000000 
-Mar 30 13:16:03 c630 kernel: [    2.038744] x11: 0000000000000001 x10: 0000000000003fff 
-Mar 30 13:16:03 c630 kernel: [    2.038750] x9 : 0000000000000000 x8 : 0000000000000000 
-Mar 30 13:16:03 c630 kernel: [    2.038755] x7 : 0000000000000000 x6 : 000000000c473b7e 
-Mar 30 13:16:03 c630 kernel: [    2.038761] x5 : 00ffffffffffffff x4 : 00221806fff8f800 
-Mar 30 13:16:03 c630 kernel: [    2.038768] x3 : 0000000000000018 x2 : ffffda2dc3d34320 
-Mar 30 13:16:03 c630 kernel: [    2.038774] x1 : 0000000000000000 x0 : 0000000000000000 
-Mar 30 13:16:03 c630 kernel: [    2.038781] Call trace:
-Mar 30 13:16:03 c630 kernel: [    2.038784]  dpu_runtime_resume+0xc0/0xf0 [msm]
-Mar 30 13:16:03 c630 kernel: [    2.038831]  pm_generic_runtime_resume+0x30/0x50
-Mar 30 13:16:03 c630 kernel: [    2.038836]  __genpd_runtime_resume+0x30/0xb0
-Mar 30 13:16:03 c630 kernel: [    2.038842]  genpd_runtime_resume+0x90/0x250
-Mar 30 13:16:03 c630 kernel: [    2.038848]  __rpm_callback+0x90/0x160
-Mar 30 13:16:03 c630 kernel: [    2.038854]  rpm_callback+0x24/0x84
-Mar 30 13:16:03 c630 kernel: [    2.038859]  rpm_resume+0x450/0x6ec
-Mar 30 13:16:03 c630 kernel: [    2.038865]  __pm_runtime_resume+0x3c/0x90
-Mar 30 13:16:03 c630 kernel: [    2.038870]  dpu_kms_hw_init+0x124/0x5dc [msm]
-Mar 30 13:16:03 c630 kernel: [    2.038918]  msm_drm_bind+0x468/0x594 [msm]
-Mar 30 13:16:03 c630 kernel: [    2.038965]  try_to_bring_up_master+0x164/0x1d0
-Mar 30 13:16:03 c630 kernel: [    2.038973]  component_master_add_with_match+0xb8/0x100
-Mar 30 13:16:03 c630 kernel: [    2.038979]  msm_pdev_probe+0x260/0x300 [msm]
-Mar 30 13:16:03 c630 kernel: [    2.039026]  platform_probe+0x68/0xe0
-Mar 30 13:16:03 c630 kernel: [    2.039032]  really_probe+0xe4/0x4c0
-Mar 30 13:16:03 c630 kernel: [    2.039036]  driver_probe_device+0x58/0xc0
-Mar 30 13:16:03 c630 kernel: [    2.039040]  __device_attach_driver+0xa8/0x104
-Mar 30 13:16:03 c630 kernel: [    2.039045]  bus_for_each_drv+0x78/0xd0
-Mar 30 13:16:03 c630 kernel: [    2.039051]  __device_attach+0xd8/0x17c
-Mar 30 13:16:03 c630 kernel: [    2.039055]  device_initial_probe+0x14/0x20
-Mar 30 13:16:03 c630 kernel: [    2.039059]  bus_probe_device+0x9c/0xa4
-Mar 30 13:16:03 c630 kernel: [    2.039065]  deferred_probe_work_func+0x74/0xb0
-Mar 30 13:16:03 c630 kernel: [    2.039069]  process_one_work+0x1d0/0x494
-Mar 30 13:16:03 c630 kernel: [    2.039076]  worker_thread+0x13c/0x470
-Mar 30 13:16:03 c630 kernel: [    2.039080]  kthread+0x158/0x160
-Mar 30 13:16:03 c630 kernel: [    2.039085]  ret_from_fork+0x10/0x34
-Mar 30 13:16:03 c630 kernel: [    2.039093] ---[ end trace 65a4c9cc3f59c59a ]---
-Mar 30 13:16:03 c630 kernel: [    2.039124] [drm:dpu_kms_hw_init:943] dpu hardware revision:0x40000000
-
+Ok, and I suppose that is called by drm_atomic_helper_commit()? So
+presumably a modeset is causing this? I get the NULL pointer around the
+time we switch from the splash screen to the login screen. I think
+there's a modeset during that transition.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
