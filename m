@@ -1,42 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8FD2350118
-	for <lists+freedreno@lfdr.de>; Wed, 31 Mar 2021 15:21:16 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A7165350181
+	for <lists+freedreno@lfdr.de>; Wed, 31 Mar 2021 15:40:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A1426EA9E;
-	Wed, 31 Mar 2021 13:21:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 404296E1EC;
+	Wed, 31 Mar 2021 13:40:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-m121143.qiye.163.com (mail-m121143.qiye.163.com
- [115.236.121.143])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F315E6EA97
- for <freedreno@lists.freedesktop.org>; Wed, 31 Mar 2021 13:21:13 +0000 (UTC)
-Received: from ubuntu.localdomain (unknown [36.152.145.181])
- by mail-m121143.qiye.163.com (Hmail) with ESMTPA id 2EB85540261;
- Wed, 31 Mar 2021 21:13:35 +0800 (CST)
-From: Bernard Zhao <bernard@vivo.com>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Kalyan Thota <kalyan_t@codeaurora.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>, Lee Jones <lee.jones@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jonathan Marek <jonathan@marek.ca>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Date: Wed, 31 Mar 2021 06:13:27 -0700
-Message-Id: <20210331131329.61000-1-bernard@vivo.com>
-X-Mailer: git-send-email 2.31.0
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A06AE6EA9F
+ for <freedreno@lists.freedesktop.org>; Wed, 31 Mar 2021 13:40:10 +0000 (UTC)
+Received: by mail-lj1-x235.google.com with SMTP id r20so23912890ljk.4
+ for <freedreno@lists.freedesktop.org>; Wed, 31 Mar 2021 06:40:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=7F1deS5QWVK4KYnOzaLbhNHQC6aug03ApEK2A2NzYGA=;
+ b=H43yUMdSWba5CkZEw+Cqmmn7i4lFJ/UW3UcmfVjvwhoJFqyAJ+/8/4cTEcyYPG8bbH
+ dsTQmmErgLzmewm2gjllG3X4poLoKENQVXhYC4IyArHGJbZpa5KVIi2kMNxU082JQeSI
+ D4kkZIqNxUHr/QdWRiy4yDOAMcXaab27tJQUUiWIVd2moAeylcLBuQNRxChBNa4cgLLd
+ Z3irhXRGAyIj8/DI9abbrA8pigSviyJ8mbrrE03WZYYkig7Lktj/RUNA1v7vu/FX3vpd
+ 123lof+XmUeB8yk0Hxa64AM94RRyzUdnSJoADFmc4FJUa/TvU6eUSI42BZ524KUD/6yx
+ t2AQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=7F1deS5QWVK4KYnOzaLbhNHQC6aug03ApEK2A2NzYGA=;
+ b=Mit33/X1+Gd1pTBJ9bNunJWR6d1NMjZOp/djGsvXCQ7l3Jw02ToNAjWIydRw+aSalu
+ YDCtRBCK3kMRhwWozHPSA7oyNrrWYP1bVQOrMLhL6CoXqXN6H+w3DdQNxAYnSojPVyAC
+ 5vBjd3yovfiALS2ZdOTOQiuWwnG3tY1PeTT8D4DFRcYe+gnYTV956wdghfJna2O6Y7In
+ 9YPWggHY/aa2sBbO70teTDcwIkVY4xmhrzPCIsX5thEN7zDxDfoXwLQ8qH2rAiguFqeL
+ mDLtlMZr6n++VCyG/2bNrxUpCo4jgjf1lFR4PCqboZ4txNJ6Aa7cB1bznAVYlb5k6cgY
+ fyTA==
+X-Gm-Message-State: AOAM532jAwYHcd3NTb95DnjgP+vMaRr3XPJO46psJeg3WWhS6nHvj0I6
+ l6s1EnPaAEFWOP8u2NNOPwXDPw==
+X-Google-Smtp-Source: ABdhPJxwrrlNr1BbyXtUcHSomrDs3y/v2bqflV4EZT9tDuK09E34s8j9WdMzKx42fAwlSEWQPvNvog==
+X-Received: by 2002:a2e:9857:: with SMTP id e23mr2182526ljj.78.1617198008818; 
+ Wed, 31 Mar 2021 06:40:08 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id b25sm237748lff.268.2021.03.31.06.40.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 31 Mar 2021 06:40:08 -0700 (PDT)
+To: Jordan Crouse <jcrouse@codeaurora.org>, linux-arm-msm@vger.kernel.org
+References: <20210210005205.783377-1-jcrouse@codeaurora.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <af099fda-a7be-8fe5-ed9e-cfcd6f13c09c@linaro.org>
+Date: Wed, 31 Mar 2021 16:40:07 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.0
 MIME-Version: 1.0
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
- oVCBIfWUFZHRpDHkJOTkpCGkpPVkpNSkxKQk1PSk5OTE1VEwETFhoSFyQUDg9ZV1kWGg8SFR0UWU
- FZT0tIVUpKS0hKTFVLWQY+
-X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6N1E6MSo*HD8LDjUJNy8tKzgX
- My9PFCFVSlVKTUpMSkJNT0pOQ05CVTMWGhIXVRkeCRUaCR87DRINFFUYFBZFWVdZEgtZQVlITVVK
- TklVSk9OVUpDSllXWQgBWUFJTktJNwY+
-X-HM-Tid: 0a78886afa16b038kuuu2eb85540261
-Subject: [Freedreno] [PATCH] msm/disp: dpu_plane cleanup-coding-style-a-bit
+In-Reply-To: <20210210005205.783377-1-jcrouse@codeaurora.org>
+Content-Language: en-GB
+Subject: Re: [Freedreno] [PATCH v2] drm/msm: a6xx: Make sure the SQE
+ microcode is safe
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,36 +70,85 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: opensource.kernel@vivo.com, Bernard Zhao <bernard@vivo.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ freedreno@lists.freedesktop.org, Sharat Masetty <smasetty@codeaurora.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Eric Anholt <eric@anholt.net>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Fix sparse warning:
-drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c:1195:41: warning: Using plain integer as NULL pointer
+Hello,
 
-Signed-off-by: Bernard Zhao <bernard@vivo.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 10/02/2021 03:52, Jordan Crouse wrote:
+> Most a6xx targets have security issues that were fixed with new versions
+> of the microcode(s). Make sure that we are booting with a safe version of
+> the microcode for the target and print a message and error if not.
+> 
+> v2: Add more informative error messages and fix typos
+> 
+> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index f898a8f67b7f..687a57850405 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -1223,7 +1223,7 @@ static void _dpu_plane_atomic_disable(struct drm_plane *plane)
- {
- 	struct dpu_plane *pdpu = to_dpu_plane(plane);
- 	struct drm_plane_state *state = plane->state;
--	struct dpu_plane_state *pstate = to_dpu_plane_state(state);
-+	struct dpu_plane_state *pstate = (struct dpu_plane_state *)to_dpu_plane_state(state);
- 
- 	trace_dpu_plane_disable(DRMID(plane), is_dpu_plane_virtual(plane),
- 				pstate->multirect_mode);
+[skipped]
+
+> +	}  else {
+> +		/*
+> +		 * a650 tier targets don't need whereami but still need to be
+> +		 * equal to or newer than 1.95 for other security fixes
+> +		 */
+> +		if (adreno_is_a650(adreno_gpu)) {
+> +			if ((buf[0] & 0xfff) >= 0x195) {
+> +				ret = true;
+> +				goto out;
+> +			}
+
+I think this is incorrect. The latest firmware i have here also fails 
+this check, with the buf[0] = 0x016dd099, so buf[0] & 0xfff = 0x099.
+
+Could you please confirm the versioning?
+
+> +
+> +			DRM_DEV_ERROR(&gpu->pdev->dev,
+> +				"a650 SQE ucode is too old. Have version %x need at least %x\n",
+> +				buf[0] & 0xfff, 0x195);
+> +		}
+> +
+> +		/*
+> +		 * When a660 is added those targets should return true here
+> +		 * since those have all the critical security fixes built in
+> +		 * from the start
+> +		 */
+> +	}
+> +out:
+>   	msm_gem_put_vaddr(obj);
+> +	return ret;
+>   }
+>   
+>   static int a6xx_ucode_init(struct msm_gpu *gpu)
+> @@ -566,7 +611,13 @@ static int a6xx_ucode_init(struct msm_gpu *gpu)
+>   		}
+>   
+>   		msm_gem_object_set_name(a6xx_gpu->sqe_bo, "sqefw");
+> -		a6xx_ucode_check_version(a6xx_gpu, a6xx_gpu->sqe_bo);
+> +		if (!a6xx_ucode_check_version(a6xx_gpu, a6xx_gpu->sqe_bo)) {
+> +			msm_gem_unpin_iova(a6xx_gpu->sqe_bo, gpu->aspace);
+> +			drm_gem_object_put(a6xx_gpu->sqe_bo);
+> +
+> +			a6xx_gpu->sqe_bo = NULL;
+> +			return -EPERM;
+> +		}
+>   	}
+>   
+>   	gpu_write64(gpu, REG_A6XX_CP_SQE_INSTR_BASE_LO,
+
+
 -- 
-2.31.0
-
+With best wishes
+Dmitry
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
