@@ -2,38 +2,44 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2061834FF75
-	for <lists+freedreno@lfdr.de>; Wed, 31 Mar 2021 13:27:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D011534FFB7
+	for <lists+freedreno@lfdr.de>; Wed, 31 Mar 2021 13:49:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 223036EA6C;
-	Wed, 31 Mar 2021 11:27:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 602696EA73;
+	Wed, 31 Mar 2021 11:49:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E39DB6E1A3;
- Wed, 31 Mar 2021 11:27:38 +0000 (UTC)
-Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
- by alexa-out.qualcomm.com with ESMTP; 31 Mar 2021 04:27:38 -0700
-X-QCInternal: smtphost
-Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
- by ironmsg07-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 31 Mar 2021 04:27:36 -0700
-X-QCInternal: smtphost
-Received: from kalyant-linux.qualcomm.com ([10.204.66.210])
- by ironmsg01-blr.qualcomm.com with ESMTP; 31 Mar 2021 16:57:04 +0530
-Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
- id BE5EA433F; Wed, 31 Mar 2021 04:27:02 -0700 (PDT)
-From: Kalyan Thota <kalyan_t@codeaurora.org>
-To: y@qualcomm.com, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
-Date: Wed, 31 Mar 2021 04:27:00 -0700
-Message-Id: <1617190020-7931-1-git-send-email-kalyan_t@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <y>
-References: <y>
-Subject: [Freedreno] [v1] drm/msm/disp/dpu1: fix warn stack reported during
- dpu resume
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15BE56EA70;
+ Wed, 31 Mar 2021 11:49:54 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id EC88860249;
+ Wed, 31 Mar 2021 11:49:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1617191393;
+ bh=9Tvk8pMagcUqHlxEfpmAq3P1z5xVSb6AxBC9iuF3UAo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=kMlovUr/+JWR2ZHUYmDPMJ2ndHmdrz5lm7unGTt4nXLsAYiYuNHKr5e0oMkxx6fDz
+ QR2rHHP5l9HS5rEud3McAg/yhn1jEjy25vdtAyZhr/OaEDrBLA51RShgMt6ADFGgKk
+ uQaFZLkdzt19pPW2qgqzcDG9l8DRiLheZZlrvUgMDXhydKLRJqDVIU4Tnw+ks2cwPl
+ dKj97SK7OA1MiDUHwOiBDXkDUo1pSJ37y/5yx0ulUHqGh/GEBy/gsrfNl6Wm5GhbkI
+ DEukmD+vjCBTbLqtDliJ10g6+dV8RwrdEMhaaSt1c6K7yQWHZYOPwwIVQ8ExC6hyFf
+ jZwkG9F4BmZKw==
+Date: Wed, 31 Mar 2021 12:49:47 +0100
+From: Will Deacon <will@kernel.org>
+To: Robin Murphy <robin.murphy@arm.com>
+Message-ID: <20210331114947.GA7626@willie-the-truck>
+References: <20210316153825.135976-1-hch@lst.de>
+ <20210316153825.135976-17-hch@lst.de>
+ <20210330131149.GP5908@willie-the-truck>
+ <a6952aa7-4d7e-54f0-339e-e15f88596dcc@arm.com>
+ <20210330135801.GA6187@willie-the-truck>
+ <578d6aa5-4239-f5d7-2e9f-686b18e52bba@arm.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <578d6aa5-4239-f5d7-2e9f-686b18e52bba@arm.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Freedreno] [PATCH 16/18] iommu: remove
+ DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,116 +52,89 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: mkrishn@codeaurora.org, hywu@google.com, dianders@chromium.org,
- steev@kali.org, linux-kernel@vger.kernel.org, mka@google.com,
- robdclark@gmail.com, midean@google.com, Kalyan Thota <kalyan_t@codeaurora.org>
-MIME-Version: 1.0
+Cc: freedreno@lists.freedesktop.org, kvm@vger.kernel.org,
+ Michael Ellerman <mpe@ellerman.id.au>, Joerg Roedel <joro@8bytes.org>,
+ linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
+ Li Yang <leoyang.li@nxp.com>, iommu@lists.linux-foundation.org,
+ netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ virtualization@lists.linux-foundation.org,
+ David Woodhouse <dwmw2@infradead.org>, Christoph Hellwig <hch@lst.de>,
+ linux-arm-kernel@lists.infradead.org, Lu Baolu <baolu.lu@linux.intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-WARN_ON was introduced by the below commit to catch runtime resumes
-that are getting triggered before icc path was set.
+On Tue, Mar 30, 2021 at 05:28:19PM +0100, Robin Murphy wrote:
+> On 2021-03-30 14:58, Will Deacon wrote:
+> > On Tue, Mar 30, 2021 at 02:19:38PM +0100, Robin Murphy wrote:
+> > > On 2021-03-30 14:11, Will Deacon wrote:
+> > > > On Tue, Mar 16, 2021 at 04:38:22PM +0100, Christoph Hellwig wrote:
+> > > > > From: Robin Murphy <robin.murphy@arm.com>
+> > > > > 
+> > > > > Instead make the global iommu_dma_strict paramete in iommu.c canonical by
+> > > > > exporting helpers to get and set it and use those directly in the drivers.
+> > > > > 
+> > > > > This make sure that the iommu.strict parameter also works for the AMD and
+> > > > > Intel IOMMU drivers on x86.  As those default to lazy flushing a new
+> > > > > IOMMU_CMD_LINE_STRICT is used to turn the value into a tristate to
+> > > > > represent the default if not overriden by an explicit parameter.
+> > > > > 
+> > > > > Signed-off-by: Robin Murphy <robin.murphy@arm.com>.
+> > > > > [ported on top of the other iommu_attr changes and added a few small
+> > > > >    missing bits]
+> > > > > Signed-off-by: Christoph Hellwig <hch@lst.de>
+> > > > > ---
+> > > > >    drivers/iommu/amd/iommu.c                   | 23 +-------
+> > > > >    drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 50 +---------------
+> > > > >    drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h |  1 -
+> > > > >    drivers/iommu/arm/arm-smmu/arm-smmu.c       | 27 +--------
+> > > > >    drivers/iommu/dma-iommu.c                   |  9 +--
+> > > > >    drivers/iommu/intel/iommu.c                 | 64 ++++-----------------
+> > > > >    drivers/iommu/iommu.c                       | 27 ++++++---
+> > > > >    include/linux/iommu.h                       |  4 +-
+> > > > >    8 files changed, 40 insertions(+), 165 deletions(-)
+> > > > 
+> > > > I really like this cleanup, but I can't help wonder if it's going in the
+> > > > wrong direction. With SoCs often having multiple IOMMU instances and a
+> > > > distinction between "trusted" and "untrusted" devices, then having the
+> > > > flush-queue enabled on a per-IOMMU or per-domain basis doesn't sound
+> > > > unreasonable to me, but this change makes it a global property.
+> > > 
+> > > The intent here was just to streamline the existing behaviour of stuffing a
+> > > global property into a domain attribute then pulling it out again in the
+> > > illusion that it was in any way per-domain. We're still checking
+> > > dev_is_untrusted() before making an actual decision, and it's not like we
+> > > can't add more factors at that point if we want to.
+> > 
+> > Like I say, the cleanup is great. I'm just wondering whether there's a
+> > better way to express the complicated logic to decide whether or not to use
+> > the flush queue than what we end up with:
+> > 
+> > 	if (!cookie->fq_domain && (!dev || !dev_is_untrusted(dev)) &&
+> > 	    domain->ops->flush_iotlb_all && !iommu_get_dma_strict())
+> > 
+> > which is mixing up globals, device properties and domain properties. The
+> > result is that the driver code ends up just using the global to determine
+> > whether or not to pass IO_PGTABLE_QUIRK_NON_STRICT to the page-table code,
+> > which is a departure from the current way of doing things.
+> 
+> But previously, SMMU only ever saw the global policy piped through the
+> domain attribute by iommu_group_alloc_default_domain(), so there's no
+> functional change there.
 
-"drm/msm/disp/dpu1: icc path needs to be set before dpu runtime resume"
+For DMA domains sure, but I don't think that's the case for unmanaged
+domains such as those used by VFIO.
 
-For the targets where the bw scaling is not enabled, this WARN_ON is
-a false alarm. Fix the WARN condition appropriately.
+> Obviously some of the above checks could be factored out into some kind of
+> iommu_use_flush_queue() helper that IOMMU drivers can also call if they need
+> to keep in sync. Or maybe we just allow iommu-dma to set
+> IO_PGTABLE_QUIRK_NON_STRICT directly via iommu_set_pgtable_quirks() if we're
+> treating that as a generic thing now.
 
-Reported-by: Steev Klimaszewski <steev@kali.org>
-Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  |  8 +++++---
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h  |  9 +++++++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c | 11 ++++++-----
- 3 files changed, 20 insertions(+), 8 deletions(-)
+I think a helper that takes a domain would be a good starting point.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index cab387f..0071a4d 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -294,6 +294,9 @@ static int dpu_kms_parse_data_bus_icc_path(struct dpu_kms *dpu_kms)
- 	struct icc_path *path1;
- 	struct drm_device *dev = dpu_kms->dev;
- 
-+	if (!dpu_supports_bw_scaling(dev))
-+		return 0;
-+
- 	path0 = of_icc_get(dev->dev, "mdp0-mem");
- 	path1 = of_icc_get(dev->dev, "mdp1-mem");
- 
-@@ -934,8 +937,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
- 		DPU_DEBUG("REG_DMA is not defined");
- 	}
- 
--	if (of_device_is_compatible(dev->dev->of_node, "qcom,sc7180-mdss"))
--		dpu_kms_parse_data_bus_icc_path(dpu_kms);
-+	dpu_kms_parse_data_bus_icc_path(dpu_kms);
- 
- 	pm_runtime_get_sync(&dpu_kms->pdev->dev);
- 
-@@ -1198,7 +1200,7 @@ static int __maybe_unused dpu_runtime_resume(struct device *dev)
- 
- 	ddev = dpu_kms->dev;
- 
--	WARN_ON(!(dpu_kms->num_paths));
-+	WARN_ON((dpu_supports_bw_scaling(ddev) && !dpu_kms->num_paths));
- 	/* Min vote of BW is required before turning on AXI clk */
- 	for (i = 0; i < dpu_kms->num_paths; i++)
- 		icc_set_bw(dpu_kms->path[i], 0, Bps_to_icc(MIN_IB_BW));
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-index d6717d6..f7bcc0a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-@@ -154,6 +154,15 @@ struct vsync_info {
- 
- #define to_dpu_global_state(x) container_of(x, struct dpu_global_state, base)
- 
-+/**
-+ * dpu_supports_bw_scaling: returns true for drivers that support bw scaling.
-+ * @dev: Pointer to drm_device structure
-+ */
-+static inline int dpu_supports_bw_scaling(struct drm_device *dev)
-+{
-+	return of_device_is_compatible(dev->dev->of_node, "qcom,sc7180-mdss");
-+}
-+
- /* Global private object state for tracking resources that are shared across
-  * multiple kms objects (planes/crtcs/etc).
-  */
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
-index cd40788..8cd712c 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
-@@ -41,6 +41,9 @@ static int dpu_mdss_parse_data_bus_icc_path(struct drm_device *dev,
- 	struct icc_path *path0 = of_icc_get(dev->dev, "mdp0-mem");
- 	struct icc_path *path1 = of_icc_get(dev->dev, "mdp1-mem");
- 
-+	if (dpu_supports_bw_scaling(dev))
-+		return 0;
-+
- 	if (IS_ERR_OR_NULL(path0))
- 		return PTR_ERR_OR_ZERO(path0);
- 
-@@ -276,11 +279,9 @@ int dpu_mdss_init(struct drm_device *dev)
- 
- 	DRM_DEBUG("mapped mdss address space @%pK\n", dpu_mdss->mmio);
- 
--	if (!of_device_is_compatible(dev->dev->of_node, "qcom,sc7180-mdss")) {
--		ret = dpu_mdss_parse_data_bus_icc_path(dev, dpu_mdss);
--		if (ret)
--			return ret;
--	}
-+	ret = dpu_mdss_parse_data_bus_icc_path(dev, dpu_mdss);
-+	if (ret)
-+		return ret;
- 
- 	mp = &dpu_mdss->mp;
- 	ret = msm_dss_parse_clock(pdev, mp);
--- 
-2.7.4
-
+Will
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
