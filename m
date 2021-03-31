@@ -2,56 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 866B0350625
-	for <lists+freedreno@lfdr.de>; Wed, 31 Mar 2021 20:19:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 552583509FB
+	for <lists+freedreno@lfdr.de>; Thu,  1 Apr 2021 00:13:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2737D6EB36;
-	Wed, 31 Mar 2021 18:19:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C746B89F19;
+	Wed, 31 Mar 2021 22:13:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECE1C6EB36
- for <freedreno@lists.freedesktop.org>; Wed, 31 Mar 2021 18:19:16 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1617214759; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=kF/20iZqiGx7wNR+fkuad3zo5/rtj1z2trqAMlWamaQ=;
- b=p2ayArR6uECbZRvXEyyLkAhgCh0XTu+RcwMwrTM1oatnsWkRgWpLp/J8yZMHDA1X8/XDc8sD
- uP+Lp2i7JGN5qM6wWZdmOH0Px0gmoplI2UnpW5eM81GOVHsNxdKwmP8ry1O90PLdzfttmiDS
- w8i9smF88zUYkD2NS06dsmWuAlc=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
- 6064bd1e74f773a664202be4 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 31 Mar 2021 18:19:10
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 8BDC7C43467; Wed, 31 Mar 2021 18:19:09 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 1D7C8C433CA;
- Wed, 31 Mar 2021 18:19:07 +0000 (UTC)
+Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
+ [IPv6:2607:f8b0:4864:20::1034])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9851789F19;
+ Wed, 31 Mar 2021 22:13:08 +0000 (UTC)
+Received: by mail-pj1-x1034.google.com with SMTP id
+ cl21-20020a17090af695b02900c61ac0f0e9so3689180pjb.1; 
+ Wed, 31 Mar 2021 15:13:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=G0/dYIgnSX89Wncbzzni0dKPijuXuQy3ZNHTM+WWX+o=;
+ b=i/o6hDwUTHXj7cRi3sw12njdfpFH/fTCTnwowNa8u0wWBiNhPtCwIZC/aNohKv5bQb
+ SYMDgArhz4vXJRqZxxx/naDXxFULtBnWSY2kb6OBwcM93HAOPnL1GvEL3ycxh4+9rh9c
+ u7GC9htWspdKR7ZpEGB9pgbVpB/3xf8DEDgprZtSbHK7tekQA7rjU6JzZTJyJNuGUI2I
+ EAVfi/19pY3FOKxn3zV6LpiicfVJev/QJTVP7ZgM3Mw8IGp9zjKVhVIV6DbkYTern+K+
+ d/tGFfaIHPtQuuHIZI0W5hl5MNnmgR6MN0rRZKMb7nnwV4WwQa8xyLjbVJdU7VBGK4SO
+ dVNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=G0/dYIgnSX89Wncbzzni0dKPijuXuQy3ZNHTM+WWX+o=;
+ b=ss8o0i8AWg1lh5RIMwpepiVrzUg8gqQyo24Y20uCLUGGCeG54UO9kgPKhOMC4AAxSS
+ lZOZYu031fgmPsZ77CVJn1nu7K+ylSWEj6Z8sJhjgnWcOB7Qkbzdgnzwc84VS21W5W4G
+ IZJq8QS2XWhxZ2E9AAR4Q4qYwgXVALxrMfhtgJPlGGI/sFBXR/qKwZ7mtQNc4QxZAZFw
+ LHLLLGUTG9G+gG43/Elp9Vg5dDJpXgQhwqEtjvFsqzfubvkPd4DF6WMZCvWDTfpHKWY8
+ 8rfGiadxmXzbx9H1htTbHZ0/oj4Y+mJF7X9BCVa9XtSItnwacWKZlcdXPXa3ey68Huk1
+ E2wA==
+X-Gm-Message-State: AOAM5331bK4OwXmSqS6aPduE2yfYWPI1jIuTSAUlfjDMCa3kQIzt9Gwm
+ 6X60hQu5L7xDo/XNqKQq4Tn50uzB0Dw2hg==
+X-Google-Smtp-Source: ABdhPJxwe+oiVp7tvWPLGP/ZA7PBzUUo1nBjagFv5vUKkmNvUEx8VjN8e9JniAVvPkE2IeMxJG16Lg==
+X-Received: by 2002:a17:902:d30c:b029:e3:f95:6da5 with SMTP id
+ b12-20020a170902d30cb02900e30f956da5mr5021786plc.6.1617228787350; 
+ Wed, 31 Mar 2021 15:13:07 -0700 (PDT)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ j3sm3231107pfi.74.2021.03.31.15.13.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 31 Mar 2021 15:13:06 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Wed, 31 Mar 2021 15:16:25 -0700
+Message-Id: <20210331221630.488498-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Date: Wed, 31 Mar 2021 11:19:07 -0700
-From: abhinavk@codeaurora.org
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20210331105735.3690009-24-dmitry.baryshkov@linaro.org>
-References: <20210331105735.3690009-1-dmitry.baryshkov@linaro.org>
- <20210331105735.3690009-24-dmitry.baryshkov@linaro.org>
-Message-ID: <848e764a0b26be36ec110964bc2655d0@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH v4 23/24] drm/msm/dsi: inline
- msm_dsi_phy_set_src_pll
+Subject: [Freedreno] [PATCH 0/4] drm/msm: Shrinker (and related) fixes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,303 +67,52 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
- Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
- Michael Turquette <mturquette@baylibre.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@linux.ie>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>, linux-clk@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ "Kristian H. Kristensen" <hoegsberg@google.com>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-03-31 03:57, Dmitry Baryshkov wrote:
-> The src_truthtable config is not used for some of phys, which use other
-> means of configuring the master/slave usecases. Inline this function
-> with the goal of removing src_pll_id argument in the next commit.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Tested-by: Stephen Boyd <swboyd@chromium.org> # on sc7180 lazor
-Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
-> ---
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy.c           | 17 -----------------
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy.h           |  8 --------
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c      |  2 --
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c      | 13 +++++++------
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c      | 11 +++++++----
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c      | 13 +++++++------
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c |  1 -
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c       |  2 --
->  8 files changed, 21 insertions(+), 46 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> index 344887025720..93e81bb78d26 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> @@ -461,23 +461,6 @@ int msm_dsi_dphy_timing_calc_v4(struct
-> msm_dsi_dphy_timing *timing,
->  	return 0;
->  }
-> 
-> -void msm_dsi_phy_set_src_pll(struct msm_dsi_phy *phy, int pll_id, u32 
-> reg,
-> -				u32 bit_mask)
-> -{
-> -	int phy_id = phy->id;
-> -	u32 val;
-> -
-> -	if ((phy_id >= DSI_MAX) || (pll_id >= DSI_MAX))
-> -		return;
-> -
-> -	val = dsi_phy_read(phy->base + reg);
-> -
-> -	if (phy->cfg->src_pll_truthtable[phy_id][pll_id])
-> -		dsi_phy_write(phy->base + reg, val | bit_mask);
-> -	else
-> -		dsi_phy_write(phy->base + reg, val & (~bit_mask));
-> -}
-> -
->  static int dsi_phy_regulator_init(struct msm_dsi_phy *phy)
->  {
->  	struct regulator_bulk_data *s = phy->supplies;
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-> b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-> index 7748f8b5ea53..00ef01baaebd 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-> @@ -33,12 +33,6 @@ struct msm_dsi_phy_cfg {
->  	unsigned long	min_pll_rate;
->  	unsigned long	max_pll_rate;
-> 
-> -	/*
-> -	 * Each cell {phy_id, pll_id} of the truth table indicates
-> -	 * if the source PLL selection bit should be set for each PHY.
-> -	 * Fill default H/W values in illegal cells, eg. cell {0, 1}.
-> -	 */
-> -	bool src_pll_truthtable[DSI_MAX][DSI_MAX];
->  	const resource_size_t io_start[DSI_MAX];
->  	const int num_dsi_phy;
->  	const int quirks;
-> @@ -121,7 +115,5 @@ int msm_dsi_dphy_timing_calc_v3(struct
-> msm_dsi_dphy_timing *timing,
->  				struct msm_dsi_phy_clk_request *clk_req);
->  int msm_dsi_dphy_timing_calc_v4(struct msm_dsi_dphy_timing *timing,
->  				struct msm_dsi_phy_clk_request *clk_req);
-> -void msm_dsi_phy_set_src_pll(struct msm_dsi_phy *phy, int pll_id, u32 
-> reg,
-> -				u32 bit_mask);
-> 
->  #endif /* __DSI_PHY_H__ */
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-> b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-> index 655996cf8688..64b8b0efc1a4 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-> @@ -921,7 +921,6 @@ static void dsi_10nm_phy_disable(struct msm_dsi_phy 
-> *phy)
->  }
-> 
->  const struct msm_dsi_phy_cfg dsi_phy_10nm_cfgs = {
-> -	.src_pll_truthtable = { {false, false}, {true, false} },
->  	.has_phy_lane = true,
->  	.reg_cfg = {
->  		.num = 1,
-> @@ -943,7 +942,6 @@ const struct msm_dsi_phy_cfg dsi_phy_10nm_cfgs = {
->  };
-> 
->  const struct msm_dsi_phy_cfg dsi_phy_10nm_8998_cfgs = {
-> -	.src_pll_truthtable = { {false, false}, {true, false} },
->  	.has_phy_lane = true,
->  	.reg_cfg = {
->  		.num = 1,
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
-> b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
-> index 090d3e7a2212..9a2937589435 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
-> @@ -947,6 +947,7 @@ static int dsi_14nm_phy_enable(struct msm_dsi_phy
-> *phy, int src_pll_id,
->  	int ret;
->  	void __iomem *base = phy->base;
->  	void __iomem *lane_base = phy->lane_base;
-> +	u32 glbl_test_ctrl;
-> 
->  	if (msm_dsi_dphy_timing_calc_v2(timing, clk_req)) {
->  		DRM_DEV_ERROR(&phy->pdev->dev,
-> @@ -994,10 +995,12 @@ static int dsi_14nm_phy_enable(struct
-> msm_dsi_phy *phy, int src_pll_id,
->  	udelay(100);
->  	dsi_phy_write(base + REG_DSI_14nm_PHY_CMN_CTRL_1, 0x00);
-> 
-> -	msm_dsi_phy_set_src_pll(phy, src_pll_id,
-> -				REG_DSI_14nm_PHY_CMN_GLBL_TEST_CTRL,
-> -				DSI_14nm_PHY_CMN_GLBL_TEST_CTRL_BITCLK_HS_SEL);
-> -
-> +	glbl_test_ctrl = dsi_phy_read(base + 
-> REG_DSI_14nm_PHY_CMN_GLBL_TEST_CTRL);
-> +	if (phy->id == DSI_1 && src_pll_id == DSI_0)
-> +		glbl_test_ctrl |= DSI_14nm_PHY_CMN_GLBL_TEST_CTRL_BITCLK_HS_SEL;
-> +	else
-> +		glbl_test_ctrl &= ~DSI_14nm_PHY_CMN_GLBL_TEST_CTRL_BITCLK_HS_SEL;
-> +	dsi_phy_write(base + REG_DSI_14nm_PHY_CMN_GLBL_TEST_CTRL, 
-> glbl_test_ctrl);
->  	ret = dsi_14nm_set_usecase(phy);
->  	if (ret) {
->  		DRM_DEV_ERROR(&phy->pdev->dev, "%s: set pll usecase failed, %d\n",
-> @@ -1021,7 +1024,6 @@ static void dsi_14nm_phy_disable(struct 
-> msm_dsi_phy *phy)
->  }
-> 
->  const struct msm_dsi_phy_cfg dsi_phy_14nm_cfgs = {
-> -	.src_pll_truthtable = { {false, false}, {true, false} },
->  	.has_phy_lane = true,
->  	.reg_cfg = {
->  		.num = 1,
-> @@ -1043,7 +1045,6 @@ const struct msm_dsi_phy_cfg dsi_phy_14nm_cfgs = 
-> {
->  };
-> 
->  const struct msm_dsi_phy_cfg dsi_phy_14nm_660_cfgs = {
-> -	.src_pll_truthtable = { {false, false}, {true, false} },
->  	.has_phy_lane = true,
->  	.reg_cfg = {
->  		.num = 1,
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c
-> b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c
-> index 5e73f811d645..f5b88c85a8fc 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c
-> @@ -70,6 +70,7 @@ static int dsi_20nm_phy_enable(struct msm_dsi_phy
-> *phy, int src_pll_id,
->  	int i;
->  	void __iomem *base = phy->base;
->  	u32 cfg_4[4] = {0x20, 0x40, 0x20, 0x00};
-> +	u32 val;
-> 
->  	DBG("");
-> 
-> @@ -83,9 +84,12 @@ static int dsi_20nm_phy_enable(struct msm_dsi_phy
-> *phy, int src_pll_id,
-> 
->  	dsi_phy_write(base + REG_DSI_20nm_PHY_STRENGTH_0, 0xff);
-> 
-> -	msm_dsi_phy_set_src_pll(phy, src_pll_id,
-> -				REG_DSI_20nm_PHY_GLBL_TEST_CTRL,
-> -				DSI_20nm_PHY_GLBL_TEST_CTRL_BITCLK_HS_SEL);
-> +	val = dsi_phy_read(base + REG_DSI_20nm_PHY_GLBL_TEST_CTRL);
-> +	if (src_pll_id == DSI_1)
-> +		val |= DSI_20nm_PHY_GLBL_TEST_CTRL_BITCLK_HS_SEL;
-> +	else
-> +		val &= ~DSI_20nm_PHY_GLBL_TEST_CTRL_BITCLK_HS_SEL;
-> +	dsi_phy_write(base + REG_DSI_20nm_PHY_GLBL_TEST_CTRL, val);
-> 
->  	for (i = 0; i < 4; i++) {
->  		dsi_phy_write(base + REG_DSI_20nm_PHY_LN_CFG_3(i),
-> @@ -125,7 +129,6 @@ static void dsi_20nm_phy_disable(struct msm_dsi_phy 
-> *phy)
->  }
-> 
->  const struct msm_dsi_phy_cfg dsi_phy_20nm_cfgs = {
-> -	.src_pll_truthtable = { {false, true}, {false, true} },
->  	.has_phy_regulator = true,
->  	.reg_cfg = {
->  		.num = 2,
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
-> b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
-> index e09fa80c413e..61f2f7f672ca 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
-> @@ -704,6 +704,7 @@ static int dsi_28nm_phy_enable(struct msm_dsi_phy
-> *phy, int src_pll_id,
->  	struct msm_dsi_dphy_timing *timing = &phy->timing;
->  	int i;
->  	void __iomem *base = phy->base;
-> +	u32 val;
-> 
->  	DBG("");
-> 
-> @@ -743,9 +744,12 @@ static int dsi_28nm_phy_enable(struct msm_dsi_phy
-> *phy, int src_pll_id,
-> 
->  	dsi_phy_write(base + REG_DSI_28nm_PHY_CTRL_0, 0x5f);
-> 
-> -	msm_dsi_phy_set_src_pll(phy, src_pll_id,
-> -				REG_DSI_28nm_PHY_GLBL_TEST_CTRL,
-> -				DSI_28nm_PHY_GLBL_TEST_CTRL_BITCLK_HS_SEL);
-> +	val = dsi_phy_read(base + REG_DSI_28nm_PHY_GLBL_TEST_CTRL);
-> +	if (phy->id == DSI_1 && src_pll_id == DSI_0)
-> +		val &= ~DSI_28nm_PHY_GLBL_TEST_CTRL_BITCLK_HS_SEL;
-> +	else
-> +		val |= DSI_28nm_PHY_GLBL_TEST_CTRL_BITCLK_HS_SEL;
-> +	dsi_phy_write(base + REG_DSI_28nm_PHY_GLBL_TEST_CTRL, val);
-> 
->  	return 0;
->  }
-> @@ -763,7 +767,6 @@ static void dsi_28nm_phy_disable(struct msm_dsi_phy 
-> *phy)
->  }
-> 
->  const struct msm_dsi_phy_cfg dsi_phy_28nm_hpm_cfgs = {
-> -	.src_pll_truthtable = { {true, true}, {false, true} },
->  	.has_phy_regulator = true,
->  	.reg_cfg = {
->  		.num = 1,
-> @@ -785,7 +788,6 @@ const struct msm_dsi_phy_cfg dsi_phy_28nm_hpm_cfgs 
-> = {
->  };
-> 
->  const struct msm_dsi_phy_cfg dsi_phy_28nm_hpm_famb_cfgs = {
-> -	.src_pll_truthtable = { {true, true}, {false, true} },
->  	.has_phy_regulator = true,
->  	.reg_cfg = {
->  		.num = 1,
-> @@ -807,7 +809,6 @@ const struct msm_dsi_phy_cfg 
-> dsi_phy_28nm_hpm_famb_cfgs = {
->  };
-> 
->  const struct msm_dsi_phy_cfg dsi_phy_28nm_lp_cfgs = {
-> -	.src_pll_truthtable = { {true, true}, {true, true} },
->  	.has_phy_regulator = true,
->  	.reg_cfg = {
->  		.num = 1,
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
-> b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
-> index 08bd93b719e0..83e275ed7476 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
-> @@ -642,7 +642,6 @@ static void dsi_28nm_phy_disable(struct msm_dsi_phy 
-> *phy)
->  }
-> 
->  const struct msm_dsi_phy_cfg dsi_phy_28nm_8960_cfgs = {
-> -	.src_pll_truthtable = { {true, true}, {false, true} },
->  	.has_phy_regulator = true,
->  	.reg_cfg = {
->  		.num = 1,
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> index b079ecc63212..dc28dd37c7f9 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> @@ -957,7 +957,6 @@ static void dsi_7nm_phy_disable(struct msm_dsi_phy 
-> *phy)
->  }
-> 
->  const struct msm_dsi_phy_cfg dsi_phy_7nm_cfgs = {
-> -	.src_pll_truthtable = { {false, false}, {true, false} },
->  	.has_phy_lane = true,
->  	.reg_cfg = {
->  		.num = 1,
-> @@ -980,7 +979,6 @@ const struct msm_dsi_phy_cfg dsi_phy_7nm_cfgs = {
->  };
-> 
->  const struct msm_dsi_phy_cfg dsi_phy_7nm_8150_cfgs = {
-> -	.src_pll_truthtable = { {false, false}, {true, false} },
->  	.has_phy_lane = true,
->  	.reg_cfg = {
->  		.num = 1,
+From: Rob Clark <robdclark@chromium.org>
+
+I've been spending some time looking into how things behave under high
+memory pressure.  The first patch is a random cleanup I noticed along
+the way.  The second improves the situation significantly when we are
+getting shrinker called from many threads in parallel.  And the last
+two are $debugfs/gem fixes I needed so I could monitor the state of GEM
+objects (ie. how many are active/purgable/purged) while triggering high
+memory pressure.
+
+We could probably go a bit further with dropping the mm_lock in the
+shrinker->scan() loop, but this is already a pretty big improvement.
+The next step is probably actually to add support to unpin/evict
+inactive objects.  (We are part way there since we have already de-
+coupled the iova lifetime from the pages lifetime, but there are a
+few sharp corners to work through.)
+
+Rob Clark (4):
+  drm/msm: Remove unused freed llist node
+  drm/msm: Avoid mutex in shrinker_count()
+  drm/msm: Fix debugfs deadlock
+  drm/msm: Improved debugfs gem stats
+
+ drivers/gpu/drm/msm/msm_debugfs.c      | 14 ++----
+ drivers/gpu/drm/msm/msm_drv.c          |  4 ++
+ drivers/gpu/drm/msm/msm_drv.h          | 10 ++++-
+ drivers/gpu/drm/msm/msm_fb.c           |  3 +-
+ drivers/gpu/drm/msm/msm_gem.c          | 61 +++++++++++++++++++++-----
+ drivers/gpu/drm/msm/msm_gem.h          | 58 +++++++++++++++++++++---
+ drivers/gpu/drm/msm/msm_gem_shrinker.c | 17 +------
+ 7 files changed, 122 insertions(+), 45 deletions(-)
+
+-- 
+2.30.2
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
