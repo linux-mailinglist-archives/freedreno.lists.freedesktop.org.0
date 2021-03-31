@@ -2,61 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FE59350AD9
-	for <lists+freedreno@lfdr.de>; Thu,  1 Apr 2021 01:33:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF3BF350AE4
+	for <lists+freedreno@lfdr.de>; Thu,  1 Apr 2021 01:39:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B19546EBA5;
-	Wed, 31 Mar 2021 23:33:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70EBC6EBA5;
+	Wed, 31 Mar 2021 23:39:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
- [IPv6:2607:f8b0:4864:20::734])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 651276EBA1
- for <freedreno@lists.freedesktop.org>; Wed, 31 Mar 2021 23:33:49 +0000 (UTC)
-Received: by mail-qk1-x734.google.com with SMTP id 7so533268qka.7
- for <freedreno@lists.freedesktop.org>; Wed, 31 Mar 2021 16:33:49 -0700 (PDT)
+Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com
+ [IPv6:2607:f8b0:4864:20::f2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2C496EBA6
+ for <freedreno@lists.freedesktop.org>; Wed, 31 Mar 2021 23:39:56 +0000 (UTC)
+Received: by mail-qv1-xf2b.google.com with SMTP id g8so211046qvx.1
+ for <freedreno@lists.freedesktop.org>; Wed, 31 Mar 2021 16:39:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Ryw7Sly4csIxLLkV0t8RVlRi+I4oygJP2r682A3Ebsg=;
- b=XSlzP164vpMabm8VK7gOUDGLcC28VMJkHMTe3WUhvTPmB2LjegZ4XUUKpBnAI+VfX/
- VRJtqvfUH0LXbIQVHPaQmE2CVoSwf73vC7/C2yAl6xriPwSE1pIYCMVoqb6ADYKZtt1H
- ma9YyWtCHNW6GLqQqFMelk3JxyalMU266gNcA=
+ :cc; bh=KRXtd75gIM8o6NO9GrD5QaBIhsBoZKHXbOsv1GkYlzc=;
+ b=icAxVtUz2hwviiFNsnHwXEnvvtgXHS05bFOuzxBj120Eg5qITOkW4TAP4+E4/U0UMz
+ d7A3ZJ0+Y4PUBnaUNcXYjLti0rW3kwnyl8P5KQXebXzrO+mttpJ0a6fqoIYgezQHVNRl
+ 4QQ7s0RIkQMiWoukQ36T0c2QeLGBfIfCyH4Q4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=Ryw7Sly4csIxLLkV0t8RVlRi+I4oygJP2r682A3Ebsg=;
- b=gv+HbmZaVriVjtCcOjKu/S3d+T5FhrLPJFDevnCXev4hkcOf93buiVO8SlHTHdVXAZ
- y4o8YASnlfA2cmOU6AXph9St8bMqUL5QH6inE1zTpCJUCPEMloOc9QfLTxApH09MBh+q
- MBkeUzlqUvMscNJRtMlavPi7zpc5w8PFhvzDyaTfAahiBdlDOE2zMYGYeyEtHUIP8GeV
- vsM+p6W+I3MEXAQxeP/1clSZ22bCEV+uRaV+lz0JSHsNgLv6WLK+cMkaraaxnryARhxu
- LG2ceDjjSa00IsgxJp3VV5Wca0ksF24dtBmqG2EmITb4glETsrDqhEezWSFwdegRfutD
- vrRw==
-X-Gm-Message-State: AOAM533oUPSqWKyW244/hOBSbdGHr//X/rFiA3RbSSOlKFLcolDW6dF+
- CVSlR4owvRACVLi7N4eHn25tshSCNs3G4w==
-X-Google-Smtp-Source: ABdhPJyAUvn3ZyqS8NgxVcrJYygLK2q4fvSeM4tKtvXFcoyGyySQ3+1q2MEpSx5vUhnpnNphhZHfsw==
-X-Received: by 2002:ae9:c115:: with SMTP id z21mr5662531qki.305.1617233628514; 
- Wed, 31 Mar 2021 16:33:48 -0700 (PDT)
-Received: from mail-yb1-f173.google.com (mail-yb1-f173.google.com.
- [209.85.219.173])
- by smtp.gmail.com with ESMTPSA id 4sm2553711qkj.119.2021.03.31.16.33.47
+ bh=KRXtd75gIM8o6NO9GrD5QaBIhsBoZKHXbOsv1GkYlzc=;
+ b=uktj6E2xcLYwvP+2+urVE87ySo6JbTsDX8NeYBmGrgoGA/sQib5DLRxgXHBkGM5t4D
+ pzlhprrIFzqVBLEGvCDk4SV4NqGsjirVPh8g4QVhNJp9v/LA+vh39PFP2+PWbKbJ3qoc
+ fARqWVFyvjKH/tRlF6rC9imzTTvIrdyD0T1Gk0yGp6DP88TNKW62YEaEpBmBId57J9z9
+ im9j0vPwiplJKu0v+vsRRC5TCF0/C+BUnHz7K9L98BgwPXyRBnFdJUQleDn77tZAdKqp
+ 8PjBxTE2peW8v0TN5StcJXe3N7yhPwpalZIhhhjQw1GGM51TbGygTUwV3EmNRD0znXir
+ sdig==
+X-Gm-Message-State: AOAM532sHlxACs/9ySIlFyXGqUtw6UC0D6Tg/XFqeyu8Wzo1j7OPbJ4K
+ dUd1Gzvjo7eQMuIUtclDTww6sGOCbLf6dg==
+X-Google-Smtp-Source: ABdhPJwPI+tdNoQlCQNdR9iyyoKFJCjqV9EGIGNyRYJMwRUZZ8Hv/7Jbf/5+bztjGG8we8aRry+Nxw==
+X-Received: by 2002:a0c:bd82:: with SMTP id n2mr5703965qvg.62.1617233995501;
+ Wed, 31 Mar 2021 16:39:55 -0700 (PDT)
+Received: from mail-yb1-f178.google.com (mail-yb1-f178.google.com.
+ [209.85.219.178])
+ by smtp.gmail.com with ESMTPSA id g74sm2700825qke.3.2021.03.31.16.39.54
  for <freedreno@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 31 Mar 2021 16:33:47 -0700 (PDT)
-Received: by mail-yb1-f173.google.com with SMTP id j198so22942785ybj.11
- for <freedreno@lists.freedesktop.org>; Wed, 31 Mar 2021 16:33:47 -0700 (PDT)
-X-Received: by 2002:a5b:54a:: with SMTP id r10mr8190661ybp.476.1617233627357; 
- Wed, 31 Mar 2021 16:33:47 -0700 (PDT)
+ Wed, 31 Mar 2021 16:39:55 -0700 (PDT)
+Received: by mail-yb1-f178.google.com with SMTP id j2so23005027ybj.8
+ for <freedreno@lists.freedesktop.org>; Wed, 31 Mar 2021 16:39:54 -0700 (PDT)
+X-Received: by 2002:a5b:54a:: with SMTP id r10mr8216760ybp.476.1617233994289; 
+ Wed, 31 Mar 2021 16:39:54 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210331221630.488498-1-robdclark@gmail.com>
- <20210331221630.488498-5-robdclark@gmail.com>
-In-Reply-To: <20210331221630.488498-5-robdclark@gmail.com>
+ <20210331221630.488498-3-robdclark@gmail.com>
+ <CAD=FV=USXBm-ZLafNWbUK=Ny7_vwtyG164mQFs87SkXqim-Vpw@mail.gmail.com>
+ <CAF6AEGutvjUQ-bQMsAYDLq5kdRo7rQ5XwWjGSRV27VT_UOuMTw@mail.gmail.com>
+In-Reply-To: <CAF6AEGutvjUQ-bQMsAYDLq5kdRo7rQ5XwWjGSRV27VT_UOuMTw@mail.gmail.com>
 From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 31 Mar 2021 16:33:35 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=UXoE-UsbfS1zOoKyaiVXPUBAnOr7T2ON4m6-i_43Dm6A@mail.gmail.com>
-Message-ID: <CAD=FV=UXoE-UsbfS1zOoKyaiVXPUBAnOr7T2ON4m6-i_43Dm6A@mail.gmail.com>
+Date: Wed, 31 Mar 2021 16:39:42 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=VLzDW93COWPALyin3N-wM=a7uKG7WgttmMCncf7qRmKQ@mail.gmail.com>
+Message-ID: <CAD=FV=VLzDW93COWPALyin3N-wM=a7uKG7WgttmMCncf7qRmKQ@mail.gmail.com>
 To: Rob Clark <robdclark@gmail.com>
-Subject: Re: [Freedreno] [PATCH 4/4] drm/msm: Improved debugfs gem stats
+Subject: Re: [Freedreno] [PATCH 2/4] drm/msm: Avoid mutex in shrinker_count()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,40 +85,140 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 Hi,
 
-On Wed, Mar 31, 2021 at 3:14 PM Rob Clark <robdclark@gmail.com> wrote:
+On Wed, Mar 31, 2021 at 4:23 PM Rob Clark <robdclark@gmail.com> wrote:
 >
-> From: Rob Clark <robdclark@chromium.org>
+> On Wed, Mar 31, 2021 at 3:44 PM Doug Anderson <dianders@chromium.org> wrote:
+> >
+> > Hi,
+> >
+> > On Wed, Mar 31, 2021 at 3:14 PM Rob Clark <robdclark@gmail.com> wrote:
+> > >
+> > > @@ -818,11 +820,19 @@ static void update_inactive(struct msm_gem_object *msm_obj)
+> > >         mutex_lock(&priv->mm_lock);
+> > >         WARN_ON(msm_obj->active_count != 0);
+> > >
+> > > +       if (msm_obj->dontneed)
+> > > +               mark_unpurgable(msm_obj);
+> > > +
+> > >         list_del_init(&msm_obj->mm_list);
+> > > -       if (msm_obj->madv == MSM_MADV_WILLNEED)
+> > > +       if (msm_obj->madv == MSM_MADV_WILLNEED) {
+> > >                 list_add_tail(&msm_obj->mm_list, &priv->inactive_willneed);
+> > > -       else
+> > > +       } else if (msm_obj->madv == MSM_MADV_DONTNEED) {
+> > >                 list_add_tail(&msm_obj->mm_list, &priv->inactive_dontneed);
+> > > +               mark_purgable(msm_obj);
+> > > +       } else {
+> > > +               WARN_ON(msm_obj->madv != __MSM_MADV_PURGED);
+> > > +               list_add_tail(&msm_obj->mm_list, &priv->inactive_purged);
+> >
+> > I'm probably being dense, but what's the point of adding it to the
+> > "inactive_purged" list here? You never look at that list, right? You
+> > already did a list_del_init() on this object's list pointer
+> > ("mm_list"). I don't see how adding it to a bogus list helps with
+> > anything.
 >
-> The last patch lost the breakdown of active vs inactive GEM objects in
-> $debugfs/gem.  But we can add some better stats to summarize not just
-> active vs inactive, but also purgable/purged to make up for that.
+> It preserves the "every bo is in one of these lists" statement, but
+> other than that you are right we aren't otherwise doing anything with
+> that list.  (Or we could replace the list_del_init() with list_del()..
+> I tend to instinctively go for list_del_init())
+
+If you really want this list, it wouldn't hurt to at least have a
+comment saying that it's not used for anything so people like me doing
+go trying to figure out what it's used for. ;-)
+
+
+> > > @@ -198,6 +203,33 @@ static inline bool is_vunmapable(struct msm_gem_object *msm_obj)
+> > >         return (msm_obj->vmap_count == 0) && msm_obj->vaddr;
+> > >  }
+> > >
+> > > +static inline void mark_purgable(struct msm_gem_object *msm_obj)
+> > > +{
+> > > +       struct msm_drm_private *priv = msm_obj->base.dev->dev_private;
+> > > +
+> > > +       WARN_ON(!mutex_is_locked(&priv->mm_lock));
+> > > +
+> > > +       if (WARN_ON(msm_obj->dontneed))
+> > > +               return;
+> >
+> > The is_purgeable() function also checks other things besides just
+> > "MSM_MADV_DONTNEED". Do we need to check those too? Specifically:
+> >
+> >  msm_obj->sgt && !msm_obj->base.dma_buf && !msm_obj->base.import_attach
+> >
+> > ...or is it just being paranoid?
+> >
+> > I guess I'm just worried that if any of those might be important then
+> > we'll consistently report back that we have a count of things that can
+> > be purged but then scan() won't find anything to do. That wouldn't be
+> > great.
 >
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/gpu/drm/msm/msm_fb.c  |  3 ++-
->  drivers/gpu/drm/msm/msm_gem.c | 31 ++++++++++++++++++++++++-------
->  drivers/gpu/drm/msm/msm_gem.h | 11 ++++++++++-
->  3 files changed, 36 insertions(+), 9 deletions(-)
+> Hmm, I thought msm_gem_madvise() returned an error instead of allowing
+> MSM_MADV_DONTNEED to be set on imported/exported dma-bufs.. it
+> probably should to be complete (but userspace already knows not to
+> madvise an imported/exported buffer for other reasons.. ie. we can't
+> let a shared buffer end up in the bo cache).  I'll re-work that a bit.
 >
-> diff --git a/drivers/gpu/drm/msm/msm_fb.c b/drivers/gpu/drm/msm/msm_fb.c
-> index d42f0665359a..887172a10c9a 100644
-> --- a/drivers/gpu/drm/msm/msm_fb.c
-> +++ b/drivers/gpu/drm/msm/msm_fb.c
-> @@ -33,6 +33,7 @@ static const struct drm_framebuffer_funcs msm_framebuffer_funcs = {
->  #ifdef CONFIG_DEBUG_FS
->  void msm_framebuffer_describe(struct drm_framebuffer *fb, struct seq_file *m)
->  {
-> +       struct msm_gem_stats stats = {{0}};
+> The msm_obj->sgt case is a bit more tricky.. that will be the case of
+> a freshly allocated obj that does not have backing patches yet.  But
+> it seems like enough of a corner case, that I'm happy to live with
+> it.. ie. the tricky thing is not leaking decrements of
+> priv->shrinkable_count or underflowing priv->shrinkable_count, and
+> caring about the !msm_obj->sgt case doubles the number of states an
+> object can be in, and the shrinker->count() return value is just an
+> estimate.
 
-nit: instead of "{{0}}", can't you just do:
+I think it's equally important to make sure that we don't constantly
+have a non-zero count and then have scan() do nothing.  If there's a
+transitory blip then it's fine, but it's not OK if it can be steady
+state. Then you end up with:
 
-struct msm_gem_stats stats = {};
+1. How many objects do you have to free? 10
+2. OK, free some. How many did you free? 0
+3. Oh. You got more to do, I'll call you again.
+4. Goto #1
 
-...both here and for the other usage.
+...and it just keeps looping, right?
 
-Other than that this seems good to me.
+As long as you're confident that this case can't happen then we're
+probably fine, but good to be careful. Is there any way we can make
+sure that a "freshly allocated object" isn't ever in the "DONTNEED"
+state?
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
+
+> > > +       priv->shrinkable_count += msm_obj->base.size >> PAGE_SHIFT;
+> > > +       msm_obj->dontneed = true;
+> > > +}
+> > > +
+> > > +static inline void mark_unpurgable(struct msm_gem_object *msm_obj)
+> > > +{
+> > > +       struct msm_drm_private *priv = msm_obj->base.dev->dev_private;
+> > > +
+> > > +       WARN_ON(!mutex_is_locked(&priv->mm_lock));
+> > > +
+> > > +       if (WARN_ON(!msm_obj->dontneed))
+> > > +               return;
+> > > +
+> > > +       priv->shrinkable_count -= msm_obj->base.size >> PAGE_SHIFT;
+> > > +       WARN_ON(priv->shrinkable_count < 0);
+> >
+> > If you changed the order maybe you could make shrinkable_count
+> > "unsigned long" to match the shrinker API?
+> >
+> >  new_shrinkable = msm_obj->base.size >> PAGE_SHIFT;
+> >  WARN_ON(new_shrinkable > priv->shrinkable_count);
+> >  priv->shrinkable_count -= new_shrinkable
+> >
+>
+> True, although I've developed a preference for signed integers in
+> cases where it can underflow if you mess up
+
+Yeah, I guess it's fine since it's a count of pages and we really
+can't have _that_ many pages worth of stuff to purge. It might not
+hurt to at least declare it as a "long" instead of an "int" though to
+match the shrinker API.
+
+-Doug
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
