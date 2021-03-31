@@ -1,63 +1,39 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5E1D34FEA1
-	for <lists+freedreno@lfdr.de>; Wed, 31 Mar 2021 12:58:34 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2061834FF75
+	for <lists+freedreno@lfdr.de>; Wed, 31 Mar 2021 13:27:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D4516EA68;
-	Wed, 31 Mar 2021 10:58:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 223036EA6C;
+	Wed, 31 Mar 2021 11:27:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 023516EA5E
- for <freedreno@lists.freedesktop.org>; Wed, 31 Mar 2021 10:58:01 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id 12so18104574lfq.13
- for <freedreno@lists.freedesktop.org>; Wed, 31 Mar 2021 03:58:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=npVF3IJw5Bar0oyExK72vEnRi0FQO7ayTZuHPSGlgdM=;
- b=b8xTKFDU/9Qo8CLWj/AStduv1Q3HZTWmM22FFK4UrKby/niwTzZFHxMhsUb3yVFIUH
- N5gH2akV6F98bWJ0xwAng3r/0pZd+NZQIiKa1+VocEJWJawV5SDdh9oWqL6ht/TQfYEg
- AuaAjbN8XJOAEU8NES5yRYWseseTEHxC9KevTmMrzKDoXdgKhUjV4F+0MXSCS19a1eb/
- YjBWlVQSNb2MT2FgV0izI2wqOw9WYkdmwlOUvnspuZ9x8LAI/NiJAQjt4i45OJtYhJVL
- GWhHGhX8X6MLYLJOb6luGYNBDL2fr3hEpZhGqEyfrDVk7iQj8J/XekT5RLIpK5Eg/qEj
- ba5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=npVF3IJw5Bar0oyExK72vEnRi0FQO7ayTZuHPSGlgdM=;
- b=OIJr2UyVEtEcl8HHzF5VFoqtkWTY5Xl1qrm5RYJfnUpU+/a++qdDuMPwjLzd9GySFs
- vew9E0Q5NZI71VUSVvLbQN2JtHuWLFFL+NmzvmpnE5nHJKaV/EFW1pPRIoMBrtiRAYLs
- vfyu4Lthrrmw6tXgW3m2/V4wI7lCU1RIHBzd2orpYrrkd+Iaa2uIirc5zYJIINY5du/D
- YUz2OzinsWDF+fqgiFMKu0LJFld0l6IBkbYCaVU0u7+jk4SYxo9pRCZEsoj5vhnSy8/J
- z9qY6aV4XEoVTq+ZX90Kk1V3vgjKrdEXUGaAZKe1pa4ib7S72wVJOHdq8VExq9ocvJpS
- yp/A==
-X-Gm-Message-State: AOAM533uKDPT/Qx8Y7aww9RmmU4PhfQRqvOEnzQPAzap6KvZs7gtZ9WC
- lgzIZVyis6JqLt/fnsQG+0yx5w==
-X-Google-Smtp-Source: ABdhPJwJouBIe8lQoOI0kBKnf6JJrekM+gULq/l2RGfkiExgOcZRoL1cMS1EVAmVk32wO2UJ4Su6EA==
-X-Received: by 2002:a19:23c7:: with SMTP id j190mr1889456lfj.148.1617188279416; 
- Wed, 31 Mar 2021 03:57:59 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id h3sm184359ljc.67.2021.03.31.03.57.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 31 Mar 2021 03:57:58 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>,
- Michael Turquette <mturquette@baylibre.com>
-Date: Wed, 31 Mar 2021 13:57:35 +0300
-Message-Id: <20210331105735.3690009-25-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210331105735.3690009-1-dmitry.baryshkov@linaro.org>
-References: <20210331105735.3690009-1-dmitry.baryshkov@linaro.org>
-MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v4 24/24] drm/msm/dsi: stop passing src_pll_id
- to the phy_enable call
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E39DB6E1A3;
+ Wed, 31 Mar 2021 11:27:38 +0000 (UTC)
+Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
+ by alexa-out.qualcomm.com with ESMTP; 31 Mar 2021 04:27:38 -0700
+X-QCInternal: smtphost
+Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
+ by ironmsg07-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 31 Mar 2021 04:27:36 -0700
+X-QCInternal: smtphost
+Received: from kalyant-linux.qualcomm.com ([10.204.66.210])
+ by ironmsg01-blr.qualcomm.com with ESMTP; 31 Mar 2021 16:57:04 +0530
+Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
+ id BE5EA433F; Wed, 31 Mar 2021 04:27:02 -0700 (PDT)
+From: Kalyan Thota <kalyan_t@codeaurora.org>
+To: y@qualcomm.com, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+Date: Wed, 31 Mar 2021 04:27:00 -0700
+Message-Id: <1617190020-7931-1-git-send-email-kalyan_t@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <y>
+References: <y>
+Subject: [Freedreno] [v1] drm/msm/disp/dpu1: fix warn stack reported during
+ dpu resume
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,244 +46,115 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org, linux-clk@vger.kernel.org
+Cc: mkrishn@codeaurora.org, hywu@google.com, dianders@chromium.org,
+ steev@kali.org, linux-kernel@vger.kernel.org, mka@google.com,
+ robdclark@gmail.com, midean@google.com, Kalyan Thota <kalyan_t@codeaurora.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Phy driver already knows the source PLL id basing on the set usecase and
-the current PLL id. Stop passing it to the phy_enable call. As a
-reminder, dsi manager will always use DSI 0 as a clock master in a slave
-mode, so PLL 0 is always a clocksource for DSI 0 and it is always a
-clocksource for DSI 1 too unless DSI 1 is used in the standalone mode.
+WARN_ON was introduced by the below commit to catch runtime resumes
+that are getting triggered before icc path was set.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Tested-by: Stephen Boyd <swboyd@chromium.org> # on sc7180 lazor
+"drm/msm/disp/dpu1: icc path needs to be set before dpu runtime resume"
+
+For the targets where the bw scaling is not enabled, this WARN_ON is
+a false alarm. Fix the WARN condition appropriately.
+
+Reported-by: Steev Klimaszewski <steev@kali.org>
+Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
 ---
- drivers/gpu/drm/msm/dsi/dsi.h                   |  2 +-
- drivers/gpu/drm/msm/dsi/dsi_manager.c           | 11 +++++------
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.c           |  4 ++--
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.h           |  2 +-
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c      |  2 +-
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c      |  4 ++--
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c      |  4 ++--
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c      |  4 ++--
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c |  2 +-
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c       |  2 +-
- 10 files changed, 18 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  |  8 +++++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h  |  9 +++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c | 11 ++++++-----
+ 3 files changed, 20 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
-index 7f99e12efd52..7abfeab08165 100644
---- a/drivers/gpu/drm/msm/dsi/dsi.h
-+++ b/drivers/gpu/drm/msm/dsi/dsi.h
-@@ -162,7 +162,7 @@ struct msm_dsi_phy_clk_request {
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index cab387f..0071a4d 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -294,6 +294,9 @@ static int dpu_kms_parse_data_bus_icc_path(struct dpu_kms *dpu_kms)
+ 	struct icc_path *path1;
+ 	struct drm_device *dev = dpu_kms->dev;
  
- void msm_dsi_phy_driver_register(void);
- void msm_dsi_phy_driver_unregister(void);
--int msm_dsi_phy_enable(struct msm_dsi_phy *phy, int src_pll_id,
-+int msm_dsi_phy_enable(struct msm_dsi_phy *phy,
- 			struct msm_dsi_phy_clk_request *clk_req);
- void msm_dsi_phy_disable(struct msm_dsi_phy *phy);
- void msm_dsi_phy_get_shared_timings(struct msm_dsi_phy *phy,
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-index e116e5ff5d24..cd016576e8c5 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-@@ -114,7 +114,7 @@ static int dsi_mgr_setup_components(int id)
- 	return ret;
- }
++	if (!dpu_supports_bw_scaling(dev))
++		return 0;
++
+ 	path0 = of_icc_get(dev->dev, "mdp0-mem");
+ 	path1 = of_icc_get(dev->dev, "mdp1-mem");
  
--static int enable_phy(struct msm_dsi *msm_dsi, int src_pll_id,
-+static int enable_phy(struct msm_dsi *msm_dsi,
- 		      struct msm_dsi_phy_shared_timings *shared_timings)
- {
- 	struct msm_dsi_phy_clk_request clk_req;
-@@ -123,7 +123,7 @@ static int enable_phy(struct msm_dsi *msm_dsi, int src_pll_id,
- 
- 	msm_dsi_host_get_phy_clk_req(msm_dsi->host, &clk_req, is_dual_dsi);
- 
--	ret = msm_dsi_phy_enable(msm_dsi->phy, src_pll_id, &clk_req);
-+	ret = msm_dsi_phy_enable(msm_dsi->phy, &clk_req);
- 	msm_dsi_phy_get_shared_timings(msm_dsi->phy, shared_timings);
- 
- 	return ret;
-@@ -136,7 +136,6 @@ dsi_mgr_phy_enable(int id,
- 	struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
- 	struct msm_dsi *mdsi = dsi_mgr_get_dsi(DSI_CLOCK_MASTER);
- 	struct msm_dsi *sdsi = dsi_mgr_get_dsi(DSI_CLOCK_SLAVE);
--	int src_pll_id = IS_DUAL_DSI() ? DSI_CLOCK_MASTER : id;
- 	int ret;
- 
- 	/* In case of dual DSI, some registers in PHY1 have been programmed
-@@ -149,11 +148,11 @@ dsi_mgr_phy_enable(int id,
- 			msm_dsi_host_reset_phy(mdsi->host);
- 			msm_dsi_host_reset_phy(sdsi->host);
- 
--			ret = enable_phy(mdsi, src_pll_id,
-+			ret = enable_phy(mdsi,
- 					 &shared_timings[DSI_CLOCK_MASTER]);
- 			if (ret)
- 				return ret;
--			ret = enable_phy(sdsi, src_pll_id,
-+			ret = enable_phy(sdsi,
- 					 &shared_timings[DSI_CLOCK_SLAVE]);
- 			if (ret) {
- 				msm_dsi_phy_disable(mdsi->phy);
-@@ -162,7 +161,7 @@ dsi_mgr_phy_enable(int id,
- 		}
- 	} else {
- 		msm_dsi_host_reset_phy(msm_dsi->host);
--		ret = enable_phy(msm_dsi, src_pll_id, &shared_timings[id]);
-+		ret = enable_phy(msm_dsi, &shared_timings[id]);
- 		if (ret)
- 			return ret;
- 	}
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-index 93e81bb78d26..f0a2ddf96a4b 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-@@ -753,7 +753,7 @@ void __exit msm_dsi_phy_driver_unregister(void)
- 	platform_driver_unregister(&dsi_phy_platform_driver);
- }
- 
--int msm_dsi_phy_enable(struct msm_dsi_phy *phy, int src_pll_id,
-+int msm_dsi_phy_enable(struct msm_dsi_phy *phy,
- 			struct msm_dsi_phy_clk_request *clk_req)
- {
- 	struct device *dev = &phy->pdev->dev;
-@@ -776,7 +776,7 @@ int msm_dsi_phy_enable(struct msm_dsi_phy *phy, int src_pll_id,
- 		goto reg_en_fail;
+@@ -934,8 +937,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+ 		DPU_DEBUG("REG_DMA is not defined");
  	}
  
--	ret = phy->cfg->ops.enable(phy, src_pll_id, clk_req);
-+	ret = phy->cfg->ops.enable(phy, clk_req);
- 	if (ret) {
- 		DRM_DEV_ERROR(dev, "%s: phy enable failed, %d\n", __func__, ret);
- 		goto phy_en_fail;
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-index 00ef01baaebd..94a77ac364d3 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-@@ -19,7 +19,7 @@
+-	if (of_device_is_compatible(dev->dev->of_node, "qcom,sc7180-mdss"))
+-		dpu_kms_parse_data_bus_icc_path(dpu_kms);
++	dpu_kms_parse_data_bus_icc_path(dpu_kms);
  
- struct msm_dsi_phy_ops {
- 	int (*pll_init)(struct msm_dsi_phy *phy);
--	int (*enable)(struct msm_dsi_phy *phy, int src_pll_id,
-+	int (*enable)(struct msm_dsi_phy *phy,
- 			struct msm_dsi_phy_clk_request *clk_req);
- 	void (*disable)(struct msm_dsi_phy *phy);
- 	void (*save_pll_state)(struct msm_dsi_phy *phy);
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-index 64b8b0efc1a4..34bc93548fcf 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-@@ -788,7 +788,7 @@ static void dsi_phy_hw_v3_0_lane_settings(struct msm_dsi_phy *phy)
- 	}
- }
+ 	pm_runtime_get_sync(&dpu_kms->pdev->dev);
  
--static int dsi_10nm_phy_enable(struct msm_dsi_phy *phy, int src_pll_id,
-+static int dsi_10nm_phy_enable(struct msm_dsi_phy *phy,
- 			       struct msm_dsi_phy_clk_request *clk_req)
- {
- 	int ret;
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
-index 9a2937589435..65d68eb9e3cb 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
-@@ -938,7 +938,7 @@ static void dsi_14nm_dphy_set_timing(struct msm_dsi_phy *phy,
- 		      DSI_14nm_PHY_LN_TIMING_CTRL_11_TRIG3_CMD(0xa0));
- }
+@@ -1198,7 +1200,7 @@ static int __maybe_unused dpu_runtime_resume(struct device *dev)
  
--static int dsi_14nm_phy_enable(struct msm_dsi_phy *phy, int src_pll_id,
-+static int dsi_14nm_phy_enable(struct msm_dsi_phy *phy,
- 			       struct msm_dsi_phy_clk_request *clk_req)
- {
- 	struct msm_dsi_dphy_timing *timing = &phy->timing;
-@@ -996,7 +996,7 @@ static int dsi_14nm_phy_enable(struct msm_dsi_phy *phy, int src_pll_id,
- 	dsi_phy_write(base + REG_DSI_14nm_PHY_CMN_CTRL_1, 0x00);
+ 	ddev = dpu_kms->dev;
  
- 	glbl_test_ctrl = dsi_phy_read(base + REG_DSI_14nm_PHY_CMN_GLBL_TEST_CTRL);
--	if (phy->id == DSI_1 && src_pll_id == DSI_0)
-+	if (phy->id == DSI_1 && phy->usecase == MSM_DSI_PHY_SLAVE)
- 		glbl_test_ctrl |= DSI_14nm_PHY_CMN_GLBL_TEST_CTRL_BITCLK_HS_SEL;
- 	else
- 		glbl_test_ctrl &= ~DSI_14nm_PHY_CMN_GLBL_TEST_CTRL_BITCLK_HS_SEL;
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c
-index f5b88c85a8fc..e96d789aea18 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c
-@@ -63,7 +63,7 @@ static void dsi_20nm_phy_regulator_ctrl(struct msm_dsi_phy *phy, bool enable)
- 	dsi_phy_write(base + REG_DSI_20nm_PHY_REGULATOR_CTRL_0, 0x03);
- }
+-	WARN_ON(!(dpu_kms->num_paths));
++	WARN_ON((dpu_supports_bw_scaling(ddev) && !dpu_kms->num_paths));
+ 	/* Min vote of BW is required before turning on AXI clk */
+ 	for (i = 0; i < dpu_kms->num_paths; i++)
+ 		icc_set_bw(dpu_kms->path[i], 0, Bps_to_icc(MIN_IB_BW));
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+index d6717d6..f7bcc0a 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+@@ -154,6 +154,15 @@ struct vsync_info {
  
--static int dsi_20nm_phy_enable(struct msm_dsi_phy *phy, int src_pll_id,
-+static int dsi_20nm_phy_enable(struct msm_dsi_phy *phy,
- 				struct msm_dsi_phy_clk_request *clk_req)
- {
- 	struct msm_dsi_dphy_timing *timing = &phy->timing;
-@@ -85,7 +85,7 @@ static int dsi_20nm_phy_enable(struct msm_dsi_phy *phy, int src_pll_id,
- 	dsi_phy_write(base + REG_DSI_20nm_PHY_STRENGTH_0, 0xff);
+ #define to_dpu_global_state(x) container_of(x, struct dpu_global_state, base)
  
- 	val = dsi_phy_read(base + REG_DSI_20nm_PHY_GLBL_TEST_CTRL);
--	if (src_pll_id == DSI_1)
-+	if (phy->id == DSI_1 && phy->usecase == MSM_DSI_PHY_STANDALONE)
- 		val |= DSI_20nm_PHY_GLBL_TEST_CTRL_BITCLK_HS_SEL;
- 	else
- 		val &= ~DSI_20nm_PHY_GLBL_TEST_CTRL_BITCLK_HS_SEL;
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
-index 61f2f7f672ca..3304acda2165 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
-@@ -698,7 +698,7 @@ static void dsi_28nm_phy_regulator_ctrl(struct msm_dsi_phy *phy, bool enable)
- 		dsi_28nm_phy_regulator_enable_dcdc(phy);
- }
++/**
++ * dpu_supports_bw_scaling: returns true for drivers that support bw scaling.
++ * @dev: Pointer to drm_device structure
++ */
++static inline int dpu_supports_bw_scaling(struct drm_device *dev)
++{
++	return of_device_is_compatible(dev->dev->of_node, "qcom,sc7180-mdss");
++}
++
+ /* Global private object state for tracking resources that are shared across
+  * multiple kms objects (planes/crtcs/etc).
+  */
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
+index cd40788..8cd712c 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
+@@ -41,6 +41,9 @@ static int dpu_mdss_parse_data_bus_icc_path(struct drm_device *dev,
+ 	struct icc_path *path0 = of_icc_get(dev->dev, "mdp0-mem");
+ 	struct icc_path *path1 = of_icc_get(dev->dev, "mdp1-mem");
  
--static int dsi_28nm_phy_enable(struct msm_dsi_phy *phy, int src_pll_id,
-+static int dsi_28nm_phy_enable(struct msm_dsi_phy *phy,
- 				struct msm_dsi_phy_clk_request *clk_req)
- {
- 	struct msm_dsi_dphy_timing *timing = &phy->timing;
-@@ -745,7 +745,7 @@ static int dsi_28nm_phy_enable(struct msm_dsi_phy *phy, int src_pll_id,
- 	dsi_phy_write(base + REG_DSI_28nm_PHY_CTRL_0, 0x5f);
++	if (dpu_supports_bw_scaling(dev))
++		return 0;
++
+ 	if (IS_ERR_OR_NULL(path0))
+ 		return PTR_ERR_OR_ZERO(path0);
  
- 	val = dsi_phy_read(base + REG_DSI_28nm_PHY_GLBL_TEST_CTRL);
--	if (phy->id == DSI_1 && src_pll_id == DSI_0)
-+	if (phy->id == DSI_1 && phy->usecase == MSM_DSI_PHY_SLAVE)
- 		val &= ~DSI_28nm_PHY_GLBL_TEST_CTRL_BITCLK_HS_SEL;
- 	else
- 		val |= DSI_28nm_PHY_GLBL_TEST_CTRL_BITCLK_HS_SEL;
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
-index 83e275ed7476..582b1428f971 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
-@@ -585,7 +585,7 @@ static void dsi_28nm_phy_lane_config(struct msm_dsi_phy *phy)
- 	dsi_phy_write(base + REG_DSI_28nm_8960_PHY_LNCK_TEST_STR1, 0x88);
- }
+@@ -276,11 +279,9 @@ int dpu_mdss_init(struct drm_device *dev)
  
--static int dsi_28nm_phy_enable(struct msm_dsi_phy *phy, int src_pll_id,
-+static int dsi_28nm_phy_enable(struct msm_dsi_phy *phy,
- 				struct msm_dsi_phy_clk_request *clk_req)
- {
- 	struct msm_dsi_dphy_timing *timing = &phy->timing;
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-index dc28dd37c7f9..e76ce40a12ab 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-@@ -801,7 +801,7 @@ static void dsi_phy_hw_v4_0_lane_settings(struct msm_dsi_phy *phy)
- 	}
- }
+ 	DRM_DEBUG("mapped mdss address space @%pK\n", dpu_mdss->mmio);
  
--static int dsi_7nm_phy_enable(struct msm_dsi_phy *phy, int src_pll_id,
-+static int dsi_7nm_phy_enable(struct msm_dsi_phy *phy,
- 			      struct msm_dsi_phy_clk_request *clk_req)
- {
- 	int ret;
+-	if (!of_device_is_compatible(dev->dev->of_node, "qcom,sc7180-mdss")) {
+-		ret = dpu_mdss_parse_data_bus_icc_path(dev, dpu_mdss);
+-		if (ret)
+-			return ret;
+-	}
++	ret = dpu_mdss_parse_data_bus_icc_path(dev, dpu_mdss);
++	if (ret)
++		return ret;
+ 
+ 	mp = &dpu_mdss->mp;
+ 	ret = msm_dss_parse_clock(pdev, mp);
 -- 
-2.30.2
+2.7.4
 
 _______________________________________________
 Freedreno mailing list
