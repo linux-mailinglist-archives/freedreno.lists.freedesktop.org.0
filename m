@@ -1,59 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3793C35206F
-	for <lists+freedreno@lfdr.de>; Thu,  1 Apr 2021 22:11:21 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 45DC5352062
+	for <lists+freedreno@lfdr.de>; Thu,  1 Apr 2021 22:09:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40A7B6ED0D;
-	Thu,  1 Apr 2021 20:11:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0A2B6ED0A;
+	Thu,  1 Apr 2021 20:09:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A38096ED0A
- for <freedreno@lists.freedesktop.org>; Thu,  1 Apr 2021 20:11:17 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id u4so3534831ljo.6
- for <freedreno@lists.freedesktop.org>; Thu, 01 Apr 2021 13:11:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=to:cc:from:subject:message-id:date:user-agent:mime-version
- :content-language:content-transfer-encoding;
- bh=mhUDqpSrPGJrUC3y7pqQdiWyabW803L1a+YQHPLvBho=;
- b=S9jguAXDEbC9AQ4Fh8k0nFBU4XeGYh3uwL/9uoFDllELILiT+Yl0sQ3m8R9TCU8Ve9
- 7tUyMZX3ScnYgmyYTtKhSkpHQWRfNTglbiVu4l1Cfn8VWlOCFTtpRTibwAlW80EUWVUr
- zLRQ7X/2H1Dz/LylTy624HG0BPyYp3J5d4jH75ay7aUY+KhCgqbWbXBzViUb5Tt3RmTM
- za5Gg2H1jPHN/jTIXOCQeUenMLvJFAXaE0BtbsIztzX88O2uZJstQm9GThxh9y37dM5a
- C5++qUEmBualHNLppes+DbOAmtYC5hb6P+kEIjj9cx4oS5QJByp/ArIOMcA5391dVe94
- ACSQ==
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47B4B6ED0A;
+ Thu,  1 Apr 2021 20:09:16 +0000 (UTC)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ z6-20020a1c4c060000b029010f13694ba2so1455510wmf.5; 
+ Thu, 01 Apr 2021 13:09:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=OYyWj6HI9dbsNPf4ajpkZrn2a4t/LrHsqUPQtMvtof4=;
+ b=hXhAbQY3x+7V+VVWtUWXurDi31+cszkGwGAPC1H22fDvID+hPpX2uXsrAnS/yMWZo6
+ vCko77xxHQXsekba+5SZUYbpv0ufGzGRY41AE6FBeWRQPMxUNzbDR47KuXJKuwnU+FeW
+ qeW9/epwoteCGifVAW0+Hg3FU6wEvEcA+Fnm//DMXNC+QngmWlOfWrcBKOoMd25f0Myn
+ i0uapMYws82JHRzeJ3c2TtTwuNAcTiDA+6qCZq+2D5EXmRYvWNRxPACjaBmei1tKrET0
+ bW1yr3emEETo1wIWfsjcknDrminKTgbVI8KIngGNZvF6dobyPIxGo6A7mCrCwF3WvxzA
+ 2mwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
- :mime-version:content-language:content-transfer-encoding;
- bh=mhUDqpSrPGJrUC3y7pqQdiWyabW803L1a+YQHPLvBho=;
- b=LNN6gcnyv3wyRt0N1yHxLJme9EQ3KZ3u+7qXMOTZB6lG6D75NZbptnQwkn8sjaK/Gl
- 2/eYPBOmcm8ZiS9Tbe63pz6AKKLqdA9JmB5AwHkPO7ipKWNMimVaFGwK5HpZ8RWEpD3j
- S4cX9zS/02rGaLLcK+M8tmR5tgaG/xsVbeGehijFIt0pNqsAN/w27WY1ZVCsUlQQKRY/
- AtxHuP65d4h/bFN1GQ5R6hhOaGVNSXBICCtBQ4M4RSZh6ZQiaVjqO5SjDl+kq6Bg7xl+
- 9Uw4J2hOpX/bvvI0LAv38d4HAvJoHud3Taqmr3pR+9eH0OoDlZidg0B0iGQUf1I4XQBW
- PLLQ==
-X-Gm-Message-State: AOAM531E0kgo34DcYaG0gIMyRyRWkSVBs19TSnUH1ZV+uoAS2Ctd1c5t
- NILcURgUQN1Nuo/3n1vGiUxY4g==
-X-Google-Smtp-Source: ABdhPJymsHAJUmUiaWVJ2EFdl8kRUFWJKEn+2UlrxStbtaESaHjtQkjEINDn/Wa/DuGHApcP1BxGxg==
-X-Received: by 2002:a2e:981a:: with SMTP id a26mr6388275ljj.204.1617307876092; 
- Thu, 01 Apr 2021 13:11:16 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id w23sm711421lji.127.2021.04.01.13.11.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Apr 2021 13:11:15 -0700 (PDT)
-To: linux-firmware@kernel.org
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <63f0c675-d04b-1961-53cd-e621b48dab94@linaro.org>
-Date: Thu, 1 Apr 2021 23:11:15 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=OYyWj6HI9dbsNPf4ajpkZrn2a4t/LrHsqUPQtMvtof4=;
+ b=O0KX/MogFRGngBEQcjaDLcrQ5fID4TvQoEJWIK+aoyWpgPuXgcRoZ+pPCOxNsrrVmc
+ lFpQrmhW4hm2qWYP0v5EhJJYiZwj/X+664xsxo79iEIrTkI9VwiUAS+tW5zf9zYc0a3L
+ UimehbFN1pkXSkG28WnLHIRYLSz/eN2DgQJ2BZmAKGpuamtAG/c9RtnS3Dxdxx/HuR8R
+ wwQR2QHAqmoFRjaRTeVbRFfSOfjUdm6oTYRjtrjoWC4cW4ufb8fCBaeZmOXgg3TyBCOY
+ bXJDy1z/dhr58QiPqZEDafkebDNFdis+oOgi4cwfck3KXPCT8uBkI66Vg06b6jw6Hkna
+ QG0g==
+X-Gm-Message-State: AOAM531fL4b6NEcBFg++YAGdTnwHZJDpp0w+niskt+QJmfQHOzD+Tpii
+ 26/tbxNNfge89GvAeI6fQUyERQ8+MI0Hes/Y1d8=
+X-Google-Smtp-Source: ABdhPJy4xEf8AyQv15GF3msQNSd+Dp7ktl8SG1BaEU6LF/bF+xbPqRUBVCpKycIYv8upx4SZz9d/55UrPmqV3k6hlV8=
+X-Received: by 2002:a05:600c:4fd0:: with SMTP id
+ o16mr9674229wmq.123.1617307754839; 
+ Thu, 01 Apr 2021 13:09:14 -0700 (PDT)
 MIME-Version: 1.0
-Content-Language: en-GB
-Subject: [Freedreno] Update firmware for Qualcomm SM8250 platform
+References: <20210216200909.19039-1-jonathan@marek.ca>
+ <CAF6AEGv53nnzqMgTfSA6t2YpHx1dDW8UqnH9Gw0w3p8bf0mTLw@mail.gmail.com>
+ <775436ba-c94a-ab22-d65b-b2391047ec65@codeaurora.org>
+ <20210217190820.GA2229@jcrouse1-lnx.qualcomm.com>
+ <CAF6AEGsHws23ozeJ8G23LFQ8J=CVVrx5xvkSgBuE_uSwT4YurQ@mail.gmail.com>
+ <74d1277e-295f-0996-91c3-05cfce8d3a0e@marek.ca>
+ <e4b62857-bd4d-cca6-0d6b-b9cc960b52a2@codeaurora.org>
+ <CAF6AEGsWCrkOgMVxnx53k8b_o7xy3KWv9VaNRoY44+4GfXtWdg@mail.gmail.com>
+ <757b557a-b5f6-6018-caa4-34bffb1b60b7@codeaurora.org>
+ <CAF6AEGv-A5=4z7ZO-SytmivZTfKPYxhAjmRLVsQnrT7_pYCDtQ@mail.gmail.com>
+ <0f057c99-ec94-f3e3-796f-b73a609f735d@codeaurora.org>
+ <CAF6AEGvXYmcj0YuciZATveALJEP6DdFiwmtnYevrK2SEOJNZGg@mail.gmail.com>
+In-Reply-To: <CAF6AEGvXYmcj0YuciZATveALJEP6DdFiwmtnYevrK2SEOJNZGg@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 1 Apr 2021 13:12:39 -0700
+Message-ID: <CAF6AEGs4sYOMgysg3FraKTDetqKTgMXT6RE700e-8uyE9Gs-9A@mail.gmail.com>
+To: Akhil P Oommen <akhilpo@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: fix for kernels without
+ CONFIG_NVMEM
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,52 +74,139 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Nicolas Dechesne <nicolas.dechesne@linaro.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Eric Anholt <eric@anholt.net>, Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hello linux-firmware maintainers,
+On Mon, Feb 22, 2021 at 8:06 AM Rob Clark <robdclark@gmail.com> wrote:
+>
+> On Mon, Feb 22, 2021 at 7:45 AM Akhil P Oommen <akhilpo@codeaurora.org> wrote:
+> >
+> > On 2/19/2021 9:30 PM, Rob Clark wrote:
+> > > On Fri, Feb 19, 2021 at 2:44 AM Akhil P Oommen <akhilpo@codeaurora.org> wrote:
+> > >>
+> > >> On 2/18/2021 9:41 PM, Rob Clark wrote:
+> > >>> On Thu, Feb 18, 2021 at 4:28 AM Akhil P Oommen <akhilpo@codeaurora.org> wrote:
+> > >>>>
+> > >>>> On 2/18/2021 2:05 AM, Jonathan Marek wrote:
+> > >>>>> On 2/17/21 3:18 PM, Rob Clark wrote:
+> > >>>>>> On Wed, Feb 17, 2021 at 11:08 AM Jordan Crouse
+> > >>>>>> <jcrouse@codeaurora.org> wrote:
+> > >>>>>>>
+> > >>>>>>> On Wed, Feb 17, 2021 at 07:14:16PM +0530, Akhil P Oommen wrote:
+> > >>>>>>>> On 2/17/2021 8:36 AM, Rob Clark wrote:
+> > >>>>>>>>> On Tue, Feb 16, 2021 at 12:10 PM Jonathan Marek <jonathan@marek.ca>
+> > >>>>>>>>> wrote:
+> > >>>>>>>>>>
+> > >>>>>>>>>> Ignore nvmem_cell_get() EOPNOTSUPP error in the same way as a
+> > >>>>>>>>>> ENOENT error,
+> > >>>>>>>>>> to fix the case where the kernel was compiled without CONFIG_NVMEM.
+> > >>>>>>>>>>
+> > >>>>>>>>>> Fixes: fe7952c629da ("drm/msm: Add speed-bin support to a618 gpu")
+> > >>>>>>>>>> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+> > >>>>>>>>>> ---
+> > >>>>>>>>>>     drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 6 +++---
+> > >>>>>>>>>>     1 file changed, 3 insertions(+), 3 deletions(-)
+> > >>>>>>>>>>
+> > >>>>>>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > >>>>>>>>>> b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > >>>>>>>>>> index ba8e9d3cf0fe..7fe5d97606aa 100644
+> > >>>>>>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > >>>>>>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > >>>>>>>>>> @@ -1356,10 +1356,10 @@ static int a6xx_set_supported_hw(struct
+> > >>>>>>>>>> device *dev, struct a6xx_gpu *a6xx_gpu,
+> > >>>>>>>>>>
+> > >>>>>>>>>>            cell = nvmem_cell_get(dev, "speed_bin");
+> > >>>>>>>>>>            /*
+> > >>>>>>>>>> -        * -ENOENT means that the platform doesn't support
+> > >>>>>>>>>> speedbin which is
+> > >>>>>>>>>> -        * fine
+> > >>>>>>>>>> +        * -ENOENT means no speed bin in device tree,
+> > >>>>>>>>>> +        * -EOPNOTSUPP means kernel was built without CONFIG_NVMEM
+> > >>>>>>>>>
+> > >>>>>>>>> very minor nit, it would be nice to at least preserve the gist of the
+> > >>>>>>>>> "which is fine" (ie. some variation of "this is an optional thing and
+> > >>>>>>>>> things won't catch fire without it" ;-))
+> > >>>>>>>>>
+> > >>>>>>>>> (which is, I believe, is true, hopefully Akhil could confirm.. if not
+> > >>>>>>>>> we should have a harder dependency on CONFIG_NVMEM..)
+> > >>>>>>>> IIRC, if the gpu opp table in the DT uses the 'opp-supported-hw'
+> > >>>>>>>> property,
+> > >>>>>>>> we will see some error during boot up if we don't call
+> > >>>>>>>> dev_pm_opp_set_supported_hw(). So calling "nvmem_cell_get(dev,
+> > >>>>>>>> "speed_bin")"
+> > >>>>>>>> is a way to test this.
+> > >>>>>>>>
+> > >>>>>>>> If there is no other harm, we can put a hard dependency on
+> > >>>>>>>> CONFIG_NVMEM.
+> > >>>>>>>
+> > >>>>>>> I'm not sure if we want to go this far given the squishiness about
+> > >>>>>>> module
+> > >>>>>>> dependencies. As far as I know we are the only driver that uses this
+> > >>>>>>> seriously
+> > >>>>>>> on QCOM SoCs and this is only needed for certain targets. I don't
+> > >>>>>>> know if we
+> > >>>>>>> want to force every target to build NVMEM and QFPROM on our behalf.
+> > >>>>>>> But maybe
+> > >>>>>>> I'm just saying that because Kconfig dependencies tend to break my
+> > >>>>>>> brain (and
+> > >>>>>>> then Arnd has to send a patch to fix it).
+> > >>>>>>>
+> > >>>>>>
+> > >>>>>> Hmm, good point.. looks like CONFIG_NVMEM itself doesn't have any
+> > >>>>>> other dependencies, so I suppose it wouldn't be the end of the world
+> > >>>>>> to select that.. but I guess we don't want to require QFPROM
+> > >>>>>>
+> > >>>>>> I guess at the end of the day, what is the failure mode if you have a
+> > >>>>>> speed-bin device, but your kernel config misses QFPROM (and possibly
+> > >>>>>> NVMEM)?  If the result is just not having the highest clk rate(s)
+> > >>>>
+> > >>>> Atleast on sc7180's gpu, using an unsupported FMAX breaks gmu. It won't
+> > >>>> be very obvious what went wrong when this happens!
+> > >>>
+> > >>> Ugg, ok..
+> > >>>
+> > >>> I suppose we could select NVMEM, but not QFPROM, and then the case
+> > >>> where QFPROM is not enabled on platforms that have the speed-bin field
+> > >>> in DT will fail gracefully and all other platforms would continue on
+> > >>> happily?
+> > >>>
+> > >>> BR,
+> > >>> -R
+> > >>
+> > >> Sounds good to me.
+> > >>
+> > >
+> > > You probably should do a quick test with NVMEM enabled but QFPROM
+> > > disabled to confirm my theory, but I *think* that should work
+> > >
+> > > BR,
+> > > -R
+> > >
+> >
+> > I tried it on an sc7180 device. The suggested combo (CONFIG_NVMEM + no
+> > CONFIG_QCOM_QFPROM) makes the gpu probe fail with error "failed to read
+> > speed-bin. Some OPPs may not be supported by hardware". This is good
+> > enough clue for the developer that he should fix the broken speedbin
+> > detection.
+> >
+>
+> Ok, great.. then sounds like selecting NVMEM is a good approach
+>
 
-Could you please pull updated firmware for Qualcomm SM8250-based 
-platforms. Firmware successfully tested on Qualcomm Robotics RB5 platform.
+btw, did anyone ever send a patch to select NVMEM?  I'm not seeing one
+but I could be overlooking something
 
-
-The following changes since commit 3f026a2f13a8f130cde849168a111ec80f12e27b:
-
-   rtl_bt: Update RTL8822C BT(UART I/F) FW to 0x59A_76A3 (2021-03-22 
-10:17:18 -0400)
-
-are available in the Git repository at:
-
-   https://github.com/lumag/linux-firmware sm8250-new-fw
-
-for you to fetch changes up to d8fa0cfb4a285d11fd7102efd1763f1be90fac99:
-
-   qcom: sm8250: update remoteproc firmware (2021-04-01 23:05:00 +0300)
-
-----------------------------------------------------------------
-Dmitry Baryshkov (2):
-       qcom: update a650 firmware files
-       qcom: sm8250: update remoteproc firmware
-
-  WHENCE                   |   2 +-
-  qcom/a650_sqe.fw         | Bin 31488 -> 31804 bytes
-  qcom/sm8250/a650_zap.mbn | Bin 13964 -> 13964 bytes
-  qcom/sm8250/adsp.mbn     | Bin 15515796 -> 15515796 bytes
-  qcom/sm8250/cdsp.mbn     | Bin 5822228 -> 5822228 bytes
-  5 files changed, 1 insertion(+), 1 deletion(-)
-
-
-
--- 
-With best wishes
-Dmitry
+BR,
+-R
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
