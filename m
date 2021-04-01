@@ -2,42 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 094AD35166D
-	for <lists+freedreno@lfdr.de>; Thu,  1 Apr 2021 17:54:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6764A351735
+	for <lists+freedreno@lfdr.de>; Thu,  1 Apr 2021 19:34:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFC676ECD3;
-	Thu,  1 Apr 2021 15:54:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07CE66ECF5;
+	Thu,  1 Apr 2021 17:34:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 066706ECD3;
- Thu,  1 Apr 2021 15:54:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
- :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=a335jwrDQUCIDB0PLMT4Bi0PLGtfSsidoCsV+7NPZSw=; b=Jm4YM1cgbTXujlbOs7gh/YkZXl
- 6bHE0FEMAACZyycfzai0Zrl9+34hJNJ67gIyXK6JRT4CXiC62BEJ2u2Xf5O4f/eNl7ZE/T637Sbun
- uOUfGXy7AIV7WWuJoeUBV2LiYRJY6Mq9NDnszI/oN2JzrfKLoXx7xfQMPP4vcQyOgL8CGEM7RkxRG
- snKrJrSiL7ptfKsi0YkiCGWY6qgPobaUY8VNpCHXIzWi0WsxI2lhQmG99snBIuHusV0CsysNNhLBt
- lsb8XMDH5z+8/aFy4jA0asAUu/C66IyIflLuP+uOGzWvUK2BmVRRLIFBdcJULD3dwH9DzQUNx6T2C
- UteOvdqg==;
-Received: from [2001:4bb8:180:7517:83e4:a809:b0aa:ca74] (helo=localhost)
- by bombadil.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
- id 1lRzdz-00Cifp-Mc; Thu, 01 Apr 2021 15:54:04 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Li Yang <leoyang.li@nxp.com>
-Date: Thu,  1 Apr 2021 17:52:56 +0200
-Message-Id: <20210401155256.298656-21-hch@lst.de>
-X-Mailer: git-send-email 2.30.1
-In-Reply-To: <20210401155256.298656-1-hch@lst.de>
-References: <20210401155256.298656-1-hch@lst.de>
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68D3E6E2D7;
+ Thu,  1 Apr 2021 17:34:20 +0000 (UTC)
+Received: by mail-wr1-x42e.google.com with SMTP id c8so2585150wrq.11;
+ Thu, 01 Apr 2021 10:34:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=rK2LdS6ODAydJkNJDKUimZKMnsbdOM3cvA6asgW0c80=;
+ b=fbPIbSHJtsRAZcXnsol7EI9DCaFJZ9nwvBGgXN7up6EJ+E7CAhF1Ocm4pX77zRlF+8
+ iKer8GP+EWclFlHSRplim3szwZeCqo9UrNPQK+ESFU3xZx/mVuM36sWFCBPU02kN8Uq0
+ DrqxAh9Yelt//O5VEqVWrdz94ICrGpecJ2+v7/UoVs3x95tlMaCNyEElnc+zC12GyHtt
+ 3QOyMFLgzT9duhlCILmgOvPRQhwbHAQWQOicexLPIm89xw1ppK5cpSIp43+b9tOWE5kU
+ GrihkfBolOIcGBgdosfKtjs1FoGncRGD0YlOxjPzUrt1qVQnOvspWi4etXScsO+R2xt6
+ rDug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=rK2LdS6ODAydJkNJDKUimZKMnsbdOM3cvA6asgW0c80=;
+ b=QWthwtX6M5YiIPdDgadLSRmCm83pUUfb2DDWa2WTPoXRWZB96zGHqtj6mJICMNwwHg
+ b1ezDGMDiF9uNsAVwnNYMFPnSS9RMnyAQWAE2w+poocLWBt3sgYFltjIWkWWFasFdni4
+ 8U4z837vJgURJleFcn7kf6ul9EvntZ9Teoec6GYLplbL/3V4iG5RQZyKSEhO2k323hQT
+ bRxHtPMPoH3n1Ppsnsb4abc+WNyKHPAa6Ki1Npyt31TTOnM/gZRNkUPC9XV1tWdP8+Ou
+ 9UJGce9lY6oaZ+mniK0QZ9juzdE/v4LRYUFU6leEzlJy+pXpQzX+658gnXlFb0GAJ4+u
+ +TiQ==
+X-Gm-Message-State: AOAM532sqibhDSO1zUIXO5hUnyeYCedu+YMIuy8KbRdW9DxeSx37Dxjh
+ /UXiJUhwiNUapMaBDTNTZQ4Wb/iAITJM7UpJGVE=
+X-Google-Smtp-Source: ABdhPJzTzb75Zq5lVKxlXsLtahJ+rLK1yT4ChASxTdyK4VvEYKWc/dOfoDSRkP8SuHFCh33/CUU6oLC581EOnJ+bucE=
+X-Received: by 2002:adf:fb42:: with SMTP id c2mr11041823wrs.83.1617298459053; 
+ Thu, 01 Apr 2021 10:34:19 -0700 (PDT)
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
-Subject: [Freedreno] [PATCH 20/20] iommu: remove iommu_domain_{get, set}_attr
+References: <20210331221630.488498-1-robdclark@gmail.com>
+ <20210401012722.527712-1-robdclark@gmail.com>
+ <20210401012722.527712-3-robdclark@gmail.com>
+ <CAD=FV=XexfG9oQa8JndOgQ9JSNRmO4-xjmQdiA_9Rn9dJWxsow@mail.gmail.com>
+In-Reply-To: <CAD=FV=XexfG9oQa8JndOgQ9JSNRmO4-xjmQdiA_9Rn9dJWxsow@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 1 Apr 2021 10:37:44 -0700
+Message-ID: <CAF6AEGvQ3Ep4O_SKGiptq1BiMK0tUjJ=U84M2otvQtVfWHEzoQ@mail.gmail.com>
+To: Doug Anderson <dianders@chromium.org>
+Subject: Re: [Freedreno] [PATCH v2 2/4] drm/msm: Avoid mutex in
+ shrinker_count()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,141 +64,86 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, kvm@vger.kernel.org,
- Michael Ellerman <mpe@ellerman.id.au>, linuxppc-dev@lists.ozlabs.org,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- iommu@lists.linux-foundation.org, netdev@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, David Woodhouse <dwmw2@infradead.org>,
- linux-arm-kernel@lists.infradead.org, Lu Baolu <baolu.lu@linux.intel.com>
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Remove the now unused iommu attr infrastructure.
+On Thu, Apr 1, 2021 at 8:34 AM Doug Anderson <dianders@chromium.org> wrote:
+>
+> Hi,
+>
+> On Wed, Mar 31, 2021 at 6:24 PM Rob Clark <robdclark@gmail.com> wrote:
+> >
+> > @@ -45,6 +30,9 @@ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+> >         list_for_each_entry(msm_obj, &priv->inactive_dontneed, mm_list) {
+> >                 if (freed >= sc->nr_to_scan)
+> >                         break;
+> > +               /* Use trylock, because we cannot block on a obj that
+> > +                * might be trying to acquire mm_lock
+> > +                */
+>
+> nit: I thought the above multi-line commenting style was only for
+> "net" subsystem?
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
-Acked-by: Will Deacon <will@kernel.org>
----
- drivers/iommu/iommu.c | 26 --------------------------
- include/linux/iommu.h | 36 ------------------------------------
- 2 files changed, 62 deletions(-)
+we do use the "net" style a fair bit already.. (OTOH I tend to not
+really care what checkpatch says)
 
-diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index bf7dcd2fc08643..d19944733b9dac 100644
---- a/drivers/iommu/iommu.c
-+++ b/drivers/iommu/iommu.c
-@@ -2665,32 +2665,6 @@ static int __init iommu_init(void)
- }
- core_initcall(iommu_init);
- 
--int iommu_domain_get_attr(struct iommu_domain *domain,
--			  enum iommu_attr attr, void *data)
--{
--	if (!domain->ops->domain_get_attr)
--		return -EINVAL;
--	return domain->ops->domain_get_attr(domain, attr, data);
--}
--EXPORT_SYMBOL_GPL(iommu_domain_get_attr);
--
--int iommu_domain_set_attr(struct iommu_domain *domain,
--			  enum iommu_attr attr, void *data)
--{
--	int ret = 0;
--
--	switch (attr) {
--	default:
--		if (domain->ops->domain_set_attr == NULL)
--			return -EINVAL;
--
--		ret = domain->ops->domain_set_attr(domain, attr, data);
--	}
--
--	return ret;
--}
--EXPORT_SYMBOL_GPL(iommu_domain_set_attr);
--
- int iommu_enable_nesting(struct iommu_domain *domain)
- {
- 	if (domain->type != IOMMU_DOMAIN_UNMANAGED)
-diff --git a/include/linux/iommu.h b/include/linux/iommu.h
-index 4280be90a27956..1a905446dc4ca1 100644
---- a/include/linux/iommu.h
-+++ b/include/linux/iommu.h
-@@ -96,20 +96,6 @@ enum iommu_cap {
- 	IOMMU_CAP_NOEXEC,		/* IOMMU_NOEXEC flag */
- };
- 
--/*
-- * Following constraints are specifc to FSL_PAMUV1:
-- *  -aperture must be power of 2, and naturally aligned
-- *  -number of windows must be power of 2, and address space size
-- *   of each window is determined by aperture size / # of windows
-- *  -the actual size of the mapped region of a window must be power
-- *   of 2 starting with 4KB and physical address must be naturally
-- *   aligned.
-- */
--
--enum iommu_attr {
--	DOMAIN_ATTR_MAX,
--};
--
- /* These are the possible reserved region types */
- enum iommu_resv_type {
- 	/* Memory regions which must be mapped 1:1 at all times */
-@@ -191,8 +177,6 @@ struct iommu_iotlb_gather {
-  * @probe_finalize: Do final setup work after the device is added to an IOMMU
-  *                  group and attached to the groups domain
-  * @device_group: find iommu group for a particular device
-- * @domain_get_attr: Query domain attributes
-- * @domain_set_attr: Change domain attributes
-  * @enable_nesting: Enable nesting
-  * @set_pgtable_quirks: Set io page table quirks (IO_PGTABLE_QUIRK_*)
-  * @get_resv_regions: Request list of reserved regions for a device
-@@ -243,10 +227,6 @@ struct iommu_ops {
- 	void (*release_device)(struct device *dev);
- 	void (*probe_finalize)(struct device *dev);
- 	struct iommu_group *(*device_group)(struct device *dev);
--	int (*domain_get_attr)(struct iommu_domain *domain,
--			       enum iommu_attr attr, void *data);
--	int (*domain_set_attr)(struct iommu_domain *domain,
--			       enum iommu_attr attr, void *data);
- 	int (*enable_nesting)(struct iommu_domain *domain);
- 	int (*set_pgtable_quirks)(struct iommu_domain *domain,
- 				  unsigned long quirks);
-@@ -493,10 +473,6 @@ extern int iommu_page_response(struct device *dev,
- extern int iommu_group_id(struct iommu_group *group);
- extern struct iommu_domain *iommu_group_default_domain(struct iommu_group *);
- 
--extern int iommu_domain_get_attr(struct iommu_domain *domain, enum iommu_attr,
--				 void *data);
--extern int iommu_domain_set_attr(struct iommu_domain *domain, enum iommu_attr,
--				 void *data);
- int iommu_enable_nesting(struct iommu_domain *domain);
- int iommu_set_pgtable_quirks(struct iommu_domain *domain,
- 		unsigned long quirks);
-@@ -869,18 +845,6 @@ static inline int iommu_group_id(struct iommu_group *group)
- 	return -ENODEV;
- }
- 
--static inline int iommu_domain_get_attr(struct iommu_domain *domain,
--					enum iommu_attr attr, void *data)
--{
--	return -EINVAL;
--}
--
--static inline int iommu_domain_set_attr(struct iommu_domain *domain,
--					enum iommu_attr attr, void *data)
--{
--	return -EINVAL;
--}
--
- static inline int iommu_set_pgtable_quirks(struct iommu_domain *domain,
- 		unsigned long quirks)
- {
--- 
-2.30.1
+> >                 if (!msm_gem_trylock(&msm_obj->base))
+> >                         continue;
+> >                 if (is_purgeable(msm_obj)) {
+> > @@ -56,8 +44,11 @@ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+> >
+> >         mutex_unlock(&priv->mm_lock);
+> >
+> > -       if (freed > 0)
+> > +       if (freed > 0) {
+> >                 trace_msm_gem_purge(freed << PAGE_SHIFT);
+> > +       } else {
+> > +               return SHRINK_STOP;
+> > +       }
+>
+> It probably doesn't matter, but I wonder if we should still be
+> returning SHRINK_STOP if we got any trylock failures. It could
+> possibly be worth returning 0 in that case?
 
+On the surface, you'd think that, but there be mm dragons.. we can hit
+shrinker from the submit path when the obj is locked already and we
+are trying to allocate backing pages.  We don't want to tell vmscan to
+keep trying, because we'll keep failing to grab that objects lock
+
+>
+> > @@ -75,6 +66,9 @@ vmap_shrink(struct list_head *mm_list)
+> >         unsigned unmapped = 0;
+> >
+> >         list_for_each_entry(msm_obj, mm_list, mm_list) {
+> > +               /* Use trylock, because we cannot block on a obj that
+> > +                * might be trying to acquire mm_lock
+> > +                */
+>
+> If you end up changing the commenting style above, should also be here.
+>
+> At this point this seems fine to land to me. Though I'm not an expert
+> on every interaction in this code, I've spent enough time starting at
+> it that I'm comfortable with:
+>
+> Reviewed-by: Douglas Anderson <dianders@chromium.org>
+
+thanks
+
+BR,
+-R
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
