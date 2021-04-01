@@ -1,49 +1,44 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC75D35151E
-	for <lists+freedreno@lfdr.de>; Thu,  1 Apr 2021 15:27:07 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7746335152F
+	for <lists+freedreno@lfdr.de>; Thu,  1 Apr 2021 15:31:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B74E76ECA4;
-	Thu,  1 Apr 2021 13:27:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC7B56ECB5;
+	Thu,  1 Apr 2021 13:31:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20A446EC99;
- Thu,  1 Apr 2021 13:27:04 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A058961241;
- Thu,  1 Apr 2021 13:27:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1617283623;
- bh=ZaHUJTjbwUns7JXT//LzMknWL6q18amExZVUaKXxS9s=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=tPQZOKwDhHIr5lXyEm/VCmT3W6pqy/ixtcnXbdgYlJ8ni/2f59nR0dso2anIOy/6D
- yubGrVetOumTcaiZbHX4Olh4hsU0tjohQ7KZR1tENMpRhYzw95x7arHY4ue6E+9WkX
- clEEoWENof9fvWzU58Ok8pHkvy7Zuy52OrSJHN1IH1arMaZPU9GF+HLzz4hGC+Inh/
- buLk1kGm/5OBfSi+8kmpw9NgIzV3NCqRMNsuMHTzntbgKIkhS5WbnN8KMDtIFbQ5gR
- Lneqrq3L7HQIkqlYg8jtbsLKJlGI3o+q19JOhoYOpbzuxTj5LL62tV804S9J+b0JeI
- jTztNA2TZ9zgQ==
-Date: Thu, 1 Apr 2021 14:26:58 +0100
-From: Will Deacon <will@kernel.org>
-To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20210401132657.GA8997@willie-the-truck>
-References: <20210316153825.135976-17-hch@lst.de>
- <20210330131149.GP5908@willie-the-truck>
- <a6952aa7-4d7e-54f0-339e-e15f88596dcc@arm.com>
- <20210330135801.GA6187@willie-the-truck>
- <578d6aa5-4239-f5d7-2e9f-686b18e52bba@arm.com>
- <20210331114947.GA7626@willie-the-truck>
- <ef895942-e115-7878-ab86-37e8a1614df5@arm.com>
- <20210331153256.GA7815@willie-the-truck>
- <81dd27fe-28ee-c800-fe5d-aaa64cb93513@arm.com>
- <20210401095945.GA6726@lst.de>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A6EA6ECB0;
+ Thu,  1 Apr 2021 13:31:29 +0000 (UTC)
+IronPort-SDR: 5hxlm0ERz18lzngg6fT/IkiycJ1YVYCER5gossB56vNWOv5i1BRvTOCxiZsZB4uyrzIIyxnzQ2
+ Uwb+mCL4282A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9941"; a="212498821"
+X-IronPort-AV: E=Sophos;i="5.81,296,1610438400"; d="scan'208";a="212498821"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Apr 2021 06:31:27 -0700
+IronPort-SDR: 5tvB92jiRMGNLabXybckCSLFFBmaAQU7vUD+qPiiyyb+IZu2wKXYLWG2p2afaEIA03ZnIMWo2v
+ zWr4SP+SYDZg==
+X-IronPort-AV: E=Sophos;i="5.81,296,1610438400"; d="scan'208";a="419204532"
+Received: from shergane-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.41.188])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Apr 2021 06:31:08 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Lyude Paul <lyude@redhat.com>, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+In-Reply-To: <20210326203807.105754-6-lyude@redhat.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20210326203807.105754-1-lyude@redhat.com>
+ <20210326203807.105754-6-lyude@redhat.com>
+Date: Thu, 01 Apr 2021 16:31:05 +0300
+Message-ID: <87eefum8rq.fsf@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210401095945.GA6726@lst.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH 16/18] iommu: remove
- DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE
+Subject: Re: [Freedreno] [PATCH v2 05/20] drm/dp: Add backpointer to
+ drm_device in drm_dp_aux
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,26 +51,79 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: kvm@vger.kernel.org, Robin Murphy <robin.murphy@arm.com>,
- linux-arm-msm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- dri-devel@lists.freedesktop.org, Li Yang <leoyang.li@nxp.com>,
- iommu@lists.linux-foundation.org, netdev@vger.kernel.org,
- Michael Ellerman <mpe@ellerman.id.au>,
- virtualization@lists.linux-foundation.org, freedreno@lists.freedesktop.org,
- David Woodhouse <dwmw2@infradead.org>, linux-arm-kernel@lists.infradead.org
+Cc: Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
+ Guido =?utf-8?Q?G=C3=BCnther?= <agx@sigxcpu.org>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Oleg Vasilev <oleg.vasilev@intel.com>, Andrzej Hajda <a.hajda@samsung.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Sam Ravnborg <sam@ravnborg.org>,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Tomi Valkeinen <tomi.valkeinen@ti.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Michal Simek <michal.simek@xilinx.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Vasily Khoruzhick <anarsoul@gmail.com>,
+ "Jerry \(Fangzhi\) Zuo" <Jerry.Zuo@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>, Ben Skeggs <bskeggs@redhat.com>,
+ Swapnil Jakhade <sjakhade@cadence.com>,
+ Harry Wentland <harry.wentland@amd.com>, Imre Deak <imre.deak@intel.com>,
+ "moderated list:ARM/ZYNQ
+ ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Jonas Karlman <jonas@kwiboo.se>,
+ Leo Li <sunpeng.li@amd.com>, Lucas De Marchi <lucas.demarchi@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Joe Perches <joe@perches.com>,
+ Yuti Amonkar <yamonkar@cadence.com>, Jyri Sarha <jsarha@ti.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, "open list:DRM DRIVERS FOR NVIDIA
+ TEGRA" <linux-tegra@vger.kernel.org>, Mikita Lipski <mikita.lipski@amd.com>,
+ Sean Paul <sean@poorly.run>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Matt Roper <matthew.d.roper@intel.com>,
+ Jernej Skrabec <jernej.skrabec@siol.net>, Chris Park <Chris.Park@amd.com>,
+ Eryk Brol <eryk.brol@amd.com>, Hyun Kwon <hyun.kwon@xilinx.com>,
+ open list <linux-kernel@vger.kernel.org>, Robert Foss <robert.foss@linaro.org>,
+ Julia Lawall <Julia.Lawall@inria.fr>, Rob Clark <robdclark@gmail.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>, Andy Yan <andy.yan@rock-chips.com>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
+ Christian =?utf-8?Q?K=C3=B6n?= =?utf-8?Q?ig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Apr 01, 2021 at 11:59:45AM +0200, Christoph Hellwig wrote:
-> For now I'll just pass the iommu_domain to iommu_get_dma_strict,
-> so that we can check for it.  We can do additional cleanups on top
-> of that later.
+On Fri, 26 Mar 2021, Lyude Paul <lyude@redhat.com> wrote:
+>   * The @dev field should be set to a pointer to the device that implements the
+> - * AUX channel.
+> + * AUX channel. As well, the @drm_dev field should be set to the &drm_device
+> + * that will be using this AUX channel as early as possible. For many graphics
+> + * drivers this should happen before drm_dp_aux_init(), however it's perfectly
+> + * fine to set this field later so long as it's assigned before calling
+> + * drm_dp_aux_register().
 
-Sounds good to me, cheers!
+Perhaps add a follow-up patch to actually ensure this is the case in
+drm_dp_aux_register()?
 
-Will
+>   *
+>   * The @name field may be used to specify the name of the I2C adapter. If set to
+>   * %NULL, dev_name() of @dev will be used.
+> @@ -1877,6 +1883,7 @@ struct drm_dp_aux {
+>  	const char *name;
+>  	struct i2c_adapter ddc;
+>  	struct device *dev;
+> +	struct drm_device *drm_dev;
+
+Bikeshed, I would probably have called it just drm for brevity, but no
+strong feelings.
+
+BR,
+Jani.
+
+
+-- 
+Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
