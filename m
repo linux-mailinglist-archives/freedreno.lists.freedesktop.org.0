@@ -1,64 +1,42 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 739EB35163D
-	for <lists+freedreno@lfdr.de>; Thu,  1 Apr 2021 17:35:06 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F6C0351659
+	for <lists+freedreno@lfdr.de>; Thu,  1 Apr 2021 17:53:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16C5E6ECD1;
-	Thu,  1 Apr 2021 15:35:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFBC06EC97;
+	Thu,  1 Apr 2021 15:53:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
- [IPv6:2607:f8b0:4864:20::72c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BD346ECD1
- for <freedreno@lists.freedesktop.org>; Thu,  1 Apr 2021 15:35:03 +0000 (UTC)
-Received: by mail-qk1-x72c.google.com with SMTP id g15so2590094qkl.4
- for <freedreno@lists.freedesktop.org>; Thu, 01 Apr 2021 08:35:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=SPcX6QtS7Ve6UUCNbDaDbB4vAvudpBUFG69ugXPs6T8=;
- b=AHguOOTFAO2NQe8XmSdmlyagtr/wB7GhsgTQRCF/4VWbWuMjMbDGipaw0RxlA0M6yR
- men4W9o7Z3lOPEhONt01til0PnMg/us3/Y7ioK47S+E3qh5tEsfAwsau3lssAXnET16Z
- y4UgVblAdat0wp63BW2m5H52N9VLE+J5QNlQ4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=SPcX6QtS7Ve6UUCNbDaDbB4vAvudpBUFG69ugXPs6T8=;
- b=IjVMZ2aB+cLc793+xTOfhf+RrxA/ttUUzOS+LnVCYVjxvSQORCZXXY0xFJALTq58DS
- fve5ookp8pc/P80EkfE2MLYtDDIwTpAZMDw2jIrXAlmEBKHw7SroTln2AekZoBXLWvr+
- bsKBlnS077R3MY3gy9eTShcpWWDAoL3N34HgrSggYjXGsCvAPXcs2COxmEzy9pjwG1n1
- 4Ltf2EruYPSvZ8J3jOeLA42KZu5epoBxlv4zSn2fQmXdG8kZ5b1+eF64jP+B3fY+zDLu
- 3hInw+EYl7ZVSHNImIhFdUFhHWTCxLp3Ws6MnZZhg1sZhQXP9dNZGPlHaQWwxoLJgD9E
- dbpw==
-X-Gm-Message-State: AOAM533IiVuXarTIrJRDU4wDRwZXrhu5Wd1DuEc+KinJNN8vqAzfwbnl
- 9FzYEZXJKGs7fRzPFf+S9VhI1j/1JDEurQ==
-X-Google-Smtp-Source: ABdhPJyGUbJEKBLF7pKjsXGQXJSwEWYnpvw5qPM8XhsBxXZKcBi9MBQfYeLEGioCrRDEup1SPdW1wA==
-X-Received: by 2002:a37:a8cc:: with SMTP id r195mr8746576qke.86.1617291302404; 
- Thu, 01 Apr 2021 08:35:02 -0700 (PDT)
-Received: from mail-yb1-f177.google.com (mail-yb1-f177.google.com.
- [209.85.219.177])
- by smtp.gmail.com with ESMTPSA id 84sm4287663qkg.8.2021.04.01.08.35.01
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Apr 2021 08:35:02 -0700 (PDT)
-Received: by mail-yb1-f177.google.com with SMTP id w8so2218512ybt.3
- for <freedreno@lists.freedesktop.org>; Thu, 01 Apr 2021 08:35:01 -0700 (PDT)
-X-Received: by 2002:a25:74ca:: with SMTP id
- p193mr12383521ybc.405.1617291301361; 
- Thu, 01 Apr 2021 08:35:01 -0700 (PDT)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:e::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF13D6E2EF;
+ Thu,  1 Apr 2021 15:53:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ MIME-Version:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=F/At/y3YpRYA0xMifJb6WYaRvzw/qWs4U1Utp3fOA3I=; b=HFkBoDC2gQqzR0/BMkABluFzVb
+ 3gakMZuzB5XR+6BX0Aj1OytKg2i4hAn10GfCqqYygamx5QBLvyvglTO+CwociDtgFFHoBElQl2z9C
+ 8vSKoiBIAW3F6tqOLYPp5fiGR2bP6vbJGLE7cWb6BixFCeOSNvJ4K1maSU3n4g1Q7mpPZT2T07c35
+ IOMTZ0zeIeEGgKA2dxIZ8EK0kU0QMV3JhqqKyPs1AV8kBZN19SvvyFxFLUzRFNH5pIb+XJhARJbkW
+ zRtou/lbZms6YtiTWLVyM7tCMX4ldsM7ZmafF6EhBjKGqEfhr9PhwxC99sSvMht8lYVuOOmKk4W3l
+ pxTq5pyQ==;
+Received: from [2001:4bb8:180:7517:83e4:a809:b0aa:ca74] (helo=localhost)
+ by bombadil.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
+ id 1lRzd6-00CiZO-UO; Thu, 01 Apr 2021 15:53:09 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Li Yang <leoyang.li@nxp.com>
+Date: Thu,  1 Apr 2021 17:52:36 +0200
+Message-Id: <20210401155256.298656-1-hch@lst.de>
+X-Mailer: git-send-email 2.30.1
 MIME-Version: 1.0
-References: <20210331221630.488498-1-robdclark@gmail.com>
- <20210401012722.527712-1-robdclark@gmail.com>
- <20210401012722.527712-4-robdclark@gmail.com>
-In-Reply-To: <20210401012722.527712-4-robdclark@gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 1 Apr 2021 08:34:50 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=XQoauA5kzmmj5ask_sK19mJycYLJfAOeriXsr2pvxaFw@mail.gmail.com>
-Message-ID: <CAD=FV=XQoauA5kzmmj5ask_sK19mJycYLJfAOeriXsr2pvxaFw@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Subject: Re: [Freedreno] [PATCH v2 3/4] drm/msm: Fix debugfs deadlock
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
+Subject: [Freedreno] cleanup unused or almost unused IOMMU APIs and the FSL
+ PAMU driver v3
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,38 +49,63 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- "Kristian H. Kristensen" <hoegsberg@google.com>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, kvm@vger.kernel.org,
+ Michael Ellerman <mpe@ellerman.id.au>, linuxppc-dev@lists.ozlabs.org,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ iommu@lists.linux-foundation.org, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, David Woodhouse <dwmw2@infradead.org>,
+ linux-arm-kernel@lists.infradead.org, Lu Baolu <baolu.lu@linux.intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+Hi all,
 
-On Wed, Mar 31, 2021 at 6:24 PM Rob Clark <robdclark@gmail.com> wrote:
->
-> From: Rob Clark <robdclark@chromium.org>
->
-> In normal cases the gem obj lock is acquired first before mm_lock.  The
-> exception is iterating the various object lists.  In the shrinker path,
-> deadlock is avoided by using msm_gem_trylock() and skipping over objects
-> that cannot be locked.  But for debugfs the straightforward thing is to
-> split things out into a separate list of all objects protected by it's
-> own lock.
->
-> Fixes: d984457b31c4 ("drm/msm: Add priv->mm_lock to protect active/inactive lists")
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> Tested-by: Douglas Anderson <dianders@chromium.org>
+there are a bunch of IOMMU APIs that are entirely unused, or only used as
+a private communication channel between the FSL PAMU driver and it's only
+consumer, the qbman portal driver.
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
+So this series drops a huge chunk of entirely unused FSL PAMU
+functionality, then drops all kinds of unused IOMMU APIs, and then
+replaces what is left of the iommu_attrs with properly typed, smaller
+and easier to use specific APIs.
+
+Changes since v2:
+ - remove a comment fragment a little bit earlier
+ - fix the aperture end passed to pamu_config_ppaace
+ - fix a few trivial typos
+ - remove more unused arguments to pamu_config_ppaace
+ - do not accidentally enable lazy flushing for non-dma domains
+
+Changes since v1:
+ - use a different way to control strict flushing behavior (from Robin)
+ - remove the iommu_cmd_line wrappers
+ - simplify the pagetbl quirks a little more
+ - slightly improved patch ordering
+ - better changelogs
+
+Diffstat:
+ arch/powerpc/include/asm/fsl_pamu_stash.h   |   12 
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c     |    5 
+ drivers/iommu/amd/iommu.c                   |   23 
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c |   75 ---
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h |    1 
+ drivers/iommu/arm/arm-smmu/arm-smmu.c       |  111 +---
+ drivers/iommu/arm/arm-smmu/arm-smmu.h       |    2 
+ drivers/iommu/dma-iommu.c                   |    9 
+ drivers/iommu/fsl_pamu.c                    |  293 -----------
+ drivers/iommu/fsl_pamu.h                    |   12 
+ drivers/iommu/fsl_pamu_domain.c             |  688 ++--------------------------
+ drivers/iommu/fsl_pamu_domain.h             |   46 -
+ drivers/iommu/intel/iommu.c                 |   95 ---
+ drivers/iommu/iommu.c                       |  118 +---
+ drivers/soc/fsl/qbman/qman_portal.c         |   55 --
+ drivers/vfio/vfio_iommu_type1.c             |   31 -
+ drivers/vhost/vdpa.c                        |   10 
+ include/linux/io-pgtable.h                  |    4 
+ include/linux/iommu.h                       |   76 ---
+ 19 files changed, 203 insertions(+), 1463 deletions(-)
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
