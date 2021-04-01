@@ -2,30 +2,31 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDBCA351255
-	for <lists+freedreno@lfdr.de>; Thu,  1 Apr 2021 11:34:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41575351262
+	for <lists+freedreno@lfdr.de>; Thu,  1 Apr 2021 11:36:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F2006EC80;
-	Thu,  1 Apr 2021 09:34:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDDDB6EC80;
+	Thu,  1 Apr 2021 09:36:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E20906EC80;
- Thu,  1 Apr 2021 09:34:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FC7B6EC80;
+ Thu,  1 Apr 2021 09:36:45 +0000 (UTC)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id 6995C68B05; Thu,  1 Apr 2021 11:34:08 +0200 (CEST)
-Date: Thu, 1 Apr 2021 11:34:08 +0200
+ id 9A5C868B05; Thu,  1 Apr 2021 11:36:42 +0200 (CEST)
+Date: Thu, 1 Apr 2021 11:36:42 +0200
 From: Christoph Hellwig <hch@lst.de>
 To: Will Deacon <will@kernel.org>
-Message-ID: <20210401093408.GD2934@lst.de>
+Message-ID: <20210401093642.GE2934@lst.de>
 References: <20210316153825.135976-1-hch@lst.de>
- <20210316153825.135976-9-hch@lst.de> <20210330124651.GH5908@willie-the-truck>
+ <20210316153825.135976-12-hch@lst.de>
+ <20210330125816.GK5908@willie-the-truck>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210330124651.GH5908@willie-the-truck>
+In-Reply-To: <20210330125816.GK5908@willie-the-truck>
 User-Agent: Mutt/1.5.17 (2007-11-01)
-Subject: Re: [Freedreno] [PATCH 08/18] iommu/fsl_pamu: merge pamu_set_liodn
- and map_liodn
+Subject: Re: [Freedreno] [PATCH 11/18] iommu/fsl_pamu: remove the snoop_id
+ field
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,16 +52,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Mar 30, 2021 at 01:46:51PM +0100, Will Deacon wrote:
-> > +	ret = pamu_config_ppaace(liodn, geom->aperture_start,
-> > +				 geom->aperture_end - 1, ~(u32)0,
-> > +				 0, dma_domain->snoop_id, dma_domain->stash_id,
-> > +				 PAACE_AP_PERMS_QUERY | PAACE_AP_PERMS_UPDATE);
-> 
-> There's more '+1' / '-1' confusion here with aperture_end which I'm not
-> managing to follow. What am I missing?
+On Tue, Mar 30, 2021 at 01:58:17PM +0100, Will Deacon wrote:
+> pamu_config_ppaace() takes quite a few useless parameters at this stage,
+> but anyway:
 
-You did not missing anything, I messed this up.   Fixed.
+I'll see it it makes sense to throw in another patch at the end to cut
+it down a bit more.
+
+> Acked-by: Will Deacon <will@kernel.org>
+> 
+> Do you know if this driver is actually useful? Once the complexity has been
+> stripped back, the stubs and default values really stand out.
+
+Yeah.  No idea what the usefulness of this driver is.  Bascially all it
+seems to do is to setup a few registers to allow access to the whole
+physical memory.  But maybe that is required on this hardware to allow
+for any DMA access?
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
