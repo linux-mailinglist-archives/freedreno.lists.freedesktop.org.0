@@ -2,66 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFEFD3521D9
-	for <lists+freedreno@lfdr.de>; Thu,  1 Apr 2021 23:45:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D128352A49
+	for <lists+freedreno@lfdr.de>; Fri,  2 Apr 2021 13:43:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5C916E0F8;
-	Thu,  1 Apr 2021 21:45:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAAC06E152;
+	Fri,  2 Apr 2021 11:43:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 209086E0F8;
- Thu,  1 Apr 2021 21:45:51 +0000 (UTC)
-Received: by mail-wr1-x436.google.com with SMTP id e18so3126952wrt.6;
- Thu, 01 Apr 2021 14:45:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=03BQSw1CPJ8M8BexxEezvsYQZb8neb/x+xNYoF5ZH40=;
- b=ZQE9ppnqnPtgf+sAq2hJfhtYScAce9TxQHQKT/zS+ZJEPvti7l/hx+rl3OZ3WasfBK
- 6oDLe1zbgki31FRRjcQjewbh9fuIJjhm9vn4+uIFWT2x1Q+/GhsuCGKRDWWilUCkky/w
- S0aWWRw5tcDMCIrbsqUh6KGQyHcnK3UqIC+KtmspbNtvjB8BDXnHP7UlUF1xp/x3Hyei
- YlnDEi7NtkQQLX/seZWGHmxBmAXxIoA0e28iGhqFZ1yaX+4YG9+mQcoXE3IDyv9bXRCf
- QAuYXfNWr3FxictHeiaXuiwRuyGFXgIwPKeGA2+uy+ASLf4mNdkIRNnKvoMRxWGfvOem
- aVOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=03BQSw1CPJ8M8BexxEezvsYQZb8neb/x+xNYoF5ZH40=;
- b=BcKLza5lZQ2CgE0Rnzhe2Yd5i5+dWfjZrAJtvLeeJspds/gap7UTdCDASDtOjd1TOj
- vg1eus9dqcTqcAC5fEbPq6tqDNUIOYEHV1u7soiG9SuaHXE3v6tdWvvKvq7pcEeePC1/
- Mzy7ZRLYxMRkIpDunmE9UuIddPnVJpVwCMhKCC9omvHaZs1AHSsDPkGC7asanXKYze83
- NCONUtZE/txYPUTr/3+qops4M+yZBFPRkXOSFbO0LIgO1xAIjZFnA8s5BD8z5+ftyhDT
- rW3hzlZf2vkFhIhD464sqt2510XPNgEsBtXR5Y4raJ/WyRzzPa8nqyPEPVhLiYJgq6PY
- yCsQ==
-X-Gm-Message-State: AOAM531geMYLvdu4FqeJUHWe5MNxg1F5kf6bcepABsT0daArztIJcGRL
- nD9jvjjX5JA2jv08/JxM4DovDTUOHHHaKA9hD2M=
-X-Google-Smtp-Source: ABdhPJzUeWySZlY1WQjmnPeq6ZDBrhIhZnvXb2NMfVpj2NVVCCfJYyU4oNRtui0xCS4hVixSPIhr3umD2Ql1iY7Q0X8=
-X-Received: by 2002:adf:b30f:: with SMTP id j15mr12078963wrd.132.1617313549709; 
- Thu, 01 Apr 2021 14:45:49 -0700 (PDT)
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A7E36E152
+ for <freedreno@lists.freedesktop.org>; Fri,  2 Apr 2021 11:42:55 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1617363780; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=Y0ofDdUGn0WUo2hyxln+MKhIE2bhy/ms3A+4Ijw+Tas=;
+ b=xMGIwmD5GA1gQYfZuMHCKXlp35Fbbgd3wyPgFGkMA99wB1uH94F4yaAuTjN/hWxlic1RjZi7
+ oB5zurnrCWcI/VLSsBvQq4dnFpjJr8EmjAt5Xy4aUz5RsnZlFYifjnKaSQYKGgwhTYkMaWxK
+ GSvsxef1x9MZUdR1bfL6u7EInbM=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n04.prod.us-east-1.postgun.com with SMTP id
+ 606703248166b7eff7e91d7f (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 02 Apr 2021 11:42:28
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 600E2C43461; Fri,  2 Apr 2021 11:42:27 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: kalyan_t)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id CFD51C433C6;
+ Fri,  2 Apr 2021 11:42:25 +0000 (UTC)
 MIME-Version: 1.0
-References: <20210216200909.19039-1-jonathan@marek.ca>
- <CAF6AEGv53nnzqMgTfSA6t2YpHx1dDW8UqnH9Gw0w3p8bf0mTLw@mail.gmail.com>
- <775436ba-c94a-ab22-d65b-b2391047ec65@codeaurora.org>
- <20210217190820.GA2229@jcrouse1-lnx.qualcomm.com>
- <CAF6AEGsHws23ozeJ8G23LFQ8J=CVVrx5xvkSgBuE_uSwT4YurQ@mail.gmail.com>
- <74d1277e-295f-0996-91c3-05cfce8d3a0e@marek.ca>
- <e4b62857-bd4d-cca6-0d6b-b9cc960b52a2@codeaurora.org>
- <CAF6AEGsWCrkOgMVxnx53k8b_o7xy3KWv9VaNRoY44+4GfXtWdg@mail.gmail.com>
- <757b557a-b5f6-6018-caa4-34bffb1b60b7@codeaurora.org>
- <CAF6AEGv-A5=4z7ZO-SytmivZTfKPYxhAjmRLVsQnrT7_pYCDtQ@mail.gmail.com>
- <0f057c99-ec94-f3e3-796f-b73a609f735d@codeaurora.org>
- <CAF6AEGvXYmcj0YuciZATveALJEP6DdFiwmtnYevrK2SEOJNZGg@mail.gmail.com>
- <CAF6AEGs4sYOMgysg3FraKTDetqKTgMXT6RE700e-8uyE9Gs-9A@mail.gmail.com>
- <CAA8EJpoL7Eox5WqnZQVvGF9M_4itA+2=U6QX=AreTk=AEfqyQg@mail.gmail.com>
-In-Reply-To: <CAA8EJpoL7Eox5WqnZQVvGF9M_4itA+2=U6QX=AreTk=AEfqyQg@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 1 Apr 2021 14:49:13 -0700
-Message-ID: <CAF6AEGu88VxfDYaMt1=FCYG0DVRfRT6=5QD78Qrk=S=M0gO+pw@mail.gmail.com>
+Date: Fri, 02 Apr 2021 17:12:25 +0530
+From: kalyan_t@codeaurora.org
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: fix for kernels without
- CONFIG_NVMEM
+In-Reply-To: <CAA8EJpouKeor8J2QG3nUtLqyNTwd1J44BXDjk4fHCYhykeJ7Hw@mail.gmail.com>
+References: <1617190020-7931-1-git-send-email-kalyan_t@codeaurora.org>
+ <84fdbdc7-7890-965a-bc6b-a19bd0ca4937@linaro.org>
+ <CAF6AEGt_aAq4dF9QkS9uJ7vwvGeR42oToCQKpsWCrfuhy_j+pw@mail.gmail.com>
+ <d104a40f-65c3-2700-e829-bfe8f5712ac5@linaro.org>
+ <96eb927abe1a22711709900cec7f8d11@codeaurora.org>
+ <CAA8EJpouKeor8J2QG3nUtLqyNTwd1J44BXDjk4fHCYhykeJ7Hw@mail.gmail.com>
+Message-ID: <04b4612dfd3f651ead068725409211a0@codeaurora.org>
+X-Sender: kalyan_t@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [v1] drm/msm/disp/dpu1: fix warn stack reported
+ during dpu resume
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,164 +68,218 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>,
- freedreno <freedreno@lists.freedesktop.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>, Eric Anholt <eric@anholt.net>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="us-ascii"
+Cc: "open list:OPEN FIRMWARE AND FLATTENED
+ DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+ Krishna Manikandan <mkrishn@codeaurora.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Daniel Hung-yu Wu <hywu@google.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Douglas Anderson <dianders@chromium.org>, Matthias Kaehlcke <mka@google.com>,
+ Rob Clark <robdclark@gmail.com>, Michelle Dean <midean@google.com>,
+ Steev Klimaszewski <steev@kali.org>,
+ freedreno <freedreno@lists.freedesktop.org>, y@qualcomm.com
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Apr 1, 2021 at 2:03 PM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> On Thu, 1 Apr 2021 at 23:09, Rob Clark <robdclark@gmail.com> wrote:
-> >
-> > On Mon, Feb 22, 2021 at 8:06 AM Rob Clark <robdclark@gmail.com> wrote:
-> > >
-> > > On Mon, Feb 22, 2021 at 7:45 AM Akhil P Oommen <akhilpo@codeaurora.org> wrote:
-> > > >
-> > > > On 2/19/2021 9:30 PM, Rob Clark wrote:
-> > > > > On Fri, Feb 19, 2021 at 2:44 AM Akhil P Oommen <akhilpo@codeaurora.org> wrote:
-> > > > >>
-> > > > >> On 2/18/2021 9:41 PM, Rob Clark wrote:
-> > > > >>> On Thu, Feb 18, 2021 at 4:28 AM Akhil P Oommen <akhilpo@codeaurora.org> wrote:
-> > > > >>>>
-> > > > >>>> On 2/18/2021 2:05 AM, Jonathan Marek wrote:
-> > > > >>>>> On 2/17/21 3:18 PM, Rob Clark wrote:
-> > > > >>>>>> On Wed, Feb 17, 2021 at 11:08 AM Jordan Crouse
-> > > > >>>>>> <jcrouse@codeaurora.org> wrote:
-> > > > >>>>>>>
-> > > > >>>>>>> On Wed, Feb 17, 2021 at 07:14:16PM +0530, Akhil P Oommen wrote:
-> > > > >>>>>>>> On 2/17/2021 8:36 AM, Rob Clark wrote:
-> > > > >>>>>>>>> On Tue, Feb 16, 2021 at 12:10 PM Jonathan Marek <jonathan@marek.ca>
-> > > > >>>>>>>>> wrote:
-> > > > >>>>>>>>>>
-> > > > >>>>>>>>>> Ignore nvmem_cell_get() EOPNOTSUPP error in the same way as a
-> > > > >>>>>>>>>> ENOENT error,
-> > > > >>>>>>>>>> to fix the case where the kernel was compiled without CONFIG_NVMEM.
-> > > > >>>>>>>>>>
-> > > > >>>>>>>>>> Fixes: fe7952c629da ("drm/msm: Add speed-bin support to a618 gpu")
-> > > > >>>>>>>>>> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
-> > > > >>>>>>>>>> ---
-> > > > >>>>>>>>>>     drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 6 +++---
-> > > > >>>>>>>>>>     1 file changed, 3 insertions(+), 3 deletions(-)
-> > > > >>>>>>>>>>
-> > > > >>>>>>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > > > >>>>>>>>>> b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > > > >>>>>>>>>> index ba8e9d3cf0fe..7fe5d97606aa 100644
-> > > > >>>>>>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > > > >>>>>>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > > > >>>>>>>>>> @@ -1356,10 +1356,10 @@ static int a6xx_set_supported_hw(struct
-> > > > >>>>>>>>>> device *dev, struct a6xx_gpu *a6xx_gpu,
-> > > > >>>>>>>>>>
-> > > > >>>>>>>>>>            cell = nvmem_cell_get(dev, "speed_bin");
-> > > > >>>>>>>>>>            /*
-> > > > >>>>>>>>>> -        * -ENOENT means that the platform doesn't support
-> > > > >>>>>>>>>> speedbin which is
-> > > > >>>>>>>>>> -        * fine
-> > > > >>>>>>>>>> +        * -ENOENT means no speed bin in device tree,
-> > > > >>>>>>>>>> +        * -EOPNOTSUPP means kernel was built without CONFIG_NVMEM
-> > > > >>>>>>>>>
-> > > > >>>>>>>>> very minor nit, it would be nice to at least preserve the gist of the
-> > > > >>>>>>>>> "which is fine" (ie. some variation of "this is an optional thing and
-> > > > >>>>>>>>> things won't catch fire without it" ;-))
-> > > > >>>>>>>>>
-> > > > >>>>>>>>> (which is, I believe, is true, hopefully Akhil could confirm.. if not
-> > > > >>>>>>>>> we should have a harder dependency on CONFIG_NVMEM..)
-> > > > >>>>>>>> IIRC, if the gpu opp table in the DT uses the 'opp-supported-hw'
-> > > > >>>>>>>> property,
-> > > > >>>>>>>> we will see some error during boot up if we don't call
-> > > > >>>>>>>> dev_pm_opp_set_supported_hw(). So calling "nvmem_cell_get(dev,
-> > > > >>>>>>>> "speed_bin")"
-> > > > >>>>>>>> is a way to test this.
-> > > > >>>>>>>>
-> > > > >>>>>>>> If there is no other harm, we can put a hard dependency on
-> > > > >>>>>>>> CONFIG_NVMEM.
-> > > > >>>>>>>
-> > > > >>>>>>> I'm not sure if we want to go this far given the squishiness about
-> > > > >>>>>>> module
-> > > > >>>>>>> dependencies. As far as I know we are the only driver that uses this
-> > > > >>>>>>> seriously
-> > > > >>>>>>> on QCOM SoCs and this is only needed for certain targets. I don't
-> > > > >>>>>>> know if we
-> > > > >>>>>>> want to force every target to build NVMEM and QFPROM on our behalf.
-> > > > >>>>>>> But maybe
-> > > > >>>>>>> I'm just saying that because Kconfig dependencies tend to break my
-> > > > >>>>>>> brain (and
-> > > > >>>>>>> then Arnd has to send a patch to fix it).
-> > > > >>>>>>>
-> > > > >>>>>>
-> > > > >>>>>> Hmm, good point.. looks like CONFIG_NVMEM itself doesn't have any
-> > > > >>>>>> other dependencies, so I suppose it wouldn't be the end of the world
-> > > > >>>>>> to select that.. but I guess we don't want to require QFPROM
-> > > > >>>>>>
-> > > > >>>>>> I guess at the end of the day, what is the failure mode if you have a
-> > > > >>>>>> speed-bin device, but your kernel config misses QFPROM (and possibly
-> > > > >>>>>> NVMEM)?  If the result is just not having the highest clk rate(s)
-> > > > >>>>
-> > > > >>>> Atleast on sc7180's gpu, using an unsupported FMAX breaks gmu. It won't
-> > > > >>>> be very obvious what went wrong when this happens!
-> > > > >>>
-> > > > >>> Ugg, ok..
-> > > > >>>
-> > > > >>> I suppose we could select NVMEM, but not QFPROM, and then the case
-> > > > >>> where QFPROM is not enabled on platforms that have the speed-bin field
-> > > > >>> in DT will fail gracefully and all other platforms would continue on
-> > > > >>> happily?
-> > > > >>>
-> > > > >>> BR,
-> > > > >>> -R
-> > > > >>
-> > > > >> Sounds good to me.
-> > > > >>
-> > > > >
-> > > > > You probably should do a quick test with NVMEM enabled but QFPROM
-> > > > > disabled to confirm my theory, but I *think* that should work
-> > > > >
-> > > > > BR,
-> > > > > -R
-> > > > >
-> > > >
-> > > > I tried it on an sc7180 device. The suggested combo (CONFIG_NVMEM + no
-> > > > CONFIG_QCOM_QFPROM) makes the gpu probe fail with error "failed to read
-> > > > speed-bin. Some OPPs may not be supported by hardware". This is good
-> > > > enough clue for the developer that he should fix the broken speedbin
-> > > > detection.
-> > > >
-> > >
-> > > Ok, great.. then sounds like selecting NVMEM is a good approach
-> > >
-> >
-> > btw, did anyone ever send a patch to select NVMEM?  I'm not seeing one
-> > but I could be overlooking something
->
-> Judging by the amount of issues surrounding speed-bin, I might have a
-> bold suggestion to revert these patches for now and get them once all
-> the issues are sorted, so that we'd have a single working commit
-> instead of scattered patch series breaking git bisect, having bad
-> side-effects on non-sc7180 platforms, etc.
->
+On 2021-04-01 19:01, Dmitry Baryshkov wrote:
+> On Thu, 1 Apr 2021 at 16:19, <kalyan_t@codeaurora.org> wrote:
+>> 
+>> On 2021-04-01 07:37, Dmitry Baryshkov wrote:
+>> > On 01/04/2021 01:47, Rob Clark wrote:
+>> >> On Wed, Mar 31, 2021 at 9:03 AM Dmitry Baryshkov
+>> >> <dmitry.baryshkov@linaro.org> wrote:
+>> >>>
+>> >>> On 31/03/2021 14:27, Kalyan Thota wrote:
+>> >>>> WARN_ON was introduced by the below commit to catch runtime resumes
+>> >>>> that are getting triggered before icc path was set.
+>> >>>>
+>> >>>> "drm/msm/disp/dpu1: icc path needs to be set before dpu runtime
+>> >>>> resume"
+>> >>>>
+>> >>>> For the targets where the bw scaling is not enabled, this WARN_ON is
+>> >>>> a false alarm. Fix the WARN condition appropriately.
+>> >>>
+>> >>> Should we change all DPU targets to use bw scaling to the mdp from
+>> >>> the
+>> >>> mdss nodes? The limitation to sc7180 looks artificial.
+>> >>
+>> >> yes, we should, this keeps biting us on 845
+>> >
+>> > Done,
+>> > https://lore.kernel.org/linux-arm-msm/20210401020533.3956787-2-dmitry.baryshkov@linaro.org/
+>> 
+>> Hi Dmitry,
+>> 
+>> https://lore.kernel.org/linux-arm-msm/20210401020533.3956787-2-dmitry.baryshkov@linaro.org/
+>> 
+>> you need to add clk_inefficiency_factor, bw_inefficiency_factor in the
+>> catalogue for the new
+>> targets where bw scaling is being enabled. please reuse sc7180 values.
+> 
+> Done in patch 1 in that series.
+> 
+got it.
 
-We do really need some pre-merge CI like we have on the mesa side of
-things (and we at least have 845 devices in our CI farm, but it would
-be useful to add more generations)..  but other than the config issue,
-I *think* this fixes the last of the speedbin fallout?
+>> 
+>> secondly, the AXI clock needs to be moved from mdss to mdp device like
+>> as in sc7180 dt if its not done already.
+> 
+> Is this enough:
+> sm8250 has <&gcc GCC_DISP_HF_AXI_CLK> both in mdss and mdp nodes
+> sdm845 has <&gcc GCC_DISP_AXI_CLK> in mdss node and <&dispcc
+> DISP_CC_MDSS_AXI_CLK> in the mdp node.
+> 
+> Since there is no BW vote in mdss, we need to move the AXI clock ON to 
+> mdp node.
 
-https://patchwork.freedesktop.org/patch/426538/?series=88558&rev=1
+for sm8250
+remove GCC_DISP_HF_AXI_CLK from mdss device and add it in mdp device.
 
-Planning to include that in a -fixes pull req in the next day or two.
-(And please have a look at msm-next-staging and let me know if you see
-anything other fixes that would be good to get in, speedbin related or
-otherwise.)
+for sdm845
+remove GCC_DISP_AXI_CLK from mdss device and add it in mdp device before 
+we turn on DISP_CC_MDSS_AXI_CLK, i.e as first item.
 
-BR,
--R
+>> 
+>> lastly, if you are planning to remove the static votes from dpu_mdss, 
+>> do
+>> you also want to move the
+>> interconnect paths from mdss device to mdp device in the dt ?
+> 
+> I have no strong opinion on this. So far I did not change dt to be
+> compatible with the current device trees.
+> 
+>> 
+>> 
+>> Thanks,
+>> Kalyan
+>> 
+>> >
+>> >>
+>> >>>>
+>> >>>> Reported-by: Steev Klimaszewski <steev@kali.org>
+>> >>
+>> >> Please add Fixes: tag as well
+>> Adding Fixes tag above my sign-off, should i push another version or 
+>> can
+>> it be picked from here ?
+>> 
+>> Fixes: 627dc55c273d ("drm/msm/disp/dpu1: icc path needs to be set 
+>> before
+>> dpu runtime resume")
+>> >>
+>> >>>> Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
+>> >>>> ---
+>> >>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  |  8 +++++---
+>> >>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h  |  9 +++++++++
+>> >>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c | 11 ++++++-----
+>> >>>>    3 files changed, 20 insertions(+), 8 deletions(-)
+>> >>>>
+>> >>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>> >>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>> >>>> index cab387f..0071a4d 100644
+>> >>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>> >>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>> >>>> @@ -294,6 +294,9 @@ static int
+>> >>>> dpu_kms_parse_data_bus_icc_path(struct dpu_kms *dpu_kms)
+>> >>>>        struct icc_path *path1;
+>> >>>>        struct drm_device *dev = dpu_kms->dev;
+>> >>>>
+>> >>>> +     if (!dpu_supports_bw_scaling(dev))
+>> >>>> +             return 0;
+>> >>>> +
+>> >>>>        path0 = of_icc_get(dev->dev, "mdp0-mem");
+>> >>>>        path1 = of_icc_get(dev->dev, "mdp1-mem");
+>> >>>>
+>> >>>> @@ -934,8 +937,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+>> >>>>                DPU_DEBUG("REG_DMA is not defined");
+>> >>>>        }
+>> >>>>
+>> >>>> -     if (of_device_is_compatible(dev->dev->of_node,
+>> >>>> "qcom,sc7180-mdss"))
+>> >>>> -             dpu_kms_parse_data_bus_icc_path(dpu_kms);
+>> >>>> +     dpu_kms_parse_data_bus_icc_path(dpu_kms);
+>> >>>>
+>> >>>>        pm_runtime_get_sync(&dpu_kms->pdev->dev);
+>> >>>>
+>> >>>> @@ -1198,7 +1200,7 @@ static int __maybe_unused
+>> >>>> dpu_runtime_resume(struct device *dev)
+>> >>>>
+>> >>>>        ddev = dpu_kms->dev;
+>> >>>>
+>> >>>> -     WARN_ON(!(dpu_kms->num_paths));
+>> >>>> +     WARN_ON((dpu_supports_bw_scaling(ddev) &&
+>> >>>> !dpu_kms->num_paths));
+>> >>>>        /* Min vote of BW is required before turning on AXI clk */
+>> >>>>        for (i = 0; i < dpu_kms->num_paths; i++)
+>> >>>>                icc_set_bw(dpu_kms->path[i], 0,
+>> >>>> Bps_to_icc(MIN_IB_BW));
+>> >>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+>> >>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+>> >>>> index d6717d6..f7bcc0a 100644
+>> >>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+>> >>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+>> >>>> @@ -154,6 +154,15 @@ struct vsync_info {
+>> >>>>
+>> >>>>    #define to_dpu_global_state(x) container_of(x, struct
+>> >>>> dpu_global_state, base)
+>> >>>>
+>> >>>> +/**
+>> >>>> + * dpu_supports_bw_scaling: returns true for drivers that support
+>> >>>> bw scaling.
+>> >>>> + * @dev: Pointer to drm_device structure
+>> >>>> + */
+>> >>>> +static inline int dpu_supports_bw_scaling(struct drm_device *dev)
+>> >>>> +{
+>> >>>> +     return of_device_is_compatible(dev->dev->of_node,
+>> >>>> "qcom,sc7180-mdss");
+>> >>>> +}
+>> >>>> +
+>> >>>>    /* Global private object state for tracking resources that are
+>> >>>> shared across
+>> >>>>     * multiple kms objects (planes/crtcs/etc).
+>> >>>>     */
+>> >>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
+>> >>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
+>> >>>> index cd40788..8cd712c 100644
+>> >>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
+>> >>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
+>> >>>> @@ -41,6 +41,9 @@ static int dpu_mdss_parse_data_bus_icc_path(struct
+>> >>>> drm_device *dev,
+>> >>>>        struct icc_path *path0 = of_icc_get(dev->dev, "mdp0-mem");
+>> >>>>        struct icc_path *path1 = of_icc_get(dev->dev, "mdp1-mem");
+>> >>>>
+>> >>>> +     if (dpu_supports_bw_scaling(dev))
+>> >>>> +             return 0;
+>> >>>> +
+>> >>>>        if (IS_ERR_OR_NULL(path0))
+>> >>>>                return PTR_ERR_OR_ZERO(path0);
+>> >>>>
+>> >>>> @@ -276,11 +279,9 @@ int dpu_mdss_init(struct drm_device *dev)
+>> >>>>
+>> >>>>        DRM_DEBUG("mapped mdss address space @%pK\n",
+>> >>>> dpu_mdss->mmio);
+>> >>>>
+>> >>>> -     if (!of_device_is_compatible(dev->dev->of_node,
+>> >>>> "qcom,sc7180-mdss")) {
+>> >>>> -             ret = dpu_mdss_parse_data_bus_icc_path(dev, dpu_mdss);
+>> >>>> -             if (ret)
+>> >>>> -                     return ret;
+>> >>>> -     }
+>> >>>> +     ret = dpu_mdss_parse_data_bus_icc_path(dev, dpu_mdss);
+>> >>>> +     if (ret)
+>> >>>> +             return ret;
+>> >>>>
+>> >>>>        mp = &dpu_mdss->mp;
+>> >>>>        ret = msm_dss_parse_clock(pdev, mp);
+>> >>>>
+>> >>>
+>> >>>
+>> >>> --
+>> >>> With best wishes
+>> >>> Dmitry
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
