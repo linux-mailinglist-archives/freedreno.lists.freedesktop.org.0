@@ -1,39 +1,81 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29236352A65
-	for <lists+freedreno@lfdr.de>; Fri,  2 Apr 2021 13:55:31 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 43488352B97
+	for <lists+freedreno@lfdr.de>; Fri,  2 Apr 2021 16:50:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91E316EE50;
-	Fri,  2 Apr 2021 11:55:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B93EB6E0DB;
+	Fri,  2 Apr 2021 14:50:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD8386E3C6;
- Fri,  2 Apr 2021 11:55:26 +0000 (UTC)
-Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
- by alexa-out.qualcomm.com with ESMTP; 02 Apr 2021 04:55:26 -0700
-X-QCInternal: smtphost
-Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
- by ironmsg09-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 02 Apr 2021 04:55:24 -0700
-X-QCInternal: smtphost
-Received: from kalyant-linux.qualcomm.com ([10.204.66.210])
- by ironmsg02-blr.qualcomm.com with ESMTP; 02 Apr 2021 17:24:59 +0530
-Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
- id A90ED4353; Fri,  2 Apr 2021 04:54:58 -0700 (PDT)
-From: Kalyan Thota <kalyan_t@codeaurora.org>
-To: y@qualcomm.com, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
-Date: Fri,  2 Apr 2021 04:54:53 -0700
-Message-Id: <1617364493-13518-1-git-send-email-kalyan_t@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <y>
-References: <y>
-Subject: [Freedreno] [v1] drm/msm/disp/dpu1: program 3d_merge only if block
- is attached
+Received: from mail-io1-xd34.google.com (mail-io1-xd34.google.com
+ [IPv6:2607:f8b0:4864:20::d34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C505F6E10D
+ for <freedreno@lists.freedesktop.org>; Fri,  2 Apr 2021 14:50:04 +0000 (UTC)
+Received: by mail-io1-xd34.google.com with SMTP id e186so5565629iof.7
+ for <freedreno@lists.freedesktop.org>; Fri, 02 Apr 2021 07:50:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cosmicpenguin-net.20150623.gappssmtp.com; s=20150623;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=l0HqcwAEcAzaa2RK+pZE6jtYY7XOgt5sS3E2spUn1Rk=;
+ b=Kmgr8cnyHkBCjw6d098vCcVagqVkv5JmDU91epU9ZWO7suSGeKnYW7wRpQBgsU6Kbs
+ bnC+FC9X9QMvN9rLnz4RSFfLGWy5STRsjKuf79o0DSdeBWwe22pySANiq314cu5fHMsT
+ LwlwRpJetf/3zwEbAAVcYSDBorIDUqEzt963OIKC9cjeW1e5f/iuxmTORJJiwtFhByU/
+ qDsDk4atEjJxiQaMqqmKjyBomzu8Vp1NXy0A/9nlO7/WGT9hnhIjfe1whBYjBBd6rWwk
+ /m8hrKnQDZT8IrRWrCv5bP7k0gu0lNtpu2yRbt9WN2SqVKz1J5cqLkBPhE+aqq2HAojn
+ OFRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :in-reply-to;
+ bh=l0HqcwAEcAzaa2RK+pZE6jtYY7XOgt5sS3E2spUn1Rk=;
+ b=JNhNqwLTfKPoctXmCGZpBi1eopdwfbXm+oS7dbFjBLevi+60o196HOKJ/4CJh3MvoC
+ UK5AAjhA1GzxPTX8/SZF3ST5piQA8sJ8ZoB61OPeeRtrP5veinj9vfamEyyPwS+JvSi+
+ PQifPRwwouylejV4bYAHnI53+N0a2GNQIJOuTlf2uby3lX8pNmkdtoVkkGHKuF/f6ssf
+ kDIgl3C6G0jlhrCrUfyhEEJsPUYXu1ZMzccU0sk1wXv3nS8nwhrmCfFX9GXXffe7YQHZ
+ FYclWcbRG0osNhXdBo4nQ/WgcEPizgqfKEJWkDOn0prDSG+RgCd3tF/W/GFKfI5yxR6p
+ TFng==
+X-Gm-Message-State: AOAM530mrG1UsNf0NPASWMyCguI8BH+131AMooTzFqixdDKyNE/owOFY
+ HEa8qRFjJXJQnb7hUPp5UarY8w==
+X-Google-Smtp-Source: ABdhPJyuvuBtNPl+yzzZ5Hm9a08vW6pett3RP0OPcCwvzWTKuV1JGe7ZTwSlG04ahbRO6oSo90Wecw==
+X-Received: by 2002:a6b:e20a:: with SMTP id z10mr10979620ioc.99.1617375004119; 
+ Fri, 02 Apr 2021 07:50:04 -0700 (PDT)
+Received: from cosmicpenguin.net (c-71-237-100-236.hsd1.co.comcast.net.
+ [71.237.100.236])
+ by smtp.gmail.com with ESMTPSA id y15sm3987161ilv.70.2021.04.02.07.50.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 02 Apr 2021 07:50:03 -0700 (PDT)
+Date: Fri, 2 Apr 2021 08:50:01 -0600
+From: Jordan Crouse <jordan@cosmicpenguin.net>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <20210402145001.n7upxwvyub2tyavz@cosmicpenguin.net>
+Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
+ dri-devel@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ Sam Ravnborg <sam@ravnborg.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Eric Anholt <eric@anholt.net>,
+ "Kristian H. Kristensen" <hoegsberg@google.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Sean Paul <sean@poorly.run>,
+ open list <linux-kernel@vger.kernel.org>,
+ Emil Velikov <emil.velikov@collabora.com>
+References: <20210325012358.1759770-1-robdclark@gmail.com>
+ <20210325012358.1759770-2-robdclark@gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20210325012358.1759770-2-robdclark@gmail.com>
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm: Fix a5xx/a6xx timestamps
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,42 +88,77 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: mkrishn@codeaurora.org, dianders@chromium.org, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, Kalyan Thota <kalyan_t@codeaurora.org>,
- swboyd@chromium.org
-MIME-Version: 1.0
+Cc: Rob Clark <robdclark@chromium.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ Sam Ravnborg <sam@ravnborg.org>, Sharat Masetty <smasetty@codeaurora.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Eric Anholt <eric@anholt.net>,
+ Jordan Crouse <jcrouse@codeaurora.org>,
+ "Kristian H. Kristensen" <hoegsberg@google.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Emil Velikov <emil.velikov@collabora.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Update the 3d merge as active in the data path only if
-the hw block is selected in the configuration.
+On Wed, Mar 24, 2021 at 06:23:52PM -0700, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> They were reading a counter that was configured to ALWAYS_COUNT (ie.
+> cycles that the GPU is doing something) rather than ALWAYS_ON.  This
+> isn't the thing that userspace is looking for.
 
-Reported-by: Stephen Boyd <swboyd@chromium.org>
-Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Acked-by: Jordan Crouse <jordan@cosmicpenguin.net>
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-index 8981cfa..92e6f1b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-@@ -496,7 +496,9 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
- 
- 	DPU_REG_WRITE(c, CTL_TOP, mode_sel);
- 	DPU_REG_WRITE(c, CTL_INTF_ACTIVE, intf_active);
--	DPU_REG_WRITE(c, CTL_MERGE_3D_ACTIVE, BIT(cfg->merge_3d - MERGE_3D_0));
-+	if (cfg->merge_3d)
-+		DPU_REG_WRITE(c, CTL_MERGE_3D_ACTIVE,
-+			      BIT(cfg->merge_3d - MERGE_3D_0));
- }
- 
- static void dpu_hw_ctl_intf_cfg(struct dpu_hw_ctl *ctx,
--- 
-2.7.4
-
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>  drivers/gpu/drm/msm/adreno/a5xx_gpu.c | 4 ++--
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 4 ++--
+>  2 files changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> index a5af223eaf50..bb82fcd9df81 100644
+> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> @@ -1241,8 +1241,8 @@ static int a5xx_pm_suspend(struct msm_gpu *gpu)
+>  
+>  static int a5xx_get_timestamp(struct msm_gpu *gpu, uint64_t *value)
+>  {
+> -	*value = gpu_read64(gpu, REG_A5XX_RBBM_PERFCTR_CP_0_LO,
+> -		REG_A5XX_RBBM_PERFCTR_CP_0_HI);
+> +	*value = gpu_read64(gpu, REG_A5XX_RBBM_ALWAYSON_COUNTER_LO,
+> +		REG_A5XX_RBBM_ALWAYSON_COUNTER_HI);
+>  
+>  	return 0;
+>  }
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index 130661898546..59718c304488 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -1173,8 +1173,8 @@ static int a6xx_get_timestamp(struct msm_gpu *gpu, uint64_t *value)
+>  	/* Force the GPU power on so we can read this register */
+>  	a6xx_gmu_set_oob(&a6xx_gpu->gmu, GMU_OOB_GPU_SET);
+>  
+> -	*value = gpu_read64(gpu, REG_A6XX_RBBM_PERFCTR_CP_0_LO,
+> -		REG_A6XX_RBBM_PERFCTR_CP_0_HI);
+> +	*value = gpu_read64(gpu, REG_A6XX_CP_ALWAYS_ON_COUNTER_LO,
+> +		REG_A6XX_CP_ALWAYS_ON_COUNTER_HI);
+>  
+>  	a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_GPU_SET);
+>  	return 0;
+> -- 
+> 2.29.2
+> 
+> _______________________________________________
+> Freedreno mailing list
+> Freedreno@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/freedreno
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
