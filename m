@@ -1,52 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id F306B352DAC
-	for <lists+freedreno@lfdr.de>; Fri,  2 Apr 2021 18:25:19 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 44C0C353099
+	for <lists+freedreno@lfdr.de>; Fri,  2 Apr 2021 23:08:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80F356EE8B;
-	Fri,  2 Apr 2021 16:25:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3420D6E171;
+	Fri,  2 Apr 2021 21:08:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 245166E134;
- Fri,  2 Apr 2021 16:25:17 +0000 (UTC)
-Received: by mail-wm1-x32d.google.com with SMTP id
- j20-20020a05600c1914b029010f31e15a7fso4550624wmq.1; 
- Fri, 02 Apr 2021 09:25:17 -0700 (PDT)
+Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
+ [IPv6:2607:f8b0:4864:20::430])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CEA76E106;
+ Fri,  2 Apr 2021 21:08:54 +0000 (UTC)
+Received: by mail-pf1-x430.google.com with SMTP id x26so4314645pfn.0;
+ Fri, 02 Apr 2021 14:08:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=A6UBEPWH4Pqrp2yST70F67kTWsb725VGtDiuWhpkKMw=;
- b=keH4UX76ym1k1mU0mAqLHL5lniAYVj7KiwGNCrIZvZTpexqtCX9yTpiJ6Vsq++zCSK
- P4iWzfEpHvAMSGJZ83ONXLCDrd8kiFJ6YNM3YmtQBWtRn7ZYQ0u8Ia+fx9iZSnKNplfM
- Q0RNbk75OHcRoLn+fIOjymjP3BA/f53A5FMdNSdjDuLShBf4bXG4RFY0qMHhWmU+G9Kl
- U46Lolp3xKVPFMG00ylJ4Dkah8fq3DNdRZRCOfD93ywCsolGi/YOcggdEsTb7luG9aqT
- uaPDMnlUU5y7dXps7XTlHkYkdkNVQ6PdMGs4D7ASP8dU2Pnl/M32sCDZGmmblne37z4j
- eoWA==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=oLTaIOrTqKkHo1IVoAW0mlBLXAv0Dz4mdCieecndjsM=;
+ b=BmzNKXNDZ+83eZJE6CsakJeweXzOjOa/saT/0iK9Ie2/xNwYKrnMJ3Kvjb92zN/n6V
+ Ov+Am9UjRtmEiqZPkk57Fncbo2td+exEkQew4QK/avg06ketApNWrol8B0Fda6Gthkjl
+ 5lXJacDda4uQ94Ix51VolNJ8AWz89tBVlzUwy8+NM+xD2yfiQo7MbBx/avM2/bNad/Vv
+ tCKNPhn6sZj48gTv/Y2H0O7hB2ZwhJdVeVB525lfj17YzPwVLIlB3dN1D2Kmcw1QjaLE
+ Ds3VZklM2+bBqSEK29lEL9cZmc+XmIisBovnDW4zN8gdnWhuPK4LOYeA6JMZA3oUMJfX
+ dHiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=A6UBEPWH4Pqrp2yST70F67kTWsb725VGtDiuWhpkKMw=;
- b=eqg9u8AOzu6nHZy2+R7yHLgxV0oPdV23Mjbzw0+2wKZ3msXmE79i/JJmk9XS68sNyI
- mij+PADTqFj+yIeD3FHgWcbdJrtCj7zM2OEQ0RMeIJUJ38ISyRpYv6Ac3sC0dTew0B6t
- PoVmF1hCkDE6buFQsmIR7OaWu7hYD1d0c+hAGdOfwPye5O+FBV7aEvgb4bYa0QF/FbtB
- k4nhrthOfqfTeOC4XgWfpld9JL7tzLYPqFFQhIrcE5vNVyMOAqTy3o5X9b8xONyLm1ZH
- M0yhlR/2gLtBNQ0pKFsjPr4VKJnkPI9T3Gy+xfCTwcIar0RHZseElKBxifjAnkmXMWBu
- QApA==
-X-Gm-Message-State: AOAM532ybIfZQMN1XdOtbQbxcpSLQLnx2SD7tt8Dme6jGuZ6qctjoaqJ
- Vy4+3OxOCMPGlpUIKl4qWnstC4s7PPY1WdHnD/s=
-X-Google-Smtp-Source: ABdhPJykiFcugV/Elu5oRMaSCU6UPriPtZJa6ZQZm88VODiQYXJOAjvy5GOxJP1dAfIM/3htKwFDSc43vb3sCN2fRxc=
-X-Received: by 2002:a1c:66c4:: with SMTP id
- a187mr13590583wmc.164.1617380715718; 
- Fri, 02 Apr 2021 09:25:15 -0700 (PDT)
-MIME-Version: 1.0
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=oLTaIOrTqKkHo1IVoAW0mlBLXAv0Dz4mdCieecndjsM=;
+ b=RrUj7QKJiMAPFXKEf7RIsrTF71BELEdmBEz+swtwWF4mijQzU2UGa5L4LJaJbmCBQP
+ mYYJCNaj2VZAKP+upowqZe1S2BhXc9myBIoyxXTld+af6d3RicWij7LrbxQGYnHQ2awi
+ NQBwpXPMaVoTYrMqHvD8mx8/Tzn1eMfE34GLHMMbzuVJA3cqt0JOvs5ZWq8gOHBn+fdK
+ GZJC6P9PComR38/1E2Xa9Yq8tUEesetm11aBH8g0Jpd6XtzQMSRw7ynyB5bCZ+Nwz4VR
+ FA8wa6UT+yaAs9NNVPsZvDipTd8fjL3p/+4oqML4ELo/IqhX9eD5mSMXfe2HUTDHebPB
+ 9/Lg==
+X-Gm-Message-State: AOAM533tRoq4FvVEPLKBCFr5udkuJ4Me/YMMOiDDTWp7R+7muYbnVG6c
+ hKTSdv+7hpMo35hFR+m3oLQS/70bT0oeTQ==
+X-Google-Smtp-Source: ABdhPJxo1Mqx1ORQ+Y7GCG6EwpiBGuCpyJRRZzg0IklZb2e0zjRvQIJ4O9B2QGQmOuNDBxNPp5z3dw==
+X-Received: by 2002:a65:56cc:: with SMTP id w12mr13328411pgs.354.1617397732734; 
+ Fri, 02 Apr 2021 14:08:52 -0700 (PDT)
+Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
+ by smtp.gmail.com with ESMTPSA id z14sm2811696pfn.48.2021.04.02.14.08.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 02 Apr 2021 14:08:51 -0700 (PDT)
 From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 2 Apr 2021 09:28:42 -0700
-Message-ID: <CAF6AEGsMj7Nv3vVaVWMxPy8Y=Z_SnZmVKhKgKDxDYTr9rGN_+w@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2021-04-02 for v5.12-rc6
+To: dri-devel@lists.freedesktop.org
+Date: Fri,  2 Apr 2021 14:12:26 -0700
+Message-Id: <20210402211226.875726-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
+Subject: [Freedreno] [PATCH v2] drm/msm: Drop mm_lock in scan loop
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,55 +64,135 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- dri-devel <dri-devel@lists.freedesktop.org>, Sean Paul <sean@poorly.run>
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave & Daniel,
+From: Rob Clark <robdclark@chromium.org>
 
-A couple more small fixes for v5.12
+lock_stat + mmm_donut[1] say that this reduces contention on mm_lock
+significantly (~350x lower waittime-max, and ~100x lower waittime-avg)
 
-The following changes since commit 627dc55c273dab308303a5217bd3e767d7083ddb:
+[1] https://chromium.googlesource.com/chromiumos/platform/microbenchmarks/+/refs/heads/main/mmm_donut.py
 
-  drm/msm/disp/dpu1: icc path needs to be set before dpu runtime
-resume (2021-03-22 18:52:34 -0700)
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/msm_drv.h          |  3 +-
+ drivers/gpu/drm/msm/msm_gem.c          |  2 +-
+ drivers/gpu/drm/msm/msm_gem_shrinker.c | 48 ++++++++++++++++++++++----
+ 3 files changed, 45 insertions(+), 8 deletions(-)
 
-are available in the Git repository at:
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index c84e6f84cb6d..d8d64d34e6e3 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -184,7 +184,8 @@ struct msm_drm_private {
+ 	/**
+ 	 * Lists of inactive GEM objects.  Every bo is either in one of the
+ 	 * inactive lists (depending on whether or not it is shrinkable) or
+-	 * gpu->active_list (for the gpu it is active on[1])
++	 * gpu->active_list (for the gpu it is active on[1]), or transiently
++	 * on a temporary list as the shrinker is running.
+ 	 *
+ 	 * These lists are protected by mm_lock (which should be acquired
+ 	 * before per GEM object lock).  One should *not* hold mm_lock in
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index 2ecf7f1cef25..75cea5b801da 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -719,7 +719,7 @@ void msm_gem_purge(struct drm_gem_object *obj)
+ 	put_iova_vmas(obj);
+ 
+ 	msm_obj->madv = __MSM_MADV_PURGED;
+-	mark_unpurgable(msm_obj);
++	update_inactive(msm_obj);
+ 
+ 	drm_vma_node_unmap(&obj->vma_node, dev->anon_inode->i_mapping);
+ 	drm_gem_free_mmap_offset(obj);
+diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+index f3e948af01c5..33a49641ef30 100644
+--- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
++++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+@@ -22,26 +22,62 @@ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+ {
+ 	struct msm_drm_private *priv =
+ 		container_of(shrinker, struct msm_drm_private, shrinker);
+-	struct msm_gem_object *msm_obj;
++	struct list_head still_in_list;
+ 	unsigned long freed = 0;
+ 
++	INIT_LIST_HEAD(&still_in_list);
++
+ 	mutex_lock(&priv->mm_lock);
+ 
+-	list_for_each_entry(msm_obj, &priv->inactive_dontneed, mm_list) {
+-		if (freed >= sc->nr_to_scan)
++	while (freed < sc->nr_to_scan) {
++		struct msm_gem_object *msm_obj = list_first_entry_or_null(
++				&priv->inactive_dontneed, typeof(*msm_obj), mm_list);
++
++		if (!msm_obj)
+ 			break;
+-		/* Use trylock, because we cannot block on a obj that
+-		 * might be trying to acquire mm_lock
++
++		list_move_tail(&msm_obj->mm_list, &still_in_list);
++
++		/*
++		 * If it is in the process of being freed, msm_gem_free_object
++		 * can be blocked on mm_lock waiting to remove it.  So just
++		 * skip it.
+ 		 */
+-		if (!msm_gem_trylock(&msm_obj->base))
++		if (!kref_get_unless_zero(&msm_obj->base.refcount))
+ 			continue;
++
++		/*
++		 * Now that we own a reference, we can drop mm_lock for the
++		 * rest of the loop body, to reduce contention with the
++		 * retire_submit path (which could make more objects purgable)
++		 */
++
++		mutex_unlock(&priv->mm_lock);
++
++		/*
++		 * Note that this still needs to be trylock, since we can
++		 * hit shrinker in response to trying to get backing pages
++		 * for this obj (ie. while it's lock is already held)
++		 */
++		if (!msm_gem_trylock(&msm_obj->base))
++			goto tail;
++
+ 		if (is_purgeable(msm_obj)) {
++			/*
++			 * This will move the obj out of still_in_list to
++			 * the purged list
++			 */
+ 			msm_gem_purge(&msm_obj->base);
+ 			freed += msm_obj->base.size >> PAGE_SHIFT;
+ 		}
+ 		msm_gem_unlock(&msm_obj->base);
++
++tail:
++		drm_gem_object_put(&msm_obj->base);
++		mutex_lock(&priv->mm_lock);
+ 	}
+ 
++	list_splice_tail(&still_in_list, &priv->inactive_dontneed);
+ 	mutex_unlock(&priv->mm_lock);
+ 
+ 	if (freed > 0) {
+-- 
+2.30.2
 
-  https://gitlab.freedesktop.org/drm/msm.git drm-msm-fixes-2021-04-02
-
-for you to fetch changes up to 12aca1ce9ee33af3751aec5e55a5900747cbdd4b:
-
-  drm/msm/disp/dpu1: program 3d_merge only if block is attached
-(2021-04-02 08:23:41 -0700)
-
-----------------------------------------------------------------
-Dmitry Baryshkov (1):
-      drm/msm: a6xx: fix version check for the A650 SQE microcode
-
-John Stultz (1):
-      drm/msm: Fix removal of valid error case when checking speed_bin
-
-Kalyan Thota (1):
-      drm/msm/disp/dpu1: program 3d_merge only if block is attached
-
-Rob Clark (1):
-      drm/msm: Fix a5xx/a6xx timestamps
-
-Stephen Boyd (1):
-      drm/msm: Set drvdata to NULL when msm_drm_init() fails
-
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c      |  4 ++--
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 18 ++++++++++++------
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c |  4 +++-
- drivers/gpu/drm/msm/msm_drv.c              |  1 +
- 4 files changed, 18 insertions(+), 9 deletions(-)
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
