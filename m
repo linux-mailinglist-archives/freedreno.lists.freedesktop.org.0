@@ -1,59 +1,33 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9C5335577C
-	for <lists+freedreno@lfdr.de>; Tue,  6 Apr 2021 17:14:49 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id CE17E355E42
+	for <lists+freedreno@lfdr.de>; Tue,  6 Apr 2021 23:54:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 917F66E840;
-	Tue,  6 Apr 2021 15:14:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 759F36E8CE;
+	Tue,  6 Apr 2021 21:54:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
- [IPv6:2607:f8b0:4864:20::435])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 674F26E838;
- Tue,  6 Apr 2021 15:14:47 +0000 (UTC)
-Received: by mail-pf1-x435.google.com with SMTP id a12so10653310pfc.7;
- Tue, 06 Apr 2021 08:14:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=adjFIDH7suKAxSkAUsA7mNQ1QGbjr8xmyHwuNOjmpYI=;
- b=h17bzcrHd+TvJspel47YuVDoHGvfLePIE+BJJnF4Bx9PwypKbzcDPTyx8aLat9ZG/k
- j8KHDiJbHUnPYbEOvwEJ97+DmQH7HcbWrJgEV/q8cmARbot1g2MiMuoiySGDZtdHY8qr
- pudIuLHnIzFnxkMaf64mTk2UpDAxAQwSmSJHaPNwfxE9aVx+Bf2+r30XirKXZFLtLG/P
- GiGHdKA48WWGZcfbfOkj2Jrhb4Xc/WyWyszuPBUCNa9iU6T72sRdBqduVxjcB+71UMQU
- tnAy+TQdMIFGiFFM7iv3ElOkD1aOINngTcw4HIuM2vFuZUoSVherFfw1QYDqsbCIWzmZ
- qoCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=adjFIDH7suKAxSkAUsA7mNQ1QGbjr8xmyHwuNOjmpYI=;
- b=Vvk2L/YYpB2ORj91ehB6x5UAEkKu/kE6kKAeLFHfDywmr4rQzh8Psjmmtj8z6Id7zC
- s13ZM9+vcxfYXNO/RA4JFm+NlxvgzeFjqMzEXIPb8gUgKn9HMPkEdxNhDKCEqwW24D4c
- +iuFsG2NW5kIbaZRD4VzFXJHwne5fxtROmB5iBveMs8w9RouQV6sw6EICMIJBoSwziSi
- LqRpId+PIhmBW9sYa83LbRppWPmsf8z8gLnZaSLKUiSFmZGCKeKzaGeMb3H7lRYKFAdH
- y58BXTXo2XNmmRkTVrupxP1L6RHlX1+/K2pfek5YEWJ/REwHIcVPmk3FQFgvpHWzL7j/
- P3Bg==
-X-Gm-Message-State: AOAM530SFnwGIRcldmTEHANBQVFJ4NoAIFbRvoz9MEFVHYXoBIDS1yMD
- t9DkvpxydtjcrTDlOHZqImVOf0vsYOqFYg==
-X-Google-Smtp-Source: ABdhPJzvaEMLJToUkLeuDRQNFBCCD4L+4pvaUDDz/fltxXoMhW+vGas9eqdV8ud8+qrOMfCsqCL97g==
-X-Received: by 2002:a62:e20b:0:b029:23d:f634:e70e with SMTP id
- a11-20020a62e20b0000b029023df634e70emr4177879pfi.70.1617722086264; 
- Tue, 06 Apr 2021 08:14:46 -0700 (PDT)
-Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
- by smtp.gmail.com with ESMTPSA id
- 12sm18286485pgw.18.2021.04.06.08.14.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Apr 2021 08:14:45 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Tue,  6 Apr 2021 08:18:16 -0700
-Message-Id: <20210406151816.1515329-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.30.2
+X-Greylist: delayed 412 seconds by postgrey-1.36 at gabe;
+ Tue, 06 Apr 2021 21:54:36 UTC
+Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it [5.144.164.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB6816E8CE
+ for <freedreno@lists.freedesktop.org>; Tue,  6 Apr 2021 21:54:36 +0000 (UTC)
+Received: from Marijn-Arch-PC.localdomain
+ (94-209-165-62.cable.dynamic.v4.ziggo.nl [94.209.165.62])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 5DEF43F347;
+ Tue,  6 Apr 2021 23:47:38 +0200 (CEST)
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: phone-devel@vger.kernel.org
+Date: Tue,  6 Apr 2021 23:47:23 +0200
+Message-Id: <20210406214726.131534-1-marijn.suijten@somainline.org>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm: Fix spelling "purgable" -> "purgeable"
+Subject: [Freedreno] [PATCH 0/3] drm/msm/mdp5: Emit vsync signal often enough
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,159 +40,47 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+This set of patches corrects and improves VSync-related register setup
+on the MDP5 block.  Values written to the registers were way too high
+leading to the MDSS block counting way too many ticks on the vclk before
+emitting a vsync interrupt, resulting in significant update issues on
+command- and video-mode panels.  With lower values - that match those of
+downstream kernels - the panels on Sony devices (Xperia X, XA2 Ultra,
+and more) update at an acceptable rate without "pp_done" timeouts.
 
-The previous patch fixes the user visible spelling.  This one fixes the
-code.  Oops.
+The Driver-IC in these panels is also able to drive an interrupt line
+and a future patchset will enable the use of this "disp-te" GPIO beyond
+acquiring it in dsi_host.  This fixes panel framerate the correct way
+(instead of running at half the desired framerate), but these patches
+are still needed to aid development now and shorten lockup times when
+the TE interrupt misbehaves by not arriving at all.
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/msm_gem.c          | 12 ++++++------
- drivers/gpu/drm/msm/msm_gem.h          | 16 ++++++++--------
- drivers/gpu/drm/msm/msm_gem_shrinker.c |  2 +-
- 3 files changed, 15 insertions(+), 15 deletions(-)
+AngeloGioacchino Del Regno (1):
+  drm/msm/mdp5: Disable pingpong autorefresh at tearcheck init
 
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index 9568d551f7de..3c0b384a8984 100644
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -821,14 +821,14 @@ static void update_inactive(struct msm_gem_object *msm_obj)
- 	WARN_ON(msm_obj->active_count != 0);
- 
- 	if (msm_obj->dontneed)
--		mark_unpurgable(msm_obj);
-+		mark_unpurgeable(msm_obj);
- 
- 	list_del(&msm_obj->mm_list);
- 	if (msm_obj->madv == MSM_MADV_WILLNEED) {
- 		list_add_tail(&msm_obj->mm_list, &priv->inactive_willneed);
- 	} else if (msm_obj->madv == MSM_MADV_DONTNEED) {
- 		list_add_tail(&msm_obj->mm_list, &priv->inactive_dontneed);
--		mark_purgable(msm_obj);
-+		mark_purgeable(msm_obj);
- 	} else {
- 		WARN_ON(msm_obj->madv != __MSM_MADV_PURGED);
- 		list_add_tail(&msm_obj->mm_list, &priv->inactive_purged);
-@@ -901,8 +901,8 @@ void msm_gem_describe(struct drm_gem_object *obj, struct seq_file *m,
- 		madv = " purged";
- 		break;
- 	case MSM_MADV_DONTNEED:
--		stats->purgable.count++;
--		stats->purgable.size += obj->size;
-+		stats->purgeable.count++;
-+		stats->purgeable.size += obj->size;
- 		madv = " purgeable";
- 		break;
- 	case MSM_MADV_WILLNEED:
-@@ -984,7 +984,7 @@ void msm_gem_describe_objects(struct list_head *list, struct seq_file *m)
- 	seq_printf(m, "Active:    %4d objects, %9zu bytes\n",
- 			stats.active.count, stats.active.size);
- 	seq_printf(m, "Purgeable: %4d objects, %9zu bytes\n",
--			stats.purgable.count, stats.purgable.size);
-+			stats.purgeable.count, stats.purgeable.size);
- 	seq_printf(m, "Purged:    %4d objects, %9zu bytes\n",
- 			stats.purged.count, stats.purged.size);
- }
-@@ -1003,7 +1003,7 @@ void msm_gem_free_object(struct drm_gem_object *obj)
- 
- 	mutex_lock(&priv->mm_lock);
- 	if (msm_obj->dontneed)
--		mark_unpurgable(msm_obj);
-+		mark_unpurgeable(msm_obj);
- 	list_del(&msm_obj->mm_list);
- 	mutex_unlock(&priv->mm_lock);
- 
-diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-index 7c7d54bad189..13ebecdd70f4 100644
---- a/drivers/gpu/drm/msm/msm_gem.h
-+++ b/drivers/gpu/drm/msm/msm_gem.h
-@@ -163,7 +163,7 @@ struct msm_gem_stats {
- 	struct {
- 		unsigned count;
- 		size_t size;
--	} all, active, purgable, purged;
-+	} all, active, purgeable, purged;
- };
- 
- void msm_gem_describe(struct drm_gem_object *obj, struct seq_file *m,
-@@ -207,8 +207,8 @@ static inline bool is_active(struct msm_gem_object *msm_obj)
- 	return msm_obj->active_count;
- }
- 
--/* imported/exported objects are not purgable: */
--static inline bool is_unpurgable(struct msm_gem_object *msm_obj)
-+/* imported/exported objects are not purgeable: */
-+static inline bool is_unpurgeable(struct msm_gem_object *msm_obj)
- {
- 	return msm_obj->base.dma_buf && msm_obj->base.import_attach;
- }
-@@ -216,7 +216,7 @@ static inline bool is_unpurgable(struct msm_gem_object *msm_obj)
- static inline bool is_purgeable(struct msm_gem_object *msm_obj)
- {
- 	return (msm_obj->madv == MSM_MADV_DONTNEED) && msm_obj->sgt &&
--			!is_unpurgable(msm_obj);
-+			!is_unpurgeable(msm_obj);
- }
- 
- static inline bool is_vunmapable(struct msm_gem_object *msm_obj)
-@@ -225,13 +225,13 @@ static inline bool is_vunmapable(struct msm_gem_object *msm_obj)
- 	return (msm_obj->vmap_count == 0) && msm_obj->vaddr;
- }
- 
--static inline void mark_purgable(struct msm_gem_object *msm_obj)
-+static inline void mark_purgeable(struct msm_gem_object *msm_obj)
- {
- 	struct msm_drm_private *priv = msm_obj->base.dev->dev_private;
- 
- 	WARN_ON(!mutex_is_locked(&priv->mm_lock));
- 
--	if (is_unpurgable(msm_obj))
-+	if (is_unpurgeable(msm_obj))
- 		return;
- 
- 	if (WARN_ON(msm_obj->dontneed))
-@@ -241,13 +241,13 @@ static inline void mark_purgable(struct msm_gem_object *msm_obj)
- 	msm_obj->dontneed = true;
- }
- 
--static inline void mark_unpurgable(struct msm_gem_object *msm_obj)
-+static inline void mark_unpurgeable(struct msm_gem_object *msm_obj)
- {
- 	struct msm_drm_private *priv = msm_obj->base.dev->dev_private;
- 
- 	WARN_ON(!mutex_is_locked(&priv->mm_lock));
- 
--	if (is_unpurgable(msm_obj))
-+	if (is_unpurgeable(msm_obj))
- 		return;
- 
- 	if (WARN_ON(!msm_obj->dontneed))
-diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-index 33a49641ef30..7101ca881ae1 100644
---- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
-+++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-@@ -49,7 +49,7 @@ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
- 		/*
- 		 * Now that we own a reference, we can drop mm_lock for the
- 		 * rest of the loop body, to reduce contention with the
--		 * retire_submit path (which could make more objects purgable)
-+		 * retire_submit path (which could make more objects purgeable)
- 		 */
- 
- 		mutex_unlock(&priv->mm_lock);
+Marijn Suijten (2):
+  drm/msm/mdp5: Configure PP_SYNC_HEIGHT to double the vtotal
+  drm/msm/mdp5: Do not multiply vclk line count by 100
+
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_cmd_encoder.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
+
 -- 
-2.30.2
+2.31.1
 
 _______________________________________________
 Freedreno mailing list
