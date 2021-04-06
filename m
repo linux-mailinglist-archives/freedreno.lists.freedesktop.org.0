@@ -2,37 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC976354C73
-	for <lists+freedreno@lfdr.de>; Tue,  6 Apr 2021 08:02:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC5793554F7
+	for <lists+freedreno@lfdr.de>; Tue,  6 Apr 2021 15:24:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DB4089F55;
-	Tue,  6 Apr 2021 06:02:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 135056E830;
+	Tue,  6 Apr 2021 13:24:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD37F89F69;
- Tue,  6 Apr 2021 06:02:02 +0000 (UTC)
-Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
- by alexa-out.qualcomm.com with ESMTP; 05 Apr 2021 23:02:02 -0700
-X-QCInternal: smtphost
-Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
- by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 05 Apr 2021 23:02:00 -0700
-X-QCInternal: smtphost
-Received: from mkrishn-linux.qualcomm.com ([10.204.66.35])
- by ironmsg02-blr.qualcomm.com with ESMTP; 06 Apr 2021 11:31:42 +0530
-Received: by mkrishn-linux.qualcomm.com (Postfix, from userid 438394)
- id 4C98121B31; Tue,  6 Apr 2021 11:31:41 +0530 (IST)
-From: Krishna Manikandan <mkrishn@codeaurora.org>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-Date: Tue,  6 Apr 2021 11:31:35 +0530
-Message-Id: <1617688895-26275-4-git-send-email-mkrishn@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1617688895-26275-1-git-send-email-mkrishn@codeaurora.org>
-References: <1617688895-26275-1-git-send-email-mkrishn@codeaurora.org>
-Subject: [Freedreno] [PATCH v1 3/3] drm/msm/disp/dpu1: add flags to indicate
- obsolete irqs
+Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com
+ [209.85.161.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7F30899DB;
+ Tue,  6 Apr 2021 13:24:10 +0000 (UTC)
+Received: by mail-oo1-f42.google.com with SMTP id
+ i20-20020a4a8d940000b02901bc71746525so3697386ook.2; 
+ Tue, 06 Apr 2021 06:24:10 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=KqiWovFcA0VWUEW5WeOEp/JpvO8enKS6XaPrtTWARiI=;
+ b=CMJIz7ipaY4ZDxMei9fs2WmPP7bwcBmQRW+UFGhcLC9SGO9CbPKV9UkqjHLReAydVO
+ Ws+uD3s9Vn1yj49Ix97CrITNWxv7LNt0/jjc3igcS8L9d1yHWIMUg1ZhSvYpwU3P31Q3
+ NqX9Y2o/4A3C7oXfd961Sj94fu4dRRu5RvjZilfGgnFR2pPCUcF/NtfIVRSkl28P65h/
+ puUC89ocMatf9uY0AsfBunE+ZU9YckyU3LyJvn3jmKGvNHewGGh9OW8znwneKtyu701R
+ Aj00ghLF55IiGv67mU/lovSKXhWIITplnf9fXKQa3qy4Dzi6jhRcetgylG6mwvVbmcqW
+ u+qg==
+X-Gm-Message-State: AOAM533pnE9vhnn4fxNmw95bPeHBd9E3YrLs0EAZIkQnilwAQIoMQcma
+ xUCXFwcw8QKlxUoQM/997g==
+X-Google-Smtp-Source: ABdhPJxJ41PdfLWO25H89QYPRHvvbckpBygxU6F09QKrCy3911/J1yRX6LxM3v5h+JUwJEogJi7wcA==
+X-Received: by 2002:a4a:8c4f:: with SMTP id v15mr26861642ooj.25.1617715449941; 
+ Tue, 06 Apr 2021 06:24:09 -0700 (PDT)
+Received: from robh.at.kernel.org (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id a6sm4670188otb.41.2021.04.06.06.24.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 Apr 2021 06:24:08 -0700 (PDT)
+Received: (nullmailer pid 1674498 invoked by uid 1000);
+ Tue, 06 Apr 2021 13:24:05 -0000
+From: Rob Herring <robh@kernel.org>
+To: Krishna Manikandan <mkrishn@codeaurora.org>
+In-Reply-To: <1617620770-26202-3-git-send-email-mkrishn@codeaurora.org>
+References: <1617620770-26202-1-git-send-email-mkrishn@codeaurora.org>
+ <1617620770-26202-3-git-send-email-mkrishn@codeaurora.org>
+Date: Tue, 06 Apr 2021 08:24:05 -0500
+Message-Id: <1617715445.168054.1674497.nullmailer@robh.at.kernel.org>
+Subject: Re: [Freedreno] [PATCH v15 3/4] dt-bindings: msm: dsi: add yaml
+ schemas for DSI PHY bindings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,177 +60,87 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Krishna Manikandan <mkrishn@codeaurora.org>, robdclark@gmail.com,
- dianders@chromium.org, linux-kernel@vger.kernel.org, kalyan_t@codeaurora.org
+Cc: devicetree@vger.kernel.org, dianders@chromium.org, vinod.koul@linaro.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, tanmay@codeaurora.org, swboyd@chromium.org,
+ khsieh@codeaurora.org, robh+dt@kernel.org, dri-devel@lists.freedesktop.org,
+ kalyan_t@codeaurora.org, abhinavk@codeaurora.org, bjorn.andersson@linaro.org,
+ sean@poorly.run
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Some irqs which are applicable for sdm845 target are no
-longer applicable for sc7180 and sc7280 targets. Add a
-flag to indicate the irqs which are obsolete for a
-particular target so that these irqs are skipped while
-checking for matching irq lookup index.
+On Mon, 05 Apr 2021 16:36:09 +0530, Krishna Manikandan wrote:
+> Add YAML schema for the device tree bindings for DSI PHY.
+> 
+> Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
+> 
+> Changes in v1:
+>    - Merge dsi-phy.yaml and dsi-phy-10nm.yaml (Stephen Boyd)
+>    - Remove qcom,dsi-phy-regulator-ldo-mode (Stephen Boyd)
+>    - Add clock cells properly (Stephen Boyd)
+>    - Remove unnecessary decription from clock names (Stephen Boyd)
+>    - Add pin names for the supply entries for 10nm phy which is
+>      used in sc7180 and sdm845 (Stephen Boyd)
+>    - Remove unused header files from examples (Stephen Boyd)
+>    - Drop labels for display nodes and correct node name (Stephen Boyd)
+> 
+> Changes in v2:
+>    - Drop maxItems for clock (Stephen Boyd)
+>    - Add vdds supply pin information for sdm845 (Stephen Boyd)
+>    - Add examples for 14nm, 20nm and 28nm phy yaml files (Stephen Boyd)
+>    - Keep child nodes directly under soc node (Stephen Boyd)
+> 
+> Changes in v3:
+>    - Use a separate yaml file to describe the common properties
+>      for all the dsi phy versions (Stephen Boyd)
+>    - Remove soc from examples (Stephen Boyd)
+>    - Add description for register property
+> 
+> Changes in v4:
+>    - Modify the title for all the phy versions (Stephen Boyd)
+>    - Drop description for all the phy versions (Stephen Boyd)
+>    - Modify the description for register property (Stephen Boyd)
+> 
+> Changes in v5:
+>    - Remove unused properties from common dsi phy file
+>    - Add clock-cells and phy-cells to required property
+>      list (Stephen Boyd)
+> ---
+>  .../bindings/display/msm/dsi-phy-10nm.yaml         | 68 +++++++++++++++++++++
+>  .../bindings/display/msm/dsi-phy-14nm.yaml         | 66 ++++++++++++++++++++
+>  .../bindings/display/msm/dsi-phy-20nm.yaml         | 71 ++++++++++++++++++++++
+>  .../bindings/display/msm/dsi-phy-28nm.yaml         | 68 +++++++++++++++++++++
+>  .../bindings/display/msm/dsi-phy-common.yaml       | 40 ++++++++++++
+>  5 files changed, 313 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/dsi-phy-20nm.yaml
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/dsi-phy-28nm.yaml
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/dsi-phy-common.yaml
+> 
 
-Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c      |  4 ++--
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |  9 +++++++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  2 ++
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 13 +++++++++----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h |  5 ++++-
- 5 files changed, 26 insertions(+), 7 deletions(-)
+My bot found errors running 'make dt_binding_check' on your patch:
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
-index 84ea09d..cdec3fb 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
-@@ -58,8 +58,8 @@ int dpu_core_irq_idx_lookup(struct dpu_kms *dpu_kms,
- 	if (!dpu_kms->hw_intr || !dpu_kms->hw_intr->ops.irq_idx_lookup)
- 		return -EINVAL;
- 
--	return dpu_kms->hw_intr->ops.irq_idx_lookup(intr_type,
--			instance_idx);
-+	return dpu_kms->hw_intr->ops.irq_idx_lookup(dpu_kms->hw_intr,
-+			intr_type, instance_idx);
- }
- 
- /**
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index ec27e6a..d4c381f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -56,6 +56,13 @@
- 
- #define INTF_SC7280_MASK INTF_SC7180_MASK | BIT(DPU_DATA_HCTL_EN)
- 
-+#define INTR_SC7180_MASK \
-+	(BIT(DPU_IRQ_TYPE_PING_PONG_RD_PTR) |\
-+	BIT(DPU_IRQ_TYPE_PING_PONG_WR_PTR) |\
-+	BIT(DPU_IRQ_TYPE_PING_PONG_AUTO_REF) |\
-+	BIT(DPU_IRQ_TYPE_PING_PONG_TEAR_CHECK) |\
-+	BIT(DPU_IRQ_TYPE_PING_PONG_TE_CHECK))
-+
- #define DEFAULT_PIXEL_RAM_SIZE		(50 * 1024)
- #define DEFAULT_DPU_LINE_WIDTH		2048
- #define DEFAULT_DPU_OUTPUT_LINE_WIDTH	2560
-@@ -1077,6 +1084,7 @@ static void sc7180_cfg_init(struct dpu_mdss_cfg *dpu_cfg)
- 		.dma_cfg = sdm845_regdma,
- 		.perf = sc7180_perf_data,
- 		.mdss_irqs = 0x3f,
-+		.obsolete_irq = INTR_SC7180_MASK,
- 	};
- }
- 
-@@ -1166,6 +1174,7 @@ static void sc7280_cfg_init(struct dpu_mdss_cfg *dpu_cfg)
- 		.vbif = sdm845_vbif,
- 		.perf = sc7280_perf_data,
- 		.mdss_irqs = 0x1c07,
-+		.obsolete_irq = INTR_SC7180_MASK,
- 	};
- }
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-index 0cf7210..4dfd8a2 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-@@ -723,6 +723,7 @@ struct dpu_perf_cfg {
-  * @cursor_formats     Supported formats for cursor pipe
-  * @vig_formats        Supported formats for vig pipe
-  * @mdss_irqs:         Bitmap with the irqs supported by the target
-+ * @obsolete_irq:       Irq types that are obsolete for a particular target
-  */
- struct dpu_mdss_cfg {
- 	u32 hwversion;
-@@ -769,6 +770,7 @@ struct dpu_mdss_cfg {
- 	const struct dpu_format_extended *vig_formats;
- 
- 	unsigned long mdss_irqs;
-+	unsigned long obsolete_irq;
- };
- 
- struct dpu_mdss_hw_cfg_handler {
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-index a37928b..9c4d6b0 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-@@ -1327,14 +1327,15 @@ static const struct dpu_irq_type dpu_irq_map[] = {
- 	{ DPU_IRQ_TYPE_RESERVED, 0, 0, 12},
- };
- 
--static int dpu_hw_intr_irqidx_lookup(enum dpu_intr_type intr_type,
--		u32 instance_idx)
-+static int dpu_hw_intr_irqidx_lookup(struct dpu_hw_intr *intr,
-+	enum dpu_intr_type intr_type, u32 instance_idx)
- {
- 	int i;
- 
- 	for (i = 0; i < ARRAY_SIZE(dpu_irq_map); i++) {
- 		if (intr_type == dpu_irq_map[i].intr_type &&
--			instance_idx == dpu_irq_map[i].instance_idx)
-+			instance_idx == dpu_irq_map[i].instance_idx &&
-+			!(intr->obsolete_irq & BIT(dpu_irq_map[i].intr_type)))
- 			return i;
- 	}
- 
-@@ -1386,7 +1387,9 @@ static void dpu_hw_intr_dispatch_irq(struct dpu_hw_intr *intr,
- 				(irq_idx < end_idx) && irq_status;
- 				irq_idx++)
- 			if ((irq_status & dpu_irq_map[irq_idx].irq_mask) &&
--				(dpu_irq_map[irq_idx].reg_idx == reg_idx)) {
-+				(dpu_irq_map[irq_idx].reg_idx == reg_idx) &&
-+				!(intr->obsolete_irq &
-+				BIT(dpu_irq_map[irq_idx].intr_type))) {
- 				/*
- 				 * Once a match on irq mask, perform a callback
- 				 * to the given cbfunc. cbfunc will take care
-@@ -1698,6 +1701,8 @@ struct dpu_hw_intr *dpu_hw_intr_init(void __iomem *addr,
- 	}
- 
- 	intr->irq_mask = m->mdss_irqs;
-+	intr->obsolete_irq = m->obsolete_irq;
-+
- 	spin_lock_init(&intr->irq_lock);
- 
- 	return intr;
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
-index fc9c986..5d6f9a7 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
-@@ -83,11 +83,12 @@ struct dpu_hw_intr_ops {
- 	/**
- 	 * irq_idx_lookup - Lookup IRQ index on the HW interrupt type
- 	 *                 Used for all irq related ops
-+	 * @intr:		HW interrupt handle
- 	 * @intr_type:		Interrupt type defined in dpu_intr_type
- 	 * @instance_idx:	HW interrupt block instance
- 	 * @return:		irq_idx or -EINVAL for lookup fail
- 	 */
--	int (*irq_idx_lookup)(
-+	int (*irq_idx_lookup)(struct dpu_hw_intr *intr,
- 			enum dpu_intr_type intr_type,
- 			u32 instance_idx);
- 
-@@ -179,6 +180,7 @@ struct dpu_hw_intr_ops {
-  * @save_irq_status:  array of IRQ status reg storage created during init
-  * @irq_idx_tbl_size: total number of irq_idx mapped in the hw_interrupts
-  * @irq_lock:         spinlock for accessing IRQ resources
-+ * @obsolete_irq:      irq types that are obsolete for a particular target
-  */
- struct dpu_hw_intr {
- 	struct dpu_hw_blk_reg_map hw;
-@@ -188,6 +190,7 @@ struct dpu_hw_intr {
- 	u32 irq_idx_tbl_size;
- 	spinlock_t irq_lock;
- 	unsigned long irq_mask;
-+	unsigned long obsolete_irq;
- };
- 
- /**
--- 
-2.7.4
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/display/msm/dsi-phy-28nm.example.dt.yaml:0:0: /example-0/dsi-phy@fd922a00: failed to match any schema with compatible: ['qcom,dsi-phy-28nm']
+
+See https://patchwork.ozlabs.org/patch/1462327
+
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
 
 _______________________________________________
 Freedreno mailing list
