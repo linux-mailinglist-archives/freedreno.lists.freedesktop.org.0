@@ -2,42 +2,37 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E507356CEF
-	for <lists+freedreno@lfdr.de>; Wed,  7 Apr 2021 15:08:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66A42356E1C
+	for <lists+freedreno@lfdr.de>; Wed,  7 Apr 2021 16:05:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A585189991;
-	Wed,  7 Apr 2021 13:08:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 060886E913;
+	Wed,  7 Apr 2021 14:05:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-m121143.qiye.163.com (mail-m121143.qiye.163.com
- [115.236.121.143])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3D9D89971;
- Wed,  7 Apr 2021 13:08:05 +0000 (UTC)
-Received: from ubuntu.localdomain (unknown [36.152.145.181])
- by mail-m121143.qiye.163.com (Hmail) with ESMTPA id D428254048C;
- Wed,  7 Apr 2021 21:07:53 +0800 (CST)
-From: Bernard Zhao <bernard@vivo.com>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Kuogee Hsieh <khsieh@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Tanmay Shah <tanmay@codeaurora.org>,
- Chandan Uddaraju <chandanu@codeaurora.org>,
- Bernard Zhao <bernard@vivo.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Date: Wed,  7 Apr 2021 06:06:21 -0700
-Message-Id: <20210407130654.3387-1-bernard@vivo.com>
-X-Mailer: git-send-email 2.31.0
+Received: from szxga07-in.huawei.com (szxga07-in.huawei.com [45.249.212.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A7CF89B3C;
+ Wed,  7 Apr 2021 08:23:54 +0000 (UTC)
+Received: from DGGEMS409-HUB.china.huawei.com (unknown [172.30.72.58])
+ by szxga07-in.huawei.com (SkyGuard) with ESMTP id 4FFcn01nJPz7tPj;
+ Wed,  7 Apr 2021 16:21:40 +0800 (CST)
+Received: from thunder-town.china.huawei.com (10.174.179.202) by
+ DGGEMS409-HUB.china.huawei.com (10.3.19.209) with Microsoft SMTP Server id
+ 14.3.498.0; Wed, 7 Apr 2021 16:23:42 +0800
+From: Zhen Lei <thunder.leizhen@huawei.com>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, David Airlie
+ <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm
+ <linux-arm-msm@vger.kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>, 
+ freedreno <freedreno@lists.freedesktop.org>, linux-kernel
+ <linux-kernel@vger.kernel.org>
+Date: Wed, 7 Apr 2021 16:23:15 +0800
+Message-ID: <20210407082315.2703-1-thunder.leizhen@huawei.com>
+X-Mailer: git-send-email 2.26.0.windows.1
 MIME-Version: 1.0
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
- oVCBIfWUFZSUpMTUtIHUNIQ04dVkpNSkxDS0tDTE9JSE5VEwETFhoSFyQUDg9ZV1kWGg8SFR0UWU
- FZT0tIVUpKS0hKQ1VLWQY+
-X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6MiI6OBw5Vj8OKCMQSSEIAU8Q
- TB8aCQFVSlVKTUpMQ0tLQ0xPTktCVTMWGhIXVRkeCRUaCR87DRINFFUYFBZFWVdZEgtZQVlITVVK
- TklVSk9OVUpDSllXWQgBWUFIT05LNwY+
-X-HM-Tid: 0a78ac7248b0b038kuuud428254048c
-Subject: [Freedreno] [PATCH] drm/msm: remove unneeded variable ret
+X-Originating-IP: [10.174.179.202]
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Wed, 07 Apr 2021 14:05:09 +0000
+Subject: [Freedreno] [PATCH 1/1] drm/msm/dp: remove unused local variable
+ 'hpd'
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,73 +45,33 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Zhen Lei <thunder.leizhen@huawei.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This patch fix coccicheck warning:
-drivers/gpu/drm/msm/dp/dp_link.c:848:5-8: Unneeded variable: "ret". Return "0" on line 880
-Also remove unneeded function return value check.
-
-Signed-off-by: Bernard Zhao <bernard@vivo.com>
----
- drivers/gpu/drm/msm/dp/dp_link.c | 15 +++------------
- 1 file changed, 3 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
-index be986da78c4a..3395b08155a6 100644
---- a/drivers/gpu/drm/msm/dp/dp_link.c
-+++ b/drivers/gpu/drm/msm/dp/dp_link.c
-@@ -843,10 +843,8 @@ bool dp_link_send_edid_checksum(struct dp_link *dp_link, u8 checksum)
- 	return ret == 1;
- }
- 
--static int dp_link_parse_vx_px(struct dp_link_private *link)
-+static void dp_link_parse_vx_px(struct dp_link_private *link)
- {
--	int ret = 0;
--
- 	DRM_DEBUG_DP("vx: 0=%d, 1=%d, 2=%d, 3=%d\n",
- 		drm_dp_get_adjust_request_voltage(link->link_status, 0),
- 		drm_dp_get_adjust_request_voltage(link->link_status, 1),
-@@ -876,8 +874,6 @@ static int dp_link_parse_vx_px(struct dp_link_private *link)
- 	DRM_DEBUG_DP("Requested: v_level = 0x%x, p_level = 0x%x\n",
- 			link->dp_link.phy_params.v_level,
- 			link->dp_link.phy_params.p_level);
--
--	return ret;
- }
- 
- /**
-@@ -891,8 +887,6 @@ static int dp_link_parse_vx_px(struct dp_link_private *link)
- static int dp_link_process_phy_test_pattern_request(
- 		struct dp_link_private *link)
- {
--	int ret = 0;
--
- 	if (!(link->request.test_requested & DP_TEST_LINK_PHY_TEST_PATTERN)) {
- 		DRM_DEBUG_DP("no phy test\n");
- 		return -EINVAL;
-@@ -918,12 +912,9 @@ static int dp_link_process_phy_test_pattern_request(
- 	link->dp_link.link_params.rate =
- 		drm_dp_bw_code_to_link_rate(link->request.test_link_rate);
- 
--	ret = dp_link_parse_vx_px(link);
--
--	if (ret)
--		DRM_ERROR("parse_vx_px failed. ret=%d\n", ret);
-+	dp_link_parse_vx_px(link);
- 
--	return ret;
-+	return 0;
- }
- 
- static u8 get_link_status(const u8 link_status[DP_LINK_STATUS_SIZE], int r)
--- 
-2.31.0
-
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+Rml4ZXMgdGhlIGZvbGxvd2luZyBXPTEga2VybmVsIGJ1aWxkIHdhcm5pbmc6Cgpkcml2ZXJzL2dw
+dS9kcm0vbXNtL2RwL2RwX2Rpc3BsYXkuYzogSW4gZnVuY3Rpb24g4oCYZHBfZGlzcGxheV91c2Jw
+ZF9hdHRlbnRpb25fY2LigJk6CmRyaXZlcnMvZ3B1L2RybS9tc20vZHAvZHBfZGlzcGxheS5jOjQ5
+NjoxOTogd2FybmluZzogdmFyaWFibGUg4oCYaHBk4oCZIHNldCBidXQgbm90IHVzZWQgWy1XdW51
+c2VkLWJ1dC1zZXQtdmFyaWFibGVdCgpGaXhlczogYzU4ZWIxYjU0ZmVlICgiZHJtL21zbS9kcDog
+Zml4IGNvbm5lY3QvZGlzY29ubmVjdCBoYW5kbGVkIGF0IGlycV9ocGQiKQpSZXBvcnRlZC1ieTog
+SHVsayBSb2JvdCA8aHVsa2NpQGh1YXdlaS5jb20+ClNpZ25lZC1vZmYtYnk6IFpoZW4gTGVpIDx0
+aHVuZGVyLmxlaXpoZW5AaHVhd2VpLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vbXNtL2RwL2Rw
+X2Rpc3BsYXkuYyB8IDMgLS0tCiAxIGZpbGUgY2hhbmdlZCwgMyBkZWxldGlvbnMoLSkKCmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbXNtL2RwL2RwX2Rpc3BsYXkuYyBiL2RyaXZlcnMvZ3B1
+L2RybS9tc20vZHAvZHBfZGlzcGxheS5jCmluZGV4IDVhMzlkYTZlMWVhZjI3Ny4uMzFiZjJhNDBh
+OWViMmM5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vbXNtL2RwL2RwX2Rpc3BsYXkuYwor
+KysgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2RwL2RwX2Rpc3BsYXkuYwpAQCAtNDkzLDcgKzQ5Myw2
+IEBAIHN0YXRpYyBpbnQgZHBfZGlzcGxheV91c2JwZF9hdHRlbnRpb25fY2Ioc3RydWN0IGRldmlj
+ZSAqZGV2KQogCWludCByYyA9IDA7CiAJdTMyIHNpbmtfcmVxdWVzdDsKIAlzdHJ1Y3QgZHBfZGlz
+cGxheV9wcml2YXRlICpkcDsKLQlzdHJ1Y3QgZHBfdXNicGQgKmhwZDsKIAogCWlmICghZGV2KSB7
+CiAJCURSTV9FUlJPUigiaW52YWxpZCBkZXZcbiIpOwpAQCAtNTA3LDggKzUwNiw2IEBAIHN0YXRp
+YyBpbnQgZHBfZGlzcGxheV91c2JwZF9hdHRlbnRpb25fY2Ioc3RydWN0IGRldmljZSAqZGV2KQog
+CQlyZXR1cm4gLUVOT0RFVjsKIAl9CiAKLQlocGQgPSBkcC0+dXNicGQ7Ci0KIAkvKiBjaGVjayBm
+b3IgYW55IHRlc3QgcmVxdWVzdCBpc3N1ZWQgYnkgc2luayAqLwogCXJjID0gZHBfbGlua19wcm9j
+ZXNzX3JlcXVlc3QoZHAtPmxpbmspOwogCWlmICghcmMpIHsKLS0gCjEuOC4zCgoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcg
+bGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5vCg==
