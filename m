@@ -1,39 +1,38 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 405D3357828
-	for <lists+freedreno@lfdr.de>; Thu,  8 Apr 2021 01:01:22 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id BA57D357881
+	for <lists+freedreno@lfdr.de>; Thu,  8 Apr 2021 01:27:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A1466E9AD;
-	Wed,  7 Apr 2021 23:01:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E85906E9BC;
+	Wed,  7 Apr 2021 23:27:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FF8C6E9AB;
- Wed,  7 Apr 2021 23:01:18 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2D5C7611C9;
- Wed,  7 Apr 2021 23:01:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A462F6E9B9;
+ Wed,  7 Apr 2021 23:27:16 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6AABC611C9;
+ Wed,  7 Apr 2021 23:27:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1617836478;
- bh=Z7WqCUanSlNvnD9wexNvEc3dx0BZpbT+4uVfy5X9skQ=;
+ s=k20201202; t=1617838034;
+ bh=5cQuER9fmc8fHAwXS8iEloQ3JTxyDIMqjDHmBWLnXl0=;
  h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
- b=AD9RsG1MszT7GTAMUnWeZhwOTLC5s3l0DrH6BnTkqDkKT0q18MV8IYE6Zy0t7p5Ok
- m7vfcNJ+KrsG5vKPysOXjwIU8Ddzt5lPY/swg7C+T4xQKlOqtsugxVnOr08V01rqjm
- +b4gnM0uRwAQvV1c8+OLWg24WeT+BrQY55ACrC6DdrvdUNhgwcIVSwOh04wb4Tmyra
- CMfM1W90tDzF9smEKQ8sDIaRLgKXK4oa1KkHVRq2BUPrZVObCC3LbpyZUH8e5v3nyh
- 6Qq5uTvDfaffUx5Jis1ztg2qckI8AC2GPSNxRE+OlyvyQNb9fraw/7coh+lGkjbsAm
- SdcW9KKg06CAA==
+ b=PBOh8ip9/zbP5hdMG6IH1fQDPFqXLrfClhSqsPqTcEnnzJ/uZiLO7WZDYJJRYb5ht
+ 45aHyqPjQwTJKXXVSWfyKYrK0cERH1BMo4jIp7iG0t31eoIAugTLtxleiusKiyxO1q
+ OC6TcmDOduW3Jl7s8ss5WzESRlWvmEekrwmbsexHBlberXmWPG9b0F0kfzkxm9/Hrz
+ CujlpQYi0Fg/6bi3PE81l2hhCHC7bS3T2aISXcTzckilZguH1bH91gShNMn7Ae/hpH
+ XAAL8ZGViNo3N3t/jWa5E52Vvb//0PnYj8RBbnzFd8ly0OLoul4wA1lm024tBn+rg7
+ cWRXQiq4ARzwA==
 MIME-Version: 1.0
-In-Reply-To: <20210406230606.3007138-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <CAA8EJppsM1sP=OTiMY8jsLLgU=+p3qgZDD7M+M5naJhfFEF_Zg@mail.gmail.com>
 References: <20210406230606.3007138-1-dmitry.baryshkov@linaro.org>
+ <161783530964.3790633.16412468884239960912@swboyd.mtv.corp.google.com>
+ <CAA8EJppsM1sP=OTiMY8jsLLgU=+p3qgZDD7M+M5naJhfFEF_Zg@mail.gmail.com>
 From: Stephen Boyd <sboyd@kernel.org>
-To: Andy Gross <agross@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Michael Turquette <mturquette@baylibre.com>
-Date: Wed, 07 Apr 2021 16:01:16 -0700
-Message-ID: <161783647690.3790633.7004111396421583619@swboyd.mtv.corp.google.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Wed, 07 Apr 2021 16:27:13 -0700
+Message-ID: <161783803315.3790633.10829887417379757624@swboyd.mtv.corp.google.com>
 User-Agent: alot/0.9.1
 Subject: Re: [Freedreno] [PATCH] clk: fixed: fix double free in resource
  managed fixed-factor clock
@@ -49,51 +48,52 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- Daniel Palmer <daniel@0x0f.com>, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-clk@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ DRM DRIVER FOR MSM ADRENO GPU <linux-arm-msm@vger.kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Daniel Palmer <daniel@0x0f.com>,
+ DRM DRIVER FOR MSM ADRENO GPU <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Andy Gross <agross@kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ COMMON CLK FRAMEWORK <linux-clk@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2021-04-06 16:06:06)
-> devm_clk_hw_register_fixed_factor_release(), the release function for
-> the devm_clk_hw_register_fixed_factor(), calls
-> clk_hw_unregister_fixed_factor(), which will kfree() the clock. However
-> after that the devres functions will also kfree the allocated data,
-> resulting in double free/memory corruption. Just call
-> clk_hw_unregister() instead, leaving kfree() to devres code.
+Quoting Dmitry Baryshkov (2021-04-07 15:57:01)
+> On Thu, 8 Apr 2021 at 01:41, Stephen Boyd <sboyd@kernel.org> wrote:
+> >
+> > Quoting Dmitry Baryshkov (2021-04-06 16:06:06)
+> > > devm_clk_hw_register_fixed_factor_release(), the release function for
+> > > the devm_clk_hw_register_fixed_factor(), calls
+> > > clk_hw_unregister_fixed_factor(), which will kfree() the clock. However
+> > > after that the devres functions will also kfree the allocated data,
+> > > resulting in double free/memory corruption. Just call
+> > > clk_hw_unregister() instead, leaving kfree() to devres code.
+> > >
+> > > Reported-by: Rob Clark <robdclark@chromium.org>
+> > > Cc: Daniel Palmer <daniel@0x0f.com>
+> > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > > ---
+> > >
+> > > Stephen, this fix affects the DSI PHY rework. Do we have a chance of
+> > > getting it into 5.12, otherwise there will be a cross-dependency between
+> > > msm-next and clk-next.
+> >
+> > Think I can get this into the last fixes PR. One question though, I
+> > think this follows the pattern that things like clk-divider.c use for
+> > devm. Are those also broken?
 > 
-> Reported-by: Rob Clark <robdclark@chromium.org>
-> Cc: Daniel Palmer <daniel@0x0f.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
+> It looks so. See e.g. the devres_release() function. It calls
+> (*release) callback, then it will kfree the resource.
+> Also see Documentation/driver-api/driver-model/devres.rst, which does
+> not kfree() in release functions.
+> 
+> Do you wish for me to send all the fixes?
+> 
 
-Applied to clk-fixes. I also squashed this in to cleanup that ugly cast.
-
----8<----
-
-diff --git a/drivers/clk/clk-fixed-factor.c b/drivers/clk/clk-fixed-factor.c
-index 390c16f321a6..4e4b6d367612 100644
---- a/drivers/clk/clk-fixed-factor.c
-+++ b/drivers/clk/clk-fixed-factor.c
-@@ -66,12 +66,14 @@ EXPORT_SYMBOL_GPL(clk_fixed_factor_ops);
- 
- static void devm_clk_hw_register_fixed_factor_release(struct device *dev, void *res)
- {
-+	struct clk_fixed_factor *fix = res;
-+
- 	/*
- 	 * We can not use clk_hw_unregister_fixed_factor, since it will kfree()
- 	 * the hw, resulting in double free. Just unregister the hw and let
- 	 * devres code kfree() it.
- 	 */
--	clk_hw_unregister(&((struct clk_fixed_factor *)res)->hw);
-+	clk_hw_unregister(&fix->hw);
- }
- 
- static struct clk_hw *
+Yes please send more fixes. They're not high priority though so I'll
+probably leave them to bake in next for a week or so.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
