@@ -2,37 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6399A356E1E
-	for <lists+freedreno@lfdr.de>; Wed,  7 Apr 2021 16:05:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBDA5356E1D
+	for <lists+freedreno@lfdr.de>; Wed,  7 Apr 2021 16:05:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBF876E918;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 871A56E917;
 	Wed,  7 Apr 2021 14:05:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7E816E17E;
- Wed,  7 Apr 2021 08:53:13 +0000 (UTC)
-Received: from DGGEMS414-HUB.china.huawei.com (unknown [172.30.72.58])
- by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4FFdQn4KwKz19L60;
- Wed,  7 Apr 2021 16:50:57 +0800 (CST)
-Received: from thunder-town.china.huawei.com (10.174.179.202) by
- DGGEMS414-HUB.china.huawei.com (10.3.19.214) with Microsoft SMTP Server id
- 14.3.498.0; Wed, 7 Apr 2021 16:52:58 +0800
-From: Zhen Lei <thunder.leizhen@huawei.com>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, David Airlie
- <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm
- <linux-arm-msm@vger.kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>, 
- freedreno <freedreno@lists.freedesktop.org>, linux-kernel
- <linux-kernel@vger.kernel.org>
-Date: Wed, 7 Apr 2021 16:33:34 +0800
-Message-ID: <20210407083334.2762-1-thunder.leizhen@huawei.com>
-X-Mailer: git-send-email 2.26.0.windows.1
+Received: from mail-qk1-x72f.google.com (mail-qk1-x72f.google.com
+ [IPv6:2607:f8b0:4864:20::72f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBB9B6E906
+ for <freedreno@lists.freedesktop.org>; Wed,  7 Apr 2021 11:37:38 +0000 (UTC)
+Received: by mail-qk1-x72f.google.com with SMTP id 7so18227381qka.7
+ for <freedreno@lists.freedesktop.org>; Wed, 07 Apr 2021 04:37:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=0x0f.com; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=IW3oRRx99M57CpJG31OJ6s9cRTtaL0D26Vt6HdVUzpk=;
+ b=oopYu+YQ42DBdZzN3yOYVkLE34+WNijKBfVjcKw6QPwW/mRKOs2n2G4L1YfBrga8cx
+ 220R9uTBCCRVSD1cy6bDEd7gA1lnF9TD+T4FpdSH5e6pDE7WFLCti3vaDYFyC2SgaM9z
+ dzLQKaRLpCgPt311J8OYBUcFJAbeRxPMkE31g=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=IW3oRRx99M57CpJG31OJ6s9cRTtaL0D26Vt6HdVUzpk=;
+ b=BwTIKc+wKvY5kdrM3iYSii02bknaFwAQNIdl0HplLBPMWUL4tGRXX2y7woeJreUOTn
+ jtrXoF2Y52DRg/oqPKZDUaOVE6t+IE/mFeV0YzA/MnCYe47h1OhhVR0aSVyy0cOu/qRy
+ V8fvhjLjk6KXUTNnctm2LSPkZId/3n/3mCq3FW0uEiBQFJvpFkE8ON856kbvWmcAhTzK
+ f9nrGg6G86pQIzJEE3gQX0bgE+cwCWX2fSjOt4byD9FACdVmyQDPsfxxdFGTej0IG1It
+ eesBVcjd5iENNR4iNgTKvxC+jYV+AdcTmMyPy9lo/jJEZfcXaiP/dJO1Y7gJbafhsq3i
+ 6p1g==
+X-Gm-Message-State: AOAM5333lap0jZgkuHJ8jGWprbr9Od09xggXJX/eHYl5u2hEjFKJBSBe
+ SVy5+443eBZyrEPkMaNsbv1rCUabUIq6HcWD/41wTg==
+X-Google-Smtp-Source: ABdhPJyA5Hg5hcZK/lrBzsOg/7n5zpjnXNILiWuDcgO2g8kFHFN6fUKV9nWalWac9N9CBudJ/zH0+3dvbyRGFrd6m4Q=
+X-Received: by 2002:ae9:f70a:: with SMTP id s10mr2714172qkg.468.1617795457907; 
+ Wed, 07 Apr 2021 04:37:37 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.174.179.202]
-X-CFilter-Loop: Reflected
+References: <20210406230606.3007138-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20210406230606.3007138-1-dmitry.baryshkov@linaro.org>
+From: Daniel Palmer <daniel@0x0f.com>
+Date: Wed, 7 Apr 2021 20:38:56 +0900
+Message-ID: <CAFr9PXm9oStJ4oKNaGCGi9sXBTc-6iDZJZTWvumWHiFwwcRPnQ@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 X-Mailman-Approved-At: Wed, 07 Apr 2021 14:05:09 +0000
-Subject: [Freedreno] [PATCH 1/1] drm/msm/dpu: remove unused local variable
- 'cmd_enc'
+Subject: Re: [Freedreno] [PATCH] clk: fixed: fix double free in resource
+ managed fixed-factor clock
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,35 +59,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Zhen Lei <thunder.leizhen@huawei.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Rob Clark <robdclark@chromium.org>, Stephen Boyd <sboyd@kernel.org>,
+ linux-arm-msm@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Andy Gross <agross@kernel.org>, freedreno@lists.freedesktop.org,
+ linux-clk <linux-clk@vger.kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Rml4ZXMgdGhlIGZvbGxvd2luZyBXPTEga2VybmVsIGJ1aWxkIHdhcm5pbmc6Cgpkcml2ZXJzL2dw
-dS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfZW5jb2Rlcl9waHlzX2NtZC5jOiBJbiBmdW5jdGlvbiDi
-gJhkcHVfZW5jb2Rlcl9waHlzX2NtZF93YWl0X2Zvcl9jb21taXRfZG9uZeKAmToKZHJpdmVycy9n
-cHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X2VuY29kZXJfcGh5c19jbWQuYzo2ODg6MzE6IHdhcm5p
-bmc6IHZhcmlhYmxlIOKAmGNtZF9lbmPigJkgc2V0IGJ1dCBub3QgdXNlZCBbLVd1bnVzZWQtYnV0
-LXNldC12YXJpYWJsZV0KCkZpeGVzOiBmZTI4Njg5M2VkMzQgKCJkcm0vbXNtL2RwdTogUmVtb3Zl
-IHVudXNlZCBjYWxsIGluIHdhaXRfZm9yX2NvbW1pdF9kb25lIikKUmVwb3J0ZWQtYnk6IEh1bGsg
-Um9ib3QgPGh1bGtjaUBodWF3ZWkuY29tPgpTaWduZWQtb2ZmLWJ5OiBaaGVuIExlaSA8dGh1bmRl
-ci5sZWl6aGVuQGh1YXdlaS5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEv
-ZHB1X2VuY29kZXJfcGh5c19jbWQuYyB8IDQgLS0tLQogMSBmaWxlIGNoYW5nZWQsIDQgZGVsZXRp
-b25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X2Vu
-Y29kZXJfcGh5c19jbWQuYyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9lbmNv
-ZGVyX3BoeXNfY21kLmMKaW5kZXggYjJiZTM5YjkxNDRlNDQ5Li4wODg5MDA4NDFiZjhiYWEgMTAw
-NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9lbmNvZGVyX3BoeXNf
-Y21kLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X2VuY29kZXJfcGh5
-c19jbWQuYwpAQCAtNjg1LDEwICs2ODUsNiBAQCBzdGF0aWMgaW50IGRwdV9lbmNvZGVyX3BoeXNf
-Y21kX3dhaXRfZm9yX3R4X2NvbXBsZXRlKAogc3RhdGljIGludCBkcHVfZW5jb2Rlcl9waHlzX2Nt
-ZF93YWl0X2Zvcl9jb21taXRfZG9uZSgKIAkJc3RydWN0IGRwdV9lbmNvZGVyX3BoeXMgKnBoeXNf
-ZW5jKQogewotCXN0cnVjdCBkcHVfZW5jb2Rlcl9waHlzX2NtZCAqY21kX2VuYzsKLQotCWNtZF9l
-bmMgPSB0b19kcHVfZW5jb2Rlcl9waHlzX2NtZChwaHlzX2VuYyk7Ci0KIAkvKiBvbmx5IHJlcXVp
-cmVkIGZvciBtYXN0ZXIgY29udHJvbGxlciAqLwogCWlmICghZHB1X2VuY29kZXJfcGh5c19jbWRf
-aXNfbWFzdGVyKHBoeXNfZW5jKSkKIAkJcmV0dXJuIDA7Ci0tIAoxLjguMwoKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxp
-c3QKRnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVubwo=
+Hi Dmitry,
+
+On Wed, 7 Apr 2021 at 08:06, Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> devm_clk_hw_register_fixed_factor_release(), the release function for
+> the devm_clk_hw_register_fixed_factor(), calls
+> clk_hw_unregister_fixed_factor(), which will kfree() the clock. However
+> after that the devres functions will also kfree the allocated data,
+> resulting in double free/memory corruption. Just call
+> clk_hw_unregister() instead, leaving kfree() to devres code.
+
+Doh.
+Sorry for not spotting this when I wrote the patch.
+Thank you for cleaning up after me.
+
+Cheers,
+
+Daniel
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
