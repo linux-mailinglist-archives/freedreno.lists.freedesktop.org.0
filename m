@@ -2,56 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58191357418
-	for <lists+freedreno@lfdr.de>; Wed,  7 Apr 2021 20:20:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94571357427
+	for <lists+freedreno@lfdr.de>; Wed,  7 Apr 2021 20:22:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8D2F6E96D;
-	Wed,  7 Apr 2021 18:20:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23F306E96D;
+	Wed,  7 Apr 2021 18:22:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FDAD6E96C
- for <freedreno@lists.freedesktop.org>; Wed,  7 Apr 2021 18:20:07 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1617819608; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=v5hhCBxMu4t8ymRS5UeQli/Ao4wr7txEYWAKX3ZDl5M=;
- b=R3UJCcHFv9rQIcqLvvDdGTbrXiC+6zZFUw3vnIPI7nlEfRjAVvzJcXLPi0akxWg/IhgeoyAJ
- 3e5x0REaVw9lKd3JcIZRsfhgFxPG5r1UYPxVVuEs4phf14IAlaIP/U22r02y7bHswP/goDuf
- ziJfyMPcVIlSRuDGwPFmrqNNPoI=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
- 606df7cb9a9ff96d959133eb (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 07 Apr 2021 18:19:55
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id DFD5DC43466; Wed,  7 Apr 2021 18:19:54 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id E9852C43461;
- Wed,  7 Apr 2021 18:19:53 +0000 (UTC)
+Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com
+ [IPv6:2607:f8b0:4864:20::52e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D411B6E96D
+ for <freedreno@lists.freedesktop.org>; Wed,  7 Apr 2021 18:22:39 +0000 (UTC)
+Received: by mail-pg1-x52e.google.com with SMTP id q10so13706730pgj.2
+ for <freedreno@lists.freedesktop.org>; Wed, 07 Apr 2021 11:22:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:content-transfer-encoding:in-reply-to:references
+ :subject:from:to:date:message-id:user-agent;
+ bh=hi29bvNz3b0h+J1/8SmX9GkZQUb/KXU3bHzILeV7OBI=;
+ b=dvwti10imC/5yBGONbIa6fAg6KAoYu+GkfwHaTpGSX9gtutrz8k4U53XVH8MoVEITd
+ GR1KVJhoHM+wT5W+Uty0KbK0AEAIn/HWFUqDi6WdOdTZG6uPlMzd0Kfk0j0iLBoDSVsQ
+ vIg31AGvFCG4zA4TvRIsdonHJiZecQ2nzu9vI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:content-transfer-encoding
+ :in-reply-to:references:subject:from:to:date:message-id:user-agent;
+ bh=hi29bvNz3b0h+J1/8SmX9GkZQUb/KXU3bHzILeV7OBI=;
+ b=uS6Gl0iABbiHzjBBoD2OzsqlBRpraKEt7Mku7Gt/NBY6s5oeZMy2VFfQeBeqxXYLg3
+ Uf6i5kiJZu2JyC+E/IH650UD5A8RFaIEGJRAUjxMfYuk2DOL3lzpGajwdX99+FuGV/7C
+ LMhZ5iRXKr/mF4aX8TrgnSeW4s+R412IXPEkuGGsrkW9b1gOI6VZv9+tqLi4r0I+02Rt
+ /gt+K7SjscVdguMqT4KcZsJslPhlqiBCGJoEsjpa15lFnAbc4bnj21tLKjvcngSHR6cx
+ IDI9OLB7DCpI7gCSzSDx5K2CsFP3CD3BHyYA2iqPwvUO8Qor8V+tuqVMYLH8EMz4senJ
+ 7Q2g==
+X-Gm-Message-State: AOAM531QQ93di5IgKnH3tfsuwaWa49UA/TWOwBVR5yUQJ+siqSB9df/d
+ hIKy3vTdNoaeCGHpMwui/GT5JQ==
+X-Google-Smtp-Source: ABdhPJwxFL0jF4wdaX8clJ5o9U99uJkosPvE3LRxErpWbXVIzWrheMp2PxRLqEGQV20+b4QUq6lrJA==
+X-Received: by 2002:a63:6ec3:: with SMTP id j186mr4485221pgc.249.1617819759424; 
+ Wed, 07 Apr 2021 11:22:39 -0700 (PDT)
+Received: from chromium.org ([2620:15c:202:201:e193:83c5:6e95:43de])
+ by smtp.gmail.com with ESMTPSA id js16sm5777559pjb.21.2021.04.07.11.22.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 07 Apr 2021 11:22:38 -0700 (PDT)
 MIME-Version: 1.0
-Date: Wed, 07 Apr 2021 11:19:53 -0700
-From: abhinavk@codeaurora.org
-To: Marijn Suijten <marijn.suijten@somainline.org>
-In-Reply-To: <20210406214726.131534-2-marijn.suijten@somainline.org>
-References: <20210406214726.131534-1-marijn.suijten@somainline.org>
- <20210406214726.131534-2-marijn.suijten@somainline.org>
-Message-ID: <6413863d04df9743e2d7e81beff5c3e8@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/mdp5: Configure PP_SYNC_HEIGHT
- to double the vtotal
+In-Reply-To: <20210407130654.3387-1-bernard@vivo.com>
+References: <20210407130654.3387-1-bernard@vivo.com>
+From: Stephen Boyd <swboyd@chromium.org>
+To: Abhinav Kumar <abhinavk@codeaurora.org>, Bernard Zhao <bernard@vivo.com>,
+ Chandan Uddaraju <chandanu@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@linux.ie>, Kuogee Hsieh <khsieh@codeaurora.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Tanmay Shah <tanmay@codeaurora.org>, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 07 Apr 2021 11:22:37 -0700
+Message-ID: <161781975744.1883259.13405764054457057600@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
+Subject: Re: [Freedreno] [PATCH] drm/msm: remove unneeded variable ret
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,72 +69,20 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@somainline.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- phone-devel@vger.kernel.org, freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Marijn
-
-On 2021-04-06 14:47, Marijn Suijten wrote:
-> Leaving this at a close-to-maximum register value 0xFFF0 means it takes
-> very long for the MDSS to generate a software vsync interrupt when the
-> hardware TE interrupt doesn't arrive.  Configuring this to double the
-> vtotal (like some downstream kernels) leads to a frame to take at most
-> twice before the vsync signal, until hardware TE comes up.
+Quoting Bernard Zhao (2021-04-07 06:06:21)
+> This patch fix coccicheck warning:
+> drivers/gpu/drm/msm/dp/dp_link.c:848:5-8: Unneeded variable: "ret". Return "0" on line 880
+> Also remove unneeded function return value check.
 > 
-> In this case the hardware interrupt responsible for providing this
-> signal - "disp-te" gpio - is not hooked up to the mdp5 vsync/pp logic 
-> at
-> all.  This solves severe panel update issues observed on at least the
-> Xperia Loire and Tone series, until said gpio is properly hooked up to
-> an irq.
-
-The reason the CONFIG_HEIGHT was at such a high value is to make sure 
-that
-we always get the TE only from the panel vsync and not false positives 
-coming
-from the tear check logic itself.
-
-When you say that disp-te gpio is not hooked up, is it something 
-incorrect with
-the schematic OR panel is not generating the TE correctly?
-
-> 
-> Suggested-by: AngeloGioacchino Del Regno
-> <angelogioacchino.delregno@somainline.org>
-> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> Reviewed-by: AngeloGioacchino Del Regno
-> <angelogioacchino.delregno@somainline.org>
+> Signed-off-by: Bernard Zhao <bernard@vivo.com>
 > ---
->  drivers/gpu/drm/msm/disp/mdp5/mdp5_cmd_encoder.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cmd_encoder.c
-> b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cmd_encoder.c
-> index ff2c1d583c79..2d5ac03dbc17 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cmd_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cmd_encoder.c
-> @@ -51,7 +51,7 @@ static int pingpong_tearcheck_setup(struct
-> drm_encoder *encoder,
-> 
->  	mdp5_write(mdp5_kms, REG_MDP5_PP_SYNC_CONFIG_VSYNC(pp_id), cfg);
->  	mdp5_write(mdp5_kms,
-> -		REG_MDP5_PP_SYNC_CONFIG_HEIGHT(pp_id), 0xfff0);
-> +		REG_MDP5_PP_SYNC_CONFIG_HEIGHT(pp_id), (2 * mode->vtotal));
->  	mdp5_write(mdp5_kms,
->  		REG_MDP5_PP_VSYNC_INIT_VAL(pp_id), mode->vdisplay);
->  	mdp5_write(mdp5_kms, REG_MDP5_PP_RD_PTR_IRQ(pp_id), mode->vdisplay + 
-> 1);
+
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
