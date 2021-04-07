@@ -2,62 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6788E356FA9
-	for <lists+freedreno@lfdr.de>; Wed,  7 Apr 2021 17:02:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46C4D357390
+	for <lists+freedreno@lfdr.de>; Wed,  7 Apr 2021 19:52:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 105986E93C;
-	Wed,  7 Apr 2021 15:02:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0189C6E134;
+	Wed,  7 Apr 2021 17:51:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [IPv6:2a00:1450:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 317A26E93A
- for <freedreno@lists.freedesktop.org>; Wed,  7 Apr 2021 15:02:06 +0000 (UTC)
-Received: by mail-lj1-x230.google.com with SMTP id c6so19611111lji.8
- for <freedreno@lists.freedesktop.org>; Wed, 07 Apr 2021 08:02:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=UReEYo213vcg++rM9BnCxXvPAz9Gqu2yc6+O99aZXpU=;
- b=t9yU4v5QFQrksboxmgqw9CMDc3UhgK8w4UHj6YAEjjuUlA3SO4xhp+ykJv0YgaITyz
- 3Pdf3NFCMzVvv0eypJIvSgnU+2f2n3Cq56lpUguxIW/KX92KPBXyQUDjViBk1wYvLklj
- syAqMQK2rL79Ln/PLRrMFDLbMHGjMiNxJfhN2NeRyIWdgkFtReSHJmGsRg1F2ZNHXdgz
- Lh9BkKyAD40vLGzi3lWY+kpDHuOxxg9n33ACAimjJTsat3A0eniO7TV8ZcQ4IKb+R5dK
- Jyhzp/oN7XKwI4oyByu6BUEbiEOaECCXcLTTlNzIcDxMuSagrGUzNhSFIC29gX9sHplk
- vxXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=UReEYo213vcg++rM9BnCxXvPAz9Gqu2yc6+O99aZXpU=;
- b=to6ykLs52YzmlJQ00TFRkXpOGhhh78KLFirMnosMsUZmGEMrYdqc/XKdYy+qR3kSHi
- fk0rCJ9jv76Ios3+XqW7zSoY0A8uPKnVsTvoh7BS2nEBv2ZuEPY6HTSH2ZvdcE2mx7jL
- +K7NVzPxApXud/l8zmXFXOAwdaNwzJMFJLKMamdhtELonBEenlndy0i3t+uU9YfFzvRb
- r6xXsceTEhCdwIG1BKMXR+8lPn7NdTF/vtFwsB5k7RhU3AtA8wLtvvGHlGI48zPajUlt
- 7lRdXLVkeekOYOmH5GcIrIBdaF9AefrwRISAUcFXuwd2v/XXmvgoWnq9v2RgmJr+ViWn
- uYzA==
-X-Gm-Message-State: AOAM533NnQJTlXDO7lOME11t40Y/9f5UrY2OTMwDkrg+QQz+chrq5lvE
- JwyHAQnp1COEUoai6f0GBunR0XeXa+SFcw==
-X-Google-Smtp-Source: ABdhPJxSlyf28SdfZfzsSLBQwJ0rK4f8aI77/+PnV7y9HKV9YtL3A4USpqOmNrcRfil2GQu8M9xpyw==
-X-Received: by 2002:a2e:a60a:: with SMTP id v10mr2479817ljp.267.1617807724545; 
- Wed, 07 Apr 2021 08:02:04 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id o11sm2552142ljg.42.2021.04.07.08.02.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Apr 2021 08:02:04 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Andy Gross <agross@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Rob Herring <robh+dt@kernel.org>
-Date: Wed,  7 Apr 2021 18:01:57 +0300
-Message-Id: <20210407150157.801210-5-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210407150157.801210-1-dmitry.baryshkov@linaro.org>
-References: <20210407150157.801210-1-dmitry.baryshkov@linaro.org>
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EF136E139
+ for <freedreno@lists.freedesktop.org>; Wed,  7 Apr 2021 17:51:57 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1617817917; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=YrQgPTfY48iGzzVhb/GjqH7aT+xdZHhGl9cpqh8bNVU=;
+ b=aMe9JhEng0yf0m5i5+G71KtgYBusgx8vZT85u2jb0zqMv7QnHeQXySXenU3NxepHzatVnzP3
+ MUbDKB0Z0AmP5aIzrhBOF3oBdMSYDcyYshvaNGIY895vy4/0w5nA8DdabtDyHxJ3szM4a1aL
+ lpzpc7M9fOq1SZMtLYNoNBraBDA=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
+ 606df13c8166b7eff730beeb (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 07 Apr 2021 17:51:56
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 88C10C433CA; Wed,  7 Apr 2021 17:51:55 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 706A9C433ED;
+ Wed,  7 Apr 2021 17:51:54 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v2 4/4] arm64: dts: sm8250: move bus clock to
- mdp node for sm8250 target
+Date: Wed, 07 Apr 2021 10:51:54 -0700
+From: abhinavk@codeaurora.org
+To: Zhen Lei <thunder.leizhen@huawei.com>
+In-Reply-To: <20210407082315.2703-1-thunder.leizhen@huawei.com>
+References: <20210407082315.2703-1-thunder.leizhen@huawei.com>
+Message-ID: <38969a7640a5067a714fc87fb5aa7d3a@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH 1/1] drm/msm/dp: remove unused local
+ variable 'hpd'
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,48 +63,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Jonathan Marek <jonathan@marek.ca>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Move the bus clock to mdp device node,in order to facilitate bus band
-width scaling on sm8250 target.
-
-The parent device MDSS will not vote for bus bw, instead the vote will
-be triggered by mdp device node. Since a minimum vote is required to
-turn on bus clock, move the clock node to mdp device from where the
-votes are requested.
-
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- arch/arm64/boot/dts/qcom/sm8250.dtsi | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-index 394973e778f7..60fe2eaf06c5 100644
---- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-@@ -2294,10 +2294,9 @@ mdss: mdss@ae00000 {
- 			power-domains = <&dispcc MDSS_GDSC>;
- 
- 			clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
--				 <&gcc GCC_DISP_HF_AXI_CLK>,
- 				 <&gcc GCC_DISP_SF_AXI_CLK>,
- 				 <&dispcc DISP_CC_MDSS_MDP_CLK>;
--			clock-names = "iface", "bus", "nrt_bus", "core";
-+			clock-names = "iface", "nrt_bus", "core";
- 
- 			assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>;
- 			assigned-clock-rates = <460000000>;
--- 
-2.30.2
-
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+T24gMjAyMS0wNC0wNyAwMToyMywgWmhlbiBMZWkgd3JvdGU6Cj4gRml4ZXMgdGhlIGZvbGxvd2lu
+ZyBXPTEga2VybmVsIGJ1aWxkIHdhcm5pbmc6Cj4gCj4gZHJpdmVycy9ncHUvZHJtL21zbS9kcC9k
+cF9kaXNwbGF5LmM6IEluIGZ1bmN0aW9uCj4g4oCYZHBfZGlzcGxheV91c2JwZF9hdHRlbnRpb25f
+Y2LigJk6Cj4gZHJpdmVycy9ncHUvZHJtL21zbS9kcC9kcF9kaXNwbGF5LmM6NDk2OjE5OiB3YXJu
+aW5nOiB2YXJpYWJsZSDigJhocGTigJkKPiBzZXQgYnV0IG5vdCB1c2VkIFstV3VudXNlZC1idXQt
+c2V0LXZhcmlhYmxlXQo+IAo+IEZpeGVzOiBjNThlYjFiNTRmZWUgKCJkcm0vbXNtL2RwOiBmaXgg
+Y29ubmVjdC9kaXNjb25uZWN0IGhhbmRsZWQgYXQgCj4gaXJxX2hwZCIpCj4gUmVwb3J0ZWQtYnk6
+IEh1bGsgUm9ib3QgPGh1bGtjaUBodWF3ZWkuY29tPgo+IFNpZ25lZC1vZmYtYnk6IFpoZW4gTGVp
+IDx0aHVuZGVyLmxlaXpoZW5AaHVhd2VpLmNvbT4KUmV2aWV3ZWQtYnk6IEFiaGluYXYgS3VtYXIg
+PGFiaGluYXZrQGNvZGVhdXJvcmEub3JnPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vbXNtL2Rw
+L2RwX2Rpc3BsYXkuYyB8IDMgLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAzIGRlbGV0aW9ucygtKQo+
+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbXNtL2RwL2RwX2Rpc3BsYXkuYwo+IGIv
+ZHJpdmVycy9ncHUvZHJtL21zbS9kcC9kcF9kaXNwbGF5LmMKPiBpbmRleCA1YTM5ZGE2ZTFlYWYy
+NzcuLjMxYmYyYTQwYTllYjJjOSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rw
+L2RwX2Rpc3BsYXkuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vZHAvZHBfZGlzcGxheS5j
+Cj4gQEAgLTQ5Myw3ICs0OTMsNiBAQCBzdGF0aWMgaW50IGRwX2Rpc3BsYXlfdXNicGRfYXR0ZW50
+aW9uX2NiKHN0cnVjdCAKPiBkZXZpY2UgKmRldikKPiAgCWludCByYyA9IDA7Cj4gIAl1MzIgc2lu
+a19yZXF1ZXN0Owo+ICAJc3RydWN0IGRwX2Rpc3BsYXlfcHJpdmF0ZSAqZHA7Cj4gLQlzdHJ1Y3Qg
+ZHBfdXNicGQgKmhwZDsKPiAKPiAgCWlmICghZGV2KSB7Cj4gIAkJRFJNX0VSUk9SKCJpbnZhbGlk
+IGRldlxuIik7Cj4gQEAgLTUwNyw4ICs1MDYsNiBAQCBzdGF0aWMgaW50IGRwX2Rpc3BsYXlfdXNi
+cGRfYXR0ZW50aW9uX2NiKHN0cnVjdCAKPiBkZXZpY2UgKmRldikKPiAgCQlyZXR1cm4gLUVOT0RF
+VjsKPiAgCX0KPiAKPiAtCWhwZCA9IGRwLT51c2JwZDsKPiAtCj4gIAkvKiBjaGVjayBmb3IgYW55
+IHRlc3QgcmVxdWVzdCBpc3N1ZWQgYnkgc2luayAqLwo+ICAJcmMgPSBkcF9saW5rX3Byb2Nlc3Nf
+cmVxdWVzdChkcC0+bGluayk7Cj4gIAlpZiAoIXJjKSB7Cl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJlZWRyZW5v
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2ZyZWVkcmVubwo=
