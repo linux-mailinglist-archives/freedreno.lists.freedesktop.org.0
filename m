@@ -1,52 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBDA5356E1D
-	for <lists+freedreno@lfdr.de>; Wed,  7 Apr 2021 16:05:11 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 85CC0356FA0
+	for <lists+freedreno@lfdr.de>; Wed,  7 Apr 2021 17:02:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 871A56E917;
-	Wed,  7 Apr 2021 14:05:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BB7C6E939;
+	Wed,  7 Apr 2021 15:02:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x72f.google.com (mail-qk1-x72f.google.com
- [IPv6:2607:f8b0:4864:20::72f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBB9B6E906
- for <freedreno@lists.freedesktop.org>; Wed,  7 Apr 2021 11:37:38 +0000 (UTC)
-Received: by mail-qk1-x72f.google.com with SMTP id 7so18227381qka.7
- for <freedreno@lists.freedesktop.org>; Wed, 07 Apr 2021 04:37:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=0x0f.com; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=IW3oRRx99M57CpJG31OJ6s9cRTtaL0D26Vt6HdVUzpk=;
- b=oopYu+YQ42DBdZzN3yOYVkLE34+WNijKBfVjcKw6QPwW/mRKOs2n2G4L1YfBrga8cx
- 220R9uTBCCRVSD1cy6bDEd7gA1lnF9TD+T4FpdSH5e6pDE7WFLCti3vaDYFyC2SgaM9z
- dzLQKaRLpCgPt311J8OYBUcFJAbeRxPMkE31g=
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3836D6E935
+ for <freedreno@lists.freedesktop.org>; Wed,  7 Apr 2021 15:02:03 +0000 (UTC)
+Received: by mail-lf1-x12b.google.com with SMTP id b14so29008950lfv.8
+ for <freedreno@lists.freedesktop.org>; Wed, 07 Apr 2021 08:02:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/LBtCivT8RjVxvsmi0WxRFn8L0eyOzWjgUYimtMST2k=;
+ b=SYjfGs/hCTzsdJPGSZT5lbyFGm+CbUsITCHHvnZz+buGVcvltB/e9AmsHLQc6C+6rt
+ i7V7OT2Vy8LXGem+BJHUY5d6WlWH5h4D2Uc6EuoDZ3SspKAX59VQWr+mCU7lDK8AB72w
+ IUIs3orUjIyDMNsxjkJMawuPzsciI2ApBJ0nSDzNm6DIPxmO9vZc9h48KjuEMeRVBMvQ
+ 5JKhyKAFaGrb9UTFxa+lZRCDIK9sU4+k+wbvjJQnKf+GMam18pXsHeUv4YtFiETbSE4E
+ 8psB3UN9MD05kvQBaE0QxJIM8RG4wLX0w3closJNtrhDgsjFWaYVoSUmCJU2o8ya0Vdl
+ 0IjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=IW3oRRx99M57CpJG31OJ6s9cRTtaL0D26Vt6HdVUzpk=;
- b=BwTIKc+wKvY5kdrM3iYSii02bknaFwAQNIdl0HplLBPMWUL4tGRXX2y7woeJreUOTn
- jtrXoF2Y52DRg/oqPKZDUaOVE6t+IE/mFeV0YzA/MnCYe47h1OhhVR0aSVyy0cOu/qRy
- V8fvhjLjk6KXUTNnctm2LSPkZId/3n/3mCq3FW0uEiBQFJvpFkE8ON856kbvWmcAhTzK
- f9nrGg6G86pQIzJEE3gQX0bgE+cwCWX2fSjOt4byD9FACdVmyQDPsfxxdFGTej0IG1It
- eesBVcjd5iENNR4iNgTKvxC+jYV+AdcTmMyPy9lo/jJEZfcXaiP/dJO1Y7gJbafhsq3i
- 6p1g==
-X-Gm-Message-State: AOAM5333lap0jZgkuHJ8jGWprbr9Od09xggXJX/eHYl5u2hEjFKJBSBe
- SVy5+443eBZyrEPkMaNsbv1rCUabUIq6HcWD/41wTg==
-X-Google-Smtp-Source: ABdhPJyA5Hg5hcZK/lrBzsOg/7n5zpjnXNILiWuDcgO2g8kFHFN6fUKV9nWalWac9N9CBudJ/zH0+3dvbyRGFrd6m4Q=
-X-Received: by 2002:ae9:f70a:: with SMTP id s10mr2714172qkg.468.1617795457907; 
- Wed, 07 Apr 2021 04:37:37 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/LBtCivT8RjVxvsmi0WxRFn8L0eyOzWjgUYimtMST2k=;
+ b=fWtieD/g7FvkUdWL4R+Ov2fpsfOFG+zxuYOFQO55wNcDCui8uraWhsNlpQs6XT4I0i
+ qx9oceGD6MbmONy6WNKm/089Xxt7GMhWdQrJZl1z1zcRJoQuIyFTpZC3ouDnPpPBnJQ7
+ 3+2lTZO5KpHX3nLc+FS7KC6vgI+F/lt0TPl5WGryi6P4g+dLfeMxYNuWoKf2rXNjiQwt
+ b9EtjiY4SLVe5olrdnbiQ15nKgYRRBjOxpYnv/AuJXsYzh+3IAwJVH75UF2lXe/3rCOw
+ dWlKxqXOReoHhfowgvDolpxHSKPTFxqTPAyeWTOtCpOMyELzfInHsPS+8W06n2k3OV2A
+ Y2kQ==
+X-Gm-Message-State: AOAM530S27iyOLuBzgCtfIFDtUStZ1DELPp3DP0Cnyz/spgnclVxRtqa
+ 57y7xkAYWxRw3j2UJOk8Nz0hwA==
+X-Google-Smtp-Source: ABdhPJykHSWWklYcE1eNJZmtmV9MVnhC03A+eepjyV3mrjNDR/ybJhP6m7UIxJqF3QhM4rq7fON97g==
+X-Received: by 2002:ac2:599c:: with SMTP id w28mr2652623lfn.381.1617807721313; 
+ Wed, 07 Apr 2021 08:02:01 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id o11sm2552142ljg.42.2021.04.07.08.02.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 07 Apr 2021 08:02:00 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Rob Herring <robh+dt@kernel.org>
+Date: Wed,  7 Apr 2021 18:01:53 +0300
+Message-Id: <20210407150157.801210-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-References: <20210406230606.3007138-1-dmitry.baryshkov@linaro.org>
-In-Reply-To: <20210406230606.3007138-1-dmitry.baryshkov@linaro.org>
-From: Daniel Palmer <daniel@0x0f.com>
-Date: Wed, 7 Apr 2021 20:38:56 +0900
-Message-ID: <CAFr9PXm9oStJ4oKNaGCGi9sXBTc-6iDZJZTWvumWHiFwwcRPnQ@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-X-Mailman-Approved-At: Wed, 07 Apr 2021 14:05:09 +0000
-Subject: Re: [Freedreno] [PATCH] clk: fixed: fix double free in resource
- managed fixed-factor clock
+Subject: [Freedreno] [PATCH v2 0/4] drm/msm/dpu: always use mdp device to
+ scale bandwidth
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,35 +68,24 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Stephen Boyd <sboyd@kernel.org>,
- linux-arm-msm@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Andy Gross <agross@kernel.org>, freedreno@lists.freedesktop.org,
- linux-clk <linux-clk@vger.kernel.org>
+Cc: devicetree@vger.kernel.org, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
+Currently DPU driver scales bandwidth and core clock for sc7180 only,
+while the rest of chips get static bandwidth votes. Make all chipsets
+scale bandwidth and clock per composition requirements like sc7180 does.
+Drop old voting path completely.
 
-On Wed, 7 Apr 2021 at 08:06, Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> devm_clk_hw_register_fixed_factor_release(), the release function for
-> the devm_clk_hw_register_fixed_factor(), calls
-> clk_hw_unregister_fixed_factor(), which will kfree() the clock. However
-> after that the devres functions will also kfree the allocated data,
-> resulting in double free/memory corruption. Just call
-> clk_hw_unregister() instead, leaving kfree() to devres code.
+Changes since v1:
+ - Add dts changes as requested by Kalyan Thota
 
-Doh.
-Sorry for not spotting this when I wrote the patch.
-Thank you for cleaning up after me.
 
-Cheers,
-
-Daniel
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
