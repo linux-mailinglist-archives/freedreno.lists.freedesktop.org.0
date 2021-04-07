@@ -1,64 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DFF7356FA7
-	for <lists+freedreno@lfdr.de>; Wed,  7 Apr 2021 17:02:12 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6788E356FA9
+	for <lists+freedreno@lfdr.de>; Wed,  7 Apr 2021 17:02:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7306C6E93A;
-	Wed,  7 Apr 2021 15:02:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 105986E93C;
+	Wed,  7 Apr 2021 15:02:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 665AC6E938
- for <freedreno@lists.freedesktop.org>; Wed,  7 Apr 2021 15:02:05 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id v140so11253469lfa.4
- for <freedreno@lists.freedesktop.org>; Wed, 07 Apr 2021 08:02:05 -0700 (PDT)
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 317A26E93A
+ for <freedreno@lists.freedesktop.org>; Wed,  7 Apr 2021 15:02:06 +0000 (UTC)
+Received: by mail-lj1-x230.google.com with SMTP id c6so19611111lji.8
+ for <freedreno@lists.freedesktop.org>; Wed, 07 Apr 2021 08:02:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=oQHU6JVtwNTebM12E9MrwsK4Nn8euAbOyGr3erk+v5o=;
- b=XUUM4YOyI1XzFTGGfqTr9vUu2wDf+IMIjn6pjjjgMzpX7PDK4Zq26m/d1d94d981UQ
- ySU/lmOMxGiOIE1uZH8UWJUAxdqu9jVNiyUx799SPCDeBb63ksU89PEJDMKOLmkb7E59
- R9jqdvu1fcEye4vX3FrmoHuSwIHdpLbM/EJYBLfu4INCMTkbYOKYRDTXisY7xeuQYrvX
- w5U+uGA27sW847fg1SqpjEDgFZ7cCZ7ddrp9AXpNX1CpWRqyzjL5E8tgMGFrfAynwGBt
- wueqrtt2eDP/eq49yWXpDzqCfgnvNitu7dtzoQ2OLyinW652jiFgZZNz4nWmyf5+qwU8
- c1ow==
+ bh=UReEYo213vcg++rM9BnCxXvPAz9Gqu2yc6+O99aZXpU=;
+ b=t9yU4v5QFQrksboxmgqw9CMDc3UhgK8w4UHj6YAEjjuUlA3SO4xhp+ykJv0YgaITyz
+ 3Pdf3NFCMzVvv0eypJIvSgnU+2f2n3Cq56lpUguxIW/KX92KPBXyQUDjViBk1wYvLklj
+ syAqMQK2rL79Ln/PLRrMFDLbMHGjMiNxJfhN2NeRyIWdgkFtReSHJmGsRg1F2ZNHXdgz
+ Lh9BkKyAD40vLGzi3lWY+kpDHuOxxg9n33ACAimjJTsat3A0eniO7TV8ZcQ4IKb+R5dK
+ Jyhzp/oN7XKwI4oyByu6BUEbiEOaECCXcLTTlNzIcDxMuSagrGUzNhSFIC29gX9sHplk
+ vxXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=oQHU6JVtwNTebM12E9MrwsK4Nn8euAbOyGr3erk+v5o=;
- b=bb9yE9eT8qJGUB9K0yWLLUQiH2M1ujWr8fYWDlj2cT07B9Ix6aMPpin+ysC6pbBPf7
- 45SfW0aCqAdlfWb2ABGN/xgdK9rB80CsieF0FDLu1ciJevcd0nK7UmjubwQYqpzF9lWp
- 90LqGrIIAj3cMeqHUxccxHHtuZWGcI5tFP1FTpkOh3wWGcKgok46wLosTiVcSpgvpeK4
- 1fv5KejwdnaRO2f/OLCU6ahM2RHxB1IOOhnrc/OYB+CIMW4ajdFSXCeoq8HdQLCUDMZ0
- A2Ga138N9dFeS5M+2h9lF4TeMThx72YTnwTgwLGBrWq5nST47lVIS0MPbrmaO5xsHyJz
- baEA==
-X-Gm-Message-State: AOAM530NiODpJhh4S9CNhvrW3C3+4CHIxPMZ6Fw+dfOPWUs50NQnrp+z
- GBpNLoNO+AzLNMKb51OmfdbcMw==
-X-Google-Smtp-Source: ABdhPJzwai1Ce3UJfMgUpbo47kQ3ESVbnzMTEChFlScgebRxFPt4GLqvV8oJ8ymGDEQrsU/DBfv12Q==
-X-Received: by 2002:a05:6512:21a:: with SMTP id
- a26mr2880860lfo.507.1617807723775; 
- Wed, 07 Apr 2021 08:02:03 -0700 (PDT)
+ bh=UReEYo213vcg++rM9BnCxXvPAz9Gqu2yc6+O99aZXpU=;
+ b=to6ykLs52YzmlJQ00TFRkXpOGhhh78KLFirMnosMsUZmGEMrYdqc/XKdYy+qR3kSHi
+ fk0rCJ9jv76Ios3+XqW7zSoY0A8uPKnVsTvoh7BS2nEBv2ZuEPY6HTSH2ZvdcE2mx7jL
+ +K7NVzPxApXud/l8zmXFXOAwdaNwzJMFJLKMamdhtELonBEenlndy0i3t+uU9YfFzvRb
+ r6xXsceTEhCdwIG1BKMXR+8lPn7NdTF/vtFwsB5k7RhU3AtA8wLtvvGHlGI48zPajUlt
+ 7lRdXLVkeekOYOmH5GcIrIBdaF9AefrwRISAUcFXuwd2v/XXmvgoWnq9v2RgmJr+ViWn
+ uYzA==
+X-Gm-Message-State: AOAM533NnQJTlXDO7lOME11t40Y/9f5UrY2OTMwDkrg+QQz+chrq5lvE
+ JwyHAQnp1COEUoai6f0GBunR0XeXa+SFcw==
+X-Google-Smtp-Source: ABdhPJxSlyf28SdfZfzsSLBQwJ0rK4f8aI77/+PnV7y9HKV9YtL3A4USpqOmNrcRfil2GQu8M9xpyw==
+X-Received: by 2002:a2e:a60a:: with SMTP id v10mr2479817ljp.267.1617807724545; 
+ Wed, 07 Apr 2021 08:02:04 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id o11sm2552142ljg.42.2021.04.07.08.02.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Apr 2021 08:02:03 -0700 (PDT)
+ Wed, 07 Apr 2021 08:02:04 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Rob Herring <robh+dt@kernel.org>
-Date: Wed,  7 Apr 2021 18:01:56 +0300
-Message-Id: <20210407150157.801210-4-dmitry.baryshkov@linaro.org>
+Date: Wed,  7 Apr 2021 18:01:57 +0300
+Message-Id: <20210407150157.801210-5-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210407150157.801210-1-dmitry.baryshkov@linaro.org>
 References: <20210407150157.801210-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v2 3/4] arm64: dts: sdm845: move bus clock to
- mdp node for sdm845 target
+Subject: [Freedreno] [PATCH v2 4/4] arm64: dts: sm8250: move bus clock to
+ mdp node for sm8250 target
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,7 +80,7 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 Move the bus clock to mdp device node,in order to facilitate bus band
-width scaling on sdm845 target.
+width scaling on sm8250 target.
 
 The parent device MDSS will not vote for bus bw, instead the vote will
 be triggered by mdp device node. Since a minimum vote is required to
@@ -90,39 +89,25 @@ votes are requested.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- arch/arm64/boot/dts/qcom/sdm845.dtsi | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ arch/arm64/boot/dts/qcom/sm8250.dtsi | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-index 7395ef20b90e..55704804c2ca 100644
---- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-@@ -4136,9 +4136,8 @@ mdss: mdss@ae00000 {
+diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+index 394973e778f7..60fe2eaf06c5 100644
+--- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+@@ -2294,10 +2294,9 @@ mdss: mdss@ae00000 {
  			power-domains = <&dispcc MDSS_GDSC>;
  
- 			clocks = <&gcc GCC_DISP_AHB_CLK>,
--				 <&gcc GCC_DISP_AXI_CLK>,
+ 			clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
+-				 <&gcc GCC_DISP_HF_AXI_CLK>,
+ 				 <&gcc GCC_DISP_SF_AXI_CLK>,
  				 <&dispcc DISP_CC_MDSS_MDP_CLK>;
--			clock-names = "iface", "bus", "core";
-+			clock-names = "iface", "core";
+-			clock-names = "iface", "bus", "nrt_bus", "core";
++			clock-names = "iface", "nrt_bus", "core";
  
  			assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>;
- 			assigned-clock-rates = <300000000>;
-@@ -4166,11 +4165,12 @@ mdss_mdp: mdp@ae01000 {
- 				      <0 0x0aeb0000 0 0x2008>;
- 				reg-names = "mdp", "vbif";
- 
--				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+				clocks = <&gcc GCC_DISP_AXI_CLK>,
-+					 <&dispcc DISP_CC_MDSS_AHB_CLK>,
- 					 <&dispcc DISP_CC_MDSS_AXI_CLK>,
- 					 <&dispcc DISP_CC_MDSS_MDP_CLK>,
- 					 <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
--				clock-names = "iface", "bus", "core", "vsync";
-+				clock-names = "gcc-bus", "iface", "bus", "core", "vsync";
- 
- 				assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>,
- 						  <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
+ 			assigned-clock-rates = <460000000>;
 -- 
 2.30.2
 
