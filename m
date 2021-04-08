@@ -2,63 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58D1F358175
-	for <lists+freedreno@lfdr.de>; Thu,  8 Apr 2021 13:15:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EAE5358484
+	for <lists+freedreno@lfdr.de>; Thu,  8 Apr 2021 15:20:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AE236EA8E;
-	Thu,  8 Apr 2021 11:15:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15F1E6EAD6;
+	Thu,  8 Apr 2021 13:20:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C56576EA8E
- for <freedreno@lists.freedesktop.org>; Thu,  8 Apr 2021 11:15:31 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id f12so1737421wro.0
- for <freedreno@lists.freedesktop.org>; Thu, 08 Apr 2021 04:15:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=AcAFUqp6UAoctTPigHac0GLdbrDMBzvgfm1w3MAPCVc=;
- b=gGVo0KdtGQFzn+gxvhAI7/mbF2A4l4VfZBwtPQU6K9eV3ca1vm5pLoji6HAfVncZrs
- 1LLFVDeqlQleRFCHV19mRzY0GQCTbs4IrhypdEy/VGbI001vRiAYAJ/jqzBOz251K1Zl
- 4PeICtkXuYO/XR2Hil7Uer17XqYYN7+RcIUEM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=AcAFUqp6UAoctTPigHac0GLdbrDMBzvgfm1w3MAPCVc=;
- b=fTrCbccgUqe92YKV7JajrbRunUMPMY1KhoWDSILks9vW8zOcRSqkkZRx/g59k5laO6
- 6dNhTsbzgMYJy3+aPzrvd3w/WBo+6dnUMnahTrDyvoK+YTsWZtJcL0GfduDmvhrG3At3
- u4KhGnMeTT/wUp+O39yCWq2Rb51GU0yzMAORCSev3+tvjm4WrmxGLrXd2PwjRKBDyU0v
- 2YVQy+H8rMp6kqwKR7twDPP0GSSIlQQVGBFv8FAEk+Bl7wu46oYvgN0Nf+sG6lmymxv4
- /P531ML8rwpSCYaK4F5M0CVr5rSRTrMpN1DmqZWbglgvjV7tlvzmR0QoN/J1asrD1517
- qqsA==
-X-Gm-Message-State: AOAM533Ako9nTtKP+CtnstCM7fZM09UAoBPPflTjZXsjRZ9mRXZdorIZ
- bKriQWkSNJc7q4e2CrRjll/cnw==
-X-Google-Smtp-Source: ABdhPJxsrvJEP26+VkzvzCqzDNRxmHcvrkr2wjLdHOCmOy+nZZfHQ5wDk3KDW5f115ZZy75z4/ZORA==
-X-Received: by 2002:a5d:4f0e:: with SMTP id c14mr10713632wru.0.1617880530387; 
- Thu, 08 Apr 2021 04:15:30 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id o2sm18376833wry.4.2021.04.08.04.15.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Apr 2021 04:15:29 -0700 (PDT)
-Date: Thu, 8 Apr 2021 13:15:28 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <YG7l0LwVQ2s4Y0Sa@phenom.ffwll.local>
-Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>
-References: <20210405174532.1441497-1-robdclark@gmail.com>
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EE836EAD6;
+ Thu,  8 Apr 2021 13:20:55 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id D1EF85C005F;
+ Thu,  8 Apr 2021 09:20:52 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute6.internal (MEProxy); Thu, 08 Apr 2021 09:20:52 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm2; bh=0TFilmNYZpoCo33PfFme0OURG/N
+ +KN8UabeU9/+7fdE=; b=JI112mzVaWEoeArZuX4uv8DdTh+sQPcUOq4mlocAiB/
+ ywSiPJ0t7dU2uJgt8zuV1L0fK1AaUdLW8RrKIh06LkW7GGjazlogqsflLXkuxSQz
+ AtxUtF5UbTvSbHnL8uMxQpOwM/IUTmI7qL6QvCR/ZsURBUBtrk7GrwO1aLIFbxWd
+ 8+m0wzek0sslQq/6PkVfFhguE1aRqP/WTsIisZ2BauUadj7BhNcv47TxcRdWSpVv
+ DibfZjJkWf9PqEyIwqgWUKw9lKPsgHSyCiAHF9A5rnF99ghcNJmSdUCl1bZ/zv2Z
+ IP8gR8JtDvbJKh+frZz/pJnVBz6GZrxtTXJrggIhzEg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=0TFilm
+ NYZpoCo33PfFme0OURG/N+KN8UabeU9/+7fdE=; b=X2mwxHCRyQhp861nPzs3aS
+ DUdsLY8C/9Up5AJn3IyXAnEmbPJgbIoSF9go/Aqh+0zPvMNWiYPx/fEZaC0MPN+a
+ 9WSNvyA1yDMR5JUwf4fQ5ELoAq60fvu3aUh5FJYhJm48bWF/NDbGnSd3zyDuB+cn
+ tFcqYdSZHDtaBPp2h3TrJDBVAkLL2S6WjPxTnCCySIAfRoz7XdpikePk3drRkD6x
+ pF7ApzTfCJRU3+xBNq5RfgY2gNycYc/XFz4t+aYw3jedlGJukQmkZ1MdsdczyLFx
+ 6fR3Mx1tCszPM9yqze2pYeqwFePb7brGKMIFi2RYGNqI3ETzrFd7BJGd55VRM2Kw
+ ==
+X-ME-Sender: <xms:MgNvYKMy6xq-oR3mEs4Im60uA9ibWOSM9UUx9zAZjWuOKRRjgWZvaA>
+ <xme:MgNvYI8d3RXB_b1Uk3NDIgJvqaundobV9yPFGucuP7akeO_BURR65QV1ecRnEYSYT
+ CXCj4mMBekIJcwRS1Y>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudejledgieehucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
+ vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
+ htvghrnhepleekgeehhfdutdeljefgleejffehfffgieejhffgueefhfdtveetgeehieeh
+ gedunecukfhppeeltddrkeelrdeikedrjeeinecuvehluhhsthgvrhfuihiivgeptdenuc
+ frrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:MgNvYBRo6DBc9fCN0qO8R9yPwaDArtYRtz_LbrLq2m9Nu2ezhcyBwA>
+ <xmx:MgNvYKu0yS-Zcep9szdpZZnwn-pydYYnuEm0gz00Kf0ZnLjJMSQ-ZQ>
+ <xmx:MgNvYCdTG6XDbAJ5AF3BOzJte0uiy6vMwEo4_nAjextLlpOafU-_pw>
+ <xmx:NANvYKSGZmk2OGsUVx1ahqu2K2zbyshSu5FONd7-borVPyj_Oj-IZQ>
+Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
+ [90.89.68.76])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 9D08224005B;
+ Thu,  8 Apr 2021 09:20:50 -0400 (EDT)
+Date: Thu, 8 Apr 2021 15:20:48 +0200
+From: Maxime Ripard <maxime@cerno.tech>
+To: Stephen Boyd <swboyd@chromium.org>
+Message-ID: <20210408132048.gifhgtkmoeuplhcz@gilmour>
+References: <20210219120032.260676-1-maxime@cerno.tech>
+ <20210219120032.260676-10-maxime@cerno.tech>
+ <161706912161.3012082.17313817257247946143@swboyd.mtv.corp.google.com>
+ <20210330153527.gw33t4o2b35wwzbg@gilmour>
+ <161713057558.2260335.5422873422021430866@swboyd.mtv.corp.google.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210405174532.1441497-1-robdclark@gmail.com>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
-Subject: Re: [Freedreno] [PATCH 0/8] drm/msm: Swappable GEM objects
+In-Reply-To: <161713057558.2260335.5422873422021430866@swboyd.mtv.corp.google.com>
+Subject: Re: [Freedreno] [PATCH v3 10/11] drm: Use state helper instead of
+ the plane state pointer
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,77 +82,86 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Daniel Vetter <daniel.vetter@intel.com>, freedreno@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0260397085=="
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Apr 05, 2021 at 10:45:23AM -0700, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> One would normally hope not to be under enough memory pressure to need
-> to swap GEM objects to disk backed swap.  But memory backed zram swap
-> (as enabled on chromebooks, for example) can actually be quite fast
-> and useful on devices with less RAM.  On a 4GB device, opening up ~4
-> memory intensive web pages (in separate windows rather than tabs, to try
-> and prevent tab discard), I see ~500MB worth of GEM objects, of which
-> maybe only 10% are active at any time, and with unpin/evict enabled,
-> only about half resident (which is a number that gets much lower if you
-> simulate extreme memory pressure).  Assuming a 2:1 compression ratio (I
-> see a bit higher in practice, but cannot isolate swapped out GEM pages
-> vs other), that is like having an extra 100+MB of RAM, or more under
-> higher memory pressure.
-> 
-> Rob Clark (8):
->   drm/msm: ratelimit GEM related WARN_ON()s
->   drm/msm: Reorganize msm_gem_shrinker_scan()
->   drm/msm: Clear msm_obj->sgt in put_pages()
->   drm/msm: Split iova purge and close
->   drm/msm: Add $debugfs/gem stats on resident objects
->   drm/msm: Track potentially evictable objects
->   drm/msm: Small msm_gem_purge() fix
->   drm/msm: Support evicting GEM objects to swap
 
-Given how much entertainement shrinkers are, should we aim for more common
-code here?
+--===============0260397085==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="u3mz6ep45tw3nrcn"
+Content-Disposition: inline
 
-Christian has tons of fun with adding something like this for ttm (well
-different shades of grey). i915 is going to adopt ttm, at least for
-discrete.
 
-The locking is also an utter pain, and msm seems to still live a lot in
-its own land here. I think as much as possible a standard approach here
-would be really good, ideally maybe as building blocks shared between ttm
-and gem-shmem drivers ...
--Daniel
+--u3mz6ep45tw3nrcn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> 
->  drivers/gpu/drm/msm/msm_drv.c          |   2 +-
->  drivers/gpu/drm/msm/msm_drv.h          |  13 ++-
->  drivers/gpu/drm/msm/msm_gem.c          | 155 +++++++++++++++++--------
->  drivers/gpu/drm/msm/msm_gem.h          |  68 +++++++++--
->  drivers/gpu/drm/msm/msm_gem_shrinker.c | 129 ++++++++++++--------
->  drivers/gpu/drm/msm/msm_gpu_trace.h    |  13 +++
->  6 files changed, 272 insertions(+), 108 deletions(-)
-> 
-> -- 
-> 2.30.2
-> 
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+Hi Stephen,
 
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+On Tue, Mar 30, 2021 at 11:56:15AM -0700, Stephen Boyd wrote:
+> Quoting Maxime Ripard (2021-03-30 08:35:27)
+> > Hi Stephen,
+> >=20
+> > On Mon, Mar 29, 2021 at 06:52:01PM -0700, Stephen Boyd wrote:
+> > > Trimming Cc list way down, sorry if that's too much.
+> > >=20
+> > > Quoting Maxime Ripard (2021-02-19 04:00:30)
+> > > > Many drivers reference the plane->state pointer in order to get the
+> > > > current plane state in their atomic_update or atomic_disable hooks,
+> > > > which would be the new plane state in the global atomic state since
+> > > > _swap_state happened when those hooks are run.
+> > >=20
+> > > Does this mean drm_atomic_helper_swap_state()?
+> >=20
+> > Yep. Previous to that call in drm_atomic_helper_commit, plane->state is
+> > the state currently programmed in the hardware, so the old state (that's
+> > the case you have with atomic_check for example)
+> >=20
+> > Once drm_atomic_helper_swap_state has run, plane->state is now the state
+> > that needs to be programmed into the hardware, so the new state.
+>=20
+> Ok, and I suppose that is called by drm_atomic_helper_commit()?
+
+Yep :)
+
+> So presumably a modeset is causing this? I get the NULL pointer around
+> the time we switch from the splash screen to the login screen. I think
+> there's a modeset during that transition.
+
+It's very likely yeah. I really don't get how that pointer could be null
+though :/
+
+Maxime
+
+--u3mz6ep45tw3nrcn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYG8DMAAKCRDj7w1vZxhR
+xY8YAPwM+ZLdEm9/yUl0l3VZZpCUYMChQiPmq+Q6C5PwcRmbbAD/XYf6+RRF3hq1
+do4BnroDx59ckCB5eKNUKMG9v46NUAI=
+=gzYE
+-----END PGP SIGNATURE-----
+
+--u3mz6ep45tw3nrcn--
+
+--===============0260397085==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
+
+--===============0260397085==--
