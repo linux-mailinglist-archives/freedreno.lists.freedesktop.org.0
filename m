@@ -2,60 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6093A358814
-	for <lists+freedreno@lfdr.de>; Thu,  8 Apr 2021 17:20:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E257358D29
+	for <lists+freedreno@lfdr.de>; Thu,  8 Apr 2021 21:01:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94F6F6EB35;
-	Thu,  8 Apr 2021 15:20:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BA966E311;
+	Thu,  8 Apr 2021 19:01:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [IPv6:2a00:1450:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4F6F6EB34;
- Thu,  8 Apr 2021 15:20:15 +0000 (UTC)
-Received: by mail-wm1-x330.google.com with SMTP id a76so1421273wme.0;
- Thu, 08 Apr 2021 08:20:15 -0700 (PDT)
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B2E86E30D;
+ Thu,  8 Apr 2021 19:01:36 +0000 (UTC)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ y124-20020a1c32820000b029010c93864955so3459121wmy.5; 
+ Thu, 08 Apr 2021 12:01:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=v7qcvuTJQnTWwOB3Ha6/Syy7/aYA0Qf/BL1AwDzfuGU=;
- b=e3ZNlpbpavIjcSN8dIxYOE/rXgDXvsXGNe5Ir4myMhVg15nZr9dHEFBzEJZ1RIJEHH
- lFss/0FwJk6YqrYFGwcOwy4wxTXLv5vNP4drLHjRpIEj5c92ZGLzcM/1oJC8Bx2/ctsG
- rxzJ05izioG/KGa1Ww9FJ4SyhfnA3BUCjaQoW6xHxdRDUq1Cfqihsu41kzj1x3DpZxB/
- yVS6yKPyHbUKfUguXhrbdNChUuaTIm8RhsDhMO0YQ2KkmueNSFLJ7ukwaxtOLTg4tily
- /W3vhMYNxmLGBpqInhUPtsU9kvqLmvBW3tARkD4gSP8nzP2i5ZNb79cE+dg0nwu5e0ZA
- m0cA==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=NnWJUfUTIh3u8nCF0Cg0RNwJAmxoBSfV+wR+N8grRfo=;
+ b=gTNG+oUxfB1lBWblc+1iGXKmk8VmCmuOH+3Uo0cG6t+Heun3HuPfTvlLfpDxo8XOMa
+ E4qsgUxu1LqcuAL22yyGc6CDeVxiIwkIyomG7tDCHUMMTMiOel94LNcT80UV2OtRI4n/
+ WZJ3jItW/sJeFyif+4E6M0Ww3H4eLNUoBRtEx3n97YMTfcDvCdpOW0IBPhLZh4RTm46K
+ tJErmbrFJYa4ucx8cvpO7BszlaKED375GDf47CycUqDAh0Rt+3iCl87wtynxBZtlJQBs
+ lcpd58IuxGefRbnhsxUSdusaGabeOfFipuqM+3+YwHaal3LKCqBQ3Z5SXhFMoYBD09Uz
+ 8ZtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=v7qcvuTJQnTWwOB3Ha6/Syy7/aYA0Qf/BL1AwDzfuGU=;
- b=AkGgcKFt9cBvEo4c7+JXNFHGPvZV4w0JHZnO9+wDWatHLaXhzKl65/yhb/qD8MCuOs
- od/2SEi7VKfWFdyntTsd25mIdMP5sKe0dlU77l/RvGs2D8oJz5DMC8yL+/F/0wGIOnuo
- H/AMS6zJnmTYRAWoXKh1RXTXIopoCer2sd+8czQwZWn0EMFmt9lZXnEqCgHW8Bog+aoN
- BH9MFRv0jq0jnItsA21gDwrBUMbg3j/4jyj/PYJbTRmpWPcGqjNi0oMQDAHYSq/jNDnn
- UDC/CbE7ZBJjXi9J0h2ZE81Rr3rWsqZxgXToBUlEdhic4zLFGuY1QEd26OzTNxGSJoXB
- x/2Q==
-X-Gm-Message-State: AOAM531Odk7hFI3t6PnTNFkOKUGQXvOUB+DhFP4DVH1dk+lr+SlmrDv2
- YnvRNpxFHirzW8yLWOqlWgXDMgSX//LUYuYDjng=
-X-Google-Smtp-Source: ABdhPJwnEZiOVu05xL4G7IVf4f04NXBPNtQO9QG4ZKDgpvpOib9wUr5K++bP76nBv0xlgyUACj0JeK94OKvdYJeiSJA=
-X-Received: by 2002:a05:600c:4fd0:: with SMTP id
- o16mr9194147wmq.123.1617895214533; 
- Thu, 08 Apr 2021 08:20:14 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=NnWJUfUTIh3u8nCF0Cg0RNwJAmxoBSfV+wR+N8grRfo=;
+ b=i4vl0vy2KG6AuHzybDaHG8416kLJ87gcG28WJR/h3ZPGkGGk39JEYUuC8GxbNg2Ame
+ BaT4JpE5+eMc+6G7UihqJuZWDyZCVYsUxPnPBp7+3Ic93wGei8BP1t1zvQuDVil/cCgH
+ PNw7cKTU9Y+76AIj2C1qLAx6IcCckL7DbJ/S9v9thCZqIZUcL6oehtBRohjqxlor+LrY
+ a6JpNhwq3xYy4Q5xr43Uk2YVlheO48hK7MWPl8mrVZUuI04lUaMwGsCEzvmc+4qxGFY1
+ lfxo0o/y9TwMADnNCq77RHY93EqB6XIL8W9tfHMtTUnDe7JuD71I7UPnATEiqWkWL7rI
+ I5KQ==
+X-Gm-Message-State: AOAM5328gamj+VbFRzztuKg96llq1Lgj0A2Q8bFlTJeAHGNdxk3R+IRK
+ PaWZiXLg77zNa9NoWDJNcbAEYNXJDl+cBgn4S8FZZmCW5hQ=
+X-Google-Smtp-Source: ABdhPJxzohFyh4w2rfcJerLxwyjcjUnXYdLKatqyj01doNPYuzMekUXFYWQWCFIER5N1pkvQFTNp+IWSSEXSPFTXttQ=
+X-Received: by 2002:a7b:c012:: with SMTP id c18mr8141515wmb.94.1617908494935; 
+ Thu, 08 Apr 2021 12:01:34 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210405174532.1441497-1-robdclark@gmail.com>
- <YG7l0LwVQ2s4Y0Sa@phenom.ffwll.local>
-In-Reply-To: <YG7l0LwVQ2s4Y0Sa@phenom.ffwll.local>
+References: <20210406214726.131534-1-marijn.suijten@somainline.org>
+ <20210406214726.131534-2-marijn.suijten@somainline.org>
+ <6413863d04df9743e2d7e81beff5c3e8@codeaurora.org>
+ <04860f05-f79f-de0b-13d1-aba85065b4da@somainline.org>
+In-Reply-To: <04860f05-f79f-de0b-13d1-aba85065b4da@somainline.org>
 From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 8 Apr 2021 08:23:42 -0700
-Message-ID: <CAF6AEGsH2gbKv-Q04gRbjz=ue1TF7S_6DXa06bvYPcmYvG684w@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>, 
- Rob Clark <robdclark@chromium.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>, 
- Jordan Crouse <jordan@cosmicpenguin.net>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>
-Subject: Re: [Freedreno] [PATCH 0/8] drm/msm: Swappable GEM objects
+Date: Thu, 8 Apr 2021 12:05:02 -0700
+Message-ID: <CAF6AEGuoLgBSZOou1TSb-d2o6tHS-L-E7AQLS5RM4aOogvRG7Q@mail.gmail.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/mdp5: Configure PP_SYNC_HEIGHT
+ to double the vtotal
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,100 +65,120 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: Sean Paul <sean@poorly.run>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Marijn Suijten <marijn.suijten@somainline.org>, phone-devel@vger.kernel.org,
+ freedreno <freedreno@lists.freedesktop.org>,
+ ~postmarketos/upstreaming@lists.sr.ht
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Apr 8, 2021 at 4:15 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+On Wed, Apr 7, 2021 at 12:11 PM AngeloGioacchino Del Regno
+<angelogioacchino.delregno@somainline.org> wrote:
 >
-> On Mon, Apr 05, 2021 at 10:45:23AM -0700, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
+> Il 07/04/21 20:19, abhinavk@codeaurora.org ha scritto:
+> > Hi Marijn
 > >
-> > One would normally hope not to be under enough memory pressure to need
-> > to swap GEM objects to disk backed swap.  But memory backed zram swap
-> > (as enabled on chromebooks, for example) can actually be quite fast
-> > and useful on devices with less RAM.  On a 4GB device, opening up ~4
-> > memory intensive web pages (in separate windows rather than tabs, to try
-> > and prevent tab discard), I see ~500MB worth of GEM objects, of which
-> > maybe only 10% are active at any time, and with unpin/evict enabled,
-> > only about half resident (which is a number that gets much lower if you
-> > simulate extreme memory pressure).  Assuming a 2:1 compression ratio (I
-> > see a bit higher in practice, but cannot isolate swapped out GEM pages
-> > vs other), that is like having an extra 100+MB of RAM, or more under
-> > higher memory pressure.
+> > On 2021-04-06 14:47, Marijn Suijten wrote:
+> >> Leaving this at a close-to-maximum register value 0xFFF0 means it takes
+> >> very long for the MDSS to generate a software vsync interrupt when the
+> >> hardware TE interrupt doesn't arrive.  Configuring this to double the
+> >> vtotal (like some downstream kernels) leads to a frame to take at most
+> >> twice before the vsync signal, until hardware TE comes up.
+> >>
+> >> In this case the hardware interrupt responsible for providing this
+> >> signal - "disp-te" gpio - is not hooked up to the mdp5 vsync/pp logic at
+> >> all.  This solves severe panel update issues observed on at least the
+> >> Xperia Loire and Tone series, until said gpio is properly hooked up to
+> >> an irq.
 > >
-> > Rob Clark (8):
-> >   drm/msm: ratelimit GEM related WARN_ON()s
-> >   drm/msm: Reorganize msm_gem_shrinker_scan()
-> >   drm/msm: Clear msm_obj->sgt in put_pages()
-> >   drm/msm: Split iova purge and close
-> >   drm/msm: Add $debugfs/gem stats on resident objects
-> >   drm/msm: Track potentially evictable objects
-> >   drm/msm: Small msm_gem_purge() fix
-> >   drm/msm: Support evicting GEM objects to swap
+> > The reason the CONFIG_HEIGHT was at such a high value is to make sure that
+> > we always get the TE only from the panel vsync and not false positives
+> > coming
+> > from the tear check logic itself.
+> >
+> > When you say that disp-te gpio is not hooked up, is it something
+> > incorrect with
+> > the schematic OR panel is not generating the TE correctly?
+> >
 >
-> Given how much entertainement shrinkers are, should we aim for more common
-> code here?
+> Sometimes, some panels aren't getting correctly configured by the
+> OEM/ODM in the first place: especially when porting devices from
+> downstream to upstream, developers often get in a situation in which
+> their TE line is either misconfigured or the DriverIC is not configured
+> to raise V-Sync interrupts.
+> Please remember: some DDICs need a "commands sequence" to enable
+> generating the TE interrupts, sometimes this is not standard, and
+> sometimes OEMs/ODMs are not even doing that in their downstream code
+> (but instead they work around it in creative ways "for reasons", even
+> though their DDIC supports indeed sending TE events).
 >
-> Christian has tons of fun with adding something like this for ttm (well
-> different shades of grey). i915 is going to adopt ttm, at least for
-> discrete.
+> This mostly happens when bringing up devices that have autorefresh
+> enabled from the bootloader (when the bootloader sets up the splash
+> screen) by using simple-panel as a (hopefully) temporary solution to get
+> through the initial stages of porting.
 >
-> The locking is also an utter pain, and msm seems to still live a lot in
-> its own land here. I think as much as possible a standard approach here
-> would be really good, ideally maybe as building blocks shared between ttm
-> and gem-shmem drivers ...
+> We are not trying to cover cases related to incorrect schematics or
+> hardware mistakes here, as the fix for that - as you know - is to just
+> fix your hardware.
+> What we're trying to do here is to stop freezes and, in some cases,
+> lockups, other than false positives making the developer go offroad when
+> the platform shows that something is wrong during early porting.
+>
+> Also, sometimes, some DDICs will not generate TE interrupts when
+> expected... in these cases we get a PP timeout and a MDP5 recovery: this
+> is totally avoidable if we rely on the 2*vtotal, as we wouldn't get
+> through the very time consuming task of recovering the entire MDP.
+>
+> Of course, if something is wrong in the MDP and the block really needs
+> recovery, this "trick" won't save anyone and the recovery will anyway be
+> triggered, as the PP-done will anyway timeout.
 
-I don't disagree.. but also replacing the engines on an airplane
-mid-flight isn't a great option either.. ;-)
+So, is this (mostly) a workaround due to TE not wired up?  In which
+case I think it is ok, but maybe should have a comment about the
+interaction with TE?
 
-The hard part (esp. wrt to locking) is tracking the state of a given
-bo.. ie. is it active, active+purgable, inactive+purgable,
-inactive+unpinnable, etc.  Currently the shmem helpers don't really
-provide anything here.  If they did, I suppose they could provide some
-shrinker helpers as well.  Unfortunately these days I barely have
-enough time for drm/msm, let alone bolting this onto the shmem
-helpers.  I would recommend that if someone wanted to do this, that
-they look at recent drm/msm shrinker patches that I've sent (ie. make
-shrinker->count() lockless, and drop the locks in shrinker->scan()
-body.. when the system is under heavy memory pressure, you start
-getting shrinker called from all the threads so contention for mm_lock
-can be a really bad problem)
-
-(Well, the other potential problem is that drm/msm has a lot of
-different possible iommu pairings across the generations, so there is
-some potential here to uncover exciting new bugs.. the locking at
-least is the same for all the generations and pretty easy to test with
-and without lockdep with some tests that push essentially all memory
-into swap)
+Currently I have this patch in msm-next-staging but I guess we need to
+decide in the next day or so whether to drop it or smash in a comment?
 
 BR,
 -R
 
-> -Daniel
+> >>
+> >> Suggested-by: AngeloGioacchino Del Regno
+> >> <angelogioacchino.delregno@somainline.org>
+> >> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> >> Reviewed-by: AngeloGioacchino Del Regno
+> >> <angelogioacchino.delregno@somainline.org>
+> >> ---
+> >>  drivers/gpu/drm/msm/disp/mdp5/mdp5_cmd_encoder.c | 2 +-
+> >>  1 file changed, 1 insertion(+), 1 deletion(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cmd_encoder.c
+> >> b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cmd_encoder.c
+> >> index ff2c1d583c79..2d5ac03dbc17 100644
+> >> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cmd_encoder.c
+> >> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cmd_encoder.c
+> >> @@ -51,7 +51,7 @@ static int pingpong_tearcheck_setup(struct
+> >> drm_encoder *encoder,
+> >>
+> >>      mdp5_write(mdp5_kms, REG_MDP5_PP_SYNC_CONFIG_VSYNC(pp_id), cfg);
+> >>      mdp5_write(mdp5_kms,
+> >> -        REG_MDP5_PP_SYNC_CONFIG_HEIGHT(pp_id), 0xfff0);
+> >> +        REG_MDP5_PP_SYNC_CONFIG_HEIGHT(pp_id), (2 * mode->vtotal));
+> >>      mdp5_write(mdp5_kms,
+> >>          REG_MDP5_PP_VSYNC_INIT_VAL(pp_id), mode->vdisplay);
+> >>      mdp5_write(mdp5_kms, REG_MDP5_PP_RD_PTR_IRQ(pp_id),
+> >> mode->vdisplay + 1);
 >
-> >
-> >  drivers/gpu/drm/msm/msm_drv.c          |   2 +-
-> >  drivers/gpu/drm/msm/msm_drv.h          |  13 ++-
-> >  drivers/gpu/drm/msm/msm_gem.c          | 155 +++++++++++++++++--------
-> >  drivers/gpu/drm/msm/msm_gem.h          |  68 +++++++++--
-> >  drivers/gpu/drm/msm/msm_gem_shrinker.c | 129 ++++++++++++--------
-> >  drivers/gpu/drm/msm/msm_gpu_trace.h    |  13 +++
-> >  6 files changed, 272 insertions(+), 108 deletions(-)
-> >
-> > --
-> > 2.30.2
-> >
-> > _______________________________________________
-> > dri-devel mailing list
-> > dri-devel@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/dri-devel
->
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
