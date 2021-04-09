@@ -2,58 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D59C3590C0
-	for <lists+freedreno@lfdr.de>; Fri,  9 Apr 2021 02:04:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8C983591FA
+	for <lists+freedreno@lfdr.de>; Fri,  9 Apr 2021 04:28:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E6656E364;
-	Fri,  9 Apr 2021 00:04:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1134F6E439;
+	Fri,  9 Apr 2021 02:28:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E151A6E364;
- Fri,  9 Apr 2021 00:04:55 +0000 (UTC)
-Received: by mail-wr1-x436.google.com with SMTP id j5so2876550wrn.4;
- Thu, 08 Apr 2021 17:04:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=chwrUM2TWAanSXapc+0s3HHbpVYNPGMJlPMynyO4MaM=;
- b=szk2C+Y8dkE91pdo9VDP/7HV6fvK7siaj/6cCuWj4tcHjhPN4kfhTtD7jmjp7OvM5T
- 9Jb58E0c7MzRYPJr7CMtogre39WPFU72gkBZbWQaTEGrXJgGCPMxDf5lSgsJc5f62vKp
- MYCguHqb+dSN7vuYfpi0Q/mETAobLbif2QQF2J5C/UXqcn//KqU49kclNjong2JS1bsf
- dgiP1vBAFs6apHS9kuRK8dFcB/iPu5+k4hHV/NCIp7eTSvdL5+fSyWkz5ssyqHPmb83O
- bqUfoJFTLDByNGVMhk2wVSnANly7QXrCCvK7ga2yrNaTMkFMaas35JLDnZay0Ei/ML2v
- BLbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=chwrUM2TWAanSXapc+0s3HHbpVYNPGMJlPMynyO4MaM=;
- b=Ol0JCJOukFxBG8GCDCIBCRUslq+ws3G3M1z1RCf5+loHNlyYLvQ7X2DVRpGjp7f/Tn
- cEkbbwYC8h4RkFO1HPril8T8h52TkINsO++rWo445Yl3eGwfenBwHAk9c1+drcyNaByS
- eap50q9WnyUFf/2th3CcLxVJvMm9CUftACHCdDS4MaX2TCAC4VButocHhgcFZkWzf6hV
- dYukXL1kf41cKbwU+S6YHooloGCX6yn1bTuK3w1+5D0Z8yK7EnPiIsfdWWyDF0ywFpwB
- SnH4erUjsemMqWR2iG7oxOCVci7nvZMvEPOKeWkbsmtxO+TzmEbnOoH01HU8ATRS/hq1
- J7EA==
-X-Gm-Message-State: AOAM530w4ZkRy/03POPjFchXqKgM+MHF4Fe+2LzLcahr1vEIiWA58G98
- wpDvBwoPorIgnmTnbofM/cBI+E4jQM22MbGhF/k=
-X-Google-Smtp-Source: ABdhPJw9laeG7GHSofodaeepxEdFM1PXqK34zDwIWPQ4A7F8StT4xJmlDWNiu0iHq3HkyJwqEPg60Q59sfDkzgys1I0=
-X-Received: by 2002:adf:f108:: with SMTP id r8mr3451876wro.147.1617926694563; 
- Thu, 08 Apr 2021 17:04:54 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210406214726.131534-1-marijn.suijten@somainline.org>
- <20210406214726.131534-2-marijn.suijten@somainline.org>
- <6413863d04df9743e2d7e81beff5c3e8@codeaurora.org>
- <04860f05-f79f-de0b-13d1-aba85065b4da@somainline.org>
- <CAF6AEGuoLgBSZOou1TSb-d2o6tHS-L-E7AQLS5RM4aOogvRG7Q@mail.gmail.com>
- <CAK7fi1aUXy2i8zY0Cb5Svq0s1H9cSAvY4hq+BsiWgdphwm-ebA@mail.gmail.com>
-In-Reply-To: <CAK7fi1aUXy2i8zY0Cb5Svq0s1H9cSAvY4hq+BsiWgdphwm-ebA@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 8 Apr 2021 17:08:23 -0700
-Message-ID: <CAF6AEGuSav210dMHa3+f-7W1Kgyjam7K7HhWFO4aXWbdjvPTLw@mail.gmail.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
-Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/mdp5: Configure PP_SYNC_HEIGHT
- to double the vtotal
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C4676E437
+ for <freedreno@lists.freedesktop.org>; Fri,  9 Apr 2021 02:28:51 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1617935333; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=eC7W0m1KmzQZ5WyLiYa0BIRlhpzjt5ATSFHCAg3dHH8=;
+ b=SQowG2WVHbyKRxOUUYzNvmljPyuXWCLTRMXe1wr9DXxmRMqWU3XtySBnMZvAxtWLrkItE5KC
+ azn+7TrllbknCfu+6DTQIbxsatG2mE1HWhgd8f5Hrf5p9CSA3lirKIvGPpqnzJLMT0cVGrPI
+ LRaPM2P+DaB73C+/RmtpTTYrpXs=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
+ 606fbbdd74f773a66411659a (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 09 Apr 2021 02:28:45
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id AC5BCC433CA; Fri,  9 Apr 2021 02:28:44 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
+Received: from abhinavk-linux.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 6AA2AC433C6;
+ Fri,  9 Apr 2021 02:28:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 6AA2AC433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=abhinavk@codeaurora.org
+From: Abhinav Kumar <abhinavk@codeaurora.org>
+To: dri-devel@lists.freedesktop.org
+Date: Thu,  8 Apr 2021 19:28:34 -0700
+Message-Id: <1617935317-15571-1-git-send-email-abhinavk@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH v3 0/3] Add devcoredump support for DPU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,111 +63,68 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Martin Botka <martin.botka@somainline.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- Marijn Suijten <marijn.suijten@somainline.org>, phone-devel@vger.kernel.org,
- freedreno <freedreno@lists.freedesktop.org>,
- ~postmarketos/upstreaming@lists.sr.ht
+Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
+ swboyd@chromium.org, khsieh@codeaurora.org, robdclark@gmail.com,
+ nganji@codeaurora.org, seanpaul@chromium.org, daniel@ffwll.ch,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Apr 8, 2021 at 4:16 PM AngeloGioacchino Del Regno
-<angelogioacchino.delregno@somainline.org> wrote:
->
->
-> Il gio 8 apr 2021, 21:05 Rob Clark <robdclark@gmail.com> ha scritto:
->>
->> On Wed, Apr 7, 2021 at 12:11 PM AngeloGioacchino Del Regno
->> <angelogioacchino.delregno@somainline.org> wrote:
->> >
->> > Il 07/04/21 20:19, abhinavk@codeaurora.org ha scritto:
->> > > Hi Marijn
->> > >
->> > > On 2021-04-06 14:47, Marijn Suijten wrote:
->> > >> Leaving this at a close-to-maximum register value 0xFFF0 means it takes
->> > >> very long for the MDSS to generate a software vsync interrupt when the
->> > >> hardware TE interrupt doesn't arrive.  Configuring this to double the
->> > >> vtotal (like some downstream kernels) leads to a frame to take at most
->> > >> twice before the vsync signal, until hardware TE comes up.
->> > >>
->> > >> In this case the hardware interrupt responsible for providing this
->> > >> signal - "disp-te" gpio - is not hooked up to the mdp5 vsync/pp logic at
->> > >> all.  This solves severe panel update issues observed on at least the
->> > >> Xperia Loire and Tone series, until said gpio is properly hooked up to
->> > >> an irq.
->> > >
->> > > The reason the CONFIG_HEIGHT was at such a high value is to make sure that
->> > > we always get the TE only from the panel vsync and not false positives
->> > > coming
->> > > from the tear check logic itself.
->> > >
->> > > When you say that disp-te gpio is not hooked up, is it something
->> > > incorrect with
->> > > the schematic OR panel is not generating the TE correctly?
->> > >
->> >
->> > Sometimes, some panels aren't getting correctly configured by the
->> > OEM/ODM in the first place: especially when porting devices from
->> > downstream to upstream, developers often get in a situation in which
->> > their TE line is either misconfigured or the DriverIC is not configured
->> > to raise V-Sync interrupts.
->> > Please remember: some DDICs need a "commands sequence" to enable
->> > generating the TE interrupts, sometimes this is not standard, and
->> > sometimes OEMs/ODMs are not even doing that in their downstream code
->> > (but instead they work around it in creative ways "for reasons", even
->> > though their DDIC supports indeed sending TE events).
->> >
->> > This mostly happens when bringing up devices that have autorefresh
->> > enabled from the bootloader (when the bootloader sets up the splash
->> > screen) by using simple-panel as a (hopefully) temporary solution to get
->> > through the initial stages of porting.
->> >
->> > We are not trying to cover cases related to incorrect schematics or
->> > hardware mistakes here, as the fix for that - as you know - is to just
->> > fix your hardware.
->> > What we're trying to do here is to stop freezes and, in some cases,
->> > lockups, other than false positives making the developer go offroad when
->> > the platform shows that something is wrong during early porting.
->> >
->> > Also, sometimes, some DDICs will not generate TE interrupts when
->> > expected... in these cases we get a PP timeout and a MDP5 recovery: this
->> > is totally avoidable if we rely on the 2*vtotal, as we wouldn't get
->> > through the very time consuming task of recovering the entire MDP.
->> >
->> > Of course, if something is wrong in the MDP and the block really needs
->> > recovery, this "trick" won't save anyone and the recovery will anyway be
->> > triggered, as the PP-done will anyway timeout.
->>
->> So, is this (mostly) a workaround due to TE not wired up?  In which
->> case I think it is ok, but maybe should have a comment about the
->> interaction with TE?
->
->
-> Mostly, yes.
->
->>
->> Currently I have this patch in msm-next-staging but I guess we need to
->> decide in the next day or so whether to drop it or smash in a comment?
->>
->> BR,
->> -R
->
->
-> Marijn, can you please urgently throw a comment in, reminding that these timers are interacting with TE and send a fast V2?
->
+This series adds support to use devcoredump for DPU driver. It introduces
+the dpu_dbg module which assists in the capturing of register dumps during
+error scenarios. When a display related error happens, the dpu_dbg module
+captures all the relevant register dumps along with the snapshot of the drm
+atomic state and triggers a devcoredump.
 
-Or just reply on list w/ a comment to smash in, if that is easier
+changes in v3:
+ - Get rid of registration mechanism for sub-modules and instead get
+   this information from the dpu catalog itself
+ - Get rid of global dpu_dbg struct and instead store it in dpu_kms
+ - delegate the power management of the sub-modules to the resp drivers
+ - refactor and remove the linked list logic and simplify it to have
+   just an array
 
-BR,
--R
+
+Abhinav Kumar (3):
+  drm: allow drm_atomic_print_state() to accept any drm_printer
+  drm/msm/dpu: add support to dump dpu registers
+  drm/msm/dpu: add dpu_dbg points across dpu driver
+
+ drivers/gpu/drm/drm_atomic.c                       |  28 ++-
+ drivers/gpu/drm/drm_atomic_uapi.c                  |   4 +-
+ drivers/gpu/drm/drm_crtc_internal.h                |   4 +-
+ drivers/gpu/drm/msm/Makefile                       |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_dbg.c            | 221 ++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_dbg.h            | 200 ++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_dbg_util.c       | 257 +++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  18 +-
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c   |  14 +-
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |   8 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  86 +++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h            |   5 +
+ drivers/gpu/drm/msm/dp/dp_catalog.c                |  10 +
+ drivers/gpu/drm/msm/dp/dp_catalog.h                |   5 +
+ drivers/gpu/drm/msm/dp/dp_display.c                |  37 +++
+ drivers/gpu/drm/msm/dp/dp_display.h                |   1 +
+ drivers/gpu/drm/msm/dsi/dsi.c                      |   5 +
+ drivers/gpu/drm/msm/dsi/dsi.h                      |   4 +
+ drivers/gpu/drm/msm/dsi/dsi_host.c                 |  25 ++
+ drivers/gpu/drm/msm/msm_drv.c                      |  29 ++-
+ drivers/gpu/drm/msm/msm_drv.h                      |   2 +
+ drivers/gpu/drm/selftests/test-drm_framebuffer.c   |   1 +
+ 23 files changed, 950 insertions(+), 18 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_dbg.c
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_dbg.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_dbg_util.c
+
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
