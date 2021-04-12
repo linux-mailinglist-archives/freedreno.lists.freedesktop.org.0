@@ -2,40 +2,40 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5124235CB02
-	for <lists+freedreno@lfdr.de>; Mon, 12 Apr 2021 18:23:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 873E135CB7C
+	for <lists+freedreno@lfdr.de>; Mon, 12 Apr 2021 18:24:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBC3F892C6;
-	Mon, 12 Apr 2021 16:23:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 207E589DC1;
+	Mon, 12 Apr 2021 16:24:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF4AE892C2;
- Mon, 12 Apr 2021 16:23:26 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D3691611AD;
- Mon, 12 Apr 2021 16:23:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53D71892C6;
+ Mon, 12 Apr 2021 16:24:27 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5C53E61354;
+ Mon, 12 Apr 2021 16:24:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1618244606;
- bh=hlkyVzL2RHmtnkXH13UHYU9pzLCvo9kPx9lFfTkFKTU=;
+ s=k20201202; t=1618244667;
+ bh=QtCHTSR+ZAyQMyUzkaxUYRpKoNCc5fua7BthqIaxfLM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=mpRMdT9gvHdm7q4HM7xO9HLMG3xbpzy9agh8bPYmJDXrWxD1L6aOLEkK0UyokJqIR
- iJf0w/yzUB0SUPJ3enPrz0RblRBenjOVkC3L9L5DTxhj+isZ6MjEZ2iyYlITWGxE3a
- CyfLpHoiXKAMZO9x4wyGVtfgD7zpFsajAq/UvAo7jOPYSPG6PQUXMa2xyqCh5tlext
- +JCUNycs3JevxpEFfqjwAKss/ydEUaxRHGWuBuLy657UX7UhumGdjHqaWBEi3u5okY
- e5vUIZJZ0Fm5tQVM/WF4GrpSKd9fZ/FaUD4pksUhCOpE54S4m2hjZvGXQxtajKkYe/
- wmAIkc5AWk4fw==
+ b=uhlcVCCcFS/VOXh8/3eQ4axmhDxjI3TZhG0Bl1YwIhE1E2AoCOrqPdSA2Z39iAwYq
+ wBM1I/ldoo/1qMsWjbaxJGEHRyotJJeU/DP2Q1H4VPv3Z9X8mGHxUDloljBvb1eb/R
+ kAPTnNZbsGSdElRgB3ViO0er/p1dYLo40gN6rWwjmYJ7XDAkJCLQeNqXYt547XMQSy
+ Mun2dTqcuId5BhOEfShhuYu2e+IrRWRcYRm9KwKnai3r9qudi8HRWn5Qdcl9GhMsCV
+ bb880RvjhRndybWiFlglNeJM1OZT191yHxEtZujyyBCddv1f/E9kWKfDR1yZz3cNUM
+ B4efAlJEBcL7w==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Mon, 12 Apr 2021 12:22:29 -0400
-Message-Id: <20210412162256.313524-24-sashal@kernel.org>
+Date: Mon, 12 Apr 2021 12:23:35 -0400
+Message-Id: <20210412162401.314035-20-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210412162256.313524-1-sashal@kernel.org>
-References: <20210412162256.313524-1-sashal@kernel.org>
+In-Reply-To: <20210412162401.314035-1-sashal@kernel.org>
+References: <20210412162401.314035-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Subject: [Freedreno] [PATCH AUTOSEL 5.11 24/51] drm/msm: Fix a5xx/a6xx
+Subject: [Freedreno] [PATCH AUTOSEL 5.10 20/46] drm/msm: Fix a5xx/a6xx
  timestamps
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,10 +76,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  2 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index 81506d2539b0..15898b9b9ce9 100644
+index 5e11cdb207d8..0ca7e53db112 100644
 --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -1239,8 +1239,8 @@ static int a5xx_pm_suspend(struct msm_gpu *gpu)
+@@ -1240,8 +1240,8 @@ static int a5xx_pm_suspend(struct msm_gpu *gpu)
  
  static int a5xx_get_timestamp(struct msm_gpu *gpu, uint64_t *value)
  {
@@ -91,10 +91,10 @@ index 81506d2539b0..15898b9b9ce9 100644
  	return 0;
  }
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index e7a8442b59af..7368dfb40d5f 100644
+index 83b50f6d6bb7..722c2fe3bfd5 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -1227,8 +1227,8 @@ static int a6xx_get_timestamp(struct msm_gpu *gpu, uint64_t *value)
+@@ -1073,8 +1073,8 @@ static int a6xx_get_timestamp(struct msm_gpu *gpu, uint64_t *value)
  	/* Force the GPU power on so we can read this register */
  	a6xx_gmu_set_oob(&a6xx_gpu->gmu, GMU_OOB_PERFCOUNTER_SET);
  
