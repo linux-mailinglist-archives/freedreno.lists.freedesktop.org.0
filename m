@@ -1,34 +1,34 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C11F835E983
-	for <lists+freedreno@lfdr.de>; Wed, 14 Apr 2021 01:11:44 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D96135E985
+	for <lists+freedreno@lfdr.de>; Wed, 14 Apr 2021 01:11:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A1226E8B3;
-	Tue, 13 Apr 2021 23:11:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D4726E8BB;
+	Tue, 13 Apr 2021 23:11:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6087C6E8B8
- for <freedreno@lists.freedesktop.org>; Tue, 13 Apr 2021 23:11:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C571A6E8C0
+ for <freedreno@lists.freedesktop.org>; Tue, 13 Apr 2021 23:11:53 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1618355502; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=B+J9unzmXVOYq8wrJ05+3aCjwY00lKzhET5DLstRJy8=;
- b=KhiBt8ES5v1QHNWhjBLbWBNODNwG8mSECqimx7WbrpStqYf3x0FA9sXwvsR+f4yXKxWIEIC0
- 0m2moxMSPe3oVdd/xZYBWHfj0vtmHISA0I+/LfwqykrFsGnWsMcvV80F4Ne2famZ5leT+5wU
- PXFFUHE1fOhN/ZS+/Dp8WriVe6s=
+ s=smtp; t=1618355513; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=OL98uzm9g/cJSDVoqj1Lv25BIih0yW5RCIHUuMnYlro=;
+ b=QX4GZyJ4j5d6WjGaOKlUHnOk0U7P9+JCttBB50MmemMFoVQFYdTaYmwY8A96jVRO+n3raP9F
+ Tpmv+CQCJ1eoT7XuWDwX3NZa+i795f70jQLQTHLbmD8699dUpBYW/SJ+0gf0yfJAybcL6rNL
+ FKzXFloiL+qOgRQZS9zunQp3zpc=
 X-Mailgun-Sending-Ip: 198.61.254.9
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
- 6076252b74f773a6648d3a38 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 13 Apr 2021 23:11:39
+ smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
+ 6076253903cfff34528e3cdc (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 13 Apr 2021 23:11:53
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 79AFBC43469; Tue, 13 Apr 2021 23:11:38 +0000 (UTC)
+ id BB425C43469; Tue, 13 Apr 2021 23:11:52 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -39,9 +39,9 @@ Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 008B9C43463;
- Tue, 13 Apr 2021 23:11:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 008B9C43463
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 1F114C43462;
+ Tue, 13 Apr 2021 23:11:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 1F114C43462
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
@@ -50,11 +50,11 @@ From: Kuogee Hsieh <khsieh@codeaurora.org>
 To: robdclark@gmail.com,
 	sean@poorly.run,
 	swboyd@chromium.org
-Date: Tue, 13 Apr 2021 16:11:30 -0700
-Message-Id: <1618355490-5292-1-git-send-email-khsieh@codeaurora.org>
+Date: Tue, 13 Apr 2021 16:11:44 -0700
+Message-Id: <1618355504-5401-1-git-send-email-khsieh@codeaurora.org>
 X-Mailer: git-send-email 2.7.4
-Subject: [Freedreno] [PATCH v2 2/3] drm/msm/dp: do not re initialize of
- audio_comp at display_disable()
+Subject: [Freedreno] [PATCH v2 3/3] drm/msm/dp: check main link status
+ before start aux read
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,34 +77,78 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-At dongle unplug, dp initializes audio_comp followed by sending disconnect
-event notification to audio and to make sure audio had shutdown completely
-by wait for audio completion notification at display_disable(). This patch
-will not re initialize audio_comp at display_disable() if audio shutdown
-is triggered by dongle unplugged.
+Make sure main link is in connection state before start aux
+read/write operation to avoid unnecessary long delay due to
+main link had been unplugged.
 
 Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
 ---
- drivers/gpu/drm/msm/dp/dp_display.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_aux.c  |  5 +++++
+ drivers/gpu/drm/msm/dp/dp_link.c | 20 +++++++++++++++-----
+ 2 files changed, 20 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 0ba71c7..1d71c95 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -894,8 +894,10 @@ static int dp_display_disable(struct dp_display_private *dp, u32 data)
- 	/* wait only if audio was enabled */
- 	if (dp_display->audio_enabled) {
- 		/* signal the disconnect event */
--		reinit_completion(&dp->audio_comp);
--		dp_display_handle_plugged_change(dp_display, false);
-+		if (dp->hpd_state != ST_DISCONNECT_PENDING) {
-+			reinit_completion(&dp->audio_comp);
-+			dp_display_handle_plugged_change(dp_display, false);
-+		}
- 		if (!wait_for_completion_timeout(&dp->audio_comp,
- 				HZ * 5))
- 			DRM_ERROR("audio comp timeout\n");
+diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
+index 7c22bfe..fae3806 100644
+--- a/drivers/gpu/drm/msm/dp/dp_aux.c
++++ b/drivers/gpu/drm/msm/dp/dp_aux.c
+@@ -343,6 +343,11 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux *dp_aux,
+ 
+ 	mutex_lock(&aux->mutex);
+ 
++	if (!dp_catalog_link_is_connected(aux->catalog)) {
++		ret = -ETIMEDOUT;
++		goto unlock_exit;
++	}
++
+ 	aux->native = msg->request & (DP_AUX_NATIVE_WRITE & DP_AUX_NATIVE_READ);
+ 
+ 	/* Ignore address only message */
+diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
+index be986da..d35b18e 100644
+--- a/drivers/gpu/drm/msm/dp/dp_link.c
++++ b/drivers/gpu/drm/msm/dp/dp_link.c
+@@ -737,18 +737,25 @@ static int dp_link_parse_sink_count(struct dp_link *dp_link)
+ 	return 0;
+ }
+ 
+-static void dp_link_parse_sink_status_field(struct dp_link_private *link)
++static int dp_link_parse_sink_status_field(struct dp_link_private *link)
+ {
+ 	int len = 0;
+ 
+ 	link->prev_sink_count = link->dp_link.sink_count;
+-	dp_link_parse_sink_count(&link->dp_link);
++	len = dp_link_parse_sink_count(&link->dp_link);
++	if (len < 0) {
++		DRM_ERROR("DP lparse sink count failed\n");
++		return len;
++	}
+ 
+ 	len = drm_dp_dpcd_read_link_status(link->aux,
+ 		link->link_status);
+-	if (len < DP_LINK_STATUS_SIZE)
++	if (len < DP_LINK_STATUS_SIZE) {
+ 		DRM_ERROR("DP link status read failed\n");
+-	dp_link_parse_request(link);
++		return len;
++	}
++
++	return dp_link_parse_request(link);
+ }
+ 
+ /**
+@@ -1032,7 +1039,10 @@ int dp_link_process_request(struct dp_link *dp_link)
+ 
+ 	dp_link_reset_data(link);
+ 
+-	dp_link_parse_sink_status_field(link);
++	ret = dp_link_parse_sink_status_field(link);
++	if (ret) {
++		return ret;
++	}
+ 
+ 	if (link->request.test_requested == DP_TEST_LINK_EDID_READ) {
+ 		dp_link->sink_request |= DP_TEST_LINK_EDID_READ;
 -- 
 The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
 a Linux Foundation Collaborative Project
