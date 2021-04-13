@@ -1,59 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D18935CF28
-	for <lists+freedreno@lfdr.de>; Mon, 12 Apr 2021 19:03:50 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7489535D5DE
+	for <lists+freedreno@lfdr.de>; Tue, 13 Apr 2021 05:28:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 215C889E57;
-	Mon, 12 Apr 2021 17:03:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E978F89AEE;
+	Tue, 13 Apr 2021 03:28:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E97689E5B
- for <freedreno@lists.freedesktop.org>; Mon, 12 Apr 2021 17:03:45 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1618247027; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=3l8HW1rNzvaQs+RTHspb+EbKaL0TMdVmEqx1yLOrbCU=;
- b=LIU72SLklXSgFU70VsB4lz0WsRjtixgUjKHKdLb9g3mZgW0if+5TOE9axwPOFr+Gh50ypizD
- FOQWlpxbx4jeiqIWRVljfWyZkijB5+8EUC9aADgrVWbH7MeHVAo0pqpfVEt6gmZ+74uxKNvn
- 2Us3Byeffzb3eBCi5O8WqqpePtI=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
- 60747d638166b7eff75d6957 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 12 Apr 2021 17:03:31
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id D5D1BC43462; Mon, 12 Apr 2021 17:03:30 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
-Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 932BFC43461;
- Mon, 12 Apr 2021 17:03:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 932BFC43461
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=khsieh@codeaurora.org
-From: Kuogee Hsieh <khsieh@codeaurora.org>
-To: robdclark@gmail.com,
-	sean@poorly.run,
-	swboyd@chromium.org
-Date: Mon, 12 Apr 2021 10:03:23 -0700
-Message-Id: <1618247003-28821-1-git-send-email-khsieh@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-Subject: [Freedreno] [PATCH 2/2] drm/msm/dp: do not re initialize of
- audio_comp
+Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
+ [IPv6:2607:f8b0:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C175F89B01
+ for <freedreno@lists.freedesktop.org>; Tue, 13 Apr 2021 03:28:29 +0000 (UTC)
+Received: by mail-pl1-x629.google.com with SMTP id u7so5652059plr.6
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Apr 2021 20:28:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:content-transfer-encoding:in-reply-to:references
+ :subject:from:cc:to:date:message-id:user-agent;
+ bh=5tAqdlQ65Xiy+ghk0KtAk1i63l3pg3LrUb/XYFsIE98=;
+ b=Nfix/WkJaJUAKI5kzwmzy6o8D/QWeDAJW9sMJF9vWnsyFpc8m2qPM5EWSmJNQdir1S
+ XN8xWkassirzbxD2RBEQoRrFuHo4mAz3CBSFijL8jhg5IrBQ5eF2KzC9jtgBBokqEmzk
+ YrumnjWs5OcgFJ5XcS0JMgbFuzR1kCjtwpSTM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:content-transfer-encoding
+ :in-reply-to:references:subject:from:cc:to:date:message-id
+ :user-agent;
+ bh=5tAqdlQ65Xiy+ghk0KtAk1i63l3pg3LrUb/XYFsIE98=;
+ b=GGiMRcO34olORaXL0hXecpAdOkTjMRmW3uZg4m6a859eixImlfL49n+x2PFmIgkQHx
+ fweFE8OgEtMFQxZ/Grx3rVz+VMmhZYId6VHfgkkmW4nJ2qkqAv+lER3yYNGu010IrU61
+ GfrgnNq46m4SnE9ztsvsK7zEjTr7ZoDJ4TaBZolXW+Zw+V1sbxVcUNTalmYcx8v3LQtH
+ SUN09UTIx8L+cMziki70rFdrhjN5k6gNRLFhQ/9hMKBy4aLCjeWwKYJvdiVwVl0MiqkZ
+ +r7Awh4vzPDOa6CBP7sUb1oA0qaTZy0U0nIRcfpB2u+1Rokn3kRMhRg3BgC9fBh369Kn
+ /XyQ==
+X-Gm-Message-State: AOAM5338f31/yvn6NxprToVC+Sf2UP4xU7rCeikiyOxHqo0KJ5dYhZf+
+ fc4Rp99WQ5ekNJJ+Ski7+aALIA==
+X-Google-Smtp-Source: ABdhPJwA98EjR7+OT0INNOhv3xQakqX0UmgvB9kA2eTAH8O7BGt3i6R1pqXCVGJZFOjEtvyKvmJNkQ==
+X-Received: by 2002:a17:90b:b03:: with SMTP id
+ bf3mr2544178pjb.223.1618284509395; 
+ Mon, 12 Apr 2021 20:28:29 -0700 (PDT)
+Received: from chromium.org ([2620:15c:202:201:1d18:a339:7993:e548])
+ by smtp.gmail.com with ESMTPSA id ir3sm685864pjb.42.2021.04.12.20.28.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 Apr 2021 20:28:28 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <1618246971-28754-1-git-send-email-khsieh@codeaurora.org>
+References: <1618246971-28754-1-git-send-email-khsieh@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+To: Kuogee Hsieh <khsieh@codeaurora.org>, robdclark@gmail.com, sean@poorly.run
+Date: Mon, 12 Apr 2021 20:28:26 -0700
+Message-ID: <161828450691.3764895.11632559645161458427@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dp: check sink_count before
+ update is_connected status
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,174 +70,87 @@ Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  abhinavk@codeaurora.org, khsieh@codeaurora.org, tanmay@codeaurora.org,
  daniel@ffwll.ch, aravindh@codeaurora.org, freedreno@lists.freedesktop.org
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-At dp_display_disable(), do not re initialize audio_comp if
-hdp_state == ST_DISCONNECT_PENDING (unplug event) to avoid
-race condition which cause 5 second timeout expired. Also
-add abort mechanism to reduce time spinning at dp_aux_transfer()
-during dpcd read if type-c connection had been broken.
+Quoting Kuogee Hsieh (2021-04-12 10:02:51)
+> At pm_resume check link sisnk_count before update is_connected status
 
-Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
----
- drivers/gpu/drm/msm/dp/dp_aux.c     | 18 ++++++++++++++++++
- drivers/gpu/drm/msm/dp/dp_aux.h     |  1 +
- drivers/gpu/drm/msm/dp/dp_display.c | 16 ++++++++++++----
- drivers/gpu/drm/msm/dp/dp_link.c    | 20 +++++++++++++++-----
- 4 files changed, 46 insertions(+), 9 deletions(-)
+s/sisnk_count/sink_count/
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
-index 7c22bfe..e5ece8c 100644
---- a/drivers/gpu/drm/msm/dp/dp_aux.c
-+++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-@@ -28,6 +28,7 @@ struct dp_aux_private {
- 	u32 offset;
- 	u32 segment;
- 	u32 isr;
-+	atomic_t aborted;
- 
- 	struct drm_dp_aux dp_aux;
- };
-@@ -343,6 +344,11 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux *dp_aux,
- 
- 	mutex_lock(&aux->mutex);
- 
-+	if (atomic_read(&aux->aborted)) {
-+		ret = -ETIMEDOUT;
-+		goto unlock_exit;
-+	}
-+
- 	aux->native = msg->request & (DP_AUX_NATIVE_WRITE & DP_AUX_NATIVE_READ);
- 
- 	/* Ignore address only message */
-@@ -533,3 +539,15 @@ void dp_aux_put(struct drm_dp_aux *dp_aux)
- 
- 	devm_kfree(aux->dev, aux);
- }
-+
-+void dp_aux_abort(struct drm_dp_aux *dp_aux, bool abort)
-+{
-+	struct dp_aux_private *aux;
-+
-+	if (!dp_aux)
-+		return;
-+
-+	aux = container_of(dp_aux, struct dp_aux_private, dp_aux);
-+
-+	atomic_set(&aux->aborted, abort);
-+}
-diff --git a/drivers/gpu/drm/msm/dp/dp_aux.h b/drivers/gpu/drm/msm/dp/dp_aux.h
-index f8b8ba9..c17df7f 100644
---- a/drivers/gpu/drm/msm/dp/dp_aux.h
-+++ b/drivers/gpu/drm/msm/dp/dp_aux.h
-@@ -23,6 +23,7 @@ void dp_aux_isr(struct drm_dp_aux *dp_aux);
- void dp_aux_init(struct drm_dp_aux *dp_aux);
- void dp_aux_deinit(struct drm_dp_aux *dp_aux);
- void dp_aux_reconfig(struct drm_dp_aux *dp_aux);
-+void dp_aux_abort(struct drm_dp_aux *dp_aux, bool abort);
- 
- struct drm_dp_aux *dp_aux_get(struct device *dev, struct dp_catalog *catalog);
- void dp_aux_put(struct drm_dp_aux *aux);
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 4992a049..8960333 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -898,8 +898,10 @@ static int dp_display_disable(struct dp_display_private *dp, u32 data)
- 	/* wait only if audio was enabled */
- 	if (dp_display->audio_enabled) {
- 		/* signal the disconnect event */
--		reinit_completion(&dp->audio_comp);
--		dp_display_handle_plugged_change(dp_display, false);
-+		if (dp->hpd_state != ST_DISCONNECT_PENDING) {
-+			reinit_completion(&dp->audio_comp);
-+			dp_display_handle_plugged_change(dp_display, false);
-+		}
- 		if (!wait_for_completion_timeout(&dp->audio_comp,
- 				HZ * 5))
- 			DRM_ERROR("audio comp timeout\n");
-@@ -1137,20 +1139,26 @@ static irqreturn_t dp_display_irq_handler(int irq, void *dev_id)
- 		/* hpd related interrupts */
- 		if (hpd_isr_status & DP_DP_HPD_PLUG_INT_MASK ||
- 			hpd_isr_status & DP_DP_HPD_REPLUG_INT_MASK) {
-+			dp_aux_abort(dp->aux, false);
- 			dp_add_event(dp, EV_HPD_PLUG_INT, 0, 0);
- 		}
- 
- 		if (hpd_isr_status & DP_DP_IRQ_HPD_INT_MASK) {
- 			/* stop sentinel connect pending checking */
-+			dp_aux_abort(dp->aux, false);
- 			dp_del_event(dp, EV_CONNECT_PENDING_TIMEOUT);
- 			dp_add_event(dp, EV_IRQ_HPD_INT, 0, 0);
- 		}
- 
--		if (hpd_isr_status & DP_DP_HPD_REPLUG_INT_MASK)
-+		if (hpd_isr_status & DP_DP_HPD_REPLUG_INT_MASK) {
-+			dp_aux_abort(dp->aux, false);
- 			dp_add_event(dp, EV_HPD_REPLUG_INT, 0, 0);
-+		}
- 
--		if (hpd_isr_status & DP_DP_HPD_UNPLUG_INT_MASK)
-+		if (hpd_isr_status & DP_DP_HPD_UNPLUG_INT_MASK) {
-+			dp_aux_abort(dp->aux, true);
- 			dp_add_event(dp, EV_HPD_UNPLUG_INT, 0, 0);
-+		}
- 	}
- 
- 	/* DP controller isr */
-diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
-index be986da..d35b18e 100644
---- a/drivers/gpu/drm/msm/dp/dp_link.c
-+++ b/drivers/gpu/drm/msm/dp/dp_link.c
-@@ -737,18 +737,25 @@ static int dp_link_parse_sink_count(struct dp_link *dp_link)
- 	return 0;
- }
- 
--static void dp_link_parse_sink_status_field(struct dp_link_private *link)
-+static int dp_link_parse_sink_status_field(struct dp_link_private *link)
- {
- 	int len = 0;
- 
- 	link->prev_sink_count = link->dp_link.sink_count;
--	dp_link_parse_sink_count(&link->dp_link);
-+	len = dp_link_parse_sink_count(&link->dp_link);
-+	if (len < 0) {
-+		DRM_ERROR("DP lparse sink count failed\n");
-+		return len;
-+	}
- 
- 	len = drm_dp_dpcd_read_link_status(link->aux,
- 		link->link_status);
--	if (len < DP_LINK_STATUS_SIZE)
-+	if (len < DP_LINK_STATUS_SIZE) {
- 		DRM_ERROR("DP link status read failed\n");
--	dp_link_parse_request(link);
-+		return len;
-+	}
-+
-+	return dp_link_parse_request(link);
- }
- 
- /**
-@@ -1032,7 +1039,10 @@ int dp_link_process_request(struct dp_link *dp_link)
- 
- 	dp_link_reset_data(link);
- 
--	dp_link_parse_sink_status_field(link);
-+	ret = dp_link_parse_sink_status_field(link);
-+	if (ret) {
-+		return ret;
-+	}
- 
- 	if (link->request.test_requested == DP_TEST_LINK_EDID_READ) {
- 		dp_link->sink_request |= DP_TEST_LINK_EDID_READ;
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+> base on HPD real time link status. Also print out error message only
+> when either EV_CONNECT_PENDING_TIMEOUT or EV_DISCONNECT_PENDING_TIMEOUT
+> happen.
 
+Can you add "why"? I think the why is something like "link status is
+different from display connected status in the case of something like an
+Apple dongle where the type-c plug can be connected, and therefore the
+link is connected, but no sink is connected until an HDMI cable is
+plugged into the dongle". This still doesn't explain why it's important
+to check at resume time though.
+
+> 
+> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+> ---
+
+Any Fixes tag?
+
+>  drivers/gpu/drm/msm/dp/dp_display.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 5a39da6..4992a049 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -587,7 +587,7 @@ static int dp_connect_pending_timeout(struct dp_display_private *dp, u32 data)
+>  
+>         state = dp->hpd_state;
+>         if (state == ST_CONNECT_PENDING) {
+> -               dp_display_enable(dp, 0);
+> +               DRM_ERROR("EV_CONNECT_PENDING_TIMEOUT error\n");
+
+Can we get rid of these messages?
+
+>                 dp->hpd_state = ST_CONNECTED;
+>         }
+>  
+> @@ -670,7 +670,7 @@ static int dp_disconnect_pending_timeout(struct dp_display_private *dp, u32 data
+>  
+>         state =  dp->hpd_state;
+>         if (state == ST_DISCONNECT_PENDING) {
+> -               dp_display_disable(dp, 0);
+> +               DRM_ERROR("EV_DISCONNECT_PENDING_TIMEOUT error\n");
+
+And this one? If it happens it will just sit in the logs when probably
+the user can't do anything about it. Timeouts are just a fact of life.
+
+>                 dp->hpd_state = ST_DISCONNECTED;
+>         }
+>  
+> @@ -1272,7 +1272,7 @@ static int dp_pm_resume(struct device *dev)
+>  
+>         status = dp_catalog_link_is_connected(dp->catalog);
+>  
+> -       if (status)
+> +       if (status && dp->link->sink_count)
+
+Can we add a comment above this if? Otherwise it doesn't make much
+sense why sink_count is important.
+
+	/*
+	 * Only consider the display as connected, and send a connected
+	 * notification to userspace in
+	 * dp_display_send_hpd_notification(), if there's actually a
+	 * sink connected. Otherwise, the link could be up/connected or 
+	 * in the process of being established, but there isn't actually
+	 * anything to display to on the other side yet.
+	 */
+
+>                 dp->dp_display.is_connected = true;
+>         else
+>                 dp->dp_display.is_connected = false;
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
