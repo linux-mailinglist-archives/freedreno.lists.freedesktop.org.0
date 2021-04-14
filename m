@@ -2,56 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAA1035FA1F
-	for <lists+freedreno@lfdr.de>; Wed, 14 Apr 2021 19:55:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BACEC35FCE9
+	for <lists+freedreno@lfdr.de>; Wed, 14 Apr 2021 23:02:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DC2E6E4CA;
-	Wed, 14 Apr 2021 17:55:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D0796E970;
+	Wed, 14 Apr 2021 21:02:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A1156E4C9
- for <freedreno@lists.freedesktop.org>; Wed, 14 Apr 2021 17:55:20 +0000 (UTC)
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A3046E971
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Apr 2021 21:02:49 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1618422923; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=3uShNxK5FJYLasDW+nrg03JrG9d+DonaEeEOaVhcnHk=;
- b=VciDnoGZrrh3kXofgiTmVIPvar/uhQKwUxuy1zBzBwzPi7S2Y0natOROftTwtSm3oI3P56yV
- M8oBLdqB9baZWpbH7GJDt2l+WW+dxR3o9P6T6uVg6ztsNCW7nBlO36B/EVFxUYVhqmt9wEYJ
- 7d1bR8wQRrIa7Cd5w0NYeb0yRPY=
-X-Mailgun-Sending-Ip: 198.61.254.9
+ s=smtp; t=1618434171; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=NDFPUG8w+QVdc1ZKn+OX2p4Lkw+ii5Hbq+ynLwXvK3s=;
+ b=NADc4TNOuRnAOMWyPe/envQ8VWCHZp5BYLAa020QTcrY9fNppa6a23xPdTR5aQYoiVWzVBxf
+ fgd10ueQqy1sLRfVWNguzTuRGiKFAwKdh5BwRfH2o7NyJ9X0yPsT68BLn29fR4SXnvG5wXkY
+ 7SWmtahbLAOT7q9u4Bvbv4TFW8M=
+X-Mailgun-Sending-Ip: 69.72.43.7
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
- 60772c7f03cfff3452b380a2 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 14 Apr 2021 17:55:11
+ smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
+ 6077587674f773a664965cd1 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 14 Apr 2021 21:02:46
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id C876FC43463; Wed, 14 Apr 2021 17:55:10 +0000 (UTC)
+ id 68E27C43463; Wed, 14 Apr 2021 21:02:45 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
+Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id CE1CCC433CA;
- Wed, 14 Apr 2021 17:55:09 +0000 (UTC)
-MIME-Version: 1.0
-Date: Wed, 14 Apr 2021 10:55:09 -0700
-From: khsieh@codeaurora.org
-To: Stephen Boyd <swboyd@chromium.org>
-In-Reply-To: <161837022104.3764895.807226402876043006@swboyd.mtv.corp.google.com>
-References: <1618355490-5292-1-git-send-email-khsieh@codeaurora.org>
- <161837022104.3764895.807226402876043006@swboyd.mtv.corp.google.com>
-Message-ID: <cf72c919404a5bb4d0bdf101a341b074@codeaurora.org>
-X-Sender: khsieh@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH v2 2/3] drm/msm/dp: do not re initialize of
- audio_comp at display_disable()
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 6E1B8C433CA;
+ Wed, 14 Apr 2021 21:02:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 6E1B8C433CA
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=khsieh@codeaurora.org
+From: Kuogee Hsieh <khsieh@codeaurora.org>
+To: robdclark@gmail.com,
+	sean@poorly.run,
+	swboyd@chromium.org
+Date: Wed, 14 Apr 2021 14:02:34 -0700
+Message-Id: <1618434154-28255-1-git-send-email-khsieh@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH v2 1/3] drm/msm/dp: check sink_count before
+ update is_connected status
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,100 +66,79 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, abhinavk@codeaurora.org, robdclark@gmail.com,
- tanmay@codeaurora.org, daniel@ffwll.ch, aravindh@codeaurora.org,
- sean@poorly.run
+Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ abhinavk@codeaurora.org, khsieh@codeaurora.org, tanmay@codeaurora.org,
+ daniel@ffwll.ch, aravindh@codeaurora.org, freedreno@lists.freedesktop.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-04-13 20:17, Stephen Boyd wrote:
-> Quoting Kuogee Hsieh (2021-04-13 16:11:30)
->> At dongle unplug, dp initializes audio_comp followed by sending 
->> disconnect
->> event notification to audio and to make sure audio had shutdown 
->> completely
->> by wait for audio completion notification at display_disable(). This 
->> patch
-> 
-> Is this dp_display_disable()? Doubtful that display_disable() is the
-> function we're talking about.
-yes
-> 
->> will not re initialize audio_comp at display_disable() if audio 
->> shutdown
->> is triggered by dongle unplugged.
-> 
-> This commit text seems to say the why before the what, where why is "dp
-> initializes audio_comp followed by sending disconnect.." and the what 
-> is
-> "this patch will no re-initialized audio_comp...". Can you reorder this
-> so the what comes before the why?
-> 
-ok
->> 
->> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
->> ---
->>  drivers/gpu/drm/msm/dp/dp_display.c | 6 ++++--
->>  1 file changed, 4 insertions(+), 2 deletions(-)
->> 
->> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c 
->> b/drivers/gpu/drm/msm/dp/dp_display.c
->> index 0ba71c7..1d71c95 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->> @@ -894,8 +894,10 @@ static int dp_display_disable(struct 
->> dp_display_private *dp, u32 data)
->>         /* wait only if audio was enabled */
->>         if (dp_display->audio_enabled) {
->>                 /* signal the disconnect event */
->> -               reinit_completion(&dp->audio_comp);
->> -               dp_display_handle_plugged_change(dp_display, false);
->> +               if (dp->hpd_state != ST_DISCONNECT_PENDING) {
->> +                       reinit_completion(&dp->audio_comp);
-> 
-> Why is this reinitialized here at all? Wouldn't it make more sense to
-> initialize the completion once at cable plug in and then not initialize
-> the completion anywhere else? Or initialize the completion whenever
-> dp_display->audio_enabled is set to true and then only wait for the
-> completion here if that boolean is true? Or initialize the completion
-> when dp_display_handle_plugged_change() is passed true for the 
-> 'plugged'
-> argument?
-> yes, i think it is better approach, this will take care of both unplug 
-> and suspend.
+Link status is different from display connected status in the case
+of something like an Apple dongle where the type-c plug can be
+connected, and therefore the link is connected, but no sink is
+connected until an HDMI cable is plugged into the dongle.
+The sink_count of DPCD of dongle will increase to 1 once an HDMI
+cable is plugged into the dongle so that display connected status
+will become true. This checking also apply at pm_resume.
 
-> I started reading the code and quickly got lost figuring out how
-> dp_display_handle_plugged_change() worked and the interaction between
-> the dp display code and the audio codec embedded in here. There seem to
-> be a couple of conditions that cut off things early, like
-> dp_display->audio_enabled and audio->engine_on. Why? Why does
-> dp_display_signal_audio_complete() call complete_all() vs. just
-> complete()? Please help! :(
-> 
->> +                       dp_display_handle_plugged_change(dp_display, 
->> false);
-> 
-> I think it's this way because dp_hpd_unplug_handle() is the function
-> that sets the hpd_state to ST_DISCONNECT_PENDING and then reinitializes
-> the completion (why?) and calls dp_display_handle_plugged_change(). So
-> the commit text could say that reinitializing the completion again here
-> at dp_display_disable() is racing with the audio code in the case that
-> dp_hpd_unplug_handle() already called
-> dp_display_handle_plugged_change() and it would make more sense. But 
-> the
-> question still stands why that race even exists in the first place vs.
-> initializing the completion variable in only one place unconditionally
-> when the cable is connected, in dp_hpd_plug_handle() or
-> dp_display_post_enable().
-> 
->> +               }
->>                 if (!wait_for_completion_timeout(&dp->audio_comp,
->>                                 HZ * 5))
->>                         DRM_ERROR("audio comp timeout\n");
+Fixes: 94e58e2d06e3 ("drm/msm/dp: reset dp controller only at boot up and pm_resume")
+Reported-by: Stephen Boyd <swboyd@chromium.org>
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Tested-by: Stephen Boyd <swboyd@chromium.org>
+Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 5a39da6..0ba71c7 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -586,10 +586,8 @@ static int dp_connect_pending_timeout(struct dp_display_private *dp, u32 data)
+ 	mutex_lock(&dp->event_mutex);
+ 
+ 	state = dp->hpd_state;
+-	if (state == ST_CONNECT_PENDING) {
+-		dp_display_enable(dp, 0);
++	if (state == ST_CONNECT_PENDING)
+ 		dp->hpd_state = ST_CONNECTED;
+-	}
+ 
+ 	mutex_unlock(&dp->event_mutex);
+ 
+@@ -669,10 +667,8 @@ static int dp_disconnect_pending_timeout(struct dp_display_private *dp, u32 data
+ 	mutex_lock(&dp->event_mutex);
+ 
+ 	state =  dp->hpd_state;
+-	if (state == ST_DISCONNECT_PENDING) {
+-		dp_display_disable(dp, 0);
++	if (state == ST_DISCONNECT_PENDING)
+ 		dp->hpd_state = ST_DISCONNECTED;
+-	}
+ 
+ 	mutex_unlock(&dp->event_mutex);
+ 
+@@ -1272,7 +1268,12 @@ static int dp_pm_resume(struct device *dev)
+ 
+ 	status = dp_catalog_link_is_connected(dp->catalog);
+ 
+-	if (status)
++	/*
++	 * can not declared display is connected unless
++	 * HDMI cable is plugged in and sink_count of
++	 * dongle become 1
++	 */
++	if (status && dp->link->sink_count)
+ 		dp->dp_display.is_connected = true;
+ 	else
+ 		dp->dp_display.is_connected = false;
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
