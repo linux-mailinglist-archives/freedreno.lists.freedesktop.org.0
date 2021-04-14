@@ -2,58 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C1ED35FD16
-	for <lists+freedreno@lfdr.de>; Wed, 14 Apr 2021 23:19:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F61D35FD35
+	for <lists+freedreno@lfdr.de>; Wed, 14 Apr 2021 23:22:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 032386E978;
-	Wed, 14 Apr 2021 21:19:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8E056E978;
+	Wed, 14 Apr 2021 21:22:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
- [IPv6:2607:f8b0:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 052F96E978
- for <freedreno@lists.freedesktop.org>; Wed, 14 Apr 2021 21:19:02 +0000 (UTC)
-Received: by mail-pl1-x62e.google.com with SMTP id u15so2312109plf.10
- for <freedreno@lists.freedesktop.org>; Wed, 14 Apr 2021 14:19:02 -0700 (PDT)
+Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
+ [IPv6:2607:f8b0:4864:20::634])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A34EB6E977
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Apr 2021 21:22:51 +0000 (UTC)
+Received: by mail-pl1-x634.google.com with SMTP id d8so10858484plh.11
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Apr 2021 14:22:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:content-transfer-encoding:in-reply-to:references
  :subject:from:cc:to:date:message-id:user-agent;
- bh=LcOc4JlIYDboURYMkcvr8SNtAziTFL1D41weTgPLTsw=;
- b=VG6MIZyisv7JYepLL9z7oA0Y9Nxg8R0YWSjk8tfVBod5e4RAWtVwiL3M3guGCVha2K
- lCS920xReB/AV6By58fHqFsrJDW08Yq2FQrHo8U9M0TOx37djAijHQSeCqF4EHsLXaX+
- 3KWc/Bx2DbJ5fWKiFHYzrvJyFB6nqjUrKOa8g=
+ bh=RwOM404YmU1KKr4Np2+NWPRKRhKCplH67w1Du3EIAzQ=;
+ b=Q/PrJhcrkB4mA4Y/IyOwo4Y5/jw1VFleUeDObzYvyFXWkXyIsRs8uwsnv1Vyf9uZVn
+ X4IK4yTUElUXiM6WM4wgRDVkFR0GnMD4W0hBDAq5xWOD8XwzxYCXZ9xuGVCfvl2IyRhs
+ b9Nw/D9ta7A4r3gyOwPYoUo6JxoSjcDyKclUo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:content-transfer-encoding
  :in-reply-to:references:subject:from:cc:to:date:message-id
  :user-agent;
- bh=LcOc4JlIYDboURYMkcvr8SNtAziTFL1D41weTgPLTsw=;
- b=CItt5s7vH2XLzJSsaXs60sA1yadAhgHx7vKA+wnyEQWLtQUZWUAqAsfLG/2O16Dq3g
- /a7ueIj8i9yN6PEhjUXoX9unPL1kSvP/CPINOEzoHpefClryju8bEPZ92CIT6BQcCNsN
- EbtXgVNhDtpWQxSFGEcNzwfaoYC3XJaGfqRHYWHY8jCqtiS8khZvHbD0U6SjnFpVNd9n
- 6g5EbfMmaDl01I3j5eGBSXU/ulbvKA4Tc+oGnZ18a0KIKAZTDUhD2/8/VJnChBySSnLB
- 4Xht9r3T6HTbRXNy/uSQTS6WTZWBrtOozyDDDLSqNVxUrMEBG/axQn5fXYHsWkVrw7BI
- NA7w==
-X-Gm-Message-State: AOAM531HW4FaJh/SrSQXe4+TFQ6vRY9sTqmlh8R/55rVfUCmQmUQktQ+
- 4AfvRwNgEq/KeeUILyWftLVyBA==
-X-Google-Smtp-Source: ABdhPJxGCQP3KYUFO8ly/GrqLFZX3A5UWMJ3VX3pPVI5/QsxfJ55s9l4d5dNVg23uJhu+r5B26INSg==
-X-Received: by 2002:a17:902:d911:b029:ea:cc53:5501 with SMTP id
- c17-20020a170902d911b02900eacc535501mr213198plz.21.1618435141650; 
- Wed, 14 Apr 2021 14:19:01 -0700 (PDT)
+ bh=RwOM404YmU1KKr4Np2+NWPRKRhKCplH67w1Du3EIAzQ=;
+ b=fv1Ijr51YmY+PJJWFi7JQAuDIckgYqe2S/m0iPI70p3w9LtDaJyh646sqvBFP4oSg0
+ H+8ZyL6Ob8VNtcslL8ELvkKEgJDOdBnu707z+ZFjWLcQ18JjPDBeVn6pFR0YZiKv3niz
+ JXvnaZ/Whjeg1+uzeo6CK+tezqiYHgXw/do80FWMqJKA3CJY3bmYUnOs2Xi/5T7lYEdY
+ OphDlFI5AkPdMGUIiHvvu7CCEPejkWX2ouF13xM2O4XZGnoBrVQBFT63ZF4QC2QtKMLR
+ ksr3IBZmNKi2CxnNvD4/jG4rtGNAWfPDPIzAZtUkhouumfEHdxzupI4UVuLx8evEGj6C
+ pA/A==
+X-Gm-Message-State: AOAM531W4D3nl3B0/72UJrIWiDk+aKw38R7B5RVShRNRBReUPudbfaLg
+ em2nE6JIKJlc4opumTa+q4Q3BA==
+X-Google-Smtp-Source: ABdhPJx24gNc+irPfeI28vsit1JxAWe901EHCr3I7J4jq9hZYIxfEPuDHg/FpXbn5CxlkVPUjcZb2w==
+X-Received: by 2002:a17:90b:3909:: with SMTP id
+ ob9mr133410pjb.181.1618435371367; 
+ Wed, 14 Apr 2021 14:22:51 -0700 (PDT)
 Received: from chromium.org ([2620:15c:202:201:753e:814e:f002:498a])
- by smtp.gmail.com with ESMTPSA id q18sm290934pfj.131.2021.04.14.14.19.01
+ by smtp.gmail.com with ESMTPSA id e190sm301649pfe.3.2021.04.14.14.22.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Apr 2021 14:19:01 -0700 (PDT)
+ Wed, 14 Apr 2021 14:22:50 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1618434154-28255-1-git-send-email-khsieh@codeaurora.org>
-References: <1618434154-28255-1-git-send-email-khsieh@codeaurora.org>
+In-Reply-To: <1618434170-28302-1-git-send-email-khsieh@codeaurora.org>
+References: <1618434170-28302-1-git-send-email-khsieh@codeaurora.org>
 From: Stephen Boyd <swboyd@chromium.org>
 To: Kuogee Hsieh <khsieh@codeaurora.org>, robdclark@gmail.com, sean@poorly.run
-Date: Wed, 14 Apr 2021 14:18:59 -0700
-Message-ID: <161843513989.46595.8623474483864386727@swboyd.mtv.corp.google.com>
+Date: Wed, 14 Apr 2021 14:22:49 -0700
+Message-ID: <161843536949.46595.14917924989191979850@swboyd.mtv.corp.google.com>
 User-Agent: alot/0.9.1
-Subject: Re: [Freedreno] [PATCH v2 1/3] drm/msm/dp: check sink_count before
- update is_connected status
+Subject: Re: [Freedreno] [PATCH v2 2/3] drm/msm/dp: initialize audio_comp
+ when audio starts
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,77 +75,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2021-04-14 14:02:34)
-> Link status is different from display connected status in the case
-> of something like an Apple dongle where the type-c plug can be
-> connected, and therefore the link is connected, but no sink is
-> connected until an HDMI cable is plugged into the dongle.
-> The sink_count of DPCD of dongle will increase to 1 once an HDMI
-> cable is plugged into the dongle so that display connected status
-> will become true. This checking also apply at pm_resume.
+Quoting Kuogee Hsieh (2021-04-14 14:02:50)
+> Initialize audio_comp when audio starts and wait for audio_comp at
+> dp_display_disable(). This will take care of both dongle unplugged
+> and display off (suspend) cases.
 > 
-> Fixes: 94e58e2d06e3 ("drm/msm/dp: reset dp controller only at boot up and pm_resume")
-> Reported-by: Stephen Boyd <swboyd@chromium.org>
-> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-> Tested-by: Stephen Boyd <swboyd@chromium.org>
+> Changes in v2:
+> -- add dp_display_start_audio()
+> 
 > Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
-> ---
 
-Can you please thread your emailed patches? I see them all as toplevel
-messages in my inbox :(
+Looking better. Thanks!
 
-
->  drivers/gpu/drm/msm/dp/dp_display.c | 15 ++++++++-------
->  1 file changed, 8 insertions(+), 7 deletions(-)
-> 
 > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 5a39da6..0ba71c7 100644
+> index 0ba71c7..8a69bcd 100644
 > --- a/drivers/gpu/drm/msm/dp/dp_display.c
 > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -586,10 +586,8 @@ static int dp_connect_pending_timeout(struct dp_display_private *dp, u32 data)
->         mutex_lock(&dp->event_mutex);
+> @@ -177,6 +177,14 @@ static int dp_del_event(struct dp_display_private *dp_priv, u32 event)
 >  
->         state = dp->hpd_state;
-> -       if (state == ST_CONNECT_PENDING) {
-> -               dp_display_enable(dp, 0);
-> +       if (state == ST_CONNECT_PENDING)
->                 dp->hpd_state = ST_CONNECTED;
-> -       }
->  
->         mutex_unlock(&dp->event_mutex);
->  
-> @@ -669,10 +667,8 @@ static int dp_disconnect_pending_timeout(struct dp_display_private *dp, u32 data
->         mutex_lock(&dp->event_mutex);
->  
->         state =  dp->hpd_state;
-> -       if (state == ST_DISCONNECT_PENDING) {
-> -               dp_display_disable(dp, 0);
-> +       if (state == ST_DISCONNECT_PENDING)
->                 dp->hpd_state = ST_DISCONNECTED;
-> -       }
->  
->         mutex_unlock(&dp->event_mutex);
->  
-> @@ -1272,7 +1268,12 @@ static int dp_pm_resume(struct device *dev)
->  
->         status = dp_catalog_link_is_connected(dp->catalog);
->  
-> -       if (status)
-> +       /*
-> +        * can not declared display is connected unless
-> +        * HDMI cable is plugged in and sink_count of
-> +        * dongle become 1
-> +        */
-> +       if (status && dp->link->sink_count)
->                 dp->dp_display.is_connected = true;
->         else
->                 dp->dp_display.is_connected = false;
+>         return 0;
+>  }
+> +void dp_display_start_audio(struct msm_dp *dp_display)
 
-With this patch applied things still go wrong for me sometimes. I can
-connect the apple dongle and then disconnect the apple dongle, instead
-of connect and disconnect the HDMI cable, and sometimes the external
-display doesn't come on. I'm still investigating but just wanted to let
-you know.
+Please unstick this from previous function by adding a newline above.
+
+> +{
+> +       struct dp_display_private *dp;
+> +
+> +       dp = container_of(dp_display, struct dp_display_private, dp_display);
+> +
+> +       reinit_completion(&dp->audio_comp);
+> +}
+>  
+>  void dp_display_signal_audio_complete(struct msm_dp *dp_display)
+>  {
+> @@ -648,10 +656,6 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
+>         /* start sentinel checking in case of missing uevent */
+>         dp_add_event(dp, EV_DISCONNECT_PENDING_TIMEOUT, 0, DP_TIMEOUT_5_SECOND);
+>  
+> -       /* signal the disconnect event early to ensure proper teardown */
+
+This doesn't need to be done early anymore? Please mention why in the
+commit text.
+
+> -       reinit_completion(&dp->audio_comp);
+> -       dp_display_handle_plugged_change(g_dp_display, false);
+> -
+>         dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_PLUG_INT_MASK |
+>                                         DP_DP_IRQ_HPD_INT_MASK, true);
+>  
+> @@ -894,7 +898,6 @@ static int dp_display_disable(struct dp_display_private *dp, u32 data)
+>         /* wait only if audio was enabled */
+>         if (dp_display->audio_enabled) {
+>                 /* signal the disconnect event */
+> -               reinit_completion(&dp->audio_comp);
+>                 dp_display_handle_plugged_change(dp_display, false);
+>                 if (!wait_for_completion_timeout(&dp->audio_comp,
+>                                 HZ * 5))
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
