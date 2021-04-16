@@ -1,61 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B3183629BD
-	for <lists+freedreno@lfdr.de>; Fri, 16 Apr 2021 22:58:00 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 62891362BB0
+	for <lists+freedreno@lfdr.de>; Sat, 17 Apr 2021 01:03:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E79E6ECF3;
-	Fri, 16 Apr 2021 20:57:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 989496E135;
+	Fri, 16 Apr 2021 23:02:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EB626ECF3
- for <freedreno@lists.freedesktop.org>; Fri, 16 Apr 2021 20:57:54 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1618606676; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=K9XAt0dF0rPjhih357PzXQ5mX72jFd/tJd9KUJ0vL1M=;
- b=R958x2XhUN7gRp6tJmZMC/tRn7aoRj6uVBjaYWuNIBwCz1OKPoh4/gREhOg1r+L24IMaFEOA
- py73C7CT6EzQVquzuQfo9DQUWv6qQHg6R0xDsSihGuPI8paoHbWaFkLEbGbJB2qTTtS4gWrM
- EszK/CafAC29TlZB4rOtC7wdsqg=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
- 6079fa4ca817abd39ab3f116 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 16 Apr 2021 20:57:48
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id BBC9BC43463; Fri, 16 Apr 2021 20:57:47 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL, 
- URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-Received: from abhinavk-linux.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id B7CABC43462;
- Fri, 16 Apr 2021 20:57:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org B7CABC43462
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=abhinavk@codeaurora.org
-From: Abhinav Kumar <abhinavk@codeaurora.org>
-To: dri-devel@lists.freedesktop.org
-Date: Fri, 16 Apr 2021 13:57:25 -0700
-Message-Id: <1618606645-19695-8-git-send-email-abhinavk@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1618606645-19695-1-git-send-email-abhinavk@codeaurora.org>
-References: <1618606645-19695-1-git-send-email-abhinavk@codeaurora.org>
-Subject: [Freedreno] [PATCH v5 7/7] drm/msm: add disp snapshot points across
- dpu driver
+Received: from mail-qv1-xf32.google.com (mail-qv1-xf32.google.com
+ [IPv6:2607:f8b0:4864:20::f32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA3936E135
+ for <freedreno@lists.freedesktop.org>; Fri, 16 Apr 2021 23:02:57 +0000 (UTC)
+Received: by mail-qv1-xf32.google.com with SMTP id bs7so13760699qvb.12
+ for <freedreno@lists.freedesktop.org>; Fri, 16 Apr 2021 16:02:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=S2TYM+wdp6+vDu4GYyPIj8WsiphUkb2AvhRdqqeeoy0=;
+ b=Jrf5W3Bx2YFA/wzMJQ4naBpogVfH2bAOaRDsvRP+wQCyW65LnEFXDogl9l/5ok/Y+d
+ HKuhWhsbxsOZ3HbwY6lDvjJuo+jYbjpbbe/Bqt6o3yHBZPTrgvTmnqrZkXu7zDf4Ocx9
+ AXFe6MfdwJicBmuEKIBtdvCrHkcK8pWB9JXJA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=S2TYM+wdp6+vDu4GYyPIj8WsiphUkb2AvhRdqqeeoy0=;
+ b=tUA42Ifv5Gi5aqBukNOM/yeBHlKw/7ioSQvIsz5jECOW/tMcQssiNk5XmxDoRfSwBA
+ EeI0IkHQ+hYlZYLSB3kViwzOT3MjHAlDeohES9NDAylfqA6qDm5de0zraveH+VMjQkP6
+ 83ufA7dsoylatFh8RYBJ4DbRAJh396gUehr90hPvpTr91MpWQxMI/pJt3qjoj9hTEI/B
+ p4zJPcp4KaxYoM/mWk5jW2kuasiK5mNeE994MZ5O6oONYtXKPP6rHjdEI7FAw6yTzAMw
+ Ket5CYFC6TASG33P4SU13MEWv9PBG0vAOc83J5Dv18R5mpRSpBibTrsGqUd+4smhUaie
+ LT3A==
+X-Gm-Message-State: AOAM5314GuKN2G8lpY5BQ4nTrcvwLvo+p7xE/ei8za6PmvqECOsLfAGN
+ EV8uD1Ywbz+jU5Qgt3vdTuBZ8BN1pVPKgQ==
+X-Google-Smtp-Source: ABdhPJwPHG40tytaRrU/I6MVidrKz8LUcXAezA51mlcX+1i+ZM4aZ8vjRyainZnnWSiiYmUjI4ygwg==
+X-Received: by 2002:a0c:e842:: with SMTP id l2mr10712335qvo.21.1618614176234; 
+ Fri, 16 Apr 2021 16:02:56 -0700 (PDT)
+Received: from mail-yb1-f178.google.com (mail-yb1-f178.google.com.
+ [209.85.219.178])
+ by smtp.gmail.com with ESMTPSA id p6sm464244qkk.30.2021.04.16.16.02.55
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 16 Apr 2021 16:02:55 -0700 (PDT)
+Received: by mail-yb1-f178.google.com with SMTP id p3so11194404ybk.0
+ for <freedreno@lists.freedesktop.org>; Fri, 16 Apr 2021 16:02:55 -0700 (PDT)
+X-Received: by 2002:a25:244d:: with SMTP id k74mr2023484ybk.79.1618614174530; 
+ Fri, 16 Apr 2021 16:02:54 -0700 (PDT)
+MIME-Version: 1.0
+References: <1618418390-15055-1-git-send-email-rajeevny@codeaurora.org>
+In-Reply-To: <1618418390-15055-1-git-send-email-rajeevny@codeaurora.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 16 Apr 2021 16:02:42 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=WSjRhNk_VT9vXEpzO=7pKi3VJG+SB7wnZnKZjeD+UsZg@mail.gmail.com>
+Message-ID: <CAD=FV=WSjRhNk_VT9vXEpzO=7pKi3VJG+SB7wnZnKZjeD+UsZg@mail.gmail.com>
+To: Rajeev Nandan <rajeevny@codeaurora.org>
+Subject: Re: [Freedreno] [v1 0/3] drm: Add support for backlight control of
+ eDP panel on ti-sn65dsi86 bridge
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,204 +69,79 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
- swboyd@chromium.org, khsieh@codeaurora.org, robdclark@gmail.com,
- nganji@codeaurora.org, seanpaul@chromium.org, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, aravindh@codeaurora.org,
- freedreno@lists.freedesktop.org
-MIME-Version: 1.0
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, mkrishn@codeaurora.org,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Andrzej Hajda <a.hajda@samsung.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <seanpaul@chromium.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Kalyan Thota <kalyan_t@codeaurora.org>,
+ "Kristian H. Kristensen" <hoegsberg@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add snapshot points across dpu driver to trigger dumps when critical
-errors are hit.
+Hi,
 
-changes in v5:
- - change the callers to use the snapshot function directly
+On Wed, Apr 14, 2021 at 9:41 AM Rajeev Nandan <rajeevny@codeaurora.org> wrote:
+>
+> The backlight level of an eDP panel can be controlled through the AUX
+> channel using DPCD registers of the panel.
+>
+> The capability for the Source device to adjust backlight characteristics
+> within the panel, using the Sink device DPCD registers is indicated by
+> the TCON_BACKLIGHT_ADJUSTMENT_CAPABLE bit in the EDP_GENERAL_CAPABILITY_1
+> register (DPCD Address 701h, bit0). In this configuration, the eDP TCON
+> receives the backlight level information from the host, through the AUX
+> channel.
+>
+> The changes in this patch series do the following:
+> - Add drm_dp_aux_backlight_ APIs to support backlight control using DPCD
+>   registers on the DisplayPort AUX channel.
+>   The current version only supports backlight brightness control by the
+>   EDP_BACKLIGHT_BRIGHTNESS_MSB/LSB registers (DPCD Addresses 722h-723h).
+> - Add support for backlight control of the eDP panel connected to the
+>   ti-sn65dsi86 bridge.
+>
+> Rajeev Nandan (3):
+>   drm/dp: Add DisplayPort aux backlight control support
+>   dt-bindings: drm/bridge: ti-sn65dsi86: Document use-aux-backlight
+>   drm/bridge: ti-sn65dsi86: Add DisplayPort aux backlight support
+>
+>  .../bindings/display/bridge/ti,sn65dsi86.yaml      |   8 +
+>  drivers/gpu/drm/Kconfig                            |   8 +
+>  drivers/gpu/drm/Makefile                           |   1 +
+>  drivers/gpu/drm/bridge/Kconfig                     |   1 +
+>  drivers/gpu/drm/bridge/ti-sn65dsi86.c              |  26 +++
+>  drivers/gpu/drm/drm_dp_aux_backlight.c             | 191 +++++++++++++++++++++
+>  include/drm/drm_dp_aux_backlight.h                 |  29 ++++
+>  7 files changed, 264 insertions(+)
+>  create mode 100644 drivers/gpu/drm/drm_dp_aux_backlight.c
+>  create mode 100644 include/drm/drm_dp_aux_backlight.h
 
-Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c          | 16 +++++++++++++---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c | 14 +++++++++-----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c |  8 +++++++-
- 3 files changed, 29 insertions(+), 9 deletions(-)
+So I haven't looked in massive detail at this patch series, but the
+fact that it's touching "ti-sn65dsi86.c" is a red flag. I know in
+out-of-band communications you said you weren't sure how to do better.
+...but, perhaps, if folks don't hate my recent series [1] there may be
+a way forward.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 8d94205..f1642de 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-- * Copyright (c) 2014-2018, The Linux Foundation. All rights reserved.
-+ * Copyright (c) 2014-2018, 2020-2021 The Linux Foundation. All rights reserved.
-  * Copyright (C) 2013 Red Hat
-  * Author: Rob Clark <robdclark@gmail.com>
-  */
-@@ -26,6 +26,7 @@
- #include "dpu_crtc.h"
- #include "dpu_trace.h"
- #include "dpu_core_irq.h"
-+#include "disp/msm_disp_snapshot.h"
- 
- #define DPU_DEBUG_ENC(e, fmt, ...) DPU_DEBUG("enc%d " fmt,\
- 		(e) ? (e)->base.base.id : -1, ##__VA_ARGS__)
-@@ -1336,6 +1337,11 @@ static void dpu_encoder_underrun_callback(struct drm_encoder *drm_enc,
- 
- 	DPU_ATRACE_BEGIN("encoder_underrun_callback");
- 	atomic_inc(&phy_enc->underrun_cnt);
-+
-+	/* trigger dump only on the first underrun */
-+	if (atomic_read(&phy_enc->underrun_cnt) == 1)
-+		msm_disp_snapshot_state(drm_enc->dev);
-+
- 	trace_dpu_enc_underrun_cb(DRMID(drm_enc),
- 				  atomic_read(&phy_enc->underrun_cnt));
- 	DPU_ATRACE_END("encoder_underrun_callback");
-@@ -1565,19 +1571,23 @@ static void dpu_encoder_helper_hw_reset(struct dpu_encoder_phys *phys_enc)
- 	struct dpu_encoder_virt *dpu_enc;
- 	struct dpu_hw_ctl *ctl;
- 	int rc;
-+	struct drm_encoder *drm_enc;
- 
- 	dpu_enc = to_dpu_encoder_virt(phys_enc->parent);
- 	ctl = phys_enc->hw_ctl;
-+	drm_enc = phys_enc->parent;
- 
- 	if (!ctl->ops.reset)
- 		return;
- 
--	DRM_DEBUG_KMS("id:%u ctl %d reset\n", DRMID(phys_enc->parent),
-+	DRM_DEBUG_KMS("id:%u ctl %d reset\n", DRMID(drm_enc),
- 		      ctl->idx);
- 
- 	rc = ctl->ops.reset(ctl);
--	if (rc)
-+	if (rc) {
- 		DPU_ERROR_ENC(dpu_enc, "ctl %d reset failure\n",  ctl->idx);
-+		msm_disp_snapshot_state(drm_enc->dev);
-+	}
- 
- 	phys_enc->enable_state = DPU_ENC_ENABLED;
- }
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-index b2be39b..9999a73 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-- * Copyright (c) 2015-2018 The Linux Foundation. All rights reserved.
-+ * Copyright (c) 2015-2018, 2020-2021 The Linux Foundation. All rights reserved.
-  */
- 
- #define pr_fmt(fmt)	"[drm:%s:%d] " fmt, __func__, __LINE__
-@@ -11,6 +11,7 @@
- #include "dpu_core_irq.h"
- #include "dpu_formats.h"
- #include "dpu_trace.h"
-+#include "disp/msm_disp_snapshot.h"
- 
- #define DPU_DEBUG_CMDENC(e, fmt, ...) DPU_DEBUG("enc%d intf%d " fmt, \
- 		(e) && (e)->base.parent ? \
-@@ -191,10 +192,13 @@ static int _dpu_encoder_phys_cmd_handle_ppdone_timeout(
- 			to_dpu_encoder_phys_cmd(phys_enc);
- 	u32 frame_event = DPU_ENCODER_FRAME_EVENT_ERROR;
- 	bool do_log = false;
-+	struct drm_encoder *drm_enc;
- 
- 	if (!phys_enc->hw_pp)
- 		return -EINVAL;
- 
-+	drm_enc = phys_enc->parent;
-+
- 	cmd_enc->pp_timeout_report_cnt++;
- 	if (cmd_enc->pp_timeout_report_cnt == PP_TIMEOUT_MAX_TRIALS) {
- 		frame_event |= DPU_ENCODER_FRAME_EVENT_PANEL_DEAD;
-@@ -203,7 +207,7 @@ static int _dpu_encoder_phys_cmd_handle_ppdone_timeout(
- 		do_log = true;
- 	}
- 
--	trace_dpu_enc_phys_cmd_pdone_timeout(DRMID(phys_enc->parent),
-+	trace_dpu_enc_phys_cmd_pdone_timeout(DRMID(drm_enc),
- 		     phys_enc->hw_pp->idx - PINGPONG_0,
- 		     cmd_enc->pp_timeout_report_cnt,
- 		     atomic_read(&phys_enc->pending_kickoff_cnt),
-@@ -212,12 +216,12 @@ static int _dpu_encoder_phys_cmd_handle_ppdone_timeout(
- 	/* to avoid flooding, only log first time, and "dead" time */
- 	if (do_log) {
- 		DRM_ERROR("id:%d pp:%d kickoff timeout %d cnt %d koff_cnt %d\n",
--			  DRMID(phys_enc->parent),
-+			  DRMID(drm_enc),
- 			  phys_enc->hw_pp->idx - PINGPONG_0,
- 			  phys_enc->hw_ctl->idx - CTL_0,
- 			  cmd_enc->pp_timeout_report_cnt,
- 			  atomic_read(&phys_enc->pending_kickoff_cnt));
--
-+		msm_disp_snapshot_state(drm_enc->dev);
- 		dpu_encoder_helper_unregister_irq(phys_enc, INTR_IDX_RDPTR);
- 	}
- 
-@@ -228,7 +232,7 @@ static int _dpu_encoder_phys_cmd_handle_ppdone_timeout(
- 
- 	if (phys_enc->parent_ops->handle_frame_done)
- 		phys_enc->parent_ops->handle_frame_done(
--				phys_enc->parent, phys_enc, frame_event);
-+				drm_enc, phys_enc, frame_event);
- 
- 	return -ETIMEDOUT;
- }
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-index 0e06b7e..fed019f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-@@ -1,5 +1,5 @@
- // SPDX-License-Identifier: GPL-2.0-only
--/* Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
-+/* Copyright (c) 2015-2018, 2020-2021 The Linux Foundation. All rights reserved.
-  */
- 
- #define pr_fmt(fmt)	"[drm:%s:%d] " fmt, __func__, __LINE__
-@@ -9,6 +9,7 @@
- #include "dpu_core_irq.h"
- #include "dpu_formats.h"
- #include "dpu_trace.h"
-+#include "disp/msm_disp_snapshot.h"
- 
- #define DPU_DEBUG_VIDENC(e, fmt, ...) DPU_DEBUG("enc%d intf%d " fmt, \
- 		(e) && (e)->parent ? \
-@@ -468,6 +469,7 @@ static void dpu_encoder_phys_vid_enable(struct dpu_encoder_phys *phys_enc)
- 		"update pending flush ctl %d intf %d\n",
- 		ctl->idx - CTL_0, phys_enc->hw_intf->idx);
- 
-+	atomic_set(&phys_enc->underrun_cnt, 0);
- 
- 	/* ctl_flush & timing engine enable will be triggered by framework */
- 	if (phys_enc->enable_state == DPU_ENC_DISABLED)
-@@ -537,6 +539,9 @@ static void dpu_encoder_phys_vid_prepare_for_kickoff(
- {
- 	struct dpu_hw_ctl *ctl;
- 	int rc;
-+	struct drm_encoder *drm_enc;
-+
-+	drm_enc = phys_enc->parent;
- 
- 	ctl = phys_enc->hw_ctl;
- 	if (!ctl->ops.wait_reset_status)
-@@ -550,6 +555,7 @@ static void dpu_encoder_phys_vid_prepare_for_kickoff(
- 	if (rc) {
- 		DPU_ERROR_VIDENC(phys_enc, "ctl %d reset failure: %d\n",
- 				ctl->idx, rc);
-+		msm_disp_snapshot_state(drm_enc->dev);
- 		dpu_encoder_helper_unregister_irq(phys_enc, INTR_IDX_VSYNC);
- 	}
- }
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+I wonder if perhaps now that the AUX channel can be registered early
+if it gets around the circular dependency problems and now you can put
+your code in some combination of the panel code and (maybe?) a new
+backlight driver if it's generic enough.
 
+It's possible that you might need to add some code to be able to look
+up a "struct drm_dp_aux *" from a device tree node and you might need
+to add a new device tree property like "ddc-aux-bus" in order to do
+this, but I don't _think_ that would be controversial?
+
+[1] https://lore.kernel.org/r/20210416223950.3586967-1-dianders@chromium.org
+
+-Doug
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
