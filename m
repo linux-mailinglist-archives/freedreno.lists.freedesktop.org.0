@@ -2,60 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A97B362271
-	for <lists+freedreno@lfdr.de>; Fri, 16 Apr 2021 16:37:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 538783626FF
+	for <lists+freedreno@lfdr.de>; Fri, 16 Apr 2021 19:38:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B1026EBAC;
-	Fri, 16 Apr 2021 14:37:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFFAC6EC8D;
+	Fri, 16 Apr 2021 17:38:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D17D06EBB7
- for <freedreno@lists.freedesktop.org>; Fri, 16 Apr 2021 14:37:34 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id r9so42482298ejj.3
- for <freedreno@lists.freedesktop.org>; Fri, 16 Apr 2021 07:37:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=/33rrW6tAmVtxRYoiv0PK1lc5LAomei+z6FwtqsCisM=;
- b=mr7mcxDCkJ8MhFaVouTHt6dvkAGmS8HK4Hsecj8ryEDXuyrg6L3br6ohFHv7uAsu9T
- w3j+TgQ6YNNQrtMauk4qHrptT7OQWrR9oytM5dUgU4dwD2kElP4WYvTD4HnV0c9LphsH
- B6njwvTRZyxuf0MLnd4gH/1NsT4Wy6couYfoPQBqYkHmqav6uTU/hKc1uCV/j8eu7X7U
- 38LacZ+Zq/pHDs3pKO/MRnv5uhxP8Ncrrq68OkHgpX3t3MFaPm2LuytYSbP8ep7k12KJ
- 6bFJinfIbvCy2mmXSDrIp5dC/a3aenEyXyO7KTo82kBVW5SBZC/xKczOCAIKXRZNkq/1
- Wl9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=/33rrW6tAmVtxRYoiv0PK1lc5LAomei+z6FwtqsCisM=;
- b=ik7AF3Dr//9Yg/VyFFlnI4rhmi6tdp5PAdWdIHuM1k4g6gHxA2G6EwDd3EBxKFmXZ+
- 1KsjBBCycCINk6gDE1eYVWQsJGKDNSBHCFWVD2Qr7t2v2Xhx9agz8QJqAe0s1N/RS/lb
- 7YbVmLtDmHttJHEzJ/OFkUHNUAsA/rN6JzQ9fza7pC3SxXAb3MtVIY7MgH/DolGIgd2x
- DjtqyBq0K7qoT4rajXDpUOmaLRNMuB7l/lcMUSx1pzJWwkv2/4Bzm0v1qQhuh/uRt7Rf
- ztP1/hVqa5hcULUoOVQWRFJww3jMef571IiLCnV3qizVW9JDPudza+UmVFwJTGi42zVo
- L6vw==
-X-Gm-Message-State: AOAM533iUqA4IAPbNimqQ0Q+TyySiWNZzfEILl6t8CSbst2n44o9dRX0
- yls0pu3syozHY3xDmi2QQJPPoQ==
-X-Google-Smtp-Source: ABdhPJwwfH4O9ibDHVnq4+L1No/DlqAhAj3OnYY5JG+/HseoSx+4QpnBSUWZrA55lAFlFlfoaQn0Hw==
-X-Received: by 2002:a17:906:7842:: with SMTP id
- p2mr9043139ejm.87.1618583853536; 
- Fri, 16 Apr 2021 07:37:33 -0700 (PDT)
-Received: from dell.default ([91.110.221.215])
- by smtp.gmail.com with ESMTPSA id j10sm1326523ejk.93.2021.04.16.07.37.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Apr 2021 07:37:33 -0700 (PDT)
-From: Lee Jones <lee.jones@linaro.org>
-To: lee.jones@linaro.org
-Date: Fri, 16 Apr 2021 15:36:48 +0100
-Message-Id: <20210416143725.2769053-4-lee.jones@linaro.org>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210416143725.2769053-1-lee.jones@linaro.org>
-References: <20210416143725.2769053-1-lee.jones@linaro.org>
-MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 03/40] drm/msm/dp/dp_display: Remove unused
- variable 'hpd'
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F18B6EC8D
+ for <freedreno@lists.freedesktop.org>; Fri, 16 Apr 2021 17:38:23 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1618594711; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=Y3RdJh64f/A7Bekobz08o6R+GiE3qPBz/fdmi999ShQ=;
+ b=L2KQQnPzFPH70aWPZ9nPoJ7d3jNLYl3azFsEgPjFn2HVwO2YkVLFaeiUK4VtlZmONDIMXld6
+ DU73XvLyjj6lQ9O9aJxGdb8HuEowsd4jknbsAHrGXu7DUs7yQNcJsc96EoQbIe2A2U+VjcMC
+ SGA4yLvnaHLZ0KRDHaGqIa4h+Gk=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
+ 6079cb83c39407c327a1fe61 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 16 Apr 2021 17:38:11
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id ACEACC43462; Fri, 16 Apr 2021 17:38:10 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
+Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 2F7EBC433CA;
+ Fri, 16 Apr 2021 17:38:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 2F7EBC433CA
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=khsieh@codeaurora.org
+From: Kuogee Hsieh <khsieh@codeaurora.org>
+To: robdclark@gmail.com,
+	sean@poorly.run,
+	swboyd@chromium.org
+Date: Fri, 16 Apr 2021 10:38:03 -0700
+Message-Id: <1618594683-410-1-git-send-email-khsieh@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH v3 2/3] drm/msm/dp: initialize audio_comp when
+ audio starts
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,40 +66,98 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Kuogee Hsieh <khsieh@codeaurora.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, abhinavk@codeaurora.org, khsieh@codeaurora.org,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Rml4ZXMgdGhlIGZvbGxvd2luZyBXPTEga2VybmVsIGJ1aWxkIHdhcm5pbmcocyk6CgogZHJpdmVy
-cy9ncHUvZHJtL21zbS9kcC9kcF9kaXNwbGF5LmM6IEluIGZ1bmN0aW9uIOKAmGRwX2Rpc3BsYXlf
-dXNicGRfYXR0ZW50aW9uX2Ni4oCZOgogZHJpdmVycy9ncHUvZHJtL21zbS9kcC9kcF9kaXNwbGF5
-LmM6NDk2OjE5OiB3YXJuaW5nOiB2YXJpYWJsZSDigJhocGTigJkgc2V0IGJ1dCBub3QgdXNlZCBb
-LVd1bnVzZWQtYnV0LXNldC12YXJpYWJsZV0KCkNjOiBSb2IgQ2xhcmsgPHJvYmRjbGFya0BnbWFp
-bC5jb20+CkNjOiBTZWFuIFBhdWwgPHNlYW5AcG9vcmx5LnJ1bj4KQ2M6IERhdmlkIEFpcmxpZSA8
-YWlybGllZEBsaW51eC5pZT4KQ2M6IERhbmllbCBWZXR0ZXIgPGRhbmllbEBmZndsbC5jaD4KQ2M6
-IEt1b2dlZSBIc2llaCA8a2hzaWVoQGNvZGVhdXJvcmEub3JnPgpDYzogbGludXgtYXJtLW1zbUB2
-Z2VyLmtlcm5lbC5vcmcKQ2M6IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKQ2M6IGZy
-ZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKU2lnbmVkLW9mZi1ieTogTGVlIEpvbmVzIDxs
-ZWUuam9uZXNAbGluYXJvLm9yZz4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vbXNtL2RwL2RwX2Rpc3Bs
-YXkuYyB8IDMgLS0tCiAxIGZpbGUgY2hhbmdlZCwgMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vbXNtL2RwL2RwX2Rpc3BsYXkuYyBiL2RyaXZlcnMvZ3B1L2RybS9t
-c20vZHAvZHBfZGlzcGxheS5jCmluZGV4IDVhMzlkYTZlMWVhZjIuLjMxYmYyYTQwYTllYjIgMTAw
-NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tc20vZHAvZHBfZGlzcGxheS5jCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9tc20vZHAvZHBfZGlzcGxheS5jCkBAIC00OTMsNyArNDkzLDYgQEAgc3RhdGlj
-IGludCBkcF9kaXNwbGF5X3VzYnBkX2F0dGVudGlvbl9jYihzdHJ1Y3QgZGV2aWNlICpkZXYpCiAJ
-aW50IHJjID0gMDsKIAl1MzIgc2lua19yZXF1ZXN0OwogCXN0cnVjdCBkcF9kaXNwbGF5X3ByaXZh
-dGUgKmRwOwotCXN0cnVjdCBkcF91c2JwZCAqaHBkOwogCiAJaWYgKCFkZXYpIHsKIAkJRFJNX0VS
-Uk9SKCJpbnZhbGlkIGRldlxuIik7CkBAIC01MDcsOCArNTA2LDYgQEAgc3RhdGljIGludCBkcF9k
-aXNwbGF5X3VzYnBkX2F0dGVudGlvbl9jYihzdHJ1Y3QgZGV2aWNlICpkZXYpCiAJCXJldHVybiAt
-RU5PREVWOwogCX0KIAotCWhwZCA9IGRwLT51c2JwZDsKLQogCS8qIGNoZWNrIGZvciBhbnkgdGVz
-dCByZXF1ZXN0IGlzc3VlZCBieSBzaW5rICovCiAJcmMgPSBkcF9saW5rX3Byb2Nlc3NfcmVxdWVz
-dChkcC0+bGluayk7CiAJaWYgKCFyYykgewotLSAKMi4yNy4wCgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpGcmVlZHJlbm8gbWFpbGluZyBsaXN0CkZyZWVk
-cmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9mcmVlZHJlbm8K
+Initialize audio_comp when audio starts and wait for audio_comp at
+dp_display_disable(). This will take care of both dongle unplugged
+and display off (suspend) cases.
+
+Changes in v2:
+-- add dp_display_signal_audio_start()
+
+Changes in v3:
+-- restore dp_display_handle_plugged_change() at dp_hpd_unplug_handle().
+
+Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+---
+ drivers/gpu/drm/msm/dp/dp_audio.c   |  1 +
+ drivers/gpu/drm/msm/dp/dp_display.c | 11 +++++++++--
+ drivers/gpu/drm/msm/dp/dp_display.h |  1 +
+ 3 files changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_audio.c b/drivers/gpu/drm/msm/dp/dp_audio.c
+index 82a8673..d7e4a39 100644
+--- a/drivers/gpu/drm/msm/dp/dp_audio.c
++++ b/drivers/gpu/drm/msm/dp/dp_audio.c
+@@ -527,6 +527,7 @@ int dp_audio_hw_params(struct device *dev,
+ 	dp_audio_setup_acr(audio);
+ 	dp_audio_safe_to_exit_level(audio);
+ 	dp_audio_enable(audio, true);
++	dp_display_signal_audio_start(dp_display);
+ 	dp_display->audio_enabled = true;
+ 
+ end:
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 0ba71c7..1784e11 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -178,6 +178,15 @@ static int dp_del_event(struct dp_display_private *dp_priv, u32 event)
+ 	return 0;
+ }
+ 
++void dp_display_signal_audio_start(struct msm_dp *dp_display)
++{
++	struct dp_display_private *dp;
++
++	dp = container_of(dp_display, struct dp_display_private, dp_display);
++
++	reinit_completion(&dp->audio_comp);
++}
++
+ void dp_display_signal_audio_complete(struct msm_dp *dp_display)
+ {
+ 	struct dp_display_private *dp;
+@@ -649,7 +658,6 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
+ 	dp_add_event(dp, EV_DISCONNECT_PENDING_TIMEOUT, 0, DP_TIMEOUT_5_SECOND);
+ 
+ 	/* signal the disconnect event early to ensure proper teardown */
+-	reinit_completion(&dp->audio_comp);
+ 	dp_display_handle_plugged_change(g_dp_display, false);
+ 
+ 	dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_PLUG_INT_MASK |
+@@ -894,7 +902,6 @@ static int dp_display_disable(struct dp_display_private *dp, u32 data)
+ 	/* wait only if audio was enabled */
+ 	if (dp_display->audio_enabled) {
+ 		/* signal the disconnect event */
+-		reinit_completion(&dp->audio_comp);
+ 		dp_display_handle_plugged_change(dp_display, false);
+ 		if (!wait_for_completion_timeout(&dp->audio_comp,
+ 				HZ * 5))
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
+index 6092ba1..5173c89 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.h
++++ b/drivers/gpu/drm/msm/dp/dp_display.h
+@@ -34,6 +34,7 @@ int dp_display_get_modes(struct msm_dp *dp_display,
+ int dp_display_request_irq(struct msm_dp *dp_display);
+ bool dp_display_check_video_test(struct msm_dp *dp_display);
+ int dp_display_get_test_bpp(struct msm_dp *dp_display);
++void dp_display_signal_audio_start(struct msm_dp *dp_display);
+ void dp_display_signal_audio_complete(struct msm_dp *dp_display);
+ 
+ #endif /* _DP_DISPLAY_H_ */
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
