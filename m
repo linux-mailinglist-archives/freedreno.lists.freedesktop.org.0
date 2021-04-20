@@ -2,42 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD4BF3653CE
-	for <lists+freedreno@lfdr.de>; Tue, 20 Apr 2021 10:14:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A13F9365D96
+	for <lists+freedreno@lfdr.de>; Tue, 20 Apr 2021 18:42:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60C506E454;
-	Tue, 20 Apr 2021 08:14:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 423506E875;
+	Tue, 20 Apr 2021 16:42:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D15B16E454;
- Tue, 20 Apr 2021 08:14:26 +0000 (UTC)
-IronPort-SDR: NXmaxhx+CzkHGeaIHLWFAnkz8yg446hl2kXblrKpBuQBmZtxQWCASFOU8zhWSVdqY0mOlp2h4/
- fVZStJ01WSsA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9959"; a="193343365"
-X-IronPort-AV: E=Sophos;i="5.82,236,1613462400"; d="scan'208";a="193343365"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Apr 2021 01:14:26 -0700
-IronPort-SDR: Cxj7ganx+nV90yPpMiVWE6qtl6+EMVAiGF6UykeJoDtukenFRfrSPjRTDSrKPkZSKpGF2Cna0F
- F6uvu7cEBDBQ==
-X-IronPort-AV: E=Sophos;i="5.82,236,1613462400"; d="scan'208";a="426831797"
-Received: from karunatx-mobl.gar.corp.intel.com (HELO localhost)
- ([10.252.35.249])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Apr 2021 01:14:21 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Rajeev Nandan <rajeevny@codeaurora.org>, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
-In-Reply-To: <1618418390-15055-1-git-send-email-rajeevny@codeaurora.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <1618418390-15055-1-git-send-email-rajeevny@codeaurora.org>
-Date: Tue, 20 Apr 2021 11:14:18 +0300
-Message-ID: <871rb5bcf9.fsf@intel.com>
-MIME-Version: 1.0
-Subject: Re: [Freedreno] [v1 0/3] drm: Add support for backlight control of
- eDP panel on ti-sn65dsi86 bridge
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 305C86E87A
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Apr 2021 16:42:44 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1618936964; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=uOhn+aQN8qW3a4uUMr59vR32uEH+af8BSoI5IdTx6/s=;
+ b=i8OfrhqAGwLyP5p9L3KB9Z4oBQNrG20a6h7JrjWxOzQxXDNqXOh+l3JalTVrQ4s4gNISWwpe
+ IaCGRIuYE9uijEtEpCg0Pdp3w997k5e77mjplYH6jV7aXnedYyu5rTApakVtX8zmRbnfbIwH
+ NhaYS7GrAhnAFZ6192WDcyyrLAA=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
+ 607f0483a817abd39a8bbc51 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 20 Apr 2021 16:42:43
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 63020C4323A; Tue, 20 Apr 2021 16:42:42 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
+Received: from hyd-lnxbld559.qualcomm.com (unknown [202.46.22.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 72548C433D3;
+ Tue, 20 Apr 2021 16:42:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 72548C433D3
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=akhilpo@codeaurora.org
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+To: freedreno@lists.freedesktop.org,
+	dri-devel@freedesktop.org
+Date: Tue, 20 Apr 2021 22:12:28 +0530
+Message-Id: <1618936948-13610-1-git-send-email-akhilpo@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH] freedreno/a6xx: Add a few registers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,86 +63,64 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: mkrishn@codeaurora.org, Lyude Paul <lyude@redhat.com>,
- Rajeev Nandan <rajeevny@codeaurora.org>, linux-kernel@vger.kernel.org,
- abhinavk@codeaurora.org, dianders@chromium.org, seanpaul@chromium.org,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- kalyan_t@codeaurora.org, hoegsberg@chromium.org, "Lankhorst,
- Maarten" <maarten.lankhorst@intel.com>
+Cc: linux-arm-msm@vger.kernel.org, robdclark@gmail.com
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Add a few new registers for a6xx gpu.
 
-Cc: Lyude and drm-misc maintainers
+Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+---
+ registers/adreno/a6xx.xml     | 2 ++
+ registers/adreno/a6xx_gmu.xml | 2 ++
+ 2 files changed, 4 insertions(+)
 
-On Wed, 14 Apr 2021, Rajeev Nandan <rajeevny@codeaurora.org> wrote:
-> The backlight level of an eDP panel can be controlled through the AUX
-> channel using DPCD registers of the panel.
->
-> The capability for the Source device to adjust backlight characteristics
-> within the panel, using the Sink device DPCD registers is indicated by
-> the TCON_BACKLIGHT_ADJUSTMENT_CAPABLE bit in the EDP_GENERAL_CAPABILITY_1
-> register (DPCD Address 701h, bit0). In this configuration, the eDP TCON
-> receives the backlight level information from the host, through the AUX
-> channel.
-
-i915 has had this capability for some years now, and work is in progress
-to extract the DP AUX backlight code to drm core as helpers [1]. There's
-much more to it than what's proposed here. Adding incompatible DP AUX
-code at this point would be a pretty bad outcome.
-
-For example, we can't tie backlight device register to DP AUX backlight,
-because there are modes where *both* the eDP PWM pin based backlight
-control and DP AUX backlight control are used *simultaneously*. The
-backlight device register needs to be in code that is aware of both.
-
-Granted, it was a mistake way back when to add this in i915 only, and it
-should've been lifted to drm much earlier. It would've been done by
-Lyude by now, but people were not happy about not using drm device based
-logging. And that has unfortunately lead to a pretty massive prep series
-[2].
-
-Please look into the code added to drm helpers in [1], and see how that
-would work for you.
-
-
-BR,
-Jani.
-
-
-[1] http://lore.kernel.org/r/20210205234515.1216538-1-lyude@redhat.com
-[2] http://lore.kernel.org/r/20210419225523.184856-1-lyude@redhat.com
-
-
->
-> The changes in this patch series do the following:
-> - Add drm_dp_aux_backlight_ APIs to support backlight control using DPCD
->   registers on the DisplayPort AUX channel.
->   The current version only supports backlight brightness control by the
->   EDP_BACKLIGHT_BRIGHTNESS_MSB/LSB registers (DPCD Addresses 722h-723h).
-> - Add support for backlight control of the eDP panel connected to the
->   ti-sn65dsi86 bridge.
->
-> Rajeev Nandan (3):
->   drm/dp: Add DisplayPort aux backlight control support
->   dt-bindings: drm/bridge: ti-sn65dsi86: Document use-aux-backlight
->   drm/bridge: ti-sn65dsi86: Add DisplayPort aux backlight support
->
->  .../bindings/display/bridge/ti,sn65dsi86.yaml      |   8 +
->  drivers/gpu/drm/Kconfig                            |   8 +
->  drivers/gpu/drm/Makefile                           |   1 +
->  drivers/gpu/drm/bridge/Kconfig                     |   1 +
->  drivers/gpu/drm/bridge/ti-sn65dsi86.c              |  26 +++
->  drivers/gpu/drm/drm_dp_aux_backlight.c             | 191 +++++++++++++++++++++
->  include/drm/drm_dp_aux_backlight.h                 |  29 ++++
->  7 files changed, 264 insertions(+)
->  create mode 100644 drivers/gpu/drm/drm_dp_aux_backlight.c
->  create mode 100644 include/drm/drm_dp_aux_backlight.h
-
+diff --git a/registers/adreno/a6xx.xml b/registers/adreno/a6xx.xml
+index 15314fb..3b04565 100644
+--- a/registers/adreno/a6xx.xml
++++ b/registers/adreno/a6xx.xml
+@@ -1107,6 +1107,7 @@ to upconvert to 32b float internally?
+ 	<reg32 offset="0x098D" name="CP_AHB_CNTL"/>
+ 	<reg32 offset="0x0A00" name="CP_APERTURE_CNTL_HOST"/>
+ 	<reg32 offset="0x0A03" name="CP_APERTURE_CNTL_CD"/>
++	<reg32 offset="0x0B34" name="CP_LPAC_PROG_FIFO_SIZE"/>
+ 	<reg32 offset="0x0C01" name="VSC_ADDR_MODE_CNTL" type="a5xx_address_mode"/>
+ 	<reg32 offset="0x0201" name="RBBM_INT_0_STATUS" type="A6XX_RBBM_INT_0_MASK"/>
+ 	<reg32 offset="0x0210" name="RBBM_STATUS">
+@@ -1740,6 +1741,7 @@ to upconvert to 32b float internally?
+ 	<reg32 offset="0x3119" name="VBIF_PERF_PWR_CNT_HIGH1"/>
+ 	<reg32 offset="0x311a" name="VBIF_PERF_PWR_CNT_HIGH2"/>
+ 
++	<reg32 offset="0x3c01" name="GBIF_SCACHE_CNTL0"/>
+ 	<reg32 offset="0x3c02" name="GBIF_SCACHE_CNTL1"/>
+ 	<reg32 offset="0x3c03" name="GBIF_QSB_SIDE0"/>
+ 	<reg32 offset="0x3c04" name="GBIF_QSB_SIDE1"/>
+diff --git a/registers/adreno/a6xx_gmu.xml b/registers/adreno/a6xx_gmu.xml
+index dbefd0c..f8bf1fd 100644
+--- a/registers/adreno/a6xx_gmu.xml
++++ b/registers/adreno/a6xx_gmu.xml
+@@ -112,6 +112,7 @@ xsi:schemaLocation="http://nouveau.freedesktop.org/ rules-ng.xsd">
+ 	<reg32 offset="0x50e9" name="GMU_RPMH_HYST_CTRL"/>
+ 	<reg32 offset="0x50ec" name="GPU_GMU_CX_GMU_RPMH_POWER_STATE"/>
+ 	<reg32 offset="0x50f0" name="GPU_GMU_CX_GMU_CX_FAL_INTF"/>
++	<reg32 offset="0x50f1" name="GPU_GMU_CX_GMU_CX_FALNEXT_INTF"/>
+ 	<reg32 offset="0x5100" name="GPU_GMU_CX_GMU_PWR_COL_CP_MSG"/>
+ 	<reg32 offset="0x5101" name="GPU_GMU_CX_GMU_PWR_COL_CP_RESP"/>
+ 	<reg32 offset="0x51f0" name="GMU_BOOT_KMD_LM_HANDSHAKE"/>
+@@ -193,6 +194,7 @@ xsi:schemaLocation="http://nouveau.freedesktop.org/ rules-ng.xsd">
+ 	<reg32 offset="0x9312" name="GMU_AHB_FENCE_RANGE_1"/>
+ 	<reg32 offset="0x9c03" name="GPU_CC_GX_GDSCR"/>
+ 	<reg32 offset="0x9d42" name="GPU_CC_GX_DOMAIN_MISC"/>
++	<reg32 offset="0xc001" name="GPU_CPR_FSM_CTL"/>
+ 
+ 	<!-- starts at offset 0x8c00 on most gpus -->
+ 	<reg32 offset="0x0004" name="GPU_RSCC_RSC_STATUS0_DRV0"/>
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.7.4
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
