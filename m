@@ -2,33 +2,33 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A13F9365D96
-	for <lists+freedreno@lfdr.de>; Tue, 20 Apr 2021 18:42:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04A3F365DAC
+	for <lists+freedreno@lfdr.de>; Tue, 20 Apr 2021 18:47:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 423506E875;
-	Tue, 20 Apr 2021 16:42:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 903416E875;
+	Tue, 20 Apr 2021 16:47:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 305C86E87A
- for <freedreno@lists.freedesktop.org>; Tue, 20 Apr 2021 16:42:44 +0000 (UTC)
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 790ED6E875
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Apr 2021 16:47:23 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1618936964; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=uOhn+aQN8qW3a4uUMr59vR32uEH+af8BSoI5IdTx6/s=;
- b=i8OfrhqAGwLyP5p9L3KB9Z4oBQNrG20a6h7JrjWxOzQxXDNqXOh+l3JalTVrQ4s4gNISWwpe
- IaCGRIuYE9uijEtEpCg0Pdp3w997k5e77mjplYH6jV7aXnedYyu5rTApakVtX8zmRbnfbIwH
- NhaYS7GrAhnAFZ6192WDcyyrLAA=
-X-Mailgun-Sending-Ip: 198.61.254.9
+ s=smtp; t=1618937243; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=EKChT1gTpuiNaclzIXzJQspOWuQ3ARaK4rg8YfgIlGM=;
+ b=RcOBiPJ8BSTZI+tOFMXmOffl179C0PxQJIsSVLGiBOkIJAbYVpD1gG2eXVWrQDB6llYHpSGY
+ 4Khsq7QZyhaal6R4ebuz2KhcJF01rckKdUGbGS80r7NkkwEZE/jlR+V9yzC1eZR3O+UlAjRh
+ eUbDAiCLM16cHnMu67QS5re+mQQ=
+X-Mailgun-Sending-Ip: 69.72.43.7
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
- 607f0483a817abd39a8bbc51 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 20 Apr 2021 16:42:43
+ smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
+ 607f059a215b831afbad98fb (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 20 Apr 2021 16:47:22
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 63020C4323A; Tue, 20 Apr 2021 16:42:42 +0000 (UTC)
+ id C4D45C43217; Tue, 20 Apr 2021 16:47:21 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -37,9 +37,9 @@ X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
 Received: from hyd-lnxbld559.qualcomm.com (unknown [202.46.22.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: akhilpo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 72548C433D3;
- Tue, 20 Apr 2021 16:42:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 72548C433D3
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id D5F3DC4338A;
+ Tue, 20 Apr 2021 16:47:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org D5F3DC4338A
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
@@ -47,8 +47,8 @@ Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
 From: Akhil P Oommen <akhilpo@codeaurora.org>
 To: freedreno@lists.freedesktop.org,
 	dri-devel@freedesktop.org
-Date: Tue, 20 Apr 2021 22:12:28 +0530
-Message-Id: <1618936948-13610-1-git-send-email-akhilpo@codeaurora.org>
+Date: Tue, 20 Apr 2021 22:17:13 +0530
+Message-Id: <1618937233-14468-1-git-send-email-akhilpo@codeaurora.org>
 X-Mailer: git-send-email 2.7.4
 Subject: [Freedreno] [PATCH] freedreno/a6xx: Add a few registers
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -119,7 +119,8 @@ index dbefd0c..f8bf1fd 100644
  	<!-- starts at offset 0x8c00 on most gpus -->
  	<reg32 offset="0x0004" name="GPU_RSCC_RSC_STATUS0_DRV0"/>
 -- 
-2.7.4
+QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a member
+of Code Aurora Forum, hosted by The Linux Foundation.
 
 _______________________________________________
 Freedreno mailing list
