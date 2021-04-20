@@ -2,44 +2,42 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 825A2365060
-	for <lists+freedreno@lfdr.de>; Tue, 20 Apr 2021 04:33:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD4BF3653CE
+	for <lists+freedreno@lfdr.de>; Tue, 20 Apr 2021 10:14:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2552489DDF;
-	Tue, 20 Apr 2021 02:33:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60C506E454;
+	Tue, 20 Apr 2021 08:14:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 221216E466;
- Mon, 19 Apr 2021 23:16:29 +0000 (UTC)
-IronPort-SDR: L99NkPty0CcDgh0mIHNeQx8WK8/100QaonWYrEILTfSVNAEHocFv2zs+CLOHq7x+/egMaqTRwu
- ZIXqdrAg7QtA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9959"; a="182906982"
-X-IronPort-AV: E=Sophos;i="5.82,235,1613462400"; d="scan'208";a="182906982"
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D15B16E454;
+ Tue, 20 Apr 2021 08:14:26 +0000 (UTC)
+IronPort-SDR: NXmaxhx+CzkHGeaIHLWFAnkz8yg446hl2kXblrKpBuQBmZtxQWCASFOU8zhWSVdqY0mOlp2h4/
+ fVZStJ01WSsA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9959"; a="193343365"
+X-IronPort-AV: E=Sophos;i="5.82,236,1613462400"; d="scan'208";a="193343365"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2021 16:16:27 -0700
-IronPort-SDR: iIIH7NlXhkxVafhWosExRMhnrx+Hu6+CYp2cRfQaVv6rb1BmvP4PniIkDXtldicdcUQKnnVY5j
- x/lpHd1JEztQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.82,235,1613462400"; d="scan'208";a="426687226"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by orsmga008.jf.intel.com with SMTP; 19 Apr 2021 16:16:13 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 20 Apr 2021 02:16:13 +0300
-Date: Tue, 20 Apr 2021 02:16:13 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Lyude Paul <lyude@redhat.com>
-Message-ID: <YH4PPbY1qqF2NtrN@intel.com>
-References: <20210419225523.184856-1-lyude@redhat.com>
- <20210419225523.184856-4-lyude@redhat.com>
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2021 01:14:26 -0700
+IronPort-SDR: Cxj7ganx+nV90yPpMiVWE6qtl6+EMVAiGF6UykeJoDtukenFRfrSPjRTDSrKPkZSKpGF2Cna0F
+ F6uvu7cEBDBQ==
+X-IronPort-AV: E=Sophos;i="5.82,236,1613462400"; d="scan'208";a="426831797"
+Received: from karunatx-mobl.gar.corp.intel.com (HELO localhost)
+ ([10.252.35.249])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2021 01:14:21 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Rajeev Nandan <rajeevny@codeaurora.org>, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <1618418390-15055-1-git-send-email-rajeevny@codeaurora.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <1618418390-15055-1-git-send-email-rajeevny@codeaurora.org>
+Date: Tue, 20 Apr 2021 11:14:18 +0300
+Message-ID: <871rb5bcf9.fsf@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210419225523.184856-4-lyude@redhat.com>
-X-Patchwork-Hint: comment
-X-Mailman-Approved-At: Tue, 20 Apr 2021 02:33:44 +0000
-Subject: Re: [Freedreno] [PATCH v3 03/20] drm/dp: Move i2c init to
- drm_dp_aux_init, add __must_check and fini
+Subject: Re: [Freedreno] [v1 0/3] drm: Add support for backlight control of
+ eDP panel on ti-sn65dsi86 bridge
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,95 +50,86 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <narmstrong@baylibre.com>,
-	David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
-	Guido =?iso-8859-1?Q?G=FCnther?= <agx@sigxcpu.org>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Oleg Vasilev <oleg.vasilev@intel.com>,
-	dri-devel@lists.freedesktop.org,
-	Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
-	Andrzej Hajda <a.hajda@samsung.com>,
-	Aurabindo Pillai <aurabindo.pillai@amd.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Sam Ravnborg <sam@ravnborg.org>, Matt@freedesktop.org,
-	Tomi Valkeinen <tomi.valkeinen@ti.com>,
-	Parshuram Thombare <pthombar@cadence.com>,
-	Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
-	Michal Simek <michal.simek@xilinx.com>,
-	amd-gfx@lists.freedesktop.org,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Luben Tuikov <luben.tuikov@amd.com>, Ben Skeggs <bskeggs@redhat.com>,
-	Swapnil Jakhade <sjakhade@cadence.com>,
-	Thierry Reding <treding@nvidia.com>,
-	Harry Wentland <harry.wentland@amd.com>,
-	Imre Deak <imre.deak@intel.com>, Daniel Vetter <daniel@ffwll.ch>,
-	Jonas Karlman <jonas@kwiboo.se>, Leo Li <sunpeng.li@amd.com>,
-	intel-gfx@lists.freedesktop.org,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joe Perches <joe@perches.com>, Yuti Amonkar <yamonkar@cadence.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Mikita Lipski <mikita.lipski@amd.com>, Sean Paul <sean@poorly.run>,
-	Navid Emamdoost <navid.emamdoost@gmail.com>,
-	Jernej Skrabec <jernej.skrabec@siol.net>,
-	Chris Park <Chris.Park@amd.com>, Eryk Brol <eryk.brol@amd.com>,
-	Hyun Kwon <hyun.kwon@xilinx.com>,
-	Robert Foss <robert.foss@linaro.org>,
-	Julia Lawall <Julia.Lawall@inria.fr>,
-	Rob Clark <robdclark@gmail.com>,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: mkrishn@codeaurora.org, Lyude Paul <lyude@redhat.com>,
+ Rajeev Nandan <rajeevny@codeaurora.org>, linux-kernel@vger.kernel.org,
+ abhinavk@codeaurora.org, dianders@chromium.org, seanpaul@chromium.org,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ kalyan_t@codeaurora.org, hoegsberg@chromium.org, "Lankhorst,
+ Maarten" <maarten.lankhorst@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Apr 19, 2021 at 06:55:05PM -0400, Lyude Paul wrote:
-> When moving around drm_dp_aux_register() calls, it turned out we
-> accidentally managed to cause issues with the Tegra driver due to the fact
-> the Tegra driver would attempt to retrieve a reference to the AUX channel=
-'s
-> i2c adapter - which wouldn't be initialized until drm_dp_aux_register() is
-> called.
-> =
 
-> This doesn't actually make a whole ton of sense, as it's not unexpected f=
-or
-> a driver to need to be able to use an AUX adapter before it's been
-> registered. Likewise-it's not unexpected for a driver to try using the i2c
-> adapter for said AUX channel before it's been registered as well. In fact,
-> the current documentation for drm_dp_aux_init() even seems to imply that
-> drm_dp_aux_init() is supposed to be handling i2c adapter creation for this
-> precise reason - not drm_dp_aux_register().
-> =
+Cc: Lyude and drm-misc maintainers
 
-> Since the i2c adapter doesn't need to be linked to the DRM device in any
-> way, we can just fix this problem by moving i2c adapter creation out of
-> drm_dp_aux_register() and into drm_dp_aux_init(). Additionally, since this
-> means that drm_dp_aux_init() can fail we go ahead and add a __must_check
-> attribute to it so that drivers don't ignore its return status on failure=
-s.
-> And finally, we add a drm_dp_aux_fini() and hook it up in all DRM drivers
-> across the kernel to take care of cleaning up the i2c adapter once it's no
-> longer needed.
-> =
+On Wed, 14 Apr 2021, Rajeev Nandan <rajeevny@codeaurora.org> wrote:
+> The backlight level of an eDP panel can be controlled through the AUX
+> channel using DPCD registers of the panel.
+>
+> The capability for the Source device to adjust backlight characteristics
+> within the panel, using the Sink device DPCD registers is indicated by
+> the TCON_BACKLIGHT_ADJUSTMENT_CAPABLE bit in the EDP_GENERAL_CAPABILITY_1
+> register (DPCD Address 701h, bit0). In this configuration, the eDP TCON
+> receives the backlight level information from the host, through the AUX
+> channel.
 
-> This should also fix the regressions noted in the Tegra driver.
+i915 has had this capability for some years now, and work is in progress
+to extract the DP AUX backlight code to drm core as helpers [1]. There's
+much more to it than what's proposed here. Adding incompatible DP AUX
+code at this point would be a pretty bad outcome.
 
-The init vs. register split is intentional. Registering the thing
-and allowing userspace access to it before the rest of the driver
-is ready isn't particularly great. For a while now we've tried to
-move towards an architecture where the driver is fully initialzied
-before anything gets exposed to userspace.
+For example, we can't tie backlight device register to DP AUX backlight,
+because there are modes where *both* the eDP PWM pin based backlight
+control and DP AUX backlight control are used *simultaneously*. The
+backlight device register needs to be in code that is aware of both.
 
--- =
+Granted, it was a mistake way back when to add this in i915 only, and it
+should've been lifted to drm much earlier. It would've been done by
+Lyude by now, but people were not happy about not using drm device based
+logging. And that has unfortunately lead to a pretty massive prep series
+[2].
 
-Ville Syrj=E4l=E4
-Intel
+Please look into the code added to drm helpers in [1], and see how that
+would work for you.
+
+
+BR,
+Jani.
+
+
+[1] http://lore.kernel.org/r/20210205234515.1216538-1-lyude@redhat.com
+[2] http://lore.kernel.org/r/20210419225523.184856-1-lyude@redhat.com
+
+
+>
+> The changes in this patch series do the following:
+> - Add drm_dp_aux_backlight_ APIs to support backlight control using DPCD
+>   registers on the DisplayPort AUX channel.
+>   The current version only supports backlight brightness control by the
+>   EDP_BACKLIGHT_BRIGHTNESS_MSB/LSB registers (DPCD Addresses 722h-723h).
+> - Add support for backlight control of the eDP panel connected to the
+>   ti-sn65dsi86 bridge.
+>
+> Rajeev Nandan (3):
+>   drm/dp: Add DisplayPort aux backlight control support
+>   dt-bindings: drm/bridge: ti-sn65dsi86: Document use-aux-backlight
+>   drm/bridge: ti-sn65dsi86: Add DisplayPort aux backlight support
+>
+>  .../bindings/display/bridge/ti,sn65dsi86.yaml      |   8 +
+>  drivers/gpu/drm/Kconfig                            |   8 +
+>  drivers/gpu/drm/Makefile                           |   1 +
+>  drivers/gpu/drm/bridge/Kconfig                     |   1 +
+>  drivers/gpu/drm/bridge/ti-sn65dsi86.c              |  26 +++
+>  drivers/gpu/drm/drm_dp_aux_backlight.c             | 191 +++++++++++++++++++++
+>  include/drm/drm_dp_aux_backlight.h                 |  29 ++++
+>  7 files changed, 264 insertions(+)
+>  create mode 100644 drivers/gpu/drm/drm_dp_aux_backlight.c
+>  create mode 100644 include/drm/drm_dp_aux_backlight.h
+
+-- 
+Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
