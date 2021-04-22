@@ -1,62 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2836368130
-	for <lists+freedreno@lfdr.de>; Thu, 22 Apr 2021 15:08:14 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 095E6368135
+	for <lists+freedreno@lfdr.de>; Thu, 22 Apr 2021 15:08:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92F8089BAF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1D5789CB9;
 	Thu, 22 Apr 2021 13:08:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6370B89BD5
- for <freedreno@lists.freedesktop.org>; Thu, 22 Apr 2021 13:08:10 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id 12so71811845lfq.13
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 084CD89BD5
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Apr 2021 13:08:11 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id 12so71811898lfq.13
  for <freedreno@lists.freedesktop.org>; Thu, 22 Apr 2021 06:08:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=pmJr7udGenhHroV8BhxM4TWBA/MGEM7jtLhmDnAa3/I=;
- b=B82wHNuOrWtj5la07YYsokjzmWjjddXcJL0ZPdRbyg3D5rjKdeDkdmMf1mKKu1LgzW
- ZcTD3ed/+WqlYzGxXJs+C7tGAcnt7FSTm/2p4QAP3VH2R6R1eqN4+J/OTTPnH76o7Vbt
- XtDWEcnqD0jBEnVd0191uIiAnu/xE87XTZQgEaF4Low+w3Xj+9JITy2dGrwngEh2rRWI
- ShrXcUbSTitJpMOPbVVztfm1uPCMgzHPKFX1NhM8mFL6PRDN7Yt9oXMN4LUTgIyFGqUL
- zC0orFtAXzTKPoXKmY0p5K/L5b7DuyORUg5N+MnNw5E0rDi4o0UvirNSKFsT9nYR9xWv
- kegQ==
+ bh=5DDTBrdtIX5m2n+pKNngs7kA+ovZXf2j+7G44yMR1F4=;
+ b=lOY5CDyysiP6wLc9ELU69DbdSH9wkTPe4+Hze7Nn9mUVjFUwywus4/n/kzwp1W6LSX
+ ZtTd/GTMOhTyurRUgyif8XQks5heuDWG3YOXTFkAfBG+IKv7Tl8xxeQxRzVgpVzjwS+A
+ gnGHQPxu17xrlX26Fd6RTdiQo7tbztHX3cGjZklwxFFSaoXm7y89t4mBxCh4QBDdo/rX
+ 8zVCpWFjVPyImIi7hN52nPQs3rKo++7c2JDn6BXhylEW9954s/AuXvdkNf2dIewTioTV
+ 6UN9c/364nG/TUBS2Xo8K4lSHz2Z/YRymwkcd3gCbGJk27geXiJN2A7OIAAx9L+UODWk
+ FffA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=pmJr7udGenhHroV8BhxM4TWBA/MGEM7jtLhmDnAa3/I=;
- b=R6cJp95OMIEHg0SvMKz1zXlqaa0+rk5Fuw0TmrCFkXKQn2lwY/OdKdbWnxLhhwkpUj
- AAJsLNFuyODEOtWSxrbrvTKK0MiJysNZmer9XRnrPy6AeORfTlN0iS8Opy4Nsm7uTiGq
- Qr4xNGA17JSJBMvlvG+jUQq819HzZHD3+WcYORsQ4r+Hu6bhRznqd+/PEkQt6sxUAOFZ
- H2yNaYhOuLmhCZzwDukcOYXg2GarSAQhcAcz7gtVxKrZ59u0jYymjYw7DLSieZw4HppM
- /H7NkdT/KuP5VODuq5ARD7kSVj7zD5+2sEzHpYNgqj7dtRfoATwiQ20UN5SfJOkmTg82
- +82A==
-X-Gm-Message-State: AOAM53259RYZHm6qub6S/t76Ewkx28zAi5zOop0nTCKaWjOK/i7SQiMZ
- uyZlb4yoz6ASz0YC1yGIYfQfj8H92Z3SmQ==
-X-Google-Smtp-Source: ABdhPJyRDotSTw2b+VGhjApTJMDFjb20a/kD1Q1cj4VL7Dk2Y7cL1fKHhr7H0K8Zfcgl5MX7kgDTsA==
-X-Received: by 2002:ac2:5299:: with SMTP id q25mr2604475lfm.594.1619096888722; 
- Thu, 22 Apr 2021 06:08:08 -0700 (PDT)
+ bh=5DDTBrdtIX5m2n+pKNngs7kA+ovZXf2j+7G44yMR1F4=;
+ b=aZC/Il2bPkm277oyzz++RvinNYPwHVbHQEgZHKX6ZmGYPpCj88CsqsaFOEQnJGJV4y
+ Bi+OVOWktJfIpgOKjIOYPZnLTrkTmIUHt2uCChX1mFyh6tW3u1iNoB9tqz92k6aHLuOH
+ fyv9D1E5+9cy7FO/w8aicPikjlbFUAAIMItcG6+P/Ah+rBwbbkc7wIZ9IOLp480pyyhy
+ A2420UZmP1ZbDWvhkgIazRVXpibn7OJAyDN9g7cNkOPdID1hWJ8Th3Z9CodznA7iiQvZ
+ HBKonBUL+tQ1jWksgF1a7gM8vlWFBGyWNmtNDg9Uzw0XKmFLJgce97yokXmE8asMT9WQ
+ eEfg==
+X-Gm-Message-State: AOAM530nNP5bnqYowxVD0CzbOUNi4TUlLDfufQBh9MAsWTioB743RdIz
+ pwPnKxqGHXOfF07RQWSsAd9/Sg==
+X-Google-Smtp-Source: ABdhPJyDSy5RkLtGGj0PCWMNpvjZbyaeOY6MgijdM6Zd+UJWXKNNkKxmWSXrQCmVll6sYKJ2o/rzVw==
+X-Received: by 2002:a05:6512:985:: with SMTP id
+ w5mr2465933lft.122.1619096889476; 
+ Thu, 22 Apr 2021 06:08:09 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id v17sm259833lfr.35.2021.04.22.06.08.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Apr 2021 06:08:08 -0700 (PDT)
+ Thu, 22 Apr 2021 06:08:09 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <abhinavk@codeaurora.org>
-Date: Thu, 22 Apr 2021 16:08:03 +0300
-Message-Id: <20210422130804.825030-3-dmitry.baryshkov@linaro.org>
+Date: Thu, 22 Apr 2021 16:08:04 +0300
+Message-Id: <20210422130804.825030-4-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210422130804.825030-1-dmitry.baryshkov@linaro.org>
 References: <20210422130804.825030-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v2 2/3] drm/msm/dpu: drop dpu_hw_blk_destroy
- function
+Subject: [Freedreno] [PATCH v2 3/3] drm/msm/dpu: hw_blk: make dpu_hw_blk
+ empty opaque structure
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,154 +79,200 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The dpu_hw_blk_destroy() function is empty, so we can drop it now.
+The code does not really use dpu_hw_blk fields, so drop them, making
+dpu_hw_blk empty structure.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.c      | 13 -------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.h      |  1 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c      |  2 --
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c     |  3 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c     |  2 --
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c       |  2 --
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_merge3d.c  |  2 --
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c |  2 --
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c     |  2 --
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c      |  2 --
- 10 files changed, 31 deletions(-)
+ drivers/gpu/drm/msm/Makefile                  |  1 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.c    | 24 -------------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.h    |  4 +---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c    |  2 --
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c   |  2 --
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c   |  2 --
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c     |  2 --
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_merge3d.c    |  2 --
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c   |  2 --
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c   |  2 --
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c    |  2 --
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c        |  2 +-
+ 12 files changed, 2 insertions(+), 45 deletions(-)
+ delete mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.c
 
+diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+index 610d630326bb..55dbde30c2a2 100644
+--- a/drivers/gpu/drm/msm/Makefile
++++ b/drivers/gpu/drm/msm/Makefile
+@@ -58,7 +58,6 @@ msm-y := \
+ 	disp/dpu1/dpu_encoder_phys_cmd.o \
+ 	disp/dpu1/dpu_encoder_phys_vid.o \
+ 	disp/dpu1/dpu_formats.o \
+-	disp/dpu1/dpu_hw_blk.o \
+ 	disp/dpu1/dpu_hw_catalog.o \
+ 	disp/dpu1/dpu_hw_ctl.o \
+ 	disp/dpu1/dpu_hw_interrupts.o \
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.c
-index abad043f35f5..1f2b74b9eb65 100644
+deleted file mode 100644
+index 1f2b74b9eb65..000000000000
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.c
-@@ -22,16 +22,3 @@ void dpu_hw_blk_init(struct dpu_hw_blk *hw_blk, u32 type, int id)
- 	hw_blk->type = type;
- 	hw_blk->id = id;
- }
++++ /dev/null
+@@ -1,24 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/* Copyright (c) 2017-2018, The Linux Foundation. All rights reserved.
+- */
+-
+-#define pr_fmt(fmt)	"[drm:%s:%d] " fmt, __func__, __LINE__
+-
+-#include <linux/mutex.h>
+-#include <linux/errno.h>
+-#include <linux/slab.h>
+-
+-#include "dpu_hw_mdss.h"
+-#include "dpu_hw_blk.h"
 -
 -/**
-- * dpu_hw_blk_destroy - destroy hw block object.
-- * @hw_blk:  pointer to hw block object
-- * return: none
+- * dpu_hw_blk_init - initialize hw block object
+- * @hw_blk: pointer to hw block object
+- * @type: hw block type - enum dpu_hw_blk_type
+- * @id: instance id of the hw block
 - */
--void dpu_hw_blk_destroy(struct dpu_hw_blk *hw_blk)
+-void dpu_hw_blk_init(struct dpu_hw_blk *hw_blk, u32 type, int id)
 -{
--	if (!hw_blk) {
--		pr_err("invalid parameters\n");
--		return;
--	}
+-	hw_blk->type = type;
+-	hw_blk->id = id;
 -}
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.h
-index fb3be9a36a50..7768694b558a 100644
+index 7768694b558a..52e92f37eda4 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.h
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.h
-@@ -24,5 +24,4 @@ struct dpu_hw_blk {
+@@ -19,9 +19,7 @@ struct dpu_hw_blk;
+  * @refcount: reference/usage count
+  */
+ struct dpu_hw_blk {
+-	u32 type;
+-	int id;
++	/* opaque */
  };
  
- void dpu_hw_blk_init(struct dpu_hw_blk *hw_blk, u32 type, int id);
--void dpu_hw_blk_destroy(struct dpu_hw_blk *hw_blk);
+-void dpu_hw_blk_init(struct dpu_hw_blk *hw_blk, u32 type, int id);
  #endif /*_DPU_HW_BLK_H */
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-index 04a2c4b9a357..441f66a4fb37 100644
+index 441f66a4fb37..f8a74f6cdc4c 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-@@ -620,7 +620,5 @@ struct dpu_hw_ctl *dpu_hw_ctl_init(enum dpu_ctl idx,
+@@ -613,8 +613,6 @@ struct dpu_hw_ctl *dpu_hw_ctl_init(enum dpu_ctl idx,
+ 	c->mixer_count = m->mixer_count;
+ 	c->mixer_hw_caps = m->mixer;
  
- void dpu_hw_ctl_destroy(struct dpu_hw_ctl *ctx)
- {
--	if (ctx)
--		dpu_hw_blk_destroy(&ctx->base);
- 	kfree(ctx);
+-	dpu_hw_blk_init(&c->base, DPU_HW_BLK_CTL, idx);
+-
+ 	return c;
  }
+ 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
-index d2f1045a736a..977b25968f34 100644
+index 977b25968f34..a98e964c3b6f 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
-@@ -117,9 +117,6 @@ struct dpu_hw_dspp *dpu_hw_dspp_init(enum dpu_dspp idx,
+@@ -110,8 +110,6 @@ struct dpu_hw_dspp *dpu_hw_dspp_init(enum dpu_dspp idx,
+ 	c->cap = cfg;
+ 	_setup_dspp_ops(c, c->cap->features);
  
- void dpu_hw_dspp_destroy(struct dpu_hw_dspp *dspp)
- {
--	if (dspp)
--		dpu_hw_blk_destroy(&dspp->base);
+-	dpu_hw_blk_init(&c->base, DPU_HW_BLK_DSPP, idx);
 -
- 	kfree(dspp);
+ 	return c;
  }
  
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-index 6ffe97601716..17224556d5a8 100644
+index 17224556d5a8..116e2b5b1a90 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-@@ -332,8 +332,6 @@ struct dpu_hw_intf *dpu_hw_intf_init(enum dpu_intf idx,
+@@ -325,8 +325,6 @@ struct dpu_hw_intf *dpu_hw_intf_init(enum dpu_intf idx,
+ 	c->mdss = m;
+ 	_setup_intf_ops(&c->ops, c->cap->features);
  
- void dpu_hw_intf_destroy(struct dpu_hw_intf *intf)
- {
--	if (intf)
--		dpu_hw_blk_destroy(&intf->base);
- 	kfree(intf);
+-	dpu_hw_blk_init(&c->base, DPU_HW_BLK_INTF, idx);
+-
+ 	return c;
  }
  
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c
-index 554bb881de3a..76f8b8f75b82 100644
+index 76f8b8f75b82..cb6bb7a22c15 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c
-@@ -189,7 +189,5 @@ struct dpu_hw_mixer *dpu_hw_lm_init(enum dpu_lm idx,
+@@ -182,8 +182,6 @@ struct dpu_hw_mixer *dpu_hw_lm_init(enum dpu_lm idx,
+ 	c->cap = cfg;
+ 	_setup_mixer_ops(m, &c->ops, c->cap->features);
  
- void dpu_hw_lm_destroy(struct dpu_hw_mixer *lm)
- {
--	if (lm)
--		dpu_hw_blk_destroy(&lm->base);
- 	kfree(lm);
+-	dpu_hw_blk_init(&c->base, DPU_HW_BLK_LM, idx);
+-
+ 	return c;
  }
+ 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_merge3d.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_merge3d.c
-index 863229dd0140..406ba950a066 100644
+index 406ba950a066..c06d595d5df0 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_merge3d.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_merge3d.c
-@@ -86,7 +86,5 @@ struct dpu_hw_merge_3d *dpu_hw_merge_3d_init(enum dpu_merge_3d idx,
+@@ -79,8 +79,6 @@ struct dpu_hw_merge_3d *dpu_hw_merge_3d_init(enum dpu_merge_3d idx,
+ 	c->caps = cfg;
+ 	_setup_merge_3d_ops(c, c->caps->features);
  
- void dpu_hw_merge_3d_destroy(struct dpu_hw_merge_3d *hw)
- {
--	if (hw)
--		dpu_hw_blk_destroy(&hw->base);
- 	kfree(hw);
+-	dpu_hw_blk_init(&c->base, DPU_HW_BLK_MERGE_3D, idx);
+-
+ 	return c;
  }
+ 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
-index 334d5b28f533..92cd724263ce 100644
+index 92cd724263ce..55766c97c4c8 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
-@@ -289,7 +289,5 @@ struct dpu_hw_pingpong *dpu_hw_pingpong_init(enum dpu_pingpong idx,
+@@ -282,8 +282,6 @@ struct dpu_hw_pingpong *dpu_hw_pingpong_init(enum dpu_pingpong idx,
+ 	c->caps = cfg;
+ 	_setup_pingpong_ops(c, c->caps->features);
  
- void dpu_hw_pingpong_destroy(struct dpu_hw_pingpong *pp)
- {
--	if (pp)
--		dpu_hw_blk_destroy(&pp->base);
- 	kfree(pp);
+-	dpu_hw_blk_init(&c->base, DPU_HW_BLK_PINGPONG, idx);
+-
+ 	return c;
  }
+ 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-index ceb2488ea270..8734a47040aa 100644
+index 8734a47040aa..69eed7932486 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-@@ -740,8 +740,6 @@ struct dpu_hw_pipe *dpu_hw_sspp_init(enum dpu_sspp idx,
+@@ -733,8 +733,6 @@ struct dpu_hw_pipe *dpu_hw_sspp_init(enum dpu_sspp idx,
+ 	hw_pipe->cap = cfg;
+ 	_setup_layer_ops(hw_pipe, hw_pipe->cap->features);
  
- void dpu_hw_sspp_destroy(struct dpu_hw_pipe *ctx)
- {
--	if (ctx)
--		dpu_hw_blk_destroy(&ctx->base);
- 	kfree(ctx);
+-	dpu_hw_blk_init(&hw_pipe->base, DPU_HW_BLK_SSPP, idx);
+-
+ 	return hw_pipe;
  }
  
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c
-index 5d2c33ec1de7..dae77d9c2c74 100644
+index dae77d9c2c74..282e3c6c6d48 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c
-@@ -329,8 +329,6 @@ struct dpu_hw_mdp *dpu_hw_mdptop_init(enum dpu_mdp idx,
+@@ -322,8 +322,6 @@ struct dpu_hw_mdp *dpu_hw_mdptop_init(enum dpu_mdp idx,
+ 	mdp->caps = cfg;
+ 	_setup_mdp_ops(&mdp->ops, mdp->caps->features);
  
- void dpu_hw_mdp_destroy(struct dpu_hw_mdp *mdp)
- {
--	if (mdp)
--		dpu_hw_blk_destroy(&mdp->base);
- 	kfree(mdp);
+-	dpu_hw_blk_init(&mdp->base, DPU_HW_BLK_TOP, idx);
+-
+ 	return mdp;
  }
  
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+index fd2d104f0a91..5afdfceeaa6e 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+@@ -428,7 +428,7 @@ static int _dpu_rm_reserve_ctls(
+ 		features = ctl->caps->features;
+ 		has_split_display = BIT(DPU_CTL_SPLIT_DISPLAY) & features;
+ 
+-		DPU_DEBUG("ctl %d caps 0x%lX\n", rm->ctl_blks[j]->id, features);
++		DPU_DEBUG("ctl %d caps 0x%lX\n", j + CTL_0, features);
+ 
+ 		if (needs_split_display != has_split_display)
+ 			continue;
 -- 
 2.30.2
 
