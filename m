@@ -2,61 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5426B369ABE
-	for <lists+freedreno@lfdr.de>; Fri, 23 Apr 2021 21:12:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3BD7369C43
+	for <lists+freedreno@lfdr.de>; Fri, 23 Apr 2021 23:55:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBCE26EC3B;
-	Fri, 23 Apr 2021 19:12:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF1C36EC96;
+	Fri, 23 Apr 2021 21:55:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
- [IPv6:2607:f8b0:4864:20::735])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE3AD6EC4A
- for <freedreno@lists.freedesktop.org>; Fri, 23 Apr 2021 19:12:20 +0000 (UTC)
-Received: by mail-qk1-x735.google.com with SMTP id e13so40837984qkl.6
- for <freedreno@lists.freedesktop.org>; Fri, 23 Apr 2021 12:12:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=marek-ca.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=H896F4PjwDY8jmfWwaLDr4shp26B+KmxkyhAPtoMs4M=;
- b=pRma3lac0c5ClpyVGp+FlxDrBykek+53y2UaGikk8p9eHwfH7nW4VE/v7DHQV32oeZ
- 5G9WhJZyojjSE6DFn0ndsv4QXv9e1QHpZg07YBRQ/JPMA+MNwFKGdwDu6VXN6kdmcxZo
- 1nByFst29E593MUK+C0aJPfnNnZ6ITjj7qF32THxkIdgfRugqs2kBTpMTXIv2+p/1eSH
- LnjKtF3RenT8LbipYN3UZqka5GF9siPGVro+5MTLey4gXPqR3y4gMSfV5V1ftQUwMkhK
- AfJUaiGZIjlyNn3ErcmbmmVME5EYXwOyjigc6yKMlspVMy4AfHPS0ZJY1J+tDLhUa0Sk
- NiOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=H896F4PjwDY8jmfWwaLDr4shp26B+KmxkyhAPtoMs4M=;
- b=mu3d6RwApYEI7LF/u5p8G4grC5VgRj/NJwJI9WemJzyVO6cuz3q0zgIYflyDdamIlL
- UFkLJXM/+eZVivK3rhPDuib6pjrSiTjMV87NGPqL7SuGCslO2fCTj/3RX5jP9yoXzMGI
- f7yRN36WhzkCiYxuhi0EA8YiCHZ8htQGJ7ofK+nUlwk4wypWWTDoPllEQ861G+yNjkL4
- sxD7NBJk2oxY6iIn+qyAFPlFBd/0cmbS0osvwio6aW+V7rULfdDcxtW03voS8xnwLSMa
- SDUjIMDghBsveqC95d4hIiWR+wlY+Tf8BtNwZLweSXnRCd+AWrby7Qq3CNkOgJWmqbTT
- jokg==
-X-Gm-Message-State: AOAM5301MCyJIYQSfxey7HQ0shfSLORVty262xwVQwwkJmKpZjpGDOgJ
- lNzWCIS4zyxj5DEtnDpPnUv2THqATwdv/YTwrEe7gw==
-X-Google-Smtp-Source: ABdhPJxtl7HyuuifiNlkFxXYO7ncQRrKu5Xh1IELP5GvMv+x2eQ8MKIDTBx5pc6kfeilwBtBpV4L+Q==
-X-Received: by 2002:a37:a90a:: with SMTP id s10mr5507081qke.63.1619205139696; 
- Fri, 23 Apr 2021 12:12:19 -0700 (PDT)
-Received: from localhost.localdomain
- (modemcable068.184-131-66.mc.videotron.ca. [66.131.184.68])
- by smtp.gmail.com with ESMTPSA id a22sm4834630qtp.80.2021.04.23.12.12.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Apr 2021 12:12:19 -0700 (PDT)
-From: Jonathan Marek <jonathan@marek.ca>
-To: freedreno@lists.freedesktop.org
-Date: Fri, 23 Apr 2021 15:08:21 -0400
-Message-Id: <20210423190833.25319-6-jonathan@marek.ca>
-X-Mailer: git-send-email 2.26.1
-In-Reply-To: <20210423190833.25319-1-jonathan@marek.ca>
-References: <20210423190833.25319-1-jonathan@marek.ca>
-MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 5/5] drm/msm: deprecate MSM_BO_UNCACHED (map as
- writecombine instead)
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 569E16EC95;
+ Fri, 23 Apr 2021 21:55:46 +0000 (UTC)
+Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
+ by alexa-out.qualcomm.com with ESMTP; 23 Apr 2021 14:55:45 -0700
+X-QCInternal: smtphost
+Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
+ by ironmsg08-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 23 Apr 2021 14:55:44 -0700
+X-QCInternal: smtphost
+Received: from rajeevny-linux.qualcomm.com ([10.204.66.121])
+ by ironmsg02-blr.qualcomm.com with ESMTP; 24 Apr 2021 03:25:12 +0530
+Received: by rajeevny-linux.qualcomm.com (Postfix, from userid 2363605)
+ id 7ED1D212C3; Sat, 24 Apr 2021 03:25:11 +0530 (IST)
+From: Rajeev Nandan <rajeevny@codeaurora.org>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Sat, 24 Apr 2021 03:25:02 +0530
+Message-Id: <1619214904-10218-1-git-send-email-rajeevny@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [v2 0/2] drm: Add support for backlight control of eDP
+ panel on ti-sn65dsi86 bridge
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,59 +43,51 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+Cc: mkrishn@codeaurora.org, Rajeev Nandan <rajeevny@codeaurora.org>,
+ linux-kernel@vger.kernel.org, abhinavk@codeaurora.org, dianders@chromium.org,
+ robdclark@gmail.com, seanpaul@chromium.org, kalyan_t@codeaurora.org,
+ hoegsberg@chromium.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-There shouldn't be any reason to ever use uncached over writecombine,
-so just use writecombine for MSM_BO_UNCACHED.
+The backlight level of an eDP panel can be controlled through the AUX
+channel using DPCD registers of the panel.
 
-Note: userspace never used MSM_BO_UNCACHED anyway
+The capability for the Source device to adjust backlight characteristics
+within the panel, using the Sink device DPCD registers is indicated by
+the TCON_BACKLIGHT_ADJUSTMENT_CAPABLE bit in the EDP_GENERAL_CAPABILITY_1
+register (DPCD Address 701h, bit0). In this configuration, the eDP TCON
+receives the backlight level information from the host, through the AUX
+channel.
 
-Signed-off-by: Jonathan Marek <jonathan@marek.ca>
----
- drivers/gpu/drm/msm/msm_gem.c | 4 +---
- include/uapi/drm/msm_drm.h    | 2 +-
- 2 files changed, 2 insertions(+), 4 deletions(-)
+Anderson's patch series [1] exposed the DDC bus from ti-sn65dsi86 bridge,
+that gives an option to move the backlight control out of the bridge and
+to create a separate backlight driver.
 
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index 2e92e80009c8..56bca9178253 100644
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -201,10 +201,8 @@ void msm_gem_put_pages(struct drm_gem_object *obj)
- 
- static pgprot_t msm_gem_pgprot(struct msm_gem_object *msm_obj, pgprot_t prot)
- {
--	if (msm_obj->flags & MSM_BO_WC)
-+	if (msm_obj->flags & (MSM_BO_WC|MSM_BO_UNCACHED))
- 		return pgprot_writecombine(prot);
--	if (msm_obj->flags & MSM_BO_UNCACHED)
--		return pgprot_noncached(prot);
- 	return prot;
- }
- 
-diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
-index a92d90a6d96f..f075851021c3 100644
---- a/include/uapi/drm/msm_drm.h
-+++ b/include/uapi/drm/msm_drm.h
-@@ -94,7 +94,7 @@ struct drm_msm_param {
- /* cache modes */
- #define MSM_BO_CACHED        0x00010000
- #define MSM_BO_WC            0x00020000
--#define MSM_BO_UNCACHED      0x00040000
-+#define MSM_BO_UNCACHED      0x00040000 /* deprecated, use MSM_BO_WC */
- #define MSM_BO_CACHED_COHERENT 0x080000
- 
- #define MSM_BO_FLAGS         (MSM_BO_SCANOUT | \
+Changes in v2:
+- Created a new DisplayPort aux backlight driver and moved the code from
+  drm_dp_aux_backlight.c (v1) to the new driver.
+- Removed the changes done in ti-sn65dsi86 bridge. (Rob Herring)
+
+[1] https://lore.kernel.org/dri-devel/20210416223950.3586967-1-dianders@chromium.org/
+
+Rajeev Nandan (2):
+  dt-bindings: backlight: add DisplayPort aux backlight
+  backlight: Add DisplayPort aux backlight driver
+
+ .../bindings/leds/backlight/dp-aux-backlight.yaml  |  49 +++++
+ drivers/video/backlight/Kconfig                    |   7 +
+ drivers/video/backlight/Makefile                   |   1 +
+ drivers/video/backlight/dp_aux_backlight.c         | 245 +++++++++++++++++++++
+ 4 files changed, 302 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/leds/backlight/dp-aux-backlight.yaml
+ create mode 100644 drivers/video/backlight/dp_aux_backlight.c
+
 -- 
-2.26.1
+2.7.4
 
 _______________________________________________
 Freedreno mailing list
