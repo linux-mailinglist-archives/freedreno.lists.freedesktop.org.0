@@ -2,41 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8932136B103
-	for <lists+freedreno@lfdr.de>; Mon, 26 Apr 2021 11:49:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A55636B216
+	for <lists+freedreno@lfdr.de>; Mon, 26 Apr 2021 13:11:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A10C86E821;
-	Mon, 26 Apr 2021 09:49:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6413A6E820;
+	Mon, 26 Apr 2021 11:11:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5BA36E1B6;
- Mon, 26 Apr 2021 09:49:30 +0000 (UTC)
-IronPort-SDR: c5wWNzVNrRntY77DLQevHQL9ZBVRTZGOktfYQFcBlkJl9TRa4+ygNxCSRsksJ7B2EwB1X69J7j
- mkvxGtJybD7Q==
-X-IronPort-AV: E=McAfee;i="6200,9189,9965"; a="175791712"
-X-IronPort-AV: E=Sophos;i="5.82,252,1613462400"; d="scan'208";a="175791712"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2021 02:49:27 -0700
-IronPort-SDR: vs5BZcUq0OtRa5CxalVxssJS7zEAvmUK9TGBLlHoot0gHfr67UYB5QJ1E2qsMDGTSbtouCFgN6
- 1vHMq0P8eCSQ==
-X-IronPort-AV: E=Sophos;i="5.82,252,1613462400"; d="scan'208";a="429335773"
-Received: from unknown (HELO localhost) ([10.252.50.197])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2021 02:49:20 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Rajeev Nandan <rajeevny@codeaurora.org>, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
-In-Reply-To: <1619416756-3533-3-git-send-email-rajeevny@codeaurora.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <1619416756-3533-1-git-send-email-rajeevny@codeaurora.org>
- <1619416756-3533-3-git-send-email-rajeevny@codeaurora.org>
-Date: Mon, 26 Apr 2021 12:49:16 +0300
-Message-ID: <87zgxl5qar.fsf@intel.com>
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 301A96E81C
+ for <freedreno@lists.freedesktop.org>; Mon, 26 Apr 2021 11:11:20 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id a4so55448587wrr.2
+ for <freedreno@lists.freedesktop.org>; Mon, 26 Apr 2021 04:11:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=uXYb6BcHq27B6ScYW5tJ2SsqBaNuDx8oA92+GxjafKM=;
+ b=xvUi/jFjSPOSvlz/BbBKn+ZE/Z9NzwrofgB+eXRzJYQ/2bL+Zb/2VVGEt/iCzyPK98
+ pL/9abpx2tk1hTgBG+JZESktFflsU17VR7wROE4/rrO1Cn4RyLqRP1YUNglHucbWC8S6
+ FOapPgutJJ9vKG0pgRhXNA4OuWK2cYA8x6XrJoQw07n1tJk9I5G+861+X0/z3Trj8pJQ
+ kkaZljXTsrsuiVJKyTtS7854orFz2eynPNELr27p9eMBR751mXIJXN/tFyxP64DI+96A
+ lCIcVSZgqJU9/c/usNiOESCKyIqI0DPDeryvlUzWHzdJyWfA9xJBsAnXo+zYDj1Y+++L
+ tx8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=uXYb6BcHq27B6ScYW5tJ2SsqBaNuDx8oA92+GxjafKM=;
+ b=bzN/r+bHHciTzN34bAnHMGECHluxYGDshA9rpWeozbWClGwr7JuNeVQ8UNUXIbH85t
+ /1jVtdoGt6rZ2F0yTMfL0Bpn5bN8pwpVYUxic09LWuWNRmhbt1Q9xnu0TbTHzgAFTKPJ
+ qWF7WjOnzN3Cd1yRKSKfPVWiSdumBaQzcEeeiDZaxxhKfN3Z1qCAuwgnjrrt0vmL1HBV
+ lQBoxbqDWZ5d7W5HVbruDiDs6u95PtS/cDryiet5bzl3N3O9A8a8Ro0028tlFHAMHdHh
+ hELpiANaUQgjLATu83BFH65IK8+nACw3CHD1Zo/RnC/2ZZSl7YwjzUcpif1c8olFYQdk
+ VcUQ==
+X-Gm-Message-State: AOAM532M7usEgkHzFHgDbOTaueV6YG2CWN/5ioV5w+CYbmxqfywRrkNo
+ GZMO8vrazG1Z6FOaZLaeZxP5jA==
+X-Google-Smtp-Source: ABdhPJzthkQ8A9dbPXyiOrcJp3qKrnW8BYa16c26OInVfMwwDZA1oulOtgOaJrtr56/7q3TzEzs6yw==
+X-Received: by 2002:adf:d1c3:: with SMTP id b3mr22233136wrd.367.1619435478756; 
+ Mon, 26 Apr 2021 04:11:18 -0700 (PDT)
+Received: from maple.lan (cpc141216-aztw34-2-0-cust174.18-1.cable.virginm.net.
+ [80.7.220.175])
+ by smtp.gmail.com with ESMTPSA id t20sm19529761wmi.35.2021.04.26.04.11.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 26 Apr 2021 04:11:18 -0700 (PDT)
+Date: Mon, 26 Apr 2021 12:11:16 +0100
+From: Daniel Thompson <daniel.thompson@linaro.org>
+To: Rajeev Nandan <rajeevny@codeaurora.org>
+Message-ID: <20210426111116.4lc3ekxjugjr3oho@maple.lan>
+References: <1619214904-10218-1-git-send-email-rajeevny@codeaurora.org>
+ <1619214904-10218-3-git-send-email-rajeevny@codeaurora.org>
 MIME-Version: 1.0
-Subject: Re: [Freedreno] [v3 2/2] backlight: Add DisplayPort aux backlight
+Content-Disposition: inline
+In-Reply-To: <1619214904-10218-3-git-send-email-rajeevny@codeaurora.org>
+Subject: Re: [Freedreno] [v2 2/2] backlight: Add DisplayPort aux backlight
  driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -50,263 +69,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: mkrishn@codeaurora.org, Lyude Paul <lyude@redhat.com>,
- Rajeev Nandan <rajeevny@codeaurora.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, abhinavk@codeaurora.org, dianders@chromium.org,
- seanpaul@chromium.org, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, kalyan_t@codeaurora.org,
- hoegsberg@chromium.org, Dave Airlie <airlied@gmail.com>, "Lankhorst,
- Maarten" <maarten.lankhorst@intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, mkrishn@codeaurora.org,
+ Lyude Paul <lyude@redhat.com>, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, dianders@chromium.org, seanpaul@chromium.org,
+ abhinavk@codeaurora.org, kalyan_t@codeaurora.org, hoegsberg@chromium.org,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 26 Apr 2021, Rajeev Nandan <rajeevny@codeaurora.org> wrote:
+On Sat, Apr 24, 2021 at 03:25:04AM +0530, Rajeev Nandan wrote:
 > Add backlight driver for the panels supporting backlight control
 > using DPCD registers on the DisplayPort aux channel.
-
-No, please don't do this.
-
-I wrote you last week in reply to v1 why I thought merging this would
-not be a good idea [1]. Why have you sent two versions since then
-without replying to me, or Cc'ing me or Lyude?
-
-I think it's an even worse idea to merge this to
-drivers/video/backlight. With DP AUX backlight you can't pretend it's
-just an independent aux interface for backlight without everything else
-around it. It's not independent of eDP, and exposing it as a direct
-backlight sysfs interface bypasses the encoder.
-
-And it still remains that there is existing DP AUX backlight code in
-use, in the tree, with more features than this, with plans and
-previously submitted patches to lift from one driver to drm core, and
-with patches to add support to another driver.
-
-I don't say this lightly, or very often at all, but,
-
-NAK.
-
-
-BR,
-Jani.
-
-
-[1] https://lore.kernel.org/dri-devel/871rb5bcf9.fsf@intel.com/
-
->
+> 
 > Changes in v2:
 > - New (most of the code reused from drm_dp_aux_backlight.c of v1)
->
-> Changes in v3:
-> - Add missing ';' to fix module compilation (kernel test bot)
->
-> Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
-> ---
->  drivers/video/backlight/Kconfig            |   7 +
->  drivers/video/backlight/Makefile           |   1 +
->  drivers/video/backlight/dp_aux_backlight.c | 245 +++++++++++++++++++++++++++++
->  3 files changed, 253 insertions(+)
->  create mode 100644 drivers/video/backlight/dp_aux_backlight.c
->
-> diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
-> index d83c87b..82c88f0 100644
-> --- a/drivers/video/backlight/Kconfig
-> +++ b/drivers/video/backlight/Kconfig
-> @@ -456,6 +456,13 @@ config BACKLIGHT_LED
->  	  If you have a LCD backlight adjustable by LED class driver, say Y
->  	  to enable this driver.
->  
-> +config BACKLIGHT_DP_AUX
-> +       tristate "DisplayPort aux backlight driver"
-> +       depends on DRM && DRM_KMS_HELPER
-> +       help
-> +         If you have a panel backlight controlled by DPCD registers
-> +         on the DisplayPort aux channel, say Y to enable this driver.
-> +
->  endif # BACKLIGHT_CLASS_DEVICE
->  
->  endmenu
-> diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
-> index 685f3f1..ba23c7c 100644
-> --- a/drivers/video/backlight/Makefile
-> +++ b/drivers/video/backlight/Makefile
-> @@ -57,3 +57,4 @@ obj-$(CONFIG_BACKLIGHT_WM831X)		+= wm831x_bl.o
->  obj-$(CONFIG_BACKLIGHT_ARCXCNN) 	+= arcxcnn_bl.o
->  obj-$(CONFIG_BACKLIGHT_RAVE_SP)		+= rave-sp-backlight.o
->  obj-$(CONFIG_BACKLIGHT_LED)		+= led_bl.o
-> +obj-$(CONFIG_BACKLIGHT_DP_AUX)		+= dp_aux_backlight.o
-> diff --git a/drivers/video/backlight/dp_aux_backlight.c b/drivers/video/backlight/dp_aux_backlight.c
-> new file mode 100644
-> index 00000000..3398383
-> --- /dev/null
-> +++ b/drivers/video/backlight/dp_aux_backlight.c
-> @@ -0,0 +1,245 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Backlight driver to control the brightness over DisplayPort aux channel.
-> + */
-> +
-> +#include <linux/backlight.h>
-> +#include <linux/err.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/kernel.h>
-> +#include <linux/module.h>
-> +#include <linux/platform_device.h>
-> +#include <drm/drm_dp_helper.h>
-> +
-> +#define DP_AUX_MAX_BRIGHTNESS		0xffff
-> +
-> +/**
-> + * struct dp_aux_backlight - DisplayPort aux backlight data
-> + * @dev: pointer to our device.
-> + * @aux: the DisplayPort aux channel.
-> + * @enable_gpio: the backlight enable gpio.
-> + * @enabled: true if backlight is enabled else false.
-> + */
-> +struct dp_aux_backlight {
-> +	struct device *dev;
-> +	struct drm_dp_aux *aux;
-> +	struct gpio_desc *enable_gpio;
-> +	bool enabled;
-> +};
-> +
+
+Did you respond to Jani's feedback on the v1 posting (asking you to
+coordinate with Lyude's work on refactoring the i915 eDP helpers[1])?
+I can't find anything showing the outcome of that.
+
+[1]: https://www.spinics.net/lists/dri-devel/msg295602.html
+
+
 > +static struct drm_dp_aux *i2c_to_aux(struct i2c_adapter *i2c)
 > +{
 > +	return container_of(i2c, struct drm_dp_aux, ddc);
 > +}
-> +
-> +static int dp_aux_backlight_enable(struct dp_aux_backlight *aux_bl)
-> +{
-> +	u8 val = 0;
-> +	int ret;
-> +
-> +	if (aux_bl->enabled)
-> +		return 0;
-> +
-> +	/* Set backlight control mode */
-> +	ret = drm_dp_dpcd_readb(aux_bl->aux, DP_EDP_BACKLIGHT_MODE_SET_REGISTER,
-> +				&val);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	val &= ~DP_EDP_BACKLIGHT_CONTROL_MODE_MASK;
-> +	val |= DP_EDP_BACKLIGHT_CONTROL_MODE_DPCD;
-> +	ret = drm_dp_dpcd_writeb(aux_bl->aux, DP_EDP_BACKLIGHT_MODE_SET_REGISTER,
-> +				 val);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	/* Enable backlight */
-> +	ret = drm_dp_dpcd_readb(aux_bl->aux, DP_EDP_DISPLAY_CONTROL_REGISTER,
-> +				&val);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	val |= DP_EDP_BACKLIGHT_ENABLE;
-> +	ret = drm_dp_dpcd_writeb(aux_bl->aux, DP_EDP_DISPLAY_CONTROL_REGISTER,
-> +				 val);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (aux_bl->enable_gpio)
-> +		gpiod_set_value(aux_bl->enable_gpio, 1);
-> +
-> +	aux_bl->enabled = true;
-> +
-> +	return 0;
-> +}
-> +
-> +static int dp_aux_backlight_disable(struct dp_aux_backlight *aux_bl)
-> +{
-> +	u8 val = 0;
-> +	int ret;
-> +
-> +	if (!aux_bl->enabled)
-> +		return 0;
-> +
-> +	if (aux_bl->enable_gpio)
-> +		gpiod_set_value(aux_bl->enable_gpio, 0);
-> +
-> +	ret = drm_dp_dpcd_readb(aux_bl->aux, DP_EDP_DISPLAY_CONTROL_REGISTER,
-> +				&val);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	val &= ~DP_EDP_BACKLIGHT_ENABLE;
-> +	ret = drm_dp_dpcd_writeb(aux_bl->aux, DP_EDP_DISPLAY_CONTROL_REGISTER,
-> +				 val);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	aux_bl->enabled = false;
-> +
-> +	return 0;
-> +}
-> +
-> +static int dp_aux_backlight_update_status(struct backlight_device *bd)
-> +{
-> +	struct dp_aux_backlight *aux_bl = bl_get_data(bd);
-> +	u16 brightness = backlight_get_brightness(bd);
-> +	u8 val[2] = { 0x0 };
-> +	int ret = 0;
-> +
-> +	if (brightness > 0) {
-> +		val[0] = brightness >> 8;
-> +		val[1] = brightness & 0xff;
-> +		ret = drm_dp_dpcd_write(aux_bl->aux, DP_EDP_BACKLIGHT_BRIGHTNESS_MSB,
-> +					val, sizeof(val));
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		dp_aux_backlight_enable(aux_bl);
-> +	} else {
-> +		dp_aux_backlight_disable(aux_bl);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int dp_aux_backlight_get_brightness(struct backlight_device *bd)
-> +{
-> +	struct dp_aux_backlight *aux_bl = bl_get_data(bd);
-> +	u8 val[2] = { 0x0 };
-> +	int ret = 0;
-> +
-> +	if (backlight_is_blank(bd))
-> +		return 0;
-> +
-> +	ret = drm_dp_dpcd_read(aux_bl->aux, DP_EDP_BACKLIGHT_BRIGHTNESS_MSB,
-> +			       &val, sizeof(val));
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	return (val[0] << 8 | val[1]);
-> +}
-> +
-> +static const struct backlight_ops aux_bl_ops = {
-> +	.update_status = dp_aux_backlight_update_status,
-> +	.get_brightness = dp_aux_backlight_get_brightness,
-> +};
-> +
-> +
-> +static int dp_aux_backlight_probe(struct platform_device *pdev)
-> +{
-> +	struct dp_aux_backlight *aux_bl;
-> +	struct backlight_device *bd;
-> +	struct backlight_properties bl_props = { 0 };
-> +	struct device_node *np;
-> +	struct i2c_adapter *ddc;
-> +	int ret = 0;
-> +	u32 val;
-> +
-> +	aux_bl = devm_kzalloc(&pdev->dev, sizeof(*aux_bl), GFP_KERNEL);
-> +	if (!aux_bl)
-> +		return -ENOMEM;
-> +
-> +	aux_bl->dev = &pdev->dev;
-> +
+
+[...]
+
 > +	np = of_parse_phandle(pdev->dev.of_node, "ddc-i2c-bus", 0);
 > +	if (!np) {
 > +		dev_err(&pdev->dev, "failed to get aux ddc I2C bus\n");
@@ -320,77 +114,17 @@ Jani.
 > +
 > +	aux_bl->aux = i2c_to_aux(ddc);
 > +	dev_dbg(&pdev->dev, "using dp aux %s\n", aux_bl->aux->name);
-> +
-> +	aux_bl->enable_gpio = devm_gpiod_get_optional(&pdev->dev, "enable",
-> +					     GPIOD_OUT_LOW);
-> +	if (IS_ERR(aux_bl->enable_gpio)) {
-> +		ret = PTR_ERR(aux_bl->enable_gpio);
-> +		goto free_ddc;
-> +	}
-> +
-> +	val = DP_AUX_MAX_BRIGHTNESS;
-> +	of_property_read_u32(pdev->dev.of_node, "max-brightness", &val);
-> +	if (val > DP_AUX_MAX_BRIGHTNESS)
-> +		val = DP_AUX_MAX_BRIGHTNESS;
-> +
-> +	bl_props.max_brightness = val;
-> +	bl_props.brightness = val;
-> +	bl_props.type = BACKLIGHT_RAW;
-> +	bd = devm_backlight_device_register(&pdev->dev, dev_name(&pdev->dev),
-> +					    &pdev->dev, aux_bl,
-> +					    &aux_bl_ops, &bl_props);
-> +	if (IS_ERR(bd)) {
-> +		ret = PTR_ERR(bd);
-> +		dev_err(&pdev->dev,
-> +			      "failed to register backlight (%d)\n", ret);
-> +		goto free_ddc;
-> +	}
-> +
-> +	platform_set_drvdata(pdev, bd);
-> +
-> +	return 0;
-> +
-> +free_ddc:
-> +	if (ddc)
-> +		put_device(&ddc->dev);
-> +
-> +	return ret;
-> +}
-> +
-> +static int dp_aux_backlight_remove(struct platform_device *pdev)
-> +{
-> +	struct backlight_device *bd = platform_get_drvdata(pdev);
-> +	struct dp_aux_backlight *aux_bl = bl_get_data(bd);
-> +	struct i2c_adapter *ddc = &aux_bl->aux->ddc;
-> +
-> +	if (ddc)
-> +		put_device(&ddc->dev);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct of_device_id dp_aux_bl_of_match_table[] = {
-> +	{ .compatible = "dp-aux-backlight"},
-> +	{},
-> +};
-> +MODULE_DEVICE_TABLE(of, dp_aux_bl_of_match_table);
-> +
-> +static struct platform_driver dp_aux_backlight_driver = {
-> +	.driver = {
-> +		.name = "dp-aux-backlight",
-> +		.of_match_table = dp_aux_bl_of_match_table,
-> +	},
-> +	.probe = dp_aux_backlight_probe,
-> +	.remove = dp_aux_backlight_remove,
-> +
-> +};
-> +module_platform_driver(dp_aux_backlight_driver);
-> +
-> +MODULE_DESCRIPTION("DisplayPort aux backlight driver");
-> +MODULE_LICENSE("GPL v2");
 
--- 
-Jani Nikula, Intel Open Source Graphics Center
+It looks like this code "just knows" that the I2C controller it has
+looked up is a special one. That seems a little odd to me.
+
+If we "just know" this then I'd hope that is could either be modelled
+in the devicetree or that it would be possible for the backlight driver
+to be registered (possibly using helpers) by whatever it is that is
+setting up struct drm_dp_aux in the first place.
+
+
+Daniel.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
