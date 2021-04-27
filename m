@@ -1,62 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5126836BC92
-	for <lists+freedreno@lfdr.de>; Tue, 27 Apr 2021 02:18:43 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 44D8136CB7D
+	for <lists+freedreno@lfdr.de>; Tue, 27 Apr 2021 21:11:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DC726E8AF;
-	Tue, 27 Apr 2021 00:18:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46C4B6E5AB;
+	Tue, 27 Apr 2021 19:11:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FEF16E8AB
- for <freedreno@lists.freedesktop.org>; Tue, 27 Apr 2021 00:18:34 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id z13so9978631lft.1
- for <freedreno@lists.freedesktop.org>; Mon, 26 Apr 2021 17:18:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=ajAD9eEucAq/1mj2QhjuXHx0IT7uBG4GS9vHJTuXZCg=;
- b=veIkUjYbGsXFLfQzNqOMf3rMngJ8Yy5CmQ7h+rGuCVoJip6z3Y0JgAwqUiRgZ74X5m
- zaio9b21O+I5ccOeoJ/qWXjybtpCu5n7mJSpt51gi/QTsYG10UdjLhepB+eGE8TrDwHX
- COPXpCX6UDDXQVsjKRJwF84qDdkoOxyAhvp0Iuc3fwyGMwCrGITFoSOvG9y9DMPu4x8I
- 5FAcl4aWJkaGn/0ICC/p9am2jvZvttzC3rnSfoi6RWzOu4jaEadNmxMg44ftAGUubBeP
- g4AWcVBjVCk+FPW5J1JOfQdvMJvw7bfT9Xz2HvpfBgA0O+epOXTfsNxc7RfrMqhYze0R
- kElA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=ajAD9eEucAq/1mj2QhjuXHx0IT7uBG4GS9vHJTuXZCg=;
- b=npiJ3F4d0JlC/Vv0lxkeebnJppPh7M1I5s94aXrqA3FpflY53Bx5lgitbENokHwUYv
- g2V3i0Q6iwFpd3ni+p7ucBBBXq1TflExO5/MGXD0CW9F0ABM+0fRFlmOF2wquq6R4SJp
- RwjAgbL1YksRceFrScNyZb7uiOCrp7+ftZtfXoiR6Cb58CBk4deah50wcaCtdRzjn/75
- S5nKyjEXsGzRmiGg9JioAReKjW3vnLkgq8NIiGg2uSIL/TfYHXDfPpqZn9lUkCn3t715
- JrLNdeydCjEEYo//Bu16fvyuhIgdDQ4KpsngTSCIwdLGn8/uOj0kXR3q+P/cfdT6WfTv
- PKXQ==
-X-Gm-Message-State: AOAM532Xcj6FdVShvK+HRF8dJISJSki0pejzAUSnXoaRsw/LYyw1cC8m
- Ors9nM+y9z0qnnaHejOQcqcp6A==
-X-Google-Smtp-Source: ABdhPJxZV0HGGPlqyi2YhEmskeLzfc5Ve8nNJAaPSP428Hqsh3aWBxgo51O1WYAMd71EXKvYduvvkw==
-X-Received: by 2002:ac2:58c6:: with SMTP id u6mr14274684lfo.419.1619482713215; 
- Mon, 26 Apr 2021 17:18:33 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id d15sm1555100lfn.7.2021.04.26.17.18.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Apr 2021 17:18:32 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <abhinavk@codeaurora.org>
-Date: Tue, 27 Apr 2021 03:18:28 +0300
-Message-Id: <20210427001828.2375555-5-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.30.2
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C20496E59D
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Apr 2021 19:10:57 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1619550659; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=v6eUGz19oOlUzlO97WvNXlGdx655IYIHReGP61Hna/U=;
+ b=JlflZyVpHCqATv2e7h+a/93U9ErwVtzwhRaEOXXeK0OwVGMdxCCk3yW5FM6BxtEg/elYgK6Q
+ Y7U8h7smAxEKAImI8jFVAcKhuiwC/MLK4xE8LmLuEsdMXnAfYNWQg4xpx5qOPEPbKlLkCJbL
+ dbOYM4/jYAuP0Wd1gJOlmn8To7Y=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
+ 608861b6febcffa80f561add (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 27 Apr 2021 19:10:46
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 9B729C4338A; Tue, 27 Apr 2021 19:10:46 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 4DEC6C433D3;
+ Tue, 27 Apr 2021 19:10:45 +0000 (UTC)
+MIME-Version: 1.0
+Date: Tue, 27 Apr 2021 12:10:45 -0700
+From: abhinavk@codeaurora.org
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 In-Reply-To: <20210427001828.2375555-1-dmitry.baryshkov@linaro.org>
 References: <20210427001828.2375555-1-dmitry.baryshkov@linaro.org>
-MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v2 4/4] drm/msm/dsi: add DSI PHY registers to
- snapshot data
+Message-ID: <cffa1baab24ae7dd6f292726abfaf4d5@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v2 0/4] drm/msm: improve register
+ snapshotting
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,133 +63,54 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
+ Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ David Airlie <airlied@linux.ie>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add DSI PHY registers to the msm state snapshots to be able to check
-their contents.
-
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/dsi/dsi.c         |  1 +
- drivers/gpu/drm/msm/dsi/dsi.h         |  1 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 31 +++++++++++++++++++++++----
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.h |  4 ++++
- 4 files changed, 33 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dsi/dsi.c b/drivers/gpu/drm/msm/dsi/dsi.c
-index 322d2e535df0..75afc12a7b25 100644
---- a/drivers/gpu/drm/msm/dsi/dsi.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi.c
-@@ -269,5 +269,6 @@ int msm_dsi_modeset_init(struct msm_dsi *msm_dsi, struct drm_device *dev,
- void msm_dsi_snapshot(struct msm_disp_state *disp_state, struct msm_dsi *msm_dsi)
- {
- 	msm_dsi_host_snapshot(disp_state, msm_dsi->host);
-+	msm_dsi_phy_snapshot(disp_state, msm_dsi->phy);
- }
- 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
-index b5679cf89413..cea73f9c4be9 100644
---- a/drivers/gpu/drm/msm/dsi/dsi.h
-+++ b/drivers/gpu/drm/msm/dsi/dsi.h
-@@ -176,6 +176,7 @@ int msm_dsi_phy_get_clk_provider(struct msm_dsi_phy *phy,
- 	struct clk **byte_clk_provider, struct clk **pixel_clk_provider);
- void msm_dsi_phy_pll_save_state(struct msm_dsi_phy *phy);
- int msm_dsi_phy_pll_restore_state(struct msm_dsi_phy *phy);
-+void msm_dsi_phy_snapshot(struct msm_disp_state *disp_state, struct msm_dsi_phy *phy);
- 
- #endif /* __DSI_CONNECTOR_H__ */
- 
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-index f0a2ddf96a4b..bf7a4c20c13c 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-@@ -658,14 +658,14 @@ static int dsi_phy_driver_probe(struct platform_device *pdev)
- 	phy->regulator_ldo_mode = of_property_read_bool(dev->of_node,
- 				"qcom,dsi-phy-regulator-ldo-mode");
- 
--	phy->base = msm_ioremap(pdev, "dsi_phy", "DSI_PHY");
-+	phy->base = msm_ioremap_size(pdev, "dsi_phy", "DSI_PHY", &phy->base_size);
- 	if (IS_ERR(phy->base)) {
- 		DRM_DEV_ERROR(dev, "%s: failed to map phy base\n", __func__);
- 		ret = -ENOMEM;
- 		goto fail;
- 	}
- 
--	phy->pll_base = msm_ioremap(pdev, "dsi_pll", "DSI_PLL");
-+	phy->pll_base = msm_ioremap_size(pdev, "dsi_pll", "DSI_PLL", &phy->pll_size);
- 	if (IS_ERR(phy->pll_base)) {
- 		DRM_DEV_ERROR(&pdev->dev, "%s: failed to map pll base\n", __func__);
- 		ret = -ENOMEM;
-@@ -673,7 +673,7 @@ static int dsi_phy_driver_probe(struct platform_device *pdev)
- 	}
- 
- 	if (phy->cfg->has_phy_lane) {
--		phy->lane_base = msm_ioremap(pdev, "dsi_phy_lane", "DSI_PHY_LANE");
-+		phy->lane_base = msm_ioremap_size(pdev, "dsi_phy_lane", "DSI_PHY_LANE", &phy->lane_size);
- 		if (IS_ERR(phy->lane_base)) {
- 			DRM_DEV_ERROR(&pdev->dev, "%s: failed to map phy lane base\n", __func__);
- 			ret = -ENOMEM;
-@@ -682,7 +682,7 @@ static int dsi_phy_driver_probe(struct platform_device *pdev)
- 	}
- 
- 	if (phy->cfg->has_phy_regulator) {
--		phy->reg_base = msm_ioremap(pdev, "dsi_phy_regulator", "DSI_PHY_REG");
-+		phy->reg_base = msm_ioremap_size(pdev, "dsi_phy_regulator", "DSI_PHY_REG", &phy->reg_size);
- 		if (IS_ERR(phy->reg_base)) {
- 			DRM_DEV_ERROR(&pdev->dev, "%s: failed to map phy regulator base\n", __func__);
- 			ret = -ENOMEM;
-@@ -868,3 +868,26 @@ int msm_dsi_phy_pll_restore_state(struct msm_dsi_phy *phy)
- 
- 	return 0;
- }
-+
-+void msm_dsi_phy_snapshot(struct msm_disp_state *disp_state, struct msm_dsi_phy *phy)
-+{
-+	msm_disp_snapshot_add_block(disp_state,
-+			phy->base_size, phy->base,
-+			"dsi%d_phy", phy->id);
-+
-+	/* Do not try accessing PLL registers if it is switched off */
-+	if (phy->pll_on)
-+		msm_disp_snapshot_add_block(disp_state,
-+			phy->pll_size, phy->pll_base,
-+			"dsi%d_pll", phy->id);
-+
-+	if (phy->lane_base)
-+		msm_disp_snapshot_add_block(disp_state,
-+			phy->lane_size, phy->lane_base,
-+			"dsi%d_lane", phy->id);
-+
-+	if (phy->reg_base)
-+		msm_disp_snapshot_add_block(disp_state,
-+			phy->reg_size, phy->reg_base,
-+			"dsi%d_reg", phy->id);
-+}
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-index 94a77ac364d3..5b0feef87127 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-@@ -85,6 +85,10 @@ struct msm_dsi_phy {
- 	void __iomem *pll_base;
- 	void __iomem *reg_base;
- 	void __iomem *lane_base;
-+	phys_addr_t base_size;
-+	phys_addr_t pll_size;
-+	phys_addr_t reg_size;
-+	phys_addr_t lane_size;
- 	int id;
- 
- 	struct clk *ahb_clk;
--- 
-2.30.2
-
+On 2021-04-26 17:18, Dmitry Baryshkov wrote:
+> Rework MSM coredump support: add DSI PHY registers, simplify
+> snapshotting code.
+> 
+> Changes since v1:
+>  - Readd mutex serializing register snapshot calls
+> 
+>  - Add DSI PHY register dumping support
+> 
+Need to mention the dependency here , got missed from the prev patchset
+> ----------------------------------------------------------------
+> Dmitry Baryshkov (4):
+>       drm/msm: pass dump state as a function argument
+>       drm/msm: make msm_disp_state transient data struct
+>       drm/msm: get rid of msm_iomap_size
+>       drm/msm/dsi: add DSI PHY registers to snapshot data
+> 
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c           |  5 +-
+>  drivers/gpu/drm/msm/disp/msm_disp_snapshot.c      | 90 
+> +++++++----------------
+>  drivers/gpu/drm/msm/disp/msm_disp_snapshot.h      | 21 +-----
+>  drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c | 22 ++----
+>  drivers/gpu/drm/msm/dp/dp_display.c               |  4 +-
+>  drivers/gpu/drm/msm/dsi/dsi.c                     |  5 +-
+>  drivers/gpu/drm/msm/dsi/dsi.h                     |  5 +-
+>  drivers/gpu/drm/msm/dsi/dsi_host.c                | 11 +--
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy.c             | 31 +++++++-
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy.h             |  4 +
+>  drivers/gpu/drm/msm/msm_drv.c                     | 27 +++----
+>  drivers/gpu/drm/msm/msm_drv.h                     |  6 +-
+>  drivers/gpu/drm/msm/msm_kms.h                     |  8 +-
+>  13 files changed, 97 insertions(+), 142 deletions(-)
+> 
+> 
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
