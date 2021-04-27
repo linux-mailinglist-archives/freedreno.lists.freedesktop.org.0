@@ -2,56 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55A9B36BC5A
-	for <lists+freedreno@lfdr.de>; Tue, 27 Apr 2021 01:50:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8A8F36BC87
+	for <lists+freedreno@lfdr.de>; Tue, 27 Apr 2021 02:18:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8213889DB8;
-	Mon, 26 Apr 2021 23:50:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B1CF6E1BB;
+	Tue, 27 Apr 2021 00:18:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com
- [IPv6:2607:f8b0:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B767789C9D;
- Mon, 26 Apr 2021 23:49:59 +0000 (UTC)
-Received: by mail-pf1-x429.google.com with SMTP id 10so4677321pfl.1;
- Mon, 26 Apr 2021 16:49:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2C606E185
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Apr 2021 00:18:31 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id n138so91118695lfa.3
+ for <freedreno@lists.freedesktop.org>; Mon, 26 Apr 2021 17:18:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=4Kj0SXA9vsOtoPJRmbl9kO6maA5cV9sB7CgScAwXMzI=;
- b=PFvUwvqW69maGIZ5IE53RvvUM+/kvn8XSEdtYOjbhbPlzT0Riuw8w7Ts1JFVxIDqpQ
- hkN+WE+9gKJKaxtoiRgHMpvs9sljBPxeoFTD8nkotwJ/goVrvSwQUvwMUdX0MB/hLWnu
- MHDlhhg8N/JbcQAJZ2Db5qaoK6tdTEf1BouwU/gi3Jg6UZCryIRDm9+uZZRvWjQ+QUb2
- +OMRwFtjC+RQpFVbk6gyUexFskpIjmkRZODzFO+vpHsN+PWjGIOYxdVwKcYgAWrvOR92
- EyGQlT0paeIxMRnpQ59hRd6/qHmCbR/KDJxaMA02Q6ibFopq2uKIiC6xQzJoLcSwHQ+0
- bIdw==
+ bh=pyVIHOwP3C4yhDRD5vW+wL3hfJcT2qqyYEtguOUdLeo=;
+ b=HEUzG7cLWHPmyhXWxkjwKsUmD2Y553flJc5Cl+8XnD/j0pFMe1gHrk7w5KiivdXpfY
+ 4QWMwTfHLofC0tl5PiCAz5j7N3agfqRqmF8bZ4pUZ8VexOL23JEITw/jM0Ie1kaTHV5j
+ /cHNt3lqcNDy45mQRbO3oS4aCepXWp6/psJBMTrnYbpaaujwmPz/YK4PjWBMfaAX4nE/
+ YaDkBh6IQYGimhq6EQWWflBjvcM0X6xV8j1kedrLGiPwnhMIuhMLctqRtOnKG6AHqmLp
+ 66EDeJXASJ+Nei71WwhI5Q0OyTXK4QxqwQ2ZrFKWmpxZPtntMu6f7J2zhx/ItsqF1kdT
+ I5PA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=4Kj0SXA9vsOtoPJRmbl9kO6maA5cV9sB7CgScAwXMzI=;
- b=oXus2M5YfJF3D9arcgUWrLdbvANpc4xdULB3YGvgsbbirUhrYNKV8jIzRKhAIhy2Zj
- XWuA7f4K1vX6Ip4UtqLFFp2yt6r2CvaRqK4MMCj9YEmTDleDk/qew10W4ii7kOiX//Tc
- y3iUPrq0AP/P5MOhtZWtL999z4p4U+02UVPmz12xw8FfDeLbWQi6bIPRALOor426/D9e
- ONhbxMK6E9o+GKfN3VRFC7Gr+9Vaty2Yi2Q7WNDR/r+D/sWA0OqEgtHbPVv5cIyd+E98
- oCn/raidSnUrZu3n6H1u8GHeiAsqQk91fGSfjshqsrMcqxGLYEGB9tR+3dylx0mqof10
- ZX7g==
-X-Gm-Message-State: AOAM532LFCKavhNUiZCzJ9EbxTdV/jRT+UiEJRUUfrtmrRCZyxN55HWK
- hYin5jQ80zOw/QXiwmK6dK9uHQvX/70=
-X-Google-Smtp-Source: ABdhPJzlJCZjMw1AMpMrqCCtVcFtp5ga8BJTa2+1W/jHgDQCNHWITvuZXAkIlz5HiSTjiD6+Kb+v/A==
-X-Received: by 2002:a63:eb46:: with SMTP id b6mr4060320pgk.199.1619480998570; 
- Mon, 26 Apr 2021 16:49:58 -0700 (PDT)
-Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
- by smtp.gmail.com with ESMTPSA id w189sm646315pfc.31.2021.04.26.16.49.57
+ bh=pyVIHOwP3C4yhDRD5vW+wL3hfJcT2qqyYEtguOUdLeo=;
+ b=FztxJt+axdNytJ8W/ABo3Ey+Zee6SJ31ROP2Lapywg0GywDbQXOe6tU4a07gKlzzLz
+ CW1k2d2i/JdrXPiwTQMg+6hcXDrLZHAbkBHpfuIV3h4JzuYuNvSRQSfTCTSb2s5GQ5Ni
+ zB4wMG8IAgE+NDtQashxbj3unr6fQLnqqzb20qiVOXL9L7VO67TkS2hLkohpDgvjj0+k
+ +/W+fdzg1Sn2bJerlri8yoUbG8u5NhxMmDpCZ0ZeWL5D6wGb2ofxOXvwXo7z1gNeu+bb
+ q9cFEe+HINmkaa1dhcnDzGQUu7X6HjiLRPJyR/JuwcTyxtESjgD3C7b4KdDd1M/SX95Z
+ HXpQ==
+X-Gm-Message-State: AOAM5304YUscGQHn2s3m9LSWHsr3hdy5uPiEHe1mWJ9erzrBPU6jFpm7
+ YWTJoWrqV7ht1BF/GB3kyvHb2Q==
+X-Google-Smtp-Source: ABdhPJwXwV9rUWZAKxG3qI1LphsTXd/PBKChmF56CmO/pfco0kRq8n7VYwUiuoorB8VYTGzOnm3K1Q==
+X-Received: by 2002:a19:ed11:: with SMTP id y17mr1944907lfy.117.1619482710265; 
+ Mon, 26 Apr 2021 17:18:30 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id d15sm1555100lfn.7.2021.04.26.17.18.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Apr 2021 16:49:57 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Mon, 26 Apr 2021 16:53:25 -0700
-Message-Id: <20210426235326.1230125-1-robdclark@gmail.com>
+ Mon, 26 Apr 2021 17:18:29 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <abhinavk@codeaurora.org>
+Date: Tue, 27 Apr 2021 03:18:24 +0300
+Message-Id: <20210427001828.2375555-1-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm: Do not unpin/evict exported dma-buf's
+Subject: [Freedreno] [PATCH v2 0/4] drm/msm: improve register snapshotting
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,102 +66,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>, Sumit Semwal <sumit.semwal@linaro.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+Rework MSM coredump support: add DSI PHY registers, simplify
+snapshotting code.
 
-Our initial logic for excluding dma-bufs was not quite right.  In
-particular we want msm_gem_get/put_pages() path used for exported
-dma-bufs to increment/decrement the pin-count.
+Changes since v1:
+ - Readd mutex serializing register snapshot calls
 
-Also, in case the importer is vmap'ing the dma-buf, we need to be
-sure to update the object's status, because it is now no longer
-potentially evictable.
+ - Add DSI PHY register dumping support
 
-Fixes: 63f17ef83428 drm/msm: Support evicting GEM objects to swap
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/msm_gem.c | 16 +++++++++++++++-
- drivers/gpu/drm/msm/msm_gem.h |  4 ++--
- 2 files changed, 17 insertions(+), 3 deletions(-)
+----------------------------------------------------------------
+Dmitry Baryshkov (4):
+      drm/msm: pass dump state as a function argument
+      drm/msm: make msm_disp_state transient data struct
+      drm/msm: get rid of msm_iomap_size
+      drm/msm/dsi: add DSI PHY registers to snapshot data
 
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index 09ef4ec6eb34..17f85d2f23ab 100644
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -190,13 +190,25 @@ struct page **msm_gem_get_pages(struct drm_gem_object *obj)
- 	}
- 
- 	p = get_pages(obj);
-+
-+	if (!IS_ERR(p)) {
-+		msm_obj->pin_count++;
-+		update_inactive(msm_obj);
-+	}
-+
- 	msm_gem_unlock(obj);
- 	return p;
- }
- 
- void msm_gem_put_pages(struct drm_gem_object *obj)
- {
--	/* when we start tracking the pin count, then do something here */
-+	struct msm_gem_object *msm_obj = to_msm_bo(obj);
-+
-+	msm_gem_lock(obj);
-+	msm_obj->pin_count--;
-+	GEM_WARN_ON(msm_obj->pin_count < 0);
-+	update_inactive(msm_obj);
-+	msm_gem_unlock(obj);
- }
- 
- int msm_gem_mmap_obj(struct drm_gem_object *obj,
-@@ -646,6 +658,8 @@ static void *get_vaddr(struct drm_gem_object *obj, unsigned madv)
- 			ret = -ENOMEM;
- 			goto fail;
- 		}
-+
-+		update_inactive(msm_obj);
- 	}
- 
- 	return msm_obj->vaddr;
-diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-index 1b519fcd8418..66fb40b87122 100644
---- a/drivers/gpu/drm/msm/msm_gem.h
-+++ b/drivers/gpu/drm/msm/msm_gem.h
-@@ -228,7 +228,7 @@ static inline bool is_active(struct msm_gem_object *msm_obj)
- /* imported/exported objects are not purgeable: */
- static inline bool is_unpurgeable(struct msm_gem_object *msm_obj)
- {
--	return msm_obj->base.dma_buf && msm_obj->base.import_attach;
-+	return msm_obj->base.import_attach || msm_obj->pin_count;
- }
- 
- static inline bool is_purgeable(struct msm_gem_object *msm_obj)
-@@ -278,7 +278,7 @@ static inline void mark_unpurgeable(struct msm_gem_object *msm_obj)
- 
- static inline bool is_unevictable(struct msm_gem_object *msm_obj)
- {
--	return is_unpurgeable(msm_obj) || msm_obj->pin_count || msm_obj->vaddr;
-+	return is_unpurgeable(msm_obj) || msm_obj->vaddr;
- }
- 
- static inline void mark_evictable(struct msm_gem_object *msm_obj)
--- 
-2.30.2
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c           |  5 +-
+ drivers/gpu/drm/msm/disp/msm_disp_snapshot.c      | 90 +++++++----------------
+ drivers/gpu/drm/msm/disp/msm_disp_snapshot.h      | 21 +-----
+ drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c | 22 ++----
+ drivers/gpu/drm/msm/dp/dp_display.c               |  4 +-
+ drivers/gpu/drm/msm/dsi/dsi.c                     |  5 +-
+ drivers/gpu/drm/msm/dsi/dsi.h                     |  5 +-
+ drivers/gpu/drm/msm/dsi/dsi_host.c                | 11 +--
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c             | 31 +++++++-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h             |  4 +
+ drivers/gpu/drm/msm/msm_drv.c                     | 27 +++----
+ drivers/gpu/drm/msm/msm_drv.h                     |  6 +-
+ drivers/gpu/drm/msm/msm_kms.h                     |  8 +-
+ 13 files changed, 97 insertions(+), 142 deletions(-)
+
 
 _______________________________________________
 Freedreno mailing list
