@@ -2,65 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAAF236D914
-	for <lists+freedreno@lfdr.de>; Wed, 28 Apr 2021 16:03:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 090B136DE72
+	for <lists+freedreno@lfdr.de>; Wed, 28 Apr 2021 19:38:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1368F6EB48;
-	Wed, 28 Apr 2021 14:03:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F8716EC0D;
+	Wed, 28 Apr 2021 17:38:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77BF86EB48
- for <freedreno@lists.freedesktop.org>; Wed, 28 Apr 2021 14:03:05 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id b23so16858140lfv.8
- for <freedreno@lists.freedesktop.org>; Wed, 28 Apr 2021 07:03:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=hIlZcAoSbYPGRqVrq1QW1VGSSVC9v2Q8BKI4bIbHGWE=;
- b=hJ0AFlu82jzBPuRmLSQ7D7SqUBH1V2fY11cf4JrWJ1nTp6ZtolN0+wZKDr6WplTRmh
- 8LWa1+1xasUijb3AJaGv0RWr9W4cuZkqPRHAe3+gHq4RSNs50442wwfZTHhW2od9x4Hk
- sZODx3vv9bcIBTKNuJ8d/rnTq8aRInMWhsIjwejnWdn318XZNJujvpfE7dVgORaGnGyu
- bM2WkuD4PjIURZNOSrfc8zsUJdgYMGIIN0ibQTeFlW4bsERdxXaWbZ3P91j7YoVLAhOz
- W0a8jglsrVYh9/1+/jazB2AxxUVP6DcMBI9VVG6Ngq0p5voMYDLNze9LkuqWEV4ReBEG
- owHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=hIlZcAoSbYPGRqVrq1QW1VGSSVC9v2Q8BKI4bIbHGWE=;
- b=djNrOkfVlnJzZcjXoMbwb+hzbvLwUKv5E+/lk7CNuHRRXlGNK7T84j2cveKsyMwQ/8
- 7gRh3bNBXvQL9dKbU7wFNwKxD9hKf5GOu4S1fQ8a8UKSgkG/GjMq0DxNFWtG7ZgK9JPQ
- uR7VEU9TGRxeDe+2bbo8HWgnUIbVV//i/rpapbdpty/RYuWP187M/bm5AqDqL+g6EKKf
- eZgCQKJnYIdRu3tAZwvTL+LowUf9L+oHncHjB0F1dmPreYEb/7tuXkP3Y5dNNffNLGCV
- zmmbbAVA4an8RKYsyiLDun9MJvo3zdQwmQyo7wCe4hHHdCuG2hdgpYDvscpibaVyiBxZ
- wRmg==
-X-Gm-Message-State: AOAM533gWeHsE6uhxhpcu00OZfrAvIqvSiaS9AcsQ/wlH9Tc/mX6X3rU
- tkDZJr2lCS1h0lxyDy3YvlgoVEHLXWGUFg==
-X-Google-Smtp-Source: ABdhPJwYPf7XPgjwdPAFFKGQ/RLPs3pjlVEgdifm7lbHkjGOkCxRrFZMRyNQF9IY/tYNzFapwDdf2w==
-X-Received: by 2002:a19:ee0f:: with SMTP id g15mr21587709lfb.407.1619618583470; 
- Wed, 28 Apr 2021 07:03:03 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id b29sm1166981ljf.87.2021.04.28.07.03.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Apr 2021 07:03:03 -0700 (PDT)
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-References: <20210427001828.2375555-1-dmitry.baryshkov@linaro.org>
- <20210427001828.2375555-4-dmitry.baryshkov@linaro.org>
- <20210428024755.GJ1908499@yoga>
- <80622cc2-5585-abaa-42e0-cc6969ed6ae3@linaro.org>
- <20210428135901.GK1908499@yoga>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <7b9e9b69-1817-6884-21ba-dde5e24d8f4d@linaro.org>
-Date: Wed, 28 Apr 2021 17:03:02 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.0
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C8226EC0D
+ for <freedreno@lists.freedesktop.org>; Wed, 28 Apr 2021 17:38:30 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1619631514; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=w1SNAwmP9ymkBodPmwQM2CGi5PEIfDQgcUqydD6PXFc=;
+ b=Io8y1XxuZeQaXyxTDJ+++oEQFv8QmrrLauYT/bY411CreIDQwOeCRdPEZne4h/RtTEXRAV99
+ DBymB4Flqt3YIDB7QCfdSdfjTUaWu2rYeEEa1HDGPAKziXec12LGNGc/PZFvQrd3EneDO+dG
+ b9RtdS7hZgXCEQ1CEy3lY2d7uRk=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
+ 60899d85853c0a2c464fb86d (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 28 Apr 2021 17:38:13
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 1CD73C43144; Wed, 28 Apr 2021 17:38:13 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 89BEFC4338A;
+ Wed, 28 Apr 2021 17:38:11 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <20210428135901.GK1908499@yoga>
-Content-Language: en-GB
-Subject: Re: [Freedreno] [PATCH v2 3/4] drm/msm: get rid of msm_iomap_size
+Date: Wed, 28 Apr 2021 10:38:11 -0700
+From: khsieh@codeaurora.org
+To: Stephen Boyd <swboyd@chromium.org>
+In-Reply-To: <CAE-0n53JNCc3JdONogGNArnsYLDr9E2fXZ2ODKBy7Jy3yVMr6g@mail.gmail.com>
+References: <1618604877-28297-1-git-send-email-khsieh@codeaurora.org>
+ <161895606268.46595.2841353121480638642@swboyd.mtv.corp.google.com>
+ <e3c3ef96ac507da6f138106f70c78ed2@codeaurora.org>
+ <ddc1e372c5f864cd62c4e056ef2e6404@codeaurora.org>
+ <CAE-0n53JNCc3JdONogGNArnsYLDr9E2fXZ2ODKBy7Jy3yVMr6g@mail.gmail.com>
+Message-ID: <9ccdef6e1a1b47bd8d99594831f51094@codeaurora.org>
+X-Sender: khsieh@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dp: service only one irq_hpd if
+ there are multiple irq_hpd pending
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,54 +67,122 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
- Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <abhinavk@codeaurora.org>, David Airlie <airlied@linux.ie>,
- Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ abhinavk@codeaurora.org, robdclark@gmail.com, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, aravindh@codeaurora.org, sean@poorly.run
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 28/04/2021 16:59, Bjorn Andersson wrote:
-> On Wed 28 Apr 08:41 CDT 2021, Dmitry Baryshkov wrote:
+On 2021-04-27 17:00, Stephen Boyd wrote:
+> Quoting aravindh@codeaurora.org (2021-04-21 11:55:21)
+>> On 2021-04-21 10:26, khsieh@codeaurora.org wrote:
+>> >>
+>> >>> +
+>> >>>         mutex_unlock(&dp->event_mutex);
+>> >>>
+>> >>>         return 0;
+>> >>> @@ -1496,6 +1502,9 @@ int msm_dp_display_disable(struct msm_dp *dp,
+>> >>> struct drm_encoder *encoder)
+>> >>>         /* stop sentinel checking */
+>> >>>         dp_del_event(dp_display, EV_DISCONNECT_PENDING_TIMEOUT);
+>> >>>
+>> >>> +       /* link is down, delete pending irq_hdps */
+>> >>> +       dp_del_event(dp_display, EV_IRQ_HPD_INT);
+>> >>> +
+>> >>
+>> >> I'm becoming convinced that the whole kthread design and event queue
+>> >> is
+>> >> broken. These sorts of patches are working around the larger problem
+>> >> that the kthread is running independently of the driver and irqs can
+>> >> come in at any time but the event queue is not checked from the irq
+>> >> handler to debounce the irq event. Is the event queue necessary at
+>> >> all?
+>> >> I wonder if it would be simpler to just use an irq thread and process
+>> >> the hpd signal from there. Then we're guaranteed to not get an irq
+>> >> again
+>> >> until the irq thread is done processing the event. This would
+>> >> naturally
+>> >> debounce the irq hpd event that way.
+>> > event q just like bottom half of irq handler. it turns irq into event
+>> > and handle them sequentially.
+>> > irq_hpd is asynchronous event from panel to bring up attention of hsot
+>> > during run time of operation.
+>> > Here, the dongle is unplugged and main link had teared down so that no
+>> > need to service pending irq_hpd if any.
+>> >
+>> 
+>> As Kuogee mentioned, IRQ_HPD is a message received from the panel and 
+>> is
+>> not like your typical HW generated IRQ. There is no guarantee that we
+>> will not receive an IRQ_HPD until we are finished with processing of 
+>> an
+>> earlier HPD message or an IRQ_HPD message. For example - when you run
+>> the protocol compliance, when we get a HPD from the sink, we are
+>> expected to start reading DPCD, EDID and proceed with link training. 
+>> As
+>> soon as link training is finished (which is marked by a specific DPCD
+>> register write), the sink is going to issue an IRQ_HPD. At this point,
+>> we may not done with processing the HPD high as after link training we
+>> would typically notify the user mode of the newly connected display,
+>> etc.
 > 
->> On 28/04/2021 05:47, Bjorn Andersson wrote:
->>> On Mon 26 Apr 19:18 CDT 2021, Dmitry Baryshkov wrote:
->>> [..]
->>>> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
->>>> index 92fe844b517b..be578fc4e54f 100644
->>>> --- a/drivers/gpu/drm/msm/msm_drv.c
->>>> +++ b/drivers/gpu/drm/msm/msm_drv.c
->>>> @@ -124,7 +124,7 @@ struct clk *msm_clk_get(struct platform_device *pdev, const char *name)
->>>>    }
->>>>    static void __iomem *_msm_ioremap(struct platform_device *pdev, const char *name,
->>>> -				  const char *dbgname, bool quiet)
->>>> +				  const char *dbgname, bool quiet, phys_addr_t *psize)
->>>
->>> size_t sounds like a better fit for psize...
->>
->> I was trying to select between size_t and phys_addr_t, settling on the
->> latter one because it is used for resource size.
->>
+> Given that the irq comes in and is then forked off to processing at a
+> later time implies that IRQ_HPD can come in at practically anytime. 
+> Case
+> in point, this patch, which is trying to selectively search through the
+> "event queue" and then remove the event that is no longer relevant
+> because the display is being turned off either by userspace or because
+> HPD has gone away. If we got rid of the queue and kthread and processed
+> irqs in a threaded irq handler I suspect the code would be simpler and
+> not have to search through an event queue when we disable the display.
+> Instead while disabling the display we would make sure that the irq
+> thread isn't running anymore with synchronize_irq() or even disable the
+> irq entirely, but really it would be better to just disable the irq in
+> the hardware with a register write to some irq mask register.
 > 
-> I always thought resource_size_t was an alias for size_t, now I know :)
-> 
-> That said, I still think that size_t (in line with resource_size_t)
-> gives a better hint about what the parameter represents...
+> This pushes more of the logic for HPD and connect/disconnect into the
+> hardware and avoids reimplementing that in software: searching through
+> the queue, checking for duplicate events, etc.
 
-Indeed, I'll change that in the next version.
+I wish we can implemented as you suggested. but it more complicate than 
+that.
+Let me explain below,
+we have 3 transactions defined as below,
 
-> 
-> Regards,
-> Bjorn
-> 
+plugin transaction: irq handle do host dp ctrl initialization and link 
+training. If sink_count = 0 or link train failed, then transaction 
+ended. otherwise send display up uevent to frame work and wait for frame 
+work thread to do mode set, start pixel clock and start video to end 
+transaction.
+
+unplugged transaction: irq handle send display off uevent to frame work 
+and wait for frame work to disable pixel clock ,tear down main link and 
+dp ctrl host de initialization.
+
+irq_hpd transaction: This only happen after plugin transaction and 
+before unplug transaction. irq handle read panel dpcd register and 
+perform requesting action. Action including perform dp compliant 
+phy/link testing.
+
+since dongle can be plugged/unplugged at ant time, three conditions have 
+to be met to avoid race condition,
+1) no irq lost
+2) irq happen timing order enforced at execution
+3) no irq handle done in the middle transaction
+
+for example we do not want to see
+plugin --> unplug --> plugin --> unplug become plugin --> plugin--> 
+unplug
+
+The purpose of this patch is to not handle pending irq_hpd after either 
+dongle or monitor had been unplugged until next plug in.
 
 
--- 
-With best wishes
-Dmitry
+
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
