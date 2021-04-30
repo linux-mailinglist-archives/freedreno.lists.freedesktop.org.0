@@ -2,58 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D950436FD61
-	for <lists+freedreno@lfdr.de>; Fri, 30 Apr 2021 17:10:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22C0336FEC8
+	for <lists+freedreno@lfdr.de>; Fri, 30 Apr 2021 18:41:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86DE16F550;
-	Fri, 30 Apr 2021 15:10:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C25236F56B;
+	Fri, 30 Apr 2021 16:41:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC5C16F550
- for <freedreno@lists.freedesktop.org>; Fri, 30 Apr 2021 15:10:21 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1619795425; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=+dVI3NdaeABnN/N1/ZkuDIQzB1RFAa3KmXh7BK9pWbs=;
- b=LsVa19KkUo/dy9Rwr/KlEz5O+s/Ej8JsLzLP/FSH/GRMppgXJ0exL0UE9FhhIgDVqCDAyOxw
- owUqiYwLM3mbxRpqAWeShNLsd0mUTXZ4AI3e1wRPWI+Z1V7UuR9Hud9f6muU0rlcjWbKgcCi
- 0hPFVryzu2eERGsKDIn+a0tfxPs=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n03.prod.us-west-2.postgun.com with SMTP id
- 608c1dd9e0e9c9a6b69b8ff2 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 30 Apr 2021 15:10:17
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 501D1C43460; Fri, 30 Apr 2021 15:10:17 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: rajeevny)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 90E85C433D3;
- Fri, 30 Apr 2021 15:10:15 +0000 (UTC)
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFFD56F56B;
+ Fri, 30 Apr 2021 16:41:10 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id
+ i21-20020a05600c3555b029012eae2af5d4so2020002wmq.4; 
+ Fri, 30 Apr 2021 09:41:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=h+66Oy7mxBKGptVihwlH/Hzh5J+HBgYn12rtWa1Ht0A=;
+ b=PqCRxE4z2J6Gxe2o5wLtD7XsGXFIDrhrwG8QUMG+W65O4kyQS/QL+O/am+Slg30EdP
+ SITspIKf39zHcrHs2SrXZo/rLD0JuH/ER683QRe8u0wKXXmKPJfrkvpiIOP0yhyxF1Rq
+ KDOcYDFioJfC24JiJZnixKcd6RQU3GG/PrRttmTMjkUYo7spD8YHTF8rtQx7Zb5GdOTI
+ F8M608bqJ+Lry8RiXzekwiFlictmLwEPULWF6/7HfwX66xnvF5aqCJqVOaxXt8OsiYsa
+ KUIbb2gu5gDIGrpDkWzX9yZdb6HBiO0OUV1ghjudRpkf9zEl3rYrmGRRnlunYzrDXALm
+ QOGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=h+66Oy7mxBKGptVihwlH/Hzh5J+HBgYn12rtWa1Ht0A=;
+ b=SPLTPL7mBrrgUPWjEWtuOQsvhuTkFOInb3Xh09d9GNB5BLMP6QN1jRG0+UfzY7UF1E
+ Ye0sjHRdd9uQe5nBRmwKI3yBt9zaWqNPBpvERO3LIaJ1zHbOWMNaIAWOBH06lvjcgpUm
+ 5zD7QCGwfzG1mk8yLggvY2zv/iHhyac9vZ2L+z4UKTJ+H4McONGn1+aJFnLfanml8gtu
+ BLZCATtsUEGEg8asxsld3tfy8zJnhi3YqUC4k6PfSYP/Bts46hAHBkAQfWEu9/H+bl66
+ eUmi4h0ZFGWPP4JNLSHZ8tvGnG3QBasfx7EBd0mOgnnkp8LS/llS5TvCQxTYPhzKqk4A
+ ev+g==
+X-Gm-Message-State: AOAM532XQ00x96rhU6bQGiwE/W9uWHJMno6L3HbjOT2tGrdopGud+kEe
+ X/XCRacFIfFRkF027O3CUQxWtfmxYtaM8fQWrK0Aa4qv1a8=
+X-Google-Smtp-Source: ABdhPJzuM15/s48Jb4zLa/ps0CebYG1fOZQlAO51W1eewyuyKGBWzav8rGTilyAHFuRfwqs1tZN2m9sfK7cECRBS+a0=
+X-Received: by 2002:a05:600c:4e8c:: with SMTP id
+ f12mr17505549wmq.123.1619800869137; 
+ Fri, 30 Apr 2021 09:41:09 -0700 (PDT)
 MIME-Version: 1.0
-Date: Fri, 30 Apr 2021 20:40:15 +0530
-From: rajeevny@codeaurora.org
-To: Doug Anderson <dianders@chromium.org>, Rob Herring <robh@kernel.org>
-In-Reply-To: <CAD=FV=V-kdySH5Pp-Fb-PRYk60Ha_UOTXJHcvMp+uV3P1oo7Uw@mail.gmail.com>
-References: <1619416756-3533-1-git-send-email-rajeevny@codeaurora.org>
- <1619416756-3533-2-git-send-email-rajeevny@codeaurora.org>
- <20210429180435.GA1385465@robh.at.kernel.org>
- <CAD=FV=V-kdySH5Pp-Fb-PRYk60Ha_UOTXJHcvMp+uV3P1oo7Uw@mail.gmail.com>
-Message-ID: <78c4bd291bd4a17ae2a1d02d0217de43@codeaurora.org>
-X-Sender: rajeevny@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [v3 1/2] dt-bindings: backlight: add DisplayPort
- aux backlight
+References: <20210219120032.260676-1-maxime@cerno.tech>
+ <20210219120032.260676-10-maxime@cerno.tech>
+ <161706912161.3012082.17313817257247946143@swboyd.mtv.corp.google.com>
+ <20210330153527.gw33t4o2b35wwzbg@gilmour>
+ <161713057558.2260335.5422873422021430866@swboyd.mtv.corp.google.com>
+ <20210408132048.gifhgtkmoeuplhcz@gilmour>
+In-Reply-To: <20210408132048.gifhgtkmoeuplhcz@gilmour>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 30 Apr 2021 09:44:42 -0700
+Message-ID: <CAF6AEGt8t78WLt=GQ1PFANtOC2thoYiTj7kCrh4cTr+CVH68eQ@mail.gmail.com>
+To: Maxime Ripard <maxime@cerno.tech>
+Subject: Re: [Freedreno] [PATCH v3 10/11] drm: Use state helper instead of
+ the plane state pointer
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,141 +68,62 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- "open list:OPEN FIRMWARE AND FLATTENED
- DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
- Lyude Paul <lyude@redhat.com>, mkrishn@codeaurora.org,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <seanpaul@chromium.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
- Kalyan Thota <kalyan_t@codeaurora.org>, "Kristian H.
- Kristensen" <hoegsberg@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>, "Lankhorst,
- Maarten" <maarten.lankhorst@intel.com>
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ abhinavk@codeaurora.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Daniel Vetter <daniel.vetter@intel.com>, freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 30-04-2021 02:33, Doug Anderson wrote:
-> Hi,
-> 
-> On Thu, Apr 29, 2021 at 11:04 AM Rob Herring <robh@kernel.org> wrote:
->> 
->> On Mon, Apr 26, 2021 at 11:29:15AM +0530, Rajeev Nandan wrote:
->> > Add bindings for DisplayPort aux backlight driver.
->> >
->> > Changes in v2:
->> > - New
->> >
->> > Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
->> > ---
->> >  .../bindings/leds/backlight/dp-aux-backlight.yaml  | 49 ++++++++++++++++++++++
->> >  1 file changed, 49 insertions(+)
->> >  create mode 100644 Documentation/devicetree/bindings/leds/backlight/dp-aux-backlight.yaml
->> >
->> > diff --git a/Documentation/devicetree/bindings/leds/backlight/dp-aux-backlight.yaml b/Documentation/devicetree/bindings/leds/backlight/dp-aux-backlight.yaml
->> > new file mode 100644
->> > index 00000000..0fa8bf0
->> > --- /dev/null
->> > +++ b/Documentation/devicetree/bindings/leds/backlight/dp-aux-backlight.yaml
->> > @@ -0,0 +1,49 @@
->> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> > +%YAML 1.2
->> > +---
->> > +$id: http://devicetree.org/schemas/leds/backlight/dp-aux-backlight.yaml#
->> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> > +
->> > +title: DisplayPort aux backlight driver bindings
->> > +
->> > +maintainers:
->> > +  - Rajeev Nandan <rajeevny@codeaurora.org>
->> > +
->> > +description:
->> > +  Backlight driver to control the brightness over DisplayPort aux channel.
->> > +
->> > +allOf:
->> > +  - $ref: common.yaml#
->> > +
->> > +properties:
->> > +  compatible:
->> > +    const: dp-aux-backlight
->> > +
->> > +  ddc-i2c-bus:
->> > +    $ref: /schemas/types.yaml#/definitions/phandle
->> > +    description:
->> > +      A phandle to the system I2C controller connected to the DDC bus used
->> > +      for the DisplayPort AUX channel.
->> > +
->> > +  enable-gpios:
->> > +    maxItems: 1
->> > +    description: GPIO specifier for backlight enable pin.
->> > +
->> > +  max-brightness: true
->> > +
->> > +required:
->> > +  - compatible
->> > +  - ddc-i2c-bus
->> > +
->> > +additionalProperties: false
->> > +
->> > +examples:
->> > +  - |
->> > +    backlight {
->> > +        compatible = "dp-aux-backlight";
->> > +        ddc-i2c-bus = <&sn65dsi86_bridge>;
->> > +        enable-gpios = <&tlmm 12 GPIO_ACTIVE_HIGH>;
->> 
->> So the DDC bus is connected to a backlight and also a panel? This
->> binding is not reflecting the h/w, but rather what you want for some
->> driver.
->> 
->> There's only one thing here and that's an eDP panel which supports
->> backlight control via DP aux channel. You can figure all that out from
->> the panel's compatible and/or reading the EDID.
->> 
->> You might also be interested in this thread:
->> 
->> https://lore.kernel.org/lkml/YIKsDtjcIHGNvW0u@orome.fritz.box/
-> 
-> I think Rajeev needs to rework everything anyway as per:
-> 
-> https://lore.kernel.org/r/87zgxl5qar.fsf@intel.com
-> 
-> ...but you're right that it makes sense not to model the backlight as
-> a separate node in the device tree. The panel driver can handle
-> setting up the backlight.
-> 
-> -Doug
+On Thu, Apr 8, 2021 at 6:20 AM Maxime Ripard <maxime@cerno.tech> wrote:
+>
+> Hi Stephen,
+>
+> On Tue, Mar 30, 2021 at 11:56:15AM -0700, Stephen Boyd wrote:
+> > Quoting Maxime Ripard (2021-03-30 08:35:27)
+> > > Hi Stephen,
+> > >
+> > > On Mon, Mar 29, 2021 at 06:52:01PM -0700, Stephen Boyd wrote:
+> > > > Trimming Cc list way down, sorry if that's too much.
+> > > >
+> > > > Quoting Maxime Ripard (2021-02-19 04:00:30)
+> > > > > Many drivers reference the plane->state pointer in order to get the
+> > > > > current plane state in their atomic_update or atomic_disable hooks,
+> > > > > which would be the new plane state in the global atomic state since
+> > > > > _swap_state happened when those hooks are run.
+> > > >
+> > > > Does this mean drm_atomic_helper_swap_state()?
+> > >
+> > > Yep. Previous to that call in drm_atomic_helper_commit, plane->state is
+> > > the state currently programmed in the hardware, so the old state (that's
+> > > the case you have with atomic_check for example)
+> > >
+> > > Once drm_atomic_helper_swap_state has run, plane->state is now the state
+> > > that needs to be programmed into the hardware, so the new state.
+> >
+> > Ok, and I suppose that is called by drm_atomic_helper_commit()?
+>
+> Yep :)
+>
+> > So presumably a modeset is causing this? I get the NULL pointer around
+> > the time we switch from the splash screen to the login screen. I think
+> > there's a modeset during that transition.
+>
+> It's very likely yeah. I really don't get how that pointer could be null
+> though :/
 
-It was not a good idea to create a separate backlight driver and use
-ddc-i2c-bus to get access to DP aux. I am working to move the code
-to the panel driver and to utilize the new DRM helper functions
-(drm_edp_backlight_*) Lyude has added [1].
+So I think I see what is going on.. the issue is the CRTC has changed,
+but not the plane, so there is no new-state for the plane.
 
-To use these helper functions, the panel driver should have access to 
-the
-"struct drm_dp_aux *". The simple-panel has a "ddc-i2c-bus" property
-to give the panel access to the DDC bus and is currently being used to
-get the EDID from the panel. Can I use the same ddc bus i2c_adapter to 
-get
-the "struct drm_dp_aux *"?
+But dpu_crtc_atomic_flush() iterates over all the attached planes,
+calling dpu_plane_restore() which leads into
+dpu_plane_atomic_update().. this is kinda dpu breaking the rules..
 
-As per the suggestion [2], I get the "struct drm_dp_aux *" from the
-i2c_adapter of ddc bus (maybe I didn't understand the suggestion 
-correctly),
-and, it turned out, the way I have implemented is not the right way [3].
-So, I am afraid to use the same method in the panel driver.
-
-
-[1] https://lore.kernel.org/dri-devel/871rb5bcf9.fsf@intel.com/
-[2] https://www.spinics.net/lists/dri-devel/msg295429.html
-[3] 
-https://lore.kernel.org/dri-devel/20210426111116.4lc3ekxjugjr3oho@maple.lan/
-
-Thanks,
-Rajeev
+BR,
+-R
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
