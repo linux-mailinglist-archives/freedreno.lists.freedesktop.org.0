@@ -1,52 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A804136FFBE
-	for <lists+freedreno@lfdr.de>; Fri, 30 Apr 2021 19:37:37 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 52AFB36FFDA
+	for <lists+freedreno@lfdr.de>; Fri, 30 Apr 2021 19:44:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 418076E4F1;
-	Fri, 30 Apr 2021 17:37:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9E406F58C;
+	Fri, 30 Apr 2021 17:44:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 762B36E4F3
- for <freedreno@lists.freedesktop.org>; Fri, 30 Apr 2021 17:37:35 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id b23so28732330lfv.8
- for <freedreno@lists.freedesktop.org>; Fri, 30 Apr 2021 10:37:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=IyZoGH+lT+P8SU23gcGGsIVn6bGEnFnAdvfYbbDN9to=;
- b=ryDFnWPDNEvnvXwTf0jcPPjjEXrVhjstRilHvsIA8HyK6O52T+H+wQ8OPQWWOwaWB8
- CE9qwQA0/2kiylTlZnPXkbNG4DrQxLyX8gS5wTYZX0aMkmGTeckUGp+xCUcixrb7nKv0
- z+mzVNUzvNKMXuro8JYl2HXNj2O20xvQLqllwQ5eYrlTm/Z/lpyJeVqbqW/9JsK2knKU
- 5LNmpveMyCCZbDUYFU695phQaFMgAMzzwWVCO2vUFO8DQAzgYvMxBI2ItJcnSrY6OYxp
- SuRvUyWbEJIA/FcRCNQ5QW1ydXUp1tjV7ZyQmbNjtaVj15WO2SnS3LgH1s7CCIG1SPbZ
- eMog==
+Received: from mail-oo1-xc29.google.com (mail-oo1-xc29.google.com
+ [IPv6:2607:f8b0:4864:20::c29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42B2D6F584
+ for <freedreno@lists.freedesktop.org>; Fri, 30 Apr 2021 17:44:55 +0000 (UTC)
+Received: by mail-oo1-xc29.google.com with SMTP id
+ k26-20020a4adfba0000b02901f992c7ec7bso2230797ook.13
+ for <freedreno@lists.freedesktop.org>; Fri, 30 Apr 2021 10:44:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=6g0Wub32949zlUmpDO6orwMigbfoDepmWih+zxo6Gik=;
+ b=Hwdg91N23Pzm+MhntYiriTtK3LzxwTdtud93fhi+6PsD2MGghl+QzB5fD/KE4E/UOH
+ rA+vVIVjaVzTOFbRvMMXkHYiDCWmryuId1VhGqaeOkuCUsxD1zdaAp83XrllM50f554B
+ YII/rfNuz5fJX4CecLZUPgYKNcAoSrTUw9Yg0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=IyZoGH+lT+P8SU23gcGGsIVn6bGEnFnAdvfYbbDN9to=;
- b=UmDfFZ9Y1cdKH7KzfQ1bZ2Eph7fJ9Z7QzX+pnvCTyubn3arOvCOvPfge9tT16BDrlw
- dCLolXQA+t9Ffbh8XqnuSUKpQYruMHGNwgWltQ4CyJP1ejFab8/NdBPWpn+Ml0D23hCP
- lopYgWjpduDhtlQ47yWjF+WZC88Q7Y3EAYfUt2c3dtV4AKPHzLtbRKTqLWd7xooaxkLr
- U5NtFI7chvzZ3cmaCqkB8N5959jD0542omZ20srryMKFXSVldHLooTH3738Lx2FDrfxR
- HnLqk+BOWudHiUW5FGaE2haNvr6bPJO7VGxd2A+NXAnUYIo74/RrbyIJQUrxcS001Xx0
- bVzQ==
-X-Gm-Message-State: AOAM531NHxNmFU8z6R39YHwHdo3G1PV+garZHnb9VAXHPDlnaH2t7+Up
- 3HHYNC9X3fJ+d4Cl42ChQPfwQdMDwbYmKccbC8LLRw==
-X-Google-Smtp-Source: ABdhPJyrJphBLygkbPOqBlyI3KGd158lA8+tnQCVqwm0BWpVup5VBgWBQRQB0f1PP1xd/VB51Pqr4tiWIdyHtQCG6fQ=
-X-Received: by 2002:ac2:593b:: with SMTP id v27mr3358056lfi.204.1619804253808; 
- Fri, 30 Apr 2021 10:37:33 -0700 (PDT)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=6g0Wub32949zlUmpDO6orwMigbfoDepmWih+zxo6Gik=;
+ b=JtbTmUg35N2SXm46c4OcGRT3apDFtiE5eXvtZQADDBo5qwdbCCTlDHGfk/3QkorLkG
+ Gjg/qaJ1Nf+jXVcNNYB8/xUFMMbepQzLbSQXH6Z4eh5ENanBaetkI4+ChmS1pN59jkkb
+ N7oI5QsPpmF4OmnVWbZV3E2NW5e6ChSijAz/0V5+fdyNuYotusFEqrK6sIs2Jh3gU/5E
+ ZCByyzs5e+xFHv2QrOHwz22ZyLvsf6VpBTE3DMqiS5xkLofCheaAmz2Fy9U/UUHo5g73
+ ciefU/gJ1XKnWh5p4nYkTDzhUjFi/oCbIncwg4TIk4EQn+/+CMJi8Aoa4Ih1WzqqCy4l
+ 0Hmg==
+X-Gm-Message-State: AOAM533Spx+WEYMnUPReTe3EdnnSTDKnD/uZhERwproExL9dsO+YrNAO
+ ltpcf9dVVVXcAhN6Hx8sdRMBlgOsSANYP50CdatTKQ==
+X-Google-Smtp-Source: ABdhPJyPyi4DIgMeRBNFsN/86pplbHjCV4+mrcMiD+kOFc0aF1HRvCFr6LF5hBxDNhe7lCnbhKeHNkeCcL52ICW+GsQ=
+X-Received: by 2002:a05:6820:381:: with SMTP id
+ r1mr5451224ooj.79.1619804694545; 
+ Fri, 30 Apr 2021 10:44:54 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 30 Apr 2021 10:44:54 -0700
 MIME-Version: 1.0
-References: <20210430171744.1721408-1-robdclark@gmail.com>
 In-Reply-To: <20210430171744.1721408-1-robdclark@gmail.com>
-From: John Stultz <john.stultz@linaro.org>
-Date: Fri, 30 Apr 2021 10:37:22 -0700
-Message-ID: <CALAqxLU=zsaMuBikeEzjtgNFAcxZGdqMhETBHvveNC_JZ=B7JA@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
+References: <20210430171744.1721408-1-robdclark@gmail.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Fri, 30 Apr 2021 10:44:53 -0700
+Message-ID: <CAE-0n513cwqs1c89PZpn0ojuDQ44nwxbRfaYssKHcGwKxK8JdA@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
 Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Delete bonkers code
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,18 +63,14 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Stephen Boyd <sboyd@kernel.org>, Hongbo Yao <yaohongbo@huawei.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- open list <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@linux.ie>,
- Qinglang Miao <miaoqinglang@huawei.com>, Maxime Ripard <maxime@cerno.tech>,
- Daniel Vetter <daniel@ffwll.ch>, Kalyan Thota <kalyan_t@codeaurora.org>,
- Lee Jones <lee.jones@linaro.org>, Sean Paul <sean@poorly.run>,
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Lee Jones <lee.jones@linaro.org>, linux-arm-msm@vger.kernel.org,
+ Hongbo Yao <yaohongbo@huawei.com>, linux-kernel@vger.kernel.org,
+ Abhinav Kumar <abhinavk@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
+ Qinglang Miao <miaoqinglang@huawei.com>, John Stultz <john.stultz@linaro.org>,
+ Maxime Ripard <maxime@cerno.tech>, Daniel Vetter <daniel@ffwll.ch>,
+ Kalyan Thota <kalyan_t@codeaurora.org>, Sean Paul <sean@poorly.run>,
  =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Content-Type: text/plain; charset="us-ascii"
@@ -79,8 +78,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Apr 30, 2021 at 10:14 AM Rob Clark <robdclark@gmail.com> wrote:
->
+Quoting Rob Clark (2021-04-30 10:17:39)
 > From: Rob Clark <robdclark@chromium.org>
 >
 > dpu_crtc_atomic_flush() was directly poking it's attached planes in a
@@ -115,13 +113,23 @@ On Fri, Apr 30, 2021 at 10:14 AM Rob Clark <robdclark@gmail.com> wrote:
 > The reason for the codepath seems dubious, the atomic suspend/resume
 > heplers should handle the power-collapse case.  If not, the CRTC's
 > atomic_check() should be adding the planes to the atomic update.
+>
+> Reported-by: Stephen Boyd <sboyd@kernel.org>
 
-Thanks! This patch gets things booting again!
+Maybe better to use swboyd@chromium.org for this one.
 
-Tested-by: John Stultz <john.stultz@linaro.org>
+> Reported-by: John Stultz <john.stultz@linaro.org>
+> Fixes: 37418bf14c13 drm: Use state helper instead of the plane state pointer
 
-thanks
--john
+Should be
+
+Fixes: 37418bf14c13 ("drm: Use state helper instead of the plane state pointer")
+
+to match the preferred format.
+
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+
+Otherwise looks good, thanks.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
