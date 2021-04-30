@@ -1,61 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22C0336FEC8
-	for <lists+freedreno@lfdr.de>; Fri, 30 Apr 2021 18:41:13 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 00D3A36FF4B
+	for <lists+freedreno@lfdr.de>; Fri, 30 Apr 2021 19:14:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C25236F56B;
-	Fri, 30 Apr 2021 16:41:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93CC76F573;
+	Fri, 30 Apr 2021 17:14:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFFD56F56B;
- Fri, 30 Apr 2021 16:41:10 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id
- i21-20020a05600c3555b029012eae2af5d4so2020002wmq.4; 
- Fri, 30 Apr 2021 09:41:10 -0700 (PDT)
+Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
+ [IPv6:2607:f8b0:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9BDB6F573;
+ Fri, 30 Apr 2021 17:14:10 +0000 (UTC)
+Received: by mail-pl1-x629.google.com with SMTP id e2so32640907plh.8;
+ Fri, 30 Apr 2021 10:14:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=h+66Oy7mxBKGptVihwlH/Hzh5J+HBgYn12rtWa1Ht0A=;
- b=PqCRxE4z2J6Gxe2o5wLtD7XsGXFIDrhrwG8QUMG+W65O4kyQS/QL+O/am+Slg30EdP
- SITspIKf39zHcrHs2SrXZo/rLD0JuH/ER683QRe8u0wKXXmKPJfrkvpiIOP0yhyxF1Rq
- KDOcYDFioJfC24JiJZnixKcd6RQU3GG/PrRttmTMjkUYo7spD8YHTF8rtQx7Zb5GdOTI
- F8M608bqJ+Lry8RiXzekwiFlictmLwEPULWF6/7HfwX66xnvF5aqCJqVOaxXt8OsiYsa
- KUIbb2gu5gDIGrpDkWzX9yZdb6HBiO0OUV1ghjudRpkf9zEl3rYrmGRRnlunYzrDXALm
- QOGA==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=ruRmdj//+BrtUTRZyXXenuD+b8S/L8NONyW8idiiQuk=;
+ b=Ub8kSGGmxhpGXKFXcqsHa6ydl4thXJFh+bzi40S1hfj/bv9cckLfwspKB85RLYBVMG
+ nSody6AIH4eP3yjzJErq+smvpAvJoQTxxLo7AXCTyMdtaKNBTIolxDZTk3z3DvGi0/jW
+ 9peJujZYZVVBDqcRqCoYs+VKV9hvy2Y/oNZVTvlh3xaA2SkRe0UBE4kueab13d/Kj6aw
+ sKD1wbbxn/vBOIrRIp5TaWXd42GtCgwjEVVnmjAjbSrG6w/LI1WdVCMf2C4N2FdT793H
+ 8l7JFGKJindN17KCychIFimTUVbN7x6xR5gIoePqZysbiA7j4SM8zJAW4mTwVBil/dqP
+ 2ZZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=h+66Oy7mxBKGptVihwlH/Hzh5J+HBgYn12rtWa1Ht0A=;
- b=SPLTPL7mBrrgUPWjEWtuOQsvhuTkFOInb3Xh09d9GNB5BLMP6QN1jRG0+UfzY7UF1E
- Ye0sjHRdd9uQe5nBRmwKI3yBt9zaWqNPBpvERO3LIaJ1zHbOWMNaIAWOBH06lvjcgpUm
- 5zD7QCGwfzG1mk8yLggvY2zv/iHhyac9vZ2L+z4UKTJ+H4McONGn1+aJFnLfanml8gtu
- BLZCATtsUEGEg8asxsld3tfy8zJnhi3YqUC4k6PfSYP/Bts46hAHBkAQfWEu9/H+bl66
- eUmi4h0ZFGWPP4JNLSHZ8tvGnG3QBasfx7EBd0mOgnnkp8LS/llS5TvCQxTYPhzKqk4A
- ev+g==
-X-Gm-Message-State: AOAM532XQ00x96rhU6bQGiwE/W9uWHJMno6L3HbjOT2tGrdopGud+kEe
- X/XCRacFIfFRkF027O3CUQxWtfmxYtaM8fQWrK0Aa4qv1a8=
-X-Google-Smtp-Source: ABdhPJzuM15/s48Jb4zLa/ps0CebYG1fOZQlAO51W1eewyuyKGBWzav8rGTilyAHFuRfwqs1tZN2m9sfK7cECRBS+a0=
-X-Received: by 2002:a05:600c:4e8c:: with SMTP id
- f12mr17505549wmq.123.1619800869137; 
- Fri, 30 Apr 2021 09:41:09 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210219120032.260676-1-maxime@cerno.tech>
- <20210219120032.260676-10-maxime@cerno.tech>
- <161706912161.3012082.17313817257247946143@swboyd.mtv.corp.google.com>
- <20210330153527.gw33t4o2b35wwzbg@gilmour>
- <161713057558.2260335.5422873422021430866@swboyd.mtv.corp.google.com>
- <20210408132048.gifhgtkmoeuplhcz@gilmour>
-In-Reply-To: <20210408132048.gifhgtkmoeuplhcz@gilmour>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=ruRmdj//+BrtUTRZyXXenuD+b8S/L8NONyW8idiiQuk=;
+ b=nQoHYu3uMEupdeEOLvyG4t9oshn9dgBZAJQFTQn4fg1c5uGYMUTU6jWdFBrSHopZWD
+ vbwH8yj2LnR98n5vJEOtaCj4S5dNZZxTkUtZx/LCmOzI7rgKx6N5OgAQP0VB1N5n/Sbl
+ 0GawLG9RaatSkcfIqai6BBO1HzfpHzBkVcv1oC3+XlBrn1DoRA3XPq5NJ9eQ3JVmG1M/
+ ByFV7AII//Gw0VoJ9113KBpOGESfB9EwE1Ve69sWi0/JbYztx0gyenoMtCrDZrZMDy14
+ b/j5z3f4hmMFjR3Z2lMoB9XrWpfnxgq7LvSDi4YIT5WCcbSYxDRfUwV34IP1egPiWrqG
+ 7Uog==
+X-Gm-Message-State: AOAM530pRNXzgFLfPc2M8lv6byjOUjUcaFuaD88gCfCI8C5DeFE64oHr
+ N5bdDvef9RGSaV25sNsWw3iDEvdzFRw=
+X-Google-Smtp-Source: ABdhPJz+cZSHpX+PdTPhqIGtB2aPmDQ09HYhfW+2OH0h0BJgZA7/+WE+RaHv6jFvAEEk7KDeC/BV5Q==
+X-Received: by 2002:a17:902:b609:b029:ec:e80d:7ebd with SMTP id
+ b9-20020a170902b609b02900ece80d7ebdmr6252857pls.75.1619802849785; 
+ Fri, 30 Apr 2021 10:14:09 -0700 (PDT)
+Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
+ by smtp.gmail.com with ESMTPSA id b13sm2878096pjl.38.2021.04.30.10.14.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 30 Apr 2021 10:14:08 -0700 (PDT)
 From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 30 Apr 2021 09:44:42 -0700
-Message-ID: <CAF6AEGt8t78WLt=GQ1PFANtOC2thoYiTj7kCrh4cTr+CVH68eQ@mail.gmail.com>
-To: Maxime Ripard <maxime@cerno.tech>
-Subject: Re: [Freedreno] [PATCH v3 10/11] drm: Use state helper instead of
- the plane state pointer
+To: dri-devel@lists.freedesktop.org
+Date: Fri, 30 Apr 2021 10:17:39 -0700
+Message-Id: <20210430171744.1721408-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
+Subject: [Freedreno] [PATCH] drm/msm/dpu: Delete bonkers code
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,62 +65,137 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- abhinavk@codeaurora.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Daniel Vetter <daniel.vetter@intel.com>, freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <freedreno@lists.freedesktop.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Stephen Boyd <sboyd@kernel.org>, Lee Jones <lee.jones@linaro.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Hongbo Yao <yaohongbo@huawei.com>, open list <linux-kernel@vger.kernel.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
+ David Airlie <airlied@linux.ie>, Rob Clark <robdclark@gmail.com>,
+ Qinglang Miao <miaoqinglang@huawei.com>, John Stultz <john.stultz@linaro.org>,
+ Maxime Ripard <maxime@cerno.tech>, Daniel Vetter <daniel@ffwll.ch>,
+ Kalyan Thota <kalyan_t@codeaurora.org>, Sean Paul <sean@poorly.run>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Apr 8, 2021 at 6:20 AM Maxime Ripard <maxime@cerno.tech> wrote:
->
-> Hi Stephen,
->
-> On Tue, Mar 30, 2021 at 11:56:15AM -0700, Stephen Boyd wrote:
-> > Quoting Maxime Ripard (2021-03-30 08:35:27)
-> > > Hi Stephen,
-> > >
-> > > On Mon, Mar 29, 2021 at 06:52:01PM -0700, Stephen Boyd wrote:
-> > > > Trimming Cc list way down, sorry if that's too much.
-> > > >
-> > > > Quoting Maxime Ripard (2021-02-19 04:00:30)
-> > > > > Many drivers reference the plane->state pointer in order to get the
-> > > > > current plane state in their atomic_update or atomic_disable hooks,
-> > > > > which would be the new plane state in the global atomic state since
-> > > > > _swap_state happened when those hooks are run.
-> > > >
-> > > > Does this mean drm_atomic_helper_swap_state()?
-> > >
-> > > Yep. Previous to that call in drm_atomic_helper_commit, plane->state is
-> > > the state currently programmed in the hardware, so the old state (that's
-> > > the case you have with atomic_check for example)
-> > >
-> > > Once drm_atomic_helper_swap_state has run, plane->state is now the state
-> > > that needs to be programmed into the hardware, so the new state.
-> >
-> > Ok, and I suppose that is called by drm_atomic_helper_commit()?
->
-> Yep :)
->
-> > So presumably a modeset is causing this? I get the NULL pointer around
-> > the time we switch from the splash screen to the login screen. I think
-> > there's a modeset during that transition.
->
-> It's very likely yeah. I really don't get how that pointer could be null
-> though :/
+From: Rob Clark <robdclark@chromium.org>
 
-So I think I see what is going on.. the issue is the CRTC has changed,
-but not the plane, so there is no new-state for the plane.
+dpu_crtc_atomic_flush() was directly poking it's attached planes in a
+code path that ended up in dpu_plane_atomic_update(), even if the plane
+was not involved in the current atomic update.  While a bit dubious,
+this worked before because plane->state would always point to something
+valid.  But now using drm_atomic_get_new_plane_state() we could get a
+NULL state pointer instead, leading to:
 
-But dpu_crtc_atomic_flush() iterates over all the attached planes,
-calling dpu_plane_restore() which leads into
-dpu_plane_atomic_update().. this is kinda dpu breaking the rules..
+   [   20.873273] Call trace:
+   [   20.875740]  dpu_plane_atomic_update+0x5c/0xed0
+   [   20.880311]  dpu_plane_restore+0x40/0x88
+   [   20.884266]  dpu_crtc_atomic_flush+0xf4/0x208
+   [   20.888660]  drm_atomic_helper_commit_planes+0x150/0x238
+   [   20.894014]  msm_atomic_commit_tail+0x1d4/0x7a0
+   [   20.898579]  commit_tail+0xa4/0x168
+   [   20.902102]  drm_atomic_helper_commit+0x164/0x178
+   [   20.906841]  drm_atomic_commit+0x54/0x60
+   [   20.910798]  drm_atomic_connector_commit_dpms+0x10c/0x118
+   [   20.916236]  drm_mode_obj_set_property_ioctl+0x1e4/0x440
+   [   20.921588]  drm_connector_property_set_ioctl+0x60/0x88
+   [   20.926852]  drm_ioctl_kernel+0xd0/0x120
+   [   20.930807]  drm_ioctl+0x21c/0x478
+   [   20.934235]  __arm64_sys_ioctl+0xa8/0xe0
+   [   20.938193]  invoke_syscall+0x64/0x130
+   [   20.941977]  el0_svc_common.constprop.3+0x5c/0xe0
+   [   20.946716]  do_el0_svc+0x80/0xa0
+   [   20.950058]  el0_svc+0x20/0x30
+   [   20.953145]  el0_sync_handler+0x88/0xb0
+   [   20.957014]  el0_sync+0x13c/0x140
 
-BR,
--R
+The reason for the codepath seems dubious, the atomic suspend/resume
+heplers should handle the power-collapse case.  If not, the CRTC's
+atomic_check() should be adding the planes to the atomic update.
+
+Reported-by: Stephen Boyd <sboyd@kernel.org>
+Reported-by: John Stultz <john.stultz@linaro.org>
+Fixes: 37418bf14c13 drm: Use state helper instead of the plane state pointer
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  | 10 ----------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 16 ----------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h |  6 ------
+ 3 files changed, 32 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index 7c29976be243..18bc76b7f1a3 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -648,16 +648,6 @@ static void dpu_crtc_atomic_flush(struct drm_crtc *crtc,
+ 	if (unlikely(!cstate->num_mixers))
+ 		return;
+ 
+-	/*
+-	 * For planes without commit update, drm framework will not add
+-	 * those planes to current state since hardware update is not
+-	 * required. However, if those planes were power collapsed since
+-	 * last commit cycle, driver has to restore the hardware state
+-	 * of those planes explicitly here prior to plane flush.
+-	 */
+-	drm_atomic_crtc_for_each_plane(plane, crtc)
+-		dpu_plane_restore(plane, state);
+-
+ 	/* update performance setting before crtc kickoff */
+ 	dpu_core_perf_crtc_update(crtc, 1, false);
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+index df7f3d3afd8b..7a993547eb75 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+@@ -1258,22 +1258,6 @@ static void dpu_plane_atomic_update(struct drm_plane *plane,
+ 	}
+ }
+ 
+-void dpu_plane_restore(struct drm_plane *plane, struct drm_atomic_state *state)
+-{
+-	struct dpu_plane *pdpu;
+-
+-	if (!plane || !plane->state) {
+-		DPU_ERROR("invalid plane\n");
+-		return;
+-	}
+-
+-	pdpu = to_dpu_plane(plane);
+-
+-	DPU_DEBUG_PLANE(pdpu, "\n");
+-
+-	dpu_plane_atomic_update(plane, state);
+-}
+-
+ static void dpu_plane_destroy(struct drm_plane *plane)
+ {
+ 	struct dpu_plane *pdpu = plane ? to_dpu_plane(plane) : NULL;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+index 03b6365a750c..34e03ac05f4a 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+@@ -84,12 +84,6 @@ bool is_dpu_plane_virtual(struct drm_plane *plane);
+ void dpu_plane_get_ctl_flush(struct drm_plane *plane, struct dpu_hw_ctl *ctl,
+ 		u32 *flush_sspp);
+ 
+-/**
+- * dpu_plane_restore - restore hw state if previously power collapsed
+- * @plane: Pointer to drm plane structure
+- */
+-void dpu_plane_restore(struct drm_plane *plane, struct drm_atomic_state *state);
+-
+ /**
+  * dpu_plane_flush - final plane operations before commit flush
+  * @plane: Pointer to drm plane structure
+-- 
+2.30.2
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
