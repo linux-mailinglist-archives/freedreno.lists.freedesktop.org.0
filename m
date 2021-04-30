@@ -1,67 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 400A237030E
-	for <lists+freedreno@lfdr.de>; Fri, 30 Apr 2021 23:38:47 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id D20B93703EB
+	for <lists+freedreno@lfdr.de>; Sat,  1 May 2021 01:07:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFE6A6F5E8;
-	Fri, 30 Apr 2021 21:38:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A7D76F60C;
+	Fri, 30 Apr 2021 23:07:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf34.google.com (mail-qv1-xf34.google.com
- [IPv6:2607:f8b0:4864:20::f34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 331DB6F5E7
- for <freedreno@lists.freedesktop.org>; Fri, 30 Apr 2021 21:38:44 +0000 (UTC)
-Received: by mail-qv1-xf34.google.com with SMTP id u1so3570326qvg.11
- for <freedreno@lists.freedesktop.org>; Fri, 30 Apr 2021 14:38:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=O+NCC185GvVdiBCa7+Pd+oKQFpxMk0PeHhw7on/LJY0=;
- b=EwcYXa4w+hFOwVcOG79Z1xFiI0pBpKJ5X2X980Q7KB/i0nON6cxaQ52synEx6n8OMm
- 6eigW5MUkaQK1NfJcoKnLyG6JQBTYIQ2uBFeWDyjhqOnznt1s5ubxm1zdvYB5wO+TvJF
- P1bSP2R62bPtFDeRMklaQWNRq7DdjgKeGkFSg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=O+NCC185GvVdiBCa7+Pd+oKQFpxMk0PeHhw7on/LJY0=;
- b=uWjR09jdVHV3EjWh2FWum+IXi4/m3lT12aSwskpnQ6ReQUkQ7b4SlCWoiITYcTEqvx
- HVADCFqTRXVNyhWTzoqcarxP1rUGKvPZhaaEKLT35kT1N0quTUC+8KRMPUEy/WYRVp1K
- /1MwxSO0Kka8myNAaciOT4miPjqNVfQU5K2BNd8KQNB5Dnk4yuSOSYZFi9xl3YftGuce
- va0AMEoeebVCaqFmAGAVK9kodxqP34tv2OFXzokzMKp/mFpAtHwAAsbDKykVo9FmxrA1
- C8mcASeTt7kWhE5A0ZBb88CLMZHQDkR1lfHrMM5dhXbydL/dqs5/XTltzPq+/CjYk+XG
- VJxQ==
-X-Gm-Message-State: AOAM533JZjU6m4rTRNsn6107Q9P2rcLtttk9oeVHHvuTmq9Xk5uWukbH
- cDkoIi7ezucsB7KnTTYhmCaApPDcCEKEBw==
-X-Google-Smtp-Source: ABdhPJypGZCp5RJZT2A/ZTRCL0JUGcxNyMYdfVRhPsFKgHg0do2B1TCVCi/NNNbGMxjy98X16tPKyA==
-X-Received: by 2002:a05:6214:1c09:: with SMTP id
- u9mr7696257qvc.35.1619818722999; 
- Fri, 30 Apr 2021 14:38:42 -0700 (PDT)
-Received: from mail-yb1-f180.google.com (mail-yb1-f180.google.com.
- [209.85.219.180])
- by smtp.gmail.com with ESMTPSA id 192sm260169qkf.43.2021.04.30.14.38.41
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 30 Apr 2021 14:38:42 -0700 (PDT)
-Received: by mail-yb1-f180.google.com with SMTP id i4so47364209ybe.2
- for <freedreno@lists.freedesktop.org>; Fri, 30 Apr 2021 14:38:41 -0700 (PDT)
-X-Received: by 2002:a25:80d4:: with SMTP id c20mr10228081ybm.345.1619818721319; 
- Fri, 30 Apr 2021 14:38:41 -0700 (PDT)
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48B386F60C
+ for <freedreno@lists.freedesktop.org>; Fri, 30 Apr 2021 23:07:13 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1619824041; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=V+oj2FdgO738BZ62IBogKd0JpzcCrCkPU4H+tDaGYLE=;
+ b=F61OHCyRgbv0JaT324JJSoIGitOubJ+fjYxOLJ/bPhDkgtn2J3BHYCEHqtxG9M+ruewo6OBv
+ yw+/GLfDnjo6crzIxXUx3cbKavhMKo5r4HhRJTW2hYWO+TAaaSkWk+pa+uQ/0AxEAglQnWY/
+ PMpsmrVK1zGtfkjDmexDsUFhm80=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n04.prod.us-east-1.postgun.com with SMTP id
+ 608c8d9887ce1fbb562a53ef (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 30 Apr 2021 23:07:04
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id E44C1C4323A; Fri, 30 Apr 2021 23:07:03 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id F3F79C433F1;
+ Fri, 30 Apr 2021 23:07:02 +0000 (UTC)
 MIME-Version: 1.0
-References: <1619416756-3533-1-git-send-email-rajeevny@codeaurora.org>
- <1619416756-3533-2-git-send-email-rajeevny@codeaurora.org>
- <20210429180435.GA1385465@robh.at.kernel.org>
- <CAD=FV=V-kdySH5Pp-Fb-PRYk60Ha_UOTXJHcvMp+uV3P1oo7Uw@mail.gmail.com>
- <78c4bd291bd4a17ae2a1d02d0217de43@codeaurora.org>
-In-Reply-To: <78c4bd291bd4a17ae2a1d02d0217de43@codeaurora.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 30 Apr 2021 14:38:29 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=XW90L6or8NKA-Rjjp3s3fRno1xSkD+X0PA1rTyeKgpMw@mail.gmail.com>
-Message-ID: <CAD=FV=XW90L6or8NKA-Rjjp3s3fRno1xSkD+X0PA1rTyeKgpMw@mail.gmail.com>
-To: Rajeev Nandan <rajeevny@codeaurora.org>
-Subject: Re: [Freedreno] [v3 1/2] dt-bindings: backlight: add DisplayPort
- aux backlight
+Date: Fri, 30 Apr 2021 16:07:02 -0700
+From: abhinavk@codeaurora.org
+To: Stephen Boyd <swboyd@chromium.org>
+In-Reply-To: <20210430193104.1770538-1-swboyd@chromium.org>
+References: <20210430193104.1770538-1-swboyd@chromium.org>
+Message-ID: <b11b19848701cd11cba5ee0d8befeeb8@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH 0/6] drm/msm: Trim down drm debugging logs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,164 +62,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, Rob Herring <robh@kernel.org>,
- mkrishn@codeaurora.org, Lyude Paul <lyude@redhat.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Andrzej Hajda <a.hajda@samsung.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <seanpaul@chromium.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
- Kalyan Thota <kalyan_t@codeaurora.org>,
- "Kristian H. Kristensen" <hoegsberg@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>, "Lankhorst,
- Maarten" <maarten.lankhorst@intel.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Kuogee Hsieh <khsieh@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, aravindh@codeaurora.org,
+ Sean Paul <sean@poorly.run>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+On 2021-04-30 12:30, Stephen Boyd wrote:
+> This patch series attempts to trim down the drm logging in the msm
+> driver to make it useable with DRM_UT_DRIVER, DRM_UT_KMS, and DRM_UT_DP
+> levels enabled. Right now the log is really spammy and prints multiple
+> lines for what feels like every frame. I moved those prints off to
+> other DRM_UT_* levels that felt appropriate. Please review.
+> 
+> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Cc: Abhinav Kumar <abhinavk@codeaurora.org>
+> Cc: Kuogee Hsieh <khsieh@codeaurora.org>
+> Cc: aravindh@codeaurora.org
+> Cc: Sean Paul <sean@poorly.run>
+> 
+For the entire series,
+Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
 
-On Fri, Apr 30, 2021 at 8:10 AM <rajeevny@codeaurora.org> wrote:
->
-> On 30-04-2021 02:33, Doug Anderson wrote:
-> > Hi,
-> >
-> > On Thu, Apr 29, 2021 at 11:04 AM Rob Herring <robh@kernel.org> wrote:
-> >>
-> >> On Mon, Apr 26, 2021 at 11:29:15AM +0530, Rajeev Nandan wrote:
-> >> > Add bindings for DisplayPort aux backlight driver.
-> >> >
-> >> > Changes in v2:
-> >> > - New
-> >> >
-> >> > Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
-> >> > ---
-> >> >  .../bindings/leds/backlight/dp-aux-backlight.yaml  | 49 ++++++++++++++++++++++
-> >> >  1 file changed, 49 insertions(+)
-> >> >  create mode 100644 Documentation/devicetree/bindings/leds/backlight/dp-aux-backlight.yaml
-> >> >
-> >> > diff --git a/Documentation/devicetree/bindings/leds/backlight/dp-aux-backlight.yaml b/Documentation/devicetree/bindings/leds/backlight/dp-aux-backlight.yaml
-> >> > new file mode 100644
-> >> > index 00000000..0fa8bf0
-> >> > --- /dev/null
-> >> > +++ b/Documentation/devicetree/bindings/leds/backlight/dp-aux-backlight.yaml
-> >> > @@ -0,0 +1,49 @@
-> >> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> >> > +%YAML 1.2
-> >> > +---
-> >> > +$id: http://devicetree.org/schemas/leds/backlight/dp-aux-backlight.yaml#
-> >> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> >> > +
-> >> > +title: DisplayPort aux backlight driver bindings
-> >> > +
-> >> > +maintainers:
-> >> > +  - Rajeev Nandan <rajeevny@codeaurora.org>
-> >> > +
-> >> > +description:
-> >> > +  Backlight driver to control the brightness over DisplayPort aux channel.
-> >> > +
-> >> > +allOf:
-> >> > +  - $ref: common.yaml#
-> >> > +
-> >> > +properties:
-> >> > +  compatible:
-> >> > +    const: dp-aux-backlight
-> >> > +
-> >> > +  ddc-i2c-bus:
-> >> > +    $ref: /schemas/types.yaml#/definitions/phandle
-> >> > +    description:
-> >> > +      A phandle to the system I2C controller connected to the DDC bus used
-> >> > +      for the DisplayPort AUX channel.
-> >> > +
-> >> > +  enable-gpios:
-> >> > +    maxItems: 1
-> >> > +    description: GPIO specifier for backlight enable pin.
-> >> > +
-> >> > +  max-brightness: true
-> >> > +
-> >> > +required:
-> >> > +  - compatible
-> >> > +  - ddc-i2c-bus
-> >> > +
-> >> > +additionalProperties: false
-> >> > +
-> >> > +examples:
-> >> > +  - |
-> >> > +    backlight {
-> >> > +        compatible = "dp-aux-backlight";
-> >> > +        ddc-i2c-bus = <&sn65dsi86_bridge>;
-> >> > +        enable-gpios = <&tlmm 12 GPIO_ACTIVE_HIGH>;
-> >>
-> >> So the DDC bus is connected to a backlight and also a panel? This
-> >> binding is not reflecting the h/w, but rather what you want for some
-> >> driver.
-> >>
-> >> There's only one thing here and that's an eDP panel which supports
-> >> backlight control via DP aux channel. You can figure all that out from
-> >> the panel's compatible and/or reading the EDID.
-> >>
-> >> You might also be interested in this thread:
-> >>
-> >> https://lore.kernel.org/lkml/YIKsDtjcIHGNvW0u@orome.fritz.box/
-> >
-> > I think Rajeev needs to rework everything anyway as per:
-> >
-> > https://lore.kernel.org/r/87zgxl5qar.fsf@intel.com
-> >
-> > ...but you're right that it makes sense not to model the backlight as
-> > a separate node in the device tree. The panel driver can handle
-> > setting up the backlight.
-> >
-> > -Doug
->
-> It was not a good idea to create a separate backlight driver and use
-> ddc-i2c-bus to get access to DP aux. I am working to move the code
-> to the panel driver and to utilize the new DRM helper functions
-> (drm_edp_backlight_*) Lyude has added [1].
->
-> To use these helper functions, the panel driver should have access to
-> the
-> "struct drm_dp_aux *". The simple-panel has a "ddc-i2c-bus" property
-> to give the panel access to the DDC bus and is currently being used to
-> get the EDID from the panel. Can I use the same ddc bus i2c_adapter to
-> get
-> the "struct drm_dp_aux *"?
->
-> As per the suggestion [2], I get the "struct drm_dp_aux *" from the
-> i2c_adapter of ddc bus (maybe I didn't understand the suggestion
-> correctly),
-> and, it turned out, the way I have implemented is not the right way [3].
-> So, I am afraid to use the same method in the panel driver.
->
->
-> [1] https://lore.kernel.org/dri-devel/871rb5bcf9.fsf@intel.com/
-> [2] https://www.spinics.net/lists/dri-devel/msg295429.html
-> [3]
-> https://lore.kernel.org/dri-devel/20210426111116.4lc3ekxjugjr3oho@maple.lan/
-
-So it's definitely up to maintainers, not me. ...but I guess I would
-have expected something like a new property called "ddc-aux-bus". Then
-you'd have to create a new API call called something like
-"of_find_ddc_aux_adapter_by_node()" that would allow you to find it.
-
-I guess an alternate way to solve this (I'm not totally sure whether
-it's better or worse) would be to add a function that would walk up
-the chain of parent bridges and ask them for a pointer to the aux bus.
-I definitely haven't thought it all the way through, but I'd imagine
-something like drm_bridge_chain_get_ddc_aux(). This is _probably_
-better than adding the "ddc-aux-bus" property but it assumes that the
-aux bus is provided by one of our parents. Hrm, looking at this
-briefly, though, I'm not sure how to do it. It doesn't seem possible
-to get the parent bridges from the panel structure. Even if you assume
-that your parent is wrapping you with a panel_bridge it still doesn't
-seem possible?
-
-This probably needs more drm-expertise.
-
--Doug
+> Stephen Boyd (6):
+>   drm/msm: Move vblank debug prints to drm_dbg_vbl()
+>   drm/msm: Use VERB() for extra verbose logging
+>   drm/msm/dp: Drop malformed debug print
+>   drm/msm: Move FB debug prints to drm_dbg_state()
+>   drm/msm/disp: Use plane debug print helper
+>   drm/msm/disp: Move various debug logs to atomic bucket
+> 
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  2 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c  | 16 ++++----
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 22 +++++------
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      | 38 +++++++++----------
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 10 ++---
+>  .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |  2 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c   |  6 +--
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     | 19 ++++------
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c      | 14 +++----
+>  drivers/gpu/drm/msm/dp/dp_panel.c             |  1 -
+>  drivers/gpu/drm/msm/msm_drv.c                 |  4 +-
+>  drivers/gpu/drm/msm/msm_fb.c                  |  8 ++--
+>  12 files changed, 67 insertions(+), 75 deletions(-)
+> 
+> 
+> base-commit: 9f4ad9e425a1d3b6a34617b8ea226d56a119a717
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
