@@ -2,54 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D20B93703EB
-	for <lists+freedreno@lfdr.de>; Sat,  1 May 2021 01:07:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0DC5370ED0
+	for <lists+freedreno@lfdr.de>; Sun,  2 May 2021 21:47:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A7D76F60C;
-	Fri, 30 Apr 2021 23:07:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3B1E6E530;
+	Sun,  2 May 2021 19:47:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48B386F60C
- for <freedreno@lists.freedesktop.org>; Fri, 30 Apr 2021 23:07:13 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1619824041; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=V+oj2FdgO738BZ62IBogKd0JpzcCrCkPU4H+tDaGYLE=;
- b=F61OHCyRgbv0JaT324JJSoIGitOubJ+fjYxOLJ/bPhDkgtn2J3BHYCEHqtxG9M+ruewo6OBv
- yw+/GLfDnjo6crzIxXUx3cbKavhMKo5r4HhRJTW2hYWO+TAaaSkWk+pa+uQ/0AxEAglQnWY/
- PMpsmrVK1zGtfkjDmexDsUFhm80=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n04.prod.us-east-1.postgun.com with SMTP id
- 608c8d9887ce1fbb562a53ef (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 30 Apr 2021 23:07:04
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id E44C1C4323A; Fri, 30 Apr 2021 23:07:03 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id F3F79C433F1;
- Fri, 30 Apr 2021 23:07:02 +0000 (UTC)
+Received: from mail-io1-xd32.google.com (mail-io1-xd32.google.com
+ [IPv6:2607:f8b0:4864:20::d32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F9046E532
+ for <freedreno@lists.freedesktop.org>; Sun,  2 May 2021 19:47:04 +0000 (UTC)
+Received: by mail-io1-xd32.google.com with SMTP id p8so2489941iol.11
+ for <freedreno@lists.freedesktop.org>; Sun, 02 May 2021 12:47:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cosmicpenguin-net.20150623.gappssmtp.com; s=20150623;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=LJl1rWi+H/YWnHh7uuzQa/Bps0BJvOfQAeiB4qm7bUE=;
+ b=DwSDCQo3ZRKnYl3dEjBzvLVuy8s2Jdv9ranzBfHg0+tyyYLvONlP0r122FyurmPW4f
+ caSD6pUJM1AIU2qhi2x2dF0+RO5jsVHA0FiF6JDljwvwBjyAbYjyHrirz0ymiwyvSvJD
+ SMwOqzmvwN04RaO5atGz/xHmtVjygrMFaknqZD96mNF09kgNRJWYWMHEUrjE9IFEgUjr
+ tn+68xsAM5El2dNIr6G8cDnT1oggiJCxRMe/BaofOZ2ZwPWpxJGnI2kpBIQxrnlf4lZy
+ oM+3Ke873KeEJHOAzduc2Qor84mlAk+JzL5r1T1cBNmAjSbrdR7l8+Bzlv21vDrGogrr
+ Undg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :in-reply-to;
+ bh=LJl1rWi+H/YWnHh7uuzQa/Bps0BJvOfQAeiB4qm7bUE=;
+ b=rBAG3+Yu4JN/5w1nHGtFDbaOw4E2I94vjxglO7Y/z3RxtzQ4/WBkqhN2ts3gezeOeh
+ 3J7kO9uftPPuLtAbZ7qz42aYFHbAOTth6XyYH2t18FEr0dVn52L8/6yXzv5i3DOuFqXi
+ tp0tBveTr0afydeeQbBc/959TWG4Rvfv5fFF9EUJ/C2C+fvjrrHMmo28gp9794HZaSkz
+ ekbHreTQyfgbKGEqtamjLprnWnlq4bpepwdHNYbNp5Q4bAeMHR421QK6cW2KhAdyEN2R
+ 8O49B+ycEPnTWXcqeGFJr+e+OHSiJASR79DrMFymUUtlmmBr+xQ9KODYpBNJiUdonBO2
+ k8Pw==
+X-Gm-Message-State: AOAM533+zqL6aR1r5U3OlXZ7RixQxNHIQ46gmbRNJ/qa2nhPVuHG5iW0
+ zBd/8tAnqQuYKXJGSCS/o0qKzg==
+X-Google-Smtp-Source: ABdhPJyAsYK/AQSJOv+LyIbdJVqwImnVon/lyG+r3uT2Mp+gIzcnuBWh/WN9wNijHQ/crP1mVurLtw==
+X-Received: by 2002:a02:a512:: with SMTP id e18mr8229261jam.130.1619984823577; 
+ Sun, 02 May 2021 12:47:03 -0700 (PDT)
+Received: from cosmicpenguin.net (c-71-237-100-236.hsd1.co.comcast.net.
+ [71.237.100.236])
+ by smtp.gmail.com with ESMTPSA id g26sm4433791iom.14.2021.05.02.12.47.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 02 May 2021 12:47:02 -0700 (PDT)
+Date: Sun, 2 May 2021 13:47:00 -0600
+From: Jordan Crouse <jordan@cosmicpenguin.net>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <20210502194700.si5jysge2gftjdpw@cosmicpenguin.net>
+Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
+ dri-devel@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ "Kristian H. Kristensen" <hoegsberg@google.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jonathan Marek <jonathan@marek.ca>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
+ Eric Anholt <eric@anholt.net>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20210428193654.1498482-1-robdclark@gmail.com>
+ <20210428193654.1498482-3-robdclark@gmail.com>
 MIME-Version: 1.0
-Date: Fri, 30 Apr 2021 16:07:02 -0700
-From: abhinavk@codeaurora.org
-To: Stephen Boyd <swboyd@chromium.org>
-In-Reply-To: <20210430193104.1770538-1-swboyd@chromium.org>
-References: <20210430193104.1770538-1-swboyd@chromium.org>
-Message-ID: <b11b19848701cd11cba5ee0d8befeeb8@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH 0/6] drm/msm: Trim down drm debugging logs
+Content-Disposition: inline
+In-Reply-To: <20210428193654.1498482-3-robdclark@gmail.com>
+Subject: Re: [Freedreno] [PATCH 2/2] drm/msm: Periodically update RPTR shadow
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,56 +87,165 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Kuogee Hsieh <khsieh@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, aravindh@codeaurora.org,
- Sean Paul <sean@poorly.run>
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <freedreno@lists.freedesktop.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>, dri-devel@lists.freedesktop.org,
+ Douglas Anderson <dianders@chromium.org>, Eric Anholt <eric@anholt.net>,
+ "Kristian H. Kristensen" <hoegsberg@google.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
+ open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-04-30 12:30, Stephen Boyd wrote:
-> This patch series attempts to trim down the drm logging in the msm
-> driver to make it useable with DRM_UT_DRIVER, DRM_UT_KMS, and DRM_UT_DP
-> levels enabled. Right now the log is really spammy and prints multiple
-> lines for what feels like every frame. I moved those prints off to
-> other DRM_UT_* levels that felt appropriate. Please review.
+On Wed, Apr 28, 2021 at 12:36:49PM -0700, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
 > 
-> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Cc: Abhinav Kumar <abhinavk@codeaurora.org>
-> Cc: Kuogee Hsieh <khsieh@codeaurora.org>
-> Cc: aravindh@codeaurora.org
-> Cc: Sean Paul <sean@poorly.run>
-> 
-For the entire series,
-Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
+> On a5xx and a6xx devices that are using CP_WHERE_AM_I to update a
+> ringbuffer read-ptr shadow value, periodically emit a CP_WHERE_AM_I
+> every 32 commands, so that a later submit waiting for ringbuffer
+> space to become available sees partial progress, rather than not
+> seeing rptr advance at all until the GPU gets to the end of the
+> submit that it is currently chewing on.
 
-> Stephen Boyd (6):
->   drm/msm: Move vblank debug prints to drm_dbg_vbl()
->   drm/msm: Use VERB() for extra verbose logging
->   drm/msm/dp: Drop malformed debug print
->   drm/msm: Move FB debug prints to drm_dbg_state()
->   drm/msm/disp: Use plane debug print helper
->   drm/msm/disp: Move various debug logs to atomic bucket
+Acked-by: Jordan Crouse <jordan@cosmicpenguin.net>
+
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>  drivers/gpu/drm/msm/adreno/a5xx_gpu.c | 29 ++++++++++++++++++++++-----
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 27 +++++++++++++++++++------
+>  2 files changed, 45 insertions(+), 11 deletions(-)
 > 
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  2 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c  | 16 ++++----
->  drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 22 +++++------
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      | 38 +++++++++----------
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 10 ++---
->  .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |  2 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c   |  6 +--
->  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     | 19 ++++------
->  drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c      | 14 +++----
->  drivers/gpu/drm/msm/dp/dp_panel.c             |  1 -
->  drivers/gpu/drm/msm/msm_drv.c                 |  4 +-
->  drivers/gpu/drm/msm/msm_fb.c                  |  8 ++--
->  12 files changed, 67 insertions(+), 75 deletions(-)
+> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> index 0c8faad3b328..5202f1498a48 100644
+> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> @@ -18,6 +18,18 @@ static void a5xx_dump(struct msm_gpu *gpu);
+>  
+>  #define GPU_PAS_ID 13
+>  
+> +static void update_shadow_rptr(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+> +{
+> +	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+> +	struct a5xx_gpu *a5xx_gpu = to_a5xx_gpu(adreno_gpu);
+> +
+> +	if (a5xx_gpu->has_whereami) {
+> +		OUT_PKT7(ring, CP_WHERE_AM_I, 2);
+> +		OUT_RING(ring, lower_32_bits(shadowptr(a5xx_gpu, ring)));
+> +		OUT_RING(ring, upper_32_bits(shadowptr(a5xx_gpu, ring)));
+> +	}
+> +}
+> +
+>  void a5xx_flush(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
+>  		bool sync)
+>  {
+> @@ -30,11 +42,8 @@ void a5xx_flush(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
+>  	 * Most flush operations need to issue a WHERE_AM_I opcode to sync up
+>  	 * the rptr shadow
+>  	 */
+> -	if (a5xx_gpu->has_whereami && sync) {
+> -		OUT_PKT7(ring, CP_WHERE_AM_I, 2);
+> -		OUT_RING(ring, lower_32_bits(shadowptr(a5xx_gpu, ring)));
+> -		OUT_RING(ring, upper_32_bits(shadowptr(a5xx_gpu, ring)));
+> -	}
+> +	if (sync)
+> +		update_shadow_rptr(gpu, ring);
+>  
+>  	if (unlikely(ring->overflow))
+>  		return;
+> @@ -171,6 +180,16 @@ static void a5xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+>  			ibs++;
+>  			break;
+>  		}
+> +
+> +		/*
+> +		 * Periodically update shadow-wptr if needed, so that we
+> +		 * can see partial progress of submits with large # of
+> +		 * cmds.. otherwise we could needlessly stall waiting for
+> +		 * ringbuffer state, simply due to looking at a shadow
+> +		 * rptr value that has not been updated
+> +		 */
+> +		if ((ibs % 32) == 0)
+> +			update_shadow_rptr(gpu, ring);
+>  	}
+>  
+>  	/*
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index 4a4728a774c0..2986e36ffd8d 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -52,21 +52,25 @@ static bool a6xx_idle(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+>  	return true;
+>  }
+>  
+> -static void a6xx_flush(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+> +static void update_shadow_rptr(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+>  {
+>  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+>  	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+> -	uint32_t wptr;
+> -	unsigned long flags;
+>  
+>  	/* Expanded APRIV doesn't need to issue the WHERE_AM_I opcode */
+>  	if (a6xx_gpu->has_whereami && !adreno_gpu->base.hw_apriv) {
+> -		struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+> -
+>  		OUT_PKT7(ring, CP_WHERE_AM_I, 2);
+>  		OUT_RING(ring, lower_32_bits(shadowptr(a6xx_gpu, ring)));
+>  		OUT_RING(ring, upper_32_bits(shadowptr(a6xx_gpu, ring)));
+>  	}
+> +}
+> +
+> +static void a6xx_flush(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+> +{
+> +	uint32_t wptr;
+> +	unsigned long flags;
+> +
+> +	update_shadow_rptr(gpu, ring);
+>  
+>  	if (unlikely(ring->overflow))
+>  		return;
+> @@ -148,7 +152,7 @@ static void a6xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+>  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+>  	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+>  	struct msm_ringbuffer *ring = submit->ring;
+> -	unsigned int i;
+> +	unsigned int i, ibs = 0;
+>  
+>  	a6xx_set_pagetable(a6xx_gpu, ring, submit->queue->ctx);
+>  
+> @@ -184,8 +188,19 @@ static void a6xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+>  			OUT_RING(ring, lower_32_bits(submit->cmd[i].iova));
+>  			OUT_RING(ring, upper_32_bits(submit->cmd[i].iova));
+>  			OUT_RING(ring, submit->cmd[i].size);
+> +			ibs++;
+>  			break;
+>  		}
+> +
+> +		/*
+> +		 * Periodically update shadow-wptr if needed, so that we
+> +		 * can see partial progress of submits with large # of
+> +		 * cmds.. otherwise we could needlessly stall waiting for
+> +		 * ringbuffer state, simply due to looking at a shadow
+> +		 * rptr value that has not been updated
+> +		 */
+> +		if ((ibs % 32) == 0)
+> +			update_shadow_rptr(gpu, ring);
+>  	}
+>  
+>  	get_stats_counter(ring, REG_A6XX_RBBM_PERFCTR_CP_0_LO,
+> -- 
+> 2.30.2
 > 
-> 
-> base-commit: 9f4ad9e425a1d3b6a34617b8ea226d56a119a717
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
