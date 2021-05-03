@@ -1,41 +1,41 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AD35371AE6
-	for <lists+freedreno@lfdr.de>; Mon,  3 May 2021 18:41:56 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 84F8E371B1D
+	for <lists+freedreno@lfdr.de>; Mon,  3 May 2021 18:42:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 164666E9B7;
-	Mon,  3 May 2021 16:41:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 259926E9C3;
+	Mon,  3 May 2021 16:42:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EA0B6E9B7;
- Mon,  3 May 2021 16:41:54 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id EF9F5613BE;
- Mon,  3 May 2021 16:41:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C109C6E9C3;
+ Mon,  3 May 2021 16:42:45 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 55B9061945;
+ Mon,  3 May 2021 16:42:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620060114;
- bh=GUuwPRS25/hSbTMEzHhJqZfAL2S4pxnwiFQnNoemKhk=;
+ s=k20201202; t=1620060165;
+ bh=qmsD5qUUJyw98XkWtIT0ula+AfFy+NCvsgRg8vdj1+E=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=i5gFLpijNmt66ArheA7vd2aq1RbQph2V5OiSLTheNyGw1XhuiU7AvAoxxDVkSzgro
- LsB1y+vkIvOyrZ2PJJLN4ljBRAXDkZywDrDhWTt9wwEe1YKOzhMq60bD1tk8dFR4Fr
- kDbXNTC3EmIk9eRKHvw3HZz4gTjduytcAEuy1cof4JZO2My01SppHGL2ekKShEq8Y3
- 9bFZiJf9y5ldaa/iRXHYCROUBIVAq94BTKjrg/7rctlvYDbhZ4DD6xlnyM5odswGVr
- 4zWLEDZFKE7JqObY0Loj4SZLMcCTpdNCoGjpPmdHCB68LlhD9gS6sCrv6HkUrjuW0L
- 70L5++Td+0dRg==
+ b=FlZAJ7R1MnDu0WzmyL8bpwMWxjlt0FfG2/8JELfXSqwnhkvGB3lBxSpGZFpENDvWs
+ 0JUT05im+j3hVda4Kjb/PguhOXBY0bx8wuU9Ivba2nAP4Ll8xSzy+RNFpYsY3ASC+K
+ xQZYfTPhahx6O9CwYdT+UJM5KeE8A2r/bwgZ80fqpK9QljHFUYOQMGFUb2X6WeklTD
+ dQgz6ICn/84HeAzL0xBlMMBRVvGGkZcCzS67iz5TyRBfJ7Xs2FXs8vgiQXIB/AW8oB
+ fXLrbf8jxZHylMIK12LkOMAniz6Dggs1EUyQGeCZGY/G8i+bzIDXN7SykDkw9gyKg3
+ 1C2riOM/C/YdA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Mon,  3 May 2021 12:41:03 -0400
-Message-Id: <20210503164109.2853838-29-sashal@kernel.org>
+Date: Mon,  3 May 2021 12:42:00 -0400
+Message-Id: <20210503164204.2854178-27-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210503164109.2853838-1-sashal@kernel.org>
-References: <20210503164109.2853838-1-sashal@kernel.org>
+In-Reply-To: <20210503164204.2854178-1-sashal@kernel.org>
+References: <20210503164204.2854178-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Subject: [Freedreno] [PATCH AUTOSEL 4.19 29/35] drm/msm/mdp5: Configure
+Subject: [Freedreno] [PATCH AUTOSEL 4.14 27/31] drm/msm/mdp5: Configure
  PP_SYNC_HEIGHT to double the vtotal
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,13 +82,13 @@ Link: https://lore.kernel.org/r/20210406214726.131534-2-marijn.suijten@somainlin
 Signed-off-by: Rob Clark <robdclark@chromium.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/msm/disp/mdp5/mdp5_cmd_encoder.c | 10 +++++++++-
+ drivers/gpu/drm/msm/mdp/mdp5/mdp5_cmd_encoder.c | 10 +++++++++-
  1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cmd_encoder.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cmd_encoder.c
-index d6f79dc755b4..14e2ce87bab1 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cmd_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cmd_encoder.c
+diff --git a/drivers/gpu/drm/msm/mdp/mdp5/mdp5_cmd_encoder.c b/drivers/gpu/drm/msm/mdp/mdp5/mdp5_cmd_encoder.c
+index 60790df91bfa..397e71481129 100644
+--- a/drivers/gpu/drm/msm/mdp/mdp5/mdp5_cmd_encoder.c
++++ b/drivers/gpu/drm/msm/mdp/mdp5/mdp5_cmd_encoder.c
 @@ -78,9 +78,17 @@ static int pingpong_tearcheck_setup(struct drm_encoder *encoder,
  		| MDP5_PP_SYNC_CONFIG_VSYNC_IN_EN;
  	cfg |= MDP5_PP_SYNC_CONFIG_VSYNC_COUNT(vclks_line);
