@@ -1,41 +1,41 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84F8E371B1D
-	for <lists+freedreno@lfdr.de>; Mon,  3 May 2021 18:42:47 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B0119371B34
+	for <lists+freedreno@lfdr.de>; Mon,  3 May 2021 18:43:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 259926E9C3;
-	Mon,  3 May 2021 16:42:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41FB66E9C9;
+	Mon,  3 May 2021 16:43:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C109C6E9C3;
- Mon,  3 May 2021 16:42:45 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 55B9061945;
- Mon,  3 May 2021 16:42:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A04C6E9C9;
+ Mon,  3 May 2021 16:43:24 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B30A26195D;
+ Mon,  3 May 2021 16:43:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620060165;
- bh=qmsD5qUUJyw98XkWtIT0ula+AfFy+NCvsgRg8vdj1+E=;
+ s=k20201202; t=1620060203;
+ bh=vlx49QU1QQGlKbupeizmqSrhyNqst2dySJG2qWvuthA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=FlZAJ7R1MnDu0WzmyL8bpwMWxjlt0FfG2/8JELfXSqwnhkvGB3lBxSpGZFpENDvWs
- 0JUT05im+j3hVda4Kjb/PguhOXBY0bx8wuU9Ivba2nAP4Ll8xSzy+RNFpYsY3ASC+K
- xQZYfTPhahx6O9CwYdT+UJM5KeE8A2r/bwgZ80fqpK9QljHFUYOQMGFUb2X6WeklTD
- dQgz6ICn/84HeAzL0xBlMMBRVvGGkZcCzS67iz5TyRBfJ7Xs2FXs8vgiQXIB/AW8oB
- fXLrbf8jxZHylMIK12LkOMAniz6Dggs1EUyQGeCZGY/G8i+bzIDXN7SykDkw9gyKg3
- 1C2riOM/C/YdA==
+ b=Qv6HLUCiBu67xOdzIkUt5NNIBNaQghP5LrK1AY/42sCPY7QAICG+165YpJ93lmCDp
+ h2VGnQqx4p7XhYVNwWNmrsdnzQkmCw5VTufzH3IoIIZnIbvvmgWnc/0Wkcw+MShKrI
+ 7rhSWRQs/Nd8JUWncZOZFWaj30mWfY5MxitnXUMHkHH4ZDwAf89iw3lzLLu7A1fbm0
+ OLrzJSPNBQeiv4Bq4GRYiIgONRtsDLYG8s42cmEoP/vqmskfR/S8jLGYzwU0og6uS3
+ JhDPUD2dp7GIfUVidAgd8Z03iYEJx8NYdcMdzNc17tVZ+h03I41JwVVGsJJN7o9pUd
+ SwWKGA26Bwurg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Mon,  3 May 2021 12:42:00 -0400
-Message-Id: <20210503164204.2854178-27-sashal@kernel.org>
+Date: Mon,  3 May 2021 12:42:49 -0400
+Message-Id: <20210503164252.2854487-21-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210503164204.2854178-1-sashal@kernel.org>
-References: <20210503164204.2854178-1-sashal@kernel.org>
+In-Reply-To: <20210503164252.2854487-1-sashal@kernel.org>
+References: <20210503164252.2854487-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Subject: [Freedreno] [PATCH AUTOSEL 4.14 27/31] drm/msm/mdp5: Configure
+Subject: [Freedreno] [PATCH AUTOSEL 4.9 21/24] drm/msm/mdp5: Configure
  PP_SYNC_HEIGHT to double the vtotal
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,10 +86,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 9 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/msm/mdp/mdp5/mdp5_cmd_encoder.c b/drivers/gpu/drm/msm/mdp/mdp5/mdp5_cmd_encoder.c
-index 60790df91bfa..397e71481129 100644
+index c627ab6d0061..8ac54b9dcd39 100644
 --- a/drivers/gpu/drm/msm/mdp/mdp5/mdp5_cmd_encoder.c
 +++ b/drivers/gpu/drm/msm/mdp/mdp5/mdp5_cmd_encoder.c
-@@ -78,9 +78,17 @@ static int pingpong_tearcheck_setup(struct drm_encoder *encoder,
+@@ -128,9 +128,17 @@ static int pingpong_tearcheck_setup(struct drm_encoder *encoder,
  		| MDP5_PP_SYNC_CONFIG_VSYNC_IN_EN;
  	cfg |= MDP5_PP_SYNC_CONFIG_VSYNC_COUNT(vclks_line);
  
