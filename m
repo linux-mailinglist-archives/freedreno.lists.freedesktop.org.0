@@ -2,41 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AFBC371B3A
-	for <lists+freedreno@lfdr.de>; Mon,  3 May 2021 18:43:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9FE4371E1F
+	for <lists+freedreno@lfdr.de>; Mon,  3 May 2021 19:11:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2B656E9CE;
-	Mon,  3 May 2021 16:43:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E72B6E9E2;
+	Mon,  3 May 2021 17:11:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9D8B897FB;
- Mon,  3 May 2021 16:43:49 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5C317606A5;
- Mon,  3 May 2021 16:43:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620060229;
- bh=CUa6fDlJdtOnkrgQq1DKHgdCRYF4uXoisvo2HPBjMs4=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=hUQQyI5aGoZmvXaSuIUawWKok5ybUQpIQAVyRFPvEhsy1vT5Xz3dhup3Fp+Gf1fJB
- ocq2cqR56dcIsXM+ELDc+2Cg8GRiKZJF/RLc6tbqA5HlUeiKtIk/oMfbFQuDJLDSFU
- ki8Cr5qnKqUpcjSDe+bW5npQVOp1PH/ZFZwZQN8kspVEOEgqlRCy5BW1X1e+sEM1Ei
- cZAf1UutwXcqnSyQBdF/NCLkdIj/VKc6pVR4oMdGAjwrLLK/gGBDqkiRWXH293IFl9
- aakGF9ZFdRj1fcjFyc76iiyjTwtcE+oT90nNi/mIPEG+l37S1kBCFHslExBnwleLnr
- VLs9pkTfhmeAA==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Mon,  3 May 2021 12:43:26 -0400
-Message-Id: <20210503164329.2854739-13-sashal@kernel.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210503164329.2854739-1-sashal@kernel.org>
-References: <20210503164329.2854739-1-sashal@kernel.org>
+Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com
+ [209.85.161.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 427636E9E2;
+ Mon,  3 May 2021 17:11:42 +0000 (UTC)
+Received: by mail-oo1-f46.google.com with SMTP id
+ t17-20020a4a3e110000b02901fab2f46a48so1392321oot.6; 
+ Mon, 03 May 2021 10:11:42 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=HEwsaXMShI2GeSM41jio8xx76l9slgvd7XZXsac4VUg=;
+ b=JWTYBwZpHnZsSWRFazKSAQJtmD4PRfQVEq78hMl08/SGx+U0aCAUhrRslXxgXEJORm
+ gQ+3KsjhuUc21ZMrep4FbqqIE4vORrV5jqE9A38HWumoozn5zNitTaj84E+KXyCrBFmC
+ frQNIpFzUw7hed/NbeLpWdIhyDmrx/cS/o2ijwswmjEMreoTe5MRBUojZWJrGTvETKIF
+ kk2FA2K2ZhNdYvUAXUiAKo4WrpcczwfnUf4nxPr3P5ssRWwocuxCTdYlrhCdw3UUDyzh
+ AawMErjxtpJ9kTkqjBOwZe1qudABnlsHg8WCW2prwmvCMh8Kz72tLhP7KyGKm4C5Dw1X
+ SfIg==
+X-Gm-Message-State: AOAM532WHlVYK8NUSUDluMBkIeLoCVDRSttioGetyXwZkr8J8qXemGxg
+ o+HXfyTb2z422OR++W936A==
+X-Google-Smtp-Source: ABdhPJzB2X9md1pNaZpXDPwfhMw4IJJCmfgm9y0e4bZqmY3AfOUvTWL029kd9wuNRihOizFkPUmRuw==
+X-Received: by 2002:a4a:9c8c:: with SMTP id z12mr16084980ooj.3.1620061901386; 
+ Mon, 03 May 2021 10:11:41 -0700 (PDT)
+Received: from robh.at.kernel.org (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id q184sm84746oic.35.2021.05.03.10.11.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 May 2021 10:11:40 -0700 (PDT)
+Received: (nullmailer pid 2025724 invoked by uid 1000);
+ Mon, 03 May 2021 17:11:39 -0000
+Date: Mon, 3 May 2021 12:11:39 -0500
+From: Rob Herring <robh@kernel.org>
+To: Jonathan Marek <jonathan@marek.ca>
+Message-ID: <20210503171139.GA2011901@robh.at.kernel.org>
+References: <20210423172450.4885-1-jonathan@marek.ca>
+ <20210423172450.4885-3-jonathan@marek.ca>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Subject: [Freedreno] [PATCH AUTOSEL 4.4 13/16] drm/msm/mdp5: Configure
- PP_SYNC_HEIGHT to double the vtotal
+Content-Disposition: inline
+In-Reply-To: <20210423172450.4885-3-jonathan@marek.ca>
+Subject: Re: [Freedreno] [PATCH v2 2/2] dt-bindings: display: msm/dsi: add
+ qcom, dsi-phy-cphy-mode option
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,68 +62,35 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Sasha Levin <sashal@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, David Airlie <airlied@linux.ie>,
+ freedreno@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Marijn Suijten <marijn.suijten@somainline.org>
+On Fri, Apr 23, 2021 at 01:24:40PM -0400, Jonathan Marek wrote:
+> Document qcom,dsi-phy-cphy-mode option, which can be used to control
+> whether DSI will operate in D-PHY (default) or C-PHY mode.
 
-[ Upstream commit 2ad52bdb220de5ab348098e3482b01235d15a842 ]
+Given this is a standard MIPI thing, I think this needs to be a common 
+property. We already have phy bindings that use the phy cells to set the 
+phy type which I think you should use here. See 
+include/dt-bindings/phy/phy.h.
 
-Leaving this at a close-to-maximum register value 0xFFF0 means it takes
-very long for the MDSS to generate a software vsync interrupt when the
-hardware TE interrupt doesn't arrive.  Configuring this to double the
-vtotal (like some downstream kernels) leads to a frame to take at most
-twice before the vsync signal, until hardware TE comes up.
+> 
+> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+> ---
+>  Documentation/devicetree/bindings/display/msm/dsi.txt | 1 +
+>  1 file changed, 1 insertion(+)
 
-In this case the hardware interrupt responsible for providing this
-signal - "disp-te" gpio - is not hooked up to the mdp5 vsync/pp logic at
-all.  This solves severe panel update issues observed on at least the
-Xperia Loire and Tone series, until said gpio is properly hooked up to
-an irq.
-
-Suggested-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
-Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
-Link: https://lore.kernel.org/r/20210406214726.131534-2-marijn.suijten@somainline.org
-Signed-off-by: Rob Clark <robdclark@chromium.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/msm/mdp/mdp5/mdp5_cmd_encoder.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/mdp/mdp5/mdp5_cmd_encoder.c b/drivers/gpu/drm/msm/mdp/mdp5/mdp5_cmd_encoder.c
-index 8e6c9b598a57..d8c7b8a6a418 100644
---- a/drivers/gpu/drm/msm/mdp/mdp5/mdp5_cmd_encoder.c
-+++ b/drivers/gpu/drm/msm/mdp/mdp5/mdp5_cmd_encoder.c
-@@ -128,9 +128,17 @@ static int pingpong_tearcheck_setup(struct drm_encoder *encoder,
- 		| MDP5_PP_SYNC_CONFIG_VSYNC_IN_EN;
- 	cfg |= MDP5_PP_SYNC_CONFIG_VSYNC_COUNT(vclks_line);
- 
-+	/*
-+	 * Tearcheck emits a blanking signal every vclks_line * vtotal * 2 ticks on
-+	 * the vsync_clk equating to roughly half the desired panel refresh rate.
-+	 * This is only necessary as stability fallback if interrupts from the
-+	 * panel arrive too late or not at all, but is currently used by default
-+	 * because these panel interrupts are not wired up yet.
-+	 */
- 	mdp5_write(mdp5_kms, REG_MDP5_PP_SYNC_CONFIG_VSYNC(pp_id), cfg);
- 	mdp5_write(mdp5_kms,
--		REG_MDP5_PP_SYNC_CONFIG_HEIGHT(pp_id), 0xfff0);
-+		REG_MDP5_PP_SYNC_CONFIG_HEIGHT(pp_id), (2 * mode->vtotal));
-+
- 	mdp5_write(mdp5_kms,
- 		REG_MDP5_PP_VSYNC_INIT_VAL(pp_id), mode->vdisplay);
- 	mdp5_write(mdp5_kms, REG_MDP5_PP_RD_PTR_IRQ(pp_id), mode->vdisplay + 1);
--- 
-2.30.2
-
+Note that this file is in the process of being converted to schema. 
+That's been going on for at least the last year... :(
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
