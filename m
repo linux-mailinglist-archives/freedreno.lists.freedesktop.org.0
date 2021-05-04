@@ -1,57 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1ABFF37252E
-	for <lists+freedreno@lfdr.de>; Tue,  4 May 2021 06:42:30 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F7193726A8
+	for <lists+freedreno@lfdr.de>; Tue,  4 May 2021 09:40:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DC5B6EA84;
-	Tue,  4 May 2021 04:42:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CE8589BD5;
+	Tue,  4 May 2021 07:40:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
- [IPv6:2607:f8b0:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A89146EA84
- for <freedreno@lists.freedesktop.org>; Tue,  4 May 2021 04:42:26 +0000 (UTC)
-Received: by mail-ot1-x336.google.com with SMTP id
- 92-20020a9d02e50000b029028fcc3d2c9eso7205658otl.0
- for <freedreno@lists.freedesktop.org>; Mon, 03 May 2021 21:42:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=11Nzt21PGgG7EY1Zm8LPZ6J+bFs0Dr0fBy2u4R0XE/M=;
- b=eMDxI/J5JXLmmKxTyVqOM4RrALRwtyMIm7+ZVgBG5CshybG7FGuLkpX5f0siwUVD/Y
- HoFLI68bUSlqWKu34+h4BOf+B3SG6I0D93xctqrZUs8i1JCfWEqKvdEQ8AyQH2KDklLw
- 8hkXj1MLvgoLX3BWvOfcXqJ54hj5dHndfr7ic=
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [IPv6:2a00:1450:4864:20::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24CEC89B70
+ for <freedreno@lists.freedesktop.org>; Tue,  4 May 2021 07:40:28 +0000 (UTC)
+Received: by mail-ej1-x631.google.com with SMTP id u3so11632362eja.12
+ for <freedreno@lists.freedesktop.org>; Tue, 04 May 2021 00:40:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=SQ4Da2oSeNO7r0/nN0ILDqvVRWXwQz6GQfvKLHeVA1c=;
+ b=dQIPYxN/zQ7lJWZAj3UoTz6UjXK1/me642nVWiSqwMba9pgfK6jFZA/6C47z5+76Ry
+ gyHs02Ld/3bq07a8jV+35wCdR9D8G6ffaZEKuuL91jEIDui+IlfBmi6g+WywV19enim2
+ QlwfxLVg2IM69giwYbb/mDkYZCMoxkgqMIJwc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=11Nzt21PGgG7EY1Zm8LPZ6J+bFs0Dr0fBy2u4R0XE/M=;
- b=SRwjYyLblB65wCZZJWwLBOxQ0u6IBXIiX9mg8iySo8i6q3iCQCm9z6+XwdDakb9Xez
- 6Wu46miWBHJw61UqdyHGP9x5kya7iY+gKDI/gQLtmSM38/ek9AIWImhaKC/3zY7ZdQ7C
- VHmM1jOMuE4evB8+nOZmUVJj3+cAoqc/6UV1FfNFbyAljUkrtSUGIy+oeyEEapmkWZNo
- L6QBWnkX3+C0lcSuj/viJ9Ym1P/TCWW4iPMjWG9IWgaH1L+wFkVuOb9oM3mbiaNG7NA3
- ZcgOp9cUHtWvvSbCmzVUUARw3lVo8w00QKSAaaDVePXV8zUsVSs3Oxxa05HgM4cFUraX
- cbBQ==
-X-Gm-Message-State: AOAM530GfXqs9U6De+xrRwEx4tUPNVfaMoBU6nnv1Xkzo096ftBx2bif
- PWPhqbjfN4sIHNjDmYhVLTfMtB6HGZA1EM/iHSa7nw==
-X-Google-Smtp-Source: ABdhPJxCezCWHhNH1naSml5SlQdlnfQJrJxORDMFSaHhNEWOV1BLyNy+3WNmkZObBEETMxJdHv/XU00MVUB6ixxxRwc=
-X-Received: by 2002:a9d:5e19:: with SMTP id d25mr17278425oti.308.1620103346067; 
- Mon, 03 May 2021 21:42:26 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 3 May 2021 21:42:25 -0700
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=SQ4Da2oSeNO7r0/nN0ILDqvVRWXwQz6GQfvKLHeVA1c=;
+ b=IYLEl4QJ5NJ7uGyX2qSfflvOBAUUNlC0wEM0/Qd0bPfo4i9E5bNSeIbjFqAr06at4T
+ XcN97/jopLnszg34484K/gB9iwCN6jJVJnWQR7GTJcmS14dZR13K/V+SkrT52jogRAx+
+ 9dbPBYESj6JYrQ1MrITlbPkw60hD86PdEoj6b2vj4J7Oa1SS/UPL3amPQUAoudw3piHy
+ 9MpMv/TXLG5sqFJwmlNaZEvNdM+TCRIoHF0EdErYhqRaFL1tIaHXI9bVJJYaCaVdr17P
+ LW57cnXQ+CdseurHAYu1ou6wQnVcrO98cuhsrOSIYVHcUyvEYi+Tg8u1MQsZe68YQsHj
+ R7gQ==
+X-Gm-Message-State: AOAM532dBTAkZEw2Ef8DW+UMUVTd9SDcukYjJOoumrDCZt5lY3N6qi2k
+ 6pthY+auacHijh7up2GINQi6Pg==
+X-Google-Smtp-Source: ABdhPJyW5WMzjcq4PMkqvGkJGt1+y+1TEVO6a9Wia9FiZJLmJ358AJfd+AElC4KCiI6kRonSf2/lKg==
+X-Received: by 2002:a17:907:10c6:: with SMTP id
+ rv6mr6014666ejb.526.1620114026972; 
+ Tue, 04 May 2021 00:40:26 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id j20sm942243ejc.110.2021.05.04.00.40.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 May 2021 00:40:26 -0700 (PDT)
+Date: Tue, 4 May 2021 09:40:24 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <YJD6aFbn/vwQkq+5@phenom.ffwll.local>
+References: <20210219120032.260676-1-maxime@cerno.tech>
+ <20210219120032.260676-10-maxime@cerno.tech>
+ <161706912161.3012082.17313817257247946143@swboyd.mtv.corp.google.com>
+ <20210330153527.gw33t4o2b35wwzbg@gilmour>
+ <161713057558.2260335.5422873422021430866@swboyd.mtv.corp.google.com>
+ <20210408132048.gifhgtkmoeuplhcz@gilmour>
+ <CAF6AEGt8t78WLt=GQ1PFANtOC2thoYiTj7kCrh4cTr+CVH68eQ@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <1619048258-8717-4-git-send-email-khsieh@codeaurora.org>
-References: <1619048258-8717-1-git-send-email-khsieh@codeaurora.org>
- <1619048258-8717-4-git-send-email-khsieh@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Mon, 3 May 2021 21:42:25 -0700
-Message-ID: <CAE-0n50EW8evqt1NtbjEbSS71CzSAzXR21-FvCrTmvsaj+GGHQ@mail.gmail.com>
-To: Kuogee Hsieh <khsieh@codeaurora.org>, robdclark@gmail.com, sean@poorly.run
-Subject: Re: [Freedreno] [PATCH v4 3/4] drm/msm/dp: check main link status
- before start aux read
+Content-Disposition: inline
+In-Reply-To: <CAF6AEGt8t78WLt=GQ1PFANtOC2thoYiTj7kCrh4cTr+CVH68eQ@mail.gmail.com>
+X-Operating-System: Linux phenom 5.10.32scarlett+ 
+Subject: Re: [Freedreno] [PATCH v3 10/11] drm: Use state helper instead of
+ the plane state pointer
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,60 +72,76 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- abhinavk@codeaurora.org, daniel@ffwll.ch, aravindh@codeaurora.org,
- freedreno@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, abhinavk@codeaurora.org,
+ Stephen Boyd <swboyd@chromium.org>, Maxime Ripard <maxime@cerno.tech>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Daniel Vetter <daniel.vetter@intel.com>, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2021-04-21 16:37:37)
-> Maybe when the cable is disconnected the DP phy should be shutdown and
-> some bit in the phy could effectively "cut off" the aux channel and then
-> NAKs would start coming through here in the DP controller I/O register
-> space. This patch have DP aux channel read/write to return NAK immediately
-> if DP controller connection status is in unplugged state.
->
-> Changes in V4:
-> -- split this patch as stand alone patch
->
-> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
-> ---
->  drivers/gpu/drm/msm/dp/dp_aux.c | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
-> index 7c22bfe..fae3806 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_aux.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-> @@ -343,6 +343,11 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux *dp_aux,
->
->         mutex_lock(&aux->mutex);
->
-> +       if (!dp_catalog_link_is_connected(aux->catalog)) {
-> +               ret = -ETIMEDOUT;
-> +               goto unlock_exit;
-> +       }
-> +
->         aux->native = msg->request & (DP_AUX_NATIVE_WRITE & DP_AUX_NATIVE_READ);
->
->         /* Ignore address only message */
+On Fri, Apr 30, 2021 at 09:44:42AM -0700, Rob Clark wrote:
+> On Thu, Apr 8, 2021 at 6:20 AM Maxime Ripard <maxime@cerno.tech> wrote:
+> >
+> > Hi Stephen,
+> >
+> > On Tue, Mar 30, 2021 at 11:56:15AM -0700, Stephen Boyd wrote:
+> > > Quoting Maxime Ripard (2021-03-30 08:35:27)
+> > > > Hi Stephen,
+> > > >
+> > > > On Mon, Mar 29, 2021 at 06:52:01PM -0700, Stephen Boyd wrote:
+> > > > > Trimming Cc list way down, sorry if that's too much.
+> > > > >
+> > > > > Quoting Maxime Ripard (2021-02-19 04:00:30)
+> > > > > > Many drivers reference the plane->state pointer in order to get the
+> > > > > > current plane state in their atomic_update or atomic_disable hooks,
+> > > > > > which would be the new plane state in the global atomic state since
+> > > > > > _swap_state happened when those hooks are run.
+> > > > >
+> > > > > Does this mean drm_atomic_helper_swap_state()?
+> > > >
+> > > > Yep. Previous to that call in drm_atomic_helper_commit, plane->state is
+> > > > the state currently programmed in the hardware, so the old state (that's
+> > > > the case you have with atomic_check for example)
+> > > >
+> > > > Once drm_atomic_helper_swap_state has run, plane->state is now the state
+> > > > that needs to be programmed into the hardware, so the new state.
+> > >
+> > > Ok, and I suppose that is called by drm_atomic_helper_commit()?
+> >
+> > Yep :)
+> >
+> > > So presumably a modeset is causing this? I get the NULL pointer around
+> > > the time we switch from the splash screen to the login screen. I think
+> > > there's a modeset during that transition.
+> >
+> > It's very likely yeah. I really don't get how that pointer could be null
+> > though :/
+> 
+> So I think I see what is going on.. the issue is the CRTC has changed,
+> but not the plane, so there is no new-state for the plane.
 
-Can the code check for aux timeouts? So instead of blindly completing
-'aux->comp' we would do the transfer, and then dp_aux_cmd_fifo_tx()
-would check to see if the completion was completed from the irq
-handler because of a timeout or a nack, etc. I think the code is
-probably racy, given that dp_aux_isr() is called from irq context, and
-aux_error_num is set from the irq context and tested in non-irq context.
-This code needs a spinlock and then to check the isr bits to figure out
-if it should tell the upper layers that the address was wrong, or there
-was a nack or a timeout, etc.
+Yeah you're not allowed to touch an object's hw state in ->atomic_commit
+without acquiring it's state in atomic_check. Otherwise the
+synchronization across commits that atomic helpers provides goes boom.
 
-I don't think we need to check the link to see if it is connected, just
-look at the irq bits to see if the response was bad and letting higher
-layers know that should quickly cut off the transactions.
+> But dpu_crtc_atomic_flush() iterates over all the attached planes,
+> calling dpu_plane_restore() which leads into
+> dpu_plane_atomic_update().. this is kinda dpu breaking the rules..
+
+You're probably missing a drm_atomic_add_affected_planes() somewhere.
+Without looking at the code at least, it might be that if you just blindly
+do that you take too many states by default and oversynchronize across
+multiple crtc, which isn't great. But better than getting the rules wrong
+:-)
+
+Cheers, Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
