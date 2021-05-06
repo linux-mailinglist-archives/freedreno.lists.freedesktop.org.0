@@ -2,57 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31423374E41
-	for <lists+freedreno@lfdr.de>; Thu,  6 May 2021 06:10:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDF2F374F87
+	for <lists+freedreno@lfdr.de>; Thu,  6 May 2021 08:47:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 692806EAAE;
-	Thu,  6 May 2021 04:10:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC8896EC9F;
+	Thu,  6 May 2021 06:47:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29A4D6EC97
- for <freedreno@lists.freedesktop.org>; Thu,  6 May 2021 04:10:51 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1620274254; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=l43av0MNdasuSlRaWS4HbE7aHdm8Jr27+otQGPeLkDA=;
- b=XrPorc9REep0UaNNIuuID6Eb8DKs1bTNm894z2unRkoBK1sCdmV2Tu2KRLK0oSvUdoIvns8V
- TEFXCa5bKMHa4e5rLZnnNhrWoD8lEExXBgq9TpgI5zsMI8uNF0sB5tR7K7ff/Z/OeofTPZ3F
- PRiAM5jtzcJLgc4lqV0AS8YDqgM=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
- 60936c3e03cfff345221c64c (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 06 May 2021 04:10:38
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id D3A1EC43460; Thu,  6 May 2021 04:10:37 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: mkrishn)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 0D354C433D3;
- Thu,  6 May 2021 04:10:35 +0000 (UTC)
-MIME-Version: 1.0
-Date: Thu, 06 May 2021 09:40:35 +0530
-From: mkrishn@codeaurora.org
-To: Rob Herring <robh@kernel.org>
-In-Reply-To: <20210408150300.GA1476562@robh.at.kernel.org>
-References: <1617620770-26202-1-git-send-email-mkrishn@codeaurora.org>
- <1617620770-26202-2-git-send-email-mkrishn@codeaurora.org>
- <20210408150300.GA1476562@robh.at.kernel.org>
-Message-ID: <827048554933585f4cc42c94aa911e55@codeaurora.org>
-X-Sender: mkrishn@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH v15 2/4] dt-bindings: msm: dsi: add yaml
- schemas for DSI bindings
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF3866EC9F;
+ Thu,  6 May 2021 06:47:16 +0000 (UTC)
+Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
+ by alexa-out.qualcomm.com with ESMTP; 05 May 2021 23:47:16 -0700
+X-QCInternal: smtphost
+Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
+ by ironmsg09-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 05 May 2021 23:47:14 -0700
+X-QCInternal: smtphost
+Received: from sbillaka-linux.qualcomm.com ([10.204.66.13])
+ by ironmsg02-blr.qualcomm.com with ESMTP; 06 May 2021 12:16:43 +0530
+Received: by sbillaka-linux.qualcomm.com (Postfix, from userid 2305739)
+ id CE47D21D6F; Thu,  6 May 2021 12:16:41 +0530 (IST)
+From: Sankeerth Billakanti <sbillaka@codeaurora.org>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Thu,  6 May 2021 12:16:32 +0530
+Message-Id: <1620283595-30471-1-git-send-email-sbillaka@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH v1 0/3] Add support for next gen eDP driver on
+ sc7280
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,491 +43,96 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean@poorly.run, devicetree@vger.kernel.org, dianders@chromium.org,
- vinod.koul@linaro.org, linux-arm-msm@vger.kernel.org, abhinavk@codeaurora.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+Cc: mkrishn@codeaurora.org, dianders@chromium.org, abhinavk@codeaurora.org,
  swboyd@chromium.org, khsieh@codeaurora.org, robdclark@gmail.com,
- tanmay@codeaurora.org, kalyan_t@codeaurora.org, bjorn.andersson@linaro.org,
- freedreno@lists.freedesktop.org
+ seanpaul@chromium.org, kalyan_t@codeaurora.org,
+ Sankeerth Billakanti <sbillaka@codeaurora.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-04-08 20:33, Rob Herring wrote:
-> On Mon, Apr 05, 2021 at 04:36:08PM +0530, Krishna Manikandan wrote:
->> Add YAML schema for the device tree bindings for DSI
->> 
->> Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
->> 
->> Changes in v1:
->>     - Separate dsi controller bindings to a separate patch (Stephen 
->> Boyd)
->>     - Merge dsi-common-controller.yaml and dsi-controller-main.yaml to
->>       a single file (Stephen Boyd)
->>     - Drop supply entries and definitions from properties (Stephen 
->> Boyd)
->>     - Modify phy-names property for dsi controller (Stephen Boyd)
->>     - Remove boolean from description (Stephen Boyd)
->>     - Drop pinctrl properties as they are standard entries (Stephen 
->> Boyd)
->>     - Modify the description for ports property and keep the reference
->>       to the generic binding where this is defined (Stephen Boyd)
->>     - Add description to clock names (Stephen Boyd)
->>     - Correct the indendation (Stephen Boyd)
->>     - Drop the label for display dt nodes and correct the node
->>       name (Stephen Boyd)
->> 
->> Changes in v2:
->>     - Drop maxItems for clock (Stephen Boyd)
->>     - Drop qcom,mdss-mdp-transfer-time-us as it is not used in 
->> upstream
->>       dt file (Stephen Boyd)
->>     - Keep child node directly under soc node (Stephen Boyd)
->>     - Drop qcom,sync-dual-dsi as it is not used in upstream dt
->> 
->> Changes in v3:
->>     - Add description for register property (Stephen Boyd)
->> 
->> Changes in v4:
->>     - Add maxItems for phys property (Stephen Boyd)
->>     - Add maxItems for reg property (Stephen Boyd)
->>     - Add reference for data-lanes property (Stephen Boyd)
->>     - Remove soc from example (Stephen Boyd)
->> 
->> Changes in v5:
->>     - Modify title and description (Stephen Boyd)
->>     - Add required properties for ports node (Stephen Boyd)
->>     - Add data-lanes in the example (Stephen Boyd)
->>     - Drop qcom,master-dsi property (Stephen Boyd)
->> 
->> Changes in v6:
->>     - Add required properties for port@0, port@1 and corresponding
->>       endpoints (Stephen Boyd)
->>     - Add address-cells and size-cells for ports (Stephen Boyd)
->>     - Use additionalProperties instead of unevaluatedProperties 
->> (Stephen Boyd)
->> ---
->>  .../bindings/display/msm/dsi-controller-main.yaml  | 213 
->> ++++++++++++++++++
->>  .../devicetree/bindings/display/msm/dsi.txt        | 249 
->> ---------------------
->>  2 files changed, 213 insertions(+), 249 deletions(-)
->>  create mode 100644 
->> Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
->>  delete mode 100644 
->> Documentation/devicetree/bindings/display/msm/dsi.txt
->> 
->> diff --git 
->> a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml 
->> b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
->> new file mode 100644
->> index 0000000..7858524
->> --- /dev/null
->> +++ 
->> b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
->> @@ -0,0 +1,213 @@
->> +# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
->> +%YAML 1.2
->> +---
->> +$id: 
->> http://devicetree.org/schemas/display/msm/dsi-controller-main.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Qualcomm Display DSI controller
->> +
->> +maintainers:
->> +  - Krishna Manikandan <mkrishn@codeaurora.org>
->> +
->> +allOf:
->> +  - $ref: "../dsi-controller.yaml#"
->> +
->> +properties:
->> +  compatible:
->> +    items:
->> +      - const: qcom,mdss-dsi-ctrl
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  reg-names:
->> +    const: dsi_ctrl
->> +
->> +  interrupts:
->> +    maxItems: 1
->> +
->> +  clocks:
->> +    items:
->> +      - description: Display byte clock
->> +      - description: Display byte interface clock
->> +      - description: Display pixel clock
->> +      - description: Display escape clock
->> +      - description: Display AHB clock
->> +      - description: Display AXI clock
->> +
->> +  clock-names:
->> +    items:
->> +      - const: byte
->> +      - const: byte_intf
->> +      - const: pixel
->> +      - const: core
->> +      - const: iface
->> +      - const: bus
->> +
->> +  phys:
->> +    maxItems: 1
->> +
->> +  phy-names:
->> +    const: dsi
->> +
->> +  "#address-cells": true
->> +
->> +  "#size-cells": true
->> +
->> +  syscon-sfpb:
->> +    description: A phandle to mmss_sfpb syscon node (only for DSIv2).
->> +    $ref: "/schemas/types.yaml#/definitions/phandle"
->> +
->> +  qcom,dual-dsi-mode:
->> +    type: boolean
->> +    description: |
->> +      Indicates if the DSI controller is driving a panel which needs
->> +      2 DSI links.
->> +
->> +  ports:
-> 
-> Same issues in this one.
-> 
->> +    $ref: "/schemas/graph.yaml#/properties/port"
->> +    type: object
->> +    description: |
->> +      Contains DSI controller input and output ports as children, 
->> each
->> +      containing one endpoint subnode.
->> +
->> +    properties:
->> +      port@0:
->> +        type: object
->> +        description: |
->> +          Input endpoints of the controller.
->> +
->> +        properties:
->> +          reg:
->> +            const: 0
->> +
->> +          endpoint:
->> +            type: object
->> +            properties:
->> +              remote-endpoint:
-> 
-> Don't need to describe this, the common schema does.
-> 
->> +                description: |
->> +                  For port@1, set to phandle of the connected 
->> panel/bridge's
->> +                  input endpoint. For port@0, set to the MDP 
->> interface output.
->> +
->> +              data-lanes:
->> +                $ref: "/schemas/media/video-interfaces.yaml#"
-> 
-> Not how this reference works. Look at other examples.
-> 
->> +                description: |
->> +                  This describes how the physical DSI data lanes are 
->> mapped
->> +                  to the logical lanes on the given platform. The 
->> value contained in
->> +                  index n describes what physical lane is mapped to 
->> the logical lane n
->> +                  (DATAn, where n lies between 0 and 3). The clock 
->> lane position is fixed
->> +                  and can't be changed. Hence, they aren't a part of 
->> the DT bindings.
->> +
->> +                items:
->> +                  - const: 0
->> +                  - const: 1
->> +                  - const: 2
->> +                  - const: 3
-> 
-> If this is the only possible value, why does it need to be in DT?
-Hi Rob,
-These are the possible values:
--    <0 1 2 3>
--    <1 2 3 0>
--    <2 3 0 1>
--    <3 0 1 2>
--    <0 3 2 1>
--    <1 0 3 2>
--    <2 1 0 3>
--    <3 2 1 0>
+These patches add support for the next generation eDP driver on SnapDragon
+with dpu support. The existing eDP driver cannot support the new eDP
+hardware. So, to maintain backward compatibility, the older eDP driver is
+moved to v200 folder and the new generation eDP driver is added in
+the v510 folder.
 
-Shall I follow the below mentioned approach for defining these values ?
-oneOf:
-   - items:
-     - const: 0
-     - const: 1
-     - const: 2
-     - const: 3
-   - items:
-     - const: 1
-     - const: 2
-     - const: 3
-     - const: 0
-   - items:
-     - const: 2
-     - const: 3
-     - const: 0
-     - const: 1
-   - items:
-     - const: 3
-     - const: 0
-     - const: 1
-     - const: 2
-   - items:
-     - const: 0
-     - const: 3
-     - const: 2
-     - const: 1
-   - items:
-     - const: 1
-     - const: 0
-     - const: 3
-     - const: 2
-   - items:
-     - const: 2
-     - const: 1
-     - const: 0
-     - const: 3
-   - items:
-     - const: 3
-     - const: 2
-     - const: 1
-     - const: 0
+These are baseline changes with which we can enable display. The new eDP
+controller can also support additional features such as backlight control,
+PSR etc. which will be enabled in subsequent patch series.
 
-Thanks,
-Krishna
-> 
->> +
->> +            required:
->> +              - remote-endpoint
->> +
->> +        required:
->> +          - reg
->> +          - endpoint
->> +
->> +      port@1:
->> +        type: object
->> +        description: |
->> +          Output endpoints of the controller.
->> +        properties:
->> +          reg:
->> +            const: 1
->> +
->> +          endpoint:
->> +            type: object
->> +            properties:
->> +              remote-endpoint: true
->> +              data-lanes:
->> +                items:
->> +                  - const: 0
->> +                  - const: 1
->> +                  - const: 2
->> +                  - const: 3
->> +
->> +            required:
->> +              - remote-endpoint
->> +              - data-lanes
->> +
->> +        required:
->> +          - reg
->> +          - endpoint
->> +
->> +    required:
->> +      - port@0
->> +      - port@1
->> +      - "#address-cells"
->> +      - "#size-cells"
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - reg-names
->> +  - interrupts
->> +  - clocks
->> +  - clock-names
->> +  - phys
->> +  - phy-names
->> +  - ports
->> +
->> +additionalProperties: false
->> +
->> +examples:
->> +  - |
->> +     #include <dt-bindings/interrupt-controller/arm-gic.h>
->> +     #include <dt-bindings/clock/qcom,dispcc-sdm845.h>
->> +     #include <dt-bindings/clock/qcom,gcc-sdm845.h>
->> +
->> +     dsi@ae94000 {
->> +           compatible = "qcom,mdss-dsi-ctrl";
->> +           reg = <0x0ae94000 0x400>;
->> +           reg-names = "dsi_ctrl";
->> +
->> +           #address-cells = <1>;
->> +           #size-cells = <0>;
->> +
->> +           interrupt-parent = <&mdss>;
->> +           interrupts = <4>;
->> +
->> +           clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
->> +                    <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
->> +                    <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
->> +                    <&dispcc DISP_CC_MDSS_ESC0_CLK>,
->> +                    <&dispcc DISP_CC_MDSS_AHB_CLK>,
->> +                    <&dispcc DISP_CC_MDSS_AXI_CLK>;
->> +           clock-names = "byte",
->> +                         "byte_intf",
->> +                         "pixel",
->> +                         "core",
->> +                         "iface",
->> +                         "bus";
->> +
->> +           phys = <&dsi0_phy>;
->> +           phy-names = "dsi";
->> +
->> +           ports {
->> +                  #address-cells = <1>;
->> +                  #size-cells = <0>;
->> +
->> +                  port@0 {
->> +                          reg = <0>;
->> +                          dsi0_in: endpoint {
->> +                                   remote-endpoint = 
->> <&dpu_intf1_out>;
->> +                          };
->> +                  };
->> +
->> +                  port@1 {
->> +                          reg = <1>;
->> +                          dsi0_out: endpoint {
->> +                                   remote-endpoint = <&sn65dsi86_in>;
->> +                                   data-lanes = <0 1 2 3>;
->> +                          };
->> +                  };
->> +           };
->> +     };
->> +...
->> diff --git a/Documentation/devicetree/bindings/display/msm/dsi.txt 
->> b/Documentation/devicetree/bindings/display/msm/dsi.txt
->> deleted file mode 100644
->> index b9a64d3..0000000
->> --- a/Documentation/devicetree/bindings/display/msm/dsi.txt
->> +++ /dev/null
->> @@ -1,249 +0,0 @@
->> -Qualcomm Technologies Inc. adreno/snapdragon DSI output
->> -
->> -DSI Controller:
->> -Required properties:
->> -- compatible:
->> -  * "qcom,mdss-dsi-ctrl"
->> -- reg: Physical base address and length of the registers of 
->> controller
->> -- reg-names: The names of register regions. The following regions are 
->> required:
->> -  * "dsi_ctrl"
->> -- interrupts: The interrupt signal from the DSI block.
->> -- power-domains: Should be <&mmcc MDSS_GDSC>.
->> -- clocks: Phandles to device clocks.
->> -- clock-names: the following clocks are required:
->> -  * "mdp_core"
->> -  * "iface"
->> -  * "bus"
->> -  * "core_mmss"
->> -  * "byte"
->> -  * "pixel"
->> -  * "core"
->> -  For DSIv2, we need an additional clock:
->> -   * "src"
->> -  For DSI6G v2.0 onwards, we need also need the clock:
->> -   * "byte_intf"
->> -- assigned-clocks: Parents of "byte" and "pixel" for the given 
->> platform.
->> -- assigned-clock-parents: The Byte clock and Pixel clock PLL outputs 
->> provided
->> -  by a DSI PHY block. See [1] for details on clock bindings.
->> -- vdd-supply: phandle to vdd regulator device node
->> -- vddio-supply: phandle to vdd-io regulator device node
->> -- vdda-supply: phandle to vdda regulator device node
->> -- phys: phandle to DSI PHY device node
->> -- phy-names: the name of the corresponding PHY device
->> -- syscon-sfpb: A phandle to mmss_sfpb syscon node (only for DSIv2)
->> -- ports: Contains 2 DSI controller ports as child nodes. Each port 
->> contains
->> -  an endpoint subnode as defined in [2] and [3].
->> -
->> -Optional properties:
->> -- panel@0: Node of panel connected to this DSI controller.
->> -  See files in [4] for each supported panel.
->> -- qcom,dual-dsi-mode: Boolean value indicating if the DSI controller 
->> is
->> -  driving a panel which needs 2 DSI links.
->> -- qcom,master-dsi: Boolean value indicating if the DSI controller is 
->> driving
->> -  the master link of the 2-DSI panel.
->> -- qcom,sync-dual-dsi: Boolean value indicating if the DSI controller 
->> is
->> -  driving a 2-DSI panel whose 2 links need receive command 
->> simultaneously.
->> -- pinctrl-names: the pin control state names; should contain 
->> "default"
->> -- pinctrl-0: the default pinctrl state (active)
->> -- pinctrl-n: the "sleep" pinctrl state
->> -- ports: contains DSI controller input and output ports as children, 
->> each
->> -  containing one endpoint subnode.
->> -
->> -  DSI Endpoint properties:
->> -  - remote-endpoint: For port@0, set to phandle of the connected 
->> panel/bridge's
->> -    input endpoint. For port@1, set to the MDP interface output. See 
->> [2] for
->> -    device graph info.
->> -
->> -  - data-lanes: this describes how the physical DSI data lanes are 
->> mapped
->> -    to the logical lanes on the given platform. The value contained 
->> in
->> -    index n describes what physical lane is mapped to the logical 
->> lane n
->> -    (DATAn, where n lies between 0 and 3). The clock lane position is 
->> fixed
->> -    and can't be changed. Hence, they aren't a part of the DT 
->> bindings. See
->> -    [3] for more info on the data-lanes property.
->> -
->> -    For example:
->> -
->> -    data-lanes = <3 0 1 2>;
->> -
->> -    The above mapping describes that the logical data lane DATA0 is 
->> mapped to
->> -    the physical data lane DATA3, logical DATA1 to physical DATA0, 
->> logic DATA2
->> -    to phys DATA1 and logic DATA3 to phys DATA2.
->> -
->> -    There are only a limited number of physical to logical mappings 
->> possible:
->> -    <0 1 2 3>
->> -    <1 2 3 0>
->> -    <2 3 0 1>
->> -    <3 0 1 2>
->> -    <0 3 2 1>
->> -    <1 0 3 2>
->> -    <2 1 0 3>
->> -    <3 2 1 0>
-> 
-> You've dropped all these?
+Summary of changes:
+DPU driver interface to the new eDP v510 display driver.
+New generation eDP controller and phy driver implementation.
+A common interface to choose enable the required eDP driver.
+
+Sankeerth Billakanti (3):
+  drm/msm/edp: support multiple generations of edp hardware
+  drm/msm/edp: add support for next gen edp
+  drm/msm/disp/dpu1: add support for edp encoder
+
+ drivers/gpu/drm/msm/Makefile                      |   19 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c       |    7 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c           |   33 +
+ drivers/gpu/drm/msm/edp/edp.c                     |  198 ---
+ drivers/gpu/drm/msm/edp/edp.h                     |   78 -
+ drivers/gpu/drm/msm/edp/edp.xml.h                 |  380 -----
+ drivers/gpu/drm/msm/edp/edp_aux.c                 |  264 ----
+ drivers/gpu/drm/msm/edp/edp_bridge.c              |  111 --
+ drivers/gpu/drm/msm/edp/edp_common.c              |   38 +
+ drivers/gpu/drm/msm/edp/edp_common.h              |   47 +
+ drivers/gpu/drm/msm/edp/edp_connector.c           |  132 --
+ drivers/gpu/drm/msm/edp/edp_ctrl.c                | 1375 ------------------
+ drivers/gpu/drm/msm/edp/edp_phy.c                 |   98 --
+ drivers/gpu/drm/msm/edp/v200/edp.xml.h            |  380 +++++
+ drivers/gpu/drm/msm/edp/v200/edp_v200.c           |  210 +++
+ drivers/gpu/drm/msm/edp/v200/edp_v200.h           |   70 +
+ drivers/gpu/drm/msm/edp/v200/edp_v200_aux.c       |  264 ++++
+ drivers/gpu/drm/msm/edp/v200/edp_v200_bridge.c    |  111 ++
+ drivers/gpu/drm/msm/edp/v200/edp_v200_connector.c |  132 ++
+ drivers/gpu/drm/msm/edp/v200/edp_v200_ctrl.c      | 1375 ++++++++++++++++++
+ drivers/gpu/drm/msm/edp/v200/edp_v200_phy.c       |   98 ++
+ drivers/gpu/drm/msm/edp/v510/edp_v510.c           |  220 +++
+ drivers/gpu/drm/msm/edp/v510/edp_v510.h           |  151 ++
+ drivers/gpu/drm/msm/edp/v510/edp_v510_aux.c       |  268 ++++
+ drivers/gpu/drm/msm/edp/v510/edp_v510_bridge.c    |  111 ++
+ drivers/gpu/drm/msm/edp/v510/edp_v510_connector.c |  117 ++
+ drivers/gpu/drm/msm/edp/v510/edp_v510_ctrl.c      | 1583 +++++++++++++++++++++
+ drivers/gpu/drm/msm/edp/v510/edp_v510_phy.c       |  641 +++++++++
+ drivers/gpu/drm/msm/edp/v510/edp_v510_reg.h       |  339 +++++
+ 29 files changed, 6207 insertions(+), 2643 deletions(-)
+ delete mode 100644 drivers/gpu/drm/msm/edp/edp.c
+ delete mode 100644 drivers/gpu/drm/msm/edp/edp.h
+ delete mode 100644 drivers/gpu/drm/msm/edp/edp.xml.h
+ delete mode 100644 drivers/gpu/drm/msm/edp/edp_aux.c
+ delete mode 100644 drivers/gpu/drm/msm/edp/edp_bridge.c
+ create mode 100644 drivers/gpu/drm/msm/edp/edp_common.c
+ create mode 100644 drivers/gpu/drm/msm/edp/edp_common.h
+ delete mode 100644 drivers/gpu/drm/msm/edp/edp_connector.c
+ delete mode 100644 drivers/gpu/drm/msm/edp/edp_ctrl.c
+ delete mode 100644 drivers/gpu/drm/msm/edp/edp_phy.c
+ create mode 100644 drivers/gpu/drm/msm/edp/v200/edp.xml.h
+ create mode 100644 drivers/gpu/drm/msm/edp/v200/edp_v200.c
+ create mode 100644 drivers/gpu/drm/msm/edp/v200/edp_v200.h
+ create mode 100644 drivers/gpu/drm/msm/edp/v200/edp_v200_aux.c
+ create mode 100644 drivers/gpu/drm/msm/edp/v200/edp_v200_bridge.c
+ create mode 100644 drivers/gpu/drm/msm/edp/v200/edp_v200_connector.c
+ create mode 100644 drivers/gpu/drm/msm/edp/v200/edp_v200_ctrl.c
+ create mode 100644 drivers/gpu/drm/msm/edp/v200/edp_v200_phy.c
+ create mode 100644 drivers/gpu/drm/msm/edp/v510/edp_v510.c
+ create mode 100644 drivers/gpu/drm/msm/edp/v510/edp_v510.h
+ create mode 100644 drivers/gpu/drm/msm/edp/v510/edp_v510_aux.c
+ create mode 100644 drivers/gpu/drm/msm/edp/v510/edp_v510_bridge.c
+ create mode 100644 drivers/gpu/drm/msm/edp/v510/edp_v510_connector.c
+ create mode 100644 drivers/gpu/drm/msm/edp/v510/edp_v510_ctrl.c
+ create mode 100644 drivers/gpu/drm/msm/edp/v510/edp_v510_phy.c
+ create mode 100644 drivers/gpu/drm/msm/edp/v510/edp_v510_reg.h
+
+-- 
+The Qualcomm Innovatin Center, Inc. is a member of the Code Aurora Forum, a Linux Foundation Collaborative Project
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
