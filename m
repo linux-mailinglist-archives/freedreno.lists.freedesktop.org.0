@@ -1,56 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42BFC376928
-	for <lists+freedreno@lfdr.de>; Fri,  7 May 2021 18:59:13 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id EE43E376BA4
+	for <lists+freedreno@lfdr.de>; Fri,  7 May 2021 23:25:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BD696EDFA;
-	Fri,  7 May 2021 16:59:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D2206EE92;
+	Fri,  7 May 2021 21:25:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CBAA6E198;
- Fri,  7 May 2021 16:59:10 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id
- b11-20020a7bc24b0000b0290148da0694ffso7549756wmj.2; 
- Fri, 07 May 2021 09:59:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=f4WDLsvKJMxDGO3+bzmGSecNUJim8tE2LEMA4fIetY8=;
- b=CL8xvpvAHG70auywB/Spvy3ss+5QkCld2KRv1eqOt1maC6iB8xp0ExToQWHwYN56Nu
- JaB4JwO8a6v2h3mA/7iNyQSy6NLIvmuiKB7pDd+tA46COmLc5s4t7H5AJGNPgcUBbsP+
- ZneMWoLXa/bsisGUCnVPTbFpuYcndZED/Kpz8vxBk8zqNJkDZA1PAEWah0is5/MF05hv
- +jmN9gGsj6H8YMJ5GYty8V0SWpc291OGZYVcxgF/+yHfkhwn+Qy+Bdtmo9uUkEtlnFNl
- wQNBU5DB80M22GuLYUmfPuOavL+njr6kebiGsJ4RXuD7Oxu2dMVoqW1akJyu85rJ8eS9
- B5Sw==
+Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
+ [IPv6:2607:f8b0:4864:20::52b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CCD96EE7F
+ for <freedreno@lists.freedesktop.org>; Fri,  7 May 2021 21:25:07 +0000 (UTC)
+Received: by mail-pg1-x52b.google.com with SMTP id i14so8299405pgk.5
+ for <freedreno@lists.freedesktop.org>; Fri, 07 May 2021 14:25:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=TTG2OfOuQUejFlO2ocmSjc3xkounpxNXjXzbmWWcXQ4=;
+ b=ReDI50O4p6XG7KYhP06LRbAWuvZbFoPiydm8iaQ0lbFendfkj5D12q3t4o8Tjq3+XQ
+ 45Sn3Xz3HB+4fOLjk25u0rJcdrmMMw3B5OOy77dyA72ufIy0vXm1BWyyIVy/kto58mO+
+ 9byAgPEYPR1V4rWSn2F3s39QJYpw6TrbM5SZA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=f4WDLsvKJMxDGO3+bzmGSecNUJim8tE2LEMA4fIetY8=;
- b=dijw/rkgCQy5dwsbb81JrvNTEFU8+4wJISjjfiaaaOpHpuYQ9zQrj2MBYmXcpOi92k
- 9xRmejz75lNwqvaxjA9HSOkOGJiEu4+btP+UbVWh9TlNhOtC5j15t7kpAF6HGOHMV3Ap
- G2OTA+ncgz2IF1x9U5TzefOXjlqxbg77xGhEX74AHCHSrlRy8OjXRRaJT3uDVK5GIvRv
- q25A3X2Q5jrDPmdJ89GvszZyXLAtjwLpgxmKpxz3D5//jXqWBdt9Y77GzdJtI51IkJxD
- 3vJ/qzZdBNpCRPwKyM3tEbmKstcybD2mE2Fqxnr1bUZZ8k52N+AqzVPHpVs1xRCYYCns
- NmlA==
-X-Gm-Message-State: AOAM5338Vj1CNHcU3HPDew9AT51Fqox89tMFnFnDFhUUTQx2sZnjYAEG
- h/EH/r/7kkwDlYo0pnYraEttw2hg11PoiWdM20E=
-X-Google-Smtp-Source: ABdhPJwHz0UOTtSriaYhPLieL9JH2FIXzvpsM22+FD0bA2bQxAo21M2u2vcZgRZf0DcF6KRujyOP7mZtKl87ZCNv7I4=
-X-Received: by 2002:a1c:4954:: with SMTP id w81mr22641820wma.49.1620406748836; 
- Fri, 07 May 2021 09:59:08 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=TTG2OfOuQUejFlO2ocmSjc3xkounpxNXjXzbmWWcXQ4=;
+ b=UkP/2FWRC6GMaH7ayAs/z+8isKUoFEHBvloUA6VS2EfB/zKScokExzYA34sbOcI3k0
+ TGWW06dPRq+vhpn0TnASCrngGDWdiTG8iih+kmGCE2S+H/BKCjGY/GsTBsbjU+nRyiSx
+ QZcK2rR4eaDQlAlcDR9nP7ztpz1T78/4GgEMmGqNyko3U1pZoMfREqhcjiAv7wg8dC0l
+ IjaYTiscUHzDkVozdrjt2OA8URHy7cZZjiVKbuDZXmVL97RGdsSNyM13wZvujFdPlWzQ
+ Q/60l3z9yM0gNeQI/Ith6V5cmv+XVoMJoLhStbrFISFVizABkRYCZ3I9YST45oBplCUr
+ FDaw==
+X-Gm-Message-State: AOAM5325gZDnzka2Dy0GrM1Icaq5zf6xjFZYEaa7VDZqIV+NAkbFiMoM
+ 4hjmm6d9Pq2xv1laJL8Y2mRcqQ==
+X-Google-Smtp-Source: ABdhPJxXqi4S16zzZRUDmrs4PpXoCn4oLa/reeq8qjeKTY4CE/QCv/tBLRMZb5MLVWo20hYp/3coDQ==
+X-Received: by 2002:aa7:8e85:0:b029:28f:2620:957e with SMTP id
+ a5-20020aa78e850000b029028f2620957emr12473932pfr.40.1620422707177; 
+ Fri, 07 May 2021 14:25:07 -0700 (PDT)
+Received: from smtp.gmail.com ([2620:15c:202:201:ab8b:4a3d:46ab:361c])
+ by smtp.gmail.com with ESMTPSA id t1sm4996298pjo.33.2021.05.07.14.25.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 07 May 2021 14:25:06 -0700 (PDT)
+From: Stephen Boyd <swboyd@chromium.org>
+To: Rob Clark <robdclark@gmail.com>
+Date: Fri,  7 May 2021 14:25:02 -0700
+Message-Id: <20210507212505.1224111-1-swboyd@chromium.org>
+X-Mailer: git-send-email 2.31.1.607.g51e8a6a459-goog
 MIME-Version: 1.0
-References: <20210507141651.2887-1-sean@poorly.run>
- <CAF6AEGutiv+0QMNo6QQ8jSDYwxhJ5+62_TZ5zsiT_WxgDm+JiA@mail.gmail.com>
-In-Reply-To: <CAF6AEGutiv+0QMNo6QQ8jSDYwxhJ5+62_TZ5zsiT_WxgDm+JiA@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 7 May 2021 10:02:49 -0700
-Message-ID: <CAF6AEGud9xdEwDpADN3SpA+JMUCYtRL6UEaGLiq49vy5sqwa7A@mail.gmail.com>
-To: Sean Paul <sean@poorly.run>
-Subject: Re: [Freedreno] [PATCH] drm/msm: Fix uninitialized var usage in
- dsi_phy_28nm_8960.c
+Subject: [Freedreno] [PATCH 0/3] drm/msm/dp: Simplify aux code
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,79 +62,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
- Sean Paul <seanpaul@chromium.org>, dri-devel <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Kuogee Hsieh <khsieh@codeaurora.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, May 7, 2021 at 9:43 AM Rob Clark <robdclark@gmail.com> wrote:
->
-> On Fri, May 7, 2021 at 7:16 AM Sean Paul <sean@poorly.run> wrote:
-> >
-> > From: Sean Paul <seanpaul@chromium.org>
-> >
-> > This patch fixes the following error:
-> >
-> > drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c:425:11: error: variable 'parent_name' is uninitialized when used here
-> > [-Werror,-Wuninitialized]
-> >         snprintf(parent_name, 32, "dsi%dvco_clk", pll_28nm->phy->id);
-> >                  ^~~~~~~~~~~
-> > drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c:385:30:
-> > note: initialize the variable 'parent_name' to silence this warning
-> >         char *clk_name, *parent_name, *vco_name;
-> >                                     ^
-> >                                      = NULL
-> > 1 error generated.
-> > make[5]: ***
-> > [scripts/Makefile.build:279: drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.o] Error 1
-> >
-> > It looks like the allocation was inadvertently deleted.
-> >
-> > Fixes: 5d13459650b3 ("drm/msm/dsi: push provided clocks handling into a generic code")
-> >
-> > Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > Cc: Stephen Boyd <swboyd@chromium.org>
-> > Cc: Abhinav Kumar <abhinavk@codeaurora.org>
-> > Cc: Rob Clark <robdclark@chromium.org>
-> > Signed-off-by: Sean Paul <seanpaul@chromium.org>
->
-> Thanks, I'll pick this up for next -fixes pr
+Here's a few patches that simplify the aux handling code and bubble up
+timeouts and nacks to the upper DRM layers. The goal is to get DRM to
+know that the other side isn't there or that there's been a timeout,
+instead of saying that everything is fine and putting some error message
+into the logs.
 
-Oh, sorry, I lied, I already had the same fix from Dmitry
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Abhinav Kumar <abhinavk@codeaurora.org>
+Cc: Kuogee Hsieh <khsieh@codeaurora.org>
+Cc: aravindh@codeaurora.org
+Cc: Sean Paul <sean@poorly.run>
 
-BR,
--R
+Stephen Boyd (3):
+  drm/msm/dp: Simplify aux irq handling code
+  drm/msm/dp: Shrink locking area of dp_aux_transfer()
+  drm/msm/dp: Handle aux timeouts, nacks, defers
 
->
-> > ---
-> >  drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
-> > index 582b1428f971..86e40a0d41a3 100644
-> > --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
-> > +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
-> > @@ -405,6 +405,10 @@ static int pll_28nm_register(struct dsi_pll_28nm *pll_28nm, struct clk_hw **prov
-> >         if (!vco_name)
-> >                 return -ENOMEM;
-> >
-> > +       parent_name = devm_kzalloc(dev, 32, GFP_KERNEL);
-> > +       if (!parent_name)
-> > +               return -ENOMEM;
-> > +
-> >         clk_name = devm_kzalloc(dev, 32, GFP_KERNEL);
-> >         if (!clk_name)
-> >                 return -ENOMEM;
-> > --
-> > Sean Paul, Software Engineer, Google / Chromium OS
-> >
+ drivers/gpu/drm/msm/dp/dp_aux.c     | 181 ++++++++++++----------------
+ drivers/gpu/drm/msm/dp/dp_aux.h     |   8 --
+ drivers/gpu/drm/msm/dp/dp_catalog.c |   2 +-
+ drivers/gpu/drm/msm/dp/dp_catalog.h |   2 +-
+ 4 files changed, 80 insertions(+), 113 deletions(-)
+
+
+base-commit: 51595e3b4943b0079638b2657f603cf5c8ea3a66
+-- 
+https://chromeos.dev
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
