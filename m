@@ -1,44 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8FAB37709F
-	for <lists+freedreno@lfdr.de>; Sat,  8 May 2021 10:17:58 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A8F173773DE
+	for <lists+freedreno@lfdr.de>; Sat,  8 May 2021 21:53:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82ED06E864;
-	Sat,  8 May 2021 08:17:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A440E6E08E;
+	Sat,  8 May 2021 19:52:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AB106E09A;
- Sat,  8 May 2021 08:17:54 +0000 (UTC)
-Received: from DGGEMS411-HUB.china.huawei.com (unknown [172.30.72.58])
- by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4Fcg9H4vlNz1BGnC;
- Sat,  8 May 2021 16:15:15 +0800 (CST)
-Received: from [127.0.0.1] (10.174.177.72) by DGGEMS411-HUB.china.huawei.com
- (10.3.19.211) with Microsoft SMTP Server id 14.3.498.0; Sat, 8 May 2021
- 16:17:50 +0800
-To: Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- "David Airlie" <airlied@linux.ie>, Rob Clark <robdclark@gmail.com>, Sean Paul
- <sean@poorly.run>, dri-devel <dri-devel@lists.freedesktop.org>, freedreno
- <freedreno@lists.freedesktop.org>, linux-arm-msm
- <linux-arm-msm@vger.kernel.org>, linux-kernel <linux-kernel@vger.kernel.org>
-References: <20210508024254.1877-1-thunder.leizhen@huawei.com>
- <CAE-0n51owL8RGJyz_5BUCTjrUW5m0X-DTKUx=mqRL=-4i-tMDA@mail.gmail.com>
- <4f6ab4db-958d-c2c5-7879-aa9a0d3b87ae@huawei.com>
- <CAE-0n51bPtbw4gx4EOTd2wNq6gcH9yCuR_e8kqBo0-+7unUz5A@mail.gmail.com>
-From: "Leizhen (ThunderTown)" <thunder.leizhen@huawei.com>
-Message-ID: <bba9f2f4-19cd-018a-2233-dc51ffb1d85b@huawei.com>
-Date: Sat, 8 May 2021 16:17:48 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
+Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
+ [IPv6:2607:f8b0:4864:20::42c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25D196E055;
+ Sat,  8 May 2021 19:52:58 +0000 (UTC)
+Received: by mail-pf1-x42c.google.com with SMTP id i13so10797904pfu.2;
+ Sat, 08 May 2021 12:52:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=52/BODVej/sAPj1HAsVHhcFR3RxERy74g5pEGd5eMWs=;
+ b=Lckz/cwvu9w/BaykBLqzfMjsL/UzQqsU+MmTCjOI6K9UxxSYmFuzeX2FoFWqqSHg+2
+ InT7fyulz7rhUb0jU3JAmCtfarUKA4v4x09Z1Ka70powvuTaJSSwjiO36xdDagFCSTxK
+ 6moDnOuYz2a4wG6eP8UTr+7SDYQ6BmDSavDu/a1BxvZjD7DyMMVVrP5XU5ebIoIKab04
+ s6Efs7s2NKzeKkIK8mloBupy3sUVKI2dmWS92vY+h60yKMmM7J4hFoSeZQObY8twiX4u
+ YfOXkgLjEjPe3WMYhn/0p31S9ihmVQXjBH42wAq7j7QoeR9vcBFQY+j99ayowT/2hv8q
+ pLMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=52/BODVej/sAPj1HAsVHhcFR3RxERy74g5pEGd5eMWs=;
+ b=AKutjqzCGBurmwD1YSssaK44oM3ALhu400jsutn8Vf3Ze4191MABj75LqDsAV3/uLh
+ AAzOVrXVrM5/IIZwE0Xo6pzeO7FFiZu55/1kazDVemN8qDZ9DNvEijG9qN7LoazSgNzu
+ BD5AQRsc6wKQRaxtBXmnwvxKI34qhSJvHiYqXLu+rHKBE6WBXibVORgAENl7sx36e7Lf
+ WnXbQWiTJA/Ovxn+LZNQ6N3Hw/XNZcE6Z6v0K6BO7BEWjUWWjI1VhuBiGBjnrsgjmvKu
+ sUzCXTX+umiSpYWzktQu11yMLpoPEYcMSfE/0pMxRuQADyXHDnt/WK7Qu4kj6MHYzmI7
+ Gzew==
+X-Gm-Message-State: AOAM530ypaKZGo7SfC6ijtSsNl+vMkeXqjCwFBTD29T3QsoU2X51I94B
+ nLR3+yj8rl83og9fGKPkBFsuav/T643XMA==
+X-Google-Smtp-Source: ABdhPJzShZqZ9yJXLeSXzV96pkdUxCEhyW3PchhSSkpkvoHPAOi4i4qCubtWTJgzZb+0BE3AedNzcw==
+X-Received: by 2002:a62:8208:0:b029:289:112f:d43d with SMTP id
+ w8-20020a6282080000b0290289112fd43dmr16583052pfd.61.1620503576956; 
+ Sat, 08 May 2021 12:52:56 -0700 (PDT)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ u1sm7543017pgh.80.2021.05.08.12.52.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 08 May 2021 12:52:55 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Sat,  8 May 2021 12:56:37 -0700
+Message-Id: <20210508195641.397198-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-In-Reply-To: <CAE-0n51bPtbw4gx4EOTd2wNq6gcH9yCuR_e8kqBo0-+7unUz5A@mail.gmail.com>
-Content-Language: en-US
-X-Originating-IP: [10.174.177.72]
-X-CFilter-Loop: Reflected
-Subject: Re: [Freedreno] [PATCH 1/1] drm/msm/dpu: Fix error return code in
- dpu_mdss_init()
+Subject: [Freedreno] [PATCH 0/2] drm: Fix atomic helper dirtyfb stalls
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,93 +66,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: Rob Clark <robdclark@chromium.org>, Bernard <bernard@vivo.com>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Hongbo Yao <yaohongbo@huawei.com>, open list <linux-kernel@vger.kernel.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
+ Qinglang Miao <miaoqinglang@huawei.com>, Maxime Ripard <maxime@cerno.tech>,
+ Kalyan Thota <kalyan_t@codeaurora.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+From: Rob Clark <robdclark@chromium.org>
 
+Someone on IRC once asked an innocent enough sounding question:  Why
+with xf86-video-modesetting is es2gears limited at 120fps.
 
-On 2021/5/8 15:58, Stephen Boyd wrote:
-> Quoting Leizhen (ThunderTown) (2021-05-08 00:55:04)
->>
->>
->> On 2021/5/8 14:09, Stephen Boyd wrote:
->>> Quoting Zhen Lei (2021-05-07 19:42:54)
->>>> Fix to return a negative error code from the error handling case instead
->>>> of 0, as done elsewhere in this function.
->>>>
->>>> Fixes: 070e64dc1bbc ("drm/msm/dpu: Convert to a chained irq chip")
->>>> Reported-by: Hulk Robot <hulkci@huawei.com>
->>>> Signed-off-by: Zhen Lei <thunder.leizhen@huawei.com>
->>>> ---
->>>>  drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c | 4 +++-
->>>>  1 file changed, 3 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
->>>> index 06b56fec04e0..1b6c9fb500a1 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
->>>> @@ -253,8 +253,10 @@ int dpu_mdss_init(struct drm_device *dev)
->>>>                 goto irq_domain_error;
->>>>
->>>>         irq = platform_get_irq(pdev, 0);
->>>> -       if (irq < 0)
->>>> +       if (irq < 0) {
->>>> +               ret = irq;
->>>>                 goto irq_error;
->>>> +       }
->>>
->>> It would be even better if ret wasn't assigned to 0 at the start of this
->>> function.
->>
->> The returned error code is not unique.
->>
-> 
-> What does it mean? I was saying this
+So I broke out the perfetto tracing mesa MR and took a look.  It turns
+out the problem was drm_atomic_helper_dirtyfb(), which would end up
+waiting for vblank.. es2gears would rapidly push two frames to Xorg,
+which would blit them to screen and in idle hook (I assume) call the
+DIRTYFB ioctl.  Which in turn would do an atomic update to flush the
+dirty rects, which would stall until the next vblank.  And then the
+whole process would repeat.
 
-Sorry, I misunderstood. I think your opinion is good.
+But this is a bit silly, we only need dirtyfb for command mode DSI
+panels.  So lets just skip it otherwise.
 
-> 
-> ----8<----
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
-> b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
-> index cd4078807db1..0fcf190f6322 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
-> @@ -263,7 +263,7 @@ int dpu_mdss_init(struct drm_device *dev)
->  	struct msm_drm_private *priv = dev->dev_private;
->  	struct dpu_mdss *dpu_mdss;
->  	struct dss_module_power *mp;
-> -	int ret = 0;
-> +	int ret;
->  	int irq;
-> 
->  	dpu_mdss = devm_kzalloc(dev->dev, sizeof(*dpu_mdss), GFP_KERNEL);
-> @@ -297,8 +297,10 @@ int dpu_mdss_init(struct drm_device *dev)
->  		goto irq_domain_error;
-> 
->  	irq = platform_get_irq(pdev, 0);
-> -	if (irq < 0)
-> +	if (irq < 0) {
-> +		ret = irq;
->  		goto irq_error;
-> +	}
-> 
->  	irq_set_chained_handler_and_data(irq, dpu_mdss_irq,
->  					 dpu_mdss);
-> @@ -309,7 +311,7 @@ int dpu_mdss_init(struct drm_device *dev)
-> 
->  	dpu_mdss_icc_request_bw(priv->mdss);
-> 
-> -	return ret;
-> +	return 0;
-> 
->  irq_error:
->  	_dpu_mdss_irq_domain_fini(dpu_mdss);
-> 
-> .
-> 
+Rob Clark (2):
+  drm: Fix dirtyfb stalls
+  drm/msm/dpu: Wire up needs_dirtyfb
+
+ drivers/gpu/drm/drm_damage_helper.c      |  8 ++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 14 ++++++++++++++
+ include/drm/drm_modeset_helper_vtables.h | 14 ++++++++++++++
+ 3 files changed, 36 insertions(+)
+
+-- 
+2.30.2
 
 _______________________________________________
 Freedreno mailing list
