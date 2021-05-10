@@ -1,54 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF4673792A3
-	for <lists+freedreno@lfdr.de>; Mon, 10 May 2021 17:26:24 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 08E373794A8
+	for <lists+freedreno@lfdr.de>; Mon, 10 May 2021 18:55:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C0A46E4AB;
-	Mon, 10 May 2021 15:26:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 918CC89BF0;
+	Mon, 10 May 2021 16:55:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
- [IPv6:2607:f8b0:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 056E76E4A7;
- Mon, 10 May 2021 15:26:20 +0000 (UTC)
-Received: by mail-oi1-x230.google.com with SMTP id b25so10886096oic.0;
- Mon, 10 May 2021 08:26:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=PKb19RbJtddT9ixiaDJEd8lwiTEBJP0932RguN39+5w=;
- b=DN5VlvIzv2g9pN3rZ3NKCDlekbYySLhe/345TmwLE6f4Ue27NTu9IBhPFBLr9IaIdp
- z4Zv7LzGdz4jlFYWm6fMGoZ7E8Bp7Q3gbA4NwITHmOGmb7bVjIZUqOoW/h4sy9iC3WJ6
- z4zxnILaTCBvcRn04n77bWpzO+pJ5J4xvbALUbLoo25WVLrHdyXePrAUj/P2A4bQ1Nzj
- nfzvdu2lN5xCZZmVkEk2fCzh8oWxvjprHyhXUtYiso/TnUJ3t9USHJHvbzc3Q9goIYH1
- lkfU6sVWEMBZWptG8R/usnz+NxOg3E5m9FubEpR09knIBMHcF7pUvZBANGlZPst+vOCo
- /yRg==
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8D3B89217
+ for <freedreno@lists.freedesktop.org>; Mon, 10 May 2021 16:55:10 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id k25so16399662oic.4
+ for <freedreno@lists.freedesktop.org>; Mon, 10 May 2021 09:55:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to; bh=sVOf3rnQQoCxErFwACuycQahXXh0Mo2aHzmf0ZUSPko=;
+ b=HQy+UmcK03DuKLfDIAryB3qD1Mil6T0UDB98z17huWfwRWDjMSI+T3c85L9CGSPeay
+ DU+Evt3AJhioziDQCNcCJSrpcKj5BsrsNIscNv7h4V1kko81oWGTehQmGxZDnyW4CUe5
+ yw9wsqE9adjtg4qamSlq2FebUWGdDllpv8PeU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=PKb19RbJtddT9ixiaDJEd8lwiTEBJP0932RguN39+5w=;
- b=BiBxYixmH9Q1Fnta6Q4GDr0HVv0SSA2RJW/ZN1WvXUI+VGipqJ4KYmekFIjZPjPg7r
- K1PLcL/UemNHNzqapCqbJESLa021viDeowH6XsH/KaDUovoqtmIB8NY2w5AQNIKhjIb6
- PEFkksrwWcxtA9mY58POHTfUI3OFsY0JN4+NsMisVHNQAJMt3UM75qi8zkDJdJRI+YsK
- szis/vR3QQ+n3jlOaCm9L/HzjCn45pNbVqPRPY4f43wgHXMpspoHNJhdzMvO/r/sV3hK
- E8+KJ4B3OJfBE/VJmsuL9Lu3yJ0AvSREdh7ckFNqw5NQvhSXAWpCzLP/d50Mlq7+/k6D
- F8Bg==
-X-Gm-Message-State: AOAM533sxxRYAY3wP5j0jM2j+xjshXNvb1/ssMFltt6ocP39BLizwgVk
- qUV13xtkSLspn6DtOg0VykRBZqGp0IKe6TfJOXo=
-X-Google-Smtp-Source: ABdhPJzCSRFYLLVUuC5sQQX2WXHyV1S5ZaJ9vjN9QEEuHySuJRNPNM6lWwqjm5FEw2QcIvsAelWNDKhsqEnDR1wI5ls=
-X-Received: by 2002:aca:c08a:: with SMTP id q132mr24901330oif.5.1620660379373; 
- Mon, 10 May 2021 08:26:19 -0700 (PDT)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to;
+ bh=sVOf3rnQQoCxErFwACuycQahXXh0Mo2aHzmf0ZUSPko=;
+ b=WX6lEq6y00v3uDq4VbxbPVS3AudXBZfc6+zSg1oHe22w4HzGuVUNLRo9K76McqS+Gy
+ +C2EmPezvJh11dneypbqJaJ0lvhw3dEoMkfUmEAvGQJWKtcKzFExCd8/fM1jCWt1sW/Y
+ s4y+yCsoSsh4fTQeeIBi2zctRG0ZlALG7xL8UAkhZS38Bk+e2uxu0tSpzoOdbMNhG1AP
+ V41paZJFE+CWi9igrs4icOw933kmI5hE11zG7QZ/MRtKUCe6z233BNoMTLTHoR9/0UIC
+ qDD8Hh3M/rmL25yOkJydrHRZiYTZpyTJzUilwcQExTC+IvYF29zXiqPuY6pTJD6Q52o+
+ qkkQ==
+X-Gm-Message-State: AOAM531yNUT1XzeyaL8jBERVE2TPwWbrmATvmL5jd42S/8QWZ3n/AyiC
+ ssJQjpHCzm8e2MZH4E4zaJbHeVJOz4U+SonXhjlNKA==
+X-Google-Smtp-Source: ABdhPJz5RLoBLot1CVzxTjJkBJp56d5KozQuBoFhRpWF7SSXLzx/nTWQb1uAogO6gMhleLVVnQnOjunOH/YyigS6+KU=
+X-Received: by 2002:aca:211a:: with SMTP id 26mr18395539oiz.19.1620665710136; 
+ Mon, 10 May 2021 09:55:10 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 10 May 2021 09:55:09 -0700
 MIME-Version: 1.0
-References: <20210508195641.397198-3-robdclark@gmail.com>
- <20210509153842.124974-1-Houdek.Ryan@fex-emu.org>
-In-Reply-To: <20210509153842.124974-1-Houdek.Ryan@fex-emu.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 10 May 2021 11:26:08 -0400
-Message-ID: <CADnq5_OYRP5EE3GOdY6HyTcJuLxXw5V7X9fTTw+QMrKs6cjcvw@mail.gmail.com>
-To: houdek.ryan@fex-emu.org
-Subject: Re: [Freedreno] Tested
+In-Reply-To: <20210510063805.3262-2-thunder.leizhen@huawei.com>
+References: <20210510063805.3262-1-thunder.leizhen@huawei.com>
+ <20210510063805.3262-2-thunder.leizhen@huawei.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Mon, 10 May 2021 09:55:09 -0700
+Message-ID: <CAE-0n52a4hAsg0bq-1PeL=gK3uFQ0mkvWngdfA_NqdhgWg6tuQ@mail.gmail.com>
+To: Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
+ Rob Clark <robdclark@gmail.com>, 
+ Sean Paul <sean@poorly.run>, Zhen Lei <thunder.leizhen@huawei.com>, 
+ dri-devel <dri-devel@lists.freedesktop.org>, 
+ freedreno <freedreno@lists.freedesktop.org>, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>
+Subject: Re: [Freedreno] [PATCH v2 1/1] drm/msm/dpu: Fix error return code
+ in dpu_mdss_init()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,28 +68,29 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robdclark@chromium.org, freedreno <freedreno@lists.freedesktop.org>,
- Dave Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- yaohongbo@huawei.com, LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- swboyd@chromium.org, Rob Clark <robdclark@gmail.com>,
- Qinglang Miao <miaoqinglang@huawei.com>, kalyan_t@codeaurora.org,
- abhinavk@codeaurora.org, Sean Paul <sean@poorly.run>,
- Maxime Ripard <maxime@cerno.tech>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Sorry, what patch are you referring to?
-
-Alex
-
-On Mon, May 10, 2021 at 4:04 AM <houdek.ryan@fex-emu.org> wrote:
+Quoting Zhen Lei (2021-05-09 23:38:05)
+> The error code returned by platform_get_irq() is stored in 'irq', it's
+> forgotten to be copied to 'ret' before being returned. As a result, the
+> value 0 of 'ret' is returned incorrectly.
 >
-> I have tested this on my end and it resolves the 120hz problem.
+> After the above fix is completed, initializing the local variable 'ret'
+> to 0 is no longer needed, remove it.
 >
-> Tested-By: Ryan Houdek <Houdek.Ryan@fex-emu.org>
+> In addition, when dpu_mdss_init() is successfully returned, the value of
+> 'ret' is always 0. Therefore, replace "return ret" with "return 0" to make
+> the code clearer.
+>
+> Fixes: 070e64dc1bbc ("drm/msm/dpu: Convert to a chained irq chip")
+> Reported-by: Hulk Robot <hulkci@huawei.com>
+> Signed-off-by: Zhen Lei <thunder.leizhen@huawei.com>
+> ---
+
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
