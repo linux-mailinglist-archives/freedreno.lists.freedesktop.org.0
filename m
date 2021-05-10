@@ -2,51 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2B1A378FC9
-	for <lists+freedreno@lfdr.de>; Mon, 10 May 2021 15:57:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF4673792A3
+	for <lists+freedreno@lfdr.de>; Mon, 10 May 2021 17:26:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54CE36E489;
-	Mon, 10 May 2021 13:57:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C0A46E4AB;
+	Mon, 10 May 2021 15:26:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 2046 seconds by postgrey-1.36 at gabe;
- Mon, 10 May 2021 06:35:52 UTC
-Received: from www.kot-begemot.co.uk (ivanoab7.miniserver.com [37.128.132.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D91666E222;
- Mon, 10 May 2021 06:35:52 +0000 (UTC)
-Received: from tun252.jain.kot-begemot.co.uk ([192.168.18.6]
- helo=jain.kot-begemot.co.uk)
- by www.kot-begemot.co.uk with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.92) (envelope-from <anton.ivanov@cambridgegreys.com>)
- id 1lfyz9-0006DY-Qs; Mon, 10 May 2021 06:01:44 +0000
-Received: from madding.kot-begemot.co.uk ([192.168.3.98])
- by jain.kot-begemot.co.uk with esmtps
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <anton.ivanov@cambridgegreys.com>)
- id 1lfyz7-0004m2-Bb; Mon, 10 May 2021 07:01:43 +0100
-To: Zhen Lei <thunder.leizhen@huawei.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- linux-kernel <linux-kernel@vger.kernel.org>
-References: <20210510031606.3112-1-thunder.leizhen@huawei.com>
-From: Anton Ivanov <anton.ivanov@cambridgegreys.com>
-Organization: Cambridge Greys
-Message-ID: <9109a395-099b-ed14-4433-d4bf6dbf5cef@cambridgegreys.com>
-Date: Mon, 10 May 2021 07:01:41 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
+ [IPv6:2607:f8b0:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 056E76E4A7;
+ Mon, 10 May 2021 15:26:20 +0000 (UTC)
+Received: by mail-oi1-x230.google.com with SMTP id b25so10886096oic.0;
+ Mon, 10 May 2021 08:26:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=PKb19RbJtddT9ixiaDJEd8lwiTEBJP0932RguN39+5w=;
+ b=DN5VlvIzv2g9pN3rZ3NKCDlekbYySLhe/345TmwLE6f4Ue27NTu9IBhPFBLr9IaIdp
+ z4Zv7LzGdz4jlFYWm6fMGoZ7E8Bp7Q3gbA4NwITHmOGmb7bVjIZUqOoW/h4sy9iC3WJ6
+ z4zxnILaTCBvcRn04n77bWpzO+pJ5J4xvbALUbLoo25WVLrHdyXePrAUj/P2A4bQ1Nzj
+ nfzvdu2lN5xCZZmVkEk2fCzh8oWxvjprHyhXUtYiso/TnUJ3t9USHJHvbzc3Q9goIYH1
+ lkfU6sVWEMBZWptG8R/usnz+NxOg3E5m9FubEpR09knIBMHcF7pUvZBANGlZPst+vOCo
+ /yRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=PKb19RbJtddT9ixiaDJEd8lwiTEBJP0932RguN39+5w=;
+ b=BiBxYixmH9Q1Fnta6Q4GDr0HVv0SSA2RJW/ZN1WvXUI+VGipqJ4KYmekFIjZPjPg7r
+ K1PLcL/UemNHNzqapCqbJESLa021viDeowH6XsH/KaDUovoqtmIB8NY2w5AQNIKhjIb6
+ PEFkksrwWcxtA9mY58POHTfUI3OFsY0JN4+NsMisVHNQAJMt3UM75qi8zkDJdJRI+YsK
+ szis/vR3QQ+n3jlOaCm9L/HzjCn45pNbVqPRPY4f43wgHXMpspoHNJhdzMvO/r/sV3hK
+ E8+KJ4B3OJfBE/VJmsuL9Lu3yJ0AvSREdh7ckFNqw5NQvhSXAWpCzLP/d50Mlq7+/k6D
+ F8Bg==
+X-Gm-Message-State: AOAM533sxxRYAY3wP5j0jM2j+xjshXNvb1/ssMFltt6ocP39BLizwgVk
+ qUV13xtkSLspn6DtOg0VykRBZqGp0IKe6TfJOXo=
+X-Google-Smtp-Source: ABdhPJzCSRFYLLVUuC5sQQX2WXHyV1S5ZaJ9vjN9QEEuHySuJRNPNM6lWwqjm5FEw2QcIvsAelWNDKhsqEnDR1wI5ls=
+X-Received: by 2002:aca:c08a:: with SMTP id q132mr24901330oif.5.1620660379373; 
+ Mon, 10 May 2021 08:26:19 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20210510031606.3112-1-thunder.leizhen@huawei.com>
-Content-Language: en-US
-X-Spam-Score: -1.0
-X-Spam-Score: -1.0
-X-Clacks-Overhead: GNU Terry Pratchett
-X-Mailman-Approved-At: Mon, 10 May 2021 13:57:05 +0000
-Subject: Re: [Freedreno] [PATCH v2 0/1] drm/msm/dpu: Fix error return code
- in dpu_mdss_init()
+References: <20210508195641.397198-3-robdclark@gmail.com>
+ <20210509153842.124974-1-Houdek.Ryan@fex-emu.org>
+In-Reply-To: <20210509153842.124974-1-Houdek.Ryan@fex-emu.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 10 May 2021 11:26:08 -0400
+Message-ID: <CADnq5_OYRP5EE3GOdY6HyTcJuLxXw5V7X9fTTw+QMrKs6cjcvw@mail.gmail.com>
+To: houdek.ryan@fex-emu.org
+Subject: Re: [Freedreno] Tested
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,33 +61,28 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: robdclark@chromium.org, freedreno <freedreno@lists.freedesktop.org>,
+ Dave Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ yaohongbo@huawei.com, LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ swboyd@chromium.org, Rob Clark <robdclark@gmail.com>,
+ Qinglang Miao <miaoqinglang@huawei.com>, kalyan_t@codeaurora.org,
+ abhinavk@codeaurora.org, Sean Paul <sean@poorly.run>,
+ Maxime Ripard <maxime@cerno.tech>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/05/2021 04:16, Zhen Lei wrote:
-> v1 --> v2:
-> According to Anton Ivanov's review comments, detele the unnecessary local
-> variable initialization "ret = 0".
->
->
-> Zhen Lei (1):
->    drm/msm/dpu: Fix error return code in dpu_mdss_init()
->
->   drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c | 8 +++++---
->   1 file changed, 5 insertions(+), 3 deletions(-)
->
-I do not recall reviewing this.
+Sorry, what patch are you referring to?
 
-I think you got the wrong Anton Ivanov - I maintain UML so the previous 
-revision hit someone's else inbox.
+Alex
 
--- 
-Anton R. Ivanov
-Cambridgegreys Limited. Registered in England. Company Number 10273661
-https://www.cambridgegreys.com/
-
+On Mon, May 10, 2021 at 4:04 AM <houdek.ryan@fex-emu.org> wrote:
+>
+> I have tested this on my end and it resolves the 120hz problem.
+>
+> Tested-By: Ryan Houdek <Houdek.Ryan@fex-emu.org>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
