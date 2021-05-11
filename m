@@ -1,59 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6A6037A8D4
-	for <lists+freedreno@lfdr.de>; Tue, 11 May 2021 16:17:16 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D097937AE1D
+	for <lists+freedreno@lfdr.de>; Tue, 11 May 2021 20:12:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 872246EA48;
-	Tue, 11 May 2021 14:17:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF0576E7D7;
+	Tue, 11 May 2021 18:12:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC5F66EA48
- for <freedreno@lists.freedesktop.org>; Tue, 11 May 2021 14:17:13 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id m11so12447021lfg.3
- for <freedreno@lists.freedesktop.org>; Tue, 11 May 2021 07:17:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=aOd7P4mBcttOVEf7HItejeiFqW+qHDzpMy6VXQImmCE=;
- b=ppwjVQYrg0L0189wNpdzqx/BAvIaAcaX28pMnEIzPrI7NmwDhBZaJmqZTGgJIlRiln
- gFv6afDICNq+V/oESi/sY7UBb2Ms1K6CRNfumsPGQ4o+25edL+KmcxAkJ27Vum92TPGJ
- M9Wk/S1YwhUS5EG/ai+jmuMPW4S2hTI07CKbIA3TQTBH/5Pr32FlyYC6Vn0GMkR9X9Y1
- cGtU7/eUCUY4OsZOdUMHYToT66cvPKu3e0kBba+hwu43aHNSWTAJcc16rw+LoW7jTnCF
- rdYp4oGh9Mc06w96HnzxkP7CR46R+Ehe5kUTEkTGMoxTVDDwZyosUhB0FvZJGnljsaBV
- M1RQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=aOd7P4mBcttOVEf7HItejeiFqW+qHDzpMy6VXQImmCE=;
- b=O3Stjy+Zjiwamuw4Oz604vZSo8wau/3ibXaeaMGdPR1Wq00aS2SDG+OalKXwSDujKM
- dIx3xZ/Wyxw0y/u54Y3eop0+iYEqnmqLJRtPbcYSHFK0y2Gh+Un5I12dL7RoDHtl/gJb
- FvEAAiF3E2HOKJJAlGl8j+tZkaIlfgrEOBPsUBAOfKImzaoe4RD2AIyKKMcxvdx6IB7P
- YrtcD7lwsUhvBs4ExxWOYycv5qMOknkjHKKPRJQPb9oQ3F2F6m/Zpv4mbEF4thTxA3eA
- uvNEJ/zXdHMhUEH7O4jdCbjVsoYbGudZeRNAtWPyQLpFNkrWzqEmE/uJUgeNQSTStFKH
- tF0w==
-X-Gm-Message-State: AOAM5311ql73MTDKq+MfEVQzliB41QoMu75Aa41RJv04qynWCwrsDhYd
- oQxpsWvg/+hMUvxHD/36SfXV2w==
-X-Google-Smtp-Source: ABdhPJy9rFK4wrge+Nx3BJKqqF3UmHbEvmzMeFTmbSoaQMr+/QAvzBiPxt8jHqYIe0qRnoLoXG2tyw==
-X-Received: by 2002:a19:6b18:: with SMTP id d24mr20602230lfa.103.1620742632213; 
- Tue, 11 May 2021 07:17:12 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id x41sm2631543lfa.236.2021.05.11.07.17.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 May 2021 07:17:11 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <abhinavk@codeaurora.org>
-Date: Tue, 11 May 2021 17:17:11 +0300
-Message-Id: <20210511141711.635820-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.30.2
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D537A6E0C9
+ for <freedreno@lists.freedesktop.org>; Tue, 11 May 2021 18:12:05 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1620756728; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=DzEJfa/vKLf61btyzX4T5WVRRfcXyjWJ4T0YA1U8UFA=;
+ b=p6YV/jOdiZ3OtN1jaLHqmQRO4oOD1Al+m3ZfAwudyFZv9l9WGfPpWlHP3l/bSOlKmBeKi8Ev
+ jUupSIwNcvGRGvbM+8Gernk8nfue93YAYbg6v7Tfgui+1R9HBw0C7de4lbtAVWETPHKBK7Jl
+ XBK98VcyOxXhBxTbeSlhffB/eWI=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
+ 609ac8efe0211609c415fd4b (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 11 May 2021 18:11:59
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id F1AF5C4323A; Tue, 11 May 2021 18:11:58 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: rajeevny)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 43309C4338A;
+ Tue, 11 May 2021 18:11:57 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm/dpu: fix smart dma support
+Date: Tue, 11 May 2021 23:41:57 +0530
+From: rajeevny@codeaurora.org
+To: Doug Anderson <dianders@chromium.org>
+In-Reply-To: <CAD=FV=XW90L6or8NKA-Rjjp3s3fRno1xSkD+X0PA1rTyeKgpMw@mail.gmail.com>
+References: <1619416756-3533-1-git-send-email-rajeevny@codeaurora.org>
+ <1619416756-3533-2-git-send-email-rajeevny@codeaurora.org>
+ <20210429180435.GA1385465@robh.at.kernel.org>
+ <CAD=FV=V-kdySH5Pp-Fb-PRYk60Ha_UOTXJHcvMp+uV3P1oo7Uw@mail.gmail.com>
+ <78c4bd291bd4a17ae2a1d02d0217de43@codeaurora.org>
+ <CAD=FV=XW90L6or8NKA-Rjjp3s3fRno1xSkD+X0PA1rTyeKgpMw@mail.gmail.com>
+Message-ID: <c867b2e59e90899e6c1648e06f5f9cd2@codeaurora.org>
+X-Sender: rajeevny@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [v3 1/2] dt-bindings: backlight: add DisplayPort
+ aux backlight
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,155 +68,260 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, Rob Herring <robh@kernel.org>,
+ mkrishn@codeaurora.org, Lyude Paul <lyude@redhat.com>,
+ "open list:OPEN FIRMWARE AND FLATTENED
+ DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Andrzej Hajda <a.hajda@samsung.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <seanpaul@chromium.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Kalyan Thota <kalyan_t@codeaurora.org>, "Kristian H.
+ Kristensen" <hoegsberg@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>, "Lankhorst, 
+ Maarten" <maarten.lankhorst@intel.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Downstream driver uses dpu->caps->smart_dma_rev to update
-sspp->cap->features with the bit corresponding to the supported SmartDMA
-version. Upstream driver does not do this, resulting in SSPP subdriver
-not enbaling setup_multirect callback. Make SSPP subdriver check global
-smart_dma_rev to decide if setup_multirect should be enabled.
+On 01-05-2021 03:08, Doug Anderson wrote:
+> Hi,
+> 
+> On Fri, Apr 30, 2021 at 8:10 AM <rajeevny@codeaurora.org> wrote:
+>> 
+>> On 30-04-2021 02:33, Doug Anderson wrote:
+>> > Hi,
+>> >
+>> > On Thu, Apr 29, 2021 at 11:04 AM Rob Herring <robh@kernel.org> wrote:
+>> >>
+>> >> On Mon, Apr 26, 2021 at 11:29:15AM +0530, Rajeev Nandan wrote:
+>> >> > Add bindings for DisplayPort aux backlight driver.
+>> >> >
+>> >> > Changes in v2:
+>> >> > - New
+>> >> >
+>> >> > Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
+>> >> > ---
+>> >> >  .../bindings/leds/backlight/dp-aux-backlight.yaml  | 49 ++++++++++++++++++++++
+>> >> >  1 file changed, 49 insertions(+)
+>> >> >  create mode 100644 Documentation/devicetree/bindings/leds/backlight/dp-aux-backlight.yaml
+>> >> >
+>> >> > diff --git a/Documentation/devicetree/bindings/leds/backlight/dp-aux-backlight.yaml b/Documentation/devicetree/bindings/leds/backlight/dp-aux-backlight.yaml
+>> >> > new file mode 100644
+>> >> > index 00000000..0fa8bf0
+>> >> > --- /dev/null
+>> >> > +++ b/Documentation/devicetree/bindings/leds/backlight/dp-aux-backlight.yaml
+>> >> > @@ -0,0 +1,49 @@
+>> >> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> >> > +%YAML 1.2
+>> >> > +---
+>> >> > +$id: http://devicetree.org/schemas/leds/backlight/dp-aux-backlight.yaml#
+>> >> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> >> > +
+>> >> > +title: DisplayPort aux backlight driver bindings
+>> >> > +
+>> >> > +maintainers:
+>> >> > +  - Rajeev Nandan <rajeevny@codeaurora.org>
+>> >> > +
+>> >> > +description:
+>> >> > +  Backlight driver to control the brightness over DisplayPort aux channel.
+>> >> > +
+>> >> > +allOf:
+>> >> > +  - $ref: common.yaml#
+>> >> > +
+>> >> > +properties:
+>> >> > +  compatible:
+>> >> > +    const: dp-aux-backlight
+>> >> > +
+>> >> > +  ddc-i2c-bus:
+>> >> > +    $ref: /schemas/types.yaml#/definitions/phandle
+>> >> > +    description:
+>> >> > +      A phandle to the system I2C controller connected to the DDC bus used
+>> >> > +      for the DisplayPort AUX channel.
+>> >> > +
+>> >> > +  enable-gpios:
+>> >> > +    maxItems: 1
+>> >> > +    description: GPIO specifier for backlight enable pin.
+>> >> > +
+>> >> > +  max-brightness: true
+>> >> > +
+>> >> > +required:
+>> >> > +  - compatible
+>> >> > +  - ddc-i2c-bus
+>> >> > +
+>> >> > +additionalProperties: false
+>> >> > +
+>> >> > +examples:
+>> >> > +  - |
+>> >> > +    backlight {
+>> >> > +        compatible = "dp-aux-backlight";
+>> >> > +        ddc-i2c-bus = <&sn65dsi86_bridge>;
+>> >> > +        enable-gpios = <&tlmm 12 GPIO_ACTIVE_HIGH>;
+>> >>
+>> >> So the DDC bus is connected to a backlight and also a panel? This
+>> >> binding is not reflecting the h/w, but rather what you want for some
+>> >> driver.
+>> >>
+>> >> There's only one thing here and that's an eDP panel which supports
+>> >> backlight control via DP aux channel. You can figure all that out from
+>> >> the panel's compatible and/or reading the EDID.
+>> >>
+>> >> You might also be interested in this thread:
+>> >>
+>> >> https://lore.kernel.org/lkml/YIKsDtjcIHGNvW0u@orome.fritz.box/
+>> >
+>> > I think Rajeev needs to rework everything anyway as per:
+>> >
+>> > https://lore.kernel.org/r/87zgxl5qar.fsf@intel.com
+>> >
+>> > ...but you're right that it makes sense not to model the backlight as
+>> > a separate node in the device tree. The panel driver can handle
+>> > setting up the backlight.
+>> >
+>> > -Doug
+>> 
+>> It was not a good idea to create a separate backlight driver and use
+>> ddc-i2c-bus to get access to DP aux. I am working to move the code
+>> to the panel driver and to utilize the new DRM helper functions
+>> (drm_edp_backlight_*) Lyude has added [1].
+>> 
+>> To use these helper functions, the panel driver should have access to
+>> the
+>> "struct drm_dp_aux *". The simple-panel has a "ddc-i2c-bus" property
+>> to give the panel access to the DDC bus and is currently being used to
+>> get the EDID from the panel. Can I use the same ddc bus i2c_adapter to
+>> get
+>> the "struct drm_dp_aux *"?
+>> 
+>> As per the suggestion [2], I get the "struct drm_dp_aux *" from the
+>> i2c_adapter of ddc bus (maybe I didn't understand the suggestion
+>> correctly),
+>> and, it turned out, the way I have implemented is not the right way 
+>> [3].
+>> So, I am afraid to use the same method in the panel driver.
+>> 
+>> 
+>> [1] https://lore.kernel.org/dri-devel/871rb5bcf9.fsf@intel.com/
+>> [2] https://www.spinics.net/lists/dri-devel/msg295429.html
+>> [3]
+>> https://lore.kernel.org/dri-devel/20210426111116.4lc3ekxjugjr3oho@maple.lan/
+> 
+> So it's definitely up to maintainers, not me. ...but I guess I would
+> have expected something like a new property called "ddc-aux-bus". Then
+> you'd have to create a new API call called something like
+> "of_find_ddc_aux_adapter_by_node()" that would allow you to find it.
+> 
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To implement the first suggestion, I can think of the following way
+to get the "struct drm_dp_aux" in the panel_simple_probe function:
+
+- Create a new panel-simple DT property "ddc-aux-bus", a phandle to the
+platform device that implements the AUX channel.
+
+- Create a global list of drm_dp_aux in drm_dp_helper.c. Initialize list 
+head
+in drm_dp_aux_init(), add the drm_dp_aux onto the list in 
+drm_dp_aux_register().
+Similarly, remove the drm_dp_aux from list in drm_dp_aux_unregister().
+
+- Create a new function of_drm_find_dp_aux_by_node() to get the expected
+drm_dp_aux from this global list.
+
+Please let me know your views on this implementation.
+
+Below is the summary of the changes in drm dp helper:
+
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 10 +++++-----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 16 ++++++++++++----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c    |  9 +++++----
- 3 files changed, 22 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index b569030a0847..036334e3d99d 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -157,7 +157,7 @@ static const struct dpu_caps sdm845_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0xb,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED3,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2,
-+	.smart_dma_rev = DPU_SMART_DMA_V2,
- 	.ubwc_version = DPU_HW_UBWC_VER_20,
- 	.has_src_split = true,
- 	.has_dim_layer = true,
-@@ -173,7 +173,7 @@ static const struct dpu_caps sc7180_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0x9,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED4,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2,
-+	.smart_dma_rev = DPU_SMART_DMA_V2,
- 	.ubwc_version = DPU_HW_UBWC_VER_20,
- 	.has_dim_layer = true,
- 	.has_idle_pc = true,
-@@ -185,7 +185,7 @@ static const struct dpu_caps sm8150_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0xb,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED3,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2, /* TODO: v2.5 */
-+	.smart_dma_rev = DPU_SMART_DMA_V2, /* TODO: v2.5 */
- 	.ubwc_version = DPU_HW_UBWC_VER_30,
- 	.has_src_split = true,
- 	.has_dim_layer = true,
-@@ -201,7 +201,7 @@ static const struct dpu_caps sm8250_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0xb,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED3LITE,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2, /* TODO: v2.5 */
-+	.smart_dma_rev = DPU_SMART_DMA_V2, /* TODO: v2.5 */
- 	.ubwc_version = DPU_HW_UBWC_VER_40,
- 	.has_src_split = true,
- 	.has_dim_layer = true,
-@@ -215,7 +215,7 @@ static const struct dpu_caps sc7280_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0x7,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED4,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2,
-+	.smart_dma_rev = DPU_SMART_DMA_V2,
- 	.ubwc_version = DPU_HW_UBWC_VER_30,
- 	.has_dim_layer = true,
- 	.has_idle_pc = true,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-index 4dfd8a20ad5c..04ebccd92d4e 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-@@ -70,6 +70,18 @@ enum {
- 	DPU_HW_UBWC_VER_40 = 0x400,
- };
- 
-+/**
-+ * SmartDMA support
-+ * @DPU_SMART_DMA_UNSUPPORTED,   SmartDMA not support
-+ * @DPU_SMART_DMA_V1,   SmartDMA 1.0 support
-+ * @DPU_SMART_DMA_V2,   SmartDMA 2.0 support
-+ */
-+enum {
-+	DPU_SMART_DMA_UNSUPPORTED,
-+	DPU_SMART_DMA_V1,
-+	DPU_SMART_DMA_V2,
-+};
-+
- /**
-  * MDP TOP BLOCK features
-  * @DPU_MDP_PANIC_PER_PIPE Panic configuration needs to be be done per pipe
-@@ -104,8 +116,6 @@ enum {
-  * @DPU_SSPP_QOS,            SSPP support QoS control, danger/safe/creq
-  * @DPU_SSPP_QOS_8LVL,       SSPP support 8-level QoS control
-  * @DPU_SSPP_EXCL_RECT,      SSPP supports exclusion rect
-- * @DPU_SSPP_SMART_DMA_V1,   SmartDMA 1.0 support
-- * @DPU_SSPP_SMART_DMA_V2,   SmartDMA 2.0 support
-  * @DPU_SSPP_TS_PREFILL      Supports prefill with traffic shaper
-  * @DPU_SSPP_TS_PREFILL_REC1 Supports prefill with traffic shaper multirec
-  * @DPU_SSPP_CDP             Supports client driven prefetch
-@@ -124,8 +134,6 @@ enum {
- 	DPU_SSPP_QOS,
- 	DPU_SSPP_QOS_8LVL,
- 	DPU_SSPP_EXCL_RECT,
--	DPU_SSPP_SMART_DMA_V1,
--	DPU_SSPP_SMART_DMA_V2,
- 	DPU_SSPP_TS_PREFILL,
- 	DPU_SSPP_TS_PREFILL_REC1,
- 	DPU_SSPP_CDP,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-index 34d81aa16041..3ce4c5cd5d05 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-@@ -647,7 +647,8 @@ static void dpu_hw_sspp_setup_cdp(struct dpu_hw_pipe *ctx,
- }
- 
- static void _setup_layer_ops(struct dpu_hw_pipe *c,
--		unsigned long features)
-+		unsigned long features,
-+		int smart_dma_rev)
- {
- 	if (test_bit(DPU_SSPP_SRC, &features)) {
- 		c->ops.setup_format = dpu_hw_sspp_setup_format;
-@@ -668,8 +669,8 @@ static void _setup_layer_ops(struct dpu_hw_pipe *c,
- 		test_bit(DPU_SSPP_CSC_10BIT, &features))
- 		c->ops.setup_csc = dpu_hw_sspp_setup_csc;
- 
--	if (test_bit(DPU_SSPP_SMART_DMA_V1, &c->cap->features) ||
--		test_bit(DPU_SSPP_SMART_DMA_V2, &c->cap->features))
-+	if (smart_dma_rev == DPU_SMART_DMA_V1 ||
-+	    smart_dma_rev == DPU_SMART_DMA_V2)
- 		c->ops.setup_multirect = dpu_hw_sspp_setup_multirect;
- 
- 	if (test_bit(DPU_SSPP_SCALER_QSEED3, &features) ||
-@@ -733,7 +734,7 @@ struct dpu_hw_pipe *dpu_hw_sspp_init(enum dpu_sspp idx,
- 	hw_pipe->mdp = &catalog->mdp[0];
- 	hw_pipe->idx = idx;
- 	hw_pipe->cap = cfg;
--	_setup_layer_ops(hw_pipe, hw_pipe->cap->features);
-+	_setup_layer_ops(hw_pipe, hw_pipe->cap->features, catalog->caps->smart_dma_rev);
- 
- 	dpu_hw_blk_init(&hw_pipe->base, DPU_HW_BLK_SSPP, idx, &dpu_hw_ops);
- 
--- 
-2.30.2
+// drm_dp_helper.h
 
+struct drm_dp_aux {
+	...
+	struct list_head list;
+	...
+}
+
+// drm_dp_helper.c
+
+static DEFINE_MUTEX(dp_aux_lock);
+static LIST_HEAD(dp_aux_list);
+
+static void drm_dp_aux_add(struct drm_dp_aux *aux)
+{
+     mutex_lock(&dp_aux_lock);
+     list_add_tail(&aux->list, &dp_aux_list);
+     mutex_unlock(&dp_aux_lock);
+}
+
+static void drm_dp_aux_remove(struct drm_dp_aux *aux)
+{
+     mutex_lock(&dp_aux_lock);
+     list_del_init(&aux->list);
+     mutex_unlock(&dp_aux_lock);
+}
+
+#ifdef CONFIG_OF
+struct drm_dp_aux *of_drm_find_dp_aux_by_node(struct device_node *np)
+{
+     struct drm_dp_aux *aux;
+     mutex_lock(&dp_aux_lock);
+
+     list_for_each_entry(aux, &dp_aux_list, list) {
+         if (aux->dev->of_node == np) {
+             mutex_unlock(&dp_aux_lock);
+             return aux;
+         }
+     }
+
+     mutex_unlock(&dp_aux_lock);
+     return NULL;
+}
+EXPORT_SYMBOL(of_drm_find_dp_aux_by_node);
+#endif
+
+
+int drm_dp_aux_init(struct drm_dp_aux *aux)
+{
+     INIT_LIST_HEAD(&aux->list);
+     ...
+}
+
+int drm_dp_aux_register(struct drm_dp_aux *aux)
+{
+     ...
+     drm_dp_aux_add(aux);
+
+     return 0;
+}
+
+void drm_dp_aux_unregister(struct drm_dp_aux *aux)
+{
+     drm_dp_aux_remove(aux);
+     ...
+}
+---
+
+Thanks,
+Rajeev
+
+> I guess an alternate way to solve this (I'm not totally sure whether
+> it's better or worse) would be to add a function that would walk up
+> the chain of parent bridges and ask them for a pointer to the aux bus.
+> I definitely haven't thought it all the way through, but I'd imagine
+> something like drm_bridge_chain_get_ddc_aux(). This is _probably_
+> better than adding the "ddc-aux-bus" property but it assumes that the
+> aux bus is provided by one of our parents. Hrm, looking at this
+> briefly, though, I'm not sure how to do it. It doesn't seem possible
+> to get the parent bridges from the panel structure. Even if you assume
+> that your parent is wrapping you with a panel_bridge it still doesn't
+> seem possible?
+> 
+> This probably needs more drm-expertise.
+> 
+> -Doug
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
