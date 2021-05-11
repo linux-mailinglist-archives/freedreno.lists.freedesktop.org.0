@@ -1,60 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A86A379E43
-	for <lists+freedreno@lfdr.de>; Tue, 11 May 2021 06:20:55 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1425E379E46
+	for <lists+freedreno@lfdr.de>; Tue, 11 May 2021 06:20:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 922326E9AB;
-	Tue, 11 May 2021 04:20:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 649776E9B2;
+	Tue, 11 May 2021 04:20:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
- [IPv6:2607:f8b0:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF4D86E9AB
- for <freedreno@lists.freedesktop.org>; Tue, 11 May 2021 04:20:52 +0000 (UTC)
-Received: by mail-oi1-x235.google.com with SMTP id n184so17841749oia.12
- for <freedreno@lists.freedesktop.org>; Mon, 10 May 2021 21:20:52 -0700 (PDT)
+Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com
+ [IPv6:2607:f8b0:4864:20::c2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 374146E9B2
+ for <freedreno@lists.freedesktop.org>; Tue, 11 May 2021 04:20:55 +0000 (UTC)
+Received: by mail-oo1-xc2e.google.com with SMTP id
+ e7-20020a4ad2470000b02902088d0512ceso1113370oos.8
+ for <freedreno@lists.freedesktop.org>; Mon, 10 May 2021 21:20:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=3sAnreHKyEqLrxBWePiwhRu930iTUs8+45ufhMRReXo=;
- b=zH6hgGNYjGqj2IMIUj5mNl+3TVZadxNEV50zVtX+0J6nuVggTisVFFsYuN3EHs4u0z
- 21UOgf2M3zYl7eB7JIStzDf4Q8V3hoMWES4S3L9PLuG5S3cAiueFXZJFnwDe/ozFoQ2F
- ocqEPPY9E4EiMsLr3PESgaSifyp4zDW6DbkcqDwr1On0rlb/Rw/G4tpEj8DPilF8EUVc
- TVIxN42CAf5ndDM677Hb92pXr+3bHwG9xi6MRrRG/xwgjvxWdkGlrfZL8mklS7tRiZZV
- LctmGTxJ8w34HuduKQPjX/POXOUVnkWrAqdYNAlPtsMbBGzMnni7B+f969XFI79k7a+5
- 5rPg==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=OcpXm0EDMnP4dra5e7iyBpiH9cJegx8S0SHhpEQspRs=;
+ b=uy35xOt8NlWv2bH/rJeOkeWy/DdvsU2ILjJHieExX+E824ktjTUD7GWuxkWugIEz0Z
+ SrasuBXe/RGJ+jckNzWj9U5MNJmIWcn4NvHz1ym51cvjVK6SpYTKkUD7o7yGfnrGxQ7f
+ RnWNPOZofts9QPo6ptIIQR7wZ363rAPgox9S8upKUJKJMLxwFu5/FPMh/1QUw8rNZt04
+ kEEwUeM+XWuD+NjZ/8Gdq29/fc5Mfhb9wtpAWZgex1pGtmpoNSTJpehdIejYTureT4iG
+ ipeO67SMP3v99f8j+K+PerjxbCPOJzAG4DymV4lo3KwY4RcUKuvWfNbaufRtk3xjxVrL
+ W76Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=3sAnreHKyEqLrxBWePiwhRu930iTUs8+45ufhMRReXo=;
- b=odqB6kuwH0HG68Dc7G9LElpsbMvvy39CQXZXtCkI1G6P7ykmQP9D7PvRMhoBPIKcJS
- HmPm7XybGmw8DNUyutk/iOdzbjH1HPfolxywAK/C9W4weeb68ZeIHn2PLnPQNgLisCdc
- XgGWZuG4jRzcNHMXqljTHT3STY5hfIDBYX8maEYy2A82vMkeLQJAt3Saj8Ixu+ozJ2hV
- fLyz68Y50mLHMq4vikZ4ecy5E4ng8GlvnzTohqq8x1JcIy4N7J0SlEOt974b9bNyHttE
- C04XLqBnfppsdOW3f/i1rE6bcBnIJSB3fwvI47VLbv0Pjgj9REBHnVV9T5aHS/Ksdm4q
- jkRQ==
-X-Gm-Message-State: AOAM530CLHdieTgh6XUR28XoBsDPozjvL7oSaTw+fzaiKcy/QrCgu9+5
- Drdye7udLf7qelO/R0H+BWXDSA==
-X-Google-Smtp-Source: ABdhPJwojnmqufg0lJ4akmfDWkkObUb4HRQ0v8GMtG0dAG2Vf9ooU4W4IGX+N8IzuFQ1r8r8SyJnsQ==
-X-Received: by 2002:aca:d8d5:: with SMTP id p204mr1967717oig.151.1620706852170; 
- Mon, 10 May 2021 21:20:52 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=OcpXm0EDMnP4dra5e7iyBpiH9cJegx8S0SHhpEQspRs=;
+ b=Iw1MLgNGcDPebq3mYiFT8MChUJOJVexe+/YsJ/26qeZ4O1UvjBq5+7Fgldew4LnXFt
+ TpwTXz6cx70EfYrNRfzVWACjXVVwXhem2EDVEOk4ybP12pFtBUXxLukltM/9kJwPZ20i
+ n0eWB6O/phUAkXmum9d6865+huyq/CTDM4wOUTmv9SBSYK5XboBgJAcPkKuWkazOUrDY
+ wMw5VLj8sz8JrmZd2T4JHnX6NXuS8CTi6gyLWYJAIgDcqMUG/sNlauHpKYMAJMQLi+wI
+ 2mJNpuLrB8NZSgOJSewZSUT0D/E/Wjoyffdf3dHimBLtkMaqWcAtGVwH8aaNJrXNdNJJ
+ cZBg==
+X-Gm-Message-State: AOAM531mpE7mbqeo5bK5sEX1Ly4DId0/8jXzRAxxdZCxPtm/4jBwTS7J
+ F4sV8uqKSdCAVVkUOCG/A4cWFw==
+X-Google-Smtp-Source: ABdhPJxPDNuwbdGnwtO2yQGR4GWIYkcmFFbdGXCWFAxp71xpPhzuxeiakHDyAlIwTunkimpw7dpLTg==
+X-Received: by 2002:a4a:b102:: with SMTP id a2mr21819330ooo.30.1620706854521; 
+ Mon, 10 May 2021 21:20:54 -0700 (PDT)
 Received: from localhost.localdomain ([2607:fb90:e623:42c1:10df:adff:fec2:f1d])
- by smtp.gmail.com with ESMTPSA id r124sm3042294oig.38.2021.05.10.21.20.50
+ by smtp.gmail.com with ESMTPSA id r124sm3042294oig.38.2021.05.10.21.20.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 May 2021 21:20:51 -0700 (PDT)
+ Mon, 10 May 2021 21:20:54 -0700 (PDT)
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
  Stephen Boyd <swboyd@chromium.org>, sbillaka@codeaurora.org
-Date: Mon, 10 May 2021 23:20:39 -0500
-Message-Id: <20210511042043.592802-1-bjorn.andersson@linaro.org>
+Date: Mon, 10 May 2021 23:20:40 -0500
+Message-Id: <20210511042043.592802-2-bjorn.andersson@linaro.org>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210511042043.592802-1-bjorn.andersson@linaro.org>
+References: <20210511042043.592802-1-bjorn.andersson@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 0/4] drm/msm/dp: Add support for SC8180x eDP
- controller
+Subject: [Freedreno] [PATCH 1/4] drm/msm/dp: Simplify the mvid/nvid
+ calculation
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,30 +80,110 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The first patch in the series is somewhat unrelated to the support, but
-simplifies reasoning and debugging of timing related issues.
+In the search for causes to timing issues seen during implementation of
+eDP support for SC8180x a fair amount of time was spent concluding why
+the calculated mvid/nvid values where wrong.
 
-The second patch introduces support for dealing with different register block
-layouts, which is used in the forth patch to describe the hardware blocks found
-in the SC8180x eDP block.
+The overall conclusion is that the ratio of MVID/NVID describes, and
+should match, the ratio between the pixel and link clock.
 
-The third patch configures the INTF_CONFIG register, which carries the
-configuration for widebus handling. As with the DPU the bootloader enables
-widebus and we need to disable it, or implement support for adjusting the
-timing.
+Downstream this calculation reads the M and N values off the pixel clock
+straight from DISP_CC and are then adjusted based on knowledge of how
+the link and vco_div (parent of the pixel clock) are derrived from the
+common VCO.
 
-Bjorn Andersson (4):
-  drm/msm/dp: Simplify the mvid/nvid calculation
-  drm/msm/dp: Store each subblock in the io region
-  drm/msm/dp: Initialize the INTF_CONFIG register
-  drm/msm/dp: Add support for SC8180x eDP
+While upstreaming, and then extracting the PHY driver, the resulting
+function performs the following steps:
 
- drivers/gpu/drm/msm/dp/dp_catalog.c | 99 +++++++----------------------
- drivers/gpu/drm/msm/dp/dp_display.c |  1 +
- drivers/gpu/drm/msm/dp/dp_parser.c  | 22 +++++++
- drivers/gpu/drm/msm/dp/dp_parser.h  |  8 +++
- 4 files changed, 53 insertions(+), 77 deletions(-)
+1) Adjust the passed link rate based on the VCO divider used in the PHY
+   driver, and multiply this by 10 based on the link rate divider.
+2) Pick reasonable choices of M and N, by calculating the ratio between
+   this new clock and the pixel clock.
+3) Subtract M from N and flip the bits, to match the encoding of the N
+   register in DISP_CC.
+4) Flip the bits of N and add M, to get the value of N back.
+5) Multiply M with 5, per the documentation.
+6) Scale the values such that N is close to 0x8000 (or larger)
+7) Multply M with 2 or 3 depending on the link rate of HBR2 or HBR3.
 
+Presumably step 3) was added to provide step 4) with expected input, so
+the two cancel each other out. The factor of 10 from step 1) goes into
+the denominator and is partially cancelled by the 5 in the numerator in
+step 5), resulting in step 7) simply cancelling out step 1).
+
+Left is the code that finds the ratio between the two arguments, scaled
+to keep the denominator close to or larger than 0x8000. And this is our
+mvid/nvid pair.
+
+Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+---
+ drivers/gpu/drm/msm/dp/dp_catalog.c | 41 +++++------------------------
+ 1 file changed, 6 insertions(+), 35 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
+index b1a9b1b98f5f..2eb37ee48e42 100644
+--- a/drivers/gpu/drm/msm/dp/dp_catalog.c
++++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
+@@ -415,39 +415,16 @@ void dp_catalog_ctrl_config_msa(struct dp_catalog *dp_catalog,
+ 					u32 rate, u32 stream_rate_khz,
+ 					bool fixed_nvid)
+ {
+-	u32 pixel_m, pixel_n;
+-	u32 mvid, nvid, pixel_div = 0, dispcc_input_rate;
+ 	u32 const nvid_fixed = DP_LINK_CONSTANT_N_VALUE;
+-	u32 const link_rate_hbr2 = 540000;
+-	u32 const link_rate_hbr3 = 810000;
+-	unsigned long den, num;
+-
++	unsigned long mvid, nvid;
+ 	struct dp_catalog_private *catalog = container_of(dp_catalog,
+ 				struct dp_catalog_private, dp_catalog);
+ 
+-	if (rate == link_rate_hbr3)
+-		pixel_div = 6;
+-	else if (rate == 1620000 || rate == 270000)
+-		pixel_div = 2;
+-	else if (rate == link_rate_hbr2)
+-		pixel_div = 4;
+-	else
+-		DRM_ERROR("Invalid pixel mux divider\n");
+-
+-	dispcc_input_rate = (rate * 10) / pixel_div;
+-
+-	rational_best_approximation(dispcc_input_rate, stream_rate_khz,
+-			(unsigned long)(1 << 16) - 1,
+-			(unsigned long)(1 << 16) - 1, &den, &num);
+-
+-	den = ~(den - num);
+-	den = den & 0xFFFF;
+-	pixel_m = num;
+-	pixel_n = den;
+-
+-	mvid = (pixel_m & 0xFFFF) * 5;
+-	nvid = (0xFFFF & (~pixel_n)) + (pixel_m & 0xFFFF);
++	rational_best_approximation(stream_rate_khz, rate,
++				    (1 << 16) - 1, (1 << 16) - 1,
++				    &mvid, &nvid);
+ 
++	/* Adjust values so that nvid is close to DP_LINK_CONSTANT_N_VALUE */
+ 	if (nvid < nvid_fixed) {
+ 		u32 temp;
+ 
+@@ -456,13 +433,7 @@ void dp_catalog_ctrl_config_msa(struct dp_catalog *dp_catalog,
+ 		nvid = temp;
+ 	}
+ 
+-	if (link_rate_hbr2 == rate)
+-		nvid *= 2;
+-
+-	if (link_rate_hbr3 == rate)
+-		nvid *= 3;
+-
+-	DRM_DEBUG_DP("mvid=0x%x, nvid=0x%x\n", mvid, nvid);
++	DRM_DEBUG_DP("mvid=0x%lx, nvid=0x%lx\n", mvid, nvid);
+ 	dp_write_link(catalog, REG_DP_SOFTWARE_MVID, mvid);
+ 	dp_write_link(catalog, REG_DP_SOFTWARE_NVID, nvid);
+ 	dp_write_p0(catalog, MMSS_DP_DSC_DTO, 0x0);
 -- 
 2.29.2
 
