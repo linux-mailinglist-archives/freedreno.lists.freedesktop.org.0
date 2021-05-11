@@ -1,63 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1108F379E2D
-	for <lists+freedreno@lfdr.de>; Tue, 11 May 2021 06:19:07 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A86A379E43
+	for <lists+freedreno@lfdr.de>; Tue, 11 May 2021 06:20:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54FA66E9B5;
-	Tue, 11 May 2021 04:19:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 922326E9AB;
+	Tue, 11 May 2021 04:20:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc32.google.com (mail-oo1-xc32.google.com
- [IPv6:2607:f8b0:4864:20::c32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB5C46E9B4
- for <freedreno@lists.freedesktop.org>; Tue, 11 May 2021 04:19:02 +0000 (UTC)
-Received: by mail-oo1-xc32.google.com with SMTP id
- w6-20020a4a9d060000b02901f9175244e7so3941774ooj.9
- for <freedreno@lists.freedesktop.org>; Mon, 10 May 2021 21:19:02 -0700 (PDT)
+Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
+ [IPv6:2607:f8b0:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF4D86E9AB
+ for <freedreno@lists.freedesktop.org>; Tue, 11 May 2021 04:20:52 +0000 (UTC)
+Received: by mail-oi1-x235.google.com with SMTP id n184so17841749oia.12
+ for <freedreno@lists.freedesktop.org>; Mon, 10 May 2021 21:20:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=rN0DT3zlZfmYWomZy/xhSTmw4G63PXYLKWmt/5607Kk=;
- b=Pol1SjKqEVGlx/WScV9FX5CZvpeia/m9qrHo+ror/7kmCvGHG3QC38IWj6KzE3c9XH
- ce7ASja3E5wkKuCbXBH0Uk9ac82RNb6ROPT8XyBHYsDx42bPg78cUCyXPZn18+QG3km6
- GHnFlUN/BJdAjN8ZVP6vqoMiMpzRA6yMcEAV6P3ZS8zezHZux1hL/s+4V5gFGP+t4lpx
- +2z0/WFKljoMLNXwPxTF9G7CnMZ5Ka0eT/NRsIK0GOKzWHFak7VozsDigy9BrW9EkSp9
- WGorcxAarLHSepbVVfB6Ep7Jd0fbSRcsjLUDQB666W08InmAu/Dwpj9hsnfuib1vDWBj
- uhAQ==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=3sAnreHKyEqLrxBWePiwhRu930iTUs8+45ufhMRReXo=;
+ b=zH6hgGNYjGqj2IMIUj5mNl+3TVZadxNEV50zVtX+0J6nuVggTisVFFsYuN3EHs4u0z
+ 21UOgf2M3zYl7eB7JIStzDf4Q8V3hoMWES4S3L9PLuG5S3cAiueFXZJFnwDe/ozFoQ2F
+ ocqEPPY9E4EiMsLr3PESgaSifyp4zDW6DbkcqDwr1On0rlb/Rw/G4tpEj8DPilF8EUVc
+ TVIxN42CAf5ndDM677Hb92pXr+3bHwG9xi6MRrRG/xwgjvxWdkGlrfZL8mklS7tRiZZV
+ LctmGTxJ8w34HuduKQPjX/POXOUVnkWrAqdYNAlPtsMbBGzMnni7B+f969XFI79k7a+5
+ 5rPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=rN0DT3zlZfmYWomZy/xhSTmw4G63PXYLKWmt/5607Kk=;
- b=HeBh+g9U5I+ucEjuIeAAIrLPlsBO8MK/GuGe8pQ323ODIr/pJkT49iGcDzqNuSTnVD
- 4BTkbqNpKJ0v9FTnwlFLrw8wjkBtXliYGYLjZcw9tGMBxi7JMW63DW/uhMPGUGthEOEO
- DI7clv9JA3OJuKDbHX/xnSc4vO/MNLSgkXmAEFc8iRQFMEwlCjXvTzVlGe5txoiafNgt
- 31pOK9bTf4c+rZlcekkDIJUI5+FW6Myuu3ibdXqHWG/cglex7MJ6QtX6sCd2wz84qHOR
- j3PtnMzAVuhmnq07dpmQmHGXTgHFybhyU5rY76h9TyLw5SZANyeKZVgv4udeH7FmJErH
- +A3g==
-X-Gm-Message-State: AOAM532mUt+6MBcIEPHLw4qOj5beoF485EPPl5d/jW1l64i4/d3RwwZs
- H//h5033gezJrDkfEYvkG1mBug==
-X-Google-Smtp-Source: ABdhPJzxymsZa4j9D945sY4/mED7VULyiH1STgKoObJ3xYiJP+20nom2ZFRast2hI3f29OZ20Y5cfg==
-X-Received: by 2002:a4a:d4c7:: with SMTP id r7mr6433326oos.85.1620706742050;
- Mon, 10 May 2021 21:19:02 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=3sAnreHKyEqLrxBWePiwhRu930iTUs8+45ufhMRReXo=;
+ b=odqB6kuwH0HG68Dc7G9LElpsbMvvy39CQXZXtCkI1G6P7ykmQP9D7PvRMhoBPIKcJS
+ HmPm7XybGmw8DNUyutk/iOdzbjH1HPfolxywAK/C9W4weeb68ZeIHn2PLnPQNgLisCdc
+ XgGWZuG4jRzcNHMXqljTHT3STY5hfIDBYX8maEYy2A82vMkeLQJAt3Saj8Ixu+ozJ2hV
+ fLyz68Y50mLHMq4vikZ4ecy5E4ng8GlvnzTohqq8x1JcIy4N7J0SlEOt974b9bNyHttE
+ C04XLqBnfppsdOW3f/i1rE6bcBnIJSB3fwvI47VLbv0Pjgj9REBHnVV9T5aHS/Ksdm4q
+ jkRQ==
+X-Gm-Message-State: AOAM530CLHdieTgh6XUR28XoBsDPozjvL7oSaTw+fzaiKcy/QrCgu9+5
+ Drdye7udLf7qelO/R0H+BWXDSA==
+X-Google-Smtp-Source: ABdhPJwojnmqufg0lJ4akmfDWkkObUb4HRQ0v8GMtG0dAG2Vf9ooU4W4IGX+N8IzuFQ1r8r8SyJnsQ==
+X-Received: by 2002:aca:d8d5:: with SMTP id p204mr1967717oig.151.1620706852170; 
+ Mon, 10 May 2021 21:20:52 -0700 (PDT)
 Received: from localhost.localdomain ([2607:fb90:e623:42c1:10df:adff:fec2:f1d])
- by smtp.gmail.com with ESMTPSA id z15sm558647otp.20.2021.05.10.21.19.00
+ by smtp.gmail.com with ESMTPSA id r124sm3042294oig.38.2021.05.10.21.20.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 May 2021 21:19:01 -0700 (PDT)
+ Mon, 10 May 2021 21:20:51 -0700 (PDT)
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Herring <robh+dt@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 10 May 2021 23:18:52 -0500
-Message-Id: <20210511041852.592295-5-bjorn.andersson@linaro.org>
+ Stephen Boyd <swboyd@chromium.org>, sbillaka@codeaurora.org
+Date: Mon, 10 May 2021 23:20:39 -0500
+Message-Id: <20210511042043.592802-1-bjorn.andersson@linaro.org>
 X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210511041852.592295-1-bjorn.andersson@linaro.org>
-References: <20210511041852.592295-1-bjorn.andersson@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 4/4] dpu: hack up the irq table for 8180 intf_5
+Subject: [Freedreno] [PATCH 0/4] drm/msm/dp: Add support for SC8180x eDP
+ controller
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,61 +67,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+Cc: Tanmay Shah <tanmay@codeaurora.org>, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org, Chandan Uddaraju <chandanu@codeaurora.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
----
+The first patch in the series is somewhat unrelated to the support, but
+simplifies reasoning and debugging of timing related issues.
 
-This is a hack and as discussed on IRC this should be replaced by some sane
-mechanism for dealing with the old and new IRQ layout. Including it in the
-series for completeness.
+The second patch introduces support for dealing with different register block
+layouts, which is used in the forth patch to describe the hardware blocks found
+in the SC8180x eDP block.
 
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 14 ++++++--------
- 1 file changed, 6 insertions(+), 8 deletions(-)
+The third patch configures the INTF_CONFIG register, which carries the
+configuration for widebus handling. As with the DPU the bootloader enables
+widebus and we need to disable it, or implement support for adjusting the
+timing.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-index 48c96b812126..fa576c617f86 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-@@ -72,11 +72,13 @@
- #define DPU_INTR_INTF_1_UNDERRUN BIT(26)
- #define DPU_INTR_INTF_2_UNDERRUN BIT(28)
- #define DPU_INTR_INTF_3_UNDERRUN BIT(30)
-+#define DPU_INTR_INTF_4_UNDERRUN BIT(20)
- #define DPU_INTR_INTF_5_UNDERRUN BIT(22)
- #define DPU_INTR_INTF_0_VSYNC BIT(25)
- #define DPU_INTR_INTF_1_VSYNC BIT(27)
- #define DPU_INTR_INTF_2_VSYNC BIT(29)
- #define DPU_INTR_INTF_3_VSYNC BIT(31)
-+#define DPU_INTR_INTF_4_VSYNC BIT(21)
- #define DPU_INTR_INTF_5_VSYNC BIT(23)
- 
- /**
-@@ -310,14 +312,10 @@ static const struct dpu_irq_type dpu_irq_map[] = {
- 	{ DPU_IRQ_TYPE_PING_PONG_WR_PTR, PINGPONG_3,
- 		DPU_INTR_PING_PONG_3_WR_PTR, 0},
- 	/* irq_idx: 20-23 */
--	{ DPU_IRQ_TYPE_PING_PONG_AUTO_REF, PINGPONG_0,
--		DPU_INTR_PING_PONG_0_AUTOREFRESH_DONE, 0},
--	{ DPU_IRQ_TYPE_PING_PONG_AUTO_REF, PINGPONG_1,
--		DPU_INTR_PING_PONG_1_AUTOREFRESH_DONE, 0},
--	{ DPU_IRQ_TYPE_PING_PONG_AUTO_REF, PINGPONG_2,
--		DPU_INTR_PING_PONG_2_AUTOREFRESH_DONE, 0},
--	{ DPU_IRQ_TYPE_PING_PONG_AUTO_REF, PINGPONG_3,
--		DPU_INTR_PING_PONG_3_AUTOREFRESH_DONE, 0},
-+	{ DPU_IRQ_TYPE_INTF_UNDER_RUN, INTF_4, DPU_INTR_INTF_4_UNDERRUN, 0},
-+	{ DPU_IRQ_TYPE_INTF_VSYNC, INTF_4, DPU_INTR_INTF_4_VSYNC, 0},
-+	{ DPU_IRQ_TYPE_INTF_UNDER_RUN, INTF_5, DPU_INTR_INTF_5_UNDERRUN, 0},
-+	{ DPU_IRQ_TYPE_INTF_VSYNC, INTF_5, DPU_INTR_INTF_5_VSYNC, 0},
- 	/* irq_idx: 24-27 */
- 	{ DPU_IRQ_TYPE_INTF_UNDER_RUN, INTF_0, DPU_INTR_INTF_0_UNDERRUN, 0},
- 	{ DPU_IRQ_TYPE_INTF_VSYNC, INTF_0, DPU_INTR_INTF_0_VSYNC, 0},
+Bjorn Andersson (4):
+  drm/msm/dp: Simplify the mvid/nvid calculation
+  drm/msm/dp: Store each subblock in the io region
+  drm/msm/dp: Initialize the INTF_CONFIG register
+  drm/msm/dp: Add support for SC8180x eDP
+
+ drivers/gpu/drm/msm/dp/dp_catalog.c | 99 +++++++----------------------
+ drivers/gpu/drm/msm/dp/dp_display.c |  1 +
+ drivers/gpu/drm/msm/dp/dp_parser.c  | 22 +++++++
+ drivers/gpu/drm/msm/dp/dp_parser.h  |  8 +++
+ 4 files changed, 53 insertions(+), 77 deletions(-)
+
 -- 
 2.29.2
 
