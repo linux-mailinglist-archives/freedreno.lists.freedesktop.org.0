@@ -1,63 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA1CB379E4A
-	for <lists+freedreno@lfdr.de>; Tue, 11 May 2021 06:21:02 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BF35379E4B
+	for <lists+freedreno@lfdr.de>; Tue, 11 May 2021 06:21:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EBBC6E9B5;
-	Tue, 11 May 2021 04:21:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C74CC6E9BB;
+	Tue, 11 May 2021 04:21:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc31.google.com (mail-oo1-xc31.google.com
- [IPv6:2607:f8b0:4864:20::c31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59DB36E9B6
- for <freedreno@lists.freedesktop.org>; Tue, 11 May 2021 04:20:59 +0000 (UTC)
-Received: by mail-oo1-xc31.google.com with SMTP id
- j17-20020a4ad6d10000b02901fef5280522so3961649oot.0
- for <freedreno@lists.freedesktop.org>; Mon, 10 May 2021 21:20:59 -0700 (PDT)
+Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
+ [IPv6:2607:f8b0:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61F896E9BA
+ for <freedreno@lists.freedesktop.org>; Tue, 11 May 2021 04:21:01 +0000 (UTC)
+Received: by mail-ot1-x335.google.com with SMTP id
+ d3-20020a9d29030000b029027e8019067fso16397524otb.13
+ for <freedreno@lists.freedesktop.org>; Mon, 10 May 2021 21:21:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=Fq9YiG4i+9Hg/626b2mYGf1Zeeqbbz7nhqruiypzKLM=;
- b=r/vp57WL04V0/z3ZbLOXmSODOaboMQD6mvsfrkIp8O5AOIFj+JAAAxETVVbPZRMoZD
- 1BK8aLg1OtWzGA/TowHkOLnq/6mOR01C5u5fB5TYjNAdZY9ODcbQZC5ze3/zFrTRvoRd
- PD5Cf9sL1RwI/sSjlIQa6rRgsJPzoGNwXaXovRhNIn2sq1w1ZlD9WLKdqykwyr1oFs8U
- qbuNw5L6oRRlctHDuAvzHjGB3/uxMIZFXhxU3QuKcCBwsQmhMGdnrGzUjQbGW9h8tlmZ
- 4oujK0m6oFrRrWtAzjq6oCrMaTLL0bclq2NGugNLVSiFUO0IX5EyYORyBf8212yHg+oB
- VW2A==
+ bh=wgZFlNZfz9EYfzeQvg8JR3pWaua7Txo/La4Xs65mV68=;
+ b=e8cVwtdfQWxKumLU3L2sPcRRE88YwVxhHXUc4c3k7eqlRl0thGjwpqhW1we3uS9N7y
+ nZ7umVU/j0VZplwCYa/Y2FS57EbEdKIWHRFcrctPTRdENRXjLBtk5jvAsErUM4Ho5QW7
+ NPOh4vQUr10l2STyNoCrunsl92Yy6+WF4CfvrgMzXgLUKK2Z2GzHpAK2+BS3z3DuAPG2
+ JDfFgYrw6md2QGmT7Ay26TE4qMmGL0eDzqR6x9BTLl+9VBzFE06GX0GTBMf1gMhEEXIt
+ DO95hXL2HCB+vHI2f17IgDu6Fw2DtW4stke/2LQGfrnnDdy1i+fR8GWOzw6KU/7wwgti
+ 0rOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Fq9YiG4i+9Hg/626b2mYGf1Zeeqbbz7nhqruiypzKLM=;
- b=dyrad6325l8/0fLtSFDUkGp3ItNkF3Cv/1jIkhv9X+DPc/FH3wd3L8ujOgC/NzF2b3
- klR3NTA1eJP44QJM1HgSN9gUfbMhV9AlOL331eiHYYPQnk1st0SIUsk7eJaAdUZVHwXi
- VEBtU+OWsFn5GmA/ciamn7XhC37HXbK2APGBBhTqpO8zk1Vvn3s4+it4v683uI+HOfFn
- sO8XVZuZjGwu9EDrVoCU/YvOcmIjMf7S5p4OeET8iPMNIoW9KJ00+l7LWWpHDnFkidSo
- +ONL3bzqRGtVZjibYHK+Y6xh497zuVtVpgIm8+LFJ9H7cgimeB1awXPNAgs2XnjWcHtG
- 8tTg==
-X-Gm-Message-State: AOAM5311f+LtNz/v+hoBcYdbaRE58NXthheK6nw2+fap/X3o223ZIfMU
- iRh/FDhuU4wPy96hhgqDWkrlzQ==
-X-Google-Smtp-Source: ABdhPJyVF8rLen4EcnoW1kysZcaLvhFVqL45nBVtHdbEibmOqIEkmJKRUCNqaNbO4OoxFZvT0nqedg==
-X-Received: by 2002:a4a:e385:: with SMTP id l5mr21768512oov.48.1620706858691; 
- Mon, 10 May 2021 21:20:58 -0700 (PDT)
+ bh=wgZFlNZfz9EYfzeQvg8JR3pWaua7Txo/La4Xs65mV68=;
+ b=Ii2OtgU5Of4O/hphzW9Z6r2uwp1ZU3WaiX1OGLBADVOcp/nNH29wtNrjpcxy0YadhJ
+ eV3Augl3uXaAqgUhM1Se4PzOWyf+mNWvphYYjSKgFkRv1sywcsh8oqrxrVruMUDyNLDk
+ 5se1clJdstXY4lIIYYineg4N+LDxIr1Wjju7v88KjUjZHC5MtSvZP9yzL8iGJz1qIRFW
+ GHfpCt1H8fZdQuDZIhXpxq5ZBMuKH3XxLvUrMZWJ5StbylKjWP6h7u9zsmFgCZw+9Wf/
+ JK+DcAFwawybyh7BONYV+oAJ+v7u58j6kip3YNcu/IOnx0BsclTGawuHhCLlsejTCqEI
+ fIsg==
+X-Gm-Message-State: AOAM531WC2k135tbvGizal2BxyfX7eJ5Fke3b+A1fEPUa6OC2CQ4uEKZ
+ +GXTS5YO+j4QQ8ky2yZyk9r23A==
+X-Google-Smtp-Source: ABdhPJzYz3q7MFfxjCEI/JfYmH/AhONwg4lawUVkKe8sdMsBhbmNaRZcIRoAXDSU/Esv/aaFXnMEug==
+X-Received: by 2002:a05:6830:70d:: with SMTP id
+ y13mr3221908ots.191.1620706860591; 
+ Mon, 10 May 2021 21:21:00 -0700 (PDT)
 Received: from localhost.localdomain ([2607:fb90:e623:42c1:10df:adff:fec2:f1d])
- by smtp.gmail.com with ESMTPSA id r124sm3042294oig.38.2021.05.10.21.20.56
+ by smtp.gmail.com with ESMTPSA id r124sm3042294oig.38.2021.05.10.21.20.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 May 2021 21:20:58 -0700 (PDT)
+ Mon, 10 May 2021 21:21:00 -0700 (PDT)
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
  Stephen Boyd <swboyd@chromium.org>, sbillaka@codeaurora.org
-Date: Mon, 10 May 2021 23:20:42 -0500
-Message-Id: <20210511042043.592802-4-bjorn.andersson@linaro.org>
+Date: Mon, 10 May 2021 23:20:43 -0500
+Message-Id: <20210511042043.592802-5-bjorn.andersson@linaro.org>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210511042043.592802-1-bjorn.andersson@linaro.org>
 References: <20210511042043.592802-1-bjorn.andersson@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 3/4] drm/msm/dp: Initialize the INTF_CONFIG
- register
+Subject: [Freedreno] [PATCH 4/4] drm/msm/dp: Add support for SC8180x eDP
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,28 +80,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Some bootloaders set the widebus enable bit in the INTF_CONFIG register,
-but configuration of widebus isn't yet supported ensure that the
-register has a known value, with widebus disabled.
+The eDP controller found in SC8180x is at large compatible with the
+current implementation, but has its register blocks at slightly
+different offsets.
 
-Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
+Add the compatible and the new register layout.
+
 Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 ---
- drivers/gpu/drm/msm/dp/dp_catalog.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/msm/dp/dp_display.c |  1 +
+ drivers/gpu/drm/msm/dp/dp_parser.c  | 28 ++++++++++++++++++++--------
+ 2 files changed, 21 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
-index a0449a2867e4..e3996eef5518 100644
---- a/drivers/gpu/drm/msm/dp/dp_catalog.c
-+++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
-@@ -707,6 +707,7 @@ int dp_catalog_panel_timing_cfg(struct dp_catalog *dp_catalog)
- 	dp_write_link(catalog, REG_DP_HSYNC_VSYNC_WIDTH_POLARITY,
- 				dp_catalog->width_blanking);
- 	dp_write_link(catalog, REG_DP_ACTIVE_HOR_VER, dp_catalog->dp_active);
-+	dp_write_p0(catalog, MMSS_DP_INTF_CONFIG, 0);
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index d1319b58e901..0be03bdc882c 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -121,6 +121,7 @@ struct dp_display_private {
+ 
+ static const struct of_device_id dp_dt_match[] = {
+ 	{.compatible = "qcom,sc7180-dp"},
++	{ .compatible = "qcom,sc8180x-edp" },
+ 	{}
+ };
+ 
+diff --git a/drivers/gpu/drm/msm/dp/dp_parser.c b/drivers/gpu/drm/msm/dp/dp_parser.c
+index 51ec85b4803b..47cf18bba4b2 100644
+--- a/drivers/gpu/drm/msm/dp/dp_parser.c
++++ b/drivers/gpu/drm/msm/dp/dp_parser.c
+@@ -251,6 +251,7 @@ static int dp_parser_clock(struct dp_parser *parser)
+ static int dp_parser_parse(struct dp_parser *parser)
+ {
+ 	struct dss_io_data *io = &parser->io.dp_controller;
++	struct device *dev = &parser->pdev->dev;
+ 	int rc = 0;
+ 
+ 	if (!parser) {
+@@ -276,14 +277,25 @@ static int dp_parser_parse(struct dp_parser *parser)
+ 	 */
+ 	parser->regulator_cfg = &sdm845_dp_reg_cfg;
+ 
+-	io->ahb = io->base + 0x0;
+-	io->ahb_len = 0x200;
+-	io->aux = io->base + 0x200;
+-	io->aux_len = 0x200;
+-	io->link = io->base + 0x400;
+-	io->link_len = 0x600;
+-	io->p0 = io->base + 0x1000;
+-	io->p0_len = 0x400;
++	if (of_device_is_compatible(dev->of_node, "qcom,sc8180x-edp")) {
++		io->ahb = io->base + 0x0;
++		io->ahb_len = 0x200;
++		io->aux = io->base + 0x200;
++		io->aux_len = 0x200;
++		io->link = io->base + 0x400;
++		io->link_len = 0x600;
++		io->p0 = io->base + 0xa00;
++		io->p0_len = 0x400;
++	} else {
++		io->ahb = io->base + 0x0;
++		io->ahb_len = 0x200;
++		io->aux = io->base + 0x200;
++		io->aux_len = 0x200;
++		io->link = io->base + 0x400;
++		io->link_len = 0x600;
++		io->p0 = io->base + 0x1000;
++		io->p0_len = 0x400;
++	}
+ 
  	return 0;
  }
- 
 -- 
 2.29.2
 
