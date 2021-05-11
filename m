@@ -1,63 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BF35379E4B
-	for <lists+freedreno@lfdr.de>; Tue, 11 May 2021 06:21:04 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 54805379EDA
+	for <lists+freedreno@lfdr.de>; Tue, 11 May 2021 06:55:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C74CC6E9BB;
-	Tue, 11 May 2021 04:21:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 030C36E9BD;
+	Tue, 11 May 2021 04:55:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61F896E9BA
- for <freedreno@lists.freedesktop.org>; Tue, 11 May 2021 04:21:01 +0000 (UTC)
-Received: by mail-ot1-x335.google.com with SMTP id
- d3-20020a9d29030000b029027e8019067fso16397524otb.13
- for <freedreno@lists.freedesktop.org>; Mon, 10 May 2021 21:21:01 -0700 (PDT)
+Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
+ [IPv6:2607:f8b0:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8EF66E9BC
+ for <freedreno@lists.freedesktop.org>; Tue, 11 May 2021 04:55:54 +0000 (UTC)
+Received: by mail-ot1-x329.google.com with SMTP id
+ u25-20020a0568302319b02902ac3d54c25eso16521866ote.1
+ for <freedreno@lists.freedesktop.org>; Mon, 10 May 2021 21:55:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=wgZFlNZfz9EYfzeQvg8JR3pWaua7Txo/La4Xs65mV68=;
- b=e8cVwtdfQWxKumLU3L2sPcRRE88YwVxhHXUc4c3k7eqlRl0thGjwpqhW1we3uS9N7y
- nZ7umVU/j0VZplwCYa/Y2FS57EbEdKIWHRFcrctPTRdENRXjLBtk5jvAsErUM4Ho5QW7
- NPOh4vQUr10l2STyNoCrunsl92Yy6+WF4CfvrgMzXgLUKK2Z2GzHpAK2+BS3z3DuAPG2
- JDfFgYrw6md2QGmT7Ay26TE4qMmGL0eDzqR6x9BTLl+9VBzFE06GX0GTBMf1gMhEEXIt
- DO95hXL2HCB+vHI2f17IgDu6Fw2DtW4stke/2LQGfrnnDdy1i+fR8GWOzw6KU/7wwgti
- 0rOA==
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=LRkUu5LCFvquDlyLgAggMIQvj0PMUIKV3fzj8HPK4n8=;
+ b=Qv5FC1Qu1CtsXR1UyCXrkd3H3IdtGC0FvhcKvPZ2AVZy6EW/FOgLXMLu+gyFmPcicr
+ tbGyiy8k25+sfaBK0EQBbMtgKmjrgvFtrASptwxobVuTYK/ju6Ge/V0GrQ6tqRS+6Aj+
+ N73461M8vfuTpjuSyUqtPHVSa2JKd8j9MwOsgPmHkTF/PgG66p1gQy3fIrRMvzDgBesy
+ nq3i75AVJNhoPnPxj0DwICnLO9LRd6JM8HWSNkXgXQ/UWUfq3xada1j8Rk9k+EkexBKl
+ fim5b9j/oBKZveH8XAiSoCM9yyuyw4IIWc3RWnR/9OOBEer3SUh7sXV7QIIDTyqMKLau
+ pcew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=wgZFlNZfz9EYfzeQvg8JR3pWaua7Txo/La4Xs65mV68=;
- b=Ii2OtgU5Of4O/hphzW9Z6r2uwp1ZU3WaiX1OGLBADVOcp/nNH29wtNrjpcxy0YadhJ
- eV3Augl3uXaAqgUhM1Se4PzOWyf+mNWvphYYjSKgFkRv1sywcsh8oqrxrVruMUDyNLDk
- 5se1clJdstXY4lIIYYineg4N+LDxIr1Wjju7v88KjUjZHC5MtSvZP9yzL8iGJz1qIRFW
- GHfpCt1H8fZdQuDZIhXpxq5ZBMuKH3XxLvUrMZWJ5StbylKjWP6h7u9zsmFgCZw+9Wf/
- JK+DcAFwawybyh7BONYV+oAJ+v7u58j6kip3YNcu/IOnx0BsclTGawuHhCLlsejTCqEI
- fIsg==
-X-Gm-Message-State: AOAM531WC2k135tbvGizal2BxyfX7eJ5Fke3b+A1fEPUa6OC2CQ4uEKZ
- +GXTS5YO+j4QQ8ky2yZyk9r23A==
-X-Google-Smtp-Source: ABdhPJzYz3q7MFfxjCEI/JfYmH/AhONwg4lawUVkKe8sdMsBhbmNaRZcIRoAXDSU/Esv/aaFXnMEug==
-X-Received: by 2002:a05:6830:70d:: with SMTP id
- y13mr3221908ots.191.1620706860591; 
- Mon, 10 May 2021 21:21:00 -0700 (PDT)
-Received: from localhost.localdomain ([2607:fb90:e623:42c1:10df:adff:fec2:f1d])
- by smtp.gmail.com with ESMTPSA id r124sm3042294oig.38.2021.05.10.21.20.58
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=LRkUu5LCFvquDlyLgAggMIQvj0PMUIKV3fzj8HPK4n8=;
+ b=NrlZE4lrZWC5MTd7uRHx9YBmMTZLoBtkhuT5/cswf9aaOowdIJk4cpqbAsxgu5AAC/
+ kKQXoXCHnWkD8ZWmHWl2W1oIDLH9ZokIaQSxbOjRqM9J5//hRPzUTRsos6kUZFhV+P6l
+ JzGmZyQVRiiDMis7JnnztRMmSCx3qxIkP+tguw3ZCEW8TQbPGSvxZcmgWs7nxroymnQb
+ x6zTsO/JQSTyyxLEmNhnzqFxXHbbHoxJNwGtvt9eg4UjB4M4g630ry1DrqbN9+2H0cyd
+ smF0xl7jjFRT2L+H4g6Spt3N3+fTDWOs3ipWBaABh0nGGtwDD3oTp6EF8diAp3ScBlAg
+ HcBA==
+X-Gm-Message-State: AOAM531PqFrDQEMHHkArZQUSG66k3vGMOa1b4k2a8QFWxubZYldw8vuD
+ lEJ5TSVKzoMawLcsqmD1pIh/3A==
+X-Google-Smtp-Source: ABdhPJwn2ZRr/gjRSK8ClIz3ilxOMtFbJ2lD+fzPmX3FeDD9T3M0Pl0j3Uuro/ae7a/eiv8xtTSnZg==
+X-Received: by 2002:a9d:721b:: with SMTP id u27mr15693822otj.95.1620708954195; 
+ Mon, 10 May 2021 21:55:54 -0700 (PDT)
+Received: from yoga ([2607:fb90:e623:42c1:10df:adff:fec2:f1d])
+ by smtp.gmail.com with ESMTPSA id x18sm3024293oix.28.2021.05.10.21.55.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 May 2021 21:21:00 -0700 (PDT)
+ Mon, 10 May 2021 21:55:53 -0700 (PDT)
+Date: Mon, 10 May 2021 23:55:50 -0500
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Stephen Boyd <swboyd@chromium.org>, sbillaka@codeaurora.org
-Date: Mon, 10 May 2021 23:20:43 -0500
-Message-Id: <20210511042043.592802-5-bjorn.andersson@linaro.org>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210511042043.592802-1-bjorn.andersson@linaro.org>
-References: <20210511042043.592802-1-bjorn.andersson@linaro.org>
+To: sbillaka@codeaurora.org
+Message-ID: <20210511045550.GL2484@yoga>
+References: <1620202579-19066-1-git-send-email-sbillaka@codeaurora.org>
+ <CAA8EJpqZXHNvBySL0Vm-CmsrAh8Z85SoQHn97TqWLYeFW-Q=UA@mail.gmail.com>
+ <3398f9a1f985ccd6bb6a44646f7bea24@codeaurora.org>
+ <CAF6AEGuPpihBj9GQbuPKXuZvY=+Bid-pSB9XPP2ZXNQvHEm-Ag@mail.gmail.com>
+ <3d96a5be6c6f0140b738a302befc25b5@codeaurora.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 4/4] drm/msm/dp: Add support for SC8180x eDP
+Content-Disposition: inline
+In-Reply-To: <3d96a5be6c6f0140b738a302befc25b5@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH v1 0/3] Add support for next gen eDP driver
+ on SnapDragon
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,89 +72,94 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tanmay Shah <tanmay@codeaurora.org>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+Cc: Krishna Manikandan <mkrishn@codeaurora.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Stephen Boyd <swboyd@chromium.org>, Kuogee Hsieh <khsieh@codeaurora.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <seanpaul@chromium.org>,
  Abhinav Kumar <abhinavk@codeaurora.org>,
+ Kalyan Thota <kalyan_t@codeaurora.org>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, Chandan Uddaraju <chandanu@codeaurora.org>
+ freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The eDP controller found in SC8180x is at large compatible with the
-current implementation, but has its register blocks at slightly
-different offsets.
+On Mon 10 May 07:16 CDT 2021, sbillaka@codeaurora.org wrote:
 
-Add the compatible and the new register layout.
+> On 2021-05-06 20:32, Rob Clark wrote:
+> > On Wed, May 5, 2021 at 11:47 PM <sbillaka@codeaurora.org> wrote:
+> > > 
+> > > On 2021-05-05 15:31, Dmitry Baryshkov wrote:
+> > > > Hi,
+> > > >
+> > > > On Wed, 5 May 2021 at 11:17, Sankeerth Billakanti
+> > > > <sbillaka@codeaurora.org> wrote:
+> > > >>
+> > > >> These patches add support for the next generation eDP driver on
+> > > >> SnapDragon
+> > > >> with dpu support. The existing eDP driver cannot support the new eDP
+> > > >> hardware. So, to maintain backward compatibility, the older eDP driver
+> > > >> is
+> > > >> moved to v200 folder and the new generation eDP driver is added in
+> > > >> the v510 folder.
+> > > >
+> > > > What exactly does this version correspond to?
+> > > > I assume that v510 corresponds to sdmshrike/sc8180x. Is it right?
+> > > [Sankeerth] This is for sc7280.
+> > > 
+> > > > Is it really so specific, or just v2/v5 would be enough? Not to
+> > > > mention that this is the MDP/ version, while other blocks tend to use
+> > > > block-specific versions/ids.
+> > > [Sankeerth] I can rename it as edp-v1 and edp-v2. Edp v1 is very old
+> > > chip and there is considerable HW delta between v1 and v2. So, we want
+> > > to separate the driver. We followed similar model for DPU driver
+> > > where,
+> > > MDP4, MDP5 and DPU have separate folders. EDP v1 belongs to MDP4
+> > > generation.
+> > 
+> > Bjorn brought up the idea of just dropping the existing drm/msm/edp..
+> > since the efforts to upstream the platform it worked on (8084?)
+> > fizzled out, I don't think there is any device which uses it.
+> > 
+> > But it does sound like edp is a subset of the the newer dp driver, so
+> > seems sort of like the better approach would be to add edp support to
+> > dp.  I believe Bjorn has something based on this approach which is
+> > working for sc8280 (although not sure if it is in shape to post
+> > patches yet)
+> > 
+> > BR,
+> > -R
+> Hi Rob,
+> I will explore to integrate native eDP driver as part of DP driver. Will
+> follow up with new patchsets.
+> 
+> Hi Dmitry,
+> I will move the eDP phy to qmp drivers folder in the new patchsets so that
+> it can reuse the dp core driver.
+> 
 
-Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
----
- drivers/gpu/drm/msm/dp/dp_display.c |  1 +
- drivers/gpu/drm/msm/dp/dp_parser.c  | 28 ++++++++++++++++++++--------
- 2 files changed, 21 insertions(+), 8 deletions(-)
+Hi Sankeerth,
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index d1319b58e901..0be03bdc882c 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -121,6 +121,7 @@ struct dp_display_private {
- 
- static const struct of_device_id dp_dt_match[] = {
- 	{.compatible = "qcom,sc7180-dp"},
-+	{ .compatible = "qcom,sc8180x-edp" },
- 	{}
- };
- 
-diff --git a/drivers/gpu/drm/msm/dp/dp_parser.c b/drivers/gpu/drm/msm/dp/dp_parser.c
-index 51ec85b4803b..47cf18bba4b2 100644
---- a/drivers/gpu/drm/msm/dp/dp_parser.c
-+++ b/drivers/gpu/drm/msm/dp/dp_parser.c
-@@ -251,6 +251,7 @@ static int dp_parser_clock(struct dp_parser *parser)
- static int dp_parser_parse(struct dp_parser *parser)
- {
- 	struct dss_io_data *io = &parser->io.dp_controller;
-+	struct device *dev = &parser->pdev->dev;
- 	int rc = 0;
- 
- 	if (!parser) {
-@@ -276,14 +277,25 @@ static int dp_parser_parse(struct dp_parser *parser)
- 	 */
- 	parser->regulator_cfg = &sdm845_dp_reg_cfg;
- 
--	io->ahb = io->base + 0x0;
--	io->ahb_len = 0x200;
--	io->aux = io->base + 0x200;
--	io->aux_len = 0x200;
--	io->link = io->base + 0x400;
--	io->link_len = 0x600;
--	io->p0 = io->base + 0x1000;
--	io->p0_len = 0x400;
-+	if (of_device_is_compatible(dev->of_node, "qcom,sc8180x-edp")) {
-+		io->ahb = io->base + 0x0;
-+		io->ahb_len = 0x200;
-+		io->aux = io->base + 0x200;
-+		io->aux_len = 0x200;
-+		io->link = io->base + 0x400;
-+		io->link_len = 0x600;
-+		io->p0 = io->base + 0xa00;
-+		io->p0_len = 0x400;
-+	} else {
-+		io->ahb = io->base + 0x0;
-+		io->ahb_len = 0x200;
-+		io->aux = io->base + 0x200;
-+		io->aux_len = 0x200;
-+		io->link = io->base + 0x400;
-+		io->link_len = 0x600;
-+		io->p0 = io->base + 0x1000;
-+		io->p0_len = 0x400;
-+	}
- 
- 	return 0;
- }
--- 
-2.29.2
+I've been working on eDP support for sc8180x recently, which afaict is
+identical to sc7280 in this regard. I finally got the patches cleaned up
+and posted here:
+https://lore.kernel.org/linux-arm-msm/20210511042043.592802-1-bjorn.andersson@linaro.org/T/#t
+https://lore.kernel.org/linux-arm-msm/20210511041930.592483-1-bjorn.andersson@linaro.org/T/#t
 
+My initial patches added widebus support, rather than disabling it. But
+those patches needs a little bit more polishing - and I finally figured
+was able to disable the feature. So I will get back to this.
+
+There's currently a few seconds delay on plug detection, so this needs
+to be investigated further and I haven't looked at backlight handling
+yet.
+
+Regards,
+Bjorn
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
