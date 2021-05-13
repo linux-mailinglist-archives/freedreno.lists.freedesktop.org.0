@@ -2,60 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E189937F088
-	for <lists+freedreno@lfdr.de>; Thu, 13 May 2021 02:39:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC8DD37F5F9
+	for <lists+freedreno@lfdr.de>; Thu, 13 May 2021 12:53:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 205B76ECDB;
-	Thu, 13 May 2021 00:39:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E10546E87D;
+	Thu, 13 May 2021 10:52:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com
- [IPv6:2607:f8b0:4864:20::82d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA2236E7E2
- for <freedreno@lists.freedesktop.org>; Thu, 13 May 2021 00:39:28 +0000 (UTC)
-Received: by mail-qt1-x82d.google.com with SMTP id y12so18663383qtx.11
- for <freedreno@lists.freedesktop.org>; Wed, 12 May 2021 17:39:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=marek-ca.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=TgKjFxo4GNtA551k9IwbSEG3Ja6mAkE8h5bonM5ao9E=;
- b=oVAHKRN/CsCFO6Ca0g0oSy97YAiMrDlRrXdfSTmE99E386LTW4gh1ejqcjyGXsuwFq
- +s+CQvsJthifM1bCfKJwXdZNvH7R/TYfWL1xwttjFhaOJAjes3dUzV7aZzNzpxa/yG5+
- EJVoHbPl6UTdmHXPULoWq+NgoauD6HSVawdQ7r7o9f6itNLtOT6IJm7K7cP/2lv5A9Nc
- 6vmPs0hAsntCpTkQCKJUanv+cP/Z4/2ikPn+xottqb+BxFFNUTxQStzjDhgHrJtAcLKV
- BS3UcQgUFtRtCEASeyKg2SVYWcWpKPzrZBVh0bfSG738pTM/jgOtuEMjrWCBbtTJD3wn
- cRZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=TgKjFxo4GNtA551k9IwbSEG3Ja6mAkE8h5bonM5ao9E=;
- b=E7UxQQslZUgVGFw+Ne8DXmXpLN05gvggqgLBW5JiyO7A+jJRlMepCSIA0nFbd7ziUS
- b34mTtAbuby+fMC3JTy+/nixCIU8mKodzfp9UjkIZNJtP3txayiDG7nWOAWkWS6DyOMw
- nPCYhYgChyn6r1DV4nrniaeHg60F32Wn4IQNlRGLckA1StTbBMQG3BbpF0bvzy5ycs4j
- 0Gh87GnoA7LKS5em6H+bqwxPQMv7OlZt3dPHWn1jD+gIiHTPiBXb7fcMRU/jNWRMJNlo
- upuGlPaP3IHGIt2Bq0e5O/9VV2lDHAJo+HGis2Uh07QlOxH1oOFzxZ6o8AimDFueYRcN
- tIiQ==
-X-Gm-Message-State: AOAM532+7kMwgfvT7GsTkub7teKBcElZH7K1NvYzAgPpOJPup7OcD73c
- ttg6vtRJvEM7kXsjpC0NBzQ6twudrtjL053oIzQ=
-X-Google-Smtp-Source: ABdhPJyzmpbHNmhnEUA/B2MVZlnr/xMDVak3h+t0SqceA73W5LaOXRES7ubMQXiJWuiakHFbrTgEeA==
-X-Received: by 2002:ac8:7a7d:: with SMTP id w29mr35182479qtt.357.1620866367891; 
- Wed, 12 May 2021 17:39:27 -0700 (PDT)
-Received: from localhost.localdomain
- (modemcable068.184-131-66.mc.videotron.ca. [66.131.184.68])
- by smtp.gmail.com with ESMTPSA id w16sm1204201qts.70.2021.05.12.17.39.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 May 2021 17:39:27 -0700 (PDT)
-From: Jonathan Marek <jonathan@marek.ca>
-To: freedreno@lists.freedesktop.org
-Date: Wed, 12 May 2021 20:37:49 -0400
-Message-Id: <20210513003811.29578-6-jonathan@marek.ca>
-X-Mailer: git-send-email 2.26.1
-In-Reply-To: <20210513003811.29578-1-jonathan@marek.ca>
-References: <20210513003811.29578-1-jonathan@marek.ca>
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 800916E87D
+ for <freedreno@lists.freedesktop.org>; Thu, 13 May 2021 10:52:55 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1620903178; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=l43av0MNdasuSlRaWS4HbE7aHdm8Jr27+otQGPeLkDA=;
+ b=TA1Ws7dBrCQUHcBSRetdLRBfN1YcXOp8k/1NfZ6iIy68LU1grcQcUFrBNlmkGR3Yvwo4/JB8
+ O7YPaIQg6p8a1+NOmW0i3bhxHj9Txyg49w+84lWb/xikU2MTWh2gy/yX6cnWW6qEgW5HGanG
+ 8FeIoke5WswFRK+owvGryOKXZdo=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n04.prod.us-east-1.postgun.com with SMTP id
+ 609d04ee4a4ae4ec6842b9fe (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 13 May 2021 10:52:30
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id F39C6C4338A; Thu, 13 May 2021 10:52:29 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: mkrishn)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 400C4C433D3;
+ Thu, 13 May 2021 10:52:26 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 5/5] drm/msm/a6xx: add a660 hwcg table
+Date: Thu, 13 May 2021 16:22:26 +0530
+From: mkrishn@codeaurora.org
+To: robh@kernel.org, robh+dt@kernel.org
+In-Reply-To: <827048554933585f4cc42c94aa911e55@codeaurora.org>
+References: <1617620770-26202-1-git-send-email-mkrishn@codeaurora.org>
+ <1617620770-26202-2-git-send-email-mkrishn@codeaurora.org>
+ <20210408150300.GA1476562@robh.at.kernel.org>
+ <827048554933585f4cc42c94aa911e55@codeaurora.org>
+Message-ID: <4326018bcc2efc812b3267c830570f04@codeaurora.org>
+X-Sender: mkrishn@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: [Freedreno] Fwd: Re: [PATCH v15 2/4] dt-bindings: msm: dsi: add
+ yaml schemas for DSI bindings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,124 +66,491 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Douglas Anderson <dianders@chromium.org>,
- open list <linux-kernel@vger.kernel.org>, David Airlie <airlied@linux.ie>,
- Shawn Guo <shawn.guo@linaro.org>, Sharat Masetty <smasetty@codeaurora.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Eric Anholt <eric@anholt.net>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
+Cc: sean@poorly.run, devicetree@vger.kernel.org, dianders@chromium.org,
+ vinod.koul@linaro.org, linux-arm-msm@vger.kernel.org, abhinavk@codeaurora.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, khsieh@codeaurora.org, robdclark@gmail.com,
+ tanmay@codeaurora.org, kalyan_t@codeaurora.org, bjorn.andersson@linaro.org,
+ freedreno@lists.freedesktop.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add a660 hwcg table, ported over from downstream.
+On 2021-04-08 20:33, Rob Herring wrote:
+> On Mon, Apr 05, 2021 at 04:36:08PM +0530, Krishna Manikandan wrote:
+>> Add YAML schema for the device tree bindings for DSI
+>> 
+>> Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
+>> 
+>> Changes in v1:
+>>     - Separate dsi controller bindings to a separate patch (Stephen 
+>> Boyd)
+>>     - Merge dsi-common-controller.yaml and dsi-controller-main.yaml to
+>>       a single file (Stephen Boyd)
+>>     - Drop supply entries and definitions from properties (Stephen 
+>> Boyd)
+>>     - Modify phy-names property for dsi controller (Stephen Boyd)
+>>     - Remove boolean from description (Stephen Boyd)
+>>     - Drop pinctrl properties as they are standard entries (Stephen 
+>> Boyd)
+>>     - Modify the description for ports property and keep the reference
+>>       to the generic binding where this is defined (Stephen Boyd)
+>>     - Add description to clock names (Stephen Boyd)
+>>     - Correct the indendation (Stephen Boyd)
+>>     - Drop the label for display dt nodes and correct the node
+>>       name (Stephen Boyd)
+>> 
+>> Changes in v2:
+>>     - Drop maxItems for clock (Stephen Boyd)
+>>     - Drop qcom,mdss-mdp-transfer-time-us as it is not used in 
+>> upstream
+>>       dt file (Stephen Boyd)
+>>     - Keep child node directly under soc node (Stephen Boyd)
+>>     - Drop qcom,sync-dual-dsi as it is not used in upstream dt
+>> 
+>> Changes in v3:
+>>     - Add description for register property (Stephen Boyd)
+>> 
+>> Changes in v4:
+>>     - Add maxItems for phys property (Stephen Boyd)
+>>     - Add maxItems for reg property (Stephen Boyd)
+>>     - Add reference for data-lanes property (Stephen Boyd)
+>>     - Remove soc from example (Stephen Boyd)
+>> 
+>> Changes in v5:
+>>     - Modify title and description (Stephen Boyd)
+>>     - Add required properties for ports node (Stephen Boyd)
+>>     - Add data-lanes in the example (Stephen Boyd)
+>>     - Drop qcom,master-dsi property (Stephen Boyd)
+>> 
+>> Changes in v6:
+>>     - Add required properties for port@0, port@1 and corresponding
+>>       endpoints (Stephen Boyd)
+>>     - Add address-cells and size-cells for ports (Stephen Boyd)
+>>     - Use additionalProperties instead of unevaluatedProperties 
+>> (Stephen Boyd)
+>> ---
+>>  .../bindings/display/msm/dsi-controller-main.yaml  | 213 
+>> ++++++++++++++++++
+>>  .../devicetree/bindings/display/msm/dsi.txt        | 249 
+>> ---------------------
+>>  2 files changed, 213 insertions(+), 249 deletions(-)
+>>  create mode 100644 
+>> Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+>>  delete mode 100644 
+>> Documentation/devicetree/bindings/display/msm/dsi.txt
+>> 
+>> diff --git 
+>> a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml 
+>> b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+>> new file mode 100644
+>> index 0000000..7858524
+>> --- /dev/null
+>> +++ 
+>> b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+>> @@ -0,0 +1,213 @@
+>> +# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
+>> +%YAML 1.2
+>> +---
+>> +$id: 
+>> http://devicetree.org/schemas/display/msm/dsi-controller-main.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Qualcomm Display DSI controller
+>> +
+>> +maintainers:
+>> +  - Krishna Manikandan <mkrishn@codeaurora.org>
+>> +
+>> +allOf:
+>> +  - $ref: "../dsi-controller.yaml#"
+>> +
+>> +properties:
+>> +  compatible:
+>> +    items:
+>> +      - const: qcom,mdss-dsi-ctrl
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  reg-names:
+>> +    const: dsi_ctrl
+>> +
+>> +  interrupts:
+>> +    maxItems: 1
+>> +
+>> +  clocks:
+>> +    items:
+>> +      - description: Display byte clock
+>> +      - description: Display byte interface clock
+>> +      - description: Display pixel clock
+>> +      - description: Display escape clock
+>> +      - description: Display AHB clock
+>> +      - description: Display AXI clock
+>> +
+>> +  clock-names:
+>> +    items:
+>> +      - const: byte
+>> +      - const: byte_intf
+>> +      - const: pixel
+>> +      - const: core
+>> +      - const: iface
+>> +      - const: bus
+>> +
+>> +  phys:
+>> +    maxItems: 1
+>> +
+>> +  phy-names:
+>> +    const: dsi
+>> +
+>> +  "#address-cells": true
+>> +
+>> +  "#size-cells": true
+>> +
+>> +  syscon-sfpb:
+>> +    description: A phandle to mmss_sfpb syscon node (only for DSIv2).
+>> +    $ref: "/schemas/types.yaml#/definitions/phandle"
+>> +
+>> +  qcom,dual-dsi-mode:
+>> +    type: boolean
+>> +    description: |
+>> +      Indicates if the DSI controller is driving a panel which needs
+>> +      2 DSI links.
+>> +
+>> +  ports:
+> 
+> Same issues in this one.
+> 
+>> +    $ref: "/schemas/graph.yaml#/properties/port"
+>> +    type: object
+>> +    description: |
+>> +      Contains DSI controller input and output ports as children, 
+>> each
+>> +      containing one endpoint subnode.
+>> +
+>> +    properties:
+>> +      port@0:
+>> +        type: object
+>> +        description: |
+>> +          Input endpoints of the controller.
+>> +
+>> +        properties:
+>> +          reg:
+>> +            const: 0
+>> +
+>> +          endpoint:
+>> +            type: object
+>> +            properties:
+>> +              remote-endpoint:
+> 
+> Don't need to describe this, the common schema does.
+> 
+>> +                description: |
+>> +                  For port@1, set to phandle of the connected 
+>> panel/bridge's
+>> +                  input endpoint. For port@0, set to the MDP 
+>> interface output.
+>> +
+>> +              data-lanes:
+>> +                $ref: "/schemas/media/video-interfaces.yaml#"
+> 
+> Not how this reference works. Look at other examples.
+> 
+>> +                description: |
+>> +                  This describes how the physical DSI data lanes are 
+>> mapped
+>> +                  to the logical lanes on the given platform. The 
+>> value contained in
+>> +                  index n describes what physical lane is mapped to 
+>> the logical lane n
+>> +                  (DATAn, where n lies between 0 and 3). The clock 
+>> lane position is fixed
+>> +                  and can't be changed. Hence, they aren't a part of 
+>> the DT bindings.
+>> +
+>> +                items:
+>> +                  - const: 0
+>> +                  - const: 1
+>> +                  - const: 2
+>> +                  - const: 3
+> 
+> If this is the only possible value, why does it need to be in DT?
+Hi Rob,
+These are the possible values:
+-    <0 1 2 3>
+-    <1 2 3 0>
+-    <2 3 0 1>
+-    <3 0 1 2>
+-    <0 3 2 1>
+-    <1 0 3 2>
+-    <2 1 0 3>
+-    <3 2 1 0>
 
-Signed-off-by: Jonathan Marek <jonathan@marek.ca>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 53 ++++++++++++++++++++++
- drivers/gpu/drm/msm/adreno/adreno_device.c |  1 +
- drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  2 +-
- 3 files changed, 55 insertions(+), 1 deletion(-)
+Shall I follow the below mentioned approach for defining these values ?
+oneOf:
+   - items:
+     - const: 0
+     - const: 1
+     - const: 2
+     - const: 3
+   - items:
+     - const: 1
+     - const: 2
+     - const: 3
+     - const: 0
+   - items:
+     - const: 2
+     - const: 3
+     - const: 0
+     - const: 1
+   - items:
+     - const: 3
+     - const: 0
+     - const: 1
+     - const: 2
+   - items:
+     - const: 0
+     - const: 3
+     - const: 2
+     - const: 1
+   - items:
+     - const: 1
+     - const: 0
+     - const: 3
+     - const: 2
+   - items:
+     - const: 2
+     - const: 1
+     - const: 0
+     - const: 3
+   - items:
+     - const: 3
+     - const: 2
+     - const: 1
+     - const: 0
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 261a20076f9d..d9753c62035c 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -427,6 +427,59 @@ const struct adreno_reglist a650_hwcg[] = {
- 	{},
- };
- 
-+const struct adreno_reglist a660_hwcg[] = {
-+	{REG_A6XX_RBBM_CLOCK_CNTL_SP0, 0x02222222},
-+	{REG_A6XX_RBBM_CLOCK_CNTL2_SP0, 0x02222220},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_SP0, 0x00000080},
-+	{REG_A6XX_RBBM_CLOCK_HYST_SP0, 0x0000F3CF},
-+	{REG_A6XX_RBBM_CLOCK_CNTL_TP0, 0x22222222},
-+	{REG_A6XX_RBBM_CLOCK_CNTL2_TP0, 0x22222222},
-+	{REG_A6XX_RBBM_CLOCK_CNTL3_TP0, 0x22222222},
-+	{REG_A6XX_RBBM_CLOCK_CNTL4_TP0, 0x00022222},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_TP0, 0x11111111},
-+	{REG_A6XX_RBBM_CLOCK_DELAY2_TP0, 0x11111111},
-+	{REG_A6XX_RBBM_CLOCK_DELAY3_TP0, 0x11111111},
-+	{REG_A6XX_RBBM_CLOCK_DELAY4_TP0, 0x00011111},
-+	{REG_A6XX_RBBM_CLOCK_HYST_TP0, 0x77777777},
-+	{REG_A6XX_RBBM_CLOCK_HYST2_TP0, 0x77777777},
-+	{REG_A6XX_RBBM_CLOCK_HYST3_TP0, 0x77777777},
-+	{REG_A6XX_RBBM_CLOCK_HYST4_TP0, 0x00077777},
-+	{REG_A6XX_RBBM_CLOCK_CNTL_RB0, 0x22222222},
-+	{REG_A6XX_RBBM_CLOCK_CNTL2_RB0, 0x01002222},
-+	{REG_A6XX_RBBM_CLOCK_CNTL_CCU0, 0x00002220},
-+	{REG_A6XX_RBBM_CLOCK_HYST_RB_CCU0, 0x00040F00},
-+	{REG_A6XX_RBBM_CLOCK_CNTL_RAC, 0x25222022},
-+	{REG_A6XX_RBBM_CLOCK_CNTL2_RAC, 0x00005555},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_RAC, 0x00000011},
-+	{REG_A6XX_RBBM_CLOCK_HYST_RAC, 0x00445044},
-+	{REG_A6XX_RBBM_CLOCK_CNTL_TSE_RAS_RBBM, 0x04222222},
-+	{REG_A6XX_RBBM_CLOCK_MODE_VFD, 0x00002222},
-+	{REG_A6XX_RBBM_CLOCK_MODE_GPC, 0x00222222},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_HLSQ_2, 0x00000002},
-+	{REG_A6XX_RBBM_CLOCK_MODE_HLSQ, 0x00002222},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_TSE_RAS_RBBM, 0x00004000},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_VFD, 0x00002222},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_GPC, 0x00000200},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_HLSQ, 0x00000000},
-+	{REG_A6XX_RBBM_CLOCK_HYST_TSE_RAS_RBBM, 0x00000000},
-+	{REG_A6XX_RBBM_CLOCK_HYST_VFD, 0x00000000},
-+	{REG_A6XX_RBBM_CLOCK_HYST_GPC, 0x04104004},
-+	{REG_A6XX_RBBM_CLOCK_HYST_HLSQ, 0x00000000},
-+	{REG_A6XX_RBBM_CLOCK_CNTL_TEX_FCHE, 0x00000222},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_TEX_FCHE, 0x00000111},
-+	{REG_A6XX_RBBM_CLOCK_HYST_TEX_FCHE, 0x00000000},
-+	{REG_A6XX_RBBM_CLOCK_CNTL_UCHE, 0x22222222},
-+	{REG_A6XX_RBBM_CLOCK_HYST_UCHE, 0x00000004},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_UCHE, 0x00000002},
-+	{REG_A6XX_RBBM_ISDB_CNT, 0x00000182},
-+	{REG_A6XX_RBBM_RAC_THRESHOLD_CNT, 0x00000000},
-+	{REG_A6XX_RBBM_SP_HYST_CNT, 0x00000000},
-+	{REG_A6XX_RBBM_CLOCK_CNTL_GMU_GX, 0x00000222},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_GMU_GX, 0x00000111},
-+	{REG_A6XX_RBBM_CLOCK_HYST_GMU_GX, 0x00000555},
-+	{},
-+};
-+
- static void a6xx_set_hwcg(struct msm_gpu *gpu, bool state)
- {
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-index e4db0683d381..6dad8015c9a1 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-@@ -299,6 +299,7 @@ static const struct adreno_info gpulist[] = {
- 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
- 		.init = a6xx_gpu_init,
- 		.zapfw = "a660_zap.mdt",
-+		.hwcg = a660_hwcg,
- 	},
- };
- 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index 63c050919d85..e6b11e6ec82d 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -55,7 +55,7 @@ struct adreno_reglist {
- 	u32 value;
- };
- 
--extern const struct adreno_reglist a630_hwcg[], a640_hwcg[], a650_hwcg[];
-+extern const struct adreno_reglist a630_hwcg[], a640_hwcg[], a650_hwcg[], a660_hwcg[];
- 
- struct adreno_info {
- 	struct adreno_rev rev;
--- 
-2.26.1
-
+Thanks,
+Krishna
+> 
+>> +
+>> +            required:
+>> +              - remote-endpoint
+>> +
+>> +        required:
+>> +          - reg
+>> +          - endpoint
+>> +
+>> +      port@1:
+>> +        type: object
+>> +        description: |
+>> +          Output endpoints of the controller.
+>> +        properties:
+>> +          reg:
+>> +            const: 1
+>> +
+>> +          endpoint:
+>> +            type: object
+>> +            properties:
+>> +              remote-endpoint: true
+>> +              data-lanes:
+>> +                items:
+>> +                  - const: 0
+>> +                  - const: 1
+>> +                  - const: 2
+>> +                  - const: 3
+>> +
+>> +            required:
+>> +              - remote-endpoint
+>> +              - data-lanes
+>> +
+>> +        required:
+>> +          - reg
+>> +          - endpoint
+>> +
+>> +    required:
+>> +      - port@0
+>> +      - port@1
+>> +      - "#address-cells"
+>> +      - "#size-cells"
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - reg-names
+>> +  - interrupts
+>> +  - clocks
+>> +  - clock-names
+>> +  - phys
+>> +  - phy-names
+>> +  - ports
+>> +
+>> +additionalProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +     #include <dt-bindings/interrupt-controller/arm-gic.h>
+>> +     #include <dt-bindings/clock/qcom,dispcc-sdm845.h>
+>> +     #include <dt-bindings/clock/qcom,gcc-sdm845.h>
+>> +
+>> +     dsi@ae94000 {
+>> +           compatible = "qcom,mdss-dsi-ctrl";
+>> +           reg = <0x0ae94000 0x400>;
+>> +           reg-names = "dsi_ctrl";
+>> +
+>> +           #address-cells = <1>;
+>> +           #size-cells = <0>;
+>> +
+>> +           interrupt-parent = <&mdss>;
+>> +           interrupts = <4>;
+>> +
+>> +           clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
+>> +                    <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
+>> +                    <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
+>> +                    <&dispcc DISP_CC_MDSS_ESC0_CLK>,
+>> +                    <&dispcc DISP_CC_MDSS_AHB_CLK>,
+>> +                    <&dispcc DISP_CC_MDSS_AXI_CLK>;
+>> +           clock-names = "byte",
+>> +                         "byte_intf",
+>> +                         "pixel",
+>> +                         "core",
+>> +                         "iface",
+>> +                         "bus";
+>> +
+>> +           phys = <&dsi0_phy>;
+>> +           phy-names = "dsi";
+>> +
+>> +           ports {
+>> +                  #address-cells = <1>;
+>> +                  #size-cells = <0>;
+>> +
+>> +                  port@0 {
+>> +                          reg = <0>;
+>> +                          dsi0_in: endpoint {
+>> +                                   remote-endpoint = 
+>> <&dpu_intf1_out>;
+>> +                          };
+>> +                  };
+>> +
+>> +                  port@1 {
+>> +                          reg = <1>;
+>> +                          dsi0_out: endpoint {
+>> +                                   remote-endpoint = <&sn65dsi86_in>;
+>> +                                   data-lanes = <0 1 2 3>;
+>> +                          };
+>> +                  };
+>> +           };
+>> +     };
+>> +...
+>> diff --git a/Documentation/devicetree/bindings/display/msm/dsi.txt 
+>> b/Documentation/devicetree/bindings/display/msm/dsi.txt
+>> deleted file mode 100644
+>> index b9a64d3..0000000
+>> --- a/Documentation/devicetree/bindings/display/msm/dsi.txt
+>> +++ /dev/null
+>> @@ -1,249 +0,0 @@
+>> -Qualcomm Technologies Inc. adreno/snapdragon DSI output
+>> -
+>> -DSI Controller:
+>> -Required properties:
+>> -- compatible:
+>> -  * "qcom,mdss-dsi-ctrl"
+>> -- reg: Physical base address and length of the registers of 
+>> controller
+>> -- reg-names: The names of register regions. The following regions are 
+>> required:
+>> -  * "dsi_ctrl"
+>> -- interrupts: The interrupt signal from the DSI block.
+>> -- power-domains: Should be <&mmcc MDSS_GDSC>.
+>> -- clocks: Phandles to device clocks.
+>> -- clock-names: the following clocks are required:
+>> -  * "mdp_core"
+>> -  * "iface"
+>> -  * "bus"
+>> -  * "core_mmss"
+>> -  * "byte"
+>> -  * "pixel"
+>> -  * "core"
+>> -  For DSIv2, we need an additional clock:
+>> -   * "src"
+>> -  For DSI6G v2.0 onwards, we need also need the clock:
+>> -   * "byte_intf"
+>> -- assigned-clocks: Parents of "byte" and "pixel" for the given 
+>> platform.
+>> -- assigned-clock-parents: The Byte clock and Pixel clock PLL outputs 
+>> provided
+>> -  by a DSI PHY block. See [1] for details on clock bindings.
+>> -- vdd-supply: phandle to vdd regulator device node
+>> -- vddio-supply: phandle to vdd-io regulator device node
+>> -- vdda-supply: phandle to vdda regulator device node
+>> -- phys: phandle to DSI PHY device node
+>> -- phy-names: the name of the corresponding PHY device
+>> -- syscon-sfpb: A phandle to mmss_sfpb syscon node (only for DSIv2)
+>> -- ports: Contains 2 DSI controller ports as child nodes. Each port 
+>> contains
+>> -  an endpoint subnode as defined in [2] and [3].
+>> -
+>> -Optional properties:
+>> -- panel@0: Node of panel connected to this DSI controller.
+>> -  See files in [4] for each supported panel.
+>> -- qcom,dual-dsi-mode: Boolean value indicating if the DSI controller 
+>> is
+>> -  driving a panel which needs 2 DSI links.
+>> -- qcom,master-dsi: Boolean value indicating if the DSI controller is 
+>> driving
+>> -  the master link of the 2-DSI panel.
+>> -- qcom,sync-dual-dsi: Boolean value indicating if the DSI controller 
+>> is
+>> -  driving a 2-DSI panel whose 2 links need receive command 
+>> simultaneously.
+>> -- pinctrl-names: the pin control state names; should contain 
+>> "default"
+>> -- pinctrl-0: the default pinctrl state (active)
+>> -- pinctrl-n: the "sleep" pinctrl state
+>> -- ports: contains DSI controller input and output ports as children, 
+>> each
+>> -  containing one endpoint subnode.
+>> -
+>> -  DSI Endpoint properties:
+>> -  - remote-endpoint: For port@0, set to phandle of the connected 
+>> panel/bridge's
+>> -    input endpoint. For port@1, set to the MDP interface output. See 
+>> [2] for
+>> -    device graph info.
+>> -
+>> -  - data-lanes: this describes how the physical DSI data lanes are 
+>> mapped
+>> -    to the logical lanes on the given platform. The value contained 
+>> in
+>> -    index n describes what physical lane is mapped to the logical 
+>> lane n
+>> -    (DATAn, where n lies between 0 and 3). The clock lane position is 
+>> fixed
+>> -    and can't be changed. Hence, they aren't a part of the DT 
+>> bindings. See
+>> -    [3] for more info on the data-lanes property.
+>> -
+>> -    For example:
+>> -
+>> -    data-lanes = <3 0 1 2>;
+>> -
+>> -    The above mapping describes that the logical data lane DATA0 is 
+>> mapped to
+>> -    the physical data lane DATA3, logical DATA1 to physical DATA0, 
+>> logic DATA2
+>> -    to phys DATA1 and logic DATA3 to phys DATA2.
+>> -
+>> -    There are only a limited number of physical to logical mappings 
+>> possible:
+>> -    <0 1 2 3>
+>> -    <1 2 3 0>
+>> -    <2 3 0 1>
+>> -    <3 0 1 2>
+>> -    <0 3 2 1>
+>> -    <1 0 3 2>
+>> -    <2 1 0 3>
+>> -    <3 2 1 0>
+> 
+> You've dropped all these?
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
