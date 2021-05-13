@@ -1,62 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B58337FC52
-	for <lists+freedreno@lfdr.de>; Thu, 13 May 2021 19:18:05 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BAFF37FC58
+	for <lists+freedreno@lfdr.de>; Thu, 13 May 2021 19:18:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E02E6EDA7;
-	Thu, 13 May 2021 17:18:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 138466ED94;
+	Thu, 13 May 2021 17:18:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x736.google.com (mail-qk1-x736.google.com
- [IPv6:2607:f8b0:4864:20::736])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37CD06ED9B
- for <freedreno@lists.freedesktop.org>; Thu, 13 May 2021 17:18:03 +0000 (UTC)
-Received: by mail-qk1-x736.google.com with SMTP id 76so26195109qkn.13
- for <freedreno@lists.freedesktop.org>; Thu, 13 May 2021 10:18:03 -0700 (PDT)
+Received: from mail-qk1-x72a.google.com (mail-qk1-x72a.google.com
+ [IPv6:2607:f8b0:4864:20::72a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C0A26ED8A
+ for <freedreno@lists.freedesktop.org>; Thu, 13 May 2021 17:18:09 +0000 (UTC)
+Received: by mail-qk1-x72a.google.com with SMTP id c20so15223238qkm.3
+ for <freedreno@lists.freedesktop.org>; Thu, 13 May 2021 10:18:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=marek-ca.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=vmggi1tOrZ/7NREacuaxcgryuSU/S1q+fl+YG5PANN4=;
- b=rbAflgboFf16SgYS+ys5CR+VSAB/JtRdCzBTbZQAwWW03Fv95nQDuCAaqv8IqsBIf/
- jLnU6oNbTj4urKlDmcbOImMWSGeuYXhVphoffBvMQ0AA5VXYTrbqn7rZCyFOQ97ru4p4
- 4AhRiACQH8Es1QsyWFA3iZ3b8EMB60HkwsTDQ8CwrmJEDbqZGQt6nJ5/d1tOSnvicONj
- wLi4jkWdHdSnzDNAjQhJmBo8g6fUALqMIvszfEGFXE3Lenu1inRKVrMWA+ng1pUFdxfI
- L41RRPA2KZmcBUVVhTZDGmdcg7uVgifU9ouwvhtk5ghWuSHrHaZcTqbUK8gqgi/Nlwcc
- zxRQ==
+ bh=NX+3K+nDZfJV2EuD7CkoMwpkTTqFDDwUKaIW0GhTpho=;
+ b=TTb0cint3NPx33vn/NZ46EWC11vTzo312u0r8YAz/OmrCdlQ9aX25LFxkEAIqy4zHM
+ Shv03wlQeA9OmJZJpMxSucex3UZbrEazadCwVDx8CVNic4Xw8cDMuPZdCLHjJiApDxK4
+ cpd1xxk8vp8iVUKU6B7tXv2Jc2dtwDz5YXejDhmIN3GwtLe1KE9W9TTEaaN2Uojzz4DF
+ QxP+AgY+8a3+htzXLZJfu6hIeffsVe+aVUMAi6cc/+kn0z1GbiH85eTP2/USGEm3OAt9
+ YwX3wdCUj9z7Kw9ip5iHSZY0md1tlbRAH4RY6jiPgSk4LDQaVuJ87BzSBLQNkSpgVM1P
+ 4INQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=vmggi1tOrZ/7NREacuaxcgryuSU/S1q+fl+YG5PANN4=;
- b=obfKybEUYt6WATyeDZmWH0sh+7lZS89Y1o6x/VekItfILKZZyNnmF9pcmVHA5GeuEO
- keeFVqmRPTUA72ZTA4tpNDckSPegj4GG9nNus1ZjDs1OIoQDvhNJW4/oGezjwhfYFc28
- vLV6OPdUl10KyLQsyiv4AAW6YgMFzAOC1f1Fy/kNxItIjqmnh8kKu9i5IB3wC7nCdmul
- 5xx2styk1Vk8gX7d8d2cpQ5Df4U5/OzeHvIDbIdzUxmv7fNu2ELIW1XHhAu49nwKzUay
- seSpwN/Rlj83y00O4i6pbjd7CbLzOWle5x3ZPCFMsP+lwSaRzF91s7HrFTcJrjI2ksRo
- YHBA==
-X-Gm-Message-State: AOAM531RdmnQAwkot8xaqoQbvsg5oYj3Cgcfn3oCTn5R7GvuBgNHc33V
- soe0dUp3/nEvPpvu8OI78g0895FueQKrCW1Y
-X-Google-Smtp-Source: ABdhPJwZ22eRt74l/hlI57Q4bM8PkfOSVTk500ebvRw6wWYM5yMzFkF7M3Vgmbr2uXsAuCtTa1ox0w==
-X-Received: by 2002:a37:b947:: with SMTP id j68mr39397620qkf.108.1620926282029; 
- Thu, 13 May 2021 10:18:02 -0700 (PDT)
+ bh=NX+3K+nDZfJV2EuD7CkoMwpkTTqFDDwUKaIW0GhTpho=;
+ b=r+hUEFSk7i12nJgadZhO/fzdOZONmvdQfI07QSo49+qQdktODbbH1SUcUPs6Bp+Ma4
+ liLhKjI9D88XgFMNLkIuR1+miF0Q6XU5pKLABBCLublIc/T/DVkY+TN58YQR3w8hhmA0
+ xD1dh4XKo1+HbSz8+4ZXHQ2Yh0l6IvB1CMwO7XK+UNCSHPFVrv7Kn/5VGKiQu7heKopN
+ 5qg0fVg7bVBL1LqVEtzhxokp9oDWm7yTgSrhQc/2koGZqxcIbQi6dnDWBjFQNcA5VmqT
+ PlrIa5KG1993tjGMmq9p1CEwT1nyCrszo9Yl6MrQl67uJHQEcJ0kGAuq0Ba3OV27GkuE
+ X5gA==
+X-Gm-Message-State: AOAM531HVilxSN4TR9GpczG6bgOt3FJJ0tVy2rrOfRDdqrAtNQ3LvK4C
+ Q5BUty4+9WIX14oPbqgY5uyCVqTGBczdCoklh1I=
+X-Google-Smtp-Source: ABdhPJyBINN0E76DwCsbr+OiT0OrklRNb0uZcvUCvLFqVk6GMlaQngCGx/9Xn57Otw0KWYPpnUOmAQ==
+X-Received: by 2002:a37:e12:: with SMTP id 18mr38903795qko.419.1620926288384; 
+ Thu, 13 May 2021 10:18:08 -0700 (PDT)
 Received: from localhost.localdomain
  (modemcable068.184-131-66.mc.videotron.ca. [66.131.184.68])
- by smtp.gmail.com with ESMTPSA id f132sm2971117qke.104.2021.05.13.10.18.00
+ by smtp.gmail.com with ESMTPSA id f132sm2971117qke.104.2021.05.13.10.18.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 May 2021 10:18:01 -0700 (PDT)
+ Thu, 13 May 2021 10:18:08 -0700 (PDT)
 From: Jonathan Marek <jonathan@marek.ca>
 To: freedreno@lists.freedesktop.org
-Date: Thu, 13 May 2021 13:14:02 -0400
-Message-Id: <20210513171431.18632-8-jonathan@marek.ca>
+Date: Thu, 13 May 2021 13:14:03 -0400
+Message-Id: <20210513171431.18632-9-jonathan@marek.ca>
 X-Mailer: git-send-email 2.26.1
 In-Reply-To: <20210513171431.18632-1-jonathan@marek.ca>
 References: <20210513171431.18632-1-jonathan@marek.ca>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v2 7/8] drm/msm/a6xx: update
- a6xx_ucode_check_version for a660
+Subject: [Freedreno] [PATCH v2 8/8] drm/msm/a6xx: add a660 hwcg table
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,85 +69,121 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Douglas Anderson <dianders@chromium.org>, David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ open list <linux-kernel@vger.kernel.org>, David Airlie <airlied@linux.ie>,
+ Shawn Guo <shawn.guo@linaro.org>, Sharat Masetty <smasetty@codeaurora.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
  Akhil P Oommen <akhilpo@codeaurora.org>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
  Jordan Crouse <jordan@cosmicpenguin.net>, Eric Anholt <eric@anholt.net>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>, open list <linux-kernel@vger.kernel.org>
+ Rob Clark <robdclark@gmail.com>, Iskren Chernev <iskren.chernev@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Accept all SQE firmware versions for A660.
-
-Re-organize the function a bit and print an error message for unexpected
-GPU IDs instead of failing silently.
+Add a660 hwcg table, ported over from downstream.
 
 Signed-off-by: Jonathan Marek <jonathan@marek.ca>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 36 +++++++++++++--------------
- 1 file changed, 17 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 53 ++++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/adreno_device.c |  1 +
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  2 +-
+ 3 files changed, 55 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 3cc23057b11d..ec66a24fc37e 100644
+index ec66a24fc37e..2713f69e916d 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -697,6 +697,11 @@ static bool a6xx_ucode_check_version(struct a6xx_gpu *a6xx_gpu,
- 	 * Targets up to a640 (a618, a630 and a640) need to check for a
- 	 * microcode version that is patched to support the whereami opcode or
- 	 * one that is new enough to include it by default.
-+	 *
-+	 * a650 tier targets don't need whereami but still need to be
-+	 * equal to or newer than 0.95 for other security fixes
-+	 *
-+	 * a660 targets have all the critical security fixes from the start
- 	 */
- 	if (adreno_is_a618(adreno_gpu) || adreno_is_a630(adreno_gpu) ||
- 		adreno_is_a640(adreno_gpu)) {
-@@ -720,27 +725,20 @@ static bool a6xx_ucode_check_version(struct a6xx_gpu *a6xx_gpu,
- 		DRM_DEV_ERROR(&gpu->pdev->dev,
- 			"a630 SQE ucode is too old. Have version %x need at least %x\n",
- 			buf[0] & 0xfff, 0x190);
--	}  else {
--		/*
--		 * a650 tier targets don't need whereami but still need to be
--		 * equal to or newer than 0.95 for other security fixes
--		 */
--		if (adreno_is_a650(adreno_gpu)) {
--			if ((buf[0] & 0xfff) >= 0x095) {
--				ret = true;
--				goto out;
--			}
--
--			DRM_DEV_ERROR(&gpu->pdev->dev,
--				"a650 SQE ucode is too old. Have version %x need at least %x\n",
--				buf[0] & 0xfff, 0x095);
-+	} else if (adreno_is_a650(adreno_gpu)) {
-+		if ((buf[0] & 0xfff) >= 0x095) {
-+			ret = true;
-+			goto out;
- 		}
+@@ -427,6 +427,59 @@ const struct adreno_reglist a650_hwcg[] = {
+ 	{},
+ };
  
--		/*
--		 * When a660 is added those targets should return true here
--		 * since those have all the critical security fixes built in
--		 * from the start
--		 */
-+		DRM_DEV_ERROR(&gpu->pdev->dev,
-+			"a650 SQE ucode is too old. Have version %x need at least %x\n",
-+			buf[0] & 0xfff, 0x095);
-+	} else if (adreno_is_a660(adreno_gpu)) {
-+		ret = true;
-+	} else {
-+		DRM_DEV_ERROR(&gpu->pdev->dev,
-+			"unknown GPU, add it to a6xx_ucode_check_version()!!\n");
- 	}
- out:
- 	msm_gem_put_vaddr(obj);
++const struct adreno_reglist a660_hwcg[] = {
++	{REG_A6XX_RBBM_CLOCK_CNTL_SP0, 0x02222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL2_SP0, 0x02222220},
++	{REG_A6XX_RBBM_CLOCK_DELAY_SP0, 0x00000080},
++	{REG_A6XX_RBBM_CLOCK_HYST_SP0, 0x0000F3CF},
++	{REG_A6XX_RBBM_CLOCK_CNTL_TP0, 0x22222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL2_TP0, 0x22222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL3_TP0, 0x22222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL4_TP0, 0x00022222},
++	{REG_A6XX_RBBM_CLOCK_DELAY_TP0, 0x11111111},
++	{REG_A6XX_RBBM_CLOCK_DELAY2_TP0, 0x11111111},
++	{REG_A6XX_RBBM_CLOCK_DELAY3_TP0, 0x11111111},
++	{REG_A6XX_RBBM_CLOCK_DELAY4_TP0, 0x00011111},
++	{REG_A6XX_RBBM_CLOCK_HYST_TP0, 0x77777777},
++	{REG_A6XX_RBBM_CLOCK_HYST2_TP0, 0x77777777},
++	{REG_A6XX_RBBM_CLOCK_HYST3_TP0, 0x77777777},
++	{REG_A6XX_RBBM_CLOCK_HYST4_TP0, 0x00077777},
++	{REG_A6XX_RBBM_CLOCK_CNTL_RB0, 0x22222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL2_RB0, 0x01002222},
++	{REG_A6XX_RBBM_CLOCK_CNTL_CCU0, 0x00002220},
++	{REG_A6XX_RBBM_CLOCK_HYST_RB_CCU0, 0x00040F00},
++	{REG_A6XX_RBBM_CLOCK_CNTL_RAC, 0x25222022},
++	{REG_A6XX_RBBM_CLOCK_CNTL2_RAC, 0x00005555},
++	{REG_A6XX_RBBM_CLOCK_DELAY_RAC, 0x00000011},
++	{REG_A6XX_RBBM_CLOCK_HYST_RAC, 0x00445044},
++	{REG_A6XX_RBBM_CLOCK_CNTL_TSE_RAS_RBBM, 0x04222222},
++	{REG_A6XX_RBBM_CLOCK_MODE_VFD, 0x00002222},
++	{REG_A6XX_RBBM_CLOCK_MODE_GPC, 0x00222222},
++	{REG_A6XX_RBBM_CLOCK_DELAY_HLSQ_2, 0x00000002},
++	{REG_A6XX_RBBM_CLOCK_MODE_HLSQ, 0x00002222},
++	{REG_A6XX_RBBM_CLOCK_DELAY_TSE_RAS_RBBM, 0x00004000},
++	{REG_A6XX_RBBM_CLOCK_DELAY_VFD, 0x00002222},
++	{REG_A6XX_RBBM_CLOCK_DELAY_GPC, 0x00000200},
++	{REG_A6XX_RBBM_CLOCK_DELAY_HLSQ, 0x00000000},
++	{REG_A6XX_RBBM_CLOCK_HYST_TSE_RAS_RBBM, 0x00000000},
++	{REG_A6XX_RBBM_CLOCK_HYST_VFD, 0x00000000},
++	{REG_A6XX_RBBM_CLOCK_HYST_GPC, 0x04104004},
++	{REG_A6XX_RBBM_CLOCK_HYST_HLSQ, 0x00000000},
++	{REG_A6XX_RBBM_CLOCK_CNTL_TEX_FCHE, 0x00000222},
++	{REG_A6XX_RBBM_CLOCK_DELAY_TEX_FCHE, 0x00000111},
++	{REG_A6XX_RBBM_CLOCK_HYST_TEX_FCHE, 0x00000000},
++	{REG_A6XX_RBBM_CLOCK_CNTL_UCHE, 0x22222222},
++	{REG_A6XX_RBBM_CLOCK_HYST_UCHE, 0x00000004},
++	{REG_A6XX_RBBM_CLOCK_DELAY_UCHE, 0x00000002},
++	{REG_A6XX_RBBM_ISDB_CNT, 0x00000182},
++	{REG_A6XX_RBBM_RAC_THRESHOLD_CNT, 0x00000000},
++	{REG_A6XX_RBBM_SP_HYST_CNT, 0x00000000},
++	{REG_A6XX_RBBM_CLOCK_CNTL_GMU_GX, 0x00000222},
++	{REG_A6XX_RBBM_CLOCK_DELAY_GMU_GX, 0x00000111},
++	{REG_A6XX_RBBM_CLOCK_HYST_GMU_GX, 0x00000555},
++	{},
++};
++
+ static void a6xx_set_hwcg(struct msm_gpu *gpu, bool state)
+ {
+ 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index e4db0683d381..6dad8015c9a1 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -299,6 +299,7 @@ static const struct adreno_info gpulist[] = {
+ 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+ 		.init = a6xx_gpu_init,
+ 		.zapfw = "a660_zap.mdt",
++		.hwcg = a660_hwcg,
+ 	},
+ };
+ 
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index 63c050919d85..e6b11e6ec82d 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -55,7 +55,7 @@ struct adreno_reglist {
+ 	u32 value;
+ };
+ 
+-extern const struct adreno_reglist a630_hwcg[], a640_hwcg[], a650_hwcg[];
++extern const struct adreno_reglist a630_hwcg[], a640_hwcg[], a650_hwcg[], a660_hwcg[];
+ 
+ struct adreno_info {
+ 	struct adreno_rev rev;
 -- 
 2.26.1
 
