@@ -2,51 +2,36 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1D14381166
-	for <lists+freedreno@lfdr.de>; Fri, 14 May 2021 22:09:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D766A3812D7
+	for <lists+freedreno@lfdr.de>; Fri, 14 May 2021 23:31:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C6F86F452;
-	Fri, 14 May 2021 20:09:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 287A26F492;
+	Fri, 14 May 2021 21:31:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99A576F451;
- Fri, 14 May 2021 20:09:01 +0000 (UTC)
-Received: by mail-wm1-x32b.google.com with SMTP id
- p14-20020a05600c358eb029015c01f207d7so305806wmq.5; 
- Fri, 14 May 2021 13:09:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=9vee9zbKeJ08k4xe/XZutEWn1yTcRHSY9UUPRdL/HXQ=;
- b=gVYhbAwKpL+ipOCZsofpwGVTpgzbCcblvU3WaxpvrC2CMYY6UdIWABp8eoZaO5iN67
- l0DjlqBBn6qBKolaKOvBLfdlxqGqv5fw5Mm8LCjUZ0yQCcMCMcnIfWheVkcKqcM43rOU
- qOIyS1MOttsktudza5OEYdEmqF7ACmhT7C0bpUVpDd+TnKLVyPyYuxoEz16MdaYlYmxL
- tkP+9hYPxfrJynYZqwFbAke1nv5zoKgTvQY5cI3uNTmnvRAfOxmOzz003HaPMT5H1vUe
- ID1mjtkj7gD74zzbyCbf8PsH/V2Lk56d+jYMZUztQMJnM8UryNFcBdz8umAF4i+fhr39
- HNqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=9vee9zbKeJ08k4xe/XZutEWn1yTcRHSY9UUPRdL/HXQ=;
- b=V7VXo8xRASYVNYkapxvFfEfQyZo+jSXMrn1EDfTJPS4TqIeEWxsfmWuMmUHeHzm71c
- sCNtcndXBX+aYnTyKtQ3iKMVg+a9ch9LhEILfmt3DwkadptWlnQcckHWSJan+VuddPHC
- R9DaxzOQEb1nQ/Mg96iVYT5ayAllXPEFqbPQaqHNxfzTOqioCEWWKETPZHhNp/pyzEZk
- OMDnMXYbGXB1rKasJyKvEzUaRL+fcw3NvSN3xc7kp+csuBJ9SZQ1sY5tkGqoedgNZvZJ
- mXl4m4lVmYj6VrmsZ0JSI8XYOZqjVZE4rbZYwFqhJisCItbB7NIC0ZO9QO/3B9TXh5Q2
- m2Yg==
-X-Gm-Message-State: AOAM532BIR8DlII16mc+fvup4d3InaVpfAe+1hzlTQd1mCHsA/j2lUBO
- CzEc1HLn++WqzRlT32O0Q+LFOUQUmGdwadRIKS0=
-X-Google-Smtp-Source: ABdhPJx1lkTJm9rKHYxi7GjduJl398gAg9pDy7QhR05IuHloVqkBr+xdhtf226DwAeMSoQsJqqj/3zgJ733l7f3xrLI=
-X-Received: by 2002:a7b:cd8e:: with SMTP id y14mr6087258wmj.164.1621022940229; 
- Fri, 14 May 2021 13:09:00 -0700 (PDT)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 379526F492;
+ Fri, 14 May 2021 21:31:24 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4D9306140A;
+ Fri, 14 May 2021 21:31:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1621027884;
+ bh=r4ZITb5VahQ1bp4eOnHrhuqUyrRIdgRO+1xUikzpyiU=;
+ h=From:To:Cc:Subject:Date:From;
+ b=YxucMdfrO3LsjOLFgbwf4gd1fZXfgu1IvyP2icIRwYCV4bedtaWMzi1WGRNs0Eowl
+ tXuYLbhMVhEqACnTNhbLJBvJzz1S1cnhww1BzNrVek3qqJ9X7QsjegPzRvrgOmZqpY
+ oPBoQQcwqIinJ4IBNcFEgcMigj7WzH7dbEyc1kgzL/owH6UttN0NYnfLnYd9oiqrIX
+ Cgb5M/SOrlWGpzdDrC4AJaCUtAMk8BDOLRtOpnXef19SaUjzjnSoIVE8kHr0dIsD23
+ 7yBmUtwPDb/CzoliYRLu9Jx7O64M1056cFB//tOzWcpL3bkMJjHuIRm0Lju5wZL0sr
+ 0+Q1xtHzt8zhA==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Date: Fri, 14 May 2021 23:30:17 +0200
+Message-Id: <20210514213032.575161-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 14 May 2021 13:12:42 -0700
-Message-ID: <CAF6AEGuqLZDAEJwUFKb6m+h3kyxgjDEKa3DPA1fHA69vxbXH=g@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Subject: [Freedreno] [resend][pull] drm/msm: drm-msm-fixes-2021-05-09 for
- v5.13-rc2
+Subject: [Freedreno] [PATCH] drm/msm/dsi: fix 32-bit clang warning
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,61 +44,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
+Cc: Arnd Bergmann <arnd@arndb.de>, Jonathan Marek <jonathan@marek.ca>,
+ linux-arm-msm@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>,
+ linux-kernel@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Nathan Chancellor <nathan@kernel.org>, clang-built-linux@googlegroups.com,
+ dri-devel@lists.freedesktop.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave & Daniel,
+From: Arnd Bergmann <arnd@arndb.de>
 
-First round of fixes for v5.13
+clang is a little overzealous with warning about a constant conversion
+in an untaken branch of a ternary expression:
 
-The following changes since commit a29c8c0241654d5f3165d52e9307e4feff955621:
+drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c:975:48: error: implicit conversion from 'unsigned long long' to 'unsigned long' changes value from 5000000000 to 705032704 [-Werror,-Wconstant-conversion]
+        .max_pll_rate = (5000000000ULL < ULONG_MAX) ? 5000000000UL : ULONG_MAX,
+                                                      ^~~~~~~~~~~~
 
-  drm/msm/disp/dpu1: fix display underruns during modeset. (2021-04-09
-12:02:35 -0700)
+Rewrite this to use a preprocessor conditional instead to avoid the
+warning.
 
-are available in the Git repository at:
+Fixes: 076437c9e360 ("drm/msm/dsi: move min/max PLL rate to phy config")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+As found with another patch, using __builtin_choose_expr() would
+likely also work here, but doesn't seem any more readable.
+---
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-  https://gitlab.freedesktop.org/drm/msm.git drm-msm-fixes-2021-05-09
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+index e76ce40a12ab..accd6b4eb7c2 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+@@ -972,7 +972,11 @@ const struct msm_dsi_phy_cfg dsi_phy_7nm_cfgs = {
+ 		.restore_pll_state = dsi_7nm_pll_restore_state,
+ 	},
+ 	.min_pll_rate = 600000000UL,
+-	.max_pll_rate = (5000000000ULL < ULONG_MAX) ? 5000000000ULL : ULONG_MAX,
++#ifdef CONFIG_64BIT
++	.max_pll_rate = 5000000000UL,
++#else
++	.max_pll_rate = ULONG_MAX,
++#endif
+ 	.io_start = { 0xae94400, 0xae96400 },
+ 	.num_dsi_phy = 2,
+ 	.quirks = DSI_PHY_7NM_QUIRK_V4_1,
+-- 
+2.29.2
 
-for you to fetch changes up to f2f46b878777e0d3f885c7ddad48f477b4dea247:
-
-  drm/msm/dp: initialize audio_comp when audio starts (2021-05-06
-16:26:57 -0700)
-
-----------------------------------------------------------------
-Dmitry Baryshkov (2):
-      drm/msm/dsi: dsi_phy_28nm_8960: fix uninitialized variable access
-      drm/msm/dsi: fix msm_dsi_phy_get_clk_provider return code
-
-Jonathan Marek (2):
-      drm/msm: fix LLC not being enabled for mmu500 targets
-      drm/msm: fix minor version to indicate MSM_PARAM_SUSPENDS support
-
-Kuogee Hsieh (2):
-      drm/msm/dp: check sink_count before update is_connected status
-      drm/msm/dp: initialize audio_comp when audio starts
-
-Rob Clark (1):
-      drm/msm: Do not unpin/evict exported dma-buf's
-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c           |  9 +++++----
- drivers/gpu/drm/msm/dp/dp_audio.c               |  1 +
- drivers/gpu/drm/msm/dp/dp_display.c             | 26 ++++++++++++++++---------
- drivers/gpu/drm/msm/dp/dp_display.h             |  1 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.c           |  2 +-
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c |  4 ++++
- drivers/gpu/drm/msm/msm_drv.c                   |  2 +-
- drivers/gpu/drm/msm/msm_gem.c                   | 16 ++++++++++++++-
- drivers/gpu/drm/msm/msm_gem.h                   |  4 ++--
- 9 files changed, 47 insertions(+), 18 deletions(-)
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
