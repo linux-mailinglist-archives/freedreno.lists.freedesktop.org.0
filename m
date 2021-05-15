@@ -2,68 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2394381A32
-	for <lists+freedreno@lfdr.de>; Sat, 15 May 2021 19:41:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F351381A3F
+	for <lists+freedreno@lfdr.de>; Sat, 15 May 2021 19:45:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 282316E42C;
-	Sat, 15 May 2021 17:41:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAFDD6E427;
+	Sat, 15 May 2021 17:45:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7D8D6E431
- for <freedreno@lists.freedesktop.org>; Sat, 15 May 2021 17:41:43 +0000 (UTC)
-Received: by mail-lj1-x22b.google.com with SMTP id 131so2250459ljj.3
- for <freedreno@lists.freedesktop.org>; Sat, 15 May 2021 10:41:43 -0700 (PDT)
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0597E6E427
+ for <freedreno@lists.freedesktop.org>; Sat, 15 May 2021 17:45:18 +0000 (UTC)
+Received: by mail-lj1-x230.google.com with SMTP id w4so2225544ljw.9
+ for <freedreno@lists.freedesktop.org>; Sat, 15 May 2021 10:45:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=subject:to:references:from:message-id:date:user-agent:mime-version
  :in-reply-to:content-language:content-transfer-encoding;
- bh=b7eX77q8eKbpdnMvJxfoJvBkAq9vgiVC8Eptr8qHOxM=;
- b=IHGdBBzTmj0VpkUBKhTvgL7ff21LY6rZpUEOV3viZVLWRG8L747QMqM1X1LPtFkbZh
- EJvhV8MZPe7isHM0+kW+Yoey9ivxWHwnk/JMSgWgkVw4cnAZdYpRK5KzLhwTZuhyo+Nn
- Olms4DtUW52q+cHwHUSZSkId+NnfvpdrA65XHDr5qXEE/UaFnAkOwT+kESdSE8/g0WLY
- jJUmQ5VkyZDBeoAKNelXs1BQOA4sdFn9nTYGnkX+Aj8MAi1PsEVp6pJP5nxZebo+tx+r
- taRE2AgAWsf1M4OApV4dm7YYBO2l5DMWCyekP73xI7v9FWHCA8U/FajH4mLMYnI5VrVV
- Q6dQ==
+ bh=Uew60+G+SsxW8j8MijONIawIC+5YuiNS9/uDWrf3cP4=;
+ b=q7uMGfIu5kGZ+6hGNujZ64ZmMGy4RAikXSf8gFyIKdRbA71krFjYMlArGdyx2gq9Vq
+ d9WOncS48vT9ws4TVxrvOPftv0vDMA0vs1BNZuOx0H1ORjEG171ueeUTtuYABCXCtDV8
+ VU02/2EfHzaGqprgipQVXAGhRyhW15jGjR19GiwNRD813aX3pyJgYqC6LekkD/on9E3k
+ VTNYeguiwopR8UazK/toaPKYuSp0akJesQd0poBUiPBsST6mjHa7hywxSBqTb7DyWN1n
+ J7fS/NOQsKnZ4+tBOHtHEefonMt015EkuoJrRFfV35eFvsEiMVk5/759MpZUEX/dRu79
+ JrNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=b7eX77q8eKbpdnMvJxfoJvBkAq9vgiVC8Eptr8qHOxM=;
- b=hZAk63O2HGIMdfcdHlacal6GFodenRsfrru7+L30py8GjuZidCCwbG0Yt1TknHanv4
- EYBfPahRdfllEYcyR70JZwb2lu2bya00MQAeCeUIf1ZdT0vihmfHL8cr2OHO7UPSIXfh
- 55n1xpzLoKlQbLuMTf9g3lVggZ46GdxII5jzCc+6X1DBTyA5iouzXBPUi2QTOtjDFXUi
- u5xiaHjpSPwEJZ1rK5g37TzgA2A9WmoaBjhAusOLgEvfBRYzLJ1TItS1v1ZYvHtpN8Aa
- 0nOMUTQG6mqf8THh/x4g9vgQ47hZyx3cagno4Swxs+ham5gXpYuhmTcuO6rFae3osbnH
- 8kFQ==
-X-Gm-Message-State: AOAM532xGzRzTRskjzrwB1YyZpJjSUfZMNXCSocO2fSt7kS7vIlAjCdQ
- +4lqbuwbgHqM+QqIMU0a087uBQ==
-X-Google-Smtp-Source: ABdhPJywo+0YyXrXkHIsvx+8Y2y5PtGhqM4kuVUcPeW2DVE2rC9aZH144ekNIyXTmHQxnYIgvKLC3w==
-X-Received: by 2002:a2e:9215:: with SMTP id k21mr42376171ljg.224.1621100502083; 
- Sat, 15 May 2021 10:41:42 -0700 (PDT)
+ bh=Uew60+G+SsxW8j8MijONIawIC+5YuiNS9/uDWrf3cP4=;
+ b=Sru6E531nOfY2YsJnN7MfAzhg8FDpeCh7kzAH5QPjkpn03ctbAtqrutlPLVbLh/qDV
+ DxzSYzb0ciOCGNrgP/6GFsSCGiBu+CYX5/ZOxjTWwBHpYq9tCibKvWyc6A42n3DoCUUx
+ vPmTAvufUVpbx+X262wjUu8X/YN8Qg3H6R0MDWEO5PN8wSBL+eZqKBU1xL2pVuGTLTqj
+ 0UkaAgHS1kk7wTZPMGpeXAiOQr139z8DoDiX48KdTReil3HojU2a7UnpWojRC24e9UU5
+ 6XSkOxC68cLH93ZTG7hWAPZjfY/mi0NExebVViXoM7cbl394JX2iKCBb+zi824mXw3zf
+ 4IhA==
+X-Gm-Message-State: AOAM530is0iPqfuIWujMb755NYDrRSUSloOXqbtPI6v1iiVMNq4EWrav
+ Vq7jrMoEbMEl4hyEBTeqT/2/yw==
+X-Google-Smtp-Source: ABdhPJzZpYVpC+2X095uKXRc/Oo5tcpmRjH0WCm9hYwhP9EBhCF2KrssdyelK4eKiW3/vctO7ffvdA==
+X-Received: by 2002:a2e:b807:: with SMTP id u7mr42869439ljo.67.1621100717420; 
+ Sat, 15 May 2021 10:45:17 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id z20sm952196ljk.123.2021.05.15.10.41.41
+ by smtp.gmail.com with ESMTPSA id h4sm1430170lfv.264.2021.05.15.10.45.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 15 May 2021 10:41:41 -0700 (PDT)
+ Sat, 15 May 2021 10:45:16 -0700 (PDT)
 To: Zhen Lei <thunder.leizhen@huawei.com>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Jeykumar Sankaran <jsanka@codeaurora.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>,
  linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  dri-devel <dri-devel@lists.freedesktop.org>,
  freedreno <freedreno@lists.freedesktop.org>,
  linux-kernel <linux-kernel@vger.kernel.org>
-References: <20210508022836.1777-1-thunder.leizhen@huawei.com>
+References: <20210510031606.3112-1-thunder.leizhen@huawei.com>
+ <20210510031606.3112-2-thunder.leizhen@huawei.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <ad97839c-8849-d4d7-91ff-af2ac2453745@linaro.org>
-Date: Sat, 15 May 2021 20:41:40 +0300
+Message-ID: <c19cb5e0-2ca3-0453-3c8f-e01f30748031@linaro.org>
+Date: Sat, 15 May 2021 20:45:16 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210508022836.1777-1-thunder.leizhen@huawei.com>
+In-Reply-To: <20210510031606.3112-2-thunder.leizhen@huawei.com>
 Content-Language: en-GB
-Subject: Re: [Freedreno] [PATCH 1/1] drm/msm: Fix error return code in
- msm_drm_init()
+Subject: Re: [Freedreno] [PATCH v2 1/1] drm/msm/dpu: Fix error return code
+ in dpu_mdss_init()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,32 +83,62 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 08/05/2021 05:28, Zhen Lei wrote:
-> Fix to return a negative error code from the error handling case instead
-> of 0, as done elsewhere in this function.
+On 10/05/2021 06:16, Zhen Lei wrote:
+> The error code returned by platform_get_irq() is stored in 'irq', it's
+> forgotten to be copied to 'ret' before being returned. As a result, the
+> value 0 of 'ret' is returned incorrectly.
 > 
-> Fixes: 7f9743abaa79 ("drm/msm: validate display and event threads")
+> After the above fix is completed, initializing the local variable 'ret'
+> to 0 is no longer needed, remove it.
+> 
+> In addition, when dpu_mdss_init() is successfully returned, the value of
+> 'ret' is always 0. Therefore, replace "return ret" with "return 0" to make
+> the code clearer.
+> 
+> Fixes: 070e64dc1bbc ("drm/msm/dpu: Convert to a chained irq chip")
 > Reported-by: Hulk Robot <hulkci@huawei.com>
 > Signed-off-by: Zhen Lei <thunder.leizhen@huawei.com>
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 > ---
->   drivers/gpu/drm/msm/msm_drv.c | 1 +
->   1 file changed, 1 insertion(+)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c | 8 +++++---
+>   1 file changed, 5 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index e1104d2454e2..ebd856dde1f1 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -523,6 +523,7 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
->   		priv->event_thread[i].worker = kthread_create_worker(0,
->   			"crtc_event:%d", priv->event_thread[i].crtc_id);
->   		if (IS_ERR(priv->event_thread[i].worker)) {
-> +			ret = PTR_ERR(priv->event_thread[i].worker);
->   			DRM_DEV_ERROR(dev, "failed to create crtc_event kthread\n");
->   			goto err_msm_uninit;
->   		}
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
+> index 06b56fec04e047a..6b0a7bc87eb75b8 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
+> @@ -225,7 +225,7 @@ int dpu_mdss_init(struct drm_device *dev)
+>   	struct msm_drm_private *priv = dev->dev_private;
+>   	struct dpu_mdss *dpu_mdss;
+>   	struct dss_module_power *mp;
+> -	int ret = 0;
+> +	int ret;
+>   	int irq;
+>   
+>   	dpu_mdss = devm_kzalloc(dev->dev, sizeof(*dpu_mdss), GFP_KERNEL);
+> @@ -253,8 +253,10 @@ int dpu_mdss_init(struct drm_device *dev)
+>   		goto irq_domain_error;
+>   
+>   	irq = platform_get_irq(pdev, 0);
+> -	if (irq < 0)
+> +	if (irq < 0) {
+> +		ret = irq;
+>   		goto irq_error;
+> +	}
+>   
+>   	irq_set_chained_handler_and_data(irq, dpu_mdss_irq,
+>   					 dpu_mdss);
+> @@ -263,7 +265,7 @@ int dpu_mdss_init(struct drm_device *dev)
+>   
+>   	pm_runtime_enable(dev->dev);
+>   
+> -	return ret;
+> +	return 0;
+>   
+>   irq_error:
+>   	_dpu_mdss_irq_domain_fini(dpu_mdss);
 > 
 
 
