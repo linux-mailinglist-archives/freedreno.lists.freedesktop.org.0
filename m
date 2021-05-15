@@ -2,70 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F351381A3F
-	for <lists+freedreno@lfdr.de>; Sat, 15 May 2021 19:45:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87A8A381AAD
+	for <lists+freedreno@lfdr.de>; Sat, 15 May 2021 21:09:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAFDD6E427;
-	Sat, 15 May 2021 17:45:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18E896E435;
+	Sat, 15 May 2021 19:09:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [IPv6:2a00:1450:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0597E6E427
- for <freedreno@lists.freedesktop.org>; Sat, 15 May 2021 17:45:18 +0000 (UTC)
-Received: by mail-lj1-x230.google.com with SMTP id w4so2225544ljw.9
- for <freedreno@lists.freedesktop.org>; Sat, 15 May 2021 10:45:18 -0700 (PDT)
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B3CE6E436
+ for <freedreno@lists.freedesktop.org>; Sat, 15 May 2021 19:09:13 +0000 (UTC)
+Received: by mail-lj1-x235.google.com with SMTP id o8so2448673ljp.0
+ for <freedreno@lists.freedesktop.org>; Sat, 15 May 2021 12:09:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-language:content-transfer-encoding;
- bh=Uew60+G+SsxW8j8MijONIawIC+5YuiNS9/uDWrf3cP4=;
- b=q7uMGfIu5kGZ+6hGNujZ64ZmMGy4RAikXSf8gFyIKdRbA71krFjYMlArGdyx2gq9Vq
- d9WOncS48vT9ws4TVxrvOPftv0vDMA0vs1BNZuOx0H1ORjEG171ueeUTtuYABCXCtDV8
- VU02/2EfHzaGqprgipQVXAGhRyhW15jGjR19GiwNRD813aX3pyJgYqC6LekkD/on9E3k
- VTNYeguiwopR8UazK/toaPKYuSp0akJesQd0poBUiPBsST6mjHa7hywxSBqTb7DyWN1n
- J7fS/NOQsKnZ4+tBOHtHEefonMt015EkuoJrRFfV35eFvsEiMVk5/759MpZUEX/dRu79
- JrNQ==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=rgptk4zfD1UjWZRJ8uUQEHx7TiTyQTE7H5OVd2DkG60=;
+ b=DZXPnV+7cp07USVBDxPNsQSDAQcbXeBtFnPiPmtUs1FVNFiHZnmE5BeJ56MzPKKnEP
+ huncXXEHdg8do/0+MFTrbjriceN7dGGRsz5RxFIXRhR/EEWBQ3vZD7WWTFePnlfYoAye
+ BEENqjHKMN9OFrPfiElWHJg/OyH4o6JVyaz8y5s6FLwbBD8bALvqNCVmN/3al0iMEPEy
+ 6zsERYljx+CzrXhof3tHymxtgtkHHGijnfhnfnGJURTD7xM0AXzJL2+95fFdLzZAMseH
+ 6cH3E2S9Ly/Rz5KXipy4LHBjmZ8rXZJbZBI9vf98xgG1RfAg1xWhZdxcVi4o/LRDT5Qi
+ vqXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=Uew60+G+SsxW8j8MijONIawIC+5YuiNS9/uDWrf3cP4=;
- b=Sru6E531nOfY2YsJnN7MfAzhg8FDpeCh7kzAH5QPjkpn03ctbAtqrutlPLVbLh/qDV
- DxzSYzb0ciOCGNrgP/6GFsSCGiBu+CYX5/ZOxjTWwBHpYq9tCibKvWyc6A42n3DoCUUx
- vPmTAvufUVpbx+X262wjUu8X/YN8Qg3H6R0MDWEO5PN8wSBL+eZqKBU1xL2pVuGTLTqj
- 0UkaAgHS1kk7wTZPMGpeXAiOQr139z8DoDiX48KdTReil3HojU2a7UnpWojRC24e9UU5
- 6XSkOxC68cLH93ZTG7hWAPZjfY/mi0NExebVViXoM7cbl394JX2iKCBb+zi824mXw3zf
- 4IhA==
-X-Gm-Message-State: AOAM530is0iPqfuIWujMb755NYDrRSUSloOXqbtPI6v1iiVMNq4EWrav
- Vq7jrMoEbMEl4hyEBTeqT/2/yw==
-X-Google-Smtp-Source: ABdhPJzZpYVpC+2X095uKXRc/Oo5tcpmRjH0WCm9hYwhP9EBhCF2KrssdyelK4eKiW3/vctO7ffvdA==
-X-Received: by 2002:a2e:b807:: with SMTP id u7mr42869439ljo.67.1621100717420; 
- Sat, 15 May 2021 10:45:17 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id h4sm1430170lfv.264.2021.05.15.10.45.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 15 May 2021 10:45:16 -0700 (PDT)
-To: Zhen Lei <thunder.leizhen@huawei.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- linux-kernel <linux-kernel@vger.kernel.org>
-References: <20210510031606.3112-1-thunder.leizhen@huawei.com>
- <20210510031606.3112-2-thunder.leizhen@huawei.com>
+ bh=rgptk4zfD1UjWZRJ8uUQEHx7TiTyQTE7H5OVd2DkG60=;
+ b=cLhce8lTVaXID9kV7AgQZst5UJBUgXfXU2V9YjDDA7ASWhKTwpJQUryiZ2H7LNf4Bk
+ 34kryCefWT98AtjfDGEczgV2ZDTSeAGEMHqMsWQvBxyeTD0N1gcQrUqTia9iRlAaK7za
+ hT+28qLszA4kSYPM6DDMQW6BqLbBsaVNLp+eRT9Tkbl/GzopC2LXPkm6IOA6ajwWCRKk
+ A5QiJ8hkMkUA2wcDIPpVp2Ml0nMDO5LLYygSL1n1hwu8/Zsy8CP0wAix3TNUFiQe/Uei
+ +pQDEiDrvGx6PL057qaV23nzSvRw1OIxfO1NiLWKcsQfCb0kE+Hkbvmdr87FxAfgeVj/
+ PZuQ==
+X-Gm-Message-State: AOAM530JrlZXrmStd/Tr0dpMyTeYkzIqF8lneLYlOCXiSG8CZfNBPqcB
+ fsFP3Fu0kkhmpGXpdac9pLsUaA==
+X-Google-Smtp-Source: ABdhPJybhGBkhSOoLMmdl7jWqtaX8sVUhBq8jWadgwVD3YoqKGaWEzdFMqUSyALcHXXzI2e/3vBThQ==
+X-Received: by 2002:a2e:8041:: with SMTP id p1mr19801831ljg.213.1621105751654; 
+ Sat, 15 May 2021 12:09:11 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id t15sm2184107ljk.99.2021.05.15.12.09.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 15 May 2021 12:09:11 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <c19cb5e0-2ca3-0453-3c8f-e01f30748031@linaro.org>
-Date: Sat, 15 May 2021 20:45:16 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <abhinavk@codeaurora.org>
+Date: Sat, 15 May 2021 22:09:05 +0300
+Message-Id: <20210515190909.1809050-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-In-Reply-To: <20210510031606.3112-2-thunder.leizhen@huawei.com>
-Content-Language: en-GB
-Subject: Re: [Freedreno] [PATCH v2 1/1] drm/msm/dpu: Fix error return code
- in dpu_mdss_init()
+Subject: [Freedreno] [PATCH v3 0/3] drm/msm/dpu: simplify dpu_hw_blk handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,73 +66,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/05/2021 06:16, Zhen Lei wrote:
-> The error code returned by platform_get_irq() is stored in 'irq', it's
-> forgotten to be copied to 'ret' before being returned. As a result, the
-> value 0 of 'ret' is returned incorrectly.
-> 
-> After the above fix is completed, initializing the local variable 'ret'
-> to 0 is no longer needed, remove it.
-> 
-> In addition, when dpu_mdss_init() is successfully returned, the value of
-> 'ret' is always 0. Therefore, replace "return ret" with "return 0" to make
-> the code clearer.
-> 
-> Fixes: 070e64dc1bbc ("drm/msm/dpu: Convert to a chained irq chip")
-> Reported-by: Hulk Robot <hulkci@huawei.com>
-> Signed-off-by: Zhen Lei <thunder.leizhen@huawei.com>
+Drop most of "extra" features of dpu_hw_blk.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Changes since v2:
+ - Include a patch to fix compilation issue with merge3d id handling
 
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c | 8 +++++---
->   1 file changed, 5 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
-> index 06b56fec04e047a..6b0a7bc87eb75b8 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
-> @@ -225,7 +225,7 @@ int dpu_mdss_init(struct drm_device *dev)
->   	struct msm_drm_private *priv = dev->dev_private;
->   	struct dpu_mdss *dpu_mdss;
->   	struct dss_module_power *mp;
-> -	int ret = 0;
-> +	int ret;
->   	int irq;
->   
->   	dpu_mdss = devm_kzalloc(dev->dev, sizeof(*dpu_mdss), GFP_KERNEL);
-> @@ -253,8 +253,10 @@ int dpu_mdss_init(struct drm_device *dev)
->   		goto irq_domain_error;
->   
->   	irq = platform_get_irq(pdev, 0);
-> -	if (irq < 0)
-> +	if (irq < 0) {
-> +		ret = irq;
->   		goto irq_error;
-> +	}
->   
->   	irq_set_chained_handler_and_data(irq, dpu_mdss_irq,
->   					 dpu_mdss);
-> @@ -263,7 +265,7 @@ int dpu_mdss_init(struct drm_device *dev)
->   
->   	pm_runtime_enable(dev->dev);
->   
-> -	return ret;
-> +	return 0;
->   
->   irq_error:
->   	_dpu_mdss_irq_domain_fini(dpu_mdss);
-> 
+Changes since v1:
+ - Make dpu_hw_blk an empty structure
+ - Split this into separate patchset
+
+----------------------------------------------------------------
+Dmitry Baryshkov (4):
+      drm/msm/dpu: remove unused dpu_hw_blk features
+      drm/msm/dpu: drop dpu_hw_blk_destroy function
+      drm/msm/dpu: use struct dpu_hw_merge_3d in dpu_hw_pingpong
+      drm/msm/dpu: hw_blk: make dpu_hw_blk empty opaque structure
+
+ drivers/gpu/drm/msm/Makefile                       |   1 -
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |  11 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.c         | 139 ---------------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.h         |  22 +---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |   6 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c        |   7 --
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        |   6 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c          |   6 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_merge3d.c     |   6 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c    |   6 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h    |   4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c        |   6 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c         |   6 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c             |   4 +-
+ 14 files changed, 10 insertions(+), 220 deletions(-)
+ delete mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.c
 
 
--- 
-With best wishes
-Dmitry
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
