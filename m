@@ -1,53 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AD2038137C
-	for <lists+freedreno@lfdr.de>; Sat, 15 May 2021 00:07:35 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 80852381499
+	for <lists+freedreno@lfdr.de>; Sat, 15 May 2021 02:34:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDE706F4A0;
-	Fri, 14 May 2021 22:07:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37EB16F4C3;
+	Sat, 15 May 2021 00:34:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com
- [IPv6:2607:f8b0:4864:20::832])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 009B96F49D
- for <freedreno@lists.freedesktop.org>; Fri, 14 May 2021 22:07:32 +0000 (UTC)
-Received: by mail-qt1-x832.google.com with SMTP id f8so712713qth.6
- for <freedreno@lists.freedesktop.org>; Fri, 14 May 2021 15:07:32 -0700 (PDT)
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E0C76F4C5
+ for <freedreno@lists.freedesktop.org>; Sat, 15 May 2021 00:34:01 +0000 (UTC)
+Received: by mail-lj1-x235.google.com with SMTP id o8so533011ljp.0
+ for <freedreno@lists.freedesktop.org>; Fri, 14 May 2021 17:34:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=IbrQjxkb0K3z7ZkPDbwumBPr7QnDKgJDV9MYg72KtXI=;
- b=dx1Df5/yzY+AeZz/rdkuLnqLf65GYwH3dHIFCdSBqpHR3fWG5VtvM11+v8Pz0I424K
- /CTN93UfyjlVQMv7eSajh07I4QztMYX0OMg0CHIOA2eA2JA68b/3utBkLzotkWwEGMYo
- pnph5wO/Gl8XUyBVgaIP6DIgLVnP/tHjlk/sY1uNq1c5iAz2ltn/TpK+gz9uARdDWfNz
- KE0Nouw9d71fwOyDTx1rde2xAF4byNR1HtLY4UzwVp7KueySru6gKGgLUrpUX49QoMAW
- qLKZzxO74ljfE8ocXZcXcgy7UgDj2/GzwxBgMcm3+7UlIM8aqyxYD+tC5H2LRLvBx7cp
- eZKg==
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=of+8ovXa4aMkgT++S+Rbq2lvQyR6d2cuz8n7kSYpUpI=;
+ b=Kq0QoHib0LhGTBGOmnLeO2uKT6lhZJ7JE6HW62W0k+OoJ0+syPzju2rPmKwXTUe5be
+ 07gVHhnxyERfyqW/hmhBLDrtyDW23n37LtpPFZ6hWJgOhufcMpJ6QABQkeiDdIPPRPD0
+ SQrsmGds5m0bNY153xxt3Bn7AjlduyNDowXzNRmzZM8Hk1MfRNGm+7C8W3f2jO/qxhrv
+ sTBWCVfzvNs+k2Sh2uttE/KM/uhnrnzrhnBX3r555f54Rq5u3KSlMee9GfJQgaXRdoQr
+ GmoWBu0TOg/AC8mzIx2ZcaDVaAQLtUnyvO7NeT6zeXM9oqaaIjPC1hdLQaukPg0cK7+U
+ cFLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=IbrQjxkb0K3z7ZkPDbwumBPr7QnDKgJDV9MYg72KtXI=;
- b=bVq/h6K6E/hTouRwdci4IgPSHRM2s2GIVp2JYBszGrC4sjZsSocDJOptO63CAx4lyS
- JVY+Q6PyClavMlIJBUrBqmvH3ZJ7E30QMCUe5Jnb1WWszA25LFogYn8noJUUC+0TZ9UZ
- 1vbB+hZ3hn0/Rzwkpas2S9ErcymLFL6MhuCNMMYductMQaeQTGU8ss8PpQQh9sMgbML8
- GRYH6XO+xLV21LfPKSamYwVuNdjYZymC4agnIME24WDWxUW1ZjqbAwc2/gehIUdWpBcH
- mDDdLzSXNbV+KXAKryi7Bz5uxdIr+S4NrKNEpRxeUE6iODCghhQlkWDtyHPGo5Hsx7FR
- CN9A==
-X-Gm-Message-State: AOAM530vSd4WOJATQIAqv0iZPjTPoQCyPlAdPSkSBu01Porb2zzNSDRX
- oLQnDsSp/Dpl/4AVP6zjvfuYcKLKIgbYlRm1t4aUKA==
-X-Google-Smtp-Source: ABdhPJxaEbRftY4lIHCyF5Rw8nvdMm5/lCdHTk5LXSje8/I/5yu/Xzt4icnH9N8EPP/ne043QHlIxNTO/PeJv6d+lKQ=
-X-Received: by 2002:ac8:5810:: with SMTP id g16mr44371397qtg.135.1621030052188; 
- Fri, 14 May 2021 15:07:32 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210514213032.575161-1-arnd@kernel.org>
-In-Reply-To: <20210514213032.575161-1-arnd@kernel.org>
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=of+8ovXa4aMkgT++S+Rbq2lvQyR6d2cuz8n7kSYpUpI=;
+ b=cUPEXh02kNxMtd2ahKwZ34K/ozAfM267oGULqnxz00vKvRFYNh2EpxSSmJ4Ti7aPXf
+ 1mhxpf+gGaL+cGjx8SGly7bUZlaTnXrFGjdcw9P174ONAQF9YwviWScAKcJuDZ4DocLh
+ Kq1ctcwxjVRqpJydY3E0bJVbZk2H1JOFjegTQIpdjAJ2jrJuhIiJUG24L1U/pHFqjd5+
+ 9h6vQS3WxT+XImP1Ccdp28KRzU9MnnWUEzh5wKG5b7Jx2dxPEy6a4HIXmcsLsnOG67Nh
+ lNYxLN9pOZSXTIu/03mcWKk6G9llAkURGFZ2SbqfiBq9nufex5kfBl928Fy5IqhXovBD
+ G4cA==
+X-Gm-Message-State: AOAM532Fc08h5H1RVYNC72h4Qs8bGBTMn4mxNAdYMXkqFl+iJ5oIr5sy
+ pWOekRZlyHSRkRVc7FRrVn/UPg==
+X-Google-Smtp-Source: ABdhPJy1qxqA5sO0wnDdnlQJEd6fDfdb/W8RDe1VFuE+W2M+2se5SRTFDkcx/m4HcH2jMNg2oOHEXw==
+X-Received: by 2002:a05:651c:b28:: with SMTP id
+ b40mr24154392ljr.9.1621038839814; 
+ Fri, 14 May 2021 17:33:59 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id e17sm1581436ljp.71.2021.05.14.17.33.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 14 May 2021 17:33:59 -0700 (PDT)
+To: benl@squareup.com, robdclark@gmail.com, sean@poorly.run
+References: <010101750064e17e-3db0087e-fc37-494d-aac9-2c2b9b0a7c5b-000000@us-west-2.amazonses.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 15 May 2021 01:07:21 +0300
-Message-ID: <CAA8EJpoo=VS1Nk-3CpyraDFzF+0xe3SWxkVt7M=8aBNhbdh_hQ@mail.gmail.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: fix 32-bit clang warning
+Message-ID: <c425c92d-3149-592b-f72e-009c972b9b21@linaro.org>
+Date: Sat, 15 May 2021 03:33:58 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
+MIME-Version: 1.0
+In-Reply-To: <010101750064e17e-3db0087e-fc37-494d-aac9-2c2b9b0a7c5b-000000@us-west-2.amazonses.com>
+Content-Language: en-GB
+Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: save PLL registers across
+ first PHY reset
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,67 +71,91 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- Jonathan Marek <jonathan@marek.ca>, Arnd Bergmann <arnd@arndb.de>,
- David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>,
- open list <linux-kernel@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>, Nathan Chancellor <nathan@kernel.org>,
- clang-built-linux@googlegroups.com, Rob Clark <robdclark@gmail.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="us-ascii"
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Harigovindan P <harigovi@codeaurora.org>, dri-devel@lists.freedesktop.org,
+ Konrad Dybcio <konradybcio@gmail.com>, zhengbin <zhengbin13@huawei.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <kholk11@gmail.com>,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 15 May 2021 at 00:31, Arnd Bergmann <arnd@kernel.org> wrote:
->
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> clang is a little overzealous with warning about a constant conversion
-> in an untaken branch of a ternary expression:
->
-> drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c:975:48: error: implicit conversion from 'unsigned long long' to 'unsigned long' changes value from 5000000000 to 705032704 [-Werror,-Wconstant-conversion]
->         .max_pll_rate = (5000000000ULL < ULONG_MAX) ? 5000000000UL : ULONG_MAX,
->                                                       ^~~~~~~~~~~~
->
-> Rewrite this to use a preprocessor conditional instead to avoid the
-> warning.
->
-> Fixes: 076437c9e360 ("drm/msm/dsi: move min/max PLL rate to phy config")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Rob,
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On 07/10/2020 03:10, benl-kernelpatches@squareup.com wrote:
+> From: Benjamin Li <benl@squareup.com>
+> 
+> Take advantage of previously-added support for persisting PLL
+> registers across DSI PHY disable/enable cycles (see 328e1a6
+> 'drm/msm/dsi: Save/Restore PLL status across PHY reset') to
+> support persisting across the very first DSI PHY enable at
+> boot.
+> 
+> The bootloader may have left the PLL registers in a non-default
+> state. For example, for dsi_pll_28nm.c on 8x16/8x39, the byte
+> clock mux's power-on reset configuration is to bypass DIV1, but
+> depending on bandwidth requirements[1] the bootloader may have
+> set the DIV1 path.
+> 
+> When the byte clock mux is registered with the generic clock
+> framework at probe time, the framework reads & caches the value
+> of the mux bit field (the initial clock parent). After PHY enable,
+> when clk_set_rate is called on the byte clock, the framework
+> assumes there is no need to reparent, and doesn't re-write the
+> mux bit field. But PHY enable resets PLL registers, so the mux
+> bit field actually silently reverted to the DIV1 bypass path.
+> This causes the byte clock to be off by a factor of e.g. 2 for
+> our tested WXGA panel.
+> 
+> The above issue manifests as the display not working and a
+> constant stream of FIFO/LP0 contention errors.
+> 
+> [1] The specific requirement for triggering the DIV1 path (and
+> thus this issue) on 28nm is a panel with pixel clock <116.7MHz
+> (one-third the minimum VCO setting). FHD/1080p (~145MHz) is fine,
+> WXGA/1280x800 (~75MHz) is not.
 
+This patch seems to be still relevant. Applying it would allow us to 
+drop respective save_state calls from 10nm and 7nm drivers.
+
+I'd suggest applying it.
+
+> 
+> Signed-off-by: Benjamin Li <benl@squareup.com>
 > ---
-> As found with another patch, using __builtin_choose_expr() would
-> likely also work here, but doesn't seem any more readable.
-> ---
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> index e76ce40a12ab..accd6b4eb7c2 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> @@ -972,7 +972,11 @@ const struct msm_dsi_phy_cfg dsi_phy_7nm_cfgs = {
->                 .restore_pll_state = dsi_7nm_pll_restore_state,
->         },
->         .min_pll_rate = 600000000UL,
-> -       .max_pll_rate = (5000000000ULL < ULONG_MAX) ? 5000000000ULL : ULONG_MAX,
-> +#ifdef CONFIG_64BIT
-> +       .max_pll_rate = 5000000000UL,
-> +#else
-> +       .max_pll_rate = ULONG_MAX,
-> +#endif
->         .io_start = { 0xae94400, 0xae96400 },
->         .num_dsi_phy = 2,
->         .quirks = DSI_PHY_7NM_QUIRK_V4_1,
-> --
-> 2.29.2
->
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 16 ++++++++++++++++
+>   1 file changed, 16 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> index 009f5b843dd1..139b4a5aaf86 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> @@ -621,6 +621,22 @@ static int dsi_phy_driver_probe(struct platform_device *pdev)
+>   		phy->pll = NULL;
+>   	}
+>   
+> +	/*
+> +	 * As explained in msm_dsi_phy_enable, resetting the DSI PHY (as done
+> +	 * in dsi_mgr_phy_enable) silently changes its PLL registers to power-on
+> +	 * defaults, but the generic clock framework manages and caches several
+> +	 * of the PLL registers. It initializes these caches at registration
+> +	 * time via register read.
+> +	 *
+> +	 * As a result, we need to save DSI PLL registers once at probe in order
+> +	 * for the first call to msm_dsi_phy_enable to successfully bring PLL
+> +	 * registers back in line with what the generic clock framework expects.
+> +	 *
+> +	 * Subsequent PLL restores during msm_dsi_phy_enable will always be
+> +	 * paired with PLL saves in msm_dsi_phy_disable.
+> +	 */
+> +	msm_dsi_pll_save_state(phy->pll);
+> +
+>   	dsi_phy_disable_resource(phy);
+>   
+>   	platform_set_drvdata(pdev, phy);
+> 
 
 
 -- 
