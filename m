@@ -1,63 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BC15381BAD
-	for <lists+freedreno@lfdr.de>; Sun, 16 May 2021 01:04:52 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 572C3381BF1
+	for <lists+freedreno@lfdr.de>; Sun, 16 May 2021 03:21:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10DEA6E454;
-	Sat, 15 May 2021 23:04:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A90BD6E471;
+	Sun, 16 May 2021 01:21:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4449A6E0E5
- for <freedreno@lists.freedesktop.org>; Sat, 15 May 2021 23:04:50 +0000 (UTC)
-Received: by mail-lj1-x22b.google.com with SMTP id w4so2762872ljw.9
- for <freedreno@lists.freedesktop.org>; Sat, 15 May 2021 16:04:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=OIu8Q4sgkPhmvMjd1jdK3ceBv8MZIPFNfCveUuP/nXw=;
- b=ZAmyTQq+43IOcBhnWLVn47XdIoRwtk0gVIMI4rFsN3bPiDWhZi0EVmlO7HSPttROXs
- joJR8PNw5g5dkNHzx2vN4FneuEVxYh7/iFDB1j3VopR9p24h8Jy1blZvywqoYSl9NHwU
- gWL3deAvHtyMYomPNwfz0xLqIH40y4fNN5p7A05xbwpIuwkCRuJKtFpq7pGP503PGrlI
- ECG2Nzv2DNjX3F5P7om8WxfpqA6P5wwlb2AOWbkFeN2S9k1J1y2GO9MtvY1d16YROogM
- 5iqsSS8NXp2ZwJllBvWrOJ4seW9iV7k6J+wos+KWRkP/qbBNsYZEnLsum6Pm3/VNDood
- Gxcg==
+Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
+ [IPv6:2607:f8b0:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C41196E471;
+ Sun, 16 May 2021 01:21:54 +0000 (UTC)
+Received: by mail-pl1-x629.google.com with SMTP id h20so1349151plr.4;
+ Sat, 15 May 2021 18:21:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=SoLXbgYZkv5FkSbOBiV8Z96V28Oxq+j8zJYbMXZmMqc=;
+ b=hN/SsP40Kve4+YaC6v+UM3BsAdoWfzF2EK9+FFS91evn7T9gTIavtbi8+itbSj/TH3
+ mQcWwk3qUYsQTY7dU6wyVgk6b517rHM+B8d+fOGXm4+hNkG1l6RFpUOm/AfndPQ1ov48
+ TnErTfcMhsxacNL6+8/X+3gGoBG4bZDn0FjHANMnAyZcmXZTblf4STcixI4rtL1RSc1A
+ QSLpu5AodvH81M2HsHngW81wOG3eAhk55PTYf3buMPWPPk2me17SsDjWqFKNIgfCVxks
+ YcZhna/E2jrIVTUy1vDnRU4EZ0ByaMizDVKSC3U/KjUO91g1ttw4FOTD7T0RyWHGj302
+ QP8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=OIu8Q4sgkPhmvMjd1jdK3ceBv8MZIPFNfCveUuP/nXw=;
- b=WSZDM1byJuREHihO+KToDNXUPRKXymyNDAWhwT5VYKBQWYZ3IP0FDXmtYrTfY6tYnJ
- fX8HlrhwUQxp9drlP0B/wHFIDBXYwcknmMUfhDQdzL5GIhHiQ+mR1oslpLixN3YgFznc
- gUzrG2rVjoW2O6w9NybKm6iS6eTYqwVMjDPQiOptWZi5s+ZgOvGxqgCU78SxP9UCG1xy
- j0Kagso64Uh84wDnGe2e1V9mruzIQN71ADeWmELuNp4LXXxTlX9wrUmvJuUg9JE2YKP+
- 7dpNOW77HmrH1F7zQIobb1r1vHNpLl1YnAyxfzKV8NTbQKSlkbaE5DvfYbe/DVzp5rUJ
- BvDA==
-X-Gm-Message-State: AOAM533H73gr+2TTcf6Q4wjDeopQA25xP9AHf41e6ihDXn7kO5nOooaU
- tGrhKrgDqQNb0yMK9BcgaZvYMg==
-X-Google-Smtp-Source: ABdhPJy1quJvaV/nck7SUQ5ex6Rk/kzi1csbr7LsYS9BiSb09QbHjGoll6VpORSW9HvLGlmtZIisWg==
-X-Received: by 2002:a2e:8708:: with SMTP id m8mr8691010lji.383.1621119888679; 
- Sat, 15 May 2021 16:04:48 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id q19sm1472998lfu.105.2021.05.15.16.04.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 15 May 2021 16:04:48 -0700 (PDT)
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- linux-arm-msm@vger.kernel.org
-References: <20210112192632.502897-1-angelogioacchino.delregno@somainline.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <ca8dbaa3-a510-d75c-e1cc-c4b964c90e5b@linaro.org>
-Date: Sun, 16 May 2021 02:04:47 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=SoLXbgYZkv5FkSbOBiV8Z96V28Oxq+j8zJYbMXZmMqc=;
+ b=qhm+7v5U75MOvI9136ylgi+Pua96fsCdp8hXM4daIRHGr+i+pkgb26DaFEM0KPh2px
+ qw+i6aa+qxSTQasNFmKFfadoBC+qdpiuENvzztcF1MsaxlWlXsY1La1e+O+ElMjkhfoT
+ ucmx6DCselNrfwXnybbHQs8aw9zc6DQ4FqNPP3jMfGXzqtQC7wn8/SL9tLbkOsV562LY
+ gvne3tfF4H1oz5e4feWmOI/i/25fE0EgRqx2DviD2PzSEkktXdMrmJVkWv6CN2AUfjTo
+ nfzTHnxkJ1QDGlYlU3HAThEKJebBwTMOsWBpyQ5PBMh72eRrf4AOOrFMeDH1qG8nZqXp
+ KCAw==
+X-Gm-Message-State: AOAM530Z1o5SfuEIoLP2r5mkbuavM+bSOWQhf7EmWfRVVh8FZDcJ3qHH
+ FRQsfdwocrvhzicVEHO2dCZdBkEddSAmSVuBOJg=
+X-Google-Smtp-Source: ABdhPJxefDnsWO+LVGNiOiMX/uOXtRC6O8nz0TZcq0ZLx81BswlnwyHgiJCj6DwkzPdHqhCRA77OjRPdybJtCLDVt6Q=
+X-Received: by 2002:a17:90b:224e:: with SMTP id
+ hk14mr15006501pjb.29.1621128114379; 
+ Sat, 15 May 2021 18:21:54 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20210112192632.502897-1-angelogioacchino.delregno@somainline.org>
-Content-Language: en-GB
-Subject: Re: [Freedreno] [PATCH v2 0/7] Qualcomm DRM DPU fixes
+References: <20210515225757.1989955-1-dmitry.baryshkov@linaro.org>
+ <20210515225757.1989955-6-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20210515225757.1989955-6-dmitry.baryshkov@linaro.org>
+From: Arnaud Vrac <rawoul@gmail.com>
+Date: Sun, 16 May 2021 03:21:43 +0200
+Message-ID: <CAN5H-g7hWgyqtFbUpzesyKXmWr=FtFtXBKDSbCKx+1dUjxP10w@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2 5/6] drm/msm/dpu: drop unused
+ lm_max_width from RM
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,62 +64,68 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, konrad.dybcio@somainline.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, martin.botka@somainline.org,
- marijn.suijten@somainline.org, phone-devel@vger.kernel.org, sean@poorly.run
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
+ Stephen Boyd <sboyd@kernel.org>, MSM <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, David Airlie <airlied@linux.ie>,
+ Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Angelo,
-
-On 12/01/2021 22:26, AngeloGioacchino Del Regno wrote:
-> This patch series brings some fixes to the Qualcomm DPU driver, aim is
-> to get it prepared for "legacy" SoCs (like MSM8998, SDM630/660) and to
-> finally get command-mode displays working on this driver.
-> 
-> The series was tested against MSM8998 (the commit that introduces it to
-> the hw-catalog is not included in this series, as it needs to be cleaned
-> up a little more) and specifically on:
-
-Any updates on submitting hw catalog patches? If they are not yet fully 
-ready, could you please send an RFC or DRAFT patch for the reference?
-
-> - Sony Xperia XZ Premium (MSM8998), 4K dual-dsi LCD display, command-mode
-> - F(x)Tec Pro1 (MSM8998), single-dsi OLED display, video-mode
-> 
-> ... And it obviously worked just perfect!
-> 
-> Changes in v2:
-> - Dropped patches "drm/msm/dpu: Add a function to retrieve the current CTL status"
->    and "drm/msm/dpu: Fix timeout issues on command mode panels" as the
->    second patch was wrong.
-> - Fixed patch apply issues on latest linux-next and 5.11-rcX
-> 
-> AngeloGioacchino Del Regno (7):
->    drm/msm/dpu: Fix VBIF_XINL_QOS_LVL_REMAP_000 register offset
->    drm/msm/dpu: Move DPU_SSPP_QOS_8LVL bit to SDM845 and SC7180 masks
->    drm/msm/dpu: Add prog_fetch_lines_worst_case to INTF_BLK macro
->    drm/msm/dpu: Allow specifying features and sblk in DSPP_BLK macro
->    drm/msm/dpu: Disable autorefresh in command mode
->    drm/msm/dpu: Correctly configure vsync tearcheck for command mode
->    drm/msm/dpu: Remove unused call in wait_for_commit_done
-> 
->   .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  | 90 +++++++++++++++----
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 49 +++++-----
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c   | 26 ++++++
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h   | 14 +++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_vbif.c   |  9 +-
->   5 files changed, 147 insertions(+), 41 deletions(-)
-> 
-
-
--- 
-With best wishes
-Dmitry
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+SGkgRG1pdHJ5LAoKTGUgZGltLiAxNiBtYWkgMjAyMSDDoCAwMDo1OCwgRG1pdHJ5IEJhcnlzaGtv
+dgo8ZG1pdHJ5LmJhcnlzaGtvdkBsaW5hcm8ub3JnPiBhIMOpY3JpdCA6Cj4KPiBObyBjb2RlIHVz
+ZXMgbG1fbWF4X3dpZHRoIGZyb20gcmVzb3VyY2UgbWFuYWdlciwgc28gZHJvcCBpdC4KCkkgaGF2
+ZSBhIHBlbmRpbmcgcGF0Y2ggd2hpY2ggdXNlcyB0aGlzIHZhbHVlIHRvIHByb3Blcmx5IGRldGVy
+bWluZSB0aGUKbnVtYmVyIG9mIExNcyB0byB1c2UgaW4gdGhlIHRvcG9sb2d5LiBDdXJyZW50bHkg
+dGhlIGNvZGUgdXNlcyBhCmhhcmRjb2RlZCB2YWx1ZSBvZiBNQVhfSERJU1BMQVlfU1BMSVQgKDEw
+ODApLCBidXQgaW4gcmVhbGl0eSBJIGJlbGlldmUKaXQgc2hvdWxkIGJlIHRoZSBsbSBtYXggd2lk
+dGggKHR5cGljYWxseSAyNTYwKS4gVGhpcyB3aWxsIGF2b2lkIHVzaW5nCnR3byBMTXMgdG8gcmVu
+ZGVyIHJlc29sdXRpb25zIGxpa2UgMTI4MHg3MjAgb3IgMTkyMHgxMDgwLgoKSSBoYXZlbid0IG1h
+bmFnZWQgdG8gbWFrZSBoZG1pIHdvcmsgeWV0IG9uIERQVSAodGVzdGluZyBvbiBNU004OTk4KSBz
+bwpJJ20gbm90IHJlYWR5IHRvIHNlbmQgdGhlIHBhdGNoIHlldCwgYnV0IGl0IGRvZXNuJ3Qgc2Vl
+bSB0byB0cmlnZ2VyCmFueSBlcnJvci4KCi1Bcm5hdWQKCgo+Cj4gU2lnbmVkLW9mZi1ieTogRG1p
+dHJ5IEJhcnlzaGtvdiA8ZG1pdHJ5LmJhcnlzaGtvdkBsaW5hcm8ub3JnPgo+IC0tLQo+ICBkcml2
+ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfcm0uYyB8IDEyIC0tLS0tLS0tLS0tLQo+ICBk
+cml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfcm0uaCB8ICA0IC0tLS0KPiAgMiBmaWxl
+cyBjaGFuZ2VkLCAxNiBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vbXNtL2Rpc3AvZHB1MS9kcHVfcm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUx
+L2RwdV9ybS5jCj4gaW5kZXggYzM2NzAwYTA2ZmYyLi5lYzQzODdhZDExODIgMTAwNjQ0Cj4gLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X3JtLmMKPiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfcm0uYwo+IEBAIC04OCwxOCArODgsNiBAQCBpbnQg
+ZHB1X3JtX2luaXQoc3RydWN0IGRwdV9ybSAqcm0sCj4gICAgICAgICAgICAgICAgICAgICAgICAg
+Z290byBmYWlsOwo+ICAgICAgICAgICAgICAgICB9Cj4gICAgICAgICAgICAgICAgIHJtLT5taXhl
+cl9ibGtzW2xtLT5pZCAtIExNXzBdID0gJmh3LT5iYXNlOwo+IC0KPiAtICAgICAgICAgICAgICAg
+aWYgKCFybS0+bG1fbWF4X3dpZHRoKSB7Cj4gLSAgICAgICAgICAgICAgICAgICAgICAgcm0tPmxt
+X21heF93aWR0aCA9IGxtLT5zYmxrLT5tYXh3aWR0aDsKPiAtICAgICAgICAgICAgICAgfSBlbHNl
+IGlmIChybS0+bG1fbWF4X3dpZHRoICE9IGxtLT5zYmxrLT5tYXh3aWR0aCkgewo+IC0gICAgICAg
+ICAgICAgICAgICAgICAgIC8qCj4gLSAgICAgICAgICAgICAgICAgICAgICAgICogRG9uJ3QgZXhw
+ZWN0IHRvIGhhdmUgaHcgd2hlcmUgbG0gbWF4IHdpZHRocyBkaWZmZXIuCj4gLSAgICAgICAgICAg
+ICAgICAgICAgICAgICogSWYgZm91bmQsIHRha2UgdGhlIG1pbi4KPiAtICAgICAgICAgICAgICAg
+ICAgICAgICAgKi8KPiAtICAgICAgICAgICAgICAgICAgICAgICBEUFVfRVJST1IoInVuc3VwcG9y
+dGVkOiBsbSBtYXh3aWR0aCBkaWZmZXJzXG4iKTsKPiAtICAgICAgICAgICAgICAgICAgICAgICBp
+ZiAocm0tPmxtX21heF93aWR0aCA+IGxtLT5zYmxrLT5tYXh3aWR0aCkKPiAtICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHJtLT5sbV9tYXhfd2lkdGggPSBsbS0+c2Jsay0+bWF4d2lkdGg7
+Cj4gLSAgICAgICAgICAgICAgIH0KPiAgICAgICAgIH0KPgo+ICAgICAgICAgZm9yIChpID0gMDsg
+aSA8IGNhdC0+Y3RsX2NvdW50OyBpKyspIHsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L21zbS9kaXNwL2RwdTEvZHB1X3JtLmggYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9k
+cHVfcm0uaAo+IGluZGV4IGVlOTBiMTIzMzQzMC4uMGM5MTEzNTgxZDcxIDEwMDY0NAo+IC0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9ybS5oCj4gKysrIGIvZHJpdmVycy9n
+cHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X3JtLmgKPiBAQCAtMTcsMTQgKzE3LDEwIEBAIHN0cnVj
+dCBkcHVfZ2xvYmFsX3N0YXRlOwo+ICAgKiBzdHJ1Y3QgZHB1X3JtIC0gRFBVIGR5bmFtaWMgaGFy
+ZHdhcmUgcmVzb3VyY2UgbWFuYWdlcgo+ICAgKiBAbWl4ZXJfYmxrczogYXJyYXkgb2YgbGF5ZXIg
+bWl4ZXIgaGFyZHdhcmUgcmVzb3VyY2VzCj4gICAqIEBjdGxfYmxrczogYXJyYXkgb2YgY3RsIGhh
+cmR3YXJlIHJlc291cmNlcwo+IC0gKiBAbG1fbWF4X3dpZHRoOiBjYWNoZWQgbGF5ZXIgbWl4ZXIg
+bWF4aW11bSB3aWR0aAo+IC0gKiBAcm1fbG9jazogcmVzb3VyY2UgbWFuYWdlciBtdXRleAo+ICAg
+Ki8KPiAgc3RydWN0IGRwdV9ybSB7Cj4gICAgICAgICBzdHJ1Y3QgZHB1X2h3X2JsayAqbWl4ZXJf
+Ymxrc1tMTV9NQVggLSBMTV8wXTsKPiAgICAgICAgIHN0cnVjdCBkcHVfaHdfYmxrICpjdGxfYmxr
+c1tDVExfTUFYIC0gQ1RMXzBdOwo+IC0KPiAtICAgICAgIHVpbnQzMl90IGxtX21heF93aWR0aDsK
+PiAgfTsKPgo+ICBzdHJ1Y3QgZHB1X2ttczsKPiAtLQo+IDIuMzAuMgo+Cj4gX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBGcmVlZHJlbm8gbWFpbGluZyBs
+aXN0Cj4gRnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5vCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJl
+ZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVubwo=
