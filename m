@@ -2,65 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1D52382101
-	for <lists+freedreno@lfdr.de>; Sun, 16 May 2021 22:35:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A563B386B42
+	for <lists+freedreno@lfdr.de>; Mon, 17 May 2021 22:21:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9ECB89F73;
-	Sun, 16 May 2021 20:35:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E604D6EA87;
+	Mon, 17 May 2021 20:21:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DE4989F73
- for <freedreno@lists.freedesktop.org>; Sun, 16 May 2021 20:35:27 +0000 (UTC)
-Received: by mail-lj1-x22c.google.com with SMTP id w15so4738363ljo.10
- for <freedreno@lists.freedesktop.org>; Sun, 16 May 2021 13:35:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=/KqZD81vORW6kPFuLCP+RBTGLZDl2qbh6lxgkVjvvVg=;
- b=l62cjjGDQ2tIWxw1qGDmczEw15hX+m73FzTklgej1mQWEzvWK8E2Mf5ktZSlER0uV8
- wvviFAJwx9vAFAVjqZhSFsguBpH3kSriNxZk3j1mDj4Mwd8LGCFcBk2paxBqzBfNmoV1
- jMwv4RAECoMPxAC/MFPCIcVUE3bSkIfoiDnxitYI6U/NBBq2c/9W3OR7ON8VGMbt/OVz
- vx5viC5liX6ZmdnRDn6fyPxSg7mvYkYXDXWf0x/kEjyww8WEJN8iofERbYa6vaqVrxYq
- kV1e50PuBMSb9QhXt1wklhPlM1GgOr71eI2IM7WOIecnvO4R0f4CJvM4ZRLv1PNN0J2a
- iF9g==
+Received: from mail-qt1-x82a.google.com (mail-qt1-x82a.google.com
+ [IPv6:2607:f8b0:4864:20::82a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C7916EA87
+ for <freedreno@lists.freedesktop.org>; Mon, 17 May 2021 20:21:28 +0000 (UTC)
+Received: by mail-qt1-x82a.google.com with SMTP id m13so5826206qtk.13
+ for <freedreno@lists.freedesktop.org>; Mon, 17 May 2021 13:21:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=YbOc4wBUAuWLpQV8tQYF0Szc0TEanL1YgzGe8uwJTk0=;
+ b=MDsTJSWmGwCIDzu6zW9zcrriVhwGiwCq3aJpoDMW9oN1778XWwMHUUcYYP6Di8riOw
+ zwDAQH1Yem8aJ4di6f1iiO2XYeZqWUgO/BPE4w0IWLzGJA7z0/Y8U4WPoLtWDfrXKPJN
+ sNW777niA54Q9l7QP5t4QstVsHnD2iLaMKph0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=/KqZD81vORW6kPFuLCP+RBTGLZDl2qbh6lxgkVjvvVg=;
- b=ZsIyzLl8eAjZ7lNq/aQkJQKH+NqWcjAE0Tc8pbBr7Uw2GiwcpbMzQ4eortw4ZEmUTR
- a7UHmAO4Sr3AmoXnDFqoXBmBQFrae+xrHstXRufZ/MWpVJhSOAM00vRuHl+enSgiTbLy
- oATF7ixd4+hU3rblDZHrXv3tJrb263zHx9Gm9Gzp+4pGzO4qcd6SYbO0+hbyWhEsWdjD
- Q6CG4KCWQVDvY8uYdhlBj9bBLGFgpkShhmpm3TwR63GkLwdV7tv15KaAnQ/J03W9UH2f
- VHonFyRvMep7892JDaZG6b/uQeptu8dNM41r5YgQrkbVtnjnDwX5hP2nKiNVxnMWti8p
- vCqA==
-X-Gm-Message-State: AOAM530/QYEF/pg6+yStWS9FUAzFcYPhOBvpzXtQvsI+ORUS80a2mL9S
- CyJv1fI+GedB8+QNElXLfciCw8mNaugUkg==
-X-Google-Smtp-Source: ABdhPJxToViXRUujvI67AUZHUzqZMtrxEy8xIn3u8svv4saSMn5iKA4cTahu8351tBAqc632LDg/Kg==
-X-Received: by 2002:a05:651c:201b:: with SMTP id
- s27mr38149695ljo.190.1621197325311; 
- Sun, 16 May 2021 13:35:25 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id g2sm2633802ljn.35.2021.05.16.13.35.24
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=YbOc4wBUAuWLpQV8tQYF0Szc0TEanL1YgzGe8uwJTk0=;
+ b=E1xNa2Ag9DGYVJoWT918z7gq36Rxb6TDpLA4OFirxpcfxs9oaDDfj1qVX07ICJf2ZK
+ m0/GL1AjkEj4hnWV2X8GEShoG1MuGQSxYLPYmisWLCB2qz+XfTmfSuj7RNBaLKC5OkhQ
+ +eMLNyWHTScQahkZRxu7cfi4xxxYk9TqSu7rEQrBb20tg9hGhkuTeD/l2rCUmYBRJBll
+ WZws2551gSQ0hN8iIN5K4hBhXVcuF184Y7ryzS5XjgVoV/YRdn4R0PNdrxkIrIOJKwi9
+ 0ey+62XGsnTQkOxCcx9XV1Ab4cNVBcUGMwtezJ3As9z6mPnzeShqTjHUlGIlVMrPi1rZ
+ B/vA==
+X-Gm-Message-State: AOAM530fIQAPbChueA0m+0GipZayLMGphdpWq/AUI2M52F0pkY9wP9IX
+ kQJJQYh4xKZk+GAxBLKBFX8qPbD7+6BZFQ==
+X-Google-Smtp-Source: ABdhPJxzPYY2dZrnTF/xzeZOhxyG67264LdzFDrlmO3SdqRqlsvVIFc6kX5DBhVpDkrdssAoZi/xWA==
+X-Received: by 2002:ac8:4c8f:: with SMTP id j15mr1274241qtv.328.1621282887254; 
+ Mon, 17 May 2021 13:21:27 -0700 (PDT)
+Received: from mail-yb1-f170.google.com (mail-yb1-f170.google.com.
+ [209.85.219.170])
+ by smtp.gmail.com with ESMTPSA id s10sm11114537qkj.77.2021.05.17.13.21.25
+ for <freedreno@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 16 May 2021 13:35:24 -0700 (PDT)
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-References: <20210412000954.2049141-1-dmitry.baryshkov@linaro.org>
- <20210412000954.2049141-4-dmitry.baryshkov@linaro.org>
- <20210516052407.GQ2484@yoga>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <3dda177a-cba5-373f-c7fb-c1c4b8e3be6b@linaro.org>
-Date: Sun, 16 May 2021 23:35:23 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+ Mon, 17 May 2021 13:21:26 -0700 (PDT)
+Received: by mail-yb1-f170.google.com with SMTP id f9so10242707ybo.6
+ for <freedreno@lists.freedesktop.org>; Mon, 17 May 2021 13:21:25 -0700 (PDT)
+X-Received: by 2002:a05:6902:512:: with SMTP id
+ x18mr2401179ybs.405.1621282885353; 
+ Mon, 17 May 2021 13:21:25 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20210516052407.GQ2484@yoga>
-Content-Language: en-GB
-Subject: Re: [Freedreno] [PATCH v1 3/3] drm/msm/dpu: simplify interrupt
- managing
+References: <1619416756-3533-1-git-send-email-rajeevny@codeaurora.org>
+ <1619416756-3533-2-git-send-email-rajeevny@codeaurora.org>
+ <20210429180435.GA1385465@robh.at.kernel.org>
+ <CAD=FV=V-kdySH5Pp-Fb-PRYk60Ha_UOTXJHcvMp+uV3P1oo7Uw@mail.gmail.com>
+ <78c4bd291bd4a17ae2a1d02d0217de43@codeaurora.org>
+ <CAD=FV=XW90L6or8NKA-Rjjp3s3fRno1xSkD+X0PA1rTyeKgpMw@mail.gmail.com>
+ <c867b2e59e90899e6c1648e06f5f9cd2@codeaurora.org>
+ <CAD=FV=XBb9zs=ZGG-Ky8=_is20L1O6pJ-xBV1k5cF6-vL78pgA@mail.gmail.com>
+In-Reply-To: <CAD=FV=XBb9zs=ZGG-Ky8=_is20L1O6pJ-xBV1k5cF6-vL78pgA@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Mon, 17 May 2021 13:21:13 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=XPDLn187AR06xzChwT1Y0pCeQmRvhO_MjEoMoabXwybg@mail.gmail.com>
+Message-ID: <CAD=FV=XPDLn187AR06xzChwT1Y0pCeQmRvhO_MjEoMoabXwybg@mail.gmail.com>
+To: Rajeev Nandan <rajeevny@codeaurora.org>
+Subject: Re: [Freedreno] [v3 1/2] dt-bindings: backlight: add DisplayPort
+ aux backlight
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,393 +77,190 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
- Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, Rob Herring <robh@kernel.org>,
+ mkrishn@codeaurora.org, Lyude Paul <lyude@redhat.com>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Andrzej Hajda <a.hajda@samsung.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <seanpaul@chromium.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Kalyan Thota <kalyan_t@codeaurora.org>,
+ "Kristian H. Kristensen" <hoegsberg@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>, "Lankhorst,
+ Maarten" <maarten.lankhorst@intel.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 16/05/2021 08:24, Bjorn Andersson wrote:
-> On Sun 11 Apr 19:09 CDT 2021, Dmitry Baryshkov wrote:
-> 
->> Change huge lookup table to contain just sensible entries. IRQ index is
->> now not an index in the table, but just register id (multiplied by 32,
->> the amount of IRQs in the register) plus offset in the register. This
->> allows us to remove all the "reserved" entries from dpu_irq_map. The
->> table is now only used for lookups, individual functions calculate
->> register and mask using the irq_idx.
->>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c  |   10 +-
->>   .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 1151 +++--------------
->>   .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h |    4 +-
->>   3 files changed, 196 insertions(+), 969 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
->> index fd11a2aeab6c..4e2ad03df903 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
->> @@ -70,7 +70,7 @@ static int _dpu_core_irq_enable(struct dpu_kms *dpu_kms, int irq_idx)
->>   		return -EINVAL;
->>   	}
->>   
->> -	if (irq_idx < 0 || irq_idx >= dpu_kms->hw_intr->irq_idx_tbl_size) {
->> +	if (irq_idx < 0 || irq_idx >= dpu_kms->hw_intr->total_irqs) {
->>   		DPU_ERROR("invalid IRQ index: [%d]\n", irq_idx);
->>   		return -EINVAL;
->>   	}
->> @@ -133,7 +133,7 @@ static int _dpu_core_irq_disable(struct dpu_kms *dpu_kms, int irq_idx)
->>   		return -EINVAL;
->>   	}
->>   
->> -	if (irq_idx < 0 || irq_idx >= dpu_kms->hw_intr->irq_idx_tbl_size) {
->> +	if (irq_idx < 0 || irq_idx >= dpu_kms->hw_intr->total_irqs) {
->>   		DPU_ERROR("invalid IRQ index: [%d]\n", irq_idx);
->>   		return -EINVAL;
->>   	}
->> @@ -208,7 +208,7 @@ int dpu_core_irq_register_callback(struct dpu_kms *dpu_kms, int irq_idx,
->>   		return -EINVAL;
->>   	}
->>   
->> -	if (irq_idx < 0 || irq_idx >= dpu_kms->hw_intr->irq_idx_tbl_size) {
->> +	if (irq_idx < 0 || irq_idx >= dpu_kms->hw_intr->total_irqs) {
->>   		DPU_ERROR("invalid IRQ index: [%d]\n", irq_idx);
->>   		return -EINVAL;
->>   	}
->> @@ -243,7 +243,7 @@ int dpu_core_irq_unregister_callback(struct dpu_kms *dpu_kms, int irq_idx,
->>   		return -EINVAL;
->>   	}
->>   
->> -	if (irq_idx < 0 || irq_idx >= dpu_kms->hw_intr->irq_idx_tbl_size) {
->> +	if (irq_idx < 0 || irq_idx >= dpu_kms->hw_intr->total_irqs) {
->>   		DPU_ERROR("invalid IRQ index: [%d]\n", irq_idx);
->>   		return -EINVAL;
->>   	}
->> @@ -328,7 +328,7 @@ void dpu_core_irq_preinstall(struct dpu_kms *dpu_kms)
->>   	spin_lock_init(&dpu_kms->irq_obj.cb_lock);
->>   
->>   	/* Create irq callbacks for all possible irq_idx */
->> -	dpu_kms->irq_obj.total_irqs = dpu_kms->hw_intr->irq_idx_tbl_size;
->> +	dpu_kms->irq_obj.total_irqs = dpu_kms->hw_intr->total_irqs;
->>   	dpu_kms->irq_obj.irq_cb_tbl = kcalloc(dpu_kms->irq_obj.total_irqs,
->>   			sizeof(struct list_head), GFP_KERNEL);
->>   	dpu_kms->irq_obj.enable_counts = kcalloc(dpu_kms->irq_obj.total_irqs,
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
->> index 8bd22e060437..2cb6800047c3 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
->> @@ -32,142 +32,142 @@
->>   /**
->>    * WB interrupt status bit definitions
->>    */
->> -#define DPU_INTR_WB_0_DONE BIT(0)
->> -#define DPU_INTR_WB_1_DONE BIT(1)
->> -#define DPU_INTR_WB_2_DONE BIT(4)
->> +#define DPU_INTR_WB_0_DONE	0
->> +#define DPU_INTR_WB_1_DONE	1
->> +#define DPU_INTR_WB_2_DONE	4
->>   
->>   /**
->>    * WDOG timer interrupt status bit definitions
->>    */
->> -#define DPU_INTR_WD_TIMER_0_DONE BIT(2)
->> -#define DPU_INTR_WD_TIMER_1_DONE BIT(3)
->> -#define DPU_INTR_WD_TIMER_2_DONE BIT(5)
->> -#define DPU_INTR_WD_TIMER_3_DONE BIT(6)
->> -#define DPU_INTR_WD_TIMER_4_DONE BIT(7)
->> +#define DPU_INTR_WD_TIMER_0_DONE	2
->> +#define DPU_INTR_WD_TIMER_1_DONE	3
->> +#define DPU_INTR_WD_TIMER_2_DONE	5
->> +#define DPU_INTR_WD_TIMER_3_DONE	6
->> +#define DPU_INTR_WD_TIMER_4_DONE	7
->>   
->>   /**
->>    * Pingpong interrupt status bit definitions
->>    */
->> -#define DPU_INTR_PING_PONG_0_DONE BIT(8)
->> -#define DPU_INTR_PING_PONG_1_DONE BIT(9)
->> -#define DPU_INTR_PING_PONG_2_DONE BIT(10)
->> -#define DPU_INTR_PING_PONG_3_DONE BIT(11)
->> -#define DPU_INTR_PING_PONG_0_RD_PTR BIT(12)
->> -#define DPU_INTR_PING_PONG_1_RD_PTR BIT(13)
->> -#define DPU_INTR_PING_PONG_2_RD_PTR BIT(14)
->> -#define DPU_INTR_PING_PONG_3_RD_PTR BIT(15)
->> -#define DPU_INTR_PING_PONG_0_WR_PTR BIT(16)
->> -#define DPU_INTR_PING_PONG_1_WR_PTR BIT(17)
->> -#define DPU_INTR_PING_PONG_2_WR_PTR BIT(18)
->> -#define DPU_INTR_PING_PONG_3_WR_PTR BIT(19)
->> -#define DPU_INTR_PING_PONG_0_AUTOREFRESH_DONE BIT(20)
->> -#define DPU_INTR_PING_PONG_1_AUTOREFRESH_DONE BIT(21)
->> -#define DPU_INTR_PING_PONG_2_AUTOREFRESH_DONE BIT(22)
->> -#define DPU_INTR_PING_PONG_3_AUTOREFRESH_DONE BIT(23)
->> +#define DPU_INTR_PING_PONG_0_DONE	8
->> +#define DPU_INTR_PING_PONG_1_DONE	9
->> +#define DPU_INTR_PING_PONG_2_DONE	10
->> +#define DPU_INTR_PING_PONG_3_DONE	11
->> +#define DPU_INTR_PING_PONG_0_RD_PTR	12
->> +#define DPU_INTR_PING_PONG_1_RD_PTR	13
->> +#define DPU_INTR_PING_PONG_2_RD_PTR	14
->> +#define DPU_INTR_PING_PONG_3_RD_PTR	15
->> +#define DPU_INTR_PING_PONG_0_WR_PTR	16
->> +#define DPU_INTR_PING_PONG_1_WR_PTR	17
->> +#define DPU_INTR_PING_PONG_2_WR_PTR	18
->> +#define DPU_INTR_PING_PONG_3_WR_PTR	19
->> +#define DPU_INTR_PING_PONG_0_AUTOREFRESH_DONE	20
->> +#define DPU_INTR_PING_PONG_1_AUTOREFRESH_DONE	21
->> +#define DPU_INTR_PING_PONG_2_AUTOREFRESH_DONE	22
->> +#define DPU_INTR_PING_PONG_3_AUTOREFRESH_DONE	23
->>   
->>   /**
->>    * Interface interrupt status bit definitions
->>    */
->> -#define DPU_INTR_INTF_0_UNDERRUN BIT(24)
->> -#define DPU_INTR_INTF_1_UNDERRUN BIT(26)
->> -#define DPU_INTR_INTF_2_UNDERRUN BIT(28)
->> -#define DPU_INTR_INTF_3_UNDERRUN BIT(30)
->> -#define DPU_INTR_INTF_5_UNDERRUN BIT(22)
->> -#define DPU_INTR_INTF_0_VSYNC BIT(25)
->> -#define DPU_INTR_INTF_1_VSYNC BIT(27)
->> -#define DPU_INTR_INTF_2_VSYNC BIT(29)
->> -#define DPU_INTR_INTF_3_VSYNC BIT(31)
->> -#define DPU_INTR_INTF_5_VSYNC BIT(23)
->> +#define DPU_INTR_INTF_0_UNDERRUN	24
->> +#define DPU_INTR_INTF_1_UNDERRUN	26
->> +#define DPU_INTR_INTF_2_UNDERRUN	28
->> +#define DPU_INTR_INTF_3_UNDERRUN	30
->> +#define DPU_INTR_INTF_5_UNDERRUN	22
->> +#define DPU_INTR_INTF_0_VSYNC	25
->> +#define DPU_INTR_INTF_1_VSYNC	27
->> +#define DPU_INTR_INTF_2_VSYNC	29
->> +#define DPU_INTR_INTF_3_VSYNC	31
->> +#define DPU_INTR_INTF_5_VSYNC	23
->>   
->>   /**
->>    * Pingpong Secondary interrupt status bit definitions
->>    */
->> -#define DPU_INTR_PING_PONG_S0_AUTOREFRESH_DONE BIT(0)
->> -#define DPU_INTR_PING_PONG_S0_WR_PTR BIT(4)
->> -#define DPU_INTR_PING_PONG_S0_RD_PTR BIT(8)
->> -#define DPU_INTR_PING_PONG_S0_TEAR_DETECTED BIT(22)
->> -#define DPU_INTR_PING_PONG_S0_TE_DETECTED BIT(28)
->> +#define DPU_INTR_PING_PONG_S0_AUTOREFRESH_DONE	0
->> +#define DPU_INTR_PING_PONG_S0_WR_PTR	4
->> +#define DPU_INTR_PING_PONG_S0_RD_PTR	8
->> +#define DPU_INTR_PING_PONG_S0_TEAR_DETECTED	22
->> +#define DPU_INTR_PING_PONG_S0_TE_DETECTED	28
->>   
->>   /**
->>    * Pingpong TEAR detection interrupt status bit definitions
->>    */
->> -#define DPU_INTR_PING_PONG_0_TEAR_DETECTED BIT(16)
->> -#define DPU_INTR_PING_PONG_1_TEAR_DETECTED BIT(17)
->> -#define DPU_INTR_PING_PONG_2_TEAR_DETECTED BIT(18)
->> -#define DPU_INTR_PING_PONG_3_TEAR_DETECTED BIT(19)
->> +#define DPU_INTR_PING_PONG_0_TEAR_DETECTED	16
->> +#define DPU_INTR_PING_PONG_1_TEAR_DETECTED	17
->> +#define DPU_INTR_PING_PONG_2_TEAR_DETECTED	18
->> +#define DPU_INTR_PING_PONG_3_TEAR_DETECTED	19
->>   
->>   /**
->>    * Pingpong TE detection interrupt status bit definitions
->>    */
->> -#define DPU_INTR_PING_PONG_0_TE_DETECTED BIT(24)
->> -#define DPU_INTR_PING_PONG_1_TE_DETECTED BIT(25)
->> -#define DPU_INTR_PING_PONG_2_TE_DETECTED BIT(26)
->> -#define DPU_INTR_PING_PONG_3_TE_DETECTED BIT(27)
->> +#define DPU_INTR_PING_PONG_0_TE_DETECTED	24
->> +#define DPU_INTR_PING_PONG_1_TE_DETECTED	25
->> +#define DPU_INTR_PING_PONG_2_TE_DETECTED	26
->> +#define DPU_INTR_PING_PONG_3_TE_DETECTED	27
->>   
->>   /**
->>    * Ctl start interrupt status bit definitions
->>    */
->> -#define DPU_INTR_CTL_0_START BIT(9)
->> -#define DPU_INTR_CTL_1_START BIT(10)
->> -#define DPU_INTR_CTL_2_START BIT(11)
->> -#define DPU_INTR_CTL_3_START BIT(12)
->> -#define DPU_INTR_CTL_4_START BIT(13)
->> +#define DPU_INTR_CTL_0_START	9
->> +#define DPU_INTR_CTL_1_START	10
->> +#define DPU_INTR_CTL_2_START	11
->> +#define DPU_INTR_CTL_3_START	12
->> +#define DPU_INTR_CTL_4_START	13
->>   
->>   /**
->>    * Concurrent WB overflow interrupt status bit definitions
->>    */
->> -#define DPU_INTR_CWB_2_OVERFLOW BIT(14)
->> -#define DPU_INTR_CWB_3_OVERFLOW BIT(15)
->> +#define DPU_INTR_CWB_2_OVERFLOW	14
->> +#define DPU_INTR_CWB_3_OVERFLOW	15
->>   
->>   /**
->>    * Histogram VIG done interrupt status bit definitions
->>    */
->> -#define DPU_INTR_HIST_VIG_0_DONE BIT(0)
->> -#define DPU_INTR_HIST_VIG_1_DONE BIT(4)
->> -#define DPU_INTR_HIST_VIG_2_DONE BIT(8)
->> -#define DPU_INTR_HIST_VIG_3_DONE BIT(10)
->> +#define DPU_INTR_HIST_VIG_0_DONE	0
->> +#define DPU_INTR_HIST_VIG_1_DONE	4
->> +#define DPU_INTR_HIST_VIG_2_DONE	8
->> +#define DPU_INTR_HIST_VIG_3_DONE	10
->>   
->>   /**
->>    * Histogram VIG reset Sequence done interrupt status bit definitions
->>    */
->> -#define DPU_INTR_HIST_VIG_0_RSTSEQ_DONE BIT(1)
->> -#define DPU_INTR_HIST_VIG_1_RSTSEQ_DONE BIT(5)
->> -#define DPU_INTR_HIST_VIG_2_RSTSEQ_DONE BIT(9)
->> -#define DPU_INTR_HIST_VIG_3_RSTSEQ_DONE BIT(11)
->> +#define DPU_INTR_HIST_VIG_0_RSTSEQ_DONE	1
->> +#define DPU_INTR_HIST_VIG_1_RSTSEQ_DONE	5
->> +#define DPU_INTR_HIST_VIG_2_RSTSEQ_DONE	9
->> +#define DPU_INTR_HIST_VIG_3_RSTSEQ_DONE	11
->>   
->>   /**
->>    * Histogram DSPP done interrupt status bit definitions
->>    */
->> -#define DPU_INTR_HIST_DSPP_0_DONE BIT(12)
->> -#define DPU_INTR_HIST_DSPP_1_DONE BIT(16)
->> -#define DPU_INTR_HIST_DSPP_2_DONE BIT(20)
->> -#define DPU_INTR_HIST_DSPP_3_DONE BIT(22)
->> +#define DPU_INTR_HIST_DSPP_0_DONE	12
->> +#define DPU_INTR_HIST_DSPP_1_DONE	16
->> +#define DPU_INTR_HIST_DSPP_2_DONE	20
->> +#define DPU_INTR_HIST_DSPP_3_DONE	22
->>   
->>   /**
->>    * Histogram DSPP reset Sequence done interrupt status bit definitions
->>    */
->> -#define DPU_INTR_HIST_DSPP_0_RSTSEQ_DONE BIT(13)
->> -#define DPU_INTR_HIST_DSPP_1_RSTSEQ_DONE BIT(17)
->> -#define DPU_INTR_HIST_DSPP_2_RSTSEQ_DONE BIT(21)
->> -#define DPU_INTR_HIST_DSPP_3_RSTSEQ_DONE BIT(23)
->> +#define DPU_INTR_HIST_DSPP_0_RSTSEQ_DONE	13
->> +#define DPU_INTR_HIST_DSPP_1_RSTSEQ_DONE	17
->> +#define DPU_INTR_HIST_DSPP_2_RSTSEQ_DONE	21
->> +#define DPU_INTR_HIST_DSPP_3_RSTSEQ_DONE	23
->>   
->>   /**
->>    * INTF interrupt status bit definitions
->>    */
->> -#define DPU_INTR_VIDEO_INTO_STATIC BIT(0)
->> -#define DPU_INTR_VIDEO_OUTOF_STATIC BIT(1)
->> -#define DPU_INTR_DSICMD_0_INTO_STATIC BIT(2)
->> -#define DPU_INTR_DSICMD_0_OUTOF_STATIC BIT(3)
->> -#define DPU_INTR_DSICMD_1_INTO_STATIC BIT(4)
->> -#define DPU_INTR_DSICMD_1_OUTOF_STATIC BIT(5)
->> -#define DPU_INTR_DSICMD_2_INTO_STATIC BIT(6)
->> -#define DPU_INTR_DSICMD_2_OUTOF_STATIC BIT(7)
->> -#define DPU_INTR_PROG_LINE BIT(8)
->> +#define DPU_INTR_VIDEO_INTO_STATIC	0
->> +#define DPU_INTR_VIDEO_OUTOF_STATIC	1
->> +#define DPU_INTR_DSICMD_0_INTO_STATIC	2
->> +#define DPU_INTR_DSICMD_0_OUTOF_STATIC	3
->> +#define DPU_INTR_DSICMD_1_INTO_STATIC	4
->> +#define DPU_INTR_DSICMD_1_OUTOF_STATIC	5
->> +#define DPU_INTR_DSICMD_2_INTO_STATIC	6
->> +#define DPU_INTR_DSICMD_2_OUTOF_STATIC	7
->> +#define DPU_INTR_PROG_LINE		8
->>   
->>   /**
->>    * AD4 interrupt status bit definitions
->>    */
->> -#define DPU_INTR_BACKLIGHT_UPDATED BIT(0)
->> +#define DPU_INTR_BACKLIGHT_UPDATED	0
->>   /**
->>    * struct dpu_intr_reg - array of DPU register sets
->>    * @clr_off:	offset to CLEAR reg
->> @@ -184,13 +184,13 @@ struct dpu_intr_reg {
->>    * struct dpu_irq_type - maps each irq with i/f
->>    * @intr_type:		type of interrupt listed in dpu_intr_type
->>    * @instance_idx:	instance index of the associated HW block in DPU
->> - * @irq_mask:		corresponding bit in the interrupt status reg
->> + * @irq_offset:		corresponding bit in the interrupt status reg
->>    * @reg_idx:		which reg set to use
->>    */
->>   struct dpu_irq_type {
->>   	u32 intr_type;
->>   	u32 instance_idx;
->> -	u32 irq_mask;
->> +	u32 irq_offset;
->>   	u32 reg_idx;
->>   };
->>   
->> @@ -265,6 +265,10 @@ static const struct dpu_intr_reg dpu_intr_set[] = {
->>   	},
->>   };
->>   
->> +#define DPU_IRQ_IDX(reg_idx, offset)	(reg_idx * 32 + offset)
->> +#define DPU_IRQ_REG(irq_idx)	(irq_idx / 32)
->> +#define DPU_IRQ_MASK(irq_idx)	(BIT(irq_idx % 32))
->> +
->>   /*
->>    * struct dpu_irq_type - IRQ mapping table use for lookup an irq_idx in this
->>    *			 table that have a matching interface type and
->> @@ -328,59 +332,20 @@ static const struct dpu_irq_type dpu_irq_map[] = {
->>   	{ DPU_IRQ_TYPE_INTF_VSYNC, INTF_2, DPU_INTR_INTF_2_VSYNC, 0},
->>   	{ DPU_IRQ_TYPE_INTF_UNDER_RUN, INTF_3, DPU_INTR_INTF_3_UNDERRUN, 0},
->>   	{ DPU_IRQ_TYPE_INTF_VSYNC, INTF_3, DPU_INTR_INTF_3_VSYNC, 0},
->> -	/* irq_idx:32-33 */
->> +	/* irq_idx: 22,23, changed for sc7x80 */
-> 
-> Afaict there are 32 items before this in the array, so per your commit
-> message this would represent BIT(0) in the MDP_SSPP_TOP0:INTR2, but
-> these are BIT(22) and BIT(33) in the first INTR register.
-> 
-> Unfortunately index 22 and 23 are already taken and in my sc8180x code I
-> thought the INTF_5 bits had moved and overwrote the PINGPONG ones.
-> 
-> But that is not the case and what I now realize is that we have
-> duplicate entries in the list for these two bits - e.g.
-> DPU_INTR_PING_PONG_2_AUTOREFRESH_DONE and DPU_INTR_INTF_5_UNDERRUN both
-> define the interrupt for BIT(22) in the first INTR register.
-> 
-> The way that sc7180 ensures that INTF_5 is considered is to include
-> DPU_IRQ_TYPE_PING_PONG_AUTO_REF in obsolete_irq of struct dpu_mdss_cfg.
-> So the search code will jump over the first match and later find the
-> entry for INTF_5 - and we have 34 "possible" bits in the first INTR.
-> 
-> 
-> As such, your approach will unfortunately not work to describe the old
-> and the new register layout. Further more the design would not be able
-> to cope with a bit moving within a register.
-> 
-> 
-> I think we instead should register the list of interrupts from the hw
-> catalog.
-> 
-> We should be able to describe each register as a {clear, enable, status}
-> offset and an array of 32 entries, where the index denotes the BIT() in
-> the register. Then we describe a given platform as a list of references
-> to such register objects. Older targets would include
-> sdm845_sspp_top0_intr in their list and newer ones
-> sc7180_sspp_top0_intr.
+Hi,
 
-I've implemented my thoughts on this in v2 of this patchset, squashing 
-it with this patch (to remove rewriting of the table destined to be 
-dropped in the next patch).
+On Tue, May 11, 2021 at 4:17 PM Doug Anderson <dianders@chromium.org> wrote:
+>
+> Hi,
+>
+> On Tue, May 11, 2021 at 11:12 AM <rajeevny@codeaurora.org> wrote:
+> >
+> > On 01-05-2021 03:08, Doug Anderson wrote:
+> > > Hi,
+> > >
+> > > On Fri, Apr 30, 2021 at 8:10 AM <rajeevny@codeaurora.org> wrote:
+> > >>
+> > >> On 30-04-2021 02:33, Doug Anderson wrote:
+> > >> > Hi,
+> > >> >
+> > >> > On Thu, Apr 29, 2021 at 11:04 AM Rob Herring <robh@kernel.org> wrote:
+> > >> >>
+> > >> >> On Mon, Apr 26, 2021 at 11:29:15AM +0530, Rajeev Nandan wrote:
+> > >> >> > Add bindings for DisplayPort aux backlight driver.
+> > >> >> >
+> > >> >> > Changes in v2:
+> > >> >> > - New
+> > >> >> >
+> > >> >> > Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
+> > >> >> > ---
+> > >> >> >  .../bindings/leds/backlight/dp-aux-backlight.yaml  | 49 ++++++++++++++++++++++
+> > >> >> >  1 file changed, 49 insertions(+)
+> > >> >> >  create mode 100644 Documentation/devicetree/bindings/leds/backlight/dp-aux-backlight.yaml
+> > >> >> >
+> > >> >> > diff --git a/Documentation/devicetree/bindings/leds/backlight/dp-aux-backlight.yaml b/Documentation/devicetree/bindings/leds/backlight/dp-aux-backlight.yaml
+> > >> >> > new file mode 100644
+> > >> >> > index 00000000..0fa8bf0
+> > >> >> > --- /dev/null
+> > >> >> > +++ b/Documentation/devicetree/bindings/leds/backlight/dp-aux-backlight.yaml
+> > >> >> > @@ -0,0 +1,49 @@
+> > >> >> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > >> >> > +%YAML 1.2
+> > >> >> > +---
+> > >> >> > +$id: http://devicetree.org/schemas/leds/backlight/dp-aux-backlight.yaml#
+> > >> >> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > >> >> > +
+> > >> >> > +title: DisplayPort aux backlight driver bindings
+> > >> >> > +
+> > >> >> > +maintainers:
+> > >> >> > +  - Rajeev Nandan <rajeevny@codeaurora.org>
+> > >> >> > +
+> > >> >> > +description:
+> > >> >> > +  Backlight driver to control the brightness over DisplayPort aux channel.
+> > >> >> > +
+> > >> >> > +allOf:
+> > >> >> > +  - $ref: common.yaml#
+> > >> >> > +
+> > >> >> > +properties:
+> > >> >> > +  compatible:
+> > >> >> > +    const: dp-aux-backlight
+> > >> >> > +
+> > >> >> > +  ddc-i2c-bus:
+> > >> >> > +    $ref: /schemas/types.yaml#/definitions/phandle
+> > >> >> > +    description:
+> > >> >> > +      A phandle to the system I2C controller connected to the DDC bus used
+> > >> >> > +      for the DisplayPort AUX channel.
+> > >> >> > +
+> > >> >> > +  enable-gpios:
+> > >> >> > +    maxItems: 1
+> > >> >> > +    description: GPIO specifier for backlight enable pin.
+> > >> >> > +
+> > >> >> > +  max-brightness: true
+> > >> >> > +
+> > >> >> > +required:
+> > >> >> > +  - compatible
+> > >> >> > +  - ddc-i2c-bus
+> > >> >> > +
+> > >> >> > +additionalProperties: false
+> > >> >> > +
+> > >> >> > +examples:
+> > >> >> > +  - |
+> > >> >> > +    backlight {
+> > >> >> > +        compatible = "dp-aux-backlight";
+> > >> >> > +        ddc-i2c-bus = <&sn65dsi86_bridge>;
+> > >> >> > +        enable-gpios = <&tlmm 12 GPIO_ACTIVE_HIGH>;
+> > >> >>
+> > >> >> So the DDC bus is connected to a backlight and also a panel? This
+> > >> >> binding is not reflecting the h/w, but rather what you want for some
+> > >> >> driver.
+> > >> >>
+> > >> >> There's only one thing here and that's an eDP panel which supports
+> > >> >> backlight control via DP aux channel. You can figure all that out from
+> > >> >> the panel's compatible and/or reading the EDID.
+> > >> >>
+> > >> >> You might also be interested in this thread:
+> > >> >>
+> > >> >> https://lore.kernel.org/lkml/YIKsDtjcIHGNvW0u@orome.fritz.box/
+> > >> >
+> > >> > I think Rajeev needs to rework everything anyway as per:
+> > >> >
+> > >> > https://lore.kernel.org/r/87zgxl5qar.fsf@intel.com
+> > >> >
+> > >> > ...but you're right that it makes sense not to model the backlight as
+> > >> > a separate node in the device tree. The panel driver can handle
+> > >> > setting up the backlight.
+> > >> >
+> > >> > -Doug
+> > >>
+> > >> It was not a good idea to create a separate backlight driver and use
+> > >> ddc-i2c-bus to get access to DP aux. I am working to move the code
+> > >> to the panel driver and to utilize the new DRM helper functions
+> > >> (drm_edp_backlight_*) Lyude has added [1].
+> > >>
+> > >> To use these helper functions, the panel driver should have access to
+> > >> the
+> > >> "struct drm_dp_aux *". The simple-panel has a "ddc-i2c-bus" property
+> > >> to give the panel access to the DDC bus and is currently being used to
+> > >> get the EDID from the panel. Can I use the same ddc bus i2c_adapter to
+> > >> get
+> > >> the "struct drm_dp_aux *"?
+> > >>
+> > >> As per the suggestion [2], I get the "struct drm_dp_aux *" from the
+> > >> i2c_adapter of ddc bus (maybe I didn't understand the suggestion
+> > >> correctly),
+> > >> and, it turned out, the way I have implemented is not the right way
+> > >> [3].
+> > >> So, I am afraid to use the same method in the panel driver.
+> > >>
+> > >>
+> > >> [1] https://lore.kernel.org/dri-devel/871rb5bcf9.fsf@intel.com/
+> > >> [2] https://www.spinics.net/lists/dri-devel/msg295429.html
+> > >> [3]
+> > >> https://lore.kernel.org/dri-devel/20210426111116.4lc3ekxjugjr3oho@maple.lan/
+> > >
+> > > So it's definitely up to maintainers, not me. ...but I guess I would
+> > > have expected something like a new property called "ddc-aux-bus". Then
+> > > you'd have to create a new API call called something like
+> > > "of_find_ddc_aux_adapter_by_node()" that would allow you to find it.
+> > >
+> >
+> > To implement the first suggestion, I can think of the following way
+> > to get the "struct drm_dp_aux" in the panel_simple_probe function:
+> >
+> > - Create a new panel-simple DT property "ddc-aux-bus", a phandle to the
+> > platform device that implements the AUX channel.
+> >
+> > - Create a global list of drm_dp_aux in drm_dp_helper.c. Initialize list
+> > head
+> > in drm_dp_aux_init(), add the drm_dp_aux onto the list in
+> > drm_dp_aux_register().
+> > Similarly, remove the drm_dp_aux from list in drm_dp_aux_unregister().
+> >
+> > - Create a new function of_drm_find_dp_aux_by_node() to get the expected
+> > drm_dp_aux from this global list.
+> >
+> > Please let me know your views on this implementation.
+>
+> BTW: a bunch of discussion today on IRC:
+>
+> https://people.freedesktop.org/~cbrill/dri-log/?channel=dri-devel&highlight_names=&date=2021-05-11&show_html=true
 
-> That way we will avoid this obfuscated patchwork that mdss_irqs and
-> obsolete_irq gives us.
-> 
-> Reards,
-> Bjorn
-> 
->>   	{ DPU_IRQ_TYPE_INTF_UNDER_RUN, INTF_5, DPU_INTR_INTF_5_UNDERRUN, 0},
->>   	{ DPU_IRQ_TYPE_INTF_VSYNC, INTF_5, DPU_INTR_INTF_5_VSYNC, 0},
-[skipped the rest of the patch]
+To finish adding breadcrumbs to those playing at home, v7 of my patch
+series should get the AUX channel to the panel device:
 
--- 
-With best wishes
-Dmitry
+https://lore.kernel.org/r/20210517200907.1459182-1-dianders@chromium.org/
+
+Assuming that people don't hate that solution it may be a good things
+for you to build your patches atop. :-)
+
+-Doug
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
