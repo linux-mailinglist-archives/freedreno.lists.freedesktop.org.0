@@ -2,63 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9ED03891FD
-	for <lists+freedreno@lfdr.de>; Wed, 19 May 2021 16:51:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF598389578
+	for <lists+freedreno@lfdr.de>; Wed, 19 May 2021 20:35:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B12F6EDE1;
-	Wed, 19 May 2021 14:51:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A17A6E0B7;
+	Wed, 19 May 2021 18:35:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
- [IPv6:2607:f8b0:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A917E6EDE2
- for <freedreno@lists.freedesktop.org>; Wed, 19 May 2021 14:51:52 +0000 (UTC)
-Received: by mail-ot1-x331.google.com with SMTP id
- i12-20020a05683033ecb02903346fa0f74dso1336987otu.10
- for <freedreno@lists.freedesktop.org>; Wed, 19 May 2021 07:51:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=FTJFgBVyDmUOEWvTRev7q14+qgObUW0H7ne5i0Gbe6Y=;
- b=S9tVdEtrJGHa2o7lEkJCl4ciWBJIW+7y7XAxPg2JtJRWL8oEtOofCj7Kd+s7C/rIBr
- X/N8xkmpWtnyWt1DKO7+61sttUWb96XaXea/B1XI7p/WQnRVkFodqInkdzVDOGszpRe4
- bpJLlyQD9AEUc4m7DCFI/fKCMPXeM+YTcp1d73LC5Eq2i6Zs/OdFoDQ388kT3FuKiZDB
- dsyJ9WRYzho23HSpVRA74CioM2IFz/p6ya/SE2EPNaHHGbHjx6SKcHx+OuMx087PBb3/
- MqM61FpRqZKf8ve9BqJGm1gC0KM3eQ3qrqTWLKksOYf2pqrZGeeweNHmboD1YyD6ExZR
- Wt4A==
+Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
+ [IPv6:2607:f8b0:4864:20::102d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C54CA89A86;
+ Wed, 19 May 2021 18:35:08 +0000 (UTC)
+Received: by mail-pj1-x102d.google.com with SMTP id
+ o17-20020a17090a9f91b029015cef5b3c50so3997150pjp.4; 
+ Wed, 19 May 2021 11:35:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=OXGExEV9DKzHJXkbbNu+OVKImQdQyVv51ZhcABCoj+c=;
+ b=VZnQB3TxN9YgO/dIaFVc2+8H4/rfLP27UtLLUyHSQnGpnObGKzI49EYOFNj55HB1Ib
+ KDN3mpnAfRCZWzYXRhCZfmOHesq7zvueE9s9hkhFZvaRmd7Dan9VeXNl9u+jLqheXsbV
+ XqOPaKcxraAO9TpALhWIaLd0hW/+IR3k3yhcH6ScPBCHyejoghtRjIM2TkjFPHt8qOCZ
+ cPIFpSi8EtmD5buBu4Uc47iP7kXsMzEu8/wuwHyhxePBEdKVQ/v9URBCJSlPZdAr4pHa
+ RI3v65vcbzc2BQ1Z6MVuOCjZOaCS7NQq/ygVahpH8PbmiyFbGcH+pfW9xTrk1y7v3GR3
+ 2olQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=FTJFgBVyDmUOEWvTRev7q14+qgObUW0H7ne5i0Gbe6Y=;
- b=LWZ7nBgLXAEt/zjyzbvf/ecAjH3HRR6ppCO7f1BaDiUotqjd41qNTxoVFZpiB7EJi/
- GrXtyeA5JDWnKKXYTXY0c4PlqFKjLCyFLi8WHHUOuffGDc/0zjV5wXxHCxeEnKnbbaS0
- fbO0OnHdzGBqhDKm7vFRO1GdJQI33fbbiV0B6G3ksgOlzD62x/CFN1S49burG6NlkPNz
- WYeXve0COUdpKJqX5nAC6mPe3uIeFDJVjQD0S+XeSyuhBMpJH86dxeg2ProN8K1UvMJ3
- 6Hlav0vzM3wB/zF0FXwc4zo8ixaQ6Bg1/tCG5wGRknYl+sYn4NcooiNHIgXQ+GqhSMi9
- y/WQ==
-X-Gm-Message-State: AOAM531Bu9WonI//aaaXW98v7bRoZekmPCP5Oy6eCtIffUzAU065MmAy
- MRcEr0ZDHM9xPeIjRB+tE2S97Q==
-X-Google-Smtp-Source: ABdhPJzY4rU2tPVJy8SezcMhmTeANCYark26o2ccH2Eo3RpalK98eq0y6YRbfDXggAfXeWgxMe1aUg==
-X-Received: by 2002:a05:6830:1594:: with SMTP id
- i20mr9168662otr.279.1621435911905; 
- Wed, 19 May 2021 07:51:51 -0700 (PDT)
-Received: from yoga (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id 67sm4571702otp.68.2021.05.19.07.51.51
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=OXGExEV9DKzHJXkbbNu+OVKImQdQyVv51ZhcABCoj+c=;
+ b=bbgafnjDTDdXnTNNxXvHDtZxD8rtoZtKUxkCkqn92GEudPzIH4eFy9EnYZ8TEjFYap
+ 6ip/yyA8KPTGTGwjT/mzP5nAhabOUEQp8fVvRSXc6eWcDkHLR+tLe77uIlvqDMLjd3i8
+ oMG1Jt7XILOPqYfx/VDy+rulwD8zCpR2UE0ErM65QEZCZ5PHyzP4Z4H4HpCfwKa7EnKf
+ 6WG9eYZ/5C6w06tdJjGUDV+vY9NxEIs/aFH5qjZu0H82SXSwY48Mka06iqe5MsDXCC8R
+ tblSCAY/4g64py2ikcnDKFZoZJjuHfICzRgKQPD1XoYKqZpb6GlAx+C/v9htULW121Ru
+ zVXg==
+X-Gm-Message-State: AOAM533cQk69j1tVpjWhk9pvK/cG/q6dBmFbWItcZH+y3FGjiMjO4B1b
+ tOcgCF2lYKuEjCMBCNFJiRPIpHtz4m1v0w==
+X-Google-Smtp-Source: ABdhPJzT41yLbhtZB7tJviu8pahUyGJsXxTpFBsuKRqM6hf3433QzAmTmbncbwVd3iCvrem4aPOSdA==
+X-Received: by 2002:a17:90b:1041:: with SMTP id
+ gq1mr697596pjb.224.1621449307682; 
+ Wed, 19 May 2021 11:35:07 -0700 (PDT)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ k7sm4759153pjj.46.2021.05.19.11.35.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 May 2021 07:51:51 -0700 (PDT)
-Date: Wed, 19 May 2021 09:51:49 -0500
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: abhinavk@codeaurora.org
-Message-ID: <20210519145149.GX2484@yoga>
-References: <20210511042043.592802-1-bjorn.andersson@linaro.org>
- <40f6aefd3fa341e2bec2060106389be7@codeaurora.org>
+ Wed, 19 May 2021 11:35:06 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Wed, 19 May 2021 11:38:51 -0700
+Message-Id: <20210519183855.1523927-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <40f6aefd3fa341e2bec2060106389be7@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH 0/4] drm/msm/dp: Add support for SC8180x eDP
- controller
+Subject: [Freedreno] [RFC 0/3] dma-fence: Add a "boost" mechanism
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,95 +67,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- Tanmay Shah <tanmay@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
- Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, sbillaka@codeaurora.org,
- Sean Paul <sean@poorly.run>, Chandan Uddaraju <chandanu@codeaurora.org>
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ open list <linux-kernel@vger.kernel.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ freedreno@lists.freedesktop.org,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue 18 May 22:41 CDT 2021, abhinavk@codeaurora.org wrote:
+From: Rob Clark <robdclark@chromium.org>
 
-> Hi Bjorn
-> 
-> I had a quick glance on the series and before getting to other things wanted
-> to know how you are initializing two different connectors for
-> DP & EDP resp.
-> 
-> The connector type for DP should be DRM_MODE_CONNECTOR_DisplayPort and eDP
-> should be DRM_MODE_CONNECTOR_eDP.
+In some cases, like double-buffered rendering, missing vblanks can
+trick the GPU into running at a lower frequence, when really we
+want to be running at a higher frequency to not miss the vblanks
+in the first place.
 
-As far as I've been able to conclude there is no eDP support in the
-upstream DPU driver; an encoder of type DRM_MODE_ENCODER_TMDS will only
-attach to INTF_DP.
+This is partially inspired by a trick i915 does, but implemented
+via dma-fence for a couple of reasons:
 
-> We need both to be created so that both EDP and DP can be supported
-> concurrently.
-> 
+1) To continue to be able to use the atomic helpers
+2) To support cases where display and gpu are different drivers
 
-Further more the DP controller driver has a global variable to track
-state and the INTF-picker will always pick the interface of index 0 when
-setting up the DP controller.
+The last patch is just proof of concept, in reality I think it
+may want to be a bit more clever.  But sending this out as it
+is as an RFC to get feedback.
 
-> Will these changes work for concurrent eDP and DP case?
-> 
+Rob Clark (3):
+  dma-fence: Add boost fence op
+  drm/atomic: Call dma_fence_boost() when we've missed a vblank
+  drm/msm: Wire up gpu boost
 
-The proposed changes are all that I need to get eDP working on my
-sc8180x laptop. But the DPU code does not currently support more than a
-single DP interface - and that has to be on the first INTF_DP that the
-DPU driver knows about.
+ drivers/gpu/drm/drm_atomic_helper.c | 11 +++++++++++
+ drivers/gpu/drm/msm/msm_fence.c     | 10 ++++++++++
+ drivers/gpu/drm/msm/msm_gpu.c       | 13 +++++++++++++
+ drivers/gpu/drm/msm/msm_gpu.h       |  2 ++
+ include/linux/dma-fence.h           | 26 ++++++++++++++++++++++++++
+ 5 files changed, 62 insertions(+)
 
-But this is a limitation we should fix, rather than claiming that you
-can only have one of each. Further more, afaict the sc7280 DP controller
-can do both DP and eDP, so it would make sense not to distinguish the
-interfaces as eDP or DP - just because the product in mind will use eDP.
+-- 
+2.30.2
 
-
-PS. I've currently disabled the eDP interface on my laptop and am
-working on trying to get Type-C DP working. Once that's in place I'd
-need a better INTF/encoder picker - because the current model of just
-picking INTF_DP 0 (or in a sequential fashion) won't work.
-
-Regards,
-Bjorn
-
-> Thanks
-> 
-> Abhinav
-> 
-> On 2021-05-10 21:20, Bjorn Andersson wrote:
-> > The first patch in the series is somewhat unrelated to the support, but
-> > simplifies reasoning and debugging of timing related issues.
-> > 
-> > The second patch introduces support for dealing with different register
-> > block
-> > layouts, which is used in the forth patch to describe the hardware
-> > blocks found
-> > in the SC8180x eDP block.
-> > 
-> > The third patch configures the INTF_CONFIG register, which carries the
-> > configuration for widebus handling. As with the DPU the bootloader
-> > enables
-> > widebus and we need to disable it, or implement support for adjusting
-> > the
-> > timing.
-> > 
-> > Bjorn Andersson (4):
-> >   drm/msm/dp: Simplify the mvid/nvid calculation
-> >   drm/msm/dp: Store each subblock in the io region
-> >   drm/msm/dp: Initialize the INTF_CONFIG register
-> >   drm/msm/dp: Add support for SC8180x eDP
-> > 
-> >  drivers/gpu/drm/msm/dp/dp_catalog.c | 99 +++++++----------------------
-> >  drivers/gpu/drm/msm/dp/dp_display.c |  1 +
-> >  drivers/gpu/drm/msm/dp/dp_parser.c  | 22 +++++++
-> >  drivers/gpu/drm/msm/dp/dp_parser.h  |  8 +++
-> >  4 files changed, 53 insertions(+), 77 deletions(-)
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
