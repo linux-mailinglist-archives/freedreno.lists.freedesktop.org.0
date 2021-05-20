@@ -2,54 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4391038B7A1
-	for <lists+freedreno@lfdr.de>; Thu, 20 May 2021 21:31:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3098338B7E7
+	for <lists+freedreno@lfdr.de>; Thu, 20 May 2021 21:58:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83B596F51B;
-	Thu, 20 May 2021 19:31:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC5586E436;
+	Thu, 20 May 2021 19:58:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb36.google.com (mail-yb1-xb36.google.com
- [IPv6:2607:f8b0:4864:20::b36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89E6D6F51D
- for <freedreno@lists.freedesktop.org>; Thu, 20 May 2021 19:30:46 +0000 (UTC)
-Received: by mail-yb1-xb36.google.com with SMTP id n4so5885839ybf.5
- for <freedreno@lists.freedesktop.org>; Thu, 20 May 2021 12:30:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ar6byVVqK1lRvgLic9qsfKVrGRqd/nf6HO0KI5j0j7Y=;
- b=unZRQZQT4/xG3FpO3Qvabhk7GtClO/EQX8NrK+CX8mvFkiQa5TBKByzoSB9YvynKp3
- wA78WE5VlE1cFOyQDnI/mFxF/4vPge3E5maZKQwrxGPJ77DLmQPTTfnFSDYgz9h/dGk7
- 9NGIJS0g0ARLDQIZw5T9Koi3k3mI8lRs9mg9FFhdCibrO5tH9jW6eMYopX9ZtNQjBNee
- IbUNtzyGCGGCoEWI3pfbj2D6gjdROJ2rsWg2Pn01Ty6hESjZajhVy7i7UBQIWPm/rJFA
- rVxU6dq0z0t+76SD7PsWv3X+0Q3J3SISwxcHy6bB9vMsPkhRDJ77JUbuTSD3BctDTtiG
- xb3A==
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE6A96E437
+ for <freedreno@lists.freedesktop.org>; Thu, 20 May 2021 19:58:55 +0000 (UTC)
+Received: by mail-wr1-x436.google.com with SMTP id v12so18848053wrq.6
+ for <freedreno@lists.freedesktop.org>; Thu, 20 May 2021 12:58:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=fvRDr1D5/5+LCAmUf65vl1i5y+y4alcViE7GRSVhNkM=;
+ b=IJTQEmled92Limq65lxrtZal8HOwFj/1/UhSrjJkbEbu08DIpkT2M+pXl4vT54YMb/
+ 1SEvjeoR8uPrk6as9bd43zO4V1j8Aa75jbzkHbhMRT9KmUCawIf5NbEbJIVb+b0b++Mn
+ FgEo/rN7Yfst8gFYO0KjrBYTSoknMUpMulURY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ar6byVVqK1lRvgLic9qsfKVrGRqd/nf6HO0KI5j0j7Y=;
- b=T33WIrCpAmvUmvVz2nI3FPpqPLEbB+sMt3E78P3QMx7hvAHmskOaqyoUuwgB6cqSXV
- orp5/HrOIJ8Mfekz0yIXJq3u0V/V06LkMpC2WO/NFKyyi2QsAvAi+mbjyxG4T9d+Rb9s
- PMDlnG19dXwYSdJ0/7ndECHVRrG0V1wo5pSj1nM+vSYvmlLEdjHdNQXiWooUuXaqtqfG
- gUrj//oLFMAPofPb3O0akVz9yjqmAZ6uAdHQTvJr4P7HavhkAzQl+B6VgLOsJCNySZ3W
- VxLT7fGQCHJ+jRUab45UPdTYbGM7yvh0P3vccYkqb15mBq0kGddgTF3RZl6YSa4tkxzR
- EaUQ==
-X-Gm-Message-State: AOAM533wpgAQyDFXP87xNn2R3EvOKeYM8Y1UPYqQuqX+ZHfzrDeWtizN
- xRjp18AgTdF39/wXbaVCcQCl3DqAB/sqZVBiGdcbMg==
-X-Google-Smtp-Source: ABdhPJxpYOKGwUniY64mHhJrUUD46UWR7FL11JhqYySHKRMSD1AvlOq8F1sramRfgpdMzWznP9AXEMMiLxmDs65ILyA=
-X-Received: by 2002:a25:2fca:: with SMTP id v193mr9594447ybv.412.1621539045424; 
- Thu, 20 May 2021 12:30:45 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210520002519.3538432-1-swboyd@chromium.org>
- <CAGETcx-jK3pBNRYevPmRhw1TALHNjtM5dSxCdEuB+2sBH32rtQ@mail.gmail.com>
- <CAE-0n522QRUfQOSGmYS59AbFdx2kmtz-CNszdWfLnPCbMkCryA@mail.gmail.com>
-In-Reply-To: <CAE-0n522QRUfQOSGmYS59AbFdx2kmtz-CNszdWfLnPCbMkCryA@mail.gmail.com>
-From: Saravana Kannan <saravanak@google.com>
-Date: Thu, 20 May 2021 12:30:09 -0700
-Message-ID: <CAGETcx-mRrqC_sGiBk+wx8RtwjJjXf0KJo+ejU6SweEBiATaLw@mail.gmail.com>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :in-reply-to;
+ bh=fvRDr1D5/5+LCAmUf65vl1i5y+y4alcViE7GRSVhNkM=;
+ b=D9DxHtUivYB+K0b+M6uIeuyVf9LhBIHdL+rSHGqqiPK47ifzi0Kq36IE1Iib6nDWko
+ s3WAHY+RccQ+py6hBs51mrZpMikhBJRJJ+r4/0Uddn1K3At+3tmyuVDJf3eFQdo/PgKf
+ y3n57Tn+FgW6EX7zBXhNmOtMokgTSktqYjUqLUY/vRUCR5Bnm33H82d6NLqZtwwVO+1d
+ ARYfylf2YMuY+dvdNJGroOM4zkJHScjIma9kA+yjYUmQexcfICTgiTT5bu3IIvUJihVq
+ wI38GpG5kEmlovd1I/i7z0e11Gpa/wqpwrHv6aFOB+EtYveTJcMNSvKJVwL7M2sax79g
+ TZ+Q==
+X-Gm-Message-State: AOAM531W6ln6gWbBsdb5gaEr7HMXiG+OgVFvqHAfGwkc70i+NSNqv97Z
+ sZGxrmtJ3jIU7m7//AJY4/jtFg==
+X-Google-Smtp-Source: ABdhPJxkVwauF/EHL3NdcMJKAi/zvLETHClTk9XUCWU1LnHRqZ+1dbG0hruL8BgFaGFXrcbqn/w6cg==
+X-Received: by 2002:a5d:4e91:: with SMTP id e17mr6126622wru.396.1621540734354; 
+ Thu, 20 May 2021 12:58:54 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id v11sm5059609wrs.9.2021.05.20.12.58.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 May 2021 12:58:53 -0700 (PDT)
+Date: Thu, 20 May 2021 21:58:52 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
 To: Stephen Boyd <swboyd@chromium.org>
-Subject: Re: [Freedreno] [PATCH 0/7] component: Make into an aggregate bus
+Message-ID: <YKa/fEuVqHhV9CPC@phenom.ffwll.local>
+Mail-Followup-To: Stephen Boyd <swboyd@chromium.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Rob Clark <robdclark@gmail.com>,
+ Russell King <rmk+kernel@arm.linux.org.uk>,
+ Saravana Kannan <saravanak@google.com>
+References: <20210520002519.3538432-1-swboyd@chromium.org>
+ <20210520002519.3538432-8-swboyd@chromium.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20210520002519.3538432-8-swboyd@chromium.org>
+X-Operating-System: Linux phenom 5.10.32scarlett+ 
+Subject: Re: [Freedreno] [PATCH 7/7] drm/msm: Migrate to aggregate driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,97 +74,221 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
+Cc: Saravana Kannan <saravanak@google.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Russell King <rmk+kernel@arm.linux.org.uk>,
- freedreno <freedreno@lists.freedesktop.org>
+ Russell King <rmk+kernel@arm.linux.org.uk>, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, May 19, 2021 at 6:41 PM Stephen Boyd <swboyd@chromium.org> wrote:
->
-> Quoting Saravana Kannan (2021-05-19 18:27:50)
-> > On Wed, May 19, 2021 at 5:25 PM Stephen Boyd <swboyd@chromium.org> wrote:
-> > >
-> > > This series is from discussion we had on reordering the device lists for
-> > > drm shutdown paths[1]. I've introduced an 'aggregate' bus that we put
-> > > the aggregate device onto and then we probe the device once all the
-> > > components are probed and call component_add(). The probe/remove hooks
-> > > are where the bind/unbind calls go, and then a shutdown hook is added
-> > > that can be used to shutdown the drm display pipeline at the right time.
-> > >
-> > > This works for me on my sc7180 board, but I'm currently struggling with
-> > > the last patch where we migrate the msm driver. It runs into a runtime
-> > > PM problem where the parent device isn't runtime PM enabled yet. I'm
-> > > still trying to figure out a clean solution there. Moving runtime PM
-> > > around breaks boot and I think that's because the power domain is off.
-> > >
-> > > Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> > > Cc: "Rafael J. Wysocki" <rafael@kernel.org>
-> > > Cc: Rob Clark <robdclark@gmail.com>
-> > > Cc: Russell King <rmk+kernel@arm.linux.org.uk>
-> > > Cc: Saravana Kannan <saravanak@google.com>
-> > >
-> > > [1] https://lore.kernel.org/r/20210508074118.1621729-1-swboyd@chromium.org
-> > >
-> >
-> > I skimmed through the series and in general the idea is good, but I'm
-> > not sure why each component user needs to be converted/"modern" before
-> > it can make use of the benefits of this series. Why not just have
-> > wrapper functions around the component ops that the new aggregate bus
-> > driver can just call? That'll give all the existing component users
-> > the new ability to use the new ops without having to have two
-> > versions.
->
-> The existing users can only have one or the other. Either use the ops
-> structure or use the struct aggregate_driver. What benefits of this
-> series are they not gaining?
+On Wed, May 19, 2021 at 05:25:19PM -0700, Stephen Boyd wrote:
+> The device lists are poorly ordered when the component device code is
+> used. This is because component_master_add_with_match() returns 0
+> regardless of component devices calling component_add() first. It can
+> really only fail if an allocation fails, in which case everything is
+> going bad and we're out of memory. The driver that registers the
+> aggregate driver, can succeed at probe and put the attached device on
+> the DPM lists before any of the component devices are probed and put on
+> the lists.
+> 
+> Within the component device framework this usually isn't that bad
+> because the real driver work is done at bind time via
+> component{,master}_ops::bind(). It becomes a problem when the driver
+> core, or host driver, wants to operate on the component device outside
+> of the bind/unbind functions, e.g. via 'remove' or 'shutdown'. The
+> driver core doesn't understand the relationship between the host device
+> and the component devices and could possibly try to operate on component
+> devices when they're already removed from the system or shut down.
+> 
+> Normally, device links or probe defer would reorder the lists and put
+> devices that depend on other devices in the lists at the correct
+> location, but with component devices this doesn't happen because this
+> information isn't expressed anywhere. Drivers simply succeed at
+> registering their component or the aggregate driver with the component
+> framework and wait for their bind() callback to be called once the other
+> components are ready. In summary, the drivers that make up the aggregate
+> driver can probe in any order.
+> 
+> This ordering problem becomes fairly obvious when shutting down the
+> device with a DSI controller connected to a DSI bridge that is
+> controlled via i2c. In this case, the msm display driver wants to tear
+> down the display pipeline on shutdown via msm_pdev_shutdown() by calling
+> drm_atomic_helper_shutdown(), and it can't do that unless the whole
+> display chain is still probed and active in the system. When a display
+> bridge is on i2c, the i2c device for the bridge will be created whenever
+> the i2c controller probes, which could be before or after the msm
+> display driver probes. If the i2c controller probes after the display
+> driver, then the i2c controller will be shutdown before the display
+> controller during system wide shutdown and thus i2c transactions will
+> stop working before the display pipeline is shut down. This means we'll
+> have the display bridge trying to access an i2c bus that's shut down
+> because drm_atomic_helper_shutdown() is trying to disable the bridge
+> after the bridge is off.
+> 
+> The solution is to make the aggregate driver into a real struct driver
+> that is bound to a device when the other component devices have all
+> probed. Now that the component driver code is a proper bus, we can
+> simply register an aggregate driver with that bus via
+> component_aggregate_register() and then attach the shutdown hook to that
+> driver to be sure that the shutdown for the display pipeline is called
+> before any of the component device driver shutdown hooks are called.
+> 
+> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+> Cc: "Rafael J. Wysocki" <rafael@kernel.org>
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Russell King <rmk+kernel@arm.linux.org.uk>
+> Cc: Saravana Kannan <saravanak@google.com>
+> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
+> ---
+> 
+> As stated in the cover letter, this isn't perfect but it still works. I
+> get a warning from runtime PM that the parent device (e00000.mdss) is
+> not runtime PM enabled but the child device (the aggregate device) is
+> being enabled by the bus logic. I need to move around the place that the
+> parent device is runtime PM enabled and probably keep it powered up
+> during the entire time that the driver is probed until the aggregate
+> driver probes.
+> 
+>  drivers/gpu/drm/msm/msm_drv.c | 47 +++++++++++++++++++----------------
+>  1 file changed, 26 insertions(+), 21 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index e1104d2454e2..0c64e6a2ce25 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -1265,19 +1265,35 @@ static int add_gpu_components(struct device *dev,
+>  	return 0;
+>  }
+>  
+> -static int msm_drm_bind(struct device *dev)
+> +static int msm_drm_bind(struct aggregate_device *adev)
+>  {
+> -	return msm_drm_init(dev, &msm_driver);
+> +	return msm_drm_init(adev->dev.parent, &msm_driver);
+>  }
+>  
+> -static void msm_drm_unbind(struct device *dev)
+> +static void msm_drm_unbind(struct aggregate_device *adev)
+>  {
+> -	msm_drm_uninit(dev);
+> +	msm_drm_uninit(adev->dev.parent);
+> +}
+> +
+> +static void msm_drm_shutdown(struct aggregate_device *adev)
+> +{
+> +	struct drm_device *drm = platform_get_drvdata(to_platform_device(adev->dev.parent));
+> +	struct msm_drm_private *priv = drm ? drm->dev_private : NULL;
+> +
+> +	if (!priv || !priv->kms)
+> +		return;
+> +
+> +	drm_atomic_helper_shutdown(drm);
+>  }
+>  
+> -static const struct component_master_ops msm_drm_ops = {
+> -	.bind = msm_drm_bind,
+> -	.unbind = msm_drm_unbind,
+> +static struct aggregate_driver msm_drm_aggregate_driver = {
+> +	.probe = msm_drm_bind,
+> +	.remove = msm_drm_unbind,
+> +	.shutdown = msm_drm_shutdown,
+> +	.driver = {
+> +		.name	= "msm_drm",
+> +		.owner	= THIS_MODULE,
+> +	},
+>  };
+>  
+>  /*
+> @@ -1306,7 +1322,8 @@ static int msm_pdev_probe(struct platform_device *pdev)
+>  	if (ret)
+>  		goto fail;
+>  
+> -	ret = component_master_add_with_match(&pdev->dev, &msm_drm_ops, match);
+> +	msm_drm_aggregate_driver.match = match;
 
-As I mentioned earlier, if we add device links between the aggregate
-device (consumer) and all the component devices (suppliers), it'll
-take care of a lot of the ordering issues (probe, suspend, runtime PM)
-and dependency issues (unbind the master device if a component driver
-unbinds). It'll allow us to delete a lot of the code in the component
-framework too. I can send the patch for the device links once your
-series settles. So having two implementations comes in the way of a
-clean up and code improvement because we'll have to keep a lot of the
-component code for the purpose of the "legacy" ops.
+This is a bit awkward design, because it means the driver struct can't be
+made const, and it will blow up when you have multiple instance of the
+same driver. I think the match should stay as part of the register
+function call, and be stored in the aggregate_device struct somewhere.
 
-> > That'll also allow us to do other improvements (I have some
-> > in mind) that'll apply to all the component users instead of only the
-> > converted ones.
->
-> What do you have in mind? I didn't want to convert drivers over to the
-> new way of doing things without making them consciously change their
-> code.
+Otherwise I think this looks really solid and fixes your issue properly.
+Obviously needs careful review from Greg KH for the device model side of
+things, and from Rafael Wysocki for pm side.
 
-What ordering/behavior would you be changing with the new ops? If the
-new shutdown ops isn't used, it really shouldn't change anything. Put
-another way, if we ignore your msm driver changes, we should be able
-to switch to having a real device for the "master" without making any
-functional change. If you are causing any functional change with the
-new ops, maybe you can key it off a flag that needs to be set? That
-way, we'll have one API/ops but still be backward compatible if you
-are worried about breaking existing users?
+Bunch of thoughts from a very cursory reading:
 
-> Otherwise I worry it will break things in random, subtle ways. The
-> last patch, as I mentioned above in the cover, causes warnings because
-> the display driver is enabling runtime PM in an odd spot as part of the
-> bind callback of the aggregate/master. That should move out of there and
-> into the msm_pdev driver that registers the aggregate from what I can
-> tell.
+- I think it'd be good if we pass the aggregate_device to all components
+  when we bind them, plus the void * parameter just to make this less
+  disruptive. Even more device model goodies.
 
-Can you give more context? I think if you create device links with
-RPM_ACTIVE and PM_RUNTIME flags, it should ensure runtime PM
-correctness.
+- Maybe splatter a pile of sysfs links around so that this all becomes
+  visible? Could be interesting for debugging ordering issues. Just an
+  idea, feel free to entirely ignore.
 
--Saravana
+- Needs solid kerneldoc for everything exposed to drivers and good
+  overview DOC:
+
+- Needs deprecation warnings in the kerneldoc for all the
+  component_master_* and if feasible with a mechanical conversion,
+  converting existing users. I'd like to not be stuck with the old model
+  forever, plus this will give a pile more people to review this code
+  here.
+
+Anyway the name changes in probe and remove hooks below are already worth
+this on their own imo. That's why I'd like to see them in all drivers.
+
+Cheers, Daniel
+
+> +	ret = component_aggregate_register(&pdev->dev, &msm_drm_aggregate_driver);
+>  	if (ret)
+>  		goto fail;
+>  
+> @@ -1319,23 +1336,12 @@ static int msm_pdev_probe(struct platform_device *pdev)
+>  
+>  static int msm_pdev_remove(struct platform_device *pdev)
+>  {
+> -	component_master_del(&pdev->dev, &msm_drm_ops);
+> +	component_aggregate_unregister(&pdev->dev, &msm_drm_aggregate_driver);
+>  	of_platform_depopulate(&pdev->dev);
+>  
+>  	return 0;
+>  }
+>  
+> -static void msm_pdev_shutdown(struct platform_device *pdev)
+> -{
+> -	struct drm_device *drm = platform_get_drvdata(pdev);
+> -	struct msm_drm_private *priv = drm ? drm->dev_private : NULL;
+> -
+> -	if (!priv || !priv->kms)
+> -		return;
+> -
+> -	drm_atomic_helper_shutdown(drm);
+> -}
+> -
+>  static const struct of_device_id dt_match[] = {
+>  	{ .compatible = "qcom,mdp4", .data = (void *)KMS_MDP4 },
+>  	{ .compatible = "qcom,mdss", .data = (void *)KMS_MDP5 },
+> @@ -1351,7 +1357,6 @@ MODULE_DEVICE_TABLE(of, dt_match);
+>  static struct platform_driver msm_platform_driver = {
+>  	.probe      = msm_pdev_probe,
+>  	.remove     = msm_pdev_remove,
+> -	.shutdown   = msm_pdev_shutdown,
+>  	.driver     = {
+>  		.name   = "msm",
+>  		.of_match_table = dt_match,
+> -- 
+> https://chromeos.dev
+> 
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
