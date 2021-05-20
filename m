@@ -1,60 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF28538AD68
-	for <lists+freedreno@lfdr.de>; Thu, 20 May 2021 14:03:34 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B40C338AD5E
+	for <lists+freedreno@lfdr.de>; Thu, 20 May 2021 14:03:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 151AD6F415;
-	Thu, 20 May 2021 12:03:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EFD5892BD;
+	Thu, 20 May 2021 12:03:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5D8D890EF
- for <freedreno@lists.freedesktop.org>; Thu, 20 May 2021 12:03:15 +0000 (UTC)
-Received: by mail-wr1-x42b.google.com with SMTP id q5so17383967wrs.4
- for <freedreno@lists.freedesktop.org>; Thu, 20 May 2021 05:03:15 -0700 (PDT)
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [IPv6:2a00:1450:4864:20::432])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D59D2892E5
+ for <freedreno@lists.freedesktop.org>; Thu, 20 May 2021 12:03:18 +0000 (UTC)
+Received: by mail-wr1-x432.google.com with SMTP id n2so17468687wrm.0
+ for <freedreno@lists.freedesktop.org>; Thu, 20 May 2021 05:03:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=LEQDjer3vbO3TY4ZLRkV2RG2nkyiXc42+Td4BCQWM9s=;
- b=Ki/5vsccVM8UHJjBDGFEOMuTjOicSQZ1oz/OgLD4xv2Mx1VnM2VGHXxQik26n7huqz
- z+M0QggmLyEdbh5Z6f5cvjF26hkbqkjqZdRsDY/uCBFP9XHELAfxkgmlEHLWuxPcKDl0
- +ueptwbIz3rdVJVYcrJrmXoJISOoWkn/qWGuX0w8/oNZzsrv8zDCSW3V+lYoFDY+4mwx
- DdAQ44Bz3ymEqFpMxp+VFW/PuXEBgA6+C2u6IQfhVS7FCXUKQIRax56FYq3e5u94hjxV
- uJWLg8jT4C+/uABqpXoJ1pHREuWwxGXHwSP+D7wfEOuHJtO2jUvCHoNKxlCDoschLjdq
- N70w==
+ bh=d0nOIc1mzt8v7aTq8P9bTAYTfjAP1Kn9fRgBobUfORA=;
+ b=ZCHECdMPQ0Pe1h9k9kzuKcqsiVmGcY0RaFk2/Uo7Jd0Oj/FbXRq9cfiLMqHYu5Q50V
+ 2BaorOWqD5ShyQ6E1DvzyyLfwG8BNwM8i6uSs9LOugICo7o0YWFtBpTjqeQZa5XQ9TJg
+ s2yIsIi8JTdiv2VrJ6ErOC84MKKa0+xNvHdb4TyvnPjXdWnI4FtdJBjjjgHgHUtdDCA0
+ gAo8ZoMYgSzZ6maczQ+QyihatSrk4GMM41jL+9tFzauV7/+8UM1bSbL7JY468aL2/sYh
+ zOYI6p54xXxQREjKWvvbZpMm5wZR7N7BbkFHzHN+Hp1v1P0Nu1bSb2FRKojIsZ1dmJZe
+ Ae3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=LEQDjer3vbO3TY4ZLRkV2RG2nkyiXc42+Td4BCQWM9s=;
- b=GfHsQDBcE0Ly+nxUZ5u5IvG5L8Is6XZusEz3TE4xM94TPxaCBByBzcJP78nGooS+EV
- gOPljA9/LioHkl35K+9dax6wQaGOhP+x1g9EUF3VVa9xfrVMCdcoWzlveWM9L/Eywh4W
- NeQWs9bCglVPQhWCC2Tk+IcZN+AmlENAweXd2gWK/S+le855jICVqT2N87zqapKdrHeg
- 8JAs+Ws5kznB8A9mjAMCrc3XIVU5/eVupSUxht3YtHrEuEGm/Rz4vnTHBhcx/KEdSRX2
- 9d0W+TMVUpnQqq1zgwTQWB41d1HN2G65XkCsPfrF929mjRUEZ1F0qD2j9hAtOHCkqoLn
- XzLg==
-X-Gm-Message-State: AOAM531TfwgNwjcVX0M4n8QpmZK9sdkC6Ue7Beek4nk3ae4UQVSSPRWP
- wagBXbdYQmadW5yhFP9w30EYaA==
-X-Google-Smtp-Source: ABdhPJw4bICpRBMx5HeraldCYJJDz2R+rg+I59syE9V7H9hsq2MLfMyrxB9ejwWsFz74csOg7ggUcA==
-X-Received: by 2002:a5d:44cb:: with SMTP id z11mr3998746wrr.159.1621512194487; 
- Thu, 20 May 2021 05:03:14 -0700 (PDT)
+ bh=d0nOIc1mzt8v7aTq8P9bTAYTfjAP1Kn9fRgBobUfORA=;
+ b=Neor1QqLxQf6GMrOpfEdgndNATV5p3PdX/ArvIkq7F6QdfBNeH+BIFPTEF0QbvIJHe
+ 3ZCbPJ4ZdTk/j3JBuNG7URgEI4E/knwLJsY9oM+SEADz/zDhysIo840gSai6+YszNK/3
+ 3hkl1NR3yzS8GXGJnEnMaFY2qqrTsHdNJdX1sQnXXzkReY9Zk8gDsvtclHEG1WKoH7sW
+ 5ywYuFF0fFlb8SufiuzpILPC+bR1PeMP7Z6zt/yOtZTAUx3rZzu5LXFjfHswTwJStZTe
+ h89wxWJ45tSTksDm3QSjTkqubhiRwRWtFjM1kcjFQC3tw9k/TjDu/P3nJ/3yO8p1mv/4
+ vjuA==
+X-Gm-Message-State: AOAM530tmCwl5rECfenD3Hpt9yJA2fWcfe38n5HuADJCAyLLrtLbY49T
+ ciidjvHsW3AK4ZPOyEaslxvR0A==
+X-Google-Smtp-Source: ABdhPJxogKt9bFNGrmh6EK/JtPm7PPL/+ZIKAX6rKP8QgZWPF6yidqkW2wwqG5YDIrjwdrD88Q4RGA==
+X-Received: by 2002:a5d:6381:: with SMTP id p1mr3973571wru.19.1621512197569;
+ Thu, 20 May 2021 05:03:17 -0700 (PDT)
 Received: from dell.default ([91.110.221.215])
- by smtp.gmail.com with ESMTPSA id j10sm2886332wrt.32.2021.05.20.05.03.13
+ by smtp.gmail.com with ESMTPSA id j10sm2886332wrt.32.2021.05.20.05.03.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 May 2021 05:03:14 -0700 (PDT)
+ Thu, 20 May 2021 05:03:17 -0700 (PDT)
 From: Lee Jones <lee.jones@linaro.org>
 To: lee.jones@linaro.org
-Date: Thu, 20 May 2021 13:02:32 +0100
-Message-Id: <20210520120248.3464013-23-lee.jones@linaro.org>
+Date: Thu, 20 May 2021 13:02:35 +0100
+Message-Id: <20210520120248.3464013-26-lee.jones@linaro.org>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210520120248.3464013-1-lee.jones@linaro.org>
 References: <20210520120248.3464013-1-lee.jones@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 22/38] drm/msm/disp/dpu1/dpu_plane: Fix a couple
- of naming issues
+Subject: [Freedreno] [PATCH 25/38] drm/msm/msm_gem: Demote kernel-doc abuses
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,56 +68,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+ dri-devel@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ linaro-mm-sig@lists.linaro.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Fixes the following W=1 kernel build warning(s):
-
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c:373: warning: expecting prototype for _dpu_plane_set_panic_lut(). Prototype was for _dpu_plane_set_danger_lut() instead
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c:498: warning: expecting prototype for _dpu_plane_set_vbif_qos(). Prototype was for _dpu_plane_set_qos_remap() instead
-
-Cc: Rob Clark <robdclark@gmail.com>
-Cc: Sean Paul <sean@poorly.run>
-Cc: David Airlie <airlied@linux.ie>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org
-Signed-off-by: Lee Jones <lee.jones@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index 7a993547eb751..ed05a7ab58f53 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -364,7 +364,7 @@ static void _dpu_plane_set_qos_lut(struct drm_plane *plane,
- }
- 
- /**
-- * _dpu_plane_set_panic_lut - set danger/safe LUT of the given plane
-+ * _dpu_plane_set_danger_lut - set danger/safe LUT of the given plane
-  * @plane:		Pointer to drm plane
-  * @fb:			Pointer to framebuffer associated with the given plane
-  */
-@@ -491,7 +491,7 @@ static void _dpu_plane_set_ot_limit(struct drm_plane *plane,
- }
- 
- /**
-- * _dpu_plane_set_vbif_qos - set vbif QoS for the given plane
-+ * _dpu_plane_set_qos_remap - set vbif QoS for the given plane
-  * @plane:		Pointer to drm plane
-  */
- static void _dpu_plane_set_qos_remap(struct drm_plane *plane)
--- 
-2.31.1
-
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+Rml4ZXMgdGhlIGZvbGxvd2luZyBXPTEga2VybmVsIGJ1aWxkIHdhcm5pbmcocyk6CgogZHJpdmVy
+cy9ncHUvZHJtL21zbS9tc21fZ2VtLmM6MzY0OiB3YXJuaW5nOiBUaGlzIGNvbW1lbnQgc3RhcnRz
+IHdpdGggJy8qKicsIGJ1dCBpc24ndCBhIGtlcm5lbC1kb2MgY29tbWVudC4gUmVmZXIgRG9jdW1l
+bnRhdGlvbi9kb2MtZ3VpZGUva2VybmVsLWRvYy5yc3QKIGRyaXZlcnMvZ3B1L2RybS9tc20vbXNt
+X2dlbS5jOjc2Mzogd2FybmluZzogVGhpcyBjb21tZW50IHN0YXJ0cyB3aXRoICcvKionLCBidXQg
+aXNuJ3QgYSBrZXJuZWwtZG9jIGNvbW1lbnQuIFJlZmVyIERvY3VtZW50YXRpb24vZG9jLWd1aWRl
+L2tlcm5lbC1kb2MucnN0CgpDYzogUm9iIENsYXJrIDxyb2JkY2xhcmtAZ21haWwuY29tPgpDYzog
+U2VhbiBQYXVsIDxzZWFuQHBvb3JseS5ydW4+CkNjOiBEYXZpZCBBaXJsaWUgPGFpcmxpZWRAbGlu
+dXguaWU+CkNjOiBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3bGwuY2g+CkNjOiBTdW1pdCBTZW13
+YWwgPHN1bWl0LnNlbXdhbEBsaW5hcm8ub3JnPgpDYzogIkNocmlzdGlhbiBLw7ZuaWciIDxjaHJp
+c3RpYW4ua29lbmlnQGFtZC5jb20+CkNjOiBsaW51eC1hcm0tbXNtQHZnZXIua2VybmVsLm9yZwpD
+YzogZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpDYzogZnJlZWRyZW5vQGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwpDYzogbGludXgtbWVkaWFAdmdlci5rZXJuZWwub3JnCkNjOiBsaW5hcm8t
+bW0tc2lnQGxpc3RzLmxpbmFyby5vcmcKU2lnbmVkLW9mZi1ieTogTGVlIEpvbmVzIDxsZWUuam9u
+ZXNAbGluYXJvLm9yZz4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9nZW0uYyB8IDQgKyst
+LQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9nZW0uYyBiL2RyaXZlcnMvZ3B1L2RybS9t
+c20vbXNtX2dlbS5jCmluZGV4IDU2ZGY4NmU1Zjc0MDAuLjE1NDM0ZGViMTkzMzQgMTAwNjQ0Ci0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2dlbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9t
+c20vbXNtX2dlbS5jCkBAIC0zNzIsNyArMzcyLDcgQEAgc3RhdGljIHZvaWQgZGVsX3ZtYShzdHJ1
+Y3QgbXNtX2dlbV92bWEgKnZtYSkKIAlrZnJlZSh2bWEpOwogfQogCi0vKioKKy8qCiAgKiBJZiBj
+bG9zZSBpcyB0cnVlLCB0aGlzIGFsc28gY2xvc2VzIHRoZSBWTUEgKHJlbGVhc2luZyB0aGUgYWxs
+b2NhdGVkCiAgKiBpb3ZhIHJhbmdlKSBpbiBhZGRpdGlvbiB0byByZW1vdmluZyB0aGUgaW9tbXUg
+bWFwcGluZy4gIEluIHRoZSBldmljdGlvbgogICogY2FzZSAoIWNsb3NlKSwgd2Uga2VlcCB0aGUg
+aW92YSBhbGxvY2F0ZWQsIGJ1dCBvbmx5IHJlbW92ZSB0aGUgaW9tbXUKQEAgLTc3Myw3ICs3NzMs
+NyBAQCB2b2lkIG1zbV9nZW1fcHVyZ2Uoc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmopCiAJCQkw
+LCAobG9mZl90KS0xKTsKIH0KIAotLyoqCisvKgogICogVW5waW4gdGhlIGJhY2tpbmcgcGFnZXMg
+YW5kIG1ha2UgdGhlbSBhdmFpbGFibGUgdG8gYmUgc3dhcHBlZCBvdXQuCiAgKi8KIHZvaWQgbXNt
+X2dlbV9ldmljdChzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKm9iaikKLS0gCjIuMzEuMQoKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5vIG1haWxp
+bmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5vCg==
