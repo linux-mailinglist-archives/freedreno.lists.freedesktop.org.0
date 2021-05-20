@@ -2,54 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1522838B42D
-	for <lists+freedreno@lfdr.de>; Thu, 20 May 2021 18:26:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FE2F38B43F
+	for <lists+freedreno@lfdr.de>; Thu, 20 May 2021 18:31:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8C0F6F4B3;
-	Thu, 20 May 2021 16:26:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A54646F4AF;
+	Thu, 20 May 2021 16:29:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
- [IPv6:2607:f8b0:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1ED976F4E9
- for <freedreno@lists.freedesktop.org>; Thu, 20 May 2021 16:25:54 +0000 (UTC)
-Received: by mail-ot1-x32d.google.com with SMTP id
- 69-20020a9d0a4b0000b02902ed42f141e1so15382478otg.2
- for <freedreno@lists.freedesktop.org>; Thu, 20 May 2021 09:25:53 -0700 (PDT)
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B5C66F4A3
+ for <freedreno@lists.freedesktop.org>; Thu, 20 May 2021 16:29:27 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id x8so18295666wrq.9
+ for <freedreno@lists.freedesktop.org>; Thu, 20 May 2021 09:29:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=aBkhk3QDWbqSQxByb9B0QwU7XpNxQNo09cMdXpxbbl8=;
- b=ZTcJ2ZN5oiXQB5JixcdXLMUBNnapMtCPrrCADKk79kIX1HO7C6sJyH98HYPoLlmHsi
- aLwFtH/1sEk9TAJWoINwVFUCDVeDneG9y10WuHZCQkwnHAAC+wBLYozbvS6zxdJQjHnI
- 0ygWlp5+o43N/ShvItsywwnmDq6K1Zrsxfo88=
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=7gQAHjRkLz/zMdR9mZ20XGXZokHUiVVILLkWbVKY8vk=;
+ b=cfxPfL5fE4np3aef6bq9mbEbsf+V7xoFH7lEgZwO4Pdk/oIevk19Q3UyCSV9vCBR57
+ oqDSJZrYGS54dgw1cyxBLzrZ9nUvG4J7evXugn3/Hrkt2MbKDwd4terqRk3pzf997Vak
+ U6KAj9L1Il+SoamKwZJ4AlfDNCbUAwVjuKR+8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=aBkhk3QDWbqSQxByb9B0QwU7XpNxQNo09cMdXpxbbl8=;
- b=Sg0OuVa8dnj4URRUGkQh3uro9yTex9uLxKM6iA/18GOv2BgogjJXsfiU6ldNa2B8YJ
- IQNFWYgvgWYlLTfCqM+FInhZY5GufGAjQde0Muid46yUPsO8BVz+Dli3dcAZxBj0QN1j
- bhnPsjgdg8D5Ye01jgoqRHGYC+w6grpCcmRvOX2CZn3wsJIKUPIlg2aEKrTCx8Xbcy1i
- rTSK8rPnjfmvu6lSpugVEnH6gDjBkh5UDsh40rd14iVwBdK/y5FSmc6mvDm3MQJp8znm
- ikr+4enzEMAC7HOkTkOxdtxvHLnuWkb0VwHFIraHKKyDlzS+cY8bLVzXSxUZAUrANRHw
- pBnQ==
-X-Gm-Message-State: AOAM53243GlqWuZc/BRMdcO4J0fyI3a+PlFj/auiH8X8Fk4oXmbLos7G
- Anake8SElVtquwSsvqpq4Dr2uVRiD4qVpHyA7ePpzw==
-X-Google-Smtp-Source: ABdhPJzdUcCTfi80bWr13zSZ/F0YDpb9U8rAzzxeFvH1KraofvvTAPHpWCxezFVXjEF5rDoRiuG7kW/hvb7nC0aahGE=
-X-Received: by 2002:a9d:4101:: with SMTP id o1mr4653449ote.281.1621527953214; 
- Thu, 20 May 2021 09:25:53 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210519183855.1523927-1-robdclark@gmail.com>
- <20210519183855.1523927-2-robdclark@gmail.com>
- <8dcdc8d5-176c-f0ad-0d54-6466e9e68a0a@amd.com>
- <CAF6AEGtg_VnxYrj94AfbAfViK1v8U0ZJyfJjS4taVLMF=YVy+w@mail.gmail.com>
-In-Reply-To: <CAF6AEGtg_VnxYrj94AfbAfViK1v8U0ZJyfJjS4taVLMF=YVy+w@mail.gmail.com>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :in-reply-to;
+ bh=7gQAHjRkLz/zMdR9mZ20XGXZokHUiVVILLkWbVKY8vk=;
+ b=VN1xMON42KxtxEksREdcZ9lwu8KqZd/A+38aCc3lKnfrHFGHPdzYaUGpR9N8mJTa5e
+ QLeR7bKOXZSWXkPnLB19Hg1U65RcHdLuhB71h8T3pQ6PSO39dz9GBwFn/3cv+Fpgi2HC
+ 1oZUwkxeFqxEW/3EMCWO80YciJuhPtbKjEX9XZBETm+fAbO1Fvo7OEUgD7qln18RFFCl
+ XFBoEUtaoWDER5E5RWelJrYqCRDHVs5KguFTT4TQs5h+yy3FQ+5ahi6TbzMXvreL/V0Z
+ MYsRLcaTkNLdiqeRQPxD4ALU/hIKVTXhBEBh6qOGVG2q+bLXHUdetO/Oe0+w5v5dNhwO
+ pvdQ==
+X-Gm-Message-State: AOAM532e3ULnSo2Vqts4CgcrF8+8x7YvpMtAtYL8cJLLXL5u0HZ7wHp8
+ 3ZLnbLqXhBztS0gQiV+ymueZIQ==
+X-Google-Smtp-Source: ABdhPJx7W+fNXWLlfVnpy0Ca20BF42f6arhZCvq55cuTsYgbnk9UslMHeFLkM6bUwg6sp/BGFgOCqQ==
+X-Received: by 2002:a5d:6683:: with SMTP id l3mr5097252wru.398.1621528165809; 
+ Thu, 20 May 2021 09:29:25 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id g4sm3156003wmk.45.2021.05.20.09.29.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 May 2021 09:29:25 -0700 (PDT)
+Date: Thu, 20 May 2021 18:29:23 +0200
 From: Daniel Vetter <daniel@ffwll.ch>
-Date: Thu, 20 May 2021 18:25:42 +0200
-Message-ID: <CAKMK7uF9Uz6amffv=bbErbU4+PQ0NRqV0Az9woQfTTikrJSrFw@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>, Matthew Brost <matthew.brost@intel.com>
-Subject: Re: [Freedreno] [RFC 1/3] dma-fence: Add boost fence op
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <YKaOY3AWgHh5kplS@phenom.ffwll.local>
+Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@chromium.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@linux.ie>,
+ open list <linux-kernel@vger.kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>
+References: <20210519183855.1523927-1-robdclark@gmail.com>
+ <20210519183855.1523927-3-robdclark@gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20210519183855.1523927-3-robdclark@gmail.com>
+X-Operating-System: Linux phenom 5.10.32scarlett+ 
+Subject: Re: [Freedreno] [RFC 2/3] drm/atomic: Call dma_fence_boost() when
+ we've missed a vblank
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,87 +76,86 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Rob Clark <robdclark@chromium.org>, Matthew Brost <matthew.brost@intel.com>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-T24gVGh1LCBNYXkgMjAsIDIwMjEgYXQgNDowMyBQTSBSb2IgQ2xhcmsgPHJvYmRjbGFya0BnbWFp
-bC5jb20+IHdyb3RlOgo+Cj4gT24gV2VkLCBNYXkgMTksIDIwMjEgYXQgMTE6NDcgUE0gQ2hyaXN0
-aWFuIEvDtm5pZwo+IDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+IHdyb3RlOgo+ID4KPiA+IFVm
-ZiwgdGhhdCBsb29rcyB2ZXJ5IGhhcmR3YXJlIHNwZWNpZmljIHRvIG1lLgo+Cj4gSG93c28/ICBJ
-J20gbm90IHN1cmUgSSBhZ3JlZS4uIGFuZCBldmVuIGlmIGl0IHdhcyBub3QgdXNlZnVsIGZvciBz
-b21lCj4gaHcsIGl0IHNob3VsZCBiZSB1c2VmdWwgZm9yIGVub3VnaCBkcml2ZXJzIChhbmQgaGFy
-bSBubyBkcml2ZXJzKSwgc28gSQo+IHN0aWxsIHRoaW5rIGl0IGlzIGEgZ29vZCBpZGVhCj4KPiBU
-aGUgZmFsbGJhY2sgcGxhbiBpcyB0byBnbyB0aGUgaTkxNSByb3V0ZSBhbmQgc3RvcCB1c2luZyBh
-dG9taWMKPiBoZWxwZXJzIGFuZCBkbyB0aGUgc2FtZSB0aGluZyBpbnNpZGUgdGhlIGRyaXZlciwg
-YnV0IHRoYXQgZG9lc24ndCBoZWxwCj4gYW55IG9mIHRoZSBjYXNlcyB3aGVyZSB5b3UgaGF2ZSBh
-IHNlcGFyYXRlIGttcyBhbmQgZ3B1IGRyaXZlci4KCkRvbid0LCBiZWNhdXNlIHRoZSBpOTE1IHBs
-YW4gaXMgdG8gYWN0dWFsbHkgbW92ZSB0b3dhcmRzIGRybS9zY2hlZHVsZXIKYW5kIGF0b21pYyBo
-ZWxwZXJzLgoKPiA+IEFzIGZhciBhcyBJIGNhbiBzZWUgeW91IGNhbiBhbHNvIGltcGxlbWVudCBj
-b21wbGV0ZWx5IGluc2lkZSB0aGUgYmFja2VuZAo+ID4gYnkgc3RhcnRpbmcgYSB0aW1lciBvbiBl
-bmFibGVfc2lnbmFsaW5nLCBkb24ndCB5b3U/Cj4KPiBOb3QgcmVhbGx5Li4gSSBtZWFuLCB0aGUg
-ZmFjdCB0aGF0IHNvbWV0aGluZyB3YWl0ZWQgb24gYSBmZW5jZSBjb3VsZAo+IGJlIGEgdXNlZnVs
-IGlucHV0IHNpZ25hbCB0byBncHUgZnJlcSBnb3Zlcm5vciwgYnV0IGl0IGlzIGVudGlyZWx5Cj4g
-aW5zdWZmaWNpZW50Li4KPgo+IElmIHRoZSBjcHUgaXMgc3BlbmRpbmcgYSBsb3Qgb2YgdGltZSB3
-YWl0aW5nIG9uIGEgZmVuY2UsIGNwdWZyZXEgd2lsbAo+IGNsb2NrIGRvd24gc28geW91IHNwZW5k
-IGxlc3MgdGltZSB3YWl0aW5nLiAgQW5kIG5vIHByb2JsZW0gaGFzIGJlZW4KPiBzb2x2ZWQuICBZ
-b3UgYWJzb2x1dGVseSBuZWVkIHRoZSBjb25jZXB0IG9mIGEgbWlzc2VkIGRlYWRsaW5lLCBhbmQg
-YQo+IHRpbWVyIGRvZXNuJ3QgZ2l2ZSB5b3UgdGhhdC4KCll1cCBhZ3JlZWQuCgpBZGRpbmcgTWF0
-dCBCcm9zdCwgc2luY2UgaGUncyBwbGFubmluZyBhbGwgdGhpcyBib29zdGJhY2sgd29yay4KLURh
-bmllbAoKPgo+IEJSLAo+IC1SCj4KPiA+IENocmlzdGlhbi4KPiA+Cj4gPiBBbSAxOS4wNS4yMSB1
-bSAyMDozOCBzY2hyaWViIFJvYiBDbGFyazoKPiA+ID4gRnJvbTogUm9iIENsYXJrIDxyb2JkY2xh
-cmtAY2hyb21pdW0ub3JnPgo+ID4gPgo+ID4gPiBBZGQgYSB3YXkgdG8gaGludCB0byB0aGUgZmVu
-Y2Ugc2lnbmFsZXIgdGhhdCBhIGZlbmNlIHdhaXRlciBoYXMgbWlzc2VkIGEKPiA+ID4gZGVhZGxp
-bmUgd2FpdGluZyBvbiB0aGUgZmVuY2UuCj4gPiA+Cj4gPiA+IEluIHNvbWUgY2FzZXMsIG1pc3Np
-bmcgYSB2YmxhbmsgY2FuIHJlc3VsdCBpbiBsb3dlciBncHUgdXRpbGl6YXRpb24sCj4gPiA+IHdo
-ZW4gcmVhbGx5IHdlIHdhbnQgdG8gZ28gaW4gdGhlIG9wcG9zaXRlIGRpcmVjdGlvbiBhbmQgYm9v
-c3QgZ3B1IGZyZXEuCj4gPiA+IFRoZSBib29zdCBjYWxsYmFjayBnaXZlcyBzb21lIGZlZWRiYWNr
-IHRvIHRoZSBmZW5jZSBzaWduYWxlciB0aGF0IHdlCj4gPiA+IGFyZSBtaXNzaW5nIGRlYWRsaW5l
-cywgc28gaXQgY2FuIHRha2UgdGhpcyBpbnRvIGFjY291bnQgaW4gaXQncyBmcmVxLwo+ID4gPiB1
-dGlsaXphdGlvbiBjYWxjdWxhdGlvbnMuCj4gPiA+Cj4gPiA+IFNpZ25lZC1vZmYtYnk6IFJvYiBD
-bGFyayA8cm9iZGNsYXJrQGNocm9taXVtLm9yZz4KPiA+ID4gLS0tCj4gPiA+ICAgaW5jbHVkZS9s
-aW51eC9kbWEtZmVuY2UuaCB8IDI2ICsrKysrKysrKysrKysrKysrKysrKysrKysrCj4gPiA+ICAg
-MSBmaWxlIGNoYW5nZWQsIDI2IGluc2VydGlvbnMoKykKPiA+ID4KPiA+ID4gZGlmZiAtLWdpdCBh
-L2luY2x1ZGUvbGludXgvZG1hLWZlbmNlLmggYi9pbmNsdWRlL2xpbnV4L2RtYS1mZW5jZS5oCj4g
-PiA+IGluZGV4IDlmMTJlZmFhYTkzYS4uMTcyNzAyNTIxYWNjIDEwMDY0NAo+ID4gPiAtLS0gYS9p
-bmNsdWRlL2xpbnV4L2RtYS1mZW5jZS5oCj4gPiA+ICsrKyBiL2luY2x1ZGUvbGludXgvZG1hLWZl
-bmNlLmgKPiA+ID4gQEAgLTIzMSw2ICsyMzEsMTcgQEAgc3RydWN0IGRtYV9mZW5jZV9vcHMgewo+
-ID4gPiAgICAgICBzaWduZWQgbG9uZyAoKndhaXQpKHN0cnVjdCBkbWFfZmVuY2UgKmZlbmNlLAo+
-ID4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgIGJvb2wgaW50ciwgc2lnbmVkIGxvbmcgdGlt
-ZW91dCk7Cj4gPiA+Cj4gPiA+ICsgICAgIC8qKgo+ID4gPiArICAgICAgKiBAYm9vc3Q6Cj4gPiA+
-ICsgICAgICAqCj4gPiA+ICsgICAgICAqIE9wdGlvbmFsIGNhbGxiYWNrLCB0byBpbmRpY2F0ZSB0
-aGF0IGEgZmVuY2Ugd2FpdGVyIG1pc3NlZCBhIGRlYWRsaW5lLgo+ID4gPiArICAgICAgKiBUaGlz
-IGNhbiBzZXJ2ZSBhcyBhIHNpZ25hbCB0aGF0IChpZiBwb3NzaWJsZSkgd2hhdGV2ZXIgc2lnbmFs
-cyB0aGUKPiA+ID4gKyAgICAgICogZmVuY2Ugc2hvdWxkIGJvb3N0IGl0J3MgY2xvY2tzLgo+ID4g
-PiArICAgICAgKgo+ID4gPiArICAgICAgKiBUaGlzIGNhbiBiZSBjYWxsZWQgaW4gYW55IGNvbnRl
-eHQgdGhhdCBjYW4gY2FsbCBkbWFfZmVuY2Vfd2FpdCgpLgo+ID4gPiArICAgICAgKi8KPiA+ID4g
-KyAgICAgdm9pZCAoKmJvb3N0KShzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZSk7Cj4gPiA+ICsKPiA+
-ID4gICAgICAgLyoqCj4gPiA+ICAgICAgICAqIEByZWxlYXNlOgo+ID4gPiAgICAgICAgKgo+ID4g
-PiBAQCAtNTg2LDYgKzU5NywyMSBAQCBzdGF0aWMgaW5saW5lIHNpZ25lZCBsb25nIGRtYV9mZW5j
-ZV93YWl0KHN0cnVjdCBkbWFfZmVuY2UgKmZlbmNlLCBib29sIGludHIpCj4gPiA+ICAgICAgIHJl
-dHVybiByZXQgPCAwID8gcmV0IDogMDsKPiA+ID4gICB9Cj4gPiA+Cj4gPiA+ICsvKioKPiA+ID4g
-KyAqIGRtYV9mZW5jZV9ib29zdCAtIGhpbnQgZnJvbSB3YWl0ZXIgdGhhdCBpdCBtaXNzZWQgYSBk
-ZWFkbGluZQo+ID4gPiArICoKPiA+ID4gKyAqIEBmZW5jZTogdGhlIGZlbmNlIHRoYXQgY2F1c2Vk
-IHRoZSBtaXNzZWQgZGVhZGxpbmUKPiA+ID4gKyAqCj4gPiA+ICsgKiBUaGlzIGZ1bmN0aW9uIGdp
-dmVzIGEgaGludCBmcm9tIGEgZmVuY2Ugd2FpdGVyIHRoYXQgYSBkZWFkbGluZSB3YXMKPiA+ID4g
-KyAqIG1pc3NlZCwgc28gdGhhdCB0aGUgZmVuY2Ugc2lnbmFsZXIgY2FuIGZhY3RvciB0aGlzIGlu
-IHRvIGRldmljZQo+ID4gPiArICogcG93ZXIgc3RhdGUgZGVjaXNpb25zCj4gPiA+ICsgKi8KPiA+
-ID4gK3N0YXRpYyBpbmxpbmUgdm9pZCBkbWFfZmVuY2VfYm9vc3Qoc3RydWN0IGRtYV9mZW5jZSAq
-ZmVuY2UpCj4gPiA+ICt7Cj4gPiA+ICsgICAgIGlmIChmZW5jZS0+b3BzLT5ib29zdCkKPiA+ID4g
-KyAgICAgICAgICAgICBmZW5jZS0+b3BzLT5ib29zdChmZW5jZSk7Cj4gPiA+ICt9Cj4gPiA+ICsK
-PiA+ID4gICBzdHJ1Y3QgZG1hX2ZlbmNlICpkbWFfZmVuY2VfZ2V0X3N0dWIodm9pZCk7Cj4gPiA+
-ICAgdTY0IGRtYV9mZW5jZV9jb250ZXh0X2FsbG9jKHVuc2lnbmVkIG51bSk7Cj4gPiA+Cj4gPgoK
-CgotLSAKRGFuaWVsIFZldHRlcgpTb2Z0d2FyZSBFbmdpbmVlciwgSW50ZWwgQ29ycG9yYXRpb24K
-aHR0cDovL2Jsb2cuZmZ3bGwuY2gKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-ZnJlZWRyZW5vCg==
+On Wed, May 19, 2021 at 11:38:53AM -0700, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>  drivers/gpu/drm/drm_atomic_helper.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+> index 560aaecba31b..fe10fc2e7f86 100644
+> --- a/drivers/gpu/drm/drm_atomic_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_helper.c
+> @@ -1435,11 +1435,15 @@ int drm_atomic_helper_wait_for_fences(struct drm_device *dev,
+>  	int i, ret;
+>  
+>  	for_each_new_plane_in_state(state, plane, new_plane_state, i) {
+> +		u64 vblank_count;
+> +
+>  		if (!new_plane_state->fence)
+>  			continue;
+>  
+>  		WARN_ON(!new_plane_state->fb);
+>  
+> +		vblank_count = drm_crtc_vblank_count(new_plane_state->crtc);
+> +
+>  		/*
+>  		 * If waiting for fences pre-swap (ie: nonblock), userspace can
+>  		 * still interrupt the operation. Instead of blocking until the
+> @@ -1449,6 +1453,13 @@ int drm_atomic_helper_wait_for_fences(struct drm_device *dev,
+>  		if (ret)
+>  			return ret;
+>  
+> +		/*
+> +		 * Check if we've missed a vblank while waiting, and if we have
+> +		 * signal the fence that it's signaler should be boosted
+> +		 */
+> +		if (vblank_count != drm_crtc_vblank_count(new_plane_state->crtc))
+> +			dma_fence_boost(new_plane_state->fence);
+
+I think we should do a lot better here:
+- maybe only bother doing this for single-crtc updates, and only if
+  modeset isn't set. No one else cares about latency.
+
+- We should boost _right_ when we've missed the frame, so I think we
+  should have a _timeout wait here that guesstimates when the vblank is
+  over (might need to throw in a vblank wait if we missed) and then boost
+  immediately. Not wait a bunch of frames (worst case) until we finally
+  decide to boost.
+
+Otherwise I really like this, I think it's about the only real reason i915
+isn't using atomic helpers.
+
+Also adding Matt B for this topic.
+-Daniel
+
+> +
+>  		dma_fence_put(new_plane_state->fence);
+>  		new_plane_state->fence = NULL;
+>  	}
+> -- 
+> 2.30.2
+> 
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
