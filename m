@@ -1,61 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E67D138AD6B
-	for <lists+freedreno@lfdr.de>; Thu, 20 May 2021 14:03:40 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6479E38AD61
+	for <lists+freedreno@lfdr.de>; Thu, 20 May 2021 14:03:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58B806F42E;
-	Thu, 20 May 2021 12:03:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33C826F405;
+	Thu, 20 May 2021 12:03:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28FFC89A6D
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB60689CDE
  for <freedreno@lists.freedesktop.org>; Thu, 20 May 2021 12:03:21 +0000 (UTC)
-Received: by mail-wr1-x436.google.com with SMTP id y14so15303265wrm.13
+Received: by mail-wm1-x330.google.com with SMTP id z130so9025732wmg.2
  for <freedreno@lists.freedesktop.org>; Thu, 20 May 2021 05:03:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=SwqZiy4Z6GG81ovO9zFP9jTTwbxWPaQnItPMn8iAg+I=;
- b=t4JJ/+Jm+OBZHvhWT3uSWqKmuLfECYUetrvnsLWOhawS+SeV9+qIX7UHBYZxZWxbUL
- +2K5DzTdiIOaxc8A4JlDo76EWa3m8PTedb81DlMdwonvBIdmzviSjmypatajwJTEv7Aq
- DifkiMWgKRy5duNfWdB6XyPwHITUSR81zaYG8VKKNyMpiGVjpzYKQqq4QQE6VlrLeU7a
- 2YdDp8W4zM90yOmgMKR29qMD8S3aW5QnXONnXr8Xx19r4ogIUD94PMF9la7gMFO8/MIi
- e3aNpG77QY2F2bXnVcik/sdDFNaeieXRF+YikYW/tRFqYno5oeVf9WxlUdtn7Ca4HXu/
- DJwg==
+ bh=T8jZ4n5cOgv/UmZYK2xnz10jZVZgWxDdZjKqpW0gHh0=;
+ b=aMQQ1xEnSvQD3ee9SKBfMAucjU1i0GuZYxyAm5Vr609ce3SciJolcr8Wax9ZulKXcv
+ sD6nDCXLgKhHFZ3wGUAXLDEJiKCTAzW9c2uo6dYfwWtOXy1SElARM6AMnC1g8qnj0Kza
+ 2OYno/nCbkZcTT7bwnUWwKjRmnz8/lkO7uVOG7spMZDcB/uIjfsZ5lvMUPouUpWIkbwG
+ Y3s9n+8FZMsy05uayaR3a2lTuhWknvSN1tarfhiYwfVnNLGjQqu8AIILv9wDj7HGZ9IR
+ siuqyEEn6LuXh2udRCEITucyFfyhS4/070fI4zr86ciM5gokEaJC2UPZ+PnezrY2wqPW
+ Mi6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=SwqZiy4Z6GG81ovO9zFP9jTTwbxWPaQnItPMn8iAg+I=;
- b=CN2/Mt81afFIwce4kpv2vGKS0ZkeJePhKK7dlhVdb0VYNDK+BbCdiT32URpEzZqumn
- 98HnazEs4xbN3g0vBrAy992tSiqCGTce41wl+pnKEiJuWyx1/XYBIj6SyvCTh7JeR15C
- 3bCaA4SLtRRpH/pcJoMkFbWlRWZ+ilA01sVQq/q8VWFGhiX+xrFqr4NWYGUn06N1+6P1
- mJ1q2h4Y7Kp72lk6HE6gRxbYwyrORtTkMqTVBKBuMhcDjySub/Ub4t5sgAyCfLH+7bTl
- 5YvecuXSHa/cR4s4zfEVhGLLr5wiuSKqTzZKhwAd3Mfds1hgu6a69oEXWjRieK+dy9l/
- Trfw==
-X-Gm-Message-State: AOAM532QSZ6pj+xa7LqgRnVIt/zmoya7udPtCIYDC+VsDE+/Szlu+Vzu
- NukQvO/Fz2w/8vGXDmySVs/GVQ==
-X-Google-Smtp-Source: ABdhPJxmrOeEsvi2WLTHFwHRsOHTkZdNHdWlGeXRTREqYXTZU/voycR80D2vHCcLiILbjJd+wRtAnQ==
-X-Received: by 2002:a05:6000:186f:: with SMTP id
- d15mr3964910wri.400.1621512199575; 
- Thu, 20 May 2021 05:03:19 -0700 (PDT)
+ bh=T8jZ4n5cOgv/UmZYK2xnz10jZVZgWxDdZjKqpW0gHh0=;
+ b=tWH7B1uSCMWWpfs53OugihEd8S+aqFT9N+yj6lDFipfETjH/OIcAJw0mS2mRvsSFXR
+ wcQ2J9Dhuuh9tdPaRPPDzAaoia0E/X1Ie+Q58FNhRjbF1nVlTupfBb40FxfMdCD+W8Rb
+ KUssbcjR1t5Cqg5WfM3p+m109lVaEvoDO78Jmy6xq+lGgVlfimbv8+GHg/+vENaic/sW
+ H1K7haZ5MfjTsiwdQVwa9bukBRLdeE5TaWiGDwyfuFT8KGSHUxdFL2FpbyB2S+tlq2jU
+ nWLGeFZXPPYRlrulQyKDQfXZp2pK3iVsHLqLP0ukZ+OvhhLKCSFUDBnAeo2vN+u+tMtA
+ lxeg==
+X-Gm-Message-State: AOAM5333a7teEsxv97VwJVoUuJceUz3oTX5ZDuvrHKkY4gcFgPzRVYEj
+ xyjY1/XWlFs04Jxsvy2oH2S7TA==
+X-Google-Smtp-Source: ABdhPJwtd7ia5gEWJ4SgBvkOPQ07S3wwyvf3RqqiLAzZCZ9Xq+Y9fxcbvVZ2VmUqb5ZT5on4iZGK8g==
+X-Received: by 2002:a7b:c5d2:: with SMTP id n18mr3716125wmk.97.1621512200589; 
+ Thu, 20 May 2021 05:03:20 -0700 (PDT)
 Received: from dell.default ([91.110.221.215])
- by smtp.gmail.com with ESMTPSA id j10sm2886332wrt.32.2021.05.20.05.03.18
+ by smtp.gmail.com with ESMTPSA id j10sm2886332wrt.32.2021.05.20.05.03.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 May 2021 05:03:19 -0700 (PDT)
+ Thu, 20 May 2021 05:03:20 -0700 (PDT)
 From: Lee Jones <lee.jones@linaro.org>
 To: lee.jones@linaro.org
-Date: Thu, 20 May 2021 13:02:37 +0100
-Message-Id: <20210520120248.3464013-28-lee.jones@linaro.org>
+Date: Thu, 20 May 2021 13:02:38 +0100
+Message-Id: <20210520120248.3464013-29-lee.jones@linaro.org>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210520120248.3464013-1-lee.jones@linaro.org>
 References: <20210520120248.3464013-1-lee.jones@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 27/38] drm/msm/dp/dp_catalog: Correctly document
- param 'dp_catalog'
+Subject: [Freedreno] [PATCH 28/38] drm/msm/dp/dp_link: Fix some potential
+ doc-rot
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,7 +69,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ dri-devel@lists.freedesktop.org, Kuogee Hsieh <khsieh@codeaurora.org>,
  Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Sean Paul <sean@poorly.run>, Chandan Uddaraju <chandanu@codeaurora.org>
 Content-Type: text/plain; charset="us-ascii"
@@ -80,36 +79,55 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 Fixes the following W=1 kernel build warning(s):
 
- drivers/gpu/drm/msm/dp/dp_catalog.c:206: warning: Function parameter or member 'dp_catalog' not described in 'dp_catalog_aux_reset'
- drivers/gpu/drm/msm/dp/dp_catalog.c:206: warning: Excess function parameter 'aux' description in 'dp_catalog_aux_reset'
+ drivers/gpu/drm/msm/dp/dp_link.c:374: warning: expecting prototype for dp_parse_video_pattern_params(). Prototype was for dp_link_parse_video_pattern_params() instead
+ drivers/gpu/drm/msm/dp/dp_link.c:573: warning: expecting prototype for dp_parse_phy_test_params(). Prototype was for dp_link_parse_phy_test_params() instead
+ drivers/gpu/drm/msm/dp/dp_link.c:975: warning: expecting prototype for dp_link_process_downstream_port_status_change(). Prototype was for dp_link_process_ds_port_status_change() instead
 
 Cc: Rob Clark <robdclark@gmail.com>
 Cc: Sean Paul <sean@poorly.run>
 Cc: David Airlie <airlied@linux.ie>
 Cc: Daniel Vetter <daniel@ffwll.ch>
 Cc: Chandan Uddaraju <chandanu@codeaurora.org>
-Cc: Stephen Boyd <swboyd@chromium.org>
+Cc: Kuogee Hsieh <khsieh@codeaurora.org>
 Cc: linux-arm-msm@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org
 Cc: freedreno@lists.freedesktop.org
 Signed-off-by: Lee Jones <lee.jones@linaro.org>
 ---
- drivers/gpu/drm/msm/dp/dp_catalog.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/msm/dp/dp_link.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
-index b1a9b1b98f5f6..e4d9df3c04011 100644
---- a/drivers/gpu/drm/msm/dp/dp_catalog.c
-+++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
-@@ -193,7 +193,7 @@ int dp_catalog_aux_clear_hw_interrupts(struct dp_catalog *dp_catalog)
+diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
+index be986da78c4a5..1099604bd1c86 100644
+--- a/drivers/gpu/drm/msm/dp/dp_link.c
++++ b/drivers/gpu/drm/msm/dp/dp_link.c
+@@ -364,7 +364,7 @@ static int dp_link_parse_timing_params3(struct dp_link_private *link,
+ }
+ 
  /**
-  * dp_catalog_aux_reset() - reset AUX controller
+- * dp_parse_video_pattern_params() - parses video pattern parameters from DPCD
++ * dp_link_parse_video_pattern_params() - parses video pattern parameters from DPCD
+  * @link: Display Port Driver data
   *
-- * @aux: DP catalog structure
-+ * @dp_catalog: DP catalog structure
+  * Returns 0 if it successfully parses the video link pattern and the link
+@@ -563,7 +563,7 @@ static int dp_link_parse_link_training_params(struct dp_link_private *link)
+ }
+ 
+ /**
+- * dp_parse_phy_test_params() - parses the phy link parameters
++ * dp_link_parse_phy_test_params() - parses the phy link parameters
+  * @link: Display Port Driver data
   *
-  * return: void
+  * Parses the DPCD (Byte 0x248) for the DP PHY link pattern that is being
+@@ -961,7 +961,7 @@ static int dp_link_process_link_status_update(struct dp_link_private *link)
+ }
+ 
+ /**
+- * dp_link_process_downstream_port_status_change() - process port status changes
++ * dp_link_process_ds_port_status_change() - process port status changes
+  * @link: Display Port Driver data
   *
+  * This function will handle downstream port updates that are initiated by
 -- 
 2.31.1
 
