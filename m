@@ -1,54 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 298F738CD96
-	for <lists+freedreno@lfdr.de>; Fri, 21 May 2021 20:37:59 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id DEAD338CF41
+	for <lists+freedreno@lfdr.de>; Fri, 21 May 2021 22:46:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1F7C6F8D0;
-	Fri, 21 May 2021 18:37:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64DEB6E878;
+	Fri, 21 May 2021 20:46:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com
- [209.85.167.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17EC96F8D0;
- Fri, 21 May 2021 18:37:55 +0000 (UTC)
-Received: by mail-oi1-f179.google.com with SMTP id c196so12333176oib.9;
- Fri, 21 May 2021 11:37:55 -0700 (PDT)
+Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com
+ [IPv6:2607:f8b0:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6741D6F905
+ for <freedreno@lists.freedesktop.org>; Fri, 21 May 2021 20:46:01 +0000 (UTC)
+Received: by mail-pf1-x429.google.com with SMTP id d78so14898507pfd.10
+ for <freedreno@lists.freedesktop.org>; Fri, 21 May 2021 13:46:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Qc/OISeLg533se0Ov/+qOFnvI05ew7O5rEcNf/rVX1Y=;
+ b=nC0UhFlm212CnyrWNvtpu6kE4mWwHySnKzDUPQtf26R7PkPF3sEaIawFgxiZDnjE5+
+ XuCnVcokB8yonlU/uLTQRrsmuDfyHP3LsE6xgP46I7yj2qYekBw37sqpR1BXXO1wtp/5
+ nD7wVwtKmtqaU23+De1xsc0EeoyHYNqvlPD0o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=EcrkVcsgqQ0ZrJZJ5NdVvHpUDgnz1xVwfcl1R/5LgFk=;
- b=GnaZxxsOXRGBSFfQo9aL08UZOzJX48Lh2JiLrXPPpkjukH20pfaHSAry2t5LAEQRmb
- jXONt1bKew9UNQP1FVZMcjRmkA21+OxiMj2trEtkRuYVEbZfO/JYe4WXLCefpIVX44ms
- yEyCuO1XElEBect5efi3qOLpqxTdejdyjyhYge+Qsw3tVEMcJfUpMoDJdIrM+50DcgfJ
- xssqjLNCURAHCb8mgRSP+zAityZvQa5NKnrcwlrFpy393x/LYaAGvPU2I1pZfQ0itbnF
- iWeF7mxPjjUD8w5V4FpfnPSnszH1zIbrr31+55+2nCzGRBnBRQetH00tkubCOnfz9T+m
- KGSQ==
-X-Gm-Message-State: AOAM533TYYb93ngvICbONaWWuCBcXq7iZpvtNP/Q68v9RbAu0CuYS5If
- R38MoDhUq0TXp3bDHBM1fA==
-X-Google-Smtp-Source: ABdhPJyGW8FC1t+HJJPb75LnLdqG2Dy4aj9s50YmFM5qVud7SCTQuy/B3kAEP23VC/Vscifzd5SzJw==
-X-Received: by 2002:aca:2b16:: with SMTP id i22mr3182531oik.121.1621622274420; 
- Fri, 21 May 2021 11:37:54 -0700 (PDT)
-Received: from robh.at.kernel.org (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id a7sm1356744ooo.9.2021.05.21.11.37.52
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Qc/OISeLg533se0Ov/+qOFnvI05ew7O5rEcNf/rVX1Y=;
+ b=KN2UeO0xIA37W/5joVLDXoq/5SwOOGOfvbx0GSNKf3hwFwOUxJwXGLc3mwZG/YKhQ4
+ LeMr7dbWzaLVGoDAEUCf1A3CB6MtwoV8uqmdyNuv8bFFgF2DNOGhryVcGFZ38QDqSWyi
+ ntwSnTPhH60D6MBto1ep+kF+7ZcXHH0pgL7SHDpIuHHKxPutOJsU/v1lyypRMfTpTarZ
+ cqyXZqUGU2Y+9bdli8ItNpQZ2yp2Ru7SQKZOJp2/GUNbOYVxYlLNy42LyF8X2jTRUcdn
+ Tc679xnk8JVABBNEjxfP6Wsjhbg2289ah9EOPfJ31SB7ZnZNMlVHJJoiBhuL3jooU/gd
+ Detw==
+X-Gm-Message-State: AOAM533HyP1AVlC5dPl3oHFPvv8wGVgu5NCcpBPD6VnloV+EnlttmofI
+ CUNBMdhM1LvnQye5lqWQ9G6CIw==
+X-Google-Smtp-Source: ABdhPJyuVEaAW1PGylYq3ioVKFB2/Cb+DhaAneOsAuDfXLhYsdtUdaTbycQanmvelf0UhoTAzWM3vg==
+X-Received: by 2002:a63:ed41:: with SMTP id m1mr616385pgk.252.1621629960856;
+ Fri, 21 May 2021 13:46:00 -0700 (PDT)
+Received: from tictac2.mtv.corp.google.com
+ ([2620:15c:202:201:10e9:a6cd:727f:561e])
+ by smtp.gmail.com with ESMTPSA id mv15sm4839635pjb.25.2021.05.21.13.45.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 May 2021 11:37:53 -0700 (PDT)
-Received: (nullmailer pid 178646 invoked by uid 1000);
- Fri, 21 May 2021 18:37:52 -0000
-Date: Fri, 21 May 2021 13:37:52 -0500
-From: Rob Herring <robh@kernel.org>
-To: Krishna Manikandan <mkrishn@codeaurora.org>
-Message-ID: <20210521183752.GA178583@robh.at.kernel.org>
-References: <1621592844-6414-1-git-send-email-mkrishn@codeaurora.org>
- <1621592844-6414-4-git-send-email-mkrishn@codeaurora.org>
+ Fri, 21 May 2021 13:46:00 -0700 (PDT)
+From: Douglas Anderson <dianders@chromium.org>
+To: Rob Clark <robdclark@gmail.com>
+Date: Fri, 21 May 2021 13:45:50 -0700
+Message-Id: <20210521134516.v2.1.Id496c6fea0cb92ff6ea8ef1faf5d468eb09465e3@changeid>
+X-Mailer: git-send-email 2.31.1.818.g46aad6cb9e-goog
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1621592844-6414-4-git-send-email-mkrishn@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v17 4/4] dt-bindings: msm/dp: Add bindings
- of MSM DisplayPort controller
+Subject: [Freedreno] [PATCH v2] drm/msm: Use
+ nvmem_cell_read_variable_le_u32() to read speed bin
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,100 +63,64 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean@poorly.run, devicetree@vger.kernel.org, vinod.koul@linaro.org,
- linux-kernel@vger.kernel.org, kalyan_t@codeaurora.org, abhinavk@codeaurora.org,
- dianders@chromium.org, dri-devel@lists.freedesktop.org, swboyd@chromium.org,
- khsieh@codeaurora.org, robh+dt@kernel.org, tanmay@codeaurora.org,
- linux-arm-msm@vger.kernel.org, Vara Reddy <varar@codeaurora.org>,
- bjorn.andersson@linaro.org, freedreno@lists.freedesktop.org,
- Chandan Uddaraju <chandanu@codeaurora.org>
+Cc: freedreno@lists.freedesktop.org,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Douglas Anderson <dianders@chromium.org>, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>, dri-devel@lists.freedesktop.org,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Eric Anholt <eric@anholt.net>,
+ YongQin Liu <yongqin.liu@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ John Stultz <john.stultz@linaro.org>, swboyd@chromium.org,
+ Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 21 May 2021 15:57:24 +0530, Krishna Manikandan wrote:
-> Add bindings for Snapdragon DisplayPort controller driver.
-> 
-> Signed-off-by: Chandan Uddaraju <chandanu@codeaurora.org>
-> Signed-off-by: Vara Reddy <varar@codeaurora.org>
-> Signed-off-by: Tanmay Shah <tanmay@codeaurora.org>
-> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
-> Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
-> 
-> Changes in V2:
-> -Provide details about sel-gpio
-> 
-> Changes in V4:
-> -Provide details about max dp lanes
-> -Change the commit text
-> 
-> Changes in V5:
-> -moved dp.txt to yaml file
-> 
-> Changes in v6:
-> - Squash all AUX LUT properties into one pattern Property
-> - Make aux-cfg[0-9]-settings properties optional
-> - Remove PLL/PHY bindings from DP controller dts
-> - Add DP clocks description
-> - Remove _clk suffix from clock names
-> - Rename pixel clock to stream_pixel
-> - Remove redundant bindings (GPIO, PHY, HDCP clock, etc..)
-> - Fix indentation
-> - Add Display Port as interface of DPU in DPU bindings
->   and add port mapping accordingly.
-> 
-> Chages in v7:
-> - Add dp-controller.yaml file common between multiple SOC
-> - Rename dp-sc7180.yaml to dp-controller-sc7180.yaml
-> - change compatible string and add SOC name to it.
-> - Remove Root clock generator for pixel clock
-> - Add assigned-clocks and assigned-clock-parents bindings
-> - Remove redundant properties, descriptions and blank lines
-> - Add DP port in DPU bindings
-> - Update depends-on tag in commit message and rebase change accordingly
-> 
-> Changes in v8:
-> - Add MDSS AHB clock in bindings
-> 
-> Changes in v9:
-> - Remove redundant reg-name property
-> - Change assigned-clocks and assigned-clocks-parents counts to 2
-> - Use IRQ flags in example dts
-> 
-> Changes in v10:
-> - Change title of this patch as it does not contain PLL bindings anymore
-> - Remove redundant properties
-> - Remove use of IRQ flag
-> - Fix ports property
-> 
-> Changes in v11:
-> - add ports required of both #address-cells and  #size-cells
-> - add required operating-points-v2
-> - add required #sound-dai-cells
-> - add required power-domains
-> - update maintainer list
-> 
-> Changes in v12:
-> - remove soc node from examples (Stephen Boyd)
-> - split dpu-sc7180.yaml changes to separate patch (Stephen Boyd)
-> 
-> Changes in v13:
-> - add assigned-clocks
-> - add assigned-clock-parents
-> 
-> Changes in v14:
-> - add reference for ports (Rob Herring)
-> 
-> Changes in v15:
-> - drop common properties from ports (Rob Herring)
-> ---
->  .../bindings/display/msm/dp-controller.yaml        | 146 +++++++++++++++++++++
->  1 file changed, 146 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> 
+Let's use the newly-added nvmem_cell_read_variable_le_u32() to future
+proof ourselves a little bit.
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+---
+The patch that this depends on is now in mainline so it can be merged
+at will. I'm just sending this as a singleton patch to make it obvious
+that there are no dependencies now.
+
+Changes in v2:
+- Rebased
+
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index b4d8e1b01ee4..a07214157ad3 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -1403,10 +1403,10 @@ static int a6xx_set_supported_hw(struct device *dev, struct a6xx_gpu *a6xx_gpu,
+ {
+ 	struct opp_table *opp_table;
+ 	u32 supp_hw = UINT_MAX;
+-	u16 speedbin;
++	u32 speedbin;
+ 	int ret;
+ 
+-	ret = nvmem_cell_read_u16(dev, "speed_bin", &speedbin);
++	ret = nvmem_cell_read_variable_le_u32(dev, "speed_bin", &speedbin);
+ 	/*
+ 	 * -ENOENT means that the platform doesn't support speedbin which is
+ 	 * fine
+@@ -1419,7 +1419,6 @@ static int a6xx_set_supported_hw(struct device *dev, struct a6xx_gpu *a6xx_gpu,
+ 			      ret);
+ 		goto done;
+ 	}
+-	speedbin = le16_to_cpu(speedbin);
+ 
+ 	supp_hw = fuse_to_supp_hw(dev, revn, speedbin);
+ 
+-- 
+2.31.1.818.g46aad6cb9e-goog
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
