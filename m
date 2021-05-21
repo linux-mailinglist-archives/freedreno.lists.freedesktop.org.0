@@ -1,62 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BC6238C90C
-	for <lists+freedreno@lfdr.de>; Fri, 21 May 2021 16:18:49 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6483C38C8F7
+	for <lists+freedreno@lfdr.de>; Fri, 21 May 2021 16:10:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B13B56F886;
-	Fri, 21 May 2021 14:18:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C1D16F87F;
+	Fri, 21 May 2021 14:10:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
- [IPv6:2607:f8b0:4864:20::102d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84D3D6F5B3;
- Fri, 21 May 2021 04:16:39 +0000 (UTC)
-Received: by mail-pj1-x102d.google.com with SMTP id
- b9-20020a17090a9909b029015cf9effaeaso6626611pjp.5; 
- Thu, 20 May 2021 21:16:39 -0700 (PDT)
+Received: from mail-io1-xd30.google.com (mail-io1-xd30.google.com
+ [IPv6:2607:f8b0:4864:20::d30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72FB46F87F;
+ Fri, 21 May 2021 14:10:00 +0000 (UTC)
+Received: by mail-io1-xd30.google.com with SMTP id a11so20286874ioo.0;
+ Fri, 21 May 2021 07:10:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:mime-version:content-disposition
- :content-transfer-encoding:user-agent;
- bh=WRc2dTi2j0cBWfnXOzygB7tUMf1PqONoKF2ltQXZk5A=;
- b=IK/scQupUFUmZjR7WuCGM6VOzTsQumSseCKgqsBz8Xe1hZs8LqKU6eJJK5/JbOi795
- 31SOmQ/u1ZzVMIgSLlt48shW/KmfwvZZtpuj/Ak3XRva/PWAiJZNkBA0ytIj3SAus8t3
- r9h/9XecJ0H64ZTpw6hiNM0eHkCt6DiXZf2UeFPp76kYGBR9e82PPMG9FBb3pSXj2QVv
- DUIxBQstCsvASLkpBBFWy1p7/G+SvGn4wwzAYPeP9h2NAly84bTvRVfCE6x7jBI6GLot
- Jcrr2+bnrGsLIfb/48vg1jWMgN3uu04o/8+KgAFmuqszZmuXgwtVPO/yCShsqxjlkZ/U
- gz4w==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=rgp+As3KlbEBKSyVtxsdvRFYlyX0rJUqDcyGgOG4188=;
+ b=rCvHAT1e9N+Z+rjcivIbW+yWiuaTrYUO4h7otm2/sRCHaUk8pHxU4B3+PkmI3d0ZRJ
+ 2tAzBYA0FogjgbAW9UHIPwWHSJqgoogcJk+KIxo9bKBoFrhp5PDLOIkEL9pExfV5qjoo
+ WgzhYo/qWms4xYCdozWOV/TKQivldqCSJmrbLDXIAazejM/OtE+9GQCH4nacmJzStpjG
+ BjJf4OjkQJ44BYLrYcH1vgch1bc9kA1cg2kKmfMtI/+126z7oFd71CzcEoYOufDuYUy2
+ yk0jOfGH+/6HiIgsfUp30JWLGgCVUWja0/QtiKJ8pn7eVEIIW2BgHxpDpAUalZn3IwKh
+ vAUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
- :content-disposition:content-transfer-encoding:user-agent;
- bh=WRc2dTi2j0cBWfnXOzygB7tUMf1PqONoKF2ltQXZk5A=;
- b=FfzQkhfHU8aGjnz4phNRtryxv3KaiRNOyJ99LMCknHZ3MFs2DFx+ZH3CbQt2Yzwu+c
- h7kAmdeZTwpMhxXfAByUPHBMG2aIPFAGLylzdJLjOuu6fN82lCVfL9Iu8D6b4rdK1wY1
- tRF9YVIMsWTeMo/p2aVfXiIOZx4vcbjdl/2hXIYrJGNxdkiJoPTGjvCPUas9lWon4Ald
- sf8UB7u8KHz2IZ36plaAGCFzsuhyJ2vLPYGIiM5LoFrO0VWgt7vHfhFh2OVLcP+ukn28
- jmDsx/hl3vXknEkPQGtMK6aZFLI6RsMYXs+yzEAotta/nOIibXWOQI7FQ0225YogXETj
- yrFQ==
-X-Gm-Message-State: AOAM53104K5Jsdwc/8aBcDc5FZL75b3ul7BeJzsjtbPttxl4KE1F/wn6
- piQY0FfmjwEHk3D9Z1gkdR4=
-X-Google-Smtp-Source: ABdhPJx3niu1eWdFCijc4XeXW5ERpS0VFjddRYJZU8IqE4xiyvqKJatzCvGlkGOew4J3H+ZvEKGw9A==
-X-Received: by 2002:a17:902:da86:b029:ef:70fa:7b39 with SMTP id
- j6-20020a170902da86b02900ef70fa7b39mr9780905plx.81.1621570599116; 
- Thu, 20 May 2021 21:16:39 -0700 (PDT)
-Received: from raspberrypi ([125.141.84.155])
- by smtp.gmail.com with ESMTPSA id y64sm3103960pfy.204.2021.05.20.21.16.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 May 2021 21:16:38 -0700 (PDT)
-Date: Fri, 21 May 2021 05:16:33 +0100
-From: Austin Kim <austindh.kim@gmail.com>
-To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
- angelogioacchino.delregno@somainline.org, dmitry.baryshkov@linaro.org
-Message-ID: <20210521041633.GA1747@raspberrypi>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=rgp+As3KlbEBKSyVtxsdvRFYlyX0rJUqDcyGgOG4188=;
+ b=akM+ZnxbbzwAC8b0YHYfQhyReWC/JWgFIqbrEFgYQt7hHb0AiqGu91nhfO2Y3E94OA
+ CHA7z6l0rqzrQP4YfiUuX3m2i7BrDxwOtkgX/hFp9bUzsWGBwp5KY1eV8R5YT8gokA78
+ H4bqy1k1mJeVfYejQvXQDYNA5rjX4JIL1Nz22kWRQfBVYOA3q80N9MeK9+s07ANG290A
+ m/uvqNgymTbV+4m7lOyBi9s1DAprqC0DRjquctjwHXMs5bLw5zbUCyQZJ54qywD9ci8M
+ nTIef3JFitnDAkOgDIXX0QGX/jr5Tx2LFEUp5jsvN45DnKu7Dt7QSYt6ycAvGpsVEqsp
+ pE2A==
+X-Gm-Message-State: AOAM532BtXvi+gIG/oVsx3AdfPXa46+0cra98oMKfkGd1M0xr4ic514x
+ Un4AggJBbWBts5R8sDzeQv8wpbshJDThP46v1ZI=
+X-Google-Smtp-Source: ABdhPJx963ZKIoMW0yX6SSKHV7v9iBzcVj51DKJpySvD2v+xqvtzSsBZXXpCXXZJOjbXRyJqMGA75GXapMiUzwK9shY=
+X-Received: by 2002:a05:6602:14c8:: with SMTP id
+ b8mr11637904iow.209.1621606199837; 
+ Fri, 21 May 2021 07:09:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Mailman-Approved-At: Fri, 21 May 2021 14:18:46 +0000
-Subject: [Freedreno] [PATCH] drm/msm/dpu: remove unused variable cmd_enc
+References: <20210521124946.3617862-1-vkoul@kernel.org>
+In-Reply-To: <20210521124946.3617862-1-vkoul@kernel.org>
+From: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
+Date: Fri, 21 May 2021 08:09:49 -0600
+Message-ID: <CAOCk7Nqep_Db+z3fr5asHZ1u0j8+6fKkPFs2Ai8CbA_zGqV6ZA@mail.gmail.com>
+To: Vinod Koul <vkoul@kernel.org>
+Subject: Re: [Freedreno] [RFC PATCH 00/13] drm/msm: Add Display Stream
+ Compression Support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,37 +62,119 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: autindh.kim@gmail.com, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- kernel-team@lge.com, freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: DTML <devicetree@vger.kernel.org>, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, MSM <linux-arm-msm@vger.kernel.org>,
+ lkml <linux-kernel@vger.kernel.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-QWZ0ZXIgdGhlIGNhbGwgdG8gdG9fZHB1X2VuY29kZXJfcGh5c19jbWQoKSBpcyBtYWRlLAonY21k
-X2VuYycgaXMgbm90IHVzZWQuIFdoZXJlIHRvX2RwdV9lbmNvZGVyX3BoeXNfY21kKCkgaXMgc2lt
-cGx5IHJlcGxhY2VkIHdpdGgKY29udGFpbmVyX29mKHgsIHN0cnVjdCBkcHVfZW5jb2Rlcl9waHlz
-X2NtZCwgYmFzZSkgYnkgY29tcGlsZXIuCgpTbyBpdCBoYWQgYmV0dGVyIHJlbW92ZSBXPTEga2Vy
-bmVsIGJ1aWxkIHdhcm5pbmcocyk6CgogIGRyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2Rw
-dV9lbmNvZGVyX3BoeXNfY21kLmM6IEluIGZ1bmN0aW9uCiDigJhkcHVfZW5jb2Rlcl9waHlzX2Nt
-ZF93YWl0X2Zvcl9jb21taXRfZG9uZeKAmToKICBkcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1
-MS9kcHVfZW5jb2Rlcl9waHlzX2NtZC5jOjY4ODozMTogd2FybmluZzoKICB2YXJpYWJsZSDigJhj
-bWRfZW5j4oCZIHNldCBidXQgbm90IHVzZWQKClNpZ25lZC1vZmYtYnk6IEF1c3RpbiBLaW0gPGF1
-c3RpbmRoLmtpbUBnbWFpbC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEv
-ZHB1X2VuY29kZXJfcGh5c19jbWQuYyB8IDQgLS0tLQogMSBmaWxlIGNoYW5nZWQsIDQgZGVsZXRp
-b25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X2Vu
-Y29kZXJfcGh5c19jbWQuYyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9lbmNv
-ZGVyX3BoeXNfY21kLmMKaW5kZXggYjJiZTM5YjkxNDRlLi4wODg5MDA4NDFiZjggMTAwNjQ0Ci0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9lbmNvZGVyX3BoeXNfY21kLmMK
-KysrIGIvZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X2VuY29kZXJfcGh5c19jbWQu
-YwpAQCAtNjg1LDEwICs2ODUsNiBAQCBzdGF0aWMgaW50IGRwdV9lbmNvZGVyX3BoeXNfY21kX3dh
-aXRfZm9yX3R4X2NvbXBsZXRlKAogc3RhdGljIGludCBkcHVfZW5jb2Rlcl9waHlzX2NtZF93YWl0
-X2Zvcl9jb21taXRfZG9uZSgKIAkJc3RydWN0IGRwdV9lbmNvZGVyX3BoeXMgKnBoeXNfZW5jKQog
-ewotCXN0cnVjdCBkcHVfZW5jb2Rlcl9waHlzX2NtZCAqY21kX2VuYzsKLQotCWNtZF9lbmMgPSB0
-b19kcHVfZW5jb2Rlcl9waHlzX2NtZChwaHlzX2VuYyk7Ci0KIAkvKiBvbmx5IHJlcXVpcmVkIGZv
-ciBtYXN0ZXIgY29udHJvbGxlciAqLwogCWlmICghZHB1X2VuY29kZXJfcGh5c19jbWRfaXNfbWFz
-dGVyKHBoeXNfZW5jKSkKIAkJcmV0dXJuIDA7Ci0tIAoyLjIwLjEKCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJl
-ZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVubwo=
+On Fri, May 21, 2021 at 6:50 AM Vinod Koul <vkoul@kernel.org> wrote:
+>
+> Display Stream Compression (DSC) compresses the display stream in host which
+> is later decoded by panel. This series enables this for Qualcomm msm driver.
+> This was tested on Google Pixel3 phone which use LGE SW43408 panel.
+>
+> The changes include adding DT properties for DSC then hardware blocks support
+> required in DPU1 driver and support in encoder. We also add support in DSI
+> and introduce required topology changes.
+>
+> In order for panel to set the DSC parameters we add dsc in drm_panel and set
+> it from the msm driver.
+>
+> Complete changes which enable this for Pixel3 along with panel driver (not
+> part of this series) and DT changes can be found at:
+> git.linaro.org/people/vinod.koul/kernel.git pixel/dsc_rfc
+>
+> Comments welcome!
+
+This feels backwards to me.  I've only skimmed this series, and the DT
+changes didn't come through for me, so perhaps I have an incomplete
+view.
+
+DSC is not MSM specific.  There is a standard for it.  Yet it looks
+like everything is implemented in a MSM specific way, and then pushed
+to the panel.  So, every vendor needs to implement their vendor
+specific way to get the DSC info, and then push it to the panel?
+Seems wrong, given there is an actual standard for this feature.
+
+Additionally, we define panel properties (resolution, BPP, etc) at the
+panel, and have the display drivers pull it from the panel.  However,
+for DSC, you do the reverse (define it in the display driver, and push
+it to the panel).  If the argument is that DSC properties can be
+dynamic, well, so can resolution.  Every panel for MSM MTPs supports
+multiple resolutions, yet we define that with the panel in Linux.
+
+Finally, I haven't seen the DT bits, but I'm concerned about using DT
+for this.  It inherently excludes ACPI systems.  You appear to have
+sdm845 support in this series, but what about ACPI boot on the Lenovo
+C630 for example?  Or any of the 8cx laptops?  We don't read the panel
+resolution, etc from DT, so why the DSC?
+
+I'm glad that work is being done to add DSC to Linux, it's something I
+struggled with when working on the 8998 mtp, and I realize this is a
+bit of a drive-by review.  However, it seems like there should be a
+better way.
+
+>
+> Vinod Koul (13):
+>   drm/dsc: Add dsc pps header init function
+>   dt-bindings: msm/dsi: Document Display Stream Compression (DSC)
+>     parameters
+>   drm/msm/dsi: add support for dsc data
+>   drm/msm/disp/dpu1: Add support for DSC
+>   drm/msm/disp/dpu1: Add support for DSC in pingpong block
+>   drm/msm/disp/dpu1: Add DSC support in RM
+>   drm/msm/disp/dpu1: Add DSC for SDM845 to hw_catalog
+>   drm/msm/disp/dpu1: Add DSC support in hw_ctl
+>   drm/msm/disp/dpu1: Don't use DSC with mode_3d
+>   drm/msm/disp/dpu1: Add support for DSC in encoder
+>   drm/msm/disp/dpu1: Add support for DSC in topology
+>   drm/msm/dsi: Add support for DSC configuration
+>   drm/msm/dsi: Pass DSC params to drm_panel
+>
+>  .../devicetree/bindings/display/msm/dsi.txt   |  15 +
+>  drivers/gpu/drm/drm_dsc.c                     |  11 +
+>  drivers/gpu/drm/msm/Makefile                  |   1 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 204 +++++++++++-
+>  .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  11 +
+>  .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  |   2 +
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |  22 ++
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  26 ++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c    |  12 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h    |   2 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c    | 221 +++++++++++++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h    |  79 +++++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h   |  13 +
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c   |  32 ++
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h   |  14 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |   1 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c        |  32 ++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h        |   1 +
+>  drivers/gpu/drm/msm/dsi/dsi.xml.h             |  10 +
+>  drivers/gpu/drm/msm/dsi/dsi_host.c            | 293 +++++++++++++++++-
+>  drivers/gpu/drm/msm/msm_drv.h                 |  32 ++
+>  include/drm/drm_dsc.h                         |  16 +
+>  include/drm/drm_panel.h                       |   7 +
+>  23 files changed, 1043 insertions(+), 14 deletions(-)
+>  create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
+>  create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h
+>
+> --
+> 2.26.3
+>
+> _______________________________________________
+> Freedreno mailing list
+> Freedreno@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/freedreno
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
