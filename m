@@ -2,58 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 495D138D1B2
-	for <lists+freedreno@lfdr.de>; Sat, 22 May 2021 00:54:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B24DF38D1B9
+	for <lists+freedreno@lfdr.de>; Sat, 22 May 2021 00:58:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA7556E896;
-	Fri, 21 May 2021 22:54:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FE0D89B18;
+	Fri, 21 May 2021 22:58:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
- [IPv6:2607:f8b0:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFA816E896
- for <freedreno@lists.freedesktop.org>; Fri, 21 May 2021 22:54:37 +0000 (UTC)
-Received: by mail-ot1-x32a.google.com with SMTP id
- n32-20020a9d1ea30000b02902a53d6ad4bdso19468080otn.3
- for <freedreno@lists.freedesktop.org>; Fri, 21 May 2021 15:54:37 -0700 (PDT)
+Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
+ [IPv6:2607:f8b0:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBF4689686
+ for <freedreno@lists.freedesktop.org>; Fri, 21 May 2021 22:58:24 +0000 (UTC)
+Received: by mail-ot1-x32b.google.com with SMTP id
+ u25-20020a0568302319b02902ac3d54c25eso19509935ote.1
+ for <freedreno@lists.freedesktop.org>; Fri, 21 May 2021 15:58:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=IUZ7Yk+LgTpwQPaOvRcB9XyT5Qk63J0G+73lhBj9gbY=;
- b=XSPe/WHCQkseZkUepNqNBhKaLyU2YL1yeS1EXkfUU5q2x9k3BZPMZHygFZaihlwW6A
- Z885CJgwgkJZxOTboQ4fnyG0r3cwrX7SZruVdIU84VFGyDgOWP3fJyy4Oa+jboo2uRNl
- tqZf8GSeHldX6vllfWGYZwK6kKz9NcTVEUkYY=
+ bh=WWt/k9Je81/trW2ess0PPge81hA65LJflgpCeG95+Ro=;
+ b=SHnMgnsQJTouHaGQqt9wUdT3Zp6Q/2DQMhh/lSL8MYm5uRkqyz9bPZjceu/fZmZUaC
+ /bi+E7zLw635BjJ7M9yaoZqTwGwgqP8qmim5ZbMQ9pxM9LwhTtCN2JFbe0kP1e6NP67y
+ ojzYKDjY2t7pxLukiK31Sb29vOfYJlay0n+Nk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=IUZ7Yk+LgTpwQPaOvRcB9XyT5Qk63J0G+73lhBj9gbY=;
- b=cFn8InHPT54P2ZnhznsHhdixvl/AGFk7t1S3hG9gNlO9XfYgm/r/niE1TyZ23ffXGz
- Ac2JVCBJy0KFi+TsTu+prnC2Xgmv+NummT+BN+xJwJVOw7nuABEWtEjxnvGg2q2ygXvB
- ApowI+seQ2P6+T5oshWz+mBN7gyPydFJIQYQNNN/gfTb00oj6Q7qfSyPZbEt3f+Ibxme
- 76B0DRcrbLbbIQO/pEYpHN8ZfR0MYAx7WkRbIiqmCPE2U1NnlVS9zy8Cmyuk3UvaTZN5
- GAE1baUNv5+6ksKESvfYaGoPGHhar8cDCzL2TFtGcgoD+Rkn8jHpszUhrjckb63SZdPV
- /MSA==
-X-Gm-Message-State: AOAM530DBqN/U57ljQbGBZ5e970HuVl68jFB1qmAyfP85vAHqB1EpNvg
- AKtGaRsQWFaHb3DHYIBezofITbAvIfPV6xLdw2oaGg==
-X-Google-Smtp-Source: ABdhPJybXzbqWtW1wiLeA2lnKG4jSNgNlDTUxwdwgeRUPrEmM149M/9WEzIGZQLx1iZ4eWKUv23Jy0/5DVmudHnP/jU=
-X-Received: by 2002:a05:6830:4a1:: with SMTP id
- l1mr10380949otd.25.1621637677330; 
- Fri, 21 May 2021 15:54:37 -0700 (PDT)
+ bh=WWt/k9Je81/trW2ess0PPge81hA65LJflgpCeG95+Ro=;
+ b=GITp8+ZUJ5NuIXjvJ59p6I7JUPJ9XT3T4VDsv0ePjikQIyjJAjpCBttbkc04X8O56H
+ u1s4kAA4+y0R/iBC/zWi/ozg88fyLjKY2sanZreaKcpuB8neuw1zQc5M8AE5YIGCs5z0
+ 2DKKHdBsbKzm/n7xlt+gJA8In8tu8OiF6nyrmhAcesLPchqy23w0mPVjR6PlIYReCXVS
+ 03VfDZb5JmW87CSconObEPT+YsxchJAn7j95MG2dyZrN2waBZ+gw8mSAV+JiGCYcM2hM
+ t3v+1y9YsnmOyVw55AvtgTdC58v/ASQHMgPioaZ1YLGz/abqTHtah2QOO2T8I7EyMUqz
+ RczA==
+X-Gm-Message-State: AOAM531rbYSbaQHedBT91GsHJ+x/bR6iLDy3MRB4mQI6jukDfV17NEUz
+ tygkCfAxhu0uN7dwDyZP58b8+VIZ8wuGmjQAqsODwg==
+X-Google-Smtp-Source: ABdhPJwO86MrFBCtOIipE84r+ZTQINMq6JbXFOgjgA7d8nzGf6JSBROtp+5gY0cJjmLE/r/p5TiM2xjvF8dIa/zGIQI=
+X-Received: by 2002:a9d:1ea9:: with SMTP id n38mr10482377otn.233.1621637903832; 
+ Fri, 21 May 2021 15:58:23 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 21 May 2021 15:54:36 -0700
+ HTTPREST; Fri, 21 May 2021 15:58:23 -0700
 MIME-Version: 1.0
-In-Reply-To: <CAD=FV=XfwoNZ13TAq=vd1Am8jLwOS5c3R0z_wsydL4NLo7WtkA@mail.gmail.com>
-References: <20210521134516.v2.1.Id496c6fea0cb92ff6ea8ef1faf5d468eb09465e3@changeid>
- <CAE-0n52xEDak4-vuJQ6SQz83F54-oTm+TjeVJ_0GoezG8O_M5Q@mail.gmail.com>
- <CAD=FV=XfwoNZ13TAq=vd1Am8jLwOS5c3R0z_wsydL4NLo7WtkA@mail.gmail.com>
+In-Reply-To: <20210520120248.3464013-28-lee.jones@linaro.org>
+References: <20210520120248.3464013-1-lee.jones@linaro.org>
+ <20210520120248.3464013-28-lee.jones@linaro.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.9.1
-Date: Fri, 21 May 2021 15:54:36 -0700
-Message-ID: <CAE-0n50SMVk4x4Z-90WGx4oC+hdRXTEJnyDwAMV_ysbTdC2CMQ@mail.gmail.com>
-To: Doug Anderson <dianders@chromium.org>
-Subject: Re: [Freedreno] [PATCH v2] drm/msm: Use
- nvmem_cell_read_variable_le_u32() to read speed bin
+Date: Fri, 21 May 2021 15:58:23 -0700
+Message-ID: <CAE-0n53gjZKSByr+ny_Mp4MJtkwejJW2RLj0jp1D7fZtbeOvJg@mail.gmail.com>
+To: lee.jones@linaro.org
+Subject: Re: [Freedreno] [PATCH 27/38] drm/msm/dp/dp_catalog: Correctly
+ document param 'dp_catalog'
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,86 +64,33 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Eric Anholt <eric@anholt.net>,
- Rob Clark <robdclark@gmail.com>, YongQin Liu <yongqin.liu@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, John Stultz <john.stultz@linaro.org>,
- Sean Paul <sean@poorly.run>, LKML <linux-kernel@vger.kernel.org>
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
+ Chandan Uddaraju <chandanu@codeaurora.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Doug Anderson (2021-05-21 15:35:33)
-> Hi,
+Quoting Lee Jones (2021-05-20 05:02:37)
+> Fixes the following W=1 kernel build warning(s):
 >
-> On Fri, May 21, 2021 at 3:02 PM Stephen Boyd <swboyd@chromium.org> wrote:
-> >
-> > Quoting Douglas Anderson (2021-05-21 13:45:50)
-> > > Let's use the newly-added nvmem_cell_read_variable_le_u32() to future
-> > > proof ourselves a little bit.
-> > >
-> > > Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> > > ---
-> > > The patch that this depends on is now in mainline so it can be merged
-> > > at will. I'm just sending this as a singleton patch to make it obvious
-> > > that there are no dependencies now.
-> > >
-> > > Changes in v2:
-> > > - Rebased
-> > >
-> > >  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 5 ++---
-> > >  1 file changed, 2 insertions(+), 3 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > > index b4d8e1b01ee4..a07214157ad3 100644
-> > > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > > @@ -1403,10 +1403,10 @@ static int a6xx_set_supported_hw(struct device *dev, struct a6xx_gpu *a6xx_gpu,
-> > >  {
-> > >         struct opp_table *opp_table;
-> > >         u32 supp_hw = UINT_MAX;
-> > > -       u16 speedbin;
-> > > +       u32 speedbin;
-> > >         int ret;
-> > >
-> > > -       ret = nvmem_cell_read_u16(dev, "speed_bin", &speedbin);
-> > > +       ret = nvmem_cell_read_variable_le_u32(dev, "speed_bin", &speedbin);
-> >
-> > I missed the review of this API, sorry.
+>  drivers/gpu/drm/msm/dp/dp_catalog.c:206: warning: Function parameter or member 'dp_catalog' not described in 'dp_catalog_aux_reset'
+>  drivers/gpu/drm/msm/dp/dp_catalog.c:206: warning: Excess function parameter 'aux' description in 'dp_catalog_aux_reset'
 >
-> You commented on the patch that added it, though? Oddly I can't find
-> your commit on lore.kernel.org (?), but it's in my inbox...
-
-Must be brain fog on my end!
-
->
->
-> > I wonder why it doesn't return
-> > the value into an __le32 pointer. Then the caller could use
-> > le32_to_cpu() like other places in the kernel and we know that code is
-> > properly converting the little endian value to CPU native order. Right
-> > now the API doesn't express the endianess of the bits in the return
-> > value because it uses u32, so from a static checker perspective (sparse)
-> > those bits are CPU native order, not little endian.
->
-> I think it's backwards of what you're saying? This function is for
-> when the value is stored in nvram in little endian but returned to the
-> caller in CPU native order. It would be really awkward _not_ to
-> convert this value from LE to native order in the
-> nvmem_cell_read_variable_le_u32() function because that functions
-> handles the fact that the cell could be specified as several different
-> sizes (as long as it's less than 32-bits).
->
-
-Ah ok. I was looking at the name of the API and thinking it was an le32;
-happily glossing over that _u between le and 32. So it's "nvmem cell read
-variable little endian to cpu u32"?
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Sean Paul <sean@poorly.run>
+> Cc: David Airlie <airlied@linux.ie>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Cc: Chandan Uddaraju <chandanu@codeaurora.org>
+> Cc: Stephen Boyd <swboyd@chromium.org>
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: freedreno@lists.freedesktop.org
+> Signed-off-by: Lee Jones <lee.jones@linaro.org>
+> ---
 
 Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 _______________________________________________
