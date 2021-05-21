@@ -1,59 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C96ED38CF57
-	for <lists+freedreno@lfdr.de>; Fri, 21 May 2021 22:47:49 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E4F438CF5A
+	for <lists+freedreno@lfdr.de>; Fri, 21 May 2021 22:51:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 277DE6F90B;
-	Fri, 21 May 2021 20:47:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAC526F90B;
+	Fri, 21 May 2021 20:51:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc33.google.com (mail-oo1-xc33.google.com
- [IPv6:2607:f8b0:4864:20::c33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62CFD6F90C
- for <freedreno@lists.freedesktop.org>; Fri, 21 May 2021 20:47:47 +0000 (UTC)
-Received: by mail-oo1-xc33.google.com with SMTP id
- i8-20020a4aa1080000b0290201edd785e7so4862023ool.1
- for <freedreno@lists.freedesktop.org>; Fri, 21 May 2021 13:47:47 -0700 (PDT)
+Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
+ [IPv6:2607:f8b0:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B7766F90B
+ for <freedreno@lists.freedesktop.org>; Fri, 21 May 2021 20:51:31 +0000 (UTC)
+Received: by mail-oi1-x230.google.com with SMTP id z3so20862987oib.5
+ for <freedreno@lists.freedesktop.org>; Fri, 21 May 2021 13:51:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=FZv+TdRvjRXdoAiuFDzSVh1xS2bkm0D0W6/+ClB4tlw=;
- b=aUJsB2gG5m+r2/oE3sh1SIEYobu4HVFKIAd1xUIwJkNi26hhPLJPwwj2Qq3wjSIAsA
- xTX8TEoaYN2XL7kLIyx9CYj9LltNGXBW8HbzgD42bLQzWGPBwvTq0xaahoQsoy1F6UAE
- oTbSMRLTR/hToYwszdZInC1oO6KLxOf8ojy+k=
+ bh=l3rd5AGI0TAgU4dtT99rPSZ8nP9k8iKog4797AOuSyg=;
+ b=BvqrmKhXYuSofPpie5wCq1uz0GOh3zVoi+zkwMXzyCc1/ZumnWykKUQcPuUQ7k78IZ
+ 1mgXbD7C0AswJZfNAk6Ep/GcnyG8oSwA+ySHdMg8R57kGPfEhIFjzEW+Mrl1RV4kkkQh
+ S5FesVuR9gRmM8T0fihLkf3blfyX90vsRUUIg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=FZv+TdRvjRXdoAiuFDzSVh1xS2bkm0D0W6/+ClB4tlw=;
- b=YNnfbJ1Z0ufKufmOZdMV6tUhFPZL9GonE6CW2LrJqtpLz6cKDyBb4wC1ZI3RAx9NXT
- aDmkZv/H4OhEMps68YiMsFOkVSSkXOZEQdbbWZQ0DF1VPv7hsQqiZ9B6gSdOL23IWj0o
- qburxucYJb08lPXDVV4AwaIJqbg2zLNBTU3Lgz8SE7A4ZhjGCKDEGr8eT294M8k8Ffkj
- M9sdkZ/l2v4grlMDsdFhOkWODBSx7gN3oeAMF2MQdVG1kUHMDyeZeN5/t5hxbbjSHDKu
- dxETA+nCaHYkNSubvZt6SlmZrUWTeRlSi7HoSmkkW1xfQCQSuLxi1W1u12zPIZRAR3a8
- IaLg==
-X-Gm-Message-State: AOAM530imixrGCqjecdSRB79gwuc1o96qtGTEE2eTZImxaMbRz/6Y3Sl
- VnWseIblZUXuZtSQv8ozU2WPA+QRV/Sa1b7T9y8piw==
-X-Google-Smtp-Source: ABdhPJyUmsRhbIFY6CiBuzJMtveYnQvcH/rQqHjH9C2afTGvPXZxmvEgG0Aqoi3ktvGUfo062P/DR8+bldZq9BSb9n0=
-X-Received: by 2002:a4a:85ca:: with SMTP id u10mr9705115ooh.80.1621630066738; 
- Fri, 21 May 2021 13:47:46 -0700 (PDT)
+ bh=l3rd5AGI0TAgU4dtT99rPSZ8nP9k8iKog4797AOuSyg=;
+ b=oPYAOjqZKCLo6Mq9/gOeN8QAkqsTX4cEmh91sRlyKNNBCDI8n1nIms/v2Ymsteyaam
+ MGSr/fLbEJr/MwCIY9ErDpk1N3P/Ye1FRfo54oWO5jDH9xXDuZQ3/j3kCUEgtq/I5bzb
+ SUV0KLkD3Hr815rlfxKs5UCIGtCJL1urykmdQJYVdroctmd/ZmlBNyF5ksU2v5iXA6Sf
+ 9AYaZ7sYqBXf5J0yYEuzpDFKmYuRsPy8gg2YRGX5wNaaKVtr9LNk7WIiJPqzSWSzq2Xn
+ fWTDZ0oJLpyT7QWgLMbeWD1wEHXARCMLKbJqROAk1bArkkdIXFS06llMK550N0hdtR9c
+ bh4w==
+X-Gm-Message-State: AOAM533nOBQLFzfqaRH32lshJdwD6l+r6dO0HPIclNP7rvvQIC9+Npy+
+ 7cgYs61Qp81Dh/HdrvGglS7txvEi2t+fRC823ji94w==
+X-Google-Smtp-Source: ABdhPJy8yyDStkfnRUcpaPHXw8vmuuF1l+lnjun1dIZYi3XPD6IA6ZpnNyOOiz7CIUPzpV6TIwk8LLzDT0k/qiDtLHg=
+X-Received: by 2002:aca:654d:: with SMTP id j13mr3622784oiw.125.1621630290832; 
+ Fri, 21 May 2021 13:51:30 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 21 May 2021 13:47:46 -0700
+ HTTPREST; Fri, 21 May 2021 13:51:30 -0700
 MIME-Version: 1.0
-In-Reply-To: <1621592844-6414-3-git-send-email-mkrishn@codeaurora.org>
+In-Reply-To: <20210521160029.GA2484@yoga>
 References: <1621592844-6414-1-git-send-email-mkrishn@codeaurora.org>
- <1621592844-6414-3-git-send-email-mkrishn@codeaurora.org>
+ <20210521160029.GA2484@yoga>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.9.1
-Date: Fri, 21 May 2021 13:47:46 -0700
-Message-ID: <CAE-0n52w3YW=-KOas6T9Fn31wOMafoCima9Od3wZ=D24+=n-8g@mail.gmail.com>
-To: Krishna Manikandan <mkrishn@codeaurora.org>, devicetree@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [Freedreno] [PATCH v17 3/4] dt-bindings: msm: dsi: add yaml
- schemas for DSI PHY bindings
+Date: Fri, 21 May 2021 13:51:30 -0700
+Message-ID: <CAE-0n53y2_icuPf+j8hd1hGyWRbD2V0Fye+aGSe0M9zku_0DOA@mail.gmail.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Krishna Manikandan <mkrishn@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH v17 1/4] dt-bindings: msm: disp: add yaml
+ schemas for DPU bindings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,57 +64,63 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robh@kernel.org, vinod.koul@linaro.org, dianders@chromium.org,
- abhinavk@codeaurora.org, bjorn.andersson@linaro.org, khsieh@codeaurora.org,
- robdclark@gmail.com, robh+dt@kernel.org, tanmay@codeaurora.org,
- kalyan_t@codeaurora.org, sean@poorly.run
+Cc: sean@poorly.run, devicetree@vger.kernel.org, vinod.koul@linaro.org,
+ robh@kernel.org, linux-arm-msm@vger.kernel.org, abhinavk@codeaurora.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ dianders@chromium.org, khsieh@codeaurora.org, robdclark@gmail.com,
+ robh+dt@kernel.org, tanmay@codeaurora.org, kalyan_t@codeaurora.org,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Krishna Manikandan (2021-05-21 03:27:23)
-> Add YAML schema for the device tree bindings for DSI PHY.
+Quoting Bjorn Andersson (2021-05-21 09:00:29)
+> On Fri 21 May 05:27 CDT 2021, Krishna Manikandan wrote:
+> > diff --git a/Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml b/Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
+> [..]
+> > +      ports:
+> > +        $ref: /schemas/graph.yaml#/properties/ports
+> > +        description: |
+> > +          Contains the list of output ports from DPU device. These ports
+> > +          connect to interfaces that are external to the DPU hardware,
+> > +          such as DSI, DP etc. Each output port contains an endpoint that
+> > +          describes how it is connected to an external interface.
+> > +
+> > +        properties:
+> > +          port@0:
+> > +            $ref: /schemas/graph.yaml#/properties/port
+> > +            description: DPU_INTF1 (DSI1)
+> > +
+> > +          port@2:
+> > +            $ref: /schemas/graph.yaml#/properties/port
+> > +            description: DPU_INTF0 (DP)
 >
-> Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
+> Why is port@0 INTF1 and why is port@2 INTF0? In the binding you're
+> translating the two ports that are described are 0 and 1, representing
+> INTF1 and INTF2, or DSI1 and DSI2, respectively.
 >
-> Changes in v1:
->    - Merge dsi-phy.yaml and dsi-phy-10nm.yaml (Stephen Boyd)
->    - Remove qcom,dsi-phy-regulator-ldo-mode (Stephen Boyd)
->    - Add clock cells properly (Stephen Boyd)
->    - Remove unnecessary decription from clock names (Stephen Boyd)
->    - Add pin names for the supply entries for 10nm phy which is
->      used in sc7180 and sdm845 (Stephen Boyd)
->    - Remove unused header files from examples (Stephen Boyd)
->    - Drop labels for display nodes and correct node name (Stephen Boyd)
+> Further more, I have a need for somehow describing the pairing of 4 DP
+> INTFs (INTF 0, 3, 4 and 5) and how they are connected to the 3+1 DP+eDP
+> controllers.
 >
-> Changes in v2:
->    - Drop maxItems for clock (Stephen Boyd)
->    - Add vdds supply pin information for sdm845 (Stephen Boyd)
->    - Add examples for 14nm, 20nm and 28nm phy yaml files (Stephen Boyd)
->    - Keep child nodes directly under soc node (Stephen Boyd)
+> Downstream this seems to be handled by adding cell-index to the DP
+> controllers and then matching that against the numbering in the driver's
+> INTF array. But rather than adding cell-index to map this, can't we
+> define that the port index is the INTF-number here?
 >
-> Changes in v3:
->    - Use a separate yaml file to describe the common properties
->      for all the dsi phy versions (Stephen Boyd)
->    - Remove soc from examples (Stephen Boyd)
->    - Add description for register property
 >
-> Changes in v4:
->    - Modify the title for all the phy versions (Stephen Boyd)
->    - Drop description for all the phy versions (Stephen Boyd)
->    - Modify the description for register property (Stephen Boyd)
->
-> Changes in v5:
->    - Remove unused properties from common dsi phy file
->    - Add clock-cells and phy-cells to required property
->      list (Stephen Boyd)
->
-> Changes in v6:
->    - Add proper compatible string in example
-> ---
+> This would obviously break compatibility with existing DTBs, but we
+> could start by doing it selectively for the new compatibles, fix up the
+> existing dts files and then drop the selective application after 1 or 2
+> LTS releases.
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+I requested that the existing DT not change a while ago when the DP
+interface was being added to this binding. Is it possible to figure out
+what interface it is that the port is for from the binding? It feels
+like the problem is that the driver wants to look through the graph and
+make connectors for each one, but it doesn't know what type of connector
+to make.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
