@@ -2,62 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DD6738CBF3
-	for <lists+freedreno@lfdr.de>; Fri, 21 May 2021 19:19:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4A6538CD6C
+	for <lists+freedreno@lfdr.de>; Fri, 21 May 2021 20:29:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B90BF6F89B;
-	Fri, 21 May 2021 17:19:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AF6A6F8BB;
+	Fri, 21 May 2021 18:29:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc32.google.com (mail-oo1-xc32.google.com
- [IPv6:2607:f8b0:4864:20::c32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6769C6F894
- for <freedreno@lists.freedesktop.org>; Fri, 21 May 2021 17:19:34 +0000 (UTC)
-Received: by mail-oo1-xc32.google.com with SMTP id
- v13-20020a4aa40d0000b02902052145a469so4740629ool.3
- for <freedreno@lists.freedesktop.org>; Fri, 21 May 2021 10:19:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=J0fP12wefvquDvVfY/24BD7zsm1DcgCIxJ2XqqYQDSA=;
- b=GdMqZnYx10OrRex3L8oFLrbhK737WLie4fz+j8F0nzN3Hb4SWeV4xI+JX/mM9FQinx
- jqZOfeajw7LlhE9IGX0YXy4G9W9UaU5xNWux7VURf6RXXC8oBXJddgQa1WceGff14AJ/
- Wbq/YrWHludyof5Sw/YXeBi8i1kIgyUBaTdCnqg/duXnfgVWw5qqWZPCtpVHuVUrWj9w
- n1MXK0hLGQyaOvG3wk+bF/K0PtRgoRxJLK+Baljojsh+Js07CeVhcYMeq5D828+w89V6
- DKYV912wrk5wid7dhLps/qkJ5VlcWDAGvgvksn64A/B0zqsRfzSzaT/vP4O0bgjLRGEk
- RsdA==
+Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com
+ [209.85.167.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C3576F8BB;
+ Fri, 21 May 2021 18:29:10 +0000 (UTC)
+Received: by mail-oi1-f180.google.com with SMTP id w127so16674614oig.12;
+ Fri, 21 May 2021 11:29:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=J0fP12wefvquDvVfY/24BD7zsm1DcgCIxJ2XqqYQDSA=;
- b=Vk+Qpj0p+cb2YbPkoAD9smna4PlJqz/thAbhjsA5fAi6VWXyW+VjLZKu6rxOflgrSz
- 7hT226KCud0YP1BL/bycQAoD2M1QxLMduq97eZ8UedVEqzTELvx0YjzgfJDoOW+BvBl+
- HQcNXbbhhl4Y+ueIXmu5imBPBUQpAOKy8cjAvKwdAlRzpXVNhNEZwK1gF5p9TPbggpsX
- NzGdZGTvTj8UAkcZGJRX/dRIkDIE4k7fSldRMR+zI/sa6Dz5FCgvl5wu7cLyRbQpbqJu
- /HTx4peamZ5brHkxui8Suf2zdCwbT7asoEJ2SUGvPHelAM5S6e0FYJuzLV9AzQ/njRDD
- N5QA==
-X-Gm-Message-State: AOAM531Szbcj2yWfkow5u+mGr6MoJc1kRw3J4edY9AptIuCg+xih6iY+
- ozgoYUK5WP5+l7ldWLSGgvqbcg==
-X-Google-Smtp-Source: ABdhPJxt549xKMywPinSToWQ1ZBYIlDb+W17jU7yW9AiwowYneC2cvm4K8ln83iqjmaT/rxW5IAmAg==
-X-Received: by 2002:a4a:d543:: with SMTP id q3mr9031146oos.72.1621617573697;
- Fri, 21 May 2021 10:19:33 -0700 (PDT)
-Received: from yoga (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id t39sm1289088ooi.42.2021.05.21.10.19.32
+ bh=8emx9ZI3CrAcxovqlGVNx1EFwTvU6MTMB4GL7Tv15Ik=;
+ b=pMq1KZ4ZmlvqGyPxMYKxuT4fHANCNTlDMi7SaJM1Aoe2eHIwa/89ILGB573BPopdn9
+ ZjOog+vZGWymuaZUpRmlzQ+fYecnGFASjOJGc1a4NivKFO71wG91VpKlgXnvlv2qKjBM
+ J8zC7Z5NjqWpyVIaf6Rjk5kR4dQf7xNrNFAFF9+H1WwTzSQngIfcZf/GCQme0HOhI12q
+ cTOWeNxmWRgE/eMeOEgZgDIJQDth/XBqZiQKvF9XT5E6qCHBiAFmEF4EO1EmWowjEGLx
+ 7iWkN4CkcuqG/Dv0zR2uYwNQuB8FvNLVBTz1agJWD3UypFCV3VnmtGIX9VDRGViwFnHL
+ nhKw==
+X-Gm-Message-State: AOAM5311lErIbQ87gfT+FZTvZCD4IkXcGLcF7pjX+6xIjXmoaChbRIzq
+ et445HUFRpWF/ZCGMn8bhQ==
+X-Google-Smtp-Source: ABdhPJzImzD+1PZ0sMh1zRAT7Crgc0DGWCKYrQp2JRd0FGG8b+zGLHg3aLxiNlyHeWoG3rKDP/yUAg==
+X-Received: by 2002:aca:d18:: with SMTP id 24mr2997436oin.56.1621621750075;
+ Fri, 21 May 2021 11:29:10 -0700 (PDT)
+Received: from robh.at.kernel.org (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id e21sm1296649oie.32.2021.05.21.11.29.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 May 2021 10:19:33 -0700 (PDT)
-Date: Fri, 21 May 2021 12:19:30 -0500
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
+ Fri, 21 May 2021 11:29:09 -0700 (PDT)
+Received: (nullmailer pid 162381 invoked by uid 1000);
+ Fri, 21 May 2021 18:29:07 -0000
+Date: Fri, 21 May 2021 13:29:07 -0500
+From: Rob Herring <robh@kernel.org>
 To: Krishna Manikandan <mkrishn@codeaurora.org>
-Message-ID: <20210521171930.GE2484@yoga>
+Message-ID: <20210521182907.GA161758@robh.at.kernel.org>
 References: <1621592844-6414-1-git-send-email-mkrishn@codeaurora.org>
- <1621592844-6414-4-git-send-email-mkrishn@codeaurora.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1621592844-6414-4-git-send-email-mkrishn@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v17 4/4] dt-bindings: msm/dp: Add bindings
- of MSM DisplayPort controller
+In-Reply-To: <1621592844-6414-1-git-send-email-mkrishn@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH v17 1/4] dt-bindings: msm: disp: add yaml
+ schemas for DPU bindings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,260 +60,155 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean@poorly.run, devicetree@vger.kernel.org, dianders@chromium.org,
- vinod.koul@linaro.org, robh@kernel.org, linux-arm-msm@vger.kernel.org,
- abhinavk@codeaurora.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, khsieh@codeaurora.org,
- robdclark@gmail.com, robh+dt@kernel.org, tanmay@codeaurora.org,
- kalyan_t@codeaurora.org, Vara Reddy <varar@codeaurora.org>,
- freedreno@lists.freedesktop.org, Chandan Uddaraju <chandanu@codeaurora.org>
+Cc: devicetree@vger.kernel.org, dianders@chromium.org, vinod.koul@linaro.org,
+ sean@poorly.run, linux-arm-msm@vger.kernel.org, abhinavk@codeaurora.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, khsieh@codeaurora.org, robh+dt@kernel.org,
+ tanmay@codeaurora.org, kalyan_t@codeaurora.org, bjorn.andersson@linaro.org,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri 21 May 05:27 CDT 2021, Krishna Manikandan wrote:
-
-> Add bindings for Snapdragon DisplayPort controller driver.
+On Fri, 21 May 2021 15:57:21 +0530, Krishna Manikandan wrote:
+> MSM Mobile Display Subsystem (MDSS) encapsulates sub-blocks
+> like DPU display controller, DSI etc. Add YAML schema
+> for DPU device tree bindings.
 > 
-
-Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-
-Regards,
-Bjorn
-
-> Signed-off-by: Chandan Uddaraju <chandanu@codeaurora.org>
-> Signed-off-by: Vara Reddy <varar@codeaurora.org>
-> Signed-off-by: Tanmay Shah <tanmay@codeaurora.org>
-> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
 > Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
 > 
-> Changes in V2:
-> -Provide details about sel-gpio
+> Changes in v2:
+>     - Changed dpu to DPU (Sam Ravnborg)
+>     - Fixed indentation issues (Sam Ravnborg)
+>     - Added empty line between different properties (Sam Ravnborg)
+>     - Replaced reference txt files with  their corresponding
+>       yaml files (Sam Ravnborg)
+>     - Modified the file to use "|" only when it is
+>       necessary (Sam Ravnborg)
 > 
-> Changes in V4:
-> -Provide details about max dp lanes
-> -Change the commit text
+> Changes in v3:
+>     - Corrected the license used (Rob Herring)
+>     - Added maxItems for properties (Rob Herring)
+>     - Dropped generic descriptions (Rob Herring)
+>     - Added ranges property (Rob Herring)
+>     - Corrected the indendation (Rob Herring)
+>     - Added additionalProperties (Rob Herring)
+>     - Split dsi file into two, one for dsi controller
+>       and another one for dsi phy per target (Rob Herring)
+>     - Corrected description for pinctrl-names (Rob Herring)
+>     - Corrected the examples used in yaml file (Rob Herring)
+>     - Delete dsi.txt and dpu.txt (Rob Herring)
 > 
-> Changes in V5:
-> -moved dp.txt to yaml file
+> Changes in v4:
+>     - Move schema up by one level (Rob Herring)
+>     - Add patternProperties for mdp node (Rob Herring)
+>     - Corrected description of some properties (Rob Herring)
+> 
+> Changes in v5:
+>     - Correct the indentation (Rob Herring)
+>     - Remove unnecessary description from properties (Rob Herring)
+>     - Correct the number of interconnect entries (Rob Herring)
+>     - Add interconnect names for sc7180 (Rob Herring)
+>     - Add description for ports (Rob Herring)
+>     - Remove common properties (Rob Herring)
+>     - Add unevalutatedProperties (Rob Herring)
+>     - Reference existing dsi controller yaml in the common
+>       dsi controller file (Rob Herring)
+>     - Correct the description of clock names to include only the
+>       clocks that are required (Rob Herring)
+>     - Remove properties which are already covered under the common
+>       binding (Rob Herring)
+>     - Add dsi phy supply nodes which are required for sc7180 and
+>       sdm845 targets (Rob Herring)
+>     - Add type ref for syscon-sfpb (Rob Herring)
 > 
 > Changes in v6:
-> - Squash all AUX LUT properties into one pattern Property
-> - Make aux-cfg[0-9]-settings properties optional
-> - Remove PLL/PHY bindings from DP controller dts
-> - Add DP clocks description
-> - Remove _clk suffix from clock names
-> - Rename pixel clock to stream_pixel
-> - Remove redundant bindings (GPIO, PHY, HDCP clock, etc..)
-> - Fix indentation
-> - Add Display Port as interface of DPU in DPU bindings
->   and add port mapping accordingly.
+>     - Fixed errors during dt_binding_check (Rob Herring)
+>     - Add maxItems for phys and phys-names (Rob Herring)
+>     - Use unevaluatedProperties wherever required (Rob Herring)
+>     - Removed interrupt controller from required properties for
+>       dsi controller (Rob Herring)
+>     - Add constraints for dsi-phy reg-names based on the compatible
+>       phy version (Rob Herring)
+>     - Add constraints for dsi-phy supply nodes based on the
+>       compatible phy version (Rob Herring)
 > 
-> Chages in v7:
-> - Add dp-controller.yaml file common between multiple SOC
-> - Rename dp-sc7180.yaml to dp-controller-sc7180.yaml
-> - change compatible string and add SOC name to it.
-> - Remove Root clock generator for pixel clock
-> - Add assigned-clocks and assigned-clock-parents bindings
-> - Remove redundant properties, descriptions and blank lines
-> - Add DP port in DPU bindings
-> - Update depends-on tag in commit message and rebase change accordingly
+> Changes in v7:
+>     - Add default value for qcom,mdss-mdp-transfer-time-us (Rob Herring)
+>     - Modify the schema for data-lanes (Rob Herring)
+>     - Split the phy schema into separate schemas based on
+>       the phy version (Rob Herring)
 > 
 > Changes in v8:
-> - Add MDSS AHB clock in bindings
+>     - Resolve merge conflicts with latest dsi.txt file
+>     - Include dp yaml change also in the same series
 > 
 > Changes in v9:
-> - Remove redundant reg-name property
-> - Change assigned-clocks and assigned-clocks-parents counts to 2
-> - Use IRQ flags in example dts
+>     - Combine target specific dsi controller yaml files
+>       to a single yaml file (Rob Herring)
+>     - Combine target specific dsi phy yaml files into a
+>       single yaml file (Rob Herring)
+>     - Use unevaluatedProperties and additionalProperties
+>       wherever required
+>     - Remove duplicate properties from common yaml files
 > 
 > Changes in v10:
-> - Change title of this patch as it does not contain PLL bindings anymore
-> - Remove redundant properties
-> - Remove use of IRQ flag
-> - Fix ports property
+>     - Split the patch into separate patches for DPU, DSI and
+>       PHY (Stephen Boyd)
+>     - Drop unnecessary fullstop (Stephen Boyd)
+>     - Add newline whereever required (Stephen Boyd)
+>     - Add description for clock used (Stephen Boyd)
+>     - Modify the description for interconnect entries  (Stephen Boyd)
+>     - Drop assigned clock entries as it a generic property (Stephen Boyd)
+>     - Correct the definition for interrupts (Stephen Boyd)
+>     - Drop clock names from required properties (Stephen Boyd)
+>     - Drop labels for display nodes from example (Stephen Boyd)
+>     - Drop flags from interrupts entries (Stephen Boyd)
 > 
 > Changes in v11:
-> - add ports required of both #address-cells and  #size-cells
-> - add required operating-points-v2
-> - add required #sound-dai-cells
-> - add required power-domains
-> - update maintainer list
+>     - Drop maxItems for clocks (Stephen Boyd)
 > 
 > Changes in v12:
-> - remove soc node from examples (Stephen Boyd)
-> - split dpu-sc7180.yaml changes to separate patch (Stephen Boyd)
+>     - Add description for register property (Stephen Boyd)
+>     - Add maxItems for interrupts (Stephen Boyd)
+>     - Add description for iommus property (Stephen Boyd)
+>     - Add description for interconnects (Stephen Boyd)
+>     - Change display node name to display_controller (Stephen Boyd)
 > 
 > Changes in v13:
-> - add assigned-clocks
-> - add assigned-clock-parents
+>     - Add maxItems for reg property (Stephen Boyd)
+>     - Add ranges property in example (Stephen Boyd)
+>     - Modify description for iommus property (Stephen Boyd)
+>     - Add Dp bindings for ports in the same patch (Stephen Boyd)
+>     - Remove soc from examples and change address and size cells
+>       accordingly (Stephen Boyd)
+>     - Add reference for ports
 > 
 > Changes in v14:
-> - add reference for ports (Rob Herring)
+>     - Modify title for SC7180 and SDM845 yaml files (Stephen Boyd)
+>     - Add required list for display-controller node (Stephen Boyd)
 > 
-> Changes in v15:
-> - drop common properties from ports (Rob Herring)
+> Changes in v16:
+>     - Add reference for port (Rob Herring)
+>     - Make additionalProperties as false (Rob Herring)
 > ---
->  .../bindings/display/msm/dp-controller.yaml        | 146 +++++++++++++++++++++
->  1 file changed, 146 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+>  .../bindings/display/msm/dpu-sc7180.yaml           | 228 +++++++++++++++++++++
+>  .../bindings/display/msm/dpu-sdm845.yaml           | 212 +++++++++++++++++++
+>  .../devicetree/bindings/display/msm/dpu.txt        | 141 -------------
+>  3 files changed, 440 insertions(+), 141 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/display/msm/dpu.txt
 > 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> new file mode 100644
-> index 0000000..64d8d9e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> @@ -0,0 +1,146 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: MSM Display Port Controller
-> +
-> +maintainers:
-> +  - Kuogee Hsieh <khsieh@codeaurora.org>
-> +
-> +description: |
-> +  Device tree bindings for DisplayPort host controller for MSM targets
-> +  that are compatible with VESA DisplayPort interface specification.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - qcom,sc7180-dp
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    items:
-> +      - description: AHB clock to enable register access
-> +      - description: Display Port AUX clock
-> +      - description: Display Port Link clock
-> +      - description: Link interface clock between DP and PHY
-> +      - description: Display Port Pixel clock
-> +
-> +  clock-names:
-> +    items:
-> +      - const: core_iface
-> +      - const: core_aux
-> +      - const: ctrl_link
-> +      - const: ctrl_link_iface
-> +      - const: stream_pixel
-> +
-> +  assigned-clocks:
-> +    items:
-> +      - description: link clock source
-> +      - description: pixel clock source
-> +
-> +  assigned-clock-parents:
-> +    items:
-> +      - description: phy 0 parent
-> +      - description: phy 1 parent
-> +
-> +  phys:
-> +    maxItems: 1
-> +
-> +  phy-names:
-> +    items:
-> +      - const: dp
-> +
-> +  operating-points-v2:
-> +    maxItems: 1
-> +
-> +  power-domains:
-> +    maxItems: 1
-> +
-> +  "#sound-dai-cells":
-> +    const: 0
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: Input endpoint of the controller
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: Output endpoint of the controller
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +  - clock-names
-> +  - phys
-> +  - phy-names
-> +  - "#sound-dai-cells"
-> +  - power-domains
-> +  - ports
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/qcom,dispcc-sc7180.h>
-> +    #include <dt-bindings/power/qcom-aoss-qmp.h>
-> +    #include <dt-bindings/power/qcom-rpmpd.h>
-> +
-> +    displayport-controller@ae90000 {
-> +        compatible = "qcom,sc7180-dp";
-> +        reg = <0xae90000 0x1400>;
-> +        interrupt-parent = <&mdss>;
-> +        interrupts = <12>;
-> +        clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +                 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
-> +                 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
-> +                 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
-> +                 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
-> +        clock-names = "core_iface", "core_aux",
-> +                      "ctrl_link",
-> +                      "ctrl_link_iface", "stream_pixel";
-> +
-> +        assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
-> +                          <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
-> +
-> +        assigned-clock-parents = <&dp_phy 0>, <&dp_phy 1>;
-> +
-> +        phys = <&dp_phy>;
-> +        phy-names = "dp";
-> +
-> +        #sound-dai-cells = <0>;
-> +
-> +        power-domains = <&rpmhpd SC7180_CX>;
-> +
-> +        ports {
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +
-> +            port@0 {
-> +                reg = <0>;
-> +                endpoint {
-> +                    remote-endpoint = <&dpu_intf0_out>;
-> +                };
-> +            };
-> +
-> +            port@1 {
-> +                reg = <1>;
-> +                endpoint {
-> +                    remote-endpoint = <&typec>;
-> +                };
-> +            };
-> +        };
-> +    };
-> +...
-> -- 
-> 2.7.4
-> 
+
+
+Please add Acked-by/Reviewed-by tags when posting new versions. However,
+there's no need to repost patches *only* to add the tags. The upstream
+maintainer will do that for acks received on the version they apply.
+
+If a tag was not added on purpose, please state why and what changed.
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
