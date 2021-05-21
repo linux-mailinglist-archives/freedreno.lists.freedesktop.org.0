@@ -1,39 +1,47 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2675838C712
-	for <lists+freedreno@lfdr.de>; Fri, 21 May 2021 14:51:18 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4242F38C7AA
+	for <lists+freedreno@lfdr.de>; Fri, 21 May 2021 15:19:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E48C6F643;
-	Fri, 21 May 2021 12:51:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3F6B6F648;
+	Fri, 21 May 2021 13:18:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABDB86F643;
- Fri, 21 May 2021 12:51:14 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B158B613DF;
- Fri, 21 May 2021 12:51:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53D8D6F64C;
+ Fri, 21 May 2021 13:18:58 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 230B5613EC;
+ Fri, 21 May 2021 13:18:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1621601474;
- bh=jEvngLW/cjGIBmD812MSfH6Z7qHrHgE9F0mc+LlnVCU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=eYH2aO+avVrOJeVmpIWkod3vEau0fORf9Df3DZDMoskPVFvaUvPY+5szCcRutxyor
- my/mvi2OEBri3/ZHX84NlAG9J6Zi50Ukj4foiizCf540o36gs0yeyf2JOAjTkENiKr
- IEkFzsYiZ51NtQuzVrPhuQb3pDd/zTwNRyYjDAvn/zDDr82dpjYXzpg2ANpeadLb4Q
- vYGPdPWRxaonJ8oCAhedKvcyTFZrD0KLhqfFPSqGJF1QfvlPokiljPLqAx4I8l/h9j
- mGurVFDjsR6red27U+RBw8U0+HIeCtypozMPYBw84krdbWWpiGGB+LADU0cOc4AbTa
- erFTEMQAFEt+Q==
-From: Vinod Koul <vkoul@kernel.org>
-To: Rob Clark <robdclark@gmail.com>
-Date: Fri, 21 May 2021 18:19:46 +0530
-Message-Id: <20210521124946.3617862-18-vkoul@kernel.org>
-X-Mailer: git-send-email 2.26.3
-In-Reply-To: <20210521124946.3617862-1-vkoul@kernel.org>
-References: <20210521124946.3617862-1-vkoul@kernel.org>
+ s=k20201202; t=1621603138;
+ bh=kML0VNwTPmuZzhjwUe6WlLUM6s2hR7O8GQYI8nIVEx4=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=bxlk4rI+nT2n2MilrkZEOxmGPpUtz5EM4hIvKviME1p5OqepyQ5kkp+CvAwVT5cAj
+ Ku9puQxIF9brbZ5vJTXmOPmc3eAwU0Um6HuXrJQIMfWiSc0ENOiFOrE3eTi/hekg+7
+ byFXoB0KFQyw6TBddhpvCkFbpkZKU5CDjw4wQqVDDNMZI0IgQa1p7I/zwm4I1+QOYm
+ fq6i3qeZ4iMVGg+ZO1rpctE0+23FuTODinw/xTnV6LYtInrTs+HAGt5/zcrKdOQR/D
+ CqrWl9I1AKZ8JmjwzmXemkdMkVGfzT6ZWZUK1eqlmPNS7llAIuoX3WxG3KGaEhANj6
+ 9UtXFKw7LR4Uw==
+Received: by mail-ed1-f52.google.com with SMTP id g7so11127205edm.4;
+ Fri, 21 May 2021 06:18:58 -0700 (PDT)
+X-Gm-Message-State: AOAM531r7huZ2EhPPQ8jRV5eOSO86N/7pe5nkDqbMBSQpTuo0n6+9tGt
+ Ok0t5jltZGu9Tmy5fSwhjNvzKk8AQ8YFF1HZ2g==
+X-Google-Smtp-Source: ABdhPJwmzwbCzIeEFfbyH8umGA8C0KXX6vUz4OS2ROZ9YiW5j/tCvUb0NLoSYwTa9fxOPM6+xMux6sI6PbKiUDMEH5I=
+X-Received: by 2002:a50:c446:: with SMTP id w6mr11114280edf.62.1621603136815; 
+ Fri, 21 May 2021 06:18:56 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [Freedreno] [RFC PATCH 13/13] drm/msm/dsi: Pass DSC params to
- drm_panel
+References: <20210521124946.3617862-1-vkoul@kernel.org>
+ <20210521124946.3617862-3-vkoul@kernel.org>
+In-Reply-To: <20210521124946.3617862-3-vkoul@kernel.org>
+From: Rob Herring <robh+dt@kernel.org>
+Date: Fri, 21 May 2021 08:18:44 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqJqPwkzxVgAfS9VgEXcY=ZH5LOaaxzoPDBzuDxOZ_OLjw@mail.gmail.com>
+Message-ID: <CAL_JsqJqPwkzxVgAfS9VgEXcY=ZH5LOaaxzoPDBzuDxOZ_OLjw@mail.gmail.com>
+To: Vinod Koul <vkoul@kernel.org>
+Subject: Re: [Freedreno] [RFC PATCH 02/13] dt-bindings: msm/dsi: Document
+ Display Stream Compression (DSC) parameters
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,71 +54,35 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+Cc: devicetree@vger.kernel.org, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
  Abhinav Kumar <abhinavk@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+ freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-When DSC is enabled, we need to pass the DSC parameters to panel driver
-as well, so add a dsc parameter in panel and set it when DSC is enabled
+On Fri, May 21, 2021 at 7:50 AM Vinod Koul <vkoul@kernel.org> wrote:
+>
+> DSC enables streams to be compressed before we send to panel. This
+> requires DSC enabled encoder and a panel to be present. So we add this
+> information in board DTS and find if DSC can be enabled and the
+> parameters required to configure DSC are added to binding document along
+> with example
+>
+> Signed-off-by: Vinod Koul <vkoul@kernel.org>
+> ---
+>  .../devicetree/bindings/display/msm/dsi.txt       | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
 
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
----
- drivers/gpu/drm/msm/dsi/dsi_host.c | 5 +++++
- include/drm/drm_panel.h            | 7 +++++++
- 2 files changed, 12 insertions(+)
+This is getting converted to schema. Hopefully, v17 will be it. Sigh.
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index e26545fc82e0..7fc7002eda78 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -1700,6 +1700,7 @@ static int dsi_host_attach(struct mipi_dsi_host *host,
- 					struct mipi_dsi_device *dsi)
- {
- 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
-+	struct drm_panel *panel;
- 	int ret;
- 
- 	if (dsi->lanes > msm_host->num_data_lanes)
-@@ -1719,6 +1720,10 @@ static int dsi_host_attach(struct mipi_dsi_host *host,
- 	if (msm_host->dev)
- 		queue_work(msm_host->workqueue, &msm_host->hpd_work);
- 
-+	panel = msm_dsi_host_get_panel(host);
-+	if (panel)
-+		panel->dsc = &msm_host->dsc->drm;
-+
- 	return 0;
- }
- 
-diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
-index 33605c3f0eba..27a7808a29f2 100644
---- a/include/drm/drm_panel.h
-+++ b/include/drm/drm_panel.h
-@@ -171,6 +171,13 @@ struct drm_panel {
- 	 * Panel entry in registry.
- 	 */
- 	struct list_head list;
-+
-+	/**
-+	 * @dsc:
-+	 *
-+	 * Panel DSC pps payload to be sent
-+	 */
-+	struct drm_dsc_config *dsc;
- };
- 
- void drm_panel_init(struct drm_panel *panel, struct device *dev,
--- 
-2.26.3
-
+Rob
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
