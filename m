@@ -1,35 +1,35 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58D0338F3FE
-	for <lists+freedreno@lfdr.de>; Mon, 24 May 2021 22:00:00 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EAE038F512
+	for <lists+freedreno@lfdr.de>; Mon, 24 May 2021 23:45:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB32D89BAC;
-	Mon, 24 May 2021 19:59:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 835B96E971;
+	Mon, 24 May 2021 21:44:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 766DA89BAC
- for <freedreno@lists.freedesktop.org>; Mon, 24 May 2021 19:59:54 +0000 (UTC)
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 371B06E969
+ for <freedreno@lists.freedesktop.org>; Mon, 24 May 2021 21:44:52 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1621886396; h=Message-ID: References: In-Reply-To: Subject:
+ s=smtp; t=1621892696; h=Message-ID: References: In-Reply-To: Subject:
  Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=rqogvh+KjuhKzFsJvqhpY8PANK2Z2egADguUSBTXtdA=;
- b=H6qFAmTDNQWoLMR1mTsjNh5+c5+L0EkMrVWvrTprGpC47n1XPemrP63GC+PXFCeuKyGh/Lxi
- XeWS++2kd99nSFh2JRrXZ54D+nyqVJRgwZ/DrGl15VifGjEwaCCQJKLKM9Wku85WgQA5IwWS
- KomC2sFRcSnPlyqUDN3aKebhlt0=
-X-Mailgun-Sending-Ip: 69.72.43.7
+ MIME-Version: Sender; bh=lJgwKVH+P2CafyD6xx5EBwcbYFRUzkQYJ1dFn5hnRBI=;
+ b=THV8i+/mwvrGJFc4Hhhr3Qr20t5VhJEm0Us2Ek0TLrFottx/JR5SMUldTIqi8h8t5UESs44p
+ 5fWn2d/bczp0FXexjHN4DNhF7ZLe/PmyWw/zTnZNlYoCzGN/68GAEjF9G4YnSQfkbiEDIvMQ
+ 80ZBQuSu5eTaSOWHywyNG3R9ngc=
+X-Mailgun-Sending-Ip: 198.61.254.9
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
  smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
- 60ac05b72bff04e53b1df87a (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 24 May 2021 19:59:51
+ 60ac1e462bff04e53b72a180 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 24 May 2021 21:44:38
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id A6808C43460; Mon, 24 May 2021 19:59:51 +0000 (UTC)
+ id 6C201C43217; Mon, 24 May 2021 21:44:38 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -37,21 +37,21 @@ X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
  autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 08A05C433D3;
- Mon, 24 May 2021 19:59:49 +0000 (UTC)
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 79293C433F1;
+ Mon, 24 May 2021 21:44:36 +0000 (UTC)
 MIME-Version: 1.0
-Date: Mon, 24 May 2021 12:59:49 -0700
-From: khsieh@codeaurora.org
-To: Stephen Boyd <swboyd@chromium.org>
-In-Reply-To: <20210507212505.1224111-4-swboyd@chromium.org>
-References: <20210507212505.1224111-1-swboyd@chromium.org>
- <20210507212505.1224111-4-swboyd@chromium.org>
-Message-ID: <69aea0fa62a6f4f0ee86a8272b9d21c5@codeaurora.org>
-X-Sender: khsieh@codeaurora.org
+Date: Mon, 24 May 2021 14:44:36 -0700
+From: abhinavk@codeaurora.org
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20210516202910.2141079-2-dmitry.baryshkov@linaro.org>
+References: <20210516202910.2141079-1-dmitry.baryshkov@linaro.org>
+ <20210516202910.2141079-2-dmitry.baryshkov@linaro.org>
+Message-ID: <022c3f4cd7a51e842a3bf18ed824d14b@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
 User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH 3/3] drm/msm/dp: Handle aux timeouts, nacks,
- defers
+Subject: Re: [Freedreno] [PATCH v2 1/6] drm/msm/dpu: merge
+ dpu_hw_intr_get_interrupt_statuses into dpu_hw_intr_dispatch_irqs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,297 +64,221 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <abhinavk@codeaurora.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, aravindh@codeaurora.org,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
+ Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ David Airlie <airlied@linux.ie>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-05-07 14:25, Stephen Boyd wrote:
-> Let's look at the irq status bits after a transfer and see if we got a
-> nack or a defer or a timeout, instead of telling drm layers that
-> everything was fine, while still printing an error message. I wasn't
-> sure about NACK+DEFER so I lumped all those various errors along with a
-> nack so that the drm core can figure out that things are just not going
-> well. The important thing is that we're now returning -ETIMEDOUT when
-> the message times out and nacks for bad addresses.
+On 2021-05-16 13:29, Dmitry Baryshkov wrote:
+> There is little sense in reading interrupt statuses and right after 
+> that
+> going after the array of statuses to dispatch them. Merge both loops
+> into single function doing read and dispatch.
 > 
-> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Cc: Abhinav Kumar <abhinavk@codeaurora.org>
-> Cc: Kuogee Hsieh <khsieh@codeaurora.org>
-> Cc: aravindh@codeaurora.org
-> Cc: Sean Paul <sean@poorly.run>
-> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
-
-Reviewed-by: Kuogee Hsieh <khsieh@codeaurora.org>
-
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
 > ---
->  drivers/gpu/drm/msm/dp/dp_aux.c | 140 ++++++++++++++------------------
->  drivers/gpu/drm/msm/dp/dp_aux.h |   8 --
->  2 files changed, 61 insertions(+), 87 deletions(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c  | 10 +--
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 66 ++++++-------------
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h |  8 ---
+>  3 files changed, 20 insertions(+), 64 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c 
-> b/drivers/gpu/drm/msm/dp/dp_aux.c
-> index b49810396513..4a3293b590b0 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_aux.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-> @@ -9,7 +9,15 @@
->  #include "dp_reg.h"
->  #include "dp_aux.h"
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
+> index cdec3fbe6ff4..54b34746a587 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
+> @@ -376,15 +376,6 @@ void dpu_core_irq_uninstall(struct dpu_kms 
+> *dpu_kms)
 > 
-> -#define DP_AUX_ENUM_STR(x)		#x
-> +enum msm_dp_aux_err {
-> +	DP_AUX_ERR_NONE,
-> +	DP_AUX_ERR_ADDR,
-> +	DP_AUX_ERR_TOUT,
-> +	DP_AUX_ERR_NACK,
-> +	DP_AUX_ERR_DEFER,
-> +	DP_AUX_ERR_NACK_DEFER,
-> +	DP_AUX_ERR_PHY,
-> +};
-> 
->  struct dp_aux_private {
->  	struct device *dev;
-> @@ -18,7 +26,7 @@ struct dp_aux_private {
->  	struct mutex mutex;
->  	struct completion comp;
-> 
-> -	u32 aux_error_num;
-> +	enum msm_dp_aux_err aux_error_num;
->  	u32 retry_cnt;
->  	bool cmd_busy;
->  	bool native;
-> @@ -33,62 +41,45 @@ struct dp_aux_private {
-> 
->  #define MAX_AUX_RETRIES			5
-> 
-> -static const char *dp_aux_get_error(u32 aux_error)
-> -{
-> -	switch (aux_error) {
-> -	case DP_AUX_ERR_NONE:
-> -		return DP_AUX_ENUM_STR(DP_AUX_ERR_NONE);
-> -	case DP_AUX_ERR_ADDR:
-> -		return DP_AUX_ENUM_STR(DP_AUX_ERR_ADDR);
-> -	case DP_AUX_ERR_TOUT:
-> -		return DP_AUX_ENUM_STR(DP_AUX_ERR_TOUT);
-> -	case DP_AUX_ERR_NACK:
-> -		return DP_AUX_ENUM_STR(DP_AUX_ERR_NACK);
-> -	case DP_AUX_ERR_DEFER:
-> -		return DP_AUX_ENUM_STR(DP_AUX_ERR_DEFER);
-> -	case DP_AUX_ERR_NACK_DEFER:
-> -		return DP_AUX_ENUM_STR(DP_AUX_ERR_NACK_DEFER);
-> -	default:
-> -		return "unknown";
-> -	}
-> -}
-> -
-> -static u32 dp_aux_write(struct dp_aux_private *aux,
-> +static ssize_t dp_aux_write(struct dp_aux_private *aux,
->  			struct drm_dp_aux_msg *msg)
+>  irqreturn_t dpu_core_irq(struct dpu_kms *dpu_kms)
 >  {
-> -	u32 data[4], reg, len;
-> +	u8 data[4];
-> +	u32 reg;
-> +	ssize_t len;
->  	u8 *msgdata = msg->buffer;
->  	int const AUX_CMD_FIFO_LEN = 128;
->  	int i = 0;
-> 
->  	if (aux->read)
-> -		len = 4;
-> +		len = 0;
->  	else
-> -		len = msg->size + 4;
-> +		len = msg->size;
-> 
+> -	/*
+> -	 * Read interrupt status from all sources. Interrupt status are
+> -	 * stored within hw_intr.
+> -	 * Function will also clear the interrupt status after reading.
+> -	 * Individual interrupt status bit will only get stored if it
+> -	 * is enabled.
+> -	 */
+> -	dpu_kms->hw_intr->ops.get_interrupt_statuses(dpu_kms->hw_intr);
+> -
 >  	/*
->  	 * cmd fifo only has depth of 144 bytes
->  	 * limit buf length to 128 bytes here
+>  	 * Dispatch to HW driver to handle interrupt lookup that is being
+>  	 * fired. When matching interrupt is located, HW driver will call to
+> @@ -392,6 +383,7 @@ irqreturn_t dpu_core_irq(struct dpu_kms *dpu_kms)
+>  	 * dpu_core_irq_callback_handler will perform the registered function
+>  	 * callback, and do the interrupt status clearing once the registered
+>  	 * callback is finished.
+> +	 * Function will also clear the interrupt status after reading.
 >  	 */
-> -	if (len > AUX_CMD_FIFO_LEN) {
-> +	if (len > AUX_CMD_FIFO_LEN - 4) {
->  		DRM_ERROR("buf size greater than allowed size of 128 bytes\n");
-> -		return 0;
-> +		return -EINVAL;
->  	}
+>  	dpu_kms->hw_intr->ops.dispatch_irqs(
+>  			dpu_kms->hw_intr,
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> index 48c96b812126..cf9bfd45aa59 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> @@ -1371,6 +1371,7 @@ static void dpu_hw_intr_dispatch_irq(struct
+> dpu_hw_intr *intr,
+>  	int start_idx;
+>  	int end_idx;
+>  	u32 irq_status;
+> +	u32 enable_mask;
+>  	unsigned long irq_flags;
 > 
->  	/* Pack cmd and write to HW */
-> -	data[0] = (msg->address >> 16) & 0xf; /* addr[19:16] */
-> +	data[0] = (msg->address >> 16) & 0xf;	/* addr[19:16] */
->  	if (aux->read)
-> -		data[0] |=  BIT(4); /* R/W */
-> +		data[0] |=  BIT(4);		/* R/W */
-> 
-> -	data[1] = (msg->address >> 8) & 0xff;	/* addr[15:8] */
-> -	data[2] = msg->address & 0xff;		/* addr[7:0] */
-> -	data[3] = (msg->size - 1) & 0xff;	/* len[7:0] */
-> +	data[1] = msg->address >> 8;		/* addr[15:8] */
-> +	data[2] = msg->address;			/* addr[7:0] */
-> +	data[3] = msg->size - 1;		/* len[7:0] */
-> 
-> -	for (i = 0; i < len; i++) {
-> +	for (i = 0; i < len + 4; i++) {
->  		reg = (i < 4) ? data[i] : msgdata[i - 4];
-> +		reg <<= DP_AUX_DATA_OFFSET;
-> +		reg &= DP_AUX_DATA_MASK;
-> +		reg |= DP_AUX_DATA_WRITE;
->  		/* index = 0, write */
-> -		reg = (((reg) << DP_AUX_DATA_OFFSET)
-> -		       & DP_AUX_DATA_MASK) | DP_AUX_DATA_WRITE;
->  		if (i == 0)
->  			reg |= DP_AUX_DATA_INDEX_WRITE;
->  		aux->catalog->aux_data = reg;
-> @@ -116,39 +107,27 @@ static u32 dp_aux_write(struct dp_aux_private 
-> *aux,
->  	return len;
->  }
-> 
-> -static int dp_aux_cmd_fifo_tx(struct dp_aux_private *aux,
-> +static ssize_t dp_aux_cmd_fifo_tx(struct dp_aux_private *aux,
->  			      struct drm_dp_aux_msg *msg)
->  {
-> -	u32 ret, len, timeout;
-> -	int aux_timeout_ms = HZ/4;
-> +	ssize_t ret;
-> +	unsigned long time_left;
-> 
->  	reinit_completion(&aux->comp);
-> 
-> -	len = dp_aux_write(aux, msg);
-> -	if (len == 0) {
-> -		DRM_ERROR("DP AUX write failed\n");
-> -		return -EINVAL;
-> -	}
-> +	ret = dp_aux_write(aux, msg);
-> +	if (ret < 0)
-> +		return ret;
-> 
-> -	timeout = wait_for_completion_timeout(&aux->comp, aux_timeout_ms);
-> -	if (!timeout) {
-> -		DRM_ERROR("aux %s timeout\n", (aux->read ? "read" : "write"));
-> +	time_left = wait_for_completion_timeout(&aux->comp,
-> +						msecs_to_jiffies(250));
-> +	if (!time_left)
->  		return -ETIMEDOUT;
-> -	}
+>  	if (!intr)
+> @@ -1383,8 +1384,6 @@ static void dpu_hw_intr_dispatch_irq(struct
+> dpu_hw_intr *intr,
+>  	 */
+>  	spin_lock_irqsave(&intr->irq_lock, irq_flags);
+>  	for (reg_idx = 0; reg_idx < ARRAY_SIZE(dpu_intr_set); reg_idx++) {
+> -		irq_status = intr->save_irq_status[reg_idx];
 > -
-> -	if (aux->aux_error_num == DP_AUX_ERR_NONE) {
-> -		ret = len;
-> -	} else {
-> -		DRM_ERROR_RATELIMITED("aux err: %s\n",
-> -			dp_aux_get_error(aux->aux_error_num));
-> -
-> -		ret = -EINVAL;
-> -	}
+>  		/*
+>  		 * Each Interrupt register has a range of 64 indexes, and
+>  		 * that is static for dpu_irq_map.
+> @@ -1396,6 +1395,20 @@ static void dpu_hw_intr_dispatch_irq(struct
+> dpu_hw_intr *intr,
+>  			start_idx >= ARRAY_SIZE(dpu_irq_map))
+>  			continue;
 > 
->  	return ret;
->  }
-> 
-> -static void dp_aux_cmd_fifo_rx(struct dp_aux_private *aux,
-> +static ssize_t dp_aux_cmd_fifo_rx(struct dp_aux_private *aux,
->  		struct drm_dp_aux_msg *msg)
->  {
->  	u32 data;
-> @@ -175,9 +154,10 @@ static void dp_aux_cmd_fifo_rx(struct 
-> dp_aux_private *aux,
-> 
->  		actual_i = (data >> DP_AUX_DATA_INDEX_OFFSET) & 0xFF;
->  		if (i != actual_i)
-> -			DRM_ERROR("Index mismatch: expected %d, found %d\n",
-> -				i, actual_i);
-> +			break;
+> +		/* Read interrupt status */
+> +		irq_status = DPU_REG_READ(&intr->hw, 
+> dpu_intr_set[reg_idx].status_off);
+> +
+> +		/* Read enable mask */
+> +		enable_mask = DPU_REG_READ(&intr->hw, dpu_intr_set[reg_idx].en_off);
+> +
+> +		/* and clear the interrupt */
+> +		if (irq_status)
+> +			DPU_REG_WRITE(&intr->hw, dpu_intr_set[reg_idx].clr_off,
+> +				     irq_status);
+> +
+> +		/* Finally update IRQ status based on enable mask */
+> +		irq_status &= enable_mask;
+> +
+>  		/*
+>  		 * Search through matching intr status from irq map.
+>  		 * start_idx and end_idx defined the search range in
+> @@ -1429,6 +1442,10 @@ static void dpu_hw_intr_dispatch_irq(struct
+> dpu_hw_intr *intr,
+>  				irq_status &= ~dpu_irq_map[irq_idx].irq_mask;
+>  			}
 >  	}
 > +
-> +	return i;
+> +	/* ensure register writes go through */
+> +	wmb();
+> +
+>  	spin_unlock_irqrestore(&intr->irq_lock, irq_flags);
 >  }
 > 
->  static void dp_aux_native_handler(struct dp_aux_private *aux, u32 isr)
-> @@ -367,36 +347,38 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux 
-> *dp_aux,
->  	}
+> @@ -1580,41 +1597,6 @@ static int dpu_hw_intr_disable_irqs(struct
+> dpu_hw_intr *intr)
+>  	return 0;
+>  }
 > 
->  	ret = dp_aux_cmd_fifo_tx(aux, msg);
+> -static void dpu_hw_intr_get_interrupt_statuses(struct dpu_hw_intr 
+> *intr)
+> -{
+> -	int i;
+> -	u32 enable_mask;
+> -	unsigned long irq_flags;
 > -
->  	if (ret < 0) {
->  		if (aux->native) {
->  			aux->retry_cnt++;
->  			if (!(aux->retry_cnt % MAX_AUX_RETRIES))
->  				dp_catalog_aux_update_cfg(aux->catalog);
->  		}
-> -		usleep_range(400, 500); /* at least 400us to next try */
-> -		goto unlock_exit;
+> -	if (!intr)
+> -		return;
+> -
+> -	spin_lock_irqsave(&intr->irq_lock, irq_flags);
+> -	for (i = 0; i < ARRAY_SIZE(dpu_intr_set); i++) {
+> -		if (!test_bit(i, &intr->irq_mask))
+> -			continue;
+> -
+> -		/* Read interrupt status */
+> -		intr->save_irq_status[i] = DPU_REG_READ(&intr->hw,
+> -				dpu_intr_set[i].status_off);
+> -
+> -		/* Read enable mask */
+> -		enable_mask = DPU_REG_READ(&intr->hw, dpu_intr_set[i].en_off);
+> -
+> -		/* and clear the interrupt */
+> -		if (intr->save_irq_status[i])
+> -			DPU_REG_WRITE(&intr->hw, dpu_intr_set[i].clr_off,
+> -					intr->save_irq_status[i]);
+> -
+> -		/* Finally update IRQ status based on enable mask */
+> -		intr->save_irq_status[i] &= enable_mask;
 > -	}
 > -
-> -	if (aux->aux_error_num == DP_AUX_ERR_NONE) {
-> -		if (aux->read)
-> -			dp_aux_cmd_fifo_rx(aux, msg);
+> -	/* ensure register writes go through */
+> -	wmb();
 > -
-> -		msg->reply = aux->native ?
-> -			DP_AUX_NATIVE_REPLY_ACK : DP_AUX_I2C_REPLY_ACK;
->  	} else {
-> -		/* Reply defer to retry */
-> -		msg->reply = aux->native ?
-> -			DP_AUX_NATIVE_REPLY_DEFER : DP_AUX_I2C_REPLY_DEFER;
-> +		aux->retry_cnt = 0;
-> +		switch (aux->aux_error_num) {
-> +		case DP_AUX_ERR_NONE:
-> +			if (aux->read)
-> +				ret = dp_aux_cmd_fifo_rx(aux, msg);
-> +			msg->reply = aux->native ? DP_AUX_NATIVE_REPLY_ACK : 
-> DP_AUX_I2C_REPLY_ACK;
-> +			break;
-> +		case DP_AUX_ERR_DEFER:
-> +			msg->reply = aux->native ? DP_AUX_NATIVE_REPLY_DEFER :
-> DP_AUX_I2C_REPLY_DEFER;
-> +			break;
-> +		case DP_AUX_ERR_PHY:
-> +		case DP_AUX_ERR_ADDR:
-> +		case DP_AUX_ERR_NACK:
-> +		case DP_AUX_ERR_NACK_DEFER:
-> +			msg->reply = aux->native ? DP_AUX_NATIVE_REPLY_NACK : 
-> DP_AUX_I2C_REPLY_NACK;
-> +			break;
-> +		case DP_AUX_ERR_TOUT:
-> +			ret = -ETIMEDOUT;
-> +			break;
-> +		}
+> -	spin_unlock_irqrestore(&intr->irq_lock, irq_flags);
+> -}
+> 
+>  static void dpu_hw_intr_clear_intr_status_nolock(struct dpu_hw_intr 
+> *intr,
+>  		int irq_idx)
+> @@ -1673,7 +1655,6 @@ static void __setup_intr_ops(struct 
+> dpu_hw_intr_ops *ops)
+>  	ops->dispatch_irqs = dpu_hw_intr_dispatch_irq;
+>  	ops->clear_all_irqs = dpu_hw_intr_clear_irqs;
+>  	ops->disable_all_irqs = dpu_hw_intr_disable_irqs;
+> -	ops->get_interrupt_statuses = dpu_hw_intr_get_interrupt_statuses;
+>  	ops->clear_intr_status_nolock = dpu_hw_intr_clear_intr_status_nolock;
+>  	ops->get_interrupt_status = dpu_hw_intr_get_interrupt_status;
+>  }
+> @@ -1710,14 +1691,6 @@ struct dpu_hw_intr *dpu_hw_intr_init(void 
+> __iomem *addr,
+>  		return ERR_PTR(-ENOMEM);
 >  	}
 > 
-> -	/* Return requested size for success or retry */
-> -	ret = msg->size;
-> -	aux->retry_cnt = 0;
+> -	intr->save_irq_status = kcalloc(ARRAY_SIZE(dpu_intr_set), 
+> sizeof(u32),
+> -			GFP_KERNEL);
+> -	if (intr->save_irq_status == NULL) {
+> -		kfree(intr->cache_irq_mask);
+> -		kfree(intr);
+> -		return ERR_PTR(-ENOMEM);
+> -	}
 > -
-> -unlock_exit:
->  	aux->cmd_busy = false;
->  	mutex_unlock(&aux->mutex);
-> +
->  	return ret;
+>  	intr->irq_mask = m->mdss_irqs;
+>  	intr->obsolete_irq = m->obsolete_irq;
+> 
+> @@ -1730,7 +1703,6 @@ void dpu_hw_intr_destroy(struct dpu_hw_intr 
+> *intr)
+>  {
+>  	if (intr) {
+>  		kfree(intr->cache_irq_mask);
+> -		kfree(intr->save_irq_status);
+>  		kfree(intr);
+>  	}
 >  }
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
+> index 5d6f9a7a5195..5a1c304ba93f 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
+> @@ -142,14 +142,6 @@ struct dpu_hw_intr_ops {
+>  			void (*cbfunc)(void *arg, int irq_idx),
+>  			void *arg);
 > 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_aux.h 
-> b/drivers/gpu/drm/msm/dp/dp_aux.h
-> index f8b8ba919465..0728cc09c9ec 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_aux.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_aux.h
-> @@ -9,14 +9,6 @@
->  #include "dp_catalog.h"
->  #include <drm/drm_dp_helper.h>
-> 
-> -#define DP_AUX_ERR_NONE		0
-> -#define DP_AUX_ERR_ADDR		-1
-> -#define DP_AUX_ERR_TOUT		-2
-> -#define DP_AUX_ERR_NACK		-3
-> -#define DP_AUX_ERR_DEFER	-4
-> -#define DP_AUX_ERR_NACK_DEFER	-5
-> -#define DP_AUX_ERR_PHY		-6
+> -	/**
+> -	 * get_interrupt_statuses - Gets and store value from all interrupt
+> -	 *                          status registers that are currently 
+> fired.
+> -	 * @intr:	HW interrupt handle
+> -	 */
+> -	void (*get_interrupt_statuses)(
+> -			struct dpu_hw_intr *intr);
 > -
->  int dp_aux_register(struct drm_dp_aux *dp_aux);
->  void dp_aux_unregister(struct drm_dp_aux *dp_aux);
->  void dp_aux_isr(struct drm_dp_aux *dp_aux);
+>  	/**
+>  	 * clear_intr_status_nolock() - clears the HW interrupts without lock
+>  	 * @intr:	HW interrupt handle
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
