@@ -1,63 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79BD738EBEB
-	for <lists+freedreno@lfdr.de>; Mon, 24 May 2021 17:08:23 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DCF638F168
+	for <lists+freedreno@lfdr.de>; Mon, 24 May 2021 18:22:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74C9889A9A;
-	Mon, 24 May 2021 15:08:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 773A66E8A6;
+	Mon, 24 May 2021 16:22:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
- [IPv6:2607:f8b0:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD4998918E
- for <freedreno@lists.freedesktop.org>; Mon, 24 May 2021 15:08:18 +0000 (UTC)
-Received: by mail-oi1-x232.google.com with SMTP id b25so27396443oic.0
- for <freedreno@lists.freedesktop.org>; Mon, 24 May 2021 08:08:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=Qd2GGNOqjcoVwR9/InTy3gHaTefuQ8PzIzZm4PfwF+Q=;
- b=pHUsCN/IDaId/ipsKoG3ZrMYVpOUrGYrLef0xTZtQqyz5XEMvN+lSpLTWg7jqjs6Jg
- 8wJ0pQL7+XaAsnBMSaWQCy7vQ/ZJnhOkVL0wp8RSeBJ7P47eTtE07yeR4+A6SNbbViAa
- iet9G/GM1FfaXkBxAschybOUCLj4dh8QNh+vYyRua3BmM2eulhIfr9X1rl0wIRCwsWd+
- pISDWphupk3cSrSJvfwLRLkVetuRq3bdIaT1ju8SB684mx/GMUIuCsIkN5+XbviAupjL
- 9P0mdNOzaKLEQ+SZt9yQ2d8SL3naZn+5M6s/xOz5hGkwU900zBI4ruNo/Nh5jzk7aRTk
- Bqjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=Qd2GGNOqjcoVwR9/InTy3gHaTefuQ8PzIzZm4PfwF+Q=;
- b=fmYYQrM5+X3VF33tVN0M81vUDvqVX6l60szVzUs4aRZZ4j9A8O+UN20/fUVWXlpOFe
- +jYVQKyajLiH/l+VqEFBwQ0GnVyuWEDKu6b7R0cn12Th5EcrdNwiqJjLfSQvl8mSF7F1
- rU6X1DmWU5YK+4XF8XfO7Kbx/3sXFjC42XnT4A5yUJUnwdLQXTUMvJwP8HD89rexbqam
- rIzrpsJIKONCB26/UKpn0smkHzCfYgIaoZMbR32CZdEOXreGlM5SDfILf8mv4aVL63rM
- 1Kyf2IoxHsKbgEhx1cV4/Efv+TJhfGqDyF024hBHGJeDuTYQGOTnHsIYJYJci4eRN5xm
- eJAA==
-X-Gm-Message-State: AOAM530i0optBd8eQ9LDT9x8Lbo3LKBzUaebzDdaSgeFwxNF7Zcr9jaL
- Qo3zNJN6PDjXYspUJz4vquZ4lA==
-X-Google-Smtp-Source: ABdhPJzQwEXxT63vulS4Mr1iXuUiQVfsntslWby9WpFJQ1i6LL+g6rwKWyZorlvtptAuR0hvccJ5Xg==
-X-Received: by 2002:aca:230e:: with SMTP id e14mr11102837oie.58.1621868898078; 
- Mon, 24 May 2021 08:08:18 -0700 (PDT)
-Received: from yoga (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id n11sm2564001oom.1.2021.05.24.08.08.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 May 2021 08:08:17 -0700 (PDT)
-Date: Mon, 24 May 2021 10:08:15 -0500
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Vinod Koul <vkoul@kernel.org>
-Message-ID: <20210524150815.GH2484@yoga>
-References: <20210521124946.3617862-1-vkoul@kernel.org>
- <20210521124946.3617862-3-vkoul@kernel.org>
- <20210521144237.GZ2484@yoga> <YKtWM+BYeIA+P+55@vkoul-mobl.Dlink>
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 770466E8A6
+ for <freedreno@lists.freedesktop.org>; Mon, 24 May 2021 16:22:09 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1621873330; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=d86HdzAHhrf4IEpfZ4/vyjNlQnDG9yPdqowShLGUBek=;
+ b=VczsfB3PHCn4WWTvu4H3ixN47U8hAYKpN4bOiMkcOVOk9xXMBJvk7ELFsqk9oifXegrBBJRt
+ lUlcb9g/3cf6Jowvbh2pmsbXHse416jY2R3QgeSS9ewNjMRX+DU7cccaoUYyoFhE6lU2rLuL
+ 2DIxjgkAIv97CEDUkIqHk9a8dCY=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
+ 60abd2aa5f788b52a5028530 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 24 May 2021 16:22:02
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 15F6FC43151; Mon, 24 May 2021 16:22:02 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id BED77C43146;
+ Mon, 24 May 2021 16:22:00 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YKtWM+BYeIA+P+55@vkoul-mobl.Dlink>
-Subject: Re: [Freedreno] [RFC PATCH 02/13] dt-bindings: msm/dsi: Document
- Display Stream Compression (DSC) parameters
+Date: Mon, 24 May 2021 09:22:00 -0700
+From: khsieh@codeaurora.org
+To: Stephen Boyd <swboyd@chromium.org>
+In-Reply-To: <20210507212505.1224111-2-swboyd@chromium.org>
+References: <20210507212505.1224111-1-swboyd@chromium.org>
+ <20210507212505.1224111-2-swboyd@chromium.org>
+Message-ID: <1f22bcd197fe5c7062ecddef337a7aa5@codeaurora.org>
+X-Sender: khsieh@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/dp: Simplify aux irq handling
+ code
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,107 +64,151 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Jonathan Marek <jonathan@marek.ca>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
- Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+Cc: Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, aravindh@codeaurora.org,
  freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon 24 May 02:30 CDT 2021, Vinod Koul wrote:
-
-> On 21-05-21, 09:42, Bjorn Andersson wrote:
-> > On Fri 21 May 07:49 CDT 2021, Vinod Koul wrote:
-> > 
-> > > DSC enables streams to be compressed before we send to panel. This
-> > > requires DSC enabled encoder and a panel to be present. So we add this
-> > > information in board DTS and find if DSC can be enabled and the
-> > > parameters required to configure DSC are added to binding document along
-> > > with example
-> > > 
-> > > Signed-off-by: Vinod Koul <vkoul@kernel.org>
-> > > ---
-> > >  .../devicetree/bindings/display/msm/dsi.txt       | 15 +++++++++++++++
-> > >  1 file changed, 15 insertions(+)
-> > > 
-> > > diff --git a/Documentation/devicetree/bindings/display/msm/dsi.txt b/Documentation/devicetree/bindings/display/msm/dsi.txt
-> > > index b9a64d3ff184..83d2fb92267e 100644
-> > > --- a/Documentation/devicetree/bindings/display/msm/dsi.txt
-> > > +++ b/Documentation/devicetree/bindings/display/msm/dsi.txt
-> > > @@ -48,6 +48,13 @@ Optional properties:
-> > >  - pinctrl-n: the "sleep" pinctrl state
-> > >  - ports: contains DSI controller input and output ports as children, each
-> > >    containing one endpoint subnode.
-> > > +- qcom,mdss-dsc-enabled: Display Stream Compression (DSC) is enabled
-> > > +- qcom,mdss-slice-height: DSC slice height in pixels
-> > > +- qcom,mdss-slice-width: DSC slice width in pixels
-> > > +- qcom,mdss-slice-per-pkt: DSC slices per packet
-> > > +- qcom,mdss-bit-per-component: DSC bits per component
-> > > +- qcom,mdss-bit-per-pixel: DSC bits per pixel
-> > > +- qcom,mdss-block-prediction-enable: Block prediction mode of DSC enabled
-> > >  
-> > >    DSI Endpoint properties:
-> > >    - remote-endpoint: For port@0, set to phandle of the connected panel/bridge's
-> > > @@ -188,6 +195,14 @@ Example:
-> > >  		qcom,master-dsi;
-> > >  		qcom,sync-dual-dsi;
-> > >  
-> > > +		qcom,mdss-dsc-enabled;
-> > 
-> > To me the activation of DSC seems to be a property of the panel.
+On 2021-05-07 14:25, Stephen Boyd wrote:
+> We don't need to stash away 'isr' in the aux structure to pass to two
+> functions. Let's use a local variable instead. And we can complete the
+> completion variable in one place instead of two to simplify the code.
 > 
-> I think there are three parts to the problem
-> 1. Panel needs to support it
+> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Cc: Abhinav Kumar <abhinavk@codeaurora.org>
+> Cc: Kuogee Hsieh <khsieh@codeaurora.org>
+> Cc: aravindh@codeaurora.org
+> Cc: Sean Paul <sean@poorly.run>
+> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
 
-In the case of DP there's bits to be read in the panel to figure this
-out, for DSI panels this seems like a property that the panel (driver)
-should know about.
-
-> 2. Host needs to support it
-
-Right, so this needs to be known by the driver. My suggestion is that we
-derive it from the compatible or from the HW version.
-
-> 3. Someone needs to decide to use when both the above conditions are
-> met.
+Reviewed-by: Kuogee Hsieh <khsieh@codeaurora.org>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_aux.c     | 22 ++++++++--------------
+>  drivers/gpu/drm/msm/dp/dp_catalog.c |  2 +-
+>  drivers/gpu/drm/msm/dp/dp_catalog.h |  2 +-
+>  3 files changed, 10 insertions(+), 16 deletions(-)
 > 
-> There are cases where above 1, 2 will be satisfied, but we might be okay
-> without DSC too.. so how to decide when to do DSC :)
+> diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c 
+> b/drivers/gpu/drm/msm/dp/dp_aux.c
+> index 7c22bfe0fc7d..91188466cece 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_aux.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_aux.c
+> @@ -27,7 +27,6 @@ struct dp_aux_private {
+>  	bool no_send_stop;
+>  	u32 offset;
+>  	u32 segment;
+> -	u32 isr;
 > 
-
-Can we describe those cases? E.g. is it because enabling DSC would not
-cause a reduction in clock speed that's worth the effort? Or do we only
-use DSC for DSI when it allows us to squeeze everything into a single
-link?
-
-Regards,
-Bjorn
-
-> I feel it is more of a system property. And I also think that these
-> parameters here are host configuration and not really for panel...
+>  	struct drm_dp_aux dp_aux;
+>  };
+> @@ -181,10 +180,8 @@ static void dp_aux_cmd_fifo_rx(struct 
+> dp_aux_private *aux,
+>  	}
+>  }
 > 
-> > 
-> > > +		qcom,mdss-slice-height = <16>;
-> > > +		qcom,mdss-slice-width = <540>;
-> > > +		qcom,mdss-slice-per-pkt = <1>;
-> > > +		qcom,mdss-bit-per-component = <8>;
-> > > +		qcom,mdss-bit-per-pixel = <8>;
-> > > +		qcom,mdss-block-prediction-enable;
-> > 
-> > Which of these properties relates to the DSC encoder and what needs to
-> > be agreed with the sink? Can't we derive e.g. bpp from the information
-> > we have from the attached panel already?
+> -static void dp_aux_native_handler(struct dp_aux_private *aux)
+> +static void dp_aux_native_handler(struct dp_aux_private *aux, u32 isr)
+>  {
+> -	u32 isr = aux->isr;
+> -
+>  	if (isr & DP_INTR_AUX_I2C_DONE)
+>  		aux->aux_error_num = DP_AUX_ERR_NONE;
+>  	else if (isr & DP_INTR_WRONG_ADDR)
+> @@ -197,14 +194,10 @@ static void dp_aux_native_handler(struct
+> dp_aux_private *aux)
+>  		aux->aux_error_num = DP_AUX_ERR_PHY;
+>  		dp_catalog_aux_clear_hw_interrupts(aux->catalog);
+>  	}
+> -
+> -	complete(&aux->comp);
+>  }
 > 
-> Let me go back and check on this a bit more
+> -static void dp_aux_i2c_handler(struct dp_aux_private *aux)
+> +static void dp_aux_i2c_handler(struct dp_aux_private *aux, u32 isr)
+>  {
+> -	u32 isr = aux->isr;
+> -
+>  	if (isr & DP_INTR_AUX_I2C_DONE) {
+>  		if (isr & (DP_INTR_I2C_NACK | DP_INTR_I2C_DEFER))
+>  			aux->aux_error_num = DP_AUX_ERR_NACK;
+> @@ -226,8 +219,6 @@ static void dp_aux_i2c_handler(struct 
+> dp_aux_private *aux)
+>  			dp_catalog_aux_clear_hw_interrupts(aux->catalog);
+>  		}
+>  	}
+> -
+> -	complete(&aux->comp);
+>  }
 > 
-> Thanks
-> -- 
-> ~Vinod
+>  static void dp_aux_update_offset_and_segment(struct dp_aux_private 
+> *aux,
+> @@ -412,6 +403,7 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux 
+> *dp_aux,
+> 
+>  void dp_aux_isr(struct drm_dp_aux *dp_aux)
+>  {
+> +	u32 isr;
+>  	struct dp_aux_private *aux;
+> 
+>  	if (!dp_aux) {
+> @@ -421,15 +413,17 @@ void dp_aux_isr(struct drm_dp_aux *dp_aux)
+> 
+>  	aux = container_of(dp_aux, struct dp_aux_private, dp_aux);
+> 
+> -	aux->isr = dp_catalog_aux_get_irq(aux->catalog);
+> +	isr = dp_catalog_aux_get_irq(aux->catalog);
+> 
+>  	if (!aux->cmd_busy)
+>  		return;
+> 
+>  	if (aux->native)
+> -		dp_aux_native_handler(aux);
+> +		dp_aux_native_handler(aux, isr);
+>  	else
+> -		dp_aux_i2c_handler(aux);
+> +		dp_aux_i2c_handler(aux, isr);
+> +
+> +	complete(&aux->comp);
+>  }
+> 
+>  void dp_aux_reconfig(struct drm_dp_aux *dp_aux)
+> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c
+> b/drivers/gpu/drm/msm/dp/dp_catalog.c
+> index b1a9b1b98f5f..a70c238f34b0 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_catalog.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
+> @@ -292,7 +292,7 @@ void dp_catalog_dump_regs(struct dp_catalog 
+> *dp_catalog)
+>  	dump_regs(catalog->io->dp_controller.base + offset, len);
+>  }
+> 
+> -int dp_catalog_aux_get_irq(struct dp_catalog *dp_catalog)
+> +u32 dp_catalog_aux_get_irq(struct dp_catalog *dp_catalog)
+>  {
+>  	struct dp_catalog_private *catalog = container_of(dp_catalog,
+>  				struct dp_catalog_private, dp_catalog);
+> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.h
+> b/drivers/gpu/drm/msm/dp/dp_catalog.h
+> index 176a9020a520..502bc0dc7787 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_catalog.h
+> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.h
+> @@ -80,7 +80,7 @@ int dp_catalog_aux_clear_hw_interrupts(struct
+> dp_catalog *dp_catalog);
+>  void dp_catalog_aux_reset(struct dp_catalog *dp_catalog);
+>  void dp_catalog_aux_enable(struct dp_catalog *dp_catalog, bool 
+> enable);
+>  void dp_catalog_aux_update_cfg(struct dp_catalog *dp_catalog);
+> -int dp_catalog_aux_get_irq(struct dp_catalog *dp_catalog);
+> +u32 dp_catalog_aux_get_irq(struct dp_catalog *dp_catalog);
+> 
+>  /* DP Controller APIs */
+>  void dp_catalog_ctrl_state_ctrl(struct dp_catalog *dp_catalog, u32 
+> state);
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
