@@ -1,39 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E44738E5B4
-	for <lists+freedreno@lfdr.de>; Mon, 24 May 2021 13:45:09 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 79BD738EBEB
+	for <lists+freedreno@lfdr.de>; Mon, 24 May 2021 17:08:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CDFF6E217;
-	Mon, 24 May 2021 11:45:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74C9889A9A;
+	Mon, 24 May 2021 15:08:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 346A26E219;
- Mon, 24 May 2021 11:45:03 +0000 (UTC)
-Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
- by alexa-out.qualcomm.com with ESMTP; 24 May 2021 04:45:03 -0700
-X-QCInternal: smtphost
-Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
- by ironmsg09-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 24 May 2021 04:45:01 -0700
-X-QCInternal: smtphost
-Received: from mkrishn-linux.qualcomm.com ([10.204.66.35])
- by ironmsg02-blr.qualcomm.com with ESMTP; 24 May 2021 17:14:20 +0530
-Received: by mkrishn-linux.qualcomm.com (Postfix, from userid 438394)
- id D7ADF21BEF; Mon, 24 May 2021 17:14:18 +0530 (IST)
-From: Krishna Manikandan <mkrishn@codeaurora.org>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Mon, 24 May 2021 17:14:13 +0530
-Message-Id: <1621856653-10649-4-git-send-email-mkrishn@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1621856653-10649-1-git-send-email-mkrishn@codeaurora.org>
-References: <1621856653-10649-1-git-send-email-mkrishn@codeaurora.org>
-Subject: [Freedreno] [PATCH v18 4/4] dt-bindings: msm/dp: Add bindings of
- MSM DisplayPort controller
+Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
+ [IPv6:2607:f8b0:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD4998918E
+ for <freedreno@lists.freedesktop.org>; Mon, 24 May 2021 15:08:18 +0000 (UTC)
+Received: by mail-oi1-x232.google.com with SMTP id b25so27396443oic.0
+ for <freedreno@lists.freedesktop.org>; Mon, 24 May 2021 08:08:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=Qd2GGNOqjcoVwR9/InTy3gHaTefuQ8PzIzZm4PfwF+Q=;
+ b=pHUsCN/IDaId/ipsKoG3ZrMYVpOUrGYrLef0xTZtQqyz5XEMvN+lSpLTWg7jqjs6Jg
+ 8wJ0pQL7+XaAsnBMSaWQCy7vQ/ZJnhOkVL0wp8RSeBJ7P47eTtE07yeR4+A6SNbbViAa
+ iet9G/GM1FfaXkBxAschybOUCLj4dh8QNh+vYyRua3BmM2eulhIfr9X1rl0wIRCwsWd+
+ pISDWphupk3cSrSJvfwLRLkVetuRq3bdIaT1ju8SB684mx/GMUIuCsIkN5+XbviAupjL
+ 9P0mdNOzaKLEQ+SZt9yQ2d8SL3naZn+5M6s/xOz5hGkwU900zBI4ruNo/Nh5jzk7aRTk
+ Bqjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=Qd2GGNOqjcoVwR9/InTy3gHaTefuQ8PzIzZm4PfwF+Q=;
+ b=fmYYQrM5+X3VF33tVN0M81vUDvqVX6l60szVzUs4aRZZ4j9A8O+UN20/fUVWXlpOFe
+ +jYVQKyajLiH/l+VqEFBwQ0GnVyuWEDKu6b7R0cn12Th5EcrdNwiqJjLfSQvl8mSF7F1
+ rU6X1DmWU5YK+4XF8XfO7Kbx/3sXFjC42XnT4A5yUJUnwdLQXTUMvJwP8HD89rexbqam
+ rIzrpsJIKONCB26/UKpn0smkHzCfYgIaoZMbR32CZdEOXreGlM5SDfILf8mv4aVL63rM
+ 1Kyf2IoxHsKbgEhx1cV4/Efv+TJhfGqDyF024hBHGJeDuTYQGOTnHsIYJYJci4eRN5xm
+ eJAA==
+X-Gm-Message-State: AOAM530i0optBd8eQ9LDT9x8Lbo3LKBzUaebzDdaSgeFwxNF7Zcr9jaL
+ Qo3zNJN6PDjXYspUJz4vquZ4lA==
+X-Google-Smtp-Source: ABdhPJzQwEXxT63vulS4Mr1iXuUiQVfsntslWby9WpFJQ1i6LL+g6rwKWyZorlvtptAuR0hvccJ5Xg==
+X-Received: by 2002:aca:230e:: with SMTP id e14mr11102837oie.58.1621868898078; 
+ Mon, 24 May 2021 08:08:18 -0700 (PDT)
+Received: from yoga (104-57-184-186.lightspeed.austtx.sbcglobal.net.
+ [104.57.184.186])
+ by smtp.gmail.com with ESMTPSA id n11sm2564001oom.1.2021.05.24.08.08.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 May 2021 08:08:17 -0700 (PDT)
+Date: Mon, 24 May 2021 10:08:15 -0500
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Vinod Koul <vkoul@kernel.org>
+Message-ID: <20210524150815.GH2484@yoga>
+References: <20210521124946.3617862-1-vkoul@kernel.org>
+ <20210521124946.3617862-3-vkoul@kernel.org>
+ <20210521144237.GZ2484@yoga> <YKtWM+BYeIA+P+55@vkoul-mobl.Dlink>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <YKtWM+BYeIA+P+55@vkoul-mobl.Dlink>
+Subject: Re: [Freedreno] [RFC PATCH 02/13] dt-bindings: msm/dsi: Document
+ Display Stream Compression (DSC) parameters
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,255 +70,107 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Krishna Manikandan <mkrishn@codeaurora.org>, vinod.koul@linaro.org,
- robh@kernel.org, dianders@chromium.org, abhinavk@codeaurora.org,
- swboyd@chromium.org, khsieh@codeaurora.org, robdclark@gmail.com,
- robh+dt@kernel.org, tanmay@codeaurora.org, kalyan_t@codeaurora.org,
- Vara Reddy <varar@codeaurora.org>, bjorn.andersson@linaro.org, sean@poorly.run,
- Chandan Uddaraju <chandanu@codeaurora.org>
-MIME-Version: 1.0
+Cc: devicetree@vger.kernel.org, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add bindings for Snapdragon DisplayPort controller driver.
+On Mon 24 May 02:30 CDT 2021, Vinod Koul wrote:
 
-Signed-off-by: Chandan Uddaraju <chandanu@codeaurora.org>
-Signed-off-by: Vara Reddy <varar@codeaurora.org>
-Signed-off-by: Tanmay Shah <tanmay@codeaurora.org>
-Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
-Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
-Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-Reviewed-by: Rob Herring <robh@kernel.org>
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
----
-Changes in V2:
--Provide details about sel-gpio
+> On 21-05-21, 09:42, Bjorn Andersson wrote:
+> > On Fri 21 May 07:49 CDT 2021, Vinod Koul wrote:
+> > 
+> > > DSC enables streams to be compressed before we send to panel. This
+> > > requires DSC enabled encoder and a panel to be present. So we add this
+> > > information in board DTS and find if DSC can be enabled and the
+> > > parameters required to configure DSC are added to binding document along
+> > > with example
+> > > 
+> > > Signed-off-by: Vinod Koul <vkoul@kernel.org>
+> > > ---
+> > >  .../devicetree/bindings/display/msm/dsi.txt       | 15 +++++++++++++++
+> > >  1 file changed, 15 insertions(+)
+> > > 
+> > > diff --git a/Documentation/devicetree/bindings/display/msm/dsi.txt b/Documentation/devicetree/bindings/display/msm/dsi.txt
+> > > index b9a64d3ff184..83d2fb92267e 100644
+> > > --- a/Documentation/devicetree/bindings/display/msm/dsi.txt
+> > > +++ b/Documentation/devicetree/bindings/display/msm/dsi.txt
+> > > @@ -48,6 +48,13 @@ Optional properties:
+> > >  - pinctrl-n: the "sleep" pinctrl state
+> > >  - ports: contains DSI controller input and output ports as children, each
+> > >    containing one endpoint subnode.
+> > > +- qcom,mdss-dsc-enabled: Display Stream Compression (DSC) is enabled
+> > > +- qcom,mdss-slice-height: DSC slice height in pixels
+> > > +- qcom,mdss-slice-width: DSC slice width in pixels
+> > > +- qcom,mdss-slice-per-pkt: DSC slices per packet
+> > > +- qcom,mdss-bit-per-component: DSC bits per component
+> > > +- qcom,mdss-bit-per-pixel: DSC bits per pixel
+> > > +- qcom,mdss-block-prediction-enable: Block prediction mode of DSC enabled
+> > >  
+> > >    DSI Endpoint properties:
+> > >    - remote-endpoint: For port@0, set to phandle of the connected panel/bridge's
+> > > @@ -188,6 +195,14 @@ Example:
+> > >  		qcom,master-dsi;
+> > >  		qcom,sync-dual-dsi;
+> > >  
+> > > +		qcom,mdss-dsc-enabled;
+> > 
+> > To me the activation of DSC seems to be a property of the panel.
+> 
+> I think there are three parts to the problem
+> 1. Panel needs to support it
 
-Changes in V4:
--Provide details about max dp lanes
--Change the commit text
+In the case of DP there's bits to be read in the panel to figure this
+out, for DSI panels this seems like a property that the panel (driver)
+should know about.
 
-Changes in V5:
--moved dp.txt to yaml file
+> 2. Host needs to support it
 
-Changes in v6:
-- Squash all AUX LUT properties into one pattern Property
-- Make aux-cfg[0-9]-settings properties optional
-- Remove PLL/PHY bindings from DP controller dts
-- Add DP clocks description
-- Remove _clk suffix from clock names
-- Rename pixel clock to stream_pixel
-- Remove redundant bindings (GPIO, PHY, HDCP clock, etc..)
-- Fix indentation
-- Add Display Port as interface of DPU in DPU bindings
-  and add port mapping accordingly.
+Right, so this needs to be known by the driver. My suggestion is that we
+derive it from the compatible or from the HW version.
 
-Chages in v7:
-- Add dp-controller.yaml file common between multiple SOC
-- Rename dp-sc7180.yaml to dp-controller-sc7180.yaml
-- change compatible string and add SOC name to it.
-- Remove Root clock generator for pixel clock
-- Add assigned-clocks and assigned-clock-parents bindings
-- Remove redundant properties, descriptions and blank lines
-- Add DP port in DPU bindings
-- Update depends-on tag in commit message and rebase change accordingly
+> 3. Someone needs to decide to use when both the above conditions are
+> met.
+> 
+> There are cases where above 1, 2 will be satisfied, but we might be okay
+> without DSC too.. so how to decide when to do DSC :)
+> 
 
-Changes in v8:
-- Add MDSS AHB clock in bindings
+Can we describe those cases? E.g. is it because enabling DSC would not
+cause a reduction in clock speed that's worth the effort? Or do we only
+use DSC for DSI when it allows us to squeeze everything into a single
+link?
 
-Changes in v9:
-- Remove redundant reg-name property
-- Change assigned-clocks and assigned-clocks-parents counts to 2
-- Use IRQ flags in example dts
+Regards,
+Bjorn
 
-Changes in v10:
-- Change title of this patch as it does not contain PLL bindings anymore
-- Remove redundant properties
-- Remove use of IRQ flag
-- Fix ports property
-
-Changes in v11:
-- add ports required of both #address-cells and  #size-cells
-- add required operating-points-v2
-- add required #sound-dai-cells
-- add required power-domains
-- update maintainer list
-
-Changes in v12:
-- remove soc node from examples (Stephen Boyd)
-- split dpu-sc7180.yaml changes to separate patch (Stephen Boyd)
-
-Changes in v13:
-- add assigned-clocks
-- add assigned-clock-parents
-
-Changes in v14:
-- add reference for ports (Rob Herring)
-
-Changes in v15:
-- drop common properties from ports (Rob Herring)
-
- .../bindings/display/msm/dp-controller.yaml        | 146 +++++++++++++++++++++
- 1 file changed, 146 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-
-diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-new file mode 100644
-index 0000000..64d8d9e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-@@ -0,0 +1,146 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/msm/dp-controller.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: MSM Display Port Controller
-+
-+maintainers:
-+  - Kuogee Hsieh <khsieh@codeaurora.org>
-+
-+description: |
-+  Device tree bindings for DisplayPort host controller for MSM targets
-+  that are compatible with VESA DisplayPort interface specification.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - qcom,sc7180-dp
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: AHB clock to enable register access
-+      - description: Display Port AUX clock
-+      - description: Display Port Link clock
-+      - description: Link interface clock between DP and PHY
-+      - description: Display Port Pixel clock
-+
-+  clock-names:
-+    items:
-+      - const: core_iface
-+      - const: core_aux
-+      - const: ctrl_link
-+      - const: ctrl_link_iface
-+      - const: stream_pixel
-+
-+  assigned-clocks:
-+    items:
-+      - description: link clock source
-+      - description: pixel clock source
-+
-+  assigned-clock-parents:
-+    items:
-+      - description: phy 0 parent
-+      - description: phy 1 parent
-+
-+  phys:
-+    maxItems: 1
-+
-+  phy-names:
-+    items:
-+      - const: dp
-+
-+  operating-points-v2:
-+    maxItems: 1
-+
-+  power-domains:
-+    maxItems: 1
-+
-+  "#sound-dai-cells":
-+    const: 0
-+
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
-+    properties:
-+      port@0:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Input endpoint of the controller
-+
-+      port@1:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Output endpoint of the controller
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - phys
-+  - phy-names
-+  - "#sound-dai-cells"
-+  - power-domains
-+  - ports
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/qcom,dispcc-sc7180.h>
-+    #include <dt-bindings/power/qcom-aoss-qmp.h>
-+    #include <dt-bindings/power/qcom-rpmpd.h>
-+
-+    displayport-controller@ae90000 {
-+        compatible = "qcom,sc7180-dp";
-+        reg = <0xae90000 0x1400>;
-+        interrupt-parent = <&mdss>;
-+        interrupts = <12>;
-+        clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+                 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
-+                 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
-+                 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
-+                 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
-+        clock-names = "core_iface", "core_aux",
-+                      "ctrl_link",
-+                      "ctrl_link_iface", "stream_pixel";
-+
-+        assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
-+                          <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
-+
-+        assigned-clock-parents = <&dp_phy 0>, <&dp_phy 1>;
-+
-+        phys = <&dp_phy>;
-+        phy-names = "dp";
-+
-+        #sound-dai-cells = <0>;
-+
-+        power-domains = <&rpmhpd SC7180_CX>;
-+
-+        ports {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            port@0 {
-+                reg = <0>;
-+                endpoint {
-+                    remote-endpoint = <&dpu_intf0_out>;
-+                };
-+            };
-+
-+            port@1 {
-+                reg = <1>;
-+                endpoint {
-+                    remote-endpoint = <&typec>;
-+                };
-+            };
-+        };
-+    };
-+...
--- 
-2.7.4
-
+> I feel it is more of a system property. And I also think that these
+> parameters here are host configuration and not really for panel...
+> 
+> > 
+> > > +		qcom,mdss-slice-height = <16>;
+> > > +		qcom,mdss-slice-width = <540>;
+> > > +		qcom,mdss-slice-per-pkt = <1>;
+> > > +		qcom,mdss-bit-per-component = <8>;
+> > > +		qcom,mdss-bit-per-pixel = <8>;
+> > > +		qcom,mdss-block-prediction-enable;
+> > 
+> > Which of these properties relates to the DSC encoder and what needs to
+> > be agreed with the sink? Can't we derive e.g. bpp from the information
+> > we have from the attached panel already?
+> 
+> Let me go back and check on this a bit more
+> 
+> Thanks
+> -- 
+> ~Vinod
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
