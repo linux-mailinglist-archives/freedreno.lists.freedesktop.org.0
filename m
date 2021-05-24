@@ -2,58 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDD2E38E0C1
-	for <lists+freedreno@lfdr.de>; Mon, 24 May 2021 08:01:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06D9B38E11E
+	for <lists+freedreno@lfdr.de>; Mon, 24 May 2021 08:45:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80E456E0F0;
-	Mon, 24 May 2021 06:01:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 262A56E0E6;
+	Mon, 24 May 2021 06:45:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D87E26E0F5
- for <freedreno@lists.freedesktop.org>; Mon, 24 May 2021 06:01:18 +0000 (UTC)
-Received: by mail-ot1-x335.google.com with SMTP id
- u25-20020a0568302319b02902ac3d54c25eso24238847ote.1
- for <freedreno@lists.freedesktop.org>; Sun, 23 May 2021 23:01:18 -0700 (PDT)
+Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
+ [IPv6:2607:f8b0:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A17DF6E0F0
+ for <freedreno@lists.freedesktop.org>; Mon, 24 May 2021 06:45:48 +0000 (UTC)
+Received: by mail-oi1-x22a.google.com with SMTP id w127so22383163oig.12
+ for <freedreno@lists.freedesktop.org>; Sun, 23 May 2021 23:45:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=sLMIpW2Ge4GhccaqX0f4ED9sUyQ6GUsKxhCWraflgrQ=;
- b=kVwYjulbTpXvf8F/AH3Cn0+PqDxe6AsTYtT1ijwLpjc9Obx9CbTmoSemY8OjUw5tYq
- rghjvabI9aDAfy2KPMPOW60+THjy42P4Hk8yAjtHoNQ/Gt4be51wkQTQyQj5PlXT9Z8Q
- euKF6L1zMRk4m61B6LOZ8/zAZNWibeDQj15O0=
+ bh=DaL3exz5N7QMjuysP8/tZCFH35mQo+0m0u3b2etRRBw=;
+ b=Hndq02nqqlr60x2Y3R0ZohOgFLVwfJyrZ/AewBOpUnvsAShydRgC97Ilw0Rci7y9i8
+ qHQxrnBi5LtDzqcwXsZS5Rf2o0YaUaAQAIEDar4tna2nE6EtVWkQQEuYzHh6Tx5KgPQQ
+ 9vWU16GO85emv7jJv6Gpij/mujPYYBOjhefC0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=sLMIpW2Ge4GhccaqX0f4ED9sUyQ6GUsKxhCWraflgrQ=;
- b=myAhx03tYv4/3KlxItkdjRJkUz7j/C3V+XgXfUyV5J9srZmlumCbReX36dhGyS6i5T
- hMWlTYq+bmmOO9Q+4Eghvp3cApTwvM7m0sbnUvJGxgCrzHle3apw7O6NjGR3GVUdaEqU
- JS+5c+KtkbxD4thnac/Czrp7Z3SBKV7I6Q2kzxoc5piEq0/9disbwQuVx6sPNCIFmSn3
- A9C2+moSNxJI5iBjStsD+7pLidddvNpQN8+gZtmQFVENGkLtPn1AgZT5TIJ+UnnOZrly
- 2h6nbkS3RwNAcDGxWX8Y+y80+K7XprwzV4TLtMQxGaXcysRYKKnt8ia/UTLhttfFOaSI
- 3c6g==
-X-Gm-Message-State: AOAM532SHcs4Q0N4MPtumQWys8wvJPBvORCcUYQVgJ1z7a8I3cg9ruEO
- ieVCfJRqygm04onsAGP3W5YSNMGlRGY8O/gU5parFg==
-X-Google-Smtp-Source: ABdhPJxUXFeT7fRAQnyP76eyIBN6bZDnvKj0MzPI3ELpSWl7G60SJAr6Ae5/UXm1yxBeM2GrXn7ehxeepjeJze0/e+U=
-X-Received: by 2002:a05:6830:1556:: with SMTP id
- l22mr17357557otp.34.1621836078248; 
- Sun, 23 May 2021 23:01:18 -0700 (PDT)
+ bh=DaL3exz5N7QMjuysP8/tZCFH35mQo+0m0u3b2etRRBw=;
+ b=OBjGy8NxKEudW04PZ0zinYBNLnYcsAZdKSYO3xj1ZR8YvrbAfKqLfx1C6ugHx87YMQ
+ kS/HWTnDZOUqy4L3PBVHbxeqqQ9ka+tbR3BF9m8zvZiLEfWrErH7gSVtz/fiSWO68lsj
+ yCJ2g1W3T1Y1QVlvr+Zv4/8LK+LNBjf1wCDXa6ZNq1vpTJ/xwwhyzCC9mG77skfWDM24
+ GupA0s0bX2euPLMTHOIRvsX9X0b4XyvITR7yzs+zG/WOPpzxBz9O+Kousb2rvJR/ZCXU
+ HeEANnvDKFqKKsOEHlbLDTYvaQf+bha0eMjs2f/USofz7wRvA55qJusMQM1bzOw/I8zQ
+ U5pA==
+X-Gm-Message-State: AOAM532kzPkNfLlIUifgit01A/aiSD0PKIlGinf6QqvwyBzv6/nTZMaV
+ Qs3ZR1pLP40fblGiTLe/1usRF2qr3v+q1fo1QAnLDA==
+X-Google-Smtp-Source: ABdhPJzRC1J2nQytOFwYL51hVg9GKGiRpvNA2dHDRA9P5Z/4UbcgCjiYlEVw8H3qKUQx+4tLbPJ0POSpm0WkV3w9lmE=
+X-Received: by 2002:a54:4501:: with SMTP id l1mr9973998oil.19.1621838747750;
+ Sun, 23 May 2021 23:45:47 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Sun, 23 May 2021 23:01:17 -0700
+ HTTPREST; Sun, 23 May 2021 23:45:47 -0700
 MIME-Version: 1.0
-In-Reply-To: <CAGETcx_LKwfv3Lx0mpxXaSdvoz284THwjqoHoOmZDwtcTf1zWg@mail.gmail.com>
+In-Reply-To: <YKa/fEuVqHhV9CPC@phenom.ffwll.local>
 References: <20210520002519.3538432-1-swboyd@chromium.org>
- <20210520002519.3538432-4-swboyd@chromium.org>
- <CAGETcx_LKwfv3Lx0mpxXaSdvoz284THwjqoHoOmZDwtcTf1zWg@mail.gmail.com>
+ <20210520002519.3538432-8-swboyd@chromium.org>
+ <YKa/fEuVqHhV9CPC@phenom.ffwll.local>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.9.1
-Date: Sun, 23 May 2021 23:01:17 -0700
-Message-ID: <CAE-0n518E_Yfy7-Au-pO40SQzZAn6NLr8u1pGyPMWWr0wRgpJA@mail.gmail.com>
-To: Saravana Kannan <saravanak@google.com>
-Subject: Re: [Freedreno] [PATCH 3/7] component: Introduce struct
- aggregate_device
+Date: Sun, 23 May 2021 23:45:47 -0700
+Message-ID: <CAE-0n51H1Wd5Cj-JLTqcb5Eo3qc=V8-jCx3-+e0g3mGoP+xRkA@mail.gmail.com>
+To: Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [Freedreno] [PATCH 7/7] drm/msm: Migrate to aggregate driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,45 +63,120 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
+Cc: Saravana Kannan <saravanak@google.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Russell King <rmk+kernel@arm.linux.org.uk>,
- freedreno <freedreno@lists.freedesktop.org>
+ Russell King <rmk+kernel@arm.linux.org.uk>, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Saravana Kannan (2021-05-20 13:20:45)
-> On Wed, May 19, 2021 at 5:25 PM Stephen Boyd <swboyd@chromium.org> wrote:
+Quoting Daniel Vetter (2021-05-20 12:58:52)
+> On Wed, May 19, 2021 at 05:25:19PM -0700, Stephen Boyd wrote:
+> > @@ -1306,7 +1322,8 @@ static int msm_pdev_probe(struct platform_device *pdev)
+> >       if (ret)
+> >               goto fail;
 > >
-> > -       master->parent = parent;
-> > -       master->ops = ops;
-> > -       master->match = match;
-> > +       id = ida_alloc(&aggregate_ida, GFP_KERNEL);
-> > +       if (id < 0) {
-> > +               kfree(adev);
-> > +               return id;
-> > +       }
-> > +
-> > +       adev->id = id;
-> > +       adev->parent = parent;
-> > +       adev->dev.parent = parent;
+> > -     ret = component_master_add_with_match(&pdev->dev, &msm_drm_ops, match);
+> > +     msm_drm_aggregate_driver.match = match;
 >
-> Don't set adev->dev.parent. You are creating a functional 1-1
-> dependency where none exists. The real dependencies are the 1-many
-> dependencies between the aggregate and the components. Use device
-> links to capture that and enforce proper suspend/resume and runtime PM
-> ordering.
+> This is a bit awkward design, because it means the driver struct can't be
+> made const, and it will blow up when you have multiple instance of the
+> same driver. I think the match should stay as part of the register
+> function call, and be stored in the aggregate_device struct somewhere.
+
+Got it. The driver struct can't be const for other reasons but I agree
+it is awkward. I'm currently using the match pointer to figure out if
+this aggregate driver is related to the aggregate device. The match
+pointer is already stored in the aggregate_device. The problem is we
+need to know if some driver is associated with some aggregate_device,
+and so I took the easy way out and registered the aggregate_device at
+the same time that the aggregate_driver is registered and stashed the
+match pointer in both structures to match them up later during driver
+binding.
+
+If we want to support multiple aggregate_devices for an aggregate_driver
+then I'll have to come up with some other way of associating the
+aggregate_devices created in the component code with the aggregate
+driver that registered it. I suppose a list of aggregate_devices will
+work. Is any sort of driver doing this right now and registering the
+bind/unbind ops with multiple devices? I just wonder if there's any
+point in doing it if it will always be a 1:1 relationship between
+aggregate device and driver.
+
+>
+> Otherwise I think this looks really solid and fixes your issue properly.
+> Obviously needs careful review from Greg KH for the device model side of
+> things, and from Rafael Wysocki for pm side.
+
+Yeah apparently it fixes my issue because the aggregate_device is added
+after all the other devices described in DT (and the i2c bridge) have
+been added to the dpm list. Otherwise I would still have problems, but
+using device links should help me guarantee the aggregate_device is in
+the right location on the list. I still have to check that the i2c
+bridge is linked to the DSI encoder though.
+
+>
+> Bunch of thoughts from a very cursory reading:
+>
+> - I think it'd be good if we pass the aggregate_device to all components
+>   when we bind them, plus the void * parameter just to make this less
+>   disruptive. Even more device model goodies.
+
+So the idea is to pass aggregate_device into the struct
+component_ops::{bind,unbind}() functions? Right now it takes the parent
+device, so we'll need to introduce another set of function pointers for
+the "modern" way of doing things in the component and then pass the
+aggregate_device pointer instead of the parent. I can roll that into
+another patch and then deprecate the bind/unbind function pointers.
+
+I'll pass the aggregate_device instead of a device pointer so that
+compilation will break if the code isn't migrated properly. I also see
+that in the msm case the component driver probe is mostly just punted
+into the component bind ops. I'd like to change that so the component
+drivers get all their resources in their real probe, i.e. platform
+driver probe, and then only do things related to making the graphics
+card "whole" in their bind. This mostly means that power management
+stuff will move out of the bind callback and into the probe callback and
+then only once the power management stuff is ready will we actually
+register the component device.
+
+>
+> - Maybe splatter a pile of sysfs links around so that this all becomes
+>   visible? Could be interesting for debugging ordering issues. Just an
+>   idea, feel free to entirely ignore.
+
+Sure. I'll do the device link stuff from the components to the aggregate
+driver and that should help, as Saravana mentioned earlier.
+
+>
+> - Needs solid kerneldoc for everything exposed to drivers and good
+>   overview DOC:
+
+Ok I'll layer that on at the end.
+
+>
+> - Needs deprecation warnings in the kerneldoc for all the
+>   component_master_* and if feasible with a mechanical conversion,
+>   converting existing users. I'd like to not be stuck with the old model
+>   forever, plus this will give a pile more people to review this code
+>   here.
+
+Ok. I'll dust off coccinelle or just do it by hand. There aren't that
+many. I hope.
+
+>
+> Anyway the name changes in probe and remove hooks below are already worth
+> this on their own imo. That's why I'd like to see them in all drivers.
 >
 
-Ah ok. Yeah it seems like that was the thing causing me runtime PM
-problems. I've removed the parent patch from this series now and I'll
-look at working in the device links now.
+Cool, thanks for taking a look. It may take me a couple more days to get
+v2 out the door and I'll have to spend a bunch of time converting more
+drivers to shake out more problems.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
