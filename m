@@ -2,54 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A08A138F5D2
-	for <lists+freedreno@lfdr.de>; Tue, 25 May 2021 00:48:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DD9B38F8B0
+	for <lists+freedreno@lfdr.de>; Tue, 25 May 2021 05:21:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FA496E98F;
-	Mon, 24 May 2021 22:48:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 552A66E5D5;
+	Tue, 25 May 2021 03:20:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com
- [209.85.167.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B55286E98E;
- Mon, 24 May 2021 22:48:25 +0000 (UTC)
-Received: by mail-oi1-f180.google.com with SMTP id s19so28514872oic.7;
- Mon, 24 May 2021 15:48:25 -0700 (PDT)
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 473206E7D0;
+ Tue, 25 May 2021 03:20:48 +0000 (UTC)
+Received: by mail-ot1-x32f.google.com with SMTP id
+ t10-20020a05683022eab0290304ed8bc759so27261616otc.12; 
+ Mon, 24 May 2021 20:20:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Sed5JvRLMiaF+0cJiDPgQf1+4i4xNSCm3dc8S6Z16pQ=;
+ b=jkwFbwTn/CLxuDbawKx+Ai7I2fdbLrqNe0hagrkWg8vHDxYqqBb+dOy51ktDABiZZf
+ 1gm+owY9hu4NO8qC7NRXEcmGhU3Op6ND2J5cyc1mcDfpi4DBLcF59KZ5KQt9X5bkXMHR
+ 40dQLvIVTmBQyrobhyZsnR6O3yj7LUoayZIfH0pSueke9vAjJ555E2ET6+qcqJPmRJH6
+ Rguhm8Xqje3K9Hoj+xa2ggJ1pBUKqiykXe3xokDsR85owUyxLFPiSJ8RLnGemfeaLRn0
+ LdRE7A0ZbQ4nGnViDPuXSHofG2MPMzm/KKIGdR2fYD/Q2rDz+9fJvEH0TA3HxOwYuUtz
+ HivQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=KpKDmmYFy0WymhW++fAl7+6dJhCoWfgKM1MbYWz2Ja0=;
- b=qp7QlCfohxyfUwbl7OPq1+xE4JOfgnK9Jpr0S8Udcu5Xd3sEEaRmYIv40TBiK9+WOK
- YPm84S9/0p58FBeVBdTv3AihFnUlQdWM8CFz7lLGDCe4kwhwlsdae6odXCvFWIb93Mdy
- PZfMxFVZO8HFvzYWy+u3m8Sxn6GfurhbTBnhu2u5nELn9h1KekoDqkt903fwnElb9ArM
- 5YsgmeDVIGeR4eF2F21wypX4XZ4pEUgcsZjhcexd+DSJgy7yT/JMNpVDSCARDadZ69sM
- AQKrhTrxo3FFwtoi98+gh0yQ9FTWeQ+n16DpPflZS/qNiK6+OxkZ8RYtgABKajBp6jNP
- 2sPQ==
-X-Gm-Message-State: AOAM532JIj5eDdRdB2XZLwTyrQX3nh7NC1ENjkJrn3sBygkBF7TNUNTM
- l26UZVU79/nXFDHPM0i6cKQAbNxtkA==
-X-Google-Smtp-Source: ABdhPJz5h2oM8aTFPJKI31HulznG3xW2XN9lU0oXrZlOIYquqz8vF2erRkrzWxbLCYco4ih9DhrhXw==
-X-Received: by 2002:a05:6808:4cf:: with SMTP id
- a15mr886196oie.78.1621896494189; 
- Mon, 24 May 2021 15:48:14 -0700 (PDT)
-Received: from robh.at.kernel.org (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id c19sm2881987oiw.7.2021.05.24.15.48.12
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+ :mime-version:content-transfer-encoding;
+ bh=Sed5JvRLMiaF+0cJiDPgQf1+4i4xNSCm3dc8S6Z16pQ=;
+ b=qRBnn8j13CSw+O+XKwjW1waKJZktoswHXuP30VKOZglOtkPb3i/z4FeIgCor2jSfDt
+ qkYWyAcVCyr7VK8ke82MfMVBX/PvKCaGk/ZpDqxj2jL7NbQ14ZMG/UGT8gpHa0YN67U1
+ QUvGr4Ct9qZkKTeEpoa4XtjSlTVBOna6kjR6bBgLahPhOFhFS7eERfUzkMNPFeiFpiTb
+ 3DUCT1eMwZCFSTvbzQkQymFMLXNNvHo0E1GtEq3Xjl8TWIYRRVspuZCODw4lTaZgEGl+
+ zhWO+28tpksTIeocmnQ5/Pbq3TIov4PxEqtoE4F2C0SdCU8A4eTE3rj1wAU4M1Y1C9pF
+ 0w3g==
+X-Gm-Message-State: AOAM532njY/6uu5eKFbXRWgm1wy0/xJCYs3/Y++jcTlRcE7SmDki4KyK
+ itUhKM1ypkCLfQj+aHDFqMc=
+X-Google-Smtp-Source: ABdhPJxKOQeYkDInkuL2V3aQoUYr+kbPVlPeMP9q3jy3Uz4aFJzK9uqk6bnPvR4B9/MbmKkZf/JsPw==
+X-Received: by 2002:a9d:60ca:: with SMTP id b10mr20574176otk.242.1621912847670; 
+ Mon, 24 May 2021 20:20:47 -0700 (PDT)
+Received: from localhost ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id 88sm3481873otb.7.2021.05.24.20.20.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 May 2021 15:48:13 -0700 (PDT)
-Received: (nullmailer pid 1314077 invoked by uid 1000);
- Mon, 24 May 2021 22:48:12 -0000
-Date: Mon, 24 May 2021 17:48:12 -0500
-From: Rob Herring <robh@kernel.org>
-To: Krishna Manikandan <mkrishn@codeaurora.org>
-Message-ID: <20210524224812.GA1314047@robh.at.kernel.org>
-References: <1621856653-10649-1-git-send-email-mkrishn@codeaurora.org>
- <1621856653-10649-2-git-send-email-mkrishn@codeaurora.org>
+ Mon, 24 May 2021 20:20:46 -0700 (PDT)
+From: Guenter Roeck <linux@roeck-us.net>
+To: Rob Clark <robdclark@gmail.com>
+Date: Mon, 24 May 2021 20:20:33 -0700
+Message-Id: <20210525032033.453143-1-linux@roeck-us.net>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1621856653-10649-2-git-send-email-mkrishn@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v18 2/4] dt-bindings: msm: dsi: add yaml
- schemas for DSI bindings
+Subject: [Freedreno] [PATCH] drm/msm/dp: Drop unnecessary NULL checks after
+ container_of
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,89 +66,121 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean@poorly.run, devicetree@vger.kernel.org, tanmay@codeaurora.org,
- vinod.koul@linaro.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- dianders@chromium.org, khsieh@codeaurora.org, robh+dt@kernel.org,
- bjorn.andersson@linaro.org, abhinavk@codeaurora.org, kalyan_t@codeaurora.org,
- swboyd@chromium.org, freedreno@lists.freedesktop.org
+Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org, Guenter Roeck <linux@roeck-us.net>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 24 May 2021 17:14:11 +0530, Krishna Manikandan wrote:
-> Add YAML schema for the device tree bindings for DSI
-> 
-> Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
-> Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-> ---
-> Changes in v1:
->     - Separate dsi controller bindings to a separate patch (Stephen Boyd)
->     - Merge dsi-common-controller.yaml and dsi-controller-main.yaml to
->       a single file (Stephen Boyd)
->     - Drop supply entries and definitions from properties (Stephen Boyd)
->     - Modify phy-names property for dsi controller (Stephen Boyd)
->     - Remove boolean from description (Stephen Boyd)
->     - Drop pinctrl properties as they are standard entries (Stephen Boyd)
->     - Modify the description for ports property and keep the reference
->       to the generic binding where this is defined (Stephen Boyd)
->     - Add description to clock names (Stephen Boyd)
->     - Correct the indendation (Stephen Boyd)
->     - Drop the label for display dt nodes and correct the node
->       name (Stephen Boyd)
-> 
-> Changes in v2:
->     - Drop maxItems for clock (Stephen Boyd)
->     - Drop qcom,mdss-mdp-transfer-time-us as it is not used in upstream
->       dt file (Stephen Boyd)
->     - Keep child node directly under soc node (Stephen Boyd)
->     - Drop qcom,sync-dual-dsi as it is not used in upstream dt
-> 
-> Changes in v3:
->     - Add description for register property (Stephen Boyd)
-> 
-> Changes in v4:
->     - Add maxItems for phys property (Stephen Boyd)
->     - Add maxItems for reg property (Stephen Boyd)
->     - Add reference for data-lanes property (Stephen Boyd)
->     - Remove soc from example (Stephen Boyd)
-> 
-> Changes in v5:
->     - Modify title and description (Stephen Boyd)
->     - Add required properties for ports node (Stephen Boyd)
->     - Add data-lanes in the example (Stephen Boyd)
->     - Drop qcom,master-dsi property (Stephen Boyd)
-> 
-> Changes in v6:
->     - Add required properties for port@0, port@1 and corresponding
->       endpoints (Stephen Boyd)
->     - Add address-cells and size-cells for ports (Stephen Boyd)
->     - Use additionalProperties instead of unevaluatedProperties (Stephen Boyd)
-> 
-> Changes in v7:
->     - Add reference for ports and data-lanes (Rob Herring)
->     - Add maxItems and minItems for data-lanes (Rob Herring)
-> 
-> Changes in v8:
->     - Drop common properties and description from ports (Rob Herring)
->     - Add reference for endpoint (Rob Herring)
->     - Add correct reference for data-lanes (Rob Herring)
->     - Drop common properties from required list for ports (Rob Herring)
-> 
-> Changes in v9:
->     - Drop reference for data-lanes (Rob Herring)
->     - Add unevaluatedProperties for endpoint (Rob Herring)
-> 
->  .../bindings/display/msm/dsi-controller-main.yaml  | 185 +++++++++++++++
->  .../devicetree/bindings/display/msm/dsi.txt        | 249 ---------------------
->  2 files changed, 185 insertions(+), 249 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
->  delete mode 100644 Documentation/devicetree/bindings/display/msm/dsi.txt
-> 
+The result of container_of() operations is never NULL unless the embedded
+element is the first element of the structure. This is not the case here.
+The NULL check on the result of container_of() is therefore unnecessary
+and misleading. Remove it.
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+This change was made automatically with the following Coccinelle script.
+
+@@
+type t;
+identifier v;
+statement s;
+@@
+
+<+...
+(
+  t v = container_of(...);
+|
+  v = container_of(...);
+)
+  ...
+  when != v
+- if (\( !v \| v == NULL \) ) s
+...+>
+
+While at it, remove unused but assigned variable hpd in
+dp_display_usbpd_attention_cb().
+
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 25 -------------------------
+ 1 file changed, 25 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 1784e119269b..a74e7ef96fcf 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -208,10 +208,6 @@ static int dp_display_bind(struct device *dev, struct device *master,
+ 
+ 	dp = container_of(g_dp_display,
+ 			struct dp_display_private, dp_display);
+-	if (!dp) {
+-		DRM_ERROR("DP driver bind failed. Invalid driver data\n");
+-		return -EINVAL;
+-	}
+ 
+ 	dp->dp_display.drm_dev = drm;
+ 	priv = drm->dev_private;
+@@ -252,10 +248,6 @@ static void dp_display_unbind(struct device *dev, struct device *master,
+ 
+ 	dp = container_of(g_dp_display,
+ 			struct dp_display_private, dp_display);
+-	if (!dp) {
+-		DRM_ERROR("Invalid DP driver data\n");
+-		return;
+-	}
+ 
+ 	dp_power_client_deinit(dp->power);
+ 	dp_aux_unregister(dp->aux);
+@@ -406,11 +398,6 @@ static int dp_display_usbpd_configure_cb(struct device *dev)
+ 
+ 	dp = container_of(g_dp_display,
+ 			struct dp_display_private, dp_display);
+-	if (!dp) {
+-		DRM_ERROR("no driver data found\n");
+-		rc = -ENODEV;
+-		goto end;
+-	}
+ 
+ 	dp_display_host_init(dp, false);
+ 
+@@ -437,11 +424,6 @@ static int dp_display_usbpd_disconnect_cb(struct device *dev)
+ 
+ 	dp = container_of(g_dp_display,
+ 			struct dp_display_private, dp_display);
+-	if (!dp) {
+-		DRM_ERROR("no driver data found\n");
+-		rc = -ENODEV;
+-		return rc;
+-	}
+ 
+ 	dp_add_event(dp, EV_USER_NOTIFICATION, false, 0);
+ 
+@@ -502,7 +484,6 @@ static int dp_display_usbpd_attention_cb(struct device *dev)
+ 	int rc = 0;
+ 	u32 sink_request;
+ 	struct dp_display_private *dp;
+-	struct dp_usbpd *hpd;
+ 
+ 	if (!dev) {
+ 		DRM_ERROR("invalid dev\n");
+@@ -511,12 +492,6 @@ static int dp_display_usbpd_attention_cb(struct device *dev)
+ 
+ 	dp = container_of(g_dp_display,
+ 			struct dp_display_private, dp_display);
+-	if (!dp) {
+-		DRM_ERROR("no driver data found\n");
+-		return -ENODEV;
+-	}
+-
+-	hpd = dp->usbpd;
+ 
+ 	/* check for any test request issued by sink */
+ 	rc = dp_link_process_request(dp->link);
+-- 
+2.25.1
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
