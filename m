@@ -1,62 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FA71390786
-	for <lists+freedreno@lfdr.de>; Tue, 25 May 2021 19:25:17 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 28A7D390907
+	for <lists+freedreno@lfdr.de>; Tue, 25 May 2021 20:34:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A5616EA8B;
-	Tue, 25 May 2021 17:25:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B47E26EAA6;
+	Tue, 25 May 2021 18:34:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf2e.google.com (mail-qv1-xf2e.google.com
- [IPv6:2607:f8b0:4864:20::f2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78BF36EA8B
- for <freedreno@lists.freedesktop.org>; Tue, 25 May 2021 17:25:14 +0000 (UTC)
-Received: by mail-qv1-xf2e.google.com with SMTP id ez19so16443523qvb.3
- for <freedreno@lists.freedesktop.org>; Tue, 25 May 2021 10:25:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=0I/7mJjy8fAtyuQW3u9pKYduA4z2KSC8v2zpf0k2q4Q=;
- b=LoEAi62rRu7tHFsRIAnERe0Uo6+lB7bp00VbsoFCad2BNA4J/p4XQRSUgdI2W2YwpI
- BCwReshEWdDvXBR49YxtAe1g92O1OceM2w/LWlaEzlpySS/rDNROaMb5tLKesjeJPP0X
- CNKYpCq57mgvBz5whA92hLzX7uNngLYIcuAIs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=0I/7mJjy8fAtyuQW3u9pKYduA4z2KSC8v2zpf0k2q4Q=;
- b=XeNmLUU4Bx39xKfsDjgfVyP3NSWwSAKgmCz13WAYGlVXSCvJfQ+38iUd+MhEtoF/aB
- qe+3TA2Co+PVFUcqb0i0d8o0bW36iaQwHpFc1coH37ejrHL9iTWftD9EVCpZ0K4qN3yD
- nufCwu/9t8ECB/hDS2NLMaL07KnHl/RjcdgrVV8COgOd8TrG5lx0DPEpVeYLYJKz3Qf+
- OLeurJaHGamhTOClPYf1h6QHcWYCRoTfQDxdiKzWRBDbkXbYaUNIn7LNG/8q2u5jwi76
- qQ54q+axj1PPlB9rLUqHfFX8u5h29MuDuWcqCg8/kPYwy/QUmW5tUZkGq1kYJY9eGtYi
- 8S2w==
-X-Gm-Message-State: AOAM533aZK4Ict+ylnZOBss+Zo3kEhxqoWRysLkhXa75ndrDzqpJi9+/
- LVZDMCTzBzc2Ea5xs5FU+c3J5B4y7j6uZA==
-X-Google-Smtp-Source: ABdhPJxIl6YdZ9h/lZqzdeP/4fvzfy21nXj2UffDryQEB4mKKG9wvF+Is6snbeX39BgkCQwHugX3og==
-X-Received: by 2002:a0c:c184:: with SMTP id n4mr37772676qvh.36.1621963513273; 
- Tue, 25 May 2021 10:25:13 -0700 (PDT)
-Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com.
- [209.85.219.176])
- by smtp.gmail.com with ESMTPSA id o5sm5030041qkl.25.2021.05.25.10.25.13
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 May 2021 10:25:13 -0700 (PDT)
-Received: by mail-yb1-f176.google.com with SMTP id f9so44125331ybo.6
- for <freedreno@lists.freedesktop.org>; Tue, 25 May 2021 10:25:13 -0700 (PDT)
-X-Received: by 2002:a5b:54a:: with SMTP id r10mr44274582ybp.476.1621963168291; 
- Tue, 25 May 2021 10:19:28 -0700 (PDT)
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B7226EAA4
+ for <freedreno@lists.freedesktop.org>; Tue, 25 May 2021 18:34:19 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1621967659; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=wAGWZGwhPHXFsgocMwNQwb25WGwLb6HfTZos1TGO8XI=;
+ b=c98jf0j5GKwN5r0+gUrCm/NBywMBw8QDvvXCpHwq/eEaqAUZFcZcuhBQg/STfe9Cb7GmQutg
+ 719p23yK12zrtkBDFopQmdGhWuFCEpkUUxWMD+oXcQQQ20/JVtmNEYhhm5b06exLrpnYF4J+
+ uiXKc7hdZMRV0m4TSYQzixkUxW8=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
+ 60ad4329c229adfeffc182a8 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 25 May 2021 18:34:17
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 18F3BC43217; Tue, 25 May 2021 18:34:17 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 3242AC4338A;
+ Tue, 25 May 2021 18:34:16 +0000 (UTC)
 MIME-Version: 1.0
-References: <1621927831-29471-1-git-send-email-rajeevny@codeaurora.org>
- <1621927831-29471-5-git-send-email-rajeevny@codeaurora.org>
-In-Reply-To: <1621927831-29471-5-git-send-email-rajeevny@codeaurora.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 25 May 2021 10:19:15 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=X=VtC9EGyxUGptRN1=PcKwyWLEyRfA9J1frTVPCKY68w@mail.gmail.com>
-Message-ID: <CAD=FV=X=VtC9EGyxUGptRN1=PcKwyWLEyRfA9J1frTVPCKY68w@mail.gmail.com>
-To: Rajeev Nandan <rajeevny@codeaurora.org>
-Subject: Re: [Freedreno] [v4 4/4] drm/panel-simple: Add Samsung ATNA33XC20
+Date: Tue, 25 May 2021 11:34:16 -0700
+From: abhinavk@codeaurora.org
+To: Guenter Roeck <linux@roeck-us.net>
+In-Reply-To: <20210525032033.453143-1-linux@roeck-us.net>
+References: <20210525032033.453143-1-linux@roeck-us.net>
+Message-ID: <9bc7ffae7e4b2361be337c96f5524cbe@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Drop unnecessary NULL checks
+ after container_of
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,82 +63,130 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Daniel Thompson <daniel.thompson@linaro.org>,
- mkrishn@codeaurora.org, Lyude Paul <lyude@redhat.com>,
- Sam Ravnborg <sam@ravnborg.org>, Rob Herring <robh@kernel.org>,
- Jani Nikula <jani.nikula@intel.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>, LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Andrzej Hajda <a.hajda@samsung.com>, Rob Clark <robdclark@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>, Sean Paul <seanpaul@chromium.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Kalyan Thota <kalyan_t@codeaurora.org>,
- "Kristian H. Kristensen" <hoegsberg@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>, y@qualcomm.com
-Content-Type: text/plain; charset="us-ascii"
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-
-On Tue, May 25, 2021 at 12:31 AM Rajeev Nandan <rajeevny@codeaurora.org> wrote:
->
-> Add Samsung 13.3" FHD eDP AMOLED panel.
->
-> Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
+On 2021-05-24 20:20, Guenter Roeck wrote:
+> The result of container_of() operations is never NULL unless the 
+> embedded
+> element is the first element of the structure. This is not the case 
+> here.
+> The NULL check on the result of container_of() is therefore unnecessary
+> and misleading. Remove it.
+> 
+> This change was made automatically with the following Coccinelle 
+> script.
+> 
+> @@
+> type t;
+> identifier v;
+> statement s;
+> @@
+> 
+> <+...
+> (
+>   t v = container_of(...);
+> |
+>   v = container_of(...);
+> )
+>   ...
+>   when != v
+> - if (\( !v \| v == NULL \) ) s
+> ...+>
+> 
+> While at it, remove unused but assigned variable hpd in
+> dp_display_usbpd_attention_cb().
+> 
+> Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
 > ---
->
-> Changes in v4:
-> - New
->
->  drivers/gpu/drm/panel/panel-simple.c | 34 ++++++++++++++++++++++++++++++++++
->  1 file changed, 34 insertions(+)
->
-> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-> index caed71b..21af794 100644
-> --- a/drivers/gpu/drm/panel/panel-simple.c
-> +++ b/drivers/gpu/drm/panel/panel-simple.c
-> @@ -3644,6 +3644,37 @@ static const struct panel_desc rocktech_rk101ii01d_ct = {
->         .connector_type = DRM_MODE_CONNECTOR_LVDS,
->  };
->
-> +static const struct drm_display_mode samsung_atna33xc20_mode = {
-> +       .clock = 138770,
-> +       .hdisplay = 1920,
-> +       .hsync_start = 1920 + 48,
-> +       .hsync_end = 1920 + 48 + 32,
-> +       .htotal = 1920 + 48 + 32 + 80,
-> +       .vdisplay = 1080,
-> +       .vsync_start = 1080 + 8,
-> +       .vsync_end = 1080 + 8 + 8,
-> +       .vtotal = 1080 + 8 + 8 + 16,
-> +       .flags = DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_NVSYNC,
-> +};
-> +
-> +static const struct panel_desc samsung_atna33xc20 = {
-> +       .modes = &samsung_atna33xc20_mode,
-> +       .num_modes = 1,
-> +       .bpc = 10,
-> +       .size = {
-> +               .width = 294,
-> +               .height = 165,
-> +       },
-> +       .delay = {
-> +               .disable_to_power_off = 150,
-> +               .power_to_enable = 150,
-> +               .hpd_absent_delay = 200,
-> +               .unprepare = 500,
-> +       },
-> +       .connector_type = DRM_MODE_CONNECTOR_eDP,
-> +       .uses_dpcd_backlight = true,
-
-From my feedback on the previous patch in this series, I believe the
-"uses_dpcd_backlight" property should be removed and this should be
-auto-detected. Other than that this patch looks fine to me. Feel free
-to add my Reviewed-by tag next spin when that property is removed.
+>  drivers/gpu/drm/msm/dp/dp_display.c | 25 -------------------------
+>  1 file changed, 25 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c
+> b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 1784e119269b..a74e7ef96fcf 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -208,10 +208,6 @@ static int dp_display_bind(struct device *dev,
+> struct device *master,
+> 
+>  	dp = container_of(g_dp_display,
+>  			struct dp_display_private, dp_display);
+> -	if (!dp) {
+> -		DRM_ERROR("DP driver bind failed. Invalid driver data\n");
+> -		return -EINVAL;
+> -	}
+> 
+>  	dp->dp_display.drm_dev = drm;
+>  	priv = drm->dev_private;
+> @@ -252,10 +248,6 @@ static void dp_display_unbind(struct device *dev,
+> struct device *master,
+> 
+>  	dp = container_of(g_dp_display,
+>  			struct dp_display_private, dp_display);
+> -	if (!dp) {
+> -		DRM_ERROR("Invalid DP driver data\n");
+> -		return;
+> -	}
+> 
+>  	dp_power_client_deinit(dp->power);
+>  	dp_aux_unregister(dp->aux);
+> @@ -406,11 +398,6 @@ static int dp_display_usbpd_configure_cb(struct
+> device *dev)
+> 
+>  	dp = container_of(g_dp_display,
+>  			struct dp_display_private, dp_display);
+> -	if (!dp) {
+> -		DRM_ERROR("no driver data found\n");
+> -		rc = -ENODEV;
+> -		goto end;
+> -	}
+> 
+>  	dp_display_host_init(dp, false);
+> 
+> @@ -437,11 +424,6 @@ static int dp_display_usbpd_disconnect_cb(struct
+> device *dev)
+> 
+>  	dp = container_of(g_dp_display,
+>  			struct dp_display_private, dp_display);
+> -	if (!dp) {
+> -		DRM_ERROR("no driver data found\n");
+> -		rc = -ENODEV;
+> -		return rc;
+> -	}
+> 
+>  	dp_add_event(dp, EV_USER_NOTIFICATION, false, 0);
+> 
+> @@ -502,7 +484,6 @@ static int dp_display_usbpd_attention_cb(struct 
+> device *dev)
+>  	int rc = 0;
+>  	u32 sink_request;
+>  	struct dp_display_private *dp;
+> -	struct dp_usbpd *hpd;
+> 
+>  	if (!dev) {
+>  		DRM_ERROR("invalid dev\n");
+> @@ -511,12 +492,6 @@ static int dp_display_usbpd_attention_cb(struct
+> device *dev)
+> 
+>  	dp = container_of(g_dp_display,
+>  			struct dp_display_private, dp_display);
+> -	if (!dp) {
+> -		DRM_ERROR("no driver data found\n");
+> -		return -ENODEV;
+> -	}
+> -
+> -	hpd = dp->usbpd;
+> 
+>  	/* check for any test request issued by sink */
+>  	rc = dp_link_process_request(dp->link);
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
