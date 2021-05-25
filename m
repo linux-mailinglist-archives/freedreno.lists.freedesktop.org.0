@@ -2,63 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4050C38FC11
-	for <lists+freedreno@lfdr.de>; Tue, 25 May 2021 10:03:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B15138FFF4
+	for <lists+freedreno@lfdr.de>; Tue, 25 May 2021 13:29:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CDFD8914C;
-	Tue, 25 May 2021 08:03:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17E9B6E0A5;
+	Tue, 25 May 2021 11:29:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8CCC6E9BD
- for <freedreno@lists.freedesktop.org>; Tue, 25 May 2021 08:03:16 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1621929796; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=/kEnPjhJjqrbSkYAOsYKI4/+SBWF5gUGEh00EhIqOGA=;
- b=sG9K/C3Wa3O5bRKu/x0b1dmhPJ3jRPQvVRcKTr4nODxUDSLYv3YEal/akOaRo4TXmr8npzNy
- OeGXjBBzfnZYvGwZ3VcgmW+wpmK+u+4Os9XmUoTvNEVsu7SYzbnHwF8e2dSH7iRaZMid4+vY
- lIzwv+jfS0oBRcmg8HVUeGRiVas=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
- 60acaf3fc229adfeff7afae0 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 25 May 2021 08:03:11
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 2B6F7C4338A; Tue, 25 May 2021 08:03:11 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: rajeevny)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 82687C433D3;
- Tue, 25 May 2021 08:03:08 +0000 (UTC)
+Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
+ [IPv6:2607:f8b0:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F5C76E0A5;
+ Tue, 25 May 2021 11:29:07 +0000 (UTC)
+Received: by mail-ot1-x335.google.com with SMTP id
+ d25-20020a0568300459b02902f886f7dd43so28255793otc.6; 
+ Tue, 25 May 2021 04:29:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=OoShwNufQbQ2PZjqsVFrN16U7busUrI6QbgoEQ1ik9U=;
+ b=UlUxDSew9qGjS82r1rZpuGLDADXC/09HyxIu97KYoTOIhv1pbPIn0xyx/MbrNGxBoy
+ LGfIQeCGjSA9PESwug5um/Fzper9UjbhOUBKUc+aDp7sjNrE9QRBTod2hyOtzPsfrp9K
+ 6oJykwLnNQmoTdInTlFpu90Svej0cJrTYVOxl+kw9HBpLJGSXb/amOcx1MLHSXLIXiUL
+ gIvwbZqRLZNzKdDDngeuMjDarusaqSRk5x1HlmHOcryL+qyDwtuJ2ZGO9JRiJAoHEsKz
+ CO2Xz2bbbgI2tas6F2L9E/iEDlElVsADLALlG1P/R6z7AMxcVV95rfo/tKPUPmjSuar4
+ UG1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+ :mime-version:content-transfer-encoding;
+ bh=OoShwNufQbQ2PZjqsVFrN16U7busUrI6QbgoEQ1ik9U=;
+ b=BefGPFNijpcmm7TY2fwuPmCsB8+JlqD/JUARDXZTdglLVG6F5GL1qTvotEgPiN8/N4
+ VfJua6gkv2OIm+ZsNmHffntd2H5p2eLYmN/fG+UthXZMmoERy0c5b24vU7GrwVi1dijL
+ 1auV4ovL+l0brNdVhPfvGifjL4WZRw2h2rRNcS+y31u+n4mOW6AKs/3uvOuAeeJ9DTzH
+ 5A0v1p/BLsWiCT9d8GYtn6p4qLAIqz5yfLgjDxRcnTmXaqsAK4FmEOPdnIubGCKZjmNn
+ n7mGvYc8YG6gCHxpmGojUXNPkIxPD3R9daH7vXB4oZXHfgemxehB/yidDaUo+xQ2llD8
+ qySw==
+X-Gm-Message-State: AOAM531Ct2eDJeGFhjpWnD429bDj0z8q9ivvLIbDbkXW0Ys7UnN9SS0Y
+ GTnXppsO1KBY1TujmSb0m4V6y46JMu8=
+X-Google-Smtp-Source: ABdhPJweJNrVeu6J02faHo9+lC6+Mm+P38lD8sy+b/xV4p1EN+w+OJfUdWVoLf2jWnnWsFzeqIuA4Q==
+X-Received: by 2002:a05:6830:31a1:: with SMTP id
+ q1mr19611535ots.106.1621942146883; 
+ Tue, 25 May 2021 04:29:06 -0700 (PDT)
+Received: from localhost ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id l20sm3395069oop.3.2021.05.25.04.29.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 25 May 2021 04:29:06 -0700 (PDT)
+From: Guenter Roeck <linux@roeck-us.net>
+To: Rob Clark <robdclark@gmail.com>
+Date: Tue, 25 May 2021 04:29:04 -0700
+Message-Id: <20210525112904.1747066-1-linux@roeck-us.net>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Date: Tue, 25 May 2021 13:33:08 +0530
-From: rajeevny@codeaurora.org
-To: Doug Anderson <dianders@chromium.org>
-In-Reply-To: <CAD=FV=XPDLn187AR06xzChwT1Y0pCeQmRvhO_MjEoMoabXwybg@mail.gmail.com>
-References: <1619416756-3533-1-git-send-email-rajeevny@codeaurora.org>
- <1619416756-3533-2-git-send-email-rajeevny@codeaurora.org>
- <20210429180435.GA1385465@robh.at.kernel.org>
- <CAD=FV=V-kdySH5Pp-Fb-PRYk60Ha_UOTXJHcvMp+uV3P1oo7Uw@mail.gmail.com>
- <78c4bd291bd4a17ae2a1d02d0217de43@codeaurora.org>
- <CAD=FV=XW90L6or8NKA-Rjjp3s3fRno1xSkD+X0PA1rTyeKgpMw@mail.gmail.com>
- <c867b2e59e90899e6c1648e06f5f9cd2@codeaurora.org>
- <CAD=FV=XBb9zs=ZGG-Ky8=_is20L1O6pJ-xBV1k5cF6-vL78pgA@mail.gmail.com>
- <CAD=FV=XPDLn187AR06xzChwT1Y0pCeQmRvhO_MjEoMoabXwybg@mail.gmail.com>
-Message-ID: <3fbad05fd1e944ed3e0d493d1f5470e6@codeaurora.org>
-X-Sender: rajeevny@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [v3 1/2] dt-bindings: backlight: add DisplayPort
- aux backlight
+Subject: [Freedreno] [PATCH] drm/msm/disp/dpu1/dpu_encoder: Drop unnecessary
+ NULL checks after container_of
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,206 +67,74 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, Rob Herring <robh@kernel.org>,
- mkrishn@codeaurora.org, Lyude Paul <lyude@redhat.com>,
- "open list:OPEN FIRMWARE AND FLATTENED
- DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Andrzej Hajda <a.hajda@samsung.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <seanpaul@chromium.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
- Kalyan Thota <kalyan_t@codeaurora.org>, "Kristian H.
- Kristensen" <hoegsberg@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>, "Lankhorst, 
- Maarten" <maarten.lankhorst@intel.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org, Guenter Roeck <linux@roeck-us.net>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+The result of container_of() operations is never NULL unless the embedded
+element is the first element of the structure. This is not the case here.
+The NULL checks on the result of container_of() are therefore unnecessary
+and misleading. Remove them.
 
-On 18-05-2021 01:51, Doug Anderson wrote:
-> Hi,
-> 
-> On Tue, May 11, 2021 at 4:17 PM Doug Anderson <dianders@chromium.org> 
-> wrote:
->> 
->> Hi,
->> 
->> On Tue, May 11, 2021 at 11:12 AM <rajeevny@codeaurora.org> wrote:
->> >
->> > On 01-05-2021 03:08, Doug Anderson wrote:
->> > > Hi,
->> > >
->> > > On Fri, Apr 30, 2021 at 8:10 AM <rajeevny@codeaurora.org> wrote:
->> > >>
->> > >> On 30-04-2021 02:33, Doug Anderson wrote:
->> > >> > Hi,
->> > >> >
->> > >> > On Thu, Apr 29, 2021 at 11:04 AM Rob Herring <robh@kernel.org> wrote:
->> > >> >>
->> > >> >> On Mon, Apr 26, 2021 at 11:29:15AM +0530, Rajeev Nandan wrote:
->> > >> >> > Add bindings for DisplayPort aux backlight driver.
->> > >> >> >
->> > >> >> > Changes in v2:
->> > >> >> > - New
->> > >> >> >
->> > >> >> > Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
->> > >> >> > ---
->> > >> >> >  .../bindings/leds/backlight/dp-aux-backlight.yaml  | 49 ++++++++++++++++++++++
->> > >> >> >  1 file changed, 49 insertions(+)
->> > >> >> >  create mode 100644 Documentation/devicetree/bindings/leds/backlight/dp-aux-backlight.yaml
->> > >> >> >
->> > >> >> > diff --git a/Documentation/devicetree/bindings/leds/backlight/dp-aux-backlight.yaml b/Documentation/devicetree/bindings/leds/backlight/dp-aux-backlight.yaml
->> > >> >> > new file mode 100644
->> > >> >> > index 00000000..0fa8bf0
->> > >> >> > --- /dev/null
->> > >> >> > +++ b/Documentation/devicetree/bindings/leds/backlight/dp-aux-backlight.yaml
->> > >> >> > @@ -0,0 +1,49 @@
->> > >> >> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> > >> >> > +%YAML 1.2
->> > >> >> > +---
->> > >> >> > +$id: http://devicetree.org/schemas/leds/backlight/dp-aux-backlight.yaml#
->> > >> >> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> > >> >> > +
->> > >> >> > +title: DisplayPort aux backlight driver bindings
->> > >> >> > +
->> > >> >> > +maintainers:
->> > >> >> > +  - Rajeev Nandan <rajeevny@codeaurora.org>
->> > >> >> > +
->> > >> >> > +description:
->> > >> >> > +  Backlight driver to control the brightness over DisplayPort aux channel.
->> > >> >> > +
->> > >> >> > +allOf:
->> > >> >> > +  - $ref: common.yaml#
->> > >> >> > +
->> > >> >> > +properties:
->> > >> >> > +  compatible:
->> > >> >> > +    const: dp-aux-backlight
->> > >> >> > +
->> > >> >> > +  ddc-i2c-bus:
->> > >> >> > +    $ref: /schemas/types.yaml#/definitions/phandle
->> > >> >> > +    description:
->> > >> >> > +      A phandle to the system I2C controller connected to the DDC bus used
->> > >> >> > +      for the DisplayPort AUX channel.
->> > >> >> > +
->> > >> >> > +  enable-gpios:
->> > >> >> > +    maxItems: 1
->> > >> >> > +    description: GPIO specifier for backlight enable pin.
->> > >> >> > +
->> > >> >> > +  max-brightness: true
->> > >> >> > +
->> > >> >> > +required:
->> > >> >> > +  - compatible
->> > >> >> > +  - ddc-i2c-bus
->> > >> >> > +
->> > >> >> > +additionalProperties: false
->> > >> >> > +
->> > >> >> > +examples:
->> > >> >> > +  - |
->> > >> >> > +    backlight {
->> > >> >> > +        compatible = "dp-aux-backlight";
->> > >> >> > +        ddc-i2c-bus = <&sn65dsi86_bridge>;
->> > >> >> > +        enable-gpios = <&tlmm 12 GPIO_ACTIVE_HIGH>;
->> > >> >>
->> > >> >> So the DDC bus is connected to a backlight and also a panel? This
->> > >> >> binding is not reflecting the h/w, but rather what you want for some
->> > >> >> driver.
->> > >> >>
->> > >> >> There's only one thing here and that's an eDP panel which supports
->> > >> >> backlight control via DP aux channel. You can figure all that out from
->> > >> >> the panel's compatible and/or reading the EDID.
->> > >> >>
->> > >> >> You might also be interested in this thread:
->> > >> >>
->> > >> >> https://lore.kernel.org/lkml/YIKsDtjcIHGNvW0u@orome.fritz.box/
->> > >> >
->> > >> > I think Rajeev needs to rework everything anyway as per:
->> > >> >
->> > >> > https://lore.kernel.org/r/87zgxl5qar.fsf@intel.com
->> > >> >
->> > >> > ...but you're right that it makes sense not to model the backlight as
->> > >> > a separate node in the device tree. The panel driver can handle
->> > >> > setting up the backlight.
->> > >> >
->> > >> > -Doug
->> > >>
->> > >> It was not a good idea to create a separate backlight driver and use
->> > >> ddc-i2c-bus to get access to DP aux. I am working to move the code
->> > >> to the panel driver and to utilize the new DRM helper functions
->> > >> (drm_edp_backlight_*) Lyude has added [1].
->> > >>
->> > >> To use these helper functions, the panel driver should have access to
->> > >> the
->> > >> "struct drm_dp_aux *". The simple-panel has a "ddc-i2c-bus" property
->> > >> to give the panel access to the DDC bus and is currently being used to
->> > >> get the EDID from the panel. Can I use the same ddc bus i2c_adapter to
->> > >> get
->> > >> the "struct drm_dp_aux *"?
->> > >>
->> > >> As per the suggestion [2], I get the "struct drm_dp_aux *" from the
->> > >> i2c_adapter of ddc bus (maybe I didn't understand the suggestion
->> > >> correctly),
->> > >> and, it turned out, the way I have implemented is not the right way
->> > >> [3].
->> > >> So, I am afraid to use the same method in the panel driver.
->> > >>
->> > >>
->> > >> [1] https://lore.kernel.org/dri-devel/871rb5bcf9.fsf@intel.com/
->> > >> [2] https://www.spinics.net/lists/dri-devel/msg295429.html
->> > >> [3]
->> > >> https://lore.kernel.org/dri-devel/20210426111116.4lc3ekxjugjr3oho@maple.lan/
->> > >
->> > > So it's definitely up to maintainers, not me. ...but I guess I would
->> > > have expected something like a new property called "ddc-aux-bus". Then
->> > > you'd have to create a new API call called something like
->> > > "of_find_ddc_aux_adapter_by_node()" that would allow you to find it.
->> > >
->> >
->> > To implement the first suggestion, I can think of the following way
->> > to get the "struct drm_dp_aux" in the panel_simple_probe function:
->> >
->> > - Create a new panel-simple DT property "ddc-aux-bus", a phandle to the
->> > platform device that implements the AUX channel.
->> >
->> > - Create a global list of drm_dp_aux in drm_dp_helper.c. Initialize list
->> > head
->> > in drm_dp_aux_init(), add the drm_dp_aux onto the list in
->> > drm_dp_aux_register().
->> > Similarly, remove the drm_dp_aux from list in drm_dp_aux_unregister().
->> >
->> > - Create a new function of_drm_find_dp_aux_by_node() to get the expected
->> > drm_dp_aux from this global list.
->> >
->> > Please let me know your views on this implementation.
->> 
->> BTW: a bunch of discussion today on IRC:
->> 
->> https://people.freedesktop.org/~cbrill/dri-log/?channel=dri-devel&highlight_names=&date=2021-05-11&show_html=true
-> 
-> To finish adding breadcrumbs to those playing at home, v7 of my patch
-> series should get the AUX channel to the panel device:
-> 
-> https://lore.kernel.org/r/20210517200907.1459182-1-dianders@chromium.org/
-> 
-> Assuming that people don't hate that solution it may be a good things
-> for you to build your patches atop. :-)
-> 
-> -Doug
+This change was made automatically with the following Coccinelle script.
 
-Thank you, for all your suggestions.
+@@
+type t;
+identifier v;
+statement s;
+@@
 
-I have posted the new patch series (v4) on top of the above series. 
-Please check:
-https://lore.kernel.org/dri-devel/1621927831-29471-1-git-send-email-rajeevny@codeaurora.org/
+<+...
+(
+  t v = container_of(...);
+|
+  v = container_of(...);
+)
+  ...
+  when != v
+- if (\( !v \| v == NULL \) ) s
+...+>
 
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 10 ----------
+ 1 file changed, 10 deletions(-)
 
-Thanks,
-Rajeev
-
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 8d942052db8a..a573fe211375 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -1453,11 +1453,6 @@ static void dpu_encoder_off_work(struct work_struct *work)
+ 	struct dpu_encoder_virt *dpu_enc = container_of(work,
+ 			struct dpu_encoder_virt, delayed_off_work.work);
+ 
+-	if (!dpu_enc) {
+-		DPU_ERROR("invalid dpu encoder\n");
+-		return;
+-	}
+-
+ 	dpu_encoder_resource_control(&dpu_enc->base,
+ 						DPU_ENC_RC_EVENT_ENTER_IDLE);
+ 
+@@ -1797,11 +1792,6 @@ static void dpu_encoder_vsync_event_work_handler(struct kthread_work *work)
+ 			struct dpu_encoder_virt, vsync_event_work);
+ 	ktime_t wakeup_time;
+ 
+-	if (!dpu_enc) {
+-		DPU_ERROR("invalid dpu encoder\n");
+-		return;
+-	}
+-
+ 	if (dpu_encoder_vsync_time(&dpu_enc->base, &wakeup_time))
+ 		return;
+ 
+-- 
+2.25.1
 
 _______________________________________________
 Freedreno mailing list
