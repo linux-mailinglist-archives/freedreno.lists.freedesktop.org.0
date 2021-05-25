@@ -2,62 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E01A390672
-	for <lists+freedreno@lfdr.de>; Tue, 25 May 2021 18:18:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECB8D39073C
+	for <lists+freedreno@lfdr.de>; Tue, 25 May 2021 19:14:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D24BE6E250;
-	Tue, 25 May 2021 16:18:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97AC66EA82;
+	Tue, 25 May 2021 17:14:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
- [IPv6:2607:f8b0:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A76C898FA
- for <freedreno@lists.freedesktop.org>; Tue, 25 May 2021 16:18:11 +0000 (UTC)
-Received: by mail-ot1-x332.google.com with SMTP id
- i14-20020a9d624e0000b029033683c71999so17945961otk.5
- for <freedreno@lists.freedesktop.org>; Tue, 25 May 2021 09:18:11 -0700 (PDT)
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15F9C6EA82
+ for <freedreno@lists.freedesktop.org>; Tue, 25 May 2021 17:14:49 +0000 (UTC)
+Received: by mail-oi1-x22d.google.com with SMTP id x15so30914771oic.13
+ for <freedreno@lists.freedesktop.org>; Tue, 25 May 2021 10:14:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=ucrlaXMhJuqZbdL/Kh7Imph/3ZSj2r6db/bMXL/uHzE=;
- b=oRXR+DbpUeQHbBYujjL4GoV6YZPeae9xH+ys4WbWsiYr23JkVyjc/NE19xWDL5uIMR
- r8yvvZ3EAB5E5vSsqw4SId7PfxZkau8VWf6Lt+40Kj1+/lQTX+9+++XfpquLePRRkIo+
- Pff8XYy4T55K3SdNaOiNm6A7r7nof9d+zFrOjVFL/JoxnL0U4QEaB+Q3wQbsss+ze/Qa
- Xa8gky55+s0V2AE2dqdy3JN49OXS76hmXhoBjHex/EynjqI2DCJpCg27zwNsFiYISS/I
- k3YTEPkPI5mz63gWYtcdWbizebVGGbw6PCNRzcabU+17vS7Rd4FmGnSh6HocFOXZRUk3
- /a9Q==
+ bh=UMrYaCknsZ9gnGhoqmMmsH4nd1WboOXoSjeEdSMCQs4=;
+ b=ftfvDnRgHPDxriwA4tTcY2o2Q4HsZfPdEYMzQhs5uEikNq96E+dPdgNRChF4bAJ7lt
+ gIZJsUoyDg5kzVVfcW2SAZuHlzA2ywibrKjRLmb1/BJdvUzqdxzT+2CUnXkbXHJWEHH7
+ xB0fROhXCehX/NqjeOxfHiIwitidswNG9G18cbEMpRk/dFgWYqoeL8lRFhLF/Sy38qjF
+ VnZUXQINZKODxvW+VS0gVlR+bGHqfQ4YTKqKrttoa5AhlS/96lVwJ+vjhv8+UfEM9Byi
+ fAKYtSxb33+8phZntntIEGv3m44TDaSOfy8Kck0m5A1MWRYVpOdTmq8vbPJkP6OfQwYd
+ Ztnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=ucrlaXMhJuqZbdL/Kh7Imph/3ZSj2r6db/bMXL/uHzE=;
- b=I9D+G4tS2HTa270oE1YGuL3Ns9T+XBL5DuDmzu7tbxTS1AyoQ6QDvyedeMoqHas46K
- srtF5Yh+KSEP8qU2h+D1ooXuNoo0+9Avt6O0efOjgIX49TGQHe5+gtI7EuSLfqUzt8A/
- hqztCF0ifsUpOCOXTax7aECpJbm42KAXh1LiywFmnYzmH6THmBHfiz4yNhjeh+QfXzgc
- a/VSVmqeWKKqoz2hzyZn9f5gnblwIa27JQjVriMJoYB/Go8tujkhVRmxvJHh5xCC5mRs
- Y+j3rLUH+z4KIGJ3kL5aQU0yXuPSmntJ+N9mdeqUnvvAce4ctKbwpvuNpoaWUJAXtZFF
- 6aSA==
-X-Gm-Message-State: AOAM5306M6mU4YKpaCbGXtJm7XL6UI54LmRZOL0zB6CvmCTxYWUoiwA7
- YvLBA2TjBPe3J4GQBFUIgCRKcQ==
-X-Google-Smtp-Source: ABdhPJxH4CMEN9KNuMJn0Pyz88KKt0ddlyzym/HaVnNJgh6NHsL6BFT4WGnckaqjEc+ROjW40dJPgQ==
-X-Received: by 2002:a05:6830:11d7:: with SMTP id
- v23mr16491372otq.44.1621959490556; 
- Tue, 25 May 2021 09:18:10 -0700 (PDT)
+ bh=UMrYaCknsZ9gnGhoqmMmsH4nd1WboOXoSjeEdSMCQs4=;
+ b=ipddeY1QC4ZyTyDFRziXYgFWR4Eofaks5MNdyPeujzRV3Gmak7Ds+tI2pav4n69lG0
+ vM7xzxSgSumGM5ZDrHyychd6/p3cDVvYwNvvJQhKkM/n2l+aXHX6Q82JHSaUYxbQFL8K
+ D93+KQwV/KJKR7cg40SotX9et3rThfevDvS69Jaq93h4OiBeccvNGtIprBxWgtJm+3NI
+ 0URoN/51Wy32tquQoFPhEP2K+4Mq0WWcvB8CPiMJseyCgnUxDyxzMWpOcRvwFYTz9yDG
+ KVEKHTjesKoIKkRiJ6HNYAUxOuVdlQKv1BgdLOVoiody8OkWNI6MBCitkklGM2bWmcqU
+ q8mA==
+X-Gm-Message-State: AOAM531r2cJW9Ool//uJUot8YR09BPpewCZMqfDXHS6d90aYH7J5vkmw
+ ecBIdqRvD1ehgUWE3I+xXhqe/Q==
+X-Google-Smtp-Source: ABdhPJwoxAXZyJQSiKouIg7L2awZGjV7IjT/50t/5yu17UNzRYnH2+hZ+ySLcF1jiFYUIX2Jlb3jGg==
+X-Received: by 2002:aca:30cd:: with SMTP id w196mr3505764oiw.167.1621962888344; 
+ Tue, 25 May 2021 10:14:48 -0700 (PDT)
 Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
  [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id u201sm3287736oia.10.2021.05.25.09.18.09
+ by smtp.gmail.com with ESMTPSA id m66sm2805314oia.28.2021.05.25.10.14.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 May 2021 09:18:10 -0700 (PDT)
-Date: Tue, 25 May 2021 11:18:08 -0500
+ Tue, 25 May 2021 10:14:47 -0700 (PDT)
+Date: Tue, 25 May 2021 12:14:45 -0500
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <YK0jQM4AMmBHbUD2@builder.lan>
-References: <20210525112904.1747066-1-linux@roeck-us.net>
+To: Will Deacon <will@kernel.org>
+Message-ID: <YK0whQrWpehkxTrL@builder.lan>
+References: <20210326231303.3071950-1-eric@anholt.net>
+ <20210329144729.GB4203@willie-the-truck>
+ <CAF6AEGugpEk396DVtWX=W+uf3p-wcgBfCSpSLWGQJE1vKpJ4aw@mail.gmail.com>
+ <20210330093432.GB5281@willie-the-truck>
+ <CAF6AEGvCCWvmRBhzY4MsdzgwfJ+GF2AUOS-_NTyhM8wtnDzY2Q@mail.gmail.com>
+ <20210330153050.GB6567@willie-the-truck>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210525112904.1747066-1-linux@roeck-us.net>
-Subject: Re: [Freedreno] [PATCH] drm/msm/disp/dpu1/dpu_encoder: Drop
- unnecessary NULL checks after container_of
+In-Reply-To: <20210330153050.GB6567@willie-the-truck>
+Subject: Re: [Freedreno] [PATCH 1/2] iommu/arm-smmu-qcom: Skip the TTBR1
+ quirk for db820c.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,80 +73,64 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, freedreno <freedreno@lists.freedesktop.org>,
+ Joerg Roedel <joro@8bytes.org>, Jordan Crouse <jcrouse@codeaurora.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Eric Anholt <eric@anholt.net>, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>, Robin Murphy <robin.murphy@arm.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue 25 May 06:29 CDT 2021, Guenter Roeck wrote:
+On Tue 30 Mar 10:31 CDT 2021, Will Deacon wrote:
 
-> The result of container_of() operations is never NULL unless the embedded
-> element is the first element of the structure. This is not the case here.
-> The NULL checks on the result of container_of() are therefore unnecessary
-> and misleading. Remove them.
+> On Tue, Mar 30, 2021 at 08:03:36AM -0700, Rob Clark wrote:
+> > On Tue, Mar 30, 2021 at 2:34 AM Will Deacon <will@kernel.org> wrote:
+> > >
+> > > On Mon, Mar 29, 2021 at 09:02:50PM -0700, Rob Clark wrote:
+> > > > On Mon, Mar 29, 2021 at 7:47 AM Will Deacon <will@kernel.org> wrote:
+> > > > >
+> > > > > On Fri, Mar 26, 2021 at 04:13:02PM -0700, Eric Anholt wrote:
+> > > > > > db820c wants to use the qcom smmu path to get HUPCF set (which keeps
+> > > > > > the GPU from wedging and then sometimes wedging the kernel after a
+> > > > > > page fault), but it doesn't have separate pagetables support yet in
+> > > > > > drm/msm so we can't go all the way to the TTBR1 path.
+> > > > >
+> > > > > What do you mean by "doesn't have separate pagetables support yet"? The
+> > > > > compatible string doesn't feel like the right way to determine this.
+> > > >
+> > > > the compatible string identifies what it is, not what the sw
+> > > > limitations are, so in that regard it seems right to me..
+> > >
+> > > Well it depends on what "doesn't have separate pagetables support yet"
+> > > means. I can't tell if it's a hardware issue, a firmware issue or a driver
+> > > issue.
+> > 
+> > Just a driver issue (and the fact that currently we don't have
+> > physical access to a device... debugging a5xx per-process-pgtables by
+> > pushing untested things to the CI farm is kind of a difficult way to
+> > work)
 > 
-> This change was made automatically with the following Coccinelle script.
-> 
-> @@
-> type t;
-> identifier v;
-> statement s;
-> @@
-> 
-> <+...
-> (
->   t v = container_of(...);
-> |
->   v = container_of(...);
-> )
->   ...
->   when != v
-> - if (\( !v \| v == NULL \) ) s
-> ...+>
+> But then in that case, this is using the compatible string to identify a
+> driver issue, no?
 > 
 
-Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+No the compatible addition identifies the hardware, the implementation
+then uses this information to know that it needs to behave "differently"
+on this platform.
 
-> Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 10 ----------
->  1 file changed, 10 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 8d942052db8a..a573fe211375 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -1453,11 +1453,6 @@ static void dpu_encoder_off_work(struct work_struct *work)
->  	struct dpu_encoder_virt *dpu_enc = container_of(work,
->  			struct dpu_encoder_virt, delayed_off_work.work);
->  
-> -	if (!dpu_enc) {
-> -		DPU_ERROR("invalid dpu encoder\n");
-> -		return;
-> -	}
-> -
->  	dpu_encoder_resource_control(&dpu_enc->base,
->  						DPU_ENC_RC_EVENT_ENTER_IDLE);
->  
-> @@ -1797,11 +1792,6 @@ static void dpu_encoder_vsync_event_work_handler(struct kthread_work *work)
->  			struct dpu_encoder_virt, vsync_event_work);
->  	ktime_t wakeup_time;
->  
-> -	if (!dpu_enc) {
-> -		DPU_ERROR("invalid dpu encoder\n");
-> -		return;
-> -	}
-> -
->  	if (dpu_encoder_vsync_time(&dpu_enc->base, &wakeup_time))
->  		return;
->  
-> -- 
-> 2.25.1
-> 
+When/if someone decides to add the necessary support in the driver they
+can remove the driver quirk, but it doesn't invalidate the specific
+compatible.
+
+Regards,
+Bjorn
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
