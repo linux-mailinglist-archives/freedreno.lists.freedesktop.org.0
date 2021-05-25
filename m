@@ -1,62 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D6833901DB
-	for <lists+freedreno@lfdr.de>; Tue, 25 May 2021 15:13:24 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AF763901E2
+	for <lists+freedreno@lfdr.de>; Tue, 25 May 2021 15:13:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB8F36EA1E;
-	Tue, 25 May 2021 13:13:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F6226EA12;
+	Tue, 25 May 2021 13:13:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C07A89EBD
- for <freedreno@lists.freedesktop.org>; Tue, 25 May 2021 13:13:21 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id i22so45786053lfl.10
- for <freedreno@lists.freedesktop.org>; Tue, 25 May 2021 06:13:21 -0700 (PDT)
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [IPv6:2a00:1450:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32FF86EA1E
+ for <freedreno@lists.freedesktop.org>; Tue, 25 May 2021 13:13:22 +0000 (UTC)
+Received: by mail-lj1-x229.google.com with SMTP id a4so23242617ljd.5
+ for <freedreno@lists.freedesktop.org>; Tue, 25 May 2021 06:13:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=HxICzGGN4fuXTc0Zj3Y27W3FaudSqWT627W4/GXnsjo=;
- b=fKXCubLdDGDtY81Iade17LUJ6X87IalYN5PCyrn0cItiZkBSJnsDTMBMjf0Sl1hOnK
- GCDSx4LJB/wW3G69RR8XBj3jqCg7Csq8tm5zhD1ysOI2Qy1c4BBwTd5I/fK5esofodE9
- BoAeBu4HIxuvtdvS4px6oisjq1snVv+iAYMplvBlMsUYUDQpAASavr+Cdol5Ia5pMkPM
- nQdrwQrMHWzf27t+8tJEfXyyxvRr1tmc+X58pEHCVEcjrlDI3pdaau+OKZMMzzBUlXW6
- q51AWz0MSIiKHlUE21I29ouvaH6sEwJAkwCpOuKRSOO1X1XIx/+WB3k6gytx+YD87Aek
- RYDg==
+ bh=gpuqQrkSszYjpRL6dWUYSBVUoBVLpy578W8ZqjiamV8=;
+ b=TGTDA0LY6Rac9WrS1gx9qGXob8SCe4/HQn3VIWjT7j3etrTQR28E4ckeXbh9yFwIrT
+ uDLR9OvvL1JEQQfKlAd0QD9g1dV1N3oqRg6vfJJiyzdk/ntW2JnJ6RwpDBXZqLdPCMGP
+ Cf1schqs1AaxJJ+1CUd1So/GwaYqV4VuAwjBdDAbazMlMNYFXBPqXoG49ZYI3XoNxlbu
+ SFw1SornWFEOW76OxnOK+Relb6GWPeqvRIuNVGptgHUqLClVeq2Q+7Q/0p0f+heR+2hW
+ 4Tkd4DDlPCBItQqr/eRae/SneOrdeZfQEXD4Fnc+XrTSsam4FWUDYxo1qeb5BFLcRznH
+ 8bCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=HxICzGGN4fuXTc0Zj3Y27W3FaudSqWT627W4/GXnsjo=;
- b=hJqSQz1HYQg4FXmakLoPYDGGI3N86K0setF39tIVJcZ8QPp2VMwfHif7GQy+nMFWW0
- da/piGwtES6kSLrrph3m2viF0VMoRGwpp/D0EogttnxGk4USfhxJtuWq/d6qFGJFVU5e
- SU71fZkUo56E3Se/OCYVAz0zDpSdYW0PsNzCE7PXWWG8TAtJtZA00wtgxHKjyvYPPYPU
- gbQ05X3NXh8mzo8PQHTNAryTaprmZDiFd8f7SDj8mlTnSGg2Z7sVjDBTHah4Nvjg2LNQ
- 7xpEzLUNoFZGY3DdNQYqzudwkRr619f+OvLg5YAnsd55EWBSxq0bqDpqffmP0C37bN6V
- UWPA==
-X-Gm-Message-State: AOAM531OwgOVZNtESjU0LnlShVKc3PD7K6PqTtqPFFoTktRawj9yiy+A
- J6eZ8TbLWwcKWyOA4uCX4WkpfQ==
-X-Google-Smtp-Source: ABdhPJxxNGJI+xDegeeXxQC9tCKUVa/Epay1ErC+mkYWXHqe25FEoCKZ28JgkhLFFWtgfJixa2MdUQ==
-X-Received: by 2002:ac2:4211:: with SMTP id y17mr13176558lfh.607.1621948399749; 
- Tue, 25 May 2021 06:13:19 -0700 (PDT)
+ bh=gpuqQrkSszYjpRL6dWUYSBVUoBVLpy578W8ZqjiamV8=;
+ b=UrwN2qyRU58yz6JR6srDD1XjxRa+MiMxBW8jZenBgyUA//nm3PTDl7jI/tJMtFqny5
+ 8Dl4zF7eVofqAQgWbGHjbAKpFDJF4R1cLHSNdrkizk0LT0JwflWPKxz8P61rnbl3OaAy
+ 2FEe4XaXCSuRumPc73ZCV5zZB4upU8HHxjdsidIC5iE1mtCcEzQuJSi3o9f71TeM3V1w
+ nu599JrIYQYZXUuHOjrSu/fzZKl39Vuqt8YMBj3eM1qJ8ncYcwxVrp8vtfv5omHx+v3A
+ +ZYrOIFUfyO8iWj+4zMKxPzrvIS6+nGzME9ccAmJPUDwDE8uLCbKzYJzXB1e+aTWYOJ2
+ /vlg==
+X-Gm-Message-State: AOAM533Dmc/g5UnSZjgIUpgfm8vRXMWcEcR1gucUlWGwjfYPWmZM8/2q
+ hUyTSTuVXsFvX0w/jl4kFov/og==
+X-Google-Smtp-Source: ABdhPJylU5OL91/hgVLeXN67BlbSWcIeBx4Ab3nhTByBqSheAPVqNIRxKvzQRct4Owc9YL6cejegbw==
+X-Received: by 2002:a2e:a554:: with SMTP id e20mr20270267ljn.23.1621948400405; 
+ Tue, 25 May 2021 06:13:20 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id t20sm2101108lji.53.2021.05.25.06.13.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 May 2021 06:13:19 -0700 (PDT)
+ Tue, 25 May 2021 06:13:20 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <abhinavk@codeaurora.org>
-Date: Tue, 25 May 2021 16:13:11 +0300
-Message-Id: <20210525131316.3117809-3-dmitry.baryshkov@linaro.org>
+Date: Tue, 25 May 2021 16:13:12 +0300
+Message-Id: <20210525131316.3117809-4-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210525131316.3117809-1-dmitry.baryshkov@linaro.org>
 References: <20210525131316.3117809-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 2/7] drm/msm/mdp5: use drm_plane_state for
- storing alpha value
+Subject: [Freedreno] [PATCH 3/7] drm/msm/mdp5: use drm_plane_state for pixel
+ blend mode
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,64 +78,75 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Use drm_plane_state's 'alpha' field rather than adding extra 'alpha'
-field to mdp5_plane_state.
+Use drm_plane_state's 'pixel_blend_mode' field rather than using
+'premultiplied' field to mdp5_plane_state.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c  | 4 ++--
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c  | 6 ++++--
  drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h   | 1 -
- drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c | 3 +--
- 3 files changed, 3 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c | 5 +----
+ 3 files changed, 5 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
-index f5d71b274079..b98d5abafd1f 100644
+index b98d5abafd1f..ed4d91420417 100644
 --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
 +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
-@@ -291,8 +291,8 @@ static void blend_setup(struct drm_crtc *crtc)
- 		plane = pstates[i]->base.plane;
- 		blend_op = MDP5_LM_BLEND_OP_MODE_FG_ALPHA(FG_CONST) |
- 			MDP5_LM_BLEND_OP_MODE_BG_ALPHA(BG_CONST);
--		fg_alpha = pstates[i]->alpha;
--		bg_alpha = 0xFF - pstates[i]->alpha;
-+		fg_alpha = pstates[i]->base.alpha >> 8;
-+		bg_alpha = 0xFF - fg_alpha;
+@@ -301,7 +301,8 @@ static void blend_setup(struct drm_crtc *crtc)
  
- 		if (!format->alpha_enable && bg_alpha_enabled)
- 			mixer_op_mode = 0;
+ 		DBG("Stage %d fg_alpha %x bg_alpha %x", i, fg_alpha, bg_alpha);
+ 
+-		if (format->alpha_enable && pstates[i]->premultiplied) {
++		if (format->alpha_enable &&
++		    pstates[i]->base.pixel_blend_mode == DRM_MODE_BLEND_PREMULTI) {
+ 			blend_op = MDP5_LM_BLEND_OP_MODE_FG_ALPHA(FG_CONST) |
+ 				MDP5_LM_BLEND_OP_MODE_BG_ALPHA(FG_PIXEL);
+ 			if (fg_alpha != 0xff) {
+@@ -312,7 +313,8 @@ static void blend_setup(struct drm_crtc *crtc)
+ 			} else {
+ 				blend_op |= MDP5_LM_BLEND_OP_MODE_BG_INV_ALPHA;
+ 			}
+-		} else if (format->alpha_enable) {
++		} else if (format->alpha_enable &&
++			   pstates[i]->base.pixel_blend_mode == DRM_MODE_BLEND_COVERAGE) {
+ 			blend_op = MDP5_LM_BLEND_OP_MODE_FG_ALPHA(FG_PIXEL) |
+ 				MDP5_LM_BLEND_OP_MODE_BG_ALPHA(FG_PIXEL);
+ 			if (fg_alpha != 0xff) {
 diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h
-index 128866742593..d7e04e99fb4e 100644
+index d7e04e99fb4e..d124c9bcdc60 100644
 --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h
 +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h
-@@ -101,7 +101,6 @@ struct mdp5_plane_state {
+@@ -99,7 +99,6 @@ struct mdp5_plane_state {
+ 	struct mdp5_hw_pipe *r_hwpipe;	/* right hwpipe */
+ 
  	/* aligned with property */
- 	uint8_t premultiplied;
+-	uint8_t premultiplied;
  	uint8_t zpos;
--	uint8_t alpha;
  
  	/* assigned by crtc blender */
- 	enum mdp_mixer_stage_id stage;
 diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-index 8c29026d770d..0fd1d10352aa 100644
+index 0fd1d10352aa..90cd825df16b 100644
 --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
 +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-@@ -168,7 +168,7 @@ mdp5_plane_atomic_print_state(struct drm_printer *p,
+@@ -166,7 +166,7 @@ mdp5_plane_atomic_print_state(struct drm_printer *p,
+ 		drm_printf(p, "\tright-hwpipe=%s\n",
+ 			   pstate->r_hwpipe ? pstate->r_hwpipe->name :
  					      "(null)");
- 	drm_printf(p, "\tpremultiplied=%u\n", pstate->premultiplied);
+-	drm_printf(p, "\tpremultiplied=%u\n", pstate->premultiplied);
++	drm_printf(p, "\tblend_mode=%u\n", pstate->base.pixel_blend_mode);
  	drm_printf(p, "\tzpos=%u\n", pstate->zpos);
--	drm_printf(p, "\talpha=%u\n", pstate->alpha);
-+	drm_printf(p, "\talpha=%u\n", pstate->base.alpha);
+ 	drm_printf(p, "\talpha=%u\n", pstate->base.alpha);
  	drm_printf(p, "\tstage=%s\n", stage2name(pstate->stage));
- }
- 
-@@ -183,7 +183,6 @@ static void mdp5_plane_reset(struct drm_plane *plane)
+@@ -182,9 +182,6 @@ static void mdp5_plane_reset(struct drm_plane *plane)
+ 	kfree(to_mdp5_plane_state(plane->state));
  	mdp5_state = kzalloc(sizeof(*mdp5_state), GFP_KERNEL);
  
- 	/* assign default blend parameters */
--	mdp5_state->alpha = 255;
- 	mdp5_state->premultiplied = 0;
- 
+-	/* assign default blend parameters */
+-	mdp5_state->premultiplied = 0;
+-
  	if (plane->type == DRM_PLANE_TYPE_PRIMARY)
+ 		mdp5_state->zpos = STAGE_BASE;
+ 	else
 -- 
 2.30.2
 
