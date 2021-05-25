@@ -1,66 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 068D1390784
-	for <lists+freedreno@lfdr.de>; Tue, 25 May 2021 19:24:58 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FA71390786
+	for <lists+freedreno@lfdr.de>; Tue, 25 May 2021 19:25:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A76636EA8B;
-	Tue, 25 May 2021 17:24:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A5616EA8B;
+	Tue, 25 May 2021 17:25:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
- [IPv6:2607:f8b0:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E057B6EA8B
- for <freedreno@lists.freedesktop.org>; Tue, 25 May 2021 17:24:54 +0000 (UTC)
-Received: by mail-ot1-x336.google.com with SMTP id
- i23-20020a9d68d70000b02902dc19ed4c15so29388831oto.0
- for <freedreno@lists.freedesktop.org>; Tue, 25 May 2021 10:24:54 -0700 (PDT)
+Received: from mail-qv1-xf2e.google.com (mail-qv1-xf2e.google.com
+ [IPv6:2607:f8b0:4864:20::f2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78BF36EA8B
+ for <freedreno@lists.freedesktop.org>; Tue, 25 May 2021 17:25:14 +0000 (UTC)
+Received: by mail-qv1-xf2e.google.com with SMTP id ez19so16443523qvb.3
+ for <freedreno@lists.freedesktop.org>; Tue, 25 May 2021 10:25:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=RR4xoh8acB29qJPitkb2wSC7JB6AOVStGTvrt20hM8M=;
- b=X4X35sDWeBb8yjiu2wga4t0uG2LuMIKkR8vb8537T25TUdcZecYeNPM+6j92rt10Bj
- kHoZFMq36Kj+yuWTRdctsxqVOXm5jSQV06MN7AA6b5TdV4lu9ux13Zt6d27g5NELi5p4
- kOFjT2uI16WjvUGvOa6UOUGhDbfW/1ZaPBYlQ=
+ :cc; bh=0I/7mJjy8fAtyuQW3u9pKYduA4z2KSC8v2zpf0k2q4Q=;
+ b=LoEAi62rRu7tHFsRIAnERe0Uo6+lB7bp00VbsoFCad2BNA4J/p4XQRSUgdI2W2YwpI
+ BCwReshEWdDvXBR49YxtAe1g92O1OceM2w/LWlaEzlpySS/rDNROaMb5tLKesjeJPP0X
+ CNKYpCq57mgvBz5whA92hLzX7uNngLYIcuAIs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=RR4xoh8acB29qJPitkb2wSC7JB6AOVStGTvrt20hM8M=;
- b=qnn95UFUqsgoza1epSqRvxA9X3d0kf55hDT53ZGDCyt9VQ9GfTzSpCGIJgq2QZ3SMR
- kb5wBjiYLJ7ZzdX62qh5LPHSmIULhiPkhv6mAhpysmX5kP367ClHDlXZulxyNwZqkF+v
- RmK3nwr9759NcHEC97B2ikO+WQ5uMMHocEBYeukitdjY6cRbWxwBXozj91osod2lwWvc
- DDLTS7VK+veTdfBKAJmXB+ZN1RHlxutWqaPCOkO5X1lXgHuyIsM1yf27w5kQySdojPZ4
- /6xBdkZIU8GcE/fkoOP/k3SbpyGPvoMLshU/JcIVKqx9V6TWisxbzxa4V2tGaCmuIQ3i
- Yu8w==
-X-Gm-Message-State: AOAM532xIsRdd1iwI2Ewtb4pu05BhQWBECeZIEp4R9iLoonaBKEEM9zy
- plyQa0P6Tj4s2XLsPpPk4g9ELb+KHDPXNA==
-X-Google-Smtp-Source: ABdhPJz25sznuHwM750ZOMInd9TNzhmCpQiL2EOaMNN4uhQD9wXkJeyb2rdCwUWRPorBwJni6+scjg==
-X-Received: by 2002:a05:6830:1e70:: with SMTP id
- m16mr23869778otr.340.1621963494081; 
- Tue, 25 May 2021 10:24:54 -0700 (PDT)
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com.
- [209.85.161.42])
- by smtp.gmail.com with ESMTPSA id a18sm3135714oiy.24.2021.05.25.10.24.53
+ bh=0I/7mJjy8fAtyuQW3u9pKYduA4z2KSC8v2zpf0k2q4Q=;
+ b=XeNmLUU4Bx39xKfsDjgfVyP3NSWwSAKgmCz13WAYGlVXSCvJfQ+38iUd+MhEtoF/aB
+ qe+3TA2Co+PVFUcqb0i0d8o0bW36iaQwHpFc1coH37ejrHL9iTWftD9EVCpZ0K4qN3yD
+ nufCwu/9t8ECB/hDS2NLMaL07KnHl/RjcdgrVV8COgOd8TrG5lx0DPEpVeYLYJKz3Qf+
+ OLeurJaHGamhTOClPYf1h6QHcWYCRoTfQDxdiKzWRBDbkXbYaUNIn7LNG/8q2u5jwi76
+ qQ54q+axj1PPlB9rLUqHfFX8u5h29MuDuWcqCg8/kPYwy/QUmW5tUZkGq1kYJY9eGtYi
+ 8S2w==
+X-Gm-Message-State: AOAM533aZK4Ict+ylnZOBss+Zo3kEhxqoWRysLkhXa75ndrDzqpJi9+/
+ LVZDMCTzBzc2Ea5xs5FU+c3J5B4y7j6uZA==
+X-Google-Smtp-Source: ABdhPJxIl6YdZ9h/lZqzdeP/4fvzfy21nXj2UffDryQEB4mKKG9wvF+Is6snbeX39BgkCQwHugX3og==
+X-Received: by 2002:a0c:c184:: with SMTP id n4mr37772676qvh.36.1621963513273; 
+ Tue, 25 May 2021 10:25:13 -0700 (PDT)
+Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com.
+ [209.85.219.176])
+ by smtp.gmail.com with ESMTPSA id o5sm5030041qkl.25.2021.05.25.10.25.13
  for <freedreno@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 May 2021 10:24:54 -0700 (PDT)
-Received: by mail-oo1-f42.google.com with SMTP id
- j26-20020a4adf5a0000b029020eac899f76so5566131oou.7
- for <freedreno@lists.freedesktop.org>; Tue, 25 May 2021 10:24:53 -0700 (PDT)
-X-Received: by 2002:a25:d846:: with SMTP id p67mr5418346ybg.276.1621963152429; 
- Tue, 25 May 2021 10:19:12 -0700 (PDT)
+ Tue, 25 May 2021 10:25:13 -0700 (PDT)
+Received: by mail-yb1-f176.google.com with SMTP id f9so44125331ybo.6
+ for <freedreno@lists.freedesktop.org>; Tue, 25 May 2021 10:25:13 -0700 (PDT)
+X-Received: by 2002:a5b:54a:: with SMTP id r10mr44274582ybp.476.1621963168291; 
+ Tue, 25 May 2021 10:19:28 -0700 (PDT)
 MIME-Version: 1.0
 References: <1621927831-29471-1-git-send-email-rajeevny@codeaurora.org>
- <1621927831-29471-4-git-send-email-rajeevny@codeaurora.org>
-In-Reply-To: <1621927831-29471-4-git-send-email-rajeevny@codeaurora.org>
+ <1621927831-29471-5-git-send-email-rajeevny@codeaurora.org>
+In-Reply-To: <1621927831-29471-5-git-send-email-rajeevny@codeaurora.org>
 From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 25 May 2021 10:19:00 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VF+oggiTffSk5S0Bo0FA0ZaWKURkkqJBPWDjkyQ+Vspw@mail.gmail.com>
-Message-ID: <CAD=FV=VF+oggiTffSk5S0Bo0FA0ZaWKURkkqJBPWDjkyQ+Vspw@mail.gmail.com>
+Date: Tue, 25 May 2021 10:19:15 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=X=VtC9EGyxUGptRN1=PcKwyWLEyRfA9J1frTVPCKY68w@mail.gmail.com>
+Message-ID: <CAD=FV=X=VtC9EGyxUGptRN1=PcKwyWLEyRfA9J1frTVPCKY68w@mail.gmail.com>
 To: Rajeev Nandan <rajeevny@codeaurora.org>
-Subject: Re: [Freedreno] [v4 3/4] dt-bindings: display: simple: Add Samsung
- ATNA33XC20
+Subject: Re: [Freedreno] [v4 4/4] drm/panel-simple: Add Samsung ATNA33XC20
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,28 +100,51 @@ On Tue, May 25, 2021 at 12:31 AM Rajeev Nandan <rajeevny@codeaurora.org> wrote:
 > Changes in v4:
 > - New
 >
->  Documentation/devicetree/bindings/display/panel/panel-simple.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+>  drivers/gpu/drm/panel/panel-simple.c | 34 ++++++++++++++++++++++++++++++++++
+>  1 file changed, 34 insertions(+)
 >
-> diff --git a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-> index 4a0a5e1..f5acfd6 100644
-> --- a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-> +++ b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-> @@ -242,6 +242,8 @@ properties:
->        - rocktech,rk101ii01d-ct
->          # Rocktech Display Ltd. RK070ER9427 800(RGB)x480 TFT LCD panel
->        - rocktech,rk070er9427
-> +        # Samsung 13.3" FHD (1920x1080 pixels) eDP AMOLED panel
-> +      - samsung,atna33xc20
->          # Samsung 12.2" (2560x1600 pixels) TFT LCD panel
->        - samsung,lsn122dl01-c01
+> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+> index caed71b..21af794 100644
+> --- a/drivers/gpu/drm/panel/panel-simple.c
+> +++ b/drivers/gpu/drm/panel/panel-simple.c
+> @@ -3644,6 +3644,37 @@ static const struct panel_desc rocktech_rk101ii01d_ct = {
+>         .connector_type = DRM_MODE_CONNECTOR_LVDS,
+>  };
+>
+> +static const struct drm_display_mode samsung_atna33xc20_mode = {
+> +       .clock = 138770,
+> +       .hdisplay = 1920,
+> +       .hsync_start = 1920 + 48,
+> +       .hsync_end = 1920 + 48 + 32,
+> +       .htotal = 1920 + 48 + 32 + 80,
+> +       .vdisplay = 1080,
+> +       .vsync_start = 1080 + 8,
+> +       .vsync_end = 1080 + 8 + 8,
+> +       .vtotal = 1080 + 8 + 8 + 16,
+> +       .flags = DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_NVSYNC,
+> +};
+> +
+> +static const struct panel_desc samsung_atna33xc20 = {
+> +       .modes = &samsung_atna33xc20_mode,
+> +       .num_modes = 1,
+> +       .bpc = 10,
+> +       .size = {
+> +               .width = 294,
+> +               .height = 165,
+> +       },
+> +       .delay = {
+> +               .disable_to_power_off = 150,
+> +               .power_to_enable = 150,
+> +               .hpd_absent_delay = 200,
+> +               .unprepare = 500,
+> +       },
+> +       .connector_type = DRM_MODE_CONNECTOR_eDP,
+> +       .uses_dpcd_backlight = true,
 
-This panel is slightly different from other panels currently listed
-here because it requires the DP AUX channel to control the backlight.
-However, in my mind, it still qualifies as "simple" because this fact
-is probable and no extra dt properties are needed. Thus:
-
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
+From my feedback on the previous patch in this series, I believe the
+"uses_dpcd_backlight" property should be removed and this should be
+auto-detected. Other than that this patch looks fine to me. Feel free
+to add my Reviewed-by tag next spin when that property is removed.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
