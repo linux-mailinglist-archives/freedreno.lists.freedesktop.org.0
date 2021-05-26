@@ -1,69 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02142390D94
-	for <lists+freedreno@lfdr.de>; Wed, 26 May 2021 02:55:06 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 03381390DA7
+	for <lists+freedreno@lfdr.de>; Wed, 26 May 2021 03:00:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A62696EB97;
-	Wed, 26 May 2021 00:55:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2E166EB9B;
+	Wed, 26 May 2021 01:00:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB2CB6EB97
- for <freedreno@lists.freedesktop.org>; Wed, 26 May 2021 00:55:03 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id v5so40517528ljg.12
- for <freedreno@lists.freedesktop.org>; Tue, 25 May 2021 17:55:03 -0700 (PDT)
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA6FA6EB97
+ for <freedreno@lists.freedesktop.org>; Wed, 26 May 2021 01:00:53 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id w33so40953124lfu.7
+ for <freedreno@lists.freedesktop.org>; Tue, 25 May 2021 18:00:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-language:content-transfer-encoding;
- bh=++3NER/8q2jl+9nnQ5/5WI2wqMfqwPJ99Tc3glHslUM=;
- b=VjgkLIxrlysMYoMxfxguP6+fPz3+tzoyDxW+tLGKvM4Y65vuxmWclT+z1Zhn1P4d8f
- rvsA5BMANFVKhcv6feEHwSMpQfJDveH1s/tq0+02ODMg/HBhtF1pjOisvnbny+ZfpPHG
- MfcHNTl3KK4muf9yDEnyx4bUQJEN2UxB1iybLM/H84/EqypNBUy7lTrj+l5WcKuwP4xL
- V40H832nGd97tXYQ0qVGRGwMLqRzKv2pZhXzMGwWv8TAxbA5PXLWtC6PY7xBsHMkmEp/
- PatYxR9wUnL+okoP3w+ZY5pcayZR6e1Y6c/5bUKTT9tWvMlDogdW6S7N1v6x+Wi8WR1+
- Ygew==
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=YVD+VaC1x6mEUUpHbrv0Vf+0CSBqOy9uuOikGpUxMvg=;
+ b=oAxZJiGtciI9t/NLX66UdglzTF6S5YVGLrkNbEEq97ZK8FlZoJqA0iR5+303WI5BVt
+ 17gSGV4Ktd9RRwq2NBcXLrhJb3aQb008GP0vtLdj0+b+AqzZVS/3gqeAN147/Xm+hYDQ
+ wyA75VHCv4xKN3AxB0McTmhN7PYqiLycGS1ZR7fdp6hROFumBKA4c5dyua+z1JDKXS0O
+ qg5pAevul3ddtq/JLOSGzxP+nTzgoyStxs2eAYLAgZqBwQycf2GXmMo0IAzGNwGQvqY2
+ bqfZnjFsCCV9KihaSuAcCSehZjhCN9d2BejQkofYqYugvB3sXhBSA+19F0+fGhQCKYPJ
+ LuOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=++3NER/8q2jl+9nnQ5/5WI2wqMfqwPJ99Tc3glHslUM=;
- b=L3qIZdtYz10kKYyXJ4OFRDF6tZgHXKaZCYAcHtqMNDHkP3LXBq7gBmysXQBS+NqQ1y
- NBqCHrv220zpdDvgb9inEkqcQjIcIe0eTH3EX48WxJnRXvyJO+MvE0spZU8yD3ILKkhU
- xPpRneQyHXql3/0ZiA5mJBti+sLL5MIY/ZLrHJlMnyRdbbgrUr5WEYdZoZRdM+y8rOvk
- r9jo97SsWde/6f5X4kChPCO3KdyJUz4rJTbH2F0zXNDDiQLiWJDSPZqLdxRIYn4slwtu
- +XyM5TDsAntaum4QNFMN5/L5WPIte0GvsW7aU+ou3qmY2nZV4k9FISlp5egKVnM24g1D
- jlFg==
-X-Gm-Message-State: AOAM530aMU0waxQQ3iF2yyLd2S3fpn9rwyu5CM62CjTEdMGYq2/WKRLZ
- PwVPkzGvSZvACpqyaOl+T9R33A==
-X-Google-Smtp-Source: ABdhPJzMJesdN5t9gO5cn8xDGUoBVDqumulGav19HFVyEoN4ZFEsOGLQ4WBt2mpUvAwcj87zidYCWw==
-X-Received: by 2002:a2e:95cb:: with SMTP id y11mr214930ljh.461.1621990502032; 
- Tue, 25 May 2021 17:55:02 -0700 (PDT)
+ bh=YVD+VaC1x6mEUUpHbrv0Vf+0CSBqOy9uuOikGpUxMvg=;
+ b=uisj+wGfLWH0nhTPGFTqkj5R/2dHfv6I69FRqZBobIPR34n2hm5vfzxiM6cvywjhd7
+ cguhcK2wz4AgoF7o++mvZWSbxmwkFB0wKAqUPDZYtMhBQL3OfoGP4AEAo8ukGZXiKoIj
+ +/zFVirv3d69FmeqfFju8uCVFohnCqe6ftyHm2fTPyz0n2umzArImU1H9AQ1QsK1RcRv
+ oEIXXblkUSVVGmWMJYUa5nOixhA5SwnGY7uVkGWS2D+rtwIJfjBY1IgjtS7W5DvKoWgm
+ mCB3S/TrnLktO/QW8q/mkkEDnwznWKcQ/KQnwZh+IBmkxED+dpM7LwkxPKHj5zCiG1uC
+ 6CWg==
+X-Gm-Message-State: AOAM530RfUqM4LsjoObLvK8mb3vOCPO+D3IBgfBJy6rfx/q8Rc4OTsID
+ XQ0FU9S2eup/Q/rRrd79R70jaQ==
+X-Google-Smtp-Source: ABdhPJysf1cz6iFkNRX8YN3S7joFh5Eqs7viTEl74u3GaRRhR/c17IOQmLIcX1E8b76GLltAHvJ3sQ==
+X-Received: by 2002:a19:7012:: with SMTP id h18mr264097lfc.432.1621990852362; 
+ Tue, 25 May 2021 18:00:52 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id d15sm1873714lfa.137.2021.05.25.17.55.01
+ by smtp.gmail.com with ESMTPSA id c7sm1839140lfs.263.2021.05.25.18.00.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 May 2021 17:55:01 -0700 (PDT)
-To: Bernard Zhao <bernard@vivo.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Kuogee Hsieh <khsieh@codeaurora.org>,
- Stephen Boyd <swboyd@chromium.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
- Tanmay Shah <tanmay@codeaurora.org>,
- Chandan Uddaraju <chandanu@codeaurora.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20210407130654.3387-1-bernard@vivo.com>
+ Tue, 25 May 2021 18:00:51 -0700 (PDT)
+To: Guenter Roeck <linux@roeck-us.net>, Rob Clark <robdclark@gmail.com>
+References: <20210525112904.1747066-1-linux@roeck-us.net>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <dcd91b6a-7115-5018-c75c-436f20f6a63c@linaro.org>
-Date: Wed, 26 May 2021 03:55:00 +0300
+Message-ID: <73c997e5-79dc-f269-f649-d5bc54c2e86c@linaro.org>
+Date: Wed, 26 May 2021 04:00:50 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210407130654.3387-1-bernard@vivo.com>
+In-Reply-To: <20210525112904.1747066-1-linux@roeck-us.net>
 Content-Language: en-GB
-Subject: Re: [Freedreno] [PATCH] drm/msm: remove unneeded variable ret
+Subject: Re: [Freedreno] [PATCH] drm/msm/disp/dpu1/dpu_encoder: Drop
+ unnecessary NULL checks after container_of
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,74 +70,77 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 07/04/2021 16:06, Bernard Zhao wrote:
-> This patch fix coccicheck warning:
-> drivers/gpu/drm/msm/dp/dp_link.c:848:5-8: Unneeded variable: "ret". Return "0" on line 880
-> Also remove unneeded function return value check.
+On 25/05/2021 14:29, Guenter Roeck wrote:
+> The result of container_of() operations is never NULL unless the embedded
+> element is the first element of the structure. This is not the case here.
+> The NULL checks on the result of container_of() are therefore unnecessary
+> and misleading. Remove them.
 > 
-> Signed-off-by: Bernard Zhao <bernard@vivo.com>
+> This change was made automatically with the following Coccinelle script.
+> 
+> @@
+> type t;
+> identifier v;
+> statement s;
+> @@
+> 
+> <+...
+> (
+>    t v = container_of(...);
+> |
+>    v = container_of(...);
+> )
+>    ...
+>    when != v
+> - if (\( !v \| v == NULL \) ) s
+> ...+>
+> 
+> Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-
 > ---
->   drivers/gpu/drm/msm/dp/dp_link.c | 15 +++------------
->   1 file changed, 3 insertions(+), 12 deletions(-)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 10 ----------
+>   1 file changed, 10 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
-> index be986da78c4a..3395b08155a6 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_link.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_link.c
-> @@ -843,10 +843,8 @@ bool dp_link_send_edid_checksum(struct dp_link *dp_link, u8 checksum)
->   	return ret == 1;
->   }
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 8d942052db8a..a573fe211375 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -1453,11 +1453,6 @@ static void dpu_encoder_off_work(struct work_struct *work)
+>   	struct dpu_encoder_virt *dpu_enc = container_of(work,
+>   			struct dpu_encoder_virt, delayed_off_work.work);
 >   
-> -static int dp_link_parse_vx_px(struct dp_link_private *link)
-> +static void dp_link_parse_vx_px(struct dp_link_private *link)
->   {
-> -	int ret = 0;
+> -	if (!dpu_enc) {
+> -		DPU_ERROR("invalid dpu encoder\n");
+> -		return;
+> -	}
 > -
->   	DRM_DEBUG_DP("vx: 0=%d, 1=%d, 2=%d, 3=%d\n",
->   		drm_dp_get_adjust_request_voltage(link->link_status, 0),
->   		drm_dp_get_adjust_request_voltage(link->link_status, 1),
-> @@ -876,8 +874,6 @@ static int dp_link_parse_vx_px(struct dp_link_private *link)
->   	DRM_DEBUG_DP("Requested: v_level = 0x%x, p_level = 0x%x\n",
->   			link->dp_link.phy_params.v_level,
->   			link->dp_link.phy_params.p_level);
+>   	dpu_encoder_resource_control(&dpu_enc->base,
+>   						DPU_ENC_RC_EVENT_ENTER_IDLE);
+>   
+> @@ -1797,11 +1792,6 @@ static void dpu_encoder_vsync_event_work_handler(struct kthread_work *work)
+>   			struct dpu_encoder_virt, vsync_event_work);
+>   	ktime_t wakeup_time;
+>   
+> -	if (!dpu_enc) {
+> -		DPU_ERROR("invalid dpu encoder\n");
+> -		return;
+> -	}
 > -
-> -	return ret;
->   }
+>   	if (dpu_encoder_vsync_time(&dpu_enc->base, &wakeup_time))
+>   		return;
 >   
->   /**
-> @@ -891,8 +887,6 @@ static int dp_link_parse_vx_px(struct dp_link_private *link)
->   static int dp_link_process_phy_test_pattern_request(
->   		struct dp_link_private *link)
->   {
-> -	int ret = 0;
-> -
->   	if (!(link->request.test_requested & DP_TEST_LINK_PHY_TEST_PATTERN)) {
->   		DRM_DEBUG_DP("no phy test\n");
->   		return -EINVAL;
-> @@ -918,12 +912,9 @@ static int dp_link_process_phy_test_pattern_request(
->   	link->dp_link.link_params.rate =
->   		drm_dp_bw_code_to_link_rate(link->request.test_link_rate);
->   
-> -	ret = dp_link_parse_vx_px(link);
-> -
-> -	if (ret)
-> -		DRM_ERROR("parse_vx_px failed. ret=%d\n", ret);
-> +	dp_link_parse_vx_px(link);
->   
-> -	return ret;
-> +	return 0;
->   }
->   
->   static u8 get_link_status(const u8 link_status[DP_LINK_STATUS_SIZE], int r)
 > 
 
 
