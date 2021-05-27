@@ -1,56 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF3F63938CF
-	for <lists+freedreno@lfdr.de>; Fri, 28 May 2021 00:50:03 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ED42393905
+	for <lists+freedreno@lfdr.de>; Fri, 28 May 2021 01:14:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 780626E093;
-	Thu, 27 May 2021 22:50:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCE8A6E0F7;
+	Thu, 27 May 2021 23:14:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB3046E093
- for <freedreno@lists.freedesktop.org>; Thu, 27 May 2021 22:50:00 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1622155800; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=KXjmECHZ9kMYQ0cRGOjb34lhHVhO+2GLmPE1vLYHHXs=;
- b=qkNx0FwN8MB0WUPaZTCkJiGmGFvBoSrcEukRsZrVZoYaOg3kIW0a2PtSrMhM/em5Zo05gru7
- wX2ONY7kY3qgRBjb/jyku5uuGWZ+IGHatOXhF+HAXqc7ck4KwovwAyJktJy65gW2547OhICp
- YoMPRvw2OnhISRmZMz+6OtRbnrk=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
- 60b02211ea2aacd7295ec6a6 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 27 May 2021 22:49:53
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id BCC07C4360C; Thu, 27 May 2021 22:49:53 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id CF38FC433D3;
- Thu, 27 May 2021 22:49:51 +0000 (UTC)
+Received: from mail-qv1-xf2f.google.com (mail-qv1-xf2f.google.com
+ [IPv6:2607:f8b0:4864:20::f2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B581A6E2E6
+ for <freedreno@lists.freedesktop.org>; Thu, 27 May 2021 23:14:31 +0000 (UTC)
+Received: by mail-qv1-xf2f.google.com with SMTP id ee9so1013932qvb.8
+ for <freedreno@lists.freedesktop.org>; Thu, 27 May 2021 16:14:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=XUv/H2tSnyEpa0je+9CNljGuyS/P4gW1vHKFaYDtrQ4=;
+ b=ChVZOb7exsfcVgpIA48kpnMbJAqreH3Kr6NAAbL2WgkKUno/5lrDjOfss9Eox06/W7
+ LM87HKJfFVcDtuZwpowGUsyjjZhnTpZEDp44jB8tdAJt25wDjckkAG8bZnG0fZs9HpaA
+ BSTdfbWDFTdH+8lb8BDAXE8xF1696WkGaCu90=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=XUv/H2tSnyEpa0je+9CNljGuyS/P4gW1vHKFaYDtrQ4=;
+ b=F6wFpHVP4PMVNQP9Bdj7z/VSR0ZddfH1d+SwPj2O4oFNCQmbcN0kQpncvitmXuufWf
+ M7b3DBRQ+oWtmVTWZzql37x4QSfR5SydMNpROQzNmvzR5Ff5Uow9NzaG/1J9g93CXR+g
+ 64Nysr5LomxpgADVXE8R5owy2eAMbORJPS6J98Y9Ma4eEP4gE9ZJDAWK/rZni3qC6byj
+ X6EVne2OqscKo2X8zh/Im5fvWFjcp00gFv6pkGP1cNSpMlSlSDEFxfy6Y2gW6/yJEWXY
+ rkVjMJBlPg0tq/R9DP4kqXpx8BDsY+IK+gJ2V9EjzX4PtjUZKlWfVphCgfPaoEW+LHW5
+ FZ6Q==
+X-Gm-Message-State: AOAM530B2iFVxxZd2l7bERtJUY580b71zNsW4wsq53Ra9wrkSICQjf/S
+ DEyrmw1lgHhVsT+Y/xF1o2YADkKdBXo45w==
+X-Google-Smtp-Source: ABdhPJy63N9Uzov1SLNPnAZwyK3DoTGWfod72d9XGH79M2z8oOyKFOCUIJBGmFb2UuauAPmb/y3umQ==
+X-Received: by 2002:ad4:4dc1:: with SMTP id cw1mr907225qvb.15.1622157270395;
+ Thu, 27 May 2021 16:14:30 -0700 (PDT)
+Received: from mail-yb1-f175.google.com (mail-yb1-f175.google.com.
+ [209.85.219.175])
+ by smtp.gmail.com with ESMTPSA id h62sm2414181qkf.45.2021.05.27.16.14.29
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 27 May 2021 16:14:29 -0700 (PDT)
+Received: by mail-yb1-f175.google.com with SMTP id i4so3022388ybe.2
+ for <freedreno@lists.freedesktop.org>; Thu, 27 May 2021 16:14:29 -0700 (PDT)
+X-Received: by 2002:a25:b801:: with SMTP id v1mr9231563ybj.32.1622157269138;
+ Thu, 27 May 2021 16:14:29 -0700 (PDT)
 MIME-Version: 1.0
-Date: Thu, 27 May 2021 15:49:51 -0700
-From: abhinavk@codeaurora.org
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20210527220330.3364716-1-dmitry.baryshkov@linaro.org>
-References: <20210527220330.3364716-1-dmitry.baryshkov@linaro.org>
-Message-ID: <ab7f068dacd2b7b0f24ebd747a954d27@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH] drm/msm: fix display snapshotting if DP or
- DSI is disabled
+References: <1622092076-5100-1-git-send-email-mkrishn@codeaurora.org>
+In-Reply-To: <1622092076-5100-1-git-send-email-mkrishn@codeaurora.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 27 May 2021 16:14:17 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=UQzM=cEsEYbR4QwaovT377dn4vLxqcK7xrLMutZPVDeQ@mail.gmail.com>
+Message-ID: <CAD=FV=UQzM=cEsEYbR4QwaovT377dn4vLxqcK7xrLMutZPVDeQ@mail.gmail.com>
+To: Krishna Manikandan <mkrishn@codeaurora.org>
+Subject: Re: [Freedreno] [v1] drm/msm/disp/dpu1: avoid perf update in frame
+ done event
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,137 +69,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, kernel test robot <lkp@intel.com>,
- Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, David Airlie <airlied@linux.ie>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <seanpaul@chromium.org>, Kalyan Thota <kalyan_t@codeaurora.org>,
+ freedreno <freedreno@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-05-27 15:03, Dmitry Baryshkov wrote:
-> Fix following warnings generated when either DP or DSI support is
-> disabled:
-> 
-> drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c:141:3: error:
-> implicit declaration of function 'msm_dp_snapshot'; did you mean
-> 'msm_dsi_snapshot'? [-Werror=implicit-function-declaration]
-> 
-> drivers/gpu/drm/msm/msm_kms.h:127:26: warning: 'struct msm_disp_state'
-> declared inside parameter list will not be visible outside of this
-> definition or declaration
-> drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c:867:21: error: initialization
-> of 'void (*)(struct msm_disp_state *, struct msm_kms *)' from
-> incompatible pointer type 'void (*)(struct msm_disp_state *, struct
-> msm_kms *)' [-Werror=incompatible-pointer-types]
-> drivers/gpu/drm/msm/dsi/dsi.h:94:30: warning: 'struct msm_disp_state'
-> declared inside parameter list will not be visible outside of this
-> definition or declaration
-> 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Cc: Abhinav Kumar <abhinavk@codeaurora.org>
-> Fixes: 1c3b7ac1a71d ("drm/msm: pass dump state as a function argument")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
+Hi,
+
+On Wed, May 26, 2021 at 10:08 PM Krishna Manikandan
+<mkrishn@codeaurora.org> wrote:
+>
+> Crtc perf update from frame event work can result in
+> wrong bandwidth and clock update from dpu if the work
+> is scheduled after the swap state has happened.
+>
+> Avoid such issues by moving perf update to complete
+> commit once the frame is accepted by the hardware.
+>
+> Fixes: a29c8c024165 ("drm/msm/disp/dpu1: fix display underruns during modeset")
+> Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
 > ---
->  drivers/gpu/drm/msm/disp/msm_disp_snapshot.h |  1 -
->  drivers/gpu/drm/msm/dsi/dsi.h                |  2 --
->  drivers/gpu/drm/msm/msm_drv.h                | 12 +++++++++++-
->  3 files changed, 11 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/msm_disp_snapshot.h
-> b/drivers/gpu/drm/msm/disp/msm_disp_snapshot.h
-> index c6174a366095..c92a9508c8d3 100644
-> --- a/drivers/gpu/drm/msm/disp/msm_disp_snapshot.h
-> +++ b/drivers/gpu/drm/msm/disp/msm_disp_snapshot.h
-> @@ -27,7 +27,6 @@
->  #include <linux/devcoredump.h>
->  #include <stdarg.h>
->  #include "msm_kms.h"
-> -#include "dsi.h"
-> 
->  #define MSM_DISP_SNAPSHOT_MAX_BLKS		10
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h 
-> b/drivers/gpu/drm/msm/dsi/dsi.h
-> index cea73f9c4be9..9b8e9b07eced 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi.h
-> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
-> @@ -91,8 +91,6 @@ static inline bool msm_dsi_device_connected(struct
-> msm_dsi *msm_dsi)
->  	return msm_dsi->panel || msm_dsi->external_bridge;
->  }
-> 
-> -void msm_dsi_snapshot(struct msm_disp_state *disp_state, struct
-> msm_dsi *msm_dsi);
-> -
->  struct drm_encoder *msm_dsi_get_encoder(struct msm_dsi *msm_dsi);
-> 
->  /* dsi host */
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h 
-> b/drivers/gpu/drm/msm/msm_drv.h
-> index c33fc1293789..ba60bf6f124c 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -43,6 +43,7 @@ struct msm_gem_submit;
->  struct msm_fence_context;
->  struct msm_gem_address_space;
->  struct msm_gem_vma;
-> +struct msm_disp_state;
-> 
->  #define MAX_CRTCS      8
->  #define MAX_PLANES     20
-> @@ -340,6 +341,8 @@ void __init msm_dsi_register(void);
->  void __exit msm_dsi_unregister(void);
->  int msm_dsi_modeset_init(struct msm_dsi *msm_dsi, struct drm_device 
-> *dev,
->  			 struct drm_encoder *encoder);
-> +void msm_dsi_snapshot(struct msm_disp_state *disp_state, struct
-> msm_dsi *msm_dsi);
-> +
->  #else
->  static inline void __init msm_dsi_register(void)
->  {
-> @@ -353,6 +356,10 @@ static inline int msm_dsi_modeset_init(struct
-> msm_dsi *msm_dsi,
->  {
->  	return -EINVAL;
->  }
-> +static inline void msm_dsi_snapshot(struct msm_disp_state
-> *disp_state, struct msm_dsi *msm_dsi)
-> +{
-> +}
-> +
->  #endif
-> 
->  #ifdef CONFIG_DRM_MSM_DP
-> @@ -367,7 +374,6 @@ void msm_dp_display_mode_set(struct msm_dp *dp,
-> struct drm_encoder *encoder,
->  				struct drm_display_mode *mode,
->  				struct drm_display_mode *adjusted_mode);
->  void msm_dp_irq_postinstall(struct msm_dp *dp_display);
-> -struct msm_disp_state;
->  void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm_dp
-> *dp_display);
-> 
->  void msm_dp_debugfs_init(struct msm_dp *dp_display, struct drm_minor 
-> *minor);
-> @@ -412,6 +418,10 @@ static inline void msm_dp_irq_postinstall(struct
-> msm_dp *dp_display)
->  {
->  }
-> 
-> +static inline void msm_dp_snapshot(struct msm_disp_state *disp_state,
-> struct msm_dp *dp_display)
-> +{
-> +}
-> +
->  static inline void msm_dp_debugfs_init(struct msm_dp *dp_display,
->  		struct drm_minor *minor)
->  {
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
+
+I don't know much about this code or any of the theory behind it, but
+I can confirm that this fixes the hang I was seeing with the previous
+patch. On sc7180-trogdor-lazor:
+
+Tested-by: Douglas Anderson <dianders@chromium.org>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
