@@ -1,56 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7725639492E
-	for <lists+freedreno@lfdr.de>; Sat, 29 May 2021 01:40:41 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 000AE39497D
+	for <lists+freedreno@lfdr.de>; Sat, 29 May 2021 02:25:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 048666F63E;
-	Fri, 28 May 2021 23:40:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BEDC6E994;
+	Sat, 29 May 2021 00:25:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAD146F63E
- for <freedreno@lists.freedesktop.org>; Fri, 28 May 2021 23:40:37 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1622245238; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=ObCt7FLVUSqowY1LQ9oBhYcHVdMypKRBt0IQ8qdhFjM=;
- b=Xx6/gsB3V9eQGDLLsr7J+8yrThaA09Z19BDE9DoRDfvFsuJOEKu2byxtieixsVHNbBoA7oU+
- a1z2pbatOQ0oxk3KHvlpPNhBkxXrlDFMUkahpgB87Xdmdj+Ozw2PQvPStqV7Bl1tiniaGVEF
- ygVvuv+QfRlC3TH2T82S7m6AlNA=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
- 60b17f71ea2aacd72967739a (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 28 May 2021 23:40:33
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 2DF5DC4323A; Fri, 28 May 2021 23:40:33 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 45190C4338A;
- Fri, 28 May 2021 23:40:32 +0000 (UTC)
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AC986E994
+ for <freedreno@lists.freedesktop.org>; Sat, 29 May 2021 00:25:17 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id f12so7375245ljp.2
+ for <freedreno@lists.freedesktop.org>; Fri, 28 May 2021 17:25:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=BODLqdEHCra9qUlSEftQ4xsxlh1+FODYRdHQRB86f28=;
+ b=uGbtAPxEvoyvx74MWS2o9kIhLaCxR9NZQ6OmOv9oc9hu1TLxHNNAPYn3gzlIIJmx3h
+ XQgbiB6FlZeDbiJJbKaKLSedqzztcCnXFEcc95yl3p1abMg+6eJOXmw/L6h4R+IV9o6C
+ XQesOeUmZMXHiEWXCfniwHipBZ8c/7VZhLxfplhdeg+Gi+VCzAEeSV70U2Whz/KT/gff
+ aP+9LDkHVzzE7Ssm6TA3El5AQEnaKCe0sgboENoAm609RhU7dziYGl8A8KtOC88joMS1
+ 7iUtAC0eLTUnqx0D7SRsf+FnZbjq25dNJ4X4UWLyV/5j5iaNw7aaITt6uCukQEazBtei
+ OTKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=BODLqdEHCra9qUlSEftQ4xsxlh1+FODYRdHQRB86f28=;
+ b=Pcba2v73alDhNl4XD6au25/e1X6llb0EPRsc4+1UUG0on+xr+YsvzWNna3GmaUFxBb
+ 9z6nM/VcOEZGqGLXXjhCFfwmo2Pue50O8/MXClTFtXKT81IKCwtnbue7DO2ctjUUQgR8
+ X7sS8WoEMnLM3GMSarBIs7hrkAQiI3/a1uWR9wNdVtep1kS0I/cKUefyBI2xEshAZyu5
+ 0InGinGJnvh3QSgfu8rp8xJuQ4+IA+9NKQzU9HyTxCz0MyKvJp1sSDScDdKCDUVuPRQv
+ EQOEm8qlNZ7LB8PbFCz3Vdd2GGmf/le/e/JptSoAMJTvfGQ3iPkroCTS345mPJlIPu/m
+ Nghw==
+X-Gm-Message-State: AOAM531s8WZj8rpyDA2Rcv7rl0G1Abu1SWyRMXmr8kyQ2fguG8mjc5HZ
+ BIB+QJt1mxaUpR8zeZGgbgq1kg==
+X-Google-Smtp-Source: ABdhPJwjvewfZRMsnIYRlASELtzoZFUlolzG/MKKgogWsG4jMl6ZWBKnxfp4ESok53GK3bD6sdVxMA==
+X-Received: by 2002:a2e:7a17:: with SMTP id v23mr8274083ljc.99.1622247915928; 
+ Fri, 28 May 2021 17:25:15 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id c8sm701078ljd.82.2021.05.28.17.25.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 28 May 2021 17:25:15 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Michael Turquette <mturquette@baylibre.com>
+Date: Sat, 29 May 2021 03:25:00 +0300
+Message-Id: <20210529002508.3839467-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Date: Fri, 28 May 2021 16:40:32 -0700
-From: abhinavk@codeaurora.org
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-In-Reply-To: <20210511042043.592802-5-bjorn.andersson@linaro.org>
-References: <20210511042043.592802-1-bjorn.andersson@linaro.org>
- <20210511042043.592802-5-bjorn.andersson@linaro.org>
-Message-ID: <a1a8221a44edc3a509bdc1bb89bb5a97@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH 4/4] drm/msm/dp: Add support for SC8180x eDP
+Subject: [Freedreno] [RFC 0/8] drm/msm: split DSI PHY to generic PHY
+ subsystem
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,121 +67,26 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- Tanmay Shah <tanmay@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
- Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, sbillaka@codeaurora.org,
- Sean Paul <sean@poorly.run>, Chandan Uddaraju <chandanu@codeaurora.org>
+Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-05-10 21:20, Bjorn Andersson wrote:
-> The eDP controller found in SC8180x is at large compatible with the
-> current implementation, but has its register blocks at slightly
-> different offsets.
-> 
-> Add the compatible and the new register layout.
-> 
-I am not able to completely recall the history of why in the DP bindings
-we added DP register base as a big hunk and let catalog handle the 
-submodule
-offsets.
+This patchseries is an RFC for splitting Qualcomm DSI PHY from drm/msm
+driver to generic PHY subsystem.
 
-I guess earlier that made sense because DP sub-block offsets were fixed.
-But if we plan to re-use the DP driver for eDP as well like this series, 
-then maybe it might be
-better if this comes from device tree like the earlier version was 
-planning to
+Dependencies:
+ - msm_disp_snapshot fix at https://lore.kernel.org/linux-arm-msm/20210527220330.3364716-1-dmitry.baryshkov@linaro.org/
+ - Patches 1-7 from https://lore.kernel.org/linux-arm-msm/20210515131217.1540412-1-dmitry.baryshkov@linaro.org/
 
-https://patchwork.kernel.org/project/dri-devel/patch/0101016ec6ddf446-e87ab1ce-5cbf-40a0-a0bb-cd0151cd577a-000000@us-west-2.amazonses.com/
+PATCH 8 from this series is quite big, it might be split further if
+required.
 
 
-+- reg:                  Base address and length of DP hardware's memory 
-mapped regions.
-+- cell-index:           Specifies the controller instance.
-+- reg-names:            A list of strings that name the list of regs.
-+			"dp_ahb" - DP controller memory region.
-+			"dp_aux" - DP AUX memory region.
-+			"dp_link" - DP link layer memory region.
-+			"dp_p0" - DP pixel clock domain memory region.
-+			"dp_phy" - DP PHY memory region.
-+			"dp_ln_tx0" - USB3 DP PHY combo TX-0 lane memory region.
-+			"dp_ln_tx1" - USB3 DP PHY combo TX-1 lane memory region.
-
-Now there is more reason to separate the sub-module offsets like 
-ahb/aux/link/p0
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> ---
->  drivers/gpu/drm/msm/dp/dp_display.c |  1 +
->  drivers/gpu/drm/msm/dp/dp_parser.c  | 28 ++++++++++++++++++++--------
->  2 files changed, 21 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c
-> b/drivers/gpu/drm/msm/dp/dp_display.c
-> index d1319b58e901..0be03bdc882c 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -121,6 +121,7 @@ struct dp_display_private {
-> 
->  static const struct of_device_id dp_dt_match[] = {
->  	{.compatible = "qcom,sc7180-dp"},
-> +	{ .compatible = "qcom,sc8180x-edp" },
->  	{}
->  };
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_parser.c
-> b/drivers/gpu/drm/msm/dp/dp_parser.c
-> index 51ec85b4803b..47cf18bba4b2 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_parser.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_parser.c
-> @@ -251,6 +251,7 @@ static int dp_parser_clock(struct dp_parser 
-> *parser)
->  static int dp_parser_parse(struct dp_parser *parser)
->  {
->  	struct dss_io_data *io = &parser->io.dp_controller;
-> +	struct device *dev = &parser->pdev->dev;
->  	int rc = 0;
-> 
->  	if (!parser) {
-> @@ -276,14 +277,25 @@ static int dp_parser_parse(struct dp_parser 
-> *parser)
->  	 */
->  	parser->regulator_cfg = &sdm845_dp_reg_cfg;
-> 
-> -	io->ahb = io->base + 0x0;
-> -	io->ahb_len = 0x200;
-> -	io->aux = io->base + 0x200;
-> -	io->aux_len = 0x200;
-> -	io->link = io->base + 0x400;
-> -	io->link_len = 0x600;
-> -	io->p0 = io->base + 0x1000;
-> -	io->p0_len = 0x400;
-> +	if (of_device_is_compatible(dev->of_node, "qcom,sc8180x-edp")) {
-> +		io->ahb = io->base + 0x0;
-> +		io->ahb_len = 0x200;
-> +		io->aux = io->base + 0x200;
-> +		io->aux_len = 0x200;
-> +		io->link = io->base + 0x400;
-> +		io->link_len = 0x600;
-> +		io->p0 = io->base + 0xa00;
-> +		io->p0_len = 0x400;
-> +	} else {
-> +		io->ahb = io->base + 0x0;
-> +		io->ahb_len = 0x200;
-> +		io->aux = io->base + 0x200;
-> +		io->aux_len = 0x200;
-> +		io->link = io->base + 0x400;
-> +		io->link_len = 0x600;
-> +		io->p0 = io->base + 0x1000;
-> +		io->p0_len = 0x400;
-> +	}
-> 
->  	return 0;
->  }
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
