@@ -2,63 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAF5F395810
-	for <lists+freedreno@lfdr.de>; Mon, 31 May 2021 11:25:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFAD1395CA6
+	for <lists+freedreno@lfdr.de>; Mon, 31 May 2021 15:34:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 199BE6E8BC;
-	Mon, 31 May 2021 09:25:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 381BC6E4D4;
+	Mon, 31 May 2021 13:34:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E2146E4B3
- for <freedreno@lists.freedesktop.org>; Mon, 31 May 2021 09:25:53 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1622453155; h=Content-Transfer-Encoding: Content-Type:
- In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
- Subject: Sender; bh=rfrUNiJtJb8dbghF/3gQm7fw8uC4HOEDbtXTJPnqFZ4=;
- b=neu40QHKf7LzOk1HK2cKgmayt1GQKZYIKXhe2XBK0IR41Mzm8xzWPZte5LyReFcpwV6jeCM0
- asJcLaXzsKu5w4YDBtBGJEA/ROZXDyap6BqpwJf+cyMVl62VoqxK73GkDrYZOSOMwsrHrZJT
- kuszPhgGoT5ZtIvpsUMDQa+SE18=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n06.prod.us-east-1.postgun.com with SMTP id
- 60b4ab94abfd22a3dc0ba2ec (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 31 May 2021 09:25:40
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id A6379C4323A; Mon, 31 May 2021 09:25:39 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- NICE_REPLY_A,SPF_FAIL,URIBL_BLOCKED autolearn=no autolearn_force=no
- version=3.4.0
-Received: from [192.168.1.105] (unknown [117.210.184.158])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: akhilpo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 55813C433D3;
- Mon, 31 May 2021 09:25:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 55813C433D3
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=akhilpo@codeaurora.org
-To: Jonathan Marek <jonathan@marek.ca>, freedreno@lists.freedesktop.org
-References: <20210513171431.18632-1-jonathan@marek.ca>
- <20210513171431.18632-6-jonathan@marek.ca>
-From: Akhil P Oommen <akhilpo@codeaurora.org>
-Message-ID: <3695f4d0-aa6f-4c85-bf4e-c3b59506ec34@codeaurora.org>
-Date: Mon, 31 May 2021 14:55:31 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.2
-MIME-Version: 1.0
-In-Reply-To: <20210513171431.18632-6-jonathan@marek.ca>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH v2 5/8] drm/msm/a6xx: avoid shadow NULL
- reference in failure path
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE9146E4D4;
+ Mon, 31 May 2021 13:34:41 +0000 (UTC)
+Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
+ by alexa-out.qualcomm.com with ESMTP; 31 May 2021 06:34:41 -0700
+X-QCInternal: smtphost
+Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
+ by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 31 May 2021 06:34:40 -0700
+X-QCInternal: smtphost
+Received: from rajeevny-linux.qualcomm.com ([10.204.66.121])
+ by ironmsg01-blr.qualcomm.com with ESMTP; 31 May 2021 19:04:06 +0530
+Received: by rajeevny-linux.qualcomm.com (Postfix, from userid 2363605)
+ id EAB3321485; Mon, 31 May 2021 19:04:04 +0530 (IST)
+From: Rajeev Nandan <rajeevny@codeaurora.org>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Mon, 31 May 2021 19:03:52 +0530
+Message-Id: <1622468035-8453-1-git-send-email-rajeevny@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [v1 0/3] drm/msm/dsi: Add display DSI support for
+ SC7280 target
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,48 +43,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Douglas Anderson <dianders@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Eric Anholt <eric@anholt.net>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>, open list <linux-kernel@vger.kernel.org>
+Cc: mkrishn@codeaurora.org, jonathan@marek.ca,
+ Rajeev Nandan <rajeevny@codeaurora.org>, linux-kernel@vger.kernel.org,
+ abhinavk@codeaurora.org, robdclark@gmail.com, robh+dt@kernel.org,
+ kalyan_t@codeaurora.org, sean@poorly.run
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 5/13/2021 10:44 PM, Jonathan Marek wrote:
-> If a6xx_hw_init() fails before creating the shadow_bo, the a6xx_pm_suspend
-> code referencing it will crash. Change the condition to one that avoids
-> this problem (note: creation of shadow_bo is behind this same condition)
-> 
-> Fixes: e8b0b994c3a5 ("drm/msm/a6xx: Clear shadow on suspend")
-> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
-> ---
->   drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index 909e3ff08f89..ff3c328604f8 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -1284,7 +1284,7 @@ static int a6xx_pm_suspend(struct msm_gpu *gpu)
->   	if (ret)
->   		return ret;
->   
-> -	if (adreno_gpu->base.hw_apriv || a6xx_gpu->has_whereami)
-> +	if (a6xx_gpu->shadow_bo)
->   		for (i = 0; i < gpu->nr_rings; i++)
->   			a6xx_gpu->shadow[i] = 0;
->   
-> 
-Reviewed-by: Akhil P Oommen <akhilpo@codeaurora.org>
+Changes in this series add support for MSM display DSI CTRL & PHY drivers
+for the SC7280 SoC, which has DSI controller v2.5.0 and DSI PHY v4.1.
 
--Akhil
+This series also updates the missing bindings (yaml) for the 7nm DSI PHY
+driver on "msm-next" branch.
+
+Rajeev Nandan (3):
+  dt-bindings: msm/dsi: Add yaml schema for 7nm DSI PHY
+  drm/msm/dsi: Add PHY configuration for SC7280
+  drm/msm/dsi: Add DSI support for SC7280
+
+ .../bindings/display/msm/dsi-phy-7nm.yaml          | 68 ++++++++++++++++++++++
+ drivers/gpu/drm/msm/Kconfig                        |  6 +-
+ drivers/gpu/drm/msm/dsi/dsi_cfg.c                  | 20 +++++++
+ drivers/gpu/drm/msm/dsi/dsi_cfg.h                  |  1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c              |  2 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h              |  1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c          | 22 +++++++
+ 7 files changed, 117 insertions(+), 3 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+
+-- 
+2.7.4
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
