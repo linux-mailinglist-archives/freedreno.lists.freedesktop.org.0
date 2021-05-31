@@ -2,64 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15E2D396784
-	for <lists+freedreno@lfdr.de>; Mon, 31 May 2021 19:57:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6C7839678E
+	for <lists+freedreno@lfdr.de>; Mon, 31 May 2021 20:03:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDBF36E82B;
-	Mon, 31 May 2021 17:57:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 349496E929;
+	Mon, 31 May 2021 18:03:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99BDA6E430
- for <freedreno@lists.freedesktop.org>; Mon, 31 May 2021 17:57:37 +0000 (UTC)
-Received: by mail-lj1-x22f.google.com with SMTP id c11so417985ljd.6
- for <freedreno@lists.freedesktop.org>; Mon, 31 May 2021 10:57:37 -0700 (PDT)
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AF2F6E42F
+ for <freedreno@lists.freedesktop.org>; Mon, 31 May 2021 18:03:56 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id f11so9065751lfq.4
+ for <freedreno@lists.freedesktop.org>; Mon, 31 May 2021 11:03:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=333dg+4T08AjdOad74NZzvWXFUaJwUvbt5gSjRnF5Bk=;
- b=ccMoi6YQw2A/Dh6PUhcIIvNzDlKney868O40tFPLo84ubnWU8VScD1X9CBEKTyE5XO
- Yh+SHXnbPnuqA9+Ghy3ynubdRRy+jSFRn79EQBi9pwHec4qv5wwoBOclbqgqs8fyK55B
- zupywCtm05sPDGpxWJDQg746m1fKE6urgKNzHwOmHk1PL1fbcfaqG+eGIdT51q+CzDfB
- NTEjNnELQ19r0DpxySRgK67FoUKSDA1/7AdPjM5vO6087hF+TKXw2UssWzU5hP5Hsqy8
- YOw/23vkQoPxOYG2sk9vg+DjVnmMJygaxW2cZlupCxu+8n5gehEHwbDIYtpI92h+Txz3
- ksTw==
+ bh=G6HGOX0Ipm1y9b+ZAda56dcVeACSyNSMODF3keW9xc0=;
+ b=thkVknCrH/3gud2ZgNRdotryy473i4TU+0rCrB/puNykbYtxdrVq1fp+HB0/cXafom
+ qOODTNKelsEq+ZtJvlRBr9tqFKiqKgZcSboRRBtK1LbGvj0reX6dRTvs23lPB4g+ZgOk
+ SWxqaX6qu1Dpfng6cEMjeggT54GL+2QmwyFX+YqH+acKO2wbTxEjQjtKZae6WaijtL1o
+ B8nMYsFlTQ+ViJsLHlMddIzwuPv02N//3h4UPSi9y6neMbEuYzFvgAxpl9ktbB6Bakuu
+ 3EYYyausto/85iRKeWY1rsdc2LUz8jRcvqz3mXJuHUmAKPeU8AdqCooKAo+2Q1o59wsq
+ 2JmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=333dg+4T08AjdOad74NZzvWXFUaJwUvbt5gSjRnF5Bk=;
- b=f+SM5Y4BAHw+wWo5spPtWyKBuW+gB+7HVlsI0K5mm5p3gF90pMOSVrfPaVDMaZbUXs
- jnJS+gCNufsSMTcp7zw/osX2sOAXAu7iWwSD3U7DxiNsthRW1IAOEfaEE6i52o4kLYlo
- Y+8F9ISzVbGRWA388IKLB5th+Xb/CDW9j7W5diZ9fbCWnqCTQbsfWJWRrqtJZob9XYhH
- I7JjInEly3wc2fPW5AI5qTAsKthecREgApp+onlpIGEYpFyF6TlMqWI4tl5Z+hW82Hzu
- nOfRNTeQNr8R+QsZVnC2A5J9I1nIio3WrhV0ZKS4TDMqBoPRXHd7eDTJLoNl/lVbif7C
- UWuQ==
-X-Gm-Message-State: AOAM532rhAL5CDZ+azlc3cyQmw4NmgW9c1BDntWyhc1vTzGzYdorEs2L
- xdA52wLiSU33XReYYhjTRNHnoQ==
-X-Google-Smtp-Source: ABdhPJwM7suewNJq5pRVK78PJGYgETOZsCEtDogRNSid13ZhqbxxIXaSRw6HS7Ifcco0SiiLzzZsag==
-X-Received: by 2002:a2e:8653:: with SMTP id i19mr17547012ljj.11.1622483856102; 
- Mon, 31 May 2021 10:57:36 -0700 (PDT)
+ bh=G6HGOX0Ipm1y9b+ZAda56dcVeACSyNSMODF3keW9xc0=;
+ b=SUjUT4yhzr8VRZjUrzBtrAF0/ETO124kuHOIypCM8auI80RQqIHoJ33Wxp9TLC4Nki
+ gpR9t3Jiw1BKaclocImVORftAwxkeauhUqbkDsspeNO8vBiopbXi6fHtw+DzRK/R65NS
+ Tm4+yDsv4s6EQHCuDJnzpAtoDqbdPNJPJ9UjCmsNIN/wtXyHMRQYjQyOFw4T6+dtv8cm
+ bupyf+MKEcOeHD/ZY1sYTXM33+YKEaErVm5aJ+d9Fb3NNKUClOMH1wYOosZOMvVjqR7d
+ Y4uMoesY0WCmi+HUkswcffm0x/zoNuEm1V/tQ6b6s8kTquBHParM58QNj1CVqCwYCfiG
+ c8uQ==
+X-Gm-Message-State: AOAM531+qZ/NYn4azJDdOreA2nEY6AhLg1HX9fpk7KwRAJKbD4AHQTEb
+ FydTH8lFCN0VES0VqY+HmTD0Lw==
+X-Google-Smtp-Source: ABdhPJyTt88Y4i2NAmmTuqgOByFFUH3ZIdEIdM5Ps1vyyUh+uap6N73Pa6+SJG5DjR39l0R8w5GoTg==
+X-Received: by 2002:a05:6512:21c:: with SMTP id
+ a28mr15579931lfo.298.1622484234170; 
+ Mon, 31 May 2021 11:03:54 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id o2sm943808lfu.89.2021.05.31.10.57.35
+ by smtp.gmail.com with ESMTPSA id g28sm54494lfv.142.2021.05.31.11.03.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 31 May 2021 10:57:35 -0700 (PDT)
-To: Rajeev Nandan <rajeevny@codeaurora.org>, dri-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
-References: <1622468035-8453-1-git-send-email-rajeevny@codeaurora.org>
- <1622468035-8453-4-git-send-email-rajeevny@codeaurora.org>
+ Mon, 31 May 2021 11:03:53 -0700 (PDT)
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Kalyan Thota <kalyan_t@codeaurora.org>
+References: <20210407150157.801210-1-dmitry.baryshkov@linaro.org>
+ <20210407150157.801210-4-dmitry.baryshkov@linaro.org>
+ <2dc79aad-33cd-7b17-368f-d52d60d46811@linaro.org>
+ <YLT1ziKiesQHEw1B@builder.lan>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <03dd0cb1-433c-2bb8-6859-39e7c679dee2@linaro.org>
-Date: Mon, 31 May 2021 20:57:34 +0300
+Message-ID: <1481ca73-fff8-e98b-2334-be56e19e6c66@linaro.org>
+Date: Mon, 31 May 2021 21:03:52 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <1622468035-8453-4-git-send-email-rajeevny@codeaurora.org>
+In-Reply-To: <YLT1ziKiesQHEw1B@builder.lan>
 Content-Language: en-GB
-Subject: Re: [Freedreno] [v1 3/3] drm/msm/dsi: Add DSI support for SC7280
+Subject: Re: [Freedreno] [PATCH v2 3/4] arm64: dts: sdm845: move bus clock
+ to mdp node for sdm845 target
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,78 +75,90 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: mkrishn@codeaurora.org, jonathan@marek.ca, linux-kernel@vger.kernel.org,
- abhinavk@codeaurora.org, robdclark@gmail.com, robh+dt@kernel.org,
- kalyan_t@codeaurora.org, sean@poorly.run
+Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
+ devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 31/05/2021 16:33, Rajeev Nandan wrote:
-> Add support for v2.5.0 DSI block in the SC7280 SoC.
+On 31/05/2021 17:42, Bjorn Andersson wrote:
+> On Fri 28 May 10:33 CDT 2021, Dmitry Baryshkov wrote:
 > 
-> Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-
-> ---
->   drivers/gpu/drm/msm/dsi/dsi_cfg.c | 20 ++++++++++++++++++++
->   drivers/gpu/drm/msm/dsi/dsi_cfg.h |  1 +
->   2 files changed, 21 insertions(+)
+>> On 07/04/2021 18:01, Dmitry Baryshkov wrote:
+>>> Move the bus clock to mdp device node,in order to facilitate bus band
+>>> width scaling on sdm845 target.
+>>>
+>>> The parent device MDSS will not vote for bus bw, instead the vote will
+>>> be triggered by mdp device node. Since a minimum vote is required to
+>>> turn on bus clock, move the clock node to mdp device from where the
+>>> votes are requested.
+>>
+>> drm/msm patches were merged through the msm tree (targeting 5.13). Shouldn't
+>> we also merge these two patches (targeting 5.13 as fixes or 5.14)?
+>>
 > 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-> index f3f1c03..d76a680 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-> @@ -200,6 +200,24 @@ static const struct msm_dsi_config sc7180_dsi_cfg = {
->   	.num_dsi = 1,
->   };
->   
-> +static const char * const dsi_sc7280_bus_clk_names[] = {
-> +	"iface", "bus",
-> +};
-> +
-> +static const struct msm_dsi_config sc7280_dsi_cfg = {
-> +	.io_offset = DSI_6G_REG_SHIFT,
-> +	.reg_cfg = {
-> +		.num = 1,
-> +		.regs = {
-> +			{"vdda", 8350, 0 },	/* 1.2 V */
-> +		},
-> +	},
-> +	.bus_clk_names = dsi_sc7280_bus_clk_names,
-> +	.num_bus_clks = ARRAY_SIZE(dsi_sc7280_bus_clk_names),
-> +	.io_start = { 0xae94000 },
-> +	.num_dsi = 1,
-> +};
-> +
->   static const struct msm_dsi_host_cfg_ops msm_dsi_v2_host_ops = {
->   	.link_clk_set_rate = dsi_link_clk_set_rate_v2,
->   	.link_clk_enable = dsi_link_clk_enable_v2,
-> @@ -267,6 +285,8 @@ static const struct msm_dsi_cfg_handler dsi_cfg_handlers[] = {
->   		&sdm845_dsi_cfg, &msm_dsi_6g_v2_host_ops},
->   	{MSM_DSI_VER_MAJOR_6G, MSM_DSI_6G_VER_MINOR_V2_4_1,
->   		&sc7180_dsi_cfg, &msm_dsi_6g_v2_host_ops},
-> +	{MSM_DSI_VER_MAJOR_6G, MSM_DSI_6G_VER_MINOR_V2_5_0,
-> +		&sc7280_dsi_cfg, &msm_dsi_6g_v2_host_ops},
->   };
->   
->   const struct msm_dsi_cfg_handler *msm_dsi_cfg_get(u32 major, u32 minor)
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-> index ade9b60..b2c4d5e 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-> @@ -24,6 +24,7 @@
->   #define MSM_DSI_6G_VER_MINOR_V2_3_0	0x20030000
->   #define MSM_DSI_6G_VER_MINOR_V2_4_0	0x20040000
->   #define MSM_DSI_6G_VER_MINOR_V2_4_1	0x20040001
-> +#define MSM_DSI_6G_VER_MINOR_V2_5_0	0x20050000
->   
->   #define MSM_DSI_V2_VER_MINOR_8064	0x0
->   
+> Does the vote for the bus clock result in an improvement or is the
+> device simply not working without it?
+
+This was requested by Kalyan Thota [1]. If I understand correctly, if 
+the bootloader does not setup the bus vote, clock might not be enabled. 
+Thus it has to be used from the device which handles bus voting. Kalyan 
+might be in better position to comment on this.
+
+Compare with 
+https://lore.kernel.org/linux-arm-msm/1594899334-19772-2-git-send-email-kalyan_t@codeaurora.org/
+
+
+[1]: 
+https://lore.kernel.org/linux-arm-msm/04b4612dfd3f651ead068725409211a0@codeaurora.org/
+
 > 
+> Regards,
+> Bjorn
+> 
+>>>
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> ---
+>>>    arch/arm64/boot/dts/qcom/sdm845.dtsi | 8 ++++----
+>>>    1 file changed, 4 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
+>>> index 7395ef20b90e..55704804c2ca 100644
+>>> --- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
+>>> +++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
+>>> @@ -4136,9 +4136,8 @@ mdss: mdss@ae00000 {
+>>>    			power-domains = <&dispcc MDSS_GDSC>;
+>>>    			clocks = <&gcc GCC_DISP_AHB_CLK>,
+>>> -				 <&gcc GCC_DISP_AXI_CLK>,
+>>>    				 <&dispcc DISP_CC_MDSS_MDP_CLK>;
+>>> -			clock-names = "iface", "bus", "core";
+>>> +			clock-names = "iface", "core";
+>>>    			assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>;
+>>>    			assigned-clock-rates = <300000000>;
+>>> @@ -4166,11 +4165,12 @@ mdss_mdp: mdp@ae01000 {
+>>>    				      <0 0x0aeb0000 0 0x2008>;
+>>>    				reg-names = "mdp", "vbif";
+>>> -				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
+>>> +				clocks = <&gcc GCC_DISP_AXI_CLK>,
+>>> +					 <&dispcc DISP_CC_MDSS_AHB_CLK>,
+>>>    					 <&dispcc DISP_CC_MDSS_AXI_CLK>,
+>>>    					 <&dispcc DISP_CC_MDSS_MDP_CLK>,
+>>>    					 <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
+>>> -				clock-names = "iface", "bus", "core", "vsync";
+>>> +				clock-names = "gcc-bus", "iface", "bus", "core", "vsync";
+>>>    				assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>,
+>>>    						  <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
+>>>
+>>
+>>
+>> -- 
+>> With best wishes
+>> Dmitry
 
 
 -- 
