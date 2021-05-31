@@ -2,34 +2,34 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A455539560E
-	for <lists+freedreno@lfdr.de>; Mon, 31 May 2021 09:26:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58DCD395631
+	for <lists+freedreno@lfdr.de>; Mon, 31 May 2021 09:34:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3786C6E875;
-	Mon, 31 May 2021 07:26:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C45226E0EE;
+	Mon, 31 May 2021 07:34:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62A4D6E876
- for <freedreno@lists.freedesktop.org>; Mon, 31 May 2021 07:26:32 +0000 (UTC)
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 421706E0EE
+ for <freedreno@lists.freedesktop.org>; Mon, 31 May 2021 07:34:07 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1622445996; h=Content-Transfer-Encoding: Content-Type:
+ s=smtp; t=1622446448; h=Content-Transfer-Encoding: Content-Type:
  In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
- Subject: Sender; bh=pnbzo/18XLoyGQ7x1yCND/XM9avCMREiTkYsYEr7m9A=;
- b=qoePmrRCKnrgPpLvPhOVTqp47PyVwyjGyuvN4EEhbbYY1B//uKDEZL2vyRDkwf4ZQ6Vx2rD9
- incJh7xK+QcqClz5Wam2yEETxlO32iOEukh14gFhFr/IBXaqEv/Gh4oMWWKYeLmQsXKyeDJO
- 1vz7hcrC1iZT6Ml5ww6c/OfyEEc=
-X-Mailgun-Sending-Ip: 198.61.254.9
+ Subject: Sender; bh=wDQQ376bN5sF92/v8P8tqDT6yjiu711CYrdBMl+n7Xs=;
+ b=EE/3sc1iRjesXqe5vU0jqVTFHiiizwyeH801G7twXeNsUWsLM7LG1iFgh2gpvfYDk26jHaBh
+ PXHuHZDdRw6TUYkN+Qp1Ac5R9IaGM+YEF64QMUyPISFdZ/YKzcQtQnUlpI9XJDr1qCRCOOix
+ ZwkHxLDX1fN3X0d4xdmlqW0NEh4=
+X-Mailgun-Sending-Ip: 69.72.43.7
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
- 60b48f94265e7370f74ca805 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 31 May 2021 07:26:12
+ smtp-out-n07.prod.us-west-2.postgun.com with SMTP id
+ 60b4916d81efe91cda353e06 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 31 May 2021 07:34:05
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id D875DC433F1; Mon, 31 May 2021 07:26:11 +0000 (UTC)
+ id 2806EC433D3; Mon, 31 May 2021 07:34:05 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -39,26 +39,26 @@ X-Spam-Status: No, score=-3.5 required=2.0 tests=ALL_TRUSTED,BAYES_00,
 Received: from [192.168.1.105] (unknown [117.210.184.158])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: akhilpo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 8BF0DC433D3;
- Mon, 31 May 2021 07:26:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 8BF0DC433D3
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 08292C43460;
+ Mon, 31 May 2021 07:33:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 08292C43460
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  spf=fail smtp.mailfrom=akhilpo@codeaurora.org
 To: Jonathan Marek <jonathan@marek.ca>, freedreno@lists.freedesktop.org
 References: <20210513171431.18632-1-jonathan@marek.ca>
- <20210513171431.18632-2-jonathan@marek.ca>
+ <20210513171431.18632-4-jonathan@marek.ca>
 From: Akhil P Oommen <akhilpo@codeaurora.org>
-Message-ID: <b00306ad-e9fa-0fb3-1901-61bdf94cc887@codeaurora.org>
-Date: Mon, 31 May 2021 12:56:05 +0530
+Message-ID: <85cd323b-90a2-9324-5696-fc80cf667827@codeaurora.org>
+Date: Mon, 31 May 2021 13:03:57 +0530
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.2
 MIME-Version: 1.0
-In-Reply-To: <20210513171431.18632-2-jonathan@marek.ca>
+In-Reply-To: <20210513171431.18632-4-jonathan@marek.ca>
 Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH v2 1/8] drm/msm: remove unused
- icc_path/ocmem_icc_path
+Subject: Re: [Freedreno] [PATCH v2 3/8] drm/msm/a6xx: fix incorrectly set
+ uavflagprd_inv field for A650
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,57 +75,39 @@ Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
  David Airlie <airlied@linux.ie>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
  Sharat Masetty <smasetty@codeaurora.org>,
- open list <linux-kernel@vger.kernel.org>,
+ Douglas Anderson <dianders@chromium.org>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Dave Airlie <airlied@redhat.com>,
- Sean Paul <sean@poorly.run>
+ Jordan Crouse <jordan@cosmicpenguin.net>, Eric Anholt <eric@anholt.net>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>, open list <linux-kernel@vger.kernel.org>
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 5/13/2021 10:43 PM, Jonathan Marek wrote:
-> These aren't used by anything anymore.
+> Value was shifted in the wrong direction, resulting in the field always
+> being zero, which is incorrect for A650.
 > 
+> Fixes: d0bac4e9cd66 ("drm/msm/a6xx: set ubwc config for A640 and A650")
 > Signed-off-by: Jonathan Marek <jonathan@marek.ca>
 > ---
->   drivers/gpu/drm/msm/adreno/adreno_gpu.c | 3 ---
->   drivers/gpu/drm/msm/msm_gpu.h           | 9 ---------
->   2 files changed, 12 deletions(-)
+>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> index 8fd0777f2dc9..009f4c560f16 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -946,7 +946,4 @@ void adreno_gpu_cleanup(struct adreno_gpu *adreno_gpu)
->   	pm_runtime_disable(&priv->gpu_pdev->dev);
->   
->   	msm_gpu_cleanup(&adreno_gpu->base);
-> -
-> -	icc_put(gpu->icc_path);
-> -	icc_put(gpu->ocmem_icc_path);
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index 727d111a413f..45a6a0fce7d7 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -489,7 +489,7 @@ static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
+>   		rgb565_predicator << 11 | amsbc << 4 | lower_bit << 1);
+>   	gpu_write(gpu, REG_A6XX_TPL1_NC_MODE_CNTL, lower_bit << 1);
+>   	gpu_write(gpu, REG_A6XX_SP_NC_MODE_CNTL,
+> -		uavflagprd_inv >> 4 | lower_bit << 1);
+> +		uavflagprd_inv << 4 | lower_bit << 1);
+>   	gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL, lower_bit << 21);
 >   }
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-> index 18baf935e143..c302ab7ffb06 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.h
-> +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> @@ -118,15 +118,6 @@ struct msm_gpu {
->   	struct clk *ebi1_clk, *core_clk, *rbbmtimer_clk;
->   	uint32_t fast_rate;
 >   
-> -	/* The gfx-mem interconnect path that's used by all GPU types. */
-> -	struct icc_path *icc_path;
-> -
-> -	/*
-> -	 * Second interconnect path for some A3xx and all A4xx GPUs to the
-> -	 * On Chip MEMory (OCMEM).
-> -	 */
-> -	struct icc_path *ocmem_icc_path;
-> -
->   	/* Hang and Inactivity Detection:
->   	 */
->   #define DRM_MSM_INACTIVE_PERIOD   66 /* in ms (roughly four frames) */
 > 
 Reviewed-by: Akhil P Oommen <akhilpo@codeaurora.org>
 
