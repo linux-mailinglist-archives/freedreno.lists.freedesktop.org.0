@@ -1,68 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6C7839678E
-	for <lists+freedreno@lfdr.de>; Mon, 31 May 2021 20:03:58 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E51839679B
+	for <lists+freedreno@lfdr.de>; Mon, 31 May 2021 20:10:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 349496E929;
-	Mon, 31 May 2021 18:03:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA9876E82B;
+	Mon, 31 May 2021 18:10:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AF2F6E42F
- for <freedreno@lists.freedesktop.org>; Mon, 31 May 2021 18:03:56 +0000 (UTC)
-Received: by mail-lf1-x135.google.com with SMTP id f11so9065751lfq.4
- for <freedreno@lists.freedesktop.org>; Mon, 31 May 2021 11:03:55 -0700 (PDT)
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F74B6E82B
+ for <freedreno@lists.freedesktop.org>; Mon, 31 May 2021 18:10:22 +0000 (UTC)
+Received: by mail-lj1-x22b.google.com with SMTP id c11so458934ljd.6
+ for <freedreno@lists.freedesktop.org>; Mon, 31 May 2021 11:10:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=G6HGOX0Ipm1y9b+ZAda56dcVeACSyNSMODF3keW9xc0=;
- b=thkVknCrH/3gud2ZgNRdotryy473i4TU+0rCrB/puNykbYtxdrVq1fp+HB0/cXafom
- qOODTNKelsEq+ZtJvlRBr9tqFKiqKgZcSboRRBtK1LbGvj0reX6dRTvs23lPB4g+ZgOk
- SWxqaX6qu1Dpfng6cEMjeggT54GL+2QmwyFX+YqH+acKO2wbTxEjQjtKZae6WaijtL1o
- B8nMYsFlTQ+ViJsLHlMddIzwuPv02N//3h4UPSi9y6neMbEuYzFvgAxpl9ktbB6Bakuu
- 3EYYyausto/85iRKeWY1rsdc2LUz8jRcvqz3mXJuHUmAKPeU8AdqCooKAo+2Q1o59wsq
- 2JmQ==
+ bh=RqDyoSo09lPZO7GbOVPgOTHVdV/YSSWYh+JNDnVcsAM=;
+ b=vy0uLjUP4b9/AdZSWCBIJkGYi4KqsFzlAguK9G1kq10RuG2QJ9SaCin/z40CAuN9N1
+ Ny/vrCiMNiRFhNLvJpQsZYZINHFf3EaQct9tsqIhk5tAUsuxyy09Jt+MFTo1pb2DxMnI
+ 1mhuGM8ZMFNvXLG2phlK9NzBPLb3Sc3JtSvvZKZm+MyP/a9uTs2m53y9gSdGz1FPy9Zp
+ irfZkJPLzEw5eyrLgj7PQlgSEwbb6I7tSu/8WspO4dXuoX2ho+xANIhvHef5g176dFCi
+ 3lou3RZZLIaFfJeZfbA0ikQgl/ZH1MLhSjVh8yTZE2in8m24BXFIdgP66V1SntHfTsA6
+ U1mA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=G6HGOX0Ipm1y9b+ZAda56dcVeACSyNSMODF3keW9xc0=;
- b=SUjUT4yhzr8VRZjUrzBtrAF0/ETO124kuHOIypCM8auI80RQqIHoJ33Wxp9TLC4Nki
- gpR9t3Jiw1BKaclocImVORftAwxkeauhUqbkDsspeNO8vBiopbXi6fHtw+DzRK/R65NS
- Tm4+yDsv4s6EQHCuDJnzpAtoDqbdPNJPJ9UjCmsNIN/wtXyHMRQYjQyOFw4T6+dtv8cm
- bupyf+MKEcOeHD/ZY1sYTXM33+YKEaErVm5aJ+d9Fb3NNKUClOMH1wYOosZOMvVjqR7d
- Y4uMoesY0WCmi+HUkswcffm0x/zoNuEm1V/tQ6b6s8kTquBHParM58QNj1CVqCwYCfiG
- c8uQ==
-X-Gm-Message-State: AOAM531+qZ/NYn4azJDdOreA2nEY6AhLg1HX9fpk7KwRAJKbD4AHQTEb
- FydTH8lFCN0VES0VqY+HmTD0Lw==
-X-Google-Smtp-Source: ABdhPJyTt88Y4i2NAmmTuqgOByFFUH3ZIdEIdM5Ps1vyyUh+uap6N73Pa6+SJG5DjR39l0R8w5GoTg==
-X-Received: by 2002:a05:6512:21c:: with SMTP id
- a28mr15579931lfo.298.1622484234170; 
- Mon, 31 May 2021 11:03:54 -0700 (PDT)
+ bh=RqDyoSo09lPZO7GbOVPgOTHVdV/YSSWYh+JNDnVcsAM=;
+ b=evyXFLIUFhCmm4WdN5TIYhTsjeiM811RT36ZraEe2Ekk6egk0RXxTTcLuVdN7anZ1s
+ MnKFI2DuulACrVpWXIDcyJQ8MvW6VWbnehGbhtH1d1KESX9mKL9+EcxV5N2GwcbYp8pV
+ 4/kaBteEJ7ig73f6Ciu4PVAi3sSvOHZ+aUIO3tUCxPmv6TkfqBbTc1pyKZ7BYJAzmNxR
+ r1m8Vidd3o7KL+4Udykwq2WAVDWW3zNor6BkVmhO4rJRO6GXOiE02mDve/HvP5boaxu0
+ bD//PkE/+5M2uDEwLIqDC6j0lKb7dykoKaLnlvEG1R8ktOmlvtPOf/6CcaBKtzQbhf+O
+ Fx9w==
+X-Gm-Message-State: AOAM530OV9f+ZRjT9qq0nwPPr3xwYrwKEzU9gjZBlwDzNlrKT9L4glAW
+ 0Q11XsB//mu2DwSZe3ti5NoNiA==
+X-Google-Smtp-Source: ABdhPJx3O6rn5NqZMzkPeijKZJM/6wPEQfnrs07M3tXIRXQouQa/sGsKJEEBs84ooxP684SBQE0Vag==
+X-Received: by 2002:a2e:bf20:: with SMTP id c32mr17459713ljr.311.1622484620655; 
+ Mon, 31 May 2021 11:10:20 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id g28sm54494lfv.142.2021.05.31.11.03.53
+ by smtp.gmail.com with ESMTPSA id y1sm1331962lfl.68.2021.05.31.11.10.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 31 May 2021 11:03:53 -0700 (PDT)
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Kalyan Thota <kalyan_t@codeaurora.org>
-References: <20210407150157.801210-1-dmitry.baryshkov@linaro.org>
- <20210407150157.801210-4-dmitry.baryshkov@linaro.org>
- <2dc79aad-33cd-7b17-368f-d52d60d46811@linaro.org>
- <YLT1ziKiesQHEw1B@builder.lan>
+ Mon, 31 May 2021 11:10:20 -0700 (PDT)
+To: Jonathan Marek <jonathan@marek.ca>, Rob Herring <robh@kernel.org>
+References: <20210423172450.4885-1-jonathan@marek.ca>
+ <20210423172450.4885-3-jonathan@marek.ca>
+ <20210503171139.GA2011901@robh.at.kernel.org>
+ <0e083e31-d349-6d5c-048f-258414492b2c@marek.ca>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <1481ca73-fff8-e98b-2334-be56e19e6c66@linaro.org>
-Date: Mon, 31 May 2021 21:03:52 +0300
+Message-ID: <4e623554-bbe4-4d4a-7b14-0ca4f684c7fb@linaro.org>
+Date: Mon, 31 May 2021 21:10:19 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <YLT1ziKiesQHEw1B@builder.lan>
+In-Reply-To: <0e083e31-d349-6d5c-048f-258414492b2c@marek.ca>
 Content-Language: en-GB
-Subject: Re: [Freedreno] [PATCH v2 3/4] arm64: dts: sdm845: move bus clock
- to mdp node for sdm845 target
+Subject: Re: [Freedreno] [PATCH v2 2/2] dt-bindings: display: msm/dsi: add
+ qcom, dsi-phy-cphy-mode option
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,91 +73,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
- devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+Cc: Sean Paul <sean@poorly.run>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 31/05/2021 17:42, Bjorn Andersson wrote:
-> On Fri 28 May 10:33 CDT 2021, Dmitry Baryshkov wrote:
-> 
->> On 07/04/2021 18:01, Dmitry Baryshkov wrote:
->>> Move the bus clock to mdp device node,in order to facilitate bus band
->>> width scaling on sdm845 target.
->>>
->>> The parent device MDSS will not vote for bus bw, instead the vote will
->>> be triggered by mdp device node. Since a minimum vote is required to
->>> turn on bus clock, move the clock node to mdp device from where the
->>> votes are requested.
+On 28/05/2021 15:57, Jonathan Marek wrote:
+> On 5/3/21 1:11 PM, Rob Herring wrote:
+>> On Fri, Apr 23, 2021 at 01:24:40PM -0400, Jonathan Marek wrote:
+>>> Document qcom,dsi-phy-cphy-mode option, which can be used to control
+>>> whether DSI will operate in D-PHY (default) or C-PHY mode.
 >>
->> drm/msm patches were merged through the msm tree (targeting 5.13). Shouldn't
->> we also merge these two patches (targeting 5.13 as fixes or 5.14)?
+>> Given this is a standard MIPI thing, I think this needs to be a common
+>> property. We already have phy bindings that use the phy cells to set the
+>> phy type which I think you should use here. See
+>> include/dt-bindings/phy/phy.h.
 >>
 > 
-> Does the vote for the bus clock result in an improvement or is the
-> device simply not working without it?
-
-This was requested by Kalyan Thota [1]. If I understand correctly, if 
-the bootloader does not setup the bus vote, clock might not be enabled. 
-Thus it has to be used from the device which handles bus voting. Kalyan 
-might be in better position to comment on this.
-
-Compare with 
-https://lore.kernel.org/linux-arm-msm/1594899334-19772-2-git-send-email-kalyan_t@codeaurora.org/
-
-
-[1]: 
-https://lore.kernel.org/linux-arm-msm/04b4612dfd3f651ead068725409211a0@codeaurora.org/
-
+> Is it OK to simply change the option to something like "phy-mode = 
+> <PHY_TYPE_DSI_CPHY>;"?
 > 
-> Regards,
-> Bjorn
-> 
->>>
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>> ---
->>>    arch/arm64/boot/dts/qcom/sdm845.dtsi | 8 ++++----
->>>    1 file changed, 4 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
->>> index 7395ef20b90e..55704804c2ca 100644
->>> --- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
->>> +++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
->>> @@ -4136,9 +4136,8 @@ mdss: mdss@ae00000 {
->>>    			power-domains = <&dispcc MDSS_GDSC>;
->>>    			clocks = <&gcc GCC_DISP_AHB_CLK>,
->>> -				 <&gcc GCC_DISP_AXI_CLK>,
->>>    				 <&dispcc DISP_CC_MDSS_MDP_CLK>;
->>> -			clock-names = "iface", "bus", "core";
->>> +			clock-names = "iface", "core";
->>>    			assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>;
->>>    			assigned-clock-rates = <300000000>;
->>> @@ -4166,11 +4165,12 @@ mdss_mdp: mdp@ae01000 {
->>>    				      <0 0x0aeb0000 0 0x2008>;
->>>    				reg-names = "mdp", "vbif";
->>> -				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
->>> +				clocks = <&gcc GCC_DISP_AXI_CLK>,
->>> +					 <&dispcc DISP_CC_MDSS_AHB_CLK>,
->>>    					 <&dispcc DISP_CC_MDSS_AXI_CLK>,
->>>    					 <&dispcc DISP_CC_MDSS_MDP_CLK>,
->>>    					 <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
->>> -				clock-names = "iface", "bus", "core", "vsync";
->>> +				clock-names = "gcc-bus", "iface", "bus", "core", "vsync";
->>>    				assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>,
->>>    						  <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
->>>
->>
->>
->> -- 
->> With best wishes
->> Dmitry
+> (using phy-cells would be annoying to implement, with no benefit IMO)
 
+
+To add another feather to the balance scales:
+
+- `phys = <&dsi0_phy PHY_TYPE_DSI_CPHY>;` would bring knowledge about 
+PHY mode to the DSI host (which does not really care about PHY mode)
+
+- `phy-mode = <PHY_TYPE_DSI_CPHY>;` would stay in the PHY node, where 
+this information belongs.
 
 -- 
 With best wishes
