@@ -2,57 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A4ED397320
-	for <lists+freedreno@lfdr.de>; Tue,  1 Jun 2021 14:23:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9122F397442
+	for <lists+freedreno@lfdr.de>; Tue,  1 Jun 2021 15:32:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFB1B6E81A;
-	Tue,  1 Jun 2021 12:23:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D6006EA66;
+	Tue,  1 Jun 2021 13:32:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93A236E92F
- for <freedreno@lists.freedesktop.org>; Tue,  1 Jun 2021 12:22:58 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1622550185; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=JAcNP7Uo9zJKWgXCjvCXGiHUwrw7I6s+Af9UbfhFRic=;
- b=AWnUMg52uhtl+xpkv0BAzDDUSowrzkFSSzjvgPUWpb79PhpXPE5rxB9a4kcIkKLmfIO/EtIA
- ecr1sMXbS6pdualBHrjatxKiU01CNJZaRv8HmFM21hmuSM6VCbQk5IFKPK+b6Xu43mbmInLW
- 6twl6mMkLH+i3L9aLbriPgMFNew=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
- 60b62695ed59bf69cceb716b (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 01 Jun 2021 12:22:45
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 2B315C43217; Tue,  1 Jun 2021 12:22:45 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: rajeevny)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 4B0A4C433F1;
- Tue,  1 Jun 2021 12:22:44 +0000 (UTC)
-MIME-Version: 1.0
-Date: Tue, 01 Jun 2021 17:52:44 +0530
-From: rajeevny@codeaurora.org
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <7a3facb5-d118-f81b-65f8-381b0d56a23b@linaro.org>
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com
+ [209.85.167.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E190F6EA66;
+ Tue,  1 Jun 2021 13:32:14 +0000 (UTC)
+Received: by mail-oi1-f178.google.com with SMTP id c3so15474431oic.8;
+ Tue, 01 Jun 2021 06:32:14 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=sUvFSbu0LjfUEV8j0+FO3g9Nw0MVO+tbGa4afn92YVM=;
+ b=qSxPH3ljbT+F6C0Gz09txV+eN0FsJo/2kr4zpxkvePSq1s9yQerEphfWCKkv2h87Uc
+ zN/3eV3nXyGAlUXX9n9tIfb1pdu9CBABxCVPfw4t+3ICHTFiKlOseouCiwUMfAb+/7Xf
+ QKtEOgganhKCNkd3RqKypfp218JoeJrl/YHN7uNJqfle1e61C++SHlOJmnfcR3TxfcEl
+ wh9MdM3+ohaPjsRAVGBDmwWuURQm6u+KvcnBBYWhdyzajxwWiUYPYMrC5pd/iQnFhvdB
+ YfVPzPilFNbzHsA0yptj/CBkGnhA6/vwFzzmmx2rYw9XmijrpbxX8VSO4yd11Z4n5qcE
+ hQfQ==
+X-Gm-Message-State: AOAM531ZzZnp8uTiQvcOSvbZimHhEvNnsK1NNd0cRpnFdaxlHs6SoCNR
+ HaCjWsbrZvBUzuzcTFvG7Q==
+X-Google-Smtp-Source: ABdhPJxIQ4UNHJiSMIQurjA4OqwlMFcM1ZeS8iht1dzB0oheLg8yrxOc5sZ0cAHYtcMx3as29NSRpA==
+X-Received: by 2002:a05:6808:4cf:: with SMTP id
+ a15mr3193906oie.78.1622554334167; 
+ Tue, 01 Jun 2021 06:32:14 -0700 (PDT)
+Received: from robh.at.kernel.org (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id m66sm3438918oia.28.2021.06.01.06.32.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 01 Jun 2021 06:32:13 -0700 (PDT)
+Received: (nullmailer pid 242371 invoked by uid 1000);
+ Tue, 01 Jun 2021 13:32:10 -0000
+From: Rob Herring <robh@kernel.org>
+To: Rajeev Nandan <rajeevny@codeaurora.org>
+In-Reply-To: <1622468035-8453-2-git-send-email-rajeevny@codeaurora.org>
 References: <1622468035-8453-1-git-send-email-rajeevny@codeaurora.org>
- <1622468035-8453-3-git-send-email-rajeevny@codeaurora.org>
- <7a3facb5-d118-f81b-65f8-381b0d56a23b@linaro.org>
-Message-ID: <b37617c61fbdb11dc2c903878c05e0ac@codeaurora.org>
-X-Sender: rajeevny@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [v1 2/3] drm/msm/dsi: Add PHY configuration for
- SC7280
+ <1622468035-8453-2-git-send-email-rajeevny@codeaurora.org>
+Date: Tue, 01 Jun 2021 08:32:10 -0500
+Message-Id: <1622554330.075037.242370.nullmailer@robh.at.kernel.org>
+Subject: Re: [Freedreno] [v1 1/3] dt-bindings: msm/dsi: Add yaml schema for
+ 7nm DSI PHY
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,50 +60,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, mkrishn@codeaurora.org, jonathan@marek.ca,
+Cc: sean@poorly.run, mkrishn@codeaurora.org, jonathan@marek.ca,
  devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, robh+dt@kernel.org, abhinavk@codeaurora.org,
- kalyan_t@codeaurora.org, sean@poorly.run
+ linux-kernel@vger.kernel.org, abhinavk@codeaurora.org, robdclark@gmail.com,
+ robh+dt@kernel.org, dri-devel@lists.freedesktop.org, kalyan_t@codeaurora.org,
+ freedreno@lists.freedesktop.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 31-05-2021 23:27, Dmitry Baryshkov wrote:
-> On 31/05/2021 16:33, Rajeev Nandan wrote:
+On Mon, 31 May 2021 19:03:53 +0530, Rajeev Nandan wrote:
+> Add YAML schema for the device tree bindings for MSM 7nm DSI PHY driver.
+> 
+> Cc: Jonathan Marek <jonathan@marek.ca>
+> Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
+> ---
+>  .../bindings/display/msm/dsi-phy-7nm.yaml          | 68 ++++++++++++++++++++++
+>  1 file changed, 68 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+> 
 
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
->> +	.min_pll_rate = 600000000UL,
->> +	.max_pll_rate = (5000000000ULL < ULONG_MAX) ? 5000000000ULL : 
->> ULONG_MAX,
-> 
-> Could you please follow the patch by Arnd here?
-> https://lore.kernel.org/linux-arm-msm/20210514213032.575161-1-arnd@kernel.org/
-> 
-> 
-> 
->> +	.io_start = { 0xae94400, 0xae96400 },
->> +	.num_dsi_phy = 2,
-> 
-> Judging from the next patch, you have one DSI host and one DSI PHY.
-> Could you please correct io_start / num_dsi_phy here?
-> 
->> +	.quirks = DSI_PHY_7NM_QUIRK_V4_1,
->> +};
-> 
-> 
-> With these two issues fixed:
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+yamllint warnings/errors:
 
-Thank you very much for your review :) I have incorporated the
-review comments. I am waiting for comments on my DT bindings patch (1/3) 
-and
-will send v2 in a day or two.
+dtschema/dtc warnings/errors:
+Unknown file referenced: [Errno 2] No such file or directory: '/usr/local/lib/python3.8/dist-packages/dtschema/schemas/display/msm/dsi-phy-common.yaml'
+xargs: dt-doc-validate: exited with status 255; aborting
+Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.example.dts:19:18: fatal error: dt-bindings/clock/qcom,dispcc-sc7280.h: No such file or directory
+   19 |         #include <dt-bindings/clock/qcom,dispcc-sc7280.h>
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make[1]: *** [scripts/Makefile.lib:380: Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.example.dt.yaml] Error 1
+make[1]: *** Waiting for unfinished jobs....
+make: *** [Makefile:1416: dt_binding_check] Error 2
 
-Thanks,
-Rajeev
+See https://patchwork.ozlabs.org/patch/1485686
+
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
