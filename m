@@ -2,61 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 827CC397C8B
-	for <lists+freedreno@lfdr.de>; Wed,  2 Jun 2021 00:44:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A64A397C96
+	for <lists+freedreno@lfdr.de>; Wed,  2 Jun 2021 00:44:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E825D6EB28;
-	Tue,  1 Jun 2021 22:44:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75BC66EB2B;
+	Tue,  1 Jun 2021 22:44:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
- [IPv6:2607:f8b0:4864:20::1031])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D96C86EB25;
- Tue,  1 Jun 2021 22:44:03 +0000 (UTC)
-Received: by mail-pj1-x1031.google.com with SMTP id
- h12-20020a17090aa88cb029016400fd8ad8so560218pjq.3; 
- Tue, 01 Jun 2021 15:44:03 -0700 (PDT)
+Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
+ [IPv6:2607:f8b0:4864:20::102c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25F806EB2A;
+ Tue,  1 Jun 2021 22:44:19 +0000 (UTC)
+Received: by mail-pj1-x102c.google.com with SMTP id
+ m13-20020a17090b068db02901656cc93a75so2301747pjz.3; 
+ Tue, 01 Jun 2021 15:44:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=ruRmdj//+BrtUTRZyXXenuD+b8S/L8NONyW8idiiQuk=;
- b=EMdwsZSTRmbdaAwgPzgcCQmbs8aE7i+XuElyCLMn7Y3TEBrqO4WCoforpWgxe5sYOc
- qJH2JxYYGFTrBkxOHGO6gL8TOH5F4Sw6C06mD9ti55vXyBOds2H94fL7MFUD+Tge34R6
- Hl4xDjls+z76bjFv+vUxfT1sPVPktD5HBR2iqa043g+WNlXVlWAIAq+0W6JQ4p0Bm5YF
- KKJPYu2AvB/rME7CgbXOCZXoaCa/Yf07Xq+yQXKQWooJGfm1JwOmcfw7yr5a9gX0kgpq
- w0dxWZi7gpnOODJXbuM07huSN3T58CMxeyKbtcxp2zt4Rr0s2WAgtxH4vQ4Eh/UVqCg3
- trYw==
+ bh=f8TBvuEhJIYSx02uYrz2RNVyn3Huf1vKVuYXCtSr4og=;
+ b=k/PB6bvkWkvSgogGIYMhCtAdJ0mvCmfJfEVvf7QncXwzBg2k2fk14ifPK0KgHJNLos
+ kzvHtPyuApp5iVxnADmD41EMosbEUGtYga2eRNuKGSl7BIAY74/0uXIsYpdQjIInJ3q+
+ ss1qcRZD6NoHfwG1pqgH0A5z0AGn8f6xNWLTVggnuirneqbKvHAqTJCXQqtgsyZt4pgB
+ +5m8T309VhmK7VEFXUw13i+jt4XbpbpqPlTPgRQvCGx0YpojKySY3Xv0lLXJJYVNEBSu
+ JweZoy/ZzlvR70cEWD8d8iGrZVF8fnWEaeQxPbxvM9M/FObwTKZezXhC64u/2Or9CSkh
+ EpIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=ruRmdj//+BrtUTRZyXXenuD+b8S/L8NONyW8idiiQuk=;
- b=HQmV4OOhNsRfV5vkyNcQYRtpi2djEoH6JAmmLl0JKBCRRHzuB3DbJglrwJzD482dC5
- nI2qXWWOJ/XyM/hTM4CFy7ad/v3rNJfO9/U+mZ8W3R1MFNdF/SzSkjUqC7XUsV8mV5Ea
- 6tJ2bVv2b8AAcl0/XvYmQT7xf/AejOEcLrSiJbTOvGexEN9WCcZ6vLLeWKSbNKjOHepL
- TCsnfK7Uyx0rgjgA1mOeuzxJfqAgJi7UVbp78kbMQz9zJU4ySaOB/PEPUU31TeKGIwyH
- ejDqr1ORgxAS4KnpQtWwoiq1ZkAbTRRdJiJGmDyvLptPElnzKFk7n3FZ1sSLQkI/IZ/f
- r+Kg==
-X-Gm-Message-State: AOAM532lmWMWYd9NXg/CzAepl2X3MuOBwPx/JSyo7/BpJ9PU6Bu9Cbqk
- G0NqPRXoCPYqKA86rop3Nwko9VkJ5aDjpPd4
-X-Google-Smtp-Source: ABdhPJzama51EHM7KJmYpli36U1M9on/EbL4S0v1Vrd108FTqsV+I102EzB5U7shLTuhaKrbTz1lqQ==
-X-Received: by 2002:a17:90b:1211:: with SMTP id
- gl17mr2229702pjb.49.1622587442661; 
- Tue, 01 Jun 2021 15:44:02 -0700 (PDT)
+ bh=f8TBvuEhJIYSx02uYrz2RNVyn3Huf1vKVuYXCtSr4og=;
+ b=AMcq3HoNQcYt+7GZMWUDydz+4gQZEuxdwLvt1zNCl+h6q8854tjTkruCiUuwvAYv99
+ eWTo2FWBxZoGBSWohfiCZVrjHz/E8DeORICxteDd5RrChRvp+lGvvmKAyo1E7Dj+5Ueg
+ FrUzbCXOS50QJZIk8fyel1Y9d77HpBJDPtXLYffck24Bzvy1vYibo693Cb3DB+PRlIoN
+ zvyyAjWG+RJC0J8yhGw/73ERb5yNiaECom5sQkW0gVqGs4SxtNDKHmVQhyZIDUWo14oU
+ TLFiCqsinwCLh+g9mK/QezcUpZOG1H+TR1h/NE2SUxZCCowC+qPWLHFlh3hLx2rquRrH
+ mdnQ==
+X-Gm-Message-State: AOAM531rzQPkeSR6KozN+sMyS6+VnNIFwhOcrjepZsqskerk+EDkS/3b
+ zBdCAQvTkGGY0o4gKBX/ITo35aFf6ZqEW2Qk
+X-Google-Smtp-Source: ABdhPJzHoeK4rxw7lnJietI1BhJLhslhGDKNcFVd62Bh/uRAUklK4pKybYSgWYKXeqMUpca3bydJOA==
+X-Received: by 2002:a17:902:e551:b029:103:c082:ba with SMTP id
+ n17-20020a170902e551b0290103c08200bamr14935051plf.3.1622587458135; 
+ Tue, 01 Jun 2021 15:44:18 -0700 (PDT)
 Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
  by smtp.gmail.com with ESMTPSA id
- o11sm2969037pjk.30.2021.06.01.15.44.01
+ s123sm13990015pfb.78.2021.06.01.15.44.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Jun 2021 15:44:01 -0700 (PDT)
+ Tue, 01 Jun 2021 15:44:17 -0700 (PDT)
 From: Rob Clark <robdclark@gmail.com>
 To: dri-devel@lists.freedesktop.org
-Date: Tue,  1 Jun 2021 15:47:19 -0700
-Message-Id: <20210601224750.513996-2-robdclark@gmail.com>
+Date: Tue,  1 Jun 2021 15:47:22 -0700
+Message-Id: <20210601224750.513996-5-robdclark@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210601224750.513996-1-robdclark@gmail.com>
 References: <20210601224750.513996-1-robdclark@gmail.com>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm/dpu: Delete bonkers code
+Subject: [Freedreno] [PATCH v4 3/6] drm/msm: Improve the a6xx page fault
+ handler
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,138 +70,208 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Jordan Crouse <jordan@cosmicpenguin.net>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Lee Jones <lee.jones@linaro.org>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Rob Clark <robdclark@chromium.org>, Qinglang Miao <miaoqinglang@huawei.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <freedreno@lists.freedesktop.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
- John Stultz <john.stultz@linaro.org>, Maxime Ripard <maxime@cerno.tech>,
- Kalyan Thota <kalyan_t@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>, Stephen Boyd <sboyd@kernel.org>,
- open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Clark <robdclark@gmail.com>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Eric Anholt <eric@anholt.net>,
+ Jordan Crouse <jcrouse@codeaurora.org>,
+ "Kristian H. Kristensen" <hoegsberg@google.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
+ open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+From: Jordan Crouse <jcrouse@codeaurora.org>
 
-dpu_crtc_atomic_flush() was directly poking it's attached planes in a
-code path that ended up in dpu_plane_atomic_update(), even if the plane
-was not involved in the current atomic update.  While a bit dubious,
-this worked before because plane->state would always point to something
-valid.  But now using drm_atomic_get_new_plane_state() we could get a
-NULL state pointer instead, leading to:
+Use the new adreno-smmu-priv fault info function to get more SMMU
+debug registers and print the current TTBR0 to debug per-instance
+pagetables and figure out which GPU block generated the request.
 
-   [   20.873273] Call trace:
-   [   20.875740]  dpu_plane_atomic_update+0x5c/0xed0
-   [   20.880311]  dpu_plane_restore+0x40/0x88
-   [   20.884266]  dpu_crtc_atomic_flush+0xf4/0x208
-   [   20.888660]  drm_atomic_helper_commit_planes+0x150/0x238
-   [   20.894014]  msm_atomic_commit_tail+0x1d4/0x7a0
-   [   20.898579]  commit_tail+0xa4/0x168
-   [   20.902102]  drm_atomic_helper_commit+0x164/0x178
-   [   20.906841]  drm_atomic_commit+0x54/0x60
-   [   20.910798]  drm_atomic_connector_commit_dpms+0x10c/0x118
-   [   20.916236]  drm_mode_obj_set_property_ioctl+0x1e4/0x440
-   [   20.921588]  drm_connector_property_set_ioctl+0x60/0x88
-   [   20.926852]  drm_ioctl_kernel+0xd0/0x120
-   [   20.930807]  drm_ioctl+0x21c/0x478
-   [   20.934235]  __arm64_sys_ioctl+0xa8/0xe0
-   [   20.938193]  invoke_syscall+0x64/0x130
-   [   20.941977]  el0_svc_common.constprop.3+0x5c/0xe0
-   [   20.946716]  do_el0_svc+0x80/0xa0
-   [   20.950058]  el0_svc+0x20/0x30
-   [   20.953145]  el0_sync_handler+0x88/0xb0
-   [   20.957014]  el0_sync+0x13c/0x140
-
-The reason for the codepath seems dubious, the atomic suspend/resume
-heplers should handle the power-collapse case.  If not, the CRTC's
-atomic_check() should be adding the planes to the atomic update.
-
-Reported-by: Stephen Boyd <sboyd@kernel.org>
-Reported-by: John Stultz <john.stultz@linaro.org>
-Fixes: 37418bf14c13 drm: Use state helper instead of the plane state pointer
+Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
 Signed-off-by: Rob Clark <robdclark@chromium.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  | 10 ----------
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 16 ----------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h |  6 ------
- 3 files changed, 32 deletions(-)
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c |  4 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 76 +++++++++++++++++++++++++--
+ drivers/gpu/drm/msm/msm_iommu.c       | 11 +++-
+ drivers/gpu/drm/msm/msm_mmu.h         |  4 +-
+ 4 files changed, 87 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 7c29976be243..18bc76b7f1a3 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -648,16 +648,6 @@ static void dpu_crtc_atomic_flush(struct drm_crtc *crtc,
- 	if (unlikely(!cstate->num_mixers))
- 		return;
- 
--	/*
--	 * For planes without commit update, drm framework will not add
--	 * those planes to current state since hardware update is not
--	 * required. However, if those planes were power collapsed since
--	 * last commit cycle, driver has to restore the hardware state
--	 * of those planes explicitly here prior to plane flush.
--	 */
--	drm_atomic_crtc_for_each_plane(plane, crtc)
--		dpu_plane_restore(plane, state);
--
- 	/* update performance setting before crtc kickoff */
- 	dpu_core_perf_crtc_update(crtc, 1, false);
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index df7f3d3afd8b..7a993547eb75 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -1258,22 +1258,6 @@ static void dpu_plane_atomic_update(struct drm_plane *plane,
- 	}
+diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+index ce13d49e615b..a0eef5d9b89b 100644
+--- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+@@ -1075,7 +1075,7 @@ bool a5xx_idle(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+ 	return true;
  }
  
--void dpu_plane_restore(struct drm_plane *plane, struct drm_atomic_state *state)
--{
--	struct dpu_plane *pdpu;
--
--	if (!plane || !plane->state) {
--		DPU_ERROR("invalid plane\n");
--		return;
--	}
--
--	pdpu = to_dpu_plane(plane);
--
--	DPU_DEBUG_PLANE(pdpu, "\n");
--
--	dpu_plane_atomic_update(plane, state);
--}
--
- static void dpu_plane_destroy(struct drm_plane *plane)
+-static int a5xx_fault_handler(void *arg, unsigned long iova, int flags)
++static int a5xx_fault_handler(void *arg, unsigned long iova, int flags, void *data)
  {
- 	struct dpu_plane *pdpu = plane ? to_dpu_plane(plane) : NULL;
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-index 03b6365a750c..34e03ac05f4a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-@@ -84,12 +84,6 @@ bool is_dpu_plane_virtual(struct drm_plane *plane);
- void dpu_plane_get_ctl_flush(struct drm_plane *plane, struct dpu_hw_ctl *ctl,
- 		u32 *flush_sspp);
+ 	struct msm_gpu *gpu = arg;
+ 	pr_warn_ratelimited("*** gpu fault: iova=%08lx, flags=%d (%u,%u,%u,%u)\n",
+@@ -1085,7 +1085,7 @@ static int a5xx_fault_handler(void *arg, unsigned long iova, int flags)
+ 			gpu_read(gpu, REG_A5XX_CP_SCRATCH_REG(6)),
+ 			gpu_read(gpu, REG_A5XX_CP_SCRATCH_REG(7)));
  
--/**
-- * dpu_plane_restore - restore hw state if previously power collapsed
-- * @plane: Pointer to drm plane structure
-- */
--void dpu_plane_restore(struct drm_plane *plane, struct drm_atomic_state *state);
--
- /**
-  * dpu_plane_flush - final plane operations before commit flush
-  * @plane: Pointer to drm plane structure
+-	return -EFAULT;
++	return 0;
+ }
+ 
+ static void a5xx_cp_err_irq(struct msm_gpu *gpu)
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 23464d735682..094dc17fd20f 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -959,18 +959,88 @@ static void a6xx_recover(struct msm_gpu *gpu)
+ 	msm_gpu_hw_init(gpu);
+ }
+ 
+-static int a6xx_fault_handler(void *arg, unsigned long iova, int flags)
++static const char *a6xx_uche_fault_block(struct msm_gpu *gpu, u32 mid)
++{
++	static const char *uche_clients[7] = {
++		"VFD", "SP", "VSC", "VPC", "HLSQ", "PC", "LRZ",
++	};
++	u32 val;
++
++	if (mid < 1 || mid > 3)
++		return "UNKNOWN";
++
++	/*
++	 * The source of the data depends on the mid ID read from FSYNR1.
++	 * and the client ID read from the UCHE block
++	 */
++	val = gpu_read(gpu, REG_A6XX_UCHE_CLIENT_PF);
++
++	/* mid = 3 is most precise and refers to only one block per client */
++	if (mid == 3)
++		return uche_clients[val & 7];
++
++	/* For mid=2 the source is TP or VFD except when the client id is 0 */
++	if (mid == 2)
++		return ((val & 7) == 0) ? "TP" : "TP|VFD";
++
++	/* For mid=1 just return "UCHE" as a catchall for everything else */
++	return "UCHE";
++}
++
++static const char *a6xx_fault_block(struct msm_gpu *gpu, u32 id)
++{
++	if (id == 0)
++		return "CP";
++	else if (id == 4)
++		return "CCU";
++	else if (id == 6)
++		return "CDP Prefetch";
++
++	return a6xx_uche_fault_block(gpu, id);
++}
++
++#define ARM_SMMU_FSR_TF                 BIT(1)
++#define ARM_SMMU_FSR_PF			BIT(3)
++#define ARM_SMMU_FSR_EF			BIT(4)
++
++static int a6xx_fault_handler(void *arg, unsigned long iova, int flags, void *data)
+ {
+ 	struct msm_gpu *gpu = arg;
++	struct adreno_smmu_fault_info *info = data;
++	const char *type = "UNKNOWN";
+ 
+-	pr_warn_ratelimited("*** gpu fault: iova=%08lx, flags=%d (%u,%u,%u,%u)\n",
++	/*
++	 * Print a default message if we couldn't get the data from the
++	 * adreno-smmu-priv
++	 */
++	if (!info) {
++		pr_warn_ratelimited("*** gpu fault: iova=%.16lx flags=%d (%u,%u,%u,%u)\n",
+ 			iova, flags,
+ 			gpu_read(gpu, REG_A6XX_CP_SCRATCH_REG(4)),
+ 			gpu_read(gpu, REG_A6XX_CP_SCRATCH_REG(5)),
+ 			gpu_read(gpu, REG_A6XX_CP_SCRATCH_REG(6)),
+ 			gpu_read(gpu, REG_A6XX_CP_SCRATCH_REG(7)));
+ 
+-	return -EFAULT;
++		return 0;
++	}
++
++	if (info->fsr & ARM_SMMU_FSR_TF)
++		type = "TRANSLATION";
++	else if (info->fsr & ARM_SMMU_FSR_PF)
++		type = "PERMISSION";
++	else if (info->fsr & ARM_SMMU_FSR_EF)
++		type = "EXTERNAL";
++
++	pr_warn_ratelimited("*** gpu fault: ttbr0=%.16llx iova=%.16lx dir=%s type=%s source=%s (%u,%u,%u,%u)\n",
++			info->ttbr0, iova,
++			flags & IOMMU_FAULT_WRITE ? "WRITE" : "READ", type,
++			a6xx_fault_block(gpu, info->fsynr1 & 0xff),
++			gpu_read(gpu, REG_A6XX_CP_SCRATCH_REG(4)),
++			gpu_read(gpu, REG_A6XX_CP_SCRATCH_REG(5)),
++			gpu_read(gpu, REG_A6XX_CP_SCRATCH_REG(6)),
++			gpu_read(gpu, REG_A6XX_CP_SCRATCH_REG(7)));
++
++	return 0;
+ }
+ 
+ static void a6xx_cp_hw_err_irq(struct msm_gpu *gpu)
+diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
+index 50d881794758..6975b95c3c29 100644
+--- a/drivers/gpu/drm/msm/msm_iommu.c
++++ b/drivers/gpu/drm/msm/msm_iommu.c
+@@ -211,8 +211,17 @@ static int msm_fault_handler(struct iommu_domain *domain, struct device *dev,
+ 		unsigned long iova, int flags, void *arg)
+ {
+ 	struct msm_iommu *iommu = arg;
++	struct adreno_smmu_priv *adreno_smmu = dev_get_drvdata(iommu->base.dev);
++	struct adreno_smmu_fault_info info, *ptr = NULL;
++
++	if (adreno_smmu->get_fault_info) {
++		adreno_smmu->get_fault_info(adreno_smmu->cookie, &info);
++		ptr = &info;
++	}
++
+ 	if (iommu->base.handler)
+-		return iommu->base.handler(iommu->base.arg, iova, flags);
++		return iommu->base.handler(iommu->base.arg, iova, flags, ptr);
++
+ 	pr_warn_ratelimited("*** fault: iova=%16lx, flags=%d\n", iova, flags);
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/msm/msm_mmu.h b/drivers/gpu/drm/msm/msm_mmu.h
+index 61ade89d9e48..a88f44c3268d 100644
+--- a/drivers/gpu/drm/msm/msm_mmu.h
++++ b/drivers/gpu/drm/msm/msm_mmu.h
+@@ -26,7 +26,7 @@ enum msm_mmu_type {
+ struct msm_mmu {
+ 	const struct msm_mmu_funcs *funcs;
+ 	struct device *dev;
+-	int (*handler)(void *arg, unsigned long iova, int flags);
++	int (*handler)(void *arg, unsigned long iova, int flags, void *data);
+ 	void *arg;
+ 	enum msm_mmu_type type;
+ };
+@@ -43,7 +43,7 @@ struct msm_mmu *msm_iommu_new(struct device *dev, struct iommu_domain *domain);
+ struct msm_mmu *msm_gpummu_new(struct device *dev, struct msm_gpu *gpu);
+ 
+ static inline void msm_mmu_set_fault_handler(struct msm_mmu *mmu, void *arg,
+-		int (*handler)(void *arg, unsigned long iova, int flags))
++		int (*handler)(void *arg, unsigned long iova, int flags, void *data))
+ {
+ 	mmu->arg = arg;
+ 	mmu->handler = handler;
 -- 
-2.30.2
+2.31.1
 
 _______________________________________________
 Freedreno mailing list
