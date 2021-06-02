@@ -1,55 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B5BC3992A2
-	for <lists+freedreno@lfdr.de>; Wed,  2 Jun 2021 20:34:39 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id E5165399424
+	for <lists+freedreno@lfdr.de>; Wed,  2 Jun 2021 22:02:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F323D6E529;
-	Wed,  2 Jun 2021 18:34:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6987E6EE56;
+	Wed,  2 Jun 2021 20:02:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com
- [209.85.210.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE75F6E48E;
- Wed,  2 Jun 2021 18:34:36 +0000 (UTC)
-Received: by mail-ot1-f42.google.com with SMTP id
- x41-20020a05683040a9b02903b37841177eso3312293ott.9; 
- Wed, 02 Jun 2021 11:34:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=v7bb35jhHDO5KmSChe6UgzAJ2YLdRNf6+3Ot3N3cHEw=;
- b=ZT2H0xNO0hHJMJORckNBeGaCWMOz3ITLWtOLqDl3c0OfCozHyP/RDNa87LG8AaKBvD
- vwMlg9cOmAZMJXFiU6mbjhx3jLMCfQYZIu47fzuw6Eey0tXSNAgiv7e/03zYLBo062dY
- M42C+K9S6o5XjjTs545IYr/LMK+mxcc2sBzT1lh65UZTIyZ3iy9B1SwY+UMnsVHMlwlL
- 7/Ni772uXqMTlztvVswmXZKZQYW7sxCITLkNiX7nTaJCIfEPRswQRcooaQnn3xS7io+0
- walNP4HpEC/T6qzfS53ygqMPDQfG7SZUiTh1WUcFWEXRkNCA+v6+92idf+PJ/4pRz8Sw
- qacw==
-X-Gm-Message-State: AOAM532t5SaDR1xMtK1g1yWB3T2E7drCpCGizJMBKylDAt0cDBQFHhWk
- pSV5ytiPT4KNG2ImISk2AA==
-X-Google-Smtp-Source: ABdhPJwpbSJ+FHTZMygd+tTbazR6JvvrPj4e9XhrvI/pZhiv08sY74HxC/wpj1Zvl/Ep4SQSbB2U3g==
-X-Received: by 2002:a9d:460b:: with SMTP id y11mr17785207ote.330.1622658876193; 
- Wed, 02 Jun 2021 11:34:36 -0700 (PDT)
-Received: from robh.at.kernel.org (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id 88sm151977otb.7.2021.06.02.11.34.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Jun 2021 11:34:35 -0700 (PDT)
-Received: (nullmailer pid 3735855 invoked by uid 1000);
- Wed, 02 Jun 2021 18:34:33 -0000
-Date: Wed, 2 Jun 2021 13:34:33 -0500
-From: Rob Herring <robh@kernel.org>
-To: Rajeev Nandan <rajeevny@codeaurora.org>
-Message-ID: <20210602183433.GA3735793@robh.at.kernel.org>
-References: <1622390172-31368-1-git-send-email-rajeevny@codeaurora.org>
- <1622390172-31368-5-git-send-email-rajeevny@codeaurora.org>
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCCA56EE56
+ for <freedreno@lists.freedesktop.org>; Wed,  2 Jun 2021 20:02:15 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1622664136; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=uiSY2nPfub1TorMuwMxTsRCZaabvu7VFakvdKWWqHMg=;
+ b=jtlUoMWziNh7tSl2hQwWIbN+V4BArryQTIUQWzVLT44DWH1s+LhMnfh4QBoipPevz3MzlZ99
+ m4Znx/482PwZnv/alkzaR/6dXrYiwK2iOdaSmOUDFGegUv2arIW944YH+g5FrOOkHd0C+o1t
+ pwxvs62QEihK97UBI1Ccjoj/TeU=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
+ 60b7e3c4e27c0cc77f26b5ea (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 02 Jun 2021 20:02:12
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 4F8F3C43217; Wed,  2 Jun 2021 20:02:11 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: rajeevny)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 811C1C433D3;
+ Wed,  2 Jun 2021 20:02:09 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1622390172-31368-5-git-send-email-rajeevny@codeaurora.org>
-Subject: Re: [Freedreno] [v5 4/5] dt-bindings: display: simple: Add Samsung
- ATNA33XC20
+Date: Thu, 03 Jun 2021 01:32:09 +0530
+From: rajeevny@codeaurora.org
+To: Rob Herring <robh@kernel.org>
+In-Reply-To: <20210601205848.GA1025498@robh.at.kernel.org>
+References: <1622468035-8453-1-git-send-email-rajeevny@codeaurora.org>
+ <1622468035-8453-2-git-send-email-rajeevny@codeaurora.org>
+ <20210601205848.GA1025498@robh.at.kernel.org>
+Message-ID: <ec1bcb4e734b784ab17c4fc558a5fab9@codeaurora.org>
+X-Sender: rajeevny@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [v1 1/3] dt-bindings: msm/dsi: Add yaml schema for
+ 7nm DSI PHY
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,35 +65,68 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, daniel.thompson@linaro.org, lyude@redhat.com,
- mkrishn@codeaurora.org, jani.nikula@intel.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- abhinavk@codeaurora.org, dianders@chromium.org, a.hajda@samsung.com,
- robdclark@gmail.com, thierry.reding@gmail.com, seanpaul@chromium.org,
- laurent.pinchart@ideasonboard.com, kalyan_t@codeaurora.org,
- hoegsberg@chromium.org, freedreno@lists.freedesktop.org, sam@ravnborg.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: freedreno@lists.freedesktop.org, mkrishn@codeaurora.org, jonathan@marek.ca,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ robdclark@gmail.com, abhinavk@codeaurora.org, kalyan_t@codeaurora.org,
+ sean@poorly.run
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, 30 May 2021 21:26:11 +0530, Rajeev Nandan wrote:
-> Add Samsung 13.3" FHD eDP AMOLED panel.
-> 
-> Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
-> Reviewed-by: Douglas Anderson <dianders@chromium.org>
-> ---
-> 
-> (no changes since v4)
-> 
-> Changes in v4:
-> - New
-> 
->  Documentation/devicetree/bindings/display/panel/panel-simple.yaml | 2 ++
->  1 file changed, 2 insertions(+)
-> 
+On 02-06-2021 02:28, Rob Herring wrote:
+> On Mon, May 31, 2021 at 07:03:53PM +0530, Rajeev Nandan wrote:
 
-Acked-by: Rob Herring <robh@kernel.org>
+>> +
+>> +properties:
+>> +  compatible:
+>> +    oneOf:
+>> +      - const: qcom,dsi-phy-7nm
+> 
+> When would one use this?
+This is for SM8250.
+
+> 
+>> +      - const: qcom,dsi-phy-7nm-7280
+>> +      - const: qcom,dsi-phy-7nm-8150
+> 
+> These don't look like full SoC names (sm8150?) and it's
+> <vendor>,<soc>-<block>.
+
+Thanks, Rob, for the review.
+
+I just took the `compatible` property currently used in the DSI PHY 
+driver
+(drivers/gpu/drm/msm/dsi/phy/dsi_phy.c), and added a new entry for 
+sc7280.
+A similar pattern of `compatible` names are used in other variants of 
+the
+DSI PHY driver e.g. qcom,qcom,dsi-phy-10nm-8998, qcom,dsi-phy-14nm-660 
+etc.
+
+The existing compatible names "qcom,dsi-phy-7nm-8150" (SoC at the end) 
+make
+some sense, if we look at the organization of the dsi phy driver code.
+I am new to this and don't know the reason behind the current code
+organization and this naming.
+
+Yes, I agree with you, we should use full SoC names. Adding
+the SoC name at the end does not feel very convincing, so I will change 
+this
+to the suggested format e.g. "qcom,sm8250-dsi-phy-7nm", and will rename 
+the
+occurrences in the driver and device tree accordingly.
+Do I need to make changes for 10nm, 14nm, 20nm, and 28nm DSI PHY too?
+Bindings doc for these PHYs recently got merged to msm-next [1]
+
+
+[1] 
+https://gitlab.freedesktop.org/drm/msm/-/commit/8fc939e72ff80116c090aaf03952253a124d2a8e
+
+
+Thanks,
+Rajeev
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
