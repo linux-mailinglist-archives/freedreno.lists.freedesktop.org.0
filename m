@@ -2,57 +2,41 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1328C3980B4
-	for <lists+freedreno@lfdr.de>; Wed,  2 Jun 2021 07:38:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E280398769
+	for <lists+freedreno@lfdr.de>; Wed,  2 Jun 2021 12:57:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC86C6EA09;
-	Wed,  2 Jun 2021 05:38:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1897E6E3C1;
+	Wed,  2 Jun 2021 10:57:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FF546EA09
- for <freedreno@lists.freedesktop.org>; Wed,  2 Jun 2021 05:38:47 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1622612330; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=g2jQLvmNDkv0M+pVgOjszfDqwE56kNAfKvmEEL+w9Uw=;
- b=mOnba22mqjVjgyASOUn6BdCDA3DTjHOgsgAKu3ickYibSHg6uUBwhp3bxJ05jX6nXDlyexCC
- 29SKGPTMvmrUc+AuOVplyf+FZxchUkJUzfLJTg3UYYHKLfr8qVSVJSs/gOKOIOWBT5j+dQsE
- 3MSKjA7xaBtFcssaVfFbtLjuQ3I=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
- 60b71963ed59bf69cc1edd2b (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 02 Jun 2021 05:38:43
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 7EC56C4338A; Wed,  2 Jun 2021 05:38:43 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: rajeevny)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 28564C433D3;
- Wed,  2 Jun 2021 05:38:42 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60CCE6E3C1;
+ Wed,  2 Jun 2021 10:57:02 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5FF1460FF2;
+ Wed,  2 Jun 2021 10:57:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1622631422;
+ bh=4Kqd06H4tk196Fea2oUyUzPCeW3WtfbykgTc6Olq6aI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=NQ54KWhccDSvwlRvVWIWPFBMdCHFM40ckBKp6C0O5pVbaEfpXntyDYDIZR1FIkfVd
+ b03Za3uUGuo/Zj39zpCr1+1lWnv/u0cP4LFi/yd7RtFku3JFlWJf2ZxwT5f7jAgsBP
+ bcQ92lU7Z9HmuqOmHCs32ugqc6ToKMXLQ97btza9X9vl98ZMo0BBTIX/hXmN+tlrjz
+ s3ZeJunw3tPwq38VH4nTDl4fOD0zztQYA6ctd/OsneYD22ko3V9NN+aP7lTyWMDVOC
+ +ZIfuUA6BIgJOAP78YqTd1+yvM9FzcKekN/MsRDOCMeAnVXT1CsRs9IVj5IU+JMc3u
+ k3H3NIyX1NJ8A==
+Date: Wed, 2 Jun 2021 16:26:58 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
+Message-ID: <YLdj+nu3rUiIQL0k@vkoul-mobl>
+References: <20210521124946.3617862-1-vkoul@kernel.org>
+ <CAOCk7Nqep_Db+z3fr5asHZ1u0j8+6fKkPFs2Ai8CbA_zGqV6ZA@mail.gmail.com>
+ <YK3gxqXBRupN/N+Q@vkoul-mobl.Dlink>
+ <CAOCk7NqvhGvYw8xCBctqj7H+o-Qwp2UuUJK1gatW9EWfXv56xA@mail.gmail.com>
 MIME-Version: 1.0
-Date: Wed, 02 Jun 2021 11:08:42 +0530
-From: rajeevny@codeaurora.org
-To: Lyude Paul <lyude@redhat.com>
-In-Reply-To: <4df7dcddd5aca799361642ea91c37fa94e8a4fef.camel@redhat.com>
-References: <1621927831-29471-1-git-send-email-rajeevny@codeaurora.org>
- <1621927831-29471-2-git-send-email-rajeevny@codeaurora.org>
- <4df7dcddd5aca799361642ea91c37fa94e8a4fef.camel@redhat.com>
-Message-ID: <5baa08346ac035a9b72098b1e514b7d6@codeaurora.org>
-X-Sender: rajeevny@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [v4 1/4] drm/panel-simple: Add basic DPCD backlight
- support
+Content-Disposition: inline
+In-Reply-To: <CAOCk7NqvhGvYw8xCBctqj7H+o-Qwp2UuUJK1gatW9EWfXv56xA@mail.gmail.com>
+Subject: Re: [Freedreno] [RFC PATCH 00/13] drm/msm: Add Display Stream
+ Compression Support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,29 +49,100 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, daniel.thompson@linaro.org,
- mkrishn@codeaurora.org, sam@ravnborg.org, robh@kernel.org,
- jani.nikula@intel.com, linux-arm-msm@vger.kernel.org, abhinavk@codeaurora.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- dianders@chromium.org, a.hajda@samsung.com, robdclark@gmail.com,
- thierry.reding@gmail.com, seanpaul@chromium.org,
- laurent.pinchart@ideasonboard.com, kalyan_t@codeaurora.org,
- hoegsberg@chromium.org, freedreno@lists.freedesktop.org, y@qualcomm.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: DTML <devicetree@vger.kernel.org>, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, MSM <linux-arm-msm@vger.kernel.org>,
+ lkml <linux-kernel@vger.kernel.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-T24gMDItMDYtMjAyMSAwMzo1MCwgTHl1ZGUgUGF1bCB3cm90ZToKPiBvaC1sb29rcyBsaWtlIG15
-IHBhdGNoZXMganVzdCBnb3QgcmV2aWV3ZWQsIHNvIGhvcGVmdWxseSBJIHNob3VsZCBnZXQgYSAK
-PiBjaGFuY2UKPiB0byBnZXQgYSBsb29rIGF0IHRoaXMgaW4gdGhlIG5leHQgZGF5IG9yIHR3byA6
-KQo+IAoKSGkgTHl1ZGUsCgpUaGF0J3MgZ3JlYXQhCkkgaGF2ZSB1cGRhdGVkIHY1IFsxXSBvZiB0
-aGlzIHNlcmllcyBhZGRyZXNzaW5nIERvdWcncyByZXZpZXcgY29tbWVudHMgCm9uIHY0IFsyXS7C
-oApQbGVhc2UgcmV2aWV3IHRoZSB2NS4KClsxXSAKaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGlu
-dXgtYXJtLW1zbS8xNjIyMzkwMTcyLTMxMzY4LTEtZ2l0LXNlbmQtZW1haWwtcmFqZWV2bnlAY29k
-ZWF1cm9yYS5vcmcvClsyXSAKaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtYXJtLW1zbS9D
-QUQ9RlY9V3pRME9jPWUza21OZUJaVUErUDFzb0toQms4enQ3YkcxZ3FKLURvLVRxX3dAbWFpbC5n
-bWFpbC5jb20vCgoKVGhhbmtzLApSYWplZXYKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vZnJlZWRyZW5vCg==
+On 26-05-21, 09:00, Jeffrey Hugo wrote:
+> On Tue, May 25, 2021 at 11:46 PM Vinod Koul <vkoul@kernel.org> wrote:
+> > On 21-05-21, 08:09, Jeffrey Hugo wrote:
+> > > On Fri, May 21, 2021 at 6:50 AM Vinod Koul <vkoul@kernel.org> wrote:
+> > > >
+> > > > Display Stream Compression (DSC) compresses the display stream in host which
+> > > > is later decoded by panel. This series enables this for Qualcomm msm driver.
+> > > > This was tested on Google Pixel3 phone which use LGE SW43408 panel.
+> > > >
+> > > > The changes include adding DT properties for DSC then hardware blocks support
+> > > > required in DPU1 driver and support in encoder. We also add support in DSI
+> > > > and introduce required topology changes.
+> > > >
+> > > > In order for panel to set the DSC parameters we add dsc in drm_panel and set
+> > > > it from the msm driver.
+> > > >
+> > > > Complete changes which enable this for Pixel3 along with panel driver (not
+> > > > part of this series) and DT changes can be found at:
+> > > > git.linaro.org/people/vinod.koul/kernel.git pixel/dsc_rfc
+> > > >
+> > > > Comments welcome!
+> > >
+> > > This feels backwards to me.  I've only skimmed this series, and the DT
+> > > changes didn't come through for me, so perhaps I have an incomplete
+> > > view.
+> >
+> > Not sure why, I see it on lore:
+> > https://lore.kernel.org/dri-devel/20210521124946.3617862-3-vkoul@kernel.org/
+> >
+> > > DSC is not MSM specific.  There is a standard for it.  Yet it looks
+> > > like everything is implemented in a MSM specific way, and then pushed
+> > > to the panel.  So, every vendor needs to implement their vendor
+> > > specific way to get the DSC info, and then push it to the panel?
+> > > Seems wrong, given there is an actual standard for this feature.
+> >
+> > I have added slice and bpp info in the DT here under the host and then
+> > pass the generic struct drm_dsc_config to panel which allows panel to
+> > write the pps cmd
+> >
+> > Nothing above is MSM specific.. It can very well work with non MSM
+> > controllers too.
+> 
+> I disagree.
+> 
+> The DT bindings you defined (thanks for the direct link) are MSM
+> specific.  I'm not talking (yet) about the properties you defined, but
+> purely from the stand point that you defined the binding within the
+> scope of the MSM dsi binding.  No other vendor can use those bindings.
+> Of course, if we look at the properties themselves, they are prefixed
+> with "qcom", which is vendor specific.
+> 
+> So, purely on the face of it, this is MSM specific.
+> 
+> Assuming we want a DT solution for DSC, I think it should be something
+> like Documentation/devicetree/bindings/clock/clock-bindings.txt (the
+> first example that comes to mind), which is a non-vendor specific
+> generic set of properties that each vendor/device specific binding can
+> inherit.  Panel has similar things.
+> 
+> Specific to the properties, I don't much like that you duplicate BPP,
+> which is already associated with the panel (although perhaps not in
+> the scope of DT).  What if the panel and your DSC bindings disagree?
+> Also, I guess I need to ask, have you read the DSC spec?  Last I
+> looked, there were something like 3 dozen properties that could be
+> configured.  You have five in your proposed binding.  To me, this is
+> not a generic DSC solution, this is MSM specific (and frankly I don't
+> think this supports all the configuration the MSM hardware can do,
+> either).
+
+I would concede the point that DT is msm specific. I dont disagree on
+making them a common dsc biding which anyone can use. I think your idea
+does have merits...
+
+I am still not sure who should include these properties, would it be the
+panel or host. Either would work and rest of the system can use these
+properties...
+
+-- 
+~Vinod
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
