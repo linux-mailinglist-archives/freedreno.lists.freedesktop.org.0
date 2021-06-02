@@ -2,59 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89037398D52
-	for <lists+freedreno@lfdr.de>; Wed,  2 Jun 2021 16:43:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3F08398F3C
+	for <lists+freedreno@lfdr.de>; Wed,  2 Jun 2021 17:49:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7163A6ECC7;
-	Wed,  2 Jun 2021 14:43:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38D5D6ECEA;
+	Wed,  2 Jun 2021 15:49:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 869626ECD8
- for <freedreno@lists.freedesktop.org>; Wed,  2 Jun 2021 14:43:28 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id r5so3804531lfr.5
- for <freedreno@lists.freedesktop.org>; Wed, 02 Jun 2021 07:43:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=vLB3XwmxK0zMI/2Bdlf99xPYv4+65cX8NiEmcXIBNu4=;
- b=KjSQ8Np8t9HvPOoGH0lPLWrBVeIuTnB6BbpmrASpGO3TD579VkNIWpIBoUY0uMMAkp
- QMoCmPYWET7a1cGyWMc3JTtzu/5ELyPyHmmOEyq3KQRCaBHJ92/c0vleAAG5+cDMM8JR
- qs43pjzjS1CoUQFKbkjCQLmcD4hvSbG3aCM7dXfcX/GDUdEGj5RXqT/PRtEGlSN4IS/b
- a9n4ZsMenuzdEEveAEyeztQlS6XGZzvJx/jJLAbZcJ3ckJ+XRXUMKtvToKbfBzXV3DqQ
- /5mIZChCsq7fE4IdWE9RX8BDDMmeVljjPYsTQVOgGdU4ePL1SbiRpAT8TRFo1iHwEW5Q
- sfjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=vLB3XwmxK0zMI/2Bdlf99xPYv4+65cX8NiEmcXIBNu4=;
- b=m/NZ8JSQjPFqCCKIR8ICkiWEas6e8norkEcIQnceTCe9wNM/rnPVcYcEvW81+hsOgz
- bOvcJMwPUAcNJGvlZh2Qqou4tXbIKvLDlSHzWMSCvfS3QL2/Iz7hRyLr1bqCyVasTBg+
- ZWgFaPZWh1E8PQmTeI4Vir4yUIo24olfdgFh+9h1atPP5WfWprhlG9IG0rBfzf1tquMo
- yFzMa4aADpuHX2C6KUpFUu0SinfpGPoi+3ZqnUcQE6GaRyQWa2b5hE0AeSpSHsbqHs3c
- q7DLaXE882XoqYY4BWgSvpI0tfa9SPZnYa7ytiYftuqVFtD+SwvWu2oFPcqkm5pxN631
- tu3A==
-X-Gm-Message-State: AOAM5317zMT/XKZ4pIF8Px+Y6JyjpRj87TUY4isaipZIQ5NtPDj18u2g
- eXkfy3M4MbUXWh/Ua5v5SJTXWA==
-X-Google-Smtp-Source: ABdhPJw7P/BCAOSQX3byZQarwxQsK6P7A43ULyli3J1aVu2kfeFZl/AAUakQIKCh9hlItQqnTXGysg==
-X-Received: by 2002:ac2:4e8e:: with SMTP id o14mr23110001lfr.8.1622645006798; 
- Wed, 02 Jun 2021 07:43:26 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id t3sm1997ljo.71.2021.06.02.07.43.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Jun 2021 07:43:26 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <abhinavk@codeaurora.org>
-Date: Wed,  2 Jun 2021 17:43:25 +0300
-Message-Id: <20210602144325.901560-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.30.2
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C80716ECEA
+ for <freedreno@lists.freedesktop.org>; Wed,  2 Jun 2021 15:49:33 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1622648976; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=D6KV1f5m9jscGI6uK2w6Uu53Fa6z/VEXVtS077NjpBc=;
+ b=d8MIACT51E4harm6FeYE0jZ3ZarS7dHIrC3JjtdJzfKxrapV3Sr1bGESwced0UQ2VtFhl1yQ
+ Gm+m7lzYZeKX81cRGWjdrvd4XFOxQIGdbEXWYLBCYjl1SUzDBLABk1P2cRpCz3ljDFdtFbZz
+ 1iU1zCyY4Ozhlr774S0wZG2P6l0=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
+ 60b7a888e27c0cc77fc526f8 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 02 Jun 2021 15:49:27
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 33101C43460; Wed,  2 Jun 2021 15:49:27 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 1B1BCC433D3;
+ Wed,  2 Jun 2021 15:49:23 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm/dsi: add continuous clock support for
- 7nm PHY
+Date: Wed, 02 Jun 2021 08:49:23 -0700
+From: khsieh@codeaurora.org
+To: Stephen Boyd <swboyd@chromium.org>
+In-Reply-To: <CAE-0n52wAmQ1ZZ0pfGfXwsM23D+R5FFVBrpzr1a8YGDdWNb_gw@mail.gmail.com>
+References: <1622591408-5465-1-git-send-email-khsieh@codeaurora.org>
+ <CAE-0n52wAmQ1ZZ0pfGfXwsM23D+R5FFVBrpzr1a8YGDdWNb_gw@mail.gmail.com>
+Message-ID: <783a2b546bfdd08c265f7b160bca2a44@codeaurora.org>
+X-Sender: khsieh@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v3] drm/msm/dp: power off DP phy at suspend
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,239 +63,185 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: freedreno@lists.freedesktop.org, vkoul@kernel.org, abhinavk@codeaurora.org,
+ bjorn.andersson@linaro.org, robdclark@gmail.com, agross@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ aravindh@codeaurora.org, sean@poorly.run, linux-kernel@vger.kernel.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Unlike previous generations, 7nm PHYs are required to collaborate with
-the host for conitnuos clock mode. Add changes neccessary to enable
-continuous clock mode in the 7nm DSI PHYs.
-
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/dsi/dsi.h             |  4 +++-
- drivers/gpu/drm/msm/dsi/dsi.xml.h         |  1 +
- drivers/gpu/drm/msm/dsi/dsi_host.c        | 12 ++++++++----
- drivers/gpu/drm/msm/dsi/dsi_manager.c     |  4 ++--
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.c     | 15 +++++++++++++++
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.h     |  2 ++
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 17 +++++++++++++++++
- 7 files changed, 48 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
-index 7abfeab08165..c4e7cace120c 100644
---- a/drivers/gpu/drm/msm/dsi/dsi.h
-+++ b/drivers/gpu/drm/msm/dsi/dsi.h
-@@ -108,7 +108,7 @@ int msm_dsi_host_enable(struct mipi_dsi_host *host);
- int msm_dsi_host_disable(struct mipi_dsi_host *host);
- int msm_dsi_host_power_on(struct mipi_dsi_host *host,
- 			struct msm_dsi_phy_shared_timings *phy_shared_timings,
--			bool is_dual_dsi);
-+			bool is_dual_dsi, struct msm_dsi_phy *phy);
- int msm_dsi_host_power_off(struct mipi_dsi_host *host);
- int msm_dsi_host_set_display_mode(struct mipi_dsi_host *host,
- 				  const struct drm_display_mode *mode);
-@@ -173,6 +173,8 @@ int msm_dsi_phy_get_clk_provider(struct msm_dsi_phy *phy,
- 	struct clk **byte_clk_provider, struct clk **pixel_clk_provider);
- void msm_dsi_phy_pll_save_state(struct msm_dsi_phy *phy);
- int msm_dsi_phy_pll_restore_state(struct msm_dsi_phy *phy);
-+bool msm_dsi_phy_needs_hs_phy_sel(struct msm_dsi_phy *phy);
-+void msm_dsi_phy_set_continuous_clock(struct msm_dsi_phy *phy, bool enable);
- 
- #endif /* __DSI_CONNECTOR_H__ */
- 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi.xml.h b/drivers/gpu/drm/msm/dsi/dsi.xml.h
-index 50eb4d1b8fdd..b1b668ff7e10 100644
---- a/drivers/gpu/drm/msm/dsi/dsi.xml.h
-+++ b/drivers/gpu/drm/msm/dsi/dsi.xml.h
-@@ -511,6 +511,7 @@ static inline uint32_t DSI_CLKOUT_TIMING_CTRL_T_CLK_POST(uint32_t val)
- 
- #define REG_DSI_LANE_CTRL					0x000000a8
- #define DSI_LANE_CTRL_CLKLN_HS_FORCE_REQUEST			0x10000000
-+#define DSI_LANE_CTRL_HS_REQ_SEL_PHY				0x01000000
- 
- #define REG_DSI_LANE_SWAP_CTRL					0x000000ac
- #define DSI_LANE_SWAP_CTRL_DLN_SWAP_SEL__MASK			0x00000007
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 41e1d0f7ab6e..4507c16c9385 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -835,7 +835,7 @@ static inline enum dsi_cmd_dst_format dsi_get_cmd_fmt(
- }
- 
- static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool enable,
--			struct msm_dsi_phy_shared_timings *phy_shared_timings)
-+			struct msm_dsi_phy_shared_timings *phy_shared_timings, struct msm_dsi_phy *phy)
- {
- 	u32 flags = msm_host->mode_flags;
- 	enum mipi_dsi_pixel_format mipi_fmt = msm_host->format;
-@@ -930,8 +930,12 @@ static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool enable,
- 
- 	if (!(flags & MIPI_DSI_CLOCK_NON_CONTINUOUS)) {
- 		lane_ctrl = dsi_read(msm_host, REG_DSI_LANE_CTRL);
-+		if (msm_dsi_phy_needs_hs_phy_sel(phy))
-+			lane_ctrl |= DSI_LANE_CTRL_HS_REQ_SEL_PHY;
- 		dsi_write(msm_host, REG_DSI_LANE_CTRL,
- 			lane_ctrl | DSI_LANE_CTRL_CLKLN_HS_FORCE_REQUEST);
-+		if (msm_dsi_phy_needs_hs_phy_sel(phy))
-+			msm_dsi_phy_set_continuous_clock(phy, enable);
- 	}
- 
- 	data |= DSI_CTRL_ENABLE;
-@@ -2360,7 +2364,7 @@ static void msm_dsi_sfpb_config(struct msm_dsi_host *msm_host, bool enable)
- 
- int msm_dsi_host_power_on(struct mipi_dsi_host *host,
- 			struct msm_dsi_phy_shared_timings *phy_shared_timings,
--			bool is_dual_dsi)
-+			bool is_dual_dsi, struct msm_dsi_phy *phy)
- {
- 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
- 	const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
-@@ -2400,7 +2404,7 @@ int msm_dsi_host_power_on(struct mipi_dsi_host *host,
- 
- 	dsi_timing_setup(msm_host, is_dual_dsi);
- 	dsi_sw_reset(msm_host);
--	dsi_ctrl_config(msm_host, true, phy_shared_timings);
-+	dsi_ctrl_config(msm_host, true, phy_shared_timings, phy);
- 
- 	if (msm_host->disp_en_gpio)
- 		gpiod_set_value(msm_host->disp_en_gpio, 1);
-@@ -2431,7 +2435,7 @@ int msm_dsi_host_power_off(struct mipi_dsi_host *host)
- 		goto unlock_ret;
- 	}
- 
--	dsi_ctrl_config(msm_host, false, NULL);
-+	dsi_ctrl_config(msm_host, false, NULL, NULL);
- 
- 	if (msm_host->disp_en_gpio)
- 		gpiod_set_value(msm_host->disp_en_gpio, 0);
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-index e138a0c16085..082a20565886 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-@@ -382,7 +382,7 @@ static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
- 	if (is_dual_dsi && !IS_MASTER_DSI_LINK(id))
- 		return;
- 
--	ret = msm_dsi_host_power_on(host, &phy_shared_timings[id], is_dual_dsi);
-+	ret = msm_dsi_host_power_on(host, &phy_shared_timings[id], is_dual_dsi, msm_dsi->phy);
- 	if (ret) {
- 		pr_err("%s: power on host %d failed, %d\n", __func__, id, ret);
- 		goto host_on_fail;
-@@ -390,7 +390,7 @@ static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
- 
- 	if (is_dual_dsi && msm_dsi1) {
- 		ret = msm_dsi_host_power_on(msm_dsi1->host,
--				&phy_shared_timings[DSI_1], is_dual_dsi);
-+				&phy_shared_timings[DSI_1], is_dual_dsi, msm_dsi->phy);
- 		if (ret) {
- 			pr_err("%s: power on host1 failed, %d\n",
- 							__func__, ret);
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-index ccbd19f7d9cf..c2c7a46463ac 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-@@ -851,6 +851,21 @@ void msm_dsi_phy_set_usecase(struct msm_dsi_phy *phy,
- 		phy->usecase = uc;
- }
- 
-+bool msm_dsi_phy_needs_hs_phy_sel(struct msm_dsi_phy *phy)
-+{
-+	if (!phy)
-+		return false;
-+	return phy->cfg->needs_continuous_clock;
-+}
-+
-+void msm_dsi_phy_set_continuous_clock(struct msm_dsi_phy *phy, bool enable)
-+{
-+	if (!phy || !phy->cfg->ops.set_continuous_clock)
-+		return;
-+
-+	phy->cfg->ops.set_continuous_clock(phy, enable);
-+}
-+
- int msm_dsi_phy_get_clk_provider(struct msm_dsi_phy *phy,
- 	struct clk **byte_clk_provider, struct clk **pixel_clk_provider)
- {
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-index 94a77ac364d3..16d974f4d536 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-@@ -24,6 +24,7 @@ struct msm_dsi_phy_ops {
- 	void (*disable)(struct msm_dsi_phy *phy);
- 	void (*save_pll_state)(struct msm_dsi_phy *phy);
- 	int (*restore_pll_state)(struct msm_dsi_phy *phy);
-+	void (*set_continuous_clock)(struct msm_dsi_phy *phy, bool enable);
- };
- 
- struct msm_dsi_phy_cfg {
-@@ -38,6 +39,7 @@ struct msm_dsi_phy_cfg {
- 	const int quirks;
- 	bool has_phy_regulator;
- 	bool has_phy_lane;
-+	bool needs_continuous_clock;
- };
- 
- extern const struct msm_dsi_phy_cfg dsi_phy_28nm_hpm_cfgs;
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-index e76ce40a12ab..771fb31eb607 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-@@ -930,6 +930,19 @@ static int dsi_7nm_phy_enable(struct msm_dsi_phy *phy,
- 	return 0;
- }
- 
-+static void dsi_7nm_set_continuous_clock(struct msm_dsi_phy *phy, bool enable)
-+{
-+	void __iomem *base = phy->base;
-+	u32 data;
-+
-+	data = dsi_phy_read(base + REG_DSI_7nm_PHY_CMN_LANE_CTRL1);
-+	if (enable)
-+		data |= BIT(5) | BIT(6);
-+	else
-+		data &= ~(BIT(5) | BIT(6));
-+	dsi_phy_write(base + REG_DSI_7nm_PHY_CMN_LANE_CTRL1, data);
-+}
-+
- static void dsi_7nm_phy_disable(struct msm_dsi_phy *phy)
- {
- 	void __iomem *base = phy->base;
-@@ -970,12 +983,14 @@ const struct msm_dsi_phy_cfg dsi_phy_7nm_cfgs = {
- 		.pll_init = dsi_pll_7nm_init,
- 		.save_pll_state = dsi_7nm_pll_save_state,
- 		.restore_pll_state = dsi_7nm_pll_restore_state,
-+		.set_continuous_clock = dsi_7nm_set_continuous_clock,
- 	},
- 	.min_pll_rate = 600000000UL,
- 	.max_pll_rate = (5000000000ULL < ULONG_MAX) ? 5000000000ULL : ULONG_MAX,
- 	.io_start = { 0xae94400, 0xae96400 },
- 	.num_dsi_phy = 2,
- 	.quirks = DSI_PHY_7NM_QUIRK_V4_1,
-+	.needs_continuous_clock = true,
- };
- 
- const struct msm_dsi_phy_cfg dsi_phy_7nm_8150_cfgs = {
-@@ -992,9 +1007,11 @@ const struct msm_dsi_phy_cfg dsi_phy_7nm_8150_cfgs = {
- 		.pll_init = dsi_pll_7nm_init,
- 		.save_pll_state = dsi_7nm_pll_save_state,
- 		.restore_pll_state = dsi_7nm_pll_restore_state,
-+		.set_continuous_clock = dsi_7nm_set_continuous_clock,
- 	},
- 	.min_pll_rate = 1000000000UL,
- 	.max_pll_rate = 3500000000UL,
- 	.io_start = { 0xae94400, 0xae96400 },
- 	.num_dsi_phy = 2,
-+	.needs_continuous_clock = true,
- };
--- 
-2.30.2
-
+On 2021-06-01 19:00, Stephen Boyd wrote:
+> Please add dri-devel@lists.freedesktop.org next time
+> 
+> Quoting Kuogee Hsieh (2021-06-01 16:50:08)
+>> Normal DP suspend operation contains two steps, display off followed
+>> by dp suspend, to complete system wide suspending cycle if display is
+>> up at that time. In this case, DP phy will be powered off at display
+>> off. However there is an exception case that depending on the timing
+>> of dongle plug in during system wide suspending, sometimes display off
+>> procedure may be skipped and dp suspend was called directly. In this
+>> case, dp phy is stay at powered on (phy->power_count = 1) so that at
+>> next resume dp driver crash at main link clock enable due to phy is
+>> not physically powered on. This patch will call 
+>> dp_ctrl_off_link_stream()
+>> to tear down main link and power off phy at dp_pm_suspend() if main 
+>> link
+>> had been brought up.
+>> 
+>> Changes in V2:
+>> -- stashed changes into dp_ctrl.c
+>> -- add is_phy_on to monitor phy state
+>> 
+>> Changes in V3:
+>> -- delete is_phy_on
+>> -- call dp_ctrl_off_link_stream() from dp_pm_suspend()
+>> 
+>> Fixes: 0114f31a2903 ("drm/msm/dp: handle irq_hpd with sink_count = 0 
+>> correctly)
+>> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+>> ---
+>>  drivers/gpu/drm/msm/dp/dp_ctrl.c    | 10 +++++++++-
+>>  drivers/gpu/drm/msm/dp/dp_display.c |  4 +++-
+>>  drivers/gpu/drm/msm/dp/dp_power.c   | 15 +++++++++++++++
+>>  3 files changed, 27 insertions(+), 2 deletions(-)
+>> 
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c 
+>> b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> index dbd8943..8324a453 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> @@ -1414,6 +1414,7 @@ void dp_ctrl_host_deinit(struct dp_ctrl 
+>> *dp_ctrl)
+>>         phy = dp_io->phy;
+>> 
+>>         dp_catalog_ctrl_enable_irq(ctrl->catalog, false);
+>> +
+>>         phy_exit(phy);
+>> 
+>>         DRM_DEBUG_DP("Host deinitialized successfully\n");
+>> @@ -1457,6 +1458,7 @@ static int dp_ctrl_reinitialize_mainlink(struct 
+>> dp_ctrl_private *ctrl)
+>>                 return ret;
+>>         }
+>>         phy_power_off(phy);
+>> +
+>>         /* hw recommended delay before re-enabling clocks */
+>>         msleep(20);
+>> 
+>> @@ -1488,6 +1490,7 @@ static int dp_ctrl_deinitialize_mainlink(struct 
+>> dp_ctrl_private *ctrl)
+>>         }
+>> 
+>>         phy_power_off(phy);
+>> +
+>>         phy_exit(phy);
+>> 
+>>         return 0;
+> 
+> None of these hunks are useful. Can we drop them?
+> 
+>> @@ -1816,12 +1819,16 @@ int dp_ctrl_off_link_stream(struct dp_ctrl 
+>> *dp_ctrl)
+>>         struct dp_ctrl_private *ctrl;
+>>         struct dp_io *dp_io;
+>>         struct phy *phy;
+>> -       int ret;
+>> +       int ret = 0;
+> 
+> Drop this.
+> 
+>> 
+>>         ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
+>>         dp_io = &ctrl->parser->io;
+>>         phy = dp_io->phy;
+>> 
+>> +       /* main link is off */
+>> +       if (!dp_power_clk_status(ctrl->power, DP_CTRL_PM))
+>> +               return ret;
+> 
+> and then return 0?
+> 
+>> +
+>>         /* set dongle to D3 (power off) mode */
+>>         dp_link_psm_config(ctrl->link, &ctrl->panel->link_info, true);
+>> 
+>> @@ -1894,6 +1901,7 @@ int dp_ctrl_off(struct dp_ctrl *dp_ctrl)
+>>         }
+>> 
+>>         phy_power_off(phy);
+>> +
+>>         phy_exit(phy);
+>> 
+>>         DRM_DEBUG_DP("DP off done\n");
+> 
+> Drop?
+> 
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c 
+>> b/drivers/gpu/drm/msm/dp/dp_display.c
+>> index cdec0a3..5abd769 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>> @@ -1327,8 +1327,10 @@ static int dp_pm_suspend(struct device *dev)
+>> 
+>>         mutex_lock(&dp->event_mutex);
+>> 
+>> -       if (dp->core_initialized == true)
+>> +       if (dp->core_initialized == true) {
+>> +               dp_ctrl_off_link_stream(dp->ctrl);
+> 
+> Why not just check here for dp_power_clk_status()?
+> 
+>>                 dp_display_host_deinit(dp);
+>> +       }
+>> 
+>>         dp->hpd_state = ST_SUSPENDED;
+>> 
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_power.c 
+>> b/drivers/gpu/drm/msm/dp/dp_power.c
+>> index 9c4ea00..980924a9 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_power.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_power.c
+>> @@ -262,6 +262,21 @@ int dp_power_clk_enable(struct dp_power 
+>> *dp_power,
+>>                         }
+>>                         dp_power->core_clks_on = true;
+>>                 }
+>> +       } else {
+>> +               if (pm_type == DP_CORE_PM && !dp_power->core_clks_on) 
+>> {
+>> +                       DRM_DEBUG_DP("core clks already disabled\n");
+>> +                       return 0;
+>> +               }
+>> +
+>> +               if (pm_type == DP_CTRL_PM && !dp_power->link_clks_on) 
+>> {
+>> +                       DRM_DEBUG_DP("links clks already disabled\n");
+>> +                       return 0;
+>> +               }
+>> +
+>> +               if (pm_type == DP_STREAM_PM && 
+>> !dp_power->stream_clks_on) {
+>> +                       DRM_DEBUG_DP("pixel clks already disabled\n");
+>> +                       return 0;
+>> +               }
+>>         }
+> 
+> If this happens isn't something wrong? Like we've somehow lost track of
+> the proper state and no we're trying to disable clks when we don't need
+> to. And given that clks already manage their own refcount that would be
+> pretty obvious if it went wrong
+yes,
+The problem is at suspend the link training has been done (link clk had 
+been enabled)
+but  has no user space frame work response to response display up uevent 
+so that stream clock is not enabled.
+I will drop this but create a dedicated dp_ctrl_off_link() for suspend 
+purpose.
+> 
+>> 
+>>         rc = dp_power_clk_set_rate(power, pm_type, enable);
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
