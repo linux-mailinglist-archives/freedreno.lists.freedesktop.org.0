@@ -1,58 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5165399424
-	for <lists+freedreno@lfdr.de>; Wed,  2 Jun 2021 22:02:18 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id CE424399537
+	for <lists+freedreno@lfdr.de>; Wed,  2 Jun 2021 23:09:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6987E6EE56;
-	Wed,  2 Jun 2021 20:02:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82F536EB0E;
+	Wed,  2 Jun 2021 21:09:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCCA56EE56
- for <freedreno@lists.freedesktop.org>; Wed,  2 Jun 2021 20:02:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 035B86EB0E
+ for <freedreno@lists.freedesktop.org>; Wed,  2 Jun 2021 21:09:01 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1622664136; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=uiSY2nPfub1TorMuwMxTsRCZaabvu7VFakvdKWWqHMg=;
- b=jtlUoMWziNh7tSl2hQwWIbN+V4BArryQTIUQWzVLT44DWH1s+LhMnfh4QBoipPevz3MzlZ99
- m4Znx/482PwZnv/alkzaR/6dXrYiwK2iOdaSmOUDFGegUv2arIW944YH+g5FrOOkHd0C+o1t
- pwxvs62QEihK97UBI1Ccjoj/TeU=
+ s=smtp; t=1622668143; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=aaNWIIBpS4OGAZ4WCl/qqxyDVBnFqu0O/JomNH5q/Hc=;
+ b=nF8gbWp9pCxr5XMF+NBSwHBkvkIDA0jEnAdMcOPsyus/N5McW7WD6g6t9eJQbe40JGvnp8Tw
+ ZZnp2bE8EJWdU+GZ01rVdgKtcoudfoezsM87ECd38z4/rewZeS5zrseUO+YMHtt9lZ8DYzJ3
+ vSz/4n0ne3L567a7NyYbwdUjGU0=
 X-Mailgun-Sending-Ip: 69.72.43.7
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
- 60b7e3c4e27c0cc77f26b5ea (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 02 Jun 2021 20:02:12
+ smtp-out-n07.prod.us-west-2.postgun.com with SMTP id
+ 60b7f35e81efe91cdac3b3ea (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 02 Jun 2021 21:08:46
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 4F8F3C43217; Wed,  2 Jun 2021 20:02:11 +0000 (UTC)
+ id 3725CC4323A; Wed,  2 Jun 2021 21:08:46 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: rajeevny)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 811C1C433D3;
- Wed,  2 Jun 2021 20:02:09 +0000 (UTC)
-MIME-Version: 1.0
-Date: Thu, 03 Jun 2021 01:32:09 +0530
-From: rajeevny@codeaurora.org
-To: Rob Herring <robh@kernel.org>
-In-Reply-To: <20210601205848.GA1025498@robh.at.kernel.org>
-References: <1622468035-8453-1-git-send-email-rajeevny@codeaurora.org>
- <1622468035-8453-2-git-send-email-rajeevny@codeaurora.org>
- <20210601205848.GA1025498@robh.at.kernel.org>
-Message-ID: <ec1bcb4e734b784ab17c4fc558a5fab9@codeaurora.org>
-X-Sender: rajeevny@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [v1 1/3] dt-bindings: msm/dsi: Add yaml schema for
- 7nm DSI PHY
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id A2AF6C433D3;
+ Wed,  2 Jun 2021 21:08:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org A2AF6C433D3
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=khsieh@codeaurora.org
+From: Kuogee Hsieh <khsieh@codeaurora.org>
+To: robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
+ vkoul@kernel.org, agross@kernel.org, bjorn.andersson@linaro.org,
+ robh+dt@kernel.org, devicetree@vger.kernel.org
+Date: Wed,  2 Jun 2021 14:08:38 -0700
+Message-Id: <1622668118-2237-1-git-send-email-khsieh@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH] arm64/dts/qcom/sc7180: Add Display Port dt node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,68 +66,142 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, mkrishn@codeaurora.org, jonathan@marek.ca,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, abhinavk@codeaurora.org, kalyan_t@codeaurora.org,
- sean@poorly.run
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ abhinavk@codeaurora.org, khsieh@codeaurora.org, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 02-06-2021 02:28, Rob Herring wrote:
-> On Mon, May 31, 2021 at 07:03:53PM +0530, Rajeev Nandan wrote:
+Add DP device node on sc7180.
 
->> +
->> +properties:
->> +  compatible:
->> +    oneOf:
->> +      - const: qcom,dsi-phy-7nm
-> 
-> When would one use this?
-This is for SM8250.
+Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+---
+ arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi |  9 ++++
+ arch/arm64/boot/dts/qcom/sc7180.dtsi         | 77 ++++++++++++++++++++++++++++
+ 2 files changed, 86 insertions(+)
 
-> 
->> +      - const: qcom,dsi-phy-7nm-7280
->> +      - const: qcom,dsi-phy-7nm-8150
-> 
-> These don't look like full SoC names (sm8150?) and it's
-> <vendor>,<soc>-<block>.
+diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
+index 24d293e..53ef3961 100644
+--- a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
+@@ -786,6 +786,15 @@ hp_i2c: &i2c9 {
+ 	status = "okay";
+ };
+ 
++&msm_dp {
++        status = "okay";
++        pinctrl-names = "default";
++        pinctrl-0 = <&dp_hot_plug_det>;
++        data-lanes = <0 1>;
++        vdda-1p2-supply = <&vdda_usb_ss_dp_1p2>;
++        vdda-0p9-supply = <&vdda_usb_ss_dp_core>;
++};
++
+ &pm6150_adc {
+ 	charger-thermistor@4f {
+ 		reg = <ADC5_AMUX_THM3_100K_PU>;
+diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+index 6228ba2..2e45098 100644
+--- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+@@ -3032,6 +3032,13 @@
+ 							remote-endpoint = <&dsi0_in>;
+ 						};
+ 					};
++
++					port@2 {
++						reg = <2>;
++						dpu_intf0_out: endpoint {
++							remote-endpoint = <&dp_in>;
++						};
++					};
+ 				};
+ 
+ 				mdp_opp_table: mdp-opp-table {
+@@ -3148,6 +3155,76 @@
+ 
+ 				status = "disabled";
+ 			};
++
++			msm_dp: displayport-controller@ae90000 {
++				status = "disabled";
++				compatible = "qcom,sc7180-dp";
++
++				reg = <0 0x0ae90000 0 0x1400>;
++
++				interrupt-parent = <&mdss>;
++				interrupts = <12 IRQ_TYPE_NONE>;
++
++				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
++					 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
++					 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
++					 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
++					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
++				clock-names = "core_iface", "core_aux", "ctrl_link",
++					      "ctrl_link_iface", "stream_pixel";
++				#clock-cells = <1>;
++				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
++						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
++				assigned-clock-parents = <&dp_phy 0>, <&dp_phy 1>;
++				phys = <&dp_phy>;
++				phy-names = "dp";
++
++				operating-points-v2 = <&dp_opp_table>;
++				power-domains = <&rpmhpd SC7180_CX>;
++
++				#sound-dai-cells = <0>;
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					port@0 {
++						reg = <0>;
++						dp_in: endpoint {
++							remote-endpoint = <&dpu_intf0_out>;
++						};
++					};
++
++					port@1 {
++						reg = <1>;
++						dp_out: endpoint { };
++					};
++				};
++
++				dp_opp_table: dp-opp-table {
++					compatible = "operating-points-v2";
++
++					opp-160000000 {
++						opp-hz = /bits/ 64 <160000000>;
++						required-opps = <&rpmhpd_opp_low_svs>;
++					};
++
++					opp-270000000 {
++						opp-hz = /bits/ 64 <270000000>;
++						required-opps = <&rpmhpd_opp_svs>;
++					};
++
++					opp-540000000 {
++						opp-hz = /bits/ 64 <540000000>;
++						required-opps = <&rpmhpd_opp_svs_l1>;
++					};
++
++					opp-810000000 {
++						opp-hz = /bits/ 64 <810000000>;
++						required-opps = <&rpmhpd_opp_nom>;
++					};
++				};
++			};
++
++
+ 		};
+ 
+ 		dispcc: clock-controller@af00000 {
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
-Thanks, Rob, for the review.
-
-I just took the `compatible` property currently used in the DSI PHY 
-driver
-(drivers/gpu/drm/msm/dsi/phy/dsi_phy.c), and added a new entry for 
-sc7280.
-A similar pattern of `compatible` names are used in other variants of 
-the
-DSI PHY driver e.g. qcom,qcom,dsi-phy-10nm-8998, qcom,dsi-phy-14nm-660 
-etc.
-
-The existing compatible names "qcom,dsi-phy-7nm-8150" (SoC at the end) 
-make
-some sense, if we look at the organization of the dsi phy driver code.
-I am new to this and don't know the reason behind the current code
-organization and this naming.
-
-Yes, I agree with you, we should use full SoC names. Adding
-the SoC name at the end does not feel very convincing, so I will change 
-this
-to the suggested format e.g. "qcom,sm8250-dsi-phy-7nm", and will rename 
-the
-occurrences in the driver and device tree accordingly.
-Do I need to make changes for 10nm, 14nm, 20nm, and 28nm DSI PHY too?
-Bindings doc for these PHYs recently got merged to msm-next [1]
-
-
-[1] 
-https://gitlab.freedesktop.org/drm/msm/-/commit/8fc939e72ff80116c090aaf03952253a124d2a8e
-
-
-Thanks,
-Rajeev
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
