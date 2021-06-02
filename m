@@ -2,34 +2,34 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D48A3991C0
-	for <lists+freedreno@lfdr.de>; Wed,  2 Jun 2021 19:33:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C26B93991C7
+	for <lists+freedreno@lfdr.de>; Wed,  2 Jun 2021 19:34:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E381F6EE20;
-	Wed,  2 Jun 2021 17:33:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8130B6EE2A;
+	Wed,  2 Jun 2021 17:34:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69B9A6EE20
- for <freedreno@lists.freedesktop.org>; Wed,  2 Jun 2021 17:33:10 +0000 (UTC)
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADDFA6EE25
+ for <freedreno@lists.freedesktop.org>; Wed,  2 Jun 2021 17:34:29 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1622655192; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=2KQ5pbUkuVLz0g4ULlzdLTQV82EOvasoEirQWds9J0I=;
- b=Bmb4O4UdccrTV/STnND4YSFM+3vjqp1nU+y/72DUrLN8eq/t4RLYRbaCQ3wVfWTFq6i2Dqjm
- WIQXI6VrmvCzfZnGMMpM5KjON4o0ZEFgks0U8lfGZVP5tm3CzVIbD34bKgzl8ygZ8pl4hpLx
- 08qBz70M3PR8qRgOsJvcTvKGF8k=
-X-Mailgun-Sending-Ip: 198.61.254.9
+ s=smtp; t=1622655272; h=Message-ID: Subject: Cc: To: From: Date:
+ Content-Transfer-Encoding: Content-Type: MIME-Version: Sender;
+ bh=QE3wn3ZMtzTvI5TXNGRhJwPX/5BjO8Hpo3zddXF8OVs=;
+ b=KcHHd1DnOhSlWbY5Fc8IR1olqP0X685V35unlubOQOlNUrW83DLwwUXgMsb2lQyifLDUeL3Y
+ KL2+aguE77XyB/k05MQzosJTI5glNDRvLbqJeVSmS8qnqm7A23lJ/JQP2xE62YjVf3bv9dps
+ +2x81h7TmKi+acbZ8jiw+Y/kzPs=
+X-Mailgun-Sending-Ip: 69.72.43.7
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
- 60b7c0d06ddc3305c4536915 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 02 Jun 2021 17:33:04
+ smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
+ 60b7c107ea2aacd7290e5725 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 02 Jun 2021 17:33:59
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id C75C9C433D3; Wed,  2 Jun 2021 17:33:03 +0000 (UTC)
+ id 290A5C43144; Wed,  2 Jun 2021 17:33:59 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -38,20 +38,17 @@ X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
 Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 695D9C43217;
- Wed,  2 Jun 2021 17:33:02 +0000 (UTC)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id C088CC433D3;
+ Wed,  2 Jun 2021 17:33:56 +0000 (UTC)
 MIME-Version: 1.0
-Date: Wed, 02 Jun 2021 10:33:02 -0700
+Date: Wed, 02 Jun 2021 10:33:56 -0700
 From: abhinavk@codeaurora.org
 To: Lee Jones <lee.jones@linaro.org>
-In-Reply-To: <20210602143300.2330146-11-lee.jones@linaro.org>
-References: <20210602143300.2330146-1-lee.jones@linaro.org>
- <20210602143300.2330146-11-lee.jones@linaro.org>
-Message-ID: <b0ee71fedeacd0c7efc4fcb406b085c6@codeaurora.org>
+Message-ID: <b668e09546c0ce86d90346f99f40853a@codeaurora.org>
 X-Sender: abhinavk@codeaurora.org
 User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [RESEND 10/26] drm/msm/disp/dpu1/dpu_hw_interrupts:
- Demote a bunch of kernel-doc abuses
+Subject: Re: [Freedreno] [RESEND 14/26] drm/msm/dp/dp_link: Fix some
+ potential doc-rot
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,11 +61,11 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Krishna Manikandan <mkrishn@codeaurora.org>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Kuogee Hsieh <khsieh@codeaurora.org>,
  Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+ freedreno@lists.freedesktop.org, Chandan Uddaraju <chandanu@codeaurora.org>
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
@@ -77,220 +74,73 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 On 2021-06-02 07:32, Lee Jones wrote:
 > Fixes the following W=1 kernel build warning(s):
 > 
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:17: warning:
-> expecting prototype for Register offsets in MDSS register file for the
-> interrupt registers(). Prototype was for MDP_SSPP_TOP0_OFF() instead
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:35: warning:
-> expecting prototype for WB interrupt status bit definitions().
-> Prototype was for DPU_INTR_WB_0_DONE() instead
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:42: warning:
-> expecting prototype for WDOG timer interrupt status bit definitions().
-> Prototype was for DPU_INTR_WD_TIMER_0_DONE() instead
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:51: warning:
-> expecting prototype for Pingpong interrupt status bit definitions().
-> Prototype was for DPU_INTR_PING_PONG_0_DONE() instead
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:71: warning:
-> expecting prototype for Interface interrupt status bit definitions().
-> Prototype was for DPU_INTR_INTF_0_UNDERRUN() instead
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:85: warning:
-> expecting prototype for Pingpong Secondary interrupt status bit
-> definitions(). Prototype was for
-> DPU_INTR_PING_PONG_S0_AUTOREFRESH_DONE() instead
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:94: warning:
-> expecting prototype for Pingpong TEAR detection interrupt status bit
-> definitions(). Prototype was for DPU_INTR_PING_PONG_0_TEAR_DETECTED()
-> instead
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:102: warning:
-> expecting prototype for Pingpong TE detection interrupt status bit
-> definitions(). Prototype was for DPU_INTR_PING_PONG_0_TE_DETECTED()
-> instead
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:110: warning:
-> expecting prototype for Ctl start interrupt status bit definitions().
-> Prototype was for DPU_INTR_CTL_0_START() instead
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:119: warning:
-> expecting prototype for Concurrent WB overflow interrupt status bit
-> definitions(). Prototype was for DPU_INTR_CWB_2_OVERFLOW() instead
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:125: warning:
-> expecting prototype for Histogram VIG done interrupt status bit
-> definitions(). Prototype was for DPU_INTR_HIST_VIG_0_DONE() instead
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:133: warning:
-> expecting prototype for Histogram VIG reset Sequence done interrupt
-> status bit definitions(). Prototype was for
-> DPU_INTR_HIST_VIG_0_RSTSEQ_DONE() instead
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:141: warning:
-> expecting prototype for Histogram DSPP done interrupt status bit
-> definitions(). Prototype was for DPU_INTR_HIST_DSPP_0_DONE() instead
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:149: warning:
-> expecting prototype for Histogram DSPP reset Sequence done interrupt
-> status bit definitions(). Prototype was for
-> DPU_INTR_HIST_DSPP_0_RSTSEQ_DONE() instead
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:157: warning:
-> expecting prototype for INTF interrupt status bit definitions().
-> Prototype was for DPU_INTR_VIDEO_INTO_STATIC() instead
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:170: warning:
-> expecting prototype for AD4 interrupt status bit definitions().
-> Prototype was for DPU_INTR_BACKLIGHT_UPDATED() instead
+>  drivers/gpu/drm/msm/dp/dp_link.c:374: warning: expecting prototype
+> for dp_parse_video_pattern_params(). Prototype was for
+> dp_link_parse_video_pattern_params() instead
+>  drivers/gpu/drm/msm/dp/dp_link.c:573: warning: expecting prototype
+> for dp_parse_phy_test_params(). Prototype was for
+> dp_link_parse_phy_test_params() instead
+>  drivers/gpu/drm/msm/dp/dp_link.c:975: warning: expecting prototype
+> for dp_link_process_downstream_port_status_change(). Prototype was for
+> dp_link_process_ds_port_status_change() instead
 > 
 > Cc: Rob Clark <robdclark@gmail.com>
 > Cc: Sean Paul <sean@poorly.run>
 > Cc: David Airlie <airlied@linux.ie>
 > Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: Krishna Manikandan <mkrishn@codeaurora.org>
+> Cc: Chandan Uddaraju <chandanu@codeaurora.org>
+> Cc: Kuogee Hsieh <khsieh@codeaurora.org>
 > Cc: linux-arm-msm@vger.kernel.org
 > Cc: dri-devel@lists.freedesktop.org
 > Cc: freedreno@lists.freedesktop.org
 > Signed-off-by: Lee Jones <lee.jones@linaro.org>
 Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
 > ---
->  .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 32 +++++++++----------
->  1 file changed, 16 insertions(+), 16 deletions(-)
+>  drivers/gpu/drm/msm/dp/dp_link.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> index 48c96b8121268..aaf251741dc27 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> @@ -10,7 +10,7 @@
->  #include "dpu_hw_util.h"
->  #include "dpu_hw_mdss.h"
+> diff --git a/drivers/gpu/drm/msm/dp/dp_link.c 
+> b/drivers/gpu/drm/msm/dp/dp_link.c
+> index be986da78c4a5..1099604bd1c86 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_link.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_link.c
+> @@ -364,7 +364,7 @@ static int dp_link_parse_timing_params3(struct
+> dp_link_private *link,
+>  }
 > 
-> -/**
-> +/*
->   * Register offsets in MDSS register file for the interrupt registers
->   * w.r.t. to the MDP base
->   */
-> @@ -29,14 +29,14 @@
->  #define MDP_INTF_1_OFF_REV_7xxx             0x35000
->  #define MDP_INTF_5_OFF_REV_7xxx             0x39000
+>  /**
+> - * dp_parse_video_pattern_params() - parses video pattern parameters 
+> from DPCD
+> + * dp_link_parse_video_pattern_params() - parses video pattern
+> parameters from DPCD
+>   * @link: Display Port Driver data
+>   *
+>   * Returns 0 if it successfully parses the video link pattern and the 
+> link
+> @@ -563,7 +563,7 @@ static int
+> dp_link_parse_link_training_params(struct dp_link_private *link)
+>  }
 > 
-> -/**
-> +/*
->   * WB interrupt status bit definitions
->   */
->  #define DPU_INTR_WB_0_DONE BIT(0)
->  #define DPU_INTR_WB_1_DONE BIT(1)
->  #define DPU_INTR_WB_2_DONE BIT(4)
+>  /**
+> - * dp_parse_phy_test_params() - parses the phy link parameters
+> + * dp_link_parse_phy_test_params() - parses the phy link parameters
+>   * @link: Display Port Driver data
+>   *
+>   * Parses the DPCD (Byte 0x248) for the DP PHY link pattern that is 
+> being
+> @@ -961,7 +961,7 @@ static int
+> dp_link_process_link_status_update(struct dp_link_private *link)
+>  }
 > 
-> -/**
-> +/*
->   * WDOG timer interrupt status bit definitions
->   */
->  #define DPU_INTR_WD_TIMER_0_DONE BIT(2)
-> @@ -45,7 +45,7 @@
->  #define DPU_INTR_WD_TIMER_3_DONE BIT(6)
->  #define DPU_INTR_WD_TIMER_4_DONE BIT(7)
-> 
-> -/**
-> +/*
->   * Pingpong interrupt status bit definitions
->   */
->  #define DPU_INTR_PING_PONG_0_DONE BIT(8)
-> @@ -65,7 +65,7 @@
->  #define DPU_INTR_PING_PONG_2_AUTOREFRESH_DONE BIT(22)
->  #define DPU_INTR_PING_PONG_3_AUTOREFRESH_DONE BIT(23)
-> 
-> -/**
-> +/*
->   * Interface interrupt status bit definitions
->   */
->  #define DPU_INTR_INTF_0_UNDERRUN BIT(24)
-> @@ -79,7 +79,7 @@
->  #define DPU_INTR_INTF_3_VSYNC BIT(31)
->  #define DPU_INTR_INTF_5_VSYNC BIT(23)
-> 
-> -/**
-> +/*
->   * Pingpong Secondary interrupt status bit definitions
->   */
->  #define DPU_INTR_PING_PONG_S0_AUTOREFRESH_DONE BIT(0)
-> @@ -88,7 +88,7 @@
->  #define DPU_INTR_PING_PONG_S0_TEAR_DETECTED BIT(22)
->  #define DPU_INTR_PING_PONG_S0_TE_DETECTED BIT(28)
-> 
-> -/**
-> +/*
->   * Pingpong TEAR detection interrupt status bit definitions
->   */
->  #define DPU_INTR_PING_PONG_0_TEAR_DETECTED BIT(16)
-> @@ -96,7 +96,7 @@
->  #define DPU_INTR_PING_PONG_2_TEAR_DETECTED BIT(18)
->  #define DPU_INTR_PING_PONG_3_TEAR_DETECTED BIT(19)
-> 
-> -/**
-> +/*
->   * Pingpong TE detection interrupt status bit definitions
->   */
->  #define DPU_INTR_PING_PONG_0_TE_DETECTED BIT(24)
-> @@ -104,7 +104,7 @@
->  #define DPU_INTR_PING_PONG_2_TE_DETECTED BIT(26)
->  #define DPU_INTR_PING_PONG_3_TE_DETECTED BIT(27)
-> 
-> -/**
-> +/*
->   * Ctl start interrupt status bit definitions
->   */
->  #define DPU_INTR_CTL_0_START BIT(9)
-> @@ -113,13 +113,13 @@
->  #define DPU_INTR_CTL_3_START BIT(12)
->  #define DPU_INTR_CTL_4_START BIT(13)
-> 
-> -/**
-> +/*
->   * Concurrent WB overflow interrupt status bit definitions
->   */
->  #define DPU_INTR_CWB_2_OVERFLOW BIT(14)
->  #define DPU_INTR_CWB_3_OVERFLOW BIT(15)
-> 
-> -/**
-> +/*
->   * Histogram VIG done interrupt status bit definitions
->   */
->  #define DPU_INTR_HIST_VIG_0_DONE BIT(0)
-> @@ -127,7 +127,7 @@
->  #define DPU_INTR_HIST_VIG_2_DONE BIT(8)
->  #define DPU_INTR_HIST_VIG_3_DONE BIT(10)
-> 
-> -/**
-> +/*
->   * Histogram VIG reset Sequence done interrupt status bit definitions
->   */
->  #define DPU_INTR_HIST_VIG_0_RSTSEQ_DONE BIT(1)
-> @@ -135,7 +135,7 @@
->  #define DPU_INTR_HIST_VIG_2_RSTSEQ_DONE BIT(9)
->  #define DPU_INTR_HIST_VIG_3_RSTSEQ_DONE BIT(11)
-> 
-> -/**
-> +/*
->   * Histogram DSPP done interrupt status bit definitions
->   */
->  #define DPU_INTR_HIST_DSPP_0_DONE BIT(12)
-> @@ -143,7 +143,7 @@
->  #define DPU_INTR_HIST_DSPP_2_DONE BIT(20)
->  #define DPU_INTR_HIST_DSPP_3_DONE BIT(22)
-> 
-> -/**
-> +/*
->   * Histogram DSPP reset Sequence done interrupt status bit definitions
->   */
->  #define DPU_INTR_HIST_DSPP_0_RSTSEQ_DONE BIT(13)
-> @@ -151,7 +151,7 @@
->  #define DPU_INTR_HIST_DSPP_2_RSTSEQ_DONE BIT(21)
->  #define DPU_INTR_HIST_DSPP_3_RSTSEQ_DONE BIT(23)
-> 
-> -/**
-> +/*
->   * INTF interrupt status bit definitions
->   */
->  #define DPU_INTR_VIDEO_INTO_STATIC BIT(0)
-> @@ -164,7 +164,7 @@
->  #define DPU_INTR_DSICMD_2_OUTOF_STATIC BIT(7)
->  #define DPU_INTR_PROG_LINE BIT(8)
-> 
-> -/**
-> +/*
->   * AD4 interrupt status bit definitions
->   */
->  #define DPU_INTR_BACKLIGHT_UPDATED BIT(0)
+>  /**
+> - * dp_link_process_downstream_port_status_change() - process port
+> status changes
+> + * dp_link_process_ds_port_status_change() - process port status 
+> changes
+>   * @link: Display Port Driver data
+>   *
+>   * This function will handle downstream port updates that are 
+> initiated by
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
