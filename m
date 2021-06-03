@@ -1,56 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 230FB39A384
-	for <lists+freedreno@lfdr.de>; Thu,  3 Jun 2021 16:41:20 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C3E5239A4E9
+	for <lists+freedreno@lfdr.de>; Thu,  3 Jun 2021 17:41:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B02BB6F487;
-	Thu,  3 Jun 2021 14:41:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 752F46F4BA;
+	Thu,  3 Jun 2021 15:41:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD36D6F487;
- Thu,  3 Jun 2021 14:41:17 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id
- l11-20020a05600c4f0bb029017a7cd488f5so3892290wmq.0; 
- Thu, 03 Jun 2021 07:41:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=S3gLIzTlRm90Fbhfv86Iy9u6F5Oz2fyU1X9eaD/GjVg=;
- b=WM9zOqh5gwb3s1mR9PW/RGNOGO0iK7n40nVvmbpNnVgKkrWMoT01LlIDTIooL47lZJ
- 7wDfbvY95NRzX/etYxYVZJ0lFAbsNs2qggFooGWI9jDjT+tTsM2sleFx7MvygUqm5mNy
- tx4ths746VwyI8UlKOqNeZaaiNoaWg9Qcm+XNZinKI39t9ly9M3WH+fIrjBnS0t7hDUV
- +xNRHxXYoBlortSAdAl/cv89eXehnmCwmss/2JWB5KpXW7vJMjE7wPeLsda/wFVWmHQG
- PdLKJlv4sh3GYkdxrucmXLOeYn04K8DfEzLxyjr0IHvR5dICwZ3wB3MMY/+q222K4gCX
- GSag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=S3gLIzTlRm90Fbhfv86Iy9u6F5Oz2fyU1X9eaD/GjVg=;
- b=tyVmoVcKwcNrC/NRupl2DfLLHvNEAg+BAhoOH8jfWG6hjH2nQWe7//ZYt49v/dVbCK
- BP4aPtWcsDrQ1dROQ3l5UVfjWAAGATHZfFDlKI+c6861ZL55XJo5wpXkwN+I0A658ccU
- aMq/NDuQeEBi1VSCjfl/AlfH+APCy289/hDe0wbUbjKi0arrUc5BOuK4PLJtUM8QUg0N
- IlBl0LmYNHm6X07zBPbfzQjkMR10RkL16o5QJ7VVjOWiXHC2gnBd3bMaE9rJP4G/Z1Dc
- Aa4H+gaYTgUS/3a7vOxMMajWfYzegOQBtxmD+E+6ZRPi/Yiva1gQ4knwWe3K4Hzk7hhW
- +3YA==
-X-Gm-Message-State: AOAM5332wQxh/qE+epjNeUeIcqp5gxiQIM8Rh0RbHDtqY/J9cuf/aqP9
- 5J9hLnhFkrsJ5V9yTXWdHq7+K2hxsfpERBhT0TQ=
-X-Google-Smtp-Source: ABdhPJxLV3SbPwFjb3ZelCeB3oIW2qicl9OJM5oD+Ojp6ILkGuMfs/U2Y4M5ZPWAahsbGutVXx7C1LLUVpuzzeu/4is=
-X-Received: by 2002:a7b:ca44:: with SMTP id m4mr10634794wml.123.1622731276458; 
- Thu, 03 Jun 2021 07:41:16 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210529002508.3839467-1-dmitry.baryshkov@linaro.org>
- <20210529002508.3839467-6-dmitry.baryshkov@linaro.org>
-In-Reply-To: <20210529002508.3839467-6-dmitry.baryshkov@linaro.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 3 Jun 2021 07:45:08 -0700
-Message-ID: <CAF6AEGsoUET_=P1YkAKb7GMRyrZV5_jmGeMHZhB1u4uE9m7B9A@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [RFC 5/8] lib: add small API for handling register
- snapshots
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0C3A6F4BF
+ for <freedreno@lists.freedesktop.org>; Thu,  3 Jun 2021 15:41:16 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1622734884; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=o1I/qHRsZyVY+hH5gJnA9ezwSvhf5J73xu0kbc1BX7o=;
+ b=gjDQd2tJJddFvVXcys9pIBgY2rQqiMTlaZBDI/2bIDDZBQS9+AOe5dKRTCY58OyxYoQO/xaq
+ Hn6QpAxFTaxUyNaBUMbj2aKqdc/+LMFmqJ6nSaGgU0NPjWXZroqdKioIbFLRGk4VSRe4L7gz
+ mJG6LW6gP/0bKgv6jYbl3eCmv+k=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n07.prod.us-west-2.postgun.com with SMTP id
+ 60b8f80881efe91cdad0a8fc (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 03 Jun 2021 15:40:56
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id C4394C43217; Thu,  3 Jun 2021 15:40:56 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
+Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 6A8DCC433D3;
+ Thu,  3 Jun 2021 15:40:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 6A8DCC433D3
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=khsieh@codeaurora.org
+From: Kuogee Hsieh <khsieh@codeaurora.org>
+To: robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
+ vkoul@kernel.org, agross@kernel.org, bjorn.andersson@linaro.org
+Date: Thu,  3 Jun 2021 08:40:46 -0700
+Message-Id: <1622734846-14179-1-git-send-email-khsieh@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH v5] drm/msm/dp: power off DP phy at suspend
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,102 +64,95 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Abhinav Kumar <abhinavk@codeaurora.org>, David Airlie <airlied@linux.ie>,
- dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ abhinavk@codeaurora.org, khsieh@codeaurora.org, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, May 28, 2021 at 5:25 PM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> Add small API covering lists of register dumps. Currently this is a part
-> of MSM DRM driver, but is extracted as it might be usefull to other
-> drivers too.
->
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  include/linux/dump_state.h | 78 ++++++++++++++++++++++++++++++++++++++
->  lib/Kconfig                |  3 ++
->  lib/Makefile               |  1 +
->  lib/dump_state.c           | 51 +++++++++++++++++++++++++
->  4 files changed, 133 insertions(+)
->  create mode 100644 include/linux/dump_state.h
->  create mode 100644 lib/dump_state.c
->
-[snip]
-> diff --git a/lib/dump_state.c b/lib/dump_state.c
-> new file mode 100644
-> index 000000000000..58d88be65c0a
-> --- /dev/null
-> +++ b/lib/dump_state.c
-> @@ -0,0 +1,51 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (c) 2020-2021, The Linux Foundation. All rights reserved.
-> + * Copyright (c) 2021, Linaro Ltd
-> + */
-> +
-> +#include <linux/dump_state.h>
-> +#include <linux/slab.h>
-> +
-> +void dump_state_free_blocks(struct dump_state *state)
-> +{
-> +       struct dump_state_block *block, *tmp;
-> +
-> +       list_for_each_entry_safe(block, tmp, &state->blocks, node) {
-> +               list_del(&block->node);
-> +               kfree(block);
-> +       }
-> +}
-> +EXPORT_SYMBOL(dump_state_free_blocks);
+Normal DP suspend operation contains two steps, display off followed
+by dp suspend, to complete system wide suspending cycle if display is
+up at that time. In this case, DP phy will be powered off at display
+off. However there is an exception case that depending on the timing
+of dongle plug in during system wide suspending, sometimes display off
+procedure may be skipped and dp suspend was called directly. In this
+case, dp phy is stay at powered on (phy->power_count = 1) so that at
+next resume dp driver crash at main link clock enable due to phy is
+not physically powered on. This patch will call dp_ctrl_off_link_stream()
+to tear down main link and power off phy at dp_pm_suspend() if main link
+had been brought up.
 
-nit, perhaps EXPORT_SYMBOL_GPL()?
+Changes in V2:
+-- stashed changes into dp_ctrl.c
+-- add is_phy_on to monitor phy state
 
-BR,
--R
+Changes in V3:
+-- delete is_phy_on
+-- call dp_ctrl_off_link_stream() from dp_pm_suspend()
 
-> +
-> +struct dump_state_block *dump_state_allocate_block_va(void __iomem *base_addr, size_t len, gfp_t gfp, const char *fmt, va_list args)
-> +{
-> +       struct dump_state_block *block = kzalloc(sizeof(*block) + len, gfp);
-> +
-> +       if (!block)
-> +               return ERR_PTR(-ENOMEM);
-> +
-> +       vsnprintf(block->name, sizeof(block->name), fmt, args);
-> +
-> +       INIT_LIST_HEAD(&block->node);
-> +       block->size = len;
-> +       block->base_addr = base_addr;
-> +
-> +       return block;
-> +}
-> +EXPORT_SYMBOL(dump_state_allocate_block);
-> +
-> +struct dump_state_block *dump_state_allocate_block(void __iomem *base_addr, size_t len, gfp_t gfp, const char *fmt, ...)
-> +{
-> +       struct dump_state_block *block;
-> +       va_list va;
-> +
-> +       va_start(va, fmt);
-> +
-> +       block = dump_state_allocate_block_va(base_addr, len, gfp, fmt, va);
-> +
-> +       va_end(va);
-> +
-> +       return block;
-> +}
-> +EXPORT_SYMBOL(dump_state_allocate_block_va);
-> --
-> 2.30.2
->
+Changes in V4:
+-- delete changes made at dp_power.c
+-- move main link status checking to dp_pm_suspend
+
+Changes in V5:
+-- correct commit id at Fixes tag
+
+Fixes: 8dbde399044b ("drm/msm/dp: handle irq_hpd with sink_count = 0 correctly)
+Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+Tested-by: Stephen Boyd <swboyd@chromium.org>
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+---
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 10 ++++++----
+ drivers/gpu/drm/msm/dp/dp_display.c |  7 ++++++-
+ 2 files changed, 12 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index dbd8943..caf71fa 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -1827,10 +1827,12 @@ int dp_ctrl_off_link_stream(struct dp_ctrl *dp_ctrl)
+ 
+ 	dp_catalog_ctrl_mainlink_ctrl(ctrl->catalog, false);
+ 
+-	ret = dp_power_clk_enable(ctrl->power, DP_STREAM_PM, false);
+-	if (ret) {
+-		DRM_ERROR("Failed to disable pixel clocks. ret=%d\n", ret);
+-		return ret;
++	if (dp_power_clk_status(ctrl->power, DP_STREAM_PM)) {
++		ret = dp_power_clk_enable(ctrl->power, DP_STREAM_PM, false);
++		if (ret) {
++			DRM_ERROR("Failed to disable pclk. ret=%d\n", ret);
++			return ret;
++		}
+ 	}
+ 
+ 	ret = dp_power_clk_enable(ctrl->power, DP_CTRL_PM, false);
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index cdec0a3..9c59def 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -1327,8 +1327,13 @@ static int dp_pm_suspend(struct device *dev)
+ 
+ 	mutex_lock(&dp->event_mutex);
+ 
+-	if (dp->core_initialized == true)
++	if (dp->core_initialized == true) {
++		/* mainlink enabled */
++		if (dp_power_clk_status(dp->power, DP_CTRL_PM))
++			dp_ctrl_off_link_stream(dp->ctrl);
++
+ 		dp_display_host_deinit(dp);
++	}
+ 
+ 	dp->hpd_state = ST_SUSPENDED;
+ 
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
