@@ -1,60 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 957C839AC9F
-	for <lists+freedreno@lfdr.de>; Thu,  3 Jun 2021 23:19:58 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4021F39ACE1
+	for <lists+freedreno@lfdr.de>; Thu,  3 Jun 2021 23:29:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 433B46E5CD;
-	Thu,  3 Jun 2021 21:19:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 785B06E5A5;
+	Thu,  3 Jun 2021 21:29:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com
- [IPv6:2607:f8b0:4864:20::42a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9ACE06EE8A
- for <freedreno@lists.freedesktop.org>; Thu,  3 Jun 2021 21:19:55 +0000 (UTC)
-Received: by mail-pf1-x42a.google.com with SMTP id u126so1897887pfu.13
- for <freedreno@lists.freedesktop.org>; Thu, 03 Jun 2021 14:19:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=dARTyUZkFV2V3Q8vjvHyg7kS20ldU3oA95Zvf/0nmmU=;
- b=RlGC85OmMDvj9lLQelmvTphzRZUs6Q32p0QF5Bg/Q2LMe0D5/UBCSIT/e0xPeW669f
- wZykzI7Gzu/ws2t4xm7q6ufYUKBKRZNLT3vq29CWutNeOaq7WsAwIYnxLA4QacqjfaiA
- tRO+qG0wBC/biL0C5sEWiMiV65bjw7Ef7FY8g=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=dARTyUZkFV2V3Q8vjvHyg7kS20ldU3oA95Zvf/0nmmU=;
- b=obAAA+Lls25kulX27E0z1Gvd2LLS5+L7/oyBAnWhgVtuRE1HHQ1AmGt09RJKubo+7G
- zAxM3MbBifIwqqbX9zu1zRCiBWB7F8M5D1Og/eole84N0jGdBIt5IjWqV4uPuB6kr87T
- nHvdgMf6qPFFj5k9wKSs5HJZXrlyGU2AvlTJnWtPe0kz9Hhe0AJTLYzJPvC7lp2spRqL
- WqYZEAWCoghwfh5IdVrwcioFZQCzAp0cr9LivALO3hV39w102/PzX7jbbReza3vZYXzW
- t78QLgSE40aQ85g1gXnjvQBkpioMxP4YPhpXUu0yiMi34EwM1HMJy2stUg0i8rvDMqRU
- Qsaw==
-X-Gm-Message-State: AOAM532sfAaLLtOmfCEERWMepHDPRSfwCJ3PbUBo3XayzncnsMDRTgX/
- vx3rLH6buKCxhrm4PHmzRuYwNA==
-X-Google-Smtp-Source: ABdhPJwJXHGlpcsXLY0UNfMnVi/6rllTy6mVSbumQm6UnltHqjQajeBgs1+0pT0Sh7Rsg7Iw58a7fg==
-X-Received: by 2002:a63:5c5d:: with SMTP id n29mr1373666pgm.131.1622755194914; 
- Thu, 03 Jun 2021 14:19:54 -0700 (PDT)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
- by smtp.gmail.com with ESMTPSA id a15sm22746pfc.29.2021.06.03.14.19.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Jun 2021 14:19:53 -0700 (PDT)
-Date: Thu, 3 Jun 2021 14:19:52 -0700
-From: Kees Cook <keescook@chromium.org>
-To: Daniel Vetter <daniel@ffwll.ch>
-Message-ID: <202106031357.BE2A09DA8F@keescook>
-References: <20210602215252.695994-1-keescook@chromium.org>
- <20210602215252.695994-4-keescook@chromium.org>
- <CAL_JsqLO_YbT3VU0+uHH2t6ONs_dWfBhqds9okYD0254ZiBf=A@mail.gmail.com>
- <CAKMK7uFBQk+KA0fPdjkB9=7By2a9V5i=u84ufO+n3dmjayq+vw@mail.gmail.com>
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D28E6E5A5
+ for <freedreno@lists.freedesktop.org>; Thu,  3 Jun 2021 21:29:04 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1622755748; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=GDRl9PUh1Tp2D5Ohe+A1uSB4GDOCax7UiahMFdW9JWA=;
+ b=HkMDRFZ4x37FWDYfhWg/NJje6dIxW5cBW2bNXdW+tdpSRjlPkboOMBxmU78dfOB/8NhYBa8p
+ cDnlEFUdYj+PXzpJMr7MVxErymWe1YcKAHZiJURCCMVO7M5VYYmtMA5w6PJ9bodHoJ81ospF
+ YgCqXBGBkR9HAhGofP2YHMo3cX8=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
+ 60b94988265e7370f714ef96 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 03 Jun 2021 21:28:40
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 1E890C433D3; Thu,  3 Jun 2021 21:28:40 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id E7D9CC433F1;
+ Thu,  3 Jun 2021 21:28:37 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAKMK7uFBQk+KA0fPdjkB9=7By2a9V5i=u84ufO+n3dmjayq+vw@mail.gmail.com>
-Subject: Re: [Freedreno] [PATCH 3/3] drm/pl111: depend on
- CONFIG_VEXPRESS_CONFIG
+Date: Thu, 03 Jun 2021 14:28:37 -0700
+From: khsieh@codeaurora.org
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+In-Reply-To: <YLkI/6ItCz+SbbuJ@yoga>
+References: <1622736555-15775-1-git-send-email-khsieh@codeaurora.org>
+ <YLkI/6ItCz+SbbuJ@yoga>
+Message-ID: <d3ec375b9cbe72030e240a84a6c7e13d@codeaurora.org>
+X-Sender: khsieh@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v2] arm64/dts/qcom/sc7180: Add Display Port
+ dt node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,109 +64,183 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Herring <robh@kernel.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- kernel test robot <lkp@intel.com>, Emma Anholt <emma@anholt.net>,
- Arnd Bergmann <arnd@kernel.org>, David Airlie <airlied@linux.ie>,
- Sam Ravnborg <sam@ravnborg.org>, Sharat Masetty <smasetty@codeaurora.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Maxime Ripard <mripard@kernel.org>, Rob Clark <robdclark@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Dave Airlie <airlied@redhat.com>, freedreno <freedreno@lists.freedesktop.org>,
- Sean Paul <sean@poorly.run>, Linus Walleij <linus.walleij@linaro.org>
-Content-Type: text/plain; charset="us-ascii"
+Cc: devicetree@vger.kernel.org, freedreno@lists.freedesktop.org,
+ vkoul@kernel.org, robh+dt@kernel.org, swboyd@chromium.org, robdclark@gmail.com,
+ agross@kernel.org, abhinavk@codeaurora.org, linux-arm-msm@vger.kernel.org,
+ aravindh@codeaurora.org, sean@poorly.run, linux-kernel@vger.kernel.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jun 03, 2021 at 09:19:42PM +0200, Daniel Vetter wrote:
-> On Thu, Jun 3, 2021 at 8:43 PM Rob Herring <robh@kernel.org> wrote:
-> >
-> > On Wed, Jun 2, 2021 at 4:53 PM Kees Cook <keescook@chromium.org> wrote:
-> > >
-> > > Avoid randconfig build failures by requiring VEXPRESS_CONFIG:
-> > >
-> > > aarch64-linux-gnu-ld: drivers/gpu/drm/pl111/pl111_versatile.o: in function `pl111_vexpress_clcd_init':
-> > > pl111_versatile.c:(.text+0x220): undefined reference to `devm_regmap_init_vexpress_config'
-> >
-> > pl111_vexpress_clcd_init() starts with:
-> >
-> > if (!IS_ENABLED(CONFIG_VEXPRESS_CONFIG))
-> >                 return -ENODEV;
-> >
-> > Isn't that supposed to be enough to avoid an undefined reference?
-
-Ah! I missed that when reading the code. I see the problem now. It's
-because of:
-
-CONFIG_VEXPRESS_CONFIG=m
-CONFIG_DRM_PL111=y
-
-I think the right fix is:
-
-diff --git a/drivers/gpu/drm/pl111/Kconfig b/drivers/gpu/drm/pl111/Kconfig
-index 80f6748055e3..662fc38f92ba 100644
---- a/drivers/gpu/drm/pl111/Kconfig
-+++ b/drivers/gpu/drm/pl111/Kconfig
-@@ -3,6 +3,7 @@ config DRM_PL111
- 	tristate "DRM Support for PL111 CLCD Controller"
- 	depends on DRM
- 	depends on ARM || ARM64 || COMPILE_TEST
-+	depends on VEXPRESS_CONFIG=y || VEXPRESS_CONFIG=DRM
- 	depends on COMMON_CLK
- 	select DRM_KMS_HELPER
- 	select DRM_KMS_CMA_HELPER
-
-I will go check the defconfigs Rob mentioned...
-
-> > Making the whole file depend on VEXPRESS_CONFIG is not right either.
-> > Not all platforms need it.
+On 2021-06-03 09:53, Bjorn Andersson wrote:
+> On Thu 03 Jun 11:09 CDT 2021, Kuogee Hsieh wrote:
 > 
-> It needs a compile-time status inline then for the functions we're
-> using in pl111.
+>> Add DP device node on sc7180.
+>> 
+>> Changes in v2:
+>> -- replace msm_dp with dp
+>> -- replace dp_opp_table with opp_table
+>> 
+> 
+> I'm sorry for those suggestions, I don't like either one of them.
+> 
+> And for everything but changes to the DRM code the changelog goes below
+> the --- line, so it's not part of the git history.
+> 
+>> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+>> ---
+>>  arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi |  9 ++++
+>>  arch/arm64/boot/dts/qcom/sc7180.dtsi         | 78 
+>> ++++++++++++++++++++++++++++
+>>  2 files changed, 87 insertions(+)
+>> 
+>> diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi 
+>> b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
+>> index 24d293e..40367a2 100644
+>> --- a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
+>> @@ -786,6 +786,15 @@ hp_i2c: &i2c9 {
+>>  	status = "okay";
+>>  };
+>> 
+>> +&dp {
+>> +        status = "okay";
+>> +        pinctrl-names = "default";
+>> +        pinctrl-0 = <&dp_hot_plug_det>;
+>> +        data-lanes = <0 1>;
+> 
+> Is it a limitation of the EC in Trogdor that you can only do 2 lanes?
 
-FYI, this is the config I was working from, which was throwing link errors:
-https://lore.kernel.org/lkml/202105300926.fX0MYySp-lkp@intel.com/
+yes,
 
-> -Daniel
 > 
-> >
-> > >
-> > > Fixes: 826fc86b5903 ("drm: pl111: Move VExpress setup into versatile init")
-> > > Signed-off-by: Kees Cook <keescook@chromium.org>
-> > > ---
-> > >  drivers/gpu/drm/pl111/Kconfig | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/pl111/Kconfig b/drivers/gpu/drm/pl111/Kconfig
-> > > index 80f6748055e3..c5210a5bef1b 100644
-> > > --- a/drivers/gpu/drm/pl111/Kconfig
-> > > +++ b/drivers/gpu/drm/pl111/Kconfig
-> > > @@ -2,7 +2,7 @@
-> > >  config DRM_PL111
-> > >         tristate "DRM Support for PL111 CLCD Controller"
-> > >         depends on DRM
-> > > -       depends on ARM || ARM64 || COMPILE_TEST
-> > > +       depends on VEXPRESS_CONFIG
-> > >         depends on COMMON_CLK
-> > >         select DRM_KMS_HELPER
-> > >         select DRM_KMS_CMA_HELPER
-> > > --
-> > > 2.25.1
-> > >
+>> +        vdda-1p2-supply = <&vdda_usb_ss_dp_1p2>;
+>> +        vdda-0p9-supply = <&vdda_usb_ss_dp_core>;
+>> +};
+>> +
+>>  &pm6150_adc {
+>>  	charger-thermistor@4f {
+>>  		reg = <ADC5_AMUX_THM3_100K_PU>;
+>> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi 
+>> b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+>> index 6228ba2..05a4133 100644
+>> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+>> @@ -3032,6 +3032,13 @@
+>>  							remote-endpoint = <&dsi0_in>;
+>>  						};
+>>  					};
+>> +
+>> +					port@2 {
+>> +						reg = <2>;
+>> +						dpu_intf0_out: endpoint {
+>> +							remote-endpoint = <&dp_in>;
+>> +						};
+>> +					};
+>>  				};
+>> 
+>>  				mdp_opp_table: mdp-opp-table {
+>> @@ -3148,6 +3155,77 @@
+>> 
+>>  				status = "disabled";
+>>  			};
+>> +
+>> +			dp: displayport-controller@ae90000 {
 > 
+> If you label this "mdss_dp", then it will naturally group with other
+> mdss properties in trogdor.dtsi (which should be sorted 
+> alphabetically).
 > 
+>> +				compatible = "qcom,sc7180-dp";
+>> +				status = "disabled";
+>> +
+>> +				reg = <0 0x0ae90000 0 0x1400>;
+>> +
+>> +				interrupt-parent = <&mdss>;
+>> +				interrupts = <12>;
+>> +
+>> +				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
+>> +					 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
+>> +					 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
+>> +					 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
+>> +					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
+>> +				clock-names = "core_iface", "core_aux", "ctrl_link",
+>> +					      "ctrl_link_iface", "stream_pixel";
+>> +				#clock-cells = <1>;
+>> +				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
+>> +						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
+>> +				assigned-clock-parents = <&dp_phy 0>, <&dp_phy 1>;
+>> +				phys = <&dp_phy>;
+>> +				phy-names = "dp";
+>> +
+>> +				operating-points-v2 = <&opp_table>;
+>> +				power-domains = <&rpmhpd SC7180_CX>;
 > 
-> -- 
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
-
--- 
-Kees Cook
+> Just curious, but isn't the DP block in the MDSS_GDCS? Or do we need to
+> mention CX here in order for the opp framework to apply required-opps
+> of CX?
+> 
+>> +
+>> +				#sound-dai-cells = <0>;
+>> +
+>> +				ports {
+>> +					#address-cells = <1>;
+>> +					#size-cells = <0>;
+>> +					port@0 {
+>> +						reg = <0>;
+>> +						dp_in: endpoint {
+>> +							remote-endpoint = <&dpu_intf0_out>;
+>> +						};
+>> +					};
+>> +
+>> +					port@1 {
+>> +						reg = <1>;
+>> +						dp_out: endpoint { };
+>> +					};
+>> +				};
+>> +
+>> +				opp_table: dp-opp-table {
+> 
+> The one and only "opp_table" of the sc7180 :)
+> Maybe name it dp_opp_table instead?
+> 
+> Regards,
+> Bjorn
+> 
+>> +					compatible = "operating-points-v2";
+>> +
+>> +					opp-160000000 {
+>> +						opp-hz = /bits/ 64 <160000000>;
+>> +						required-opps = <&rpmhpd_opp_low_svs>;
+>> +					};
+>> +
+>> +					opp-270000000 {
+>> +						opp-hz = /bits/ 64 <270000000>;
+>> +						required-opps = <&rpmhpd_opp_svs>;
+>> +					};
+>> +
+>> +					opp-540000000 {
+>> +						opp-hz = /bits/ 64 <540000000>;
+>> +						required-opps = <&rpmhpd_opp_svs_l1>;
+>> +					};
+>> +
+>> +					opp-810000000 {
+>> +						opp-hz = /bits/ 64 <810000000>;
+>> +						required-opps = <&rpmhpd_opp_nom>;
+>> +					};
+>> +				};
+>> +			};
+>> +
+>> +
+>>  		};
+>> 
+>>  		dispcc: clock-controller@af00000 {
+>> --
+>> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora 
+>> Forum,
+>> a Linux Foundation Collaborative Project
+>> 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
