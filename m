@@ -2,56 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0662539ACFC
-	for <lists+freedreno@lfdr.de>; Thu,  3 Jun 2021 23:35:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EB8539AD06
+	for <lists+freedreno@lfdr.de>; Thu,  3 Jun 2021 23:41:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1F776E7EC;
-	Thu,  3 Jun 2021 21:35:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38A736E7FE;
+	Thu,  3 Jun 2021 21:41:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com
- [IPv6:2607:f8b0:4864:20::c2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13DC56E7EC
- for <freedreno@lists.freedesktop.org>; Thu,  3 Jun 2021 21:35:36 +0000 (UTC)
-Received: by mail-oo1-xc2f.google.com with SMTP id
- q20-20020a4a6c140000b029024915d1bd7cso96366ooc.12
- for <freedreno@lists.freedesktop.org>; Thu, 03 Jun 2021 14:35:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=fdGca/qkXtFIrcRqfF9Oz+FtnAgDYxa2k4yJTgHSE9Q=;
- b=DOZw7Gr9pDSoeMVNbsz8uTCNISGH2vhGvbGtWQMr0Fp9rnyxMjCI5vGvl2LpscweQo
- wv3w2GJEXjJOZ2fHsri7XyaJ1qifvbALUJFjnIer/nTrQstULiIub4T0uijaZ348mxJx
- d90Of6OCT5YxhVWGDsFyp9qZ7O7fqFtrg/ElE=
+Received: from mail-oo1-xc29.google.com (mail-oo1-xc29.google.com
+ [IPv6:2607:f8b0:4864:20::c29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAD906E804
+ for <freedreno@lists.freedesktop.org>; Thu,  3 Jun 2021 21:41:12 +0000 (UTC)
+Received: by mail-oo1-xc29.google.com with SMTP id
+ 67-20020a4a01460000b0290245b81f6261so1747001oor.6
+ for <freedreno@lists.freedesktop.org>; Thu, 03 Jun 2021 14:41:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=RKsmemGX84EJleDwuX+VwjFITpOdDOrQ1e3N8W4mlJE=;
+ b=d7L6nRkj4iaP/ufzhvVC9HwhcDgFshS3f/urYGb/o/KbsmpZjWl0X8oQqqrL4jFjc7
+ mJ7PiijubS520NjTOfvbDIgLab2sfsj568JQqgv1nuEJ59IbGbVpf2kyAswnofdQxWqP
+ hEL3ncRTU5rQIYIJym51umthtqAnyRqKq34Vg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=fdGca/qkXtFIrcRqfF9Oz+FtnAgDYxa2k4yJTgHSE9Q=;
- b=bw6cJW8PqR6fFuNq8Cu237FEIjVOH07qz8yFy1U5wGBNQXQzQwrHYrvUmZCDY/iP6K
- JpzjKJlgc/r2bHFQjS834KiNK+gavbPIKM+CF42lTNJhi7NbIJF1RMzMNqnHy9FPp4kb
- rfVS0m6ZIzt81qXgS1FgBaQ0nbTdOitZ7eBkBUuS6i0R3TpRyQas6oRg8SCGFJsribzG
- Oa9mx3lJG98R0VJwn9byA4sHOoTK2kk1AUlYnvrS4O7yo8stv5tQulYZVGO7pBK1jKWu
- kNZaxeUzz9c/yC2K90IwabvQt/bkHcHznkzE6RJhiDtL38Ag/hTWC1lMWDUNLKqcI7fn
- ITmQ==
-X-Gm-Message-State: AOAM533hdxDfHiAyIjRK0VCCww0+xEOk794ySoP4LRfF7xSo4kFfxBv9
- 3ZKaEAq4c4FU6NdjOoFGjL45mz6ysRsL2E6x6Cq33Q==
-X-Google-Smtp-Source: ABdhPJycnioH5Ed8RBIYP+Bjnktnsogk9MbeJEjp7I2J4ue38o/zYJWTWMH0j6NofP7729BFjMbMBTAF7hmWnC2eYzc=
-X-Received: by 2002:a4a:85ca:: with SMTP id u10mr1068395ooh.80.1622756135377; 
- Thu, 03 Jun 2021 14:35:35 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 3 Jun 2021 21:35:35 +0000
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=RKsmemGX84EJleDwuX+VwjFITpOdDOrQ1e3N8W4mlJE=;
+ b=nr4p8kZViFh+xILmw1y8Vn7BEs0hrYou8jP2vXq9RDfESiRtHV3+S69ZATOmLqDKzp
+ 6mFfPM+DwgHxfpfASZEpeQpCv3DbK2BV9lpiJMulSJ8/928D6U/i05LL0YO+yQjR042w
+ qfs97D5wopuCaJ3NSEq1bNcHTWP9WpE2v0IH9Coembf0mXIZPveZ4AAdAn+6A1dzLBe7
+ RC6iiCzW73c9/+xU1Zyu6YqFriIIQ3XWTb2CxYHQYepUkXhnLsu1g+zCLsIFDC8/z8s2
+ Hfnh/LqLltoHLB9DeuZuxESF/OqtMbmKrKmU3tI5FsERxHnZoHzrKsPZZ3LK8We7QX6M
+ vJAQ==
+X-Gm-Message-State: AOAM531cvR+SLIttlEob+lHrzg0bjZaAcZuO3rmvznjb6Yc2JTHw/sma
+ GlwHCdbnhbyBtwXxXS1AN3zwwxgsG9WPmi7kN4cPjA==
+X-Google-Smtp-Source: ABdhPJwMTirpF78qU3DTBAb2T6KPK2kTp9cTZhJvFiseeoINwxORVyJshbam+gpZ22hM3YWxEiWocM4lnAJfSkJ3W8A=
+X-Received: by 2002:a4a:8e04:: with SMTP id q4mr1101448ook.28.1622756472081;
+ Thu, 03 Jun 2021 14:41:12 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <d3ec375b9cbe72030e240a84a6c7e13d@codeaurora.org>
-References: <1622736555-15775-1-git-send-email-khsieh@codeaurora.org>
- <YLkI/6ItCz+SbbuJ@yoga> <d3ec375b9cbe72030e240a84a6c7e13d@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Thu, 3 Jun 2021 21:35:34 +0000
-Message-ID: <CAE-0n53B6oa2zUm0h28Z-U4uhdMabZPRFV=h-ffyBKLs_uHZ-Q@mail.gmail.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>, khsieh@codeaurora.org
-Subject: Re: [Freedreno] [PATCH v2] arm64/dts/qcom/sc7180: Add Display Port
- dt node
+References: <20210602215252.695994-1-keescook@chromium.org>
+ <20210602215252.695994-4-keescook@chromium.org>
+ <CAL_JsqLO_YbT3VU0+uHH2t6ONs_dWfBhqds9okYD0254ZiBf=A@mail.gmail.com>
+ <CAKMK7uFBQk+KA0fPdjkB9=7By2a9V5i=u84ufO+n3dmjayq+vw@mail.gmail.com>
+ <202106031357.BE2A09DA8F@keescook> <202106031422.FD9E3C5755@keescook>
+In-Reply-To: <202106031422.FD9E3C5755@keescook>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Thu, 3 Jun 2021 23:41:01 +0200
+Message-ID: <CAKMK7uG8ZiToP2vFsr7TuhntWWh0yiaHkwU5mx5EaESoy+tTHQ@mail.gmail.com>
+To: Kees Cook <keescook@chromium.org>
+Subject: Re: [Freedreno] [PATCH 3/3] drm/pl111: depend on
+ CONFIG_VEXPRESS_CONFIG
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,62 +63,156 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, freedreno@lists.freedesktop.org,
- vkoul@kernel.org, robh+dt@kernel.org, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, agross@kernel.org, abhinavk@codeaurora.org,
- linux-arm-msm@vger.kernel.org, aravindh@codeaurora.org, sean@poorly.run
+Cc: Rob Herring <robh@kernel.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ kernel test robot <lkp@intel.com>, Emma Anholt <emma@anholt.net>,
+ Arnd Bergmann <arnd@kernel.org>, David Airlie <airlied@linux.ie>,
+ Sam Ravnborg <sam@ravnborg.org>, Sharat Masetty <smasetty@codeaurora.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Dave Airlie <airlied@redhat.com>, freedreno <freedreno@lists.freedesktop.org>,
+ Sean Paul <sean@poorly.run>, Linus Walleij <linus.walleij@linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting khsieh@codeaurora.org (2021-06-03 14:28:37)
-> On 2021-06-03 09:53, Bjorn Andersson wrote:
-> > On Thu 03 Jun 11:09 CDT 2021, Kuogee Hsieh wrote:
-> >
-> >> Add DP device node on sc7180.
-> >>
-> >> Changes in v2:
-> >> -- replace msm_dp with dp
-> >> -- replace dp_opp_table with opp_table
-> >>
-> >
-> > I'm sorry for those suggestions, I don't like either one of them.
-> >
-> > And for everything but changes to the DRM code the changelog goes below
-> > the --- line, so it's not part of the git history.
-> >
-> >> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
-> >> ---
-> >>  arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi |  9 ++++
-> >>  arch/arm64/boot/dts/qcom/sc7180.dtsi         | 78
-> >> ++++++++++++++++++++++++++++
-> >>  2 files changed, 87 insertions(+)
-> >>
-> >> diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-> >> b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-> >> index 24d293e..40367a2 100644
-> >> --- a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-> >> +++ b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-> >> @@ -786,6 +786,15 @@ hp_i2c: &i2c9 {
-> >>      status = "okay";
-> >>  };
-> >>
-> >> +&dp {
-> >> +        status = "okay";
-> >> +        pinctrl-names = "default";
-> >> +        pinctrl-0 = <&dp_hot_plug_det>;
-> >> +        data-lanes = <0 1>;
-> >
-> > Is it a limitation of the EC in Trogdor that you can only do 2 lanes?
+On Thu, Jun 3, 2021 at 11:29 PM Kees Cook <keescook@chromium.org> wrote:
 >
-> yes,
+> On Thu, Jun 03, 2021 at 02:19:52PM -0700, Kees Cook wrote:
+> > On Thu, Jun 03, 2021 at 09:19:42PM +0200, Daniel Vetter wrote:
+> > > On Thu, Jun 3, 2021 at 8:43 PM Rob Herring <robh@kernel.org> wrote:
+> > > >
+> > > > On Wed, Jun 2, 2021 at 4:53 PM Kees Cook <keescook@chromium.org> wrote:
+> > > > >
+> > > > > Avoid randconfig build failures by requiring VEXPRESS_CONFIG:
+> > > > >
+> > > > > aarch64-linux-gnu-ld: drivers/gpu/drm/pl111/pl111_versatile.o: in function `pl111_vexpress_clcd_init':
+> > > > > pl111_versatile.c:(.text+0x220): undefined reference to `devm_regmap_init_vexpress_config'
+> > > >
+> > > > pl111_vexpress_clcd_init() starts with:
+> > > >
+> > > > if (!IS_ENABLED(CONFIG_VEXPRESS_CONFIG))
+> > > >                 return -ENODEV;
+> > > >
+> > > > Isn't that supposed to be enough to avoid an undefined reference?
+> >
+> > Ah! I missed that when reading the code. I see the problem now. It's
+> > because of:
+> >
+> > CONFIG_VEXPRESS_CONFIG=m
+> > CONFIG_DRM_PL111=y
+> >
+> > I think the right fix is:
+> >
+> > diff --git a/drivers/gpu/drm/pl111/Kconfig b/drivers/gpu/drm/pl111/Kconfig
+> > index 80f6748055e3..662fc38f92ba 100644
+> > --- a/drivers/gpu/drm/pl111/Kconfig
+> > +++ b/drivers/gpu/drm/pl111/Kconfig
+> > @@ -3,6 +3,7 @@ config DRM_PL111
+> >       tristate "DRM Support for PL111 CLCD Controller"
+> >       depends on DRM
+> >       depends on ARM || ARM64 || COMPILE_TEST
+> > +     depends on VEXPRESS_CONFIG=y || VEXPRESS_CONFIG=DRM
 >
+> Oops, no, I had this backwairds:
+>
+>         depends on !VEXPRESS_CONFIG || VEXPRESS_CONFIG=DRM
 
-It's not an EC limitation. It's a hardware design decision. We have one
-type-c PHY on the sc7180 SoC and we have two type-c ports on the board
-so we have decided to only use two lanes for DP and two lanes for USB on
-the type-c ports so that both type-c ports work all the time.
+Can you pls throw this into an incremental patch on top of
+drm-misc-next? It's a non-rebasing tree and all that (linux-next
+should have it next day too I guess).
+
+Thanks, Daniel
+
+> _that_ lets me build with:
+>
+> # CONFIG_VEXPRESS_CONFIG is not set
+> CONFIG_DRM_PL111=y
+>
+> CONFIG_VEXPRESS_CONFIG=y
+> CONFIG_DRM_PL111=y
+>
+> CONFIG_VEXPRESS_CONFIG=m
+> CONFIG_DRM_PL111=m
+>
+> CONFIG_VEXPRESS_CONFIG=y
+> CONFIG_DRM_PL111=m
+>
+> and disallows:
+>
+> CONFIG_VEXPRESS_CONFIG=m
+> CONFIG_DRM_PL111=y
+>
+> (this will force CONFIG_DRM_PL111=m)
+>
+> -Kees
+>
+> >       depends on COMMON_CLK
+> >       select DRM_KMS_HELPER
+> >       select DRM_KMS_CMA_HELPER
+> >
+> > I will go check the defconfigs Rob mentioned...
+> >
+> > > > Making the whole file depend on VEXPRESS_CONFIG is not right either.
+> > > > Not all platforms need it.
+> > >
+> > > It needs a compile-time status inline then for the functions we're
+> > > using in pl111.
+> >
+> > FYI, this is the config I was working from, which was throwing link errors:
+> > https://lore.kernel.org/lkml/202105300926.fX0MYySp-lkp@intel.com/
+> >
+> > > -Daniel
+> > >
+> > > >
+> > > > >
+> > > > > Fixes: 826fc86b5903 ("drm: pl111: Move VExpress setup into versatile init")
+> > > > > Signed-off-by: Kees Cook <keescook@chromium.org>
+> > > > > ---
+> > > > >  drivers/gpu/drm/pl111/Kconfig | 2 +-
+> > > > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > > > >
+> > > > > diff --git a/drivers/gpu/drm/pl111/Kconfig b/drivers/gpu/drm/pl111/Kconfig
+> > > > > index 80f6748055e3..c5210a5bef1b 100644
+> > > > > --- a/drivers/gpu/drm/pl111/Kconfig
+> > > > > +++ b/drivers/gpu/drm/pl111/Kconfig
+> > > > > @@ -2,7 +2,7 @@
+> > > > >  config DRM_PL111
+> > > > >         tristate "DRM Support for PL111 CLCD Controller"
+> > > > >         depends on DRM
+> > > > > -       depends on ARM || ARM64 || COMPILE_TEST
+> > > > > +       depends on VEXPRESS_CONFIG
+> > > > >         depends on COMMON_CLK
+> > > > >         select DRM_KMS_HELPER
+> > > > >         select DRM_KMS_CMA_HELPER
+> > > > > --
+> > > > > 2.25.1
+> > > > >
+> > >
+> > >
+> > >
+> > > --
+> > > Daniel Vetter
+> > > Software Engineer, Intel Corporation
+> > > http://blog.ffwll.ch
+> >
+> > --
+> > Kees Cook
+>
+> --
+> Kees Cook
+
+
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
