@@ -2,48 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBC7139AA73
-	for <lists+freedreno@lfdr.de>; Thu,  3 Jun 2021 20:48:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8818E39AAD8
+	for <lists+freedreno@lfdr.de>; Thu,  3 Jun 2021 21:19:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C98F6E58B;
-	Thu,  3 Jun 2021 18:48:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08B5A6F4FB;
+	Thu,  3 Jun 2021 19:19:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 480856E1A2;
- Thu,  3 Jun 2021 18:48:33 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1D1B66140D;
- Thu,  3 Jun 2021 18:48:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1622746113;
- bh=ZUGi28CzawjzJFRPa1IvCeYStgPTnkk5SqqRbIhNZDM=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=soH8j4t25NOwvyZBPPkJbKQtyXAAn4mzrtMX7uqb2Ajqfc9qqVQZzXVxgrOqs77qY
- Xl3ftEyqTMUxxFHbsiZM07FAsNHDEbrAWM763p1acyUeLmoTPFia89LgdzyfvXdZdX
- g1nv5X+rzVxk8jvbe6aH/34P0mjtMvILQPExuvv4LSgrMHxdTAqwtV3HIWvRuJ9cwd
- z4yOK6cm7k8NyboSpL4W6Whr+46niYdAyMZ0lcy1HscbNbU+x14tCvJE7xdzIfjgIk
- sn+N8oOYCTktX17MTbukrUS3kiVKP7JYisWZBiEmDkLTuciLPzA1gH3nut4+bc+aVp
- 0BdMkvyhHybHQ==
-Received: by mail-ej1-f47.google.com with SMTP id k25so5250414eja.9;
- Thu, 03 Jun 2021 11:48:33 -0700 (PDT)
-X-Gm-Message-State: AOAM532s1JDcBLTQMWw+ixoqeaYhZvluWJlSXovgnDT95jYdP4IywZsE
- q0+ltvMjCTk1c0AEOlA0zHZ/qZMJCSVQBWxMmg==
-X-Google-Smtp-Source: ABdhPJw6rdWaR+EBOCW3Z6uvG9Ev3pS5OtlzkBci2gYyzny++PgdOWYgLxObTC4SuMLjl6sYA51sEw2fqRUI5kQVgOo=
-X-Received: by 2002:a17:906:1d0a:: with SMTP id
- n10mr660877ejh.341.1622746111501; 
- Thu, 03 Jun 2021 11:48:31 -0700 (PDT)
+Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
+ [IPv6:2607:f8b0:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E600F6F4FD
+ for <freedreno@lists.freedesktop.org>; Thu,  3 Jun 2021 19:19:53 +0000 (UTC)
+Received: by mail-ot1-x32c.google.com with SMTP id
+ q9-20020a9d66490000b02903c741e5b703so5695026otm.0
+ for <freedreno@lists.freedesktop.org>; Thu, 03 Jun 2021 12:19:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=XDuTHy+WSy89MPdjzMkB+2AAnStth5q1riD/MqItVU4=;
+ b=OI+T3T0cL+t14gfJunetRWN2tgWBdLvB4KxFRPyK5DVeHqTxqvLnfDIA5BvAnl6X2Q
+ 3QPRLndKmLybEGc4bt8aZ34d10UMz+vVibFdpJL+LApb1vVQutb06CCJcPEC7QV5PXDj
+ TBdhq3qXqsTYTBozWkE7SUSfa41pqf+LXpaAA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=XDuTHy+WSy89MPdjzMkB+2AAnStth5q1riD/MqItVU4=;
+ b=YHGgIVrx3jPUlYTvhSy0pv1fG16fnhTOcXX04gsm3E3jKePVPVv4RRRPzeYS2N1mru
+ lrd9mgrz3SkkbPbaSWyi54Q9xPCqOrZlH7ODq698+34lc9gmqZpps3wc4jeO56zDukVV
+ fKyoVIv1Ku67VNC7YKoVoSCHCdsIDqwKZM+ndsiBvSPoxmoWz17yBn514yg5BOPYNkd+
+ Bl8T9EQ5QR5Zs7jADU8eVfTiM2DS/pBILb5bSAgNeTs1EG3iZ+Cu3VFCXthwm2Rs7PqF
+ pyBaFO7WfQnjM/8QuZGkFb0q3/iT/Ut2VV6n+GNqb1bZIlEq3XNGv6od1bXyAsABhRUN
+ HFnA==
+X-Gm-Message-State: AOAM530KsUzYk8COAqhlaN0Q9XuchkM9pLs1Ys1jmPB6miNHjDaU434H
+ bmhkzFRBzAPunUAPb7abpWREkWnn3iDVJDw1L2OrGg==
+X-Google-Smtp-Source: ABdhPJxn3K6b7ZhhEb/4cSo+a3w6aFxRrwtuOfV0rALuSFrFAk8eTzKE1DKQNbbx3q34atx5iWRm6vKzm7Sjgap1ebk=
+X-Received: by 2002:a9d:27a4:: with SMTP id c33mr687970otb.281.1622747993300; 
+ Thu, 03 Jun 2021 12:19:53 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210602215252.695994-1-keescook@chromium.org>
- <20210602215252.695994-2-keescook@chromium.org>
- <YLiXYa8OG9hlaEE5@phenom.ffwll.local>
-In-Reply-To: <YLiXYa8OG9hlaEE5@phenom.ffwll.local>
-From: Rob Herring <robh@kernel.org>
-Date: Thu, 3 Jun 2021 13:48:19 -0500
-X-Gmail-Original-Message-ID: <CAL_Jsq+Vjz9V=of5XXizTBGEq1Cbx3hU9vi-CC3587B1BXphDQ@mail.gmail.com>
-Message-ID: <CAL_Jsq+Vjz9V=of5XXizTBGEq1Cbx3hU9vi-CC3587B1BXphDQ@mail.gmail.com>
-To: Kees Cook <keescook@chromium.org>, Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: [Freedreno] [PATCH 1/3] drm: Avoid circular dependencies for
- CONFIG_FB
+ <20210602215252.695994-4-keescook@chromium.org>
+ <CAL_JsqLO_YbT3VU0+uHH2t6ONs_dWfBhqds9okYD0254ZiBf=A@mail.gmail.com>
+In-Reply-To: <CAL_JsqLO_YbT3VU0+uHH2t6ONs_dWfBhqds9okYD0254ZiBf=A@mail.gmail.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Thu, 3 Jun 2021 21:19:42 +0200
+Message-ID: <CAKMK7uFBQk+KA0fPdjkB9=7By2a9V5i=u84ufO+n3dmjayq+vw@mail.gmail.com>
+To: Rob Herring <robh@kernel.org>
+Subject: Re: [Freedreno] [PATCH 3/3] drm/pl111: depend on
+ CONFIG_VEXPRESS_CONFIG
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,38 +63,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Arnd Bergmann <arnd@kernel.org>,
  Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- kernel test robot <lkp@intel.com>, Emma Anholt <emma@anholt.net>,
+ Kees Cook <keescook@chromium.org>, Emma Anholt <emma@anholt.net>,
  David Airlie <airlied@linux.ie>, Sam Ravnborg <sam@ravnborg.org>,
  Sharat Masetty <smasetty@codeaurora.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org,
- Dave Airlie <airlied@redhat.com>, freedreno@lists.freedesktop.org,
- Sean Paul <sean@poorly.run>, Linus Walleij <linus.walleij@linaro.org>
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Dave Airlie <airlied@redhat.com>, freedreno <freedreno@lists.freedesktop.org>,
+ Sean Paul <sean@poorly.run>, Linus Walleij <linus.walleij@linaro.org>,
+ kernel test robot <lkp@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jun 3, 2021 at 3:48 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+On Thu, Jun 3, 2021 at 8:43 PM Rob Herring <robh@kernel.org> wrote:
 >
-> On Wed, Jun 02, 2021 at 02:52:50PM -0700, Kees Cook wrote:
-> > When cleaning up other drm config dependencies, it is too easy to create
-> > larger problems. Instead, mark CONFIG_FB as a "depends":
+> On Wed, Jun 2, 2021 at 4:53 PM Kees Cook <keescook@chromium.org> wrote:
 > >
-> > drivers/gpu/drm/Kconfig:74:error: recursive dependency detected!
+> > Avoid randconfig build failures by requiring VEXPRESS_CONFIG:
 > >
-> > Suggested-by: Arnd Bergmann <arnd@kernel.org>
-> > Link: https://lore.kernel.org/lkml/CAK8P3a3jUQs6c5tESSNMbqfuymewj9FhqRizyHcfOXf8Rgy-nA@mail.gmail.com/
+> > aarch64-linux-gnu-ld: drivers/gpu/drm/pl111/pl111_versatile.o: in function `pl111_vexpress_clcd_init':
+> > pl111_versatile.c:(.text+0x220): undefined reference to `devm_regmap_init_vexpress_config'
+>
+> pl111_vexpress_clcd_init() starts with:
+>
+> if (!IS_ENABLED(CONFIG_VEXPRESS_CONFIG))
+>                 return -ENODEV;
+>
+> Isn't that supposed to be enough to avoid an undefined reference?
+>
+> Making the whole file depend on VEXPRESS_CONFIG is not right either.
+> Not all platforms need it.
+
+It needs a compile-time status inline then for the functions we're
+using in pl111.
+-Daniel
+
+>
+> >
+> > Fixes: 826fc86b5903 ("drm: pl111: Move VExpress setup into versatile init")
 > > Signed-off-by: Kees Cook <keescook@chromium.org>
->
-> I rebased this one for -next and applied all three patches to
-> drm-misc-next.
+> > ---
+> >  drivers/gpu/drm/pl111/Kconfig | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/pl111/Kconfig b/drivers/gpu/drm/pl111/Kconfig
+> > index 80f6748055e3..c5210a5bef1b 100644
+> > --- a/drivers/gpu/drm/pl111/Kconfig
+> > +++ b/drivers/gpu/drm/pl111/Kconfig
+> > @@ -2,7 +2,7 @@
+> >  config DRM_PL111
+> >         tristate "DRM Support for PL111 CLCD Controller"
+> >         depends on DRM
+> > -       depends on ARM || ARM64 || COMPILE_TEST
+> > +       depends on VEXPRESS_CONFIG
+> >         depends on COMMON_CLK
+> >         select DRM_KMS_HELPER
+> >         select DRM_KMS_CMA_HELPER
+> > --
+> > 2.25.1
+> >
 
-Patch 3 is not the right fix and I think breaks some platforms.
 
-Rob
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
