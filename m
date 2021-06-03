@@ -1,52 +1,52 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C40343996E5
-	for <lists+freedreno@lfdr.de>; Thu,  3 Jun 2021 02:23:08 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 968C5399A65
+	for <lists+freedreno@lfdr.de>; Thu,  3 Jun 2021 08:03:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC1706EE9B;
-	Thu,  3 Jun 2021 00:23:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF49A6E0A8;
+	Thu,  3 Jun 2021 06:03:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 416FD6EE9B
- for <freedreno@lists.freedesktop.org>; Thu,  3 Jun 2021 00:23:05 +0000 (UTC)
-Received: by mail-oi1-x22a.google.com with SMTP id f30so3235756oij.7
- for <freedreno@lists.freedesktop.org>; Wed, 02 Jun 2021 17:23:05 -0700 (PDT)
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
+ [IPv6:2607:f8b0:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19DE46E0A8
+ for <freedreno@lists.freedesktop.org>; Thu,  3 Jun 2021 06:03:09 +0000 (UTC)
+Received: by mail-oi1-x22f.google.com with SMTP id w127so5190435oig.12
+ for <freedreno@lists.freedesktop.org>; Wed, 02 Jun 2021 23:03:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=sf9HPjX/QRw5TUCBPMkwIobQvyDUNSU8DnXWCThttng=;
- b=lXyYsmHjMCk031tkWhLnBU8kbmJTb+chywkiYEpXQeAU+2q/dSOjy3z1Cgk8KSjA9l
- j+ZetNlnwdTzYQz1XalYZazk9biXAeuqG7EJRxw6mND10vlWJBJ6oY9szlC7B40w1baY
- HwN3g6HA8M9ppv3NmmfcNnSKHX2k/2Ls1vF+w=
+ bh=W4MRGvvlAsIvztCMODsejOnW9x+vcPEBs+GlUbnr7QU=;
+ b=kPUJ5NjxGkUGtAhRbO5ZjIIXgnTH7iqzJmf4glxC699yJkOagEj5NCwDVwwBa4Kcn5
+ UZaVpRJ+dogRyu9PWzJ+xA6ZJcmzaSWPbARjEQ6ZmY+VwM0+UH4dQTSjqrps7gu6iDPe
+ XmUjSru4mP+DCOXotRSPPv1R1WLyOW0IH/CI0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=sf9HPjX/QRw5TUCBPMkwIobQvyDUNSU8DnXWCThttng=;
- b=iJYP/NOssCqu3MXUzM5aZzSqN6LFd0VyKrXFtyQGaeb0syNzL74FMkj3KXLPoTklIB
- vmzf3TOT+gXUiKq1C+1np5b/F86Z1JXnXJhrJsHaDUmrUJrYbTeQVi1iKm4lD32ZzVUP
- zC+nBx2T7CEQ7jVlrzXQIdemp+U1oNJy9KHaFrZDeoa77pyteKk4mtPApKb9cFnzamfV
- uHT3LV4wGNbriT7Mw2nzXTCXNhiXKYsYtczX16PHWdg0ACIhlFTVf8cAPYlfWtninIiG
- RxtCUvUlSAcUf/RGSFP4OSfuU11pz2UZUuVwFpZlVrab0/ihftyTi3QA54lxgLxLSsb+
- Rm1Q==
-X-Gm-Message-State: AOAM532/kgm1Vepk8yLGL6va+7jKlI8scR2blE3Izzpc5HMLRF26lJ+k
- SxktxFTI4g+/awvTfZcwsgq/nIXfCMB+LK+2A5EA1w==
-X-Google-Smtp-Source: ABdhPJyY5laFn5SRHNT37MHyapZ0GwE1ObVpQfvDvSQd6CoIw7eXVr3cYfAO4YpBf2ZSmCLl+Qq0taNnfzOtiSyKJMA=
-X-Received: by 2002:aca:654d:: with SMTP id j13mr5653421oiw.125.1622679784640; 
- Wed, 02 Jun 2021 17:23:04 -0700 (PDT)
+ bh=W4MRGvvlAsIvztCMODsejOnW9x+vcPEBs+GlUbnr7QU=;
+ b=d6w5I62JPh+/mcJenNmXHfL5RFfTWc2mVhmt9dKeWISD3fXEVLXiieVOAhZwz+xFg9
+ F9JqKFCEKwqgeNOgj60pBpbYXMbVSxJxN+QsAAD6N03EBTtKbn5PUf7j6x+k9ThNxoDV
+ 5GsyOgWqgRpHOaMJ3JS+ZOVx0rhiIJgm1jiAsj+5i7sOxUBAl7x1H21+Geq103blct40
+ HEIGSnLlfmRmMMqUt/cspSaVj65LhusZKLGZEie2PqWKnCN9DvcTOL0lz+J8eOXiJZ/y
+ ubvtzv8cpYNEb9NqDgIoxaLeEvicpKu3+rUbonhMt0pjEjjinNKT86CrqZ4Il/nggtU/
+ ZTBQ==
+X-Gm-Message-State: AOAM533FEvvJ3F2DqVwwHzc2YustHNWhdnkpI68JpwvxBYFNlfmrc3I1
+ +ESjrAKiM/TEoXDGlCA2OBsJSeJqY68KKZfr4doRZw==
+X-Google-Smtp-Source: ABdhPJwbZadfDpzhFToZSrCDEjvue32gZ2YzP9LLNu6q7SP0cOQDP7qleH6aBFPvVofyULuDdYDDPf7Y1Yeb6ZUQdwE=
+X-Received: by 2002:aca:654d:: with SMTP id j13mr6376997oiw.125.1622700188427; 
+ Wed, 02 Jun 2021 23:03:08 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 2 Jun 2021 17:23:04 -0700
+ HTTPREST; Wed, 2 Jun 2021 23:03:07 -0700
 MIME-Version: 1.0
 In-Reply-To: <1622652185-7157-1-git-send-email-khsieh@codeaurora.org>
 References: <1622652185-7157-1-git-send-email-khsieh@codeaurora.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.9.1
-Date: Wed, 2 Jun 2021 17:23:04 -0700
-Message-ID: <CAE-0n522L0hmAK40xj3TGimBjeqQgqO2YWsGOrYv-BPqr33tkA@mail.gmail.com>
+Date: Wed, 2 Jun 2021 23:03:07 -0700
+Message-ID: <CAE-0n516E_x+h2BFze0mozjdpwqa3_kb10cKWdcFURXkNj8k6w@mail.gmail.com>
 To: Kuogee Hsieh <khsieh@codeaurora.org>, agross@kernel.org,
  bjorn.andersson@linaro.org, 
  robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
@@ -97,13 +97,8 @@ Quoting Kuogee Hsieh (2021-06-02 09:43:05)
 > -- move main link status checking to dp_pm_suspend
 >
 > Fixes: 0114f31a2903 ("drm/msm/dp: handle irq_hpd with sink_count = 0 correctly)
-> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
-> ---
 
-Ok, this seems to work and is nice and small
-
-Tested-by: Stephen Boyd <swboyd@chromium.org>
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+This should be 8dbde399044b
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
