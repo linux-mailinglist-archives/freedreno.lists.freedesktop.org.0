@@ -2,58 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24C9539A572
-	for <lists+freedreno@lfdr.de>; Thu,  3 Jun 2021 18:10:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E19DE39A5CA
+	for <lists+freedreno@lfdr.de>; Thu,  3 Jun 2021 18:33:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B00C66E1F7;
-	Thu,  3 Jun 2021 16:10:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64ADA6E5B4;
+	Thu,  3 Jun 2021 16:33:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B08186E1F7
- for <freedreno@lists.freedesktop.org>; Thu,  3 Jun 2021 16:10:11 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1622736615; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=YPt57uRHkIKCAc3k7uJNjdS1IBPwSdXWYI60IXWNva4=;
- b=kxqnYp2koGRKTtKfqpnB9fSd0VY6YtKv5t5WJLEeXn5qpZ4hmjb5/2YZHOAmuk4zabgs9Pja
- NNlDHLEvk3fsXXFchzQb21GQ70XEep02yS1WttbJ9YOj3Yq8v4vg7terfBk86XmboD3iTXzW
- cvNnmZn85keYihRfWgPssfMXews=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
- 60b8feb7f726fa418884c292 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 03 Jun 2021 16:09:27
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id B4353C4323A; Thu,  3 Jun 2021 16:09:26 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
-Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id F054AC4360C;
- Thu,  3 Jun 2021 16:09:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org F054AC4360C
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=khsieh@codeaurora.org
-From: Kuogee Hsieh <khsieh@codeaurora.org>
-To: robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- vkoul@kernel.org, agross@kernel.org, bjorn.andersson@linaro.org,
- robh+dt@kernel.org, devicetree@vger.kernel.org
-Date: Thu,  3 Jun 2021 09:09:15 -0700
-Message-Id: <1622736555-15775-1-git-send-email-khsieh@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-Subject: [Freedreno] [PATCH v2] arm64/dts/qcom/sc7180: Add Display Port dt
- node
+Received: from mail-qt1-x82c.google.com (mail-qt1-x82c.google.com
+ [IPv6:2607:f8b0:4864:20::82c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C85C6E21D
+ for <freedreno@lists.freedesktop.org>; Thu,  3 Jun 2021 16:33:49 +0000 (UTC)
+Received: by mail-qt1-x82c.google.com with SMTP id a15so4858610qta.0
+ for <freedreno@lists.freedesktop.org>; Thu, 03 Jun 2021 09:33:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=7DZmud8/NtbG9baAZHHVlQy45tmMkpb0U+jSSBeyr0o=;
+ b=OJtnsUj+NU3k9eUbaBLoZa3VTWFwShEc8qClgbcAydu3jpRLmFZvXo0S0GFkNEQI5m
+ 70zGDVy/c/F2SXrvYFzqUe9QI0Q0gdpfzp+YNtkvGdfH2q+gQoAYI1E8UDgPJ2lCKjsO
+ kfdvL4JeF8H4G+Mov9iBsP3ybfNhm3/gfInNTTwBWY9AJRuCGrg6Eh/BBTy5T/m+n4V5
+ dNe5UALRYPNlKYm63n6ONLLrp4eWKqEymkPfl5A4UF0ilQ9HcROTNbMPeHdb39D9NcZq
+ ynWs1/W9Hwkrtco0K4VU3Or/HcFjgj4YwiGGBpMIIMvf5GXxGf0y3bgpj5rOZ7gTNgSo
+ t9nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=7DZmud8/NtbG9baAZHHVlQy45tmMkpb0U+jSSBeyr0o=;
+ b=mgaueAE7J8k0w86BVJ2iLyjlXvHNkcV2mZXWnmu6ii2dZzBLJxuy/yxnaA83gOKFYN
+ Vg5ecE+f/G8lVpRH+XyQVurk0m6ewKEW/0h0HfTb7DMqkMHgYK5/abQzywez7dZ7i1rt
+ 73iissqRY47NWvx6Cd21XKJmoCppxC1Oo9DRyvDCqNql+BcVRPNnxW0rkvWEHtHcsji5
+ 9Q82ZdsJDg0T6E7KOgjQbzwKqMmj5BqVX+AL15YGZjw8h/iL1uORjtPLyb2RpPuvfERQ
+ XHnxAIEeQF2MkOngQzgFHPOX3TV6GUlS4isGMqvEHYUbpU+HNYq1HM6i/Z2ahRrCJ86C
+ I5ig==
+X-Gm-Message-State: AOAM532jFDSmp91EgYGpsQgGmBiUA1rgEcUJPVgnjivJWOg5xhrZwDXo
+ 0rxn51+7ZTp8WlCSJc1k6m16mWYFCVrrCpGWVMEDnQ==
+X-Google-Smtp-Source: ABdhPJzeujnPaoppD4L3W7TKyoCjppbsv+WDwxb4a7/akyjuJiDJQcS4p674wBCDV3Vht6awFUTQcfFmk6ji0AGwTas=
+X-Received: by 2002:ac8:6b08:: with SMTP id w8mr335813qts.364.1622738028536;
+ Thu, 03 Jun 2021 09:33:48 -0700 (PDT)
+MIME-Version: 1.0
+References: <20210529002508.3839467-1-dmitry.baryshkov@linaro.org>
+ <20210529002508.3839467-6-dmitry.baryshkov@linaro.org>
+ <CAF6AEGsoUET_=P1YkAKb7GMRyrZV5_jmGeMHZhB1u4uE9m7B9A@mail.gmail.com>
+In-Reply-To: <CAF6AEGsoUET_=P1YkAKb7GMRyrZV5_jmGeMHZhB1u4uE9m7B9A@mail.gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 3 Jun 2021 19:33:37 +0300
+Message-ID: <CAA8EJpqkrkYF=DW46PWB=0huB9U6e2QqXjJv532f0PyDCC-eXA@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>
+Subject: Re: [Freedreno] [RFC 5/8] lib: add small API for handling register
+ snapshots
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,147 +63,113 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- abhinavk@codeaurora.org, khsieh@codeaurora.org, aravindh@codeaurora.org,
- freedreno@lists.freedesktop.org
-MIME-Version: 1.0
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Abhinav Kumar <abhinavk@codeaurora.org>, David Airlie <airlied@linux.ie>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add DP device node on sc7180.
+On Thu, 3 Jun 2021 at 17:41, Rob Clark <robdclark@gmail.com> wrote:
+>
+> On Fri, May 28, 2021 at 5:25 PM Dmitry Baryshkov
+> <dmitry.baryshkov@linaro.org> wrote:
+> >
+> > Add small API covering lists of register dumps. Currently this is a part
+> > of MSM DRM driver, but is extracted as it might be usefull to other
+> > drivers too.
+> >
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+> >  include/linux/dump_state.h | 78 ++++++++++++++++++++++++++++++++++++++
+> >  lib/Kconfig                |  3 ++
+> >  lib/Makefile               |  1 +
+> >  lib/dump_state.c           | 51 +++++++++++++++++++++++++
+> >  4 files changed, 133 insertions(+)
+> >  create mode 100644 include/linux/dump_state.h
+> >  create mode 100644 lib/dump_state.c
+> >
+> [snip]
+> > diff --git a/lib/dump_state.c b/lib/dump_state.c
+> > new file mode 100644
+> > index 000000000000..58d88be65c0a
+> > --- /dev/null
+> > +++ b/lib/dump_state.c
+> > @@ -0,0 +1,51 @@
+> > +/* SPDX-License-Identifier: GPL-2.0-only */
+> > +/*
+> > + * Copyright (c) 2020-2021, The Linux Foundation. All rights reserved.
+> > + * Copyright (c) 2021, Linaro Ltd
+> > + */
+> > +
+> > +#include <linux/dump_state.h>
+> > +#include <linux/slab.h>
+> > +
+> > +void dump_state_free_blocks(struct dump_state *state)
+> > +{
+> > +       struct dump_state_block *block, *tmp;
+> > +
+> > +       list_for_each_entry_safe(block, tmp, &state->blocks, node) {
+> > +               list_del(&block->node);
+> > +               kfree(block);
+> > +       }
+> > +}
+> > +EXPORT_SYMBOL(dump_state_free_blocks);
+>
+> nit, perhaps EXPORT_SYMBOL_GPL()?
 
-Changes in v2:
--- replace msm_dp with dp
--- replace dp_opp_table with opp_table
+I don't really care. What is the current recommendation?
 
-Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
----
- arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi |  9 ++++
- arch/arm64/boot/dts/qcom/sc7180.dtsi         | 78 ++++++++++++++++++++++++++++
- 2 files changed, 87 insertions(+)
+>
+> BR,
+> -R
+>
+> > +
+> > +struct dump_state_block *dump_state_allocate_block_va(void __iomem *base_addr, size_t len, gfp_t gfp, const char *fmt, va_list args)
+> > +{
+> > +       struct dump_state_block *block = kzalloc(sizeof(*block) + len, gfp);
+> > +
+> > +       if (!block)
+> > +               return ERR_PTR(-ENOMEM);
+> > +
+> > +       vsnprintf(block->name, sizeof(block->name), fmt, args);
+> > +
+> > +       INIT_LIST_HEAD(&block->node);
+> > +       block->size = len;
+> > +       block->base_addr = base_addr;
+> > +
+> > +       return block;
+> > +}
+> > +EXPORT_SYMBOL(dump_state_allocate_block);
+> > +
+> > +struct dump_state_block *dump_state_allocate_block(void __iomem *base_addr, size_t len, gfp_t gfp, const char *fmt, ...)
+> > +{
+> > +       struct dump_state_block *block;
+> > +       va_list va;
+> > +
+> > +       va_start(va, fmt);
+> > +
+> > +       block = dump_state_allocate_block_va(base_addr, len, gfp, fmt, va);
+> > +
+> > +       va_end(va);
+> > +
+> > +       return block;
+> > +}
+> > +EXPORT_SYMBOL(dump_state_allocate_block_va);
+> > --
+> > 2.30.2
+> >
 
-diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-index 24d293e..40367a2 100644
---- a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-@@ -786,6 +786,15 @@ hp_i2c: &i2c9 {
- 	status = "okay";
- };
- 
-+&dp {
-+        status = "okay";
-+        pinctrl-names = "default";
-+        pinctrl-0 = <&dp_hot_plug_det>;
-+        data-lanes = <0 1>;
-+        vdda-1p2-supply = <&vdda_usb_ss_dp_1p2>;
-+        vdda-0p9-supply = <&vdda_usb_ss_dp_core>;
-+};
-+
- &pm6150_adc {
- 	charger-thermistor@4f {
- 		reg = <ADC5_AMUX_THM3_100K_PU>;
-diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-index 6228ba2..05a4133 100644
---- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-@@ -3032,6 +3032,13 @@
- 							remote-endpoint = <&dsi0_in>;
- 						};
- 					};
-+
-+					port@2 {
-+						reg = <2>;
-+						dpu_intf0_out: endpoint {
-+							remote-endpoint = <&dp_in>;
-+						};
-+					};
- 				};
- 
- 				mdp_opp_table: mdp-opp-table {
-@@ -3148,6 +3155,77 @@
- 
- 				status = "disabled";
- 			};
-+
-+			dp: displayport-controller@ae90000 {
-+				compatible = "qcom,sc7180-dp";
-+				status = "disabled";
-+
-+				reg = <0 0x0ae90000 0 0x1400>;
-+
-+				interrupt-parent = <&mdss>;
-+				interrupts = <12>;
-+
-+				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
-+				clock-names = "core_iface", "core_aux", "ctrl_link",
-+					      "ctrl_link_iface", "stream_pixel";
-+				#clock-cells = <1>;
-+				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
-+						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
-+				assigned-clock-parents = <&dp_phy 0>, <&dp_phy 1>;
-+				phys = <&dp_phy>;
-+				phy-names = "dp";
-+
-+				operating-points-v2 = <&opp_table>;
-+				power-domains = <&rpmhpd SC7180_CX>;
-+
-+				#sound-dai-cells = <0>;
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					port@0 {
-+						reg = <0>;
-+						dp_in: endpoint {
-+							remote-endpoint = <&dpu_intf0_out>;
-+						};
-+					};
-+
-+					port@1 {
-+						reg = <1>;
-+						dp_out: endpoint { };
-+					};
-+				};
-+
-+				opp_table: dp-opp-table {
-+					compatible = "operating-points-v2";
-+
-+					opp-160000000 {
-+						opp-hz = /bits/ 64 <160000000>;
-+						required-opps = <&rpmhpd_opp_low_svs>;
-+					};
-+
-+					opp-270000000 {
-+						opp-hz = /bits/ 64 <270000000>;
-+						required-opps = <&rpmhpd_opp_svs>;
-+					};
-+
-+					opp-540000000 {
-+						opp-hz = /bits/ 64 <540000000>;
-+						required-opps = <&rpmhpd_opp_svs_l1>;
-+					};
-+
-+					opp-810000000 {
-+						opp-hz = /bits/ 64 <810000000>;
-+						required-opps = <&rpmhpd_opp_nom>;
-+					};
-+				};
-+			};
-+
-+
- 		};
- 
- 		dispcc: clock-controller@af00000 {
+
+
 -- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
-
+With best wishes
+Dmitry
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
