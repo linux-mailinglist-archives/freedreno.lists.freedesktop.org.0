@@ -1,49 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 285C539AB1B
-	for <lists+freedreno@lfdr.de>; Thu,  3 Jun 2021 21:54:19 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id EA88639ABB6
+	for <lists+freedreno@lfdr.de>; Thu,  3 Jun 2021 22:22:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8C8D6E5A1;
-	Thu,  3 Jun 2021 19:54:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 749BF6E584;
+	Thu,  3 Jun 2021 20:22:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15AA06E5A1;
- Thu,  3 Jun 2021 19:54:17 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C47E961403;
- Thu,  3 Jun 2021 19:54:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1622750056;
- bh=A8bTRZWGyUBja/MSUQ29VA/mAZj6QtYjbvJCbANIqsE=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=lfvGW1xaIASaWdfnsj8Xa660kIIT0mmbK6felqgEx4EDG7tPnuUtWGLq9bZeqboYv
- jFvKEAaYpYW6PQOCOemYaLD6rVqaUJmOPXUycexgYypJfAlqP1xhsXpPhj2AD6fGgE
- iOAZbfFS2LGvC0fw2keWywTtHxmEkVsSa5/RR0djNImU9X2aZtCSVY5pViIUIC+7MU
- AYBLRvSSIkgyKad41421ycs7ejiZ1pdWOJMQJYtt6D8qItdbbJI89CpbkYfsaKPBLb
- mGpj8e8CkhwtWk0dhrRb/AiSG6CcvKzb6zYq4JfvZ2Zvbzw+RRp0UHjrjQ6u3Mkr6i
- XrlU86O1/zRgg==
-Received: by mail-ej1-f48.google.com with SMTP id jt22so11004529ejb.7;
- Thu, 03 Jun 2021 12:54:16 -0700 (PDT)
-X-Gm-Message-State: AOAM531Iwb6eZQLhFRmIgQIpHWSFw/ifI+y+LhmiidXQ+T2AmjqSDYvy
- +SxYtdMjaGbvNeGJlMUZ6+rrotjOwyYpvNzN7g==
-X-Google-Smtp-Source: ABdhPJwDQD3xcAB0EXKWI0UDWW+ahHSVny9rQ0wOAWpa2cEgFyxpNPLRRrZrFwuDL+b/HEK8on4d0VTBOUxATJD7qJU=
-X-Received: by 2002:a17:906:fa13:: with SMTP id
- lo19mr895806ejb.468.1622750055293; 
- Thu, 03 Jun 2021 12:54:15 -0700 (PDT)
+Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
+ [IPv6:2607:f8b0:4864:20::c2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E9806E584
+ for <freedreno@lists.freedesktop.org>; Thu,  3 Jun 2021 20:22:48 +0000 (UTC)
+Received: by mail-oo1-xc2a.google.com with SMTP id
+ e27-20020a056820061bb029020da48eed5cso1702179oow.10
+ for <freedreno@lists.freedesktop.org>; Thu, 03 Jun 2021 13:22:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=cMLM4cflpxEbsfu/ce/EkzAINJ+710gVrefVr0HI+qY=;
+ b=L0SkuWBv+83YGqTd6ik3MB9wor9LeocWUua6DOQob5uCIeKncJusY/+64rblVTnKgZ
+ tTRCUuoUgWaAQg7TsuVlaO5NxTdPq6WOncJXARM0/uRiV35POzwPmEbSKaXyAuzCtWDc
+ ONq7D/gq3ivz6aXRSTHk3Dn7oHzaEooVJ3WyM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=cMLM4cflpxEbsfu/ce/EkzAINJ+710gVrefVr0HI+qY=;
+ b=am1gRo+iDGHskQ8UBqDAnYEBH27C80gDce6gDkaaP9gZ16rvJrhbqjgUmiBy/UmkRE
+ kY94BBqlL8kvV3vChf6iG/vYGXjn3mRXDBvnKGbynXMNGFt0IPWH6L7kOV7FQn7zorcn
+ j5/oGKoRwz3Sm5XzWXXqE1ElKzbmiRBM48Dr4gTbE37g9uTsRg6Nd2pdsJhcijYTtqQ9
+ lKKlp05haI7KElzPzpT82tB4ZxEbfkcdbO/9o+DgnGry8E3eInXfIVr+ZuHi9pBT1+j4
+ yH6MG6op3WFApTw24I0D/rtaPwe8Y4qVkdiYEnnE5xpLfSPz0gLeGHWTHTXBL7Bi5EIl
+ cdoQ==
+X-Gm-Message-State: AOAM531R2el9b4BKaW4Yox64ING4oHSee1tTnFiLGLi/kchfuzCto74X
+ LE2i9rmbpiSIgvzJQgrar6wSyzuatomqPyo2f6vy+A==
+X-Google-Smtp-Source: ABdhPJwJRX5XWGLQvcvpQ5gyjX7E4oP0MOspFx028qV6yYflYoKemYC4DYS5FSHp16wnBONkFO2dTwSCsw/L7BS4wVU=
+X-Received: by 2002:a4a:85ca:: with SMTP id u10mr857805ooh.80.1622751767413;
+ Thu, 03 Jun 2021 13:22:47 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 3 Jun 2021 20:22:47 +0000
 MIME-Version: 1.0
-References: <20210602215252.695994-1-keescook@chromium.org>
- <20210602215252.695994-4-keescook@chromium.org>
- <CAL_JsqLO_YbT3VU0+uHH2t6ONs_dWfBhqds9okYD0254ZiBf=A@mail.gmail.com>
-In-Reply-To: <CAL_JsqLO_YbT3VU0+uHH2t6ONs_dWfBhqds9okYD0254ZiBf=A@mail.gmail.com>
-From: Rob Herring <robh@kernel.org>
-Date: Thu, 3 Jun 2021 14:54:03 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqLF6WhsoSWtxVUqUPDRMM8qwGwZqWa_xtNqsVyq8OCz6w@mail.gmail.com>
-Message-ID: <CAL_JsqLF6WhsoSWtxVUqUPDRMM8qwGwZqWa_xtNqsVyq8OCz6w@mail.gmail.com>
-To: Kees Cook <keescook@chromium.org>
-Subject: Re: [Freedreno] [PATCH 3/3] drm/pl111: depend on
- CONFIG_VEXPRESS_CONFIG
+In-Reply-To: <1622734846-14179-1-git-send-email-khsieh@codeaurora.org>
+References: <1622734846-14179-1-git-send-email-khsieh@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Thu, 3 Jun 2021 20:22:47 +0000
+Message-ID: <CAE-0n51-CsHPwYmceUq1kTaG=L+ifG3kX2pxJxTG_=r4Xm67_g@mail.gmail.com>
+To: Kuogee Hsieh <khsieh@codeaurora.org>, agross@kernel.org,
+ bjorn.andersson@linaro.org, 
+ robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
+Subject: Re: [Freedreno] [PATCH v5] drm/msm/dp: power off DP phy at suspend
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,56 +64,29 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Arnd Bergmann <arnd@kernel.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Emma Anholt <emma@anholt.net>,
- David Airlie <airlied@linux.ie>, Sam Ravnborg <sam@ravnborg.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dave Airlie <airlied@redhat.com>, freedreno@lists.freedesktop.org,
- Sean Paul <sean@poorly.run>, kernel test robot <lkp@intel.com>
+Cc: linux-arm-msm@vger.kernel.org, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ abhinavk@codeaurora.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jun 3, 2021 at 1:42 PM Rob Herring <robh@kernel.org> wrote:
->
-> On Wed, Jun 2, 2021 at 4:53 PM Kees Cook <keescook@chromium.org> wrote:
-> >
-> > Avoid randconfig build failures by requiring VEXPRESS_CONFIG:
-> >
-> > aarch64-linux-gnu-ld: drivers/gpu/drm/pl111/pl111_versatile.o: in function `pl111_vexpress_clcd_init':
-> > pl111_versatile.c:(.text+0x220): undefined reference to `devm_regmap_init_vexpress_config'
->
-> pl111_vexpress_clcd_init() starts with:
->
-> if (!IS_ENABLED(CONFIG_VEXPRESS_CONFIG))
->                 return -ENODEV;
->
-> Isn't that supposed to be enough to avoid an undefined reference?
->
-> Making the whole file depend on VEXPRESS_CONFIG is not right either.
-> Not all platforms need it.
+Can you Cc dri-devel?
 
-Specifically, these defconfigs will break as they all use PL111 but
-don't need nor enable VEXPRESS_CONFIG:
-
-arch/arm/configs/integrator_defconfig:CONFIG_DRM_PL111=y
-arch/arm/configs/lpc18xx_defconfig:CONFIG_DRM_PL111=y
-arch/arm/configs/lpc32xx_defconfig:CONFIG_DRM_PL111=y
-arch/arm/configs/nhk8815_defconfig:CONFIG_DRM_PL111=y
-arch/arm/configs/realview_defconfig:CONFIG_DRM_PL111=y
-arch/arm/configs/spear3xx_defconfig:CONFIG_DRM_PL111=y
-arch/arm/configs/versatile_defconfig:CONFIG_DRM_PL111=y
-
-These defconfigs should all be failing with the same error, but don't
-from what I've tried nor have I seen any kernelci failures.
-
-Rob
+Quoting Kuogee Hsieh (2021-06-03 08:40:46)
+> Normal DP suspend operation contains two steps, display off followed
+> by dp suspend, to complete system wide suspending cycle if display is
+> up at that time. In this case, DP phy will be powered off at display
+> off. However there is an exception case that depending on the timing
+> of dongle plug in during system wide suspending, sometimes display off
+> procedure may be skipped and dp suspend was called directly. In this
+> case, dp phy is stay at powered on (phy->power_count = 1) so that at
+> next resume dp driver crash at main link clock enable due to phy is
+> not physically powered on. This patch will call dp_ctrl_off_link_stream()
+> to tear down main link and power off phy at dp_pm_suspend() if main link
+> had been brought up.
+>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
