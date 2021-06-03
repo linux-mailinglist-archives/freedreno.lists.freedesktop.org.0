@@ -1,56 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 968C5399A65
-	for <lists+freedreno@lfdr.de>; Thu,  3 Jun 2021 08:03:11 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 97705399A97
+	for <lists+freedreno@lfdr.de>; Thu,  3 Jun 2021 08:26:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF49A6E0A8;
-	Thu,  3 Jun 2021 06:03:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 276F96F3E8;
+	Thu,  3 Jun 2021 06:26:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
- [IPv6:2607:f8b0:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19DE46E0A8
- for <freedreno@lists.freedesktop.org>; Thu,  3 Jun 2021 06:03:09 +0000 (UTC)
-Received: by mail-oi1-x22f.google.com with SMTP id w127so5190435oig.12
- for <freedreno@lists.freedesktop.org>; Wed, 02 Jun 2021 23:03:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=W4MRGvvlAsIvztCMODsejOnW9x+vcPEBs+GlUbnr7QU=;
- b=kPUJ5NjxGkUGtAhRbO5ZjIIXgnTH7iqzJmf4glxC699yJkOagEj5NCwDVwwBa4Kcn5
- UZaVpRJ+dogRyu9PWzJ+xA6ZJcmzaSWPbARjEQ6ZmY+VwM0+UH4dQTSjqrps7gu6iDPe
- XmUjSru4mP+DCOXotRSPPv1R1WLyOW0IH/CI0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=W4MRGvvlAsIvztCMODsejOnW9x+vcPEBs+GlUbnr7QU=;
- b=d6w5I62JPh+/mcJenNmXHfL5RFfTWc2mVhmt9dKeWISD3fXEVLXiieVOAhZwz+xFg9
- F9JqKFCEKwqgeNOgj60pBpbYXMbVSxJxN+QsAAD6N03EBTtKbn5PUf7j6x+k9ThNxoDV
- 5GsyOgWqgRpHOaMJ3JS+ZOVx0rhiIJgm1jiAsj+5i7sOxUBAl7x1H21+Geq103blct40
- HEIGSnLlfmRmMMqUt/cspSaVj65LhusZKLGZEie2PqWKnCN9DvcTOL0lz+J8eOXiJZ/y
- ubvtzv8cpYNEb9NqDgIoxaLeEvicpKu3+rUbonhMt0pjEjjinNKT86CrqZ4Il/nggtU/
- ZTBQ==
-X-Gm-Message-State: AOAM533FEvvJ3F2DqVwwHzc2YustHNWhdnkpI68JpwvxBYFNlfmrc3I1
- +ESjrAKiM/TEoXDGlCA2OBsJSeJqY68KKZfr4doRZw==
-X-Google-Smtp-Source: ABdhPJwbZadfDpzhFToZSrCDEjvue32gZ2YzP9LLNu6q7SP0cOQDP7qleH6aBFPvVofyULuDdYDDPf7Y1Yeb6ZUQdwE=
-X-Received: by 2002:aca:654d:: with SMTP id j13mr6376997oiw.125.1622700188427; 
- Wed, 02 Jun 2021 23:03:08 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 2 Jun 2021 23:03:07 -0700
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A7936F3E8
+ for <freedreno@lists.freedesktop.org>; Thu,  3 Jun 2021 06:26:26 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1622701586; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=JQ5eM5aH4kIpWWTZt6DlDA3K6TzSLosXUzhL8Jtxdjs=;
+ b=XxTje0pLEQu9lT4iB87OkaZiwRq5w9TYojmDEX35Jkk/6PnvH/VX4ZmtptF1dPly+fdwu7fT
+ mAklk6d19IYqaacaLcst4WsaspaDieEqFrIEZMjfRYRym13iTLU1IKURtwhEhmO5DEFSZ6mL
+ eo/zdpxxgbBmNtd8rBmyJ5AQi0A=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
+ 60b876112eaeb98b5eeb1f8e (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 03 Jun 2021 06:26:25
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 301C4C43217; Thu,  3 Jun 2021 06:26:25 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: rajeevny)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 5B7A8C433D3;
+ Thu,  3 Jun 2021 06:26:24 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <1622652185-7157-1-git-send-email-khsieh@codeaurora.org>
-References: <1622652185-7157-1-git-send-email-khsieh@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Wed, 2 Jun 2021 23:03:07 -0700
-Message-ID: <CAE-0n516E_x+h2BFze0mozjdpwqa3_kb10cKWdcFURXkNj8k6w@mail.gmail.com>
-To: Kuogee Hsieh <khsieh@codeaurora.org>, agross@kernel.org,
- bjorn.andersson@linaro.org, 
- robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
-Subject: Re: [Freedreno] [PATCH v4] drm/msm/dp: power off DP phy at suspend
+Date: Thu, 03 Jun 2021 11:56:24 +0530
+From: rajeevny@codeaurora.org
+To: Doug Anderson <dianders@chromium.org>
+In-Reply-To: <CAD=FV=XMVKP=nK+-eTpxNK-AQ66rqvfMj_Q0TZrsG-CEWtbw8Q@mail.gmail.com>
+References: <1622390172-31368-1-git-send-email-rajeevny@codeaurora.org>
+ <1622390172-31368-2-git-send-email-rajeevny@codeaurora.org>
+ <CAD=FV=XMVKP=nK+-eTpxNK-AQ66rqvfMj_Q0TZrsG-CEWtbw8Q@mail.gmail.com>
+Message-ID: <3f088fcc07800323b4cb24af4b972514@codeaurora.org>
+X-Sender: rajeevny@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [v5 1/5] drm/panel: add basic DP AUX backlight
+ support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,42 +65,60 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, aravindh@codeaurora.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- abhinavk@codeaurora.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: linux-fbdev@vger.kernel.org, dri-devel <dri-devel@lists.freedesktop.org>,
+ Andrzej Hajda <a.hajda@samsung.com>, Thierry Reding <thierry.reding@gmail.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ "Kristian H. Kristensen" <hoegsberg@chromium.org>,
+ Sam Ravnborg <sam@ravnborg.org>, Rob Herring <robh@kernel.org>,
+ Daniel Thompson <daniel.thompson@linaro.org>, Lee Jones <lee.jones@linaro.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED
+ DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+ Lyude Paul <lyude@redhat.com>, Jani Nikula <jani.nikula@intel.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>, Sean Paul <seanpaul@chromium.org>,
+ Kalyan Thota <kalyan_t@codeaurora.org>,
+ Krishna Manikandan <mkrishn@codeaurora.org>, Jingoo Han <jingoohan1@gmail.com>,
+ LKML <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
+ freedreno <freedreno@lists.freedesktop.org>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2021-06-02 09:43:05)
-> Normal DP suspend operation contains two steps, display off followed
-> by dp suspend, to complete system wide suspending cycle if display is
-> up at that time. In this case, DP phy will be powered off at display
-> off. However there is an exception case that depending on the timing
-> of dongle plug in during system wide suspending, sometimes display off
-> procedure may be skipped and dp suspend was called directly. In this
-> case, dp phy is stay at powered on (phy->power_count = 1) so that at
-> next resume dp driver crash at main link clock enable due to phy is
-> not physically powered on. This patch will call dp_ctrl_off_link_stream()
-> to tear down main link and power off phy at dp_pm_suspend() if main link
-> had been brought up.
->
-> Changes in V2:
-> -- stashed changes into dp_ctrl.c
-> -- add is_phy_on to monitor phy state
->
-> Changes in V3:
-> -- delete is_phy_on
-> -- call dp_ctrl_off_link_stream() from dp_pm_suspend()
->
-> Changes in V4:
-> -- delete changes made at dp_power.c
-> -- move main link status checking to dp_pm_suspend
->
-> Fixes: 0114f31a2903 ("drm/msm/dp: handle irq_hpd with sink_count = 0 correctly)
+On 03-06-2021 05:35, Doug Anderson wrote:
+> Hi,
+> 
+> On Sun, May 30, 2021 at 8:57 AM Rajeev Nandan <rajeevny@codeaurora.org> 
+> wrote:
+>> 
 
-This should be 8dbde399044b
+> 
+> Other than the two nits (ordering of memory allocation and word
+> wrapping in a comment), this looks good to me. Feel free to add my
+> Reviewed-by tag when you fix the nits.
+> 
+> NOTE: Even though I have commit access to drm-misc now, I wouldn't
+> feel comfortable merging this to drm-misc myself without review
+> feedback from someone more senior. Obviously we're still blocked on my
+> and Lyude's series landing first, but even assuming those just land
+> as-is we'll need some more adult supervision before this can land. ;-)
+> That being said, I personally think this looks pretty nice now.
+> 
+> 
+> -Doug
+
+Thank you, Doug.
+
+I'll address the review comments of this patch and another patch (v5 
+3/5)
+in the next spin. I'll wait for Lyude to check this series, as she 
+wanted
+to review it in a few days.
+
+
+Thanks,
+Rajeev
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
