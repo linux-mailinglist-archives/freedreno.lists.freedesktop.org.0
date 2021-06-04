@@ -1,63 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EA8839B4E5
-	for <lists+freedreno@lfdr.de>; Fri,  4 Jun 2021 10:32:36 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EE8539B563
+	for <lists+freedreno@lfdr.de>; Fri,  4 Jun 2021 10:57:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1EAF6E43F;
-	Fri,  4 Jun 2021 08:32:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47D646F5DF;
+	Fri,  4 Jun 2021 08:57:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01BF56E15D
- for <freedreno@lists.freedesktop.org>; Fri,  4 Jun 2021 08:32:33 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id f11so12836411lfq.4
- for <freedreno@lists.freedesktop.org>; Fri, 04 Jun 2021 01:32:33 -0700 (PDT)
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EE5A6F5E0
+ for <freedreno@lists.freedesktop.org>; Fri,  4 Jun 2021 08:57:56 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id
+ o2-20020a05600c4fc2b029019a0a8f959dso5182752wmq.1
+ for <freedreno@lists.freedesktop.org>; Fri, 04 Jun 2021 01:57:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=zP2dna87z6RKrxkkJWo2LQdu7tVCeYap9nb/k2QVk5I=;
- b=BI1l2w090NvUuzjJirHDmxRkq5GWasjScNptw7r1C+4lSVHeu39FVyxAFCG19UwVsb
- QxNh+Il5+n5v+KRUCdKpM4b0uCO0sut+buOkmxGTq1IGt4oTCexVpen6XunnkT3+A6sb
- sJ5F3VD+VPhD66FtwJMqy7xgI4zXHyFKw9qbY+eymmVAtJEukFRIHGN4iZZ/+N9Ln3/T
- L2QlfItJLRowUqeTs7AE9ktEuVgQ7Yw/hNIz9CdbORDFFHYL8svVvvPJAK4kS5justFA
- io1E8bvEjd+eMlzxU2MoTjoqrZe3vFU9sleiCEEc1tVzGj9y6QmUkWq/w3WkeAl2+wcu
- HhdA==
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=/0XS+taR8uO0Puxfl2+DmxsoWoL/hO28ux66/TfeXRE=;
+ b=WfJOqL6TtKt8J4Be3wgOm4JHJ8FOJwSwNKlkmW/uNwzuaZ/SyU+xkNLZD5idPTHDB8
+ TvyBoiOtv7ZEwPlikHdvUA46RQCybUiS27Cth69Dz0oxwSB45rhkkwf9nYHUJVwue+0A
+ iwnZKX4V54W2Sw8Fz6RP/n/idZWnjG3fobAMtTQaJIQSKG/sanGE8KpnFzoDpbicJ0qU
+ 1aGEdAoZpGiBpFlD+goILCI7RhOHiBgjfyKTsDjkDuJOMGLZpnwDGmqjEVSE33SiKDX5
+ q4bS0Ag4SzLVxMFIJGr2VB2Vogv/PrBZIKcyssJud6xsHVYQB0nrRD6bKzHr0fUSCKHl
+ 6IwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=zP2dna87z6RKrxkkJWo2LQdu7tVCeYap9nb/k2QVk5I=;
- b=Xq91e+Q1O3M3A2rDPKA/mKXBpjRNIxfEZB+SAP/5sbhF6cMLAlbpc5XKd2tIpr75Bu
- Eu/On20z87Y1CDw3a43q4PLm67kPr7KztxKcPTznP17bq5/DG0sJlj704Ep1570ucGey
- vp1BwSLtL3pp25w0tHeqa0Zqv0VKk5XsClDSKCutsiD0jxkHOSuTnM1956g6NNDhpnY1
- XYxupy9slxxNubTgZ00vTEZMBIH5RKa82Q/rKPH9AeKxOBZ2bK8P2dAKYmGpCUV64+tF
- THfNKX2wjBSF51yIbf0Zi31K9FhVyJnzEWNsUPeNZT9TQyRaNUxrF3LOrQS5SP7iZG0T
- 2c3g==
-X-Gm-Message-State: AOAM530lIURnFmzqCyJgqqtIdQ4V4zOaJY4OlJvp4qb9Y9w4g8StCG2u
- VzHShaUabEnGbGkZoddosmZ+jkCR3+zcFQ==
-X-Google-Smtp-Source: ABdhPJykew9bOeZhphWWjOUQEebLS58YJSEt6mkLnOTlh99S+hukQhlFyBqTV9fKQ9UndvHQGxvMFA==
-X-Received: by 2002:a05:6512:33cb:: with SMTP id
- d11mr2097111lfg.180.1622795551966; 
- Fri, 04 Jun 2021 01:32:31 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id i127sm544870lfd.216.2021.06.04.01.32.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Jun 2021 01:32:31 -0700 (PDT)
-To: Lee Jones <lee.jones@linaro.org>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=/0XS+taR8uO0Puxfl2+DmxsoWoL/hO28ux66/TfeXRE=;
+ b=ceb1IFRimPegcvUm+r6nemQ8FGlY1CXqNfuikdBPvF46BGkZpcjyEq1NCfQi16oXmK
+ 18o5Sa/oslxF4gdoKSq4ApNPq7LTIjhQmh5167xx2dWURzwWBkF7dd9L0wh/0iDxjaEz
+ H8n1D+x+54kye0juLT92Bp3+EWyUhHzgGfJ5ZNyqwVTI+tXWb0F0raWhJSuZBW87U281
+ yEyyIGxhEWouMsRg+yDZIxR+QHAj5R7Jj+uJ5KaqWhyokXVObOIxv7JKdQ0C2kDpRHYe
+ rK5jKpx4hHWhQps/RjkmI8aT49AbRv0mDZudsf4QhgHVMrLbUh+l7LH4vZfKzi5BtE7i
+ sDDQ==
+X-Gm-Message-State: AOAM531XxziyH2kMeBjpbfZTFOhEjpeEIZdCyBPTlkV+jkz3bsruQvWx
+ k4e8hkXUPAFDrd9Cr/FSiXIusQ==
+X-Google-Smtp-Source: ABdhPJxSerMJo/NyEAwIjmxLZAscEMfLRp3dsxK1fpB61fIULrq5CngQm+FyXIn4sq6jKtWiJ2gD8A==
+X-Received: by 2002:a05:600c:4f0f:: with SMTP id
+ l15mr2515531wmq.143.1622797075254; 
+ Fri, 04 Jun 2021 01:57:55 -0700 (PDT)
+Received: from dell ([91.110.221.214])
+ by smtp.gmail.com with ESMTPSA id x11sm6033904wru.87.2021.06.04.01.57.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 04 Jun 2021 01:57:54 -0700 (PDT)
+Date: Fri, 4 Jun 2021 09:57:52 +0100
+From: Lee Jones <lee.jones@linaro.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20210604085752.GI2435141@dell>
 References: <20210602143300.2330146-1-lee.jones@linaro.org>
  <20210602143300.2330146-11-lee.jones@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <85bd6c24-0e4e-6f18-ccf0-6acf62d0f0ff@linaro.org>
-Date: Fri, 4 Jun 2021 11:32:30 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+ <85bd6c24-0e4e-6f18-ccf0-6acf62d0f0ff@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <20210602143300.2330146-11-lee.jones@linaro.org>
-Content-Language: en-GB
+Content-Disposition: inline
+In-Reply-To: <85bd6c24-0e4e-6f18-ccf0-6acf62d0f0ff@linaro.org>
 Subject: Re: [Freedreno] [RESEND 10/26] drm/msm/disp/dpu1/dpu_hw_interrupts:
  Demote a bunch of kernel-doc abuses
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -77,199 +77,76 @@ Cc: Krishna Manikandan <mkrishn@codeaurora.org>,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 02/06/2021 17:32, Lee Jones wrote:
-> Fixes the following W=1 kernel build warning(s):
-> 
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:17: warning: expecting prototype for Register offsets in MDSS register file for the interrupt registers(). Prototype was for MDP_SSPP_TOP0_OFF() instead
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:35: warning: expecting prototype for WB interrupt status bit definitions(). Prototype was for DPU_INTR_WB_0_DONE() instead
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:42: warning: expecting prototype for WDOG timer interrupt status bit definitions(). Prototype was for DPU_INTR_WD_TIMER_0_DONE() instead
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:51: warning: expecting prototype for Pingpong interrupt status bit definitions(). Prototype was for DPU_INTR_PING_PONG_0_DONE() instead
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:71: warning: expecting prototype for Interface interrupt status bit definitions(). Prototype was for DPU_INTR_INTF_0_UNDERRUN() instead
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:85: warning: expecting prototype for Pingpong Secondary interrupt status bit definitions(). Prototype was for DPU_INTR_PING_PONG_S0_AUTOREFRESH_DONE() instead
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:94: warning: expecting prototype for Pingpong TEAR detection interrupt status bit definitions(). Prototype was for DPU_INTR_PING_PONG_0_TEAR_DETECTED() instead
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:102: warning: expecting prototype for Pingpong TE detection interrupt status bit definitions(). Prototype was for DPU_INTR_PING_PONG_0_TE_DETECTED() instead
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:110: warning: expecting prototype for Ctl start interrupt status bit definitions(). Prototype was for DPU_INTR_CTL_0_START() instead
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:119: warning: expecting prototype for Concurrent WB overflow interrupt status bit definitions(). Prototype was for DPU_INTR_CWB_2_OVERFLOW() instead
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:125: warning: expecting prototype for Histogram VIG done interrupt status bit definitions(). Prototype was for DPU_INTR_HIST_VIG_0_DONE() instead
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:133: warning: expecting prototype for Histogram VIG reset Sequence done interrupt status bit definitions(). Prototype was for DPU_INTR_HIST_VIG_0_RSTSEQ_DONE() instead
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:141: warning: expecting prototype for Histogram DSPP done interrupt status bit definitions(). Prototype was for DPU_INTR_HIST_DSPP_0_DONE() instead
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:149: warning: expecting prototype for Histogram DSPP reset Sequence done interrupt status bit definitions(). Prototype was for DPU_INTR_HIST_DSPP_0_RSTSEQ_DONE() instead
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:157: warning: expecting prototype for INTF interrupt status bit definitions(). Prototype was for DPU_INTR_VIDEO_INTO_STATIC() instead
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:170: warning: expecting prototype for AD4 interrupt status bit definitions(). Prototype was for DPU_INTR_BACKLIGHT_UPDATED() instead
-
-Most of these defines are gone in msm/msm-next. Could you please rebase 
-and repost just this patch? Other patches apply clearly.
-
-> Cc: Rob Clark <robdclark@gmail.com>
-> Cc: Sean Paul <sean@poorly.run>
-> Cc: David Airlie <airlied@linux.ie>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: Krishna Manikandan <mkrishn@codeaurora.org>
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: freedreno@lists.freedesktop.org
-> Signed-off-by: Lee Jones <lee.jones@linaro.org>
-> ---
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 32 +++++++++----------
->   1 file changed, 16 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> index 48c96b8121268..aaf251741dc27 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> @@ -10,7 +10,7 @@
->   #include "dpu_hw_util.h"
->   #include "dpu_hw_mdss.h"
->   
-> -/**
-> +/*
->    * Register offsets in MDSS register file for the interrupt registers
->    * w.r.t. to the MDP base
->    */
-> @@ -29,14 +29,14 @@
->   #define MDP_INTF_1_OFF_REV_7xxx             0x35000
->   #define MDP_INTF_5_OFF_REV_7xxx             0x39000
->   
-> -/**
-> +/*
->    * WB interrupt status bit definitions
->    */
->   #define DPU_INTR_WB_0_DONE BIT(0)
->   #define DPU_INTR_WB_1_DONE BIT(1)
->   #define DPU_INTR_WB_2_DONE BIT(4)
->   
-> -/**
-> +/*
->    * WDOG timer interrupt status bit definitions
->    */
->   #define DPU_INTR_WD_TIMER_0_DONE BIT(2)
-> @@ -45,7 +45,7 @@
->   #define DPU_INTR_WD_TIMER_3_DONE BIT(6)
->   #define DPU_INTR_WD_TIMER_4_DONE BIT(7)
->   
-> -/**
-> +/*
->    * Pingpong interrupt status bit definitions
->    */
->   #define DPU_INTR_PING_PONG_0_DONE BIT(8)
-> @@ -65,7 +65,7 @@
->   #define DPU_INTR_PING_PONG_2_AUTOREFRESH_DONE BIT(22)
->   #define DPU_INTR_PING_PONG_3_AUTOREFRESH_DONE BIT(23)
->   
-> -/**
-> +/*
->    * Interface interrupt status bit definitions
->    */
->   #define DPU_INTR_INTF_0_UNDERRUN BIT(24)
-> @@ -79,7 +79,7 @@
->   #define DPU_INTR_INTF_3_VSYNC BIT(31)
->   #define DPU_INTR_INTF_5_VSYNC BIT(23)
->   
-> -/**
-> +/*
->    * Pingpong Secondary interrupt status bit definitions
->    */
->   #define DPU_INTR_PING_PONG_S0_AUTOREFRESH_DONE BIT(0)
-> @@ -88,7 +88,7 @@
->   #define DPU_INTR_PING_PONG_S0_TEAR_DETECTED BIT(22)
->   #define DPU_INTR_PING_PONG_S0_TE_DETECTED BIT(28)
->   
-> -/**
-> +/*
->    * Pingpong TEAR detection interrupt status bit definitions
->    */
->   #define DPU_INTR_PING_PONG_0_TEAR_DETECTED BIT(16)
-> @@ -96,7 +96,7 @@
->   #define DPU_INTR_PING_PONG_2_TEAR_DETECTED BIT(18)
->   #define DPU_INTR_PING_PONG_3_TEAR_DETECTED BIT(19)
->   
-> -/**
-> +/*
->    * Pingpong TE detection interrupt status bit definitions
->    */
->   #define DPU_INTR_PING_PONG_0_TE_DETECTED BIT(24)
-> @@ -104,7 +104,7 @@
->   #define DPU_INTR_PING_PONG_2_TE_DETECTED BIT(26)
->   #define DPU_INTR_PING_PONG_3_TE_DETECTED BIT(27)
->   
-> -/**
-> +/*
->    * Ctl start interrupt status bit definitions
->    */
->   #define DPU_INTR_CTL_0_START BIT(9)
-> @@ -113,13 +113,13 @@
->   #define DPU_INTR_CTL_3_START BIT(12)
->   #define DPU_INTR_CTL_4_START BIT(13)
->   
-> -/**
-> +/*
->    * Concurrent WB overflow interrupt status bit definitions
->    */
->   #define DPU_INTR_CWB_2_OVERFLOW BIT(14)
->   #define DPU_INTR_CWB_3_OVERFLOW BIT(15)
->   
-> -/**
-> +/*
->    * Histogram VIG done interrupt status bit definitions
->    */
->   #define DPU_INTR_HIST_VIG_0_DONE BIT(0)
-> @@ -127,7 +127,7 @@
->   #define DPU_INTR_HIST_VIG_2_DONE BIT(8)
->   #define DPU_INTR_HIST_VIG_3_DONE BIT(10)
->   
-> -/**
-> +/*
->    * Histogram VIG reset Sequence done interrupt status bit definitions
->    */
->   #define DPU_INTR_HIST_VIG_0_RSTSEQ_DONE BIT(1)
-> @@ -135,7 +135,7 @@
->   #define DPU_INTR_HIST_VIG_2_RSTSEQ_DONE BIT(9)
->   #define DPU_INTR_HIST_VIG_3_RSTSEQ_DONE BIT(11)
->   
-> -/**
-> +/*
->    * Histogram DSPP done interrupt status bit definitions
->    */
->   #define DPU_INTR_HIST_DSPP_0_DONE BIT(12)
-> @@ -143,7 +143,7 @@
->   #define DPU_INTR_HIST_DSPP_2_DONE BIT(20)
->   #define DPU_INTR_HIST_DSPP_3_DONE BIT(22)
->   
-> -/**
-> +/*
->    * Histogram DSPP reset Sequence done interrupt status bit definitions
->    */
->   #define DPU_INTR_HIST_DSPP_0_RSTSEQ_DONE BIT(13)
-> @@ -151,7 +151,7 @@
->   #define DPU_INTR_HIST_DSPP_2_RSTSEQ_DONE BIT(21)
->   #define DPU_INTR_HIST_DSPP_3_RSTSEQ_DONE BIT(23)
->   
-> -/**
-> +/*
->    * INTF interrupt status bit definitions
->    */
->   #define DPU_INTR_VIDEO_INTO_STATIC BIT(0)
-> @@ -164,7 +164,7 @@
->   #define DPU_INTR_DSICMD_2_OUTOF_STATIC BIT(7)
->   #define DPU_INTR_PROG_LINE BIT(8)
->   
-> -/**
-> +/*
->    * AD4 interrupt status bit definitions
->    */
->   #define DPU_INTR_BACKLIGHT_UPDATED BIT(0)
-> 
-
-
--- 
-With best wishes
-Dmitry
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+T24gRnJpLCAwNCBKdW4gMjAyMSwgRG1pdHJ5IEJhcnlzaGtvdiB3cm90ZToKCj4gT24gMDIvMDYv
+MjAyMSAxNzozMiwgTGVlIEpvbmVzIHdyb3RlOgo+ID4gRml4ZXMgdGhlIGZvbGxvd2luZyBXPTEg
+a2VybmVsIGJ1aWxkIHdhcm5pbmcocyk6Cj4gPiAKPiA+ICAgZHJpdmVycy9ncHUvZHJtL21zbS9k
+aXNwL2RwdTEvZHB1X2h3X2ludGVycnVwdHMuYzoxNzogd2FybmluZzogZXhwZWN0aW5nIHByb3Rv
+dHlwZSBmb3IgUmVnaXN0ZXIgb2Zmc2V0cyBpbiBNRFNTIHJlZ2lzdGVyIGZpbGUgZm9yIHRoZSBp
+bnRlcnJ1cHQgcmVnaXN0ZXJzKCkuIFByb3RvdHlwZSB3YXMgZm9yIE1EUF9TU1BQX1RPUDBfT0ZG
+KCkgaW5zdGVhZAo+ID4gICBkcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfaHdfaW50
+ZXJydXB0cy5jOjM1OiB3YXJuaW5nOiBleHBlY3RpbmcgcHJvdG90eXBlIGZvciBXQiBpbnRlcnJ1
+cHQgc3RhdHVzIGJpdCBkZWZpbml0aW9ucygpLiBQcm90b3R5cGUgd2FzIGZvciBEUFVfSU5UUl9X
+Ql8wX0RPTkUoKSBpbnN0ZWFkCj4gPiAgIGRyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2Rw
+dV9od19pbnRlcnJ1cHRzLmM6NDI6IHdhcm5pbmc6IGV4cGVjdGluZyBwcm90b3R5cGUgZm9yIFdE
+T0cgdGltZXIgaW50ZXJydXB0IHN0YXR1cyBiaXQgZGVmaW5pdGlvbnMoKS4gUHJvdG90eXBlIHdh
+cyBmb3IgRFBVX0lOVFJfV0RfVElNRVJfMF9ET05FKCkgaW5zdGVhZAo+ID4gICBkcml2ZXJzL2dw
+dS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfaHdfaW50ZXJydXB0cy5jOjUxOiB3YXJuaW5nOiBleHBl
+Y3RpbmcgcHJvdG90eXBlIGZvciBQaW5ncG9uZyBpbnRlcnJ1cHQgc3RhdHVzIGJpdCBkZWZpbml0
+aW9ucygpLiBQcm90b3R5cGUgd2FzIGZvciBEUFVfSU5UUl9QSU5HX1BPTkdfMF9ET05FKCkgaW5z
+dGVhZAo+ID4gICBkcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfaHdfaW50ZXJydXB0
+cy5jOjcxOiB3YXJuaW5nOiBleHBlY3RpbmcgcHJvdG90eXBlIGZvciBJbnRlcmZhY2UgaW50ZXJy
+dXB0IHN0YXR1cyBiaXQgZGVmaW5pdGlvbnMoKS4gUHJvdG90eXBlIHdhcyBmb3IgRFBVX0lOVFJf
+SU5URl8wX1VOREVSUlVOKCkgaW5zdGVhZAo+ID4gICBkcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3Av
+ZHB1MS9kcHVfaHdfaW50ZXJydXB0cy5jOjg1OiB3YXJuaW5nOiBleHBlY3RpbmcgcHJvdG90eXBl
+IGZvciBQaW5ncG9uZyBTZWNvbmRhcnkgaW50ZXJydXB0IHN0YXR1cyBiaXQgZGVmaW5pdGlvbnMo
+KS4gUHJvdG90eXBlIHdhcyBmb3IgRFBVX0lOVFJfUElOR19QT05HX1MwX0FVVE9SRUZSRVNIX0RP
+TkUoKSBpbnN0ZWFkCj4gPiAgIGRyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9od19p
+bnRlcnJ1cHRzLmM6OTQ6IHdhcm5pbmc6IGV4cGVjdGluZyBwcm90b3R5cGUgZm9yIFBpbmdwb25n
+IFRFQVIgZGV0ZWN0aW9uIGludGVycnVwdCBzdGF0dXMgYml0IGRlZmluaXRpb25zKCkuIFByb3Rv
+dHlwZSB3YXMgZm9yIERQVV9JTlRSX1BJTkdfUE9OR18wX1RFQVJfREVURUNURUQoKSBpbnN0ZWFk
+Cj4gPiAgIGRyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9od19pbnRlcnJ1cHRzLmM6
+MTAyOiB3YXJuaW5nOiBleHBlY3RpbmcgcHJvdG90eXBlIGZvciBQaW5ncG9uZyBURSBkZXRlY3Rp
+b24gaW50ZXJydXB0IHN0YXR1cyBiaXQgZGVmaW5pdGlvbnMoKS4gUHJvdG90eXBlIHdhcyBmb3Ig
+RFBVX0lOVFJfUElOR19QT05HXzBfVEVfREVURUNURUQoKSBpbnN0ZWFkCj4gPiAgIGRyaXZlcnMv
+Z3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9od19pbnRlcnJ1cHRzLmM6MTEwOiB3YXJuaW5nOiBl
+eHBlY3RpbmcgcHJvdG90eXBlIGZvciBDdGwgc3RhcnQgaW50ZXJydXB0IHN0YXR1cyBiaXQgZGVm
+aW5pdGlvbnMoKS4gUHJvdG90eXBlIHdhcyBmb3IgRFBVX0lOVFJfQ1RMXzBfU1RBUlQoKSBpbnN0
+ZWFkCj4gPiAgIGRyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9od19pbnRlcnJ1cHRz
+LmM6MTE5OiB3YXJuaW5nOiBleHBlY3RpbmcgcHJvdG90eXBlIGZvciBDb25jdXJyZW50IFdCIG92
+ZXJmbG93IGludGVycnVwdCBzdGF0dXMgYml0IGRlZmluaXRpb25zKCkuIFByb3RvdHlwZSB3YXMg
+Zm9yIERQVV9JTlRSX0NXQl8yX09WRVJGTE9XKCkgaW5zdGVhZAo+ID4gICBkcml2ZXJzL2dwdS9k
+cm0vbXNtL2Rpc3AvZHB1MS9kcHVfaHdfaW50ZXJydXB0cy5jOjEyNTogd2FybmluZzogZXhwZWN0
+aW5nIHByb3RvdHlwZSBmb3IgSGlzdG9ncmFtIFZJRyBkb25lIGludGVycnVwdCBzdGF0dXMgYml0
+IGRlZmluaXRpb25zKCkuIFByb3RvdHlwZSB3YXMgZm9yIERQVV9JTlRSX0hJU1RfVklHXzBfRE9O
+RSgpIGluc3RlYWQKPiA+ICAgZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X2h3X2lu
+dGVycnVwdHMuYzoxMzM6IHdhcm5pbmc6IGV4cGVjdGluZyBwcm90b3R5cGUgZm9yIEhpc3RvZ3Jh
+bSBWSUcgcmVzZXQgU2VxdWVuY2UgZG9uZSBpbnRlcnJ1cHQgc3RhdHVzIGJpdCBkZWZpbml0aW9u
+cygpLiBQcm90b3R5cGUgd2FzIGZvciBEUFVfSU5UUl9ISVNUX1ZJR18wX1JTVFNFUV9ET05FKCkg
+aW5zdGVhZAo+ID4gICBkcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfaHdfaW50ZXJy
+dXB0cy5jOjE0MTogd2FybmluZzogZXhwZWN0aW5nIHByb3RvdHlwZSBmb3IgSGlzdG9ncmFtIERT
+UFAgZG9uZSBpbnRlcnJ1cHQgc3RhdHVzIGJpdCBkZWZpbml0aW9ucygpLiBQcm90b3R5cGUgd2Fz
+IGZvciBEUFVfSU5UUl9ISVNUX0RTUFBfMF9ET05FKCkgaW5zdGVhZAo+ID4gICBkcml2ZXJzL2dw
+dS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfaHdfaW50ZXJydXB0cy5jOjE0OTogd2FybmluZzogZXhw
+ZWN0aW5nIHByb3RvdHlwZSBmb3IgSGlzdG9ncmFtIERTUFAgcmVzZXQgU2VxdWVuY2UgZG9uZSBp
+bnRlcnJ1cHQgc3RhdHVzIGJpdCBkZWZpbml0aW9ucygpLiBQcm90b3R5cGUgd2FzIGZvciBEUFVf
+SU5UUl9ISVNUX0RTUFBfMF9SU1RTRVFfRE9ORSgpIGluc3RlYWQKPiA+ICAgZHJpdmVycy9ncHUv
+ZHJtL21zbS9kaXNwL2RwdTEvZHB1X2h3X2ludGVycnVwdHMuYzoxNTc6IHdhcm5pbmc6IGV4cGVj
+dGluZyBwcm90b3R5cGUgZm9yIElOVEYgaW50ZXJydXB0IHN0YXR1cyBiaXQgZGVmaW5pdGlvbnMo
+KS4gUHJvdG90eXBlIHdhcyBmb3IgRFBVX0lOVFJfVklERU9fSU5UT19TVEFUSUMoKSBpbnN0ZWFk
+Cj4gPiAgIGRyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9od19pbnRlcnJ1cHRzLmM6
+MTcwOiB3YXJuaW5nOiBleHBlY3RpbmcgcHJvdG90eXBlIGZvciBBRDQgaW50ZXJydXB0IHN0YXR1
+cyBiaXQgZGVmaW5pdGlvbnMoKS4gUHJvdG90eXBlIHdhcyBmb3IgRFBVX0lOVFJfQkFDS0xJR0hU
+X1VQREFURUQoKSBpbnN0ZWFkCj4gCj4gTW9zdCBvZiB0aGVzZSBkZWZpbmVzIGFyZSBnb25lIGlu
+IG1zbS9tc20tbmV4dC4gQ291bGQgeW91IHBsZWFzZSByZWJhc2UgYW5kCj4gcmVwb3N0IGp1c3Qg
+dGhpcyBwYXRjaD8gT3RoZXIgcGF0Y2hlcyBhcHBseSBjbGVhcmx5LgoKU3VyZS4KCi0tIApMZWUg
+Sm9uZXMgW+adjueQvOaWr10KU2VuaW9yIFRlY2huaWNhbCBMZWFkIC0gRGV2ZWxvcGVyIFNlcnZp
+Y2VzCkxpbmFyby5vcmcg4pSCIE9wZW4gc291cmNlIHNvZnR3YXJlIGZvciBBcm0gU29DcwpGb2xs
+b3cgTGluYXJvOiBGYWNlYm9vayB8IFR3aXR0ZXIgfCBCbG9nCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJlZWRy
+ZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVubwo=
