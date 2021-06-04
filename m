@@ -1,61 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B154A39B06A
-	for <lists+freedreno@lfdr.de>; Fri,  4 Jun 2021 04:32:54 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EA8839B4E5
+	for <lists+freedreno@lfdr.de>; Fri,  4 Jun 2021 10:32:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 029A36F565;
-	Fri,  4 Jun 2021 02:32:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1EAF6E43F;
+	Fri,  4 Jun 2021 08:32:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E45186F565;
- Fri,  4 Jun 2021 02:32:51 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id
- v206-20020a1cded70000b02901a586d3fa23so473729wmg.4; 
- Thu, 03 Jun 2021 19:32:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=XfVLX4YtEZs428uaQPfb/mY1tDAn6l5ncSwMdycpblI=;
- b=p5drJ8OPu0/hfTaQXi2OyrCV3UE0/bcH3ckTmA6EC2x2//1neicrguJZw+egplGj7e
- cbrQ9OpDwX1uZqU9IGP7ncGktMXUx4UviQhIeb20d06j/E5NfmU1+gfXjEag7tXpmj+I
- i2uG7BIAYtnWU4xdCU0QenmkqC2pTBAEcWq0SuNYcncS1waJTJcR4CZZZqIqul4845tD
- wlf1Kv9hg49UzNfmMHyN5Geif4mqiUUMBRTbyMWtjpNgrIrS5Npb17wxil5Gpc4cXEhd
- ye7CeseV4uBnq37kFnGOz1WtIqvJPs60R9aq1HK4S3jxjF2K6Udk3uDqLlPin73no4HA
- VOUw==
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01BF56E15D
+ for <freedreno@lists.freedesktop.org>; Fri,  4 Jun 2021 08:32:33 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id f11so12836411lfq.4
+ for <freedreno@lists.freedesktop.org>; Fri, 04 Jun 2021 01:32:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=zP2dna87z6RKrxkkJWo2LQdu7tVCeYap9nb/k2QVk5I=;
+ b=BI1l2w090NvUuzjJirHDmxRkq5GWasjScNptw7r1C+4lSVHeu39FVyxAFCG19UwVsb
+ QxNh+Il5+n5v+KRUCdKpM4b0uCO0sut+buOkmxGTq1IGt4oTCexVpen6XunnkT3+A6sb
+ sJ5F3VD+VPhD66FtwJMqy7xgI4zXHyFKw9qbY+eymmVAtJEukFRIHGN4iZZ/+N9Ln3/T
+ L2QlfItJLRowUqeTs7AE9ktEuVgQ7Yw/hNIz9CdbORDFFHYL8svVvvPJAK4kS5justFA
+ io1E8bvEjd+eMlzxU2MoTjoqrZe3vFU9sleiCEEc1tVzGj9y6QmUkWq/w3WkeAl2+wcu
+ HhdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=XfVLX4YtEZs428uaQPfb/mY1tDAn6l5ncSwMdycpblI=;
- b=M5fqAk0cLQxvghFMoBHmiEApZkTeY9L+xFEnvvasdmMN0Jtzp2mFC5pPTJW81slH/D
- 8H3pdpDcaHqZgCEvSCYGP9vGhD7Xo3xRy8OQ+VfH1hzWkggymWUAtav5tBHUw+q0/dkX
- u/KQJz5DJlm4ZfMf1wik+WxZ2qPI7s6R4KG+UtNMWc/3rDUAzNmPmgSkxsk03VcSkI6y
- eqHTGliOS+xyYZUgdxMS7sEZ4XUdadsvvAQc1FK0j1sMz+4EeTJbS/3589gshKA62xZE
- ysmgqbdP8q8+lxlNQbS14fKIIwP7/w4O4+Hbw5o+Qe/PlbzJB4eR1I7QiZ0Mr9MCpGMe
- oY+A==
-X-Gm-Message-State: AOAM531o+oSwzpf7UZSYrb1FKIqByRY53e7KVy5fHIdpIFE2yTQqWluH
- LnodIYhiRIe7X7EIIGRHigtgs0GSZqYGiFxcNak=
-X-Google-Smtp-Source: ABdhPJxmpIfDqZXuShm76OqWvHKkOU4l5zonimZqTYUKsjU+Sqv/oJyOxy/U8P1238Okoxuj2H3MGCtE1stmFsOfTU4=
-X-Received: by 2002:a05:600c:2054:: with SMTP id
- p20mr843886wmg.175.1622773970471; 
- Thu, 03 Jun 2021 19:32:50 -0700 (PDT)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=zP2dna87z6RKrxkkJWo2LQdu7tVCeYap9nb/k2QVk5I=;
+ b=Xq91e+Q1O3M3A2rDPKA/mKXBpjRNIxfEZB+SAP/5sbhF6cMLAlbpc5XKd2tIpr75Bu
+ Eu/On20z87Y1CDw3a43q4PLm67kPr7KztxKcPTznP17bq5/DG0sJlj704Ep1570ucGey
+ vp1BwSLtL3pp25w0tHeqa0Zqv0VKk5XsClDSKCutsiD0jxkHOSuTnM1956g6NNDhpnY1
+ XYxupy9slxxNubTgZ00vTEZMBIH5RKa82Q/rKPH9AeKxOBZ2bK8P2dAKYmGpCUV64+tF
+ THfNKX2wjBSF51yIbf0Zi31K9FhVyJnzEWNsUPeNZT9TQyRaNUxrF3LOrQS5SP7iZG0T
+ 2c3g==
+X-Gm-Message-State: AOAM530lIURnFmzqCyJgqqtIdQ4V4zOaJY4OlJvp4qb9Y9w4g8StCG2u
+ VzHShaUabEnGbGkZoddosmZ+jkCR3+zcFQ==
+X-Google-Smtp-Source: ABdhPJykew9bOeZhphWWjOUQEebLS58YJSEt6mkLnOTlh99S+hukQhlFyBqTV9fKQ9UndvHQGxvMFA==
+X-Received: by 2002:a05:6512:33cb:: with SMTP id
+ d11mr2097111lfg.180.1622795551966; 
+ Fri, 04 Jun 2021 01:32:31 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id i127sm544870lfd.216.2021.06.04.01.32.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 04 Jun 2021 01:32:31 -0700 (PDT)
+To: Lee Jones <lee.jones@linaro.org>
+References: <20210602143300.2330146-1-lee.jones@linaro.org>
+ <20210602143300.2330146-11-lee.jones@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <85bd6c24-0e4e-6f18-ccf0-6acf62d0f0ff@linaro.org>
+Date: Fri, 4 Jun 2021 11:32:30 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-References: <20210521124946.3617862-1-vkoul@kernel.org>
- <CAOCk7Nqep_Db+z3fr5asHZ1u0j8+6fKkPFs2Ai8CbA_zGqV6ZA@mail.gmail.com>
- <YK3gxqXBRupN/N+Q@vkoul-mobl.Dlink>
- <CAOCk7NqvhGvYw8xCBctqj7H+o-Qwp2UuUJK1gatW9EWfXv56xA@mail.gmail.com>
- <CAF6AEGuoyPr8PgfwFX0JCYZ7S_pryn_OXacHBqoMAAPvSq6aRw@mail.gmail.com>
- <YLdlEB3Ea6OWaLw4@vkoul-mobl>
-In-Reply-To: <YLdlEB3Ea6OWaLw4@vkoul-mobl>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 3 Jun 2021 19:36:42 -0700
-Message-ID: <CAF6AEGvS2uL1eEeCKQ5wDX4+yRZuOTHzFOv9Kiu09HO2r9xzHQ@mail.gmail.com>
-To: Vinod Koul <vkoul@kernel.org>
-Subject: Re: [Freedreno] [RFC PATCH 00/13] drm/msm: Add Display Stream
- Compression Support
+In-Reply-To: <20210602143300.2330146-11-lee.jones@linaro.org>
+Content-Language: en-GB
+Subject: Re: [Freedreno] [RESEND 10/26] drm/msm/disp/dpu1/dpu_hw_interrupts:
+ Demote a bunch of kernel-doc abuses
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,64 +72,203 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: DTML <devicetree@vger.kernel.org>, Jonathan Marek <jonathan@marek.ca>,
- Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, David Airlie <airlied@linux.ie>,
- MSM <linux-arm-msm@vger.kernel.org>, lkml <linux-kernel@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
- "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
+Cc: Krishna Manikandan <mkrishn@codeaurora.org>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jun 2, 2021 at 4:01 AM Vinod Koul <vkoul@kernel.org> wrote:
->
-> On 27-05-21, 16:30, Rob Clark wrote:
-> > On Wed, May 26, 2021 at 8:00 AM Jeffrey Hugo <jeffrey.l.hugo@gmail.com> wrote:
-> > > On Tue, May 25, 2021 at 11:46 PM Vinod Koul <vkoul@kernel.org> wrote:
->
-> > > Frankly, I don't like the MSM ACPI solution that I've seen on the laptops.
-> > > The ACPI assumes the entire MDSS (including DSI parts) and GPU is one
-> > > device, and ultimately handled by one driver.  That driver needs to
-> > > get a value from UEFI (set by the bootloader) that is the "panel id".
-> > > Then the driver calls into ACPI (I think its _ROM, but I might be
-> > > mistaken, doing this from memory) with that id.  It gets back a binary
-> > > blob which is mostly an xml file (format is publicly documented) that
-> > > contains the panel timings and such.
-> >
-> > tbh, I kinda suspect that having a single "gpu" device (which also
-> > includes venus, in addition to display, IIRC) in the ACPI tables is a
-> > windowsism, trying to make things look to userspace like a single "GPU
-> > card" in the x86 world.. but either way, I think the ACPI tables on
-> > the windows arm laptops which use dsi->bridge->edp is too much of a
-> > lost cause to even consider here.  Possibly ACPI boot on these devices
-> > would be more feasible on newer devices which have direct eDP out of
-> > the SoC without requiring external bridge/panel glue.
->
-> yeah that is always a very different world. although it might make sense
-> to use information in tables and try to deduce information about the
-> system can be helpful...
->
-> > I'd worry more about what makes sense in a DT world, when it comes to
-> > DT bindings.
->
-> And do you have thoughts on that..?
+On 02/06/2021 17:32, Lee Jones wrote:
+> Fixes the following W=1 kernel build warning(s):
+> 
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:17: warning: expecting prototype for Register offsets in MDSS register file for the interrupt registers(). Prototype was for MDP_SSPP_TOP0_OFF() instead
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:35: warning: expecting prototype for WB interrupt status bit definitions(). Prototype was for DPU_INTR_WB_0_DONE() instead
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:42: warning: expecting prototype for WDOG timer interrupt status bit definitions(). Prototype was for DPU_INTR_WD_TIMER_0_DONE() instead
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:51: warning: expecting prototype for Pingpong interrupt status bit definitions(). Prototype was for DPU_INTR_PING_PONG_0_DONE() instead
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:71: warning: expecting prototype for Interface interrupt status bit definitions(). Prototype was for DPU_INTR_INTF_0_UNDERRUN() instead
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:85: warning: expecting prototype for Pingpong Secondary interrupt status bit definitions(). Prototype was for DPU_INTR_PING_PONG_S0_AUTOREFRESH_DONE() instead
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:94: warning: expecting prototype for Pingpong TEAR detection interrupt status bit definitions(). Prototype was for DPU_INTR_PING_PONG_0_TEAR_DETECTED() instead
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:102: warning: expecting prototype for Pingpong TE detection interrupt status bit definitions(). Prototype was for DPU_INTR_PING_PONG_0_TE_DETECTED() instead
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:110: warning: expecting prototype for Ctl start interrupt status bit definitions(). Prototype was for DPU_INTR_CTL_0_START() instead
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:119: warning: expecting prototype for Concurrent WB overflow interrupt status bit definitions(). Prototype was for DPU_INTR_CWB_2_OVERFLOW() instead
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:125: warning: expecting prototype for Histogram VIG done interrupt status bit definitions(). Prototype was for DPU_INTR_HIST_VIG_0_DONE() instead
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:133: warning: expecting prototype for Histogram VIG reset Sequence done interrupt status bit definitions(). Prototype was for DPU_INTR_HIST_VIG_0_RSTSEQ_DONE() instead
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:141: warning: expecting prototype for Histogram DSPP done interrupt status bit definitions(). Prototype was for DPU_INTR_HIST_DSPP_0_DONE() instead
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:149: warning: expecting prototype for Histogram DSPP reset Sequence done interrupt status bit definitions(). Prototype was for DPU_INTR_HIST_DSPP_0_RSTSEQ_DONE() instead
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:157: warning: expecting prototype for INTF interrupt status bit definitions(). Prototype was for DPU_INTR_VIDEO_INTO_STATIC() instead
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:170: warning: expecting prototype for AD4 interrupt status bit definitions(). Prototype was for DPU_INTR_BACKLIGHT_UPDATED() instead
 
-Only that I wouldn't get too hung up on existing snapdragon ACPI
-tables.. not sure if there is prior art as far as ACPI tables for this
-on x86 systems, if so that *might* be a thing to consider, but
-otherwise it does sound a bit like we want less qcom specific bindings
-here.  But other than that I'll leave it to folks who spend more time
-thinking about bindings.. left to my own devices I'd come up with a
-point solution and go back to working on mesa, so that probably isn't
-the opinion you want to follow ;-)
+Most of these defines are gone in msm/msm-next. Could you please rebase 
+and repost just this patch? Other patches apply clearly.
 
-BR,
--R
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Sean Paul <sean@poorly.run>
+> Cc: David Airlie <airlied@linux.ie>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Cc: Krishna Manikandan <mkrishn@codeaurora.org>
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: freedreno@lists.freedesktop.org
+> Signed-off-by: Lee Jones <lee.jones@linaro.org>
+> ---
+>   .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 32 +++++++++----------
+>   1 file changed, 16 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> index 48c96b8121268..aaf251741dc27 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> @@ -10,7 +10,7 @@
+>   #include "dpu_hw_util.h"
+>   #include "dpu_hw_mdss.h"
+>   
+> -/**
+> +/*
+>    * Register offsets in MDSS register file for the interrupt registers
+>    * w.r.t. to the MDP base
+>    */
+> @@ -29,14 +29,14 @@
+>   #define MDP_INTF_1_OFF_REV_7xxx             0x35000
+>   #define MDP_INTF_5_OFF_REV_7xxx             0x39000
+>   
+> -/**
+> +/*
+>    * WB interrupt status bit definitions
+>    */
+>   #define DPU_INTR_WB_0_DONE BIT(0)
+>   #define DPU_INTR_WB_1_DONE BIT(1)
+>   #define DPU_INTR_WB_2_DONE BIT(4)
+>   
+> -/**
+> +/*
+>    * WDOG timer interrupt status bit definitions
+>    */
+>   #define DPU_INTR_WD_TIMER_0_DONE BIT(2)
+> @@ -45,7 +45,7 @@
+>   #define DPU_INTR_WD_TIMER_3_DONE BIT(6)
+>   #define DPU_INTR_WD_TIMER_4_DONE BIT(7)
+>   
+> -/**
+> +/*
+>    * Pingpong interrupt status bit definitions
+>    */
+>   #define DPU_INTR_PING_PONG_0_DONE BIT(8)
+> @@ -65,7 +65,7 @@
+>   #define DPU_INTR_PING_PONG_2_AUTOREFRESH_DONE BIT(22)
+>   #define DPU_INTR_PING_PONG_3_AUTOREFRESH_DONE BIT(23)
+>   
+> -/**
+> +/*
+>    * Interface interrupt status bit definitions
+>    */
+>   #define DPU_INTR_INTF_0_UNDERRUN BIT(24)
+> @@ -79,7 +79,7 @@
+>   #define DPU_INTR_INTF_3_VSYNC BIT(31)
+>   #define DPU_INTR_INTF_5_VSYNC BIT(23)
+>   
+> -/**
+> +/*
+>    * Pingpong Secondary interrupt status bit definitions
+>    */
+>   #define DPU_INTR_PING_PONG_S0_AUTOREFRESH_DONE BIT(0)
+> @@ -88,7 +88,7 @@
+>   #define DPU_INTR_PING_PONG_S0_TEAR_DETECTED BIT(22)
+>   #define DPU_INTR_PING_PONG_S0_TE_DETECTED BIT(28)
+>   
+> -/**
+> +/*
+>    * Pingpong TEAR detection interrupt status bit definitions
+>    */
+>   #define DPU_INTR_PING_PONG_0_TEAR_DETECTED BIT(16)
+> @@ -96,7 +96,7 @@
+>   #define DPU_INTR_PING_PONG_2_TEAR_DETECTED BIT(18)
+>   #define DPU_INTR_PING_PONG_3_TEAR_DETECTED BIT(19)
+>   
+> -/**
+> +/*
+>    * Pingpong TE detection interrupt status bit definitions
+>    */
+>   #define DPU_INTR_PING_PONG_0_TE_DETECTED BIT(24)
+> @@ -104,7 +104,7 @@
+>   #define DPU_INTR_PING_PONG_2_TE_DETECTED BIT(26)
+>   #define DPU_INTR_PING_PONG_3_TE_DETECTED BIT(27)
+>   
+> -/**
+> +/*
+>    * Ctl start interrupt status bit definitions
+>    */
+>   #define DPU_INTR_CTL_0_START BIT(9)
+> @@ -113,13 +113,13 @@
+>   #define DPU_INTR_CTL_3_START BIT(12)
+>   #define DPU_INTR_CTL_4_START BIT(13)
+>   
+> -/**
+> +/*
+>    * Concurrent WB overflow interrupt status bit definitions
+>    */
+>   #define DPU_INTR_CWB_2_OVERFLOW BIT(14)
+>   #define DPU_INTR_CWB_3_OVERFLOW BIT(15)
+>   
+> -/**
+> +/*
+>    * Histogram VIG done interrupt status bit definitions
+>    */
+>   #define DPU_INTR_HIST_VIG_0_DONE BIT(0)
+> @@ -127,7 +127,7 @@
+>   #define DPU_INTR_HIST_VIG_2_DONE BIT(8)
+>   #define DPU_INTR_HIST_VIG_3_DONE BIT(10)
+>   
+> -/**
+> +/*
+>    * Histogram VIG reset Sequence done interrupt status bit definitions
+>    */
+>   #define DPU_INTR_HIST_VIG_0_RSTSEQ_DONE BIT(1)
+> @@ -135,7 +135,7 @@
+>   #define DPU_INTR_HIST_VIG_2_RSTSEQ_DONE BIT(9)
+>   #define DPU_INTR_HIST_VIG_3_RSTSEQ_DONE BIT(11)
+>   
+> -/**
+> +/*
+>    * Histogram DSPP done interrupt status bit definitions
+>    */
+>   #define DPU_INTR_HIST_DSPP_0_DONE BIT(12)
+> @@ -143,7 +143,7 @@
+>   #define DPU_INTR_HIST_DSPP_2_DONE BIT(20)
+>   #define DPU_INTR_HIST_DSPP_3_DONE BIT(22)
+>   
+> -/**
+> +/*
+>    * Histogram DSPP reset Sequence done interrupt status bit definitions
+>    */
+>   #define DPU_INTR_HIST_DSPP_0_RSTSEQ_DONE BIT(13)
+> @@ -151,7 +151,7 @@
+>   #define DPU_INTR_HIST_DSPP_2_RSTSEQ_DONE BIT(21)
+>   #define DPU_INTR_HIST_DSPP_3_RSTSEQ_DONE BIT(23)
+>   
+> -/**
+> +/*
+>    * INTF interrupt status bit definitions
+>    */
+>   #define DPU_INTR_VIDEO_INTO_STATIC BIT(0)
+> @@ -164,7 +164,7 @@
+>   #define DPU_INTR_DSICMD_2_OUTOF_STATIC BIT(7)
+>   #define DPU_INTR_PROG_LINE BIT(8)
+>   
+> -/**
+> +/*
+>    * AD4 interrupt status bit definitions
+>    */
+>   #define DPU_INTR_BACKLIGHT_UPDATED BIT(0)
+> 
+
+
+-- 
+With best wishes
+Dmitry
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
