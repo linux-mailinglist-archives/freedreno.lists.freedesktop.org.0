@@ -1,64 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4D6A39AF3A
-	for <lists+freedreno@lfdr.de>; Fri,  4 Jun 2021 02:51:37 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B154A39B06A
+	for <lists+freedreno@lfdr.de>; Fri,  4 Jun 2021 04:32:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 729426F54D;
-	Fri,  4 Jun 2021 00:51:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 029A36F565;
+	Fri,  4 Jun 2021 02:32:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CB6F6F54C
- for <freedreno@lists.freedesktop.org>; Fri,  4 Jun 2021 00:51:35 +0000 (UTC)
-Received: by mail-lj1-x22b.google.com with SMTP id p20so9391321ljj.8
- for <freedreno@lists.freedesktop.org>; Thu, 03 Jun 2021 17:51:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=CT2K/qS5lVIs3YEMDQdZKAD8IbCCmQONZ9+FgWAvX24=;
- b=JOmB2bGuNQSVZesELXq7kgWG5GtOYXhL8kI/x3kQrNHvB7/M6fmmDaKhhsnlOeywzR
- pUWUYbqF8f/aZ27tG2QiZSg793i3bBd89UkP2aCQMm5cKEQE5LRgha9N8azIYpZ8EnMA
- Q932dDMGQt4UMgB1aq/XdlGEPRXTXr6HdmazmGBQ0P5LYdc8lP9NKZngQMYq51XpNB9r
- O6uX2Tb3t4YL84IRQYvvC6SaUJMr9PDp5zC6rZ9dMfVRGi2UfwghPuN7hZRGsndI0ST+
- PFhY2vqVwNrjH6h+YtALzUeOMjHf94TJ72x3BWZxTFWYyzd7pyDDb6VcXkVM3HXJ48SV
- RKhg==
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [IPv6:2a00:1450:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E45186F565;
+ Fri,  4 Jun 2021 02:32:51 +0000 (UTC)
+Received: by mail-wm1-x335.google.com with SMTP id
+ v206-20020a1cded70000b02901a586d3fa23so473729wmg.4; 
+ Thu, 03 Jun 2021 19:32:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=XfVLX4YtEZs428uaQPfb/mY1tDAn6l5ncSwMdycpblI=;
+ b=p5drJ8OPu0/hfTaQXi2OyrCV3UE0/bcH3ckTmA6EC2x2//1neicrguJZw+egplGj7e
+ cbrQ9OpDwX1uZqU9IGP7ncGktMXUx4UviQhIeb20d06j/E5NfmU1+gfXjEag7tXpmj+I
+ i2uG7BIAYtnWU4xdCU0QenmkqC2pTBAEcWq0SuNYcncS1waJTJcR4CZZZqIqul4845tD
+ wlf1Kv9hg49UzNfmMHyN5Geif4mqiUUMBRTbyMWtjpNgrIrS5Npb17wxil5Gpc4cXEhd
+ ye7CeseV4uBnq37kFnGOz1WtIqvJPs60R9aq1HK4S3jxjF2K6Udk3uDqLlPin73no4HA
+ VOUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=CT2K/qS5lVIs3YEMDQdZKAD8IbCCmQONZ9+FgWAvX24=;
- b=fFQ/vQ1pnPbt3Qx3PPLMqEI1lv5NguaGq17hD5MqVXnfTql4r7Mwa4O4eNBw+KbYMf
- psDuMFKOMsNtlW5q6F1F1wJn4hmpDlIMVh8Owy3Adx3HytbLhsRkQ+9t7t3280SWi+Kg
- lfXg6CgfPEgjn/8MfUlo+ZqhBb+CxEgRpqQTtkUFA+hOCxYzlGWx14SZYM7AHPcqkdTt
- SrasQz1Ms0w7S9D6KVDwKBIffoE6djzDb+u/XsB690ZLP4U31ow44FG6inIRBQY1FYFV
- zvuz+SOgPbf4K9C44jqpo0Q839rlHZe1Zzcv6ysobaonwRfjnM1PgyUzGYQ7ZYzH+Dad
- jHCQ==
-X-Gm-Message-State: AOAM531kmkMBZ6APzQdswdZW4ulOZdwyiBxVEQ9xlnr4jcXOtrilLUzy
- Fef7agZ0l/6Q3kc8mVOaiSf0XXBH1Qe/xQ==
-X-Google-Smtp-Source: ABdhPJwqxUWLj44z5pV1IxYjRC/4BbSsQYK/woXmzbgMRsur3QtiLC9JK1TbDTSqoIVXvRm2UjIBew==
-X-Received: by 2002:a2e:350f:: with SMTP id z15mr1394722ljz.303.1622767893346; 
- Thu, 03 Jun 2021 17:51:33 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id d24sm459811lfn.213.2021.06.03.17.51.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 03 Jun 2021 17:51:33 -0700 (PDT)
-To: Lee Jones <lee.jones@linaro.org>
-References: <20210602143300.2330146-1-lee.jones@linaro.org>
- <20210602143300.2330146-15-lee.jones@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <c6f630b6-715a-2dec-0b91-f918adcbdbd3@linaro.org>
-Date: Fri, 4 Jun 2021 03:51:29 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=XfVLX4YtEZs428uaQPfb/mY1tDAn6l5ncSwMdycpblI=;
+ b=M5fqAk0cLQxvghFMoBHmiEApZkTeY9L+xFEnvvasdmMN0Jtzp2mFC5pPTJW81slH/D
+ 8H3pdpDcaHqZgCEvSCYGP9vGhD7Xo3xRy8OQ+VfH1hzWkggymWUAtav5tBHUw+q0/dkX
+ u/KQJz5DJlm4ZfMf1wik+WxZ2qPI7s6R4KG+UtNMWc/3rDUAzNmPmgSkxsk03VcSkI6y
+ eqHTGliOS+xyYZUgdxMS7sEZ4XUdadsvvAQc1FK0j1sMz+4EeTJbS/3589gshKA62xZE
+ ysmgqbdP8q8+lxlNQbS14fKIIwP7/w4O4+Hbw5o+Qe/PlbzJB4eR1I7QiZ0Mr9MCpGMe
+ oY+A==
+X-Gm-Message-State: AOAM531o+oSwzpf7UZSYrb1FKIqByRY53e7KVy5fHIdpIFE2yTQqWluH
+ LnodIYhiRIe7X7EIIGRHigtgs0GSZqYGiFxcNak=
+X-Google-Smtp-Source: ABdhPJxmpIfDqZXuShm76OqWvHKkOU4l5zonimZqTYUKsjU+Sqv/oJyOxy/U8P1238Okoxuj2H3MGCtE1stmFsOfTU4=
+X-Received: by 2002:a05:600c:2054:: with SMTP id
+ p20mr843886wmg.175.1622773970471; 
+ Thu, 03 Jun 2021 19:32:50 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20210602143300.2330146-15-lee.jones@linaro.org>
-Content-Language: en-GB
-Subject: Re: [Freedreno] [RESEND 14/26] drm/msm/dp/dp_link: Fix some
- potential doc-rot
+References: <20210521124946.3617862-1-vkoul@kernel.org>
+ <CAOCk7Nqep_Db+z3fr5asHZ1u0j8+6fKkPFs2Ai8CbA_zGqV6ZA@mail.gmail.com>
+ <YK3gxqXBRupN/N+Q@vkoul-mobl.Dlink>
+ <CAOCk7NqvhGvYw8xCBctqj7H+o-Qwp2UuUJK1gatW9EWfXv56xA@mail.gmail.com>
+ <CAF6AEGuoyPr8PgfwFX0JCYZ7S_pryn_OXacHBqoMAAPvSq6aRw@mail.gmail.com>
+ <YLdlEB3Ea6OWaLw4@vkoul-mobl>
+In-Reply-To: <YLdlEB3Ea6OWaLw4@vkoul-mobl>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 3 Jun 2021 19:36:42 -0700
+Message-ID: <CAF6AEGvS2uL1eEeCKQ5wDX4+yRZuOTHzFOv9Kiu09HO2r9xzHQ@mail.gmail.com>
+To: Vinod Koul <vkoul@kernel.org>
+Subject: Re: [Freedreno] [RFC PATCH 00/13] drm/msm: Add Display Stream
+ Compression Support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,77 +68,64 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Kuogee Hsieh <khsieh@codeaurora.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>, Chandan Uddaraju <chandanu@codeaurora.org>
+Cc: DTML <devicetree@vger.kernel.org>, Jonathan Marek <jonathan@marek.ca>,
+ Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, David Airlie <airlied@linux.ie>,
+ MSM <linux-arm-msm@vger.kernel.org>, lkml <linux-kernel@vger.kernel.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
+ "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 02/06/2021 17:32, Lee Jones wrote:
-> Fixes the following W=1 kernel build warning(s):
-> 
->   drivers/gpu/drm/msm/dp/dp_link.c:374: warning: expecting prototype for dp_parse_video_pattern_params(). Prototype was for dp_link_parse_video_pattern_params() instead
->   drivers/gpu/drm/msm/dp/dp_link.c:573: warning: expecting prototype for dp_parse_phy_test_params(). Prototype was for dp_link_parse_phy_test_params() instead
->   drivers/gpu/drm/msm/dp/dp_link.c:975: warning: expecting prototype for dp_link_process_downstream_port_status_change(). Prototype was for dp_link_process_ds_port_status_change() instead
-> 
-> Cc: Rob Clark <robdclark@gmail.com>
-> Cc: Sean Paul <sean@poorly.run>
-> Cc: David Airlie <airlied@linux.ie>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: Chandan Uddaraju <chandanu@codeaurora.org>
-> Cc: Kuogee Hsieh <khsieh@codeaurora.org>
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: freedreno@lists.freedesktop.org
-> Signed-off-by: Lee Jones <lee.jones@linaro.org>
+On Wed, Jun 2, 2021 at 4:01 AM Vinod Koul <vkoul@kernel.org> wrote:
+>
+> On 27-05-21, 16:30, Rob Clark wrote:
+> > On Wed, May 26, 2021 at 8:00 AM Jeffrey Hugo <jeffrey.l.hugo@gmail.com> wrote:
+> > > On Tue, May 25, 2021 at 11:46 PM Vinod Koul <vkoul@kernel.org> wrote:
+>
+> > > Frankly, I don't like the MSM ACPI solution that I've seen on the laptops.
+> > > The ACPI assumes the entire MDSS (including DSI parts) and GPU is one
+> > > device, and ultimately handled by one driver.  That driver needs to
+> > > get a value from UEFI (set by the bootloader) that is the "panel id".
+> > > Then the driver calls into ACPI (I think its _ROM, but I might be
+> > > mistaken, doing this from memory) with that id.  It gets back a binary
+> > > blob which is mostly an xml file (format is publicly documented) that
+> > > contains the panel timings and such.
+> >
+> > tbh, I kinda suspect that having a single "gpu" device (which also
+> > includes venus, in addition to display, IIRC) in the ACPI tables is a
+> > windowsism, trying to make things look to userspace like a single "GPU
+> > card" in the x86 world.. but either way, I think the ACPI tables on
+> > the windows arm laptops which use dsi->bridge->edp is too much of a
+> > lost cause to even consider here.  Possibly ACPI boot on these devices
+> > would be more feasible on newer devices which have direct eDP out of
+> > the SoC without requiring external bridge/panel glue.
+>
+> yeah that is always a very different world. although it might make sense
+> to use information in tables and try to deduce information about the
+> system can be helpful...
+>
+> > I'd worry more about what makes sense in a DT world, when it comes to
+> > DT bindings.
+>
+> And do you have thoughts on that..?
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Only that I wouldn't get too hung up on existing snapdragon ACPI
+tables.. not sure if there is prior art as far as ACPI tables for this
+on x86 systems, if so that *might* be a thing to consider, but
+otherwise it does sound a bit like we want less qcom specific bindings
+here.  But other than that I'll leave it to folks who spend more time
+thinking about bindings.. left to my own devices I'd come up with a
+point solution and go back to working on mesa, so that probably isn't
+the opinion you want to follow ;-)
 
-> ---
->   drivers/gpu/drm/msm/dp/dp_link.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
-> index be986da78c4a5..1099604bd1c86 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_link.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_link.c
-> @@ -364,7 +364,7 @@ static int dp_link_parse_timing_params3(struct dp_link_private *link,
->   }
->   
->   /**
-> - * dp_parse_video_pattern_params() - parses video pattern parameters from DPCD
-> + * dp_link_parse_video_pattern_params() - parses video pattern parameters from DPCD
->    * @link: Display Port Driver data
->    *
->    * Returns 0 if it successfully parses the video link pattern and the link
-> @@ -563,7 +563,7 @@ static int dp_link_parse_link_training_params(struct dp_link_private *link)
->   }
->   
->   /**
-> - * dp_parse_phy_test_params() - parses the phy link parameters
-> + * dp_link_parse_phy_test_params() - parses the phy link parameters
->    * @link: Display Port Driver data
->    *
->    * Parses the DPCD (Byte 0x248) for the DP PHY link pattern that is being
-> @@ -961,7 +961,7 @@ static int dp_link_process_link_status_update(struct dp_link_private *link)
->   }
->   
->   /**
-> - * dp_link_process_downstream_port_status_change() - process port status changes
-> + * dp_link_process_ds_port_status_change() - process port status changes
->    * @link: Display Port Driver data
->    *
->    * This function will handle downstream port updates that are initiated by
-> 
-
-
--- 
-With best wishes
-Dmitry
+BR,
+-R
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
