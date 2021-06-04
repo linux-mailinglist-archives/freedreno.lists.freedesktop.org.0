@@ -2,56 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEEBD39AEE1
-	for <lists+freedreno@lfdr.de>; Fri,  4 Jun 2021 01:49:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B950139AF35
+	for <lists+freedreno@lfdr.de>; Fri,  4 Jun 2021 02:49:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F02D6F544;
-	Thu,  3 Jun 2021 23:49:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64E816F54C;
+	Fri,  4 Jun 2021 00:49:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 440346F542
- for <freedreno@lists.freedesktop.org>; Thu,  3 Jun 2021 23:49:44 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1622764184; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=o1I/qHRsZyVY+hH5gJnA9ezwSvhf5J73xu0kbc1BX7o=;
- b=knC794oOjBuiFygAZkFzjD3FYRSEhKoNr3dNIpy3xo/XhxMczDwbTk4u+uFDmfFSpyfpH2Ay
- 5irPm773QjfsRtkTuQxjM+E9lUqiaN1/1mAhbSv54Pz3X3r2h2MqkRw/Oxll6PZMZi/CN6dM
- L6Nb/QV9IYJbK7tGWWsjOEA3gDA=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
- 60b96a972eaeb98b5e7ff8a1 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 03 Jun 2021 23:49:43
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 6A353C433F1; Thu,  3 Jun 2021 23:49:43 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
-Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id BF34BC433D3;
- Thu,  3 Jun 2021 23:49:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org BF34BC433D3
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=khsieh@codeaurora.org
-From: Kuogee Hsieh <khsieh@codeaurora.org>
-To: robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- vkoul@kernel.org, agross@kernel.org, bjorn.andersson@linaro.org
-Date: Thu,  3 Jun 2021 16:49:34 -0700
-Message-Id: <1622764174-10309-1-git-send-email-khsieh@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-Subject: [Freedreno] [PATCH v5] drm/msm/dp: power off DP phy at suspend
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E5DC6F54C
+ for <freedreno@lists.freedesktop.org>; Fri,  4 Jun 2021 00:49:55 +0000 (UTC)
+Received: by mail-lf1-x136.google.com with SMTP id f30so11554279lfj.1
+ for <freedreno@lists.freedesktop.org>; Thu, 03 Jun 2021 17:49:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=Iwimm5kt1cPOS3WktKznx8Tm3YSJawu3yuys6bu5NIU=;
+ b=Gs5lp5tfCZGV7HaOOLREF2vdGYMqTNw3RNRfVR02KWcpUPpLyAkDZxU7KzZFEpILnW
+ TS0t5Tw3jHP2Ob59G1pCQ6LYWQnMUKiuyHK3lTTIefXm7iqwG9uq0eGTtxJAGrSis2Ek
+ NgYpfpSBSpngnF6vNhFkr+azyg64Nbj9wU4YUX7k4Dz0Mu3a5c83ByA1JJIQ++3PzJA6
+ vDwZiKtp6AAOuGW+JBWR48V9np7igTsW2Fn7/DOOm8HTKOkQD5ZzGiEpusGlmlULy59v
+ kW8Wrs3I4DQqP6mQqK141gPFmWUyx5cOt7ntAA6X/nilYQsGyV/6fTzlwq5TQsgRvMrV
+ 133A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=Iwimm5kt1cPOS3WktKznx8Tm3YSJawu3yuys6bu5NIU=;
+ b=bKpBmiUN5NC2BmTVCVd18y20UQ0HoZMn7FwX5Yam1nk9MuqMjWkISnDoq9I/R3kEDz
+ c7Cap7YBV8xPLN6L4IuatFqWRc2ONf9bbS8ijnmagrm6xMBtIhz38E2uWljs4aCiC5lc
+ /8nxmHMus1XUnuv/1R8Jk7NAkWJomVLnG8FNhLNtttJ4hSqUQlo9OfKHto6xwwSz3r5d
+ 5v8cSA/d6ptpsEyXJbEdc0T/6bPMpakHdMT6M/J1CxSLdEfdVbPDHAfleVmW0cabVY6O
+ ZIhKXMsm9luChg9pK6IjshKxsQ2LsJfGPUmL5OavH0iqy6X3jkMetubTYC9icBVwSGjP
+ baug==
+X-Gm-Message-State: AOAM532s6ltKiY10mCe0fBJaK0eEYZltowzyRo9Z9SGOBm8qDEMZ2iLF
+ xlm4R6oeNE5ZjIkfc5Y7lK/tEA==
+X-Google-Smtp-Source: ABdhPJweJXWYYmQjui7kNiJ8H+bSQ43RmGPF8suRIMZscFcJCMH54wVPsAk3g0wsQCdvPIOhcg2PRA==
+X-Received: by 2002:a05:6512:32ab:: with SMTP id
+ q11mr961056lfe.21.1622767793930; 
+ Thu, 03 Jun 2021 17:49:53 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id p26sm448515ljn.33.2021.06.03.17.49.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 03 Jun 2021 17:49:53 -0700 (PDT)
+To: Lee Jones <lee.jones@linaro.org>
+References: <20210602143300.2330146-1-lee.jones@linaro.org>
+ <20210602143300.2330146-13-lee.jones@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <b506aea4-0612-0ac4-1ef2-45b0cc80e7f1@linaro.org>
+Date: Fri, 4 Jun 2021 03:49:52 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
+MIME-Version: 1.0
+In-Reply-To: <20210602143300.2330146-13-lee.jones@linaro.org>
+Content-Language: en-GB
+Subject: Re: [Freedreno] [RESEND 12/26] drm/msm/msm_gem: Demote kernel-doc
+ abuses
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,97 +72,51 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, khsieh@codeaurora.org,
- abhinavk@codeaurora.org, aravindh@codeaurora.org,
- freedreno@lists.freedesktop.org
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ linaro-mm-sig@lists.linaro.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Normal DP suspend operation contains two steps, display off followed
-by dp suspend, to complete system wide suspending cycle if display is
-up at that time. In this case, DP phy will be powered off at display
-off. However there is an exception case that depending on the timing
-of dongle plug in during system wide suspending, sometimes display off
-procedure may be skipped and dp suspend was called directly. In this
-case, dp phy is stay at powered on (phy->power_count = 1) so that at
-next resume dp driver crash at main link clock enable due to phy is
-not physically powered on. This patch will call dp_ctrl_off_link_stream()
-to tear down main link and power off phy at dp_pm_suspend() if main link
-had been brought up.
-
-Changes in V2:
--- stashed changes into dp_ctrl.c
--- add is_phy_on to monitor phy state
-
-Changes in V3:
--- delete is_phy_on
--- call dp_ctrl_off_link_stream() from dp_pm_suspend()
-
-Changes in V4:
--- delete changes made at dp_power.c
--- move main link status checking to dp_pm_suspend
-
-Changes in V5:
--- correct commit id at Fixes tag
-
-Fixes: 8dbde399044b ("drm/msm/dp: handle irq_hpd with sink_count = 0 correctly)
-Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
-Tested-by: Stephen Boyd <swboyd@chromium.org>
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
----
- drivers/gpu/drm/msm/dp/dp_ctrl.c    | 10 ++++++----
- drivers/gpu/drm/msm/dp/dp_display.c |  7 ++++++-
- 2 files changed, 12 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index dbd8943..caf71fa 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1827,10 +1827,12 @@ int dp_ctrl_off_link_stream(struct dp_ctrl *dp_ctrl)
- 
- 	dp_catalog_ctrl_mainlink_ctrl(ctrl->catalog, false);
- 
--	ret = dp_power_clk_enable(ctrl->power, DP_STREAM_PM, false);
--	if (ret) {
--		DRM_ERROR("Failed to disable pixel clocks. ret=%d\n", ret);
--		return ret;
-+	if (dp_power_clk_status(ctrl->power, DP_STREAM_PM)) {
-+		ret = dp_power_clk_enable(ctrl->power, DP_STREAM_PM, false);
-+		if (ret) {
-+			DRM_ERROR("Failed to disable pclk. ret=%d\n", ret);
-+			return ret;
-+		}
- 	}
- 
- 	ret = dp_power_clk_enable(ctrl->power, DP_CTRL_PM, false);
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index cdec0a3..9c59def 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -1327,8 +1327,13 @@ static int dp_pm_suspend(struct device *dev)
- 
- 	mutex_lock(&dp->event_mutex);
- 
--	if (dp->core_initialized == true)
-+	if (dp->core_initialized == true) {
-+		/* mainlink enabled */
-+		if (dp_power_clk_status(dp->power, DP_CTRL_PM))
-+			dp_ctrl_off_link_stream(dp->ctrl);
-+
- 		dp_display_host_deinit(dp);
-+	}
- 
- 	dp->hpd_state = ST_SUSPENDED;
- 
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
-
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+T24gMDIvMDYvMjAyMSAxNzozMiwgTGVlIEpvbmVzIHdyb3RlOgo+IEZpeGVzIHRoZSBmb2xsb3dp
+bmcgVz0xIGtlcm5lbCBidWlsZCB3YXJuaW5nKHMpOgo+IAo+ICAgZHJpdmVycy9ncHUvZHJtL21z
+bS9tc21fZ2VtLmM6MzY0OiB3YXJuaW5nOiBUaGlzIGNvbW1lbnQgc3RhcnRzIHdpdGggJy8qKics
+IGJ1dCBpc24ndCBhIGtlcm5lbC1kb2MgY29tbWVudC4gUmVmZXIgRG9jdW1lbnRhdGlvbi9kb2Mt
+Z3VpZGUva2VybmVsLWRvYy5yc3QKPiAgIGRyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2dlbS5jOjc2
+Mzogd2FybmluZzogVGhpcyBjb21tZW50IHN0YXJ0cyB3aXRoICcvKionLCBidXQgaXNuJ3QgYSBr
+ZXJuZWwtZG9jIGNvbW1lbnQuIFJlZmVyIERvY3VtZW50YXRpb24vZG9jLWd1aWRlL2tlcm5lbC1k
+b2MucnN0Cj4gCj4gQ2M6IFJvYiBDbGFyayA8cm9iZGNsYXJrQGdtYWlsLmNvbT4KPiBDYzogU2Vh
+biBQYXVsIDxzZWFuQHBvb3JseS5ydW4+Cj4gQ2M6IERhdmlkIEFpcmxpZSA8YWlybGllZEBsaW51
+eC5pZT4KPiBDYzogRGFuaWVsIFZldHRlciA8ZGFuaWVsQGZmd2xsLmNoPgo+IENjOiBTdW1pdCBT
+ZW13YWwgPHN1bWl0LnNlbXdhbEBsaW5hcm8ub3JnPgo+IENjOiAiQ2hyaXN0aWFuIEvDtm5pZyIg
+PGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPiBDYzogbGludXgtYXJtLW1zbUB2Z2VyLmtlcm5l
+bC5vcmcKPiBDYzogZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IENjOiBmcmVlZHJl
+bm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gQ2M6IGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9y
+Zwo+IENjOiBsaW5hcm8tbW0tc2lnQGxpc3RzLmxpbmFyby5vcmcKPiBTaWduZWQtb2ZmLWJ5OiBM
+ZWUgSm9uZXMgPGxlZS5qb25lc0BsaW5hcm8ub3JnPgoKUmV2aWV3ZWQtYnk6IERtaXRyeSBCYXJ5
+c2hrb3YgPGRtaXRyeS5iYXJ5c2hrb3ZAbGluYXJvLm9yZz4KCj4gLS0tCj4gICBkcml2ZXJzL2dw
+dS9kcm0vbXNtL21zbV9nZW0uYyB8IDQgKystLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0
+aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L21zbS9tc21fZ2VtLmMgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9nZW0uYwo+IGluZGV4IDU2
+ZGY4NmU1Zjc0MDAuLjE1NDM0ZGViMTkzMzQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L21zbS9tc21fZ2VtLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9nZW0uYwo+IEBA
+IC0zNzIsNyArMzcyLDcgQEAgc3RhdGljIHZvaWQgZGVsX3ZtYShzdHJ1Y3QgbXNtX2dlbV92bWEg
+KnZtYSkKPiAgIAlrZnJlZSh2bWEpOwo+ICAgfQo+ICAgCj4gLS8qKgo+ICsvKgo+ICAgICogSWYg
+Y2xvc2UgaXMgdHJ1ZSwgdGhpcyBhbHNvIGNsb3NlcyB0aGUgVk1BIChyZWxlYXNpbmcgdGhlIGFs
+bG9jYXRlZAo+ICAgICogaW92YSByYW5nZSkgaW4gYWRkaXRpb24gdG8gcmVtb3ZpbmcgdGhlIGlv
+bW11IG1hcHBpbmcuICBJbiB0aGUgZXZpY3Rpb24KPiAgICAqIGNhc2UgKCFjbG9zZSksIHdlIGtl
+ZXAgdGhlIGlvdmEgYWxsb2NhdGVkLCBidXQgb25seSByZW1vdmUgdGhlIGlvbW11Cj4gQEAgLTc3
+Myw3ICs3NzMsNyBAQCB2b2lkIG1zbV9nZW1fcHVyZ2Uoc3RydWN0IGRybV9nZW1fb2JqZWN0ICpv
+YmopCj4gICAJCQkwLCAobG9mZl90KS0xKTsKPiAgIH0KPiAgIAo+IC0vKioKPiArLyoKPiAgICAq
+IFVucGluIHRoZSBiYWNraW5nIHBhZ2VzIGFuZCBtYWtlIHRoZW0gYXZhaWxhYmxlIHRvIGJlIHN3
+YXBwZWQgb3V0Lgo+ICAgICovCj4gICB2b2lkIG1zbV9nZW1fZXZpY3Qoc3RydWN0IGRybV9nZW1f
+b2JqZWN0ICpvYmopCj4gCgoKLS0gCldpdGggYmVzdCB3aXNoZXMKRG1pdHJ5Cl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxp
+c3QKRnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVubwo=
