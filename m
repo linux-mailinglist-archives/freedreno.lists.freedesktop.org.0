@@ -2,59 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2C8C39CB2E
-	for <lists+freedreno@lfdr.de>; Sat,  5 Jun 2021 23:25:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1144B39CD60
+	for <lists+freedreno@lfdr.de>; Sun,  6 Jun 2021 07:07:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D8196E1F4;
-	Sat,  5 Jun 2021 21:25:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 512256E514;
+	Sun,  6 Jun 2021 05:07:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F26F988A33
- for <freedreno@lists.freedesktop.org>; Sat,  5 Jun 2021 21:25:40 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id x196so13324392oif.10
- for <freedreno@lists.freedesktop.org>; Sat, 05 Jun 2021 14:25:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to; bh=nDGVMkwUgwdjkEH0hG7ASi22La0UWmLtqIvR+gpN50c=;
- b=BTK1W0VgQTwdsUqPJC2JMeWQHe/oG0sV0uSI7t/AuJN4FhyLldkvR/V50OgZ1WkQ3Y
- E2KIBDbE8jzDxK1L8GQj9FHWF9sbHqjk03gw52+j1vksR4WcFb8pBAhOtA6ILoPRRF/5
- Fu0bRbfzhLXQVRZQLg4nMWzU19aRBMl0wGMo8=
+Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
+ [IPv6:2607:f8b0:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 931556E514
+ for <freedreno@lists.freedesktop.org>; Sun,  6 Jun 2021 05:07:12 +0000 (UTC)
+Received: by mail-oi1-x234.google.com with SMTP id v22so14506914oic.2
+ for <freedreno@lists.freedesktop.org>; Sat, 05 Jun 2021 22:07:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=yS6q0T3N9afYQN5HdfWE5z7pv3ReU18X80dOdXsawn0=;
+ b=F2tuo+vePIjuZq6maCAptHCP9qgP3Apo2dhGkToFBYsgQdS2L6KJYf4SOxlHZjH2q3
+ EZ3tuCclRrjKH1U+Q8NXEqvjUwcKpxhUOhlP4Ocs5B8IwJwNKBJnPWswJTXxLPh2Rns0
+ ahKPWlSSOGkau6mcxd86A91vqGNXDSRwgWCuhlS7UZJLhpeuwJt8OyLa8GREd4p3Efrg
+ scPUoR8t+/KNb/DMHoL1gVHTkMrQlVzE+KhkPPvMmQa7W70sa3W2fFiCXGiJ30oT9SYm
+ 9pnWP5wM1ur9GWhqelEhR4TcHMr6Gz2FUnMjHk6Yyq9E6FptvVK1nmQIi70zdgjQCu2q
+ qc8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to;
- bh=nDGVMkwUgwdjkEH0hG7ASi22La0UWmLtqIvR+gpN50c=;
- b=VQhWTMXObNaP/IvnP0Xo43dg9bx3/QnH5OH4wU6tuoV6uj7V6DW3i2VFdP9lg0nE4M
- 31RdHPBcM4V5REiFDSpYagmfc54nC/yzCY79luiw5YyP0IXuRIe749WwH7QeZ2hD52eW
- CmG4I0DvogpIR45D737Z/eVY5BS3JoXa8iFPmLlmgyT9qAG4w5Vd2KfK2jBNrt5/w7pT
- MLQq0g8Q3KS5MPzYhlKJ4sU5EMNtUzzhDDclvOfdVJlTgelnvcHHjd34Sug/NSuiSi2W
- lQxyUYlwaBsh1L/FUDg5+u+Hm8Ypgwk5p7FJRMq8/XbROo08I10+EnO0q+zj/xwk+Z2k
- byAQ==
-X-Gm-Message-State: AOAM5332KIQTWJwSC0GL/WkMgKYz1RKPj2uvITV0cXsG/YJ1BNtiUbsq
- f7dz1dGqKZ12oXVVSHRCSCz7Vk2uoASZkNi7klvflw==
-X-Google-Smtp-Source: ABdhPJwqWjgtkV6EVmyoaOkoIT65rH0dn9l4jgw00hx1mo9ouL6X8MY7KOpfRx2AQCm8fVUEz37W3iRqokSQ23ETSXo=
-X-Received: by 2002:a05:6808:144e:: with SMTP id
- x14mr15519145oiv.166.1622928340013; 
- Sat, 05 Jun 2021 14:25:40 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Sat, 5 Jun 2021 21:25:39 +0000
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=yS6q0T3N9afYQN5HdfWE5z7pv3ReU18X80dOdXsawn0=;
+ b=OWk9zUFh0BaphGn3sxKwXKr0LFQ0MGY2IyYOkg7Q7z0PIMnRYqEBAorrEERO9+6rJf
+ dz1cdr1FjvPrnK6L640/+L5bLQH0ijt70bSUcXG5lD/Gc1q3WuBsbtS8FlqUXNLrUCFI
+ X/D5Z+K+X6nRh04Mhwd7y6PfSKjuO1Ci5Q4XCpF33vR5yUhnHQQ3aLURttpuQ7utB9DL
+ RnqGo7W8jC1dCuGNUf7CrjUKorRZIJ6iyeC4tvo3sAsfCLUa1c4inUsegjneyVluYQE6
+ hXQ/Hj2WO9ogjMzLjtn+a5IBI/Ud56mnPOAd6w9E0ljjIF71FtPuZfaNxtRPtL2owuzx
+ cTdg==
+X-Gm-Message-State: AOAM532pWgd7PzyjfaHiYSGIOv3Nt7kga0dy7B5mUePVk1jQ2zhuhCno
+ lvw0oJPbt/oqnmz3GJhCoMC5YQ==
+X-Google-Smtp-Source: ABdhPJxq+wFGA2yHIm0XUjuXzAIZpsyd09ngggNZe3/Va1Pg+/uWCcOXkmOOvCcKNZfj57WIIzO/AA==
+X-Received: by 2002:a54:4e82:: with SMTP id c2mr15961103oiy.137.1622956031734; 
+ Sat, 05 Jun 2021 22:07:11 -0700 (PDT)
+Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
+ [104.57.184.186])
+ by smtp.gmail.com with ESMTPSA id 123sm555226ooe.24.2021.06.05.22.07.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 05 Jun 2021 22:07:11 -0700 (PDT)
+Date: Sun, 6 Jun 2021 00:07:09 -0500
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: khsieh@codeaurora.org
+Message-ID: <YLxX/YtegtbLmkri@builder.lan>
+References: <1622736555-15775-1-git-send-email-khsieh@codeaurora.org>
+ <YLkI/6ItCz+SbbuJ@yoga>
+ <ac326ec8689c0babb08b2311e19d52cc@codeaurora.org>
 MIME-Version: 1.0
-In-Reply-To: <20210605123543.8986-1-bernard@vivo.com>
-References: <20210605123543.8986-1-bernard@vivo.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Sat, 5 Jun 2021 21:25:39 +0000
-Message-ID: <CAE-0n513KEA+_5m=X1EKjnAbVVAeGXADqJ+S=Hs+E9cr7gEzJQ@mail.gmail.com>
-To: Abhinav Kumar <abhinavk@codeaurora.org>, Bernard Zhao <bernard@vivo.com>, 
- Chandan Uddaraju <chandanu@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@linux.ie>, Guenter Roeck <groeck@chromium.org>, 
- Kuogee Hsieh <khsieh@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [Freedreno] [PATCH] drm/msm: remove no need local variable
+Content-Disposition: inline
+In-Reply-To: <ac326ec8689c0babb08b2311e19d52cc@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH v2] arm64/dts/qcom/sc7180: Add Display Port
+ dt node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,23 +70,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: devicetree@vger.kernel.org, freedreno@lists.freedesktop.org,
+ vkoul@kernel.org, robh+dt@kernel.org, swboyd@chromium.org, robdclark@gmail.com,
+ agross@kernel.org, abhinavk@codeaurora.org, linux-arm-msm@vger.kernel.org,
+ aravindh@codeaurora.org, sean@poorly.run, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Bernard Zhao (2021-06-05 05:35:20)
-> Unneeded variable: "ret". Return "0" on line 880
+On Thu 03 Jun 16:56 CDT 2021, khsieh@codeaurora.org wrote:
 
-But the variable is "rc".
+> On 2021-06-03 09:53, Bjorn Andersson wrote:
+> > On Thu 03 Jun 11:09 CDT 2021, Kuogee Hsieh wrote:
+[..]
+> > > diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
+[..]
+> > > +				power-domains = <&rpmhpd SC7180_CX>;
+> > 
+> > Just curious, but isn't the DP block in the MDSS_GDCS? Or do we need to
+> > mention CX here in order for the opp framework to apply required-opps
+> > of CX?
+> 
+> yes,
 
->
-> Signed-off-by: Bernard Zhao <bernard@vivo.com>
-> ---
+If you want me, or other maintainers, to spend any time reviewing or
+applying your patches going forward then you need to actually bother
+replying properly to the questions asked.
 
-Otherwise
-
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Thanks,
+Bjorn
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
