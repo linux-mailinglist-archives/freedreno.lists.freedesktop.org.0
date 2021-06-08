@@ -1,66 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0064639EA27
-	for <lists+freedreno@lfdr.de>; Tue,  8 Jun 2021 01:31:53 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E98739EB5A
+	for <lists+freedreno@lfdr.de>; Tue,  8 Jun 2021 03:29:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5092F6E442;
-	Mon,  7 Jun 2021 23:31:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18F9B6EA7D;
+	Tue,  8 Jun 2021 01:28:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
- [IPv6:2607:f8b0:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E56916E442
- for <freedreno@lists.freedesktop.org>; Mon,  7 Jun 2021 23:31:50 +0000 (UTC)
-Received: by mail-ot1-x32a.google.com with SMTP id
- 5-20020a9d01050000b02903c700c45721so17435698otu.6
- for <freedreno@lists.freedesktop.org>; Mon, 07 Jun 2021 16:31:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=pYTvT9ubISsRaLeWVshLEwMcGZ3wwUzz5ZnXQAq/G5Q=;
- b=hZzVb3AlblV3JxW9qSZuCfP960vfYcWuKgRWH3bncsPDWCOejXYZ091GYK1SsVvu5g
- ru4/preWElYvWI6qTf3C5f6mF3hI0Tm9eL3d5/zk+96tSrWoAS2+6lTy24rzRzrJT8XR
- 6hhfrdEf16V1ZVw+vjKiNwtYqntlBVwPbyB9fSsXQOQtEv7YY49NYodA3uUryk6TUTa5
- YpK0lgMwpZXYF3z4hqK2LcP/BL1x96fIVakOkPerSpNlHfYyAROKz05e9e6ZT4Yx5SNH
- xrbJBKTlCMdhUqiN0tirP1SvqPYyHSquSORt/6crQnlBuvfpA/redOIjhCo7v3Pur4HC
- 9C/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=pYTvT9ubISsRaLeWVshLEwMcGZ3wwUzz5ZnXQAq/G5Q=;
- b=gqEFgfQAOIqSx3egLpUVUFTCE2mKZ1pi7teJSc0oEO+PjT8LtaUBlnsPKxMjsa2g3g
- cOldzuxARh8gOL1Yf/H2SEY/qfQVwHsGG5LpJ9Z69CR/+qLKbHO6zOMIxx1t8481Jvxw
- SkJtQP11KoHKhtD7NBPljJC6J0UIjJd3RFxPQhehZnkGziv4WTCUCW+UVxjkXZTQdyW2
- tizg6Wx+FY4/XH2+SD0lpiJ0u4Xr8Unzh44cj0tRK+9PBGp6DuHGCDMpnw+zfayGLUOf
- uMlGBtVh7vvcv4o6Y2e9EtJrmQizrVweElfPeNBsz0Fv7gDk/Uww0FXi+RkqJolUf0I4
- +AJw==
-X-Gm-Message-State: AOAM530l9fZ4McAZ6dkLZJcxdo8Z+w+hgCV/2h1WJdkx8S7fYtcVTPyo
- HVoy94V8uneaOMsQvAYuXAYo5A==
-X-Google-Smtp-Source: ABdhPJzYINdaU88ZN26yUyqgewxkKu3o9+qJRNCObFoRd1mEFTKoDvaEpnIK1T2HLIM/JP+kh+DtNQ==
-X-Received: by 2002:a9d:5e8c:: with SMTP id f12mr15592500otl.18.1623108710244; 
- Mon, 07 Jun 2021 16:31:50 -0700 (PDT)
-Received: from yoga (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id 15sm2571809oij.26.2021.06.07.16.31.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Jun 2021 16:31:49 -0700 (PDT)
-Date: Mon, 7 Jun 2021 18:31:47 -0500
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: khsieh@codeaurora.org, swboyd@chromium.org
-Message-ID: <YL6sY/1E5wLzMiP/@yoga>
-References: <1622736555-15775-1-git-send-email-khsieh@codeaurora.org>
- <YLkI/6ItCz+SbbuJ@yoga>
- <ac326ec8689c0babb08b2311e19d52cc@codeaurora.org>
- <YLxX/YtegtbLmkri@builder.lan>
- <ef1879fa7ecfefaf0c70c7a4782240a9@codeaurora.org>
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4C6B6EA7D
+ for <freedreno@lists.freedesktop.org>; Tue,  8 Jun 2021 01:28:54 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1623115738; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=ALppXYAn0VcZBVpBHjzjYENlrHw1CZzy97XnmejR2Bw=;
+ b=Dp9umtjaJAP0PaGMu9ILCxl0OMmXiY0AYUGFNPMroraa1YyOLgO2hSLEUyvkQykdbS5NDyy1
+ EaAKr3lZ1//kuVVRJnrhXSHz3GKfDTkBKFZLHv/ts3FneewJtsATfaHyXe6hF+rb+U/CqK75
+ gexTzF0SSLhsmVVQYFZm9t9xA4U=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
+ 60bec7b8ed59bf69cc9e910a (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 08 Jun 2021 01:28:24
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id C31C8C433F1; Tue,  8 Jun 2021 01:28:24 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 72B28C433D3;
+ Tue,  8 Jun 2021 01:28:22 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ef1879fa7ecfefaf0c70c7a4782240a9@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v2] arm64/dts/qcom/sc7180: Add Display Port
- dt node
+Date: Mon, 07 Jun 2021 18:28:22 -0700
+From: abhinavk@codeaurora.org
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20210607230021.2193253-1-dmitry.baryshkov@linaro.org>
+References: <20210607230021.2193253-1-dmitry.baryshkov@linaro.org>
+Message-ID: <41cdc58d1d1189dbf2ea9e46aefc840e@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v3] drm/msm/dsi: add continuous clock
+ support for 7nm PHY
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,61 +63,256 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, freedreno@lists.freedesktop.org,
- vkoul@kernel.org, robh+dt@kernel.org, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, agross@kernel.org, abhinavk@codeaurora.org,
- linux-arm-msm@vger.kernel.org, aravindh@codeaurora.org, sean@poorly.run
-Content-Type: text/plain; charset="us-ascii"
+Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
+ Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ David Airlie <airlied@linux.ie>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon 07 Jun 12:48 CDT 2021, khsieh@codeaurora.org wrote:
-
-> On 2021-06-05 22:07, Bjorn Andersson wrote:
-> > On Thu 03 Jun 16:56 CDT 2021, khsieh@codeaurora.org wrote:
-> > 
-> > > On 2021-06-03 09:53, Bjorn Andersson wrote:
-> > > > On Thu 03 Jun 11:09 CDT 2021, Kuogee Hsieh wrote:
-> > [..]
-> > > > > diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-> > [..]
-> > > > > +				power-domains = <&rpmhpd SC7180_CX>;
-> > > >
-> > > > Just curious, but isn't the DP block in the MDSS_GDCS? Or do we need to
-> > > > mention CX here in order for the opp framework to apply required-opps
-> > > > of CX?
-> > > 
-> > > yes,
-> > 
-> > If you want me, or other maintainers, to spend any time reviewing or
-> > applying your patches going forward then you need to actually bother
-> > replying properly to the questions asked.
-> > 
-> > Thanks,
-> > Bjorn
+On 2021-06-07 16:00, Dmitry Baryshkov wrote:
+> Unlike previous generations, 7nm PHYs are required to collaborate with
+> the host for conitnuos clock mode. Add changes neccessary to enable
+"the host for continuous clock mode"
+> continuous clock mode in the 7nm DSI PHYs.
 > 
-> Sorry about the confusion. What I meant is that even though DP controller is
-> in the MDSS_GDSC
-> power domain, DP PHY/PLL sources out of CX. The DP link clocks have a direct
-> impact
-> on the CX voltage corners. Therefore, we need to mention the CX power domain
-> here. And, since
-> we can associate only one OPP table with one device, we picked the DP link
-> clock over other
-> clocks.
-
-Thank you, that's a much more useful answer.
-
-Naturally I would think it would make more sense for the PHY/PLL driver
-to ensure that CX is appropriately voted for then, but I think that
-would result in it being the clock driver performing such vote and I'm
-unsure how the opp table for that would look.
-
-@Stephen, what do you say?
-
-Regards,
-Bjorn
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+> 
+> Changes since v2:
+>  - Really drop msm_dsi_phy_needs_hs_phy_sel()
+> 
+> Changes since v1:
+>  - Remove the need for a separate msm_dsi_phy_needs_hs_phy_sel() call
+>  - Fix setting continuous clock for a dual DSI case.
+Maybe I am missing something but I cannot find this part of the change.
+What has been fixed for dual DSI?
+> 
+> ---
+>  drivers/gpu/drm/msm/dsi/dsi.h             |  3 ++-
+>  drivers/gpu/drm/msm/dsi/dsi.xml.h         |  1 +
+>  drivers/gpu/drm/msm/dsi/dsi_host.c        | 12 ++++++++----
+>  drivers/gpu/drm/msm/dsi/dsi_manager.c     |  4 ++--
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy.c     |  9 +++++++++
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy.h     |  1 +
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 17 +++++++++++++++++
+>  7 files changed, 40 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h 
+> b/drivers/gpu/drm/msm/dsi/dsi.h
+> index 7abfeab08165..5be458c701d2 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi.h
+> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
+> @@ -108,7 +108,7 @@ int msm_dsi_host_enable(struct mipi_dsi_host 
+> *host);
+>  int msm_dsi_host_disable(struct mipi_dsi_host *host);
+>  int msm_dsi_host_power_on(struct mipi_dsi_host *host,
+>  			struct msm_dsi_phy_shared_timings *phy_shared_timings,
+> -			bool is_dual_dsi);
+> +			bool is_dual_dsi, struct msm_dsi_phy *phy);
+>  int msm_dsi_host_power_off(struct mipi_dsi_host *host);
+>  int msm_dsi_host_set_display_mode(struct mipi_dsi_host *host,
+>  				  const struct drm_display_mode *mode);
+> @@ -173,6 +173,7 @@ int msm_dsi_phy_get_clk_provider(struct msm_dsi_phy 
+> *phy,
+>  	struct clk **byte_clk_provider, struct clk **pixel_clk_provider);
+>  void msm_dsi_phy_pll_save_state(struct msm_dsi_phy *phy);
+>  int msm_dsi_phy_pll_restore_state(struct msm_dsi_phy *phy);
+> +bool msm_dsi_phy_set_continuous_clock(struct msm_dsi_phy *phy, bool 
+> enable);
+> 
+>  #endif /* __DSI_CONNECTOR_H__ */
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi.xml.h
+> b/drivers/gpu/drm/msm/dsi/dsi.xml.h
+> index 50eb4d1b8fdd..9762af6035e9 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi.xml.h
+> +++ b/drivers/gpu/drm/msm/dsi/dsi.xml.h
+> @@ -510,6 +510,7 @@ static inline uint32_t
+> DSI_CLKOUT_TIMING_CTRL_T_CLK_POST(uint32_t val)
+>  #define DSI_LANE_STATUS_DLN0_DIRECTION				0x00010000
+> 
+>  #define REG_DSI_LANE_CTRL					0x000000a8
+> +#define DSI_LANE_CTRL_HS_REQ_SEL_PHY				0x01000000
+>  #define DSI_LANE_CTRL_CLKLN_HS_FORCE_REQUEST			0x10000000
+> 
+>  #define REG_DSI_LANE_SWAP_CTRL					0x000000ac
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index 41e1d0f7ab6e..50be935edcad 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -835,7 +835,7 @@ static inline enum dsi_cmd_dst_format 
+> dsi_get_cmd_fmt(
+>  }
+> 
+>  static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool 
+> enable,
+> -			struct msm_dsi_phy_shared_timings *phy_shared_timings)
+> +			struct msm_dsi_phy_shared_timings *phy_shared_timings, struct
+> msm_dsi_phy *phy)
+>  {
+>  	u32 flags = msm_host->mode_flags;
+>  	enum mipi_dsi_pixel_format mipi_fmt = msm_host->format;
+> @@ -930,6 +930,10 @@ static void dsi_ctrl_config(struct msm_dsi_host
+> *msm_host, bool enable,
+> 
+>  	if (!(flags & MIPI_DSI_CLOCK_NON_CONTINUOUS)) {
+>  		lane_ctrl = dsi_read(msm_host, REG_DSI_LANE_CTRL);
+> +
+> +		if (msm_dsi_phy_set_continuous_clock(phy, enable))
+> +			lane_ctrl |= DSI_LANE_CTRL_HS_REQ_SEL_PHY;
+> +
+Not sure how I missed this in the prev patch but for enabling continuous 
+clock mode for new PHY, you need to clear bit 24
+and not set it. If you set it, it goes back to legacy mode ( older 
+method of continuous clock mode )
+>  		dsi_write(msm_host, REG_DSI_LANE_CTRL,
+>  			lane_ctrl | DSI_LANE_CTRL_CLKLN_HS_FORCE_REQUEST);
+>  	}
+> @@ -2360,7 +2364,7 @@ static void msm_dsi_sfpb_config(struct
+> msm_dsi_host *msm_host, bool enable)
+> 
+>  int msm_dsi_host_power_on(struct mipi_dsi_host *host,
+>  			struct msm_dsi_phy_shared_timings *phy_shared_timings,
+> -			bool is_dual_dsi)
+> +			bool is_dual_dsi, struct msm_dsi_phy *phy)
+>  {
+>  	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+>  	const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
+> @@ -2400,7 +2404,7 @@ int msm_dsi_host_power_on(struct mipi_dsi_host 
+> *host,
+> 
+>  	dsi_timing_setup(msm_host, is_dual_dsi);
+>  	dsi_sw_reset(msm_host);
+> -	dsi_ctrl_config(msm_host, true, phy_shared_timings);
+> +	dsi_ctrl_config(msm_host, true, phy_shared_timings, phy);
+> 
+>  	if (msm_host->disp_en_gpio)
+>  		gpiod_set_value(msm_host->disp_en_gpio, 1);
+> @@ -2431,7 +2435,7 @@ int msm_dsi_host_power_off(struct mipi_dsi_host 
+> *host)
+>  		goto unlock_ret;
+>  	}
+> 
+> -	dsi_ctrl_config(msm_host, false, NULL);
+> +	dsi_ctrl_config(msm_host, false, NULL, NULL);
+> 
+>  	if (msm_host->disp_en_gpio)
+>  		gpiod_set_value(msm_host->disp_en_gpio, 0);
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> index e138a0c16085..cc18ea2b244c 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> @@ -382,7 +382,7 @@ static void dsi_mgr_bridge_pre_enable(struct
+> drm_bridge *bridge)
+>  	if (is_dual_dsi && !IS_MASTER_DSI_LINK(id))
+>  		return;
+> 
+> -	ret = msm_dsi_host_power_on(host, &phy_shared_timings[id], 
+> is_dual_dsi);
+> +	ret = msm_dsi_host_power_on(host, &phy_shared_timings[id],
+> is_dual_dsi, msm_dsi->phy);
+>  	if (ret) {
+>  		pr_err("%s: power on host %d failed, %d\n", __func__, id, ret);
+>  		goto host_on_fail;
+> @@ -390,7 +390,7 @@ static void dsi_mgr_bridge_pre_enable(struct
+> drm_bridge *bridge)
+> 
+>  	if (is_dual_dsi && msm_dsi1) {
+>  		ret = msm_dsi_host_power_on(msm_dsi1->host,
+> -				&phy_shared_timings[DSI_1], is_dual_dsi);
+> +				&phy_shared_timings[DSI_1], is_dual_dsi, msm_dsi1->phy);
+>  		if (ret) {
+>  			pr_err("%s: power on host1 failed, %d\n",
+>  							__func__, ret);
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> index ccbd19f7d9cf..1b11c0337a59 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> @@ -851,6 +851,15 @@ void msm_dsi_phy_set_usecase(struct msm_dsi_phy 
+> *phy,
+>  		phy->usecase = uc;
+>  }
+> 
+> +/* Returns true if we have to enable DSI_LANE_CTRL.HS_REQ_SEL_PHY */
+> +bool msm_dsi_phy_set_continuous_clock(struct msm_dsi_phy *phy, bool 
+> enable)
+> +{
+> +	if (!phy || !phy->cfg->ops.set_continuous_clock)
+> +		return false;
+> +
+> +	return phy->cfg->ops.set_continuous_clock(phy, enable);
+> +}
+> +
+>  int msm_dsi_phy_get_clk_provider(struct msm_dsi_phy *phy,
+>  	struct clk **byte_clk_provider, struct clk **pixel_clk_provider)
+>  {
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+> b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+> index 94a77ac364d3..08e516d0dac4 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+> @@ -24,6 +24,7 @@ struct msm_dsi_phy_ops {
+>  	void (*disable)(struct msm_dsi_phy *phy);
+>  	void (*save_pll_state)(struct msm_dsi_phy *phy);
+>  	int (*restore_pll_state)(struct msm_dsi_phy *phy);
+> +	bool (*set_continuous_clock)(struct msm_dsi_phy *phy, bool enable);
+>  };
+> 
+>  struct msm_dsi_phy_cfg {
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+> b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+> index e76ce40a12ab..310b15653fa3 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+> @@ -930,6 +930,21 @@ static int dsi_7nm_phy_enable(struct msm_dsi_phy 
+> *phy,
+>  	return 0;
+>  }
+> 
+> +static bool dsi_7nm_set_continuous_clock(struct msm_dsi_phy *phy, bool 
+> enable)
+> +{
+> +	void __iomem *base = phy->base;
+> +	u32 data;
+> +
+> +	data = dsi_phy_read(base + REG_DSI_7nm_PHY_CMN_LANE_CTRL1);
+> +	if (enable)
+> +		data |= BIT(5) | BIT(6);
+> +	else
+> +		data &= ~(BIT(5) | BIT(6));
+> +	dsi_phy_write(base + REG_DSI_7nm_PHY_CMN_LANE_CTRL1, data);
+> +
+> +	return enable;
+> +}
+> +
+>  static void dsi_7nm_phy_disable(struct msm_dsi_phy *phy)
+>  {
+>  	void __iomem *base = phy->base;
+> @@ -970,6 +985,7 @@ const struct msm_dsi_phy_cfg dsi_phy_7nm_cfgs = {
+>  		.pll_init = dsi_pll_7nm_init,
+>  		.save_pll_state = dsi_7nm_pll_save_state,
+>  		.restore_pll_state = dsi_7nm_pll_restore_state,
+> +		.set_continuous_clock = dsi_7nm_set_continuous_clock,
+>  	},
+>  	.min_pll_rate = 600000000UL,
+>  	.max_pll_rate = (5000000000ULL < ULONG_MAX) ? 5000000000ULL : 
+> ULONG_MAX,
+> @@ -992,6 +1008,7 @@ const struct msm_dsi_phy_cfg dsi_phy_7nm_8150_cfgs 
+> = {
+>  		.pll_init = dsi_pll_7nm_init,
+>  		.save_pll_state = dsi_7nm_pll_save_state,
+>  		.restore_pll_state = dsi_7nm_pll_restore_state,
+> +		.set_continuous_clock = dsi_7nm_set_continuous_clock,
+>  	},
+>  	.min_pll_rate = 1000000000UL,
+>  	.max_pll_rate = 3500000000UL,
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
