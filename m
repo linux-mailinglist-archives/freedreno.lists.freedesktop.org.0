@@ -1,52 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A65039FFDA
-	for <lists+freedreno@lfdr.de>; Tue,  8 Jun 2021 20:38:11 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C64293A0439
+	for <lists+freedreno@lfdr.de>; Tue,  8 Jun 2021 21:55:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 068B96EC36;
-	Tue,  8 Jun 2021 18:38:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 486616EAAE;
+	Tue,  8 Jun 2021 19:55:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09B1C6E204;
- Tue,  8 Jun 2021 18:38:05 +0000 (UTC)
-Received: by mail-wm1-x333.google.com with SMTP id
- l7-20020a05600c1d07b02901b0e2ebd6deso2557005wms.1; 
- Tue, 08 Jun 2021 11:38:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=0CZ6zsGDL077ByflUrLGblxh/3X5AA+P2DAAGI3NXok=;
- b=sh0LqyQtNIoetbCxFUgG84dH7ZbOYOa62Ty1uLs4FCfZ1ubBk/A+6hOml0hlDrdptD
- 5gxXQu+GevHgG5IvY+WbYbW1WZfiiOujM1wyNvP6N1JecArV+Hk9ZXM00q4V+TmsQSEp
- W4Xex8rsdScBOLi/gkcLhPHz29z2t2rlr7xtH0tS/S9jhRve8vxQSI5WKFj+oW8Xkjkr
- ePuOvRhVB54d6M7rcpa9Umt20eIqz9kWa63oFuSJOca/IjQcWnk5kDZfVrIGIdRrxttN
- 24eMbbMcPqlYwHnTHCb0ZFyO2iBMCOpGaS3eQ5zfo3t+Z8hVIxUvj8RgiQa/4eRY1YvL
- pkUg==
+Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
+ [IPv6:2607:f8b0:4864:20::735])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F21596E5B6
+ for <freedreno@lists.freedesktop.org>; Tue,  8 Jun 2021 19:55:32 +0000 (UTC)
+Received: by mail-qk1-x735.google.com with SMTP id i68so17874798qke.3
+ for <freedreno@lists.freedesktop.org>; Tue, 08 Jun 2021 12:55:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=marek-ca.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=HN/dADQ65ljJkOdLNlsYJNf64TdCy5snXLeJXI/fSws=;
+ b=tl6qBfeR1ctMdKOjD5T7yqHao2tzBYPwBZ6V7bhuPFKO/eH0NCRXEHAZNCBXm21vh6
+ y+Jo6Lh2RnmrDGBcqsjKAkzFJkxr7aCjm19n/+UXJWae4U8zd3GMNLBODNvdGNIICjan
+ Wk01zjyEh80E5jQGbtt4eSMWfBMj5BCcLPr4/vsqVc0SFWUjvYYTR9eqwatQ4qyUsDYL
+ sxqIeBRVaLxnIVC4Ae/NGANFJ25uT7q1kEcFs/0s6XMesfA4z/g4NGVZz7hBQ3g+TxFz
+ vHekfmbcapwt4zasp8IASP5xmqq0xOkziXoyPB9saT/TMxZVUKM94a6nnAJqepFv06za
+ AT0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=0CZ6zsGDL077ByflUrLGblxh/3X5AA+P2DAAGI3NXok=;
- b=KuKpUaDcI58HYyP166ObTgythMkglXIN9aoo/02T2xoLz0q9yzU/83a90mCKV8GRIJ
- b2P/9XEJu4wak1pB1edL+YFab9a/2nGe+BcKvL5QQlPJ0kFNZebfBHzaipOPO4cOXiLg
- Gznx3yBMXCjtyK+jDnA7EY7Nlya4TUWlG++FEwkF1hUjYMLrqvG/WitqV9WvSv5B9INb
- 4BfasLXagLKAvcauX9nptTauU54ncRnRgtH5DGIhXw9zHyCje/0coAS2UkyU5TP4iYtZ
- 3oro/FQlUoIaL/QnMr5x32qF6Mv0wp/hraH7Wwihl+4CEwtmGzflvbhGksPx/zyJWFtH
- BQQA==
-X-Gm-Message-State: AOAM532Mi6yntaQHwmFKR+mOLdCBvaDL1426U8o+3qiXCK1B7Pta3F1G
- 1R4Fzjt8B3AUOvTVvI19c41mkwMI1ZmJGFa2L52YgkqxjOM=
-X-Google-Smtp-Source: ABdhPJxirZxedUoMUQETD/MhwZmMGfn6CphqaZt114BgCS8pQ+KfftTNOsK/xpk8l3/hTzrnzM6lvKzLDPEs4UxwBfE=
-X-Received: by 2002:a05:600c:1c84:: with SMTP id
- k4mr5862126wms.164.1623177484616; 
- Tue, 08 Jun 2021 11:38:04 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=HN/dADQ65ljJkOdLNlsYJNf64TdCy5snXLeJXI/fSws=;
+ b=nN4O7ht1TiWiDvnhqfZsKENqkddev3+7zkimcCE3U+woS96ySZiLTC0xNDnCuzDBgY
+ NTGIXhhKcsvU+b20qtzgqNQD1iFdj1yN/wpbUzOdvji1Gh1CuoTbs6rQn6H8VyILZG6L
+ k4Uu3cgEYqHJBFGoZfvFo9Cm//7fYbrjn4j94GPSZDUqcoH+FNg5RV0nt98z9rI+oiHY
+ l4afg/YaBXPhkLKf+H4WfBqLjZuPpIo9ytPJtSOHFpWNmD0a7kEKNfMytuv2wK0BN+qA
+ YdfMEdk4kqJ55RFpWo8TuVPXtX63v1OqjFA/dqXCe3N0D5FjwzfJc/ACnwEF0tsw6r9I
+ j1ZQ==
+X-Gm-Message-State: AOAM533XBJQbHRFvcfTyHPeRCo7XTXWy+BFkFdeVwbGy5oJmoo/rmV1I
+ HxYqz7b3tZG3PBs21tpm89GK3vvumBNvrCnYr4U7DA==
+X-Google-Smtp-Source: ABdhPJxCiMcEk4rEfSFxoc9MLYPAFpeFQHE1XQnjKYvFYU9dDovhkcdD8gGzWd5X3y+DjjX9qqPZtw==
+X-Received: by 2002:a37:d58:: with SMTP id 85mr20317382qkn.414.1623182131919; 
+ Tue, 08 Jun 2021 12:55:31 -0700 (PDT)
+Received: from localhost.localdomain
+ (modemcable068.184-131-66.mc.videotron.ca. [66.131.184.68])
+ by smtp.gmail.com with ESMTPSA id l141sm643687qke.48.2021.06.08.12.55.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Jun 2021 12:55:31 -0700 (PDT)
+From: Jonathan Marek <jonathan@marek.ca>
+To: freedreno@lists.freedesktop.org
+Date: Tue,  8 Jun 2021 15:53:26 -0400
+Message-Id: <20210608195342.18269-1-jonathan@marek.ca>
+X-Mailer: git-send-email 2.26.1
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 8 Jun 2021 11:41:58 -0700
-Message-ID: <CAF6AEGsyenBs3hmEzPZ445JWpCaUR7Pm1e232oOYMmdpgovKkw@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Subject: [Freedreno] [pull v2] drm/msm: msm-fixes-v5.13-rc6 for v5.13-rc6
+Subject: [Freedreno] [PATCH v3 0/3] drm/msm/dsi: support CPHY mode for 7nm
+ pll/phy
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,48 +67,58 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ Anurag Kumar Vulisha <anurag.kumar.vulisha@xilinx.com>,
+ Vinod Koul <vkoul@kernel.org>, David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Konrad Dybcio <konradybcio@gmail.com>, Abhinav Kumar <abhinavk@codeaurora.org>,
  Jordan Crouse <jordan@cosmicpenguin.net>,
- dri-devel <dri-devel@lists.freedesktop.org>,
+ Rikard Falkeborn <rikard.falkeborn@gmail.com>, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Swapnil Jakhade <sjakhade@cadence.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+ Rajendra Nayak <rnayak@codeaurora.org>, Sean Paul <sean@poorly.run>,
+ open list <linux-kernel@vger.kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave & Daniel,
+Add the required changes to support 7nm pll/phy in CPHY mode.
 
-A few late fixes for v5.13
+This adds a "qcom,dsi-phy-cphy-mode" property for the PHY node to enable
+the CPHY mode.
 
-The following changes since commit f2f46b878777e0d3f885c7ddad48f477b4dea247:
+v2:
+ - rebased on DSI PHY reworks
+ - reworked getting cphy_mode in dsi_host.c
+ - documentation change in separate patch
 
-  drm/msm/dp: initialize audio_comp when audio starts (2021-05-06
-16:26:57 -0700)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/msm.git msm-fixes-v5.13-rc6
-
-for you to fetch changes up to ce86c239e4d218ae6040bec18e6d19a58edb8b7c:
-
-  drm/msm/a6xx: avoid shadow NULL reference in failure path
-(2021-06-08 11:26:45 -0700)
-
-----------------------------------------------------------------
-Alexey Minnekhanov (1):
-      drm/msm: Init mm_list before accessing it for use_vram path
+v3:
+ - yaml bindings
+ - changed binding to "phy-mode = <PHY_TYPE_DSI_CPHY>;"
 
 Jonathan Marek (3):
-      drm/msm/a6xx: update/fix CP_PROTECT initialization
-      drm/msm/a6xx: fix incorrectly set uavflagprd_inv field for A650
-      drm/msm/a6xx: avoid shadow NULL reference in failure path
+  dt-bindings: msm: dsi: add missing 7nm bindings
+  dt-bindings: msm: dsi: document phy-type property for 7nm dsi phy
+  drm/msm/dsi: support CPHY mode for 7nm pll/phy
 
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 155 +++++++++++++++++++++++++---------
- drivers/gpu/drm/msm/adreno/a6xx_gpu.h |   2 +-
- drivers/gpu/drm/msm/msm_gem.c         |   7 ++
- 3 files changed, 122 insertions(+), 42 deletions(-)
+ .../bindings/display/msm/dsi-phy-7nm.yaml     |  70 +++++++++
+ drivers/gpu/drm/msm/dsi/dsi.xml.h             |   2 +
+ drivers/gpu/drm/msm/dsi/dsi_host.c            |  34 +++-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c         |  49 ++++++
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h         |   3 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c     | 145 ++++++++++++------
+ include/dt-bindings/phy/phy.h                 |   2 +
+ 7 files changed, 258 insertions(+), 47 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+
+-- 
+2.26.1
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
