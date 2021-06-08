@@ -1,60 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65A3539FD9E
-	for <lists+freedreno@lfdr.de>; Tue,  8 Jun 2021 19:30:01 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id D770139FDA1
+	for <lists+freedreno@lfdr.de>; Tue,  8 Jun 2021 19:30:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AEAC6E3F7;
-	Tue,  8 Jun 2021 17:30:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E4EE6E558;
+	Tue,  8 Jun 2021 17:30:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com
- [IPv6:2607:f8b0:4864:20::f2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F0926E3F7
- for <freedreno@lists.freedesktop.org>; Tue,  8 Jun 2021 17:29:59 +0000 (UTC)
-Received: by mail-qv1-xf2b.google.com with SMTP id w4so3790179qvr.11
- for <freedreno@lists.freedesktop.org>; Tue, 08 Jun 2021 10:29:59 -0700 (PDT)
+Received: from mail-qv1-xf30.google.com (mail-qv1-xf30.google.com
+ [IPv6:2607:f8b0:4864:20::f30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E67E46E55E
+ for <freedreno@lists.freedesktop.org>; Tue,  8 Jun 2021 17:30:01 +0000 (UTC)
+Received: by mail-qv1-xf30.google.com with SMTP id 5so952081qvf.1
+ for <freedreno@lists.freedesktop.org>; Tue, 08 Jun 2021 10:30:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=marek-ca.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=BWdUHYABGQBcW7qRBGmaQ5V1B5iD59ixtAUGymm7Ips=;
- b=mglUamcHTUrXGpi+HCG4/zPyEt9p5+jjSw5pKHrNurnvu3bcDgrxFYpXjKpGggjJx6
- 6RPbSO9qTt4hBl8Ye2MyxoOuaimqaREYHCv37Q2Jt/ib859AAHLd7rrJdo80ASyeDVpc
- HfcLSx5eelQ2wIx4QjIgEuf311i8Y+V27Z9Mpx7oFtmMxnmArhSYFKA7IzVCh70pyHg7
- 0lFZvEfQOTwhI0JuVf5kWIeKUI3DQogAWbyIS2EXPUbOOnnFrDgXbkbHvynIx38IW7uy
- nSXrwk9lJL+OIl3dv95Sp7NUZ3sxSODWklHH1vdxOzZzYZtuWxE+QDOynawVlLFxO7ZQ
- 9Dsw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=cw/T67Raxlwp2J/xqRY1bIakrTpt8tOc7nmYdzBT6xs=;
+ b=1T31TM63QiG2dKOFLdxurQr/m4Jmu5IwlHOD35wSveX6hm7+yCwgqyYw4UCKmYnBra
+ XsSY4CZA+kc/UHkyzOTr4jFaB1xQRBcUJFpppcq85vuGfL8yN42svxL6IvzlEO0DYMC9
+ qudTb9KNNaXpopN/T/MiY7NCPyZC1M/5+jR2RWEqHoKfT+H3+L/jsjTbIo69Ic194UPm
+ motbyKq9g//QQaFnXILWb6bl8i9EJukaHvgaGkdWK5bs3/OrGnsRkqOiLJALl/7A7iNE
+ hIReNAt5rWTFND601Yn8TT2tEHWuM56boRjYz/SFlXwCzFWK9E+Qpn9meiyYgs0n9QOx
+ nYcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=BWdUHYABGQBcW7qRBGmaQ5V1B5iD59ixtAUGymm7Ips=;
- b=j76dBB7gXGbOlc+0z0Ni7OjWFg48gyng2VaWKSKlqUj3g7DGf06RFOEo+bDlkY436Z
- bb0ioGD0hf/nfnqxRwbB093IcXxv9DisAHCmVu+EEiZz7QXt7wzULteIPfXA4ynPz4Z4
- yRQnIpuBtthbkEEI6FIRGldrXcf00PlcBn6URyYEFZ1vAcygqki9tjrPLKptjaHffF6/
- WL7y/xRG2yDh1takuw+ISChDE9HrjtfOMb6eaYYyWpw3tkxYwsZuP1xHRGZzq55pEoVM
- Tqv5Wzk47I/aDMfDAajQauGrAnh3+HpzEULXOhIk7jSuXDnYRBptlnW8Y/WEEzfQAdd8
- SN9A==
-X-Gm-Message-State: AOAM533VJV4OoKV9x9Hhk0Lb90cW6T6M84LoWZQaGmufEbGWGvp+fI7c
- Ix7Mu1za4qaDJ8V26z+1USlOVbOlFmhx6niGuOeDfA==
-X-Google-Smtp-Source: ABdhPJwPXyMpb5YGJUaGlRRkmOL/YvWlumWst7ROm74Bh2SYd/HotIbTV3dBNM9mXCb4dj9OoNzMQA==
-X-Received: by 2002:a0c:d809:: with SMTP id h9mr1194440qvj.47.1623173398195;
- Tue, 08 Jun 2021 10:29:58 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=cw/T67Raxlwp2J/xqRY1bIakrTpt8tOc7nmYdzBT6xs=;
+ b=T9H7YSE5BoKKeLes6wMl55v5U52gM14g3rmlQHDmA10RwPbNBsTsNwEsRW8bHCUoRt
+ tRbdYrW3Botdtj+0dn1r7FigjmHX8S2zZueG1GP/zwbXDk/YBaIC8T9LxoQOlIzL6IIn
+ Q6q0Pt6sp/Av6zlbo+QkShwi1r/qOOwdFbX0YON7yH5s6GYdh/6jmfpSKQBL77oY6Drr
+ Aq0p9AHi5PMkTSXf1T9zXm+rbR5L0sgHq7xZCqaIytqdzAJRCCBa5FTl6gpNbEgprmka
+ i7lzeCSCeosDJXI8SOIZ/uJyfSyseLXTO1s6+uK9xg0aFn0HZ5ZmY7SZj3yvTJV5No6C
+ 5Izg==
+X-Gm-Message-State: AOAM530g6rLyuyEjuE/KF6aAcPsVh6WJXL04UvTEUVdFqH6tTkoqEfQ2
+ D/R1c55yjkUo2MYfWSfklRNQm89znQ1XnB3klu0SkA==
+X-Google-Smtp-Source: ABdhPJy3w3HKrVCLTroG4bo1kOv1Rypz99JMObgdkPPBnC36pyGLQe2FP3KEN4BIeSxcP+h24xA/HA==
+X-Received: by 2002:a0c:f650:: with SMTP id s16mr1269451qvm.0.1623173400924;
+ Tue, 08 Jun 2021 10:30:00 -0700 (PDT)
 Received: from localhost.localdomain
  (modemcable068.184-131-66.mc.videotron.ca. [66.131.184.68])
- by smtp.gmail.com with ESMTPSA id d10sm9482983qke.47.2021.06.08.10.29.56
+ by smtp.gmail.com with ESMTPSA id d10sm9482983qke.47.2021.06.08.10.29.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Jun 2021 10:29:57 -0700 (PDT)
+ Tue, 08 Jun 2021 10:30:00 -0700 (PDT)
 From: Jonathan Marek <jonathan@marek.ca>
 To: freedreno@lists.freedesktop.org
-Date: Tue,  8 Jun 2021 13:27:43 -0400
-Message-Id: <20210608172808.11803-1-jonathan@marek.ca>
+Date: Tue,  8 Jun 2021 13:27:44 -0400
+Message-Id: <20210608172808.11803-2-jonathan@marek.ca>
 X-Mailer: git-send-email 2.26.1
+In-Reply-To: <20210608172808.11803-1-jonathan@marek.ca>
+References: <20210608172808.11803-1-jonathan@marek.ca>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v3 0/5] drm/msm/a6xx: add support for Adreno 660
- GPU
+Subject: [Freedreno] [PATCH v3 1/5] drm/msm: remove unused
+ icc_path/ocmem_icc_path
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,56 +70,60 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Douglas Anderson <dianders@chromium.org>, David Airlie <airlied@linux.ie>,
+ David Airlie <airlied@linux.ie>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
  Sharat Masetty <smasetty@codeaurora.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
  Akhil P Oommen <akhilpo@codeaurora.org>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Eric Anholt <eric@anholt.net>,
- Rob Clark <robdclark@gmail.com>, Iskren Chernev <iskren.chernev@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Dave Airlie <airlied@redhat.com>, Jordan Crouse <jordan@cosmicpenguin.net>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Dave Airlie <airlied@redhat.com>,
  Sean Paul <sean@poorly.run>, open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add support for Adreno 660 to the drm/msm driver. Very similar to A650
-on the kernel side.
+These aren't used by anything anymore.
 
-v2:
- - added AOP PDC path for a650 and use it for a660 too
- - fix UBWC config for a650 (also affects a660)
- - add CP_PROTECT update, and corresponding a660 settings in A660 patch
+Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+Reviewed-by: Akhil P Oommen <akhilpo@codeaurora.org>
+---
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 3 ---
+ drivers/gpu/drm/msm/msm_gpu.h           | 9 ---------
+ 2 files changed, 12 deletions(-)
 
-v3:
- - removed patches already picked up by robclark
- - added patches for missing PC_DBG_ECO_CNTL/GMU_CX_FALNEXT_INTF settings
- - changed a660_protect to exclude CP_PERFCTR_CP_SEL
- - removed 635 id from adreno_is_a650_family
- - squashed a660 patches
-
-Jonathan Marek (5):
-  drm/msm: remove unused icc_path/ocmem_icc_path
-  drm/msm/a6xx: use AOP-initialized PDC for a650
-  drm/msm/a6xx: add GMU_CX_GMU_CX_FALNEXT_INTF write for a650
-  drm/msm/a6xx: add missing PC_DBG_ECO_CNTL bit for a640/a650
-  drm/msm/a6xx: add support for Adreno 660 GPU
-
- drivers/gpu/drm/msm/adreno/a6xx.xml.h      |   4 +
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c      |  53 +++++--
- drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h  |   2 +
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 172 +++++++++++++++++----
- drivers/gpu/drm/msm/adreno/a6xx_hfi.c      |  33 ++++
- drivers/gpu/drm/msm/adreno/adreno_device.c |  13 ++
- drivers/gpu/drm/msm/adreno/adreno_gpu.c    |   5 +-
- drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  13 +-
- drivers/gpu/drm/msm/msm_gpu.h              |   9 --
- 9 files changed, 248 insertions(+), 56 deletions(-)
-
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index 8fd0777f2dc9..009f4c560f16 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -946,7 +946,4 @@ void adreno_gpu_cleanup(struct adreno_gpu *adreno_gpu)
+ 	pm_runtime_disable(&priv->gpu_pdev->dev);
+ 
+ 	msm_gpu_cleanup(&adreno_gpu->base);
+-
+-	icc_put(gpu->icc_path);
+-	icc_put(gpu->ocmem_icc_path);
+ }
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index 18baf935e143..c302ab7ffb06 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -118,15 +118,6 @@ struct msm_gpu {
+ 	struct clk *ebi1_clk, *core_clk, *rbbmtimer_clk;
+ 	uint32_t fast_rate;
+ 
+-	/* The gfx-mem interconnect path that's used by all GPU types. */
+-	struct icc_path *icc_path;
+-
+-	/*
+-	 * Second interconnect path for some A3xx and all A4xx GPUs to the
+-	 * On Chip MEMory (OCMEM).
+-	 */
+-	struct icc_path *ocmem_icc_path;
+-
+ 	/* Hang and Inactivity Detection:
+ 	 */
+ #define DRM_MSM_INACTIVE_PERIOD   66 /* in ms (roughly four frames) */
 -- 
 2.26.1
 
