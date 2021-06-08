@@ -2,65 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E39F039FE7B
-	for <lists+freedreno@lfdr.de>; Tue,  8 Jun 2021 20:05:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2C4E39FF04
+	for <lists+freedreno@lfdr.de>; Tue,  8 Jun 2021 20:25:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F9456EABC;
-	Tue,  8 Jun 2021 18:05:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8215A6EABC;
+	Tue,  8 Jun 2021 18:25:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x82c.google.com (mail-qt1-x82c.google.com
- [IPv6:2607:f8b0:4864:20::82c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F15536EC26
- for <freedreno@lists.freedesktop.org>; Tue,  8 Jun 2021 18:05:25 +0000 (UTC)
-Received: by mail-qt1-x82c.google.com with SMTP id 93so8622237qtc.10
- for <freedreno@lists.freedesktop.org>; Tue, 08 Jun 2021 11:05:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=marek-ca.20150623.gappssmtp.com; s=20150623;
- h=subject:from:to:cc:references:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=WOlapbro2aVNPxibq8j3aKmRfZb+mvnEkxvW8XPtMuU=;
- b=u5xkaH+UZcFHSC4oAOTteBw3RDdVrJdHBHpxD0nJQ+qGNakS9xZadU94PfKBHg4bPM
- g3vn3OBBvVdO2NzCsdjQr1D+ZOjpaw4w9UKZXYfRU7Xbpy/G89rxAZR1RzLdDij2yT75
- XBwspKktwnnUGufnEc5Nx9rv+UpTYOqY8KTfjWhoRs0VCWoLbHRWlretslU1mNMAKS2n
- BlmLyqF2fjC80y2Wl21tJjT2CFRnnZZZsMRXFEF4je/StC151EirqknEtFz9ZYyTU44g
- eUguAQXU8JPYagOfxx/aRbWKtXGCSr3xz9/rWR+dK7Dp5xJs+ec55rwD6C0aoxl4Y68q
- iXeg==
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8B646EABC;
+ Tue,  8 Jun 2021 18:25:28 +0000 (UTC)
+Received: by mail-wm1-x32b.google.com with SMTP id o127so2442748wmo.4;
+ Tue, 08 Jun 2021 11:25:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Dpc7jDBgR4bRpyMxKiXPomFG+A3xIaiwS0cF873d9mc=;
+ b=KWkZvnHH4nxrApOkUehAeCyA/rXa/6rXfhy3TXCuxO1ELjYLR5JOVuwHID6fMdUdR3
+ So2WEZVTMUm7TerayCLetB7N4TU3eSAIApIImU/UB4CF1z250RdTgeJtQjfyVUMSLekd
+ KJUQCeb3AHWCAF8IBtH+H+L360Y53dugYCoN0QKIjQYnWj+Cc5kYwBUThnKeHNQCR7In
+ neh8DtKATy4ZxUB3FsTUR2liOFldzj0hmjOl1W0y9XuBAklsRhIarK+8ytPMZmh6JGY3
+ ik4VvTClouqJoxnl8Mds2dDLyVwducLo+GV1QJFmFRGcifmCsL6p2TTuuxifajUhON1A
+ 0c2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:from:to:cc:references:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=WOlapbro2aVNPxibq8j3aKmRfZb+mvnEkxvW8XPtMuU=;
- b=ekTobyrwLE+GRd9phYoPDPATeT5wBl4TT0ucu/7aQ3cBlBhWGYMSBfq5ZJWwNUA+ox
- AS/Rpc17o3oBiQog++tbIUZ8Hy2i2yFDfREZ9X6yZoPLS3c/LVhynNG5TURe13+piJyI
- vMUGUS/RIKOdGiP8q/NznYbT5J9DvTlDJxL9WWoZE+m4xA76B1VdfwBBrff065QzKWTT
- 77aw2C4AZtBs25ULT3lyi1MYMsKmFVDI9JUx8M28burxM6k/3TkcsrRF3ieY9vUWHuRl
- MVDNsSNVntTF8IBjm3Nopn7rjyuvachOQN8+Syfz4o2JLPHbLI6ZCKwlV2Ny8r/TIWig
- xIGg==
-X-Gm-Message-State: AOAM530gZwPu9yP1mBEoad6u90rnHI/1t439tMdK0qmH+eNEM5bjnQc5
- ugpiKxqGJpy+BgWkUEVrvKmzkA==
-X-Google-Smtp-Source: ABdhPJyhZOqlnVcAHTSXDc04MENqTodbdNP6uY3poRtjnX1YpaTedbGhu6Osr4KNS075sOxw/pGmfg==
-X-Received: by 2002:ac8:4e2e:: with SMTP id d14mr19798627qtw.205.1623175524925; 
- Tue, 08 Jun 2021 11:05:24 -0700 (PDT)
-Received: from [192.168.0.189] (modemcable068.184-131-66.mc.videotron.ca.
- [66.131.184.68])
- by smtp.gmail.com with ESMTPSA id v5sm12320418qkh.39.2021.06.08.11.05.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Jun 2021 11:05:24 -0700 (PDT)
-From: Jonathan Marek <jonathan@marek.ca>
-To: freedreno@lists.freedesktop.org
-References: <20210608172808.11803-1-jonathan@marek.ca>
- <20210608172808.11803-4-jonathan@marek.ca>
-Message-ID: <4c6ae8ab-05e2-5974-4f8d-48e2a31504b0@marek.ca>
-Date: Tue, 8 Jun 2021 14:03:41 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Dpc7jDBgR4bRpyMxKiXPomFG+A3xIaiwS0cF873d9mc=;
+ b=ERNvDOqeGoDHZBWzMA8UlGsVAJ5zByr1hUdG0GzeWsHopNKH+F33bXP+2WB19DkFEp
+ wLflJriQH3mCeDWmII+f1WAEn55LgOpSj83gL0d0g0PuqwIC+MnzWt/dWNqnYkHcrMR5
+ nve6TyYraLqzGGObppnQ0kR5kbrfUbWqAFrZDbL5//CPdzU9/Rg2ZTp1mnQOcbsSAEW7
+ 34WI0El6oCsHNStj1SusULAxwAthjyV2OIoMk38h26TYUIxOq/SONMBoOfP6dtD50dpJ
+ lOFJ5lLT+X5FYzrZDUqCoPqz45hcmQ9OvBZKBn3R/Z8XuSKr5j808zrN0cJvTkgl2Vxw
+ Urxg==
+X-Gm-Message-State: AOAM530p7ouchMAvdKiLnYWK6bvt8MCQt3CuO+Cq8JB3q4KrX7J7PnkP
+ jfQCXnLPa8TjGOYir7IMS87vk4NHkoz9LaM2642a+Vha
+X-Google-Smtp-Source: ABdhPJx9NnFyX8wNc/FCRYHa2nklvr22qyrJ85Vop8BJ6EWvcd9fUqRCCIPSZwGzWxtXWq5SbvlnnUFj17ZgcRkBZnE=
+X-Received: by 2002:a05:600c:1c84:: with SMTP id
+ k4mr5813076wms.164.1623176727348; 
+ Tue, 08 Jun 2021 11:25:27 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20210608172808.11803-4-jonathan@marek.ca>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH v3 3/5] drm/msm/a6xx: add
- GMU_CX_GMU_CX_FALNEXT_INTF write for a650
+References: <CAF6AEGs+zjKrj2_oU0ByF=UqBgh3oEOuNkNem3eg5HcFhffmBQ@mail.gmail.com>
+In-Reply-To: <CAF6AEGs+zjKrj2_oU0ByF=UqBgh3oEOuNkNem3eg5HcFhffmBQ@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 8 Jun 2021 11:29:21 -0700
+Message-ID: <CAF6AEGsKyvkreMM67HY2Oi8LN=-w7sB7NWVoPdyfaJ8390Lz=Q@mail.gmail.com>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [Freedreno] [pull] drm/msm: drm-msm-fixes-2021-06-08 for
+ v5.13-rc6
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,61 +62,52 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Eric Anholt <eric@anholt.net>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>, open list <linux-kernel@vger.kernel.org>
+Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 6/8/21 1:27 PM, Jonathan Marek wrote:
-> downstream msm-5.14 kernel added a write to this register, so match that.
-> 
+sorry, spotted a small typo, I'll resend this shortly
 
-Note: this should say msm-5.4 (msm-5.14 is not a thing)
-
-> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
-> ---
->   drivers/gpu/drm/msm/adreno/a6xx_gmu.c     | 4 +++-
->   drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h | 2 ++
->   2 files changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> index c1ee02d6371d..0f3390eab55e 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> @@ -751,8 +751,10 @@ static int a6xx_gmu_fw_start(struct a6xx_gmu *gmu, unsigned int state)
->   	int ret;
->   	u32 chipid;
->   
-> -	if (adreno_is_a650(adreno_gpu))
-> +	if (adreno_is_a650(adreno_gpu)) {
-> +		gmu_write(gmu, REG_A6XX_GPU_GMU_CX_GMU_CX_FALNEXT_INTF, 1);
->   		gmu_write(gmu, REG_A6XX_GPU_GMU_CX_GMU_CX_FAL_INTF, 1);
-> +	}
->   
->   	if (state == GMU_WARM_BOOT) {
->   		ret = a6xx_rpmh_start(gmu);
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h
-> index 5a43d3090b0c..eeef3d6d89b8 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h
-> @@ -292,6 +292,8 @@ static inline uint32_t A6XX_GMU_GPU_NAP_CTRL_SID(uint32_t val)
->   
->   #define REG_A6XX_GPU_GMU_CX_GMU_CX_FAL_INTF			0x000050f0
->   
-> +#define REF_A6XX_GPU_GMU_CX_GMU_CX_FALNEXT_INTF    		0x000050f1
-> +
->   #define REG_A6XX_GPU_GMU_CX_GMU_PWR_COL_CP_MSG			0x00005100
->   
->   #define REG_A6XX_GPU_GMU_CX_GMU_PWR_COL_CP_RESP			0x00005101
-> 
+On Tue, Jun 8, 2021 at 10:32 AM Rob Clark <robdclark@gmail.com> wrote:
+>
+> Hi Dave & Daniel,
+>
+> A few late fixes for v5.13
+>
+> The following changes since commit f2f46b878777e0d3f885c7ddad48f477b4dea247:
+>
+>   drm/msm/dp: initialize audio_comp when audio starts (2021-05-06
+> 16:26:57 -0700)
+>
+> are available in the Git repository at:
+>
+>   https://gitlab.freedesktop.org/drm/msm.git drm-msm-fixes-2021-06-08
+>
+> for you to fetch changes up to 924f4cba9e68bf2b4717e7941697db96c6f203be:
+>
+>   drm/msm/a6xx: avoid shadow NULL reference in failure path
+> (2021-06-08 10:08:05 -0700)
+>
+> ----------------------------------------------------------------
+> Alexey Minnekhanov (1):
+>       drm/msm: Init mm_list before accessing it for use_vram path
+>
+> Jonathan Marek (3):
+>       drm/msm/a6xx: update/fix CP_PROTECT initialization
+>       drm/msm/a6xx: fix incorrectly set uavflagprd_inv field for A650
+>       drm/msm/a6xx: avoid shadow NULL reference in failure path
+>
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 155 +++++++++++++++++++++++++---------
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.h |   2 +-
+>  drivers/gpu/drm/msm/msm_gem.c         |   7 ++
+>  3 files changed, 122 insertions(+), 42 deletions(-)
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
