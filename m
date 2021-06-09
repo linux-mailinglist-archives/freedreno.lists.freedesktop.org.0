@@ -1,59 +1,74 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7EA03A0822
-	for <lists+freedreno@lfdr.de>; Wed,  9 Jun 2021 02:08:20 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id CB2123A1298
+	for <lists+freedreno@lfdr.de>; Wed,  9 Jun 2021 13:25:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45E576E199;
-	Wed,  9 Jun 2021 00:08:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDD556E976;
+	Wed,  9 Jun 2021 11:25:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B70576E199
- for <freedreno@lists.freedesktop.org>; Wed,  9 Jun 2021 00:08:15 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1623197295; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=BSV6xlX0X/MGOVMKKHLN7kDPPVxnF8zn2RwBKv3Qo8I=;
- b=CBa5SnxKnD16bA55XueL00oxVKkKr+YlYfNMwpmFNRnyg8z+OgoikuqpJRc+MNO2X/FavdZY
- aOo4OWKcietJdSGAujKPvgGkm1qHvRKqT+dmy8WEwSTtdGDew7NdoEQ293ZdaVLgKcz8DchI
- Q13rwoTAxIQ9lGv3GxoF6HSCsdM=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n03.prod.us-west-2.postgun.com with SMTP id
- 60c0066ded59bf69cc129ed3 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 09 Jun 2021 00:08:13
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id A0BACC43460; Wed,  9 Jun 2021 00:08:13 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id D9BFBC433F1;
- Wed,  9 Jun 2021 00:08:10 +0000 (UTC)
+X-Greylist: delayed 333 seconds by postgrey-1.36 at gabe;
+ Wed, 09 Jun 2021 11:25:48 UTC
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 631616E8E1;
+ Wed,  9 Jun 2021 11:25:48 +0000 (UTC)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 322EA1FD2A;
+ Wed,  9 Jun 2021 11:20:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1623237614; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=oCiBA5IQR9wf4+Cc+r3nE+xIhszdcMtCPYXz7tk1DUc=;
+ b=fY/lBPn1RzheTsgcxOOcUlu2A6QxXJzVzaZKYGY8dQ/N9dkPZxAh+IzMlWy3Mdw4YcifeB
+ euR+HK45GJ3f0u+/7nmbJqJDLXGEJmIB2cOWMU93FBBin5A1MqrE27Y9jBklc67vNLz8q3
+ MEB05kirgOr7hJDXocRIMCqdq+d45FY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1623237614;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=oCiBA5IQR9wf4+Cc+r3nE+xIhszdcMtCPYXz7tk1DUc=;
+ b=qtPzutLGd6X37XBCAvAZ4AuMX1bEEdUc0wqN5VeNSoa0OrIM4LVgceME8x2WEfyyR258wQ
+ Jhvg0YtWBnitxsBg==
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id 8991F118DD;
+ Wed,  9 Jun 2021 11:20:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1623237614; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=oCiBA5IQR9wf4+Cc+r3nE+xIhszdcMtCPYXz7tk1DUc=;
+ b=fY/lBPn1RzheTsgcxOOcUlu2A6QxXJzVzaZKYGY8dQ/N9dkPZxAh+IzMlWy3Mdw4YcifeB
+ euR+HK45GJ3f0u+/7nmbJqJDLXGEJmIB2cOWMU93FBBin5A1MqrE27Y9jBklc67vNLz8q3
+ MEB05kirgOr7hJDXocRIMCqdq+d45FY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1623237614;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=oCiBA5IQR9wf4+Cc+r3nE+xIhszdcMtCPYXz7tk1DUc=;
+ b=qtPzutLGd6X37XBCAvAZ4AuMX1bEEdUc0wqN5VeNSoa0OrIM4LVgceME8x2WEfyyR258wQ
+ Jhvg0YtWBnitxsBg==
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id Pn27IO2jwGBTUgAALh3uQQ
+ (envelope-from <tzimmermann@suse.de>); Wed, 09 Jun 2021 11:20:13 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: daniel@ffwll.ch, mripard@kernel.org, maarten.lankhorst@linux.intel.com,
+ l.stach@pengutronix.de, linux+etnaviv@armlinux.org.uk,
+ christian.gmeiner@gmail.com, inki.dae@samsung.com, jy0922.shim@samsung.com,
+ sw0312.kim@samsung.com, kyungmin.park@samsung.com,
+ krzysztof.kozlowski@canonical.com, chunkuang.hu@kernel.org,
+ p.zabel@pengutronix.de, matthias.bgg@gmail.com, robdclark@gmail.com,
+ sean@poorly.run, airlied@redhat.com, kraxel@redhat.com, hjc@rock-chips.com,
+ heiko@sntech.de, oleksandr_andrushchenko@epam.com, sumit.semwal@linaro.org,
+ christian.koenig@amd.com
+Date: Wed,  9 Jun 2021 13:20:03 +0200
+Message-Id: <20210609112012.10019-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Date: Tue, 08 Jun 2021 17:08:10 -0700
-From: abhinavk@codeaurora.org
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-In-Reply-To: <YL/PbsggxgQCiCsM@builder.lan>
-References: <20210511042043.592802-1-bjorn.andersson@linaro.org>
- <20210511042043.592802-2-bjorn.andersson@linaro.org>
- <a761ca2648c290300442f4addb4a0ea2@codeaurora.org>
- <YL/PbsggxgQCiCsM@builder.lan>
-Message-ID: <f2ce6ae51c50b0d2e57b905c63b43413@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH 1/4] drm/msm/dp: Simplify the mvid/nvid
- calculation
+Subject: [Freedreno] [PATCH 0/9] drm: Implement gem_prime_mmap with
+ drm_gem_prime_mmap()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,207 +81,80 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- Tanmay Shah <tanmay@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
- Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, sbillaka@codeaurora.org,
- Sean Paul <sean@poorly.run>, Chandan Uddaraju <chandanu@codeaurora.org>
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org, linaro-mm-sig@lists.linaro.org,
+ linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, xen-devel@lists.xenproject.org,
+ spice-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Bjorn
+Replace all remaining implementations of struct drm_driver.gem_prime_mmap
+with use drm_gem_prime_mmap(). For each affected driver, put the mmap code
+into struct drm_gem_object_funcs.mmap. With the latter change in place,
+create struct file_operations via DEFINE_DRM_GEM_FOPS().
 
-On 2021-06-08 13:13, Bjorn Andersson wrote:
-> On Fri 28 May 18:11 CDT 2021, abhinavk@codeaurora.org wrote:
-> 
->> Hi Bjorn
->> 
->> On 2021-05-10 21:20, Bjorn Andersson wrote:
->> > In the search for causes to timing issues seen during implementation of
->> > eDP support for SC8180x a fair amount of time was spent concluding why
->> > the calculated mvid/nvid values where wrong.
->> >
->> > The overall conclusion is that the ratio of MVID/NVID describes, and
->> > should match, the ratio between the pixel and link clock.
->> >
->> > Downstream this calculation reads the M and N values off the pixel clock
->> > straight from DISP_CC and are then adjusted based on knowledge of how
->> > the link and vco_div (parent of the pixel clock) are derrived from the
->> > common VCO.
->> >
->> > While upstreaming, and then extracting the PHY driver, the resulting
->> > function performs the following steps:
->> >
->> > 1) Adjust the passed link rate based on the VCO divider used in the PHY
->> >    driver, and multiply this by 10 based on the link rate divider.
->> > 2) Pick reasonable choices of M and N, by calculating the ratio between
->> >    this new clock and the pixel clock.
->> > 3) Subtract M from N and flip the bits, to match the encoding of the N
->> >    register in DISP_CC.
->> > 4) Flip the bits of N and add M, to get the value of N back.
->> > 5) Multiply M with 5, per the documentation.
->> > 6) Scale the values such that N is close to 0x8000 (or larger)
->> > 7) Multply M with 2 or 3 depending on the link rate of HBR2 or HBR3.
->> >
->> > Presumably step 3) was added to provide step 4) with expected input, so
->> > the two cancel each other out. The factor of 10 from step 1) goes into
->> > the denominator and is partially cancelled by the 5 in the numerator in
->> > step 5), resulting in step 7) simply cancelling out step 1).
->> >
->> 
->> Both the multiplication of M with 5 and N with 2 or 3 is coming 
->> because of
->> the
->> ratio between the vco clk and the link clk.
->> So we could have 2.7, 5.4 or 8.1 Gbps link clks and the factor of 2 or 
->> 3
->> gets added because hbr2 is 2 * hbr and hbr3 is 3 * hbr.
->> 
-> 
-> Thanks for explaining the origin of these numbers, I had quite a
-> difficult time figuring out where the "magic" came from.
-> 
->> Your summary is pretty much right otherwise. Let me add some more 
->> points
->> here:
->> 
->> 1) Originally we removed reading the M_VID and N_VID from the DISPCC 
->> regs
->> because
->> of previous upstream comments that we can potentially just recalculate
->> whatever the clk driver is programming
->> by using rational_best_approximation
->> https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/clk/qcom/clk-rcg2.c#L1160
->> 
->> Not having to read from DISPCC register is also useful because we dont 
->> have
->> to maintain the register offset
->> of the M_VID and N_VID which keeps changing across chipsets.
->> 
-> 
-> Right, so downstream we do all the math and then we scale the
-> denominator by 2x or 3x to compensate for the fact that we didn't
-> account for the division as the clock left the PLL.
-> 
-> As this was reworked upstream for some reason this compensation was
-> retained, so the denominator would always be 2x or 3x to large for HBR2
-> and HBR3. So the way this was solved was to divide by 2x or 3x before
-> calculating the ratio.
-> 
->> However we discussed this again after viewing this patch. So the clk 
->> driver
->> always operates on the vco clk
->> and calculates the pixel clk from it and sets the M_VID and N_VID 
->> based on
->> that.
->> In terms of accuracy, the best way is still to re-use the M_VID and 
->> N_VID
->> which the clk driver sets because
->> the pixel clock was generated based on that and that is the actual 
->> pixel
->> clock we are going to get.
->> 
->> So even before this change we lost some accuracy because the pixel 
->> clock we
->> are giving here to recalculate
->> the M_VID and N_VID is a theoretical value. Although for most values 
->> of
->> pixel clk, theoretical and actual
->> should match. There could be corner cases of pixel clock where its a 
->> bit
->> different. Hence ideally, re-using the M_VID
->> and N_VID which the clk driver set would have been the best but not 
->> having
->> to hard-code M_VID and N_VID offsets
->> was a good enough reason to not go back to that again.
->> 
->> Now, coming to this change. Here its trying to again re-calculate the 
->> M_VID
->> and N_VID by using the same
->> API which the clk driver uses but uses link clk and pixel clk as the
->> parameters Vs the clk driver uses
->> vco clk and actual pixel clock to calculate this.
->> 
->> So even though this cleanup eliminates the adjustments we need to make 
->> to
->> account for the VCO clk to link clk ratio,
->> it also could bring additional difference between what was actually 
->> set by
->> the clk driver and what we are calculating
->> here because clk driver used vco clk as the input vs here we use link 
->> clk
->> after this change.
->> There might be some pixel clock rates of some resolutions where this
->> difference could be risky.
->> 
->> Hence the overall conclusion here was to keep using vco clk as the 
->> input to
->> rational_best_approximation
->> and not make more changes to this.
->> 
-> 
-> So what you're saying is that the reason for this obfuscation is to
-> replicate any rounding errors happening in the path of the link clock
-> generation?
-> 
-> If that's the case then this needs a giant comment describing exactly
-> what's happening and why this function needs to be impenetrable.
-> 
-> 
-> That said, from my attempts to write this patch (and add widebus
-> support) I saw a huge flexibility in getting this right, so can you
-> please elaborate on the value of the precision of the ratio.
-> 
+As next steps, remaining drivers can be converted to use drm_gem_prime_mmap()
+and drm_gem_mmap() (e.g., Tegra). The default mmap code in drm_gem_prime_mmap()
+can be pushed into affected drivers or a helper function. The gem_prime_mmap
+hook can probably be removed at some point.
 
-The overall goal here is just to replicate whats happening in the clock 
-driver and clock hardware to calculate the pixel clock.
-That is, use the same inputs and function as the ones used in clk driver 
-to calculated to set the DISPCC_MVID and DISPCC_NVID regs.
+Testing is welcome. I don't have all the necessary hardware.
 
-I think i have already explained why we need the *2 and *3 in the math. 
-If you need, sure I can document this as well in code
-comments.
+Thomas Zimmermann (9):
+  drm/etnaviv: Implement mmap as GEM object function
+  drm/exynox: Implement mmap as GEM object function
+  drm/mediatek: Implement mmap as GEM object function
+  drm/msm: Implement mmap as GEM object function
+  drm/qxl: Remove empty qxl_gem_prime_mmap()
+  drm/vgem: Implement mmap as GEM object function
+  drm/xen: Implement mmap as GEM object function
+  drm/rockchip: Implement mmap as GEM object function
+  drm: Update documentation and TODO of gem_prime_mmap hook
 
-By obfuscation are you referring to this snippet?
-https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/msm/dp/dp_catalog.c#L446
+ Documentation/gpu/todo.rst                    |  11 --
+ drivers/gpu/drm/etnaviv/etnaviv_drv.c         |  14 +--
+ drivers/gpu/drm/etnaviv/etnaviv_drv.h         |   3 -
+ drivers/gpu/drm/etnaviv/etnaviv_gem.c         |  18 +--
+ drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c   |  13 ---
+ drivers/gpu/drm/exynos/exynos_drm_drv.c       |  13 +--
+ drivers/gpu/drm/exynos/exynos_drm_fbdev.c     |  20 +---
+ drivers/gpu/drm/exynos/exynos_drm_gem.c       |  43 ++-----
+ drivers/gpu/drm/exynos/exynos_drm_gem.h       |   5 -
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        |  13 +--
+ drivers/gpu/drm/mediatek/mtk_drm_gem.c        |  44 ++-----
+ drivers/gpu/drm/mediatek/mtk_drm_gem.h        |   3 -
+ drivers/gpu/drm/msm/msm_drv.c                 |  14 +--
+ drivers/gpu/drm/msm/msm_drv.h                 |   1 -
+ drivers/gpu/drm/msm/msm_fbdev.c               |  10 +-
+ drivers/gpu/drm/msm/msm_gem.c                 |  67 +++++------
+ drivers/gpu/drm/msm/msm_gem.h                 |   3 -
+ drivers/gpu/drm/msm/msm_gem_prime.c           |  11 --
+ drivers/gpu/drm/qxl/qxl_drv.c                 |   1 -
+ drivers/gpu/drm/qxl/qxl_drv.h                 |   2 -
+ drivers/gpu/drm/qxl/qxl_prime.c               |   6 -
+ drivers/gpu/drm/rockchip/rockchip_drm_drv.c   |  13 +--
+ drivers/gpu/drm/rockchip/rockchip_drm_fbdev.c |   3 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_gem.c   |  44 ++-----
+ drivers/gpu/drm/rockchip/rockchip_drm_gem.h   |   7 --
+ drivers/gpu/drm/vgem/vgem_drv.c               |  46 +-------
+ drivers/gpu/drm/xen/xen_drm_front.c           |  16 +--
+ drivers/gpu/drm/xen/xen_drm_front_gem.c       | 108 +++++++-----------
+ drivers/gpu/drm/xen/xen_drm_front_gem.h       |   7 --
+ include/drm/drm_drv.h                         |  11 +-
+ 30 files changed, 136 insertions(+), 434 deletions(-)
 
-This is just recalculating the dispcc rate from the pixel clock rate so 
-that we feed the same input
-to the rational_best_approximation as what the clock driver would do and 
-hence making our input
-and output same for the rational_best_approximation as the clock driver 
-to maintain consistency and I will explain why.
 
-Let me explain a little bit more on the mnd precision i am referring to.
+base-commit: 70e4d80795934312a3853a4f4f49445ce6db1271
+prerequisite-patch-id: c2b2f08f0eccc9f5df0c0da49fa1d36267deb11d
+prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
+--
+2.31.1
 
-The clock driver will also use the same API to calculate the mnds and 
-generate a pixel clock.
-It might not match the requested theoretical pixel clock as the mnds 
-calculated with this API might have some precision errors.
-
-rational_best_approximation(dispcc_input_rate, stream_rate_khz,
-			(unsigned long)(1 << 16) - 1,
-			(unsigned long)(1 << 16) - 1, &den, &num);
-
-By using the same input (dispcc rate) and output(pixel clk) rates, we 
-are getting the same mnds and hence same mvid and nvid.
-
-If you use the link clk rate here instead, it might generate some other 
-mvid/nvid and the pixel clock for that might be which is different
-from what is the actual pixel clock which the PLL generated ( due to the 
-mnd calculated using the API ).
-
-Hence to preserve the same loss of accuracy which the clock driver would 
-have, we would prefer to use the same input here too.
-
-Let me know if its still not clear.
-
-> Regards,
-> Bjorn
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
