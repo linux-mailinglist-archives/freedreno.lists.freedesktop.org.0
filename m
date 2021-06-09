@@ -2,70 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FA8D3A0791
-	for <lists+freedreno@lfdr.de>; Wed,  9 Jun 2021 01:10:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7EA03A0822
+	for <lists+freedreno@lfdr.de>; Wed,  9 Jun 2021 02:08:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15E036EC5F;
-	Tue,  8 Jun 2021 23:10:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45E576E199;
+	Wed,  9 Jun 2021 00:08:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc2d.google.com (mail-oo1-xc2d.google.com
- [IPv6:2607:f8b0:4864:20::c2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 253E96EC5F
- for <freedreno@lists.freedesktop.org>; Tue,  8 Jun 2021 23:10:18 +0000 (UTC)
-Received: by mail-oo1-xc2d.google.com with SMTP id
- i8-20020a4aa1080000b0290201edd785e7so5421158ool.1
- for <freedreno@lists.freedesktop.org>; Tue, 08 Jun 2021 16:10:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=8Fd2UnKqRp3r57f4CDJXwSiaZtMqRHFyBh9cIrJCLHc=;
- b=YVQxIh4DVDYDVOSMez79iluTdib8wNEGnSurhGWV5Sx1Yt2DoKdkChJeEswUoeSsGw
- 0K00d68k/hSD0WCstFm065QnDK9rywsVn9kQw/4Kj0jMQJu8ZRDpHZMz4K4FPQnn10E4
- N08rvCo6ABfBzZhrVuzfRfm3qkKNuPPRPLa+kZFaYoNlgWkvp3nUvMsE0CxBchjX/GIB
- vXnYe965oMdOEKaqGviedRqmdY0N1l8CECcUioeXQ7O3Itu5he0GWhI7CLxMzbVsPVmj
- r+K+/JevqaG+yMYcwmhqA6BJ63t8i+MsqNQnyxgtKgYLrEkMPPCpydxSpF+pD3aDS0MU
- UgDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=8Fd2UnKqRp3r57f4CDJXwSiaZtMqRHFyBh9cIrJCLHc=;
- b=PZ8iYSjXxQaVMMxUWCns2dWTjvhPJLJofntt5v+ybchqEP8VHecfz8FhvNFjKi/BtW
- abQa5dk0niIqWRqRJctUPDH797511jpQ1kRTAdkqdd84pUhQ6jN55wKcDINK1e6MznyC
- bCgi0ACbe9a/0W5O+JynA1zd+tPsBTAjexBtgPJ+wZT1LbWxgJrhxw8jfsA2cfLBB/f0
- 4fDjTseBMx8dgF2rKPgianMF1UIBImugXL3kW7jTwvIwxV2FByCPVvxVwtecw/2zZtHK
- yJb27mVXYd/zT2tAmYZd+Pz60PmU7oNmQ0wLwR8n7VdO33TWdshYQoQIvUszrKkgrnQr
- meJg==
-X-Gm-Message-State: AOAM532hnx0cXsOFTwIXxA0BDiBEpDQuXFaALvy8gkAbtjCw19sVkBxm
- r1Jn0v8Mire+rahlyaGckV4f2g==
-X-Google-Smtp-Source: ABdhPJycM7QJ6UxCAKDNC7FB+QTjxDFiYOAHom/UYvJgDGXNLHmf6SoUQFIeescv/3vi8398Xn3oHg==
-X-Received: by 2002:a4a:b789:: with SMTP id a9mr19171527oop.45.1623193817402; 
- Tue, 08 Jun 2021 16:10:17 -0700 (PDT)
-Received: from yoga (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id c205sm3092501oob.38.2021.06.08.16.10.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Jun 2021 16:10:16 -0700 (PDT)
-Date: Tue, 8 Jun 2021 18:10:14 -0500
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Stephen Boyd <swboyd@chromium.org>
-Message-ID: <YL/41hWz8xB+jSeO@yoga>
-References: <YLkI/6ItCz+SbbuJ@yoga>
- <ac326ec8689c0babb08b2311e19d52cc@codeaurora.org>
- <YLxX/YtegtbLmkri@builder.lan>
- <ef1879fa7ecfefaf0c70c7a4782240a9@codeaurora.org>
- <YL6sY/1E5wLzMiP/@yoga>
- <CAE-0n50-X03sMyJdsw7s=Ue0dWXBo=iHOc0HxDQm5yh2J-uS3A@mail.gmail.com>
- <YL/uj+t+BFkII1Fh@yoga>
- <CAE-0n50WP25kRQkWMVdDZGsZWBXwfbVSTFKyBLF7f8Mp3x2Wfg@mail.gmail.com>
- <YL/wWdRs6e/eECiC@yoga>
- <CAE-0n51GM65rZVJgXuHy6FerJorHeHKf2W31GijG8sDEhaX_KQ@mail.gmail.com>
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B70576E199
+ for <freedreno@lists.freedesktop.org>; Wed,  9 Jun 2021 00:08:15 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1623197295; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=BSV6xlX0X/MGOVMKKHLN7kDPPVxnF8zn2RwBKv3Qo8I=;
+ b=CBa5SnxKnD16bA55XueL00oxVKkKr+YlYfNMwpmFNRnyg8z+OgoikuqpJRc+MNO2X/FavdZY
+ aOo4OWKcietJdSGAujKPvgGkm1qHvRKqT+dmy8WEwSTtdGDew7NdoEQ293ZdaVLgKcz8DchI
+ Q13rwoTAxIQ9lGv3GxoF6HSCsdM=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n03.prod.us-west-2.postgun.com with SMTP id
+ 60c0066ded59bf69cc129ed3 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 09 Jun 2021 00:08:13
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id A0BACC43460; Wed,  9 Jun 2021 00:08:13 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id D9BFBC433F1;
+ Wed,  9 Jun 2021 00:08:10 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAE-0n51GM65rZVJgXuHy6FerJorHeHKf2W31GijG8sDEhaX_KQ@mail.gmail.com>
-Subject: Re: [Freedreno] [PATCH v2] arm64/dts/qcom/sc7180: Add Display Port
- dt node
+Date: Tue, 08 Jun 2021 17:08:10 -0700
+From: abhinavk@codeaurora.org
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+In-Reply-To: <YL/PbsggxgQCiCsM@builder.lan>
+References: <20210511042043.592802-1-bjorn.andersson@linaro.org>
+ <20210511042043.592802-2-bjorn.andersson@linaro.org>
+ <a761ca2648c290300442f4addb4a0ea2@codeaurora.org>
+ <YL/PbsggxgQCiCsM@builder.lan>
+Message-ID: <f2ce6ae51c50b0d2e57b905c63b43413@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH 1/4] drm/msm/dp: Simplify the mvid/nvid
+ calculation
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,104 +66,207 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, freedreno@lists.freedesktop.org,
- vkoul@kernel.org, robh+dt@kernel.org, linux-kernel@vger.kernel.org,
- khsieh@codeaurora.org, robdclark@gmail.com, agross@kernel.org,
- abhinavk@codeaurora.org, linux-arm-msm@vger.kernel.org,
- aravindh@codeaurora.org, sean@poorly.run
-Content-Type: text/plain; charset="us-ascii"
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Tanmay Shah <tanmay@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
+ Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, sbillaka@codeaurora.org,
+ Sean Paul <sean@poorly.run>, Chandan Uddaraju <chandanu@codeaurora.org>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue 08 Jun 17:44 CDT 2021, Stephen Boyd wrote:
+Hi Bjorn
 
-> Quoting Bjorn Andersson (2021-06-08 15:34:01)
-> > On Tue 08 Jun 17:29 CDT 2021, Stephen Boyd wrote:
-> >
-> > > Quoting Bjorn Andersson (2021-06-08 15:26:23)
-> > > > On Tue 08 Jun 17:15 CDT 2021, Stephen Boyd wrote:
-> > > >
-> > > > > Quoting Bjorn Andersson (2021-06-07 16:31:47)
-> > > > > > On Mon 07 Jun 12:48 CDT 2021, khsieh@codeaurora.org wrote:
-> > > > > >
-> > > > > > > Sorry about the confusion. What I meant is that even though DP controller is
-> > > > > > > in the MDSS_GDSC
-> > > > > > > power domain, DP PHY/PLL sources out of CX. The DP link clocks have a direct
-> > > > > > > impact
-> > > > > > > on the CX voltage corners. Therefore, we need to mention the CX power domain
-> > > > > > > here. And, since
-> > > > > > > we can associate only one OPP table with one device, we picked the DP link
-> > > > > > > clock over other
-> > > > > > > clocks.
-> > > > > >
-> > > > > > Thank you, that's a much more useful answer.
-> > > > > >
-> > > > > > Naturally I would think it would make more sense for the PHY/PLL driver
-> > > > > > to ensure that CX is appropriately voted for then, but I think that
-> > > > > > would result in it being the clock driver performing such vote and I'm
-> > > > > > unsure how the opp table for that would look.
-> > > > > >
-> > > > > > @Stephen, what do you say?
-> > > > > >
-> > > > >
-> > > > > Wouldn't the PHY be the one that sets some vote? So it wouldn't be the
-> > > > > clk driver, and probably not from the clk ops, but instead come from the
-> > > > > phy ops via phy_enable() and phy_configure().
-> > > > >
-> > > >
-> > > > If I understand the logic correctly *_configure_dp_phy() will both
-> > > > configure the vco clock and "request" the clock framework to change the
-> > > > rate.
-> > > >
-> > > > So I presume what you're suggesting is that that would be the place to
-> > > > cast the CX corner vote?
-> > >
-> > > Yes that would be a place to make the CX vote. The problem is then I
-> > > don't know where to drop the vote. Is that when the phy is disabled?
-> >
-> > We do pass qcom_qmp_phy_power_off() and power down the DP part as DP
-> > output is being disabled. So that sounds like a reasonable place to drop
-> > the vote for the lowest performance state.
-> >
+On 2021-06-08 13:13, Bjorn Andersson wrote:
+> On Fri 28 May 18:11 CDT 2021, abhinavk@codeaurora.org wrote:
 > 
-> So then will the corner vote be in place when the PHY isn't actually
-> powered up? That will be bad for power. The phy configure code will need
-> to know if the phy is enabled and then only put in the vote when the phy
-> is enabled, otherwise wait for enable to make the corner vote.
+>> Hi Bjorn
+>> 
+>> On 2021-05-10 21:20, Bjorn Andersson wrote:
+>> > In the search for causes to timing issues seen during implementation of
+>> > eDP support for SC8180x a fair amount of time was spent concluding why
+>> > the calculated mvid/nvid values where wrong.
+>> >
+>> > The overall conclusion is that the ratio of MVID/NVID describes, and
+>> > should match, the ratio between the pixel and link clock.
+>> >
+>> > Downstream this calculation reads the M and N values off the pixel clock
+>> > straight from DISP_CC and are then adjusted based on knowledge of how
+>> > the link and vco_div (parent of the pixel clock) are derrived from the
+>> > common VCO.
+>> >
+>> > While upstreaming, and then extracting the PHY driver, the resulting
+>> > function performs the following steps:
+>> >
+>> > 1) Adjust the passed link rate based on the VCO divider used in the PHY
+>> >    driver, and multiply this by 10 based on the link rate divider.
+>> > 2) Pick reasonable choices of M and N, by calculating the ratio between
+>> >    this new clock and the pixel clock.
+>> > 3) Subtract M from N and flip the bits, to match the encoding of the N
+>> >    register in DISP_CC.
+>> > 4) Flip the bits of N and add M, to get the value of N back.
+>> > 5) Multiply M with 5, per the documentation.
+>> > 6) Scale the values such that N is close to 0x8000 (or larger)
+>> > 7) Multply M with 2 or 3 depending on the link rate of HBR2 or HBR3.
+>> >
+>> > Presumably step 3) was added to provide step 4) with expected input, so
+>> > the two cancel each other out. The factor of 10 from step 1) goes into
+>> > the denominator and is partially cancelled by the 5 in the numerator in
+>> > step 5), resulting in step 7) simply cancelling out step 1).
+>> >
+>> 
+>> Both the multiplication of M with 5 and N with 2 or 3 is coming 
+>> because of
+>> the
+>> ratio between the vco clk and the link clk.
+>> So we could have 2.7, 5.4 or 8.1 Gbps link clks and the factor of 2 or 
+>> 3
+>> gets added because hbr2 is 2 * hbr and hbr3 is 3 * hbr.
+>> 
+> 
+> Thanks for explaining the origin of these numbers, I had quite a
+> difficult time figuring out where the "magic" came from.
+> 
+>> Your summary is pretty much right otherwise. Let me add some more 
+>> points
+>> here:
+>> 
+>> 1) Originally we removed reading the M_VID and N_VID from the DISPCC 
+>> regs
+>> because
+>> of previous upstream comments that we can potentially just recalculate
+>> whatever the clk driver is programming
+>> by using rational_best_approximation
+>> https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/clk/qcom/clk-rcg2.c#L1160
+>> 
+>> Not having to read from DISPCC register is also useful because we dont 
+>> have
+>> to maintain the register offset
+>> of the M_VID and N_VID which keeps changing across chipsets.
+>> 
+> 
+> Right, so downstream we do all the math and then we scale the
+> denominator by 2x or 3x to compensate for the fact that we didn't
+> account for the division as the clock left the PLL.
+> 
+> As this was reworked upstream for some reason this compensation was
+> retained, so the denominator would always be 2x or 3x to large for HBR2
+> and HBR3. So the way this was solved was to divide by 2x or 3x before
+> calculating the ratio.
+> 
+>> However we discussed this again after viewing this patch. So the clk 
+>> driver
+>> always operates on the vco clk
+>> and calculates the pixel clk from it and sets the M_VID and N_VID 
+>> based on
+>> that.
+>> In terms of accuracy, the best way is still to re-use the M_VID and 
+>> N_VID
+>> which the clk driver sets because
+>> the pixel clock was generated based on that and that is the actual 
+>> pixel
+>> clock we are going to get.
+>> 
+>> So even before this change we lost some accuracy because the pixel 
+>> clock we
+>> are giving here to recalculate
+>> the M_VID and N_VID is a theoretical value. Although for most values 
+>> of
+>> pixel clk, theoretical and actual
+>> should match. There could be corner cases of pixel clock where its a 
+>> bit
+>> different. Hence ideally, re-using the M_VID
+>> and N_VID which the clk driver set would have been the best but not 
+>> having
+>> to hard-code M_VID and N_VID offsets
+>> was a good enough reason to not go back to that again.
+>> 
+>> Now, coming to this change. Here its trying to again re-calculate the 
+>> M_VID
+>> and N_VID by using the same
+>> API which the clk driver uses but uses link clk and pixel clk as the
+>> parameters Vs the clk driver uses
+>> vco clk and actual pixel clock to calculate this.
+>> 
+>> So even though this cleanup eliminates the adjustments we need to make 
+>> to
+>> account for the VCO clk to link clk ratio,
+>> it also could bring additional difference between what was actually 
+>> set by
+>> the clk driver and what we are calculating
+>> here because clk driver used vco clk as the input vs here we use link 
+>> clk
+>> after this change.
+>> There might be some pixel clock rates of some resolutions where this
+>> difference could be risky.
+>> 
+>> Hence the overall conclusion here was to keep using vco clk as the 
+>> input to
+>> rational_best_approximation
+>> and not make more changes to this.
+>> 
+> 
+> So what you're saying is that the reason for this obfuscation is to
+> replicate any rounding errors happening in the path of the link clock
+> generation?
+> 
+> If that's the case then this needs a giant comment describing exactly
+> what's happening and why this function needs to be impenetrable.
+> 
+> 
+> That said, from my attempts to write this patch (and add widebus
+> support) I saw a huge flexibility in getting this right, so can you
+> please elaborate on the value of the precision of the ratio.
 > 
 
-If we vote for a corner based on the link rate in *_configure_dp_phy()
-and put the vote for lowest corner we'd get the corner part sorted out
-afaict.
+The overall goal here is just to replicate whats happening in the clock 
+driver and clock hardware to calculate the pixel clock.
+That is, use the same inputs and function as the ones used in clk driver 
+to calculated to set the DISPCC_MVID and DISPCC_NVID regs.
 
-We'd still have to make sure that the PHY doesn't hang on to the cx vote
-beyond that though - and implicitly in the non-DP cases...
+I think i have already explained why we need the *2 and *3 in the math. 
+If you need, sure I can document this as well in code
+comments.
 
-> Honestly I suspect the DP PHY is _not_ in the CX domain as CX is for
-> digital logic. Probably the PLL is the hardware that has some minimum CX
-> requirement, and that flows down into the various display clks like the
-> link clk that actually clock the DP controller hardware. The mdss_gdsc
-> probably gates CX for the display subsystem (mdss) so if we had proper
-> corner aggregation logic we could indicate that mdss_gdsc is a child of
-> the CX domain and then make requests from the DP driver for particular
-> link frequencies on the mdss_gdsc and then have that bubble up to CX
-> appropriately. I don't think any of that sort of code is in place
-> though, right?
+By obfuscation are you referring to this snippet?
+https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/msm/dp/dp_catalog.c#L446
 
-I haven't checked sc7180, but I'm guessing that it's following the other
-modern platforms, where all the MDSS related pieces (including e.g.
-dispcc) lives in the MMCX domain, which is separate from CX.
+This is just recalculating the dispcc rate from the pixel clock rate so 
+that we feed the same input
+to the rational_best_approximation as what the clock driver would do and 
+hence making our input
+and output same for the rational_best_approximation as the clock driver 
+to maintain consistency and I will explain why.
 
-So the parent of MDSS_GDSC should be MMCX, while Kuogee's answer (and
-the dp-opp-table) tells us that the PLL lives in the CX domain.
+Let me explain a little bit more on the mnd precision i am referring to.
 
+The clock driver will also use the same API to calculate the mnds and 
+generate a pixel clock.
+It might not match the requested theoretical pixel clock as the mnds 
+calculated with this API might have some precision errors.
 
-PS. While this goes for the QMPs the DSI and eDP/DP PHYs (and PLLs)
-seems to live in MMCX.
+rational_best_approximation(dispcc_input_rate, stream_rate_khz,
+			(unsigned long)(1 << 16) - 1,
+			(unsigned long)(1 << 16) - 1, &den, &num);
 
-Regards,
-Bjorn
+By using the same input (dispcc rate) and output(pixel clk) rates, we 
+are getting the same mnds and hence same mvid and nvid.
+
+If you use the link clk rate here instead, it might generate some other 
+mvid/nvid and the pixel clock for that might be which is different
+from what is the actual pixel clock which the PLL generated ( due to the 
+mnd calculated using the API ).
+
+Hence to preserve the same loss of accuracy which the clock driver would 
+have, we would prefer to use the same input here too.
+
+Let me know if its still not clear.
+
+> Regards,
+> Bjorn
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
