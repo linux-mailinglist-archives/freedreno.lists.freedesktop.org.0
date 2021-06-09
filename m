@@ -2,60 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA16D3A1EBC
-	for <lists+freedreno@lfdr.de>; Wed,  9 Jun 2021 23:17:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1B853A1EBD
+	for <lists+freedreno@lfdr.de>; Wed,  9 Jun 2021 23:17:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CC6D6E405;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DC296E409;
 	Wed,  9 Jun 2021 21:17:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 973246E3F0
- for <freedreno@lists.freedesktop.org>; Wed,  9 Jun 2021 21:17:27 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id r14so1659882ljd.10
- for <freedreno@lists.freedesktop.org>; Wed, 09 Jun 2021 14:17:27 -0700 (PDT)
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A7516E3F0
+ for <freedreno@lists.freedesktop.org>; Wed,  9 Jun 2021 21:17:28 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id r16so1777276ljc.0
+ for <freedreno@lists.freedesktop.org>; Wed, 09 Jun 2021 14:17:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=1zCciPfjCDK0bUeWvLT8irPH+1vMI76gijTtJqkeCmI=;
- b=GVfDi+nc4MLlj3Sz60tReOfY53esc9R2V2jRhO/qAz9R4k+KYqBdF0XMcGDrPTKtsb
- ivin8lKzTX+uNMXGDffbz47CgFqYNlbIpn2gUhx8R/FsqpLn3R2M9g3MFLpOc8+VO2dP
- bCgoUV/yMGUnQYzMkto71dJUM+Oi6VbUAJyxRMuJWNjSz76TgP7YBj//zLlfrKgKp5B/
- RjO00JfdMP5pKe7x8USSN9JG/LwYLgsp1Ro8Bt/3BWoSAiO25NKb0z9ozmqiCakU44H6
- f6gIBrNq7zh5BA4pdso9AyhuTJw7opCMNA7hAb12D9Bq4H4Mo4T4ocfZ8hBaYa4DTpq+
- 20sw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=wBxdJF/+Ft9FymkNGM9uBBfcCj1CPncbr5qPBFszgJY=;
+ b=hDmJ8HmgPEknfk4ccDkBJQv1nQvjBwuUNTWk5dXY7lKuoyZCREFblE9hQXix7r2ZfV
+ nl1szLHJcGu2K8e7CJsMyK9ThAAiKOaRBWHGllSJ6jXPrKArz+ZfjszO8VQpvsJH8m7n
+ axACv4LPzUvl2yXAxiGRfMqGmE0t3MQkAIBjFTdU6i4THaPgCEtYmf+KVIWtQyjlxQoO
+ kZo9teu/kLUbsgx9ckNpyQP4AlJvoG085Iyex76ppFnDClxMPiLugcQMwJvFCnFqzKkz
+ mi3M3tgRtsQLT56mPRQtr7U1KGczsn1cRRTQSVAT4lmYUfBv5Ue+GQkS6egt4j7/94Sp
+ fbJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=1zCciPfjCDK0bUeWvLT8irPH+1vMI76gijTtJqkeCmI=;
- b=dp1R0boMt0DDZBGU+kME5pjQCQbByTht6S90enKTFH6EZCxuzqT06PKnep6pFSwxLx
- XZQo+jq+ecO7xUkd8sJ2LvHvGEyfTyLQ0X1gxzJrH48UsK+l8JIA4wRJrW4oyPtj+DWB
- kVAdRPY2vr4R/JqUwsDrjvimBtyUrduXqMre/OB5+91H0k+TCB0Y46dP24vSbma00YAa
- AM8QDRbmcovDtdyLIoL1OUy4bHbKPAmSbggjpEuFnVQnjeC/wxxVEDuFjlXkov8kDQff
- 6N0/q3FvVfyiifKC47QaoCNaOaqgv0hRWsfDSvNXkj4fYF0y2vbWS5twDkebUKbapu/A
- EptA==
-X-Gm-Message-State: AOAM531jyZq1SKosADfGvLB2PmuHDSxLILHelY6Df02xthc0iBqnC3UR
- wiGKJaaH/b9HQBMnMiTjj1QrtA==
-X-Google-Smtp-Source: ABdhPJzaowpFeTB6zyqZ3x0ByY6vJrI3ahi3dPSYOy105iiVYEhyZ52xnFEfzhLY3p70uniq7bbfbw==
-X-Received: by 2002:a05:651c:17a1:: with SMTP id
- bn33mr1268514ljb.275.1623273446021; 
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=wBxdJF/+Ft9FymkNGM9uBBfcCj1CPncbr5qPBFszgJY=;
+ b=ZYxviPqfYW4f/LOcSndBEquGHOiLcJXV6KwMYpuc0clZDeZK5l6MoOyxK6w6XJ9bBM
+ uoblQvPt+BOl7Lg60isT1jl+cSoyHUH0GpOWFpgK2oD2WwJ9dvS6m2LPK/DNXN2itheH
+ Nu87PNafe0N4dkTAJOG4CDefUf4vNwCCOv12hM1x442NJ3VgYluqwaBOJsr0i5EFFWdY
+ vMHWhudZNwqAmQ6BzNoBHW/QTkA4MR4vMkeRem5Vepjls2S3jN5YgEoU1CRlY4yKW+lP
+ TFpFf+ppqekSfCjQk0CNUudJVfnAo+nKvvj5Qkcp9gwqUb9TAEgMxkQyT2TVhQMRVpiI
+ 5vVg==
+X-Gm-Message-State: AOAM530L6LeGZfxTz9Bw1j4ELtM7eqZ1e0H5ZWY4wpqC9JEVYy+vy5nr
+ N88+tqwRB63HvpZEN6Up41BD5pOy/p865w==
+X-Google-Smtp-Source: ABdhPJwC41U2qVCEa5iYrM9mgMy9meQC/OT71IOAGSwT9QlfgFEymuUsGZrYpZHMU+oYBMWZovY5LQ==
+X-Received: by 2002:a2e:a78c:: with SMTP id c12mr1253878ljf.421.1623273446710; 
  Wed, 09 Jun 2021 14:17:26 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id z20sm95329ljk.50.2021.06.09.14.17.25
+ by smtp.gmail.com with ESMTPSA id z20sm95329ljk.50.2021.06.09.14.17.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Jun 2021 14:17:25 -0700 (PDT)
+ Wed, 09 Jun 2021 14:17:26 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <abhinavk@codeaurora.org>
-Date: Thu, 10 Jun 2021 00:17:17 +0300
-Message-Id: <20210609211723.2565105-1-dmitry.baryshkov@linaro.org>
+Date: Thu, 10 Jun 2021 00:17:18 +0300
+Message-Id: <20210609211723.2565105-2-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210609211723.2565105-1-dmitry.baryshkov@linaro.org>
+References: <20210609211723.2565105-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [RFC 0/6] drm/msm/dpu: add support for idependent DSI
- config
+Subject: [Freedreno] [RFC 1/6] drm/msm/dsi: add two helper functions
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,13 +77,108 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This patchseries adds support for independent DSI config to DPU1 display
-subdriver. This results in ability to drop one of msm_kms_funcs
-callbacks.
+Add two helper functions to be used by display drivers for setting up
+encoders.
 
-This code was tested on RB5 (dpu, dsi). Neither DP nor MDP5 changes were
-tested (thus the RFC tag).
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/dsi/dsi.c         |  6 ++++++
+ drivers/gpu/drm/msm/dsi/dsi_manager.c | 14 ++++++--------
+ drivers/gpu/drm/msm/msm_drv.h         | 12 ++++++++++--
+ 3 files changed, 22 insertions(+), 10 deletions(-)
 
+diff --git a/drivers/gpu/drm/msm/dsi/dsi.c b/drivers/gpu/drm/msm/dsi/dsi.c
+index 75afc12a7b25..874c1527d300 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi.c
++++ b/drivers/gpu/drm/msm/dsi/dsi.c
+@@ -13,6 +13,12 @@ struct drm_encoder *msm_dsi_get_encoder(struct msm_dsi *msm_dsi)
+ 	return msm_dsi->encoder;
+ }
+ 
++bool msm_dsi_is_cmd_mode(struct msm_dsi *msm_dsi)
++{
++	unsigned long host_flags = msm_dsi_host_get_mode_flags(msm_dsi->host);
++	return !(host_flags & MIPI_DSI_MODE_VIDEO);
++}
++
+ static int dsi_get_phy(struct msm_dsi *msm_dsi)
+ {
+ 	struct platform_device *pdev = msm_dsi->pdev;
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+index cd016576e8c5..7d4f6fae1ab0 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+@@ -217,12 +217,6 @@ static int dsi_mgr_bridge_get_id(struct drm_bridge *bridge)
+ 	return dsi_bridge->id;
+ }
+ 
+-static bool dsi_mgr_is_cmd_mode(struct msm_dsi *msm_dsi)
+-{
+-	unsigned long host_flags = msm_dsi_host_get_mode_flags(msm_dsi->host);
+-	return !(host_flags & MIPI_DSI_MODE_VIDEO);
+-}
+-
+ void msm_dsi_manager_setup_encoder(int id)
+ {
+ 	struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
+@@ -232,7 +226,7 @@ void msm_dsi_manager_setup_encoder(int id)
+ 
+ 	if (encoder && kms->funcs->set_encoder_mode)
+ 		kms->funcs->set_encoder_mode(kms, encoder,
+-					     dsi_mgr_is_cmd_mode(msm_dsi));
++					     msm_dsi_is_cmd_mode(msm_dsi));
+ }
+ 
+ static int msm_dsi_manager_panel_init(struct drm_connector *conn, u8 id)
+@@ -277,7 +271,7 @@ static int msm_dsi_manager_panel_init(struct drm_connector *conn, u8 id)
+ 	if (other_dsi && other_dsi->panel && kms->funcs->set_split_display) {
+ 		kms->funcs->set_split_display(kms, master_dsi->encoder,
+ 					      slave_dsi->encoder,
+-					      dsi_mgr_is_cmd_mode(msm_dsi));
++					      msm_dsi_is_cmd_mode(msm_dsi));
+ 	}
+ 
+ out:
+@@ -840,3 +834,7 @@ void msm_dsi_manager_unregister(struct msm_dsi *msm_dsi)
+ 		msm_dsim->dsi[msm_dsi->id] = NULL;
+ }
+ 
++bool msm_dsi_is_dual_dsi(struct msm_dsi *msm_dsi)
++{
++	return IS_DUAL_DSI();
++}
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index 3352125ce428..826cc5e25bcb 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -343,7 +343,8 @@ void __exit msm_dsi_unregister(void);
+ int msm_dsi_modeset_init(struct msm_dsi *msm_dsi, struct drm_device *dev,
+ 			 struct drm_encoder *encoder);
+ void msm_dsi_snapshot(struct msm_disp_state *disp_state, struct msm_dsi *msm_dsi);
+-
++bool msm_dsi_is_cmd_mode(struct msm_dsi *msm_dsi);
++bool msm_dsi_is_dual_dsi(struct msm_dsi *msm_dsi);
+ #else
+ static inline void __init msm_dsi_register(void)
+ {
+@@ -360,7 +361,14 @@ static inline int msm_dsi_modeset_init(struct msm_dsi *msm_dsi,
+ static inline void msm_dsi_snapshot(struct msm_disp_state *disp_state, struct msm_dsi *msm_dsi)
+ {
+ }
+-
++static inline bool msm_dsi_is_cmd_mode(struct msm_dsi *msm_dsi)
++{
++	return false;
++}
++static bool msm_dsi_is_dual_dsi(struct msm_dsi *msm_dsi)
++{
++	return false;
++}
+ #endif
+ 
+ #ifdef CONFIG_DRM_MSM_DP
+-- 
+2.30.2
 
 _______________________________________________
 Freedreno mailing list
