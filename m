@@ -1,50 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34BEC3A2FF2
-	for <lists+freedreno@lfdr.de>; Thu, 10 Jun 2021 17:57:21 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id BC6653A30BC
+	for <lists+freedreno@lfdr.de>; Thu, 10 Jun 2021 18:34:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE1996ED83;
-	Thu, 10 Jun 2021 15:57:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 745C86ED93;
+	Thu, 10 Jun 2021 16:34:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04DCB6ED64;
- Thu, 10 Jun 2021 15:57:18 +0000 (UTC)
-Received: by mail-wr1-x42b.google.com with SMTP id z8so2892410wrp.12;
- Thu, 10 Jun 2021 08:57:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=0XQj9iBk0d0enFecyQCfBbt7C3fYu8DOKP1wgHfow9A=;
- b=Kbhknve1t+m6hcTJfurnuq0cJBOeysTUuX2xuUlY0dk/mlIu9FA68r3mBcLcVasNCr
- A4Z6vIzkzq98Ghaj1VIiFTrBku8l6msw92HdG2e4giYKr0+bAgcDa9yySvRg3rupy5qW
- Ns5wwFcmIgnSCa22P4to062Y2Wy+cChHeIZ6SafetcwzJChlhSKF48/iubE3kYPcY/8N
- UWougPG7uzwvF7bmOyMQ6Sc8T1NbY5VLqfpsiGLG81YPCU5F35RPwLjN71u4bYyT3Twa
- 6E7yr57ErTishfB0NRGZTotoZ6IQOcEZN66Uj+PmYEyOeJesCNIdo+fjcdGFIkzf8vmP
- lfww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=0XQj9iBk0d0enFecyQCfBbt7C3fYu8DOKP1wgHfow9A=;
- b=N5gIaK6WOhCm8RlkN7kWB/RCC2DcGp5St0A3L24iqcZk+RluhlEKHCIab/MbWR8gS0
- wqRiS/bxmQQwEXxsVzroHSo69Qjp6Xzne9YROzkUflkP5j9DnPffuTG7OlaQ9DU0uD0L
- gDS2Yitlr+AJgBecnwyGq59zTX48PL3EMQygM8p1ZWHsV9Qs4JvL8kW1Nd7wK5hJ4PS8
- itA2iLOnKokAuncO6wmdcwlEewSBFjAihCpWsyBesJf5wPXCVl27wkDcHCRgcBT5r2Le
- aKdBTSX1M9mNx0zeOEI4wM5kJCfwgeOaGWVJX5m99n2bbGJ4Y6z/mUUqUHHj0U41ThlL
- wNRg==
-X-Gm-Message-State: AOAM531/KC6jZG3ngAXJ8yGeMK/XJvi9bWSikV6EZ7RXX9rBBrYcJtpX
- lFOQIGzl/+ZqISkFoTRPNJtjQem55MpLBsLn8WhNYUXg7gQ=
-X-Google-Smtp-Source: ABdhPJxlnpakzn0rO/KvwhuyfvuvJzb6Mq+7HJi6kkLlkKplfRNpwa2l6lIRLvC7ciiJv2Vy+S+FqQk4pY45FyjVERo=
-X-Received: by 2002:adf:f552:: with SMTP id j18mr6569688wrp.28.1623340636636; 
- Thu, 10 Jun 2021 08:57:16 -0700 (PDT)
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3998A6ED93
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Jun 2021 16:34:45 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1623342887; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=c6pthFlaDomDCwRq3vO77ujf4RqY/JN1SN6iLy8Se2s=;
+ b=r9deThbsKHT5ynix0gXddl6AzNeXk5OoupG2yo/8in7Ejv4J8PD4654zKqCpX00HGeXjb6Jg
+ OzaHFGfQvKLls/L10eQI6VRSPNt7kMdDepU2HU5xIZuoh/3/gFPvlTVgXED+5NPGMu5v38B0
+ hFzjVNkj2itagSrie+J01vYt2JU=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
+ 60c23f1c51f29e6bae1333f1 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 10 Jun 2021 16:34:36
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 17DE7C4338A; Thu, 10 Jun 2021 16:34:36 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id EAF7CC433D3;
+ Thu, 10 Jun 2021 16:34:33 +0000 (UTC)
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 10 Jun 2021 09:01:11 -0700
-Message-ID: <CAF6AEGvbcz0=QxGYnX9u7cD1SCvFSx20dzrZuOccjtRRBTJd5Q@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2021-06-10 for v5.13-rc6
+Date: Thu, 10 Jun 2021 09:34:33 -0700
+From: abhinavk@codeaurora.org
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <71839b49-554c-fcc4-d110-0c8a49905413@linaro.org>
+References: <20210515131217.1540412-1-dmitry.baryshkov@linaro.org>
+ <71839b49-554c-fcc4-d110-0c8a49905413@linaro.org>
+Message-ID: <acc08fd48c98af3007ad3d8d810ff335@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH 0/8] dsi: rework clock parents and timing
+ handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,55 +64,97 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
+Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
+ Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ David Airlie <airlied@linux.ie>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave & Daniel,
+Hi Dmitry
 
-A few late fixes for v5.13.  This supersedes the previous fixes pull
-and adds a fix for a DSI issue which was preventing display from
-coming up on coachz.
+I will take a look at this next week for sure.
 
-The following changes since commit f2f46b878777e0d3f885c7ddad48f477b4dea247:
+Thanks
 
-  drm/msm/dp: initialize audio_comp when audio starts (2021-05-06
-16:26:57 -0700)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/msm.git drm-msm-fixes-2021-06-10
-
-for you to fetch changes up to 170b763597d3a0a79f135e4d83a38462c3964fdf:
-
-  drm/msm/dsi: Stash away calculated vco frequency on recalc
-(2021-06-10 07:57:48 -0700)
-
-----------------------------------------------------------------
-Alexey Minnekhanov (1):
-      drm/msm: Init mm_list before accessing it for use_vram path
-
-Jonathan Marek (3):
-      drm/msm/a6xx: update/fix CP_PROTECT initialization
-      drm/msm/a6xx: fix incorrectly set uavflagprd_inv field for A650
-      drm/msm/a6xx: avoid shadow NULL reference in failure path
-
-Stephen Boyd (1):
-      drm/msm/dsi: Stash away calculated vco frequency on recalc
-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 155 +++++++++++++++++++++--------
- drivers/gpu/drm/msm/adreno/a6xx_gpu.h      |   2 +-
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c |   1 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c  |   1 +
- drivers/gpu/drm/msm/msm_gem.c              |   7 ++
- 5 files changed, 124 insertions(+), 42 deletions(-)
+Abhinav
+On 2021-06-10 06:48, Dmitry Baryshkov wrote:
+> On 15/05/2021 16:12, Dmitry Baryshkov wrote:
+>> This patch series brings back several patches targeting assigning 
+>> dispcc
+>> clock parents, that were removed from the massive dsi rework patchset
+>> earlier.
+> 
+> Gracious ping for this series. I'd ask to skip patch 8 for now (as we
+> might bring that back for moving PHY to drivers/phy), but patches 1-7
+> are still valid and pending review/acceptance.
+> 
+>> 
+>> Few notes:
+>>   - assign-clock-parents is a mandatory proprety according to the 
+>> current
+>>     dsi.txt description.
+>>   - There is little point in duplicating this functionality with the 
+>> ad-hoc
+>>     implementation in the dsi code.
+>> 
+>> On top of that come few minor cleanups for the DSI PHY drivers.
+>> 
+>> I'd kindly ask to bring all dts changes also through the drm tree, so
+>> that there won't be any breakage of the functionality.
+>> 
+>> 
+>> The following changes since commit 
+>> f2f46b878777e0d3f885c7ddad48f477b4dea247:
+>> 
+>>    drm/msm/dp: initialize audio_comp when audio starts (2021-05-06 
+>> 16:26:57 -0700)
+>> 
+>> are available in the Git repository at:
+>> 
+>>    https://git.linaro.org/people/dmitry.baryshkov/kernel.git 
+>> dsi-phy-update
+>> 
+>> for you to fetch changes up to 
+>> f1fd3b113cbb98febad682fc11ea1c6e717434c2:
+>> 
+>>    drm/msm/dsi: remove msm_dsi_dphy_timing from msm_dsi_phy 
+>> (2021-05-14 22:55:11 +0300)
+>> 
+>> ----------------------------------------------------------------
+>> Dmitry Baryshkov (8):
+>>        arm64: dts: qcom: sc7180: assign DSI clock source parents
+>>        arm64: dts: qcom: sdm845: assign DSI clock source parents
+>>        arm64: dts: qcom: sdm845-mtp: assign DSI clock source parents
+>>        arm64: dts: qcom: sm8250: assign DSI clock source parents
+>>        drm/msm/dsi: stop setting clock parents manually
+>>        drm/msm/dsi: phy: use of_device_get_match_data
+>>        drm/msm/dsi: drop msm_dsi_phy_get_shared_timings
+>>        drm/msm/dsi: remove msm_dsi_dphy_timing from msm_dsi_phy
+>> 
+>>   arch/arm64/boot/dts/qcom/sc7180.dtsi            |  3 ++
+>>   arch/arm64/boot/dts/qcom/sdm845-mtp.dts         |  3 ++
+>>   arch/arm64/boot/dts/qcom/sdm845.dtsi            |  6 +++
+>>   arch/arm64/boot/dts/qcom/sm8250.dtsi            |  6 +++
+>>   drivers/gpu/drm/msm/dsi/dsi.h                   |  7 +---
+>>   drivers/gpu/drm/msm/dsi/dsi_host.c              | 51 
+>> -------------------------
+>>   drivers/gpu/drm/msm/dsi/dsi_manager.c           |  8 +---
+>>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.c           | 46 
+>> ++++++++++------------
+>>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.h           | 10 ++++-
+>>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c      | 11 ++----
+>>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c      | 11 ++----
+>>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c      | 10 +----
+>>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c      | 12 ++----
+>>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c | 10 +----
+>>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c       | 13 ++-----
+>>   15 files changed, 67 insertions(+), 140 deletions(-)
+>> 
+>> 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
