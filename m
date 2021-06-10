@@ -2,66 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 657563A2A8E
-	for <lists+freedreno@lfdr.de>; Thu, 10 Jun 2021 13:46:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 704DA3A2D6A
+	for <lists+freedreno@lfdr.de>; Thu, 10 Jun 2021 15:48:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFC446E5D2;
-	Thu, 10 Jun 2021 11:46:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F4706ED20;
+	Thu, 10 Jun 2021 13:48:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FE376E5C6
- for <freedreno@lists.freedesktop.org>; Thu, 10 Jun 2021 11:46:03 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id j20so2738874lfe.8
- for <freedreno@lists.freedesktop.org>; Thu, 10 Jun 2021 04:46:03 -0700 (PDT)
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50E6D6ED20
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Jun 2021 13:48:15 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id a19so1828158ljq.12
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Jun 2021 06:48:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
+ h=subject:from:to:cc:references:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=MN3eVGwG+hH7sCw5HF13ulT0gGa8uU+HkoCqMe7S2Ao=;
- b=fX3FxI/4MOjcAxHIg9QbP0j/n8RrfuDUz8YnTisYoONbyXHwQOwbsV+YqkGbdUI1IF
- V+7shM5z3XaE1i+s2JTRlRTDHsUiCMQlxxUziKQhcISyQ7iqX/iucWonz7gV3Kl5x5jA
- YLC6hHf8ZspCcEXbe+QenOPht1kLkNsjl2qwyNQh+GFlzzEuaB9MNCa6v3urUQcBmiBS
- Zy4CmBYrNN+4EiFoQtdj39F8avo2WuAjLRt60904LZqXa2UvmkgrffAA+IFicfDT3DQ6
- PlHKXUrYYQsfQvG5BB5lFxRGBEVEi7+2KrsamTFApoZkz0xWtcJicwBeIvmuOuTyRpne
- WCow==
+ bh=11Ch0zTg4bYtpXueHaxR43aR9wj+nY2f+mnI1visPCM=;
+ b=p6sA4x678ac8IQLT9xziTdZq+TRG/++h6dI2/3JwzP08t15EgvXPi8f2AEOitzli8q
+ 5eyaZK9gP4Ada5VPEUL9gbNzSvSsdZ5bK9TDa5mjNaGnlbEmOFMOvdlNj9/QiVsZDhDZ
+ 6ktHQAJ+SS/anBSoh3v2SPrKebwGPKnWbx8R8CdQFkUlUWzxbyVZtdk0MWPA/+AIhjvV
+ xGum1knZriI6JwQVk1ioFLoxwya2uVc4xlkPOnBe/D6imfB3Us1SWQS1ah0LZAY+J6Qs
+ 7iSmF4FJFG6zkmDukULyDe5b5V3jG3bsOanWMg4b1nLIf0ig1XZ+k0gGWh9mcHD5rnTs
+ Y+jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ h=x-gm-message-state:subject:from:to:cc:references:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=MN3eVGwG+hH7sCw5HF13ulT0gGa8uU+HkoCqMe7S2Ao=;
- b=c6Q4HDYPcrWoLDGrao9jXM8oD7NR3zdOYqDfOfXrmq42bYIxgIlY56N3bTGldozp8P
- WVS2DXqKWr1R5Bg6JUHp29R3MO6BdV7Z4X/Ab0iT7PcFpMFg8R9WT6eAh+add9pyFO0B
- 7fSXl+QXOOtik5AdfGS2TmQp7ksiBg77YuCCpYfBEtv+WAWCTIM/n7hKmAliIyffOXAA
- cLmU67WYiBURcPMjCpp09Ms4ex4TUO2nMbzsQpoh7mcA+cB7du2/Wd30QaGkptjgUF+q
- 5JpmzfsYoMeVBEjnazB6IPQMJtLXyiEvdv5ZXT63sgXoN1s3GfFIxuEVKwqo7uKkTesG
- O0ww==
-X-Gm-Message-State: AOAM532bTOB4wdYFeYqUo6ox8wBgyvCbms1Be2D4PtoFODklSzLq1cqV
- Fs5cRNzY6qGXxKi0W4teHguhDA==
-X-Google-Smtp-Source: ABdhPJy/bZ8AH0U03fXrAjx9cu0WxQPFgQcSWCWAYZ1MmJ4nqea59qPaHjQq+CsddifBf0WRNFTKdQ==
-X-Received: by 2002:a05:6512:304b:: with SMTP id
- b11mr1707676lfb.581.1623325561634; 
- Thu, 10 Jun 2021 04:46:01 -0700 (PDT)
+ bh=11Ch0zTg4bYtpXueHaxR43aR9wj+nY2f+mnI1visPCM=;
+ b=LaijKgIZag5hLun3nfJJq/9HrczZRnLdSNnzic0xJe98inCS3KOSDFZy4s7wV3Tcbj
+ RyYht1EVmKuFppMQfcj8SMWJ3fyQUA78iZNcDL7zv/QtzD3UiHq1CC9Wuq+nWm6DWr3F
+ RcZcV3ELxCJ/W/YpuJlIucWQEgF+OglGb/Ho9GNmvctFpH8JIsBZOcWpqBwxgffub0Dm
+ I8Qv/RNOqTQ5Ag0/XR1gsTB74AfTKsZnNFwa+NeqAuBdjXUzGQchoBiW31jfQ/253pi5
+ f5e5477yzPwdlbMsePC9GYizFzokhH6NWoxKzX6m7CZKNvQBYCvzrEoBE7CKhvaMc4NE
+ hnLA==
+X-Gm-Message-State: AOAM533IqQi9hT8a5yudlvJpjo9LZEvaNM0t/A5eSDLQe4toH5Ul4dl+
+ vs2s7fSHbkuB6ll5w589naQ0xFOB4n3qNA==
+X-Google-Smtp-Source: ABdhPJwZJzIOkSGhqqb3zGVBIHgRHoDBffm+2prh3DOdKwTImss/wxSYFdKGwgKHyvtT9OscgyAjyw==
+X-Received: by 2002:a2e:9b96:: with SMTP id z22mr2330119lji.164.1623332893362; 
+ Thu, 10 Jun 2021 06:48:13 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id f6sm273541lfh.299.2021.06.10.04.46.00
+ by smtp.gmail.com with ESMTPSA id a14sm305055lfs.108.2021.06.10.06.48.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Jun 2021 04:46:01 -0700 (PDT)
+ Thu, 10 Jun 2021 06:48:12 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
  Abhinav Kumar <abhinavk@codeaurora.org>
-References: <20210609231507.3031904-1-bjorn.andersson@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <faf0dbb2-a219-51fe-5cbd-752848a0286f@linaro.org>
-Date: Thu, 10 Jun 2021 14:46:00 +0300
+References: <20210515131217.1540412-1-dmitry.baryshkov@linaro.org>
+Message-ID: <71839b49-554c-fcc4-d110-0c8a49905413@linaro.org>
+Date: Thu, 10 Jun 2021 16:48:12 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210609231507.3031904-1-bjorn.andersson@linaro.org>
+In-Reply-To: <20210515131217.1540412-1-dmitry.baryshkov@linaro.org>
 Content-Language: en-GB
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Avoid ABBA deadlock between
- IRQ modules
+Subject: Re: [Freedreno] [PATCH 0/8] dsi: rework clock parents and timing
+ handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,136 +72,77 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/06/2021 02:15, Bjorn Andersson wrote:
-> Handling of the interrupt callback lists is done in dpu_core_irq.c,
-> under the "cb_lock" spinlock. When these operations results in the need
-> for enableing or disabling the IRQ in the hardware the code jumps to
-> dpu_hw_interrupts.c, which protects its operations with "irq_lock"
-> spinlock.
-> 
-> When an interrupt fires, dpu_hw_intr_dispatch_irq() inspects the
-> hardware state while holding the "irq_lock" spinlock and jumps to
-> dpu_core_irq_callback_handler() to invoke the registered handlers, which
-> traverses the callback list under the "cb_lock" spinlock.
-> 
-> As such, in the event that these happens concurrently we'll end up with
-> a deadlock.
-> 
-> Prior to '1c1e7763a6d4 ("drm/msm/dpu: simplify IRQ enabling/disabling")'
-> the enable/disable of the hardware interrupt was done outside the
-> "cb_lock" region, optimitically by using an atomic enable-counter for
-> each interrupt and an warning print if someone changed the list between
-> the atomic_read and the time the operation concluded.
-> 
-> Rather than re-introducing the large array of atomics, serialize the
-> register/unregister operations under a single mutex.
-> 
-> Fixes: 1c1e7763a6d4 ("drm/msm/dpu: simplify IRQ enabling/disabling")
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+On 15/05/2021 16:12, Dmitry Baryshkov wrote:
+> This patch series brings back several patches targeting assigning dispcc
+> clock parents, that were removed from the massive dsi rework patchset
+> earlier.
 
-I have been thinking about this for quite some time. I'm still not 
-confident about the proposed scheme.
+Gracious ping for this series. I'd ask to skip patch 8 for now (as we 
+might bring that back for moving PHY to drivers/phy), but patches 1-7 
+are still valid and pending review/acceptance.
 
-What more intrusive, but more obvious change:
-  - Drop dpu_kms->irq_obj.cb_lock alltogether. Use hw_intr's irq_lock 
-instead in the register/unregister path and no locks in the callback itself.
-  - Do not take locks in the dpu_hw_intr_enable_irq/disable_irq (as we 
-are already locked outside).
-
-The core_irq is the only user of the hw_intr framework. In fact I'd like 
-to squash them together at some point (if I get some time, I'll send 
-patches during this cycle).
-
-
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c | 10 +++++++---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h      |  2 ++
->   2 files changed, 9 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
-> index 4f110c428b60..62bbe35eff7b 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
-> @@ -82,11 +82,13 @@ int dpu_core_irq_register_callback(struct dpu_kms *dpu_kms, int irq_idx,
->   
->   	DPU_DEBUG("[%pS] irq_idx=%d\n", __builtin_return_address(0), irq_idx);
->   
-> +	mutex_lock(&dpu_kms->irq_obj.hw_enable_lock);
->   	spin_lock_irqsave(&dpu_kms->irq_obj.cb_lock, irq_flags);
->   	trace_dpu_core_irq_register_callback(irq_idx, register_irq_cb);
->   	list_del_init(&register_irq_cb->list);
->   	list_add_tail(&register_irq_cb->list,
->   			&dpu_kms->irq_obj.irq_cb_tbl[irq_idx]);
-> +	spin_unlock_irqrestore(&dpu_kms->irq_obj.cb_lock, irq_flags);
->   	if (list_is_first(&register_irq_cb->list,
->   			&dpu_kms->irq_obj.irq_cb_tbl[irq_idx])) {
->   		int ret = dpu_kms->hw_intr->ops.enable_irq(
-> @@ -96,8 +98,7 @@ int dpu_core_irq_register_callback(struct dpu_kms *dpu_kms, int irq_idx,
->   			DPU_ERROR("Fail to enable IRQ for irq_idx:%d\n",
->   					irq_idx);
->   	}
-> -
-> -	spin_unlock_irqrestore(&dpu_kms->irq_obj.cb_lock, irq_flags);
-> +	mutex_unlock(&dpu_kms->irq_obj.hw_enable_lock);
->   
->   	return 0;
->   }
-> @@ -127,9 +128,11 @@ int dpu_core_irq_unregister_callback(struct dpu_kms *dpu_kms, int irq_idx,
->   
->   	DPU_DEBUG("[%pS] irq_idx=%d\n", __builtin_return_address(0), irq_idx);
->   
-> +	mutex_lock(&dpu_kms->irq_obj.hw_enable_lock);
->   	spin_lock_irqsave(&dpu_kms->irq_obj.cb_lock, irq_flags);
->   	trace_dpu_core_irq_unregister_callback(irq_idx, register_irq_cb);
->   	list_del_init(&register_irq_cb->list);
-> +	spin_unlock_irqrestore(&dpu_kms->irq_obj.cb_lock, irq_flags);
->   	/* empty callback list but interrupt is still enabled */
->   	if (list_empty(&dpu_kms->irq_obj.irq_cb_tbl[irq_idx])) {
->   		int ret = dpu_kms->hw_intr->ops.disable_irq(
-> @@ -140,7 +143,7 @@ int dpu_core_irq_unregister_callback(struct dpu_kms *dpu_kms, int irq_idx,
->   					irq_idx);
->   		DPU_DEBUG("irq_idx=%d ret=%d\n", irq_idx, ret);
->   	}
-> -	spin_unlock_irqrestore(&dpu_kms->irq_obj.cb_lock, irq_flags);
-> +	mutex_unlock(&dpu_kms->irq_obj.hw_enable_lock);
->   
->   	return 0;
->   }
-> @@ -207,6 +210,7 @@ void dpu_core_irq_preinstall(struct dpu_kms *dpu_kms)
->   	dpu_disable_all_irqs(dpu_kms);
->   	pm_runtime_put_sync(&dpu_kms->pdev->dev);
->   
-> +	mutex_init(&dpu_kms->irq_obj.hw_enable_lock);
->   	spin_lock_init(&dpu_kms->irq_obj.cb_lock);
->   
->   	/* Create irq callbacks for all possible irq_idx */
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> index f6840b1af6e4..5a162caea29d 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> @@ -83,6 +83,7 @@ struct dpu_irq_callback {
->    * @total_irq:    total number of irq_idx obtained from HW interrupts mapping
->    * @irq_cb_tbl:   array of IRQ callbacks setting
->    * @cb_lock:      callback lock
-> + * @hw_enable_lock: lock to synchronize callback register and unregister
->    * @debugfs_file: debugfs file for irq statistics
->    */
->   struct dpu_irq {
-> @@ -90,6 +91,7 @@ struct dpu_irq {
->   	struct list_head *irq_cb_tbl;
->   	atomic_t *irq_counts;
->   	spinlock_t cb_lock;
-> +	struct mutex hw_enable_lock;
->   };
->   
->   struct dpu_kms {
+> Few notes:
+>   - assign-clock-parents is a mandatory proprety according to the current
+>     dsi.txt description.
+>   - There is little point in duplicating this functionality with the ad-hoc
+>     implementation in the dsi code.
+> 
+> On top of that come few minor cleanups for the DSI PHY drivers.
+> 
+> I'd kindly ask to bring all dts changes also through the drm tree, so
+> that there won't be any breakage of the functionality.
+> 
+> 
+> The following changes since commit f2f46b878777e0d3f885c7ddad48f477b4dea247:
+> 
+>    drm/msm/dp: initialize audio_comp when audio starts (2021-05-06 16:26:57 -0700)
+> 
+> are available in the Git repository at:
+> 
+>    https://git.linaro.org/people/dmitry.baryshkov/kernel.git dsi-phy-update
+> 
+> for you to fetch changes up to f1fd3b113cbb98febad682fc11ea1c6e717434c2:
+> 
+>    drm/msm/dsi: remove msm_dsi_dphy_timing from msm_dsi_phy (2021-05-14 22:55:11 +0300)
+> 
+> ----------------------------------------------------------------
+> Dmitry Baryshkov (8):
+>        arm64: dts: qcom: sc7180: assign DSI clock source parents
+>        arm64: dts: qcom: sdm845: assign DSI clock source parents
+>        arm64: dts: qcom: sdm845-mtp: assign DSI clock source parents
+>        arm64: dts: qcom: sm8250: assign DSI clock source parents
+>        drm/msm/dsi: stop setting clock parents manually
+>        drm/msm/dsi: phy: use of_device_get_match_data
+>        drm/msm/dsi: drop msm_dsi_phy_get_shared_timings
+>        drm/msm/dsi: remove msm_dsi_dphy_timing from msm_dsi_phy
+> 
+>   arch/arm64/boot/dts/qcom/sc7180.dtsi            |  3 ++
+>   arch/arm64/boot/dts/qcom/sdm845-mtp.dts         |  3 ++
+>   arch/arm64/boot/dts/qcom/sdm845.dtsi            |  6 +++
+>   arch/arm64/boot/dts/qcom/sm8250.dtsi            |  6 +++
+>   drivers/gpu/drm/msm/dsi/dsi.h                   |  7 +---
+>   drivers/gpu/drm/msm/dsi/dsi_host.c              | 51 -------------------------
+>   drivers/gpu/drm/msm/dsi/dsi_manager.c           |  8 +---
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.c           | 46 ++++++++++------------
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.h           | 10 ++++-
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c      | 11 ++----
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c      | 11 ++----
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c      | 10 +----
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c      | 12 ++----
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c | 10 +----
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c       | 13 ++-----
+>   15 files changed, 67 insertions(+), 140 deletions(-)
+> 
 > 
 
 
