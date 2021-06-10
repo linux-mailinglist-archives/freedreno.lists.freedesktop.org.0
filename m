@@ -2,34 +2,34 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC6653A30BC
-	for <lists+freedreno@lfdr.de>; Thu, 10 Jun 2021 18:34:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEC453A3172
+	for <lists+freedreno@lfdr.de>; Thu, 10 Jun 2021 18:54:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 745C86ED93;
-	Thu, 10 Jun 2021 16:34:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 808BD6E3D0;
+	Thu, 10 Jun 2021 16:54:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3998A6ED93
- for <freedreno@lists.freedesktop.org>; Thu, 10 Jun 2021 16:34:45 +0000 (UTC)
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE14B6E3D0
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Jun 2021 16:54:10 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1623342887; h=Message-ID: References: In-Reply-To: Subject:
+ s=smtp; t=1623344051; h=Message-ID: References: In-Reply-To: Subject:
  Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=c6pthFlaDomDCwRq3vO77ujf4RqY/JN1SN6iLy8Se2s=;
- b=r9deThbsKHT5ynix0gXddl6AzNeXk5OoupG2yo/8in7Ejv4J8PD4654zKqCpX00HGeXjb6Jg
- OzaHFGfQvKLls/L10eQI6VRSPNt7kMdDepU2HU5xIZuoh/3/gFPvlTVgXED+5NPGMu5v38B0
- hFzjVNkj2itagSrie+J01vYt2JU=
-X-Mailgun-Sending-Ip: 69.72.43.7
+ MIME-Version: Sender; bh=zFFkMEwlO26ouYUqgGKuegHfhdCq+VEk7tkGM2HN59s=;
+ b=jDJ2N1jw81eBIDroEEIXbDdbVEEYG4lbHv1EM2WbG5xBkemCR7xdyBlOV9sVRrW5XNzZqwmx
+ L7S9zC60hLbevCeB/Pksx/qCfCGT6A/CNSdDM/0R6Nc3syb3FKn1fVh2I35dWN9DeIU6u3mm
+ 00s4/PU9dUwigr5jViHa0HR1XjY=
+X-Mailgun-Sending-Ip: 198.61.254.9
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
- 60c23f1c51f29e6bae1333f1 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 10 Jun 2021 16:34:36
+ smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
+ 60c243b0e27c0cc77fb97eed (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 10 Jun 2021 16:54:08
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 17DE7C4338A; Thu, 10 Jun 2021 16:34:36 +0000 (UTC)
+ id C8EB7C433F1; Thu, 10 Jun 2021 16:54:07 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -37,21 +37,29 @@ X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
  URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id EAF7CC433D3;
- Thu, 10 Jun 2021 16:34:33 +0000 (UTC)
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 2F429C4338A;
+ Thu, 10 Jun 2021 16:54:05 +0000 (UTC)
 MIME-Version: 1.0
-Date: Thu, 10 Jun 2021 09:34:33 -0700
-From: abhinavk@codeaurora.org
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <71839b49-554c-fcc4-d110-0c8a49905413@linaro.org>
-References: <20210515131217.1540412-1-dmitry.baryshkov@linaro.org>
- <71839b49-554c-fcc4-d110-0c8a49905413@linaro.org>
-Message-ID: <acc08fd48c98af3007ad3d8d810ff335@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
+Date: Thu, 10 Jun 2021 09:54:05 -0700
+From: khsieh@codeaurora.org
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+In-Reply-To: <YL/41hWz8xB+jSeO@yoga>
+References: <YLkI/6ItCz+SbbuJ@yoga>
+ <ac326ec8689c0babb08b2311e19d52cc@codeaurora.org>
+ <YLxX/YtegtbLmkri@builder.lan>
+ <ef1879fa7ecfefaf0c70c7a4782240a9@codeaurora.org> <YL6sY/1E5wLzMiP/@yoga>
+ <CAE-0n50-X03sMyJdsw7s=Ue0dWXBo=iHOc0HxDQm5yh2J-uS3A@mail.gmail.com>
+ <YL/uj+t+BFkII1Fh@yoga>
+ <CAE-0n50WP25kRQkWMVdDZGsZWBXwfbVSTFKyBLF7f8Mp3x2Wfg@mail.gmail.com>
+ <YL/wWdRs6e/eECiC@yoga>
+ <CAE-0n51GM65rZVJgXuHy6FerJorHeHKf2W31GijG8sDEhaX_KQ@mail.gmail.com>
+ <YL/41hWz8xB+jSeO@yoga>
+Message-ID: <21dc5c9fc2efdc1a0ba924354bfd9d75@codeaurora.org>
+X-Sender: khsieh@codeaurora.org
 User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH 0/8] dsi: rework clock parents and timing
- handling
+Subject: Re: [Freedreno] [PATCH v2] arm64/dts/qcom/sc7180: Add Display Port
+ dt node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,97 +72,119 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
- Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- David Airlie <airlied@linux.ie>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
+Cc: devicetree@vger.kernel.org, freedreno@lists.freedesktop.org,
+ vkoul@kernel.org, robh+dt@kernel.org, Stephen Boyd <swboyd@chromium.org>,
+ robdclark@gmail.com, agross@kernel.org, abhinavk@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, aravindh@codeaurora.org, sean@poorly.run,
+ linux-kernel@vger.kernel.org
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dmitry
-
-I will take a look at this next week for sure.
-
-Thanks
-
-Abhinav
-On 2021-06-10 06:48, Dmitry Baryshkov wrote:
-> On 15/05/2021 16:12, Dmitry Baryshkov wrote:
->> This patch series brings back several patches targeting assigning 
->> dispcc
->> clock parents, that were removed from the massive dsi rework patchset
->> earlier.
+On 2021-06-08 16:10, Bjorn Andersson wrote:
+> On Tue 08 Jun 17:44 CDT 2021, Stephen Boyd wrote:
 > 
-> Gracious ping for this series. I'd ask to skip patch 8 for now (as we
-> might bring that back for moving PHY to drivers/phy), but patches 1-7
-> are still valid and pending review/acceptance.
+>> Quoting Bjorn Andersson (2021-06-08 15:34:01)
+>> > On Tue 08 Jun 17:29 CDT 2021, Stephen Boyd wrote:
+>> >
+>> > > Quoting Bjorn Andersson (2021-06-08 15:26:23)
+>> > > > On Tue 08 Jun 17:15 CDT 2021, Stephen Boyd wrote:
+>> > > >
+>> > > > > Quoting Bjorn Andersson (2021-06-07 16:31:47)
+>> > > > > > On Mon 07 Jun 12:48 CDT 2021, khsieh@codeaurora.org wrote:
+>> > > > > >
+>> > > > > > > Sorry about the confusion. What I meant is that even though DP controller is
+>> > > > > > > in the MDSS_GDSC
+>> > > > > > > power domain, DP PHY/PLL sources out of CX. The DP link clocks have a direct
+>> > > > > > > impact
+>> > > > > > > on the CX voltage corners. Therefore, we need to mention the CX power domain
+>> > > > > > > here. And, since
+>> > > > > > > we can associate only one OPP table with one device, we picked the DP link
+>> > > > > > > clock over other
+>> > > > > > > clocks.
+>> > > > > >
+>> > > > > > Thank you, that's a much more useful answer.
+>> > > > > >
+>> > > > > > Naturally I would think it would make more sense for the PHY/PLL driver
+>> > > > > > to ensure that CX is appropriately voted for then, but I think that
+>> > > > > > would result in it being the clock driver performing such vote and I'm
+>> > > > > > unsure how the opp table for that would look.
+>> > > > > >
+>> > > > > > @Stephen, what do you say?
+>> > > > > >
+>> > > > >
+>> > > > > Wouldn't the PHY be the one that sets some vote? So it wouldn't be the
+>> > > > > clk driver, and probably not from the clk ops, but instead come from the
+>> > > > > phy ops via phy_enable() and phy_configure().
+>> > > > >
+>> > > >
+>> > > > If I understand the logic correctly *_configure_dp_phy() will both
+>> > > > configure the vco clock and "request" the clock framework to change the
+>> > > > rate.
+>> > > >
+>> > > > So I presume what you're suggesting is that that would be the place to
+>> > > > cast the CX corner vote?
+>> > >
+>> > > Yes that would be a place to make the CX vote. The problem is then I
+>> > > don't know where to drop the vote. Is that when the phy is disabled?
+>> >
+>> > We do pass qcom_qmp_phy_power_off() and power down the DP part as DP
+>> > output is being disabled. So that sounds like a reasonable place to drop
+>> > the vote for the lowest performance state.
+>> >
+>> 
+>> So then will the corner vote be in place when the PHY isn't actually
+>> powered up? That will be bad for power. The phy configure code will 
+>> need
+>> to know if the phy is enabled and then only put in the vote when the 
+>> phy
+>> is enabled, otherwise wait for enable to make the corner vote.
+>> 
 > 
->> 
->> Few notes:
->>   - assign-clock-parents is a mandatory proprety according to the 
->> current
->>     dsi.txt description.
->>   - There is little point in duplicating this functionality with the 
->> ad-hoc
->>     implementation in the dsi code.
->> 
->> On top of that come few minor cleanups for the DSI PHY drivers.
->> 
->> I'd kindly ask to bring all dts changes also through the drm tree, so
->> that there won't be any breakage of the functionality.
->> 
->> 
->> The following changes since commit 
->> f2f46b878777e0d3f885c7ddad48f477b4dea247:
->> 
->>    drm/msm/dp: initialize audio_comp when audio starts (2021-05-06 
->> 16:26:57 -0700)
->> 
->> are available in the Git repository at:
->> 
->>    https://git.linaro.org/people/dmitry.baryshkov/kernel.git 
->> dsi-phy-update
->> 
->> for you to fetch changes up to 
->> f1fd3b113cbb98febad682fc11ea1c6e717434c2:
->> 
->>    drm/msm/dsi: remove msm_dsi_dphy_timing from msm_dsi_phy 
->> (2021-05-14 22:55:11 +0300)
->> 
->> ----------------------------------------------------------------
->> Dmitry Baryshkov (8):
->>        arm64: dts: qcom: sc7180: assign DSI clock source parents
->>        arm64: dts: qcom: sdm845: assign DSI clock source parents
->>        arm64: dts: qcom: sdm845-mtp: assign DSI clock source parents
->>        arm64: dts: qcom: sm8250: assign DSI clock source parents
->>        drm/msm/dsi: stop setting clock parents manually
->>        drm/msm/dsi: phy: use of_device_get_match_data
->>        drm/msm/dsi: drop msm_dsi_phy_get_shared_timings
->>        drm/msm/dsi: remove msm_dsi_dphy_timing from msm_dsi_phy
->> 
->>   arch/arm64/boot/dts/qcom/sc7180.dtsi            |  3 ++
->>   arch/arm64/boot/dts/qcom/sdm845-mtp.dts         |  3 ++
->>   arch/arm64/boot/dts/qcom/sdm845.dtsi            |  6 +++
->>   arch/arm64/boot/dts/qcom/sm8250.dtsi            |  6 +++
->>   drivers/gpu/drm/msm/dsi/dsi.h                   |  7 +---
->>   drivers/gpu/drm/msm/dsi/dsi_host.c              | 51 
->> -------------------------
->>   drivers/gpu/drm/msm/dsi/dsi_manager.c           |  8 +---
->>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.c           | 46 
->> ++++++++++------------
->>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.h           | 10 ++++-
->>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c      | 11 ++----
->>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c      | 11 ++----
->>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c      | 10 +----
->>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c      | 12 ++----
->>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c | 10 +----
->>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c       | 13 ++-----
->>   15 files changed, 67 insertions(+), 140 deletions(-)
->> 
->> 
+> If we vote for a corner based on the link rate in *_configure_dp_phy()
+> and put the vote for lowest corner we'd get the corner part sorted out
+> afaict.
+> 
+> We'd still have to make sure that the PHY doesn't hang on to the cx 
+> vote
+> beyond that though - and implicitly in the non-DP cases...
+> 
+>> Honestly I suspect the DP PHY is _not_ in the CX domain as CX is for
+>> digital logic. Probably the PLL is the hardware that has some minimum 
+>> CX
+>> requirement, and that flows down into the various display clks like 
+>> the
+>> link clk that actually clock the DP controller hardware. The mdss_gdsc
+>> probably gates CX for the display subsystem (mdss) so if we had proper
+>> corner aggregation logic we could indicate that mdss_gdsc is a child 
+>> of
+>> the CX domain and then make requests from the DP driver for particular
+>> link frequencies on the mdss_gdsc and then have that bubble up to CX
+>> appropriately. I don't think any of that sort of code is in place
+>> though, right?
+> 
+> I haven't checked sc7180, but I'm guessing that it's following the 
+> other
+> modern platforms, where all the MDSS related pieces (including e.g.
+> dispcc) lives in the MMCX domain, which is separate from CX.
+> 
+> So the parent of MDSS_GDSC should be MMCX, while Kuogee's answer (and
+> the dp-opp-table) tells us that the PLL lives in the CX domain.
+> 
+> 
+> PS. While this goes for the QMPs the DSI and eDP/DP PHYs (and PLLs)
+> seems to live in MMCX.
+> 
+> Regards,
+> Bjorn
+
+Dp link clock rate is sourced from phy/pll (vco). However it is possible 
+that different link clock rate
+are sourced from same vco (phy/pll) rate. Therefore I think CX rail 
+voltage level is more proper to
+be decided base on link clock rate.
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
