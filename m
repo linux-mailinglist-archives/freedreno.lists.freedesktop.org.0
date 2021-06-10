@@ -1,65 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEC453A3172
-	for <lists+freedreno@lfdr.de>; Thu, 10 Jun 2021 18:54:13 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 48BE23A3628
+	for <lists+freedreno@lfdr.de>; Thu, 10 Jun 2021 23:44:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 808BD6E3D0;
-	Thu, 10 Jun 2021 16:54:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01C4F6E4CF;
+	Thu, 10 Jun 2021 21:44:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE14B6E3D0
- for <freedreno@lists.freedesktop.org>; Thu, 10 Jun 2021 16:54:10 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1623344051; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=zFFkMEwlO26ouYUqgGKuegHfhdCq+VEk7tkGM2HN59s=;
- b=jDJ2N1jw81eBIDroEEIXbDdbVEEYG4lbHv1EM2WbG5xBkemCR7xdyBlOV9sVRrW5XNzZqwmx
- L7S9zC60hLbevCeB/Pksx/qCfCGT6A/CNSdDM/0R6Nc3syb3FKn1fVh2I35dWN9DeIU6u3mm
- 00s4/PU9dUwigr5jViHa0HR1XjY=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
- 60c243b0e27c0cc77fb97eed (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 10 Jun 2021 16:54:08
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id C8EB7C433F1; Thu, 10 Jun 2021 16:54:07 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 2F429C4338A;
- Thu, 10 Jun 2021 16:54:05 +0000 (UTC)
+Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
+ [IPv6:2607:f8b0:4864:20::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFCBC6E169;
+ Thu, 10 Jun 2021 21:44:01 +0000 (UTC)
+Received: by mail-pl1-x62f.google.com with SMTP id e1so1746837plh.8;
+ Thu, 10 Jun 2021 14:44:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=YXpzcgNJpQHDdAAXuY/oQ+b/W0CaqN4oZOi6cgulc3w=;
+ b=E2rbXL6CzPIKl7GWbqD7FCanhZAzWtfGCuqJrFoaEQgsw5urIjzABVakFeezgw+MF9
+ dPS1G7lhP/5pp/WE5+VtaBnHKjR/0QzthCWTcHRwkPDCAvNwJ6mn6Kbh1Tho8cDO0wrb
+ R5YhgKOtFkV8qrAPER3NbSwhY/JPpabWfzpYzd1AvK9MthQJD50skgQ/v93OLH0fU2T/
+ l1Z4dfXrQoxVTMMJOrkwKLmi6+hghrguF987nlMO+Kd+QlIfzXFR3nfoAMdEFti6YXAL
+ Agwug7Eiwl+gQ36hHVAnaJXxQ//VEBvG71kovgdzds+Kn85Lyb3UhS1DqIYWyIbT7vSf
+ X4Gg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=YXpzcgNJpQHDdAAXuY/oQ+b/W0CaqN4oZOi6cgulc3w=;
+ b=Iu53aamYAVc9CFzvZnJ8mn6a3Ab2OJQu306yVx7UBZ87KMeTBaMFwR2JFi7ULwUU2Z
+ c14wgGMvbrIykreM1myq6Q+ETicG3auJKiStsvuavQCi3Mzu4SdESFJPfhsRj+MyCJdM
+ ZbivNVEt4CGTYPhrREhFQiQ7XJDEpJtQCbFLRl+/UYTfKUXmtvofzxkDf0D4MS2dO/d/
+ DJSZUhcRAl66v3QhkSdMS9fAWhU9qQ1+almBeCItOft/2z6mwAcH+CQZbK97maPUpnfe
+ xZyhBNUp4NGg6JGIFxHjI8KJ4q/HiIGf+wpsgghSEw/SiSWB3tmRkpfP0yUX2bWR8IPo
+ iseQ==
+X-Gm-Message-State: AOAM530pR0ALU9cwrsiQGPfDW5OD2v+LRRUTNw/ZjXuSKc+kq/L/3Axj
+ rvVoUPaGFhHl5AmgOU12U0i1IJbxjEzLvQ==
+X-Google-Smtp-Source: ABdhPJxJD11XqOOGjIiTUfiFNQ5RyIt0F4HMLtsf3nUmUETo7UraoM7d4RGl+EHgGk/z8yVGSa0MWA==
+X-Received: by 2002:a17:902:f54d:b029:107:b14c:423d with SMTP id
+ h13-20020a170902f54db0290107b14c423dmr746664plf.77.1623361440568; 
+ Thu, 10 Jun 2021 14:44:00 -0700 (PDT)
+Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
+ by smtp.gmail.com with ESMTPSA id d15sm3173040pfd.35.2021.06.10.14.43.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 10 Jun 2021 14:43:59 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org,
+	iommu@lists.linux-foundation.org
+Date: Thu, 10 Jun 2021 14:44:08 -0700
+Message-Id: <20210610214431.539029-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Date: Thu, 10 Jun 2021 09:54:05 -0700
-From: khsieh@codeaurora.org
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-In-Reply-To: <YL/41hWz8xB+jSeO@yoga>
-References: <YLkI/6ItCz+SbbuJ@yoga>
- <ac326ec8689c0babb08b2311e19d52cc@codeaurora.org>
- <YLxX/YtegtbLmkri@builder.lan>
- <ef1879fa7ecfefaf0c70c7a4782240a9@codeaurora.org> <YL6sY/1E5wLzMiP/@yoga>
- <CAE-0n50-X03sMyJdsw7s=Ue0dWXBo=iHOc0HxDQm5yh2J-uS3A@mail.gmail.com>
- <YL/uj+t+BFkII1Fh@yoga>
- <CAE-0n50WP25kRQkWMVdDZGsZWBXwfbVSTFKyBLF7f8Mp3x2Wfg@mail.gmail.com>
- <YL/wWdRs6e/eECiC@yoga>
- <CAE-0n51GM65rZVJgXuHy6FerJorHeHKf2W31GijG8sDEhaX_KQ@mail.gmail.com>
- <YL/41hWz8xB+jSeO@yoga>
-Message-ID: <21dc5c9fc2efdc1a0ba924354bfd9d75@codeaurora.org>
-X-Sender: khsieh@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH v2] arm64/dts/qcom/sc7180: Add Display Port
- dt node
+Subject: [Freedreno] [PATCH v5 0/5] iommu/arm-smmu: adreno-smmu page fault
+ handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,118 +67,87 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, freedreno@lists.freedesktop.org,
- vkoul@kernel.org, robh+dt@kernel.org, Stephen Boyd <swboyd@chromium.org>,
- robdclark@gmail.com, agross@kernel.org, abhinavk@codeaurora.org,
- linux-arm-msm@vger.kernel.org, aravindh@codeaurora.org, sean@poorly.run,
- linux-kernel@vger.kernel.org
+Cc: Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
+ open list <linux-kernel@vger.kernel.org>, Eric Anholt <eric@anholt.net>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Lee Jones <lee.jones@linaro.org>, Rob Clark <robdclark@chromium.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>, Will Deacon <will@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Joerg Roedel <jroedel@suse.de>,
+ linux-arm-msm@vger.kernel.org, Sharat Masetty <smasetty@codeaurora.org>,
+ Krishna Reddy <vdumpa@nvidia.com>, John Stultz <john.stultz@linaro.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>,
+ "Isaac J. Manjarres" <isaacm@codeaurora.org>,
+ Robin Murphy <robin.murphy@arm.com>, Douglas Anderson <dianders@chromium.org>,
+ Zhenzhong Duan <zhenzhong.duan@gmail.com>,
+ "Kristian H. Kristensen" <hoegsberg@google.com>,
+ freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-06-08 16:10, Bjorn Andersson wrote:
-> On Tue 08 Jun 17:44 CDT 2021, Stephen Boyd wrote:
-> 
->> Quoting Bjorn Andersson (2021-06-08 15:34:01)
->> > On Tue 08 Jun 17:29 CDT 2021, Stephen Boyd wrote:
->> >
->> > > Quoting Bjorn Andersson (2021-06-08 15:26:23)
->> > > > On Tue 08 Jun 17:15 CDT 2021, Stephen Boyd wrote:
->> > > >
->> > > > > Quoting Bjorn Andersson (2021-06-07 16:31:47)
->> > > > > > On Mon 07 Jun 12:48 CDT 2021, khsieh@codeaurora.org wrote:
->> > > > > >
->> > > > > > > Sorry about the confusion. What I meant is that even though DP controller is
->> > > > > > > in the MDSS_GDSC
->> > > > > > > power domain, DP PHY/PLL sources out of CX. The DP link clocks have a direct
->> > > > > > > impact
->> > > > > > > on the CX voltage corners. Therefore, we need to mention the CX power domain
->> > > > > > > here. And, since
->> > > > > > > we can associate only one OPP table with one device, we picked the DP link
->> > > > > > > clock over other
->> > > > > > > clocks.
->> > > > > >
->> > > > > > Thank you, that's a much more useful answer.
->> > > > > >
->> > > > > > Naturally I would think it would make more sense for the PHY/PLL driver
->> > > > > > to ensure that CX is appropriately voted for then, but I think that
->> > > > > > would result in it being the clock driver performing such vote and I'm
->> > > > > > unsure how the opp table for that would look.
->> > > > > >
->> > > > > > @Stephen, what do you say?
->> > > > > >
->> > > > >
->> > > > > Wouldn't the PHY be the one that sets some vote? So it wouldn't be the
->> > > > > clk driver, and probably not from the clk ops, but instead come from the
->> > > > > phy ops via phy_enable() and phy_configure().
->> > > > >
->> > > >
->> > > > If I understand the logic correctly *_configure_dp_phy() will both
->> > > > configure the vco clock and "request" the clock framework to change the
->> > > > rate.
->> > > >
->> > > > So I presume what you're suggesting is that that would be the place to
->> > > > cast the CX corner vote?
->> > >
->> > > Yes that would be a place to make the CX vote. The problem is then I
->> > > don't know where to drop the vote. Is that when the phy is disabled?
->> >
->> > We do pass qcom_qmp_phy_power_off() and power down the DP part as DP
->> > output is being disabled. So that sounds like a reasonable place to drop
->> > the vote for the lowest performance state.
->> >
->> 
->> So then will the corner vote be in place when the PHY isn't actually
->> powered up? That will be bad for power. The phy configure code will 
->> need
->> to know if the phy is enabled and then only put in the vote when the 
->> phy
->> is enabled, otherwise wait for enable to make the corner vote.
->> 
-> 
-> If we vote for a corner based on the link rate in *_configure_dp_phy()
-> and put the vote for lowest corner we'd get the corner part sorted out
-> afaict.
-> 
-> We'd still have to make sure that the PHY doesn't hang on to the cx 
-> vote
-> beyond that though - and implicitly in the non-DP cases...
-> 
->> Honestly I suspect the DP PHY is _not_ in the CX domain as CX is for
->> digital logic. Probably the PLL is the hardware that has some minimum 
->> CX
->> requirement, and that flows down into the various display clks like 
->> the
->> link clk that actually clock the DP controller hardware. The mdss_gdsc
->> probably gates CX for the display subsystem (mdss) so if we had proper
->> corner aggregation logic we could indicate that mdss_gdsc is a child 
->> of
->> the CX domain and then make requests from the DP driver for particular
->> link frequencies on the mdss_gdsc and then have that bubble up to CX
->> appropriately. I don't think any of that sort of code is in place
->> though, right?
-> 
-> I haven't checked sc7180, but I'm guessing that it's following the 
-> other
-> modern platforms, where all the MDSS related pieces (including e.g.
-> dispcc) lives in the MMCX domain, which is separate from CX.
-> 
-> So the parent of MDSS_GDSC should be MMCX, while Kuogee's answer (and
-> the dp-opp-table) tells us that the PLL lives in the CX domain.
-> 
-> 
-> PS. While this goes for the QMPs the DSI and eDP/DP PHYs (and PLLs)
-> seems to live in MMCX.
-> 
-> Regards,
-> Bjorn
+From: Rob Clark <robdclark@chromium.org>
 
-Dp link clock rate is sourced from phy/pll (vco). However it is possible 
-that different link clock rate
-are sourced from same vco (phy/pll) rate. Therefore I think CX rail 
-voltage level is more proper to
-be decided base on link clock rate.
+This picks up an earlier series[1] from Jordan, and adds additional
+support needed to generate GPU devcore dumps on iova faults.  Original
+description:
+
+This is a stack to add an Adreno GPU specific handler for pagefaults. The first
+patch starts by wiring up report_iommu_fault for arm-smmu. The next patch adds
+a adreno-smmu-priv function hook to capture a handful of important debugging
+registers such as TTBR0, CONTEXTIDR, FSYNR0 and others. This is used by the
+third patch to print more detailed information on page fault such as the TTBR0
+for the pagetable that caused the fault and the source of the fault as
+determined by a combination of the FSYNR1 register and an internal GPU
+register.
+
+This code provides a solid base that we can expand on later for even more
+extensive GPU side page fault debugging capabilities.
+
+v5: [Rob] Use RBBM_STATUS3.SMMU_STALLED_ON_FAULT to detect case where
+    GPU snapshotting needs to avoid crashdumper, and check the
+    RBBM_STATUS3.SMMU_STALLED_ON_FAULT in GPU hang irq paths
+v4: [Rob] Add support to stall SMMU on fault, and let the GPU driver
+    resume translation after it has had a chance to snapshot the GPUs
+    state
+v3: Always clear FSR even if the target driver is going to handle resume
+v2: Fix comment wording and function pointer check per Rob Clark
+
+[1] https://lore.kernel.org/dri-devel/20210225175135.91922-1-jcrouse@codeaurora.org/
+
+Jordan Crouse (3):
+  iommu/arm-smmu: Add support for driver IOMMU fault handlers
+  iommu/arm-smmu-qcom: Add an adreno-smmu-priv callback to get pagefault
+    info
+  drm/msm: Improve the a6xx page fault handler
+
+Rob Clark (2):
+  iommu/arm-smmu-qcom: Add stall support
+  drm/msm: devcoredump iommu fault support
+
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c       |  23 +++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c       | 110 +++++++++++++++++++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c |  42 ++++++--
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c     |  15 +++
+ drivers/gpu/drm/msm/msm_gem.h               |   1 +
+ drivers/gpu/drm/msm/msm_gem_submit.c        |   1 +
+ drivers/gpu/drm/msm/msm_gpu.c               |  48 +++++++++
+ drivers/gpu/drm/msm/msm_gpu.h               |  17 +++
+ drivers/gpu/drm/msm/msm_gpummu.c            |   5 +
+ drivers/gpu/drm/msm/msm_iommu.c             |  22 +++-
+ drivers/gpu/drm/msm/msm_mmu.h               |   5 +-
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c  |  50 +++++++++
+ drivers/iommu/arm/arm-smmu/arm-smmu.c       |   9 +-
+ drivers/iommu/arm/arm-smmu/arm-smmu.h       |   2 +
+ include/linux/adreno-smmu-priv.h            |  38 ++++++-
+ 15 files changed, 367 insertions(+), 21 deletions(-)
+
+-- 
+2.31.1
 
 _______________________________________________
 Freedreno mailing list
