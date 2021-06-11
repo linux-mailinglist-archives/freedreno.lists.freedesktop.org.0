@@ -1,56 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C3A93A3E78
-	for <lists+freedreno@lfdr.de>; Fri, 11 Jun 2021 11:01:14 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C89D23A4347
+	for <lists+freedreno@lfdr.de>; Fri, 11 Jun 2021 15:49:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C5446EE51;
-	Fri, 11 Jun 2021 09:01:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 372ED6EE94;
+	Fri, 11 Jun 2021 13:49:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x830.google.com (mail-qt1-x830.google.com
- [IPv6:2607:f8b0:4864:20::830])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8253B6EE4C
- for <freedreno@lists.freedesktop.org>; Fri, 11 Jun 2021 09:01:09 +0000 (UTC)
-Received: by mail-qt1-x830.google.com with SMTP id z4so2037232qts.4
- for <freedreno@lists.freedesktop.org>; Fri, 11 Jun 2021 02:01:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=xfBuLm9X/ZFXx9ulil7rRE1PalBWgkaUHxCcK7gre2o=;
- b=kMjVqKxFejQZaqNMlqj1gWhBGuhmgh5iPQVRw04gqH3ZfEB6cww+JUptb2jVQlxzKI
- JUvi8JIWUBBUOR97GUCkAlrIZyOciy4wuVi9hEXTzZfZczG21NNBDCIzf3rkgsjqU8L1
- x3Uv13sehkZBRO5vvhL6/l2UADxJgWYHeKLnUHza1K/D43tRVNIoYN4sRCGNVf9vE4hq
- 86hCkyEC37HrQY/FPTOE5+rhCwy0JlEITBk3q/d096R7zods0v93ooy2L8mRsAGXYVOT
- sqW01ti1clKi3e/ImMRIMQePftSxwixyGOzyZJQq1hM9lJq6OWoue7pxmyY/UHJ1ZBHt
- iV1Q==
+Received: from mail-io1-xd2a.google.com (mail-io1-xd2a.google.com
+ [IPv6:2607:f8b0:4864:20::d2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88BC76EE93
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Jun 2021 13:49:24 +0000 (UTC)
+Received: by mail-io1-xd2a.google.com with SMTP id 5so31156046ioe.1
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Jun 2021 06:49:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cosmicpenguin-net.20150623.gappssmtp.com; s=20150623;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=InTc7zVp8z/NGQD/JqXKMqqaeMO/59YVbb1foQ3kwds=;
+ b=dugv4qACGBhXNZln5rZ+h/+f6h00hQGm0VbU9JbSOIS+lhwsUMm9Egq1DIlIUbTO/8
+ 8wZ5Cg0lsBD0UnewFkPoPTj3pHuWmuZ1cQM62CQjTI1j8ySlaEVcOiaE4rd/mhV+mOtl
+ XQnn3NNElkyCvbZ6w4BTB4fYyheyPFwrrBG95WKcQj8+l5hfHRWGCtEzo5bpzxmh3qXq
+ obdo+EB88Bp6AWY3973oJukVGuaL4gAs8url/dYQC1jS0nvTrzwsRzNWvpwCrpwCUpMd
+ aPO3X3suMXUsPU3uoxju9n8b5rhb/+nQLmSCHu535ezyr3znPtF6PaGR7za/vaIoIszK
+ by2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=xfBuLm9X/ZFXx9ulil7rRE1PalBWgkaUHxCcK7gre2o=;
- b=XDvxuNWSh6Gu87aCZhuvjvzzRFWuf7zVVmkAQ7Yawvn8jzjs14BYmCzb4sAVkx6wX3
- ztipBcaw6DwbLYB2c9XPXgMjZV7+MUKrLuplZ3qAxsRjHaS1kKm6LPyR9GKf5j68Qwe3
- 1AhgNsDs30UxycXbxFeraOyC2IPHAWuhsUmAZNJi0Y9gig3Uj64kcQykMo0cGgnuAwPx
- zv2t/yGON7kbeF2/f6jHcX1fUOc4yJuUzDyfLVVKlI1gAPlDdr4teS7rVpmaqKLsBgEi
- Dq0vkLtfb3ZjLYXUBl+Qw7Y+ruUXBfFB0fwhHPVagRIbtt7KZOzDKWyygVYrt5/r/YiN
- re0Q==
-X-Gm-Message-State: AOAM532Lq/Z+ospnKMqK0pQNU3Bvbcic3pOQfQ8xOyoGPbHfxrEfgHsp
- SiKdAwDfyzaypvCY77y2dilCvGeCedSVahvBVDOKNw==
-X-Google-Smtp-Source: ABdhPJyoSiWIM25RDZZZ6wPuwrZshCZyw4fcyOTmsNFEelVwi6tVKUBCLG6rTxGVPobpohofx+V8cSeSRpN6ph51sYo=
-X-Received: by 2002:ac8:7412:: with SMTP id p18mr2755368qtq.273.1623402067123; 
- Fri, 11 Jun 2021 02:01:07 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :in-reply-to;
+ bh=InTc7zVp8z/NGQD/JqXKMqqaeMO/59YVbb1foQ3kwds=;
+ b=nGhFQ06aXeuug/8Fl5FO0dQyGnLCbEN7lXMUNzaVtN70MaYk0bDeMuIFtg19piV6iQ
+ 973OP5OAwjITuYvJjH1EpY0h7E3BSw/16EOZwhfYX+KTd+fv/FH5xi7UF6Rj/HcMQIo3
+ pEpEH4xfAnaTu27WRY43lCWYc7SyCLIqD3NLXQTwspXYXnuF9nS2yYcnP9IC2VfsL4Ho
+ 6AvCsQpCVAPplK5D/4uytz1l2fvY0Cs6w55SEALTrjFCrPwAfueZnQfHUeh3AguPlWGX
+ q4kmfVSqm7rdJJRyIkE0U1Taz8eqh4qt3ilmujhxpEib88FGR9/7GxbXKtBgIbKGSbl2
+ F0XQ==
+X-Gm-Message-State: AOAM532c8a7VA+/rPkVWbSig4P9L+zbJyLwuDKhozCXaLI72zryywL7n
+ ciGcdycfUM11UpXmbGtNixW6NQ==
+X-Google-Smtp-Source: ABdhPJz0hWqaVZyohn0Y19vurHp+kRglYW6LrsF8Q0tdyoom2aSA+rKV/RHevdUoULudZyroZafoJw==
+X-Received: by 2002:a5d:8e06:: with SMTP id e6mr3389252iod.202.1623419363886; 
+ Fri, 11 Jun 2021 06:49:23 -0700 (PDT)
+Received: from cosmicpenguin.net (c-71-237-100-236.hsd1.co.comcast.net.
+ [71.237.100.236])
+ by smtp.gmail.com with ESMTPSA id w25sm3341738iox.18.2021.06.11.06.49.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 11 Jun 2021 06:49:23 -0700 (PDT)
+Date: Fri, 11 Jun 2021 07:49:21 -0600
+From: Jordan Crouse <jordan@cosmicpenguin.net>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <20210611134921.xjzcn4eso6fjzzte@cosmicpenguin.net>
+Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
+ dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Rob Clark <robdclark@chromium.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ "Isaac J. Manjarres" <isaacm@codeaurora.org>,
+ "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20210610214431.539029-1-robdclark@gmail.com>
+ <20210610214431.539029-5-robdclark@gmail.com>
 MIME-Version: 1.0
-References: <20210331105735.3690009-1-dmitry.baryshkov@linaro.org>
- <20210331105735.3690009-23-dmitry.baryshkov@linaro.org>
- <CALAqxLVwpLOsvjBVi+xb5S2VQNuGKgeOzrSqwZe5FN6RSeEEWA@mail.gmail.com>
-In-Reply-To: <CALAqxLVwpLOsvjBVi+xb5S2VQNuGKgeOzrSqwZe5FN6RSeEEWA@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 11 Jun 2021 12:00:55 +0300
-Message-ID: <CAA8EJprMKydEKQhHr=wk76H_a1-udjspVXSY1j2tqHNErAG-uQ@mail.gmail.com>
-To: John Stultz <john.stultz@linaro.org>
-Subject: Re: [Freedreno] [PATCH v4 22/24] drm/msm/dsi: remove temp data from
- global pll structure
+Content-Disposition: inline
+In-Reply-To: <20210610214431.539029-5-robdclark@gmail.com>
+Subject: Re: [Freedreno] [PATCH v5 4/5] iommu/arm-smmu-qcom: Add stall
+ support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,123 +80,137 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Amit Pundir <amit.pundir@linaro.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, Vinod Koul <vinod.koul@linaro.org>,
- Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Abhinav Kumar <abhinavk@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
- David Airlie <airlied@linux.ie>, Rob Clark <robdclark@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Peter Collingbourne <pcc@google.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
- "open list:COMMON CLK FRAMEWORK" <linux-clk@vger.kernel.org>
+Cc: Rob Clark <robdclark@chromium.org>,
+ "Isaac J. Manjarres" <isaacm@codeaurora.org>,
+ open list <linux-kernel@vger.kernel.org>, Will Deacon <will@kernel.org>,
+ linux-arm-msm@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
+ Robin Murphy <robin.murphy@arm.com>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, iommu@lists.linux-foundation.org,
+ freedreno@lists.freedesktop.org,
+ "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+On Thu, Jun 10, 2021 at 02:44:12PM -0700, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> Add, via the adreno-smmu-priv interface, a way for the GPU to request
+> the SMMU to stall translation on faults, and then later resume the
+> translation, either retrying or terminating the current translation.
+> 
+> This will be used on the GPU side to "freeze" the GPU while we snapshot
+> useful state for devcoredump.
+> 
 
-On Fri, 11 Jun 2021 at 10:07, John Stultz <john.stultz@linaro.org> wrote:
->
-> On Wed, Mar 31, 2021 at 3:58 AM Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
-> >
-> > The 7nm, 10nm and 14nm drivers would store interim data used during
-> > VCO/PLL rate setting in the global dsi_pll_Nnm structure. Move this data
-> > structures to the onstack storage. While we are at it, drop
-> > unused/static 'config' data, unused config fields, etc.
-> >
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
-> > Tested-by: Stephen Boyd <swboyd@chromium.org> # on sc7180 lazor
->
-> Hey Dmitry,
->   Just wanted to give you a heads up.  Peter Collingbourne reported
-> today that his db845c wasn't booting to display for him on his 4k
-> monitor. It works fine on a 1080p screen, and while 4k isn't supported
-> (yet?),  normally the board should fall back to 1080p when connected
-> to a 4k monitor.  I was able to reproduce this myself and I see the
-> errors below[1].
+Acked-by: Jordan Crouse <jordan@cosmicpenguin.net>
 
-It looks like I made a mistake testing these patches with the splash
-screen disabled.
-Stephen Boyd has proposed a fix few days ago (will be included into
-the 5.13). Could you check that it fixes the problem for you?
-
-https://lore.kernel.org/linux-arm-msm/20210608195519.125561-1-swboyd@chromium.org/
-
->
-> I dug back and found that things were working ok on v5.12 w/ the
-> recently merged commit d1a97648ae028 ("drm/bridge: lt9611: Fix
-> handling of 4k panels"), and started digging around.
->
-> Seeing a bunch of changes to the
-> drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c file, I tried reverting a
-> chunk of the changes since 5.12 to that, and that got it working
-> again. I've narrowed it down to this change -
-> 001d8dc33875 ("drm/msm/dsi: remove temp data from global pll
-> structure") upstream (also reverting following 6e2ad9c3bfca and
-> 36c5dde5fdf0 first - but its reverting this change that actually makes
-> it work again).
->
-> I've not managed to really look into the change to see what might be
-> going wrong yet (its late and I'm about to crash), but I wanted to
-> give you a heads up. If you have any ideas for me to try I'm happy to
-> give them a go.
->
-> thanks
-> -john
->
-> [1]:
-> [   19.846857] msm_dsi_phy ae94400.dsi-phy:
-> [drm:dsi_pll_10nm_vco_prepare] *ERROR* DSI PLL(0) lock failed,
-> status=0x00000000
-> [   19.857925] msm_dsi_phy ae94400.dsi-phy:
-> [drm:dsi_pll_10nm_vco_prepare] *ERROR* PLL(0) lock failed
-> [   19.866978] dsi_link_clk_enable_6g: Failed to enable dsi byte clk
-> [   19.873124] msm_dsi_host_power_on: failed to enable link clocks. ret=-110
-> [   19.879987] dsi_mgr_bridge_pre_enable: power on host 0 failed, -110
-> [   19.886309] Turning OFF PHY while PLL is on
-> [   20.415019] lt9611 10-003b: video check: hactive_a=0, hactive_b=0,
-> vactive=0, v_total=0, h_total_sysclk=0
-> [   20.481062] [drm:dpu_encoder_phys_vid_wait_for_commit_done:528]
-> [dpu error]vblank timeout
-> [   20.489306] [drm:dpu_kms_wait_for_commit_done:453] [dpu error]wait
-> for commit done returned -110
-> [   20.513031] [drm:dpu_encoder_frame_done_timeout:2161] [dpu
-> error]enc31 frame done timeout
-> [   20.553059] [drm:dpu_encoder_phys_vid_wait_for_commit_done:528]
-> [dpu error]vblank timeout
-> [   20.561300] [drm:dpu_kms_wait_for_commit_done:453] [dpu error]wait
-> for commit done returned -110
-> [   20.625054] [drm:dpu_encoder_phys_vid_wait_for_commit_done:528]
-> [dpu error]vblank timeout
-> [   20.633299] [drm:dpu_kms_wait_for_commit_done:453] [dpu error]wait
-> for commit done returned -110
-> [   20.657033] [drm:dpu_encoder_frame_done_timeout:2161] [dpu
-> error]enc31 frame done timeout
-> [   20.697065] [drm:dpu_encoder_phys_vid_wait_for_commit_done:528]
-> [dpu error]vblank timeout
-> [   20.705316] [drm:dpu_kms_wait_for_commit_done:453] [dpu error]wait
-> for commit done returned -110
-> [   20.769066] [drm:dpu_encoder_phys_vid_wait_for_commit_done:528]
-> [dpu error]vblank timeout
-> [   20.777330] [drm:dpu_kms_wait_for_commit_done:453] [dpu error]wait
-> for commit done returned -110
-> [   20.801035] [drm:dpu_encoder_frame_done_timeout:2161] [dpu
-> error]enc31 frame done timeout
-> [   20.845049] [drm:dpu_encoder_phys_vid_wait_for_commit_done:528]
-> [dpu error]vblank timeout
-> ...
-
-
-
--- 
-With best wishes
-Dmitry
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>  drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 33 ++++++++++++++++++++++
+>  include/linux/adreno-smmu-priv.h           |  7 +++++
+>  2 files changed, 40 insertions(+)
+> 
+> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+> index b2e31ea84128..61fc645c1325 100644
+> --- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+> @@ -13,6 +13,7 @@ struct qcom_smmu {
+>  	struct arm_smmu_device smmu;
+>  	bool bypass_quirk;
+>  	u8 bypass_cbndx;
+> +	u32 stall_enabled;
+>  };
+>  
+>  static struct qcom_smmu *to_qcom_smmu(struct arm_smmu_device *smmu)
+> @@ -23,12 +24,17 @@ static struct qcom_smmu *to_qcom_smmu(struct arm_smmu_device *smmu)
+>  static void qcom_adreno_smmu_write_sctlr(struct arm_smmu_device *smmu, int idx,
+>  		u32 reg)
+>  {
+> +	struct qcom_smmu *qsmmu = to_qcom_smmu(smmu);
+> +
+>  	/*
+>  	 * On the GPU device we want to process subsequent transactions after a
+>  	 * fault to keep the GPU from hanging
+>  	 */
+>  	reg |= ARM_SMMU_SCTLR_HUPCF;
+>  
+> +	if (qsmmu->stall_enabled & BIT(idx))
+> +		reg |= ARM_SMMU_SCTLR_CFCFG;
+> +
+>  	arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_SCTLR, reg);
+>  }
+>  
+> @@ -48,6 +54,31 @@ static void qcom_adreno_smmu_get_fault_info(const void *cookie,
+>  	info->contextidr = arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_CONTEXTIDR);
+>  }
+>  
+> +static void qcom_adreno_smmu_set_stall(const void *cookie, bool enabled)
+> +{
+> +	struct arm_smmu_domain *smmu_domain = (void *)cookie;
+> +	struct arm_smmu_cfg *cfg = &smmu_domain->cfg;
+> +	struct qcom_smmu *qsmmu = to_qcom_smmu(smmu_domain->smmu);
+> +
+> +	if (enabled)
+> +		qsmmu->stall_enabled |= BIT(cfg->cbndx);
+> +	else
+> +		qsmmu->stall_enabled &= ~BIT(cfg->cbndx);
+> +}
+> +
+> +static void qcom_adreno_smmu_resume_translation(const void *cookie, bool terminate)
+> +{
+> +	struct arm_smmu_domain *smmu_domain = (void *)cookie;
+> +	struct arm_smmu_cfg *cfg = &smmu_domain->cfg;
+> +	struct arm_smmu_device *smmu = smmu_domain->smmu;
+> +	u32 reg = 0;
+> +
+> +	if (terminate)
+> +		reg |= ARM_SMMU_RESUME_TERMINATE;
+> +
+> +	arm_smmu_cb_write(smmu, cfg->cbndx, ARM_SMMU_CB_RESUME, reg);
+> +}
+> +
+>  #define QCOM_ADRENO_SMMU_GPU_SID 0
+>  
+>  static bool qcom_adreno_smmu_is_gpu_device(struct device *dev)
+> @@ -173,6 +204,8 @@ static int qcom_adreno_smmu_init_context(struct arm_smmu_domain *smmu_domain,
+>  	priv->get_ttbr1_cfg = qcom_adreno_smmu_get_ttbr1_cfg;
+>  	priv->set_ttbr0_cfg = qcom_adreno_smmu_set_ttbr0_cfg;
+>  	priv->get_fault_info = qcom_adreno_smmu_get_fault_info;
+> +	priv->set_stall = qcom_adreno_smmu_set_stall;
+> +	priv->resume_translation = qcom_adreno_smmu_resume_translation;
+>  
+>  	return 0;
+>  }
+> diff --git a/include/linux/adreno-smmu-priv.h b/include/linux/adreno-smmu-priv.h
+> index 53fe32fb9214..c637e0997f6d 100644
+> --- a/include/linux/adreno-smmu-priv.h
+> +++ b/include/linux/adreno-smmu-priv.h
+> @@ -45,6 +45,11 @@ struct adreno_smmu_fault_info {
+>   *                 TTBR0 translation is enabled with the specified cfg
+>   * @get_fault_info: Called by the GPU fault handler to get information about
+>   *                  the fault
+> + * @set_stall:     Configure whether stall on fault (CFCFG) is enabled.  Call
+> + *                 before set_ttbr0_cfg().  If stalling on fault is enabled,
+> + *                 the GPU driver must call resume_translation()
+> + * @resume_translation: Resume translation after a fault
+> + *
+>   *
+>   * The GPU driver (drm/msm) and adreno-smmu work together for controlling
+>   * the GPU's SMMU instance.  This is by necessity, as the GPU is directly
+> @@ -60,6 +65,8 @@ struct adreno_smmu_priv {
+>      const struct io_pgtable_cfg *(*get_ttbr1_cfg)(const void *cookie);
+>      int (*set_ttbr0_cfg)(const void *cookie, const struct io_pgtable_cfg *cfg);
+>      void (*get_fault_info)(const void *cookie, struct adreno_smmu_fault_info *info);
+> +    void (*set_stall)(const void *cookie, bool enabled);
+> +    void (*resume_translation)(const void *cookie, bool terminate);
+>  };
+>  
+>  #endif /* __ADRENO_SMMU_PRIV_H */
+> -- 
+> 2.31.1
+> 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
