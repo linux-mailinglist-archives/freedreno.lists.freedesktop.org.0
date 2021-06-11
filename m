@@ -2,82 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86F573A434D
-	for <lists+freedreno@lfdr.de>; Fri, 11 Jun 2021 15:49:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76A3D3A4743
+	for <lists+freedreno@lfdr.de>; Fri, 11 Jun 2021 19:00:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D57CE6EE98;
-	Fri, 11 Jun 2021 13:49:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A07FC6F37F;
+	Fri, 11 Jun 2021 17:00:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-x134.google.com (mail-il1-x134.google.com
- [IPv6:2607:f8b0:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DD2E6EE96
- for <freedreno@lists.freedesktop.org>; Fri, 11 Jun 2021 13:49:51 +0000 (UTC)
-Received: by mail-il1-x134.google.com with SMTP id b9so5217249ilr.2
- for <freedreno@lists.freedesktop.org>; Fri, 11 Jun 2021 06:49:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cosmicpenguin-net.20150623.gappssmtp.com; s=20150623;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=ZhoRpq2tGh0PIsHKlm5VaqY0SAKlvS+nVTXnYSKGEDs=;
- b=GugNJqVjoLF3Izp2SGWds/vzEkmFuPlBxiXYM/o3fjrrrNiolxMU4Mvpe7BtdO0iOJ
- n4+fu+vaerB5MRMdFFjy5QVcEriiAJ/PsiRv8S5M9AZ6YhJ6GJbLwRBIf4T7NKY65jxi
- a1QqOCnKjMpl2E9OK1Un6fOF5ZJPZ2HlmEQcQv41t2rGNYTNS5rdozWfwXgck5y/hnQQ
- 8CAt6eDto66V9wIIMz3zDqqZuurGl3cUQxKwrNJGOlAaPNriP3YTBhlZIVYOD2TlrxO9
- WB9MhYVptiGmQdnJhLALXouVaY7Rh/1mM63GrWTHGpHAbd5P75755qLYQCHMpd8uHTEk
- ZNuQ==
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
+ [IPv6:2607:f8b0:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30F6F6EF3F
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Jun 2021 17:00:55 +0000 (UTC)
+Received: by mail-oi1-x22f.google.com with SMTP id h9so6476010oih.4
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Jun 2021 10:00:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=wlmv1eeDkO2pPX/G2UzjbnzL6XKsZ2uz2UEOVRUZHw0=;
+ b=JOlmeybaAiKTguAC8h04H5GPTQztM5r5EkgKz2WeOU5nB5vyrzb88ea6a+QadTGMDA
+ gSksNtjVN/Kkg6t2TQpABVSjkt/10I4zDhDEjYOQDSaeylScvzyHCH0Bg7nS17OhfD3V
+ UsA3J54tChNLCWHHvQuNGnmg3rlj6TlyVwWxgQDINum1oIX1b1bMNUZ4FSvswRak3XSk
+ veWUaOjxlqe99aJxHYbaaMtjpQ0MDtirwDTVOlPgqfTZ2TfXLDrpFRdL8CufkFbTcdEx
+ 4aHoe5xXfcjtN8ZFXh4jsdTzK5M1E71z3WvnXB+b3FN32OXhX9nPazwSjvnUXnNjKlRW
+ 7Zdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=ZhoRpq2tGh0PIsHKlm5VaqY0SAKlvS+nVTXnYSKGEDs=;
- b=ibR5ZTRmVWkeVzPXzbK1nqj1q5lAzu0MgZL997+1AoxocXJr+mSq/vHVh40va/uHh1
- DGko3KaqWIsAyN795O0ypfJzDoP14F9ljiJoyPiwx6bG+HZrECWbo9Fv2pLuHUgwbkOb
- NaGjcSJA3P8qt6B2alcHEpu0vc6mKexe446vmeSkV2ofqzb2kXEANLQahmTQo94F7Jse
- neN02YgIr7CzW5wj3QSyzErl6lcU/9zVScAQmQ+53xcS2SYJW/PsU2ZF7+16iGPkP9Wf
- l+4tQZIuEBu3pYeg4b/W8pgvwfRHAixR5nBzeWbXWII/Ko3UWKsUqmbNR2KObWwjFZKi
- aHnA==
-X-Gm-Message-State: AOAM532+4lmIGjthrl50QypouZNrdm2i2UAT7SLF0cbSSkYRU6v53J2f
- SQf0Up3ifJzb9QC94SRHB2rlYA==
-X-Google-Smtp-Source: ABdhPJyIFins4zk9hNxuyXkWl3ji/2833BLJC84OgcgS2MeoFmn655hdtONnwTFaBK3R0XWBImQKGA==
-X-Received: by 2002:a92:c808:: with SMTP id v8mr3342187iln.280.1623419390748; 
- Fri, 11 Jun 2021 06:49:50 -0700 (PDT)
-Received: from cosmicpenguin.net (c-71-237-100-236.hsd1.co.comcast.net.
- [71.237.100.236])
- by smtp.gmail.com with ESMTPSA id w11sm3258114ilc.8.2021.06.11.06.49.49
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=wlmv1eeDkO2pPX/G2UzjbnzL6XKsZ2uz2UEOVRUZHw0=;
+ b=Fec/JpLL1joUesV2wnLFLYvc5sWGKPcLRieA6vBAR44lV/8Sh1ECUUHGkgO1A7xtiv
+ StlTTZXjsJHBZ62QBJZInW1BZH9eUpl+Ks3UuGPaYYJyYi4uFUfSgjf+XI078nxZLN8H
+ xaKrB9k9UGEMWcX+krgdX98di43PZqAzeOFbc7fuWU6D6qvn8Y2H4H/lO3kSo8l/AoWj
+ KE7O/QwdvotYXGJ6av3hk6gxrL7MiMf/ng7BsPM8VrYCJ1R0vQRUd4NElCRO4apCC26s
+ LrIUeW4JnXE8oc1YZUiDgd/2KNnSbKMHboSHg1hXicCJUjt13PceuBX8dJ5LWfIlaq26
+ c8mg==
+X-Gm-Message-State: AOAM5330jhKcHp9NBg+8jP1cJx1vA+vVCMZL88u8rU4Hifi2ZhZMknWz
+ bd0gxS4gYNChy+P9mSszRvVgzA==
+X-Google-Smtp-Source: ABdhPJxqxSQk3fRZ3w8ipJ2ez+mvQj/XlBEwseR+p2o9jOwwAK2/atzy23h4QQEcnR7cizU9Lo8BqQ==
+X-Received: by 2002:aca:3e89:: with SMTP id l131mr2998686oia.34.1623430854245; 
+ Fri, 11 Jun 2021 10:00:54 -0700 (PDT)
+Received: from localhost.localdomain
+ (104-57-184-186.lightspeed.austtx.sbcglobal.net. [104.57.184.186])
+ by smtp.gmail.com with ESMTPSA id p5sm1256302oip.35.2021.06.11.10.00.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 11 Jun 2021 06:49:50 -0700 (PDT)
-Date: Fri, 11 Jun 2021 07:49:48 -0600
-From: Jordan Crouse <jordan@cosmicpenguin.net>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20210611134948.oin6wy2omkaitlq2@cosmicpenguin.net>
-Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Rob Clark <robdclark@chromium.org>, Sean Paul <sean@poorly.run>,
+ Fri, 11 Jun 2021 10:00:53 -0700 (PDT)
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- "Kristian H. Kristensen" <hoegsberg@google.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Jonathan Marek <jonathan@marek.ca>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Eric Anholt <eric@anholt.net>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Douglas Anderson <dianders@chromium.org>,
- Lee Jones <lee.jones@linaro.org>,
- Zhenzhong Duan <zhenzhong.duan@gmail.com>,
- Dave Airlie <airlied@redhat.com>,
- open list <linux-kernel@vger.kernel.org>
-References: <20210610214431.539029-1-robdclark@gmail.com>
- <20210610214431.539029-6-robdclark@gmail.com>
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 11 Jun 2021 10:00:03 -0700
+Message-Id: <20210611170003.3539059-1-bjorn.andersson@linaro.org>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210610214431.539029-6-robdclark@gmail.com>
-Subject: Re: [Freedreno] [PATCH v5 5/5] drm/msm: devcoredump iommu fault
- support
+Subject: [Freedreno] [PATCH v2] drm/msm/dpu: Avoid ABBA deadlock between IRQ
+ modules
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,476 +69,362 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>, dri-devel@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>, Eric Anholt <eric@anholt.net>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Lee Jones <lee.jones@linaro.org>, Rob Clark <robdclark@chromium.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, Zhenzhong Duan <zhenzhong.duan@gmail.com>,
- Dave Airlie <airlied@redhat.com>, linux-arm-msm@vger.kernel.org,
- Sharat Masetty <smasetty@codeaurora.org>, Sean Paul <sean@poorly.run>,
- Douglas Anderson <dianders@chromium.org>, iommu@lists.linux-foundation.org,
- "Kristian H. Kristensen" <hoegsberg@google.com>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jun 10, 2021 at 02:44:13PM -0700, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> Wire up support to stall the SMMU on iova fault, and collect a devcore-
-> dump snapshot for easier debugging of faults.
-> 
-> Currently this is a6xx-only, but mostly only because so far it is the
-> only one using adreno-smmu-priv.
+Handling of the interrupt callback lists is done in dpu_core_irq.c,
+under the "cb_lock" spinlock. When these operations results in the need
+for enableing or disabling the IRQ in the hardware the code jumps to
+dpu_hw_interrupts.c, which protects its operations with "irq_lock"
+spinlock.
 
-Acked-by: Jordan Crouse <jordan@cosmicpenguin.net>
+When an interrupt fires, dpu_hw_intr_dispatch_irq() inspects the
+hardware state while holding the "irq_lock" spinlock and jumps to
+dpu_core_irq_callback_handler() to invoke the registered handlers, which
+traverses the callback list under the "cb_lock" spinlock.
+
+As such, in the event that these happens concurrently we'll end up with
+a deadlock.
+
+Prior to '1c1e7763a6d4 ("drm/msm/dpu: simplify IRQ enabling/disabling")'
+the enable/disable of the hardware interrupt was done outside the
+"cb_lock" region, optimitically by using an atomic enable-counter for
+each interrupt and an warning print if someone changed the list between
+the atomic_read and the time the operation concluded.
+
+Rather than re-introducing the large array of atomics, this change
+embraces the fact that dpu_core_irq and dpu_hw_interrupts are deeply
+entangled and make them share the single "irq_lock".
+
+Following this step it's suggested that we squash the two parts into a
+single irq handling thing.
+
+Fixes: 1c1e7763a6d4 ("drm/msm/dpu: simplify IRQ enabling/disabling")
+Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+---
+
+Changes since v1:
+- Make dpu_core_irq use dpu_hw_interrupts' irq_lock instead of adding another
+  mutex.
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c  | 27 ++++-----
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 60 +++++++++++--------
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h | 20 ++++++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |  2 -
+ 4 files changed, 63 insertions(+), 46 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
+index 4f110c428b60..18557b9713b6 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
+@@ -22,7 +22,6 @@ static void dpu_core_irq_callback_handler(void *arg, int irq_idx)
+ 	struct dpu_kms *dpu_kms = arg;
+ 	struct dpu_irq *irq_obj = &dpu_kms->irq_obj;
+ 	struct dpu_irq_callback *cb;
+-	unsigned long irq_flags;
  
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/gpu/drm/msm/adreno/a5xx_gpu.c       | 19 +++++++-
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c       | 38 +++++++++++++++-
->  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 42 ++++++++++++++----
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c     | 15 +++++++
->  drivers/gpu/drm/msm/msm_gem.h               |  1 +
->  drivers/gpu/drm/msm/msm_gem_submit.c        |  1 +
->  drivers/gpu/drm/msm/msm_gpu.c               | 48 +++++++++++++++++++++
->  drivers/gpu/drm/msm/msm_gpu.h               | 17 ++++++++
->  drivers/gpu/drm/msm/msm_gpummu.c            |  5 +++
->  drivers/gpu/drm/msm/msm_iommu.c             | 11 +++++
->  drivers/gpu/drm/msm/msm_mmu.h               |  1 +
->  11 files changed, 186 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> index eb030b00bff4..7a271de9a212 100644
-> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> @@ -1200,6 +1200,15 @@ static void a5xx_fault_detect_irq(struct msm_gpu *gpu)
->  	struct drm_device *dev = gpu->dev;
->  	struct msm_ringbuffer *ring = gpu->funcs->active_ring(gpu);
->  
-> +	/*
-> +	 * If stalled on SMMU fault, we could trip the GPU's hang detection,
-> +	 * but the fault handler will trigger the devcore dump, and we want
-> +	 * to otherwise resume normally rather than killing the submit, so
-> +	 * just bail.
-> +	 */
-> +	if (gpu_read(gpu, REG_A5XX_RBBM_STATUS3) & BIT(24))
-> +		return;
-> +
->  	DRM_DEV_ERROR(dev->dev, "gpu fault ring %d fence %x status %8.8X rb %4.4x/%4.4x ib1 %16.16llX/%4.4x ib2 %16.16llX/%4.4x\n",
->  		ring ? ring->id : -1, ring ? ring->seqno : 0,
->  		gpu_read(gpu, REG_A5XX_RBBM_STATUS),
-> @@ -1523,6 +1532,7 @@ static struct msm_gpu_state *a5xx_gpu_state_get(struct msm_gpu *gpu)
->  {
->  	struct a5xx_gpu_state *a5xx_state = kzalloc(sizeof(*a5xx_state),
->  			GFP_KERNEL);
-> +	bool stalled = !!(gpu_read(gpu, REG_A5XX_RBBM_STATUS3) & BIT(24));
->  
->  	if (!a5xx_state)
->  		return ERR_PTR(-ENOMEM);
-> @@ -1535,8 +1545,13 @@ static struct msm_gpu_state *a5xx_gpu_state_get(struct msm_gpu *gpu)
->  
->  	a5xx_state->base.rbbm_status = gpu_read(gpu, REG_A5XX_RBBM_STATUS);
->  
-> -	/* Get the HLSQ regs with the help of the crashdumper */
-> -	a5xx_gpu_state_get_hlsq_regs(gpu, a5xx_state);
-> +	/*
-> +	 * Get the HLSQ regs with the help of the crashdumper, but only if
-> +	 * we are not stalled in an iommu fault (in which case the crashdumper
-> +	 * would not have access to memory)
-> +	 */
-> +	if (!stalled)
-> +		a5xx_gpu_state_get_hlsq_regs(gpu, a5xx_state);
->  
->  	a5xx_set_hwcg(gpu, true);
->  
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index fc19db10bff1..c3699408bd1f 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -1081,6 +1081,16 @@ static int a6xx_fault_handler(void *arg, unsigned long iova, int flags, void *da
->  	struct msm_gpu *gpu = arg;
->  	struct adreno_smmu_fault_info *info = data;
->  	const char *type = "UNKNOWN";
-> +	const char *block;
-> +	bool do_devcoredump = info && !READ_ONCE(gpu->crashstate);
-> +
-> +	/*
-> +	 * If we aren't going to be resuming later from fault_worker, then do
-> +	 * it now.
-> +	 */
-> +	if (!do_devcoredump) {
-> +		gpu->aspace->mmu->funcs->resume_translation(gpu->aspace->mmu);
-> +	}
->  
->  	/*
->  	 * Print a default message if we couldn't get the data from the
-> @@ -1104,15 +1114,30 @@ static int a6xx_fault_handler(void *arg, unsigned long iova, int flags, void *da
->  	else if (info->fsr & ARM_SMMU_FSR_EF)
->  		type = "EXTERNAL";
->  
-> +	block = a6xx_fault_block(gpu, info->fsynr1 & 0xff);
-> +
->  	pr_warn_ratelimited("*** gpu fault: ttbr0=%.16llx iova=%.16lx dir=%s type=%s source=%s (%u,%u,%u,%u)\n",
->  			info->ttbr0, iova,
-> -			flags & IOMMU_FAULT_WRITE ? "WRITE" : "READ", type,
-> -			a6xx_fault_block(gpu, info->fsynr1 & 0xff),
-> +			flags & IOMMU_FAULT_WRITE ? "WRITE" : "READ",
-> +			type, block,
->  			gpu_read(gpu, REG_A6XX_CP_SCRATCH_REG(4)),
->  			gpu_read(gpu, REG_A6XX_CP_SCRATCH_REG(5)),
->  			gpu_read(gpu, REG_A6XX_CP_SCRATCH_REG(6)),
->  			gpu_read(gpu, REG_A6XX_CP_SCRATCH_REG(7)));
->  
-> +	if (do_devcoredump) {
-> +		/* Turn off the hangcheck timer to keep it from bothering us */
-> +		del_timer(&gpu->hangcheck_timer);
-> +
-> +		gpu->fault_info.ttbr0 = info->ttbr0;
-> +		gpu->fault_info.iova  = iova;
-> +		gpu->fault_info.flags = flags;
-> +		gpu->fault_info.type  = type;
-> +		gpu->fault_info.block = block;
-> +
-> +		kthread_queue_work(gpu->worker, &gpu->fault_work);
-> +	}
-> +
->  	return 0;
->  }
->  
-> @@ -1164,6 +1189,15 @@ static void a6xx_fault_detect_irq(struct msm_gpu *gpu)
->  	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
->  	struct msm_ringbuffer *ring = gpu->funcs->active_ring(gpu);
->  
-> +	/*
-> +	 * If stalled on SMMU fault, we could trip the GPU's hang detection,
-> +	 * but the fault handler will trigger the devcore dump, and we want
-> +	 * to otherwise resume normally rather than killing the submit, so
-> +	 * just bail.
-> +	 */
-> +	if (gpu_read(gpu, REG_A6XX_RBBM_STATUS3) & A6XX_RBBM_STATUS3_SMMU_STALLED_ON_FAULT)
-> +		return;
-> +
->  	/*
->  	 * Force the GPU to stay on until after we finish
->  	 * collecting information
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> index 21c49c5b4519..ad4ea0ed5d99 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> @@ -832,6 +832,20 @@ static void a6xx_get_registers(struct msm_gpu *gpu,
->  		a6xx_get_ahb_gpu_registers(gpu,
->  				a6xx_state, &a6xx_vbif_reglist,
->  				&a6xx_state->registers[index++]);
-> +	if (!dumper) {
-> +		/*
-> +		 * We can't use the crashdumper when the SMMU is stalled,
-> +		 * because the GPU has no memory access until we resume
-> +		 * translation (but we don't want to do that until after
-> +		 * we have captured as much useful GPU state as possible).
-> +		 * So instead collect registers via the CPU:
-> +		 */
-> +		for (i = 0; i < ARRAY_SIZE(a6xx_reglist); i++)
-> +			a6xx_get_ahb_gpu_registers(gpu,
-> +				a6xx_state, &a6xx_reglist[i],
-> +				&a6xx_state->registers[index++]);
-> +		return;
-> +	}
->  
->  	for (i = 0; i < ARRAY_SIZE(a6xx_reglist); i++)
->  		a6xx_get_crashdumper_registers(gpu,
-> @@ -905,11 +919,13 @@ static void a6xx_get_indexed_registers(struct msm_gpu *gpu,
->  
->  struct msm_gpu_state *a6xx_gpu_state_get(struct msm_gpu *gpu)
->  {
-> -	struct a6xx_crashdumper dumper = { 0 };
-> +	struct a6xx_crashdumper _dumper = { 0 }, *dumper = NULL;
->  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
->  	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
->  	struct a6xx_gpu_state *a6xx_state = kzalloc(sizeof(*a6xx_state),
->  		GFP_KERNEL);
-> +	bool stalled = !!(gpu_read(gpu, REG_A6XX_RBBM_STATUS3) &
-> +			A6XX_RBBM_STATUS3_SMMU_STALLED_ON_FAULT);
->  
->  	if (!a6xx_state)
->  		return ERR_PTR(-ENOMEM);
-> @@ -928,14 +944,24 @@ struct msm_gpu_state *a6xx_gpu_state_get(struct msm_gpu *gpu)
->  	/* Get the banks of indexed registers */
->  	a6xx_get_indexed_registers(gpu, a6xx_state);
->  
-> -	/* Try to initialize the crashdumper */
-> -	if (!a6xx_crashdumper_init(gpu, &dumper)) {
-> -		a6xx_get_registers(gpu, a6xx_state, &dumper);
-> -		a6xx_get_shaders(gpu, a6xx_state, &dumper);
-> -		a6xx_get_clusters(gpu, a6xx_state, &dumper);
-> -		a6xx_get_dbgahb_clusters(gpu, a6xx_state, &dumper);
-> +	/*
-> +	 * Try to initialize the crashdumper, if we are not dumping state
-> +	 * with the SMMU stalled.  The crashdumper needs memory access to
-> +	 * write out GPU state, so we need to skip this when the SMMU is
-> +	 * stalled in response to an iova fault
-> +	 */
-> +	if (!stalled && !a6xx_crashdumper_init(gpu, &_dumper)) {
-> +		dumper = &_dumper;
-> +	}
-> +
-> +	a6xx_get_registers(gpu, a6xx_state, dumper);
-> +
-> +	if (dumper) {
-> +		a6xx_get_shaders(gpu, a6xx_state, dumper);
-> +		a6xx_get_clusters(gpu, a6xx_state, dumper);
-> +		a6xx_get_dbgahb_clusters(gpu, a6xx_state, dumper);
->  
-> -		msm_gem_kernel_put(dumper.bo, gpu->aspace, true);
-> +		msm_gem_kernel_put(dumper->bo, gpu->aspace, true);
->  	}
->  
->  	if (snapshot_debugbus)
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> index c1b02f790804..2bfe014995c7 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -684,6 +684,21 @@ void adreno_show(struct msm_gpu *gpu, struct msm_gpu_state *state,
->  			adreno_gpu->info->revn, adreno_gpu->rev.core,
->  			adreno_gpu->rev.major, adreno_gpu->rev.minor,
->  			adreno_gpu->rev.patchid);
-> +	/*
-> +	 * If this is state collected due to iova fault, so fault related info
-> +	 *
-> +	 * TTBR0 would not be zero, so this is a good way to distinguish
-> +	 */
-> +	if (state->fault_info.ttbr0) {
-> +		const struct msm_gpu_fault_info *info = &state->fault_info;
-> +
-> +		drm_puts(p, "fault-info:\n");
-> +		drm_printf(p, "  - ttbr0=%.16llx\n", info->ttbr0);
-> +		drm_printf(p, "  - iova=%.16lx\n", info->iova);
-> +		drm_printf(p, "  - dir=%s\n", info->flags & IOMMU_FAULT_WRITE ? "WRITE" : "READ");
-> +		drm_printf(p, "  - type=%s\n", info->type);
-> +		drm_printf(p, "  - source=%s\n", info->block);
-> +	}
->  
->  	drm_printf(p, "rbbm-status: 0x%08x\n", state->rbbm_status);
->  
-> diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-> index 03e2cc2a2ce1..405f8411e395 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.h
-> +++ b/drivers/gpu/drm/msm/msm_gem.h
-> @@ -328,6 +328,7 @@ struct msm_gem_submit {
->  	struct dma_fence *fence;
->  	struct msm_gpu_submitqueue *queue;
->  	struct pid *pid;    /* submitting process */
-> +	bool fault_dumped;  /* Limit devcoredump dumping to one per submit */
->  	bool valid;         /* true if no cmdstream patching needed */
->  	bool in_rb;         /* "sudo" mode, copy cmds into RB */
->  	struct msm_ringbuffer *ring;
-> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-> index 5480852bdeda..44f84bfd0c0e 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> @@ -50,6 +50,7 @@ static struct msm_gem_submit *submit_create(struct drm_device *dev,
->  	submit->cmd = (void *)&submit->bos[nr_bos];
->  	submit->queue = queue;
->  	submit->ring = gpu->rb[queue->prio];
-> +	submit->fault_dumped = false;
->  
->  	/* initially, until copy_from_user() and bo lookup succeeds: */
->  	submit->nr_bos = 0;
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-> index fa7691cb4614..414ba2dd34e5 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.c
-> +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> @@ -400,6 +400,7 @@ static void msm_gpu_crashstate_capture(struct msm_gpu *gpu,
->  	/* Fill in the additional crash state information */
->  	state->comm = kstrdup(comm, GFP_KERNEL);
->  	state->cmd = kstrdup(cmd, GFP_KERNEL);
-> +	state->fault_info = gpu->fault_info;
->  
->  	if (submit) {
->  		int i, nr = 0;
-> @@ -572,6 +573,52 @@ static void recover_worker(struct kthread_work *work)
->  	msm_gpu_retire(gpu);
->  }
->  
-> +static void fault_worker(struct kthread_work *work)
-> +{
-> +	struct msm_gpu *gpu = container_of(work, struct msm_gpu, fault_work);
-> +	struct drm_device *dev = gpu->dev;
-> +	struct msm_gem_submit *submit;
-> +	struct msm_ringbuffer *cur_ring = gpu->funcs->active_ring(gpu);
-> +	char *comm = NULL, *cmd = NULL;
-> +
-> +	mutex_lock(&dev->struct_mutex);
-> +
-> +	submit = find_submit(cur_ring, cur_ring->memptrs->fence + 1);
-> +	if (submit && submit->fault_dumped)
-> +		goto resume_smmu;
-> +
-> +	if (submit) {
-> +		struct task_struct *task;
-> +
-> +		task = get_pid_task(submit->pid, PIDTYPE_PID);
-> +		if (task) {
-> +			comm = kstrdup(task->comm, GFP_KERNEL);
-> +			cmd = kstrdup_quotable_cmdline(task, GFP_KERNEL);
-> +			put_task_struct(task);
-> +		}
-> +
-> +		/*
-> +		 * When we get GPU iova faults, we can get 1000s of them,
-> +		 * but we really only want to log the first one.
-> +		 */
-> +		submit->fault_dumped = true;
-> +	}
-> +
-> +	/* Record the crash state */
-> +	pm_runtime_get_sync(&gpu->pdev->dev);
-> +	msm_gpu_crashstate_capture(gpu, submit, comm, cmd);
-> +	pm_runtime_put_sync(&gpu->pdev->dev);
-> +
-> +	kfree(cmd);
-> +	kfree(comm);
-> +
-> +resume_smmu:
-> +	memset(&gpu->fault_info, 0, sizeof(gpu->fault_info));
-> +	gpu->aspace->mmu->funcs->resume_translation(gpu->aspace->mmu);
-> +
-> +	mutex_unlock(&dev->struct_mutex);
-> +}
-> +
->  static void hangcheck_timer_reset(struct msm_gpu *gpu)
->  {
->  	mod_timer(&gpu->hangcheck_timer,
-> @@ -948,6 +995,7 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->  	INIT_LIST_HEAD(&gpu->active_list);
->  	kthread_init_work(&gpu->retire_work, retire_worker);
->  	kthread_init_work(&gpu->recover_work, recover_worker);
-> +	kthread_init_work(&gpu->fault_work, fault_worker);
->  
->  	timer_setup(&gpu->hangcheck_timer, hangcheck_handler, 0);
->  
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-> index 7a082a12d98f..8eefb3aeca10 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.h
-> +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> @@ -71,6 +71,15 @@ struct msm_gpu_funcs {
->  	uint32_t (*get_rptr)(struct msm_gpu *gpu, struct msm_ringbuffer *ring);
->  };
->  
-> +/* Additional state for iommu faults: */
-> +struct msm_gpu_fault_info {
-> +	u64 ttbr0;
-> +	unsigned long iova;
-> +	int flags;
-> +	const char *type;
-> +	const char *block;
-> +};
-> +
->  struct msm_gpu {
->  	const char *name;
->  	struct drm_device *dev;
-> @@ -135,6 +144,12 @@ struct msm_gpu {
->  #define DRM_MSM_HANGCHECK_JIFFIES msecs_to_jiffies(DRM_MSM_HANGCHECK_PERIOD)
->  	struct timer_list hangcheck_timer;
->  
-> +	/* Fault info for most recent iova fault: */
-> +	struct msm_gpu_fault_info fault_info;
-> +
-> +	/* work for handling GPU ioval faults: */
-> +	struct kthread_work fault_work;
-> +
->  	/* work for handling GPU recovery: */
->  	struct kthread_work recover_work;
->  
-> @@ -243,6 +258,8 @@ struct msm_gpu_state {
->  	char *comm;
->  	char *cmd;
->  
-> +	struct msm_gpu_fault_info fault_info;
-> +
->  	int nr_bos;
->  	struct msm_gpu_state_bo *bos;
->  };
-> diff --git a/drivers/gpu/drm/msm/msm_gpummu.c b/drivers/gpu/drm/msm/msm_gpummu.c
-> index 379496186c7f..f7d1945e0c9f 100644
-> --- a/drivers/gpu/drm/msm/msm_gpummu.c
-> +++ b/drivers/gpu/drm/msm/msm_gpummu.c
-> @@ -68,6 +68,10 @@ static int msm_gpummu_unmap(struct msm_mmu *mmu, uint64_t iova, size_t len)
->  	return 0;
->  }
->  
-> +static void msm_gpummu_resume_translation(struct msm_mmu *mmu)
-> +{
-> +}
-> +
->  static void msm_gpummu_destroy(struct msm_mmu *mmu)
->  {
->  	struct msm_gpummu *gpummu = to_msm_gpummu(mmu);
-> @@ -83,6 +87,7 @@ static const struct msm_mmu_funcs funcs = {
->  		.map = msm_gpummu_map,
->  		.unmap = msm_gpummu_unmap,
->  		.destroy = msm_gpummu_destroy,
-> +		.resume_translation = msm_gpummu_resume_translation,
->  };
->  
->  struct msm_mmu *msm_gpummu_new(struct device *dev, struct msm_gpu *gpu)
-> diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-> index 6975b95c3c29..eed2a762e9dd 100644
-> --- a/drivers/gpu/drm/msm/msm_iommu.c
-> +++ b/drivers/gpu/drm/msm/msm_iommu.c
-> @@ -184,6 +184,9 @@ struct msm_mmu *msm_iommu_pagetable_create(struct msm_mmu *parent)
->  	 * the arm-smmu driver as a trigger to set up TTBR0
->  	 */
->  	if (atomic_inc_return(&iommu->pagetables) == 1) {
-> +		/* Enable stall on iommu fault: */
-> +		adreno_smmu->set_stall(adreno_smmu->cookie, true);
-> +
->  		ret = adreno_smmu->set_ttbr0_cfg(adreno_smmu->cookie, &ttbr0_cfg);
->  		if (ret) {
->  			free_io_pgtable_ops(pagetable->pgtbl_ops);
-> @@ -226,6 +229,13 @@ static int msm_fault_handler(struct iommu_domain *domain, struct device *dev,
->  	return 0;
->  }
->  
-> +static void msm_iommu_resume_translation(struct msm_mmu *mmu)
-> +{
-> +	struct adreno_smmu_priv *adreno_smmu = dev_get_drvdata(mmu->dev);
-> +
-> +	adreno_smmu->resume_translation(adreno_smmu->cookie, true);
-> +}
-> +
->  static void msm_iommu_detach(struct msm_mmu *mmu)
->  {
->  	struct msm_iommu *iommu = to_msm_iommu(mmu);
-> @@ -273,6 +283,7 @@ static const struct msm_mmu_funcs funcs = {
->  		.map = msm_iommu_map,
->  		.unmap = msm_iommu_unmap,
->  		.destroy = msm_iommu_destroy,
-> +		.resume_translation = msm_iommu_resume_translation,
->  };
->  
->  struct msm_mmu *msm_iommu_new(struct device *dev, struct iommu_domain *domain)
-> diff --git a/drivers/gpu/drm/msm/msm_mmu.h b/drivers/gpu/drm/msm/msm_mmu.h
-> index a88f44c3268d..de158e1bf765 100644
-> --- a/drivers/gpu/drm/msm/msm_mmu.h
-> +++ b/drivers/gpu/drm/msm/msm_mmu.h
-> @@ -15,6 +15,7 @@ struct msm_mmu_funcs {
->  			size_t len, int prot);
->  	int (*unmap)(struct msm_mmu *mmu, uint64_t iova, size_t len);
->  	void (*destroy)(struct msm_mmu *mmu);
-> +	void (*resume_translation)(struct msm_mmu *mmu);
->  };
->  
->  enum msm_mmu_type {
-> -- 
-> 2.31.1
-> 
+ 	pr_debug("irq_idx=%d\n", irq_idx);
+ 
+@@ -34,11 +33,9 @@ static void dpu_core_irq_callback_handler(void *arg, int irq_idx)
+ 	/*
+ 	 * Perform registered function callback
+ 	 */
+-	spin_lock_irqsave(&dpu_kms->irq_obj.cb_lock, irq_flags);
+ 	list_for_each_entry(cb, &irq_obj->irq_cb_tbl[irq_idx], list)
+ 		if (cb->func)
+ 			cb->func(cb->arg, irq_idx);
+-	spin_unlock_irqrestore(&dpu_kms->irq_obj.cb_lock, irq_flags);
+ }
+ 
+ u32 dpu_core_irq_read(struct dpu_kms *dpu_kms, int irq_idx, bool clear)
+@@ -82,22 +79,21 @@ int dpu_core_irq_register_callback(struct dpu_kms *dpu_kms, int irq_idx,
+ 
+ 	DPU_DEBUG("[%pS] irq_idx=%d\n", __builtin_return_address(0), irq_idx);
+ 
+-	spin_lock_irqsave(&dpu_kms->irq_obj.cb_lock, irq_flags);
++	irq_flags = dpu_kms->hw_intr->ops.lock(dpu_kms->hw_intr);
+ 	trace_dpu_core_irq_register_callback(irq_idx, register_irq_cb);
+ 	list_del_init(&register_irq_cb->list);
+ 	list_add_tail(&register_irq_cb->list,
+ 			&dpu_kms->irq_obj.irq_cb_tbl[irq_idx]);
+ 	if (list_is_first(&register_irq_cb->list,
+ 			&dpu_kms->irq_obj.irq_cb_tbl[irq_idx])) {
+-		int ret = dpu_kms->hw_intr->ops.enable_irq(
++		int ret = dpu_kms->hw_intr->ops.enable_irq_locked(
+ 				dpu_kms->hw_intr,
+ 				irq_idx);
+ 		if (ret)
+ 			DPU_ERROR("Fail to enable IRQ for irq_idx:%d\n",
+ 					irq_idx);
+ 	}
+-
+-	spin_unlock_irqrestore(&dpu_kms->irq_obj.cb_lock, irq_flags);
++	dpu_kms->hw_intr->ops.unlock(dpu_kms->hw_intr, irq_flags);
+ 
+ 	return 0;
+ }
+@@ -127,12 +123,12 @@ int dpu_core_irq_unregister_callback(struct dpu_kms *dpu_kms, int irq_idx,
+ 
+ 	DPU_DEBUG("[%pS] irq_idx=%d\n", __builtin_return_address(0), irq_idx);
+ 
+-	spin_lock_irqsave(&dpu_kms->irq_obj.cb_lock, irq_flags);
++	irq_flags = dpu_kms->hw_intr->ops.lock(dpu_kms->hw_intr);
+ 	trace_dpu_core_irq_unregister_callback(irq_idx, register_irq_cb);
+ 	list_del_init(&register_irq_cb->list);
+ 	/* empty callback list but interrupt is still enabled */
+ 	if (list_empty(&dpu_kms->irq_obj.irq_cb_tbl[irq_idx])) {
+-		int ret = dpu_kms->hw_intr->ops.disable_irq(
++		int ret = dpu_kms->hw_intr->ops.disable_irq_locked(
+ 				dpu_kms->hw_intr,
+ 				irq_idx);
+ 		if (ret)
+@@ -140,7 +136,7 @@ int dpu_core_irq_unregister_callback(struct dpu_kms *dpu_kms, int irq_idx,
+ 					irq_idx);
+ 		DPU_DEBUG("irq_idx=%d ret=%d\n", irq_idx, ret);
+ 	}
+-	spin_unlock_irqrestore(&dpu_kms->irq_obj.cb_lock, irq_flags);
++	dpu_kms->hw_intr->ops.unlock(dpu_kms->hw_intr, irq_flags);
+ 
+ 	return 0;
+ }
+@@ -164,7 +160,8 @@ static void dpu_disable_all_irqs(struct dpu_kms *dpu_kms)
+ #ifdef CONFIG_DEBUG_FS
+ static int dpu_debugfs_core_irq_show(struct seq_file *s, void *v)
+ {
+-	struct dpu_irq *irq_obj = s->private;
++	struct dpu_kms *dpu_kms = s->private;
++	struct dpu_irq *irq_obj = &dpu_kms->irq_obj;
+ 	struct dpu_irq_callback *cb;
+ 	unsigned long irq_flags;
+ 	int i, irq_count, cb_count;
+@@ -173,12 +170,12 @@ static int dpu_debugfs_core_irq_show(struct seq_file *s, void *v)
+ 		return 0;
+ 
+ 	for (i = 0; i < irq_obj->total_irqs; i++) {
+-		spin_lock_irqsave(&irq_obj->cb_lock, irq_flags);
++		irq_flags = dpu_kms->hw_intr->ops.lock(dpu_kms->hw_intr);
+ 		cb_count = 0;
+ 		irq_count = atomic_read(&irq_obj->irq_counts[i]);
+ 		list_for_each_entry(cb, &irq_obj->irq_cb_tbl[i], list)
+ 			cb_count++;
+-		spin_unlock_irqrestore(&irq_obj->cb_lock, irq_flags);
++		dpu_kms->hw_intr->ops.unlock(dpu_kms->hw_intr, irq_flags);
+ 
+ 		if (irq_count || cb_count)
+ 			seq_printf(s, "idx:%d irq:%d cb:%d\n",
+@@ -193,7 +190,7 @@ DEFINE_SHOW_ATTRIBUTE(dpu_debugfs_core_irq);
+ void dpu_debugfs_core_irq_init(struct dpu_kms *dpu_kms,
+ 		struct dentry *parent)
+ {
+-	debugfs_create_file("core_irq", 0600, parent, &dpu_kms->irq_obj,
++	debugfs_create_file("core_irq", 0600, parent, dpu_kms,
+ 		&dpu_debugfs_core_irq_fops);
+ }
+ #endif
+@@ -207,8 +204,6 @@ void dpu_core_irq_preinstall(struct dpu_kms *dpu_kms)
+ 	dpu_disable_all_irqs(dpu_kms);
+ 	pm_runtime_put_sync(&dpu_kms->pdev->dev);
+ 
+-	spin_lock_init(&dpu_kms->irq_obj.cb_lock);
+-
+ 	/* Create irq callbacks for all possible irq_idx */
+ 	dpu_kms->irq_obj.total_irqs = dpu_kms->hw_intr->total_irqs;
+ 	dpu_kms->irq_obj.irq_cb_tbl = kcalloc(dpu_kms->irq_obj.total_irqs,
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+index bf9a147ac245..996011e356f7 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+@@ -211,10 +211,9 @@ static void dpu_hw_intr_dispatch_irq(struct dpu_hw_intr *intr,
+ 	spin_unlock_irqrestore(&intr->irq_lock, irq_flags);
+ }
+ 
+-static int dpu_hw_intr_enable_irq(struct dpu_hw_intr *intr, int irq_idx)
++static int dpu_hw_intr_enable_irq_locked(struct dpu_hw_intr *intr, int irq_idx)
+ {
+ 	int reg_idx;
+-	unsigned long irq_flags;
+ 	const struct dpu_intr_reg *reg;
+ 	const char *dbgstr = NULL;
+ 	uint32_t cache_irq_mask;
+@@ -227,10 +226,16 @@ static int dpu_hw_intr_enable_irq(struct dpu_hw_intr *intr, int irq_idx)
+ 		return -EINVAL;
+ 	}
+ 
++	/*
++	 * The cache_irq_mask and hardware RMW operations needs to be done
++	 * under irq_lock and it's the caller's responsibility to ensure that's
++	 * held.
++	 */
++	assert_spin_locked(&intr->irq_lock);
++
+ 	reg_idx = DPU_IRQ_REG(irq_idx);
+ 	reg = &dpu_intr_set[reg_idx];
+ 
+-	spin_lock_irqsave(&intr->irq_lock, irq_flags);
+ 	cache_irq_mask = intr->cache_irq_mask[reg_idx];
+ 	if (cache_irq_mask & DPU_IRQ_MASK(irq_idx)) {
+ 		dbgstr = "DPU IRQ already set:";
+@@ -248,7 +253,6 @@ static int dpu_hw_intr_enable_irq(struct dpu_hw_intr *intr, int irq_idx)
+ 
+ 		intr->cache_irq_mask[reg_idx] = cache_irq_mask;
+ 	}
+-	spin_unlock_irqrestore(&intr->irq_lock, irq_flags);
+ 
+ 	pr_debug("%s MASK:0x%.8lx, CACHE-MASK:0x%.8x\n", dbgstr,
+ 			DPU_IRQ_MASK(irq_idx), cache_irq_mask);
+@@ -256,7 +260,7 @@ static int dpu_hw_intr_enable_irq(struct dpu_hw_intr *intr, int irq_idx)
+ 	return 0;
+ }
+ 
+-static int dpu_hw_intr_disable_irq_nolock(struct dpu_hw_intr *intr, int irq_idx)
++static int dpu_hw_intr_disable_irq_locked(struct dpu_hw_intr *intr, int irq_idx)
+ {
+ 	int reg_idx;
+ 	const struct dpu_intr_reg *reg;
+@@ -271,6 +275,13 @@ static int dpu_hw_intr_disable_irq_nolock(struct dpu_hw_intr *intr, int irq_idx)
+ 		return -EINVAL;
+ 	}
+ 
++	/*
++	 * The cache_irq_mask and hardware RMW operations needs to be done
++	 * under irq_lock and it's the caller's responsibility to ensure that's
++	 * held.
++	 */
++	assert_spin_locked(&intr->irq_lock);
++
+ 	reg_idx = DPU_IRQ_REG(irq_idx);
+ 	reg = &dpu_intr_set[reg_idx];
+ 
+@@ -298,25 +309,6 @@ static int dpu_hw_intr_disable_irq_nolock(struct dpu_hw_intr *intr, int irq_idx)
+ 	return 0;
+ }
+ 
+-static int dpu_hw_intr_disable_irq(struct dpu_hw_intr *intr, int irq_idx)
+-{
+-	unsigned long irq_flags;
+-
+-	if (!intr)
+-		return -EINVAL;
+-
+-	if (irq_idx < 0 || irq_idx >= intr->total_irqs) {
+-		pr_err("invalid IRQ index: [%d]\n", irq_idx);
+-		return -EINVAL;
+-	}
+-
+-	spin_lock_irqsave(&intr->irq_lock, irq_flags);
+-	dpu_hw_intr_disable_irq_nolock(intr, irq_idx);
+-	spin_unlock_irqrestore(&intr->irq_lock, irq_flags);
+-
+-	return 0;
+-}
+-
+ static int dpu_hw_intr_clear_irqs(struct dpu_hw_intr *intr)
+ {
+ 	int i;
+@@ -388,14 +380,30 @@ static u32 dpu_hw_intr_get_interrupt_status(struct dpu_hw_intr *intr,
+ 	return intr_status;
+ }
+ 
++static unsigned long dpu_hw_intr_lock(struct dpu_hw_intr *intr)
++{
++	unsigned long irq_flags;
++
++	spin_lock_irqsave(&intr->irq_lock, irq_flags);
++
++	return irq_flags;
++}
++
++static void dpu_hw_intr_unlock(struct dpu_hw_intr *intr, unsigned long irq_flags)
++{
++	spin_unlock_irqrestore(&intr->irq_lock, irq_flags);
++}
++
+ static void __setup_intr_ops(struct dpu_hw_intr_ops *ops)
+ {
+-	ops->enable_irq = dpu_hw_intr_enable_irq;
+-	ops->disable_irq = dpu_hw_intr_disable_irq;
++	ops->enable_irq_locked = dpu_hw_intr_enable_irq_locked;
++	ops->disable_irq_locked = dpu_hw_intr_disable_irq_locked;
+ 	ops->dispatch_irqs = dpu_hw_intr_dispatch_irq;
+ 	ops->clear_all_irqs = dpu_hw_intr_clear_irqs;
+ 	ops->disable_all_irqs = dpu_hw_intr_disable_irqs;
+ 	ops->get_interrupt_status = dpu_hw_intr_get_interrupt_status;
++	ops->lock = dpu_hw_intr_lock;
++	ops->unlock = dpu_hw_intr_unlock;
+ }
+ 
+ static void __intr_offset(struct dpu_mdss_cfg *m,
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
+index 0073d32effc5..d90dac77c26f 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
+@@ -46,7 +46,7 @@ struct dpu_hw_intr_ops {
+ 	 * @irq_idx:	Lookup irq index return from irq_idx_lookup
+ 	 * @return:	0 for success, otherwise failure
+ 	 */
+-	int (*enable_irq)(
++	int (*enable_irq_locked)(
+ 			struct dpu_hw_intr *intr,
+ 			int irq_idx);
+ 
+@@ -56,7 +56,7 @@ struct dpu_hw_intr_ops {
+ 	 * @irq_idx:	Lookup irq index return from irq_idx_lookup
+ 	 * @return:	0 for success, otherwise failure
+ 	 */
+-	int (*disable_irq)(
++	int (*disable_irq_locked)(
+ 			struct dpu_hw_intr *intr,
+ 			int irq_idx);
+ 
+@@ -101,6 +101,22 @@ struct dpu_hw_intr_ops {
+ 			struct dpu_hw_intr *intr,
+ 			int irq_idx,
+ 			bool clear);
++
++	/**
++	 * lock - take the IRQ lock
++	 * @intr:	HW interrupt handle
++	 * @return:	irq_flags for the taken spinlock
++	 */
++	unsigned long (*lock)(
++			struct dpu_hw_intr *intr);
++
++	/**
++	 * unlock - take the IRQ lock
++	 * @intr:	HW interrupt handle
++	 * @irq_flags:  the irq_flags returned from lock
++	 */
++	void (*unlock)(
++			struct dpu_hw_intr *intr, unsigned long irq_flags);
+ };
+ 
+ /**
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+index f6840b1af6e4..3034da1d2977 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+@@ -82,14 +82,12 @@ struct dpu_irq_callback {
+  * struct dpu_irq: IRQ structure contains callback registration info
+  * @total_irq:    total number of irq_idx obtained from HW interrupts mapping
+  * @irq_cb_tbl:   array of IRQ callbacks setting
+- * @cb_lock:      callback lock
+  * @debugfs_file: debugfs file for irq statistics
+  */
+ struct dpu_irq {
+ 	u32 total_irqs;
+ 	struct list_head *irq_cb_tbl;
+ 	atomic_t *irq_counts;
+-	spinlock_t cb_lock;
+ };
+ 
+ struct dpu_kms {
+-- 
+2.29.2
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
