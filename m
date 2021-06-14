@@ -1,62 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10FA03A6D33
-	for <lists+freedreno@lfdr.de>; Mon, 14 Jun 2021 19:30:17 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id E3DEF3A6D73
+	for <lists+freedreno@lfdr.de>; Mon, 14 Jun 2021 19:46:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83BA489DB5;
-	Mon, 14 Jun 2021 17:30:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 863FD6E0F1;
+	Mon, 14 Jun 2021 17:46:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 052C589D7B
- for <freedreno@lists.freedesktop.org>; Mon, 14 Jun 2021 17:30:14 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id h9so15107423oih.4
- for <freedreno@lists.freedesktop.org>; Mon, 14 Jun 2021 10:30:13 -0700 (PDT)
+Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
+ [IPv6:2607:f8b0:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBB1C6E0E8
+ for <freedreno@lists.freedesktop.org>; Mon, 14 Jun 2021 17:46:20 +0000 (UTC)
+Received: by mail-oi1-x232.google.com with SMTP id l12so7491909oig.2
+ for <freedreno@lists.freedesktop.org>; Mon, 14 Jun 2021 10:46:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=xLux/4m5ofoODBdUbT7Ehl5QrekB6WictYiNsn1mOWI=;
- b=BmXLqT56g32BvBM3bzR5kCvabeozm5NrpVSpsIpgvkOTPWRPJlxZ/z/D73OSBK/6W5
- 6A5m0lZLGJQrk0wbOzn8azG01wcz2L7fv3KIn5f+5da/PfQrL2Jj+557OyLbNa9Lqrer
- 8KztQ1xFxpDOcaY4LfrVezdrtI0n1Y6Elzgs5dh8Hl1F/TueJNJO4giGIFov47dp7kTZ
- AGxDoJ2L3ig2rYKdAyR0GGF3tq0K5rTrQW3NZH8wS/6twS9QR0yZeHE5iOjmi1EOxiwm
- upaQMi/vLbzIB1+4Elozh2AyCxcKDl1DyEq3zToBpNm8On3qgzOIKhkII3HppjMv2rnf
- /qAA==
+ bh=rXKjNT2DEQ+IjQBlthoE18k+nd+0vhAfMPZEBbyfCC8=;
+ b=RUAS26ksqnGrksv0ADjeHmswCRZGzsWMeghWKsPORY5CnhcxC6j651IJyHCpXlfxh8
+ M0IKJ5SawnPUoJePIW1SEfim06ZK/jUnkCyOvAzwVGYHwEdax4GlGHotOfNo9Uz/dUxm
+ 4nfPk6g4aK7tJ5Ralc4+WT6yrBvYunYVdH1WsUm9BpLM6pZ70zdUiPGkXbcCK3lCYdXN
+ QHGv+0HG8+nRGclzxvKuCS+uEbez+1/HPYddxOZ1/I5GDgQ6C904ZOs2qC0/GYbhEC80
+ gN4R14z0R2Kk0cB5Cq9dlSycia18TnLomiwTXtPf9WlZ/UnqRPvATqv0LBMFiDQK+7e0
+ Rfsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=xLux/4m5ofoODBdUbT7Ehl5QrekB6WictYiNsn1mOWI=;
- b=tAXRv0l61k2pAkx/logOQieiE6tzg4EfPwZkNd5w1M2K0yrdDtxUu56d/9HEwmGw9I
- utYZavV4o050bmNzUngGBjSyDtFOkM7ARvOZI3GcuaBYANTRYmrid1I3etjSOfHd9X/N
- piKTJzRvXvoVUjB7BckX0ZFbNDy0hA9CBrww4muUIqQxaF/jRfPZq+NLpAY3fb61EXBk
- o1L2ozRoqIbYi/VmvhzLq0xELnkNJzKyedY9rnDHLr/2B+5sDcBphy0t2DXdgRQZQVsd
- 42mxM4T/jXHWVLmmn8YjVR+u5XGe7fet0nPOKdczWlShycv8HJ3nH4XkJ8r/yw0PXKUy
- 9uRw==
-X-Gm-Message-State: AOAM533iuDgCb4abn2G5Eo6Q7ca93AYCHqZsV2dBlsQBaxuNL5ep2i81
- m8zKuIOKS0Ez3dbT4PRfmoAC4w==
-X-Google-Smtp-Source: ABdhPJw8j+3e3AKEgROrlKNjzXSDsCtRrFzgE31HIB9XuZeQfTHZGaNm//El0eGHEbYeJRKmO7lkjg==
-X-Received: by 2002:aca:ac47:: with SMTP id v68mr11196061oie.160.1623691813324; 
- Mon, 14 Jun 2021 10:30:13 -0700 (PDT)
+ bh=rXKjNT2DEQ+IjQBlthoE18k+nd+0vhAfMPZEBbyfCC8=;
+ b=mrIcxNtO8zRE8vQkyZZKgye6OOg60+Ik9PNURsKabsebYd03qkSZmOHm58kTDEMNAd
+ zFdOrjS2xLrxvjrz1qqBQhS+4zH7CIhF/mngYbCmhREOmIi/bMEIEHf79oWJwmHOFSii
+ yJYYDfr+l+jMSubYnKLKbG3vDfmNuby8px0OvgRpFIiPtefwnXX89ISTWdL6hGw6MtE9
+ GxthPH/roztY2AvDBHYAYz7IGIvH3jhFJl6qgzPY2Hgr6Znl+2gxsyetmUOrj3qvv2vS
+ TUjvJLCSmEsgxjXiSY/9q8PeFulVCN8FaRC/wTRzS/yCPt7aQO+fscXUGNxkapyPI/L0
+ sXww==
+X-Gm-Message-State: AOAM530VN7F40Ux/nhiCjhl3nvtEIAK+JMujjL86KkqBQ6ag78MvLTWd
+ x/EW1pjrr1a1tWPzo6/5arwIFw==
+X-Google-Smtp-Source: ABdhPJzjix9ubs+vvMy13RtCwO8rWq1+FOxT0/leOq0IYpn/f3BoQpF2UMUWAQIXErl205viOPXo5Q==
+X-Received: by 2002:aca:c441:: with SMTP id u62mr172892oif.31.1623692780015;
+ Mon, 14 Jun 2021 10:46:20 -0700 (PDT)
 Received: from yoga (104-57-184-186.lightspeed.austtx.sbcglobal.net.
  [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id f7sm3169502oot.36.2021.06.14.10.30.12
+ by smtp.gmail.com with ESMTPSA id v203sm1578401oib.37.2021.06.14.10.46.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Jun 2021 10:30:12 -0700 (PDT)
-Date: Mon, 14 Jun 2021 12:30:10 -0500
+ Mon, 14 Jun 2021 10:46:19 -0700 (PDT)
+Date: Mon, 14 Jun 2021 12:46:17 -0500
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
 To: Rob Clark <robdclark@gmail.com>
-Message-ID: <YMeSIv1bkZEverhO@yoga>
+Message-ID: <YMeV6XzSxQp/Tmr1@yoga>
 References: <20210610214431.539029-1-robdclark@gmail.com>
- <20210610214431.539029-3-robdclark@gmail.com>
+ <20210610214431.539029-4-robdclark@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210610214431.539029-3-robdclark@gmail.com>
-Subject: Re: [Freedreno] [PATCH v5 2/5] iommu/arm-smmu-qcom: Add an
- adreno-smmu-priv callback to get pagefault info
+In-Reply-To: <20210610214431.539029-4-robdclark@gmail.com>
+Subject: Re: [Freedreno] [PATCH v5 3/5] drm/msm: Improve the a6xx page fault
+ handler
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,17 +69,19 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "Isaac J. Manjarres" <isaacm@codeaurora.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- open list <linux-kernel@vger.kernel.org>, Will Deacon <will@kernel.org>,
- linux-arm-msm@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, dri-devel@lists.freedesktop.org,
- Jordan Crouse <jordan@cosmicpenguin.net>, iommu@lists.linux-foundation.org,
- John Stultz <john.stultz@linaro.org>, Krishna Reddy <vdumpa@nvidia.com>,
- freedreno@lists.freedesktop.org,
- "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>,
- Robin Murphy <robin.murphy@arm.com>
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ Jordan Crouse <jcrouse@codeaurora.org>, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ Akhil P Oommen <akhilpo@codeaurora.org>, Eric Anholt <eric@anholt.net>,
+ iommu@lists.linux-foundation.org,
+ "Kristian H. Kristensen" <hoegsberg@google.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
+ open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
@@ -89,135 +91,195 @@ On Thu 10 Jun 16:44 CDT 2021, Rob Clark wrote:
 
 > From: Jordan Crouse <jcrouse@codeaurora.org>
 > 
-> Add a callback in adreno-smmu-priv to read interesting SMMU
-> registers to provide an opportunity for a richer debug experience
-> in the GPU driver.
+> Use the new adreno-smmu-priv fault info function to get more SMMU
+> debug registers and print the current TTBR0 to debug per-instance
+> pagetables and figure out which GPU block generated the request.
 > 
-> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
 
-I presume this implies that more generic options has been discussed.
-Regardless, if further conclusions are made in that regard I expect that
-this could serve as a base for such efforts.
-
-Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+Acked-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 
 Regards,
 Bjorn
 
+> Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
 > ---
->  drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 17 ++++++++++++
->  drivers/iommu/arm/arm-smmu/arm-smmu.h      |  2 ++
->  include/linux/adreno-smmu-priv.h           | 31 +++++++++++++++++++++-
->  3 files changed, 49 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/msm/adreno/a5xx_gpu.c |  4 +-
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 76 +++++++++++++++++++++++++--
+>  drivers/gpu/drm/msm/msm_iommu.c       | 11 +++-
+>  drivers/gpu/drm/msm/msm_mmu.h         |  4 +-
+>  4 files changed, 87 insertions(+), 8 deletions(-)
 > 
-> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-> index 98b3a1c2a181..b2e31ea84128 100644
-> --- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-> @@ -32,6 +32,22 @@ static void qcom_adreno_smmu_write_sctlr(struct arm_smmu_device *smmu, int idx,
->  	arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_SCTLR, reg);
+> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> index f46562c12022..eb030b00bff4 100644
+> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> @@ -1075,7 +1075,7 @@ bool a5xx_idle(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+>  	return true;
 >  }
 >  
-> +static void qcom_adreno_smmu_get_fault_info(const void *cookie,
-> +		struct adreno_smmu_fault_info *info)
+> -static int a5xx_fault_handler(void *arg, unsigned long iova, int flags)
+> +static int a5xx_fault_handler(void *arg, unsigned long iova, int flags, void *data)
+>  {
+>  	struct msm_gpu *gpu = arg;
+>  	pr_warn_ratelimited("*** gpu fault: iova=%08lx, flags=%d (%u,%u,%u,%u)\n",
+> @@ -1085,7 +1085,7 @@ static int a5xx_fault_handler(void *arg, unsigned long iova, int flags)
+>  			gpu_read(gpu, REG_A5XX_CP_SCRATCH_REG(6)),
+>  			gpu_read(gpu, REG_A5XX_CP_SCRATCH_REG(7)));
+>  
+> -	return -EFAULT;
+> +	return 0;
+>  }
+>  
+>  static void a5xx_cp_err_irq(struct msm_gpu *gpu)
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index c7f0ddb12d8f..fc19db10bff1 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -1032,18 +1032,88 @@ static void a6xx_recover(struct msm_gpu *gpu)
+>  	msm_gpu_hw_init(gpu);
+>  }
+>  
+> -static int a6xx_fault_handler(void *arg, unsigned long iova, int flags)
+> +static const char *a6xx_uche_fault_block(struct msm_gpu *gpu, u32 mid)
 > +{
-> +	struct arm_smmu_domain *smmu_domain = (void *)cookie;
-> +	struct arm_smmu_cfg *cfg = &smmu_domain->cfg;
-> +	struct arm_smmu_device *smmu = smmu_domain->smmu;
+> +	static const char *uche_clients[7] = {
+> +		"VFD", "SP", "VSC", "VPC", "HLSQ", "PC", "LRZ",
+> +	};
+> +	u32 val;
 > +
-> +	info->fsr = arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_FSR);
-> +	info->fsynr0 = arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_FSYNR0);
-> +	info->fsynr1 = arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_FSYNR1);
-> +	info->far = arm_smmu_cb_readq(smmu, cfg->cbndx, ARM_SMMU_CB_FAR);
-> +	info->cbfrsynra = arm_smmu_gr1_read(smmu, ARM_SMMU_GR1_CBFRSYNRA(cfg->cbndx));
-> +	info->ttbr0 = arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_TTBR0);
-> +	info->contextidr = arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_CONTEXTIDR);
+> +	if (mid < 1 || mid > 3)
+> +		return "UNKNOWN";
+> +
+> +	/*
+> +	 * The source of the data depends on the mid ID read from FSYNR1.
+> +	 * and the client ID read from the UCHE block
+> +	 */
+> +	val = gpu_read(gpu, REG_A6XX_UCHE_CLIENT_PF);
+> +
+> +	/* mid = 3 is most precise and refers to only one block per client */
+> +	if (mid == 3)
+> +		return uche_clients[val & 7];
+> +
+> +	/* For mid=2 the source is TP or VFD except when the client id is 0 */
+> +	if (mid == 2)
+> +		return ((val & 7) == 0) ? "TP" : "TP|VFD";
+> +
+> +	/* For mid=1 just return "UCHE" as a catchall for everything else */
+> +	return "UCHE";
 > +}
 > +
->  #define QCOM_ADRENO_SMMU_GPU_SID 0
+> +static const char *a6xx_fault_block(struct msm_gpu *gpu, u32 id)
+> +{
+> +	if (id == 0)
+> +		return "CP";
+> +	else if (id == 4)
+> +		return "CCU";
+> +	else if (id == 6)
+> +		return "CDP Prefetch";
+> +
+> +	return a6xx_uche_fault_block(gpu, id);
+> +}
+> +
+> +#define ARM_SMMU_FSR_TF                 BIT(1)
+> +#define ARM_SMMU_FSR_PF			BIT(3)
+> +#define ARM_SMMU_FSR_EF			BIT(4)
+> +
+> +static int a6xx_fault_handler(void *arg, unsigned long iova, int flags, void *data)
+>  {
+>  	struct msm_gpu *gpu = arg;
+> +	struct adreno_smmu_fault_info *info = data;
+> +	const char *type = "UNKNOWN";
 >  
->  static bool qcom_adreno_smmu_is_gpu_device(struct device *dev)
-> @@ -156,6 +172,7 @@ static int qcom_adreno_smmu_init_context(struct arm_smmu_domain *smmu_domain,
->  	priv->cookie = smmu_domain;
->  	priv->get_ttbr1_cfg = qcom_adreno_smmu_get_ttbr1_cfg;
->  	priv->set_ttbr0_cfg = qcom_adreno_smmu_set_ttbr0_cfg;
-> +	priv->get_fault_info = qcom_adreno_smmu_get_fault_info;
+> -	pr_warn_ratelimited("*** gpu fault: iova=%08lx, flags=%d (%u,%u,%u,%u)\n",
+> +	/*
+> +	 * Print a default message if we couldn't get the data from the
+> +	 * adreno-smmu-priv
+> +	 */
+> +	if (!info) {
+> +		pr_warn_ratelimited("*** gpu fault: iova=%.16lx flags=%d (%u,%u,%u,%u)\n",
+>  			iova, flags,
+>  			gpu_read(gpu, REG_A6XX_CP_SCRATCH_REG(4)),
+>  			gpu_read(gpu, REG_A6XX_CP_SCRATCH_REG(5)),
+>  			gpu_read(gpu, REG_A6XX_CP_SCRATCH_REG(6)),
+>  			gpu_read(gpu, REG_A6XX_CP_SCRATCH_REG(7)));
 >  
+> -	return -EFAULT;
+> +		return 0;
+> +	}
+> +
+> +	if (info->fsr & ARM_SMMU_FSR_TF)
+> +		type = "TRANSLATION";
+> +	else if (info->fsr & ARM_SMMU_FSR_PF)
+> +		type = "PERMISSION";
+> +	else if (info->fsr & ARM_SMMU_FSR_EF)
+> +		type = "EXTERNAL";
+> +
+> +	pr_warn_ratelimited("*** gpu fault: ttbr0=%.16llx iova=%.16lx dir=%s type=%s source=%s (%u,%u,%u,%u)\n",
+> +			info->ttbr0, iova,
+> +			flags & IOMMU_FAULT_WRITE ? "WRITE" : "READ", type,
+> +			a6xx_fault_block(gpu, info->fsynr1 & 0xff),
+> +			gpu_read(gpu, REG_A6XX_CP_SCRATCH_REG(4)),
+> +			gpu_read(gpu, REG_A6XX_CP_SCRATCH_REG(5)),
+> +			gpu_read(gpu, REG_A6XX_CP_SCRATCH_REG(6)),
+> +			gpu_read(gpu, REG_A6XX_CP_SCRATCH_REG(7)));
+> +
+> +	return 0;
+>  }
+>  
+>  static void a6xx_cp_hw_err_irq(struct msm_gpu *gpu)
+> diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
+> index 50d881794758..6975b95c3c29 100644
+> --- a/drivers/gpu/drm/msm/msm_iommu.c
+> +++ b/drivers/gpu/drm/msm/msm_iommu.c
+> @@ -211,8 +211,17 @@ static int msm_fault_handler(struct iommu_domain *domain, struct device *dev,
+>  		unsigned long iova, int flags, void *arg)
+>  {
+>  	struct msm_iommu *iommu = arg;
+> +	struct adreno_smmu_priv *adreno_smmu = dev_get_drvdata(iommu->base.dev);
+> +	struct adreno_smmu_fault_info info, *ptr = NULL;
+> +
+> +	if (adreno_smmu->get_fault_info) {
+> +		adreno_smmu->get_fault_info(adreno_smmu->cookie, &info);
+> +		ptr = &info;
+> +	}
+> +
+>  	if (iommu->base.handler)
+> -		return iommu->base.handler(iommu->base.arg, iova, flags);
+> +		return iommu->base.handler(iommu->base.arg, iova, flags, ptr);
+> +
+>  	pr_warn_ratelimited("*** fault: iova=%16lx, flags=%d\n", iova, flags);
 >  	return 0;
 >  }
-> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.h b/drivers/iommu/arm/arm-smmu/arm-smmu.h
-> index c31a59d35c64..84c21c4b0691 100644
-> --- a/drivers/iommu/arm/arm-smmu/arm-smmu.h
-> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.h
-> @@ -224,6 +224,8 @@ enum arm_smmu_cbar_type {
->  #define ARM_SMMU_CB_FSYNR0		0x68
->  #define ARM_SMMU_FSYNR0_WNR		BIT(4)
->  
-> +#define ARM_SMMU_CB_FSYNR1		0x6c
-> +
->  #define ARM_SMMU_CB_S1_TLBIVA		0x600
->  #define ARM_SMMU_CB_S1_TLBIASID		0x610
->  #define ARM_SMMU_CB_S1_TLBIVAL		0x620
-> diff --git a/include/linux/adreno-smmu-priv.h b/include/linux/adreno-smmu-priv.h
-> index a889f28afb42..53fe32fb9214 100644
-> --- a/include/linux/adreno-smmu-priv.h
-> +++ b/include/linux/adreno-smmu-priv.h
-> @@ -8,6 +8,32 @@
->  
->  #include <linux/io-pgtable.h>
->  
-> +/**
-> + * struct adreno_smmu_fault_info - container for key fault information
-> + *
-> + * @far: The faulting IOVA from ARM_SMMU_CB_FAR
-> + * @ttbr0: The current TTBR0 pagetable from ARM_SMMU_CB_TTBR0
-> + * @contextidr: The value of ARM_SMMU_CB_CONTEXTIDR
-> + * @fsr: The fault status from ARM_SMMU_CB_FSR
-> + * @fsynr0: The value of FSYNR0 from ARM_SMMU_CB_FSYNR0
-> + * @fsynr1: The value of FSYNR1 from ARM_SMMU_CB_FSYNR0
-> + * @cbfrsynra: The value of CBFRSYNRA from ARM_SMMU_GR1_CBFRSYNRA(idx)
-> + *
-> + * This struct passes back key page fault information to the GPU driver
-> + * through the get_fault_info function pointer.
-> + * The GPU driver can use this information to print informative
-> + * log messages and provide deeper GPU specific insight into the fault.
-> + */
-> +struct adreno_smmu_fault_info {
-> +	u64 far;
-> +	u64 ttbr0;
-> +	u32 contextidr;
-> +	u32 fsr;
-> +	u32 fsynr0;
-> +	u32 fsynr1;
-> +	u32 cbfrsynra;
-> +};
-> +
->  /**
->   * struct adreno_smmu_priv - private interface between adreno-smmu and GPU
->   *
-> @@ -17,6 +43,8 @@
->   * @set_ttbr0_cfg: Set the TTBR0 config for the GPUs context bank.  A
->   *                 NULL config disables TTBR0 translation, otherwise
->   *                 TTBR0 translation is enabled with the specified cfg
-> + * @get_fault_info: Called by the GPU fault handler to get information about
-> + *                  the fault
->   *
->   * The GPU driver (drm/msm) and adreno-smmu work together for controlling
->   * the GPU's SMMU instance.  This is by necessity, as the GPU is directly
-> @@ -31,6 +59,7 @@ struct adreno_smmu_priv {
->      const void *cookie;
->      const struct io_pgtable_cfg *(*get_ttbr1_cfg)(const void *cookie);
->      int (*set_ttbr0_cfg)(const void *cookie, const struct io_pgtable_cfg *cfg);
-> +    void (*get_fault_info)(const void *cookie, struct adreno_smmu_fault_info *info);
+> diff --git a/drivers/gpu/drm/msm/msm_mmu.h b/drivers/gpu/drm/msm/msm_mmu.h
+> index 61ade89d9e48..a88f44c3268d 100644
+> --- a/drivers/gpu/drm/msm/msm_mmu.h
+> +++ b/drivers/gpu/drm/msm/msm_mmu.h
+> @@ -26,7 +26,7 @@ enum msm_mmu_type {
+>  struct msm_mmu {
+>  	const struct msm_mmu_funcs *funcs;
+>  	struct device *dev;
+> -	int (*handler)(void *arg, unsigned long iova, int flags);
+> +	int (*handler)(void *arg, unsigned long iova, int flags, void *data);
+>  	void *arg;
+>  	enum msm_mmu_type type;
 >  };
+> @@ -43,7 +43,7 @@ struct msm_mmu *msm_iommu_new(struct device *dev, struct iommu_domain *domain);
+>  struct msm_mmu *msm_gpummu_new(struct device *dev, struct msm_gpu *gpu);
 >  
-> -#endif /* __ADRENO_SMMU_PRIV_H */
-> \ No newline at end of file
-> +#endif /* __ADRENO_SMMU_PRIV_H */
+>  static inline void msm_mmu_set_fault_handler(struct msm_mmu *mmu, void *arg,
+> -		int (*handler)(void *arg, unsigned long iova, int flags))
+> +		int (*handler)(void *arg, unsigned long iova, int flags, void *data))
+>  {
+>  	mmu->arg = arg;
+>  	mmu->handler = handler;
 > -- 
 > 2.31.1
 > 
+> _______________________________________________
+> iommu mailing list
+> iommu@lists.linux-foundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/iommu
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
