@@ -1,59 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC17F3A9166
-	for <lists+freedreno@lfdr.de>; Wed, 16 Jun 2021 07:51:09 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C0D303A9E73
+	for <lists+freedreno@lfdr.de>; Wed, 16 Jun 2021 17:02:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E078F6E4D2;
-	Wed, 16 Jun 2021 05:51:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5650689E86;
+	Wed, 16 Jun 2021 15:02:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE9536E4D2
- for <freedreno@lists.freedesktop.org>; Wed, 16 Jun 2021 05:51:04 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1623822666; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=Q1TyVXTeFx6rF/4IhR/HbBq/HUJgc1Eg0wjHkC/BGjI=;
- b=OZ2RgcdFiNyBvPCi/152qOtJjRAiqnMGVjM72j7dBXHqH5R+29afU6lzDRP9KYAdXdUpou0N
- 4q56vzUO8qEi9MTPMz2TTHC4PGcXnctTGdXfshDcR8ds5Zh82SJV/9AHlw1xvF3gjdx3pZ0N
- 1P3yh3IX45dZTm8YGFES9Tn/3SM=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
- 60c99131abfd22a3dc673eb4 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 16 Jun 2021 05:50:41
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id B567DC4323A; Wed, 16 Jun 2021 05:50:40 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: rajeevny)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id C0920C433D3;
- Wed, 16 Jun 2021 05:50:39 +0000 (UTC)
+Received: from mail-qk1-x72f.google.com (mail-qk1-x72f.google.com
+ [IPv6:2607:f8b0:4864:20::72f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBE3289E86
+ for <freedreno@lists.freedesktop.org>; Wed, 16 Jun 2021 15:02:23 +0000 (UTC)
+Received: by mail-qk1-x72f.google.com with SMTP id c9so2995203qkm.0
+ for <freedreno@lists.freedesktop.org>; Wed, 16 Jun 2021 08:02:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=j51VtbWEsPmNthXDSqqlA/0JAvr0xhkR2POpSAUOx9c=;
+ b=ZUIi2qzqYGHwJx+79Fc4944r16x9UMQqqYLtcBz8HCOT0nsZkxfGcmRp23lvyNfAP+
+ 2knAodSGIE5+PM0wcoqn9rQAvNIbG2+5Sas5+iUH6G+5iioPe8sGy4aqBr4h9MHBFQLA
+ j4DhsbCGODeTQCqVCt1gM8KYJ3xJ2R6oiax+o=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=j51VtbWEsPmNthXDSqqlA/0JAvr0xhkR2POpSAUOx9c=;
+ b=RF8U8usfUgA+tBbqTtOG5NP+gIZB2whxHtY8UtlU4rRXhtXo5s9BXzzb0KZQuaWwHe
+ r4x+N/Tgds+PEZYmI1R/G1sV7zaambGecmJ5t62zFzm6ykSh4UroRJZnJI2Mj/CL8FS1
+ VguuWntIAkKo+8TYYpJdwmfJ8Zfjv0EumwBHuHWYMpWWjCXSlRkuzRb3GomEIIXV8jNx
+ b9WstB0mVoORY0jK0TNulqphAXufHbn69RKKehxoZH11m0y0ektpdMeww5xVJJMbEWzc
+ lq5uUBnbz38PJk9XiMOvj+4YS6q0Zt16PPN2FCGzcdQzD1DLfUHj43WWNIe8WznjzqQ4
+ z46A==
+X-Gm-Message-State: AOAM530Nw+s8spAKXjRyTDgSJdCqKSgHzBdPs3bm0iil22d1d5qtMLlH
+ MpvA3UksJqiIZo5qjAYRBo7c5aYY3auGPw==
+X-Google-Smtp-Source: ABdhPJxcqn95HfY9aj4rPw2rWlHotvD/TuFEQmvmxt9qfkiPKDZCwg4WyvNaaxv54Lv+aeip2TxMKg==
+X-Received: by 2002:a37:a74b:: with SMTP id q72mr453701qke.59.1623855742020;
+ Wed, 16 Jun 2021 08:02:22 -0700 (PDT)
+Received: from mail-yb1-f169.google.com (mail-yb1-f169.google.com.
+ [209.85.219.169])
+ by smtp.gmail.com with ESMTPSA id c11sm1375468qth.29.2021.06.16.08.02.19
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 16 Jun 2021 08:02:21 -0700 (PDT)
+Received: by mail-yb1-f169.google.com with SMTP id m9so3477084ybo.5
+ for <freedreno@lists.freedesktop.org>; Wed, 16 Jun 2021 08:02:19 -0700 (PDT)
+X-Received: by 2002:a5b:54a:: with SMTP id r10mr207252ybp.476.1623855739461;
+ Wed, 16 Jun 2021 08:02:19 -0700 (PDT)
 MIME-Version: 1.0
-Date: Wed, 16 Jun 2021 11:20:39 +0530
-From: rajeevny@codeaurora.org
-To: Rob Herring <robh@kernel.org>, robh+dt@kernel.org
-In-Reply-To: <ec1bcb4e734b784ab17c4fc558a5fab9@codeaurora.org>
-References: <1622468035-8453-1-git-send-email-rajeevny@codeaurora.org>
- <1622468035-8453-2-git-send-email-rajeevny@codeaurora.org>
- <20210601205848.GA1025498@robh.at.kernel.org>
- <ec1bcb4e734b784ab17c4fc558a5fab9@codeaurora.org>
-Message-ID: <27dec6f881a3b8bd5e13ba32990f975b@codeaurora.org>
-X-Sender: rajeevny@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [v1 1/3] dt-bindings: msm/dsi: Add yaml schema for
- 7nm DSI PHY
+References: <1623499682-2140-1-git-send-email-rajeevny@codeaurora.org>
+ <1623499682-2140-6-git-send-email-rajeevny@codeaurora.org>
+In-Reply-To: <1623499682-2140-6-git-send-email-rajeevny@codeaurora.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 16 Jun 2021 08:02:07 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=V2_LJkXX-9v2ArSspKHy6PABn1E-hkCOeT=Dk5R0CQ+Q@mail.gmail.com>
+Message-ID: <CAD=FV=V2_LJkXX-9v2ArSspKHy6PABn1E-hkCOeT=Dk5R0CQ+Q@mail.gmail.com>
+To: Rajeev Nandan <rajeevny@codeaurora.org>
+Subject: Re: [Freedreno] [v6 5/5] drm/panel-simple: Add Samsung ATNA33XC20
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,81 +69,46 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, mkrishn@codeaurora.org, jonathan@marek.ca,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, abhinavk@codeaurora.org, kalyan_t@codeaurora.org,
- sean@poorly.run
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Daniel Thompson <daniel.thompson@linaro.org>,
+ Krishna Manikandan <mkrishn@codeaurora.org>, Lyude Paul <lyude@redhat.com>,
+ Sam Ravnborg <sam@ravnborg.org>, Rob Herring <robh@kernel.org>,
+ Jani Nikula <jani.nikula@intel.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>, LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Andrzej Hajda <a.hajda@samsung.com>, Rob Clark <robdclark@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Sean Paul <seanpaul@chromium.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Kalyan Thota <kalyan_t@codeaurora.org>,
+ "Kristian H. Kristensen" <hoegsberg@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 03-06-2021 01:32, rajeevny@codeaurora.org wrote:
-> On 02-06-2021 02:28, Rob Herring wrote:
->> On Mon, May 31, 2021 at 07:03:53PM +0530, Rajeev Nandan wrote:
-> 
->>> +
->>> +properties:
->>> +  compatible:
->>> +    oneOf:
->>> +      - const: qcom,dsi-phy-7nm
->> 
->> When would one use this?
-> This is for SM8250.
-> 
->> 
->>> +      - const: qcom,dsi-phy-7nm-7280
->>> +      - const: qcom,dsi-phy-7nm-8150
->> 
->> These don't look like full SoC names (sm8150?) and it's
->> <vendor>,<soc>-<block>.
-> 
-> Thanks, Rob, for the review.
-> 
-> I just took the `compatible` property currently used in the DSI PHY 
-> driver
-> (drivers/gpu/drm/msm/dsi/phy/dsi_phy.c), and added a new entry for 
-> sc7280.
-> A similar pattern of `compatible` names are used in other variants of 
-> the
-> DSI PHY driver e.g. qcom,qcom,dsi-phy-10nm-8998, qcom,dsi-phy-14nm-660 
-> etc.
-> 
-> The existing compatible names "qcom,dsi-phy-7nm-8150" (SoC at the end) 
-> make
-> some sense, if we look at the organization of the dsi phy driver code.
-> I am new to this and don't know the reason behind the current code
-> organization and this naming.
-> 
-> Yes, I agree with you, we should use full SoC names. Adding
-> the SoC name at the end does not feel very convincing, so I will change 
-> this
-> to the suggested format e.g. "qcom,sm8250-dsi-phy-7nm", and will rename 
-> the
-> occurrences in the driver and device tree accordingly.
-> Do I need to make changes for 10nm, 14nm, 20nm, and 28nm DSI PHY too?
-> Bindings doc for these PHYs recently got merged to msm-next [1]
-> 
-> 
-> [1]
-> https://gitlab.freedesktop.org/drm/msm/-/commit/8fc939e72ff80116c090aaf03952253a124d2a8e
-> 
+Hi,
 
-Hi Rob,
+On Sat, Jun 12, 2021 at 5:09 AM Rajeev Nandan <rajeevny@codeaurora.org> wrote:
+>
+> +static const struct panel_desc samsung_atna33xc20 = {
+> +       .modes = &samsung_atna33xc20_mode,
+> +       .num_modes = 1,
+> +       .bpc = 10,
+> +       .size = {
+> +               .width = 294,
+> +               .height = 165,
+> +       },
+> +       .delay = {
+> +               .disable_to_power_off = 150,
+> +               .power_to_enable = 150,
 
-I missed adding "robh+dt@kernel.org" earlier in this thread.
+As per <https://crrev.com/c/2966167> it's apparently been discovered
+that these should be:
 
-Please check my response to your review comments. Regarding your 
-suggestion to use <vendor>,<soc>-<block> format for compatible property, 
-should I also upload a new patch to make changes in 10nm, 14nm, 20nm, 
-and 28nm DSI PHY DT bindings?
-
-Thanks,
-Rajeev
-
-
-
+.disable_to_power_off = 200,
+.power_to_enable = 400,
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
