@@ -1,61 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3C013AB6FA
-	for <lists+freedreno@lfdr.de>; Thu, 17 Jun 2021 17:09:50 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C8323AB6FF
+	for <lists+freedreno@lfdr.de>; Thu, 17 Jun 2021 17:09:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66FA26E0DB;
-	Thu, 17 Jun 2021 15:09:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E55BE6E8FC;
+	Thu, 17 Jun 2021 15:09:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
- [IPv6:2607:f8b0:4864:20::729])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAA426E8DE
- for <freedreno@lists.freedesktop.org>; Thu, 17 Jun 2021 15:09:48 +0000 (UTC)
-Received: by mail-qk1-x729.google.com with SMTP id j184so3467952qkd.6
- for <freedreno@lists.freedesktop.org>; Thu, 17 Jun 2021 08:09:48 -0700 (PDT)
+Received: from mail-qv1-xf2d.google.com (mail-qv1-xf2d.google.com
+ [IPv6:2607:f8b0:4864:20::f2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A36336E8FC
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Jun 2021 15:09:50 +0000 (UTC)
+Received: by mail-qv1-xf2d.google.com with SMTP id f5so1816455qvu.8
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Jun 2021 08:09:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=marek-ca.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=mv9m1rL1gQr7Cq6u236MxatHLn2/MqViMk2h6WZTmRo=;
- b=RhAoT19vBPzCi+padM6Q7iUPclE2KxhFlLSP1W5hes8qWZnAztDI26Z4FvXDDMqucP
- W5JQJ+LluUo4CVKtD8Ou8W9THwUmW9uFmpyN3w2O2DiGqJ9c9w5qOv4G7lMqAWbtPSZp
- +nyS2rvds2wuW0Ui9tRUgXAuNyit+DxYJ1V15wv1mGoktZaDq1vY71NXD3TfnghhBhbv
- h+DJXG0YSEZWCrAXmeVKZICdwmo7FfJUXXYVxAW6TJiqNh2N/cumtG8td2dd8ZUuVSEn
- aUJCPlFNmXTtK6SA3cqG/jqEwAX6jgcpYxIn8IIscqfbcKtHCLut+1uODkwneV6eaqwx
- DkGA==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=6CZoxO79EUCj+uToMmmQ6lVMzE5TA3o7zrKqj4+S9KI=;
+ b=ZrxvbUOIUHyCiVrYQYrgOpLGX9jlC28Ynxxg3p4qz0YhokhE+x9bkteQs6WqGC1hQg
+ 7i5bIyDasHmkWLZVP65g3IqUqiNaRB4220pMbWj4+DL+fD9l7/wwf/5eKNyAW0IUxmup
+ 53oja1wU6sNp+3+uPTk+Au/Gb83w4ninPOIqQtJgpFZo4Kn8YUj0bVqYEna6SHsG/82U
+ 6EVOMr8OeYo5OugWAuaFQHHN37jvTqM/cJd6kJHVD3s1l4hPc4b8fmbGmNPeJphuCpVU
+ kBALGLBZAdUphN6cg2rVtBdn4Fgw8wkoHteU5G8GXu/dEJpTRMEAqMDbmE6mjD5AlOgE
+ GHig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=mv9m1rL1gQr7Cq6u236MxatHLn2/MqViMk2h6WZTmRo=;
- b=iVdIVLlVz2XMdpFJOciF9pK2Ue1qQAy8PiLzNMo2E2k5SctKLU+WnYZt6IzNYBA1N4
- 2RXqDHZ7b0pzeEWOtYPdI7xwLmbA1mzt+QsAAQ0eeulGe/QceiLaNEaI9SefIif74sDl
- ycwso6FcCle8lyB0OeA66kt+7EBnTHUlT90jX0gy549RdeSrtm64XBB/+uXsF6khlhtz
- O2HlLdhla5465Lhv1YVtT3dSMm08FwJb048M1CDlvC4njLAMsbIjvHdgenKpIIUuhanm
- PjOXyD4KlgEOH+ic+ccvNBlR7P4zyjIMiYyRfa2mKvCq4adbfhGBF2fmOhe2AvrDyPxz
- +gEw==
-X-Gm-Message-State: AOAM5324vY7g9WsnOOSeIdWBSMjmT7myw29a29trt+zTAPBIm8poSVbY
- 3Tqg9OV7CDT+ANnnZe4xM3ruwSPekYtaZIntDAWyig==
-X-Google-Smtp-Source: ABdhPJzglu2BOkfTCvKDZ/8MRUxwg51FjvnIad48oEPHqJArDCQJiVaaZHhuk7PmsZdUyA3nUjVIJw==
-X-Received: by 2002:a05:620a:13c5:: with SMTP id
- g5mr4349545qkl.464.1623942587689; 
- Thu, 17 Jun 2021 08:09:47 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=6CZoxO79EUCj+uToMmmQ6lVMzE5TA3o7zrKqj4+S9KI=;
+ b=gaKzRDr8dOd7h14z4nPkN6Pkk5QiDNL8JrZ92KdoOkF2rYNXdpOv86Wj1QFMr+4btq
+ sOTzz6zFamK8n98QmsEh93YbTRsX0yxznVy/GVn8breKI67Iky1fQf0b6eVk5grBkcrC
+ zd6Q2xKrVwBiPg80rVKnGNvqtbXrohgmBMZquofauKiZTExNWHGi1S5TZ0vgYqf/GbSd
+ BO0jdL7ltpG7K1RuqvCgEFNruF++udVvPVU2msAN44OLIuEKTMYFXrMwzDSCGio3bo7A
+ eDrZ2d4NnqtvPNH0Lpr1nYYAgpSzSPeNNxrlpMyp6LNvDaqRnN0TZB71d2Dy+WBPWGaL
+ OKAw==
+X-Gm-Message-State: AOAM532z5N9Dr1oK2IlD0vvKklmhmrDGkdRLXeXXdoJ5mIS+XRcL44XO
+ eFTbj2jqvOqCWKfSrhq+vMbEyiG2iRoww3kYp/s=
+X-Google-Smtp-Source: ABdhPJwqlTnyC6ehAuzvmqugicCKmU0UrwJ2sXGVdmGn/AoPR8lWetbs/2NzMSuB8dsbFuyO/q7mzw==
+X-Received: by 2002:a05:6214:80a:: with SMTP id
+ df10mr300267qvb.8.1623942589661; 
+ Thu, 17 Jun 2021 08:09:49 -0700 (PDT)
 Received: from localhost.localdomain
  (modemcable068.184-131-66.mc.videotron.ca. [66.131.184.68])
- by smtp.gmail.com with ESMTPSA id g82sm1915427qke.119.2021.06.17.08.09.46
+ by smtp.gmail.com with ESMTPSA id g82sm1915427qke.119.2021.06.17.08.09.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Jun 2021 08:09:47 -0700 (PDT)
+ Thu, 17 Jun 2021 08:09:49 -0700 (PDT)
 From: Jonathan Marek <jonathan@marek.ca>
 To: freedreno@lists.freedesktop.org
-Date: Thu, 17 Jun 2021 10:43:32 -0400
-Message-Id: <20210617144349.28448-1-jonathan@marek.ca>
+Date: Thu, 17 Jun 2021 10:43:33 -0400
+Message-Id: <20210617144349.28448-2-jonathan@marek.ca>
 X-Mailer: git-send-email 2.26.1
+In-Reply-To: <20210617144349.28448-1-jonathan@marek.ca>
+References: <20210617144349.28448-1-jonathan@marek.ca>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v4 0/3] drm/msm/dsi: support CPHY mode for 7nm
- pll/phy
+Subject: [Freedreno] [PATCH v4 1/3] dt-bindings: msm: dsi: add missing 7nm
+ bindings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,59 +71,97 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
- Anurag Kumar Vulisha <anurag.kumar.vulisha@xilinx.com>,
- Vinod Koul <vkoul@kernel.org>, David Airlie <airlied@linux.ie>,
- Bernard Zhao <bernard@vivo.com>, Swapnil Jakhade <sjakhade@cadence.com>,
- Konrad Dybcio <konradybcio@gmail.com>, Abhinav Kumar <abhinavk@codeaurora.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>,
+ <devicetree@vger.kernel.org>, David Airlie <airlied@linux.ie>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rajendra Nayak <rnayak@codeaurora.org>, Sean Paul <sean@poorly.run>,
  open list <linux-kernel@vger.kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add the required changes to support 7nm pll/phy in CPHY mode.
+These got lost when going from .txt to .yaml bindings, add them back.
 
-This adds a "qcom,dsi-phy-cphy-mode" property for the PHY node to enable
-the CPHY mode.
-
-v2:
- - rebased on DSI PHY reworks
- - reworked getting cphy_mode in dsi_host.c
- - documentation change in separate patch
-
-v3:
- - yaml bindings
- - changed binding to "phy-type = <PHY_TYPE_DSI_CPHY>;"
-
-v4:
- - PHY_TYPE_{DPHY,CPHY} instead of PHY_TYPE_DSI_{DPHY,CPHY}
- - use enum/default for phy-type property
- - remove a stray semicolon in dts example
-
-Jonathan Marek (3):
-  dt-bindings: msm: dsi: add missing 7nm bindings
-  dt-bindings: msm: dsi: document phy-type property for 7nm dsi phy
-  drm/msm/dsi: support CPHY mode for 7nm pll/phy
-
- .../bindings/display/msm/dsi-phy-7nm.yaml     |  71 +++++++++
- drivers/gpu/drm/msm/dsi/dsi.xml.h             |   2 +
- drivers/gpu/drm/msm/dsi/dsi_host.c            |  34 +++-
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.c         |  49 ++++++
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.h         |   3 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c     | 145 ++++++++++++------
- include/dt-bindings/phy/phy.h                 |   2 +
- 7 files changed, 259 insertions(+), 47 deletions(-)
+Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+---
+ .../bindings/display/msm/dsi-phy-7nm.yaml     | 66 +++++++++++++++++++
+ 1 file changed, 66 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
 
+diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+new file mode 100644
+index 000000000000..c0077ca7e9e7
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+@@ -0,0 +1,66 @@
++# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/msm/dsi-phy-7nm.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm Display DSI 7nm PHY
++
++maintainers:
++  - Jonathan Marek <jonathan@marek.ca>
++
++allOf:
++  - $ref: dsi-phy-common.yaml#
++
++properties:
++  compatible:
++    oneOf:
++      - const: qcom,dsi-phy-7nm
++      - const: qcom,dsi-phy-7nm-8150
++
++  reg:
++    items:
++      - description: dsi phy register set
++      - description: dsi phy lane register set
++      - description: dsi pll register set
++
++  reg-names:
++    items:
++      - const: dsi_phy
++      - const: dsi_phy_lane
++      - const: dsi_pll
++
++  vdds-supply:
++    description: |
++      Connected to VDD_A_DSI_PLL_0P9 pin (or VDDA_DSI{0,1}_PLL_0P9 for sm8150)
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - vdds-supply
++
++unevaluatedProperties: false
++
++examples:
++  - |
++     #include <dt-bindings/clock/qcom,dispcc-sm8250.h>
++     #include <dt-bindings/clock/qcom,rpmh.h>
++
++     dsi-phy@ae94400 {
++         compatible = "qcom,dsi-phy-7nm";
++         reg = <0x0ae94400 0x200>,
++               <0x0ae94600 0x280>,
++               <0x0ae94900 0x260>;
++         reg-names = "dsi_phy",
++                     "dsi_phy_lane",
++                     "dsi_pll";
++
++         #clock-cells = <1>;
++         #phy-cells = <0>;
++
++         vdds-supply = <&vreg_l5a_0p88>;
++         clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
++                  <&rpmhcc RPMH_CXO_CLK>;
++         clock-names = "iface", "ref";
++     };
 -- 
 2.26.1
 
