@@ -2,44 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AE5A3AAE6D
-	for <lists+freedreno@lfdr.de>; Thu, 17 Jun 2021 10:06:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A15F93AB571
+	for <lists+freedreno@lfdr.de>; Thu, 17 Jun 2021 16:09:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01B3B6E89F;
-	Thu, 17 Jun 2021 08:06:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCDFC6E8BC;
+	Thu, 17 Jun 2021 14:09:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0B526E89C;
- Thu, 17 Jun 2021 08:06:35 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id DD8C0610A0;
- Thu, 17 Jun 2021 08:06:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623917195;
- bh=YuScG7SzWSSRa8w1px2qbFZAuK3KvyU2T8TThbFj484=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=KZtZND8jBB1VBzwKJ37okD6sz+7yOm9yfkVXZvMIlMjMbU+/QQz+2xByOFDnV5kBI
- 6efKtbVV9eT5xS4zzlnh8n7ZsNw9HbZ9sDLEp85/CilwlCFxqxCmQTdmDzguDQa7Lp
- 4x2Vb3YyD9PDnbpAeR5LjMTKQ1CrYzZ7y+T6cKTgZhf9ln2FEaUfw4ZsIG57QvUrn+
- mYwOMefXgMUm+fnsHxN3SSZb5+ntdFmtUv2FZAMaHM6Nw2i3Q4grHbNXZezuo5XuAw
- 2Pb+WKjNG8oat7wV5SyAWARDp1KJqOMhozk0z+QSanSSEdBFilprNmu6ZdBXqQ2fFd
- yOrn1FJC0gCnw==
-Date: Thu, 17 Jun 2021 13:36:32 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: abhinavk@codeaurora.org
-Message-ID: <YMsCiOThaPEvHs1S@vkoul-mobl>
-References: <20210521124946.3617862-1-vkoul@kernel.org>
- <CAOCk7Nqep_Db+z3fr5asHZ1u0j8+6fKkPFs2Ai8CbA_zGqV6ZA@mail.gmail.com>
- <YK3gxqXBRupN/N+Q@vkoul-mobl.Dlink>
- <CAOCk7NqvhGvYw8xCBctqj7H+o-Qwp2UuUJK1gatW9EWfXv56xA@mail.gmail.com>
- <CAF6AEGuoyPr8PgfwFX0JCYZ7S_pryn_OXacHBqoMAAPvSq6aRw@mail.gmail.com>
- <YLdlEB3Ea6OWaLw4@vkoul-mobl>
- <a14c18a2545408e8156dcafc846b17a2@codeaurora.org>
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [IPv6:2a00:1450:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B82F6E89D
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Jun 2021 14:09:12 +0000 (UTC)
+Received: by mail-lj1-x231.google.com with SMTP id d2so9188518ljj.11
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Jun 2021 07:09:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=OcvYXvvlVYeL9756xuKyQfsfVibJtIpmm8tnGhiSsFo=;
+ b=KhZep3BslUxz+3xsZvo6Z/Yyk3DmRKr+i0q6JZgu+dnIuQT/ITq7o4Z/9QgnEDTrc5
+ hSYuosp6Get0mB/weYIj9TWmKOWqLFVo1/ytl4p+WKZsD8w8reI1pvfCZ9KuScZd9aZd
+ xyS6o43Z/BkVF5h+1hdrjP9a7Ktp7Ga8kjfLsU5dRGsPQPN4DQ5SsIVGFU6BAD4qIhJ+
+ UE8Bz97L8zmVmiaKAX4MmqEAMfWt5I4x1eIpXmVjgzaNxAEq0Y2OEcBQl+v3ZdoKRZz7
+ ber3gW3L6fPLXUUK8NWEgWcKLCiyF6QOtiK42PkGwRjI/r6RZG189iZzdlxYZQZQdy28
+ +GyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=OcvYXvvlVYeL9756xuKyQfsfVibJtIpmm8tnGhiSsFo=;
+ b=jDjX8l7llsqrmQjVN+Uw1pUKRYN6QiWq4iQseqMJwHMUa20gjhtiYpLah+5Ve1FyYj
+ RJTCXqCubYL5pTwAJ7gaeF37qZifnKcwuoD/m9ZGAuew/b0Qt33hNISBKfQGc0TcRomZ
+ yndOweR80lqTqFkwAkkBCrqf7fxmiDAX9oCNpPR6QPYNIJoxNj0xtsRi4/1goo2RRdJN
+ BW9ZzaDtjAH0AHmUk1WVY4xQPc+Zkk5gCAJY+mnLy7z5S/Fgaqj6nOZ+KL0g+WsBDLur
+ ss89Zh/G6Xj4RKxkH74UG08YOlMPWYDUwDOiTzxYUCQb8mQ60Tp9tHEXyiY3iC9AMhZA
+ RHvA==
+X-Gm-Message-State: AOAM5326wqbgdmYQIBwiFysWnfOSEP6oeDwFSRt9s3mp6bBYkyDuMvS0
+ rnOp6eMB64C14y2gWw2+sqaZZw==
+X-Google-Smtp-Source: ABdhPJwcQUwrzzHgbibZIWWeJayKD33olGUt8NtQnYHgCsSgRXDc0XEtM2RhUEw060syZVDBe926tQ==
+X-Received: by 2002:a2e:9cc3:: with SMTP id g3mr4819609ljj.366.1623938950459; 
+ Thu, 17 Jun 2021 07:09:10 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id f23sm592471lfm.128.2021.06.17.07.09.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Jun 2021 07:09:09 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <abhinavk@codeaurora.org>
+Date: Thu, 17 Jun 2021 17:09:01 +0300
+Message-Id: <20210617140908.412298-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <a14c18a2545408e8156dcafc846b17a2@codeaurora.org>
-Subject: Re: [Freedreno] [RFC PATCH 00/13] drm/msm: Add Display Stream
- Compression Support
+Subject: [Freedreno] [PATCH 0/7] drm/msm/dpu: merge dpu_core_irq into
+ dpu_hw_interrupts
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,62 +67,47 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: DTML <devicetree@vger.kernel.org>, Jonathan Marek <jonathan@marek.ca>,
- Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, David Airlie <airlied@linux.ie>,
- MSM <linux-arm-msm@vger.kernel.org>, lkml <linux-kernel@vger.kernel.org>,
- "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 03-06-21, 16:40, abhinavk@codeaurora.org wrote:
-> On 2021-06-02 04:01, Vinod Koul wrote:
-> > On 27-05-21, 16:30, Rob Clark wrote:
-> > 
-> > yeah that is always a very different world. although it might make sense
-> > to use information in tables and try to deduce information about the
-> > system can be helpful...
-> > 
-> > > I'd worry more about what makes sense in a DT world, when it comes to
-> > > DT bindings.
-> > 
-> > And do you have thoughts on that..?
-> 
-> At the moment, I will comment on the bindings first and my idea on how to
-> proceed.
-> The bindings mentioned here:
-> https://lore.kernel.org/dri-devel/20210521124946.3617862-3-vkoul@kernel.org/
-> seem to be just
-> taken directly from downstream which was not the plan.
-> 
-> I think all of these should be part of the generic panel bindings as none of
-> these are QC specific:
+This patch series reworks DPU's irq handling code by merging
+dpu_core_irq into dpu_hw_intr, reworking/dropping irq-related helpers
+and wrappers, etc.
 
-Okay so we have discussed this w/ Bjorn and Abhinav and here are the
-conclusions and recommendations for binding
+Dependencies: https://lore.kernel.org/linux-arm-msm/20210611170003.3539059-1-bjorn.andersson@linaro.org/
 
-1. the properties are generic and not msm specific
-2. The host supports multiple formats but the one we choose depends
-mostly upon panel. Notably host runs the config which the panel supports.
+----------------------------------------------------------------
+Dmitry Baryshkov (7):
+      drm/msm/dpu: squash dpu_core_irq into dpu_hw_interrupts
+      drm/msm/dpu: don't clear IRQ register twice
+      drm/msm/dpu: merge struct dpu_irq into struct dpu_hw_intr
+      drm/msm/dpu: hide struct dpu_irq_callback
+      drm/msm/dpu: remove extra wrappers around dpu_core_irq
+      drm/msm/dpu: get rid of dpu_encoder_helper_(un)register_irq
+      drm/msm/dpu: remove struct dpu_encoder_irq and enum dpu_intr_idx
 
-So the recommendations is to add a table of dsc properties in the panel
-driver. No DT binding here.
+ drivers/gpu/drm/msm/Makefile                       |   1 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c       | 256 -----------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.h       |  30 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        | 111 ++------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h   |  66 +----
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c   |  99 +++----
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |  56 ++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c  | 306 ++++++++++++++++-----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h  |  92 +------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  27 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h            |  25 --
+ drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h          |  49 ++--
+ 12 files changed, 383 insertions(+), 735 deletions(-)
+ delete mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
 
-I should also note that for DP we should be able to calculate these
-values from EDID like the i915 driver seems to do
 
-With this I will drop the binding patch and move dsc properties to panel
-driver
-
-Thanks
-
--- 
-~Vinod
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
