@@ -2,79 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EF883AA438
-	for <lists+freedreno@lfdr.de>; Wed, 16 Jun 2021 21:22:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4C6F3AA86F
+	for <lists+freedreno@lfdr.de>; Thu, 17 Jun 2021 03:09:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A60176E079;
-	Wed, 16 Jun 2021 19:22:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F2426E0EF;
+	Thu, 17 Jun 2021 01:09:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 843026E079
- for <freedreno@lists.freedesktop.org>; Wed, 16 Jun 2021 19:22:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1623871350;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=cfPQRSykQydOulCcQ49aAeUEKKM3a3d6+BzEEPE5SV4=;
- b=eUtCS6tw92x+0cd9YqQkrZ+KoamjASYFYVXFtrkqENz+nrLsgX6UwJx3UAZp6vU3mI16MS
- Z8s7WXsC9lQCV2uWQjLB2QkyT21LFWLQaJuqJY4jiRl94PnuhiNLXZ5q6JAemxk/D3lnav
- Bwy+0A9SAArtfpUjkiisz4psYtssqRs=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-361-4lSHA3NaP3-_ir3UfaMHjA-1; Wed, 16 Jun 2021 15:22:28 -0400
-X-MC-Unique: 4lSHA3NaP3-_ir3UfaMHjA-1
-Received: by mail-qk1-f198.google.com with SMTP id
- r22-20020a37a8160000b02903ab435911daso326193qke.20
- for <freedreno@lists.freedesktop.org>; Wed, 16 Jun 2021 12:22:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
- :references:organization:user-agent:mime-version
- :content-transfer-encoding;
- bh=cfPQRSykQydOulCcQ49aAeUEKKM3a3d6+BzEEPE5SV4=;
- b=uEhhIQ0FSwYE9sY5YsL4R0DID1kVieqTVBnywgNkCvEE3BORz7dWF2+fsDXuTfXHqh
- nxFzmB9nk8DIMzjhsZNNnQ1K+t+kXf9tgmfwroHu7pcjZEWDNrJJDDi0lKRWjriIsCoH
- H8z21JMwvGfk9mBD3vcEdxyq+PmznhXyk/Jh6UbNXnS1+rsQoCcWCqZhzuDTo0HqjfSz
- PGUpCXu94RuSLZYyP0eDNjdewfbGO2VGxb5juqLqOImEq2gePYGss06RD2zO8ZdH7zLF
- mfCwOTok199KZBi0vkgs2scv1faTN/XkIeI7XK3QtaBfD1D9AvchFHYw/D/6OHTRlG7w
- BTXg==
-X-Gm-Message-State: AOAM532DnwIJoTf+MajDtKvr52JmAYT4idC9dWo7B0sP5ZjRFlbyxGfu
- BSxtVn7n1JQZpsx6a6xRLALSUfnwStvkKeQYMleyvuwi50vAY/XPG8qxqdSKErMpjZHDYKm5dOx
- 8MKWslL4bNJkUhfr+PLDR6gLsLf0f
-X-Received: by 2002:a05:620a:1129:: with SMTP id
- p9mr1743849qkk.163.1623871347722; 
- Wed, 16 Jun 2021 12:22:27 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJz8h8pJ527wXO5YR0w/WfuqqYYEriH77nlHFOVvL9eWL0AJ7EELuOrCm3wyxVLlnNbjvIgaNQ==
-X-Received: by 2002:a05:620a:1129:: with SMTP id
- p9mr1743811qkk.163.1623871347486; 
- Wed, 16 Jun 2021 12:22:27 -0700 (PDT)
-Received: from Ruby.lyude.net (pool-108-49-102-102.bstnma.fios.verizon.net.
- [108.49.102.102])
- by smtp.gmail.com with ESMTPSA id s22sm1708411qtx.32.2021.06.16.12.22.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Jun 2021 12:22:27 -0700 (PDT)
-Message-ID: <31f31a0d37e05f71ade68b3452ef471c0c681302.camel@redhat.com>
-From: Lyude Paul <lyude@redhat.com>
-To: Rajeev Nandan <rajeevny@codeaurora.org>,
- dri-devel@lists.freedesktop.org,  linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org,  devicetree@vger.kernel.org
-Date: Wed, 16 Jun 2021 15:22:25 -0400
-In-Reply-To: <1623499682-2140-2-git-send-email-rajeevny@codeaurora.org>
-References: <1623499682-2140-1-git-send-email-rajeevny@codeaurora.org>
- <1623499682-2140-2-git-send-email-rajeevny@codeaurora.org>
-Organization: Red Hat
-User-Agent: Evolution 3.38.4 (3.38.4-1.fc33)
-MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Subject: Re: [Freedreno] [v6 1/5] drm/panel: add basic DP AUX backlight
- support
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A33DF89817
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Jun 2021 01:09:27 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1623892169; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=jFdctibapv2kmHKwbyaYDWL4qhN7osPb6AHzf0+1kh4=;
+ b=P/fxY8WQcgKNYTB9Ed5h2SOPJr74PmgqSzxqGaJ8br+Uq19Eq1MT8VFlmbLJ5V3xHLkdTM4M
+ KbB22vaJHXeyuefQNiMwi6jFCXow5LgT6xAyzklgN2XPnM3//d/h7ptwzTbxPVaczbt3axYp
+ DcgTVxPC1qpyFsqUN9S+mAFZrQU=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
+ 60caa0bded59bf69cc87e0fe (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 17 Jun 2021 01:09:17
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id CBA68C43217; Thu, 17 Jun 2021 01:09:17 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
+Received: from nganji-linux.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: maitreye)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id B0F7FC433F1;
+ Thu, 17 Jun 2021 01:09:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org B0F7FC433F1
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=maitreye@codeaurora.org
+From: maitreye <maitreye@codeaurora.org>
+To: dri-devel@lists.freedesktop.org
+Date: Wed, 16 Jun 2021 18:08:54 -0700
+Message-Id: <1623892134-20447-1-git-send-email-maitreye@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH] drm/msm/dp: add logs across DP driver for ease
+ of debugging
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,177 +64,337 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robh@kernel.org, daniel.thompson@linaro.org, mkrishn@codeaurora.org,
- jani.nikula@intel.com, lee.jones@linaro.org, linux-kernel@vger.kernel.org,
- abhinavk@codeaurora.org, dianders@chromium.org, a.hajda@samsung.com,
- robdclark@gmail.com, thierry.reding@gmail.com, seanpaul@chromium.org,
- laurent.pinchart@ideasonboard.com, linux-fbdev@vger.kernel.org,
- kalyan_t@codeaurora.org, jingoohan1@gmail.com, hoegsberg@chromium.org,
- sam@ravnborg.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Maitreyee Rao <maitreye@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ abhinavk@codeaurora.org, swboyd@chromium.org, khsieh@codeaurora.org,
+ robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-UmV2aWV3ZWQtYnk6IEx5dWRlIFBhdWwgPGx5dWRlQHJlZGhhdC5jb20+CgpPbiBTYXQsIDIwMjEt
-MDYtMTIgYXQgMTc6MzcgKzA1MzAsIFJhamVldiBOYW5kYW4gd3JvdGU6Cj4gU29tZSBwYW5lbHMg
-c3VwcG9ydCBiYWNrbGlnaHQgY29udHJvbCBvdmVyIERQIEFVWCBjaGFubmVsIHVzaW5nCj4gVkVT
-QSdzIHN0YW5kYXJkIGJhY2tsaWdodCBjb250cm9sIGludGVyZmFjZS4KPiBVc2luZyBuZXcgRFJN
-IGVEUCBiYWNrbGlnaHQgaGVscGVycywgYWRkIHN1cHBvcnQgdG8gY3JlYXRlIGFuZAo+IHJlZ2lz
-dGVyIGEgYmFja2xpZ2h0IGZvciB0aG9zZSBwYW5lbHMgaW4gZHJtX3BhbmVsIHRvIHNpbXBsaWZ5
-Cj4gdGhlIHBhbmVsIGRyaXZlcnMuCj4gCj4gVGhlIHBhbmVsIGRyaXZlciB3aXRoIGFjY2VzcyB0
-byAic3RydWN0IGRybV9kcF9hdXgiIGNhbiBjcmVhdGUgYW5kCj4gcmVnaXN0ZXIgYSBiYWNrbGln
-aHQgZGV2aWNlIHVzaW5nIGZvbGxvd2luZyBjb2RlIHNuaXBwZXQgaW4gaXRzCj4gcHJvYmUoKSBm
-dW5jdGlvbjoKPiAKPiDCoMKgwqDCoMKgwqDCoMKgZXJyID0gZHJtX3BhbmVsX2RwX2F1eF9iYWNr
-bGlnaHQocGFuZWwsIGF1eCk7Cj4gwqDCoMKgwqDCoMKgwqDCoGlmIChlcnIpCj4gwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqByZXR1cm4gZXJyOwo+IAo+IFRoZW4gZHJtX3BhbmVsIHdp
-bGwgaGFuZGxlIGJhY2tsaWdodF8oZW5hYmxlfGRpc2FibGUpIGNhbGxzCj4gc2ltaWxhciB0byB0
-aGUgY2FzZSB3aGVuIGRybV9wYW5lbF9vZl9iYWNrbGlnaHQoKSBpcyB1c2VkLgo+IAo+IEN1cnJl
-bnRseSwgd2UgYXJlIG5vdCBzdXBwb3J0aW5nIG9uZSBmZWF0dXJlIHdoZXJlIHRoZSBzb3VyY2UK
-PiBkZXZpY2UgY2FuIGNvbWJpbmUgdGhlIGJhY2tsaWdodCBicmlnaHRuZXNzIGxldmVscyBzZXQg
-dGhyb3VnaAo+IERQIEFVWCBhbmQgdGhlIEJMX1BXTV9ESU0gZURQIGNvbm5lY3RvciBwaW4uIFNp
-bmNlIGl0J3Mgbm90Cj4gcmVxdWlyZWQgZm9yIHRoZSBiYXNpYyBiYWNrbGlnaHQgY29udHJvbHMs
-IGl0IGNhbiBiZSBhZGRlZCBsYXRlci4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBSYWplZXYgTmFuZGFu
-IDxyYWplZXZueUBjb2RlYXVyb3JhLm9yZz4KPiBSZXZpZXdlZC1ieTogRG91Z2xhcyBBbmRlcnNv
-biA8ZGlhbmRlcnNAY2hyb21pdW0ub3JnPgo+IC0tLQo+IAo+IENoYW5nZXMgaW4gdjU6Cj4gLSBO
-ZXcKPiAKPiBDaGFuZ2VzIGluIHY2Ogo+IC0gRml4ZWQgb3JkZXJpbmcgb2YgbWVtb3J5IGFsbG9j
-YXRpb24gKERvdWdsYXMpCj4gLSBVcGRhdGVkIHdvcmQgd3JhcHBpbmcgaW4gYSBjb21tZW50IChE
-b3VnbGFzKQo+IAo+IMKgZHJpdmVycy9ncHUvZHJtL2RybV9wYW5lbC5jIHwgMTA4Cj4gKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKPiDCoGluY2x1ZGUvZHJtL2Ry
-bV9wYW5lbC5owqDCoMKgwqAgfMKgIDE1ICsrKystLQo+IMKgMiBmaWxlcyBjaGFuZ2VkLCAxMTkg
-aW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2RybV9wYW5lbC5jIGIvZHJpdmVycy9ncHUvZHJtL2RybV9wYW5lbC5jCj4gaW5kZXgg
-ZjYzNDM3MS4uOWU2NTM0MiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX3BhbmVs
-LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX3BhbmVsLmMKPiBAQCAtMjYsMTIgKzI2LDIw
-IEBACj4gwqAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gwqAKPiDCoCNpbmNsdWRlIDxkcm0v
-ZHJtX2NydGMuaD4KPiArI2luY2x1ZGUgPGRybS9kcm1fZHBfaGVscGVyLmg+Cj4gwqAjaW5jbHVk
-ZSA8ZHJtL2RybV9wYW5lbC5oPgo+IMKgI2luY2x1ZGUgPGRybS9kcm1fcHJpbnQuaD4KPiDCoAo+
-IMKgc3RhdGljIERFRklORV9NVVRFWChwYW5lbF9sb2NrKTsKPiDCoHN0YXRpYyBMSVNUX0hFQUQo
-cGFuZWxfbGlzdCk7Cj4gwqAKPiArc3RydWN0IGRwX2F1eF9iYWNrbGlnaHQgewo+ICvCoMKgwqDC
-oMKgwqDCoHN0cnVjdCBiYWNrbGlnaHRfZGV2aWNlICpiYXNlOwo+ICvCoMKgwqDCoMKgwqDCoHN0
-cnVjdCBkcm1fZHBfYXV4ICphdXg7Cj4gK8KgwqDCoMKgwqDCoMKgc3RydWN0IGRybV9lZHBfYmFj
-a2xpZ2h0X2luZm8gaW5mbzsKPiArwqDCoMKgwqDCoMKgwqBib29sIGVuYWJsZWQ7Cj4gK307Cj4g
-Kwo+IMKgLyoqCj4gwqAgKiBET0M6IGRybSBwYW5lbAo+IMKgICoKPiBAQCAtMzQyLDYgKzM1MCwx
-MDYgQEAgaW50IGRybV9wYW5lbF9vZl9iYWNrbGlnaHQoc3RydWN0IGRybV9wYW5lbCAqcGFuZWwp
-Cj4gwqDCoMKgwqDCoMKgwqDCoHJldHVybiAwOwo+IMKgfQo+IMKgRVhQT1JUX1NZTUJPTChkcm1f
-cGFuZWxfb2ZfYmFja2xpZ2h0KTsKPiArCj4gK3N0YXRpYyBpbnQgZHBfYXV4X2JhY2tsaWdodF91
-cGRhdGVfc3RhdHVzKHN0cnVjdCBiYWNrbGlnaHRfZGV2aWNlICpiZCkKPiArewo+ICvCoMKgwqDC
-oMKgwqDCoHN0cnVjdCBkcF9hdXhfYmFja2xpZ2h0ICpibCA9IGJsX2dldF9kYXRhKGJkKTsKPiAr
-wqDCoMKgwqDCoMKgwqB1MTYgYnJpZ2h0bmVzcyA9IGJhY2tsaWdodF9nZXRfYnJpZ2h0bmVzcyhi
-ZCk7Cj4gK8KgwqDCoMKgwqDCoMKgaW50IHJldCA9IDA7Cj4gKwo+ICvCoMKgwqDCoMKgwqDCoGlm
-IChicmlnaHRuZXNzID4gMCkgewo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBpZiAo
-IWJsLT5lbmFibGVkKSB7Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqBkcm1fZWRwX2JhY2tsaWdodF9lbmFibGUoYmwtPmF1eCwgJmJsLT5pbmZvLAo+IGJy
-aWdodG5lc3MpOwo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgYmwtPmVuYWJsZWQgPSB0cnVlOwo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgcmV0dXJuIDA7Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oH0KPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgcmV0ID0gZHJtX2VkcF9iYWNrbGln
-aHRfc2V0X2xldmVsKGJsLT5hdXgsICZibC0+aW5mbywKPiBicmlnaHRuZXNzKTsKPiArwqDCoMKg
-wqDCoMKgwqB9IGVsc2Ugewo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBpZiAoYmwt
-PmVuYWJsZWQpIHsKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoGRybV9lZHBfYmFja2xpZ2h0X2Rpc2FibGUoYmwtPmF1eCwgJmJsLT5pbmZvKTsKPiArwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGJsLT5lbmFibGVkID0g
-ZmFsc2U7Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoH0KPiArwqDCoMKgwqDCoMKg
-wqB9Cj4gKwo+ICvCoMKgwqDCoMKgwqDCoHJldHVybiByZXQ7Cj4gK30KPiArCj4gK3N0YXRpYyBj
-b25zdCBzdHJ1Y3QgYmFja2xpZ2h0X29wcyBkcF9hdXhfYmxfb3BzID0gewo+ICvCoMKgwqDCoMKg
-wqDCoC51cGRhdGVfc3RhdHVzID0gZHBfYXV4X2JhY2tsaWdodF91cGRhdGVfc3RhdHVzLAo+ICt9
-Owo+ICsKPiArLyoqCj4gKyAqIGRybV9wYW5lbF9kcF9hdXhfYmFja2xpZ2h0IC0gY3JlYXRlIGFu
-ZCB1c2UgRFAgQVVYIGJhY2tsaWdodAo+ICsgKiBAcGFuZWw6IERSTSBwYW5lbAo+ICsgKiBAYXV4
-OiBUaGUgRFAgQVVYIGNoYW5uZWwgdG8gdXNlCj4gKyAqCj4gKyAqIFVzZSB0aGlzIGZ1bmN0aW9u
-IHRvIGNyZWF0ZSBhbmQgaGFuZGxlIGJhY2tsaWdodCBpZiB5b3VyIHBhbmVsCj4gKyAqIHN1cHBv
-cnRzIGJhY2tsaWdodCBjb250cm9sIG92ZXIgRFAgQVVYIGNoYW5uZWwgdXNpbmcgRFBDRAo+ICsg
-KiByZWdpc3RlcnMgYXMgcGVyIFZFU0EncyBzdGFuZGFyZCBiYWNrbGlnaHQgY29udHJvbCBpbnRl
-cmZhY2UuCj4gKyAqCj4gKyAqIFdoZW4gdGhlIHBhbmVsIGlzIGVuYWJsZWQgYmFja2xpZ2h0IHdp
-bGwgYmUgZW5hYmxlZCBhZnRlciBhCj4gKyAqIHN1Y2Nlc3NmdWwgY2FsbCB0byAmZHJtX3BhbmVs
-X2Z1bmNzLmVuYWJsZSgpCj4gKyAqCj4gKyAqIFdoZW4gdGhlIHBhbmVsIGlzIGRpc2FibGVkIGJh
-Y2tsaWdodCB3aWxsIGJlIGRpc2FibGVkIGJlZm9yZSB0aGUKPiArICogY2FsbCB0byAmZHJtX3Bh
-bmVsX2Z1bmNzLmRpc2FibGUoKS4KPiArICoKPiArICogQSB0eXBpY2FsIGltcGxlbWVudGF0aW9u
-IGZvciBhIHBhbmVsIGRyaXZlciBzdXBwb3J0aW5nIGJhY2tsaWdodAo+ICsgKiBjb250cm9sIG92
-ZXIgRFAgQVVYIHdpbGwgY2FsbCB0aGlzIGZ1bmN0aW9uIGF0IHByb2JlIHRpbWUuCj4gKyAqIEJh
-Y2tsaWdodCB3aWxsIHRoZW4gYmUgaGFuZGxlZCB0cmFuc3BhcmVudGx5IHdpdGhvdXQgcmVxdWly
-aW5nCj4gKyAqIGFueSBpbnRlcnZlbnRpb24gZnJvbSB0aGUgZHJpdmVyLgo+ICsgKgo+ICsgKiBk
-cm1fcGFuZWxfZHBfYXV4X2JhY2tsaWdodCgpIG11c3QgYmUgY2FsbGVkIGFmdGVyIHRoZSBjYWxs
-IHRvCj4gZHJtX3BhbmVsX2luaXQoKS4KPiArICoKPiArICogUmV0dXJuOiAwIG9uIHN1Y2Nlc3Mg
-b3IgYSBuZWdhdGl2ZSBlcnJvciBjb2RlIG9uIGZhaWx1cmUuCj4gKyAqLwo+ICtpbnQgZHJtX3Bh
-bmVsX2RwX2F1eF9iYWNrbGlnaHQoc3RydWN0IGRybV9wYW5lbCAqcGFuZWwsIHN0cnVjdCBkcm1f
-ZHBfYXV4Cj4gKmF1eCkKPiArewo+ICvCoMKgwqDCoMKgwqDCoHN0cnVjdCBkcF9hdXhfYmFja2xp
-Z2h0ICpibDsKPiArwqDCoMKgwqDCoMKgwqBzdHJ1Y3QgYmFja2xpZ2h0X3Byb3BlcnRpZXMgcHJv
-cHMgPSB7IDAgfTsKPiArwqDCoMKgwqDCoMKgwqB1MTYgY3VycmVudF9sZXZlbDsKPiArwqDCoMKg
-wqDCoMKgwqB1OCBjdXJyZW50X21vZGU7Cj4gK8KgwqDCoMKgwqDCoMKgdTggZWRwX2RwY2RbRURQ
-X0RJU1BMQVlfQ1RMX0NBUF9TSVpFXTsKPiArwqDCoMKgwqDCoMKgwqBpbnQgcmV0Owo+ICsKPiAr
-wqDCoMKgwqDCoMKgwqBpZiAoIXBhbmVsIHx8ICFwYW5lbC0+ZGV2IHx8ICFhdXgpCj4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJldHVybiAtRUlOVkFMOwo+ICsKPiArwqDCoMKgwqDC
-oMKgwqByZXQgPSBkcm1fZHBfZHBjZF9yZWFkKGF1eCwgRFBfRURQX0RQQ0RfUkVWLCBlZHBfZHBj
-ZCwKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCBFRFBfRElTUExBWV9DVExfQ0FQX1NJWkUpOwo+ICvCoMKgwqDCoMKgwqDCoGlmIChy
-ZXQgPCAwKQo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqByZXR1cm4gcmV0Owo+ICsK
-PiArwqDCoMKgwqDCoMKgwqBpZiAoIWRybV9lZHBfYmFja2xpZ2h0X3N1cHBvcnRlZChlZHBfZHBj
-ZCkpIHsKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgRFJNX0RFVl9JTkZPKHBhbmVs
-LT5kZXYsICJEUCBBVVggYmFja2xpZ2h0IGlzIG5vdAo+IHN1cHBvcnRlZFxuIik7Cj4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJldHVybiAwOwo+ICvCoMKgwqDCoMKgwqDCoH0KPiAr
-Cj4gK8KgwqDCoMKgwqDCoMKgYmwgPSBkZXZtX2t6YWxsb2MocGFuZWwtPmRldiwgc2l6ZW9mKCpi
-bCksIEdGUF9LRVJORUwpOwo+ICvCoMKgwqDCoMKgwqDCoGlmICghYmwpCj4gK8KgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoHJldHVybiAtRU5PTUVNOwo+ICsKPiArwqDCoMKgwqDCoMKgwqBi
-bC0+YXV4ID0gYXV4Owo+ICsKPiArwqDCoMKgwqDCoMKgwqByZXQgPSBkcm1fZWRwX2JhY2tsaWdo
-dF9pbml0KGF1eCwgJmJsLT5pbmZvLCAwLCBlZHBfZHBjZCwKPiArwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAmY3Vy
-cmVudF9sZXZlbCwgJmN1cnJlbnRfbW9kZSk7Cj4gK8KgwqDCoMKgwqDCoMKgaWYgKHJldCA8IDAp
-Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJldHVybiByZXQ7Cj4gKwo+ICvCoMKg
-wqDCoMKgwqDCoHByb3BzLnR5cGUgPSBCQUNLTElHSFRfUkFXOwo+ICvCoMKgwqDCoMKgwqDCoHBy
-b3BzLmJyaWdodG5lc3MgPSBjdXJyZW50X2xldmVsOwo+ICvCoMKgwqDCoMKgwqDCoHByb3BzLm1h
-eF9icmlnaHRuZXNzID0gYmwtPmluZm8ubWF4Owo+ICsKPiArwqDCoMKgwqDCoMKgwqBibC0+YmFz
-ZSA9IGRldm1fYmFja2xpZ2h0X2RldmljZV9yZWdpc3RlcihwYW5lbC0+ZGV2LAo+ICJkcF9hdXhf
-YmFja2xpZ2h0IiwKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHBh
-bmVsLT5kZXYsIGJsLAo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-JmRwX2F1eF9ibF9vcHMsICZwcm9wcyk7Cj4gK8KgwqDCoMKgwqDCoMKgaWYgKElTX0VSUihibC0+
-YmFzZSkpCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJldHVybiBQVFJfRVJSKGJs
-LT5iYXNlKTsKPiArCj4gK8KgwqDCoMKgwqDCoMKgcGFuZWwtPmJhY2tsaWdodCA9IGJsLT5iYXNl
-Owo+ICsKPiArwqDCoMKgwqDCoMKgwqByZXR1cm4gMDsKPiArfQo+ICtFWFBPUlRfU1lNQk9MKGRy
-bV9wYW5lbF9kcF9hdXhfYmFja2xpZ2h0KTsKPiDCoCNlbmRpZgo+IMKgCj4gwqBNT0RVTEVfQVVU
-SE9SKCJUaGllcnJ5IFJlZGluZyA8dHJlZGluZ0BudmlkaWEuY29tPiIpOwo+IGRpZmYgLS1naXQg
-YS9pbmNsdWRlL2RybS9kcm1fcGFuZWwuaCBiL2luY2x1ZGUvZHJtL2RybV9wYW5lbC5oCj4gaW5k
-ZXggMzM2MDVjMy4uM2ViZmFhNiAxMDA2NDQKPiAtLS0gYS9pbmNsdWRlL2RybS9kcm1fcGFuZWwu
-aAo+ICsrKyBiL2luY2x1ZGUvZHJtL2RybV9wYW5lbC5oCj4gQEAgLTMyLDYgKzMyLDcgQEAgc3Ry
-dWN0IGJhY2tsaWdodF9kZXZpY2U7Cj4gwqBzdHJ1Y3QgZGV2aWNlX25vZGU7Cj4gwqBzdHJ1Y3Qg
-ZHJtX2Nvbm5lY3RvcjsKPiDCoHN0cnVjdCBkcm1fZGV2aWNlOwo+ICtzdHJ1Y3QgZHJtX2RwX2F1
-eDsKPiDCoHN0cnVjdCBkcm1fcGFuZWw7Cj4gwqBzdHJ1Y3QgZGlzcGxheV90aW1pbmc7Cj4gwqAK
-PiBAQCAtNjQsOCArNjUsOCBAQCBlbnVtIGRybV9wYW5lbF9vcmllbnRhdGlvbjsKPiDCoCAqIHRo
-ZSBwYW5lbC4gVGhpcyBpcyB0aGUgam9iIG9mIHRoZSAudW5wcmVwYXJlKCkgZnVuY3Rpb24uCj4g
-wqAgKgo+IMKgICogQmFja2xpZ2h0IGNhbiBiZSBoYW5kbGVkIGF1dG9tYXRpY2FsbHkgaWYgY29u
-ZmlndXJlZCB1c2luZwo+IC0gKiBkcm1fcGFuZWxfb2ZfYmFja2xpZ2h0KCkuIFRoZW4gdGhlIGRy
-aXZlciBkb2VzIG5vdCBuZWVkIHRvIGltcGxlbWVudCB0aGUKPiAtICogZnVuY3Rpb25hbGl0eSB0
-byBlbmFibGUvZGlzYWJsZSBiYWNrbGlnaHQuCj4gKyAqIGRybV9wYW5lbF9vZl9iYWNrbGlnaHQo
-KSBvciBkcm1fcGFuZWxfZHBfYXV4X2JhY2tsaWdodCgpLiBUaGVuIHRoZQo+IGRyaXZlcgo+ICsg
-KiBkb2VzIG5vdCBuZWVkIHRvIGltcGxlbWVudCB0aGUgZnVuY3Rpb25hbGl0eSB0byBlbmFibGUv
-ZGlzYWJsZQo+IGJhY2tsaWdodC4KPiDCoCAqLwo+IMKgc3RydWN0IGRybV9wYW5lbF9mdW5jcyB7
-Cj4gwqDCoMKgwqDCoMKgwqDCoC8qKgo+IEBAIC0xNDQsOCArMTQ1LDggQEAgc3RydWN0IGRybV9w
-YW5lbCB7Cj4gwqDCoMKgwqDCoMKgwqDCoCAqIEJhY2tsaWdodCBkZXZpY2UsIHVzZWQgdG8gdHVy
-biBvbiBiYWNrbGlnaHQgYWZ0ZXIgdGhlIGNhbGwKPiDCoMKgwqDCoMKgwqDCoMKgICogdG8gZW5h
-YmxlKCksIGFuZCB0byB0dXJuIG9mZiBiYWNrbGlnaHQgYmVmb3JlIHRoZSBjYWxsIHRvCj4gwqDC
-oMKgwqDCoMKgwqDCoCAqIGRpc2FibGUoKS4KPiAtwqDCoMKgwqDCoMKgwqAgKiBiYWNrbGlnaHQg
-aXMgc2V0IGJ5IGRybV9wYW5lbF9vZl9iYWNrbGlnaHQoKSBhbmQgZHJpdmVycwo+IC3CoMKgwqDC
-oMKgwqDCoCAqIHNoYWxsIG5vdCBhc3NpZ24gaXQuCj4gK8KgwqDCoMKgwqDCoMKgICogYmFja2xp
-Z2h0IGlzIHNldCBieSBkcm1fcGFuZWxfb2ZfYmFja2xpZ2h0KCkgb3IKPiArwqDCoMKgwqDCoMKg
-wqAgKiBkcm1fcGFuZWxfZHBfYXV4X2JhY2tsaWdodCgpIGFuZCBkcml2ZXJzIHNoYWxsIG5vdCBh
-c3NpZ24gaXQuCj4gwqDCoMKgwqDCoMKgwqDCoCAqLwo+IMKgwqDCoMKgwqDCoMKgwqBzdHJ1Y3Qg
-YmFja2xpZ2h0X2RldmljZSAqYmFja2xpZ2h0Owo+IMKgCj4gQEAgLTIwOCwxMSArMjA5LDE3IEBA
-IHN0YXRpYyBpbmxpbmUgaW50IG9mX2RybV9nZXRfcGFuZWxfb3JpZW50YXRpb24oY29uc3QKPiBz
-dHJ1Y3QgZGV2aWNlX25vZGUgKm5wLAo+IMKgI2lmIElTX0VOQUJMRUQoQ09ORklHX0RSTV9QQU5F
-TCkgJiYKPiAoSVNfQlVJTFRJTihDT05GSUdfQkFDS0xJR0hUX0NMQVNTX0RFVklDRSkgfHwgXAo+
-IMKgwqDCoMKgwqDCoMKgwqAoSVNfTU9EVUxFKENPTkZJR19EUk0pICYmIElTX01PRFVMRShDT05G
-SUdfQkFDS0xJR0hUX0NMQVNTX0RFVklDRSkpKQo+IMKgaW50IGRybV9wYW5lbF9vZl9iYWNrbGln
-aHQoc3RydWN0IGRybV9wYW5lbCAqcGFuZWwpOwo+ICtpbnQgZHJtX3BhbmVsX2RwX2F1eF9iYWNr
-bGlnaHQoc3RydWN0IGRybV9wYW5lbCAqcGFuZWwsIHN0cnVjdCBkcm1fZHBfYXV4Cj4gKmF1eCk7
-Cj4gwqAjZWxzZQo+IMKgc3RhdGljIGlubGluZSBpbnQgZHJtX3BhbmVsX29mX2JhY2tsaWdodChz
-dHJ1Y3QgZHJtX3BhbmVsICpwYW5lbCkKPiDCoHsKPiDCoMKgwqDCoMKgwqDCoMKgcmV0dXJuIDA7
-Cj4gwqB9Cj4gK3N0YXRpYyBpbmxpbmUgaW50IGRybV9wYW5lbF9kcF9hdXhfYmFja2xpZ2h0KHN0
-cnVjdCBkcm1fcGFuZWwgKnBhbmVsLAo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBz
-dHJ1Y3QgZHJtX2RwX2F1eCAqYXV4KQo+ICt7Cj4gK8KgwqDCoMKgwqDCoMKgcmV0dXJuIDA7Cj4g
-K30KPiDCoCNlbmRpZgo+IMKgCj4gwqAjZW5kaWYKCi0tIApDaGVlcnMsCiBMeXVkZSBQYXVsIChz
-aGUvaGVyKQogU29mdHdhcmUgRW5naW5lZXIgYXQgUmVkIEhhdAoKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVl
-ZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5vCg==
+From: Maitreyee Rao <maitreye@codeaurora.org>
+
+Add trace points across the MSM DP driver to help debug
+interop issues.
+
+Signed-off-by: Maitreyee Rao <maitreye@codeaurora.org>
+---
+ drivers/gpu/drm/msm/dp/dp_aux.c     |  5 +++--
+ drivers/gpu/drm/msm/dp/dp_catalog.c |  4 ++++
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    |  7 +++++++
+ drivers/gpu/drm/msm/dp/dp_display.c | 16 ++++++++++++++++
+ drivers/gpu/drm/msm/dp/dp_link.c    | 20 +++++++++++++-------
+ drivers/gpu/drm/msm/dp/dp_panel.c   |  2 ++
+ drivers/gpu/drm/msm/dp/dp_power.c   |  3 +++
+ 7 files changed, 48 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
+index 4a3293b..5fdff18d 100644
+--- a/drivers/gpu/drm/msm/dp/dp_aux.c
++++ b/drivers/gpu/drm/msm/dp/dp_aux.c
+@@ -121,9 +121,10 @@ static ssize_t dp_aux_cmd_fifo_tx(struct dp_aux_private *aux,
+ 
+ 	time_left = wait_for_completion_timeout(&aux->comp,
+ 						msecs_to_jiffies(250));
+-	if (!time_left)
++	if (!time_left) {
++		DRM_DEBUG_DP("%s aux timeout error timeout:%lu\n", __func__, time_left);
+ 		return -ETIMEDOUT;
+-
++	}
+ 	return ret;
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
+index 32f3575..5de5dcd 100644
+--- a/drivers/gpu/drm/msm/dp/dp_catalog.c
++++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
+@@ -372,6 +372,7 @@ void dp_catalog_ctrl_mainlink_ctrl(struct dp_catalog *dp_catalog,
+ 	struct dp_catalog_private *catalog = container_of(dp_catalog,
+ 				struct dp_catalog_private, dp_catalog);
+ 
++	DRM_DEBUG_DP("%s enable=0x%x\n", __func__, enable);
+ 	if (enable) {
+ 		/*
+ 		 * To make sure link reg writes happens before other operation,
+@@ -580,6 +581,7 @@ void dp_catalog_hpd_config_intr(struct dp_catalog *dp_catalog,
+ 
+ 	config = (en ? config | intr_mask : config & ~intr_mask);
+ 
++	DRM_DEBUG_DP("%s intr_mask=0x%x config=0x%x\n", __func__, intr_mask, config);
+ 	dp_write_aux(catalog, REG_DP_DP_HPD_INT_MASK,
+ 				config & DP_DP_HPD_INT_MASK);
+ }
+@@ -610,6 +612,7 @@ u32 dp_catalog_link_is_connected(struct dp_catalog *dp_catalog)
+ 	u32 status;
+ 
+ 	status = dp_read_aux(catalog, REG_DP_DP_HPD_INT_STATUS);
++	DRM_DEBUG_DP("%s aux status:0x%x\n", __func__, status);
+ 	status >>= DP_DP_HPD_STATE_STATUS_BITS_SHIFT;
+ 	status &= DP_DP_HPD_STATE_STATUS_BITS_MASK;
+ 
+@@ -685,6 +688,7 @@ void dp_catalog_ctrl_send_phy_pattern(struct dp_catalog *dp_catalog,
+ 	/* Make sure to clear the current pattern before starting a new one */
+ 	dp_write_link(catalog, REG_DP_STATE_CTRL, 0x0);
+ 
++	DRM_DEBUG_DP("%s pattern:0x%x\n", __func__, pattern);
+ 	switch (pattern) {
+ 	case DP_PHY_TEST_PATTERN_D10_2:
+ 		dp_write_link(catalog, REG_DP_STATE_CTRL,
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index 2a8955c..7fd1e3f 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -99,6 +99,7 @@ static int dp_aux_link_configure(struct drm_dp_aux *aux,
+ 	values[0] = drm_dp_link_rate_to_bw_code(link->rate);
+ 	values[1] = link->num_lanes;
+ 
++	DRM_DEBUG_DP("%s value0:0x%x value1:0x%x\n", __func__, values[0], values[1]);
+ 	if (link->capabilities & DP_LINK_CAP_ENHANCED_FRAMING)
+ 		values[1] |= DP_LANE_COUNT_ENHANCED_FRAME_EN;
+ 
+@@ -122,6 +123,7 @@ void dp_ctrl_push_idle(struct dp_ctrl *dp_ctrl)
+ 			IDLE_PATTERN_COMPLETION_TIMEOUT_JIFFIES))
+ 		pr_warn("PUSH_IDLE pattern timedout\n");
+ 
++	DRM_DEBUG_DP("PUSH IDLE\n");
+ 	pr_debug("mainlink off done\n");
+ }
+ 
+@@ -1013,6 +1015,8 @@ static int dp_ctrl_update_vx_px(struct dp_ctrl_private *ctrl)
+ 	u32 voltage_swing_level = link->phy_params.v_level;
+ 	u32 pre_emphasis_level = link->phy_params.p_level;
+ 
++	DRM_DEBUG_DP("%s: voltage level:%d emphasis level:%d\n", __func__,
++			voltage_swing_level, pre_emphasis_level);
+ 	ret = dp_catalog_ctrl_update_vx_px(ctrl->catalog,
+ 		voltage_swing_level, pre_emphasis_level);
+ 
+@@ -1112,6 +1116,8 @@ static int dp_ctrl_link_train_1(struct dp_ctrl_private *ctrl,
+ 		cr->lane_0_1 = link_status[0];
+ 		cr->lane_2_3 = link_status[1];
+ 
++		DRM_DEBUG_DP("link status:0x%x 0x%x 0x%x 0x%x 0x%x\n", link_status[0],
++				link_status[1], link_status[2], link_status[3], link_status[4]);
+ 		if (drm_dp_clock_recovery_ok(link_status,
+ 			ctrl->link->link_params.num_lanes)) {
+ 			return 0;
+@@ -1384,6 +1390,7 @@ int dp_ctrl_host_init(struct dp_ctrl *dp_ctrl, bool flip, bool reset)
+ 	if (reset)
+ 		dp_catalog_ctrl_reset(ctrl->catalog);
+ 
++	DRM_DEBUG_DP("%s Flip:%d\n", __func__, flip);
+ 	dp_catalog_ctrl_phy_reset(ctrl->catalog);
+ 	phy_init(phy);
+ 	dp_catalog_ctrl_enable_irq(ctrl->catalog, true);
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index cf9c645..b471fe4 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -275,6 +275,8 @@ static bool dp_display_is_ds_bridge(struct dp_panel *panel)
+ 
+ static bool dp_display_is_sink_count_zero(struct dp_display_private *dp)
+ {
++	DRM_DEBUG_DP("%s present=0x%x sink_count=%d\n", __func__,
++			dp->panel->dpcd[DP_DOWNSTREAMPORT_PRESENT], dp->link->sink_count);
+ 	return dp_display_is_ds_bridge(dp->panel) &&
+ 		(dp->link->sink_count == 0);
+ }
+@@ -320,6 +322,7 @@ static int dp_display_send_hpd_notification(struct dp_display_private *dp,
+ 
+ 	dp->dp_display.is_connected = hpd;
+ 
++	DRM_DEBUG_DP("%s hpd=%d\n", __func__, hpd);
+ 	dp_display_send_hpd_event(&dp->dp_display);
+ 
+ 	return 0;
+@@ -369,6 +372,8 @@ static void dp_display_host_init(struct dp_display_private *dp, int reset)
+ {
+ 	bool flip = false;
+ 
++	DRM_DEBUG_DP("%s core_initialized=%d", __func__, dp->core_initialized);
++
+ 	if (dp->core_initialized) {
+ 		DRM_DEBUG_DP("DP core already initialized\n");
+ 		return;
+@@ -483,8 +488,10 @@ static int dp_display_handle_irq_hpd(struct dp_display_private *dp)
+ {
+ 	u32 sink_request = dp->link->sink_request;
+ 
++	DRM_DEBUG_DP("%s %d\n", __func__, sink_request);
+ 	if (dp->hpd_state == ST_DISCONNECTED) {
+ 		if (sink_request & DP_LINK_STATUS_UPDATED) {
++			DRM_DEBUG_DP("%s:Disconnected sink_count:%d\n", __func__, sink_request);
+ 			DRM_ERROR("Disconnected, no DP_LINK_STATUS_UPDATED\n");
+ 			return -EINVAL;
+ 		}
+@@ -509,6 +516,7 @@ static int dp_display_usbpd_attention_cb(struct device *dev)
+ 		DRM_ERROR("invalid dev\n");
+ 		return -EINVAL;
+ 	}
++	DRM_DEBUG_DP("%s sink_request:%d\n", __func__, sink_request);
+ 
+ 	dp = container_of(g_dp_display,
+ 			struct dp_display_private, dp_display);
+@@ -523,6 +531,8 @@ static int dp_display_usbpd_attention_cb(struct device *dev)
+ 	rc = dp_link_process_request(dp->link);
+ 	if (!rc) {
+ 		sink_request = dp->link->sink_request;
++		DRM_DEBUG_DP("%s hpd_state=%d sink_count=%d\n", __func__,
++				dp->hpd_state, sink_request);
+ 		if (sink_request & DS_PORT_STATUS_CHANGED)
+ 			rc = dp_display_handle_port_ststus_changed(dp);
+ 		else
+@@ -545,6 +555,7 @@ static int dp_hpd_plug_handle(struct dp_display_private *dp, u32 data)
+ 	mutex_lock(&dp->event_mutex);
+ 
+ 	state =  dp->hpd_state;
++	DRM_DEBUG_DP("%s hpd_state=%d\n", __func__, state);
+ 	if (state == ST_DISPLAY_OFF || state == ST_SUSPENDED) {
+ 		mutex_unlock(&dp->event_mutex);
+ 		return 0;
+@@ -680,6 +691,7 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
+ 	/* start sentinel checking in case of missing uevent */
+ 	dp_add_event(dp, EV_DISCONNECT_PENDING_TIMEOUT, 0, DP_TIMEOUT_5_SECOND);
+ 
++	DRM_DEBUG_DP("%s hpd_state=%d\n", __func__, state);
+ 	/* signal the disconnect event early to ensure proper teardown */
+ 	dp_display_handle_plugged_change(g_dp_display, false);
+ 
+@@ -738,6 +750,7 @@ static int dp_irq_hpd_handle(struct dp_display_private *dp, u32 data)
+ 	if (ret == -ECONNRESET) { /* cable unplugged */
+ 		dp->core_initialized = false;
+ 	}
++	DRM_DEBUG_DP("%s hpd_state=%d\n", __func__, state);
+ 
+ 	mutex_unlock(&dp->event_mutex);
+ 
+@@ -882,6 +895,7 @@ static int dp_display_enable(struct dp_display_private *dp, u32 data)
+ 
+ 	dp_display = g_dp_display;
+ 
++	DRM_DEBUG_DP("%s sink_count=%d\n", __func__, dp->link->sink_count);
+ 	if (dp_display->power_on) {
+ 		DRM_DEBUG_DP("Link already setup, return\n");
+ 		return 0;
+@@ -943,6 +957,7 @@ static int dp_display_disable(struct dp_display_private *dp, u32 data)
+ 
+ 	dp_display->power_on = false;
+ 
++	DRM_DEBUG_DP("%s:  sink count:%d\n", __func__, dp->link->sink_count);
+ 	return 0;
+ }
+ 
+@@ -1190,6 +1205,7 @@ static irqreturn_t dp_display_irq_handler(int irq, void *dev_id)
+ 
+ 	hpd_isr_status = dp_catalog_hpd_get_intr_status(dp->catalog);
+ 
++	DRM_DEBUG_DP("%s: hpd isr status:%x\n", __func__, hpd_isr_status);
+ 	if (hpd_isr_status & 0x0F) {
+ 		/* hpd related interrupts */
+ 		if (hpd_isr_status & DP_DP_HPD_PLUG_INT_MASK ||
+diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
+index be986da..f858a8c 100644
+--- a/drivers/gpu/drm/msm/dp/dp_link.c
++++ b/drivers/gpu/drm/msm/dp/dp_link.c
+@@ -973,6 +973,9 @@ static int dp_link_process_link_status_update(struct dp_link_private *link)
+  */
+ static int dp_link_process_ds_port_status_change(struct dp_link_private *link)
+ {
++	DRM_DEBUG_DP("link status 0:0x%x 1:0x%x 2:0x%x 3:0x%x 4:0x%x", link->link_status[0],
++			link->link_status[1], link->link_status[2],
++			link->link_status[3], link->link_status[4]);
+ 	if (get_link_status(link->link_status, DP_LANE_ALIGN_STATUS_UPDATED) &
+ 					DP_DOWNSTREAM_PORT_STATUS_CHANGED)
+ 		goto reset;
+@@ -1036,43 +1039,46 @@ int dp_link_process_request(struct dp_link *dp_link)
+ 
+ 	if (link->request.test_requested == DP_TEST_LINK_EDID_READ) {
+ 		dp_link->sink_request |= DP_TEST_LINK_EDID_READ;
+-		return ret;
++		goto error;
+ 	}
+ 
+ 	ret = dp_link_process_ds_port_status_change(link);
+ 	if (!ret) {
+ 		dp_link->sink_request |= DS_PORT_STATUS_CHANGED;
+-		return ret;
++		goto error;
+ 	}
+ 
+ 	ret = dp_link_process_link_training_request(link);
+ 	if (!ret) {
+ 		dp_link->sink_request |= DP_TEST_LINK_TRAINING;
+-		return ret;
++		goto error;
+ 	}
+ 
+ 	ret = dp_link_process_phy_test_pattern_request(link);
+ 	if (!ret) {
+ 		dp_link->sink_request |= DP_TEST_LINK_PHY_TEST_PATTERN;
+-		return ret;
++		goto error;
+ 	}
+ 
+ 	ret = dp_link_process_link_status_update(link);
+ 	if (!ret) {
+ 		dp_link->sink_request |= DP_LINK_STATUS_UPDATED;
+-		return ret;
++		goto error;
+ 	}
+ 
+ 	if (dp_link_is_video_pattern_requested(link)) {
+-		ret = 0;
+ 		dp_link->sink_request |= DP_TEST_LINK_VIDEO_PATTERN;
++		goto error;
+ 	}
+ 
+ 	if (dp_link_is_audio_pattern_requested(link)) {
+ 		dp_link->sink_request |= DP_TEST_LINK_AUDIO_PATTERN;
+-		return -EINVAL;
++		ret = -EINVAL;
++		goto error;
+ 	}
+ 
++error:
++	DRM_DEBUG_DP("%s sink request:%x", __func__, dp_link->sink_request);
+ 	return ret;
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+index 88196f7..71db071 100644
+--- a/drivers/gpu/drm/msm/dp/dp_panel.c
++++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+@@ -66,6 +66,8 @@ static int dp_panel_read_dpcd(struct dp_panel *dp_panel)
+ 		goto end;
+ 	}
+ 
++	DRM_DEBUG_DP("%s 0x%x 0x%x 0x%x 0x%x 0x%x\n", __func__, dpcd[0],
++			dpcd[1], dpcd[2], dpcd[3], dpcd[4]);
+ 	link_info->revision = dpcd[DP_DPCD_REV];
+ 	major = (link_info->revision >> 4) & 0x0f;
+ 	minor = link_info->revision & 0x0f;
+diff --git a/drivers/gpu/drm/msm/dp/dp_power.c b/drivers/gpu/drm/msm/dp/dp_power.c
+index 3961ba4..2271941 100644
+--- a/drivers/gpu/drm/msm/dp/dp_power.c
++++ b/drivers/gpu/drm/msm/dp/dp_power.c
+@@ -208,6 +208,9 @@ static int dp_power_clk_set_rate(struct dp_power_private *power,
+ 
+ int dp_power_clk_status(struct dp_power *dp_power, enum dp_pm_type pm_type)
+ {
++	DRM_DEBUG_DP("%s core_clk_on=%d link_clk_on%d stream_clk_on=%d\n", __func__,
++			dp_power->core_clks_on, dp_power->link_clks_on, dp_power->stream_clks_on);
++
+ 	if (pm_type == DP_CORE_PM)
+ 		return dp_power->core_clks_on;
+ 
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
