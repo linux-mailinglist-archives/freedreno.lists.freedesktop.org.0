@@ -1,64 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEB2B3AD3DD
-	for <lists+freedreno@lfdr.de>; Fri, 18 Jun 2021 22:49:38 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 033AB3AD412
+	for <lists+freedreno@lfdr.de>; Fri, 18 Jun 2021 23:01:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FC2B6EA9E;
-	Fri, 18 Jun 2021 20:49:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3476F6EAA5;
+	Fri, 18 Jun 2021 21:01:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
- [IPv6:2607:f8b0:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01E936EA9E
- for <freedreno@lists.freedesktop.org>; Fri, 18 Jun 2021 20:49:36 +0000 (UTC)
-Received: by mail-ot1-x330.google.com with SMTP id
- 102-20020a9d0eef0000b02903fccc5b733fso10969336otj.4
- for <freedreno@lists.freedesktop.org>; Fri, 18 Jun 2021 13:49:36 -0700 (PDT)
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 951286EAA5
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Jun 2021 21:01:31 +0000 (UTC)
+Received: by mail-ot1-x331.google.com with SMTP id
+ w22-20020a0568304116b02904060c6415c7so11039498ott.1
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Jun 2021 14:01:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=+oLF+0y8D03kq1ljHTaiFTX3oW0ul23QTjCdRgRqCow=;
- b=CeAachcWpT6uB+4FTIdJRCj9tyRHmQWcuzvtygJGAiFVjW1uv5cFOsgffy7cvhCZyM
- 4v3Pn2Zv4lsYe6XG4fjdrDtFDwgQ4MnMlT+6QreBF/Cs4F3M/yiPjPPktq7KcqBX6cdR
- D7dqGEP3/Ved9TXnS0JDwkxtpItWZO+HXK/kw=
+ bh=H17G11qGODSdDOGEe1xmBe6pWkQ5qPdhrIEmhXM+rw0=;
+ b=RHK/5OXFBKs+4LPZvc+CUDOd5wQ47ro+3v+Z2pnoIWr261BWAMrs5aEbrq8cclHrrr
+ 8rVvUs6GEGt+dNZ/oPA7HccZXozm46JCx2gjx8mVwqZP3w4d6Xm3xWRik3EfgvJfY1LS
+ A+ZoQK50lRrEU5KhTlDW2ufHKiyEzNSN+6hMQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=+oLF+0y8D03kq1ljHTaiFTX3oW0ul23QTjCdRgRqCow=;
- b=IH0nXVCjK7yJ9tBDigw1gxBzyIETddow7n/5Zrix98xbeSAV0PidpfLkPalmfwGYmD
- mMaYVh4M5xyBR2wXYp5utGx6IS/m0FkK8aCAEKv2JEpOnZoe4wJ8kgPJq/nNwlz4icsc
- Yqek2YIDrC7+haqZOB9FXKKh8b34tgFI5V0AqN0eDJCxzuk22pzuuGY7O2TBkrUNg/XD
- tWea42A+izANL0w0ipXG087mhY3ZesUbQCGwUYAMNeCH1sUa33DoMtt4yQ7JTOFHAAxR
- fuiJJRT51fuugNWWYOTRIuyHktiyGnAkD8uDZBkztQld4IISRB8uCcGt5OHATCik4bDy
- oT4w==
-X-Gm-Message-State: AOAM532QT3lsVBb2866iu/3k64iPkJp5jYw/cmc3ktAQJUGZZXSHvxmG
- /BfxkrjZDXLR/zXKvRVMoJduRqAgQ+d5xjO6JJEhfg==
-X-Google-Smtp-Source: ABdhPJwtCvyzMkiK+AZo4n1VYcARAx9a6C/WjhtCuramvnKscLd3N8c0IF0P9iekwu92e+H3BDn7CiYlbM4Xev4cSEo=
-X-Received: by 2002:a9d:624d:: with SMTP id i13mr2752232otk.34.1624049376379; 
- Fri, 18 Jun 2021 13:49:36 -0700 (PDT)
+ bh=H17G11qGODSdDOGEe1xmBe6pWkQ5qPdhrIEmhXM+rw0=;
+ b=QFjIAMHGHU5wPwmr+SO0zoce5jW951JSedOH1NMrAo7V5k4bti9SCNCpL6X/2XwMww
+ 30qeOuXaU+ggKFJdUE2b9IFDzaMvdjYee12GJ30mrPtRqe9Qb/r0ieMt87WMNiMnJ/4u
+ oGBUg8Aej7LeKODzAu7Nfmq1jCwykNaYfcq3BnZP8rLU52+ARCykEMTkt/QvyJe1QqXK
+ 25NUNOAIsitAEU4qlbaMLgCMhl4Go4s+s0DTgNB0R4YyOUp+mIqs0X8EH7BwoxDoc/IG
+ /cxEbGSrUGVp0RMC4752oiOTmV4gDaB1MZ7zXjdK4EjhoVKpix7HgkAXdoTbLMLKZQiW
+ Z/XA==
+X-Gm-Message-State: AOAM531Z7gt+jZT+OdgXhC1NtquVlsn9VyWs0RuMgAHNHMNWYnL4EaXU
+ XCRW6hMFsLtuPSPCQ85F+tz14SEjDAO1uBZcf7D/cA==
+X-Google-Smtp-Source: ABdhPJxjtXMdrYKvKpZRnjmtZfC9Z8wYXjc1peXnZpKUPxLpRF5e+Dr1uEmSe4rbLNz8drYEa5YCYoR0Nm0zi9qFrVU=
+X-Received: by 2002:a9d:624d:: with SMTP id i13mr2777378otk.34.1624050090738; 
+ Fri, 18 Jun 2021 14:01:30 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 18 Jun 2021 13:49:35 -0700
+ HTTPREST; Fri, 18 Jun 2021 14:01:30 -0700
 MIME-Version: 1.0
-In-Reply-To: <21dc5c9fc2efdc1a0ba924354bfd9d75@codeaurora.org>
-References: <YLkI/6ItCz+SbbuJ@yoga>
- <ef1879fa7ecfefaf0c70c7a4782240a9@codeaurora.org>
- <YL6sY/1E5wLzMiP/@yoga>
- <CAE-0n50-X03sMyJdsw7s=Ue0dWXBo=iHOc0HxDQm5yh2J-uS3A@mail.gmail.com>
- <YL/uj+t+BFkII1Fh@yoga>
- <CAE-0n50WP25kRQkWMVdDZGsZWBXwfbVSTFKyBLF7f8Mp3x2Wfg@mail.gmail.com>
- <YL/wWdRs6e/eECiC@yoga>
- <CAE-0n51GM65rZVJgXuHy6FerJorHeHKf2W31GijG8sDEhaX_KQ@mail.gmail.com>
- <YL/41hWz8xB+jSeO@yoga> <21dc5c9fc2efdc1a0ba924354bfd9d75@codeaurora.org>
+In-Reply-To: <68b1697e-acb0-10b7-3e89-2287e196a230@linaro.org>
+References: <20210608195519.125561-1-swboyd@chromium.org>
+ <a6356956-9d4a-6fe7-2acc-bbe968d3a936@linaro.org>
+ <CAE-0n521fW2F9V6E_7ei2KMsEUMLKSOCtAbRrVX+xXyrS0K9XQ@mail.gmail.com>
+ <68b1697e-acb0-10b7-3e89-2287e196a230@linaro.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.9.1
-Date: Fri, 18 Jun 2021 13:49:35 -0700
-Message-ID: <CAE-0n52J_mLsmXLS+skZn2u3k9dhn+GcHeXi0B2BeQyQxEUL9A@mail.gmail.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>, khsieh@codeaurora.org
-Subject: Re: [Freedreno] [PATCH v2] arm64/dts/qcom/sc7180: Add Display Port
- dt node
+Date: Fri, 18 Jun 2021 14:01:30 -0700
+Message-ID: <CAE-0n50QLnxaUZNkAb9Vm0553QMWKz6nHp9qXjrm=JPD++w6SA@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>
+Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: Stash away calculated vco
+ frequency on recalc
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,63 +67,169 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, freedreno@lists.freedesktop.org,
- vkoul@kernel.org, robh+dt@kernel.org, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, agross@kernel.org, abhinavk@codeaurora.org,
- linux-arm-msm@vger.kernel.org, aravindh@codeaurora.org, sean@poorly.run
+Cc: Abhinav Kumar <abhinavk@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting khsieh@codeaurora.org (2021-06-10 09:54:05)
-> On 2021-06-08 16:10, Bjorn Andersson wrote:
-> > On Tue 08 Jun 17:44 CDT 2021, Stephen Boyd wrote:
+Quoting Dmitry Baryshkov (2021-06-09 09:03:14)
+> On 09/06/2021 01:11, Stephen Boyd wrote:
+> > Quoting Dmitry Baryshkov (2021-06-08 14:41:21)
+> >> Hi Stephen,
+> >>
+> >> On 08/06/2021 22:55, Stephen Boyd wrote:
+> >>> A problem was reported on CoachZ devices where the display wouldn't come
+> >>> up, or it would be distorted. It turns out that the PLL code here wasn't
+> >>> getting called once dsi_pll_10nm_vco_recalc_rate() started returning the
+> >>> same exact frequency, down to the Hz, that the bootloader was setting
+> >>> instead of 0 when the clk was registered with the clk framework.
+> >>>
+> >>> After commit 001d8dc33875 ("drm/msm/dsi: remove temp data from global
+> >>> pll structure") we use a hardcoded value for the parent clk frequency,
+> >>> i.e.  VCO_REF_CLK_RATE, and we also hardcode the value for FRAC_BITS,
+> >>> instead of getting it from the config structure. This combination of
+> >>> changes to the recalc function allows us to properly calculate the
+> >>> frequency of the PLL regardless of whether or not the PLL has been
+> >>> clk_prepare()d or clk_set_rate()d. That's a good improvement.
+> >>>
+> >>> Unfortunately, this means that now we won't call down into the PLL clk
+> >>> driver when we call clk_set_rate() because the frequency calculated in
+> >>> the framework matches the frequency that is set in hardware. If the rate
+> >>> is the same as what we want it should be OK to not call the set_rate PLL
+> >>> op. The real problem is that the prepare op in this driver uses a
+> >>> private struct member to stash away the vco frequency so that it can
+> >>> call the set_rate op directly during prepare. Once the set_rate op is
+> >>> never called because recalc_rate told us the rate is the same, we don't
+> >>> set this private struct member before the prepare op runs, so we try to
+> >>> call the set_rate function directly with a frequency of 0. This
+> >>> effectively kills the PLL and configures it for a rate that won't work.
+> >>> Calling set_rate from prepare is really quite bad and will confuse any
+> >>> downstream clks about what the rate actually is of their parent. Fixing
+> >>> that will be a rather large change though so we leave that to later.
+> >>>
+> >>> For now, let's stash away the rate we calculate during recalc so that
+> >>> the prepare op knows what frequency to set, instead of 0. This way
+> >>> things keep working and the display can enable the PLL properly. In the
+> >>> future, we should remove that code from the prepare op so that it
+> >>> doesn't even try to call the set rate function.
+> >>>
+> >>> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> >>> Cc: Abhinav Kumar <abhinavk@codeaurora.org>
+> >>> Fixes: 001d8dc33875 ("drm/msm/dsi: remove temp data from global pll structure")
+> >>> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
+> >>
+> >> Thank you for the lengthy explanation. May I suggest another solution:
+> >>    - Apply
+> >> https://lore.kernel.org/linux-arm-msm/010101750064e17e-3db0087e-fc37-494d-aac9-2c2b9b0a7c5b-000000@us-west-2.amazonses.com/
+> >>
+> >>    - And make save_state for 7nm and 10nm cache vco freq (like 14nm does).
+> >>
+> >> What do you think?
+> >>
 > >
-> >> Honestly I suspect the DP PHY is _not_ in the CX domain as CX is for
-> >> digital logic. Probably the PLL is the hardware that has some minimum
-> >> CX
-> >> requirement, and that flows down into the various display clks like
-> >> the
-> >> link clk that actually clock the DP controller hardware. The mdss_gdsc
-> >> probably gates CX for the display subsystem (mdss) so if we had proper
-> >> corner aggregation logic we could indicate that mdss_gdsc is a child
-> >> of
-> >> the CX domain and then make requests from the DP driver for particular
-> >> link frequencies on the mdss_gdsc and then have that bubble up to CX
-> >> appropriately. I don't think any of that sort of code is in place
-> >> though, right?
+> > Maybe that can be done for the next merge window? I'd like to get the
+> > smallest possible patch in as a fix for this cycle given that the Fixes
+> > tag is a recent regression introduced during the most recent merge
+> > window.
 > >
-> > I haven't checked sc7180, but I'm guessing that it's following the
-> > other
-> > modern platforms, where all the MDSS related pieces (including e.g.
-> > dispcc) lives in the MMCX domain, which is separate from CX.
-> >
-> > So the parent of MDSS_GDSC should be MMCX, while Kuogee's answer (and
-> > the dp-opp-table) tells us that the PLL lives in the CX domain.
-
-Isn't MMCX a "child" of CX? At least my understanding is that MMCX is
-basically a GDSC that clamps all of multimedia hardware block power
-logic so that the leakage is minimized when multimedia isn't in use,
-i.e. the device is suspended. In terms of bumping up the voltage we have
-to pin that on CX though as far as I know because that's the only power
-domain that can actually change voltage, while MMCX merely gates that
-voltage for multimedia.
-
-> >
-> >
-> > PS. While this goes for the QMPs the DSI and eDP/DP PHYs (and PLLs)
-> > seems to live in MMCX.
-> >
-> > Regards,
-> > Bjorn
+> > I honestly have no idea what's going on with the clk driver in these
+> > files but from the clk framework perspective there are bigger problems
+> > than caching the vco freq properly. As I stated in the commit text
+> > above, calling set_rate from prepare is plain bad. That should stop.
 >
-> Dp link clock rate is sourced from phy/pll (vco). However it is possible
-> that different link clock rate
-> are sourced from same vco (phy/pll) rate. Therefore I think CX rail
-> voltage level is more proper to
-> be decided base on link clock rate.
+> Could you please spend few more words, on why calling the clock's
+> set_rate() callback from the same clock's prepare callback is bad? I
+> don't see how this would affect downstream clocks (as we do not change
+> the frequency, we just set the registers).
+
+The clk framework is caching things and we don't want clk providers to
+be calling into the clk framework again from within the clk ops. This
+recursion into the framework is why we have a nasty recursive aware lock
+in the clk framework that we're never going to get rid of if more and
+more code keeps recursing into the framework.
+
+I think you're saying that the code is reusing the set rate clk op
+without going through the framework. That's mostly OK, as long as some
+proper locking is in place so that clk_prepare() can't call down into
+the clk op while clk_set_rate() is also calling down into the same clk
+op. Do we have to call the set rate code here on prepare so that the clk
+frequency can be restored? Maybe the name of the function threw me off.
+
 >
+> >  From my quick glance, the patch you mention looks like another
+> > workaround instead of a proper fix. Why would we need to save the
+> > registers at boot and then snap them back into place on enable? Maybe we
+> > shouldn't reset the phy after registering the clks? Instead register the
+> > clks after the phy is reset so recalc_rate can accurately calculate the
+> > frequency.
+>
+> The problem here is not about registration. PHY gets reset not just only
+> on registration, it also might be powered off/reset later (e.g. when the
+> DSI output is disabled for any reason). And during each of these resets
+> we have to keep the PLL state. So keeping the state from the bootloaders
+> seems also natural to me.
+
+Got it. This seems like another version of the half-baked
+save_context()/restore_context() clk ops. Maybe we should add some sort
+of save/restore a clk and all its children API that clk providers can
+call that calls the clk ops to save and restore and then puts things
+back into place. Then the clk framework will be aware of what's going on
+and be able to cache frequency and enable state, etc.
+
+>
+> > I suppose that would break continuous splash screen though
+> > where you want the PLL to stay running the entire boot? But then
+> > issuing a reset would break that, wouldn't it? As you can see I'm pretty
+> > confused about how this is all supposed to work.
+>
+> Yes, the continuous splash would be broken by resetting the PHY early.
+>
+> > Note: my problem isn't about recovering what boot sets, it's mostly
+> > exposing incorrect usage of the clk framework in this driver because it
+> > relies on this chain of events:
+> >
+> >   1) recalc rate calculates something different than what is
+> >      set via clk_set_rate()
+> >
+> >   2) clk_set_rate() is called with the different rate
+> >
+> >   3) clk_prepare() is called to actually enable the PLL and wait for it
+> >      to start
+> >
+> > If clk_prepare() was called before clk_set_rate(), which is totally
+> > valid, then it should similarly fail and think the rate is 0 and the PLL
+> > won't lock. Does implementing save_state fix that? If so, it seems like
+> > we have two pieces of code working around each other, maybe for
+> > suspend/resume purposes.
+>
+> Ah, we were safe here because the DSI driver first calls clk_set_rate,
+> then clk_prepare_enable for the link clocks, which in turn makes VCO
+> clock first receive the rate and then enable PLL.
+
+Yep.
+
+>
+> > I admit this patch I'm proposing is another workaround, but at least it
+> > makes things work again without going off and adding a bunch of register
+> > save/restore logic.
+>
+> I think we can not come with the better solution in the next day or two,
+> we should merge your workaround. For now I'm trying to understand what
+> are the alternatives and which of them can be better.
+>
+> Also it's not about registers save/resore. We can add a call to
+> recalc_rate to pll_save_state (as 14nm driver does).
+>
+
+The recalc_rate function can be called many times even when nothing has
+changed, similarly the determine_rate/round_rate callback can be called
+many times before the framework decides what it really wants to use.
+Please don't bolt on state saving logic to recalc_rate. I'd prefer that
+recalc_rate does one thing, calculate the frequency of the clk, and
+return it to the framework.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
