@@ -2,51 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA1733ABF21
-	for <lists+freedreno@lfdr.de>; Fri, 18 Jun 2021 00:58:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97DED3AC8F9
+	for <lists+freedreno@lfdr.de>; Fri, 18 Jun 2021 12:39:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 945C36E21A;
-	Thu, 17 Jun 2021 22:58:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DDB76E9CF;
+	Fri, 18 Jun 2021 10:39:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5ADC6E21A;
- Thu, 17 Jun 2021 22:58:32 +0000 (UTC)
-Received: by mail-wm1-x333.google.com with SMTP id
- n35-20020a05600c3ba3b02901cdecb6bda8so7382793wms.5; 
- Thu, 17 Jun 2021 15:58:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=Gqg3gSbmk3IS0GZGQhZrtRAFVkCIS4Cid8+to64Eu3s=;
- b=eGZvDh+b1YEIvy94BvuY3lTLtaEX8ZwyCmhGcGX/igxluXsOy7/ng8gpoXNkf/IRKD
- 3PIxTjvDC7qBF0EidC0hsnCf1XoyXvxbGvNttjcCev4QQfXmhQwVwJWUOW8FsWqalgKm
- I+vPvqqUT81RjCQZAeEXEO3TfV+HcNWTR7wmpHIlMXZ/c6PPf3HuSvJ4xpqzZ4R57Hiq
- ltt7pfvjvl897sSogQo6LZck3bzd1scSfwAlCe75SyM8h1MOBIZPk2E2pyyadEk2VtKq
- W5qNYbcjjq6pjEZ0o4xT5eCzBp9G9XHHtslL0C1NmXOr+14amaielpeT5YPLHmDZzfiq
- 9zaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=Gqg3gSbmk3IS0GZGQhZrtRAFVkCIS4Cid8+to64Eu3s=;
- b=gBpVT73ZZjZa/eFCL0FPAbjCwOneKHUzzXDklkZuQ7yqud+Yhuvm6P8TmZEtKeH8xt
- 5uICGkDCfEp/jXGNsgXZpByEmQV0+HVpWfr1dm9iEPPU3zByQBduITQ1KgYM9AByDx/Q
- fLGNDJMYT1eZi6Xu0CiZDvMf559m0E7z19xQMsOSmU8Sb9k3QtzlJ707xGZUUqwjKFVf
- RnzDvfVlgUjiaejvPaSqXHFeOPIvVhuPh4lYvKVfyRqcBb73BayPTvlMwxkbSE+Fet6u
- jZxAgsvemGbJulSuyZFSFfCBAfFKdT3oZjBMzxJlbFJ8RmD88Qq7H2OcGyEkbUyeIesu
- l9fg==
-X-Gm-Message-State: AOAM53174GShb0LeDVW4e0/wQg5hBUgNaCLZOlZe0q4WHmKx6rfJaW0+
- 6YM8TCLNfxCNyAVvNeI4DL4tNZJb7owTDg2wHpM=
-X-Google-Smtp-Source: ABdhPJwQjSQISwME7gJmbWBakyR38GYQ9u6edxIyGQy1O7tSP3HTXWOA/e044+cHDvKqxoEUlT/IgIpavrLzIv+yb6A=
-X-Received: by 2002:a05:600c:1ca6:: with SMTP id
- k38mr8173778wms.49.1623970711088; 
- Thu, 17 Jun 2021 15:58:31 -0700 (PDT)
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 921036E9CF
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Jun 2021 10:39:24 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1624012766; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=4fG1y8WDPrYtBMq9UfTcY0OGD8AEXRPSN4vcguMIVpM=;
+ b=O7zkj0drcVt1dJxTo8Sx7HsQPt76yqSXQ4RiPdHyYUIqApNNpgzWyKnPmfHLbTdSvi/kcB/g
+ CIcgvt0m5t+3A+i3Y83ucYLtTjAbnll1nphqCVesbxTh3tV3ayoyoHyrRVf/u4LlF4W40+Yg
+ vTu5ORQOuPno1qQhjVfy0Ld25UM=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
+ 60cc77d8e27c0cc77fa0ca10 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 18 Jun 2021 10:39:20
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 8B316C43217; Fri, 18 Jun 2021 10:39:19 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: rajeevny)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 4116CC433D3;
+ Fri, 18 Jun 2021 10:39:17 +0000 (UTC)
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 17 Jun 2021 16:02:26 -0700
-Message-ID: <CAF6AEGucXFzZz4k586iURnXJyM6PqBN7-yB5-=Q9ngXrq+fhRw@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Subject: [Freedreno] [pull] drm/msm: drm-msm-next-2021-06-17 for v5.14
+Date: Fri, 18 Jun 2021 16:09:17 +0530
+From: rajeevny@codeaurora.org
+To: Jonathan Marek <jonathan@marek.ca>
+In-Reply-To: <a453734a-ab1f-bf35-9272-0b94c713f05b@marek.ca>
+References: <1622468035-8453-1-git-send-email-rajeevny@codeaurora.org>
+ <1622468035-8453-2-git-send-email-rajeevny@codeaurora.org>
+ <20210601205848.GA1025498@robh.at.kernel.org>
+ <ec1bcb4e734b784ab17c4fc558a5fab9@codeaurora.org>
+ <27dec6f881a3b8bd5e13ba32990f975b@codeaurora.org>
+ <a453734a-ab1f-bf35-9272-0b94c713f05b@marek.ca>
+Message-ID: <a736c5e48907bc2da064f98d94dff9da@codeaurora.org>
+X-Sender: rajeevny@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [v1 1/3] dt-bindings: msm/dsi: Add yaml schema for
+ 7nm DSI PHY
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,352 +68,73 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Will Deacon <will@kernel.org>, freedreno <freedreno@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Robin Murphy <robin.murphy@arm.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: sean@poorly.run, Rob Herring <robh@kernel.org>, mkrishn@codeaurora.org,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ robdclark@gmail.com, robh+dt@kernel.org, abhinavk@codeaurora.org,
+ kalyan_t@codeaurora.org, freedreno@lists.freedesktop.org
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave & Daniel,
-
-Here is msm-next for v5.14
-
-Notable additions this time around:
-
-* devcoredump support for display errors
-* dpu: irq cleanup/refactor
-* dpu: dt bindings conversion to yaml
-* dsi: dt bindings conversion to yaml
-* mdp5: alpha/blend_mode/zpos support
-* mdp5: dynamic bandwidth management
-* a6xx: cached coherent buffer support
-* a660 support
-* gpu iova fault improvements:
-   - info about which block triggered the fault, etc
-   - generation of gpu devcoredump on fault
-* assortment of other cleanups and fixes
-
-The following changes since commit c4681547bcce777daf576925a966ffa824edd09d:
-
-  Linux 5.13-rc3 (2021-05-23 11:42:48 -1000)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/msm.git drm-msm-next-2021-06-17
-
-for you to fetch changes up to 7e0230fd096c03e9662e66150f951075dd16e496:
-
-  drm/msm/mdp5: provide dynamic bandwidth management (2021-06-17 09:51:44 -0700)
-
-----------------------------------------------------------------
-Abhinav Kumar (7):
-      drm: allow drm_atomic_print_state() to accept any drm_printer
-      drm/msm: add support to take dpu snapshot
-      drm/msm/dsi: add API to take DSI register snapshot
-      drm/msm/dp: add API to take DP register snapshot
-      drm/msm/disp/dpu1: add API to take DPU register snapshot
-      drm/msm: add support to take dsi, dp and dpu snapshot
-      drm/msm: add disp snapshot points across dpu driver
-
-Alexey Minnekhanov (1):
-      drm/msm: Init mm_list before accessing it for use_vram path
-
-Arnd Bergmann (1):
-      drm/msm/dsi: fix 32-bit clang warning
-
-Bernard Zhao (1):
-      drm/msm: remove unneeded variable ret
-
-Bhaskar Chowdhury (3):
-      drm/msm/dpu: Fix a typo
-      drm/msm/dpu: Fix a typo
-      drm/msm/dp: Fixed couple of typos
-
-Bjorn Andersson (1):
-      drm/msm/dpu: Avoid ABBA deadlock between IRQ modules
-
-Dmitry Baryshkov (23):
-      drm/msm: pass dump state as a function argument
-      drm/msm: make msm_disp_state transient data struct
-      drm/msm: get rid of msm_iomap_size
-      drm/msm/dsi: add DSI PHY registers to snapshot data
-      drm/msm: fix display snapshotting if DP or DSI is disabled
-      drm/msm/dpu: merge dpu_hw_intr_get_interrupt_statuses into
-dpu_hw_intr_dispatch_irqs
-      drm/msm/dpu: hw_intr: always call dpu_hw_intr_clear_intr_status_nolock
-      drm/msm/dpu: define interrupt register names
-      drm/msm/dpu: replace IRQ lookup with the data in hw catalog
-      drm/msm/dpu: drop remains of old irq lookup subsystem
-      drm/msm/dpu: simplify IRQ enabling/disabling
-      drm/msm/dsi: print error code when MIPI DSI host registration fails
-      drm/msm/dpu: remove unused dpu_hw_blk features
-      drm/msm/dpu: drop dpu_hw_blk_destroy function
-      drm/msm/dpu: use struct dpu_hw_merge_3d in dpu_hw_pingpong
-      drm/msm/dpu: hw_blk: make dpu_hw_blk empty opaque structure
-      drm/msm/dsi: do not enable PHYs when called for the slave DSI interface
-      drm/msm/mdp5: use drm atomic helpers to handle base drm plane state
-      drm/msm/mdp5: use drm_plane_state for storing alpha value
-      drm/msm/mdp5: use drm_plane_state for pixel blend mode
-      drm/msm/mdp5: add support for alpha/blend_mode properties
-      drm/msm/mdp5: switch to standard zpos property
-      drm/msm/mdp5: provide dynamic bandwidth management
-
-Guenter Roeck (2):
-      drm/msm/dp: Drop unnecessary NULL checks after container_of
-      drm/msm/dpu: Drop unnecessary NULL checks after container_of in
-dpu_encoder
-
-James Willcox (1):
-      drm/msm/mdp5: add perf blocks for holding fudge factors
-
-Jonathan Marek (13):
-      drm/msm: remove unnecessary mmap logic for cached BOs
-      drm/msm: replace MSM_BO_UNCACHED with MSM_BO_WC for internal objects
-      drm/msm: use the right pgprot when mapping BOs in the kernel
-      drm/msm: add MSM_BO_CACHED_COHERENT
-      drm/msm: deprecate MSM_BO_UNCACHED (map as writecombine instead)
-      drm/msm/a6xx: update/fix CP_PROTECT initialization
-      drm/msm/a6xx: fix incorrectly set uavflagprd_inv field for A650
-      drm/msm/a6xx: avoid shadow NULL reference in failure path
-      drm/msm: remove unused icc_path/ocmem_icc_path
-      drm/msm/a6xx: use AOP-initialized PDC for a650
-      drm/msm/a6xx: add GMU_CX_GMU_CX_FALNEXT_INTF write for a650
-      drm/msm/a6xx: add missing PC_DBG_ECO_CNTL bit for a640/a650
-      drm/msm/a6xx: add support for Adreno 660 GPU
-
-Jordan Crouse (3):
-      iommu/arm-smmu: Add support for driver IOMMU fault handlers
-      iommu/arm-smmu-qcom: Add an adreno-smmu-priv callback to get
-pagefault info
-      drm/msm: Improve the a6xx page fault handler
-
-Krishna Manikandan (5):
-      dt-bindings: msm: disp: add yaml schemas for DPU bindings
-      dt-bindings: msm: dsi: add yaml schemas for DSI bindings
-      dt-bindings: msm: dsi: add yaml schemas for DSI PHY bindings
-      dt-bindings: msm/dp: Add bindings of MSM DisplayPort controller
-      drm/msm/disp/dpu1: avoid perf update in frame done event
-
-Kuogee Hsieh (2):
-      drm/msm/dp: handle irq_hpd with sink_count = 0 correctly
-      drm/msm/dp: power off DP phy at suspend
-
-Lee Jones (5):
-      drm/msm/dp/dp_display: Remove unused variable 'hpd'
-      drm/msm/disp/dpu1/dpu_plane: Fix a couple of naming issues
-      drm/msm/msm_gem: Demote kernel-doc abuses
-      drm/msm/dp/dp_catalog: Correctly document param 'dp_catalog'
-      drm/msm/dp/dp_link: Fix some potential doc-rot
-
-Rob Clark (5):
-      Merge branch 'msm-fixes-v5.13-rc6' into msm-next
-      drm/msm: Generated register update
-      iommu/arm-smmu-qcom: Add stall support
-      drm/msm: devcoredump iommu fault support
-      drm/msm: Add debugfs to trigger shrinker
-
-Samuel Iglesias Gonsalvez (1):
-      drm/msm: export hangcheck_period in debugfs
-
-Shaokun Zhang (1):
-      drm/msm/dp: remove the repeated declaration
-
-Stephen Boyd (10):
-      drm/msm/dp: Simplify aux irq handling code
-      drm/msm/dp: Shrink locking area of dp_aux_transfer()
-      drm/msm/dp: Handle aux timeouts, nacks, defers
-      drm/msm: Move vblank debug prints to drm_dbg_vbl()
-      drm/msm/dp: Drop malformed debug print
-      drm/msm: Move FB debug prints to drm_dbg_state()
-      drm/msm/disp: Use plane debug print helper
-      drm/msm/disp: Move various debug logs to atomic bucket
-      drm/msm/dsi: Stash away calculated vco frequency on recalc
-      drm/msm: Use VERB() for extra verbose logging
-
-Yangtao Li (1):
-      drm/msm: Convert to use resource-managed OPP API
-
-Zhen Lei (3):
-      drm/msm: Fix error return code in msm_drm_init()
-      drm/msm/dpu: Fix error return code in dpu_mdss_init()
-      drm/msm/dpu: remove unused local variable 'cmd_enc'
-
-zuoqilin (1):
-      drm/msm: Remove unneeded variable: "rc"
-
- .../bindings/display/msm/dp-controller.yaml        |  146 ++
- .../bindings/display/msm/dpu-sc7180.yaml           |  228 ++
- .../bindings/display/msm/dpu-sdm845.yaml           |  212 ++
- .../devicetree/bindings/display/msm/dpu.txt        |  141 --
- .../bindings/display/msm/dsi-controller-main.yaml  |  185 ++
- .../bindings/display/msm/dsi-phy-10nm.yaml         |   68 +
- .../bindings/display/msm/dsi-phy-14nm.yaml         |   66 +
- .../bindings/display/msm/dsi-phy-20nm.yaml         |   71 +
- .../bindings/display/msm/dsi-phy-28nm.yaml         |   68 +
- .../bindings/display/msm/dsi-phy-common.yaml       |   40 +
- .../devicetree/bindings/display/msm/dsi.txt        |  249 ---
- drivers/gpu/drm/drm_atomic.c                       |   28 +-
- drivers/gpu/drm/drm_atomic_uapi.c                  |    4 +-
- drivers/gpu/drm/drm_crtc_internal.h                |    4 +-
- drivers/gpu/drm/msm/Makefile                       |    3 +-
- drivers/gpu/drm/msm/adreno/a2xx.xml.h              |   60 +-
- drivers/gpu/drm/msm/adreno/a3xx.xml.h              |   40 +-
- drivers/gpu/drm/msm/adreno/a4xx.xml.h              |   38 +-
- drivers/gpu/drm/msm/adreno/a5xx.xml.h              |   95 +-
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c              |   29 +-
- drivers/gpu/drm/msm/adreno/a5xx_power.c            |    2 +-
- drivers/gpu/drm/msm/adreno/a5xx_preempt.c          |    4 +-
- drivers/gpu/drm/msm/adreno/a6xx.xml.h              | 2201 ++++++++++----------
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |   55 +-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h          |   34 +-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  460 +++-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.h              |    4 +-
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c        |   44 +-
- drivers/gpu/drm/msm/adreno/a6xx_hfi.c              |   33 +
- drivers/gpu/drm/msm/adreno/adreno_common.xml.h     |   30 +-
- drivers/gpu/drm/msm/adreno/adreno_device.c         |   14 +
- drivers/gpu/drm/msm/adreno/adreno_gpu.c            |   26 +-
- drivers/gpu/drm/msm/adreno/adreno_gpu.h            |   13 +-
- drivers/gpu/drm/msm/adreno/adreno_pm4.xml.h        |  119 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c       |  230 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.h       |   43 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c      |   22 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           |   43 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  110 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h   |    4 -
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c   |   58 +-
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |   54 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c        |    6 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.c         |  139 --
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.h         |   22 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  202 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   16 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |    6 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c        |    7 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c  | 1508 +-------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h  |  132 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        |    6 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c          |    6 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |    2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_merge3d.c     |    6 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c    |    6 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h    |    4 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c        |    6 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c         |    6 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   70 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h            |    8 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c           |    8 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          |   23 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c             |    4 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h          |   63 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c           |   14 +-
- drivers/gpu/drm/msm/disp/mdp4/mdp4.xml.h           |   34 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5.xml.h           |   38 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c           |   35 +
- drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h           |    7 +
- drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c          |   56 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c           |  119 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h           |   17 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c         |  177 +-
- drivers/gpu/drm/msm/disp/mdp_common.xml.h          |   34 +-
- drivers/gpu/drm/msm/disp/msm_disp_snapshot.c       |  125 ++
- drivers/gpu/drm/msm/disp/msm_disp_snapshot.h       |  136 ++
- drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c  |  187 ++
- drivers/gpu/drm/msm/dp/dp_aux.c                    |  181 +-
- drivers/gpu/drm/msm/dp/dp_aux.h                    |    8 -
- drivers/gpu/drm/msm/dp/dp_catalog.c                |   18 +-
- drivers/gpu/drm/msm/dp/dp_catalog.h                |    7 +-
- drivers/gpu/drm/msm/dp/dp_ctrl.c                   |   87 +-
- drivers/gpu/drm/msm/dp/dp_ctrl.h                   |    3 +-
- drivers/gpu/drm/msm/dp/dp_display.c                |  121 +-
- drivers/gpu/drm/msm/dp/dp_display.h                |    1 +
- drivers/gpu/drm/msm/dp/dp_link.c                   |   21 +-
- drivers/gpu/drm/msm/dp/dp_panel.c                  |    4 +-
- drivers/gpu/drm/msm/dp/dp_power.h                  |    4 +-
- drivers/gpu/drm/msm/dsi/dsi.c                      |    6 +
- drivers/gpu/drm/msm/dsi/dsi.h                      |    4 +-
- drivers/gpu/drm/msm/dsi/dsi.xml.h                  | 1722 +--------------
- drivers/gpu/drm/msm/dsi/dsi_host.c                 |   30 +-
- drivers/gpu/drm/msm/dsi/dsi_manager.c              |   12 +-
- drivers/gpu/drm/msm/dsi/dsi_phy_10nm.xml.h         |  228 ++
- drivers/gpu/drm/msm/dsi/dsi_phy_14nm.xml.h         |  310 +++
- drivers/gpu/drm/msm/dsi/dsi_phy_20nm.xml.h         |  238 +++
- drivers/gpu/drm/msm/dsi/dsi_phy_28nm.xml.h         |  385 ++++
- drivers/gpu/drm/msm/dsi/dsi_phy_28nm_8960.xml.h    |  287 +++
- drivers/gpu/drm/msm/dsi/dsi_phy_5nm.xml.h          |  480 +++++
- drivers/gpu/drm/msm/dsi/dsi_phy_7nm.xml.h          |  482 +++++
- drivers/gpu/drm/msm/dsi/mmss_cc.xml.h              |   34 +-
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.c              |   31 +-
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.h              |    4 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c         |    2 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c         |    1 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c         |    1 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c         |    1 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c    |    1 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c          |    8 +-
- drivers/gpu/drm/msm/dsi/sfpb.xml.h                 |   34 +-
- drivers/gpu/drm/msm/edp/edp.xml.h                  |   34 +-
- drivers/gpu/drm/msm/hdmi/hdmi.xml.h                |   34 +-
- drivers/gpu/drm/msm/hdmi/qfprom.xml.h              |   34 +-
- drivers/gpu/drm/msm/msm_debugfs.c                  |   31 +
- drivers/gpu/drm/msm/msm_drv.c                      |   33 +-
- drivers/gpu/drm/msm/msm_drv.h                      |   24 +-
- drivers/gpu/drm/msm/msm_fb.c                       |    8 +-
- drivers/gpu/drm/msm/msm_gem.c                      |   45 +-
- drivers/gpu/drm/msm/msm_gem.h                      |    1 +
- drivers/gpu/drm/msm/msm_gem_shrinker.c             |   18 +
- drivers/gpu/drm/msm/msm_gem_submit.c               |    1 +
- drivers/gpu/drm/msm/msm_gpu.c                      |   51 +-
- drivers/gpu/drm/msm/msm_gpu.h                      |   29 +-
- drivers/gpu/drm/msm/msm_gpummu.c                   |    5 +
- drivers/gpu/drm/msm/msm_iommu.c                    |   22 +-
- drivers/gpu/drm/msm/msm_kms.h                      |    9 +
- drivers/gpu/drm/msm/msm_mmu.h                      |    5 +-
- drivers/gpu/drm/selftests/test-drm_framebuffer.c   |    1 +
- drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c         |   50 +
- drivers/iommu/arm/arm-smmu/arm-smmu.c              |    9 +-
- drivers/iommu/arm/arm-smmu/arm-smmu.h              |    2 +
- include/linux/adreno-smmu-priv.h                   |   38 +-
- include/uapi/drm/msm_drm.h                         |    7 +-
- 134 files changed, 7508 insertions(+), 6352 deletions(-)
- create mode 100644
-Documentation/devicetree/bindings/display/msm/dp-controller.yaml
- create mode 100644
-Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
- create mode 100644
-Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
- delete mode 100644 Documentation/devicetree/bindings/display/msm/dpu.txt
- create mode 100644
-Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
- create mode 100644
-Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
- create mode 100644
-Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
- create mode 100644
-Documentation/devicetree/bindings/display/msm/dsi-phy-20nm.yaml
- create mode 100644
-Documentation/devicetree/bindings/display/msm/dsi-phy-28nm.yaml
- create mode 100644
-Documentation/devicetree/bindings/display/msm/dsi-phy-common.yaml
- delete mode 100644 Documentation/devicetree/bindings/display/msm/dsi.txt
- delete mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.c
- create mode 100644 drivers/gpu/drm/msm/disp/msm_disp_snapshot.c
- create mode 100644 drivers/gpu/drm/msm/disp/msm_disp_snapshot.h
- create mode 100644 drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
- create mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_10nm.xml.h
- create mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_14nm.xml.h
- create mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_20nm.xml.h
- create mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_28nm.xml.h
- create mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_28nm_8960.xml.h
- create mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_5nm.xml.h
- create mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_7nm.xml.h
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+Ck9uIDE3LTA2LTIwMjEgMjA6MzcsIEpvbmF0aGFuIE1hcmVrIHdyb3RlOgo+IE9uIDYvMTYvMjEg
+MTo1MCBBTSwgcmFqZWV2bnlAY29kZWF1cm9yYS5vcmcgd3JvdGU6Cj4+IE9uIDAzLTA2LTIwMjEg
+MDE6MzIsIHJhamVldm55QGNvZGVhdXJvcmEub3JnIHdyb3RlOgo+Pj4gT24gMDItMDYtMjAyMSAw
+MjoyOCwgUm9iIEhlcnJpbmcgd3JvdGU6Cj4+Pj4gT24gTW9uLCBNYXkgMzEsIDIwMjEgYXQgMDc6
+MDM6NTNQTSArMDUzMCwgUmFqZWV2IE5hbmRhbiB3cm90ZToKPj4+IAo+Pj4+PiArCj4+Pj4+ICtw
+cm9wZXJ0aWVzOgo+Pj4+PiArwqAgY29tcGF0aWJsZToKPj4+Pj4gK8KgwqDCoCBvbmVPZjoKPj4+
+Pj4gK8KgwqDCoMKgwqAgLSBjb25zdDogcWNvbSxkc2ktcGh5LTdubQo+Pj4+IAo+Pj4+IFdoZW4g
+d291bGQgb25lIHVzZSB0aGlzPwo+Pj4gVGhpcyBpcyBmb3IgU004MjUwLgo+Pj4gCj4+Pj4gCj4+
+Pj4+ICvCoMKgwqDCoMKgIC0gY29uc3Q6IHFjb20sZHNpLXBoeS03bm0tNzI4MAo+Pj4+PiArwqDC
+oMKgwqDCoCAtIGNvbnN0OiBxY29tLGRzaS1waHktN25tLTgxNTAKPj4+PiAKPj4+PiBUaGVzZSBk
+b24ndCBsb29rIGxpa2UgZnVsbCBTb0MgbmFtZXMgKHNtODE1MD8pIGFuZCBpdCdzCj4+Pj4gPHZl
+bmRvcj4sPHNvYz4tPGJsb2NrPi4KPj4+IAo+Pj4gVGhhbmtzLCBSb2IsIGZvciB0aGUgcmV2aWV3
+Lgo+Pj4gCj4+PiBJIGp1c3QgdG9vayB0aGUgYGNvbXBhdGlibGVgIHByb3BlcnR5IGN1cnJlbnRs
+eSB1c2VkIGluIHRoZSBEU0kgUEhZIAo+Pj4gZHJpdmVyCj4+PiAoZHJpdmVycy9ncHUvZHJtL21z
+bS9kc2kvcGh5L2RzaV9waHkuYyksIGFuZCBhZGRlZCBhIG5ldyBlbnRyeSBmb3IgCj4+PiBzYzcy
+ODAuCj4+PiBBIHNpbWlsYXIgcGF0dGVybiBvZiBgY29tcGF0aWJsZWAgbmFtZXMgYXJlIHVzZWQg
+aW4gb3RoZXIgdmFyaWFudHMgb2YgCj4+PiB0aGUKPj4+IERTSSBQSFkgZHJpdmVyIGUuZy4gcWNv
+bSxxY29tLGRzaS1waHktMTBubS04OTk4LCAKPj4+IHFjb20sZHNpLXBoeS0xNG5tLTY2MCBldGMu
+Cj4+PiAKPj4+IFRoZSBleGlzdGluZyBjb21wYXRpYmxlIG5hbWVzICJxY29tLGRzaS1waHktN25t
+LTgxNTAiIChTb0MgYXQgdGhlIAo+Pj4gZW5kKSBtYWtlCj4+PiBzb21lIHNlbnNlLCBpZiB3ZSBs
+b29rIGF0IHRoZSBvcmdhbml6YXRpb24gb2YgdGhlIGRzaSBwaHkgZHJpdmVyIAo+Pj4gY29kZS4K
+Pj4+IEkgYW0gbmV3IHRvIHRoaXMgYW5kIGRvbid0IGtub3cgdGhlIHJlYXNvbiBiZWhpbmQgdGhl
+IGN1cnJlbnQgY29kZQo+Pj4gb3JnYW5pemF0aW9uIGFuZCB0aGlzIG5hbWluZy4KPj4+IAo+Pj4g
+WWVzLCBJIGFncmVlIHdpdGggeW91LCB3ZSBzaG91bGQgdXNlIGZ1bGwgU29DIG5hbWVzLiBBZGRp
+bmcKPj4+IHRoZSBTb0MgbmFtZSBhdCB0aGUgZW5kIGRvZXMgbm90IGZlZWwgdmVyeSBjb252aW5j
+aW5nLCBzbyBJIHdpbGwgCj4+PiBjaGFuZ2UgdGhpcwo+Pj4gdG8gdGhlIHN1Z2dlc3RlZCBmb3Jt
+YXQgZS5nLiAicWNvbSxzbTgyNTAtZHNpLXBoeS03bm0iLCBhbmQgd2lsbCAKPj4+IHJlbmFtZSB0
+aGUKPj4+IG9jY3VycmVuY2VzIGluIHRoZSBkcml2ZXIgYW5kIGRldmljZSB0cmVlIGFjY29yZGlu
+Z2x5Lgo+Pj4gRG8gSSBuZWVkIHRvIG1ha2UgY2hhbmdlcyBmb3IgMTBubSwgMTRubSwgMjBubSwg
+YW5kIDI4bm0gRFNJIFBIWSB0b28/Cj4+PiBCaW5kaW5ncyBkb2MgZm9yIHRoZXNlIFBIWXMgcmVj
+ZW50bHkgZ290IG1lcmdlZCB0byBtc20tbmV4dCBbMV0KPj4+IAo+Pj4gCj4+PiBbMV0KPj4+IGh0
+dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9kcm0vbXNtLy0vY29tbWl0LzhmYzkzOWU3MmZm
+ODAxMTZjMDkwYWFmMDM5NTIyNTNhMTI0ZDJhOGUKPj4gCj4+IEhpIFJvYiwKPj4gCj4+IEkgbWlz
+c2VkIGFkZGluZyAicm9iaCtkdEBrZXJuZWwub3JnIiBlYXJsaWVyIGluIHRoaXMgdGhyZWFkLgo+
+PiAKPj4gUGxlYXNlIGNoZWNrIG15IHJlc3BvbnNlIHRvIHlvdXIgcmV2aWV3IGNvbW1lbnRzLiBS
+ZWdhcmRpbmcgeW91ciAKPj4gc3VnZ2VzdGlvbiB0byB1c2UgPHZlbmRvcj4sPHNvYz4tPGJsb2Nr
+PiBmb3JtYXQgZm9yIGNvbXBhdGlibGUgCj4+IHByb3BlcnR5LCBzaG91bGQgSSBhbHNvIHVwbG9h
+ZCBhIG5ldyBwYXRjaCB0byBtYWtlIGNoYW5nZXMgaW4gMTBubSwgCj4+IDE0bm0sIDIwbm0sIGFu
+ZCAyOG5tIERTSSBQSFkgRFQgYmluZGluZ3M/Cj4+IAo+PiBUaGFua3MsCj4+IFJhamVldgo+PiAK
+PiAKPiBIaSwKPiAKPiBJIG1pc3NlZCB0aGlzIGFuZCBlbmRlZCB1cCBzZW5kaW5nIGEgc2ltaWxh
+ciBwYXRjaCBhIHdlZWsgbGF0ZXIgKGFzCj4gcGFydCBvZiBteSBjcGh5IHNlcmllcywgYmVjYXVz
+ZSBJIG5lZWRlZCBpdCB0byBhZGQgYSAicGh5LXR5cGUiCj4gcHJvcGVydHkpLgo+IAo+ICJxY29t
+LGRzaS1waHktN25tIiBhbmQgInFjb20sZHNpLXBoeS03bm0tODE1MCIgYXJlbid0IG5ldyBjb21w
+YXRpYmxlcywKPiB0aGV5IHdlcmUgcHJldmlvdXNseSBkb2N1bWVudGVkIGluIHRoZSAudHh0IGJp
+bmRpbmdzLCB3aGljaCBhcmUKPiBnZXR0aW5nIHJlbW92ZWQsIGJ1dCB0aGUgbmV3IC55YW1sIGJp
+bmRpbmdzIGRpZG4ndCBpbmNsdWRlIHRoZW0uCj4gRG9jdW1lbnRpbmcgdGhlbSBpcyBqdXN0IGEg
+Zml4dXAgdG8gdGhhdCBwYXRjaCBbMV0gd2hpY2ggaXMgYWxyZWFkeQo+IFItQidkIGJ5IFJvYkgg
+KGFuZCBoYXMgc2ltaWxhciBjb21wYXRpYmxlcyBzdWNoIGFzICJxY29tLGRzaS1waHktMTBubSIK
+PiBhbmQgInFjb20sZHNpLXBoeS0xMG5tLTg5OTgKPiAiKS4KPiAKPiBZb3UgY2FuIHVzZSBhIGRp
+ZmZlcmVudC9iZXR0ZXIgbmFtaW5nIHNjaGVtZSBmb3Igc2M3MjgwLCBidXQgY2hhbmdpbmcKPiB0
+aGUgb3RoZXJzIGhhcyBub3RoaW5nIHRvIGRvIHdpdGggYWRkaW5nIHN1cHBvcnQgZm9yIHNjNzI4
+MC4KPiAKPiBbMV0KPiBodHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvZHJtL21zbS8tL2Nv
+bW1pdC84ZmM5MzllNzJmZjgwMTE2YzA5MGFhZjAzOTUyMjUzYTEyNGQyYThlCgpIaSBKb25hdGhh
+biwKCkkgd2lsbCBkaXNjYXJkIHRoaXMgcGF0Y2ggYW5kIHdpbGwgYWRkIHRoZSBiaW5kaW5ncyBm
+b3IgdGhlIHNjNzI4MCBvbiAKdG9wIG9mIHlvdXIgcGF0Y2ggWzFdLgoKWzFdIApodHRwczovL2xv
+cmUua2VybmVsLm9yZy9saW51eC1hcm0tbXNtLzIwMjEwNjE3MTQ0MzQ5LjI4NDQ4LTItam9uYXRo
+YW5AbWFyZWsuY2EvCgoKVGhhbmtzLApSYWplZXYKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vZnJlZWRyZW5vCg==
