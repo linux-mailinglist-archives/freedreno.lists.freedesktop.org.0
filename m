@@ -2,36 +2,42 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 124533AD97B
-	for <lists+freedreno@lfdr.de>; Sat, 19 Jun 2021 12:41:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97F253ADDE8
+	for <lists+freedreno@lfdr.de>; Sun, 20 Jun 2021 11:47:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0006B6EAC4;
-	Sat, 19 Jun 2021 10:41:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F38089FE8;
+	Sun, 20 Jun 2021 09:47:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA6F86EAC0;
- Sat, 19 Jun 2021 10:41:21 +0000 (UTC)
-Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
- by alexa-out.qualcomm.com with ESMTP; 19 Jun 2021 03:41:21 -0700
-X-QCInternal: smtphost
-Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
- by ironmsg08-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 19 Jun 2021 03:41:20 -0700
-X-QCInternal: smtphost
-Received: from rajeevny-linux.qualcomm.com ([10.204.66.121])
- by ironmsg01-blr.qualcomm.com with ESMTP; 19 Jun 2021 16:10:39 +0530
-Received: by rajeevny-linux.qualcomm.com (Postfix, from userid 2363605)
- id 0DCEA214FC; Sat, 19 Jun 2021 16:10:38 +0530 (IST)
-From: Rajeev Nandan <rajeevny@codeaurora.org>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Date: Sat, 19 Jun 2021 16:10:30 +0530
-Message-Id: <1624099230-20899-6-git-send-email-rajeevny@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1624099230-20899-1-git-send-email-rajeevny@codeaurora.org>
+X-Greylist: delayed 963 seconds by postgrey-1.36 at gabe;
+ Sun, 20 Jun 2021 09:47:50 UTC
+Received: from mx2.smtp.larsendata.com (mx2.smtp.larsendata.com
+ [91.221.196.228])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD11089FE8
+ for <freedreno@lists.freedesktop.org>; Sun, 20 Jun 2021 09:47:50 +0000 (UTC)
+Received: from mail01.mxhotel.dk (mail01.mxhotel.dk [91.221.196.236])
+ by mx2.smtp.larsendata.com (Halon) with ESMTPS
+ id 5c6029e8-d1aa-11eb-a36f-0050568cd888;
+ Sun, 20 Jun 2021 09:31:58 +0000 (UTC)
+Received: from ravnborg.org (80-162-45-141-cable.dk.customer.tdc.net
+ [80.162.45.141])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: sam@ravnborg.org)
+ by mail01.mxhotel.dk (Postfix) with ESMTPSA id 3E1D4194B1C;
+ Sun, 20 Jun 2021 11:31:47 +0200 (CEST)
+Date: Sun, 20 Jun 2021 11:31:41 +0200
+X-Report-Abuse-To: abuse@mxhotel.dk
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Rajeev Nandan <rajeevny@codeaurora.org>
+Message-ID: <20210620093141.GA703072@ravnborg.org>
 References: <1624099230-20899-1-git-send-email-rajeevny@codeaurora.org>
-Subject: [Freedreno] [v7 5/5] drm/panel-simple: Add Samsung ATNA33XC20
+ <1624099230-20899-2-git-send-email-rajeevny@codeaurora.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <1624099230-20899-2-git-send-email-rajeevny@codeaurora.org>
+Subject: Re: [Freedreno] [v7 1/5] drm/panel: add basic DP AUX backlight
+ support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,91 +50,132 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robh@kernel.org, daniel.thompson@linaro.org, lyude@redhat.com,
- Rajeev Nandan <rajeevny@codeaurora.org>, mkrishn@codeaurora.org,
- jani.nikula@intel.com, linux-kernel@vger.kernel.org, abhinavk@codeaurora.org,
- dianders@chromium.org, a.hajda@samsung.com, robdclark@gmail.com,
- thierry.reding@gmail.com, seanpaul@chromium.org,
- laurent.pinchart@ideasonboard.com, kalyan_t@codeaurora.org,
- hoegsberg@chromium.org, sam@ravnborg.org
-MIME-Version: 1.0
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ dianders@chromium.org, a.hajda@samsung.com, thierry.reding@gmail.com,
+ laurent.pinchart@ideasonboard.com, hoegsberg@chromium.org,
+ lee.jones@linaro.org, robh@kernel.org, daniel.thompson@linaro.org,
+ devicetree@vger.kernel.org, lyude@redhat.com, jani.nikula@intel.com,
+ linux-arm-msm@vger.kernel.org, abhinavk@codeaurora.org, seanpaul@chromium.org,
+ kalyan_t@codeaurora.org, mkrishn@codeaurora.org, jingoohan1@gmail.com,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add Samsung 13.3" FHD eDP AMOLED panel.
+Hi Rajeev
 
-Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
----
+On Sat, Jun 19, 2021 at 04:10:26PM +0530, Rajeev Nandan wrote:
+> Some panels support backlight control over DP AUX channel using
+> VESA's standard backlight control interface.
+> Using new DRM eDP backlight helpers, add support to create and
+> register a backlight for those panels in drm_panel to simplify
+> the panel drivers.
+> 
+> The panel driver with access to "struct drm_dp_aux" can create and
+> register a backlight device using following code snippet in its
+> probe() function:
+> 
+> 	err = drm_panel_dp_aux_backlight(panel, aux);
+> 	if (err)
+> 		return err;
 
-Changes in v4:
-- New
+IT very good to have this supported by drm_panel, so we avoid
+bolierplate in various drivers.
 
-Changes in v5:
-- Remove "uses_dpcd_backlight" property, not required now. (Douglas)
+> 
+> Then drm_panel will handle backlight_(enable|disable) calls
+> similar to the case when drm_panel_of_backlight() is used.
+> 
+> Currently, we are not supporting one feature where the source
+> device can combine the backlight brightness levels set through
+> DP AUX and the BL_PWM_DIM eDP connector pin. Since it's not
+> required for the basic backlight controls, it can be added later.
+> 
+> Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
+> Reviewed-by: Douglas Anderson <dianders@chromium.org>
+> Reviewed-by: Lyude Paul <lyude@redhat.com>
+> ---
+> 
+> (no changes since v6)
+> 
+> Changes in v5:
+> - New
+> 
+> Changes in v6:
+> - Fixed ordering of memory allocation (Douglas)
+> - Updated word wrapping in a comment (Douglas)
+> 
+>  drivers/gpu/drm/drm_panel.c | 108 ++++++++++++++++++++++++++++++++++++++++++++
+>  include/drm/drm_panel.h     |  15 ++++--
+>  2 files changed, 119 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
+> index f634371..9e65342 100644
+> --- a/drivers/gpu/drm/drm_panel.c
+> +++ b/drivers/gpu/drm/drm_panel.c
+> @@ -26,12 +26,20 @@
+>  #include <linux/module.h>
+>  
+>  #include <drm/drm_crtc.h>
+> +#include <drm/drm_dp_helper.h>
+>  #include <drm/drm_panel.h>
+>  #include <drm/drm_print.h>
+>  
+>  static DEFINE_MUTEX(panel_lock);
+>  static LIST_HEAD(panel_list);
+>  
+> +struct dp_aux_backlight {
+> +	struct backlight_device *base;
+> +	struct drm_dp_aux *aux;
+> +	struct drm_edp_backlight_info info;
+> +	bool enabled;
+> +};
+> +
+>  /**
+>   * DOC: drm panel
+>   *
+> @@ -342,6 +350,106 @@ int drm_panel_of_backlight(struct drm_panel *panel)
+>  	return 0;
+>  }
+>  EXPORT_SYMBOL(drm_panel_of_backlight);
+> +
+> +static int dp_aux_backlight_update_status(struct backlight_device *bd)
+> +{
+> +	struct dp_aux_backlight *bl = bl_get_data(bd);
+> +	u16 brightness = backlight_get_brightness(bd);
+backlight_get_brightness() returns an int, so using u16 seems wrong.
+But then drm_edp_backlight_enable() uses u16 for level - so I guess it
+is OK.
+We use unsigned long, int, u16 for brightness. Looks like something one
+could look at one day, but today is not that day.
 
-Changes in v7:
-- Update disable_to_power_off and power_to_enable delays. (Douglas)
+> +	int ret = 0;
+> +
+> +	if (brightness > 0) {
+Use backlight_is_blank(bd) here, as this is really what you test for.
 
- drivers/gpu/drm/panel/panel-simple.c | 33 +++++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+I cannot see why you need the extra check on ->enabled?
+Would it be sufficient to check backlight_is_blank() only?
 
-diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-index 86e5a45..4adc44a 100644
---- a/drivers/gpu/drm/panel/panel-simple.c
-+++ b/drivers/gpu/drm/panel/panel-simple.c
-@@ -3562,6 +3562,36 @@ static const struct panel_desc rocktech_rk101ii01d_ct = {
- 	.connector_type = DRM_MODE_CONNECTOR_LVDS,
- };
- 
-+static const struct drm_display_mode samsung_atna33xc20_mode = {
-+	.clock = 138770,
-+	.hdisplay = 1920,
-+	.hsync_start = 1920 + 48,
-+	.hsync_end = 1920 + 48 + 32,
-+	.htotal = 1920 + 48 + 32 + 80,
-+	.vdisplay = 1080,
-+	.vsync_start = 1080 + 8,
-+	.vsync_end = 1080 + 8 + 8,
-+	.vtotal = 1080 + 8 + 8 + 16,
-+	.flags = DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_NVSYNC,
-+};
-+
-+static const struct panel_desc samsung_atna33xc20 = {
-+	.modes = &samsung_atna33xc20_mode,
-+	.num_modes = 1,
-+	.bpc = 10,
-+	.size = {
-+		.width = 294,
-+		.height = 165,
-+	},
-+	.delay = {
-+		.disable_to_power_off = 200,
-+		.power_to_enable = 400,
-+		.hpd_absent_delay = 200,
-+		.unprepare = 500,
-+	},
-+	.connector_type = DRM_MODE_CONNECTOR_eDP,
-+};
-+
- static const struct drm_display_mode samsung_lsn122dl01_c01_mode = {
- 	.clock = 271560,
- 	.hdisplay = 2560,
-@@ -4563,6 +4593,9 @@ static const struct of_device_id platform_of_match[] = {
- 		.compatible = "rocktech,rk101ii01d-ct",
- 		.data = &rocktech_rk101ii01d_ct,
- 	}, {
-+		.compatible = "samsung,atna33xc20",
-+		.data = &samsung_atna33xc20,
-+	}, {
- 		.compatible = "samsung,lsn122dl01-c01",
- 		.data = &samsung_lsn122dl01_c01,
- 	}, {
--- 
-2.7.4
+> +		if (!bl->enabled) {
+> +			drm_edp_backlight_enable(bl->aux, &bl->info, brightness);
+> +			bl->enabled = true;
+> +			return 0;
+> +		}
+> +		ret = drm_edp_backlight_set_level(bl->aux, &bl->info, brightness);
+> +	} else {
+> +		if (bl->enabled) {
+> +			drm_edp_backlight_disable(bl->aux, &bl->info);
+> +			bl->enabled = false;
+> +		}
+> +	}
+> +
+> +	return ret;
+> +}
 
+	Sam
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
