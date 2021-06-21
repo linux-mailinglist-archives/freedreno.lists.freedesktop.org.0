@@ -1,42 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C26C03AF543
-	for <lists+freedreno@lfdr.de>; Mon, 21 Jun 2021 20:42:03 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 351FE3AF832
+	for <lists+freedreno@lfdr.de>; Tue, 22 Jun 2021 00:02:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C0D16E3D0;
-	Mon, 21 Jun 2021 18:42:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCCAA6E433;
+	Mon, 21 Jun 2021 22:02:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx2.smtp.larsendata.com (mx2.smtp.larsendata.com
- [91.221.196.228])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D18C6E3D0
- for <freedreno@lists.freedesktop.org>; Mon, 21 Jun 2021 18:42:01 +0000 (UTC)
-Received: from mail01.mxhotel.dk (mail01.mxhotel.dk [91.221.196.236])
- by mx2.smtp.larsendata.com (Halon) with ESMTPS
- id 6585b9ef-d2c0-11eb-a36f-0050568cd888;
- Mon, 21 Jun 2021 18:42:14 +0000 (UTC)
-Received: from ravnborg.org (80-162-45-141-cable.dk.customer.tdc.net
- [80.162.45.141])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: sam@ravnborg.org)
- by mail01.mxhotel.dk (Postfix) with ESMTPSA id 95A4D194B7E;
- Mon, 21 Jun 2021 20:42:03 +0200 (CEST)
-Date: Mon, 21 Jun 2021 20:41:57 +0200
-X-Report-Abuse-To: abuse@mxhotel.dk
-From: Sam Ravnborg <sam@ravnborg.org>
-To: Doug Anderson <dianders@chromium.org>
-Message-ID: <20210621184157.GB918146@ravnborg.org>
-References: <1624099230-20899-1-git-send-email-rajeevny@codeaurora.org>
- <1624099230-20899-6-git-send-email-rajeevny@codeaurora.org>
- <20210620100147.GB703072@ravnborg.org>
- <CAD=FV=VP8hLHtpZ8F5KVGWoKiJBxyQVufg7V9A2CC0rwcAX-aw@mail.gmail.com>
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 445916E433
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Jun 2021 22:01:50 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1624312921; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=mKdPiX5ceufqkEx8Nci/j3NszUX+oF1c+HY50pFYGus=;
+ b=ilkjO3NLiHBOCeUYuYyAjX5XrsZGTZZUXUO2Y/wZYvRXEXsnaUqAg2EsyHfIt3QsdxgMkpu/
+ nRS/TZ0vqI9CcXMRZpJge0RtZQquDE7t8dSPg4nYVYwX2Mzmuj4lhslPHL5zlbT+OOyCNmna
+ jxkKiCe1PnFjrmQ9cRT/E646jm4=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
+ 60d10c372eaeb98b5ef06bd4 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 21 Jun 2021 22:01:27
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id B4076C43217; Mon, 21 Jun 2021 22:01:27 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 8895CC433F1;
+ Mon, 21 Jun 2021 22:01:26 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAD=FV=VP8hLHtpZ8F5KVGWoKiJBxyQVufg7V9A2CC0rwcAX-aw@mail.gmail.com>
-Subject: Re: [Freedreno] [v7 5/5] drm/panel-simple: Add Samsung ATNA33XC20
+Date: Mon, 21 Jun 2021 15:01:26 -0700
+From: abhinavk@codeaurora.org
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20210515131217.1540412-1-dmitry.baryshkov@linaro.org>
+References: <20210515131217.1540412-1-dmitry.baryshkov@linaro.org>
+Message-ID: <5156aeb320b5625959fff8364e216c2f@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH 0/8] dsi: rework clock parents and timing
+ handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,119 +63,96 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Daniel Thompson <daniel.thompson@linaro.org>,
- Krishna Manikandan <mkrishn@codeaurora.org>, Lyude Paul <lyude@redhat.com>,
- Rajeev Nandan <rajeevny@codeaurora.org>, Rob Herring <robh@kernel.org>,
- Jani Nikula <jani.nikula@intel.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>, LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Andrzej Hajda <a.hajda@samsung.com>, Rob Clark <robdclark@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>, Sean Paul <seanpaul@chromium.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Kalyan Thota <kalyan_t@codeaurora.org>,
- "Kristian H. Kristensen" <hoegsberg@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
+Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
+ Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ David Airlie <airlied@linux.ie>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Doug,
+On 2021-05-15 06:12, Dmitry Baryshkov wrote:
+> This patch series brings back several patches targeting assigning 
+> dispcc
+> clock parents, that were removed from the massive dsi rework patchset
+> earlier.
+> 
+> Few notes:
+>  - assign-clock-parents is a mandatory proprety according to the 
+> current
+>    dsi.txt description.
 
-On Mon, Jun 21, 2021 at 08:34:51AM -0700, Doug Anderson wrote:
-> Hi,
-> 
-> On Sun, Jun 20, 2021 at 3:01 AM Sam Ravnborg <sam@ravnborg.org> wrote:
-> >
-> > Hi Rajeev
-> > On Sat, Jun 19, 2021 at 04:10:30PM +0530, Rajeev Nandan wrote:
-> > > Add Samsung 13.3" FHD eDP AMOLED panel.
-> > >
-> > > Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
-> > > Reviewed-by: Douglas Anderson <dianders@chromium.org>
-> > > ---
-> > >
-> > > Changes in v4:
-> > > - New
-> > >
-> > > Changes in v5:
-> > > - Remove "uses_dpcd_backlight" property, not required now. (Douglas)
-> > >
-> > > Changes in v7:
-> > > - Update disable_to_power_off and power_to_enable delays. (Douglas)
-> > >
-> > >  drivers/gpu/drm/panel/panel-simple.c | 33 +++++++++++++++++++++++++++++++++
-> > >  1 file changed, 33 insertions(+)
-> > >
-> > > diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-> > > index 86e5a45..4adc44a 100644
-> > > --- a/drivers/gpu/drm/panel/panel-simple.c
-> > > +++ b/drivers/gpu/drm/panel/panel-simple.c
-> > > @@ -3562,6 +3562,36 @@ static const struct panel_desc rocktech_rk101ii01d_ct = {
-> > >       .connector_type = DRM_MODE_CONNECTOR_LVDS,
-> > >  };
-> > >
-> > > +static const struct drm_display_mode samsung_atna33xc20_mode = {
-> > > +     .clock = 138770,
-> > > +     .hdisplay = 1920,
-> > > +     .hsync_start = 1920 + 48,
-> > > +     .hsync_end = 1920 + 48 + 32,
-> > > +     .htotal = 1920 + 48 + 32 + 80,
-> > > +     .vdisplay = 1080,
-> > > +     .vsync_start = 1080 + 8,
-> > > +     .vsync_end = 1080 + 8 + 8,
-> > > +     .vtotal = 1080 + 8 + 8 + 16,
-> > > +     .flags = DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_NVSYNC,
-> > > +};
-> > > +
-> > > +static const struct panel_desc samsung_atna33xc20 = {
-> > > +     .modes = &samsung_atna33xc20_mode,
-> > > +     .num_modes = 1,
-> > > +     .bpc = 10,
-> > > +     .size = {
-> > > +             .width = 294,
-> > > +             .height = 165,
-> > > +     },
-> > > +     .delay = {
-> > > +             .disable_to_power_off = 200,
-> > > +             .power_to_enable = 400,
-> > > +             .hpd_absent_delay = 200,
-> > > +             .unprepare = 500,
-> > > +     },
-> > > +     .connector_type = DRM_MODE_CONNECTOR_eDP,
-> > > +};
-> >
-> > bus_format is missing. There should be a warning about this when you
-> > probe the display.
-> 
-> Sam: I'm curious about the requirement of hardcoding bus_format like
-> this for eDP panels. Most eDP panels support a variety of bits per
-> pixel and do so dynamically. Ones I've poked at freely support 6bpp
-> and 8bpp. Presumably this one supports both of those modes and also
-> 10bpp. I haven't done detailed research on it, but it would also
-> surprise me if the "bus format" for a given bpp needed to be specified
-> for eDP. Presumably since eDP has most of the "autodetect" type
-> features of DP then if the format needed to be accounted for that you
-> could query the hardware?
-> 
-> Looking at the datasheet for the ti-sn65dsi86 MIPI-to-eDP bridge chip
-> I see that it explicitly calls out the bus formats that it supports
-> for the MIPI side but doesn't call out anything for eDP. That would
-> tend to support my belief that there isn't variance on the eDP side...
-> 
-> Maybe the right fix is to actually change the check not to give a
-> warning for eDP panels? ...or am I misunderstanding?
+Is this comment still right? dsi.txt has now moved to YAML format, but 
+even before
+that I am not able to see that this was a mandatory property. With these 
+changes yes,
+it becomes a mandatory property and hence needs to be documented that 
+way.
 
-I have never dived into the datasheets of eDP panels so I do not know.
-The checks were added based on what we had in-tree and it is no suprise
-if they need an update or are just plain wrong.
-I expect you to be in a better position to make the call here - but we
-should not add panels that triggers warnings so either fix the warnings
-or fix the panel description.
-
-	Sam
+>  - There is little point in duplicating this functionality with the 
+> ad-hoc
+>    implementation in the dsi code.
+> 
+> On top of that come few minor cleanups for the DSI PHY drivers.
+> 
+> I'd kindly ask to bring all dts changes also through the drm tree, so
+> that there won't be any breakage of the functionality.
+> 
+> 
+> The following changes since commit 
+> f2f46b878777e0d3f885c7ddad48f477b4dea247:
+> 
+>   drm/msm/dp: initialize audio_comp when audio starts (2021-05-06
+> 16:26:57 -0700)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.linaro.org/people/dmitry.baryshkov/kernel.git 
+> dsi-phy-update
+> 
+> for you to fetch changes up to 
+> f1fd3b113cbb98febad682fc11ea1c6e717434c2:
+> 
+>   drm/msm/dsi: remove msm_dsi_dphy_timing from msm_dsi_phy (2021-05-14
+> 22:55:11 +0300)
+> 
+> ----------------------------------------------------------------
+> Dmitry Baryshkov (8):
+>       arm64: dts: qcom: sc7180: assign DSI clock source parents
+>       arm64: dts: qcom: sdm845: assign DSI clock source parents
+>       arm64: dts: qcom: sdm845-mtp: assign DSI clock source parents
+>       arm64: dts: qcom: sm8250: assign DSI clock source parents
+>       drm/msm/dsi: stop setting clock parents manually
+>       drm/msm/dsi: phy: use of_device_get_match_data
+>       drm/msm/dsi: drop msm_dsi_phy_get_shared_timings
+>       drm/msm/dsi: remove msm_dsi_dphy_timing from msm_dsi_phy
+> 
+>  arch/arm64/boot/dts/qcom/sc7180.dtsi            |  3 ++
+>  arch/arm64/boot/dts/qcom/sdm845-mtp.dts         |  3 ++
+>  arch/arm64/boot/dts/qcom/sdm845.dtsi            |  6 +++
+>  arch/arm64/boot/dts/qcom/sm8250.dtsi            |  6 +++
+>  drivers/gpu/drm/msm/dsi/dsi.h                   |  7 +---
+>  drivers/gpu/drm/msm/dsi/dsi_host.c              | 51 
+> -------------------------
+>  drivers/gpu/drm/msm/dsi/dsi_manager.c           |  8 +---
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy.c           | 46 
+> ++++++++++------------
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy.h           | 10 ++++-
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c      | 11 ++----
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c      | 11 ++----
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c      | 10 +----
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c      | 12 ++----
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c | 10 +----
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c       | 13 ++-----
+>  15 files changed, 67 insertions(+), 140 deletions(-)
+> 
+> 
+> _______________________________________________
+> Freedreno mailing list
+> Freedreno@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/freedreno
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
