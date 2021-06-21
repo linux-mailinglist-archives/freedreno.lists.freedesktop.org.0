@@ -1,63 +1,43 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA0F83AEC88
-	for <lists+freedreno@lfdr.de>; Mon, 21 Jun 2021 17:35:09 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F2853AF52B
+	for <lists+freedreno@lfdr.de>; Mon, 21 Jun 2021 20:38:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27CDF6E1F2;
-	Mon, 21 Jun 2021 15:35:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D5EF89971;
+	Mon, 21 Jun 2021 18:38:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com
- [IPv6:2607:f8b0:4864:20::82d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEEE56E1EE
- for <freedreno@lists.freedesktop.org>; Mon, 21 Jun 2021 15:35:06 +0000 (UTC)
-Received: by mail-qt1-x82d.google.com with SMTP id e3so13784228qte.0
- for <freedreno@lists.freedesktop.org>; Mon, 21 Jun 2021 08:35:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=0uexkxIgdtHcO0ywotPaMOdh8zJX+zJKl2s1rN2kxP4=;
- b=Vb0tHd5FNrMGZngLgPioQ5Lf5mzLJ1TAl80ByD4WgWO2DdFh+ZrfYmQIySSmJVozbK
- RLeGWHe7LS62+BRz59Ieu0NlqiSGStoq4hbQWMoSGCpk8oTwERzt9iHDgY+LX3n8TVZj
- +FNUtZTkqzGDUvY3Mdz6FUgSV9JQxIVcAO5G4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=0uexkxIgdtHcO0ywotPaMOdh8zJX+zJKl2s1rN2kxP4=;
- b=rad7X7a7IdC1uhIKxYupO6E3gVhQd5RxNimthEWvl5Tn51JnSGo8Ui6tjuZe9SrnHA
- L8GdWM2WyMOxXJPjs1kS1OmpmXqOFMGWK29GGv1C+T51oljwdQ6OfX+fX50kR2XTb8ej
- LGCbLjgXYAvL7JNuTESxZ1gH+RQ7BfXFEe3nDcPP7UYLBIjTT6jL1HpelZm8Vj5rZIJJ
- OxKjvYfJ/D2re+FW334RBTytUGH6Fq3YB3oGDadjDgRVq62xhqEjoK6c/D++b4PHlceq
- TJHWw2W9569zI8thzc74YAHoXTGopvqE3KYUyYAVKtHojYQmvwUh0lIEJwjD2go/aiQr
- GltQ==
-X-Gm-Message-State: AOAM533ukNiZin4HyNnjrTJFCjdHWwfxW1vCCpkOTNQHlfcieyB2lreh
- yH+4+LBgyTR19aTUxC50FtPGAEvCrkEwPA==
-X-Google-Smtp-Source: ABdhPJxjFUttacsbuSJcG+VLPqXuGxmtfcXUeQxLyZhFumiOfA62zmsAQfUolkvfdWorit6AAT0m+Q==
-X-Received: by 2002:ac8:5f11:: with SMTP id x17mr1535290qta.28.1624289705855; 
- Mon, 21 Jun 2021 08:35:05 -0700 (PDT)
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com.
- [209.85.222.169])
- by smtp.gmail.com with ESMTPSA id y10sm10135633qki.32.2021.06.21.08.35.04
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Jun 2021 08:35:05 -0700 (PDT)
-Received: by mail-qk1-f169.google.com with SMTP id w21so17726630qkb.9
- for <freedreno@lists.freedesktop.org>; Mon, 21 Jun 2021 08:35:04 -0700 (PDT)
-X-Received: by 2002:a5b:54a:: with SMTP id r10mr32287432ybp.476.1624289703701; 
- Mon, 21 Jun 2021 08:35:03 -0700 (PDT)
-MIME-Version: 1.0
+Received: from mx1.smtp.larsendata.com (mx1.smtp.larsendata.com
+ [91.221.196.215])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB99B89993
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Jun 2021 18:38:33 +0000 (UTC)
+Received: from mail01.mxhotel.dk (mail01.mxhotel.dk [91.221.196.236])
+ by mx1.smtp.larsendata.com (Halon) with ESMTPS
+ id ea5a0d0d-d2bf-11eb-960d-0050568c148b;
+ Mon, 21 Jun 2021 18:38:47 +0000 (UTC)
+Received: from ravnborg.org (80-162-45-141-cable.dk.customer.tdc.net
+ [80.162.45.141])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: sam@ravnborg.org)
+ by mail01.mxhotel.dk (Postfix) with ESMTPSA id 9E4F3194B05;
+ Mon, 21 Jun 2021 20:38:35 +0200 (CEST)
+Date: Mon, 21 Jun 2021 20:38:28 +0200
+X-Report-Abuse-To: abuse@mxhotel.dk
+From: Sam Ravnborg <sam@ravnborg.org>
+To: rajeevny@codeaurora.org
+Message-ID: <20210621183828.GA918146@ravnborg.org>
 References: <1624099230-20899-1-git-send-email-rajeevny@codeaurora.org>
- <1624099230-20899-6-git-send-email-rajeevny@codeaurora.org>
- <20210620100147.GB703072@ravnborg.org>
-In-Reply-To: <20210620100147.GB703072@ravnborg.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Mon, 21 Jun 2021 08:34:51 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VP8hLHtpZ8F5KVGWoKiJBxyQVufg7V9A2CC0rwcAX-aw@mail.gmail.com>
-Message-ID: <CAD=FV=VP8hLHtpZ8F5KVGWoKiJBxyQVufg7V9A2CC0rwcAX-aw@mail.gmail.com>
-To: Sam Ravnborg <sam@ravnborg.org>
-Subject: Re: [Freedreno] [v7 5/5] drm/panel-simple: Add Samsung ATNA33XC20
+ <1624099230-20899-2-git-send-email-rajeevny@codeaurora.org>
+ <20210620093141.GA703072@ravnborg.org>
+ <ebf5581759daee9596c2f092ca836ecb@codeaurora.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <ebf5581759daee9596c2f092ca836ecb@codeaurora.org>
+Subject: Re: [Freedreno] [v7 1/5] drm/panel: add basic DP AUX backlight
+ support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,117 +50,165 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Daniel Thompson <daniel.thompson@linaro.org>,
- Krishna Manikandan <mkrishn@codeaurora.org>, Lyude Paul <lyude@redhat.com>,
- Rajeev Nandan <rajeevny@codeaurora.org>, Rob Herring <robh@kernel.org>,
- Jani Nikula <jani.nikula@intel.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>, LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Andrzej Hajda <a.hajda@samsung.com>, Rob Clark <robdclark@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>, Sean Paul <seanpaul@chromium.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Kalyan Thota <kalyan_t@codeaurora.org>,
- "Kristian H. Kristensen" <hoegsberg@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ dianders@chromium.org, a.hajda@samsung.com, thierry.reding@gmail.com,
+ laurent.pinchart@ideasonboard.com, hoegsberg@chromium.org,
+ lee.jones@linaro.org, robh@kernel.org, daniel.thompson@linaro.org,
+ devicetree@vger.kernel.org, lyude@redhat.com, jani.nikula@intel.com,
+ linux-arm-msm@vger.kernel.org, abhinavk@codeaurora.org, seanpaul@chromium.org,
+ kalyan_t@codeaurora.org, mkrishn@codeaurora.org, jingoohan1@gmail.com,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+Hi Rajeev,
 
-On Sun, Jun 20, 2021 at 3:01 AM Sam Ravnborg <sam@ravnborg.org> wrote:
->
-> Hi Rajeev
-> On Sat, Jun 19, 2021 at 04:10:30PM +0530, Rajeev Nandan wrote:
-> > Add Samsung 13.3" FHD eDP AMOLED panel.
-> >
-> > Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
-> > Reviewed-by: Douglas Anderson <dianders@chromium.org>
-> > ---
-> >
-> > Changes in v4:
-> > - New
-> >
-> > Changes in v5:
-> > - Remove "uses_dpcd_backlight" property, not required now. (Douglas)
-> >
-> > Changes in v7:
-> > - Update disable_to_power_off and power_to_enable delays. (Douglas)
-> >
-> >  drivers/gpu/drm/panel/panel-simple.c | 33 +++++++++++++++++++++++++++++++++
-> >  1 file changed, 33 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-> > index 86e5a45..4adc44a 100644
-> > --- a/drivers/gpu/drm/panel/panel-simple.c
-> > +++ b/drivers/gpu/drm/panel/panel-simple.c
-> > @@ -3562,6 +3562,36 @@ static const struct panel_desc rocktech_rk101ii01d_ct = {
-> >       .connector_type = DRM_MODE_CONNECTOR_LVDS,
-> >  };
-> >
-> > +static const struct drm_display_mode samsung_atna33xc20_mode = {
-> > +     .clock = 138770,
-> > +     .hdisplay = 1920,
-> > +     .hsync_start = 1920 + 48,
-> > +     .hsync_end = 1920 + 48 + 32,
-> > +     .htotal = 1920 + 48 + 32 + 80,
-> > +     .vdisplay = 1080,
-> > +     .vsync_start = 1080 + 8,
-> > +     .vsync_end = 1080 + 8 + 8,
-> > +     .vtotal = 1080 + 8 + 8 + 16,
-> > +     .flags = DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_NVSYNC,
-> > +};
-> > +
-> > +static const struct panel_desc samsung_atna33xc20 = {
-> > +     .modes = &samsung_atna33xc20_mode,
-> > +     .num_modes = 1,
-> > +     .bpc = 10,
-> > +     .size = {
-> > +             .width = 294,
-> > +             .height = 165,
-> > +     },
-> > +     .delay = {
-> > +             .disable_to_power_off = 200,
-> > +             .power_to_enable = 400,
-> > +             .hpd_absent_delay = 200,
-> > +             .unprepare = 500,
-> > +     },
-> > +     .connector_type = DRM_MODE_CONNECTOR_eDP,
-> > +};
->
-> bus_format is missing. There should be a warning about this when you
-> probe the display.
+On Mon, Jun 21, 2021 at 02:08:17PM +0530, rajeevny@codeaurora.org wrote:
+> Hi Sam,
+> 
+> On 20-06-2021 15:01, Sam Ravnborg wrote:
+> > Hi Rajeev
+> > 
+> > On Sat, Jun 19, 2021 at 04:10:26PM +0530, Rajeev Nandan wrote:
+> > > Some panels support backlight control over DP AUX channel using
+> > > VESA's standard backlight control interface.
+> > > Using new DRM eDP backlight helpers, add support to create and
+> > > register a backlight for those panels in drm_panel to simplify
+> > > the panel drivers.
+> > > 
+> > > The panel driver with access to "struct drm_dp_aux" can create and
+> > > register a backlight device using following code snippet in its
+> > > probe() function:
+> > > 
+> > > 	err = drm_panel_dp_aux_backlight(panel, aux);
+> > > 	if (err)
+> > > 		return err;
+> > 
+> > IT very good to have this supported by drm_panel, so we avoid
+> > bolierplate in various drivers.
+> > 
+> > > 
+> > > Then drm_panel will handle backlight_(enable|disable) calls
+> > > similar to the case when drm_panel_of_backlight() is used.
+> > > 
+> > > Currently, we are not supporting one feature where the source
+> > > device can combine the backlight brightness levels set through
+> > > DP AUX and the BL_PWM_DIM eDP connector pin. Since it's not
+> > > required for the basic backlight controls, it can be added later.
+> > > 
+> > > Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
+> > > Reviewed-by: Douglas Anderson <dianders@chromium.org>
+> > > Reviewed-by: Lyude Paul <lyude@redhat.com>
+> > > ---
+> > > 
+> > > (no changes since v6)
+> > > 
+> > > Changes in v5:
+> > > - New
+> > > 
+> > > Changes in v6:
+> > > - Fixed ordering of memory allocation (Douglas)
+> > > - Updated word wrapping in a comment (Douglas)
+> > > 
+> > >  drivers/gpu/drm/drm_panel.c | 108
+> > > ++++++++++++++++++++++++++++++++++++++++++++
+> > >  include/drm/drm_panel.h     |  15 ++++--
+> > >  2 files changed, 119 insertions(+), 4 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
+> > > index f634371..9e65342 100644
+> > > --- a/drivers/gpu/drm/drm_panel.c
+> > > +++ b/drivers/gpu/drm/drm_panel.c
+> > > @@ -26,12 +26,20 @@
+> > >  #include <linux/module.h>
+> > > 
+> > >  #include <drm/drm_crtc.h>
+> > > +#include <drm/drm_dp_helper.h>
+> > >  #include <drm/drm_panel.h>
+> > >  #include <drm/drm_print.h>
+> > > 
+> > >  static DEFINE_MUTEX(panel_lock);
+> > >  static LIST_HEAD(panel_list);
+> > > 
+> > > +struct dp_aux_backlight {
+> > > +	struct backlight_device *base;
+> > > +	struct drm_dp_aux *aux;
+> > > +	struct drm_edp_backlight_info info;
+> > > +	bool enabled;
+> > > +};
+> > > +
+> > >  /**
+> > >   * DOC: drm panel
+> > >   *
+> > > @@ -342,6 +350,106 @@ int drm_panel_of_backlight(struct drm_panel
+> > > *panel)
+> > >  	return 0;
+> > >  }
+> > >  EXPORT_SYMBOL(drm_panel_of_backlight);
+> > > +
+> > > +static int dp_aux_backlight_update_status(struct backlight_device
+> > > *bd)
+> > > +{
+> > > +	struct dp_aux_backlight *bl = bl_get_data(bd);
+> > > +	u16 brightness = backlight_get_brightness(bd);
+> > backlight_get_brightness() returns an int, so using u16 seems wrong.
+> > But then drm_edp_backlight_enable() uses u16 for level - so I guess it
+> > is OK.
+> > We use unsigned long, int, u16 for brightness. Looks like something one
+> > could look at one day, but today is not that day.
+> > 
+> > > +	int ret = 0;
+> > > +
+> > > +	if (brightness > 0) {
+> > Use backlight_is_blank(bd) here, as this is really what you test for.
+> 
+> The backlight_get_brightness() used above has the backlight_is_blank() check
+> and returns brightness 0 when the backlight_is_blank(bd) is true.
+> So, instead of calling backlight_is_blank(bd), we are checking brightness
+> value here.
+> I took the reference from pwm_backlight_update_status() of the PWM backlight
+> driver (drivers/video/backlight/pwm_bl.c)
+> 
+> Yes, we can change this _if_ condition to use backlight_is_blank(bd), as
+> this is an inline function, and is more meaningful.
+> With this, there would be one change in the behavior of
+> _backlight_update_status function in the following case:
+> 
+> - Setting brightness=0 when the backlight is not blank:
+> In the current case setting brightness=0 is disabling the backlight.
+> In the new case, setting brightness=0 will set the brightness to 0 and will
+> do nothing to backlight disable.
+> 
+> I think that should not be a problem?
 
-Sam: I'm curious about the requirement of hardcoding bus_format like
-this for eDP panels. Most eDP panels support a variety of bits per
-pixel and do so dynamically. Ones I've poked at freely support 6bpp
-and 8bpp. Presumably this one supports both of those modes and also
-10bpp. I haven't done detailed research on it, but it would also
-surprise me if the "bus format" for a given bpp needed to be specified
-for eDP. Presumably since eDP has most of the "autodetect" type
-features of DP then if the format needed to be accounted for that you
-could query the hardware?
+Reading "ABI/stable/sysfs-class-backlight" does not say anything about
+any special bahaviour with brightness == 0. Some panels may not dim back
+to dark on brightness == 0, just barely readable. So in such cases doing
+something special on the brightness == 0 case is wrong.
 
-Looking at the datasheet for the ti-sn65dsi86 MIPI-to-eDP bridge chip
-I see that it explicitly calls out the bus formats that it supports
-for the MIPI side but doesn't call out anything for eDP. That would
-tend to support my belief that there isn't variance on the eDP side...
+I recall that some backlight drivets do not get this so it is easy to
+make it wrong. Unless one of the backlight people tell otherwise the
+safe choice is to avoid the specail handling of brightness here.
 
-Maybe the right fix is to actually change the check not to give a
-warning for eDP panels? ...or am I misunderstanding?
+> 
+> > 
+> > I cannot see why you need the extra check on ->enabled?
+> > Would it be sufficient to check backlight_is_blank() only?
+> 
+> This extra check on bl->enabled flag is added to avoid enabling/disabling
+> backlight again if it is already enabled/disabled.
+> Using this flag way can know the transition between backlight blank and
+> un-blank, and decide when to enable/disable the backlight.
 
+My point is that this should really not be needed, as it would cover up
+for some other bug whaere we try to do something twice that is not
+needed. But I am less certain here so if you think it is needed, keep
+it as is.
 
-> The bpc of 10 in unusual, the current code warns if bpc is neither 6 nor
-> 8. If 10 is correct then update the code to accept bpc=10.
-
-I'm pretty sure it's 10 based on this panel's datasheet, though this
-panel also accepts 8 bpc. Fixing the warning seems like a good idea to
-me--I wasn't aware of it.
-
--Doug
+	Sam
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
