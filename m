@@ -2,64 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91E4C3B0D04
-	for <lists+freedreno@lfdr.de>; Tue, 22 Jun 2021 20:37:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10E333B0EA5
+	for <lists+freedreno@lfdr.de>; Tue, 22 Jun 2021 22:23:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D62946E873;
-	Tue, 22 Jun 2021 18:37:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A82EE6E1BC;
+	Tue, 22 Jun 2021 20:23:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
- [IPv6:2607:f8b0:4864:20::733])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30B2A6E873
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jun 2021 18:37:03 +0000 (UTC)
-Received: by mail-qk1-x733.google.com with SMTP id c138so42096919qkg.5
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jun 2021 11:37:03 -0700 (PDT)
+Received: from mail-oo1-xc34.google.com (mail-oo1-xc34.google.com
+ [IPv6:2607:f8b0:4864:20::c34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E17816E1BC
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jun 2021 20:23:06 +0000 (UTC)
+Received: by mail-oo1-xc34.google.com with SMTP id
+ s20-20020a4ae9940000b02902072d5df239so175663ood.2
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Jun 2021 13:23:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=5hHHpcbuGzfoV+GfFLB8z1cKhHoFMqWAiFyD3G6YAko=;
- b=SqgfTNdOPOEae4ycnm65VuiFolDjL75QzhVcNDAYaB18+y6gC/dR2FGFGIRRYu1pnO
- 6G/9w/gHa9kP4JXdIkgngJVl7pR9Q1k1pW/6bgLGCYUR69Fnfa/Go4hs4E81apxFVeYM
- CknYzB21+ZhhBxq4HsfpOUobGYuws4uDgpVZQ=
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=Ggw6fsmku27vHRmfMQszrNre4+RfK7j3PrPkaoOAI5s=;
+ b=LJm/LbiFVvPJuS0y9W0doPgLlkncwZmOFafIU9v/PAm8m/8KHPwJT3Y5cbnkV4BXJu
+ pibvHYmUPrUE/wlr8jvGDlSstXPVAb7sWUjUQ4VBX8iMDC18VCuC4nu1eYJFnvVrDNar
+ z2oeL/qVTksu5CgRvcn+b9dGIc1UkJ/B/CICM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=5hHHpcbuGzfoV+GfFLB8z1cKhHoFMqWAiFyD3G6YAko=;
- b=gMO4nJyDoR+dlfgOAO3zpb6uLbAoKYd8DIlAIjffd3iWGsKYHFOlNnwIJSNNgzQeWZ
- togCEdLAibyNAwWHum5E/JIOsRyP9w/0OP1FxvqjhdstlIg+bs0vOtDWRVGaP7hweC3D
- nRRzF7yXlAbpaFh+9OMjIy/ngCeee7AdN8Fe66NaEq5s+vAnBAUM8dipFEcKgjCJjGFZ
- 6b9ahcHu2f5zhX6WLsSosj7a6RFE8W7HoYHwLiSUW5VWDKSzvWc5ZQyrolrTFyo0VFXQ
- XEQY9VG6qipDxWEnQknxWOMuEVl3jO9MO+IMDDy94rzZeVTxrM+N+nQ5P25BZtIQ0nfC
- F+hA==
-X-Gm-Message-State: AOAM532zQHbUCy00h48kaM/Q+yw3DoXteZ/A2J3P0DMsWTzLF2ihTYrw
- ctR003OArv4DOttXe4JszZQ8XfrpVXII1g==
-X-Google-Smtp-Source: ABdhPJwc0hzVBxVQTjmQG/kXoinQZh9dI512vVQ17KvDTlIZyeVU50X4AUHUgs/kp1r+OWC3Wuj4WQ==
-X-Received: by 2002:a37:cc5:: with SMTP id 188mr6014634qkm.112.1624387022069; 
- Tue, 22 Jun 2021 11:37:02 -0700 (PDT)
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com.
- [209.85.222.175])
- by smtp.gmail.com with ESMTPSA id n207sm12647211qka.101.2021.06.22.11.37.00
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Jun 2021 11:37:01 -0700 (PDT)
-Received: by mail-qk1-f175.google.com with SMTP id c23so6573987qkc.10
- for <freedreno@lists.freedesktop.org>; Tue, 22 Jun 2021 11:37:00 -0700 (PDT)
-X-Received: by 2002:a25:60c1:: with SMTP id u184mr5281625ybb.343.1624387020330; 
- Tue, 22 Jun 2021 11:37:00 -0700 (PDT)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=Ggw6fsmku27vHRmfMQszrNre4+RfK7j3PrPkaoOAI5s=;
+ b=b+ZPOnRJou1+RiaF9lhOWZ5IA9waJul4SoB6BjAKkuNWREW5wIjP7PS3Vc4Qv6Xing
+ jBYtAVjv0hcwnKxAOZyHYDf3HD60m/F10u+rhjbV4xHCjNJ2MXcgM1XQh9GYHJWgmJTp
+ Qqk3bc9FTZS2pCD2u9fQzwslbYVtYJ4jjdSgOG7aIoJih6k/pH7e0u7jcUOfC1WuiOF/
+ jt7doowfXYp5cpiQ/Bg2ULUk8d1NwRwXOxOvtVUyFFjrXkCPI+v7vEe4Cw2XpsZ/PWfg
+ AnusSHwRx4bhlToCBpSljpN/D3jQjtOWeBZ0B0z/qDISP7a3H1rh7WuxTLKWUN48tMjT
+ 0jeQ==
+X-Gm-Message-State: AOAM5325vvU/+8GR3Agw3CkUkJWI/5UBKrhE9KjzA52XvINZs8pUcIEC
+ vKuz6I0xmj9aQ4gSvEwuaitdbl1MWTes3syfIIf6Lt9PkPw=
+X-Google-Smtp-Source: ABdhPJy5r3CCQB5ei2dsC6e+iDjGtLoVXl+JauwqFRFFC7KOLNaQ916rDZGbyoUW22i3iQ7L95AFS3Jj4//ujS57zu4=
+X-Received: by 2002:a4a:e2d0:: with SMTP id l16mr4771864oot.80.1624393384760; 
+ Tue, 22 Jun 2021 13:23:04 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 22 Jun 2021 13:23:04 -0700
 MIME-Version: 1.0
-References: <1624099230-20899-1-git-send-email-rajeevny@codeaurora.org>
- <1624099230-20899-6-git-send-email-rajeevny@codeaurora.org>
- <20210620100147.GB703072@ravnborg.org>
- <CAD=FV=VP8hLHtpZ8F5KVGWoKiJBxyQVufg7V9A2CC0rwcAX-aw@mail.gmail.com>
- <20210621184157.GB918146@ravnborg.org>
-In-Reply-To: <20210621184157.GB918146@ravnborg.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 22 Jun 2021 11:36:49 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=Wzz0yW8FPxSFRBQ+y0+PbO__g-fPU64kXwqBmi6zT6RA@mail.gmail.com>
-Message-ID: <CAD=FV=Wzz0yW8FPxSFRBQ+y0+PbO__g-fPU64kXwqBmi6zT6RA@mail.gmail.com>
-To: Sam Ravnborg <sam@ravnborg.org>
-Subject: Re: [Freedreno] [v7 5/5] drm/panel-simple: Add Samsung ATNA33XC20
+In-Reply-To: <YM0THrlJlv7ADW8w@builder.lan>
+References: <ef1879fa7ecfefaf0c70c7a4782240a9@codeaurora.org>
+ <CAE-0n50-X03sMyJdsw7s=Ue0dWXBo=iHOc0HxDQm5yh2J-uS3A@mail.gmail.com>
+ <YL/uj+t+BFkII1Fh@yoga>
+ <CAE-0n50WP25kRQkWMVdDZGsZWBXwfbVSTFKyBLF7f8Mp3x2Wfg@mail.gmail.com>
+ <YL/wWdRs6e/eECiC@yoga>
+ <CAE-0n51GM65rZVJgXuHy6FerJorHeHKf2W31GijG8sDEhaX_KQ@mail.gmail.com>
+ <YL/41hWz8xB+jSeO@yoga> <21dc5c9fc2efdc1a0ba924354bfd9d75@codeaurora.org>
+ <CAE-0n52J_mLsmXLS+skZn2u3k9dhn+GcHeXi0B2BeQyQxEUL9A@mail.gmail.com>
+ <YM0THrlJlv7ADW8w@builder.lan>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Tue, 22 Jun 2021 13:23:04 -0700
+Message-ID: <CAE-0n53Zr-w5m-eFhLM2BVmphcYb_M4=s5je3Y7Lg6=onNo=uA@mail.gmail.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2] arm64/dts/qcom/sc7180: Add Display Port
+ dt node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,127 +71,85 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Daniel Thompson <daniel.thompson@linaro.org>,
- Krishna Manikandan <mkrishn@codeaurora.org>, Lyude Paul <lyude@redhat.com>,
- Rajeev Nandan <rajeevny@codeaurora.org>, Rob Herring <robh@kernel.org>,
- Jani Nikula <jani.nikula@intel.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>, LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Andrzej Hajda <a.hajda@samsung.com>, Rob Clark <robdclark@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>, Sean Paul <seanpaul@chromium.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Kalyan Thota <kalyan_t@codeaurora.org>,
- "Kristian H. Kristensen" <hoegsberg@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: devicetree@vger.kernel.org, freedreno@lists.freedesktop.org,
+ vkoul@kernel.org, robh+dt@kernel.org, linux-kernel@vger.kernel.org,
+ khsieh@codeaurora.org, robdclark@gmail.com, agross@kernel.org,
+ abhinavk@codeaurora.org, linux-arm-msm@vger.kernel.org,
+ aravindh@codeaurora.org, sean@poorly.run
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-
-On Mon, Jun 21, 2021 at 11:42 AM Sam Ravnborg <sam@ravnborg.org> wrote:
+Quoting Bjorn Andersson (2021-06-18 14:41:50)
+> On Fri 18 Jun 15:49 CDT 2021, Stephen Boyd wrote:
 >
-> Hi Doug,
+> > Quoting khsieh@codeaurora.org (2021-06-10 09:54:05)
+> > > On 2021-06-08 16:10, Bjorn Andersson wrote:
+> > > > On Tue 08 Jun 17:44 CDT 2021, Stephen Boyd wrote:
+> > > >
+> > > >> Honestly I suspect the DP PHY is _not_ in the CX domain as CX is for
+> > > >> digital logic. Probably the PLL is the hardware that has some minimum
+> > > >> CX
+> > > >> requirement, and that flows down into the various display clks like
+> > > >> the
+> > > >> link clk that actually clock the DP controller hardware. The mdss_gdsc
+> > > >> probably gates CX for the display subsystem (mdss) so if we had proper
+> > > >> corner aggregation logic we could indicate that mdss_gdsc is a child
+> > > >> of
+> > > >> the CX domain and then make requests from the DP driver for particular
+> > > >> link frequencies on the mdss_gdsc and then have that bubble up to CX
+> > > >> appropriately. I don't think any of that sort of code is in place
+> > > >> though, right?
+> > > >
+> > > > I haven't checked sc7180, but I'm guessing that it's following the
+> > > > other
+> > > > modern platforms, where all the MDSS related pieces (including e.g.
+> > > > dispcc) lives in the MMCX domain, which is separate from CX.
+> > > >
+> > > > So the parent of MDSS_GDSC should be MMCX, while Kuogee's answer (and
+> > > > the dp-opp-table) tells us that the PLL lives in the CX domain.
+> >
+> > Isn't MMCX a "child" of CX? At least my understanding is that MMCX is
+> > basically a GDSC that clamps all of multimedia hardware block power
+> > logic so that the leakage is minimized when multimedia isn't in use,
+> > i.e. the device is suspended. In terms of bumping up the voltage we have
+> > to pin that on CX though as far as I know because that's the only power
+> > domain that can actually change voltage, while MMCX merely gates that
+> > voltage for multimedia.
+> >
 >
-> On Mon, Jun 21, 2021 at 08:34:51AM -0700, Doug Anderson wrote:
-> > Hi,
-> >
-> > On Sun, Jun 20, 2021 at 3:01 AM Sam Ravnborg <sam@ravnborg.org> wrote:
-> > >
-> > > Hi Rajeev
-> > > On Sat, Jun 19, 2021 at 04:10:30PM +0530, Rajeev Nandan wrote:
-> > > > Add Samsung 13.3" FHD eDP AMOLED panel.
-> > > >
-> > > > Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
-> > > > Reviewed-by: Douglas Anderson <dianders@chromium.org>
-> > > > ---
-> > > >
-> > > > Changes in v4:
-> > > > - New
-> > > >
-> > > > Changes in v5:
-> > > > - Remove "uses_dpcd_backlight" property, not required now. (Douglas)
-> > > >
-> > > > Changes in v7:
-> > > > - Update disable_to_power_off and power_to_enable delays. (Douglas)
-> > > >
-> > > >  drivers/gpu/drm/panel/panel-simple.c | 33 +++++++++++++++++++++++++++++++++
-> > > >  1 file changed, 33 insertions(+)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-> > > > index 86e5a45..4adc44a 100644
-> > > > --- a/drivers/gpu/drm/panel/panel-simple.c
-> > > > +++ b/drivers/gpu/drm/panel/panel-simple.c
-> > > > @@ -3562,6 +3562,36 @@ static const struct panel_desc rocktech_rk101ii01d_ct = {
-> > > >       .connector_type = DRM_MODE_CONNECTOR_LVDS,
-> > > >  };
-> > > >
-> > > > +static const struct drm_display_mode samsung_atna33xc20_mode = {
-> > > > +     .clock = 138770,
-> > > > +     .hdisplay = 1920,
-> > > > +     .hsync_start = 1920 + 48,
-> > > > +     .hsync_end = 1920 + 48 + 32,
-> > > > +     .htotal = 1920 + 48 + 32 + 80,
-> > > > +     .vdisplay = 1080,
-> > > > +     .vsync_start = 1080 + 8,
-> > > > +     .vsync_end = 1080 + 8 + 8,
-> > > > +     .vtotal = 1080 + 8 + 8 + 16,
-> > > > +     .flags = DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_NVSYNC,
-> > > > +};
-> > > > +
-> > > > +static const struct panel_desc samsung_atna33xc20 = {
-> > > > +     .modes = &samsung_atna33xc20_mode,
-> > > > +     .num_modes = 1,
-> > > > +     .bpc = 10,
-> > > > +     .size = {
-> > > > +             .width = 294,
-> > > > +             .height = 165,
-> > > > +     },
-> > > > +     .delay = {
-> > > > +             .disable_to_power_off = 200,
-> > > > +             .power_to_enable = 400,
-> > > > +             .hpd_absent_delay = 200,
-> > > > +             .unprepare = 500,
-> > > > +     },
-> > > > +     .connector_type = DRM_MODE_CONNECTOR_eDP,
-> > > > +};
-> > >
-> > > bus_format is missing. There should be a warning about this when you
-> > > probe the display.
-> >
-> > Sam: I'm curious about the requirement of hardcoding bus_format like
-> > this for eDP panels. Most eDP panels support a variety of bits per
-> > pixel and do so dynamically. Ones I've poked at freely support 6bpp
-> > and 8bpp. Presumably this one supports both of those modes and also
-> > 10bpp. I haven't done detailed research on it, but it would also
-> > surprise me if the "bus format" for a given bpp needed to be specified
-> > for eDP. Presumably since eDP has most of the "autodetect" type
-> > features of DP then if the format needed to be accounted for that you
-> > could query the hardware?
-> >
-> > Looking at the datasheet for the ti-sn65dsi86 MIPI-to-eDP bridge chip
-> > I see that it explicitly calls out the bus formats that it supports
-> > for the MIPI side but doesn't call out anything for eDP. That would
-> > tend to support my belief that there isn't variance on the eDP side...
-> >
-> > Maybe the right fix is to actually change the check not to give a
-> > warning for eDP panels? ...or am I misunderstanding?
+> No, MMCX is a separate rail from CX, which powers the display blocks and
+> is parent of MDSS_GDSC. But I see in rpmhpd that sc7180 is not one of
+> these platforms, so I presume this means that the displayport controller
+> thereby sits in MDSS_GDSC parented by CX.
 >
-> I have never dived into the datasheets of eDP panels so I do not know.
-> The checks were added based on what we had in-tree and it is no suprise
-> if they need an update or are just plain wrong.
-> I expect you to be in a better position to make the call here - but we
-> should not add panels that triggers warnings so either fix the warnings
-> or fix the panel description.
+> But in line with what you're saying, the naming of the supplies to the
+> QMP indicates that the power for the PLLs is static. As such the only
+> moving things would be the clock rates in the DP controller and as such
+> that's what needs to scale the voltage.
+>
+> So if the resources we're scaling is the clocks in the DP controller
+> then the gist of the patch is correct. The only details I see is that
+> the DP controller actually sits in MDSS_GDSC - while it should control
+> the level of its parent (CX). Not sure if we can describe that in a
+> simple way.
 
-Agreed. I'd support a patch that removes this warning for eDP panels
-unless someone knows that it makes sense. I haven't been able to find
-anything indicating that it does.
+Right. I'm not sure things could be described any better right now. If
+we need to change this to be MDSS_GDSC power domain and control the
+level of the parent then I suppose we'll have to make some sort of DT
+change and pair that with a driver change. Maybe if that happens we can
+just pick a new compatible and leave the old code in place.
 
--Doug
+Are you happy enough with this current patch?
+
+>
+>
+> PS. Why does the node name of the opp-table have to be globally unique?
+
+Presumably the opp table node name can be 'opp-table' as long as it
+lives under the node that's using it. If the opp table is at / or /soc
+then it will need to be unique. I'd prefer just 'opp-table' if possible.
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
