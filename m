@@ -1,51 +1,51 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFF1B3B1CD7
-	for <lists+freedreno@lfdr.de>; Wed, 23 Jun 2021 16:48:32 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FAE43B223A
+	for <lists+freedreno@lfdr.de>; Wed, 23 Jun 2021 23:07:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DBCA6E91C;
-	Wed, 23 Jun 2021 14:48:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5FCC6E98C;
+	Wed, 23 Jun 2021 21:06:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B43F6E91C;
- Wed, 23 Jun 2021 14:48:30 +0000 (UTC)
-Received: by mail-wm1-x32f.google.com with SMTP id
- h21-20020a1ccc150000b02901d4d33c5ca0so1532076wmb.3; 
- Wed, 23 Jun 2021 07:48:30 -0700 (PDT)
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 715F96E98C;
+ Wed, 23 Jun 2021 21:06:52 +0000 (UTC)
+Received: by mail-wm1-x332.google.com with SMTP id
+ l18-20020a1ced120000b029014c1adff1edso4829582wmh.4; 
+ Wed, 23 Jun 2021 14:06:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:from:date:message-id:subject:to:cc;
- bh=d1q053PoMUI27HkuA+/kGj3JaXMCINu5aAUPFc/SDcY=;
- b=lB5FRYab/LPA7TfirA7mk9d+RUxXem9GOVCByPQAhEx7oLpqzOs0f8KLYL3L6PNGZM
- lJs6wIzzXYkqIM4NPrNXtIxKmLORYyCDF5UDO209kGQUdwdIc2Yg1gs7iVEu5ZGOc+85
- zGoE5nCcBipZIt5VlgjTiUlCS7SNg3oNsTMjsaXoShFw6hMY//fKOiH5wgNmGCQpTrqJ
- 501kBeyetgf/ZM3dQRmnTooecjep86iPtbyNQs6ddD/yAlfb1cvfauvP0diwrlFl4SL9
- WeEeVWqggHdd4kb2xsCbIT08NBAdGSPgI3g7XWlA4lQPz+1Qy4jahfnJMCtxF3yJa/p0
- xRrg==
+ bh=W1XPg8Uwq4l8UaUUZ7CyGBQp8mo76VKWlbchI4Ag/NA=;
+ b=Z7X76dGYzk7Z8QLFefY/8lCmAAcIK1aOHZNZB0ZGFJ4eVaIkp3i1k2F3BVU30eOAmz
+ f56FHUbp/y+OoR2QI0qgAd5XpY7DHNsSuZF6RXJk6+Z6iq6bPqq+WfKKDFs7W/Zhqi65
+ mVMWtBuFd/YKCz67EyOP35eNQWnVJnYNCc+KtllFO0NowKF5IvNhkb9OnU5lirSPW38u
+ K4VzKYgQ+vNsJAkREHuMp46g6vxQV2QMv71rpQk8Cjs+SgpVXOrP1YQE1oTd5PnwD5k0
+ 54CuqMZ9oU+hda8wUBP3HkPVLHLeA34sOzOe19HaD/ASYuMKc/PovaUa3smyZSK2QGYU
+ W7Rg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=d1q053PoMUI27HkuA+/kGj3JaXMCINu5aAUPFc/SDcY=;
- b=J6DFfdEbMCFfEaBvfe5TI5Lpi1ZzpwnxtSNtGyre57Z/Se8hc9Ngm3l7Phi7BWugSw
- 7A/Tlu1wsjfzjGz8hv/i+3Np/iMG/kEblqlO8G+kodY3yDtAZ73HmJ6mmvmnPhY4/p3V
- H64+rxF52o/JmlxW921LkSnnQnbm9Naw0yIYpRoRu40u3nDo5Bjdp0Cg1ORphCiuV41F
- QyEW9UjIzOdtpsgyA1BIAfe7L1kAvVElKNfhqVQWSWkaSqfczMbR0QlNHzGgz7RW2wSl
- LMUb3kQRNC7h4969d4xwHbiQDZ7v8FeACBPSYboE4B15YjZkqT/7M9+PgQTG5Nt8E7yr
- SdzA==
-X-Gm-Message-State: AOAM5335kt5DkALnbF0Qz/au0q8ZhDYVyXLD00dw7Du9VSzEL0YWZKXt
- 7bZp+Pril2LzebA1vBfwvG/hS9X7pHKw7L39R8w=
-X-Google-Smtp-Source: ABdhPJwhuM+QdzME5YDMjYAUe5o8s4tsyh5hrzQ8jDed0fMMsmaUOIjPq/jy4M6pQYsr4xhVPcg+CPH9LhPkAWm/LDw=
-X-Received: by 2002:a1c:2605:: with SMTP id m5mr11435501wmm.123.1624459708715; 
- Wed, 23 Jun 2021 07:48:28 -0700 (PDT)
+ bh=W1XPg8Uwq4l8UaUUZ7CyGBQp8mo76VKWlbchI4Ag/NA=;
+ b=l4NQ1GoeY+p98PKU6u2GHKE8mbTg0L6t6hKuDJSCraZqaz92jyFcdtqnBch3D99oK4
+ yfqE6dZPndTdL0ctY/fzYvUgUwe2u5EbvTPCZTMv5wXqIzgYU0Mlq5eGdKzFKeI+yGuo
+ GOIa2Zzh/Sv5CWYb5m/qcq50SFrGOFgP63Bl/B3MXx3zNubF2FwbbNCBWlkUSa/n4YYW
+ pDW76vfJwXpGSazsbUZCLyOD63O8z9LXQoi/tc3YrzVjT1eT0nSq4ymHKI2/pbpWAocx
+ 1+bORPo99IuLAF9tQvYJfsBJSmNRpE8ClsS/18w4p4/kzfiQLVV1Y65oa/IBDgc2YJ6k
+ 138A==
+X-Gm-Message-State: AOAM532jQHQL9LVsIH3i4soLv2XN2LwJ/MoTSBXNSP0kYjyWdXV3PMqx
+ 1mjyK+iFKb+Im0nkht8JKMw0E302EW/0uj6V6Io=
+X-Google-Smtp-Source: ABdhPJwNVB8DGP2NzD4Mn1pcKFUHionpoZIXcIKgxCMSK7+1FULXvLxSg2y/yeguEe0cl2Hne3hefOdEu1DSg3IT6ms=
+X-Received: by 2002:a05:600c:d8:: with SMTP id u24mr87676wmm.94.1624482411025; 
+ Wed, 23 Jun 2021 14:06:51 -0700 (PDT)
 MIME-Version: 1.0
 From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 23 Jun 2021 07:52:28 -0700
-Message-ID: <CAF6AEGvR7oJzwbzBPFqTV6dQFF95D48HHgVwF2RwMPRocMwqtA@mail.gmail.com>
+Date: Wed, 23 Jun 2021 14:10:51 -0700
+Message-ID: <CAF6AEGs4=qsGBBbyn-4JWqW4-YUSTKh67X3DsPQ=T2D9aXKqNA@mail.gmail.com>
 To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Subject: [Freedreno] [pull v2] drm/msm: drm-msm-next-2021-06-23 for v5.14
+Subject: [Freedreno] [pull v3] drm/msm: drm-msm-next-2021-06-23b for v5.14
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,13 +58,12 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Will Deacon <will@kernel.org>, freedreno <freedreno@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
+Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  Abhinav Kumar <abhinavk@codeaurora.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Robin Murphy <robin.murphy@arm.com>
+ freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
@@ -72,10 +71,8 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 Hi Dave & Daniel,
 
-Resend of previous pull request, but with history rewritten to correct
-a Fixes tag that was incorrectly pointing at a CrOS kernel commit :-(
-
-Otherwise, the same as before.  Original description:
+Updated to revert last commit which was breaking armv7 build (and
+updated description below)
 
 Here is msm-next for v5.14
 
@@ -86,7 +83,6 @@ Notable additions this time around:
 * dpu: dt bindings conversion to yaml
 * dsi: dt bindings conversion to yaml
 * mdp5: alpha/blend_mode/zpos support
-* mdp5: dynamic bandwidth management
 * a6xx: cached coherent buffer support
 * a660 support
 * gpu iova fault improvements:
@@ -100,11 +96,12 @@ The following changes since commit c4681547bcce777daf576925a966ffa824edd09d:
 
 are available in the Git repository at:
 
-  https://gitlab.freedesktop.org/drm/msm.git drm-msm-next-2021-06-23
+  https://gitlab.freedesktop.org/drm/msm.git drm-msm-next-2021-06-23b
 
-for you to fetch changes up to c1d12c19efd91b9cda5472bc4ec48854e67c24a8:
+for you to fetch changes up to e88bbc91849b2bf57683119c339e52916d34433f:
 
-  drm/msm/mdp5: provide dynamic bandwidth management (2021-06-23 07:33:56 -0700)
+  Revert "drm/msm/mdp5: provide dynamic bandwidth management"
+(2021-06-23 14:06:20 -0700)
 
 ----------------------------------------------------------------
 Abhinav Kumar (7):
@@ -206,12 +203,13 @@ Lee Jones (5):
       drm/msm/dp/dp_catalog: Correctly document param 'dp_catalog'
       drm/msm/dp/dp_link: Fix some potential doc-rot
 
-Rob Clark (5):
+Rob Clark (6):
       Merge branch 'msm-fixes-v5.13-rc6' into msm-next-redo
       drm/msm: Generated register update
       iommu/arm-smmu-qcom: Add stall support
       drm/msm: devcoredump iommu fault support
       drm/msm: Add debugfs to trigger shrinker
+      Revert "drm/msm/mdp5: provide dynamic bandwidth management"
 
 Samuel Iglesias Gonsalvez (1):
       drm/msm: export hangcheck_period in debugfs
@@ -312,10 +310,9 @@ zuoqilin (1):
  drivers/gpu/drm/msm/disp/mdp5/mdp5.xml.h           |   38 +-
  drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c           |   35 +
  drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h           |    7 +
- drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c          |   56 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c           |  119 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h           |   17 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c         |  177 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c          |   12 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h           |    5 -
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c         |  135 +-
  drivers/gpu/drm/msm/disp/mdp_common.xml.h          |   34 +-
  drivers/gpu/drm/msm/disp/msm_disp_snapshot.c       |  125 ++
  drivers/gpu/drm/msm/disp/msm_disp_snapshot.h       |  136 ++
@@ -376,7 +373,7 @@ zuoqilin (1):
  drivers/iommu/arm/arm-smmu/arm-smmu.h              |    2 +
  include/linux/adreno-smmu-priv.h                   |   38 +-
  include/uapi/drm/msm_drm.h                         |    7 +-
- 134 files changed, 7508 insertions(+), 6352 deletions(-)
+ 133 files changed, 7327 insertions(+), 6316 deletions(-)
  create mode 100644
 Documentation/devicetree/bindings/display/msm/dp-controller.yaml
  create mode 100644
