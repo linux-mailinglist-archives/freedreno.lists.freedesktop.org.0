@@ -2,60 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5695E3B13C9
-	for <lists+freedreno@lfdr.de>; Wed, 23 Jun 2021 08:15:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFF1B3B1CD7
+	for <lists+freedreno@lfdr.de>; Wed, 23 Jun 2021 16:48:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81A6889E03;
-	Wed, 23 Jun 2021 06:15:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DBCA6E91C;
+	Wed, 23 Jun 2021 14:48:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 628FD89C6B
- for <freedreno@lists.freedesktop.org>; Wed, 23 Jun 2021 06:15:28 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1624428928; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=YgXZ6VNhDITS6yDaGx56LtlJqbhq7xTELt1tz8y6TYM=;
- b=xl7bO7xx7M6eAEt1saclwuOzx+45NdiPw60wBU7X1DdqeBDaOHJFVL9bOg03jOnRgybl8j9O
- BZWL5BeYVdQ+Nji3rWYbW3LhnqVtjEKTFS955HZpaUDni5I4MkdmxDPdR0Ia68CAQKFtx6kJ
- kH6qBKwaWBDxFgGajfnrNahjqx4=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
- 60d2d17e01dd9a943150670c (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 23 Jun 2021 06:15:26
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 7AC20C43460; Wed, 23 Jun 2021 06:15:26 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: rajeevny)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 93D9CC433D3;
- Wed, 23 Jun 2021 06:15:24 +0000 (UTC)
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B43F6E91C;
+ Wed, 23 Jun 2021 14:48:30 +0000 (UTC)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ h21-20020a1ccc150000b02901d4d33c5ca0so1532076wmb.3; 
+ Wed, 23 Jun 2021 07:48:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=d1q053PoMUI27HkuA+/kGj3JaXMCINu5aAUPFc/SDcY=;
+ b=lB5FRYab/LPA7TfirA7mk9d+RUxXem9GOVCByPQAhEx7oLpqzOs0f8KLYL3L6PNGZM
+ lJs6wIzzXYkqIM4NPrNXtIxKmLORYyCDF5UDO209kGQUdwdIc2Yg1gs7iVEu5ZGOc+85
+ zGoE5nCcBipZIt5VlgjTiUlCS7SNg3oNsTMjsaXoShFw6hMY//fKOiH5wgNmGCQpTrqJ
+ 501kBeyetgf/ZM3dQRmnTooecjep86iPtbyNQs6ddD/yAlfb1cvfauvP0diwrlFl4SL9
+ WeEeVWqggHdd4kb2xsCbIT08NBAdGSPgI3g7XWlA4lQPz+1Qy4jahfnJMCtxF3yJa/p0
+ xRrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=d1q053PoMUI27HkuA+/kGj3JaXMCINu5aAUPFc/SDcY=;
+ b=J6DFfdEbMCFfEaBvfe5TI5Lpi1ZzpwnxtSNtGyre57Z/Se8hc9Ngm3l7Phi7BWugSw
+ 7A/Tlu1wsjfzjGz8hv/i+3Np/iMG/kEblqlO8G+kodY3yDtAZ73HmJ6mmvmnPhY4/p3V
+ H64+rxF52o/JmlxW921LkSnnQnbm9Naw0yIYpRoRu40u3nDo5Bjdp0Cg1ORphCiuV41F
+ QyEW9UjIzOdtpsgyA1BIAfe7L1kAvVElKNfhqVQWSWkaSqfczMbR0QlNHzGgz7RW2wSl
+ LMUb3kQRNC7h4969d4xwHbiQDZ7v8FeACBPSYboE4B15YjZkqT/7M9+PgQTG5Nt8E7yr
+ SdzA==
+X-Gm-Message-State: AOAM5335kt5DkALnbF0Qz/au0q8ZhDYVyXLD00dw7Du9VSzEL0YWZKXt
+ 7bZp+Pril2LzebA1vBfwvG/hS9X7pHKw7L39R8w=
+X-Google-Smtp-Source: ABdhPJwhuM+QdzME5YDMjYAUe5o8s4tsyh5hrzQ8jDed0fMMsmaUOIjPq/jy4M6pQYsr4xhVPcg+CPH9LhPkAWm/LDw=
+X-Received: by 2002:a1c:2605:: with SMTP id m5mr11435501wmm.123.1624459708715; 
+ Wed, 23 Jun 2021 07:48:28 -0700 (PDT)
 MIME-Version: 1.0
-Date: Wed, 23 Jun 2021 11:45:24 +0530
-From: rajeevny@codeaurora.org
-To: Doug Anderson <dianders@chromium.org>
-In-Reply-To: <CAD=FV=WJiA+RxaQA9xt7Tik_2pCEJo0+6b39Di8cfnSWGuKkJQ@mail.gmail.com>
-References: <1624099230-20899-1-git-send-email-rajeevny@codeaurora.org>
- <1624099230-20899-2-git-send-email-rajeevny@codeaurora.org>
- <20210620093141.GA703072@ravnborg.org>
- <ebf5581759daee9596c2f092ca836ecb@codeaurora.org>
- <20210621183828.GA918146@ravnborg.org>
- <CAD=FV=WJiA+RxaQA9xt7Tik_2pCEJo0+6b39Di8cfnSWGuKkJQ@mail.gmail.com>
-Message-ID: <c15947bb1566f176a2f534c52a7c3183@codeaurora.org>
-X-Sender: rajeevny@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [v7 1/5] drm/panel: add basic DP AUX backlight
- support
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 23 Jun 2021 07:52:28 -0700
+Message-ID: <CAF6AEGvR7oJzwbzBPFqTV6dQFF95D48HHgVwF2RwMPRocMwqtA@mail.gmail.com>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Subject: [Freedreno] [pull v2] drm/msm: drm-msm-next-2021-06-23 for v5.14
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,176 +58,356 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, dri-devel <dri-devel@lists.freedesktop.org>,
- Andrzej Hajda <a.hajda@samsung.com>, Thierry Reding <thierry.reding@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- "Kristian H. Kristensen" <hoegsberg@chromium.org>,
- Sam Ravnborg <sam@ravnborg.org>, Rob Herring <robh@kernel.org>,
- Daniel Thompson <daniel.thompson@linaro.org>, Lee Jones <lee.jones@linaro.org>,
- "open list:OPEN FIRMWARE AND FLATTENED
- DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
- Lyude Paul <lyude@redhat.com>, Jani Nikula <jani.nikula@intel.com>,
+Cc: Will Deacon <will@kernel.org>, freedreno <freedreno@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
  linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>, Sean Paul <seanpaul@chromium.org>,
- Kalyan Thota <kalyan_t@codeaurora.org>,
- Krishna Manikandan <mkrishn@codeaurora.org>, Jingoo Han <jingoohan1@gmail.com>,
- LKML <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- freedreno <freedreno@lists.freedesktop.org>
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Robin Murphy <robin.murphy@arm.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+Hi Dave & Daniel,
 
-On 23-06-2021 00:03, Doug Anderson wrote:
-> Hi,
-> 
-> On Mon, Jun 21, 2021 at 11:38 AM Sam Ravnborg <sam@ravnborg.org> wrote:
->> 
->> > > I cannot see why you need the extra check on ->enabled?
->> > > Would it be sufficient to check backlight_is_blank() only?
->> >
->> > This extra check on bl->enabled flag is added to avoid enabling/disabling
->> > backlight again if it is already enabled/disabled.
->> > Using this flag way can know the transition between backlight blank and
->> > un-blank, and decide when to enable/disable the backlight.
->> 
->> My point is that this should really not be needed, as it would cover 
->> up
->> for some other bug whaere we try to do something twice that is not
->> needed. But I am less certain here so if you think it is needed, keep
->> it as is.
-> 
-> I haven't tested this myself, but I believe that it is needed. I don't
-> think the backlight update_status() function is like an enable/disable
-> function. I believe it can be called more than one time even while the
-> backlight is disabled. For instance, you can see that
-> backlight_update_status() just blindly calls through to update the
-> status. That function can be called for a number of reasons. Perhaps
-> Rajeev can put some printouts to confirm but I think that if the
-> backlight is "blanked" for whatever reason and you write to sysfs and
-> change the backlight level you'll still get called again even though
-> the backlight is still "disabled".
-> 
-Yes, sysfs write will always try to update the backlight even though the 
-backlight is "blanked".
+Resend of previous pull request, but with history rewritten to correct
+a Fixes tag that was incorrectly pointing at a CrOS kernel commit :-(
 
-The "bl->enabled" check is also required to prevent unnecessary calls to 
-drm_edp_backlight_enable() during every backlight level change.
+Otherwise, the same as before.  Original description:
 
-To confirm this, I have added few prints in 
-dp_aux_backlight_update_status() function and collected the logs.
-(Copying the code here to make the review easy)
+Here is msm-next for v5.14
 
+Notable additions this time around:
 
-static int dp_aux_backlight_update_status(struct backlight_device *bd)
-{
-         struct dp_aux_backlight *bl = bl_get_data(bd);
-         u16 brightness = backlight_get_brightness(bd);
-         int ret = 0;
+* devcoredump support for display errors
+* dpu: irq cleanup/refactor
+* dpu: dt bindings conversion to yaml
+* dsi: dt bindings conversion to yaml
+* mdp5: alpha/blend_mode/zpos support
+* mdp5: dynamic bandwidth management
+* a6xx: cached coherent buffer support
+* a660 support
+* gpu iova fault improvements:
+   - info about which block triggered the fault, etc
+   - generation of gpu devcoredump on fault
+* assortment of other cleanups and fixes
 
-+        pr_err("%s: brightness %d, _is_blank %d, bl->enabled %d\n", 
-__func__,
-+                brightness, backlight_is_blank(bd), bl->enabled);
+The following changes since commit c4681547bcce777daf576925a966ffa824edd09d:
 
-         if (!backlight_is_blank(bd)) {
-                 if (!bl->enabled) {
-+                        pr_err("%s: enabling backlight\n", __func__);
-                         drm_edp_backlight_enable(bl->aux, &bl->info, 
-brightness);
-                         bl->enabled = true;
-                         return 0;
-                 }
-                 ret = drm_edp_backlight_set_level(bl->aux, &bl->info, 
-brightness);
-         } else {
-                 if (bl->enabled) {
-+                       pr_err("%s: disabling backlight\n", __func__);
-                         drm_edp_backlight_disable(bl->aux, &bl->info);
-                         bl->enabled = false;
-                 }
-         }
+  Linux 5.13-rc3 (2021-05-23 11:42:48 -1000)
 
-         return ret;
-}
+are available in the Git repository at:
 
+  https://gitlab.freedesktop.org/drm/msm.git drm-msm-next-2021-06-23
 
-LOGS
-====
+for you to fetch changes up to c1d12c19efd91b9cda5472bc4ec48854e67c24a8:
 
-During boot
------------
-[    4.752188] dp_aux_backlight_update_status: brightness 102, _is_blank 
-0, bl->enabled 0
-[    4.760447] dp_aux_backlight_update_status: enabling backlight
-[    5.503866] dp_aux_backlight_update_status: brightness 102, _is_blank 
-0, bl->enabled 1
-[    6.897355] dp_aux_backlight_update_status: brightness 103, _is_blank 
-0, bl->enabled 1
-[    6.938617] dp_aux_backlight_update_status: brightness 104, _is_blank 
-0, bl->enabled 1
-[    6.980634] dp_aux_backlight_update_status: brightness 105, _is_blank 
-0, bl->enabled 1
+  drm/msm/mdp5: provide dynamic bandwidth management (2021-06-23 07:33:56 -0700)
 
+----------------------------------------------------------------
+Abhinav Kumar (7):
+      drm: allow drm_atomic_print_state() to accept any drm_printer
+      drm/msm: add support to take dpu snapshot
+      drm/msm/dsi: add API to take DSI register snapshot
+      drm/msm/dp: add API to take DP register snapshot
+      drm/msm/disp/dpu1: add API to take DPU register snapshot
+      drm/msm: add support to take dsi, dp and dpu snapshot
+      drm/msm: add disp snapshot points across dpu driver
 
-Turning Panel OFF
------------------
-localhost ~ # set_power_policy --ac_screen_dim_delay=5 
---ac_screen_off_delay=10
-localhost ~ #
+Alexey Minnekhanov (1):
+      drm/msm: Init mm_list before accessing it for use_vram path
 
-[  106.555140] dp_aux_backlight_update_status: brightness 145, _is_blank 
-0, bl->enabled 1
-...
-...
-[  111.679407] dp_aux_backlight_update_status: brightness 7, _is_blank 
-0, bl->enabled 1
-[  111.700302] dp_aux_backlight_update_status: brightness 4, _is_blank 
-0, bl->enabled 1
-[  111.720805] dp_aux_backlight_update_status: brightness 2, _is_blank 
-0, bl->enabled 1
-[  111.747486] dp_aux_backlight_update_status: brightness 0, _is_blank 
-1, bl->enabled 1
-[  111.755580] dp_aux_backlight_update_status: disabling backlight
-[  111.792344] dp_aux_backlight_update_status: brightness 0, _is_blank 
-1, bl->enabled 0
+Arnd Bergmann (1):
+      drm/msm/dsi: fix 32-bit clang warning
 
+Bernard Zhao (1):
+      drm/msm: remove unneeded variable ret
 
-Changing brightness from sysfs while panel is off
---------------------------------------------------
-(it will do nothing)
+Bhaskar Chowdhury (3):
+      drm/msm/dpu: Fix a typo
+      drm/msm/dpu: Fix a typo
+      drm/msm/dp: Fixed couple of typos
 
-localhost ~ # echo 100 > 
-/sys/class/backlight/dp_aux_backlight/brightness
-[  352.754963] dp_aux_backlight_update_status: brightness 0, _is_blank 
-1, bl->enabled 0
+Bjorn Andersson (1):
+      drm/msm/dpu: Avoid ABBA deadlock between IRQ modules
 
-localhost ~ # echo 200 > 
-/sys/class/backlight/dp_aux_backlight/brightness
-[  364.708048] dp_aux_backlight_update_status: brightness 0, _is_blank 
-1, bl->enabled 0
+Dmitry Baryshkov (23):
+      drm/msm: pass dump state as a function argument
+      drm/msm: make msm_disp_state transient data struct
+      drm/msm: get rid of msm_iomap_size
+      drm/msm/dsi: add DSI PHY registers to snapshot data
+      drm/msm: fix display snapshotting if DP or DSI is disabled
+      drm/msm/dpu: merge dpu_hw_intr_get_interrupt_statuses into
+dpu_hw_intr_dispatch_irqs
+      drm/msm/dpu: hw_intr: always call dpu_hw_intr_clear_intr_status_nolock
+      drm/msm/dpu: define interrupt register names
+      drm/msm/dpu: replace IRQ lookup with the data in hw catalog
+      drm/msm/dpu: drop remains of old irq lookup subsystem
+      drm/msm/dpu: simplify IRQ enabling/disabling
+      drm/msm/dsi: print error code when MIPI DSI host registration fails
+      drm/msm/dpu: remove unused dpu_hw_blk features
+      drm/msm/dpu: drop dpu_hw_blk_destroy function
+      drm/msm/dpu: use struct dpu_hw_merge_3d in dpu_hw_pingpong
+      drm/msm/dpu: hw_blk: make dpu_hw_blk empty opaque structure
+      drm/msm/dsi: do not enable PHYs when called for the slave DSI interface
+      drm/msm/mdp5: use drm atomic helpers to handle base drm plane state
+      drm/msm/mdp5: use drm_plane_state for storing alpha value
+      drm/msm/mdp5: use drm_plane_state for pixel blend mode
+      drm/msm/mdp5: add support for alpha/blend_mode properties
+      drm/msm/mdp5: switch to standard zpos property
+      drm/msm/mdp5: provide dynamic bandwidth management
 
-localhost ~ # echo 0 > /sys/class/backlight/dp_aux_backlight/brightness
-[  378.850978] dp_aux_backlight_update_status: brightness 0, _is_blank 
-1, bl->enabled 0
+Guenter Roeck (2):
+      drm/msm/dp: Drop unnecessary NULL checks after container_of
+      drm/msm/dpu: Drop unnecessary NULL checks after container_of in
+dpu_encoder
 
+James Willcox (1):
+      drm/msm/mdp5: add perf blocks for holding fudge factors
 
-Turning Panel ON
-----------------
-[  553.381745] dp_aux_backlight_update_status: brightness 0, _is_blank 
-0, bl->enabled 0
-[  553.418133] dp_aux_backlight_update_status: enabling backlight
-[  553.426397] dp_aux_backlight_update_status: brightness 159, _is_blank 
-0, bl->enabled 1
+Jonathan Marek (13):
+      drm/msm/a6xx: update/fix CP_PROTECT initialization
+      drm/msm/a6xx: fix incorrectly set uavflagprd_inv field for A650
+      drm/msm/a6xx: avoid shadow NULL reference in failure path
+      drm/msm: remove unnecessary mmap logic for cached BOs
+      drm/msm: replace MSM_BO_UNCACHED with MSM_BO_WC for internal objects
+      drm/msm: use the right pgprot when mapping BOs in the kernel
+      drm/msm: add MSM_BO_CACHED_COHERENT
+      drm/msm: deprecate MSM_BO_UNCACHED (map as writecombine instead)
+      drm/msm: remove unused icc_path/ocmem_icc_path
+      drm/msm/a6xx: use AOP-initialized PDC for a650
+      drm/msm/a6xx: add GMU_CX_GMU_CX_FALNEXT_INTF write for a650
+      drm/msm/a6xx: add missing PC_DBG_ECO_CNTL bit for a640/a650
+      drm/msm/a6xx: add support for Adreno 660 GPU
 
-====
+Jordan Crouse (3):
+      iommu/arm-smmu: Add support for driver IOMMU fault handlers
+      iommu/arm-smmu-qcom: Add an adreno-smmu-priv callback to get
+pagefault info
+      drm/msm: Improve the a6xx page fault handler
 
+Krishna Manikandan (5):
+      dt-bindings: msm: disp: add yaml schemas for DPU bindings
+      dt-bindings: msm: dsi: add yaml schemas for DSI bindings
+      dt-bindings: msm: dsi: add yaml schemas for DSI PHY bindings
+      dt-bindings: msm/dp: Add bindings of MSM DisplayPort controller
+      drm/msm/disp/dpu1: avoid perf update in frame done event
 
+Kuogee Hsieh (2):
+      drm/msm/dp: handle irq_hpd with sink_count = 0 correctly
+      drm/msm/dp: power off DP phy at suspend
 
-Thanks,
-Rajeev
+Lee Jones (5):
+      drm/msm/dp/dp_display: Remove unused variable 'hpd'
+      drm/msm/disp/dpu1/dpu_plane: Fix a couple of naming issues
+      drm/msm/msm_gem: Demote kernel-doc abuses
+      drm/msm/dp/dp_catalog: Correctly document param 'dp_catalog'
+      drm/msm/dp/dp_link: Fix some potential doc-rot
 
+Rob Clark (5):
+      Merge branch 'msm-fixes-v5.13-rc6' into msm-next-redo
+      drm/msm: Generated register update
+      iommu/arm-smmu-qcom: Add stall support
+      drm/msm: devcoredump iommu fault support
+      drm/msm: Add debugfs to trigger shrinker
+
+Samuel Iglesias Gonsalvez (1):
+      drm/msm: export hangcheck_period in debugfs
+
+Shaokun Zhang (1):
+      drm/msm/dp: remove the repeated declaration
+
+Stephen Boyd (10):
+      drm/msm/dsi: Stash away calculated vco frequency on recalc
+      drm/msm/dp: Simplify aux irq handling code
+      drm/msm/dp: Shrink locking area of dp_aux_transfer()
+      drm/msm/dp: Handle aux timeouts, nacks, defers
+      drm/msm: Move vblank debug prints to drm_dbg_vbl()
+      drm/msm/dp: Drop malformed debug print
+      drm/msm: Move FB debug prints to drm_dbg_state()
+      drm/msm/disp: Use plane debug print helper
+      drm/msm/disp: Move various debug logs to atomic bucket
+      drm/msm: Use VERB() for extra verbose logging
+
+Yangtao Li (1):
+      drm/msm: Convert to use resource-managed OPP API
+
+Zhen Lei (3):
+      drm/msm: Fix error return code in msm_drm_init()
+      drm/msm/dpu: Fix error return code in dpu_mdss_init()
+      drm/msm/dpu: remove unused local variable 'cmd_enc'
+
+zuoqilin (1):
+      drm/msm: Remove unneeded variable: "rc"
+
+ .../bindings/display/msm/dp-controller.yaml        |  146 ++
+ .../bindings/display/msm/dpu-sc7180.yaml           |  228 ++
+ .../bindings/display/msm/dpu-sdm845.yaml           |  212 ++
+ .../devicetree/bindings/display/msm/dpu.txt        |  141 --
+ .../bindings/display/msm/dsi-controller-main.yaml  |  185 ++
+ .../bindings/display/msm/dsi-phy-10nm.yaml         |   68 +
+ .../bindings/display/msm/dsi-phy-14nm.yaml         |   66 +
+ .../bindings/display/msm/dsi-phy-20nm.yaml         |   71 +
+ .../bindings/display/msm/dsi-phy-28nm.yaml         |   68 +
+ .../bindings/display/msm/dsi-phy-common.yaml       |   40 +
+ .../devicetree/bindings/display/msm/dsi.txt        |  249 ---
+ drivers/gpu/drm/drm_atomic.c                       |   28 +-
+ drivers/gpu/drm/drm_atomic_uapi.c                  |    4 +-
+ drivers/gpu/drm/drm_crtc_internal.h                |    4 +-
+ drivers/gpu/drm/msm/Makefile                       |    3 +-
+ drivers/gpu/drm/msm/adreno/a2xx.xml.h              |   60 +-
+ drivers/gpu/drm/msm/adreno/a3xx.xml.h              |   40 +-
+ drivers/gpu/drm/msm/adreno/a4xx.xml.h              |   38 +-
+ drivers/gpu/drm/msm/adreno/a5xx.xml.h              |   95 +-
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c              |   29 +-
+ drivers/gpu/drm/msm/adreno/a5xx_power.c            |    2 +-
+ drivers/gpu/drm/msm/adreno/a5xx_preempt.c          |    4 +-
+ drivers/gpu/drm/msm/adreno/a6xx.xml.h              | 2201 ++++++++++----------
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |   55 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h          |   34 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  460 +++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h              |    4 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c        |   44 +-
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.c              |   33 +
+ drivers/gpu/drm/msm/adreno/adreno_common.xml.h     |   30 +-
+ drivers/gpu/drm/msm/adreno/adreno_device.c         |   14 +
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c            |   26 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h            |   13 +-
+ drivers/gpu/drm/msm/adreno/adreno_pm4.xml.h        |  119 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c       |  230 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.h       |   43 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c      |   22 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           |   43 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  110 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h   |    4 -
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c   |   58 +-
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |   54 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c        |    6 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.c         |  139 --
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.h         |   22 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  202 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   16 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |    6 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c        |    7 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c  | 1508 +-------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h  |  132 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        |    6 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c          |    6 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |    2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_merge3d.c     |    6 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c    |    6 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h    |    4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c        |    6 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c         |    6 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   70 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h            |    8 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c           |    8 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          |   23 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c             |    4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h          |   63 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c           |   14 +-
+ drivers/gpu/drm/msm/disp/mdp4/mdp4.xml.h           |   34 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5.xml.h           |   38 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c           |   35 +
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h           |    7 +
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c          |   56 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c           |  119 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h           |   17 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c         |  177 +-
+ drivers/gpu/drm/msm/disp/mdp_common.xml.h          |   34 +-
+ drivers/gpu/drm/msm/disp/msm_disp_snapshot.c       |  125 ++
+ drivers/gpu/drm/msm/disp/msm_disp_snapshot.h       |  136 ++
+ drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c  |  187 ++
+ drivers/gpu/drm/msm/dp/dp_aux.c                    |  181 +-
+ drivers/gpu/drm/msm/dp/dp_aux.h                    |    8 -
+ drivers/gpu/drm/msm/dp/dp_catalog.c                |   18 +-
+ drivers/gpu/drm/msm/dp/dp_catalog.h                |    7 +-
+ drivers/gpu/drm/msm/dp/dp_ctrl.c                   |   87 +-
+ drivers/gpu/drm/msm/dp/dp_ctrl.h                   |    3 +-
+ drivers/gpu/drm/msm/dp/dp_display.c                |  121 +-
+ drivers/gpu/drm/msm/dp/dp_display.h                |    1 +
+ drivers/gpu/drm/msm/dp/dp_link.c                   |   21 +-
+ drivers/gpu/drm/msm/dp/dp_panel.c                  |    4 +-
+ drivers/gpu/drm/msm/dp/dp_power.h                  |    4 +-
+ drivers/gpu/drm/msm/dsi/dsi.c                      |    6 +
+ drivers/gpu/drm/msm/dsi/dsi.h                      |    4 +-
+ drivers/gpu/drm/msm/dsi/dsi.xml.h                  | 1722 +--------------
+ drivers/gpu/drm/msm/dsi/dsi_host.c                 |   30 +-
+ drivers/gpu/drm/msm/dsi/dsi_manager.c              |   12 +-
+ drivers/gpu/drm/msm/dsi/dsi_phy_10nm.xml.h         |  228 ++
+ drivers/gpu/drm/msm/dsi/dsi_phy_14nm.xml.h         |  310 +++
+ drivers/gpu/drm/msm/dsi/dsi_phy_20nm.xml.h         |  238 +++
+ drivers/gpu/drm/msm/dsi/dsi_phy_28nm.xml.h         |  385 ++++
+ drivers/gpu/drm/msm/dsi/dsi_phy_28nm_8960.xml.h    |  287 +++
+ drivers/gpu/drm/msm/dsi/dsi_phy_5nm.xml.h          |  480 +++++
+ drivers/gpu/drm/msm/dsi/dsi_phy_7nm.xml.h          |  482 +++++
+ drivers/gpu/drm/msm/dsi/mmss_cc.xml.h              |   34 +-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c              |   31 +-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h              |    4 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c         |    2 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c         |    1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c         |    1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c         |    1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c    |    1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c          |    8 +-
+ drivers/gpu/drm/msm/dsi/sfpb.xml.h                 |   34 +-
+ drivers/gpu/drm/msm/edp/edp.xml.h                  |   34 +-
+ drivers/gpu/drm/msm/hdmi/hdmi.xml.h                |   34 +-
+ drivers/gpu/drm/msm/hdmi/qfprom.xml.h              |   34 +-
+ drivers/gpu/drm/msm/msm_debugfs.c                  |   31 +
+ drivers/gpu/drm/msm/msm_drv.c                      |   33 +-
+ drivers/gpu/drm/msm/msm_drv.h                      |   24 +-
+ drivers/gpu/drm/msm/msm_fb.c                       |    8 +-
+ drivers/gpu/drm/msm/msm_gem.c                      |   45 +-
+ drivers/gpu/drm/msm/msm_gem.h                      |    1 +
+ drivers/gpu/drm/msm/msm_gem_shrinker.c             |   18 +
+ drivers/gpu/drm/msm/msm_gem_submit.c               |    1 +
+ drivers/gpu/drm/msm/msm_gpu.c                      |   51 +-
+ drivers/gpu/drm/msm/msm_gpu.h                      |   29 +-
+ drivers/gpu/drm/msm/msm_gpummu.c                   |    5 +
+ drivers/gpu/drm/msm/msm_iommu.c                    |   22 +-
+ drivers/gpu/drm/msm/msm_kms.h                      |    9 +
+ drivers/gpu/drm/msm/msm_mmu.h                      |    5 +-
+ drivers/gpu/drm/selftests/test-drm_framebuffer.c   |    1 +
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c         |   50 +
+ drivers/iommu/arm/arm-smmu/arm-smmu.c              |    9 +-
+ drivers/iommu/arm/arm-smmu/arm-smmu.h              |    2 +
+ include/linux/adreno-smmu-priv.h                   |   38 +-
+ include/uapi/drm/msm_drm.h                         |    7 +-
+ 134 files changed, 7508 insertions(+), 6352 deletions(-)
+ create mode 100644
+Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+ create mode 100644
+Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
+ create mode 100644
+Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
+ delete mode 100644 Documentation/devicetree/bindings/display/msm/dpu.txt
+ create mode 100644
+Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+ create mode 100644
+Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
+ create mode 100644
+Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
+ create mode 100644
+Documentation/devicetree/bindings/display/msm/dsi-phy-20nm.yaml
+ create mode 100644
+Documentation/devicetree/bindings/display/msm/dsi-phy-28nm.yaml
+ create mode 100644
+Documentation/devicetree/bindings/display/msm/dsi-phy-common.yaml
+ delete mode 100644 Documentation/devicetree/bindings/display/msm/dsi.txt
+ delete mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.c
+ create mode 100644 drivers/gpu/drm/msm/disp/msm_disp_snapshot.c
+ create mode 100644 drivers/gpu/drm/msm/disp/msm_disp_snapshot.h
+ create mode 100644 drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
+ create mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_10nm.xml.h
+ create mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_14nm.xml.h
+ create mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_20nm.xml.h
+ create mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_28nm.xml.h
+ create mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_28nm_8960.xml.h
+ create mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_5nm.xml.h
+ create mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_7nm.xml.h
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
