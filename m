@@ -2,50 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FAE43B223A
-	for <lists+freedreno@lfdr.de>; Wed, 23 Jun 2021 23:07:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79F6F3B2B03
+	for <lists+freedreno@lfdr.de>; Thu, 24 Jun 2021 11:03:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5FCC6E98C;
-	Wed, 23 Jun 2021 21:06:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E5ED6EA8D;
+	Thu, 24 Jun 2021 09:03:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 715F96E98C;
- Wed, 23 Jun 2021 21:06:52 +0000 (UTC)
-Received: by mail-wm1-x332.google.com with SMTP id
- l18-20020a1ced120000b029014c1adff1edso4829582wmh.4; 
- Wed, 23 Jun 2021 14:06:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=W1XPg8Uwq4l8UaUUZ7CyGBQp8mo76VKWlbchI4Ag/NA=;
- b=Z7X76dGYzk7Z8QLFefY/8lCmAAcIK1aOHZNZB0ZGFJ4eVaIkp3i1k2F3BVU30eOAmz
- f56FHUbp/y+OoR2QI0qgAd5XpY7DHNsSuZF6RXJk6+Z6iq6bPqq+WfKKDFs7W/Zhqi65
- mVMWtBuFd/YKCz67EyOP35eNQWnVJnYNCc+KtllFO0NowKF5IvNhkb9OnU5lirSPW38u
- K4VzKYgQ+vNsJAkREHuMp46g6vxQV2QMv71rpQk8Cjs+SgpVXOrP1YQE1oTd5PnwD5k0
- 54CuqMZ9oU+hda8wUBP3HkPVLHLeA34sOzOe19HaD/ASYuMKc/PovaUa3smyZSK2QGYU
- W7Rg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=W1XPg8Uwq4l8UaUUZ7CyGBQp8mo76VKWlbchI4Ag/NA=;
- b=l4NQ1GoeY+p98PKU6u2GHKE8mbTg0L6t6hKuDJSCraZqaz92jyFcdtqnBch3D99oK4
- yfqE6dZPndTdL0ctY/fzYvUgUwe2u5EbvTPCZTMv5wXqIzgYU0Mlq5eGdKzFKeI+yGuo
- GOIa2Zzh/Sv5CWYb5m/qcq50SFrGOFgP63Bl/B3MXx3zNubF2FwbbNCBWlkUSa/n4YYW
- pDW76vfJwXpGSazsbUZCLyOD63O8z9LXQoi/tc3YrzVjT1eT0nSq4ymHKI2/pbpWAocx
- 1+bORPo99IuLAF9tQvYJfsBJSmNRpE8ClsS/18w4p4/kzfiQLVV1Y65oa/IBDgc2YJ6k
- 138A==
-X-Gm-Message-State: AOAM532jQHQL9LVsIH3i4soLv2XN2LwJ/MoTSBXNSP0kYjyWdXV3PMqx
- 1mjyK+iFKb+Im0nkht8JKMw0E302EW/0uj6V6Io=
-X-Google-Smtp-Source: ABdhPJwNVB8DGP2NzD4Mn1pcKFUHionpoZIXcIKgxCMSK7+1FULXvLxSg2y/yeguEe0cl2Hne3hefOdEu1DSg3IT6ms=
-X-Received: by 2002:a05:600c:d8:: with SMTP id u24mr87676wmm.94.1624482411025; 
- Wed, 23 Jun 2021 14:06:51 -0700 (PDT)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DC786E9F7;
+ Thu, 24 Jun 2021 09:03:45 +0000 (UTC)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 056BF21966;
+ Thu, 24 Jun 2021 09:03:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1624525424; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=/wTWL02/ZGtmm6qLgcS2qa07ZCZmv3vn08NiAa+vqJ0=;
+ b=kSpxLp5K1bRDwz72LcYaqqRmVeCp4gNLQustc3A+3vOMUEND1Rd6q9aVMbMJzjyZiDdUa6
+ REoLeGl0kVT8k1iOUBAe7pfc9LRMVRWMT+erZQxuqwoq34eIJdxAKW3K6X/vraRxDHvTDm
+ +9mb6pHkK7TE4i44glfsSsSu7ZBPMsQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1624525424;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=/wTWL02/ZGtmm6qLgcS2qa07ZCZmv3vn08NiAa+vqJ0=;
+ b=R1x2/YUi3HuYHhSJerkAxe+2XoaOhPf9VBGVS/Jptp4Y+FZy8yMkttPCTY6dyy1R3yExKK
+ WBLpf4f0jiGe/7Bg==
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id CFFE511A97;
+ Thu, 24 Jun 2021 09:03:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1624525424; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=/wTWL02/ZGtmm6qLgcS2qa07ZCZmv3vn08NiAa+vqJ0=;
+ b=kSpxLp5K1bRDwz72LcYaqqRmVeCp4gNLQustc3A+3vOMUEND1Rd6q9aVMbMJzjyZiDdUa6
+ REoLeGl0kVT8k1iOUBAe7pfc9LRMVRWMT+erZQxuqwoq34eIJdxAKW3K6X/vraRxDHvTDm
+ +9mb6pHkK7TE4i44glfsSsSu7ZBPMsQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1624525424;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=/wTWL02/ZGtmm6qLgcS2qa07ZCZmv3vn08NiAa+vqJ0=;
+ b=R1x2/YUi3HuYHhSJerkAxe+2XoaOhPf9VBGVS/Jptp4Y+FZy8yMkttPCTY6dyy1R3yExKK
+ WBLpf4f0jiGe/7Bg==
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id A0HYMW9K1GDZNAAALh3uQQ
+ (envelope-from <tzimmermann@suse.de>); Thu, 24 Jun 2021 09:03:43 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch
+Date: Thu, 24 Jun 2021 11:03:41 +0200
+Message-Id: <20210624090341.8249-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 23 Jun 2021 14:10:51 -0700
-Message-ID: <CAF6AEGs4=qsGBBbyn-4JWqW4-YUSTKh67X3DsPQ=T2D9aXKqNA@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Subject: [Freedreno] [pull v3] drm/msm: drm-msm-next-2021-06-23b for v5.14
+Subject: [Freedreno] [PATCH] drm/msm: Implement mmap as GEM object function
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,353 +70,234 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave & Daniel,
+Moving the driver-specific mmap code into a GEM object function allows
+for using DRM helpers for various mmap callbacks.
 
-Updated to revert last commit which was breaking armv7 build (and
-updated description below)
+The respective msm functions are being removed. The file_operations
+structure fops is now being created by the helper macro
+DEFINE_DRM_GEM_FOPS().
 
-Here is msm-next for v5.14
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/gpu/drm/msm/msm_drv.c       | 14 +-----
+ drivers/gpu/drm/msm/msm_drv.h       |  1 -
+ drivers/gpu/drm/msm/msm_fbdev.c     | 10 +----
+ drivers/gpu/drm/msm/msm_gem.c       | 67 ++++++++++++-----------------
+ drivers/gpu/drm/msm/msm_gem.h       |  3 --
+ drivers/gpu/drm/msm/msm_gem_prime.c | 11 -----
+ 6 files changed, 31 insertions(+), 75 deletions(-)
 
-Notable additions this time around:
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index fe7d17cd35ec..f62eaedfc0d7 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -985,17 +985,7 @@ static const struct drm_ioctl_desc msm_ioctls[] = {
+ 	DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_QUERY, msm_ioctl_submitqueue_query, DRM_RENDER_ALLOW),
+ };
+ 
+-static const struct file_operations fops = {
+-	.owner              = THIS_MODULE,
+-	.open               = drm_open,
+-	.release            = drm_release,
+-	.unlocked_ioctl     = drm_ioctl,
+-	.compat_ioctl       = drm_compat_ioctl,
+-	.poll               = drm_poll,
+-	.read               = drm_read,
+-	.llseek             = no_llseek,
+-	.mmap               = msm_gem_mmap,
+-};
++DEFINE_DRM_GEM_FOPS(fops);
+ 
+ static const struct drm_driver msm_driver = {
+ 	.driver_features    = DRIVER_GEM |
+@@ -1015,7 +1005,7 @@ static const struct drm_driver msm_driver = {
+ 	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
+ 	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
+ 	.gem_prime_import_sg_table = msm_gem_prime_import_sg_table,
+-	.gem_prime_mmap     = msm_gem_prime_mmap,
++	.gem_prime_mmap     = drm_gem_prime_mmap,
+ #ifdef CONFIG_DEBUG_FS
+ 	.debugfs_init       = msm_debugfs_init,
+ #endif
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index 2668941df529..8f1e0d7c8bbb 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -300,7 +300,6 @@ void msm_gem_shrinker_cleanup(struct drm_device *dev);
+ struct sg_table *msm_gem_prime_get_sg_table(struct drm_gem_object *obj);
+ int msm_gem_prime_vmap(struct drm_gem_object *obj, struct dma_buf_map *map);
+ void msm_gem_prime_vunmap(struct drm_gem_object *obj, struct dma_buf_map *map);
+-int msm_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma);
+ struct drm_gem_object *msm_gem_prime_import_sg_table(struct drm_device *dev,
+ 		struct dma_buf_attachment *attach, struct sg_table *sg);
+ int msm_gem_prime_pin(struct drm_gem_object *obj);
+diff --git a/drivers/gpu/drm/msm/msm_fbdev.c b/drivers/gpu/drm/msm/msm_fbdev.c
+index 227404077e39..07225907fd2d 100644
+--- a/drivers/gpu/drm/msm/msm_fbdev.c
++++ b/drivers/gpu/drm/msm/msm_fbdev.c
+@@ -8,6 +8,7 @@
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_fb_helper.h>
+ #include <drm/drm_fourcc.h>
++#include <drm/drm_prime.h>
+ 
+ #include "msm_drv.h"
+ #include "msm_gem.h"
+@@ -48,15 +49,8 @@ static int msm_fbdev_mmap(struct fb_info *info, struct vm_area_struct *vma)
+ 	struct drm_fb_helper *helper = (struct drm_fb_helper *)info->par;
+ 	struct msm_fbdev *fbdev = to_msm_fbdev(helper);
+ 	struct drm_gem_object *bo = msm_framebuffer_bo(fbdev->fb, 0);
+-	int ret = 0;
+ 
+-	ret = drm_gem_mmap_obj(bo, bo->size, vma);
+-	if (ret) {
+-		pr_err("%s:drm_gem_mmap_obj fail\n", __func__);
+-		return ret;
+-	}
+-
+-	return msm_gem_mmap_obj(bo, vma);
++	return drm_gem_prime_mmap(bo, vma);
+ }
+ 
+ static int msm_fbdev_create(struct drm_fb_helper *helper,
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index b61f5466e522..71d835bc575d 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -211,46 +211,6 @@ void msm_gem_put_pages(struct drm_gem_object *obj)
+ 	msm_gem_unlock(obj);
+ }
+ 
+-int msm_gem_mmap_obj(struct drm_gem_object *obj,
+-		struct vm_area_struct *vma)
+-{
+-	struct msm_gem_object *msm_obj = to_msm_bo(obj);
+-
+-	vma->vm_flags &= ~VM_PFNMAP;
+-	vma->vm_flags |= VM_MIXEDMAP;
+-
+-	if (msm_obj->flags & MSM_BO_WC) {
+-		vma->vm_page_prot = pgprot_writecombine(vm_get_page_prot(vma->vm_flags));
+-	} else if (msm_obj->flags & MSM_BO_UNCACHED) {
+-		vma->vm_page_prot = pgprot_noncached(vm_get_page_prot(vma->vm_flags));
+-	} else {
+-		/*
+-		 * Shunt off cached objs to shmem file so they have their own
+-		 * address_space (so unmap_mapping_range does what we want,
+-		 * in particular in the case of mmap'd dmabufs)
+-		 */
+-		vma->vm_pgoff = 0;
+-		vma_set_file(vma, obj->filp);
+-
+-		vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
+-	}
+-
+-	return 0;
+-}
+-
+-int msm_gem_mmap(struct file *filp, struct vm_area_struct *vma)
+-{
+-	int ret;
+-
+-	ret = drm_gem_mmap(filp, vma);
+-	if (ret) {
+-		DBG("mmap failed: %d", ret);
+-		return ret;
+-	}
+-
+-	return msm_gem_mmap_obj(vma->vm_private_data, vma);
+-}
+-
+ static vm_fault_t msm_gem_fault(struct vm_fault *vmf)
+ {
+ 	struct vm_area_struct *vma = vmf->vma;
+@@ -1119,6 +1079,32 @@ void msm_gem_free_object(struct drm_gem_object *obj)
+ 	kfree(msm_obj);
+ }
+ 
++static int msm_gem_object_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
++{
++	struct msm_gem_object *msm_obj = to_msm_bo(obj);
++
++	vma->vm_flags &= ~VM_PFNMAP;
++	vma->vm_flags |= VM_MIXEDMAP;
++
++	if (msm_obj->flags & MSM_BO_WC) {
++		vma->vm_page_prot = pgprot_writecombine(vm_get_page_prot(vma->vm_flags));
++	} else if (msm_obj->flags & MSM_BO_UNCACHED) {
++		vma->vm_page_prot = pgprot_noncached(vm_get_page_prot(vma->vm_flags));
++	} else {
++		/*
++		 * Shunt off cached objs to shmem file so they have their own
++		 * address_space (so unmap_mapping_range does what we want,
++		 * in particular in the case of mmap'd dmabufs)
++		 */
++		vma->vm_pgoff = 0;
++		vma_set_file(vma, obj->filp);
++
++		vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
++	}
++
++	return 0;
++}
++
+ /* convenience method to construct a GEM buffer object, and userspace handle */
+ int msm_gem_new_handle(struct drm_device *dev, struct drm_file *file,
+ 		uint32_t size, uint32_t flags, uint32_t *handle,
+@@ -1156,6 +1142,7 @@ static const struct drm_gem_object_funcs msm_gem_object_funcs = {
+ 	.get_sg_table = msm_gem_prime_get_sg_table,
+ 	.vmap = msm_gem_prime_vmap,
+ 	.vunmap = msm_gem_prime_vunmap,
++	.mmap = msm_gem_object_mmap,
+ 	.vm_ops = &vm_ops,
+ };
+ 
+diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
+index 03e2cc2a2ce1..8508163088a9 100644
+--- a/drivers/gpu/drm/msm/msm_gem.h
++++ b/drivers/gpu/drm/msm/msm_gem.h
+@@ -112,9 +112,6 @@ struct msm_gem_object {
+ };
+ #define to_msm_bo(x) container_of(x, struct msm_gem_object, base)
+ 
+-int msm_gem_mmap_obj(struct drm_gem_object *obj,
+-			struct vm_area_struct *vma);
+-int msm_gem_mmap(struct file *filp, struct vm_area_struct *vma);
+ uint64_t msm_gem_mmap_offset(struct drm_gem_object *obj);
+ int msm_gem_get_iova(struct drm_gem_object *obj,
+ 		struct msm_gem_address_space *aspace, uint64_t *iova);
+diff --git a/drivers/gpu/drm/msm/msm_gem_prime.c b/drivers/gpu/drm/msm/msm_gem_prime.c
+index 9880348a4dc7..fc94e061d6a7 100644
+--- a/drivers/gpu/drm/msm/msm_gem_prime.c
++++ b/drivers/gpu/drm/msm/msm_gem_prime.c
+@@ -39,17 +39,6 @@ void msm_gem_prime_vunmap(struct drm_gem_object *obj, struct dma_buf_map *map)
+ 	msm_gem_put_vaddr(obj);
+ }
+ 
+-int msm_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
+-{
+-	int ret;
+-
+-	ret = drm_gem_mmap_obj(obj, obj->size, vma);
+-	if (ret < 0)
+-		return ret;
+-
+-	return msm_gem_mmap_obj(vma->vm_private_data, vma);
+-}
+-
+ struct drm_gem_object *msm_gem_prime_import_sg_table(struct drm_device *dev,
+ 		struct dma_buf_attachment *attach, struct sg_table *sg)
+ {
+-- 
+2.32.0
 
-* devcoredump support for display errors
-* dpu: irq cleanup/refactor
-* dpu: dt bindings conversion to yaml
-* dsi: dt bindings conversion to yaml
-* mdp5: alpha/blend_mode/zpos support
-* a6xx: cached coherent buffer support
-* a660 support
-* gpu iova fault improvements:
-   - info about which block triggered the fault, etc
-   - generation of gpu devcoredump on fault
-* assortment of other cleanups and fixes
-
-The following changes since commit c4681547bcce777daf576925a966ffa824edd09d:
-
-  Linux 5.13-rc3 (2021-05-23 11:42:48 -1000)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/msm.git drm-msm-next-2021-06-23b
-
-for you to fetch changes up to e88bbc91849b2bf57683119c339e52916d34433f:
-
-  Revert "drm/msm/mdp5: provide dynamic bandwidth management"
-(2021-06-23 14:06:20 -0700)
-
-----------------------------------------------------------------
-Abhinav Kumar (7):
-      drm: allow drm_atomic_print_state() to accept any drm_printer
-      drm/msm: add support to take dpu snapshot
-      drm/msm/dsi: add API to take DSI register snapshot
-      drm/msm/dp: add API to take DP register snapshot
-      drm/msm/disp/dpu1: add API to take DPU register snapshot
-      drm/msm: add support to take dsi, dp and dpu snapshot
-      drm/msm: add disp snapshot points across dpu driver
-
-Alexey Minnekhanov (1):
-      drm/msm: Init mm_list before accessing it for use_vram path
-
-Arnd Bergmann (1):
-      drm/msm/dsi: fix 32-bit clang warning
-
-Bernard Zhao (1):
-      drm/msm: remove unneeded variable ret
-
-Bhaskar Chowdhury (3):
-      drm/msm/dpu: Fix a typo
-      drm/msm/dpu: Fix a typo
-      drm/msm/dp: Fixed couple of typos
-
-Bjorn Andersson (1):
-      drm/msm/dpu: Avoid ABBA deadlock between IRQ modules
-
-Dmitry Baryshkov (23):
-      drm/msm: pass dump state as a function argument
-      drm/msm: make msm_disp_state transient data struct
-      drm/msm: get rid of msm_iomap_size
-      drm/msm/dsi: add DSI PHY registers to snapshot data
-      drm/msm: fix display snapshotting if DP or DSI is disabled
-      drm/msm/dpu: merge dpu_hw_intr_get_interrupt_statuses into
-dpu_hw_intr_dispatch_irqs
-      drm/msm/dpu: hw_intr: always call dpu_hw_intr_clear_intr_status_nolock
-      drm/msm/dpu: define interrupt register names
-      drm/msm/dpu: replace IRQ lookup with the data in hw catalog
-      drm/msm/dpu: drop remains of old irq lookup subsystem
-      drm/msm/dpu: simplify IRQ enabling/disabling
-      drm/msm/dsi: print error code when MIPI DSI host registration fails
-      drm/msm/dpu: remove unused dpu_hw_blk features
-      drm/msm/dpu: drop dpu_hw_blk_destroy function
-      drm/msm/dpu: use struct dpu_hw_merge_3d in dpu_hw_pingpong
-      drm/msm/dpu: hw_blk: make dpu_hw_blk empty opaque structure
-      drm/msm/dsi: do not enable PHYs when called for the slave DSI interface
-      drm/msm/mdp5: use drm atomic helpers to handle base drm plane state
-      drm/msm/mdp5: use drm_plane_state for storing alpha value
-      drm/msm/mdp5: use drm_plane_state for pixel blend mode
-      drm/msm/mdp5: add support for alpha/blend_mode properties
-      drm/msm/mdp5: switch to standard zpos property
-      drm/msm/mdp5: provide dynamic bandwidth management
-
-Guenter Roeck (2):
-      drm/msm/dp: Drop unnecessary NULL checks after container_of
-      drm/msm/dpu: Drop unnecessary NULL checks after container_of in
-dpu_encoder
-
-James Willcox (1):
-      drm/msm/mdp5: add perf blocks for holding fudge factors
-
-Jonathan Marek (13):
-      drm/msm/a6xx: update/fix CP_PROTECT initialization
-      drm/msm/a6xx: fix incorrectly set uavflagprd_inv field for A650
-      drm/msm/a6xx: avoid shadow NULL reference in failure path
-      drm/msm: remove unnecessary mmap logic for cached BOs
-      drm/msm: replace MSM_BO_UNCACHED with MSM_BO_WC for internal objects
-      drm/msm: use the right pgprot when mapping BOs in the kernel
-      drm/msm: add MSM_BO_CACHED_COHERENT
-      drm/msm: deprecate MSM_BO_UNCACHED (map as writecombine instead)
-      drm/msm: remove unused icc_path/ocmem_icc_path
-      drm/msm/a6xx: use AOP-initialized PDC for a650
-      drm/msm/a6xx: add GMU_CX_GMU_CX_FALNEXT_INTF write for a650
-      drm/msm/a6xx: add missing PC_DBG_ECO_CNTL bit for a640/a650
-      drm/msm/a6xx: add support for Adreno 660 GPU
-
-Jordan Crouse (3):
-      iommu/arm-smmu: Add support for driver IOMMU fault handlers
-      iommu/arm-smmu-qcom: Add an adreno-smmu-priv callback to get
-pagefault info
-      drm/msm: Improve the a6xx page fault handler
-
-Krishna Manikandan (5):
-      dt-bindings: msm: disp: add yaml schemas for DPU bindings
-      dt-bindings: msm: dsi: add yaml schemas for DSI bindings
-      dt-bindings: msm: dsi: add yaml schemas for DSI PHY bindings
-      dt-bindings: msm/dp: Add bindings of MSM DisplayPort controller
-      drm/msm/disp/dpu1: avoid perf update in frame done event
-
-Kuogee Hsieh (2):
-      drm/msm/dp: handle irq_hpd with sink_count = 0 correctly
-      drm/msm/dp: power off DP phy at suspend
-
-Lee Jones (5):
-      drm/msm/dp/dp_display: Remove unused variable 'hpd'
-      drm/msm/disp/dpu1/dpu_plane: Fix a couple of naming issues
-      drm/msm/msm_gem: Demote kernel-doc abuses
-      drm/msm/dp/dp_catalog: Correctly document param 'dp_catalog'
-      drm/msm/dp/dp_link: Fix some potential doc-rot
-
-Rob Clark (6):
-      Merge branch 'msm-fixes-v5.13-rc6' into msm-next-redo
-      drm/msm: Generated register update
-      iommu/arm-smmu-qcom: Add stall support
-      drm/msm: devcoredump iommu fault support
-      drm/msm: Add debugfs to trigger shrinker
-      Revert "drm/msm/mdp5: provide dynamic bandwidth management"
-
-Samuel Iglesias Gonsalvez (1):
-      drm/msm: export hangcheck_period in debugfs
-
-Shaokun Zhang (1):
-      drm/msm/dp: remove the repeated declaration
-
-Stephen Boyd (10):
-      drm/msm/dsi: Stash away calculated vco frequency on recalc
-      drm/msm/dp: Simplify aux irq handling code
-      drm/msm/dp: Shrink locking area of dp_aux_transfer()
-      drm/msm/dp: Handle aux timeouts, nacks, defers
-      drm/msm: Move vblank debug prints to drm_dbg_vbl()
-      drm/msm/dp: Drop malformed debug print
-      drm/msm: Move FB debug prints to drm_dbg_state()
-      drm/msm/disp: Use plane debug print helper
-      drm/msm/disp: Move various debug logs to atomic bucket
-      drm/msm: Use VERB() for extra verbose logging
-
-Yangtao Li (1):
-      drm/msm: Convert to use resource-managed OPP API
-
-Zhen Lei (3):
-      drm/msm: Fix error return code in msm_drm_init()
-      drm/msm/dpu: Fix error return code in dpu_mdss_init()
-      drm/msm/dpu: remove unused local variable 'cmd_enc'
-
-zuoqilin (1):
-      drm/msm: Remove unneeded variable: "rc"
-
- .../bindings/display/msm/dp-controller.yaml        |  146 ++
- .../bindings/display/msm/dpu-sc7180.yaml           |  228 ++
- .../bindings/display/msm/dpu-sdm845.yaml           |  212 ++
- .../devicetree/bindings/display/msm/dpu.txt        |  141 --
- .../bindings/display/msm/dsi-controller-main.yaml  |  185 ++
- .../bindings/display/msm/dsi-phy-10nm.yaml         |   68 +
- .../bindings/display/msm/dsi-phy-14nm.yaml         |   66 +
- .../bindings/display/msm/dsi-phy-20nm.yaml         |   71 +
- .../bindings/display/msm/dsi-phy-28nm.yaml         |   68 +
- .../bindings/display/msm/dsi-phy-common.yaml       |   40 +
- .../devicetree/bindings/display/msm/dsi.txt        |  249 ---
- drivers/gpu/drm/drm_atomic.c                       |   28 +-
- drivers/gpu/drm/drm_atomic_uapi.c                  |    4 +-
- drivers/gpu/drm/drm_crtc_internal.h                |    4 +-
- drivers/gpu/drm/msm/Makefile                       |    3 +-
- drivers/gpu/drm/msm/adreno/a2xx.xml.h              |   60 +-
- drivers/gpu/drm/msm/adreno/a3xx.xml.h              |   40 +-
- drivers/gpu/drm/msm/adreno/a4xx.xml.h              |   38 +-
- drivers/gpu/drm/msm/adreno/a5xx.xml.h              |   95 +-
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c              |   29 +-
- drivers/gpu/drm/msm/adreno/a5xx_power.c            |    2 +-
- drivers/gpu/drm/msm/adreno/a5xx_preempt.c          |    4 +-
- drivers/gpu/drm/msm/adreno/a6xx.xml.h              | 2201 ++++++++++----------
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |   55 +-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h          |   34 +-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  460 +++-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.h              |    4 +-
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c        |   44 +-
- drivers/gpu/drm/msm/adreno/a6xx_hfi.c              |   33 +
- drivers/gpu/drm/msm/adreno/adreno_common.xml.h     |   30 +-
- drivers/gpu/drm/msm/adreno/adreno_device.c         |   14 +
- drivers/gpu/drm/msm/adreno/adreno_gpu.c            |   26 +-
- drivers/gpu/drm/msm/adreno/adreno_gpu.h            |   13 +-
- drivers/gpu/drm/msm/adreno/adreno_pm4.xml.h        |  119 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c       |  230 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.h       |   43 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c      |   22 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           |   43 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  110 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h   |    4 -
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c   |   58 +-
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |   54 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c        |    6 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.c         |  139 --
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.h         |   22 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  202 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   16 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |    6 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c        |    7 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c  | 1508 +-------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h  |  132 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        |    6 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c          |    6 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |    2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_merge3d.c     |    6 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c    |    6 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h    |    4 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c        |    6 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c         |    6 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   70 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h            |    8 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c           |    8 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          |   23 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c             |    4 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h          |   63 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c           |   14 +-
- drivers/gpu/drm/msm/disp/mdp4/mdp4.xml.h           |   34 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5.xml.h           |   38 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c           |   35 +
- drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h           |    7 +
- drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c          |   12 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h           |    5 -
- drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c         |  135 +-
- drivers/gpu/drm/msm/disp/mdp_common.xml.h          |   34 +-
- drivers/gpu/drm/msm/disp/msm_disp_snapshot.c       |  125 ++
- drivers/gpu/drm/msm/disp/msm_disp_snapshot.h       |  136 ++
- drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c  |  187 ++
- drivers/gpu/drm/msm/dp/dp_aux.c                    |  181 +-
- drivers/gpu/drm/msm/dp/dp_aux.h                    |    8 -
- drivers/gpu/drm/msm/dp/dp_catalog.c                |   18 +-
- drivers/gpu/drm/msm/dp/dp_catalog.h                |    7 +-
- drivers/gpu/drm/msm/dp/dp_ctrl.c                   |   87 +-
- drivers/gpu/drm/msm/dp/dp_ctrl.h                   |    3 +-
- drivers/gpu/drm/msm/dp/dp_display.c                |  121 +-
- drivers/gpu/drm/msm/dp/dp_display.h                |    1 +
- drivers/gpu/drm/msm/dp/dp_link.c                   |   21 +-
- drivers/gpu/drm/msm/dp/dp_panel.c                  |    4 +-
- drivers/gpu/drm/msm/dp/dp_power.h                  |    4 +-
- drivers/gpu/drm/msm/dsi/dsi.c                      |    6 +
- drivers/gpu/drm/msm/dsi/dsi.h                      |    4 +-
- drivers/gpu/drm/msm/dsi/dsi.xml.h                  | 1722 +--------------
- drivers/gpu/drm/msm/dsi/dsi_host.c                 |   30 +-
- drivers/gpu/drm/msm/dsi/dsi_manager.c              |   12 +-
- drivers/gpu/drm/msm/dsi/dsi_phy_10nm.xml.h         |  228 ++
- drivers/gpu/drm/msm/dsi/dsi_phy_14nm.xml.h         |  310 +++
- drivers/gpu/drm/msm/dsi/dsi_phy_20nm.xml.h         |  238 +++
- drivers/gpu/drm/msm/dsi/dsi_phy_28nm.xml.h         |  385 ++++
- drivers/gpu/drm/msm/dsi/dsi_phy_28nm_8960.xml.h    |  287 +++
- drivers/gpu/drm/msm/dsi/dsi_phy_5nm.xml.h          |  480 +++++
- drivers/gpu/drm/msm/dsi/dsi_phy_7nm.xml.h          |  482 +++++
- drivers/gpu/drm/msm/dsi/mmss_cc.xml.h              |   34 +-
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.c              |   31 +-
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.h              |    4 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c         |    2 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c         |    1 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c         |    1 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c         |    1 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c    |    1 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c          |    8 +-
- drivers/gpu/drm/msm/dsi/sfpb.xml.h                 |   34 +-
- drivers/gpu/drm/msm/edp/edp.xml.h                  |   34 +-
- drivers/gpu/drm/msm/hdmi/hdmi.xml.h                |   34 +-
- drivers/gpu/drm/msm/hdmi/qfprom.xml.h              |   34 +-
- drivers/gpu/drm/msm/msm_debugfs.c                  |   31 +
- drivers/gpu/drm/msm/msm_drv.c                      |   33 +-
- drivers/gpu/drm/msm/msm_drv.h                      |   24 +-
- drivers/gpu/drm/msm/msm_fb.c                       |    8 +-
- drivers/gpu/drm/msm/msm_gem.c                      |   45 +-
- drivers/gpu/drm/msm/msm_gem.h                      |    1 +
- drivers/gpu/drm/msm/msm_gem_shrinker.c             |   18 +
- drivers/gpu/drm/msm/msm_gem_submit.c               |    1 +
- drivers/gpu/drm/msm/msm_gpu.c                      |   51 +-
- drivers/gpu/drm/msm/msm_gpu.h                      |   29 +-
- drivers/gpu/drm/msm/msm_gpummu.c                   |    5 +
- drivers/gpu/drm/msm/msm_iommu.c                    |   22 +-
- drivers/gpu/drm/msm/msm_kms.h                      |    9 +
- drivers/gpu/drm/msm/msm_mmu.h                      |    5 +-
- drivers/gpu/drm/selftests/test-drm_framebuffer.c   |    1 +
- drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c         |   50 +
- drivers/iommu/arm/arm-smmu/arm-smmu.c              |    9 +-
- drivers/iommu/arm/arm-smmu/arm-smmu.h              |    2 +
- include/linux/adreno-smmu-priv.h                   |   38 +-
- include/uapi/drm/msm_drm.h                         |    7 +-
- 133 files changed, 7327 insertions(+), 6316 deletions(-)
- create mode 100644
-Documentation/devicetree/bindings/display/msm/dp-controller.yaml
- create mode 100644
-Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
- create mode 100644
-Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
- delete mode 100644 Documentation/devicetree/bindings/display/msm/dpu.txt
- create mode 100644
-Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
- create mode 100644
-Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
- create mode 100644
-Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
- create mode 100644
-Documentation/devicetree/bindings/display/msm/dsi-phy-20nm.yaml
- create mode 100644
-Documentation/devicetree/bindings/display/msm/dsi-phy-28nm.yaml
- create mode 100644
-Documentation/devicetree/bindings/display/msm/dsi-phy-common.yaml
- delete mode 100644 Documentation/devicetree/bindings/display/msm/dsi.txt
- delete mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_blk.c
- create mode 100644 drivers/gpu/drm/msm/disp/msm_disp_snapshot.c
- create mode 100644 drivers/gpu/drm/msm/disp/msm_disp_snapshot.h
- create mode 100644 drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
- create mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_10nm.xml.h
- create mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_14nm.xml.h
- create mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_20nm.xml.h
- create mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_28nm.xml.h
- create mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_28nm_8960.xml.h
- create mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_5nm.xml.h
- create mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_7nm.xml.h
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
