@@ -1,62 +1,53 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D57D3B3212
-	for <lists+freedreno@lfdr.de>; Thu, 24 Jun 2021 16:58:07 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id BA43E3B38BB
+	for <lists+freedreno@lfdr.de>; Thu, 24 Jun 2021 23:31:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96B8B6EC3A;
-	Thu, 24 Jun 2021 14:58:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 370EC6E986;
+	Thu, 24 Jun 2021 21:31:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7A966EC23
- for <freedreno@lists.freedesktop.org>; Thu, 24 Jun 2021 14:57:52 +0000 (UTC)
-Received: by mail-lj1-x22c.google.com with SMTP id u2so2882044ljo.1
- for <freedreno@lists.freedesktop.org>; Thu, 24 Jun 2021 07:57:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=7LSD+0UwStyFklWVh+hnsHGUn+QhdxgAc/M+GEYmbyE=;
- b=QgPVQOTtH26cXlqMiPK4vS6KzVyPJcDWVVUHj7L3iv/KjvaBF5FwCpaFl/9VPlnEGQ
- sZZT3Lf952DxjZAy4AWzu3g5REwDFnBhH8G0r9w7rOYJM1HZP/EF1UfT7pMsGsOnBYbv
- f+waMK10AUUAncvmNnzalptUejc0COvBtu551LzFJUmro2pNjxATyopoClq6PgJIpHVc
- a124A2dGbhvyzkbgMGxmrV5+annKHc+epI4eBoQwzkjNwlukiOTnHS559YEmERg29V27
- fUH90KAOu04JnUWj40DCYlQ06nnewiHVA5BXumteyePNtpIOenJhCsmLnmspIXpYZfS3
- Ao1Q==
+Received: from mail-il1-f178.google.com (mail-il1-f178.google.com
+ [209.85.166.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF2296E03B;
+ Thu, 24 Jun 2021 21:31:25 +0000 (UTC)
+Received: by mail-il1-f178.google.com with SMTP id q9so7802754ilj.3;
+ Thu, 24 Jun 2021 14:31:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=7LSD+0UwStyFklWVh+hnsHGUn+QhdxgAc/M+GEYmbyE=;
- b=Pc+CE9vqD0N/2jq1Yh5d5oNrBjqltRPEg9gIO0fWrQvMnj543i+kzHWTS1zxRq28/3
- lFMd52QZjx6w7TL8NC8NwTDIESCqfRHdsLtN9Bk6sn7+SMEWEjetksNTG5V2kKa4BA4x
- NwB+n/4NxZFdctaFK1g7SpliWsvVnI1Syc20HojzM9pUMR0QrJNN1MOryH3u8rTbcY5t
- TO6ctlGsZCMT2D3Z6jITx5XZVXaK9VGQIPLHsTkzB54mMWkno2NCoAMtpvYx2vYuxMiM
- k21yOTpJQE5iBZ+C7cpyCaFzBJvUVph82fjTjoL3BzsZBpHBpeS50OQFMNNyKhUm+QI5
- 0wQA==
-X-Gm-Message-State: AOAM532AnZK2X2GknfE1fri7mCqXboPu0Kc5cFQ52cbBm2b8qzNlGNPG
- 81b2+Aagg5O1137KAzhQhK8G7l+AucUnCg==
-X-Google-Smtp-Source: ABdhPJwA3u1lfwhABHDdSmtduAEq/8vtdNBzloSloIzE0i7sm7viYZEwKQqjku5laUXEXohfYsAHBg==
-X-Received: by 2002:a2e:9088:: with SMTP id l8mr4188125ljg.144.1624546671130; 
- Thu, 24 Jun 2021 07:57:51 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id e17sm306329ljn.125.2021.06.24.07.57.50
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=O8EmC5jmhd3H2tbmN3mNHrPfEcvwMJRpkzyEy8i3V+E=;
+ b=mvJVXiDwi9tu4jRtXef+Du/x136EOYan+QsbcSr8ytzgcaJu4JHi7uyfEwI7xZErPD
+ G0vM2vK0odofRYsUqpibShRv+AWE8BQCb9TvTyUbFjoMgX6fO+AkVJNjwGF+eh0WbOjA
+ cmBt4qQ33AH+i37ZUrfFyYOHhbLUSqDUhmC/Tmg0cG4yWB7gT8oo1+jpvuaJf3fizvfY
+ ZAh7UTkcXA69aWPzHoXTdTzhZZ8Brtpac8lx1zS7OveckzlE+PqAE/cugTwNFFsF+U/f
+ VaMYp1XVZsVwjQ13dHOZ9FVLIFbqH2oFsPz3faUBMLXY45zBW4NjCYj0+M402oyd8Z+w
+ y01Q==
+X-Gm-Message-State: AOAM532LjDFx4OUGNu/2Pw3Dj+l+qNPKelz+nJTzOMg3m+dWpAVQ42+B
+ FknVNvzsptrT6pDNYr4Mqg==
+X-Google-Smtp-Source: ABdhPJyfC0XhMTfy1YhoujL5JpehdqKXMrHWs83jfIsPpv/8SunAVt0KZjArx8NQ2Mj1T8BTQVTMZw==
+X-Received: by 2002:a92:2e08:: with SMTP id v8mr2143640ile.50.1624570285223;
+ Thu, 24 Jun 2021 14:31:25 -0700 (PDT)
+Received: from robh.at.kernel.org ([64.188.179.248])
+ by smtp.gmail.com with ESMTPSA id d5sm2495355ilf.55.2021.06.24.14.31.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Jun 2021 07:57:50 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <abhinavk@codeaurora.org>
-Date: Thu, 24 Jun 2021 17:57:33 +0300
-Message-Id: <20210624145733.2561992-18-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210624145733.2561992-1-dmitry.baryshkov@linaro.org>
-References: <20210624145733.2561992-1-dmitry.baryshkov@linaro.org>
+ Thu, 24 Jun 2021 14:31:24 -0700 (PDT)
+Received: (nullmailer pid 2020523 invoked by uid 1000);
+ Thu, 24 Jun 2021 21:31:19 -0000
+Date: Thu, 24 Jun 2021 15:31:19 -0600
+From: Rob Herring <robh@kernel.org>
+To: Jonathan Marek <jonathan@marek.ca>
+Message-ID: <20210624213119.GA2017600@robh.at.kernel.org>
+References: <20210617144349.28448-1-jonathan@marek.ca>
+ <20210617144349.28448-3-jonathan@marek.ca>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 17/17] drm/msm/dpu: switch into using virtual
- planes
+Content-Disposition: inline
+In-Reply-To: <20210617144349.28448-3-jonathan@marek.ca>
+Subject: Re: [Freedreno] [PATCH v4 2/3] dt-bindings: msm: dsi: document
+ phy-type property for 7nm dsi phy
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,58 +60,64 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ Anurag Kumar Vulisha <anurag.kumar.vulisha@xilinx.com>,
+ David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Vinod Koul <vkoul@kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Swapnil Jakhade <sjakhade@cadence.com>,
+ Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is a compile time #if for now, to be converted into proper module
-parameter (or dropped if there is no more need for that).
+On Thu, Jun 17, 2021 at 10:43:34AM -0400, Jonathan Marek wrote:
+> Document a new phy-type property which will be used to determine whether
+> the phy should operate in D-PHY or C-PHY mode.
+> 
+> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> ---
+>  .../devicetree/bindings/display/msm/dsi-phy-7nm.yaml         | 5 +++++
+>  include/dt-bindings/phy/phy.h                                | 2 ++
+>  2 files changed, 7 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+> index c0077ca7e9e7..70809d1cac54 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+> @@ -34,6 +34,11 @@ properties:
+>      description: |
+>        Connected to VDD_A_DSI_PLL_0P9 pin (or VDDA_DSI{0,1}_PLL_0P9 for sm8150)
+>  
+> +  phy-type:
+> +    description: D-PHY (default) or C-PHY mode
+> +    enum: [ 10, 11 ]
+> +    default: 10
+> +
+>  required:
+>    - compatible
+>    - reg
+> diff --git a/include/dt-bindings/phy/phy.h b/include/dt-bindings/phy/phy.h
+> index 887a31b250a8..f48c9acf251e 100644
+> --- a/include/dt-bindings/phy/phy.h
+> +++ b/include/dt-bindings/phy/phy.h
+> @@ -20,5 +20,7 @@
+>  #define PHY_TYPE_XPCS		7
+>  #define PHY_TYPE_SGMII		8
+>  #define PHY_TYPE_QSGMII		9
+> +#define PHY_TYPE_DPHY		10
+> +#define PHY_TYPE_CPHY		11
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+I thought I recalled a suggestion to add 'MIPI_' in this. Or was there 
+another similar patch? If not, I'm fine either way:
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 66a1c8889cf3..08b47609a315 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -611,6 +611,7 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
- 	for (i = 0; i < catalog->sspp_count; i++) {
- 		enum drm_plane_type type;
- 
-+#if 0
- 		if ((catalog->sspp[i].features & BIT(DPU_SSPP_CURSOR))
- 			&& cursor_planes_idx < max_crtc_count)
- 			type = DRM_PLANE_TYPE_CURSOR;
-@@ -625,6 +626,19 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
- 
- 		plane = dpu_plane_init(dev, catalog->sspp[i].id, type,
- 				       (1UL << max_crtc_count) - 1);
-+#else
-+		if (primary_planes_idx < max_crtc_count)
-+			type = DRM_PLANE_TYPE_PRIMARY;
-+		else if (cursor_planes_idx < max_crtc_count)
-+			type = DRM_PLANE_TYPE_CURSOR;
-+		else
-+			type = DRM_PLANE_TYPE_OVERLAY;
-+
-+		DPU_DEBUG("Create virtual plane type %d \n", type);
-+
-+		plane = dpu_plane_init(dev, SSPP_NONE, type,
-+				       (1UL << max_crtc_count) - 1);
-+#endif
- 		if (IS_ERR(plane)) {
- 			DPU_ERROR("dpu_plane_init failed\n");
- 			ret = PTR_ERR(plane);
--- 
-2.30.2
-
+Acked-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
