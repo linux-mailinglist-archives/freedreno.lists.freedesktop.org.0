@@ -2,61 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C2843B31FA
-	for <lists+freedreno@lfdr.de>; Thu, 24 Jun 2021 16:57:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44A3E3B31F6
+	for <lists+freedreno@lfdr.de>; Thu, 24 Jun 2021 16:57:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 962CC6EC25;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68DE86EC24;
 	Thu, 24 Jun 2021 14:57:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18F266EC1B
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFD886EC1D
  for <freedreno@lists.freedesktop.org>; Thu, 24 Jun 2021 14:57:45 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id x24so10728414lfr.10
- for <freedreno@lists.freedesktop.org>; Thu, 24 Jun 2021 07:57:44 -0700 (PDT)
+Received: by mail-lf1-x132.google.com with SMTP id x24so10728485lfr.10
+ for <freedreno@lists.freedesktop.org>; Thu, 24 Jun 2021 07:57:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=hys3VoodSCY+pIfMzjrkMFnG9NkOn3VbfSGPhyfFM/w=;
- b=OtPWTlR7VlVAwZ88Rn4mR1aDNFmFeS6Ft8kTw42PERDQnPxBw1LgJwA/IGQet5qXqJ
- R8T2y4HmREsnNk1fFhm5ROegMkBDOoG+CkccID38fN/1DgwaWQIjJUjIuPD1rT5RjlGW
- Gfj2cX/jydWmrsuqgJWWL1/XetOAPTyF7KAY71Zdc2iUwqSlO2CF0SV/34jaUN4r23PS
- jLuYH31q6HhQHAbl9hTqnPHErC/vhDI4M6Uz0ZshncHv6lRmw2SIufgmazoKgswlzUui
- 12YFwviMtXJ+G5YdTjnn8MDDgVYLMNwWs9GmOtDOs83cTDhsU2p+lyyyg5XemsdmtJl9
- 3rPQ==
+ bh=9riuerPahbGrv0+etuSxf5QM+cT8r/JYRQInCd02eGY=;
+ b=YIeXhsB12wZDp2cvcU6j+Zq155b9vkHoCv2V3JO3wY5DfpAW4CcwiL+sIda58j1CR8
+ jT/dfBa8SBm5aSo6HxN7kGsEwo8jfKtJa71s5vSY9sPSVsWnXS6oYmyJn6qtTWooW58J
+ zJGfbQR3IGGS8FBmD+6rj71zgZnhTgUZZP5pQ6Ceewk9qWmegCb5tXiVLUmwEI1H2OxB
+ qjc4s71azXTtexNK4qrFPO4poy07iVs4JPRno+V/vA9Z/gYMM0f8sgDwysbyB8/if1ks
+ 8Mt9meN4oGatVqbz1/9A8PWQjjFh4XxUtjcErBdIhVYtmdohk+JoOjhNbqNcUeweJtVl
+ tpew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=hys3VoodSCY+pIfMzjrkMFnG9NkOn3VbfSGPhyfFM/w=;
- b=Q5bimZh5gV5EsQXNO+fSGSC2bohl7T12x7G3rVQ9lvqzkdKbDtewRXosWUjfDsev8J
- Z3ax+ZJYLZlrI9bHMCIHNYdi/oy36kmP08k7vcWSfnxOOBhOPXnjv6wmv6cPhS71Uwuh
- WXxJtOukfWRYYh8ZAIpawnlx4KgsS6PhlGVqJBOR9s93jQZVEihOgS5ItzmPBLaHi7uz
- VGQ/BsFuTqvQiI0UaKTpsdk5bHMViOUi1Q76ymP/QoP0kMxlGZ7TVrDHmvI7MyEhFY94
- Zwi092dagH7Ay38UanMST74CYRTJ1DLJi/PQD0PRrDKYl4UJqE0z553rBQ5nrU1Z4Wfi
- /zHg==
-X-Gm-Message-State: AOAM530/bQAp0kb+DVBRYwNdBC/vBRQAQVHm6JIu3to/5lkyteqR1qoV
- lDeIhR+Z3PkcLbN7Gfxd2cC+FQ==
-X-Google-Smtp-Source: ABdhPJyfp/lezMEkLPUEBxNCauD2O3a7VevfMPowkL9NHbNo3lizCRH+iIeRxCHirl1z/zNfSrw6pA==
-X-Received: by 2002:ac2:4d19:: with SMTP id r25mr4185459lfi.150.1624546663565; 
- Thu, 24 Jun 2021 07:57:43 -0700 (PDT)
+ bh=9riuerPahbGrv0+etuSxf5QM+cT8r/JYRQInCd02eGY=;
+ b=RW1fflF/oXvL00lUnTfpTZjSKqXIL+h3wNtpAa9rU7cUt7IC1Y5f/8UiwJsree+OvK
+ HjiqwcZUbs9iW53CFnUDjideImCed6wimCzoYsa1G+HBvbxbUEld912NnXpbo21gJIz+
+ 9/ciLpzMZ74ahAA2QRLauIxo7XJC7Edon41IjnOlxsrR7AEZEi+nCvGPO7yk6Ja0cbf5
+ WltnMiojLQbh4GzPwousFTei0x9YEgCYt4+lezT/qF62YRMrCi+OvsgFi5wVAQ0zO97i
+ hV7xN8QazYhKJODR3a5A72G7euGxVIY7FKvGREnEMoX5c+ZREhIcPgSxmYavPS2+ORGJ
+ ruVw==
+X-Gm-Message-State: AOAM5332aIlZfbdKMY64UYnVBU2YGPUTQnlBW82ZJownxSKYw8tZ3faO
+ s/mZLMqNipl1VxCR8+CiuOxuDw==
+X-Google-Smtp-Source: ABdhPJxxDrRElj62ByC7cNuVA6CLsAsotD5NdqJgVCvKB5e+ithBiq7+S1+buhl3ZyCCfnxWqcASlA==
+X-Received: by 2002:a05:6512:b26:: with SMTP id
+ w38mr4341932lfu.227.1624546664431; 
+ Thu, 24 Jun 2021 07:57:44 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id e17sm306329ljn.125.2021.06.24.07.57.42
+ by smtp.gmail.com with ESMTPSA id e17sm306329ljn.125.2021.06.24.07.57.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Jun 2021 07:57:43 -0700 (PDT)
+ Thu, 24 Jun 2021 07:57:44 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <abhinavk@codeaurora.org>
-Date: Thu, 24 Jun 2021 17:57:23 +0300
-Message-Id: <20210624145733.2561992-8-dmitry.baryshkov@linaro.org>
+Date: Thu, 24 Jun 2021 17:57:24 +0300
+Message-Id: <20210624145733.2561992-9-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210624145733.2561992-1-dmitry.baryshkov@linaro.org>
 References: <20210624145733.2561992-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 07/17] drm/msm/dpu: don't cache
- pipe->cap->features in dpu_plane
+Subject: [Freedreno] [PATCH 08/17] drm/msm/dpu: don't cache pipe->cap->sblk
+ in dpu_plane
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,65 +79,70 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Do not cache hw_pipe's features in dpu_plane. Use
-pdpu->pipe_hw->cap->features directly.
+Do not cache hw_pipe's sblk in dpu_plane. Use
+pdpu->pipe_hw->cap->sblk directly.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 21 ++++++---------------
+ 1 file changed, 6 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index 521ae699dc5a..cf45a86877e2 100644
+index cf45a86877e2..c5b221ecfa05 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -100,7 +100,6 @@ struct dpu_plane {
- 	struct mutex lock;
+@@ -109,8 +109,6 @@ struct dpu_plane {
  
- 	enum dpu_sspp pipe;
--	uint32_t features;      /* capabilities from catalog */
+ 	struct dpu_csc_cfg *csc_ptr;
  
- 	struct dpu_hw_pipe *pipe_hw;
- 	uint32_t color_fill;
-@@ -624,7 +623,7 @@ static void _dpu_plane_setup_csc(struct dpu_plane *pdpu)
- 		return;
+-	const struct dpu_sspp_sub_blks *pipe_sblk;
+-
+ 	/* debugfs related stuff */
+ 	struct dentry *debugfs_root;
+ 	struct dpu_debugfs_regset32 debugfs_src;
+@@ -410,9 +408,9 @@ static void _dpu_plane_set_qos_ctrl(struct drm_plane *plane,
+ 	memset(&pipe_qos_cfg, 0, sizeof(pipe_qos_cfg));
+ 
+ 	if (flags & DPU_PLANE_QOS_VBLANK_CTRL) {
+-		pipe_qos_cfg.creq_vblank = pdpu->pipe_sblk->creq_vblank;
++		pipe_qos_cfg.creq_vblank = pdpu->pipe_hw->cap->sblk->creq_vblank;
+ 		pipe_qos_cfg.danger_vblank =
+-				pdpu->pipe_sblk->danger_vblank;
++				pdpu->pipe_hw->cap->sblk->danger_vblank;
+ 		pipe_qos_cfg.vblank_en = enable;
  	}
  
--	if (BIT(DPU_SSPP_CSC_10BIT) & pdpu->features)
-+	if (BIT(DPU_SSPP_CSC_10BIT) & pdpu->pipe_hw->cap->features)
- 		pdpu->csc_ptr = (struct dpu_csc_cfg *)&dpu_csc10_YUV2RGB_601L;
- 	else
- 		pdpu->csc_ptr = (struct dpu_csc_cfg *)&dpu_csc_YUV2RGB_601L;
-@@ -972,8 +971,8 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
- 	min_src_size = DPU_FORMAT_IS_YUV(fmt) ? 2 : 1;
+@@ -942,10 +940,10 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+ 		crtc_state = drm_atomic_get_new_crtc_state(state,
+ 							   new_plane_state->crtc);
  
- 	if (DPU_FORMAT_IS_YUV(fmt) &&
--		(!(pdpu->features & DPU_SSPP_SCALER) ||
--		 !(pdpu->features & (BIT(DPU_SSPP_CSC)
-+		(!(pdpu->pipe_hw->cap->features & DPU_SSPP_SCALER) ||
-+		 !(pdpu->pipe_hw->cap->features & (BIT(DPU_SSPP_CSC)
- 		 | BIT(DPU_SSPP_CSC_10BIT))))) {
- 		DPU_DEBUG_PLANE(pdpu,
- 				"plane doesn't have scaler/csc for yuv\n");
-@@ -1412,8 +1411,8 @@ static int _dpu_plane_init_debugfs(struct drm_plane *plane)
- 				plane->dev->primary->debugfs_root);
- 
- 	/* don't error check these */
--	debugfs_create_x32("features", 0600,
--			pdpu->debugfs_root, &pdpu->features);
-+	debugfs_create_xul("features", 0600,
-+			pdpu->debugfs_root, (unsigned long *)&pdpu->pipe_hw->cap->features);
- 
- 	/* add register dump support */
- 	dpu_debugfs_setup_regset32(&pdpu->debugfs_src,
-@@ -1572,7 +1571,6 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
+-	min_scale = FRAC_16_16(1, pdpu->pipe_sblk->maxupscale);
++	min_scale = FRAC_16_16(1, pdpu->pipe_hw->cap->sblk->maxupscale);
+ 	ret = drm_atomic_helper_check_plane_state(new_plane_state, crtc_state,
+ 						  min_scale,
+-						  pdpu->pipe_sblk->maxdwnscale << 16,
++						  pdpu->pipe_hw->cap->sblk->maxdwnscale << 16,
+ 						  true, true);
+ 	if (ret) {
+ 		DPU_DEBUG_PLANE(pdpu, "Check plane state failed (%d)\n", ret);
+@@ -1570,15 +1568,8 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
+ 		goto clean_sspp;
  	}
  
- 	/* cache features mask for later */
--	pdpu->features = pdpu->pipe_hw->cap->features;
- 	pdpu->pipe_sblk = pdpu->pipe_hw->cap->sblk;
- 	if (!pdpu->pipe_sblk) {
- 		DPU_ERROR("[%u]invalid sblk\n", pipe);
+-	/* cache features mask for later */
+-	pdpu->pipe_sblk = pdpu->pipe_hw->cap->sblk;
+-	if (!pdpu->pipe_sblk) {
+-		DPU_ERROR("[%u]invalid sblk\n", pipe);
+-		goto clean_sspp;
+-	}
+-
+-	format_list = pdpu->pipe_sblk->format_list;
+-	num_formats = pdpu->pipe_sblk->num_formats;
++	format_list = pdpu->pipe_hw->cap->sblk->format_list;
++	num_formats = pdpu->pipe_hw->cap->sblk->num_formats;
+ 
+ 	ret = drm_universal_plane_init(dev, plane, 0xff, &dpu_plane_funcs,
+ 				format_list, num_formats,
 -- 
 2.30.2
 
