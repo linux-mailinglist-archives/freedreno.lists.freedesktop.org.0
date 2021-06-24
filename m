@@ -2,61 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CEB73B31F1
+	by mail.lfdr.de (Postfix) with ESMTPS id 503413B31F2
 	for <lists+freedreno@lfdr.de>; Thu, 24 Jun 2021 16:57:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CCA36EC18;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EDE76EC19;
 	Thu, 24 Jun 2021 14:57:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25A916EC18
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D50B36EC18
  for <freedreno@lists.freedesktop.org>; Thu, 24 Jun 2021 14:57:42 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id k10so10706181lfv.13
+Received: by mail-lf1-x12f.google.com with SMTP id p7so10825163lfg.4
  for <freedreno@lists.freedesktop.org>; Thu, 24 Jun 2021 07:57:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=GdDMjhCpUMomtdmjludjL5DxnUY1JT83cC3CTovzo2Y=;
- b=zRkE9OGfJJ4nFYiDu1P5KaM4cDCELkftdGs2GKacA9JHQS9RlfHijtPn2Vq2PM5GlD
- +hAvTv7WDJ7mBZu76N39JRX7WwBS/1v3rnFuQoGxUdp3MbOCitwkISJs9j/1rjTB1Lit
- QtY/6JzO38InQ+sFdSPikB1FD35DZmdZYiDLiAMBzLC9vRfQ5PfLydBYcLG5r7n+Z6RJ
- aAUqVBFfFf+Z/QupclOWfkdSNMuf/1wjaTNPZpXgKUEbj5b4WCMs5cxj4fKyvFJrsFzV
- nNu8BhB0WlH98w40uKdoTS+Nahr2GH8fwO6Bnt66EBWRVsl0lFELdTPY9HJLxa9JaUpv
- HzUA==
+ bh=uKeS2D6NI+nwzdlSN/CbA1/E6G9yn+fxXMAvAL8n5i8=;
+ b=o9bVyES50Ubdsxjce6p6kTTu/gOMLly8CXc6aOBPz7wGJ2jN8y2fkJnVPlormj0sTU
+ U0ekDTCG1+5y8lfPulYiMSccHQqmK8Nbt4cW3cLAcNn+2ZRUQ4ZeYmwjlh5im20UKncp
+ IaWjRSbp2IIKtHf1M18AYTMQbSCIn1d8st923bf6bCh+cvT4hmDw0YYtUXxHWJJUzGJZ
+ USQvvVyV54bNQCgQmE/4C68mqx20uInkLZfXhH6EozUMhHWVRcBd7jqCEz13ZmzfoGAt
+ IwvXp9ezgLaoiXKWrJjmtHFPjngjkfptS8fH3vTdavQEYg644Pg9MkgerYqjgkaU6nua
+ pAbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=GdDMjhCpUMomtdmjludjL5DxnUY1JT83cC3CTovzo2Y=;
- b=TKjFqIcC4X4oSPY37LZchGT14uB1rSTida7WzEyDKavN/HuEwN7qNq5pgwlw2EKusB
- w742kjRJ2vyA2APToIiUPmfTn9Ag/BhKEHMPQh+dRWIPCtrXpEWJkU/nSW2YbllFd1r0
- XxKarmSfgv++DhDMxqsaa4tRQUqjYuTKycz7/9Zq+rM9n7yahxHl4irL4R1OlfRXy6b8
- R8Sv46o9br/7/Nr2LBRu1uWa8ucLomJFtN0thS+fVUfvpN8vKUFZfQUlLVKNNRAsiZWX
- 50m9xgdS+TJkcu03ARnnCePOXY0zidaHBuDo66v/KTWZMwl+Gyt/MbBey2twyQXAPXmt
- NHEA==
-X-Gm-Message-State: AOAM530Oyf0SBbZ9wY98E2REPtw5WnhkA79/m5KMLvabjdUJi5GAFWV+
- hlp65ssG1K2QJkHAY0IJQolX/w==
-X-Google-Smtp-Source: ABdhPJx/kJfCtet4fGDL3wGu+FwOoWTGqTUzJOs/TzpnGbn9Ox9ag+5FrcgHKhChPXN9L1FVwxNSxA==
-X-Received: by 2002:a19:c749:: with SMTP id x70mr4215189lff.326.1624546660613; 
- Thu, 24 Jun 2021 07:57:40 -0700 (PDT)
+ bh=uKeS2D6NI+nwzdlSN/CbA1/E6G9yn+fxXMAvAL8n5i8=;
+ b=KoQLTsjgCz3ZTGLMnkVtjEIN4lNEAsV+mJK7gfnTcuD4vwkTOZUMbV6NZkCmp0cZIj
+ Irkri+60BEJEzOfXW+zyVzAexifOVq+IhcfrkZe3dlUnNTf2uw9me0iVXE5n0XzKiTtx
+ kaBAQrXEakF4A+k6kRlvM60KwVMqOOdSsWY4IhroJsJE4yhIirQ6LUQZe0nw1GoKzrZd
+ gJU0N/QdzNl6hcWNv5bp4Abawlb1+JUEJTpiyCBgXKcTC2ahZ5jI1Ul3b7HiSToeX2Sj
+ BH7ytYJ48XbjPxPQc0g3bdww9UTmB3G41eHIP263RNWd+D3TkWc5NjekygB/qc1yUE6b
+ URUw==
+X-Gm-Message-State: AOAM531ti03uUAh2YazJ/j2k30m0tLc2LLw5fmwSQzucHWFYhh3+TRgE
+ jo5WVRz6MJGHBb44nErSSmpBhw==
+X-Google-Smtp-Source: ABdhPJzm4uqElRmIAF8FN+Bez+JF+dq0zfRQ7JPMLw2cLqg1xdhR4M89APu46nKT3Mb7fDp1/2knsQ==
+X-Received: by 2002:a05:6512:2208:: with SMTP id
+ h8mr4201904lfu.113.1624546661359; 
+ Thu, 24 Jun 2021 07:57:41 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id e17sm306329ljn.125.2021.06.24.07.57.39
+ by smtp.gmail.com with ESMTPSA id e17sm306329ljn.125.2021.06.24.07.57.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Jun 2021 07:57:40 -0700 (PDT)
+ Thu, 24 Jun 2021 07:57:41 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <abhinavk@codeaurora.org>
-Date: Thu, 24 Jun 2021 17:57:19 +0300
-Message-Id: <20210624145733.2561992-4-dmitry.baryshkov@linaro.org>
+Date: Thu, 24 Jun 2021 17:57:20 +0300
+Message-Id: <20210624145733.2561992-5-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210624145733.2561992-1-dmitry.baryshkov@linaro.org>
 References: <20210624145733.2561992-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 03/17] drm/msm/dpu: drop pipe_name from struct
- dpu_plane
+Subject: [Freedreno] [PATCH 04/17] drm/msm/dpu: remove stage_cfg from struct
+ dpu_crtc
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,48 +79,86 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Use plane->name instead of artificial pipe_name.
+The stage_cfg is not used outside of _dpu_crtc_blend_setup(), so remove
+the temporary config from global struct.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 11 ++++++-----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h |  2 --
+ 2 files changed, 6 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index 20ff1832c958..97507e25f4f3 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -115,7 +115,6 @@ struct dpu_plane {
- 	struct dpu_csc_cfg *csc_ptr;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index 9a5c70c87cc8..ea678ddd4589 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -190,7 +190,8 @@ static void _dpu_crtc_program_lm_output_roi(struct drm_crtc *crtc)
+ }
  
- 	const struct dpu_sspp_sub_blks *pipe_sblk;
--	char pipe_name[DPU_NAME_SIZE];
+ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
+-	struct dpu_crtc *dpu_crtc, struct dpu_crtc_mixer *mixer)
++	struct dpu_crtc *dpu_crtc, struct dpu_crtc_mixer *mixer,
++	struct dpu_hw_stage_cfg *stage_cfg)
+ {
+ 	struct drm_plane *plane;
+ 	struct drm_framebuffer *fb;
+@@ -199,7 +200,6 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
+ 	struct dpu_plane_state *pstate = NULL;
+ 	struct dpu_format *format;
+ 	struct dpu_hw_ctl *ctl = mixer->lm_ctl;
+-	struct dpu_hw_stage_cfg *stage_cfg = &dpu_crtc->stage_cfg;
  
- 	/* debugfs related stuff */
+ 	u32 flush_mask;
+ 	uint32_t stage_idx, lm_idx;
+@@ -275,6 +275,7 @@ static void _dpu_crtc_blend_setup(struct drm_crtc *crtc)
+ 	struct dpu_crtc_mixer *mixer = cstate->mixers;
+ 	struct dpu_hw_ctl *ctl;
+ 	struct dpu_hw_mixer *lm;
++	struct dpu_hw_stage_cfg stage_cfg;
+ 	int i;
+ 
+ 	DRM_DEBUG_ATOMIC("%s\n", dpu_crtc->name);
+@@ -288,9 +289,9 @@ static void _dpu_crtc_blend_setup(struct drm_crtc *crtc)
+ 	}
+ 
+ 	/* initialize stage cfg */
+-	memset(&dpu_crtc->stage_cfg, 0, sizeof(struct dpu_hw_stage_cfg));
++	memset(&stage_cfg, 0, sizeof(struct dpu_hw_stage_cfg));
+ 
+-	_dpu_crtc_blend_setup_mixer(crtc, dpu_crtc, mixer);
++	_dpu_crtc_blend_setup_mixer(crtc, dpu_crtc, mixer, &stage_cfg);
+ 
+ 	for (i = 0; i < cstate->num_mixers; i++) {
+ 		ctl = mixer[i].lm_ctl;
+@@ -311,7 +312,7 @@ static void _dpu_crtc_blend_setup(struct drm_crtc *crtc)
+ 			mixer[i].flush_mask);
+ 
+ 		ctl->ops.setup_blendstage(ctl, mixer[i].hw_lm->idx,
+-			&dpu_crtc->stage_cfg);
++			&stage_cfg);
+ 	}
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+index cec3474340e8..30535acec670 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+@@ -116,7 +116,6 @@ struct dpu_crtc_frame_event {
+  * @drm_requested_vblank : Whether vblanks have been enabled in the encoder
+  * @property_info : Opaque structure for generic property support
+  * @property_defaults : Array of default values for generic property support
+- * @stage_cfg     : H/w mixer stage configuration
+  * @debugfs_root  : Parent of debugfs node
+  * @vblank_cb_count : count of vblank callback since last reset
+  * @play_count    : frame count between crtc enable and disable
+@@ -147,7 +146,6 @@ struct dpu_crtc {
+ 	struct drm_pending_vblank_event *event;
+ 	u32 vsync_count;
+ 
+-	struct dpu_hw_stage_cfg stage_cfg;
  	struct dentry *debugfs_root;
-@@ -1431,7 +1430,7 @@ static int _dpu_plane_init_debugfs(struct drm_plane *plane)
  
- 	/* create overall sub-directory for the pipe */
- 	pdpu->debugfs_root =
--		debugfs_create_dir(pdpu->pipe_name,
-+		debugfs_create_dir(plane->name,
- 				plane->dev->primary->debugfs_root);
- 
- 	/* don't error check these */
-@@ -1656,12 +1655,9 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
- 	/* success! finalize initialization */
- 	drm_plane_helper_add(plane, &dpu_plane_helper_funcs);
- 
--	/* save user friendly pipe name for later */
--	snprintf(pdpu->pipe_name, DPU_NAME_SIZE, "plane%u", plane->base.id);
--
- 	mutex_init(&pdpu->lock);
- 
--	DPU_DEBUG("%s created for pipe:%u id:%u virtual:%u\n", pdpu->pipe_name,
-+	DPU_DEBUG("%s created for pipe:%u id:%u virtual:%u\n", plane->name,
- 					pipe, plane->base.id, master_plane_id);
- 	return plane;
- 
+ 	u32 vblank_cb_count;
 -- 
 2.30.2
 
