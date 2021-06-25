@@ -2,55 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B73B3B46C3
-	for <lists+freedreno@lfdr.de>; Fri, 25 Jun 2021 17:39:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A8EA3B470E
+	for <lists+freedreno@lfdr.de>; Fri, 25 Jun 2021 17:55:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A2F96EDF2;
-	Fri, 25 Jun 2021 15:39:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A73B6EE08;
+	Fri, 25 Jun 2021 15:55:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8BBE6EDF2;
- Fri, 25 Jun 2021 15:39:00 +0000 (UTC)
-Received: by mail-wr1-x42b.google.com with SMTP id e22so11081901wrc.1;
- Fri, 25 Jun 2021 08:39:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=vdo63xtloDEOamPYATEH0AS03eYl+iSZfl6fPLjUbC0=;
- b=Jb0i1Lvqmij+LCFT/Mg28ra5KlS0qJQBQ26bnZVtH4y9cZM+GnQHp1dvUZ3LUnWJU1
- VzKHiDXKJ9TXOkl17FLwldxn5maUTbOx3wMjeu2i22mk56UmTrPM2C2y1zrh2p4371l0
- ngGo21DjmXU8rIwuOaB0GEvcMZhCKAAVE7WsMozqU4xp0DWnN/diafx6zcMFlVz8YtbY
- aIz9j5DOTQ8JoWobUYeiB5EYVcMY3rgGVqh20F/KXHQpiUCypMMwLwq0Qv/Y/y5sMS5I
- Wf5LtD+mCjflS70/C4h1O3yl6AOOjPMzZUBQRWl3uyvHi7tsu3jsi7mwnFUC1vgtP6yY
- uOMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=vdo63xtloDEOamPYATEH0AS03eYl+iSZfl6fPLjUbC0=;
- b=PdVF4pmMQSs5v5tKlglaTyCmoDSq0fCNt69SxTLzqeeTqfl51X9P67GXJVR3laG2WW
- QuYhWiOqOsrfUcNqR3ZOLN3fSUYLISH6Ftj8SgpFFbrK6HKgCYSTi99JtZLqV6NWDCYX
- qpJh5QsnSt3wIGTS2+cPrXseet+36FobT/ET3li/tczx7F/X64Fn/A4Cd552aZXYqWbv
- q3Cpw4Zmh2xWMw1/Zhy2T2aRG47HgSS6/utG2YrHiLbkA6Vjfkpeg+FeVjYlEKkeSwpn
- 0Q0xahDcoLVeIDSxHnew3jYBpOCULwywkpEmVwPbIj0Oiu4POcJKDHGuc7udQTvyNXFp
- Ybdg==
-X-Gm-Message-State: AOAM533gKkeXkpUnLYBn2YwoV2E2SQXsnetybmyvvJGZswYu0BKmonuh
- ZJH0oUF3QxbclSGxcijjR6iegQ42VRYWH6Q9iNM=
-X-Google-Smtp-Source: ABdhPJxMd2QD5QxjGCuh4pj9v343g3SW9Px0O12bqlsmSQOJev5MZ4vy4Nc2H7rSC6xBZLfN8VeV69ccnD8vSa1vkF0=
-X-Received: by 2002:adf:fcc5:: with SMTP id f5mr11934898wrs.83.1624635539523; 
- Fri, 25 Jun 2021 08:38:59 -0700 (PDT)
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98D2D6EE08
+ for <freedreno@lists.freedesktop.org>; Fri, 25 Jun 2021 15:55:43 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1624636543; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=k+52SBszcH483ZRUtcU+yiloL+pyVt9AUiozgNhX+3M=;
+ b=M2Bs7jZ79JYBlnDYQCkUPkr3m+8wScMGMbzCeIHiq6uVU0s4UJV0wN/Zud375dbkiMUr5BTy
+ p3FBydhB9lR12UWncQAs9/UxVXdpibL/ayFThV4+P3Wd9MYd1Sxs9QZHA745PB2P+/hUYoNn
+ poQ+T3ORbPtgkWYXQVeYY2ocqOw=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n07.prod.us-west-2.postgun.com with SMTP id
+ 60d5fc7e2a2a9a9761156c9d (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 25 Jun 2021 15:55:42
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 56B68C4338A; Fri, 25 Jun 2021 15:55:42 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 2765CC433F1;
+ Fri, 25 Jun 2021 15:55:41 +0000 (UTC)
 MIME-Version: 1.0
-References: <20210610214431.539029-1-robdclark@gmail.com>
- <20210610214431.539029-4-robdclark@gmail.com>
- <YNVP6rfQ699BejsI@yoga>
-In-Reply-To: <YNVP6rfQ699BejsI@yoga>
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 25 Jun 2021 08:42:59 -0700
-Message-ID: <CAF6AEGvTjTUQXqom-xhdh456tdLscbVFPQ+iud1H1gHc8A2=hA@mail.gmail.com>
+Date: Fri, 25 Jun 2021 08:55:41 -0700
+From: khsieh@codeaurora.org
 To: Bjorn Andersson <bjorn.andersson@linaro.org>
-Subject: Re: [Freedreno] [PATCH v5 3/5] drm/msm: Improve the a6xx page fault
- handler
+In-Reply-To: <YNKiB3ZEtOQ+T/MX@yoga>
+References: <CAE-0n50-X03sMyJdsw7s=Ue0dWXBo=iHOc0HxDQm5yh2J-uS3A@mail.gmail.com>
+ <YL/uj+t+BFkII1Fh@yoga>
+ <CAE-0n50WP25kRQkWMVdDZGsZWBXwfbVSTFKyBLF7f8Mp3x2Wfg@mail.gmail.com>
+ <YL/wWdRs6e/eECiC@yoga>
+ <CAE-0n51GM65rZVJgXuHy6FerJorHeHKf2W31GijG8sDEhaX_KQ@mail.gmail.com>
+ <YL/41hWz8xB+jSeO@yoga> <21dc5c9fc2efdc1a0ba924354bfd9d75@codeaurora.org>
+ <CAE-0n52J_mLsmXLS+skZn2u3k9dhn+GcHeXi0B2BeQyQxEUL9A@mail.gmail.com>
+ <YM0THrlJlv7ADW8w@builder.lan>
+ <CAE-0n53Zr-w5m-eFhLM2BVmphcYb_M4=s5je3Y7Lg6=onNo=uA@mail.gmail.com>
+ <YNKiB3ZEtOQ+T/MX@yoga>
+Message-ID: <b157a691a1cb8f860219ca3b2c335411@codeaurora.org>
+X-Sender: khsieh@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v2] arm64/dts/qcom/sc7180: Add Display Port
+ dt node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,106 +72,110 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Jordan Crouse <jcrouse@codeaurora.org>, Jonathan Marek <jonathan@marek.ca>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Douglas Anderson <dianders@chromium.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>, Eric Anholt <eric@anholt.net>,
- "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
- Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
- "Kristian H. Kristensen" <hoegsberg@google.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
- open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
+Cc: devicetree@vger.kernel.org, freedreno@lists.freedesktop.org,
+ vkoul@kernel.org, robh+dt@kernel.org, Stephen Boyd <swboyd@chromium.org>,
+ robdclark@gmail.com, agross@kernel.org, abhinavk@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, aravindh@codeaurora.org, sean@poorly.run,
+ linux-kernel@vger.kernel.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jun 24, 2021 at 8:39 PM Bjorn Andersson
-<bjorn.andersson@linaro.org> wrote:
->
-> On Thu 10 Jun 16:44 CDT 2021, Rob Clark wrote:
-> [..]
-> > diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-> > index 50d881794758..6975b95c3c29 100644
-> > --- a/drivers/gpu/drm/msm/msm_iommu.c
-> > +++ b/drivers/gpu/drm/msm/msm_iommu.c
-> > @@ -211,8 +211,17 @@ static int msm_fault_handler(struct iommu_domain *domain, struct device *dev,
-> >               unsigned long iova, int flags, void *arg)
-> >  {
-> >       struct msm_iommu *iommu = arg;
-> > +     struct adreno_smmu_priv *adreno_smmu = dev_get_drvdata(iommu->base.dev);
-> > +     struct adreno_smmu_fault_info info, *ptr = NULL;
-> > +
-> > +     if (adreno_smmu->get_fault_info) {
->
-> This seemed reasonable when I read it last time, but I didn't realize
-> that the msm_fault_handler() is installed for all msm_iommu instances.
->
-> So while we're trying to recover from the boot splash and setup the new
-> framebuffer we end up here with iommu->base.dev being the mdss device.
-> Naturally drvdata of mdss is not a struct adreno_smmu_priv.
->
-> > +             adreno_smmu->get_fault_info(adreno_smmu->cookie, &info);
->
-> So here we just jump straight out into hyperspace, never to return.
->
-> Not sure how to wire this up to avoid the problem, but right now I don't
-> think we can boot any device with a boot splash.
->
-
-I think we could do:
-
-------------------------
-diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-index eed2a762e9dd..30ee8866154e 100644
---- a/drivers/gpu/drm/msm/msm_iommu.c
-+++ b/drivers/gpu/drm/msm/msm_iommu.c
-@@ -29,6 +29,9 @@ static struct msm_iommu_pagetable
-*to_pagetable(struct msm_mmu *mmu)
-  return container_of(mmu, struct msm_iommu_pagetable, base);
- }
-
-+static int msm_fault_handler(struct iommu_domain *domain, struct device *dev,
-+ unsigned long iova, int flags, void *arg);
-+
- static int msm_iommu_pagetable_unmap(struct msm_mmu *mmu, u64 iova,
-  size_t size)
- {
-@@ -151,6 +154,8 @@ struct msm_mmu *msm_iommu_pagetable_create(struct
-msm_mmu *parent)
-  struct io_pgtable_cfg ttbr0_cfg;
-  int ret;
-
-+ iommu_set_fault_handler(iommu->domain, msm_fault_handler, iommu);
-+
-  /* Get the pagetable configuration from the domain */
-  if (adreno_smmu->cookie)
-  ttbr1_cfg = adreno_smmu->get_ttbr1_cfg(adreno_smmu->cookie);
-@@ -300,7 +305,6 @@ struct msm_mmu *msm_iommu_new(struct device *dev,
-struct iommu_domain *domain)
-
-  iommu->domain = domain;
-  msm_mmu_init(&iommu->base, dev, &funcs, MSM_MMU_IOMMU);
-- iommu_set_fault_handler(domain, msm_fault_handler, iommu);
-
-  atomic_set(&iommu->pagetables, 0);
-
-------------------------
-
-That would have the result of setting the same fault handler multiple
-times, but that looks harmless.  Mostly the fault handling stuff is to
-make it easier to debug userspace issues, the fallback dmesg spam from
-arm-smmu should be sufficient for any kernel side issues.
-
-BR,
--R
+On 2021-06-22 19:52, Bjorn Andersson wrote:
+> On Tue 22 Jun 15:23 CDT 2021, Stephen Boyd wrote:
+> 
+>> Quoting Bjorn Andersson (2021-06-18 14:41:50)
+>> > On Fri 18 Jun 15:49 CDT 2021, Stephen Boyd wrote:
+>> >
+>> > > Quoting khsieh@codeaurora.org (2021-06-10 09:54:05)
+>> > > > On 2021-06-08 16:10, Bjorn Andersson wrote:
+>> > > > > On Tue 08 Jun 17:44 CDT 2021, Stephen Boyd wrote:
+>> > > > >
+>> > > > >> Honestly I suspect the DP PHY is _not_ in the CX domain as CX is for
+>> > > > >> digital logic. Probably the PLL is the hardware that has some minimum
+>> > > > >> CX
+>> > > > >> requirement, and that flows down into the various display clks like
+>> > > > >> the
+>> > > > >> link clk that actually clock the DP controller hardware. The mdss_gdsc
+>> > > > >> probably gates CX for the display subsystem (mdss) so if we had proper
+>> > > > >> corner aggregation logic we could indicate that mdss_gdsc is a child
+>> > > > >> of
+>> > > > >> the CX domain and then make requests from the DP driver for particular
+>> > > > >> link frequencies on the mdss_gdsc and then have that bubble up to CX
+>> > > > >> appropriately. I don't think any of that sort of code is in place
+>> > > > >> though, right?
+>> > > > >
+>> > > > > I haven't checked sc7180, but I'm guessing that it's following the
+>> > > > > other
+>> > > > > modern platforms, where all the MDSS related pieces (including e.g.
+>> > > > > dispcc) lives in the MMCX domain, which is separate from CX.
+>> > > > >
+>> > > > > So the parent of MDSS_GDSC should be MMCX, while Kuogee's answer (and
+>> > > > > the dp-opp-table) tells us that the PLL lives in the CX domain.
+>> > >
+>> > > Isn't MMCX a "child" of CX? At least my understanding is that MMCX is
+>> > > basically a GDSC that clamps all of multimedia hardware block power
+>> > > logic so that the leakage is minimized when multimedia isn't in use,
+>> > > i.e. the device is suspended. In terms of bumping up the voltage we have
+>> > > to pin that on CX though as far as I know because that's the only power
+>> > > domain that can actually change voltage, while MMCX merely gates that
+>> > > voltage for multimedia.
+>> > >
+>> >
+>> > No, MMCX is a separate rail from CX, which powers the display blocks and
+>> > is parent of MDSS_GDSC. But I see in rpmhpd that sc7180 is not one of
+>> > these platforms, so I presume this means that the displayport controller
+>> > thereby sits in MDSS_GDSC parented by CX.
+>> >
+>> > But in line with what you're saying, the naming of the supplies to the
+>> > QMP indicates that the power for the PLLs is static. As such the only
+>> > moving things would be the clock rates in the DP controller and as such
+>> > that's what needs to scale the voltage.
+>> >
+>> > So if the resources we're scaling is the clocks in the DP controller
+>> > then the gist of the patch is correct. The only details I see is that
+>> > the DP controller actually sits in MDSS_GDSC - while it should control
+>> > the level of its parent (CX). Not sure if we can describe that in a
+>> > simple way.
+>> 
+>> Right. I'm not sure things could be described any better right now. If
+>> we need to change this to be MDSS_GDSC power domain and control the
+>> level of the parent then I suppose we'll have to make some sort of DT
+>> change and pair that with a driver change. Maybe if that happens we 
+>> can
+>> just pick a new compatible and leave the old code in place.
+>> 
+> 
+> I would prefer that we stay away from making up a new compatible for
+> that, but let's see when we get there.
+> 
+>> Are you happy enough with this current patch?
+>> 
+> 
+> Yes, I think this looks good.
+> 
+>> >
+>> >
+>> > PS. Why does the node name of the opp-table have to be globally unique?
+>> 
+>> Presumably the opp table node name can be 'opp-table' as long as it
+>> lives under the node that's using it. If the opp table is at / or /soc
+>> then it will need to be unique. I'd prefer just 'opp-table' if 
+>> possible.
+> 
+> I asked the same question (if it has to be globally unique) in the 
+> patch
+> adding sdhci nodes for sc7280 and I didn't get a sufficient answer...
+> 
+> So now I do want to know why "opp-table" wouldn't be sufficient name 
+> for
+> these device-internal nodes.
+> 
+my opinion is dp_opp_table is more consistency with mdp and dsi.
+Either one is fine. Please let me know asap.
+> Regards,
+> Bjorn
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
