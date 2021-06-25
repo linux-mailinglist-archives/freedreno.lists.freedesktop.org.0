@@ -2,60 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 915B13B3B50
-	for <lists+freedreno@lfdr.de>; Fri, 25 Jun 2021 05:48:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B73B3B46C3
+	for <lists+freedreno@lfdr.de>; Fri, 25 Jun 2021 17:39:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A34B46E110;
-	Fri, 25 Jun 2021 03:48:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A2F96EDF2;
+	Fri, 25 Jun 2021 15:39:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [IPv6:2607:f8b0:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A54896E110
- for <freedreno@lists.freedesktop.org>; Fri, 25 Jun 2021 03:48:30 +0000 (UTC)
-Received: by mail-oi1-x22e.google.com with SMTP id s23so9895992oiw.9
- for <freedreno@lists.freedesktop.org>; Thu, 24 Jun 2021 20:48:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=YPOpe/pbA8bUnGpZvYmFITp0NghwSmJn6dUDVrfCv+E=;
- b=hzs8Tl8EyDHus3ahR9b21fg/WfdJZlMs3DlXuyuWSukuoKTxim4HYJCFWVytM/+tmp
- eUHhrU25K52sd9THcIJKn/nehCWVBrSBhKWO6eM/U5V6pZpzRDQpTt7r0QZQqoZ8AYVE
- F4ZfrFDhvUwvLYRpVBCZfSUa9ThrBXSk0XgaLpDU0j/DnelILFiPtD5LHBUIHBrm6ETs
- dDKokJ+mSr+qX2mTSZC1BJLFRH+EIuKTGH5CF20O5k1YuzCJPIC2IDlj0bYO9C3HD0Sz
- kUFvtP2YFTFG11GYRiAcqha2nfHzQbihI2dWXHb/YQmO634KzQtFDcbHNbEK6WvTIW2b
- 4YKw==
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8BBE6EDF2;
+ Fri, 25 Jun 2021 15:39:00 +0000 (UTC)
+Received: by mail-wr1-x42b.google.com with SMTP id e22so11081901wrc.1;
+ Fri, 25 Jun 2021 08:39:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=vdo63xtloDEOamPYATEH0AS03eYl+iSZfl6fPLjUbC0=;
+ b=Jb0i1Lvqmij+LCFT/Mg28ra5KlS0qJQBQ26bnZVtH4y9cZM+GnQHp1dvUZ3LUnWJU1
+ VzKHiDXKJ9TXOkl17FLwldxn5maUTbOx3wMjeu2i22mk56UmTrPM2C2y1zrh2p4371l0
+ ngGo21DjmXU8rIwuOaB0GEvcMZhCKAAVE7WsMozqU4xp0DWnN/diafx6zcMFlVz8YtbY
+ aIz9j5DOTQ8JoWobUYeiB5EYVcMY3rgGVqh20F/KXHQpiUCypMMwLwq0Qv/Y/y5sMS5I
+ Wf5LtD+mCjflS70/C4h1O3yl6AOOjPMzZUBQRWl3uyvHi7tsu3jsi7mwnFUC1vgtP6yY
+ uOMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=YPOpe/pbA8bUnGpZvYmFITp0NghwSmJn6dUDVrfCv+E=;
- b=KJWUuiFZS1PRJbYzeBQTHYFMlCLphbWa6+3wnTPCLwOdCeiu/WrJ1hBgF+fYA/wpni
- IaRRsGNKm4K0YLOlJTixPWons4gh2YSnBdHawRgsYK/c2/zrcrEBDLGybhnLtE8+8e8y
- vwVssFm8DYk3HVwvUnRAfcKzqUPQRXy8Z/wCWBj7AduBb4OwUyS8DyOJKfSOJWqCIvgX
- hU5eqdTwpGwTVVE7UEBUh3DaK5QgkXRsStZwtMVdpMy3z4pmJ0EY+O/C6FVFjN4j0JIP
- PTtHTFhc2hvvC391LgTKBYLkLg1OgrVdzojyv/RWGmO8sOpHDsYh3rgi6Z7o1yDczZFG
- 3CFQ==
-X-Gm-Message-State: AOAM531EL65s633EgWKZH0ehdyoAMfbfr3Zucc1DztpQjfg2ScvD+zWK
- Il8JkaHYTI7GMuB2sNWHidVdQw==
-X-Google-Smtp-Source: ABdhPJzU2V+rYLSU0OS1yhD01/njJqJk4DxGcmQAc4IA2qxy0Ho+ormW5U1DV/f3M7TJxA4YLuQOIA==
-X-Received: by 2002:a05:6808:251:: with SMTP id
- m17mr6547877oie.77.1624592909941; 
- Thu, 24 Jun 2021 20:48:29 -0700 (PDT)
-Received: from localhost.localdomain
- (104-57-184-186.lightspeed.austtx.sbcglobal.net. [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id d20sm1099480otq.62.2021.06.24.20.48.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Jun 2021 20:48:29 -0700 (PDT)
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Dave Airlie <airlied@redhat.com>
-Date: Thu, 24 Jun 2021 20:47:21 -0700
-Message-Id: <20210625034721.1287948-1-bjorn.andersson@linaro.org>
-X-Mailer: git-send-email 2.29.2
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=vdo63xtloDEOamPYATEH0AS03eYl+iSZfl6fPLjUbC0=;
+ b=PdVF4pmMQSs5v5tKlglaTyCmoDSq0fCNt69SxTLzqeeTqfl51X9P67GXJVR3laG2WW
+ QuYhWiOqOsrfUcNqR3ZOLN3fSUYLISH6Ftj8SgpFFbrK6HKgCYSTi99JtZLqV6NWDCYX
+ qpJh5QsnSt3wIGTS2+cPrXseet+36FobT/ET3li/tczx7F/X64Fn/A4Cd552aZXYqWbv
+ q3Cpw4Zmh2xWMw1/Zhy2T2aRG47HgSS6/utG2YrHiLbkA6Vjfkpeg+FeVjYlEKkeSwpn
+ 0Q0xahDcoLVeIDSxHnew3jYBpOCULwywkpEmVwPbIj0Oiu4POcJKDHGuc7udQTvyNXFp
+ Ybdg==
+X-Gm-Message-State: AOAM533gKkeXkpUnLYBn2YwoV2E2SQXsnetybmyvvJGZswYu0BKmonuh
+ ZJH0oUF3QxbclSGxcijjR6iegQ42VRYWH6Q9iNM=
+X-Google-Smtp-Source: ABdhPJxMd2QD5QxjGCuh4pj9v343g3SW9Px0O12bqlsmSQOJev5MZ4vy4Nc2H7rSC6xBZLfN8VeV69ccnD8vSa1vkF0=
+X-Received: by 2002:adf:fcc5:: with SMTP id f5mr11934898wrs.83.1624635539523; 
+ Fri, 25 Jun 2021 08:38:59 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm/dp: Add missing drm_device backpointer
+References: <20210610214431.539029-1-robdclark@gmail.com>
+ <20210610214431.539029-4-robdclark@gmail.com>
+ <YNVP6rfQ699BejsI@yoga>
+In-Reply-To: <YNVP6rfQ699BejsI@yoga>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 25 Jun 2021 08:42:59 -0700
+Message-ID: <CAF6AEGvTjTUQXqom-xhdh456tdLscbVFPQ+iud1H1gHc8A2=hA@mail.gmail.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+Subject: Re: [Freedreno] [PATCH v5 3/5] drm/msm: Improve the a6xx page fault
+ handler
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,76 +63,106 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Lyude Paul <lyude@redhat.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Jordan Crouse <jcrouse@codeaurora.org>, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>, Eric Anholt <eric@anholt.net>,
+ "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
+ "Kristian H. Kristensen" <hoegsberg@google.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
+ open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-'6cba3fe43341 ("drm/dp: Add backpointer to drm_device in drm_dp_aux")'
-introduced a mandator drm_device backpointer in struct drm_dp_aux, but
-missed the msm DP driver. Fix this.
+On Thu, Jun 24, 2021 at 8:39 PM Bjorn Andersson
+<bjorn.andersson@linaro.org> wrote:
+>
+> On Thu 10 Jun 16:44 CDT 2021, Rob Clark wrote:
+> [..]
+> > diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
+> > index 50d881794758..6975b95c3c29 100644
+> > --- a/drivers/gpu/drm/msm/msm_iommu.c
+> > +++ b/drivers/gpu/drm/msm/msm_iommu.c
+> > @@ -211,8 +211,17 @@ static int msm_fault_handler(struct iommu_domain *domain, struct device *dev,
+> >               unsigned long iova, int flags, void *arg)
+> >  {
+> >       struct msm_iommu *iommu = arg;
+> > +     struct adreno_smmu_priv *adreno_smmu = dev_get_drvdata(iommu->base.dev);
+> > +     struct adreno_smmu_fault_info info, *ptr = NULL;
+> > +
+> > +     if (adreno_smmu->get_fault_info) {
+>
+> This seemed reasonable when I read it last time, but I didn't realize
+> that the msm_fault_handler() is installed for all msm_iommu instances.
+>
+> So while we're trying to recover from the boot splash and setup the new
+> framebuffer we end up here with iommu->base.dev being the mdss device.
+> Naturally drvdata of mdss is not a struct adreno_smmu_priv.
+>
+> > +             adreno_smmu->get_fault_info(adreno_smmu->cookie, &info);
+>
+> So here we just jump straight out into hyperspace, never to return.
+>
+> Not sure how to wire this up to avoid the problem, but right now I don't
+> think we can boot any device with a boot splash.
+>
 
-Fixes: 6cba3fe43341 ("drm/dp: Add backpointer to drm_device in drm_dp_aux")
-Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
----
- drivers/gpu/drm/msm/dp/dp_aux.c     | 3 ++-
- drivers/gpu/drm/msm/dp/dp_aux.h     | 2 +-
- drivers/gpu/drm/msm/dp/dp_display.c | 2 +-
- 3 files changed, 4 insertions(+), 3 deletions(-)
+I think we could do:
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
-index 4a3293b590b0..88659ed200b9 100644
---- a/drivers/gpu/drm/msm/dp/dp_aux.c
-+++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-@@ -441,7 +441,7 @@ void dp_aux_deinit(struct drm_dp_aux *dp_aux)
- 	dp_catalog_aux_enable(aux->catalog, false);
+------------------------
+diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
+index eed2a762e9dd..30ee8866154e 100644
+--- a/drivers/gpu/drm/msm/msm_iommu.c
++++ b/drivers/gpu/drm/msm/msm_iommu.c
+@@ -29,6 +29,9 @@ static struct msm_iommu_pagetable
+*to_pagetable(struct msm_mmu *mmu)
+  return container_of(mmu, struct msm_iommu_pagetable, base);
  }
- 
--int dp_aux_register(struct drm_dp_aux *dp_aux)
-+int dp_aux_register(struct drm_dp_aux *dp_aux, struct drm_device *drm_dev)
- {
- 	struct dp_aux_private *aux;
- 	int ret;
-@@ -455,6 +455,7 @@ int dp_aux_register(struct drm_dp_aux *dp_aux)
- 
- 	aux->dp_aux.name = "dpu_dp_aux";
- 	aux->dp_aux.dev = aux->dev;
-+	aux->dp_aux.drm_dev = drm_dev;
- 	aux->dp_aux.transfer = dp_aux_transfer;
- 	ret = drm_dp_aux_register(&aux->dp_aux);
- 	if (ret) {
-diff --git a/drivers/gpu/drm/msm/dp/dp_aux.h b/drivers/gpu/drm/msm/dp/dp_aux.h
-index 0728cc09c9ec..7ef0d83b483a 100644
---- a/drivers/gpu/drm/msm/dp/dp_aux.h
-+++ b/drivers/gpu/drm/msm/dp/dp_aux.h
-@@ -9,7 +9,7 @@
- #include "dp_catalog.h"
- #include <drm/drm_dp_helper.h>
- 
--int dp_aux_register(struct drm_dp_aux *dp_aux);
-+int dp_aux_register(struct drm_dp_aux *dp_aux, struct drm_device *drm_dev);
- void dp_aux_unregister(struct drm_dp_aux *dp_aux);
- void dp_aux_isr(struct drm_dp_aux *dp_aux);
- void dp_aux_init(struct drm_dp_aux *dp_aux);
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index c26562bd85fe..2f0a5c13f251 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -259,7 +259,7 @@ static int dp_display_bind(struct device *dev, struct device *master,
- 		return rc;
- 	}
- 
--	rc = dp_aux_register(dp->aux);
-+	rc = dp_aux_register(dp->aux, drm);
- 	if (rc) {
- 		DRM_ERROR("DRM DP AUX register failed\n");
- 		return rc;
--- 
-2.29.2
 
++static int msm_fault_handler(struct iommu_domain *domain, struct device *dev,
++ unsigned long iova, int flags, void *arg);
++
+ static int msm_iommu_pagetable_unmap(struct msm_mmu *mmu, u64 iova,
+  size_t size)
+ {
+@@ -151,6 +154,8 @@ struct msm_mmu *msm_iommu_pagetable_create(struct
+msm_mmu *parent)
+  struct io_pgtable_cfg ttbr0_cfg;
+  int ret;
+
++ iommu_set_fault_handler(iommu->domain, msm_fault_handler, iommu);
++
+  /* Get the pagetable configuration from the domain */
+  if (adreno_smmu->cookie)
+  ttbr1_cfg = adreno_smmu->get_ttbr1_cfg(adreno_smmu->cookie);
+@@ -300,7 +305,6 @@ struct msm_mmu *msm_iommu_new(struct device *dev,
+struct iommu_domain *domain)
+
+  iommu->domain = domain;
+  msm_mmu_init(&iommu->base, dev, &funcs, MSM_MMU_IOMMU);
+- iommu_set_fault_handler(domain, msm_fault_handler, iommu);
+
+  atomic_set(&iommu->pagetables, 0);
+
+------------------------
+
+That would have the result of setting the same fault handler multiple
+times, but that looks harmless.  Mostly the fault handling stuff is to
+make it easier to debug userspace issues, the fallback dmesg spam from
+arm-smmu should be sufficient for any kernel side issues.
+
+BR,
+-R
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
