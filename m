@@ -1,56 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46BB13B472E
-	for <lists+freedreno@lfdr.de>; Fri, 25 Jun 2021 18:08:02 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A46D3B473F
+	for <lists+freedreno@lfdr.de>; Fri, 25 Jun 2021 18:13:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FAB16EE11;
-	Fri, 25 Jun 2021 16:08:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C825F6EE10;
+	Fri, 25 Jun 2021 16:13:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35F376EE11
- for <freedreno@lists.freedesktop.org>; Fri, 25 Jun 2021 16:07:59 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1624637280; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=/KpohStlUJvTiEQ4iqkocQH8jbpoCZ87P2EttCttYgQ=;
- b=H5Y9Crwlc29zDVir3tcHnpAgsAOeU9V4ycEgBbho4fauNU50bvOe9/3y87Pksjjv3tCmlMyz
- HkaKoxldVvBhnwgemMNNla6Z/+1CI9cri1WHlLS39aQFiRQgu0HYEoWrBkWRZlEhNP0THpX4
- /j8WNIC5kCx1sWip1cZjdwL8u1A=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n03.prod.us-west-2.postgun.com with SMTP id
- 60d5ff5b7e5ba0fdc03501e0 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 25 Jun 2021 16:07:55
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 899D9C43460; Fri, 25 Jun 2021 16:07:55 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 96F94C433F1;
- Fri, 25 Jun 2021 16:07:54 +0000 (UTC)
+Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
+ [IPv6:2607:f8b0:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D83D46EE10
+ for <freedreno@lists.freedesktop.org>; Fri, 25 Jun 2021 16:13:48 +0000 (UTC)
+Received: by mail-ot1-x336.google.com with SMTP id
+ d21-20020a9d72d50000b02904604cda7e66so8008791otk.7
+ for <freedreno@lists.freedesktop.org>; Fri, 25 Jun 2021 09:13:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=MWWpxotgdBre27isI3DwZKQ334uPd/zecV0Lcyc3n7Q=;
+ b=N7zn6P76h5T81mOnWCupIHAcZvozSOjxZGTu/yWBXAFYQ7KtjfLycqT4XiBEFUrId1
+ xuFky7NkApH6BPvpnPP0zRNbC/4HgA3jtVvNGI+RUnb24WxoZeD9R+pzeMjUpHHNOo64
+ tHsRlMmWYgu6iwZ5Y1+vzK6RUg+S1UytBwSb/jEKBmT4hkrEWavEbxCZoV8vrmNjpV+R
+ WjDZQspCHpjwecQvvyvEw3rK09fdE1nXSzAmX3hc1Mn/MId88dV7sZ6g6dO+M1Eg6b/+
+ aznWTPJMenw99Iu2z8iwu/CLCOCmax7ptRtYD5oxbeGmSDu4wg2B69pO0hmJ5I5xAQrT
+ VxUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=MWWpxotgdBre27isI3DwZKQ334uPd/zecV0Lcyc3n7Q=;
+ b=eKi5FcxGvOwJJjJhKYLjR/epk+WSbay4uRqwPZm8X+fDjEZ0ybJ1F1KelOxxm2aEG3
+ EYcEeM8MlimD111Z1tBQgBXx96isCLRnby2GT5niKvNx9u9Utwj70PhCQfHc5S4QSG5k
+ PiCTGVfD4hl8eTDC0TpQEfq48WylDclqt+RySAZ+NeiwVXj347cyykPrZh8RROrL8LZr
+ Vch1b8hdOgWZ19jLY65FW3AujeKJkxBcZ2W7WmJzrXSIwQIlJSPfRwR6waDsDR5qHuAL
+ R1+L2V1dZ8C0NaJwmgJMyGZzk/lTJh9jNd4kLACTUGZDD4NtdMNZBpCyaxLpCFeVJXuL
+ X/Sg==
+X-Gm-Message-State: AOAM533fvdvRiFYb8N40F5oyIgxHt8o83AgZWZa2J7BddMN4n9r5lZmJ
+ kFxpmgHhzksaiolyax5mzddNlA==
+X-Google-Smtp-Source: ABdhPJxTOT8pJDLAz3xdWNJ/+53maozvDLTDh1AQoHyWbRZamb70O7ND1oumpz1JDJMQrWT5GODECg==
+X-Received: by 2002:a05:6830:1309:: with SMTP id
+ p9mr10338163otq.209.1624637628209; 
+ Fri, 25 Jun 2021 09:13:48 -0700 (PDT)
+Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
+ [104.57.184.186])
+ by smtp.gmail.com with ESMTPSA id q9sm1509884ots.1.2021.06.25.09.13.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 25 Jun 2021 09:13:47 -0700 (PDT)
+Date: Fri, 25 Jun 2021 11:13:45 -0500
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Kuogee Hsieh <khsieh@codeaurora.org>
+Message-ID: <YNYAuaBrGgdtToph@builder.lan>
+References: <1622758940-13485-1-git-send-email-khsieh@codeaurora.org>
 MIME-Version: 1.0
-Date: Fri, 25 Jun 2021 09:07:54 -0700
-From: abhinavk@codeaurora.org
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-In-Reply-To: <20210625034721.1287948-1-bjorn.andersson@linaro.org>
-References: <20210625034721.1287948-1-bjorn.andersson@linaro.org>
-Message-ID: <b585ae0c9e2e241f7f0494ae09809392@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Add missing drm_device
- backpointer
+Content-Disposition: inline
+In-Reply-To: <1622758940-13485-1-git-send-email-khsieh@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH v4] arm64: dts: qcom: sc7180: Add
+ DisplayPort node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,86 +70,171 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Lyude Paul <lyude@redhat.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dave Airlie <airlied@redhat.com>, Sean Paul <sean@poorly.run>
+Cc: devicetree@vger.kernel.org, freedreno@lists.freedesktop.org,
+ vkoul@kernel.org, robh+dt@kernel.org, swboyd@chromium.org, robdclark@gmail.com,
+ agross@kernel.org, abhinavk@codeaurora.org, linux-arm-msm@vger.kernel.org,
+ aravindh@codeaurora.org, sean@poorly.run, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-06-24 20:47, Bjorn Andersson wrote:
-> '6cba3fe43341 ("drm/dp: Add backpointer to drm_device in drm_dp_aux")'
-> introduced a mandator drm_device backpointer in struct drm_dp_aux, but
-mandatory
-> missed the msm DP driver. Fix this.
+On Thu 03 Jun 17:22 CDT 2021, Kuogee Hsieh wrote:
+
+> Add DP device node on sc7180.
 > 
-> Fixes: 6cba3fe43341 ("drm/dp: Add backpointer to drm_device in 
-> drm_dp_aux")
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-apart from that nit,
-Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
+> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
 > ---
->  drivers/gpu/drm/msm/dp/dp_aux.c     | 3 ++-
->  drivers/gpu/drm/msm/dp/dp_aux.h     | 2 +-
->  drivers/gpu/drm/msm/dp/dp_display.c | 2 +-
->  3 files changed, 4 insertions(+), 3 deletions(-)
+> Changes in v2:
+> -- replace msm_dp with dp
+> -- replace dp_opp_table with opp_table
 > 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c 
-> b/drivers/gpu/drm/msm/dp/dp_aux.c
-> index 4a3293b590b0..88659ed200b9 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_aux.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-> @@ -441,7 +441,7 @@ void dp_aux_deinit(struct drm_dp_aux *dp_aux)
->  	dp_catalog_aux_enable(aux->catalog, false);
->  }
+> Changes in v3:
+> -- correct text of commit title
 > 
-> -int dp_aux_register(struct drm_dp_aux *dp_aux)
-> +int dp_aux_register(struct drm_dp_aux *dp_aux, struct drm_device 
-> *drm_dev)
->  {
->  	struct dp_aux_private *aux;
->  	int ret;
-> @@ -455,6 +455,7 @@ int dp_aux_register(struct drm_dp_aux *dp_aux)
+> Changes in v4:
+> -- replace dp with mdss_dp
+> -- replace opp_table with dp_opp_table
 > 
->  	aux->dp_aux.name = "dpu_dp_aux";
->  	aux->dp_aux.dev = aux->dev;
-> +	aux->dp_aux.drm_dev = drm_dev;
->  	aux->dp_aux.transfer = dp_aux_transfer;
->  	ret = drm_dp_aux_register(&aux->dp_aux);
->  	if (ret) {
-> diff --git a/drivers/gpu/drm/msm/dp/dp_aux.h 
-> b/drivers/gpu/drm/msm/dp/dp_aux.h
-> index 0728cc09c9ec..7ef0d83b483a 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_aux.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_aux.h
-> @@ -9,7 +9,7 @@
->  #include "dp_catalog.h"
->  #include <drm/drm_dp_helper.h>
 > 
-> -int dp_aux_register(struct drm_dp_aux *dp_aux);
-> +int dp_aux_register(struct drm_dp_aux *dp_aux, struct drm_device 
-> *drm_dev);
->  void dp_aux_unregister(struct drm_dp_aux *dp_aux);
->  void dp_aux_isr(struct drm_dp_aux *dp_aux);
->  void dp_aux_init(struct drm_dp_aux *dp_aux);
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c
-> b/drivers/gpu/drm/msm/dp/dp_display.c
-> index c26562bd85fe..2f0a5c13f251 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -259,7 +259,7 @@ static int dp_display_bind(struct device *dev,
-> struct device *master,
->  		return rc;
->  	}
+>  arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi |  9 ++++
+>  arch/arm64/boot/dts/qcom/sc7180.dtsi         | 78 ++++++++++++++++++++++++++++
+>  2 files changed, 87 insertions(+)
 > 
-> -	rc = dp_aux_register(dp->aux);
-> +	rc = dp_aux_register(dp->aux, drm);
->  	if (rc) {
->  		DRM_ERROR("DRM DP AUX register failed\n");
->  		return rc;
+> diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
+> index 24d293e..051fb40 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
+> @@ -786,6 +786,15 @@ hp_i2c: &i2c9 {
+>  	status = "okay";
+>  };
+>  
+> +&mdss_dp {
+> +        status = "okay";
+> +        pinctrl-names = "default";
+> +        pinctrl-0 = <&dp_hot_plug_det>;
+> +        data-lanes = <0 1>;
+> +        vdda-1p2-supply = <&vdda_usb_ss_dp_1p2>;
+> +        vdda-0p9-supply = <&vdda_usb_ss_dp_core>;
+> +};
+> +
+>  &pm6150_adc {
+>  	charger-thermistor@4f {
+>  		reg = <ADC5_AMUX_THM3_100K_PU>;
+> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> index 6228ba2..c779ad3 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> @@ -3032,6 +3032,13 @@
+>  							remote-endpoint = <&dsi0_in>;
+>  						};
+>  					};
+> +
+> +					port@2 {
+> +						reg = <2>;
+> +						dpu_intf0_out: endpoint {
+> +							remote-endpoint = <&dp_in>;
+> +						};
+> +					};
+>  				};
+>  
+>  				mdp_opp_table: mdp-opp-table {
+> @@ -3148,6 +3155,77 @@
+>  
+>  				status = "disabled";
+>  			};
+> +
+> +			mdss_dp: displayport-controller@ae90000 {
+> +				compatible = "qcom,sc7180-dp";
+> +				status = "disabled";
+> +
+> +				reg = <0 0x0ae90000 0 0x1400>;
+> +
+> +				interrupt-parent = <&mdss>;
+> +				interrupts = <12>;
+> +
+> +				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
+> +				clock-names = "core_iface", "core_aux", "ctrl_link",
+> +					      "ctrl_link_iface", "stream_pixel";
+> +				#clock-cells = <1>;
+> +				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
+> +						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
+> +				assigned-clock-parents = <&dp_phy 0>, <&dp_phy 1>;
+> +				phys = <&dp_phy>;
+> +				phy-names = "dp";
+> +
+> +				operating-points-v2 = <&dp_opp_table>;
+> +				power-domains = <&rpmhpd SC7180_CX>;
+> +
+> +				#sound-dai-cells = <0>;
+> +
+> +				ports {
+> +					#address-cells = <1>;
+> +					#size-cells = <0>;
+> +					port@0 {
+> +						reg = <0>;
+> +						dp_in: endpoint {
+> +							remote-endpoint = <&dpu_intf0_out>;
+> +						};
+> +					};
+> +
+> +					port@1 {
+> +						reg = <1>;
+> +						dp_out: endpoint { };
+> +					};
+> +				};
+> +
+> +				dp_opp_table: dp-opp-table {
+
+I forgot that our discussion about the node name here was on the
+previous revision, _this_ is the patch I will drop the "dp-" from and
+apply.
+
+And as I've looked at this quite a bit now:
+
+Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+
+Thanks for following up on the other feedback!
+
+Regards,
+Bjorn
+
+> +					compatible = "operating-points-v2";
+> +
+> +					opp-160000000 {
+> +						opp-hz = /bits/ 64 <160000000>;
+> +						required-opps = <&rpmhpd_opp_low_svs>;
+> +					};
+> +
+> +					opp-270000000 {
+> +						opp-hz = /bits/ 64 <270000000>;
+> +						required-opps = <&rpmhpd_opp_svs>;
+> +					};
+> +
+> +					opp-540000000 {
+> +						opp-hz = /bits/ 64 <540000000>;
+> +						required-opps = <&rpmhpd_opp_svs_l1>;
+> +					};
+> +
+> +					opp-810000000 {
+> +						opp-hz = /bits/ 64 <810000000>;
+> +						required-opps = <&rpmhpd_opp_nom>;
+> +					};
+> +				};
+> +			};
+> +
+> +
+>  		};
+>  
+>  		dispcc: clock-controller@af00000 {
+> -- 
+> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+> a Linux Foundation Collaborative Project
+> 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
