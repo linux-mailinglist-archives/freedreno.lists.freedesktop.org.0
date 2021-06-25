@@ -1,53 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA43E3B38BB
-	for <lists+freedreno@lfdr.de>; Thu, 24 Jun 2021 23:31:28 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 746993B3B40
+	for <lists+freedreno@lfdr.de>; Fri, 25 Jun 2021 05:39:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 370EC6E986;
-	Thu, 24 Jun 2021 21:31:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D522E6EBED;
+	Fri, 25 Jun 2021 03:39:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-f178.google.com (mail-il1-f178.google.com
- [209.85.166.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF2296E03B;
- Thu, 24 Jun 2021 21:31:25 +0000 (UTC)
-Received: by mail-il1-f178.google.com with SMTP id q9so7802754ilj.3;
- Thu, 24 Jun 2021 14:31:25 -0700 (PDT)
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
+ [IPv6:2607:f8b0:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 081316EBED
+ for <freedreno@lists.freedesktop.org>; Fri, 25 Jun 2021 03:39:26 +0000 (UTC)
+Received: by mail-ot1-x334.google.com with SMTP id
+ x17-20020a05683000d1b029045fb1889a9eso7487973oto.5
+ for <freedreno@lists.freedesktop.org>; Thu, 24 Jun 2021 20:39:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=NgBcYRoIlctACD+L2YYbad3iw3ek5NyZ4dgv7eQ3Lxs=;
+ b=d5Z7R72WbYSoShvKXvQHAJXVwL9hbpA/qb5R/LJlrIh+pVPidB5zbsT9XIsS2eBFAt
+ UJ47Eqc334KXUncOythdccWWcpLa66oC85s02pMEYC9A54iPhc3Mhix+k6aEAP+K9W2R
+ nxQhXV4ZJJ4+gf11TL6cIq92u+Cc0itFy6GYLedkbkJpC9JU32x6vKXlKxK/HsF+iL0o
+ Spw5qiiteoNzA7/ruwNUEyNFWsZOnWjDCh7F/JIiLGmvk8bRAmXhOBcMvC6vOPwi5WbT
+ SnJzGZ1JwYqdDihOS3zBQevpoQ+h9uJPXUg3PpaYmnpR+LohY+sA6d0IvlDkWMkGYOpc
+ vxyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=O8EmC5jmhd3H2tbmN3mNHrPfEcvwMJRpkzyEy8i3V+E=;
- b=mvJVXiDwi9tu4jRtXef+Du/x136EOYan+QsbcSr8ytzgcaJu4JHi7uyfEwI7xZErPD
- G0vM2vK0odofRYsUqpibShRv+AWE8BQCb9TvTyUbFjoMgX6fO+AkVJNjwGF+eh0WbOjA
- cmBt4qQ33AH+i37ZUrfFyYOHhbLUSqDUhmC/Tmg0cG4yWB7gT8oo1+jpvuaJf3fizvfY
- ZAh7UTkcXA69aWPzHoXTdTzhZZ8Brtpac8lx1zS7OveckzlE+PqAE/cugTwNFFsF+U/f
- VaMYp1XVZsVwjQ13dHOZ9FVLIFbqH2oFsPz3faUBMLXY45zBW4NjCYj0+M402oyd8Z+w
- y01Q==
-X-Gm-Message-State: AOAM532LjDFx4OUGNu/2Pw3Dj+l+qNPKelz+nJTzOMg3m+dWpAVQ42+B
- FknVNvzsptrT6pDNYr4Mqg==
-X-Google-Smtp-Source: ABdhPJyfC0XhMTfy1YhoujL5JpehdqKXMrHWs83jfIsPpv/8SunAVt0KZjArx8NQ2Mj1T8BTQVTMZw==
-X-Received: by 2002:a92:2e08:: with SMTP id v8mr2143640ile.50.1624570285223;
- Thu, 24 Jun 2021 14:31:25 -0700 (PDT)
-Received: from robh.at.kernel.org ([64.188.179.248])
- by smtp.gmail.com with ESMTPSA id d5sm2495355ilf.55.2021.06.24.14.31.21
+ bh=NgBcYRoIlctACD+L2YYbad3iw3ek5NyZ4dgv7eQ3Lxs=;
+ b=Dad7NVWtiIiB0lcLXflfcalR/U5RtDxKsvFWpacH5cHmfg7rmwLg+eRCQLRFP1Y5jL
+ JCJr7Ljlha9sc8hrqibzpFn/E5z6hIMfaRPwWHIbJVHu6KVnAr2bHx90PfsSbc86MkiK
+ pdIt6gO3oLxzH9KkD+ncfHdcLXcjiIkvZ6T9Aq+kRFSjS1vpl2mJyyI6ZT9t3Hr0SyQA
+ 3624mn+1s3ckDJ2tQWGSN+DgePhauEzV2UG44FfRgRPSgNw/zjv4gTH8l0rH3LkmIK2I
+ sgSeRoRSNOIBociFkw3bfsgJbCdyf3y/kFuWwSc8MKSHttArzsnMAdIJE6bOfBtgqke1
+ eFRg==
+X-Gm-Message-State: AOAM531EfLrahg6/Xo7eHtg6hR3Yo1Gi8Z75KE/9ALcx6ioB4L5hChFb
+ KRoH0Qqgi+bat9jfUtVatO6SuA==
+X-Google-Smtp-Source: ABdhPJxICvy4DH/gmlYi4aOPrUOcJ+WDYuzwO6ESj2tt39upXIdEx5yfKOxDmtDKbeC3lx3i+SQnUg==
+X-Received: by 2002:a9d:1e5:: with SMTP id e92mr5472028ote.353.1624592365276; 
+ Thu, 24 Jun 2021 20:39:25 -0700 (PDT)
+Received: from yoga (104-57-184-186.lightspeed.austtx.sbcglobal.net.
+ [104.57.184.186])
+ by smtp.gmail.com with ESMTPSA id t21sm1140288otd.35.2021.06.24.20.39.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Jun 2021 14:31:24 -0700 (PDT)
-Received: (nullmailer pid 2020523 invoked by uid 1000);
- Thu, 24 Jun 2021 21:31:19 -0000
-Date: Thu, 24 Jun 2021 15:31:19 -0600
-From: Rob Herring <robh@kernel.org>
-To: Jonathan Marek <jonathan@marek.ca>
-Message-ID: <20210624213119.GA2017600@robh.at.kernel.org>
-References: <20210617144349.28448-1-jonathan@marek.ca>
- <20210617144349.28448-3-jonathan@marek.ca>
+ Thu, 24 Jun 2021 20:39:24 -0700 (PDT)
+Date: Thu, 24 Jun 2021 22:39:22 -0500
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <YNVP6rfQ699BejsI@yoga>
+References: <20210610214431.539029-1-robdclark@gmail.com>
+ <20210610214431.539029-4-robdclark@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210617144349.28448-3-jonathan@marek.ca>
-Subject: Re: [Freedreno] [PATCH v4 2/3] dt-bindings: msm: dsi: document
- phy-type property for 7nm dsi phy
+In-Reply-To: <20210610214431.539029-4-robdclark@gmail.com>
+Subject: Re: [Freedreno] [PATCH v5 3/5] drm/msm: Improve the a6xx page fault
+ handler
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,64 +70,66 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
- Anurag Kumar Vulisha <anurag.kumar.vulisha@xilinx.com>,
- David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Vinod Koul <vkoul@kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Daniel Vetter <daniel@ffwll.ch>, Swapnil Jakhade <sjakhade@cadence.com>,
- Sean Paul <sean@poorly.run>
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ Jordan Crouse <jcrouse@codeaurora.org>, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ Akhil P Oommen <akhilpo@codeaurora.org>, Eric Anholt <eric@anholt.net>,
+ iommu@lists.linux-foundation.org,
+ "Kristian H. Kristensen" <hoegsberg@google.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
+ open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jun 17, 2021 at 10:43:34AM -0400, Jonathan Marek wrote:
-> Document a new phy-type property which will be used to determine whether
-> the phy should operate in D-PHY or C-PHY mode.
-> 
-> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> ---
->  .../devicetree/bindings/display/msm/dsi-phy-7nm.yaml         | 5 +++++
->  include/dt-bindings/phy/phy.h                                | 2 ++
->  2 files changed, 7 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
-> index c0077ca7e9e7..70809d1cac54 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
-> @@ -34,6 +34,11 @@ properties:
->      description: |
->        Connected to VDD_A_DSI_PLL_0P9 pin (or VDDA_DSI{0,1}_PLL_0P9 for sm8150)
->  
-> +  phy-type:
-> +    description: D-PHY (default) or C-PHY mode
-> +    enum: [ 10, 11 ]
-> +    default: 10
+On Thu 10 Jun 16:44 CDT 2021, Rob Clark wrote:
+[..]
+> diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
+> index 50d881794758..6975b95c3c29 100644
+> --- a/drivers/gpu/drm/msm/msm_iommu.c
+> +++ b/drivers/gpu/drm/msm/msm_iommu.c
+> @@ -211,8 +211,17 @@ static int msm_fault_handler(struct iommu_domain *domain, struct device *dev,
+>  		unsigned long iova, int flags, void *arg)
+>  {
+>  	struct msm_iommu *iommu = arg;
+> +	struct adreno_smmu_priv *adreno_smmu = dev_get_drvdata(iommu->base.dev);
+> +	struct adreno_smmu_fault_info info, *ptr = NULL;
 > +
->  required:
->    - compatible
->    - reg
-> diff --git a/include/dt-bindings/phy/phy.h b/include/dt-bindings/phy/phy.h
-> index 887a31b250a8..f48c9acf251e 100644
-> --- a/include/dt-bindings/phy/phy.h
-> +++ b/include/dt-bindings/phy/phy.h
-> @@ -20,5 +20,7 @@
->  #define PHY_TYPE_XPCS		7
->  #define PHY_TYPE_SGMII		8
->  #define PHY_TYPE_QSGMII		9
-> +#define PHY_TYPE_DPHY		10
-> +#define PHY_TYPE_CPHY		11
+> +	if (adreno_smmu->get_fault_info) {
 
-I thought I recalled a suggestion to add 'MIPI_' in this. Or was there 
-another similar patch? If not, I'm fine either way:
+This seemed reasonable when I read it last time, but I didn't realize
+that the msm_fault_handler() is installed for all msm_iommu instances.
 
-Acked-by: Rob Herring <robh@kernel.org>
+So while we're trying to recover from the boot splash and setup the new
+framebuffer we end up here with iommu->base.dev being the mdss device.
+Naturally drvdata of mdss is not a struct adreno_smmu_priv.
+
+> +		adreno_smmu->get_fault_info(adreno_smmu->cookie, &info);
+
+So here we just jump straight out into hyperspace, never to return.
+
+Not sure how to wire this up to avoid the problem, but right now I don't
+think we can boot any device with a boot splash.
+
+Regards,
+Bjorn
+
+> +		ptr = &info;
+> +	}
+> +
+>  	if (iommu->base.handler)
+> -		return iommu->base.handler(iommu->base.arg, iova, flags);
+> +		return iommu->base.handler(iommu->base.arg, iova, flags, ptr);
+> +
+>  	pr_warn_ratelimited("*** fault: iova=%16lx, flags=%d\n", iova, flags);
+>  	return 0;
+>  }
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
