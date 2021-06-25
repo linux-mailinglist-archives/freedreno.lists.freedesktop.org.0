@@ -2,62 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A46D3B473F
-	for <lists+freedreno@lfdr.de>; Fri, 25 Jun 2021 18:13:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 967173B4765
+	for <lists+freedreno@lfdr.de>; Fri, 25 Jun 2021 18:27:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C825F6EE10;
-	Fri, 25 Jun 2021 16:13:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 378456EDF4;
+	Fri, 25 Jun 2021 16:27:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
- [IPv6:2607:f8b0:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D83D46EE10
- for <freedreno@lists.freedesktop.org>; Fri, 25 Jun 2021 16:13:48 +0000 (UTC)
-Received: by mail-ot1-x336.google.com with SMTP id
- d21-20020a9d72d50000b02904604cda7e66so8008791otk.7
- for <freedreno@lists.freedesktop.org>; Fri, 25 Jun 2021 09:13:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=MWWpxotgdBre27isI3DwZKQ334uPd/zecV0Lcyc3n7Q=;
- b=N7zn6P76h5T81mOnWCupIHAcZvozSOjxZGTu/yWBXAFYQ7KtjfLycqT4XiBEFUrId1
- xuFky7NkApH6BPvpnPP0zRNbC/4HgA3jtVvNGI+RUnb24WxoZeD9R+pzeMjUpHHNOo64
- tHsRlMmWYgu6iwZ5Y1+vzK6RUg+S1UytBwSb/jEKBmT4hkrEWavEbxCZoV8vrmNjpV+R
- WjDZQspCHpjwecQvvyvEw3rK09fdE1nXSzAmX3hc1Mn/MId88dV7sZ6g6dO+M1Eg6b/+
- aznWTPJMenw99Iu2z8iwu/CLCOCmax7ptRtYD5oxbeGmSDu4wg2B69pO0hmJ5I5xAQrT
- VxUA==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E4E56EE14
+ for <freedreno@lists.freedesktop.org>; Fri, 25 Jun 2021 16:27:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1624638433;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=U5o+qfP6GHLfIPfnq02TmNaEHiucEY8RMLS1UO4vZ+s=;
+ b=D0zFbwKuAXBltJ0CyDOOPDCLkicehizQLEnbHUBFuHTgAv/L9kRECge7d4CL3q09IMIFtZ
+ m19DHtSujYHf1Rgtwnh4bmKWWjmHRZjw0t4Totiasd4yH1iaFKJn8VXx8joY2XE2oDQP+/
+ uVY838Uy9i+4A8SfKIZnMBetXMN0u8k=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-249-sHJ46WdCNRWGt8KL0R0iPQ-1; Fri, 25 Jun 2021 12:27:12 -0400
+X-MC-Unique: sHJ46WdCNRWGt8KL0R0iPQ-1
+Received: by mail-qk1-f200.google.com with SMTP id
+ y5-20020a37af050000b02903a9c3f8b89fso10431108qke.2
+ for <freedreno@lists.freedesktop.org>; Fri, 25 Jun 2021 09:27:11 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=MWWpxotgdBre27isI3DwZKQ334uPd/zecV0Lcyc3n7Q=;
- b=eKi5FcxGvOwJJjJhKYLjR/epk+WSbay4uRqwPZm8X+fDjEZ0ybJ1F1KelOxxm2aEG3
- EYcEeM8MlimD111Z1tBQgBXx96isCLRnby2GT5niKvNx9u9Utwj70PhCQfHc5S4QSG5k
- PiCTGVfD4hl8eTDC0TpQEfq48WylDclqt+RySAZ+NeiwVXj347cyykPrZh8RROrL8LZr
- Vch1b8hdOgWZ19jLY65FW3AujeKJkxBcZ2W7WmJzrXSIwQIlJSPfRwR6waDsDR5qHuAL
- R1+L2V1dZ8C0NaJwmgJMyGZzk/lTJh9jNd4kLACTUGZDD4NtdMNZBpCyaxLpCFeVJXuL
- X/Sg==
-X-Gm-Message-State: AOAM533fvdvRiFYb8N40F5oyIgxHt8o83AgZWZa2J7BddMN4n9r5lZmJ
- kFxpmgHhzksaiolyax5mzddNlA==
-X-Google-Smtp-Source: ABdhPJxTOT8pJDLAz3xdWNJ/+53maozvDLTDh1AQoHyWbRZamb70O7ND1oumpz1JDJMQrWT5GODECg==
-X-Received: by 2002:a05:6830:1309:: with SMTP id
- p9mr10338163otq.209.1624637628209; 
- Fri, 25 Jun 2021 09:13:48 -0700 (PDT)
-Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id q9sm1509884ots.1.2021.06.25.09.13.47
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+ :references:organization:user-agent:mime-version
+ :content-transfer-encoding;
+ bh=U5o+qfP6GHLfIPfnq02TmNaEHiucEY8RMLS1UO4vZ+s=;
+ b=elbt19ipmooqVsFTNrcs0C9qo1M9GWnZUmIdF9PPHDIygO3bjY09bQ6IZ3pKL6y4Ib
+ U0qJM3J9qasZiuUrhuLGB7dYrARvTrsUKmUDNG4mur1Q+uuVYBTbqa0JEU5KsRUUgxCO
+ t+ne/9vfWc8nr4UPzT2pzWm+YReUTGh97ywz6z39ktF5OslzD6az9gn9KxgMSrqMEbYe
+ iPMEBbj+QXpusz6XeQWTz0/PkDZbitQF4OGaabhCLxPTo2vTGSX1wbb7f7BsJOjZjWMs
+ +BfFJq1VSgKEp7x2qJa2J8GqiQo7sbmrjnwCEewo3qW/sRSGtnCFYxI8gUo9gkceW8lr
+ +ABw==
+X-Gm-Message-State: AOAM532uvC8qurw6xsyfwGmD+Os1kPPhGmJxftReX6jdajGIAhxCi8rN
+ 1aNK3+cb6aL4hXUI3Obm8sKr5EKPtXsFDNd9qbDjAZSedJT16QAhb8vptF8KuGyVZM5q4DoR0/D
+ SYzurqiueVn5yCKwmxavw/dzDfYaA
+X-Received: by 2002:a0c:c3d1:: with SMTP id p17mr11777572qvi.44.1624638431614; 
+ Fri, 25 Jun 2021 09:27:11 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyNCXBo3wDqEwZBbeZJgLcThoweJoirnmT4pfoxXYsxbDiSqWO1f6DFrN67Lv8a1Xvc6DS5QA==
+X-Received: by 2002:a0c:c3d1:: with SMTP id p17mr11777554qvi.44.1624638431416; 
+ Fri, 25 Jun 2021 09:27:11 -0700 (PDT)
+Received: from Ruby.lyude.net (pool-108-49-102-102.bstnma.fios.verizon.net.
+ [108.49.102.102])
+ by smtp.gmail.com with ESMTPSA id t62sm5240494qkc.26.2021.06.25.09.27.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Jun 2021 09:13:47 -0700 (PDT)
-Date: Fri, 25 Jun 2021 11:13:45 -0500
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Kuogee Hsieh <khsieh@codeaurora.org>
-Message-ID: <YNYAuaBrGgdtToph@builder.lan>
-References: <1622758940-13485-1-git-send-email-khsieh@codeaurora.org>
+ Fri, 25 Jun 2021 09:27:11 -0700 (PDT)
+Message-ID: <a48763801f0e903a227283a12cf881dc143034ff.camel@redhat.com>
+From: Lyude Paul <lyude@redhat.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, David Airlie
+ <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Dave Airlie
+ <airlied@redhat.com>
+Date: Fri, 25 Jun 2021 12:27:09 -0400
+In-Reply-To: <20210625034721.1287948-1-bjorn.andersson@linaro.org>
+References: <20210625034721.1287948-1-bjorn.andersson@linaro.org>
+Organization: Red Hat
+User-Agent: Evolution 3.38.4 (3.38.4-1.fc33)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1622758940-13485-1-git-send-email-khsieh@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v4] arm64: dts: qcom: sc7180: Add
- DisplayPort node
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Add missing drm_device
+ backpointer
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,172 +85,64 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, freedreno@lists.freedesktop.org,
- vkoul@kernel.org, robh+dt@kernel.org, swboyd@chromium.org, robdclark@gmail.com,
- agross@kernel.org, abhinavk@codeaurora.org, linux-arm-msm@vger.kernel.org,
- aravindh@codeaurora.org, sean@poorly.run, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu 03 Jun 17:22 CDT 2021, Kuogee Hsieh wrote:
-
-> Add DP device node on sc7180.
-> 
-> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
-> ---
-> Changes in v2:
-> -- replace msm_dp with dp
-> -- replace dp_opp_table with opp_table
-> 
-> Changes in v3:
-> -- correct text of commit title
-> 
-> Changes in v4:
-> -- replace dp with mdss_dp
-> -- replace opp_table with dp_opp_table
-> 
-> 
->  arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi |  9 ++++
->  arch/arm64/boot/dts/qcom/sc7180.dtsi         | 78 ++++++++++++++++++++++++++++
->  2 files changed, 87 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-> index 24d293e..051fb40 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-> @@ -786,6 +786,15 @@ hp_i2c: &i2c9 {
->  	status = "okay";
->  };
->  
-> +&mdss_dp {
-> +        status = "okay";
-> +        pinctrl-names = "default";
-> +        pinctrl-0 = <&dp_hot_plug_det>;
-> +        data-lanes = <0 1>;
-> +        vdda-1p2-supply = <&vdda_usb_ss_dp_1p2>;
-> +        vdda-0p9-supply = <&vdda_usb_ss_dp_core>;
-> +};
-> +
->  &pm6150_adc {
->  	charger-thermistor@4f {
->  		reg = <ADC5_AMUX_THM3_100K_PU>;
-> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> index 6228ba2..c779ad3 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> @@ -3032,6 +3032,13 @@
->  							remote-endpoint = <&dsi0_in>;
->  						};
->  					};
-> +
-> +					port@2 {
-> +						reg = <2>;
-> +						dpu_intf0_out: endpoint {
-> +							remote-endpoint = <&dp_in>;
-> +						};
-> +					};
->  				};
->  
->  				mdp_opp_table: mdp-opp-table {
-> @@ -3148,6 +3155,77 @@
->  
->  				status = "disabled";
->  			};
-> +
-> +			mdss_dp: displayport-controller@ae90000 {
-> +				compatible = "qcom,sc7180-dp";
-> +				status = "disabled";
-> +
-> +				reg = <0 0x0ae90000 0 0x1400>;
-> +
-> +				interrupt-parent = <&mdss>;
-> +				interrupts = <12>;
-> +
-> +				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
-> +				clock-names = "core_iface", "core_aux", "ctrl_link",
-> +					      "ctrl_link_iface", "stream_pixel";
-> +				#clock-cells = <1>;
-> +				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
-> +						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
-> +				assigned-clock-parents = <&dp_phy 0>, <&dp_phy 1>;
-> +				phys = <&dp_phy>;
-> +				phy-names = "dp";
-> +
-> +				operating-points-v2 = <&dp_opp_table>;
-> +				power-domains = <&rpmhpd SC7180_CX>;
-> +
-> +				#sound-dai-cells = <0>;
-> +
-> +				ports {
-> +					#address-cells = <1>;
-> +					#size-cells = <0>;
-> +					port@0 {
-> +						reg = <0>;
-> +						dp_in: endpoint {
-> +							remote-endpoint = <&dpu_intf0_out>;
-> +						};
-> +					};
-> +
-> +					port@1 {
-> +						reg = <1>;
-> +						dp_out: endpoint { };
-> +					};
-> +				};
-> +
-> +				dp_opp_table: dp-opp-table {
-
-I forgot that our discussion about the node name here was on the
-previous revision, _this_ is the patch I will drop the "dp-" from and
-apply.
-
-And as I've looked at this quite a bit now:
-
-Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-
-Thanks for following up on the other feedback!
-
-Regards,
-Bjorn
-
-> +					compatible = "operating-points-v2";
-> +
-> +					opp-160000000 {
-> +						opp-hz = /bits/ 64 <160000000>;
-> +						required-opps = <&rpmhpd_opp_low_svs>;
-> +					};
-> +
-> +					opp-270000000 {
-> +						opp-hz = /bits/ 64 <270000000>;
-> +						required-opps = <&rpmhpd_opp_svs>;
-> +					};
-> +
-> +					opp-540000000 {
-> +						opp-hz = /bits/ 64 <540000000>;
-> +						required-opps = <&rpmhpd_opp_svs_l1>;
-> +					};
-> +
-> +					opp-810000000 {
-> +						opp-hz = /bits/ 64 <810000000>;
-> +						required-opps = <&rpmhpd_opp_nom>;
-> +					};
-> +				};
-> +			};
-> +
-> +
->  		};
->  
->  		dispcc: clock-controller@af00000 {
-> -- 
-> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-> a Linux Foundation Collaborative Project
-> 
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+QWggLSBtdXN0IGhhdmUgbWlzc2VkIHRoaXMgd2hlbiBJIGFkZGVkIHRoaXMuIFRoYW5rcyBmb3Ig
+dGhlIGZpeCEKClJldmlld2VkLWJ5OiBMeXVkZSBQYXVsIDxseXVkZUByZWRoYXQuY29tPgoKT24g
+VGh1LCAyMDIxLTA2LTI0IGF0IDIwOjQ3IC0wNzAwLCBCam9ybiBBbmRlcnNzb24gd3JvdGU6Cj4g
+JzZjYmEzZmU0MzM0MSAoImRybS9kcDogQWRkIGJhY2twb2ludGVyIHRvIGRybV9kZXZpY2UgaW4g
+ZHJtX2RwX2F1eCIpJwo+IGludHJvZHVjZWQgYSBtYW5kYXRvciBkcm1fZGV2aWNlIGJhY2twb2lu
+dGVyIGluIHN0cnVjdCBkcm1fZHBfYXV4LCBidXQKPiBtaXNzZWQgdGhlIG1zbSBEUCBkcml2ZXIu
+IEZpeCB0aGlzLgo+IAo+IEZpeGVzOiA2Y2JhM2ZlNDMzNDEgKCJkcm0vZHA6IEFkZCBiYWNrcG9p
+bnRlciB0byBkcm1fZGV2aWNlIGluIGRybV9kcF9hdXgiKQo+IFNpZ25lZC1vZmYtYnk6IEJqb3Ju
+IEFuZGVyc3NvbiA8Ympvcm4uYW5kZXJzc29uQGxpbmFyby5vcmc+Cj4gLS0tCj4gwqBkcml2ZXJz
+L2dwdS9kcm0vbXNtL2RwL2RwX2F1eC5jwqDCoMKgwqAgfCAzICsrLQo+IMKgZHJpdmVycy9ncHUv
+ZHJtL21zbS9kcC9kcF9hdXguaMKgwqDCoMKgIHwgMiArLQo+IMKgZHJpdmVycy9ncHUvZHJtL21z
+bS9kcC9kcF9kaXNwbGF5LmMgfCAyICstCj4gwqAzIGZpbGVzIGNoYW5nZWQsIDQgaW5zZXJ0aW9u
+cygrKSwgMyBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL21z
+bS9kcC9kcF9hdXguYwo+IGIvZHJpdmVycy9ncHUvZHJtL21zbS9kcC9kcF9hdXguYwo+IGluZGV4
+IDRhMzI5M2I1OTBiMC4uODg2NTllZDIwMGI5IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9tc20vZHAvZHBfYXV4LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2RwL2RwX2F1eC5j
+Cj4gQEAgLTQ0MSw3ICs0NDEsNyBAQCB2b2lkIGRwX2F1eF9kZWluaXQoc3RydWN0IGRybV9kcF9h
+dXggKmRwX2F1eCkKPiDCoMKgwqDCoMKgwqDCoMKgZHBfY2F0YWxvZ19hdXhfZW5hYmxlKGF1eC0+
+Y2F0YWxvZywgZmFsc2UpOwo+IMKgfQo+IMKgCj4gLWludCBkcF9hdXhfcmVnaXN0ZXIoc3RydWN0
+IGRybV9kcF9hdXggKmRwX2F1eCkKPiAraW50IGRwX2F1eF9yZWdpc3RlcihzdHJ1Y3QgZHJtX2Rw
+X2F1eCAqZHBfYXV4LCBzdHJ1Y3QgZHJtX2RldmljZSAqZHJtX2RldikKPiDCoHsKPiDCoMKgwqDC
+oMKgwqDCoMKgc3RydWN0IGRwX2F1eF9wcml2YXRlICphdXg7Cj4gwqDCoMKgwqDCoMKgwqDCoGlu
+dCByZXQ7Cj4gQEAgLTQ1NSw2ICs0NTUsNyBAQCBpbnQgZHBfYXV4X3JlZ2lzdGVyKHN0cnVjdCBk
+cm1fZHBfYXV4ICpkcF9hdXgpCj4gwqAKPiDCoMKgwqDCoMKgwqDCoMKgYXV4LT5kcF9hdXgubmFt
+ZSA9ICJkcHVfZHBfYXV4IjsKPiDCoMKgwqDCoMKgwqDCoMKgYXV4LT5kcF9hdXguZGV2ID0gYXV4
+LT5kZXY7Cj4gK8KgwqDCoMKgwqDCoMKgYXV4LT5kcF9hdXguZHJtX2RldiA9IGRybV9kZXY7Cj4g
+wqDCoMKgwqDCoMKgwqDCoGF1eC0+ZHBfYXV4LnRyYW5zZmVyID0gZHBfYXV4X3RyYW5zZmVyOwo+
+IMKgwqDCoMKgwqDCoMKgwqByZXQgPSBkcm1fZHBfYXV4X3JlZ2lzdGVyKCZhdXgtPmRwX2F1eCk7
+Cj4gwqDCoMKgwqDCoMKgwqDCoGlmIChyZXQpIHsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL21zbS9kcC9kcF9hdXguaAo+IGIvZHJpdmVycy9ncHUvZHJtL21zbS9kcC9kcF9hdXguaAo+
+IGluZGV4IDA3MjhjYzA5YzllYy4uN2VmMGQ4M2I0ODNhIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9tc20vZHAvZHBfYXV4LmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2RwL2Rw
+X2F1eC5oCj4gQEAgLTksNyArOSw3IEBACj4gwqAjaW5jbHVkZSAiZHBfY2F0YWxvZy5oIgo+IMKg
+I2luY2x1ZGUgPGRybS9kcm1fZHBfaGVscGVyLmg+Cj4gwqAKPiAtaW50IGRwX2F1eF9yZWdpc3Rl
+cihzdHJ1Y3QgZHJtX2RwX2F1eCAqZHBfYXV4KTsKPiAraW50IGRwX2F1eF9yZWdpc3RlcihzdHJ1
+Y3QgZHJtX2RwX2F1eCAqZHBfYXV4LCBzdHJ1Y3QgZHJtX2RldmljZSAqZHJtX2Rldik7Cj4gwqB2
+b2lkIGRwX2F1eF91bnJlZ2lzdGVyKHN0cnVjdCBkcm1fZHBfYXV4ICpkcF9hdXgpOwo+IMKgdm9p
+ZCBkcF9hdXhfaXNyKHN0cnVjdCBkcm1fZHBfYXV4ICpkcF9hdXgpOwo+IMKgdm9pZCBkcF9hdXhf
+aW5pdChzdHJ1Y3QgZHJtX2RwX2F1eCAqZHBfYXV4KTsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL21zbS9kcC9kcF9kaXNwbGF5LmMKPiBiL2RyaXZlcnMvZ3B1L2RybS9tc20vZHAvZHBf
+ZGlzcGxheS5jCj4gaW5kZXggYzI2NTYyYmQ4NWZlLi4yZjBhNWMxM2YyNTEgMTAwNjQ0Cj4gLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL21zbS9kcC9kcF9kaXNwbGF5LmMKPiArKysgYi9kcml2ZXJzL2dw
+dS9kcm0vbXNtL2RwL2RwX2Rpc3BsYXkuYwo+IEBAIC0yNTksNyArMjU5LDcgQEAgc3RhdGljIGlu
+dCBkcF9kaXNwbGF5X2JpbmQoc3RydWN0IGRldmljZSAqZGV2LCBzdHJ1Y3QKPiBkZXZpY2UgKm1h
+c3RlciwKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJldHVybiByYzsKPiDCoMKg
+wqDCoMKgwqDCoMKgfQo+IMKgCj4gLcKgwqDCoMKgwqDCoMKgcmMgPSBkcF9hdXhfcmVnaXN0ZXIo
+ZHAtPmF1eCk7Cj4gK8KgwqDCoMKgwqDCoMKgcmMgPSBkcF9hdXhfcmVnaXN0ZXIoZHAtPmF1eCwg
+ZHJtKTsKPiDCoMKgwqDCoMKgwqDCoMKgaWYgKHJjKSB7Cj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqBEUk1fRVJST1IoIkRSTSBEUCBBVVggcmVnaXN0ZXIgZmFpbGVkXG4iKTsKPiDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJldHVybiByYzsKCi0tIApDaGVlcnMsCiBM
+eXVkZSBQYXVsIChzaGUvaGVyKQogU29mdHdhcmUgRW5naW5lZXIgYXQgUmVkIEhhdAoKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5vIG1haWxp
+bmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5vCg==
