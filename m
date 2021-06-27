@@ -2,36 +2,41 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D72433B4F98
-	for <lists+freedreno@lfdr.de>; Sat, 26 Jun 2021 18:52:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58FAB3B54A8
+	for <lists+freedreno@lfdr.de>; Sun, 27 Jun 2021 20:26:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD5CA6E055;
-	Sat, 26 Jun 2021 16:52:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D51B6E115;
+	Sun, 27 Jun 2021 18:26:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (unknown [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76D8F6E03C;
- Sat, 26 Jun 2021 16:52:13 +0000 (UTC)
-Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
- by alexa-out.qualcomm.com with ESMTP; 26 Jun 2021 09:52:05 -0700
-X-QCInternal: smtphost
-Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
- by ironmsg08-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 26 Jun 2021 09:52:04 -0700
-X-QCInternal: smtphost
-Received: from rajeevny-linux.qualcomm.com ([10.204.66.121])
- by ironmsg01-blr.qualcomm.com with ESMTP; 26 Jun 2021 22:21:33 +0530
-Received: by rajeevny-linux.qualcomm.com (Postfix, from userid 2363605)
- id A295721478; Sat, 26 Jun 2021 22:21:30 +0530 (IST)
-From: Rajeev Nandan <rajeevny@codeaurora.org>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Date: Sat, 26 Jun 2021 22:21:08 +0530
-Message-Id: <1624726268-14869-7-git-send-email-rajeevny@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1624726268-14869-1-git-send-email-rajeevny@codeaurora.org>
+X-Greylist: delayed 444 seconds by postgrey-1.36 at gabe;
+ Sun, 27 Jun 2021 18:26:32 UTC
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 817936E115
+ for <freedreno@lists.freedesktop.org>; Sun, 27 Jun 2021 18:26:32 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
+ [62.78.145.57])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3EAB029A;
+ Sun, 27 Jun 2021 20:19:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1624817946;
+ bh=wK+nrVwjt4OX8y71ZMQNFIWNMUXMqLqQiij/WmjWfnc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=DNBuwmC7I/0peKCcsI23heE5BEUc3uq5lbUNBGL4nPDJTkM9RWpqInfdWZMvvvfNS
+ 2hzBZhTR7tPMq92wpwFNh/jj5ZdTASPJ8Hv/sOyGaTHxba2Mhnia4DLhsSuHNVOVSa
+ XUUuiknu/EVpC6z+qi8nL8DXL8Y/j9wjbLJOLE4M=
+Date: Sun, 27 Jun 2021 21:18:34 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Rajeev Nandan <rajeevny@codeaurora.org>
+Message-ID: <YNjA+jg9Khn+a9K+@pendragon.ideasonboard.com>
 References: <1624726268-14869-1-git-send-email-rajeevny@codeaurora.org>
-Subject: [Freedreno] [v8 6/6] drm/panel-simple: Add Samsung ATNA33XC20
+ <1624726268-14869-5-git-send-email-rajeevny@codeaurora.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <1624726268-14869-5-git-send-email-rajeevny@codeaurora.org>
+Subject: Re: [Freedreno] [v8 4/6] drm/panel-simple: Update validation
+ warnings for eDP panel description
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,93 +49,63 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robh@kernel.org, daniel.thompson@linaro.org, lyude@redhat.com,
- Rajeev Nandan <rajeevny@codeaurora.org>, mkrishn@codeaurora.org,
- jani.nikula@intel.com, linux-kernel@vger.kernel.org, abhinavk@codeaurora.org,
+Cc: devicetree@vger.kernel.org, daniel.thompson@linaro.org,
+ mkrishn@codeaurora.org, lyude@redhat.com, sam@ravnborg.org, robh@kernel.org,
+ jani.nikula@intel.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  dianders@chromium.org, a.hajda@samsung.com, robdclark@gmail.com,
- thierry.reding@gmail.com, seanpaul@chromium.org,
- laurent.pinchart@ideasonboard.com, kalyan_t@codeaurora.org,
- hoegsberg@chromium.org, sam@ravnborg.org
-MIME-Version: 1.0
+ thierry.reding@gmail.com, seanpaul@chromium.org, abhinavk@codeaurora.org,
+ kalyan_t@codeaurora.org, hoegsberg@chromium.org,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add Samsung 13.3" FHD eDP AMOLED panel.
+Hi Rajeev,
 
-Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
----
+On Sat, Jun 26, 2021 at 10:21:06PM +0530, Rajeev Nandan wrote:
+> Do not give a warning for the eDP panels if the "bus_format" is
+> not specified, since most eDP panels can support more than one
+> bus formats and this can be auto-detected.
+> Also, update the check to include bpc=10 for the eDP panel.
+> 
+> Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
+> ---
+> 
+> Changes in v8:
+> - New patch, to address the review comments of Sam Ravnborg [1]
+> 
+> [1] https://lore.kernel.org/dri-devel/20210621184157.GB918146@ravnborg.org/
+> 
+>  drivers/gpu/drm/panel/panel-simple.c | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+> index 86e5a45..f966b562 100644
+> --- a/drivers/gpu/drm/panel/panel-simple.c
+> +++ b/drivers/gpu/drm/panel/panel-simple.c
+> @@ -772,10 +772,8 @@ static int panel_simple_probe(struct device *dev, const struct panel_desc *desc,
+>  			desc->bpc != 8);
+>  		break;
+>  	case DRM_MODE_CONNECTOR_eDP:
+> -		if (desc->bus_format == 0)
+> -			dev_warn(dev, "Specify missing bus_format\n");
+> -		if (desc->bpc != 6 && desc->bpc != 8)
+> -			dev_warn(dev, "Expected bpc in {6,8} but got: %u\n", desc->bpc);
+> +		if (desc->bpc != 6 && desc->bpc != 8 && desc->bpc != 10)
+> +			dev_warn(dev, "Expected bpc in {6,8,10} but got: %u\n", desc->bpc);
 
-(No changes since v7)
+You'll still get a warning is bpc == 0, is that intentional ?
 
-Changes in v4:
-- New
+>  		break;
+>  	case DRM_MODE_CONNECTOR_DSI:
+>  		if (desc->bpc != 6 && desc->bpc != 8)
 
-Changes in v5:
-- Remove "uses_dpcd_backlight" property, not required now. (Douglas)
-
-Changes in v7:
-- Update disable_to_power_off and power_to_enable delays. (Douglas)
-
- drivers/gpu/drm/panel/panel-simple.c | 33 +++++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
-
-diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-index f966b562..e541257 100644
---- a/drivers/gpu/drm/panel/panel-simple.c
-+++ b/drivers/gpu/drm/panel/panel-simple.c
-@@ -3560,6 +3560,36 @@ static const struct panel_desc rocktech_rk101ii01d_ct = {
- 	.connector_type = DRM_MODE_CONNECTOR_LVDS,
- };
- 
-+static const struct drm_display_mode samsung_atna33xc20_mode = {
-+	.clock = 138770,
-+	.hdisplay = 1920,
-+	.hsync_start = 1920 + 48,
-+	.hsync_end = 1920 + 48 + 32,
-+	.htotal = 1920 + 48 + 32 + 80,
-+	.vdisplay = 1080,
-+	.vsync_start = 1080 + 8,
-+	.vsync_end = 1080 + 8 + 8,
-+	.vtotal = 1080 + 8 + 8 + 16,
-+	.flags = DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_NVSYNC,
-+};
-+
-+static const struct panel_desc samsung_atna33xc20 = {
-+	.modes = &samsung_atna33xc20_mode,
-+	.num_modes = 1,
-+	.bpc = 10,
-+	.size = {
-+		.width = 294,
-+		.height = 165,
-+	},
-+	.delay = {
-+		.disable_to_power_off = 200,
-+		.power_to_enable = 400,
-+		.hpd_absent_delay = 200,
-+		.unprepare = 500,
-+	},
-+	.connector_type = DRM_MODE_CONNECTOR_eDP,
-+};
-+
- static const struct drm_display_mode samsung_lsn122dl01_c01_mode = {
- 	.clock = 271560,
- 	.hdisplay = 2560,
-@@ -4561,6 +4591,9 @@ static const struct of_device_id platform_of_match[] = {
- 		.compatible = "rocktech,rk101ii01d-ct",
- 		.data = &rocktech_rk101ii01d_ct,
- 	}, {
-+		.compatible = "samsung,atna33xc20",
-+		.data = &samsung_atna33xc20,
-+	}, {
- 		.compatible = "samsung,lsn122dl01-c01",
- 		.data = &samsung_lsn122dl01_c01,
- 	}, {
 -- 
-2.7.4
+Regards,
 
+Laurent Pinchart
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
