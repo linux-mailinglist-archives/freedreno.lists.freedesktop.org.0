@@ -2,41 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58FAB3B54A8
-	for <lists+freedreno@lfdr.de>; Sun, 27 Jun 2021 20:26:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C35F3B5AB7
+	for <lists+freedreno@lfdr.de>; Mon, 28 Jun 2021 10:50:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D51B6E115;
-	Sun, 27 Jun 2021 18:26:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6662289FDE;
+	Mon, 28 Jun 2021 08:50:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 444 seconds by postgrey-1.36 at gabe;
- Sun, 27 Jun 2021 18:26:32 UTC
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 817936E115
- for <freedreno@lists.freedesktop.org>; Sun, 27 Jun 2021 18:26:32 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
- [62.78.145.57])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3EAB029A;
- Sun, 27 Jun 2021 20:19:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1624817946;
- bh=wK+nrVwjt4OX8y71ZMQNFIWNMUXMqLqQiij/WmjWfnc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DNBuwmC7I/0peKCcsI23heE5BEUc3uq5lbUNBGL4nPDJTkM9RWpqInfdWZMvvvfNS
- 2hzBZhTR7tPMq92wpwFNh/jj5ZdTASPJ8Hv/sOyGaTHxba2Mhnia4DLhsSuHNVOVSa
- XUUuiknu/EVpC6z+qi8nL8DXL8Y/j9wjbLJOLE4M=
-Date: Sun, 27 Jun 2021 21:18:34 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Rajeev Nandan <rajeevny@codeaurora.org>
-Message-ID: <YNjA+jg9Khn+a9K+@pendragon.ideasonboard.com>
-References: <1624726268-14869-1-git-send-email-rajeevny@codeaurora.org>
- <1624726268-14869-5-git-send-email-rajeevny@codeaurora.org>
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0357189FDE
+ for <freedreno@lists.freedesktop.org>; Mon, 28 Jun 2021 08:50:55 +0000 (UTC)
+Received: by mail-wr1-x430.google.com with SMTP id a13so20212346wrf.10
+ for <freedreno@lists.freedesktop.org>; Mon, 28 Jun 2021 01:50:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=ivMWyakmLeaYuI23t/O2pRde3mjJQDvPIshj9I2/bxk=;
+ b=U5RttCDInB3rDob0B5Dcq6/Xyhvc9wz8sZ8N+wWaNMXZOvdChN7mX6a/FDT7jGGO5B
+ Km08kaThC7gGa7Q83XjZak1i6z/RUGIPGFY6Et94LmQhCb/TH3SyeqANgL3dLiju9Gb0
+ oSy9HN6XaHnxH34/zes1RTu2PV04E6PCf+iVrePfIvhosLHN4um3c6ZNYTUzQIJ8EOTR
+ 6VLle0zILlHPxBxIVW6mNzi7UdE4lqdQd/NkPjeOKZvE5y4huA81pvsVgRCU00UEsFow
+ +NVfKlCppBxpRDEcNt9jpnTQ7XpYM9ZVZPcJESh+dYu/1GpjO6hLNa3Qs9nkbVwhsbj1
+ EQQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=ivMWyakmLeaYuI23t/O2pRde3mjJQDvPIshj9I2/bxk=;
+ b=YY7iDsIMhUIiG+lNlY6+Ar/wafR6n203fw3dPOETIZ5nIh5U7qGAhWNsx+O5kjb0no
+ 4xi3FPtsJslYXVlfw7CB+XLBpBQxwVRo/C6pgOzn0X8jARkZJgIGCfk1o1f0EtEsKZWc
+ VAO8rO21VWyYKw54G+jnKbd9cm88maC0kLm1v/e8qZ3hUx/Rph79owiK2M/OU/72wc3o
+ o0X2FaS4XvLoTONgheEz/BtC3uOk5GznO2Nss10A5iGTJGIVfJW2TVkN3kbuOJFIwdHJ
+ a4NA2svgmYGOJ0V0iSE5uY78M9WKJ+UNvmlMRssgzUt/kP72+fbsGAwAWjhwMhw63t66
+ iNoQ==
+X-Gm-Message-State: AOAM530g1Vhdg0xLS7oE3HTY6vWkWwfCaLpqj3I6eP9XnubG7atwnYft
+ 7IvMFtBs6MYLnVeYGkFkn63t7w==
+X-Google-Smtp-Source: ABdhPJx5O2B7LqCOPQfcupkEEJVd6rGqE+bx5F0HEMmyXyLyhRTJwjgwPYZa2H8Ud0EveatM7tT/kQ==
+X-Received: by 2002:adf:f384:: with SMTP id m4mr25707885wro.12.1624870253640; 
+ Mon, 28 Jun 2021 01:50:53 -0700 (PDT)
+Received: from xps7590.fritz.box ([2a02:2454:3e5:b700:b773:c98e:f11:e83f])
+ by smtp.gmail.com with ESMTPSA id j35sm7379565wms.7.2021.06.28.01.50.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 28 Jun 2021 01:50:53 -0700 (PDT)
+From: Robert Foss <robert.foss@linaro.org>
+To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
+ jonathan@marek.ca, dmitry.baryshkov@linaro.org,
+ angelogioacchino.delregno@somainline.org, lee.jones@linaro.org,
+ kalyan_t@codeaurora.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Date: Mon, 28 Jun 2021 10:50:33 +0200
+Message-Id: <20210628085033.9905-1-robert.foss@linaro.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1624726268-14869-5-git-send-email-rajeevny@codeaurora.org>
-Subject: Re: [Freedreno] [v8 4/6] drm/panel-simple: Update validation
- warnings for eDP panel description
+Subject: [Freedreno] [PATCH v1] drm/msm/dpu: Fix sm8250_mdp register length
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,63 +69,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, daniel.thompson@linaro.org,
- mkrishn@codeaurora.org, lyude@redhat.com, sam@ravnborg.org, robh@kernel.org,
- jani.nikula@intel.com, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- dianders@chromium.org, a.hajda@samsung.com, robdclark@gmail.com,
- thierry.reding@gmail.com, seanpaul@chromium.org, abhinavk@codeaurora.org,
- kalyan_t@codeaurora.org, hoegsberg@chromium.org,
- freedreno@lists.freedesktop.org
+Cc: Robert Foss <robert.foss@linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Rajeev,
+The downstream dts lists this value as 0x494, and not
+0x45c.
 
-On Sat, Jun 26, 2021 at 10:21:06PM +0530, Rajeev Nandan wrote:
-> Do not give a warning for the eDP panels if the "bus_format" is
-> not specified, since most eDP panels can support more than one
-> bus formats and this can be auto-detected.
-> Also, update the check to include bpc=10 for the eDP panel.
-> 
-> Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
-> ---
-> 
-> Changes in v8:
-> - New patch, to address the review comments of Sam Ravnborg [1]
-> 
-> [1] https://lore.kernel.org/dri-devel/20210621184157.GB918146@ravnborg.org/
-> 
->  drivers/gpu/drm/panel/panel-simple.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-> index 86e5a45..f966b562 100644
-> --- a/drivers/gpu/drm/panel/panel-simple.c
-> +++ b/drivers/gpu/drm/panel/panel-simple.c
-> @@ -772,10 +772,8 @@ static int panel_simple_probe(struct device *dev, const struct panel_desc *desc,
->  			desc->bpc != 8);
->  		break;
->  	case DRM_MODE_CONNECTOR_eDP:
-> -		if (desc->bus_format == 0)
-> -			dev_warn(dev, "Specify missing bus_format\n");
-> -		if (desc->bpc != 6 && desc->bpc != 8)
-> -			dev_warn(dev, "Expected bpc in {6,8} but got: %u\n", desc->bpc);
-> +		if (desc->bpc != 6 && desc->bpc != 8 && desc->bpc != 10)
-> +			dev_warn(dev, "Expected bpc in {6,8,10} but got: %u\n", desc->bpc);
+Fixes: af776a3e1c30 ("drm/msm/dpu: add SM8250 to hw catalog")
+Signed-off-by: Robert Foss <robert.foss@linaro.org>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-You'll still get a warning is bpc == 0, is that intentional ?
-
->  		break;
->  	case DRM_MODE_CONNECTOR_DSI:
->  		if (desc->bpc != 6 && desc->bpc != 8)
-
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index 189f3533525c..5d30c7f33930 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -244,7 +244,7 @@ static const struct dpu_mdp_cfg sc7180_mdp[] = {
+ static const struct dpu_mdp_cfg sm8250_mdp[] = {
+ 	{
+ 	.name = "top_0", .id = MDP_TOP,
+-	.base = 0x0, .len = 0x45C,
++	.base = 0x0, .len = 0x494,
+ 	.features = 0,
+ 	.highest_bank_bit = 0x3, /* TODO: 2 for LP_DDR4 */
+ 	.clk_ctrls[DPU_CLK_CTRL_VIG0] = {
 -- 
-Regards,
+2.30.2
 
-Laurent Pinchart
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
