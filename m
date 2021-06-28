@@ -2,55 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B3F93B5CF8
-	for <lists+freedreno@lfdr.de>; Mon, 28 Jun 2021 13:10:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 937283B5DCA
+	for <lists+freedreno@lfdr.de>; Mon, 28 Jun 2021 14:16:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E5726E42D;
-	Mon, 28 Jun 2021 11:10:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 250966E43A;
+	Mon, 28 Jun 2021 12:16:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7AF86E42F
- for <freedreno@lists.freedesktop.org>; Mon, 28 Jun 2021 11:10:36 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id f13so25115398ljp.10
- for <freedreno@lists.freedesktop.org>; Mon, 28 Jun 2021 04:10:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=bWqtZ2im8bhpe7wgbjV8zsEbbfLVDc0iR3ke9Y3lfWw=;
- b=GWKNCASd9MPmyxEUsoGR9JzIVqWCjK0OSZF1l1oCdifzvEDMqh0KUYe3MV8Dgbr+PA
- la9gyUtlwDg0n3+3jlE9gokVLM6wdEqMHpYm1GUNKILSnuRdU+RgBU7sRxOUjljpyx1u
- zKT2T7iMjOJzomPtHeovnBESXt8hdlSg1o9l9GDzfxR/6G/S3tgN1K7+yyCGozJ1EgyI
- 9PvkiqVsL1bXqLvS7gQ+U/3JwHmPIo1Hy4i7AHzDiPuPyOEXwm7HJstY+KYKcy+at9Yg
- H1VQ4aM1iq7p8brNaOJS61SqZPEocFRr1bHCErosV2zAZJTQ2DzKJf/Yr1Gt16mOzVxo
- 1abQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=bWqtZ2im8bhpe7wgbjV8zsEbbfLVDc0iR3ke9Y3lfWw=;
- b=CQ4B0hToDjzH4tzk9Lgfl3ycrNDJGmGL9QOwB9Bpdjk8RP4vGwkj80ms5KYLBrslYY
- CEmm8BqbeCYTZGHzuRrjjI2VBPwmvDjVnDQHGQmLFCsGKR2mS6bFph8xyN3JZ9J7dBX6
- cWqcimYB1AN+wuXuo3JvhwqO+Re6wZ4lmm7KM8+v/Kz2g6ebfTgG+EQJGJTQhcTtIbjr
- Vs38ml6A4sgB+LichzwF/gmfVMrwyQeWoEoHQuI7XGrqdOrpnb+raG7cpsMNoUOmWklj
- 8CCyBhFdBNJkZJhNDYv9hqDQcsLP3ETtAzJ2DHdV42NOJm2F30rqRiL2oXbV/1wlbgJd
- F0+A==
-X-Gm-Message-State: AOAM5318GuoMXoLa4HuLCJ9DAgM+OhCG6SfKa6QrSSalBJy8w1Z5EQTw
- ilBjfmsHUAFuvUXviuIyew6mbuvH0kcBwN7b4DJK+A==
-X-Google-Smtp-Source: ABdhPJzyEQpk+qVTQTN61ga94Up2dG17/tdSZ8ryGBxDStAhbzvUPZemkx4xWP9DPdoHPznWcXaHK8zDx3IUoLZtJDU=
-X-Received: by 2002:a2e:9483:: with SMTP id c3mr19694556ljh.273.1624878635125; 
- Mon, 28 Jun 2021 04:10:35 -0700 (PDT)
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93F906E43A
+ for <freedreno@lists.freedesktop.org>; Mon, 28 Jun 2021 12:16:28 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1624882588; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=eOk428q47G9JECgI305p0YfOtLH88pZzKPZeMrWmwQs=;
+ b=cHnKzb5KT111nPf15JpmJwpGjJqVgEE+ZbOKQvhqo+mUgsipxyC0txUfOTZQA4DJ1fVwEmkk
+ 3mRnAvL24EivksJUamT0akuY4LH2Np0XnvbguTBj3frOUgkMD7wzqSaE+PpBTT9aBx1yayNT
+ 8S4/PNfPz836yxhXvv2qSlDgvg0=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n06.prod.us-east-1.postgun.com with SMTP id
+ 60d9bd9a5e3e57240b82f391 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 28 Jun 2021 12:16:26
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 1259BC43217; Mon, 28 Jun 2021 12:16:26 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: rajeevny)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id ABA76C433D3;
+ Mon, 28 Jun 2021 12:16:24 +0000 (UTC)
 MIME-Version: 1.0
-References: <20210211113309.1.I629b2366a6591410359c7fcf6d385b474b705ca2@changeid>
- <CACRpkdbQa3BZwgtp3=061cu+y+4qkMqtXQhXH_VuHB3KcLyDCA@mail.gmail.com>
- <CANMq1KAsvXZAjmYCMQsAUwpkzuA9-PRnNWkpsLuNbOkP6DixGA@mail.gmail.com>
-In-Reply-To: <CANMq1KAsvXZAjmYCMQsAUwpkzuA9-PRnNWkpsLuNbOkP6DixGA@mail.gmail.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Mon, 28 Jun 2021 13:10:23 +0200
-Message-ID: <CACRpkdYK3nw890YFNxgtrwDvxcoeNVu7MxqUw94NN_6PiYxkJQ@mail.gmail.com>
-To: Nicolas Boichat <drinkcat@chromium.org>
-Subject: Re: [Freedreno] [PATCH] drm/dsi: Add _NO_ to MIPI_DSI_* flags
- disabling features
+Date: Mon, 28 Jun 2021 17:46:24 +0530
+From: rajeevny@codeaurora.org
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+In-Reply-To: <YNjA+jg9Khn+a9K+@pendragon.ideasonboard.com>
+References: <1624726268-14869-1-git-send-email-rajeevny@codeaurora.org>
+ <1624726268-14869-5-git-send-email-rajeevny@codeaurora.org>
+ <YNjA+jg9Khn+a9K+@pendragon.ideasonboard.com>
+Message-ID: <d75afefac48229657d36e12b6bac0e9f@codeaurora.org>
+X-Sender: rajeevny@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [v8 4/6] drm/panel-simple: Update validation
+ warnings for eDP panel description
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,64 +65,72 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
- Andrzej Hajda <a.hajda@samsung.com>, Thierry Reding <thierry.reding@gmail.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Sam Ravnborg <sam@ravnborg.org>, Emil Velikov <emil.velikov@collabora.com>,
- linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
- Joonyoung Shim <jy0922.shim@samsung.com>, Rob Clark <robdclark@gmail.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Jonas Karlman <jonas@kwiboo.se>,
- MSM <linux-arm-msm@vger.kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Inki Dae <inki.dae@samsung.com>,
- Jordan Crouse <jcrouse@codeaurora.org>,
- "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
- Rikard Falkeborn <rikard.falkeborn@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Sean Paul <sean@poorly.run>,
- Xin Ji <xji@analogixsemi.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Jernej Skrabec <jernej.skrabec@siol.net>,
- Rajendra Nayak <rnayak@codeaurora.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Robert Foss <robert.foss@linaro.org>,
- Kyungmin Park <kyungmin.park@samsung.com>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno <freedreno@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
+Cc: devicetree@vger.kernel.org, daniel.thompson@linaro.org,
+ mkrishn@codeaurora.org, lyude@redhat.com, sam@ravnborg.org, robh@kernel.org,
+ jani.nikula@intel.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ dianders@chromium.org, a.hajda@samsung.com, robdclark@gmail.com,
+ thierry.reding@gmail.com, seanpaul@chromium.org, abhinavk@codeaurora.org,
+ kalyan_t@codeaurora.org, hoegsberg@chromium.org,
+ freedreno@lists.freedesktop.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Mar 3, 2021 at 11:31 AM Nicolas Boichat <drinkcat@chromium.org> wrote:
-> On Mon, Mar 1, 2021 at 4:59 PM Linus Walleij <linus.walleij@linaro.org> wrote:
+Hi Laurent,
 
-> > >                 dsi->mode_flags =
-> > >                         MIPI_DSI_CLOCK_NON_CONTINUOUS |
-> > > -                       MIPI_DSI_MODE_EOT_PACKET;
-> > > +                       MIPI_DSI_MODE_NO_EOT_PACKET;
-> >
-> > Same, just delete the flag.
-> >
-> > These are all just semantic bugs due to the ambiguity of the flags, it is
-> > possible to provide a Fixes: flag for each file using this flag the wrong way
-> > but I dunno if it's worth it.
->
-> Wow nice catch.
->
-> I think we should fix all of those _before_ my patch is applied, with
-> proper Fixes tags so that this can be backported to stable branches,
-> even if it's a no-op. I can look into it but that may take a bit of
-> time.
+On 27-06-2021 23:48, Laurent Pinchart wrote:
+> Hi Rajeev,
+> 
+> On Sat, Jun 26, 2021 at 10:21:06PM +0530, Rajeev Nandan wrote:
+>> Do not give a warning for the eDP panels if the "bus_format" is
+>> not specified, since most eDP panels can support more than one
+>> bus formats and this can be auto-detected.
+>> Also, update the check to include bpc=10 for the eDP panel.
+>> 
+>> Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
+>> ---
+>> 
+>> Changes in v8:
+>> - New patch, to address the review comments of Sam Ravnborg [1]
+>> 
+>> [1] 
+>> https://lore.kernel.org/dri-devel/20210621184157.GB918146@ravnborg.org/
+>> 
+>>  drivers/gpu/drm/panel/panel-simple.c | 6 ++----
+>>  1 file changed, 2 insertions(+), 4 deletions(-)
+>> 
+>> diff --git a/drivers/gpu/drm/panel/panel-simple.c 
+>> b/drivers/gpu/drm/panel/panel-simple.c
+>> index 86e5a45..f966b562 100644
+>> --- a/drivers/gpu/drm/panel/panel-simple.c
+>> +++ b/drivers/gpu/drm/panel/panel-simple.c
+>> @@ -772,10 +772,8 @@ static int panel_simple_probe(struct device *dev, 
+>> const struct panel_desc *desc,
+>>  			desc->bpc != 8);
+>>  		break;
+>>  	case DRM_MODE_CONNECTOR_eDP:
+>> -		if (desc->bus_format == 0)
+>> -			dev_warn(dev, "Specify missing bus_format\n");
+>> -		if (desc->bpc != 6 && desc->bpc != 8)
+>> -			dev_warn(dev, "Expected bpc in {6,8} but got: %u\n", desc->bpc);
+>> +		if (desc->bpc != 6 && desc->bpc != 8 && desc->bpc != 10)
+>> +			dev_warn(dev, "Expected bpc in {6,8,10} but got: %u\n", 
+>> desc->bpc);
+> 
+> You'll still get a warning is bpc == 0, is that intentional ?
 
-This is fixed now, please will you proceed with this patch, because I
-really like it!
+This was not intentional, I missed considering bpc=0 case. As we are 
+removing the warning for bus_format=0 then a similar thing can be done 
+for the bpc=0 also. The bpc value should be a valid one if it is 
+specified. Unlike the bus_format, bpc has few possible values that can 
+be checked here along with 0. Please correct me if I misunderstood the 
+concept.
+I will fix this.
 
-Yours,
-Linus Walleij
+Thanks,
+Rajeev
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
