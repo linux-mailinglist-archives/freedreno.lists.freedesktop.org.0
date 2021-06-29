@@ -1,68 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 051333B76DE
-	for <lists+freedreno@lfdr.de>; Tue, 29 Jun 2021 19:03:50 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 42C003B7833
+	for <lists+freedreno@lfdr.de>; Tue, 29 Jun 2021 21:04:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2C5F89CF6;
-	Tue, 29 Jun 2021 17:03:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE7D889FC8;
+	Tue, 29 Jun 2021 19:04:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CF6589CF3
- for <freedreno@lists.freedesktop.org>; Tue, 29 Jun 2021 17:03:44 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id l8so17902127wry.13
- for <freedreno@lists.freedesktop.org>; Tue, 29 Jun 2021 10:03:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=subject:to:cc:references:from:organization:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=1mzwo7wjAUa0IJEbXNRwxkpgdnTr5r+kaQt26hfpS9Q=;
- b=QmmxT28DkHNzpao9vOpgiqd/+dJLsDibGQbrStNZ7JbAn0dorBqHkDj0WWKEfZk7OQ
- FNxBzNYYbYzgKsCZ0j18iEU1KtSxaIL4Fyk8uM4HCQ67154O4rhEmH9kLiuRXoOrC5q7
- S624F07BLgYEYsvGXAHARz0QA4dg1CTiaNym2G/4ZRiWeANMPe2N15L3MveDp/WgRSYk
- IJA2nKKslgAsYg8dbGq8sMAXlDTQQYlDUbjGPAMWzEYVYvDRIOTDYXncAhpesbhqxL40
- 4Pb94hp2YdPRJ2JAMke+tMLiLTqa8JIZadNCDJ75yRoh9swK/MMMGXHQQBoAwR42SkSD
- djPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:organization
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-language:content-transfer-encoding;
- bh=1mzwo7wjAUa0IJEbXNRwxkpgdnTr5r+kaQt26hfpS9Q=;
- b=nuDX6j0JhUtzBPNNImwg6Hc6r1nkfherzaJ1Ic7umYEkCVdZqd6zM76CEjuZ835T9M
- rf1LYbq0t7ZYNkWdBZzOA95JJz2a7GIglcfqoMPv7oCRDlCh39pu2UnpyNib2ImfkdGk
- sdNTYOFpzPrpsttJxgltQtbHP/cQHkiJcFo9ZYTR+Fc0Og4TZDF332l+tk8h/OgsjacN
- E+dlSsMN+QYioq8LN9X74vF4S/rvnYZTp8FU1tY+9scvqDgfQzbatc/yTN+RrP9K/DyW
- 3Ft+egOMhxn4KiIc+DpZkktu5u554TUJ+wLZ3Sypl9PRg5iFyBM0mpMwIfu7ClVr8oE7
- Ka7g==
-X-Gm-Message-State: AOAM533GLkzcH/Ebc6nZR8ziUUfL15bdRAal/jTxtQwbvXluxELsQupi
- FeBw4Bv1M2simnmINBEtgiK/VQ==
-X-Google-Smtp-Source: ABdhPJw9BHdV2PhR+4EY9fQcITZ83GZhxsD5N3hVP1Z53THaNgNupwsLwr8mtFaReraEAQtYUI3qaQ==
-X-Received: by 2002:adf:ff8e:: with SMTP id j14mr34485328wrr.374.1624986222594; 
- Tue, 29 Jun 2021 10:03:42 -0700 (PDT)
-Received: from ?IPv6:2001:861:44c0:66c0:9ed5:b63d:622c:fb4e?
- ([2001:861:44c0:66c0:9ed5:b63d:622c:fb4e])
- by smtp.gmail.com with ESMTPSA id h10sm3399285wmb.40.2021.06.29.10.03.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Jun 2021 10:03:37 -0700 (PDT)
-To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
- airlied@redhat.com
-References: <20210629135833.22679-1-tzimmermann@suse.de>
-From: Neil Armstrong <narmstrong@baylibre.com>
-Organization: Baylibre
-Message-ID: <32c2b8f1-e8e5-c161-ed87-f80190173552@baylibre.com>
-Date: Tue, 29 Jun 2021 19:03:36 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-MIME-Version: 1.0
-In-Reply-To: <20210629135833.22679-1-tzimmermann@suse.de>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH] drm/aperture: Pass DRM driver structure
- instead of driver name
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7EC289FC8
+ for <freedreno@lists.freedesktop.org>; Tue, 29 Jun 2021 19:04:37 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1624993478; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=ZeFu6sGT74ihWouBRIryqiyIEXHKywFaEdwk3Fhn5og=;
+ b=ALyWn0hla5nA+h0NEE8QXJAHJj7VFnU9DNGfIGypVmPmwEouKPHl/72p1ZUlg8JAE1M7APyl
+ po22VCQMgOIWOmr7vWHwrmuID7q9SEoKYjkDQ9OSLOACqyEl8c01zk+IkGGOS6V7GwfXQNIT
+ CvG5I3UeZtx3MyAVMxiWs6DYqjg=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
+ 60db6ec23a8b6d0a453bee67 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 29 Jun 2021 19:04:34
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 25D57C4323A; Tue, 29 Jun 2021 19:04:34 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
+Received: from abhinavk-linux.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 692F8C433D3;
+ Tue, 29 Jun 2021 19:04:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 692F8C433D3
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=abhinavk@codeaurora.org
+From: Abhinav Kumar <abhinavk@codeaurora.org>
+To: dri-devel@lists.freedesktop.org
+Date: Tue, 29 Jun 2021 12:04:24 -0700
+Message-Id: <1624993464-20447-1-git-send-email-abhinavk@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH] drm/msm/dsi: add support for dsi test pattern
+ generator
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,53 +64,169 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-hyperv@vger.kernel.org, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, linux-rockchip@lists.infradead.org,
- amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- linux-tegra@vger.kernel.org, spice-devel@lists.freedesktop.org,
- linux-amlogic@lists.infradead.org, freedreno@lists.freedesktop.org,
- linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
+ swboyd@chromium.org, khsieh@codeaurora.org, robdclark@gmail.com,
+ nganji@codeaurora.org, seanpaul@chromium.org, dmitry.baryshkov@linaro.org,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+During board bringups its useful to have a DSI test pattern
+generator to isolate a DPU vs a DSI issue and focus on the relevant
+hardware block.
 
-On 29/06/2021 15:58, Thomas Zimmermann wrote:
-> Print the name of the DRM driver when taking over fbdev devices. Makes
-> the output to dmesg more consistent. Note that the driver name is only
-> used for printing a string to the kernel log. No UAPI is affected by this
-> change.
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
+To facilitate this, add an API which triggers the DSI controller
+test pattern. The expected output is a rectangular checkered pattern.
 
-...
+This has been validated on a single DSI video mode panel by calling it
+right after drm_panel_enable() which is also the ideal location to use
+this as the DSI host and the panel have been initialized by then.
 
->  drivers/gpu/drm/meson/meson_drv.c             |  2 +-
+Further validation on dual DSI and command mode panel is pending.
+If there are any fix ups needed for those, it shall be applied on top
+of this change.
 
-Acked-by: Neil Armstrong <narmstrong@baylibre.com>
+Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
+---
+ drivers/gpu/drm/msm/dsi/dsi.h         |  3 ++
+ drivers/gpu/drm/msm/dsi/dsi.xml.h     |  9 ++++++
+ drivers/gpu/drm/msm/dsi/dsi_host.c    | 53 +++++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/dsi/dsi_manager.c | 13 +++++++++
+ 4 files changed, 78 insertions(+)
 
-...
+diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
+index 9b8e9b0..663ccbd 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi.h
++++ b/drivers/gpu/drm/msm/dsi/dsi.h
+@@ -84,6 +84,7 @@ void msm_dsi_manager_setup_encoder(int id);
+ int msm_dsi_manager_register(struct msm_dsi *msm_dsi);
+ void msm_dsi_manager_unregister(struct msm_dsi *msm_dsi);
+ bool msm_dsi_manager_validate_current_config(u8 id);
++void msm_dsi_manager_tpg_enable(void);
+ 
+ /* msm dsi */
+ static inline bool msm_dsi_device_connected(struct msm_dsi *msm_dsi)
+@@ -148,6 +149,8 @@ int dsi_clk_init_6g_v2(struct msm_dsi_host *msm_host);
+ int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool is_dual_dsi);
+ int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool is_dual_dsi);
+ void msm_dsi_host_snapshot(struct msm_disp_state *disp_state, struct mipi_dsi_host *host);
++void msm_dsi_host_test_pattern_en(struct mipi_dsi_host *host);
++
+ /* dsi phy */
+ struct msm_dsi_phy;
+ struct msm_dsi_phy_shared_timings {
+diff --git a/drivers/gpu/drm/msm/dsi/dsi.xml.h b/drivers/gpu/drm/msm/dsi/dsi.xml.h
+index eadbcc7..f7dcf49 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi.xml.h
++++ b/drivers/gpu/drm/msm/dsi/dsi.xml.h
+@@ -624,6 +624,15 @@ static inline uint32_t DSI_RDBK_DATA_CTRL_COUNT(uint32_t val)
+ #define REG_DSI_VERSION						0x000001f0
+ #define DSI_VERSION_MAJOR__MASK					0xff000000
+ #define DSI_VERSION_MAJOR__SHIFT				24
++
++#define REG_DSI_TEST_PATTERN_GEN_VIDEO_INIT_VAL 0x00000160
++#define REG_DSI_TPG_MAIN_CONTROL				0x00000198
++#define REG_DSI_TPG_VIDEO_CONFIG				0x000001a0
++#define REG_DSI_TEST_PATTERN_GEN_CTRL			0x00000158
++#define REG_DSI_TEST_PATTERN_GEN_CMD_MDP_INIT_VAL0	0x00000168
++#define REG_DSI_TEST_PATTERN_GEN_CMD_STREAM0_TRIGGER	0x00000180
++#define REG_DSI_TPG_MAIN_CONTROL2				0x0000019c
++
+ static inline uint32_t DSI_VERSION_MAJOR(uint32_t val)
+ {
+ 	return ((val) << DSI_VERSION_MAJOR__SHIFT) & DSI_VERSION_MAJOR__MASK;
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index ed504fe..24d44b0 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -2495,3 +2495,56 @@ void msm_dsi_host_snapshot(struct msm_disp_state *disp_state, struct mipi_dsi_ho
+ 
+ 	pm_runtime_put_sync(&msm_host->pdev->dev);
+ }
++
++static void msm_dsi_host_video_test_pattern_setup(struct msm_dsi_host *msm_host)
++{
++	u32 reg;
++
++	reg = dsi_read(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL);
++
++	dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_VIDEO_INIT_VAL, 0xff);
++	/* draw checkered rectangle pattern */
++	dsi_write(msm_host, REG_DSI_TPG_MAIN_CONTROL, 0x100);
++	/* use 24-bit RGB test pttern */
++	dsi_write(msm_host, REG_DSI_TPG_VIDEO_CONFIG, 0x5);
++
++	reg |= (0x3 << 4);
++	dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL, reg);
++
++	DBG("Video test pattern setup done\n");
++}
++
++static void msm_dsi_host_cmd_test_pattern_setup(struct msm_dsi_host *msm_host)
++{
++	u32 reg;
++
++	reg = dsi_read(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL);
++
++	dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CMD_MDP_INIT_VAL0, 0xff);
++
++	reg |= (0x3 << 0x8);
++	dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL, reg);
++	/* draw checkered rectangle pattern */
++	dsi_write(msm_host, REG_DSI_TPG_MAIN_CONTROL2, (0x1 << 0x7));
++	DBG("Cmd test pattern setup done\n");
++}
++
++void msm_dsi_host_test_pattern_en(struct mipi_dsi_host *host)
++{
++	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
++	bool is_video_mode = !!(msm_host->mode_flags & MIPI_DSI_MODE_VIDEO);
++	u32 reg;
++
++	if (is_video_mode)
++		msm_dsi_host_video_test_pattern_setup(msm_host);
++	else
++		msm_dsi_host_cmd_test_pattern_setup(msm_host);
++
++	reg = dsi_read(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL);
++	/* enable the test pattern generator */
++	dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL, (reg | BIT(0)));
++
++	/* for command mode need to trigger one frame from tpg */
++	if (!is_video_mode)
++		dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CMD_STREAM0_TRIGGER, 0x1);
++}
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+index 4ebfedc..db80de6 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+@@ -441,6 +441,19 @@ static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
+ 	return;
+ }
+ 
++void msm_dsi_manager_tpg_enable(void)
++{
++	struct msm_dsi *m_dsi = dsi_mgr_get_dsi(DSI_0);
++	struct msm_dsi *s_dsi = dsi_mgr_get_dsi(DSI_1);
++
++	/* if dual dsi, trigger tpg on master first then slave */
++	if (m_dsi) {
++		msm_dsi_host_test_pattern_en(m_dsi->host);
++		if (IS_DUAL_DSI() && s_dsi)
++			msm_dsi_host_test_pattern_en(s_dsi->host);
++	}
++}
++
+ static void dsi_mgr_bridge_enable(struct drm_bridge *bridge)
+ {
+ 	int id = dsi_mgr_bridge_get_id(bridge);
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
->  
-> diff --git a/drivers/gpu/drm/meson/meson_drv.c b/drivers/gpu/drm/meson/meson_drv.c
-> index a7388bf7c838..3d0ccc7eef1b 100644
-> --- a/drivers/gpu/drm/meson/meson_drv.c
-> +++ b/drivers/gpu/drm/meson/meson_drv.c
-> @@ -285,7 +285,7 @@ static int meson_drv_bind_master(struct device *dev, bool has_components)
->  	 * Remove early framebuffers (ie. simplefb). The framebuffer can be
->  	 * located anywhere in RAM
->  	 */
-> -	ret = drm_aperture_remove_framebuffers(false, "meson-drm-fb");
-> +	ret = drm_aperture_remove_framebuffers(false, &meson_driver);
->  	if (ret)
->  		goto free_drm;
->  
-
-...
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
