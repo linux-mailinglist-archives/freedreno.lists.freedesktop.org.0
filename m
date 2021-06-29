@@ -2,53 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE0503B799A
-	for <lists+freedreno@lfdr.de>; Tue, 29 Jun 2021 22:58:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA9E73B79F9
+	for <lists+freedreno@lfdr.de>; Tue, 29 Jun 2021 23:38:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25C766E906;
-	Tue, 29 Jun 2021 20:58:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 757116E04A;
+	Tue, 29 Jun 2021 21:38:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x72a.google.com (mail-qk1-x72a.google.com
- [IPv6:2607:f8b0:4864:20::72a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABD4E6E904
- for <freedreno@lists.freedesktop.org>; Tue, 29 Jun 2021 20:58:14 +0000 (UTC)
-Received: by mail-qk1-x72a.google.com with SMTP id q190so167187qkd.2
- for <freedreno@lists.freedesktop.org>; Tue, 29 Jun 2021 13:58:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=7y/7X5/9NirBPR9WfBoe4kYkIy5sb5EaD9xI89SwHXY=;
- b=RuhAeqOdNrEd/ZliM6BGQPcZGmubvfHkOuC+HrqW6PH/4DnxzDCVKBGk+y94KiHLLN
- barrTjECRS+BtEpcXu+++Pu1i9vfXCDLpzJANDYmVVbGcE9Jy/OWf0dLsh5FGGSXrGRI
- jUN1tTX4Xuy8o1F5RYVBayycMsCifQwg8ABpU3ins2TOp9xEScs4itTF21vc8tsKJcMY
- EV5qWLHe0HtGGeq78eErPerbQZH88WI0bYbCWKlwcQrJSsNbGHBdDAtfPIIZwBdwSTla
- QNYJFlq71cwntZ0fINC2+NC11SjBrb+f1fKmxHLo9vdZAKg7FU3JYNMwqGldpOO5yqjH
- DtTA==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B9616E04A
+ for <freedreno@lists.freedesktop.org>; Tue, 29 Jun 2021 21:38:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1625002702;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=556hAVcxkakk3x66+sCCRkRCbnFq/lA0vFoRpZZIZRk=;
+ b=SsgWnfQHhcXy/KQ5eO+rmJ8/bd87KkxMDqAYVAy/0tYeS9VLyulKgducSAaJvweY3i4iSA
+ FRWv7IdcpuWtC9uz1SfST3/pBvl3A5RrH1DVGX8CKrct4r4mIq1GtbXJqhAgEniF7TzINY
+ fkgzSlwSrX6p50xwE6JFAhENVEWaCs8=
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-383-4jM5MoS3O2ycQlkDj8tNjw-1; Tue, 29 Jun 2021 17:38:20 -0400
+X-MC-Unique: 4jM5MoS3O2ycQlkDj8tNjw-1
+Received: by mail-qv1-f69.google.com with SMTP id
+ ei5-20020ad45a050000b029027c5382c633so20357901qvb.3
+ for <freedreno@lists.freedesktop.org>; Tue, 29 Jun 2021 14:38:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=7y/7X5/9NirBPR9WfBoe4kYkIy5sb5EaD9xI89SwHXY=;
- b=WGSgHjcJ/oVbE1M+Mli3UTHCsjN5QuvSRyLRa1G1rhZJyCQWAe+molyjapX/JgOeCE
- SovXMr6nJfSjxnuRrVGMIIJtTyar+PjKO0yasM/+tr3tvdzjYGRKTbUpvkgX9WBGKmhO
- 0uVie/ivdn5HR97nPyGzPG65KBWDFrF6I1NgAiua0XIlZbCFYmWRrqMmkkAuu+48vi+P
- WO3kb+tIfKKwaZu6Mu+/DoQWoi+mXqIGVoHpHPfCtGGnSVEFNA/hBYLhq0hUbscdHncd
- 4BvrDg+91uBgQVR2FecbPSTXzh0csDuC70gCu/k2W65R2ekK1bOfvCs4C6C9FLS14kEH
- xZNA==
-X-Gm-Message-State: AOAM5337Ayw+USzA3CSDFwANx5RO4TpxNyJka8OLe8ZQwEkvizYIVAog
- lobMzVonICSCPQEZznBzhAmPDFHxW023YpXp5sbhKA==
-X-Google-Smtp-Source: ABdhPJzet1l1yHO1H1M/kjmf4+/kEjEQ5PUWJG0M+V6BUksBPb0TeThLAoDcmuLNgLz6pd/ocan754KNeTjhHCbjifA=
-X-Received: by 2002:a37:d83:: with SMTP id 125mr5847170qkn.162.1625000293850; 
- Tue, 29 Jun 2021 13:58:13 -0700 (PDT)
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+ :references:organization:user-agent:mime-version
+ :content-transfer-encoding;
+ bh=556hAVcxkakk3x66+sCCRkRCbnFq/lA0vFoRpZZIZRk=;
+ b=XMX+Qsu8npn1oxRBa7onL4a2xxyU3ftVX/myyg2DTq5qSpWutegDGtLhqUWLfwIFq5
+ SxBMh60hlzCNF723UJxGOy2tezzY2i6MJiQ+9iDDjzIi6Ax5Vp5m93quUH1Gi8QaaaxB
+ Aur1kkPJ9pKB3fuh05u5me3daBmE+QGUpz2aIfATCkARCb6DXB04a2jclNJNkarG7tKe
+ Z1V+mB1MpBdfqA3r16DX0PBa9tX8H9HFy+lQmZ2fhZAEHNMydGNru29MbuzSxHJa3iWc
+ Ra7ZfSAONfIqUHWM5dJDPWzCTSzMBioSWPScbzztt1idx/o9ztreb/oBg7OcTovcJAf/
+ 5J2w==
+X-Gm-Message-State: AOAM530sFPiK/V9sdjNIrZ8Ev6FaAcqBlZzF+6N76FmKz0Ni7i2LxMbM
+ uCNAANNU/LkbQE65ywT+ShWXIgWTKA14gA6nV5c/w2HkR+85OOn43fksT3j7yJyITMFQ7Ce9A84
+ q6HZK6WcW/fkkq3MlooyNWhEhUFRP
+X-Received: by 2002:a05:620a:62e:: with SMTP id
+ 14mr23446256qkv.180.1625002700440; 
+ Tue, 29 Jun 2021 14:38:20 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwh0LaLNSmT7YCUeuFj0ztZxSOcVXe4qks8kATy5bQNb++niof019SEITuHPzGZcc57m7Tavg==
+X-Received: by 2002:a05:620a:62e:: with SMTP id
+ 14mr23446240qkv.180.1625002700239; 
+ Tue, 29 Jun 2021 14:38:20 -0700 (PDT)
+Received: from Ruby.lyude.net (pool-108-49-102-102.bstnma.fios.verizon.net.
+ [108.49.102.102])
+ by smtp.gmail.com with ESMTPSA id b188sm12497748qkf.133.2021.06.29.14.38.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 29 Jun 2021 14:38:19 -0700 (PDT)
+Message-ID: <d8e09114428307a029f31dc1a7da77e21f9b2b34.camel@redhat.com>
+From: Lyude Paul <lyude@redhat.com>
+To: Stephen Boyd <swboyd@chromium.org>, Kuogee Hsieh
+ <khsieh@codeaurora.org>,  robdclark@gmail.com, sean@poorly.run
+Date: Tue, 29 Jun 2021 17:38:17 -0400
+In-Reply-To: <CAE-0n50onDrop=67VvMWL2sbSJedxhKEX13PsiZNaokucSgLew@mail.gmail.com>
+References: <1624997336-2245-1-git-send-email-khsieh@codeaurora.org>
+ <CAE-0n50onDrop=67VvMWL2sbSJedxhKEX13PsiZNaokucSgLew@mail.gmail.com>
+Organization: Red Hat
+User-Agent: Evolution 3.38.4 (3.38.4-1.fc33)
 MIME-Version: 1.0
-References: <1624993464-20447-1-git-send-email-abhinavk@codeaurora.org>
-In-Reply-To: <1624993464-20447-1-git-send-email-abhinavk@codeaurora.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 29 Jun 2021 23:58:02 +0300
-Message-ID: <CAA8EJpqjWbEbgn9Sw=Hd8f7pP+NXDeM308jG8HirKjk7QcfOxA@mail.gmail.com>
-To: Abhinav Kumar <abhinavk@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: add support for dsi test
- pattern generator
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Subject: Re: [Freedreno] [PATCH] drm/dp_mst: Fix return code on sideband
+ message failure
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,185 +86,67 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <dri-devel@lists.freedesktop.org>, Stephen Boyd <swboyd@chromium.org>,
- Kuogee Hsieh <khsieh@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
- nganji@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
- aravindh@codeaurora.org, freedreno <freedreno@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: rnayak@codeaurora.org, tzimmermann@suse.de, airlied@linux.ie,
+ dri-devel@lists.freedesktop.org, maarten.lankhorst@linux.intel.com,
+ linux-kernel@vger.kernel.org, abhinavk@codeaurora.org, mripard@kernel.org,
+ daniel@ffwll.ch, aravindh@codeaurora.org, freedreno@lists.freedesktop.org,
+ rsubbia@codeaurora.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 29 Jun 2021 at 22:04, Abhinav Kumar <abhinavk@codeaurora.org> wrote:
->
-> During board bringups its useful to have a DSI test pattern
-> generator to isolate a DPU vs a DSI issue and focus on the relevant
-> hardware block.
->
-> To facilitate this, add an API which triggers the DSI controller
-> test pattern. The expected output is a rectangular checkered pattern.
->
-> This has been validated on a single DSI video mode panel by calling it
-> right after drm_panel_enable() which is also the ideal location to use
-> this as the DSI host and the panel have been initialized by then.
->
-> Further validation on dual DSI and command mode panel is pending.
-> If there are any fix ups needed for those, it shall be applied on top
-> of this change.
->
-> Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-I'd follow Bjorn's suggestion of adding a debugfs file to toggle this
-pattern, but it surely can come in the following patch, not requiring
-to changing this one.
-
-> ---
->  drivers/gpu/drm/msm/dsi/dsi.h         |  3 ++
->  drivers/gpu/drm/msm/dsi/dsi.xml.h     |  9 ++++++
->  drivers/gpu/drm/msm/dsi/dsi_host.c    | 53 +++++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/msm/dsi/dsi_manager.c | 13 +++++++++
->  4 files changed, 78 insertions(+)
->
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
-> index 9b8e9b0..663ccbd 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi.h
-> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
-> @@ -84,6 +84,7 @@ void msm_dsi_manager_setup_encoder(int id);
->  int msm_dsi_manager_register(struct msm_dsi *msm_dsi);
->  void msm_dsi_manager_unregister(struct msm_dsi *msm_dsi);
->  bool msm_dsi_manager_validate_current_config(u8 id);
-> +void msm_dsi_manager_tpg_enable(void);
->
->  /* msm dsi */
->  static inline bool msm_dsi_device_connected(struct msm_dsi *msm_dsi)
-> @@ -148,6 +149,8 @@ int dsi_clk_init_6g_v2(struct msm_dsi_host *msm_host);
->  int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool is_dual_dsi);
->  int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool is_dual_dsi);
->  void msm_dsi_host_snapshot(struct msm_disp_state *disp_state, struct mipi_dsi_host *host);
-> +void msm_dsi_host_test_pattern_en(struct mipi_dsi_host *host);
-> +
->  /* dsi phy */
->  struct msm_dsi_phy;
->  struct msm_dsi_phy_shared_timings {
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi.xml.h b/drivers/gpu/drm/msm/dsi/dsi.xml.h
-> index eadbcc7..f7dcf49 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi.xml.h
-> +++ b/drivers/gpu/drm/msm/dsi/dsi.xml.h
-> @@ -624,6 +624,15 @@ static inline uint32_t DSI_RDBK_DATA_CTRL_COUNT(uint32_t val)
->  #define REG_DSI_VERSION                                                0x000001f0
->  #define DSI_VERSION_MAJOR__MASK                                        0xff000000
->  #define DSI_VERSION_MAJOR__SHIFT                               24
-> +
-> +#define REG_DSI_TEST_PATTERN_GEN_VIDEO_INIT_VAL 0x00000160
-> +#define REG_DSI_TPG_MAIN_CONTROL                               0x00000198
-> +#define REG_DSI_TPG_VIDEO_CONFIG                               0x000001a0
-> +#define REG_DSI_TEST_PATTERN_GEN_CTRL                  0x00000158
-> +#define REG_DSI_TEST_PATTERN_GEN_CMD_MDP_INIT_VAL0     0x00000168
-> +#define REG_DSI_TEST_PATTERN_GEN_CMD_STREAM0_TRIGGER   0x00000180
-> +#define REG_DSI_TPG_MAIN_CONTROL2                              0x0000019c
-> +
->  static inline uint32_t DSI_VERSION_MAJOR(uint32_t val)
->  {
->         return ((val) << DSI_VERSION_MAJOR__SHIFT) & DSI_VERSION_MAJOR__MASK;
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index ed504fe..24d44b0 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -2495,3 +2495,56 @@ void msm_dsi_host_snapshot(struct msm_disp_state *disp_state, struct mipi_dsi_ho
->
->         pm_runtime_put_sync(&msm_host->pdev->dev);
->  }
-> +
-> +static void msm_dsi_host_video_test_pattern_setup(struct msm_dsi_host *msm_host)
-> +{
-> +       u32 reg;
-> +
-> +       reg = dsi_read(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL);
-> +
-> +       dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_VIDEO_INIT_VAL, 0xff);
-> +       /* draw checkered rectangle pattern */
-> +       dsi_write(msm_host, REG_DSI_TPG_MAIN_CONTROL, 0x100);
-> +       /* use 24-bit RGB test pttern */
-> +       dsi_write(msm_host, REG_DSI_TPG_VIDEO_CONFIG, 0x5);
-> +
-> +       reg |= (0x3 << 4);
-> +       dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL, reg);
-> +
-> +       DBG("Video test pattern setup done\n");
-> +}
-> +
-> +static void msm_dsi_host_cmd_test_pattern_setup(struct msm_dsi_host *msm_host)
-> +{
-> +       u32 reg;
-> +
-> +       reg = dsi_read(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL);
-> +
-> +       dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CMD_MDP_INIT_VAL0, 0xff);
-> +
-> +       reg |= (0x3 << 0x8);
-> +       dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL, reg);
-> +       /* draw checkered rectangle pattern */
-> +       dsi_write(msm_host, REG_DSI_TPG_MAIN_CONTROL2, (0x1 << 0x7));
-> +       DBG("Cmd test pattern setup done\n");
-> +}
-> +
-> +void msm_dsi_host_test_pattern_en(struct mipi_dsi_host *host)
-> +{
-> +       struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
-> +       bool is_video_mode = !!(msm_host->mode_flags & MIPI_DSI_MODE_VIDEO);
-> +       u32 reg;
-> +
-> +       if (is_video_mode)
-> +               msm_dsi_host_video_test_pattern_setup(msm_host);
-> +       else
-> +               msm_dsi_host_cmd_test_pattern_setup(msm_host);
-> +
-> +       reg = dsi_read(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL);
-> +       /* enable the test pattern generator */
-> +       dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL, (reg | BIT(0)));
-> +
-> +       /* for command mode need to trigger one frame from tpg */
-> +       if (!is_video_mode)
-> +               dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CMD_STREAM0_TRIGGER, 0x1);
-> +}
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> index 4ebfedc..db80de6 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> @@ -441,6 +441,19 @@ static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
->         return;
->  }
->
-> +void msm_dsi_manager_tpg_enable(void)
-> +{
-> +       struct msm_dsi *m_dsi = dsi_mgr_get_dsi(DSI_0);
-> +       struct msm_dsi *s_dsi = dsi_mgr_get_dsi(DSI_1);
-> +
-> +       /* if dual dsi, trigger tpg on master first then slave */
-> +       if (m_dsi) {
-> +               msm_dsi_host_test_pattern_en(m_dsi->host);
-> +               if (IS_DUAL_DSI() && s_dsi)
-> +                       msm_dsi_host_test_pattern_en(s_dsi->host);
-> +       }
-> +}
-> +
->  static void dsi_mgr_bridge_enable(struct drm_bridge *bridge)
->  {
->         int id = dsi_mgr_bridge_get_id(bridge);
-> --
-> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-> a Linux Foundation Collaborative Project
->
-
-
--- 
-With best wishes
-Dmitry
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+SkZZSSB0aGlzIGlzIG9uIG15IHJhZGFyIGFuZCBJJ2xsIHRha2UgYSBsb29rIGFzYXAKCk9uIFR1
+ZSwgMjAyMS0wNi0yOSBhdCAxMzo0MSAtMDcwMCwgU3RlcGhlbiBCb3lkIHdyb3RlOgo+ICtMeXVk
+ZSwgYXV0aG9yIG9mIGZpeGVkIGNvbW1pdC4gUGxlYXNlIGFkZCByZWxldmFudCBmb2xrcyBpbiB0
+aGUgZnV0dXJlLgo+IAo+IFF1b3RpbmcgS3VvZ2VlIEhzaWVoICgyMDIxLTA2LTI5IDEzOjA4OjU2
+KQo+ID4gRnJvbTogUmFqa3VtYXIgU3ViYmlhaCA8cnN1YmJpYUBjb2RlYXVyb3JhLm9yZz4KPiA+
+IAo+ID4gVGhlIGNvbW1pdCAyZjAxNWVjNmVhYjY5MzAxZmRjZjU0ZDM5NzgxMGQ3MjM2MmQ3MjIz
+IGFkZGVkIHNvbWUgZGVidWcKPiAKPiBQbGVhc2Ugd3JpdGUKPiAKPiBDb21taXQgMmYwMTVlYzZl
+YWI2ICgiZHJtL2RwX21zdDogQWRkIHNpZGViYW5kIGRvd24gcmVxdWVzdCB0cmFjaW5nICsKPiBz
+ZWxmdGVzdHMiKSBhZGRlZCBzb21lIGRlYnVnCj4gCj4gPiBjb2RlIGZvciBzaWRlYmFuZCBtZXNz
+YWdlIHRyYWNpbmcuIEJ1dCBpdCBzZWVtcyB0byBoYXZlIHVuaW50ZW50aW9uYWxseQo+ID4gY2hh
+bmdlZCB0aGUgYmVoYXZpb3Igb24gc2lkZWJhbmQgbWVzc2FnZSBmYWlsdXJlLiBJdCBjYXRjaGVz
+IGFuZCByZXR1cm5zCj4gPiBmYWlsdXJlIG9ubHkgaWYgRFJNX1VUX0RQIGlzIGVuYWJsZWQuIE90
+aGVyd2lzZSBpdCBpZ25vcmVzIHRoZSBlcnJvciBjb2RlCj4gPiBhbmQgcmV0dXJucyBzdWNjZXNz
+LiBTbyBvbiBhbiBNU1QgdW5wbHVnLCB0aGUgY2FsbGVyIGlzIHVuYXdhcmUgdGhhdCB0aGUKPiA+
+IGNsZWFyIHBheWxvYWQgbWVzc2FnZSBmYWlsZWQgYW5kIGVuZHMgdXAgd2FpdGluZyBmb3IgNCBz
+ZWNvbmRzIGZvciB0aGUKPiA+IHJlc3BvbnNlLgo+ID4gCj4gPiBUaGlzIGNoYW5nZSBmaXhlcyB0
+aGUgaXNzdWUgYnkgcmV0dXJuaW5nIHRoZSBwcm9wZXIgZXJyb3IgY29kZS4KPiAKPiAkIGdpdCBn
+cmVwICJUaGlzIHBhdGNoIiAtLSBEb2N1bWVudGF0aW9uL3Byb2Nlc3MKPiAKPiA+IAo+ID4gQ2hh
+bmdlLUlkOiBJMjg4N2I3Y2EyMTM1NWZlODRhNzk2OGY3NjE5ZDVlODE5OWNiYjBjNgo+IAo+IFBs
+ZWFzZSByZXBsYWNlIHdpdGgKPiAKPiBGaXhlczogMmYwMTVlYzZlYWI2ICgiZHJtL2RwX21zdDog
+QWRkIHNpZGViYW5kIGRvd24gcmVxdWVzdCB0cmFjaW5nICsKPiBzZWxmdGVzdHMiKQo+IAo+ID4g
+U2lnbmVkLW9mZi1ieTogUmFqa3VtYXIgU3ViYmlhaCA8cnN1YmJpYUBjb2RlYXVyb3JhLm9yZz4K
+PiAKPiBTaG91bGQgYmUgYSBTaWduZWQtb2ZmLWJ5IGZyb20gS3VvZ2VlIEhzaWVoIGhlcmUuCj4g
+Cj4gPiAtLS0KPiA+IMKgZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xvZ3kuYyB8IDEw
+ICsrKysrKy0tLS0KPiA+IMKgMSBmaWxlIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKSwgNCBkZWxl
+dGlvbnMoLSkKPiA+IAo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0
+X3RvcG9sb2d5LmMKPiA+IGIvZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xvZ3kuYwo+
+ID4gaW5kZXggMTU5MDE0NC4uOGQ5NzQzMCAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9kcm1fZHBfbXN0X3RvcG9sb2d5LmMKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHBf
+bXN0X3RvcG9sb2d5LmMKPiA+IEBAIC0yODg3LDExICsyODg3LDEzIEBAIHN0YXRpYyBpbnQgcHJv
+Y2Vzc19zaW5nbGVfdHhfcWxvY2soc3RydWN0Cj4gPiBkcm1fZHBfbXN0X3RvcG9sb2d5X21nciAq
+bWdyLAo+ID4gwqDCoMKgwqDCoMKgwqAgaWR4ICs9IHRvc2VuZCArIDE7Cj4gPiAKPiA+IMKgwqDC
+oMKgwqDCoMKgIHJldCA9IGRybV9kcF9zZW5kX3NpZGViYW5kX21zZyhtZ3IsIHVwLCBjaHVuaywg
+aWR4KTsKPiA+IC3CoMKgwqDCoMKgwqAgaWYgKHVubGlrZWx5KHJldCkgJiYgZHJtX2RlYnVnX2Vu
+YWJsZWQoRFJNX1VUX0RQKSkgewo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3Ry
+dWN0IGRybV9wcmludGVyIHAgPSBkcm1fZGVidWdfcHJpbnRlcihEQkdfUFJFRklYKTsKPiA+ICvC
+oMKgwqDCoMKgwqAgaWYgKHVubGlrZWx5KHJldCkpIHsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIGlmIChkcm1fZGVidWdfZW5hYmxlZChEUk1fVVRfRFApKSB7Cj4gPiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGRybV9wcmludGVy
+IHAgPQo+ID4gZHJtX2RlYnVnX3ByaW50ZXIoREJHX1BSRUZJWCk7Cj4gPiAKPiA+IC3CoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRybV9wcmludGYoJnAsICJzaWRlYmFuZCBtc2cgZmFpbGVk
+IHRvIHNlbmRcbiIpOwo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZHJtX2RwX21z
+dF9kdW1wX3NpZGViYW5kX21zZ190eCgmcCwgdHhtc2cpOwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRybV9wcmludGYoJnAsICJzaWRlYmFuZCBtc2cg
+ZmFpbGVkIHRvIHNlbmRcbiIpOwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIGRybV9kcF9tc3RfZHVtcF9zaWRlYmFuZF9tc2dfdHgoJnAsIHR4bXNnKTsK
+PiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH0KPiA+IMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCByZXR1cm4gcmV0Owo+ID4gwqDCoMKgwqDCoMKgwqAgfQo+ID4gCj4gCj4g
+V2l0aCB0aGUgYWJvdmUgZml4ZWQgdXAKPiAKPiBSZXZpZXdlZC1ieTogU3RlcGhlbiBCb3lkIDxz
+d2JveWRAY2hyb21pdW0ub3JnPgo+IAoKLS0gCkNoZWVycywKIEx5dWRlIFBhdWwgKHNoZS9oZXIp
+CiBTb2Z0d2FyZSBFbmdpbmVlciBhdCBSZWQgSGF0CgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpGcmVlZHJlbm8gbWFpbGluZyBsaXN0CkZyZWVkcmVub0Bs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9mcmVlZHJlbm8K
