@@ -2,54 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24DE93B7B0B
-	for <lists+freedreno@lfdr.de>; Wed, 30 Jun 2021 02:36:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05A433B809B
+	for <lists+freedreno@lfdr.de>; Wed, 30 Jun 2021 12:08:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B93CA6E90F;
-	Wed, 30 Jun 2021 00:36:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FB606E97E;
+	Wed, 30 Jun 2021 10:08:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6D836E90F
- for <freedreno@lists.freedesktop.org>; Wed, 30 Jun 2021 00:36:41 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id bu19so1662965lfb.9
- for <freedreno@lists.freedesktop.org>; Tue, 29 Jun 2021 17:36:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=jtVW5NMocB6oVI0WMovmBROwRBfdKl6IUOMqibW9evQ=;
- b=PfDwdfd658Y+9K8gvsYqLkb06cvO9vPX5vmZFKpgJfEU1JV8IJOHOPB/fT9gQgKia4
- CkwaR7y+3Y3sRHa1Ei3aG16+gGPQ8ellOWAofRnxXTxEphjDYqv1CvVWGiY1H2QyxJlO
- LNN65ZIV4H4+qPr/vzxELakfbfrYCNxdUuw8FlW01wdyTO9QgR55wE2WFhtmfVqmraX1
- 6dsMXQqqoSbmasHFViuFkp9x9AiAQBLFBuy8aCFxO5dfncSXXyX55TVezt+pCUhXsQ8J
- 9lI0d6qy92Ma9mvUYjuBxQjQw4ace0MWZURMPTZr0T5fK/9N6n3m5y70GsyXUxOFlmCr
- SukQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=jtVW5NMocB6oVI0WMovmBROwRBfdKl6IUOMqibW9evQ=;
- b=HMcQhswIsjoF+A/vRY4IoUkAEd0kAJwKIKszZvDjp3cMQf/mK54HmjKrlVfCwbA5tS
- K8yHSE5sIAgg8wxpl5ybkNvQz2Ar68IJ1GuYmhGl7HXKBx5L1+M5ULzgB8x80oYzfsWR
- 34/6woLBrrFc/5N2YJdCCBNJEEqjzcGULiBLW5Hkpqx3zHgpRBHc0KhrqqkqaEiTXDrQ
- yhD0bXCQYNFtwEa4qvJ7uOLR5F9UcJ36ZVA0hzhEeWwtT4dPwmM5MBM//HsWbD9gow+L
- IrqCmSgVTcJ3lf0N30zkYOhJr7KOKerIAiFU6LkkDYSNx9dz2/RyFwhwMeDTbTO9VxFa
- VrgQ==
-X-Gm-Message-State: AOAM533RUUz6U8JFhQv+G7CcSDJA0vFa1UZWlhpOTkschCHrS/un9s/j
- 5Oc9aLcJHpj0CRbm57yT4ryg3R6thup2oKKPglP3xA==
-X-Google-Smtp-Source: ABdhPJz8oylr1QBk4wbq+S09hbJVugu5jPx8c6IPCGHmiauvztZvUu2BOO8drcRIghnbm2IY/6t/MC8MygbdQHfkED4=
-X-Received: by 2002:a05:6512:3c9f:: with SMTP id
- h31mr15414133lfv.465.1625013399992; 
- Tue, 29 Jun 2021 17:36:39 -0700 (PDT)
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 010F36E97E
+ for <freedreno@lists.freedesktop.org>; Wed, 30 Jun 2021 10:08:19 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1625047703; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=V2ANtGMjJP031vwtea0cvuT0DcS61OO8FRdPjBQ676g=;
+ b=nE3fi14tsM6QttDih2ox6Qkd7EMh8HRns8PjZujky8AoQGZkUJX1/06/UEbiQkj9KBbveTSb
+ GrccMIZUQHArm3m5LMFMX+Xb6NXYPO8e3+Cvi8C1bTopeLnJOPRmTYFhwpMlBwS9h4eVnL5L
+ YkHfioWOF7srGwO+fveBjVl7WNE=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
+ 60dc4280ad0600eede606bfa (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 30 Jun 2021 10:08:00
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 5AB60C4338A; Wed, 30 Jun 2021 10:08:00 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: saiprakash.ranjan)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 17A87C433D3;
+ Wed, 30 Jun 2021 10:07:59 +0000 (UTC)
 MIME-Version: 1.0
-References: <20210629074703.v2.1.I629b2366a6591410359c7fcf6d385b474b705ca2@changeid>
-In-Reply-To: <20210629074703.v2.1.I629b2366a6591410359c7fcf6d385b474b705ca2@changeid>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Wed, 30 Jun 2021 02:36:28 +0200
-Message-ID: <CACRpkdbRjg1PMMWPc_5fW+PKG4SQGkaesK4++MHUWTw0MdMkxg@mail.gmail.com>
-To: Nicolas Boichat <drinkcat@chromium.org>
-Subject: Re: [Freedreno] [PATCH v2] drm/dsi: Add _NO_ to MIPI_DSI_* flags
- disabling features
+Date: Wed, 30 Jun 2021 15:37:59 +0530
+From: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
+To: Will Deacon <will@kernel.org>
+In-Reply-To: <20210325173311.GA15504@willie-the-truck>
+References: <3f589e7de3f9fa93e84c83420c5270c546a0c368.1610372717.git.saiprakash.ranjan@codeaurora.org>
+ <20210129090516.GB3998@willie-the-truck>
+ <5d23fce629323bcda71594010824aad0@codeaurora.org>
+ <20210201111556.GA7172@willie-the-truck>
+ <CAF6AEGsARmkAFsjaQLfa2miMgeijo183MWDKGtW_ti-UCpzBqA@mail.gmail.com>
+ <20210201182016.GA21629@jcrouse1-lnx.qualcomm.com>
+ <7e9aade14d0b7f69285852ade4a5a9f4@codeaurora.org>
+ <20210203214612.GB19847@willie-the-truck>
+ <4988e2ef35f76a0c2f1fe3f66f023a3b@codeaurora.org>
+ <9362873a3bcf37cdd073a6128f29c683@codeaurora.org>
+ <20210325173311.GA15504@willie-the-truck>
+Message-ID: <21239ba603d0bdc4e4c696588a905f88@codeaurora.org>
+X-Sender: saiprakash.ranjan@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH 2/3] iommu/io-pgtable-arm: Add IOMMU_LLC
+ page protection flag
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,56 +74,147 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Andrzej Hajda <a.hajda@samsung.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Sam Ravnborg <sam@ravnborg.org>,
- linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
- Joonyoung Shim <jy0922.shim@samsung.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Rob Clark <robdclark@gmail.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Tzung-Bi Shih <tzungbi@google.com>,
- Adrien Grassein <adrien.grassein@gmail.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Jonas Karlman <jonas@kwiboo.se>, MSM <linux-arm-msm@vger.kernel.org>,
- Yangtao Li <tiny.windzz@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Inki Dae <inki.dae@samsung.com>,
- "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>, Pi-Hsun Shih <pihsun@chromium.org>,
- Hsin-Yi Wang <hsinyi@chromium.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Sean Paul <sean@poorly.run>, Xin Ji <xji@analogixsemi.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Rajendra Nayak <rnayak@codeaurora.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Robert Foss <robert.foss@linaro.org>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
+Cc: "Isaac J. Manjarres" <isaacm@codeaurora.org>,
+ David Airlie <airlied@linux.ie>, Sean Paul <sean@poorly.run>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>, "list@263.net:IOMMU
+ DRIVERS , Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
+ Kristian H Kristensen <hoegsberg@google.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ linux-arm-kernel@lists.infradead.org, Robin Murphy <robin.murphy@arm.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jun 29, 2021 at 1:47 AM Nicolas Boichat <drinkcat@chromium.org> wrote:
+Hi Will,
 
-> Many of the DSI flags have names opposite to their actual effects,
-> e.g. MIPI_DSI_MODE_EOT_PACKET means that EoT packets will actually
-> be disabled. Fix this by including _NO_ in the flag names, e.g.
-> MIPI_DSI_MODE_NO_EOT_PACKET.
->
-> Signed-off-by: Nicolas Boichat <drinkcat@chromium.org>
+On 2021-03-25 23:03, Will Deacon wrote:
+> On Tue, Mar 09, 2021 at 12:10:44PM +0530, Sai Prakash Ranjan wrote:
+>> On 2021-02-05 17:38, Sai Prakash Ranjan wrote:
+>> > On 2021-02-04 03:16, Will Deacon wrote:
+>> > > On Tue, Feb 02, 2021 at 11:56:27AM +0530, Sai Prakash Ranjan wrote:
+>> > > > On 2021-02-01 23:50, Jordan Crouse wrote:
+>> > > > > On Mon, Feb 01, 2021 at 08:20:44AM -0800, Rob Clark wrote:
+>> > > > > > On Mon, Feb 1, 2021 at 3:16 AM Will Deacon <will@kernel.org> wrote:
+>> > > > > > > On Fri, Jan 29, 2021 at 03:12:59PM +0530, Sai Prakash Ranjan wrote:
+>> > > > > > > > On 2021-01-29 14:35, Will Deacon wrote:
+>> > > > > > > > > On Mon, Jan 11, 2021 at 07:45:04PM +0530, Sai Prakash Ranjan wrote:
+>> > > > > > > > > > +#define IOMMU_LLC        (1 << 6)
+>> > > > > > > > >
+>> > > > > > > > > On reflection, I'm a bit worried about exposing this because I think it
+>> > > > > > > > > will
+>> > > > > > > > > introduce a mismatched virtual alias with the CPU (we don't even have a
+>> > > > > > > > > MAIR
+>> > > > > > > > > set up for this memory type). Now, we also have that issue for the PTW,
+>> > > > > > > > > but
+>> > > > > > > > > since we always use cache maintenance (i.e. the streaming API) for
+>> > > > > > > > > publishing the page-tables to a non-coheren walker, it works out.
+>> > > > > > > > > However,
+>> > > > > > > > > if somebody expects IOMMU_LLC to be coherent with a DMA API coherent
+>> > > > > > > > > allocation, then they're potentially in for a nasty surprise due to the
+>> > > > > > > > > mismatched outer-cacheability attributes.
+>> > > > > > > > >
+>> > > > > > > >
+>> > > > > > > > Can't we add the syscached memory type similar to what is done on android?
+>> > > > > > >
+>> > > > > > > Maybe. How does the GPU driver map these things on the CPU side?
+>> > > > > >
+>> > > > > > Currently we use writecombine mappings for everything, although there
+>> > > > > > are some cases that we'd like to use cached (but have not merged
+>> > > > > > patches that would give userspace a way to flush/invalidate)
+>> > > > > >
+>> > > > >
+>> > > > > LLC/system cache doesn't have a relationship with the CPU cache.  Its
+>> > > > > just a
+>> > > > > little accelerator that sits on the connection from the GPU to DDR and
+>> > > > > caches
+>> > > > > accesses. The hint that Sai is suggesting is used to mark the buffers as
+>> > > > > 'no-write-allocate' to prevent GPU write operations from being cached in
+>> > > > > the LLC
+>> > > > > which a) isn't interesting and b) takes up cache space for read
+>> > > > > operations.
+>> > > > >
+>> > > > > Its easiest to think of the LLC as a bonus accelerator that has no cost
+>> > > > > for
+>> > > > > us to use outside of the unfortunate per buffer hint.
+>> > > > >
+>> > > > > We do have to worry about the CPU cache w.r.t I/O coherency (which is a
+>> > > > > different hint) and in that case we have all of concerns that Will
+>> > > > > identified.
+>> > > > >
+>> > > >
+>> > > > For mismatched outer cacheability attributes which Will
+>> > > > mentioned, I was
+>> > > > referring to [1] in android kernel.
+>> > >
+>> > > I've lost track of the conversation here :/
+>> > >
+>> > > When the GPU has a buffer mapped with IOMMU_LLC, is the buffer also
+>> > > mapped
+>> > > into the CPU and with what attributes? Rob said "writecombine for
+>> > > everything" -- does that mean ioremap_wc() / MEMREMAP_WC?
+>> > >
+>> >
+>> > Rob answered this.
+>> >
+>> > > Finally, we need to be careful when we use the word "hint" as
+>> > > "allocation
+>> > > hint" has a specific meaning in the architecture, and if we only
+>> > > mismatch on
+>> > > those then we're actually ok. But I think IOMMU_LLC is more than
+>> > > just a
+>> > > hint, since it actually drives eviction policy (i.e. it enables
+>> > > writeback).
+>> > >
+>> > > Sorry for the pedantry, but I just want to make sure we're all talking
+>> > > about the same things!
+>> > >
+>> >
+>> > Sorry for the confusion which probably was caused by my mentioning of
+>> > android, NWA(no write allocate) is an allocation hint which we can
+>> > ignore
+>> > for now as it is not introduced yet in upstream.
+>> >
+>> 
+>> Any chance of taking this forward? We do not want to miss out on small 
+>> fps
+>> gain when the product gets released.
+> 
+> Do we have a solution to the mismatched virtual alias?
+> 
 
-Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+Sorry for the long delay on this thread.
 
-Yours,
-Linus Walleij
+For mismatched virtual alias question, wasn't this already discussed in 
+stretch
+when initial support for system cache [1] (which was reverted by you) 
+was added?
+
+Excerpt from there,
+
+"As seen in downstream kernels there are few non-coherent devices which
+would not want to allocate in system cache, and therefore would want
+Inner/Outer non-cached memory. So, we may want to either override the
+attributes per-device, or as you suggested we may want to introduce
+another memory type 'sys-cached' that can be added with its separate
+infra."
+
+As for DMA API usage, we do not have any upstream users (video will be
+one if they decide to upstream that).
+
+[1] 
+https://patchwork.kernel.org/project/linux-arm-msm/patch/20180615105329.26800-1-vivek.gautam@codeaurora.org/
+
+Thanks,
+Sai
+
+-- 
+QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a 
+member
+of Code Aurora Forum, hosted by The Linux Foundation
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
