@@ -2,59 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06DBD3B97DF
-	for <lists+freedreno@lfdr.de>; Thu,  1 Jul 2021 22:59:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE1D53B97FD
+	for <lists+freedreno@lfdr.de>; Thu,  1 Jul 2021 23:12:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC2D36E0DE;
-	Thu,  1 Jul 2021 20:59:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B9FD6EB4F;
+	Thu,  1 Jul 2021 21:12:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D68516E0DE
- for <freedreno@lists.freedesktop.org>; Thu,  1 Jul 2021 20:59:17 +0000 (UTC)
-Received: by mail-ot1-x335.google.com with SMTP id
- m6-20020a9d1d060000b029044e2d8e855eso7916847otm.8
- for <freedreno@lists.freedesktop.org>; Thu, 01 Jul 2021 13:59:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=XrWzpSfGWJs4mU7AbSR6+V4VHnkU5pSgSDyg2slAt30=;
- b=EjzKi5uaP0VQcEGw8pTiCdQJVucKkhHNVO7oowIqztIsBsjAHtES6A14HBthDpEGta
- 57pnzLXTcp43YW9JZGFdYjUgM4+9YFW3k/k1zvZu6T6tzU/5hjYNcyrDdaqOEwaqCftI
- 6QxUCK3daPHzh16hsFrq6UJTRrDsofcZkB/lKIHxIEhOHe1GmGBRNSnKMiZvzqj8NI5m
- HOYuqbF5IBS4bA/OVFUnkff/K3pmjP6sOm8iDdUzlECcYsMqI48mgH0zSmf5o0NRymmT
- D1mzIaTYnktp9+AFm1+zGiTvsHHFf4ZYI4zvUbY6wmUtGz/QOgaux2QhM2WJtVouc0Ea
- cuLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=XrWzpSfGWJs4mU7AbSR6+V4VHnkU5pSgSDyg2slAt30=;
- b=pHIM0nYVLt0Q0iyMguyt8duLPWrTAclOPwc1ivvbs9WSSIecJW6Ru0kwFC0UAQL+EA
- mnRdzs4VFlgZmvOiY3NNxoAhA4/ntKIQczY0958ZQJ3glAvM65ABpbC/YT4HS4tnp1+I
- o+cNY8JUaeSHMe0005X9x1eyHf5wSwT38MsXZR8wXijD+9or10AF6AnjcdaBFIq46lF9
- qioTCoZ+2oph+hmi6vc3RLJ/x2BJ91uuEIjSyUsXb9rK4rI2+wR10zCx/j9b4UlysIIo
- 6U61J8ttoRAYZIX0Hq1UnUzUtcCzGptH5WQuhlITlktL+Zr7FO7PhmNV7LKneIluNR48
- rqfQ==
-X-Gm-Message-State: AOAM532coDbHSn/hkKClYhQVvU56+65bAFj3Kmn4Mii8kzDkQramcBX8
- shG0aVY7L98fsR5XOjnuvZMkbQ==
-X-Google-Smtp-Source: ABdhPJwIRnpPxwiwaPUqDIjDQDPpGe2AzdWrhxL+vmnF9x4fm6rwS0DFjgoK+0VtbGYBZ5MIhWlfcA==
-X-Received: by 2002:a9d:8c7:: with SMTP id 65mr1578919otf.25.1625173157128;
- Thu, 01 Jul 2021 13:59:17 -0700 (PDT)
-Received: from yoga (rrcs-97-77-166-58.sw.biz.rr.com. [97.77.166.58])
- by smtp.gmail.com with ESMTPSA id m11sm177944otp.29.2021.07.01.13.59.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Jul 2021 13:59:16 -0700 (PDT)
-Date: Thu, 1 Jul 2021 15:59:14 -0500
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <YN4sojVhCpfHDpgZ@yoga>
-References: <20210701000015.3347713-1-dmitry.baryshkov@linaro.org>
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D4256EAD5
+ for <freedreno@lists.freedesktop.org>; Thu,  1 Jul 2021 21:12:31 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1625173953; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=H8ePaAPjm3Qye4c0a0COw/Ct7+Jugg9ITfv5eW+aqI4=;
+ b=QVLcjP3k7gNCL82sRR4Z5967AOY3/yTNHS425FwrLUuVLRDqp88TNTtHU8oaab4JCRs2d5Vb
+ Oc4wAoYfs8sLBIEbeeqw5rQOORJel61VHo9Dz5lMAAJWTtS4T2wqvvLRKwlnO/o8WHA4BtJm
+ 3Lv/xdXjuVSe9TOvVraTe0JHoBw=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
+ 60de2fbe5d0d101e38578ee6 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 01 Jul 2021 21:12:30
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id C1F5BC4338A; Thu,  1 Jul 2021 21:12:30 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 33143C433D3;
+ Thu,  1 Jul 2021 21:12:28 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210701000015.3347713-1-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: drop gdsc regulator handling
+Date: Thu, 01 Jul 2021 14:12:28 -0700
+From: abhinavk@codeaurora.org
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20210609211723.2565105-3-dmitry.baryshkov@linaro.org>
+References: <20210609211723.2565105-1-dmitry.baryshkov@linaro.org>
+ <20210609211723.2565105-3-dmitry.baryshkov@linaro.org>
+Message-ID: <73c474d067bd1f63e6d3457b01de4e2c@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [RFC 2/6] drm/msm/dpu: support setting up two
+ independent DSI connectors
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,138 +66,243 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
  Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <abhinavk@codeaurora.org>, David Airlie <airlied@linux.ie>,
- Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ David Airlie <airlied@linux.ie>, Rob Clark <robdclark@gmail.com>,
  Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed 30 Jun 19:00 CDT 2021, Dmitry Baryshkov wrote:
-
-> None of supported devies uses "gdsc" regulator for DSI. GDSC support is
-> now implemented as a power domain. Drop old code and config handling
-> gdsc regulator requesting and enabling.
+On 2021-06-09 14:17, Dmitry Baryshkov wrote:
+> Move setting up encoders from set_encoder_mode to
+> _dpu_kms_initialize_dsi() / _dpu_kms_initialize_displayport(). This
+> allows us to support not only "single DSI" and "dual DSI" but also "two
+> independent DSI" configurations. In future this would also help adding
+> support for multiple DP connectors.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-
-Regards,
-Bjorn
+I will have to see Bjorn's changes to check why it was dependent on this 
+cleanup.
+Is the plan to call _dpu_kms_initialize_displayport() twice?
+But still I am not able to put together where is the dependency on that 
+series
+with this one. Can you please elaborate on that a little bit?
 
 > ---
->  drivers/gpu/drm/msm/dsi/dsi_cfg.c  | 12 ++++--------
->  drivers/gpu/drm/msm/dsi/dsi_host.c | 22 +++-------------------
->  2 files changed, 7 insertions(+), 27 deletions(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 89 ++++++++++++-------------
+>  1 file changed, 44 insertions(+), 45 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-> index f3f1c03c7db9..32c37d7c2109 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-> @@ -32,9 +32,8 @@ static const char * const dsi_6g_bus_clk_names[] = {
->  static const struct msm_dsi_config msm8974_apq8084_dsi_cfg = {
->  	.io_offset = DSI_6G_REG_SHIFT,
->  	.reg_cfg = {
-> -		.num = 4,
-> +		.num = 3,
->  		.regs = {
-> -			{"gdsc", -1, -1},
->  			{"vdd", 150000, 100},	/* 3.0 V */
->  			{"vdda", 100000, 100},	/* 1.2 V */
->  			{"vddio", 100000, 100},	/* 1.8 V */
-> @@ -53,9 +52,8 @@ static const char * const dsi_8916_bus_clk_names[] = {
->  static const struct msm_dsi_config msm8916_dsi_cfg = {
->  	.io_offset = DSI_6G_REG_SHIFT,
->  	.reg_cfg = {
-> -		.num = 3,
-> +		.num = 2,
->  		.regs = {
-> -			{"gdsc", -1, -1},
->  			{"vdda", 100000, 100},	/* 1.2 V */
->  			{"vddio", 100000, 100},	/* 1.8 V */
->  		},
-> @@ -73,9 +71,8 @@ static const char * const dsi_8976_bus_clk_names[] = {
->  static const struct msm_dsi_config msm8976_dsi_cfg = {
->  	.io_offset = DSI_6G_REG_SHIFT,
->  	.reg_cfg = {
-> -		.num = 3,
-> +		.num = 2,
->  		.regs = {
-> -			{"gdsc", -1, -1},
->  			{"vdda", 100000, 100},	/* 1.2 V */
->  			{"vddio", 100000, 100},	/* 1.8 V */
->  		},
-> @@ -89,9 +86,8 @@ static const struct msm_dsi_config msm8976_dsi_cfg = {
->  static const struct msm_dsi_config msm8994_dsi_cfg = {
->  	.io_offset = DSI_6G_REG_SHIFT,
->  	.reg_cfg = {
-> -		.num = 7,
-> +		.num = 6,
->  		.regs = {
-> -			{"gdsc", -1, -1},
->  			{"vdda", 100000, 100},	/* 1.25 V */
->  			{"vddio", 100000, 100},	/* 1.8 V */
->  			{"vcca", 10000, 100},	/* 1.0 V */
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index ed504fe5074f..66c425d4159c 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -203,35 +203,22 @@ static const struct msm_dsi_cfg_handler *dsi_get_config(
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index 1d3a4f395e74..b63e1c948ff2 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -471,30 +471,55 @@ static int _dpu_kms_initialize_dsi(struct 
+> drm_device *dev,
+>  				    struct dpu_kms *dpu_kms)
 >  {
->  	const struct msm_dsi_cfg_handler *cfg_hnd = NULL;
->  	struct device *dev = &msm_host->pdev->dev;
-> -	struct regulator *gdsc_reg;
->  	struct clk *ahb_clk;
->  	int ret;
->  	u32 major = 0, minor = 0;
->  
-> -	gdsc_reg = regulator_get(dev, "gdsc");
-> -	if (IS_ERR(gdsc_reg)) {
-> -		pr_err("%s: cannot get gdsc\n", __func__);
-> -		goto exit;
-> -	}
-> -
->  	ahb_clk = msm_clk_get(msm_host->pdev, "iface");
->  	if (IS_ERR(ahb_clk)) {
->  		pr_err("%s: cannot get interface clock\n", __func__);
-> -		goto put_gdsc;
-> +		goto exit;
->  	}
->  
->  	pm_runtime_get_sync(dev);
->  
-> -	ret = regulator_enable(gdsc_reg);
-> -	if (ret) {
-> -		pr_err("%s: unable to enable gdsc\n", __func__);
-> -		goto put_gdsc;
-> -	}
-> -
->  	ret = clk_prepare_enable(ahb_clk);
->  	if (ret) {
->  		pr_err("%s: unable to enable ahb_clk\n", __func__);
-> -		goto disable_gdsc;
-> +		goto runtime_put;
->  	}
->  
->  	ret = dsi_get_version(msm_host->ctrl_base, &major, &minor);
-> @@ -246,11 +233,8 @@ static const struct msm_dsi_cfg_handler *dsi_get_config(
->  
->  disable_clks:
->  	clk_disable_unprepare(ahb_clk);
-> -disable_gdsc:
-> -	regulator_disable(gdsc_reg);
-> +runtime_put:
->  	pm_runtime_put_sync(dev);
-> -put_gdsc:
-> -	regulator_put(gdsc_reg);
->  exit:
->  	return cfg_hnd;
->  }
-> -- 
-> 2.30.2
+>  	struct drm_encoder *encoder = NULL;
+> +	struct msm_display_info info;
+>  	int i, rc = 0;
 > 
+>  	if (!(priv->dsi[0] || priv->dsi[1]))
+>  		return rc;
+> 
+> -	/*TODO: Support two independent DSI connectors */
+> -	encoder = dpu_encoder_init(dev, DRM_MODE_ENCODER_DSI);
+> -	if (IS_ERR(encoder)) {
+> -		DPU_ERROR("encoder init failed for dsi display\n");
+> -		return PTR_ERR(encoder);
+> -	}
+> -
+> -	priv->encoders[priv->num_encoders++] = encoder;
+> -
+>  	for (i = 0; i < ARRAY_SIZE(priv->dsi); i++) {
+>  		if (!priv->dsi[i])
+>  			continue;
+> 
+> +		if (!encoder) {
+> +			encoder = dpu_encoder_init(dev, DRM_MODE_ENCODER_DSI);
+> +			if (IS_ERR(encoder)) {
+> +				DPU_ERROR("encoder init failed for dsi display\n");
+> +				return PTR_ERR(encoder);
+> +			}
+> +
+> +			priv->encoders[priv->num_encoders++] = encoder;
+> +
+> +			memset(&info, 0, sizeof(info));
+> +			info.intf_type = encoder->encoder_type;
+> +			info.capabilities = msm_dsi_is_cmd_mode(priv->dsi[i]) ?
+> +				MSM_DISPLAY_CAP_CMD_MODE :
+> +				MSM_DISPLAY_CAP_VID_MODE;
+> +		}
+> +
+>  		rc = msm_dsi_modeset_init(priv->dsi[i], dev, encoder);
+>  		if (rc) {
+>  			DPU_ERROR("modeset_init failed for dsi[%d], rc = %d\n",
+>  				i, rc);
+>  			break;
+>  		}
+> +
+> +		info.h_tile_instance[info.num_of_h_tiles++] = i;
+> +
+> +		if (!msm_dsi_is_dual_dsi(priv->dsi[i])) {
+
+I would like to clarify the terminology of dual_dsi in the current DSI 
+driver before the rest of the reviews.
+Today IS_DUAL_DSI() means that two DSIs are driving the same display and 
+the two DSIs are operating in master-slave mode
+and are being driven by the same PLL.
+Usually, dual independent DSI means two DSIs driving two separate panels 
+using two separate PLLs ( DSI0 with PLL0 and DSI1 with PLL1)
+I assume thats happening due to the foll logic and both DSI PHYs are 
+operating in STANDALONE mode:
+
+     if (!IS_DUAL_DSI()) {
+         ret = msm_dsi_host_register(msm_dsi->host, true);
+         if (ret)
+             return ret;
+
+         msm_dsi_phy_set_usecase(msm_dsi->phy, MSM_DSI_PHY_STANDALONE);
+         ret = msm_dsi_host_set_src_pll(msm_dsi->host, msm_dsi->phy);
+
+> +			rc = dpu_encoder_setup(dev, encoder, &info);
+> +			if (rc)
+> +				DPU_ERROR("failed to setup DPU encoder %d: rc:%d\n",
+> +						encoder->base.id, rc);
+> +			encoder = NULL;
+> +		}
+> +	}
+> +
+> +	if (encoder) {
+
+We will hit this case only for split-DSI right? ( that is two DSIs 
+driving the same panel ).
+Even single DSI will be created in the above loop now. So this looks a 
+bit confusing at the moment.
+
+I think we need to be more clear on dual-DSI Vs split-DSI to avoid 
+confusion in the code about which one means what and the one
+which we are currently using. So what about having IS_DUAL_DSI() and 
+IS_SPLIT_DSI() to distinguish the terminologies and chaging
+DSI driver accordingly.
+
+> +		rc = dpu_encoder_setup(dev, encoder, &info);
+> +		if (rc)
+> +			DPU_ERROR("failed to setup DPU encoder %d: rc:%d\n",
+> +					encoder->base.id, rc);
+>  	}
+> 
+>  	return rc;
+> @@ -505,6 +530,7 @@ static int _dpu_kms_initialize_displayport(struct
+> drm_device *dev,
+>  					    struct dpu_kms *dpu_kms)
+>  {
+>  	struct drm_encoder *encoder = NULL;
+> +	struct msm_display_info info;
+>  	int rc = 0;
+> 
+>  	if (!priv->dp)
+> @@ -516,6 +542,7 @@ static int _dpu_kms_initialize_displayport(struct
+> drm_device *dev,
+>  		return PTR_ERR(encoder);
+>  	}
+> 
+> +	memset(&info, 0, sizeof(info));
+>  	rc = msm_dp_modeset_init(priv->dp, dev, encoder);
+>  	if (rc) {
+>  		DPU_ERROR("modeset_init failed for DP, rc = %d\n", rc);
+> @@ -524,6 +551,14 @@ static int _dpu_kms_initialize_displayport(struct
+> drm_device *dev,
+>  	}
+> 
+>  	priv->encoders[priv->num_encoders++] = encoder;
+> +
+> +	info.num_of_h_tiles = 1;
+> +	info.capabilities = MSM_DISPLAY_CAP_VID_MODE;
+> +	info.intf_type = encoder->encoder_type;
+> +	rc = dpu_encoder_setup(dev, encoder, &info);
+> +	if (rc)
+> +		DPU_ERROR("failed to setup DPU encoder %d: rc:%d\n",
+> +			encoder->base.id, rc);
+>  	return rc;
+>  }
+> 
+> @@ -726,41 +761,6 @@ static void dpu_kms_destroy(struct msm_kms *kms)
+>  	msm_kms_destroy(&dpu_kms->base);
+>  }
+> 
+> -static void _dpu_kms_set_encoder_mode(struct msm_kms *kms,
+> -				 struct drm_encoder *encoder,
+> -				 bool cmd_mode)
+> -{
+> -	struct msm_display_info info;
+> -	struct msm_drm_private *priv = encoder->dev->dev_private;
+> -	int i, rc = 0;
+> -
+> -	memset(&info, 0, sizeof(info));
+> -
+> -	info.intf_type = encoder->encoder_type;
+> -	info.capabilities = cmd_mode ? MSM_DISPLAY_CAP_CMD_MODE :
+> -			MSM_DISPLAY_CAP_VID_MODE;
+> -
+> -	switch (info.intf_type) {
+> -	case DRM_MODE_ENCODER_DSI:
+> -		/* TODO: No support for DSI swap */
+> -		for (i = 0; i < ARRAY_SIZE(priv->dsi); i++) {
+> -			if (priv->dsi[i]) {
+> -				info.h_tile_instance[info.num_of_h_tiles] = i;
+> -				info.num_of_h_tiles++;
+> -			}
+> -		}
+> -		break;
+> -	case DRM_MODE_ENCODER_TMDS:
+> -		info.num_of_h_tiles = 1;
+> -		break;
+> -	}
+> -
+> -	rc = dpu_encoder_setup(encoder->dev, encoder, &info);
+> -	if (rc)
+> -		DPU_ERROR("failed to setup DPU encoder %d: rc:%d\n",
+> -			encoder->base.id, rc);
+> -}
+> -
+It seems we can get rid of set_encoder_mode for DP because the way we 
+are using it today seems not right.
+Ideally, the purpose was that once we read the EDID, the information we 
+read like the tile group etc
+can be used when we are setting up the encoder. But today, we are just 
+hard-coding the number of tiles.
+But I just think whether looking ahead, we should still have some 
+callback which can be called after
+EDID has been read instead of doing it in 
+_dpu_kms_initialize_displayport. Perhaps that can be a separate patch.
+
+>  static irqreturn_t dpu_irq(struct msm_kms *kms)
+>  {
+>  	struct dpu_kms *dpu_kms = to_dpu_kms(kms);
+> @@ -863,7 +863,6 @@ static const struct msm_kms_funcs kms_funcs = {
+>  	.get_format      = dpu_get_msm_format,
+>  	.round_pixclk    = dpu_kms_round_pixclk,
+>  	.destroy         = dpu_kms_destroy,
+> -	.set_encoder_mode = _dpu_kms_set_encoder_mode,
+I would like to get Rob's comment on why we had set_encoder_mode in the 
+first place. Its there even in mdp5.
+
+in current msm dsi, the dsi bind will happen only after the panel has 
+attached
+and the msm_drv's bind will happen only after that since its the 
+component master
+in that case what was the need for set_encoder_mode  because we will 
+know the panel's video/cmd mode in the dsi_bind call
+am i missing something about why mdp5 had this?
+
+ From the dpu perspective, since dsi_bind() happens only once panel has 
+attached.
+>  	.snapshot        = dpu_kms_mdp_snapshot,
+>  #ifdef CONFIG_DEBUG_FS
+>  	.debugfs_init    = dpu_kms_debugfs_init,
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
