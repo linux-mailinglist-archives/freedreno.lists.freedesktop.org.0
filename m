@@ -2,58 +2,41 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 936443B8B0B
-	for <lists+freedreno@lfdr.de>; Thu,  1 Jul 2021 02:00:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F95C3B9492
+	for <lists+freedreno@lfdr.de>; Thu,  1 Jul 2021 18:14:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E03446EA9D;
-	Thu,  1 Jul 2021 00:00:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 679136EB57;
+	Thu,  1 Jul 2021 16:14:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D1F16E9A4
- for <freedreno@lists.freedesktop.org>; Thu,  1 Jul 2021 00:00:18 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id t17so8460633lfq.0
- for <freedreno@lists.freedesktop.org>; Wed, 30 Jun 2021 17:00:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=eAmFKeCfkBrGj9sGlPMlMBljPTZNyMpy6Rq9bQdBGEw=;
- b=rhy3+VWT3Ngutvw+LPCiFR0kDw1e3bd9ZTGWOLQCgmUPBOyX9xWx2F8hL/R/SYbl11
- 0nwszCsxwqEqBYc4mk0gkANE0ZgiCCA6trS4HW8+VVBtdoWb4WyxUKAcbkT+R+WUz8UU
- S6f6s5AeCAL6kbtb7fDf5Yn5Pe9LNZGyOXg7m+AJzCEeCwCB/WA0rnnNCnE54uxB2FTF
- v58AwRvhd2dc6jZiBCG42TdMkgWg5VdL4u+fYmrax6HS4+S8/A1OTj7HovB5IH9bpcaX
- bSAWFTMK1lBJKar9tH94xSXNtEIZ9r9EWhQLRlq1CmD0r6JunfFnj+jDi/yaHYSjKj3V
- 3yTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=eAmFKeCfkBrGj9sGlPMlMBljPTZNyMpy6Rq9bQdBGEw=;
- b=kQlzHfOSpGH9qr/LLgNkLPDr79xt0ji8MuWsgZ8xx3EOLvX3d5whu8swweu4b5c+Ed
- MDHx+FSZJReI5ozkZFo0l6D1dpMbcUWHGMQmwfFVC4V0koe27H4lmQMubkKRwHOks0hM
- jMjSJdjBADpj9iE5WTRfcik46Wh/wnqdc/8H7ax5OGAFEUL95vTvsShSpnzix40wkEK2
- vi+nBPG2LqIFVp76PWzd0cQjVU0JfBk/dRSn1gCH2xNL1JvJeHn+9oahTjfZ13F8047H
- nQP7Gmv9U0H8Po2MfZ0Sg85UOK4Cg0Tqv7jRPHtdTN1tPZBqvjIi4hvQRvijsTH1ujoa
- IRYQ==
-X-Gm-Message-State: AOAM532H9MsmJYOm9hwGRaapaTeeIPrdkfrD9mLMJJay/5wUyvpoAUoE
- 5/OkMc5TjCwG1zgoCfZDgg7cMA==
-X-Google-Smtp-Source: ABdhPJx9dGodM/43P/RMFAKwYhVCOXeL46b+R5KWtcJ/r79KzPf4ma6qhYyv0hsEj0zL3a5P6YX7Ww==
-X-Received: by 2002:ac2:5e86:: with SMTP id b6mr29737245lfq.241.1625097616333; 
- Wed, 30 Jun 2021 17:00:16 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id a12sm2059539lfi.286.2021.06.30.17.00.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Jun 2021 17:00:15 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <abhinavk@codeaurora.org>
-Date: Thu,  1 Jul 2021 03:00:15 +0300
-Message-Id: <20210701000015.3347713-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.30.2
+Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89E0E6E0CB;
+ Thu,  1 Jul 2021 16:14:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+ s=20170329; 
+ h=MIME-Version:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
+ bh=wK9wrmd+6oYN7FKRJ1PwqG4FPKNWD7UZGqxDhFVY3YA=; 
+ b=Y4rlul+uhkYkZ4p6PoktJ1He64NFdmYZWcPpM13vr6JwyByUFcMFxf7tyOvHSUYGAsQGuCwcUoD7h5DI4G0VjAPU8O8+bLIPf62+t7OUSN+R/QYhU0JnC0VuJKQTtRvbWX3fbx6b5WzNX1bZImGRveVbDTtd/0HPNao87E/LJkrpM6iDlUx/srHN6OI5snwK8PxazjWK5xG7t3iJJ9WU+csZyt0hFOSwx3R6pP4/3oRO0mRpynHUbJfXQ4UfRyQqzglMs6SBk6RjTXKmiyJ0CAnUvAeJ2bnyP0rx715hkwTsNSF1wpGP3s6PM34qHol9in6d5fNW/mzzdtcje0K6/g==;
+Received: from 152.red-88-9-105.dynamicip.rima-tde.net ([88.9.105.152]
+ helo=[192.168.2.252]) by fanzine.igalia.com with esmtpsa 
+ (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
+ id 1lyzKj-0005WT-LU; Thu, 01 Jul 2021 18:14:33 +0200
+Message-ID: <f5ee80e067e79dff0b2d65c67dbb83b9be70014f.camel@igalia.com>
+From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
+To: "events@lists.x.org" <events@lists.x.org>, 
+ "xorg-devel@lists.freedesktop.org"
+ <xorg-devel@lists.freedesktop.org>, wayland-devel@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, mesa-dev@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org
+Date: Thu, 01 Jul 2021 18:14:23 +0200
+In-Reply-To: <95ec2c414f7dd1ea5685184435b95430e1709047.camel@igalia.com>
+References: <95ec2c414f7dd1ea5685184435b95430e1709047.camel@igalia.com>
+User-Agent: Evolution 3.38.3-1 
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm/dsi: drop gdsc regulator handling
+Subject: Re: [Freedreno] [Mesa-dev] Requests For Proposals for hosting XDC
+ 2022 are now open
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,132 +49,116 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "board@foundation.x.org" <board@foundation.x.org>
+Content-Type: multipart/mixed; boundary="===============1390753969=="
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-None of supported devies uses "gdsc" regulator for DSI. GDSC support is
-now implemented as a power domain. Drop old code and config handling
-gdsc regulator requesting and enabling.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/dsi/dsi_cfg.c  | 12 ++++--------
- drivers/gpu/drm/msm/dsi/dsi_host.c | 22 +++-------------------
- 2 files changed, 7 insertions(+), 27 deletions(-)
+--===============1390753969==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-QH/ByUmgrN7MqV73jY6n"
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-index f3f1c03c7db9..32c37d7c2109 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-@@ -32,9 +32,8 @@ static const char * const dsi_6g_bus_clk_names[] = {
- static const struct msm_dsi_config msm8974_apq8084_dsi_cfg = {
- 	.io_offset = DSI_6G_REG_SHIFT,
- 	.reg_cfg = {
--		.num = 4,
-+		.num = 3,
- 		.regs = {
--			{"gdsc", -1, -1},
- 			{"vdd", 150000, 100},	/* 3.0 V */
- 			{"vdda", 100000, 100},	/* 1.2 V */
- 			{"vddio", 100000, 100},	/* 1.8 V */
-@@ -53,9 +52,8 @@ static const char * const dsi_8916_bus_clk_names[] = {
- static const struct msm_dsi_config msm8916_dsi_cfg = {
- 	.io_offset = DSI_6G_REG_SHIFT,
- 	.reg_cfg = {
--		.num = 3,
-+		.num = 2,
- 		.regs = {
--			{"gdsc", -1, -1},
- 			{"vdda", 100000, 100},	/* 1.2 V */
- 			{"vddio", 100000, 100},	/* 1.8 V */
- 		},
-@@ -73,9 +71,8 @@ static const char * const dsi_8976_bus_clk_names[] = {
- static const struct msm_dsi_config msm8976_dsi_cfg = {
- 	.io_offset = DSI_6G_REG_SHIFT,
- 	.reg_cfg = {
--		.num = 3,
-+		.num = 2,
- 		.regs = {
--			{"gdsc", -1, -1},
- 			{"vdda", 100000, 100},	/* 1.2 V */
- 			{"vddio", 100000, 100},	/* 1.8 V */
- 		},
-@@ -89,9 +86,8 @@ static const struct msm_dsi_config msm8976_dsi_cfg = {
- static const struct msm_dsi_config msm8994_dsi_cfg = {
- 	.io_offset = DSI_6G_REG_SHIFT,
- 	.reg_cfg = {
--		.num = 7,
-+		.num = 6,
- 		.regs = {
--			{"gdsc", -1, -1},
- 			{"vdda", 100000, 100},	/* 1.25 V */
- 			{"vddio", 100000, 100},	/* 1.8 V */
- 			{"vcca", 10000, 100},	/* 1.0 V */
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index ed504fe5074f..66c425d4159c 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -203,35 +203,22 @@ static const struct msm_dsi_cfg_handler *dsi_get_config(
- {
- 	const struct msm_dsi_cfg_handler *cfg_hnd = NULL;
- 	struct device *dev = &msm_host->pdev->dev;
--	struct regulator *gdsc_reg;
- 	struct clk *ahb_clk;
- 	int ret;
- 	u32 major = 0, minor = 0;
- 
--	gdsc_reg = regulator_get(dev, "gdsc");
--	if (IS_ERR(gdsc_reg)) {
--		pr_err("%s: cannot get gdsc\n", __func__);
--		goto exit;
--	}
--
- 	ahb_clk = msm_clk_get(msm_host->pdev, "iface");
- 	if (IS_ERR(ahb_clk)) {
- 		pr_err("%s: cannot get interface clock\n", __func__);
--		goto put_gdsc;
-+		goto exit;
- 	}
- 
- 	pm_runtime_get_sync(dev);
- 
--	ret = regulator_enable(gdsc_reg);
--	if (ret) {
--		pr_err("%s: unable to enable gdsc\n", __func__);
--		goto put_gdsc;
--	}
--
- 	ret = clk_prepare_enable(ahb_clk);
- 	if (ret) {
- 		pr_err("%s: unable to enable ahb_clk\n", __func__);
--		goto disable_gdsc;
-+		goto runtime_put;
- 	}
- 
- 	ret = dsi_get_version(msm_host->ctrl_base, &major, &minor);
-@@ -246,11 +233,8 @@ static const struct msm_dsi_cfg_handler *dsi_get_config(
- 
- disable_clks:
- 	clk_disable_unprepare(ahb_clk);
--disable_gdsc:
--	regulator_disable(gdsc_reg);
-+runtime_put:
- 	pm_runtime_put_sync(dev);
--put_gdsc:
--	regulator_put(gdsc_reg);
- exit:
- 	return cfg_hnd;
- }
--- 
-2.30.2
+
+--=-QH/ByUmgrN7MqV73jY6n
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+This is a reminder that the call for proposals for hosting XDC 2022
+period finishes in two months.
+
+Be sure to prepare your submission before you leave on holiday!
+
+Sam
+
+On Thu, 2021-05-20 at 12:15 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
+> Hello everyone!
+>=20
+> The X.org board is soliciting proposals to host XDC in 2022. Since
+> XDC 2021 is being held in Europe this year (although virtually),
+> we've
+> decided to host in North America. However, the board is open to other
+> locations, especially if there's an interesting co-location with
+> another conference.
+>=20
+> Of course though, due to the ongoing COVID-19 pandemic it's not yet
+> clear whether or not it will be possible to host XDC 2022 in person,
+> although is seems very likely. Because of this, we would like to
+> make it clear that sponsors should prepare for both the possibility
+> of an in person conference, and the possibility of a virtual
+> conference. We will work with organizers on coming up with a
+> deadline for deciding whether or not we'll be going virtual, likely
+> sometime around July 2022.
+>=20
+> If you're considering hosting XDC, we've assembled a wiki page with
+> what's generally expected and needed:
+>=20
+> https://www.x.org/wiki/Events/RFP/
+>=20
+> When submitting your proposal, please make sure to include at least
+> the
+> key information about the potential location in question, possible
+> dates along with estimated costs. Proposals can be submitted to board
+> at foundation.x.org until the deadline of *September 1st, 2021*.=C2=A0
+>=20
+> Additionally, an quirk early heads-up to the board if you're
+> considering hosting would be appreciated, in case we need to adjust
+> the
+> schedule a bit. Also, earlier is better since there generally will be
+> a
+> bit of Q&A with organizers.
+>=20
+> And if you just have some questions about what organizing XDC
+> entails,
+> please feel free to chat with previous organizers, or someone from
+> the
+> board.
+>=20
+> Thanks,
+>=20
+> Sam
+>=20
+> _______________________________________________
+> mesa-dev mailing list
+> mesa-dev@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/mesa-dev
+
+
+--=-QH/ByUmgrN7MqV73jY6n
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAmDd6d8ACgkQf/S6MvF9
+w0MKsRAA13BGnKOl2o6oyp+Ws0lBHITyQt5yGc5pIHoT3xjPVY924AFiGtJTsGq/
+oqYp9tMAGduh5VbFDmg9/FanKRpFSbFI8xXTWMuwC6OgaXgu+c9NDO8ilN8wl9vP
+3sAv88KlFP2bJtwwruGjw+jro7tnXE4WvKLaBILW8cqt3nL2xNZbI2JknPIFQDgp
+sddQ0GKSvFCtYuiEaMfxVTasJcaIyf1F4+bew031wDkS4yiuLdXUrBEoEXWNuGWG
+tcMg3HzGBAIkMFXrk3J8aSpSFlj/1r/AXlmT+UMHzp19xCk9YHcgEN5rUlnHA2BI
+AFrJKl5UBXiEl4q8h3V8sUoDM+MBItgpZxxW1P80dJvJe/OT0K9gh4VkYQoQx9Xh
+mg9IzmKENsavip/0Osh91MC9hUIBjEAvGWt2evEjlaIRCd2/xb1KO+gXcCMlz884
+nfZOoi3vAxtG/+XAohOq1pmdE6iSyuLdq8SPxtLSFXGCScHQ0R1Mh1I3xxou4dp6
+8jF2Wl4unF2ovuzCsR6VjQDyyGkXKCJHlueFLYyRrmlqjHd9n6ZDeQvHgCnYW93X
+eYYplicS4TVcZ9GHTsTgmxgGLXSM+aR7xzOZ0NQ4Dcy06uSYdbMet1iLz3XA3MoO
+ADwUOZ7evzwvmkdZ0AN4TjPI0iVtf9aVeZ5hpGPkP/eBEF033gA=
+=6VGv
+-----END PGP SIGNATURE-----
+
+--=-QH/ByUmgrN7MqV73jY6n--
+
+
+--===============1390753969==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
+
+--===============1390753969==--
+
