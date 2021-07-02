@@ -1,55 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE1D53B97FD
-	for <lists+freedreno@lfdr.de>; Thu,  1 Jul 2021 23:12:35 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 598133B9E03
+	for <lists+freedreno@lfdr.de>; Fri,  2 Jul 2021 11:20:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B9FD6EB4F;
-	Thu,  1 Jul 2021 21:12:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FD5F6E086;
+	Fri,  2 Jul 2021 09:20:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D4256EAD5
- for <freedreno@lists.freedesktop.org>; Thu,  1 Jul 2021 21:12:31 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1625173953; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=H8ePaAPjm3Qye4c0a0COw/Ct7+Jugg9ITfv5eW+aqI4=;
- b=QVLcjP3k7gNCL82sRR4Z5967AOY3/yTNHS425FwrLUuVLRDqp88TNTtHU8oaab4JCRs2d5Vb
- Oc4wAoYfs8sLBIEbeeqw5rQOORJel61VHo9Dz5lMAAJWTtS4T2wqvvLRKwlnO/o8WHA4BtJm
- 3Lv/xdXjuVSe9TOvVraTe0JHoBw=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
- 60de2fbe5d0d101e38578ee6 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 01 Jul 2021 21:12:30
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id C1F5BC4338A; Thu,  1 Jul 2021 21:12:30 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 33143C433D3;
- Thu,  1 Jul 2021 21:12:28 +0000 (UTC)
-MIME-Version: 1.0
-Date: Thu, 01 Jul 2021 14:12:28 -0700
-From: abhinavk@codeaurora.org
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20210609211723.2565105-3-dmitry.baryshkov@linaro.org>
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F17B66E07D
+ for <freedreno@lists.freedesktop.org>; Fri,  2 Jul 2021 09:20:17 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id bq39so4311171lfb.12
+ for <freedreno@lists.freedesktop.org>; Fri, 02 Jul 2021 02:20:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=m8wLfnq30i8HqaMYUYPOktmvkrFtzBVBFSBsMnOCFA0=;
+ b=PXx8VwifMxb5+X7kwwF/CBQWmC+MCNUSwn+sBPhYsLCvLOKKA1idimJw67TmLw4Hmg
+ M9nIDQ8AQVm3Jo8zq6ivb38qaAsBok/X38V72NMIB/3M/TCrFPexDRM61yTfkaiMcNl2
+ ZMTueIHItTA92Aeqxmdr41p/g96jkJGUyXr8y4/nR7y/XaMebBWgfi22+XGIP1/zOdcM
+ tJDqYxzuHzz0kdqN/wTROwEN3DQyaUKPyBx8HrfpOKsoP0vho0rhyZc7ouF0/348CGOQ
+ efPKlnQHL2I+qsOOBpk+aT/qJBXEUO985JNMJhMZl0clGfTvTd4odkRZUouCSoZjRQg2
+ S+8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=m8wLfnq30i8HqaMYUYPOktmvkrFtzBVBFSBsMnOCFA0=;
+ b=X5MvmegYr7qSEKkEfx/DOS+Rb85k3E1YDdBYepiTV1fnPp+0v9UznJsZc3Q8FeuVU2
+ nhIB8YzwO/+sKL5/lk5fTAbRsIy8et1Kq8N7ZkKIJusi2c3kyelId/770+Rw+/86IOzE
+ A4ZeHyJDhmEA1rs95TTMIx7sFQymRNSWZs/kAunQ4JxRgigzrwJ3M0SC02wPJq8nf0vd
+ Y1D2Xk9U9evxEzZkg5HevxjdPTbirWGohV/RVpXFHr8f/U/6H3X8QZIU9gXQdSrYWKbk
+ cUwmKufoq6JGVPq4D65qDcNEVi3B4MFRVNkAIT6i+7oizSs4CpdfcyTZm5DqHviRJAiI
+ 0Gcw==
+X-Gm-Message-State: AOAM531vR+7cN2zdwpcj0+XhcWPyXOT9iL+Pc9E+ZrAc/m4qdncZ12en
+ +RMP0F86qD2jnV2JOsZ56XcUnkLnSANp7A==
+X-Google-Smtp-Source: ABdhPJx+9+g/b7JKmNUZUjpyDVBW2rajxA6H1ZVvWiYyxgfgofTYkU8EvPSHDMlKw5K4wIRT0LKNSA==
+X-Received: by 2002:a05:6512:c4:: with SMTP id
+ c4mr3329179lfp.328.1625217615891; 
+ Fri, 02 Jul 2021 02:20:15 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id f25sm294145ljp.95.2021.07.02.02.20.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 02 Jul 2021 02:20:15 -0700 (PDT)
+To: abhinavk@codeaurora.org
 References: <20210609211723.2565105-1-dmitry.baryshkov@linaro.org>
  <20210609211723.2565105-3-dmitry.baryshkov@linaro.org>
-Message-ID: <73c474d067bd1f63e6d3457b01de4e2c@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
+ <73c474d067bd1f63e6d3457b01de4e2c@codeaurora.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <9ead5725-4c2d-5ab8-26db-badd31d3ed58@linaro.org>
+Date: Fri, 2 Jul 2021 12:20:14 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+MIME-Version: 1.0
+In-Reply-To: <73c474d067bd1f63e6d3457b01de4e2c@codeaurora.org>
+Content-Language: en-GB
 Subject: Re: [Freedreno] [RFC 2/6] drm/msm/dpu: support setting up two
  independent DSI connectors
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -69,241 +78,209 @@ Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
  dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
  David Airlie <airlied@linux.ie>, Rob Clark <robdclark@gmail.com>,
  Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-06-09 14:17, Dmitry Baryshkov wrote:
-> Move setting up encoders from set_encoder_mode to
-> _dpu_kms_initialize_dsi() / _dpu_kms_initialize_displayport(). This
-> allows us to support not only "single DSI" and "dual DSI" but also "two
-> independent DSI" configurations. In future this would also help adding
-> support for multiple DP connectors.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-I will have to see Bjorn's changes to check why it was dependent on this 
-cleanup.
-Is the plan to call _dpu_kms_initialize_displayport() twice?
-But still I am not able to put together where is the dependency on that 
-series
-with this one. Can you please elaborate on that a little bit?
-
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 89 ++++++++++++-------------
->  1 file changed, 44 insertions(+), 45 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index 1d3a4f395e74..b63e1c948ff2 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -471,30 +471,55 @@ static int _dpu_kms_initialize_dsi(struct 
-> drm_device *dev,
->  				    struct dpu_kms *dpu_kms)
->  {
->  	struct drm_encoder *encoder = NULL;
-> +	struct msm_display_info info;
->  	int i, rc = 0;
-> 
->  	if (!(priv->dsi[0] || priv->dsi[1]))
->  		return rc;
-> 
-> -	/*TODO: Support two independent DSI connectors */
-> -	encoder = dpu_encoder_init(dev, DRM_MODE_ENCODER_DSI);
-> -	if (IS_ERR(encoder)) {
-> -		DPU_ERROR("encoder init failed for dsi display\n");
-> -		return PTR_ERR(encoder);
-> -	}
-> -
-> -	priv->encoders[priv->num_encoders++] = encoder;
-> -
->  	for (i = 0; i < ARRAY_SIZE(priv->dsi); i++) {
->  		if (!priv->dsi[i])
->  			continue;
-> 
-> +		if (!encoder) {
-> +			encoder = dpu_encoder_init(dev, DRM_MODE_ENCODER_DSI);
-> +			if (IS_ERR(encoder)) {
-> +				DPU_ERROR("encoder init failed for dsi display\n");
-> +				return PTR_ERR(encoder);
-> +			}
-> +
-> +			priv->encoders[priv->num_encoders++] = encoder;
-> +
-> +			memset(&info, 0, sizeof(info));
-> +			info.intf_type = encoder->encoder_type;
-> +			info.capabilities = msm_dsi_is_cmd_mode(priv->dsi[i]) ?
-> +				MSM_DISPLAY_CAP_CMD_MODE :
-> +				MSM_DISPLAY_CAP_VID_MODE;
-> +		}
-> +
->  		rc = msm_dsi_modeset_init(priv->dsi[i], dev, encoder);
->  		if (rc) {
->  			DPU_ERROR("modeset_init failed for dsi[%d], rc = %d\n",
->  				i, rc);
->  			break;
->  		}
-> +
-> +		info.h_tile_instance[info.num_of_h_tiles++] = i;
-> +
-> +		if (!msm_dsi_is_dual_dsi(priv->dsi[i])) {
-
-I would like to clarify the terminology of dual_dsi in the current DSI 
-driver before the rest of the reviews.
-Today IS_DUAL_DSI() means that two DSIs are driving the same display and 
-the two DSIs are operating in master-slave mode
-and are being driven by the same PLL.
-Usually, dual independent DSI means two DSIs driving two separate panels 
-using two separate PLLs ( DSI0 with PLL0 and DSI1 with PLL1)
-I assume thats happening due to the foll logic and both DSI PHYs are 
-operating in STANDALONE mode:
-
-     if (!IS_DUAL_DSI()) {
-         ret = msm_dsi_host_register(msm_dsi->host, true);
-         if (ret)
-             return ret;
-
-         msm_dsi_phy_set_usecase(msm_dsi->phy, MSM_DSI_PHY_STANDALONE);
-         ret = msm_dsi_host_set_src_pll(msm_dsi->host, msm_dsi->phy);
-
-> +			rc = dpu_encoder_setup(dev, encoder, &info);
-> +			if (rc)
-> +				DPU_ERROR("failed to setup DPU encoder %d: rc:%d\n",
-> +						encoder->base.id, rc);
-> +			encoder = NULL;
-> +		}
-> +	}
-> +
-> +	if (encoder) {
-
-We will hit this case only for split-DSI right? ( that is two DSIs 
-driving the same panel ).
-Even single DSI will be created in the above loop now. So this looks a 
-bit confusing at the moment.
-
-I think we need to be more clear on dual-DSI Vs split-DSI to avoid 
-confusion in the code about which one means what and the one
-which we are currently using. So what about having IS_DUAL_DSI() and 
-IS_SPLIT_DSI() to distinguish the terminologies and chaging
-DSI driver accordingly.
-
-> +		rc = dpu_encoder_setup(dev, encoder, &info);
-> +		if (rc)
-> +			DPU_ERROR("failed to setup DPU encoder %d: rc:%d\n",
-> +					encoder->base.id, rc);
->  	}
-> 
->  	return rc;
-> @@ -505,6 +530,7 @@ static int _dpu_kms_initialize_displayport(struct
-> drm_device *dev,
->  					    struct dpu_kms *dpu_kms)
->  {
->  	struct drm_encoder *encoder = NULL;
-> +	struct msm_display_info info;
->  	int rc = 0;
-> 
->  	if (!priv->dp)
-> @@ -516,6 +542,7 @@ static int _dpu_kms_initialize_displayport(struct
-> drm_device *dev,
->  		return PTR_ERR(encoder);
->  	}
-> 
-> +	memset(&info, 0, sizeof(info));
->  	rc = msm_dp_modeset_init(priv->dp, dev, encoder);
->  	if (rc) {
->  		DPU_ERROR("modeset_init failed for DP, rc = %d\n", rc);
-> @@ -524,6 +551,14 @@ static int _dpu_kms_initialize_displayport(struct
-> drm_device *dev,
->  	}
-> 
->  	priv->encoders[priv->num_encoders++] = encoder;
-> +
-> +	info.num_of_h_tiles = 1;
-> +	info.capabilities = MSM_DISPLAY_CAP_VID_MODE;
-> +	info.intf_type = encoder->encoder_type;
-> +	rc = dpu_encoder_setup(dev, encoder, &info);
-> +	if (rc)
-> +		DPU_ERROR("failed to setup DPU encoder %d: rc:%d\n",
-> +			encoder->base.id, rc);
->  	return rc;
->  }
-> 
-> @@ -726,41 +761,6 @@ static void dpu_kms_destroy(struct msm_kms *kms)
->  	msm_kms_destroy(&dpu_kms->base);
->  }
-> 
-> -static void _dpu_kms_set_encoder_mode(struct msm_kms *kms,
-> -				 struct drm_encoder *encoder,
-> -				 bool cmd_mode)
-> -{
-> -	struct msm_display_info info;
-> -	struct msm_drm_private *priv = encoder->dev->dev_private;
-> -	int i, rc = 0;
-> -
-> -	memset(&info, 0, sizeof(info));
-> -
-> -	info.intf_type = encoder->encoder_type;
-> -	info.capabilities = cmd_mode ? MSM_DISPLAY_CAP_CMD_MODE :
-> -			MSM_DISPLAY_CAP_VID_MODE;
-> -
-> -	switch (info.intf_type) {
-> -	case DRM_MODE_ENCODER_DSI:
-> -		/* TODO: No support for DSI swap */
-> -		for (i = 0; i < ARRAY_SIZE(priv->dsi); i++) {
-> -			if (priv->dsi[i]) {
-> -				info.h_tile_instance[info.num_of_h_tiles] = i;
-> -				info.num_of_h_tiles++;
-> -			}
-> -		}
-> -		break;
-> -	case DRM_MODE_ENCODER_TMDS:
-> -		info.num_of_h_tiles = 1;
-> -		break;
-> -	}
-> -
-> -	rc = dpu_encoder_setup(encoder->dev, encoder, &info);
-> -	if (rc)
-> -		DPU_ERROR("failed to setup DPU encoder %d: rc:%d\n",
-> -			encoder->base.id, rc);
-> -}
-> -
-It seems we can get rid of set_encoder_mode for DP because the way we 
-are using it today seems not right.
-Ideally, the purpose was that once we read the EDID, the information we 
-read like the tile group etc
-can be used when we are setting up the encoder. But today, we are just 
-hard-coding the number of tiles.
-But I just think whether looking ahead, we should still have some 
-callback which can be called after
-EDID has been read instead of doing it in 
-_dpu_kms_initialize_displayport. Perhaps that can be a separate patch.
-
->  static irqreturn_t dpu_irq(struct msm_kms *kms)
->  {
->  	struct dpu_kms *dpu_kms = to_dpu_kms(kms);
-> @@ -863,7 +863,6 @@ static const struct msm_kms_funcs kms_funcs = {
->  	.get_format      = dpu_get_msm_format,
->  	.round_pixclk    = dpu_kms_round_pixclk,
->  	.destroy         = dpu_kms_destroy,
-> -	.set_encoder_mode = _dpu_kms_set_encoder_mode,
-I would like to get Rob's comment on why we had set_encoder_mode in the 
-first place. Its there even in mdp5.
-
-in current msm dsi, the dsi bind will happen only after the panel has 
-attached
-and the msm_drv's bind will happen only after that since its the 
-component master
-in that case what was the need for set_encoder_mode  because we will 
-know the panel's video/cmd mode in the dsi_bind call
-am i missing something about why mdp5 had this?
-
- From the dpu perspective, since dsi_bind() happens only once panel has 
-attached.
->  	.snapshot        = dpu_kms_mdp_snapshot,
->  #ifdef CONFIG_DEBUG_FS
->  	.debugfs_init    = dpu_kms_debugfs_init,
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+T24gMDIvMDcvMjAyMSAwMDoxMiwgYWJoaW5hdmtAY29kZWF1cm9yYS5vcmcgd3JvdGU6Cj4gT24g
+MjAyMS0wNi0wOSAxNDoxNywgRG1pdHJ5IEJhcnlzaGtvdiB3cm90ZToKPj4gTW92ZSBzZXR0aW5n
+IHVwIGVuY29kZXJzIGZyb20gc2V0X2VuY29kZXJfbW9kZSB0bwo+PiBfZHB1X2ttc19pbml0aWFs
+aXplX2RzaSgpIC8gX2RwdV9rbXNfaW5pdGlhbGl6ZV9kaXNwbGF5cG9ydCgpLiBUaGlzCj4+IGFs
+bG93cyB1cyB0byBzdXBwb3J0IG5vdCBvbmx5ICJzaW5nbGUgRFNJIiBhbmQgImR1YWwgRFNJIiBi
+dXQgYWxzbyAidHdvCj4+IGluZGVwZW5kZW50IERTSSIgY29uZmlndXJhdGlvbnMuIEluIGZ1dHVy
+ZSB0aGlzIHdvdWxkIGFsc28gaGVscCBhZGRpbmcKPj4gc3VwcG9ydCBmb3IgbXVsdGlwbGUgRFAg
+Y29ubmVjdG9ycy4KPj4KPj4gU2lnbmVkLW9mZi1ieTogRG1pdHJ5IEJhcnlzaGtvdiA8ZG1pdHJ5
+LmJhcnlzaGtvdkBsaW5hcm8ub3JnPgo+IEkgd2lsbCBoYXZlIHRvIHNlZSBCam9ybidzIGNoYW5n
+ZXMgdG8gY2hlY2sgd2h5IGl0IHdhcyBkZXBlbmRlbnQgb24gdGhpcyAKPiBjbGVhbnVwLgo+IElz
+IHRoZSBwbGFuIHRvIGNhbGwgX2RwdV9rbXNfaW5pdGlhbGl6ZV9kaXNwbGF5cG9ydCgpIHR3aWNl
+PwoKWWVzLiBIZSBuZWVkcyB0byBpbml0aWFsaXplIHNldmVyYWwgZGlzcGxheXBvcnQgaW50ZXJm
+YWNlcy4gV2l0aCB0aGUgCmN1cnJlbnQgY29kZSBoZSBoYXMgdG8gbWFwIGlkcyBpbiB0aGUgc2V0
+X2VuY29kZXJfbW9kZSwgdXNpbmcgZW5jb2RlciAKaWRzICh0byBmaWxsIHVwIHRoZSBpbmZvLmhf
+dGlsZV9pbnN0YW5jZSwgd2hpY2ggaXMgaGFyZGNvZGVkIHRvIDAgZm9yIERQIAppbiB0aGUgY3Vy
+cmVudCBjb2RlKS4KCj4gQnV0IHN0aWxsIEkgYW0gbm90IGFibGUgdG8gcHV0IHRvZ2V0aGVyIHdo
+ZXJlIGlzIHRoZSBkZXBlbmRlbmN5IG9uIHRoYXQgCj4gc2VyaWVzCj4gd2l0aCB0aGlzIG9uZS4g
+Q2FuIHlvdSBwbGVhc2UgZWxhYm9yYXRlIG9uIHRoYXQgYSBsaXR0bGUgYml0PwoKSXQgaXMgcG9z
+c2libGUgdG8gc3VwcG9ydCBpbmRlcGVuZGVudCBvdXRwdXRzIHdpdGggdGhlIGN1cnJlbnQgY29k
+ZS4gSSAKZGlkIHRoYXQgZm9yIERTSSwgQmpvcm4gZGlkIGZvciBEUC4gSG93ZXZlciBpdCByZXN1
+bHRzIGluIHF1aXRlIGFuIHVnbHkgCmNvZGUgdG8gbWFwIHJlY2VpdmVkIGVuY29kZXIgaW4gc2V0
+X2VuY29kZXJfbW9kZSBiYWNrIHRvIHRoZSBEU0kgKERQKSAKaW5zdGFuY2VzIHRvIGZpbGwgdGhl
+IGhfdGlsZXMuIElmIHdlIGRyb3AgdGhlIHdob2xlIHNldF9lbmNvZGVyX21vZGUgCnN0b3J5IGFu
+ZCBjYWxsIGRwdV9lbmNvZGVyX3NldHVwIHJpZ2h0IGZyb20gdGhlIApfZHB1X2ttc19pbml0aWFs
+aXplX2RzaSgpIChvciBfZHB1X2ttc19pbml0aWFsaXplX2Rpc3BsYXlwb3J0KCkpLCAKc3VwcG9y
+dGluZyBtdWx0aXBsZSBvdXRwdXRzIGJlY29tZXMgYW4gZWFzeSB0YXNrLgoKPiAKPj4gLS0tCj4+
+IMKgZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X2ttcy5jIHwgODkgKysrKysrKysr
+KysrLS0tLS0tLS0tLS0tLQo+PiDCoDEgZmlsZSBjaGFuZ2VkLCA0NCBpbnNlcnRpb25zKCspLCA0
+NSBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlz
+cC9kcHUxL2RwdV9rbXMuYwo+PiBiL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9r
+bXMuYwo+PiBpbmRleCAxZDNhNGYzOTVlNzQuLmI2M2UxYzk0OGZmMiAxMDA2NDQKPj4gLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X2ttcy5jCj4+ICsrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9rbXMuYwo+PiBAQCAtNDcxLDMwICs0NzEsNTUgQEAg
+c3RhdGljIGludCBfZHB1X2ttc19pbml0aWFsaXplX2RzaShzdHJ1Y3QgCj4+IGRybV9kZXZpY2Ug
+KmRldiwKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3Qg
+ZHB1X2ttcyAqZHB1X2ttcykKPj4gwqB7Cj4+IMKgwqDCoMKgIHN0cnVjdCBkcm1fZW5jb2RlciAq
+ZW5jb2RlciA9IE5VTEw7Cj4+ICvCoMKgwqAgc3RydWN0IG1zbV9kaXNwbGF5X2luZm8gaW5mbzsK
+Pj4gwqDCoMKgwqAgaW50IGksIHJjID0gMDsKPj4KPj4gwqDCoMKgwqAgaWYgKCEocHJpdi0+ZHNp
+WzBdIHx8IHByaXYtPmRzaVsxXSkpCj4+IMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHJjOwo+Pgo+
+PiAtwqDCoMKgIC8qVE9ETzogU3VwcG9ydCB0d28gaW5kZXBlbmRlbnQgRFNJIGNvbm5lY3RvcnMg
+Ki8KPj4gLcKgwqDCoCBlbmNvZGVyID0gZHB1X2VuY29kZXJfaW5pdChkZXYsIERSTV9NT0RFX0VO
+Q09ERVJfRFNJKTsKPj4gLcKgwqDCoCBpZiAoSVNfRVJSKGVuY29kZXIpKSB7Cj4+IC3CoMKgwqDC
+oMKgwqDCoCBEUFVfRVJST1IoImVuY29kZXIgaW5pdCBmYWlsZWQgZm9yIGRzaSBkaXNwbGF5XG4i
+KTsKPj4gLcKgwqDCoMKgwqDCoMKgIHJldHVybiBQVFJfRVJSKGVuY29kZXIpOwo+PiAtwqDCoMKg
+IH0KPj4gLQo+PiAtwqDCoMKgIHByaXYtPmVuY29kZXJzW3ByaXYtPm51bV9lbmNvZGVycysrXSA9
+IGVuY29kZXI7Cj4+IC0KPj4gwqDCoMKgwqAgZm9yIChpID0gMDsgaSA8IEFSUkFZX1NJWkUocHJp
+di0+ZHNpKTsgaSsrKSB7Cj4+IMKgwqDCoMKgwqDCoMKgwqAgaWYgKCFwcml2LT5kc2lbaV0pCj4+
+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb250aW51ZTsKPj4KPj4gK8KgwqDCoMKgwqDCoMKg
+IGlmICghZW5jb2Rlcikgewo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBlbmNvZGVyID0gZHB1
+X2VuY29kZXJfaW5pdChkZXYsIERSTV9NT0RFX0VOQ09ERVJfRFNJKTsKPj4gK8KgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgaWYgKElTX0VSUihlbmNvZGVyKSkgewo+PiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIERQVV9FUlJPUigiZW5jb2RlciBpbml0IGZhaWxlZCBmb3IgZHNpIGRpc3Bs
+YXlcbiIpOwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBQVFJfRVJS
+KGVuY29kZXIpOwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Cj4+ICsKPj4gK8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgcHJpdi0+ZW5jb2RlcnNbcHJpdi0+bnVtX2VuY29kZXJzKytdID0gZW5j
+b2RlcjsKPj4gKwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBtZW1zZXQoJmluZm8sIDAsIHNp
+emVvZihpbmZvKSk7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGluZm8uaW50Zl90eXBlID0g
+ZW5jb2Rlci0+ZW5jb2Rlcl90eXBlOwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpbmZvLmNh
+cGFiaWxpdGllcyA9IG1zbV9kc2lfaXNfY21kX21vZGUocHJpdi0+ZHNpW2ldKSA/Cj4+ICvCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgTVNNX0RJU1BMQVlfQ0FQX0NNRF9NT0RFIDoKPj4g
+K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBNU01fRElTUExBWV9DQVBfVklEX01PREU7
+Cj4+ICvCoMKgwqDCoMKgwqDCoCB9Cj4+ICsKPj4gwqDCoMKgwqDCoMKgwqDCoCByYyA9IG1zbV9k
+c2lfbW9kZXNldF9pbml0KHByaXYtPmRzaVtpXSwgZGV2LCBlbmNvZGVyKTsKPj4gwqDCoMKgwqDC
+oMKgwqDCoCBpZiAocmMpIHsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIERQVV9FUlJPUigi
+bW9kZXNldF9pbml0IGZhaWxlZCBmb3IgZHNpWyVkXSwgcmMgPSAlZFxuIiwKPj4gwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaSwgcmMpOwo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgYnJlYWs7Cj4+IMKgwqDCoMKgwqDCoMKgwqAgfQo+PiArCj4+ICvCoMKgwqDCoMKgwqDCoCBp
+bmZvLmhfdGlsZV9pbnN0YW5jZVtpbmZvLm51bV9vZl9oX3RpbGVzKytdID0gaTsKPj4gKwo+PiAr
+wqDCoMKgwqDCoMKgwqAgaWYgKCFtc21fZHNpX2lzX2R1YWxfZHNpKHByaXYtPmRzaVtpXSkpIHsK
+PiAKPiBJIHdvdWxkIGxpa2UgdG8gY2xhcmlmeSB0aGUgdGVybWlub2xvZ3kgb2YgZHVhbF9kc2kg
+aW4gdGhlIGN1cnJlbnQgRFNJIAo+IGRyaXZlciBiZWZvcmUgdGhlIHJlc3Qgb2YgdGhlIHJldmll
+d3MuCj4gVG9kYXkgSVNfRFVBTF9EU0koKSBtZWFucyB0aGF0IHR3byBEU0lzIGFyZSBkcml2aW5n
+IHRoZSBzYW1lIGRpc3BsYXkgYW5kIAo+IHRoZSB0d28gRFNJcyBhcmUgb3BlcmF0aW5nIGluIG1h
+c3Rlci1zbGF2ZSBtb2RlCj4gYW5kIGFyZSBiZWluZyBkcml2ZW4gYnkgdGhlIHNhbWUgUExMLgoK
+WWVzCgo+IFVzdWFsbHksIGR1YWwgaW5kZXBlbmRlbnQgRFNJIG1lYW5zIHR3byBEU0lzIGRyaXZp
+bmcgdHdvIHNlcGFyYXRlIHBhbmVscyAKPiB1c2luZyB0d28gc2VwYXJhdGUgUExMcyAoIERTSTAg
+d2l0aCBQTEwwIGFuZCBEU0kxIHdpdGggUExMMSkKCkxldCdzIHN0b3AgY2FsbGluZyBpdCAnZHVh
+bCcuIEknZCBzdWdnZXN0IHRvIGNvbnRpbnVlIHVzaW5nIHdoYXQgd2FzIAp0aGVyZSBpbiB0aGUg
+c291cmNlIGZpbGU6ICd0d28gaW5kZXBlbmRlbnQgRFNJJy4KCj4gSSBhc3N1bWUgdGhhdHMgaGFw
+cGVuaW5nIGR1ZSB0byB0aGUgZm9sbCBsb2dpYyBhbmQgYm90aCBEU0kgUEhZcyBhcmUgCj4gb3Bl
+cmF0aW5nIGluIFNUQU5EQUxPTkUgbW9kZToKPiAKPiAgwqDCoMKgIGlmICghSVNfRFVBTF9EU0ko
+KSkgewo+ICDCoMKgwqDCoMKgwqDCoCByZXQgPSBtc21fZHNpX2hvc3RfcmVnaXN0ZXIobXNtX2Rz
+aS0+aG9zdCwgdHJ1ZSk7Cj4gIMKgwqDCoMKgwqDCoMKgIGlmIChyZXQpCj4gIMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgcmV0dXJuIHJldDsKPiAKPiAgwqDCoMKgwqDCoMKgwqAgbXNtX2RzaV9waHlf
+c2V0X3VzZWNhc2UobXNtX2RzaS0+cGh5LCBNU01fRFNJX1BIWV9TVEFOREFMT05FKTsKPiAgwqDC
+oMKgwqDCoMKgwqAgcmV0ID0gbXNtX2RzaV9ob3N0X3NldF9zcmNfcGxsKG1zbV9kc2ktPmhvc3Qs
+IG1zbV9kc2ktPnBoeSk7CgpZZXMuIElmIHdlIGhhdmUgdHdvIGluZGVwZW5kZW50IERTSSBvdXRw
+dXRzLCB3ZSdkIGxpa2UgdGhlbSB0byB3b3JrIGluIApTVEFOREFMT05FIG1vZGUuCgoKPj4gK8Kg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgcmMgPSBkcHVfZW5jb2Rlcl9zZXR1cChkZXYsIGVuY29kZXIs
+ICZpbmZvKTsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKHJjKQo+PiArwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIERQVV9FUlJPUigiZmFpbGVkIHRvIHNldHVwIERQVSBlbmNv
+ZGVyICVkOiByYzolZFxuIiwKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgZW5jb2Rlci0+YmFzZS5pZCwgcmMpOwo+PiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCBlbmNvZGVyID0gTlVMTDsKPj4gK8KgwqDCoMKgwqDCoMKgIH0KPj4gK8KgwqDCoCB9Cj4+
+ICsKPj4gK8KgwqDCoCBpZiAoZW5jb2Rlcikgewo+IAo+IFdlIHdpbGwgaGl0IHRoaXMgY2FzZSBv
+bmx5IGZvciBzcGxpdC1EU0kgcmlnaHQ/ICggdGhhdCBpcyB0d28gRFNJcyAKPiBkcml2aW5nIHRo
+ZSBzYW1lIHBhbmVsICkuCgpZZXMsIG9ubHkgaW4gdGhpcyBjYXNlLgoKPiBFdmVuIHNpbmdsZSBE
+U0kgd2lsbCBiZSBjcmVhdGVkIGluIHRoZSBhYm92ZSBsb29wIG5vdy4gU28gdGhpcyBsb29rcyBh
+IAo+IGJpdCBjb25mdXNpbmcgYXQgdGhlIG1vbWVudC4KCldoYXQgaXMgc28gY29uZnVzaW5nPyBJ
+IGNhbiBwcm9iYWJseSBhZGQgYSBjb21tZW50IHRoZXJlLiBJZiB0aGUgZW5jb2RlciAKZHJpdmVy
+cyBzaW5nbGUgRFNJIG91dHB1dCwgd2Ugc2V0dXAgaXQgYWZ0ZXIgY3JlYXRpbmcgdGhlIERTSS4g
+SWYgdGhlIAplbmNvZGVyIGRyaXZlcyBkdWFsIERTSSBvdXRwdSwgd2UgaGF2ZSB0byBzZXR1cCBp
+dCBhZnRlciBjcmVhdGluZyBib3RoIApEU0kgb3V0cHV0cy4KCkkgaGF2ZSB0cmllZCBjYWxsaW5n
+IGRwdV9lbmNvZGVyX3NldHVwIGZyb20gYSBzZXBhcmF0ZSBpZi9sb29wIApjb25kaXRpb24sIGJ1
+dCBpdCByZXN1bHRlZCBpbiBldmVuIHVnbGllciBjb2RlLgoKPiBJIHRoaW5rIHdlIG5lZWQgdG8g
+YmUgbW9yZSBjbGVhciBvbiBkdWFsLURTSSBWcyBzcGxpdC1EU0kgdG8gYXZvaWQgCj4gY29uZnVz
+aW9uIGluIHRoZSBjb2RlIGFib3V0IHdoaWNoIG9uZSBtZWFucyB3aGF0IGFuZCB0aGUgb25lCj4g
+d2hpY2ggd2UgYXJlIGN1cnJlbnRseSB1c2luZy4gU28gd2hhdCBhYm91dCBoYXZpbmcgSVNfRFVB
+TF9EU0koKSBhbmQgCj4gSVNfU1BMSVRfRFNJKCkgdG8gZGlzdGluZ3Vpc2ggdGhlIHRlcm1pbm9s
+b2dpZXMgYW5kIGNoYWdpbmcKPiBEU0kgZHJpdmVyIGFjY29yZGluZ2x5LgoKVGhlIHdvcmQgJ1NQ
+TElUJyBpcyBhbHJlYWR5IG92ZXJsb2FkZWQgaW4gbXkgb3Bpbmlvbi4gSSdkIHByZWZlciB0byBr
+ZWVwIApvbiB1c2luZyAnZHVhbCBEU0knIGZvciB0aGUgbWFzdGVyL3NsYXZlIGNhc2UgYW5kIG5v
+dCB0byB1c2UgJ2R1YWwnIGZvciAKanVzdCB0d28gc3RhbmRhbG9uZSBEU0kgaW50ZXJmYWNlcy4K
+Cj4gCj4+ICvCoMKgwqDCoMKgwqDCoCByYyA9IGRwdV9lbmNvZGVyX3NldHVwKGRldiwgZW5jb2Rl
+ciwgJmluZm8pOwo+PiArwqDCoMKgwqDCoMKgwqAgaWYgKHJjKQo+PiArwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCBEUFVfRVJST1IoImZhaWxlZCB0byBzZXR1cCBEUFUgZW5jb2RlciAlZDogcmM6JWRc
+biIsCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBlbmNvZGVyLT5i
+YXNlLmlkLCByYyk7Cj4+IMKgwqDCoMKgIH0KPj4KPj4gwqDCoMKgwqAgcmV0dXJuIHJjOwo+PiBA
+QCAtNTA1LDYgKzUzMCw3IEBAIHN0YXRpYyBpbnQgX2RwdV9rbXNfaW5pdGlhbGl6ZV9kaXNwbGF5
+cG9ydChzdHJ1Y3QKPj4gZHJtX2RldmljZSAqZGV2LAo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGRwdV9rbXMgKmRwdV9rbXMpCj4+IMKg
+ewo+PiDCoMKgwqDCoCBzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29kZXIgPSBOVUxMOwo+PiArwqDC
+oMKgIHN0cnVjdCBtc21fZGlzcGxheV9pbmZvIGluZm87Cj4+IMKgwqDCoMKgIGludCByYyA9IDA7
+Cj4+Cj4+IMKgwqDCoMKgIGlmICghcHJpdi0+ZHApCj4+IEBAIC01MTYsNiArNTQyLDcgQEAgc3Rh
+dGljIGludCBfZHB1X2ttc19pbml0aWFsaXplX2Rpc3BsYXlwb3J0KHN0cnVjdAo+PiBkcm1fZGV2
+aWNlICpkZXYsCj4+IMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIFBUUl9FUlIoZW5jb2Rlcik7Cj4+
+IMKgwqDCoMKgIH0KPj4KPj4gK8KgwqDCoCBtZW1zZXQoJmluZm8sIDAsIHNpemVvZihpbmZvKSk7
+Cj4+IMKgwqDCoMKgIHJjID0gbXNtX2RwX21vZGVzZXRfaW5pdChwcml2LT5kcCwgZGV2LCBlbmNv
+ZGVyKTsKPj4gwqDCoMKgwqAgaWYgKHJjKSB7Cj4+IMKgwqDCoMKgwqDCoMKgwqAgRFBVX0VSUk9S
+KCJtb2Rlc2V0X2luaXQgZmFpbGVkIGZvciBEUCwgcmMgPSAlZFxuIiwgcmMpOwo+PiBAQCAtNTI0
+LDYgKzU1MSwxNCBAQCBzdGF0aWMgaW50IF9kcHVfa21zX2luaXRpYWxpemVfZGlzcGxheXBvcnQo
+c3RydWN0Cj4+IGRybV9kZXZpY2UgKmRldiwKPj4gwqDCoMKgwqAgfQo+Pgo+PiDCoMKgwqDCoCBw
+cml2LT5lbmNvZGVyc1twcml2LT5udW1fZW5jb2RlcnMrK10gPSBlbmNvZGVyOwo+PiArCj4+ICvC
+oMKgwqAgaW5mby5udW1fb2ZfaF90aWxlcyA9IDE7Cj4+ICvCoMKgwqAgaW5mby5jYXBhYmlsaXRp
+ZXMgPSBNU01fRElTUExBWV9DQVBfVklEX01PREU7Cj4+ICvCoMKgwqAgaW5mby5pbnRmX3R5cGUg
+PSBlbmNvZGVyLT5lbmNvZGVyX3R5cGU7Cj4+ICvCoMKgwqAgcmMgPSBkcHVfZW5jb2Rlcl9zZXR1
+cChkZXYsIGVuY29kZXIsICZpbmZvKTsKPj4gK8KgwqDCoCBpZiAocmMpCj4+ICvCoMKgwqDCoMKg
+wqDCoCBEUFVfRVJST1IoImZhaWxlZCB0byBzZXR1cCBEUFUgZW5jb2RlciAlZDogcmM6JWRcbiIs
+Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGVuY29kZXItPmJhc2UuaWQsIHJjKTsKPj4gwqDC
+oMKgwqAgcmV0dXJuIHJjOwo+PiDCoH0KPj4KPj4gQEAgLTcyNiw0MSArNzYxLDYgQEAgc3RhdGlj
+IHZvaWQgZHB1X2ttc19kZXN0cm95KHN0cnVjdCBtc21fa21zICprbXMpCj4+IMKgwqDCoMKgIG1z
+bV9rbXNfZGVzdHJveSgmZHB1X2ttcy0+YmFzZSk7Cj4+IMKgfQo+Pgo+PiAtc3RhdGljIHZvaWQg
+X2RwdV9rbXNfc2V0X2VuY29kZXJfbW9kZShzdHJ1Y3QgbXNtX2ttcyAqa21zLAo+PiAtwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGRybV9lbmNvZGVyICplbmNvZGVyLAo+
+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYm9vbCBjbWRfbW9kZSkKPj4gLXsK
+Pj4gLcKgwqDCoCBzdHJ1Y3QgbXNtX2Rpc3BsYXlfaW5mbyBpbmZvOwo+PiAtwqDCoMKgIHN0cnVj
+dCBtc21fZHJtX3ByaXZhdGUgKnByaXYgPSBlbmNvZGVyLT5kZXYtPmRldl9wcml2YXRlOwo+PiAt
+wqDCoMKgIGludCBpLCByYyA9IDA7Cj4+IC0KPj4gLcKgwqDCoCBtZW1zZXQoJmluZm8sIDAsIHNp
+emVvZihpbmZvKSk7Cj4+IC0KPj4gLcKgwqDCoCBpbmZvLmludGZfdHlwZSA9IGVuY29kZXItPmVu
+Y29kZXJfdHlwZTsKPj4gLcKgwqDCoCBpbmZvLmNhcGFiaWxpdGllcyA9IGNtZF9tb2RlID8gTVNN
+X0RJU1BMQVlfQ0FQX0NNRF9NT0RFIDoKPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgTVNNX0RJ
+U1BMQVlfQ0FQX1ZJRF9NT0RFOwo+PiAtCj4+IC3CoMKgwqAgc3dpdGNoIChpbmZvLmludGZfdHlw
+ZSkgewo+PiAtwqDCoMKgIGNhc2UgRFJNX01PREVfRU5DT0RFUl9EU0k6Cj4+IC3CoMKgwqDCoMKg
+wqDCoCAvKiBUT0RPOiBObyBzdXBwb3J0IGZvciBEU0kgc3dhcCAqLwo+PiAtwqDCoMKgwqDCoMKg
+wqAgZm9yIChpID0gMDsgaSA8IEFSUkFZX1NJWkUocHJpdi0+ZHNpKTsgaSsrKSB7Cj4+IC3CoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIGlmIChwcml2LT5kc2lbaV0pIHsKPj4gLcKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCBpbmZvLmhfdGlsZV9pbnN0YW5jZVtpbmZvLm51bV9vZl9oX3RpbGVz
+XSA9IGk7Cj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaW5mby5udW1fb2ZfaF90
+aWxlcysrOwo+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Cj4+IC3CoMKgwqDCoMKgwqDCoCB9
+Cj4+IC3CoMKgwqDCoMKgwqDCoCBicmVhazsKPj4gLcKgwqDCoCBjYXNlIERSTV9NT0RFX0VOQ09E
+RVJfVE1EUzoKPj4gLcKgwqDCoMKgwqDCoMKgIGluZm8ubnVtX29mX2hfdGlsZXMgPSAxOwo+PiAt
+wqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4+IC3CoMKgwqAgfQo+PiAtCj4+IC3CoMKgwqAgcmMgPSBk
+cHVfZW5jb2Rlcl9zZXR1cChlbmNvZGVyLT5kZXYsIGVuY29kZXIsICZpbmZvKTsKPj4gLcKgwqDC
+oCBpZiAocmMpCj4+IC3CoMKgwqDCoMKgwqDCoCBEUFVfRVJST1IoImZhaWxlZCB0byBzZXR1cCBE
+UFUgZW5jb2RlciAlZDogcmM6JWRcbiIsCj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGVuY29k
+ZXItPmJhc2UuaWQsIHJjKTsKPj4gLX0KPj4gLQo+IEl0IHNlZW1zIHdlIGNhbiBnZXQgcmlkIG9m
+IHNldF9lbmNvZGVyX21vZGUgZm9yIERQIGJlY2F1c2UgdGhlIHdheSB3ZSAKPiBhcmUgdXNpbmcg
+aXQgdG9kYXkgc2VlbXMgbm90IHJpZ2h0Lgo+IElkZWFsbHksIHRoZSBwdXJwb3NlIHdhcyB0aGF0
+IG9uY2Ugd2UgcmVhZCB0aGUgRURJRCwgdGhlIGluZm9ybWF0aW9uIHdlIAo+IHJlYWQgbGlrZSB0
+aGUgdGlsZSBncm91cCBldGMKPiBjYW4gYmUgdXNlZCB3aGVuIHdlIGFyZSBzZXR0aW5nIHVwIHRo
+ZSBlbmNvZGVyLiBCdXQgdG9kYXksIHdlIGFyZSBqdXN0IAo+IGhhcmQtY29kaW5nIHRoZSBudW1i
+ZXIgb2YgdGlsZXMuCj4gQnV0IEkganVzdCB0aGluayB3aGV0aGVyIGxvb2tpbmcgYWhlYWQsIHdl
+IHNob3VsZCBzdGlsbCBoYXZlIHNvbWUgCj4gY2FsbGJhY2sgd2hpY2ggY2FuIGJlIGNhbGxlZCBh
+ZnRlcgo+IEVESUQgaGFzIGJlZW4gcmVhZCBpbnN0ZWFkIG9mIGRvaW5nIGl0IGluIAo+IF9kcHVf
+a21zX2luaXRpYWxpemVfZGlzcGxheXBvcnQuIFBlcmhhcHMgdGhhdCBjYW4gYmUgYSBzZXBhcmF0
+ZSBwYXRjaC4KCkZvciB0aGUgTVNUIHN1cHBvcnQ/IEl0IGlzIGRlZmluaXRlbHkgYSBzZXBhcmF0
+ZSBwYXRjaC4gRm9yIG5vdyB3ZSB3YW50IAp0byBiZSBhYmxlIHRvIGRyaXZlIGEgbXVjaCBzaW1w
+bGVyIGNvbmZpZzogU1NUIG9uIHNldmVyYWwgY29ubmVjdGVkIERQcy4KCj4gCj4+IMKgc3RhdGlj
+IGlycXJldHVybl90IGRwdV9pcnEoc3RydWN0IG1zbV9rbXMgKmttcykKPj4gwqB7Cj4+IMKgwqDC
+oMKgIHN0cnVjdCBkcHVfa21zICpkcHVfa21zID0gdG9fZHB1X2ttcyhrbXMpOwo+PiBAQCAtODYz
+LDcgKzg2Myw2IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgbXNtX2ttc19mdW5jcyBrbXNfZnVuY3Mg
+PSB7Cj4+IMKgwqDCoMKgIC5nZXRfZm9ybWF0wqDCoMKgwqDCoCA9IGRwdV9nZXRfbXNtX2Zvcm1h
+dCwKPj4gwqDCoMKgwqAgLnJvdW5kX3BpeGNsa8KgwqDCoCA9IGRwdV9rbXNfcm91bmRfcGl4Y2xr
+LAo+PiDCoMKgwqDCoCAuZGVzdHJvecKgwqDCoMKgwqDCoMKgwqAgPSBkcHVfa21zX2Rlc3Ryb3ks
+Cj4+IC3CoMKgwqAgLnNldF9lbmNvZGVyX21vZGUgPSBfZHB1X2ttc19zZXRfZW5jb2Rlcl9tb2Rl
+LAo+IEkgd291bGQgbGlrZSB0byBnZXQgUm9iJ3MgY29tbWVudCBvbiB3aHkgd2UgaGFkIHNldF9l
+bmNvZGVyX21vZGUgaW4gdGhlIAo+IGZpcnN0IHBsYWNlLiBJdHMgdGhlcmUgZXZlbiBpbiBtZHA1
+Lgo+IAo+IGluIGN1cnJlbnQgbXNtIGRzaSwgdGhlIGRzaSBiaW5kIHdpbGwgaGFwcGVuIG9ubHkg
+YWZ0ZXIgdGhlIHBhbmVsIGhhcyAKPiBhdHRhY2hlZAo+IGFuZCB0aGUgbXNtX2RydidzIGJpbmQg
+d2lsbCBoYXBwZW4gb25seSBhZnRlciB0aGF0IHNpbmNlIGl0cyB0aGUgCj4gY29tcG9uZW50IG1h
+c3Rlcgo+IGluIHRoYXQgY2FzZSB3aGF0IHdhcyB0aGUgbmVlZCBmb3Igc2V0X2VuY29kZXJfbW9k
+ZcKgIGJlY2F1c2Ugd2Ugd2lsbCAKPiBrbm93IHRoZSBwYW5lbCdzIHZpZGVvL2NtZCBtb2RlIGlu
+IHRoZSBkc2lfYmluZCBjYWxsCj4gYW0gaSBtaXNzaW5nIHNvbWV0aGluZyBhYm91dCB3aHkgbWRw
+NSBoYWQgdGhpcz8KPiAKPiAgRnJvbSB0aGUgZHB1IHBlcnNwZWN0aXZlLCBzaW5jZSBkc2lfYmlu
+ZCgpIGhhcHBlbnMgb25seSBvbmNlIHBhbmVsIGhhcyAKPiBhdHRhY2hlZC4KPj4gwqDCoMKgwqAg
+LnNuYXBzaG90wqDCoMKgwqDCoMKgwqAgPSBkcHVfa21zX21kcF9zbmFwc2hvdCwKPj4gwqAjaWZk
+ZWYgQ09ORklHX0RFQlVHX0ZTCj4+IMKgwqDCoMKgIC5kZWJ1Z2ZzX2luaXTCoMKgwqAgPSBkcHVf
+a21zX2RlYnVnZnNfaW5pdCwKCgotLSAKV2l0aCBiZXN0IHdpc2hlcwpEbWl0cnkKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcg
+bGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5vCg==
