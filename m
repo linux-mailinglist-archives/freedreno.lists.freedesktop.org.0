@@ -1,63 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A73D3BB4CB
-	for <lists+freedreno@lfdr.de>; Mon,  5 Jul 2021 03:25:31 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 90FF33BB4D0
+	for <lists+freedreno@lfdr.de>; Mon,  5 Jul 2021 03:25:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 734F889B9F;
-	Mon,  5 Jul 2021 01:25:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A41489BC0;
+	Mon,  5 Jul 2021 01:25:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CED689B69
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDE4989B69
  for <freedreno@lists.freedesktop.org>; Mon,  5 Jul 2021 01:25:16 +0000 (UTC)
-Received: by mail-lf1-x135.google.com with SMTP id bu19so29487622lfb.9
- for <freedreno@lists.freedesktop.org>; Sun, 04 Jul 2021 18:25:15 -0700 (PDT)
+Received: by mail-lf1-x133.google.com with SMTP id a18so29464781lfs.10
+ for <freedreno@lists.freedesktop.org>; Sun, 04 Jul 2021 18:25:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=yinWqN6sitnN8VvWfqsYfxul5z49radOuOsQ6IiCc/o=;
- b=raxV6kKpSU2jsR4bKPXudOKVrgMbTqNuB/McIhO0LUU+3WV99Q5c4FWI8Aaiq6D0BB
- 8yaI10eFF+20zN4gcJVQIO6Kflg0GtCngaUD0Ady3qbYnlEXlpfLCbHp8jG9UCTOX/5O
- al81cqDU34/GxOPh18eKw/JgwL5axaV6uaYxuyVWpmyl00MJ2KPTU1FGddOe8diGMoVw
- jpty0R37Jmg2ca2+8G6kjJ36z4v5rZ2zHtJW80WmH+XllXJ9h08kvmrsSgK7JGGPDHF/
- sXE/m5jU0Ablbjv5RCeUeiHgbdiSlaWLX0hqF1uzfbUF7NHaNcB+1o5e16rBTe+NgPp/
- c/Bg==
+ bh=4KVDEGIRYoNTWX8/d5GJWbic+veghDN3TQYK8Yck/CQ=;
+ b=H+Naqk62aAfK4qfTDoPm3w4LopChdohnepqofzKEUV6Ug0a4sVxs/AUmZPRM4NzdRe
+ kABRa0wzk5DOTw6546gy7RTcRNKI9TRfccQBdanardWExHU97kcYzYMC387+atgsnm0a
+ Erdydg7WjBLwChdku48JB3rhpnreGtDFkR+jrhzY6sRxzd71I1lHTAjytZgwJoSWKsTx
+ +Ps/JROH4on0ze+qM9nTkSp/QXW+yK3mdc3DEvVs0Tm9P7h/JwrKppHflYyOGpSie1AT
+ OJ2784XHiVjK7Z7iBfV/lAGl8UKHf6yKc9A3N7mOI2BYU1dnFEq5epeKdP6y8crGlf4q
+ h7tQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=yinWqN6sitnN8VvWfqsYfxul5z49radOuOsQ6IiCc/o=;
- b=P29rwDOwRejlPHE8avpW05PRD7amPjHvohqK49K9MwgQkB2JId9YMQNO6yk/ZkF2gb
- AP4wd6S66XtMrdmYSsANbdkCoOSnlxjGOC+ZEozftSIDroGDP7LXbACqaVaR0W4/4e3F
- Vr1N+cP40pOP1Udx7xaQnbGlEhHcro7D1IgWGHFbE8lPMBfnQDYRcyo/8YAOlzj6M0Nw
- lNrtb9luuVwiI9sgDyj5Y2MeBH3D4l/KhOxq6K3TQbAadIpOWzb+WPIE97LsM6YNrUAk
- M093RhR+FRpUKpnrttEzB2czk0+8vbGUdOOG8xpKzLzuRovsbm8LkOmglsko7DdmyNno
- tFdQ==
-X-Gm-Message-State: AOAM533rXOea1Vs/L65wJ28OUaXX1+ELxYUfNOD3137j4QrhHlymXvDK
- loLxXUfHPqHllX/BfbRSxxv9cQ==
-X-Google-Smtp-Source: ABdhPJxXXCISyXSXqTpw1NmcO+okUMZsNuxIEPYRFRE+dPJhfMcsNupZt2sPHMls4ZZXRU3POrB/3A==
-X-Received: by 2002:a05:6512:3e24:: with SMTP id
- i36mr8311158lfv.368.1625448314421; 
- Sun, 04 Jul 2021 18:25:14 -0700 (PDT)
+ bh=4KVDEGIRYoNTWX8/d5GJWbic+veghDN3TQYK8Yck/CQ=;
+ b=RC5vzU/Sdm+rKEPUme6WivzxaXTGlNS/achKIIrem38Amjwe5kPcY4RtNV+oOKLumF
+ wg//vODnaPODMaVbfpdJnuAcT0EW8verLIJKHCntrxcDDhEsfzLSFHUqWKlIw4eC0qbi
+ cZtoNy5Un+hsk8OZWB5J0v1HQwZW7AuNK5KXkdmDBILYI13um2Ly6R2koj5/K9ws+uqE
+ WO1/hb9SjN2DBgepDwh1kZikV+MyBBie2h9SOGltd761WAWJkJbODnx1blD+06SBpJHX
+ 4iXY7ZNTxRHnfIiBHMb+4oCFxqZABSSc2MRiOqtkcJFhTpCJoItn84Ja4FGt6oIGg2Lq
+ 1c1w==
+X-Gm-Message-State: AOAM531IzmGXX1ykDHZC/O0vKZaVEa/qqJPXIdhAAJE+gHfkVqglKxUD
+ blL4l+FcUhNh2CwxdSemu4W7kQ==
+X-Google-Smtp-Source: ABdhPJxpnl3Sm7qlkS/VVw9ijQ0vGUuGXLKa3dCgFfouhQN9uAQX9wi3FLS+1S5ACih4nC3qMhlZCQ==
+X-Received: by 2002:a19:fc04:: with SMTP id a4mr1077736lfi.493.1625448315302; 
+ Sun, 04 Jul 2021 18:25:15 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id c7sm1004345lfm.50.2021.07.04.18.25.13
+ by smtp.gmail.com with ESMTPSA id c7sm1004345lfm.50.2021.07.04.18.25.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Jul 2021 18:25:13 -0700 (PDT)
+ Sun, 04 Jul 2021 18:25:14 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <abhinavk@codeaurora.org>
-Date: Mon,  5 Jul 2021 04:21:03 +0300
-Message-Id: <20210705012115.4179824-11-dmitry.baryshkov@linaro.org>
+Date: Mon,  5 Jul 2021 04:21:04 +0300
+Message-Id: <20210705012115.4179824-12-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210705012115.4179824-1-dmitry.baryshkov@linaro.org>
 References: <20210705012115.4179824-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v2 10/22] drm/msm/dpu: don't cache
- pipe->cap->features in dpu_plane
+Subject: [Freedreno] [PATCH v2 11/22] drm/msm/dpu: don't cache
+ pipe->cap->sblk in dpu_plane
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,65 +78,70 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Do not cache hw_pipe's features in dpu_plane. Use
-pdpu->pipe_hw->cap->features directly.
+Do not cache hw_pipe's sblk in dpu_plane. Use
+pdpu->pipe_hw->cap->sblk directly.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 21 ++++++---------------
+ 1 file changed, 6 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index fdae6520c2bb..65446e8f5718 100644
+index 65446e8f5718..8f1fef2367cd 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -99,7 +99,6 @@ struct dpu_plane {
- 	struct mutex lock;
+@@ -106,8 +106,6 @@ struct dpu_plane {
+ 	bool is_rt_pipe;
+ 	struct dpu_mdss_cfg *catalog;
  
- 	enum dpu_sspp pipe;
--	uint32_t features;      /* capabilities from catalog */
+-	const struct dpu_sspp_sub_blks *pipe_sblk;
+-
+ 	/* debugfs related stuff */
+ 	struct dentry *debugfs_root;
+ 	struct dpu_debugfs_regset32 debugfs_src;
+@@ -410,9 +408,9 @@ static void _dpu_plane_set_qos_ctrl(struct drm_plane *plane,
+ 	memset(&pipe_qos_cfg, 0, sizeof(pipe_qos_cfg));
  
- 	struct dpu_hw_pipe *pipe_hw;
- 	uint32_t color_fill;
-@@ -629,7 +628,7 @@ static const struct dpu_csc_cfg *_dpu_plane_get_csc(struct dpu_plane *pdpu, cons
- 	if (!DPU_FORMAT_IS_YUV(fmt))
- 		return NULL;
- 
--	if (BIT(DPU_SSPP_CSC_10BIT) & pdpu->features)
-+	if (BIT(DPU_SSPP_CSC_10BIT) & pdpu->pipe_hw->cap->features)
- 		csc_ptr = &dpu_csc10_YUV2RGB_601L;
- 	else
- 		csc_ptr = &dpu_csc_YUV2RGB_601L;
-@@ -992,8 +991,8 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
- 	min_src_size = DPU_FORMAT_IS_YUV(fmt) ? 2 : 1;
- 
- 	if (DPU_FORMAT_IS_YUV(fmt) &&
--		(!(pdpu->features & DPU_SSPP_SCALER) ||
--		 !(pdpu->features & (BIT(DPU_SSPP_CSC)
-+		(!(pdpu->pipe_hw->cap->features & DPU_SSPP_SCALER) ||
-+		 !(pdpu->pipe_hw->cap->features & (BIT(DPU_SSPP_CSC)
- 		 | BIT(DPU_SSPP_CSC_10BIT))))) {
- 		DPU_DEBUG_PLANE(pdpu,
- 				"plane doesn't have scaler/csc for yuv\n");
-@@ -1415,8 +1414,8 @@ static int _dpu_plane_init_debugfs(struct drm_plane *plane)
- 				plane->dev->primary->debugfs_root);
- 
- 	/* don't error check these */
--	debugfs_create_x32("features", 0600,
--			pdpu->debugfs_root, &pdpu->features);
-+	debugfs_create_xul("features", 0600,
-+			pdpu->debugfs_root, (unsigned long *)&pdpu->pipe_hw->cap->features);
- 
- 	/* add register dump support */
- 	dpu_debugfs_setup_regset32(&pdpu->debugfs_src,
-@@ -1575,7 +1574,6 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
+ 	if (flags & DPU_PLANE_QOS_VBLANK_CTRL) {
+-		pipe_qos_cfg.creq_vblank = pdpu->pipe_sblk->creq_vblank;
++		pipe_qos_cfg.creq_vblank = pdpu->pipe_hw->cap->sblk->creq_vblank;
+ 		pipe_qos_cfg.danger_vblank =
+-				pdpu->pipe_sblk->danger_vblank;
++				pdpu->pipe_hw->cap->sblk->danger_vblank;
+ 		pipe_qos_cfg.vblank_en = enable;
  	}
  
- 	/* cache features mask for later */
--	pdpu->features = pdpu->pipe_hw->cap->features;
- 	pdpu->pipe_sblk = pdpu->pipe_hw->cap->sblk;
- 	if (!pdpu->pipe_sblk) {
- 		DPU_ERROR("[%u]invalid sblk\n", pipe);
+@@ -962,10 +960,10 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+ 		crtc_state = drm_atomic_get_new_crtc_state(state,
+ 							   new_plane_state->crtc);
+ 
+-	min_scale = FRAC_16_16(1, pdpu->pipe_sblk->maxupscale);
++	min_scale = FRAC_16_16(1, pdpu->pipe_hw->cap->sblk->maxupscale);
+ 	ret = drm_atomic_helper_check_plane_state(new_plane_state, crtc_state,
+ 						  min_scale,
+-						  pdpu->pipe_sblk->maxdwnscale << 16,
++						  pdpu->pipe_hw->cap->sblk->maxdwnscale << 16,
+ 						  true, true);
+ 	if (ret) {
+ 		DPU_DEBUG_PLANE(pdpu, "Check plane state failed (%d)\n", ret);
+@@ -1573,15 +1571,8 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
+ 		goto clean_sspp;
+ 	}
+ 
+-	/* cache features mask for later */
+-	pdpu->pipe_sblk = pdpu->pipe_hw->cap->sblk;
+-	if (!pdpu->pipe_sblk) {
+-		DPU_ERROR("[%u]invalid sblk\n", pipe);
+-		goto clean_sspp;
+-	}
+-
+-	format_list = pdpu->pipe_sblk->format_list;
+-	num_formats = pdpu->pipe_sblk->num_formats;
++	format_list = pdpu->pipe_hw->cap->sblk->format_list;
++	num_formats = pdpu->pipe_hw->cap->sblk->num_formats;
+ 
+ 	ret = drm_universal_plane_init(dev, plane, 0xff, &dpu_plane_funcs,
+ 				format_list, num_formats,
 -- 
 2.30.2
 
