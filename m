@@ -2,36 +2,39 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8928A3BB9DE
-	for <lists+freedreno@lfdr.de>; Mon,  5 Jul 2021 11:07:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1ABE3BBD96
+	for <lists+freedreno@lfdr.de>; Mon,  5 Jul 2021 15:40:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 018E389B0D;
-	Mon,  5 Jul 2021 09:07:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECBA189B84;
+	Mon,  5 Jul 2021 13:40:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DEF589838;
- Mon,  5 Jul 2021 09:07:49 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10035"; a="196232574"
-X-IronPort-AV: E=Sophos;i="5.83,325,1616482800"; d="scan'208";a="196232574"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jul 2021 02:07:47 -0700
-X-IronPort-AV: E=Sophos;i="5.83,325,1616482800"; d="scan'208";a="485435002"
-Received: from elang-mobl.ger.corp.intel.com (HELO localhost) ([10.252.59.138])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jul 2021 02:07:41 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Kuogee Hsieh <khsieh@codeaurora.org>, robdclark@gmail.com, sean@poorly.run,
- swboyd@chromium.org, lyude@redhat.com
-In-Reply-To: <1625008068-16458-1-git-send-email-khsieh@codeaurora.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <1625008068-16458-1-git-send-email-khsieh@codeaurora.org>
-Date: Mon, 05 Jul 2021 12:07:38 +0300
-Message-ID: <87czrx9lid.fsf@intel.com>
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7E8289803;
+ Mon,  5 Jul 2021 13:40:18 +0000 (UTC)
+Received: from dggeme754-chm.china.huawei.com (unknown [172.30.72.55])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4GJRWF0ZFNzXpVT;
+ Mon,  5 Jul 2021 21:34:49 +0800 (CST)
+Received: from localhost.localdomain (10.175.103.91) by
+ dggeme754-chm.china.huawei.com (10.3.19.100) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.2176.2; Mon, 5 Jul 2021 21:40:14 +0800
+From: Wei Li <liwei391@huawei.com>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, David Airlie
+ <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Chandan Uddaraju
+ <chandanu@codeaurora.org>, Sravanthi Kollukuduru <skolluku@codeaurora.org>,
+ Archit Taneja <architt@codeaurora.org>, Rajesh Yadav <ryadav@codeaurora.org>, 
+ Abhinav Kumar <abhinavk@codeaurora.org>
+Date: Mon, 5 Jul 2021 21:43:02 +0800
+Message-ID: <20210705134302.315813-1-liwei391@huawei.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Subject: Re: [Freedreno] [PATCH v2] drm/dp_mst: Fix return code on sideband
- message failure
+X-Originating-IP: [10.175.103.91]
+X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
+ dggeme754-chm.china.huawei.com (10.3.19.100)
+X-CFilter-Loop: Reflected
+Subject: [Freedreno] [PATCH RESEND] drm/msm: Fix error return code in
+ msm_drm_init()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,73 +47,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: rnayak@codeaurora.org, airlied@linux.ie, linux-kernel@vger.kernel.org,
- abhinavk@codeaurora.org, khsieh@codeaurora.org,
- dri-devel@lists.freedesktop.org, tzimmermann@suse.de, aravindh@codeaurora.org,
- freedreno@lists.freedesktop.org, rsubbia@codeaurora.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ guohanjun@huawei.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 29 Jun 2021, Kuogee Hsieh <khsieh@codeaurora.org> wrote:
-> From: Rajkumar Subbiah <rsubbia@codeaurora.org>
->
-> Commit 2f015ec6eab6 ("drm/dp_mst: Add sideband down request tracing +
-> selftests") added some debug code for sideband message tracing. But
-> it seems to have unintentionally changed the behavior on sideband message
-> failure. It catches and returns failure only if DRM_UT_DP is enabled.
-> Otherwise it ignores the error code and returns success. So on an MST
-> unplug, the caller is unaware that the clear payload message failed and
-> ends up waiting for 4 seconds for the response. Fixes the issue by
-> returning the proper error code.
->
-> Changes in V2:
-> -- Revise commit text as review comment
-> -- add Fixes text
->
-> Fixes: 2f015ec6eab6 ("drm/dp_mst: Add sideband down request tracing + selftests")
->
-> Signed-off-by: Rajkumar Subbiah <rsubbia@codeaurora.org>
-> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
->
-> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-> ---
->  drivers/gpu/drm/drm_dp_mst_topology.c | 10 ++++++----
->  1 file changed, 6 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-> index 1590144..8d97430 100644
-> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-> @@ -2887,11 +2887,13 @@ static int process_single_tx_qlock(struct drm_dp_mst_topology_mgr *mgr,
->  	idx += tosend + 1;
->  
->  	ret = drm_dp_send_sideband_msg(mgr, up, chunk, idx);
-> -	if (unlikely(ret) && drm_debug_enabled(DRM_UT_DP)) {
-> -		struct drm_printer p = drm_debug_printer(DBG_PREFIX);
-> +	if (unlikely(ret)) {
-> +		if (drm_debug_enabled(DRM_UT_DP)) {
-> +			struct drm_printer p = drm_debug_printer(DBG_PREFIX);
->  
-> -		drm_printf(&p, "sideband msg failed to send\n");
-> -		drm_dp_mst_dump_sideband_msg_tx(&p, txmsg);
-> +			drm_printf(&p, "sideband msg failed to send\n");
-> +			drm_dp_mst_dump_sideband_msg_tx(&p, txmsg);
-> +		}
->  		return ret;
->  	}
+When it fail to create crtc_event kthread, it just jump to err_msm_uninit,
+while the 'ret' is not updated. So assign the return code before that.
 
-Seems like a sensible thing to do.
+Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: Wei Li <liwei391@huawei.com>
+Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
+---
+ drivers/gpu/drm/msm/msm_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-(I'd probably rip out the "unlikely" while at it, as it feels like
-unnecessary optimization, but *shrug*.)
-
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-
-
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index fe7d17cd35ec..787522f92e63 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -524,6 +524,7 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
+ 			"crtc_event:%d", priv->event_thread[i].crtc_id);
+ 		if (IS_ERR(priv->event_thread[i].worker)) {
+ 			DRM_DEV_ERROR(dev, "failed to create crtc_event kthread\n");
++			ret = PTR_ERR(priv->event_thread[i].worker);
+ 			goto err_msm_uninit;
+ 		}
+ 
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.25.1
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
