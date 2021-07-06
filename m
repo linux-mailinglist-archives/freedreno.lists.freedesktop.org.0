@@ -1,62 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC5BB3BDC28
-	for <lists+freedreno@lfdr.de>; Tue,  6 Jul 2021 19:21:16 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id DD4D83BDEF4
+	for <lists+freedreno@lfdr.de>; Tue,  6 Jul 2021 23:36:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DB786E57E;
-	Tue,  6 Jul 2021 17:21:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BB846E5B2;
+	Tue,  6 Jul 2021 21:36:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2F6B6E54C
- for <freedreno@lists.freedesktop.org>; Tue,  6 Jul 2021 17:21:11 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1625592074; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=ue8F0l6NTI/MSm1XwJCUi99T1LTBtuJ1aOY2Gnu2ym8=;
- b=blx28n7vDa9JYs+QAXxIInq8hmeP7Ha+umdV4pbyY6/SAf4enfgZlCJ+I/l+q6rExlSvGsUk
- GkmKe8j+asZCJDZWhNxL2WlXdB7IPp4KazL3VhT2Rvcr8/Gd2VTgnsnhvTC0XL7eCQS60ed6
- 74FtYZWBhRnHVPUt8k9k9vV9vSw=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
- 60e490f54ca9face3430c233 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 06 Jul 2021 17:20:53
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 4F569C4323A; Tue,  6 Jul 2021 17:20:52 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL, 
- URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 28148C43460;
- Tue,  6 Jul 2021 17:20:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 28148C43460
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=khsieh@codeaurora.org
-From: Kuogee Hsieh <khsieh@codeaurora.org>
-To: dri-devel@lists.freedesktop.org, robdclark@gmail.com, sean@poorly.run,
- swboyd@chromium.org
-Date: Tue,  6 Jul 2021 10:20:20 -0700
-Message-Id: <1625592020-22658-8-git-send-email-khsieh@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1625592020-22658-1-git-send-email-khsieh@codeaurora.org>
-References: <1625592020-22658-1-git-send-email-khsieh@codeaurora.org>
-Subject: [Freedreno] [PATCH 7/7] drm/msm/dp: retrain link when loss of
- symbol lock detected
+Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
+ [IPv6:2607:f8b0:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBFC56E5B2
+ for <freedreno@lists.freedesktop.org>; Tue,  6 Jul 2021 21:36:30 +0000 (UTC)
+Received: by mail-oi1-x22a.google.com with SMTP id b2so941596oiy.6
+ for <freedreno@lists.freedesktop.org>; Tue, 06 Jul 2021 14:36:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=g1JVJiy081ll+MGQFYrIQnx64nTijHCUrQkv8Wk47Uc=;
+ b=SyDsjtI7l4Qry4skD2wvLmbuIkvNN1DlMY1bPGWVilUzHBLHLszzbhcD+3jRO1BOeL
+ lPlxDNr9OBbxW7Z4hlnB9l48IidslH2YiYqrethULXiC1PNWksDnRHAeao6WJawnXMNd
+ 1CCd7Akwq1gi9MNdYTkbDsmSHc0mGNT0DCDNTAOSAUbdYORIfQAqrlv+kEyM+BltHMrD
+ lwqGEKx+C7f4LfErjREh2fdktEV49PtQKKMkYjan0SLl4E4KU/d2PUfDCskbx3eEj3Vc
+ Rx7q4Tj40TD2dFd/+OuyoTCY1cDXjN/i4QianJReUl7zhzm2mzMaWDbTrh9HtraTluUN
+ ntjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=g1JVJiy081ll+MGQFYrIQnx64nTijHCUrQkv8Wk47Uc=;
+ b=ZAVKhrfMBnhw/H+wwzPpIToKFWJSDWMFZVZTiZiQ7bivlWKyh/vDs2lBTlwIG6f6Hy
+ JhJ3IRQPCB5uHukde0ID8Dy1S3+j+L+BZEH8xjFFzugPTsFdiMLs6H0uFP0tMTrII9p3
+ 4fiU7NXGk+MD3zhpp1OGvgfaTBxXdYCx6Uy3NkpaeXb1mrJm8Lz0YvHn9cJkJMmW23iU
+ qRYRsjfjAT5K4Oj8qrsSAwqPUXoIUAcv24VaxhY9PL4beDuWaxWPCnAsq92lEQwS8M6y
+ nrNxvmAZuE4vjsW7f+dANtTmhIWrP00SzR0MuC++tL3bp06kKY6Mih07hXln+DUxB/UZ
+ p6ew==
+X-Gm-Message-State: AOAM531Gi1r91gMipoQ/QwseMzo4Ab6BMaobuUZ52nLhy/hCovllowGt
+ MnfjcXh3/R/08m40VgznLxKGHg==
+X-Google-Smtp-Source: ABdhPJxF6cWhxvYgLYDEaV3IFuw7TC+iaZZc2k3kqPOFIabTy82sv63HUgNyNOI+CBJ6updHj0tIvA==
+X-Received: by 2002:a05:6808:f0a:: with SMTP id
+ m10mr302995oiw.145.1625607390057; 
+ Tue, 06 Jul 2021 14:36:30 -0700 (PDT)
+Received: from yoga (104-57-184-186.lightspeed.austtx.sbcglobal.net.
+ [104.57.184.186])
+ by smtp.gmail.com with ESMTPSA id v134sm289352oie.28.2021.07.06.14.36.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 Jul 2021 14:36:29 -0700 (PDT)
+Date: Tue, 6 Jul 2021 16:36:26 -0500
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <YOTM2g9t0/gvNxuh@yoga>
+References: <20210610214431.539029-1-robdclark@gmail.com>
+ <2016473f-2b38-f049-1e8d-04bdf5af6cea@linaro.org>
+ <CAF6AEGu6Wt+FDh_Kp8GrZB9TV7ufTuidmqBfkzA9rcCJc7zSQQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CAF6AEGu6Wt+FDh_Kp8GrZB9TV7ufTuidmqBfkzA9rcCJc7zSQQ@mail.gmail.com>
+Subject: Re: [Freedreno] [PATCH v5 0/5] iommu/arm-smmu: adreno-smmu page
+ fault handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,91 +71,124 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, abhinavk@codeaurora.org,
- bjorn.andersson@linaro.org, Kuogee Hsieh <khsieh@codeaurora.org>,
- daniel@ffwll.ch, aravindh@codeaurora.org, freedreno@lists.freedesktop.org
-MIME-Version: 1.0
+Cc: Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>, Eric Anholt <eric@anholt.net>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Lee Jones <lee.jones@linaro.org>, Rob Clark <robdclark@chromium.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>, Will Deacon <will@kernel.org>,
+ Zhenzhong Duan <zhenzhong.duan@gmail.com>, Joerg Roedel <jroedel@suse.de>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>, Krishna Reddy <vdumpa@nvidia.com>,
+ John Stultz <john.stultz@linaro.org>, Jordan Crouse <jordan@cosmicpenguin.net>,
+ "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>,
+ "Isaac J. Manjarres" <isaacm@codeaurora.org>,
+ Robin Murphy <robin.murphy@arm.com>, Douglas Anderson <dianders@chromium.org>,
+ "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
+ "Kristian H. Kristensen" <hoegsberg@google.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Main link symbol locked is achieved at end of link training 2. Some
-dongle main link symbol may become unlocked again if host did not end
-link training soon enough after completion of link training 2. Host
-have to re train main link if loss of symbol lock detected before
-end link training so that the coming video stream can be transmitted
-to sink properly.
+On Sun 04 Jul 13:20 CDT 2021, Rob Clark wrote:
 
-Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
----
- drivers/gpu/drm/msm/dp/dp_ctrl.c | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+> I suspect you are getting a dpu fault, and need:
+> 
+> https://lore.kernel.org/linux-arm-msm/CAF6AEGvTjTUQXqom-xhdh456tdLscbVFPQ+iud1H1gHc8A2=hA@mail.gmail.com/
+> 
+> I suppose Bjorn was expecting me to send that patch
+> 
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index 0cb01a9..e616ab2 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1661,6 +1661,25 @@ static bool dp_ctrl_any_lane_cr_lose(struct dp_ctrl_private *ctrl,
- 	return false;
- }
- 
-+static bool dp_ctrl_loss_symbol_lock(struct dp_ctrl_private *ctrl)
-+{
-+	u8 link_status[6];
-+	u8 status;
-+	int i;
-+	int lane = ctrl->link->link_params.num_lanes;
-+
-+	dp_ctrl_read_link_status(ctrl, link_status);
-+
-+	for (i = 0; i < lane; i++) {
-+		status = link_status[i / 2];
-+		status >>= ((i % 2) * 4);
-+		if (!(status & DP_LANE_SYMBOL_LOCKED))
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
- int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
- {
- 	int rc = 0;
-@@ -1777,6 +1796,17 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
- 	return rc;
- }
- 
-+static int dp_ctrl_link_retrain(struct dp_ctrl_private *ctrl)
-+{
-+	int ret = 0;
-+	u8 cr_status[2];
-+	int training_step = DP_TRAINING_NONE;
-+
-+	ret = dp_ctrl_setup_main_link(ctrl, cr_status, &training_step);
-+
-+	return ret;
-+}
-+
- int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl)
- {
- 	int ret = 0;
-@@ -1802,6 +1832,10 @@ int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl)
- 		}
- 	}
- 
-+	/* if loss symbol lock happen, then retaining the link */
-+	if (dp_ctrl_loss_symbol_lock(ctrl))
-+		dp_ctrl_link_retrain(ctrl);
-+
- 	/* stop txing train pattern to end link training */
- 	dp_ctrl_clear_training_pattern(ctrl);
- 
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+No, I left that discussion with the same understanding as you... But I
+ended up side tracked by some other craziness.
 
+Did you post this somewhere or would you still like me to test it and
+spin a patch?
+
+Regards,
+Bjorn
+
+> BR,
+> -R
+> 
+> On Sun, Jul 4, 2021 at 5:53 AM Dmitry Baryshkov
+> <dmitry.baryshkov@linaro.org> wrote:
+> >
+> > Hi,
+> >
+> > I've had splash screen disabled on my RB3. However once I've enabled it,
+> > I've got the attached crash during the boot on the msm/msm-next. It
+> > looks like it is related to this particular set of changes.
+> >
+> > On 11/06/2021 00:44, Rob Clark wrote:
+> > > From: Rob Clark <robdclark@chromium.org>
+> > >
+> > > This picks up an earlier series[1] from Jordan, and adds additional
+> > > support needed to generate GPU devcore dumps on iova faults.  Original
+> > > description:
+> > >
+> > > This is a stack to add an Adreno GPU specific handler for pagefaults. The first
+> > > patch starts by wiring up report_iommu_fault for arm-smmu. The next patch adds
+> > > a adreno-smmu-priv function hook to capture a handful of important debugging
+> > > registers such as TTBR0, CONTEXTIDR, FSYNR0 and others. This is used by the
+> > > third patch to print more detailed information on page fault such as the TTBR0
+> > > for the pagetable that caused the fault and the source of the fault as
+> > > determined by a combination of the FSYNR1 register and an internal GPU
+> > > register.
+> > >
+> > > This code provides a solid base that we can expand on later for even more
+> > > extensive GPU side page fault debugging capabilities.
+> > >
+> > > v5: [Rob] Use RBBM_STATUS3.SMMU_STALLED_ON_FAULT to detect case where
+> > >      GPU snapshotting needs to avoid crashdumper, and check the
+> > >      RBBM_STATUS3.SMMU_STALLED_ON_FAULT in GPU hang irq paths
+> > > v4: [Rob] Add support to stall SMMU on fault, and let the GPU driver
+> > >      resume translation after it has had a chance to snapshot the GPUs
+> > >      state
+> > > v3: Always clear FSR even if the target driver is going to handle resume
+> > > v2: Fix comment wording and function pointer check per Rob Clark
+> > >
+> > > [1] https://lore.kernel.org/dri-devel/20210225175135.91922-1-jcrouse@codeaurora.org/
+> > >
+> > > Jordan Crouse (3):
+> > >    iommu/arm-smmu: Add support for driver IOMMU fault handlers
+> > >    iommu/arm-smmu-qcom: Add an adreno-smmu-priv callback to get pagefault
+> > >      info
+> > >    drm/msm: Improve the a6xx page fault handler
+> > >
+> > > Rob Clark (2):
+> > >    iommu/arm-smmu-qcom: Add stall support
+> > >    drm/msm: devcoredump iommu fault support
+> > >
+> > >   drivers/gpu/drm/msm/adreno/a5xx_gpu.c       |  23 +++-
+> > >   drivers/gpu/drm/msm/adreno/a6xx_gpu.c       | 110 +++++++++++++++++++-
+> > >   drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c |  42 ++++++--
+> > >   drivers/gpu/drm/msm/adreno/adreno_gpu.c     |  15 +++
+> > >   drivers/gpu/drm/msm/msm_gem.h               |   1 +
+> > >   drivers/gpu/drm/msm/msm_gem_submit.c        |   1 +
+> > >   drivers/gpu/drm/msm/msm_gpu.c               |  48 +++++++++
+> > >   drivers/gpu/drm/msm/msm_gpu.h               |  17 +++
+> > >   drivers/gpu/drm/msm/msm_gpummu.c            |   5 +
+> > >   drivers/gpu/drm/msm/msm_iommu.c             |  22 +++-
+> > >   drivers/gpu/drm/msm/msm_mmu.h               |   5 +-
+> > >   drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c  |  50 +++++++++
+> > >   drivers/iommu/arm/arm-smmu/arm-smmu.c       |   9 +-
+> > >   drivers/iommu/arm/arm-smmu/arm-smmu.h       |   2 +
+> > >   include/linux/adreno-smmu-priv.h            |  38 ++++++-
+> > >   15 files changed, 367 insertions(+), 21 deletions(-)
+> > >
+> >
+> >
+> > --
+> > With best wishes
+> > Dmitry
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
