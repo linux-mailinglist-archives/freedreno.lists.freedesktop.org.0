@@ -1,49 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A2103BC756
-	for <lists+freedreno@lfdr.de>; Tue,  6 Jul 2021 09:38:22 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A70933BC814
+	for <lists+freedreno@lfdr.de>; Tue,  6 Jul 2021 10:47:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8EBE899D5;
-	Tue,  6 Jul 2021 07:38:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5732689D02;
+	Tue,  6 Jul 2021 08:47:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36652899C4;
- Tue,  6 Jul 2021 07:38:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
- s=20170329; 
- h=MIME-Version:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
- bh=yAYLUOcMAjwWlnolJzwB+DdPAkDh6C8nqbU1+Pn7l5g=; 
- b=Kc8ACXNVyfADgALk6R5BDxfPPV62L47V08/3rtScPLoYc4B13+GDXUv5Bh1/4ZONIZqTP4u6tk3jBdncJbekb1ORWmOcHfxTMyE6VUWCI1Cv/GofN+wHkHAzhSRM7GKrIl+ROyuBJgaxYXl2ImzHzv87FwVMA1neIFFXEZ9tRmZ9PgD1Lmv5MKutjNyYihLRhdCKaUGbengm1xaZrQOb5XIgMaCRrjPe+8axRgXBizkukh23yyMTpA+TToKMrXt14HWL1WH55PayuYU9kwI6Dj+Csmp+/+h58LFpav3FLaF/rG+pc7EFcAcnvsYNJnc2w40KS4l4Bdkr3m8+J9e3gQ==;
-Received: from 152.red-88-9-105.dynamicip.rima-tde.net ([88.9.105.152]
- helo=[192.168.2.220]) by fanzine.igalia.com with esmtpsa 
- (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
- id 1m0fer-0006eX-By; Tue, 06 Jul 2021 09:38:17 +0200
-Message-ID: <c40f6f761610aa2c8076cac1dda87844af96c7ad.camel@igalia.com>
-From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
-To: "Szwichtenberg, Radoslaw" <radoslaw.szwichtenberg@intel.com>, 
- "events@lists.x.org"
- <events@lists.x.org>, "xorg-devel@lists.freedesktop.org"
- <xorg-devel@lists.freedesktop.org>, "wayland-devel@lists.freedesktop.org"
- <wayland-devel@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "mesa-dev@lists.freedesktop.org"
- <mesa-dev@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "etnaviv@lists.freedesktop.org"
- <etnaviv@lists.freedesktop.org>, "freedreno@lists.freedesktop.org"
- <freedreno@lists.freedesktop.org>, "nouveau@lists.freedesktop.org"
- <nouveau@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>
-Date: Tue, 06 Jul 2021 09:38:07 +0200
-In-Reply-To: <0032ceefa7c39bdd03907565ab9762ad6007eb80.camel@igalia.com>
-References: <790BA4EE-E3F0-40B9-BE18-3646492F1CAE@intel.com>
- <380e8cb0f18c6f4b21c20b382668316b8962159a.camel@igalia.com>
- <0032ceefa7c39bdd03907565ab9762ad6007eb80.camel@igalia.com>
-User-Agent: Evolution 3.40.2 (3.40.2-1.fc34) 
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEBFF89D02;
+ Tue,  6 Jul 2021 08:47:56 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 745E31FF34;
+ Tue,  6 Jul 2021 08:47:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1625561275; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=jhBCujPABZPNUH3fBBFSxVuzrudipOZC/VeSlBUNZGs=;
+ b=tCSAPs0SnB2OiPsJETed+5QRiaW6k4ag2fZFC4OSut+GaHlGFJao2B9MShfG/GhXNLE0Bj
+ NVteb7TVd93d2tM5pJqiHf5jcul1I00n0oegdvklHVOhynNOrSzrX6VmJSfOU+wykKkija
+ 1F9LC2PVW4QuuaBZIs4aozzztnqg+8s=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1625561275;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=jhBCujPABZPNUH3fBBFSxVuzrudipOZC/VeSlBUNZGs=;
+ b=QPeY/90fe2QVkyBl6oYrUDDWzt/dJkc21IhOjzeNp+0lC5eabr4oF6iVGeXSS6KEE/7yJE
+ Ios9YN9NPnK2ruDA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 24B7A13A70;
+ Tue,  6 Jul 2021 08:47:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id lhv1B7sY5GCYfQAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Tue, 06 Jul 2021 08:47:55 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
+ jonathan@marek.ca, jordan@cosmicpenguin.net
+Date: Tue,  6 Jul 2021 10:47:53 +0200
+Message-Id: <20210706084753.8194-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Subject: Re: [Freedreno] [Mesa-dev] XDC 2021: Registration & Call for
- Proposals now open!
+Subject: [Freedreno] [PATCH v2] drm/msm: Implement mmap as GEM object
+ function
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,181 +62,216 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "board@foundation.x.org" <board@foundation.x.org>
-Content-Type: multipart/mixed; boundary="===============0761243680=="
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Moving the driver-specific mmap code into a GEM object function allows
+for using DRM helpers for various mmap callbacks.
 
---===============0761243680==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-JSpHCLgKrKlySHImBZYz"
+The respective msm functions are being removed. The file_operations
+structure fops is now being created by the helper macro
+DEFINE_DRM_GEM_FOPS().
 
+v2:
+	* rebase onto latest upstream
+	* remove declaration of msm_gem_mmap_obj() from msm_fbdev.c
 
---=-JSpHCLgKrKlySHImBZYz
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/gpu/drm/msm/msm_drv.c       | 14 ++---------
+ drivers/gpu/drm/msm/msm_drv.h       |  1 -
+ drivers/gpu/drm/msm/msm_fbdev.c     | 12 ++--------
+ drivers/gpu/drm/msm/msm_gem.c       | 37 ++++++++++-------------------
+ drivers/gpu/drm/msm/msm_gem.h       |  3 ---
+ drivers/gpu/drm/msm/msm_gem_prime.c | 11 ---------
+ 6 files changed, 16 insertions(+), 62 deletions(-)
 
-Hi!
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 9b8fa2ad0d84..a4d238e8d377 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -1004,17 +1004,7 @@ static const struct drm_ioctl_desc msm_ioctls[] = {
+ 	DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_QUERY, msm_ioctl_submitqueue_query, DRM_RENDER_ALLOW),
+ };
 
-We have decided to extend the Call for Proposals until September 1st or
-until we will all the available talk slots, whichever occurs first.
+-static const struct file_operations fops = {
+-	.owner              = THIS_MODULE,
+-	.open               = drm_open,
+-	.release            = drm_release,
+-	.unlocked_ioctl     = drm_ioctl,
+-	.compat_ioctl       = drm_compat_ioctl,
+-	.poll               = drm_poll,
+-	.read               = drm_read,
+-	.llseek             = no_llseek,
+-	.mmap               = msm_gem_mmap,
+-};
++DEFINE_DRM_GEM_FOPS(fops);
 
-Remember that talks will get accepted by order of submission. If you
-are thinking on proposing a talk for XDC, do it as soon as possible.
+ static const struct drm_driver msm_driver = {
+ 	.driver_features    = DRIVER_GEM |
+@@ -1034,7 +1024,7 @@ static const struct drm_driver msm_driver = {
+ 	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
+ 	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
+ 	.gem_prime_import_sg_table = msm_gem_prime_import_sg_table,
+-	.gem_prime_mmap     = msm_gem_prime_mmap,
++	.gem_prime_mmap     = drm_gem_prime_mmap,
+ #ifdef CONFIG_DEBUG_FS
+ 	.debugfs_init       = msm_debugfs_init,
+ #endif
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index 1a48a709ffb3..1a42903db347 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -309,7 +309,6 @@ void msm_gem_shrinker_cleanup(struct drm_device *dev);
+ struct sg_table *msm_gem_prime_get_sg_table(struct drm_gem_object *obj);
+ int msm_gem_prime_vmap(struct drm_gem_object *obj, struct dma_buf_map *map);
+ void msm_gem_prime_vunmap(struct drm_gem_object *obj, struct dma_buf_map *map);
+-int msm_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma);
+ struct drm_gem_object *msm_gem_prime_import_sg_table(struct drm_device *dev,
+ 		struct dma_buf_attachment *attach, struct sg_table *sg);
+ int msm_gem_prime_pin(struct drm_gem_object *obj);
+diff --git a/drivers/gpu/drm/msm/msm_fbdev.c b/drivers/gpu/drm/msm/msm_fbdev.c
+index 67fae60f2fa5..0daaeb54ff6f 100644
+--- a/drivers/gpu/drm/msm/msm_fbdev.c
++++ b/drivers/gpu/drm/msm/msm_fbdev.c
+@@ -8,13 +8,12 @@
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_fb_helper.h>
+ #include <drm/drm_fourcc.h>
++#include <drm/drm_prime.h>
 
-Thanks,
+ #include "msm_drv.h"
+ #include "msm_gem.h"
+ #include "msm_kms.h"
 
-Sam
+-extern int msm_gem_mmap_obj(struct drm_gem_object *obj,
+-					struct vm_area_struct *vma);
+ static int msm_fbdev_mmap(struct fb_info *info, struct vm_area_struct *vma);
 
-On Sat, 2021-06-26 at 08:35 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
-> One week!
->=20
-> Don't forget to submit your proposals!
->=20
-> Sam
->=20
-> On Tue, 2021-06-08 at 12:38 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
-> > Kind reminder. Deadline is Sunday, 4 July 2021 :-)
-> >=20
-> > Sam
-> >=20
-> > On Thu, 2021-05-20 at 10:01 +0000, Szwichtenberg, Radoslaw wrote:
-> > > Hello!
-> > > =C2=A0
-> > > Registration & Call for Proposals are now open for XDC 2021,
-> > > which
-> > > will
-> > > take place on September 15-17, 2021. This year we will repeat as
-> > > virtual event.
-> > > =C2=A0
-> > > https://indico.freedesktop.org/event/1/
-> > > =C2=A0
-> > > As usual, the conference is free of charge and open to the
-> > > general
-> > > public. If you plan on attending, please make sure to register as
-> > > early
-> > > as possible!
-> > > =C2=A0
-> > > In order to register as attendee, you will therefore need to
-> > > register
-> > > via the XDC website. As XDC moved to a new Indico infrastructure,
-> > > if
-> > > you previously registered on the XDC website, you need to create
-> > > a
-> > > new
-> > > account again.
-> > > =C2=A0
-> > > https://indico.freedesktop.org/event/1/registrations/1/
-> > > =C2=A0
-> > > In addition to registration, the CfP is now open for talks,
-> > > workshops
-> > > and demos at XDC 2021. While any serious proposal will be
-> > > gratefully
-> > > considered, topics of interest to X.Org and freedesktop.org
-> > > developers
-> > > are encouraged. The program focus is on new development, ongoing
-> > > challenges and anything else that will spark discussions among
-> > > attendees in the hallway track.
-> > > =C2=A0
-> > > We are open to talks across all layers of the graphics stack,
-> > > from
-> > > the
-> > > kernel to desktop environments / graphical applications and about
-> > > how
-> > > to make things better for the developers who build them. Head to
-> > > the
-> > > CfP page to learn more:=C2=A0
-> > > =C2=A0
-> > > https://indico.freedesktop.org/event/1/abstracts/
-> > > =C2=A0
-> > > The deadline for submissions is Sunday, 4 July 2021.
-> > > =C2=A0
-> > > Last year we modified our Reimbursement Policy to accept speaker
-> > > expenses for X.Org virtual events like XDC 2021. Check it out
-> > > here:
-> > > =C2=A0
-> > > https://www.x.org/wiki/XorgFoundation/Policies/Reimbursement/
-> > > =C2=A0
-> > > If you have any questions, please send me an email to
-> > > radoslaw.szwichtenberg@intel.com,=C2=A0=C2=A0adding on CC the X.org b=
-oard
-> > > (board
-> > > at foundation.x.org).
-> > > =C2=A0
-> > > And don't forget, you can follow us on Twitter for all the latest
-> > > updates and to stay connected:
-> > > =C2=A0
-> > > =C2=A0
-> > > https://twitter.com/XOrgDevConf
-> > > =C2=A0
-> > > Best,
-> > > =C2=A0
-> > > Radek
-> > > =C2=A0
-> > > P.S: a DNS redirection (xdc2021.x.org) is work in progress.
-> > > Please
-> > > use
-> > > the mentioned links for the moment.
-> > > =C2=A0
-> > > =C2=A0
-> > > Rados=C5=82aw Szwichtenberg
-> > > -------------------------------------------------
-> > > Intel Technology Poland sp. z o.o.
-> > > ul. Slowackiego 173, 80-298 Gdansk
-> > > KRS 101882 - NIP 957-07-52-316
-> > > =C2=A0
-> > > _______________________________________________
-> > > mesa-dev mailing list
-> > > mesa-dev@lists.freedesktop.org
-> > > https://lists.freedesktop.org/mailman/listinfo/mesa-dev
-> >=20
-> > _______________________________________________
-> > mesa-dev mailing list
-> > mesa-dev@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/mesa-dev
->=20
-> _______________________________________________
-> mesa-dev mailing list
-> mesa-dev@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/mesa-dev
+ /*
+@@ -48,15 +47,8 @@ static int msm_fbdev_mmap(struct fb_info *info, struct vm_area_struct *vma)
+ 	struct drm_fb_helper *helper = (struct drm_fb_helper *)info->par;
+ 	struct msm_fbdev *fbdev = to_msm_fbdev(helper);
+ 	struct drm_gem_object *bo = msm_framebuffer_bo(fbdev->fb, 0);
+-	int ret = 0;
 
+-	ret = drm_gem_mmap_obj(bo, bo->size, vma);
+-	if (ret) {
+-		pr_err("%s:drm_gem_mmap_obj fail\n", __func__);
+-		return ret;
+-	}
+-
+-	return msm_gem_mmap_obj(bo, vma);
++	return drm_gem_prime_mmap(bo, vma);
+ }
 
---=-JSpHCLgKrKlySHImBZYz
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+ static int msm_fbdev_create(struct drm_fb_helper *helper,
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index 141178754231..519a9601b219 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -218,31 +218,6 @@ static pgprot_t msm_gem_pgprot(struct msm_gem_object *msm_obj, pgprot_t prot)
+ 	return prot;
+ }
 
------BEGIN PGP SIGNATURE-----
+-int msm_gem_mmap_obj(struct drm_gem_object *obj,
+-		struct vm_area_struct *vma)
+-{
+-	struct msm_gem_object *msm_obj = to_msm_bo(obj);
+-
+-	vma->vm_flags &= ~VM_PFNMAP;
+-	vma->vm_flags |= VM_MIXEDMAP;
+-	vma->vm_page_prot = msm_gem_pgprot(msm_obj, vm_get_page_prot(vma->vm_flags));
+-
+-	return 0;
+-}
+-
+-int msm_gem_mmap(struct file *filp, struct vm_area_struct *vma)
+-{
+-	int ret;
+-
+-	ret = drm_gem_mmap(filp, vma);
+-	if (ret) {
+-		DBG("mmap failed: %d", ret);
+-		return ret;
+-	}
+-
+-	return msm_gem_mmap_obj(vma->vm_private_data, vma);
+-}
+-
+ static vm_fault_t msm_gem_fault(struct vm_fault *vmf)
+ {
+ 	struct vm_area_struct *vma = vmf->vma;
+@@ -1114,6 +1089,17 @@ void msm_gem_free_object(struct drm_gem_object *obj)
+ 	kfree(msm_obj);
+ }
 
-iQIzBAABCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAmDkCF8ACgkQf/S6MvF9
-w0MgvxAAlEPkYv+zzi6cQAVrRhBdZUpeDJQN+F/f7r+GCGiRDElf/9ZG5BB35H0n
-2LlA6nUsCsu7QJu4AC9N3y8zTAgHfiO+LxsUuFH/XOTf4C9YIbak5XJVkURR4TRA
-+6dfGkKGJSTTpBTWoqK0nxwVOMtvL6m/eQmyAMzMhhxw2/dztLlY94lm9vQQ8KJD
-Y4rXppj1kT70NjQU0rRcbj2XcvyLSiAAzZqQrZeyqfuTXhhfU8DlhpyWTHONwSr3
-i5IFr7ws1AKFWajm2X3vt6OF/3mz7GBPLckHPozASXUIbttoFLRDmvM+pD+IrlIE
-VekLDnvABmTcYX+Wf6Fm9mtJPnjZAJaMi26QMh5Bq2Iz3xIumYPdg/R+3TshABkD
-LmSSlEwy1gOqIvgJzfVCtTASWNWRROGO5nUr1yO+o26p1UJ4cR71MXuIuj5SIs9H
-mCIFrQhj/lFUuORqPY6WRlFDnigmxBswKowhVv6GO+pKhxaLclK9ps4EC1EKvwLY
-/R8fE0CEZpIH5aC6NG5dC5T8pRzmatwC40P2IBZEMbYH1IGCS7muG4ZAthdCcJNt
-A/MpfDYfCJFkrpBQ2teeKKwYdd/Rq+q3l41/In97mf2wyTZkhCXgdIdLJtSQooxB
-DRV1Huf5e2JeTLvZ5Vnpmpt6SbUP2kWPA/lT55h1m3VOTf1ZZDk=
-=2V8p
------END PGP SIGNATURE-----
++static int msm_gem_object_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
++{
++	struct msm_gem_object *msm_obj = to_msm_bo(obj);
++
++	vma->vm_flags &= ~VM_PFNMAP;
++	vma->vm_flags |= VM_MIXEDMAP;
++	vma->vm_page_prot = msm_gem_pgprot(msm_obj, vm_get_page_prot(vma->vm_flags));
++
++	return 0;
++}
++
+ /* convenience method to construct a GEM buffer object, and userspace handle */
+ int msm_gem_new_handle(struct drm_device *dev, struct drm_file *file,
+ 		uint32_t size, uint32_t flags, uint32_t *handle,
+@@ -1151,6 +1137,7 @@ static const struct drm_gem_object_funcs msm_gem_object_funcs = {
+ 	.get_sg_table = msm_gem_prime_get_sg_table,
+ 	.vmap = msm_gem_prime_vmap,
+ 	.vunmap = msm_gem_prime_vunmap,
++	.mmap = msm_gem_object_mmap,
+ 	.vm_ops = &vm_ops,
+ };
 
---=-JSpHCLgKrKlySHImBZYz--
+diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
+index 405f8411e395..aab548720bee 100644
+--- a/drivers/gpu/drm/msm/msm_gem.h
++++ b/drivers/gpu/drm/msm/msm_gem.h
+@@ -112,9 +112,6 @@ struct msm_gem_object {
+ };
+ #define to_msm_bo(x) container_of(x, struct msm_gem_object, base)
 
+-int msm_gem_mmap_obj(struct drm_gem_object *obj,
+-			struct vm_area_struct *vma);
+-int msm_gem_mmap(struct file *filp, struct vm_area_struct *vma);
+ uint64_t msm_gem_mmap_offset(struct drm_gem_object *obj);
+ int msm_gem_get_iova(struct drm_gem_object *obj,
+ 		struct msm_gem_address_space *aspace, uint64_t *iova);
+diff --git a/drivers/gpu/drm/msm/msm_gem_prime.c b/drivers/gpu/drm/msm/msm_gem_prime.c
+index 9880348a4dc7..fc94e061d6a7 100644
+--- a/drivers/gpu/drm/msm/msm_gem_prime.c
++++ b/drivers/gpu/drm/msm/msm_gem_prime.c
+@@ -39,17 +39,6 @@ void msm_gem_prime_vunmap(struct drm_gem_object *obj, struct dma_buf_map *map)
+ 	msm_gem_put_vaddr(obj);
+ }
 
---===============0761243680==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-int msm_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
+-{
+-	int ret;
+-
+-	ret = drm_gem_mmap_obj(obj, obj->size, vma);
+-	if (ret < 0)
+-		return ret;
+-
+-	return msm_gem_mmap_obj(vma->vm_private_data, vma);
+-}
+-
+ struct drm_gem_object *msm_gem_prime_import_sg_table(struct drm_device *dev,
+ 		struct dma_buf_attachment *attach, struct sg_table *sg)
+ {
+--
+2.32.0
 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
-
---===============0761243680==--
-
