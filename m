@@ -2,54 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A70933BC814
-	for <lists+freedreno@lfdr.de>; Tue,  6 Jul 2021 10:47:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C5E03BC922
+	for <lists+freedreno@lfdr.de>; Tue,  6 Jul 2021 12:12:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5732689D02;
-	Tue,  6 Jul 2021 08:47:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1DCB897E8;
+	Tue,  6 Jul 2021 10:12:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEBFF89D02;
- Tue,  6 Jul 2021 08:47:56 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 745E31FF34;
- Tue,  6 Jul 2021 08:47:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1625561275; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=jhBCujPABZPNUH3fBBFSxVuzrudipOZC/VeSlBUNZGs=;
- b=tCSAPs0SnB2OiPsJETed+5QRiaW6k4ag2fZFC4OSut+GaHlGFJao2B9MShfG/GhXNLE0Bj
- NVteb7TVd93d2tM5pJqiHf5jcul1I00n0oegdvklHVOhynNOrSzrX6VmJSfOU+wykKkija
- 1F9LC2PVW4QuuaBZIs4aozzztnqg+8s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1625561275;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=jhBCujPABZPNUH3fBBFSxVuzrudipOZC/VeSlBUNZGs=;
- b=QPeY/90fe2QVkyBl6oYrUDDWzt/dJkc21IhOjzeNp+0lC5eabr4oF6iVGeXSS6KEE/7yJE
- Ios9YN9NPnK2ruDA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 24B7A13A70;
- Tue,  6 Jul 2021 08:47:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id lhv1B7sY5GCYfQAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Tue, 06 Jul 2021 08:47:55 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
- jonathan@marek.ca, jordan@cosmicpenguin.net
-Date: Tue,  6 Jul 2021 10:47:53 +0200
-Message-Id: <20210706084753.8194-1-tzimmermann@suse.de>
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0049899BE
+ for <freedreno@lists.freedesktop.org>; Tue,  6 Jul 2021 10:12:17 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id w13so13184156wmc.3
+ for <freedreno@lists.freedesktop.org>; Tue, 06 Jul 2021 03:12:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=eK8t9BEjbT//Rj4X6P1/lXym1o29s4XXgV4fm7IqVSk=;
+ b=kWZV1mpE1AInwl6j30iEOk6ezDVr32HVfzgJQxtdJro6607JT5suF4GWCqBcjUEbam
+ XhQNJzP8MSccGPCykN97E2CC9Chc0cgCGff4zSCaCTwQ2cUlP+QLNcyS7VtEXgv3RVRB
+ OKR+KhaSG0xcQ9L8NQxw5ng46E5kW5p5F2X3s=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=eK8t9BEjbT//Rj4X6P1/lXym1o29s4XXgV4fm7IqVSk=;
+ b=UxCMbPYpmpvEGgerHkPDRShLs6zvIUSOoMYhUfDnrMkqPGUwrYHGPBmO4qttw1jqZ3
+ ePA3YnhTtlsGyZf8M5x4/q7IT2XH9Rq9BuQspMLnGqkh1d4RexSHdWPEVtw/Y15gScbD
+ +tqGkQ2+19ApS6xxD8RWULgn3bShCWI63z+A0tmsXefNaTFDamxk/oWp0p4QN2SZq78w
+ HkCfkRZ/Fn0kbcyw4KIuoV60KcUinWrZubi7mpf+pZ8EJk8/U+NfYbPM/fvQpNURuTRR
+ PL+MGUrJ6TEr86sIa7toelD6in4WnZy/YXjtUWINfiUOSJq34G0VPu8MHGrdAaDU2HhC
+ DIPQ==
+X-Gm-Message-State: AOAM5327DqaCNJR0S7mNLoIgnd614f7fdhUvF63bfzkTDtvDztVmFOIn
+ w44YykqB5pN88mJtKpo4uzl2SA==
+X-Google-Smtp-Source: ABdhPJxEDVRYf4jHMU2qeOsNXRMr4+1OkGaalkBSQqZe5EBhZ/N8/6og1cZ8MfQphbVhzw5iK7eGXA==
+X-Received: by 2002:a7b:ce0d:: with SMTP id m13mr1209304wmc.59.1625566336286; 
+ Tue, 06 Jul 2021 03:12:16 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id u2sm9862739wmc.42.2021.07.06.03.12.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 Jul 2021 03:12:15 -0700 (PDT)
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: DRI Development <dri-devel@lists.freedesktop.org>
+Date: Tue,  6 Jul 2021 12:12:03 +0200
+Message-Id: <20210706101209.3034092-2-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210706101209.3034092-1-daniel.vetter@ffwll.ch>
+References: <20210706101209.3034092-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v2] drm/msm: Implement mmap as GEM object
- function
+Subject: [Freedreno] [PATCH 1/7] drm/msm: Don't break exclusive fence
+ ordering
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,213 +64,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Rob Clark <robdclark@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Daniel Vetter <daniel.vetter@intel.com>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Moving the driver-specific mmap code into a GEM object function allows
-for using DRM helpers for various mmap callbacks.
+There's only one exclusive slot, and we must not break the ordering.
 
-The respective msm functions are being removed. The file_operations
-structure fops is now being created by the helper macro
-DEFINE_DRM_GEM_FOPS().
+A better fix would be to us a dma_fence_chain or _array like e.g.
+amdgpu now uses, but
+- msm has a synchronous dma_fence_wait for anything from another
+  context, so doesn't seem to care much,
+- and it probably makes sense to lift this into dma-resv.c code as a
+  proper concept, so that drivers don't have to hack up their own
+  solution each on their own.
 
-v2:
-	* rebase onto latest upstream
-	* remove declaration of msm_gem_mmap_obj() from msm_fbdev.c
-
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+Cc: Rob Clark <robdclark@gmail.com>
+Cc: Sean Paul <sean@poorly.run>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org
 ---
- drivers/gpu/drm/msm/msm_drv.c       | 14 ++---------
- drivers/gpu/drm/msm/msm_drv.h       |  1 -
- drivers/gpu/drm/msm/msm_fbdev.c     | 12 ++--------
- drivers/gpu/drm/msm/msm_gem.c       | 37 ++++++++++-------------------
- drivers/gpu/drm/msm/msm_gem.h       |  3 ---
- drivers/gpu/drm/msm/msm_gem_prime.c | 11 ---------
- 6 files changed, 16 insertions(+), 62 deletions(-)
+ drivers/gpu/drm/msm/msm_gem_submit.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 9b8fa2ad0d84..a4d238e8d377 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -1004,17 +1004,7 @@ static const struct drm_ioctl_desc msm_ioctls[] = {
- 	DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_QUERY, msm_ioctl_submitqueue_query, DRM_RENDER_ALLOW),
- };
-
--static const struct file_operations fops = {
--	.owner              = THIS_MODULE,
--	.open               = drm_open,
--	.release            = drm_release,
--	.unlocked_ioctl     = drm_ioctl,
--	.compat_ioctl       = drm_compat_ioctl,
--	.poll               = drm_poll,
--	.read               = drm_read,
--	.llseek             = no_llseek,
--	.mmap               = msm_gem_mmap,
--};
-+DEFINE_DRM_GEM_FOPS(fops);
-
- static const struct drm_driver msm_driver = {
- 	.driver_features    = DRIVER_GEM |
-@@ -1034,7 +1024,7 @@ static const struct drm_driver msm_driver = {
- 	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
- 	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
- 	.gem_prime_import_sg_table = msm_gem_prime_import_sg_table,
--	.gem_prime_mmap     = msm_gem_prime_mmap,
-+	.gem_prime_mmap     = drm_gem_prime_mmap,
- #ifdef CONFIG_DEBUG_FS
- 	.debugfs_init       = msm_debugfs_init,
- #endif
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index 1a48a709ffb3..1a42903db347 100644
---- a/drivers/gpu/drm/msm/msm_drv.h
-+++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -309,7 +309,6 @@ void msm_gem_shrinker_cleanup(struct drm_device *dev);
- struct sg_table *msm_gem_prime_get_sg_table(struct drm_gem_object *obj);
- int msm_gem_prime_vmap(struct drm_gem_object *obj, struct dma_buf_map *map);
- void msm_gem_prime_vunmap(struct drm_gem_object *obj, struct dma_buf_map *map);
--int msm_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma);
- struct drm_gem_object *msm_gem_prime_import_sg_table(struct drm_device *dev,
- 		struct dma_buf_attachment *attach, struct sg_table *sg);
- int msm_gem_prime_pin(struct drm_gem_object *obj);
-diff --git a/drivers/gpu/drm/msm/msm_fbdev.c b/drivers/gpu/drm/msm/msm_fbdev.c
-index 67fae60f2fa5..0daaeb54ff6f 100644
---- a/drivers/gpu/drm/msm/msm_fbdev.c
-+++ b/drivers/gpu/drm/msm/msm_fbdev.c
-@@ -8,13 +8,12 @@
- #include <drm/drm_crtc.h>
- #include <drm/drm_fb_helper.h>
- #include <drm/drm_fourcc.h>
-+#include <drm/drm_prime.h>
-
- #include "msm_drv.h"
- #include "msm_gem.h"
- #include "msm_kms.h"
-
--extern int msm_gem_mmap_obj(struct drm_gem_object *obj,
--					struct vm_area_struct *vma);
- static int msm_fbdev_mmap(struct fb_info *info, struct vm_area_struct *vma);
-
- /*
-@@ -48,15 +47,8 @@ static int msm_fbdev_mmap(struct fb_info *info, struct vm_area_struct *vma)
- 	struct drm_fb_helper *helper = (struct drm_fb_helper *)info->par;
- 	struct msm_fbdev *fbdev = to_msm_fbdev(helper);
- 	struct drm_gem_object *bo = msm_framebuffer_bo(fbdev->fb, 0);
--	int ret = 0;
-
--	ret = drm_gem_mmap_obj(bo, bo->size, vma);
--	if (ret) {
--		pr_err("%s:drm_gem_mmap_obj fail\n", __func__);
--		return ret;
--	}
--
--	return msm_gem_mmap_obj(bo, vma);
-+	return drm_gem_prime_mmap(bo, vma);
- }
-
- static int msm_fbdev_create(struct drm_fb_helper *helper,
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index 141178754231..519a9601b219 100644
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -218,31 +218,6 @@ static pgprot_t msm_gem_pgprot(struct msm_gem_object *msm_obj, pgprot_t prot)
- 	return prot;
- }
-
--int msm_gem_mmap_obj(struct drm_gem_object *obj,
--		struct vm_area_struct *vma)
--{
--	struct msm_gem_object *msm_obj = to_msm_bo(obj);
--
--	vma->vm_flags &= ~VM_PFNMAP;
--	vma->vm_flags |= VM_MIXEDMAP;
--	vma->vm_page_prot = msm_gem_pgprot(msm_obj, vm_get_page_prot(vma->vm_flags));
--
--	return 0;
--}
--
--int msm_gem_mmap(struct file *filp, struct vm_area_struct *vma)
--{
--	int ret;
--
--	ret = drm_gem_mmap(filp, vma);
--	if (ret) {
--		DBG("mmap failed: %d", ret);
--		return ret;
--	}
--
--	return msm_gem_mmap_obj(vma->vm_private_data, vma);
--}
--
- static vm_fault_t msm_gem_fault(struct vm_fault *vmf)
- {
- 	struct vm_area_struct *vma = vmf->vma;
-@@ -1114,6 +1089,17 @@ void msm_gem_free_object(struct drm_gem_object *obj)
- 	kfree(msm_obj);
- }
-
-+static int msm_gem_object_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
-+{
-+	struct msm_gem_object *msm_obj = to_msm_bo(obj);
-+
-+	vma->vm_flags &= ~VM_PFNMAP;
-+	vma->vm_flags |= VM_MIXEDMAP;
-+	vma->vm_page_prot = msm_gem_pgprot(msm_obj, vm_get_page_prot(vma->vm_flags));
-+
-+	return 0;
-+}
-+
- /* convenience method to construct a GEM buffer object, and userspace handle */
- int msm_gem_new_handle(struct drm_device *dev, struct drm_file *file,
- 		uint32_t size, uint32_t flags, uint32_t *handle,
-@@ -1151,6 +1137,7 @@ static const struct drm_gem_object_funcs msm_gem_object_funcs = {
- 	.get_sg_table = msm_gem_prime_get_sg_table,
- 	.vmap = msm_gem_prime_vmap,
- 	.vunmap = msm_gem_prime_vunmap,
-+	.mmap = msm_gem_object_mmap,
- 	.vm_ops = &vm_ops,
- };
-
-diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-index 405f8411e395..aab548720bee 100644
---- a/drivers/gpu/drm/msm/msm_gem.h
-+++ b/drivers/gpu/drm/msm/msm_gem.h
-@@ -112,9 +112,6 @@ struct msm_gem_object {
- };
- #define to_msm_bo(x) container_of(x, struct msm_gem_object, base)
-
--int msm_gem_mmap_obj(struct drm_gem_object *obj,
--			struct vm_area_struct *vma);
--int msm_gem_mmap(struct file *filp, struct vm_area_struct *vma);
- uint64_t msm_gem_mmap_offset(struct drm_gem_object *obj);
- int msm_gem_get_iova(struct drm_gem_object *obj,
- 		struct msm_gem_address_space *aspace, uint64_t *iova);
-diff --git a/drivers/gpu/drm/msm/msm_gem_prime.c b/drivers/gpu/drm/msm/msm_gem_prime.c
-index 9880348a4dc7..fc94e061d6a7 100644
---- a/drivers/gpu/drm/msm/msm_gem_prime.c
-+++ b/drivers/gpu/drm/msm/msm_gem_prime.c
-@@ -39,17 +39,6 @@ void msm_gem_prime_vunmap(struct drm_gem_object *obj, struct dma_buf_map *map)
- 	msm_gem_put_vaddr(obj);
- }
-
--int msm_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
--{
--	int ret;
--
--	ret = drm_gem_mmap_obj(obj, obj->size, vma);
--	if (ret < 0)
--		return ret;
--
--	return msm_gem_mmap_obj(vma->vm_private_data, vma);
--}
--
- struct drm_gem_object *msm_gem_prime_import_sg_table(struct drm_device *dev,
- 		struct dma_buf_attachment *attach, struct sg_table *sg)
- {
---
+diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+index b71da71a3dd8..edd0051d849f 100644
+--- a/drivers/gpu/drm/msm/msm_gem_submit.c
++++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+@@ -306,7 +306,8 @@ static int submit_fence_sync(struct msm_gem_submit *submit, bool no_implicit)
+ 				return ret;
+ 		}
+ 
+-		if (no_implicit)
++		/* exclusive fences must be ordered */
++		if (no_implicit && !write)
+ 			continue;
+ 
+ 		ret = msm_gem_sync_object(&msm_obj->base, submit->ring->fctx,
+-- 
 2.32.0
 
 _______________________________________________
