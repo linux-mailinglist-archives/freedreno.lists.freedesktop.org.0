@@ -2,49 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B3B13BCA0B
-	for <lists+freedreno@lfdr.de>; Tue,  6 Jul 2021 12:35:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91A723BDA38
+	for <lists+freedreno@lfdr.de>; Tue,  6 Jul 2021 17:31:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A1B889E33;
-	Tue,  6 Jul 2021 10:35:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E67B6E503;
+	Tue,  6 Jul 2021 15:31:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C36389E14;
- Tue,  6 Jul 2021 10:35:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
- s=20170329; 
- h=MIME-Version:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
- bh=eO0X2dxTENjGPuJ76Tjdry0CigxXgCvGPfL7EUF+NQg=; 
- b=kJoF35Cvfr+nP3bkbhXpFyyKa8F6QWTSgvE3mxi2+ZRjpGZ4QfqFi6pbk2Yc8Np14ETRyHZKESGmIWEzCmFi9/ciI0wQ1FJwJF1V7I7BClhV5hfW1oc3/v7FVDPyEk5pzC9Pmmyf5SgoFxt9BIgZmJySh1c4bGLuNbGN83RztYcnXi3DwgeSeN2h0BiTgxR3//cFNIiWc+JLzQPr9BR5wfMvL+3/HbLFROBVQL/hPYwOtsMqInSiwYGoKWf6paUji+//x1fjGyuyZuwkU9TOIhN6omkgZgKcycbFBEfivzcdGpSUtt7fHXz7w4eBk6ezhm+Opb9ppp4mIMB98hvi0w==;
-Received: from 152.red-88-9-105.dynamicip.rima-tde.net ([88.9.105.152]
- helo=[192.168.2.220]) by fanzine.igalia.com with esmtpsa 
- (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
- id 1m0iQA-0006Cl-9r; Tue, 06 Jul 2021 12:35:18 +0200
-Message-ID: <e5c5331a680da672aa850604527f2ef8f23a0556.camel@igalia.com>
-From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
-To: "Szwichtenberg, Radoslaw" <radoslaw.szwichtenberg@intel.com>, 
- "events@lists.x.org"
- <events@lists.x.org>, "xorg-devel@lists.freedesktop.org"
- <xorg-devel@lists.freedesktop.org>, "wayland-devel@lists.freedesktop.org"
- <wayland-devel@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "mesa-dev@lists.freedesktop.org"
- <mesa-dev@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "etnaviv@lists.freedesktop.org"
- <etnaviv@lists.freedesktop.org>, "freedreno@lists.freedesktop.org"
- <freedreno@lists.freedesktop.org>, "nouveau@lists.freedesktop.org"
- <nouveau@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>
-Date: Tue, 06 Jul 2021 12:35:08 +0200
-In-Reply-To: <c40f6f761610aa2c8076cac1dda87844af96c7ad.camel@igalia.com>
-References: <790BA4EE-E3F0-40B9-BE18-3646492F1CAE@intel.com>
- <380e8cb0f18c6f4b21c20b382668316b8962159a.camel@igalia.com>
- <0032ceefa7c39bdd03907565ab9762ad6007eb80.camel@igalia.com>
- <c40f6f761610aa2c8076cac1dda87844af96c7ad.camel@igalia.com>
-User-Agent: Evolution 3.40.2 (3.40.2-1.fc34) 
-MIME-Version: 1.0
-Subject: Re: [Freedreno] [Mesa-dev] XDC 2021: Registration & Call for
- Proposals now open!
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 761846E503
+ for <freedreno@lists.freedesktop.org>; Tue,  6 Jul 2021 15:31:06 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1625585472; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=1mcO67hemLr0DFEPPwQ5FKW1ObS3TcM9AHhhIEEK0h8=;
+ b=mK7xEZ2BP3pAma5TxZQcwvFu6QBq7Ak2CvgsHH6KoFtLx0gWr8BqoTUHVQmkPQztIqx0C0Vw
+ l0vr0K3yVJ1p2Qxqj4tmQnK1wYOcFFVU9k/M7/Vmy9iDHB744NsFwwNLileqZKhYhyOPnzbA
+ P7RcipUpgyLxhOsVipJZtgTIgTU=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
+ 60e477242a2a9a97614e2802 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 06 Jul 2021 15:30:44
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id B75ACC43145; Tue,  6 Jul 2021 15:30:44 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id B04E6C433F1;
+ Tue,  6 Jul 2021 15:30:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org B04E6C433F1
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=khsieh@codeaurora.org
+From: Kuogee Hsieh <khsieh@codeaurora.org>
+To: robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org, lyude@redhat.com
+Date: Tue,  6 Jul 2021 08:30:34 -0700
+Message-Id: <1625585434-9562-1-git-send-email-khsieh@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH v3] drm/dp_mst: Fix return code on sideband
+ message failure
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,208 +65,73 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "board@foundation.x.org" <board@foundation.x.org>
-Content-Type: multipart/mixed; boundary="===============0647433572=="
+Cc: mripard@kernel.org, rnayak@codeaurora.org, tzimmermann@suse.de,
+ airlied@linux.ie, dri-devel@lists.freedesktop.org,
+ maarten.lankhorst@linux.intel.com, linux-kernel@vger.kernel.org,
+ abhinavk@codeaurora.org, khsieh@codeaurora.org, jani.nikula@linux.intel.com,
+ daniel@ffwll.ch, aravindh@codeaurora.org, freedreno@lists.freedesktop.org,
+ rsubbia@codeaurora.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+From: Rajkumar Subbiah <rsubbia@codeaurora.org>
 
---===============0647433572==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-jzTYU/+fjqNUHUXyrwxJ"
+Commit 2f015ec6eab6 ("drm/dp_mst: Add sideband down request tracing +
+selftests") added some debug code for sideband message tracing. But
+it seems to have unintentionally changed the behavior on sideband message
+failure. It catches and returns failure only if DRM_UT_DP is enabled.
+Otherwise it ignores the error code and returns success. So on an MST
+unplug, the caller is unaware that the clear payload message failed and
+ends up waiting for 4 seconds for the response. Fixes the issue by
+returning the proper error code.
 
+Changes in V2:
+-- Revise commit text as review comment
+-- add Fixes text
 
---=-jzTYU/+fjqNUHUXyrwxJ
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Changes in V3:
+-- remove "unlikely" optimization
 
-On Tue, 2021-07-06 at 09:38 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
-> Hi!
->=20
-> We have decided to extend the Call for Proposals until September 1st
-> or
-> until we will all the available talk slots, whichever occurs first.
->=20
-> Remember that talks will get accepted by order of submission. If you
-> are thinking on proposing a talk for XDC, do it as soon as possible.
->=20
+Fixes: 2f015ec6eab6 ("drm/dp_mst: Add sideband down request tracing + selftests")
 
-Due to the overwhelming last minute response, we have filled all the
-pending slots for full and half-slot talks. Thanks a lot!
+Signed-off-by: Rajkumar Subbiah <rsubbia@codeaurora.org>
+Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
 
-Therefore, we close the CfP for full and half-slot talks. However, we
-stil welcome proposals for workshops, demos and lightning talks...
-Don't forget to submit yours!
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+---
+ drivers/gpu/drm/drm_dp_mst_topology.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-Sam
-
-> Thanks,
->=20
-> Sam
->=20
-> On Sat, 2021-06-26 at 08:35 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
-> > One week!
-> >=20
-> > Don't forget to submit your proposals!
-> >=20
-> > Sam
-> >=20
-> > On Tue, 2021-06-08 at 12:38 +0200, Samuel Iglesias Gons=C3=A1lvez wrote=
-:
-> > > Kind reminder. Deadline is Sunday, 4 July 2021 :-)
-> > >=20
-> > > Sam
-> > >=20
-> > > On Thu, 2021-05-20 at 10:01 +0000, Szwichtenberg, Radoslaw wrote:
-> > > > Hello!
-> > > > =C2=A0
-> > > > Registration & Call for Proposals are now open for XDC 2021,
-> > > > which
-> > > > will
-> > > > take place on September 15-17, 2021. This year we will repeat
-> > > > as
-> > > > virtual event.
-> > > > =C2=A0
-> > > > https://indico.freedesktop.org/event/1/
-> > > > =C2=A0
-> > > > As usual, the conference is free of charge and open to the
-> > > > general
-> > > > public. If you plan on attending, please make sure to register
-> > > > as
-> > > > early
-> > > > as possible!
-> > > > =C2=A0
-> > > > In order to register as attendee, you will therefore need to
-> > > > register
-> > > > via the XDC website. As XDC moved to a new Indico
-> > > > infrastructure,
-> > > > if
-> > > > you previously registered on the XDC website, you need to
-> > > > create
-> > > > a
-> > > > new
-> > > > account again.
-> > > > =C2=A0
-> > > > https://indico.freedesktop.org/event/1/registrations/1/
-> > > > =C2=A0
-> > > > In addition to registration, the CfP is now open for talks,
-> > > > workshops
-> > > > and demos at XDC 2021. While any serious proposal will be
-> > > > gratefully
-> > > > considered, topics of interest to X.Org and freedesktop.org
-> > > > developers
-> > > > are encouraged. The program focus is on new development,
-> > > > ongoing
-> > > > challenges and anything else that will spark discussions among
-> > > > attendees in the hallway track.
-> > > > =C2=A0
-> > > > We are open to talks across all layers of the graphics stack,
-> > > > from
-> > > > the
-> > > > kernel to desktop environments / graphical applications and
-> > > > about
-> > > > how
-> > > > to make things better for the developers who build them. Head
-> > > > to
-> > > > the
-> > > > CfP page to learn more:=C2=A0
-> > > > =C2=A0
-> > > > https://indico.freedesktop.org/event/1/abstracts/
-> > > > =C2=A0
-> > > > The deadline for submissions is Sunday, 4 July 2021.
-> > > > =C2=A0
-> > > > Last year we modified our Reimbursement Policy to accept
-> > > > speaker
-> > > > expenses for X.Org virtual events like XDC 2021. Check it out
-> > > > here:
-> > > > =C2=A0
-> > > > https://www.x.org/wiki/XorgFoundation/Policies/Reimbursement/
-> > > > =C2=A0
-> > > > If you have any questions, please send me an email to
-> > > > radoslaw.szwichtenberg@intel.com,=C2=A0=C2=A0adding on CC the X.org=
- board
-> > > > (board
-> > > > at foundation.x.org).
-> > > > =C2=A0
-> > > > And don't forget, you can follow us on Twitter for all the
-> > > > latest
-> > > > updates and to stay connected:
-> > > > =C2=A0
-> > > > =C2=A0
-> > > > https://twitter.com/XOrgDevConf
-> > > > =C2=A0
-> > > > Best,
-> > > > =C2=A0
-> > > > Radek
-> > > > =C2=A0
-> > > > P.S: a DNS redirection (xdc2021.x.org) is work in progress.
-> > > > Please
-> > > > use
-> > > > the mentioned links for the moment.
-> > > > =C2=A0
-> > > > =C2=A0
-> > > > Rados=C5=82aw Szwichtenberg
-> > > > -------------------------------------------------
-> > > > Intel Technology Poland sp. z o.o.
-> > > > ul. Slowackiego 173, 80-298 Gdansk
-> > > > KRS 101882 - NIP 957-07-52-316
-> > > > =C2=A0
-> > > > _______________________________________________
-> > > > mesa-dev mailing list
-> > > > mesa-dev@lists.freedesktop.org
-> > > > https://lists.freedesktop.org/mailman/listinfo/mesa-dev
-> > >=20
-> > > _______________________________________________
-> > > mesa-dev mailing list
-> > > mesa-dev@lists.freedesktop.org
-> > > https://lists.freedesktop.org/mailman/listinfo/mesa-dev
-> >=20
-> > _______________________________________________
-> > mesa-dev mailing list
-> > mesa-dev@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/mesa-dev
->=20
-> _______________________________________________
-> mesa-dev mailing list
-> mesa-dev@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/mesa-dev
-
-
---=-jzTYU/+fjqNUHUXyrwxJ
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAmDkMdwACgkQf/S6MvF9
-w0PDng/+JI0yNYCicuRjVkocfF5HSgCeuTIqm7OZoUDBk71JFfleOOP/sSLNzd7k
-AFoS5j4jeTQ4Tw3DZZ16fNMMMid+GzK7bJm/ouY9Uo3L8vk41ua0VjG43rffKYxm
-xuoi9OTNlK0e02IoNcOhetypYRFnOsO07m5dJBg0JvOj3Aj7K9ri9CpFzGdN+VrZ
-RIYuar3exYS3buWBNbntINhrp4F3x+1qq+WsntUgGbXH0fMbOk43xsuA1C+6YS7f
-y4DsON9yCGBGTNvS6FBzjPgkjQJJxjqYxk2mke092Ak6ud0WPX/pBQ/bDWVWrG/r
-Wr0DZXBLwkMqvHWrdR7/vCVqElWpDf0zkTiIIeh1qi/iqdi+sxX1VhrA+PNgbOrZ
-fFLVQ50puX+y8OdqM9gvwsK4LB4CbOPUw0ZLK/Ke+dNbhrMPojx15bN3Oyz+ZGUD
-tJPeBkIS6Aq6KCpiL6QkatjpeoXyRotWnYKShp3IVynNe/l0b3K62JP/fV6iOcWr
-wqaGLZGKczCTaiuQD/Mx3g4s4tc7LdfmAt58z9NyibYDp2k8dJzr0i7BwCFcwPyG
-6jbItBcc+53TtjxcT21aadAncnVD/50P572NmDagyYpdCKk11Yd3PE6HxdJsf8YX
-U/jujZFRO9eW8kdmYtiy1j2EKEEfrNEOv447e+6iOo1rs7lX47k=
-=+Ggb
------END PGP SIGNATURE-----
-
---=-jzTYU/+fjqNUHUXyrwxJ--
-
-
---===============0647433572==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+index 1590144..df91110 100644
+--- a/drivers/gpu/drm/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+@@ -2887,11 +2887,13 @@ static int process_single_tx_qlock(struct drm_dp_mst_topology_mgr *mgr,
+ 	idx += tosend + 1;
+ 
+ 	ret = drm_dp_send_sideband_msg(mgr, up, chunk, idx);
+-	if (unlikely(ret) && drm_debug_enabled(DRM_UT_DP)) {
+-		struct drm_printer p = drm_debug_printer(DBG_PREFIX);
++	if (ret) {
++		if (drm_debug_enabled(DRM_UT_DP)) {
++			struct drm_printer p = drm_debug_printer(DBG_PREFIX);
+ 
+-		drm_printf(&p, "sideband msg failed to send\n");
+-		drm_dp_mst_dump_sideband_msg_tx(&p, txmsg);
++			drm_printf(&p, "sideband msg failed to send\n");
++			drm_dp_mst_dump_sideband_msg_tx(&p, txmsg);
++		}
+ 		return ret;
+ 	}
+ 
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
-
---===============0647433572==--
-
