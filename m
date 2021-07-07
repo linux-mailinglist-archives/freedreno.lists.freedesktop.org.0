@@ -2,53 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AAB23BED2B
-	for <lists+freedreno@lfdr.de>; Wed,  7 Jul 2021 19:34:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D00E3BED92
+	for <lists+freedreno@lfdr.de>; Wed,  7 Jul 2021 19:57:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAA756E15D;
-	Wed,  7 Jul 2021 17:34:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CA0C6E15F;
+	Wed,  7 Jul 2021 17:57:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-x131.google.com (mail-il1-x131.google.com
- [IPv6:2607:f8b0:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 234806E15D
- for <freedreno@lists.freedesktop.org>; Wed,  7 Jul 2021 17:34:36 +0000 (UTC)
-Received: by mail-il1-x131.google.com with SMTP id g3so3696710ilj.7
- for <freedreno@lists.freedesktop.org>; Wed, 07 Jul 2021 10:34:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=sD13z85XVgoLdSGSEXdyjIhfF8nDl4He7AW/wdIYAPE=;
- b=GMyUr6TlJ9VJExoTQpjFfBsLf6J01HTyZta3543eDwhlqbYEzWxs8GoDpUc1UsSTw4
- l1VVQLqIkdx353vwBODZcBzPc+/pWN2sN4WUmOL2Q2pzqXNGKMgaACFtiLtqRBNiBa9g
- MO2krDbX2BQp90Nsue1zk7vA6Wepr7RZf2O7Q=
+Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
+ [IPv6:2607:f8b0:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63D906E0DB;
+ Wed,  7 Jul 2021 17:57:04 +0000 (UTC)
+Received: by mail-pl1-x62b.google.com with SMTP id b5so1503993plg.2;
+ Wed, 07 Jul 2021 10:57:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=EDhXrajmnvxBxrJ/tYHc7nWHgq+rEYaq1EkVOV5AyYQ=;
+ b=K2khLq4OTEQQLx+IefqPARZZ0in8JUgBl+N+kHWZvbaef66mRTR80CqMHgYeb37prT
+ I0YBhD2jNeheaguaTL3j5zbpa0o/kDgIqZPSjky1YjTGLlslJp/Xx/+1brzrE1kWRhrF
+ j25WA+aQMvXP/7MoKfWQfOYcJEojUfEaNalarvDer8VEQcyWBmTVVZdTr16fbT42IAWb
+ ZAs5T9K75fcE6J+q4E9RMr6K2Kx4+Z/TGZXmTAI29d5F3O+4UxNicWCj/mmrSTDPoGPC
+ UXaTesb7Pf1Mf+1q70s9a97C4Lm31z1hYf8EKi7j0IP7a5zm1FZRdh963cfQSvMJNYF0
+ swTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=sD13z85XVgoLdSGSEXdyjIhfF8nDl4He7AW/wdIYAPE=;
- b=ZXtV6k0hoVMZQaSthtWfj59VzHz+5pb4l6Rv5LeCDjoJgvYxmx6PHOaxC4R8RQ+bXQ
- MMTa3lWm6aDst3rOOqNtpJpI3s1BzflztuhgWV7zH4noyGTvuMJxs01AIRt6lSpk8GPz
- YPiEFe8eZB7NkQNXfyWfAaPVOuhnaIo9LvzSZOyCV6f8UhwwycVf4MrCt+OFg4arfagK
- OXxrsrDmaBx2QPdx3i3FgiUKrjeW9GRz2/755e27Ues3eFTFF/pYMgRigj2rV9N1AelZ
- KryO33x/MItHIgiSJc4yZe8NmkvqQADRzbWBiNneXTnG6TiHzkygj7mvgAl0RFwwZtGg
- TwNQ==
-X-Gm-Message-State: AOAM5307bGzXWhRFuIydLkLlTK86oBS1JZmEIug/YCl+ER/XoCxpURL9
- LPMBZqxJnWGM32vTMSsT5Dq6r61WrUwd8k/hT4KkZw==
-X-Google-Smtp-Source: ABdhPJxjcG9AfhjNI0K88JMDlGt/CX21XaqIJd0EGqm1e9KWBmc9XPZNa/mXbdXJb612yvG28vh3Q4PQfEPrvTUr3HA=
-X-Received: by 2002:a92:6f0a:: with SMTP id k10mr18648951ilc.105.1625679275706; 
- Wed, 07 Jul 2021 10:34:35 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=EDhXrajmnvxBxrJ/tYHc7nWHgq+rEYaq1EkVOV5AyYQ=;
+ b=b+yrEOYV/dS/bHWVlPnNYZbZN3RDAAnkWY2VOApgyYtT15LT+fEU2H114u5vCuVETW
+ M9w7fMnwmQFvQ/7IZFrVFsN5rfw/GCieXlHmw+QVre6aAztmXSAfAS97/ZwUfXga1HCQ
+ XUBlMUYjeqUDlEhMWXvGi+Gc9G4sYZnU0F7MyIeZgyt2qvtL0AKubmleRfYC6zamiVRb
+ 8dLjN95S5AcZXCVlE9eO8YavbnktP/oY92WHtG+y+kmLNzgD3JM2AsSpBOxG6TSKAYne
+ UqU1dWdrAEtrmnEUa6rL04EdfZnHz9Z6A2dFFvAIFNLx7S5w4bkXhAFwJ7tnH8jq7g9D
+ 0T+w==
+X-Gm-Message-State: AOAM531Z8wHgyKJXclvWrKEwu//eWSi7EnS1jrMWz8OFuMh78khC/ZU9
+ c51nDFwFgndPYKQKRvPzost6I+1kDmo=
+X-Google-Smtp-Source: ABdhPJwyUkbBXi5+6LwZLmWlw9bcycvwzdyYCCOW+yQwnreaPS0KzZm8Xnwmsufrgm44jmz8uyxChw==
+X-Received: by 2002:a17:902:e291:b029:129:c9cd:a3ce with SMTP id
+ o17-20020a170902e291b0290129c9cda3cemr2307466plc.36.1625680623321; 
+ Wed, 07 Jul 2021 10:57:03 -0700 (PDT)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ z1sm18063712pfn.126.2021.07.07.10.57.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 07 Jul 2021 10:57:02 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Wed,  7 Jul 2021 11:01:13 -0700
+Message-Id: <20210707180113.840741-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-References: <20210610214431.539029-1-robdclark@gmail.com>
- <2016473f-2b38-f049-1e8d-04bdf5af6cea@linaro.org>
- <CAF6AEGu6Wt+FDh_Kp8GrZB9TV7ufTuidmqBfkzA9rcCJc7zSQQ@mail.gmail.com>
- <CALAqxLWDqQeD-eieHXtePuXpxN1s3=jCNJP2pJD-YswsLP-mJw@mail.gmail.com>
-In-Reply-To: <CALAqxLWDqQeD-eieHXtePuXpxN1s3=jCNJP2pJD-YswsLP-mJw@mail.gmail.com>
-From: Rob Clark <robdclark@chromium.org>
-Date: Wed, 7 Jul 2021 10:38:38 -0700
-Message-ID: <CAJs_Fx4n07yuksL+kmjyKRuqPnFuE1m5PmeqCsoF7Xah=kWxvA@mail.gmail.com>
-To: John Stultz <john.stultz@linaro.org>
-Subject: Re: [Freedreno] [PATCH v5 0/5] iommu/arm-smmu: adreno-smmu page
- fault handling
+Subject: [Freedreno] [PATCH] drm/msm: Fix display fault handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,53 +66,79 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Konrad Dybcio <konrad.dybcio@somainline.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>, Eric Anholt <eric@anholt.net>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Lee Jones <lee.jones@linaro.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, Will Deacon <will@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Zhenzhong Duan <zhenzhong.duan@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Joerg Roedel <jroedel@suse.de>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>, Krishna Reddy <vdumpa@nvidia.com>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>,
- "Isaac J. Manjarres" <isaacm@codeaurora.org>,
- Robin Murphy <robin.murphy@arm.com>, Douglas Anderson <dianders@chromium.org>,
- "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
- Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
- "Kristian H. Kristensen" <hoegsberg@google.com>,
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <freedreno@lists.freedesktop.org>, Yassine Oudjana <y.oudjana@protonmail.com>,
+ David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ John Stultz <john.stultz@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+ Jordan Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jul 6, 2021 at 10:12 PM John Stultz <john.stultz@linaro.org> wrote:
->
-> On Sun, Jul 4, 2021 at 11:16 AM Rob Clark <robdclark@gmail.com> wrote:
-> >
-> > I suspect you are getting a dpu fault, and need:
-> >
-> > https://lore.kernel.org/linux-arm-msm/CAF6AEGvTjTUQXqom-xhdh456tdLscbVFPQ+iud1H1gHc8A2=hA@mail.gmail.com/
-> >
-> > I suppose Bjorn was expecting me to send that patch
->
-> If it's helpful, I applied that and it got the db845c booting mainline
-> again for me (along with some reverts for a separate ext4 shrinker
-> crash).
-> Tested-by: John Stultz <john.stultz@linaro.org>
->
+From: Rob Clark <robdclark@chromium.org>
 
-Thanks, I'll send a patch shortly
+It turns out that when the display is enabled by the bootloader, we can
+get some transient iommu faults from the display.  Which doesn't go over
+too well when we install a fault handler that is gpu specific.  To avoid
+this, defer installing the fault handler until we get around to setting
+up per-process pgtables (which is adreno_smmu specific).  The arm-smmu
+fallback error reporting is sufficient for reporting display related
+faults (and in fact was all we had prior to f8f934c180f629bb927a04fd90d)
 
-BR,
--R
+Reported-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reported-by: Yassine Oudjana <y.oudjana@protonmail.com>
+Fixes: 2a574cc05d38 ("drm/msm: Improve the a6xx page fault handler")
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+Tested-by: John Stultz <john.stultz@linaro.org>
+---
+ drivers/gpu/drm/msm/msm_iommu.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
+index eed2a762e9dd..bcaddbba564d 100644
+--- a/drivers/gpu/drm/msm/msm_iommu.c
++++ b/drivers/gpu/drm/msm/msm_iommu.c
+@@ -142,6 +142,9 @@ static const struct iommu_flush_ops null_tlb_ops = {
+ 	.tlb_add_page = msm_iommu_tlb_add_page,
+ };
+ 
++static int msm_fault_handler(struct iommu_domain *domain, struct device *dev,
++		unsigned long iova, int flags, void *arg);
++
+ struct msm_mmu *msm_iommu_pagetable_create(struct msm_mmu *parent)
+ {
+ 	struct adreno_smmu_priv *adreno_smmu = dev_get_drvdata(parent->dev);
+@@ -157,6 +160,13 @@ struct msm_mmu *msm_iommu_pagetable_create(struct msm_mmu *parent)
+ 	if (!ttbr1_cfg)
+ 		return ERR_PTR(-ENODEV);
+ 
++	/*
++	 * Defer setting the fault handler until we have a valid adreno_smmu
++	 * to avoid accidentially installing a GPU specific fault handler for
++	 * the display's iommu
++	 */
++	iommu_set_fault_handler(iommu->domain, msm_fault_handler, iommu);
++
+ 	pagetable = kzalloc(sizeof(*pagetable), GFP_KERNEL);
+ 	if (!pagetable)
+ 		return ERR_PTR(-ENOMEM);
+@@ -300,7 +310,6 @@ struct msm_mmu *msm_iommu_new(struct device *dev, struct iommu_domain *domain)
+ 
+ 	iommu->domain = domain;
+ 	msm_mmu_init(&iommu->base, dev, &funcs, MSM_MMU_IOMMU);
+-	iommu_set_fault_handler(domain, msm_fault_handler, iommu);
+ 
+ 	atomic_set(&iommu->pagetables, 0);
+ 
+-- 
+2.31.1
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
