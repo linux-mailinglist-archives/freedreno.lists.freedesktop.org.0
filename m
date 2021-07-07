@@ -2,56 +2,37 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 998803BE263
-	for <lists+freedreno@lfdr.de>; Wed,  7 Jul 2021 07:12:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28F983BE487
+	for <lists+freedreno@lfdr.de>; Wed,  7 Jul 2021 10:37:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A39B46E80B;
-	Wed,  7 Jul 2021 05:12:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 831726E05D;
+	Wed,  7 Jul 2021 08:37:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [IPv6:2a00:1450:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 389576E80B
- for <freedreno@lists.freedesktop.org>; Wed,  7 Jul 2021 05:12:57 +0000 (UTC)
-Received: by mail-lj1-x22e.google.com with SMTP id s18so1073031ljg.7
- for <freedreno@lists.freedesktop.org>; Tue, 06 Jul 2021 22:12:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=tbekPJYhk51AiCb/jp2mDu1SGe+rJ18xe7z1A6805jM=;
- b=fe4Ocl93rz7pECRQ1CotlTG3DMZJWB6KbfvEAGDDz0pOLoDd2Czs1C0Q4gG/WnxjWt
- Ha8o6slBnBLB7Qo6BIky+i7Zh+Q0BxgBpPGfZogc4KGXDNwc1AkFN4hh6k8V/l704Dw7
- VRjZ8Ju1F//y4ZLQyIKuT5gvxcdgpp117aEO/EzjqJDt968i7gZdxIZ3x7gtgnhffLQW
- vEwORBnDSzBQHh8yo4L+R4a1uV43BNTtsgrIDsCumj1nGDqr5juzpDznHSwSYOWhQjKM
- Cd+wjmNzLuYNzLJznG0bn+vtfDqtg0IKN56SXueZKGTMkAsKYLVfANKfcE0CXCTJbLHp
- h7Bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=tbekPJYhk51AiCb/jp2mDu1SGe+rJ18xe7z1A6805jM=;
- b=SCpCY46p3a2tVDlUNeJJUPX1d/6ThVlTi1+EoLg0K0QO9eK1wx+TPQ848NSYCVirwu
- JmvltVzZrJlZMYGjLDPAPEkqrvJz+XkPLuPaimO1pNT/H01mLSTuBeD9IG8khaZHQk1l
- So7mPIFEnF3OYnPy61kI8L2OY8LDPB0jCkcKfdJT1o3ILD+o5lUIv2+/CbudgWbrrUEv
- VaOT8HU0jxHm/hHqcpxbU9agsCjQAw1+OlYZoYut/GGpTvVgmgPEStZsyc4Ll9m0F88B
- 20JD5kY++m8VudBEI0ehEhMon3iTG/LUSZEdffyQLk79Gfr82T0c6msfTiL/Lz0McXJu
- 5jSg==
-X-Gm-Message-State: AOAM530lrqWZdtQayRufkZQoga/EeV/U31V1jZwiEDXMlOsEbFntwTBF
- rADpGMXTCEWfbL6auCB413sUIGYNorNruou+5L6png==
-X-Google-Smtp-Source: ABdhPJxbc3+AxHLhFeAT5cU6slD5V2CJU2jO01d5xbmQ1yKB7QPxdlU4achffWzuXV4bC2pvaZA0xymSpnPwlr5oNvE=
-X-Received: by 2002:a05:651c:2c1:: with SMTP id
- f1mr3244451ljo.128.1625634775403; 
- Tue, 06 Jul 2021 22:12:55 -0700 (PDT)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA95D6E051;
+ Wed,  7 Jul 2021 08:37:34 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10037"; a="207440834"
+X-IronPort-AV: E=Sophos;i="5.83,331,1616482800"; d="scan'208";a="207440834"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2021 01:37:30 -0700
+X-IronPort-AV: E=Sophos;i="5.83,331,1616482800"; d="scan'208";a="486732508"
+Received: from rvanakke-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.249.40.173])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2021 01:37:24 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Kuogee Hsieh <khsieh@codeaurora.org>, robdclark@gmail.com, sean@poorly.run,
+ swboyd@chromium.org, lyude@redhat.com
+In-Reply-To: <1625585434-9562-1-git-send-email-khsieh@codeaurora.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <1625585434-9562-1-git-send-email-khsieh@codeaurora.org>
+Date: Wed, 07 Jul 2021 11:37:21 +0300
+Message-ID: <87zguy7c5a.fsf@intel.com>
 MIME-Version: 1.0
-References: <20210610214431.539029-1-robdclark@gmail.com>
- <2016473f-2b38-f049-1e8d-04bdf5af6cea@linaro.org>
- <CAF6AEGu6Wt+FDh_Kp8GrZB9TV7ufTuidmqBfkzA9rcCJc7zSQQ@mail.gmail.com>
-In-Reply-To: <CAF6AEGu6Wt+FDh_Kp8GrZB9TV7ufTuidmqBfkzA9rcCJc7zSQQ@mail.gmail.com>
-From: John Stultz <john.stultz@linaro.org>
-Date: Tue, 6 Jul 2021 22:12:47 -0700
-Message-ID: <CALAqxLWDqQeD-eieHXtePuXpxN1s3=jCNJP2pJD-YswsLP-mJw@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Subject: Re: [Freedreno] [PATCH v5 0/5] iommu/arm-smmu: adreno-smmu page
- fault handling
+Subject: Re: [Freedreno] [PATCH v3] drm/dp_mst: Fix return code on sideband
+ message failure
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,48 +45,73 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Konrad Dybcio <konrad.dybcio@somainline.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>, Eric Anholt <eric@anholt.net>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Lee Jones <lee.jones@linaro.org>, Rob Clark <robdclark@chromium.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, Will Deacon <will@kernel.org>,
- Zhenzhong Duan <zhenzhong.duan@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Joerg Roedel <jroedel@suse.de>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>, Krishna Reddy <vdumpa@nvidia.com>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>,
- "Isaac J. Manjarres" <isaacm@codeaurora.org>,
- Robin Murphy <robin.murphy@arm.com>, Douglas Anderson <dianders@chromium.org>,
- "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
- Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
- "Kristian H. Kristensen" <hoegsberg@google.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: rnayak@codeaurora.org, tzimmermann@suse.de, airlied@linux.ie,
+ dri-devel@lists.freedesktop.org, maarten.lankhorst@linux.intel.com,
+ linux-kernel@vger.kernel.org, abhinavk@codeaurora.org, khsieh@codeaurora.org,
+ mripard@kernel.org, daniel@ffwll.ch, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org, rsubbia@codeaurora.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Jul 4, 2021 at 11:16 AM Rob Clark <robdclark@gmail.com> wrote:
+On Tue, 06 Jul 2021, Kuogee Hsieh <khsieh@codeaurora.org> wrote:
+> From: Rajkumar Subbiah <rsubbia@codeaurora.org>
 >
-> I suspect you are getting a dpu fault, and need:
+> Commit 2f015ec6eab6 ("drm/dp_mst: Add sideband down request tracing +
+> selftests") added some debug code for sideband message tracing. But
+> it seems to have unintentionally changed the behavior on sideband message
+> failure. It catches and returns failure only if DRM_UT_DP is enabled.
+> Otherwise it ignores the error code and returns success. So on an MST
+> unplug, the caller is unaware that the clear payload message failed and
+> ends up waiting for 4 seconds for the response. Fixes the issue by
+> returning the proper error code.
 >
-> https://lore.kernel.org/linux-arm-msm/CAF6AEGvTjTUQXqom-xhdh456tdLscbVFPQ+iud1H1gHc8A2=hA@mail.gmail.com/
+> Changes in V2:
+> -- Revise commit text as review comment
+> -- add Fixes text
 >
-> I suppose Bjorn was expecting me to send that patch
+> Changes in V3:
+> -- remove "unlikely" optimization
+>
+> Fixes: 2f015ec6eab6 ("drm/dp_mst: Add sideband down request tracing + selftests")
+>
+> Signed-off-by: Rajkumar Subbiah <rsubbia@codeaurora.org>
+> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+>
+> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 
-If it's helpful, I applied that and it got the db845c booting mainline
-again for me (along with some reverts for a separate ext4 shrinker
-crash).
-Tested-by: John Stultz <john.stultz@linaro.org>
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-thanks
--john
+
+> ---
+>  drivers/gpu/drm/drm_dp_mst_topology.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+> index 1590144..df91110 100644
+> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+> @@ -2887,11 +2887,13 @@ static int process_single_tx_qlock(struct drm_dp_mst_topology_mgr *mgr,
+>  	idx += tosend + 1;
+>  
+>  	ret = drm_dp_send_sideband_msg(mgr, up, chunk, idx);
+> -	if (unlikely(ret) && drm_debug_enabled(DRM_UT_DP)) {
+> -		struct drm_printer p = drm_debug_printer(DBG_PREFIX);
+> +	if (ret) {
+> +		if (drm_debug_enabled(DRM_UT_DP)) {
+> +			struct drm_printer p = drm_debug_printer(DBG_PREFIX);
+>  
+> -		drm_printf(&p, "sideband msg failed to send\n");
+> -		drm_dp_mst_dump_sideband_msg_tx(&p, txmsg);
+> +			drm_printf(&p, "sideband msg failed to send\n");
+> +			drm_dp_mst_dump_sideband_msg_tx(&p, txmsg);
+> +		}
+>  		return ret;
+>  	}
+
+-- 
+Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
