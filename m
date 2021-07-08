@@ -1,58 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CC2D3C186C
-	for <lists+freedreno@lfdr.de>; Thu,  8 Jul 2021 19:38:44 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E3E03C19A7
+	for <lists+freedreno@lfdr.de>; Thu,  8 Jul 2021 21:14:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46F5D6E979;
-	Thu,  8 Jul 2021 17:38:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEEBA6E94D;
+	Thu,  8 Jul 2021 19:14:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 682986E978
- for <freedreno@lists.freedesktop.org>; Thu,  8 Jul 2021 17:38:25 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id
- k16-20020a05600c1c90b02901f4ed0fcfe7so4547652wms.5
- for <freedreno@lists.freedesktop.org>; Thu, 08 Jul 2021 10:38:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=QjSmqlbIRb4rQlv/d4Pv/+GvfrOLmD0Jb/5nkyL4HJI=;
- b=OXWAMqyAm3FBqCmhazvtViPAczIYbDg3o3MhmkkOYXWZo3KasFE7n0nAJn3tBoiheQ
- Uz11jDhuINyDdsI4jhUSXimf8CsgIs+yJX8P1fVDe1tZR1ck2fHGWEufuZbQ6Hyvcg3Y
- SBMM8LmNDEAE4LoiP5rbz1j7aL4QlTe7Ad8Y8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=QjSmqlbIRb4rQlv/d4Pv/+GvfrOLmD0Jb/5nkyL4HJI=;
- b=B7qUtexHI10itSFyKA1CCfL16xrlnZXh+x5L9nseiIDCs08gYhHGR7Qp7ygPDrB98F
- 0+PqWySk3ikfQ24xaXW0vWR1DPpnMGMlEGVAyMlEZ+jD/yHJqT9qt7VzsydquNdUb1tm
- 2sht92YP8vWv+Yyx6C9irFyVQJe1CwahGYbfyxB6ecniovgtSaUyk2eBMR72fdS6fiUj
- 7ot0VSSHxTE6nhGYZ2dQ8zw80RNtdAq2f3i8Bm51pPmb95w50XYyIAv09VLkBLxZVRyR
- lX3fnmjWhnFLMct78ifLg9yPd3THA0hlqLCOE9ayYYequYC5pQ0TR6yAXlxt47O+dwQw
- /IRA==
-X-Gm-Message-State: AOAM530spwjW335/DSjTVQ0IflekoEr777k5HwyxY02CpaGnBRldWQCu
- U6I1Lr/xWRhaEKZmiji3K/HSRg==
-X-Google-Smtp-Source: ABdhPJw1jshJuGMwGuQ/le1CCh7zRdTpRm7R19534t5pFRk1PSYScUvtSH1ZQ65X5JqJpvpszXLP4A==
-X-Received: by 2002:a1c:4302:: with SMTP id q2mr6565057wma.37.1625765904147;
- Thu, 08 Jul 2021 10:38:24 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id l4sm2521853wme.26.2021.07.08.10.38.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Jul 2021 10:38:23 -0700 (PDT)
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Thu,  8 Jul 2021 19:37:50 +0200
-Message-Id: <20210708173754.3877540-17-daniel.vetter@ffwll.ch>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210708173754.3877540-1-daniel.vetter@ffwll.ch>
-References: <20210708173754.3877540-1-daniel.vetter@ffwll.ch>
-MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v3 16/20] drm/msm: always wait for the exclusive
- fence
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC7786E94D
+ for <freedreno@lists.freedesktop.org>; Thu,  8 Jul 2021 19:14:00 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1625771644; h=References: In-Reply-To: Message-Id: Date:
+ Subject: Cc: To: From: Sender;
+ bh=Mr1Mg1k4AuLUV4qsT5ZR7b17xKwezrg6vGoQdIuxGW0=;
+ b=It32RRcXy1Fp3loM6bKgGGDtw6CeV3hF5/ltqZwxpgDkpIEd0Yoi/rFy/rlvrgdQDmO+QX8S
+ 8KCVFQwAf9/eroMlYjCJVWD96Mez/A254ZPqqhU5CvkceEu973O4i5iPeFtstZ/qTlhkacku
+ I/TJo7+xEQeX6z2aOdFruBe+FTM=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
+ 60e74e727e5ba0fdc0e527fa (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 08 Jul 2021 19:13:54
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id D1EDAC4338A; Thu,  8 Jul 2021 19:13:53 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from nganji-linux.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: maitreye)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id E61B9C433F1;
+ Thu,  8 Jul 2021 19:13:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org E61B9C433F1
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=maitreye@codeaurora.org
+From: maitreye <maitreye@codeaurora.org>
+To: dri-devel@lists.freedesktop.org
+Date: Thu,  8 Jul 2021 12:13:44 -0700
+Message-Id: <1625771624-11997-1-git-send-email-maitreye@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <’CAE-0n51UCvxCbB0MTznyAiZ+qoi3_fe6FJoW3+NZ0QL-P+6u4w@mail.gmail.com’--subject-prefix=PATCH RESEND>
+References: <’CAE-0n51UCvxCbB0MTznyAiZ+qoi3_fe6FJoW3+NZ0QL-P+6u4w@mail.gmail.com’--subject-prefix=PATCH RESEND>
+Subject: [Freedreno] [PATCH v2] drm/msm/dp: add logs across DP driver for
+ ease of debugging
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,45 +68,315 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Sean Paul <sean@poorly.run>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Maitreyee Rao <maitreye@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ abhinavk@codeaurora.org, swboyd@chromium.org, khsieh@codeaurora.org,
+ robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb20+
-CgpEcml2ZXJzIGFsc28gbmVlZCB0byB0byBzeW5jIHRvIHRoZSBleGNsdXNpdmUgZmVuY2Ugd2hl
-bgphIHNoYXJlZCBvbmUgaXMgcHJlc2VudC4KClNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7Zu
-aWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KW2RhbnZldDogTm90IHRoYXQgaGFyZCB0byBj
-b21waWxlLXRlc3Qgb24gYXJtIC4uLl0KU2lnbmVkLW9mZi1ieTogRGFuaWVsIFZldHRlciA8ZGFu
-aWVsLnZldHRlckBmZndsbC5jaD4KQ2M6IFJvYiBDbGFyayA8cm9iZGNsYXJrQGdtYWlsLmNvbT4K
-Q2M6IFNlYW4gUGF1bCA8c2VhbkBwb29ybHkucnVuPgpDYzogbGludXgtYXJtLW1zbUB2Z2VyLmtl
-cm5lbC5vcmcKQ2M6IGZyZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKLS0tCiBkcml2ZXJz
-L2dwdS9kcm0vbXNtL21zbV9nZW0uYyB8IDE2ICsrKysrKystLS0tLS0tLS0KIDEgZmlsZSBjaGFu
-Z2VkLCA3IGluc2VydGlvbnMoKyksIDkgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL21zbS9tc21fZ2VtLmMgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9nZW0uYwpp
-bmRleCAxNDExNzg3NTQyMzEuLmQ5YzRmMWRlZWFmYiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL21zbS9tc21fZ2VtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZ2VtLmMKQEAg
-LTgxMiwxNyArODEyLDE1IEBAIGludCBtc21fZ2VtX3N5bmNfb2JqZWN0KHN0cnVjdCBkcm1fZ2Vt
-X29iamVjdCAqb2JqLAogCXN0cnVjdCBkbWFfZmVuY2UgKmZlbmNlOwogCWludCBpLCByZXQ7CiAK
-LQlmb2JqID0gZG1hX3Jlc3Zfc2hhcmVkX2xpc3Qob2JqLT5yZXN2KTsKLQlpZiAoIWZvYmogfHwg
-KGZvYmotPnNoYXJlZF9jb3VudCA9PSAwKSkgewotCQlmZW5jZSA9IGRtYV9yZXN2X2V4Y2xfZmVu
-Y2Uob2JqLT5yZXN2KTsKLQkJLyogZG9uJ3QgbmVlZCB0byB3YWl0IG9uIG91ciBvd24gZmVuY2Vz
-LCBzaW5jZSByaW5nIGlzIGZpZm8gKi8KLQkJaWYgKGZlbmNlICYmIChmZW5jZS0+Y29udGV4dCAh
-PSBmY3R4LT5jb250ZXh0KSkgewotCQkJcmV0ID0gZG1hX2ZlbmNlX3dhaXQoZmVuY2UsIHRydWUp
-OwotCQkJaWYgKHJldCkKLQkJCQlyZXR1cm4gcmV0OwotCQl9CisJZmVuY2UgPSBkbWFfcmVzdl9l
-eGNsX2ZlbmNlKG9iai0+cmVzdik7CisJLyogZG9uJ3QgbmVlZCB0byB3YWl0IG9uIG91ciBvd24g
-ZmVuY2VzLCBzaW5jZSByaW5nIGlzIGZpZm8gKi8KKwlpZiAoZmVuY2UgJiYgKGZlbmNlLT5jb250
-ZXh0ICE9IGZjdHgtPmNvbnRleHQpKSB7CisJCXJldCA9IGRtYV9mZW5jZV93YWl0KGZlbmNlLCB0
-cnVlKTsKKwkJaWYgKHJldCkKKwkJCXJldHVybiByZXQ7CiAJfQogCisJZm9iaiA9IGRtYV9yZXN2
-X3NoYXJlZF9saXN0KG9iai0+cmVzdik7CiAJaWYgKCFleGNsdXNpdmUgfHwgIWZvYmopCiAJCXJl
-dHVybiAwOwogCi0tIAoyLjMyLjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJlZWRyZW5vQGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2ZyZWVkcmVubwo=
+From: Maitreyee Rao <maitreye@codeaurora.org>
+
+Add trace points across the MSM DP driver to help debug
+interop issues.
+
+Changes in v2:
+ - Got rid of redundant log messages.
+ - Added %#x instead of 0x%x wherever required.
+ - Got rid of __func__ calls in debug messages.
+ - Added newline wherever missing.
+
+Signed-off-by: Maitreyee Rao <maitreye@codeaurora.org>
+---
+ drivers/gpu/drm/msm/dp/dp_catalog.c |  8 ++++++--
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    |  5 ++++-
+ drivers/gpu/drm/msm/dp/dp_display.c | 14 ++++++++++++++
+ drivers/gpu/drm/msm/dp/dp_link.c    | 17 ++++++++++-------
+ drivers/gpu/drm/msm/dp/dp_panel.c   |  2 ++
+ drivers/gpu/drm/msm/dp/dp_power.c   |  3 +++
+ 6 files changed, 39 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
+index 32f3575..292ec2c 100644
+--- a/drivers/gpu/drm/msm/dp/dp_catalog.c
++++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
+@@ -372,6 +372,7 @@ void dp_catalog_ctrl_mainlink_ctrl(struct dp_catalog *dp_catalog,
+ 	struct dp_catalog_private *catalog = container_of(dp_catalog,
+ 				struct dp_catalog_private, dp_catalog);
+ 
++	DRM_DEBUG_DP("enable=%d\n", enable);
+ 	if (enable) {
+ 		/*
+ 		 * To make sure link reg writes happens before other operation,
+@@ -580,6 +581,7 @@ void dp_catalog_hpd_config_intr(struct dp_catalog *dp_catalog,
+ 
+ 	config = (en ? config | intr_mask : config & ~intr_mask);
+ 
++	DRM_DEBUG_DP("intr_mask=%#x config=%#x\n", intr_mask, config);
+ 	dp_write_aux(catalog, REG_DP_DP_HPD_INT_MASK,
+ 				config & DP_DP_HPD_INT_MASK);
+ }
+@@ -610,6 +612,7 @@ u32 dp_catalog_link_is_connected(struct dp_catalog *dp_catalog)
+ 	u32 status;
+ 
+ 	status = dp_read_aux(catalog, REG_DP_DP_HPD_INT_STATUS);
++	DRM_DEBUG_DP("aux status:%#x\n", status);
+ 	status >>= DP_DP_HPD_STATE_STATUS_BITS_SHIFT;
+ 	status &= DP_DP_HPD_STATE_STATUS_BITS_MASK;
+ 
+@@ -685,6 +688,7 @@ void dp_catalog_ctrl_send_phy_pattern(struct dp_catalog *dp_catalog,
+ 	/* Make sure to clear the current pattern before starting a new one */
+ 	dp_write_link(catalog, REG_DP_STATE_CTRL, 0x0);
+ 
++	DRM_DEBUG_DP("pattern:%#x\n", pattern);
+ 	switch (pattern) {
+ 	case DP_PHY_TEST_PATTERN_D10_2:
+ 		dp_write_link(catalog, REG_DP_STATE_CTRL,
+@@ -745,7 +749,7 @@ void dp_catalog_ctrl_send_phy_pattern(struct dp_catalog *dp_catalog,
+ 				DP_STATE_CTRL_LINK_TRAINING_PATTERN4);
+ 		break;
+ 	default:
+-		DRM_DEBUG_DP("No valid test pattern requested:0x%x\n", pattern);
++		DRM_DEBUG_DP("No valid test pattern requested:%#x\n", pattern);
+ 		break;
+ 	}
+ }
+@@ -928,7 +932,7 @@ void dp_catalog_audio_config_acr(struct dp_catalog *dp_catalog)
+ 	select = dp_catalog->audio_data;
+ 	acr_ctrl = select << 4 | BIT(31) | BIT(8) | BIT(14);
+ 
+-	DRM_DEBUG_DP("select = 0x%x, acr_ctrl = 0x%x\n", select, acr_ctrl);
++	DRM_DEBUG_DP("select =0x%x, acr_ctrl =0x%x\n", select, acr_ctrl);
+ 
+ 	dp_write_link(catalog, MMSS_DP_AUDIO_ACR_CTRL, acr_ctrl);
+ }
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index 2a8955c..21ad7d3 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -122,7 +122,7 @@ void dp_ctrl_push_idle(struct dp_ctrl *dp_ctrl)
+ 			IDLE_PATTERN_COMPLETION_TIMEOUT_JIFFIES))
+ 		pr_warn("PUSH_IDLE pattern timedout\n");
+ 
+-	pr_debug("mainlink off done\n");
++	DRM_DEBUG_DP("PUSH IDLE, mainlink off done\n");
+ }
+ 
+ static void dp_ctrl_config_ctrl(struct dp_ctrl_private *ctrl)
+@@ -1013,6 +1013,8 @@ static int dp_ctrl_update_vx_px(struct dp_ctrl_private *ctrl)
+ 	u32 voltage_swing_level = link->phy_params.v_level;
+ 	u32 pre_emphasis_level = link->phy_params.p_level;
+ 
++	DRM_DEBUG_DP("voltage level: %d emphasis level: %d\n", voltage_swing_level,
++			pre_emphasis_level);
+ 	ret = dp_catalog_ctrl_update_vx_px(ctrl->catalog,
+ 		voltage_swing_level, pre_emphasis_level);
+ 
+@@ -1384,6 +1386,7 @@ int dp_ctrl_host_init(struct dp_ctrl *dp_ctrl, bool flip, bool reset)
+ 	if (reset)
+ 		dp_catalog_ctrl_reset(ctrl->catalog);
+ 
++	DRM_DEBUG_DP("flip=%d\n", flip);
+ 	dp_catalog_ctrl_phy_reset(ctrl->catalog);
+ 	phy_init(phy);
+ 	dp_catalog_ctrl_enable_irq(ctrl->catalog, true);
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index cf9c645..45301c5 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -275,6 +275,8 @@ static bool dp_display_is_ds_bridge(struct dp_panel *panel)
+ 
+ static bool dp_display_is_sink_count_zero(struct dp_display_private *dp)
+ {
++	DRM_DEBUG_DP("present=%#x sink_count=%d\n", dp->panel->dpcd[DP_DOWNSTREAMPORT_PRESENT],
++			dp->link->sink_count);
+ 	return dp_display_is_ds_bridge(dp->panel) &&
+ 		(dp->link->sink_count == 0);
+ }
+@@ -320,6 +322,7 @@ static int dp_display_send_hpd_notification(struct dp_display_private *dp,
+ 
+ 	dp->dp_display.is_connected = hpd;
+ 
++	DRM_DEBUG_DP("hpd=%d\n", hpd);
+ 	dp_display_send_hpd_event(&dp->dp_display);
+ 
+ 	return 0;
+@@ -369,6 +372,7 @@ static void dp_display_host_init(struct dp_display_private *dp, int reset)
+ {
+ 	bool flip = false;
+ 
++	DRM_DEBUG_DP("core_initialized=%d\n", dp->core_initialized);
+ 	if (dp->core_initialized) {
+ 		DRM_DEBUG_DP("DP core already initialized\n");
+ 		return;
+@@ -483,8 +487,10 @@ static int dp_display_handle_irq_hpd(struct dp_display_private *dp)
+ {
+ 	u32 sink_request = dp->link->sink_request;
+ 
++	DRM_DEBUG_DP("%d\n", sink_request);
+ 	if (dp->hpd_state == ST_DISCONNECTED) {
+ 		if (sink_request & DP_LINK_STATUS_UPDATED) {
++			DRM_DEBUG_DP("Disconnected sink_count:%d\n", sink_request);
+ 			DRM_ERROR("Disconnected, no DP_LINK_STATUS_UPDATED\n");
+ 			return -EINVAL;
+ 		}
+@@ -509,6 +515,7 @@ static int dp_display_usbpd_attention_cb(struct device *dev)
+ 		DRM_ERROR("invalid dev\n");
+ 		return -EINVAL;
+ 	}
++	DRM_DEBUG_DP("sink_request:%d\n", sink_request);
+ 
+ 	dp = container_of(g_dp_display,
+ 			struct dp_display_private, dp_display);
+@@ -523,6 +530,7 @@ static int dp_display_usbpd_attention_cb(struct device *dev)
+ 	rc = dp_link_process_request(dp->link);
+ 	if (!rc) {
+ 		sink_request = dp->link->sink_request;
++		DRM_DEBUG_DP("hpd_state=%d sink_count=%d\n", dp->hpd_state, sink_request);
+ 		if (sink_request & DS_PORT_STATUS_CHANGED)
+ 			rc = dp_display_handle_port_ststus_changed(dp);
+ 		else
+@@ -545,6 +553,7 @@ static int dp_hpd_plug_handle(struct dp_display_private *dp, u32 data)
+ 	mutex_lock(&dp->event_mutex);
+ 
+ 	state =  dp->hpd_state;
++	DRM_DEBUG_DP("hpd_state=%d\n", state);
+ 	if (state == ST_DISPLAY_OFF || state == ST_SUSPENDED) {
+ 		mutex_unlock(&dp->event_mutex);
+ 		return 0;
+@@ -680,6 +689,7 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
+ 	/* start sentinel checking in case of missing uevent */
+ 	dp_add_event(dp, EV_DISCONNECT_PENDING_TIMEOUT, 0, DP_TIMEOUT_5_SECOND);
+ 
++	DRM_DEBUG_DP("hpd_state=%d\n", state);
+ 	/* signal the disconnect event early to ensure proper teardown */
+ 	dp_display_handle_plugged_change(g_dp_display, false);
+ 
+@@ -738,6 +748,7 @@ static int dp_irq_hpd_handle(struct dp_display_private *dp, u32 data)
+ 	if (ret == -ECONNRESET) { /* cable unplugged */
+ 		dp->core_initialized = false;
+ 	}
++	DRM_DEBUG_DP("hpd_state=%d\n", state);
+ 
+ 	mutex_unlock(&dp->event_mutex);
+ 
+@@ -882,6 +893,7 @@ static int dp_display_enable(struct dp_display_private *dp, u32 data)
+ 
+ 	dp_display = g_dp_display;
+ 
++	DRM_DEBUG_DP("sink_count=%d\n", dp->link->sink_count);
+ 	if (dp_display->power_on) {
+ 		DRM_DEBUG_DP("Link already setup, return\n");
+ 		return 0;
+@@ -943,6 +955,7 @@ static int dp_display_disable(struct dp_display_private *dp, u32 data)
+ 
+ 	dp_display->power_on = false;
+ 
++	DRM_DEBUG_DP("sink count:%d\n", dp->link->sink_count);
+ 	return 0;
+ }
+ 
+@@ -1190,6 +1203,7 @@ static irqreturn_t dp_display_irq_handler(int irq, void *dev_id)
+ 
+ 	hpd_isr_status = dp_catalog_hpd_get_intr_status(dp->catalog);
+ 
++	DRM_DEBUG_DP("hpd isr status=%#x\n", hpd_isr_status);
+ 	if (hpd_isr_status & 0x0F) {
+ 		/* hpd related interrupts */
+ 		if (hpd_isr_status & DP_DP_HPD_PLUG_INT_MASK ||
+diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
+index be986da..316e8e6 100644
+--- a/drivers/gpu/drm/msm/dp/dp_link.c
++++ b/drivers/gpu/drm/msm/dp/dp_link.c
+@@ -1036,43 +1036,46 @@ int dp_link_process_request(struct dp_link *dp_link)
+ 
+ 	if (link->request.test_requested == DP_TEST_LINK_EDID_READ) {
+ 		dp_link->sink_request |= DP_TEST_LINK_EDID_READ;
+-		return ret;
++		goto out;
+ 	}
+ 
+ 	ret = dp_link_process_ds_port_status_change(link);
+ 	if (!ret) {
+ 		dp_link->sink_request |= DS_PORT_STATUS_CHANGED;
+-		return ret;
++		goto out;
+ 	}
+ 
+ 	ret = dp_link_process_link_training_request(link);
+ 	if (!ret) {
+ 		dp_link->sink_request |= DP_TEST_LINK_TRAINING;
+-		return ret;
++		goto out;
+ 	}
+ 
+ 	ret = dp_link_process_phy_test_pattern_request(link);
+ 	if (!ret) {
+ 		dp_link->sink_request |= DP_TEST_LINK_PHY_TEST_PATTERN;
+-		return ret;
++		goto out;
+ 	}
+ 
+ 	ret = dp_link_process_link_status_update(link);
+ 	if (!ret) {
+ 		dp_link->sink_request |= DP_LINK_STATUS_UPDATED;
+-		return ret;
++		goto out;
+ 	}
+ 
+ 	if (dp_link_is_video_pattern_requested(link)) {
+-		ret = 0;
+ 		dp_link->sink_request |= DP_TEST_LINK_VIDEO_PATTERN;
++		goto out;
+ 	}
+ 
+ 	if (dp_link_is_audio_pattern_requested(link)) {
+ 		dp_link->sink_request |= DP_TEST_LINK_AUDIO_PATTERN;
+-		return -EINVAL;
++		ret = -EINVAL;
++		goto out;
+ 	}
+ 
++out:
++	DRM_DEBUG_DP("sink request=%#x", dp_link->sink_request);
+ 	return ret;
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+index 88196f7..71db071 100644
+--- a/drivers/gpu/drm/msm/dp/dp_panel.c
++++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+@@ -66,6 +66,8 @@ static int dp_panel_read_dpcd(struct dp_panel *dp_panel)
+ 		goto end;
+ 	}
+ 
++	DRM_DEBUG_DP("%s 0x%x 0x%x 0x%x 0x%x 0x%x\n", __func__, dpcd[0],
++			dpcd[1], dpcd[2], dpcd[3], dpcd[4]);
+ 	link_info->revision = dpcd[DP_DPCD_REV];
+ 	major = (link_info->revision >> 4) & 0x0f;
+ 	minor = link_info->revision & 0x0f;
+diff --git a/drivers/gpu/drm/msm/dp/dp_power.c b/drivers/gpu/drm/msm/dp/dp_power.c
+index 3961ba4..37c214b 100644
+--- a/drivers/gpu/drm/msm/dp/dp_power.c
++++ b/drivers/gpu/drm/msm/dp/dp_power.c
+@@ -208,6 +208,9 @@ static int dp_power_clk_set_rate(struct dp_power_private *power,
+ 
+ int dp_power_clk_status(struct dp_power *dp_power, enum dp_pm_type pm_type)
+ {
++	DRM_DEBUG_DP("core_clk_on=%d link_clk_on=%d stream_clk_on=%d\n",
++			dp_power->core_clks_on, dp_power->link_clks_on, dp_power->stream_clks_on);
++
+ 	if (pm_type == DP_CORE_PM)
+ 		return dp_power->core_clks_on;
+ 
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
