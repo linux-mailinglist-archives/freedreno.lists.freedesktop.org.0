@@ -2,57 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35CA53C1ABE
-	for <lists+freedreno@lfdr.de>; Thu,  8 Jul 2021 22:57:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 211703C1B0B
+	for <lists+freedreno@lfdr.de>; Thu,  8 Jul 2021 23:34:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 847C56E99C;
-	Thu,  8 Jul 2021 20:57:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF98A89CC9;
+	Thu,  8 Jul 2021 21:34:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x836.google.com (mail-qt1-x836.google.com
- [IPv6:2607:f8b0:4864:20::836])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA7516E99A
- for <freedreno@lists.freedesktop.org>; Thu,  8 Jul 2021 20:56:59 +0000 (UTC)
-Received: by mail-qt1-x836.google.com with SMTP id v10so5964611qto.1
- for <freedreno@lists.freedesktop.org>; Thu, 08 Jul 2021 13:56:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=txIBa7izt4FT4BE1+BkMaR3RCAXYErSxPttMfK5CXlI=;
- b=faOfPE42FMx2/m3f1QlT02pCHNK9sLreFKyjuOGb3tFGZWwE2u9n8c/m01lIAh4ZOK
- EnmFa0gKFLxLThifMO9hhFhEQ4otXF6Oz60t2oagtPcqwMmWE6MpBNGY7PQqbM+PnszO
- 57ZF/9M4sfs2AV0fc381Kc/3WufCncVrAupIY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=txIBa7izt4FT4BE1+BkMaR3RCAXYErSxPttMfK5CXlI=;
- b=HVx0gfOu9PKBLQMbh/f6S71HU8ENnIkucxK4/5/Lh9UXPZgJIMDhMEum4H98VlzUXf
- Vu4Wd8WeebyzCuk7XSIwPSoPCI+ZoxhCf6Vyi+6X2IthKUT62WcLQ/yvL8Xwi9IllIQS
- DgZ0XXYwvs6Dd5qLFUyCDiJflatjZYSCMWaxZZX5dk8h6cGhY49AaoUUtd5nDqdH+Thv
- vcvcGbZm88OY0W2FyGDYALTC7B1YOgbNBFe6ZtFS1dA3/52Tfkp9AqDIHxvdENBiXNzE
- 0aydk8HDxntPSxErk7K5g2iEP5xgD2d+0LwzjKrfTMwLX0cnsxwXbmYI/t7m8/3EMS4R
- LWgg==
-X-Gm-Message-State: AOAM533SRj2i7bS+mCCh2yFsI9u4EJnzL/U0A3cd8IXk4kGwFmQAY/1l
- c6iuXbP9GX3mC4Yv2vHUSYAe0RkbhFEnw/r821HNRQ==
-X-Google-Smtp-Source: ABdhPJy01WzZkz2fmE/A+D4JFf/YjrN+FkodfFEoNH/4qM6i1zp4YmjJ7cZ+I4HUiGMQweSEOpnYAwyEvPRnI/WHXdM=
-X-Received: by 2002:a05:622a:1051:: with SMTP id
- f17mr30357847qte.226.1625777819121; 
- Thu, 08 Jul 2021 13:56:59 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 8 Jul 2021 13:56:58 -0700
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDB8C6E94E
+ for <freedreno@lists.freedesktop.org>; Thu,  8 Jul 2021 21:34:04 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1625780048; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=xpgLql9IbuvMj4f8z+D1UneOTXpQth+qs7ZN6prUSAk=;
+ b=qEfjCL2uwpx7RKUNv2Vnf54ZREA0Zbt/8GTP2mlWJdyjt0exqmUThfHcmDTWVc2vTHzrwHiI
+ nt6AROywzpABQlH6yRSNe+hcUO57iZL5AhklRJE513U9fxwGLMxSYqckIGN3on1xv1YMQ8Zk
+ jZ1PkBfesPwQYY5Hv7bJzkwj5fg=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
+ 60e76f40ec0b18a745fd89fd (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 08 Jul 2021 21:33:52
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 3A0D4C4338A; Thu,  8 Jul 2021 21:33:52 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 4E930C433D3;
+ Thu,  8 Jul 2021 21:33:51 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <1625592020-22658-5-git-send-email-khsieh@codeaurora.org>
+Date: Thu, 08 Jul 2021 14:33:51 -0700
+From: khsieh@codeaurora.org
+To: Stephen Boyd <swboyd@chromium.org>
+In-Reply-To: <CAE-0n52SxJx8kOwQddWF096PsPy-0f8bDq_ss=u6i-hisD54Hg@mail.gmail.com>
 References: <1625592020-22658-1-git-send-email-khsieh@codeaurora.org>
- <1625592020-22658-5-git-send-email-khsieh@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Thu, 8 Jul 2021 13:56:58 -0700
-Message-ID: <CAE-0n53EtG=Kd-i+q-Yg-GNNAkXwPnOOgFE_zG249OH5=i-f6w@mail.gmail.com>
-To: Kuogee Hsieh <khsieh@codeaurora.org>, dri-devel@lists.freedesktop.org, 
- robdclark@gmail.com, sean@poorly.run
-Subject: Re: [Freedreno] [PATCH 4/7] drm/msm/dp: replug event is converted
- into an unplug followed by an plug events
+ <1625592020-22658-2-git-send-email-khsieh@codeaurora.org>
+ <CAE-0n52SxJx8kOwQddWF096PsPy-0f8bDq_ss=u6i-hisD54Hg@mail.gmail.com>
+Message-ID: <3492b578fdf4e59fe594fb9207782aa1@codeaurora.org>
+X-Sender: khsieh@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH 1/7] drm/msm/dp: use dp_ctrl_off_link_stream
+ during PHY compliance test run
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,26 +65,73 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, abhinavk@codeaurora.org,
- bjorn.andersson@linaro.org, daniel@ffwll.ch, aravindh@codeaurora.org,
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ abhinavk@codeaurora.org, bjorn.andersson@linaro.org, robdclark@gmail.com,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, aravindh@codeaurora.org,
+ sean@poorly.run
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2021-07-06 10:20:17)
-> Remove special handling of replug interrupt and instead treat replug event
-> as a sequential unplug followed by a plugin event. This is needed to meet
-> the requirements of DP Link Layer CTS test case 4.2.1.3.
->
-> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
-> ---
+On 2021-07-08 00:03, Stephen Boyd wrote:
+> Quoting Kuogee Hsieh (2021-07-06 10:20:14)
+>> DP cable should always connect to DPU during the entire PHY compliance
+>> testing run. Since DP PHY compliance test is executed at irq_hpd event
+>> context, dp_ctrl_off_link_stream() should be used instead of 
+>> dp_ctrl_off().
+>> dp_ctrl_off() is used for unplug event which is triggered when DP 
+>> cable is
+>> dis connected.
+>> 
+>> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+>> ---
+> 
+> Is this
+> 
+> Fixes: f21c8a276c2d ("drm/msm/dp: handle irq_hpd with sink_count = 0 
+> correctly")
+> 
+> or
+> 
+> Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
 
-This needs a Fixes tag of some kind.
+should be fixes at f21c8a276c2d ("drm/msm/dp: handle irq_hpd with 
+sink_count = 0 correctly")
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+> 
+> ? It's not clear how dp_ctrl_off() was working for compliance tests
+> before commit f21c8a276c2d.
+both dp_ctrl_off() and dp_ctrl_off_link_strea() are work for 
+dp_ctrl_process_phy_test_request()
+The problem is after dp_ctrl_off(), aux channel is down, hence next phy 
+test will failed due to dpcd read failed.
+So that cable unplugged and replug back to required to run next test 
+case.
+dp_ctrl_off_link_stream() will keep aux channel up and other phy test 
+case can be continued.
+
+
+
+>>  drivers/gpu/drm/msm/dp/dp_ctrl.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>> 
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c 
+>> b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> index caf71fa..27fb0f0 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> @@ -1530,7 +1530,7 @@ static int 
+>> dp_ctrl_process_phy_test_request(struct dp_ctrl_private *ctrl)
+>>          * running. Add the global reset just before disabling the
+>>          * link clocks and core clocks.
+>>          */
+>> -       ret = dp_ctrl_off(&ctrl->dp_ctrl);
+>> +       ret = dp_ctrl_off_link_stream(&ctrl->dp_ctrl);
+>>         if (ret) {
+>>                 DRM_ERROR("failed to disable DP controller\n");
+>>                 return ret;
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
