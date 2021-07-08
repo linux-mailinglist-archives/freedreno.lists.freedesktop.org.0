@@ -2,57 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 549613BF62E
-	for <lists+freedreno@lfdr.de>; Thu,  8 Jul 2021 09:21:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 644D53BF64D
+	for <lists+freedreno@lfdr.de>; Thu,  8 Jul 2021 09:33:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0200A6E873;
-	Thu,  8 Jul 2021 07:21:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EE5C6E87B;
+	Thu,  8 Jul 2021 07:33:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
- [IPv6:2607:f8b0:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 969296E876
- for <freedreno@lists.freedesktop.org>; Thu,  8 Jul 2021 07:21:53 +0000 (UTC)
-Received: by mail-ot1-x333.google.com with SMTP id
- f93-20020a9d03e60000b02904b1f1d7c5f4so4147574otf.9
- for <freedreno@lists.freedesktop.org>; Thu, 08 Jul 2021 00:21:53 -0700 (PDT)
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [IPv6:2607:f8b0:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 579816E87A
+ for <freedreno@lists.freedesktop.org>; Thu,  8 Jul 2021 07:33:14 +0000 (UTC)
+Received: by mail-oi1-x236.google.com with SMTP id w74so6732369oiw.8
+ for <freedreno@lists.freedesktop.org>; Thu, 08 Jul 2021 00:33:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=GlyNpRS/ZnIBH6T2xmI7UmonQRyHCXFhA2s03oASO4Q=;
- b=jL5qIurr1gZORF2l3P73QnDTKzVDziGFZCyboRb1kV87XmAQ3xV2137WoL+6fqbPxf
- USiWqleYoU4DFDU1QZQTlLrmI3bT+B43wyCaF5rxa5uxR2MvLyMbKv/H80xkqOfoCEI8
- loFn7s7cjibETX6nxR1KxSCuBLTgZLr2zhUjo=
+ bh=PdJCICv/Zysk0e+rf0benlWHKSPGV6HDfju3kxJCLWI=;
+ b=HzAqGgTBHOoSvW4yL5OJTF0SLSJqdiJIFxBh2b1ujPsK3SPtVYR2jz2hx9tNL/IYbb
+ QYp9xsuCHTijSgsLuC2xO8SRCv74dF+mvAZa6qN37mX9tQPp5IZutfz+zb5qFh9epYBH
+ 3hlMxyfGYJpyVqQdXHjgs5BqOQee0bT9zqwos=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=GlyNpRS/ZnIBH6T2xmI7UmonQRyHCXFhA2s03oASO4Q=;
- b=dS3DyL7yvSN1y+RVAgUw/aKjfV7A2noTXOmnSv1XaCi/eq2p4IBQ1IZEe+IRv9aTLj
- Nep9X+eURMUWrp6PWxjRqt9BKQUhYGQzeMmVbQimKXix19+AV1DT73bLW3m43MwSNsVy
- D9eaVAf9BSuqmqLWDNPQXeGAHRazhoybEPLCASR+TOMcDO3LdcvOLJ+n84g/eKZxvSbA
- Im07jcKTkxFtfVlACDKQLi9wYfiKHvXJmJu56sc2aS7n0S3EijDmTIxYj7X5ZoaixPAJ
- voN0fGskwVm1kzANOCvjRZBheDW0uz0DYnKpslLBaE2icVhkopeCtGQ0nGwBeAnxoAsB
- sLqQ==
-X-Gm-Message-State: AOAM532kDfZxXVs5zD6y8mAfNzZFi8LOM3Yn2MTg4OjTUYWpVpoiLqvA
- YwFka8c32iF6Xuwnw+3aFifjPuTfvAUT6Ov3DHuMfg==
-X-Google-Smtp-Source: ABdhPJxy7gr/M5KMw/WA3ZBc9mM+qV00yrR2nRuHoHKyp5ya9CGCYK6cQTX1rnZPidxNZK1/pUWAtTPnp2LZZMf9Nv4=
-X-Received: by 2002:a9d:8c7:: with SMTP id 65mr23059307otf.25.1625728912972;
- Thu, 08 Jul 2021 00:21:52 -0700 (PDT)
+ bh=PdJCICv/Zysk0e+rf0benlWHKSPGV6HDfju3kxJCLWI=;
+ b=XyjNjq7+anmr6fZzBz74hJGIYgIv/nCEOpGZ9NXyuRjppM0ecgvXV1RmYx3CarJFSy
+ u1FqDyXlOPoBI4RR0mXSsOR4KaC7EI+Acewz9e0mbULKfi3S1S3yuGxyTAvym8eR32YT
+ JWarOpjIUvRFTloxsgfWkiXxoLsS1PggrJ5A8FRYCDAtOP5uZtZ/ApP2iOs50WyhUb/R
+ i6kQ7jNhmlE6DICgac1vxH65AqNneEc1Y/TD6qnVnIMCZn+TNr67bx8SEuP6N+jepYuD
+ EeNHrvo6MsAvoek9oIZpDpHy0+/8rpUjjUbPWDlTKxqtrxLkGVkXP++nL41rfJmQOl8m
+ VdbA==
+X-Gm-Message-State: AOAM532URShnQ+xBC9JKLsM2WqLN1Iitpe9nejfEYyu9/xp5rC0LM8oM
+ aGKru0Fjz9nKx5ZX1boZt/ODh1HcB+h45HZs1G/2Xg==
+X-Google-Smtp-Source: ABdhPJy08szo/mEaH0I349rMh8ZGhur3wEQvn9fc2VfBGOAR488PWDiPqSciyCfh8UPJrapJeNA2IvmCULZYBZWIqN8=
+X-Received: by 2002:aca:3012:: with SMTP id w18mr2575205oiw.125.1625729593722; 
+ Thu, 08 Jul 2021 00:33:13 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 8 Jul 2021 07:21:52 +0000
+ HTTPREST; Thu, 8 Jul 2021 07:33:13 +0000
 MIME-Version: 1.0
-In-Reply-To: <1625592020-22658-8-git-send-email-khsieh@codeaurora.org>
+In-Reply-To: <1625592020-22658-3-git-send-email-khsieh@codeaurora.org>
 References: <1625592020-22658-1-git-send-email-khsieh@codeaurora.org>
- <1625592020-22658-8-git-send-email-khsieh@codeaurora.org>
+ <1625592020-22658-3-git-send-email-khsieh@codeaurora.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.9.1
-Date: Thu, 8 Jul 2021 07:21:52 +0000
-Message-ID: <CAE-0n51U8faPjxfFcd3uuOk27urR2rCSGhg1Kat1AO6LLixYTw@mail.gmail.com>
+Date: Thu, 8 Jul 2021 07:33:13 +0000
+Message-ID: <CAE-0n52WyMKdQ96ji=5YLBxpndgB_CLsxscXaFexMPdLducrkQ@mail.gmail.com>
 To: Kuogee Hsieh <khsieh@codeaurora.org>, dri-devel@lists.freedesktop.org, 
  robdclark@gmail.com, sean@poorly.run
-Subject: Re: [Freedreno] [PATCH 7/7] drm/msm/dp: retrain link when loss of
- symbol lock detected
+Subject: Re: [Freedreno] [PATCH 2/7] drm/msm/dp: reduce link rate if failed
+ at link training 1
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,102 +73,228 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2021-07-06 10:20:20)
-> Main link symbol locked is achieved at end of link training 2. Some
-> dongle main link symbol may become unlocked again if host did not end
-> link training soon enough after completion of link training 2. Host
-> have to re train main link if loss of symbol lock detected before
-> end link training so that the coming video stream can be transmitted
-> to sink properly.
+Quoting Kuogee Hsieh (2021-07-06 10:20:15)
+> Reduce link rate and re start link training if link training 1
+> failed due to loss of clock recovery done to fix Link Layer
+> CTS case 4.3.1.7.  Also only update voltage and pre-emphasis
+> swing level after link training started to fix Link Layer CTS
+> case 4.3.1.6.
 >
 > Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
-
-I guess this is a fix for the original driver, so it should be tagged
-with Fixes appropriately.
-
 > ---
->  drivers/gpu/drm/msm/dp/dp_ctrl.c | 34 ++++++++++++++++++++++++++++++++++
->  1 file changed, 34 insertions(+)
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c | 86 ++++++++++++++++++++++++++--------------
+>  1 file changed, 56 insertions(+), 30 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index 0cb01a9..e616ab2 100644
+> index 27fb0f0..6f8443d 100644
 > --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
 > +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -1661,6 +1661,25 @@ static bool dp_ctrl_any_lane_cr_lose(struct dp_ctrl_private *ctrl,
->         return false;
+> @@ -83,13 +83,6 @@ struct dp_ctrl_private {
+>         struct completion video_comp;
+>  };
+>
+> -struct dp_cr_status {
+> -       u8 lane_0_1;
+> -       u8 lane_2_3;
+> -};
+> -
+> -#define DP_LANE0_1_CR_DONE     0x11
+> -
+>  static int dp_aux_link_configure(struct drm_dp_aux *aux,
+>                                         struct dp_link_info *link)
+>  {
+> @@ -1080,7 +1073,7 @@ static int dp_ctrl_read_link_status(struct dp_ctrl_private *ctrl,
 >  }
 >
-> +static bool dp_ctrl_loss_symbol_lock(struct dp_ctrl_private *ctrl)
-> +{
-> +       u8 link_status[6];
+>  static int dp_ctrl_link_train_1(struct dp_ctrl_private *ctrl,
+> -               struct dp_cr_status *cr, int *training_step)
+> +               u8 *cr, int *training_step)
+>  {
+>         int tries, old_v_level, ret = 0;
+>         u8 link_status[DP_LINK_STATUS_SIZE];
+> @@ -1109,8 +1102,8 @@ static int dp_ctrl_link_train_1(struct dp_ctrl_private *ctrl,
+>                 if (ret)
+>                         return ret;
+>
+> -               cr->lane_0_1 = link_status[0];
+> -               cr->lane_2_3 = link_status[1];
+> +               cr[0] = link_status[0];
+> +               cr[1] = link_status[1];
+>
+>                 if (drm_dp_clock_recovery_ok(link_status,
+>                         ctrl->link->link_params.num_lanes)) {
+> @@ -1188,7 +1181,7 @@ static void dp_ctrl_clear_training_pattern(struct dp_ctrl_private *ctrl)
+>  }
+>
+>  static int dp_ctrl_link_train_2(struct dp_ctrl_private *ctrl,
+> -               struct dp_cr_status *cr, int *training_step)
+> +               u8 *cr, int *training_step)
+>  {
+>         int tries = 0, ret = 0;
+>         char pattern;
+> @@ -1204,10 +1197,6 @@ static int dp_ctrl_link_train_2(struct dp_ctrl_private *ctrl,
+>         else
+>                 pattern = DP_TRAINING_PATTERN_2;
+>
+> -       ret = dp_ctrl_update_vx_px(ctrl);
+> -       if (ret)
+> -               return ret;
+> -
+>         ret = dp_catalog_ctrl_set_pattern(ctrl->catalog, pattern);
+>         if (ret)
+>                 return ret;
+> @@ -1220,8 +1209,8 @@ static int dp_ctrl_link_train_2(struct dp_ctrl_private *ctrl,
+>                 ret = dp_ctrl_read_link_status(ctrl, link_status);
+>                 if (ret)
+>                         return ret;
+> -               cr->lane_0_1 = link_status[0];
+> -               cr->lane_2_3 = link_status[1];
+> +               cr[0] = link_status[0];
+> +               cr[1] = link_status[1];
+>
+>                 if (drm_dp_channel_eq_ok(link_status,
+>                         ctrl->link->link_params.num_lanes)) {
+> @@ -1241,7 +1230,7 @@ static int dp_ctrl_link_train_2(struct dp_ctrl_private *ctrl,
+>  static int dp_ctrl_reinitialize_mainlink(struct dp_ctrl_private *ctrl);
+>
+>  static int dp_ctrl_link_train(struct dp_ctrl_private *ctrl,
+> -               struct dp_cr_status *cr, int *training_step)
+> +               u8 *cr, int *training_step)
+>  {
+>         int ret = 0;
+>         u8 encoding = DP_SET_ANSI_8B10B;
+> @@ -1282,7 +1271,7 @@ static int dp_ctrl_link_train(struct dp_ctrl_private *ctrl,
+>  }
+>
+>  static int dp_ctrl_setup_main_link(struct dp_ctrl_private *ctrl,
+> -               struct dp_cr_status *cr, int *training_step)
+> +               u8 *cr, int *training_step)
+>  {
+>         int ret = 0;
+>
+> @@ -1496,14 +1485,14 @@ static int dp_ctrl_deinitialize_mainlink(struct dp_ctrl_private *ctrl)
+>  static int dp_ctrl_link_maintenance(struct dp_ctrl_private *ctrl)
+>  {
+>         int ret = 0;
+> -       struct dp_cr_status cr;
+> +       u8 cr_status[2];
+>         int training_step = DP_TRAINING_NONE;
+>
+>         dp_ctrl_push_idle(&ctrl->dp_ctrl);
+>
+>         ctrl->dp_ctrl.pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
+>
+> -       ret = dp_ctrl_setup_main_link(ctrl, &cr, &training_step);
+> +       ret = dp_ctrl_setup_main_link(ctrl, cr_status, &training_step);
+>         if (ret)
+>                 goto end;
 
-Can we use link_status[DP_LINK_STATUS_SIZE] instead?
+Do we need to extract the link status information from deep in these
+functions? Why not read it again when we need to?
 
-> +       u8 status;
-> +       int i;
-> +       int lane = ctrl->link->link_params.num_lanes;
-
-s/lane/num_lanes/
-
-would make the code easier to read
-
+>
+> @@ -1634,6 +1623,41 @@ void dp_ctrl_handle_sink_request(struct dp_ctrl *dp_ctrl)
+>         }
+>  }
+>
+> +static bool dp_ctrl_any_lane_cr_done(struct dp_ctrl_private *ctrl,
+> +                                       u8 *cr_status)
 > +
-> +       dp_ctrl_read_link_status(ctrl, link_status);
+> +{
+> +       int i;
+> +       u8 status;
+> +       int lane = ctrl->link->link_params.num_lanes;
 > +
 > +       for (i = 0; i < lane; i++) {
-> +               status = link_status[i / 2];
+> +               status = cr_status[i / 2];
 > +               status >>= ((i % 2) * 4);
-> +               if (!(status & DP_LANE_SYMBOL_LOCKED))
+> +               if (status & DP_LANE_CR_DONE)
 > +                       return true;
 > +       }
 > +
 > +       return false;
 > +}
 > +
+> +static bool dp_ctrl_any_lane_cr_lose(struct dp_ctrl_private *ctrl,
+> +                                       u8 *cr_status)
+> +{
+> +       int i;
+> +       u8 status;
+> +       int lane = ctrl->link->link_params.num_lanes;
+> +
+> +       for (i = 0; i < lane; i++) {
+> +               status = cr_status[i / 2];
+> +               status >>= ((i % 2) * 4);
+> +               if (!(status & DP_LANE_CR_DONE))
+> +                       return true;
+> +       }
+> +
+> +       return false;
+> +}
+
+Why not use !drm_dp_clock_recovery_ok() for dp_ctrl_any_lane_cr_lose()?
+And then move dp_ctrl_any_lane_cr_done() next to
+drm_dp_clock_recovery_ok() and call it drm_dp_clock_recovery_any_ok()?
+
+> +
 >  int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
 >  {
 >         int rc = 0;
-> @@ -1777,6 +1796,17 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
->         return rc;
->  }
->
-> +static int dp_ctrl_link_retrain(struct dp_ctrl_private *ctrl)
-> +{
-> +       int ret = 0;
-
-Please drop init of ret.
-
+> @@ -1641,7 +1665,7 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
+>         u32 rate = 0;
+>         int link_train_max_retries = 5;
+>         u32 const phy_cts_pixel_clk_khz = 148500;
+> -       struct dp_cr_status cr;
 > +       u8 cr_status[2];
-> +       int training_step = DP_TRAINING_NONE;
-> +
-> +       ret = dp_ctrl_setup_main_link(ctrl, cr_status, &training_step);
-
-as it is assigned here.
-
-> +
-> +       return ret;
-
-And indeed, it could be 'return dp_ctrl_setup_main_link()' instead.
-
-> +}
-> +
->  int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl)
->  {
->         int ret = 0;
-> @@ -1802,6 +1832,10 @@ int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl)
->                 }
->         }
+>         unsigned int training_step;
 >
-> +       /* if loss symbol lock happen, then retaining the link */
-
-retain or retrain? The comment seems to be saying what the code says "if
-loss retrain", so the comment is not very useful.
-
-> +       if (dp_ctrl_loss_symbol_lock(ctrl))
-> +               dp_ctrl_link_retrain(ctrl);
+>         if (!dp_ctrl)
+> @@ -1681,19 +1705,18 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
+>                 }
+>
+>                 training_step = DP_TRAINING_NONE;
+> -               rc = dp_ctrl_setup_main_link(ctrl, &cr, &training_step);
+> +               rc = dp_ctrl_setup_main_link(ctrl, cr_status, &training_step);
+>                 if (rc == 0) {
+>                         /* training completed successfully */
+>                         break;
+>                 } else if (training_step == DP_TRAINING_1) {
+>                         /* link train_1 failed */
+> -                       if (!dp_catalog_link_is_connected(ctrl->catalog)) {
+> +                       if (!dp_catalog_link_is_connected(ctrl->catalog))
+>                                 break;
+> -                       }
+>
+>                         rc = dp_ctrl_link_rate_down_shift(ctrl);
+>                         if (rc < 0) { /* already in RBR = 1.6G */
+> -                               if (cr.lane_0_1 & DP_LANE0_1_CR_DONE) {
+> +                               if (dp_ctrl_any_lane_cr_done(ctrl, cr_status)) {
+>                                         /*
+>                                          * some lanes are ready,
+>                                          * reduce lane number
+> @@ -1709,12 +1732,15 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
+>                                 }
+>                         }
+>                 } else if (training_step == DP_TRAINING_2) {
+> -                       /* link train_2 failed, lower lane rate */
+> -                       if (!dp_catalog_link_is_connected(ctrl->catalog)) {
+> +                       /* link train_2 failed */
+> +                       if (!dp_catalog_link_is_connected(ctrl->catalog))
+>                                 break;
+> -                       }
+>
+> -                       rc = dp_ctrl_link_lane_down_shift(ctrl);
+> +                       if (dp_ctrl_any_lane_cr_lose(ctrl, cr_status))
+> +                               rc = dp_ctrl_link_rate_down_shift(ctrl);
+> +                       else
+> +                               rc = dp_ctrl_link_lane_down_shift(ctrl);
 > +
->         /* stop txing train pattern to end link training */
->         dp_ctrl_clear_training_pattern(ctrl);
+>                         if (rc < 0) {
+>                                 /* end with failure */
+>                                 break; /* lane == 1 already */
+> --
+> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+> a Linux Foundation Collaborative Project
 >
 _______________________________________________
 Freedreno mailing list
