@@ -1,54 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F9703BF5DC
-	for <lists+freedreno@lfdr.de>; Thu,  8 Jul 2021 08:56:26 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C27163BF5E9
+	for <lists+freedreno@lfdr.de>; Thu,  8 Jul 2021 09:03:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2922B6E155;
-	Thu,  8 Jul 2021 06:56:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DAAD6E092;
+	Thu,  8 Jul 2021 07:03:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
- [IPv6:2607:f8b0:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3FD16E0CA
- for <freedreno@lists.freedesktop.org>; Thu,  8 Jul 2021 06:56:20 +0000 (UTC)
-Received: by mail-pf1-x431.google.com with SMTP id x16so4579512pfa.13
- for <freedreno@lists.freedesktop.org>; Wed, 07 Jul 2021 23:56:20 -0700 (PDT)
+Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
+ [IPv6:2607:f8b0:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79AAF6E092
+ for <freedreno@lists.freedesktop.org>; Thu,  8 Jul 2021 07:03:24 +0000 (UTC)
+Received: by mail-ot1-x32c.google.com with SMTP id
+ 59-20020a9d0ac10000b0290462f0ab0800so4875348otq.11
+ for <freedreno@lists.freedesktop.org>; Thu, 08 Jul 2021 00:03:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=/BAyx8HGJRdLOBdbNiU99QlY+5w2alIzKC7hMMjJk8E=;
- b=NHKTbL1+5esONkdEeIVUEHanUegxhWFq3mH2qGjsXdj1X4CnZ25OcIeCnh1Cz26/fD
- kX0pEMz5+wuULkM4jGkngh+2zCZzZ//MWkaMBjnnQj1BxLgsg02dZLG+cN7b2Z+y8sow
- h7S6o4wsaeft1bc7Ih5xOyZb+/4dtQEJdUkPQ=
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=e6F7jpKZgLK0g03ikV1DlLAQGZ9FCDYcFLY+NH5H2aM=;
+ b=Djs5afqAC6AxTyRA78ZOnar6Uy1KsZPKM46v6cMxRutda3qAl0rMc29SQFeYmcTVV2
+ bHQzlb7Hrg/3l8KKovEXvZw4Vu7s9Y0oqhDIseA7kQwbnhunBuh89Uf71cJDQKipvOhx
+ acz2ky+Q04C+NbMI2SDQUCNXaauTAxxkQPI+g=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=/BAyx8HGJRdLOBdbNiU99QlY+5w2alIzKC7hMMjJk8E=;
- b=oA4KiasVRHQoNXPyP+FH3hYL8FO2YQdNglK+xL9qO367p7+YW2+iioiZwbhNqI2hwI
- gswncUE7U0zjo392T4+YEEkNPKPNcyYkVbKFCfv+h1UnIUFJFtMlx7E86A85tgxyTKZa
- fT2B3NhVpy1mIyzEZ0jVjK2OlkBTT4hCa3ZcJUpuA/Aycfl677VZ+RsNfF1LiZNaf4PM
- SVzx3qxKa4dfrcWulqoUdLwKnq/mETTOluV+XGPCkRmWIKAdWNviSWccp7DzGeTGvwAe
- Z2+RfAIH3VReWfthlHO9uJTRNNvfNFrPPoWx2FMWbcwMiqQSxr2DQoDoQLc11C37ScoC
- InCg==
-X-Gm-Message-State: AOAM5331P4PEV9PyWHUE4aC/bp1Xe8T8FSNR9Ji5MK75iPYtLlpKjpnE
- X5gSUeXr71f4EusLMO7h13SoXw==
-X-Google-Smtp-Source: ABdhPJxigodUsLw90BixpU3dO51TKFxRvaaErkAE8oVzv77ily6wyBUHpPvwY3JTNwAh2mxe/+P+EQ==
-X-Received: by 2002:a63:e043:: with SMTP id n3mr6974211pgj.106.1625727380608; 
- Wed, 07 Jul 2021 23:56:20 -0700 (PDT)
-Received: from smtp.gmail.com ([2620:15c:202:201:82ce:1825:c0a5:9605])
- by smtp.gmail.com with ESMTPSA id a23sm1120910pfa.16.2021.07.07.23.56.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Jul 2021 23:56:20 -0700 (PDT)
-From: Stephen Boyd <swboyd@chromium.org>
-To: Rob Clark <robdclark@gmail.com>
-Date: Wed,  7 Jul 2021 23:56:19 -0700
-Message-Id: <20210708065619.999199-1-swboyd@chromium.org>
-X-Mailer: git-send-email 2.32.0.93.g670b81a890-goog
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=e6F7jpKZgLK0g03ikV1DlLAQGZ9FCDYcFLY+NH5H2aM=;
+ b=F4pwr/rq3zDuSEvuDffuUEQF2DouMS1KOnkk2Yreo1eBO9mZRq03MfrRTtZ2Z8JYOB
+ JzS9dSL8gkId+UrVNlcU5GFbnJuBHSlqw0kxZ/UavhNiqi4kDC+L2DhgCJNrq4RGklKz
+ TXuKgDHVIfjcI87dANayJmy+yiKkEngjTD5f8M3nvb49FG7hXo+pEqxzl+rJ/fCJ74fX
+ wl/Aqpkl256b9XIubUfO/Ty5nkkrSKwhe3UgLXKWhf6DAPNhYw4usNbHRvRuCyIn/5wq
+ jt3gMEXnwIF3BZWfHOSzBiruhYGXmU0Sy5cKqm631GmzK/rrac1LoaZPnR1ulj7HvvUe
+ wGHg==
+X-Gm-Message-State: AOAM531sY1Xg9psMCABG1UpFpvxbBwo+pCNdx0/JK1BPH3n+8eMdfkdi
+ jDWWWWIqQeg4kQIu6cvGSy392qsIf1qM7Lz/PV6GDg==
+X-Google-Smtp-Source: ABdhPJzv/+s+l3IZI9ThycAUNiy4ELjrN4eN6oM11SYrQzEXtZPCGXuXmoPGSwVp0XoUtbH4vMfH0qB1UZFeF4HeV1o=
+X-Received: by 2002:a9d:2781:: with SMTP id c1mr22106411otb.34.1625727803794; 
+ Thu, 08 Jul 2021 00:03:23 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 8 Jul 2021 07:03:23 +0000
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm/dpu: Add newlines to printks
+In-Reply-To: <1625592020-22658-2-git-send-email-khsieh@codeaurora.org>
+References: <1625592020-22658-1-git-send-email-khsieh@codeaurora.org>
+ <1625592020-22658-2-git-send-email-khsieh@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Thu, 8 Jul 2021 07:03:23 +0000
+Message-ID: <CAE-0n52SxJx8kOwQddWF096PsPy-0f8bDq_ss=u6i-hisD54Hg@mail.gmail.com>
+To: Kuogee Hsieh <khsieh@codeaurora.org>, dri-devel@lists.freedesktop.org, 
+ robdclark@gmail.com, sean@poorly.run
+Subject: Re: [Freedreno] [PATCH 1/7] drm/msm/dp: use dp_ctrl_off_link_stream
+ during PHY compliance test run
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,75 +65,52 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, abhinavk@codeaurora.org,
+ bjorn.andersson@linaro.org, daniel@ffwll.ch, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add some missing newlines to the various DRM printks in this file.
-Noticed while looking at logs. While we're here unbreak quoted
-strings so grepping them is easier.
+Quoting Kuogee Hsieh (2021-07-06 10:20:14)
+> DP cable should always connect to DPU during the entire PHY compliance
+> testing run. Since DP PHY compliance test is executed at irq_hpd event
+> context, dp_ctrl_off_link_stream() should be used instead of dp_ctrl_off().
+> dp_ctrl_off() is used for unplug event which is triggered when DP cable is
+> dis connected.
+>
+> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+> ---
 
-Signed-off-by: Stephen Boyd <swboyd@chromium.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+Is this
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 1c04b7cce43e..0e9d3fa1544b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -274,20 +274,20 @@ int dpu_encoder_helper_wait_for_irq(struct dpu_encoder_phys *phys_enc,
- 
- 	/* return EWOULDBLOCK since we know the wait isn't necessary */
- 	if (phys_enc->enable_state == DPU_ENC_DISABLED) {
--		DRM_ERROR("encoder is disabled id=%u, intr=%d, irq=%d",
-+		DRM_ERROR("encoder is disabled id=%u, intr=%d, irq=%d\n",
- 			  DRMID(phys_enc->parent), intr_idx,
- 			  irq->irq_idx);
- 		return -EWOULDBLOCK;
- 	}
- 
- 	if (irq->irq_idx < 0) {
--		DRM_DEBUG_KMS("skip irq wait id=%u, intr=%d, irq=%s",
-+		DRM_DEBUG_KMS("skip irq wait id=%u, intr=%d, irq=%s\n",
- 			      DRMID(phys_enc->parent), intr_idx,
- 			      irq->name);
- 		return 0;
- 	}
- 
--	DRM_DEBUG_KMS("id=%u, intr=%d, irq=%d, pp=%d, pending_cnt=%d",
-+	DRM_DEBUG_KMS("id=%u, intr=%d, irq=%d, pp=%d, pending_cnt=%d\n",
- 		      DRMID(phys_enc->parent), intr_idx,
- 		      irq->irq_idx, phys_enc->hw_pp->idx - PINGPONG_0,
- 		      atomic_read(wait_info->atomic_cnt));
-@@ -303,8 +303,7 @@ int dpu_encoder_helper_wait_for_irq(struct dpu_encoder_phys *phys_enc,
- 		if (irq_status) {
- 			unsigned long flags;
- 
--			DRM_DEBUG_KMS("irq not triggered id=%u, intr=%d, "
--				      "irq=%d, pp=%d, atomic_cnt=%d",
-+			DRM_DEBUG_KMS("irq not triggered id=%u, intr=%d, irq=%d, pp=%d, atomic_cnt=%d\n",
- 				      DRMID(phys_enc->parent), intr_idx,
- 				      irq->irq_idx,
- 				      phys_enc->hw_pp->idx - PINGPONG_0,
-@@ -315,8 +314,7 @@ int dpu_encoder_helper_wait_for_irq(struct dpu_encoder_phys *phys_enc,
- 			ret = 0;
- 		} else {
- 			ret = -ETIMEDOUT;
--			DRM_DEBUG_KMS("irq timeout id=%u, intr=%d, "
--				      "irq=%d, pp=%d, atomic_cnt=%d",
-+			DRM_DEBUG_KMS("irq timeout id=%u, intr=%d, irq=%d, pp=%d, atomic_cnt=%d\n",
- 				      DRMID(phys_enc->parent), intr_idx,
- 				      irq->irq_idx,
- 				      phys_enc->hw_pp->idx - PINGPONG_0,
+Fixes: f21c8a276c2d ("drm/msm/dp: handle irq_hpd with sink_count = 0 correctly")
 
-base-commit: e9f1cbc0c4114880090c7a578117d3b9cf184ad4
--- 
-https://chromeos.dev
+or
 
+Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
+
+? It's not clear how dp_ctrl_off() was working for compliance tests
+before commit f21c8a276c2d.
+
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> index caf71fa..27fb0f0 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -1530,7 +1530,7 @@ static int dp_ctrl_process_phy_test_request(struct dp_ctrl_private *ctrl)
+>          * running. Add the global reset just before disabling the
+>          * link clocks and core clocks.
+>          */
+> -       ret = dp_ctrl_off(&ctrl->dp_ctrl);
+> +       ret = dp_ctrl_off_link_stream(&ctrl->dp_ctrl);
+>         if (ret) {
+>                 DRM_ERROR("failed to disable DP controller\n");
+>                 return ret;
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
