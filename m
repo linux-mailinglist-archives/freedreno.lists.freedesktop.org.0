@@ -1,37 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C16C73C23F9
-	for <lists+freedreno@lfdr.de>; Fri,  9 Jul 2021 15:07:03 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 580AF3C257E
+	for <lists+freedreno@lfdr.de>; Fri,  9 Jul 2021 16:02:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 580206EA2C;
-	Fri,  9 Jul 2021 13:07:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D85F56EA35;
+	Fri,  9 Jul 2021 14:02:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from vps5.brixit.nl (vps5.brixit.nl [192.81.221.234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 693556EA22;
- Fri,  9 Jul 2021 13:07:00 +0000 (UTC)
-Received: from [192.168.20.2] (unknown [77.239.252.99])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by vps5.brixit.nl (Postfix) with ESMTPSA id BB70760878;
- Fri,  9 Jul 2021 13:06:55 +0000 (UTC)
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <abhinavk@codeaurora.org>
-References: <20210708122833.363451-1-dmitry.baryshkov@linaro.org>
-From: Alexey Minnekhanov <alexeymin@postmarketos.org>
-Message-ID: <04b7d3f0-5781-e741-7c83-93c1ea71077c@postmarketos.org>
-Date: Fri, 9 Jul 2021 16:06:54 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+Received: from mail-vk1-xa36.google.com (mail-vk1-xa36.google.com
+ [IPv6:2607:f8b0:4864:20::a36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 299786EA35
+ for <freedreno@lists.freedesktop.org>; Fri,  9 Jul 2021 14:02:36 +0000 (UTC)
+Received: by mail-vk1-xa36.google.com with SMTP id p134so2194770vke.8
+ for <freedreno@lists.freedesktop.org>; Fri, 09 Jul 2021 07:02:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=qiOUB7HLvLlvZOpZ/gkN2JlQJ5E4mMeYNLinigOA+9s=;
+ b=T3wAp9DoNvgWy0Ro/pS13nqAvPokAxi8LgstNsyBbwHLqLqINLmtfgoFs/Q+BlwsIj
+ 8gvKq/S9P92Ny6t7qSxlsWjHtwZcDtNlGlFjVqIfX3ba00kPul2dqbIUTDiz2sOPMEWj
+ EP/uYiL2UszRtbPSpERLnzSKOQQ6pm2kpZxkI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=qiOUB7HLvLlvZOpZ/gkN2JlQJ5E4mMeYNLinigOA+9s=;
+ b=gM1x0YgKsuw6ICWVnn/KddPtrU2BkvznhkZjCVJwlBgEOWPDDFcpex+uFEUNQJokGT
+ uUHTT/MNKSyrYoFdxyQwgTbzN/kpacKBS2zIXAbQ13zixw+UwI4eWYMb1s7iuVWH9Ttx
+ TMF2WGSRGMUMW4S5E3bJ2doWpi3Pf8IiIbhxG13a9j5k84c8QbFv1kZXta5AT8QOFCUV
+ Dv+uv4HgSNlCgVpL8/FH1D2pKQ6wcleHcXSKMxY0EElhk5Gh5fjuTuMD8FcXTk+bqnDa
+ E0iZPVjkk6goK8Ph7xd5zEZaunXWB1XINpf0eldcp+3nBj1mjoUBjiSHenv7x/RJRg5c
+ 1O5A==
+X-Gm-Message-State: AOAM532w1d5Egp/3BGjo4LA+33g5ii0e0QwxIs49tePDHwgghGSfnIgR
+ 9N1zJfftTQ+rW1b6ou8jBOJyOCXJnIz6qQ==
+X-Google-Smtp-Source: ABdhPJx0mhDr+9B2VNpmeEOtMjlRimdLFVccPjNSkCvJ+cyebHLA3+LU9ycdHZfWCmjcTW/fZUByxQ==
+X-Received: by 2002:a1f:2608:: with SMTP id m8mr32638569vkm.17.1625839353595; 
+ Fri, 09 Jul 2021 07:02:33 -0700 (PDT)
+Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com.
+ [209.85.222.50])
+ by smtp.gmail.com with ESMTPSA id h5sm762960vsr.27.2021.07.09.07.02.33
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 09 Jul 2021 07:02:33 -0700 (PDT)
+Received: by mail-ua1-f50.google.com with SMTP id s13so3623832uao.1
+ for <freedreno@lists.freedesktop.org>; Fri, 09 Jul 2021 07:02:33 -0700 (PDT)
+X-Received: by 2002:a25:6088:: with SMTP id
+ u130mr49090811ybb.257.1625838856780; 
+ Fri, 09 Jul 2021 06:54:16 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20210708122833.363451-1-dmitry.baryshkov@linaro.org>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH v1 0/7] drm/msm/dpu: add support for
- idependent DSI config
+References: <1624726268-14869-1-git-send-email-rajeevny@codeaurora.org>
+In-Reply-To: <1624726268-14869-1-git-send-email-rajeevny@codeaurora.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 9 Jul 2021 06:54:05 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=UP9jrS=JG=TuB7+i9QcZv8GOLYdPdb3_KNhEsgapGeww@mail.gmail.com>
+Message-ID: <CAD=FV=UP9jrS=JG=TuB7+i9QcZv8GOLYdPdb3_KNhEsgapGeww@mail.gmail.com>
+To: Rajeev Nandan <rajeevny@codeaurora.org>
+Subject: Re: [Freedreno] [v8 0/6] drm: Support basic DPCD backlight in
+ panel-simple and add a new panel ATNA33XC20
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,72 +70,116 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: linux-fbdev@vger.kernel.org, dri-devel <dri-devel@lists.freedesktop.org>,
+ Andrzej Hajda <a.hajda@samsung.com>, Thierry Reding <thierry.reding@gmail.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ "Kristian H. Kristensen" <hoegsberg@chromium.org>,
+ Sam Ravnborg <sam@ravnborg.org>, Rob Herring <robh@kernel.org>,
+ Daniel Thompson <daniel.thompson@linaro.org>, Lee Jones <lee.jones@linaro.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Lyude Paul <lyude@redhat.com>,
+ Jani Nikula <jani.nikula@intel.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>, Sean Paul <seanpaul@chromium.org>,
+ Kalyan Thota <kalyan_t@codeaurora.org>,
+ Krishna Manikandan <mkrishn@codeaurora.org>, Jingoo Han <jingoohan1@gmail.com>,
+ LKML <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
+ freedreno <freedreno@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-08.07.2021 15:28, Dmitry Baryshkov wrote:
-> This patchseries adds support for independent DSI config to DPU1 display
-> subdriver. Also drop one of msm_kms_funcs callbacks, made unnecessary
-> now.
-> 
-> Tested on RB5 (dpu, dsi). Previous iteration was tested by Alexey
-> Minnekhanov.
-> 
-> Changes since v1:
->   - renamed dual DSI to bonded DSI as suggsted by Abhinav
->   - added comments to _dpu_kms_initialize_dsi() regarding encoders usage
-> 
-> The following changes since commit e88bbc91849b2bf57683119c339e52916d34433f:
-> 
->    Revert "drm/msm/mdp5: provide dynamic bandwidth management" (2021-06-23 14:06:20 -0700)
-> 
-> are available in the Git repository at:
-> 
->    https://git.linaro.org/people/dmitry.baryshkov/kernel.git msm-drm-drop-set-encoder-mode-1
-> 
-> for you to fetch changes up to 142f79dfc41271576731a49516d63ad47a56e1ca:
-> 
->    drm/msm/kms: drop set_encoder_mode callback (2021-07-08 15:20:52 +0300)
-> 
-> ----------------------------------------------------------------
-> Dmitry Baryshkov (7):
->        drm/msm/dsi: rename dual DSI to bonded DSI
->        drm/msm/dsi: add two helper functions
->        drm/msm/dpu: support setting up two independent DSI connectors
->        drm/msm/mdp5: move mdp5_encoder_set_intf_mode after msm_dsi_modeset_init
->        drm/msm/dp: stop calling set_encoder_mode callback
->        drm/msm/dsi: stop calling set_encoder_mode callback
->        drm/msm/kms: drop set_encoder_mode callback
-> 
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  | 102 +++++++++++++++++--------------
->   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c |  11 +---
->   drivers/gpu/drm/msm/dp/dp_display.c      |  18 ------
->   drivers/gpu/drm/msm/dsi/dsi.c            |   9 ++-
->   drivers/gpu/drm/msm/dsi/dsi.h            |   9 ++-
->   drivers/gpu/drm/msm/dsi/dsi_cfg.h        |   2 +-
->   drivers/gpu/drm/msm/dsi/dsi_host.c       |  30 ++++-----
->   drivers/gpu/drm/msm/dsi/dsi_manager.c    |  93 ++++++++++++----------------
->   drivers/gpu/drm/msm/msm_drv.h            |  12 +++-
->   drivers/gpu/drm/msm/msm_kms.h            |   3 -
->   10 files changed, 136 insertions(+), 153 deletions(-)
-> 
+Hi,
 
-I've tested these patches (again), on msm8974 samsung-klte device with 
-MDP5 and nothing is broken.
+On Sat, Jun 26, 2021 at 9:52 AM Rajeev Nandan <rajeevny@codeaurora.org> wrote:
+>
+> This series adds the support for the eDP panel that needs the backlight
+> controlling over the DP AUX channel using DPCD registers of the panel
+> as per the VESA's standard.
+>
+> This series also adds support for the Samsung eDP AMOLED panel that
+> needs DP AUX to control the backlight, and introduces new delays in the
+> @panel_desc.delay to support this panel.
+>
+> This patch series depends on the following two series:
+> - Doug's series [1], exposed the DP AUX channel to the panel-simple.
+> - Lyude's series [2], introduced new drm helper functions for DPCD
+>   backlight.
+>
+> This series is the logical successor to the series [3].
+>
+> Changes in v1:
+> - Created dpcd backlight helper with very basic functionality, added
+>   backlight registration in the ti-sn65dsi86 bridge driver.
+>
+> Changes in v2:
+> - Created a new DisplayPort aux backlight driver and moved the code from
+>   drm_dp_aux_backlight.c (v1) to the new driver.
+>
+> Changes in v3:
+> - Fixed module compilation (kernel test bot).
+>
+> Changes in v4:
+> - Added basic DPCD backlight support in panel-simple.
+> - Added support for a new Samsung panel ATNA33XC20 that needs DPCD
+>   backlight controlling and has a requirement of delays between enable
+>   GPIO and regulator.
+>
+> Changes in v5:
+> Addressed review suggestions from Douglas:
+> - Created a new API drm_panel_dp_aux_backlight() in drm_panel.c
+> - Moved DP AUX backlight functions from panel-simple.c to drm_panel.c
+> - panel-simple probe() calls drm_panel_dp_aux_backlight() to create
+>   backlight when the backlight phandle is not specified in panel DT
+>   and DP AUX channel is present.
+> - Added check for drm_edp_backlight_supported() before registering.
+> - Removed the @uses_dpcd_backlight flag from panel_desc as this
+>   should be auto-detected.
+> - Updated comments/descriptions.
+>
+> Changes in v6:
+> - Rebased
+> - Updated wanrning messages, fixed word wrapping in comments.
+> - Fixed ordering of memory allocation
+>
+> Changes in v7:
+> - Updated the disable_to_power_off and power_to_enable panel delays
+> as discovered at <https://crrev.com/c/2966167> (Douglas)
+>
+> Changes in v8:
+> - Now using backlight_is_blank() to get the backlight blank status (Sam Ravnborg)
+> - Added a new patch #4 to fix the warnings for eDP panel description (Sam Ravnborg)
+>
+> [1] https://lore.kernel.org/dri-devel/20210525000159.3384921-1-dianders@chromium.org/
+> [2] https://lore.kernel.org/dri-devel/20210514181504.565252-1-lyude@redhat.com/
+> [3] https://lore.kernel.org/dri-devel/1619416756-3533-1-git-send-email-rajeevny@codeaurora.org/
+>
+> Rajeev Nandan (6):
+>   drm/panel: add basic DP AUX backlight support
+>   drm/panel-simple: Support DP AUX backlight
+>   drm/panel-simple: Support for delays between GPIO & regulator
+>   drm/panel-simple: Update validation warnings for eDP panel description
+>   dt-bindings: display: simple: Add Samsung ATNA33XC20
+>   drm/panel-simple: Add Samsung ATNA33XC20
+>
+>  .../bindings/display/panel/panel-simple.yaml       |   2 +
+>  drivers/gpu/drm/drm_panel.c                        | 108 +++++++++++++++++++++
+>  drivers/gpu/drm/panel/panel-simple.c               |  73 +++++++++++++-
+>  include/drm/drm_panel.h                            |  15 ++-
+>  4 files changed, 190 insertions(+), 8 deletions(-)
 
-Tested-by: Alexey Minnekhanov <alexeymin@postmarketos.org>
+Pushed to drm-misc-next.
 
--- 
-Regards
-Alexey Minnekhanov
-postmarketOS developer
-https://www.postmarketos.org
+4bfe6c8f7c23 drm/panel-simple: Add Samsung ATNA33XC20
+c20dec193584 dt-bindings: display: simple: Add Samsung ATNA33XC20
+13aceea56fd5 drm/panel-simple: Update validation warnings for eDP
+panel description
+18a1488bf1e1 drm/panel-simple: Support for delays between GPIO & regulator
+bfd451403d70 drm/panel-simple: Support DP AUX backlight
+10f7b40e4f30 drm/panel: add basic DP AUX backlight support
+
+-Doug
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
