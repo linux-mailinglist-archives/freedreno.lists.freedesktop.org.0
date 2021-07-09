@@ -2,57 +2,39 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 692913C28E9
-	for <lists+freedreno@lfdr.de>; Fri,  9 Jul 2021 20:16:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 600273C2A76
+	for <lists+freedreno@lfdr.de>; Fri,  9 Jul 2021 22:41:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65C596EA46;
-	Fri,  9 Jul 2021 18:16:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19B986E9FC;
+	Fri,  9 Jul 2021 20:41:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE0476EA33
- for <freedreno@lists.freedesktop.org>; Fri,  9 Jul 2021 18:16:38 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1625854604; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=G5ORNORu2m0miZo+ihbud4cOAt24qx77FdLGRMOLW/k=;
- b=njxcKdx345dwCu7moR6M3bO5tP4P54/T0+16ug5VAFBUyLseWi0QDjeJoVcFOBXyuuHV61uJ
- LjueHsqUAtPi10/GA0UHbfaJNFUSjSfkHzTZAyZBuWVgEfgHYIASDC+Fb+mN7SUEAqAlTxyf
- lUDQcovZ3+ay2sFewNdW84tb5JM=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
- 60e8927e5e3e57240b9a2d5c (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 09 Jul 2021 18:16:30
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 094DEC4360C; Fri,  9 Jul 2021 18:16:30 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 0559AC433D3;
- Fri,  9 Jul 2021 18:16:28 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B2B16E9FC;
+ Fri,  9 Jul 2021 20:41:07 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10040"; a="209813182"
+X-IronPort-AV: E=Sophos;i="5.84,227,1620716400"; d="scan'208";a="209813182"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jul 2021 13:41:05 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,227,1620716400"; d="scan'208";a="450411488"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by orsmga007.jf.intel.com with SMTP; 09 Jul 2021 13:40:58 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 09 Jul 2021 23:40:57 +0300
+Date: Fri, 9 Jul 2021 23:40:57 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Doug Anderson <dianders@chromium.org>
+Message-ID: <YOi0WbTP0crIkOGy@intel.com>
+References: <1624726268-14869-1-git-send-email-rajeevny@codeaurora.org>
+ <CAD=FV=UP9jrS=JG=TuB7+i9QcZv8GOLYdPdb3_KNhEsgapGeww@mail.gmail.com>
 MIME-Version: 1.0
-Date: Fri, 09 Jul 2021 11:16:28 -0700
-From: khsieh@codeaurora.org
-To: Stephen Boyd <swboyd@chromium.org>
-In-Reply-To: <CAE-0n53BnbjD3QaZ5vynJxw44ANatvvRW3rqytyG4jvjKs7L_g@mail.gmail.com>
-References: <1625592020-22658-1-git-send-email-khsieh@codeaurora.org>
- <1625592020-22658-6-git-send-email-khsieh@codeaurora.org>
- <CAE-0n53BnbjD3QaZ5vynJxw44ANatvvRW3rqytyG4jvjKs7L_g@mail.gmail.com>
-Message-ID: <2b2a191738738993e3bc5796fe676511@codeaurora.org>
-X-Sender: khsieh@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH 5/7] drm/msm/dp: return correct edid
- checksum after corrupted edid checksum read
+Content-Disposition: inline
+In-Reply-To: <CAD=FV=UP9jrS=JG=TuB7+i9QcZv8GOLYdPdb3_KNhEsgapGeww@mail.gmail.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Freedreno] [v8 0/6] drm: Support basic DPCD backlight in
+ panel-simple and add a new panel ATNA33XC20
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,68 +47,135 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- abhinavk@codeaurora.org, bjorn.andersson@linaro.org, robdclark@gmail.com,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, aravindh@codeaurora.org,
- sean@poorly.run
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, linux-fbdev@vger.kernel.org,
+ Rajeev Nandan <rajeevny@codeaurora.org>,
+ Krishna Manikandan <mkrishn@codeaurora.org>,
+ Jani Nikula <jani.nikula@intel.com>, Lee Jones <lee.jones@linaro.org>,
+ Kalyan Thota <kalyan_t@codeaurora.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Daniel Thompson <daniel.thompson@linaro.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>, Andrzej Hajda <a.hajda@samsung.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Sean Paul <seanpaul@chromium.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>,
+ "Kristian H. Kristensen" <hoegsberg@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>, Sam Ravnborg <sam@ravnborg.org>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-07-08 00:14, Stephen Boyd wrote:
-> Quoting Kuogee Hsieh (2021-07-06 10:20:18)
->> Response with correct edid checksum saved at connector after corrupted 
->> edid
->> checksum read. This fixes Link Layer CTS cases 4.2.2.3, 4.2.2.6.
->> 
->> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
->> ---
->>  drivers/gpu/drm/msm/dp/dp_panel.c | 9 +++++++--
->>  1 file changed, 7 insertions(+), 2 deletions(-)
->> 
->> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c 
->> b/drivers/gpu/drm/msm/dp/dp_panel.c
->> index 88196f7..0fdb551 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
->> @@ -271,7 +271,7 @@ static u8 dp_panel_get_edid_checksum(struct edid 
->> *edid)
->>  {
->>         struct edid *last_block;
->>         u8 *raw_edid;
->> -       bool is_edid_corrupt;
->> +       bool is_edid_corrupt = false;
->> 
->>         if (!edid) {
->>                 DRM_ERROR("invalid edid input\n");
->> @@ -303,7 +303,12 @@ void dp_panel_handle_sink_request(struct dp_panel 
->> *dp_panel)
->>         panel = container_of(dp_panel, struct dp_panel_private, 
->> dp_panel);
->> 
->>         if (panel->link->sink_request & DP_TEST_LINK_EDID_READ) {
->> -               u8 checksum = 
->> dp_panel_get_edid_checksum(dp_panel->edid);
->> +               u8 checksum;
->> +
->> +               if (dp_panel->edid)
->> +                       checksum = 
->> dp_panel_get_edid_checksum(dp_panel->edid);
->> +               else
->> +                       checksum = 
->> dp_panel->connector->real_edid_checksum;
->> 
->>                 dp_link_send_edid_checksum(panel->link, checksum);
-> 
-> It looks like this can be drm_dp_send_real_edid_checksum()? Then we
-> don't have to look at the connector internals sometimes and can drop
-> dp_panel_get_edid_checksum() entirely?
-you still need to pass read edid checksum into 
-drm_dp_send_real_edid_checksum().
-> 
->>                 dp_link_send_test_response(panel->link);
+On Fri, Jul 09, 2021 at 06:54:05AM -0700, Doug Anderson wrote:
+> Hi,
+> =
+
+> On Sat, Jun 26, 2021 at 9:52 AM Rajeev Nandan <rajeevny@codeaurora.org> w=
+rote:
+> >
+> > This series adds the support for the eDP panel that needs the backlight
+> > controlling over the DP AUX channel using DPCD registers of the panel
+> > as per the VESA's standard.
+> >
+> > This series also adds support for the Samsung eDP AMOLED panel that
+> > needs DP AUX to control the backlight, and introduces new delays in the
+> > @panel_desc.delay to support this panel.
+> >
+> > This patch series depends on the following two series:
+> > - Doug's series [1], exposed the DP AUX channel to the panel-simple.
+> > - Lyude's series [2], introduced new drm helper functions for DPCD
+> >   backlight.
+> >
+> > This series is the logical successor to the series [3].
+> >
+> > Changes in v1:
+> > - Created dpcd backlight helper with very basic functionality, added
+> >   backlight registration in the ti-sn65dsi86 bridge driver.
+> >
+> > Changes in v2:
+> > - Created a new DisplayPort aux backlight driver and moved the code from
+> >   drm_dp_aux_backlight.c (v1) to the new driver.
+> >
+> > Changes in v3:
+> > - Fixed module compilation (kernel test bot).
+> >
+> > Changes in v4:
+> > - Added basic DPCD backlight support in panel-simple.
+> > - Added support for a new Samsung panel ATNA33XC20 that needs DPCD
+> >   backlight controlling and has a requirement of delays between enable
+> >   GPIO and regulator.
+> >
+> > Changes in v5:
+> > Addressed review suggestions from Douglas:
+> > - Created a new API drm_panel_dp_aux_backlight() in drm_panel.c
+> > - Moved DP AUX backlight functions from panel-simple.c to drm_panel.c
+> > - panel-simple probe() calls drm_panel_dp_aux_backlight() to create
+> >   backlight when the backlight phandle is not specified in panel DT
+> >   and DP AUX channel is present.
+> > - Added check for drm_edp_backlight_supported() before registering.
+> > - Removed the @uses_dpcd_backlight flag from panel_desc as this
+> >   should be auto-detected.
+> > - Updated comments/descriptions.
+> >
+> > Changes in v6:
+> > - Rebased
+> > - Updated wanrning messages, fixed word wrapping in comments.
+> > - Fixed ordering of memory allocation
+> >
+> > Changes in v7:
+> > - Updated the disable_to_power_off and power_to_enable panel delays
+> > as discovered at <https://crrev.com/c/2966167> (Douglas)
+> >
+> > Changes in v8:
+> > - Now using backlight_is_blank() to get the backlight blank status (Sam=
+ Ravnborg)
+> > - Added a new patch #4 to fix the warnings for eDP panel description (S=
+am Ravnborg)
+> >
+> > [1] https://lore.kernel.org/dri-devel/20210525000159.3384921-1-dianders=
+@chromium.org/
+> > [2] https://lore.kernel.org/dri-devel/20210514181504.565252-1-lyude@red=
+hat.com/
+> > [3] https://lore.kernel.org/dri-devel/1619416756-3533-1-git-send-email-=
+rajeevny@codeaurora.org/
+> >
+> > Rajeev Nandan (6):
+> >   drm/panel: add basic DP AUX backlight support
+> >   drm/panel-simple: Support DP AUX backlight
+> >   drm/panel-simple: Support for delays between GPIO & regulator
+> >   drm/panel-simple: Update validation warnings for eDP panel description
+> >   dt-bindings: display: simple: Add Samsung ATNA33XC20
+> >   drm/panel-simple: Add Samsung ATNA33XC20
+> >
+> >  .../bindings/display/panel/panel-simple.yaml       |   2 +
+> >  drivers/gpu/drm/drm_panel.c                        | 108 +++++++++++++=
+++++++++
+> >  drivers/gpu/drm/panel/panel-simple.c               |  73 +++++++++++++-
+> >  include/drm/drm_panel.h                            |  15 ++-
+> >  4 files changed, 190 insertions(+), 8 deletions(-)
+> =
+
+> Pushed to drm-misc-next.
+> =
+
+> 4bfe6c8f7c23 drm/panel-simple: Add Samsung ATNA33XC20
+> c20dec193584 dt-bindings: display: simple: Add Samsung ATNA33XC20
+> 13aceea56fd5 drm/panel-simple: Update validation warnings for eDP
+> panel description
+> 18a1488bf1e1 drm/panel-simple: Support for delays between GPIO & regulator
+> bfd451403d70 drm/panel-simple: Support DP AUX backlight
+> 10f7b40e4f30 drm/panel: add basic DP AUX backlight support
+
+depmod: ERROR: Cycle detected: drm_kms_helper -> drm -> drm_kms_helper
+
+Looks to be due to drm_edp_backlight_enable().
+
+-- =
+
+Ville Syrj=E4l=E4
+Intel
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
