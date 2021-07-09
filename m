@@ -2,62 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 817773C2AAB
-	for <lists+freedreno@lfdr.de>; Fri,  9 Jul 2021 23:07:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E70783C2AB8
+	for <lists+freedreno@lfdr.de>; Fri,  9 Jul 2021 23:07:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA9266EA96;
-	Fri,  9 Jul 2021 21:07:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D41F6EA9C;
+	Fri,  9 Jul 2021 21:07:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23CD289E08
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECEC16EA97
  for <freedreno@lists.freedesktop.org>; Fri,  9 Jul 2021 21:07:38 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id r16so10107377ljk.9
+Received: by mail-lf1-x12a.google.com with SMTP id p16so25937613lfc.5
  for <freedreno@lists.freedesktop.org>; Fri, 09 Jul 2021 14:07:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=8ruiXLO7i2Zgr/es66juPmk5DrrHM+R4l9xvmPO0wKI=;
- b=NBfnO8ZkIO7Aj1Itk/7t8wa8TmS1ul3vPzV1MY0z1h+jwnwyQ85hPtj0C5QWXEANNZ
- Mzav2gt9bUUpcT/420r0CsIE7yx95Bu+F2UXVacjs3U7MTuhjdId4yVgsTLlvI1B0MPD
- 3SRBIlET2M8P0f8adtEvG4aRsQTlCnP9nluWrEmNLTMxd9HiOPOzbBwzO1lciGbuO8uo
- 9s/bJSSrxPdhG7+XfHRuCnlQoqJ9lJdDm0rkcpEweAR2TXXL0wFVB9O4WjvLUMCe8q03
- Z1HiG91Lnig8SLTxMoDuDXixlm7FQ/lO9gktHtDZMdbnH15uEVM993UFArv4rx939S5q
- 4c5w==
+ bh=OTq9Pkz4BYXwrH5zuaAUceLOenA5s9knn8yX5hFPoAo=;
+ b=NtZd4pM3t3QN/vp/wSCA8FD5vv++YcXc+Q/SaeNQOJxOExszeMa9h8fqTwW6MH1VjT
+ GvnGCIl0ndQ35qP8Nhmd44VGBRGQpCwlzqeCoGuXFVPY++JD7UWZxYqxxDyKdSYd3f5M
+ tbJA7Ag3ztrtpteYubdoVZD9arfMxtKan9dlvWpTPRxrh5qfMANKPX68msgnRX/5tTiL
+ oV8mAfsziHmJQJNFCCrxUC5R6TrxQej1Hx1+OM05414ecMyxFS0fYeQb1k00xu6SpGoe
+ rZRZqP0XLQJCzqK+mFU9LNFh2DXKQZIgUKPfte1LCWB0x3vYz7WeoIiDWYSAqhvRgG8y
+ llGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=8ruiXLO7i2Zgr/es66juPmk5DrrHM+R4l9xvmPO0wKI=;
- b=GgvmyQuaaBzoWdCgdkfsvbW+PagdWitzmhs2GOWV9E81pExgajoWRqBrzbVFUmaklO
- bkjLqWp9iEkQarL+TuBNk17EBRXtaH9T8dnmbZIQqdx0AnfbHulZs/erOBAX303kp818
- AhQ/qdMyXoOaz5Ha14bZ8dtDWZi2aA8Puqvv82E7X5s8X2kd5pJCMyYynNjl2+OSbWRj
- snBGMhkCKZ9ifha0rXl6mCpyl5JvZRO0uV3HrvAs1zmjbRx5AcgW98AceJ8Mi+0MhKJT
- qRu5iiuv3S6m4taobpK+TzHJTA9MfiUt/Bdd81whCWuqL7PwMFXNT+YUQ0/Q/K6mvJXm
- bnGQ==
-X-Gm-Message-State: AOAM532Lsu7i6iljSAbHOYPP9gpN6M7o/C45p8+ZhvoHtL2xjb+H0X89
- ebN+mACXND8dfIqcOfr1pf+38g==
-X-Google-Smtp-Source: ABdhPJy0V2KQdfAmyWdLWEOI0be3277bOL6PRhs7MlAS6wZasoXD+Aid9V5BiCdcg0T4EDWRxPHFKw==
-X-Received: by 2002:a2e:8295:: with SMTP id y21mr15033177ljg.482.1625864856598; 
- Fri, 09 Jul 2021 14:07:36 -0700 (PDT)
+ bh=OTq9Pkz4BYXwrH5zuaAUceLOenA5s9knn8yX5hFPoAo=;
+ b=CzbOn7k2aAWCeuoS7+vWIMfX+S0MD4o5HXuXtLNivlS6JIVuwoCxLhUh0PKLiNDkCA
+ WNR8herWhiv6vQXnHS4y01I7YUmnXEzgGs6f1N/mTCpYZE1ZD+zoThsGq4qVqQQjt+0v
+ sTqOacXcufgmy3UuWYuk47Q4mJlVDtZVD7fhXKYS626c5eVQuZJ5QjGaqMHtQonTFN6U
+ YKr3ludIcI/uDFBrtFo80dMK+rxK2ycUNDQrqOOannfitRmwkwf1L8elMnOv47GZcBA8
+ 7+cwZv8XwdY5uqJSZsAL+xePSnYH98L+7BLNXPLrakPS2oB96ThDi8Luy9id5VmwT/Fu
+ aw6A==
+X-Gm-Message-State: AOAM533nKSP0DnaXDcttX9theCq6suYHBgMDsZPBSadN6F4pch4G1oAC
+ ze/EOwW4A78vr0R4oQW10bvdKA==
+X-Google-Smtp-Source: ABdhPJyNNXqPU2qqS5g9Sk/wHzyM1QJGuzuzNCLJPn46baXNSeyfgNnLDxaR6zkI1qHZB8/MzAAtGQ==
+X-Received: by 2002:a19:910f:: with SMTP id t15mr13269411lfd.287.1625864857373; 
+ Fri, 09 Jul 2021 14:07:37 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id n15sm590625lfh.70.2021.07.09.14.07.35
+ by smtp.gmail.com with ESMTPSA id n15sm590625lfh.70.2021.07.09.14.07.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 09 Jul 2021 14:07:36 -0700 (PDT)
+ Fri, 09 Jul 2021 14:07:37 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <abhinavk@codeaurora.org>, Rob Herring <robh+dt@kernel.org>
-Date: Sat, 10 Jul 2021 00:07:26 +0300
-Message-Id: <20210709210729.953114-6-dmitry.baryshkov@linaro.org>
+Date: Sat, 10 Jul 2021 00:07:27 +0300
+Message-Id: <20210709210729.953114-7-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210709210729.953114-1-dmitry.baryshkov@linaro.org>
 References: <20210709210729.953114-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v2 5/8] arm64: dts: qcom: sm8250: assign DSI
- clock source parents
+Subject: [Freedreno] [PATCH v2 6/8] drm/msm/dsi: stop setting clock parents
+ manually
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,38 +79,140 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Assign DSI clock source parents to DSI PHY clocks.
+There is no reason to set clock parents manually, use device tree to
+assign DSI/display clock parents to DSI PHY clocks. Dropping this manual
+setup allows us to drop repeating code and to move registration of hw
+clock providers to generic place.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
 ---
- arch/arm64/boot/dts/qcom/sm8250.dtsi | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/msm/dsi/dsi.h         |  2 --
+ drivers/gpu/drm/msm/dsi/dsi_host.c    | 51 ---------------------------
+ drivers/gpu/drm/msm/dsi/dsi_manager.c |  5 ---
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 11 ------
+ 4 files changed, 69 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-index 4c0de12aaba6..69bf2e90cbce 100644
---- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-@@ -2491,6 +2491,9 @@ dsi0: dsi@ae94000 {
- 					      "iface",
- 					      "bus";
+diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
+index 9b8e9b07eced..1f0ec78c6b05 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi.h
++++ b/drivers/gpu/drm/msm/dsi/dsi.h
+@@ -170,8 +170,6 @@ void msm_dsi_phy_get_shared_timings(struct msm_dsi_phy *phy,
+ 			struct msm_dsi_phy_shared_timings *shared_timing);
+ void msm_dsi_phy_set_usecase(struct msm_dsi_phy *phy,
+ 			     enum msm_dsi_phy_usecase uc);
+-int msm_dsi_phy_get_clk_provider(struct msm_dsi_phy *phy,
+-	struct clk **byte_clk_provider, struct clk **pixel_clk_provider);
+ void msm_dsi_phy_pll_save_state(struct msm_dsi_phy *phy);
+ int msm_dsi_phy_pll_restore_state(struct msm_dsi_phy *phy);
+ void msm_dsi_phy_snapshot(struct msm_disp_state *disp_state, struct msm_dsi_phy *phy);
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index ed504fe5074f..1fa6ee12395b 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -2219,57 +2219,6 @@ void msm_dsi_host_cmd_xfer_commit(struct mipi_dsi_host *host, u32 dma_base,
+ 	wmb();
+ }
  
-+				assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK_SRC>, <&dispcc DISP_CC_MDSS_PCLK0_CLK_SRC>;
-+				assigned-clock-parents = <&dsi0_phy 0>, <&dsi0_phy 1>;
-+
- 				operating-points-v2 = <&dsi_opp_table>;
- 				power-domains = <&rpmhpd SM8250_MMCX>;
+-int msm_dsi_host_set_src_pll(struct mipi_dsi_host *host,
+-	struct msm_dsi_phy *src_phy)
+-{
+-	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+-	struct clk *byte_clk_provider, *pixel_clk_provider;
+-	int ret;
+-
+-	ret = msm_dsi_phy_get_clk_provider(src_phy,
+-				&byte_clk_provider, &pixel_clk_provider);
+-	if (ret) {
+-		pr_info("%s: can't get provider from pll, don't set parent\n",
+-			__func__);
+-		return 0;
+-	}
+-
+-	ret = clk_set_parent(msm_host->byte_clk_src, byte_clk_provider);
+-	if (ret) {
+-		pr_err("%s: can't set parent to byte_clk_src. ret=%d\n",
+-			__func__, ret);
+-		goto exit;
+-	}
+-
+-	ret = clk_set_parent(msm_host->pixel_clk_src, pixel_clk_provider);
+-	if (ret) {
+-		pr_err("%s: can't set parent to pixel_clk_src. ret=%d\n",
+-			__func__, ret);
+-		goto exit;
+-	}
+-
+-	if (msm_host->dsi_clk_src) {
+-		ret = clk_set_parent(msm_host->dsi_clk_src, pixel_clk_provider);
+-		if (ret) {
+-			pr_err("%s: can't set parent to dsi_clk_src. ret=%d\n",
+-				__func__, ret);
+-			goto exit;
+-		}
+-	}
+-
+-	if (msm_host->esc_clk_src) {
+-		ret = clk_set_parent(msm_host->esc_clk_src, byte_clk_provider);
+-		if (ret) {
+-			pr_err("%s: can't set parent to esc_clk_src. ret=%d\n",
+-				__func__, ret);
+-			goto exit;
+-		}
+-	}
+-
+-exit:
+-	return ret;
+-}
+-
+ void msm_dsi_host_reset_phy(struct mipi_dsi_host *host)
+ {
+ 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+index 4ebfedc4a9ac..4a17f12b9316 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+@@ -78,7 +78,6 @@ static int dsi_mgr_setup_components(int id)
+ 			return ret;
  
-@@ -2558,6 +2561,9 @@ dsi1: dsi@ae96000 {
- 					      "iface",
- 					      "bus";
+ 		msm_dsi_phy_set_usecase(msm_dsi->phy, MSM_DSI_PHY_STANDALONE);
+-		ret = msm_dsi_host_set_src_pll(msm_dsi->host, msm_dsi->phy);
+ 	} else if (!other_dsi) {
+ 		ret = 0;
+ 	} else {
+@@ -105,10 +104,6 @@ static int dsi_mgr_setup_components(int id)
+ 					MSM_DSI_PHY_MASTER);
+ 		msm_dsi_phy_set_usecase(clk_slave_dsi->phy,
+ 					MSM_DSI_PHY_SLAVE);
+-		ret = msm_dsi_host_set_src_pll(msm_dsi->host, clk_master_dsi->phy);
+-		if (ret)
+-			return ret;
+-		ret = msm_dsi_host_set_src_pll(other_dsi->host, clk_master_dsi->phy);
+ 	}
  
-+				assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE1_CLK_SRC>, <&dispcc DISP_CC_MDSS_PCLK1_CLK_SRC>;
-+				assigned-clock-parents = <&dsi1_phy 0>, <&dsi1_phy 1>;
-+
- 				operating-points-v2 = <&dsi_opp_table>;
- 				power-domains = <&rpmhpd SM8250_MMCX>;
+ 	return ret;
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+index 6ca6bfd4809b..952fd0b95865 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+@@ -835,17 +835,6 @@ void msm_dsi_phy_set_usecase(struct msm_dsi_phy *phy,
+ 		phy->usecase = uc;
+ }
  
+-int msm_dsi_phy_get_clk_provider(struct msm_dsi_phy *phy,
+-	struct clk **byte_clk_provider, struct clk **pixel_clk_provider)
+-{
+-	if (byte_clk_provider)
+-		*byte_clk_provider = phy->provided_clocks->hws[DSI_BYTE_PLL_CLK]->clk;
+-	if (pixel_clk_provider)
+-		*pixel_clk_provider = phy->provided_clocks->hws[DSI_PIXEL_PLL_CLK]->clk;
+-
+-	return 0;
+-}
+-
+ void msm_dsi_phy_pll_save_state(struct msm_dsi_phy *phy)
+ {
+ 	if (phy->cfg->ops.save_pll_state) {
 -- 
 2.30.2
 
