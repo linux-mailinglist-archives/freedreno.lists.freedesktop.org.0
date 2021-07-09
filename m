@@ -1,63 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D8DB3C2A9A
-	for <lists+freedreno@lfdr.de>; Fri,  9 Jul 2021 23:07:39 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AFE73C2AA6
+	for <lists+freedreno@lfdr.de>; Fri,  9 Jul 2021 23:07:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 991E26EA90;
-	Fri,  9 Jul 2021 21:07:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BD626EA93;
+	Fri,  9 Jul 2021 21:07:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D46136EA91
- for <freedreno@lists.freedesktop.org>; Fri,  9 Jul 2021 21:07:35 +0000 (UTC)
-Received: by mail-lj1-x22f.google.com with SMTP id a18so10114571ljk.6
- for <freedreno@lists.freedesktop.org>; Fri, 09 Jul 2021 14:07:35 -0700 (PDT)
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [IPv6:2a00:1450:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BE196EA92
+ for <freedreno@lists.freedesktop.org>; Fri,  9 Jul 2021 21:07:36 +0000 (UTC)
+Received: by mail-lj1-x231.google.com with SMTP id q184so9608635ljq.0
+ for <freedreno@lists.freedesktop.org>; Fri, 09 Jul 2021 14:07:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=MRPyZtijc6uk0x4+zCe1BE4IuABWQ/ZgPDiu1mKL+ac=;
- b=WuCcdZ5WE17+D1gtYJAFYA0nto07KkKIHq0dexTzKOQFFLXLp/uaaHlynG1SXQm8q3
- jiJ2TekztfBUp+CICFrRw47wN4AwHwv+0rJ1/rWkPyl+1RusvS/U7XO1QO/N4aJfcpJE
- 7howfdeA1yXzDKFrG1N/qTNbYPtANE3zOgpJMbdEK9kF6GFEgVPB731eM/74y+VH2C6M
- fWuQw20sbx1XXQ+6I0cplrKoF5xLeKz1PxCHRp+LKYuBc/hxsOK15EPUhL5a3fbYNjdH
- lc9ecUbQGIUaWbxXMMocOoM3POIjn1XfDp6coOpai1by+GSODwUIv//Tm6T+xXJ9Qh0h
- hnHg==
+ bh=x+PAtg9BEfaBeVDYjq8MiVIG3ylCM5YSds46prh2L6Q=;
+ b=skHag2o7KhfRrEy1+Zb3RJhW1QSiaraLtZS7zMDlXXqo3ne1aS9zFomHYMRBX3YfX6
+ U4CS953s6Fw7rmxa8pYknBw4ZxrelKFLL8z5+J22Az8Bq+7Vnj+yzPl/ed335EvvRB/p
+ zISm1082OLfw4+XPeuE/N4n+pKiGahV2wMp2TGnJi1wk46gtnJ0wsgy6ASF42+d8OoIT
+ d+Ac/noP4adXJHY0qext/Pcwcm9bR/uKEaLctl6dbgnpcW6KsPt1u/ZgPRdiRUHpZls8
+ BRJd7CqR9KAFGk9U3RsWDjT6mQQBzWTR4KP4iFXD/ibUMXvnjD/BUVn9fjh3/NgNx/cl
+ C3PA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=MRPyZtijc6uk0x4+zCe1BE4IuABWQ/ZgPDiu1mKL+ac=;
- b=rUUqzziA0dGWmPLNxE+42oroIJNrsCGRSF6TCM4gV351UthwrUEZEteqARB3s+Xe/A
- gcuTB530ALE7iCmyz61blQ0KLSaZDKt9ue6P0PR3xLsTYjJtnkVUw6HsQ75W6MlhQsws
- rY+xxGKZl0ZujmoxEBeS9+a92vTLb8Pt7e6PiF9TF7Ycjiaorif6Od2nW/89fVFbX2nB
- /5ARsRQbr/byfHWB8KNxDO1yO68vZQ6BR6sWOdfMeyO+6exPD3bvKHHNSX6y+nqjgWzt
- tBfj2+fl/lsqBIE/moaYDNopEbVB4/CgvMENTAirOWLwfLOKXwXwdYdXJSHiKfe2nL69
- WG1A==
-X-Gm-Message-State: AOAM533Rj2w64EN/QI6AHfr3PGSm4iDsKNQxoJ5y3b39Z5YuQhcwXw64
- heAJtRuA0LX3bM9p1Mg5jRJFuQ==
-X-Google-Smtp-Source: ABdhPJzfQ+Y5th8/JtbN7r+h/Lc9cNUsgU3ZLsL+go1aC1KvJ37uO8CDMgsUK0REATmNQLFiWoOxjw==
-X-Received: by 2002:a05:651c:4ce:: with SMTP id
- e14mr30354888lji.176.1625864854260; 
- Fri, 09 Jul 2021 14:07:34 -0700 (PDT)
+ bh=x+PAtg9BEfaBeVDYjq8MiVIG3ylCM5YSds46prh2L6Q=;
+ b=fCw2ghlgFm7EypKlk62f+UYj23lqfLERDN9a/5f8VaQ5hsxdif2LKgo3ezvUIPxZmy
+ Mz5X2coRXlutuD4PRcxPiE4lq+6RZUOmsyHUXiDCmEKC5g8N03PYZ4vLaVegIASN5VmO
+ bFLbzBbEiUBXeLvIzgF7PQ+c73QDr/UrcGDtGAaQ2JHNCRwlWsEoPxSBa1/Tcd+6PQKB
+ LmYC923P9CkCBsYxqfqXvYT7d002g3iV4cMnVetxU3cFOvSix/FgEJuBuTRUhnfES3wD
+ 20Mp4hfivZycNYlhDKI8WNhxsj7RiplkQfXW9gso49H9wZKAChXCqdE9VTTJvWiRK9/P
+ vhLw==
+X-Gm-Message-State: AOAM531uulLvsieC6DMDmAnlXndQWoM+HPoPd1RBOwmjQ0rOMT+iYHNg
+ dhgkt4TtrAL84WDEsiZdBmfVbw==
+X-Google-Smtp-Source: ABdhPJxQVQh4foQW+IEnamXeadag9G00y2Lto7Ys7u9O2JJ3HDGd7JwNKXB3rU6aWujXn8BLIKzBaw==
+X-Received: by 2002:a2e:9798:: with SMTP id y24mr24010266lji.227.1625864855006; 
+ Fri, 09 Jul 2021 14:07:35 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id n15sm590625lfh.70.2021.07.09.14.07.33
+ by smtp.gmail.com with ESMTPSA id n15sm590625lfh.70.2021.07.09.14.07.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 09 Jul 2021 14:07:33 -0700 (PDT)
+ Fri, 09 Jul 2021 14:07:34 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <abhinavk@codeaurora.org>, Rob Herring <robh+dt@kernel.org>
-Date: Sat, 10 Jul 2021 00:07:23 +0300
-Message-Id: <20210709210729.953114-3-dmitry.baryshkov@linaro.org>
+Date: Sat, 10 Jul 2021 00:07:24 +0300
+Message-Id: <20210709210729.953114-4-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210709210729.953114-1-dmitry.baryshkov@linaro.org>
 References: <20210709210729.953114-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v2 2/8] arm64: dts: qcom: sc7180: assign DSI
+Subject: [Freedreno] [PATCH v2 3/8] arm64: dts: qcom: sdm845: assign DSI
  clock source parents
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,22 +84,32 @@ Assign DSI clock source parents to DSI PHY clocks.
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
 ---
- arch/arm64/boot/dts/qcom/sc7180.dtsi | 3 +++
- 1 file changed, 3 insertions(+)
+ arch/arm64/boot/dts/qcom/sdm845.dtsi | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-index 6228ba2d8513..bc765598d24e 100644
---- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-@@ -3081,6 +3081,9 @@ dsi0: dsi@ae94000 {
+diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
+index 0a86fe71a66d..e13097ef271a 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
+@@ -4260,6 +4260,9 @@ dsi0: dsi@ae94000 {
+ 					      "core",
  					      "iface",
  					      "bus";
- 
 +				assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK_SRC>, <&dispcc DISP_CC_MDSS_PCLK0_CLK_SRC>;
-+				assigned-clock-parents = <&dsi_phy 0>, <&dsi_phy 1>;
++				assigned-clock-parents = <&dsi0_phy 0>, <&dsi0_phy 1>;
 +
  				operating-points-v2 = <&dsi_opp_table>;
- 				power-domains = <&rpmhpd SC7180_CX>;
+ 				power-domains = <&rpmhpd SDM845_CX>;
+ 
+@@ -4326,6 +4329,9 @@ dsi1: dsi@ae96000 {
+ 					      "core",
+ 					      "iface",
+ 					      "bus";
++				assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE1_CLK_SRC>, <&dispcc DISP_CC_MDSS_PCLK1_CLK_SRC>;
++				assigned-clock-parents = <&dsi1_phy 0>, <&dsi1_phy 1>;
++
+ 				operating-points-v2 = <&dsi_opp_table>;
+ 				power-domains = <&rpmhpd SDM845_CX>;
  
 -- 
 2.30.2
