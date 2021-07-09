@@ -2,60 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B86F73C2A98
-	for <lists+freedreno@lfdr.de>; Fri,  9 Jul 2021 23:07:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 518C63C2AA1
+	for <lists+freedreno@lfdr.de>; Fri,  9 Jul 2021 23:07:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B78F89E86;
-	Fri,  9 Jul 2021 21:07:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE4116EA91;
+	Fri,  9 Jul 2021 21:07:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6275289E08
- for <freedreno@lists.freedesktop.org>; Fri,  9 Jul 2021 21:07:34 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id u25so10103061ljj.11
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 120606E9FC
+ for <freedreno@lists.freedesktop.org>; Fri,  9 Jul 2021 21:07:35 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id q184so9608544ljq.0
  for <freedreno@lists.freedesktop.org>; Fri, 09 Jul 2021 14:07:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=V0Pj5fs6y1i+ayS07/Myij97c/TfTB9e9bw5kHFQa8I=;
- b=Do3HtQ82nTRTNinJXs1skcFcaQgvRoQ1RiU+PMqYBLPZYmHEPkWvczi7c9SEqlpeNR
- 6AZlTSFTpkOtajIXVjQH0wC1bnnRk2Q7Y7Xxtg0GA7XYQ2Z/VaUG9Di8ZWckItYaHyHq
- DQbj3LVqxijEFKoru1qyuwMX9PRPAXiIJYBGmcqpOyDTGmUDY88BOajZM1y46H8Mnr0B
- 71tP9OBrLqgBTPHBtjlkVyR1fHBqmH5ZrKXmbvDx81wP4wS/sBnp5xj535Bo9YeGQrAc
- Fo8vBaJlLphQ09wIoI46U23MGCMh75nkF7FimcDJ8XYR66wqa0il3cEZRkpNzwyJWw9Z
- /84g==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=hJEW9w0y6Vcyes9owQtz9S/0i0lXig3Az7cXFopBjtc=;
+ b=fErVVr4pfIJbVtUKRHnaiRSwiESw88MXK4nJOMrQurA3qSPw+jY8bZ7yjI0gwd8IcA
+ Z0Y9hswzeZlcQINkON1LTwNJGPzPwFkFjkioN0yYm4bVKTQJSbN7rKbcK3kHfHfOrGEF
+ s8eIlFTqWE8NVoVmXDfTK8o8YgUnlvq9pxg5UfvlUQsHTZUtHtQR7RuKOtJB27pdxDaq
+ s38BYWqY66kmHU+Hk1s9uVptda29k3gyzDeDP55L/YPk4BYTmFkgQzDvSpaBCruR5sZg
+ UoLfxq9JOioajcPf2PhCaWZA5FsUHeBHZQOkz+Xahi713/PersOMrDO5A12kVOY1wx6q
+ jx4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=V0Pj5fs6y1i+ayS07/Myij97c/TfTB9e9bw5kHFQa8I=;
- b=R3iOnBfGOlI1yXmkUwQt2mb1CWIIEq9pYzreU9eGzPIg9kNp1cXpdHZs4DhnP1XJjn
- /bd6OF3WFQ8O0Xw3ksDiCsN0hPbwmQ6D7/ra8/Ja6bemlHZxhILO4bZ8kVjpA8eAYr+n
- BfVTeugpvu0RGQ/MVMjjv/Zon5H4hZRnHK/QatCQXFQFq9Si/5aTmwo8ZF/L9P2DWDwj
- KVDNynHVE1aaXEew8qULD6oXGBzXPkdYAj74LtISsMg/30xfkAlWTxY8qHUNI7haewDu
- jbgqX1k7Yva9/5VC8WxwjOsTV/2cxC5fPO2ZGifoeiuBHjoZZBvTc590sZdckyBDWNHr
- GQug==
-X-Gm-Message-State: AOAM53360i5x170gN2n1WZxIgUFUZ9chhShZ5x3c11E56WZVUzKQpWGZ
- agjzLJXKWHPBiG2HUgv96A2CKg==
-X-Google-Smtp-Source: ABdhPJx2hU6nkZH9hGkm3rh9KaX1jGm43K58snE62B+a2YdIn1sFqE2vg0qnzFdJpfNHVOXHdUJISQ==
-X-Received: by 2002:a2e:95d5:: with SMTP id y21mr13238967ljh.416.1625864852713; 
- Fri, 09 Jul 2021 14:07:32 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=hJEW9w0y6Vcyes9owQtz9S/0i0lXig3Az7cXFopBjtc=;
+ b=l7oPNtecwWNpYOJhOjBkI+4SSjqI3iPC4qDhR5+Jr0E/AvR5lcXIWYtQ7p7CuKaV/k
+ klrLfLIUPySPjhxF4EN0X+2+bs48K1a2i452Nw5AwKY32lv75mGVri1aMqDLWgOPs+ln
+ alMu73+sEcTs1yrGBwgytOb20BZ0f0HtYdubnSy6ICIrhqysGUhkofL8KXiDMi2KfSHy
+ ZODdBNoAV038MUk9tS7X6W1ujW7TxcGfOUf7h2tlSgLWDTFtbY6rQs74jiFYZvp3jtBr
+ Rlsdm73Uav6/bolult7coqkHyYnKTvEIssUIqTNgdfTSG2g2hXQHGe2NcPa4NfOsLEWc
+ NOkw==
+X-Gm-Message-State: AOAM530Rrllw3Bc56pTEC9/2sqcRdDj/XRls96sjiYFRxHXvgWj1jxUN
+ B+33TrPb/XCazD0RRjSW9aCs1A==
+X-Google-Smtp-Source: ABdhPJxwEU1JXAYF23cylO9ydxaJi+pRUDC33zBTaCd/tXUSJbSPQBQH5TQCHFNqw+9C5KQLXr0Ddw==
+X-Received: by 2002:a2e:50c:: with SMTP id 12mr23647928ljf.173.1625864853431; 
+ Fri, 09 Jul 2021 14:07:33 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id n15sm590625lfh.70.2021.07.09.14.07.31
+ by smtp.gmail.com with ESMTPSA id n15sm590625lfh.70.2021.07.09.14.07.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 09 Jul 2021 14:07:32 -0700 (PDT)
+ Fri, 09 Jul 2021 14:07:33 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <abhinavk@codeaurora.org>, Rob Herring <robh+dt@kernel.org>
-Date: Sat, 10 Jul 2021 00:07:21 +0300
-Message-Id: <20210709210729.953114-1-dmitry.baryshkov@linaro.org>
+Date: Sat, 10 Jul 2021 00:07:22 +0300
+Message-Id: <20210709210729.953114-2-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210709210729.953114-1-dmitry.baryshkov@linaro.org>
+References: <20210709210729.953114-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v2 0/8] dsi: rework clock parents and timing
- handling
+Subject: [Freedreno] [PATCH v2 1/8] dt-bindings: display: msm:
+ dsi-controller-main: restore assigned-clocks
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,63 +79,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This patch series brings back several patches targeting assigning dispcc
-clock parents, that were removed from the massive dsi rework patchset
-earlier.
+Restore the assgined-clocks and assigned-clock-parents properties that
+were lost during the txt -> YAML conversion.
 
-Few notes:
- - assign-clock-parents is a mandatory proprety according to the current
-   dsi.txt description.
- - There is little point in duplicating this functionality with the ad-hoc
-   implementation in the dsi code.
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ .../display/msm/dsi-controller-main.yaml        | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-On top of that come few minor cleanups for the DSI PHY drivers.
-
-I'd kindly ask to bring all dts changes also through the drm tree, so
-that there won't be any breakage of the functionality.
-
-The patchset was tested on RB3 (single DSI), RB5 (single DSI, two
-independent DSI, bonded DSI, two last configs require additional patches
-which do not concern the DSI timings code).
-
-Changes since v1:
- - add dt-bindings change
- - drop the patch removing msm_dsi_dphy_timing
-
-The following changes since commit e88bbc91849b2bf57683119c339e52916d34433f:
-
-  Revert "drm/msm/mdp5: provide dynamic bandwidth management" (2021-06-23 14:06:20 -0700)
-
-are available in the Git repository at:
-
-  https://git.linaro.org/people/dmitry.baryshkov/kernel.git dsi-phy-update
-
-for you to fetch changes up to a79d84d8eac721a7ebaf3cfc65b200077b1d6947:
-
-  drm/msm/dsi: drop msm_dsi_phy_get_shared_timings (2021-07-10 00:02:18 +0300)
-
-----------------------------------------------------------------
-Dmitry Baryshkov (8):
-      dt-bindings: display: msm: dsi-controller-main: restore assigned-clocks
-      arm64: dts: qcom: sc7180: assign DSI clock source parents
-      arm64: dts: qcom: sdm845: assign DSI clock source parents
-      arm64: dts: qcom: sdm845-mtp: assign DSI clock source parents
-      arm64: dts: qcom: sm8250: assign DSI clock source parents
-      drm/msm/dsi: stop setting clock parents manually
-      drm/msm/dsi: phy: use of_device_get_match_data
-      drm/msm/dsi: drop msm_dsi_phy_get_shared_timings
-
- .../bindings/display/msm/dsi-controller-main.yaml  | 17 ++++++++
- arch/arm64/boot/dts/qcom/sc7180.dtsi               |  3 ++
- arch/arm64/boot/dts/qcom/sdm845-mtp.dts            |  3 ++
- arch/arm64/boot/dts/qcom/sdm845.dtsi               |  6 +++
- arch/arm64/boot/dts/qcom/sm8250.dtsi               |  6 +++
- drivers/gpu/drm/msm/dsi/dsi.h                      |  7 +--
- drivers/gpu/drm/msm/dsi/dsi_host.c                 | 51 ----------------------
- drivers/gpu/drm/msm/dsi/dsi_manager.c              |  8 +---
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.c              | 34 ++++-----------
- 9 files changed, 47 insertions(+), 88 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+index 76348b71f736..760eec6b0db1 100644
+--- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+@@ -64,6 +64,18 @@ properties:
+       Indicates if the DSI controller is driving a panel which needs
+       2 DSI links.
+ 
++  assigned-clocks:
++    minItems: 2
++    maxItems: 2
++    description: |
++      Parents of "byte" and "pixel" for the given platform.
++
++  assigned-clock-parents:
++    minItems: 2
++    maxItems: 2
++    description: |
++      The Byte clock and Pixel clock PLL outputs provided by a DSI PHY block.
++
+   power-domains:
+     maxItems: 1
+ 
+@@ -119,6 +131,8 @@ required:
+   - clock-names
+   - phys
+   - phy-names
++  - assigned-clocks
++  - assigned-clock-parents
+   - power-domains
+   - operating-points-v2
+   - ports
+@@ -159,6 +173,9 @@ examples:
+            phys = <&dsi0_phy>;
+            phy-names = "dsi";
+ 
++           assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK_SRC>, <&dispcc DISP_CC_MDSS_PCLK0_CLK_SRC>;
++           assigned-clock-parents = <&dsi_phy 0>, <&dsi_phy 1>;
++
+            power-domains = <&rpmhpd SC7180_CX>;
+            operating-points-v2 = <&dsi_opp_table>;
+ 
+-- 
+2.30.2
 
 _______________________________________________
 Freedreno mailing list
