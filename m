@@ -1,55 +1,43 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45F9B3C7569
-	for <lists+freedreno@lfdr.de>; Tue, 13 Jul 2021 18:58:40 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id E54DF3C75DC
+	for <lists+freedreno@lfdr.de>; Tue, 13 Jul 2021 19:43:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF11489F24;
-	Tue, 13 Jul 2021 16:58:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DDBE6E106;
+	Tue, 13 Jul 2021 17:43:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
- [IPv6:2607:f8b0:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E692D89F24
- for <freedreno@lists.freedesktop.org>; Tue, 13 Jul 2021 16:58:30 +0000 (UTC)
-Received: by mail-ot1-x331.google.com with SMTP id
- b14-20020a056830310eb02904c7e78705f4so460601ots.13
- for <freedreno@lists.freedesktop.org>; Tue, 13 Jul 2021 09:58:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=6SEHtexM30zQ1pNlegjyNVvT5I02vNfZvNmYrTBM0+0=;
- b=ZQ+ry+Bx8r9GFRJnBTRGJ89JZCMdTEXJ7q5yArO2dp23xWpZw4BvXP1uG4PK+Uq/ie
- t4UPLQr8vSBiOZFs0RUvpyf6uMGF3ZQntmNGZDOdBBUow/VsywUeAw3wdXzYzCrq/+h2
- QA7P5Sr7mYfyRDcB20gerZcLdLFsNws/E1mDQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=6SEHtexM30zQ1pNlegjyNVvT5I02vNfZvNmYrTBM0+0=;
- b=n3Z0WcfII5DSqhdczrChf3a1jASYnB7WapLQK7tjcP5wHDfM3btBemNEBTv5C1SFU9
- qiPRWY3r02OTxu7yEpsrK97E6QbCWFi831IRGprRlDinadQD2JsaH03YQOU/URjC+z22
- ZIAOfJYCiF7AOQVFDBMEb7HPhQ5gQOH19Q4THBT39Z0UvpWdA+CFiTrSriYVxtKrK0zA
- Bar377DN3NTeBW3yESi3zoBtMBWywGeYpRXbWOUjTZJEU1buXLrZwMZjBdhKsacTiFjB
- YiItRpalBa9cv3iyCQQ3ofcDv0M4Vz8fP5ZDQ+Enz2HOmm/MeclLEVDvraO4DrVJE5XB
- FgKA==
-X-Gm-Message-State: AOAM531aklYDK7JgxNsdeAkGtNzEnaeZX0AvyH6tzGo5zCMeGbpq3FJ1
- zyehJwVRtZpkRrT7kyliDYrDT9r5k7e3g/U1tB7ZJw==
-X-Google-Smtp-Source: ABdhPJwfBxb7hGnmJjrluM8xypb4cOTE7kDdsy2G6JzETLnn61eE66M9+B1vlIXxd1/coMtHeMn4CAh93opbQGLOymI=
-X-Received: by 2002:a05:6830:2366:: with SMTP id
- r6mr4310903oth.188.1626195510078; 
- Tue, 13 Jul 2021 09:58:30 -0700 (PDT)
+X-Greylist: delayed 968 seconds by postgrey-1.36 at gabe;
+ Fri, 09 Jul 2021 09:59:37 UTC
+Received: from m12-15.163.com (m12-15.163.com [220.181.12.15])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4270C6E9FA;
+ Fri,  9 Jul 2021 09:59:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=COISp
+ wghJpsZ4Lc5bzWnX/i5U691H/hAD6H0OTHuz80=; b=pGAAenVqK5T9xibHF3u+P
+ xjujH0995EQ9DUWwMmq4Jr95RcZI0lqsZtioBT6QduvKN9hZkt8dT3YEkdtPdmg4
+ P4dUhaU0F8LtztzgyZerdF7Qd5clVpEbm6AW0FZb8KbZKb+L75C1rwOfl8nycoXM
+ i0ob9C4UZ1vA/4t96epkog=
+Received: from COOL-20201222LC.ccdomain.com (unknown [218.94.48.178])
+ by smtp11 (Coremail) with SMTP id D8CowAA3P+fzGehglpvgAA--.66S2;
+ Fri, 09 Jul 2021 17:42:38 +0800 (CST)
+From: dingsenjie@163.com
+To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch
+Date: Fri,  9 Jul 2021 17:41:44 +0800
+Message-Id: <20210709094144.118920-1-dingsenjie@163.com>
+X-Mailer: git-send-email 2.21.0.windows.1
 MIME-Version: 1.0
-References: <20210712175352.802687-1-daniel.vetter@ffwll.ch>
- <20210712175352.802687-15-daniel.vetter@ffwll.ch>
- <CAF6AEGtC0BxABJtSaOmhEt_WKiuptWCHP7g4D5wEaJ4NaEuz4w@mail.gmail.com>
-In-Reply-To: <CAF6AEGtC0BxABJtSaOmhEt_WKiuptWCHP7g4D5wEaJ4NaEuz4w@mail.gmail.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Tue, 13 Jul 2021 18:58:19 +0200
-Message-ID: <CAKMK7uEL8dr5RT2362ehR1Gb7mvwLmcEsZV+uWDj_kpoovWKxg@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Subject: Re: [Freedreno] [PATCH v4 14/18] drm/msm: Don't break exclusive
- fence ordering
+X-CM-TRANSID: D8CowAA3P+fzGehglpvgAA--.66S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZr47Kr45tr47AryDWry3Arb_yoW5XF1Dpr
+ W5uwn0qry8Zw48Xr4UCFyfuFy3Z3WI9rWxJry2g3sYyF1ayw4DGa45uF4xWF4akFZxCrW2
+ qF4fAw1xZF1xWrUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UupBhUUUUU=
+X-Originating-IP: [218.94.48.178]
+X-CM-SenderInfo: 5glqw25hqmxvi6rwjhhfrp/1tbipRq8yFUMe+47egABsH
+X-Mailman-Approved-At: Tue, 13 Jul 2021 17:43:45 +0000
+Subject: [Freedreno] [PATCH] gpu: drm: Remove unneeded variable: "ret"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,90 +50,94 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@intel.com>, Sean Paul <sean@poorly.run>,
- Lucas Stach <l.stach@pengutronix.de>
+Cc: linux-arm-msm@vger.kernel.org, dingsenjie <dingsenjie@yulong.com>,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jul 13, 2021 at 6:51 PM Rob Clark <robdclark@gmail.com> wrote:
->
-> On Mon, Jul 12, 2021 at 1:02 PM Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
-> >
-> > There's only one exclusive slot, and we must not break the ordering.
-> >
-> > Adding a new exclusive fence drops all previous fences from the
-> > dma_resv. To avoid violating the signalling order we err on the side of
-> > over-synchronizing by waiting for the existing fences, even if
-> > userspace asked us to ignore them.
-> >
-> > A better fix would be to us a dma_fence_chain or _array like e.g.
-> > amdgpu now uses, but
-> > - msm has a synchronous dma_fence_wait for anything from another
-> >   context, so doesn't seem to care much,
-> > - and it probably makes sense to lift this into dma-resv.c code as a
-> >   proper concept, so that drivers don't have to hack up their own
-> >   solution each on their own.
-> >
-> > v2: Improve commit message per Lucas' suggestion.
-> >
-> > Cc: Lucas Stach <l.stach@pengutronix.de>
-> > Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-> > Cc: Rob Clark <robdclark@gmail.com>
-> > Cc: Sean Paul <sean@poorly.run>
-> > Cc: linux-arm-msm@vger.kernel.org
-> > Cc: freedreno@lists.freedesktop.org
-> > ---
-> >  drivers/gpu/drm/msm/msm_gem_submit.c | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-> > index b71da71a3dd8..edd0051d849f 100644
-> > --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> > +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> > @@ -306,7 +306,8 @@ static int submit_fence_sync(struct msm_gem_submit *submit, bool no_implicit)
-> >                                 return ret;
-> >                 }
-> >
-> > -               if (no_implicit)
-> > +               /* exclusive fences must be ordered */
-> > +               if (no_implicit && !write)
-> >                         continue;
->
-> In practice, modern userspace (the kind that is more likely to set the
-> no-implicit flag on every submit) also sets MSM_SUBMIT_BO_WRITE on
-> every bo, to shave some cpu overhead so I suppose this would not
-> really hurt anything
->
-> Do you know if this is covered in any piglit/etc test?
+From: dingsenjie <dingsenjie@yulong.com>
 
-You need some command submission, plus buffer sharing with vgem
-setting it's own exclusive fences, plus checking with dma_buf poll()
-whether it signals all in the right order. That's pretty low-level, so
-maybe something in igt, but I haven't typed that. Maybe I need to do
-that for i915 at least.
--Daniel
+remove unneeded variable: "ret".
 
-> BR,
-> -R
->
-> >
-> >                 ret = msm_gem_sync_object(&msm_obj->base, submit->ring->fctx,
-> > --
-> > 2.32.0
-> >
+Signed-off-by: dingsenjie <dingsenjie@yulong.com>
+---
+ drivers/gpu/drm/msm/dp/dp_ctrl.c |  4 +---
+ drivers/gpu/drm/msm/dp/dp_link.c | 13 ++++---------
+ 2 files changed, 5 insertions(+), 12 deletions(-)
 
-
-
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index e3462f5..0d11046 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -1052,7 +1052,6 @@ static bool dp_ctrl_train_pattern_set(struct dp_ctrl_private *ctrl,
+ 		u8 pattern)
+ {
+ 	u8 buf;
+-	int ret = 0;
+ 
+ 	DRM_DEBUG_DP("sink: pattern=%x\n", pattern);
+ 
+@@ -1061,8 +1060,7 @@ static bool dp_ctrl_train_pattern_set(struct dp_ctrl_private *ctrl,
+ 	if (pattern && pattern != DP_TRAINING_PATTERN_4)
+ 		buf |= DP_LINK_SCRAMBLING_DISABLE;
+ 
+-	ret = drm_dp_dpcd_writeb(ctrl->aux, DP_TRAINING_PATTERN_SET, buf);
+-	return ret == 1;
++	return drm_dp_dpcd_writeb(ctrl->aux, DP_TRAINING_PATTERN_SET, buf) == 1;
+ }
+ 
+ static int dp_ctrl_read_link_status(struct dp_ctrl_private *ctrl,
+diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
+index be986da..fee3bc4 100644
+--- a/drivers/gpu/drm/msm/dp/dp_link.c
++++ b/drivers/gpu/drm/msm/dp/dp_link.c
+@@ -782,7 +782,6 @@ static int dp_link_process_link_training_request(struct dp_link_private *link)
+ bool dp_link_send_test_response(struct dp_link *dp_link)
+ {
+ 	struct dp_link_private *link = NULL;
+-	int ret = 0;
+ 
+ 	if (!dp_link) {
+ 		DRM_ERROR("invalid input\n");
+@@ -791,10 +790,8 @@ bool dp_link_send_test_response(struct dp_link *dp_link)
+ 
+ 	link = container_of(dp_link, struct dp_link_private, dp_link);
+ 
+-	ret = drm_dp_dpcd_writeb(link->aux, DP_TEST_RESPONSE,
+-			dp_link->test_response);
+-
+-	return ret == 1;
++	return drm_dp_dpcd_writeb(link->aux, DP_TEST_RESPONSE,
++			dp_link->test_response) == 1;
+ }
+ 
+ int dp_link_psm_config(struct dp_link *dp_link,
+@@ -829,7 +826,6 @@ int dp_link_psm_config(struct dp_link *dp_link,
+ bool dp_link_send_edid_checksum(struct dp_link *dp_link, u8 checksum)
+ {
+ 	struct dp_link_private *link = NULL;
+-	int ret = 0;
+ 
+ 	if (!dp_link) {
+ 		DRM_ERROR("invalid input\n");
+@@ -838,9 +834,8 @@ bool dp_link_send_edid_checksum(struct dp_link *dp_link, u8 checksum)
+ 
+ 	link = container_of(dp_link, struct dp_link_private, dp_link);
+ 
+-	ret = drm_dp_dpcd_writeb(link->aux, DP_TEST_EDID_CHECKSUM,
+-						checksum);
+-	return ret == 1;
++	return drm_dp_dpcd_writeb(link->aux, DP_TEST_EDID_CHECKSUM,
++						checksum) == 1;
+ }
+ 
+ static int dp_link_parse_vx_px(struct dp_link_private *link)
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+1.9.1
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
