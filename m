@@ -1,65 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6110F3C2BC1
-	for <lists+freedreno@lfdr.de>; Sat, 10 Jul 2021 01:46:39 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 529913C2BC6
+	for <lists+freedreno@lfdr.de>; Sat, 10 Jul 2021 01:50:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F6A66E9B3;
-	Fri,  9 Jul 2021 23:46:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AA756E9B6;
+	Fri,  9 Jul 2021 23:50:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4B236E9B2
- for <freedreno@lists.freedesktop.org>; Fri,  9 Jul 2021 23:46:36 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id x25so13720956lfu.13
- for <freedreno@lists.freedesktop.org>; Fri, 09 Jul 2021 16:46:36 -0700 (PDT)
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2A106E9B5
+ for <freedreno@lists.freedesktop.org>; Fri,  9 Jul 2021 23:50:27 +0000 (UTC)
+Received: by mail-lj1-x22a.google.com with SMTP id q4so10625358ljp.13
+ for <freedreno@lists.freedesktop.org>; Fri, 09 Jul 2021 16:50:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=GR17m4TCo1bxAJbxwHuYhDUZxpveBueDWH1Tshnwhcw=;
- b=hmPlfythTE2CxjcaXjAVAWgrW2Gi2aikI45PIV7gfoj4G7M6oAEMPoirHnWK1fF1iE
- 0rfo4/3xZQIb9+cs+6ntmClUn1ek8wkuiQvWcbmvMXOnVJQkWWPFYX5P76tR6llo7yq2
- R5YGjcVaF2tRv4h1oplG/+1/gGUhQ7atnCgKSIkpWsUigEGdImiRELOxKp3mWXcA+CTx
- 3/ENzIMdnPfl+QViXdMA2oDoe0noNm1w1KMTN2g3X9NqdUmwTUmoBe06wME9672G7aQ8
- 8oPCZxiqzPIXLR9lc334HvcNUET2CkZX0ymL8cC8ajAqq98TQBtrnJYTrOMYgecX1J4u
- JVLg==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=sn0jP9DnLuphcw0YXtYqDYqKI3YxyEQFHRMjVN+jOvc=;
+ b=xV8l78WU8UxRjNv+nVa245XgCmMJfpSGkEwsjN7diyuHONzbyxpoH/eqdmwKCrd3TT
+ WT4RM/Ej2xty+Jul6ScQG1zeIUs6YcIs7tqg/0klfEkV15sbqWsn5WeOg+K89gPwY+qX
+ xxk0Zs5zc/gzLb2k4C3HTsnfX0oqmoh1m6MY6cXnMVpmGndxKWOAMT5c5zxmg62nYKBr
+ +Qp1APOlrOO8//Y5l5aUPMrR7/TQOga8On+w2TNsYs0kU/g6UhMsS+YcI9bbVoT5ou0q
+ j5O3tcb/7RfIcvK9Np808G1vz8+8VECiYzomvkz446FnBdmCu8qVExllflKAu5mwXSXa
+ WVCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=GR17m4TCo1bxAJbxwHuYhDUZxpveBueDWH1Tshnwhcw=;
- b=f7j5NOpg9SCb6kOioKWkt6TCyeU7uBeB+NmgodR18UcVW0/RhtnBIo709xDl6HFSRL
- Ox3J06ABLrypS/s6zjwB8Hb7Y+FnzTO3LkQ3eEyNyfdgVtPJR3zGyR8V5yghn+HO83h7
- SIPza2l3JWIqxHZuBaT3uScNPgpmbpeUelOtWj9hY9jlUluDSV9L3kD+r0YZYuORH2vb
- O5qcHForS1yOB4lZJFAWlWi4yQvuLMc9/AqaRi298DVKIApfaTiuTHZK4B6bNg3T1p9V
- Hd7JnrMQKxrVh6osg5RyEoM2BZkDgFryR69Ju6dQtX4WKjZX3Z8SD01krr2yTNJSNwYy
- pj+Q==
-X-Gm-Message-State: AOAM530tlBSBKrIcNi2yQqEFYSo5TK4wNE3OMvU3OlqtXhA39P43BYp0
- J2gn2lr/GWE3PV82I+mV6ZbtSI5WnOJZiQ==
-X-Google-Smtp-Source: ABdhPJwLXKpJ5yziTMVpeRJ+aJVWJpnPi6aLSogHhO7o4SSJprFYE+zfyjZMegAk5EL+0c93bLJgqA==
-X-Received: by 2002:ac2:598b:: with SMTP id w11mr31398334lfn.534.1625874394692; 
- Fri, 09 Jul 2021 16:46:34 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id 189sm748273ljf.117.2021.07.09.16.46.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Jul 2021 16:46:34 -0700 (PDT)
-To: abhinavk@codeaurora.org
-References: <20210708122833.363451-1-dmitry.baryshkov@linaro.org>
- <20210708122833.363451-6-dmitry.baryshkov@linaro.org>
- <16be30732d3c2108f7a3ca640ed8285d@codeaurora.org>
+ bh=sn0jP9DnLuphcw0YXtYqDYqKI3YxyEQFHRMjVN+jOvc=;
+ b=YbOW1u2/emdek47ixAyNg8E8VCtGl3g3h/NmG0tvwPBcRM4xe5k83Y0wbUqZUuksg9
+ sSsXakhiX0/6v3uz3/ODQxdiC8wSJlj9RJC+Z+n8U08OsMS/u4XFfakg/rPNEpQNXcJD
+ kSsnkS00JDLojmZOoroRe8ikGNKNSLY0RZtvJX2S6yuFqC2fvxm9lIOa7HHy2VB0YSJ8
+ uYO1ZuUaAzIZ8w7LgGRruUFG0f48E4ofr7yTwl/ZvDTxSUq4bDfedZlXmI7ii6E+GA0D
+ Jimi5Qk/BSF2lkGvT/j7OyMNyJgzOEKJojt5XMkkAGDPDcdyWsFUomp3J+nMTQ0sH84M
+ dlHQ==
+X-Gm-Message-State: AOAM533xR0EuqwwcQtPs6XjHFRBSqvcOuMf05Z4y84aGpsdVDEaG0LYI
+ BgHV7hbQAOhiovHdBkES/gLimw==
+X-Google-Smtp-Source: ABdhPJyjoB4ZEO4ir2no0ThokAQYqxv3KsDYgYA5XgCzVrVEBeS6wwizc71TcMr2/JFMK2iDRr/z7g==
+X-Received: by 2002:a2e:8244:: with SMTP id j4mr21369949ljh.364.1625874625964; 
+ Fri, 09 Jul 2021 16:50:25 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id v10sm718964ljp.20.2021.07.09.16.50.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 09 Jul 2021 16:50:25 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <2920aa33-c5cf-717f-4e6e-dfd473a87820@linaro.org>
-Date: Sat, 10 Jul 2021 02:46:33 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <abhinavk@codeaurora.org>
+Date: Sat, 10 Jul 2021 02:50:17 +0300
+Message-Id: <20210709235024.1077888-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-In-Reply-To: <16be30732d3c2108f7a3ca640ed8285d@codeaurora.org>
-Content-Language: en-GB
-Subject: Re: [Freedreno] [PATCH v1 5/7] drm/msm/dp: stop calling
- set_encoder_mode callback
+Subject: [Freedreno] [PATCH v2 0/7] drm/msm/dpu: add support for independent
+ DSI config
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,57 +67,66 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
- Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- David Airlie <airlied@linux.ie>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-T24gMTAvMDcvMjAyMSAwMToxNiwgYWJoaW5hdmtAY29kZWF1cm9yYS5vcmcgd3JvdGU6Cj4gT24g
-MjAyMS0wNy0wOCAwNToyOCwgRG1pdHJ5IEJhcnlzaGtvdiB3cm90ZToKPj4gTm9uZSBvZiB0aGUg
-ZGlzcGxheSBkcml2ZXJzIG5vdyBpbXBsZW1lbnQgc2V0X2VuY29kZXJfbW9kZSBjYWxsYmFjay4K
-Pj4gU3RvcCBjYWxsaW5nIGl0IGZyb20gdGhlIG1vZGVzZXQgaW5pdCBjb2RlLgo+Pgo+PiBTaWdu
-ZWQtb2ZmLWJ5OiBEbWl0cnkgQmFyeXNoa292IDxkbWl0cnkuYmFyeXNoa292QGxpbmFyby5vcmc+
-Cj4gCj4gVGhlIGNoYW5nZSBsb29rcyBmaW5lLAo+IFJldmlld2VkLWJ5OiBBYmhpbmF2IEt1bWFy
-IDxhYmhpbmF2a0Bjb2RlYXVyb3JhLm9yZz4KPiAKPiBCdXQgaGFzIERQIGJlZW4gcmUtdmVyaWZp
-ZWQgd2l0aCB0aGlzIGNoYW5nZSBieSBCam9ybj8KPiBJZiBub3QsIEkgY2FuIHZlcmlmeSB0aGlz
-IG9uIG15IGJvYXJkIGFuZCBnaXZlIG15IFRlc3RlZC1ieQoKUGxlYXNlIHRlc3QgaXQgb24geW91
-ciBzZXR1cC4KCj4gCj4+IC0tLQo+PiDCoGRyaXZlcnMvZ3B1L2RybS9tc20vZHAvZHBfZGlzcGxh
-eS5jIHwgMTggLS0tLS0tLS0tLS0tLS0tLS0tCj4+IMKgMSBmaWxlIGNoYW5nZWQsIDE4IGRlbGV0
-aW9ucygtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL21zbS9kcC9kcF9kaXNw
-bGF5LmMKPj4gYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2RwL2RwX2Rpc3BsYXkuYwo+PiBpbmRleCAw
-NTFjMWJlMWRlN2UuLjcwYjMxOWE4ZmU4MyAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L21zbS9kcC9kcF9kaXNwbGF5LmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL21zbS9kcC9kcF9k
-aXNwbGF5LmMKPj4gQEAgLTEwMiw4ICsxMDIsNiBAQCBzdHJ1Y3QgZHBfZGlzcGxheV9wcml2YXRl
-IHsKPj4gwqDCoMKgwqAgc3RydWN0IGRwX2Rpc3BsYXlfbW9kZSBkcF9tb2RlOwo+PiDCoMKgwqDC
-oCBzdHJ1Y3QgbXNtX2RwIGRwX2Rpc3BsYXk7Cj4+Cj4+IC3CoMKgwqAgYm9vbCBlbmNvZGVyX21v
-ZGVfc2V0Owo+PiAtCj4+IMKgwqDCoMKgIC8qIHdhaXQgZm9yIGF1ZGlvIHNpZ25hbGluZyAqLwo+
-PiDCoMKgwqDCoCBzdHJ1Y3QgY29tcGxldGlvbiBhdWRpb19jb21wOwo+Pgo+PiBAQCAtMjgzLDIw
-ICsyODEsNiBAQCBzdGF0aWMgdm9pZCBkcF9kaXNwbGF5X3NlbmRfaHBkX2V2ZW50KHN0cnVjdAo+
-PiBtc21fZHAgKmRwX2Rpc3BsYXkpCj4+IMKgfQo+Pgo+Pgo+PiAtc3RhdGljIHZvaWQgZHBfZGlz
-cGxheV9zZXRfZW5jb2Rlcl9tb2RlKHN0cnVjdCBkcF9kaXNwbGF5X3ByaXZhdGUgKmRwKQo+PiAt
-ewo+PiAtwqDCoMKgIHN0cnVjdCBtc21fZHJtX3ByaXZhdGUgKnByaXYgPSBkcC0+ZHBfZGlzcGxh
-eS5kcm1fZGV2LT5kZXZfcHJpdmF0ZTsKPj4gLcKgwqDCoCBzdHJ1Y3QgbXNtX2ttcyAqa21zID0g
-cHJpdi0+a21zOwo+PiAtCj4+IC3CoMKgwqAgaWYgKCFkcC0+ZW5jb2Rlcl9tb2RlX3NldCAmJiBk
-cC0+ZHBfZGlzcGxheS5lbmNvZGVyICYmCj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAga21zLT5mdW5jcy0+c2V0X2VuY29kZXJfbW9kZSkgewo+PiAtwqDCoMKgwqDCoMKgwqAga21z
-LT5mdW5jcy0+c2V0X2VuY29kZXJfbW9kZShrbXMsCj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgZHAtPmRwX2Rpc3BsYXkuZW5jb2RlciwgZmFsc2UpOwo+PiAtCj4+IC3CoMKgwqDC
-oMKgwqDCoCBkcC0+ZW5jb2Rlcl9tb2RlX3NldCA9IHRydWU7Cj4+IC3CoMKgwqAgfQo+PiAtfQo+
-PiAtCj4+IMKgc3RhdGljIGludCBkcF9kaXNwbGF5X3NlbmRfaHBkX25vdGlmaWNhdGlvbihzdHJ1
-Y3QgZHBfZGlzcGxheV9wcml2YXRlIAo+PiAqZHAsCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBib29sIGhwZCkKPj4gwqB7Cj4+IEBAIC0zNjksOCAr
-MzUzLDYgQEAgc3RhdGljIHZvaWQgZHBfZGlzcGxheV9ob3N0X2luaXQoc3RydWN0Cj4+IGRwX2Rp
-c3BsYXlfcHJpdmF0ZSAqZHAsIGludCByZXNldCkKPj4gwqDCoMKgwqAgaWYgKGRwLT51c2JwZC0+
-b3JpZW50YXRpb24gPT0gT1JJRU5UQVRJT05fQ0MyKQo+PiDCoMKgwqDCoMKgwqDCoMKgIGZsaXAg
-PSB0cnVlOwo+Pgo+PiAtwqDCoMKgIGRwX2Rpc3BsYXlfc2V0X2VuY29kZXJfbW9kZShkcCk7Cj4+
-IC0KPj4gwqDCoMKgwqAgZHBfcG93ZXJfaW5pdChkcC0+cG93ZXIsIGZsaXApOwo+PiDCoMKgwqDC
-oCBkcF9jdHJsX2hvc3RfaW5pdChkcC0+Y3RybCwgZmxpcCwgcmVzZXQpOwo+PiDCoMKgwqDCoCBk
-cF9hdXhfaW5pdChkcC0+YXV4KTsKCgotLSAKV2l0aCBiZXN0IHdpc2hlcwpEbWl0cnkKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5vIG1haWxp
-bmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5vCg==
+This patchseries adds support for independent DSI config to DPU1 display
+subdriver. Also drop one of msm_kms_funcs callbacks, made unnecessary
+now.
+
+Tested on RB5 (dpu, dsi). Previous iteration was tested by Alexey
+Minnekhanov.
+
+Cahanges since v1:
+ - Rewrote dsi encoder setup function by separating common code sequence
+   and calling it either for the bonded interface or twice for each of
+   the DSI hosts.
+
+Changes since RFC:
+ - renamed dual DSI to bonded DSI as suggsted by Abhinav
+ - added comments to _dpu_kms_initialize_dsi() regarding encoders usage
+
+The following changes since commit e88bbc91849b2bf57683119c339e52916d34433f:
+
+  Revert "drm/msm/mdp5: provide dynamic bandwidth management" (2021-06-23 14:06:20 -0700)
+
+are available in the Git repository at:
+
+  https://git.linaro.org/people/dmitry.baryshkov/kernel.git msm-drm-drop-set-encoder-mode-2
+
+for you to fetch changes up to 3e10b945035d638bdf94f06b3fc86a6deaa41e63:
+
+  drm/msm/kms: drop set_encoder_mode callback (2021-07-10 02:46:00 +0300)
+
+----------------------------------------------------------------
+Dmitry Baryshkov (7):
+      drm/msm/dsi: rename dual DSI to bonded DSI
+      drm/msm/dsi: add two helper functions
+      drm/msm/dpu: support setting up two independent DSI connectors
+      drm/msm/mdp5: move mdp5_encoder_set_intf_mode after msm_dsi_modeset_init
+      drm/msm/dp: stop calling set_encoder_mode callback
+      drm/msm/dsi: stop calling set_encoder_mode callback
+      drm/msm/kms: drop set_encoder_mode callback
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  | 130 +++++++++++++++++++------------
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c |  11 +--
+ drivers/gpu/drm/msm/dp/dp_display.c      |  18 -----
+ drivers/gpu/drm/msm/dsi/dsi.c            |   9 ++-
+ drivers/gpu/drm/msm/dsi/dsi.h            |   9 +--
+ drivers/gpu/drm/msm/dsi/dsi_cfg.h        |   2 +-
+ drivers/gpu/drm/msm/dsi/dsi_host.c       |  30 +++----
+ drivers/gpu/drm/msm/dsi/dsi_manager.c    |  93 ++++++++++------------
+ drivers/gpu/drm/msm/msm_drv.h            |  12 ++-
+ drivers/gpu/drm/msm/msm_kms.h            |   3 -
+ 10 files changed, 158 insertions(+), 159 deletions(-)
+
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
