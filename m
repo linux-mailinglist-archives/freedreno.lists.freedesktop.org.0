@@ -2,65 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05A873C2B36
-	for <lists+freedreno@lfdr.de>; Sat, 10 Jul 2021 00:13:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEBB93C2B39
+	for <lists+freedreno@lfdr.de>; Sat, 10 Jul 2021 00:14:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BA6389DF9;
-	Fri,  9 Jul 2021 22:13:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 690B389DF9;
+	Fri,  9 Jul 2021 22:14:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA92389D4D
- for <freedreno@lists.freedesktop.org>; Fri,  9 Jul 2021 22:13:37 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id y42so26167879lfa.3
- for <freedreno@lists.freedesktop.org>; Fri, 09 Jul 2021 15:13:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=cyu46Nc7pDH2wC0w7fNEd1R3CotJ59G89/FxqesF7Cc=;
- b=fpKEGEt7b7OfdEodD2X7/mx8U9zb9I+rQCUXwrWMpDxSvsS8UlEu+4lR6v8cdCQPl5
- oeXQZWk/ICbHqLvdE0SdJdoaSsEOl5NEJVNt2KG9kfIRgCnsFAYL7dJ7ZAwpMKo3fG/X
- /ZQGkWV1bP0cZh+fs+ROK8TA+idP0J91YdYkpGpiyDbhjJKpCMUxLItCZ5NYUlnIfOKA
- ax8hI1+/eGdX8j/SCTQrgNGc342n5LxZfRHjn/N7yU7miq8AOcQcNtTJkJ8tdzitYalB
- WLP9NtJvw1LHmBwZdga8+WDaUUEiqW4Gm1bTQozdBST2kjjVSRhqH4Op9q6liYse7S2j
- 1FUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=cyu46Nc7pDH2wC0w7fNEd1R3CotJ59G89/FxqesF7Cc=;
- b=VklZIgE+V9RmPf5wyziRbdVaIi909D3GUX7q+O+dTDSe27AachlU6/1noFCPGxZVKz
- CweIYKSGxHt9OE6AJ8Y5bk2gn5Pw650nbNKnoYbUVq55ylH0idTUiVff6iIOQnJs6TKt
- aKlwE5lYKSyvZ5FnTS56V9uk+bbGWrowg+52KWi2VuoClbdpoAsyGFGU0QXbI0aTtxzT
- lJ1Kn7J+cyOF+4jXiUkA+Ev8PEiCGybEMee4JNWh5xJX+Exp15yDM+Lyjo1pLPUlkmVB
- k5anARmRG0yojQghhUXZeC1DUY4UeMMoJOwrW65yBOLzRhNOLGHzCVEN69Le48Qd/E6g
- NlmQ==
-X-Gm-Message-State: AOAM533FaJRu3GOrHoT47YD6rQuOTO0uOQLXi1Qg4M6ACsA8MD95s+EP
- MDy8y4AJyluYbIWMY/zl2pTGx8uHSTVDWw==
-X-Google-Smtp-Source: ABdhPJzk1Vjp1SlXY6p3zNbVzy8OiJM48XqE1AF07rKVGeyL+mYX8CZ38OvicPzCZ8/Sw5c9vMYuLQ==
-X-Received: by 2002:a05:6512:1393:: with SMTP id
- p19mr29684837lfa.570.1625868815881; 
- Fri, 09 Jul 2021 15:13:35 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id a18sm556400lfj.308.2021.07.09.15.13.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Jul 2021 15:13:35 -0700 (PDT)
-To: abhinavk@codeaurora.org
-References: <20210708122833.363451-1-dmitry.baryshkov@linaro.org>
- <20210708122833.363451-4-dmitry.baryshkov@linaro.org>
- <72d95728559ef617a3dc29621cc5a2b5@codeaurora.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <99575650-837b-7f2d-eb73-7f51f32a6623@linaro.org>
-Date: Sat, 10 Jul 2021 01:13:34 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDD4089F03
+ for <freedreno@lists.freedesktop.org>; Fri,  9 Jul 2021 22:13:57 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1625868842; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=kjp1JYvm5kXQWte74x+l34+qeEGYyTHyVyGsdNwZanQ=;
+ b=wD48mfu5uWMkfd8SxVgllh/KZUBgNpN8Fyt/omkf391rc60cm2Ie6UeHqEUDmCc+Zp9i8kka
+ g2PiObdumO4JAdQIVvOkD3Y4IQZzmgvj4ZUf3XozDBixnDF8DVh4cqlyKNZnD8zYuIjOwd0K
+ 77XSO5bkK72UVnNVYUOYqULSUAo=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n04.prod.us-east-1.postgun.com with SMTP id
+ 60e8ca207b2963a2829c0170 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 09 Jul 2021 22:13:52
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 1F193C43460; Fri,  9 Jul 2021 22:13:51 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id CCA02C4338A;
+ Fri,  9 Jul 2021 22:13:48 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <72d95728559ef617a3dc29621cc5a2b5@codeaurora.org>
-Content-Language: en-GB
-Subject: Re: [Freedreno] [PATCH v1 3/7] drm/msm/dpu: support setting up two
- independent DSI connectors
+Date: Fri, 09 Jul 2021 15:13:48 -0700
+From: abhinavk@codeaurora.org
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20210708122833.363451-2-dmitry.baryshkov@linaro.org>
+References: <20210708122833.363451-1-dmitry.baryshkov@linaro.org>
+ <20210708122833.363451-2-dmitry.baryshkov@linaro.org>
+Message-ID: <a9f3576352130d677c641e7854368e4e@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v1 1/7] drm/msm/dsi: rename dual DSI to
+ bonded DSI
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,149 +69,522 @@ Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
  dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
  David Airlie <airlied@linux.ie>, Rob Clark <robdclark@gmail.com>,
  Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-T24gMTAvMDcvMjAyMSAwMTowOSwgYWJoaW5hdmtAY29kZWF1cm9yYS5vcmcgd3JvdGU6Cj4gT24g
-MjAyMS0wNy0wOCAwNToyOCwgRG1pdHJ5IEJhcnlzaGtvdiB3cm90ZToKPj4gTW92ZSBzZXR0aW5n
-IHVwIGVuY29kZXJzIGZyb20gc2V0X2VuY29kZXJfbW9kZSB0bwo+PiBfZHB1X2ttc19pbml0aWFs
-aXplX2RzaSgpIC8gX2RwdV9rbXNfaW5pdGlhbGl6ZV9kaXNwbGF5cG9ydCgpLiBUaGlzCj4+IGFs
-bG93cyB1cyB0byBzdXBwb3J0IG5vdCBvbmx5ICJzaW5nbGUgRFNJIiBhbmQgImJvbmRlZCBEU0ki
-IGJ1dCBhbHNvICJ0d28KPj4gaW5kZXBlbmRlbnQgRFNJIiBjb25maWd1cmF0aW9ucy4gSW4gZnV0
-dXJlIHRoaXMgd291bGQgYWxzbyBoZWxwIGFkZGluZwo+PiBzdXBwb3J0IGZvciBtdWx0aXBsZSBE
-UCBjb25uZWN0b3JzLgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBEbWl0cnkgQmFyeXNoa292IDxkbWl0
-cnkuYmFyeXNoa292QGxpbmFyby5vcmc+Cj4+IC0tLQo+PiDCoGRyaXZlcnMvZ3B1L2RybS9tc20v
-ZGlzcC9kcHUxL2RwdV9rbXMuYyB8IDEwMiArKysrKysrKysrKysrLS0tLS0tLS0tLS0KPj4gwqAx
-IGZpbGUgY2hhbmdlZCwgNTcgaW5zZXJ0aW9ucygrKSwgNDUgZGVsZXRpb25zKC0pCj4+Cj4+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfa21zLmMKPj4gYi9k
-cml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfa21zLmMKPj4gaW5kZXggMWQzYTRmMzk1
-ZTc0Li44NDU5ZGEzNjE3NGUgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlz
-cC9kcHUxL2RwdV9rbXMuYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9k
-cHVfa21zLmMKPj4gQEAgLTQ3MSwzMCArNDcxLDY4IEBAIHN0YXRpYyBpbnQgX2RwdV9rbXNfaW5p
-dGlhbGl6ZV9kc2koc3RydWN0IAo+PiBkcm1fZGV2aWNlICpkZXYsCj4+IMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGRwdV9rbXMgKmRwdV9rbXMpCj4+IMKg
-ewo+PiDCoMKgwqDCoCBzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29kZXIgPSBOVUxMOwo+PiArwqDC
-oMKgIHN0cnVjdCBtc21fZGlzcGxheV9pbmZvIGluZm87Cj4+IMKgwqDCoMKgIGludCBpLCByYyA9
-IDA7Cj4+Cj4+IMKgwqDCoMKgIGlmICghKHByaXYtPmRzaVswXSB8fCBwcml2LT5kc2lbMV0pKQo+
-PiDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiByYzsKPj4KPj4gLcKgwqDCoCAvKlRPRE86IFN1cHBv
-cnQgdHdvIGluZGVwZW5kZW50IERTSSBjb25uZWN0b3JzICovCj4+IC3CoMKgwqAgZW5jb2RlciA9
-IGRwdV9lbmNvZGVyX2luaXQoZGV2LCBEUk1fTU9ERV9FTkNPREVSX0RTSSk7Cj4+IC3CoMKgwqAg
-aWYgKElTX0VSUihlbmNvZGVyKSkgewo+PiAtwqDCoMKgwqDCoMKgwqAgRFBVX0VSUk9SKCJlbmNv
-ZGVyIGluaXQgZmFpbGVkIGZvciBkc2kgZGlzcGxheVxuIik7Cj4+IC3CoMKgwqDCoMKgwqDCoCBy
-ZXR1cm4gUFRSX0VSUihlbmNvZGVyKTsKPj4gLcKgwqDCoCB9Cj4+IC0KPj4gLcKgwqDCoCBwcml2
-LT5lbmNvZGVyc1twcml2LT5udW1fZW5jb2RlcnMrK10gPSBlbmNvZGVyOwo+PiAtCj4+ICvCoMKg
-wqAgLyoKPj4gK8KgwqDCoMKgICogV2Ugc3VwcG9ydCBmb2xsb3dpbmcgY29uZml1cmF0aW9uczoK
-Pj4gK8KgwqDCoMKgICogLSBTaW5nbGUgRFNJIGhvc3QgKGRzaTAgb3IgZHNpMSkKPj4gK8KgwqDC
-oMKgICogLSBUd28gaW5kZXBlbmRlbnQgRFNJIGhvc3RzCj4+ICvCoMKgwqDCoCAqIC0gQm9uZGVk
-IERTSTAgYW5kIERTSTEgaG9zdHMKPj4gK8KgwqDCoMKgICoKPj4gK8KgwqDCoMKgICrCoMKgIFRP
-RE86IFN1cHBvcnQgc3dhcHBpbmcgRFNJMCBhbmQgRFNJMSBpbiB0aGUgYm9uZGVkIHNldHVwLgo+
-PiArwqDCoMKgwqAgKi8KPj4gwqDCoMKgwqAgZm9yIChpID0gMDsgaSA8IEFSUkFZX1NJWkUocHJp
-di0+ZHNpKTsgaSsrKSB7Cj4+IMKgwqDCoMKgwqDCoMKgwqAgaWYgKCFwcml2LT5kc2lbaV0pCj4+
-IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb250aW51ZTsKPj4KPj4gK8KgwqDCoMKgwqDCoMKg
-IGlmICghZW5jb2Rlcikgewo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBlbmNvZGVyID0gZHB1
-X2VuY29kZXJfaW5pdChkZXYsIERSTV9NT0RFX0VOQ09ERVJfRFNJKTsKPj4gK8KgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgaWYgKElTX0VSUihlbmNvZGVyKSkgewo+PiArwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIERQVV9FUlJPUigiZW5jb2RlciBpbml0IGZhaWxlZCBmb3IgZHNpIGRpc3Bs
-YXlcbiIpOwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBQVFJfRVJS
-KGVuY29kZXIpOwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Cj4+ICsKPj4gK8KgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgcHJpdi0+ZW5jb2RlcnNbcHJpdi0+bnVtX2VuY29kZXJzKytdID0gZW5j
-b2RlcjsKPj4gKwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBtZW1zZXQoJmluZm8sIDAsIHNp
-emVvZihpbmZvKSk7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGluZm8uaW50Zl90eXBlID0g
-ZW5jb2Rlci0+ZW5jb2Rlcl90eXBlOwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpbmZvLmNh
-cGFiaWxpdGllcyA9IG1zbV9kc2lfaXNfY21kX21vZGUocHJpdi0+ZHNpW2ldKSA/Cj4+ICvCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgTVNNX0RJU1BMQVlfQ0FQX0NNRF9NT0RFIDoKPj4g
-K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBNU01fRElTUExBWV9DQVBfVklEX01PREU7
-Cj4+ICvCoMKgwqDCoMKgwqDCoCB9Cj4+ICsKPj4gwqDCoMKgwqDCoMKgwqDCoCByYyA9IG1zbV9k
-c2lfbW9kZXNldF9pbml0KHByaXYtPmRzaVtpXSwgZGV2LCBlbmNvZGVyKTsKPj4gwqDCoMKgwqDC
-oMKgwqDCoCBpZiAocmMpIHsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIERQVV9FUlJPUigi
-bW9kZXNldF9pbml0IGZhaWxlZCBmb3IgZHNpWyVkXSwgcmMgPSAlZFxuIiwKPj4gwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaSwgcmMpOwo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgYnJlYWs7Cj4+IMKgwqDCoMKgwqDCoMKgwqAgfQo+PiArCj4+ICvCoMKgwqDCoMKgwqDCoCBp
-bmZvLmhfdGlsZV9pbnN0YW5jZVtpbmZvLm51bV9vZl9oX3RpbGVzKytdID0gaTsKPj4gKwo+PiAr
-wqDCoMKgwqDCoMKgwqAgLyogUmVnaXN0ZXIgbm9uLWJvbmRlZCBlbmNvZGVyIGhlcmUuIElmIHRo
-ZSBlbmNvZGVyIGlzIGJvbmRlZCwKPj4gK8KgwqDCoMKgwqDCoMKgwqAgKiBpdCB3aWxsIGJlIHJl
-Z2lzdGVyZWQgbGF0ZXIsIHdoZW4gYm90aCBEU0kgaG9zdHMgYXJlCj4+ICvCoMKgwqDCoMKgwqDC
-oMKgICogaW5pdGlhbGl6ZWQuCj4+ICvCoMKgwqDCoMKgwqDCoMKgICovCj4+ICvCoMKgwqDCoMKg
-wqDCoCBpZiAoIW1zbV9kc2lfaXNfYm9uZGVkX2RzaShwcml2LT5kc2lbaV0pKSB7Cj4+ICvCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIHJjID0gZHB1X2VuY29kZXJfc2V0dXAoZGV2LCBlbmNvZGVyLCAm
-aW5mbyk7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChyYykKPj4gK8KgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCBEUFVfRVJST1IoImZhaWxlZCB0byBzZXR1cCBEUFUgZW5jb2Rl
-ciAlZDogcmM6JWRcbiIsCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgZW5jb2Rlci0+YmFzZS5pZCwgcmMpOwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBl
-bmNvZGVyID0gTlVMTDsKPiBTZWVtcyBsaWtlIHlvdSBhcmUgdXNpbmcgZW5jb2RlciA9IE5VTEwg
-YXMgYSBjaGVjayB0byBkaXN0aW5ndWlzaCAKPiB3aGV0aGVyIHRoaXMgaXMgYm9uZGVkIG1vZGUg
-b3Igbm90LgoKV2hldGhlciB0aGUgZW5jb2RlciB3YXIgc2V0dXAgb3Igbm90LgoKPj4gK8KgwqDC
-oMKgwqDCoMKgIH0KPj4gK8KgwqDCoCB9Cj4+ICsKPj4gK8KgwqDCoCAvKiBSZWdpc3RlciBib25k
-ZWQgZW5jb2RlciBoZXJlLCB3aGVuIGJvdGggRFNJIGhvc3RzIGFyZSAKPj4gaW5pdGlhbGl6ZWQg
-Ki8KPj4gK8KgwqDCoCBpZiAoZW5jb2Rlcikgewo+IFdoeSBjYW50IHdlIHJlcGxhY2UgdGhpcyB3
-aXRoIGlmIChtc21fZHNpX2lzX2JvbmRlZF9kc2kocHJpdi0+ZHNpW2ldKSAKPiBhbmQgZ2V0IHJp
-ZAo+IG9mIHRoZSBlbmNvZGVyID0gTlVMTD8KCkkgY2FuLiBNYXliZSBJIHNob3VsZCByZXdyaXRl
-IHRoaXMgdG8gY2xlYXJseSBoYW5kbGUgYm9uZGVkIG1vZGUuCgo+PiArwqDCoMKgwqDCoMKgwqAg
-cmMgPSBkcHVfZW5jb2Rlcl9zZXR1cChkZXYsIGVuY29kZXIsICZpbmZvKTsKPj4gK8KgwqDCoMKg
-wqDCoMKgIGlmIChyYykKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgRFBVX0VSUk9SKCJmYWls
-ZWQgdG8gc2V0dXAgRFBVIGVuY29kZXIgJWQ6IHJjOiVkXG4iLAo+PiArwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCBlbmNvZGVyLT5iYXNlLmlkLCByYyk7Cj4+IMKgwqDCoMKgIH0K
-Pj4KPj4gwqDCoMKgwqAgcmV0dXJuIHJjOwo+PiBAQCAtNTA1LDYgKzU0Myw3IEBAIHN0YXRpYyBp
-bnQgX2RwdV9rbXNfaW5pdGlhbGl6ZV9kaXNwbGF5cG9ydChzdHJ1Y3QKPj4gZHJtX2RldmljZSAq
-ZGV2LAo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-c3RydWN0IGRwdV9rbXMgKmRwdV9rbXMpCj4+IMKgewo+PiDCoMKgwqDCoCBzdHJ1Y3QgZHJtX2Vu
-Y29kZXIgKmVuY29kZXIgPSBOVUxMOwo+PiArwqDCoMKgIHN0cnVjdCBtc21fZGlzcGxheV9pbmZv
-IGluZm87Cj4+IMKgwqDCoMKgIGludCByYyA9IDA7Cj4+Cj4+IMKgwqDCoMKgIGlmICghcHJpdi0+
-ZHApCj4+IEBAIC01MTYsNiArNTU1LDcgQEAgc3RhdGljIGludCBfZHB1X2ttc19pbml0aWFsaXpl
-X2Rpc3BsYXlwb3J0KHN0cnVjdAo+PiBkcm1fZGV2aWNlICpkZXYsCj4+IMKgwqDCoMKgwqDCoMKg
-wqAgcmV0dXJuIFBUUl9FUlIoZW5jb2Rlcik7Cj4+IMKgwqDCoMKgIH0KPj4KPj4gK8KgwqDCoCBt
-ZW1zZXQoJmluZm8sIDAsIHNpemVvZihpbmZvKSk7Cj4+IMKgwqDCoMKgIHJjID0gbXNtX2RwX21v
-ZGVzZXRfaW5pdChwcml2LT5kcCwgZGV2LCBlbmNvZGVyKTsKPj4gwqDCoMKgwqAgaWYgKHJjKSB7
-Cj4+IMKgwqDCoMKgwqDCoMKgwqAgRFBVX0VSUk9SKCJtb2Rlc2V0X2luaXQgZmFpbGVkIGZvciBE
-UCwgcmMgPSAlZFxuIiwgcmMpOwo+PiBAQCAtNTI0LDYgKzU2NCwxNCBAQCBzdGF0aWMgaW50IF9k
-cHVfa21zX2luaXRpYWxpemVfZGlzcGxheXBvcnQoc3RydWN0Cj4+IGRybV9kZXZpY2UgKmRldiwK
-Pj4gwqDCoMKgwqAgfQo+Pgo+PiDCoMKgwqDCoCBwcml2LT5lbmNvZGVyc1twcml2LT5udW1fZW5j
-b2RlcnMrK10gPSBlbmNvZGVyOwo+PiArCj4+ICvCoMKgwqAgaW5mby5udW1fb2ZfaF90aWxlcyA9
-IDE7Cj4+ICvCoMKgwqAgaW5mby5jYXBhYmlsaXRpZXMgPSBNU01fRElTUExBWV9DQVBfVklEX01P
-REU7Cj4+ICvCoMKgwqAgaW5mby5pbnRmX3R5cGUgPSBlbmNvZGVyLT5lbmNvZGVyX3R5cGU7Cj4+
-ICvCoMKgwqAgcmMgPSBkcHVfZW5jb2Rlcl9zZXR1cChkZXYsIGVuY29kZXIsICZpbmZvKTsKPj4g
-K8KgwqDCoCBpZiAocmMpCj4+ICvCoMKgwqDCoMKgwqDCoCBEUFVfRVJST1IoImZhaWxlZCB0byBz
-ZXR1cCBEUFUgZW5jb2RlciAlZDogcmM6JWRcbiIsCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCBlbmNvZGVyLT5iYXNlLmlkLCByYyk7Cj4+IMKgwqDCoMKgIHJldHVybiByYzsKPj4gwqB9
-Cj4+Cj4+IEBAIC03MjYsNDEgKzc3NCw2IEBAIHN0YXRpYyB2b2lkIGRwdV9rbXNfZGVzdHJveShz
-dHJ1Y3QgbXNtX2ttcyAqa21zKQo+PiDCoMKgwqDCoCBtc21fa21zX2Rlc3Ryb3koJmRwdV9rbXMt
-PmJhc2UpOwo+PiDCoH0KPj4KPj4gLXN0YXRpYyB2b2lkIF9kcHVfa21zX3NldF9lbmNvZGVyX21v
-ZGUoc3RydWN0IG1zbV9rbXMgKmttcywKPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlciwKPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIGJvb2wgY21kX21vZGUpCj4+IC17Cj4+IC3CoMKgwqAgc3RydWN0IG1zbV9k
-aXNwbGF5X2luZm8gaW5mbzsKPj4gLcKgwqDCoCBzdHJ1Y3QgbXNtX2RybV9wcml2YXRlICpwcml2
-ID0gZW5jb2Rlci0+ZGV2LT5kZXZfcHJpdmF0ZTsKPj4gLcKgwqDCoCBpbnQgaSwgcmMgPSAwOwo+
-PiAtCj4+IC3CoMKgwqAgbWVtc2V0KCZpbmZvLCAwLCBzaXplb2YoaW5mbykpOwo+PiAtCj4+IC3C
-oMKgwqAgaW5mby5pbnRmX3R5cGUgPSBlbmNvZGVyLT5lbmNvZGVyX3R5cGU7Cj4+IC3CoMKgwqAg
-aW5mby5jYXBhYmlsaXRpZXMgPSBjbWRfbW9kZSA/IE1TTV9ESVNQTEFZX0NBUF9DTURfTU9ERSA6
-Cj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIE1TTV9ESVNQTEFZX0NBUF9WSURfTU9ERTsKPj4g
-LQo+PiAtwqDCoMKgIHN3aXRjaCAoaW5mby5pbnRmX3R5cGUpIHsKPj4gLcKgwqDCoCBjYXNlIERS
-TV9NT0RFX0VOQ09ERVJfRFNJOgo+PiAtwqDCoMKgwqDCoMKgwqAgLyogVE9ETzogTm8gc3VwcG9y
-dCBmb3IgRFNJIHN3YXAgKi8KPj4gLcKgwqDCoMKgwqDCoMKgIGZvciAoaSA9IDA7IGkgPCBBUlJB
-WV9TSVpFKHByaXYtPmRzaSk7IGkrKykgewo+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAo
-cHJpdi0+ZHNpW2ldKSB7Cj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaW5mby5o
-X3RpbGVfaW5zdGFuY2VbaW5mby5udW1fb2ZfaF90aWxlc10gPSBpOwo+PiAtwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIGluZm8ubnVtX29mX2hfdGlsZXMrKzsKPj4gLcKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgfQo+PiAtwqDCoMKgwqDCoMKgwqAgfQo+PiAtwqDCoMKgwqDCoMKgwqAgYnJl
-YWs7Cj4+IC3CoMKgwqAgY2FzZSBEUk1fTU9ERV9FTkNPREVSX1RNRFM6Cj4+IC3CoMKgwqDCoMKg
-wqDCoCBpbmZvLm51bV9vZl9oX3RpbGVzID0gMTsKPj4gLcKgwqDCoMKgwqDCoMKgIGJyZWFrOwo+
-PiAtwqDCoMKgIH0KPj4gLQo+PiAtwqDCoMKgIHJjID0gZHB1X2VuY29kZXJfc2V0dXAoZW5jb2Rl
-ci0+ZGV2LCBlbmNvZGVyLCAmaW5mbyk7Cj4+IC3CoMKgwqAgaWYgKHJjKQo+PiAtwqDCoMKgwqDC
-oMKgwqAgRFBVX0VSUk9SKCJmYWlsZWQgdG8gc2V0dXAgRFBVIGVuY29kZXIgJWQ6IHJjOiVkXG4i
-LAo+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBlbmNvZGVyLT5iYXNlLmlkLCByYyk7Cj4+IC19
-Cj4+IC0KPj4gwqBzdGF0aWMgaXJxcmV0dXJuX3QgZHB1X2lycShzdHJ1Y3QgbXNtX2ttcyAqa21z
-KQo+PiDCoHsKPj4gwqDCoMKgwqAgc3RydWN0IGRwdV9rbXMgKmRwdV9rbXMgPSB0b19kcHVfa21z
-KGttcyk7Cj4+IEBAIC04NjMsNyArODc2LDYgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBtc21fa21z
-X2Z1bmNzIGttc19mdW5jcyA9IHsKPj4gwqDCoMKgwqAgLmdldF9mb3JtYXTCoMKgwqDCoMKgID0g
-ZHB1X2dldF9tc21fZm9ybWF0LAo+PiDCoMKgwqDCoCAucm91bmRfcGl4Y2xrwqDCoMKgID0gZHB1
-X2ttc19yb3VuZF9waXhjbGssCj4+IMKgwqDCoMKgIC5kZXN0cm95wqDCoMKgwqDCoMKgwqDCoCA9
-IGRwdV9rbXNfZGVzdHJveSwKPj4gLcKgwqDCoCAuc2V0X2VuY29kZXJfbW9kZSA9IF9kcHVfa21z
-X3NldF9lbmNvZGVyX21vZGUsCj4+IMKgwqDCoMKgIC5zbmFwc2hvdMKgwqDCoMKgwqDCoMKgID0g
-ZHB1X2ttc19tZHBfc25hcHNob3QsCj4+IMKgI2lmZGVmIENPTkZJR19ERUJVR19GUwo+PiDCoMKg
-wqDCoCAuZGVidWdmc19pbml0wqDCoMKgID0gZHB1X2ttc19kZWJ1Z2ZzX2luaXQsCgoKLS0gCldp
-dGggYmVzdCB3aXNoZXMKRG1pdHJ5Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QKRnJlZWRyZW5vQGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2ZyZWVkcmVubwo=
+On 2021-07-08 05:28, Dmitry Baryshkov wrote:
+> We are preparing to support two independent DSI hosts in the DSI/DPU
+> code. To remove possible confusion (as both configurations can be
+> referenced as dual DSI) let's rename old "dual DSI" (two DSI hosts
+> driving single device, with clocks being locked) to "bonded DSI".
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Thanks for renaming this,
+Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
+> ---
+>  drivers/gpu/drm/msm/dsi/dsi.h         |  8 ++--
+>  drivers/gpu/drm/msm/dsi/dsi_cfg.h     |  2 +-
+>  drivers/gpu/drm/msm/dsi/dsi_host.c    | 30 ++++++------
+>  drivers/gpu/drm/msm/dsi/dsi_manager.c | 69 +++++++++++++--------------
+>  4 files changed, 54 insertions(+), 55 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h 
+> b/drivers/gpu/drm/msm/dsi/dsi.h
+> index 9b8e9b07eced..856a532850c0 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi.h
+> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
+> @@ -109,7 +109,7 @@ int msm_dsi_host_enable(struct mipi_dsi_host 
+> *host);
+>  int msm_dsi_host_disable(struct mipi_dsi_host *host);
+>  int msm_dsi_host_power_on(struct mipi_dsi_host *host,
+>  			struct msm_dsi_phy_shared_timings *phy_shared_timings,
+> -			bool is_dual_dsi);
+> +			bool is_bonded_dsi);
+>  int msm_dsi_host_power_off(struct mipi_dsi_host *host);
+>  int msm_dsi_host_set_display_mode(struct mipi_dsi_host *host,
+>  				  const struct drm_display_mode *mode);
+> @@ -123,7 +123,7 @@ int msm_dsi_host_set_src_pll(struct mipi_dsi_host 
+> *host,
+>  void msm_dsi_host_reset_phy(struct mipi_dsi_host *host);
+>  void msm_dsi_host_get_phy_clk_req(struct mipi_dsi_host *host,
+>  	struct msm_dsi_phy_clk_request *clk_req,
+> -	bool is_dual_dsi);
+> +	bool is_bonded_dsi);
+>  void msm_dsi_host_destroy(struct mipi_dsi_host *host);
+>  int msm_dsi_host_modeset_init(struct mipi_dsi_host *host,
+>  					struct drm_device *dev);
+> @@ -145,8 +145,8 @@ int dsi_dma_base_get_6g(struct msm_dsi_host
+> *msm_host, uint64_t *iova);
+>  int dsi_dma_base_get_v2(struct msm_dsi_host *msm_host, uint64_t 
+> *iova);
+>  int dsi_clk_init_v2(struct msm_dsi_host *msm_host);
+>  int dsi_clk_init_6g_v2(struct msm_dsi_host *msm_host);
+> -int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool 
+> is_dual_dsi);
+> -int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool 
+> is_dual_dsi);
+> +int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool 
+> is_bonded_dsi);
+> +int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool 
+> is_bonded_dsi);
+>  void msm_dsi_host_snapshot(struct msm_disp_state *disp_state, struct
+> mipi_dsi_host *host);
+>  /* dsi phy */
+>  struct msm_dsi_phy;
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+> b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+> index ade9b609c7d9..2bce00d5a9fc 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+> @@ -47,7 +47,7 @@ struct msm_dsi_host_cfg_ops {
+>  	void* (*tx_buf_get)(struct msm_dsi_host *msm_host);
+>  	void (*tx_buf_put)(struct msm_dsi_host *msm_host);
+>  	int (*dma_base_get)(struct msm_dsi_host *msm_host, uint64_t *iova);
+> -	int (*calc_clk_rate)(struct msm_dsi_host *msm_host, bool 
+> is_dual_dsi);
+> +	int (*calc_clk_rate)(struct msm_dsi_host *msm_host, bool 
+> is_bonded_dsi);
+>  };
+> 
+>  struct msm_dsi_cfg_handler {
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index ed504fe5074f..eb988faddbbf 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -679,7 +679,7 @@ void dsi_link_clk_disable_v2(struct msm_dsi_host 
+> *msm_host)
+>  	clk_disable_unprepare(msm_host->byte_clk);
+>  }
+> 
+> -static u32 dsi_get_pclk_rate(struct msm_dsi_host *msm_host, bool 
+> is_dual_dsi)
+> +static u32 dsi_get_pclk_rate(struct msm_dsi_host *msm_host, bool 
+> is_bonded_dsi)
+>  {
+>  	struct drm_display_mode *mode = msm_host->mode;
+>  	u32 pclk_rate;
+> @@ -692,17 +692,17 @@ static u32 dsi_get_pclk_rate(struct msm_dsi_host
+> *msm_host, bool is_dual_dsi)
+>  	 * the clock rates have to be split between the two dsi controllers.
+>  	 * Adjust the byte and pixel clock rates for each dsi host 
+> accordingly.
+>  	 */
+> -	if (is_dual_dsi)
+> +	if (is_bonded_dsi)
+>  		pclk_rate /= 2;
+> 
+>  	return pclk_rate;
+>  }
+> 
+> -static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool 
+> is_dual_dsi)
+> +static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool 
+> is_bonded_dsi)
+>  {
+>  	u8 lanes = msm_host->lanes;
+>  	u32 bpp = dsi_get_bpp(msm_host->format);
+> -	u32 pclk_rate = dsi_get_pclk_rate(msm_host, is_dual_dsi);
+> +	u32 pclk_rate = dsi_get_pclk_rate(msm_host, is_bonded_dsi);
+>  	u64 pclk_bpp = (u64)pclk_rate * bpp;
+> 
+>  	if (lanes == 0) {
+> @@ -720,28 +720,28 @@ static void dsi_calc_pclk(struct msm_dsi_host
+> *msm_host, bool is_dual_dsi)
+> 
+>  }
+> 
+> -int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool 
+> is_dual_dsi)
+> +int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool 
+> is_bonded_dsi)
+>  {
+>  	if (!msm_host->mode) {
+>  		pr_err("%s: mode not set\n", __func__);
+>  		return -EINVAL;
+>  	}
+> 
+> -	dsi_calc_pclk(msm_host, is_dual_dsi);
+> +	dsi_calc_pclk(msm_host, is_bonded_dsi);
+>  	msm_host->esc_clk_rate = clk_get_rate(msm_host->esc_clk);
+>  	return 0;
+>  }
+> 
+> -int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool 
+> is_dual_dsi)
+> +int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool 
+> is_bonded_dsi)
+>  {
+>  	u32 bpp = dsi_get_bpp(msm_host->format);
+>  	u64 pclk_bpp;
+>  	unsigned int esc_mhz, esc_div;
+>  	unsigned long byte_mhz;
+> 
+> -	dsi_calc_pclk(msm_host, is_dual_dsi);
+> +	dsi_calc_pclk(msm_host, is_bonded_dsi);
+> 
+> -	pclk_bpp = (u64)dsi_get_pclk_rate(msm_host, is_dual_dsi) * bpp;
+> +	pclk_bpp = (u64)dsi_get_pclk_rate(msm_host, is_bonded_dsi) * bpp;
+>  	do_div(pclk_bpp, 8);
+>  	msm_host->src_clk_rate = pclk_bpp;
+> 
+> @@ -938,7 +938,7 @@ static void dsi_ctrl_config(struct msm_dsi_host
+> *msm_host, bool enable,
+>  	dsi_write(msm_host, REG_DSI_CTRL, data);
+>  }
+> 
+> -static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool 
+> is_dual_dsi)
+> +static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool 
+> is_bonded_dsi)
+>  {
+>  	struct drm_display_mode *mode = msm_host->mode;
+>  	u32 hs_start = 0, vs_start = 0; /* take sync start as 0 */
+> @@ -962,7 +962,7 @@ static void dsi_timing_setup(struct msm_dsi_host
+> *msm_host, bool is_dual_dsi)
+>  	 * timings have to be split between the two dsi controllers.
+>  	 * Adjust the DSI host timing values accordingly.
+>  	 */
+> -	if (is_dual_dsi) {
+> +	if (is_bonded_dsi) {
+>  		h_total /= 2;
+>  		hs_end /= 2;
+>  		ha_start /= 2;
+> @@ -2285,13 +2285,13 @@ void msm_dsi_host_reset_phy(struct 
+> mipi_dsi_host *host)
+> 
+>  void msm_dsi_host_get_phy_clk_req(struct mipi_dsi_host *host,
+>  			struct msm_dsi_phy_clk_request *clk_req,
+> -			bool is_dual_dsi)
+> +			bool is_bonded_dsi)
+>  {
+>  	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+>  	const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
+>  	int ret;
+> 
+> -	ret = cfg_hnd->ops->calc_clk_rate(msm_host, is_dual_dsi);
+> +	ret = cfg_hnd->ops->calc_clk_rate(msm_host, is_bonded_dsi);
+>  	if (ret) {
+>  		pr_err("%s: unable to calc clk rate, %d\n", __func__, ret);
+>  		return;
+> @@ -2354,7 +2354,7 @@ static void msm_dsi_sfpb_config(struct
+> msm_dsi_host *msm_host, bool enable)
+> 
+>  int msm_dsi_host_power_on(struct mipi_dsi_host *host,
+>  			struct msm_dsi_phy_shared_timings *phy_shared_timings,
+> -			bool is_dual_dsi)
+> +			bool is_bonded_dsi)
+>  {
+>  	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+>  	const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
+> @@ -2392,7 +2392,7 @@ int msm_dsi_host_power_on(struct mipi_dsi_host 
+> *host,
+>  		goto fail_disable_clk;
+>  	}
+> 
+> -	dsi_timing_setup(msm_host, is_dual_dsi);
+> +	dsi_timing_setup(msm_host, is_bonded_dsi);
+>  	dsi_sw_reset(msm_host);
+>  	dsi_ctrl_config(msm_host, true, phy_shared_timings);
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> index 4ebfedc4a9ac..1173663c6d5d 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> @@ -21,14 +21,14 @@
+>  struct msm_dsi_manager {
+>  	struct msm_dsi *dsi[DSI_MAX];
+> 
+> -	bool is_dual_dsi;
+> +	bool is_bonded_dsi;
+>  	bool is_sync_needed;
+>  	int master_dsi_link_id;
+>  };
+> 
+>  static struct msm_dsi_manager msm_dsim_glb;
+> 
+> -#define IS_DUAL_DSI()		(msm_dsim_glb.is_dual_dsi)
+> +#define IS_BONDED_DSI()		(msm_dsim_glb.is_bonded_dsi)
+>  #define IS_SYNC_NEEDED()	(msm_dsim_glb.is_sync_needed)
+>  #define IS_MASTER_DSI_LINK(id)	(msm_dsim_glb.master_dsi_link_id == id)
+> 
+> @@ -42,18 +42,17 @@ static inline struct msm_dsi 
+> *dsi_mgr_get_other_dsi(int id)
+>  	return msm_dsim_glb.dsi[(id + 1) % DSI_MAX];
+>  }
+> 
+> -static int dsi_mgr_parse_dual_dsi(struct device_node *np, int id)
+> +static int dsi_mgr_parse_of(struct device_node *np, int id)
+>  {
+>  	struct msm_dsi_manager *msm_dsim = &msm_dsim_glb;
+> 
+>  	/* We assume 2 dsi nodes have the same information of dual-dsi and
+>  	 * sync-mode, and only one node specifies master in case of dual 
+> mode.
+>  	 */
+> -	if (!msm_dsim->is_dual_dsi)
+> -		msm_dsim->is_dual_dsi = of_property_read_bool(
+> -						np, "qcom,dual-dsi-mode");
+> +	if (!msm_dsim->is_bonded_dsi)
+> +		msm_dsim->is_bonded_dsi = of_property_read_bool(np, 
+> "qcom,dual-dsi-mode");
+> 
+> -	if (msm_dsim->is_dual_dsi) {
+> +	if (msm_dsim->is_bonded_dsi) {
+>  		if (of_property_read_bool(np, "qcom,master-dsi"))
+>  			msm_dsim->master_dsi_link_id = id;
+>  		if (!msm_dsim->is_sync_needed)
+> @@ -72,7 +71,7 @@ static int dsi_mgr_setup_components(int id)
+>  	struct msm_dsi *clk_slave_dsi = dsi_mgr_get_dsi(DSI_CLOCK_SLAVE);
+>  	int ret;
+> 
+> -	if (!IS_DUAL_DSI()) {
+> +	if (!IS_BONDED_DSI()) {
+>  		ret = msm_dsi_host_register(msm_dsi->host, true);
+>  		if (ret)
+>  			return ret;
+> @@ -119,9 +118,9 @@ static int enable_phy(struct msm_dsi *msm_dsi,
+>  {
+>  	struct msm_dsi_phy_clk_request clk_req;
+>  	int ret;
+> -	bool is_dual_dsi = IS_DUAL_DSI();
+> +	bool is_bonded_dsi = IS_BONDED_DSI();
+> 
+> -	msm_dsi_host_get_phy_clk_req(msm_dsi->host, &clk_req, is_dual_dsi);
+> +	msm_dsi_host_get_phy_clk_req(msm_dsi->host, &clk_req, is_bonded_dsi);
+> 
+>  	ret = msm_dsi_phy_enable(msm_dsi->phy, &clk_req);
+>  	msm_dsi_phy_get_shared_timings(msm_dsi->phy, shared_timings);
+> @@ -143,7 +142,7 @@ dsi_mgr_phy_enable(int id,
+>  	 * will silently reset those PHY1 registers. Therefore we need to 
+> reset
+>  	 * and enable both PHYs before any PLL clock operation.
+>  	 */
+> -	if (IS_DUAL_DSI() && mdsi && sdsi) {
+> +	if (IS_BONDED_DSI() && mdsi && sdsi) {
+>  		if (!mdsi->phy_enabled && !sdsi->phy_enabled) {
+>  			msm_dsi_host_reset_phy(mdsi->host);
+>  			msm_dsi_host_reset_phy(sdsi->host);
+> @@ -182,7 +181,7 @@ static void dsi_mgr_phy_disable(int id)
+>  	 * first controller only when the second controller is disabled.
+>  	 */
+>  	msm_dsi->phy_enabled = false;
+> -	if (IS_DUAL_DSI() && mdsi && sdsi) {
+> +	if (IS_BONDED_DSI() && mdsi && sdsi) {
+>  		if (!mdsi->phy_enabled && !sdsi->phy_enabled) {
+>  			msm_dsi_phy_disable(sdsi->phy);
+>  			msm_dsi_phy_disable(mdsi->phy);
+> @@ -244,7 +243,7 @@ static int msm_dsi_manager_panel_init(struct
+> drm_connector *conn, u8 id)
+>  	struct msm_dsi *master_dsi, *slave_dsi;
+>  	struct drm_panel *panel;
+> 
+> -	if (IS_DUAL_DSI() && !IS_MASTER_DSI_LINK(id)) {
+> +	if (IS_BONDED_DSI() && !IS_MASTER_DSI_LINK(id)) {
+>  		master_dsi = other_dsi;
+>  		slave_dsi = msm_dsi;
+>  	} else {
+> @@ -264,7 +263,7 @@ static int msm_dsi_manager_panel_init(struct
+> drm_connector *conn, u8 id)
+>  		return PTR_ERR(panel);
+>  	}
+> 
+> -	if (!panel || !IS_DUAL_DSI())
+> +	if (!panel || !IS_BONDED_DSI())
+>  		goto out;
+> 
+>  	drm_object_attach_property(&conn->base,
+> @@ -366,7 +365,7 @@ static void dsi_mgr_bridge_pre_enable(struct
+> drm_bridge *bridge)
+>  	struct mipi_dsi_host *host = msm_dsi->host;
+>  	struct drm_panel *panel = msm_dsi->panel;
+>  	struct msm_dsi_phy_shared_timings phy_shared_timings[DSI_MAX];
+> -	bool is_dual_dsi = IS_DUAL_DSI();
+> +	bool is_bonded_dsi = IS_BONDED_DSI();
+>  	int ret;
+> 
+>  	DBG("id=%d", id);
+> @@ -374,22 +373,22 @@ static void dsi_mgr_bridge_pre_enable(struct
+> drm_bridge *bridge)
+>  		return;
+> 
+>  	/* Do nothing with the host if it is slave-DSI in case of dual DSI */
+> -	if (is_dual_dsi && !IS_MASTER_DSI_LINK(id))
+> +	if (is_bonded_dsi && !IS_MASTER_DSI_LINK(id))
+>  		return;
+> 
+>  	ret = dsi_mgr_phy_enable(id, phy_shared_timings);
+>  	if (ret)
+>  		goto phy_en_fail;
+> 
+> -	ret = msm_dsi_host_power_on(host, &phy_shared_timings[id], 
+> is_dual_dsi);
+> +	ret = msm_dsi_host_power_on(host, &phy_shared_timings[id], 
+> is_bonded_dsi);
+>  	if (ret) {
+>  		pr_err("%s: power on host %d failed, %d\n", __func__, id, ret);
+>  		goto host_on_fail;
+>  	}
+> 
+> -	if (is_dual_dsi && msm_dsi1) {
+> +	if (is_bonded_dsi && msm_dsi1) {
+>  		ret = msm_dsi_host_power_on(msm_dsi1->host,
+> -				&phy_shared_timings[DSI_1], is_dual_dsi);
+> +				&phy_shared_timings[DSI_1], is_bonded_dsi);
+>  		if (ret) {
+>  			pr_err("%s: power on host1 failed, %d\n",
+>  							__func__, ret);
+> @@ -415,7 +414,7 @@ static void dsi_mgr_bridge_pre_enable(struct
+> drm_bridge *bridge)
+>  		goto host_en_fail;
+>  	}
+> 
+> -	if (is_dual_dsi && msm_dsi1) {
+> +	if (is_bonded_dsi && msm_dsi1) {
+>  		ret = msm_dsi_host_enable(msm_dsi1->host);
+>  		if (ret) {
+>  			pr_err("%s: enable host1 failed, %d\n", __func__, ret);
+> @@ -431,7 +430,7 @@ static void dsi_mgr_bridge_pre_enable(struct
+> drm_bridge *bridge)
+>  	if (panel)
+>  		drm_panel_unprepare(panel);
+>  panel_prep_fail:
+> -	if (is_dual_dsi && msm_dsi1)
+> +	if (is_bonded_dsi && msm_dsi1)
+>  		msm_dsi_host_power_off(msm_dsi1->host);
+>  host1_on_fail:
+>  	msm_dsi_host_power_off(host);
+> @@ -446,7 +445,7 @@ static void dsi_mgr_bridge_enable(struct drm_bridge 
+> *bridge)
+>  	int id = dsi_mgr_bridge_get_id(bridge);
+>  	struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
+>  	struct drm_panel *panel = msm_dsi->panel;
+> -	bool is_dual_dsi = IS_DUAL_DSI();
+> +	bool is_bonded_dsi = IS_BONDED_DSI();
+>  	int ret;
+> 
+>  	DBG("id=%d", id);
+> @@ -454,7 +453,7 @@ static void dsi_mgr_bridge_enable(struct drm_bridge 
+> *bridge)
+>  		return;
+> 
+>  	/* Do nothing with the host if it is slave-DSI in case of dual DSI */
+> -	if (is_dual_dsi && !IS_MASTER_DSI_LINK(id))
+> +	if (is_bonded_dsi && !IS_MASTER_DSI_LINK(id))
+>  		return;
+> 
+>  	if (panel) {
+> @@ -471,7 +470,7 @@ static void dsi_mgr_bridge_disable(struct
+> drm_bridge *bridge)
+>  	int id = dsi_mgr_bridge_get_id(bridge);
+>  	struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
+>  	struct drm_panel *panel = msm_dsi->panel;
+> -	bool is_dual_dsi = IS_DUAL_DSI();
+> +	bool is_bonded_dsi = IS_BONDED_DSI();
+>  	int ret;
+> 
+>  	DBG("id=%d", id);
+> @@ -479,7 +478,7 @@ static void dsi_mgr_bridge_disable(struct
+> drm_bridge *bridge)
+>  		return;
+> 
+>  	/* Do nothing with the host if it is slave-DSI in case of dual DSI */
+> -	if (is_dual_dsi && !IS_MASTER_DSI_LINK(id))
+> +	if (is_bonded_dsi && !IS_MASTER_DSI_LINK(id))
+>  		return;
+> 
+>  	if (panel) {
+> @@ -497,7 +496,7 @@ static void dsi_mgr_bridge_post_disable(struct
+> drm_bridge *bridge)
+>  	struct msm_dsi *msm_dsi1 = dsi_mgr_get_dsi(DSI_1);
+>  	struct mipi_dsi_host *host = msm_dsi->host;
+>  	struct drm_panel *panel = msm_dsi->panel;
+> -	bool is_dual_dsi = IS_DUAL_DSI();
+> +	bool is_bonded_dsi = IS_BONDED_DSI();
+>  	int ret;
+> 
+>  	DBG("id=%d", id);
+> @@ -510,14 +509,14 @@ static void dsi_mgr_bridge_post_disable(struct
+> drm_bridge *bridge)
+>  	 * It is safe to call dsi_mgr_phy_disable() here because a single PHY
+>  	 * won't be diabled until both PHYs request disable.
+>  	 */
+> -	if (is_dual_dsi && !IS_MASTER_DSI_LINK(id))
+> +	if (is_bonded_dsi && !IS_MASTER_DSI_LINK(id))
+>  		goto disable_phy;
+> 
+>  	ret = msm_dsi_host_disable(host);
+>  	if (ret)
+>  		pr_err("%s: host %d disable failed, %d\n", __func__, id, ret);
+> 
+> -	if (is_dual_dsi && msm_dsi1) {
+> +	if (is_bonded_dsi && msm_dsi1) {
+>  		ret = msm_dsi_host_disable(msm_dsi1->host);
+>  		if (ret)
+>  			pr_err("%s: host1 disable failed, %d\n", __func__, ret);
+> @@ -537,7 +536,7 @@ static void dsi_mgr_bridge_post_disable(struct
+> drm_bridge *bridge)
+>  	if (ret)
+>  		pr_err("%s: host %d power off failed,%d\n", __func__, id, ret);
+> 
+> -	if (is_dual_dsi && msm_dsi1) {
+> +	if (is_bonded_dsi && msm_dsi1) {
+>  		ret = msm_dsi_host_power_off(msm_dsi1->host);
+>  		if (ret)
+>  			pr_err("%s: host1 power off failed, %d\n",
+> @@ -556,15 +555,15 @@ static void dsi_mgr_bridge_mode_set(struct
+> drm_bridge *bridge,
+>  	struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
+>  	struct msm_dsi *other_dsi = dsi_mgr_get_other_dsi(id);
+>  	struct mipi_dsi_host *host = msm_dsi->host;
+> -	bool is_dual_dsi = IS_DUAL_DSI();
+> +	bool is_bonded_dsi = IS_BONDED_DSI();
+> 
+>  	DBG("set mode: " DRM_MODE_FMT, DRM_MODE_ARG(mode));
+> 
+> -	if (is_dual_dsi && !IS_MASTER_DSI_LINK(id))
+> +	if (is_bonded_dsi && !IS_MASTER_DSI_LINK(id))
+>  		return;
+> 
+>  	msm_dsi_host_set_display_mode(host, adjusted_mode);
+> -	if (is_dual_dsi && other_dsi)
+> +	if (is_bonded_dsi && other_dsi)
+>  		msm_dsi_host_set_display_mode(other_dsi->host, adjusted_mode);
+>  }
+> 
+> @@ -640,7 +639,7 @@ struct drm_connector 
+> *msm_dsi_manager_connector_init(u8 id)
+> 
+>  bool msm_dsi_manager_validate_current_config(u8 id)
+>  {
+> -	bool is_dual_dsi = IS_DUAL_DSI();
+> +	bool is_bonded_dsi = IS_BONDED_DSI();
+> 
+>  	/*
+>  	 * For dual DSI, we only have one drm panel. For this
+> @@ -648,7 +647,7 @@ bool msm_dsi_manager_validate_current_config(u8 id)
+>  	 * Skip bridge/connector initialisation if it is
+>  	 * slave-DSI for dual DSI configuration.
+>  	 */
+> -	if (is_dual_dsi && !IS_MASTER_DSI_LINK(id)) {
+> +	if (is_bonded_dsi && !IS_MASTER_DSI_LINK(id)) {
+>  		DBG("Skip bridge registration for slave DSI->id: %d\n", id);
+>  		return false;
+>  	}
+> @@ -809,7 +808,7 @@ int msm_dsi_manager_register(struct msm_dsi 
+> *msm_dsi)
+> 
+>  	msm_dsim->dsi[id] = msm_dsi;
+> 
+> -	ret = dsi_mgr_parse_dual_dsi(msm_dsi->pdev->dev.of_node, id);
+> +	ret = dsi_mgr_parse_of(msm_dsi->pdev->dev.of_node, id);
+>  	if (ret) {
+>  		pr_err("%s: failed to parse dual DSI info\n", __func__);
+>  		goto fail;
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
