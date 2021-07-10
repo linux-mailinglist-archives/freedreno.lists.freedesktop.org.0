@@ -1,62 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 841F63C3714
-	for <lists+freedreno@lfdr.de>; Sun, 11 Jul 2021 00:20:20 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id E88893C3718
+	for <lists+freedreno@lfdr.de>; Sun, 11 Jul 2021 00:20:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9C7D6EB70;
-	Sat, 10 Jul 2021 22:20:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 840B06EB73;
+	Sat, 10 Jul 2021 22:20:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49F6C6EB6A
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB1036EB71
  for <freedreno@lists.freedesktop.org>; Sat, 10 Jul 2021 22:20:13 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id i5so2326551lfe.2
+Received: by mail-lj1-x234.google.com with SMTP id u25so15206756ljj.11
  for <freedreno@lists.freedesktop.org>; Sat, 10 Jul 2021 15:20:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=hoN8ubV+NL8AcGXwOuvZXUIKfTF5XnABfb0Z79GoR78=;
- b=ZUh4O8Uq5OAkw2Yj6Tt6vfKLJ/c73uzzW70zh4gYRHDgFdfcbsa9TYHfkCUDw2rKi7
- kAdD8eskVqCnEQ0tu3+v+oF025XuGQj9vgwDSR4gl9g+Zw4RX3uAtMfP905ofFNlCThO
- ZHpI78Vokpv2+sTfxbqa38wjCZNVsayUgFO0bMDnQGY18cV8/6c4/jMyXHdrxrDNPeV4
- o0m7dwZaWRP7cZPv5kdtXUUDQcs+Xd+7imJa2oM6+0qswIrzcw2XFUAh8lLu6i6iE6m0
- 3ijY7ZZDKsoS5GQhgCnFTjZLRb1x4E3pt2+6X24d0TGKdQrg+QzNZET55uHjYHVMueSM
- E2gA==
+ bh=TR8ndGweFJ1zlT+mXoJoL5P2xKgyplXAag8kXZdug0c=;
+ b=fENDnaOf/UP/RMKJFYxauZAcyuS6+LC9ElBy6sBFJckE4FkoINX7w/pLhlpwRb4LoH
+ XS7790rHbisHZYZ4cPkK628jgpa/blwWMmDhdysWbQfPlHl7/YMP+ESJAtaCLENjNwrJ
+ Dr9YIrK5QvICN/LOqmnkhbxvYiTdRGirUbBsAtjJvY3QnQ+cGowPilRnDUQjtOma3it/
+ JTeE/JLC0WsvYAgyAe44aYh7uWetQxjpzHRwxW4ig7m6/cP900djixGACrWpPId/5jys
+ V3fMnGQ7vF5nmdiYsH/IVynAN8DRFh7VEAB+ZzoSWpLuCmPIgimJ0IEJaKfZ1ESTTQA/
+ rV6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=hoN8ubV+NL8AcGXwOuvZXUIKfTF5XnABfb0Z79GoR78=;
- b=McvJMG8RSBJyHNWbgEBHLdGnTl3G0EL7p9++nbM76LguiQBBkmhng9njNQaNy50Hiu
- DUEk9t+NHMUIyf6D0STjePcR/qiriQtsR+Hoez3B31BEX0r+RWlLQHiqQFi4sNuTG5Uj
- LTtrUQN8Imvj22/lIsxD1De31NwGF8e7JMbBId00IClV8UfMcypfet4c6rA3KNywVtun
- F2UeOV+449iPGVgjvb40z7BQVqnfnwH9SuMxPmgQfxoPaxLUVpAPvf69Kpe+53XoSDSt
- 3Ievw6WIU7AuCoks8gtbWHZuSqHda0Oe4DZEvcTChpqhKHRt8v+hJwvtJ9Q0NiZLmv3C
- E/dQ==
-X-Gm-Message-State: AOAM531jrth80MR2zDcDZ8JFlBkT61lTgxR6wNrughsEjNPMzI2VFocT
- tq8/a5h2m5xb/VoYI8xkx9yz4Q==
-X-Google-Smtp-Source: ABdhPJyjcx0AB95L0qYORaJEoRS4aSNevZfMQ7NnsUs741NpjV75fb0/QM9yQBZhwXEVPVc2YlLDjQ==
-X-Received: by 2002:a19:e012:: with SMTP id x18mr34883500lfg.394.1625955611596; 
- Sat, 10 Jul 2021 15:20:11 -0700 (PDT)
+ bh=TR8ndGweFJ1zlT+mXoJoL5P2xKgyplXAag8kXZdug0c=;
+ b=hm5xvwHosTOYvYjuZMXF83ukVCI3MwDz5klDbqFycSjl/hN4legnRAz4UwVQK++EE0
+ hP1LBWIgiTGYWCNU1RL1mQojaL+MZrmJ9lmeeNOxVV/TxWqZjI4mM0HfNkZn/aww9tFz
+ 4TuY5IDpKif6jQ2tJSvskyPcQRTzdybf8JvGgriZqfd+xUgVh+BgQjpzUKuupCJvyzhB
+ W4SwERU/UgGym9sihAqsbJ1HoNy1I/u6NKHMG1iKGd1kI8JQq1n+xQJ9IF2wmNuqQlSr
+ dwv42e86ropjoFztJVMve5KX5erliaMn2XhDNMP698CSAjjYIVzHoepSxDdhmUcc5JyY
+ 3iSg==
+X-Gm-Message-State: AOAM533fOshU4oIA9wRG7H861+EfzpueeO7NdQexPNxmgmFyOKXZEwXg
+ izM/VW0w0XpctFeSTZKvmI+B7w==
+X-Google-Smtp-Source: ABdhPJz0KbTfdTPuQA7RGX6XRfCQOgs7wgEMdI9iLQdfZVyS+bMtCRlrYXKmytfRxjRqvDUwt3V3YQ==
+X-Received: by 2002:a2e:9e53:: with SMTP id g19mr36997908ljk.58.1625955612418; 
+ Sat, 10 Jul 2021 15:20:12 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id s15sm795466lfp.216.2021.07.10.15.20.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 10 Jul 2021 15:20:11 -0700 (PDT)
+ Sat, 10 Jul 2021 15:20:12 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <abhinavk@codeaurora.org>
-Date: Sun, 11 Jul 2021 01:20:02 +0300
-Message-Id: <20210710222005.1334734-5-dmitry.baryshkov@linaro.org>
+Date: Sun, 11 Jul 2021 01:20:03 +0300
+Message-Id: <20210710222005.1334734-6-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210710222005.1334734-1-dmitry.baryshkov@linaro.org>
 References: <20210710222005.1334734-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v3 4/7] drm/msm/mdp5: move
- mdp5_encoder_set_intf_mode after msm_dsi_modeset_init
+Subject: [Freedreno] [PATCH v3 5/7] drm/msm/dp: stop calling
+ set_encoder_mode callback
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,51 +78,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Move a call to mdp5_encoder_set_intf_mode() after
-msm_dsi_modeset_init(), removing set_encoder_mode callback.
+None of the display drivers now implement set_encoder_mode callback.
+Stop calling it from the modeset init code.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
 ---
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_display.c | 18 ------------------
+ 1 file changed, 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-index 15aed45022bc..b3b42672b2d4 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-@@ -209,13 +209,6 @@ static int mdp5_set_split_display(struct msm_kms *kms,
- 							  slave_encoder);
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 051c1be1de7e..70b319a8fe83 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -102,8 +102,6 @@ struct dp_display_private {
+ 	struct dp_display_mode dp_mode;
+ 	struct msm_dp dp_display;
+ 
+-	bool encoder_mode_set;
+-
+ 	/* wait for audio signaling */
+ 	struct completion audio_comp;
+ 
+@@ -283,20 +281,6 @@ static void dp_display_send_hpd_event(struct msm_dp *dp_display)
  }
  
--static void mdp5_set_encoder_mode(struct msm_kms *kms,
--				  struct drm_encoder *encoder,
--				  bool cmd_mode)
+ 
+-static void dp_display_set_encoder_mode(struct dp_display_private *dp)
 -{
--	mdp5_encoder_set_intf_mode(encoder, cmd_mode);
+-	struct msm_drm_private *priv = dp->dp_display.drm_dev->dev_private;
+-	struct msm_kms *kms = priv->kms;
+-
+-	if (!dp->encoder_mode_set && dp->dp_display.encoder &&
+-				kms->funcs->set_encoder_mode) {
+-		kms->funcs->set_encoder_mode(kms,
+-				dp->dp_display.encoder, false);
+-
+-		dp->encoder_mode_set = true;
+-	}
 -}
 -
- static void mdp5_kms_destroy(struct msm_kms *kms)
+ static int dp_display_send_hpd_notification(struct dp_display_private *dp,
+ 					    bool hpd)
  {
- 	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(kms));
-@@ -287,7 +280,6 @@ static const struct mdp_kms_funcs kms_funcs = {
- 		.get_format      = mdp_get_format,
- 		.round_pixclk    = mdp5_round_pixclk,
- 		.set_split_display = mdp5_set_split_display,
--		.set_encoder_mode = mdp5_set_encoder_mode,
- 		.destroy         = mdp5_kms_destroy,
- #ifdef CONFIG_DEBUG_FS
- 		.debugfs_init    = mdp5_kms_debugfs_init,
-@@ -448,6 +440,9 @@ static int modeset_init_intf(struct mdp5_kms *mdp5_kms,
- 		}
+@@ -369,8 +353,6 @@ static void dp_display_host_init(struct dp_display_private *dp, int reset)
+ 	if (dp->usbpd->orientation == ORIENTATION_CC2)
+ 		flip = true;
  
- 		ret = msm_dsi_modeset_init(priv->dsi[dsi_id], dev, encoder);
-+		if (!ret)
-+			mdp5_encoder_set_intf_mode(encoder, msm_dsi_is_cmd_mode(priv->dsi[dsi_id]));
-+
- 		break;
- 	}
- 	default:
+-	dp_display_set_encoder_mode(dp);
+-
+ 	dp_power_init(dp->power, flip);
+ 	dp_ctrl_host_init(dp->ctrl, flip, reset);
+ 	dp_aux_init(dp->aux);
 -- 
 2.30.2
 
