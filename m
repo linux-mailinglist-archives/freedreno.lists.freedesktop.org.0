@@ -2,38 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33B7E3C6D1C
-	for <lists+freedreno@lfdr.de>; Tue, 13 Jul 2021 11:19:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 616F03C738E
+	for <lists+freedreno@lfdr.de>; Tue, 13 Jul 2021 17:54:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D895F89F71;
-	Tue, 13 Jul 2021 09:19:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B13E8989F;
+	Tue, 13 Jul 2021 15:54:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 504 seconds by postgrey-1.36 at gabe;
- Tue, 13 Jul 2021 09:19:00 UTC
-Received: from relay01.th.seeweb.it (relay01.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B638189F85
- for <freedreno@lists.freedesktop.org>; Tue, 13 Jul 2021 09:19:00 +0000 (UTC)
-Received: from [10.0.20.3] (94-209-165-62.cable.dynamic.v4.ziggo.nl
- [94.209.165.62])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 3E7981F887;
- Tue, 13 Jul 2021 11:10:31 +0200 (CEST)
-To: Abhinav Kumar <abhinavk@codeaurora.org>, dri-devel@lists.freedesktop.org
-References: <1624993464-20447-1-git-send-email-abhinavk@codeaurora.org>
-From: Marijn Suijten <marijn.suijten@somainline.org>
-Message-ID: <61cdcd07-5bff-a8ae-7156-b85b9c6c8801@somainline.org>
-Date: Tue, 13 Jul 2021 11:10:30 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-MIME-Version: 1.0
-In-Reply-To: <1624993464-20447-1-git-send-email-abhinavk@codeaurora.org>
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: add support for dsi test
- pattern generator
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32AFD89A72
+ for <freedreno@lists.freedesktop.org>; Tue, 13 Jul 2021 15:54:40 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1626191683; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=ISnkaTcNJcI8305yLt52TZLR5pfbH41+7hRWFRezhug=;
+ b=FT1jjTxDZDLuO1va/FGoFm0OkOCA/wfV31x4YJBlq+MJqGpHFLBWqTnL4GuLFXFjBDATKxuM
+ bj1k0w7a9TrHB6GU2Q1K5sfIwOq4uA8O1fqxJayvKkBVPeaL0PoxKxNV1NpFQCdQawyZzpSt
+ tobk/aZ/vKzyNgvffD+hOzPjryc=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
+ 60edb73a5e3e57240b8eb383 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 13 Jul 2021 15:54:34
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 9E3C9C433D3; Tue, 13 Jul 2021 15:54:33 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
+Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 17300C433D3;
+ Tue, 13 Jul 2021 15:54:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 17300C433D3
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=khsieh@codeaurora.org
+From: Kuogee Hsieh <khsieh@codeaurora.org>
+To: dri-devel@lists.freedesktop.org, robdclark@gmail.com, sean@poorly.run,
+ swboyd@chromium.org
+Date: Tue, 13 Jul 2021 08:54:00 -0700
+Message-Id: <1626191647-13901-1-git-send-email-khsieh@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH v2 0/7] add fixes to pass DP Link Layer
+ compliance test cases
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,68 +65,39 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, swboyd@chromium.org, khsieh@codeaurora.org,
- robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
- dmitry.baryshkov@linaro.org, aravindh@codeaurora.org,
- freedreno@lists.freedesktop.org
+Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, abhinavk@codeaurora.org,
+ bjorn.andersson@linaro.org, Kuogee Hsieh <khsieh@codeaurora.org>,
+ daniel@ffwll.ch, aravindh@codeaurora.org, freedreno@lists.freedesktop.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+add fixes to pass DP Link Layer compliance test cases
 
+Kuogee Hsieh (7):
+  drm/msm/dp: use dp_ctrl_off_link_stream during PHY compliance test run
+  drm/msm/dp: reduce link rate if failed at link training 1
+  drm/msm/dp: reset aux controller after dp_aux_cmd_fifo_tx() failed.
+  drm/msm/dp: replug event is converted into an unplug followed by an
+    plug events
+  drm/msm/dp: return correct edid checksum after corrupted edid checksum
+    read
+  drm/msm/dp: do not end dp link training until video is ready
+  drm/msm/dp: retrain link when loss of symbol lock detected
 
-On 6/29/21 9:04 PM, Abhinav Kumar wrote:
-> During board bringups its useful to have a DSI test pattern
-> generator to isolate a DPU vs a DSI issue and focus on the relevant
-> hardware block.
-> 
-> To facilitate this, add an API which triggers the DSI controller
-> test pattern. The expected output is a rectangular checkered pattern.
-> 
-> This has been validated on a single DSI video mode panel by calling it
-> right after drm_panel_enable() which is also the ideal location to use
-> this as the DSI host and the panel have been initialized by then.
-> 
-> Further validation on dual DSI and command mode panel is pending.
-> If there are any fix ups needed for those, it shall be applied on top
-> of this change.
-> 
-> Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+ drivers/gpu/drm/msm/dp/dp_aux.c     |   3 +
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 145 +++++++++++++++++++++++-------------
+ drivers/gpu/drm/msm/dp/dp_display.c |  13 ++--
+ drivers/gpu/drm/msm/dp/dp_panel.c   |   9 ++-
+ 4 files changed, 110 insertions(+), 60 deletions(-)
 
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
-Tested-by: Marijn Suijten <marijn.suijten@somainline.org>
-
-[...]
-> +static void msm_dsi_host_cmd_test_pattern_setup(struct msm_dsi_host *msm_host)
-> +{
-> +	u32 reg;
-> +
-> +	reg = dsi_read(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL);
-> +
-> +	dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CMD_MDP_INIT_VAL0, 0xff);
-> +
-> +	reg |= (0x3 << 0x8);
-> +	dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL, reg);
-> +	/* draw checkered rectangle pattern */
-> +	dsi_write(msm_host, REG_DSI_TPG_MAIN_CONTROL2, (0x1 << 0x7));
-
-
-How about BIT(7)?
-
-On SM6125 this seems to change the color intensity of the pattern; it is 
-always colored lines of a few pixels wide alternating R, B and G from 
-left to right.  Is it possible to document the meaning and available 
-values of these registers, especially if they differ between SoC / DSI 
-block?
-
-Kind regards,
-Marijn
-
-> +	DBG("Cmd test pattern setup done\n");
-> +}
-[...]
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
