@@ -2,57 +2,39 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A94F63C75D8
-	for <lists+freedreno@lfdr.de>; Tue, 13 Jul 2021 19:42:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BA553C76FF
+	for <lists+freedreno@lfdr.de>; Tue, 13 Jul 2021 21:34:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 490816E10F;
-	Tue, 13 Jul 2021 17:42:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF2186E11C;
+	Tue, 13 Jul 2021 19:34:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [IPv6:2a00:1450:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72FD16E105;
- Tue, 13 Jul 2021 17:42:42 +0000 (UTC)
-Received: by mail-wm1-x32c.google.com with SMTP id
- a5-20020a7bc1c50000b02901e3bbe0939bso2951610wmj.0; 
- Tue, 13 Jul 2021 10:42:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=BCKTJU2XxIO77fuxxzexkfqoVytjtNEnzHrzE4LOcyU=;
- b=EToeT1inOWCt4oadMwT0v3PUy6du+3gSJVj+TudD76Ny/PVxYy0EbsJx93dlKTqyQI
- pOcBVx56jFbFZZb+yPhKxYY1comJaWESJJgdsvU2fVilj7qc8D4ECl59fIxzS3Z/80My
- eX44oUGaSwbfKF9LLVqHMtkV8DQNViQ9E79l4iOIcDDQaf+EWD7mgyY6wdMsAZcizY9a
- 2Bz5waZFphg4c06u4r5xdMCskFuYo6lO8E3IjOZEO9TBCPoHCzPIs6/GyTUs8jEVEklP
- tBLHvoTdsBtxMx+pH3Xb2aUvv3j4BLGnAc3p0Lzt4QFz9jqCDpNYlGo6vuAzrsOkjmTs
- ThiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=BCKTJU2XxIO77fuxxzexkfqoVytjtNEnzHrzE4LOcyU=;
- b=My2VPEgDOcKiLd3/qLUMTLPn+a1Yoa+1j9FZGpsO/ZaCJxZcSfem1bAnG6kaNZ8gSJ
- VU0WWniKZiQaBocIIElefAbOjaMnYirDSJV4+jKAIx3cYTxKItay94l92Fb5KiwoGHId
- SOia6vRnu6/5A6INoCH+AJgd6myZ7w1u5noSbFPT3qWsykV/c2uFFFbqxKkY1/hNQdBn
- AELWsj/WytdeYs8VyLvH2epAkiih8KpeRl2rgeOAxK8HWHxQw03lvBV3Tz7l6KlJkReE
- yVCU37rmf4GlC/Uk45rGHdAHRlSh7tkYH+zfPBawVf497QG6rkoxtbZwS0ld56Fogyx4
- ihow==
-X-Gm-Message-State: AOAM532SfUnxOmTQOGiIr7scHLiuY6UvTnGpS5ub3A3rS9wMQdshK9ne
- n6byfLOZyw4d1FZLHvjvsCtF/wnofddQDhLKaQE=
-X-Google-Smtp-Source: ABdhPJxxQFSd3trk1Yz/bp+qnTaH981CyIiqxvsV1KScxRC5xJlYqtoR6lDSCKcCtzuwv3cwAQFgJfx8N9bKEDR7CH4=
-X-Received: by 2002:a1c:25c6:: with SMTP id l189mr574530wml.49.1626198161022; 
- Tue, 13 Jul 2021 10:42:41 -0700 (PDT)
+Received: from mx1.smtp.larsendata.com (mx1.smtp.larsendata.com
+ [91.221.196.215])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26CB66E11E
+ for <freedreno@lists.freedesktop.org>; Tue, 13 Jul 2021 19:34:38 +0000 (UTC)
+Received: from mail01.mxhotel.dk (mail01.mxhotel.dk [91.221.196.236])
+ by mx1.smtp.larsendata.com (Halon) with ESMTPS
+ id 58e5d393-e411-11eb-9082-0050568c148b;
+ Tue, 13 Jul 2021 19:34:32 +0000 (UTC)
+Received: from ravnborg.org (80-162-45-141-cable.dk.customer.tdc.net
+ [80.162.45.141])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: sam@ravnborg.org)
+ by mail01.mxhotel.dk (Postfix) with ESMTPSA id 61C01194B3A;
+ Tue, 13 Jul 2021 21:34:48 +0200 (CEST)
+Date: Tue, 13 Jul 2021 21:34:34 +0200
+X-Report-Abuse-To: abuse@mxhotel.dk
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Daniel Vetter <daniel@ffwll.ch>
+Message-ID: <YO3qyktHXds+4vql@ravnborg.org>
+References: <1626196421-24595-1-git-send-email-gracan@codeaurora.org>
+ <CAKMK7uGcwLmvyPB1Z2HyOQg3bHYev5J=ad8Cjj=AQMVTTSHPNg@mail.gmail.com>
 MIME-Version: 1.0
-References: <20210712175352.802687-1-daniel.vetter@ffwll.ch>
- <20210712175352.802687-15-daniel.vetter@ffwll.ch>
- <CAF6AEGtC0BxABJtSaOmhEt_WKiuptWCHP7g4D5wEaJ4NaEuz4w@mail.gmail.com>
- <CAKMK7uEL8dr5RT2362ehR1Gb7mvwLmcEsZV+uWDj_kpoovWKxg@mail.gmail.com>
-In-Reply-To: <CAKMK7uEL8dr5RT2362ehR1Gb7mvwLmcEsZV+uWDj_kpoovWKxg@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 13 Jul 2021 10:46:47 -0700
-Message-ID: <CAF6AEGvsQnULTKwqWu+ToX0cVt12hs4SZrZ2Ai216m=8MBaqTQ@mail.gmail.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Subject: Re: [Freedreno] [PATCH v4 14/18] drm/msm: Don't break exclusive
- fence ordering
+Content-Disposition: inline
+In-Reply-To: <CAKMK7uGcwLmvyPB1Z2HyOQg3bHYev5J=ad8Cjj=AQMVTTSHPNg@mail.gmail.com>
+Subject: Re: [Freedreno] [RFC] drm: return int error code from mode_fixup
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,100 +47,53 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
+Cc: Grace An <gracan@codeaurora.org>,
  linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@intel.com>, Sean Paul <sean@poorly.run>,
- Lucas Stach <l.stach@pengutronix.de>
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Stephen Boyd <swboyd@chromium.org>, Kuogee Hsieh <khsieh@codeaurora.org>,
+ pdhaval@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, aravindh@codeaurora.org,
+ freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jul 13, 2021 at 9:58 AM Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
->
-> On Tue, Jul 13, 2021 at 6:51 PM Rob Clark <robdclark@gmail.com> wrote:
+On Tue, Jul 13, 2021 at 07:44:12PM +0200, Daniel Vetter wrote:
+> On Tue, Jul 13, 2021 at 7:14 PM Grace An <gracan@codeaurora.org> wrote:
+> > When CONFIG_PROVE_LOCKING is defined, the kernel randomly injects
+> > -EDEADLK errors for all the ww_mutex. This results in
+> > drm_atomic_get_private_obj_state randomly returning -EDEADLK.
+> > However, the mode_fixup functions do not propagate these error
+> > codes and return false, causing the atomic commit to fail with
+> > -EINVAL instead of retrying.
 > >
-> > On Mon, Jul 12, 2021 at 1:02 PM Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
-> > >
-> > > There's only one exclusive slot, and we must not break the ordering.
-> > >
-> > > Adding a new exclusive fence drops all previous fences from the
-> > > dma_resv. To avoid violating the signalling order we err on the side of
-> > > over-synchronizing by waiting for the existing fences, even if
-> > > userspace asked us to ignore them.
-> > >
-> > > A better fix would be to us a dma_fence_chain or _array like e.g.
-> > > amdgpu now uses, but
-> > > - msm has a synchronous dma_fence_wait for anything from another
-> > >   context, so doesn't seem to care much,
-> > > - and it probably makes sense to lift this into dma-resv.c code as a
-> > >   proper concept, so that drivers don't have to hack up their own
-> > >   solution each on their own.
-> > >
-> > > v2: Improve commit message per Lucas' suggestion.
-> > >
-> > > Cc: Lucas Stach <l.stach@pengutronix.de>
-> > > Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-> > > Cc: Rob Clark <robdclark@gmail.com>
-> > > Cc: Sean Paul <sean@poorly.run>
-> > > Cc: linux-arm-msm@vger.kernel.org
-> > > Cc: freedreno@lists.freedesktop.org
-> > > ---
-> > >  drivers/gpu/drm/msm/msm_gem_submit.c | 3 ++-
-> > >  1 file changed, 2 insertions(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-> > > index b71da71a3dd8..edd0051d849f 100644
-> > > --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> > > +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> > > @@ -306,7 +306,8 @@ static int submit_fence_sync(struct msm_gem_submit *submit, bool no_implicit)
-> > >                                 return ret;
-> > >                 }
-> > >
-> > > -               if (no_implicit)
-> > > +               /* exclusive fences must be ordered */
-> > > +               if (no_implicit && !write)
-> > >                         continue;
+> > Change encoder, crtc, and bridge mode_fixup functions to return
+> > an int instead of a boolean to indicate success or failure. If
+> > any of these functions fail, the mode_fixup function now returns
+> > the provided integer error code instead of -EINVAL.
 > >
-> > In practice, modern userspace (the kind that is more likely to set the
-> > no-implicit flag on every submit) also sets MSM_SUBMIT_BO_WRITE on
-> > every bo, to shave some cpu overhead so I suppose this would not
-> > really hurt anything
+> > This change needs modifications across drivers, but before submitting
+> > the entire change, we want to get feedback on this RFC.
 > >
-> > Do you know if this is covered in any piglit/etc test?
->
-> You need some command submission, plus buffer sharing with vgem
-> setting it's own exclusive fences, plus checking with dma_buf poll()
-> whether it signals all in the right order. That's pretty low-level, so
-> maybe something in igt, but I haven't typed that. Maybe I need to do
-> that for i915 at least.
+> > Signed-off-by: Grace An <gracan@codeaurora.org>
+> 
+> Why don't you just use the various atomic_check hooks we have for
+> this? There you get passed the state and everything, have a full int
+> return value, and things actually work.
+> 
+> ->mode_fixup is for compatibility with legacy crtc modeset helpers
+> from the pre-atomic times. If the kerneldoc isn't clear yet, please do
+> a patch to fix that up so that @mode_fixup points at the relevant
+> @atomic_check as the recommended function.
+Agreed, and we need to document this better.
 
-ok, you lost me at vgem ;-)
+I have posted the following patch to make it more obvious that
+mode_fixup is deprecated.
+https://lore.kernel.org/dri-devel/20210713193257.958852-1-sam@ravnborg.org/T/#u
 
-(the vgem vs cache situation on arm is kinda hopeless)
-
-BR,
--R
-
-> -Daniel
->
-> > BR,
-> > -R
-> >
-> > >
-> > >                 ret = msm_gem_sync_object(&msm_obj->base, submit->ring->fctx,
-> > > --
-> > > 2.32.0
-> > >
->
->
->
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+	Sam
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
