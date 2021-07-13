@@ -2,39 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BA553C76FF
-	for <lists+freedreno@lfdr.de>; Tue, 13 Jul 2021 21:34:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AB9E3C7999
+	for <lists+freedreno@lfdr.de>; Wed, 14 Jul 2021 00:25:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF2186E11C;
-	Tue, 13 Jul 2021 19:34:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46E4B6E141;
+	Tue, 13 Jul 2021 22:25:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx1.smtp.larsendata.com (mx1.smtp.larsendata.com
- [91.221.196.215])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26CB66E11E
- for <freedreno@lists.freedesktop.org>; Tue, 13 Jul 2021 19:34:38 +0000 (UTC)
-Received: from mail01.mxhotel.dk (mail01.mxhotel.dk [91.221.196.236])
- by mx1.smtp.larsendata.com (Halon) with ESMTPS
- id 58e5d393-e411-11eb-9082-0050568c148b;
- Tue, 13 Jul 2021 19:34:32 +0000 (UTC)
-Received: from ravnborg.org (80-162-45-141-cable.dk.customer.tdc.net
- [80.162.45.141])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: sam@ravnborg.org)
- by mail01.mxhotel.dk (Postfix) with ESMTPSA id 61C01194B3A;
- Tue, 13 Jul 2021 21:34:48 +0200 (CEST)
-Date: Tue, 13 Jul 2021 21:34:34 +0200
-X-Report-Abuse-To: abuse@mxhotel.dk
-From: Sam Ravnborg <sam@ravnborg.org>
-To: Daniel Vetter <daniel@ffwll.ch>
-Message-ID: <YO3qyktHXds+4vql@ravnborg.org>
-References: <1626196421-24595-1-git-send-email-gracan@codeaurora.org>
- <CAKMK7uGcwLmvyPB1Z2HyOQg3bHYev5J=ad8Cjj=AQMVTTSHPNg@mail.gmail.com>
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6F1B6E147
+ for <freedreno@lists.freedesktop.org>; Tue, 13 Jul 2021 22:25:15 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1626215121; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=NrfFoaUg+uge8R5c62DK9xqyU2a37Zv+qz0iccvChbU=;
+ b=imDMdjTV+MuzkGl/n1zgbO2cSOauU8GdySFiIVkY6je59Lm2HpARwdhgzowIGzIiEhy/naeP
+ OPLG4OWuoVJb4dAJIfE+qoSp7Y4/zn/kaC2NwB2lxhQbKFKVzUHbChOhL/QjJ2kJeKgLGiVg
+ oZd8iq84ua/kvBlIFoO3pCczV+Q=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
+ 60ee12bc5e3e57240b05ffb1 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 13 Jul 2021 22:25:00
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 1B7FBC43217; Tue, 13 Jul 2021 22:25:00 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 18AD7C433D3;
+ Tue, 13 Jul 2021 22:24:59 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAKMK7uGcwLmvyPB1Z2HyOQg3bHYev5J=ad8Cjj=AQMVTTSHPNg@mail.gmail.com>
-Subject: Re: [Freedreno] [RFC] drm: return int error code from mode_fixup
+Date: Tue, 13 Jul 2021 15:24:58 -0700
+From: khsieh@codeaurora.org
+To: Jani Nikula <jani.nikula@linux.intel.com>
+In-Reply-To: <87zguy7c5a.fsf@intel.com>
+References: <1625585434-9562-1-git-send-email-khsieh@codeaurora.org>
+ <87zguy7c5a.fsf@intel.com>
+Message-ID: <a514c19f712a6feeddf854dc17cb8eb5@codeaurora.org>
+X-Sender: khsieh@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v3] drm/dp_mst: Fix return code on sideband
+ message failure
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,53 +64,81 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Grace An <gracan@codeaurora.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Kuogee Hsieh <khsieh@codeaurora.org>,
- pdhaval@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, aravindh@codeaurora.org,
- freedreno <freedreno@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
+Cc: lyude@redhat.com, tzimmermann@suse.de, airlied@linux.ie,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ maarten.lankhorst@linux.intel.com, linux-kernel@vger.kernel.org,
+ abhinavk@codeaurora.org, swboyd@chromium.org, robdclark@gmail.com,
+ mripard@kernel.org, daniel@ffwll.ch, rnayak@codeaurora.org,
+ aravindh@codeaurora.org, sean@poorly.run, rsubbia@codeaurora.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jul 13, 2021 at 07:44:12PM +0200, Daniel Vetter wrote:
-> On Tue, Jul 13, 2021 at 7:14 PM Grace An <gracan@codeaurora.org> wrote:
-> > When CONFIG_PROVE_LOCKING is defined, the kernel randomly injects
-> > -EDEADLK errors for all the ww_mutex. This results in
-> > drm_atomic_get_private_obj_state randomly returning -EDEADLK.
-> > However, the mode_fixup functions do not propagate these error
-> > codes and return false, causing the atomic commit to fail with
-> > -EINVAL instead of retrying.
-> >
-> > Change encoder, crtc, and bridge mode_fixup functions to return
-> > an int instead of a boolean to indicate success or failure. If
-> > any of these functions fail, the mode_fixup function now returns
-> > the provided integer error code instead of -EINVAL.
-> >
-> > This change needs modifications across drivers, but before submitting
-> > the entire change, we want to get feedback on this RFC.
-> >
-> > Signed-off-by: Grace An <gracan@codeaurora.org>
+On 2021-07-07 01:37, Jani Nikula wrote:
+> On Tue, 06 Jul 2021, Kuogee Hsieh <khsieh@codeaurora.org> wrote:
+>> From: Rajkumar Subbiah <rsubbia@codeaurora.org>
+>> 
+>> Commit 2f015ec6eab6 ("drm/dp_mst: Add sideband down request tracing +
+>> selftests") added some debug code for sideband message tracing. But
+>> it seems to have unintentionally changed the behavior on sideband 
+>> message
+>> failure. It catches and returns failure only if DRM_UT_DP is enabled.
+>> Otherwise it ignores the error code and returns success. So on an MST
+>> unplug, the caller is unaware that the clear payload message failed 
+>> and
+>> ends up waiting for 4 seconds for the response. Fixes the issue by
+>> returning the proper error code.
+>> 
+>> Changes in V2:
+>> -- Revise commit text as review comment
+>> -- add Fixes text
+>> 
+>> Changes in V3:
+>> -- remove "unlikely" optimization
+>> 
+>> Fixes: 2f015ec6eab6 ("drm/dp_mst: Add sideband down request tracing + 
+>> selftests")
+>> 
+>> Signed-off-by: Rajkumar Subbiah <rsubbia@codeaurora.org>
+>> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+>> 
+>> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 > 
-> Why don't you just use the various atomic_check hooks we have for
-> this? There you get passed the state and everything, have a full int
-> return value, and things actually work.
+> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 > 
-> ->mode_fixup is for compatibility with legacy crtc modeset helpers
-> from the pre-atomic times. If the kerneldoc isn't clear yet, please do
-> a patch to fix that up so that @mode_fixup points at the relevant
-> @atomic_check as the recommended function.
-Agreed, and we need to document this better.
+> 
+>> ---
+Lyude,
+Any comments from you?
+Thanks,
 
-I have posted the following patch to make it more obvious that
-mode_fixup is deprecated.
-https://lore.kernel.org/dri-devel/20210713193257.958852-1-sam@ravnborg.org/T/#u
-
-	Sam
+>>  drivers/gpu/drm/drm_dp_mst_topology.c | 10 ++++++----
+>>  1 file changed, 6 insertions(+), 4 deletions(-)
+>> 
+>> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c 
+>> b/drivers/gpu/drm/drm_dp_mst_topology.c
+>> index 1590144..df91110 100644
+>> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
+>> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+>> @@ -2887,11 +2887,13 @@ static int process_single_tx_qlock(struct 
+>> drm_dp_mst_topology_mgr *mgr,
+>>  	idx += tosend + 1;
+>> 
+>>  	ret = drm_dp_send_sideband_msg(mgr, up, chunk, idx);
+>> -	if (unlikely(ret) && drm_debug_enabled(DRM_UT_DP)) {
+>> -		struct drm_printer p = drm_debug_printer(DBG_PREFIX);
+>> +	if (ret) {
+>> +		if (drm_debug_enabled(DRM_UT_DP)) {
+>> +			struct drm_printer p = drm_debug_printer(DBG_PREFIX);
+>> 
+>> -		drm_printf(&p, "sideband msg failed to send\n");
+>> -		drm_dp_mst_dump_sideband_msg_tx(&p, txmsg);
+>> +			drm_printf(&p, "sideband msg failed to send\n");
+>> +			drm_dp_mst_dump_sideband_msg_tx(&p, txmsg);
+>> +		}
+>>  		return ret;
+>>  	}
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
