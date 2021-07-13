@@ -1,61 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0ACC93C73AE
-	for <lists+freedreno@lfdr.de>; Tue, 13 Jul 2021 17:55:23 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id DAAE53C7522
+	for <lists+freedreno@lfdr.de>; Tue, 13 Jul 2021 18:43:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB04D8989F;
-	Tue, 13 Jul 2021 15:55:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 866626E101;
+	Tue, 13 Jul 2021 16:43:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3FF26E0ED
- for <freedreno@lists.freedesktop.org>; Tue, 13 Jul 2021 15:55:16 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1626191720; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=cyXJ9mJ8LBWXjwGWfk54YTCR6FHccnLnwAEVHScm1GQ=;
- b=lcMNT85ujRTmNVcXPhGr89Lkl7kNribNLA1F5hzqxOZz6FR4QGd8H187qXGx7sDl42UJ6Bjr
- H4/Qe7MtkbQaUlxMAtjI7HGwKotEcbjC84IfgtI5uXNDTLwKkBilo3PRp4IAyfe+oUw56vVV
- 1iI9dLTu/+ne6nI8vGxpitqlCr4=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
- 60edb7555e3e57240b8f172c (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 13 Jul 2021 15:55:01
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 336D2C43149; Tue, 13 Jul 2021 15:55:00 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
-Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 3E9EEC43152;
- Tue, 13 Jul 2021 15:54:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 3E9EEC43152
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=khsieh@codeaurora.org
-From: Kuogee Hsieh <khsieh@codeaurora.org>
-To: dri-devel@lists.freedesktop.org, robdclark@gmail.com, sean@poorly.run,
- swboyd@chromium.org
-Date: Tue, 13 Jul 2021 08:54:07 -0700
-Message-Id: <1626191647-13901-8-git-send-email-khsieh@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1626191647-13901-1-git-send-email-khsieh@codeaurora.org>
-References: <1626191647-13901-1-git-send-email-khsieh@codeaurora.org>
-Subject: [Freedreno] [PATCH v2 7/7] drm/msm/dp: retrain link when loss of
- symbol lock detected
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 616FD6E0FE;
+ Tue, 13 Jul 2021 16:43:29 +0000 (UTC)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ o30-20020a05600c511eb029022e0571d1a0so435398wms.5; 
+ Tue, 13 Jul 2021 09:43:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=mM+jP6OQLlXesn4C9iXQXXRHsRjnBpEKRLW+loGck3w=;
+ b=XZm/1Sc+BCW5aq7EPfwluDxja+dcblnOaVBWfG5yb4mnbqUhNjwSui9tk+aeZ+vgkZ
+ op782tSVbdq/q6GK/0O/7VmIj4AuzaGsLWsoHPLknUBIS8nK07Sx1AP94j5ItLBJzE6C
+ yhoS/Qg/HEnKif2GuQrighr129U8pm4gOnvL48aJl/HmkksA/43HUj59OWWqwrhfiUEZ
+ 5YfnLvqVAxjxpfQuXfA1FNxGsBh0KMjKNlDpMEiKCqhIYOD35jhKfwokC5rJLmBIlRUI
+ r3fMKQPHXZQbLxm5ifT2Wmfois950NR8YRUd0q2S8H/89Up4CToE2hoTMvKa6Pramd4d
+ CQEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=mM+jP6OQLlXesn4C9iXQXXRHsRjnBpEKRLW+loGck3w=;
+ b=IWO6HgOv+Twx4Uv/vZZfd+ivbWFUjQ4lm5Zu6NBhY7ADPLO+p7fPTUo90/oGsUqyNJ
+ PntvtF+NCpR+zsdaHo6jhO2fs40z96+NQTOBIGTK57q0VH3IXaeETbJpJlxtkYY+I+dQ
+ DUK/0xJSQ+eiZJBOoSL95dsFi9AatM8sZkphS0ZMiBTPo+aEcCbMBtpS/G4h7zA1A38D
+ buNQ5ejDqv7FzsZ/FV6VglgyWhKPSKGaiShHPQ70kpRhfSZRwjz0ohxxT+JOQk2bU0jX
+ M6i38Lng+UQ1NH/qikAqLXIWstL2GoDaswZuJ6FQIUQM/4D3wqo0Hl+jwOmyrIUYp7RJ
+ yYrA==
+X-Gm-Message-State: AOAM532nzN1vNgmBH7GAfP8FovELSvCY+p27Omny7OWJNCEKCluacszt
+ QA5m6vqBs2c92wqXfhHyROOM1UkBTjASLGjqliw=
+X-Google-Smtp-Source: ABdhPJxnipha/nrz8d8rBv1cnSwRPB1aJSb8JQjuakvDq/IMb1O31b4MPwrarp089qmHLUn/k+SljusPifOv8MAeGkw=
+X-Received: by 2002:a1c:25c6:: with SMTP id l189mr295884wml.49.1626194607980; 
+ Tue, 13 Jul 2021 09:43:27 -0700 (PDT)
+MIME-Version: 1.0
+References: <1624993464-20447-1-git-send-email-abhinavk@codeaurora.org>
+In-Reply-To: <1624993464-20447-1-git-send-email-abhinavk@codeaurora.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 13 Jul 2021 09:47:34 -0700
+Message-ID: <CAF6AEGvnWvcgnVoSYLYTougJsqy_BBH6mAkFk2wSFag+AkUCkg@mail.gmail.com>
+To: Abhinav Kumar <abhinavk@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: add support for dsi test
+ pattern generator
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,86 +62,187 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, abhinavk@codeaurora.org,
- bjorn.andersson@linaro.org, Kuogee Hsieh <khsieh@codeaurora.org>,
- daniel@ffwll.ch, aravindh@codeaurora.org, freedreno@lists.freedesktop.org
-MIME-Version: 1.0
+Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Stephen Boyd <swboyd@chromium.org>, Kuogee Hsieh <khsieh@codeaurora.org>,
+ nganji@codeaurora.org, Sean Paul <seanpaul@chromium.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, aravindh@codeaurora.org,
+ freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Main link symbol locked is achieved at end of link training 2. Some
-dongle main link symbol may become unlocked again if host did not end
-link training soon enough after completion of link training 2. Host
-have to re train main link if loss of symbol lock detected before
-end link training so that the coming video stream can be transmitted
-to sink properly.
+On Tue, Jun 29, 2021 at 12:04 PM Abhinav Kumar <abhinavk@codeaurora.org> wrote:
+>
+> During board bringups its useful to have a DSI test pattern
+> generator to isolate a DPU vs a DSI issue and focus on the relevant
+> hardware block.
+>
+> To facilitate this, add an API which triggers the DSI controller
+> test pattern. The expected output is a rectangular checkered pattern.
+>
+> This has been validated on a single DSI video mode panel by calling it
+> right after drm_panel_enable() which is also the ideal location to use
+> this as the DSI host and the panel have been initialized by then.
+>
+> Further validation on dual DSI and command mode panel is pending.
+> If there are any fix ups needed for those, it shall be applied on top
+> of this change.
+>
+> Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
+> ---
+>  drivers/gpu/drm/msm/dsi/dsi.h         |  3 ++
+>  drivers/gpu/drm/msm/dsi/dsi.xml.h     |  9 ++++++
+>  drivers/gpu/drm/msm/dsi/dsi_host.c    | 53 +++++++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/msm/dsi/dsi_manager.c | 13 +++++++++
+>  4 files changed, 78 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
+> index 9b8e9b0..663ccbd 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi.h
+> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
+> @@ -84,6 +84,7 @@ void msm_dsi_manager_setup_encoder(int id);
+>  int msm_dsi_manager_register(struct msm_dsi *msm_dsi);
+>  void msm_dsi_manager_unregister(struct msm_dsi *msm_dsi);
+>  bool msm_dsi_manager_validate_current_config(u8 id);
+> +void msm_dsi_manager_tpg_enable(void);
+>
+>  /* msm dsi */
+>  static inline bool msm_dsi_device_connected(struct msm_dsi *msm_dsi)
+> @@ -148,6 +149,8 @@ int dsi_clk_init_6g_v2(struct msm_dsi_host *msm_host);
+>  int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool is_dual_dsi);
+>  int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool is_dual_dsi);
+>  void msm_dsi_host_snapshot(struct msm_disp_state *disp_state, struct mipi_dsi_host *host);
+> +void msm_dsi_host_test_pattern_en(struct mipi_dsi_host *host);
+> +
+>  /* dsi phy */
+>  struct msm_dsi_phy;
+>  struct msm_dsi_phy_shared_timings {
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi.xml.h b/drivers/gpu/drm/msm/dsi/dsi.xml.h
+> index eadbcc7..f7dcf49 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi.xml.h
+> +++ b/drivers/gpu/drm/msm/dsi/dsi.xml.h
+> @@ -624,6 +624,15 @@ static inline uint32_t DSI_RDBK_DATA_CTRL_COUNT(uint32_t val)
+>  #define REG_DSI_VERSION                                                0x000001f0
+>  #define DSI_VERSION_MAJOR__MASK                                        0xff000000
+>  #define DSI_VERSION_MAJOR__SHIFT                               24
+> +
+> +#define REG_DSI_TEST_PATTERN_GEN_VIDEO_INIT_VAL 0x00000160
+> +#define REG_DSI_TPG_MAIN_CONTROL                               0x00000198
+> +#define REG_DSI_TPG_VIDEO_CONFIG                               0x000001a0
+> +#define REG_DSI_TEST_PATTERN_GEN_CTRL                  0x00000158
+> +#define REG_DSI_TEST_PATTERN_GEN_CMD_MDP_INIT_VAL0     0x00000168
+> +#define REG_DSI_TEST_PATTERN_GEN_CMD_STREAM0_TRIGGER   0x00000180
+> +#define REG_DSI_TPG_MAIN_CONTROL2                              0x0000019c
 
-Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
----
- drivers/gpu/drm/msm/dp/dp_ctrl.c | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+We should add these in dsi.xml (either in
+mesa.git/src/freedreno/registers/dsi/dsi.xml or in
+envytools.git/registers/dsi/dsi.xml) and regenerate dsi.xml.h
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index 6a013b0..20951c8 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1638,6 +1638,25 @@ static bool dp_ctrl_clock_recovery_any_ok(
- 	return drm_dp_clock_recovery_ok(link_status, lane_count);
- }
- 
-+static bool dp_ctrl_loss_symbol_lock(struct dp_ctrl_private *ctrl)
-+{
-+	u8 link_status[DP_LINK_STATUS_SIZE];
-+	u8 status;
-+	int i;
-+	int num_lanes = ctrl->link->link_params.num_lanes;
-+
-+	dp_ctrl_read_link_status(ctrl, link_status);
-+
-+	for (i = 0; i < num_lanes; i++) {
-+		status = link_status[i / 2];
-+		status >>= ((i % 2) * 4);
-+		if (!(status & DP_LANE_SYMBOL_LOCKED))
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
- int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
- {
- 	int rc = 0;
-@@ -1761,6 +1780,13 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
- 	return rc;
- }
- 
-+static int dp_ctrl_link_retrain(struct dp_ctrl_private *ctrl)
-+{
-+	int training_step = DP_TRAINING_NONE;
-+
-+	return dp_ctrl_setup_main_link(ctrl, &training_step);
-+}
-+
- int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl)
- {
- 	int ret = 0;
-@@ -1786,6 +1812,9 @@ int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl)
- 		}
- 	}
- 
-+	if (dp_ctrl_loss_symbol_lock(ctrl))
-+		dp_ctrl_link_retrain(ctrl);
-+
- 	/* stop txing train pattern to end link training */
- 	dp_ctrl_clear_training_pattern(ctrl);
- 
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+And if possible, it would be nice to define the bitfields instead of
+just open-coding the register values
 
+BR,
+-R
+
+> +
+>  static inline uint32_t DSI_VERSION_MAJOR(uint32_t val)
+>  {
+>         return ((val) << DSI_VERSION_MAJOR__SHIFT) & DSI_VERSION_MAJOR__MASK;
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index ed504fe..24d44b0 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -2495,3 +2495,56 @@ void msm_dsi_host_snapshot(struct msm_disp_state *disp_state, struct mipi_dsi_ho
+>
+>         pm_runtime_put_sync(&msm_host->pdev->dev);
+>  }
+> +
+> +static void msm_dsi_host_video_test_pattern_setup(struct msm_dsi_host *msm_host)
+> +{
+> +       u32 reg;
+> +
+> +       reg = dsi_read(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL);
+> +
+> +       dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_VIDEO_INIT_VAL, 0xff);
+> +       /* draw checkered rectangle pattern */
+> +       dsi_write(msm_host, REG_DSI_TPG_MAIN_CONTROL, 0x100);
+> +       /* use 24-bit RGB test pttern */
+> +       dsi_write(msm_host, REG_DSI_TPG_VIDEO_CONFIG, 0x5);
+> +
+> +       reg |= (0x3 << 4);
+> +       dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL, reg);
+> +
+> +       DBG("Video test pattern setup done\n");
+> +}
+> +
+> +static void msm_dsi_host_cmd_test_pattern_setup(struct msm_dsi_host *msm_host)
+> +{
+> +       u32 reg;
+> +
+> +       reg = dsi_read(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL);
+> +
+> +       dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CMD_MDP_INIT_VAL0, 0xff);
+> +
+> +       reg |= (0x3 << 0x8);
+> +       dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL, reg);
+> +       /* draw checkered rectangle pattern */
+> +       dsi_write(msm_host, REG_DSI_TPG_MAIN_CONTROL2, (0x1 << 0x7));
+> +       DBG("Cmd test pattern setup done\n");
+> +}
+> +
+> +void msm_dsi_host_test_pattern_en(struct mipi_dsi_host *host)
+> +{
+> +       struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+> +       bool is_video_mode = !!(msm_host->mode_flags & MIPI_DSI_MODE_VIDEO);
+> +       u32 reg;
+> +
+> +       if (is_video_mode)
+> +               msm_dsi_host_video_test_pattern_setup(msm_host);
+> +       else
+> +               msm_dsi_host_cmd_test_pattern_setup(msm_host);
+> +
+> +       reg = dsi_read(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL);
+> +       /* enable the test pattern generator */
+> +       dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL, (reg | BIT(0)));
+> +
+> +       /* for command mode need to trigger one frame from tpg */
+> +       if (!is_video_mode)
+> +               dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CMD_STREAM0_TRIGGER, 0x1);
+> +}
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> index 4ebfedc..db80de6 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> @@ -441,6 +441,19 @@ static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
+>         return;
+>  }
+>
+> +void msm_dsi_manager_tpg_enable(void)
+> +{
+> +       struct msm_dsi *m_dsi = dsi_mgr_get_dsi(DSI_0);
+> +       struct msm_dsi *s_dsi = dsi_mgr_get_dsi(DSI_1);
+> +
+> +       /* if dual dsi, trigger tpg on master first then slave */
+> +       if (m_dsi) {
+> +               msm_dsi_host_test_pattern_en(m_dsi->host);
+> +               if (IS_DUAL_DSI() && s_dsi)
+> +                       msm_dsi_host_test_pattern_en(s_dsi->host);
+> +       }
+> +}
+> +
+>  static void dsi_mgr_bridge_enable(struct drm_bridge *bridge)
+>  {
+>         int id = dsi_mgr_bridge_get_id(bridge);
+> --
+> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+> a Linux Foundation Collaborative Project
+>
+> _______________________________________________
+> Freedreno mailing list
+> Freedreno@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/freedreno
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
