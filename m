@@ -2,52 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B72B23C8A17
-	for <lists+freedreno@lfdr.de>; Wed, 14 Jul 2021 19:51:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A04563C9333
+	for <lists+freedreno@lfdr.de>; Wed, 14 Jul 2021 23:39:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51FC86E453;
-	Wed, 14 Jul 2021 17:51:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BC176E30D;
+	Wed, 14 Jul 2021 21:39:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-f41.google.com (mail-io1-f41.google.com
- [209.85.166.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8D636E44F;
- Wed, 14 Jul 2021 17:51:34 +0000 (UTC)
-Received: by mail-io1-f41.google.com with SMTP id l5so3190074iok.7;
- Wed, 14 Jul 2021 10:51:34 -0700 (PDT)
+Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com
+ [IPv6:2607:f8b0:4864:20::c35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 551F56E30D
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Jul 2021 21:39:32 +0000 (UTC)
+Received: by mail-oo1-xc35.google.com with SMTP id
+ j4-20020a4ac5440000b029025992521cf0so995717ooq.7
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Jul 2021 14:39:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=7yU/lXVPq8v5DxUavviakd+XqTwyKh5GL+eckjJwhhU=;
+ b=Huzsn41/m5wNJTthgcAkHFWvNusXC97KqI0iRCAyi4I1V8yYIvTOhj+iZO052RBDgY
+ /jxRFEZK8vH/CEYJ5CnaKLfuPND5/1DeDeNXoS5qhh5axGrqcLRDIAgCJvKCy8aLX8g1
+ uCSMpbZnly1BXgEIB0LWc1Jh/Ao6j+lmqofVM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=2gRDlQp1MuAFlJu92QnqeuWzzqqzSrOhJUVuS7wmyLA=;
- b=Rj1l0RpPsMQd6Lv3+oVW0CR059xkp1C85/K8R1d/vfBZiRwWquWDEfMSGHrJx19be/
- VZNPMZrEzv1UV02CopAWbe0XlP+m5RELqb9k+WZ+U8PfEQzJI9U4cNL6aKp+QQ6it9/e
- Q/bJMBm6P+NwcdFzs0eaWjrAEVSQfpRNL7CrJaq/V0RBIaJtFzB+fSfab+vkemSnF8DZ
- W+dbxPvvMlRZxUKKEdH3Sxz/Ypcj/zur0/vjDv9OKcqGi5dZMN0ZhHNcEiq31HN45BMc
- ANs3E43JdQFmupIV83adm0I6OFoJAw/qua+6FPOTK7U52yZDNmogRrrKvd3Ac5yhEfuH
- w6ew==
-X-Gm-Message-State: AOAM531HyaYmlN54zS5f//6n+Yp85fXYE2OCOAu18+6SiUsJdI9iV+HE
- SyfRekuw/Wqg36GASH9svA==
-X-Google-Smtp-Source: ABdhPJwOTz4yShdDPDvuRzHUrKX45LAoc/ClPXV6RlW1pZulnt5dgHTyt+IGhykIU67hkb84JbN4Qg==
-X-Received: by 2002:a02:2b27:: with SMTP id h39mr10077711jaa.62.1626285094249; 
- Wed, 14 Jul 2021 10:51:34 -0700 (PDT)
-Received: from robh.at.kernel.org ([64.188.179.248])
- by smtp.gmail.com with ESMTPSA id p21sm1680316iog.37.2021.07.14.10.51.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Jul 2021 10:51:33 -0700 (PDT)
-Received: (nullmailer pid 2832837 invoked by uid 1000);
- Wed, 14 Jul 2021 17:51:31 -0000
-Date: Wed, 14 Jul 2021 11:51:31 -0600
-From: Rob Herring <robh@kernel.org>
-To: Rajeev Nandan <rajeevny@codeaurora.org>
-Message-ID: <20210714175131.GA2832803@robh.at.kernel.org>
-References: <1624365748-24224-1-git-send-email-rajeevny@codeaurora.org>
- <1624365748-24224-2-git-send-email-rajeevny@codeaurora.org>
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=7yU/lXVPq8v5DxUavviakd+XqTwyKh5GL+eckjJwhhU=;
+ b=CUffa9f8n3svyHKtUxK4pRlspiIYugPAX8l4kNqHg1cRtwtddmQfQItTNh5nZeB1Lb
+ nK6tAblq+B+9/mLKvMaQrf359PPCsaRTNsb9CEyLOg72VFMW8G+UB34DZibG8du4rHiL
+ i3A/eqgDk9mhrndqhyjJkCXP6HygOOEZOioqC2ZfOsL7JMjQzxcOiCNMRVPofQ53Qe0e
+ 1B5m6Nhsh0uygM8GGuCo28+jrAYR80doohihr/SLbnspirWa2ixbZMI8B8bLWpPnlTTt
+ WpGmQAfw6D78mcXxxSYzSrGKblPJWgflRqtV8QXtxwrAI/OSeEqReGjboLCMej2ev1W3
+ OPyA==
+X-Gm-Message-State: AOAM533JekCXTul0acv6cG3f1c75iizKDRTVZPnNzNLmrt+IOBGTr2RZ
+ MAJqYs6eFoglbVlMxbabZnnKas75p7jSZvRQEY+tJg==
+X-Google-Smtp-Source: ABdhPJwE2R3+k8+ce7HwbkPywG7nnMFEF4vtMpBltJIbIWP52CkUWZLrAOaoBO6XdJi33DjezNuNWFNaiYMAd18hPNU=
+X-Received: by 2002:a4a:e206:: with SMTP id b6mr17846oot.16.1626298771497;
+ Wed, 14 Jul 2021 14:39:31 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 14 Jul 2021 23:39:31 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1624365748-24224-2-git-send-email-rajeevny@codeaurora.org>
-Subject: Re: [Freedreno] [v2 1/3] dt-bindings: msm/dsi: Add sc7280 7nm dsi
- phy
+In-Reply-To: <20210709024834.29680-1-jrdr.linux@gmail.com>
+References: <20210709024834.29680-1-jrdr.linux@gmail.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Wed, 14 Jul 2021 23:39:30 +0200
+Message-ID: <CAE-0n51cqCz4JD75n4ZZV2LDxbB6b0QwJ-La2hU8mnPcckNmSg@mail.gmail.com>
+To: Souptick Joarder <jrdr.linux@gmail.com>, abhinavk@codeaurora.org,
+ airlied@linux.ie, 
+ chandanu@codeaurora.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org, 
+ khsieh@codeaurora.org, robdclark@gmail.com, sean@poorly.run, 
+ tanmay@codeaurora.org
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Remove unused variable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,33 +66,27 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: mkrishn@codeaurora.org, jonathan@marek.ca, devicetree@vger.kernel.org,
- freedreno@lists.freedesktop.org, kalyan_t@codeaurora.org,
- linux-kernel@vger.kernel.org, abhinavk@codeaurora.org, robdclark@gmail.com,
- robh+dt@kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org, sean@poorly.run
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ kernel test robot <lkp@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 22 Jun 2021 18:12:26 +0530, Rajeev Nandan wrote:
-> The SC7280 SoC uses the 7nm (V4.1) DSI PHY driver.
-> 
-> Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
+Quoting Souptick Joarder (2021-07-08 19:48:34)
+> Kernel test roobot throws below warning ->
+>
+> drivers/gpu/drm/msm/dp/dp_display.c:1017:21:
+> warning: variable 'drm' set but not used [-Wunused-but-set-variable]
+>
+> Removed unused variable drm.
+>
+> Reported-by: kernel test robot <lkp@intel.com>
+> Signed-off-by: Souptick Joarder <jrdr.linux@gmail.com>
 > ---
-> 
-> Changes in v2:
-> - New
->   This patch depends on [1] (dt-bindings: msm: dsi: add missing 7nm bindings)
-> 
-> [1] https://lore.kernel.org/linux-arm-msm/20210617144349.28448-2-jonathan@marek.ca/
-> 
->  Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml | 1 +
->  1 file changed, 1 insertion(+)
-> 
 
-Acked-by: Rob Herring <robh@kernel.org>
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
