@@ -2,56 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AB9E3C7999
-	for <lists+freedreno@lfdr.de>; Wed, 14 Jul 2021 00:25:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E34123C8773
+	for <lists+freedreno@lfdr.de>; Wed, 14 Jul 2021 17:29:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46E4B6E141;
-	Tue, 13 Jul 2021 22:25:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F4256E41D;
+	Wed, 14 Jul 2021 15:29:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6F1B6E147
- for <freedreno@lists.freedesktop.org>; Tue, 13 Jul 2021 22:25:15 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1626215121; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=NrfFoaUg+uge8R5c62DK9xqyU2a37Zv+qz0iccvChbU=;
- b=imDMdjTV+MuzkGl/n1zgbO2cSOauU8GdySFiIVkY6je59Lm2HpARwdhgzowIGzIiEhy/naeP
- OPLG4OWuoVJb4dAJIfE+qoSp7Y4/zn/kaC2NwB2lxhQbKFKVzUHbChOhL/QjJ2kJeKgLGiVg
- oZd8iq84ua/kvBlIFoO3pCczV+Q=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
- 60ee12bc5e3e57240b05ffb1 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 13 Jul 2021 22:25:00
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 1B7FBC43217; Tue, 13 Jul 2021 22:25:00 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 18AD7C433D3;
- Tue, 13 Jul 2021 22:24:59 +0000 (UTC)
+Received: from mail-qk1-x736.google.com (mail-qk1-x736.google.com
+ [IPv6:2607:f8b0:4864:20::736])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0A846E41B
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Jul 2021 15:29:16 +0000 (UTC)
+Received: by mail-qk1-x736.google.com with SMTP id q190so1954265qkd.2
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Jul 2021 08:29:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poorly.run; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=d4jCOWKK2r5jgZTbCUOYvMEXvZbDZSv0WVPwWg90rq8=;
+ b=ACReAEi4qwPkaPSxn/LOSkJXIIiEkvgczkP9gFhZdzcFsT254w8PRzentIzeUQw+Dd
+ HjWMDC/R5YSmfjgBgs5L78DR4AKrWwh9+7AwL0I4fEPpBTL8VzTWCy0Kb8gLx47FK7Fw
+ cAxRJpDKm4eR9FeJ1XRJcSG2+1gl1FqBwBYqFGHBhCpQnkRvu2/F7+lLTYdh0QWRW835
+ 692Dxw9s7vk6gT0BcqTlxVWtcvM/VZxvtZ2GsuHc6PJi/df7C+mC1WLxCl+hnFwTi8dW
+ 7FKZtDYzxKYZDIinUvQ5Ub2csMUoczkBa+P1bwNHIX8KddETekE1k+ADf4TAbH6teaj7
+ zbvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=d4jCOWKK2r5jgZTbCUOYvMEXvZbDZSv0WVPwWg90rq8=;
+ b=KfeRk0bxtvxv/5CWn6WNM3rt/YNRs3elLmvdfPQ3TA+WG/VrYPgzoJ14TjBlr7h3W/
+ wk8Py5HXzLqHH1+KZbUi4e0ICjTVZEaAphTo3wSDr+biyFH3q9tssJDUqHkoYHm8OqeL
+ zEZRrsnscXoU+BvwXa+luJSk9VRR+8Oo21hD3twvNmLJ/+sUzLcWDx9Sjm877wSJckcx
+ 0aOqD0UffhEB9p17c51iCWK74qX+a3o0nHZCOfJS1n26QbxAXmmsDQpQulrH0VA1nB/9
+ adaBjXjNMzQzF3PPq4/o2jaBwG73XSMToX31HQicKOKJ56ePbet/u4Kj/aJydArqKVFG
+ LX8g==
+X-Gm-Message-State: AOAM5328DUKOoEpqC4LKfKgELPPg/3T/yp33Sgmq9OCE2gKcefjCimm2
+ mAh6IbyBytXNSs7SvEj3YTQN7RMtECX8xQ==
+X-Google-Smtp-Source: ABdhPJzk7N6e6/pcmg5UdDV7+6eO38VugrJou7wFvpBfR+nOkkRgMINXSGQQ83j13KQeouUh3evGZQ==
+X-Received: by 2002:a05:620a:410f:: with SMTP id
+ j15mr2552344qko.434.1626276555948; 
+ Wed, 14 Jul 2021 08:29:15 -0700 (PDT)
+Received: from localhost ([167.100.64.199])
+ by smtp.gmail.com with ESMTPSA id y24sm1253295qkj.4.2021.07.14.08.29.15
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Wed, 14 Jul 2021 08:29:15 -0700 (PDT)
+From: Sean Paul <sean@poorly.run>
+To: freedreno@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Wed, 14 Jul 2021 11:28:56 -0400
+Message-Id: <20210714152910.55093-1-sean@poorly.run>
+X-Mailer: git-send-email 2.31.0
 MIME-Version: 1.0
-Date: Tue, 13 Jul 2021 15:24:58 -0700
-From: khsieh@codeaurora.org
-To: Jani Nikula <jani.nikula@linux.intel.com>
-In-Reply-To: <87zguy7c5a.fsf@intel.com>
-References: <1625585434-9562-1-git-send-email-khsieh@codeaurora.org>
- <87zguy7c5a.fsf@intel.com>
-Message-ID: <a514c19f712a6feeddf854dc17cb8eb5@codeaurora.org>
-X-Sender: khsieh@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH v3] drm/dp_mst: Fix return code on sideband
- message failure
+Subject: [Freedreno] [PATCH] drm/msm/dp: Initialize dp->aux->drm_dev before
+ registration
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,81 +67,96 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: lyude@redhat.com, tzimmermann@suse.de, airlied@linux.ie,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- maarten.lankhorst@linux.intel.com, linux-kernel@vger.kernel.org,
- abhinavk@codeaurora.org, swboyd@chromium.org, robdclark@gmail.com,
- mripard@kernel.org, daniel@ffwll.ch, rnayak@codeaurora.org,
- aravindh@codeaurora.org, sean@poorly.run, rsubbia@codeaurora.org
+Cc: Sean Paul <sean@poorly.run>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <seanpaul@chromium.org>, linux-arm-msm@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-07-07 01:37, Jani Nikula wrote:
-> On Tue, 06 Jul 2021, Kuogee Hsieh <khsieh@codeaurora.org> wrote:
->> From: Rajkumar Subbiah <rsubbia@codeaurora.org>
->> 
->> Commit 2f015ec6eab6 ("drm/dp_mst: Add sideband down request tracing +
->> selftests") added some debug code for sideband message tracing. But
->> it seems to have unintentionally changed the behavior on sideband 
->> message
->> failure. It catches and returns failure only if DRM_UT_DP is enabled.
->> Otherwise it ignores the error code and returns success. So on an MST
->> unplug, the caller is unaware that the clear payload message failed 
->> and
->> ends up waiting for 4 seconds for the response. Fixes the issue by
->> returning the proper error code.
->> 
->> Changes in V2:
->> -- Revise commit text as review comment
->> -- add Fixes text
->> 
->> Changes in V3:
->> -- remove "unlikely" optimization
->> 
->> Fixes: 2f015ec6eab6 ("drm/dp_mst: Add sideband down request tracing + 
->> selftests")
->> 
->> Signed-off-by: Rajkumar Subbiah <rsubbia@codeaurora.org>
->> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
->> 
->> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-> 
-> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-> 
-> 
->> ---
-Lyude,
-Any comments from you?
-Thanks,
+From: Sean Paul <seanpaul@chromium.org>
 
->>  drivers/gpu/drm/drm_dp_mst_topology.c | 10 ++++++----
->>  1 file changed, 6 insertions(+), 4 deletions(-)
->> 
->> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c 
->> b/drivers/gpu/drm/drm_dp_mst_topology.c
->> index 1590144..df91110 100644
->> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
->> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
->> @@ -2887,11 +2887,13 @@ static int process_single_tx_qlock(struct 
->> drm_dp_mst_topology_mgr *mgr,
->>  	idx += tosend + 1;
->> 
->>  	ret = drm_dp_send_sideband_msg(mgr, up, chunk, idx);
->> -	if (unlikely(ret) && drm_debug_enabled(DRM_UT_DP)) {
->> -		struct drm_printer p = drm_debug_printer(DBG_PREFIX);
->> +	if (ret) {
->> +		if (drm_debug_enabled(DRM_UT_DP)) {
->> +			struct drm_printer p = drm_debug_printer(DBG_PREFIX);
->> 
->> -		drm_printf(&p, "sideband msg failed to send\n");
->> -		drm_dp_mst_dump_sideband_msg_tx(&p, txmsg);
->> +			drm_printf(&p, "sideband msg failed to send\n");
->> +			drm_dp_mst_dump_sideband_msg_tx(&p, txmsg);
->> +		}
->>  		return ret;
->>  	}
+Avoids the following WARN:
+[    3.009556] ------------[ cut here ]------------
+[    3.014306] WARNING: CPU: 7 PID: 109 at
+drivers/gpu/drm/drm_dp_helper.c:1796 drm_dp_aux_register+0xa4/0xac
+[    3.024209] Modules linked in:
+[    3.027351] CPU: 7 PID: 109 Comm: kworker/7:8 Not tainted 5.10.47 #69
+[    3.033958] Hardware name: Google Lazor (rev1 - 2) (DT)
+[    3.039323] Workqueue: events deferred_probe_work_func
+[    3.044596] pstate: 60c00009 (nZCv daif +PAN +UAO -TCO BTYPE=--)
+[    3.050761] pc : drm_dp_aux_register+0xa4/0xac
+[    3.055329] lr : dp_aux_register+0x40/0x88
+[    3.059538] sp : ffffffc010ad3920
+[    3.062948] x29: ffffffc010ad3920 x28: ffffffa64196ac70
+[    3.067239] mmc1: Command Queue Engine enabled
+[    3.068406] x27: ffffffa64196ac68 x26: 0000000000000001
+[    3.068407] x25: 0000000000000002 x24: 0000000000000060
+[    3.068409] x23: ffffffa642ab3400 x22: ffffffe126c10e5b
+[    3.068410] x21: ffffffa641dc3188 x20: ffffffa641963c10
+[    3.068412] x19: ffffffa642aba910 x18: 00000000ffff0a00
+[    3.068414] x17: 000000476f8e002a x16: 00000000000000b8
+[    3.073008] mmc1: new HS400 Enhanced strobe MMC card at address 0001
+[    3.078448] x15: ffffffffffffffff x14: ffffffffffffffff
+[    3.078450] x13: 0000000000000030 x12: 0000000000000030
+[    3.078452] x11: 0101010101010101 x10: ffffffe12647a914
+[    3.078453] x9 : ffffffe12647a8cc x8 : 0000000000000000
+[    3.084452] mmcblk1: mmc1:0001 DA4032 29.1 GiB
+[    3.089372]
+[    3.089372] x7 : 6c6064717372fefe x6 : ffffffa642b11494
+[    3.089374] x5 : 0000000000000000 x4 : 6d006c657869ffff
+[    3.089375] x3 : 000000006c657869 x2 : 000000000000000c
+[    3.089376] x1 : ffffffe126c3ae3c x0 : ffffffa642aba910
+[    3.089381] Call trace:
+[    3.094931] mmcblk1boot0: mmc1:0001 DA4032 partition 1 4.00 MiB
+[    3.100291]  drm_dp_aux_register+0xa4/0xac
+[    3.100292]  dp_aux_register+0x40/0x88
+[    3.100294]  dp_display_bind+0x64/0xcc
+[    3.100295]  component_bind_all+0xdc/0x210
+[    3.100298]  msm_drm_bind+0x1e8/0x5d4
+[    3.100301]  try_to_bring_up_master+0x168/0x1b0
+[    3.105861] mmcblk1boot1: mmc1:0001 DA4032 partition 2 4.00 MiB
+[    3.112282]  __component_add+0xa0/0x158
+[    3.112283]  component_add+0x1c/0x28
+[    3.112284]  dp_display_probe+0x33c/0x380
+[    3.112286]  platform_drv_probe+0x9c/0xbc
+[    3.112287]  really_probe+0x140/0x35c
+[    3.112289]  driver_probe_device+0x84/0xc0
+[    3.112292]  __device_attach_driver+0x94/0xb0
+[    3.117967] mmcblk1rpmb: mmc1:0001 DA4032 partition 3 16.0 MiB,
+chardev (239:0)
+[    3.123201]  bus_for_each_drv+0x8c/0xd8
+[    3.123202]  __device_attach+0xc4/0x150
+[    3.123204]  device_initial_probe+0x1c/0x28
+[    3.123205]  bus_probe_device+0x3c/0x9c
+[    3.123206]  deferred_probe_work_func+0x90/0xcc
+[    3.123211]  process_one_work+0x218/0x3ec
+[    3.131976]  mmcblk1: p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12
+[    3.134123]  worker_thread+0x288/0x3e8
+[    3.134124]  kthread+0x148/0x1b0
+[    3.134127]  ret_from_fork+0x10/0x30
+[    3.134128] ---[ end trace cfb9fce3f70f824d ]---
+
+Signed-off-by: Sean Paul <seanpaul@chromium.org>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 051c1be1de7e..987f9e330138 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -219,6 +219,7 @@ static int dp_display_bind(struct device *dev, struct device *master,
+ 		goto end;
+ 	}
+ 
++	dp->aux->drm_dev = drm;
+ 	rc = dp_aux_register(dp->aux);
+ 	if (rc) {
+ 		DRM_ERROR("DRM DP AUX register failed\n");
+-- 
+Sean Paul, Software Engineer, Google / Chromium OS
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
