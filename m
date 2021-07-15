@@ -1,38 +1,44 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23AA33C992A
-	for <lists+freedreno@lfdr.de>; Thu, 15 Jul 2021 08:53:23 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 13EA43CA0C2
+	for <lists+freedreno@lfdr.de>; Thu, 15 Jul 2021 16:33:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B93F46E560;
-	Thu, 15 Jul 2021 06:53:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADF836E86D;
+	Thu, 15 Jul 2021 14:33:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FE676E584;
- Thu, 15 Jul 2021 06:53:21 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9F72E6117A;
- Thu, 15 Jul 2021 06:53:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1626332001;
- bh=zs8jtugBfxKu+QBaFNWoOagtbR470C8x4uQ4+ADZelg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=X5gIm5BAGBRqPJZKINT4BrIpCcGHiQ0OoEkmKWZkG9tOFv200kU3kMAQhq+hHzIz1
- t7qK+s1k7G8vWcdCRDdXreGTTkf2pYyQhsQATIJCGGr6Z3PDd3llNSPEv+fprMxLri
- OSEmPVpJ/7xQInvUUeOaSdeGj4/EE3mWpMuwbKKADFaRwkjbp5z7q7fFaJySFunc2M
- q+SS4xkuolhOMKI83r1qxC/hpu74cVaTexHMmc8j0oHBuMoEj2AmkVe7UBHLl96z2J
- /67JL0Nk7KA6jMeAjgahwC/9tQOfLJOjW11anTkerWlglPvwQs6v096EwKmEnIKCN4
- pkDPMf9qaM3ag==
-From: Vinod Koul <vkoul@kernel.org>
-To: Rob Clark <robdclark@gmail.com>
-Date: Thu, 15 Jul 2021 12:22:03 +0530
-Message-Id: <20210715065203.709914-12-vkoul@kernel.org>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210715065203.709914-1-vkoul@kernel.org>
-References: <20210715065203.709914-1-vkoul@kernel.org>
+X-Greylist: delayed 497 seconds by postgrey-1.36 at gabe;
+ Thu, 15 Jul 2021 06:18:53 UTC
+Received: from ixit.cz (unknown [94.230.151.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 527716E52E;
+ Thu, 15 Jul 2021 06:18:53 +0000 (UTC)
+Received: from newone.lan (unknown [94.230.151.217])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by ixit.cz (Postfix) with ESMTPSA id E1E6523B1D;
+ Thu, 15 Jul 2021 08:10:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+ t=1626329432;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=Rn+U6bbc2QjmNX3WcrtbawQ8zbnhYlo3jzDWttSDpJc=;
+ b=ApsTsOggWSY0KsTnw3YLenPbNVRNWZxS5Qt22zIkyREErjcfBqR9AGNLPulLT08hXJ5RQo
+ Oyha8q/kL4fjxeM+CXIAimaBEZ9COgZv+OaZhbsSgS3J6U0xo/bcuk5MAYJndcTNP/9OSa
+ tiV2ers9UlwJMoeF+9dvBbbqLQX9A4I=
+From: David Heidelberg <david@ixit.cz>
+To: Rob Clark <robdclark@chromium.org>,
+	Sean Paul <sean@poorly.run>
+Date: Thu, 15 Jul 2021 08:09:25 +0200
+Message-Id: <20210715060925.7880-1-david@ixit.cz>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 11/11] drm/msm/dsi: Pass DSC params to drm_panel
+X-Mailman-Approved-At: Thu, 15 Jul 2021 14:33:05 +0000
+Subject: [Freedreno] [PATCH] drm/msm: mdp4: drop vblank get/put from
+ prepare/complete_commit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,82 +51,68 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Marek <jonathan@marek.ca>, Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, David Heidelberg <david@ixit.cz>,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-When DSC is enabled, we need to pass the DSC parameters to panel driver
-as well, so add a dsc parameter in panel and set it when DSC is enabled
+msm_atomic is doing vblank get/put's already,
+currently there no need to duplicate the effort in MDP4
 
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Fix warning:
+...
+WARNING: CPU: 3 PID: 79 at drivers/gpu/drm/drm_vblank.c:1194 drm_vblank_put+0x1cc/0x1d4
+...
+and multiple vblank time-outs:
+...
+msm 5100000.mdp: vblank time out, crtc=1
+...
+
+Tested on Nexus 7 2013 (deb), LTS 5.10.50.
+
+Introduced by: 119ecb7fd3b5 ("drm/msm/mdp4: request vblank during modeset")
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/gpu/drm/msm/dsi/dsi_host.c | 16 +++++++++++++++-
- include/drm/drm_panel.h            |  7 +++++++
- 2 files changed, 22 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c | 13 -------------
+ 1 file changed, 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 4e8ab1b1df8b..ee21cda243a7 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -2193,6 +2193,7 @@ int msm_dsi_host_modeset_init(struct mipi_dsi_host *host,
- 	const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
- 	struct platform_device *pdev = msm_host->pdev;
- 	struct msm_drm_private *priv;
-+	struct drm_panel *panel;
- 	int ret;
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+index a129c457c372..e5d77cef64dc 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+@@ -91,13 +91,6 @@ static void mdp4_disable_commit(struct msm_kms *kms)
  
- 	msm_host->irq = irq_of_parse_and_map(pdev->dev.of_node, 0);
-@@ -2212,8 +2213,21 @@ int msm_dsi_host_modeset_init(struct mipi_dsi_host *host,
- 	}
+ static void mdp4_prepare_commit(struct msm_kms *kms, struct drm_atomic_state *state)
+ {
+-	int i;
+-	struct drm_crtc *crtc;
+-	struct drm_crtc_state *crtc_state;
+-
+-	/* see 119ecb7fd */
+-	for_each_new_crtc_in_state(state, crtc, crtc_state, i)
+-		drm_crtc_vblank_get(crtc);
+ }
  
- 	msm_host->dev = dev;
-+	panel = msm_dsi_host_get_panel(&msm_host->base);
- 	priv = dev->dev_private;
--	priv->dsc = msm_host->dsc;
-+
-+	if (panel && panel->dsc) {
-+		struct msm_display_dsc_config *dsc = priv->dsc;
-+
-+		if (!dsc) {
-+			dsc = kzalloc(sizeof(*dsc), GFP_KERNEL);
-+			if (!dsc)
-+				return -ENOMEM;
-+			dsc->drm = panel->dsc;
-+			priv->dsc = dsc;
-+			msm_host->dsc = dsc;
-+		}
-+	}
+ static void mdp4_flush_commit(struct msm_kms *kms, unsigned crtc_mask)
+@@ -116,12 +109,6 @@ static void mdp4_wait_flush(struct msm_kms *kms, unsigned crtc_mask)
  
- 	ret = cfg_hnd->ops->tx_buf_alloc(msm_host, SZ_4K);
- 	if (ret) {
-diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
-index 33605c3f0eba..27a7808a29f2 100644
---- a/include/drm/drm_panel.h
-+++ b/include/drm/drm_panel.h
-@@ -171,6 +171,13 @@ struct drm_panel {
- 	 * Panel entry in registry.
- 	 */
- 	struct list_head list;
-+
-+	/**
-+	 * @dsc:
-+	 *
-+	 * Panel DSC pps payload to be sent
-+	 */
-+	struct drm_dsc_config *dsc;
- };
+ static void mdp4_complete_commit(struct msm_kms *kms, unsigned crtc_mask)
+ {
+-	struct mdp4_kms *mdp4_kms = to_mdp4_kms(to_mdp_kms(kms));
+-	struct drm_crtc *crtc;
+-
+-	/* see 119ecb7fd */
+-	for_each_crtc_mask(mdp4_kms->dev, crtc, crtc_mask)
+-		drm_crtc_vblank_put(crtc);
+ }
  
- void drm_panel_init(struct drm_panel *panel, struct device *dev,
+ static long mdp4_round_pixclk(struct msm_kms *kms, unsigned long rate,
 -- 
-2.31.1
+2.30.2
 
 _______________________________________________
 Freedreno mailing list
