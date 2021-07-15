@@ -1,44 +1,53 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13EA43CA0C2
-	for <lists+freedreno@lfdr.de>; Thu, 15 Jul 2021 16:33:08 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B6AF33CA218
+	for <lists+freedreno@lfdr.de>; Thu, 15 Jul 2021 18:15:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADF836E86D;
-	Thu, 15 Jul 2021 14:33:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AB5E6E889;
+	Thu, 15 Jul 2021 16:15:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 497 seconds by postgrey-1.36 at gabe;
- Thu, 15 Jul 2021 06:18:53 UTC
-Received: from ixit.cz (unknown [94.230.151.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 527716E52E;
- Thu, 15 Jul 2021 06:18:53 +0000 (UTC)
-Received: from newone.lan (unknown [94.230.151.217])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by ixit.cz (Postfix) with ESMTPSA id E1E6523B1D;
- Thu, 15 Jul 2021 08:10:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
- t=1626329432;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=Rn+U6bbc2QjmNX3WcrtbawQ8zbnhYlo3jzDWttSDpJc=;
- b=ApsTsOggWSY0KsTnw3YLenPbNVRNWZxS5Qt22zIkyREErjcfBqR9AGNLPulLT08hXJ5RQo
- Oyha8q/kL4fjxeM+CXIAimaBEZ9COgZv+OaZhbsSgS3J6U0xo/bcuk5MAYJndcTNP/9OSa
- tiV2ers9UlwJMoeF+9dvBbbqLQX9A4I=
-From: David Heidelberg <david@ixit.cz>
-To: Rob Clark <robdclark@chromium.org>,
-	Sean Paul <sean@poorly.run>
-Date: Thu, 15 Jul 2021 08:09:25 +0200
-Message-Id: <20210715060925.7880-1-david@ixit.cz>
-X-Mailer: git-send-email 2.30.2
+Received: from mail-io1-f48.google.com (mail-io1-f48.google.com
+ [209.85.166.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB3F76E885;
+ Thu, 15 Jul 2021 16:15:56 +0000 (UTC)
+Received: by mail-io1-f48.google.com with SMTP id x10so7086923ion.9;
+ Thu, 15 Jul 2021 09:15:56 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=jUDmLjLx44inn7GkSdcgZZrpwVMC3pPvjJgP4EG0irE=;
+ b=g/WaJ0LjP3w9o3DTGud9Gn5CUMGG2HbzB/ZliIwfsvT5Lj8xpsNqj1O8Xt1yhhx7dE
+ wkjzODbvmaLGufobXpY0MxXiIGT3qbvnaZMS1DSs4uTkEaDlpL8ACJwDEFFht0ZO3655
+ jMVAKtob8I0fNoL6S7+9PHQ0Hypp2g3QO738pqQJ+BvPszUx8zJgo0gKX2h+B7OpIiYj
+ ZFX10FtrUfq4NLq2U7nxhztmgscbxeGKwvjXfwVA5Og32+xpb5upj+rjjj4v7Bqs9tpB
+ P9j3EL2ZY1xLYbGp3HfvJt+tGY8Ykrf4AjExlxR+gGZ0VnHZyE2ND5FttlqGXOz8B2Vp
+ uWXg==
+X-Gm-Message-State: AOAM530OFFrwOpDFEGRUp/dsf9iPDi6IdGZzOWsMvXwm51GeT2UEDNlS
+ A/7qWZmwW5qkKu88cp0QLQ==
+X-Google-Smtp-Source: ABdhPJzgSNDzEpajPwyYVdmwZNKLRk/Ow3I2k8uXERDje9G99WLFAKwYa0KNhqKw17f9dLvNj3eHBw==
+X-Received: by 2002:a5d:858b:: with SMTP id f11mr3781911ioj.156.1626365755913; 
+ Thu, 15 Jul 2021 09:15:55 -0700 (PDT)
+Received: from robh.at.kernel.org ([64.188.179.248])
+ by smtp.gmail.com with ESMTPSA id d5sm3321100ilf.55.2021.07.15.09.15.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 Jul 2021 09:15:54 -0700 (PDT)
+Received: (nullmailer pid 1176275 invoked by uid 1000);
+ Thu, 15 Jul 2021 16:15:53 -0000
+Date: Thu, 15 Jul 2021 10:15:53 -0600
+From: Rob Herring <robh@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20210715161553.GA1176219@robh.at.kernel.org>
+References: <20210709210729.953114-1-dmitry.baryshkov@linaro.org>
+ <20210709210729.953114-2-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 15 Jul 2021 14:33:05 +0000
-Subject: [Freedreno] [PATCH] drm/msm: mdp4: drop vblank get/put from
- prepare/complete_commit
+Content-Disposition: inline
+In-Reply-To: <20210709210729.953114-2-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2 1/8] dt-bindings: display: msm:
+ dsi-controller-main: restore assigned-clocks
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,69 +60,29 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, David Heidelberg <david@ixit.cz>,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
+ Andy Gross <agross@kernel.org>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-msm_atomic is doing vblank get/put's already,
-currently there no need to duplicate the effort in MDP4
+On Sat, 10 Jul 2021 00:07:22 +0300, Dmitry Baryshkov wrote:
+> Restore the assgined-clocks and assigned-clock-parents properties that
+> were lost during the txt -> YAML conversion.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  .../display/msm/dsi-controller-main.yaml        | 17 +++++++++++++++++
+>  1 file changed, 17 insertions(+)
+> 
 
-Fix warning:
-...
-WARNING: CPU: 3 PID: 79 at drivers/gpu/drm/drm_vblank.c:1194 drm_vblank_put+0x1cc/0x1d4
-...
-and multiple vblank time-outs:
-...
-msm 5100000.mdp: vblank time out, crtc=1
-...
-
-Tested on Nexus 7 2013 (deb), LTS 5.10.50.
-
-Introduced by: 119ecb7fd3b5 ("drm/msm/mdp4: request vblank during modeset")
-
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c | 13 -------------
- 1 file changed, 13 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-index a129c457c372..e5d77cef64dc 100644
---- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-@@ -91,13 +91,6 @@ static void mdp4_disable_commit(struct msm_kms *kms)
- 
- static void mdp4_prepare_commit(struct msm_kms *kms, struct drm_atomic_state *state)
- {
--	int i;
--	struct drm_crtc *crtc;
--	struct drm_crtc_state *crtc_state;
--
--	/* see 119ecb7fd */
--	for_each_new_crtc_in_state(state, crtc, crtc_state, i)
--		drm_crtc_vblank_get(crtc);
- }
- 
- static void mdp4_flush_commit(struct msm_kms *kms, unsigned crtc_mask)
-@@ -116,12 +109,6 @@ static void mdp4_wait_flush(struct msm_kms *kms, unsigned crtc_mask)
- 
- static void mdp4_complete_commit(struct msm_kms *kms, unsigned crtc_mask)
- {
--	struct mdp4_kms *mdp4_kms = to_mdp4_kms(to_mdp_kms(kms));
--	struct drm_crtc *crtc;
--
--	/* see 119ecb7fd */
--	for_each_crtc_mask(mdp4_kms->dev, crtc, crtc_mask)
--		drm_crtc_vblank_put(crtc);
- }
- 
- static long mdp4_round_pixclk(struct msm_kms *kms, unsigned long rate,
--- 
-2.30.2
-
+Reviewed-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
