@@ -2,60 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E67B3CC61E
-	for <lists+freedreno@lfdr.de>; Sat, 17 Jul 2021 22:25:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DADA63CC620
+	for <lists+freedreno@lfdr.de>; Sat, 17 Jul 2021 22:25:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 123FA6EACC;
-	Sat, 17 Jul 2021 20:25:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CBE76EAC4;
+	Sat, 17 Jul 2021 20:25:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x533.google.com (mail-pg1-x533.google.com
- [IPv6:2607:f8b0:4864:20::533])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B39C76EACC;
- Sat, 17 Jul 2021 20:25:34 +0000 (UTC)
-Received: by mail-pg1-x533.google.com with SMTP id y17so14238234pgf.12;
- Sat, 17 Jul 2021 13:25:34 -0700 (PDT)
+Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
+ [IPv6:2607:f8b0:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56C886EAC4;
+ Sat, 17 Jul 2021 20:25:37 +0000 (UTC)
+Received: by mail-pf1-x42f.google.com with SMTP id m83so12454896pfd.0;
+ Sat, 17 Jul 2021 13:25:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=Cpu/JXcQKTfGv+/P4wjqVns0dJiJutHghvO5fiTylFw=;
- b=SKchqjYpnhWqYce+ZM8vBpYTL8UUHhB3i8icGIUJcuaxCNqWQQcFTnoUr8flGM/232
- HkOxeqfslU7kvDft6DFVZ4UF91lrIc2/nb9B/1kpqDJjxvK3Unp0itEIVlQAw+IoYXfK
- qTP0ik3gKwmexsYt4bm279OyJKQHoJH6Iy4M9BE0TNCd7jTmFSwcDdy/XnhuR09sHIGZ
- JNB7XlYy8T7zxdc4+mu8PP43vrYFXSrVCF+7YZ0sR4KD/8nYKErSD6aGt66mRqLvCciR
- 5dknzXqQKEVUrraXAWp+K/0FxelryRUuUhmnn73paKkdgckZ4VoqcmoY1ZDBxb2rDcDP
- yu7A==
+ bh=9gmuykjEPKDqTuNvlNMK4nEJJv2DOZACTKUl13m6imU=;
+ b=vgGelrggP7hv02LjbY6rkPLS7Zy/Vh80xhC2sLr/AAFsiC+5BC4CE6X7n/dcfGlAxq
+ nN/nCVRthT0BX2R19SA7Gj6DJFPqoKz6XiiAxlsh7gkN7Fw1Mar7gDf9gaLdiys5JDzz
+ yw71SFb3exs4b8p0/SP/Fe5OjiZAyp1KPiWWxJrR86eSRLiVA4wfdkUqKS604NK5du83
+ gPl4aVi360zvPFDPh8bXayTAt9owPb3iQdjGvPi8lJLkXxhFsAoylASSAePCmRRY7LrM
+ x5/ikKJuLcew6JG5Tf+Fa+mi5nRIuR0WAJvGQLU2J+XDC74vQZL/c9auNjIsnmfDdxaU
+ usQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Cpu/JXcQKTfGv+/P4wjqVns0dJiJutHghvO5fiTylFw=;
- b=cwxy4GhrnrDIfbtsw2tbtl4oIZyGdU+X/FzZDb8HzfmM6tRCNPx9QP4dbcu8ZzDeMD
- 9oZ+tuUb/90tTt0+fMAJK2t2eAfkgsiGCCDQbpHGvRI87nDzuiC9JOwXaKwC0j1w20dE
- GUkgoF25REu43G0aZ4k6jREpmk5GBIDJX8scHxJKRdC/qbREQmq54MWYQBDHtvv5TdxI
- tJauxF2hh5cSGGId0uue9wjQUxfeq2SmrNhad57qaTLaFMNE45wMt+WlceCHyWaHLgue
- TsdXV+ahWMQn6J9mBEg0HTsi2Wdql/SomFH2n4iLkiaFV1VEgnY28Ra9QzgphZDeaxDy
- Kbjg==
-X-Gm-Message-State: AOAM5305JKXNmJteRKrSP8Dc8AcQk6nj/TxnHnH54T7hTBOHv2YEHiHV
- e7a5JQARF0ZOvSMEbNWEJ4GzWzlSLFYufA==
-X-Google-Smtp-Source: ABdhPJxPGfbeZkXZO9yaxHD9xyVvR4MtcykxFtJLF8TY8HMqasAjFB/Goyt3keWPdHn07/3qnxpFhQ==
-X-Received: by 2002:a62:3542:0:b029:332:c821:1ef3 with SMTP id
- c63-20020a6235420000b0290332c8211ef3mr16819007pfa.33.1626553533753; 
- Sat, 17 Jul 2021 13:25:33 -0700 (PDT)
+ bh=9gmuykjEPKDqTuNvlNMK4nEJJv2DOZACTKUl13m6imU=;
+ b=ZPNQK6j/E3CrUZY6Q4n2/96tYD4vjd2WSYQi6N8CEOvCOOXnDj7jz2V49XenE414vO
+ RVg7cZN1OeabPvlGAd0873ttQV1ZVTjV5igglXZXyPXjqZkoy87kIRJb1xSAYULE2bnG
+ 5GA4mVAY0Zr90+momOuQc6ZEkptLiqp72MvspuNkLY8kuJpKiqg3/55MRN96ISU2Vj1b
+ jg/n2ppbNTGIZ5B5nrHWMTL+nh2T3HSfcfL7pW08Q0aWywlDwTuJ3Qcl0l0WUz1DPQsv
+ kGWWjHvuJLNkwFq5OgkAAMo6VLuTJplLJDTBSralGJz1Qc7w4gR4bBbYSg9OrhF7i+14
+ cs3g==
+X-Gm-Message-State: AOAM532QAxnnGT7pVfi5qOpXWaDC62CYu39xknJxgimqaNYmJzwquSzE
+ 4sIq80Lvx3Df4wZ9RsN3Jl5W5IbMFzGs4Q==
+X-Google-Smtp-Source: ABdhPJw6oESDC4zy/M+5LFccYFBswnhh9eNEod8Gejd/Q9XDyWIz30frNTaMSPj+BylQYcUMtmdasA==
+X-Received: by 2002:a63:cf02:: with SMTP id j2mr16508180pgg.411.1626553536314; 
+ Sat, 17 Jul 2021 13:25:36 -0700 (PDT)
 Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
  by smtp.gmail.com with ESMTPSA id
- i18sm14869351pfa.149.2021.07.17.13.25.32
+ b19sm11760137pjh.29.2021.07.17.13.25.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 17 Jul 2021 13:25:32 -0700 (PDT)
+ Sat, 17 Jul 2021 13:25:34 -0700 (PDT)
 From: Rob Clark <robdclark@gmail.com>
 To: dri-devel@lists.freedesktop.org
-Date: Sat, 17 Jul 2021 13:29:06 -0700
-Message-Id: <20210717202924.987514-5-robdclark@gmail.com>
+Date: Sat, 17 Jul 2021 13:29:07 -0700
+Message-Id: <20210717202924.987514-6-robdclark@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210717202924.987514-1-robdclark@gmail.com>
 References: <20210717202924.987514-1-robdclark@gmail.com>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 04/11] drm: Drop drm_gem_object_put_locked()
+Subject: [Freedreno] [PATCH 05/11] drm/msm/submit: Simplify out-fence-fd
+ handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,11 +68,11 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@linux.ie>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
+ freedreno@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
@@ -80,60 +80,51 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Rob Clark <robdclark@chromium.org>
 
-Now that no one is using it, remove it.
+No need for this to be split in two parts.
 
 Signed-off-by: Rob Clark <robdclark@chromium.org>
 ---
- drivers/gpu/drm/drm_gem.c | 22 ----------------------
- include/drm/drm_gem.h     |  2 --
- 2 files changed, 24 deletions(-)
+ drivers/gpu/drm/msm/msm_gem_submit.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index 9989425e9875..c8866788b761 100644
---- a/drivers/gpu/drm/drm_gem.c
-+++ b/drivers/gpu/drm/drm_gem.c
-@@ -974,28 +974,6 @@ drm_gem_object_free(struct kref *kref)
- }
- EXPORT_SYMBOL(drm_gem_object_free);
+diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+index e789f68d5be1..8abd743adfb0 100644
+--- a/drivers/gpu/drm/msm/msm_gem_submit.c
++++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+@@ -645,7 +645,6 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+ 	struct msm_file_private *ctx = file->driver_priv;
+ 	struct msm_gem_submit *submit;
+ 	struct msm_gpu *gpu = priv->gpu;
+-	struct sync_file *sync_file = NULL;
+ 	struct msm_gpu_submitqueue *queue;
+ 	struct msm_ringbuffer *ring;
+ 	struct msm_submit_post_dep *post_deps = NULL;
+@@ -824,22 +823,19 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+ 	}
  
--/**
-- * drm_gem_object_put_locked - release a GEM buffer object reference
-- * @obj: GEM buffer object
-- *
-- * This releases a reference to @obj. Callers must hold the
-- * &drm_device.struct_mutex lock when calling this function, even when the
-- * driver doesn't use &drm_device.struct_mutex for anything.
-- *
-- * For drivers not encumbered with legacy locking use
-- * drm_gem_object_put() instead.
-- */
--void
--drm_gem_object_put_locked(struct drm_gem_object *obj)
--{
--	if (obj) {
--		WARN_ON(!mutex_is_locked(&obj->dev->struct_mutex));
--
--		kref_put(&obj->refcount, drm_gem_object_free);
+ 	if (args->flags & MSM_SUBMIT_FENCE_FD_OUT) {
+-		sync_file = sync_file_create(submit->fence);
++		struct sync_file *sync_file = sync_file_create(submit->fence);
+ 		if (!sync_file) {
+ 			ret = -ENOMEM;
+ 			goto out;
+ 		}
++		fd_install(out_fence_fd, sync_file->file);
++		args->fence_fd = out_fence_fd;
+ 	}
+ 
+ 	msm_gpu_submit(gpu, submit);
+ 
+ 	args->fence = submit->fence->seqno;
+ 
+-	if (args->flags & MSM_SUBMIT_FENCE_FD_OUT) {
+-		fd_install(out_fence_fd, sync_file->file);
+-		args->fence_fd = out_fence_fd;
 -	}
--}
--EXPORT_SYMBOL(drm_gem_object_put_locked);
 -
- /**
-  * drm_gem_vm_open - vma->ops->open implementation for GEM
-  * @vma: VM area structure
-diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-index 240049566592..35e7f44c2a75 100644
---- a/include/drm/drm_gem.h
-+++ b/include/drm/drm_gem.h
-@@ -384,8 +384,6 @@ drm_gem_object_put(struct drm_gem_object *obj)
- 		__drm_gem_object_put(obj);
- }
- 
--void drm_gem_object_put_locked(struct drm_gem_object *obj);
--
- int drm_gem_handle_create(struct drm_file *file_priv,
- 			  struct drm_gem_object *obj,
- 			  u32 *handlep);
+ 	msm_reset_syncobjs(syncobjs_to_reset, args->nr_in_syncobjs);
+ 	msm_process_post_deps(post_deps, args->nr_out_syncobjs,
+ 	                      submit->fence);
 -- 
 2.31.1
 
