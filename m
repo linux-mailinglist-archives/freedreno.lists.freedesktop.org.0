@@ -2,60 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E9763CC365
-	for <lists+freedreno@lfdr.de>; Sat, 17 Jul 2021 14:40:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27EAF3CC35F
+	for <lists+freedreno@lfdr.de>; Sat, 17 Jul 2021 14:40:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 504096EA75;
-	Sat, 17 Jul 2021 12:40:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7253F6EA70;
+	Sat, 17 Jul 2021 12:40:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FE0D6EA70
- for <freedreno@lists.freedesktop.org>; Sat, 17 Jul 2021 12:40:24 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id u13so20646266lfs.11
- for <freedreno@lists.freedesktop.org>; Sat, 17 Jul 2021 05:40:24 -0700 (PDT)
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4113F6EA73
+ for <freedreno@lists.freedesktop.org>; Sat, 17 Jul 2021 12:40:25 +0000 (UTC)
+Received: by mail-lj1-x230.google.com with SMTP id q4so17924936ljp.13
+ for <freedreno@lists.freedesktop.org>; Sat, 17 Jul 2021 05:40:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=ysvvGQmoa08plNkduw7rJX6WTAzRTvZ9iBIAoQ2LibM=;
- b=rMU8nBl61ss+BYlbRpQthguaXjHdPilFUk3+l70a1HcWHEBMvc8rf9zD2A/+qB3GAG
- ZG6yajM3VEbet1JPqIefXR4c8DVTXiuQmqwrIl4LOcwjzlniJRQpIw+0IXWg10qaqehz
- Dz1KNjR3XlTAyA8BjvxU5LQW5KYI6BNlmiC3AHVFuCt/tQqFW8YaCOnGrcdTmrTFbSxh
- WZlWvmkPvdcyAKvodKi0U+9WjVBw3aSpWUFvH1+RBAeDouCEotBvu0Ekz2DiaZTJr1f2
- hC688OtCPouhOW1SZ37Pw2kw+u1AN7dRvj4CJv7hPg+JvYBLeVsu2ytKls8v4ZdkXfA5
- PKDw==
+ bh=pY5tuMhqcs2nX4bIZTKuCC5v/MwQ9tPhYnoCq8ESggM=;
+ b=RScO7UiSlmgt/wMghC9y9mRllC39zhSLpDPvwt34rVjRLBoDOEFQPlvvqmQpIQ/xdd
+ s9ozE7UEGiTpZs61mfE/Slcs8qSb/ZQ8SKyOk/GYUYp5B481Y9hqxU9akZdCshcn7nb5
+ 89bwZMnbkVQJaLK/cInH1dsvL1GloR7m7j+XS/iNFgPzbGJtosqPbNqGUAMIjpqPpCk2
+ 46bWoPzyisvE5DdxavRLb4UcYnB86X37C8HGMpQiMrbez8TKTG/bWrqWXd+JalBgqKmu
+ BFKpKYdl5FmaD7neWyrxi/zmFAXqdKGIhAZa1s7AcONS2LZDV4rq4aR3eLnVTV9ieGR4
+ ctXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=ysvvGQmoa08plNkduw7rJX6WTAzRTvZ9iBIAoQ2LibM=;
- b=lVqjcIITL0KyPxkWZjk+zqRPb0NMY8N81d4z5Od69SiAwf/lujdYCZBplgm6VXTdx/
- 9Qcs6pD8hzNVd5CnqNMFcb20JG9/axHtydQbks7xBMZKWrp1nlnAaC9ohgmw5HM5m9Yz
- 7FFHIzpWjPJD9NxwQU/H+mviv94yGl+GcAma2c7G7bKTbKClJXqtzOsPXCtz2+V4nu4s
- GqfHMMBlZT5M5aNkMG2f646bU7mieijeOI6M9hHlwAajhsWkmYkKK8KC0w0Pysb4eGOc
- ODqcOV+Dkl7HL26LkOqg/yRP1bpVyTKGM81WdaDImRlxH2U9TlzpEZE71xlwVmP1DdqG
- lDbw==
-X-Gm-Message-State: AOAM5339iBzyGwoVOkokpgEvvXZ2e7O6kK2ZodYXkvbAeYVUQ/VPxntj
- Ck+jSEbwBfR8yV05KaqOvguxlg==
-X-Google-Smtp-Source: ABdhPJxlMD1BwxZVEJOM4lGTdDTwUWSE0L26RCrmISAGQvEAGwoBO6u3jpG9hOVtzw7yYLlysjHXbw==
-X-Received: by 2002:a19:8642:: with SMTP id i63mr11819172lfd.156.1626525622812; 
- Sat, 17 Jul 2021 05:40:22 -0700 (PDT)
+ bh=pY5tuMhqcs2nX4bIZTKuCC5v/MwQ9tPhYnoCq8ESggM=;
+ b=cCEW4SDWH/9VoBgQHeVM9QSPVlcts1D8Rx+a1JsD6WlyTgvmWAdMXrqwSnvJzPDnVU
+ z/aHidC15eVjuPJgeGe997tRVU1eLPlKee07RcaK/iuwU/06ajxQLpuhEu+IOcoBjXGt
+ 0lUz0wJAlxr8J67a7yefN/gpUVVZRU2GDLtbNy1reQIzo/QwK2PsmBzhuuPlVgXitZA4
+ C5TYDj8p5Z4rdpqzJI3xVv/2KvZisN/FXmoG14eug/Yc1QVoJGDtcWmj9dMAlEM5f7jq
+ 4Mi/ByhJQWB6Qvs9i5PGYjvZysk2eftEOilIpWudu9NeVCq54klzOyDUbHbee8IA0OI9
+ ieCw==
+X-Gm-Message-State: AOAM530OOo5aMBzz72K5g3Jy/SPeSL1lFcEq3wrO5XTLspjjVO094jUd
+ 6h4UTsI/J1R6XBEbBra7HrbY4A==
+X-Google-Smtp-Source: ABdhPJwjtEhU6eWR0JqVOF8uh4dVGY/qY126wt4S2Et0lwA5e5ciomjZPCgvTPINiH9WsflFRkwh+Q==
+X-Received: by 2002:a2e:7a18:: with SMTP id v24mr619548ljc.420.1626525623657; 
+ Sat, 17 Jul 2021 05:40:23 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id f25sm794264ljo.126.2021.07.17.05.40.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 17 Jul 2021 05:40:22 -0700 (PDT)
+ Sat, 17 Jul 2021 05:40:23 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <abhinavk@codeaurora.org>
-Date: Sat, 17 Jul 2021 15:40:11 +0300
-Message-Id: <20210717124016.316020-3-dmitry.baryshkov@linaro.org>
+Date: Sat, 17 Jul 2021 15:40:12 +0300
+Message-Id: <20210717124016.316020-4-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210717124016.316020-1-dmitry.baryshkov@linaro.org>
 References: <20210717124016.316020-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v4 2/7] drm/msm/dsi: add three helper functions
+Subject: [Freedreno] [PATCH v4 3/7] drm/msm/dpu: support setting up two
+ independent DSI connectors
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,118 +78,181 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add three helper functions to be used by display drivers for setting up
-encoders.
+Move setting up encoders from set_encoder_mode to
+_dpu_kms_initialize_dsi() / _dpu_kms_initialize_displayport(). This
+allows us to support not only "single DSI" and "bonded DSI" but also "two
+independent DSI" configurations. In future this would also help adding
+support for multiple DP connectors.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
 ---
- drivers/gpu/drm/msm/dsi/dsi.c         |  7 +++++++
- drivers/gpu/drm/msm/dsi/dsi_manager.c | 19 +++++++++++--------
- drivers/gpu/drm/msm/msm_drv.h         | 17 +++++++++++++++--
- 3 files changed, 33 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 102 +++++++++++++-----------
+ 1 file changed, 57 insertions(+), 45 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi.c b/drivers/gpu/drm/msm/dsi/dsi.c
-index 75afc12a7b25..5201d7eb0490 100644
---- a/drivers/gpu/drm/msm/dsi/dsi.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi.c
-@@ -13,6 +13,13 @@ struct drm_encoder *msm_dsi_get_encoder(struct msm_dsi *msm_dsi)
- 	return msm_dsi->encoder;
- }
- 
-+bool msm_dsi_is_cmd_mode(struct msm_dsi *msm_dsi)
-+{
-+	unsigned long host_flags = msm_dsi_host_get_mode_flags(msm_dsi->host);
-+
-+	return !(host_flags & MIPI_DSI_MODE_VIDEO);
-+}
-+
- static int dsi_get_phy(struct msm_dsi *msm_dsi)
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 1d3a4f395e74..3cd2011e18d4 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -471,30 +471,68 @@ static int _dpu_kms_initialize_dsi(struct drm_device *dev,
+ 				    struct dpu_kms *dpu_kms)
  {
- 	struct platform_device *pdev = msm_dsi->pdev;
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-index b20645ab279b..27d3b9ebf831 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-@@ -216,12 +216,6 @@ static int dsi_mgr_bridge_get_id(struct drm_bridge *bridge)
- 	return dsi_bridge->id;
- }
+ 	struct drm_encoder *encoder = NULL;
++	struct msm_display_info info;
+ 	int i, rc = 0;
  
--static bool dsi_mgr_is_cmd_mode(struct msm_dsi *msm_dsi)
--{
--	unsigned long host_flags = msm_dsi_host_get_mode_flags(msm_dsi->host);
--	return !(host_flags & MIPI_DSI_MODE_VIDEO);
--}
+ 	if (!(priv->dsi[0] || priv->dsi[1]))
+ 		return rc;
+ 
+-	/*TODO: Support two independent DSI connectors */
+-	encoder = dpu_encoder_init(dev, DRM_MODE_ENCODER_DSI);
+-	if (IS_ERR(encoder)) {
+-		DPU_ERROR("encoder init failed for dsi display\n");
+-		return PTR_ERR(encoder);
+-	}
 -
- void msm_dsi_manager_setup_encoder(int id)
- {
- 	struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
-@@ -231,7 +225,7 @@ void msm_dsi_manager_setup_encoder(int id)
+-	priv->encoders[priv->num_encoders++] = encoder;
+-
++	/*
++	 * We support following confiurations:
++	 * - Single DSI host (dsi0 or dsi1)
++	 * - Two independent DSI hosts
++	 * - Bonded DSI0 and DSI1 hosts
++	 *
++	 * TODO: Support swapping DSI0 and DSI1 in the bonded setup.
++	 */
+ 	for (i = 0; i < ARRAY_SIZE(priv->dsi); i++) {
++		int other = (i + 1) % 2;
++
+ 		if (!priv->dsi[i])
+ 			continue;
  
- 	if (encoder && kms->funcs->set_encoder_mode)
- 		kms->funcs->set_encoder_mode(kms, encoder,
--					     dsi_mgr_is_cmd_mode(msm_dsi));
-+					     msm_dsi_is_cmd_mode(msm_dsi));
- }
- 
- static int msm_dsi_manager_panel_init(struct drm_connector *conn, u8 id)
-@@ -276,7 +270,7 @@ static int msm_dsi_manager_panel_init(struct drm_connector *conn, u8 id)
- 	if (other_dsi && other_dsi->panel && kms->funcs->set_split_display) {
- 		kms->funcs->set_split_display(kms, master_dsi->encoder,
- 					      slave_dsi->encoder,
--					      dsi_mgr_is_cmd_mode(msm_dsi));
-+					      msm_dsi_is_cmd_mode(msm_dsi));
++		if (msm_dsi_is_bonded_dsi(priv->dsi[i]) &&
++		    !msm_dsi_is_master_dsi(priv->dsi[i]))
++			continue;
++
++		encoder = dpu_encoder_init(dev, DRM_MODE_ENCODER_DSI);
++		if (IS_ERR(encoder)) {
++			DPU_ERROR("encoder init failed for dsi display\n");
++			return PTR_ERR(encoder);
++		}
++
++		priv->encoders[priv->num_encoders++] = encoder;
++
++		memset(&info, 0, sizeof(info));
++		info.intf_type = encoder->encoder_type;
++
+ 		rc = msm_dsi_modeset_init(priv->dsi[i], dev, encoder);
+ 		if (rc) {
+ 			DPU_ERROR("modeset_init failed for dsi[%d], rc = %d\n",
+ 				i, rc);
+ 			break;
+ 		}
++
++		info.h_tile_instance[info.num_of_h_tiles++] = i;
++		info.capabilities = msm_dsi_is_cmd_mode(priv->dsi[i]) ?
++			MSM_DISPLAY_CAP_CMD_MODE :
++			MSM_DISPLAY_CAP_VID_MODE;
++
++		if (msm_dsi_is_bonded_dsi(priv->dsi[i]) && priv->dsi[other]) {
++			rc = msm_dsi_modeset_init(priv->dsi[other], dev, encoder);
++			if (rc) {
++				DPU_ERROR("modeset_init failed for dsi[%d], rc = %d\n",
++					other, rc);
++				break;
++			}
++
++			info.h_tile_instance[info.num_of_h_tiles++] = other;
++		}
++
++		rc = dpu_encoder_setup(dev, encoder, &info);
++		if (rc)
++			DPU_ERROR("failed to setup DPU encoder %d: rc:%d\n",
++				  encoder->base.id, rc);
  	}
  
- out:
-@@ -839,3 +833,12 @@ void msm_dsi_manager_unregister(struct msm_dsi *msm_dsi)
- 		msm_dsim->dsi[msm_dsi->id] = NULL;
- }
+ 	return rc;
+@@ -505,6 +543,7 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
+ 					    struct dpu_kms *dpu_kms)
+ {
+ 	struct drm_encoder *encoder = NULL;
++	struct msm_display_info info;
+ 	int rc = 0;
  
-+bool msm_dsi_is_bonded_dsi(struct msm_dsi *msm_dsi)
-+{
-+	return IS_BONDED_DSI();
-+}
+ 	if (!priv->dp)
+@@ -516,6 +555,7 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
+ 		return PTR_ERR(encoder);
+ 	}
+ 
++	memset(&info, 0, sizeof(info));
+ 	rc = msm_dp_modeset_init(priv->dp, dev, encoder);
+ 	if (rc) {
+ 		DPU_ERROR("modeset_init failed for DP, rc = %d\n", rc);
+@@ -524,6 +564,14 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
+ 	}
+ 
+ 	priv->encoders[priv->num_encoders++] = encoder;
 +
-+bool msm_dsi_is_master_dsi(struct msm_dsi *msm_dsi)
-+{
-+	return IS_MASTER_DSI_LINK(msm_dsi->id);
-+}
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index 1a48a709ffb3..9bfd37855969 100644
---- a/drivers/gpu/drm/msm/msm_drv.h
-+++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -350,7 +350,9 @@ void __exit msm_dsi_unregister(void);
- int msm_dsi_modeset_init(struct msm_dsi *msm_dsi, struct drm_device *dev,
- 			 struct drm_encoder *encoder);
- void msm_dsi_snapshot(struct msm_disp_state *disp_state, struct msm_dsi *msm_dsi);
--
-+bool msm_dsi_is_cmd_mode(struct msm_dsi *msm_dsi);
-+bool msm_dsi_is_bonded_dsi(struct msm_dsi *msm_dsi);
-+bool msm_dsi_is_master_dsi(struct msm_dsi *msm_dsi);
- #else
- static inline void __init msm_dsi_register(void)
- {
-@@ -367,7 +369,18 @@ static inline int msm_dsi_modeset_init(struct msm_dsi *msm_dsi,
- static inline void msm_dsi_snapshot(struct msm_disp_state *disp_state, struct msm_dsi *msm_dsi)
- {
++	info.num_of_h_tiles = 1;
++	info.capabilities = MSM_DISPLAY_CAP_VID_MODE;
++	info.intf_type = encoder->encoder_type;
++	rc = dpu_encoder_setup(dev, encoder, &info);
++	if (rc)
++		DPU_ERROR("failed to setup DPU encoder %d: rc:%d\n",
++			  encoder->base.id, rc);
+ 	return rc;
  }
--
-+static inline bool msm_dsi_is_cmd_mode(struct msm_dsi *msm_dsi)
-+{
-+	return false;
-+}
-+static bool msm_dsi_is_bonded_dsi(struct msm_dsi *msm_dsi)
-+{
-+	return false;
-+}
-+bool msm_dsi_is_master_dsi(struct msm_dsi *msm_dsi)
-+{
-+	return false;
-+}
- #endif
  
- #ifdef CONFIG_DRM_MSM_DP
+@@ -726,41 +774,6 @@ static void dpu_kms_destroy(struct msm_kms *kms)
+ 	msm_kms_destroy(&dpu_kms->base);
+ }
+ 
+-static void _dpu_kms_set_encoder_mode(struct msm_kms *kms,
+-				 struct drm_encoder *encoder,
+-				 bool cmd_mode)
+-{
+-	struct msm_display_info info;
+-	struct msm_drm_private *priv = encoder->dev->dev_private;
+-	int i, rc = 0;
+-
+-	memset(&info, 0, sizeof(info));
+-
+-	info.intf_type = encoder->encoder_type;
+-	info.capabilities = cmd_mode ? MSM_DISPLAY_CAP_CMD_MODE :
+-			MSM_DISPLAY_CAP_VID_MODE;
+-
+-	switch (info.intf_type) {
+-	case DRM_MODE_ENCODER_DSI:
+-		/* TODO: No support for DSI swap */
+-		for (i = 0; i < ARRAY_SIZE(priv->dsi); i++) {
+-			if (priv->dsi[i]) {
+-				info.h_tile_instance[info.num_of_h_tiles] = i;
+-				info.num_of_h_tiles++;
+-			}
+-		}
+-		break;
+-	case DRM_MODE_ENCODER_TMDS:
+-		info.num_of_h_tiles = 1;
+-		break;
+-	}
+-
+-	rc = dpu_encoder_setup(encoder->dev, encoder, &info);
+-	if (rc)
+-		DPU_ERROR("failed to setup DPU encoder %d: rc:%d\n",
+-			encoder->base.id, rc);
+-}
+-
+ static irqreturn_t dpu_irq(struct msm_kms *kms)
+ {
+ 	struct dpu_kms *dpu_kms = to_dpu_kms(kms);
+@@ -863,7 +876,6 @@ static const struct msm_kms_funcs kms_funcs = {
+ 	.get_format      = dpu_get_msm_format,
+ 	.round_pixclk    = dpu_kms_round_pixclk,
+ 	.destroy         = dpu_kms_destroy,
+-	.set_encoder_mode = _dpu_kms_set_encoder_mode,
+ 	.snapshot        = dpu_kms_mdp_snapshot,
+ #ifdef CONFIG_DEBUG_FS
+ 	.debugfs_init    = dpu_kms_debugfs_init,
 -- 
 2.30.2
 
