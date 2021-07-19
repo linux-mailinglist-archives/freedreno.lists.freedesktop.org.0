@@ -1,61 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 314C63CC635
-	for <lists+freedreno@lfdr.de>; Sat, 17 Jul 2021 22:25:55 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4475F3CCF68
+	for <lists+freedreno@lfdr.de>; Mon, 19 Jul 2021 10:41:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4A3F6EADB;
-	Sat, 17 Jul 2021 20:25:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E5626E045;
+	Mon, 19 Jul 2021 08:41:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
- [IPv6:2607:f8b0:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B9356EADA;
- Sat, 17 Jul 2021 20:25:52 +0000 (UTC)
-Received: by mail-pl1-x633.google.com with SMTP id c15so7360780pls.13;
- Sat, 17 Jul 2021 13:25:52 -0700 (PDT)
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [IPv6:2a00:1450:4864:20::432])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA10089F3C;
+ Mon, 19 Jul 2021 08:41:00 +0000 (UTC)
+Received: by mail-wr1-x432.google.com with SMTP id g16so20994559wrw.5;
+ Mon, 19 Jul 2021 01:41:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=4a2grAOsVjuhllfpu4HTzJ9+Qgoc8I8WpHYGD1psl3E=;
- b=pPbIODB84agCW9NZxCYSpLdpYK0pycpT1A0XallsIV+qOf/fIIghLwgAsTCsgLSTh4
- yMy/7/w9CVeCmjgxyb+2mBQmzobZe1XHHJr/xKdRarig+R05iOJzlk94kfrf7su/d2qR
- mMX9xRv8i+jaTIhADE6mnwMcQAqAs+6zhklWOwQh2CIBhjEpAoYxe3sun7KVpKVyvmLJ
- G2IAABnOuTVM6AkzJ8mZVmEjyDK4Z1B5JrXSUevixh0bKzBeY93OUUuwQJBawYNeCehS
- qg/5/6p10qmM6TS1qpcIEctiAgB9dLWwWA/SjZbdtUYgIo5oQjN7X9pedETpgpImcoG4
- d1Ow==
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=BSOq/6LU7myFeRU9sVPe/x6k8J7ibQSkaSa7AKjKFSw=;
+ b=DjXoqORFiqtt4rE5ZyXDIb7/ln22JGSkGZaFHNCsrKxgS+jBCtKuODQNkTLOIEACqc
+ KLj44NNYb1P7JhBYYk333PjdMs6+/6wjl3wDOUhYRRNvkDKcU1b4BMBDUXkrALp/yR3c
+ eik4IoWYEHSBl3n48IG93J5JTgnKZkDE/rAVPc0uXwJsgyiJFeDlv9RAFS/lPFbBHUEx
+ xX7EuCM3Id9LBQ/tNf0BohPT15mRhDjLCYQWjOeU2HwZbnLVVOtb1uF+nZJjmK1m7bz0
+ kcQFHH6Tbo5xmxnZc+zVzIbZkEnV6N4K5ulew+NE+OpIoEbwR0fAmtMqASjkSZGJMF23
+ uVbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=4a2grAOsVjuhllfpu4HTzJ9+Qgoc8I8WpHYGD1psl3E=;
- b=pH0vpfSvhnFYxtiqmWg3rMoWmNXPuwIgmGgrak5LIdHeqp2NVk6ZlUZdbqIQAalK+N
- dras9Di2SYlmR239CEXYAb9iFg+cK5v+G0zZFrCIQ4P7t68EAbXkFfn39gqhsiCemPmQ
- VRmWmk7r7dwncKFIfjIathsgkH1m6WQCMT6zWm8AaiyC1igjZ9NgnfTtYYwlVnhsP3G7
- Xulz5kN/Q0eLGuqw5q3Dg0wGAR7HFWMhnEv5qxlkWJGUrVUrCGFewgianF5AaqGSX6F3
- rTO5e04vKIen1ge+WdYBFgbXNd+eaWwURWKcYKye5xjF13Cm2ePHZF1C8IUrUIGvrycM
- IGgA==
-X-Gm-Message-State: AOAM530EchcSth84SRI4Dhd32LjGEyDNni2x1awes2Gr7y9q7iGOOWY9
- gBWHXmoGRXljgKjS5eFFxZRcnYOPkm0CWw==
-X-Google-Smtp-Source: ABdhPJy2N95CmO+YLshSSS5ExE0jjwnIStHFnKkvSOBoi+8+6rt6YtweF6GnYi6tV8+Bpyt3wJMeTA==
-X-Received: by 2002:a17:90b:1109:: with SMTP id
- gi9mr21819539pjb.61.1626553551434; 
- Sat, 17 Jul 2021 13:25:51 -0700 (PDT)
-Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
- by smtp.gmail.com with ESMTPSA id
- v31sm8502744pgl.49.2021.07.17.13.25.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 17 Jul 2021 13:25:50 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Sat, 17 Jul 2021 13:29:13 -0700
-Message-Id: <20210717202924.987514-12-robdclark@gmail.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210717202924.987514-1-robdclark@gmail.com>
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=BSOq/6LU7myFeRU9sVPe/x6k8J7ibQSkaSa7AKjKFSw=;
+ b=DhACMQI2+ngl2F7ORVAeeDW19383IChKyDYPZNgk6q0rc5exrPnc8/km6tW9nqpug2
+ Y84tlT6rz5Dtmr8RglDXdsp0PZglHD8p7FVyfaArW0uhvsWZIoAD7qz5q98hum28WOnf
+ 2iyFNDSFxhoTcilItYr4aS5eHTs3ih8ugVjsBDMVmoSM3qJfnVtuXXQlEsCIz8oHfcyI
+ Flb1FvZd2M2JiQsSF4qPVIiISwPGvgYwgKTwLUZnzvPm0Jf/IzGXWVg0AzajbTFiiacm
+ odebMZnaCG0lu7Sc3F6+nrp6MyCZeDH7i7URMURNdLnuSnv4YhP6xzy+5qV1KmtGNfI3
+ MQ1w==
+X-Gm-Message-State: AOAM532xkL8JGLs3AdGhfW8b3OKQfPlHBL40P9+89zssF0MDL8YzntKh
+ KCRcgHVD+lqdzeffsNuXSfY=
+X-Google-Smtp-Source: ABdhPJx78JN8b/ZveBWU79Ei+AvwV8ONa7QAzZR4sp6UFDoSwGfCbcKq6sN7s1mjTYYeyCHxC/dWoQ==
+X-Received: by 2002:adf:c102:: with SMTP id r2mr27884871wre.22.1626684059448; 
+ Mon, 19 Jul 2021 01:40:59 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:e48d:68a9:5ef4:9e09?
+ ([2a02:908:1252:fb60:e48d:68a9:5ef4:9e09])
+ by smtp.gmail.com with ESMTPSA id e6sm22661717wrg.18.2021.07.19.01.40.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 19 Jul 2021 01:40:59 -0700 (PDT)
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
 References: <20210717202924.987514-1-robdclark@gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <582b8869-f370-3803-60a8-df31088f8088@gmail.com>
+Date: Mon, 19 Jul 2021 10:40:57 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 11/11] drm/msm: Utilize gpu scheduler priorities
+In-Reply-To: <20210717202924.987514-1-robdclark@gmail.com>
+Content-Language: en-US
+Subject: Re: [Freedreno] [Linaro-mm-sig] [PATCH 00/11] drm/msm: drm
+ scheduler conversion and cleanups
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,207 +71,83 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
  Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- freedreno@lists.freedesktop.org, Sharat Masetty <smasetty@codeaurora.org>,
+ open list <linux-kernel@vger.kernel.org>, Jonathan Marek <jonathan@marek.ca>,
+ Emma Anholt <emma@anholt.net>, Bernard Zhao <bernard@vivo.com>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
  Akhil P Oommen <akhilpo@codeaurora.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
+ Douglas Anderson <dianders@chromium.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Zhenzhong Duan <zhenzhong.duan@gmail.com>,
+ "Kristian H. Kristensen" <hoegsberg@google.com>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Dave Airlie <airlied@redhat.com>, Sean Paul <sean@poorly.run>,
- open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Lee Jones <lee.jones@linaro.org>, Dave Airlie <airlied@redhat.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+Am 17.07.21 um 22:29 schrieb Rob Clark:
+> From: Rob Clark <robdclark@chromium.org>
+>
+> Conversion to gpu_scheduler, and bonus removal of
+> drm_gem_object_put_locked()
 
-The drm/scheduler provides additional prioritization on top of that
-provided by however many number of ringbuffers (each with their own
-priority level) is supported on a given generation.  Expose the
-additional levels of priority to userspace and map the userspace
-priority back to ring (first level of priority) and schedular priority
-(additional priority levels within the ring).
+Oh yes please!
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/adreno/adreno_gpu.c |  4 ++--
- drivers/gpu/drm/msm/msm_gem_submit.c    |  4 ++--
- drivers/gpu/drm/msm/msm_gpu.h           | 21 ++++++++++++++++--
- drivers/gpu/drm/msm/msm_submitqueue.c   | 29 ++++++++++++-------------
- include/uapi/drm/msm_drm.h              | 10 ++++++++-
- 5 files changed, 46 insertions(+), 22 deletions(-)
+If I'm not completely mistaken that was the last puzzle piece missing to 
+unify TTMs and GEMs refcount of objects.
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index bad4809b68ef..748665232d29 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -261,8 +261,8 @@ int adreno_get_param(struct msm_gpu *gpu, uint32_t param, uint64_t *value)
- 			return ret;
- 		}
- 		return -EINVAL;
--	case MSM_PARAM_NR_RINGS:
--		*value = gpu->nr_rings;
-+	case MSM_PARAM_PRIORITIES:
-+		*value = gpu->nr_rings * NR_SCHED_PRIORITIES;
- 		return 0;
- 	case MSM_PARAM_PP_PGTABLE:
- 		*value = 0;
-diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-index 73bdea43e1ab..ef5f2c894543 100644
---- a/drivers/gpu/drm/msm/msm_gem_submit.c
-+++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-@@ -59,7 +59,7 @@ static struct msm_gem_submit *submit_create(struct drm_device *dev,
- 	submit->gpu = gpu;
- 	submit->cmd = (void *)&submit->bos[nr_bos];
- 	submit->queue = queue;
--	submit->ring = gpu->rb[queue->prio];
-+	submit->ring = gpu->rb[queue->ring_nr];
- 	submit->fault_dumped = false;
- 
- 	INIT_LIST_HEAD(&submit->node);
-@@ -751,7 +751,7 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
- 	/* Get a unique identifier for the submission for logging purposes */
- 	submitid = atomic_inc_return(&ident) - 1;
- 
--	ring = gpu->rb[queue->prio];
-+	ring = gpu->rb[queue->ring_nr];
- 	trace_msm_gpu_submit(pid_nr(pid), ring->id, submitid,
- 		args->nr_bos, args->nr_cmds);
- 
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index e1e65b452c17..9302ad1dc83c 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -208,6 +208,22 @@ struct msm_gpu_perfcntr {
- 	const char *name;
- };
- 
-+/**
-+ * With drm/scheduler providing it's own level of prioritization, our total
-+ * number of available priority levels is (nr_rings * NR_SCHED_PRIORITIES).
-+ * Each ring is associated with it's own scheduler instance.  The userspace
-+ * provided priority (when a submitqueue is created) is mapped to ring nr
-+ * and scheduler priority as such:
-+ *
-+ *   ring_nr    = userspace_prio / NR_SCHED_PRIORITIES
-+ *   sched_prio = userspace_prio % NR_SCHED_PRIORITIES
-+ *
-+ * This allows generations without preemption (nr_rings==1) to have some
-+ * amount of prioritization, and provides more priority levels for gens
-+ * that do have preemption.
-+ */
-+#define NR_SCHED_PRIORITIES (1 + DRM_SCHED_PRIORITY_HIGH - DRM_SCHED_PRIORITY_MIN)
-+
- /**
-  * A submitqueue is associated with a gl context or vk queue (or equiv)
-  * in userspace.
-@@ -215,7 +231,8 @@ struct msm_gpu_perfcntr {
-  * @id:        userspace id for the submitqueue, unique within the drm_file
-  * @flags:     userspace flags for the submitqueue, specified at creation
-  *             (currently unusued)
-- * @prio:      the submitqueue priority
-+ * @ring_nr:   the ringbuffer used by this submitqueue, which is determined
-+ *             by the submitqueue's priority
-  * @faults:    the number of GPU hangs associated with this submitqueue
-  * @ctx:       the per-drm_file context associated with the submitqueue (ie.
-  *             which set of pgtables do submits jobs associated with the
-@@ -230,7 +247,7 @@ struct msm_gpu_perfcntr {
- struct msm_gpu_submitqueue {
- 	int id;
- 	u32 flags;
--	u32 prio;
-+	u32 ring_nr;
- 	int faults;
- 	struct msm_file_private *ctx;
- 	struct list_head node;
-diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
-index 5c486fa6176b..cdaf71d3fe15 100644
---- a/drivers/gpu/drm/msm/msm_submitqueue.c
-+++ b/drivers/gpu/drm/msm/msm_submitqueue.c
-@@ -68,6 +68,7 @@ int msm_submitqueue_create(struct drm_device *drm, struct msm_file_private *ctx,
- 	struct msm_gpu_submitqueue *queue;
- 	struct msm_ringbuffer *ring;
- 	struct drm_gpu_scheduler *sched;
-+	u32 sched_prio, ring_nr;
- 	int ret;
- 
- 	if (!ctx)
-@@ -76,7 +77,16 @@ int msm_submitqueue_create(struct drm_device *drm, struct msm_file_private *ctx,
- 	if (!priv->gpu)
- 		return -ENODEV;
- 
--	if (prio >= priv->gpu->nr_rings)
-+	/*
-+	 * Map the userspace provided priority to the internal ringbuffer
-+	 * (queue->prio) and drm/scheduler priority:
-+	 *
-+	 *    ring_nr    = prio / NR_SCHED_PRIORITIES
-+	 *    sched_prio = prio % NR_SCHED_PRIORITIES
-+	 */
-+	ring_nr = div_u64_rem(prio, NR_SCHED_PRIORITIES, &sched_prio);
-+
-+	if (ring_nr >= priv->gpu->nr_rings)
- 		return -EINVAL;
- 
- 	queue = kzalloc(sizeof(*queue), GFP_KERNEL);
-@@ -86,24 +96,13 @@ int msm_submitqueue_create(struct drm_device *drm, struct msm_file_private *ctx,
- 
- 	kref_init(&queue->ref);
- 	queue->flags = flags;
--	queue->prio = prio;
-+	queue->ring_nr = ring_nr;
- 
--	ring = priv->gpu->rb[prio];
-+	ring = priv->gpu->rb[ring_nr];
- 	sched = &ring->sched;
- 
--	/*
--	 * TODO we can allow more priorities than we have ringbuffers by
--	 * mapping:
--	 *
--	 *    ring = prio / 3;
--	 *    ent_prio = DRM_SCHED_PRIORITY_MIN + (prio % 3);
--	 *
--	 * Probably avoid using DRM_SCHED_PRIORITY_KERNEL as that is
--	 * treated specially in places.
--	 */
- 	ret = drm_sched_entity_init(&queue->entity,
--			DRM_SCHED_PRIORITY_NORMAL,
--			&sched, 1, NULL);
-+			sched_prio, &sched, 1, NULL);
- 	if (ret) {
- 		kfree(queue);
- 		return ret;
-diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
-index f075851021c3..e5e073954856 100644
---- a/include/uapi/drm/msm_drm.h
-+++ b/include/uapi/drm/msm_drm.h
-@@ -73,11 +73,19 @@ struct drm_msm_timespec {
- #define MSM_PARAM_MAX_FREQ   0x04
- #define MSM_PARAM_TIMESTAMP  0x05
- #define MSM_PARAM_GMEM_BASE  0x06
--#define MSM_PARAM_NR_RINGS   0x07
-+#define MSM_PARAM_PRIORITIES 0x07  /* The # of priority levels */
- #define MSM_PARAM_PP_PGTABLE 0x08  /* => 1 for per-process pagetables, else 0 */
- #define MSM_PARAM_FAULTS     0x09
- #define MSM_PARAM_SUSPENDS   0x0a
- 
-+/* For backwards compat.  The original support for preemption was based on
-+ * a single ring per priority level so # of priority levels equals the #
-+ * of rings.  With drm/scheduler providing additional levels of priority,
-+ * the number of priorities is greater than the # of rings.  The param is
-+ * renamed to better reflect this.
-+ */
-+#define MSM_PARAM_NR_RINGS   MSM_PARAM_PRIORITIES
-+
- struct drm_msm_param {
- 	__u32 pipe;           /* in, MSM_PIPE_x */
- 	__u32 param;          /* in, MSM_PARAM_x */
--- 
-2.31.1
+Only problem is that I only see patch 7 and 9 in my inbox. Where is the 
+rest?
+
+Thanks,
+Christian.
+
+>
+> Rob Clark (11):
+>    drm/msm: Docs and misc cleanup
+>    drm/msm: Small submitqueue creation cleanup
+>    drm/msm: drop drm_gem_object_put_locked()
+>    drm: Drop drm_gem_object_put_locked()
+>    drm/msm/submit: Simplify out-fence-fd handling
+>    drm/msm: Consolidate submit bo state
+>    drm/msm: Track "seqno" fences by idr
+>    drm/msm: Return ERR_PTR() from submit_create()
+>    drm/msm: Conversion to drm scheduler
+>    drm/msm: Drop struct_mutex in submit path
+>    drm/msm: Utilize gpu scheduler priorities
+>
+>   drivers/gpu/drm/drm_gem.c                   |  22 --
+>   drivers/gpu/drm/msm/Kconfig                 |   1 +
+>   drivers/gpu/drm/msm/adreno/a5xx_debugfs.c   |   4 +-
+>   drivers/gpu/drm/msm/adreno/a5xx_gpu.c       |   6 +-
+>   drivers/gpu/drm/msm/adreno/a5xx_power.c     |   2 +-
+>   drivers/gpu/drm/msm/adreno/a5xx_preempt.c   |   7 +-
+>   drivers/gpu/drm/msm/adreno/a6xx_gmu.c       |  12 +-
+>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c       |   2 +-
+>   drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c |   4 +-
+>   drivers/gpu/drm/msm/adreno/adreno_gpu.c     |   6 +-
+>   drivers/gpu/drm/msm/msm_drv.c               |  30 +-
+>   drivers/gpu/drm/msm/msm_fence.c             |  39 ---
+>   drivers/gpu/drm/msm/msm_fence.h             |   2 -
+>   drivers/gpu/drm/msm/msm_gem.c               |  91 +-----
+>   drivers/gpu/drm/msm/msm_gem.h               |  37 ++-
+>   drivers/gpu/drm/msm/msm_gem_submit.c        | 300 ++++++++++++--------
+>   drivers/gpu/drm/msm/msm_gpu.c               |  50 +---
+>   drivers/gpu/drm/msm/msm_gpu.h               |  41 ++-
+>   drivers/gpu/drm/msm/msm_ringbuffer.c        |  70 ++++-
+>   drivers/gpu/drm/msm/msm_ringbuffer.h        |  12 +
+>   drivers/gpu/drm/msm/msm_submitqueue.c       |  49 +++-
+>   include/drm/drm_gem.h                       |   2 -
+>   include/uapi/drm/msm_drm.h                  |  10 +-
+>   23 files changed, 440 insertions(+), 359 deletions(-)
+>
 
 _______________________________________________
 Freedreno mailing list
