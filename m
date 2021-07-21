@@ -1,57 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED2393D1987
-	for <lists+freedreno@lfdr.de>; Thu, 22 Jul 2021 00:01:32 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 23ECC3D19D1
+	for <lists+freedreno@lfdr.de>; Thu, 22 Jul 2021 00:40:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9801B6E422;
-	Wed, 21 Jul 2021 22:01:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0EB66EB3A;
+	Wed, 21 Jul 2021 22:40:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C5306E422
- for <freedreno@lists.freedesktop.org>; Wed, 21 Jul 2021 22:01:27 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1626904889; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=7vRGE34N61OuHbeVIFZohOnu8Yd2PzAcJNw5QsqFPog=;
- b=VsAcqs+0hnEo+F6LOTixPtxkWZn2cGH/pz1pvhJf2Kl5mwZ4kVEYxNI7DNxwk4Q3JqflMXPA
- Ie6YjerR+zTzVkyGyiE3Idj4WgWqsGWWCQHC25llxrvya60jllXCM3uWwlud8SGNYKKsdk2Y
- U0KXPxUhjWe980PwNqEVCbhgfMI=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
- 60f8991e38fa9bfe9c45eb1b (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 21 Jul 2021 22:01:02
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id BF3D1C4323A; Wed, 21 Jul 2021 22:01:01 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: maitreye)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 15032C4338A;
- Wed, 21 Jul 2021 22:01:01 +0000 (UTC)
+Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
+ [IPv6:2607:f8b0:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35AC96EB47
+ for <freedreno@lists.freedesktop.org>; Wed, 21 Jul 2021 22:40:12 +0000 (UTC)
+Received: by mail-ot1-x335.google.com with SMTP id
+ s2-20020a0568301e02b02904ce2c1a843eso3529928otr.13
+ for <freedreno@lists.freedesktop.org>; Wed, 21 Jul 2021 15:40:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=Q4wvBXyV2lJ1aTRox0e1+Ok+AEaw/CVcGBs0YMHYsP0=;
+ b=XqZH1FzW4TAdt+62lo9scgkSGaBidkfe9huO0q1U3Ro1mui8RWXUgDF4qzAHCY6Ru+
+ iZ8zSponbgyYt6LXGU0IodEXLM8IGxpYpjT2JbWrcYJxLuLC7ydskbWTAd4EndoQ0uzM
+ zAZJ+shbHzcPMS1D4t5gFzBXtgmxI7uFF4NFo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=Q4wvBXyV2lJ1aTRox0e1+Ok+AEaw/CVcGBs0YMHYsP0=;
+ b=JGVXXL9Bloa5wf0qdFi0lpKk8fyDl1oN1S+vJcaEywS2/ao2WBVdUkbfc9YyPo/WFu
+ clH21lKNkXfHCrc7LfmOEY75i5UKO3PbknlD6PWmX0FwbWQ6Fy7wUbqD6WRU7HnoXYro
+ rG1k9qiM5OAfmUHQQfQwzZRXi091YhX6GCi4cFJq4Ou6Z4Uulmg8ImU1J/ZDm0xXI/5K
+ vmqK/qO2FIx0z6QMehWl0ZcsKb/LWfP7VTmCPqc6/JEkOEokgXTn790htlSIQcA104j1
+ uMNaLHaBMs0pqm8009Hd/wlUDQ0VYmiPFvxNefvLbsaEbhqWxg5ySwLXF4Ao0g0FG4pF
+ YJ+g==
+X-Gm-Message-State: AOAM531TrFZi5dmTa8y5ghj1mDmEpq/jmNAneKnBnCM7fLNfpeJO8BbX
+ pKmh1oCmoJb4HfBb27r9vvb0iwcCNu/CllGMhGHKxQ==
+X-Google-Smtp-Source: ABdhPJwocIiRhFwFOnsM81FkofvQbBA36K0D5dCAYY3+kDkw8/j6vCVRW/AWV4EzATwWCQE40EPyTZCpO+0f5mG/y5g=
+X-Received: by 2002:a9d:8c7:: with SMTP id 65mr27826933otf.25.1626907211418;
+ Wed, 21 Jul 2021 15:40:11 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 21 Jul 2021 22:40:11 +0000
 MIME-Version: 1.0
-Date: Wed, 21 Jul 2021 15:01:00 -0700
-From: maitreye@codeaurora.org
-To: Stephen Boyd <swboyd@chromium.org>
-In-Reply-To: <CAE-0n52+E0eTgK_4x3OVnqv+U_12tMqxZYtcu3t+FiCJeaq2_g@mail.gmail.com>
-References: <1626820770-28158-1-git-send-email-maitreye@codeaurora.org>
- <CAE-0n52+E0eTgK_4x3OVnqv+U_12tMqxZYtcu3t+FiCJeaq2_g@mail.gmail.com>
-Message-ID: <d4daea9cdacc8a5544cefde5b64fdb78@codeaurora.org>
-X-Sender: maitreye@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH v3] drm/msm/dp: add logs across DP driver
- for ease of debugging
+In-Reply-To: <1624365748-24224-2-git-send-email-rajeevny@codeaurora.org>
+References: <1624365748-24224-1-git-send-email-rajeevny@codeaurora.org>
+ <1624365748-24224-2-git-send-email-rajeevny@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Wed, 21 Jul 2021 22:40:10 +0000
+Message-ID: <CAE-0n50Km=XxJ93ZJkwcWWJdzvBba_We=bZYzkdYKoB-cwTYkg@mail.gmail.com>
+To: Rajeev Nandan <rajeevny@codeaurora.org>, devicetree@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org
+Subject: Re: [Freedreno] [v2 1/3] dt-bindings: msm/dsi: Add sc7280 7nm dsi
+ phy
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,98 +66,22 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, abhinavk@codeaurora.org,
- khsieh@codeaurora.org, seanpaul@chromium.org, dri-devel@lists.freedesktop.org,
- aravindh@codeaurora.org, freedreno@lists.freedesktop.org
+Cc: robh@kernel.org, jonathan@marek.ca, mkrishn@codeaurora.org,
+ linux-kernel@vger.kernel.org, abhinavk@codeaurora.org, robdclark@gmail.com,
+ robh+dt@kernel.org, kalyan_t@codeaurora.org, dmitry.baryshkov@linaro.org,
+ sean@poorly.run
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hello Stephen,
-Thanks again for the review comments
+Quoting Rajeev Nandan (2021-06-22 05:42:26)
+> The SC7280 SoC uses the 7nm (V4.1) DSI PHY driver.
+>
+> Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
+> ---
 
-
-
-On 2021-07-20 22:31, Stephen Boyd wrote:
-> Quoting maitreye (2021-07-20 15:39:30)
->> diff --git a/drivers/gpu/drm/msm/dp/dp_link.c 
->> b/drivers/gpu/drm/msm/dp/dp_link.c
->> index be986da..316e8e6 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_link.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_link.c
->> @@ -1036,43 +1036,46 @@ int dp_link_process_request(struct dp_link 
->> *dp_link)
->> 
->>         if (link->request.test_requested == DP_TEST_LINK_EDID_READ) {
->>                 dp_link->sink_request |= DP_TEST_LINK_EDID_READ;
->> -               return ret;
->> +               goto out;
->>         }
->> 
->>         ret = dp_link_process_ds_port_status_change(link);
->>         if (!ret) {
->>                 dp_link->sink_request |= DS_PORT_STATUS_CHANGED;
->> -               return ret;
->> +               goto out;
->>         }
->> 
->>         ret = dp_link_process_link_training_request(link);
->>         if (!ret) {
->>                 dp_link->sink_request |= DP_TEST_LINK_TRAINING;
->> -               return ret;
->> +               goto out;
->>         }
->> 
->>         ret = dp_link_process_phy_test_pattern_request(link);
->>         if (!ret) {
->>                 dp_link->sink_request |= 
->> DP_TEST_LINK_PHY_TEST_PATTERN;
->> -               return ret;
->> +               goto out;
->>         }
->> 
->>         ret = dp_link_process_link_status_update(link);
-> 
-> if ret == 0 we go into the if below and goto out.
-> 
->>         if (!ret) {
->>                 dp_link->sink_request |= DP_LINK_STATUS_UPDATED;
->> -               return ret;
->> +               goto out;
->>         }
-> 
-> At this point ret != 0 due to the goto above.
-> 
->> 
->>         if (dp_link_is_video_pattern_requested(link)) {
->> -               ret = 0;
-> 
-> And now we've removed the ret = 0 assignment from here.
-> 
->>                 dp_link->sink_request |= DP_TEST_LINK_VIDEO_PATTERN;
->> +               goto out;
-> 
-> And then we goto out. Isn't this a behavior change? Still feels like we
-> should be using if/else-if logic here instead of this goto maze.
-> 
->>         }
->> 
->>         if (dp_link_is_audio_pattern_requested(link)) {
->>                 dp_link->sink_request |= DP_TEST_LINK_AUDIO_PATTERN;
->> -               return -EINVAL;
->> +               ret = -EINVAL;
->> +               goto out;
->>         }
->> 
->> +out:
->> +       DRM_DEBUG_DP("sink request=%#x", dp_link->sink_request);
->>         return ret;
->>  }
->> 
-
-Thank you. I see what you are saying, and yes it makes sense, I'll 
-change it to if else-if logic.
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
