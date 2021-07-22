@@ -2,62 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE7713D1FED
-	for <lists+freedreno@lfdr.de>; Thu, 22 Jul 2021 10:42:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DBE03D2062
+	for <lists+freedreno@lfdr.de>; Thu, 22 Jul 2021 11:08:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87BBE6E8CE;
-	Thu, 22 Jul 2021 08:42:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4E086E9FD;
+	Thu, 22 Jul 2021 09:08:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C71D16E8CE;
- Thu, 22 Jul 2021 08:42:28 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id l7so5014329wrv.7;
- Thu, 22 Jul 2021 01:42:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=Nu+z5QFs0Fm8/O70BmZv+YFuIofij4u2XkNCungi3Mk=;
- b=BVwnLSA9xIYql+xgfXToAJ3jjM30a/FiE0+Eb41L4A2H4W2A1w5Us55fFcft8gLMvU
- Wn+S39z2Aw2pZxYFMZhkr2L8FooqejcvJY43bIAbs6Sq5nmowgp9u056SDju60ajqZk+
- brD5X1/pO9biHszZXGx8NDodTFHzFewJCN5ze/YsI4kqJw/lGuT2tJ1Yp7K/LA+UIRzN
- HVO3AqCvk4G4JHK7UW/qlB5X4d8wH73KCX9QJEb7GwxfThToVHhQSLtCL7+lXrRfEW+R
- 1nbQevO1EXodx5Wh+QXrLsvkPXKkyJK0WZrIYGk8QhqhHS/L2LGlc0afyCBG5Hb+2JrH
- jMXw==
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 301156E3DA
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Jul 2021 09:08:31 +0000 (UTC)
+Received: by mail-wm1-x32f.google.com with SMTP id g12so2893075wme.2
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Jul 2021 02:08:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to; bh=UB0wnLb1c1u3rZTJdPSDCH3l/+H3ml4Em3ZitbFw9QE=;
+ b=i3EosJ+DFtXpnOFEHZDpRM51yXTvBBXgFJ4WAtey1BUZtBZdWU2GH4eQ2VsVbvuaEf
+ fO7wbEZ8Voyf5KR6bCCTzV+NkvFJCMoT5CunobC5R1MBuzV32u29KSx5CbcahiB0JC81
+ QgJZ2Nl60vMrjBWKgEkyLhdB5dZeYl7AVOYLU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=Nu+z5QFs0Fm8/O70BmZv+YFuIofij4u2XkNCungi3Mk=;
- b=PkMuAfG9sgdShsMkPZsctGGJTkbWMZ3i/tRD3eQ/FbzmxsjMR7JRTJKCsPVgH/E+8y
- peLHAJRrO4tK1MRR3VNnf4ra8i26SOpBrNUVLFWxLFTNmAp7JIwr7fOXYKNs33octyWP
- 5sgKvsqyXixIIo9XCNe0PZvwr/sHjji5juu3cY+4G2qs4MSTRKYKDTZwR9oCGZANsBQr
- NEp4UVis1ICyEt4yZ2SPIf1OX0+ioBHxOTTw1tVzmdcWehRArLwHo0OC3SODgTViREYU
- NuCvyznm3wjnc9ncztV3TqefZfWFossfNeWrcnJtNx7pwIoCtrWSD+Evnqrq6+iWXyM0
- eaew==
-X-Gm-Message-State: AOAM530tiJhunnpGytYCrkt3xrhfnfhCh/2CJPP/yXI6Ni88WCaZozOE
- rASlL2GvuQiOMrcpWb/LWOw=
-X-Google-Smtp-Source: ABdhPJyqe981e+qZ55+DC8CEtC6YUqose6SaJjnH7rf+ZE+VaalwVAVdaOllMkd3SKLHhH5tWUt9ow==
-X-Received: by 2002:a05:6000:11c5:: with SMTP id
- i5mr48016388wrx.268.1626943347365; 
- Thu, 22 Jul 2021 01:42:27 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:b706:b115:9c6f:aeee?
- ([2a02:908:1252:fb60:b706:b115:9c6f:aeee])
- by smtp.gmail.com with ESMTPSA id i15sm31536406wro.3.2021.07.22.01.42.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Jul 2021 01:42:26 -0700 (PDT)
-To: Rob Clark <robdclark@gmail.com>,
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :content-transfer-encoding:in-reply-to;
+ bh=UB0wnLb1c1u3rZTJdPSDCH3l/+H3ml4Em3ZitbFw9QE=;
+ b=EmcndwU7om+aIEgX2B+JGbHij+m/sr0equC9Sdls6h+NUUgwo7BnarnzwzI2rjBRr/
+ GwG0Sg5+iQZSedTDaV1KFyA6fIQmvs44PTNS5rUX+CHWEs0vx4Ds5N7tCYBV16owIwN8
+ lIjvhqb8ZxeO5ac0mKR2ub1TUAlQJVU1Yx4LNKefRLo831KEcifNtn5L/GmTHe2T0lX5
+ uOvBnHeIHV6U1qKqL+ArcHqI2+FR0CFpwtQPes3nuLsCMuPUG/QrxEojt2nPfNqG43Nw
+ Ssnxe5qghvJ0dCXZqnvqNhjN6U2/y+Jpvjj7JAKbzWYVP2q3ZCiFvwVUbIHzEHOXWjjh
+ RN7Q==
+X-Gm-Message-State: AOAM530UzxvoB3LMtTsDCSbguJLyeB2TyzMa2HCjUj2ZVQfw8w3jnubO
+ Vd3UQCAD51ELZ4CfRCL9leUGPw==
+X-Google-Smtp-Source: ABdhPJzpcmVsFP8n6h90tCKGkFWNhQIYYt2FS89jOONLHEH0e+rPqojhTedWj7Ma0ZaCXQdEUKlzeA==
+X-Received: by 2002:a1c:9886:: with SMTP id
+ a128mr42089950wme.150.1626944909765; 
+ Thu, 22 Jul 2021 02:08:29 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id p4sm29948823wrt.23.2021.07.22.02.08.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Jul 2021 02:08:29 -0700 (PDT)
+Date: Thu, 22 Jul 2021 11:08:27 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <YPk1izQFR+tRV8js@phenom.ffwll.local>
+Mail-Followup-To: Christian =?iso-8859-1?Q?K=F6nig?=
+ <ckoenig.leichtzumerken@gmail.com>, 
+ Rob Clark <robdclark@gmail.com>,
  dri-devel <dri-devel@lists.freedesktop.org>,
  Rob Clark <robdclark@chromium.org>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
  David Airlie <airlied@linux.ie>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
  open list <linux-kernel@vger.kernel.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK"
- <linaro-mm-sig@lists.linaro.org>, Sean Paul <sean@poorly.run>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Sean Paul <sean@poorly.run>,
  "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 References: <20210720150716.1213775-1-robdclark@gmail.com>
  <60ffb6f3-e932-d9af-3b90-81adf0c15250@gmail.com>
@@ -67,14 +69,11 @@ References: <20210720150716.1213775-1-robdclark@gmail.com>
  <CAKMK7uHMXFqic=9APJrSf6totB8nGZTDe4x8+sv-drmV4Q+4Bg@mail.gmail.com>
  <CAF6AEGsKoucxt4a2pcdQM9+L0+YU-6TcAt8eF=3ur169646Jhw@mail.gmail.com>
  <YPhvein5e8do2AR+@phenom.ffwll.local>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <113b5858-9020-d1c1-292b-96b7f9cc717a@gmail.com>
-Date: Thu, 22 Jul 2021 10:42:26 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ <113b5858-9020-d1c1-292b-96b7f9cc717a@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <YPhvein5e8do2AR+@phenom.ffwll.local>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <113b5858-9020-d1c1-292b-96b7f9cc717a@gmail.com>
+X-Operating-System: Linux phenom 5.10.0-7-amd64 
 Subject: Re: [Freedreno] [Linaro-mm-sig] [PATCH] drm/msm: Add fence->wait()
  op
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -89,174 +88,344 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Sean Paul <sean@poorly.run>, Rob Clark <robdclark@gmail.com>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-QW0gMjEuMDcuMjEgdW0gMjE6MDMgc2NocmllYiBEYW5pZWwgVmV0dGVyOgo+IE9uIFdlZCwgSnVs
-IDIxLCAyMDIxIGF0IDA5OjM0OjQzQU0gLTA3MDAsIFJvYiBDbGFyayB3cm90ZToKPj4gT24gV2Vk
-LCBKdWwgMjEsIDIwMjEgYXQgMTI6NTkgQU0gRGFuaWVsIFZldHRlciA8ZGFuaWVsQGZmd2xsLmNo
-PiB3cm90ZToKPj4+IE9uIFdlZCwgSnVsIDIxLCAyMDIxIGF0IDEyOjMyIEFNIFJvYiBDbGFyayA8
-cm9iZGNsYXJrQGdtYWlsLmNvbT4gd3JvdGU6Cj4+Pj4gT24gVHVlLCBKdWwgMjAsIDIwMjEgYXQg
-MTo1NSBQTSBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3bGwuY2g+IHdyb3RlOgo+Pj4+PiBPbiBU
-dWUsIEp1bCAyMCwgMjAyMSBhdCA4OjI2IFBNIFJvYiBDbGFyayA8cm9iZGNsYXJrQGdtYWlsLmNv
-bT4gd3JvdGU6Cj4+Pj4+PiBPbiBUdWUsIEp1bCAyMCwgMjAyMSBhdCAxMTowMyBBTSBDaHJpc3Rp
-YW4gS8O2bmlnCj4+Pj4+PiA8Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb20+IHdyb3Rl
-Ogo+Pj4+Pj4+IEhpIFJvYiwKPj4+Pj4+Pgo+Pj4+Pj4+IEFtIDIwLjA3LjIxIHVtIDE3OjA3IHNj
-aHJpZWIgUm9iIENsYXJrOgo+Pj4+Pj4+PiBGcm9tOiBSb2IgQ2xhcmsgPHJvYmRjbGFya0BjaHJv
-bWl1bS5vcmc+Cj4+Pj4+Pj4+Cj4+Pj4+Pj4+IFNvbWVob3cgd2UgaGFkIG5laXRoZXIgLT53YWl0
-KCkgbm9yIGRtYV9mZW5jZV9zaWduYWwoKSBjYWxscywgYW5kIG5vCj4+Pj4+Pj4+IG9uZSBub3Rp
-Y2VkLiAgT29wcy4KPj4+Pj4+Pgo+Pj4+Pj4+IEknbSBub3Qgc3VyZSBpZiB0aGF0IGlzIGEgZ29v
-ZCBpZGVhLgo+Pj4+Pj4+Cj4+Pj4+Pj4gVGhlIGRtYV9mZW5jZS0+d2FpdCgpIGNhbGxiYWNrIGlz
-IHByZXR0eSBtdWNoIGRlcHJlY2F0ZWQgYW5kIHNob3VsZCBub3QKPj4+Pj4+PiBiZSB1c2VkIGFu
-eSBtb3JlLgo+Pj4+Pj4+Cj4+Pj4+Pj4gV2hhdCBleGFjdGx5IGRvIHlvdSBuZWVkIHRoYXQgZm9y
-Pwo+Pj4+Pj4gV2VsbCwgdGhlIGFsdGVybmF0aXZlIGlzIHRvIHRyYWNrIHRoZSBzZXQgb2YgZmVu
-Y2VzIHdoaWNoIGhhdmUKPj4+Pj4+IHNpZ25hbGxpbmcgZW5hYmxlZCwgYW5kIHRoZW4gZmlndXJl
-IG91dCB3aGljaCBvbmVzIHRvIHNpZ25hbCwgd2hpY2gKPj4+Pj4+IHNlZW1zIGxpa2UgYSBsb3Qg
-bW9yZSB3b3JrLCB2cyBqdXN0IHJlLXB1cnBvc2luZyB0aGUgd2FpdAo+Pj4+Pj4gaW1wbGVtZW50
-YXRpb24gd2UgYWxyZWFkeSBoYXZlIGZvciBub24tZG1hX2ZlbmNlIGNhc2VzIDstKQo+Pj4+Pj4K
-Pj4+Pj4+IFdoeSBpcyB0aGUgLT53YWl0KCkgY2FsbGJhY2sgKHByZXR0eSBtdWNoKSBkZXByZWNh
-dGVkPwo+Pj4+PiBCZWNhdXNlIGlmIHlvdSBuZWVkIGl0IHRoYXQgbWVhbnMgZm9yIHlvdXIgZHJp
-dmVyIGRtYV9mZW5jZV9hZGRfY2IgaXMKPj4+Pj4gYnJva2VuLCB3aGljaCBtZWFucyBhIF9sb3Rf
-IG9mIHRoaW5ncyBkb24ndCB3b3JrLiBMaWtlIGRtYV9idWYgcG9sbAo+Pj4+PiAoY29tcG9zaXRv
-cnMgaGF2ZSBwYXRjaGVzIHRvIHN0YXJ0IHVzaW5nIHRoYXQpLCBhbmQgSSB0aGluawo+Pj4+PiBk
-cm0vc2NoZWR1bGVyIGFsc28gYmVjb21lcyByYXRoZXIgdW5oYXBweS4KPj4+PiBJJ20gc3RhcnRp
-bmcgdG8gcGFnZSBiYWNrIGluIGhvdyB0aGlzIHdvcmtzLi4gZmVuY2UgY2IncyBhcmVuJ3QgYnJv
-a2VuCj4+Pj4gKHdoaWNoIGlzIGFsc28gd2h5IGRtYV9mZW5jZV93YWl0KCkgd2FzIG5vdCBjb21w
-bGV0ZWx5IGJyb2tlbiksCj4+Pj4gYmVjYXVzZSBpbiByZXRpcmVfc3VibWl0cygpIHdlIGNhbGwK
-Pj4+PiBkbWFfZmVuY2VfaXNfc2lnbmFsZWQoc3VibWl0LT5od19mZW5jZSkuCj4+Pj4KPj4+PiBC
-dXQgdGhlIHJlYXNvbiB0aGF0IHRoZSBjdXN0b20gd2FpdCBmdW5jdGlvbiBjbGVhbnMgdXAgYSB0
-aW55IGJpdCBvZgo+Pj4+IGphbmsgaXMgdGhhdCB0aGUgd2FpdF9xdWV1ZV9oZWFkX3QgZ2V0cyBz
-aWduYWxlZCBlYXJsaWVyLCBiZWZvcmUgd2UKPj4+PiBzdGFydCBpdGVyYXRpbmcgdGhlIHN1Ym1p
-dHMgYW5kIGRvaW5nIGFsbCB0aGF0IHJldGlyZV9zdWJtaXQoKSBzdHVmZgo+Pj4+ICh1bnBpbi91
-bnJlZiBibydzLCBldGMpLiAgSSBzdXBwb3NlIEkgY291bGQganVzdCBzcGxpdCB0aGluZ3MgdXAg
-dG8KPj4+PiBjYWxsIGRtYV9mZW5jZV9zaWduYWwoKSBlYXJsaWVyLCBhbmQgKnRoZW4qIGRvIHRo
-ZSByZXRpcmVfc3VibWl0cygpCj4+Pj4gc3R1ZmYuCj4+PiBZZWFoIHJlZHVjaW5nIHRoZSBsYXRl
-bmN5IHRoZXJlIHNvdW5kcyBsaWtlIGEgZ29vZCBpZGVhLgo+Pj4gLURhbmllbAo+Pj4KPj4gSG1t
-LCBubywgdHVybnMgb3V0IHRoYXQgaXNuJ3QgdGhlIHByb2JsZW0uLiBvciwgd2VsbCwgaXQgaXMg
-cHJvYmFibHkgYQo+PiBnb29kIGlkZWEgdG8gY2FsbCBkcm1fZmVuY2Vfc2lnbmFsKCkgZWFybGll
-ci4gIEJ1dCBpdCBzZWVtcyBsaWtlCj4+IHdha2luZyB1cCBmcm9tIHdhaXRfZXZlbnRfKiBpcyBm
-YXN0ZXIgdGhhbiB3YWtlX3VwX3N0YXRlKHdhaXQtPnRhc2ssCj4+IFRBU0tfTk9STUFMKS4gIEkg
-c3VwcG9zZSB0aGUgd2FrZV91cF9zdGF0ZSgpIGFwcHJvYWNoIHN0aWxsIG5lZWRzIGZvcgo+PiB0
-aGUgc2NoZWR1bGVyIHRvIGdldCBhcm91bmQgdG8gc2NoZWR1bGUgdGhlIHJ1bm5hYmxlIHRhc2su
-CgpBcyBmYXIgYXMgSSBrbm93IHdha2VfdXBfc3RhdGUoKSB0cmllcyB0byBydW4gdGhlIHRocmVh
-ZCBvbiB0aGUgQ1BVIGl0IAp3YXMgc2NoZWR1bGVkIGxhc3QsIHdoaWxlIHdhaXRfZXZlbnRfKiBt
-YWtlcyB0aGUgdGhyZWFkIHJ1biBvbiB0aGUgQ1BVIAp3aG8gaXNzdWVzIHRoZSB3YWtlIGJ5IGRl
-ZmF1bHQuCgpBbmQgeWVzIEkndmUgYWxzbyBub3RpY2VkIHRoaXMgYWxyZWFkeSBhbmQgaXQgd2Fz
-IG9uZSBvZiB0aGUgcmVhc29uIHdoeSAKSSBzdWdnZXN0ZWQgdG8gdXNlIGEgd2FpdF9xdWV1ZSBp
-bnN0ZWFkIG9mIHRoZSBoYW5kIHdpcmVkIGRtYV9mZW5jZV93YWl0IAppbXBsZW1lbnRhdGlvbi4K
-Cj4+Cj4+IFNvIGZvciBub3csIEknbSBnb2luZyBiYWNrIHRvIG15IG93biB3YWl0IGZ1bmN0aW9u
-IChwbHVzIGVhcmxpZXIKPj4gZHJtX2ZlbmNlX3NpZ25hbCgpKQo+Pgo+PiBCZWZvcmUgcmVtb3Zp
-bmcgZG1hX2ZlbmNlX29wcHM6OndhaXQoKSwgSSBndWVzcyB3ZSB3YW50IHRvIHJlLXRoaW5rCj4+
-IGRtYV9mZW5jZV9kZWZhdWx0X3dhaXQoKS4uIGJ1dCBJIHRoaW5rIHRoYXQgd291bGQgcmVxdWly
-ZSBhCj4+IGRtYV9mZW5jZV9jb250ZXh0IGJhc2UgY2xhc3MgKHJhdGhlciB0aGFuIGp1c3QgYSBy
-YXcgaW50ZWdlcikuCj4gVWggdGhhdCdzIG5vdCBncmVhdCAuLi4gY2FuJ3Qgd2UgZml4IHRoaXMg
-aW5zdGVhZCBvZiBwYXBlcmluZyBvdmVyIGl0IGluCj4gZHJpdmVycz8gQXNpZGUgZnJvbSBtYXli
-ZSBkaWZmZXJlbnQgd2FrZXVwIGZsYWdzIGl0IGFsbCBpcyBzdXBwb3NlZCB0bwo+IHdvcmsgZXhh
-Y3RseSB0aGUgc2FtZSB1bmRlcm5lYXRoLCBhbmQgd2hldGhlciB1c2luZyBhIHdhaXQgcXVldWUg
-b3Igbm90Cj4gcmVhbGx5IHNob3VsZG4ndCBtYXR0ZXIuCgpXZWxsIGl0IHdvdWxkIGhhdmUgYmVl
-biBuaWNlciBpZiB3ZSB1c2VkIHRoZSBleGlzdGluZyBpbmZyYXN0cnVjdHVyZSAKaW5zdGVhZCBv
-ZiByZS1pbnZlbnRpbmcgc3R1ZmYgZm9yIGRtYV9mZW5jZSwgYnV0IHRoYXQgY2hhbmNlIGlzIGxv
-bmcgZ29uZS4KCkFuZCB5b3UgZG9uJ3QgbmVlZCBhIGRtYV9mZW5jZV9jb250ZXh0IGJhc2UgY2xh
-c3MsIGJ1dCByYXRoZXIganVzdCBhIApmbGFnIGluIHRoZSBkbWFfZmVuY2Vfb3BzIGlmIHlvdSB3
-YW50IHRvIGNoYW5nZSB0aGUgYmVoYXZpb3IuCgpSZWdhcmRzLApDaHJpc3RpYW4uCgo+IC1EYW5p
-ZWwKPgo+PiBCUiwKPj4gLVIKPj4KPj4+PiBCUiwKPj4+PiAtUgo+Pj4+Cj4+Pj4+IEl0IGVzc2Vu
-dGlhbGx5IGV4aXN0cyBvbmx5IGZvciBvbGQgZHJpdmVycyB3aGVyZSAtPmVuYWJsZV9zaWduYWxs
-aW5nCj4+Pj4+IGlzIHVucmVsaWFibGUgYW5kIHdlIHBhcGVyIG92ZXIgdGhhdCB3aXRoIGEgcmV0
-cnkgbG9vcCBpbiAtPndhaXQgYW5kCj4+Pj4+IHByYXkgbm8gb25lIG5vdGljZXMgdGhhdCBpdCdz
-IHRvbyBidXRjaGVyZWQuIFRoZSBwcm9wZXIgZml4IGlzIHRvIGhhdmUKPj4+Pj4gYSBkcml2ZXIg
-dGhyZWFkIHRvIGd1YXJhbnRlZSB0aGF0IC0+ZW5hYmxlX3NpZ25hbGxpbmcgd29ya3MgcmVsaWFi
-bGUsCj4+Pj4+IHNvIHlvdSBkb24ndCBuZWVkIGEgLT53YWl0Lgo+Pj4+Pgo+Pj4+PiBDYW4geW91
-IHR5cGUgdXAgYSBrZXJuZWxkb2MgcGF0Y2ggZm9yIGRtYV9mZW5jZV9vcHMtPndhaXQgdG8gaGFt
-bWVyCj4+Pj4+IHRoaXMgaW4gcGxlYXNlPwo+Pj4+PiAtRGFuaWVsCj4+Pj4+Cj4+Pj4+PiBCUiwK
-Pj4+Pj4+IC1SCj4+Pj4+Pgo+Pj4+Pj4+IFJlZ2FyZHMsCj4+Pj4+Pj4gQ2hyaXN0aWFuLgo+Pj4+
-Pj4+Cj4+Pj4+Pj4+IE5vdGUgdGhhdCB0aGlzIHJlbW92ZXMgdGhlICF0aW1lb3V0IGNhc2UsIHdo
-aWNoIGhhcyBub3QgYmVlbiB1c2VkIGluCj4+Pj4+Pj4+IGEgbG9uZyB0aW1lLgo+Pj4+Pj4+Cj4+
-Pj4+Pj4+IFNpZ25lZC1vZmYtYnk6IFJvYiBDbGFyayA8cm9iZGNsYXJrQGNocm9taXVtLm9yZz4K
-Pj4+Pj4+Pj4gLS0tCj4+Pj4+Pj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2ZlbmNlLmMg
-fCA1OSArKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0tLS0KPj4+Pj4+Pj4gICAgMSBmaWxl
-IGNoYW5nZWQsIDM0IGluc2VydGlvbnMoKyksIDI1IGRlbGV0aW9ucygtKQo+Pj4+Pj4+Pgo+Pj4+
-Pj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZmVuY2UuYyBiL2RyaXZl
-cnMvZ3B1L2RybS9tc20vbXNtX2ZlbmNlLmMKPj4+Pj4+Pj4gaW5kZXggY2Q1OWE1OTE4MDM4Li44
-ZWU5NmI5MGRlZDYgMTAwNjQ0Cj4+Pj4+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tc20vbXNt
-X2ZlbmNlLmMKPj4+Pj4+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZmVuY2UuYwo+
-Pj4+Pj4+PiBAQCAtMzgsMTEgKzM4LDEwIEBAIHN0YXRpYyBpbmxpbmUgYm9vbCBmZW5jZV9jb21w
-bGV0ZWQoc3RydWN0IG1zbV9mZW5jZV9jb250ZXh0ICpmY3R4LCB1aW50MzJfdCBmZW5jCj4+Pj4+
-Pj4+ICAgICAgICByZXR1cm4gKGludDMyX3QpKGZjdHgtPmNvbXBsZXRlZF9mZW5jZSAtIGZlbmNl
-KSA+PSAwOwo+Pj4+Pj4+PiAgICB9Cj4+Pj4+Pj4+Cj4+Pj4+Pj4+IC0vKiBsZWdhY3kgcGF0aCBm
-b3IgV0FJVF9GRU5DRSBpb2N0bDogKi8KPj4+Pj4+Pj4gLWludCBtc21fd2FpdF9mZW5jZShzdHJ1
-Y3QgbXNtX2ZlbmNlX2NvbnRleHQgKmZjdHgsIHVpbnQzMl90IGZlbmNlLAo+Pj4+Pj4+PiAtICAg
-ICAgICAgICAgIGt0aW1lX3QgKnRpbWVvdXQsIGJvb2wgaW50ZXJydXB0aWJsZSkKPj4+Pj4+Pj4g
-K3N0YXRpYyBzaWduZWQgbG9uZyB3YWl0X2ZlbmNlKHN0cnVjdCBtc21fZmVuY2VfY29udGV4dCAq
-ZmN0eCwgdWludDMyX3QgZmVuY2UsCj4+Pj4+Pj4+ICsgICAgICAgICAgICAgc2lnbmVkIGxvbmcg
-cmVtYWluaW5nX2ppZmZpZXMsIGJvb2wgaW50ZXJydXB0aWJsZSkKPj4+Pj4+Pj4gICAgewo+Pj4+
-Pj4+PiAtICAgICBpbnQgcmV0Owo+Pj4+Pj4+PiArICAgICBzaWduZWQgbG9uZyByZXQ7Cj4+Pj4+
-Pj4+Cj4+Pj4+Pj4+ICAgICAgICBpZiAoZmVuY2UgPiBmY3R4LT5sYXN0X2ZlbmNlKSB7Cj4+Pj4+
-Pj4+ICAgICAgICAgICAgICAgIERSTV9FUlJPUl9SQVRFTElNSVRFRCgiJXM6IHdhaXRpbmcgb24g
-aW52YWxpZCBmZW5jZTogJXUgKG9mICV1KVxuIiwKPj4+Pj4+Pj4gQEAgLTUwLDMzICs0OSwzNCBA
-QCBpbnQgbXNtX3dhaXRfZmVuY2Uoc3RydWN0IG1zbV9mZW5jZV9jb250ZXh0ICpmY3R4LCB1aW50
-MzJfdCBmZW5jZSwKPj4+Pj4+Pj4gICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4+Pj4+
-Pj4+ICAgICAgICB9Cj4+Pj4+Pj4+Cj4+Pj4+Pj4+IC0gICAgIGlmICghdGltZW91dCkgewo+Pj4+
-Pj4+PiAtICAgICAgICAgICAgIC8qIG5vLXdhaXQ6ICovCj4+Pj4+Pj4+IC0gICAgICAgICAgICAg
-cmV0ID0gZmVuY2VfY29tcGxldGVkKGZjdHgsIGZlbmNlKSA/IDAgOiAtRUJVU1k7Cj4+Pj4+Pj4+
-ICsgICAgIGlmIChpbnRlcnJ1cHRpYmxlKSB7Cj4+Pj4+Pj4+ICsgICAgICAgICAgICAgcmV0ID0g
-d2FpdF9ldmVudF9pbnRlcnJ1cHRpYmxlX3RpbWVvdXQoZmN0eC0+ZXZlbnQsCj4+Pj4+Pj4+ICsg
-ICAgICAgICAgICAgICAgICAgICBmZW5jZV9jb21wbGV0ZWQoZmN0eCwgZmVuY2UpLAo+Pj4+Pj4+
-PiArICAgICAgICAgICAgICAgICAgICAgcmVtYWluaW5nX2ppZmZpZXMpOwo+Pj4+Pj4+PiAgICAg
-ICAgfSBlbHNlIHsKPj4+Pj4+Pj4gLSAgICAgICAgICAgICB1bnNpZ25lZCBsb25nIHJlbWFpbmlu
-Z19qaWZmaWVzID0gdGltZW91dF90b19qaWZmaWVzKHRpbWVvdXQpOwo+Pj4+Pj4+PiAtCj4+Pj4+
-Pj4+IC0gICAgICAgICAgICAgaWYgKGludGVycnVwdGlibGUpCj4+Pj4+Pj4+IC0gICAgICAgICAg
-ICAgICAgICAgICByZXQgPSB3YWl0X2V2ZW50X2ludGVycnVwdGlibGVfdGltZW91dChmY3R4LT5l
-dmVudCwKPj4+Pj4+Pj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmVuY2VfY29tcGxl
-dGVkKGZjdHgsIGZlbmNlKSwKPj4+Pj4+Pj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-cmVtYWluaW5nX2ppZmZpZXMpOwo+Pj4+Pj4+PiAtICAgICAgICAgICAgIGVsc2UKPj4+Pj4+Pj4g
-LSAgICAgICAgICAgICAgICAgICAgIHJldCA9IHdhaXRfZXZlbnRfdGltZW91dChmY3R4LT5ldmVu
-dCwKPj4+Pj4+Pj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmVuY2VfY29tcGxldGVk
-KGZjdHgsIGZlbmNlKSwKPj4+Pj4+Pj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVt
-YWluaW5nX2ppZmZpZXMpOwo+Pj4+Pj4+PiAtCj4+Pj4+Pj4+IC0gICAgICAgICAgICAgaWYgKHJl
-dCA9PSAwKSB7Cj4+Pj4+Pj4+IC0gICAgICAgICAgICAgICAgICAgICBEQkcoInRpbWVvdXQgd2Fp
-dGluZyBmb3IgZmVuY2U6ICV1IChjb21wbGV0ZWQ6ICV1KSIsCj4+Pj4+Pj4+IC0gICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgZmVuY2UsIGZjdHgtPmNvbXBsZXRlZF9mZW5jZSk7
-Cj4+Pj4+Pj4+IC0gICAgICAgICAgICAgICAgICAgICByZXQgPSAtRVRJTUVET1VUOwo+Pj4+Pj4+
-PiAtICAgICAgICAgICAgIH0gZWxzZSBpZiAocmV0ICE9IC1FUkVTVEFSVFNZUykgewo+Pj4+Pj4+
-PiAtICAgICAgICAgICAgICAgICAgICAgcmV0ID0gMDsKPj4+Pj4+Pj4gLSAgICAgICAgICAgICB9
-Cj4+Pj4+Pj4+ICsgICAgICAgICAgICAgcmV0ID0gd2FpdF9ldmVudF90aW1lb3V0KGZjdHgtPmV2
-ZW50LAo+Pj4+Pj4+PiArICAgICAgICAgICAgICAgICAgICAgZmVuY2VfY29tcGxldGVkKGZjdHgs
-IGZlbmNlKSwKPj4+Pj4+Pj4gKyAgICAgICAgICAgICAgICAgICAgIHJlbWFpbmluZ19qaWZmaWVz
-KTsKPj4+Pj4+Pj4gKyAgICAgfQo+Pj4+Pj4+PiArCj4+Pj4+Pj4+ICsgICAgIGlmIChyZXQgPT0g
-MCkgewo+Pj4+Pj4+PiArICAgICAgICAgICAgIERCRygidGltZW91dCB3YWl0aW5nIGZvciBmZW5j
-ZTogJXUgKGNvbXBsZXRlZDogJXUpIiwKPj4+Pj4+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgZmVuY2UsIGZjdHgtPmNvbXBsZXRlZF9mZW5jZSk7Cj4+Pj4+Pj4+ICsgICAgICAgICAg
-ICAgcmV0ID0gLUVUSU1FRE9VVDsKPj4+Pj4+Pj4gKyAgICAgfSBlbHNlIGlmIChyZXQgIT0gLUVS
-RVNUQVJUU1lTKSB7Cj4+Pj4+Pj4+ICsgICAgICAgICAgICAgcmV0ID0gMDsKPj4+Pj4+Pj4gICAg
-ICAgIH0KPj4+Pj4+Pj4KPj4+Pj4+Pj4gICAgICAgIHJldHVybiByZXQ7Cj4+Pj4+Pj4+ICAgIH0K
-Pj4+Pj4+Pj4KPj4+Pj4+Pj4gKy8qIGxlZ2FjeSBwYXRoIGZvciBXQUlUX0ZFTkNFIGlvY3RsOiAq
-Lwo+Pj4+Pj4+PiAraW50IG1zbV93YWl0X2ZlbmNlKHN0cnVjdCBtc21fZmVuY2VfY29udGV4dCAq
-ZmN0eCwgdWludDMyX3QgZmVuY2UsCj4+Pj4+Pj4+ICsgICAgICAgICAgICAga3RpbWVfdCAqdGlt
-ZW91dCwgYm9vbCBpbnRlcnJ1cHRpYmxlKQo+Pj4+Pj4+PiArewo+Pj4+Pj4+PiArICAgICByZXR1
-cm4gd2FpdF9mZW5jZShmY3R4LCBmZW5jZSwgdGltZW91dF90b19qaWZmaWVzKHRpbWVvdXQpLCBp
-bnRlcnJ1cHRpYmxlKTsKPj4+Pj4+Pj4gK30KPj4+Pj4+Pj4gKwo+Pj4+Pj4+PiAgICAvKiBjYWxs
-ZWQgZnJvbSB3b3JrcXVldWUgKi8KPj4+Pj4+Pj4gICAgdm9pZCBtc21fdXBkYXRlX2ZlbmNlKHN0
-cnVjdCBtc21fZmVuY2VfY29udGV4dCAqZmN0eCwgdWludDMyX3QgZmVuY2UpCj4+Pj4+Pj4+ICAg
-IHsKPj4+Pj4+Pj4gQEAgLTExNCwxMCArMTE0LDE5IEBAIHN0YXRpYyBib29sIG1zbV9mZW5jZV9z
-aWduYWxlZChzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZSkKPj4+Pj4+Pj4gICAgICAgIHJldHVybiBm
-ZW5jZV9jb21wbGV0ZWQoZi0+ZmN0eCwgZi0+YmFzZS5zZXFubyk7Cj4+Pj4+Pj4+ICAgIH0KPj4+
-Pj4+Pj4KPj4+Pj4+Pj4gK3N0YXRpYyBzaWduZWQgbG9uZyBtc21fZmVuY2Vfd2FpdChzdHJ1Y3Qg
-ZG1hX2ZlbmNlICpmZW5jZSwgYm9vbCBpbnRyLAo+Pj4+Pj4+PiArICAgICAgICAgICAgIHNpZ25l
-ZCBsb25nIHRpbWVvdXQpCj4+Pj4+Pj4+ICt7Cj4+Pj4+Pj4+ICsgICAgIHN0cnVjdCBtc21fZmVu
-Y2UgKmYgPSB0b19tc21fZmVuY2UoZmVuY2UpOwo+Pj4+Pj4+PiArCj4+Pj4+Pj4+ICsgICAgIHJl
-dHVybiB3YWl0X2ZlbmNlKGYtPmZjdHgsIGZlbmNlLT5zZXFubywgdGltZW91dCwgaW50cik7Cj4+
-Pj4+Pj4+ICt9Cj4+Pj4+Pj4+ICsKPj4+Pj4+Pj4gICAgc3RhdGljIGNvbnN0IHN0cnVjdCBkbWFf
-ZmVuY2Vfb3BzIG1zbV9mZW5jZV9vcHMgPSB7Cj4+Pj4+Pj4+ICAgICAgICAuZ2V0X2RyaXZlcl9u
-YW1lID0gbXNtX2ZlbmNlX2dldF9kcml2ZXJfbmFtZSwKPj4+Pj4+Pj4gICAgICAgIC5nZXRfdGlt
-ZWxpbmVfbmFtZSA9IG1zbV9mZW5jZV9nZXRfdGltZWxpbmVfbmFtZSwKPj4+Pj4+Pj4gICAgICAg
-IC5zaWduYWxlZCA9IG1zbV9mZW5jZV9zaWduYWxlZCwKPj4+Pj4+Pj4gKyAgICAgLndhaXQgPSBt
-c21fZmVuY2Vfd2FpdCwKPj4+Pj4+Pj4gICAgfTsKPj4+Pj4+Pj4KPj4+Pj4+Pj4gICAgc3RydWN0
-IGRtYV9mZW5jZSAqCj4+Pj4+Cj4+Pj4+Cj4+Pj4+IC0tCj4+Pj4+IERhbmllbCBWZXR0ZXIKPj4+
-Pj4gU29mdHdhcmUgRW5naW5lZXIsIEludGVsIENvcnBvcmF0aW9uCj4+Pj4+IGh0dHA6Ly9ibG9n
-LmZmd2xsLmNoCj4+Pgo+Pj4KPj4+IC0tCj4+PiBEYW5pZWwgVmV0dGVyCj4+PiBTb2Z0d2FyZSBF
-bmdpbmVlciwgSW50ZWwgQ29ycG9yYXRpb24KPj4+IGh0dHA6Ly9ibG9nLmZmd2xsLmNoCgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpGcmVlZHJlbm8gbWFp
-bGluZyBsaXN0CkZyZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9mcmVlZHJlbm8K
+On Thu, Jul 22, 2021 at 10:42:26AM +0200, Christian K=F6nig wrote:
+> Am 21.07.21 um 21:03 schrieb Daniel Vetter:
+> > On Wed, Jul 21, 2021 at 09:34:43AM -0700, Rob Clark wrote:
+> > > On Wed, Jul 21, 2021 at 12:59 AM Daniel Vetter <daniel@ffwll.ch> wrot=
+e:
+> > > > On Wed, Jul 21, 2021 at 12:32 AM Rob Clark <robdclark@gmail.com> wr=
+ote:
+> > > > > On Tue, Jul 20, 2021 at 1:55 PM Daniel Vetter <daniel@ffwll.ch> w=
+rote:
+> > > > > > On Tue, Jul 20, 2021 at 8:26 PM Rob Clark <robdclark@gmail.com>=
+ wrote:
+> > > > > > > On Tue, Jul 20, 2021 at 11:03 AM Christian K=F6nig
+> > > > > > > <ckoenig.leichtzumerken@gmail.com> wrote:
+> > > > > > > > Hi Rob,
+> > > > > > > > =
+
+> > > > > > > > Am 20.07.21 um 17:07 schrieb Rob Clark:
+> > > > > > > > > From: Rob Clark <robdclark@chromium.org>
+> > > > > > > > > =
+
+> > > > > > > > > Somehow we had neither ->wait() nor dma_fence_signal() ca=
+lls, and no
+> > > > > > > > > one noticed.  Oops.
+> > > > > > > > =
+
+> > > > > > > > I'm not sure if that is a good idea.
+> > > > > > > > =
+
+> > > > > > > > The dma_fence->wait() callback is pretty much deprecated an=
+d should not
+> > > > > > > > be used any more.
+> > > > > > > > =
+
+> > > > > > > > What exactly do you need that for?
+> > > > > > > Well, the alternative is to track the set of fences which have
+> > > > > > > signalling enabled, and then figure out which ones to signal,=
+ which
+> > > > > > > seems like a lot more work, vs just re-purposing the wait
+> > > > > > > implementation we already have for non-dma_fence cases ;-)
+> > > > > > > =
+
+> > > > > > > Why is the ->wait() callback (pretty much) deprecated?
+> > > > > > Because if you need it that means for your driver dma_fence_add=
+_cb is
+> > > > > > broken, which means a _lot_ of things don't work. Like dma_buf =
+poll
+> > > > > > (compositors have patches to start using that), and I think
+> > > > > > drm/scheduler also becomes rather unhappy.
+> > > > > I'm starting to page back in how this works.. fence cb's aren't b=
+roken
+> > > > > (which is also why dma_fence_wait() was not completely broken),
+> > > > > because in retire_submits() we call
+> > > > > dma_fence_is_signaled(submit->hw_fence).
+> > > > > =
+
+> > > > > But the reason that the custom wait function cleans up a tiny bit=
+ of
+> > > > > jank is that the wait_queue_head_t gets signaled earlier, before =
+we
+> > > > > start iterating the submits and doing all that retire_submit() st=
+uff
+> > > > > (unpin/unref bo's, etc).  I suppose I could just split things up =
+to
+> > > > > call dma_fence_signal() earlier, and *then* do the retire_submits=
+()
+> > > > > stuff.
+> > > > Yeah reducing the latency there sounds like a good idea.
+> > > > -Daniel
+> > > > =
+
+> > > Hmm, no, turns out that isn't the problem.. or, well, it is probably a
+> > > good idea to call drm_fence_signal() earlier.  But it seems like
+> > > waking up from wait_event_* is faster than wake_up_state(wait->task,
+> > > TASK_NORMAL).  I suppose the wake_up_state() approach still needs for
+> > > the scheduler to get around to schedule the runnable task.
+> =
+
+> As far as I know wake_up_state() tries to run the thread on the CPU it was
+> scheduled last, while wait_event_* makes the thread run on the CPU who
+> issues the wake by default.
+> =
+
+> And yes I've also noticed this already and it was one of the reason why I
+> suggested to use a wait_queue instead of the hand wired dma_fence_wait
+> implementation.
+
+The first versions had used wait_queue, but iirc we had some issues with
+the callbacks and stuff and that was the reasons for hand-rolling. Or
+maybe it was the integration of the lockless fastpath for
+dma_fence_is_signalled().
+
+> > > So for now, I'm going back to my own wait function (plus earlier
+> > > drm_fence_signal())
+> > > =
+
+> > > Before removing dma_fence_opps::wait(), I guess we want to re-think
+> > > dma_fence_default_wait().. but I think that would require a
+> > > dma_fence_context base class (rather than just a raw integer).
+> > Uh that's not great ... can't we fix this instead of papering over it in
+> > drivers? Aside from maybe different wakeup flags it all is supposed to
+> > work exactly the same underneath, and whether using a wait queue or not
+> > really shouldn't matter.
+> =
+
+> Well it would have been nicer if we used the existing infrastructure inst=
+ead
+> of re-inventing stuff for dma_fence, but that chance is long gone.
+> =
+
+> And you don't need a dma_fence_context base class, but rather just a flag=
+ in
+> the dma_fence_ops if you want to change the behavior.
+
+If there's something broken we should just fix it, not force everyone to
+set a random flag. dma_fence work like special wait_queues, so if we
+differ then we should go back to that.
+-Daniel
+
+> =
+
+> Regards,
+> Christian.
+> =
+
+> > -Daniel
+> > =
+
+> > > BR,
+> > > -R
+> > > =
+
+> > > > > BR,
+> > > > > -R
+> > > > > =
+
+> > > > > > It essentially exists only for old drivers where ->enable_signa=
+lling
+> > > > > > is unreliable and we paper over that with a retry loop in ->wai=
+t and
+> > > > > > pray no one notices that it's too butchered. The proper fix is =
+to have
+> > > > > > a driver thread to guarantee that ->enable_signalling works rel=
+iable,
+> > > > > > so you don't need a ->wait.
+> > > > > > =
+
+> > > > > > Can you type up a kerneldoc patch for dma_fence_ops->wait to ha=
+mmer
+> > > > > > this in please?
+> > > > > > -Daniel
+> > > > > > =
+
+> > > > > > > BR,
+> > > > > > > -R
+> > > > > > > =
+
+> > > > > > > > Regards,
+> > > > > > > > Christian.
+> > > > > > > > =
+
+> > > > > > > > > Note that this removes the !timeout case, which has not b=
+een used in
+> > > > > > > > > a long time.
+> > > > > > > > =
+
+> > > > > > > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > > > > > > > > ---
+> > > > > > > > >    drivers/gpu/drm/msm/msm_fence.c | 59 +++++++++++++++++=
+++--------------
+> > > > > > > > >    1 file changed, 34 insertions(+), 25 deletions(-)
+> > > > > > > > > =
+
+> > > > > > > > > diff --git a/drivers/gpu/drm/msm/msm_fence.c b/drivers/gp=
+u/drm/msm/msm_fence.c
+> > > > > > > > > index cd59a5918038..8ee96b90ded6 100644
+> > > > > > > > > --- a/drivers/gpu/drm/msm/msm_fence.c
+> > > > > > > > > +++ b/drivers/gpu/drm/msm/msm_fence.c
+> > > > > > > > > @@ -38,11 +38,10 @@ static inline bool fence_completed(st=
+ruct msm_fence_context *fctx, uint32_t fenc
+> > > > > > > > >        return (int32_t)(fctx->completed_fence - fence) >=
+=3D 0;
+> > > > > > > > >    }
+> > > > > > > > > =
+
+> > > > > > > > > -/* legacy path for WAIT_FENCE ioctl: */
+> > > > > > > > > -int msm_wait_fence(struct msm_fence_context *fctx, uint3=
+2_t fence,
+> > > > > > > > > -             ktime_t *timeout, bool interruptible)
+> > > > > > > > > +static signed long wait_fence(struct msm_fence_context *=
+fctx, uint32_t fence,
+> > > > > > > > > +             signed long remaining_jiffies, bool interru=
+ptible)
+> > > > > > > > >    {
+> > > > > > > > > -     int ret;
+> > > > > > > > > +     signed long ret;
+> > > > > > > > > =
+
+> > > > > > > > >        if (fence > fctx->last_fence) {
+> > > > > > > > >                DRM_ERROR_RATELIMITED("%s: waiting on inva=
+lid fence: %u (of %u)\n",
+> > > > > > > > > @@ -50,33 +49,34 @@ int msm_wait_fence(struct msm_fence_c=
+ontext *fctx, uint32_t fence,
+> > > > > > > > >                return -EINVAL;
+> > > > > > > > >        }
+> > > > > > > > > =
+
+> > > > > > > > > -     if (!timeout) {
+> > > > > > > > > -             /* no-wait: */
+> > > > > > > > > -             ret =3D fence_completed(fctx, fence) ? 0 : =
+-EBUSY;
+> > > > > > > > > +     if (interruptible) {
+> > > > > > > > > +             ret =3D wait_event_interruptible_timeout(fc=
+tx->event,
+> > > > > > > > > +                     fence_completed(fctx, fence),
+> > > > > > > > > +                     remaining_jiffies);
+> > > > > > > > >        } else {
+> > > > > > > > > -             unsigned long remaining_jiffies =3D timeout=
+_to_jiffies(timeout);
+> > > > > > > > > -
+> > > > > > > > > -             if (interruptible)
+> > > > > > > > > -                     ret =3D wait_event_interruptible_ti=
+meout(fctx->event,
+> > > > > > > > > -                             fence_completed(fctx, fence=
+),
+> > > > > > > > > -                             remaining_jiffies);
+> > > > > > > > > -             else
+> > > > > > > > > -                     ret =3D wait_event_timeout(fctx->ev=
+ent,
+> > > > > > > > > -                             fence_completed(fctx, fence=
+),
+> > > > > > > > > -                             remaining_jiffies);
+> > > > > > > > > -
+> > > > > > > > > -             if (ret =3D=3D 0) {
+> > > > > > > > > -                     DBG("timeout waiting for fence: %u =
+(completed: %u)",
+> > > > > > > > > -                                     fence, fctx->comple=
+ted_fence);
+> > > > > > > > > -                     ret =3D -ETIMEDOUT;
+> > > > > > > > > -             } else if (ret !=3D -ERESTARTSYS) {
+> > > > > > > > > -                     ret =3D 0;
+> > > > > > > > > -             }
+> > > > > > > > > +             ret =3D wait_event_timeout(fctx->event,
+> > > > > > > > > +                     fence_completed(fctx, fence),
+> > > > > > > > > +                     remaining_jiffies);
+> > > > > > > > > +     }
+> > > > > > > > > +
+> > > > > > > > > +     if (ret =3D=3D 0) {
+> > > > > > > > > +             DBG("timeout waiting for fence: %u (complet=
+ed: %u)",
+> > > > > > > > > +                             fence, fctx->completed_fenc=
+e);
+> > > > > > > > > +             ret =3D -ETIMEDOUT;
+> > > > > > > > > +     } else if (ret !=3D -ERESTARTSYS) {
+> > > > > > > > > +             ret =3D 0;
+> > > > > > > > >        }
+> > > > > > > > > =
+
+> > > > > > > > >        return ret;
+> > > > > > > > >    }
+> > > > > > > > > =
+
+> > > > > > > > > +/* legacy path for WAIT_FENCE ioctl: */
+> > > > > > > > > +int msm_wait_fence(struct msm_fence_context *fctx, uint3=
+2_t fence,
+> > > > > > > > > +             ktime_t *timeout, bool interruptible)
+> > > > > > > > > +{
+> > > > > > > > > +     return wait_fence(fctx, fence, timeout_to_jiffies(t=
+imeout), interruptible);
+> > > > > > > > > +}
+> > > > > > > > > +
+> > > > > > > > >    /* called from workqueue */
+> > > > > > > > >    void msm_update_fence(struct msm_fence_context *fctx, =
+uint32_t fence)
+> > > > > > > > >    {
+> > > > > > > > > @@ -114,10 +114,19 @@ static bool msm_fence_signaled(stru=
+ct dma_fence *fence)
+> > > > > > > > >        return fence_completed(f->fctx, f->base.seqno);
+> > > > > > > > >    }
+> > > > > > > > > =
+
+> > > > > > > > > +static signed long msm_fence_wait(struct dma_fence *fenc=
+e, bool intr,
+> > > > > > > > > +             signed long timeout)
+> > > > > > > > > +{
+> > > > > > > > > +     struct msm_fence *f =3D to_msm_fence(fence);
+> > > > > > > > > +
+> > > > > > > > > +     return wait_fence(f->fctx, fence->seqno, timeout, i=
+ntr);
+> > > > > > > > > +}
+> > > > > > > > > +
+> > > > > > > > >    static const struct dma_fence_ops msm_fence_ops =3D {
+> > > > > > > > >        .get_driver_name =3D msm_fence_get_driver_name,
+> > > > > > > > >        .get_timeline_name =3D msm_fence_get_timeline_name,
+> > > > > > > > >        .signaled =3D msm_fence_signaled,
+> > > > > > > > > +     .wait =3D msm_fence_wait,
+> > > > > > > > >    };
+> > > > > > > > > =
+
+> > > > > > > > >    struct dma_fence *
+> > > > > > =
+
+> > > > > > =
+
+> > > > > > --
+> > > > > > Daniel Vetter
+> > > > > > Software Engineer, Intel Corporation
+> > > > > > http://blog.ffwll.ch
+> > > > =
+
+> > > > =
+
+> > > > --
+> > > > Daniel Vetter
+> > > > Software Engineer, Intel Corporation
+> > > > http://blog.ffwll.ch
+> =
+
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
