@@ -1,58 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4C383D2C55
-	for <lists+freedreno@lfdr.de>; Thu, 22 Jul 2021 21:05:35 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A8BF63D2C6A
+	for <lists+freedreno@lfdr.de>; Thu, 22 Jul 2021 21:08:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A9BD6EA7D;
-	Thu, 22 Jul 2021 19:05:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B58F6EB91;
+	Thu, 22 Jul 2021 19:08:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
- [IPv6:2607:f8b0:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0939E6EAF0
- for <freedreno@lists.freedesktop.org>; Thu, 22 Jul 2021 19:05:32 +0000 (UTC)
-Received: by mail-ot1-x332.google.com with SMTP id
- b18-20020a0568303112b02904cf73f54f4bso3300296ots.2
- for <freedreno@lists.freedesktop.org>; Thu, 22 Jul 2021 12:05:31 -0700 (PDT)
+Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
+ [IPv6:2607:f8b0:4864:20::32a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BE706EB3D
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Jul 2021 19:08:04 +0000 (UTC)
+Received: by mail-ot1-x32a.google.com with SMTP id
+ 42-20020a9d012d0000b02904b98d90c82cso1496444otu.5
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Jul 2021 12:08:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=congdFIKNx3UQvjcKCH7cpv7zvqp5GO1L/NygEo3sXY=;
- b=dDIPDFkyDDHfqVGTpIk+wx1GBgHwuS+5k3bX78JBMROdG0Il9Fa6gFRE3N4NL2Qk0f
- SqQZg2RIPA064hM8VFnMY2q+vHBzUFSnc7iN5K2p7p4BJ7A/sYHwrrcq3pXBnJC7CkMX
- 6ETr8WW+bTfkdyUukPtX19G0Yed7uhKTttRjU=
+ bh=scp+1rc24jdnxfL7eF19kK3DL+3J9gDohwlrgvGebZ0=;
+ b=Kzg1+v+ASBz1l6YFdUYjoIJ1ycL30KyMVNUxiZbSsy/9xwgH7nYvbx0C2luXa/RK6v
+ hHxo0L2IjE8alE4iJAA9A3eGelmKnpSy2X9ID5+zVi+2oucyhkHRSZFjbrdICtI1EGtp
+ EERE2M2fk6+PWXVFGXH8veERzxrjmQZPsQdMI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=congdFIKNx3UQvjcKCH7cpv7zvqp5GO1L/NygEo3sXY=;
- b=szPwEAtRMZ+URJAXa2Q8Se42JoYwvoYc5Gk19q0UgCfiUeEn5/Ez1c2sycstnnjPO/
- eWwjXyTj9qMgww7AUp6mveNx0LLYRoQohee17eBB/hEYanmxlRS4CIqf6CBqVj9LvL8S
- WXv5A715ZILRXdp28Y1wkveYZWrpiYQ49Lox8qKs8KFfHD73ZRo6YHV61CCPNh4qzlL/
- ZTdkd9TuBNGpLCmJk0fCIUcXCVhjqH22MTbheGGusObGuFp89XzoBGkos8rKcUC1cnIP
- i6RlhSkroxOQZyT7FgLa9AKcj96aXOpF2YqSaSqS2nZ7243ySnQXVS4xe8zY+UGGiX9f
- ZGXw==
-X-Gm-Message-State: AOAM5307bT+oQj/hlpWJ6PjRI8rqzQGn3wyLnMFTudHpmYTmlPFsXPa3
- tK8wboRyahkwcJnau04a+dB7Qln/+zVmazN4nJtaMg==
-X-Google-Smtp-Source: ABdhPJxszP1Nvb9QVLAphQ4FMRQGZNgHTiAOHsXtE6VBCSK4Mkx8qQEaF06I/qJbcI+d9b6gULejIcgtbhtlsXTT8NA=
-X-Received: by 2002:a9d:8c7:: with SMTP id 65mr842433otf.25.1626980731332;
- Thu, 22 Jul 2021 12:05:31 -0700 (PDT)
+ bh=scp+1rc24jdnxfL7eF19kK3DL+3J9gDohwlrgvGebZ0=;
+ b=qsUTuus/8rVELuYiJ0GaICf55bGkyDAoBrgx3mCoSkoN0/SbZXCjNsmT9d0r72sGyL
+ ndXYCWh0WKsAHaE5Uv4no2uosz3iERlAPEwiBK2anyc+hdFhQSTXEFkD8m0ag823XJyI
+ qZ0GRsFOVU7y+TWH3BLI3x85LXAEr2sA6SEYLi8Geizc9NfoV2FJDmz0fTU6e+CViIQj
+ yZX4NfSqv2S2Ng54Lz50G9iumdZ6KJJB9D1kp7TcbTuYoPj31Teq2xcMpXd4Vmzuo5zF
+ VKAqdqqw+6pQCIjqUeEGGMiCqu8YqBxWGnn9j02ogNW3YM1ASEm4gFJE2oAUGw6nUFJn
+ pf/w==
+X-Gm-Message-State: AOAM533BFGB/Q3vgvkHc3i1n2D0h2Do+uZW3fuvHQzQd8b4y7vCey8th
+ 0mlNzSiwddQLanYB/k5kSMnDDu0bjHSLR8QRrCK1ZA==
+X-Google-Smtp-Source: ABdhPJzKPYX4blphNqYsrnAPfYagc8nG5lxdFDRdRvNxCcZa50YCfFPtbMdNhV6GjS7SG0R1yOQPOpaxxJ5vYACZZ0E=
+X-Received: by 2002:a9d:650e:: with SMTP id i14mr838011otl.233.1626980883940; 
+ Thu, 22 Jul 2021 12:08:03 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 22 Jul 2021 19:05:30 +0000
+ HTTPREST; Thu, 22 Jul 2021 19:08:03 +0000
 MIME-Version: 1.0
-In-Reply-To: <1626191647-13901-3-git-send-email-khsieh@codeaurora.org>
+In-Reply-To: <1626191647-13901-4-git-send-email-khsieh@codeaurora.org>
 References: <1626191647-13901-1-git-send-email-khsieh@codeaurora.org>
- <1626191647-13901-3-git-send-email-khsieh@codeaurora.org>
+ <1626191647-13901-4-git-send-email-khsieh@codeaurora.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.9.1
-Date: Thu, 22 Jul 2021 19:05:30 +0000
-Message-ID: <CAE-0n52JWbqwZtSCcLyzpsaFyd8mRLiXxLO-9YDk5xMbj_uQiw@mail.gmail.com>
+Date: Thu, 22 Jul 2021 19:08:03 +0000
+Message-ID: <CAE-0n5121VG4V9mqw6UTj2T4DrN66r53aCONMJr4bqe_niHz_w@mail.gmail.com>
 To: Kuogee Hsieh <khsieh@codeaurora.org>, dri-devel@lists.freedesktop.org, 
  robdclark@gmail.com, sean@poorly.run
-Subject: Re: [Freedreno] [PATCH v2 2/7] drm/msm/dp: reduce link rate if
- failed at link training 1
+Subject: Re: [Freedreno] [PATCH v2 3/7] drm/msm/dp: reset aux controller
+ after dp_aux_cmd_fifo_tx() failed.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,42 +74,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2021-07-13 08:54:02)
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index 27fb0f0..92cf331 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -1634,6 +1617,24 @@ void dp_ctrl_handle_sink_request(struct dp_ctrl *dp_ctrl)
->         }
->  }
+Quoting Kuogee Hsieh (2021-07-13 08:54:03)
+> Aux hardware calibration sequence requires resetting the aux controller
+> in order for the new setting to take effect. However resetting the AUX
+> controller will also clear HPD interrupt status which may accidentally
+> cause pending unplug interrupt to get lost. Therefore reset aux
+> controller only when link is in connection state when dp_aux_cmd_fifo_tx()
+> fail. This fixes Link Layer CTS cases 4.2.1.1 and 4.2.1.2.
 >
-> +static bool dp_ctrl_clock_recovery_any_ok(
-> +                       const u8 link_status[DP_LINK_STATUS_SIZE],
-> +                       int lane_count)
-> +{
-> +       int lane_cnt;
-> +
-> +       /*
-> +        * only interested in the lane number after reduced
-> +        * lane_cnt = 4, then only interested in 2 lanes
-> +        * lane_cnt = 2, then only interested in 1 lane
-> +        */
-> +       lane_cnt = lane_count >> 1;
-> +       if (lane_cnt == 0)
-> +               return false;
-> +
-> +       return drm_dp_clock_recovery_ok(link_status, lane_count);
+> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+> ---
 
-This doesn't work? Because drm_dp_clock_recovery_ok() requires every
-lane to be OK whereas this function wants any lane to be OK? It may make
-sense to have drm_dp_clock_recovery_ok() return false if lane_count == 0
-too.
-
-> +}
-> +
->  int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
->  {
->         int rc = 0;
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
