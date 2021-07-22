@@ -2,57 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A54FF3D2F81
-	for <lists+freedreno@lfdr.de>; Fri, 23 Jul 2021 00:09:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0A913D2F9E
+	for <lists+freedreno@lfdr.de>; Fri, 23 Jul 2021 00:15:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B56386E9CB;
-	Thu, 22 Jul 2021 22:09:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E0186ECF5;
+	Thu, 22 Jul 2021 22:15:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
- [IPv6:2607:f8b0:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B4C46E9CB
- for <freedreno@lists.freedesktop.org>; Thu, 22 Jul 2021 22:09:10 +0000 (UTC)
-Received: by mail-ot1-x332.google.com with SMTP id
- c7-20020a9d27870000b02904d360fbc71bso202182otb.10
- for <freedreno@lists.freedesktop.org>; Thu, 22 Jul 2021 15:09:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=VxPtTyDnbKdFhgXCCn4QqHsoTqz/m8J6bRqsRz2hob4=;
- b=RhsyBT3smW09/d+mV3cAkLf8mUDcgRa98ny9KBq64hFaYy7eBfpEtsyTW2X2U1o7Wu
- jG1ugSygYSUEJHrC+UZ24sEC2pxjv+I9KR06a2FA5rR9jrrby73yrF+C73AjmSh7AFnD
- hDBB7hmgU9yXAWQUV4k3jv+vFOZdZ5yMxWQ7U=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=VxPtTyDnbKdFhgXCCn4QqHsoTqz/m8J6bRqsRz2hob4=;
- b=WTwvnVKCYtj0nT1zFj0EOK62DkqESFigbMPxMOupGUd8ICz76StR9R5kGbk8iK9MTM
- waMAm796Dvpy3p3v5aV8gRWo1BI+qjLwOjQPwGrZZ2H7X5MjAvwBVtFWaPjiABVkNYO4
- ZxqqxKPPx9xbenSr11+sT+etE4WTQFEvSk8x/efaIVWwChzinIH2k7Xny5Sfyw7ZsJcL
- JWA7HvaO8gRB/13ACKtMcYQqsthHGylmsr4al0xzBb9LwFlLkTheykmcJF/NUXx5xCcU
- 7X40oi9rGAUCWMq3unXTt/6aKI9iX1bwD7V1MAs4XvfkfGNLSxdwjPoJlM/ZoZfosfwq
- W/ew==
-X-Gm-Message-State: AOAM531rBs/I0SQ16VsdoJxwFW68DGKGCoNl8KbimE/AnF01HkMQBptr
- cwucHo58ggb6KHdfDbpTaGLjUlp86VUZOeHBKQPF3g==
-X-Google-Smtp-Source: ABdhPJwSAou744IO5xsHJaf7ML4r6JmUg3v1Hqcu4+7d/Wc1m7Yo0TQLNIT2sJkRNe9bEISqELAFMOuQ62sNMkX6qNA=
-X-Received: by 2002:a9d:8c7:: with SMTP id 65mr1225563otf.25.1626991749618;
- Thu, 22 Jul 2021 15:09:09 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 22 Jul 2021 22:09:09 +0000
-MIME-Version: 1.0
-In-Reply-To: <4a97d331d7a60cb4756899d98f81ca4f@codeaurora.org>
-References: <1626909581-2887-1-git-send-email-maitreye@codeaurora.org>
- <CAE-0n50zCC9m9Wr6WUvM=mfaQ7GXVEjHNC_T2RfN1=9Y1U_qsg@mail.gmail.com>
- <4a97d331d7a60cb4756899d98f81ca4f@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Thu, 22 Jul 2021 22:09:09 +0000
-Message-ID: <CAE-0n522OEz8YwKRb8VZtSbwAdjXReEPCwvL8N7kWycGSrbvxw@mail.gmail.com>
-To: maitreye@codeaurora.org
-Subject: Re: [Freedreno] [PATCH v4] drm/msm/dp: add logs across DP driver
- for ease of debugging
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E690D6E9F1
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Jul 2021 22:15:30 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1626992136; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=UOL/xDtchMnEVadVXI4kwef9hh/xHdKFdcB+mkAykzw=;
+ b=X3Tddk/0tv9qUOZpH+6IAErICKRihqnryiCMWqg2E7rx5jof9lhuoYKraADMG2f9oFzBIOwU
+ 5pAAb5cdfW/L8xQWlube6KY2d2vfWstVXrDMp6sFcAwmUZMCgh49Z38AV661FZY63UTL/NBU
+ W4cAvy19JQUp390ybdmTOP/3mu0=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
+ 60f9edfee31d882d18b99eb5 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 22 Jul 2021 22:15:26
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 343ABC4360C; Thu, 22 Jul 2021 22:15:26 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id B4D5CC433F1;
+ Thu, 22 Jul 2021 22:15:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org B4D5CC433F1
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=khsieh@codeaurora.org
+From: Kuogee Hsieh <khsieh@codeaurora.org>
+To: robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
+ vkoul@kernel.org, agross@kernel.org, bjorn.andersson@linaro.org
+Date: Thu, 22 Jul 2021 15:15:17 -0700
+Message-Id: <1626992117-28887-1-git-send-email-khsieh@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH] drm/msm/dp: signal audio plugged change at
+ dp_pm_resume
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,224 +66,47 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, abhinavk@codeaurora.org,
- khsieh@codeaurora.org, seanpaul@chromium.org, dri-devel@lists.freedesktop.org,
- aravindh@codeaurora.org, freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, khsieh@codeaurora.org,
+ abhinavk@codeaurora.org, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting maitreye@codeaurora.org (2021-07-22 14:33:43)
-> Thank you Stephen.
->
-> On 2021-07-22 13:31, Stephen Boyd wrote:
-> > Quoting maitreye (2021-07-21 16:19:40)
-> >> From: Maitreyee Rao <maitreye@codeaurora.org>
-> >>
-> >> Add trace points across the MSM DP driver to help debug
-> >> interop issues.
-> >>
-> >> Changes in v4:
-> >>  - Changed goto statement and used if else-if
-> >
-> > I think drm likes to see all the changelog here to see patch evolution.
-> >
-> Yes, I will fix this
-> >>
-> >> Signed-off-by: Maitreyee Rao <maitreye@codeaurora.org>
-> >> ---
-> >> diff --git a/drivers/gpu/drm/msm/dp/dp_link.c
-> >> b/drivers/gpu/drm/msm/dp/dp_link.c
-> >> index be986da..8c98ab7 100644
-> >> --- a/drivers/gpu/drm/msm/dp/dp_link.c
-> >> +++ b/drivers/gpu/drm/msm/dp/dp_link.c
-> >> @@ -1036,43 +1036,28 @@ int dp_link_process_request(struct dp_link
-> >> *dp_link)
-> >>
-> >>         if (link->request.test_requested == DP_TEST_LINK_EDID_READ) {
-> >>                 dp_link->sink_request |= DP_TEST_LINK_EDID_READ;
-> >> -               return ret;
-> >>         }
-> >> -
-> >> -       ret = dp_link_process_ds_port_status_change(link);
-> >> -       if (!ret) {
-> >> +       else if (!(ret = dp_link_process_ds_port_status_change(link)))
-> >> {
-> >>                 dp_link->sink_request |= DS_PORT_STATUS_CHANGED;
-> >> -               return ret;
-> >>         }
-> >> -
-> >> -       ret = dp_link_process_link_training_request(link);
-> >> -       if (!ret) {
-> >> +       else if (!(ret = dp_link_process_link_training_request(link)))
-> >> {
-> >>                 dp_link->sink_request |= DP_TEST_LINK_TRAINING;
-> >> -               return ret;
-> >>         }
-> >> -
-> >> -       ret = dp_link_process_phy_test_pattern_request(link);
-> >> -       if (!ret) {
-> >> +       else if (!(ret =
-> >> dp_link_process_phy_test_pattern_request(link))) {
-> >>                 dp_link->sink_request |=
-> >> DP_TEST_LINK_PHY_TEST_PATTERN;
-> >> -               return ret;
-> >> -       }
-> >> -
-> >> -       ret = dp_link_process_link_status_update(link);
-> >> -       if (!ret) {
-> >> +       }
-> >> +       else if (!(ret = dp_link_process_link_status_update(link))) {
-> >
-> > The kernel coding style is to leave the brackets on the same line
-> >
-> >       if (condition) {
-> >
-> >       } else if (conditon) {
-> >
-> >       }
-> >
-> > See Documentation/process/coding-style.rst
-> >
-> Yes, I will fix this
->
-> > Also, the if (!(ret = dp_link_...)) style is really hard to read. Maybe
-> > apply this patch before?
-> >
-> > ----8<----
-> > diff --git a/drivers/gpu/drm/msm/dp/dp_link.c
-> > b/drivers/gpu/drm/msm/dp/dp_link.c
-> > index 1195044a7a3b..408cddd90f0f 100644
-> > --- a/drivers/gpu/drm/msm/dp/dp_link.c
-> > +++ b/drivers/gpu/drm/msm/dp/dp_link.c
-> > @@ -1027,41 +1027,22 @@ int dp_link_process_request(struct dp_link
-> > *dp_link)
-> >
-> >       if (link->request.test_requested == DP_TEST_LINK_EDID_READ) {
-> >               dp_link->sink_request |= DP_TEST_LINK_EDID_READ;
-> > -             return ret;
-> > -     }
-> > -
-> > -     ret = dp_link_process_ds_port_status_change(link);
-> > -     if (!ret) {
-> > +     } else if (!dp_link_process_ds_port_status_change(link)) {
-> >               dp_link->sink_request |= DS_PORT_STATUS_CHANGED;
-> > -             return ret;
-> > -     }
-> > -
-> > -     ret = dp_link_process_link_training_request(link);
-> > -     if (!ret) {
-> > +     } else if (!dp_link_process_link_training_request(link)) {
-> >               dp_link->sink_request |= DP_TEST_LINK_TRAINING;
-> > -             return ret;
-> > -     }
-> > -
-> > -     ret = dp_link_process_phy_test_pattern_request(link);
-> > -     if (!ret) {
-> > +     } else if (!dp_link_process_phy_test_pattern_request(link)) {
-> >               dp_link->sink_request |= DP_TEST_LINK_PHY_TEST_PATTERN;
-> > -             return ret;
-> > -     }
-> > -
-> > -     ret = dp_link_process_link_status_update(link);
-> > -     if (!ret) {
-> > +     } else if (!dp_link_process_link_status_update(link)) {
-> >               dp_link->sink_request |= DP_LINK_STATUS_UPDATED;
-> > -             return ret;
-> > -     }
-> > -
-> > -     if (dp_link_is_video_pattern_requested(link)) {
-> > -             ret = 0;
-> > -             dp_link->sink_request |= DP_TEST_LINK_VIDEO_PATTERN;
-> > -     }
-> > +     } else {
-> > +             if (dp_link_is_video_pattern_requested(link))
-> > +                     dp_link->sink_request |= DP_TEST_LINK_VIDEO_PATTERN;
-> >
-> > -     if (dp_link_is_audio_pattern_requested(link)) {
-> > -             dp_link->sink_request |= DP_TEST_LINK_AUDIO_PATTERN;
-> > -             return -EINVAL;
-> > +             if (dp_link_is_audio_pattern_requested(link)) {
-> > +                     dp_link->sink_request |= DP_TEST_LINK_AUDIO_PATTERN;
-> > +                     ret = -EINVAL;
-> > +             }
-> >       }
-> >
-> >       return ret;
-> The reason I did this was to preserve the value of ret as the caller of
-> the function checks it. Some functions return -EINVAl like in here:
-> https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/msm/dp/dp_link.c#L972
-> , so to check that it would be necessary to get the ret value.
+There is a scenario that dp cable is unplugged from DUT during system
+suspended  will cause audio option state does not match real connection
+state. Fix this problem by Signaling audio plugged change with realtime
+connection status at dp_pm_resume() so that audio option will be in
+correct state after system resumed.
 
-ret is overwritten multiple times. The logic seems to be if ret is
-not-zero, reassign it, until we get to the end. How about this
+Fixes: bd52cfedb5a8 ("drm/msm/dp: power off DP phy at suspend")
+Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-----8<----
-diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
-index 1195044a7a3b..e59138566c0a 100644
---- a/drivers/gpu/drm/msm/dp/dp_link.c
-+++ b/drivers/gpu/drm/msm/dp/dp_link.c
-@@ -1027,41 +1027,27 @@ int dp_link_process_request(struct dp_link *dp_link)
-
- 	if (link->request.test_requested == DP_TEST_LINK_EDID_READ) {
- 		dp_link->sink_request |= DP_TEST_LINK_EDID_READ;
--		return ret;
--	}
--
--	ret = dp_link_process_ds_port_status_change(link);
--	if (!ret) {
-+	} else if (!dp_link_process_ds_port_status_change(link)) {
- 		dp_link->sink_request |= DS_PORT_STATUS_CHANGED;
--		return ret;
--	}
--
--	ret = dp_link_process_link_training_request(link);
--	if (!ret) {
-+	} else if (!dp_link_process_link_training_request(link)) {
- 		dp_link->sink_request |= DP_TEST_LINK_TRAINING;
--		return ret;
--	}
--
--	ret = dp_link_process_phy_test_pattern_request(link);
--	if (!ret) {
-+	} else if (!dp_link_process_phy_test_pattern_request(link)) {
- 		dp_link->sink_request |= DP_TEST_LINK_PHY_TEST_PATTERN;
--		return ret;
--	}
--
--	ret = dp_link_process_link_status_update(link);
--	if (!ret) {
--		dp_link->sink_request |= DP_LINK_STATUS_UPDATED;
--		return ret;
--	}
--
--	if (dp_link_is_video_pattern_requested(link)) {
--		ret = 0;
--		dp_link->sink_request |= DP_TEST_LINK_VIDEO_PATTERN;
--	}
--
--	if (dp_link_is_audio_pattern_requested(link)) {
--		dp_link->sink_request |= DP_TEST_LINK_AUDIO_PATTERN;
--		return -EINVAL;
-+	} else {
-+		ret = dp_link_process_link_status_update(link);
-+		if (!ret) {
-+			dp_link->sink_request |= DP_LINK_STATUS_UPDATED;
-+		} else {
-+			if (dp_link_is_video_pattern_requested(link)) {
-+				ret = 0;
-+				dp_link->sink_request |= DP_TEST_LINK_VIDEO_PATTERN;
-+			}
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 78c5301..2b660e9 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -1339,6 +1339,10 @@ static int dp_pm_resume(struct device *dev)
+ 	else
+ 		dp->dp_display.is_connected = false;
+ 
++	dp_display_handle_plugged_change(g_dp_display,
++				dp->dp_display.is_connected);
 +
-+			if (dp_link_is_audio_pattern_requested(link)) {
-+				dp_link->sink_request |= DP_TEST_LINK_AUDIO_PATTERN;
-+				ret = -EINVAL;
-+			}
-+		}
- 	}
++
+ 	mutex_unlock(&dp->event_mutex);
+ 
+ 	return 0;
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
- 	return ret;
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
