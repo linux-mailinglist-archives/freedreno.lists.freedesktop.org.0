@@ -2,60 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2DED3D2D7F
-	for <lists+freedreno@lfdr.de>; Thu, 22 Jul 2021 22:16:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55D943D2D83
+	for <lists+freedreno@lfdr.de>; Thu, 22 Jul 2021 22:16:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A8196ED07;
-	Thu, 22 Jul 2021 20:16:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DF6D6ECCB;
+	Thu, 22 Jul 2021 20:16:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E36F36ECAF
- for <freedreno@lists.freedesktop.org>; Thu, 22 Jul 2021 20:16:26 +0000 (UTC)
-Received: by mail-ot1-x335.google.com with SMTP id
- 61-20020a9d0d430000b02903eabfc221a9so41300oti.0
- for <freedreno@lists.freedesktop.org>; Thu, 22 Jul 2021 13:16:26 -0700 (PDT)
+Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
+ [IPv6:2607:f8b0:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41A056ECCB
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Jul 2021 20:16:46 +0000 (UTC)
+Received: by mail-oi1-x232.google.com with SMTP id u11so7960710oiv.1
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Jul 2021 13:16:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=xXB6CY1/hyqIZ/vyf1haNoHbt4KWUoYy6vvZAmH1D+w=;
- b=oFGsQ0TKjSPUvmDJ+Ww7NKCOnlaH9mPPhQ8V1uT5yAbwlHkzi7XKHOwbKCdjsDCiFx
- yq1IJgMOZiLe6uDTqRaVUXxdZCoQJu8ag7Ir6ZFU8nUwgn7Znd4ZLaNh5xPaNp+azumy
- J/HSCBwivCGfPaDdx08xhc/6xnh7lVWGgPxdw=
+ bh=lGBGDn+lOFNngvvH3L1P75ECn+Xc69iUtWDhuizhmRk=;
+ b=WBVq6pEiIdZU+GzhLnjTWPaJtocMzNL82BgTggr5nUPLGGS8R8sX+BOMVEApmfkRw9
+ 8Y56V3g4r4I8SqKRkOSNP4326oh1kzb+1PuACxmp6HoAfAsgtrdlAJ556GV92PT7exzL
+ McADJKZB9Lb+pcbQrmy4bQpGWLhDQQptnnwPY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=xXB6CY1/hyqIZ/vyf1haNoHbt4KWUoYy6vvZAmH1D+w=;
- b=h4hsYu9tQFEjczpsRvc8tuQSjmtvwrBhe0x/BJivjvqJ2APt0OTFZfEo85A96+KH6H
- HkY1A0Emc+iTl8/8qPZdQBZP0jzV1pBXqu3DqYYXhLSdrtE4euJf9lAWROmKw9eV2clb
- p9G0kkqJlypgSn3qqbkM820EoukM3Shx+xPWmUiuzjCdDlX7SJdKKLd/7TWDzvU+EGHd
- 6WZNyf9XIltOhBKa0r/iHiYNiGfpSmDS5cVYHibsazmElbS/+KvwnkpnaR1SR9NlBl0D
- oTH4U4plbkEihRjSxYMeI8He+T01DxOyiSYcKrvIBUCAFtf/InWY7ZKl0VqHY9t+yXnu
- WWAA==
-X-Gm-Message-State: AOAM5333bngVP9rXArkscniVkrNwO6mDYE9qPRtuwpR1ljrc2kvS5PEx
- dBpueEQgC4h2VKhPD+DNvJgRizCEepzDaDyRYlWa0w==
-X-Google-Smtp-Source: ABdhPJx9tD8Po38Bpw7rs+mj+04e7lSnkyOtBucxpHE2LeWBu5SLBnaseuHcQzXabjdCy3cHqU3feQ+K8Kq30uLlLb0=
-X-Received: by 2002:a9d:650e:: with SMTP id i14mr984428otl.233.1626984986325; 
- Thu, 22 Jul 2021 13:16:26 -0700 (PDT)
+ bh=lGBGDn+lOFNngvvH3L1P75ECn+Xc69iUtWDhuizhmRk=;
+ b=RXnxnlhYawT+wJgrMQvZMJFNhLcPy1ASDrEYN/oA5yESmV7ajURHPxKWyfeUKS8Gy9
+ uwo/fdoHaoWiq/WHCCEFzyOxQBWyDeLs8UXA2c+pCUaqE090Q7GHfA5lCdPsc6A/4v+T
+ hSGeW5Tyl7dO2UXLrIt4De8bfwx1Ex6FRESAmKCKOw9cH6KROgvxyVQjbvt3SudzVUFk
+ FpkMJ+B/appzG5OTMuozj6LEF6WehadYKrK4Zvfz6dE9A0GUjpSITqssVoLHQIhGMg1z
+ GLmZpHlGocwYBDzL2i0zDT2hBLwT/Ry38ej90R13lTavA4cor51HUxJSZgHTKVZXKPMQ
+ JLeg==
+X-Gm-Message-State: AOAM532+hUW6FLj+kcHhugf668NJt8FP9nA08enVOmu3lQLLtTSpRSgG
+ 5CPOntZzMhugEgD97BwtSiHF4cg2+AbuCf8tQaf7XA==
+X-Google-Smtp-Source: ABdhPJxjTaEbkRrBN/FqiRS6clBxB0FcklPeiI3sKW/kjDjrRLw/EbOnNhQjT9Uf5BJl9SFEVjqPUChYPfrbRGjQLhI=
+X-Received: by 2002:a05:6808:114a:: with SMTP id
+ u10mr1175746oiu.19.1626985005662; 
+ Thu, 22 Jul 2021 13:16:45 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 22 Jul 2021 20:16:25 +0000
+ HTTPREST; Thu, 22 Jul 2021 20:16:45 +0000
 MIME-Version: 1.0
-In-Reply-To: <20210722024227.3313096-6-bjorn.andersson@linaro.org>
-References: <20210722024227.3313096-1-bjorn.andersson@linaro.org>
- <20210722024227.3313096-6-bjorn.andersson@linaro.org>
+In-Reply-To: <20210722024434.3313167-1-bjorn.andersson@linaro.org>
+References: <20210722024434.3313167-1-bjorn.andersson@linaro.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.9.1
-Date: Thu, 22 Jul 2021 20:16:25 +0000
-Message-ID: <CAE-0n51ftru=ap2PvKiXDTVoQGA1drzU-C29b_KXTN=r=uC78w@mail.gmail.com>
-To: Abhinav Kumar <abhinavk@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, 
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
- Rob Clark <robdclark@gmail.com>, 
- Rob Herring <robh+dt@kernel.org>, Sean Paul <sean@poorly.run>
-Subject: Re: [Freedreno] [PATCH 5/5] drm/msm/dp: Allow sub-regions to be
- specified in DT
+Date: Thu, 22 Jul 2021 20:16:45 +0000
+Message-ID: <CAE-0n50iOP5K8Q79ShmLowWErxMFRdYZRg=hDszYn8O4OJaz6A@mail.gmail.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, 
+ David Airlie <airlied@linux.ie>, Kuogee Hsieh <khsieh@codeaurora.org>, 
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Initialize the INTF_CONFIG
+ register
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,21 +66,22 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Kuogee Hsieh <khsieh@codeaurora.org>, Tanmay Shah <tanmay@codeaurora.org>,
- freedreno@lists.freedesktop.org, Chandan Uddaraju <chandanu@codeaurora.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Tanmay Shah <tanmay@codeaurora.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>, Guenter Roeck <groeck@chromium.org>,
+ Vara Reddy <varar@codeaurora.org>, freedreno@lists.freedesktop.org,
+ Chandan Uddaraju <chandanu@codeaurora.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Bjorn Andersson (2021-07-21 19:42:27)
-> Not all platforms has P0 at an offset of 0x1000 from the base address,
-> so add support for specifying each sub-region in DT. The code falls back
-> to the predefined offsets in the case that only a single reg is
-> specified, in order to support existing DT.
+Quoting Bjorn Andersson (2021-07-21 19:44:34)
+> Some bootloaders set the widebus enable bit in the INTF_CONFIG register,
+> but configuration of widebus isn't yet supported ensure that the
+> register has a known value, with widebus disabled.
 >
+> Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
 > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 > ---
 
