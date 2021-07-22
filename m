@@ -2,58 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0A913D2F9E
-	for <lists+freedreno@lfdr.de>; Fri, 23 Jul 2021 00:15:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5396C3D2FAB
+	for <lists+freedreno@lfdr.de>; Fri, 23 Jul 2021 00:17:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E0186ECF5;
-	Thu, 22 Jul 2021 22:15:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C76AF6EAAF;
+	Thu, 22 Jul 2021 22:17:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E690D6E9F1
- for <freedreno@lists.freedesktop.org>; Thu, 22 Jul 2021 22:15:30 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1626992136; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=UOL/xDtchMnEVadVXI4kwef9hh/xHdKFdcB+mkAykzw=;
- b=X3Tddk/0tv9qUOZpH+6IAErICKRihqnryiCMWqg2E7rx5jof9lhuoYKraADMG2f9oFzBIOwU
- 5pAAb5cdfW/L8xQWlube6KY2d2vfWstVXrDMp6sFcAwmUZMCgh49Z38AV661FZY63UTL/NBU
- W4cAvy19JQUp390ybdmTOP/3mu0=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
- 60f9edfee31d882d18b99eb5 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 22 Jul 2021 22:15:26
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 343ABC4360C; Thu, 22 Jul 2021 22:15:26 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL, 
- URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id B4D5CC433F1;
- Thu, 22 Jul 2021 22:15:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org B4D5CC433F1
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=khsieh@codeaurora.org
-From: Kuogee Hsieh <khsieh@codeaurora.org>
-To: robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- vkoul@kernel.org, agross@kernel.org, bjorn.andersson@linaro.org
-Date: Thu, 22 Jul 2021 15:15:17 -0700
-Message-Id: <1626992117-28887-1-git-send-email-khsieh@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-Subject: [Freedreno] [PATCH] drm/msm/dp: signal audio plugged change at
- dp_pm_resume
+Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
+ [IPv6:2607:f8b0:4864:20::102c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55CDD6EA81;
+ Thu, 22 Jul 2021 22:17:39 +0000 (UTC)
+Received: by mail-pj1-x102c.google.com with SMTP id
+ m2-20020a17090a71c2b0290175cf22899cso1242500pjs.2; 
+ Thu, 22 Jul 2021 15:17:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=EMkDgOrvQyP1SLItHDLnfmWsC7sgMNSITNSdc/ws6zA=;
+ b=d/QmizXKgwPlJFSmjjZrZ/EgTWN90QjKd3XvOAoGwkYwx8JLJmaULlhMenIUrIs9LU
+ ehoxkuSV20H/pO0m1w8PRbYqzVVyNkRmE0wBRd9WiuOm0yu66uPzbUu4wYbsNBMwef04
+ UNJ9ul7B67GnRxs5B1hv4ayctM2agheWYSl0k/NFx/aPRn8ZYf3jkp8CshMpK3GtZUN9
+ HIuNhYXkr9mKDjLNmf3ndcpc6p4J1oFRjbaPIAsEp3A7Kgf97FEsBrZLRBT8Hhed+Kba
+ K1gLPl+onz1fwf+XCjL+po+xsWhMRFOgiT2o7Upub+Pr6EsDeQLAS66c1s5YDjgAr97t
+ UMsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=EMkDgOrvQyP1SLItHDLnfmWsC7sgMNSITNSdc/ws6zA=;
+ b=hPgf9/mpY2um+633Ilw+7MnSchLCkdg431TFiJpRBdxOwXm0ILhZO36qcOMI0/vhLA
+ +1t9/AJkAI5U2OMZOXEnfh6+Ae5u3TZ5ILvRochwDLqaG9knWwBBYriQedT6kEfPjflv
+ vxWKW/mPpJClE02U9NBC7Cm6UTgi+9F6e30mvh/wAvQsznGMiRoNVAJUs5I+pDyKQ4KB
+ xynDpyFf5XsxRtJN4gzLFg3f7kZi9VRggBxMgpPomiF/itOan/9CfSTlDFM/3KR3ODkD
+ MvZbskd2vh9KKMBO8+55GKBKri7zN4QABdktWfxp/qIihx9Hn9++CxFVyVniqNT43s7j
+ oHgg==
+X-Gm-Message-State: AOAM532ZLao1cKzdqjER9AEp/uGF7/nFEIk6xGSwJbijGD79F5GGgvAv
+ 1H/8zlsQJM5PKOikoufoTZbOWd2UIxrmaA==
+X-Google-Smtp-Source: ABdhPJzScGN6hhj5xPi+zBl19RrPH3Q+8v9QGVI6j6NSNBBqFSAkVc5t6gwgG5Ph6MH6vg4f7iYzXQ==
+X-Received: by 2002:a17:903:2082:b029:12b:a0e9:5c88 with SMTP id
+ d2-20020a1709032082b029012ba0e95c88mr1731398plc.27.1626992258242; 
+ Thu, 22 Jul 2021 15:17:38 -0700 (PDT)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ x10sm34105015pgj.73.2021.07.22.15.17.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Jul 2021 15:17:36 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Thu, 22 Jul 2021 15:21:38 -0700
+Message-Id: <20210722222145.1759900-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.31.1
+MIME-Version: 1.0
+Subject: [Freedreno] [PATCH 0/3] drm/msm: Improved devfreq tuning
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,46 +67,46 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, khsieh@codeaurora.org,
- abhinavk@codeaurora.org, aravindh@codeaurora.org,
- freedreno@lists.freedesktop.org
-MIME-Version: 1.0
+Cc: Rob Clark <robdclark@chromium.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Douglas Anderson <dianders@chromium.org>, Jonathan Marek <jonathan@marek.ca>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-There is a scenario that dp cable is unplugged from DUT during system
-suspended  will cause audio option state does not match real connection
-state. Fix this problem by Signaling audio plugged change with realtime
-connection status at dp_pm_resume() so that audio option will be in
-correct state after system resumed.
+From: Rob Clark <robdclark@chromium.org>
 
-Fixes: bd52cfedb5a8 ("drm/msm/dp: power off DP phy at suspend")
-Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 4 ++++
- 1 file changed, 4 insertions(+)
+This is the outcome of trying to fix some bad gpu freq behavior seen in
+some use-cases, in particular mobile games that throttle themselves to
+30fps.  With the existing tuning, we'd end up spending most of the time
+that we should be running fast at a low freq, and most of the idle time
+at a high freq.
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 78c5301..2b660e9 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -1339,6 +1339,10 @@ static int dp_pm_resume(struct device *dev)
- 	else
- 		dp->dp_display.is_connected = false;
- 
-+	dp_display_handle_plugged_change(g_dp_display,
-+				dp->dp_display.is_connected);
-+
-+
- 	mutex_unlock(&dp->event_mutex);
- 
- 	return 0;
+First two patches are prep, 3/3 is the interesting bit.  See the patch
+description in 3/3 for more details.
+
+Rob Clark (3):
+  drm/msm: Split out devfreq handling
+  drm/msm: Split out get_freq() helper
+  drm/msm: Devfreq tuning
+
+ drivers/gpu/drm/msm/Makefile          |   1 +
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c |   4 +-
+ drivers/gpu/drm/msm/msm_gpu.c         | 124 ++--------------
+ drivers/gpu/drm/msm/msm_gpu.h         |  27 +++-
+ drivers/gpu/drm/msm/msm_gpu_devfreq.c | 203 ++++++++++++++++++++++++++
+ 5 files changed, 238 insertions(+), 121 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/msm_gpu_devfreq.c
+
 -- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+2.31.1
 
 _______________________________________________
 Freedreno mailing list
