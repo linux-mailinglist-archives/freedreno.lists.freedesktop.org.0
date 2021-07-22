@@ -2,61 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 321A33D1C01
-	for <lists+freedreno@lfdr.de>; Thu, 22 Jul 2021 04:46:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60C813D1C14
+	for <lists+freedreno@lfdr.de>; Thu, 22 Jul 2021 04:51:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA97B6EE94;
-	Thu, 22 Jul 2021 02:46:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 038406EE94;
+	Thu, 22 Jul 2021 02:51:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
- [IPv6:2607:f8b0:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AD1C6EE94
- for <freedreno@lists.freedesktop.org>; Thu, 22 Jul 2021 02:46:18 +0000 (UTC)
-Received: by mail-ot1-x32f.google.com with SMTP id
- j1-20020a0568302701b02904d1f8b9db81so3974219otu.12
- for <freedreno@lists.freedesktop.org>; Wed, 21 Jul 2021 19:46:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=PuEoL0cflmj88ic5E/HBFbgKYO0ZjMr2HcVskHGb4+8=;
- b=gTWxU6v2EWpdjHWSdRsk7wGshB7EBoTxmSV8TDRq2yPSI+1sk7E66j1/hwyjO4OvR1
- ERJYkBJc9Dy8API/rXeZ+l4O6oiASLlyq07LRhhazsHoV+RZPzB1EP2osUPlOKuTxtro
- tsFgityqP73QzS4/Hp56+85gZF9n7sb3eGg9VoHjmF616Yi/u2Bg5wkfZ0cVrwkyb+1+
- qRC9l9PhkTMIRd8JVck0BGGsS2UojXzmzZ7pGR8s6EnAUm/4lPqVA69zwov42viY5jbN
- fO4SlDvt8c6ZkomLyW2cf93psDPozgx8QWP5ynKKkoZpwrY9e7uSlpxofWPei1rnnNsJ
- u4rA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=PuEoL0cflmj88ic5E/HBFbgKYO0ZjMr2HcVskHGb4+8=;
- b=I37RdqlDiHiHdyJoaKt9QDtPsIGKeDZzAkdEcs+5QKID+370A36fwst7/5SvCqEUFF
- GhtIuzxL2IboHFJTK7uhWfY59y5oKPOpHpmQ+szmQddW7LX9zXXgAQ65aAL3ZMnU82qI
- 79UJA/I3428po8pVFmkQGF2axE1y5MVIehVGOTuxQmjWhHFQcsCunMuiAX5NibrKzBUM
- osxD5ovZWm+M0PXarp89lRL9UC4d/+kchSk6wgJpkpm5ALxZjAIQjnyZd3vll3QSDAdQ
- hVSppCzpwnruMK4RwP2H8p0y6z/zrvgQ1vx52bKx3krFThhXDQ4bPQvBf3l5xk3LXNZo
- gZCA==
-X-Gm-Message-State: AOAM531B+lXq9Cq1ODolGoMvd97wP8Ri00OTTcx1H/vweBgiOgYlriOB
- tOdcEgIEMMUDZQXIz6fLiRjL1w==
-X-Google-Smtp-Source: ABdhPJzn5vDJKXScBg/5Zax5IQIFFmirfICOQE36McKeLi23Vbz6GYsDN43N0AUPf+NSyaLxhLNgXQ==
-X-Received: by 2002:a05:6830:1b6b:: with SMTP id
- d11mr27389811ote.234.1626921977560; 
- Wed, 21 Jul 2021 19:46:17 -0700 (PDT)
-Received: from localhost.localdomain
- (104-57-184-186.lightspeed.austtx.sbcglobal.net. [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id x16sm390098ooj.1.2021.07.21.19.46.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Jul 2021 19:46:17 -0700 (PDT)
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Kuogee Hsieh <khsieh@codeaurora.org>
-Date: Wed, 21 Jul 2021 19:44:34 -0700
-Message-Id: <20210722024434.3313167-1-bjorn.andersson@linaro.org>
-X-Mailer: git-send-email 2.29.2
-MIME-Version: 1.0
-Subject: [Freedreno] [PATCH] drm/msm/dp: Initialize the INTF_CONFIG register
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D05936EE98
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Jul 2021 02:51:16 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1626922280; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=y4R8Dez1lnGOxxiUmpnBfKA9ByXL1QN7Y0qkknRiTjo=;
+ b=VWZ5hnvnpN5GpGL+LBV0A7/YiJzRPs/7YdFQ0V1A+IShR6vAFrZ49HfC40WwkNm272cnNqql
+ 7YfiK1Gli9f9+qVYUZ4QTC35WqEObOtblEly46acaEcIxoqeUNE1cmaZp2JxBj7PijJedgLl
+ snRFGjAIx5PUXYTHQaZA6cfu7TU=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
+ 60f8dd0e38fa9bfe9cf3956b (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 22 Jul 2021 02:50:54
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id E2E2EC43143; Thu, 22 Jul 2021 02:50:53 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from abhinavk-linux.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 70466C4338A;
+ Thu, 22 Jul 2021 02:50:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 70466C4338A
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=abhinavk@codeaurora.org
+From: Abhinav Kumar <abhinavk@codeaurora.org>
+To: dri-devel@lists.freedesktop.org
+Date: Wed, 21 Jul 2021 19:50:31 -0700
+Message-Id: <1626922232-29105-1-git-send-email-abhinavk@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH v2 1/2] drm/msm/dsi: update dsi register header
+ file for tpg
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,40 +65,148 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Tanmay Shah <tanmay@codeaurora.org>,
- Stephen Boyd <swboyd@chromium.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
- Guenter Roeck <groeck@chromium.org>, Vara Reddy <varar@codeaurora.org>,
- freedreno@lists.freedesktop.org, Chandan Uddaraju <chandanu@codeaurora.org>
+Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
+ swboyd@chromium.org, khsieh@codeaurora.org, robdclark@gmail.com,
+ nganji@codeaurora.org, seanpaul@chromium.org, dmitry.baryshkov@linaro.org,
+ marijn.suijten@somainline.org, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Some bootloaders set the widebus enable bit in the INTF_CONFIG register,
-but configuration of widebus isn't yet supported ensure that the
-register has a known value, with widebus disabled.
+Update the DSI controller header XML file to add registers
+and bitfields to support rectangular checkered pattern
+generator.
 
-Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
-Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
 ---
- drivers/gpu/drm/msm/dp/dp_catalog.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/msm/dsi/dsi.xml.h | 94 +++++++++++++++++++++++++++++++--------
+ 1 file changed, 75 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
-index 23458b0ddc37..37cb1102a0ca 100644
---- a/drivers/gpu/drm/msm/dp/dp_catalog.c
-+++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
-@@ -747,6 +747,7 @@ int dp_catalog_panel_timing_cfg(struct dp_catalog *dp_catalog)
- 	dp_write_link(catalog, REG_DP_HSYNC_VSYNC_WIDTH_POLARITY,
- 				dp_catalog->width_blanking);
- 	dp_write_link(catalog, REG_DP_ACTIVE_HOR_VER, dp_catalog->dp_active);
-+	dp_write_p0(catalog, MMSS_DP_INTF_CONFIG, 0);
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/msm/dsi/dsi.xml.h b/drivers/gpu/drm/msm/dsi/dsi.xml.h
+index eadbcc7..ae299b7 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi.xml.h
++++ b/drivers/gpu/drm/msm/dsi/dsi.xml.h
+@@ -8,25 +8,8 @@ This file was generated by the rules-ng-ng headergen tool in this git repository
+ git clone https://github.com/freedreno/envytools.git
+ 
+ The rules-ng-ng source files this header was generated from are:
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/msm.xml                   (    981 bytes, from 2021-06-05 21:37:42)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/freedreno_copyright.xml   (   1572 bytes, from 2021-02-18 16:45:44)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/mdp/mdp4.xml              (  20912 bytes, from 2021-02-18 16:45:44)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/mdp/mdp_common.xml        (   2849 bytes, from 2021-02-18 16:45:44)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/mdp/mdp5.xml              (  37461 bytes, from 2021-02-18 16:45:44)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/dsi/dsi.xml               (  15291 bytes, from 2021-06-15 22:36:13)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/dsi/dsi_phy_v2.xml        (   3236 bytes, from 2021-06-05 21:37:42)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/dsi/dsi_phy_28nm_8960.xml (   4935 bytes, from 2021-05-21 19:18:08)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/dsi/dsi_phy_28nm.xml      (   7004 bytes, from 2021-05-21 19:18:08)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/dsi/dsi_phy_20nm.xml      (   3712 bytes, from 2021-05-21 19:18:08)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/dsi/dsi_phy_14nm.xml      (   5381 bytes, from 2021-05-21 19:18:08)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/dsi/dsi_phy_10nm.xml      (   4499 bytes, from 2021-05-21 19:18:08)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/dsi/dsi_phy_7nm.xml       (  10953 bytes, from 2021-05-21 19:18:08)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/dsi/dsi_phy_5nm.xml       (  10900 bytes, from 2021-05-21 19:18:08)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/dsi/sfpb.xml              (    602 bytes, from 2021-02-18 16:45:44)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/dsi/mmss_cc.xml           (   1686 bytes, from 2021-02-18 16:45:44)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/hdmi/qfprom.xml           (    600 bytes, from 2021-02-18 16:45:44)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/hdmi/hdmi.xml             (  41874 bytes, from 2021-02-18 16:45:44)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/edp/edp.xml               (  10416 bytes, from 2021-02-18 16:45:44)
++- /local/mnt2/workspace2/abhinav/mesa_tool/mesa/src/freedreno/registers/dsi/dsi.xml             (  17500 bytes, from 2021-07-22 02:35:56)
++- /local/mnt2/workspace2/abhinav/mesa_tool/mesa/src/freedreno/registers/freedreno_copyright.xml (   1572 bytes, from 2021-07-13 18:03:11)
+ 
+ Copyright (C) 2013-2021 by the following authors:
+ - Rob Clark <robdclark@gmail.com> (robclark)
+@@ -105,6 +88,32 @@ enum dsi_lane_swap {
+ 	LANE_SWAP_3210 = 7,
+ };
+ 
++enum video_config_bpp {
++	VIDEO_CONFIG_18BPP = 0,
++	VIDEO_CONFIG_24BPP = 1,
++};
++
++enum video_pattern_sel {
++	VID_PRBS = 0,
++	VID_INCREMENTAL = 1,
++	VID_FIXED = 2,
++	VID_MDSS_GENERAL_PATTERN = 3,
++};
++
++enum cmd_mdp_stream0_pattern_sel {
++	CMD_MDP_PRBS = 0,
++	CMD_MDP_INCREMENTAL = 1,
++	CMD_MDP_FIXED = 2,
++	CMD_MDP_MDSS_GENERAL_PATTERN = 3,
++};
++
++enum cmd_dma_pattern_sel {
++	CMD_DMA_PRBS = 0,
++	CMD_DMA_INCREMENTAL = 1,
++	CMD_DMA_FIXED = 2,
++	CMD_DMA_CUSTOM_PATTERN_DMA_FIFO = 3,
++};
++
+ #define DSI_IRQ_CMD_DMA_DONE					0x00000001
+ #define DSI_IRQ_MASK_CMD_DMA_DONE				0x00000002
+ #define DSI_IRQ_CMD_MDP_DONE					0x00000100
+@@ -564,6 +573,53 @@ static inline uint32_t DSI_LANE_SWAP_CTRL_DLN_SWAP_SEL(enum dsi_lane_swap val)
+ #define REG_DSI_PHY_RESET					0x00000128
+ #define DSI_PHY_RESET_RESET					0x00000001
+ 
++#define REG_DSI_TEST_PATTERN_GEN_VIDEO_INIT_VAL			0x00000160
++
++#define REG_DSI_TPG_MAIN_CONTROL				0x00000198
++#define DSI_TPG_MAIN_CONTROL_CHECKERED_RECTANGLE_PATTERN	0x00000100
++
++#define REG_DSI_TPG_VIDEO_CONFIG				0x000001a0
++#define DSI_TPG_VIDEO_CONFIG_BPP__MASK				0x00000003
++#define DSI_TPG_VIDEO_CONFIG_BPP__SHIFT				0
++static inline uint32_t DSI_TPG_VIDEO_CONFIG_BPP(enum video_config_bpp val)
++{
++	return ((val) << DSI_TPG_VIDEO_CONFIG_BPP__SHIFT) & DSI_TPG_VIDEO_CONFIG_BPP__MASK;
++}
++#define DSI_TPG_VIDEO_CONFIG_RGB				0x00000004
++
++#define REG_DSI_TEST_PATTERN_GEN_CTRL				0x00000158
++#define DSI_TEST_PATTERN_GEN_CTRL_CMD_DMA_PATTERN_SEL__MASK	0x00030000
++#define DSI_TEST_PATTERN_GEN_CTRL_CMD_DMA_PATTERN_SEL__SHIFT	16
++static inline uint32_t DSI_TEST_PATTERN_GEN_CTRL_CMD_DMA_PATTERN_SEL(enum cmd_dma_pattern_sel val)
++{
++	return ((val) << DSI_TEST_PATTERN_GEN_CTRL_CMD_DMA_PATTERN_SEL__SHIFT) & DSI_TEST_PATTERN_GEN_CTRL_CMD_DMA_PATTERN_SEL__MASK;
++}
++#define DSI_TEST_PATTERN_GEN_CTRL_CMD_MDP_STREAM0_PATTERN_SEL__MASK	0x00000300
++#define DSI_TEST_PATTERN_GEN_CTRL_CMD_MDP_STREAM0_PATTERN_SEL__SHIFT	8
++static inline uint32_t DSI_TEST_PATTERN_GEN_CTRL_CMD_MDP_STREAM0_PATTERN_SEL(enum cmd_mdp_stream0_pattern_sel val)
++{
++	return ((val) << DSI_TEST_PATTERN_GEN_CTRL_CMD_MDP_STREAM0_PATTERN_SEL__SHIFT) & DSI_TEST_PATTERN_GEN_CTRL_CMD_MDP_STREAM0_PATTERN_SEL__MASK;
++}
++#define DSI_TEST_PATTERN_GEN_CTRL_VIDEO_PATTERN_SEL__MASK	0x00000030
++#define DSI_TEST_PATTERN_GEN_CTRL_VIDEO_PATTERN_SEL__SHIFT	4
++static inline uint32_t DSI_TEST_PATTERN_GEN_CTRL_VIDEO_PATTERN_SEL(enum video_pattern_sel val)
++{
++	return ((val) << DSI_TEST_PATTERN_GEN_CTRL_VIDEO_PATTERN_SEL__SHIFT) & DSI_TEST_PATTERN_GEN_CTRL_VIDEO_PATTERN_SEL__MASK;
++}
++#define DSI_TEST_PATTERN_GEN_CTRL_TPG_DMA_FIFO_MODE		0x00000004
++#define DSI_TEST_PATTERN_GEN_CTRL_CMD_DMA_TPG_EN		0x00000002
++#define DSI_TEST_PATTERN_GEN_CTRL_EN				0x00000001
++
++#define REG_DSI_TEST_PATTERN_GEN_CMD_MDP_INIT_VAL0		0x00000168
++
++#define REG_DSI_TEST_PATTERN_GEN_CMD_STREAM0_TRIGGER		0x00000180
++#define DSI_TEST_PATTERN_GEN_CMD_STREAM0_TRIGGER_SW_TRIGGER	0x00000001
++
++#define REG_DSI_TPG_MAIN_CONTROL2				0x0000019c
++#define DSI_TPG_MAIN_CONTROL2_CMD_MDP0_CHECKERED_RECTANGLE_PATTERN	0x00000080
++#define DSI_TPG_MAIN_CONTROL2_CMD_MDP1_CHECKERED_RECTANGLE_PATTERN	0x00010000
++#define DSI_TPG_MAIN_CONTROL2_CMD_MDP2_CHECKERED_RECTANGLE_PATTERN	0x02000000
++
+ #define REG_DSI_T_CLK_PRE_EXTEND				0x0000017c
+ #define DSI_T_CLK_PRE_EXTEND_INC_BY_2_BYTECLK			0x00000001
  
 -- 
-2.29.2
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
 _______________________________________________
 Freedreno mailing list
