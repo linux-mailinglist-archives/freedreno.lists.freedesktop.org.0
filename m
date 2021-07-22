@@ -1,61 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEF8B3D2FBD
-	for <lists+freedreno@lfdr.de>; Fri, 23 Jul 2021 00:17:51 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 527643D2FD2
+	for <lists+freedreno@lfdr.de>; Fri, 23 Jul 2021 00:28:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9602A6F469;
-	Thu, 22 Jul 2021 22:17:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF1506F4AE;
+	Thu, 22 Jul 2021 22:28:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
- [IPv6:2607:f8b0:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C96EF6F480;
- Thu, 22 Jul 2021 22:17:48 +0000 (UTC)
-Received: by mail-pl1-x631.google.com with SMTP id f1so977855plt.7;
- Thu, 22 Jul 2021 15:17:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=e+4yPSI4Sw52ZnxaUpGPC1NtBGa97BfMQZfa8dht1vc=;
- b=ebId3pQafrdJYrg5tLuaZQHdo1QsTXSkY+0KtXY1FpWofozX4wfj2bTQui7qcPtgUh
- Esg9UvUZcuUDC7DNrxQLgZJS5nqtjgx/CsFPe/klY+nG0eAw4KDAjsDAZXBbAg4Pu1Fb
- I8xZ+LbLu8Fju+P+yKf0+cTYd1QNtekC3Vbvg2yDNHshs0PAiN1Ii9LUNAse9rt+RIHr
- +z9X2TpxRKPBSo/TlC9s6jT917MWl150wkdEeAukH79ySaVz5cLtU54K8urEK2m/by1k
- faVAm3mOyRZ47hBUiUBLFByDHWJCjhCmCRjELzQy0UgMeoiuZ90tcEf8Jak1oFDxaArD
- WztA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=e+4yPSI4Sw52ZnxaUpGPC1NtBGa97BfMQZfa8dht1vc=;
- b=f3dOn/qYny1BYE33r+FzxTTYzuxC11gm98Z11VjSqYiDTQrx1LJLii2AP2V05Pn9EU
- 1KtfqF7V/R9LITeJXbtT2vIhyjioItTCxsiS5ihPUQ/Nku95eqx/IJvPEIwC1UASX2if
- ELC86TIUfJMcjauYkOS7YTd2WUWVc8bYee2rFq5Hh50mdGXucMeNkSnHttIzKvUdKXQQ
- ZYNhTHE/SHyhYkjyS/cEuz9kDDj5+kNYfw5Rrz1ZTpT0AYvtYP90dBMhlHdNj0sq97Pn
- r7E9NgxSd9hPGXyqEwQdzJ3VuE2oReGUpJ4rKwl4fhWryr03UvBUra0uSytj9WyavOpw
- FS2A==
-X-Gm-Message-State: AOAM531uS38R88OKPQUUBOhgQcvuqfXyWxSYUCL/3Sca1dr9QYVUWSba
- /SpKEXmDdj24OWd5/wrlMPusiw+4MSbnww==
-X-Google-Smtp-Source: ABdhPJxQuPnhfr+lsj16reAJBxco2WCHD35phGKUb5+VmUZIahKiyZz6hFYSKJKG4OIKeePCz6RS7A==
-X-Received: by 2002:a62:1c14:0:b029:34a:70f5:40da with SMTP id
- c20-20020a621c140000b029034a70f540damr1799546pfc.37.1626992267863; 
- Thu, 22 Jul 2021 15:17:47 -0700 (PDT)
-Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
- by smtp.gmail.com with ESMTPSA id
- 85sm31841316pfz.76.2021.07.22.15.17.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Jul 2021 15:17:46 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Thu, 22 Jul 2021 15:21:41 -0700
-Message-Id: <20210722222145.1759900-4-robdclark@gmail.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210722222145.1759900-1-robdclark@gmail.com>
-References: <20210722222145.1759900-1-robdclark@gmail.com>
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D7836F48E
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Jul 2021 22:28:03 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1626992883; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=K/DRu7ZbFRWkRW5sB/eRdjwaX6w7K6Rjm3k0kWJYiN4=;
+ b=PhTG5hjcxlGudKsImH0BkSuj8gwHzPHWLku4x+4kV2uh0uQr2IYRPCOyJLHmjw+XqLnZqct6
+ W3qQMer0GLuOqpx5aOiQxn6BtWGB4qTfrlQG4Pdx3mJQmz10HfzjQe27Fo1cZHA2TiH+FC6B
+ 6LjVHY0K3ezk292mh18Yw4Xv9Iw=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
+ 60f9f0f2e81205dd0a6244f8 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 22 Jul 2021 22:28:02
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 8BD9FC4338A; Thu, 22 Jul 2021 22:28:02 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 35831C433D3;
+ Thu, 22 Jul 2021 22:28:01 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 3/3] drm/msm: Devfreq tuning
+Date: Thu, 22 Jul 2021 15:28:01 -0700
+From: khsieh@codeaurora.org
+To: Lyude Paul <lyude@redhat.com>
+In-Reply-To: <2da3949fa3504592da42c9d01dc060691c6a8b8b.camel@redhat.com>
+References: <1625585434-9562-1-git-send-email-khsieh@codeaurora.org>
+ <87zguy7c5a.fsf@intel.com> <a514c19f712a6feeddf854dc17cb8eb5@codeaurora.org>
+ <2da3949fa3504592da42c9d01dc060691c6a8b8b.camel@redhat.com>
+Message-ID: <d9ec812b4be57e32246735ca2f5e9560@codeaurora.org>
+X-Sender: khsieh@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v3] drm/dp_mst: Fix return code on sideband
+ message failure
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,225 +65,74 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: mripard@kernel.org, rnayak@codeaurora.org, tzimmermann@suse.de,
+ airlied@linux.ie, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, maarten.lankhorst@linux.intel.com,
+ linux-kernel@vger.kernel.org, abhinavk@codeaurora.org, swboyd@chromium.org,
+ robdclark@gmail.com, Jani Nikula <jani.nikula@linux.intel.com>,
+ daniel@ffwll.ch, aravindh@codeaurora.org, sean@poorly.run,
+ rsubbia@codeaurora.org
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
-
-This adds a few things to try and make frequency scaling better match
-the workload:
-
-1) Longer polling interval to avoid whip-lashing between too-high and
-   too-low frequencies in certain workloads, like mobile games which
-   throttle themselves to 30fps.
-
-   Previously our polling interval was short enough to let things
-   ramp down to minimum freq in the "off" frame, but long enough to
-   not react quickly enough when rendering started on the next frame,
-   leading to uneven frame times.  (Ie. rather than a consistent 33ms
-   it would alternate between 16/33/48ms.)
-
-2) Awareness of when the GPU is active vs idle.  Since we know when
-   the GPU is active vs idle, we can clamp the frequency down to the
-   minimum while it is idle.  (If it is idle for long enough, then
-   the autosuspend delay will eventually kick in and power down the
-   GPU.)
-
-   Since devfreq has no knowledge of powered-but-idle, this takes a
-   small bit of trickery to maintain a "fake" frequency while idle.
-   This, combined with the longer polling period allows devfreq to
-   arrive at a reasonable "active" frequency, while still clamping
-   to minimum freq when idle to reduce power draw.
-
-3) Boost.  Because simple_ondemand needs to see a certain threshold
-   of busyness to ramp up, we could end up needing multiple polling
-   cycles before it reacts appropriately on interactive workloads
-   (ex. scrolling a web page after reading for some time), on top
-   of the already lengthened polling interval, when we see a idle
-   to active transition after a period of idle time we boost the
-   frequency that we return to.
-
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/msm_gpu.c         |  8 +++
- drivers/gpu/drm/msm/msm_gpu.h         |  9 ++++
- drivers/gpu/drm/msm/msm_gpu_devfreq.c | 73 ++++++++++++++++++++++++++-
- 3 files changed, 89 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 70d8610b1b73..68d2df590054 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -667,6 +667,10 @@ static void retire_submit(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
- 	list_del(&submit->node);
- 	spin_unlock(&ring->submit_lock);
- 
-+	/* Update devfreq on transition from active->idle: */
-+	if (atomic_dec_return(&gpu->active_submits) == 0)
-+		msm_devfreq_idle(gpu);
-+
- 	msm_gem_submit_put(submit);
- }
- 
-@@ -747,6 +751,10 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
- 	list_add_tail(&submit->node, &ring->submits);
- 	spin_unlock(&ring->submit_lock);
- 
-+	/* Update devfreq on transition from idle->active: */
-+	if (atomic_inc_return(&gpu->active_submits) == 1)
-+		msm_devfreq_active(gpu);
-+
- 	gpu->funcs->submit(gpu, submit);
- 	priv->lastctx = submit->queue->ctx;
- 
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index ada15e28f251..e14edda3d778 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -84,6 +84,10 @@ struct msm_gpu_devfreq {
- 	struct devfreq *devfreq;
- 	u64 busy_cycles;
- 	ktime_t time;
-+
-+	/* Time and freq of last transition to idle: */
-+	ktime_t idle_time;
-+	unsigned long idle_freq;
- };
- 
- struct msm_gpu {
-@@ -115,6 +119,9 @@ struct msm_gpu {
- 	 */
- 	struct list_head active_list;
- 
-+	/* number of in-flight submits: */
-+	atomic_t active_submits;
-+
- 	/* does gpu need hw_init? */
- 	bool needs_hw_init;
- 
-@@ -384,6 +391,8 @@ void msm_devfreq_init(struct msm_gpu *gpu);
- void msm_devfreq_cleanup(struct msm_gpu *gpu);
- void msm_devfreq_resume(struct msm_gpu *gpu);
- void msm_devfreq_suspend(struct msm_gpu *gpu);
-+void msm_devfreq_active(struct msm_gpu *gpu);
-+void msm_devfreq_idle(struct msm_gpu *gpu);
- 
- int msm_gpu_hw_init(struct msm_gpu *gpu);
- 
-diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-index 2e24a97be624..0a1ee20296a2 100644
---- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-+++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-@@ -22,6 +22,15 @@ static int msm_devfreq_target(struct device *dev, unsigned long *freq,
- 
- 	opp = devfreq_recommended_opp(dev, freq, flags);
- 
-+	/*
-+	 * If the GPU is idle, devfreq is not aware, so just ignore
-+	 * it's requests
-+	 */
-+	if (gpu->devfreq.idle_freq) {
-+		gpu->devfreq.idle_freq = *freq;
-+		return 0;
-+	}
-+
- 	if (IS_ERR(opp))
- 		return PTR_ERR(opp);
- 
-@@ -39,6 +48,9 @@ static int msm_devfreq_target(struct device *dev, unsigned long *freq,
- 
- static unsigned long get_freq(struct msm_gpu *gpu)
- {
-+	if (gpu->devfreq.idle_freq)
-+		return gpu->devfreq.idle_freq;
-+
- 	if (gpu->funcs->gpu_get_freq)
- 		return gpu->funcs->gpu_get_freq(gpu);
- 
-@@ -69,7 +81,8 @@ static int msm_devfreq_get_cur_freq(struct device *dev, unsigned long *freq)
- }
- 
- static struct devfreq_dev_profile msm_devfreq_profile = {
--	.polling_ms = 10,
-+	.timer = DEVFREQ_TIMER_DELAYED,
-+	.polling_ms = 50,
- 	.target = msm_devfreq_target,
- 	.get_dev_status = msm_devfreq_get_dev_status,
- 	.get_cur_freq = msm_devfreq_get_cur_freq,
-@@ -130,3 +143,61 @@ void msm_devfreq_suspend(struct msm_gpu *gpu)
- {
- 	devfreq_suspend_device(gpu->devfreq.devfreq);
- }
-+
-+void msm_devfreq_active(struct msm_gpu *gpu)
-+{
-+	struct msm_gpu_devfreq *df = &gpu->devfreq;
-+	struct devfreq_dev_status status;
-+	unsigned int idle_time;
-+	unsigned long target_freq = df->idle_freq;
-+
-+	/*
-+	 * Hold devfreq lock to synchronize with get_dev_status()/
-+	 * target() callbacks
-+	 */
-+	mutex_lock(&df->devfreq->lock);
-+
-+	idle_time = ktime_to_ms(ktime_sub(ktime_get(), df->idle_time));
-+
-+	/*
-+	 * If we've been idle for a significant fraction of a polling
-+	 * interval, then we won't meet the threshold of busyness for
-+	 * the governor to ramp up the freq.. so give some boost
-+	 */
-+	if (idle_time > msm_devfreq_profile.polling_ms/2) {
-+		target_freq *= 2;
-+	}
-+
-+	df->idle_freq = 0;
-+
-+	msm_devfreq_target(&gpu->pdev->dev, &target_freq, 0);
-+
-+	/*
-+	 * Reset the polling interval so we aren't inconsistent
-+	 * about freq vs busy/total cycles
-+	 */
-+	msm_devfreq_get_dev_status(&gpu->pdev->dev, &status);
-+
-+	mutex_unlock(&df->devfreq->lock);
-+}
-+
-+void msm_devfreq_idle(struct msm_gpu *gpu)
-+{
-+	struct msm_gpu_devfreq *df = &gpu->devfreq;
-+	unsigned long idle_freq, target_freq = 0;
-+
-+	/*
-+	 * Hold devfreq lock to synchronize with get_dev_status()/
-+	 * target() callbacks
-+	 */
-+	mutex_lock(&df->devfreq->lock);
-+
-+	idle_freq = get_freq(gpu);
-+
-+	msm_devfreq_target(&gpu->pdev->dev, &target_freq, 0);
-+
-+	df->idle_time = ktime_get();
-+	df->idle_freq = idle_freq;
-+
-+	mutex_unlock(&df->devfreq->lock);
-+}
--- 
-2.31.1
-
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+T24gMjAyMS0wNy0yMiAxMDo1MywgTHl1ZGUgUGF1bCB3cm90ZToKPiBPbiBUdWUsIDIwMjEtMDct
+MTMgYXQgMTU6MjQgLTA3MDAsIGtoc2llaEBjb2RlYXVyb3JhLm9yZyB3cm90ZToKPj4gT24gMjAy
+MS0wNy0wNyAwMTozNywgSmFuaSBOaWt1bGEgd3JvdGU6Cj4+ID4gT24gVHVlLCAwNiBKdWwgMjAy
+MSwgS3VvZ2VlIEhzaWVoIDxraHNpZWhAY29kZWF1cm9yYS5vcmc+IHdyb3RlOgo+PiA+ID4gRnJv
+bTogUmFqa3VtYXIgU3ViYmlhaCA8cnN1YmJpYUBjb2RlYXVyb3JhLm9yZz4KPj4gPiA+Cj4+ID4g
+PiBDb21taXQgMmYwMTVlYzZlYWI2ICgiZHJtL2RwX21zdDogQWRkIHNpZGViYW5kIGRvd24gcmVx
+dWVzdCB0cmFjaW5nICsKPj4gPiA+IHNlbGZ0ZXN0cyIpIGFkZGVkIHNvbWUgZGVidWcgY29kZSBm
+b3Igc2lkZWJhbmQgbWVzc2FnZSB0cmFjaW5nLiBCdXQKPj4gPiA+IGl0IHNlZW1zIHRvIGhhdmUg
+dW5pbnRlbnRpb25hbGx5IGNoYW5nZWQgdGhlIGJlaGF2aW9yIG9uIHNpZGViYW5kCj4+ID4gPiBt
+ZXNzYWdlCj4+ID4gPiBmYWlsdXJlLiBJdCBjYXRjaGVzIGFuZCByZXR1cm5zIGZhaWx1cmUgb25s
+eSBpZiBEUk1fVVRfRFAgaXMgZW5hYmxlZC4KPj4gPiA+IE90aGVyd2lzZSBpdCBpZ25vcmVzIHRo
+ZSBlcnJvciBjb2RlIGFuZCByZXR1cm5zIHN1Y2Nlc3MuIFNvIG9uIGFuIE1TVAo+PiA+ID4gdW5w
+bHVnLCB0aGUgY2FsbGVyIGlzIHVuYXdhcmUgdGhhdCB0aGUgY2xlYXIgcGF5bG9hZCBtZXNzYWdl
+IGZhaWxlZAo+PiA+ID4gYW5kCj4+ID4gPiBlbmRzIHVwIHdhaXRpbmcgZm9yIDQgc2Vjb25kcyBm
+b3IgdGhlIHJlc3BvbnNlLiBGaXhlcyB0aGUgaXNzdWUgYnkKPj4gPiA+IHJldHVybmluZyB0aGUg
+cHJvcGVyIGVycm9yIGNvZGUuCj4+ID4gPgo+PiA+ID4gQ2hhbmdlcyBpbiBWMjoKPj4gPiA+IC0t
+IFJldmlzZSBjb21taXQgdGV4dCBhcyByZXZpZXcgY29tbWVudAo+PiA+ID4gLS0gYWRkIEZpeGVz
+IHRleHQKPj4gPiA+Cj4+ID4gPiBDaGFuZ2VzIGluIFYzOgo+PiA+ID4gLS0gcmVtb3ZlICJ1bmxp
+a2VseSIgb3B0aW1pemF0aW9uCj4+ID4gPgo+PiA+ID4gRml4ZXM6IDJmMDE1ZWM2ZWFiNiAoImRy
+bS9kcF9tc3Q6IEFkZCBzaWRlYmFuZCBkb3duIHJlcXVlc3QgdHJhY2luZyArCj4+ID4gPiBzZWxm
+dGVzdHMiKQo+PiA+ID4KPj4gPiA+IFNpZ25lZC1vZmYtYnk6IFJhamt1bWFyIFN1YmJpYWggPHJz
+dWJiaWFAY29kZWF1cm9yYS5vcmc+Cj4+ID4gPiBTaWduZWQtb2ZmLWJ5OiBLdW9nZWUgSHNpZWgg
+PGtoc2llaEBjb2RlYXVyb3JhLm9yZz4KPj4gPiA+Cj4+ID4gPiBSZXZpZXdlZC1ieTogU3RlcGhl
+biBCb3lkIDxzd2JveWRAY2hyb21pdW0ub3JnPgo+PiA+Cj4+ID4gUmV2aWV3ZWQtYnk6IEphbmkg
+TmlrdWxhIDxqYW5pLm5pa3VsYUBpbnRlbC5jb20+Cj4+ID4KPj4gPgo+PiA+ID4gLS0tCj4+IEx5
+dWRlLAo+PiBBbnkgY29tbWVudHMgZnJvbSB5b3U/Cj4+IFRoYW5rcywKPiAKPiBIZXkhIFNvcnJ5
+IGRpZCBJIGZvcmdldCB0byByZXNwb25kIHRvIHRoaXM/Cj4gCj4gUmV2aWV3ZWQtYnk6IEx5dWRl
+IFBhdWwgPGx5dWRlQHJlZGhhdC5jb20+Cj4gCgpJdCBsb29rcyBsaWtlIHRoaXMgcGF0Y2ggaXMg
+Z29vZCB0byBnbyAobWFpbmxpbmVkKS4KQW55dGhpbmcgbmVlZGVkIGZyb20gbWUgdG8gZG8/ClRo
+YW5rcywKCj4+IAo+PiA+ID4gwqBkcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5j
+IHwgMTAgKysrKysrLS0tLQo+PiA+ID4gwqAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCsp
+LCA0IGRlbGV0aW9ucygtKQo+PiA+ID4KPj4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vZHJtX2RwX21zdF90b3BvbG9neS5jCj4+ID4gPiBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHBf
+bXN0X3RvcG9sb2d5LmMKPj4gPiA+IGluZGV4IDE1OTAxNDQuLmRmOTExMTAgMTAwNjQ0Cj4+ID4g
+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jCj4+ID4gPiArKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jCj4+ID4gPiBAQCAtMjg4Nywx
+MSArMjg4NywxMyBAQCBzdGF0aWMgaW50IHByb2Nlc3Nfc2luZ2xlX3R4X3Fsb2NrKHN0cnVjdAo+
+PiA+ID4gZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1nciwKPj4gPiA+IMKgwqDCoMKgwqDCoMKg
+wqBpZHggKz0gdG9zZW5kICsgMTsKPj4gPiA+Cj4+ID4gPiDCoMKgwqDCoMKgwqDCoMKgcmV0ID0g
+ZHJtX2RwX3NlbmRfc2lkZWJhbmRfbXNnKG1nciwgdXAsIGNodW5rLCBpZHgpOwo+PiA+ID4gLcKg
+wqDCoMKgwqDCoMKgaWYgKHVubGlrZWx5KHJldCkgJiYgZHJtX2RlYnVnX2VuYWJsZWQoRFJNX1VU
+X0RQKSkgewo+PiA+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHN0cnVjdCBkcm1f
+cHJpbnRlciBwID0gZHJtX2RlYnVnX3ByaW50ZXIoREJHX1BSRUZJWCk7Cj4+ID4gPiArwqDCoMKg
+wqDCoMKgwqBpZiAocmV0KSB7Cj4+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+aWYgKGRybV9kZWJ1Z19lbmFibGVkKERSTV9VVF9EUCkpIHsKPj4gPiA+ICvCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgc3RydWN0IGRybV9wcmludGVyIHAgPQo+
+PiA+ID4gZHJtX2RlYnVnX3ByaW50ZXIoREJHX1BSRUZJWCk7Cj4+ID4gPgo+PiA+ID4gLcKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGRybV9wcmludGYoJnAsICJzaWRlYmFuZCBtc2cgZmFp
+bGVkIHRvIHNlbmRcbiIpOwo+PiA+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGRy
+bV9kcF9tc3RfZHVtcF9zaWRlYmFuZF9tc2dfdHgoJnAsIHR4bXNnKTsKPj4gPiA+ICvCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgZHJtX3ByaW50ZigmcCwgInNp
+ZGViYW5kIG1zZyBmYWlsZWQgdG8gc2VuZFxuIik7Cj4+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGRybV9kcF9tc3RfZHVtcF9zaWRlYmFuZF9tc2df
+dHgoJnAsIHR4bXNnKTsKPj4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqB9Cj4+
+ID4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJldHVybiByZXQ7Cj4+ID4gPiDC
+oMKgwqDCoMKgwqDCoMKgfQo+PiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KRnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+ZnJlZWRyZW5vCg==
