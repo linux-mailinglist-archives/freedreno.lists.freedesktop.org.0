@@ -1,58 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C14E33D2C83
-	for <lists+freedreno@lfdr.de>; Thu, 22 Jul 2021 21:14:25 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 30A963D2C92
+	for <lists+freedreno@lfdr.de>; Thu, 22 Jul 2021 21:15:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70FC66E7D0;
-	Thu, 22 Jul 2021 19:14:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C223D6E84F;
+	Thu, 22 Jul 2021 19:15:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
- [IPv6:2607:f8b0:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 666486E822
- for <freedreno@lists.freedesktop.org>; Thu, 22 Jul 2021 19:14:23 +0000 (UTC)
-Received: by mail-oi1-x236.google.com with SMTP id t143so7727398oie.8
- for <freedreno@lists.freedesktop.org>; Thu, 22 Jul 2021 12:14:23 -0700 (PDT)
+Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
+ [IPv6:2607:f8b0:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3A196E7D0
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Jul 2021 19:15:50 +0000 (UTC)
+Received: by mail-ot1-x336.google.com with SMTP id
+ j1-20020a0568302701b02904d1f8b9db81so6269176otu.12
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Jul 2021 12:15:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=wSvpCRiJmPrrtav1DmRC8DqUe0S6Omo2vxlNGYfx92Q=;
- b=Go+wWAXUxyLK4e/Lq/KcAs1fXB+LWfLLQGaA8F9OwN0D7tI2y8wDFaSbucrENDCWwg
- wF5r2zdEqu9iOztnA/2aZEePbF7+AIVFkvkIK5FZl2o0Zy0ITF4L9CNjlzoOsS4sRSEF
- V1sSVkDnZA03rV6XsH94QXCNGpRxh4VuKb+28=
+ bh=EusEYbQ13bFWsLQf0HYpb/wdiNyPX9L+F2ViR+RO33Y=;
+ b=D+iysSmfAuVRkVd1YCYohemSgnbS7Iy5ZzkvKR3YyklHA+zasDTCgz+zlrYctzR1wL
+ XdFzJdjD60jMBjjnHX03lBmHM5x+f8uWfK8s2/CYBx5lCppC463LwBRMfxza0K3f/wWy
+ UfdzO0P+5ciJiKjBzO/O61wwUDVvT2F8Pd+xc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=wSvpCRiJmPrrtav1DmRC8DqUe0S6Omo2vxlNGYfx92Q=;
- b=F2PcYhs+xojMirUqqakS5tZ/avwvA1U6W7BdvQEe2dQYwwhOBS6btd7iHr+FXh4paZ
- //ig6RZVV2LmNPj14MJOh3xDULz/6gQJqpFQ/evidzxtfnm0ugaS9eTaKMliAx5MIWAL
- /v9tN4opf4QM5kdI0TA2i97lOGWXOUI7ymton3TRx1Ytj1gPcawbj0Gd0p1DCCEaQXfU
- z/AtZtAAhTdojEJyGQTAQ37J1tQG5wuf5chELGpS3ixa06OoJ1yT8JwLGnbw4QaoLwTh
- sgloX0Qu/zpsbWSKOq/rYmyW9l8+S46JdUFa1AnIUiaNLWz1+/IMgqlF0VGnz5tvCBcg
- OQOQ==
-X-Gm-Message-State: AOAM5319Qo84hLxagpoq4rTjr/3JDv1mXidaJLAACwEJWHcm7MqaxyHX
- gFlowDQtvRPnI+uj3U1X2WeOEHmqVmC8VM+IOO9z4w==
-X-Google-Smtp-Source: ABdhPJw7Jt83PWgkfrVNzrviXsR60shUZD8zaTYGns8S9nFsjxPcFIie+Z6Wfga+wCD/0nvVj837eKPNf/ac32p/eOQ=
-X-Received: by 2002:a05:6808:114a:: with SMTP id
- u10mr1052996oiu.19.1626981262785; 
- Thu, 22 Jul 2021 12:14:22 -0700 (PDT)
+ bh=EusEYbQ13bFWsLQf0HYpb/wdiNyPX9L+F2ViR+RO33Y=;
+ b=qQiEwqFslZ6bZLDEfKc34yEj8zyv/rY5kYAc0lW44kj+F7ECi2ucKBlCWO29ewQ84J
+ UGX0V5r8aaHs5oRSjWNaGoYxuGPmYc2yBw+ifknz6iu2iGGqo8SlpNa5BWdG+Ny4HbML
+ 0C9vvYWLTJnC7s0ek3rUsosSYGd7DMc+Y6xIY4pdQLrYI6KS2QYUkfzrCbcMV65FsAb8
+ jg/t7vtdAKjeoEWJfFJ0dIRAISXlbrVVnzpJkS86RVomcDttCIUi5za3G4e/IPickS2d
+ qvohVl+s0SanM5yCDHsVK6w3Eq7S+Rm3mM7DWpBo/xP0IrYTm8icbp2rWogOFZwEf4lJ
+ Oatw==
+X-Gm-Message-State: AOAM532iCnJvZKoRaNf6BlzmQZHr30OTvLNZdJWHFCxNguCeoIxtpyVe
+ S+CSPA20fvmfNeK0j/IjHwoMoDuIDu4r+LkAnByBCg==
+X-Google-Smtp-Source: ABdhPJxZi6ghcXO9BFFOzhyS7XDAHh9cxgA1qHQYoljh9jZDXj31sg2BDKAeSnxi1yD6Oc1FE7A9cj0f1/F2ivB0p2U=
+X-Received: by 2002:a9d:650e:: with SMTP id i14mr859418otl.233.1626981350381; 
+ Thu, 22 Jul 2021 12:15:50 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 22 Jul 2021 19:14:21 +0000
+ HTTPREST; Thu, 22 Jul 2021 19:15:50 +0000
 MIME-Version: 1.0
-In-Reply-To: <1626191647-13901-8-git-send-email-khsieh@codeaurora.org>
+In-Reply-To: <1626191647-13901-7-git-send-email-khsieh@codeaurora.org>
 References: <1626191647-13901-1-git-send-email-khsieh@codeaurora.org>
- <1626191647-13901-8-git-send-email-khsieh@codeaurora.org>
+ <1626191647-13901-7-git-send-email-khsieh@codeaurora.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.9.1
-Date: Thu, 22 Jul 2021 19:14:21 +0000
-Message-ID: <CAE-0n525b3V9D+aT_xwHQK-g6SjAXse4j7f1wHQHzeL3EEFV_w@mail.gmail.com>
+Date: Thu, 22 Jul 2021 19:15:49 +0000
+Message-ID: <CAE-0n53e0cM2dFxwOGwUTW+u-X8yTPka1HyzAPPcuwq43zBh4w@mail.gmail.com>
 To: Kuogee Hsieh <khsieh@codeaurora.org>, dri-devel@lists.freedesktop.org, 
  robdclark@gmail.com, sean@poorly.run
-Subject: Re: [Freedreno] [PATCH v2 7/7] drm/msm/dp: retrain link when loss
- of symbol lock detected
+Subject: Re: [Freedreno] [PATCH v2 6/7] drm/msm/dp: do not end dp link
+ training until video is ready
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,41 +74,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2021-07-13 08:54:07)
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index 6a013b0..20951c8 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -1638,6 +1638,25 @@ static bool dp_ctrl_clock_recovery_any_ok(
->         return drm_dp_clock_recovery_ok(link_status, lane_count);
->  }
+Quoting Kuogee Hsieh (2021-07-13 08:54:06)
+> Initialize both pre-emphasis and voltage swing level to 0 before
+> start link training and do not end link training until video is
+> ready to reduce the period between end of link training and video
+> start to meet Link Layer CTS requirement.  This fixes Link Layer
+> CTS cases 4.3.2.1, 4.3.2.2, 4.3.2.3 and 4.3.2.4.
 >
-> +static bool dp_ctrl_loss_symbol_lock(struct dp_ctrl_private *ctrl)
-> +{
-> +       u8 link_status[DP_LINK_STATUS_SIZE];
-> +       u8 status;
-> +       int i;
-> +       int num_lanes = ctrl->link->link_params.num_lanes;
-> +
-> +       dp_ctrl_read_link_status(ctrl, link_status);
-> +
-> +       for (i = 0; i < num_lanes; i++) {
-> +               status = link_status[i / 2];
-> +               status >>= ((i % 2) * 4);
-> +               if (!(status & DP_LANE_SYMBOL_LOCKED))
-> +                       return true;
-> +       }
-> +
-> +       return false;
-> +}
+> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+> ---
 
-Can this function move to drivers/gpu/drm/drm_dp_helper.c and be called
-drm_dp_symbol_locked()?
+Any fixes tag?
 
-> +
->  int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
->  {
->         int rc = 0;
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
