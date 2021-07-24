@@ -2,56 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54A673D4197
-	for <lists+freedreno@lfdr.de>; Fri, 23 Jul 2021 22:33:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EBCF3D4435
+	for <lists+freedreno@lfdr.de>; Sat, 24 Jul 2021 03:30:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6478B6EA79;
-	Fri, 23 Jul 2021 20:33:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A54146FC89;
+	Sat, 24 Jul 2021 01:30:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BED36EAA8
- for <freedreno@lists.freedesktop.org>; Fri, 23 Jul 2021 20:33:12 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1627072393; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=lxM7FSYBNI/KMt33mBjhA8tdIQ6+GVXlVgXqExsNcZI=;
- b=LN+e1x/B42MhCmsy3d7FQPJEyHJR65SA3AaGSfNGye9NGv+XUOedb+mArLKZ2y7ZNiSTELV/
- m4fij3NpnirBT88bn7jetNpC7qdVJ7bG6Z9wiaLnIlcg3yiVrqF6tlKzUMvhVxR0Djku74+9
- jCinSGUOFhznk/odwYyKiOPr4RA=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
- 60fb27864815712f3aef47ad (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 23 Jul 2021 20:33:10
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 78F7FC433D3; Fri, 23 Jul 2021 20:33:09 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 5EC2CC433F1;
- Fri, 23 Jul 2021 20:33:07 +0000 (UTC)
+Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
+ [IPv6:2607:f8b0:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4B076EDA6
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Jul 2021 01:30:45 +0000 (UTC)
+Received: by mail-ot1-x336.google.com with SMTP id
+ i39-20020a9d17270000b02904cf73f54f4bso1993390ota.2
+ for <freedreno@lists.freedesktop.org>; Fri, 23 Jul 2021 18:30:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=tjbmf6QXY2W+Nbmim38kusmymcjWfC+qA2fJ0iXz/KI=;
+ b=TvMAXp3spDk29OHAgsCRBMxgaNUv7OxrmCsvfJ+ETQoSwRwlR2ZUtSUKDs8vKW9/a5
+ eyNIiNN3DmeHQ4jAREQS5+IneCe1j9UcoRkzyJMkkH8llJVXTW25v4Gr7WcNIMEVPua5
+ CuUBpI0pgpUfrptIpyJFOpaTyh+mPcY7LqAXw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=tjbmf6QXY2W+Nbmim38kusmymcjWfC+qA2fJ0iXz/KI=;
+ b=iZf9TijM1+J+G7udOK5jJjNxWNc8Di/Ns0554LqJslJ/GdjTGzMFmaW++7DhKyssgP
+ rS8p3iT83ZzCYT9ca0P3HhTK0asjXg7N+GfIhDMN3nkjoeVIghHa1XMSnGGzl0ZiGH1q
+ oi30s13JAmsJZe3jiw8pjXR6xOe+5fvZe4+mWeeIL8NI8mjD8T6retYbWKg4ry/10vMJ
+ ctxn2t5GiwNf/JitX+ZevkkdBrCNMUMQPzM+vdo8lPxct5a4vNCeoTalS0Lg0lqv+Z8s
+ Jsqxg56GJHlVRxaUHhKNeSuWTfdhKsLnZERhCbkNrEQlzw2kYGK3sJcOcDwUUY2n/w+8
+ bpIw==
+X-Gm-Message-State: AOAM533bYDqON5FMn+0RT3+OaWMdZDREspFePItJbXc/ah3+9Rc/p1Wl
+ J74XbbHEJX3FBkttXipquM3m/RlB9qzuNPo5RI7plw==
+X-Google-Smtp-Source: ABdhPJyMMeaqCnCa3wyaRvlhO9ED0pMArlJie8NNlQ/fzjJggDf1wrB8rH/daTcBCqUMYrRcXJU5OfMQ5B84Q+o0PeM=
+X-Received: by 2002:a9d:8c7:: with SMTP id 65mr4898349otf.25.1627090244863;
+ Fri, 23 Jul 2021 18:30:44 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 23 Jul 2021 18:30:44 -0700
 MIME-Version: 1.0
-Date: Fri, 23 Jul 2021 13:33:07 -0700
-From: abhinavk@codeaurora.org
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-In-Reply-To: <20210722024227.3313096-6-bjorn.andersson@linaro.org>
-References: <20210722024227.3313096-1-bjorn.andersson@linaro.org>
- <20210722024227.3313096-6-bjorn.andersson@linaro.org>
-Message-ID: <2d969e35f13b6a5313a901ac8b6dde9e@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH 5/5] drm/msm/dp: Allow sub-regions to be
- specified in DT
+In-Reply-To: <1627039254-13083-1-git-send-email-akhilpo@codeaurora.org>
+References: <1627039254-13083-1-git-send-email-akhilpo@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Fri, 23 Jul 2021 18:30:44 -0700
+Message-ID: <CAE-0n51+165pgZ5tgxmw_+7i2uYLXxAazYYkCKce0UuhfSHxbQ@mail.gmail.com>
+To: Akhil P Oommen <akhilpo@codeaurora.org>, bjorn.andersson@linaro.org, 
+ freedreno@lists.freedesktop.org, georgi.djakov@linaro.org, robh+dt@kernel.org, 
+ robh@kernel.org
+Subject: Re: [Freedreno] [PATCH] arm64: dts: qcom: sc7280: Add gpu support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,101 +64,164 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Kuogee Hsieh <khsieh@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Tanmay Shah <tanmay@codeaurora.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- Sean Paul <sean@poorly.run>, Chandan Uddaraju <chandanu@codeaurora.org>
+Cc: dianders@chromium.org, jonathan@marek.ca, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, jordan@cosmicpenguin.net, robdclark@gmail.com,
+ mka@chromium.org, dri-devel@freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-07-21 19:42, Bjorn Andersson wrote:
-> Not all platforms has P0 at an offset of 0x1000 from the base address,
-> so add support for specifying each sub-region in DT. The code falls 
-> back
-> to the predefined offsets in the case that only a single reg is
-> specified, in order to support existing DT.
-> 
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-The change itself looks good, hence
-Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
-
-But as a follow up to this change, can we move the existing DP DT on
-sc7180 to this model and then drop this legacy path?
-
-That will clean this up nicely.
-
+Quoting Akhil P Oommen (2021-07-23 04:20:54)
+> Add the necessary dt nodes for gpu support in sc7280.
+>
+> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
 > ---
->  drivers/gpu/drm/msm/dp/dp_parser.c | 49 +++++++++++++++++++++++-------
->  1 file changed, 38 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_parser.c
-> b/drivers/gpu/drm/msm/dp/dp_parser.c
-> index 1a10901ae574..fc8a6452f641 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_parser.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_parser.c
-> @@ -63,18 +63,45 @@ static int dp_parser_ctrl_res(struct dp_parser 
-> *parser)
->  		return PTR_ERR(dss->ahb);
->  	}
-> 
-> -	if (dss->ahb_len < DP_DEFAULT_P0_OFFSET + DP_DEFAULT_P0_SIZE) {
-> -		DRM_ERROR("legacy memory region not large enough\n");
-> -		return -EINVAL;
-> -	}
-> +	dss->aux = dp_ioremap(pdev, 1, &dss->aux_len);
-> +	if (IS_ERR(dss->aux)) {
-> +		/*
-> +		 * The initial binding had a single reg, but in order to
-> +		 * support variation in the sub-region sizes this was split.
-> +		 * dp_ioremap() will fail with -ENODEV here if only a single
-> +		 * reg is specified, so fill in the sub-region offsets and
-> +		 * lengths based on this single region.
-> +		 */
-> +		if (PTR_ERR(dss->aux) == -ENODEV) {
-> +			if (dss->ahb_len < DP_DEFAULT_P0_OFFSET + DP_DEFAULT_P0_SIZE) {
-> +				DRM_ERROR("legacy memory region not large enough\n");
-> +				return -EINVAL;
-> +			}
+> This patch has dependency on the GPUCC bindings patch here:
+> https://patchwork.kernel.org/project/linux-arm-msm/patch/1619519590-3019-4-git-send-email-tdas@codeaurora.org/
+>
+>  arch/arm64/boot/dts/qcom/sc7280.dtsi | 107 +++++++++++++++++++++++++++++++++++
+>  1 file changed, 107 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> index 029723a..beb313c 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> @@ -16,6 +16,8 @@
+>  #include <dt-bindings/reset/qcom,sdm845-pdc.h>
+>  #include <dt-bindings/soc/qcom,rpmh-rsc.h>
+>  #include <dt-bindings/thermal/thermal.h>
+> +#include <dt-bindings/interconnect/qcom,sc7280.h>
+> +#include <dt-bindings/clock/qcom,gpucc-sc7280.h>
+
+Please sort this alphabetically.
+
+>
+>  / {
+>         interrupt-parent = <&intc>;
+> @@ -592,6 +594,111 @@
+>                         qcom,bcm-voters = <&apps_bcm_voter>;
+>                 };
+>
+> +               gpu: gpu@3d00000 {
+
+Will this label be used? If not, please don't add it.
+
+> +                       compatible = "qcom,adreno-635.0", "qcom,adreno";
+> +                       #stream-id-cells = <16>;
+> +                       reg = <0 0x03d00000 0 0x40000>, <0 0x03d9e000 0 0x1000>,
+> +                               <0 0x03d61000 0 0x800>;
+> +                       reg-names = "kgsl_3d0_reg_memory", "cx_mem", "cx_dbgc";
+
+I'd prefer to see one reg and reg-names per line if the list is longer
+than one line.
+
+		reg = < >,
+		      < >,
+		      < >;
+		reg-names = " ",
+		            " ",
+			    " ";
+
+It makes is much easier to figure out which property lines up with which
+name.
+
+> +                       interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
+> +                       iommus = <&adreno_smmu 0 0x401>;
+> +                       operating-points-v2 = <&gpu_opp_table>;
+> +                       qcom,gmu = <&gmu>;
+> +                       interconnects = <&gem_noc MASTER_GFX3D 0 &mc_virt SLAVE_EBI1 0>;
+> +                       interconnect-names = "gfx-mem";
 > +
-> +			dss->ahb_len = DP_DEFAULT_AHB_SIZE;
-> +			dss->aux = dss->ahb + DP_DEFAULT_AUX_OFFSET;
-> +			dss->aux_len = DP_DEFAULT_AUX_SIZE;
-> +			dss->link = dss->ahb + DP_DEFAULT_LINK_OFFSET;
-> +			dss->link_len = DP_DEFAULT_LINK_SIZE;
-> +			dss->p0 = dss->ahb + DP_DEFAULT_P0_OFFSET;
-> +			dss->p0_len = DP_DEFAULT_P0_SIZE;
-> +		} else {
-> +			DRM_ERROR("unable to remap aux region: %pe\n", dss->aux);
-> +			return PTR_ERR(dss->aux);
-> +		}
-> +	} else {
-> +		dss->link = dp_ioremap(pdev, 2, &dss->link_len);
-> +		if (IS_ERR(dss->link)) {
-> +			DRM_ERROR("unable to remap link region: %pe\n", dss->link);
-> +			return PTR_ERR(dss->link);
-> +		}
-> 
-> -	dss->ahb_len = DP_DEFAULT_AHB_SIZE;
-> -	dss->aux = dss->ahb + DP_DEFAULT_AUX_OFFSET;
-> -	dss->aux_len = DP_DEFAULT_AUX_SIZE;
-> -	dss->link = dss->ahb + DP_DEFAULT_LINK_OFFSET;
-> -	dss->link_len = DP_DEFAULT_LINK_SIZE;
-> -	dss->p0 = dss->ahb + DP_DEFAULT_P0_OFFSET;
-> -	dss->p0_len = DP_DEFAULT_P0_SIZE;
-> +		dss->p0 = dp_ioremap(pdev, 3, &dss->p0_len);
-> +		if (IS_ERR(dss->p0)) {
-> +			DRM_ERROR("unable to remap p0 region: %pe\n", dss->p0);
-> +			return PTR_ERR(dss->p0);
-> +		}
-> +	}
-> 
->  	io->phy = devm_phy_get(&pdev->dev, "dp");
->  	if (IS_ERR(io->phy))
+> +                       gpu_opp_table: opp-table {
+> +                               compatible = "operating-points-v2";
+> +
+> +                               opp-550000000 {
+> +                                       opp-hz = /bits/ 64 <550000000>;
+> +                                       opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
+> +                                       opp-peak-kBps = <6832000>;
+> +                               };
+> +
+> +                               opp-450000000 {
+> +                                       opp-hz = /bits/ 64 <450000000>;
+> +                                       opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
+> +                                       opp-peak-kBps = <4068000>;
+> +                               };
+> +
+> +                               opp-315000000 {
+> +                                       opp-hz = /bits/ 64 <315000000>;
+> +                                       opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
+> +                                       opp-peak-kBps = <1804000>;
+> +                               };
+> +                       };
+> +               };
+> +
+> +               adreno_smmu: iommu@3da0000 {
+
+3da0000 comes after 3d69000, please sort this by unit address.
+
+> +                       compatible = "qcom,sc7280-smmu-500", "qcom,adreno-smmu", "arm,mmu-500";
+> +                       reg = <0 0x03da0000 0 0x20000>;
+> +                       #iommu-cells = <2>;
+> +                       #global-interrupts = <2>;
+> +                       interrupts = <GIC_SPI 673 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 675 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 678 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 679 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 680 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 681 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 682 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 683 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 684 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 685 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 686 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 687 IRQ_TYPE_LEVEL_HIGH>;
+> +
+> +                       clocks = <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
+> +                                       <&gcc GCC_GPU_SNOC_DVM_GFX_CLK>,
+> +                                       <&gpucc GPU_CC_AHB_CLK>,
+> +                                       <&gpucc GPU_CC_HLOS1_VOTE_GPU_SMMU_CLK>,
+> +                                       <&gpucc GPU_CC_CX_GMU_CLK>,
+> +                                       <&gpucc GPU_CC_HUB_CX_INT_CLK>,
+> +                                       <&gpucc GPU_CC_HUB_AON_CLK>;
+> +                       clock-names = "gcc_gpu_memnoc_gfx_clk",
+> +                                       "gcc_gpu_snoc_dvm_gfx_clk",
+> +                                       "gpu_cc_ahb_clk",
+> +                                       "gpu_cc_hlos1_vote_gpu_smmu_clk",
+> +                                       "gpu_cc_cx_gmu_clk",
+> +                                       "gpu_cc_hub_cx_int_clk",
+> +                                       "gpu_cc_hub_aon_clk";
+> +
+> +                       power-domains = <&gpucc GPU_CC_CX_GDSC>;
+> +               };
+> +
+> +               gmu: gmu@3d69000 {
+> +                       compatible="qcom,adreno-gmu-635.0", "qcom,adreno-gmu";
+> +                       reg = <0 0x03d6a000 0 0x34000>,
+> +                               <0 0x3de0000 0 0x10000>,
+> +                               <0 0x0b290000 0 0x10000>;
+> +                       reg-names = "gmu", "rscc", "gmu_pdc";
+> +                       interrupts = <GIC_SPI 304 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH>;
+> +                       interrupt-names = "hfi", "gmu";
+> +                       clocks = <&gpucc GPU_CC_CX_GMU_CLK>,
+> +                                       <&gpucc GPU_CC_CXO_CLK>,
+> +                                       <&gcc GCC_DDRSS_GPU_AXI_CLK>,
+> +                                       <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
+> +                                       <&gpucc GPU_CC_AHB_CLK>,
+> +                                       <&gpucc GPU_CC_HUB_CX_INT_CLK>,
+> +                                       <&gpucc GPU_CC_HLOS1_VOTE_GPU_SMMU_CLK>;
+> +                       clock-names = "gmu", "cxo", "axi", "memnoc", "ahb",
+> +                                       "hub", "smmu_vote";
+
+Same comment about one line per clock for clock-names so we can easily
+match them up.
+
+> +                       power-domains = <&gpucc GPU_CC_CX_GDSC>, <&gpucc GPU_CC_GX_GDSC>;
+> +                       power-domain-names = "cx", "gx";
+> +                       iommus = <&adreno_smmu 5 0x400>;
+> +                       operating-points-v2 = <&gmu_opp_table>;
+> +
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
