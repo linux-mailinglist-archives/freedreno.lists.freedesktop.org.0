@@ -2,51 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E01C13D50C8
-	for <lists+freedreno@lfdr.de>; Mon, 26 Jul 2021 02:38:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B53F13D52EF
+	for <lists+freedreno@lfdr.de>; Mon, 26 Jul 2021 07:52:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E98356E194;
-	Mon, 26 Jul 2021 00:38:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC6406E5A5;
+	Mon, 26 Jul 2021 05:47:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-vs1-xe36.google.com (mail-vs1-xe36.google.com
- [IPv6:2607:f8b0:4864:20::e36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EF9D6E409
- for <freedreno@lists.freedesktop.org>; Mon, 26 Jul 2021 00:38:31 +0000 (UTC)
-Received: by mail-vs1-xe36.google.com with SMTP id o8so4384995vss.4
- for <freedreno@lists.freedesktop.org>; Sun, 25 Jul 2021 17:38:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=F0mFops6RFErjroa43HvDO5zUgCqDjDqGwKgr6A7M1o=;
- b=DtdjnnRqJinXS0Ban1Ir953X0mfQbJEb2Xa/Ta0fLXzYhwgutFhYL2YROXaexbXGMn
- VXyWXx3atQipGspV3b5Th0QdD68XMZFxF8T6rOSWHYVmKOq6JAVE5utF37BM5JyUAhRj
- SCrFhaSYK34ZovN9XuywdayV89MqBt8oVNXmY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=F0mFops6RFErjroa43HvDO5zUgCqDjDqGwKgr6A7M1o=;
- b=qTNADWprKaGA3KbF9m4MigJT2WVe9GfJ0XdgEDRMwoWyZaI7TXLXKT67ii4KHCJY/w
- VoV7uqdCGz3orVKDMkWPPHNuidckMlAu15tO7EkIp4GSD9e977J946JJELMFQqSFi0Nb
- LqXnLAQL8KQCw4q/luqgnGEA/ygtkk6T0YOCW2fyI6rlPENU6MZvP9mrmYaWg6T2SS+L
- ddX9YISpp4g7MXTgHEK50mg9yXvkVNj3Qf6DZ4DzphSwOdwnUYblJss8c5ZFxz9k7QJ+
- IdDQtBeUBiRMgmtzfhG/rM98MtE/QA6IZES5BD8ckiIn1ITw78+zA1nrp/1gal/3DziJ
- RJ9Q==
-X-Gm-Message-State: AOAM53232Df9BPCpHk2q10eHygmRIGISl2Pfe+aqZOUGzPhX3NOCkLOz
- YkGUZJLI/sIjRxLiM9fkEOH/Gr/4lZJeOQpJrNEJgQ==
-X-Google-Smtp-Source: ABdhPJwcIKgRTaxQjcesm8x84bNSb+rcNFoCFmDo8gL7peOWVGssJgE8s7+tDPE15BmNmDvdO+39bvoyKS9VKaZEQHE=
-X-Received: by 2002:a67:e1c7:: with SMTP id p7mr10528020vsl.21.1627259909995; 
- Sun, 25 Jul 2021 17:38:29 -0700 (PDT)
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D58E36E5A2
+ for <freedreno@lists.freedesktop.org>; Mon, 26 Jul 2021 05:47:15 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1627278437; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
+ Subject: Sender; bh=+YYshN0Fg+rdtEFVDKY1g2/gdCqUBEKT3aEs8StFQBQ=;
+ b=N9kRjnx3h0Nh+I4NZlAtluKZftOEqPuNXdDEb/rMR2/G6vBKMB1B6PVxJBtlfLWGN5xaCzPc
+ GjInTMPH7ifOmH6CTa+WcF4mifBEF7YWeQ2KOpHFNsc/rBFCeIT8nfeu+43rjTCedc/dT3XG
+ sjJNE0s836/rOWdh14RdZWnmR0I=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
+ 60fe4c57e31d882d18b9cc65 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 26 Jul 2021 05:47:03
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id AB35EC4338A; Mon, 26 Jul 2021 05:47:03 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-4.0 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ NICE_REPLY_A,SPF_FAIL,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+ version=3.4.0
+Received: from [192.168.1.105] (unknown [59.89.230.111])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id F1D94C433D3;
+ Mon, 26 Jul 2021 05:46:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org F1D94C433D3
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=akhilpo@codeaurora.org
+To: Rob Clark <robdclark@gmail.com>
+References: <1627036688-1426-1-git-send-email-akhilpo@codeaurora.org>
+ <1627036688-1426-2-git-send-email-akhilpo@codeaurora.org>
+ <CAF6AEGvn3BEJDS_8jDqVNfV6Z5GKdtETkFyMnBoG5ONsMZi5Xg@mail.gmail.com>
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+Message-ID: <abcaf350-77ea-7ce8-8854-67a25a02211b@codeaurora.org>
+Date: Mon, 26 Jul 2021 11:16:56 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-References: <20210629074703.v2.1.I629b2366a6591410359c7fcf6d385b474b705ca2@changeid>
- <YP1nmsofOs5KHre+@ravnborg.org>
-In-Reply-To: <YP1nmsofOs5KHre+@ravnborg.org>
-From: Nicolas Boichat <drinkcat@chromium.org>
-Date: Mon, 26 Jul 2021 08:38:18 +0800
-Message-ID: <CANMq1KD_6DoNR9PvO9wrpEQc5BDwx6952mwz0poCw=hu+HsUbw@mail.gmail.com>
-To: Sam Ravnborg <sam@ravnborg.org>
-Subject: Re: [Freedreno] [PATCH v2] drm/dsi: Add _NO_ to MIPI_DSI_* flags
- disabling features
+In-Reply-To: <CAF6AEGvn3BEJDS_8jDqVNfV6Z5GKdtETkFyMnBoG5ONsMZi5Xg@mail.gmail.com>
+Content-Language: en-US
+Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/a6xx: Add support for Adreno 7c
+ Gen 3 gpu
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,462 +72,313 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Andrzej Hajda <a.hajda@samsung.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
- Joonyoung Shim <jy0922.shim@samsung.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Yangtao Li <tiny.windzz@gmail.com>,
- Adrien Grassein <adrien.grassein@gmail.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- MSM <linux-arm-msm@vger.kernel.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
- "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
- Tzung-Bi Shih <tzungbi@google.com>, Pi-Hsun Shih <pihsun@chromium.org>,
- Hsin-Yi Wang <hsinyi@chromium.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Sean Paul <sean@poorly.run>, Xin Ji <xji@analogixsemi.com>,
- linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
- Rajendra Nayak <rnayak@codeaurora.org>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- lkml <linux-kernel@vger.kernel.org>, Robert Foss <robert.foss@linaro.org>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
+Cc: Jonathan <jonathan@marek.ca>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Matthias Kaehlcke <mka@chromium.org>,
+ dri-devel@freedesktop.org, freedreno <freedreno@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Jul 25, 2021 at 9:31 PM Sam Ravnborg <sam@ravnborg.org> wrote:
->
-> On Tue, Jun 29, 2021 at 07:47:21AM +0800, Nicolas Boichat wrote:
-> > Many of the DSI flags have names opposite to their actual effects,
-> > e.g. MIPI_DSI_MODE_EOT_PACKET means that EoT packets will actually
-> > be disabled. Fix this by including _NO_ in the flag names, e.g.
-> > MIPI_DSI_MODE_NO_EOT_PACKET.
-> >
-> > Signed-off-by: Nicolas Boichat <drinkcat@chromium.org>
->
-> Hi Nicolas,
->
-> in this thread:
-> https://lore.kernel.org/dri-devel/20210211113309.1.I629b2366a6591410359c7fcf6d385b474b705ca2@changeid/
-> I see that several people added their Reviewed-by.
->
-> Please either add the tgas if missing, or elaborate why you left them out.
+On 7/24/2021 11:42 PM, Rob Clark wrote:
+> ()
+> 
+> On Fri, Jul 23, 2021 at 3:38 AM Akhil P Oommen <akhilpo@codeaurora.org> wrote:
+>>
+>> This patch adds support for the gpu found in the Snapdragon 7c Gen 3
+>> compute platform. This gpu is similar to the exisiting a660 gpu with
+>> minor delta in the programing sequence. As the Adreno GPUs are moving
+>> away from a numeric chipid based naming scheme to a string, it was
+>> decided to use 0x06030500 as the gpu id of this gpu to communicate
+>> to the userspace driver.
+>>
+>> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+>> ---
+>>   drivers/gpu/drm/msm/adreno/a6xx_gmu.c      | 20 ++++++++++++++++++-
+>>   drivers/gpu/drm/msm/adreno/a6xx_gmu.h      |  1 +
+>>   drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h  |  2 ++
+>>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 21 ++++++++++++++------
+>>   drivers/gpu/drm/msm/adreno/a6xx_hfi.c      | 32 ++++++++++++++++++++++++++++++
+>>   drivers/gpu/drm/msm/adreno/adreno_device.c | 12 +++++++++++
+>>   drivers/gpu/drm/msm/adreno/adreno_gpu.h    | 11 ++++++++--
+>>   7 files changed, 90 insertions(+), 9 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+>> index b349692..332301f 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+>> @@ -933,6 +933,7 @@ int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
+>>
+>>          /* Use a known rate to bring up the GMU */
+>>          clk_set_rate(gmu->core_clk, 200000000);
+>> +       clk_set_rate(gmu->hub_clk, 150000000);
+>>          ret = clk_bulk_prepare_enable(gmu->nr_clocks, gmu->clocks);
+>>          if (ret) {
+>>                  pm_runtime_put(gmu->gxpd);
+>> @@ -1094,6 +1095,7 @@ static void a6xx_gmu_shutdown(struct a6xx_gmu *gmu)
+>>
+>>   int a6xx_gmu_stop(struct a6xx_gpu *a6xx_gpu)
+>>   {
+>> +       struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+>>          struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
+>>          struct msm_gpu *gpu = &a6xx_gpu->base.base;
+>>
+>> @@ -1117,9 +1119,22 @@ int a6xx_gmu_stop(struct a6xx_gpu *a6xx_gpu)
+>>           * domain. Usually the GMU does this but only if the shutdown sequence
+>>           * was successful
+>>           */
+>> -       if (!IS_ERR_OR_NULL(gmu->gxpd))
+>> +       if (!IS_ERR_OR_NULL(gmu->gxpd)) {
+>> +               /*
+>> +                * Toggle the loop_en bit, across disabling the gx gdsc,
+>> +                * with a delay of 10 XO cycles before disabling gx
+>> +                * gdsc. This is to prevent CPR measurements from
+>> +                * failing.
+>> +                */
+>> +               if (adreno_is_a660(adreno_gpu))
+>> +                       gmu_rmw(gmu, REG_A6XX_GPU_CPR_FSM_CTL, 1, 0);
+>> +
+>>                  pm_runtime_put_sync(gmu->gxpd);
+>>
+>> +               if (adreno_is_a660(adreno_gpu))
+>> +                       gmu_rmw(gmu, REG_A6XX_GPU_CPR_FSM_CTL, 1, 1);
+> 
+> This kinda seems like it should be a separate patch.. but I noticed
+> you silently turned adreno_is_a660() into what should probably be
+> adreno_is_a660_family()
+> 
+> I'd suggest to break this out into it's own patch, so it is clear that
+> it effects a660 as well, and then a next patch to rename
+> adreno_is_a660_family()
+> 
+> Longer term, we might want to think about refactoring all the
+> if(adreno_is_xyz()) into a features table (see i915_pci.c for ideas)
 
-Oh simple, I just forgot.
+I agree. This should have been a seperate patch.
 
-I regenerated the patch so it's a bit different from v1... Not 100%
-sure if I can add those, since those were for the overall patch:
-Reviewed-by: Robert Foss <robert.foss@linaro.org>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Reviewed-by: Andrzej Hajda <andrzej.hajda@samsung.com>.
+> 
+>> +       }
+>> +
+>>          clk_bulk_disable_unprepare(gmu->nr_clocks, gmu->clocks);
+>>
+>>          pm_runtime_put_sync(gmu->dev);
+>> @@ -1393,6 +1408,9 @@ static int a6xx_gmu_clocks_probe(struct a6xx_gmu *gmu)
+>>          gmu->core_clk = msm_clk_bulk_get_clock(gmu->clocks,
+>>                  gmu->nr_clocks, "gmu");
+>>
+>> +       gmu->hub_clk = msm_clk_bulk_get_clock(gmu->clocks,
+>> +               gmu->nr_clocks, "hub");
+>> +
+>>          return 0;
+>>   }
+>>
+>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+>> index 71dfa600..3c74f64 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+>> @@ -66,6 +66,7 @@ struct a6xx_gmu {
+>>          int nr_clocks;
+>>          struct clk_bulk_data *clocks;
+>>          struct clk *core_clk;
+>> +       struct clk *hub_clk;
+>>
+>>          /* current performance index set externally */
+>>          int current_perf_index;
+>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h
+>> index 8115892..d46733f 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h
+>> @@ -479,5 +479,7 @@ static inline uint32_t A6XX_GMU_GPU_NAP_CTRL_SID(uint32_t val)
+>>
+>>   #define REG_A6XX_RSCC_TCS3_DRV0_STATUS                         0x0000053e
+>>
+>> +#define REG_A6XX_GPU_CPR_FSM_CTL                               0x0000c001
+>> +
+>>
+>>   #endif /* A6XX_GMU_XML */
+>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> index 183b9f9..c0882536 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> @@ -694,6 +694,13 @@ static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
+>>                  uavflagprd_inv = 2;
+>>          }
+>>
+>> +       if (adreno_is_7c3(adreno_gpu)) {
+>> +               lower_bit = 1;
+>> +               amsbc = 1;
+>> +               rgb565_predicator = 1;
+>> +               uavflagprd_inv = 2;
+>> +       }
+>> +
+>>          gpu_write(gpu, REG_A6XX_RB_NC_MODE_CNTL,
+>>                  rgb565_predicator << 11 | amsbc << 4 | lower_bit << 1);
+>>          gpu_write(gpu, REG_A6XX_TPL1_NC_MODE_CNTL, lower_bit << 1);
+>> @@ -950,10 +957,10 @@ static int a6xx_hw_init(struct msm_gpu *gpu)
+>>          /* Setting the primFifo thresholds default values,
+>>           * and vccCacheSkipDis=1 bit (0x200) for A640 and newer
+>>          */
+>> -       if (adreno_is_a650(adreno_gpu) || adreno_is_a660(adreno_gpu))
+>> -               gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00300200);
+>> -       else if (adreno_is_a640(adreno_gpu))
+>> +       if (adreno_is_a640(adreno_gpu) || adreno_is_7c3(adreno_gpu))
+>>                  gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00200200);
+>> +       else if (adreno_is_a650(adreno_gpu) || adreno_is_a660(adreno_gpu))
+>> +               gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00300200);
+>>          else
+>>                  gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00180000);
+>>
+>> @@ -993,8 +1000,9 @@ static int a6xx_hw_init(struct msm_gpu *gpu)
+>>          if (adreno_is_a660(adreno_gpu)) {
+>>                  gpu_write(gpu, REG_A6XX_CP_CHICKEN_DBG, 0x1);
+>>                  gpu_write(gpu, REG_A6XX_RBBM_GBIF_CLIENT_QOS_CNTL, 0x0);
+>> -               /* Set dualQ + disable afull for A660 GPU but not for A635 */
+>> -               gpu_write(gpu, REG_A6XX_UCHE_CMDQ_CONFIG, 0x66906);
+>> +               /* Set dualQ + disable afull for A660 GPU but not for 7c3 */
+>> +               if (!adreno_is_7c3(adreno_gpu))
+>> +                       gpu_write(gpu, REG_A6XX_UCHE_CMDQ_CONFIG, 0x66906);
+>>          }
+>>
+>>          /* Enable expanded apriv for targets that support it */
+>> @@ -1780,7 +1788,8 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+>>           */
+>>          info = adreno_info(config->rev);
+>>
+>> -       if (info && (info->revn == 650 || info->revn == 660))
+>> +       if (info && (info->revn == 650 || info->revn == 660
+>> +                       || info->revn == ADRENO_REV_7C3))
+>>                  adreno_gpu->base.hw_apriv = true;
+>>
+>>          a6xx_llc_slices_init(pdev, a6xx_gpu);
+>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+>> index 9194337..1451c2b 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+>> @@ -382,6 +382,36 @@ static void a660_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
+>>          msg->cnoc_cmds_data[1][0] =  0x60000001;
+>>   }
+>>
+>> +static void adreno_7c3_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
+>> +{
+>> +       /*
+>> +        * Send a single "off" entry just to get things running
+>> +        * TODO: bus scaling
+>> +        */
+>> +       msg->bw_level_num = 1;
+>> +
+>> +       msg->ddr_cmds_num = 3;
+>> +       msg->ddr_wait_bitmask = 0x07;
+>> +
+>> +       msg->ddr_cmds_addrs[0] = 0x50004;
+>> +       msg->ddr_cmds_addrs[1] = 0x50000;
+>> +       msg->ddr_cmds_addrs[2] = 0x50088;
+>> +
+>> +       msg->ddr_cmds_data[0][0] =  0x40000000;
+>> +       msg->ddr_cmds_data[0][1] =  0x40000000;
+>> +       msg->ddr_cmds_data[0][2] =  0x40000000;
+>> +
+>> +       /*
+>> +        * These are the CX (CNOC) votes - these are used by the GMU but the
+>> +        * votes are known and fixed for the target
+>> +        */
+>> +       msg->cnoc_cmds_num = 1;
+>> +       msg->cnoc_wait_bitmask = 0x01;
+>> +
+>> +       msg->cnoc_cmds_addrs[0] = 0x5006c;
+>> +       msg->cnoc_cmds_data[0][0] =  0x40000000;
+>> +       msg->cnoc_cmds_data[1][0] =  0x60000001;
+>> +}
+>>   static void a6xx_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
+>>   {
+>>          /* Send a single "off" entry since the 630 GMU doesn't do bus scaling */
+>> @@ -432,6 +462,8 @@ static int a6xx_hfi_send_bw_table(struct a6xx_gmu *gmu)
+>>                  a640_build_bw_table(&msg);
+>>          else if (adreno_is_a650(adreno_gpu))
+>>                  a650_build_bw_table(&msg);
+>> +       else if (adreno_is_7c3(adreno_gpu))
+>> +               adreno_7c3_build_bw_table(&msg);
+>>          else if (adreno_is_a660(adreno_gpu))
+>>                  a660_build_bw_table(&msg);
+>>          else
+>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+>> index 6dad801..063b847 100644
+>> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
+>> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+>> @@ -300,6 +300,18 @@ static const struct adreno_info gpulist[] = {
+>>                  .init = a6xx_gpu_init,
+>>                  .zapfw = "a660_zap.mdt",
+>>                  .hwcg = a660_hwcg,
+>> +       }, {
+>> +               .rev = ADRENO_REV(6, 3, 5, ANY_ID),
+>> +               .revn = ADRENO_REV_7C3,
+> 
+> So rather than adding an ARENO_REV_7C3 define, I was thinking to just
+> not set .revn (leave it zero) and identify based on .rev .. that (ie.
+> GPU_ID being zero) would also be the signal to userspace to identify
+> the GPU via CHIP_ID instead
+> 
+> You could extract out the version comparison in adreno_info() into a
+> helper that can be re-used in things like adreno_is_a660_family() and
+> adreno_is_7c3().
+> 
+> BR,
+> -R
+Sure. Will update this patch.
 
-Those 2 shouldn't be a problem:
-Reviewed-by: Xin Ji <xji@analogixsemi.com> # anx7625.c
-Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org> # msm/dsi
+-Akhil.
+> 
+>> +               .name = "Adreno 7c Gen 3",
+>> +               .fw = {
+>> +                       [ADRENO_FW_SQE] = "a660_sqe.fw",
+>> +                       [ADRENO_FW_GMU] = "a660_gmu.bin",
+>> +               },
+>> +               .gmem = SZ_512K,
+>> +               .inactive_period = DRM_MSM_INACTIVE_PERIOD,
+>> +               .init = a6xx_gpu_init,
+>> +               .hwcg = a660_hwcg,
+>>          },
+>>   };
+>>
+>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+>> index 8dbe0d1..679bc59 100644
+>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+>> @@ -247,15 +247,22 @@ static inline int adreno_is_a650(struct adreno_gpu *gpu)
+>>          return gpu->revn == 650;
+>>   }
+>>
+>> +#define ADRENO_REV_7C3 0x06030500
+>> +static inline int adreno_is_7c3(struct adreno_gpu *gpu)
+>> +{
+>> +       return gpu->revn == ADRENO_REV_7C3;
+>> +}
+>> +
+>>   static inline int adreno_is_a660(struct adreno_gpu *gpu)
+>>   {
+>> -       return gpu->revn == 660;
+>> +       return gpu->revn == 660 || gpu->revn == ADRENO_REV_7C3;
+>>   }
+>>
+>>   /* check for a650, a660, or any derivatives */
+>>   static inline int adreno_is_a650_family(struct adreno_gpu *gpu)
+>>   {
+>> -       return gpu->revn == 650 || gpu->revn == 620 || gpu->revn == 660;
+>> +       return gpu->revn == 650 || gpu->revn == 620 || gpu->revn == 660
+>> +              || gpu->revn == ADRENO_REV_7C3;
+>>   }
+>>
+>>   int adreno_get_param(struct msm_gpu *gpu, uint32_t param, uint64_t *value);
+>> --
+>> QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a member
+>> of Code Aurora Forum, hosted by The Linux Foundation.
+>>
+>> _______________________________________________
+>> Freedreno mailing list
+>> Freedreno@lists.freedesktop.org
+>> https://lists.freedesktop.org/mailman/listinfo/freedreno
 
-> I was suprised this had not landed yet.
-
-Yep. Let me know if you want me to send a v3 with those tags.
-
-Best,
-
->
->         Sam
->
-> > ---
-> > I considered adding _DISABLE_ instead, but that'd make the
-> > flag names a big too long.
-> >
-> > Generated with:
-> > flag=MIPI_DSI_MODE_VIDEO_HFP; git grep $flag | cut -f1 -d':' | \
-> >   xargs -I{} sed -i -e "s/$flag/MIPI_DSI_MODE_VIDEO_NO_HFP/" {}
-> > flag=MIPI_DSI_MODE_VIDEO_HBP; git grep $flag | cut -f1 -d':' | \
-> >   xargs -I{} sed -i -e "s/$flag/MIPI_DSI_MODE_VIDEO_NO_HBP/" {}
-> > flag=MIPI_DSI_MODE_VIDEO_HSA; git grep $flag | cut -f1 -d':' | \
-> >   xargs -I{} sed -i -e "s/$flag/MIPI_DSI_MODE_VIDEO_NO_HSA/" {}
-> > flag=MIPI_DSI_MODE_EOT_PACKET; git grep $flag | cut -f1 -d':' | \
-> >   xargs -I{} sed -i -e "s/$flag/MIPI_DSI_MODE_NO_EOT_PACKET/" {}
-> > (then minor format changes)
-> >
-> > Changes in v2:
-> >  - Rebased on latest linux-next, after some of the flags got fixed
-> >    (Linus Walleij).
-> >
-> >  drivers/gpu/drm/bridge/adv7511/adv7533.c             | 2 +-
-> >  drivers/gpu/drm/bridge/analogix/anx7625.c            | 2 +-
-> >  drivers/gpu/drm/bridge/cdns-dsi.c                    | 4 ++--
-> >  drivers/gpu/drm/bridge/lontium-lt8912b.c             | 2 +-
-> >  drivers/gpu/drm/bridge/tc358768.c                    | 2 +-
-> >  drivers/gpu/drm/exynos/exynos_drm_dsi.c              | 8 ++++----
-> >  drivers/gpu/drm/mcde/mcde_dsi.c                      | 2 +-
-> >  drivers/gpu/drm/mediatek/mtk_dsi.c                   | 4 ++--
-> >  drivers/gpu/drm/msm/dsi/dsi_host.c                   | 8 ++++----
-> >  drivers/gpu/drm/panel/panel-asus-z00t-tm5p5-n35596.c | 2 +-
-> >  drivers/gpu/drm/panel/panel-dsi-cm.c                 | 2 +-
-> >  drivers/gpu/drm/panel/panel-elida-kd35t133.c         | 2 +-
-> >  drivers/gpu/drm/panel/panel-khadas-ts050.c           | 2 +-
-> >  drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c   | 2 +-
-> >  drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c   | 2 +-
-> >  drivers/gpu/drm/panel/panel-osd-osd101t2587-53ts.c   | 2 +-
-> >  drivers/gpu/drm/panel/panel-samsung-s6e63j0x03.c     | 2 +-
-> >  drivers/gpu/drm/panel/panel-samsung-s6e8aa0.c        | 4 ++--
-> >  drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c      | 2 +-
-> >  drivers/gpu/drm/panel/panel-simple.c                 | 2 +-
-> >  drivers/gpu/drm/panel/panel-xinpeng-xpp055c272.c     | 2 +-
-> >  include/drm/drm_mipi_dsi.h                           | 8 ++++----
-> >  22 files changed, 34 insertions(+), 34 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/bridge/adv7511/adv7533.c b/drivers/gpu/drm/bridge/adv7511/adv7533.c
-> > index aa19d5a40e31..59d718bde8c4 100644
-> > --- a/drivers/gpu/drm/bridge/adv7511/adv7533.c
-> > +++ b/drivers/gpu/drm/bridge/adv7511/adv7533.c
-> > @@ -165,7 +165,7 @@ int adv7533_attach_dsi(struct adv7511 *adv)
-> >       dsi->lanes = adv->num_dsi_lanes;
-> >       dsi->format = MIPI_DSI_FMT_RGB888;
-> >       dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
-> > -                       MIPI_DSI_MODE_EOT_PACKET | MIPI_DSI_MODE_VIDEO_HSE;
-> > +                       MIPI_DSI_MODE_NO_EOT_PACKET | MIPI_DSI_MODE_VIDEO_HSE;
-> >
-> >       ret = mipi_dsi_attach(dsi);
-> >       if (ret < 0) {
-> > diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.c b/drivers/gpu/drm/bridge/analogix/anx7625.c
-> > index 7519b7a0f29d..6ca9f7e00064 100644
-> > --- a/drivers/gpu/drm/bridge/analogix/anx7625.c
-> > +++ b/drivers/gpu/drm/bridge/analogix/anx7625.c
-> > @@ -1307,7 +1307,7 @@ static int anx7625_attach_dsi(struct anx7625_data *ctx)
-> >       dsi->format = MIPI_DSI_FMT_RGB888;
-> >       dsi->mode_flags = MIPI_DSI_MODE_VIDEO   |
-> >               MIPI_DSI_MODE_VIDEO_SYNC_PULSE  |
-> > -             MIPI_DSI_MODE_EOT_PACKET        |
-> > +             MIPI_DSI_MODE_NO_EOT_PACKET     |
-> >               MIPI_DSI_MODE_VIDEO_HSE;
-> >
-> >       if (mipi_dsi_attach(dsi) < 0) {
-> > diff --git a/drivers/gpu/drm/bridge/cdns-dsi.c b/drivers/gpu/drm/bridge/cdns-dsi.c
-> > index b31281f76117..e6e331071a00 100644
-> > --- a/drivers/gpu/drm/bridge/cdns-dsi.c
-> > +++ b/drivers/gpu/drm/bridge/cdns-dsi.c
-> > @@ -829,7 +829,7 @@ static void cdns_dsi_bridge_enable(struct drm_bridge *bridge)
-> >       tmp = DIV_ROUND_UP(dsi_cfg.htotal, nlanes) -
-> >             DIV_ROUND_UP(dsi_cfg.hsa, nlanes);
-> >
-> > -     if (!(output->dev->mode_flags & MIPI_DSI_MODE_EOT_PACKET))
-> > +     if (!(output->dev->mode_flags & MIPI_DSI_MODE_NO_EOT_PACKET))
-> >               tmp -= DIV_ROUND_UP(DSI_EOT_PKT_SIZE, nlanes);
-> >
-> >       tx_byte_period = DIV_ROUND_DOWN_ULL((u64)NSEC_PER_SEC * 8,
-> > @@ -902,7 +902,7 @@ static void cdns_dsi_bridge_enable(struct drm_bridge *bridge)
-> >       tmp = readl(dsi->regs + MCTL_MAIN_DATA_CTL);
-> >       tmp &= ~(IF_VID_SELECT_MASK | HOST_EOT_GEN | IF_VID_MODE);
-> >
-> > -     if (!(output->dev->mode_flags & MIPI_DSI_MODE_EOT_PACKET))
-> > +     if (!(output->dev->mode_flags & MIPI_DSI_MODE_NO_EOT_PACKET))
-> >               tmp |= HOST_EOT_GEN;
-> >
-> >       if (output->dev->mode_flags & MIPI_DSI_MODE_VIDEO)
-> > diff --git a/drivers/gpu/drm/bridge/lontium-lt8912b.c b/drivers/gpu/drm/bridge/lontium-lt8912b.c
-> > index 76c720b535fb..1b0c7eaf6c84 100644
-> > --- a/drivers/gpu/drm/bridge/lontium-lt8912b.c
-> > +++ b/drivers/gpu/drm/bridge/lontium-lt8912b.c
-> > @@ -487,7 +487,7 @@ static int lt8912_attach_dsi(struct lt8912 *lt)
-> >       dsi->mode_flags = MIPI_DSI_MODE_VIDEO |
-> >                         MIPI_DSI_MODE_VIDEO_BURST |
-> >                         MIPI_DSI_MODE_LPM |
-> > -                       MIPI_DSI_MODE_EOT_PACKET;
-> > +                       MIPI_DSI_MODE_NO_EOT_PACKET;
-> >
-> >       ret = mipi_dsi_attach(dsi);
-> >       if (ret < 0) {
-> > diff --git a/drivers/gpu/drm/bridge/tc358768.c b/drivers/gpu/drm/bridge/tc358768.c
-> > index 8ed8302d6bbb..320f95ae6077 100644
-> > --- a/drivers/gpu/drm/bridge/tc358768.c
-> > +++ b/drivers/gpu/drm/bridge/tc358768.c
-> > @@ -825,7 +825,7 @@ static void tc358768_bridge_pre_enable(struct drm_bridge *bridge)
-> >       if (!(dsi_dev->mode_flags & MIPI_DSI_CLOCK_NON_CONTINUOUS))
-> >               val |= TC358768_DSI_CONTROL_HSCKMD;
-> >
-> > -     if (dsi_dev->mode_flags & MIPI_DSI_MODE_EOT_PACKET)
-> > +     if (dsi_dev->mode_flags & MIPI_DSI_MODE_NO_EOT_PACKET)
-> >               val |= TC358768_DSI_CONTROL_EOTDIS;
-> >
-> >       tc358768_write(priv, TC358768_DSI_CONFW, val);
-> > diff --git a/drivers/gpu/drm/exynos/exynos_drm_dsi.c b/drivers/gpu/drm/exynos/exynos_drm_dsi.c
-> > index 1d777d8c1a83..e39fac889edc 100644
-> > --- a/drivers/gpu/drm/exynos/exynos_drm_dsi.c
-> > +++ b/drivers/gpu/drm/exynos/exynos_drm_dsi.c
-> > @@ -809,15 +809,15 @@ static int exynos_dsi_init_link(struct exynos_dsi *dsi)
-> >                       reg |= DSIM_AUTO_MODE;
-> >               if (dsi->mode_flags & MIPI_DSI_MODE_VIDEO_HSE)
-> >                       reg |= DSIM_HSE_MODE;
-> > -             if (!(dsi->mode_flags & MIPI_DSI_MODE_VIDEO_HFP))
-> > +             if (!(dsi->mode_flags & MIPI_DSI_MODE_VIDEO_NO_HFP))
-> >                       reg |= DSIM_HFP_MODE;
-> > -             if (!(dsi->mode_flags & MIPI_DSI_MODE_VIDEO_HBP))
-> > +             if (!(dsi->mode_flags & MIPI_DSI_MODE_VIDEO_NO_HBP))
-> >                       reg |= DSIM_HBP_MODE;
-> > -             if (!(dsi->mode_flags & MIPI_DSI_MODE_VIDEO_HSA))
-> > +             if (!(dsi->mode_flags & MIPI_DSI_MODE_VIDEO_NO_HSA))
-> >                       reg |= DSIM_HSA_MODE;
-> >       }
-> >
-> > -     if (!(dsi->mode_flags & MIPI_DSI_MODE_EOT_PACKET))
-> > +     if (!(dsi->mode_flags & MIPI_DSI_MODE_NO_EOT_PACKET))
-> >               reg |= DSIM_EOT_DISABLE;
-> >
-> >       switch (dsi->format) {
-> > diff --git a/drivers/gpu/drm/mcde/mcde_dsi.c b/drivers/gpu/drm/mcde/mcde_dsi.c
-> > index 34a00d7e9c38..524852ed68f1 100644
-> > --- a/drivers/gpu/drm/mcde/mcde_dsi.c
-> > +++ b/drivers/gpu/drm/mcde/mcde_dsi.c
-> > @@ -760,7 +760,7 @@ static void mcde_dsi_start(struct mcde_dsi *d)
-> >               DSI_MCTL_MAIN_DATA_CTL_BTA_EN |
-> >               DSI_MCTL_MAIN_DATA_CTL_READ_EN |
-> >               DSI_MCTL_MAIN_DATA_CTL_REG_TE_EN;
-> > -     if (!(d->mdsi->mode_flags & MIPI_DSI_MODE_EOT_PACKET))
-> > +     if (!(d->mdsi->mode_flags & MIPI_DSI_MODE_NO_EOT_PACKET))
-> >               val |= DSI_MCTL_MAIN_DATA_CTL_HOST_EOT_GEN;
-> >       writel(val, d->regs + DSI_MCTL_MAIN_DATA_CTL);
-> >
-> > diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
-> > index ae403c67cbd9..93b40c245f00 100644
-> > --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-> > +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-> > @@ -404,7 +404,7 @@ static void mtk_dsi_rxtx_control(struct mtk_dsi *dsi)
-> >       if (dsi->mode_flags & MIPI_DSI_CLOCK_NON_CONTINUOUS)
-> >               tmp_reg |= HSTX_CKLP_EN;
-> >
-> > -     if (!(dsi->mode_flags & MIPI_DSI_MODE_EOT_PACKET))
-> > +     if (!(dsi->mode_flags & MIPI_DSI_MODE_NO_EOT_PACKET))
-> >               tmp_reg |= DIS_EOT;
-> >
-> >       writel(tmp_reg, dsi->regs + DSI_TXRX_CTRL);
-> > @@ -481,7 +481,7 @@ static void mtk_dsi_config_vdo_timing(struct mtk_dsi *dsi)
-> >                         timing->da_hs_zero + timing->da_hs_exit + 3;
-> >
-> >       delta = dsi->mode_flags & MIPI_DSI_MODE_VIDEO_BURST ? 18 : 12;
-> > -     delta += dsi->mode_flags & MIPI_DSI_MODE_EOT_PACKET ? 2 : 0;
-> > +     delta += dsi->mode_flags & MIPI_DSI_MODE_NO_EOT_PACKET ? 2 : 0;
-> >
-> >       horizontal_frontporch_byte = vm->hfront_porch * dsi_tmp_buf_bpp;
-> >       horizontal_front_back_byte = horizontal_frontporch_byte + horizontal_backporch_byte;
-> > diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> > index ed504fe5074f..b466a4af7c3e 100644
-> > --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> > +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> > @@ -849,11 +849,11 @@ static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool enable,
-> >       if (flags & MIPI_DSI_MODE_VIDEO) {
-> >               if (flags & MIPI_DSI_MODE_VIDEO_HSE)
-> >                       data |= DSI_VID_CFG0_PULSE_MODE_HSA_HE;
-> > -             if (flags & MIPI_DSI_MODE_VIDEO_HFP)
-> > +             if (flags & MIPI_DSI_MODE_VIDEO_NO_HFP)
-> >                       data |= DSI_VID_CFG0_HFP_POWER_STOP;
-> > -             if (flags & MIPI_DSI_MODE_VIDEO_HBP)
-> > +             if (flags & MIPI_DSI_MODE_VIDEO_NO_HBP)
-> >                       data |= DSI_VID_CFG0_HBP_POWER_STOP;
-> > -             if (flags & MIPI_DSI_MODE_VIDEO_HSA)
-> > +             if (flags & MIPI_DSI_MODE_VIDEO_NO_HSA)
-> >                       data |= DSI_VID_CFG0_HSA_POWER_STOP;
-> >               /* Always set low power stop mode for BLLP
-> >                * to let command engine send packets
-> > @@ -908,7 +908,7 @@ static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool enable,
-> >                         DSI_T_CLK_PRE_EXTEND_INC_BY_2_BYTECLK);
-> >
-> >       data = 0;
-> > -     if (!(flags & MIPI_DSI_MODE_EOT_PACKET))
-> > +     if (!(flags & MIPI_DSI_MODE_NO_EOT_PACKET))
-> >               data |= DSI_EOT_PACKET_CTRL_TX_EOT_APPEND;
-> >       dsi_write(msm_host, REG_DSI_EOT_PACKET_CTRL, data);
-> >
-> > diff --git a/drivers/gpu/drm/panel/panel-asus-z00t-tm5p5-n35596.c b/drivers/gpu/drm/panel/panel-asus-z00t-tm5p5-n35596.c
-> > index e95bc9f60b3f..44674ebedf59 100644
-> > --- a/drivers/gpu/drm/panel/panel-asus-z00t-tm5p5-n35596.c
-> > +++ b/drivers/gpu/drm/panel/panel-asus-z00t-tm5p5-n35596.c
-> > @@ -302,7 +302,7 @@ static int tm5p5_nt35596_probe(struct mipi_dsi_device *dsi)
-> >       dsi->lanes = 4;
-> >       dsi->format = MIPI_DSI_FMT_RGB888;
-> >       dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-> > -                       MIPI_DSI_MODE_VIDEO_HSE | MIPI_DSI_MODE_EOT_PACKET |
-> > +                       MIPI_DSI_MODE_VIDEO_HSE | MIPI_DSI_MODE_NO_EOT_PACKET |
-> >                         MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM;
-> >
-> >       drm_panel_init(&ctx->panel, dev, &tm5p5_nt35596_panel_funcs,
-> > diff --git a/drivers/gpu/drm/panel/panel-dsi-cm.c b/drivers/gpu/drm/panel/panel-dsi-cm.c
-> > index 5fbfb71ca3d9..da4a69067e18 100644
-> > --- a/drivers/gpu/drm/panel/panel-dsi-cm.c
-> > +++ b/drivers/gpu/drm/panel/panel-dsi-cm.c
-> > @@ -574,7 +574,7 @@ static int dsicm_probe(struct mipi_dsi_device *dsi)
-> >       dsi->lanes = 2;
-> >       dsi->format = MIPI_DSI_FMT_RGB888;
-> >       dsi->mode_flags = MIPI_DSI_CLOCK_NON_CONTINUOUS |
-> > -                       MIPI_DSI_MODE_EOT_PACKET;
-> > +                       MIPI_DSI_MODE_NO_EOT_PACKET;
-> >       dsi->hs_rate = ddata->panel_data->max_hs_rate;
-> >       dsi->lp_rate = ddata->panel_data->max_lp_rate;
-> >
-> > diff --git a/drivers/gpu/drm/panel/panel-elida-kd35t133.c b/drivers/gpu/drm/panel/panel-elida-kd35t133.c
-> > index 4787f0833264..80227617a4d6 100644
-> > --- a/drivers/gpu/drm/panel/panel-elida-kd35t133.c
-> > +++ b/drivers/gpu/drm/panel/panel-elida-kd35t133.c
-> > @@ -273,7 +273,7 @@ static int kd35t133_probe(struct mipi_dsi_device *dsi)
-> >       dsi->lanes = 1;
-> >       dsi->format = MIPI_DSI_FMT_RGB888;
-> >       dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-> > -                       MIPI_DSI_MODE_LPM | MIPI_DSI_MODE_EOT_PACKET |
-> > +                       MIPI_DSI_MODE_LPM | MIPI_DSI_MODE_NO_EOT_PACKET |
-> >                         MIPI_DSI_CLOCK_NON_CONTINUOUS;
-> >
-> >       drm_panel_init(&ctx->panel, &dsi->dev, &kd35t133_funcs,
-> > diff --git a/drivers/gpu/drm/panel/panel-khadas-ts050.c b/drivers/gpu/drm/panel/panel-khadas-ts050.c
-> > index 8f6ac1a40c31..a3ec4cbdbf7a 100644
-> > --- a/drivers/gpu/drm/panel/panel-khadas-ts050.c
-> > +++ b/drivers/gpu/drm/panel/panel-khadas-ts050.c
-> > @@ -809,7 +809,7 @@ static int khadas_ts050_panel_probe(struct mipi_dsi_device *dsi)
-> >       dsi->lanes = 4;
-> >       dsi->format = MIPI_DSI_FMT_RGB888;
-> >       dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-> > -                       MIPI_DSI_MODE_LPM | MIPI_DSI_MODE_EOT_PACKET;
-> > +                       MIPI_DSI_MODE_LPM | MIPI_DSI_MODE_NO_EOT_PACKET;
-> >
-> >       khadas_ts050 = devm_kzalloc(&dsi->dev, sizeof(*khadas_ts050),
-> >                                   GFP_KERNEL);
-> > diff --git a/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c b/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c
-> > index ed0d5f959037..a5a414920430 100644
-> > --- a/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c
-> > +++ b/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c
-> > @@ -593,7 +593,7 @@ static int ltk050h3146w_probe(struct mipi_dsi_device *dsi)
-> >       dsi->lanes = 4;
-> >       dsi->format = MIPI_DSI_FMT_RGB888;
-> >       dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-> > -                       MIPI_DSI_MODE_LPM | MIPI_DSI_MODE_EOT_PACKET;
-> > +                       MIPI_DSI_MODE_LPM | MIPI_DSI_MODE_NO_EOT_PACKET;
-> >
-> >       drm_panel_init(&ctx->panel, &dsi->dev, &ltk050h3146w_funcs,
-> >                      DRM_MODE_CONNECTOR_DSI);
-> > diff --git a/drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c b/drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c
-> > index 3c00e4f8f803..21e48923836d 100644
-> > --- a/drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c
-> > +++ b/drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c
-> > @@ -442,7 +442,7 @@ static int ltk500hd1829_probe(struct mipi_dsi_device *dsi)
-> >       dsi->lanes = 4;
-> >       dsi->format = MIPI_DSI_FMT_RGB888;
-> >       dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-> > -                       MIPI_DSI_MODE_LPM | MIPI_DSI_MODE_EOT_PACKET;
-> > +                       MIPI_DSI_MODE_LPM | MIPI_DSI_MODE_NO_EOT_PACKET;
-> >
-> >       drm_panel_init(&ctx->panel, &dsi->dev, &ltk500hd1829_funcs,
-> >                      DRM_MODE_CONNECTOR_DSI);
-> > diff --git a/drivers/gpu/drm/panel/panel-osd-osd101t2587-53ts.c b/drivers/gpu/drm/panel/panel-osd-osd101t2587-53ts.c
-> > index 45b975dee587..198493a6eb6a 100644
-> > --- a/drivers/gpu/drm/panel/panel-osd-osd101t2587-53ts.c
-> > +++ b/drivers/gpu/drm/panel/panel-osd-osd101t2587-53ts.c
-> > @@ -184,7 +184,7 @@ static int osd101t2587_panel_probe(struct mipi_dsi_device *dsi)
-> >       dsi->mode_flags = MIPI_DSI_MODE_VIDEO |
-> >                         MIPI_DSI_MODE_VIDEO_BURST |
-> >                         MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
-> > -                       MIPI_DSI_MODE_EOT_PACKET;
-> > +                       MIPI_DSI_MODE_NO_EOT_PACKET;
-> >
-> >       osd101t2587 = devm_kzalloc(&dsi->dev, sizeof(*osd101t2587), GFP_KERNEL);
-> >       if (!osd101t2587)
-> > diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e63j0x03.c b/drivers/gpu/drm/panel/panel-samsung-s6e63j0x03.c
-> > index b962c817fb30..ccc8ed6fe3ae 100644
-> > --- a/drivers/gpu/drm/panel/panel-samsung-s6e63j0x03.c
-> > +++ b/drivers/gpu/drm/panel/panel-samsung-s6e63j0x03.c
-> > @@ -446,7 +446,7 @@ static int s6e63j0x03_probe(struct mipi_dsi_device *dsi)
-> >
-> >       dsi->lanes = 1;
-> >       dsi->format = MIPI_DSI_FMT_RGB888;
-> > -     dsi->mode_flags = MIPI_DSI_MODE_EOT_PACKET;
-> > +     dsi->mode_flags = MIPI_DSI_MODE_NO_EOT_PACKET;
-> >
-> >       ctx->supplies[0].supply = "vdd3";
-> >       ctx->supplies[1].supply = "vci";
-> > diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e8aa0.c b/drivers/gpu/drm/panel/panel-samsung-s6e8aa0.c
-> > index 527371120266..9b3599d6d2de 100644
-> > --- a/drivers/gpu/drm/panel/panel-samsung-s6e8aa0.c
-> > +++ b/drivers/gpu/drm/panel/panel-samsung-s6e8aa0.c
-> > @@ -990,8 +990,8 @@ static int s6e8aa0_probe(struct mipi_dsi_device *dsi)
-> >       dsi->lanes = 4;
-> >       dsi->format = MIPI_DSI_FMT_RGB888;
-> >       dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST
-> > -             | MIPI_DSI_MODE_VIDEO_HFP | MIPI_DSI_MODE_VIDEO_HBP
-> > -             | MIPI_DSI_MODE_VIDEO_HSA | MIPI_DSI_MODE_EOT_PACKET
-> > +             | MIPI_DSI_MODE_VIDEO_NO_HFP | MIPI_DSI_MODE_VIDEO_NO_HBP
-> > +             | MIPI_DSI_MODE_VIDEO_NO_HSA | MIPI_DSI_MODE_NO_EOT_PACKET
-> >               | MIPI_DSI_MODE_VSYNC_FLUSH | MIPI_DSI_MODE_VIDEO_AUTO_VERT;
-> >
-> >       ret = s6e8aa0_parse_dt(ctx);
-> > diff --git a/drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c b/drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c
-> > index 16dbf0f353ed..b937e24dac8e 100644
-> > --- a/drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c
-> > +++ b/drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c
-> > @@ -282,7 +282,7 @@ static int sharp_nt_panel_probe(struct mipi_dsi_device *dsi)
-> >       dsi->mode_flags = MIPI_DSI_MODE_VIDEO |
-> >                       MIPI_DSI_MODE_VIDEO_HSE |
-> >                       MIPI_DSI_CLOCK_NON_CONTINUOUS |
-> > -                     MIPI_DSI_MODE_EOT_PACKET;
-> > +                     MIPI_DSI_MODE_NO_EOT_PACKET;
-> >
-> >       sharp_nt = devm_kzalloc(&dsi->dev, sizeof(*sharp_nt), GFP_KERNEL);
-> >       if (!sharp_nt)
-> > diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-> > index 21939d4352cf..d490b5ef968a 100644
-> > --- a/drivers/gpu/drm/panel/panel-simple.c
-> > +++ b/drivers/gpu/drm/panel/panel-simple.c
-> > @@ -4867,7 +4867,7 @@ static const struct panel_desc_dsi osd101t2045_53ts = {
-> >       },
-> >       .flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-> >                MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
-> > -              MIPI_DSI_MODE_EOT_PACKET,
-> > +              MIPI_DSI_MODE_NO_EOT_PACKET,
-> >       .format = MIPI_DSI_FMT_RGB888,
-> >       .lanes = 4,
-> >  };
-> > diff --git a/drivers/gpu/drm/panel/panel-xinpeng-xpp055c272.c b/drivers/gpu/drm/panel/panel-xinpeng-xpp055c272.c
-> > index 55172d63a922..d17aae8b71d7 100644
-> > --- a/drivers/gpu/drm/panel/panel-xinpeng-xpp055c272.c
-> > +++ b/drivers/gpu/drm/panel/panel-xinpeng-xpp055c272.c
-> > @@ -311,7 +311,7 @@ static int xpp055c272_probe(struct mipi_dsi_device *dsi)
-> >       dsi->lanes = 4;
-> >       dsi->format = MIPI_DSI_FMT_RGB888;
-> >       dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-> > -                       MIPI_DSI_MODE_LPM | MIPI_DSI_MODE_EOT_PACKET;
-> > +                       MIPI_DSI_MODE_LPM | MIPI_DSI_MODE_NO_EOT_PACKET;
-> >
-> >       drm_panel_init(&ctx->panel, &dsi->dev, &xpp055c272_funcs,
-> >                      DRM_MODE_CONNECTOR_DSI);
-> > diff --git a/include/drm/drm_mipi_dsi.h b/include/drm/drm_mipi_dsi.h
-> > index 360e6377e84b..ba91cf22af51 100644
-> > --- a/include/drm/drm_mipi_dsi.h
-> > +++ b/include/drm/drm_mipi_dsi.h
-> > @@ -119,15 +119,15 @@ struct mipi_dsi_host *of_find_mipi_dsi_host_by_node(struct device_node *node);
-> >  /* enable hsync-end packets in vsync-pulse and v-porch area */
-> >  #define MIPI_DSI_MODE_VIDEO_HSE              BIT(4)
-> >  /* disable hfront-porch area */
-> > -#define MIPI_DSI_MODE_VIDEO_HFP              BIT(5)
-> > +#define MIPI_DSI_MODE_VIDEO_NO_HFP   BIT(5)
-> >  /* disable hback-porch area */
-> > -#define MIPI_DSI_MODE_VIDEO_HBP              BIT(6)
-> > +#define MIPI_DSI_MODE_VIDEO_NO_HBP   BIT(6)
-> >  /* disable hsync-active area */
-> > -#define MIPI_DSI_MODE_VIDEO_HSA              BIT(7)
-> > +#define MIPI_DSI_MODE_VIDEO_NO_HSA   BIT(7)
-> >  /* flush display FIFO on vsync pulse */
-> >  #define MIPI_DSI_MODE_VSYNC_FLUSH    BIT(8)
-> >  /* disable EoT packets in HS mode */
-> > -#define MIPI_DSI_MODE_EOT_PACKET     BIT(9)
-> > +#define MIPI_DSI_MODE_NO_EOT_PACKET  BIT(9)
-> >  /* device supports non-continuous clock behavior (DSI spec 5.6.1) */
-> >  #define MIPI_DSI_CLOCK_NON_CONTINUOUS        BIT(10)
-> >  /* transmit data in low power */
-> > --
-> > 2.32.0.93.g670b81a890-goog
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
