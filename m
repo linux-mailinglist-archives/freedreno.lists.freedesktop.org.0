@@ -1,42 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F31A43D5A78
-	for <lists+freedreno@lfdr.de>; Mon, 26 Jul 2021 15:41:06 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 364DE3D5BDE
+	for <lists+freedreno@lfdr.de>; Mon, 26 Jul 2021 16:39:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A30896E95C;
-	Mon, 26 Jul 2021 13:41:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6DB36EC26;
+	Mon, 26 Jul 2021 14:39:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx2.smtp.larsendata.com (mx2.smtp.larsendata.com
- [91.221.196.228])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 699576E959
- for <freedreno@lists.freedesktop.org>; Mon, 26 Jul 2021 13:41:04 +0000 (UTC)
-Received: from mail01.mxhotel.dk (mail01.mxhotel.dk [91.221.196.236])
- by mx2.smtp.larsendata.com (Halon) with ESMTPS
- id 27ecbc45-ee17-11eb-8d1a-0050568cd888;
- Mon, 26 Jul 2021 13:41:18 +0000 (UTC)
-Received: from ravnborg.org (80-162-45-141-cable.dk.customer.tdc.net
- [80.162.45.141])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: sam@ravnborg.org)
- by mail01.mxhotel.dk (Postfix) with ESMTPSA id 52681194B7A;
- Mon, 26 Jul 2021 15:41:19 +0200 (CEST)
-Date: Mon, 26 Jul 2021 15:40:57 +0200
-X-Report-Abuse-To: abuse@mxhotel.dk
-From: Sam Ravnborg <sam@ravnborg.org>
-To: Nicolas Boichat <drinkcat@chromium.org>
-Message-ID: <YP67aeAOIVgpMdca@ravnborg.org>
-References: <20210629074703.v2.1.I629b2366a6591410359c7fcf6d385b474b705ca2@changeid>
- <YP1nmsofOs5KHre+@ravnborg.org>
- <CANMq1KD_6DoNR9PvO9wrpEQc5BDwx6952mwz0poCw=hu+HsUbw@mail.gmail.com>
+Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
+ [IPv6:2607:f8b0:4864:20::102f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CF026EBA7;
+ Mon, 26 Jul 2021 14:39:50 +0000 (UTC)
+Received: by mail-pj1-x102f.google.com with SMTP id b6so13152970pji.4;
+ Mon, 26 Jul 2021 07:39:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=yYvK9aTzc6a6mw4NkjoqvsdrfloQMHrbtNcPQkcDqvs=;
+ b=sNrV1hIjNLb+jarQ5Td+Ia164crR90C5uz98OgfCVUBSZZB7/clHXhcPJv6x8DJbuN
+ rKAl8/Ar8I6pkKdPNSovPLl7JlOOgFjvJXzAuW26ut/CUiuT1JWum4Hevp1VNL0gph5m
+ GmmJSTraAZ+BgqAIvbTV6c1bYkAKqAsESejOKo/kIlGO5LEBQJpHURthQyl65kK0s2vs
+ TdMMaM4c4ifKl6/FWHeBy4+0vUT59SfiX1RCnXvuXjBbVqCohj7oQObXCI/3vERRIifH
+ K6xvLCFG790+7pwl0Wr+ujMKC14Q3gls9yn+gHe4y7PvpALLJSMTDYylu+L2Ut6CFo+4
+ jGvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=yYvK9aTzc6a6mw4NkjoqvsdrfloQMHrbtNcPQkcDqvs=;
+ b=AUVvICANMT+z6+qm227uY/nn2kDBdjlhMTO0P3YEod63nzBPc/aDomXQllIu4aOJqs
+ H2Xvhbq4OVgQCv0pDTZmdOrcnVWomvyFHbGvCmXaJTYfJf/HjVz/Mxn4yLN2MsyTSm2O
+ OPgPWRE9S0eIElD2wBslDPxNr/nu/bfns4IhfgjG3VH4rvFOBgXDshGrjqdrLnE/hr72
+ X/vQhCDthJBeEu8jJB/MOJeTZPlRSs8csC//0xgsYw2Ix8QmUKy1IHsflmu2/WCp+XkZ
+ KHv12Jk5Muw8zIngJIRrNhdm9rUMlaGpNTBwoRtq+cBXoeTVm65w0Ales5eFMgofFVdv
+ BWGQ==
+X-Gm-Message-State: AOAM5311AQNKCN7+3kjlA0XOxcTAsMCjWI2wemH6sXaa8ui3VCewBICT
+ i3+XUQerz5qG0wmZyfOyS0n6I6kW6j2USA==
+X-Google-Smtp-Source: ABdhPJyANxBEIcujpjY/aUnkk7Nm6OAiHljjrusdLSVto/jwB7ZIzT4K22rrIQ3wqUrjA6/cHXMBeg==
+X-Received: by 2002:a17:90b:1e46:: with SMTP id
+ pi6mr8048098pjb.57.1627310389230; 
+ Mon, 26 Jul 2021 07:39:49 -0700 (PDT)
+Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
+ by smtp.gmail.com with ESMTPSA id d31sm28342226pgd.33.2021.07.26.07.39.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 26 Jul 2021 07:39:48 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Mon, 26 Jul 2021 07:43:56 -0700
+Message-Id: <20210726144359.2179302-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CANMq1KD_6DoNR9PvO9wrpEQc5BDwx6952mwz0poCw=hu+HsUbw@mail.gmail.com>
-Subject: Re: [Freedreno] [PATCH v2] drm/dsi: Add _NO_ to MIPI_DSI_* flags
- disabling features
+Subject: [Freedreno] [PATCH 0/2] drm/msm: Reduce fence signal latency
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,75 +65,34 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Andrzej Hajda <a.hajda@samsung.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
- Joonyoung Shim <jy0922.shim@samsung.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Yangtao Li <tiny.windzz@gmail.com>,
- Adrien Grassein <adrien.grassein@gmail.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- MSM <linux-arm-msm@vger.kernel.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
- "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
- Tzung-Bi Shih <tzungbi@google.com>, Pi-Hsun Shih <pihsun@chromium.org>,
- Hsin-Yi Wang <hsinyi@chromium.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Sean Paul <sean@poorly.run>, Xin Ji <xji@analogixsemi.com>,
- linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
- Rajendra Nayak <rnayak@codeaurora.org>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- lkml <linux-kernel@vger.kernel.org>, Robert Foss <robert.foss@linaro.org>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Nicolas,
+From: Rob Clark <robdclark@chromium.org>
 
-On Mon, Jul 26, 2021 at 08:38:18AM +0800, Nicolas Boichat wrote:
-> On Sun, Jul 25, 2021 at 9:31 PM Sam Ravnborg <sam@ravnborg.org> wrote:
-> >
-> > On Tue, Jun 29, 2021 at 07:47:21AM +0800, Nicolas Boichat wrote:
-> > > Many of the DSI flags have names opposite to their actual effects,
-> > > e.g. MIPI_DSI_MODE_EOT_PACKET means that EoT packets will actually
-> > > be disabled. Fix this by including _NO_ in the flag names, e.g.
-> > > MIPI_DSI_MODE_NO_EOT_PACKET.
-> > >
-> > > Signed-off-by: Nicolas Boichat <drinkcat@chromium.org>
-> >
-> > Hi Nicolas,
-> >
-> > in this thread:
-> > https://lore.kernel.org/dri-devel/20210211113309.1.I629b2366a6591410359c7fcf6d385b474b705ca2@changeid/
-> > I see that several people added their Reviewed-by.
-> >
-> > Please either add the tgas if missing, or elaborate why you left them out.
-> 
-> Oh simple, I just forgot.
-Yeah, know that feeling.
-> 
-> I regenerated the patch so it's a bit different from v1... Not 100%
-> sure if I can add those, since those were for the overall patch:
-> Reviewed-by: Robert Foss <robert.foss@linaro.org>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Reviewed-by: Andrzej Hajda <andrzej.hajda@samsung.com>.
-> 
-> Those 2 shouldn't be a problem:
-> Reviewed-by: Xin Ji <xji@analogixsemi.com> # anx7625.c
-> Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org> # msm/dsi
-> 
-> > I was suprised this had not landed yet.
-> 
-> Yep. Let me know if you want me to send a v3 with those tags.
-Please resend a v3 with the tags.
+A couple tweaks to reduce fence signal latency.
 
-	Sam
+Rob Clark (2):
+  drm/msm: Let fences read directly from memptrs
+  drm/msm: Signal fences sooner
+
+ drivers/gpu/drm/msm/msm_fence.c      | 11 +++++--
+ drivers/gpu/drm/msm/msm_fence.h      | 41 +++++++++++++++++++++++---
+ drivers/gpu/drm/msm/msm_gpu.c        | 44 ++++++++++++++++------------
+ drivers/gpu/drm/msm/msm_ringbuffer.c |  2 +-
+ 4 files changed, 73 insertions(+), 25 deletions(-)
+
+-- 
+2.31.1
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
