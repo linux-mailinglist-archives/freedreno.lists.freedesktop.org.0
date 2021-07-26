@@ -2,59 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B98DA3D5C6D
-	for <lists+freedreno@lfdr.de>; Mon, 26 Jul 2021 16:57:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0303E3D65DE
+	for <lists+freedreno@lfdr.de>; Mon, 26 Jul 2021 19:36:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61CBF6FDCA;
-	Mon, 26 Jul 2021 14:57:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A62186E900;
+	Mon, 26 Jul 2021 17:36:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
- [IPv6:2607:f8b0:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C153C6FCD1;
- Mon, 26 Jul 2021 14:57:04 +0000 (UTC)
-Received: by mail-pl1-x629.google.com with SMTP id f13so1426172plj.2;
- Mon, 26 Jul 2021 07:57:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=SFRuGXrGOpAPjCK+7vKN6XnQginWoujNICp+8vwYNFs=;
- b=JlhiO5ALgwrt1CFDuiRxQOtRB3QSBL6dVCkV5B6/RGA8NB8Vkf/GK+0Sm0gofnWPos
- XB4bIqf6DESoZF2aN4/KL+JOSZFzhjmMDWkoF0w68PmHe6/rGROgw7EgDfnI/kj+5y3k
- QQW89IhzK680UkPQ721nEhx8NYeLbg9evzK59q9AS/Rv+EjJ81Q3QQUYwevwx4WYU4iJ
- D28eLS/j0VaHjdrSTeBvijV+l3UkqgIjigz4d7c+zhFWq43I2+oGljc5Jj+Ke+7NEEnq
- nHIWerN8XoWrEFx9akuI8BpeAFVy8Fss6hDbv9EGpV9warOs1abbK98Ww2d3RkM5dJuA
- WM8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=SFRuGXrGOpAPjCK+7vKN6XnQginWoujNICp+8vwYNFs=;
- b=hRMEm9cN81bG5WfMwdcAGkeov/ShG1uZIrpzx7QEcZRmpz71gxPmNUQj2k+hbvApsS
- opzyeiDR+5KNb5WeRmNqNONqP6OT3XMiNtKxC6XesGVxYHfXYbaDtJ39RvixmwNHALyW
- 0szjOZwxzWTJh5MoZ94OGG+XovBSPBrPthdvDkDZZmN8vYZYBuqre9paeoGEUEhxVdIE
- 9L6r90XTFb7yZDplVzvfsSO19s6ucQNK8vPHzIRLiJkq97ivgr/ZKQ18cpddC3ZEwifT
- b4I+rXz//maASluCqc1uLfTBTkKpbxpLKHINftWfd/SxVNTK7W9gwlOS8GcuYf20gP8M
- Z7bA==
-X-Gm-Message-State: AOAM532CHoG1kpGbXm+rsNr+QMeKd/nJW1Ha8Y1upTe8nfJkoH85B7+k
- uf9jjUy+lcMSnD+lmTZu4wRZv1qJYSm1+Q==
-X-Google-Smtp-Source: ABdhPJzOPJTI+oyi3WcfVqmdygPk7dQVn/5qqLC14Zox9OSvb4i0Vhi1+jYoSmwysi7hCJLDjMCdJg==
-X-Received: by 2002:a17:902:e843:b029:12b:2260:b634 with SMTP id
- t3-20020a170902e843b029012b2260b634mr14621213plg.27.1627311423790; 
- Mon, 26 Jul 2021 07:57:03 -0700 (PDT)
-Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
- by smtp.gmail.com with ESMTPSA id b3sm14140511pju.47.2021.07.26.07.57.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Jul 2021 07:57:02 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D22BF6E900
+ for <freedreno@lists.freedesktop.org>; Mon, 26 Jul 2021 17:36:42 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1627321005; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=+pXXp4yHE9oFESo9J41GUl+NgMlwhQweXBGws/wGI9U=;
+ b=AgQLpWL1305P7liyDlGAasi+6YQ+a89BpofXPVSpSWL5BKXQD86OfycoclBa1Io10qmbcGMP
+ /iwa44DFhGDfma+PYobr1+BIpLqrv4v83N+PWe7BdL4ra9W1AQqa5uzVJSnCvSOf0o7Dvo/c
+ CfqKc2kblwaQjm2S+xJ+k8ETBBM=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
+ 60fef2a496a66e66b2166cfc (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 26 Jul 2021 17:36:36
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 26CBDC4338A; Mon, 26 Jul 2021 17:36:36 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from nganji-linux.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: maitreye)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id CC527C433D3;
+ Mon, 26 Jul 2021 17:36:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org CC527C433D3
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=maitreye@codeaurora.org
+From: maitreye <maitreye@codeaurora.org>
 To: dri-devel@lists.freedesktop.org
-Date: Mon, 26 Jul 2021 08:00:26 -0700
-Message-Id: <20210726150038.2187631-13-robdclark@gmail.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210726150038.2187631-1-robdclark@gmail.com>
-References: <20210726150038.2187631-1-robdclark@gmail.com>
-MIME-Version: 1.0
-Subject: [Freedreno] [PATCH v2 12/12] drm/msm/gem: Mark active before pinning
+Date: Mon, 26 Jul 2021 10:36:26 -0700
+Message-Id: <1627320986-25436-1-git-send-email-maitreye@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH v5] drm/msm/dp: add logs across DP driver for
+ ease of debugging
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,134 +65,318 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
+Cc: Maitreyee Rao <maitreye@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ abhinavk@codeaurora.org, swboyd@chromium.org, khsieh@codeaurora.org,
+ robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+From: Maitreyee Rao <maitreye@codeaurora.org>
 
-Mark all the bos in the submit as active, before pinning, to prevent
-evicting a buffer in the same submit to make room for a buffer earlier
-in the table.
+Add trace points across the MSM DP driver to help debug
+interop issues.
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
+Changes in v2:
+ - Got rid of redundant log messages.
+ - Added %#x instead of 0x%x wherever required.
+ - Got rid of __func__ calls in debug messages.
+ - Added newline wherever missing.
+
+Changes in v3:
+ - Got rid of redundant log messages.
+ - Unstuck colon from printf specifier in various places.
+
+Changes in v4:
+ - Changed goto statement and used if else-if
+
+Changes in v5:
+ - Changed if else if statement,
+   to not overwrite the ret variable multiple times.
+
+Signed-off-by: Maitreyee Rao <maitreye@codeaurora.org>
 ---
- drivers/gpu/drm/msm/msm_gem.c        |  2 --
- drivers/gpu/drm/msm/msm_gem_submit.c | 28 ++++++++++++++++++++--------
- 2 files changed, 20 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_catalog.c |  8 ++++--
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    |  5 +++-
+ drivers/gpu/drm/msm/dp/dp_display.c | 14 +++++++++++
+ drivers/gpu/drm/msm/dp/dp_link.c    | 50 +++++++++++++------------------------
+ drivers/gpu/drm/msm/dp/dp_power.c   |  3 +++
+ 5 files changed, 45 insertions(+), 35 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index 41a111c49cc7..71a589fd4ba8 100644
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -131,7 +131,6 @@ static struct page **get_pages(struct drm_gem_object *obj)
- 		if (msm_obj->flags & (MSM_BO_WC|MSM_BO_UNCACHED))
- 			sync_for_device(msm_obj);
+diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
+index 32f3575..958d3fa3 100644
+--- a/drivers/gpu/drm/msm/dp/dp_catalog.c
++++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
+@@ -372,6 +372,7 @@ void dp_catalog_ctrl_mainlink_ctrl(struct dp_catalog *dp_catalog,
+ 	struct dp_catalog_private *catalog = container_of(dp_catalog,
+ 				struct dp_catalog_private, dp_catalog);
  
--		GEM_WARN_ON(msm_obj->active_count);
- 		update_inactive(msm_obj);
++	DRM_DEBUG_DP("enable=%d\n", enable);
+ 	if (enable) {
+ 		/*
+ 		 * To make sure link reg writes happens before other operation,
+@@ -580,6 +581,7 @@ void dp_catalog_hpd_config_intr(struct dp_catalog *dp_catalog,
+ 
+ 	config = (en ? config | intr_mask : config & ~intr_mask);
+ 
++	DRM_DEBUG_DP("intr_mask=%#x config=%#x\n", intr_mask, config);
+ 	dp_write_aux(catalog, REG_DP_DP_HPD_INT_MASK,
+ 				config & DP_DP_HPD_INT_MASK);
+ }
+@@ -610,6 +612,7 @@ u32 dp_catalog_link_is_connected(struct dp_catalog *dp_catalog)
+ 	u32 status;
+ 
+ 	status = dp_read_aux(catalog, REG_DP_DP_HPD_INT_STATUS);
++	DRM_DEBUG_DP("aux status: %#x\n", status);
+ 	status >>= DP_DP_HPD_STATE_STATUS_BITS_SHIFT;
+ 	status &= DP_DP_HPD_STATE_STATUS_BITS_MASK;
+ 
+@@ -685,6 +688,7 @@ void dp_catalog_ctrl_send_phy_pattern(struct dp_catalog *dp_catalog,
+ 	/* Make sure to clear the current pattern before starting a new one */
+ 	dp_write_link(catalog, REG_DP_STATE_CTRL, 0x0);
+ 
++	DRM_DEBUG_DP("pattern: %#x\n", pattern);
+ 	switch (pattern) {
+ 	case DP_PHY_TEST_PATTERN_D10_2:
+ 		dp_write_link(catalog, REG_DP_STATE_CTRL,
+@@ -745,7 +749,7 @@ void dp_catalog_ctrl_send_phy_pattern(struct dp_catalog *dp_catalog,
+ 				DP_STATE_CTRL_LINK_TRAINING_PATTERN4);
+ 		break;
+ 	default:
+-		DRM_DEBUG_DP("No valid test pattern requested:0x%x\n", pattern);
++		DRM_DEBUG_DP("No valid test pattern requested: %#x\n", pattern);
+ 		break;
  	}
+ }
+@@ -928,7 +932,7 @@ void dp_catalog_audio_config_acr(struct dp_catalog *dp_catalog)
+ 	select = dp_catalog->audio_data;
+ 	acr_ctrl = select << 4 | BIT(31) | BIT(8) | BIT(14);
  
-@@ -815,7 +814,6 @@ void msm_gem_active_get(struct drm_gem_object *obj, struct msm_gpu *gpu)
- 	GEM_WARN_ON(!msm_gem_is_locked(obj));
- 	GEM_WARN_ON(msm_obj->madv != MSM_MADV_WILLNEED);
- 	GEM_WARN_ON(msm_obj->dontneed);
--	GEM_WARN_ON(!msm_obj->sgt);
+-	DRM_DEBUG_DP("select = 0x%x, acr_ctrl = 0x%x\n", select, acr_ctrl);
++	DRM_DEBUG_DP("select: %#x, acr_ctrl: %#x\n", select, acr_ctrl);
  
- 	if (msm_obj->active_count++ == 0) {
- 		mutex_lock(&priv->mm_lock);
-diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-index b60c3f7ed551..2615a4b3a2e9 100644
---- a/drivers/gpu/drm/msm/msm_gem_submit.c
-+++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-@@ -24,7 +24,8 @@
- /* make sure these don't conflict w/ MSM_SUBMIT_BO_x */
- #define BO_VALID    0x8000   /* is current addr in cmdstream correct/valid? */
- #define BO_LOCKED   0x4000   /* obj lock is held */
--#define BO_PINNED   0x2000   /* obj is pinned and on active list */
-+#define BO_ACTIVE   0x2000   /* active refcnt is held */
-+#define BO_PINNED   0x1000   /* obj is pinned and on active list */
+ 	dp_write_link(catalog, MMSS_DP_AUDIO_ACR_CTRL, acr_ctrl);
+ }
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index 2a8955c..72de71a 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -122,7 +122,7 @@ void dp_ctrl_push_idle(struct dp_ctrl *dp_ctrl)
+ 			IDLE_PATTERN_COMPLETION_TIMEOUT_JIFFIES))
+ 		pr_warn("PUSH_IDLE pattern timedout\n");
  
- static struct msm_gem_submit *submit_create(struct drm_device *dev,
- 		struct msm_gpu *gpu,
-@@ -252,10 +253,11 @@ static void submit_cleanup_bo(struct msm_gem_submit *submit, int i,
- 	struct drm_gem_object *obj = &submit->bos[i].obj->base;
- 	unsigned flags = submit->bos[i].flags & cleanup_flags;
+-	pr_debug("mainlink off done\n");
++	DRM_DEBUG_DP("mainlink off done\n");
+ }
  
--	if (flags & BO_PINNED) {
-+	if (flags & BO_PINNED)
- 		msm_gem_unpin_iova_locked(obj, submit->aspace);
-+
-+	if (flags & BO_ACTIVE)
- 		msm_gem_active_put(obj);
--	}
+ static void dp_ctrl_config_ctrl(struct dp_ctrl_private *ctrl)
+@@ -1013,6 +1013,8 @@ static int dp_ctrl_update_vx_px(struct dp_ctrl_private *ctrl)
+ 	u32 voltage_swing_level = link->phy_params.v_level;
+ 	u32 pre_emphasis_level = link->phy_params.p_level;
  
- 	if (flags & BO_LOCKED)
- 		dma_resv_unlock(obj->resv);
-@@ -265,7 +267,7 @@ static void submit_cleanup_bo(struct msm_gem_submit *submit, int i,
++	DRM_DEBUG_DP("voltage level: %d emphasis level: %d\n", voltage_swing_level,
++			pre_emphasis_level);
+ 	ret = dp_catalog_ctrl_update_vx_px(ctrl->catalog,
+ 		voltage_swing_level, pre_emphasis_level);
  
- static void submit_unlock_unpin_bo(struct msm_gem_submit *submit, int i)
+@@ -1384,6 +1386,7 @@ int dp_ctrl_host_init(struct dp_ctrl *dp_ctrl, bool flip, bool reset)
+ 	if (reset)
+ 		dp_catalog_ctrl_reset(ctrl->catalog);
+ 
++	DRM_DEBUG_DP("flip=%d\n", flip);
+ 	dp_catalog_ctrl_phy_reset(ctrl->catalog);
+ 	phy_init(phy);
+ 	dp_catalog_ctrl_enable_irq(ctrl->catalog, true);
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index cf9c645..f0a81f7 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -275,6 +275,8 @@ static bool dp_display_is_ds_bridge(struct dp_panel *panel)
+ 
+ static bool dp_display_is_sink_count_zero(struct dp_display_private *dp)
  {
--	submit_cleanup_bo(submit, i, BO_PINNED | BO_LOCKED);
-+	submit_cleanup_bo(submit, i, BO_PINNED | BO_ACTIVE | BO_LOCKED);
++	DRM_DEBUG_DP("present=%#x sink_count=%d\n", dp->panel->dpcd[DP_DOWNSTREAMPORT_PRESENT],
++		dp->link->sink_count);
+ 	return dp_display_is_ds_bridge(dp->panel) &&
+ 		(dp->link->sink_count == 0);
+ }
+@@ -320,6 +322,7 @@ static int dp_display_send_hpd_notification(struct dp_display_private *dp,
  
- 	if (!(submit->bos[i].flags & BO_VALID))
- 		submit->bos[i].iova = 0;
-@@ -357,6 +359,18 @@ static int submit_pin_objects(struct msm_gem_submit *submit)
+ 	dp->dp_display.is_connected = hpd;
  
- 	submit->valid = true;
++	DRM_DEBUG_DP("hpd=%d\n", hpd);
+ 	dp_display_send_hpd_event(&dp->dp_display);
  
-+	/*
-+	 * Increment active_count first, so if under memory pressure, we
-+	 * don't inadvertently evict a bo needed by the submit in order
-+	 * to pin an earlier bo in the same submit.
-+	 */
-+	for (i = 0; i < submit->nr_bos; i++) {
-+		struct drm_gem_object *obj = &submit->bos[i].obj->base;
-+
-+		msm_gem_active_get(obj, submit->gpu);
-+		submit->bos[i].flags |= BO_ACTIVE;
-+	}
-+
- 	for (i = 0; i < submit->nr_bos; i++) {
- 		struct drm_gem_object *obj = &submit->bos[i].obj->base;
- 		uint64_t iova;
-@@ -368,8 +382,6 @@ static int submit_pin_objects(struct msm_gem_submit *submit)
- 		if (ret)
- 			break;
+ 	return 0;
+@@ -369,6 +372,7 @@ static void dp_display_host_init(struct dp_display_private *dp, int reset)
+ {
+ 	bool flip = false;
  
--		msm_gem_active_get(obj, submit->gpu);
--
- 		submit->bos[i].flags |= BO_PINNED;
++	DRM_DEBUG_DP("core_initialized=%d\n", dp->core_initialized);
+ 	if (dp->core_initialized) {
+ 		DRM_DEBUG_DP("DP core already initialized\n");
+ 		return;
+@@ -483,8 +487,10 @@ static int dp_display_handle_irq_hpd(struct dp_display_private *dp)
+ {
+ 	u32 sink_request = dp->link->sink_request;
  
- 		if (iova == submit->bos[i].iova) {
-@@ -503,7 +515,7 @@ static void submit_cleanup(struct msm_gem_submit *submit, bool error)
- 	unsigned i;
- 
- 	if (error)
--		cleanup_flags |= BO_PINNED;
-+		cleanup_flags |= BO_PINNED | BO_ACTIVE;
- 
- 	for (i = 0; i < submit->nr_bos; i++) {
- 		struct msm_gem_object *msm_obj = submit->bos[i].obj;
-@@ -522,7 +534,7 @@ void msm_submit_retire(struct msm_gem_submit *submit)
- 		struct drm_gem_object *obj = &submit->bos[i].obj->base;
- 
- 		msm_gem_lock(obj);
--		submit_cleanup_bo(submit, i, BO_PINNED);
-+		submit_cleanup_bo(submit, i, BO_PINNED | BO_ACTIVE);
- 		msm_gem_unlock(obj);
- 		drm_gem_object_put(obj);
++	DRM_DEBUG_DP("%d\n", sink_request);
+ 	if (dp->hpd_state == ST_DISCONNECTED) {
+ 		if (sink_request & DP_LINK_STATUS_UPDATED) {
++			DRM_DEBUG_DP("Disconnected sink_count: %d\n", sink_request);
+ 			DRM_ERROR("Disconnected, no DP_LINK_STATUS_UPDATED\n");
+ 			return -EINVAL;
+ 		}
+@@ -509,6 +515,7 @@ static int dp_display_usbpd_attention_cb(struct device *dev)
+ 		DRM_ERROR("invalid dev\n");
+ 		return -EINVAL;
  	}
++	DRM_DEBUG_DP("sink_request: %d\n", sink_request);
+ 
+ 	dp = container_of(g_dp_display,
+ 			struct dp_display_private, dp_display);
+@@ -523,6 +530,7 @@ static int dp_display_usbpd_attention_cb(struct device *dev)
+ 	rc = dp_link_process_request(dp->link);
+ 	if (!rc) {
+ 		sink_request = dp->link->sink_request;
++		DRM_DEBUG_DP("hpd_state=%d sink_count=%d\n", dp->hpd_state, sink_request);
+ 		if (sink_request & DS_PORT_STATUS_CHANGED)
+ 			rc = dp_display_handle_port_ststus_changed(dp);
+ 		else
+@@ -545,6 +553,7 @@ static int dp_hpd_plug_handle(struct dp_display_private *dp, u32 data)
+ 	mutex_lock(&dp->event_mutex);
+ 
+ 	state =  dp->hpd_state;
++	DRM_DEBUG_DP("hpd_state=%d\n", state);
+ 	if (state == ST_DISPLAY_OFF || state == ST_SUSPENDED) {
+ 		mutex_unlock(&dp->event_mutex);
+ 		return 0;
+@@ -680,6 +689,7 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
+ 	/* start sentinel checking in case of missing uevent */
+ 	dp_add_event(dp, EV_DISCONNECT_PENDING_TIMEOUT, 0, DP_TIMEOUT_5_SECOND);
+ 
++	DRM_DEBUG_DP("hpd_state=%d\n", state);
+ 	/* signal the disconnect event early to ensure proper teardown */
+ 	dp_display_handle_plugged_change(g_dp_display, false);
+ 
+@@ -738,6 +748,7 @@ static int dp_irq_hpd_handle(struct dp_display_private *dp, u32 data)
+ 	if (ret == -ECONNRESET) { /* cable unplugged */
+ 		dp->core_initialized = false;
+ 	}
++	DRM_DEBUG_DP("hpd_state=%d\n", state);
+ 
+ 	mutex_unlock(&dp->event_mutex);
+ 
+@@ -882,6 +893,7 @@ static int dp_display_enable(struct dp_display_private *dp, u32 data)
+ 
+ 	dp_display = g_dp_display;
+ 
++	DRM_DEBUG_DP("sink_count=%d\n", dp->link->sink_count);
+ 	if (dp_display->power_on) {
+ 		DRM_DEBUG_DP("Link already setup, return\n");
+ 		return 0;
+@@ -943,6 +955,7 @@ static int dp_display_disable(struct dp_display_private *dp, u32 data)
+ 
+ 	dp_display->power_on = false;
+ 
++	DRM_DEBUG_DP("sink count: %d\n", dp->link->sink_count);
+ 	return 0;
+ }
+ 
+@@ -1190,6 +1203,7 @@ static irqreturn_t dp_display_irq_handler(int irq, void *dev_id)
+ 
+ 	hpd_isr_status = dp_catalog_hpd_get_intr_status(dp->catalog);
+ 
++	DRM_DEBUG_DP("hpd isr status=%#x\n", hpd_isr_status);
+ 	if (hpd_isr_status & 0x0F) {
+ 		/* hpd related interrupts */
+ 		if (hpd_isr_status & DP_DP_HPD_PLUG_INT_MASK ||
+diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
+index be986da..ac53c06 100644
+--- a/drivers/gpu/drm/msm/dp/dp_link.c
++++ b/drivers/gpu/drm/msm/dp/dp_link.c
+@@ -1036,43 +1036,29 @@ int dp_link_process_request(struct dp_link *dp_link)
+ 
+ 	if (link->request.test_requested == DP_TEST_LINK_EDID_READ) {
+ 		dp_link->sink_request |= DP_TEST_LINK_EDID_READ;
+-		return ret;
+-	}
+-
+-	ret = dp_link_process_ds_port_status_change(link);
+-	if (!ret) {
++	} else if (!dp_link_process_ds_port_status_change(link)) {
+ 		dp_link->sink_request |= DS_PORT_STATUS_CHANGED;
+-		return ret;
+-	}
+-
+-	ret = dp_link_process_link_training_request(link);
+-	if (!ret) {
++	} else if (!dp_link_process_link_training_request(link)) {
+ 		dp_link->sink_request |= DP_TEST_LINK_TRAINING;
+-		return ret;
+-	}
+-
+-	ret = dp_link_process_phy_test_pattern_request(link);
+-	if (!ret) {
++	} else if (!dp_link_process_phy_test_pattern_request(link)) {
+ 		dp_link->sink_request |= DP_TEST_LINK_PHY_TEST_PATTERN;
+-		return ret;
+-	}
+-
+-	ret = dp_link_process_link_status_update(link);
+-	if (!ret) {
+-		dp_link->sink_request |= DP_LINK_STATUS_UPDATED;
+-		return ret;
+-	}
+-
+-	if (dp_link_is_video_pattern_requested(link)) {
+-		ret = 0;
+-		dp_link->sink_request |= DP_TEST_LINK_VIDEO_PATTERN;
+-	}
+-
+-	if (dp_link_is_audio_pattern_requested(link)) {
+-		dp_link->sink_request |= DP_TEST_LINK_AUDIO_PATTERN;
+-		return -EINVAL;
++	} else {
++		ret = dp_link_process_link_status_update(link);
++		if (!ret) {
++			dp_link->sink_request |= DP_LINK_STATUS_UPDATED;
++		} else {
++			if (dp_link_is_video_pattern_requested(link)) {
++				ret = 0;
++				dp_link->sink_request |= DP_TEST_LINK_VIDEO_PATTERN;
++			}
++			if (dp_link_is_audio_pattern_requested(link)) {
++				dp_link->sink_request |= DP_TEST_LINK_AUDIO_PATTERN;
++				ret = -EINVAL;
++			}
++		}
+ 	}
+ 
++	DRM_DEBUG_DP("sink request=%#x", dp_link->sink_request);
+ 	return ret;
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/dp/dp_power.c b/drivers/gpu/drm/msm/dp/dp_power.c
+index 3961ba4..b48b45e 100644
+--- a/drivers/gpu/drm/msm/dp/dp_power.c
++++ b/drivers/gpu/drm/msm/dp/dp_power.c
+@@ -208,6 +208,9 @@ static int dp_power_clk_set_rate(struct dp_power_private *power,
+ 
+ int dp_power_clk_status(struct dp_power *dp_power, enum dp_pm_type pm_type)
+ {
++	DRM_DEBUG_DP("core_clk_on=%d link_clk_on=%d stream_clk_on=%d\n",
++		dp_power->core_clks_on, dp_power->link_clks_on, dp_power->stream_clks_on);
++
+ 	if (pm_type == DP_CORE_PM)
+ 		return dp_power->core_clks_on;
+ 
 -- 
-2.31.1
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
 _______________________________________________
 Freedreno mailing list
