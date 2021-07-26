@@ -2,53 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12C4A3D6A64
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jul 2021 01:52:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B656E3D6A68
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jul 2021 01:54:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0F7A6EA34;
-	Mon, 26 Jul 2021 23:52:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FC746EB3A;
+	Mon, 26 Jul 2021 23:54:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc33.google.com (mail-oo1-xc33.google.com
- [IPv6:2607:f8b0:4864:20::c33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B36AD6EAE2
- for <freedreno@lists.freedesktop.org>; Mon, 26 Jul 2021 23:52:26 +0000 (UTC)
-Received: by mail-oo1-xc33.google.com with SMTP id
- o17-20020a4a64110000b0290263e1ba7ff9so2651848ooc.2
- for <freedreno@lists.freedesktop.org>; Mon, 26 Jul 2021 16:52:26 -0700 (PDT)
+Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
+ [IPv6:2607:f8b0:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 333F36EB47
+ for <freedreno@lists.freedesktop.org>; Mon, 26 Jul 2021 23:54:26 +0000 (UTC)
+Received: by mail-oi1-x234.google.com with SMTP id 21so13036271oin.8
+ for <freedreno@lists.freedesktop.org>; Mon, 26 Jul 2021 16:54:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=dRaHtjS0KrTz4yuMDHKsz+U68MHHTci+vBVq7wMAHKw=;
- b=AvHO4vlBdmphRLFE1VF1DCJfbyTvm/5I94Unc/gLh+OhuuKt7bnc/QMo5D0l+5vdX9
- HUBVtcsSCB3rh6Cs96P+4lu5ABM/EN3WeQJZGQg1nTOIArK4SQhBFK4KnHQdjpIboXlf
- dfDSdYpePU+/obZDzB4Fx2hhqJi48U6l8l04Y=
+ bh=/VLYF7ULvK8ZBgtGaBzY2DEw131HN7Z0pCBHVUvwO54=;
+ b=hxr7765n6XazZWlQrt1w5TK6xrOZnmJ0Egyb88XGLVXTWx7fLXIPJFISvBfpxLF/Rm
+ xnFRkf4oY5oEMEAaOXSUwOucRnQQ/PcaM5rWWyXmoo60bUMF3vBQ5KPWF/wETQ4jt24+
+ CktUVvmDz3kzCaFCDYjeWSqxbuBZmPkr2EoF8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=dRaHtjS0KrTz4yuMDHKsz+U68MHHTci+vBVq7wMAHKw=;
- b=PMjoFBZmzQdIGXED1NrccdNpukaqO52kkD7qN3/dIR2NBDpx6zUR2m+fPpPLjWavX8
- XxRxi2KR2fwvsYSW+eeXLsSv83xeGQ1Dffod6C6fT1SAWzWP2gBQDYQMiTYFQd+wIWDn
- m0trEo/coJgStqawIVTC47UxOs58pBKlyDCWOsh9ut689njKXmwy8WrjCsTa0vjaZUeS
- P7hBOo03kthk90Rekcii/uNyC83RpKtMV91F5e5lM7WFgfAF7mQeWfdL2nSuuwnJONR6
- 010jc8Z58M4x/K/2nUq4ndYxg/vxxowFgQ19evJ3ZenM6rDWG5E6BLovJ6x6hD4Th8IS
- +biQ==
-X-Gm-Message-State: AOAM531Ez/5qYO9fmdWST9GBDVnmaW0YuW7MB4aRq8skUuVZHfA4pWuN
- W8DK+1WwgPt8Y15wcV364qjbE8Ykt2oamCUEjbY5gw==
-X-Google-Smtp-Source: ABdhPJxSyAGaBm1flEDwyQLTJt1JWFzQAyotby+cedJ15X8enDG0o3MaedDkJEWuJ2piJSo1jaW+PEA+CtzX3wp4PZQ=
-X-Received: by 2002:a4a:a6c2:: with SMTP id i2mr12012017oom.92.1627343546057; 
- Mon, 26 Jul 2021 16:52:26 -0700 (PDT)
+ bh=/VLYF7ULvK8ZBgtGaBzY2DEw131HN7Z0pCBHVUvwO54=;
+ b=rlJ7OXUIXNk6Iy0oxugUhPj4XNhOgr/948lkhgXj/YEKQrvI4iOpzzHTTuUpKZjUpx
+ rCr10j7WrpmKX/oDYhAlaLCYiYdsOxCWL9J6Ilu4w4Mwrme09eiiq5mJCEyv4wsbHzMq
+ abxb7dJ+H2o5cuCNRd1Eem3Q5hyErqd3voMfQfx9js9fSB8MewVdeB16+eRE2kMiBmUg
+ y9+FOI6aTuAOUZSM1bnUBHSOQvBnyMPXGfnAEnRkfJKjhcniCdeokfyTw6uYvrvdC/Za
+ +vgJCvQFNto81cLJpEkpn3MA1nsdly8SVee7j4fZVWam1CFQ4QK01WjHjrAn5veyuy95
+ h+Nw==
+X-Gm-Message-State: AOAM532NzlToL7l11G+OUQGhmPR63BEJISXAP8ASFM8e6zC89aZ0QXDH
+ AdVUrk0Y2Cz7DhcbLB7nNtjvgOnQTecuuyvsdbdmsg==
+X-Google-Smtp-Source: ABdhPJzd/1nyMLgswv7B9b/xTSfgYdGHuVA0ExUmZ4ifjYmYX/hivyNvHxCzZQ7qLJmY/6pV3kbD/8Sp1ceKx2RVsA0=
+X-Received: by 2002:a05:6808:114a:: with SMTP id
+ u10mr13166680oiu.19.1627343665469; 
+ Mon, 26 Jul 2021 16:54:25 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 26 Jul 2021 19:52:25 -0400
+ HTTPREST; Mon, 26 Jul 2021 19:54:25 -0400
 MIME-Version: 1.0
-In-Reply-To: <20210725042436.3967173-6-bjorn.andersson@linaro.org>
+In-Reply-To: <20210725042436.3967173-7-bjorn.andersson@linaro.org>
 References: <20210725042436.3967173-1-bjorn.andersson@linaro.org>
- <20210725042436.3967173-6-bjorn.andersson@linaro.org>
+ <20210725042436.3967173-7-bjorn.andersson@linaro.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.9.1
-Date: Mon, 26 Jul 2021 19:52:25 -0400
-Message-ID: <CAE-0n53J6dqB7X7LoKd4VYVgA-ujbV1shFWdYZvLZZ+q3Tjpmw@mail.gmail.com>
+Date: Mon, 26 Jul 2021 19:54:25 -0400
+Message-ID: <CAE-0n52iQ5XOu=X3sVOyvYddoYRY7bHPc-5GiOwTcnOwLL2_gQ@mail.gmail.com>
 To: Abhinav Kumar <abhinavk@codeaurora.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>, 
  Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>, 
@@ -56,8 +56,7 @@ To: Abhinav Kumar <abhinavk@codeaurora.org>,
  Kalyan Thota <kalyan_t@codeaurora.org>, 
  Kuogee Hsieh <khsieh@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>
-Subject: Re: [Freedreno] [PATCH 4/5] dt-bindings: msm/dp: Add SC8180x
- compatibles
+Subject: Re: [Freedreno] [PATCH 5/5] drm/msm/dp: Add sc8180x DP controllers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,14 +77,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Bjorn Andersson (2021-07-24 21:24:35)
-> The Qualcomm SC8180x has 2 DP controllers and 1 eDP controller, add
-> compatibles for these to the msm/dp binding.
+Quoting Bjorn Andersson (2021-07-24 21:24:36)
+> The sc8180x has 2 DP and 1 eDP controllers, add support for these to the
+> DP driver.
 >
+> Link: https://lore.kernel.org/linux-arm-msm/20210511042043.592802-5-bjorn.andersson@linaro.org/
 > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 > ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 92b7646a1bb7..c26805cfcdd1 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -129,8 +129,20 @@ static const struct msm_dp_config sc7180_dp_cfg = {
+>         .num_dp = 1,
+>  };
+>
+> +static const struct msm_dp_config sc8180x_dp_cfg = {
+> +       .io_start = { 0xae90000, 0xae98000, 0 },
+> +       .num_dp = 3,
+> +};
+> +
+> +static const struct msm_dp_config sc8180x_edp_cfg = {
+> +       .io_start = { 0, 0, 0xae9a000 },
+> +       .num_dp = 3,
+> +};
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Can the two structs not be combined into one struct and set as .data for
+either compatible?
+
+> +
+>  static const struct of_device_id dp_dt_match[] = {
+>         { .compatible = "qcom,sc7180-dp", .data = &sc7180_dp_cfg },
+> +       { .compatible = "qcom,sc8180x-dp", .data = &sc8180x_dp_cfg },
+> +       { .compatible = "qcom,sc8180x-edp", .data = &sc8180x_edp_cfg },
+>         {}
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
