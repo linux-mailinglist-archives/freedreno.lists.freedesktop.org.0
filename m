@@ -2,67 +2,38 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9766D3D7DDE
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jul 2021 20:42:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0A6C3D7E04
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jul 2021 20:52:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3946C6E207;
-	Tue, 27 Jul 2021 18:42:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8084E6E2ED;
+	Tue, 27 Jul 2021 18:52:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CCB16E207
- for <freedreno@lists.freedesktop.org>; Tue, 27 Jul 2021 18:42:37 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id e5so17196509ljp.6
- for <freedreno@lists.freedesktop.org>; Tue, 27 Jul 2021 11:42:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=+7UEfD2Imkl3ZnkOmnry5ON4ruHu09FP4tYeWeop6j8=;
- b=Dw1xy/B95cB2tQ8nfE4IH8NuStpyecxxK3HsLcmBe5tJe37IsnKZtXreBvEpEIhIFc
- NPwjIj2Q2rzg+iqbTrT1xv4aJZ/rJN1N6tMfA+MUjrFaBwIVYW2MtgDQ44cvIScabO9F
- R0y3s3cIcrxOOOsgQ/3jeRbo1cLqmh+cy736gV+SytYpwepWwqiJvPQVLh0d/QwOcDWr
- tuqLJsI22MlyNc7wnpfDMwJtqbhdXG+bSa88GwIJZQ9a495/ylpicRxlms7Gacg0hvnP
- nGXU3gBlapyO44/mQYuYk97qm+qoWDywGdzwwGthJTCZ7v3sUVXkTeeN0d9GsSN8woSq
- Bj2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=+7UEfD2Imkl3ZnkOmnry5ON4ruHu09FP4tYeWeop6j8=;
- b=XV+6D2Z7gQcSeN6G8yln3XM16PWS0puxOppjx9giTF4xX/U2irMyZpQXEDqC0/78t2
- SHmwgATknI9fnBlpXD6clluBDxh9om2HtwUFDjw43VTwU+oUyfcDc+S9EALDL0r1/kVj
- xjqxBkZ3/kGZu0kew9IVU6f6YxSK3FeRLgkvWkbaAQIgtsFdtdEZQBYAXFPFcJU7K6Yo
- ZRCx6cF+CefWYpnT/jw/IZMRlPQ9DO5fqmngn9hprnilaE5Lg2DV3xaVYSH3r4a2k4xv
- of+Sy5GYs+u4mEj6nTTjrSInSktNop1GiKc/RW9bWZP+ZXIeXMx+c62Z/A6bW6jMvQx2
- im2A==
-X-Gm-Message-State: AOAM5334qih6fiMloV8/JH7+A6JhrFhBOVaqhFZiLT7e0e0W/YLY667B
- UMxDvLioq6353rEdxqzte8lcXw==
-X-Google-Smtp-Source: ABdhPJw4h0sF7m8BSZ4MlkG9L54CcA+FgAX+Io3OlMQJ4N0NrYEy9Vu2yYSi0jwBIhxMPRXFaamJ0g==
-X-Received: by 2002:a2e:85d8:: with SMTP id h24mr16831635ljj.365.1627411355491; 
- Tue, 27 Jul 2021 11:42:35 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id m23sm28970lfc.116.2021.07.27.11.42.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Jul 2021 11:42:35 -0700 (PDT)
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Kalyan Thota <kalyan_t@codeaurora.org>, Kuogee Hsieh <khsieh@codeaurora.org>
-References: <20210725042436.3967173-1-bjorn.andersson@linaro.org>
- <20210725042436.3967173-3-bjorn.andersson@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <97ac00f8-eb25-9142-3bdc-904aad269b6e@linaro.org>
-Date: Tue, 27 Jul 2021 21:42:34 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+Received: from mx2.smtp.larsendata.com (mx2.smtp.larsendata.com
+ [91.221.196.228])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E94746E2ED
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Jul 2021 18:52:01 +0000 (UTC)
+Received: from mail01.mxhotel.dk (mail01.mxhotel.dk [91.221.196.236])
+ by mx2.smtp.larsendata.com (Halon) with ESMTPS
+ id c39853f0-ef0b-11eb-8d1a-0050568cd888;
+ Tue, 27 Jul 2021 18:52:17 +0000 (UTC)
+Received: from ravnborg.org (80-162-45-141-cable.dk.customer.tdc.net
+ [80.162.45.141])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: sam@ravnborg.org)
+ by mail01.mxhotel.dk (Postfix) with ESMTPSA id 4E468194BB3;
+ Tue, 27 Jul 2021 20:52:17 +0200 (CEST)
+Date: Tue, 27 Jul 2021 20:51:54 +0200
+X-Report-Abuse-To: abuse@mxhotel.dk
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <YQBVyuPuf9InsY7g@ravnborg.org>
+References: <20210727182721.17981-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-In-Reply-To: <20210725042436.3967173-3-bjorn.andersson@linaro.org>
-Content-Language: en-GB
-Subject: Re: [Freedreno] [PATCH 2/5] drm/msm/dp: Modify prototype of encoder
- based API
+Content-Disposition: inline
+In-Reply-To: <20210727182721.17981-1-tzimmermann@suse.de>
+Subject: Re: [Freedreno] [PATCH 00/14] drm: Make DRM's IRQ helpers legacy
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,241 +46,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Rob Herring <robh+dt@kernel.org>, freedreno@lists.freedesktop.org
+Cc: airlied@linux.ie, liviu.dudau@arm.com, stefan@agner.ch,
+ amd-gfx@lists.freedesktop.org, anitha.chrisanthus@intel.com,
+ patrik.r.jakobsson@gmail.com, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, daniel@ffwll.ch, edmund.j.dea@intel.com,
+ s.hauer@pengutronix.de, alison.wang@nxp.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, dri-devel@lists.freedesktop.org, sean@poorly.run,
+ linux-arm-kernel@lists.infradead.org, tomba@kernel.org, bbrezillon@kernel.org,
+ jyri.sarha@iki.fi, nicolas.ferre@microchip.com, christian.koenig@amd.com,
+ robdclark@gmail.com, kernel@pengutronix.de, alexander.deucher@amd.com,
+ shawnguo@kernel.org, brian.starkey@arm.com
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 25/07/2021 07:24, Bjorn Andersson wrote:
-> Functions in the DisplayPort code that relates to individual instances
-> (encoders) are passed both the struct msm_dp and the struct drm_encoder. But
-> in a situation where multiple DP instances would exist this means that
-> the caller need to resolve which struct msm_dp relates to the struct
-> drm_encoder at hand.
+Hi Thomas,
+
+On Tue, Jul 27, 2021 at 08:27:07PM +0200, Thomas Zimmermann wrote:
+> DRM's IRQ helpers are only helpful for old, non-KMS drivers. Move
+> the code behind CONFIG_DRM_LEGACY. Convert KMS drivers to Linux
+> IRQ interfaces.
 > 
-> The information for doing this lookup is available inside the DP driver,
-> so update the API to take the struct msm_drm_private and the struct
-> drm_encoder and have the DP code figure out which struct msm_dp the
-> operation relates to.
-
-Initially I thought to propose moving encoder->dp lookup into dpu code 
-by adding msm_dp_display_get_encoder() function. However as I was 
-writing that, I remembered that at some point I had to refactor my own 
-patchset in the way to get rid of calling msm_FOO_get_encoder().
-
-I'd propose simpler solution. In dpu_encoder_setup() you have the DP 
-index and the encoder. So you can store valid msm_dp pointer in the 
-dpu_encoder_virt and remove all the lookups. Then you can replace all 
-priv->dp with bare dpu_enc->dp accesses. Will this work for you?
-
+> DRM provides IRQ helpers for setting up, receiving and removing IRQ
+> handlers. It's an abstraction over plain Linux functions. The code
+> is mid-layerish with several callbacks to hook into the rsp drivers.
+> Old UMS driver have their interrupts enabled via ioctl, so these
+> abstractions makes some sense. Modern KMS manage all their interrupts
+> internally. Using the DRM helpers adds indirection without benefits.
 > 
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 17 +++++----
->   drivers/gpu/drm/msm/dp/dp_display.c         | 38 +++++++++++++++++----
->   drivers/gpu/drm/msm/msm_drv.h               | 31 +++++++++--------
->   3 files changed, 56 insertions(+), 30 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 1c04b7cce43e..0d64ef0819af 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -1002,8 +1002,8 @@ static void dpu_encoder_virt_mode_set(struct drm_encoder *drm_enc,
->   
->   	trace_dpu_enc_mode_set(DRMID(drm_enc));
->   
-> -	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS && priv->dp)
-> -		msm_dp_display_mode_set(priv->dp, drm_enc, mode, adj_mode);
-> +	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS)
-> +		msm_dp_display_mode_set(priv, drm_enc, mode, adj_mode);
->   
->   	list_for_each_entry(conn_iter, connector_list, head)
->   		if (conn_iter->encoder == drm_enc)
-> @@ -1184,9 +1184,8 @@ static void dpu_encoder_virt_enable(struct drm_encoder *drm_enc)
->   
->   	_dpu_encoder_virt_enable_helper(drm_enc);
->   
-> -	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS && priv->dp) {
-> -		ret = msm_dp_display_enable(priv->dp,
-> -						drm_enc);
-> +	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS) {
-> +		ret = msm_dp_display_enable(priv, drm_enc);
->   		if (ret) {
->   			DPU_ERROR_ENC(dpu_enc, "dp display enable failed: %d\n",
->   				ret);
-> @@ -1226,8 +1225,8 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
->   	/* wait for idle */
->   	dpu_encoder_wait_for_event(drm_enc, MSM_ENC_TX_COMPLETE);
->   
-> -	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS && priv->dp) {
-> -		if (msm_dp_display_pre_disable(priv->dp, drm_enc))
-> +	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS) {
-> +		if (msm_dp_display_pre_disable(priv, drm_enc))
->   			DPU_ERROR_ENC(dpu_enc, "dp display push idle failed\n");
->   	}
->   
-> @@ -1255,8 +1254,8 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
->   
->   	DPU_DEBUG_ENC(dpu_enc, "encoder disabled\n");
->   
-> -	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS && priv->dp) {
-> -		if (msm_dp_display_disable(priv->dp, drm_enc))
-> +	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS) {
-> +		if (msm_dp_display_disable(priv, drm_enc))
->   			DPU_ERROR_ENC(dpu_enc, "dp display disable failed\n");
->   	}
->   
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 8696b36d30e4..59ffd6c8f41f 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -1432,12 +1432,25 @@ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
->   	return 0;
->   }
->   
-> -int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder)
-> +static struct msm_dp *msm_dp_from_drm_encoder(struct msm_drm_private *priv,
-> +					      struct drm_encoder *encoder)
-> +{
-> +	if (priv->dp && priv->dp->encoder == encoder)
-> +		return priv->dp;
-> +
-> +	return NULL;
-> +}
-> +
-> +int msm_dp_display_enable(struct msm_drm_private *priv, struct drm_encoder *encoder)
->   {
->   	int rc = 0;
->   	struct dp_display_private *dp_display;
-> +	struct msm_dp *dp = msm_dp_from_drm_encoder(priv, encoder);
->   	u32 state;
->   
-> +	if (!dp)
-> +		return -EINVAL;
-> +
->   	dp_display = container_of(dp, struct dp_display_private, dp_display);
->   	if (!dp_display->dp_mode.drm_mode.clock) {
->   		DRM_ERROR("invalid params\n");
-> @@ -1489,9 +1502,13 @@ int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder)
->   	return rc;
->   }
->   
-> -int msm_dp_display_pre_disable(struct msm_dp *dp, struct drm_encoder *encoder)
-> +int msm_dp_display_pre_disable(struct msm_drm_private *priv, struct drm_encoder *encoder)
->   {
->   	struct dp_display_private *dp_display;
-> +	struct msm_dp *dp = msm_dp_from_drm_encoder(priv, encoder);
-> +
-> +	if (!dp)
-> +		return 0;
->   
->   	dp_display = container_of(dp, struct dp_display_private, dp_display);
->   
-> @@ -1500,11 +1517,15 @@ int msm_dp_display_pre_disable(struct msm_dp *dp, struct drm_encoder *encoder)
->   	return 0;
->   }
->   
-> -int msm_dp_display_disable(struct msm_dp *dp, struct drm_encoder *encoder)
-> +int msm_dp_display_disable(struct msm_drm_private *priv, struct drm_encoder *encoder)
->   {
->   	int rc = 0;
->   	u32 state;
->   	struct dp_display_private *dp_display;
-> +	struct msm_dp *dp = msm_dp_from_drm_encoder(priv, encoder);
-> +
-> +	if (!dp)
-> +		return 0;
->   
->   	dp_display = container_of(dp, struct dp_display_private, dp_display);
->   
-> @@ -1531,11 +1552,16 @@ int msm_dp_display_disable(struct msm_dp *dp, struct drm_encoder *encoder)
->   	return rc;
->   }
->   
-> -void msm_dp_display_mode_set(struct msm_dp *dp, struct drm_encoder *encoder,
-> -				struct drm_display_mode *mode,
-> -				struct drm_display_mode *adjusted_mode)
-> +void msm_dp_display_mode_set(struct msm_drm_private *priv,
-> +			     struct drm_encoder *encoder,
-> +			     struct drm_display_mode *mode,
-> +			     struct drm_display_mode *adjusted_mode)
->   {
->   	struct dp_display_private *dp_display;
-> +	struct msm_dp *dp = msm_dp_from_drm_encoder(priv, encoder);
-> +
-> +	if (!dp)
-> +		return;
->   
->   	dp_display = container_of(dp, struct dp_display_private, dp_display);
->   
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-> index 9bfd37855969..e9232032b266 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -388,12 +388,13 @@ int __init msm_dp_register(void);
->   void __exit msm_dp_unregister(void);
->   int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
->   			 struct drm_encoder *encoder);
-> -int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder);
-> -int msm_dp_display_disable(struct msm_dp *dp, struct drm_encoder *encoder);
-> -int msm_dp_display_pre_disable(struct msm_dp *dp, struct drm_encoder *encoder);
-> -void msm_dp_display_mode_set(struct msm_dp *dp, struct drm_encoder *encoder,
-> -				struct drm_display_mode *mode,
-> -				struct drm_display_mode *adjusted_mode);
-> +int msm_dp_display_enable(struct msm_drm_private *priv, struct drm_encoder *encoder);
-> +int msm_dp_display_disable(struct msm_drm_private *priv, struct drm_encoder *encoder);
-> +int msm_dp_display_pre_disable(struct msm_drm_private *priv, struct drm_encoder *encoder);
-> +void msm_dp_display_mode_set(struct msm_drm_private *priv,
-> +			     struct drm_encoder *encoder,
-> +			     struct drm_display_mode *mode,
-> +			     struct drm_display_mode *adjusted_mode);
->   void msm_dp_irq_postinstall(struct msm_dp *dp_display);
->   void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm_dp *dp_display);
->   
-> @@ -413,25 +414,25 @@ static inline int msm_dp_modeset_init(struct msm_dp *dp_display,
->   {
->   	return -EINVAL;
->   }
-> -static inline int msm_dp_display_enable(struct msm_dp *dp,
-> +static inline int msm_dp_display_enable(struct msm_drm_private *priv,
->   					struct drm_encoder *encoder)
->   {
->   	return -EINVAL;
->   }
-> -static inline int msm_dp_display_disable(struct msm_dp *dp,
-> -					struct drm_encoder *encoder)
-> +static inline int msm_dp_display_disable(struct msm_drm_private *priv,
-> +					 struct drm_encoder *encoder)
->   {
->   	return -EINVAL;
->   }
-> -static inline int msm_dp_display_pre_disable(struct msm_dp *dp,
-> -					struct drm_encoder *encoder)
-> +static inline int msm_dp_display_pre_disable(struct msm_drm_private *priv,
-> +					     struct drm_encoder *encoder)
->   {
->   	return -EINVAL;
->   }
-> -static inline void msm_dp_display_mode_set(struct msm_dp *dp,
-> -				struct drm_encoder *encoder,
-> -				struct drm_display_mode *mode,
-> -				struct drm_display_mode *adjusted_mode)
-> +static inline void msm_dp_display_mode_set(struct msm_drm_private *priv,
-> +					   struct drm_encoder *encoder,
-> +					   struct drm_display_mode *mode,
-> +					   struct drm_display_mode *adjusted_mode)
->   {
->   }
->   
-> 
+> Most KMs drivers already use Linux IRQ functions instead of DRM's
+> abstraction layer. Patches 1 to 12 convert the remaining ones.
+> The patches also resolve a bug for devices without assigned interrupt
+> number. DRM helpers don't test for IRQ_NOTCONNECTED, so drivers do
+> not detect if the device has no interrupt assigned.
 
+Before diving into a review of these..
+Any specific reason devm_request_irq is not used?
 
--- 
-With best wishes
-Dmitry
+	Sam
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
