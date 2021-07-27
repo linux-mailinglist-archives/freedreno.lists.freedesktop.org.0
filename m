@@ -1,62 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB12C3D6A71
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jul 2021 01:55:54 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FDF13D6AEC
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jul 2021 02:16:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EB846EB47;
-	Mon, 26 Jul 2021 23:55:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 989A56E0AA;
+	Tue, 27 Jul 2021 00:16:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
- [IPv6:2607:f8b0:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A88FE6EB3A
- for <freedreno@lists.freedesktop.org>; Mon, 26 Jul 2021 23:55:51 +0000 (UTC)
-Received: by mail-oi1-x22c.google.com with SMTP id l126so13079691oib.2
- for <freedreno@lists.freedesktop.org>; Mon, 26 Jul 2021 16:55:51 -0700 (PDT)
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
+ [IPv6:2607:f8b0:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B6476E0A5
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Jul 2021 00:16:43 +0000 (UTC)
+Received: by mail-ot1-x334.google.com with SMTP id
+ c7-20020a9d27870000b02904d360fbc71bso11703811otb.10
+ for <freedreno@lists.freedesktop.org>; Mon, 26 Jul 2021 17:16:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=aoD4jTfRbzylcA4bNLcfmr8Z+HRIOIxaPk90sso0ATU=;
- b=eQQhbr+z1dG29juiKiHPhvhbjUjYibakqGnSF4idMAK1hnTXJ3j2IVeHu37sbE1AIk
- nD5EMYai5v4xcjYBOPRRpBYhe50X/rIN3mKJ47uQiui9FNJ9cJ9Il+q1PE1UEpMocrOf
- Jokd9Bk5aK4znpuUCHl2Q09JwDeYHuWxCthT0=
+ bh=tscrZBQstzzRaUL+UaPR6i4OEaBy+HrQhXGyWhtHbpY=;
+ b=I0bCa3Idkeu+p5K2AETrjGGnbJVU0B3Kdkogh8ZnX/Pg35bJ5u63zp1PpsZR4PUA71
+ pJvXM4Jz0xpHXLWmGg5smlJmSgXTQ1IRM4qgno2YoYyOBJ3LpB2LlPz6s+v/qRrjOvKD
+ hKDJtkmccFTnmNWnT0gIloYTbnGn5VN8AvSdQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=aoD4jTfRbzylcA4bNLcfmr8Z+HRIOIxaPk90sso0ATU=;
- b=efVe4HK/g+NDMaVf0qAWm4dPLzbS73DKxIOx5KwiSOhbD02qx+pIdJ+Ze3obO+LM4I
- rGyrYQt9lheooqg2nu1rnzf8jCAmPW/JsWO2LgeDGaV6lUwdsKHX7Nno+I5etAFBvSkm
- op48wuHefZtAdNh3qGYO5RUgGAU7Gcm2EWx9QAnNbm+PWLLXe8fjca7oB9m3GeY+T/83
- UaeDpoaf91xvMzSUf+F5CjVf2Z7L63VyKysoVu8jz8JXy2UXmq4hsuXxRSBf5+H0cmVS
- foXaY4tQIgplHniiP+hnRivb8lCENAtg1ac1NleELH8X8OvqVJF/64qBKBv3PP9Twnqf
- K0XA==
-X-Gm-Message-State: AOAM531wM+X5zcEbaGLy72xqohB8YD3lrlgnq8R/EA08VXui3YXgzbZp
- EiJVMqDJ9249H1NNKCogeiKXcER1Ynrzz2a5SxjpLg==
-X-Google-Smtp-Source: ABdhPJw65cG9TGz3WiBUJWp99aUzz4g/0pjfJNvmUosztg4FLwuh1PpAx+TFNVLnqwkG0FMULV596wJRHK85NE7MZGk=
-X-Received: by 2002:aca:4dc6:: with SMTP id a189mr1129053oib.166.1627343751055; 
- Mon, 26 Jul 2021 16:55:51 -0700 (PDT)
+ bh=tscrZBQstzzRaUL+UaPR6i4OEaBy+HrQhXGyWhtHbpY=;
+ b=FDi6J7MlRSHFUzke1gbc8cccfjyzmQCtiLEpvxnLhBkcM27FpyQBQscTsMlbB3A982
+ RievHDMdmKmff6cyoJUErHZbhX78kj5gV36SO8yV0kKpcZ03ZHRBc+IV/Hnv1tu+2+xS
+ PZbe0NQcfeEAMt2BOTVkftarpkhCWoA5nzVjmUKoDHwgYQrcn0oNscSqEuPqFToUovzA
+ br7nXjTHYiQMotEWPLM2Bi9gwAic48cxV0TEFePM2sqQBR9R3hVKl5ofsXSUPEcntS1F
+ rMBk0aFO3bPwmNBmNjIemeJj+cjAOJ9Urs+rIh42IgMDLRlwvqqvLNRNxb6EMn/4rbnk
+ 6pVg==
+X-Gm-Message-State: AOAM532h4s1U3T5PPfjLgOF3Mx/mffqBW8qM6uutExIBL+3DHMObbBAr
+ ii7C89NhiFAwo/vZbpO3w52+ujG34T31ALGDtlwdIg==
+X-Google-Smtp-Source: ABdhPJz9DOthLfEXyaAywpN2zjLbyg7yP79QdEbJyK44iOYpg3YyBnI1HZX1Oyg1Cv6KyXuESXsA/iFNxu6OmeFGo9c=
+X-Received: by 2002:a9d:650e:: with SMTP id i14mr13685660otl.233.1627345002305; 
+ Mon, 26 Jul 2021 17:16:42 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 26 Jul 2021 19:55:50 -0400
+ HTTPREST; Mon, 26 Jul 2021 20:16:41 -0400
 MIME-Version: 1.0
-In-Reply-To: <20210725042436.3967173-3-bjorn.andersson@linaro.org>
-References: <20210725042436.3967173-1-bjorn.andersson@linaro.org>
- <20210725042436.3967173-3-bjorn.andersson@linaro.org>
+In-Reply-To: <1627147740-11590-1-git-send-email-akhilpo@codeaurora.org>
+References: <1627147740-11590-1-git-send-email-akhilpo@codeaurora.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.9.1
-Date: Mon, 26 Jul 2021 19:55:50 -0400
-Message-ID: <CAE-0n53utmLLoJqqffx_-MoiereWAeBFe9nPjAizKeuKRwedHA@mail.gmail.com>
-To: Abhinav Kumar <abhinavk@codeaurora.org>,
+Date: Mon, 26 Jul 2021 20:16:41 -0400
+Message-ID: <CAE-0n52mEy1GReYwcVrffT2KOy4EHMHH-RyCJ_mmxhaeXwGdYA@mail.gmail.com>
+To: Akhil P Oommen <akhilpo@codeaurora.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>, 
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Kalyan Thota <kalyan_t@codeaurora.org>, 
- Kuogee Hsieh <khsieh@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
-Subject: Re: [Freedreno] [PATCH 2/5] drm/msm/dp: Modify prototype of encoder
- based API
+ OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS <devicetree@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, 
+ dri-devel@lists.freedesktop.org, freedreno <freedreno@lists.freedesktop.org>, 
+ linux-arm-msm@vger.kernel.org
+Subject: Re: [Freedreno] [PATCH v2] arm64: dts: qcom: sc7280: Add gpu support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,30 +67,162 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+Cc: Jonathan Marek <jonathan@marek.ca>, linux-kernel@vger.kernel.org,
+ Douglas Anderson <dianders@chromium.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>, Matthias Kaehlcke <mka@chromium.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Bjorn Andersson (2021-07-24 21:24:32)
-> Functions in the DisplayPort code that relates to individual instances
-> (encoders) are passed both the struct msm_dp and the struct drm_encoder. But
-> in a situation where multiple DP instances would exist this means that
-> the caller need to resolve which struct msm_dp relates to the struct
-> drm_encoder at hand.
+Quoting Akhil P Oommen (2021-07-24 10:29:00)
+> Add the necessary dt nodes for gpu support in sc7280.
 >
-> The information for doing this lookup is available inside the DP driver,
-> so update the API to take the struct msm_drm_private and the struct
-> drm_encoder and have the DP code figure out which struct msm_dp the
-> operation relates to.
->
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
 > ---
+> This patch has dependency on the GPUCC bindings patch here:
+> https://patchwork.kernel.org/project/linux-arm-msm/patch/1619519590-3019-4-git-send-email-tdas@codeaurora.org/
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+To avoid the dependency the plain numbers can be used.
+
+>
+> Changes in v2:
+> - formatting update and removed a duplicate header (Stephan)
+>
+>  arch/arm64/boot/dts/qcom/sc7280.dtsi | 116 +++++++++++++++++++++++++++++++++++
+>  1 file changed, 116 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> index 029723a..524a5e0 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> @@ -585,6 +586,121 @@
+>                         #clock-cells = <1>;
+>                 };
+>
+> +               gpu@3d00000 {
+> +                       compatible = "qcom,adreno-635.0", "qcom,adreno";
+> +                       #stream-id-cells = <16>;
+> +                       reg = <0 0x03d00000 0 0x40000>,
+> +                             <0 0x03d9e000 0 0x1000>,
+> +                             <0 0x03d61000 0 0x800>;
+> +                       reg-names = "kgsl_3d0_reg_memory",
+> +                                   "cx_mem",
+> +                                   "cx_dbgc";
+> +                       interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
+> +                       iommus = <&adreno_smmu 0 0x401>;
+> +                       operating-points-v2 = <&gpu_opp_table>;
+> +                       qcom,gmu = <&gmu>;
+> +                       interconnects = <&gem_noc MASTER_GFX3D 0 &mc_virt SLAVE_EBI1 0>;
+> +                       interconnect-names = "gfx-mem";
+> +
+> +                       gpu_opp_table: opp-table {
+> +                               compatible = "operating-points-v2";
+> +
+> +                               opp-550000000 {
+> +                                       opp-hz = /bits/ 64 <550000000>;
+> +                                       opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
+> +                                       opp-peak-kBps = <6832000>;
+> +                               };
+> +
+> +                               opp-450000000 {
+> +                                       opp-hz = /bits/ 64 <450000000>;
+> +                                       opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
+> +                                       opp-peak-kBps = <4068000>;
+> +                               };
+> +
+> +                               opp-315000000 {
+> +                                       opp-hz = /bits/ 64 <315000000>;
+> +                                       opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
+> +                                       opp-peak-kBps = <1804000>;
+> +                               };
+> +                       };
+> +               };
+> +
+> +               gmu: gmu@3d69000 {
+> +                       compatible="qcom,adreno-gmu-635.0", "qcom,adreno-gmu";
+> +                       reg = <0 0x03d6a000 0 0x34000>,
+> +                               <0 0x3de0000 0 0x10000>,
+> +                               <0 0x0b290000 0 0x10000>;
+> +                       reg-names = "gmu", "rscc", "gmu_pdc";
+> +                       interrupts = <GIC_SPI 304 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH>;
+> +                       interrupt-names = "hfi", "gmu";
+> +                       clocks = <&gpucc GPU_CC_CX_GMU_CLK>,
+> +                                       <&gpucc GPU_CC_CXO_CLK>,
+> +                                       <&gcc GCC_DDRSS_GPU_AXI_CLK>,
+> +                                       <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
+> +                                       <&gpucc GPU_CC_AHB_CLK>,
+> +                                       <&gpucc GPU_CC_HUB_CX_INT_CLK>,
+> +                                       <&gpucc GPU_CC_HLOS1_VOTE_GPU_SMMU_CLK>;
+> +                       clock-names = "gmu",
+> +                                     "cxo",
+> +                                     "axi",
+> +                                     "memnoc",
+> +                                     "ahb",
+> +                                     "hub",
+> +                                     "smmu_vote";
+> +                       power-domains = <&gpucc GPU_CC_CX_GDSC>,
+> +                                       <&gpucc GPU_CC_GX_GDSC>;
+> +                       power-domain-names = "cx",
+> +                                            "gx";
+> +                       iommus = <&adreno_smmu 5 0x400>;
+> +                       operating-points-v2 = <&gmu_opp_table>;
+> +
+> +                       gmu_opp_table: opp-table {
+> +                               compatible = "operating-points-v2";
+> +
+> +                               opp-200000000 {
+> +                                       opp-hz = /bits/ 64 <200000000>;
+> +                                       opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
+> +                               };
+> +                       };
+> +               };
+> +
+> +               adreno_smmu: iommu@3da0000 {
+> +                       compatible = "qcom,sc7280-smmu-500", "qcom,adreno-smmu", "arm,mmu-500";
+> +                       reg = <0 0x03da0000 0 0x20000>;
+> +                       #iommu-cells = <2>;
+> +                       #global-interrupts = <2>;
+> +                       interrupts = <GIC_SPI 673 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 675 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 678 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 679 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 680 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 681 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 682 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 683 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 684 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 685 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 686 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 687 IRQ_TYPE_LEVEL_HIGH>;
+> +
+> +                       clocks = <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
+> +                                       <&gcc GCC_GPU_SNOC_DVM_GFX_CLK>,
+> +                                       <&gpucc GPU_CC_AHB_CLK>,
+> +                                       <&gpucc GPU_CC_HLOS1_VOTE_GPU_SMMU_CLK>,
+> +                                       <&gpucc GPU_CC_CX_GMU_CLK>,
+> +                                       <&gpucc GPU_CC_HUB_CX_INT_CLK>,
+> +                                       <&gpucc GPU_CC_HUB_AON_CLK>;
+> +                       clock-names = "gcc_gpu_memnoc_gfx_clk",
+> +                                       "gcc_gpu_snoc_dvm_gfx_clk",
+> +                                       "gpu_cc_ahb_clk",
+> +                                       "gpu_cc_hlos1_vote_gpu_smmu_clk",
+> +                                       "gpu_cc_cx_gmu_clk",
+> +                                       "gpu_cc_hub_cx_int_clk",
+> +                                       "gpu_cc_hub_aon_clk";
+> +
+> +                       power-domains = <&gpucc GPU_CC_CX_GDSC>;
+> +               };
+> +
+>                 lpass_ag_noc: interconnect@3c40000 {
+
+This node is 3c40000 and the one above is 3da0000. 3c comes before 3d.
+Please order nodes properly.
+
+>                         reg = <0 0x03c40000 0 0xf080>;
+>                         compatible = "qcom,sc7280-lpass-ag-noc";
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
