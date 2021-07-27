@@ -1,52 +1,52 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D15AF3D7333
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jul 2021 12:29:22 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E0D53D7A5D
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jul 2021 18:01:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 788806E1F3;
-	Tue, 27 Jul 2021 10:29:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B573F6E977;
+	Tue, 27 Jul 2021 16:01:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ua1-x92d.google.com (mail-ua1-x92d.google.com
- [IPv6:2607:f8b0:4864:20::92d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 550006E45E
- for <freedreno@lists.freedesktop.org>; Tue, 27 Jul 2021 10:29:20 +0000 (UTC)
-Received: by mail-ua1-x92d.google.com with SMTP id n15so4538194uaj.1
- for <freedreno@lists.freedesktop.org>; Tue, 27 Jul 2021 03:29:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=BNXOQOHHvkyOlpYQvBOMgkkH26gWwGd0okW8oi8QdqI=;
- b=VA9XBSq4CQhlCAZrPbTm3nskntRBag7xfqyt0l5ZRi4tj4r7Nwmj7cH8Q//ULvZ68Y
- 5rx6ds4fUh1cKyKjtK9DlDLoCmoMTBGuBTVGak7TJbutzKps51Gx+PW0a4zDeLzgCVRA
- 7v+taAWoRMIo4GLW7W31F6kuP0wNC9VL3N8Xk=
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [IPv6:2a00:1450:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C4FF6E977;
+ Tue, 27 Jul 2021 16:01:09 +0000 (UTC)
+Received: by mail-wm1-x334.google.com with SMTP id
+ f14-20020a05600c154eb02902519e4abe10so2219686wmg.4; 
+ Tue, 27 Jul 2021 09:01:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=fWpsiDeQTO8Umc8Q7ThOZBRvsvug1xPlx+gEHjpKDo8=;
+ b=NhSFf8RALH6r8ytAzyNnJjlDi7K3ZO2hoQov4SieOYP7hnmw/e9ee7qfc/BcRkisHV
+ w+LXRefabeKfixiOZ49LJ2Gq9TS7gLeQn3H3BvhQeJMi5Eco9Epn6n+ibO8enowAT9en
+ zCkdjNkk9ZKc9sWDfI6vaxLd4nvthjJR7FOi4WkHLDfm3Spe/7cDw7nV9fKf8UXsbD1r
+ 9+e3nr2B5lT8rll0WXlHtW2Dn4IkYvNYxNce6+ljmBzaESd1RtbymOWcyLVAR1v4uGmd
+ N+Q3c7lGS8/EpA5mK3aYsSSZ6lTMKJts3qTmWIqMe7oYF7o8K1DG2RiMh7louHmwyITd
+ 9wgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=BNXOQOHHvkyOlpYQvBOMgkkH26gWwGd0okW8oi8QdqI=;
- b=XNDVmaiB/ecq23JPM24tkROVa7WcR54oRdkSBcOjlPawEIq5DufgqKxUAOZx3iQk+2
- chRA/Az5TD4m9UINoA2Xzwt7PSh8SiR5edfBRDHUmkdOA28kmVAmD1ud3W4FaeTyZ6T0
- cA/WXxprgELm7iZIM/2vFnSHaIGxn8lnbsdBp93BzobUfR/Ny/gdM7dWHKFN5RKrmZ78
- agdINt1vV/LaMWDWXFOI3EC/nALS0rSp2v9KYuCYcFtIWJvIx/MioE8Q1PfxzSiDACsx
- oaudh+9elNj8meeO0MQhJdMw2wDcKC8+LFIbp04i7VbtdmJLlm9s2GPX7uGxa8pQUll7
- pZvw==
-X-Gm-Message-State: AOAM5322DLol5VQ2XH+kYKT129ypyJlfBH0OBdclz6UHOTH5htsuBcKs
- 6eaxsoU+eBMzh4EtyoyHWA8dvDVpJ1kNKJ96YQeH/w==
-X-Google-Smtp-Source: ABdhPJyx7sQwhJ8UE8NDg2Kx4YHR88sGvEf5AH10FBKUxfscAE8LJuhcwnvw8wjRTLPiqyBoy6zqtE4uvHrV7c6EPNE=
-X-Received: by 2002:ab0:2641:: with SMTP id q1mr16151134uao.82.1627381759398; 
- Tue, 27 Jul 2021 03:29:19 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=fWpsiDeQTO8Umc8Q7ThOZBRvsvug1xPlx+gEHjpKDo8=;
+ b=pcbcna1qr/UYgmBSKjgybduqqTTdW66HIyvpOjEBvvwM/jpfEubMKGe2WVNYyHfByD
+ 9uNteVgu4EMemFhyMsZIA1NWLi/bkjql3E5WrkEhTJzyPcqdgGV+SFp0AYWkX0JB1464
+ Kccik1wIv3bP8BHQt5HnF1Bi5ozsMMnGEf2hyBiW/Lu5/NCE4o+KyZL4g/8cTyWNH/F0
+ O8A1JswrMVCJvD7jo0TsffK91rF30uf0HRmOGNQLwQ57h2ChOxNs2L8WbWEgQbL/7sBE
+ NLfdGYjeNdAnI0TfuQdRr2Cc9kpeP4/0AT0EvknnoLuZpNGJSgvjcB2grddlybbm9pcg
+ +S4g==
+X-Gm-Message-State: AOAM5337wNqRp1NtNQqR/XgGM3rBzS25E+88w47H6u71+KXx9cezAmuo
+ TkDXTQeT5kWPUj5h+C8ATO6i/CuhP8HJZNteV9c=
+X-Google-Smtp-Source: ABdhPJxN2KtavHy/pdkhzu3eo2D9p8fkth7CptRD+0XpNLWfxXlcUGZNjiZbbC6EfWX1xl8ICrC13JS3KrlzMfjGrlI=
+X-Received: by 2002:a05:600c:19cb:: with SMTP id
+ u11mr13331594wmq.175.1627401667801; 
+ Tue, 27 Jul 2021 09:01:07 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210727094435.v3.1.I629b2366a6591410359c7fcf6d385b474b705ca2@changeid>
- <YP/FMblLCPpR7Tgf@ravnborg.org>
-In-Reply-To: <YP/FMblLCPpR7Tgf@ravnborg.org>
-From: Nicolas Boichat <drinkcat@chromium.org>
-Date: Tue, 27 Jul 2021 18:29:08 +0800
-Message-ID: <CANMq1KAVA3LRXzcKrVoj30KtvwuA0hQ12JdMLu32-RD8h=UjFw@mail.gmail.com>
-To: Sam Ravnborg <sam@ravnborg.org>
-Subject: Re: [Freedreno] [PATCH v3] drm/dsi: Add _NO_ to MIPI_DSI_* flags
- disabling features
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 27 Jul 2021 09:05:17 -0700
+Message-ID: <CAF6AEGubeV_uzWhsqp_+EmQmPcPatnqWOQnARoing2YvQOHbyg@mail.gmail.com>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2021-07-27 for v5.14-rc4
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,29 +59,10 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- Viresh Kumar <viresh.kumar@linaro.org>,
+Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, John Stultz <john.stultz@linaro.org>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Andrzej Hajda <a.hajda@samsung.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@samsung.com>,
- linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
- Joonyoung Shim <jy0922.shim@samsung.com>, Jonathan Marek <jonathan@marek.ca>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Yangtao Li <tiny.windzz@gmail.com>,
- Adrien Grassein <adrien.grassein@gmail.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- MSM <linux-arm-msm@vger.kernel.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
- "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
- Tzung-Bi Shih <tzungbi@google.com>, Pi-Hsun Shih <pihsun@chromium.org>,
- Hsin-Yi Wang <hsinyi@chromium.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Sean Paul <sean@poorly.run>, Xin Ji <xji@analogixsemi.com>,
- linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
- Rajendra Nayak <rnayak@codeaurora.org>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- lkml <linux-kernel@vger.kernel.org>, Robert Foss <robert.foss@linaro.org>,
- Kyungmin Park <kyungmin.park@samsung.com>, Yu Jiahua <yujiahua1@huawei.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  freedreno <freedreno@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
@@ -89,50 +70,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jul 27, 2021 at 4:35 PM Sam Ravnborg <sam@ravnborg.org> wrote:
->
-> Hi Nicolas,
-> On Tue, Jul 27, 2021 at 09:45:21AM +0800, Nicolas Boichat wrote:
-> > Many of the DSI flags have names opposite to their actual effects,
-> > e.g. MIPI_DSI_MODE_EOT_PACKET means that EoT packets will actually
-> > be disabled. Fix this by including _NO_ in the flag names, e.g.
-> > MIPI_DSI_MODE_NO_EOT_PACKET.
-> >
-> > Signed-off-by: Nicolas Boichat <drinkcat@chromium.org>
-> > Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
-> > Reviewed-by: Robert Foss <robert.foss@linaro.org>
-> > Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> > Reviewed-by: Andrzej Hajda <andrzej.hajda@samsung.com>
-> > Reviewed-by: Xin Ji <xji@analogixsemi.com> # anx7625.c
-> > Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org> # msm/dsi
-> > ---
-> > I considered adding _DISABLE_ instead, but that'd make the
-> > flag names a big too long.
-> >
-> > Generated with:
-> > flag=MIPI_DSI_MODE_VIDEO_HFP; git grep $flag | cut -f1 -d':' | \
-> >   xargs -I{} sed -i -e "s/$flag/MIPI_DSI_MODE_VIDEO_NO_HFP/" {}
-> > flag=MIPI_DSI_MODE_VIDEO_HBP; git grep $flag | cut -f1 -d':' | \
-> >   xargs -I{} sed -i -e "s/$flag/MIPI_DSI_MODE_VIDEO_NO_HBP/" {}
-> > flag=MIPI_DSI_MODE_VIDEO_HSA; git grep $flag | cut -f1 -d':' | \
-> >   xargs -I{} sed -i -e "s/$flag/MIPI_DSI_MODE_VIDEO_NO_HSA/" {}
-> > flag=MIPI_DSI_MODE_EOT_PACKET; git grep $flag | cut -f1 -d':' | \
-> >   xargs -I{} sed -i -e "s/$flag/MIPI_DSI_MODE_NO_EOT_PACKET/" {}
-> > (then minor format changes)
-> >
-> > Changes in v3:
-> >  - Added all R-b tags from v1 and v2 (hopefully didn't miss any).
-> >
-> > Changes in v2:
-> >  - Rebased on latest linux-next, after some of the flags got fixed
-> >    (Linus Walleij).
->
-> Thanks for the update, applied to drm-misc-next.
+Hi Dave & Daniel,
 
-Thanks Sam!
+A few fixes for v5.14, including a fix for a crash if display triggers
+an iommu fault (which tends to happen at probe time on devices with
+bootloader fw that leaves display enabled as kernel starts)
 
->
->         Sam
+The following changes since commit ff1176468d368232b684f75e82563369208bc371:
+
+  Linux 5.14-rc3 (2021-07-25 15:35:14 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/msm.git drm-msm-fixes-2021-07-27
+
+for you to fetch changes up to fc71c9e6f41f9912d22a75dfa76bc10811af7e22:
+
+  drm/msm/dp: Initialize dp->aux->drm_dev before registration
+(2021-07-27 08:14:58 -0700)
+
+----------------------------------------------------------------
+Bjorn Andersson (1):
+      drm/msm/dp: Initialize the INTF_CONFIG register
+
+Kuogee Hsieh (2):
+      drm/msm/dp: use dp_ctrl_off_link_stream during PHY compliance test run
+      drm/msm/dp: signal audio plugged change at dp_pm_resume
+
+Rob Clark (1):
+      drm/msm: Fix display fault handling
+
+Robert Foss (1):
+      drm/msm/dpu: Fix sm8250_mdp register length
+
+Sean Paul (1):
+      drm/msm/dp: Initialize dp->aux->drm_dev before registration
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  2 +-
+ drivers/gpu/drm/msm/dp/dp_catalog.c            |  1 +
+ drivers/gpu/drm/msm/dp/dp_ctrl.c               |  2 +-
+ drivers/gpu/drm/msm/dp/dp_display.c            |  5 +++++
+ drivers/gpu/drm/msm/msm_iommu.c                | 11 ++++++++++-
+ 5 files changed, 18 insertions(+), 3 deletions(-)
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
