@@ -1,66 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E67FE3D7D99
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jul 2021 20:27:56 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9766D3D7DDE
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jul 2021 20:42:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 749256EC91;
-	Tue, 27 Jul 2021 18:27:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3946C6E207;
+	Tue, 27 Jul 2021 18:42:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D22DB6EC1A;
- Tue, 27 Jul 2021 18:27:32 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4C79D20179;
- Tue, 27 Jul 2021 18:27:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1627410451; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=mVohAo9+M4ZOBKWBPJVmWehiBO3kjV/YtaxeiOH3I2o=;
- b=PQHOz8qmnB4QlVygBVZgs1imig1+FQX0WMT+QMJJHKfG2Q35LJnTW7eEHiJZ1x0xJo2XdV
- wnfYom9nrr3hHZW8hEgAazZIH6jt8O7O70uIvnpQvXSsfshCHETS2LapADvrfw2gVu6/em
- xe4sI6Nq9EBtAru+D4qLb1oRbgSEUSM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1627410451;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=mVohAo9+M4ZOBKWBPJVmWehiBO3kjV/YtaxeiOH3I2o=;
- b=ZdYDAB6J1lXig6+veFwqQLxcbtCjm5oa54ek8r3Ix9h62pXCoUq/+s117SJh2rZj9XEvrE
- MdDYih82dKsWCuCw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B905313B86;
- Tue, 27 Jul 2021 18:27:30 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id oL8oLBJQAGGwGQAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Tue, 27 Jul 2021 18:27:30 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
- christian.koenig@amd.com, liviu.dudau@arm.com, brian.starkey@arm.com,
- sam@ravnborg.org, bbrezillon@kernel.org, nicolas.ferre@microchip.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, stefan@agner.ch,
- alison.wang@nxp.com, patrik.r.jakobsson@gmail.com,
- anitha.chrisanthus@intel.com, robdclark@gmail.com, edmund.j.dea@intel.com,
- sean@poorly.run, shawnguo@kernel.org, s.hauer@pengutronix.de,
- kernel@pengutronix.de, jyri.sarha@iki.fi, tomba@kernel.org
-Date: Tue, 27 Jul 2021 20:27:21 +0200
-Message-Id: <20210727182721.17981-15-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210727182721.17981-1-tzimmermann@suse.de>
-References: <20210727182721.17981-1-tzimmermann@suse.de>
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CCB16E207
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Jul 2021 18:42:37 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id e5so17196509ljp.6
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Jul 2021 11:42:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=+7UEfD2Imkl3ZnkOmnry5ON4ruHu09FP4tYeWeop6j8=;
+ b=Dw1xy/B95cB2tQ8nfE4IH8NuStpyecxxK3HsLcmBe5tJe37IsnKZtXreBvEpEIhIFc
+ NPwjIj2Q2rzg+iqbTrT1xv4aJZ/rJN1N6tMfA+MUjrFaBwIVYW2MtgDQ44cvIScabO9F
+ R0y3s3cIcrxOOOsgQ/3jeRbo1cLqmh+cy736gV+SytYpwepWwqiJvPQVLh0d/QwOcDWr
+ tuqLJsI22MlyNc7wnpfDMwJtqbhdXG+bSa88GwIJZQ9a495/ylpicRxlms7Gacg0hvnP
+ nGXU3gBlapyO44/mQYuYk97qm+qoWDywGdzwwGthJTCZ7v3sUVXkTeeN0d9GsSN8woSq
+ Bj2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=+7UEfD2Imkl3ZnkOmnry5ON4ruHu09FP4tYeWeop6j8=;
+ b=XV+6D2Z7gQcSeN6G8yln3XM16PWS0puxOppjx9giTF4xX/U2irMyZpQXEDqC0/78t2
+ SHmwgATknI9fnBlpXD6clluBDxh9om2HtwUFDjw43VTwU+oUyfcDc+S9EALDL0r1/kVj
+ xjqxBkZ3/kGZu0kew9IVU6f6YxSK3FeRLgkvWkbaAQIgtsFdtdEZQBYAXFPFcJU7K6Yo
+ ZRCx6cF+CefWYpnT/jw/IZMRlPQ9DO5fqmngn9hprnilaE5Lg2DV3xaVYSH3r4a2k4xv
+ of+Sy5GYs+u4mEj6nTTjrSInSktNop1GiKc/RW9bWZP+ZXIeXMx+c62Z/A6bW6jMvQx2
+ im2A==
+X-Gm-Message-State: AOAM5334qih6fiMloV8/JH7+A6JhrFhBOVaqhFZiLT7e0e0W/YLY667B
+ UMxDvLioq6353rEdxqzte8lcXw==
+X-Google-Smtp-Source: ABdhPJw4h0sF7m8BSZ4MlkG9L54CcA+FgAX+Io3OlMQJ4N0NrYEy9Vu2yYSi0jwBIhxMPRXFaamJ0g==
+X-Received: by 2002:a2e:85d8:: with SMTP id h24mr16831635ljj.365.1627411355491; 
+ Tue, 27 Jul 2021 11:42:35 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id m23sm28970lfc.116.2021.07.27.11.42.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 27 Jul 2021 11:42:35 -0700 (PDT)
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Kalyan Thota <kalyan_t@codeaurora.org>, Kuogee Hsieh <khsieh@codeaurora.org>
+References: <20210725042436.3967173-1-bjorn.andersson@linaro.org>
+ <20210725042436.3967173-3-bjorn.andersson@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <97ac00f8-eb25-9142-3bdc-904aad269b6e@linaro.org>
+Date: Tue, 27 Jul 2021 21:42:34 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-Subject: [Freedreno] [PATCH 14/14] drm: IRQ midlayer is now legacy
+In-Reply-To: <20210725042436.3967173-3-bjorn.andersson@linaro.org>
+Content-Language: en-GB
+Subject: Re: [Freedreno] [PATCH 2/5] drm/msm/dp: Modify prototype of encoder
+ based API
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,432 +75,241 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Rob Herring <robh+dt@kernel.org>, freedreno@lists.freedesktop.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hide the DRM midlayer behind CONFIG_DRM_LEGACY, make functions use
-the prefix drm_legacy_, and move declarations to drm_legacy.h.
-In struct drm_device, move the fields irq and irq_enabled behind
-CONFIG_DRM_LEGACY.
+On 25/07/2021 07:24, Bjorn Andersson wrote:
+> Functions in the DisplayPort code that relates to individual instances
+> (encoders) are passed both the struct msm_dp and the struct drm_encoder. But
+> in a situation where multiple DP instances would exist this means that
+> the caller need to resolve which struct msm_dp relates to the struct
+> drm_encoder at hand.
+> 
+> The information for doing this lookup is available inside the DP driver,
+> so update the API to take the struct msm_drm_private and the struct
+> drm_encoder and have the DP code figure out which struct msm_dp the
+> operation relates to.
 
-All callers have been updated.
+Initially I thought to propose moving encoder->dp lookup into dpu code 
+by adding msm_dp_display_get_encoder() function. However as I was 
+writing that, I remembered that at some point I had to refactor my own 
+patchset in the way to get rid of calling msm_FOO_get_encoder().
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/drm_irq.c         | 63 ++++---------------------------
- drivers/gpu/drm/drm_legacy_misc.c |  3 +-
- drivers/gpu/drm/drm_vblank.c      |  8 ++--
- drivers/gpu/drm/i810/i810_dma.c   |  3 +-
- drivers/gpu/drm/mga/mga_dma.c     |  2 +-
- drivers/gpu/drm/mga/mga_drv.h     |  1 -
- drivers/gpu/drm/r128/r128_cce.c   |  3 +-
- drivers/gpu/drm/via/via_mm.c      |  3 +-
- include/drm/drm_device.h          | 18 ++-------
- include/drm/drm_drv.h             | 44 ++-------------------
- include/drm/drm_irq.h             | 31 ---------------
- include/drm/drm_legacy.h          |  3 ++
- 12 files changed, 27 insertions(+), 155 deletions(-)
- delete mode 100644 include/drm/drm_irq.h
+I'd propose simpler solution. In dpu_encoder_setup() you have the DP 
+index and the encoder. So you can store valid msm_dp pointer in the 
+dpu_encoder_virt and remove all the lookups. Then you can replace all 
+priv->dp with bare dpu_enc->dp accesses. Will this work for you?
 
-diff --git a/drivers/gpu/drm/drm_irq.c b/drivers/gpu/drm/drm_irq.c
-index dc6e38fa8a48..13e1d5c4ec82 100644
---- a/drivers/gpu/drm/drm_irq.c
-+++ b/drivers/gpu/drm/drm_irq.c
-@@ -60,46 +60,14 @@
- #include <drm/drm.h>
- #include <drm/drm_device.h>
- #include <drm/drm_drv.h>
--#include <drm/drm_irq.h>
-+#include <drm/drm_legacy.h>
- #include <drm/drm_print.h>
- #include <drm/drm_vblank.h>
- 
- #include "drm_internal.h"
- 
--/**
-- * DOC: irq helpers
-- *
-- * The DRM core provides very simple support helpers to enable IRQ handling on a
-- * device through the drm_irq_install() and drm_irq_uninstall() functions. This
-- * only supports devices with a single interrupt on the main device stored in
-- * &drm_device.dev and set as the device paramter in drm_dev_alloc().
-- *
-- * These IRQ helpers are strictly optional. Since these helpers don't automatically
-- * clean up the requested interrupt like e.g. devm_request_irq() they're not really
-- * recommended.
-- */
--
--/**
-- * drm_irq_install - install IRQ handler
-- * @dev: DRM device
-- * @irq: IRQ number to install the handler for
-- *
-- * Initializes the IRQ related data. Installs the handler, calling the driver
-- * &drm_driver.irq_preinstall and &drm_driver.irq_postinstall functions before
-- * and after the installation.
-- *
-- * This is the simplified helper interface provided for drivers with no special
-- * needs.
-- *
-- * @irq must match the interrupt number that would be passed to request_irq(),
-- * if called directly instead of using this helper function.
-- *
-- * &drm_driver.irq_handler is called to handle the registered interrupt.
-- *
-- * Returns:
-- * Zero on success or a negative error code on failure.
-- */
--int drm_irq_install(struct drm_device *dev, int irq)
-+#if IS_ENABLED(CONFIG_DRM_LEGACY)
-+static int drm_legacy_irq_install(struct drm_device *dev, int irq)
- {
- 	int ret;
- 	unsigned long sh_flags = 0;
-@@ -144,24 +112,8 @@ int drm_irq_install(struct drm_device *dev, int irq)
- 
- 	return ret;
- }
--EXPORT_SYMBOL(drm_irq_install);
- 
--/**
-- * drm_irq_uninstall - uninstall the IRQ handler
-- * @dev: DRM device
-- *
-- * Calls the driver's &drm_driver.irq_uninstall function and unregisters the IRQ
-- * handler.  This should only be called by drivers which used drm_irq_install()
-- * to set up their interrupt handler.
-- *
-- * Note that for kernel modesetting drivers it is a bug if this function fails.
-- * The sanity checks are only to catch buggy user modesetting drivers which call
-- * the same function through an ioctl.
-- *
-- * Returns:
-- * Zero on success or a negative error code on failure.
-- */
--int drm_irq_uninstall(struct drm_device *dev)
-+int drm_legacy_irq_uninstall(struct drm_device *dev)
- {
- 	unsigned long irqflags;
- 	bool irq_enabled;
-@@ -207,9 +159,8 @@ int drm_irq_uninstall(struct drm_device *dev)
- 
- 	return 0;
- }
--EXPORT_SYMBOL(drm_irq_uninstall);
-+EXPORT_SYMBOL(drm_legacy_irq_uninstall);
- 
--#if IS_ENABLED(CONFIG_DRM_LEGACY)
- int drm_legacy_irq_control(struct drm_device *dev, void *data,
- 			   struct drm_file *file_priv)
- {
-@@ -238,13 +189,13 @@ int drm_legacy_irq_control(struct drm_device *dev, void *data,
- 		    ctl->irq != irq)
- 			return -EINVAL;
- 		mutex_lock(&dev->struct_mutex);
--		ret = drm_irq_install(dev, irq);
-+		ret = drm_legacy_irq_install(dev, irq);
- 		mutex_unlock(&dev->struct_mutex);
- 
- 		return ret;
- 	case DRM_UNINST_HANDLER:
- 		mutex_lock(&dev->struct_mutex);
--		ret = drm_irq_uninstall(dev);
-+		ret = drm_legacy_irq_uninstall(dev);
- 		mutex_unlock(&dev->struct_mutex);
- 
- 		return ret;
-diff --git a/drivers/gpu/drm/drm_legacy_misc.c b/drivers/gpu/drm/drm_legacy_misc.c
-index 83db43b7a25e..d4c5434062d7 100644
---- a/drivers/gpu/drm/drm_legacy_misc.c
-+++ b/drivers/gpu/drm/drm_legacy_misc.c
-@@ -35,7 +35,6 @@
- 
- #include <drm/drm_device.h>
- #include <drm/drm_drv.h>
--#include <drm/drm_irq.h>
- #include <drm/drm_print.h>
- 
- #include "drm_internal.h"
-@@ -78,7 +77,7 @@ int drm_legacy_setup(struct drm_device * dev)
- void drm_legacy_dev_reinit(struct drm_device *dev)
- {
- 	if (dev->irq_enabled)
--		drm_irq_uninstall(dev);
-+		drm_legacy_irq_uninstall(dev);
- 
- 	mutex_lock(&dev->struct_mutex);
- 
-diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
-index bba6781cc48f..3e260f3e2863 100644
---- a/drivers/gpu/drm/drm_vblank.c
-+++ b/drivers/gpu/drm/drm_vblank.c
-@@ -1739,10 +1739,10 @@ static void drm_wait_vblank_reply(struct drm_device *dev, unsigned int pipe,
- 
- static bool drm_wait_vblank_supported(struct drm_device *dev)
- {
--	if  (IS_ENABLED(CONFIG_DRM_LEGACY)) {
--		if (unlikely(drm_core_check_feature(dev, DRIVER_LEGACY)))
--			return dev->irq_enabled;
--	}
-+#if IS_ENABLED(CONFIG_DRM_LEGACY)
-+	if (unlikely(drm_core_check_feature(dev, DRIVER_LEGACY)))
-+		return dev->irq_enabled;
-+#endif
- 	return drm_dev_has_vblank(dev);
- }
- 
-diff --git a/drivers/gpu/drm/i810/i810_dma.c b/drivers/gpu/drm/i810/i810_dma.c
-index d78c82af367c..9fb4dd63342f 100644
---- a/drivers/gpu/drm/i810/i810_dma.c
-+++ b/drivers/gpu/drm/i810/i810_dma.c
-@@ -38,7 +38,6 @@
- #include <drm/drm_drv.h>
- #include <drm/drm_file.h>
- #include <drm/drm_ioctl.h>
--#include <drm/drm_irq.h>
- #include <drm/drm_print.h>
- #include <drm/i810_drm.h>
- 
-@@ -209,7 +208,7 @@ static int i810_dma_cleanup(struct drm_device *dev)
- 	 * is freed, it's too late.
- 	 */
- 	if (drm_core_check_feature(dev, DRIVER_HAVE_IRQ) && dev->irq_enabled)
--		drm_irq_uninstall(dev);
-+		drm_legacy_irq_uninstall(dev);
- 
- 	if (dev->dev_private) {
- 		int i;
-diff --git a/drivers/gpu/drm/mga/mga_dma.c b/drivers/gpu/drm/mga/mga_dma.c
-index 403efc1f1a7c..331c2f0da57a 100644
---- a/drivers/gpu/drm/mga/mga_dma.c
-+++ b/drivers/gpu/drm/mga/mga_dma.c
-@@ -949,7 +949,7 @@ static int mga_do_cleanup_dma(struct drm_device *dev, int full_cleanup)
- 	 * is freed, it's too late.
- 	 */
- 	if (dev->irq_enabled)
--		drm_irq_uninstall(dev);
-+		drm_legacy_irq_uninstall(dev);
- 
- 	if (dev->dev_private) {
- 		drm_mga_private_t *dev_priv = dev->dev_private;
-diff --git a/drivers/gpu/drm/mga/mga_drv.h b/drivers/gpu/drm/mga/mga_drv.h
-index 84395d81ab9b..f61401c70b90 100644
---- a/drivers/gpu/drm/mga/mga_drv.h
-+++ b/drivers/gpu/drm/mga/mga_drv.h
-@@ -38,7 +38,6 @@
- #include <drm/drm_device.h>
- #include <drm/drm_file.h>
- #include <drm/drm_ioctl.h>
--#include <drm/drm_irq.h>
- #include <drm/drm_legacy.h>
- #include <drm/drm_print.h>
- #include <drm/drm_sarea.h>
-diff --git a/drivers/gpu/drm/r128/r128_cce.c b/drivers/gpu/drm/r128/r128_cce.c
-index 2a2933c16308..c04d84a69dd2 100644
---- a/drivers/gpu/drm/r128/r128_cce.c
-+++ b/drivers/gpu/drm/r128/r128_cce.c
-@@ -39,7 +39,6 @@
- 
- #include <drm/drm_device.h>
- #include <drm/drm_file.h>
--#include <drm/drm_irq.h>
- #include <drm/drm_legacy.h>
- #include <drm/drm_print.h>
- #include <drm/r128_drm.h>
-@@ -603,7 +602,7 @@ int r128_do_cleanup_cce(struct drm_device *dev)
- 	 * is freed, it's too late.
- 	 */
- 	if (dev->irq_enabled)
--		drm_irq_uninstall(dev);
-+		drm_legacy_irq_uninstall(dev);
- 
- 	if (dev->dev_private) {
- 		drm_r128_private_t *dev_priv = dev->dev_private;
-diff --git a/drivers/gpu/drm/via/via_mm.c b/drivers/gpu/drm/via/via_mm.c
-index dae1bacd86c1..c9afa1a51f23 100644
---- a/drivers/gpu/drm/via/via_mm.c
-+++ b/drivers/gpu/drm/via/via_mm.c
-@@ -29,7 +29,6 @@
- 
- #include <drm/drm_device.h>
- #include <drm/drm_file.h>
--#include <drm/drm_irq.h>
- #include <drm/via_drm.h>
- 
- #include "via_drv.h"
-@@ -86,7 +85,7 @@ int via_final_context(struct drm_device *dev, int context)
- 	/* Last context, perform cleanup */
- 	if (list_is_singular(&dev->ctxlist)) {
- 		DRM_DEBUG("Last Context\n");
--		drm_irq_uninstall(dev);
-+		drm_legacy_irq_uninstall(dev);
- 		via_cleanup_futex(dev_priv);
- 		via_do_cleanup_map(dev);
- 	}
-diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
-index f588f967bb14..604b1d1b2d72 100644
---- a/include/drm/drm_device.h
-+++ b/include/drm/drm_device.h
-@@ -191,20 +191,6 @@ struct drm_device {
- 	 */
- 	struct list_head clientlist;
- 
--	/**
--	 * @irq_enabled:
--	 *
--	 * Indicates that interrupt handling is enabled, specifically vblank
--	 * handling. Drivers which don't use drm_irq_install() need to set this
--	 * to true manually.
--	 */
--	bool irq_enabled;
--
--	/**
--	 * @irq: Used by the drm_irq_install() and drm_irq_unistall() helpers.
--	 */
--	int irq;
--
- 	/**
- 	 * @vblank_disable_immediate:
- 	 *
-@@ -372,6 +358,10 @@ struct drm_device {
- 
- 	/* Scatter gather memory */
- 	struct drm_sg_mem *sg;
-+
-+	/* IRQs */
-+	bool irq_enabled;
-+	int irq;
- #endif
- };
- 
-diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-index b439ae1921b8..0cd95953cdf5 100644
---- a/include/drm/drm_drv.h
-+++ b/include/drm/drm_drv.h
-@@ -137,10 +137,6 @@ enum drm_driver_feature {
- 	 * @DRIVER_HAVE_IRQ:
- 	 *
- 	 * Legacy irq support. Only for legacy drivers. Do not use.
--	 *
--	 * New drivers can either use the drm_irq_install() and
--	 * drm_irq_uninstall() helper functions, or roll their own irq support
--	 * code by calling request_irq() directly.
- 	 */
- 	DRIVER_HAVE_IRQ			= BIT(30),
- 	/**
-@@ -271,42 +267,6 @@ struct drm_driver {
- 	 */
- 	void (*release) (struct drm_device *);
- 
--	/**
--	 * @irq_handler:
--	 *
--	 * Interrupt handler called when using drm_irq_install(). Not used by
--	 * drivers which implement their own interrupt handling.
--	 */
--	irqreturn_t(*irq_handler) (int irq, void *arg);
--
--	/**
--	 * @irq_preinstall:
--	 *
--	 * Optional callback used by drm_irq_install() which is called before
--	 * the interrupt handler is registered. This should be used to clear out
--	 * any pending interrupts (from e.g. firmware based drives) and reset
--	 * the interrupt handling registers.
--	 */
--	void (*irq_preinstall) (struct drm_device *dev);
--
--	/**
--	 * @irq_postinstall:
--	 *
--	 * Optional callback used by drm_irq_install() which is called after
--	 * the interrupt handler is registered. This should be used to enable
--	 * interrupt generation in the hardware.
--	 */
--	int (*irq_postinstall) (struct drm_device *dev);
--
--	/**
--	 * @irq_uninstall:
--	 *
--	 * Optional callback used by drm_irq_uninstall() which is called before
--	 * the interrupt handler is unregistered. This should be used to disable
--	 * interrupt generation in the hardware.
--	 */
--	void (*irq_uninstall) (struct drm_device *dev);
--
- 	/**
- 	 * @master_set:
- 	 *
-@@ -504,6 +464,10 @@ struct drm_driver {
- 	int (*dma_ioctl) (struct drm_device *dev, void *data, struct drm_file *file_priv);
- 	int (*dma_quiescent) (struct drm_device *);
- 	int (*context_dtor) (struct drm_device *dev, int context);
-+	irqreturn_t (*irq_handler)(int irq, void *arg);
-+	void (*irq_preinstall)(struct drm_device *dev);
-+	int (*irq_postinstall)(struct drm_device *dev);
-+	void (*irq_uninstall)(struct drm_device *dev);
- 	u32 (*get_vblank_counter)(struct drm_device *dev, unsigned int pipe);
- 	int (*enable_vblank)(struct drm_device *dev, unsigned int pipe);
- 	void (*disable_vblank)(struct drm_device *dev, unsigned int pipe);
-diff --git a/include/drm/drm_irq.h b/include/drm/drm_irq.h
-deleted file mode 100644
-index 53634b988f57..000000000000
---- a/include/drm/drm_irq.h
-+++ /dev/null
-@@ -1,31 +0,0 @@
--/*
-- * Copyright 2016 Intel Corp.
-- *
-- * Permission is hereby granted, free of charge, to any person obtaining a
-- * copy of this software and associated documentation files (the "Software"),
-- * to deal in the Software without restriction, including without limitation
-- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-- * and/or sell copies of the Software, and to permit persons to whom the
-- * Software is furnished to do so, subject to the following conditions:
-- *
-- * The above copyright notice and this permission notice (including the next
-- * paragraph) shall be included in all copies or substantial portions of the
-- * Software.
-- *
-- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-- * VA LINUX SYSTEMS AND/OR ITS SUPPLIERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
-- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-- * OTHER DEALINGS IN THE SOFTWARE.
-- */
--
--#ifndef _DRM_IRQ_H_
--#define _DRM_IRQ_H_
--
--struct drm_device;
--
--int drm_irq_install(struct drm_device *dev, int irq);
--int drm_irq_uninstall(struct drm_device *dev);
--#endif
-diff --git a/include/drm/drm_legacy.h b/include/drm/drm_legacy.h
-index b17e79e12bc2..58dc8d8cc907 100644
---- a/include/drm/drm_legacy.h
-+++ b/include/drm/drm_legacy.h
-@@ -192,6 +192,9 @@ do {										\
- void drm_legacy_idlelock_take(struct drm_lock_data *lock);
- void drm_legacy_idlelock_release(struct drm_lock_data *lock);
- 
-+/* drm_irq.c */
-+int drm_legacy_irq_uninstall(struct drm_device *dev);
-+
- /* drm_pci.c */
- 
- #ifdef CONFIG_PCI
+> 
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 17 +++++----
+>   drivers/gpu/drm/msm/dp/dp_display.c         | 38 +++++++++++++++++----
+>   drivers/gpu/drm/msm/msm_drv.h               | 31 +++++++++--------
+>   3 files changed, 56 insertions(+), 30 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 1c04b7cce43e..0d64ef0819af 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -1002,8 +1002,8 @@ static void dpu_encoder_virt_mode_set(struct drm_encoder *drm_enc,
+>   
+>   	trace_dpu_enc_mode_set(DRMID(drm_enc));
+>   
+> -	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS && priv->dp)
+> -		msm_dp_display_mode_set(priv->dp, drm_enc, mode, adj_mode);
+> +	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS)
+> +		msm_dp_display_mode_set(priv, drm_enc, mode, adj_mode);
+>   
+>   	list_for_each_entry(conn_iter, connector_list, head)
+>   		if (conn_iter->encoder == drm_enc)
+> @@ -1184,9 +1184,8 @@ static void dpu_encoder_virt_enable(struct drm_encoder *drm_enc)
+>   
+>   	_dpu_encoder_virt_enable_helper(drm_enc);
+>   
+> -	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS && priv->dp) {
+> -		ret = msm_dp_display_enable(priv->dp,
+> -						drm_enc);
+> +	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS) {
+> +		ret = msm_dp_display_enable(priv, drm_enc);
+>   		if (ret) {
+>   			DPU_ERROR_ENC(dpu_enc, "dp display enable failed: %d\n",
+>   				ret);
+> @@ -1226,8 +1225,8 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
+>   	/* wait for idle */
+>   	dpu_encoder_wait_for_event(drm_enc, MSM_ENC_TX_COMPLETE);
+>   
+> -	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS && priv->dp) {
+> -		if (msm_dp_display_pre_disable(priv->dp, drm_enc))
+> +	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS) {
+> +		if (msm_dp_display_pre_disable(priv, drm_enc))
+>   			DPU_ERROR_ENC(dpu_enc, "dp display push idle failed\n");
+>   	}
+>   
+> @@ -1255,8 +1254,8 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
+>   
+>   	DPU_DEBUG_ENC(dpu_enc, "encoder disabled\n");
+>   
+> -	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS && priv->dp) {
+> -		if (msm_dp_display_disable(priv->dp, drm_enc))
+> +	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS) {
+> +		if (msm_dp_display_disable(priv, drm_enc))
+>   			DPU_ERROR_ENC(dpu_enc, "dp display disable failed\n");
+>   	}
+>   
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 8696b36d30e4..59ffd6c8f41f 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -1432,12 +1432,25 @@ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
+>   	return 0;
+>   }
+>   
+> -int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder)
+> +static struct msm_dp *msm_dp_from_drm_encoder(struct msm_drm_private *priv,
+> +					      struct drm_encoder *encoder)
+> +{
+> +	if (priv->dp && priv->dp->encoder == encoder)
+> +		return priv->dp;
+> +
+> +	return NULL;
+> +}
+> +
+> +int msm_dp_display_enable(struct msm_drm_private *priv, struct drm_encoder *encoder)
+>   {
+>   	int rc = 0;
+>   	struct dp_display_private *dp_display;
+> +	struct msm_dp *dp = msm_dp_from_drm_encoder(priv, encoder);
+>   	u32 state;
+>   
+> +	if (!dp)
+> +		return -EINVAL;
+> +
+>   	dp_display = container_of(dp, struct dp_display_private, dp_display);
+>   	if (!dp_display->dp_mode.drm_mode.clock) {
+>   		DRM_ERROR("invalid params\n");
+> @@ -1489,9 +1502,13 @@ int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder)
+>   	return rc;
+>   }
+>   
+> -int msm_dp_display_pre_disable(struct msm_dp *dp, struct drm_encoder *encoder)
+> +int msm_dp_display_pre_disable(struct msm_drm_private *priv, struct drm_encoder *encoder)
+>   {
+>   	struct dp_display_private *dp_display;
+> +	struct msm_dp *dp = msm_dp_from_drm_encoder(priv, encoder);
+> +
+> +	if (!dp)
+> +		return 0;
+>   
+>   	dp_display = container_of(dp, struct dp_display_private, dp_display);
+>   
+> @@ -1500,11 +1517,15 @@ int msm_dp_display_pre_disable(struct msm_dp *dp, struct drm_encoder *encoder)
+>   	return 0;
+>   }
+>   
+> -int msm_dp_display_disable(struct msm_dp *dp, struct drm_encoder *encoder)
+> +int msm_dp_display_disable(struct msm_drm_private *priv, struct drm_encoder *encoder)
+>   {
+>   	int rc = 0;
+>   	u32 state;
+>   	struct dp_display_private *dp_display;
+> +	struct msm_dp *dp = msm_dp_from_drm_encoder(priv, encoder);
+> +
+> +	if (!dp)
+> +		return 0;
+>   
+>   	dp_display = container_of(dp, struct dp_display_private, dp_display);
+>   
+> @@ -1531,11 +1552,16 @@ int msm_dp_display_disable(struct msm_dp *dp, struct drm_encoder *encoder)
+>   	return rc;
+>   }
+>   
+> -void msm_dp_display_mode_set(struct msm_dp *dp, struct drm_encoder *encoder,
+> -				struct drm_display_mode *mode,
+> -				struct drm_display_mode *adjusted_mode)
+> +void msm_dp_display_mode_set(struct msm_drm_private *priv,
+> +			     struct drm_encoder *encoder,
+> +			     struct drm_display_mode *mode,
+> +			     struct drm_display_mode *adjusted_mode)
+>   {
+>   	struct dp_display_private *dp_display;
+> +	struct msm_dp *dp = msm_dp_from_drm_encoder(priv, encoder);
+> +
+> +	if (!dp)
+> +		return;
+>   
+>   	dp_display = container_of(dp, struct dp_display_private, dp_display);
+>   
+> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+> index 9bfd37855969..e9232032b266 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.h
+> +++ b/drivers/gpu/drm/msm/msm_drv.h
+> @@ -388,12 +388,13 @@ int __init msm_dp_register(void);
+>   void __exit msm_dp_unregister(void);
+>   int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
+>   			 struct drm_encoder *encoder);
+> -int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder);
+> -int msm_dp_display_disable(struct msm_dp *dp, struct drm_encoder *encoder);
+> -int msm_dp_display_pre_disable(struct msm_dp *dp, struct drm_encoder *encoder);
+> -void msm_dp_display_mode_set(struct msm_dp *dp, struct drm_encoder *encoder,
+> -				struct drm_display_mode *mode,
+> -				struct drm_display_mode *adjusted_mode);
+> +int msm_dp_display_enable(struct msm_drm_private *priv, struct drm_encoder *encoder);
+> +int msm_dp_display_disable(struct msm_drm_private *priv, struct drm_encoder *encoder);
+> +int msm_dp_display_pre_disable(struct msm_drm_private *priv, struct drm_encoder *encoder);
+> +void msm_dp_display_mode_set(struct msm_drm_private *priv,
+> +			     struct drm_encoder *encoder,
+> +			     struct drm_display_mode *mode,
+> +			     struct drm_display_mode *adjusted_mode);
+>   void msm_dp_irq_postinstall(struct msm_dp *dp_display);
+>   void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm_dp *dp_display);
+>   
+> @@ -413,25 +414,25 @@ static inline int msm_dp_modeset_init(struct msm_dp *dp_display,
+>   {
+>   	return -EINVAL;
+>   }
+> -static inline int msm_dp_display_enable(struct msm_dp *dp,
+> +static inline int msm_dp_display_enable(struct msm_drm_private *priv,
+>   					struct drm_encoder *encoder)
+>   {
+>   	return -EINVAL;
+>   }
+> -static inline int msm_dp_display_disable(struct msm_dp *dp,
+> -					struct drm_encoder *encoder)
+> +static inline int msm_dp_display_disable(struct msm_drm_private *priv,
+> +					 struct drm_encoder *encoder)
+>   {
+>   	return -EINVAL;
+>   }
+> -static inline int msm_dp_display_pre_disable(struct msm_dp *dp,
+> -					struct drm_encoder *encoder)
+> +static inline int msm_dp_display_pre_disable(struct msm_drm_private *priv,
+> +					     struct drm_encoder *encoder)
+>   {
+>   	return -EINVAL;
+>   }
+> -static inline void msm_dp_display_mode_set(struct msm_dp *dp,
+> -				struct drm_encoder *encoder,
+> -				struct drm_display_mode *mode,
+> -				struct drm_display_mode *adjusted_mode)
+> +static inline void msm_dp_display_mode_set(struct msm_drm_private *priv,
+> +					   struct drm_encoder *encoder,
+> +					   struct drm_display_mode *mode,
+> +					   struct drm_display_mode *adjusted_mode)
+>   {
+>   }
+>   
+> 
+
+
 -- 
-2.32.0
-
+With best wishes
+Dmitry
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
