@@ -2,39 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3F1D3D9209
-	for <lists+freedreno@lfdr.de>; Wed, 28 Jul 2021 17:32:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE1B43D9007
+	for <lists+freedreno@lfdr.de>; Wed, 28 Jul 2021 16:03:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F7AC6E9A8;
-	Wed, 28 Jul 2021 15:32:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A1496EA60;
+	Wed, 28 Jul 2021 14:03:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D7406EAC4;
- Wed, 28 Jul 2021 14:01:00 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A326E600EF;
- Wed, 28 Jul 2021 14:00:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1627480860;
- bh=sNNg1eBjaBERoOL+pNGqJG1GnXOiFtnWCHGA3ZA1guw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=uSK3rYX334vCPmIzWf/THTX34yLnn8ni/QBiKG2wSaCIb8flS7V+h/B0eP4sytljM
- /dQCjspApub1KKi22poI11WUSYyfjIatH2hfq7qGrbqIBlbq4S7vAjAAhS+KS8TxV8
- 5woiYW5ZUA5Il7RUYHhP1Ry/YyXRyBxz8Ox2BtJMlMkWsKjuc9kKYiDOiacib9sy0i
- aPfPMZkkYmDggAK37mahkCnICO1fDZeN0JaiIFzgSxGeXShgdXEF1DAYPxU22ln/Di
- kGzFe7xSqPBokwQ8jjNqfX2hYMIrPy1ah7XaTQx6UwViWPpfyLEfsPSfZ5MEsWr3Ps
- NAkXFU5X3exlg==
-Date: Wed, 28 Jul 2021 17:00:53 +0300
-From: Georgi Djakov <djakov@kernel.org>
-To: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-Message-ID: <20210728140052.GB22887@mms-0441>
-References: <cover.1610372717.git.saiprakash.ranjan@codeaurora.org>
+Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
+ [IPv6:2607:f8b0:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1D656E101;
+ Wed, 28 Jul 2021 14:03:21 +0000 (UTC)
+Received: by mail-oi1-x22b.google.com with SMTP id u10so3858291oiw.4;
+ Wed, 28 Jul 2021 07:03:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=e9/GCbd30HxZadU0KelTL6O/pNQdo9Gk9HhDwBhh/9Q=;
+ b=EQLdPWtD6e0Ll6xZUmHCNVKlL2S/GfmfKfWlieIGSYMmHdi6AaQO1U58Dl2EgQfyUj
+ NKsOZXJCkU9h7z3NZ2XKYZHXlLMx5Q4wMyV7EX/iOuUbik9HIxP/+dTw39W1vC/5YjJL
+ z5ASIDNRKTzDrWfzI8a0SWS+B8CSTdKDtIAiGYSJif2uxYrMrqQOvcZR5gBFXu2l3Ckw
+ yCysWEZcNrk/Uys0eZpQr0fN3T12X2/Bm+wYH/Z5saW1Y1SVXZNszPx5/U7Tt2ZGEv5j
+ Y7BruLOrxCmgMksgK4BOk85nV48vJlFT/fVnCr2Aj9VtzlxLYX7nc7r/KZ+AIkgmXyrt
+ 2yeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=e9/GCbd30HxZadU0KelTL6O/pNQdo9Gk9HhDwBhh/9Q=;
+ b=ZEPqGq+dcVFjoGi7GNeMxSMaIWWB7UfSxyLT3Jrg0W1XNgjcZKwuWBr5oSbv2ROxLa
+ fakkqoHFAnJ6/AdRqqFExLrJBvWr7iWAvAp4Y/NPNMghU203GnVVpqQMKWLzhGQWAr4A
+ ordXgdKLpDUrZbQJW2S9S2hHH9cg/obHfObPYwPkjRoySgjBcVOBkgLBmoV0wvGjBj4F
+ hIwe6KWxYXKTHF3VtAD3Ouwz5noXjlZ81SHwIZVBc766aawbIcLd2lOsmMP+Cbw7nKh2
+ HFTi5/leZACN27cNe+kqlwRXHPOcJ1+3yy/3NWyXExs+JxfIMFetpdh7RGNnja+0PAuW
+ K6+A==
+X-Gm-Message-State: AOAM533pbf4t4SHGTFR5ZSMG1m5lnzToMRtzXus7xWh48LGMbV1X9PI9
+ OEvGMzWW2QNnQKeTrPigQUKzHfAFSCFAvGUSIBw=
+X-Google-Smtp-Source: ABdhPJy+1gY5Up1cl5BUUc4LOCyfaTYI0FqMNVcXuK31kOCMVNujyb8vkPN6m8si+QIjnsheEfqvTkFHwnEF70fdhus=
+X-Received: by 2002:aca:d505:: with SMTP id m5mr6254366oig.5.1627481000893;
+ Wed, 28 Jul 2021 07:03:20 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <cover.1610372717.git.saiprakash.ranjan@codeaurora.org>
-X-Mailman-Approved-At: Wed, 28 Jul 2021 15:32:39 +0000
-Subject: Re: [Freedreno] [PATCH 0/3] iommu/drm/msm: Allow non-coherent
- masters to use system cache
+References: <20210727182721.17981-1-tzimmermann@suse.de>
+ <20210727182721.17981-2-tzimmermann@suse.de>
+ <24a8b2ab-ef38-219b-99d4-806a44fa6aba@amd.com>
+In-Reply-To: <24a8b2ab-ef38-219b-99d4-806a44fa6aba@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 28 Jul 2021 10:03:10 -0400
+Message-ID: <CADnq5_MmPu=k3cc7JCg1iemkCDnoxR1T8PTD_VJn=58f5DwUNQ@mail.gmail.com>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Subject: Re: [Freedreno] [PATCH 01/14] drm/amdgpu: Convert to Linux IRQ
+ interfaces
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,68 +64,124 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: isaacm@codeaurora.org, Rob Clark <robdclark@gmail.com>,
- David Airlie <airlied@linux.ie>, Will Deacon <will@kernel.org>,
- Joerg Roedel <joro@8bytes.org>, Akhil P Oommen <akhilpo@codeaurora.org>,
- iommu@lists.linux-foundation.org, linux-kernel@vger.kernel.org,
- Sean Paul <sean@poorly.run>, Jordan Crouse <jcrouse@codeaurora.org>,
- Kristian H Kristensen <hoegsberg@google.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+Cc: Dave Airlie <airlied@linux.ie>, Liviu Dudau <liviu.dudau@arm.com>,
+ Stefan Agner <stefan@agner.ch>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ anitha.chrisanthus@intel.com, Sam Ravnborg <sam@ravnborg.org>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  freedreno <freedreno@lists.freedesktop.org>,
- Robin Murphy <robin.murphy@arm.com>, linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+ Thomas Zimmermann <tzimmermann@suse.de>, edmund.j.dea@intel.com,
+ Sascha Hauer <s.hauer@pengutronix.de>, alison.wang@nxp.com,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, tomba@kernel.org,
+ bbrezillon@kernel.org, jyri.sarha@iki.fi, nicolas.ferre@microchip.com,
+ Rob Clark <robdclark@gmail.com>, Sascha Hauer <kernel@pengutronix.de>,
+ "Deucher, Alexander" <alexander.deucher@amd.com>,
+ Shawn Guo <shawnguo@kernel.org>, Brian Starkey <brian.starkey@arm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jan 11, 2021 at 07:45:02PM +0530, Sai Prakash Ranjan wrote:
-> commit ecd7274fb4cd ("iommu: Remove unused IOMMU_SYS_CACHE_ONLY flag")
-> removed unused IOMMU_SYS_CACHE_ONLY prot flag and along with it went
-> the memory type setting required for the non-coherent masters to use
-> system cache. Now that system cache support for GPU is added, we will
-> need to set the right PTE attribute for GPU buffers to be sys cached.
-> Without this, the system cache lines are not allocated for GPU.
-> 
-> So the patches in this series introduces a new prot flag IOMMU_LLC,
-> renames IO_PGTABLE_QUIRK_ARM_OUTER_WBWA to IO_PGTABLE_QUIRK_PTW_LLC
-> and makes GPU the user of this protection flag.
-
-Hi Sai,
-
-Thank you for the patchset! Are you planning to refresh it, as it does
-not apply anymore?
-
-Thanks,
-Georgi
-
-> 
-> The series slightly depends on following 2 patches posted earlier and
-> is based on msm-next branch:
->  * https://lore.kernel.org/patchwork/patch/1363008/
->  * https://lore.kernel.org/patchwork/patch/1363010/
-> 
-> Sai Prakash Ranjan (3):
->   iommu/io-pgtable: Rename last-level cache quirk to
->     IO_PGTABLE_QUIRK_PTW_LLC
->   iommu/io-pgtable-arm: Add IOMMU_LLC page protection flag
->   drm/msm: Use IOMMU_LLC page protection flag to map gpu buffers
-> 
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 3 +++
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 2 +-
->  drivers/gpu/drm/msm/msm_iommu.c         | 3 +++
->  drivers/gpu/drm/msm/msm_mmu.h           | 4 ++++
->  drivers/iommu/io-pgtable-arm.c          | 9 ++++++---
->  include/linux/io-pgtable.h              | 6 +++---
->  include/linux/iommu.h                   | 6 ++++++
->  7 files changed, 26 insertions(+), 7 deletions(-)
-> 
-> 
-> base-commit: 00fd44a1a4700718d5d962432b55c09820f7e709
-> -- 
-> QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a member
-> of Code Aurora Forum, hosted by The Linux Foundation
-> 
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
+T24gV2VkLCBKdWwgMjgsIDIwMjEgYXQgNjoyNyBBTSBDaHJpc3RpYW4gS8O2bmlnCjxjaHJpc3Rp
+YW4ua29lbmlnQGFtZC5jb20+IHdyb3RlOgo+Cj4gQW0gMjcuMDcuMjEgdW0gMjA6Mjcgc2Nocmll
+YiBUaG9tYXMgWmltbWVybWFubjoKPiA+IERyb3AgdGhlIERSTSBJUlEgbWlkbGF5ZXIgaW4gZmF2
+b3Igb2YgTGludXggSVJRIGludGVyZmFjZXMuIERSTSdzCj4gPiBJUlEgaGVscGVycyBhcmUgbW9z
+dGx5IHVzZWZ1bCBmb3IgVU1TIGRyaXZlcnMuIE1vZGVybiBLTVMgZHJpdmVycwo+ID4gZG9uJ3Qg
+YmVuZWZpdCBmcm9tIHVzaW5nIGl0Lgo+ID4KPiA+IERSTSBJUlEgY2FsbGJhY2tzIGFyZSBub3cg
+YmVpbmcgY2FsbGVkIGRpcmVjdGx5IG9yIGlubGluZWQuCj4gPgo+ID4gVGhlIGludGVycnVwdCBu
+dW1iZXIgcmV0dXJuZWQgYnkgcGNpX21zaV92ZWN0b3IoKSBpcyBub3cgc3RvcmVkCj4gPiBpbiBz
+dHJ1Y3QgYW1kZ3B1X2lycS4gQ2FsbHMgdG8gcGNpX21zaV92ZWN0b3IoKSBjYW4gZmFpbCBhbmQg
+cmV0dXJuCj4gPiBhIG5lZ2F0aXZlIGVycm5vIGNvZGUuIEFib3J0IGluaXRsYWl6YXRvbiBpbiB0
+aGkgY2FzZS4gVGhlIERSTSBJUlEKPiA+IG1pZGxheWVyIGRvZXMgbm90IGhhbmRsZSB0aGlzIGNv
+cnJlY3RseS4KPiA+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBUaG9tYXMgWmltbWVybWFubiA8dHppbW1l
+cm1hbm5Ac3VzZS5kZT4KPgo+IEFsZXggbmVlZHMgdG8gdGFrZSBhIGxvb2sgYXQgdGhpcyBhcyB3
+ZWxsLCBidXQgb2YgaGFuZCB0aGUgcGF0Y2ggaXMKPiBBY2tlZC1ieTogQ2hyaXN0aWFuIEvDtm5p
+ZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPi4KCkxvb2tzIGdvb2QgdG8gbWUgYXMgd2VsbDoK
+UmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KCj4K
+PiBUaGFua3MsCj4gQ2hyaXN0aWFuLgo+Cj4gPiAtLS0KPiA+ICAgZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X2Rydi5jIHwgIDEgLQo+ID4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfaXJxLmMgfCAyMSArKysrKysrKysrKysrKy0tLS0tLS0KPiA+ICAgZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2lycS5oIHwgIDIgKy0KPiA+ICAgMyBmaWxlcyBj
+aGFuZ2VkLCAxNSBpbnNlcnRpb25zKCspLCA5IGRlbGV0aW9ucygtKQo+ID4KPiA+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPiA+IGluZGV4IDJiZDEzZmMyNTQxYS4uMWUw
+NWI1YWE5NGU3IDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2Rydi5jCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2
+LmMKPiA+IEBAIC0xNzc1LDcgKzE3NzUsNiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9kcml2
+ZXIgYW1kZ3B1X2ttc19kcml2ZXIgPSB7Cj4gPiAgICAgICAub3BlbiA9IGFtZGdwdV9kcml2ZXJf
+b3Blbl9rbXMsCj4gPiAgICAgICAucG9zdGNsb3NlID0gYW1kZ3B1X2RyaXZlcl9wb3N0Y2xvc2Vf
+a21zLAo+ID4gICAgICAgLmxhc3RjbG9zZSA9IGFtZGdwdV9kcml2ZXJfbGFzdGNsb3NlX2ttcywK
+PiA+IC0gICAgIC5pcnFfaGFuZGxlciA9IGFtZGdwdV9pcnFfaGFuZGxlciwKPiA+ICAgICAgIC5p
+b2N0bHMgPSBhbWRncHVfaW9jdGxzX2ttcywKPiA+ICAgICAgIC5udW1faW9jdGxzID0gQVJSQVlf
+U0laRShhbWRncHVfaW9jdGxzX2ttcyksCj4gPiAgICAgICAuZHVtYl9jcmVhdGUgPSBhbWRncHVf
+bW9kZV9kdW1iX2NyZWF0ZSwKPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfaXJxLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaXJx
+LmMKPiA+IGluZGV4IDBkMDFjZmFjYTc3ZS4uYTM2Y2RjNzMyM2Y0IDEwMDY0NAo+ID4gLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2lycS5jCj4gPiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaXJxLmMKPiA+IEBAIC00Niw3ICs0Niw2IEBACj4g
+PiAgICNpbmNsdWRlIDxsaW51eC9wY2kuaD4KPiA+Cj4gPiAgICNpbmNsdWRlIDxkcm0vZHJtX2Ny
+dGNfaGVscGVyLmg+Cj4gPiAtI2luY2x1ZGUgPGRybS9kcm1faXJxLmg+Cj4gPiAgICNpbmNsdWRl
+IDxkcm0vZHJtX3ZibGFuay5oPgo+ID4gICAjaW5jbHVkZSA8ZHJtL2FtZGdwdV9kcm0uaD4KPiA+
+ICAgI2luY2x1ZGUgPGRybS9kcm1fZHJ2Lmg+Cj4gPiBAQCAtMTg0LDcgKzE4Myw3IEBAIHZvaWQg
+YW1kZ3B1X2lycV9kaXNhYmxlX2FsbChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiA+ICAg
+ICogUmV0dXJuczoKPiA+ICAgICogcmVzdWx0IG9mIGhhbmRsaW5nIHRoZSBJUlEsIGFzIGRlZmlu
+ZWQgYnkgJmlycXJldHVybl90Cj4gPiAgICAqLwo+ID4gLWlycXJldHVybl90IGFtZGdwdV9pcnFf
+aGFuZGxlcihpbnQgaXJxLCB2b2lkICphcmcpCj4gPiArc3RhdGljIGlycXJldHVybl90IGFtZGdw
+dV9pcnFfaGFuZGxlcihpbnQgaXJxLCB2b2lkICphcmcpCj4gPiAgIHsKPiA+ICAgICAgIHN0cnVj
+dCBkcm1fZGV2aWNlICpkZXYgPSAoc3RydWN0IGRybV9kZXZpY2UgKikgYXJnOwo+ID4gICAgICAg
+c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBkcm1fdG9fYWRldihkZXYpOwo+ID4gQEAgLTMw
+Nyw2ICszMDYsNyBAQCBzdGF0aWMgdm9pZCBhbWRncHVfcmVzdG9yZV9tc2l4KHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2KQo+ID4gICBpbnQgYW1kZ3B1X2lycV9pbml0KHN0cnVjdCBhbWRncHVf
+ZGV2aWNlICphZGV2KQo+ID4gICB7Cj4gPiAgICAgICBpbnQgciA9IDA7Cj4gPiArICAgICB1bnNp
+Z25lZCBpbnQgaXJxOwo+ID4KPiA+ICAgICAgIHNwaW5fbG9ja19pbml0KCZhZGV2LT5pcnEubG9j
+ayk7Cj4gPgo+ID4gQEAgLTM0OSwxNSArMzQ5LDIyIEBAIGludCBhbWRncHVfaXJxX2luaXQoc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gPiAgICAgICBJTklUX1dPUksoJmFkZXYtPmlycS5p
+aDJfd29yaywgYW1kZ3B1X2lycV9oYW5kbGVfaWgyKTsKPiA+ICAgICAgIElOSVRfV09SSygmYWRl
+di0+aXJxLmloX3NvZnRfd29yaywgYW1kZ3B1X2lycV9oYW5kbGVfaWhfc29mdCk7Cj4gPgo+ID4g
+LSAgICAgYWRldi0+aXJxLmluc3RhbGxlZCA9IHRydWU7Cj4gPiAtICAgICAvKiBVc2UgdmVjdG9y
+IDAgZm9yIE1TSS1YICovCj4gPiAtICAgICByID0gZHJtX2lycV9pbnN0YWxsKGFkZXZfdG9fZHJt
+KGFkZXYpLCBwY2lfaXJxX3ZlY3RvcihhZGV2LT5wZGV2LCAwKSk7Cj4gPiArICAgICAvKiBVc2Ug
+dmVjdG9yIDAgZm9yIE1TSS1YLiAqLwo+ID4gKyAgICAgciA9IHBjaV9pcnFfdmVjdG9yKGFkZXYt
+PnBkZXYsIDApOwo+ID4gKyAgICAgaWYgKHIgPCAwKQo+ID4gKyAgICAgICAgICAgICByZXR1cm4g
+cjsKPiA+ICsgICAgIGlycSA9IHI7Cj4gPiArCj4gPiArICAgICAvKiBQQ0kgZGV2aWNlcyByZXF1
+aXJlIHNoYXJlZCBpbnRlcnJ1cHRzLiAqLwo+ID4gKyAgICAgciA9IHJlcXVlc3RfaXJxKGlycSwg
+YW1kZ3B1X2lycV9oYW5kbGVyLCBJUlFGX1NIQVJFRCwgYWRldl90b19kcm0oYWRldiktPmRyaXZl
+ci0+bmFtZSwKPiA+ICsgICAgICAgICAgICAgICAgICAgICBhZGV2X3RvX2RybShhZGV2KSk7Cj4g
+PiAgICAgICBpZiAocikgewo+ID4gLSAgICAgICAgICAgICBhZGV2LT5pcnEuaW5zdGFsbGVkID0g
+ZmFsc2U7Cj4gPiAgICAgICAgICAgICAgIGlmICghYW1kZ3B1X2RldmljZV9oYXNfZGNfc3VwcG9y
+dChhZGV2KSkKPiA+ICAgICAgICAgICAgICAgICAgICAgICBmbHVzaF93b3JrKCZhZGV2LT5ob3Rw
+bHVnX3dvcmspOwo+ID4gICAgICAgICAgICAgICByZXR1cm4gcjsKPiA+ICAgICAgIH0KPiA+ICsg
+ICAgIGFkZXYtPmlycS5pbnN0YWxsZWQgPSB0cnVlOwo+ID4gKyAgICAgYWRldi0+aXJxLmlycSA9
+IGlycTsKPiA+ICAgICAgIGFkZXZfdG9fZHJtKGFkZXYpLT5tYXhfdmJsYW5rX2NvdW50ID0gMHgw
+MGZmZmZmZjsKPiA+Cj4gPiAgICAgICBEUk1fREVCVUcoImFtZGdwdTogaXJxIGluaXRpYWxpemVk
+LlxuIik7Cj4gPiBAQCAtMzY4LDcgKzM3NSw3IEBAIGludCBhbWRncHVfaXJxX2luaXQoc3RydWN0
+IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gPiAgIHZvaWQgYW1kZ3B1X2lycV9maW5pX2h3KHN0cnVj
+dCBhbWRncHVfZGV2aWNlICphZGV2KQo+ID4gICB7Cj4gPiAgICAgICBpZiAoYWRldi0+aXJxLmlu
+c3RhbGxlZCkgewo+ID4gLSAgICAgICAgICAgICBkcm1faXJxX3VuaW5zdGFsbCgmYWRldi0+ZGRl
+dik7Cj4gPiArICAgICAgICAgICAgIGZyZWVfaXJxKGFkZXYtPmlycS5pcnEsIGFkZXZfdG9fZHJt
+KGFkZXYpKTsKPiA+ICAgICAgICAgICAgICAgYWRldi0+aXJxLmluc3RhbGxlZCA9IGZhbHNlOwo+
+ID4gICAgICAgICAgICAgICBpZiAoYWRldi0+aXJxLm1zaV9lbmFibGVkKQo+ID4gICAgICAgICAg
+ICAgICAgICAgICAgIHBjaV9mcmVlX2lycV92ZWN0b3JzKGFkZXYtPnBkZXYpOwo+ID4gZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pcnEuaCBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pcnEuaAo+ID4gaW5kZXggNzhhZDQ3ODRjYzc0Li5l
+OWYyYzExZWE0MTYgMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfaXJxLmgKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9p
+cnEuaAo+ID4gQEAgLTgwLDYgKzgwLDcgQEAgc3RydWN0IGFtZGdwdV9pcnFfc3JjX2Z1bmNzIHsK
+PiA+Cj4gPiAgIHN0cnVjdCBhbWRncHVfaXJxIHsKPiA+ICAgICAgIGJvb2wgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgaW5zdGFsbGVkOwo+ID4gKyAgICAgdW5zaWduZWQgaW50ICAgICAgICAg
+ICAgICAgICAgICBpcnE7Cj4gPiAgICAgICBzcGlubG9ja190ICAgICAgICAgICAgICAgICAgICAg
+IGxvY2s7Cj4gPiAgICAgICAvKiBpbnRlcnJ1cHQgc291cmNlcyAqLwo+ID4gICAgICAgc3RydWN0
+IGFtZGdwdV9pcnFfY2xpZW50ICAgICAgICBjbGllbnRbQU1ER1BVX0lSUV9DTElFTlRJRF9NQVhd
+Owo+ID4gQEAgLTEwMCw3ICsxMDEsNiBAQCBzdHJ1Y3QgYW1kZ3B1X2lycSB7Cj4gPiAgIH07Cj4g
+Pgo+ID4gICB2b2lkIGFtZGdwdV9pcnFfZGlzYWJsZV9hbGwoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
+KmFkZXYpOwo+ID4gLWlycXJldHVybl90IGFtZGdwdV9pcnFfaGFuZGxlcihpbnQgaXJxLCB2b2lk
+ICphcmcpOwo+ID4KPiA+ICAgaW50IGFtZGdwdV9pcnFfaW5pdChzdHJ1Y3QgYW1kZ3B1X2Rldmlj
+ZSAqYWRldik7Cj4gPiAgIHZvaWQgYW1kZ3B1X2lycV9maW5pX3N3KHN0cnVjdCBhbWRncHVfZGV2
+aWNlICphZGV2KTsKPgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwpGcmVlZHJlbm8gbWFpbGluZyBsaXN0CkZyZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9mcmVlZHJl
+bm8K
