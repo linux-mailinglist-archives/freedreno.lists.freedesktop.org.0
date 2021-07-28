@@ -1,83 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CBB43D835D
-	for <lists+freedreno@lfdr.de>; Wed, 28 Jul 2021 00:44:46 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B7893D84F2
+	for <lists+freedreno@lfdr.de>; Wed, 28 Jul 2021 03:02:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD90D6EB23;
-	Tue, 27 Jul 2021 22:44:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBB446EB93;
+	Wed, 28 Jul 2021 01:02:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C4B76EB23
- for <freedreno@lists.freedesktop.org>; Tue, 27 Jul 2021 22:44:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1627425880;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=DK7QOr93tpO6ZeVlMj41CdryUvlpzzBljDxRIdRpu00=;
- b=BNBFkjcUhadL3BQWyc37xKdRlpCEaCexpaGvp2l89GhoV8LJUG7roACqpm3AIsBcuR8QoL
- 9M3zfsRu995w/12KZ+AMmaSGr3ND496b4/6gZv13GF5sNBY0Sys4i7SJtsJStod4CVU7P5
- /fvADfWPzdaihXQzoZHccUbUEpi3CPI=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-351-XZOj1S5XOL6ClsrvgbT4QA-1; Tue, 27 Jul 2021 18:44:37 -0400
-X-MC-Unique: XZOj1S5XOL6ClsrvgbT4QA-1
-Received: by mail-qt1-f197.google.com with SMTP id
- 15-20020ac84e8f0000b029024e8c2383c1so7443qtp.5
- for <freedreno@lists.freedesktop.org>; Tue, 27 Jul 2021 15:44:36 -0700 (PDT)
+Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
+ [IPv6:2607:f8b0:4864:20::62c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9D006EB7D;
+ Wed, 28 Jul 2021 01:02:23 +0000 (UTC)
+Received: by mail-pl1-x62c.google.com with SMTP id e5so659734pld.6;
+ Tue, 27 Jul 2021 18:02:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=JnNg+LtmUtuMVbhwKpc+TsfLTbQ0CCjgGn2ha7kyTe4=;
+ b=jAEhX2vgfmLiBn/ABCM8HM+m6KEW9HsmuvIFt5Nb8Ze0p6OBtUT9v9SWOobzrxOPAJ
+ OPVve9cPQNN4lNlgltzg3wrLueqe9WyMCOkCtZ3LTyrMRPrT4mPxqrTFpjB4BrZGFTZz
+ W0WTXH2ZtlfGjZnEGUXMjgX3j3c/hvnwS/Cc/uwgWLoSkwM5R0iU1OT9ZxcYgTQJ3ZVw
+ gX1jdASZZs5Aza9+J13g7ZbHaqoL7/TARhxbAxwvFzB5mmt9d54oToIZukcX+rTg1k1O
+ 25WAQ8Gg+3/bggl9+wYGch3j98a1XDMWOs2lvt+wszlrhRXtPoomRki1StVlkV6I6oqG
+ nGhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
- :references:organization:user-agent:mime-version
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=DK7QOr93tpO6ZeVlMj41CdryUvlpzzBljDxRIdRpu00=;
- b=B3q5Nfpi035056o0dqtRGlayi3F5rj9jp6pTfbDIhM/EYw32KduDtwF5CGsUnLhfSV
- H8l58d2DN84QwOJY7KYqg6knArkt3PmRPXG2D3prxBcE5+7ghvBoHYIOArO2oTdQb+I9
- KrQf8Jghk2j/hPvtCNT1A8BC4vx2G1pDXFaqYc9ZXGIofZseNjFOR7LtqZPht44gGfQ/
- I1KIoYRAVwkkh7TvgLjydqirLvi94nmKY5YKDjdW4PTs0QJvVM80OX/M2PwuJZmquQ5J
- gU2AwrrWvznmOZm04CvEL2A9KC6zsTxAPr+3KtlZphmkb9oOIqiFi41wHKu2/5bWqhgY
- LHug==
-X-Gm-Message-State: AOAM532vMPX9avwvmGFU0kNaz/tZ1cAj2At8TYX5OH5b9iDS82RTuzMp
- yeGZsRPxmIdN8YHd3ENN50v9pvOYyOBy5EDUPzofCALU4QGBeSY2jmQzh/DLbYTWXyhSsU/lu9s
- ZR83E8IZI1Eec1MwbC4UCxLxJXAVL
-X-Received: by 2002:a37:a58f:: with SMTP id
- o137mr24235546qke.451.1627425876355; 
- Tue, 27 Jul 2021 15:44:36 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyGj2G2MLvOCQdZF7LANv0fXdRF2QJsKwLJaBjD7XP2EqW1YquS1Ayo6QYNoe1V968s25GfaQ==
-X-Received: by 2002:a37:a58f:: with SMTP id
- o137mr24235523qke.451.1627425876205; 
- Tue, 27 Jul 2021 15:44:36 -0700 (PDT)
-Received: from Ruby.lyude.net (pool-108-49-102-102.bstnma.fios.verizon.net.
- [108.49.102.102])
- by smtp.gmail.com with ESMTPSA id s3sm2051101qtn.4.2021.07.27.15.44.34
+ bh=JnNg+LtmUtuMVbhwKpc+TsfLTbQ0CCjgGn2ha7kyTe4=;
+ b=k7cyHrSYODgxou0VW7ztv+U+viR2n/3vBXmBTaEyzLz2va+aY24cMmYykGx+qvU29n
+ 2RrthU4goNFJLui9bI8xG9SYpg5H/5aNgCsmzXuC7NOAUBlwtBnriq25W67o8CflOREx
+ KtoV3EjwYwu+6NG7+HDqgGoSK3fgn293h8lWG5ZBPT2VIr8LnlUctyx8j9MpeCWXYZy6
+ LxavPcQgjB7XdQXqL9YU6JspM2zGO4iNhRSqnuYUa7x2lOFN5AQX1CHjH+7GdKhHn1DE
+ 8B0U90mEhF6BaSIPcZovwhr+YrwT1NB3zbH1H9CGF5gUFlnTt5h5HEOvcAiZoEnP3glA
+ L/Yg==
+X-Gm-Message-State: AOAM530ehUEFO+5zB0s5osJcKuTkIrVegAumCjBMiONjiiP0FZ/uxra4
+ 85AhC5/HMuNN+jNQqZsFYMFJU5u0IVwXJM/E
+X-Google-Smtp-Source: ABdhPJwE8048m0W7kGr6PrR8geRv+/5g1CPr5++AujkltYbWKD/aIwJ8tcj6XPlLbxcvsdGz2drG9A==
+X-Received: by 2002:a65:5bc6:: with SMTP id o6mr7933192pgr.2.1627434142666;
+ Tue, 27 Jul 2021 18:02:22 -0700 (PDT)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ n17sm5405596pgj.93.2021.07.27.18.02.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 Jul 2021 15:44:35 -0700 (PDT)
-Message-ID: <e725235a77935184cd20dab5af55da95b28d9e88.camel@redhat.com>
-From: Lyude Paul <lyude@redhat.com>
-To: khsieh@codeaurora.org
-Date: Tue, 27 Jul 2021 18:44:34 -0400
-In-Reply-To: <696a009e2ab34747abd12bda03c103c7@codeaurora.org>
-References: <1625585434-9562-1-git-send-email-khsieh@codeaurora.org>
- <87zguy7c5a.fsf@intel.com>
- <a514c19f712a6feeddf854dc17cb8eb5@codeaurora.org>
- <2da3949fa3504592da42c9d01dc060691c6a8b8b.camel@redhat.com>
- <d9ec812b4be57e32246735ca2f5e9560@codeaurora.org>
- <79c5a60fc189261b7a9ef611acd126a41f921593.camel@redhat.com>
- <696a009e2ab34747abd12bda03c103c7@codeaurora.org>
-Organization: Red Hat
-User-Agent: Evolution 3.38.4 (3.38.4-1.fc33)
+ Tue, 27 Jul 2021 18:02:21 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue, 27 Jul 2021 18:06:05 -0700
+Message-Id: <20210728010632.2633470-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Subject: Re: [Freedreno] [PATCH v3] drm/dp_mst: Fix return code on sideband
- message failure
+Subject: [Freedreno] [PATCH v4 00/13] drm/msm: drm scheduler conversion and
+ cleanups
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,34 +66,100 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: mripard@kernel.org, rnayak@codeaurora.org, tzimmermann@suse.de,
- airlied@linux.ie, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, maarten.lankhorst@linux.intel.com,
- linux-kernel@vger.kernel.org, abhinavk@codeaurora.org, swboyd@chromium.org,
- robdclark@gmail.com, Jani Nikula <jani.nikula@linux.intel.com>,
- daniel@ffwll.ch, aravindh@codeaurora.org, sean@poorly.run,
- rsubbia@codeaurora.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Emma Anholt <emma@anholt.net>, Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Lee Jones <lee.jones@linaro.org>, Rob Clark <robdclark@chromium.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>, Bernard Zhao <bernard@vivo.com>,
+ Dave Airlie <airlied@redhat.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Douglas Anderson <dianders@chromium.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Zhenzhong Duan <zhenzhong.duan@gmail.com>,
+ "Kristian H. Kristensen" <hoegsberg@google.com>,
+ freedreno@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-TmljZSB0aW1pbmcsIHlvdSBsaXRlcmFsbHkgZ290IG1lIGFzIEkgd2FzIDIgbWludXRlcyBhd2F5
-IGZyb20gbGVhdmluZyB3b3JrCmZvciB0aGUgZGF5IDpQLiBJIHdpbGwgZ28gYWhlYWQgYW5kIHB1
-c2ggaXQgbm93LgoKQlRXIC0gaW4gdGhlIGZ1dHVyZSBJIHJlY29tbWVuZCB1c2luZyBkaW0gdG8g
-YWRkIEZpeGVzOiB0YWdzIGFzIGl0J2xsIGFkZCBDYzoKdG8gc3RhYmxlIGFzIGFwcHJvcHJpYXRl
-ICh0aGlzIHBhdGNoIGluIHBhcnRpY3VsYXIgc2hvdWxkIGJlIENjOgpzdGFibGVAdmdlci5rZXJu
-ZWwub3JnICMgdjUuMyspLiB3aWxsIGFkZCB0aGVzZSB0YWdzIHdoZW4gSSBwdXNoIGl0CgpPbiBU
-dWUsIDIwMjEtMDctMjcgYXQgMTU6NDEgLTA3MDAsIGtoc2llaEBjb2RlYXVyb3JhLm9yZyB3cm90
-ZToKPiBPbiAyMDIxLTA3LTI3IDEyOjIxLCBMeXVkZSBQYXVsIHdyb3RlOgo+ID4gT24gVGh1LCAy
-MDIxLTA3LTIyIGF0IDE1OjI4IC0wNzAwLCBraHNpZWhAY29kZWF1cm9yYS5vcmfCoHdyb3RlOgo+
-ID4gPiAKPiA+ID4gSXQgbG9va3MgbGlrZSB0aGlzIHBhdGNoIGlzIGdvb2QgdG8gZ28gKG1haW5s
-aW5lZCkuCj4gPiA+IEFueXRoaW5nIG5lZWRlZCBmcm9tIG1lIHRvIGRvPwo+ID4gPiBUaGFua3Ms
-Cj4gPiAKPiA+IERvIHlvdSBoYXZlIGFjY2VzcyBmb3IgcHVzaGluZyB0aGlzIHBhdGNoPyBJZiBu
-b3QgbGV0IG1lIGtub3cgYW5kIEkgY2FuIAo+ID4gZ28KPiA+IGFoZWFkIGFuZCBwdXNoIGl0IHRv
-IGRybS1taXNjLW5leHQgZm9yIHlvdS4KPiBubywgSSBkbyBub3QgaGF2ZSBhY2Nlc3MgdG8gZHJt
-LW1pc2MtbmV4dC4KPiBQbGVhc2UgcHVzaCBpdCBmb3IgbWUuCj4gVGhhbmtzIGEgbG90cy4KPiAK
-Ci0tIApDaGVlcnMsCiBMeXVkZSBQYXVsIChzaGUvaGVyKQogU29mdHdhcmUgRW5naW5lZXIgYXQg
-UmVkIEhhdAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-RnJlZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5vCg==
+From: Rob Clark <robdclark@chromium.org>
+
+Conversion to gpu_scheduler, and bonus removal of
+drm_gem_object_put_locked()
+
+v2: Fix priority mixup (msm UAPI has lower numeric priority value as
+    higher priority, inverse of drm/scheduler) and add some comments
+    in the UAPI header to clarify.
+
+    Now that we move active refcnt get into msm_gem_submit, add a
+    patch to mark all bos busy before pinning, to avoid evicting bos
+    used in same batch.
+
+    Fix bo locking for cmdstream dumping ($debugfs/n/{rd,hangrd})
+
+v3: Add a patch to drop submit bo_list and instead use -EALREADY
+    to detect errors with same obj appearing multiple times in the
+    submit ioctl bos table.  Otherwise, with struct_mutex locking
+    dropped, we'd need to move insertion into and removal from
+    bo_list under the obj lock.
+
+v4: One last small tweak, drop unused wait_queue_head_t in
+    msm_fence_context
+
+Rob Clark (13):
+  drm/msm: Docs and misc cleanup
+  drm/msm: Small submitqueue creation cleanup
+  drm/msm: drop drm_gem_object_put_locked()
+  drm: Drop drm_gem_object_put_locked()
+  drm/msm/submit: Simplify out-fence-fd handling
+  drm/msm: Consolidate submit bo state
+  drm/msm: Track "seqno" fences by idr
+  drm/msm: Return ERR_PTR() from submit_create()
+  drm/msm: Conversion to drm scheduler
+  drm/msm: Drop submit bo_list
+  drm/msm: Drop struct_mutex in submit path
+  drm/msm: Utilize gpu scheduler priorities
+  drm/msm/gem: Mark active before pinning
+
+ drivers/gpu/drm/drm_gem.c                   |  22 --
+ drivers/gpu/drm/msm/Kconfig                 |   1 +
+ drivers/gpu/drm/msm/adreno/a5xx_debugfs.c   |   4 +-
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c       |   6 +-
+ drivers/gpu/drm/msm/adreno/a5xx_power.c     |   2 +-
+ drivers/gpu/drm/msm/adreno/a5xx_preempt.c   |   7 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c       |  12 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c       |   2 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c |   4 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c     |   6 +-
+ drivers/gpu/drm/msm/msm_drv.c               |  30 +-
+ drivers/gpu/drm/msm/msm_fence.c             |  42 ---
+ drivers/gpu/drm/msm/msm_fence.h             |   3 -
+ drivers/gpu/drm/msm/msm_gem.c               |  94 +-----
+ drivers/gpu/drm/msm/msm_gem.h               |  47 +--
+ drivers/gpu/drm/msm/msm_gem_submit.c        | 344 ++++++++++++--------
+ drivers/gpu/drm/msm/msm_gpu.c               |  46 +--
+ drivers/gpu/drm/msm/msm_gpu.h               |  78 ++++-
+ drivers/gpu/drm/msm/msm_rd.c                |   6 +-
+ drivers/gpu/drm/msm/msm_ringbuffer.c        |  70 +++-
+ drivers/gpu/drm/msm/msm_ringbuffer.h        |  12 +
+ drivers/gpu/drm/msm/msm_submitqueue.c       |  53 ++-
+ include/drm/drm_gem.h                       |   2 -
+ include/uapi/drm/msm_drm.h                  |  14 +-
+ 24 files changed, 516 insertions(+), 391 deletions(-)
+
+-- 
+2.31.1
+
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
