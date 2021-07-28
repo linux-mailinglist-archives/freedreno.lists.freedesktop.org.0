@@ -2,58 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D96173D8714
-	for <lists+freedreno@lfdr.de>; Wed, 28 Jul 2021 07:19:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F74F3D88B8
+	for <lists+freedreno@lfdr.de>; Wed, 28 Jul 2021 09:18:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E17946E027;
-	Wed, 28 Jul 2021 05:19:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3FA46E328;
+	Wed, 28 Jul 2021 07:18:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08ACD6E027;
- Wed, 28 Jul 2021 05:19:19 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3C8DE22261;
- Wed, 28 Jul 2021 05:19:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1627449558; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=YmfSl7/J4rPd2qBHbKNtkwTubic3cXWaOLC2leTR4LQ=;
- b=flb5jOJ92JPke2khTYzDgIbsylLsXyNyM6OVWk0FuamSZTMSE3j6bP5WF7lXoKURFzC2oc
- EPA1hSj2ydTwmd8y1IAvGDQ3N+o4DOrWYcx3u4CmZ0vGGUL/lz+9WUmk1j7gjStY0P0is7
- M/5pbOrnyI7W7A6IIv3hyVC5kBtra78=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1627449558;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=YmfSl7/J4rPd2qBHbKNtkwTubic3cXWaOLC2leTR4LQ=;
- b=T9onue0syqQ44Ixg7sUrHDrRX6fbDHpFQhyZOpb3WKaG/d8NOOnLWjUBv15JpeQjFGKh41
- jn0fnx2mvsHJzpAg==
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id AB22A13CF4;
- Wed, 28 Jul 2021 05:19:17 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id RqfLKNXoAGFdVQAAGKfGzw
- (envelope-from <tzimmermann@suse.de>); Wed, 28 Jul 2021 05:19:17 +0000
-To: Sam Ravnborg <sam@ravnborg.org>
-References: <20210727182721.17981-1-tzimmermann@suse.de>
- <YQBVyuPuf9InsY7g@ravnborg.org>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <d11b4688-b05e-8936-50dc-22eee9dd2983@suse.de>
-Date: Wed, 28 Jul 2021 07:19:17 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26C1A6E328
+ for <freedreno@lists.freedesktop.org>; Wed, 28 Jul 2021 07:18:07 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1627456689; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
+ Subject: Sender; bh=uTWyTqMs+PRR6Vr7fo7QE9aqKJhA7o/4CIJbMLl7ewQ=;
+ b=HbTH9QzCdGY6EXhz3YRNehEFSjPpKVxQJPJh+ajgdUOKu3/P6efjRr6pmS39a0aP+UhUgC6/
+ i/Ci5IsYEPgUT83BG6LUbqsCudgYYOEYz/vhdmKMXVU/vMeRUwWdGt7dQshcZl3PFrwYWc88
+ 89svtu2+/F1RJ3BKZMZCG8c/SvU=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
+ 610104a117c2b4047d48f1c6 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 28 Jul 2021 07:17:53
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 14A36C4338A; Wed, 28 Jul 2021 07:17:53 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-3.2 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ NICE_REPLY_A,SPF_FAIL,URIBL_BLOCKED autolearn=no autolearn_force=no
+ version=3.4.0
+Received: from [192.168.1.105] (unknown [59.89.229.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id F0052C433D3;
+ Wed, 28 Jul 2021 07:17:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org F0052C433D3
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=akhilpo@codeaurora.org
+To: Stephen Boyd <swboyd@chromium.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS
+ <devicetree@vger.kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ dri-devel@lists.freedesktop.org, freedreno
+ <freedreno@lists.freedesktop.org>, linux-arm-msm@vger.kernel.org
+References: <1627147740-11590-1-git-send-email-akhilpo@codeaurora.org>
+ <CAE-0n52mEy1GReYwcVrffT2KOy4EHMHH-RyCJ_mmxhaeXwGdYA@mail.gmail.com>
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+Message-ID: <e1a28bed-a2a9-2bf2-d0f0-3f608a538f69@codeaurora.org>
+Date: Wed, 28 Jul 2021 12:47:45 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <YQBVyuPuf9InsY7g@ravnborg.org>
-Subject: Re: [Freedreno] [PATCH 00/14] drm: Make DRM's IRQ helpers legacy
+In-Reply-To: <CAE-0n52mEy1GReYwcVrffT2KOy4EHMHH-RyCJ_mmxhaeXwGdYA@mail.gmail.com>
+Content-Language: en-US
+Subject: Re: [Freedreno] [PATCH v2] arm64: dts: qcom: sc7280: Add gpu support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,137 +75,174 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, liviu.dudau@arm.com, stefan@agner.ch,
- amd-gfx@lists.freedesktop.org, anitha.chrisanthus@intel.com,
- patrik.r.jakobsson@gmail.com, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, daniel@ffwll.ch, edmund.j.dea@intel.com,
- s.hauer@pengutronix.de, alison.wang@nxp.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, dri-devel@lists.freedesktop.org, sean@poorly.run,
- linux-arm-kernel@lists.infradead.org, tomba@kernel.org, bbrezillon@kernel.org,
- jyri.sarha@iki.fi, nicolas.ferre@microchip.com, christian.koenig@amd.com,
- robdclark@gmail.com, kernel@pengutronix.de, alexander.deucher@amd.com,
- shawnguo@kernel.org, brian.starkey@arm.com
-Content-Type: multipart/mixed; boundary="===============2022213410=="
+Cc: Douglas Anderson <dianders@chromium.org>,
+ Jonathan Marek <jonathan@marek.ca>, linux-kernel@vger.kernel.org,
+ Andy Gross <agross@kernel.org>, Jordan Crouse <jordan@cosmicpenguin.net>,
+ Matthias Kaehlcke <mka@chromium.org>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============2022213410==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="XYIqRf9rflDQEkfaVzrzYZxOjhzcpsV4c"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---XYIqRf9rflDQEkfaVzrzYZxOjhzcpsV4c
-Content-Type: multipart/mixed; boundary="GmOTuz8b5Zd4f7WcpPA58UjJwmtsS3ps4";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Sam Ravnborg <sam@ravnborg.org>
-Cc: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
- christian.koenig@amd.com, liviu.dudau@arm.com, brian.starkey@arm.com,
- bbrezillon@kernel.org, nicolas.ferre@microchip.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, stefan@agner.ch,
- alison.wang@nxp.com, patrik.r.jakobsson@gmail.com,
- anitha.chrisanthus@intel.com, robdclark@gmail.com, edmund.j.dea@intel.com,
- sean@poorly.run, shawnguo@kernel.org, s.hauer@pengutronix.de,
- kernel@pengutronix.de, jyri.sarha@iki.fi, tomba@kernel.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org
-Message-ID: <d11b4688-b05e-8936-50dc-22eee9dd2983@suse.de>
-Subject: Re: [PATCH 00/14] drm: Make DRM's IRQ helpers legacy
-References: <20210727182721.17981-1-tzimmermann@suse.de>
- <YQBVyuPuf9InsY7g@ravnborg.org>
-In-Reply-To: <YQBVyuPuf9InsY7g@ravnborg.org>
-
---GmOTuz8b5Zd4f7WcpPA58UjJwmtsS3ps4
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Hi Sam
-
-Am 27.07.21 um 20:51 schrieb Sam Ravnborg:
-> Hi Thomas,
->=20
-> On Tue, Jul 27, 2021 at 08:27:07PM +0200, Thomas Zimmermann wrote:
->> DRM's IRQ helpers are only helpful for old, non-KMS drivers. Move
->> the code behind CONFIG_DRM_LEGACY. Convert KMS drivers to Linux
->> IRQ interfaces.
+On 7/27/2021 5:46 AM, Stephen Boyd wrote:
+> Quoting Akhil P Oommen (2021-07-24 10:29:00)
+>> Add the necessary dt nodes for gpu support in sc7280.
 >>
->> DRM provides IRQ helpers for setting up, receiving and removing IRQ
->> handlers. It's an abstraction over plain Linux functions. The code
->> is mid-layerish with several callbacks to hook into the rsp drivers.
->> Old UMS driver have their interrupts enabled via ioctl, so these
->> abstractions makes some sense. Modern KMS manage all their interrupts
->> internally. Using the DRM helpers adds indirection without benefits.
+>> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+>> ---
+>> This patch has dependency on the GPUCC bindings patch here:
+>> https://patchwork.kernel.org/project/linux-arm-msm/patch/1619519590-3019-4-git-send-email-tdas@codeaurora.org/
+> 
+> To avoid the dependency the plain numbers can be used.
+
+But, won't that reduce readability and make things prone to error? If 
+the other patch doesn't get picked up soon, we should try this option. 
+We like to get this patch merged in v5.15.
+
+> 
 >>
->> Most KMs drivers already use Linux IRQ functions instead of DRM's
->> abstraction layer. Patches 1 to 12 convert the remaining ones.
->> The patches also resolve a bug for devices without assigned interrupt
->> number. DRM helpers don't test for IRQ_NOTCONNECTED, so drivers do
->> not detect if the device has no interrupt assigned.
->=20
-> Before diving into a review of these..
-> Any specific reason devm_request_irq is not used?
+>> Changes in v2:
+>> - formatting update and removed a duplicate header (Stephan)
+>>
+>>   arch/arm64/boot/dts/qcom/sc7280.dtsi | 116 +++++++++++++++++++++++++++++++++++
+>>   1 file changed, 116 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+>> index 029723a..524a5e0 100644
+>> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+>> @@ -585,6 +586,121 @@
+>>                          #clock-cells = <1>;
+>>                  };
+>>
+>> +               gpu@3d00000 {
+>> +                       compatible = "qcom,adreno-635.0", "qcom,adreno";
+>> +                       #stream-id-cells = <16>;
+>> +                       reg = <0 0x03d00000 0 0x40000>,
+>> +                             <0 0x03d9e000 0 0x1000>,
+>> +                             <0 0x03d61000 0 0x800>;
+>> +                       reg-names = "kgsl_3d0_reg_memory",
+>> +                                   "cx_mem",
+>> +                                   "cx_dbgc";
+>> +                       interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
+>> +                       iommus = <&adreno_smmu 0 0x401>;
+>> +                       operating-points-v2 = <&gpu_opp_table>;
+>> +                       qcom,gmu = <&gmu>;
+>> +                       interconnects = <&gem_noc MASTER_GFX3D 0 &mc_virt SLAVE_EBI1 0>;
+>> +                       interconnect-names = "gfx-mem";
+>> +
+>> +                       gpu_opp_table: opp-table {
+>> +                               compatible = "operating-points-v2";
+>> +
+>> +                               opp-550000000 {
+>> +                                       opp-hz = /bits/ 64 <550000000>;
+>> +                                       opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
+>> +                                       opp-peak-kBps = <6832000>;
+>> +                               };
+>> +
+>> +                               opp-450000000 {
+>> +                                       opp-hz = /bits/ 64 <450000000>;
+>> +                                       opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
+>> +                                       opp-peak-kBps = <4068000>;
+>> +                               };
+>> +
+>> +                               opp-315000000 {
+>> +                                       opp-hz = /bits/ 64 <315000000>;
+>> +                                       opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
+>> +                                       opp-peak-kBps = <1804000>;
+>> +                               };
+>> +                       };
+>> +               };
+>> +
+>> +               gmu: gmu@3d69000 {
+>> +                       compatible="qcom,adreno-gmu-635.0", "qcom,adreno-gmu";
+>> +                       reg = <0 0x03d6a000 0 0x34000>,
+>> +                               <0 0x3de0000 0 0x10000>,
+>> +                               <0 0x0b290000 0 0x10000>;
+>> +                       reg-names = "gmu", "rscc", "gmu_pdc";
+>> +                       interrupts = <GIC_SPI 304 IRQ_TYPE_LEVEL_HIGH>,
+>> +                                       <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH>;
+>> +                       interrupt-names = "hfi", "gmu";
+>> +                       clocks = <&gpucc GPU_CC_CX_GMU_CLK>,
+>> +                                       <&gpucc GPU_CC_CXO_CLK>,
+>> +                                       <&gcc GCC_DDRSS_GPU_AXI_CLK>,
+>> +                                       <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
+>> +                                       <&gpucc GPU_CC_AHB_CLK>,
+>> +                                       <&gpucc GPU_CC_HUB_CX_INT_CLK>,
+>> +                                       <&gpucc GPU_CC_HLOS1_VOTE_GPU_SMMU_CLK>;
+>> +                       clock-names = "gmu",
+>> +                                     "cxo",
+>> +                                     "axi",
+>> +                                     "memnoc",
+>> +                                     "ahb",
+>> +                                     "hub",
+>> +                                     "smmu_vote";
+>> +                       power-domains = <&gpucc GPU_CC_CX_GDSC>,
+>> +                                       <&gpucc GPU_CC_GX_GDSC>;
+>> +                       power-domain-names = "cx",
+>> +                                            "gx";
+>> +                       iommus = <&adreno_smmu 5 0x400>;
+>> +                       operating-points-v2 = <&gmu_opp_table>;
+>> +
+>> +                       gmu_opp_table: opp-table {
+>> +                               compatible = "operating-points-v2";
+>> +
+>> +                               opp-200000000 {
+>> +                                       opp-hz = /bits/ 64 <200000000>;
+>> +                                       opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
+>> +                               };
+>> +                       };
+>> +               };
+>> +
+>> +               adreno_smmu: iommu@3da0000 {
+>> +                       compatible = "qcom,sc7280-smmu-500", "qcom,adreno-smmu", "arm,mmu-500";
+>> +                       reg = <0 0x03da0000 0 0x20000>;
+>> +                       #iommu-cells = <2>;
+>> +                       #global-interrupts = <2>;
+>> +                       interrupts = <GIC_SPI 673 IRQ_TYPE_LEVEL_HIGH>,
+>> +                                       <GIC_SPI 675 IRQ_TYPE_LEVEL_HIGH>,
+>> +                                       <GIC_SPI 678 IRQ_TYPE_LEVEL_HIGH>,
+>> +                                       <GIC_SPI 679 IRQ_TYPE_LEVEL_HIGH>,
+>> +                                       <GIC_SPI 680 IRQ_TYPE_LEVEL_HIGH>,
+>> +                                       <GIC_SPI 681 IRQ_TYPE_LEVEL_HIGH>,
+>> +                                       <GIC_SPI 682 IRQ_TYPE_LEVEL_HIGH>,
+>> +                                       <GIC_SPI 683 IRQ_TYPE_LEVEL_HIGH>,
+>> +                                       <GIC_SPI 684 IRQ_TYPE_LEVEL_HIGH>,
+>> +                                       <GIC_SPI 685 IRQ_TYPE_LEVEL_HIGH>,
+>> +                                       <GIC_SPI 686 IRQ_TYPE_LEVEL_HIGH>,
+>> +                                       <GIC_SPI 687 IRQ_TYPE_LEVEL_HIGH>;
+>> +
+>> +                       clocks = <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
+>> +                                       <&gcc GCC_GPU_SNOC_DVM_GFX_CLK>,
+>> +                                       <&gpucc GPU_CC_AHB_CLK>,
+>> +                                       <&gpucc GPU_CC_HLOS1_VOTE_GPU_SMMU_CLK>,
+>> +                                       <&gpucc GPU_CC_CX_GMU_CLK>,
+>> +                                       <&gpucc GPU_CC_HUB_CX_INT_CLK>,
+>> +                                       <&gpucc GPU_CC_HUB_AON_CLK>;
+>> +                       clock-names = "gcc_gpu_memnoc_gfx_clk",
+>> +                                       "gcc_gpu_snoc_dvm_gfx_clk",
+>> +                                       "gpu_cc_ahb_clk",
+>> +                                       "gpu_cc_hlos1_vote_gpu_smmu_clk",
+>> +                                       "gpu_cc_cx_gmu_clk",
+>> +                                       "gpu_cc_hub_cx_int_clk",
+>> +                                       "gpu_cc_hub_aon_clk";
+>> +
+>> +                       power-domains = <&gpucc GPU_CC_CX_GDSC>;
+>> +               };
+>> +
+>>                  lpass_ag_noc: interconnect@3c40000 {
+> 
+> This node is 3c40000 and the one above is 3da0000. 3c comes before 3d.
+> Please order nodes properly.
 
-Thanks for looking at the patches.
+Yeah, I messed up the order at a couple of places. Will fix.
 
-Switching to devm_ definately makes sense in the longer term.
-  I didn't do this here to not change the order of clean-up operations=20
-in general. And some of the drivers have dedicated IRQ clean-up code,=20
-which might depend on the correct order as well.
-
-Best regards
-Thomas
-
->=20
-> 	Sam
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---GmOTuz8b5Zd4f7WcpPA58UjJwmtsS3ps4--
-
---XYIqRf9rflDQEkfaVzrzYZxOjhzcpsV4c
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmEA6NUFAwAAAAAACgkQlh/E3EQov+Ap
-UQ//YR7yzSptLZNGuqp9g/OkDCywROMgVcE14mlYlrq4f0aQRcmfMsJDtEZN+CVtryarPnUlKZ0j
-8u+N8xFcBhIFTxqblkyIPu6Ex/dVzxjoDVWXkJX4UBeI5+QHxzyV+JQlEBKFbePlRa8yFUN863gO
-dX68d1UC4djOb39EgLF+oIYHzWOKnfgOQ5iw8OCiMz35sNG3jiwiCpUqWXrXWhMtg6p0Byv+/2eA
-XUILsWClwUhOn2j3qEnibjikbtxP3pxGN5D+ZbjWCzzgU88iJCjzns2IBalLtEKF/1rOHyhqh+7T
-xOtRQiLH9pDCNJu0qzQj8u3v5MbGkQ2Kd1AshVzSuXHRwMB4Meu8KmuzByEE0QXcCmKIDLWGVqxc
-MHlQq4OPDHe2lTs6np2DaenFVYCXKz7RMsYKaRvPsarN4B/lYEc1XBjMAF3ssyZ/SbaiFeLGvHGE
-OYX9ZqFAyaBAE4A3V88tIJjHuPqhjilkdv4azHsD0nGP+AkUSMXNcukO5aUug+7BAtyYC020cl62
-QuJWg4pvxgstJYbibzNjLqChvIWV/ZNUgN4j2g5HOgf8NylRCF4ZxNhkTdQ638UtKQtIj/rht2Mw
-vDP4PP4VlQR+vAorMusCFjyRxBZKC4uE9QNjI97yM/mlUtR0XeVLHnxYyzr/3+zldyrb8/AN5EH0
-SC0=
-=2i7L
------END PGP SIGNATURE-----
-
---XYIqRf9rflDQEkfaVzrzYZxOjhzcpsV4c--
-
---===============2022213410==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-Akhil.
+> 
+>>                          reg = <0 0x03c40000 0 0xf080>;
+>>                          compatible = "qcom,sc7280-lpass-ag-noc";
 
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/freedreno
-
---===============2022213410==--
