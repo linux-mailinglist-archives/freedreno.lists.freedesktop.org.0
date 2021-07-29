@@ -1,64 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A57313DADEE
-	for <lists+freedreno@lfdr.de>; Thu, 29 Jul 2021 22:54:25 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id E2BEB3DAEB2
+	for <lists+freedreno@lfdr.de>; Fri, 30 Jul 2021 00:10:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22CA46EE6F;
-	Thu, 29 Jul 2021 20:54:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2054E6EE87;
+	Thu, 29 Jul 2021 22:10:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1D726EE6B
- for <freedreno@lists.freedesktop.org>; Thu, 29 Jul 2021 20:54:22 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id z2so13475683lft.1
- for <freedreno@lists.freedesktop.org>; Thu, 29 Jul 2021 13:54:22 -0700 (PDT)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E22F6EE87
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Jul 2021 22:10:57 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id g13so13691880lfj.12
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Jul 2021 15:10:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=TtzwERWqudonvRzbHNkdWZ3kWhB6I2ZbAEA6C8drPI4=;
- b=AKrHUAeEQMD/pDXxpO9Be7WVc1QxuY+OIn7U5Cz9CHYR+v9R9/PbMFXBmHtOZFcC3N
- WSUoVDpLwvHfhx6iA43CPTTk6fjsoAikNPqjS9JMs0xybGkWYmq6BFVO7QkOWoIhoe3Q
- 6kkD18rDvNpAb6Z94cmggC/DWZ3blKLlL2SxxyQ6nZpBgKTnx7HouPcZrYGarreSiypg
- ftZNSgfBImqEfIK/euL8TumebckyDYgS6ZjVXf0Drsqumyv+FOR0D35pLvP3/fma/uyF
- dNFpxs++iJ+xMy3KBLZROeZNdf4oUhx98gzSPS7Ch+n6AmK9cST2ZANSdt1Hq7UeQww0
- cEMg==
+ bh=2AC+8P/Gj44yNzGHdK2IH+CNsTTpG3h1yZ9H93ggsmA=;
+ b=jY2aLXNc5CGC5wU3rPGA4BVzoK0ziPzyhDPi4NWJ6GSsjEHGgB+uNbzhg2c5k0RQER
+ UyGhTIHTjB+y9dA892z2TX9gFRiW2z9D9bQUhfST0XN4o2VIKq50MgYbeo4GvBuwjdLx
+ uLW0dt1scJvt9o4l9zqm1Bm5tjKwp5Du342f7GGny9Hb+lMwQlEq9lyMD9LEQECShkoK
+ QYZxdfnTdmyNQ6I0aMaqaXyqjYp141pMc7juAIHiil0n37Dji7xlBEp9ubsfhiugvRyr
+ Sf725vXLEjJA4HzDyxmHpcwmPhbnex5WO4w+omx+jRfJ3y/cjotjnPlCfUYBXCKJHvxe
+ IMww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=TtzwERWqudonvRzbHNkdWZ3kWhB6I2ZbAEA6C8drPI4=;
- b=brpNupKkSSvO15eBdDkcGGS+0J+/a4oPmLf/0jgAPvi389N58j3YORFSSXKUGNLKCq
- jNZUMIDxs68ja54yPEfHD33QyXzjjmr5Btx17H7Jm8fZBfNesHJbAb5JfuY43v6atClX
- QF0gYsAXuTXEZsreRo+ZPy/cmRmAGG7XyLTVPZRQDNgerfRfHzQeGviWKrzct8cUSaHv
- eFRIUeW8YAx8Ix5D0JHiiqrcVPW18RbiH87n6w1MJ4W2tU9P8HsUJZEjE/FxzFMTcuhh
- fzzlFgwHZ8mp+e4kYbjtoe8HMPceqcB3GJcTQUZa8lyEr2HoCgiCtKyjQXXqVXW2JXnw
- LkUQ==
-X-Gm-Message-State: AOAM532ZRjUUmYThttPjz8rFobFBXMaPZfL9DjXjTLRnFq6HxGJvt5qP
- qebZtzgIJBCkmURzie6Oe2azIylbuggaCg==
-X-Google-Smtp-Source: ABdhPJyxff8NyRMmiPjAya/ZL8U+X+NI3ZNSsZvtdNrtSaW+lyLrI7pCzr+J+94xTaRWsUewMWD8TA==
-X-Received: by 2002:ac2:5504:: with SMTP id j4mr5331173lfk.220.1627592060673; 
- Thu, 29 Jul 2021 13:54:20 -0700 (PDT)
+ bh=2AC+8P/Gj44yNzGHdK2IH+CNsTTpG3h1yZ9H93ggsmA=;
+ b=sh/m2IgBx1oOKiitOViBfDzsT2jycouZ7K04BOm2YoaewHmPQLL/4fCgYJVN0rv5lq
+ e2xc5V8Tj5uykimjcTvkDLqVsQBZNP4S+GjFbsan4TJ0l5TD94cxvi2xyEvkzZY+x2L3
+ Y5jkVpnwAxaztSJK0H0YaUvc/6Ww3t/SR3w9PEO2NWtWaSlkPDHbzFncwmDmsS6Yw6WF
+ cdN76SLUFHERjuohn+iLoR4Ntcv/2MJkIE3dp+QORE3ECYxACOaeAn3SzAp+NzeJ8yWU
+ wAVnY60FEJufs7UvEE00kUQvC848XHuZoVNiQd44mCuNqQOJkGWkQiQ2UAwg9Eju+xmD
+ dB7A==
+X-Gm-Message-State: AOAM5310gdkHfJcekq9gpSnFOOtqrt1JUsJ5xyVGTd3N04Ow55McpbBW
+ D/fXfU2fpI73c7mBvZGG//L3RIC6FmyNMA==
+X-Google-Smtp-Source: ABdhPJwchuXnMGjhKcf682o3JdYzdxJtBhS9YQxqpRCA08LyKUo3SCjfOcM3KrDEMR6A9FTaNKXpcQ==
+X-Received: by 2002:a05:6512:34d1:: with SMTP id
+ w17mr5444027lfr.439.1627596655399; 
+ Thu, 29 Jul 2021 15:10:55 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id p28sm394865lfd.156.2021.07.29.13.54.20
+ by smtp.gmail.com with ESMTPSA id r200sm409316lff.208.2021.07.29.15.10.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Jul 2021 13:54:20 -0700 (PDT)
+ Thu, 29 Jul 2021 15:10:55 -0700 (PDT)
 To: Vinod Koul <vkoul@kernel.org>, Rob Clark <robdclark@gmail.com>
 References: <20210715065203.709914-1-vkoul@kernel.org>
- <20210715065203.709914-9-vkoul@kernel.org>
+ <20210715065203.709914-11-vkoul@kernel.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <0227846a-47b1-96e7-f14c-7dc3b4f1ba47@linaro.org>
-Date: Thu, 29 Jul 2021 23:54:19 +0300
+Message-ID: <ab891024-4c07-fd52-85ca-77eff626bd9a@linaro.org>
+Date: Fri, 30 Jul 2021 01:10:54 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <20210715065203.709914-9-vkoul@kernel.org>
+In-Reply-To: <20210715065203.709914-11-vkoul@kernel.org>
 Content-Language: en-GB
-Subject: Re: [Freedreno] [PATCH 08/11] drm/msm/disp/dpu1: Add support for
- DSC in encoder
+Subject: Re: [Freedreno] [PATCH 10/11] drm/msm/dsi: Add support for DSC
+ configuration
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,245 +84,240 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 15/07/2021 09:52, Vinod Koul wrote:
-> When DSC is enabled in DT, we need to configure the encoder for DSC
-> configuration, calculate DSC parameters for the given timing.
+> When DSC is enabled, we need to configure DSI registers accordingly and
+> configure the respective stream compression registers.
 > 
-> This patch adds that support by adding dpu_encoder_prep_dsc() which is
-> invoked when DSC is enabled in DT
+> Add support to calculate the register setting based on DSC params and
+> timing information and configure these registers.
 > 
 > Signed-off-by: Vinod Koul <vkoul@kernel.org>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 142 +++++++++++++++++++-
->   1 file changed, 141 insertions(+), 1 deletion(-)
+>   drivers/gpu/drm/msm/dsi/dsi.xml.h  |  10 ++
+>   drivers/gpu/drm/msm/dsi/dsi_host.c | 142 +++++++++++++++++++++++++++--
+>   2 files changed, 142 insertions(+), 10 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 8d942052db8a..41140b781e66 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -21,12 +21,17 @@
->   #include "dpu_hw_intf.h"
->   #include "dpu_hw_ctl.h"
->   #include "dpu_hw_dspp.h"
-> +#include "dpu_hw_dsc.h"
->   #include "dpu_formats.h"
->   #include "dpu_encoder_phys.h"
->   #include "dpu_crtc.h"
->   #include "dpu_trace.h"
->   #include "dpu_core_irq.h"
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi.xml.h b/drivers/gpu/drm/msm/dsi/dsi.xml.h
+> index 50eb4d1b8fdd..b8e9e608abfc 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi.xml.h
+> +++ b/drivers/gpu/drm/msm/dsi/dsi.xml.h
+> @@ -2310,4 +2310,14 @@ static inline uint32_t REG_DSI_7nm_PHY_LN_TX_DCTRL(uint32_t i0) { return 0x00000
 >   
-> +#define DSC_MODE_SPLIT_PANEL		BIT(0)
-> +#define DSC_MODE_MULTIPLEX		BIT(1)
-> +#define DSC_MODE_VIDEO			BIT(2)
-
-This should go into dpu_hw_dsc.h. Ah. They are already defined there and 
-just redefined there. Remove the defines here.
-
-It might be cleaner to add bool flags to struct msm_display_dsc_config 
-and then calculate common mode in the dpu_hw_dsc_config().
-
-
+>   #define REG_DSI_7nm_PHY_PLL_PERF_OPTIMIZE			0x00000260
+>   
+> +#define REG_DSI_VIDEO_COMPRESSION_MODE_CTRL			0x0000029c
 > +
->   #define DPU_DEBUG_ENC(e, fmt, ...) DPU_DEBUG("enc%d " fmt,\
->   		(e) ? (e)->base.base.id : -1, ##__VA_ARGS__)
->   
-> @@ -135,6 +140,7 @@ enum dpu_enc_rc_states {
->    * @cur_slave:		As above but for the slave encoder.
->    * @hw_pp:		Handle to the pingpong blocks used for the display. No.
->    *			pingpong blocks can be different than num_phys_encs.
-> + * @hw_dsc		Handle to the DSC blocks used for the display.
->    * @intfs_swapped:	Whether or not the phys_enc interfaces have been swapped
->    *			for partial update right-only cases, such as pingpong
->    *			split where virtual pingpong does not generate IRQs
-> @@ -180,6 +186,7 @@ struct dpu_encoder_virt {
->   	struct dpu_encoder_phys *cur_master;
->   	struct dpu_encoder_phys *cur_slave;
->   	struct dpu_hw_pingpong *hw_pp[MAX_CHANNELS_PER_ENC];
-> +	struct dpu_hw_dsc *hw_dsc[MAX_CHANNELS_PER_ENC];
->   
->   	bool intfs_swapped;
->   
-> @@ -1008,7 +1015,8 @@ static void dpu_encoder_virt_mode_set(struct drm_encoder *drm_enc,
->   	struct dpu_hw_blk *hw_ctl[MAX_CHANNELS_PER_ENC];
->   	struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
->   	struct dpu_hw_blk *hw_dspp[MAX_CHANNELS_PER_ENC] = { NULL };
-> -	int num_lm, num_ctl, num_pp;
-> +	struct dpu_hw_blk *hw_dsc[MAX_CHANNELS_PER_ENC];
-> +	int num_lm, num_ctl, num_pp, num_dsc;
->   	int i, j;
->   
->   	if (!drm_enc) {
-> @@ -1061,11 +1069,16 @@ static void dpu_encoder_virt_mode_set(struct drm_encoder *drm_enc,
->   	dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
->   		drm_enc->base.id, DPU_HW_BLK_DSPP, hw_dspp,
->   		ARRAY_SIZE(hw_dspp));
-> +	num_dsc = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> +		drm_enc->base.id, DPU_HW_BLK_DSC, hw_dsc, ARRAY_SIZE(hw_dsc));
->   
->   	for (i = 0; i < MAX_CHANNELS_PER_ENC; i++)
->   		dpu_enc->hw_pp[i] = i < num_pp ? to_dpu_hw_pingpong(hw_pp[i])
->   						: NULL;
->   
-> +	for (i = 0; i < MAX_CHANNELS_PER_ENC; i++)
-> +		dpu_enc->hw_dsc[i] = i < num_dsc ? to_dpu_hw_dsc(hw_dsc[i]) : NULL;
+> +#define REG_DSI_VIDEO_COMPRESSION_MODE_CTRL2			0x000002a0
 > +
->   	cstate = to_dpu_crtc_state(drm_crtc->state);
->   
->   	for (i = 0; i < num_lm; i++) {
-> @@ -1810,10 +1823,133 @@ static void dpu_encoder_vsync_event_work_handler(struct kthread_work *work)
->   			nsecs_to_jiffies(ktime_to_ns(wakeup_time)));
+> +#define REG_DSI_COMMAND_COMPRESSION_MODE_CTRL			0x000002a4
+> +
+> +#define REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2			0x000002a8
+> +
+> +#define REG_DSI_COMMAND_COMPRESSION_MODE_CTRL3			0x000002ac
+> +
+>   #endif /* DSI_XML */
+
+
+Could you please post the patch to mesa3d to add these registers?
+
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index e1e5d91809b5..4e8ab1b1df8b 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -942,6 +942,26 @@ static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool enable,
+>   	dsi_write(msm_host, REG_DSI_CTRL, data);
 >   }
 >   
-> +static void
-> +dpu_encoder_dsc_pclk_param_calc(struct msm_display_dsc_config *dsc, u32 width)
+> +static int dsi_dsc_update_pic_dim(struct msm_display_dsc_config *dsc,
+> +				  int pic_width, int pic_height)
 > +{
-> +	int slice_count, slice_per_intf;
-> +	int bytes_in_slice, total_bytes_per_intf;
-> +
-> +	if (!dsc || !dsc->drm->slice_width || !dsc->drm->slice_count) {
-> +		DPU_ERROR("Invalid DSC/slices\n");
-> +		return;
+> +	if (!dsc || !pic_width || !pic_height) {
+> +		pr_err("DSI: invalid input: pic_width: %d pic_height: %d\n", pic_width, pic_height);
+> +		return -EINVAL;
 > +	}
 > +
-> +	slice_count = dsc->drm->slice_count;
-> +	slice_per_intf = DIV_ROUND_UP(width, dsc->drm->slice_width);
-> +
-> +	/*
-> +	 * If slice_count is greater than slice_per_intf then default to 1.
-> +	 * This can happen during partial update.
-> +	 */
-> +	if (slice_count > slice_per_intf)
-> +		slice_count = 1;
-> +
-> +	bytes_in_slice = DIV_ROUND_UP(dsc->drm->slice_width *
-> +				      dsc->drm->bits_per_pixel, 8);
-> +	total_bytes_per_intf = bytes_in_slice * slice_per_intf;
-> +
-> +	dsc->eol_byte_num = total_bytes_per_intf % 3;
-> +	dsc->pclk_per_line =  DIV_ROUND_UP(total_bytes_per_intf, 3);
-> +	dsc->bytes_in_slice = bytes_in_slice;
-> +	dsc->bytes_per_pkt = bytes_in_slice * slice_count;
-> +	dsc->pkt_per_line = slice_per_intf / slice_count;
-> +}
-> +
-> +static void
-> +dpu_encoder_dsc_initial_line_calc(struct msm_display_dsc_config *dsc,
-> +				  u32 enc_ip_width)
-> +{
-> +	int ssm_delay, total_pixels, soft_slice_per_enc;
-> +
-> +	soft_slice_per_enc = enc_ip_width / dsc->drm->slice_width;
-> +
-> +	/*
-> +	 * minimum number of initial line pixels is a sum of:
-> +	 * 1. sub-stream multiplexer delay (83 groups for 8bpc,
-> +	 *    91 for 10 bpc) * 3
-> +	 * 2. for two soft slice cases, add extra sub-stream multiplexer * 3
-> +	 * 3. the initial xmit delay
-> +	 * 4. total pipeline delay through the "lock step" of encoder (47)
-> +	 * 5. 6 additional pixels as the output of the rate buffer is
-> +	 *    48 bits wide
-> +	 */
-> +	ssm_delay = ((dsc->drm->bits_per_component < 10) ? 84 : 92);
-> +	total_pixels = ssm_delay * 3 + dsc->drm->initial_xmit_delay + 47;
-> +	if (soft_slice_per_enc > 1)
-> +		total_pixels += (ssm_delay * 3);
-> +	dsc->initial_lines = DIV_ROUND_UP(total_pixels, dsc->drm->slice_width);
-> +}
-> +
-> +static void dpu_encoder_dsc_pipe_cfg(struct dpu_hw_dsc *hw_dsc,
-> +				     struct dpu_hw_pingpong *hw_pp,
-> +				     struct msm_display_dsc_config *dsc,
-> +				     u32 common_mode)
-> +{
-> +	if (hw_dsc->ops.dsc_config)
-> +		hw_dsc->ops.dsc_config(hw_dsc, dsc, common_mode);
-> +
-> +	if (hw_dsc->ops.dsc_config_thresh)
-> +		hw_dsc->ops.dsc_config_thresh(hw_dsc, dsc);
-> +
-> +	if (hw_pp->ops.setup_dsc)
-> +		hw_pp->ops.setup_dsc(hw_pp);
-> +
-> +	if (hw_pp->ops.enable_dsc)
-> +		hw_pp->ops.enable_dsc(hw_pp);
-
-I think, we do not need to split these operations, I'd suggest having 
-just hw_dsc->ops.dsc_config() and hw_pp->ops.enable_dsc(), merging 
-dsc_config_thres() and setup_dsc() into respective methods.
-
-> +}
-> +
-> +static void dpu_encoder_prep_dsc(struct dpu_encoder_virt *dpu_enc,
-> +				 struct msm_display_dsc_config *dsc)
-> +{
-> +	/* coding only for 2LM, 2enc, 1 dsc config */
-> +	struct dpu_encoder_phys *enc_master = dpu_enc->cur_master;
-> +	struct dpu_hw_dsc *hw_dsc[MAX_CHANNELS_PER_ENC];
-> +	struct dpu_hw_pingpong *hw_pp[MAX_CHANNELS_PER_ENC];
-> +	int this_frame_slices;
-> +	int intf_ip_w, enc_ip_w;
-> +	int dsc_common_mode;
-> +	int pic_width, pic_height;
-> +	int i;
-> +
-> +	for (i = 0; i < MAX_CHANNELS_PER_ENC; i++) {
-> +		hw_pp[i] = dpu_enc->hw_pp[i];
-> +		hw_dsc[i] = dpu_enc->hw_dsc[i];
-> +
-> +		if (!hw_pp[i] || !hw_dsc[i]) {
-> +			DPU_ERROR_ENC(dpu_enc, "invalid params for DSC\n");
-> +			return;
-> +		}
+> +	if ((pic_width % dsc->drm->slice_width) || (pic_height % dsc->drm->slice_height)) {
+> +		pr_err("DSI: pic_dim %dx%d has to be multiple of slice %dx%d\n",
+> +		       pic_width, pic_height, dsc->drm->slice_width, dsc->drm->slice_height);
+> +		return -EINVAL;
 > +	}
 > +
-> +	dsc_common_mode = 0;
-> +	pic_width = dsc->drm->pic_width;
-> +	pic_height = dsc->drm->pic_height;
+> +	dsc->drm->pic_width = pic_width;
+> +	dsc->drm->pic_height = pic_height;
 > +
-> +	dsc_common_mode = DSC_MODE_MULTIPLEX | DSC_MODE_SPLIT_PANEL;
-> +	if (enc_master->intf_mode == INTF_MODE_VIDEO)
-> +		dsc_common_mode |= DSC_MODE_VIDEO;
-> +
-> +	this_frame_slices = pic_width / dsc->drm->slice_width;
-> +	intf_ip_w = this_frame_slices * dsc->drm->slice_width;
-> +
-> +	dpu_encoder_dsc_pclk_param_calc(dsc, intf_ip_w);
-> +
-> +	/*
-> +	 * dsc merge case: when using 2 encoders for the same stream,
-> +	 * no. of slices need to be same on both the encoders.
-> +	 */
-> +	enc_ip_w = intf_ip_w / 2;
-> +	dpu_encoder_dsc_initial_line_calc(dsc, enc_ip_w);
-> +
-> +	for (i = 0; i < MAX_CHANNELS_PER_ENC; i++)
-> +		dpu_encoder_dsc_pipe_cfg(hw_dsc[i], hw_pp[i], dsc, dsc_common_mode);
+> +	return 0;
 > +}
 > +
->   void dpu_encoder_prepare_for_kickoff(struct drm_encoder *drm_enc)
+>   static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_dual_dsi)
 >   {
->   	struct dpu_encoder_virt *dpu_enc;
->   	struct dpu_encoder_phys *phys;
-> +	struct msm_drm_private *priv;
->   	bool needs_hw_reset = false;
->   	unsigned int i;
+>   	struct drm_display_mode *mode = msm_host->mode;
+> @@ -956,6 +976,7 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_dual_dsi)
+>   	u32 va_end = va_start + mode->vdisplay;
+>   	u32 hdisplay = mode->hdisplay;
+>   	u32 wc;
+> +	u32 data;
 >   
-> @@ -1841,6 +1977,10 @@ void dpu_encoder_prepare_for_kickoff(struct drm_encoder *drm_enc)
->   			dpu_encoder_helper_hw_reset(dpu_enc->phys_encs[i]);
->   		}
+>   	DBG("");
+>   
+> @@ -974,7 +995,73 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_dual_dsi)
+>   		hdisplay /= 2;
 >   	}
+>   
+> +	if (msm_host->dsc) {
+> +		struct msm_display_dsc_config *dsc = msm_host->dsc;
 > +
-> +	priv = drm_enc->dev->dev_private;
-> +	if (priv->dsc)
-> +		dpu_encoder_prep_dsc(dpu_enc, priv->dsc);
+> +		/* update dsc params with timing params */
+> +		dsi_dsc_update_pic_dim(dsc, mode->hdisplay, mode->vdisplay);
+> +		DBG("Mode Width- %d x Height %d\n", dsc->drm->pic_width, dsc->drm->pic_height);
+> +
+> +		/* we do the calculations for dsc parameters here so that
+> +		 * panel can use these parameters
+> +		 */
+> +		dsi_populate_dsc_params(dsc);
+> +
+> +		/* Divide the display by 3 but keep back/font porch and
+> +		 * pulse width same
+> +		 */
+> +		h_total -= hdisplay;
+> +		hdisplay /= 3;
+> +		h_total += hdisplay;
+> +		ha_end = ha_start + hdisplay;
+> +	}
+> +
+>   	if (msm_host->mode_flags & MIPI_DSI_MODE_VIDEO) {
+> +		if (msm_host->dsc) {
+> +			struct msm_display_dsc_config *dsc = msm_host->dsc;
+> +			u32 reg, intf_width, slice_per_intf, width;
+> +			u32 total_bytes_per_intf;
+> +
+> +			/* first calculate dsc parameters and then program
+> +			 * compress mode registers
+> +			 */
+> +			intf_width = hdisplay;
+> +			slice_per_intf = DIV_ROUND_UP(intf_width, dsc->drm->slice_width);
+> +
+> +			/* If slice_count > slice_per_intf, then use 1
+> +			 * This can happen during partial update
+> +			 */
+> +				dsc->drm->slice_count = 1;
+> +
+> +			dsc->bytes_in_slice = DIV_ROUND_UP(dsc->drm->slice_width * 8, 8);
+> +			total_bytes_per_intf = dsc->bytes_in_slice * slice_per_intf;
+> +
+> +			dsc->eol_byte_num = total_bytes_per_intf % 3;
+> +			dsc->pclk_per_line =  DIV_ROUND_UP(total_bytes_per_intf, 3);
+> +			dsc->bytes_per_pkt = dsc->bytes_in_slice * dsc->drm->slice_count;
+> +			dsc->pkt_per_line = slice_per_intf / dsc->drm->slice_count;
+> +
+> +			width = dsc->pclk_per_line;
+> +			reg = dsc->bytes_per_pkt << 16;
+> +			reg |= (0x0b << 8);    /* dtype of compressed image */
+> +
+> +			/* pkt_per_line:
+> +			 * 0 == 1 pkt
+> +			 * 1 == 2 pkt
+> +			 * 2 == 4 pkt
+> +			 * 3 pkt is not supported
+> +			 * above translates to ffs() - 1
+> +			 */
+> +			reg |= (ffs(dsc->pkt_per_line) - 1) << 6;
+> +
+> +			dsc->eol_byte_num = total_bytes_per_intf % 3;
+> +			reg |= dsc->eol_byte_num << 4;
+> +			reg |= 1;
+> +
+> +			dsi_write(msm_host,
+> +				  REG_DSI_VIDEO_COMPRESSION_MODE_CTRL, reg);
+> +		}
+> +
+>   		dsi_write(msm_host, REG_DSI_ACTIVE_H,
+>   			DSI_ACTIVE_H_START(ha_start) |
+>   			DSI_ACTIVE_H_END(ha_end));
+> @@ -993,19 +1080,50 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_dual_dsi)
+>   			DSI_ACTIVE_VSYNC_VPOS_START(vs_start) |
+>   			DSI_ACTIVE_VSYNC_VPOS_END(vs_end));
+>   	} else {		/* command mode */
+> +		if (msm_host->dsc) {
+> +			struct msm_display_dsc_config *dsc = msm_host->dsc;
+> +			u32 reg, reg_ctrl, reg_ctrl2;
+> +			u32 slice_per_intf, bytes_in_slice, total_bytes_per_intf;
+> +
+> +			reg_ctrl = dsi_read(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL);
+> +			reg_ctrl2 = dsi_read(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2);
+> +
+> +			slice_per_intf = DIV_ROUND_UP(hdisplay, dsc->drm->slice_width);
+> +			bytes_in_slice = DIV_ROUND_UP(dsc->drm->slice_width *
+> +						      dsc->drm->bits_per_pixel, 8);
+> +			dsc->drm->slice_chunk_size = bytes_in_slice;
+> +			total_bytes_per_intf = dsc->bytes_in_slice * slice_per_intf;
+> +			dsc->pkt_per_line = slice_per_intf / dsc->drm->slice_count;
+> +
+> +			reg = 0x39 << 8;
+> +			reg |= ffs(dsc->pkt_per_line) << 6;
+> +
+> +			dsc->eol_byte_num = total_bytes_per_intf % 3;
+> +			reg |= dsc->eol_byte_num << 4;
+> +			reg |= 1;
+> +
+> +			reg_ctrl |= reg;
+> +			reg_ctrl2 |= bytes_in_slice;
+> +
+> +			dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL, reg);
+> +			dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2, reg_ctrl2);
+> +		}
+> +
+>   		/* image data and 1 byte write_memory_start cmd */
+> -		wc = hdisplay * dsi_get_bpp(msm_host->format) / 8 + 1;
+> +		if (!msm_host->dsc)
+> +			wc = hdisplay * dsi_get_bpp(msm_host->format) / 8 + 1;
+> +		else
+> +			wc = mode->hdisplay / 2 + 1;
+>   
+> -		dsi_write(msm_host, REG_DSI_CMD_MDP_STREAM0_CTRL,
+> -			DSI_CMD_MDP_STREAM0_CTRL_WORD_COUNT(wc) |
+> -			DSI_CMD_MDP_STREAM0_CTRL_VIRTUAL_CHANNEL(
+> -					msm_host->channel) |
+> -			DSI_CMD_MDP_STREAM0_CTRL_DATA_TYPE(
+> -					MIPI_DSI_DCS_LONG_WRITE));
+> +		data = DSI_CMD_MDP_STREAM0_CTRL_WORD_COUNT(wc) |
+> +		       DSI_CMD_MDP_STREAM0_CTRL_VIRTUAL_CHANNEL(msm_host->channel) |
+> +			DSI_CMD_MDP_STREAM0_CTRL_DATA_TYPE(MIPI_DSI_DCS_LONG_WRITE);
+>   
+> -		dsi_write(msm_host, REG_DSI_CMD_MDP_STREAM0_TOTAL,
+> -			DSI_CMD_MDP_STREAM0_TOTAL_H_TOTAL(hdisplay) |
+> -			DSI_CMD_MDP_STREAM0_TOTAL_V_TOTAL(mode->vdisplay));
+> +		dsi_write(msm_host, REG_DSI_CMD_MDP_STREAM0_CTRL, data);
+> +
+> +		data = DSI_CMD_MDP_STREAM0_TOTAL_H_TOTAL(hdisplay) |
+> +			DSI_CMD_MDP_STREAM0_TOTAL_V_TOTAL(mode->vdisplay);
+> +		dsi_write(msm_host, REG_DSI_CMD_MDP_STREAM0_TOTAL, data);
 
-Not quite. This makes dsc config global, while we can have several 
-encoders enabled at once (think of DSI + DP). So the dsc should be a 
-per-encoder setting rather than global.
+Could you please separate this cleanup away.
 
+>   	}
 >   }
 >   
->   void dpu_encoder_kickoff(struct drm_encoder *drm_enc)
+> @@ -2074,6 +2192,7 @@ int msm_dsi_host_modeset_init(struct mipi_dsi_host *host,
+>   	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+>   	const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
+>   	struct platform_device *pdev = msm_host->pdev;
+> +	struct msm_drm_private *priv;
+>   	int ret;
+>   
+>   	msm_host->irq = irq_of_parse_and_map(pdev->dev.of_node, 0);
+> @@ -2093,6 +2212,9 @@ int msm_dsi_host_modeset_init(struct mipi_dsi_host *host,
+>   	}
+>   
+>   	msm_host->dev = dev;
+> +	priv = dev->dev_private;
+> +	priv->dsc = msm_host->dsc;
+
+I'd prefer not to push dsc config into msm_drm_private and to get it as 
+necessary using msm_dsi function calls.
+
+> +
+>   	ret = cfg_hnd->ops->tx_buf_alloc(msm_host, SZ_4K);
+>   	if (ret) {
+>   		pr_err("%s: alloc tx gem obj failed, %d\n", __func__, ret);
 > 
 
 
