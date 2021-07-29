@@ -1,64 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35FFD3DA0BC
-	for <lists+freedreno@lfdr.de>; Thu, 29 Jul 2021 11:59:19 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3257F3DA677
+	for <lists+freedreno@lfdr.de>; Thu, 29 Jul 2021 16:33:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C2B96EB49;
-	Thu, 29 Jul 2021 09:59:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D89FD6E094;
+	Thu, 29 Jul 2021 14:33:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE6D689F8E
- for <freedreno@lists.freedesktop.org>; Thu, 29 Jul 2021 09:59:16 +0000 (UTC)
-Received: by mail-lj1-x22c.google.com with SMTP id b21so6752299ljo.13
- for <freedreno@lists.freedesktop.org>; Thu, 29 Jul 2021 02:59:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=nIej11/PYcGeLGxt7QOR+AppfCQjgzk8NOs4YUKmoVs=;
- b=m6MS/ZA3IHYlnwTYoSS9WTrTqje10ox98fXiIHsiSs6fIpuUWgFw5PJ2vLzgiH9wXm
- oNfNwAKxV9xDmZdElU1gKVLdVXRyThDU+SXgY69YWjaRBJMBtxG0z3wQw7QWTapcts9O
- iN1OGi3uMFfiO74SU0ONms6KT5r1gWDPbABFRueW9HvNGsN6QmzU07E7pvIPOI8xZ3K5
- zYg7Tw/HopP5eN/tkjneBmxwAy3udxo8HUBRPuFH6YrHRzIipKqcfi67LLC9yY8F/I15
- YD19xIMW9/LGzpCQ3bwTc4kf7Yw+RkYA3Z1MMjpkJ62ao7I0D49Apn5ZdAQB1eZwmIgn
- hnHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=nIej11/PYcGeLGxt7QOR+AppfCQjgzk8NOs4YUKmoVs=;
- b=Af+Ec7zgdTwxpR+9xOoIO46eZxqPrjOYJp5W5MBVleUpCczjVILAu1G4UwoaThFiFd
- 9jbZLE3C3ZMNstvZfc9PC8bd9Nwv1ObNAjM7OWPlgJerkOPGXe+VW+PXvjNrG8bVPyZp
- th2MXYwZbkoBurdJ6C8ziLkXc1++oMdLT+gWTt80wD5sgacr6CH1tYpfcsVu3SrqtC4T
- mzSM+59/CGpC6UnGE09LN3uQSkCaCLIPT5v+pTo8WutTWMmWXlG38aLDYtpVU2sWUbCE
- Qv3ZdegwrdujULLUWfqDJh2fLxG+vyBkE129b3IwNy1zFlRfogohPtfaJDlo9BO4leej
- MQvg==
-X-Gm-Message-State: AOAM530X7Vt5XSTOHs4gDsHUz/HY0u1V6A4Trpx42FRIfzpPmE8wH3Cb
- 8Pa+AxjRZMX5YzJoLfoPbhuW9Q==
-X-Google-Smtp-Source: ABdhPJysezjVyG3wOZUNPI2nlc1wYDaL9jMePnngzQ5rByaB9dBKJMmfrXAUe2w0ApMfEdXkx8DVcQ==
-X-Received: by 2002:a2e:b0c5:: with SMTP id g5mr2418335ljl.41.1627552754933;
- Thu, 29 Jul 2021 02:59:14 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id x3sm117577ljd.66.2021.07.29.02.59.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Jul 2021 02:59:14 -0700 (PDT)
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-References: <20210726231351.655302-1-bjorn.andersson@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <3bb5dc26-6779-6cb4-b9dd-e64c306e9ae6@linaro.org>
-Date: Thu, 29 Jul 2021 12:59:13 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
-MIME-Version: 1.0
-In-Reply-To: <20210726231351.655302-1-bjorn.andersson@linaro.org>
-Content-Language: en-GB
-Subject: Re: [Freedreno] [RFC] drm/msm/dp: Allow attaching a drm_panel
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A07B6E094
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Jul 2021 14:33:27 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1627569216; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=+jKQCMrkI6SnfJLefy3To/tENpXlXiE65yiHBQB3XR0=;
+ b=PPjVod6slkMm8engtCAAYOBva/3JYpCIS99jks12zcG1AiKum5cbOijc9RCmn4iW1WK6bnbu
+ RAraJC1UhRj+lTGqL6FXkzc77MqTQRR0LziI5IMSYC0PzzpMf2t628H8f14hXWqBWjMUUaYh
+ Fnsd0mpmroTaps9OoJWscJijKaI=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n07.prod.us-west-2.postgun.com with SMTP id
+ 6102bc279771b05b24990963 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 29 Jul 2021 14:33:11
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id A60B6C43143; Thu, 29 Jul 2021 14:33:11 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from hyd-lnxbld559.qualcomm.com (unknown [202.46.22.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 8B12AC43460;
+ Thu, 29 Jul 2021 14:33:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 8B12AC43460
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=akhilpo@codeaurora.org
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+To: freedreno <freedreno@lists.freedesktop.org>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>
+Date: Thu, 29 Jul 2021 20:02:58 +0530
+Message-Id: <20210729200230.v2.1.I110b87677ef16d97397fb7c81c07a16e1f5d211e@changeid>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH v2 1/3] drm/msm/a6xx: Fix llcc configuration for
+ a660 gpu
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,181 +66,105 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- Abhinav Kumar <abhinavk@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
- Kuogee Hsieh <khsieh@codeaurora.org>, dri-devel@lists.freedesktop.org,
- Vara Reddy <varar@codeaurora.org>, freedreno@lists.freedesktop.org,
- Chandan Uddaraju <chandanu@codeaurora.org>
+Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ linux-kernel@vger.kernel.org, Sharat Masetty <smasetty@codeaurora.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Matthias Kaehlcke <mka@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 27/07/2021 02:13, Bjorn Andersson wrote:
-> eDP panels might need some power sequencing and backlight management,
-> so make it possible to associate a drm_panel with a DP instance and
-> prepare and enable the panel accordingly.
-> 
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+Add the missing scache_cntl0 register programing which is required for
+a660 gpu.
 
-The idea looks good from my point of view. For v1 could you please 
-extend it with the `if (panel)` checks and handling of the error codes.
+Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+---
 
-> ---
-> 
-> This solves my immediate problem on my 8cx laptops, of indirectly controlling
-> the backlight during DPMS. But my panel is powered when I boot it and as such I
-> get the hpd interrupt and I don't actually have to deal with a power on
-> sequence - so I'm posting this as an RFC, hoping to get some input on these
-> other aspects.
-> 
-> If this is acceptable I'd be happy to write up an accompanying DT binding
-> change that marks port 2 of the DP controller's of_graph as a reference to the
-> attached panel.
-> 
->   drivers/gpu/drm/msm/dp/dp_display.c | 15 +++++++++++++--
->   drivers/gpu/drm/msm/dp/dp_display.h |  1 +
->   drivers/gpu/drm/msm/dp/dp_parser.c  | 19 +++++++++++++++++++
->   drivers/gpu/drm/msm/dp/dp_parser.h  |  1 +
->   4 files changed, 34 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 206bf7806f51..1db5a3f752d2 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -10,6 +10,7 @@
->   #include <linux/component.h>
->   #include <linux/of_irq.h>
->   #include <linux/delay.h>
-> +#include <drm/drm_panel.h>
->   
->   #include "msm_drv.h"
->   #include "msm_kms.h"
-> @@ -252,6 +253,8 @@ static int dp_display_bind(struct device *dev, struct device *master,
->   		goto end;
->   	}
->   
-> +	dp->dp_display.drm_panel = dp->parser->drm_panel;
-> +
->   	rc = dp_aux_register(dp->aux, drm);
->   	if (rc) {
->   		DRM_ERROR("DRM DP AUX register failed\n");
-> @@ -867,8 +870,10 @@ static int dp_display_set_mode(struct msm_dp *dp_display,
->   	return 0;
->   }
->   
-> -static int dp_display_prepare(struct msm_dp *dp)
-> +static int dp_display_prepare(struct msm_dp *dp_display)
->   {
-> +	drm_panel_prepare(dp_display->drm_panel);
-> +
->   	return 0;
->   }
->   
-> @@ -886,6 +891,8 @@ static int dp_display_enable(struct dp_display_private *dp, u32 data)
->   	if (!rc)
->   		dp_display->power_on = true;
->   
-> +	drm_panel_enable(dp_display->drm_panel);
-> +
->   	return rc;
->   }
->   
-> @@ -915,6 +922,8 @@ static int dp_display_disable(struct dp_display_private *dp, u32 data)
->   	if (!dp_display->power_on)
->   		return 0;
->   
-> +	drm_panel_disable(dp_display->drm_panel);
-> +
->   	/* wait only if audio was enabled */
->   	if (dp_display->audio_enabled) {
->   		/* signal the disconnect event */
-> @@ -939,8 +948,10 @@ static int dp_display_disable(struct dp_display_private *dp, u32 data)
->   	return 0;
->   }
->   
-> -static int dp_display_unprepare(struct msm_dp *dp)
-> +static int dp_display_unprepare(struct msm_dp *dp_display)
->   {
-> +	drm_panel_unprepare(dp_display->drm_panel);
-> +
->   	return 0;
->   }
->   
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
-> index 8b47cdabb67e..ce337824c95d 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.h
-> @@ -15,6 +15,7 @@ struct msm_dp {
->   	struct device *codec_dev;
->   	struct drm_connector *connector;
->   	struct drm_encoder *encoder;
-> +	struct drm_panel *drm_panel;
->   	bool is_connected;
->   	bool audio_enabled;
->   	bool power_on;
-> diff --git a/drivers/gpu/drm/msm/dp/dp_parser.c b/drivers/gpu/drm/msm/dp/dp_parser.c
-> index fc8a6452f641..e6a6e9007bfd 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_parser.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_parser.c
-> @@ -6,6 +6,7 @@
->   #include <linux/of_gpio.h>
->   #include <linux/phy/phy.h>
->   
-> +#include <drm/drm_of.h>
->   #include <drm/drm_print.h>
->   
->   #include "dp_parser.h"
-> @@ -276,6 +277,20 @@ static int dp_parser_clock(struct dp_parser *parser)
->   	return 0;
->   }
->   
-> +static int dp_parser_find_panel(struct dp_parser *parser)
-> +{
-> +	struct device_node *np = parser->pdev->dev.of_node;
-> +	int rc;
-> +
-> +	rc = drm_of_find_panel_or_bridge(np, 2, 0, &parser->drm_panel, NULL);
-> +	if (rc == -ENODEV)
-> +		rc = 0;
-> +	else if (rc)
-> +		DRM_ERROR("failed to acquire DRM panel: %d\n", rc);
-> +
-> +	return rc;
-> +}
-> +
->   static int dp_parser_parse(struct dp_parser *parser)
->   {
->   	int rc = 0;
-> @@ -297,6 +312,10 @@ static int dp_parser_parse(struct dp_parser *parser)
->   	if (rc)
->   		return rc;
->   
-> +	rc = dp_parser_find_panel(parser);
-> +	if (rc)
-> +		return rc;
-> +
->   	/* Map the corresponding regulator information according to
->   	 * version. Currently, since we only have one supported platform,
->   	 * mapping the regulator directly.
-> diff --git a/drivers/gpu/drm/msm/dp/dp_parser.h b/drivers/gpu/drm/msm/dp/dp_parser.h
-> index 3266b529c090..994ca9336acd 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_parser.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_parser.h
-> @@ -122,6 +122,7 @@ struct dp_parser {
->   	struct dp_display_data disp_data;
->   	const struct dp_regulator_cfg *regulator_cfg;
->   	u32 max_dp_lanes;
-> +	struct drm_panel *drm_panel;
->   
->   	int (*parse)(struct dp_parser *parser);
->   };
-> 
+(no changes since v1)
 
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 46 ++++++++++++++++++++---------------
+ 1 file changed, 27 insertions(+), 19 deletions(-)
 
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 9c5e461..183b9f9 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -1383,13 +1383,13 @@ static void a6xx_llc_activate(struct a6xx_gpu *a6xx_gpu)
+ {
+ 	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+ 	struct msm_gpu *gpu = &adreno_gpu->base;
+-	u32 cntl1_regval = 0;
++	u32 gpu_scid, cntl1_regval = 0;
+ 
+ 	if (IS_ERR(a6xx_gpu->llc_mmio))
+ 		return;
+ 
+ 	if (!llcc_slice_activate(a6xx_gpu->llc_slice)) {
+-		u32 gpu_scid = llcc_get_slice_id(a6xx_gpu->llc_slice);
++		gpu_scid = llcc_get_slice_id(a6xx_gpu->llc_slice);
+ 
+ 		gpu_scid &= 0x1f;
+ 		cntl1_regval = (gpu_scid << 0) | (gpu_scid << 5) | (gpu_scid << 10) |
+@@ -1409,26 +1409,34 @@ static void a6xx_llc_activate(struct a6xx_gpu *a6xx_gpu)
+ 		}
+ 	}
+ 
+-	if (cntl1_regval) {
++	if (!cntl1_regval)
++		return;
++
++	/*
++	 * Program the slice IDs for the various GPU blocks and GPU MMU
++	 * pagetables
++	 */
++	if (!a6xx_gpu->have_mmu500) {
++		a6xx_llc_write(a6xx_gpu,
++			REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_1, cntl1_regval);
++
+ 		/*
+-		 * Program the slice IDs for the various GPU blocks and GPU MMU
+-		 * pagetables
++		 * Program cacheability overrides to not allocate cache
++		 * lines on a write miss
+ 		 */
+-		if (a6xx_gpu->have_mmu500)
+-			gpu_rmw(gpu, REG_A6XX_GBIF_SCACHE_CNTL1, GENMASK(24, 0),
+-				cntl1_regval);
+-		else {
+-			a6xx_llc_write(a6xx_gpu,
+-				REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_1, cntl1_regval);
+-
+-			/*
+-			 * Program cacheability overrides to not allocate cache
+-			 * lines on a write miss
+-			 */
+-			a6xx_llc_rmw(a6xx_gpu,
+-				REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_0, 0xF, 0x03);
+-		}
++		a6xx_llc_rmw(a6xx_gpu,
++			REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_0, 0xF, 0x03);
++		return;
+ 	}
++
++	gpu_rmw(gpu, REG_A6XX_GBIF_SCACHE_CNTL1, GENMASK(24, 0), cntl1_regval);
++
++	/* On A660, the SCID programming for UCHE traffic is done in
++	 * A6XX_GBIF_SCACHE_CNTL0[14:10]
++	 */
++	if (adreno_is_a660(adreno_gpu))
++		gpu_rmw(gpu, REG_A6XX_GBIF_SCACHE_CNTL0, (0x1f << 10) |
++			(1 << 8), (gpu_scid << 10) | (1 << 8));
+ }
+ 
+ static void a6xx_llc_slices_destroy(struct a6xx_gpu *a6xx_gpu)
 -- 
-With best wishes
-Dmitry
+QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a member
+of Code Aurora Forum, hosted by The Linux Foundation.
+
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
