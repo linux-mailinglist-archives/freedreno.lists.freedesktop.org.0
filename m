@@ -1,62 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B27E3DA9D5
-	for <lists+freedreno@lfdr.de>; Thu, 29 Jul 2021 19:17:03 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 209B93DA9F3
+	for <lists+freedreno@lfdr.de>; Thu, 29 Jul 2021 19:19:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90DF46EE13;
-	Thu, 29 Jul 2021 17:17:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A4B76EE15;
+	Thu, 29 Jul 2021 17:19:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com
- [IPv6:2607:f8b0:4864:20::c2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EDFD6EE0E
- for <freedreno@lists.freedesktop.org>; Thu, 29 Jul 2021 17:17:00 +0000 (UTC)
-Received: by mail-oo1-xc2f.google.com with SMTP id
- n1-20020a4ac7010000b0290262f3c22a63so1746142ooq.9
- for <freedreno@lists.freedesktop.org>; Thu, 29 Jul 2021 10:17:00 -0700 (PDT)
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [IPv6:2607:f8b0:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14A776EE13
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Jul 2021 17:19:34 +0000 (UTC)
+Received: by mail-ot1-x32e.google.com with SMTP id
+ v8-20020a0568301bc8b02904d5b4e5ca3aso6560626ota.13
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Jul 2021 10:19:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=a1Jpgqpv2djZJsAG0DhOFk0xd5WwpCit+wt+1ShQN3w=;
- b=IbUizu0+FfdESoAU8NUVe9wutrr/sa7srK/lGLGR6WuyGgwFNN9rj9qseZg3c5JZ2X
- Eufd/DoziaUsBlouBYPxXVAoGSs0/gO/pDUgoc/7GcJzr3yvkOoqAkkViqXG2Lcp/YRF
- 6DjRLU9tPwM1ZchhAxMbQ1yVgg3bVbSifylTE=
+ bh=JcuPL2E0yGh3YMQ5Ryjgd8htxcjiWk/JLPxwWfyTTEI=;
+ b=KLCY003udwzbwW5s6LyNduchb1uN48eo8fIMzMQLlYES2R18futSNL9RxxsZHwnYbd
+ /b5ktnC/xdeo/sJ5ZpltOyfNxiFZiBjHJlGRUh7CFaOpRJGZeE42o5mq2Ex2oELSBlCN
+ IGYOONXVZ2/HJiKfQ9cKd2unJKWBj40fZ1+3Q=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=a1Jpgqpv2djZJsAG0DhOFk0xd5WwpCit+wt+1ShQN3w=;
- b=MsexUYKIJOPTkgnbufuyw1Z4/+3b++5v/tQLwO35f+I1xuLENSRxyvUNYWCRy/Rq01
- Gd6/HEji+KzgvyFhGW01w7d/5ybeHzyQhloP6K9qz/atS8IpwOUA67K4qKFSID+d4Q26
- nJbryACRIxThSc3bg1c2zrXoH2VXFnEAfQOkZSkGqswmfVbSQwFUihBX1/axnK6q1LHB
- UMqt+VMO8+vg47r9YtvyADPaBHGwcTxDMoZNnzqPkDqAkxM5SMWks90VM3kDvPjFuC+A
- otv9Ktb5Z8arT10aybSCPPn1WfUEl6Azlvko7+wvLH9Oeq61rFqaG3uGpaRTD9uSR5vc
- Nh5Q==
-X-Gm-Message-State: AOAM533ThomNlq0vBrrFuaAZdKkJ/OcjvD2VCO/LBo1P9k3srV05Ed6I
- ZisHQMqT7KqeufsCi/z5JgBDikzc70OniupJd23A/w==
-X-Google-Smtp-Source: ABdhPJxUpkwe41vVtmTrJYV492tkArFcWpTZmO6apTAf5RO4udVotcMW58RvB7J4AJBtKozsIxNZvmHe6s1rATG0IFE=
-X-Received: by 2002:a4a:a6c2:: with SMTP id i2mr3714787oom.92.1627579019804;
- Thu, 29 Jul 2021 10:16:59 -0700 (PDT)
+ bh=JcuPL2E0yGh3YMQ5Ryjgd8htxcjiWk/JLPxwWfyTTEI=;
+ b=iYpqPpvxeNEP0XBJiahvqHv2cYhtPJc7fsJ/OdwFnVc4eRZq507QU1Mq3MS5ytjCw7
+ fyvzm2cWcIUv7IGqtfiXparMXpsHNr+eRAF6zLPUvVILvPUgOQLBAjVfrDwqp54xWZ3m
+ JFBSGPIVLpKa9yeM7FAOeLvhhISQzFgCli823C2yzFA9tUR5RggKEFoXpKZChatJNcoE
+ zQlSOz0KW3rZ5h2LJUPjmx2A6gvZ4ZIGBtBTCkCHOfmmmzZdwLLELllJ+h0dKBaqpn+N
+ pvtY7ZdJEtofi6sMnkf8lbPYS0uDmoeZBWs+tXfutUY3OQQS4ZZ/0Ij9D3B0A2rJW36v
+ prIw==
+X-Gm-Message-State: AOAM530rn0MlF8yWHPOa3KkExWJfI459bg5ySMiGK4DGofSgHiViflk3
+ 31kDPXRIq7dQDJCFtX/CZ7fxWQIecvOIW3k6AxuOow==
+X-Google-Smtp-Source: ABdhPJxm3TNkTt83zHPFaTJ+JLOdxmNPIABd6fWr/eYibpJ0bq8EyQFF2n6jRlWgUra5oNFfYz42SdCYS/JjQAGbOPI=
+X-Received: by 2002:a9d:650e:: with SMTP id i14mr4267279otl.233.1627579173391; 
+ Thu, 29 Jul 2021 10:19:33 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 29 Jul 2021 12:16:59 -0500
+ HTTPREST; Thu, 29 Jul 2021 12:19:33 -0500
 MIME-Version: 1.0
-In-Reply-To: <e1a28bed-a2a9-2bf2-d0f0-3f608a538f69@codeaurora.org>
-References: <1627147740-11590-1-git-send-email-akhilpo@codeaurora.org>
- <CAE-0n52mEy1GReYwcVrffT2KOy4EHMHH-RyCJ_mmxhaeXwGdYA@mail.gmail.com>
- <e1a28bed-a2a9-2bf2-d0f0-3f608a538f69@codeaurora.org>
+In-Reply-To: <1627473242-35926-1-git-send-email-akhilpo@codeaurora.org>
+References: <1627473242-35926-1-git-send-email-akhilpo@codeaurora.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.9.1
-Date: Thu, 29 Jul 2021 12:16:59 -0500
-Message-ID: <CAE-0n50-1eN3wwDukJi0JoTxCKnYx8NT1Ap2r0WDftQ621iBqQ@mail.gmail.com>
+Date: Thu, 29 Jul 2021 12:19:32 -0500
+Message-ID: <CAE-0n53xMHudWaL7gdnN7jEPE1uLmetZaxYiqToO1AzTZ2R0Mw@mail.gmail.com>
 To: Akhil P Oommen <akhilpo@codeaurora.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>, 
+ Manaf Meethalavalappu Pallikunhi <manafm@codeaurora.org>, 
  OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS <devicetree@vger.kernel.org>,
  Rob Herring <robh+dt@kernel.org>, 
  dri-devel@lists.freedesktop.org, freedreno <freedreno@lists.freedesktop.org>, 
  linux-arm-msm@vger.kernel.org
-Subject: Re: [Freedreno] [PATCH v2] arm64: dts: qcom: sc7280: Add gpu support
+Subject: Re: [Freedreno] [PATCH v3 1/2] arm64: dts: qcom: sc7280: Add gpu
+ support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,38 +69,67 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Douglas Anderson <dianders@chromium.org>,
- Jonathan Marek <jonathan@marek.ca>, linux-kernel@vger.kernel.org,
- Andy Gross <agross@kernel.org>, Jordan Crouse <jordan@cosmicpenguin.net>,
- Matthias Kaehlcke <mka@chromium.org>
+Cc: Jonathan Marek <jonathan@marek.ca>, linux-kernel@vger.kernel.org,
+ Douglas Anderson <dianders@chromium.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>, Matthias Kaehlcke <mka@chromium.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Akhil P Oommen (2021-07-28 00:17:45)
-> On 7/27/2021 5:46 AM, Stephen Boyd wrote:
-> > Quoting Akhil P Oommen (2021-07-24 10:29:00)
-> >> Add the necessary dt nodes for gpu support in sc7280.
-> >>
-> >> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
-> >> ---
-> >> This patch has dependency on the GPUCC bindings patch here:
-> >> https://patchwork.kernel.org/project/linux-arm-msm/patch/1619519590-3019-4-git-send-email-tdas@codeaurora.org/
-> >
-> > To avoid the dependency the plain numbers can be used.
+Quoting Akhil P Oommen (2021-07-28 04:54:01)
+> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> index 029723a..c88f366 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> @@ -592,6 +593,85 @@
+>                         qcom,bcm-voters = <&apps_bcm_voter>;
+>                 };
 >
-> But, won't that reduce readability and make things prone to error?
+> +               gpu@3d00000 {
+> +                       compatible = "qcom,adreno-635.0", "qcom,adreno";
+> +                       #stream-id-cells = <16>;
+> +                       reg = <0 0x03d00000 0 0x40000>,
+> +                             <0 0x03d9e000 0 0x1000>,
+> +                             <0 0x03d61000 0 0x800>;
+> +                       reg-names = "kgsl_3d0_reg_memory",
+> +                                   "cx_mem",
+> +                                   "cx_dbgc";
+> +                       interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
+> +                       iommus = <&adreno_smmu 0 0x401>;
+> +                       operating-points-v2 = <&gpu_opp_table>;
+> +                       qcom,gmu = <&gmu>;
+> +                       interconnects = <&gem_noc MASTER_GFX3D 0 &mc_virt SLAVE_EBI1 0>;
+> +                       interconnect-names = "gfx-mem";
+> +
+> +                       gpu_opp_table: opp-table {
+> +                               compatible = "operating-points-v2";
+> +
+> +                               opp-550000000 {
+> +                                       opp-hz = /bits/ 64 <550000000>;
+> +                                       opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
+> +                                       opp-peak-kBps = <6832000>;
+> +                               };
+> +
+> +                               opp-450000000 {
 
-The numbers are not supposed to change so maybe it reduces readability
-but I don't see how it is prone to error.
+Why is 450000000 after 550000000? Is it on purpose? If not intended
+please sort by frequency.
 
-> If
-> the other patch doesn't get picked up soon, we should try this option.
-> We like to get this patch merged in v5.15.
-
-The clk binding is already picked up but Bjorn would need to merge it
-into the qcom tree to use it. I don't know what the plan is there.
+> +                                       opp-hz = /bits/ 64 <450000000>;
+> +                                       opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
+> +                                       opp-peak-kBps = <4068000>;
+> +                               };
+> +
+> +                               opp-315000000 {
+> +                                       opp-hz = /bits/ 64 <315000000>;
+> +                                       opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
+> +                                       opp-peak-kBps = <1804000>;
+> +                               };
+> +                       };
+> +               };
+> +
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
