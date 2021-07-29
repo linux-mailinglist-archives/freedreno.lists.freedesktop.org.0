@@ -1,65 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 882DB3DAD96
-	for <lists+freedreno@lfdr.de>; Thu, 29 Jul 2021 22:28:54 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D0E13DADE4
+	for <lists+freedreno@lfdr.de>; Thu, 29 Jul 2021 22:49:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D7C16EE59;
-	Thu, 29 Jul 2021 20:28:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C70FC6EE6B;
+	Thu, 29 Jul 2021 20:49:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
  [IPv6:2a00:1450:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6335F6EE5A
- for <freedreno@lists.freedesktop.org>; Thu, 29 Jul 2021 20:28:52 +0000 (UTC)
-Received: by mail-wm1-x333.google.com with SMTP id k4so4512014wms.3
- for <freedreno@lists.freedesktop.org>; Thu, 29 Jul 2021 13:28:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=yjvy0nNjdoVdeBRrNfPDRD8M9hukWpC6XSosKuNv5ME=;
- b=uXQbJc9YN7jcauyWcxa/AhQHH/ohDJah+P0h3TjE+ye9WEGAKdpNOiKwp67zax537M
- F43p5oywXQXzW7asCsVSZPRdoUPuNWn65XyxofHmG7aWxMGp+tJIyLgWAxAsx0xX4+BP
- 83Mv2s4tjdzEoYFWep02aUKE+e0dh7ik6Pl6EJrAobwEdsQ2e0XYKw7xZ6NrHw42FtBb
- 4KGArkAiSRGW1h0aCCjkK3PUpAakI9OvAOvzm8rg27FRIaYu+kLYVv7wp7HIrkpm3e6H
- lMm+UbmOX7hCOrlUJ1tRpU1ILGxcun833XNajyZNblK46IgBhP0Y8bxu0l5k15NUag+l
- n9Gw==
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA4C66EE6B;
+ Thu, 29 Jul 2021 20:49:09 +0000 (UTC)
+Received: by mail-wm1-x333.google.com with SMTP id k4so4542510wms.3;
+ Thu, 29 Jul 2021 13:49:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=w7rlS789IwgWOu8sIYtR7tqkgkaO1gIx+9/djlmIsjw=;
+ b=hePKOPuIIlnAtoZEz8val+chOEf8rJ7kzDrFbr157HgnPoDVRtY059x6N91MtMpQiN
+ i3MqE5tvyQ5TAyTg9vM6mw/qSOYzsd64vgehdXnhKJbddyoOBIKDmlSBN2ac4AFGM0md
+ vfISX61P1x2bWXSzCmxafEDFt66XYhpjkINkU9Z455HUDmfwuko9p63/HAUp/bwgiHtV
+ IMQPamLEriq+766cvyptqUAYmoC3x0HifCe/YVWKcSv4v3SetAx8o83afYhdy61wJOsS
+ 1FLHySZ7pOEur5JsLlXjylFwr/MNuqIHx2d0b4yoR8dExNw5gxakvCgPN0ldJK4BfIiF
+ kTaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=yjvy0nNjdoVdeBRrNfPDRD8M9hukWpC6XSosKuNv5ME=;
- b=Nw3/SoNJNa+AQ/vkPzSqqjQT3VmooVLZsWEcrHZyqLRoBgIdVYb36eNJHazis3+BqK
- /oh0qhZHiFFASFCCX4d+VJmk/h22VNUT6uuzcNaNvUDz+mUwZa1mE7gAqX9MgqARVsQ1
- bNKJ/d4dsvX3zysZH3fwmJ0OvA9dLXLgSoM0bPcnL/016p8VrAyWNb7j/iuZ4Gi5knD6
- 66JDUqBXARoeHEgfoCiYH3lL8kuAs2MNQt4l3wuqS0kTLhv3yoABqS1PhNqvp/p4DkZp
- eoWnyYwESOmWj5Y0ADFBfI3E7po/tmBUr3EsS7fxFhe0KeDtD1FyhNyxdAfW3o+3QScx
- 8zYw==
-X-Gm-Message-State: AOAM530feBGswkdN6TWtrkdQOEf+GzG3k9i1YcduI3a4+CP0ZRiwX+YE
- z+TRYtsfeRp3ZhTC7n3wk9UgkQ==
-X-Google-Smtp-Source: ABdhPJzkzIH6AZrxd5zBBNCDr+3o/XoHDyD63OWg5X4bm6XBxl9fD1BIEF0IQ1s/N/Tdsj+GfXWN5w==
-X-Received: by 2002:a05:600c:19d3:: with SMTP id
- u19mr224549wmq.115.1627590530830; 
- Thu, 29 Jul 2021 13:28:50 -0700 (PDT)
-Received: from [192.168.1.12] (host-80-41-121-59.as13285.net. [80.41.121.59])
- by smtp.gmail.com with ESMTPSA id
- v6sm4474677wru.50.2021.07.29.13.28.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Jul 2021 13:28:50 -0700 (PDT)
-To: Rob Clark <robdclark@gmail.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=w7rlS789IwgWOu8sIYtR7tqkgkaO1gIx+9/djlmIsjw=;
+ b=PZH9Z5zHgg5izFdrvWq3kpBGCZ++JA4pbhctF7nW8JcwRFiTJdRxhHHYgL1spxRXQz
+ mgqdeVqODJZnXvcKm9P6J4WKNHTV9D7UzlkumeBd/BQZs7cEK3eIffP++CqBHiDXkfW3
+ ZJustHErxAtEZCG0I/gIGEOtxzWYGzIheOKcy42Ianga9YmQyn9lYy1tFfqFwa6JMOXI
+ fAnNOXbBAikkxK4Mg054eZc0s5OwwvZ7LjC2H6KrnydC0oeKyVQLwkRDzvDsWZELVpKC
+ XOCIUHPIXziXDa2xEuBZfG1cGgNbnMG3l+rVeJsVPucD7Ae90DnPtlNGwKWEzCxwitFo
+ EgPw==
+X-Gm-Message-State: AOAM531on77DxFFmryWv5C7CLYZDFIN9bPKnect1NUbJHetwXldLRi0J
+ U/mPCFjdq/GAJyrB6vIB6C5SHzc5tKdocTrNeDY=
+X-Google-Smtp-Source: ABdhPJwrrK8qfqv4dkeGpyNXWI9QqAVnY/HT978HGofFkhk6FkqxWZ2UrgZfiUdhYpi3+dyXWle5jXmbiZpkpyKssrA=
+X-Received: by 2002:a7b:cc8b:: with SMTP id p11mr296283wma.164.1627591748230; 
+ Thu, 29 Jul 2021 13:49:08 -0700 (PDT)
+MIME-Version: 1.0
 References: <20210729183942.2839925-1-robdclark@gmail.com>
  <1a38a590-a64e-58ef-1bbf-0ae49c004d05@linaro.org>
  <CAF6AEGs5dzA7kfO89Uqbh3XmorXoEa=fpW+unk5_oaihHm479Q@mail.gmail.com>
-From: Caleb Connolly <caleb.connolly@linaro.org>
-Message-ID: <e2cebf65-012d-f818-8202-eb511c996e28@linaro.org>
-Date: Thu, 29 Jul 2021 21:28:49 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-MIME-Version: 1.0
-In-Reply-To: <CAF6AEGs5dzA7kfO89Uqbh3XmorXoEa=fpW+unk5_oaihHm479Q@mail.gmail.com>
-Content-Language: en-US
+ <e2cebf65-012d-f818-8202-eb511c996e28@linaro.org>
+In-Reply-To: <e2cebf65-012d-f818-8202-eb511c996e28@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 29 Jul 2021 13:53:17 -0700
+Message-ID: <CAF6AEGs11aYnkL30kp79pMqLTg3_4otFwG2Oc890Of2ndLbELw@mail.gmail.com>
+To: Caleb Connolly <caleb.connolly@linaro.org>
 Subject: Re: [Freedreno] [PATCH] drm/msm: Disable frequency clamping on a630
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,110 +74,65 @@ Cc: Rob Clark <robdclark@chromium.org>,
  Jordan Crouse <jordan@cosmicpenguin.net>, Stephen Boyd <sboyd@kernel.org>,
  Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <bjorn.andersson@linaro.org>,
  Sean Paul <sean@poorly.run>, open list <linux-kernel@vger.kernel.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-CgpPbiAyOS8wNy8yMDIxIDIxOjI0LCBSb2IgQ2xhcmsgd3JvdGU6Cj4gT24gVGh1LCBKdWwgMjks
-IDIwMjEgYXQgMTowNiBQTSBDYWxlYiBDb25ub2xseQo+IDxjYWxlYi5jb25ub2xseUBsaW5hcm8u
-b3JnPiB3cm90ZToKPj4KPj4gSGkgUm9iLAo+Pgo+PiBJJ3ZlIGRvbmUgc29tZSBtb3JlIHRlc3Rp
-bmchIEl0IGxvb2tzIGxpa2UgYmVmb3JlIHRoYXQgcGF0Y2ggKCJkcm0vbXNtOiBEZXZmcmVxIHR1
-bmluZyIpIHRoZSBHUFUgd291bGQgbmV2ZXIgZ2V0IGFib3ZlCj4+IHRoZSBzZWNvbmQgZnJlcXVl
-bmN5IGluIHRoZSBPUFAgdGFibGUgKDM0Mk1IeikgKGF0IGxlYXN0LCBub3QgaW4gZ2x4Z2VhcnMp
-LiBXaXRoIHRoZSBwYXRjaCBhcHBsaWVkIGl0IHdvdWxkIG1vcmUKPj4gYWdncmVzc2l2ZWx5IGp1
-bXAgdXAgdG8gdGhlIG1heCBmcmVxdWVuY3kgd2hpY2ggc2VlbXMgdG8gYmUgdW5zdGFibGUgYXQg
-dGhlIGRlZmF1bHQgcmVndWxhdG9yIHZvbHRhZ2VzLgo+IAo+ICpvaGgqLCB5ZWFoLCBvaywgdGhh
-dCB3b3VsZCBleHBsYWluIGl0Cj4gCj4+IEhhY2tpbmcgdGhlIHBtODAwNSBzMSByZWd1bGF0b3Ig
-KHdoaWNoIHByb3ZpZGVzIFZERF9HRlgpIHVwIHRvIDAuOTg4diAoaW5zdGVhZCBvZiB0aGUgc3Rv
-Y2sgMC41MTZ2KSBtYWtlcyB0aGUgR1BVIHN0YWJsZQo+PiBhdCB0aGUgaGlnaGVyIGZyZXF1ZW5j
-aWVzLgo+Pgo+PiBBcHBseWluZyB0aGlzIHBhdGNoIHJldmVydHMgdGhlIGJlaGF2aW91ciwgYW5k
-IHRoZSBHUFUgbmV2ZXIgZ29lcyBhYm92ZSAzNDJNSHogaW4gZ2x4Z2VhcnMsIGxvc2luZyB+MzAl
-IHBlcmZvcm1hbmNlIGluCj4+IGdseGdlYXIuCj4+Cj4+IEkgdGhpbmsgKD8pIHRoYXQgZW5hYmxp
-bmcgQ1BSIHN1cHBvcnQgd291bGQgYmUgdGhlIHByb3BlciBzb2x1dGlvbiB0byB0aGlzIC0gdGhh
-dCB3b3VsZCBlbnN1cmUgdGhhdCB0aGUgcmVndWxhdG9ycyBydW4KPj4gYXQgdGhlIHZvbHRhZ2Ug
-dGhlIGhhcmR3YXJlIG5lZWRzIHRvIGJlIHN0YWJsZS4KPj4KPj4gSXMgaGFja2luZyB0aGUgdm9s
-dGFnZSBoaWdoZXIgKGFsdGhvdWdoIGlkZWFsbHkgbm90IHF1aXRlIHRoYXQgaGlnaCkgYW4gYWNj
-ZXB0YWJsZSBzaG9ydCB0ZXJtIHNvbHV0aW9uIHVudGlsIHdlIGhhdmUKPj4gQ1BSPyBPciB3b3Vs
-ZCBpdCBiZSBzYWZlciB0byBqdXN0IG5vdCBtYWtlIHVzZSBvZiB0aGUgaGlnaGVyIGZyZXF1ZW5j
-aWVzIG9uIGE2MzAgZm9yIG5vdz8KPj4KPiAKPiB0YmgsIEknbSBub3Qgc3VyZSBhYm91dCB0aGUg
-cmVndWxhdG9yIHN0dWZmIGFuZCBDUFIuLiBCam9ybiBpcyBhbHJlYWR5Cj4gb24gQ0MgYW5kIEkg
-YWRkZWQgc2JveWQsIG1heWJlIG9uZSBvZiB0aGVtIGtub3dzIGJldHRlci4KPiAKPiBJbiB0aGUg
-c2hvcnQgdGVybSwgcmVtb3ZpbmcgdGhlIGhpZ2hlciBwcm9ibGVtYXRpYyBPUFBzIGZyb20gZHRz
-IG1pZ2h0Cj4gYmUgYSBiZXR0ZXIgb3B0aW9uIHRoYW4gdGhpcyBwYXRjaCAod2hpY2ggSSdtIGRy
-b3BwaW5nKSwgc2luY2UgdGhlcmUKPiBpcyBub3RoaW5nIHN0b3BwaW5nIG90aGVyIHdvcmtsb2Fk
-cyBmcm9tIGhpdHRpbmcgaGlnaGVyIE9QUHMuCk9oIHllYWggdGhhdCBzb3VuZHMgbGlrZSBhIG1v
-cmUgc2Vuc2libGUgd29ya2Fyb3VuZCB0aGFuIG1pbmUg8J+YhS4KPiAKPiBJJ20gc2xpZ2h0bHkg
-Y3VyaW91cyB3aHkgSSBkaWRuJ3QgaGF2ZSBwcm9ibGVtcyBhdCBoaWdoZXIgT1BQcyBvbiBteQo+
-IGM2MzAgbGFwdG9wIChzZG04NTApClBlcmhhcHMgeW91IHdvbiB0aGUgc2lsbGljb24gbG90dGVy
-eSAtIGlpcmMgc2RtODUwIGlzIGJpbm5lZCBmb3IgaGlnaGVyIGNsb2NrcyBhcyBpcyBvdXQgb2Yg
-dGhlIGZhY3RvcnkuCgpXb3VsZCBpdCBiZSBiZXN0IHRvIGRyb3AgdGhlIE9QUHMgZm9yIGFsbCBk
-ZXZpY2VzPyBPciBqdXN0IHRob3NlIGFmZmVjdGVkPyBJIGd1ZXNzIGl0J3MgcG9zc2libGUgYW5v
-dGhlciBjNjMwIG1pZ2h0IApjcmFzaCB3aGVyZSB5b3VycyBkb2Vzbid0Pwo+IAo+IEJSLAo+IC1S
-Cj4gCj4+Cj4+IE9uIDI5LzA3LzIwMjEgMTk6MzksIFJvYiBDbGFyayB3cm90ZToKPj4+IEZyb206
-IFJvYiBDbGFyayA8cm9iZGNsYXJrQGNocm9taXVtLm9yZz4KPj4+Cj4+PiBUaGUgbW9yZSBmcmVx
-dWVudCBmcmVxdWVuY3kgdHJhbnNpdGlvbnMgcmVzdWx0aW5nIGZyb20gY2xhbXBpbmcgZnJlcSB0
-bwo+Pj4gbWluaW11bSB3aGVuIHRoZSBHUFUgaXMgaWRsZSBzZWVtcyB0byBiZSBjYXVzaW5nIHNv
-bWUgaXNzdWUgd2l0aCB0aGUgYnVzCj4+PiBnZXR0aW5nIHZvdGVkIG9mZiB3aGVuIGl0IHNob3Vs
-ZCBiZSBvbi4gIChBbiBlbmFibGUgcmFjaW5nIHdpdGggYW4gYXN5bmMKPj4+IGRpc2FibGU/KSAg
-VGhpcyBtaWdodCBiZSBhIHByb2JsZW0gb3V0c2lkZSBvZiB0aGUgR1BVLCBhcyBJIGNhbid0Cj4+
-PiByZXByb2R1Y2UgdGhpcyBvbiBhNjE4IHdoaWNoIHVzZXMgdGhlIHNhbWUgR01VIGZ3IGFuZCBz
-YW1lIG1lY2hhbmlzbSB0bwo+Pj4gY29tbXVuaWNhdGUgd2l0aCBHTVUgdG8gc2V0IG9wcC4gIEZv
-ciBub3csIGp1c3QgcmV2ZXJ0IHRvIHByZXZpb3VzCj4+PiBkZXZmcmVxIGJlaGF2aW9yIG9uIGE2
-MzAgdW50aWwgdGhlIGlzc3VlIGlzIHVuZGVyc3Rvb2QuCj4+Pgo+Pj4gUmVwb3J0ZWQtYnk6IENh
-bGViIENvbm5vbGx5IDxjYWxlYi5jb25ub2xseUBsaW5hcm8ub3JnPgo+Pj4gRml4ZXM6IDliYzk1
-NTcwMTc1YSAoImRybS9tc206IERldmZyZXEgdHVuaW5nIikKPj4+IFNpZ25lZC1vZmYtYnk6IFJv
-YiBDbGFyayA8cm9iZGNsYXJrQGNocm9taXVtLm9yZz4KPj4+IC0tLQo+Pj4gICAgZHJpdmVycy9n
-cHUvZHJtL21zbS9hZHJlbm8vYWRyZW5vX2dwdS5jIHwgIDMgKysrCj4+PiAgICBkcml2ZXJzL2dw
-dS9kcm0vbXNtL21zbV9ncHUuaCAgICAgICAgICAgfCAgMiArKwo+Pj4gICAgZHJpdmVycy9ncHUv
-ZHJtL21zbS9tc21fZ3B1X2RldmZyZXEuYyAgIHwgMTIgKysrKysrKysrKysrCj4+PiAgICAzIGZp
-bGVzIGNoYW5nZWQsIDE3IGluc2VydGlvbnMoKykKPj4+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL21zbS9hZHJlbm8vYWRyZW5vX2dwdS5jIGIvZHJpdmVycy9ncHUvZHJtL21zbS9h
-ZHJlbm8vYWRyZW5vX2dwdS5jCj4+PiBpbmRleCA3NDg2NjUyMzJkMjkuLjlmZDA4YjQxMzAxMCAx
-MDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2FkcmVub19ncHUuYwo+
-Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL21zbS9hZHJlbm8vYWRyZW5vX2dwdS5jCj4+PiBAQCAt
-OTQ1LDYgKzk0NSw5IEBAIGludCBhZHJlbm9fZ3B1X2luaXQoc3RydWN0IGRybV9kZXZpY2UgKmRy
-bSwgc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldiwKPj4+ICAgICAgICBwbV9ydW50aW1lX3Vz
-ZV9hdXRvc3VzcGVuZChkZXYpOwo+Pj4gICAgICAgIHBtX3J1bnRpbWVfZW5hYmxlKGRldik7Cj4+
-Pgo+Pj4gKyAgICAgaWYgKGFkcmVub19pc19hNjMwKGFkcmVub19ncHUpKQo+Pj4gKyAgICAgICAg
-ICAgICBncHUtPmRldmZyZXEuZGlzYWJsZV9mcmVxX2NsYW1waW5nID0gdHJ1ZTsKPj4+ICsKPj4+
-ICAgICAgICByZXR1cm4gbXNtX2dwdV9pbml0KGRybSwgcGRldiwgJmFkcmVub19ncHUtPmJhc2Us
-ICZmdW5jcy0+YmFzZSwKPj4+ICAgICAgICAgICAgICAgICAgICAgICAgYWRyZW5vX2dwdS0+aW5m
-by0+bmFtZSwgJmFkcmVub19ncHVfY29uZmlnKTsKPj4+ICAgIH0KPj4+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vbXNtL21zbV9ncHUuaCBiL2RyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2dw
-dS5oCj4+PiBpbmRleCAwZTRiNDViZmYyZTYuLjdlMTFiNjY3ZjkzOSAxMDA2NDQKPj4+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2dwdS5oCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-bXNtL21zbV9ncHUuaAo+Pj4gQEAgLTExMiw2ICsxMTIsOCBAQCBzdHJ1Y3QgbXNtX2dwdV9kZXZm
-cmVxIHsKPj4+ICAgICAgICAgKiBpdCBpcyBpbmFjdGl2ZS4KPj4+ICAgICAgICAgKi8KPj4+ICAg
-ICAgICB1bnNpZ25lZCBsb25nIGlkbGVfZnJlcTsKPj4+ICsKPj4+ICsgICAgIGJvb2wgZGlzYWJs
-ZV9mcmVxX2NsYW1waW5nOwo+Pj4gICAgfTsKPj4+Cj4+PiAgICBzdHJ1Y3QgbXNtX2dwdSB7Cj4+
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZ3B1X2RldmZyZXEuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9tc20vbXNtX2dwdV9kZXZmcmVxLmMKPj4+IGluZGV4IDBhMWVlMjAyOTZh
-Mi4uYTgzMmFmNDM2MjUxIDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL21zbS9tc21f
-Z3B1X2RldmZyZXEuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZ3B1X2RldmZy
-ZXEuYwo+Pj4gQEAgLTk0LDYgKzk0LDEyIEBAIHZvaWQgbXNtX2RldmZyZXFfaW5pdChzdHJ1Y3Qg
-bXNtX2dwdSAqZ3B1KQo+Pj4gICAgICAgIGlmICghZ3B1LT5mdW5jcy0+Z3B1X2J1c3kpCj4+PiAg
-ICAgICAgICAgICAgICByZXR1cm47Cj4+Pgo+Pj4gKyAgICAgLyogUmV2ZXJ0IHRvIHByZXZpb3Vz
-IHBvbGxpbmcgaW50ZXJ2YWwgaWYgd2UgYXJlbid0IHVzaW5nIGZyZXEgY2xhbXBpbmcKPj4+ICsg
-ICAgICAqIHRvIHByZXNlcnZlIHByZXZpb3VzIGJlaGF2aW9yCj4+PiArICAgICAgKi8KPj4+ICsg
-ICAgIGlmIChncHUtPmRldmZyZXEuZGlzYWJsZV9mcmVxX2NsYW1waW5nKQo+Pj4gKyAgICAgICAg
-ICAgICBtc21fZGV2ZnJlcV9wcm9maWxlLnBvbGxpbmdfbXMgPSAxMDsKPj4+ICsKPj4+ICAgICAg
-ICBtc21fZGV2ZnJlcV9wcm9maWxlLmluaXRpYWxfZnJlcSA9IGdwdS0+ZmFzdF9yYXRlOwo+Pj4K
-Pj4+ICAgICAgICAvKgo+Pj4gQEAgLTE1MSw2ICsxNTcsOSBAQCB2b2lkIG1zbV9kZXZmcmVxX2Fj
-dGl2ZShzdHJ1Y3QgbXNtX2dwdSAqZ3B1KQo+Pj4gICAgICAgIHVuc2lnbmVkIGludCBpZGxlX3Rp
-bWU7Cj4+PiAgICAgICAgdW5zaWduZWQgbG9uZyB0YXJnZXRfZnJlcSA9IGRmLT5pZGxlX2ZyZXE7
-Cj4+Pgo+Pj4gKyAgICAgaWYgKGdwdS0+ZGV2ZnJlcS5kaXNhYmxlX2ZyZXFfY2xhbXBpbmcpCj4+
-PiArICAgICAgICAgICAgIHJldHVybjsKPj4+ICsKPj4+ICAgICAgICAvKgo+Pj4gICAgICAgICAq
-IEhvbGQgZGV2ZnJlcSBsb2NrIHRvIHN5bmNocm9uaXplIHdpdGggZ2V0X2Rldl9zdGF0dXMoKS8K
-Pj4+ICAgICAgICAgKiB0YXJnZXQoKSBjYWxsYmFja3MKPj4+IEBAIC0xODYsNiArMTk1LDkgQEAg
-dm9pZCBtc21fZGV2ZnJlcV9pZGxlKHN0cnVjdCBtc21fZ3B1ICpncHUpCj4+PiAgICAgICAgc3Ry
-dWN0IG1zbV9ncHVfZGV2ZnJlcSAqZGYgPSAmZ3B1LT5kZXZmcmVxOwo+Pj4gICAgICAgIHVuc2ln
-bmVkIGxvbmcgaWRsZV9mcmVxLCB0YXJnZXRfZnJlcSA9IDA7Cj4+Pgo+Pj4gKyAgICAgaWYgKGdw
-dS0+ZGV2ZnJlcS5kaXNhYmxlX2ZyZXFfY2xhbXBpbmcpCj4+PiArICAgICAgICAgICAgIHJldHVy
-bjsKPj4+ICsKPj4+ICAgICAgICAvKgo+Pj4gICAgICAgICAqIEhvbGQgZGV2ZnJlcSBsb2NrIHRv
-IHN5bmNocm9uaXplIHdpdGggZ2V0X2Rldl9zdGF0dXMoKS8KPj4+ICAgICAgICAgKiB0YXJnZXQo
-KSBjYWxsYmFja3MKPj4+Cj4+Cj4+IC0tCj4+IEtpbmQgUmVnYXJkcywKPj4gQ2FsZWIgKHRoZXkv
-dGhlbSkKCi0tIApLaW5kIFJlZ2FyZHMsCkNhbGViICh0aGV5L3RoZW0pCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVubyBtYWlsaW5nIGxpc3QK
-RnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVubwo=
+On Thu, Jul 29, 2021 at 1:28 PM Caleb Connolly
+<caleb.connolly@linaro.org> wrote:
+>
+>
+>
+> On 29/07/2021 21:24, Rob Clark wrote:
+> > On Thu, Jul 29, 2021 at 1:06 PM Caleb Connolly
+> > <caleb.connolly@linaro.org> wrote:
+> >>
+> >> Hi Rob,
+> >>
+> >> I've done some more testing! It looks like before that patch ("drm/msm: Devfreq tuning") the GPU would never get above
+> >> the second frequency in the OPP table (342MHz) (at least, not in glxgears). With the patch applied it would more
+> >> aggressively jump up to the max frequency which seems to be unstable at the default regulator voltages.
+> >
+> > *ohh*, yeah, ok, that would explain it
+> >
+> >> Hacking the pm8005 s1 regulator (which provides VDD_GFX) up to 0.988v (instead of the stock 0.516v) makes the GPU stable
+> >> at the higher frequencies.
+> >>
+> >> Applying this patch reverts the behaviour, and the GPU never goes above 342MHz in glxgears, losing ~30% performance in
+> >> glxgear.
+> >>
+> >> I think (?) that enabling CPR support would be the proper solution to this - that would ensure that the regulators run
+> >> at the voltage the hardware needs to be stable.
+> >>
+> >> Is hacking the voltage higher (although ideally not quite that high) an acceptable short term solution until we have
+> >> CPR? Or would it be safer to just not make use of the higher frequencies on a630 for now?
+> >>
+> >
+> > tbh, I'm not sure about the regulator stuff and CPR.. Bjorn is already
+> > on CC and I added sboyd, maybe one of them knows better.
+> >
+> > In the short term, removing the higher problematic OPPs from dts might
+> > be a better option than this patch (which I'm dropping), since there
+> > is nothing stopping other workloads from hitting higher OPPs.
+> Oh yeah that sounds like a more sensible workaround than mine .
+> >
+> > I'm slightly curious why I didn't have problems at higher OPPs on my
+> > c630 laptop (sdm850)
+> Perhaps you won the sillicon lottery - iirc sdm850 is binned for higher clocks as is out of the factory.
+>
+> Would it be best to drop the OPPs for all devices? Or just those affected? I guess it's possible another c630 might
+> crash where yours doesn't?
+
+I've not heard any reports of similar issues from the handful of other
+folks with c630's on #aarch64-laptops.. but I can't really say if that
+is luck or not.
+
+Maybe just remove it for affected devices?  But I'll defer to Bjorn.
+
+BR,
+-R
+_______________________________________________
+Freedreno mailing list
+Freedreno@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/freedreno
