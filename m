@@ -2,69 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B30C3DB511
-	for <lists+freedreno@lfdr.de>; Fri, 30 Jul 2021 10:32:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CE043DB63A
+	for <lists+freedreno@lfdr.de>; Fri, 30 Jul 2021 11:45:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1809B6F3F5;
-	Fri, 30 Jul 2021 08:31:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90A9A6F40A;
+	Fri, 30 Jul 2021 09:45:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08A566F3F5;
- Fri, 30 Jul 2021 08:31:58 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 33F531FDBB;
- Fri, 30 Jul 2021 08:31:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1627633916; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=4KNmGdX4j42EWGXTu1wwqwxtTy1FAmbC1xtjFG8i+0c=;
- b=yOdPofC7QezghZeA/7yBJ/KRwYqg7+cuQjIfkiLLuCHTEYVpssdzkmIU8qxTVE3LtA2t/D
- SLY/CIxEErwOWp1OjXbB5icay0WdRpVuLY++JQgOY91Xs9WEMjVY5Ah1yKgI6BD1axnmE0
- 1NSChxIZGrg/k5h1yszTmUqVGMCePhY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1627633916;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=4KNmGdX4j42EWGXTu1wwqwxtTy1FAmbC1xtjFG8i+0c=;
- b=Dtbg4UOoXmeTHZKFxCCoSstCycJ0WH0xg3Hcc/AN9v2lFzINm/kNnG7sy5iri8E2X0mIaJ
- Hj9rBnDdXyarFyBQ==
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 846D31374D;
- Fri, 30 Jul 2021 08:31:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id gAv4Hvu4A2FNFAAAGKfGzw
- (envelope-from <tzimmermann@suse.de>); Fri, 30 Jul 2021 08:31:55 +0000
-To: Dan.Sneddon@microchip.com, sam@ravnborg.org
-References: <e28b1a2f-015c-c81b-eb64-5323df9ed35d@microchip.com>
- <YQF7bKyeup8n3awU@ravnborg.org>
- <3d2f6b84-dd07-d925-a8b8-2bfd5fc736d9@microchip.com>
- <YQGdxtV0BGZ8VOpm@ravnborg.org>
- <2f04b986-6b41-62f9-1587-23818b841655@suse.de>
- <793514f6-0270-771b-fe36-f82edf4e5fd2@microchip.com>
- <YQGrMH36Udg3eKQY@ravnborg.org>
- <dcc5cd1e-d0de-bdda-32f3-623b85085756@microchip.com>
- <YQG5+/9lPexU3Dn3@ravnborg.org>
- <1df22406-2e91-c15a-49dc-1cf33522a142@suse.de>
- <YQMF8X7gwKE/c2/R@ravnborg.org>
- <38656c7b-d9ad-c704-515e-f56582742532@microchip.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <5eaae583-3efb-837d-22b0-22369096400f@suse.de>
-Date: Fri, 30 Jul 2021 10:31:54 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+Received: from mail-qv1-xf2c.google.com (mail-qv1-xf2c.google.com
+ [IPv6:2607:f8b0:4864:20::f2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7210F6F408
+ for <freedreno@lists.freedesktop.org>; Fri, 30 Jul 2021 09:45:33 +0000 (UTC)
+Received: by mail-qv1-xf2c.google.com with SMTP id s11so4864500qvz.7
+ for <freedreno@lists.freedesktop.org>; Fri, 30 Jul 2021 02:45:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ZpP6fJ5qS4z9U5Mk/yGz9pYoYzJS2iFy7VnajEmatcg=;
+ b=jpGwQ3MOZMKdioaOV5hA5tHyKgYIO9urmn/aw0qWsrlXO7I81+PIfSCA+9NM5nvoZU
+ oLwxxOscaPNPRKhu4KENjr2qgaGOkfU6NlyqsrRmHOLQFwS9YwUMh9taPwxh2uKfx/54
+ wj+Wa+5TX8DtPzflkIN7xLjawS33skikaknuTVp2fI39yMm52dTX9BhrVOg9bdCVRnIc
+ l/FSUm3vwzzuVvSqvXBqrloAW9PkuV7gZEVzSd7SAiLaPKBN7HD8RSwUbvItfPO9d2W9
+ F/ClPcW279D2Q16uV6s+bwTuZ9bgYbTn1r6o0zIuKZxKjhsr2fiG319/Fp03gVy7vTsL
+ e1rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ZpP6fJ5qS4z9U5Mk/yGz9pYoYzJS2iFy7VnajEmatcg=;
+ b=BLGpF5yq7R38eK1sORI/AHogP2b+qSd3SEqNXTNkTZCwQJ9LWp2R10T1HuxsPhnz7T
+ 3b60i/5XtRcGmVV5kIDxKoup8C3sXIzf0heioQTfZRdPz886x1sQSy2mTzR1Y8IH/t6l
+ 4EkmsSe2yeUS+WrZZCtsck7beu8zy9Dus2uHBfrg/fJJ03lUi7Wimiu5x5FHCt88ZXaU
+ Gzv/mj3zvdacKAUSqMGtz+MksUCbXikcdObh77rBOfCgDVK9ab6uapa9OoLwMf4vORbv
+ h9vTCwDA1Kp1rlClwSCkr9qKjodQ8tUrgAap2yexWzfBOYBDh/rTYsKqR5TlRXz/WuHl
+ /Sig==
+X-Gm-Message-State: AOAM533PBfM/WkL4tDrVFKp6tEJnr7BNz27OR2zghXjo0QJtYo8G5OFU
+ obX2rpf9kbmTgFZWyQ1YYmKBPN0hNFxQU4ghnoioKg==
+X-Google-Smtp-Source: ABdhPJw0YuA+LbmSP5phGohjXTllv6VPDLme3t9Ljod597Ufo8L1db10TQjQfGLo2cduBjgCa+Je8+K1qzv/6zpWAlo=
+X-Received: by 2002:a05:6214:1882:: with SMTP id
+ cx2mr1874675qvb.2.1627638332568; 
+ Fri, 30 Jul 2021 02:45:32 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <38656c7b-d9ad-c704-515e-f56582742532@microchip.com>
-Subject: Re: [Freedreno] [PATCH 03/14] drm/atmel-hlcdc: Convert to Linux IRQ
- interfaces
+References: <20210730061301.32492-1-zhaoxiao@uniontech.com>
+In-Reply-To: <20210730061301.32492-1-zhaoxiao@uniontech.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 30 Jul 2021 12:45:21 +0300
+Message-ID: <CAA8EJpq79QFUjAMQXgo-1XavN6ZQmw3SdKP3P5+p6ODhqFuJ1Q@mail.gmail.com>
+To: zhaoxiao <zhaoxiao@uniontech.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] drm:This patch fixes the checkpatch.pl
+ error to msm_drv.c
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,149 +63,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, liviu.dudau@arm.com, stefan@agner.ch,
- amd-gfx@lists.freedesktop.org, anitha.chrisanthus@intel.com,
- patrik.r.jakobsson@gmail.com, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, daniel@ffwll.ch, edmund.j.dea@intel.com,
- s.hauer@pengutronix.de, alison.wang@nxp.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, dri-devel@lists.freedesktop.org, sean@poorly.run,
- linux-arm-kernel@lists.infradead.org, tomba@kernel.org, bbrezillon@kernel.org,
- jyri.sarha@iki.fi, Nicolas.Ferre@microchip.com, christian.koenig@amd.com,
- robdclark@gmail.com, kernel@pengutronix.de, alexander.deucher@amd.com,
- shawnguo@kernel.org, brian.starkey@arm.com
-Content-Type: multipart/mixed; boundary="===============1633401299=="
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1633401299==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="yjnFarRLUdaazA6150bDZXU8b5959ycDD"
+On Fri, 30 Jul 2021 at 09:13, zhaoxiao <zhaoxiao@uniontech.com> wrote:
+>
+> ERROR: do not initialise statics to false
+>
+> Signed-off-by: zhaoxiao <zhaoxiao@uniontech.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---yjnFarRLUdaazA6150bDZXU8b5959ycDD
-Content-Type: multipart/mixed; boundary="p1nROP8ARC1uwryC8MEU3IPJXb5UTMgYH";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Dan.Sneddon@microchip.com, sam@ravnborg.org
-Cc: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
- christian.koenig@amd.com, liviu.dudau@arm.com, brian.starkey@arm.com,
- bbrezillon@kernel.org, Nicolas.Ferre@microchip.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, stefan@agner.ch,
- alison.wang@nxp.com, patrik.r.jakobsson@gmail.com,
- anitha.chrisanthus@intel.com, robdclark@gmail.com, edmund.j.dea@intel.com,
- sean@poorly.run, shawnguo@kernel.org, s.hauer@pengutronix.de,
- kernel@pengutronix.de, jyri.sarha@iki.fi, tomba@kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-Message-ID: <5eaae583-3efb-837d-22b0-22369096400f@suse.de>
-Subject: Re: [PATCH 03/14] drm/atmel-hlcdc: Convert to Linux IRQ interfaces
-References: <e28b1a2f-015c-c81b-eb64-5323df9ed35d@microchip.com>
- <YQF7bKyeup8n3awU@ravnborg.org>
- <3d2f6b84-dd07-d925-a8b8-2bfd5fc736d9@microchip.com>
- <YQGdxtV0BGZ8VOpm@ravnborg.org>
- <2f04b986-6b41-62f9-1587-23818b841655@suse.de>
- <793514f6-0270-771b-fe36-f82edf4e5fd2@microchip.com>
- <YQGrMH36Udg3eKQY@ravnborg.org>
- <dcc5cd1e-d0de-bdda-32f3-623b85085756@microchip.com>
- <YQG5+/9lPexU3Dn3@ravnborg.org>
- <1df22406-2e91-c15a-49dc-1cf33522a142@suse.de>
- <YQMF8X7gwKE/c2/R@ravnborg.org>
- <38656c7b-d9ad-c704-515e-f56582742532@microchip.com>
-In-Reply-To: <38656c7b-d9ad-c704-515e-f56582742532@microchip.com>
+Could you please resend this patch following the style of the rest of
+patches being submitted to this area? Subject, more detailed patch
+description, etc.
 
---p1nROP8ARC1uwryC8MEU3IPJXb5UTMgYH
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Hi Dan and Sam
-
-Am 29.07.21 um 21:55 schrieb Dan.Sneddon@microchip.com:
-> Hi Thomas and Sam,
-> On 7/29/21 12:48 PM, Sam Ravnborg wrote:
->> EXTERNAL EMAIL: Do not click links or open attachments unless you know=
- the content is safe
->>
->> Hi Thomas,
->>
->>>
->>> Are you sure, you're testing with the latest drm-misc-next or drm-tip=
-?
->>> Because using irq_enabled is deprecated and the flag was recently rep=
-laced
->>> by commit 1e4cd78ed493 ("drm: Don't test for IRQ support in VBLANK io=
-ctls").
->=20
-> Ok, My fault for testing on the wrong branch.  When I test this patch o=
-n
-> drm-misc-next it works great.  Sorry for the confusion!
->=20
->>
->> I was looking at drm-misc-fixes which did not have this commit :-(
->> Just my silly excuse why I was convinced this was the issue.
-
-Don't worry.
-
-I'll add Sam's R-b and a Tested-by from Dan to the patch. Is that ok?
-
-Best regards
-Thomas
+> ---
+>  drivers/gpu/drm/msm/msm_drv.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index 9b8fa2ad0d84..d9ca4bc9620b 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -59,7 +59,7 @@ static const struct drm_mode_config_helper_funcs mode_config_helper_funcs = {
+>  };
+>
+>  #ifdef CONFIG_DRM_MSM_REGISTER_LOGGING
+> -static bool reglog = false;
+> +static bool reglog;
+>  MODULE_PARM_DESC(reglog, "Enable register read/write logging");
+>  module_param(reglog, bool, 0600);
+>  #else
+> @@ -76,7 +76,7 @@ static char *vram = "16m";
+>  MODULE_PARM_DESC(vram, "Configure VRAM size (for devices without IOMMU/GPUMMU)");
+>  module_param(vram, charp, 0);
+>
+> -bool dumpstate = false;
+> +bool dumpstate;
+>  MODULE_PARM_DESC(dumpstate, "Dump KMS state on errors");
+>  module_param(dumpstate, bool, 0600);
+>
+> --
+> 2.20.1
+>
+>
+>
 
 
->>
->>           Sam
->>
->=20
-> Best regards,
-> Dan
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---p1nROP8ARC1uwryC8MEU3IPJXb5UTMgYH--
-
---yjnFarRLUdaazA6150bDZXU8b5959ycDD
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmEDuPoFAwAAAAAACgkQlh/E3EQov+DU
-Hw//S+XTP8MCawWFcKViVdKyYx/8b76p5/pUrG0Ev2hYnWMZno4RedIRGQX1oj/g3EAYH9yIqXVX
-5R5NCwnGNJ+JVzgNA5L1/ELIiCuOXJ9hyhyCAbZaDpcLftS80P5BpwmP8h9m2GyRbEUk1XVtAeKI
-CzIgDTMczYNLdUAROSQ6WlwOn5OWXWhMCWmleg0Yt3e8xZGv+AXI+4ox04cOSLSEisVm1ZQyOYmr
-npbL85z8SkbxHw4TzTVFqAqovHSeTv+4KUJL7LB7Q3hPIMTDMRmzUP0az+gNBTCKxxgo+b+oH+1b
-M+kUuTF2Annxo26z5hvEZumIAW9zzfTHfIQTqjgFbm5AchgTxy3bSAYh2SH+9g0I3gLsEGz47brp
-lz1jyVV5XNunhO2cuVMEGtrM9AS/CiVmc1ixs9/2Be2dSs+S/6Yn0yHi/29XvJpNqcHVoVfPuPlP
-qgDpClVbr0dYNmjLMEfHx7zfAZ8+GJ3340VGBZ0gSuEguUMjg309+JapIqhEWauOEcMNdSZH6SXh
-om4+lQ1HIwbQjZCUxr8s23vuJ/7qV/fiBcnujXBRJ0H662iaWvfK6jmk4i1LUCLGtj5hSOzWS0+I
-iw6iZPBwbjfHvAflxgwtwJvxWeR0G7thQX5srKeza23607lk3PiFrHrfsuscJLysi+QELTFD9k5t
-GCM=
-=zl/v
------END PGP SIGNATURE-----
-
---yjnFarRLUdaazA6150bDZXU8b5959ycDD--
-
---===============1633401299==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Freedreno mailing list
-Freedreno@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/freedreno
-
---===============1633401299==--
+-- 
+With best wishes
+Dmitry
