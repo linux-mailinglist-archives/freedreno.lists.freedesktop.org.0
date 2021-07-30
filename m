@@ -1,62 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B799E3DBE90
-	for <lists+freedreno@lfdr.de>; Fri, 30 Jul 2021 20:57:28 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3291A3DC19D
+	for <lists+freedreno@lfdr.de>; Sat, 31 Jul 2021 01:37:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64A2D6E1E0;
-	Fri, 30 Jul 2021 18:57:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A51196E34B;
+	Fri, 30 Jul 2021 23:37:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
- [IPv6:2607:f8b0:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0103E6E43F
- for <freedreno@lists.freedesktop.org>; Fri, 30 Jul 2021 18:57:25 +0000 (UTC)
-Received: by mail-oi1-x233.google.com with SMTP id q6so14484423oiw.7
- for <freedreno@lists.freedesktop.org>; Fri, 30 Jul 2021 11:57:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=R52SkjmgEOTUBqEHYa4AfMHcfuuZbXxc9uqTeblsMI4=;
- b=cHDqg/JVMq/KqDermTQjYQh3zJXJCgTPV0eNVwov0YhCZHuLgysibPpi3PiXwC8AL/
- r7BYwYGHH616M3q6D5LlbG06SRra2HKOgobDs6tHNk6qKcizFKqbOz2O8tuMAjVa0e98
- AFfaruS7lNYtXfYX7BcUXNpVasZSMNkgguCmo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=R52SkjmgEOTUBqEHYa4AfMHcfuuZbXxc9uqTeblsMI4=;
- b=QILVCJH3cUXIVHPxcoJTsycYza+g5IVaaN4QieZt9P0nbo3AVvL1WXB+vRo+cW4Q9J
- AFETRcgtjydaJ+DFFA8HFYcLOQU+V+w3CXbgaelj9gWLare3YW4z8ygKEW0ZvLNAIsel
- 6LlT2O+tNrEHGAYlis5WLS3EQL6wJkbPSBJ/GbFtpp7wcEIsr64SiHTnf45fO+ycHMfK
- XstnVA2Ydxl7ZZ4133BgyJ/MilA3qowJCZl+Q7gl9JfR67c+RDzPpRG0bSfpQIp+1kfU
- 2fGvm62iCd5nVQiyumP9V4aR14/633RWRl4UWESSU3lPocHbPIMRxLRM4QmaBB1QU/ug
- FbrQ==
-X-Gm-Message-State: AOAM533iQ5HVW3R8xLS7/f8mSzZfqivoTxVkQGxsJsnGf0oDfhtD51Rk
- BWC5pr5wqjNpa+M3Mkv0ioBtBhSrR1mu1GNEXfM/UA==
-X-Google-Smtp-Source: ABdhPJxNDgMIs+i6xUVmTNkHBOhTrdiS70/qH/dNqao4vmx6KI2snPhoSDEX5E4jN4uKjzYEP/Dq7jJoDsUvXCG78qo=
-X-Received: by 2002:a05:6808:619:: with SMTP id
- y25mr3062792oih.166.1627671445211; 
- Fri, 30 Jul 2021 11:57:25 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 30 Jul 2021 11:57:24 -0700
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5238D6E34B
+ for <freedreno@lists.freedesktop.org>; Fri, 30 Jul 2021 23:37:47 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1627688268; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=4rmJMgcNP8dz11ZGS+KLyMRiboqVKCtFl+kC5KAnbF4=;
+ b=N6atBqXJ8XrWenDPo1e+UgU40sEOoqZ+/Ziu9a4HZJ8tlwYCyL3oVtT2aRdCLXr73y4WPJ9m
+ v0mZ+GFJ3knInq5K4zAv8QVyuLKeJIREulb7gu6d8eQLgjSnewN81cxaCeA/sdRbfVB0B9AO
+ QDDP9tqytbeT65ho47uDhKINquQ=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n04.prod.us-east-1.postgun.com with SMTP id
+ 61048d49b653fbdadd16cd4a (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 30 Jul 2021 23:37:45
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 3F2B5C433F1; Fri, 30 Jul 2021 23:37:44 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 29742C4338A;
+ Fri, 30 Jul 2021 23:37:42 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <1627507854-16733-1-git-send-email-khsieh@codeaurora.org>
-References: <1627507854-16733-1-git-send-email-khsieh@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Fri, 30 Jul 2021 11:57:24 -0700
-Message-ID: <CAE-0n51cNywB2ThQxqS4iX-d7wR+rYXt8P33o9cUq9J6tT915A@mail.gmail.com>
-To: Kuogee Hsieh <khsieh@codeaurora.org>, agross@kernel.org,
- bjorn.andersson@linaro.org, 
- robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
-Cc: abhinavk@codeaurora.org, aravindh@codeaurora.org, 
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: update is_connected status base
- on sink count at dp_pm_resume()
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Fri, 30 Jul 2021 16:37:42 -0700
+From: abhinavk@codeaurora.org
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, David
+ Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Kalyan Thota <kalyan_t@codeaurora.org>,
+ Kuogee Hsieh <khsieh@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Stephen Boyd
+ <swboyd@chromium.org>, Rob Herring <robh+dt@kernel.org>,
+ freedreno@lists.freedesktop.org
+In-Reply-To: <20210725042436.3967173-2-bjorn.andersson@linaro.org>
+References: <20210725042436.3967173-1-bjorn.andersson@linaro.org>
+ <20210725042436.3967173-2-bjorn.andersson@linaro.org>
+Message-ID: <51b482e276c6fedc91d70797aca35da6@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH 1/5] drm/msm/dp: Remove global g_dp_display
+ variable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,79 +77,223 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2021-07-28 14:30:54)
-> Currently at dp_pm_resume() is_connected state is decided base on hpd connection
-> status only. This will put is_connected in wrongly "true" state at the scenario
-> that dongle attached to DUT but without hmdi cable connecting to it. Fix this
-> problem by adding read sink count from dongle and decided is_connected state base
-> on both sink count and hpd connection status.
->
-
-Please add a Fixes tag.
-
-> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+On 2021-07-24 21:24, Bjorn Andersson wrote:
+> As the Qualcomm DisplayPort driver only supports a single instance of
+> the driver the commonly used struct dp_display is kept in a global
+> variable. As we introduce additional instances this obviously doesn't
+> work.
+> 
+> Replace this with a combination of existing references to adjacent
+> objects and drvdata.
+> 
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 > ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 23 +++++++++++++++++++++--
->  1 file changed, 21 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 2b660e9..9bcb261 100644
+>  drivers/gpu/drm/msm/dp/dp_display.c | 78 ++++++++++++++---------------
+>  1 file changed, 37 insertions(+), 41 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c
+> b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 70b319a8fe83..8696b36d30e4 100644
 > --- a/drivers/gpu/drm/msm/dp/dp_display.c
 > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -1308,6 +1308,17 @@ static int dp_display_remove(struct platform_device *pdev)
->         return 0;
->  }
->
-> +static int dp_get_sink_count(struct dp_display_private *dp)
+> @@ -27,7 +27,6 @@
+>  #include "dp_audio.h"
+>  #include "dp_debug.h"
+> 
+> -static struct msm_dp *g_dp_display;
+>  #define HPD_STRING_SIZE 30
+> 
+>  enum {
+> @@ -122,6 +121,13 @@ static const struct of_device_id dp_dt_match[] = {
+>  	{}
+>  };
+> 
+> +static struct dp_display_private *dev_to_dp_display_private(struct 
+> device *dev)
 > +{
-> +       u8 sink_count;
+> +	struct msm_dp *dp = dev_get_drvdata(dev);
 > +
-> +       sink_count = drm_dp_read_sink_count(dp->aux);
-
-drm_dp_read_sink_count() returns an int, not a u8. Comparing a u8 to
-less than zero doesn't make any sense as it isn't signed.
-
-> +       if (sink_count < 0)
-> +               return 0;
-> +
-> +       return sink_count;
+> +	return container_of(dp, struct dp_display_private, dp_display);
 > +}
-
-We can drop this function and just have an int count in dp_pm_resume()
-that is compared to < 0 and then ignored.
-
 > +
->  static int dp_pm_resume(struct device *dev)
+>  static int dp_add_event(struct dp_display_private *dp_priv, u32 event,
+>  						u32 data, u32 delay)
 >  {
->         struct platform_device *pdev = to_platform_device(dev);
-> @@ -1327,14 +1338,22 @@ static int dp_pm_resume(struct device *dev)
->
->         dp_catalog_ctrl_hpd_config(dp->catalog);
->
-> -       status = dp_catalog_link_is_connected(dp->catalog);
-> +       /*
-> +        * set sink to normal operation mode -- D0
-> +        * before dpcd read
-> +        */
-> +       dp_link_psm_config(dp->link, &dp->panel->link_info, false);
->
-> +       if ((status = dp_catalog_link_is_connected(dp->catalog)))
-> +               dp->link->sink_count = dp_get_sink_count(dp);
+> @@ -198,14 +204,16 @@ static int dp_display_bind(struct device *dev,
+> struct device *master,
+>  			   void *data)
+>  {
+>  	int rc = 0;
+> -	struct dp_display_private *dp;
+> +	struct dp_display_private *dp = dev_to_dp_display_private(dev);
+>  	struct drm_device *drm;
+>  	struct msm_drm_private *priv;
+> 
+>  	drm = dev_get_drvdata(master);
+> 
+> -	dp = container_of(g_dp_display,
+> -			struct dp_display_private, dp_display);
+> +	if (!dp) {
+> +		DRM_ERROR("DP driver bind failed. Invalid driver data\n");
+> +		return -EINVAL;
+> +	}
+> 
+>  	dp->dp_display.drm_dev = drm;
+>  	priv = drm->dev_private;
+> @@ -240,12 +248,14 @@ static int dp_display_bind(struct device *dev,
+> struct device *master,
+>  static void dp_display_unbind(struct device *dev, struct device 
+> *master,
+>  			      void *data)
+>  {
+> -	struct dp_display_private *dp;
+> +	struct dp_display_private *dp = dev_to_dp_display_private(dev);
+>  	struct drm_device *drm = dev_get_drvdata(master);
+>  	struct msm_drm_private *priv = drm->dev_private;
+> 
+> -	dp = container_of(g_dp_display,
+> -			struct dp_display_private, dp_display);
+> +	if (!dp) {
+> +		DRM_ERROR("Invalid DP driver data\n");
+> +		return;
+> +	}
+> 
+>  	dp_power_client_deinit(dp->power);
+>  	dp_aux_unregister(dp->aux);
+> @@ -376,17 +386,14 @@ static void dp_display_host_deinit(struct
+> dp_display_private *dp)
+>  static int dp_display_usbpd_configure_cb(struct device *dev)
+>  {
+>  	int rc = 0;
+> -	struct dp_display_private *dp;
+> +	struct dp_display_private *dp = dev_to_dp_display_private(dev);
+> 
+> -	if (!dev) {
+> -		DRM_ERROR("invalid dev\n");
+> -		rc = -EINVAL;
+> +	if (!dp) {
+> +		DRM_ERROR("no driver data found\n");
+> +		rc = -ENODEV;
+>  		goto end;
+>  	}
+> 
+> -	dp = container_of(g_dp_display,
+> -			struct dp_display_private, dp_display);
+> -
+>  	dp_display_host_init(dp, false);
+> 
+>  	rc = dp_display_process_hpd_high(dp);
+> @@ -397,17 +404,14 @@ static int dp_display_usbpd_configure_cb(struct
+> device *dev)
+>  static int dp_display_usbpd_disconnect_cb(struct device *dev)
+>  {
+>  	int rc = 0;
+> -	struct dp_display_private *dp;
+> +	struct dp_display_private *dp = dev_to_dp_display_private(dev);
+> 
+> -	if (!dev) {
+> -		DRM_ERROR("invalid dev\n");
+> -		rc = -EINVAL;
+> +	if (!dp) {
+> +		DRM_ERROR("no driver data found\n");
+> +		rc = -ENODEV;
+>  		return rc;
+>  	}
+> 
+> -	dp = container_of(g_dp_display,
+> -			struct dp_display_private, dp_display);
+> -
+>  	dp_add_event(dp, EV_USER_NOTIFICATION, false, 0);
+> 
+>  	return rc;
+> @@ -466,15 +470,15 @@ static int dp_display_usbpd_attention_cb(struct
+> device *dev)
+>  {
+>  	int rc = 0;
+>  	u32 sink_request;
+> -	struct dp_display_private *dp;
+> +	struct dp_display_private *dp = dev_to_dp_display_private(dev);
+> +	struct dp_usbpd *hpd;
+> 
+> -	if (!dev) {
+> -		DRM_ERROR("invalid dev\n");
+> -		return -EINVAL;
+> +	if (!dp) {
+> +		DRM_ERROR("no driver data found\n");
+> +		return -ENODEV;
+>  	}
+> 
+> -	dp = container_of(g_dp_display,
+> -			struct dp_display_private, dp_display);
+> +	hpd = dp->usbpd;
+hpd is unused here. It was removed with 
+https://patches.linaro.org/patch/416670/
 
-Do we need to call drm_dp_read_sink_count_cap() as well?
-
-> +       else
-> +               dp->link->sink_count = 0;
->         /*
->          * can not declared display is connected unless
->          * HDMI cable is plugged in and sink_count of
->          * dongle become 1
->          */
-> -       if (status && dp->link->sink_count)
-
-Is 'status' used anymore? If not, please remove it.
-
-> +       if (dp->link->sink_count)
->                 dp->dp_display.is_connected = true;
->         else
->                 dp->dp_display.is_connected = false;
+> 
+>  	/* check for any test request issued by sink */
+>  	rc = dp_link_process_request(dp->link);
+> @@ -638,7 +642,7 @@ static int dp_hpd_unplug_handle(struct
+> dp_display_private *dp, u32 data)
+>  	dp_add_event(dp, EV_DISCONNECT_PENDING_TIMEOUT, 0, 
+> DP_TIMEOUT_5_SECOND);
+> 
+>  	/* signal the disconnect event early to ensure proper teardown */
+> -	dp_display_handle_plugged_change(g_dp_display, false);
+> +	dp_display_handle_plugged_change(&dp->dp_display, false);
+> 
+>  	/* enable HDP plug interrupt to prepare for next plugin */
+>  	dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_PLUG_INT_MASK, 
+> true);
+> @@ -832,9 +836,7 @@ static int dp_display_prepare(struct msm_dp *dp)
+>  static int dp_display_enable(struct dp_display_private *dp, u32 data)
+>  {
+>  	int rc = 0;
+> -	struct msm_dp *dp_display;
+> -
+> -	dp_display = g_dp_display;
+> +	struct msm_dp *dp_display = &dp->dp_display;
+> 
+>  	if (dp_display->power_on) {
+>  		DRM_DEBUG_DP("Link already setup, return\n");
+> @@ -869,9 +871,7 @@ static int dp_display_post_enable(struct msm_dp 
+> *dp_display)
+> 
+>  static int dp_display_disable(struct dp_display_private *dp, u32 data)
+>  {
+> -	struct msm_dp *dp_display;
+> -
+> -	dp_display = g_dp_display;
+> +	struct msm_dp *dp_display = &dp->dp_display;
+> 
+>  	if (!dp_display->power_on)
+>  		return 0;
+> @@ -1229,14 +1229,13 @@ static int dp_display_probe(struct
+> platform_device *pdev)
+>  	}
+> 
+>  	mutex_init(&dp->event_mutex);
+> -	g_dp_display = &dp->dp_display;
+> 
+>  	/* Store DP audio handle inside DP display */
+> -	g_dp_display->dp_audio = dp->audio;
+> +	dp->dp_display.dp_audio = dp->audio;
+> 
+>  	init_completion(&dp->audio_comp);
+> 
+> -	platform_set_drvdata(pdev, g_dp_display);
+> +	platform_set_drvdata(pdev, &dp->dp_display);
+> 
+>  	rc = component_add(&pdev->dev, &dp_display_comp_ops);
+>  	if (rc) {
+> @@ -1249,10 +1248,7 @@ static int dp_display_probe(struct 
+> platform_device *pdev)
+> 
+>  static int dp_display_remove(struct platform_device *pdev)
+>  {
+> -	struct dp_display_private *dp;
+> -
+> -	dp = container_of(g_dp_display,
+> -			struct dp_display_private, dp_display);
+> +	struct dp_display_private *dp = platform_get_drvdata(pdev);
+> 
+>  	dp_display_deinit_sub_modules(dp);
