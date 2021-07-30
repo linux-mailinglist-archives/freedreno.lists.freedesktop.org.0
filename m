@@ -2,64 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8560A3DAEBA
-	for <lists+freedreno@lfdr.de>; Fri, 30 Jul 2021 00:15:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86A023DB01E
+	for <lists+freedreno@lfdr.de>; Fri, 30 Jul 2021 02:04:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 943656EE8B;
-	Thu, 29 Jul 2021 22:15:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25D586EE9E;
+	Fri, 30 Jul 2021 00:04:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEB4E6EE89
- for <freedreno@lists.freedesktop.org>; Thu, 29 Jul 2021 22:15:12 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id z2so13813112lft.1
- for <freedreno@lists.freedesktop.org>; Thu, 29 Jul 2021 15:15:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=cMLNPPri6qLYLmbcVjGDPuvyqtHljwKPt/Kw2945Q8E=;
- b=gPVrciZQ0H8OrEVgkRGpPXwmnlXGi7IWOCVNplY7URViIvt6MrB0kGudrK2Rk5TNc+
- ZcVQyfxpcAPc3nx1OlPimwZBQanmsrWD3TCAbWJ8wtmeenHGiR60rDWiJbOFqpe9RAGd
- XhUvkfca3FOIF/QVPFCHWWoboKq82Y6QK36tVzauhDzGBIHYR5G3StQ8DKjg3gOmkyn1
- 0dYct0XQJQbYA2J0BgabP/EmLcqPIJ2An8UQX/AU/IIblCqcNCFfiBQwbELmzU1kMbey
- 480no7OxS/qbxI1QyNSwu85Z6VZ99JWTdQJhnZ4Vg0ITHvnf0dVnWo+TlwyhapRvLmFN
- UhQg==
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [IPv6:2a00:1450:4864:20::432])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2BF86EE9B;
+ Fri, 30 Jul 2021 00:04:22 +0000 (UTC)
+Received: by mail-wr1-x432.google.com with SMTP id h14so8886043wrx.10;
+ Thu, 29 Jul 2021 17:04:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=6YU4gr4JLAH79FQY1Mi8gwnDKyTILc7bVIjh7qm7FDU=;
+ b=MqG8qOYtjM2cKzT/ShaVzrAwzlCuFLRrG9X3Ym1zcT1I3XwKuyV7I7QnmCJtRCquoZ
+ D2rBMuHhCA4GfNHrj14ywnxWaXGUl4EBnKvpkJLPocRDngL+/oTZP8kfOSAzaCOWpG2l
+ dZVVrVLl9w+EHN9SEesB5+AtcBaPkK5lbRUuKbex2OU3HAU61FV58LOGh26UY4GMX+wX
+ 4IfJmWBtaSHUq4QAZGfkvZH6uvVFHOV0/2qFlEyzKd6FrQKq0taQMN95C8ZzXABMpq5O
+ iy3/e3HJgYJ3GqpBh0ruc3Q8/menfLSHHvASzYPGaYz7F+Su/72GmJg/1MFmiEP4xujl
+ mvHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=cMLNPPri6qLYLmbcVjGDPuvyqtHljwKPt/Kw2945Q8E=;
- b=WnFIKRYyaaxB9w3RjEkgg6oPC0ecVgBb4s/DcaMgnc+/Fv5Yn6avg3Xd0wgttPfQYB
- tiLenX1Mzj3g8/uQDeux9tE/BSrqv0MCWT79SHMWPKNgcwtIxYth4ZNaH37LePE/5kke
- qYk8zxLU0WGVhMR5jiWi99wpFe7PmskGMFGYfdE1UgZ3IpApAhUfwXP4TVpcFVD2tK3M
- Ea2kOvQvhiIv8FKrzSRhbYQejkPMSeF0UWLfcnL6kWr8/epRSXf35ftAwx8Q0zI2Gcqm
- fX/ktO2n75aROEGOotIlue7STiBlgUO8Iql/Et6fm5R+jslb8CJyw4GKRuLlAwpehS29
- MM/g==
-X-Gm-Message-State: AOAM533bQ3QNRjGtHHmDL4yrbUK+iHBBj6tCPRGCdesb+skn14rffvhJ
- dQ2XhoIsRvsrUb02Ksq4COyMsL8eCTahBA==
-X-Google-Smtp-Source: ABdhPJxntgaYB/1tvYMlU6ktcdkPNVEahQjjruAi4HU1XiR/oTZsvA4LvveewHUduXk6h9s+8nKR3g==
-X-Received: by 2002:a05:6512:118c:: with SMTP id
- g12mr4806358lfr.143.1627596910850; 
- Thu, 29 Jul 2021 15:15:10 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id j14sm455041lfc.20.2021.07.29.15.15.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Jul 2021 15:15:10 -0700 (PDT)
-To: Vinod Koul <vkoul@kernel.org>, Rob Clark <robdclark@gmail.com>
-References: <20210715065203.709914-1-vkoul@kernel.org>
- <20210715065203.709914-7-vkoul@kernel.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <79e693c8-ff9c-d4a8-d4a8-8a1f075f77c7@linaro.org>
-Date: Fri, 30 Jul 2021 01:15:09 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=6YU4gr4JLAH79FQY1Mi8gwnDKyTILc7bVIjh7qm7FDU=;
+ b=aeCdMkf0xbdoSYNjbHF5q+lFnCn07fQ4rcg//aOx6qT84QGpTuEOb60RCA76YwpbWJ
+ sdHcUYM9GQJFOhAGE7CKo1xh6B1dK2ut4vLrnfMeQdabU141ij0NJFTMo/26+IDYk0pv
+ rd8fat7eU28/wmpibD+pND4aE67odsDxWHKRYT8qs9kiPHiqwbZhCkIWZQmf7hntM+w0
+ vdhlMemn1TDVVxmEERzyHyN6+/9ET2Vt2z6riDdAxMlNBcYcRsGVNt7pxYIVzDkESBKD
+ 1ImPVG1ktTfcfgvqd2RODRx6Dl6uXnMob1Cc/QD/sdfkNFVVfRNCL8EeKhyocRF9STkG
+ XFig==
+X-Gm-Message-State: AOAM5301Byw1+SaHha+OBHFa3mRgjoY/naoh1x3YEdvBiccN+rzTXZ4q
+ S2xd9do9FXyOgBmyID/+mrcLiZFHT04+yy0FK64=
+X-Google-Smtp-Source: ABdhPJzVxMoQelwSuCARcI4vG5jeNvmbeM2Fr3Veb5gPC48Ooi8AoPVU6Kz9wLmiX0dohW521AXMHnUwmH2evWHxWUw=
+X-Received: by 2002:a5d:4348:: with SMTP id u8mr35748wrr.28.1627603461037;
+ Thu, 29 Jul 2021 17:04:21 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20210715065203.709914-7-vkoul@kernel.org>
-Content-Language: en-GB
-Subject: Re: [Freedreno] [PATCH 06/11] drm/msm/disp/dpu1: Add DSC support in
- hw_ctl
+References: <20210725032002.3961691-1-bjorn.andersson@linaro.org>
+In-Reply-To: <20210725032002.3961691-1-bjorn.andersson@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 29 Jul 2021 17:08:30 -0700
+Message-ID: <CAF6AEGvADHz7YmOZQTX8g+ZRG1rp7sk9wevgBQsknQytH+eFSA@mail.gmail.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+Subject: Re: [Freedreno] [PATCH] drm: msm: Add 680 gpu to the adreno gpu list
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,88 +60,170 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Marek <jonathan@marek.ca>, Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- Sumit Semwal <sumit.semwal@linaro.org>
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 15/07/2021 09:51, Vinod Koul wrote:
-> Later gens of hardware have DSC bits moved to hw_ctl, so configure these
-> bits so that DSC would work there as well
-> 
-> Signed-off-by: Vinod Koul <vkoul@kernel.org>
+On Sat, Jul 24, 2021 at 8:21 PM Bjorn Andersson
+<bjorn.andersson@linaro.org> wrote:
+>
+> This patch adds a Adreno 680 entry to the gpulist.
+
+Looks reasonable, but I wonder if we should just go ahead and add
+adreno_is_a640_family() in a similar vein to
+adreno_is_a650_familiy()/adreno_is_a660_family().. I think most of the
+'if (a640) ...' should also apply to a680?
+
+BR,
+-R
+
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 7 ++++++-
->   1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> index 2d4645e01ebf..aeea6add61ee 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> @@ -25,6 +25,8 @@
->   #define   CTL_MERGE_3D_ACTIVE           0x0E4
->   #define   CTL_INTF_ACTIVE               0x0F4
->   #define   CTL_MERGE_3D_FLUSH            0x100
-> +#define   CTL_DSC_ACTIVE                0x0E8
-> +#define   CTL_DSC_FLUSH                0x104
->   #define   CTL_INTF_FLUSH                0x110
->   #define   CTL_INTF_MASTER               0x134
->   #define   CTL_FETCH_PIPE_ACTIVE         0x0FC
-> @@ -34,6 +36,7 @@
->   
->   #define DPU_REG_RESET_TIMEOUT_US        2000
->   #define  MERGE_3D_IDX   23
-> +#define  DSC_IDX        22
->   #define  INTF_IDX       31
->   #define CTL_INVALID_BIT                 0xffff
->   
-> @@ -120,6 +123,7 @@ static u32 dpu_hw_ctl_get_pending_flush(struct dpu_hw_ctl *ctx)
->   
->   static inline void dpu_hw_ctl_trigger_flush_v1(struct dpu_hw_ctl *ctx)
->   {
-> +	DPU_REG_WRITE(&ctx->hw, CTL_DSC_FLUSH, BIT(0) | BIT(1) | BIT(2) | BIT(3));
-
-Please pass DSC indices using intf cfg and use them to configure 
-register writes.
-
->   
->   	if (ctx->pending_flush_mask & BIT(MERGE_3D_IDX))
->   		DPU_REG_WRITE(&ctx->hw, CTL_MERGE_3D_FLUSH,
-> @@ -128,7 +132,7 @@ static inline void dpu_hw_ctl_trigger_flush_v1(struct dpu_hw_ctl *ctx)
->   		DPU_REG_WRITE(&ctx->hw, CTL_INTF_FLUSH,
->   				ctx->pending_intf_flush_mask);
->   
-> -	DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, ctx->pending_flush_mask);
-> +	DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, ctx->pending_flush_mask |  BIT(DSC_IDX));
-
-Only if DSCs are used
-
->   }
->   
->   static inline void dpu_hw_ctl_trigger_flush(struct dpu_hw_ctl *ctx)
-> @@ -507,6 +511,7 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
->   	if (cfg->merge_3d)
->   		DPU_REG_WRITE(c, CTL_MERGE_3D_ACTIVE,
->   			      BIT(cfg->merge_3d - MERGE_3D_0));
-> +	DPU_REG_WRITE(c, CTL_DSC_ACTIVE, BIT(0) | BIT(1) | BIT(2) | BIT(3));
-
-And here
-
->   }
->   
->   static void dpu_hw_ctl_intf_cfg(struct dpu_hw_ctl *ctx,
-> 
-
-
--- 
-With best wishes
-Dmitry
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c      |  5 +++--
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 12 +++++++-----
+>  drivers/gpu/drm/msm/adreno/a6xx_hfi.c      |  2 +-
+>  drivers/gpu/drm/msm/adreno/adreno_device.c | 13 +++++++++++++
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  5 +++++
+>  5 files changed, 29 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> index b349692219b7..1c0d75e1189f 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> @@ -521,7 +521,8 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
+>
+>         if (adreno_is_a650(adreno_gpu) || adreno_is_a660(adreno_gpu))
+>                 pdc_in_aop = true;
+> -       else if (adreno_is_a618(adreno_gpu) || adreno_is_a640(adreno_gpu))
+> +       else if (adreno_is_a618(adreno_gpu) || adreno_is_a640(adreno_gpu) ||
+> +                adreno_is_a680(adreno_gpu))
+>                 pdc_address_offset = 0x30090;
+>         else
+>                 pdc_address_offset = 0x30080;
+> @@ -1522,7 +1523,7 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+>                         SZ_16M - SZ_16K, 0x04000);
+>                 if (ret)
+>                         goto err_memory;
+> -       } else if (adreno_is_a640(adreno_gpu)) {
+> +       } else if (adreno_is_a640(adreno_gpu) || adreno_is_a680(adreno_gpu)) {
+>                 ret = a6xx_gmu_memory_alloc(gmu, &gmu->icache,
+>                         SZ_256K - SZ_16K, 0x04000);
+>                 if (ret)
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index 9c5e4618aa0a..5cdafc6c8bb0 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -683,7 +683,7 @@ static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
+>         if (adreno_is_a618(adreno_gpu))
+>                 return;
+>
+> -       if (adreno_is_a640(adreno_gpu))
+> +       if (adreno_is_a640(adreno_gpu) || adreno_is_a680(adreno_gpu))
+>                 amsbc = 1;
+>
+>         if (adreno_is_a650(adreno_gpu) || adreno_is_a660(adreno_gpu)) {
+> @@ -757,7 +757,7 @@ static bool a6xx_ucode_check_version(struct a6xx_gpu *a6xx_gpu,
+>          * a660 targets have all the critical security fixes from the start
+>          */
+>         if (adreno_is_a618(adreno_gpu) || adreno_is_a630(adreno_gpu) ||
+> -               adreno_is_a640(adreno_gpu)) {
+> +           adreno_is_a640(adreno_gpu) || adreno_is_a680(adreno_gpu)) {
+>                 /*
+>                  * If the lowest nibble is 0xa that is an indication that this
+>                  * microcode has been patched. The actual version is in dword
+> @@ -897,7 +897,8 @@ static int a6xx_hw_init(struct msm_gpu *gpu)
+>         a6xx_set_hwcg(gpu, true);
+>
+>         /* VBIF/GBIF start*/
+> -       if (adreno_is_a640(adreno_gpu) || adreno_is_a650_family(adreno_gpu)) {
+> +       if (adreno_is_a640(adreno_gpu) || adreno_is_a650_family(adreno_gpu) ||
+> +           adreno_is_a680(adreno_gpu)) {
+>                 gpu_write(gpu, REG_A6XX_GBIF_QSB_SIDE0, 0x00071620);
+>                 gpu_write(gpu, REG_A6XX_GBIF_QSB_SIDE1, 0x00071620);
+>                 gpu_write(gpu, REG_A6XX_GBIF_QSB_SIDE2, 0x00071620);
+> @@ -935,7 +936,8 @@ static int a6xx_hw_init(struct msm_gpu *gpu)
+>         gpu_write(gpu, REG_A6XX_UCHE_FILTER_CNTL, 0x804);
+>         gpu_write(gpu, REG_A6XX_UCHE_CACHE_WAYS, 0x4);
+>
+> -       if (adreno_is_a640(adreno_gpu) || adreno_is_a650_family(adreno_gpu))
+> +       if (adreno_is_a640(adreno_gpu) || adreno_is_a650_family(adreno_gpu) ||
+> +           adreno_is_a680(adreno_gpu))
+>                 gpu_write(gpu, REG_A6XX_CP_ROQ_THRESHOLDS_2, 0x02000140);
+>         else
+>                 gpu_write(gpu, REG_A6XX_CP_ROQ_THRESHOLDS_2, 0x010000c0);
+> @@ -952,7 +954,7 @@ static int a6xx_hw_init(struct msm_gpu *gpu)
+>         */
+>         if (adreno_is_a650(adreno_gpu) || adreno_is_a660(adreno_gpu))
+>                 gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00300200);
+> -       else if (adreno_is_a640(adreno_gpu))
+> +       else if (adreno_is_a640(adreno_gpu) || adreno_is_a680(adreno_gpu))
+>                 gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00200200);
+>         else
+>                 gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00180000);
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+> index 919433732b43..df8af237cf6a 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+> @@ -428,7 +428,7 @@ static int a6xx_hfi_send_bw_table(struct a6xx_gmu *gmu)
+>
+>         if (adreno_is_a618(adreno_gpu))
+>                 a618_build_bw_table(&msg);
+> -       else if (adreno_is_a640(adreno_gpu))
+> +       else if (adreno_is_a640(adreno_gpu) || adreno_is_a680(adreno_gpu))
+>                 a640_build_bw_table(&msg);
+>         else if (adreno_is_a650(adreno_gpu))
+>                 a650_build_bw_table(&msg);
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> index 6dad8015c9a1..799e4a35ca44 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> @@ -300,6 +300,19 @@ static const struct adreno_info gpulist[] = {
+>                 .init = a6xx_gpu_init,
+>                 .zapfw = "a660_zap.mdt",
+>                 .hwcg = a660_hwcg,
+> +       }, {
+> +               .rev = ADRENO_REV(6, 8, 0, ANY_ID),
+> +               .revn = 680,
+> +               .name = "A680",
+> +               .fw = {
+> +                       [ADRENO_FW_SQE] = "a630_sqe.fw",
+> +                       [ADRENO_FW_GMU] = "a640_gmu.bin",
+> +               },
+> +               .gmem = SZ_2M,
+> +               .inactive_period = DRM_MSM_INACTIVE_PERIOD,
+> +               .init = a6xx_gpu_init,
+> +               .zapfw = "a640_zap.mdt",
+> +               .hwcg = a640_hwcg,
+>         },
+>  };
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> index 8dbe0d157520..a7e843e81b1e 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> @@ -258,6 +258,11 @@ static inline int adreno_is_a650_family(struct adreno_gpu *gpu)
+>         return gpu->revn == 650 || gpu->revn == 620 || gpu->revn == 660;
+>  }
+>
+> +static inline int adreno_is_a680(struct adreno_gpu *gpu)
+> +{
+> +       return gpu->revn == 680;
+> +}
+> +
+>  int adreno_get_param(struct msm_gpu *gpu, uint32_t param, uint64_t *value);
+>  const struct firmware *adreno_request_fw(struct adreno_gpu *adreno_gpu,
+>                 const char *fwname);
+> --
+> 2.29.2
+>
 _______________________________________________
 Freedreno mailing list
 Freedreno@lists.freedesktop.org
