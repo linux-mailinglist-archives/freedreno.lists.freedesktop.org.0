@@ -2,74 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AFEE3DDC68
-	for <lists+freedreno@lfdr.de>; Mon,  2 Aug 2021 17:27:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26FC93DDD42
+	for <lists+freedreno@lfdr.de>; Mon,  2 Aug 2021 18:10:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8AD56E202;
-	Mon,  2 Aug 2021 15:27:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D124E6E083;
+	Mon,  2 Aug 2021 16:10:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D1D66E090;
- Mon,  2 Aug 2021 15:27:31 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id t128so24565012oig.1;
- Mon, 02 Aug 2021 08:27:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=612/JVdKAz1qdrtNpS+wKTTb6C92VSuWsomQcNmS5Mw=;
- b=k3gDCijKpvOLyL5osu46BBobyi+eSCbNv6R0x4S/mAxFFGoTA25WmxUEzODNRjvTKt
- Xk+vmOzepQRJMVRqvx0hSVVErn6TK0GTe14yxFEc02uwNkgAMVgUl2kl0lT3elgNYmTt
- L7HFIfl3pAqQ4JZ60bX2stn3eMNAdvibdRjceyHRUOgdfNWq8EH2rswHqgH/mKmlYflA
- wbu0IDekH+x7W4PibMOZRxgx6UwJeAf+apaD0H6iJhYwLSMZD4qo07rhnsNNjK801nwH
- qGbGuaVRn7G7az9xcoRi9BBDrPzZcqVIW5hpMh0m5CZ55dv7xcBaxaHjLGIbYlSpo2th
- uM7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=612/JVdKAz1qdrtNpS+wKTTb6C92VSuWsomQcNmS5Mw=;
- b=Oi5iQC8NAt0Qi4W7c686gKI8OCjOjrqFyVo2PI2b0EiFcY54DQZdkY0Xbgkyf0ymD9
- U+wxa2qmkQsh7ADK4Am6XmiSQD0JtsqfXskDm09S+cSbiNy7nzglVf4Mnl4004gx3gS4
- QGYyIWsbtD2/EsIwMHDheVtmbGvwqZJrzc4XL5pG9BVX4kQsPb69E0QU/oxoUX7mhmIF
- 18toEqfhNK8eGNJiMqNsWjuWn2oe5k6lAJGb7hqrIdG0bUx8d5fct4U6XzzTYWzbUbXy
- Faar0wgpKNTTQgOdMii5c6dPGTS0LnYfytCJE1uTI2+BnWJXmdJX2MOTUyTWpTJ1itMT
- dQuw==
-X-Gm-Message-State: AOAM531jKN4pCyEMusgFi9dFRrc4d8+3V98+K+yFjkOoz1I0YrUQZeG/
- Hkkjmrlkh5hLR7ScSMwSoa9KATlsRYU0rwIpLTc=
-X-Google-Smtp-Source: ABdhPJwKUpNeOIXqOAgml/bHU3F1D89teHU+7ObGdkrtZ0l8aGwF4bh0Xdvq4fQzSAcsYvJIyhG0YWEombYoR93sNYA=
-X-Received: by 2002:aca:53ca:: with SMTP id h193mr8387560oib.5.1627918049331; 
- Mon, 02 Aug 2021 08:27:29 -0700 (PDT)
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2493F6E083
+ for <freedreno@lists.freedesktop.org>; Mon,  2 Aug 2021 16:10:35 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1627920638; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=RcmCVefjMH6l9oNkIcTgBxKj15suM9Nyc7u4Bfq5P6s=;
+ b=QBr6xI8zbdOCwtPX59Sj4i1WL596euM8+eO5cMqqX/V/acF0NAKXsN/MLm1FpIKIaWVMVjA7
+ ZcdVDZNhLvbHhSyFGl+WjSDw+Qy4+WNotogGmCDFcO5sP1F4FiIEa4AI5Y4cIv/PsONMPgbg
+ P10Pc2MDEK0BLUOYFXIQAdZgugk=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n06.prod.us-east-1.postgun.com with SMTP id
+ 610818e1290ea35ee610911d (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 02 Aug 2021 16:10:09
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 8E37DC4338A; Mon,  2 Aug 2021 16:10:08 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 436C1C433D3;
+ Mon,  2 Aug 2021 16:10:06 +0000 (UTC)
 MIME-Version: 1.0
-References: <20210727182721.17981-1-tzimmermann@suse.de>
- <20210727182721.17981-10-tzimmermann@suse.de>
-In-Reply-To: <20210727182721.17981-10-tzimmermann@suse.de>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 2 Aug 2021 11:27:18 -0400
-Message-ID: <CADnq5_O+ahz4_rgc5gGv=ZJ+vj21s2=6Y2wSkSoC7j55CP_LHQ@mail.gmail.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Daniel Vetter <daniel@ffwll.ch>, Dave Airlie <airlied@linux.ie>, 
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>, 
- Liviu Dudau <liviu.dudau@arm.com>, Brian Starkey <brian.starkey@arm.com>, 
- Sam Ravnborg <sam@ravnborg.org>, bbrezillon@kernel.org,
- nicolas.ferre@microchip.com, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Stefan Agner <stefan@agner.ch>, alison.wang@nxp.com, 
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, anitha.chrisanthus@intel.com, 
- Rob Clark <robdclark@gmail.com>, edmund.j.dea@intel.com,
- Sean Paul <sean@poorly.run>, 
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Sascha Hauer <kernel@pengutronix.de>, jyri.sarha@iki.fi, tomba@kernel.org, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, 
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>, 
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- freedreno <freedreno@lists.freedesktop.org>, 
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 09/14] drm/radeon: Convert to Linux IRQ
- interfaces
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Mon, 02 Aug 2021 09:10:06 -0700
+From: khsieh@codeaurora.org
+To: Stephen Boyd <swboyd@chromium.org>
+Cc: agross@kernel.org, bjorn.andersson@linaro.org, robdclark@gmail.com,
+ sean@poorly.run, vkoul@kernel.org, abhinavk@codeaurora.org,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <CAE-0n51cNywB2ThQxqS4iX-d7wR+rYXt8P33o9cUq9J6tT915A@mail.gmail.com>
+References: <1627507854-16733-1-git-send-email-khsieh@codeaurora.org>
+ <CAE-0n51cNywB2ThQxqS4iX-d7wR+rYXt8P33o9cUq9J6tT915A@mail.gmail.com>
+Message-ID: <781ad3c4973b3f8dd83933a451b266b9@codeaurora.org>
+X-Sender: khsieh@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: update is_connected status base
+ on sink count at dp_pm_resume()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,161 +75,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jul 27, 2021 at 2:27 PM Thomas Zimmermann <tzimmermann@suse.de> wrote:
->
-> Drop the DRM IRQ midlayer in favor of Linux IRQ interfaces. DRM's
-> IRQ helpers are mostly useful for UMS drivers. Modern KMS drivers
-> don't benefit from using it.
->
-> DRM IRQ callbacks are now being called directly or inlined.
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-> ---
->  drivers/gpu/drm/radeon/radeon_drv.c     |  4 ---
->  drivers/gpu/drm/radeon/radeon_irq_kms.c | 44 +++++++++++++++++++++----
->  drivers/gpu/drm/radeon/radeon_kms.h     |  4 ---
->  3 files changed, 37 insertions(+), 15 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-> index c8dd68152d65..b74cebca1f89 100644
-> --- a/drivers/gpu/drm/radeon/radeon_drv.c
-> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
-> @@ -607,10 +607,6 @@ static const struct drm_driver kms_driver = {
->         .postclose = radeon_driver_postclose_kms,
->         .lastclose = radeon_driver_lastclose_kms,
->         .unload = radeon_driver_unload_kms,
-> -       .irq_preinstall = radeon_driver_irq_preinstall_kms,
-> -       .irq_postinstall = radeon_driver_irq_postinstall_kms,
-> -       .irq_uninstall = radeon_driver_irq_uninstall_kms,
-> -       .irq_handler = radeon_driver_irq_handler_kms,
->         .ioctls = radeon_ioctls_kms,
->         .num_ioctls = ARRAY_SIZE(radeon_ioctls_kms),
->         .dumb_create = radeon_mode_dumb_create,
-> diff --git a/drivers/gpu/drm/radeon/radeon_irq_kms.c b/drivers/gpu/drm/radeon/radeon_irq_kms.c
-> index a36ce826d0c0..3907785d0798 100644
-> --- a/drivers/gpu/drm/radeon/radeon_irq_kms.c
-> +++ b/drivers/gpu/drm/radeon/radeon_irq_kms.c
-> @@ -31,7 +31,7 @@
->
->  #include <drm/drm_crtc_helper.h>
->  #include <drm/drm_device.h>
-> -#include <drm/drm_irq.h>
-> +#include <drm/drm_drv.h>
->  #include <drm/drm_probe_helper.h>
->  #include <drm/drm_vblank.h>
->  #include <drm/radeon_drm.h>
-> @@ -51,7 +51,7 @@
->   * radeon_irq_process is a macro that points to the per-asic
->   * irq handler callback.
->   */
-> -irqreturn_t radeon_driver_irq_handler_kms(int irq, void *arg)
-> +static irqreturn_t radeon_driver_irq_handler_kms(int irq, void *arg)
->  {
->         struct drm_device *dev = (struct drm_device *) arg;
->         struct radeon_device *rdev = dev->dev_private;
-> @@ -118,7 +118,7 @@ static void radeon_dp_work_func(struct work_struct *work)
->   * Gets the hw ready to enable irqs (all asics).
->   * This function disables all interrupt sources on the GPU.
->   */
-> -void radeon_driver_irq_preinstall_kms(struct drm_device *dev)
-> +static void radeon_driver_irq_preinstall_kms(struct drm_device *dev)
->  {
->         struct radeon_device *rdev = dev->dev_private;
->         unsigned long irqflags;
-> @@ -150,7 +150,7 @@ void radeon_driver_irq_preinstall_kms(struct drm_device *dev)
->   * Handles stuff to be done after enabling irqs (all asics).
->   * Returns 0 on success.
->   */
-> -int radeon_driver_irq_postinstall_kms(struct drm_device *dev)
-> +static int radeon_driver_irq_postinstall_kms(struct drm_device *dev)
->  {
->         struct radeon_device *rdev = dev->dev_private;
->
-> @@ -169,7 +169,7 @@ int radeon_driver_irq_postinstall_kms(struct drm_device *dev)
->   *
->   * This function disables all interrupt sources on the GPU (all asics).
->   */
-> -void radeon_driver_irq_uninstall_kms(struct drm_device *dev)
-> +static void radeon_driver_irq_uninstall_kms(struct drm_device *dev)
->  {
->         struct radeon_device *rdev = dev->dev_private;
->         unsigned long irqflags;
-> @@ -194,6 +194,36 @@ void radeon_driver_irq_uninstall_kms(struct drm_device *dev)
->         spin_unlock_irqrestore(&rdev->irq.lock, irqflags);
->  }
->
-> +static int radeon_irq_install(struct radeon_device *rdev, int irq)
-> +{
-> +       struct drm_device *dev = rdev->ddev;
-> +       int ret;
-> +
-> +       if (irq == IRQ_NOTCONNECTED)
-> +               return -ENOTCONN;
-> +
-> +       radeon_driver_irq_preinstall_kms(dev);
-> +
-> +       /* PCI devices require shared interrupts. */
-> +       ret = request_irq(irq, radeon_driver_irq_handler_kms,
-> +                         IRQF_SHARED, dev->driver->name, dev);
-> +       if (ret)
-> +               return ret;
-> +
-> +       radeon_driver_irq_postinstall_kms(dev);
-> +
-> +       return 0;
-> +}
-> +
-> +static void radeon_irq_uninstall(struct radeon_device *rdev)
-> +{
-> +       struct drm_device *dev = rdev->ddev;
-> +       struct pci_dev *pdev = to_pci_dev(dev->dev);
-> +
-> +       radeon_driver_irq_uninstall_kms(dev);
-> +       free_irq(pdev->irq, dev);
-> +}
-> +
->  /**
->   * radeon_msi_ok - asic specific msi checks
->   *
-> @@ -314,7 +344,7 @@ int radeon_irq_kms_init(struct radeon_device *rdev)
->         INIT_WORK(&rdev->audio_work, r600_audio_update_hdmi);
->
->         rdev->irq.installed = true;
-> -       r = drm_irq_install(rdev->ddev, rdev->pdev->irq);
-> +       r = radeon_irq_install(rdev, rdev->pdev->irq);
->         if (r) {
->                 rdev->irq.installed = false;
->                 flush_delayed_work(&rdev->hotplug_work);
-> @@ -335,7 +365,7 @@ int radeon_irq_kms_init(struct radeon_device *rdev)
->  void radeon_irq_kms_fini(struct radeon_device *rdev)
->  {
->         if (rdev->irq.installed) {
-> -               drm_irq_uninstall(rdev->ddev);
-> +               radeon_irq_uninstall(rdev);
->                 rdev->irq.installed = false;
->                 if (rdev->msi_enabled)
->                         pci_disable_msi(rdev->pdev);
-> diff --git a/drivers/gpu/drm/radeon/radeon_kms.h b/drivers/gpu/drm/radeon/radeon_kms.h
-> index 9b97bf38acd4..36e73cea9215 100644
-> --- a/drivers/gpu/drm/radeon/radeon_kms.h
-> +++ b/drivers/gpu/drm/radeon/radeon_kms.h
-> @@ -31,9 +31,5 @@
->  u32 radeon_get_vblank_counter_kms(struct drm_crtc *crtc);
->  int radeon_enable_vblank_kms(struct drm_crtc *crtc);
->  void radeon_disable_vblank_kms(struct drm_crtc *crtc);
-> -irqreturn_t radeon_driver_irq_handler_kms(int irq, void *arg);
-> -void radeon_driver_irq_preinstall_kms(struct drm_device *dev);
-> -int radeon_driver_irq_postinstall_kms(struct drm_device *dev);
-> -void radeon_driver_irq_uninstall_kms(struct drm_device *dev);
->
->  #endif                         /* __RADEON_KMS_H__ */
-> --
-> 2.32.0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+On 2021-07-30 11:57, Stephen Boyd wrote:
+> Quoting Kuogee Hsieh (2021-07-28 14:30:54)
+>> Currently at dp_pm_resume() is_connected state is decided base on hpd 
+>> connection
+>> status only. This will put is_connected in wrongly "true" state at the 
+>> scenario
+>> that dongle attached to DUT but without hmdi cable connecting to it. 
+>> Fix this
+>> problem by adding read sink count from dongle and decided is_connected 
+>> state base
+>> on both sink count and hpd connection status.
+>> 
+> 
+> Please add a Fixes tag.
+> 
+>> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+>> ---
+>>  drivers/gpu/drm/msm/dp/dp_display.c | 23 +++++++++++++++++++++--
+>>  1 file changed, 21 insertions(+), 2 deletions(-)
+>> 
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c 
+>> b/drivers/gpu/drm/msm/dp/dp_display.c
+>> index 2b660e9..9bcb261 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>> @@ -1308,6 +1308,17 @@ static int dp_display_remove(struct 
+>> platform_device *pdev)
+>>         return 0;
+>>  }
+>> 
+>> +static int dp_get_sink_count(struct dp_display_private *dp)
+>> +{
+>> +       u8 sink_count;
+>> +
+>> +       sink_count = drm_dp_read_sink_count(dp->aux);
+> 
+> drm_dp_read_sink_count() returns an int, not a u8. Comparing a u8 to
+> less than zero doesn't make any sense as it isn't signed.
+> 
+>> +       if (sink_count < 0)
+>> +               return 0;
+>> +
+>> +       return sink_count;
+>> +}
+> 
+> We can drop this function and just have an int count in dp_pm_resume()
+> that is compared to < 0 and then ignored.
+> 
+>> +
+>>  static int dp_pm_resume(struct device *dev)
+>>  {
+>>         struct platform_device *pdev = to_platform_device(dev);
+>> @@ -1327,14 +1338,22 @@ static int dp_pm_resume(struct device *dev)
+>> 
+>>         dp_catalog_ctrl_hpd_config(dp->catalog);
+>> 
+>> -       status = dp_catalog_link_is_connected(dp->catalog);
+>> +       /*
+>> +        * set sink to normal operation mode -- D0
+>> +        * before dpcd read
+>> +        */
+>> +       dp_link_psm_config(dp->link, &dp->panel->link_info, false);
+>> 
+>> +       if ((status = dp_catalog_link_is_connected(dp->catalog)))
+>> +               dp->link->sink_count = dp_get_sink_count(dp);
+> 
+> Do we need to call drm_dp_read_sink_count_cap() as well?
+no, we only need sink_count
+> 
+>> +       else
+>> +               dp->link->sink_count = 0;
+>>         /*
+>>          * can not declared display is connected unless
+>>          * HDMI cable is plugged in and sink_count of
+>>          * dongle become 1
+>>          */
+>> -       if (status && dp->link->sink_count)
+> 
+> Is 'status' used anymore? If not, please remove it.
+Yes, it still used which used to decided to perform dpcd read sink count 
+or not
+> 
+>> +       if (dp->link->sink_count)
+>>                 dp->dp_display.is_connected = true;
+>>         else
+>>                 dp->dp_display.is_connected = false;
