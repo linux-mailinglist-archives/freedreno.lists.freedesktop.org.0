@@ -2,50 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2DE63DD45E
-	for <lists+freedreno@lfdr.de>; Mon,  2 Aug 2021 12:55:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31F8D3DDB70
+	for <lists+freedreno@lfdr.de>; Mon,  2 Aug 2021 16:46:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F8B86E204;
-	Mon,  2 Aug 2021 10:55:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD45789E06;
+	Mon,  2 Aug 2021 14:46:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BF1D89F9F;
- Mon,  2 Aug 2021 10:55:51 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 99A0860FD8;
- Mon,  2 Aug 2021 10:55:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1627901751;
- bh=FydgtdwsRp9EnGLAnZNQbni8BGi4iPlFDNZ5+Emj/bA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=MvBW1mFBfhWkp0RBKF+6rg70GNMqy/Ec+rGLHr9Ib+LS8A4Wn5wG+szv9Xfj8Z6QI
- 6fUU9w5xm+BMjbL9SbQ0Oso5xWOJ89CdZuCx2EF1mHeGKGSqOKSWyyDXtlZiM+X7VM
- l6LHTB6s9uL2CWcNTxtbGafHUBYmR24zuSfY+KRQOVaCTmDzulBFvuP5vqjUPF/STf
- GZAlfD1MvRTjG2fhXvc6VcceLei2ZKbtfdSkQxmg6r2vWyg1rKF4+s7Bvl1XGDyY76
- nqYofb5tXVzNHKDJ1m7EUsm3XyckKGDN1FlCa2R4Sqn1VxZZvZ7cMat6rEfaDEADzU
- kXlX2gcQrkz5Q==
-Date: Mon, 2 Aug 2021 11:55:45 +0100
-From: Will Deacon <will@kernel.org>
-To: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>
-Cc: Georgi Djakov <djakov@kernel.org>, isaacm@codeaurora.org,
- David Airlie <airlied@linux.ie>, Akhil P Oommen <akhilpo@codeaurora.org>,
- iommu@lists.linux-foundation.org, linux-kernel@vger.kernel.org,
- Sean Paul <sean@poorly.run>, Jordan Crouse <jcrouse@codeaurora.org>,
- Kristian H Kristensen <hoegsberg@google.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, freedreno <freedreno@lists.freedesktop.org>,
- Robin Murphy <robin.murphy@arm.com>, linux-arm-kernel@lists.infradead.org
-Message-ID: <20210802105544.GA27657@willie-the-truck>
-References: <cover.1610372717.git.saiprakash.ranjan@codeaurora.org>
- <20210728140052.GB22887@mms-0441>
- <8b2742c8891abe4fec3664730717a089@codeaurora.org>
+Received: from mail-vs1-xe2f.google.com (mail-vs1-xe2f.google.com
+ [IPv6:2607:f8b0:4864:20::e2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A112789E05;
+ Mon,  2 Aug 2021 14:46:42 +0000 (UTC)
+Received: by mail-vs1-xe2f.google.com with SMTP id j19so9663918vso.0;
+ Mon, 02 Aug 2021 07:46:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=TuUOxCKnvZSNTFcvco20X5jOuFpWKd95m2InPWTRPsw=;
+ b=RtBUfygHY26LCx3H6AhwuFsqkg/TeNax2vo51jDZ7ZZmxLhDYNAWATRpuSA2lOk1qq
+ 1RzKn0/Rmgnz0mDOwlwbBZsRcB547tVGsgZ3Je/zBGaqNVZJDd3bINWmCJPrqUoankRg
+ KzCG+HBiS95eEkTnQfhNZIXSgfBOHdF+TTIFOVFxqztBiPeBgGJUaINMNnPeCBe9Dl9U
+ bN4J2BNmGDu44OSkjQ5fzwLamqBTEDg9+r31b/9HgGGpRms0ECnz71ELZd1c8MkC2GoK
+ 1MVdlLiiBxzwzxaxeHO3ZNy6dvBAtIE1jajQvGv/P7UOfpP/3+NEjzEtQMSCB3NutSJb
+ qIfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=TuUOxCKnvZSNTFcvco20X5jOuFpWKd95m2InPWTRPsw=;
+ b=Uq/wRcD94Ka4xWBG5C2yXfaPyOHCUXwyXjs2VcG6RXSEFWCI67NQbpA6hQt3fSWu5q
+ Psi1SSWS5y2h3QQ46lYEl4fdsVrvo+mhx5nTLZSpQJK1JPckxM2677yrO2DuIWdSrBl8
+ ekfGWLcYJBmSGlbL+wA9hnwM2SWY6Qf/VNk2UunQTqs0TfI3XY8ZuMm+VnY7KDjJ82k6
+ 8uU7Seiyn8uLwhPiMkj/zmdEgorti12iLmbdcRRsIGJwWCV9+cQjNv/6B5a1BIamBBV0
+ 0QJcR+2VddJdOK8yfBUEGUKualC+3LAKxGX/jBT0EM8ZNLnaSdvXqI3QivfQ8PQnyDQ6
+ ES9Q==
+X-Gm-Message-State: AOAM532Wudy6xfpHqrm1+SwZJzAO+xwdtA9vMrME/nFi+w9W94kcAEjv
+ Q4BKKMl5WuG1kvnK8FxJ1/RxDUSTABK1gHJWMD4=
+X-Google-Smtp-Source: ABdhPJwsMGK6fB6ykQXW0Hx1xMgqyEPEnorp+p3inrn+bk5OYy5Jq2OmodindHawgFS4opL0ZbVg2C9ViLxio48Z1lw=
+X-Received: by 2002:a67:f30a:: with SMTP id p10mr9764065vsf.58.1627915599321; 
+ Mon, 02 Aug 2021 07:46:39 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8b2742c8891abe4fec3664730717a089@codeaurora.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH 0/3] iommu/drm/msm: Allow non-coherent
- masters to use system cache
+References: <20210709024834.29680-1-jrdr.linux@gmail.com>
+ <CAE-0n51cqCz4JD75n4ZZV2LDxbB6b0QwJ-La2hU8mnPcckNmSg@mail.gmail.com>
+In-Reply-To: <CAE-0n51cqCz4JD75n4ZZV2LDxbB6b0QwJ-La2hU8mnPcckNmSg@mail.gmail.com>
+From: Souptick Joarder <jrdr.linux@gmail.com>
+Date: Mon, 2 Aug 2021 20:16:26 +0530
+Message-ID: <CAFqt6zZYK+EdePnex_D839XzMV=zXsdAd4bHKdCgX4gtUb1K5g@mail.gmail.com>
+To: Stephen Boyd <swboyd@chromium.org>
+Cc: abhinavk@codeaurora.org, David Airlie <airlied@linux.ie>,
+ chandanu@codeaurora.org, 
+ Daniel Vetter <daniel@ffwll.ch>, dmitry.baryshkov@linaro.org,
+ khsieh@codeaurora.org, 
+ Rob Clark <robdclark@gmail.com>, sean@poorly.run, tanmay@codeaurora.org, 
+ linux-arm-msm@vger.kernel.org, dri-devel <dri-devel@lists.freedesktop.org>, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ kernel test robot <lkp@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Remove unused variable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,29 +73,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jul 29, 2021 at 10:08:22AM +0530, Sai Prakash Ranjan wrote:
-> On 2021-07-28 19:30, Georgi Djakov wrote:
-> > On Mon, Jan 11, 2021 at 07:45:02PM +0530, Sai Prakash Ranjan wrote:
-> > > commit ecd7274fb4cd ("iommu: Remove unused IOMMU_SYS_CACHE_ONLY flag")
-> > > removed unused IOMMU_SYS_CACHE_ONLY prot flag and along with it went
-> > > the memory type setting required for the non-coherent masters to use
-> > > system cache. Now that system cache support for GPU is added, we will
-> > > need to set the right PTE attribute for GPU buffers to be sys cached.
-> > > Without this, the system cache lines are not allocated for GPU.
-> > > 
-> > > So the patches in this series introduces a new prot flag IOMMU_LLC,
-> > > renames IO_PGTABLE_QUIRK_ARM_OUTER_WBWA to IO_PGTABLE_QUIRK_PTW_LLC
-> > > and makes GPU the user of this protection flag.
-> > 
-> > Thank you for the patchset! Are you planning to refresh it, as it does
-> > not apply anymore?
-> > 
-> 
-> I was waiting on Will's reply [1]. If there are no changes needed, then
-> I can repost the patch.
+On Thu, Jul 15, 2021 at 3:09 AM Stephen Boyd <swboyd@chromium.org> wrote:
+>
+> Quoting Souptick Joarder (2021-07-08 19:48:34)
+> > Kernel test roobot throws below warning ->
+> >
+> > drivers/gpu/drm/msm/dp/dp_display.c:1017:21:
+> > warning: variable 'drm' set but not used [-Wunused-but-set-variable]
+> >
+> > Removed unused variable drm.
+> >
 
-I still think you need to handle the mismatched alias, no? You're adding
-a new memory type to the SMMU which doesn't exist on the CPU side. That
-can't be right.
+Can we get this in queue for 5.15, if no further comment ?
 
-Will
+
+> > Reported-by: kernel test robot <lkp@intel.com>
+> > Signed-off-by: Souptick Joarder <jrdr.linux@gmail.com>
+> > ---
+>
+> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
