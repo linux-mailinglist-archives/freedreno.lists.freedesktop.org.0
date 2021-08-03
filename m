@@ -2,78 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C27C13DE9C3
-	for <lists+freedreno@lfdr.de>; Tue,  3 Aug 2021 11:37:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5CE33DEAAA
+	for <lists+freedreno@lfdr.de>; Tue,  3 Aug 2021 12:17:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CB616E51C;
-	Tue,  3 Aug 2021 09:37:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8427389FCA;
+	Tue,  3 Aug 2021 10:17:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 835B56E509
- for <freedreno@lists.freedesktop.org>; Tue,  3 Aug 2021 09:37:32 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id u13so2463892lje.5
- for <freedreno@lists.freedesktop.org>; Tue, 03 Aug 2021 02:37:32 -0700 (PDT)
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5EF689FC9
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Aug 2021 10:17:00 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id r23so27489371lji.3
+ for <freedreno@lists.freedesktop.org>; Tue, 03 Aug 2021 03:17:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=SK6Ob07YJlX0nTWImG5cDSOjubg9maW6J2sNRF3yaOY=;
- b=FBF9KtmjCa4uE0h2AteVPxiHyctdT6XJKIMbXtjO/tEd2nTSV/YeGyPiRGpkuIvk4D
- MIsUvmdLlN3oN6mclWG7afHoXK1c0LZjelfP0qDlPGcdSNdDBmBndm2Wjg2EFLjBi1sQ
- NW8SX1btq/CrnfYYRiGJRs/IQHazS4i8tNYH1NJBnBtQGSHrv5cZJkHSdmCXPVZmenua
- ikIpDlNesEvw+jbsMZ/kYJWaEh1Oxgu4eltNTq+dQAVMq3x+D5m1idjwyeQjL4/mqJ8Q
- XpT0GMgKd7iBnpTACGTS/qZReSNt1jD/grlVuRsommifNHDzZgq1Co7tOou7ch99y/6v
- HiYg==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=iqd7quPL1WYvjaIscp231slV4CSuWpyxNWeRMDXfDYg=;
+ b=hAw6QdSzz7ht2/95djyPnaSN1wPcm03tQEHPZQOhjkZZ06m0qLZQ44+PP6R246pz5V
+ bh3TQU9CXAP/ndO+GRcOKItNNlFhNQd7ce1tHN+8S1CwQ16FXRlaCVXVKyw642eryo+y
+ znsLS7rHYmSH1iJIkz9L5/LGSUHUaN3gqLuky/msFbV90u7uWMHDN7y3fuI5bWBEipiJ
+ /cb4yxqU6EFglSuCPVXwmaXpHS76eMCIigJmzc1axzpFvM7ql93yXhgZEXRC7/nOQVcr
+ ule8g+oCvCFPDCYgTnuivtNOaRBumY6ZCTt6n7MZ914wNIQB7MtScFYXK6Or/0gPINSo
+ Kupw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=SK6Ob07YJlX0nTWImG5cDSOjubg9maW6J2sNRF3yaOY=;
- b=H+tj42LEBkmeqNEG1NkvValryc4fJmY7qSD32DMU/gGr9Iw6Ow174MmcS2tR4m+N7u
- Akkow1rUEciHPvqj37n5SIm6OTtcUk2/yZKBCSQDOScCfmj2ig2xTaL2hjNUso7Petye
- Xu/KtpT3OZmfZeIcK38eoPhoNwFFfnvebkzad8OQPrBLeUkpss8ThHF1fwOUqaLRE/87
- kXmDZyJafZSNckTbUPXnaB9Fi4ZYFbmvRPxTGhaOjoq1iKv43fxQUNo9lK1Asg7AlPYd
- PrjsCYqrwf9m2777n+3vu8ImieMFqVl8bOmoL6o/cia5wX94DudcA8DBBCy0qwQ+JHJG
- Rmcw==
-X-Gm-Message-State: AOAM533w84//siTc82KAT5E+ioRK4/cX1O7FW8XesvzhlIrW63stm5RL
- MNvad3UyPdLj2sivWJZ/3M18I4hIWpB3ww==
-X-Google-Smtp-Source: ABdhPJwfzeu1HZdLhzyas+uFWAQ6XGdYcgkubYxUqCC4cyCTAVYruEGRSEc4hbVySR5Fttx49rvpQw==
-X-Received: by 2002:a05:651c:2051:: with SMTP id
- t17mr13734385ljo.118.1627983450529; 
- Tue, 03 Aug 2021 02:37:30 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id g17sm748572lfv.210.2021.08.03.02.37.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Aug 2021 02:37:30 -0700 (PDT)
-To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
- airlied@linux.ie, alexander.deucher@amd.com, christian.koenig@amd.com,
- liviu.dudau@arm.com, brian.starkey@arm.com, sam@ravnborg.org,
- bbrezillon@kernel.org, nicolas.ferre@microchip.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, stefan@agner.ch,
- alison.wang@nxp.com, patrik.r.jakobsson@gmail.com,
- anitha.chrisanthus@intel.com, robdclark@gmail.com, edmund.j.dea@intel.com,
- sean@poorly.run, shawnguo@kernel.org, s.hauer@pengutronix.de,
- kernel@pengutronix.de, jyri.sarha@iki.fi, tomba@kernel.org,
- Dan.Sneddon@microchip.com, tomi.valkeinen@ideasonboard.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-References: <20210803090704.32152-1-tzimmermann@suse.de>
- <20210803090704.32152-8-tzimmermann@suse.de>
+ bh=iqd7quPL1WYvjaIscp231slV4CSuWpyxNWeRMDXfDYg=;
+ b=UMQhWJKtvqbb+rHuEctA72p344tTZeBr256VU0fm7jBm+akHVltRiwfM1r9y4JUMVe
+ kVqxdjJauu1nsoTIyCbfGanZitERmsjlv9ymCzo4vaXx91vbtkzzqips8qbCN3FbKIrK
+ YNs0g28avyD4lbQ1vON9iwd7aBFrWFCnjkxOZN2xdtbeXjrWt66TN3ZRJOjanSmbatT5
+ fjAwXvAtY0LxjrSzd1OsOb7bgxIZpNLiAHMwjhxAIcRbjnt9r6Hy7ss7DuTSyDltlF6C
+ /kHWFmEhNlH5jwuuDnNBQXW3xnxwLJQqj8Y9DhWMfuCGSwF+HLajsSZJ8CSDGimgVttu
+ LbHw==
+X-Gm-Message-State: AOAM531g1zhwpWNPsQ7gOTz2zJA/M2063Mp4DqZQIckqJk0vTza03Ltj
+ OTnbyVAzb5iJ3rKpbdauEXUoOg==
+X-Google-Smtp-Source: ABdhPJz+HsxrfCrKNjb3P8l6jxnieC81OoQVe1N7Ze95vFfOKAy8ODChxM+W81OweuRIvqqNwpPHxQ==
+X-Received: by 2002:a2e:7c19:: with SMTP id x25mr2700834ljc.169.1627985819081; 
+ Tue, 03 Aug 2021 03:16:59 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id y10sm1056692ljj.10.2021.08.03.03.16.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 03 Aug 2021 03:16:58 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <1f5f285a-b923-16ff-2ca1-6f92e22ffcab@linaro.org>
-Date: Tue, 3 Aug 2021 12:37:29 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+To: Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <abhinavk@codeaurora.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+Date: Tue,  3 Aug 2021 13:16:55 +0300
+Message-Id: <20210803101657.1072358-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-In-Reply-To: <20210803090704.32152-8-tzimmermann@suse.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 07/14] drm/msm: Convert to Linux IRQ
- interfaces
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v3 0/4] drm/msm/dpu: always use mdp device to
+ scale bandwidth
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,206 +73,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 03/08/2021 12:06, Thomas Zimmermann wrote:
-> Drop the DRM IRQ midlayer in favor of Linux IRQ interfaces. DRM's
-> IRQ helpers are mostly useful for UMS drivers. Modern KMS drivers
-> don't benefit from using it.
-> 
-> DRM IRQ callbacks are now being called directly or inlined.
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+In 5.13 the DPU driver was changed to vote on the bus bandwidth for all
+the soc families, however suggested [1] dts changes were for some reason
+not merged at that time. Let's merge them now.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+If the bootloader does not setup the bus vote, clock might not be
+enabled before the driver votes on the MDP bus bandwidth. Originally bus
+votes were static and happened in MDSS hadling code, while now they are
+dynamic and are moved to the MDP handling code, thus bus clocks also
+should belong to the MDP device.
 
-Rob should probably also give his blessing on this patch though.
+[1] https://lore.kernel.org/linux-arm-msm/04b4612dfd3f651ead068725409211a0@codeaurora.org/
 
-> ---
->   drivers/gpu/drm/msm/msm_drv.c | 113 ++++++++++++++++++++--------------
->   drivers/gpu/drm/msm/msm_kms.h |   2 +-
->   2 files changed, 69 insertions(+), 46 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index 1594ae39d54f..a332b09a5a11 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -14,7 +14,6 @@
->   #include <drm/drm_drv.h>
->   #include <drm/drm_file.h>
->   #include <drm/drm_ioctl.h>
-> -#include <drm/drm_irq.h>
->   #include <drm/drm_prime.h>
->   #include <drm/drm_of.h>
->   #include <drm/drm_vblank.h>
-> @@ -201,6 +200,71 @@ void msm_rmw(void __iomem *addr, u32 mask, u32 or)
->   	msm_writel(val | or, addr);
->   }
->   
-> +static irqreturn_t msm_irq(int irq, void *arg)
-> +{
-> +	struct drm_device *dev = arg;
-> +	struct msm_drm_private *priv = dev->dev_private;
-> +	struct msm_kms *kms = priv->kms;
-> +
-> +	BUG_ON(!kms);
-> +
-> +	return kms->funcs->irq(kms);
-> +}
-> +
-> +static void msm_irq_preinstall(struct drm_device *dev)
-> +{
-> +	struct msm_drm_private *priv = dev->dev_private;
-> +	struct msm_kms *kms = priv->kms;
-> +
-> +	BUG_ON(!kms);
-> +
-> +	kms->funcs->irq_preinstall(kms);
-> +}
-> +
-> +static int msm_irq_postinstall(struct drm_device *dev)
-> +{
-> +	struct msm_drm_private *priv = dev->dev_private;
-> +	struct msm_kms *kms = priv->kms;
-> +
-> +	BUG_ON(!kms);
-> +
-> +	if (kms->funcs->irq_postinstall)
-> +		return kms->funcs->irq_postinstall(kms);
-> +
-> +	return 0;
-> +}
-> +
-> +static int msm_irq_install(struct drm_device *dev, unsigned int irq)
-> +{
-> +	int ret;
-> +
-> +	if (irq == IRQ_NOTCONNECTED)
-> +		return -ENOTCONN;
-> +
-> +	msm_irq_preinstall(dev);
-> +
-> +	ret = request_irq(irq, msm_irq, 0, dev->driver->name, dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = msm_irq_postinstall(dev);
-> +	if (ret) {
-> +		free_irq(irq, dev);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void msm_irq_uninstall(struct drm_device *dev)
-> +{
-> +	struct msm_drm_private *priv = dev->dev_private;
-> +	struct msm_kms *kms = priv->kms;
-> +
-> +	kms->funcs->irq_uninstall(kms);
-> +	free_irq(kms->irq, dev);
-> +}
-> +
->   struct msm_vblank_work {
->   	struct work_struct work;
->   	int crtc_id;
-> @@ -265,7 +329,7 @@ static int msm_drm_uninit(struct device *dev)
->   	}
->   
->   	/* We must cancel and cleanup any pending vblank enable/disable
-> -	 * work before drm_irq_uninstall() to avoid work re-enabling an
-> +	 * work before msm_irq_uninstall() to avoid work re-enabling an
->   	 * irq after uninstall has disabled it.
->   	 */
->   
-> @@ -294,7 +358,7 @@ static int msm_drm_uninit(struct device *dev)
->   	drm_mode_config_cleanup(ddev);
->   
->   	pm_runtime_get_sync(dev);
-> -	drm_irq_uninstall(ddev);
-> +	msm_irq_uninstall(ddev);
->   	pm_runtime_put_sync(dev);
->   
->   	if (kms && kms->funcs)
-> @@ -553,7 +617,7 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
->   
->   	if (kms) {
->   		pm_runtime_get_sync(dev);
-> -		ret = drm_irq_install(ddev, kms->irq);
-> +		ret = msm_irq_install(ddev, kms->irq);
->   		pm_runtime_put_sync(dev);
->   		if (ret < 0) {
->   			DRM_DEV_ERROR(dev, "failed to install IRQ handler\n");
-> @@ -662,43 +726,6 @@ static void msm_postclose(struct drm_device *dev, struct drm_file *file)
->   	context_close(ctx);
->   }
->   
-> -static irqreturn_t msm_irq(int irq, void *arg)
-> -{
-> -	struct drm_device *dev = arg;
-> -	struct msm_drm_private *priv = dev->dev_private;
-> -	struct msm_kms *kms = priv->kms;
-> -	BUG_ON(!kms);
-> -	return kms->funcs->irq(kms);
-> -}
-> -
-> -static void msm_irq_preinstall(struct drm_device *dev)
-> -{
-> -	struct msm_drm_private *priv = dev->dev_private;
-> -	struct msm_kms *kms = priv->kms;
-> -	BUG_ON(!kms);
-> -	kms->funcs->irq_preinstall(kms);
-> -}
-> -
-> -static int msm_irq_postinstall(struct drm_device *dev)
-> -{
-> -	struct msm_drm_private *priv = dev->dev_private;
-> -	struct msm_kms *kms = priv->kms;
-> -	BUG_ON(!kms);
-> -
-> -	if (kms->funcs->irq_postinstall)
-> -		return kms->funcs->irq_postinstall(kms);
-> -
-> -	return 0;
-> -}
-> -
-> -static void msm_irq_uninstall(struct drm_device *dev)
-> -{
-> -	struct msm_drm_private *priv = dev->dev_private;
-> -	struct msm_kms *kms = priv->kms;
-> -	BUG_ON(!kms);
-> -	kms->funcs->irq_uninstall(kms);
-> -}
-> -
->   int msm_crtc_enable_vblank(struct drm_crtc *crtc)
->   {
->   	struct drm_device *dev = crtc->dev;
-> @@ -1051,10 +1078,6 @@ static const struct drm_driver msm_driver = {
->   	.open               = msm_open,
->   	.postclose           = msm_postclose,
->   	.lastclose          = drm_fb_helper_lastclose,
-> -	.irq_handler        = msm_irq,
-> -	.irq_preinstall     = msm_irq_preinstall,
-> -	.irq_postinstall    = msm_irq_postinstall,
-> -	.irq_uninstall      = msm_irq_uninstall,
->   	.dumb_create        = msm_gem_dumb_create,
->   	.dumb_map_offset    = msm_gem_dumb_map_offset,
->   	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
-> diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
-> index 086a2d59b8c8..9de7c42e1071 100644
-> --- a/drivers/gpu/drm/msm/msm_kms.h
-> +++ b/drivers/gpu/drm/msm/msm_kms.h
-> @@ -150,7 +150,7 @@ struct msm_kms {
->   	const struct msm_kms_funcs *funcs;
->   	struct drm_device *dev;
->   
-> -	/* irq number to be passed on to drm_irq_install */
-> +	/* irq number to be passed on to msm_irq_install */
->   	int irq;
->   
->   	/* mapper-id used to request GEM buffer mapped for scanout: */
-> 
+Changes since v2:
+ - Dropped merged patches
+ - Rephrased commit message for sm8250.
 
+Changes since v1:
+ - Add dts changes as requested by Kalyan Thota
 
--- 
-With best wishes
-Dmitry
+----------------------------------------------------------------
+Dmitry Baryshkov (2):
+      arm64: dts: sdm845: move bus clock to mdp node for sdm845 target
+      arm64: dts: sm8250: remove bus clock from the mdss node for sm8250 target
+
+ arch/arm64/boot/dts/qcom/sdm845.dtsi | 8 ++++----
+ arch/arm64/boot/dts/qcom/sm8250.dtsi | 3 +--
+ 2 files changed, 5 insertions(+), 6 deletions(-)
+
