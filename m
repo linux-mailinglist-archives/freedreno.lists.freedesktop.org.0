@@ -2,65 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49E403DEF19
-	for <lists+freedreno@lfdr.de>; Tue,  3 Aug 2021 15:30:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C256E3DF0F3
+	for <lists+freedreno@lfdr.de>; Tue,  3 Aug 2021 17:00:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC4196E86E;
-	Tue,  3 Aug 2021 13:30:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7806D6E87F;
+	Tue,  3 Aug 2021 15:00:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf30.google.com (mail-qv1-xf30.google.com
- [IPv6:2607:f8b0:4864:20::f30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0915B6E082
- for <freedreno@lists.freedesktop.org>; Tue,  3 Aug 2021 13:30:03 +0000 (UTC)
-Received: by mail-qv1-xf30.google.com with SMTP id d3so10538418qvq.6
- for <freedreno@lists.freedesktop.org>; Tue, 03 Aug 2021 06:30:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=T5LWJvLNPFvrsP+8rTSctWTnBPUV+sbu54F2/XzyL04=;
- b=E6R+q4WD1t1XqkKiv21e6XxoY3rFhv0SUhabTeyBnlgtYjYkcuLEL2myi7zpIuFI83
- 0JaWLF5/xzmhLU/qAQeCbCFjodX3T8KK2qtxtj8uLvgrSP82TlPHQkDLcKL3Xb7Nn8m+
- yZYTnDb8nSQJz43u71xWnFYk0OlWdf1+jMb8rMTl2Akyu/QeulcJHs2hbG+RaQH8h21z
- hSnhqu8cocPiEDi1rAyTJgb0lYgW26KuwQHbWeAaYxl3EkacCTGQknHBCBqcN5VAsVLa
- 6MfptddAV/eaZXWdiEgJ6u7UYk0HqMdidvm98aRF7DA83RUDOTsgE8k3D8FpiarUSIXr
- q6gg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=T5LWJvLNPFvrsP+8rTSctWTnBPUV+sbu54F2/XzyL04=;
- b=LIJ5R+tDMaWLuuW7aw/+dYt99j5UhuLtMI2+yqfJ6Fa9AdN5dZR+DAXtMKYsRWZqpr
- T/Ns1QG8wO4FD+/87ZX0znlZnt5m6mvNDJPypiIEPMbCkojtNuWUwEYDEEuMJbI5653Z
- z03QxfOQ/U6UuOTV9/s6YRiKiUcDeIjccPJCMXR8gQJAgmnNwql+k7BGCn8zpeh/YQY2
- ZXZEP2JzLtr8HnjeQu560j2CABWmepQ5LBmqROQwvUZEK+b+AbANscX15h4DGeiPmvl5
- oTG77plTJP75bWyFhqMPZP0pNdOYbler4SAAHeZ5JBhF2oawvmjdxeoQ+syGr/gn4iFD
- W0ng==
-X-Gm-Message-State: AOAM532MMrwtErgLp4Z/uEVmCB5fTfoM9oU2TzN++uxByBmfc87s9wTA
- G5ssAEorMoRWQ1Oe7kMugOJQ9imUnhdAtuNzU6+BrA==
-X-Google-Smtp-Source: ABdhPJx51VqlQMR3Ad0jd5YW0uaLDMWfS3K+CFXKdlzNGEDquQFkMceVecHmwQWoRFCePUdCzX792/HbKXHewVIIelA=
-X-Received: by 2002:a05:6214:1021:: with SMTP id
- k1mr21594531qvr.4.1627997401968; 
- Tue, 03 Aug 2021 06:30:01 -0700 (PDT)
+Received: from mx2.smtp.larsendata.com (mx2.smtp.larsendata.com
+ [91.221.196.228])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A19FC6E87F
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Aug 2021 15:00:14 +0000 (UTC)
+Received: from mail01.mxhotel.dk (mail01.mxhotel.dk [91.221.196.236])
+ by mx2.smtp.larsendata.com (Halon) with ESMTPS
+ id 8b9d7efa-f46b-11eb-8d1a-0050568cd888;
+ Tue, 03 Aug 2021 15:00:30 +0000 (UTC)
+Received: from ravnborg.org (80-162-45-141-cable.dk.customer.tdc.net
+ [80.162.45.141])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: sam@ravnborg.org)
+ by mail01.mxhotel.dk (Postfix) with ESMTPSA id 05278194B8B;
+ Tue,  3 Aug 2021 17:00:36 +0200 (CEST)
+Date: Tue, 3 Aug 2021 17:00:08 +0200
+X-Report-Abuse-To: abuse@mxhotel.dk
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
+ christian.koenig@amd.com, liviu.dudau@arm.com,
+ brian.starkey@arm.com, bbrezillon@kernel.org,
+ nicolas.ferre@microchip.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, stefan@agner.ch, alison.wang@nxp.com,
+ patrik.r.jakobsson@gmail.com, anitha.chrisanthus@intel.com,
+ robdclark@gmail.com, edmund.j.dea@intel.com, sean@poorly.run,
+ shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
+ jyri.sarha@iki.fi, tomba@kernel.org, Dan.Sneddon@microchip.com,
+ tomi.valkeinen@ideasonboard.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+Message-ID: <YQlZ+EQVbO9N3Mla@ravnborg.org>
+References: <20210803090704.32152-1-tzimmermann@suse.de>
+ <20210803090704.32152-12-tzimmermann@suse.de>
 MIME-Version: 1.0
-References: <1627987307-29347-1-git-send-email-kalyan_t@codeaurora.org>
-In-Reply-To: <1627987307-29347-1-git-send-email-kalyan_t@codeaurora.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 3 Aug 2021 16:29:51 +0300
-Message-ID: <CAA8EJpotuiBFDXvNP3BRKYGmjMt0MzduggXJye__jYbAshfLUA@mail.gmail.com>
-To: Kalyan Thota <kalyan_t@codeaurora.org>
-Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <dri-devel@lists.freedesktop.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>, 
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
- Rob Clark <robdclark@gmail.com>, Douglas Anderson <dianders@chromium.org>, 
- Krishna Manikandan <mkrishn@codeaurora.org>, 
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Rajendra Nayak <rnayak@codeaurora.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [v2] drm/msm/disp/dpu1: add safe lut config in dpu
- driver
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210803090704.32152-12-tzimmermann@suse.de>
+Subject: Re: [Freedreno] [PATCH v2 11/14] drm/tilcdc: Convert to Linux IRQ
+ interfaces
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,85 +65,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 3 Aug 2021 at 13:42, Kalyan Thota <kalyan_t@codeaurora.org> wrote:
->
-> Add safe lut configuration for all the targets in dpu
-> driver as per QOS recommendation.
->
-> Issue reported on SC7280:
->
-> With wait-for-safe feature in smmu enabled, RT client
-> buffer levels are checked to be safe before smmu invalidation.
-> Since display was always set to unsafe it was delaying the
-> invalidaiton process thus impacting the performance on NRT clients
-> such as eMMC and NVMe.
->
-> Validated this change on SC7280, With this change eMMC performance
-> has improved significantly.
->
-> Changes in v1:
-> - Add fixes tag (Sai)
-> - CC stable kernel (Dimtry)
->
-> Fixes: cfacf946a464d4(drm/msm/disp/dpu1: add support for display for SC7280 target)
-> Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
-> Tested-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org> (sc7280, sc7180)
+Hi Thomas,
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On Tue, Aug 03, 2021 at 11:07:01AM +0200, Thomas Zimmermann wrote:
+> Drop the DRM IRQ midlayer in favor of Linux IRQ interfaces. DRM's
+> IRQ helpers are mostly useful for UMS drivers. Modern KMS drivers
+> don't benefit from using it.
+> 
+> DRM IRQ callbacks are now being called directly or inlined.
+> 
+> Calls to platform_get_irq() can fail with a negative errno code.
+> Abort initialization in this case. The DRM IRQ midlayer does not
+> handle this case correctly.
 
+I cannot see why the irq_enabled flag is needed here, and the changelog
+do not help me.
+What do I miss?
+
+	Sam
+
+
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index d01c4c9..2e482cd 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -974,6 +974,7 @@ static const struct dpu_perf_cfg sdm845_perf_data = {
->         .amortizable_threshold = 25,
->         .min_prefill_lines = 24,
->         .danger_lut_tbl = {0xf, 0xffff, 0x0},
-> +       .safe_lut_tbl = {0xfff0, 0xf000, 0xffff},
->         .qos_lut_tbl = {
->                 {.nentry = ARRAY_SIZE(sdm845_qos_linear),
->                 .entries = sdm845_qos_linear
-> @@ -1001,6 +1002,7 @@ static const struct dpu_perf_cfg sc7180_perf_data = {
->         .min_dram_ib = 1600000,
->         .min_prefill_lines = 24,
->         .danger_lut_tbl = {0xff, 0xffff, 0x0},
-> +       .safe_lut_tbl = {0xfff0, 0xff00, 0xffff},
->         .qos_lut_tbl = {
->                 {.nentry = ARRAY_SIZE(sc7180_qos_linear),
->                 .entries = sc7180_qos_linear
-> @@ -1028,6 +1030,7 @@ static const struct dpu_perf_cfg sm8150_perf_data = {
->         .min_dram_ib = 800000,
->         .min_prefill_lines = 24,
->         .danger_lut_tbl = {0xf, 0xffff, 0x0},
-> +       .safe_lut_tbl = {0xfff8, 0xf000, 0xffff},
->         .qos_lut_tbl = {
->                 {.nentry = ARRAY_SIZE(sm8150_qos_linear),
->                 .entries = sm8150_qos_linear
-> @@ -1056,6 +1059,7 @@ static const struct dpu_perf_cfg sm8250_perf_data = {
->         .min_dram_ib = 800000,
->         .min_prefill_lines = 35,
->         .danger_lut_tbl = {0xf, 0xffff, 0x0},
-> +       .safe_lut_tbl = {0xfff0, 0xff00, 0xffff},
->         .qos_lut_tbl = {
->                 {.nentry = ARRAY_SIZE(sc7180_qos_linear),
->                 .entries = sc7180_qos_linear
-> @@ -1084,6 +1088,7 @@ static const struct dpu_perf_cfg sc7280_perf_data = {
->         .min_dram_ib = 1600000,
->         .min_prefill_lines = 24,
->         .danger_lut_tbl = {0xffff, 0xffff, 0x0},
-> +       .safe_lut_tbl = {0xff00, 0xff00, 0xffff},
->         .qos_lut_tbl = {
->                 {.nentry = ARRAY_SIZE(sc7180_qos_macrotile),
->                 .entries = sc7180_qos_macrotile
-> --
-> 2.7.4
->
-
-
--- 
-With best wishes
-Dmitry
+>  drivers/gpu/drm/tilcdc/tilcdc_drv.c | 51 ++++++++++++++++++++++-------
+>  drivers/gpu/drm/tilcdc/tilcdc_drv.h |  3 ++
+>  2 files changed, 43 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/tilcdc/tilcdc_drv.c b/drivers/gpu/drm/tilcdc/tilcdc_drv.c
+> index f1d3a9f919fd..6b03f89a98d4 100644
+> --- a/drivers/gpu/drm/tilcdc/tilcdc_drv.c
+> +++ b/drivers/gpu/drm/tilcdc/tilcdc_drv.c
+> @@ -20,7 +20,6 @@
+>  #include <drm/drm_fourcc.h>
+>  #include <drm/drm_gem_cma_helper.h>
+>  #include <drm/drm_gem_framebuffer_helper.h>
+> -#include <drm/drm_irq.h>
+>  #include <drm/drm_mm.h>
+>  #include <drm/drm_probe_helper.h>
+>  #include <drm/drm_vblank.h>
+> @@ -124,6 +123,39 @@ static int cpufreq_transition(struct notifier_block *nb,
+>  }
+>  #endif
+>  
+> +static irqreturn_t tilcdc_irq(int irq, void *arg)
+> +{
+> +	struct drm_device *dev = arg;
+> +	struct tilcdc_drm_private *priv = dev->dev_private;
+> +
+> +	return tilcdc_crtc_irq(priv->crtc);
+> +}
+> +
+> +static int tilcdc_irq_install(struct drm_device *dev, unsigned int irq)
+> +{
+> +	struct tilcdc_drm_private *priv = dev->dev_private;
+> +	int ret;
+> +
+> +	ret = request_irq(irq, tilcdc_irq, 0, dev->driver->name, dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	priv->irq_enabled = false;
+> +
+> +	return 0;
+> +}
+> +
+> +static void tilcdc_irq_uninstall(struct drm_device *dev)
+> +{
+> +	struct tilcdc_drm_private *priv = dev->dev_private;
+> +
+> +	if (!priv->irq_enabled)
+> +		return;
+> +
+> +	free_irq(priv->irq, dev);
+> +	priv->irq_enabled = false;
+> +}
+> +
+>  /*
+>   * DRM operations:
+>   */
+> @@ -145,7 +177,7 @@ static void tilcdc_fini(struct drm_device *dev)
+>  		drm_dev_unregister(dev);
+>  
+>  	drm_kms_helper_poll_fini(dev);
+> -	drm_irq_uninstall(dev);
+> +	tilcdc_irq_uninstall(dev);
+>  	drm_mode_config_cleanup(dev);
+>  
+>  	if (priv->clk)
+> @@ -336,7 +368,12 @@ static int tilcdc_init(const struct drm_driver *ddrv, struct device *dev)
+>  		goto init_failed;
+>  	}
+>  
+> -	ret = drm_irq_install(ddev, platform_get_irq(pdev, 0));
+> +	ret = platform_get_irq(pdev, 0);
+> +	if (ret < 0)
+> +		goto init_failed;
+> +	priv->irq = ret;
+> +
+> +	ret = tilcdc_irq_install(ddev, priv->irq);
+>  	if (ret < 0) {
+>  		dev_err(dev, "failed to install IRQ handler\n");
+>  		goto init_failed;
+> @@ -360,13 +397,6 @@ static int tilcdc_init(const struct drm_driver *ddrv, struct device *dev)
+>  	return ret;
+>  }
+>  
+> -static irqreturn_t tilcdc_irq(int irq, void *arg)
+> -{
+> -	struct drm_device *dev = arg;
+> -	struct tilcdc_drm_private *priv = dev->dev_private;
+> -	return tilcdc_crtc_irq(priv->crtc);
+> -}
+> -
+>  #if defined(CONFIG_DEBUG_FS)
+>  static const struct {
+>  	const char *name;
+> @@ -454,7 +484,6 @@ DEFINE_DRM_GEM_CMA_FOPS(fops);
+>  
+>  static const struct drm_driver tilcdc_driver = {
+>  	.driver_features    = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
+> -	.irq_handler        = tilcdc_irq,
+>  	DRM_GEM_CMA_DRIVER_OPS,
+>  #ifdef CONFIG_DEBUG_FS
+>  	.debugfs_init       = tilcdc_debugfs_init,
+> diff --git a/drivers/gpu/drm/tilcdc/tilcdc_drv.h b/drivers/gpu/drm/tilcdc/tilcdc_drv.h
+> index d29806ca8817..b818448c83f6 100644
+> --- a/drivers/gpu/drm/tilcdc/tilcdc_drv.h
+> +++ b/drivers/gpu/drm/tilcdc/tilcdc_drv.h
+> @@ -46,6 +46,8 @@ struct tilcdc_drm_private {
+>  	struct clk *clk;         /* functional clock */
+>  	int rev;                 /* IP revision */
+>  
+> +	unsigned int irq;
+> +
+>  	/* don't attempt resolutions w/ higher W * H * Hz: */
+>  	uint32_t max_bandwidth;
+>  	/*
+> @@ -82,6 +84,7 @@ struct tilcdc_drm_private {
+>  
+>  	bool is_registered;
+>  	bool is_componentized;
+> +	bool irq_enabled;
+>  };
+>  
+>  /* Sub-module for display.  Since we don't know at compile time what panels
+> -- 
+> 2.32.0
