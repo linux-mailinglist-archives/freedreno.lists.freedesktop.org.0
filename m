@@ -2,75 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADF503DE3FF
-	for <lists+freedreno@lfdr.de>; Tue,  3 Aug 2021 03:31:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 349853DE901
+	for <lists+freedreno@lfdr.de>; Tue,  3 Aug 2021 10:55:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 057356E231;
-	Tue,  3 Aug 2021 01:31:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D800B6E48D;
+	Tue,  3 Aug 2021 08:55:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F39AC6E21C;
- Tue,  3 Aug 2021 01:31:52 +0000 (UTC)
-Received: by mail-wm1-x32f.google.com with SMTP id
- m20-20020a05600c4f54b029024e75a15716so1077454wmq.2; 
- Mon, 02 Aug 2021 18:31:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=xoYKeNMcKT9d+jkGEnzy+zqeIUVXh9cRA8f49lcGYC8=;
- b=K4cUt6vdJtIGAoypcfbhOnCY7xrdQNo/3h5B6VyuGQC6ZNWK/BBe++Xkxp67ld0Rn0
- Zh1pJzHrvpzYLV1x4DFyxUiEyQ46SCW4/9Oh792YF+bcXDwFnTL1anQNGnPNR12vVrKh
- WS89KEbB9yo18n717VtF6iTXDAQi6CVZ24pgQjC7Q7vZZ0qvVDrCemM4HWR4/0t6pRvb
- 0YgX1LDLC5ekVWNwayNpI0OPAKJP7zmlBTS0tXXOEjxbgVf3n0We5wttMwz2tAfm+Yoe
- EhkzubmCCp386nRqW3vNJdOhPwdOWwFQTkeZrUrwSgV/s+ewosTRt+Dpoy174Qz0n96d
- atfw==
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76EFD6E48D
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Aug 2021 08:55:26 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id o20so27350602oiw.12
+ for <freedreno@lists.freedesktop.org>; Tue, 03 Aug 2021 01:55:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=EsZwJNaFBYTAyGw1Pi5XpaVhjkvXKuF34mVyc2ioH2g=;
+ b=IQMWqByHfAHErosenpOGw+Z00xebZ/uwdcJyLC9k0SMgw0Qz8mvFGTR9ZrCS7wDNJG
+ NywBXlnKE3SSvaSXH2G9q56JAlZstr+y8CkEo+eq1XJoXbBV8YbhKqvec+sD4BkA4YDP
+ ZqasbQQrUYT2J/E4jt1DxssJF1OACAU11iCZs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=xoYKeNMcKT9d+jkGEnzy+zqeIUVXh9cRA8f49lcGYC8=;
- b=V45GrpH8UVjCNke3C90KFEBvGTU1amDP5m72wtlb4VoQdpyWUgVYVqLNmluB633n88
- QzTfAzGgeaxqKX89yRAklsVGX8UB1AW5eUibupcQiKlWprcimRL4wNG4TkimSGz0tyaz
- ZCJ62YTY2hq8QBI1BhAhJdmR+WuAVCprPmKICfzXPTKXpNML4PD4xkfM2YM2/ZjfieMy
- iLypvFs824rPtf1xBhhiE9FIDt8VKar0dfZTaroyiAJxzeqiIFy1ZbJcBdCQSECmQe6h
- 0AflDjfZSy31duIJeVujSesVzvxgzfdAFdF8XHMDCtAEb24LsfsRUykW1SmW4Hwz9HoF
- swZA==
-X-Gm-Message-State: AOAM533OBKMkt3jY4G9+49EDZQJ0WhI9jQqYkdeNg+hIfek4z9y6dTYf
- ytuse1+/s/Be4UTUPlG8hruSW9oiyg7TRaJ5t04=
-X-Google-Smtp-Source: ABdhPJxdMWZqPHrh+Mxx9qIF7HQSUcdRyEEsbC9X4CVXONVLsF849KG7gxpA1BIWW/BxUAjLxanM9tlNbBcIasoLz7Q=
-X-Received: by 2002:a1c:4b18:: with SMTP id y24mr1613548wma.49.1627954311450; 
- Mon, 02 Aug 2021 18:31:51 -0700 (PDT)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=EsZwJNaFBYTAyGw1Pi5XpaVhjkvXKuF34mVyc2ioH2g=;
+ b=re8dxRM6mvGoOpybRUUY4H3OncaClkQy69BNV4SAJ6IJ5IXlRJYkHo4C0uX21ZuPTE
+ MrEPe89miupxj4ZATS1pWP4BxCZuxFCzplq07mD7M5f7fOJBlFJxu/jupGCKqIs6iMFs
+ xNkEcm3BIyomPePioyaL25WLLWR5NejsGscsMGT21ydstD5ZnZ7b6uCs5f9TFwetogeX
+ JOKZpvEKkyLkCQIdGl0NyPAu/rIPOlyZmLzt9QxZvTiTRqfmhkrvrr44n2W9jnp6X0cO
+ qWnFMB6olv9hXql2iM6y561oF3cicd6gRAAfQF5X6j35q2zUlBwtc5BxLWcEauXkHsN7
+ jL8Q==
+X-Gm-Message-State: AOAM5307ZtYFVehM0Ler/Wl4ETF1TDZGZXuQhR3qLViZUQvg33AgCazk
+ lLRqQUMu4kgJrcor+4eRrKv3JIdqWbMtgOdpS+Idww==
+X-Google-Smtp-Source: ABdhPJzwpHkcVQ7Aar0ILGc3CwQvololSXJOgi1sdQHYLOY3sdJq+SQ3C6QiLVfDbKdEgtRgfxMFN8Uc2/Gok62IF7Y=
+X-Received: by 2002:a05:6808:619:: with SMTP id
+ y25mr2386771oih.166.1627980925750; 
+ Tue, 03 Aug 2021 01:55:25 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 3 Aug 2021 01:55:25 -0700
 MIME-Version: 1.0
-References: <cover.1610372717.git.saiprakash.ranjan@codeaurora.org>
- <20210728140052.GB22887@mms-0441>
- <8b2742c8891abe4fec3664730717a089@codeaurora.org>
- <20210802105544.GA27657@willie-the-truck>
- <CAF6AEGvtpFu8st=ZFNoKjP9YsAenciLxL1zMFi_iqMCvdby73w@mail.gmail.com>
- <20210802151409.GE28735@willie-the-truck>
-In-Reply-To: <20210802151409.GE28735@willie-the-truck>
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 2 Aug 2021 18:36:04 -0700
-Message-ID: <CAF6AEGtzvyEUm0Fc8QT5t9KNK7i0FbFyi7zDM2_PMCzZBp7qbw@mail.gmail.com>
-To: Will Deacon <will@kernel.org>
-Cc: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Georgi Djakov <djakov@kernel.org>, 
- "Isaac J. Manjarres" <isaacm@codeaurora.org>, David Airlie <airlied@linux.ie>, 
- Akhil P Oommen <akhilpo@codeaurora.org>, 
- "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
- Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Sean Paul <sean@poorly.run>, Jordan Crouse <jcrouse@codeaurora.org>,
- Kristian H Kristensen <hoegsberg@google.com>, 
- dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>, 
- Robin Murphy <robin.murphy@arm.com>, 
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>
+In-Reply-To: <1627935655-4090-1-git-send-email-khsieh@codeaurora.org>
+References: <1627935655-4090-1-git-send-email-khsieh@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Tue, 3 Aug 2021 01:55:25 -0700
+Message-ID: <CAE-0n51qc7LX-hWiFEGWRAZqNUgQAQ3XCxO6oEYWZh7wvkxs5Q@mail.gmail.com>
+To: Kuogee Hsieh <khsieh@codeaurora.org>, agross@kernel.org,
+ bjorn.andersson@linaro.org, 
+ robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
+Cc: abhinavk@codeaurora.org, aravindh@codeaurora.org, 
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 0/3] iommu/drm/msm: Allow non-coherent
- masters to use system cache
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: update is_connected status
+ base on sink count at dp_pm_resume()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,55 +72,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Aug 2, 2021 at 8:14 AM Will Deacon <will@kernel.org> wrote:
+Quoting Kuogee Hsieh (2021-08-02 13:20:55)
+> Currently at dp_pm_resume() is_connected state is decided base on hpd connection
+> status only. This will put is_connected in wrongly "true" state at the scenario
+> that dongle attached to DUT but without hmdi cable connecting to it. Fix this
+> problem by adding read sink count from dongle and decided is_connected state base
+> on both sink count and hpd connection status.
 >
-> On Mon, Aug 02, 2021 at 08:08:07AM -0700, Rob Clark wrote:
-> > On Mon, Aug 2, 2021 at 3:55 AM Will Deacon <will@kernel.org> wrote:
-> > >
-> > > On Thu, Jul 29, 2021 at 10:08:22AM +0530, Sai Prakash Ranjan wrote:
-> > > > On 2021-07-28 19:30, Georgi Djakov wrote:
-> > > > > On Mon, Jan 11, 2021 at 07:45:02PM +0530, Sai Prakash Ranjan wrote:
-> > > > > > commit ecd7274fb4cd ("iommu: Remove unused IOMMU_SYS_CACHE_ONLY flag")
-> > > > > > removed unused IOMMU_SYS_CACHE_ONLY prot flag and along with it went
-> > > > > > the memory type setting required for the non-coherent masters to use
-> > > > > > system cache. Now that system cache support for GPU is added, we will
-> > > > > > need to set the right PTE attribute for GPU buffers to be sys cached.
-> > > > > > Without this, the system cache lines are not allocated for GPU.
-> > > > > >
-> > > > > > So the patches in this series introduces a new prot flag IOMMU_LLC,
-> > > > > > renames IO_PGTABLE_QUIRK_ARM_OUTER_WBWA to IO_PGTABLE_QUIRK_PTW_LLC
-> > > > > > and makes GPU the user of this protection flag.
-> > > > >
-> > > > > Thank you for the patchset! Are you planning to refresh it, as it does
-> > > > > not apply anymore?
-> > > > >
-> > > >
-> > > > I was waiting on Will's reply [1]. If there are no changes needed, then
-> > > > I can repost the patch.
-> > >
-> > > I still think you need to handle the mismatched alias, no? You're adding
-> > > a new memory type to the SMMU which doesn't exist on the CPU side. That
-> > > can't be right.
-> > >
-> >
-> > Just curious, and maybe this is a dumb question, but what is your
-> > concern about mismatched aliases?  I mean the cache hierarchy on the
-> > GPU device side (anything beyond the LLC) is pretty different and
-> > doesn't really care about the smmu pgtable attributes..
+> Changes in v2:
+> -- remove dp_get_sink_count() cand call drm_dp_read_sink_count()
 >
-> If the CPU accesses a shared buffer with different attributes to those which
-> the device is using then you fall into the "mismatched memory attributes"
-> part of the Arm architecture. It's reasonably unforgiving (you should go and
-> read it) and in some cases can apply to speculative accesses as well, but
-> the end result is typically loss of coherency.
+> Fixes: d9aa6571b28ba ("drm/msm/dp: check sink_count before update is_connected status")
+> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 18 +++++++++++++++---
+>  1 file changed, 15 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 8b69114..6dcb78e 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -1403,6 +1403,7 @@ static int dp_pm_resume(struct device *dev)
+>         struct msm_dp *dp_display = platform_get_drvdata(pdev);
+>         struct dp_display_private *dp;
+>         u32 status;
 
-Ok, I might have a few other sections to read first to decipher the
-terminology..
+'status' is unused now, right? The compiler should be complaining about
+unused local variables.
 
-But my understanding of LLC is that it looks just like system memory
-to the CPU and GPU (I think that would make it "the point of
-coherence" between the GPU and CPU?)  If that is true, shouldn't it be
-invisible from the point of view of different CPU mapping options?
-
-BR,
--R
+> +       int sink_count = 0;
+>
+>         dp = container_of(dp_display, struct dp_display_private, dp_display);
+>  xlog(__func__, 1,0,0, dp->core_initialized, dp_display->power_on);
+> @@ -1417,15 +1418,26 @@ xlog(__func__, 1,0,0, dp->core_initialized, dp_display->power_on);
+>
+>         dp_catalog_ctrl_hpd_config(dp->catalog);
+>
+> -       status = dp_catalog_link_is_connected(dp->catalog);
+> +       /*
+> +        * set sink to normal operation mode -- D0
+> +        * before dpcd read
+> +        */
+> +       dp_link_psm_config(dp->link, &dp->panel->link_info, false);
+> +
+> +       /* if sink conencted, do dpcd read sink count */
+> +       if ((status = dp_catalog_link_is_connected(dp->catalog))) {
+> +               sink_count = drm_dp_read_sink_count(dp->aux);
+> +               if (sink_count < 0)
+> +                       sink_count = 0;
+> +       }
+>
+> +       dp->link->sink_count = sink_count;
+>         /*
+>          * can not declared display is connected unless
+>          * HDMI cable is plugged in and sink_count of
+>          * dongle become 1
+>          */
+> -xlog(__func__, 0x12,0,0, 0, dp->link->sink_count);
+> -       if (status && dp->link->sink_count)
+> +       if (dp->link->sink_count)
+>                 dp->dp_display.is_connected = true;
+>         else
+>                 dp->dp_display.is_connected = false;
