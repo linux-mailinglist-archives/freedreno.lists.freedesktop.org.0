@@ -2,61 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 349853DE901
-	for <lists+freedreno@lfdr.de>; Tue,  3 Aug 2021 10:55:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF4643DE94F
+	for <lists+freedreno@lfdr.de>; Tue,  3 Aug 2021 11:07:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D800B6E48D;
-	Tue,  3 Aug 2021 08:55:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35CBC6E50B;
+	Tue,  3 Aug 2021 09:07:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76EFD6E48D
- for <freedreno@lists.freedesktop.org>; Tue,  3 Aug 2021 08:55:26 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id o20so27350602oiw.12
- for <freedreno@lists.freedesktop.org>; Tue, 03 Aug 2021 01:55:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=EsZwJNaFBYTAyGw1Pi5XpaVhjkvXKuF34mVyc2ioH2g=;
- b=IQMWqByHfAHErosenpOGw+Z00xebZ/uwdcJyLC9k0SMgw0Qz8mvFGTR9ZrCS7wDNJG
- NywBXlnKE3SSvaSXH2G9q56JAlZstr+y8CkEo+eq1XJoXbBV8YbhKqvec+sD4BkA4YDP
- ZqasbQQrUYT2J/E4jt1DxssJF1OACAU11iCZs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=EsZwJNaFBYTAyGw1Pi5XpaVhjkvXKuF34mVyc2ioH2g=;
- b=re8dxRM6mvGoOpybRUUY4H3OncaClkQy69BNV4SAJ6IJ5IXlRJYkHo4C0uX21ZuPTE
- MrEPe89miupxj4ZATS1pWP4BxCZuxFCzplq07mD7M5f7fOJBlFJxu/jupGCKqIs6iMFs
- xNkEcm3BIyomPePioyaL25WLLWR5NejsGscsMGT21ydstD5ZnZ7b6uCs5f9TFwetogeX
- JOKZpvEKkyLkCQIdGl0NyPAu/rIPOlyZmLzt9QxZvTiTRqfmhkrvrr44n2W9jnp6X0cO
- qWnFMB6olv9hXql2iM6y561oF3cicd6gRAAfQF5X6j35q2zUlBwtc5BxLWcEauXkHsN7
- jL8Q==
-X-Gm-Message-State: AOAM5307ZtYFVehM0Ler/Wl4ETF1TDZGZXuQhR3qLViZUQvg33AgCazk
- lLRqQUMu4kgJrcor+4eRrKv3JIdqWbMtgOdpS+Idww==
-X-Google-Smtp-Source: ABdhPJzwpHkcVQ7Aar0ILGc3CwQvololSXJOgi1sdQHYLOY3sdJq+SQ3C6QiLVfDbKdEgtRgfxMFN8Uc2/Gok62IF7Y=
-X-Received: by 2002:a05:6808:619:: with SMTP id
- y25mr2386771oih.166.1627980925750; 
- Tue, 03 Aug 2021 01:55:25 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 3 Aug 2021 01:55:25 -0700
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0BD16E499;
+ Tue,  3 Aug 2021 09:07:08 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6CB62200AD;
+ Tue,  3 Aug 2021 09:07:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1627981627; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=q3+6KEUPrv4P0GKwP+A7/qqpGBMH/Xg9bYVCDAlx7rY=;
+ b=lj2EINnNTDtFgnz3ekPIREpOQMBlLc+hGKbR6/AjY5pgs3q2xRJgTGChwBXApw/1jV4lTj
+ 6VX4CJ+FgVeLzBcWDLc98q0C8jc8RrhcThZAQVdMhdFICgjHEVSBFrH1KaB7uqKbWXHRy4
+ 9PObbWNX6TowjohPMRKQBOiJ1VB/JII=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1627981627;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=q3+6KEUPrv4P0GKwP+A7/qqpGBMH/Xg9bYVCDAlx7rY=;
+ b=DIlrjiYO3akc03nF/YB89hmnQ148+n+niJhuf4YsHNkfflBTxVLMjTFEjx8sqNaCKvM/fq
+ Af3/15oWWiPcciAA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A096B13CC4;
+ Tue,  3 Aug 2021 09:07:06 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id +sX6JToHCWFVJQAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Tue, 03 Aug 2021 09:07:06 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
+ christian.koenig@amd.com, liviu.dudau@arm.com, brian.starkey@arm.com,
+ sam@ravnborg.org, bbrezillon@kernel.org, nicolas.ferre@microchip.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, stefan@agner.ch,
+ alison.wang@nxp.com, patrik.r.jakobsson@gmail.com,
+ anitha.chrisanthus@intel.com, robdclark@gmail.com, edmund.j.dea@intel.com,
+ sean@poorly.run, shawnguo@kernel.org, s.hauer@pengutronix.de,
+ kernel@pengutronix.de, jyri.sarha@iki.fi, tomba@kernel.org,
+ Dan.Sneddon@microchip.com, tomi.valkeinen@ideasonboard.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
+Date: Tue,  3 Aug 2021 11:06:50 +0200
+Message-Id: <20210803090704.32152-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-In-Reply-To: <1627935655-4090-1-git-send-email-khsieh@codeaurora.org>
-References: <1627935655-4090-1-git-send-email-khsieh@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Tue, 3 Aug 2021 01:55:25 -0700
-Message-ID: <CAE-0n51qc7LX-hWiFEGWRAZqNUgQAQ3XCxO6oEYWZh7wvkxs5Q@mail.gmail.com>
-To: Kuogee Hsieh <khsieh@codeaurora.org>, agross@kernel.org,
- bjorn.andersson@linaro.org, 
- robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
-Cc: abhinavk@codeaurora.org, aravindh@codeaurora.org, 
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: update is_connected status
- base on sink count at dp_pm_resume()
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 00/14] drm: Make DRM's IRQ helpers legacy
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,65 +78,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2021-08-02 13:20:55)
-> Currently at dp_pm_resume() is_connected state is decided base on hpd connection
-> status only. This will put is_connected in wrongly "true" state at the scenario
-> that dongle attached to DUT but without hmdi cable connecting to it. Fix this
-> problem by adding read sink count from dongle and decided is_connected state base
-> on both sink count and hpd connection status.
->
-> Changes in v2:
-> -- remove dp_get_sink_count() cand call drm_dp_read_sink_count()
->
-> Fixes: d9aa6571b28ba ("drm/msm/dp: check sink_count before update is_connected status")
-> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
-> ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 18 +++++++++++++++---
->  1 file changed, 15 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 8b69114..6dcb78e 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -1403,6 +1403,7 @@ static int dp_pm_resume(struct device *dev)
->         struct msm_dp *dp_display = platform_get_drvdata(pdev);
->         struct dp_display_private *dp;
->         u32 status;
+DRM's IRQ helpers are only helpful for old, non-KMS drivers. Move
+the code behind CONFIG_DRM_LEGACY. Convert KMS drivers to Linux
+IRQ interfaces.
 
-'status' is unused now, right? The compiler should be complaining about
-unused local variables.
+DRM provides IRQ helpers for setting up, receiving and removing IRQ
+handlers. It's an abstraction over plain Linux functions. The code
+is mid-layerish with several callbacks to hook into the rsp drivers.
+Old UMS driver have their interrupts enabled via ioctl, so these
+abstractions makes some sense. Modern KMS manage all their interrupts
+internally. Using the DRM helpers adds indirection without benefits.
 
-> +       int sink_count = 0;
->
->         dp = container_of(dp_display, struct dp_display_private, dp_display);
->  xlog(__func__, 1,0,0, dp->core_initialized, dp_display->power_on);
-> @@ -1417,15 +1418,26 @@ xlog(__func__, 1,0,0, dp->core_initialized, dp_display->power_on);
->
->         dp_catalog_ctrl_hpd_config(dp->catalog);
->
-> -       status = dp_catalog_link_is_connected(dp->catalog);
-> +       /*
-> +        * set sink to normal operation mode -- D0
-> +        * before dpcd read
-> +        */
-> +       dp_link_psm_config(dp->link, &dp->panel->link_info, false);
-> +
-> +       /* if sink conencted, do dpcd read sink count */
-> +       if ((status = dp_catalog_link_is_connected(dp->catalog))) {
-> +               sink_count = drm_dp_read_sink_count(dp->aux);
-> +               if (sink_count < 0)
-> +                       sink_count = 0;
-> +       }
->
-> +       dp->link->sink_count = sink_count;
->         /*
->          * can not declared display is connected unless
->          * HDMI cable is plugged in and sink_count of
->          * dongle become 1
->          */
-> -xlog(__func__, 0x12,0,0, 0, dp->link->sink_count);
-> -       if (status && dp->link->sink_count)
-> +       if (dp->link->sink_count)
->                 dp->dp_display.is_connected = true;
->         else
->                 dp->dp_display.is_connected = false;
+Most KMS drivers already use Linux IRQ functions instead of DRM's
+abstraction layer. Patches 1 to 12 convert the remaining ones.
+The patches also resolve a bug for devices without assigned interrupt
+number. DRM helpers don't test for IRQ_NOTCONNECTED, so drivers do
+not detect if the device has no interrupt assigned.
+
+Patch 13 removes an unused function.
+
+Patch 14 moves the DRM IRQ helpers behind CONFIG_DRM_LEGACY. Only
+the old non-KMS drivers still use the functionality.
+
+v2:
+	* drop IRQ_NOTCONNECTED test from atmel-hlcdc (Sam)
+	* use devm_request_irq() in atmel-hlcdc (Sam)
+	* unify variable names in arm/hlcdc (Sam)
+
+Thomas Zimmermann (14):
+  drm/amdgpu: Convert to Linux IRQ interfaces
+  drm/arm/hdlcd: Convert to Linux IRQ interfaces
+  drm/atmel-hlcdc: Convert to Linux IRQ interfaces
+  drm/fsl-dcu: Convert to Linux IRQ interfaces
+  drm/gma500: Convert to Linux IRQ interfaces
+  drm/kmb: Convert to Linux IRQ interfaces
+  drm/msm: Convert to Linux IRQ interfaces
+  drm/mxsfb: Convert to Linux IRQ interfaces
+  drm/radeon: Convert to Linux IRQ interfaces
+  drm/tidss: Convert to Linux IRQ interfaces
+  drm/tilcdc: Convert to Linux IRQ interfaces
+  drm/vc4: Convert to Linux IRQ interfaces
+  drm: Remove unused devm_drm_irq_install()
+  drm: IRQ midlayer is now legacy
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c      |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c      |  21 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h      |   2 +-
+ drivers/gpu/drm/arm/hdlcd_drv.c              | 174 ++++++++++---------
+ drivers/gpu/drm/arm/hdlcd_drv.h              |   1 +
+ drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c |  80 +++++----
+ drivers/gpu/drm/drm_irq.c                    |  95 +---------
+ drivers/gpu/drm/drm_legacy_misc.c            |   3 +-
+ drivers/gpu/drm/drm_vblank.c                 |   8 +-
+ drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c    |  78 +++++----
+ drivers/gpu/drm/gma500/power.c               |   1 +
+ drivers/gpu/drm/gma500/psb_drv.c             |   8 +-
+ drivers/gpu/drm/gma500/psb_drv.h             |   5 -
+ drivers/gpu/drm/gma500/psb_irq.c             |  26 ++-
+ drivers/gpu/drm/gma500/psb_irq.h             |   4 +-
+ drivers/gpu/drm/i810/i810_dma.c              |   3 +-
+ drivers/gpu/drm/kmb/kmb_drv.c                |  26 ++-
+ drivers/gpu/drm/mga/mga_dma.c                |   2 +-
+ drivers/gpu/drm/mga/mga_drv.h                |   1 -
+ drivers/gpu/drm/msm/msm_drv.c                | 113 +++++++-----
+ drivers/gpu/drm/msm/msm_kms.h                |   2 +-
+ drivers/gpu/drm/mxsfb/mxsfb_drv.c            |  81 +++++----
+ drivers/gpu/drm/mxsfb/mxsfb_drv.h            |   2 +
+ drivers/gpu/drm/r128/r128_cce.c              |   3 +-
+ drivers/gpu/drm/radeon/radeon_drv.c          |   4 -
+ drivers/gpu/drm/radeon/radeon_irq_kms.c      |  44 ++++-
+ drivers/gpu/drm/radeon/radeon_kms.h          |   4 -
+ drivers/gpu/drm/tidss/tidss_drv.c            |  15 +-
+ drivers/gpu/drm/tidss/tidss_drv.h            |   2 +
+ drivers/gpu/drm/tidss/tidss_irq.c            |  27 ++-
+ drivers/gpu/drm/tidss/tidss_irq.h            |   4 +-
+ drivers/gpu/drm/tilcdc/tilcdc_drv.c          |  51 ++++--
+ drivers/gpu/drm/tilcdc/tilcdc_drv.h          |   3 +
+ drivers/gpu/drm/vc4/vc4_drv.c                |   4 -
+ drivers/gpu/drm/vc4/vc4_drv.h                |   8 +-
+ drivers/gpu/drm/vc4/vc4_irq.c                |  48 +++--
+ drivers/gpu/drm/vc4/vc4_v3d.c                |  17 +-
+ drivers/gpu/drm/via/via_mm.c                 |   3 +-
+ include/drm/drm_device.h                     |  18 +-
+ include/drm/drm_drv.h                        |  44 +----
+ include/drm/drm_irq.h                        |  32 ----
+ include/drm/drm_legacy.h                     |   3 +
+ 42 files changed, 567 insertions(+), 504 deletions(-)
+ delete mode 100644 include/drm/drm_irq.h
+
+
+base-commit: c9d6903562aa335593daf44b4a1edeaef6bf9206
+prerequisite-patch-id: c2b2f08f0eccc9f5df0c0da49fa1d36267deb11d
+prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
+prerequisite-patch-id: c3f32630e1d2de2eb74316c930578847d4b83fb3
+prerequisite-patch-id: b32ca0abfc255601f8a5052d3b88be09527dabcb
+prerequisite-patch-id: 22a3f264168bacb04ef65306b32b86be8dc982ef
+prerequisite-patch-id: 095a0acb604eb02956e1a7e53da41371c64eb813
+prerequisite-patch-id: 7a2417d5d8d453204bd94aa873e3faae812f26fc
+--
+2.32.0
+
