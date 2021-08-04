@@ -2,59 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0E213DF623
-	for <lists+freedreno@lfdr.de>; Tue,  3 Aug 2021 22:13:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DF363DFB26
+	for <lists+freedreno@lfdr.de>; Wed,  4 Aug 2021 07:37:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4882A6E12B;
-	Tue,  3 Aug 2021 20:13:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F28B26E9C2;
+	Wed,  4 Aug 2021 05:37:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
- [IPv6:2607:f8b0:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3414A6E12B
- for <freedreno@lists.freedesktop.org>; Tue,  3 Aug 2021 20:13:11 +0000 (UTC)
-Received: by mail-oi1-x22c.google.com with SMTP id 26so248721oiy.0
- for <freedreno@lists.freedesktop.org>; Tue, 03 Aug 2021 13:13:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=mL66p7hWwJs0uODfuoDP6bwn2OF6cA0CzfTBUWUkGg4=;
- b=XS7RdH1UoHVjTZIVBMtzi7boDGmgd74mV5qkzXfTgWhhlsz3FFJTEDA96jM66q0qkf
- tnVqs4HREXO3oXmdzKpEJ5QPLD/vrXJKcTd6Abto1Wzs2Ai81iJHcmfPEb236VbvNpzy
- yXHQfuIRGFlXCLBAiYSqYmJ9UCVCi1qrG8OYI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=mL66p7hWwJs0uODfuoDP6bwn2OF6cA0CzfTBUWUkGg4=;
- b=r8fGLQVuxhcM0hJQcP2kEIKXEeNgKF5Kv/xYRYqdyEa6bMrjG22XSNEE/a6vF2zX8c
- oTtEYnzCRoCuIp/YxRSQDyHUyVK+4j6xBQ4pxuPhFFs76DcdtW7kdR/+wEDXeMXhcCUw
- VKTF6dewaRJyxtg5g0Lr2mg6WzHuRJFfZJn005BkXHU7aoJnBpM1Vxt1ZWRNZHHlN2l7
- B1/sb3HtmvR33j6BPCD9H9O759Y2AxwuEi6Wqd1VO+OcUTrTvxgypYRE63bvH0oYEUk8
- Vh/StWGU6KXdb5UEH9X1s/owXTBXnS5I1nFX2YtUbfAWn+1fSdFGMCFV7mzA9Q7o5YP5
- TnGw==
-X-Gm-Message-State: AOAM531bf4GWBDFhmZP1n5CXGxCP2+4p6z+7HsdLx6/kmk4c92EZokt+
- Eqepj5bZwJtpRukxHnsO0WugPywRLdj8xd2GKg6piw==
-X-Google-Smtp-Source: ABdhPJwHzCEof57wa5MwJlj+OLIE4A4DUTjhh66InjV2cvQnN4ABaOQLvHRfB7a7K2brpMYq1WkI3dr6mVq+wsZF35c=
-X-Received: by 2002:a05:6808:114a:: with SMTP id
- u10mr16109374oiu.19.1628021590448; 
- Tue, 03 Aug 2021 13:13:10 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 3 Aug 2021 15:13:10 -0500
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF53F6E9C2
+ for <freedreno@lists.freedesktop.org>; Wed,  4 Aug 2021 05:37:45 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1628055465; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=XdIMy/+KYlx0LiNJkuSBANk6R6Hn89TlHZhiYcNm2Ec=;
+ b=M5/aK6cPqBP0kwG2yCiBX7UlA5lFwdmkD7jjgEZREwRJrazHV9PvpcmKMnlxDWA1OIhqafr0
+ +REA1DWOWyrO1GF5Y8WxgXLQBQV0eaaFlgWXejfKH3Whsj8LzTgqc0OUF0dAMnPe5c3SdR72
+ p4qlCHBakSukfY6ES4eT750dj04=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
+ 610a27a61175e6c417ce3513 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 04 Aug 2021 05:37:42
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 93EF0C433F1; Wed,  4 Aug 2021 05:37:41 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: kalyan_t)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id BDDD1C433D3;
+ Wed,  4 Aug 2021 05:37:40 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <1627987307-29347-1-git-send-email-kalyan_t@codeaurora.org>
-References: <1627987307-29347-1-git-send-email-kalyan_t@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Tue, 3 Aug 2021 15:13:10 -0500
-Message-ID: <CAE-0n52+PvNpz5uqf3O_NsfQ4q2taeZmdSdoM3fGDLp5aQVj-A@mail.gmail.com>
-To: Kalyan Thota <kalyan_t@codeaurora.org>, devicetree@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, robdclark@gmail.com, dianders@chromium.org, 
- mkrishn@codeaurora.org, saiprakash.ranjan@codeaurora.org, 
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Wed, 04 Aug 2021 11:07:40 +0530
+From: kalyan_t@codeaurora.org
+To: Stephen Boyd <swboyd@chromium.org>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com, dianders@chromium.org,
+ mkrishn@codeaurora.org, saiprakash.ranjan@codeaurora.org,
  rnayak@codeaurora.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <CAE-0n52+PvNpz5uqf3O_NsfQ4q2taeZmdSdoM3fGDLp5aQVj-A@mail.gmail.com>
+References: <1627987307-29347-1-git-send-email-kalyan_t@codeaurora.org>
+ <CAE-0n52+PvNpz5uqf3O_NsfQ4q2taeZmdSdoM3fGDLp5aQVj-A@mail.gmail.com>
+Message-ID: <b6aca5dda4e100694a3d8cb39cfc650d@codeaurora.org>
+X-Sender: kalyan_t@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
 Subject: Re: [Freedreno] [v2] drm/msm/disp/dpu1: add safe lut config in dpu
  driver
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -72,31 +75,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kalyan Thota (2021-08-03 03:41:47)
-> Add safe lut configuration for all the targets in dpu
-> driver as per QOS recommendation.
->
-> Issue reported on SC7280:
->
-> With wait-for-safe feature in smmu enabled, RT client
-> buffer levels are checked to be safe before smmu invalidation.
-> Since display was always set to unsafe it was delaying the
-> invalidaiton process thus impacting the performance on NRT clients
-> such as eMMC and NVMe.
->
-> Validated this change on SC7280, With this change eMMC performance
-> has improved significantly.
->
-> Changes in v1:
-> - Add fixes tag (Sai)
-> - CC stable kernel (Dimtry)
->
-> Fixes: cfacf946a464d4(drm/msm/disp/dpu1: add support for display for SC7280 target)
+On 2021-08-04 01:43, Stephen Boyd wrote:
+> Quoting Kalyan Thota (2021-08-03 03:41:47)
+>> Add safe lut configuration for all the targets in dpu
+>> driver as per QOS recommendation.
+>> 
+>> Issue reported on SC7280:
+>> 
+>> With wait-for-safe feature in smmu enabled, RT client
+>> buffer levels are checked to be safe before smmu invalidation.
+>> Since display was always set to unsafe it was delaying the
+>> invalidaiton process thus impacting the performance on NRT clients
+>> such as eMMC and NVMe.
+>> 
+>> Validated this change on SC7280, With this change eMMC performance
+>> has improved significantly.
+>> 
+>> Changes in v1:
+>> - Add fixes tag (Sai)
+>> - CC stable kernel (Dimtry)
+>> 
+>> Fixes: cfacf946a464d4(drm/msm/disp/dpu1: add support for display for 
+>> SC7280 target)
+> 
+> This is wrong format and commit hash
+> 
+My bad, i'll fix it right away
+- KT
 
-This is wrong format and commit hash
-
-Fixes: 591e34a091d1 ("drm/msm/disp/dpu1: add support for display for
-SC7280 target")
-
-> Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
-> Tested-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org> (sc7280, sc7180)
+> Fixes: 591e34a091d1 ("drm/msm/disp/dpu1: add support for display for
+> SC7280 target")
+> 
+>> Signed-off-by: Kalyan Thota <kalyan_t@codeaurora.org>
+>> Tested-by: Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org> 
+>> (sc7280, sc7180)
