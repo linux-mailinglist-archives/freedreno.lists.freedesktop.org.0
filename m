@@ -2,64 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 268703E1A0D
-	for <lists+freedreno@lfdr.de>; Thu,  5 Aug 2021 19:08:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 357863E1D61
+	for <lists+freedreno@lfdr.de>; Thu,  5 Aug 2021 22:37:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9F1E6EB15;
-	Thu,  5 Aug 2021 17:08:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3B896EB3A;
+	Thu,  5 Aug 2021 20:37:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFD1A6EB15
- for <freedreno@lists.freedesktop.org>; Thu,  5 Aug 2021 17:08:19 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id bq29so12502675lfb.5
- for <freedreno@lists.freedesktop.org>; Thu, 05 Aug 2021 10:08:19 -0700 (PDT)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D04726EB42
+ for <freedreno@lists.freedesktop.org>; Thu,  5 Aug 2021 20:37:35 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id m9so8814325ljp.7
+ for <freedreno@lists.freedesktop.org>; Thu, 05 Aug 2021 13:37:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=u5iij8rID6SAk24Gs2UckGpZrRbqv5ALWYEAvBtS4mY=;
- b=HihlEB7QQCsFTB7m+r/iDAPKeJlly9uHAUNgUoNvFpkED6Sq13q3A39T6yGWWvyIRM
- dHl1lYp/dNL8tb/8x4AWFOcv8iz6BEvrNoR64kXCnCZLIMTyTq+PkC7iYjUFeALvzr6o
- lDvDD/6cEGkrzj64tBO8X+WosK1kMz7JfhNZucPvOqktE+lxFMshAFEqUPl5v6ZXWzxS
- o5XKKsmeSZLNvtyI39w8UpqAPOY3t96adfVB1G0BAhsVJcZe1vrjSi9TKLzKhrkQFcll
- YI6EUT38/GEpLaFDHpYR1+dPktXbqWlLFdXfcaIkMu8Lt+YeoDlTbwYyUi1Yw9/IUzPV
- zudg==
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=PCb9Vg4MNIfx8MIl3EhLdxWgZVaYvDp4QlXHnDYweSM=;
+ b=tQmVbTGrDgseUjOuhUpIYNpimj6wcV2Vq0Kb0Wc6BstUtDzG+/1xhTafWKhC0DglsI
+ z/dJdpxxaQoGg8VHB41YpVNWY4ahIGQewaFM+X3M02qdYW2a1vAPQK6012TLFmpWGbPL
+ wMyMGVYwXlXdvFc5mIwzkVLotbPufmDGrwEiu7F6GuneoqNrLa57ts0CcLPsGG2uR3Iq
+ rKzl8EfIFUt8K/x8Rkz5JmY6l1RSXwBGlhS6MOb0A/5UfYuzvxtnyqyJRwuwK//L6cG8
+ kSdyiN66qxjHPegov9rWzlwSWCMSB2sNir8Q6gTJymKDwmTYn+QJZLQUVkUaMS5XBlXl
+ gq4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=u5iij8rID6SAk24Gs2UckGpZrRbqv5ALWYEAvBtS4mY=;
- b=ZPpjHq8o3n5UqEiTJxQqy6XWkt9k1uYcHON3ZkPyhp/xJJYO+Qc3wv5IbftyOmQlOC
- a0Nav9cHs5n+Z6EOysNSIdgOWHYg4y7/j0x7agboZ89/HGsQFYU75lrqIpwahE5d3hwF
- 57DtTqUsopnfJjVGy0G2zB99UT+kIarruxTBqEYHmg0Icp2z9D6at/JWuqcj22BACLZi
- uhxweQza8PnWjPNP5ZQcf8gLQ94xzfawndmPrMzrIlscW3ToVo2QX+ZWX921w83I7QX2
- epvB9vB845JBa8fuATkwidrkc7Kqh3dB+aeYwGyhWSXNvf67g4I6WSaeiY2HsvwhuTjM
- rdAQ==
-X-Gm-Message-State: AOAM531mO5oRzRPS2nfCKNtEgS7ytcEgU98mnGysdbSgKBINfinDWsKP
- 2t+gIrFuxSLTtun4dnymA3TtJw==
-X-Google-Smtp-Source: ABdhPJx+iKXMxN1ZaUHnr/vBFWgK62YDFCoxXE2ugla5zcpEvl/+wWZVyK8vcLL/S3SfYk6G/g+yAw==
-X-Received: by 2002:a19:e00a:: with SMTP id x10mr4679538lfg.536.1628183298064; 
- Thu, 05 Aug 2021 10:08:18 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id v19sm568935lfg.134.2021.08.05.10.08.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Aug 2021 10:08:17 -0700 (PDT)
+ bh=PCb9Vg4MNIfx8MIl3EhLdxWgZVaYvDp4QlXHnDYweSM=;
+ b=gGLTNKeSpkogQCLd1ADh0PI6bnnL/i3UlBnSA3F1Ys1fbq0mVu5n8ArNXlstcjTYJg
+ LTbE2IROdGeffjZuMFK5xqwARjs3stfunuxAmseef6sRt+20wn+iMFjdUmyrJZzuwG25
+ Qkdju6fn4h8G/3ud0IRuSqAy5C/rMgZNUM888dkpRk6ENhWQI4hQg3ryEjHgS//gsAZR
+ cd5dN6or70xfOvDblF+JkauVT5HfdSHbH9fhLp1qS7lGTBUw38qYcYwZxjcHyfgqmc8t
+ /VIuhIk2yq33f167tC2pRwX8xH+TugwjEtUHjJQvphxehzJqS4fpAmCRVn5E/xGSuD/L
+ 3/Qw==
+X-Gm-Message-State: AOAM532rSxa1QHQv15VufELT0sKHBXn/Oh0HClHKwGzn4e+c3TmZ5owf
+ gELT40n+nrPk9Asg3mjWRXtEkg==
+X-Google-Smtp-Source: ABdhPJxFiXjhta4Jq9uuEp6GCTVIh+qj58FU/VuJ36KUv+PjNPN9FiopMbZltk87/KNmzaxNXkhmOg==
+X-Received: by 2002:a2e:a906:: with SMTP id j6mr4329253ljq.292.1628195853878; 
+ Thu, 05 Aug 2021 13:37:33 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id j16sm282693ljc.71.2021.08.05.13.37.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 05 Aug 2021 13:37:33 -0700 (PDT)
+To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
+ airlied@redhat.com
+Cc: dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org,
+ spice-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ intel-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linux-hyperv@vger.kernel.org, amd-gfx@lists.freedesktop.org
+References: <20210629135833.22679-1-tzimmermann@suse.de>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <abhinavk@codeaurora.org>
-Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-Date: Thu,  5 Aug 2021 20:08:17 +0300
-Message-Id: <20210805170817.3337665-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.30.2
+Message-ID: <ba6a19fb-2d52-340a-649f-211e4cf7c8fb@linaro.org>
+Date: Thu, 5 Aug 2021 23:37:32 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v5] drm/msm/dsi: add continuous clock support
- for 7nm PHY
+In-Reply-To: <20210629135833.22679-1-tzimmermann@suse.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] drm/aperture: Pass DRM driver structure
+ instead of driver name
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,215 +83,443 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Unlike previous generations, 7nm PHYs are required to collaborate with
-the host for conitnuos clock mode. Add changes neccessary to enable
-continuous clock mode in the 7nm DSI PHYs.
+On 29/06/2021 16:58, Thomas Zimmermann wrote:
+> Print the name of the DRM driver when taking over fbdev devices. Makes
+> the output to dmesg more consistent. Note that the driver name is only
+> used for printing a string to the kernel log. No UAPI is affected by this
+> change.
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
-Changes since v4:
- - Fix the comment regarding msm_dsi_phy_set_continuous_clock()
+[...]
 
-Changes since v3:
- - Invert the DSI_LANE_CTRL_HS_REQ_SEL_PHY bit logic, as noted by
-   Abhinav.
+>   drivers/gpu/drm/msm/msm_fbdev.c               |  2 +-
 
-Changes since v2:
- - Really drop msm_dsi_phy_needs_hs_phy_sel()
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Changes since v1:
- - Remove the need for a separate msm_dsi_phy_needs_hs_phy_sel() call
- - Fix setting continuous clock for a dual DSI case.
----
- drivers/gpu/drm/msm/dsi/dsi.h             |  3 ++-
- drivers/gpu/drm/msm/dsi/dsi.xml.h         |  1 +
- drivers/gpu/drm/msm/dsi/dsi_host.c        | 12 ++++++++----
- drivers/gpu/drm/msm/dsi/dsi_manager.c     |  4 ++--
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.c     |  9 +++++++++
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.h     |  1 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 17 +++++++++++++++++
- 7 files changed, 40 insertions(+), 7 deletions(-)
+>   drivers/gpu/drm/nouveau/nouveau_drm.c         |  2 +-
+>   drivers/gpu/drm/qxl/qxl_drv.c                 |  2 +-
+>   drivers/gpu/drm/radeon/radeon_drv.c           |  2 +-
+>   drivers/gpu/drm/rockchip/rockchip_drm_drv.c   |  2 +-
+>   drivers/gpu/drm/sun4i/sun4i_drv.c             |  2 +-
+>   drivers/gpu/drm/tegra/drm.c                   |  2 +-
+>   drivers/gpu/drm/tiny/cirrus.c                 |  2 +-
+>   drivers/gpu/drm/vboxvideo/vbox_drv.c          |  2 +-
+>   drivers/gpu/drm/vc4/vc4_drv.c                 |  2 +-
+>   drivers/gpu/drm/virtio/virtgpu_drv.c          |  2 +-
+>   drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           |  2 +-
+>   include/drm/drm_aperture.h                    | 14 +++++++++-----
+>   23 files changed, 43 insertions(+), 34 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 6f30c525caac..accf9c1b967a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -1278,7 +1278,7 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+>   #endif
+>   
+>   	/* Get rid of things like offb */
+> -	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "amdgpudrmfb");
+> +	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &amdgpu_kms_driver);
+>   	if (ret)
+>   		return ret;
+>   
+> diff --git a/drivers/gpu/drm/armada/armada_drv.c b/drivers/gpu/drm/armada/armada_drv.c
+> index dab0a1f0983b..31925ae3ab72 100644
+> --- a/drivers/gpu/drm/armada/armada_drv.c
+> +++ b/drivers/gpu/drm/armada/armada_drv.c
+> @@ -95,7 +95,7 @@ static int armada_drm_bind(struct device *dev)
+>   	}
+>   
+>   	/* Remove early framebuffers */
+> -	ret = drm_aperture_remove_framebuffers(false, "armada-drm-fb");
+> +	ret = drm_aperture_remove_framebuffers(false, &armada_drm_driver);
+>   	if (ret) {
+>   		dev_err(dev, "[" DRM_NAME ":%s] can't kick out simple-fb: %d\n",
+>   			__func__, ret);
+> diff --git a/drivers/gpu/drm/ast/ast_drv.c b/drivers/gpu/drm/ast/ast_drv.c
+> index 5aa452b4efe6..86d5cd7b6318 100644
+> --- a/drivers/gpu/drm/ast/ast_drv.c
+> +++ b/drivers/gpu/drm/ast/ast_drv.c
+> @@ -100,7 +100,7 @@ static int ast_remove_conflicting_framebuffers(struct pci_dev *pdev)
+>   	primary = pdev->resource[PCI_ROM_RESOURCE].flags & IORESOURCE_ROM_SHADOW;
+>   #endif
+>   
+> -	return drm_aperture_remove_conflicting_framebuffers(base, size, primary, "astdrmfb");
+> +	return drm_aperture_remove_conflicting_framebuffers(base, size, primary, &ast_driver);
+>   }
+>   
+>   static int ast_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+> diff --git a/drivers/gpu/drm/bochs/bochs_drv.c b/drivers/gpu/drm/bochs/bochs_drv.c
+> index c828cadbabff..0d232b44ecd7 100644
+> --- a/drivers/gpu/drm/bochs/bochs_drv.c
+> +++ b/drivers/gpu/drm/bochs/bochs_drv.c
+> @@ -110,7 +110,7 @@ static int bochs_pci_probe(struct pci_dev *pdev,
+>   		return -ENOMEM;
+>   	}
+>   
+> -	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "bochsdrmfb");
+> +	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &bochs_driver);
+>   	if (ret)
+>   		return ret;
+>   
+> diff --git a/drivers/gpu/drm/drm_aperture.c b/drivers/gpu/drm/drm_aperture.c
+> index 9335d9d6cf9a..9ac39cf11694 100644
+> --- a/drivers/gpu/drm/drm_aperture.c
+> +++ b/drivers/gpu/drm/drm_aperture.c
+> @@ -33,6 +33,10 @@
+>    *
+>    * .. code-block:: c
+>    *
+> + *	static const struct drm_driver example_driver = {
+> + *		...
+> + *	};
+> + *
+>    *	static int remove_conflicting_framebuffers(struct pci_dev *pdev)
+>    *	{
+>    *		bool primary = false;
+> @@ -46,7 +50,7 @@
+>    *	#endif
+>    *
+>    *		return drm_aperture_remove_conflicting_framebuffers(base, size, primary,
+> - *		                                                    "example driver");
+> + *		                                                    &example_driver);
+>    *	}
+>    *
+>    *	static int probe(struct pci_dev *pdev)
+> @@ -274,7 +278,7 @@ static void drm_aperture_detach_drivers(resource_size_t base, resource_size_t si
+>    * @base: the aperture's base address in physical memory
+>    * @size: aperture size in bytes
+>    * @primary: also kick vga16fb if present
+> - * @name: requesting driver name
+> + * @req_driver: requesting DRM driver
+>    *
+>    * This function removes graphics device drivers which use memory range described by
+>    * @base and @size.
+> @@ -283,7 +287,7 @@ static void drm_aperture_detach_drivers(resource_size_t base, resource_size_t si
+>    * 0 on success, or a negative errno code otherwise
+>    */
+>   int drm_aperture_remove_conflicting_framebuffers(resource_size_t base, resource_size_t size,
+> -						 bool primary, const char *name)
+> +						 bool primary, const struct drm_driver *req_driver)
+>   {
+>   #if IS_REACHABLE(CONFIG_FB)
+>   	struct apertures_struct *a;
+> @@ -296,7 +300,7 @@ int drm_aperture_remove_conflicting_framebuffers(resource_size_t base, resource_
+>   	a->ranges[0].base = base;
+>   	a->ranges[0].size = size;
+>   
+> -	ret = remove_conflicting_framebuffers(a, name, primary);
+> +	ret = remove_conflicting_framebuffers(a, req_driver->name, primary);
+>   	kfree(a);
+>   
+>   	if (ret)
+> @@ -312,7 +316,7 @@ EXPORT_SYMBOL(drm_aperture_remove_conflicting_framebuffers);
+>   /**
+>    * drm_aperture_remove_conflicting_pci_framebuffers - remove existing framebuffers for PCI devices
+>    * @pdev: PCI device
+> - * @name: requesting driver name
+> + * @req_driver: requesting DRM driver
+>    *
+>    * This function removes graphics device drivers using memory range configured
+>    * for any of @pdev's memory bars. The function assumes that PCI device with
+> @@ -321,7 +325,8 @@ EXPORT_SYMBOL(drm_aperture_remove_conflicting_framebuffers);
+>    * Returns:
+>    * 0 on success, or a negative errno code otherwise
+>    */
+> -int drm_aperture_remove_conflicting_pci_framebuffers(struct pci_dev *pdev, const char *name)
+> +int drm_aperture_remove_conflicting_pci_framebuffers(struct pci_dev *pdev,
+> +						     const struct drm_driver *req_driver)
+>   {
+>   	resource_size_t base, size;
+>   	int bar, ret = 0;
+> @@ -339,7 +344,7 @@ int drm_aperture_remove_conflicting_pci_framebuffers(struct pci_dev *pdev, const
+>   	 * otherwise the vga fbdev driver falls over.
+>   	 */
+>   #if IS_REACHABLE(CONFIG_FB)
+> -	ret = remove_conflicting_pci_framebuffers(pdev, name);
+> +	ret = remove_conflicting_pci_framebuffers(pdev, req_driver->name);
+>   #endif
+>   	if (ret == 0)
+>   		ret = vga_remove_vgacon(pdev);
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+> index f4bc5386574a..6f0297b854f2 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+> @@ -314,7 +314,7 @@ static int hibmc_pci_probe(struct pci_dev *pdev,
+>   	struct drm_device *dev;
+>   	int ret;
+>   
+> -	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "hibmcdrmfb");
+> +	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &hibmc_driver);
+>   	if (ret)
+>   		return ret;
+>   
+> diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_drv.c b/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
+> index eb06c92c4bfd..cd818a629183 100644
+> --- a/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
+> +++ b/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
+> @@ -82,7 +82,7 @@ static int hyperv_setup_gen1(struct hyperv_drm_device *hv)
+>   		return -ENODEV;
+>   	}
+>   
+> -	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "hypervdrmfb");
+> +	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &hyperv_driver);
+>   	if (ret) {
+>   		drm_err(dev, "Not able to remove boot fb\n");
+>   		return ret;
+> @@ -127,7 +127,7 @@ static int hyperv_setup_gen2(struct hyperv_drm_device *hv,
+>   	drm_aperture_remove_conflicting_framebuffers(screen_info.lfb_base,
+>   						     screen_info.lfb_size,
+>   						     false,
+> -						     "hypervdrmfb");
+> +						     &hyperv_driver);
+>   
+>   	hv->fb_size = (unsigned long)hv->mmio_megabytes * 1024 * 1024;
+>   
+> diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
+> index 850b499c71c8..62327c15f457 100644
+> --- a/drivers/gpu/drm/i915/i915_drv.c
+> +++ b/drivers/gpu/drm/i915/i915_drv.c
+> @@ -562,7 +562,7 @@ static int i915_driver_hw_probe(struct drm_i915_private *dev_priv)
+>   	if (ret)
+>   		goto err_perf;
+>   
+> -	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "inteldrmfb");
+> +	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, dev_priv->drm.driver);
+>   	if (ret)
+>   		goto err_ggtt;
+>   
+> diff --git a/drivers/gpu/drm/meson/meson_drv.c b/drivers/gpu/drm/meson/meson_drv.c
+> index a7388bf7c838..3d0ccc7eef1b 100644
+> --- a/drivers/gpu/drm/meson/meson_drv.c
+> +++ b/drivers/gpu/drm/meson/meson_drv.c
+> @@ -285,7 +285,7 @@ static int meson_drv_bind_master(struct device *dev, bool has_components)
+>   	 * Remove early framebuffers (ie. simplefb). The framebuffer can be
+>   	 * located anywhere in RAM
+>   	 */
+> -	ret = drm_aperture_remove_framebuffers(false, "meson-drm-fb");
+> +	ret = drm_aperture_remove_framebuffers(false, &meson_driver);
+>   	if (ret)
+>   		goto free_drm;
+>   
+> diff --git a/drivers/gpu/drm/mgag200/mgag200_drv.c b/drivers/gpu/drm/mgag200/mgag200_drv.c
+> index a701d9563257..36d1bfb3213f 100644
+> --- a/drivers/gpu/drm/mgag200/mgag200_drv.c
+> +++ b/drivers/gpu/drm/mgag200/mgag200_drv.c
+> @@ -342,7 +342,7 @@ mgag200_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+>   	struct drm_device *dev;
+>   	int ret;
+>   
+> -	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "mgag200drmfb");
+> +	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &mgag200_driver);
+>   	if (ret)
+>   		return ret;
+>   
+> diff --git a/drivers/gpu/drm/msm/msm_fbdev.c b/drivers/gpu/drm/msm/msm_fbdev.c
+> index 227404077e39..67fae60f2fa5 100644
+> --- a/drivers/gpu/drm/msm/msm_fbdev.c
+> +++ b/drivers/gpu/drm/msm/msm_fbdev.c
+> @@ -169,7 +169,7 @@ struct drm_fb_helper *msm_fbdev_init(struct drm_device *dev)
+>   	}
+>   
+>   	/* the fw fb could be anywhere in memory */
+> -	ret = drm_aperture_remove_framebuffers(false, "msm");
+> +	ret = drm_aperture_remove_framebuffers(false, dev->driver);
+>   	if (ret)
+>   		goto fini;
+>   
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+> index a616cf4573b8..df8a2d92f473 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+> @@ -738,7 +738,7 @@ static int nouveau_drm_probe(struct pci_dev *pdev,
+>   	nvkm_device_del(&device);
+>   
+>   	/* Remove conflicting drivers (vesafb, efifb etc). */
+> -	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "nouveaufb");
+> +	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &driver_pci);
+>   	if (ret)
+>   		return ret;
+>   
+> diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
+> index 854e6c5a563f..31f4c86ceb99 100644
+> --- a/drivers/gpu/drm/qxl/qxl_drv.c
+> +++ b/drivers/gpu/drm/qxl/qxl_drv.c
+> @@ -95,7 +95,7 @@ qxl_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+>   	if (ret)
+>   		return ret;
+>   
+> -	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "qxl");
+> +	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &qxl_driver);
+>   	if (ret)
+>   		goto disable_pci;
+>   
+> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
+> index 8cd135fa6dcd..82ee8244c9b3 100644
+> --- a/drivers/gpu/drm/radeon/radeon_drv.c
+> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
+> @@ -330,7 +330,7 @@ static int radeon_pci_probe(struct pci_dev *pdev,
+>   		return -EPROBE_DEFER;
+>   
+>   	/* Get rid of things like offb */
+> -	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "radeondrmfb");
+> +	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &kms_driver);
+>   	if (ret)
+>   		return ret;
+>   
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_drv.c b/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
+> index b730b8d5d949..17a189bb6bbc 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
+> @@ -116,7 +116,7 @@ static int rockchip_drm_bind(struct device *dev)
+>   	int ret;
+>   
+>   	/* Remove existing drivers that may own the framebuffer memory. */
+> -	ret = drm_aperture_remove_framebuffers(false, "rockchip-drm-fb");
+> +	ret = drm_aperture_remove_framebuffers(false, &rockchip_drm_driver);
+>   	if (ret) {
+>   		DRM_DEV_ERROR(dev,
+>   			      "Failed to remove existing framebuffers - %d.\n",
+> diff --git a/drivers/gpu/drm/sun4i/sun4i_drv.c b/drivers/gpu/drm/sun4i/sun4i_drv.c
+> index af335f58bdfc..6bc1c8d6d43b 100644
+> --- a/drivers/gpu/drm/sun4i/sun4i_drv.c
+> +++ b/drivers/gpu/drm/sun4i/sun4i_drv.c
+> @@ -100,7 +100,7 @@ static int sun4i_drv_bind(struct device *dev)
+>   	drm->irq_enabled = true;
+>   
+>   	/* Remove early framebuffers (ie. simplefb) */
+> -	ret = drm_aperture_remove_framebuffers(false, "sun4i-drm-fb");
+> +	ret = drm_aperture_remove_framebuffers(false, &sun4i_drv_driver);
+>   	if (ret)
+>   		goto cleanup_mode_config;
+>   
+> diff --git a/drivers/gpu/drm/tegra/drm.c b/drivers/gpu/drm/tegra/drm.c
+> index f96c237b2242..2c8fc14bba1f 100644
+> --- a/drivers/gpu/drm/tegra/drm.c
+> +++ b/drivers/gpu/drm/tegra/drm.c
+> @@ -1204,7 +1204,7 @@ static int host1x_drm_probe(struct host1x_device *dev)
+>   
+>   	drm_mode_config_reset(drm);
+>   
+> -	err = drm_aperture_remove_framebuffers(false, "tegradrmfb");
+> +	err = drm_aperture_remove_framebuffers(false, &tegra_drm_driver);
+>   	if (err < 0)
+>   		goto hub;
+>   
+> diff --git a/drivers/gpu/drm/tiny/cirrus.c b/drivers/gpu/drm/tiny/cirrus.c
+> index 42611dacde88..a8b476a59c0d 100644
+> --- a/drivers/gpu/drm/tiny/cirrus.c
+> +++ b/drivers/gpu/drm/tiny/cirrus.c
+> @@ -550,7 +550,7 @@ static int cirrus_pci_probe(struct pci_dev *pdev,
+>   	struct cirrus_device *cirrus;
+>   	int ret;
+>   
+> -	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "cirrusdrmfb");
+> +	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &cirrus_driver);
+>   	if (ret)
+>   		return ret;
+>   
+> diff --git a/drivers/gpu/drm/vboxvideo/vbox_drv.c b/drivers/gpu/drm/vboxvideo/vbox_drv.c
+> index 6d4b32da9866..879a2445cc44 100644
+> --- a/drivers/gpu/drm/vboxvideo/vbox_drv.c
+> +++ b/drivers/gpu/drm/vboxvideo/vbox_drv.c
+> @@ -43,7 +43,7 @@ static int vbox_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+>   	if (!vbox_check_supported(VBE_DISPI_ID_HGSMI))
+>   		return -ENODEV;
+>   
+> -	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "vboxvideodrmfb");
+> +	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &driver);
+>   	if (ret)
+>   		return ret;
+>   
+> diff --git a/drivers/gpu/drm/vc4/vc4_drv.c b/drivers/gpu/drm/vc4/vc4_drv.c
+> index 8a60fb8ad370..73335feb712f 100644
+> --- a/drivers/gpu/drm/vc4/vc4_drv.c
+> +++ b/drivers/gpu/drm/vc4/vc4_drv.c
+> @@ -265,7 +265,7 @@ static int vc4_drm_bind(struct device *dev)
+>   	if (ret)
+>   		goto unbind_all;
+>   
+> -	ret = drm_aperture_remove_framebuffers(false, "vc4drmfb");
+> +	ret = drm_aperture_remove_framebuffers(false, &vc4_drm_driver);
+>   	if (ret)
+>   		goto unbind_all;
+>   
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
+> index ca77edbc5ea0..ed85a7863256 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_drv.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
+> @@ -57,7 +57,7 @@ static int virtio_gpu_pci_quirk(struct drm_device *dev, struct virtio_device *vd
+>   		 vga ? "virtio-vga" : "virtio-gpu-pci",
+>   		 pname);
+>   	if (vga) {
+> -		ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "virtiodrmfb");
+> +		ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &driver);
+>   		if (ret)
+>   			return ret;
+>   	}
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
+> index 086dc75e7b42..40864ce19ae1 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
+> @@ -1574,7 +1574,7 @@ static int vmw_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+>   	struct vmw_private *vmw;
+>   	int ret;
+>   
+> -	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "svgadrmfb");
+> +	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &driver);
+>   	if (ret)
+>   		return ret;
+>   
+> diff --git a/include/drm/drm_aperture.h b/include/drm/drm_aperture.h
+> index 6c148078780c..7096703c3949 100644
+> --- a/include/drm/drm_aperture.h
+> +++ b/include/drm/drm_aperture.h
+> @@ -6,20 +6,22 @@
+>   #include <linux/types.h>
+>   
+>   struct drm_device;
+> +struct drm_driver;
+>   struct pci_dev;
+>   
+>   int devm_aperture_acquire_from_firmware(struct drm_device *dev, resource_size_t base,
+>   					resource_size_t size);
+>   
+>   int drm_aperture_remove_conflicting_framebuffers(resource_size_t base, resource_size_t size,
+> -						 bool primary, const char *name);
+> +						 bool primary, const struct drm_driver *req_driver);
+>   
+> -int drm_aperture_remove_conflicting_pci_framebuffers(struct pci_dev *pdev, const char *name);
+> +int drm_aperture_remove_conflicting_pci_framebuffers(struct pci_dev *pdev,
+> +						     const struct drm_driver *req_driver);
+>   
+>   /**
+>    * drm_aperture_remove_framebuffers - remove all existing framebuffers
+>    * @primary: also kick vga16fb if present
+> - * @name: requesting driver name
+> + * @req_driver: requesting DRM driver
+>    *
+>    * This function removes all graphics device drivers. Use this function on systems
+>    * that can have their framebuffer located anywhere in memory.
+> @@ -27,9 +29,11 @@ int drm_aperture_remove_conflicting_pci_framebuffers(struct pci_dev *pdev, const
+>    * Returns:
+>    * 0 on success, or a negative errno code otherwise
+>    */
+> -static inline int drm_aperture_remove_framebuffers(bool primary, const char *name)
+> +static inline int
+> +drm_aperture_remove_framebuffers(bool primary, const struct drm_driver *req_driver)
+>   {
+> -	return drm_aperture_remove_conflicting_framebuffers(0, (resource_size_t)-1, primary, name);
+> +	return drm_aperture_remove_conflicting_framebuffers(0, (resource_size_t)-1, primary,
+> +							    req_driver);
+>   }
+>   
+>   #endif
+> 
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
-index 9b8e9b07eced..58e63bf34fe9 100644
---- a/drivers/gpu/drm/msm/dsi/dsi.h
-+++ b/drivers/gpu/drm/msm/dsi/dsi.h
-@@ -109,7 +109,7 @@ int msm_dsi_host_enable(struct mipi_dsi_host *host);
- int msm_dsi_host_disable(struct mipi_dsi_host *host);
- int msm_dsi_host_power_on(struct mipi_dsi_host *host,
- 			struct msm_dsi_phy_shared_timings *phy_shared_timings,
--			bool is_dual_dsi);
-+			bool is_dual_dsi, struct msm_dsi_phy *phy);
- int msm_dsi_host_power_off(struct mipi_dsi_host *host);
- int msm_dsi_host_set_display_mode(struct mipi_dsi_host *host,
- 				  const struct drm_display_mode *mode);
-@@ -175,6 +175,7 @@ int msm_dsi_phy_get_clk_provider(struct msm_dsi_phy *phy,
- void msm_dsi_phy_pll_save_state(struct msm_dsi_phy *phy);
- int msm_dsi_phy_pll_restore_state(struct msm_dsi_phy *phy);
- void msm_dsi_phy_snapshot(struct msm_disp_state *disp_state, struct msm_dsi_phy *phy);
-+bool msm_dsi_phy_set_continuous_clock(struct msm_dsi_phy *phy, bool enable);
- 
- #endif /* __DSI_CONNECTOR_H__ */
- 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi.xml.h b/drivers/gpu/drm/msm/dsi/dsi.xml.h
-index eadbcc78fd72..473c81605054 100644
---- a/drivers/gpu/drm/msm/dsi/dsi.xml.h
-+++ b/drivers/gpu/drm/msm/dsi/dsi.xml.h
-@@ -518,6 +518,7 @@ static inline uint32_t DSI_CLKOUT_TIMING_CTRL_T_CLK_POST(uint32_t val)
- #define DSI_LANE_STATUS_DLN0_DIRECTION				0x00010000
- 
- #define REG_DSI_LANE_CTRL					0x000000a8
-+#define DSI_LANE_CTRL_HS_REQ_SEL_PHY				0x01000000
- #define DSI_LANE_CTRL_CLKLN_HS_FORCE_REQUEST			0x10000000
- 
- #define REG_DSI_LANE_SWAP_CTRL					0x000000ac
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index ed504fe5074f..3558e5cd400f 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -834,7 +834,7 @@ static inline enum dsi_cmd_dst_format dsi_get_cmd_fmt(
- }
- 
- static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool enable,
--			struct msm_dsi_phy_shared_timings *phy_shared_timings)
-+			struct msm_dsi_phy_shared_timings *phy_shared_timings, struct msm_dsi_phy *phy)
- {
- 	u32 flags = msm_host->mode_flags;
- 	enum mipi_dsi_pixel_format mipi_fmt = msm_host->format;
-@@ -929,6 +929,10 @@ static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool enable,
- 
- 	if (!(flags & MIPI_DSI_CLOCK_NON_CONTINUOUS)) {
- 		lane_ctrl = dsi_read(msm_host, REG_DSI_LANE_CTRL);
-+
-+		if (msm_dsi_phy_set_continuous_clock(phy, enable))
-+			lane_ctrl &= ~DSI_LANE_CTRL_HS_REQ_SEL_PHY;
-+
- 		dsi_write(msm_host, REG_DSI_LANE_CTRL,
- 			lane_ctrl | DSI_LANE_CTRL_CLKLN_HS_FORCE_REQUEST);
- 	}
-@@ -2354,7 +2358,7 @@ static void msm_dsi_sfpb_config(struct msm_dsi_host *msm_host, bool enable)
- 
- int msm_dsi_host_power_on(struct mipi_dsi_host *host,
- 			struct msm_dsi_phy_shared_timings *phy_shared_timings,
--			bool is_dual_dsi)
-+			bool is_dual_dsi, struct msm_dsi_phy *phy)
- {
- 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
- 	const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
-@@ -2394,7 +2398,7 @@ int msm_dsi_host_power_on(struct mipi_dsi_host *host,
- 
- 	dsi_timing_setup(msm_host, is_dual_dsi);
- 	dsi_sw_reset(msm_host);
--	dsi_ctrl_config(msm_host, true, phy_shared_timings);
-+	dsi_ctrl_config(msm_host, true, phy_shared_timings, phy);
- 
- 	if (msm_host->disp_en_gpio)
- 		gpiod_set_value(msm_host->disp_en_gpio, 1);
-@@ -2425,7 +2429,7 @@ int msm_dsi_host_power_off(struct mipi_dsi_host *host)
- 		goto unlock_ret;
- 	}
- 
--	dsi_ctrl_config(msm_host, false, NULL);
-+	dsi_ctrl_config(msm_host, false, NULL, NULL);
- 
- 	if (msm_host->disp_en_gpio)
- 		gpiod_set_value(msm_host->disp_en_gpio, 0);
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-index 4ebfedc4a9ac..1b89fef8f805 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-@@ -381,7 +381,7 @@ static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
- 	if (ret)
- 		goto phy_en_fail;
- 
--	ret = msm_dsi_host_power_on(host, &phy_shared_timings[id], is_dual_dsi);
-+	ret = msm_dsi_host_power_on(host, &phy_shared_timings[id], is_dual_dsi, msm_dsi->phy);
- 	if (ret) {
- 		pr_err("%s: power on host %d failed, %d\n", __func__, id, ret);
- 		goto host_on_fail;
-@@ -389,7 +389,7 @@ static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
- 
- 	if (is_dual_dsi && msm_dsi1) {
- 		ret = msm_dsi_host_power_on(msm_dsi1->host,
--				&phy_shared_timings[DSI_1], is_dual_dsi);
-+				&phy_shared_timings[DSI_1], is_dual_dsi, msm_dsi1->phy);
- 		if (ret) {
- 			pr_err("%s: power on host1 failed, %d\n",
- 							__func__, ret);
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-index 6ca6bfd4809b..723d2eeafa69 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-@@ -835,6 +835,15 @@ void msm_dsi_phy_set_usecase(struct msm_dsi_phy *phy,
- 		phy->usecase = uc;
- }
- 
-+/* Returns true if we have to clear DSI_LANE_CTRL.HS_REQ_SEL_PHY */
-+bool msm_dsi_phy_set_continuous_clock(struct msm_dsi_phy *phy, bool enable)
-+{
-+	if (!phy || !phy->cfg->ops.set_continuous_clock)
-+		return false;
-+
-+	return phy->cfg->ops.set_continuous_clock(phy, enable);
-+}
-+
- int msm_dsi_phy_get_clk_provider(struct msm_dsi_phy *phy,
- 	struct clk **byte_clk_provider, struct clk **pixel_clk_provider)
- {
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-index 5b0feef87127..43dee28450b4 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-@@ -24,6 +24,7 @@ struct msm_dsi_phy_ops {
- 	void (*disable)(struct msm_dsi_phy *phy);
- 	void (*save_pll_state)(struct msm_dsi_phy *phy);
- 	int (*restore_pll_state)(struct msm_dsi_phy *phy);
-+	bool (*set_continuous_clock)(struct msm_dsi_phy *phy, bool enable);
- };
- 
- struct msm_dsi_phy_cfg {
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-index 7c23d4c47338..a78a0c45d101 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-@@ -932,6 +932,21 @@ static int dsi_7nm_phy_enable(struct msm_dsi_phy *phy,
- 	return 0;
- }
- 
-+static bool dsi_7nm_set_continuous_clock(struct msm_dsi_phy *phy, bool enable)
-+{
-+	void __iomem *base = phy->base;
-+	u32 data;
-+
-+	data = dsi_phy_read(base + REG_DSI_7nm_PHY_CMN_LANE_CTRL1);
-+	if (enable)
-+		data |= BIT(5) | BIT(6);
-+	else
-+		data &= ~(BIT(5) | BIT(6));
-+	dsi_phy_write(base + REG_DSI_7nm_PHY_CMN_LANE_CTRL1, data);
-+
-+	return enable;
-+}
-+
- static void dsi_7nm_phy_disable(struct msm_dsi_phy *phy)
- {
- 	void __iomem *base = phy->base;
-@@ -972,6 +987,7 @@ const struct msm_dsi_phy_cfg dsi_phy_7nm_cfgs = {
- 		.pll_init = dsi_pll_7nm_init,
- 		.save_pll_state = dsi_7nm_pll_save_state,
- 		.restore_pll_state = dsi_7nm_pll_restore_state,
-+		.set_continuous_clock = dsi_7nm_set_continuous_clock,
- 	},
- 	.min_pll_rate = 600000000UL,
- #ifdef CONFIG_64BIT
-@@ -998,6 +1014,7 @@ const struct msm_dsi_phy_cfg dsi_phy_7nm_8150_cfgs = {
- 		.pll_init = dsi_pll_7nm_init,
- 		.save_pll_state = dsi_7nm_pll_save_state,
- 		.restore_pll_state = dsi_7nm_pll_restore_state,
-+		.set_continuous_clock = dsi_7nm_set_continuous_clock,
- 	},
- 	.min_pll_rate = 1000000000UL,
- 	.max_pll_rate = 3500000000UL,
+
 -- 
-2.30.2
-
+With best wishes
+Dmitry
